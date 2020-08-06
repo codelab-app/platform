@@ -59,7 +59,6 @@ describe('RootChildren', () => {
    *
    * This should put C in all valid children of B, which then puts that in all valid children of A
    */
-
   it('renders nested children', () => {
     const dataA: ReactNodeI = {
       type: 'Html.div',
