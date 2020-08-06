@@ -1,11 +1,7 @@
 #!/usr/bin/env node
 
 const shell = require('shelljs')
-// const { ESLint } = require('eslint')
-// const { execSync } = require('child_process')
 const path = require('path')
-
-// const eslint = new ESLint({})
 
 /**
  * Files modified since base revision, could contain files from several commits.
