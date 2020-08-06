@@ -5,7 +5,7 @@ import React, { FunctionComponent, ReactNode } from 'react'
 import { nodeC } from './codec/Node.codec'
 import { HasChildren, Node as NodeInterface } from './Node.i'
 import { isReactNode } from './codec/Node-react'
-import { NodeA, NodeI } from './codec/Node.codec.i'
+import { NodeI } from './codec/Node.codec.i'
 
 /**
  * Node is instantiated during Tree traversal
@@ -25,11 +25,6 @@ export class Node<P extends Props = {}> implements NodeInterface<P> {
   public children: Array<Node<P>> = []
 
   /**
-   * The decoded input
-   */
-  public dto: NodeA<P>
-
-  /**
    * Can take just ID, but fills out other fields
    */
   constructor(node: NodeI) {
@@ -37,7 +32,6 @@ export class Node<P extends Props = {}> implements NodeInterface<P> {
     const { props, id } = data
 
     this.type = isReactNode(data) ? data.type : undefined
-    this.dto = data
     this.props = props
     this.id = id
   }

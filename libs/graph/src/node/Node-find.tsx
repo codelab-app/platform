@@ -8,7 +8,11 @@ import { Node } from './Node'
 export function findNode<P extends Props = {}>(
   id: string | undefined,
   node: Node<P>,
-): Node<P> | null {
+): Node<P> {
+  if (!node) {
+    throw new Error(`Node is undefined`)
+  }
+
   if (!id) {
     throw new Error(`id is undefined`)
   }
@@ -17,8 +21,8 @@ export function findNode<P extends Props = {}>(
     return node
   }
 
-  return reduce<Node<P> | null, NodeFinderAcc<P>>(
-    node?.children || [],
+  return reduce<Node<P>, NodeFinderAcc<P>>(
+    node?.children ?? [],
     treeWalker<NodeFinderAcc<P>, Node<P>>(null, nodeFinderIteratee),
     {
       node,

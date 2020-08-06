@@ -1,7 +1,6 @@
 import { Props } from '@codelab/props'
 import { FunctionComponent, ReactNode } from 'react'
 import * as _ from 'ts-toolbelt'
-import { NodeA } from './codec/Node.codec.i'
 
 export interface HasID {
   id: string
@@ -11,11 +10,10 @@ export interface Node<P extends Props> {
   Component: FunctionComponent<any>
   id: string
   readonly key: React.Key
-  type?: string
+  type: string
   props: P
   parent?: Node<P>
   children: Array<Node<P>>
-  dto: NodeA<P>
   readonly renderProps: Props
   addChild(child: Node<P>): void
   addParent(parent: Node<P>): void

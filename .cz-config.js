@@ -49,7 +49,7 @@ module.exports = {
     },
     { value: 'common', name: '5) common' },
     { value: 'd3', name: '6) d3' },
-    { value: 'dto', name: '7) dto' },
+    { value: 'graph', name: '7) graph' },
     {
       value: 'eslint-config-codelab',
       name: '8) eslint-config-codelab',

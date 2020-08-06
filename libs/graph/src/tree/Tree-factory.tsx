@@ -9,10 +9,11 @@ import {
   treeAppenderIteratee,
 } from '../traversal/Traversal-iteratee'
 import { Node } from '../node'
-import { GraphAcc, TreeAcc } from './Tree.i'
+import { GraphSubTreeContext, TreeSubTreeContext } from './Tree.i'
 import { Graph } from '../graph'
-import { ReactNodeA } from '../node/codec/Node-react'
-import { NodeA, NodeI } from '../node/codec/Node.codec.i'
+
+import { TreeNodeI } from '../node/codec/Node-tree'
+import { ReactNodeI } from '../node/codec/Node-react'
 
 /**
  * This method generates a non-binary tree given JSON input. Each input node is
@@ -26,40 +27,43 @@ import { NodeA, NodeI } from '../node/codec/Node.codec.i'
  * ```
  *
  */
-export function makeTree<P extends Props>(input: NodeI<P>): Node<P> {
+export function makeTree<P extends Props>(
+  input: TreeNodeI<P> | ReactNodeI<P>,
+): Node<P> {
   const root = new Node<P>(input)
-  const subTreeAcc = {
+  const subTreeContext = {
     subTree: root,
     prev: root,
     parent: root,
   }
 
-  return reduce<ReactNodeA<P>, TreeAcc<P>>(
-    (root.dto as ReactNodeA).children,
-    treeWalker<TreeAcc<P>, NodeA<P>>(root.dto, treeAppenderIteratee),
-    subTreeAcc,
+  return reduce<TreeNodeI<P> | ReactNodeI<P>, TreeSubTreeContext<P>>(
+    input?.children ?? [],
+    treeWalker<TreeSubTreeContext<P>>(root, treeAppenderIteratee),
+    subTreeContext,
   ).subTree
 }
 
 /**
  * Using Vertex/Edge representation
  */
-export function makeGraph<P extends Props>(input: NodeI<P>): Graph {
+export function makeGraph<P extends Props>(input: TreeNodeI<P>): Graph {
   // Convert input to Node input structure first, nodeFinder requires Node representation
   const root = makeTree(input)
-  const g = new Graph({ vertices: [], edges: [] })
-  const subTreeAcc = {
-    graph: g,
+  const graph = new Graph({ vertices: [], edges: [] })
+  const subTreeContext = {
+    graph,
     subTree: root,
     parent: root,
+    prev: root,
   }
 
-  g.addVertexFromNode(root)
+  graph.addVertexFromNode(root)
 
-  return reduce<NodeA<P>, GraphAcc<P>>(
-    root.dto.children ?? [],
-    treeWalker<GraphAcc<P>, NodeA<P>>(root.dto, graphAppenderIteratee),
-    subTreeAcc,
+  return reduce<TreeNodeI<P>, GraphSubTreeContext<P>>(
+    input.children ?? [],
+    treeWalker<GraphSubTreeContext<P>>(root, graphAppenderIteratee),
+    subTreeContext,
   ).graph
 }
 

@@ -1,38 +1,38 @@
-import { getByTestId, render } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import React from 'react'
 import { TreeDom } from '../renderer/TreeDom'
 import { ReactNodeI } from '../../../graph/src/node/codec/Node-react'
 
 describe('RootChildren', () => {
-  const data = {
-    type: 'Provider',
-    children: [
-      {
-        type: 'Button',
-        children: [
-          {
-            type: 'Text',
-            props: {
-              value: 'Toggle Modal',
-            },
-          },
-        ],
-      },
-      {
-        type: 'Html.div',
-        props: {
-          'data-testid': 'div',
-        },
-      },
-      {
-        type: 'Modal',
-        props: {
-          title: 'Basic Modal',
-          visible: true,
-        },
-      },
-    ],
-  }
+  // const data = {
+  //   type: 'Provider',
+  //   children: [
+  //     {
+  //       type: 'Button',
+  //       children: [
+  //         {
+  //           type: 'Text',
+  //           props: {
+  //             value: 'Toggle Modal',
+  //           },
+  //         },
+  //       ],
+  //     },
+  //     {
+  //       type: 'Html.div',
+  //       props: {
+  //         'data-testid': 'div',
+  //       },
+  //     },
+  //     {
+  //       type: 'Modal',
+  //       props: {
+  //         title: 'Basic Modal',
+  //         visible: true,
+  //       },
+  //     },
+  //   ],
+  // }
 
   // it('renders children to all available branches', () => {
   //   const Component = TreeDom.render(data)
@@ -73,6 +73,15 @@ describe('RootChildren', () => {
           props: {
             'data-testid': 'a0',
           },
+          children: [
+            {
+              type: 'Html.div',
+              nodeType: 'React',
+              props: {
+                'data-testid': 'a0-0',
+              },
+            },
+          ],
         },
         {
           type: 'Html.div',
@@ -133,30 +142,21 @@ describe('RootChildren', () => {
       </A>,
     )
 
-    // component.debug()
-
-    const a = component.getAllByTestId(dataA.props['data-testid'])
+    const a = component.getByTestId(dataA.props['data-testid'])
     const b = component.getAllByTestId(dataB.props['data-testid'])
+    const c = component.getAllByTestId(dataC.props['data-testid'])
 
-    const testFunc = (
-      parentNode: HTMLElement[],
-      parentData: any,
-      grandChildData: any,
-    ) => {
-      parentData.children.forEach((child: any) => {
-        parentNode.forEach((node) => {
-          const childNode = getByTestId(node, child.props['data-testid'])
-          const grandChildNode = getByTestId(
-            childNode,
-            grandChildData.props['data-testid'],
-          )
+    expect(a.children[0].children[0].children[0]).toBe(b[0])
+    expect(a.children[1].children[0]).toBe(b[1])
+    expect(a.children[2].children[0]).toBe(b[2])
 
-          expect(grandChildNode).toBeTruthy()
-        })
-      })
-    }
+    expect(b[0].children[0].children[0]).toBe(c[0])
+    expect(b[0].children[1].children[0]).toBe(c[1])
 
-    testFunc(b, dataB, dataC)
-    testFunc(a, dataA, dataB)
+    expect(b[1].children[0].children[0]).toBe(c[2])
+    expect(b[1].children[1].children[0]).toBe(c[3])
+
+    expect(b[2].children[0].children[0]).toBe(c[4])
+    expect(b[2].children[1].children[0]).toBe(c[5])
   })
 })

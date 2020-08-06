@@ -7,7 +7,7 @@ import { findNode } from '@codelab/graph'
 import { NodeFinderAcc } from '../node/Node.i'
 import { Node, InputNode } from '../node'
 
-import { GraphAcc, TreeAcc } from '../tree/Tree.i'
+import { GraphSubTreeContext, TreeSubTreeContext } from '../tree/Tree.i'
 
 export function nodeFinderIteratee<P extends Props = {}>(
   { id, found, node }: NodeFinderAcc<P>,
@@ -30,11 +30,11 @@ export function nodeFinderIteratee<P extends Props = {}>(
 }
 
 export function treeAppenderIteratee<P extends Props>(
-  { subTree, parent }: TreeAcc<P>,
+  { subTree, parent }: TreeSubTreeContext<P>,
   child: InputNode<P>,
 ) {
   const childNode = new Node<P>(child)
-  const parentNode = findNode(parent?.id, subTree)
+  const parentNode = findNode(parent.id, subTree)
 
   if (!parentNode) {
     throw Error(`Node of id ${parent?.id} not found`)
@@ -49,7 +49,7 @@ export function treeAppenderIteratee<P extends Props>(
 }
 
 export function graphAppenderIteratee<P extends Props>(
-  { graph, subTree, parent }: GraphAcc<P>,
+  { graph, subTree, parent }: GraphSubTreeContext<P>,
   child: InputNode<P>,
 ) {
   const node = new Node<P>(child)
@@ -62,5 +62,6 @@ export function graphAppenderIteratee<P extends Props>(
     graph,
     subTree,
     parent,
+    prev: node,
   }
 }

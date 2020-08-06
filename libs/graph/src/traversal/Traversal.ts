@@ -10,9 +10,8 @@
 import { Props } from '@codelab/props'
 import { reduce } from 'lodash'
 import { curry } from 'ramda'
-import { HasChildren } from '../node/Node.i'
 import { Node } from '../node/Node'
-import { NodeIteratee } from '../tree/Tree.i'
+import { NodeIteratee, TreeSubTreeContext } from '../tree/Tree.i'
 
 /**
  * Curried function allows us to first initialize the treeWalker with an iteratee.
@@ -22,28 +21,35 @@ import { NodeIteratee } from '../tree/Tree.i'
  * @param parent - Parent `Node` of current iteratee
  */
 export const treeWalker = curry(
-  <Acc, Node extends HasChildren<Node>>(
+  (
     parent: Node,
-    nodeIteratee: NodeIteratee<Acc, Node>,
-    subTreeAcc: Acc, // prev (reduce arg)
+    nodeIteratee: NodeIteratee<TreeSubTreeContext, Node>,
+    subTreeContext: TreeSubTreeContext, // prev (reduce arg)
     child: Node, // curr (reduce arg)
     index: number, // index (reduce arg)
   ) => {
-    const newSubTreeAcc: Acc = nodeIteratee(
-      { ...subTreeAcc, parent },
+    if (parent && !parent?.id) {
+      throw Error('id missing from parent')
+    }
+
+    const newSubTreeContext: TreeSubTreeContext = nodeIteratee(
+      { ...subTreeContext, parent },
       child,
       index,
     )
 
     if (!Node.hasChildren<Node>(child)) {
-      return newSubTreeAcc
+      return newSubTreeContext
     }
 
     // At junctions of tree, returns when all children appended
-    return reduce<Node, Acc>(
+    return reduce<Node, TreeSubTreeContext>(
       child.children,
-      treeWalker<Acc, Node>(child, nodeIteratee),
-      newSubTreeAcc,
+      treeWalker<TreeSubTreeContext, Node>(
+        newSubTreeContext.prev,
+        nodeIteratee,
+      ),
+      newSubTreeContext,
     )
   },
 )
