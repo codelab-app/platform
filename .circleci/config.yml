@@ -14,9 +14,9 @@ executors:
   #     - image: cimg/base:stable
   node:
     working_directory: ~/app
-    # environment:
-    #   # install Cypress in Linux-like cache folder
-    #   CYPRESS_CACHE_FOLDER: '~/.cache/Cypress'
+    environment:
+      # install Cypress in Linux-like cache folder
+      CYPRESS_CACHE_FOLDER: '~/.cache/Cypress'
     docker:
       - image: circleci/node:13-browsers
 
@@ -73,7 +73,7 @@ jobs:
       - persist_to_workspace:
           root: ..
           paths:
-            - app/
+            - app
             # - app/node_modules
             # - app/libs/eslint-config-codelab/node_modules
             - .cache/Cypress

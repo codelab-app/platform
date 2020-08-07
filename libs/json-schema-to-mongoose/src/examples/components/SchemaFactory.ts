@@ -1,11 +1,7 @@
-import { JSONSchema7Definition, JSONSchema7 } from 'json-schema'
 import mongoose, { SchemaType } from 'mongoose'
+import { JSONSchema7Type } from 'json-schema'
 
-export function getSchemaType(
-  propertyDefinition: JSONSchema7Definition,
-): typeof SchemaType {
-  const { type } = propertyDefinition as JSONSchema7
-
+export function getSchemaType(type: JSONSchema7Type): typeof SchemaType {
   switch (type) {
     case 'string':
       return mongoose.Schema.Types.String
