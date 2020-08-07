@@ -7734,6 +7734,14 @@ convert-hrtime@^3.0.0:
   resolved "https://registry.yarnpkg.com/convert-hrtime/-/convert-hrtime-3.0.0.tgz#62c7593f5809ca10be8da858a6d2f702bcda00aa"
   integrity sha512-7V+KqSvMiHp8yWDuwfww06XleMWVVB9b9tURBx+G7UTADuo5hYPuowKloz4OzOqbPezxgo+fdQ1522WzPG4OeA==
 
+convert-json-schema-to-mongoose@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/convert-json-schema-to-mongoose/-/convert-json-schema-to-mongoose-0.3.1.tgz#7debe15ada785afc2795fdeef733f0e576310f80"
+  integrity sha512-v93UfquwCfQ8TqUAyhHSN8DapN7U6B5N9QmXq10tOmS4m2q+EWGtc8SoidLm5ucY08J9uRPld5HF3yiv3TSE/g==
+  dependencies:
+    lodash "^4.17.19"
+    mongoose "~5.9.25"
+
 convert-source-map@1.7.0, convert-source-map@^1.4.0, convert-source-map@^1.5.0, convert-source-map@^1.6.0, convert-source-map@^1.7.0:
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/convert-source-map/-/convert-source-map-1.7.0.tgz#17a2cb882d7f77d3490585e2ce6c524424a3a442"
@@ -16491,7 +16499,7 @@ mongoose-legacy-pluralize@1.0.2:
   resolved "https://registry.yarnpkg.com/mongoose-legacy-pluralize/-/mongoose-legacy-pluralize-1.0.2.tgz#3ba9f91fa507b5186d399fb40854bff18fb563e4"
   integrity sha512-Yo/7qQU4/EyIS8YDFSeenIvXxZN+ld7YdV9LqFVQJzTLye8unujAWPZ4NWKfFA+RNjh+wvTWKY9Z3E5XM6ZZiQ==
 
-mongoose@^5.9.27:
+mongoose@^5.9.27, mongoose@~5.9.25:
   version "5.9.27"
   resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-5.9.27.tgz#914cbc2a454520934fbbf2c0e366d9c7d8076b3b"
   integrity sha512-N8zj4pj9J2xJ2BnQ4NiIHEtmjPldtbmbEZOMz4phLTQr3KFWPR0T0I6EzQxNioHwmDbHD4VFzbEd755oD2SJxA==
