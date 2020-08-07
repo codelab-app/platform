@@ -59,6 +59,7 @@ module.exports = {
     { value: 'ui', name: '11) ui' },
     { value: 'utils', name: '12) utils' },
     { value: 'schema', name: '12) schema' },
+    { value: 'api-schema', name: '12) api schema' },
   ],
   allowTicketNumber: true,
   isTicketNumberRequired: false,

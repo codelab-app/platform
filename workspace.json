@@ -704,10 +704,7 @@
               "libs/schema/tsconfig.lib.json",
               "libs/schema/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/schema/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/schema/**/*"]
           }
         },
         "test": {
@@ -746,6 +743,33 @@
             "ci": {
               "quiet": true
             }
+          }
+        }
+      }
+    },
+    "api-schema": {
+      "root": "libs/api/schema",
+      "sourceRoot": "libs/api/schema/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "libs/api/schema/tsconfig.lib.json",
+              "libs/api/schema/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/api/schema/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/api/schema/jest.config.js",
+            "tsConfig": "libs/api/schema/tsconfig.spec.json",
+            "passWithNoTests": true
           }
         }
       }
