@@ -41,6 +41,7 @@
   },
   "private": true,
   "dependencies": {
+    "@ant-design/icons": "^4.2.2",
     "@emotion/core": "10.0.28",
     "@emotion/styled": "10.0.27",
     "@hapi/joi": "^17.1.1",
@@ -80,6 +81,7 @@
     "next": "9.4.4",
     "prop-types": "15.7.2",
     "ramda": "^0.27.0",
+    "rc-field-form": "^1.10.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-grid-layout": "^1.0.0",

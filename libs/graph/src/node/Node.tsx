@@ -82,20 +82,20 @@ export class Node<P extends Props = {}> implements NodeInterface<P> {
       this.children,
       (Components: Array<ReactNode>, child: Node<P>) => {
         const { Component: Child, props, key, children: grandChildren } = child
-
+        const evaluatedProps = evalPropsWithContext(props)
         // console.debug(`${this.type} -> ${child.type}`)
 
         let ChildComponent: ReactNode = rootChildren ? (
-          <Child key={key} {...props} {...this.renderProps}>
+          <Child key={key} {...evaluatedProps} {...this.renderProps}>
             {rootChildren}
           </Child>
         ) : (
-          <Child key={key} {...props} {...this.renderProps} />
+          <Child key={key} {...evaluatedProps} {...this.renderProps} />
         )
 
         if (child.hasChildren()) {
           ChildComponent = (
-            <Child key={key} {...props} {...this.renderProps}>
+            <Child key={key} {...evaluatedProps} {...this.renderProps}>
               {child.Children(rootChildren)}
             </Child>
           )

@@ -23,8 +23,7 @@ export class TreeDom {
      * (2) RenderProps are passed down
      */
     const buildComponent = (node: Node<P>) => {
-      const [Type, props] = factory(node)
-      const evaluatedProps = evalPropsWithContext(props)
+      const [Type] = factory(node)
 
       /**
        * internalProps is generally AntD internal like Menu to Menu.Item
@@ -41,12 +40,14 @@ export class TreeDom {
         // )
 
         return node.hasChildren() || hasRootChildren ? (
-          <Type {...internalProps} {...evaluatedProps}>
-            {children}
-          </Type>
+          <Type {...internalProps}>{children}</Type>
         ) : (
-          <Type {...internalProps} {...evaluatedProps} />
+          <Type {...internalProps} />
         )
+      }
+
+      if (node.type === 'Select.Option') {
+        ;(node.Component as any).isSelectOption = true
       }
     }
 
@@ -57,7 +58,11 @@ export class TreeDom {
         hasRootChildren = true
       }
 
-      return <root.Component>{root.Children(rootChildren)}</root.Component>
+      return (
+        <root.Component {...evalPropsWithContext(root.props)}>
+          {root.Children(rootChildren)}
+        </root.Component>
+      )
     }
   }
 }
