@@ -1,5 +1,5 @@
 module.exports = {
-  name: 'json-schema-to-mongoose',
+  name: 'schema',
   preset: '../../jest.config.js',
   transform: {
     '^.+\\.[tj]sx?$': [
@@ -8,5 +8,5 @@ module.exports = {
     ],
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'html'],
-  coverageDirectory: '../../coverage/libs/json-schema-to-mongoose',
+  coverageDirectory: '../../coverage/libs/schema',
 }

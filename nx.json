@@ -84,7 +84,7 @@
     "api-config": {
       "tags": []
     },
-    "json-schema-to-mongoose": {
+    "schema": {
       "tags": []
     }
   }
