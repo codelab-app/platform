@@ -18,7 +18,7 @@ executors:
       # install Cypress in Linux-like cache folder
       CYPRESS_CACHE_FOLDER: '~/.cache/Cypress'
     docker:
-      - image: circleci/node:13-browsers
+      - image: circleci/node:14-browsers
 
 commands:
   yarn_install:

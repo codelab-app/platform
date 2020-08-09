@@ -82,7 +82,7 @@ describe('ComponentSchema', () => {
   //   expect(expectedSchema).toMatchObject(actualSchema)
   // })
 
-  it('transforms JsonSchema to Mongoose schemas for enums (stringify equality)', () => {
+  it('transforms JsonSchema to Mongoose schemas for enums', () => {
     const propSchema = new mongoose.Schema({
       property: { type: mongoose.Schema.Types.String },
       description: { type: mongoose.Schema.Types.String },
