@@ -4,12 +4,6 @@
   "main": "./dist/src/index.js",
   "schematics": "./collection.json",
   "builders": "./builders.json",
-  "dependencies": {
-    "@angular-devkit/architect": "^0.901.10",
-    "@angular-devkit/core": "^9.0.0",
-    "@angular-devkit/schematics": "^9.0.0",
-    "@nrwl/workspace": "9.5.1"
-  },
   "devDependencies": {
     "rxjs": "^6.6.2"
   }

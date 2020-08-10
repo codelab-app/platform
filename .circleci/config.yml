@@ -5,8 +5,8 @@
 version: 2.1
 
 orbs:
-  slack: circleci/slack@3.4.2
-  # node: circleci/node@3.0.1
+  # slack: circleci/slack@3.4.2
+  node: circleci/node@3.0.1
 
 executors:
   # base:
@@ -17,8 +17,10 @@ executors:
     environment:
       # install Cypress in Linux-like cache folder
       CYPRESS_CACHE_FOLDER: '~/.cache/Cypress'
+      NX_VERBOSE_LOGGING: true
+      GATSBY_TELEMETRY_DISABLED: 1
     docker:
-      - image: circleci/node:14-browsers
+      - image: circleci/node:13.8.0
 
 commands:
   yarn_install:
@@ -46,7 +48,7 @@ commands:
     steps:
       - run:
           name: 'Build Packages'
-          command: yarn build
+          command: yarn build --skip-nx-cache
   setup:
     description: 'Setup Context'
     steps:
@@ -64,7 +66,7 @@ commands:
   unit-tests:
     description: 'Unit Tests'
     steps:
-      - run: NX_VERBOSE_LOGGING=true yarn test
+      - run: yarn test
 
 jobs:
   install:
@@ -77,9 +79,9 @@ jobs:
           root: ..
           paths:
             - app
+            - .cache/Cypress
             # - app/node_modules
             # - app/libs/eslint-config-codelab/node_modules
-            - .cache/Cypress
   lint:
     environment:
       CIRCLE_COMPARE_URL: <<pipeline.project.git_url>>/compare/<<pipeline.git.base_revision>>..<<pipeline.git.revision>>

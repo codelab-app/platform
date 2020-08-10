@@ -1,6 +1,6 @@
 import { JSONSchema7 } from 'json-schema'
 
-export const componentSchema: JSONSchema7 = {
+export const appSchema: JSONSchema7 = {
   $schema: 'http://json-schema.org/draft-07/schema#',
   additionalProperties: false,
   type: 'object',

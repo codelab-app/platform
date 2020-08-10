@@ -31,7 +31,9 @@
       "@codelab/utils": ["libs/utils/src/index.ts"],
       "@codelab/schema": ["libs/schema/src/index.ts"],
       "@codelab/api-config": ["libs/api/config/src/index.ts"],
-      "@codelab/api-schema": ["libs/api/schema/src/index.ts"]
+      "@codelab/api-model": ["libs/api/model/src/index.ts"],
+      "@codelab/api-router": ["libs/api/router/src/index.ts"],
+      "@codelab/api-restify": ["libs/api/restify/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"]

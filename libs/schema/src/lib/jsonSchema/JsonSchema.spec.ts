@@ -3,8 +3,7 @@
  */
 import mongoose from 'mongoose'
 import { JSONSchema7 } from 'json-schema'
-
-import { JsonSchema } from './JsonSchema'
+import { MongooseModels, mongooseModels } from './JsonSchema'
 
 describe('Json Schema', () => {
   const schema: JSONSchema7 = {
@@ -44,7 +43,6 @@ describe('Json Schema', () => {
       },
     },
   }
-  let jsonSchema: JsonSchema
 
   /**
    * Schema
@@ -78,8 +76,10 @@ describe('Json Schema', () => {
   const componentModel = mongoose.model('component2', componentSchema)
   const propModel = mongoose.model('prop2', propSchema)
 
+  let models: MongooseModels
+
   beforeEach(() => {
-    jsonSchema = new JsonSchema(schema)
+    models = mongooseModels(schema)
   })
   afterEach(() => {
     mongoose.models = {}
@@ -94,20 +94,18 @@ describe('Json Schema', () => {
   // })
 
   it('transforms JsonSchema to Mongoose schemas for strings', () => {
-    expect(jsonSchema.mongooseModels.user.schema.paths).toEqual(
-      userModel.schema.paths,
-    )
+    expect(models.user.schema.paths).toEqual(userModel.schema.paths)
   })
 
   it('transforms JsonSchema to Mongoose schemas for enums', () => {
-    const expectedSchema = jsonSchema.mongooseModels.prop.schema.paths
+    const expectedSchema = models.prop.schema.paths
     const actualSchema = propModel.schema.paths
 
     expect(JSON.stringify(expectedSchema)).toEqual(JSON.stringify(actualSchema))
   })
 
   it('parses $ref', () => {
-    const expectedSchema = jsonSchema.mongooseModels.component.schema.paths
+    const expectedSchema = models.component.schema.paths
     const actualSchema = componentModel.schema.paths
 
     expect(JSON.stringify(expectedSchema)).toEqual(JSON.stringify(actualSchema))

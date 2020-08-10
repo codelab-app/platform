@@ -701,9 +701,9 @@
         }
       }
     },
-    "api-schema": {
-      "root": "libs/api/schema",
-      "sourceRoot": "libs/api/schema/src",
+    "api-model": {
+      "root": "libs/api/model",
+      "sourceRoot": "libs/api/model/src",
       "projectType": "library",
       "schematics": {},
       "architect": {
@@ -712,17 +712,71 @@
           "options": {
             "linter": "eslint",
             "tsConfig": [
-              "libs/api/schema/tsconfig.lib.json",
-              "libs/api/schema/tsconfig.spec.json"
+              "libs/api/model/tsconfig.lib.json",
+              "libs/api/model/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/api/schema/**/*"]
+            "exclude": ["**/node_modules/**", "!libs/api/model/**/*"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/api/schema/jest.config.js",
-            "tsConfig": "libs/api/schema/tsconfig.spec.json",
+            "jestConfig": "libs/api/model/jest.config.js",
+            "tsConfig": "libs/api/model/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "api-router": {
+      "root": "libs/api/router",
+      "sourceRoot": "libs/api/router/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "libs/api/router/tsconfig.lib.json",
+              "libs/api/router/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/api/router/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/api/router/jest.config.js",
+            "tsConfig": "libs/api/router/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "api-restify": {
+      "root": "libs/api/restify",
+      "sourceRoot": "libs/api/restify/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "libs/api/restify/tsconfig.lib.json",
+              "libs/api/restify/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/api/restify/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/api/restify/jest.config.js",
+            "tsConfig": "libs/api/restify/tsconfig.spec.json",
             "passWithNoTests": true
           }
         }

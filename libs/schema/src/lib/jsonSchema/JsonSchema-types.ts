@@ -1,4 +1,4 @@
-import mongoose, { SchemaType, SchemaTypeOpts } from 'mongoose'
+import * as mongoose from 'mongoose'
 import { JSONSchema7Object, JSONSchema7 } from 'json-schema'
 
 export const isEnum = (
@@ -27,7 +27,7 @@ export const getRef = (property: JSONSchema7): string => {
 
 export function getSchemaType(
   property: JSONSchema7,
-): SchemaTypeOpts<any> | mongoose.Schema | SchemaType {
+): mongoose.SchemaTypeOpts<any> | mongoose.Schema | mongoose.SchemaType {
   const { type } = property
 
   if (type === 'string') {

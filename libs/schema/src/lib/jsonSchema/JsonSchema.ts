@@ -1,54 +1,46 @@
 import { JSONSchema7 } from 'json-schema'
-import mongoose, { SchemaDefinition } from 'mongoose'
+import * as mongoose from 'mongoose'
 import { reduce } from 'lodash'
 
 import { getSchemaType } from './JsonSchema-types'
 
-export class JsonSchema {
-  models: { [name: string]: mongoose.Model<any> } = {}
+export type MongooseModels = {
+  [model: string]: mongoose.Model<any>
+}
 
-  private readonly jsonSchema
+function mongooseSchema(properties: JSONSchema7): mongoose.Schema {
+  const schemaDefinition: mongoose.SchemaDefinition = reduce<
+    JSONSchema7,
+    mongoose.SchemaDefinition
+  >(
+    properties,
+    (
+      mongooseSchemaDefinition: mongoose.SchemaDefinition,
+      type: JSONSchema7,
+      schemaName,
+    ) => {
+      return {
+        ...mongooseSchemaDefinition,
+        [schemaName]: getSchemaType(type),
+      }
+    },
+    {},
+  )
 
-  constructor(jsonSchema?: JSONSchema7) {
-    this.jsonSchema = jsonSchema
-  }
+  return new mongoose.Schema(schemaDefinition)
+}
 
-  get mongooseModels(): any {
-    const { definitions } = this.jsonSchema
+export function mongooseModels(jsonSchema: JSONSchema7): MongooseModels {
+  const { definitions } = jsonSchema
 
-    return reduce(
-      definitions,
-      (mongooseModels, definition, modelName) => {
-        const schema = this.mongooseSchema(
-          (definition as JSONSchema7).properties,
-        )
-        const model = mongoose.model(modelName, schema)
+  return reduce(
+    definitions,
+    (models, definition, modelName) => {
+      const schema = mongooseSchema((definition as JSONSchema7).properties)
+      const model = mongoose.model(modelName, schema)
 
-        return { ...mongooseModels, [modelName]: model }
-      },
-      {},
-    )
-  }
-
-  private mongooseSchema(properties: JSONSchema7): mongoose.Schema {
-    const schemaDefinition: SchemaDefinition = reduce<
-      JSONSchema7,
-      SchemaDefinition
-    >(
-      properties,
-      (
-        mongooseSchemaDefinition: SchemaDefinition,
-        type: JSONSchema7,
-        schemaName,
-      ) => {
-        return {
-          ...mongooseSchemaDefinition,
-          [schemaName]: getSchemaType(type),
-        }
-      },
-      {},
-    )
-
-    return new mongoose.Schema(schemaDefinition)
-  }
+      return { ...models, [modelName]: model }
+    },
+    {},
+  )
 }

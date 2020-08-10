@@ -1,3 +1,6 @@
+/**
+ * @jest-environment node
+ */
 import { JSONSchema7Definition } from 'json-schema'
 import { getRef, isEnum, isRef } from './JsonSchema-types'
 

@@ -3,6 +3,5 @@
   "compilerOptions": {
     "types": ["node", "jest"]
   },
-  "exclude": ["dist"],
-  "include": ["**/*.ts", "src/schematics/library/files/**/*"]
+  "include": ["**/*.ts"]
 }

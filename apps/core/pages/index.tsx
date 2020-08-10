@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const Index = () => {
+const Index = () => {
   return <h1>App</h1>
 }
 

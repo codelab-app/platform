@@ -78,7 +78,13 @@
     "schema": {
       "tags": []
     },
-    "api-schema": {
+    "api-model": {
+      "tags": []
+    },
+    "api-router": {
+      "tags": []
+    },
+    "api-restify": {
       "tags": []
     }
   }

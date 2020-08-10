@@ -7,11 +7,10 @@ const findConfig = require('findup-sync')
 const withPlugins = require('next-compose-plugins')
 
 const esModules = ['@codelab/ui', 'deepdash-es', 'lodash-es']
-
 const withTM = require('next-transpile-modules')(esModules)
 
 const nextConfig = {
-  webpack(config, { dev, isServer }) {
+  webpack(config, { dev }) {
     if (dev) {
       /**
        * Source maps
@@ -24,6 +23,7 @@ const nextConfig = {
         exclude: [/.*node_modules.*/],
       })
     }
+
     /**
      * Add Plugin
      *
@@ -38,6 +38,7 @@ const nextConfig = {
         // systemvars: true
       }),
     ]
+
     // console.log(util.inspect(config, false, null, true /* enable colors */))
     return config
   },
