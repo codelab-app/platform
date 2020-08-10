@@ -9,9 +9,9 @@
       "dependencies": "*",
       "devDependencies": "*"
     },
-    "tsconfig.json": "*",
     "tslint.json": "*",
-    "nx.json": "*"
+    "nx.json": "*",
+    "tsconfig.base.json": "*"
   },
   "tasksRunnerOptions": {
     "default": {
@@ -25,13 +25,6 @@
     }
   },
   "projects": {
-    "core": {
-      "tags": []
-    },
-    "core-e2e": {
-      "tags": [],
-      "implicitDependencies": ["core"]
-    },
     "plugins-react": {
       "tags": []
     },
@@ -78,8 +71,21 @@
     "schema": {
       "tags": []
     },
-    "api-schema": {
+    "api-model": {
       "tags": []
+    },
+    "api-router": {
+      "tags": []
+    },
+    "api-restify": {
+      "tags": []
+    },
+    "core": {
+      "tags": []
+    },
+    "core-e2e": {
+      "tags": [],
+      "implicitDependencies": ["core"]
     }
   }
 }

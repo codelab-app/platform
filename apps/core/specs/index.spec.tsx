@@ -8,4 +8,10 @@ describe('Index', () => {
 
     expect(baseElement).toBeTruthy()
   })
+
+  it('should have a greeting as the title', () => {
+    const { getByText } = render(<Index />)
+
+    expect(getByText('Welcome to core!')).toBeTruthy()
+  })
 })

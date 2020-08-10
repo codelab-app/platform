@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common'
 import { JSONSchema7 } from 'json-schema'
+import { appSchema } from './schema.data'
 
 @Injectable()
 export class SchemaService {
-  componentsJsonSchema(): JSONSchema7 {
-    return {}
+  get jsonSchemaData(): JSONSchema7 {
+    return appSchema
   }
 }

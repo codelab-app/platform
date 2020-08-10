@@ -1,91 +1,6 @@
 {
   "version": 1,
   "projects": {
-    "core": {
-      "root": "apps/core",
-      "sourceRoot": "apps/core",
-      "projectType": "application",
-      "schematics": {},
-      "architect": {
-        "build": {
-          "builder": "@nrwl/next:build",
-          "options": {
-            "root": "apps/core",
-            "outputPath": "dist/apps/core"
-          },
-          "configurations": {
-            "production": {}
-          }
-        },
-        "serve": {
-          "builder": "@nrwl/next:server",
-          "options": {
-            "buildTarget": "core:build",
-            "dev": true,
-            "proxyConfig": "apps/core/proxy.conf.json"
-          },
-          "configurations": {
-            "production": {
-              "buildTarget": "core:build:production",
-              "dev": false
-            }
-          }
-        },
-        "export": {
-          "builder": "@nrwl/next:export",
-          "options": {
-            "buildTarget": "core:build:production"
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:lint",
-          "options": {
-            "linter": "eslint",
-            "tsConfig": [
-              "apps/core/tsconfig.json",
-              "apps/core/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!apps/core/**/*"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "apps/core/jest.config.js",
-            "tsConfig": "apps/core/tsconfig.spec.json",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "core-e2e": {
-      "root": "apps/core-e2e",
-      "sourceRoot": "apps/core-e2e/src",
-      "projectType": "application",
-      "architect": {
-        "e2e": {
-          "builder": "@nrwl/cypress:cypress",
-          "options": {
-            "cypressConfig": "apps/core-e2e/cypress.json",
-            "tsConfig": "apps/core-e2e/tsconfig.e2e.json",
-            "devServerTarget": "core:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "core:serve:production"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:lint",
-          "options": {
-            "linter": "eslint",
-            "tsConfig": ["apps/core-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/core-e2e/**/*"]
-          }
-        }
-      }
-    },
     "plugins-react": {
       "root": "libs/plugins/react",
       "sourceRoot": "libs/plugins/react/src",
@@ -701,9 +616,9 @@
         }
       }
     },
-    "api-schema": {
-      "root": "libs/api/schema",
-      "sourceRoot": "libs/api/schema/src",
+    "api-model": {
+      "root": "libs/api/model",
+      "sourceRoot": "libs/api/model/src",
       "projectType": "library",
       "schematics": {},
       "architect": {
@@ -712,18 +627,156 @@
           "options": {
             "linter": "eslint",
             "tsConfig": [
-              "libs/api/schema/tsconfig.lib.json",
-              "libs/api/schema/tsconfig.spec.json"
+              "libs/api/model/tsconfig.lib.json",
+              "libs/api/model/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/api/schema/**/*"]
+            "exclude": ["**/node_modules/**", "!libs/api/model/**/*"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/api/schema/jest.config.js",
-            "tsConfig": "libs/api/schema/tsconfig.spec.json",
+            "jestConfig": "libs/api/model/jest.config.js",
+            "tsConfig": "libs/api/model/tsconfig.spec.json",
             "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "api-router": {
+      "root": "libs/api/router",
+      "sourceRoot": "libs/api/router/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "libs/api/router/tsconfig.lib.json",
+              "libs/api/router/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/api/router/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/api/router/jest.config.js",
+            "tsConfig": "libs/api/router/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "api-restify": {
+      "root": "libs/api/restify",
+      "sourceRoot": "libs/api/restify/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "libs/api/restify/tsconfig.lib.json",
+              "libs/api/restify/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/api/restify/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/api/restify/jest.config.js",
+            "tsConfig": "libs/api/restify/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "core": {
+      "root": "apps/core",
+      "sourceRoot": "apps/core",
+      "projectType": "application",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/next:build",
+          "options": {
+            "root": "apps/core",
+            "outputPath": "dist/apps/core"
+          },
+          "configurations": {
+            "production": {}
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/next:server",
+          "options": {
+            "buildTarget": "core:build",
+            "dev": true
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "core:build:production",
+              "dev": false
+            }
+          }
+        },
+        "export": {
+          "builder": "@nrwl/next:export",
+          "options": {
+            "buildTarget": "core:build:production"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "apps/core/tsconfig.json",
+              "apps/core/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/core/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/core/jest.config.js",
+            "tsConfig": "apps/core/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "core-e2e": {
+      "root": "apps/core-e2e",
+      "sourceRoot": "apps/core-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/core-e2e/cypress.json",
+            "tsConfig": "apps/core-e2e/tsconfig.e2e.json",
+            "devServerTarget": "core:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "core:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": ["apps/core-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/core-e2e/**/*"]
           }
         }
       }
