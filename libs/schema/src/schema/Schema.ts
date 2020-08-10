@@ -2,16 +2,12 @@ import { IDeepEntry } from 'deepdash-es/IDeepEntry'
 import { findDeep } from 'deepdash-es/standalone'
 import { JSONSchema7, JSONSchema7Definition } from 'json-schema'
 import { reduce } from 'lodash'
-<<<<<<< HEAD:libs/schema/src/schema/Schema.ts
-import { Schema, SchemaDefinition, SchemaType, SchemaTypeOpts } from 'mongoose'
-=======
 import mongoose, {
   Schema,
   SchemaDefinition,
   SchemaType,
   SchemaTypeOpts,
 } from 'mongoose'
->>>>>>> 5a2c272... feat(schema): jsonSchema string to mongoose:libs/schema/src/lib/schema-old/Schema.ts
 
 type JSONSchema7Property = {
   [name: string]: JSONSchema7Definition
@@ -20,11 +16,7 @@ type JSONSchema7Property = {
 export class JsonSchema {
   schema: JSONSchema7
 
-<<<<<<< HEAD:libs/schema/src/schema/Schema.ts
-  models: Array<Model<any>> = []
-=======
   models: Array<mongoose.Model<any>> = []
->>>>>>> 5a2c272... feat(schema): jsonSchema string to mongoose:libs/schema/src/lib/schema-old/Schema.ts
 
   schemas: { [model: string]: Schema } = {}
 
