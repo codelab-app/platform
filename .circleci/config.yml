@@ -14,11 +14,11 @@ executors:
   #     - image: cimg/base:stable
   node:
     working_directory: ~/app
-    # environment:
-    #   # install Cypress in Linux-like cache folder
-    #   CYPRESS_CACHE_FOLDER: '~/.cache/Cypress'
+    environment:
+      # install Cypress in Linux-like cache folder
+      CYPRESS_CACHE_FOLDER: '~/.cache/Cypress'
     docker:
-      - image: circleci/node:13-browsers
+      - image: circleci/node:14-browsers
 
 commands:
   yarn_install:
@@ -27,17 +27,20 @@ commands:
       - restore_cache:
           name: 'Restore Yarn Package Cache'
           keys:
-            - yarn-packages-{{ checksum "yarn.lock" }}
+            - dep-cache-{{ checksum "yarn.lock" }}
             # https://discuss.circleci.com/t/circle-2-0-caching-is-too-limited-to-be-very-useful/11694
-            - yarn-packages-
+            - dep-cache-
       - run:
           name: 'Install NPM Packages'
           command: yarn install --frozen-lockfile --non-interactive
       - save_cache:
-          name: 'Save Yarn Package Cache'
-          key: yarn-packages-{{ checksum "yarn.lock" }}
+          name: 'Save Cache'
+          key: dep-cache-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
+            #https://github.com/vercel/next.js/blob/master/errors/no-cache.md
+            - ~/app/node_modules
+            - ~/app/apps/core/.next/cache
   build-app:
     description: 'Build Application'
     steps:
@@ -73,7 +76,7 @@ jobs:
       - persist_to_workspace:
           root: ..
           paths:
-            - app/
+            - app
             # - app/node_modules
             # - app/libs/eslint-config-codelab/node_modules
             - .cache/Cypress

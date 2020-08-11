@@ -29,10 +29,9 @@
       "@codelab/common": ["libs/common/src/index.ts"],
       "@codelab/event": ["libs/event/src/index.ts"],
       "@codelab/utils": ["libs/utils/src/index.ts"],
+      "@codelab/schema": ["libs/schema/src/index.ts"],
       "@codelab/api-config": ["libs/api/config/src/index.ts"],
-      "@codelab/json-schema-to-mongoose": [
-        "libs/json-schema-to-mongoose/src/index.ts"
-      ]
+      "@codelab/api-schema": ["libs/api/schema/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"]

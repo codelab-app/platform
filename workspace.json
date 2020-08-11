@@ -644,9 +644,9 @@
         }
       }
     },
-    "json-schema-to-mongoose": {
-      "root": "libs/json-schema-to-mongoose",
-      "sourceRoot": "libs/json-schema-to-mongoose/src",
+    "schema": {
+      "root": "libs/schema",
+      "sourceRoot": "libs/schema/src",
       "projectType": "library",
       "schematics": {},
       "architect": {
@@ -655,20 +655,17 @@
           "options": {
             "linter": "eslint",
             "tsConfig": [
-              "libs/json-schema-to-mongoose/tsconfig.lib.json",
-              "libs/json-schema-to-mongoose/tsconfig.spec.json"
+              "libs/schema/tsconfig.lib.json",
+              "libs/schema/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/json-schema-to-mongoose/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/schema/**/*"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/json-schema-to-mongoose/jest.config.js",
-            "tsConfig": "libs/json-schema-to-mongoose/tsconfig.spec.json",
+            "jestConfig": "libs/schema/jest.config.js",
+            "tsConfig": "libs/schema/tsconfig.spec.json",
             "passWithNoTests": true
           }
         },
@@ -678,7 +675,7 @@
             "uiFramework": "@storybook/react",
             "port": 4400,
             "config": {
-              "configFolder": "libs/json-schema-to-mongoose/.storybook"
+              "configFolder": "libs/schema/.storybook"
             }
           },
           "configurations": {
@@ -693,13 +690,40 @@
             "uiFramework": "@storybook/react",
             "outputPath": "dist/storybook/json-schema-to-mongoose",
             "config": {
-              "configFolder": "libs/json-schema-to-mongoose/.storybook"
+              "configFolder": "libs/schema/.storybook"
             }
           },
           "configurations": {
             "ci": {
               "quiet": true
             }
+          }
+        }
+      }
+    },
+    "api-schema": {
+      "root": "libs/api/schema",
+      "sourceRoot": "libs/api/schema/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "libs/api/schema/tsconfig.lib.json",
+              "libs/api/schema/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/api/schema/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/api/schema/jest.config.js",
+            "tsConfig": "libs/api/schema/tsconfig.spec.json",
+            "passWithNoTests": true
           }
         }
       }

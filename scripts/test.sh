@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-nx run-many --target=test --all --parallel
+nx run-many --target=test --all --parallel $@

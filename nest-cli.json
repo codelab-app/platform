@@ -1,0 +1,25 @@
+{
+  "projects": {
+    "schema": {
+      "type": "library",
+      "root": "libs/api/schema",
+      "entryFile": "index",
+      "sourceRoot": "libs/api/schema/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/api/schema/tsconfig.lib.json"
+      }
+    },
+    "config": {
+      "type": "library",
+      "root": "libs/api/config",
+      "entryFile": "index",
+      "sourceRoot": "libs/api/config/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/api/config/tsconfig.lib.json"
+      }
+    }
+  },
+  "compilerOptions": {
+    "webpack": true
+  }
+}
