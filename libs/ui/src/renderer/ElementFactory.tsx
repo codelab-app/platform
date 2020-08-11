@@ -40,6 +40,7 @@ import {
 import React from 'react'
 import { ElementParameters } from './ElementFactory.interface'
 import { buttonPropKeys } from '../components/button/Button'
+import { Form as CodelabForm } from '../components/form/Form'
 import { Grid } from '../components/grid/Grid'
 import { Html } from '../components/html/Html'
 import { Provider } from '../components/provider/Provider'
@@ -104,6 +105,8 @@ export const elementParameterFactory = <P extends Props>(
       return [Form, props]
     case 'Form.Item':
       return [Form.Item as any, props]
+    case 'Form.List':
+      return [CodelabForm.List as any, props]
     case 'Checkbox':
       return [Checkbox as any, props]
     case 'Input': // can't have children
