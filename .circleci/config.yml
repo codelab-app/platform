@@ -42,9 +42,10 @@ commands:
           key: dep-cache-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
-            #https://github.com/vercel/next.js/blob/master/errors/no-cache.md
             - ~/app/node_modules
+            # Save yarn workspace
             - ~/app/libs/eslint-config-codelab/node_modules
+            - ~/app/plugins/react/node_modules
   build_app:
     description: 'Build Application'
     steps:
@@ -81,6 +82,7 @@ jobs:
           root: ..
           paths:
             - app/node_modules
+            # Save yarn workspace
             - app/libs/eslint-config-codelab
             - app/libs/plugins/react
             # - .cache/Cypress
