@@ -68,7 +68,7 @@ commands:
   unit-tests:
     description: 'Unit Tests'
     steps:
-      - run: yarn test
+      - run: yarn test --skip-nx-cache
 
 jobs:
   install:

@@ -5,7 +5,12 @@
     "allowJs": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "types": ["node", "jest"]
+    "types": [
+      "node",
+      "jest",
+      "@testing-library/jest-dom",
+      "@types/testing-library__jest-dom"
+    ]
   },
   "files": [],
   "include": [],
