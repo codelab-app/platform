@@ -6,7 +6,7 @@ version: 2.1
 
 orbs:
   # slack: circleci/slack@3.4.2
-  node: circleci/node@3.0.1
+  # node: circleci/node@3.0.1
 
 executors:
   # base:
@@ -20,7 +20,8 @@ executors:
       NX_VERBOSE_LOGGING: true
       GATSBY_TELEMETRY_DISABLED: 1
     docker:
-      - image: circleci/node:13.8.0
+      - image: circleci/node:14-browsers
+      # - image: circleci/node:13.8.0
 
 commands:
   yarn_install:
