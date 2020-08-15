@@ -16,8 +16,8 @@ executors:
     working_directory: ~/app
     environment:
       # install Cypress in Linux-like cache folder
-      CYPRESS_CACHE_FOLDER: '~/.cache/Cypress'
-      # NX_VERBOSE_LOGGING: true
+      # CYPRESS_CACHE_FOLDER: '~/.cache/Cypress'
+      NX_VERBOSE_LOGGING: true
       # GATSBY_TELEMETRY_DISABLED: 1
       # NODE_ENV: production
     docker:
