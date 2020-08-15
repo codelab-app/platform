@@ -112,7 +112,7 @@
     "@nrwl/cli": "10.0.12",
     "@nrwl/cypress": "10.0.12",
     "@nrwl/eslint-plugin-nx": "10.0.12",
-    "@nrwl/gatsby": "0.951.0",
+    "@nrwl/gatsby": "0.10.0",
     "@nrwl/jest": "10.0.12",
     "@nrwl/nest": "10.0.12",
     "@nrwl/next": "10.0.12",

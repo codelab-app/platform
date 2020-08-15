@@ -2778,10 +2778,10 @@
   dependencies:
     "@typescript-eslint/experimental-utils" "^2.19.2"
 
-"@nrwl/gatsby@0.951.0":
-  version "0.951.0"
-  resolved "https://registry.yarnpkg.com/@nrwl/gatsby/-/gatsby-0.951.0.tgz#e4a97d77c87a2520ef684a633ac305e17e0d01ab"
-  integrity sha512-xDrfBwDTRkve+ZOUM6ZCMQ9a4eFqTmZSIfKUU4mmOI9CSDC4zMO70oC0DnmwCe6BN4JKQ1IiA/arsmUXvy56Qg==
+"@nrwl/gatsby@0.10.0":
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/@nrwl/gatsby/-/gatsby-0.10.0.tgz#fa433b083399340f93342e1e41e778e95effd768"
+  integrity sha512-52tPIeJbVtBl/5QmffKQriWUpHjFXQ6Tn0C7KXMDN+jLmGcGvs9L6qAi1z9sQdGkga37yAgwS7q1R3VNSSh9BQ==
   dependencies:
     "@nrwl/cypress" "^9.4.5"
     "@nrwl/jest" "^9.4.5"
