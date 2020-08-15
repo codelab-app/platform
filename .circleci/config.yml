@@ -79,10 +79,10 @@ jobs:
       - persist_to_workspace:
           root: ..
           paths:
-            - app
-            - .cache/Cypress
+            # - app
+            # - .cache/Cypress
             # - app/node_modules
-            # - app/libs/eslint-config-codelab/node_modules
+            - app/libs/eslint-config-codelab
   lint:
     environment:
       CIRCLE_COMPARE_URL: <<pipeline.project.git_url>>/compare/<<pipeline.git.base_revision>>..<<pipeline.git.revision>>
