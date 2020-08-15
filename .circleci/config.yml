@@ -21,31 +21,30 @@ executors:
       # GATSBY_TELEMETRY_DISABLED: 1
       # NODE_ENV: production
     docker:
-      - image: circleci/node:12-browsers
-      # - image: circleci/node:14-browsers
+      - image: circleci/node:14-browsers
       # - image: circleci/node:13.8.0
 
 commands:
   yarn_install:
     description: 'Install Dependencies'
     steps:
-      # - restore_cache:
-      #     name: 'Restore Yarn Package Cache'
-      #     keys:
-      #       - dep-cache-{{ checksum "yarn.lock" }}
-      #       # https://discuss.circleci.com/t/circle-2-0-caching-is-too-limited-to-be-very-useful/11694
-      #       - dep-cache-
+      - restore_cache:
+          name: 'Restore Yarn Package Cache'
+          keys:
+            - dep-cache-{{ checksum "yarn.lock" }}
+            # https://discuss.circleci.com/t/circle-2-0-caching-is-too-limited-to-be-very-useful/11694
+            - dep-cache-
       - run:
           name: 'Install NPM Packages'
           command: yarn install --frozen-lockfile --non-interactive
-      # - save_cache:
-      #     name: 'Save Cache'
-      #     key: dep-cache-{{ checksum "yarn.lock" }}
-      #     paths:
-      #       - ~/.cache/yarn
-      #       #https://github.com/vercel/next.js/blob/master/errors/no-cache.md
-      #       - ~/app/node_modules
-      #       - ~/app/apps/core/.next/cache
+      - save_cache:
+          name: 'Save Cache'
+          key: dep-cache-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+            #https://github.com/vercel/next.js/blob/master/errors/no-cache.md
+            - ~/app/node_modules
+            - ~/app/apps/core/.next/cache
   build-app:
     description: 'Build Application'
     steps:
