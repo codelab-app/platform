@@ -17,9 +17,9 @@ executors:
     environment:
       # install Cypress in Linux-like cache folder
       CYPRESS_CACHE_FOLDER: '~/.cache/Cypress'
-      NX_VERBOSE_LOGGING: true
-      GATSBY_TELEMETRY_DISABLED: 1
-      NODE_ENV: production
+      # NX_VERBOSE_LOGGING: true
+      # GATSBY_TELEMETRY_DISABLED: 1
+      # NODE_ENV: production
     docker:
       - image: circleci/node:14-browsers
       # - image: circleci/node:13.8.0
