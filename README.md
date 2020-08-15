@@ -49,7 +49,7 @@ The project directory structure is based on NX, with `apps` directory containing
 
 3. Clone a forked version of the repository
 4. `cp .env.example .env.dev`
-5. `yarn && yarn build`
+5. `yarn`
 6. NX Console tab -> `Serve` -> `[your-app]`
 
 or `Test` for running Jest. For entire list of commands, select `Run`.

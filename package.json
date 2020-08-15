@@ -14,6 +14,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
+    "preinstall": "nx build eslint-config-codelab",
     "nx": "nx",
     "commit": "git-cz",
     "start": "nx serve",

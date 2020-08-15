@@ -44,7 +44,6 @@ commands:
             - ~/.cache/yarn
             #https://github.com/vercel/next.js/blob/master/errors/no-cache.md
             - ~/app/node_modules
-            - ~/app/scripts/node_modules
             - ~/app/libs/eslint-config-codelab/node_modules
   build_app:
     description: 'Build Application'
@@ -81,11 +80,9 @@ jobs:
       - persist_to_workspace:
           root: ..
           paths:
-            # - app
-            # - .cache/Cypress
-            # Persist only required for linting
-            - app/scripts/node_modules
+            - app/node_modules
             - app/libs/eslint-config-codelab
+            # - .cache/Cypress
   lint:
     environment:
       CIRCLE_COMPARE_URL: <<pipeline.project.git_url>>/compare/<<pipeline.git.base_revision>>..<<pipeline.git.revision>>
