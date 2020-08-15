@@ -81,7 +81,8 @@ jobs:
           paths:
             # - app
             # - .cache/Cypress
-            - app/node_modules
+            # Persist only required for linting
+            - app/node_modules/shelljs
             - app/libs/eslint-config-codelab
   lint:
     environment:
