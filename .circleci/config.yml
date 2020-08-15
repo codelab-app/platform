@@ -44,7 +44,9 @@ commands:
             - ~/.cache/yarn
             #https://github.com/vercel/next.js/blob/master/errors/no-cache.md
             - ~/app/node_modules
-  build-app:
+            - ~/app/scripts/node_modules
+            - ~/app/libs/eslint-config-codelab/node_modules
+  build_app:
     description: 'Build Application'
     steps:
       - run:
@@ -75,15 +77,14 @@ jobs:
     steps:
       - checkout
       - yarn_install
-      - build-app
+      - build_app
       - persist_to_workspace:
           root: ..
           paths:
             # - app
             # - .cache/Cypress
             # Persist only required for linting
-            - app/node_modules/shelljs
-            - app/node_modules/@commitlint
+            - app/scripts/node_modules
             - app/libs/eslint-config-codelab
   lint:
     environment:
