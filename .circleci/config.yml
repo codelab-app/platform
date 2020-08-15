@@ -44,13 +44,12 @@ commands:
             - ~/.cache/yarn
             #https://github.com/vercel/next.js/blob/master/errors/no-cache.md
             - ~/app/node_modules
-            - ~/app/apps/core/.next/cache
   build-app:
     description: 'Build Application'
     steps:
       - run:
           name: 'Build Packages'
-          command: yarn build --skip-nx-cache
+          command: yarn build
   setup:
     description: 'Setup Context'
     steps:
