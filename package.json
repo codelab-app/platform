@@ -19,7 +19,7 @@
     "start": "nx serve",
     "build": "./scripts/build.sh",
     "test": "./scripts/test.sh",
-    "eslint": "./scripts/eslint.sh",
+    "eslint": "node ./scripts/eslint.js",
     "commitlint": "./scripts/commitlint.sh",
     "lint": "nx workspace-lint && nx lint",
     "e2e": "nx e2e",

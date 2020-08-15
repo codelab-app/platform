@@ -83,6 +83,7 @@ jobs:
             # - .cache/Cypress
             # Persist only required for linting
             - app/node_modules/shelljs
+            - app/node_modules/@commitlint
             - app/libs/eslint-config-codelab
   lint:
     environment:
