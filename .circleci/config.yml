@@ -82,7 +82,7 @@ jobs:
           paths:
             - app/node_modules
             - app/libs/eslint-config-codelab
-            - app/plugins/react
+            - app/libs/plugins/react
             # - .cache/Cypress
   lint:
     environment:
