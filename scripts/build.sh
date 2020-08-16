@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 rm -rf build
-nx run-many --target=build --all --parallel --maxWorkers=2 $@
+nx run-many --target=build --all --parallel --maxWorkers=8 $@
