@@ -1,4 +1,4 @@
-import { ReactNodeI } from '../../../../graph/src/node/codec/Node-react'
+import { ReactNodeI } from '@codelab/graph'
 
 export const inputData: ReactNodeI = {
   type: 'Input',
