@@ -3,7 +3,7 @@
  */
 import mongoose from 'mongoose'
 import { JSONSchema7 } from 'json-schema'
-import { MongooseModels, mongooseModels } from './JsonSchema'
+import { Model, Models } from './model'
 
 describe('Json Schema', () => {
   const schema: JSONSchema7 = {
@@ -76,13 +76,11 @@ describe('Json Schema', () => {
   const componentModel = mongoose.model('component2', componentSchema)
   const propModel = mongoose.model('prop2', propSchema)
 
-  let models: MongooseModels
+  let models: Models
 
-  beforeEach(() => {
-    models = mongooseModels(schema)
-  })
-  afterEach(() => {
+  beforeAll(() => {
     mongoose.models = {}
+    models = Model.parse(schema)
   })
 
   // it('validates', () => {
@@ -93,21 +91,48 @@ describe('Json Schema', () => {
   //   expect(valid).toBeTruthy()
   // })
 
+  it('can retrieve a list of model names', () => {
+    expect(Array.from(models.keys())).toEqual(['user', 'component', 'prop'])
+  })
+
+  it('retrieves the model name', () => {
+    expect(models.get('user').name).toEqual('user')
+  })
+
   it('transforms JsonSchema to Mongoose schemas for strings', () => {
-    expect(models.user.schema.paths).toEqual(userModel.schema.paths)
+    const expectedSchema = models.get('user').schema.paths
+    const actualSchema = userModel.schema.paths
+
+    expect(JSON.stringify(expectedSchema)).toEqual(JSON.stringify(actualSchema))
   })
 
   it('transforms JsonSchema to Mongoose schemas for enums', () => {
-    const expectedSchema = models.prop.schema.paths
-    const actualSchema = propModel.schema.paths
+    const expectedSchema = propModel.schema.paths
+    const actualSchema = models.get('prop').schema.paths
 
     expect(JSON.stringify(expectedSchema)).toEqual(JSON.stringify(actualSchema))
   })
 
   it('parses $ref', () => {
-    const expectedSchema = models.component.schema.paths
-    const actualSchema = componentModel.schema.paths
+    const expectedSchema = componentModel.schema.paths
+    const actualSchema = models.get('component').schema.paths
 
     expect(JSON.stringify(expectedSchema)).toEqual(JSON.stringify(actualSchema))
   })
+
+  // it('retrieves the schema for a model', () => {
+  //   const actualUserSchema = models.get('user').schema
+  //   const actualPropSchema = models.get('prop').schema
+  //   const actualComponentSchema = models.get('component').schema
+
+  //   expect(JSON.stringify(userModel.schema.paths)).toEqual(
+  //     JSON.stringify(actualUserSchema.paths),
+  //   )
+  //   expect(JSON.stringify(propModel.schema.paths)).toEqual(
+  //     JSON.stringify(actualPropSchema.paths),
+  //   )
+  //   expect(JSON.stringify(componentModel.schema.paths)).toEqual(
+  //     JSON.stringify(actualComponentSchema.paths),
+  //   )
+  // })
 })

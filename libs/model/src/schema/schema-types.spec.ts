@@ -2,7 +2,7 @@
  * @jest-environment node
  */
 import { JSONSchema7Definition } from 'json-schema'
-import { getRef, isEnum, isRef } from './JsonSchema-types'
+import { getRef, isEnum, isRef } from './schema-types'
 
 describe('Schema guards & helper methods', () => {
   const enumProperty: JSONSchema7Definition = {

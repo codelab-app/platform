@@ -1,2 +1,3 @@
-export * from './model'
-export * from './schema'
+export * from './user'
+export * from './other/model'
+export * from './other/schema'

@@ -1,5 +1,5 @@
 module.exports = {
-  name: 'schema',
+  name: 'model',
   preset: '../../jest.config.js',
   transform: {
     '^.+\\.[tj]sx?$': [
@@ -8,5 +8,5 @@ module.exports = {
     ],
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'html'],
-  coverageDirectory: '../../coverage/libs/schema',
+  coverageDirectory: '../../coverage/libs/model',
 }

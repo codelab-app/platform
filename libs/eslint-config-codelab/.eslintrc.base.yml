@@ -10,6 +10,9 @@ plugins:
   # - import
   - unused-imports
 rules:
+  no-underscore-dangle:
+    - error
+    - allowAfterThis: true
   no-case-declarations: off
   no-restricted-syntax: off
   class-methods-use-this: off

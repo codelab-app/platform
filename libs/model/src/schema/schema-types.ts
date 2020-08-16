@@ -1,6 +1,11 @@
 import * as mongoose from 'mongoose'
 import { JSONSchema7Object, JSONSchema7 } from 'json-schema'
 
+export enum SchemaType {
+  String = 'String',
+  Number = 'Number',
+}
+
 export const isEnum = (
   property: JSONSchema7,
 ): property is JSONSchema7Object => {
@@ -23,6 +28,10 @@ export const getRef = (property: JSONSchema7): string => {
   const ref = $ref.split('/')
 
   return ref[ref.length - 1]
+}
+
+interface SchemaTypeFactory<SchemaI, SchemaO> {
+  (schemaType: SchemaI): SchemaO
 }
 
 export function getSchemaType(
