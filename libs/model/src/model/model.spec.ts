@@ -79,7 +79,7 @@ describe('Json Schema', () => {
   let models: Models
 
   beforeAll(() => {
-    mongoose.models = {}
+    delete mongoose.models
     models = Model.parse(schema)
   })
 
