@@ -1,5 +1,5 @@
 import { JSONSchema7, JSONSchema7Type } from 'json-schema'
-import mongoose, { SchemaDefinition } from 'mongoose'
+import * as mongoose from 'mongoose'
 import { reduce } from 'lodash'
 import { getSchemaType } from './SchemaFactory'
 
@@ -26,13 +26,13 @@ export class Schema {
   }
 
   private mongooseSchema(properties: JSONSchema7): mongoose.Schema {
-    const schemaDefinition: SchemaDefinition = reduce<
+    const schemaDefinition: mongoose.SchemaDefinition = reduce<
       JSONSchema7,
-      SchemaDefinition
+      mongoose.SchemaDefinition
     >(
       properties,
       (
-        mongooseSchemaDefinition: SchemaDefinition,
+        mongooseSchemaDefinition: mongoose.SchemaDefinition,
         type: JSONSchema7Type,
         schemaName,
       ) => {

@@ -2,12 +2,7 @@ import { IDeepEntry } from 'deepdash-es/IDeepEntry'
 import { findDeep } from 'deepdash-es/standalone'
 import { JSONSchema7, JSONSchema7Definition } from 'json-schema'
 import { reduce } from 'lodash'
-import mongoose, {
-  Schema,
-  SchemaDefinition,
-  SchemaType,
-  SchemaTypeOpts,
-} from 'mongoose'
+import * as mongoose from 'mongoose'
 
 type JSONSchema7Property = {
   [name: string]: JSONSchema7Definition
@@ -18,7 +13,7 @@ export class JsonSchema {
 
   models: Array<mongoose.Model<any>> = []
 
-  schemas: { [model: string]: Schema } = {}
+  schemas: { [model: string]: mongoose.Schema } = {}
 
   constructor(schema: JSONSchema7) {
     this.schema = schema
@@ -42,7 +37,7 @@ export class JsonSchema {
         definitions,
       )
 
-      const mongooseSchema: Schema = JsonSchema.mongooseSchema(
+      const mongooseSchema: mongoose.Schema = JsonSchema.mongooseSchema(
         jsonSchemaProperty,
       )
 
@@ -53,19 +48,19 @@ export class JsonSchema {
     }
   }
 
-  static mongooseSchema(property: JSONSchema7Property): Schema {
-    const mongooseSchemaProperty: SchemaDefinition = JsonSchema.mongooseSchemaDefinition(
+  static mongooseSchema(property: JSONSchema7Property): mongoose.Schema {
+    const mongooseSchemaProperty: mongoose.SchemaDefinition = JsonSchema.mongooseSchemaDefinition(
       property,
     )
 
     // console.log(mongooseSchemaProperty)
 
-    return new Schema(mongooseSchemaProperty)
+    return new mongoose.Schema(mongooseSchemaProperty)
   }
 
   static mongooseSchemaDefinition(
     property: JSONSchema7Property,
-  ): SchemaDefinition {
+  ): mongoose.SchemaDefinition {
     const schemaDefinition = Object.values(property)[0] as JSONSchema7
 
     const { properties } = schemaDefinition
@@ -88,14 +83,14 @@ export class JsonSchema {
   static parseSchemaDefinition(
     [field, propertyDefinition]: [string, JSONSchema7Definition],
     schemaDefinition: JSONSchema7,
-  ): SchemaTypeOpts<any> | Schema | SchemaType {
+  ): mongoose.SchemaTypeOpts<any> | mongoose.Schema | mongoose.SchemaType {
     // Special case for array
     const type = JsonSchema.parseType(propertyDefinition)
 
-    if (type === Schema.Types.Array) {
+    if (type === mongoose.Schema.Types.Array) {
       return [
         {
-          type: Schema.Types.ObjectId,
+          type: mongoose.Schema.Types.ObjectId,
           ref: JsonSchema.parseItemRef(propertyDefinition),
         },
       ]
@@ -120,26 +115,26 @@ export class JsonSchema {
 
   static parseType(
     propertyDefinition: JSONSchema7Definition,
-  ): typeof SchemaType {
+  ): typeof mongoose.SchemaType {
     const { type } = propertyDefinition as JSONSchema7
 
     switch (type) {
       case 'string':
-        return Schema.Types.String
+        return mongoose.Schema.Types.String
       case 'number':
-        return Schema.Types.Number
+        return mongoose.Schema.Types.Number
       case 'integer':
-        return Schema.Types.Number
+        return mongoose.Schema.Types.Number
       case 'boolean':
-        return Schema.Types.Boolean
+        return mongoose.Schema.Types.Boolean
       case 'object':
-        return Schema.Types.ObjectId
+        return mongoose.Schema.Types.ObjectId
       case 'array':
-        return Schema.Types.Array
+        return mongoose.Schema.Types.Array
       case 'null':
-        return Schema.Types.Boolean
+        return mongoose.Schema.Types.Boolean
       default:
-        return Schema.Types.String
+        return mongoose.Schema.Types.String
     }
   }
 

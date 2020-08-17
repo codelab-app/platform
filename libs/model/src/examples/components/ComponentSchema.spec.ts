@@ -1,7 +1,7 @@
 /**
  * @jest-environment node
  */
-import mongoose from 'mongoose'
+import * as mongoose from 'mongoose'
 import { JSONSchema7 } from 'json-schema'
 import { Schema } from './Schema'
 
@@ -38,7 +38,7 @@ describe('ComponentSchema', () => {
     jsonSchema = new Schema(schema)
   })
   afterEach(() => {
-    mongoose.models = {}
+    delete mongoose.models
   })
 
   // it('validates', () => {

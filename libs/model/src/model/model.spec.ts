@@ -1,7 +1,7 @@
 /**
  * @jest-environment node
  */
-import mongoose from 'mongoose'
+import * as mongoose from 'mongoose'
 import { JSONSchema7 } from 'json-schema'
 import { Model, Models } from './model'
 

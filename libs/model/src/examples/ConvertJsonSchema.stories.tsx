@@ -1,5 +1,5 @@
 import { createMongooseSchema } from 'convert-json-schema-to-mongoose'
-import mongoose from 'mongoose'
+import * as mongoose from 'mongoose'
 
 const refs = {
   yep: {
