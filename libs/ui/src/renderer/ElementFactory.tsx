@@ -15,6 +15,7 @@ import {
   ConfigProvider,
   Divider,
   Drawer,
+  Dropdown,
   Empty,
   Form,
   Input,
@@ -55,6 +56,8 @@ export const elementParameterFactory = <P extends Props>(
       return [React.Fragment, props]
     case 'Html.div':
       return ['div', props]
+    case 'Html.a':
+      return ['a', props]
     case 'Text':
       return [Html.Text as any, props]
     case 'Menu':
@@ -79,10 +82,8 @@ export const elementParameterFactory = <P extends Props>(
         ),
         props,
       ]
-    // case 'Dropdown':
-    //   const Overlay = TreeDom.render((props as any).overlay)
-
-    //   return [Dropdown as any, { ...props, overlay: <Overlay /> }]
+    case 'Dropdown':
+      return [Dropdown as any, props]
     // case 'Table':
     //   const tableProps = mapValuesDeep(
     //     props,
