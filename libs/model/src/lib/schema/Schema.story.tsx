@@ -1,8 +1,8 @@
 import { isEqual } from 'lodash'
 import { Schema } from 'mongoose'
 import React from 'react'
-import { JsonSchema } from './Schema'
-import { modelJsonSchema } from './Schema-data'
+import { JsonSchema } from './schema'
+import { modelJsonSchema } from './schema-data'
 
 export default {
   title: 'Schema',

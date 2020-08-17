@@ -5,9 +5,9 @@ import Ajv from 'ajv'
 import { JSONSchema7Definition } from 'json-schema'
 // import schemaData from 'src/json/JsonSchema-schema.json'
 import { Schema } from 'mongoose'
-import { JsonSchema } from './Schema'
-import data from './Schema-data.json'
-import { modelJsonSchema } from './Schema-data'
+import { JsonSchema } from './schema'
+import data from './schema-data.json'
+import { modelJsonSchema } from './schema-data'
 
 describe('JsonSchema', () => {
   beforeEach(() => {
