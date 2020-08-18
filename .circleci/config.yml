@@ -25,6 +25,27 @@ executors:
       # - image: circleci/node:13.8.0
 
 commands:
+  # SETUP
+  setup:
+    description: 'Setup Context'
+    steps:
+      - checkout
+      - run:
+          name: 'Setup Env Vars'
+          command: |
+            echo 'export GIT_COMMIT_MSG=$(git log --format="format:%s" -n 1 ${CIRCLE_SHA1})' >> $BASH_ENV
+            source $BASH_ENV
+            echo $GIT_COMMIT_MSG
+
+  # use this for jobs that require the repository
+  setup-workspace:
+    description: 'Setup Workspace'
+    steps:
+      - setup
+      - attach_workspace:
+          at: ..
+
+  # INSTALL
   yarn_install:
     description: 'Install Dependencies'
     steps:
@@ -52,21 +73,8 @@ commands:
       - run:
           name: 'Build Packages'
           command: yarn build
-  setup-env:
-    description: 'Setup Env Vars'
-    steps:
-      - run:
-          name: 'Setup Env Vars'
-          command: |
-            echo 'export GIT_COMMIT_MSG=$(git log --format="format:%s" -n 1 ${CIRCLE_SHA1})' >> $BASH_ENV
-            source $BASH_ENV
-            echo $GIT_COMMIT_MSG
-  setup:
-    description: 'Setup Context'
-    steps:
-      - checkout
-      - attach_workspace:
-          at: ..
+
+  # LINT
   eslint:
     description: 'ESLint on New Commits'
     steps:
@@ -75,6 +83,8 @@ commands:
     description: 'Commitlint on New Commits'
     steps:
       - run: yarn commitlint
+
+  # TEST
   unit-tests:
     description: 'Unit Tests'
     steps:
@@ -104,18 +114,18 @@ jobs:
     steps:
       - run: echo "This is pipeline ID << pipeline.id >>"
       - run: echo $CIRCLE_COMPARE_URL
-      - setup
+      - setup-workspace
       - eslint
       - commitlint
   test:
     executor: node
     steps:
-      - setup
+      - setup-workspace
       - unit-tests
   notify:
     executor: node
     steps:
-      - setup-env
+      - setup
       - slack/notify:
           channel: CQVPNKS8K
           color: '#42e2f4'
