@@ -4,5 +4,3 @@
 
 echo $CIRCLE_BASE_REVISION
 npx commitlint --from=$CIRCLE_BASE_REVISION $@
-
-echo $(git rev-parse origin/${MASTER})
