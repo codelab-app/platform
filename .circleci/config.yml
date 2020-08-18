@@ -104,6 +104,7 @@ jobs:
       - setup
       - unit-tests
   notify:
+    executor: node
     steps:
       - slack/notify:
           channel: CQVPNKS8K
