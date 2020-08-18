@@ -1,11 +1,17 @@
 // Returns any type because no props are required
-import { makeTree, Node, traversePostOrder } from '@codelab/graph'
+import {
+  makeTree,
+  Node,
+  traversePostOrder,
+  TreeNodeI,
+  ReactNodeI,
+} from '@codelab/graph'
 import { evalPropsWithContext, Props } from '@codelab/props'
 import React, { FunctionComponent, PropsWithChildren } from 'react'
 import { elementParameterFactory } from './ElementFactory'
 import { ElementParameters } from './ElementFactory.interface'
-import { TreeNodeI } from '../../../graph/src/node/codec/Node-tree'
-import { ReactNodeI } from '../../../graph/src/node/codec/Node-react'
+// eslint-disable-next-line import/no-cycle
+import { produceReactNodeProps } from '../props/Props-node'
 
 export class TreeDom {
   static render<P extends Props>(
@@ -24,6 +30,7 @@ export class TreeDom {
      */
     const buildComponent = (node: Node<P>) => {
       const [Type, props] = factory(node)
+      const reactNodeProps = produceReactNodeProps(props)
 
       /**
        * internalProps is generally AntD internal like Menu to Menu.Item
@@ -40,9 +47,11 @@ export class TreeDom {
         // )
 
         return node.hasChildren() || hasRootChildren ? (
-          <Type {...internalProps}>{children}</Type>
+          <Type {...internalProps} {...reactNodeProps}>
+            {children}
+          </Type>
         ) : (
-          <Type {...internalProps} />
+          <Type {...internalProps} {...reactNodeProps} />
         )
       }
 
