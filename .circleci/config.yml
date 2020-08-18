@@ -5,7 +5,7 @@
 version: 2.1
 
 orbs:
-  # slack: circleci/slack@3.4.2
+  slack: circleci/slack@3.4.2
   # node: circleci/node@3.0.1
 
 executors:
@@ -103,6 +103,14 @@ jobs:
     steps:
       - setup
       - unit-tests
+  notify:
+    steps:
+      - slack/notify:
+          channel: CQVPNKS8K
+          color: '#42e2f4'
+          # mentions: 'USERID1,USERID2,'
+          message: << pipeline.id >> << pipeline.git.branch >> succedded
+          webhook: webhook
 
 workflows:
   version: 2.1
@@ -115,3 +123,7 @@ workflows:
       - test:
           requires:
             - install
+      - notify:
+          requires:
+            - lint
+            - test
