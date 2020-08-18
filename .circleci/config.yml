@@ -17,6 +17,11 @@ executors:
       NX_VERBOSE_LOGGING: true
       # GATSBY_TELEMETRY_DISABLED: 1
       # NODE_ENV: production
+      GITHUB_VIEN: VienNguyen24hdev
+      SLACK_VIEN: UBPECLD4P
+      GITHUB_WEBBER: webberwang
+      SLACK_WEBBER: U0J401GAH
+      GITHUB_ALEX: aburtsev
     docker:
       - image: circleci/node:14-browsers
 
@@ -125,7 +130,7 @@ jobs:
       - slack/notify:
           channel: CQVPNKS8K
           color: '#42e2f4'
-          # mentions: 'USERID1,USERID2,'
+          mentions: '${SLACK_WEBBER},'
           message: >
             Status: Success \n
             Branch: << pipeline.git.branch >> \n
