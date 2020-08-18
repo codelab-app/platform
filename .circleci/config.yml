@@ -9,9 +9,6 @@ orbs:
   # node: circleci/node@3.0.1
 
 executors:
-  # base:
-  #   docker:
-  #     - image: cimg/base:stable
   node:
     working_directory: ~/app
     environment:
@@ -22,7 +19,6 @@ executors:
       # NODE_ENV: production
     docker:
       - image: circleci/node:14-browsers
-      # - image: circleci/node:13.8.0
 
 commands:
   # SETUP
@@ -137,17 +133,16 @@ jobs:
           # webhook: https://hooks.slack.com/services/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
 
 workflows:
-  version: 2.1
   test_app:
     jobs:
-      # - install
-      # - lint:
-      #     requires:
-      #       - install
-      # - test:
-      #     requires:
-      #       - install
+      - install
+      - lint:
+          requires:
+            - install
+      - test:
+          requires:
+            - install
       - notify
-        # requires:
-        #   - lint
-        #   - test
+          requires:
+            - lint
+            - test
