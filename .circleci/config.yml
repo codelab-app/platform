@@ -61,7 +61,7 @@ commands:
           command: |
             echo 'export GIT_COMMIT_MSG="$(git log --format=oneline -n 1 ${CIRCLE_SHA1})"' >> $BASH_ENV
             source $BASH_ENV
-            echo $MY_ENV
+            echo $GIT_COMMIT_MSG
       - attach_workspace:
           at: ..
   eslint:
