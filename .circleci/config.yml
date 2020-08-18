@@ -111,7 +111,7 @@ jobs:
           color: '#42e2f4'
           # mentions: 'USERID1,USERID2,'
           message: << pipeline.id >> << pipeline.git.branch >> succedded
-          webhook: webhook
+          webhook: https://hooks.slack.com/services/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
 
 workflows:
   version: 2.1
