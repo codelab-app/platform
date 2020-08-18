@@ -134,7 +134,7 @@ jobs:
           message: >
             Status: Success \n
             Branch: << pipeline.git.branch >> \n
-            Message: $GIT_COMMIT_MSG
+            Message: $GIT_COMMIT_MSG \n
           # webhook: https://hooks.slack.com/services/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
 
 workflows:
