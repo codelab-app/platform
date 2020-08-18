@@ -133,7 +133,6 @@ jobs:
           # webhook: https://hooks.slack.com/services/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
 
 workflows:
-  version: 2.1
   test_app:
     jobs:
       - install
@@ -143,7 +142,7 @@ workflows:
       - test:
           requires:
             - install
-      - notify
+      - notify:
           requires:
             - lint
             - test
