@@ -35,6 +35,7 @@ import {
   Steps,
   Switch,
   Tooltip,
+  Typography,
   Upload,
 } from 'antd'
 import React from 'react'
@@ -69,6 +70,14 @@ export const elementParameterFactory = <P extends Props>(
       return [Card.Grid, props]
     case 'Card.Meta':
       return [Card.Meta, props]
+    case 'Typography':
+      return [Typography as any, props]
+    case 'Typography.Title':
+      return [Typography.Title as any, props]
+    case 'Typography.Text':
+      return [Typography.Text as any, props]
+    case 'Typography.Paragraph':
+      return [Typography.Paragraph as any, props]
     case 'Alert':
       return [Alert as any, props]
     case 'Button':
