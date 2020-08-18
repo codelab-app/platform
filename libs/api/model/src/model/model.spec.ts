@@ -1,0 +1,43 @@
+import { TestingModule, Test } from '@nestjs/testing'
+import { SchemaModule, SchemaService } from '../schema'
+import { modelsProvider, MODELS_PROVIDER } from './model.provider'
+
+const MockSchemaService: jest.Mock<typeof SchemaService> = jest.fn()
+
+Object.defineProperty(MockSchemaService, 'jsonSchemaData', {
+  get: jest.fn(() => ({ $id: 'mock-json-schema' })),
+  configurable: true,
+})
+
+describe('ModelModule', () => {
+  let schemaServiceSpy
+  let module: TestingModule
+
+  beforeEach(async () => {
+    module = await Test.createTestingModule({
+      imports: [SchemaModule],
+      providers: [modelsProvider],
+    })
+      .overrideProvider(SchemaService)
+      .useValue(MockSchemaService)
+      .compile()
+
+    /**
+     * TODO:
+     * @todo Jest mock type issue
+     * @body We want to remove the "as any" cast
+     * @autoAssign webberwang
+     */
+    schemaServiceSpy = jest.spyOn(
+      MockSchemaService,
+      'jsonSchemaData' as any,
+      'get',
+    )
+  })
+
+  it('retrieves a map of Mongoose models', () => {
+    const mongooseModels = module.get(MODELS_PROVIDER)
+
+    expect(schemaServiceSpy).toHaveBeenCalled()
+  })
+})

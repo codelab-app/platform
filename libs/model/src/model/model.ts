@@ -3,10 +3,6 @@ import { JSONSchema7 } from 'json-schema'
 import { reduce } from 'lodash'
 import { Schema } from '../schema'
 
-type MongooseModels = {
-  [modelName: string]: mongoose.Model<any>
-}
-
 export type Models = Map<string, Model>
 
 export class Model {
@@ -26,7 +22,12 @@ export class Model {
     return this._schema.mongooseSchema
   }
 
+  // TODO: test that empty jsonSchema returns empty map
   static parse(jsonSchema: JSONSchema7): Models {
+    if (!jsonSchema || !('definitions' in jsonSchema)) {
+      return new Map()
+    }
+
     const { definitions } = jsonSchema
 
     const models = reduce(

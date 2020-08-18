@@ -61,6 +61,8 @@ Clone off master and create a local branch using a name that is relevant to the 
 
 To commit code, run `yarn commit`. (This will trigger the git `pre-commit` hook via [Husky](https://github.com/typicode/husky), which then uses [Lint Staged](https://github.com/okonet/lint-staged) to run [ESLint](https://github.com/eslint/eslint) on staged files. ESLint will use [Prettier](https://github.com/prettier/prettier) to format files.)
 
+After using `yarn commit` a couple times and understanding the commit mesage format, you can manually create the message if you wish.
+
 Follow the CLI prompt to complete the commit. ([Commitizen](https://github.com/commitizen/cz-cli) is used to trigger the terminal prompt for constructing the proper commit message format.)
 
 Once pushed to the remote repository, create a Pull Request on Github to `master`. Make sure all the tests run successfully, the PR will then be reviewed by the administrator.
