@@ -40,6 +40,7 @@ import {
   Upload,
 } from 'antd'
 import React from 'react'
+import { Icon } from '@ant-design/compatible'
 import { ElementParameters } from './ElementFactory.interface'
 import { buttonPropKeys } from '../components/button/Button'
 import { Form as CodelabForm } from '../components/form/Form'
@@ -61,6 +62,8 @@ export const elementParameterFactory = <P extends Props>(
       return ['a', props]
     case 'Text':
       return [Html.Text as any, props]
+    case 'Icon':
+      return [Icon as any, props]
     case 'Menu':
       return [Menu as any, props]
     case 'Menu.Item':
