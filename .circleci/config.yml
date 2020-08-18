@@ -27,7 +27,7 @@ commands:
     steps:
       - checkout
       - run:
-          name: 'Setup Env Vars'
+          name: 'Setup GIT_COMMIT_MSG'
           command: |
             echo 'export GIT_COMMIT_MSG=$(git log --format="format:%s" -n 1 ${CIRCLE_SHA1})' >> $BASH_ENV
             source $BASH_ENV
@@ -133,6 +133,7 @@ jobs:
           # webhook: https://hooks.slack.com/services/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
 
 workflows:
+  version: 2.1
   test_app:
     jobs:
       - install
