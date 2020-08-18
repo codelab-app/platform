@@ -18,7 +18,7 @@ executors:
       # install Cypress in Linux-like cache folder
       # CYPRESS_CACHE_FOLDER: '~/.cache/Cypress'
       NX_VERBOSE_LOGGING: true
-      GIT_COMMIT_MSG: $(git log --format=oneline -n 1 ${CIRCLE_SHA1})
+      GIT_COMMIT_MSG: echo $(git log --format=oneline -n 1 ${CIRCLE_SHA1})
       # GATSBY_TELEMETRY_DISABLED: 1
       # NODE_ENV: production
     docker:
