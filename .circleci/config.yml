@@ -58,8 +58,9 @@ commands:
       - run:
           name: 'Setup Env Vars'
           command: |
-            echo 'export GIT_COMMIT_MSG="$(git log --format=%B -n 1 ${CIRCLE_SHA1})"' >> $BASH_ENV
+            echo 'export GIT_COMMIT_MSG=$(git log --format="format:%s" -n 1 ${CIRCLE_SHA1})' >> $BASH_ENV
             source $BASH_ENV
+            echo $GIT_COMMIT_MSG
   setup:
     description: 'Setup Context'
     steps:
