@@ -171,7 +171,7 @@ jobs:
           command: notify-success
       - run:
           name: 'Pipeline Error'
-          when: on_error
+          when: on_fail
           command: notify-error
 
 workflows:
