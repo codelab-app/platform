@@ -190,7 +190,7 @@ workflows:
       condition: on_success
       steps:
         - notify-success
-    when:
-      condition: on_failure
-      steps:
-        - notify-failure
+    # when:
+    #   condition: on_failure
+    #   steps:
+    #     - notify-failure
