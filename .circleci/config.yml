@@ -162,19 +162,19 @@ jobs:
     steps:
       - setup-workspace
       - unit-tests
-  notify:
-    executor: node
-    steps:
-      - when:
-          name: 'Pipeline Success'
-          condition: on_success
-          steps:
-            - notify-success
-      - when:
-          name: 'Pipeline Failure'
-          condition: on_fail
-          steps:
-            - notify-failure
+  # notify:
+  #   executor: node
+  #   steps:
+  #     - when:
+  #         name: 'Pipeline Success'
+  #         condition: on_success
+  #         steps:
+  #           - notify-success
+  #     - when:
+  #         name: 'Pipeline Failure'
+  #         condition: on_fail
+  #         steps:
+  #           - notify-failure
 
 workflows:
   test_app:
@@ -187,3 +187,11 @@ workflows:
           requires:
             - install
       - notify
+    when:
+      condition: on_success
+      steps:
+        - notify-success
+    when:
+      condition: on_failure
+      steps:
+        - notify-failure
