@@ -27,6 +27,7 @@ import {
   Popover,
   Progress,
   Radio,
+  Rate,
   Result,
   Select,
   Skeleton,
@@ -138,6 +139,8 @@ export const elementParameterFactory = <P extends Props>(
       return [Radio.Group as any, props]
     case 'Radio':
       return [Radio as any, props]
+    case 'Rate':
+      return [Rate as any, props]
     case 'Slider':
       return [Slider as any, props]
     case 'Switch':
