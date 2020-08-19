@@ -2,6 +2,7 @@ import { mouseEventHandlerKeys } from '@codelab/event'
 import { Node } from '@codelab/graph'
 import { Props, propsFilter, withFilters } from '@codelab/props'
 import {
+  Affix,
   Alert,
   Avatar,
   BackTop,
@@ -87,6 +88,8 @@ export const elementParameterFactory = <P extends Props>(
       return [Typography.Paragraph as any, props]
     case 'Alert':
       return [Alert as any, props]
+    case 'Affix':
+      return [Affix as any, props]
     case 'Button':
       return [
         withFilters(
