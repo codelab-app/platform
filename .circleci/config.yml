@@ -38,12 +38,14 @@ commands:
             source $BASH_ENV
             echo $GIT_COMMIT_MSG
       - run:
+          # Github user who triggered Circle is the slack mention user
           name: 'Setup SLACK_USER'
           command: |
-            if [ $CIRCLE_USERNAME == $GITHUB_WEBBER ];
+            if [ $CIRCLE_USERNAME == $GITHUB_WEBBER ]; then
               echo 'export SLACK_USER=${SLACK_WEBBER}' >> $BASH_ENV
-            elif [ $CIRCLE_USERNAME == $GITHUB_VIEN ];
+            elif [ $CIRCLE_USERNAME == $GITHUB_VIEN ]; then
               echo 'export SLACK_USER=${SLACK_VIEN}' >> $BASH_ENV
+            fi
             source $BASH_ENV
             echo $SLACK_USER
 
