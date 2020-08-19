@@ -173,7 +173,7 @@ jobs:
       - when:
           name: 'Pipeline Error'
           condition: on_fail
-          step:
+          steps:
             - notify-error
 
 workflows:
