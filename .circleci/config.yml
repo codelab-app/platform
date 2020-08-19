@@ -120,8 +120,8 @@ commands:
           # webhook URL is setup using circleci integration
   notify-failure:
     steps:
-      - setup
-      - slack/notify:
+      - slack/status:
+          fail_only: true
           channel: $SLACK_CHANNEL_UPDATE
           color: $COLOR_FAILURE
           mentions: $SLACK_USER
@@ -145,6 +145,7 @@ jobs:
             - app/libs/eslint-config-codelab
             - app/libs/plugins/react
             # - .cache/Cypress
+      - notify-failure
   lint:
     environment:
       CIRCLE_COMPARE_URL: <<pipeline.project.git_url>>/compare/<<pipeline.git.base_revision>>..<<pipeline.git.revision>>
@@ -157,11 +158,13 @@ jobs:
       - setup-workspace
       - eslint
       - commitlint
+      - notify-failure
   test:
     executor: node
     steps:
       - setup-workspace
       - unit-tests
+      - notify-failure
   # notify:
   #   executor: node
   #   steps:
@@ -186,21 +189,7 @@ workflows:
       - test:
           requires:
             - install
-      - run:
-          name: 'Pipeline Success'
-          when: on_success
-          steps:
-            - notify-success
-      - run:
-          name: 'Pipeline Failure'
-          when: on_failure
-          steps:
-            - notify-failure
-    # when:
-    #   condition: on_success
-    #   steps:
-    #     - notify-success
-    # when:
-    #   condition: on_failure
-    #   steps:
-    #     - notify-failure
+      - notify-success:
+          requires:
+            - lint
+            - test
