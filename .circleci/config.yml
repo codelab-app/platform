@@ -2,6 +2,9 @@
 #
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 #
+
+# Success notification is added to end of workflow, while failure notification is added to end of each job.
+
 version: 2.1
 
 orbs:
@@ -123,12 +126,12 @@ commands:
       - slack/status:
           fail_only: true
           channel: $SLACK_CHANNEL_UPDATE
-          color: $COLOR_FAILURE
+          # color: $COLOR_FAILURE
           mentions: $SLACK_USER
-          message: >
-            *Status*: :red_circle: Failure \n
-            *Branch*: << pipeline.git.branch >> \n
-            *Message*: $GIT_COMMIT_MSG \n
+          # message: >
+          #   *Status*: :red_circle: Failure \n
+          #   *Branch*: << pipeline.git.branch >> \n
+          #   *Message*: $GIT_COMMIT_MSG \n
 
 jobs:
   install:
