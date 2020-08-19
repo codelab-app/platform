@@ -12,6 +12,6 @@ module.exports = {
     'pre-push': tasks([build, test]),
     'commit-msg': commitlint,
     'pre-commit': lintstaged,
-    // 'post-rewrite': lintstaged,
+    'post-rewrite': './scripts/git-post-rewrite.sh',
   },
 }
