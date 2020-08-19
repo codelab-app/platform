@@ -17,11 +17,14 @@ executors:
       NX_VERBOSE_LOGGING: true
       # GATSBY_TELEMETRY_DISABLED: 1
       # NODE_ENV: production
+      SLACK_CHANNEL_UPDATE: CQVPNKS8K
       GITHUB_VIEN: VienNguyen24hdev
       SLACK_VIEN: UBPECLD4P
       GITHUB_WEBBER: webberwang
       SLACK_WEBBER: U0J401GAH
       GITHUB_ALEX: aburtsev
+      COLOR_SUCCESS: #b7eb8f
+      COLOR_FAILURE: #ffccc7
     docker:
       - image: circleci/node:14-browsers
 
@@ -134,32 +137,42 @@ jobs:
     steps:
       - setup-workspace
       - unit-tests
-  notify:
+  notify-success:
     executor: node
     steps:
       - setup
       - slack/notify:
-          channel: CQVPNKS8K
-          color: '#42e2f4'
+          channel: $SLACK_CHANNEL_UPDATE
+          color: $COLOR_SUCCESS
           mentions: $SLACK_USER
           message: >
-            Status: Success \n
-            Branch: << pipeline.git.branch >> \n
-            Message: $GIT_COMMIT_MSG \n
-          # webhook: https://hooks.slack.com/services/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
+            *Status*: :large_green_circle: Success \n
+            *Branch*: << pipeline.git.branch >> \n
+            *Message*: $GIT_COMMIT_MSG \n
+          # webhook URL is setup using circleci integration
+  notify-failure:
+    executor: node
+    steps:
+      - setup
+      - slack/notify:
+          channel: $SLACK_CHANNEL_UPDATE
+          color: $COLOR_FAILURE
+          mentions: $SLACK_USER
+          message: >
+            *Status*: :red_circle: Failure \n
+            *Branch*: << pipeline.git.branch >> \n
+            *Message*: $GIT_COMMIT_MSG \n
 
 workflows:
   test_app:
+    when:
+      on_success: notify-success
+      on_fail: notify-failure
     jobs:
-      # - install
-      # - lint:
-      #     requires:
-      #       - install
-      # - test:
-      #     requires:
-      #       - install
-      # - notify:
-      #     requires:
-      #       - lint
-      #       - test
-      - notify
+      - install
+      - lint:
+          requires:
+            - install
+      - test:
+          requires:
+            - install
