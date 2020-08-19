@@ -186,7 +186,6 @@ workflows:
       - test:
           requires:
             - install
-      - notify
     when:
       condition: on_success
       steps:
