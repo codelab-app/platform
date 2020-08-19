@@ -186,10 +186,20 @@ workflows:
       - test:
           requires:
             - install
-    when:
-      condition: on_success
-      steps:
-        - notify-success
+      - run:
+          name: 'Pipeline Success'
+          when: on_success
+          steps:
+            - notify-success
+      - run:
+          name: 'Pipeline Failure'
+          when: on_failure
+          steps:
+            - notify-failure
+    # when:
+    #   condition: on_success
+    #   steps:
+    #     - notify-success
     # when:
     #   condition: on_failure
     #   steps:
