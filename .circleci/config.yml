@@ -108,19 +108,7 @@ commands:
     steps:
       - run: yarn test --skip-nx-cache
 
-  # NOTIFY
-  notify-success:
-    steps:
-      - setup
-      - slack/notify:
-          channel: $SLACK_CHANNEL_UPDATE
-          color: $COLOR_SUCCESS
-          mentions: $SLACK_USER
-          message: >
-            *Status*: :large_green_circle: Success \n
-            *Branch*: << pipeline.git.branch >> \n
-            *Message*: $GIT_COMMIT_MSG \n
-          # webhook URL is setup using circleci integration
+  # webhook URL is setup using circleci integration
   notify-failure:
     steps:
       - slack/status:
@@ -168,6 +156,18 @@ jobs:
       - setup-workspace
       - unit-tests
       - notify-failure
+  notify-success:
+    steps:
+      - setup
+      - slack/notify:
+          channel: $SLACK_CHANNEL_UPDATE
+          color: $COLOR_SUCCESS
+          mentions: $SLACK_USER
+          message: >
+            *Status*: :large_green_circle: Success \n
+            *Branch*: << pipeline.git.branch >> \n
+            *Message*: $GIT_COMMIT_MSG \n
+
   # notify:
   #   executor: node
   #   steps:
