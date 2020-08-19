@@ -171,10 +171,10 @@ jobs:
           steps:
             - notify-success
       - when:
-          name: 'Pipeline Error'
+          name: 'Pipeline Failure'
           condition: on_fail
           steps:
-            - notify-error
+            - notify-failure
 
 workflows:
   test_app:
