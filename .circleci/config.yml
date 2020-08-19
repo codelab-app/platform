@@ -165,14 +165,16 @@ jobs:
   notify:
     executor: node
     steps:
-      - run:
+      - when:
           name: 'Pipeline Success'
-          when: on_success
-          command: notify-success
-      - run:
+          condition: on_success
+          steps:
+            - notify-success
+      - when:
           name: 'Pipeline Error'
-          when: on_fail
-          command: notify-error
+          condition: on_fail
+          step:
+            - notify-error
 
 workflows:
   test_app:
