@@ -37,6 +37,7 @@ import {
   Spin,
   Steps,
   Switch,
+  Tag,
   Tooltip,
   Typography,
   Upload,
@@ -168,6 +169,8 @@ export const elementParameterFactory = <P extends Props>(
       return [Empty as any, props]
     case 'Tooltip':
       return [Tooltip as any, props]
+    case 'Tag':
+      return [Tag as any, props]
     case 'Drawer':
       return [Drawer as any, props]
     case 'Progress':
