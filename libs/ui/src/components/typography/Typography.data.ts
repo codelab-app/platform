@@ -1,6 +1,17 @@
 import { ReactNodeI } from '@codelab/graph'
+import { TextProps } from '../text/Text'
+import {
+  TypographyTextProps,
+  TypographyTitleProps,
+  TypographyParagraphProps,
+} from './Typography'
 
-export const typographyData: ReactNodeI = {
+export const typographyData: ReactNodeI<
+  | TypographyTextProps
+  | TypographyTitleProps
+  | TypographyParagraphProps
+  | TextProps
+> = {
   type: 'Typography',
   nodeType: 'React',
   children: [
