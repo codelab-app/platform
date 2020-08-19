@@ -157,6 +157,7 @@ jobs:
       - unit-tests
       - notify-failure
   notify-success:
+    executor: node
     steps:
       - setup
       - slack/notify:
