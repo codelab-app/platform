@@ -37,6 +37,15 @@ commands:
             echo 'export GIT_COMMIT_MSG=$(git log --format="format:%s" -n 1 ${CIRCLE_SHA1})' >> $BASH_ENV
             source $BASH_ENV
             echo $GIT_COMMIT_MSG
+      - run:
+          name: 'Setup SLACK_USER'
+          command: |
+            if [ $CIRCLE_USERNAME == $GITHUB_WEBBER ];
+              echo 'export SLACK_USER=${SLACK_WEBBER}' >> $BASH_ENV
+            elif [ $CIRCLE_USERNAME == $GITHUB_VIEN ];
+              echo 'export SLACK_USER=${SLACK_VIEN}' >> $BASH_ENV
+            source $BASH_ENV
+            echo $SLACK_USER
 
   # use this for jobs that require the repository
   setup-workspace:
@@ -130,11 +139,7 @@ jobs:
       - slack/notify:
           channel: CQVPNKS8K
           color: '#42e2f4'
-          mentions: |
-            if [ $CIRCLE_USERNAME == $GITHUB_WEBBER ];
-              $SLACK_WEBBER
-            elif [ $CIRCLE_USERNAME == $GITHUB_VIEN ];
-              $SLACK_VIEN
+          mentions: $SLACK_USER
           message: >
             Status: Success \n
             Branch: << pipeline.git.branch >> \n
