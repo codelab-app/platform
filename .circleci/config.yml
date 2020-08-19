@@ -130,7 +130,7 @@ jobs:
       - slack/notify:
           channel: CQVPNKS8K
           color: '#42e2f4'
-          mentions: '${SLACK_WEBBER},'
+          mentions: $SLACK_WEBBER
           message: >
             Status: Success \n
             Branch: << pipeline.git.branch >> \n
