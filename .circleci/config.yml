@@ -165,9 +165,6 @@ jobs:
 
 workflows:
   test_app:
-    when:
-      on_success: notify-success
-      on_fail: notify-failure
     jobs:
       - install
       - lint:
@@ -176,3 +173,7 @@ workflows:
       - test:
           requires:
             - install
+      - notify-success:
+          when: on_success
+      - notify-failure:
+          when: on_failure
