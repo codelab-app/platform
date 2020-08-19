@@ -184,7 +184,4 @@ workflows:
       - test:
           requires:
             - install
-      - notify:
-          requires:
-            - lint
-            - test
+      - notify
