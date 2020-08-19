@@ -1,6 +1,6 @@
 import { ReactNodeI } from '@codelab/graph'
-import { TextProps } from '../text/Text.data'
 import { DividerProps } from './Divider.types'
+import { TextProps } from '../text/Text.types'
 
 export const dividerData: ReactNodeI<DividerProps | TextProps> = {
   type: 'Provider',

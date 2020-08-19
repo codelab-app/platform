@@ -1,6 +1,6 @@
 import { ReactNodeI } from '@codelab/graph'
-import { TextProps } from '../text/Text.data'
 import { CheckboxGroupProps, CheckBoxProps } from './Checkbox.types'
+import { TextProps } from '../text/Text.types'
 
 export const checkboxData: ReactNodeI<
   CheckBoxProps | CheckboxGroupProps | TextProps

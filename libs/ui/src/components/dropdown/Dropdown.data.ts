@@ -1,6 +1,6 @@
 import { ReactNodeI } from '@codelab/graph'
-import { TextProps } from '../text/Text.data'
 import { DropdownButtonProps, DropdownProps } from './Dropdown.types'
+import { TextProps } from '../text/Text.types'
 
 export const dropdownData: ReactNodeI<
   DropdownProps | TextProps | DropdownButtonProps
