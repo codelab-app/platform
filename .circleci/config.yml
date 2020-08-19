@@ -140,14 +140,15 @@ jobs:
 workflows:
   test_app:
     jobs:
-      - install
-      - lint:
-          requires:
-            - install
-      - test:
-          requires:
-            - install
-      - notify:
-          requires:
-            - lint
-            - test
+      # - install
+      # - lint:
+      #     requires:
+      #       - install
+      # - test:
+      #     requires:
+      #       - install
+      # - notify:
+      #     requires:
+      #       - lint
+      #       - test
+      - notify
