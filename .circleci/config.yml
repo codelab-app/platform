@@ -105,6 +105,31 @@ commands:
     steps:
       - run: yarn test --skip-nx-cache
 
+  # NOTIFY
+  notify-success:
+    steps:
+      - setup
+      - slack/notify:
+          channel: $SLACK_CHANNEL_UPDATE
+          color: $COLOR_SUCCESS
+          mentions: $SLACK_USER
+          message: >
+            *Status*: :large_green_circle: Success \n
+            *Branch*: << pipeline.git.branch >> \n
+            *Message*: $GIT_COMMIT_MSG \n
+          # webhook URL is setup using circleci integration
+  notify-failure:
+    steps:
+      - setup
+      - slack/notify:
+          channel: $SLACK_CHANNEL_UPDATE
+          color: $COLOR_FAILURE
+          mentions: $SLACK_USER
+          message: >
+            *Status*: :red_circle: Failure \n
+            *Branch*: << pipeline.git.branch >> \n
+            *Message*: $GIT_COMMIT_MSG \n
+
 jobs:
   install:
     executor: node
@@ -137,31 +162,17 @@ jobs:
     steps:
       - setup-workspace
       - unit-tests
-  notify-success:
+  notify:
     executor: node
     steps:
-      - setup
-      - slack/notify:
-          channel: $SLACK_CHANNEL_UPDATE
-          color: $COLOR_SUCCESS
-          mentions: $SLACK_USER
-          message: >
-            *Status*: :large_green_circle: Success \n
-            *Branch*: << pipeline.git.branch >> \n
-            *Message*: $GIT_COMMIT_MSG \n
-          # webhook URL is setup using circleci integration
-  notify-failure:
-    executor: node
-    steps:
-      - setup
-      - slack/notify:
-          channel: $SLACK_CHANNEL_UPDATE
-          color: $COLOR_FAILURE
-          mentions: $SLACK_USER
-          message: >
-            *Status*: :red_circle: Failure \n
-            *Branch*: << pipeline.git.branch >> \n
-            *Message*: $GIT_COMMIT_MSG \n
+      - run:
+        name: 'Pipeline Success'
+        when: on_success
+        command: notify-success
+      - run:
+        name: 'Pipeline Error'
+        when: on_error
+        command: notify-error
 
 workflows:
   test_app:
@@ -173,7 +184,4 @@ workflows:
       - test:
           requires:
             - install
-      - notify-success:
-          when: on_success
-      - notify-failure:
-          when: on_failure
+      - notify
