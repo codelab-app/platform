@@ -130,7 +130,7 @@ jobs:
       - slack/notify:
           channel: CQVPNKS8K
           color: '#42e2f4'
-          mentions: >
+          mentions: |
             if [ $CIRCLE_USERNAME == $GITHUB_WEBBER ];
               $SLACK_WEBBER
             elif [ $CIRCLE_USERNAME == $GITHUB_VIEN ];
