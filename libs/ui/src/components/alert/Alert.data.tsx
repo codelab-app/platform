@@ -1,20 +1,5 @@
 import { ReactNodeI } from '@codelab/graph'
-import { PropsFromKeys } from '@codelab/props'
-
-export const alertPropKeys = [
-  'afterClose',
-  'banner',
-  'closable',
-  'closeText',
-  'description',
-  'icon',
-  'message',
-  'showIcon',
-  'type',
-  'onClose',
-] as const
-
-type AlertProps = PropsFromKeys<typeof alertPropKeys[number]>
+import { AlertProps } from './Alert.types'
 
 export const alertData: ReactNodeI<AlertProps> = {
   type: 'Alert',
