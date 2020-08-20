@@ -168,23 +168,24 @@ jobs:
             *Status*: :large_green_circle: Success \n
             *Branch*: << pipeline.git.branch >> \n
             *Message*: $GIT_COMMIT_MSG \n
-
-  # notify:
-  #   executor: node
-  #   steps:
-  #     - when:
-  #         name: 'Pipeline Success'
-  #         condition: on_success
-  #         steps:
-  #           - notify-success
-  #     - when:
-  #         name: 'Pipeline Failure'
-  #         condition: on_fail
-  #         steps:
-  #           - notify-failure
-
+          # webhook URL is setup using circleci integration
+  notify-failure:
+    executor: node
+    steps:
+      - setup
+      - slack/notify:
+          channel: $SLACK_CHANNEL_UPDATE
+          color: $COLOR_FAILURE
+          mentions: $SLACK_USER
+          message: >
+            *Status*: :red_circle: Failure \n
+            *Branch*: << pipeline.git.branch >> \n
+            *Message*: $GIT_COMMIT_MSG \n
 workflows:
   test_app:
+    when:
+      on_success: notify-success
+      on_fail: notify-failure
     jobs:
       - install
       - lint:
