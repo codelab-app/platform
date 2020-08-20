@@ -63,6 +63,8 @@ export const elementParameterFactory = <P extends Props>(
       return ['div', props]
     case 'Html.a':
       return ['a', props]
+    case 'Html.span':
+      return ['span', props]
     case 'Text':
       return [Html.Text as any, props]
     case 'Icon':
