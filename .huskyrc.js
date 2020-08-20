@@ -10,6 +10,6 @@ module.exports = {
     'pre-push': tasks([test]),
     'commit-msg': commitlint,
     'pre-commit': lintstaged,
-    'post-rebase': lintstaged,
+    'post-rewrite': lintstaged,
   },
 }
