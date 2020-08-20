@@ -173,14 +173,15 @@ jobs:
     executor: node
     steps:
       - setup
-      - slack/notify:
+      - slack/status:
+          fail_only: true
           channel: $SLACK_CHANNEL_UPDATE
-          color: $COLOR_FAILURE
+          # color: $COLOR_FAILURE
           mentions: $SLACK_USER
-          message: >
-            *Status*: :red_circle: Failure \n
-            *Branch*: << pipeline.git.branch >> \n
-            *Message*: $GIT_COMMIT_MSG \n
+          # message: >
+          #   *Status*: :red_circle: Failure \n
+          #   *Branch*: << pipeline.git.branch >> \n
+          #   *Message*: $GIT_COMMIT_MSG \n
 workflows:
   test_app:
     when:
