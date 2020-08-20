@@ -213,6 +213,8 @@ export const elementParameterFactory = <P extends Props>(
       return [Upload as any, props]
     case 'Steps':
       return [Steps as any, props]
+    case 'Steps.Step':
+      return [Steps.Step as any, props]
     case 'Carousel':
       return [Carousel as any, props]
     case 'List':
