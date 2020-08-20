@@ -39,6 +39,7 @@ import {
   Switch,
   Tag,
   Timeline,
+  Tabs,
   Tooltip,
   Typography,
   Upload,
@@ -174,6 +175,10 @@ export const elementParameterFactory = <P extends Props>(
       return [Timeline as any, props]
     case 'Timeline.Item':
       return [Timeline.Item as any, props]
+    case 'Tabs':
+      return [Tabs as any, props]
+    case 'Tabs.TabPane':
+      return [Tabs.TabPane as any, props]
     case 'Tooltip':
       return [Tooltip as any, props]
     case 'Tag':
