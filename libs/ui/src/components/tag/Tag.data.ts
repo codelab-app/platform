@@ -1,6 +1,6 @@
 import { ReactNodeI } from '@codelab/graph'
 import { PropsFromKeys } from '@codelab/props'
-import { TextProps } from '../text/Text'
+import { TextProps } from '../text/Text.types'
 
 export const tagPropKeys = [
   'closable',
