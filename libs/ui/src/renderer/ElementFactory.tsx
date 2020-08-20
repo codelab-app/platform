@@ -38,6 +38,7 @@ import {
   Steps,
   Switch,
   Tag,
+  Timeline,
   Tooltip,
   Typography,
   Upload,
@@ -169,6 +170,10 @@ export const elementParameterFactory = <P extends Props>(
       return [Calendar as any, props]
     case 'Empty':
       return [Empty as any, props]
+    case 'Timeline':
+      return [Timeline as any, props]
+    case 'Timeline.Item':
+      return [Timeline.Item as any, props]
     case 'Tooltip':
       return [Tooltip as any, props]
     case 'Tag':
