@@ -1,29 +1,7 @@
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
-import { Button, Space, Form as AntForm } from 'antd'
-import { StoreValue } from 'rc-field-form/lib/interface'
+import { Button, Form as AntForm, Space } from 'antd'
 import React from 'react'
-
-// Copy because not exported from antd
-interface FieldData {
-  name: number
-  key: number
-  fieldKey: number
-}
-
-interface Operation {
-  add: (defaultValue?: StoreValue) => void
-  remove: (index: number) => void
-  move: (from: number, to: number) => void
-}
-
-interface AntFormListProps {
-  name: string | number | Array<string | number>
-  children: Array<(fields: FieldData, operation: Operation) => React.ReactNode>
-}
-
-export type FormListProps = Omit<AntFormListProps, 'children'> & {
-  children: React.ReactElement[]
-}
+import { FieldData, FormListProps } from './Form.types'
 
 export namespace Form {
   export const List: React.FC<FormListProps> = ({ children, ...props }) => {
