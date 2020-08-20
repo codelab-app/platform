@@ -1,7 +1,7 @@
 import { ReactNodeI } from '@codelab/graph'
-import { TextProps } from '../text/Text'
+import { TextProps } from '../text/Text.data'
 import { ButtonProps } from '../button/Button'
-import { FormProps, FormItemProps } from './Form'
+import { FormItemProps, FormProps } from './Form.types'
 
 export const formData: ReactNodeI<
   FormProps | FormItemProps | TextProps | ButtonProps

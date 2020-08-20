@@ -1,10 +1,10 @@
 import { ReactNodeI } from '@codelab/graph'
-import { TextProps } from '../text/Text'
+import { TextProps } from '../text/Text.data'
 import {
   TypographyTextProps,
   TypographyTitleProps,
   TypographyParagraphProps,
-} from './Typography'
+} from './Typography.types'
 
 export const typographyData: ReactNodeI<
   | TypographyTextProps

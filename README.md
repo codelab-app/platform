@@ -40,20 +40,31 @@ Codelab.ai is a web application builder consisting of a data modeling tool and a
 - [Cypress](https://www.cypress.io)
   - E2e testing framework
 
-# Getting Started
+# Plugins to Install
 
 1. Install [NX Console](https://marketplace.visualstudio.com/items?itemName=nrwl.angular-console), you will use the interface to run the application
-2. Install [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint), for realtime visual linting
+2. Install [Move TS](https://marketplace.visualstudio.com/items?itemName=stringham.move-ts)
+
+- VSCode doesn't auto update imports when renaming files, use this to help with moving files
+
+3. (Optional) Install [WebStorm](https://www.jetbrains.com/webstorm/)
+
+- VSCode doesn't allow us to move an export (function, variable, class etc.) from one file to another, which is a huge limitation in refactoring, as this is a common procedure
+- WebStorm does have this functionality, but is a paid product. They have a 30-day free trial you can try out the feature. If you find the program useful we can consider purchasing a license for you.
+
+3. Install [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint), for realtime visual linting
 
 The project directory structure is based on NX, with `apps` directory containing all the user facing sites, while `libs` containing all imported libraries.
 
-3. Clone a forked version of the repository
-4. `cp .env.example .env.dev`
-5. `yarn`
+# Getting Started
+
+1. Clone a forked version of the repository
+2. `cp .env.example .env.dev`
+3. `yarn`
 
 The NX Console tab has all the commands you'll need to interact with the app under the `Generate & Run Target` section. For the most part, you'll be developing with Jest & Storybook.
 
-6. Select `Run`, which will display all commands in the format of `[package]:[command]`. Use `test` for Jest, & `storybook` for Storybook.
+4. Select `Run`, which will display all commands in the format of `[package]:[command]`. Use `test` for Jest, & `storybook` for Storybook.
 
 # CI/CD pipeline
 

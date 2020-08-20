@@ -1,16 +1,5 @@
 import { ReactNodeI } from '@codelab/graph'
-import { PropsFromKeys } from '@codelab/props'
-
-export const iconPropKeys = [
-  'type',
-  'style',
-  'theme',
-  'spin',
-  'rotate',
-  'twoToneColor',
-] as const
-
-type IconProps = PropsFromKeys<typeof iconPropKeys[number]>
+import { IconProps } from './Icon.types'
 
 export const iconData: ReactNodeI<IconProps> = {
   type: 'Icon',

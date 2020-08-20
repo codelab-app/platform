@@ -1,6 +1,6 @@
 import { ReactNodeI } from '@codelab/graph'
-import { TextProps } from '../text/Text'
-import { SelectProps, OptionProps } from './Select'
+import { TextProps } from '../text/Text.data'
+import { SelectProps, OptionProps } from './Select.types'
 
 export const selectData: ReactNodeI<SelectProps | OptionProps | TextProps> = {
   type: 'Select',

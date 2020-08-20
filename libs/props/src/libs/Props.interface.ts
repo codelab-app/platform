@@ -1,4 +1,3 @@
-import { ReactNodeI } from '@codelab/graph'
 import { CSSProperties } from 'react'
 
 export type PropItem = any & Function & PropValue
@@ -16,6 +15,8 @@ export type Props = {
   [name: string]: PropItem
 }
 
-export type PropsFromKeys<Keys extends string> = {
-  [K in Keys]?: string | number | boolean | PropValue | ReactNodeI | any
-} & { ctx?: PropItem; style?: CSSProperties }
+export type PropsFromKeys<Keys extends string> =
+  | {
+      [K in Keys]?: string | number | boolean | PropValue | object
+    }
+  | { ctx?: PropItem; style?: CSSProperties }
