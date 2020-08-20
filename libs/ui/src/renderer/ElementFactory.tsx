@@ -46,6 +46,7 @@ import {
   Timeline,
   Tabs,
   Tooltip,
+  Transfer,
   Typography,
   Upload,
 } from 'antd'
@@ -220,6 +221,8 @@ export const elementParameterFactory = <P extends Props>(
     //   return [Message as any, props]
     case 'Popconfirm':
       return [Popconfirm as any, props]
+    case 'Transfer':
+      return [Transfer as any, props]
     case 'Upload':
       return [Upload as any, props]
     case 'Steps':
