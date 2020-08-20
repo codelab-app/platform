@@ -2,6 +2,9 @@
 #
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 #
+
+# Success notification is added to end of workflow, while failure notification is added to end of each job.
+
 version: 2.1
 
 orbs:
@@ -105,6 +108,19 @@ commands:
     steps:
       - run: yarn test --skip-nx-cache
 
+  # webhook URL is setup using circleci integration
+  notify-failure:
+    steps:
+      - slack/status:
+          fail_only: true
+          channel: $SLACK_CHANNEL_UPDATE
+          # color: $COLOR_FAILURE
+          mentions: $SLACK_USER
+          # message: >
+          #   *Status*: :red_circle: Failure \n
+          #   *Branch*: << pipeline.git.branch >> \n
+          #   *Message*: $GIT_COMMIT_MSG \n
+
 jobs:
   install:
     executor: node
@@ -120,6 +136,7 @@ jobs:
             - app/libs/eslint-config-codelab
             - app/libs/plugins/react
             # - .cache/Cypress
+      - notify-failure
   lint:
     environment:
       CIRCLE_COMPARE_URL: <<pipeline.project.git_url>>/compare/<<pipeline.git.base_revision>>..<<pipeline.git.revision>>
@@ -132,11 +149,13 @@ jobs:
       - setup-workspace
       - eslint
       - commitlint
+      - notify-failure
   test:
     executor: node
     steps:
       - setup-workspace
       - unit-tests
+      - notify-failure
   notify-success:
     executor: node
     steps:
@@ -162,7 +181,6 @@ jobs:
             *Status*: :red_circle: Failure \n
             *Branch*: << pipeline.git.branch >> \n
             *Message*: $GIT_COMMIT_MSG \n
-
 workflows:
   test_app:
     when:
@@ -176,3 +194,7 @@ workflows:
       - test:
           requires:
             - install
+      - notify-success:
+          requires:
+            - lint
+            - test
