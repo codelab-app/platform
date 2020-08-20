@@ -26,8 +26,8 @@ executors:
       GITHUB_WEBBER: webberwang
       SLACK_WEBBER: U0J401GAH
       GITHUB_ALEX: aburtsev
-      COLOR_SUCCESS: #b7eb8f
-      COLOR_FAILURE: #ffccc7
+      COLOR_SUCCESS: '#b7eb8f'
+      COLOR_FAILURE: '#ffccc7'
     docker:
       - image: circleci/node:14-browsers
 
@@ -165,7 +165,7 @@ jobs:
           color: $COLOR_SUCCESS
           mentions: $SLACK_USER
           message: >
-            *Status*: :large_green_circle: Success \n
+            *Status*: :green_circle: Success \n
             *Branch*: << pipeline.git.branch >> \n
             *Message*: $GIT_COMMIT_MSG \n
           # webhook URL is setup using circleci integration
