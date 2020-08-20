@@ -1,6 +1,10 @@
 import { ReactNodeI } from '@codelab/graph'
+import { TextProps } from '../text/Text.data'
+import { DropdownButtonProps, DropdownProps } from './Dropdown.types'
 
-export const dropdownData: ReactNodeI = {
+export const dropdownData: ReactNodeI<
+  DropdownProps | TextProps | DropdownButtonProps
+> = {
   type: 'Dropdown',
   nodeType: 'React',
   props: {
@@ -48,9 +52,6 @@ export const dropdownData: ReactNodeI = {
     {
       type: 'Html.a',
       nodeType: 'React',
-      props: {
-        className: 'ant-dropdown-link',
-      },
       children: [
         {
           type: 'Text',
