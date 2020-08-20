@@ -37,6 +37,7 @@ import {
   Slider,
   Space,
   Spin,
+  Statistic,
   Steps,
   Switch,
   Tag,
@@ -185,6 +186,8 @@ export const elementParameterFactory = <P extends Props>(
       return [Tabs as any, props]
     case 'Tabs.TabPane':
       return [Tabs.TabPane as any, props]
+    case 'Statistic':
+      return [Statistic as any, props]
     case 'Tooltip':
       return [Tooltip as any, props]
     case 'Tag':
