@@ -12,6 +12,7 @@ import {
   Calendar,
   Card,
   Carousel,
+  Cascader,
   Checkbox,
   Collapse,
   Comment,
@@ -241,6 +242,8 @@ export const elementParameterFactory = <P extends Props>(
       return [List.Item as any, props]
     case 'List.Item.Meta':
       return [List.Item.Meta as any, props]
+    case 'Cascader':
+      return [Cascader as any, props]
     case 'Popover':
       return [Popover as any, props]
     default:
