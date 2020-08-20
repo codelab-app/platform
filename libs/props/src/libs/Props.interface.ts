@@ -18,6 +18,6 @@ export type Props = {
 
 export type PropsFromKeys<Keys extends string> =
   | {
-      [K in Keys]?: string | number | boolean | PropValue | ReactNodeI | object
+      [K in Keys]?: string | number | boolean | PropValue | ReactNodeI
     }
   | { ctx?: PropItem; style?: CSSProperties }
