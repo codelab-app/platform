@@ -21,6 +21,7 @@ import {
   Empty,
   Form,
   Input,
+  List,
   Menu,
   Modal,
   PageHeader,
@@ -214,6 +215,12 @@ export const elementParameterFactory = <P extends Props>(
       return [Steps as any, props]
     case 'Carousel':
       return [Carousel as any, props]
+    case 'List':
+      return [List as any, props]
+    case 'List.Item':
+      return [List.Item as any, props]
+    case 'List.Item.Meta':
+      return [List.Item.Meta as any, props]
     case 'Popover':
       return [Popover as any, props]
     default:
