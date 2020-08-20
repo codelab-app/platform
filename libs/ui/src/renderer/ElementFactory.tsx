@@ -24,6 +24,7 @@ import {
   Empty,
   Form,
   Input,
+  InputNumber,
   List,
   Menu,
   Modal,
@@ -146,6 +147,8 @@ export const elementParameterFactory = <P extends Props>(
       return [Checkbox as any, props]
     case 'Input': // can't have children
       return [Input as any, props]
+    case 'InputNumber':
+      return [InputNumber as any, props]
     case 'Select':
       return [Select as any, props]
     case 'Select.Option':
