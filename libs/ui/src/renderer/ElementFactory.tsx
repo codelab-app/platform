@@ -14,6 +14,7 @@ import {
   Checkbox,
   Comment,
   ConfigProvider,
+  Descriptions,
   Divider,
   Drawer,
   Dropdown,
@@ -169,6 +170,10 @@ export const elementParameterFactory = <P extends Props>(
       return [Comment as any, props]
     case 'Calendar':
       return [Calendar as any, props]
+    case 'Descriptions':
+      return [Descriptions as any, props]
+    case 'Descriptions.Item':
+      return [Descriptions.Item as any, props]
     case 'Empty':
       return [Empty as any, props]
     case 'Timeline':
