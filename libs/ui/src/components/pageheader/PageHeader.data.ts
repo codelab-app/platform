@@ -1,20 +1,5 @@
 import { ReactNodeI } from '@codelab/graph'
-import { PropsFromKeys } from '@codelab/props'
-
-export const pageHeaderPropKeys = [
-  'title',
-  'subTitle',
-  'ghost',
-  'avatar',
-  'backIcon',
-  'tags',
-  'extra',
-  'breadcrumb',
-  'footer',
-  'onBack',
-]
-
-type PageHeaderProps = PropsFromKeys<typeof pageHeaderPropKeys[number]>
+import { PageHeaderProps } from './PageHeader.types'
 
 export const pageHeaderData: ReactNodeI<PageHeaderProps> = {
   type: 'PageHeader',

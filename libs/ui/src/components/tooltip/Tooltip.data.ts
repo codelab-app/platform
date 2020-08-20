@@ -1,26 +1,6 @@
 import { ReactNodeI } from '@codelab/graph'
-import { PropsFromKeys } from '@codelab/props'
 import { TextProps } from '../text/Text.types'
-
-export const tooltipPropKeys = [
-  'title',
-  'arrowPointAtCenter',
-  'autoAdjustOverflow',
-  'defaultVisible',
-  'getPopupContainer',
-  'mouseEnterDelay',
-  'mouseLeaveDelay',
-  'overlayClassName',
-  'overlayStyle',
-  'placement',
-  'trigger',
-  'visible',
-  'onVisibleChange',
-  'align',
-  'destroyTooltipOnHide',
-] as const
-
-type TooltipProps = PropsFromKeys<typeof tooltipPropKeys[number]>
+import { TooltipProps } from './Tooltip.types'
 
 export const tooltipData: ReactNodeI<TooltipProps | TextProps> = {
   type: 'Tooltip',
