@@ -5,7 +5,7 @@ export const radioPropKeys = [
   'checked',
   'defaultChecked',
   'disabled',
-  'value'
+  'value',
 ] as const
 
 export const radioGroupPropKeys = [
@@ -17,7 +17,7 @@ export const radioGroupPropKeys = [
   'value',
   'onChange',
   'optionType',
-  'buttonStyle'
+  'buttonStyle',
 ] as const
 
 export type RadioProps = PropsFromKeys<typeof radioPropKeys[number]>
