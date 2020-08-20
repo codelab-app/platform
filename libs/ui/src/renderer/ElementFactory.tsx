@@ -67,6 +67,8 @@ export const elementParameterFactory = <P extends Props>(
       return [React.Fragment, props]
     case 'Html.div':
       return ['div', props]
+    case 'Html.p':
+      return ['p', props]
     case 'Html.a':
       return ['a', props]
     case 'Html.span':
