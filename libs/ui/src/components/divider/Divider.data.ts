@@ -1,18 +1,6 @@
 import { ReactNodeI } from '@codelab/graph'
-import { PropsFromKeys } from '@codelab/props'
 import { TextProps } from '../text/Text'
-
-export const dividerPropKeys = [
-  'className',
-  'dashed',
-  'orientation',
-  'style',
-  'type',
-  'wrapperClassName',
-  'plain',
-] as const
-
-type DividerProps = PropsFromKeys<typeof dividerPropKeys[number]>
+import { DividerProps } from './Divider.types'
 
 export const dividerData: ReactNodeI<DividerProps | TextProps> = {
   type: 'Provider',
