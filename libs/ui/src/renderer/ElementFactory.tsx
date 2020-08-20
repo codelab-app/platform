@@ -13,6 +13,7 @@ import {
   Card,
   Carousel,
   Checkbox,
+  Collapse,
   Comment,
   ConfigProvider,
   Descriptions,
@@ -225,6 +226,10 @@ export const elementParameterFactory = <P extends Props>(
       return [Steps as any, props]
     case 'Steps.Step':
       return [Steps.Step as any, props]
+    case 'Collapse':
+      return [Collapse as any, props]
+    case 'Collapse.Panel':
+      return [Collapse.Panel as any, props]
     case 'Carousel':
       return [Carousel as any, props]
     case 'List':
