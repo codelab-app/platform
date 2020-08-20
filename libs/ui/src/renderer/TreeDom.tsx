@@ -58,6 +58,11 @@ export class TreeDom {
       if (node.type === 'Select.Option') {
         ;(node.Component as any).isSelectOption = true
       }
+
+      if (node.type === 'Breadcrumb.Item') {
+        // eslint-disable-next-line no-underscore-dangle
+        ;(node.Component as any).__ANT_BREADCRUMB_ITEM = true
+      }
     }
 
     traversePostOrder<P>(root, buildComponent)

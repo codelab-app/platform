@@ -7,6 +7,7 @@ import {
   Avatar,
   BackTop,
   Badge,
+  Breadcrumb,
   Button,
   Calendar,
   Card,
@@ -106,6 +107,10 @@ export const elementParameterFactory = <P extends Props>(
         ),
         props,
       ]
+    case 'Breadcrumb':
+      return [Breadcrumb as any, props]
+    case 'Breadcrumb.Item':
+      return [Breadcrumb.Item as any, props]
     case 'Dropdown':
       return [Dropdown as any, props]
     // case 'Table':
