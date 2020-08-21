@@ -1,6 +1,6 @@
 import React from 'react'
+import { TreeDom } from '@codelab/ui'
 import { alertData } from './Alert.data'
-import { TreeDom } from '../../renderer/TreeDom'
 
 export default {
   title: 'Alert',

@@ -1,6 +1,7 @@
 import { Props } from '@codelab/props'
 import { FunctionComponent, ReactNode } from 'react'
 import * as _ from 'ts-toolbelt'
+import { NodeTypeEnum } from './codec/Node--type.i'
 
 export interface HasID {
   id: string
@@ -11,6 +12,7 @@ export interface NodeInterface<P extends Props> {
   id: string
   readonly key: React.Key
   type: string
+  nodeType: NodeTypeEnum
   props: P
   parent?: NodeInterface<P>
   children: Array<NodeInterface<P>>

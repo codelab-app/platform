@@ -1,4 +1,3 @@
-// Returns any type because no props are required
 import {
   makeTree,
   Node,

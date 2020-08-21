@@ -6,6 +6,7 @@ import { nodeC } from './codec/Node.codec'
 import { HasChildren, NodeInterface } from './Node.i'
 import { isReactNode } from './codec/Node-react'
 import { NodeI } from './codec/Node.codec.i'
+import { NodeTypeEnum } from './codec/Node--type.i'
 
 /**
  * Node is instantiated during Tree traversal
@@ -16,6 +17,8 @@ export class Node<P extends Props = {}> implements NodeInterface<P> {
   public id: string
 
   public type: string
+
+  public nodeType: NodeTypeEnum
 
   // eslint-disable-next-line react/static-property-placement
   public props: P
@@ -29,9 +32,10 @@ export class Node<P extends Props = {}> implements NodeInterface<P> {
    */
   constructor(node: NodeI) {
     const { data } = decode(node, nodeC)
-    const { props, id } = data
+    const { props, nodeType, id } = data
 
     this.type = isReactNode(data) ? data.type : undefined
+    this.nodeType = NodeTypeEnum[nodeType]
     this.props = props
     this.id = id
   }

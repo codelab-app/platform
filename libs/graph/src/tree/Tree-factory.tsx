@@ -8,10 +8,9 @@ import {
   graphAppenderIteratee,
   treeAppenderIteratee,
 } from '../traversal/Traversal-iteratee'
-import { NodeInterface } from '../node'
+import { NodeInterface, Node } from '../node'
 import { GraphSubTreeContext, TreeSubTreeContext } from './Tree.i'
 import { Graph } from '../graph'
-
 import { TreeNodeI } from '../node/codec/Node-tree'
 import { ReactNodeI } from '../node/codec/Node-react'
 

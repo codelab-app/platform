@@ -45,6 +45,7 @@ describe('Tree', () => {
       return {
         id: node.id,
         label: node.id as string,
+        nodeType: node.nodeType,
       }
     }
 

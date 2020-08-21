@@ -126,24 +126,6 @@ export const elementParameterFactory = <P extends Props>(
       return [Breadcrumb.Item as any, props]
     case 'Dropdown':
       return [Dropdown as any, props]
-    // case 'Table':
-    //   const tableProps = mapValuesDeep(
-    //     props,
-    //     (value: Props[keyof Props], key: keyof Props) => {
-    //       if (key === 'render') {
-    //         console.log(value)
-    //         const Render = TreeDom.render(value)
-
-    //         return (text: string, record: any) => <Render {...record} />
-    //       }
-
-    //       return value
-    //     },
-    //   )
-
-    //   console.log(tableProps)
-
-    //   return [Table, tableProps]
     case 'Form':
       return [Form, props]
     case 'Form.Item':
