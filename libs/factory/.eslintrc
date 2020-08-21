@@ -1,7 +1,3 @@
 {
-  "extends": "@codelab/eslint-config-codelab",
-  "parserOptions": {
-    "tsconfigRootDir": "./",
-    "project": "./tsconfig.json"
-  }
+  "extends": "../../.eslintrc"
 }

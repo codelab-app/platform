@@ -1,7 +1,8 @@
-import { InputNode } from '@codelab/graph'
+import { ReactNodeI } from '@codelab/graph'
 
-export const divData: InputNode = {
+export const divData: ReactNodeI = {
   type: 'Html.div',
+  nodeType: 'React',
   props: {
     visibility: '',
     parentprops: {
@@ -11,6 +12,7 @@ export const divData: InputNode = {
   children: [
     {
       type: 'Html.div',
+      nodeType: 'React',
       props: {
         childprops: {},
       },

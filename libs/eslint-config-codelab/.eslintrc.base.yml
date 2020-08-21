@@ -16,7 +16,7 @@ rules:
   no-case-declarations: off
   no-restricted-syntax: off
   class-methods-use-this: off
-  'no-useless-constructor': off
+  no-useless-constructor: off
   react/jsx-props-no-spreading: off
   # Format
   newline-before-return: error
@@ -63,3 +63,4 @@ overrides:
       '@typescript-eslint/no-unused-vars': off
       '@typescript-eslint/no-explicit-any': off
       '@typescript-eslint/explicit-module-boundary-types': off
+      '@typescript-eslint/indent': off

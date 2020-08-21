@@ -9,16 +9,14 @@ import {
 import { evalPropsWithContext, Props } from '@codelab/props'
 import React, { FunctionComponent, PropsWithChildren } from 'react'
 import { elementParameterFactory } from './ElementFactory'
-import { ElementParameters } from './ElementFactory.interface'
+import { ElementFactory } from './ElementFactory.interface'
 // eslint-disable-next-line import/no-cycle
 import { produceReactNodeProps } from '../props/Props-node'
 
 export class TreeDom {
   static render<P extends Props>(
     data: TreeNodeI<P> | ReactNodeI<P>,
-    factory: (
-      node: Node<P>,
-    ) => ElementParameters<any> = elementParameterFactory,
+    factory: ElementFactory<P> = elementParameterFactory,
   ): FunctionComponent<any> {
     let hasRootChildren = false
     const root = makeTree(data)
@@ -28,7 +26,7 @@ export class TreeDom {
      *
      * (2) RenderProps are passed down
      */
-    const buildComponent = (node: Node<P>) => {
+    const componentBuilderIteratee = (node: Node<P>) => {
       const [Type, props] = factory(node)
       const reactNodeProps = produceReactNodeProps(props)
 
@@ -65,7 +63,7 @@ export class TreeDom {
       }
     }
 
-    traversePostOrder<P>(root, buildComponent)
+    traversePostOrder<P>(root, componentBuilderIteratee)
 
     return ({ children: rootChildren }: PropsWithChildren<P>) => {
       if (rootChildren) {

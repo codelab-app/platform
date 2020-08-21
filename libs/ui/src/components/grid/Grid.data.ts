@@ -1,7 +1,8 @@
-import { InputNode } from '@codelab/graph'
+import { ReactNodeI } from '@codelab/graph'
 
-export const gridData: InputNode = {
+export const gridData: ReactNodeI = {
   type: 'Grid',
+  nodeType: 'React',
   props: {
     cols: 12,
     rowHeight: 30,
@@ -16,12 +17,14 @@ export const gridData: InputNode = {
   children: [
     {
       type: 'Html.div',
+      nodeType: 'React',
       props: {
         key: 'a',
       },
       children: [
         {
           type: 'Text',
+          nodeType: 'React',
           props: {
             value: 'A',
           },
@@ -30,12 +33,14 @@ export const gridData: InputNode = {
     },
     {
       type: 'Html.div',
+      nodeType: 'React',
       props: {
         key: 'b',
       },
       children: [
         {
           type: 'Text',
+          nodeType: 'React',
           props: {
             value: 'B',
           },
@@ -44,12 +49,14 @@ export const gridData: InputNode = {
     },
     {
       type: 'Html.div',
+      nodeType: 'React',
       props: {
         key: 'c',
       },
       children: [
         {
           type: 'Text',
+          nodeType: 'React',
           props: {
             value: 'C',
           },

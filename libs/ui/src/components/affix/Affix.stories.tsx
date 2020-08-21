@@ -1,6 +1,6 @@
 import React from 'react'
 import { affixData } from './Affix.data'
-import { TreeDom } from '../../renderer/TreeDom'
+import { TreeDom } from '../../renderer'
 
 export default {
   title: 'Affix',

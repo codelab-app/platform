@@ -8,7 +8,7 @@ import {
   graphAppenderIteratee,
   treeAppenderIteratee,
 } from '../traversal/Traversal-iteratee'
-import { Node } from '../node'
+import { NodeInterface } from '../node'
 import { GraphSubTreeContext, TreeSubTreeContext } from './Tree.i'
 import { Graph } from '../graph'
 
@@ -29,7 +29,7 @@ import { ReactNodeI } from '../node/codec/Node-react'
  */
 export function makeTree<P extends Props>(
   input: TreeNodeI<P> | ReactNodeI<P>,
-): Node<P> {
+): NodeInterface<P> {
   const root = new Node<P>(input)
   const subTreeContext = {
     subTree: root,

@@ -1,12 +1,12 @@
-/* eslint-disable camelcase */
+/* eslint-disable @typescript-eslint/camelcase */
 import { makeGraph, makeTree } from './Tree-factory'
 import { Mapper } from '../node/Node.i'
 import { D3TreeData } from '../../../d3/src/tree/Tree'
 import { treeMap } from './Tree-map'
-import { treeDataWithLabel } from '../node/Tree-withLabel.data'
+import { treeDataWithLabel } from './Tree-withLabel.data'
 import { Vertex } from '../graph/Vertex'
 import { Edge } from '../graph/Edge'
-import { treeData } from '../node/Tree.data'
+import { treeData } from './Tree.data'
 import { findNode } from '../node/Node-find'
 import { TreeNodeI } from '../node/codec/Node-tree'
 import { NodeA } from '../node/codec/Node.codec.i'

@@ -54,28 +54,36 @@ export const treeWalker = curry(
   },
 )
 
+export interface TraversalOrder<P extends Props = {}> {
+  (node: Node<P>, iteratee: (node: Node<P>) => void)
+}
+
+export interface TraversalIteratee<P extends Props = {}> {
+  (node: Node<P>): void
+}
+
 export function traversePostOrder<P extends Props = {}>(
   node: Node<P>,
-  cb: (node: Node<P>) => any,
+  iteratee: TraversalIteratee<P>,
 ) {
   node.children.forEach((child) => {
-    traversePostOrder<P>(child, cb)
+    traversePostOrder<P>(child, iteratee)
   })
 
-  cb(node)
+  iteratee(node)
 }
 
 export function traversePreOrder<P extends Props = {}>(
   node: Node<P>,
-  cb: (node: Node<P>) => any,
+  iteratee: TraversalIteratee<P>,
 ) {
   if (!node) {
     return
   }
 
-  cb(node)
+  iteratee(node)
 
   node.children.forEach((child) => {
-    traversePreOrder(child, cb)
+    traversePreOrder(child, iteratee)
   })
 }

@@ -1,6 +1,6 @@
-import { treeData } from '../node/Tree.data'
+import { treeData } from '../tree/Tree.data'
 import { traversePostOrder } from './Traversal'
-import { Node } from '../node'
+import { NodeInterface } from '../node'
 import { makeTree } from '../tree'
 
 describe('Node traversal', () => {
@@ -19,7 +19,7 @@ describe('Node traversal', () => {
       'Root',
     ]
 
-    const cb = (node: Node) => {
+    const cb = (node: NodeInterface) => {
       queue.push(node.id)
     }
 

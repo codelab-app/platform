@@ -1,3 +1,3 @@
-import { TreeDom } from './TreeDom'
-
-export { TreeDom }
+export * from './TreeDom'
+export * from './ElementFactory'
+export * from './ElementFactory.interface'

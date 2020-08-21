@@ -3,7 +3,7 @@ import { evalPropsWithContext, filterRenderProps, Props } from '@codelab/props'
 import { reduce } from 'lodash'
 import React, { FunctionComponent, ReactNode } from 'react'
 import { nodeC } from './codec/Node.codec'
-import { HasChildren, Node as NodeInterface } from './Node.i'
+import { HasChildren, NodeInterface } from './Node.i'
 import { isReactNode } from './codec/Node-react'
 import { NodeI } from './codec/Node.codec.i'
 

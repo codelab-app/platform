@@ -3,14 +3,14 @@ import {
   reducerData,
   reducerDataCustomChildrenKey,
 } from './data/Tree-reducer.data'
-import { Node } from '../node'
+import { NodeInterface } from '../node'
 
 describe('Tree reducers', () => {
   type PageStats = {
     views: number
   }
 
-  const reducer = (total: number, node: Node<PageStats>) => {
+  const reducer = (total: number, node: NodeInterface<PageStats>) => {
     return total + (node.props?.views ?? 0)
   }
 

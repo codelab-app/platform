@@ -2,11 +2,8 @@
  * These callbacks are executed when visiting each Node during Tree traversal
  */
 import { Props } from '@codelab/props'
-
-import { findNode } from '@codelab/graph'
-import { NodeFinderAcc } from '../node/Node.i'
-import { Node, InputNode } from '../node'
-
+import { findNode, NodeFinderAcc, NodeI } from '@codelab/graph'
+import { Node } from '../node/Node'
 import { GraphSubTreeContext, TreeSubTreeContext } from '../tree/Tree.i'
 
 export function nodeFinderIteratee<P extends Props = {}>(
@@ -31,7 +28,7 @@ export function nodeFinderIteratee<P extends Props = {}>(
 
 export function treeAppenderIteratee<P extends Props>(
   { subTree, parent }: TreeSubTreeContext<P>,
-  child: InputNode<P>,
+  child: NodeI<P>,
 ) {
   const childNode = new Node<P>(child)
   const parentNode = findNode(parent.id, subTree)
@@ -50,7 +47,7 @@ export function treeAppenderIteratee<P extends Props>(
 
 export function graphAppenderIteratee<P extends Props>(
   { graph, subTree, parent }: GraphSubTreeContext<P>,
-  child: InputNode<P>,
+  child: NodeI<P>,
 ) {
   const node = new Node<P>(child)
   const parentNode = findNode(parent?.id, subTree)

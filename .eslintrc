@@ -1,3 +1,6 @@
 {
-  "extends": "@codelab/eslint-config-codelab"
+  "extends": "@codelab/eslint-config-codelab",
+  "parserOptions": {
+    "project": ["./*/tsconfig.lib.json", "./*/tsconfig.spec.json"]
+  }
 }
