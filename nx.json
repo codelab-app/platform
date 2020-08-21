@@ -18,12 +18,7 @@
       "runner": "@nrwl/nx-cloud",
       "options": {
         "accessToken": "NmI0ZjI1MDMtNWUxNS00MzgwLWJhMzMtYjc4ZWEwZTQyNjNkfHJlYWQtd3JpdGU=",
-        "cacheableOperations": [
-          "build",
-          "test",
-          "lint",
-          "e2e"
-        ],
+        "cacheableOperations": ["build", "test", "lint", "e2e"],
         "canTrackAnalytics": false,
         "showUsageWarnings": true
       }
@@ -35,9 +30,7 @@
     },
     "plugins-react-e2e": {
       "tags": [],
-      "implicitDependencies": [
-        "plugins-react"
-      ]
+      "implicitDependencies": ["plugins-react"]
     },
     "eslint-config-codelab": {
       "tags": []
@@ -89,11 +82,12 @@
     },
     "core-e2e": {
       "tags": [],
-      "implicitDependencies": [
-        "core"
-      ]
+      "implicitDependencies": ["core"]
     },
     "model": {
+      "tags": []
+    },
+    "factory": {
       "tags": []
     }
   }
