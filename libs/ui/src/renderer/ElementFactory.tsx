@@ -51,6 +51,7 @@ import {
   Tabs,
   Tooltip,
   Transfer,
+  TreeSelect,
   Typography,
   Upload,
 } from 'antd'
@@ -231,6 +232,10 @@ export const elementParameterFactory = <P extends Props>(
       return [Popconfirm as any, props]
     case 'Transfer':
       return [Transfer as any, props]
+    case 'TreeSelect':
+      return [TreeSelect as any, props]
+    case 'TreeNode':
+      return [TreeSelect.TreeNode as any, props]
     case 'TimePicker':
       return [TimePicker as any, props]
     case 'Upload':
