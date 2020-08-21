@@ -52,6 +52,7 @@ import {
   Tabs,
   Tooltip,
   Transfer,
+  Tree,
   TreeSelect,
   Typography,
   Upload,
@@ -213,6 +214,8 @@ export const elementParameterFactory = <P extends Props>(
       return [Tooltip as any, props]
     case 'Tag':
       return [Tag as any, props]
+    case 'Tree':
+      return [Tree as any, props]
     case 'Drawer':
       return [Drawer as any, props]
     case 'Progress':
