@@ -4,6 +4,7 @@ import { Props, propsFilter, withFilters } from '@codelab/props'
 import {
   Affix,
   Alert,
+  Anchor,
   Avatar,
   BackTop,
   Badge,
@@ -222,6 +223,10 @@ export const elementParameterFactory = <P extends Props>(
       return [Spin as any, props]
     case 'Skeleton':
       return [Skeleton as any, props]
+    case 'Anchor':
+      return [Anchor as any, props]
+    case 'Anchor.Link':
+      return [Anchor.Link as any, props]
     case 'BackTop':
       return [BackTop as any, props]
     case 'ConfigProvider':
