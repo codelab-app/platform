@@ -88,6 +88,8 @@ export const elementParameterFactory = <P extends Props>(
       return [Menu as any, props]
     case 'Menu.Item':
       return [Menu.Item as any, props]
+    case 'Menu.ItemGroup':
+      return [Menu.ItemGroup as any, props]
     case 'Menu.SubMenu':
       return [Menu.SubMenu as any, props]
     case 'Card':
