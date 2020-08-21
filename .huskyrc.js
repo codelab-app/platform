@@ -6,6 +6,9 @@ const lintstaged = 'cross-env TIMING=1 lint-staged --verbose'
 
 module.exports = {
   hooks: {
+    /**
+     * Move build from circleci to here, save time on pipeline
+     */
     'pre-push': tasks([build, test]),
     'commit-msg': commitlint,
     'pre-commit': lintstaged,
