@@ -47,6 +47,7 @@ import {
   Switch,
   Tag,
   Timeline,
+  TimePicker,
   Tabs,
   Tooltip,
   Transfer,
@@ -230,6 +231,8 @@ export const elementParameterFactory = <P extends Props>(
       return [Popconfirm as any, props]
     case 'Transfer':
       return [Transfer as any, props]
+    case 'TimePicker':
+      return [TimePicker as any, props]
     case 'Upload':
       return [Upload as any, props]
     case 'Steps':
