@@ -17,6 +17,7 @@ import {
   Collapse,
   Comment,
   ConfigProvider,
+  DatePicker,
   Descriptions,
   Divider,
   Drawer,
@@ -171,6 +172,8 @@ export const elementParameterFactory = <P extends Props>(
       return [Switch as any, props]
     case 'Space':
       return [Space as any, props]
+    case 'DatePicker':
+      return [DatePicker as any, props]
     case 'Divider':
       return [Divider as any, props]
     case 'Pagination':
