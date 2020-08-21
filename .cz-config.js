@@ -1,3 +1,16 @@
+const path = require('path')
+
+const getDirectories = (directories = []) => {
+  readdirSync(source, { withFileTypes: true })
+    .filter((dirent) => dirent.isDirectory())
+    .map((dirent) => dirent.name)
+}
+
+const apps = path.resolve(__dirname, 'apps')
+const appsPlugins = path.resolve(__dirname, 'apps/plugins')
+const libs = path.resolve(__dirname, 'libs')
+const libsPlugins = path.resolve(__dirname, 'libs/plugins')
+
 module.exports = {
   types: [
     { value: 'feat', name: '1) feat:     A new feature' },
