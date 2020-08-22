@@ -18,13 +18,9 @@ module.exports = async ({ config }) => {
     include: path.resolve(__dirname, '../'),
   })
 
-  // https://github.com/nrwl/nx/issues/2320
-  if (config.resolve.plugins) {
-    config.resolve.plugins.push(tsPaths)
-  } else {
-    // eslint-disable-next-line no-param-reassign
-    config.resolve.plugins = [tsPaths]
-  }
+  config.resolve.plugins
+    ? config.resolve.plugins.push(tsPaths)
+    : (config.resolve.plugins = [tsPaths])
 
   return config
 }
