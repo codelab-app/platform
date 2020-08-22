@@ -39,6 +39,8 @@ rules:
     #   caseInsensitive: true
   #  sort-imports: error
   unused-imports/no-unused-imports-ts: error
+  '@typescript-eslint/no-unused-vars': off
+
 #  unused-imports/no-unused-vars-ts:
 #    - warn
 overrides:
@@ -60,7 +62,6 @@ overrides:
         - extendDefaults: true
         - types:
             - Function: off
-      '@typescript-eslint/no-unused-vars': off
       '@typescript-eslint/no-explicit-any': off
       '@typescript-eslint/explicit-module-boundary-types': off
       '@typescript-eslint/indent': off

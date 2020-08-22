@@ -79,6 +79,7 @@
     "gatsby-plugin-typescript": "2.4.16",
     "gatsby-source-filesystem": "2.3.23",
     "gatsby-transformer-sharp": "2.5.12",
+    "glob": "^7.1.6",
     "io-ts": "2.2.9",
     "io-ts-types": "0.5.8",
     "json-schema": "0.2.5",

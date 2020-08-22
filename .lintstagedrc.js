@@ -1,4 +1,5 @@
 const { ESLint } = require('eslint')
+
 const eslint = new ESLint({})
 
 module.exports = {
@@ -11,6 +12,7 @@ module.exports = {
     const cmd = `eslint ${processedFiles} --fix`
 
     console.log(`Running: ${cmd}`)
+
     return cmd
   },
   // '*.{ts,tsx,json,graphql,md}': files => `gulp prettify --files

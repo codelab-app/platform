@@ -6,3 +6,4 @@ yarn.lock
 *.d.ts
 *.mp4
 *.log
+!.*
