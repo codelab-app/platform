@@ -184,10 +184,7 @@ jobs:
           #   *Branch*: << pipeline.git.branch >> \n
           #   *Message*: $GIT_COMMIT_MSG \n
 workflows:
-  test_app:
-    when:
-      on_success: notify-success
-      on_fail: notify-failure
+  check_app:
     jobs:
       - install
       - lint:
