@@ -8,7 +8,7 @@
     "types": ["node", "jest"]
   },
   "files": [],
-  "include": [],
+  "include": ["**/*.ts", "**/*.tsx"],
   "references": [
     {
       "path": "./tsconfig.spec.json"

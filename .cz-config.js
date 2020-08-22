@@ -1,6 +1,8 @@
 const path = require('path')
 const glob = require('glob')
 
+const test = 'test'
+
 const scopes = glob
   .sync('@(apps|libs)/**/tsconfig.json', {
     ignore: [

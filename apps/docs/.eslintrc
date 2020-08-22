@@ -1,5 +1,9 @@
 {
   "extends": "../../.eslintrc",
+  "parserOptions": {
+    "tsconfigRootDir": "./apps/docs",
+    "project": ["tsconfig.json", "tsconfig.spec.json"]
+  },
   "rules": {
     "import/no-extraneous-dependencies": "off"
   }

@@ -1,7 +1,7 @@
 {
   "extends": "../../.eslintrc",
   "parserOptions": {
-    "tsconfigRootDir": "./libs/event",
+    "tsconfigRootDir": "./libs/eslint-config-codelab",
     "project": ["tsconfig.lib.json", "tsconfig.spec.json"]
   }
 }

@@ -1,3 +1,7 @@
 {
-  "extends": "../../.eslintrc"
+  "extends": "../../.eslintrc",
+  "parserOptions": {
+    "tsconfigRootDir": "./libs/dto",
+    "project": ["tsconfig.lib.json", "tsconfig.spec.json"]
+  }
 }

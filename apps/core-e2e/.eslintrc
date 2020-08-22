@@ -1,5 +1,9 @@
 {
-  "rules": {},
+  "extends": ["plugin:cypress/recommended", "../../.eslintrc"],
+  "parserOptions": {
+    "tsconfigRootDir": "./apps/core-e2e",
+    "project": ["tsconfig.e2e.json"]
+  },
   "overrides": [
     {
       "files": ["src/plugins/index.js"],
@@ -8,7 +12,5 @@
         "no-undef": "off"
       }
     }
-  ],
-  "extends": ["plugin:cypress/recommended", "../../.eslintrc"],
-  "ignorePatterns": ["!**/*"]
+  ]
 }
