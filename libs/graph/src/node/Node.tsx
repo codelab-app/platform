@@ -85,7 +85,7 @@ export class Node<P extends Props = {}> implements NodeInterface<P> {
     const children = reduce<Node<P>, Array<ReactNode>>(
       this.children,
       (Components: Array<ReactNode>, child: Node<P>) => {
-        const { Component: Child, props, key, children: grandChildren } = child
+        const { Component: Child, props, key } = child
         const evaluatedProps = evalPropsWithContext(props)
         // console.debug(`${this.type} -> ${child.type}`)
 
