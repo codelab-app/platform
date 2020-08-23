@@ -1,6 +1,7 @@
 import { reduce } from 'lodash'
 import React from 'react'
 import axios from 'axios'
+import { notification } from 'antd'
 import { isEvalPropValue } from './Props.guards'
 import { Props, PropValue } from './Props.interface'
 
@@ -31,7 +32,7 @@ export function evalProps<P extends Props = Props>(props: P, ctx?: any) {
  */
 export function evalPropsWithContext(props: Props): Props {
   const { ctx = {}, ...restProps } = props
-  const libraryCtx = { React, axios }
+  const libraryCtx = { React, axios, antd: { notification }, props, evalProps }
 
   if (!ctx) {
     return {
