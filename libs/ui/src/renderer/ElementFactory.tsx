@@ -5,6 +5,7 @@ import {
   Affix,
   Alert,
   Anchor,
+  AutoComplete,
   Avatar,
   BackTop,
   Badge,
@@ -112,6 +113,8 @@ export const elementParameterFactory = <P extends Props>(
       return [Alert as any, props]
     case 'Affix':
       return [Affix as any, props]
+    case 'AutoComplete':
+      return [AutoComplete as any, props]
     case 'Button':
       return [
         withFilters(
