@@ -216,10 +216,6 @@ export const elementParameterFactory = <P extends Props>(
       return [BackTop as any, props]
     case 'ConfigProvider':
       return [ConfigProvider as any, props]
-    // case 'Anchor':
-    //   return [Anchor as any, props]
-    // case 'Message':
-    //   return [Message as any, props]
     case 'Popconfirm':
       return [Popconfirm as any, props]
     case 'Transfer':
