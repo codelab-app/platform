@@ -107,7 +107,6 @@ commands:
     description: 'Unit Tests'
     steps:
       - run: yarn test
-      # - run: yarn test --skip-nx-cache
 
   # webhook URL is setup using circleci integration
   notify-failure:

@@ -3,7 +3,7 @@ import React, { ComponentType } from 'react'
 import { evalPropsWithContext } from '@codelab/props'
 import { UIProduct } from '../App-product.i'
 
-export class UIWebProduct extends UIProduct {
+export class WebAppProduct extends UIProduct {
   // Called by builder
   build() {
     // this.root = makeTree(this.factory.order)
