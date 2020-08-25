@@ -1,11 +1,11 @@
 import { ButtonProps, TextProps } from '@codelab/ui'
 import { ReactNodeI } from '@codelab/graph'
-import { UIWebProduct } from '../../products/web/UIWeb-product'
+import { WebAppProduct } from '../../products/web/WebApp-product'
 import { AppBuilder } from '../App-builder.i'
 import { AppWebBuilder } from './AppWeb-builder'
 
 describe('Web App Builder', () => {
-  let product: UIWebProduct
+  let product: WebAppProduct
 
   beforeAll(() => {
     const building: AppBuilder = new AppWebBuilder()
