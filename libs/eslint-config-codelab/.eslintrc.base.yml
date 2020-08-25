@@ -40,6 +40,9 @@ rules:
   #  sort-imports: error
   unused-imports/no-unused-imports-ts: off
   '@typescript-eslint/no-unused-vars': off
+  no-unused-expressions:
+    - error
+    - allowTernary: true
 
 #  unused-imports/no-unused-vars-ts:
 #    - warn
