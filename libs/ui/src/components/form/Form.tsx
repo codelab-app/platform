@@ -15,7 +15,7 @@ export namespace Form {
               {fields.map((field: FieldData) => {
                 return (
                   <Space key={field.key} style={{ display: 'flex' }}>
-                    {children.map((child, index) => {
+                    {children.map((child) => {
                       return React.cloneElement(child, {
                         ...field,
                         ...child.props,

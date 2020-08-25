@@ -253,6 +253,7 @@ export const elementParameterFactory = <P extends Props>(
     case 'Popover':
       return [Popover as any, props]
     default:
-      return ['div', props]
+      throw new Error('Missing element in ElementFactory')
+    // return ['div', props]
   }
 }

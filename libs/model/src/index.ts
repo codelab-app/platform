@@ -1,2 +1,2 @@
-export * from './model'
-export * from './json-schema'
+export * from './deprecated/json-schema'
+export * from './deprecated/model'

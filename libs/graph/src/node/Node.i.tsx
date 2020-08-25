@@ -7,7 +7,7 @@ export interface HasID {
   id: string
 }
 
-export interface NodeInterface<P extends Props> {
+export interface NodeInterface<P extends Props = {}> {
   Component: FunctionComponent<any>
   id: string
   readonly key: React.Key
