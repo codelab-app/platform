@@ -43,6 +43,7 @@ rules:
   no-unused-expressions:
     - error
     - allowTernary: true
+  max-classes-per-file: off
 
 #  unused-imports/no-unused-vars-ts:
 #    - warn

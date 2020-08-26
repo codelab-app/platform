@@ -15,20 +15,24 @@ export type TreeOrder = {
 }
 
 export class TreeFactory {
+  private _strategy: TreeStrategy
+
+  set strategy(strategy: TreeStrategy) {
+    this._strategy = strategy
+  }
+
+  get strategy() {
+    return this._strategy
+  }
+
   createProduct(order) {
     const { type, data } = order
 
-    let strategy: TreeStrategy
-
     switch (type) {
       case TreeType.React:
-        strategy = new TreeStrategyReact()
-
-        return strategy.execute(data)
+        return new TreeStrategyReact().execute(data)
       case TreeType.Graph:
-        strategy = new TreeStrategyGraph()
-
-        return strategy.execute(data)
+        return new TreeStrategyGraph().execute(data)
       default:
         throw new Error(`${type} is not a valid TreeType`)
     }
