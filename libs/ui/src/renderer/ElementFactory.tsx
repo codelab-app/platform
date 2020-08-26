@@ -28,6 +28,7 @@ import {
   Form,
   Input,
   InputNumber,
+  Layout,
   List,
   Mentions,
   Menu,
@@ -252,6 +253,16 @@ export const elementParameterFactory = <P extends Props>(
       return [Mentions as any, props]
     case 'Mentions.Option':
       return [Mentions.Option as any, props]
+    case 'Layout':
+      return [Layout as any, props]
+    case 'Layout.Header':
+      return [Layout.Header as any, props]
+    case 'Layout.Sider':
+      return [Layout.Sider as any, props]
+    case 'Layout.Content':
+      return [Layout.Content as any, props]
+    case 'Layout.Footer':
+      return [Layout.Footer as any, props]
     case 'Cascader':
       return [Cascader as any, props]
     case 'Popover':
