@@ -18,7 +18,7 @@ export namespace Provider {
           (child: React.ReactElement, index: number) => (
             // eslint-disable-next-line react/no-array-index-key
             <React.Fragment key={index}>
-              {React.cloneElement(child, { ...props })}
+              {React.cloneElement(child, { ...props, ...child.props })}
             </React.Fragment>
           ),
         )}
