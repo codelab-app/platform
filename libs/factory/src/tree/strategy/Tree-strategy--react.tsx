@@ -1,15 +1,13 @@
 import { Node, ReactNodeI, traversePostOrder, TreeNodeI } from '@codelab/graph'
 import { evalPropsWithContext, Props } from '@codelab/props'
 import React, { PropsWithChildren } from 'react'
-import { elementParameterFactory } from '@codelab/ui'
+import { elementParameterFactory, produceReactNodeProps } from '@codelab/ui'
 import { TreeStrategy } from './Tree-strategy'
-
-import { produceReactNodeProps } from '../../../../ui/src/props/Props-node'
-import { TreeStrategyDefault } from './Tree-strategy--default'
+import { TreeStrategyTree } from './Tree-strategy--tree'
 
 export class TreeStrategyReact implements TreeStrategy {
   execute<P extends Props = {}>(data: TreeNodeI<P> | ReactNodeI<P>) {
-    const defaultStrategy = new TreeStrategyDefault()
+    const defaultStrategy = new TreeStrategyTree()
     const root = defaultStrategy.execute(data)
 
     /**

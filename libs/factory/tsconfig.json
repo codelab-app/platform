@@ -5,7 +5,10 @@
     "allowJs": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "types": ["node", "jest"]
+    "types": [
+      "node",
+      "jest"
+    ]
   },
   "files": [],
   "include": [],
@@ -15,6 +18,12 @@
     },
     {
       "path": "./tsconfig.spec.json"
+    },
+    {
+      "path": "./.storybook/tsconfig.json"
+    },
+    {
+      "path": "./.storybook/tsconfig.json"
     }
   ]
 }

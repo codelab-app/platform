@@ -9,7 +9,7 @@ import { AppFactory } from '../factories/App-factory.i'
 /**
  * Product knows about a factory, is called by builder
  */
-export abstract class UIProduct {
+export abstract class AppProduct {
   abstract render(): ComponentType
 
   abstract build(): void

@@ -10,7 +10,7 @@ import { reduce } from 'lodash'
 import { TreeStrategy } from './Tree-strategy'
 import { TreeSubTreeContext } from '../../../../graph/src/tree/Tree.i'
 
-export class TreeStrategyDefault implements TreeStrategy {
+export class TreeStrategyTree implements TreeStrategy {
   execute<P extends Props = {}>(data: TreeNodeI<P> | ReactNodeI<P>) {
     const root = new Node<P>(data)
     const subTreeContext = {

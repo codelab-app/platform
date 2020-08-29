@@ -1,5 +1,5 @@
-import { UIProduct } from '../products/App-product.i'
-import { UIOrder } from './web/AppWeb-builder--order'
+import { AppProduct } from '../products/App-product.i'
+import { AppOrder } from './web/AppWeb-builder--order'
 
 /**
  * Builder pattern
@@ -10,8 +10,8 @@ export abstract class AppBuilder {
    *
    * @param order
    */
-  public buildProduct(order: UIOrder): UIProduct {
-    const product: UIProduct = this.create(order)
+  public buildProduct(order: AppOrder): AppProduct {
+    const product: AppProduct = this.create(order)
 
     // Steps to configure product can be added here
     product.build()
@@ -19,5 +19,5 @@ export abstract class AppBuilder {
     return product
   }
 
-  protected abstract create(order: UIOrder): UIProduct
+  protected abstract create(order: AppOrder): AppProduct
 }

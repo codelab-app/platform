@@ -823,7 +823,9 @@
             "linter": "eslint",
             "tsConfig": [
               "libs/factory/tsconfig.lib.json",
-              "libs/factory/tsconfig.spec.json"
+              "libs/factory/tsconfig.spec.json",
+              "libs/factory/.storybook/tsconfig.json",
+              "libs/factory/.storybook/tsconfig.json"
             ],
             "exclude": ["**/node_modules/**", "!libs/factory/**/*"]
           }
@@ -834,6 +836,36 @@
             "jestConfig": "libs/factory/jest.config.js",
             "tsConfig": "libs/factory/tsconfig.spec.json",
             "passWithNoTests": true
+          }
+        },
+        "storybook": {
+          "builder": "@nrwl/storybook:storybook",
+          "options": {
+            "uiFramework": "@storybook/react",
+            "port": 4400,
+            "config": {
+              "configFolder": "libs/factory/.storybook"
+            }
+          },
+          "configurations": {
+            "ci": {
+              "quiet": true
+            }
+          }
+        },
+        "build-storybook": {
+          "builder": "@nrwl/storybook:build",
+          "options": {
+            "uiFramework": "@storybook/react",
+            "outputPath": "dist/storybook/factory",
+            "config": {
+              "configFolder": "libs/factory/.storybook"
+            }
+          },
+          "configurations": {
+            "ci": {
+              "quiet": true
+            }
           }
         }
       }

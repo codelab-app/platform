@@ -2753,7 +2753,7 @@
     node-gyp "^6.1.0"
     read-package-json-fast "^1.1.3"
 
-"@nrwl/cli@10.1.0", "@nrwl/cli@^10.1.0":
+"@nrwl/cli@10.1.0":
   version "10.1.0"
   resolved "https://registry.yarnpkg.com/@nrwl/cli/-/cli-10.1.0.tgz#b0b85fe875c62d6518e7be59e6bbc5d039130cb1"
   integrity sha512-kzTFHZmaoC1sdDbgdLQjns6BFyHkpLaj8JIXJkamg2Rp2ZPQtUDTjbrS/pg1FYGBvV87mpX0kG+bhGZPTg1kew==
@@ -2764,7 +2764,7 @@
     yargs "^11.0.0"
     yargs-parser "10.0.0"
 
-"@nrwl/cypress@10.1.0", "@nrwl/cypress@^10.1.0":
+"@nrwl/cypress@10.1.0":
   version "10.1.0"
   resolved "https://registry.yarnpkg.com/@nrwl/cypress/-/cypress-10.1.0.tgz#c448a0080ced0972d70ca097fbf9d9967c3ad49f"
   integrity sha512-MaMvSN2vue3E9hRxVMr5pw1bjyr2tyWDVIQXrQ69r7TlYQLOUNxLWZ/8vlYZGkBExCUJABFjMUKZw4QB/Ave3Q==
@@ -2792,7 +2792,7 @@
     tsconfig-paths-webpack-plugin "3.2.0"
     webpack-node-externals "1.7.2"
 
-"@nrwl/eslint-plugin-nx@^10.1.0":
+"@nrwl/eslint-plugin-nx@10.1.0":
   version "10.1.0"
   resolved "https://registry.yarnpkg.com/@nrwl/eslint-plugin-nx/-/eslint-plugin-nx-10.1.0.tgz#43bb8339b33bd2a1469df6405f7776f6147b27af"
   integrity sha512-Ys2H6C5yS0aAWWlgSmke+BD3leyiQ+hjP1HZmwF61JDID8Qk2L64GGMASn84Mi+8zpBV96TktGWzWgTGlVFTcw==
@@ -2808,7 +2808,7 @@
     "@nrwl/jest" "^9.4.5"
     "@nrwl/react" "^9.4.5"
 
-"@nrwl/jest@10.1.0", "@nrwl/jest@^10.1.0":
+"@nrwl/jest@10.1.0":
   version "10.1.0"
   resolved "https://registry.yarnpkg.com/@nrwl/jest/-/jest-10.1.0.tgz#b19c63076280da44335bdd34438e2123188a08c4"
   integrity sha512-FGazorVVp0acDnGCKWej+jnWoj84whLsEwr/rbONJD9l7OgPUh2SH7KmcYKo0BHzAc/sZuYZVSKu3dSw6Re5fw==
@@ -2840,7 +2840,7 @@
   dependencies:
     "@angular-devkit/architect" "~0.901.0"
 
-"@nrwl/nest@^10.1.0":
+"@nrwl/nest@10.1.0":
   version "10.1.0"
   resolved "https://registry.yarnpkg.com/@nrwl/nest/-/nest-10.1.0.tgz#b56bcc57d198073e29dd51a2901017a307b4898a"
   integrity sha512-irs5vbWOrmi1IBqc4QXFVb7z4T8w0JGa3wtjgoZRaHT5/prLQB43Tf6SuSUqJuElGbRodT+RV4COocMZ6yBLVw==
@@ -2850,7 +2850,7 @@
     "@nrwl/jest" "10.1.0"
     "@nrwl/node" "10.1.0"
 
-"@nrwl/next@^10.1.0":
+"@nrwl/next@10.1.0":
   version "10.1.0"
   resolved "https://registry.yarnpkg.com/@nrwl/next/-/next-10.1.0.tgz#f5bcc7125118b16e72997ae8e24c789112f4a840"
   integrity sha512-xNxASHUAbkAWHMqGAVncKYseraU6leXrDl1LjakxjsErnbxjUu7wfUn1aPEGgpU+Y5p3HWl1zcUMJn/w6UTVpw==
@@ -2861,7 +2861,7 @@
     "@svgr/webpack" "^4.3.3"
     url-loader "^2.2.0"
 
-"@nrwl/node@10.1.0", "@nrwl/node@^10.1.0":
+"@nrwl/node@10.1.0":
   version "10.1.0"
   resolved "https://registry.yarnpkg.com/@nrwl/node/-/node-10.1.0.tgz#a81f18c21e9d923dc31dfb3780d30449e15cc813"
   integrity sha512-IX9jR1CU9xyWCOy9sl4Q3P6cWljhHj2UOdHdUbZhtnSVUSBAo4slBWFDFArQFdJCBC5TBsJS8NkRw67ekP4zSQ==
@@ -2896,7 +2896,7 @@
     tar "5.0.5"
     uuid "^3.3.3"
 
-"@nrwl/nx-plugin@^10.1.0":
+"@nrwl/nx-plugin@10.1.0":
   version "10.1.0"
   resolved "https://registry.yarnpkg.com/@nrwl/nx-plugin/-/nx-plugin-10.1.0.tgz#202d34962eb8c9b7116bb77768f71469ba454492"
   integrity sha512-vDcBnzOGCzEyfDoQtD1/HdNtwNrjECvlDsTnevZhZf56035XNhfktzSPo16/DJ0O5ckZ/64MrwImx9MwEYEWgg==
@@ -2912,7 +2912,7 @@
     yargs "^11.0.0"
     yargs-parser "10.0.0"
 
-"@nrwl/react@10.1.0", "@nrwl/react@^10.1.0":
+"@nrwl/react@10.1.0":
   version "10.1.0"
   resolved "https://registry.yarnpkg.com/@nrwl/react/-/react-10.1.0.tgz#49518dad3c52a3203458af443293c8680f1f632a"
   integrity sha512-LZZG6L7bSmYwQGs++f59tndDSZG1TmvQotph+kx1XGE2q8xazrGFPAsvfOoVO4KyDtDJ1hYorE5s7eZVzZOgJA==
@@ -2949,7 +2949,7 @@
     eslint-plugin-react "^7.18.3"
     eslint-plugin-react-hooks "^2.4.0"
 
-"@nrwl/storybook@^10.1.0":
+"@nrwl/storybook@10.1.0":
   version "10.1.0"
   resolved "https://registry.yarnpkg.com/@nrwl/storybook/-/storybook-10.1.0.tgz#32b6bb6b580533f153296751c9ebbef2bc0bf668"
   integrity sha512-y7DpK0LKMwrid6uJdDnM5+LAvJF6dmDSlilJclSYiJEmyhjwiys9xfWe+69EE6qF0xJLK+GpGOtnmDtonay97w==
@@ -2961,7 +2961,7 @@
     tsconfig-paths-webpack-plugin "3.2.0"
     webpack-node-externals "1.7.2"
 
-"@nrwl/tao@10.1.0", "@nrwl/tao@^10.1.0":
+"@nrwl/tao@10.1.0":
   version "10.1.0"
   resolved "https://registry.yarnpkg.com/@nrwl/tao/-/tao-10.1.0.tgz#28420ae22e4cea928c002cad3a12a29587e949bd"
   integrity sha512-h8q+XdEuSo2m6HK1lRXn7wrxFbM/4vJ6wFSaAETWjxSIsEP7leMrkGkoIs7lu2Ic12Ju/DfxMcCYlcFTlcbK7w==
@@ -2973,7 +2973,7 @@
     minimist "^1.2.0"
     strip-json-comments "2.0.1"
 
-"@nrwl/web@10.1.0", "@nrwl/web@^10.1.0":
+"@nrwl/web@10.1.0":
   version "10.1.0"
   resolved "https://registry.yarnpkg.com/@nrwl/web/-/web-10.1.0.tgz#c51338e384d221b8241700d02b82caa7cf03bfd5"
   integrity sha512-YH9vj5+OF6kIEmJLbcrSc+FxEdZS4XzTIPEWpLt6PL5t6v9mSpxMJmC5nsWL9AuilpuFQmUfN9jeBsQi5awRTg==
@@ -3153,7 +3153,7 @@
     webpack-subresource-integrity "1.1.0-rc.6"
     worker-plugin "3.2.0"
 
-"@nrwl/workspace@^10.1.0":
+"@nrwl/workspace@10.1.0":
   version "10.1.0"
   resolved "https://registry.yarnpkg.com/@nrwl/workspace/-/workspace-10.1.0.tgz#56b955eca3a3bd230cb563116876b5e47779a675"
   integrity sha512-mdpiWo8kDtK2ois1KVbrcxQm7+WT6smv+L1FUqDLuwrBSefp+mGP0KyInLmyo/Pb5EbaCkCmVmtC8HN6icH9Yg==
@@ -4776,7 +4776,7 @@
     "@types/source-list-map" "*"
     source-map "^0.6.1"
 
-"@types/webpack@^4.41.8":
+"@types/webpack@4.41.21", "@types/webpack@^4.41.8":
   version "4.41.21"
   resolved "https://registry.yarnpkg.com/@types/webpack/-/webpack-4.41.21.tgz#cc685b332c33f153bb2f5fc1fa3ac8adeb592dee"
   integrity sha512-2j9WVnNrr/8PLAB5csW44xzQSJwS26aOnICsP3pSGCEdsu6KYtfQ6QJsVUKHWRnm1bL7HziJsfh5fHqth87yKA==
@@ -10496,6 +10496,13 @@ eslint-module-utils@^2.6.0:
     debug "^2.6.9"
     pkg-dir "^2.0.0"
 
+eslint-plugin-cypress@2.10.3:
+  version "2.10.3"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-cypress/-/eslint-plugin-cypress-2.10.3.tgz#82eba7e014954149d590402eecd0d4e147cc7f14"
+  integrity sha512-CvFeoCquShfO8gHNIKA1VpUTz78WtknMebLemBd1lRbcmJNjwpqCqpQYUG/XVja8GjdX/e2TJXYa+EUBxehtUg==
+  dependencies:
+    globals "^11.12.0"
+
 eslint-plugin-cypress@2.11.1:
   version "2.11.1"
   resolved "https://registry.yarnpkg.com/eslint-plugin-cypress/-/eslint-plugin-cypress-2.11.1.tgz#a945e2774b88211e2c706a059d431e262b5c2862"
@@ -12730,7 +12737,7 @@ glob@7.1.4:
     once "^1.3.0"
     path-is-absolute "^1.0.0"
 
-glob@^7.0.0, glob@^7.0.3, glob@^7.0.5, glob@^7.1.1, glob@^7.1.2, glob@^7.1.3, glob@^7.1.4, glob@^7.1.6:
+glob@7.1.6, glob@^7.0.0, glob@^7.0.3, glob@^7.0.5, glob@^7.1.1, glob@^7.1.2, glob@^7.1.3, glob@^7.1.4, glob@^7.1.6:
   version "7.1.6"
   resolved "https://registry.yarnpkg.com/glob/-/glob-7.1.6.tgz#141f33b81a7c2492e125594307480c46679278a6"
   integrity sha512-LwaxwyZ72Lk7vZINtNNrywX0ZuLyStrdDtabefZKAY5ZGJhVtgdznluResxNmPitE0SAO+O26sWTHeKSI2wMBA==
