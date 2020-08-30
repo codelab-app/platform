@@ -29,6 +29,7 @@
         "build": {
           "builder": "@nrwl/node:package",
           "options": {
+            "srcRootForCompilationRoot": "libs/plugins/react/src",
             "outputPath": "libs/plugins/react/dist",
             "tsConfig": "libs/plugins/react/tsconfig.lib.json",
             "packageJson": "libs/plugins/react/package.json",
@@ -108,6 +109,7 @@
         "build": {
           "builder": "@nrwl/node:package",
           "options": {
+            "srcRootForCompilationRoot": "libs/eslint-config/codelab/src",
             "outputPath": "libs/eslint-config-codelab/dist",
             "tsConfig": "libs/eslint-config-codelab/tsconfig.lib.json",
             "packageJson": "libs/eslint-config-codelab/package.json",
