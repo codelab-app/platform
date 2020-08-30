@@ -2,8 +2,7 @@
   "name": "codelab",
   "workspaces": {
     "packages": [
-      "libs/eslint-config-codelab",
-      "libs/plugins/*"
+      "libs/eslint-config-codelab"
     ],
     "nohoist": []
   },
@@ -14,7 +13,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "postinstall": "nx run-many --target=build --projects=eslint-config-codelab,plugins-react",
+    "postinstall": "nx run-many --target=build --projects=eslint-config-codelab",
     "docker": "docker-compose -f .docker/docker-compose.yaml up",
     "nx": "nx",
     "commit": "git-cz",
@@ -111,7 +110,6 @@
     "@babel/preset-env": "7.10.4",
     "@babel/preset-react": "7.10.4",
     "@babel/preset-typescript": "7.10.4",
-    "@codelab/react": "0.0.1",
     "@commitlint/cli": "9.1.1",
     "@commitlint/config-conventional": "9.1.1",
     "@emotion/babel-preset-css-prop": "10.0.27",

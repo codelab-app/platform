@@ -18,7 +18,7 @@ describe('@codelab/react:library', () => {
     appTree = createEmptyWorkspace(Tree.empty())
   })
 
-  it('should run successfully', async () => {
+  it.only('should run successfully', async () => {
     await expect(
       testRunner.runSchematicAsync('library', options, appTree).toPromise(),
     ).resolves.not.toThrowError()

@@ -1,10 +1,7 @@
 {
   "name": "@codelab/react",
   "version": "0.0.1",
-  "main": "./dist/src/index.js",
+  "main": "src/index.js",
   "schematics": "./collection.json",
-  "builders": "./builders.json",
-  "devDependencies": {
-    "rxjs": "^6.6.2"
-  }
+  "builders": "./builders.json"
 }

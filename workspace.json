@@ -29,8 +29,7 @@
         "build": {
           "builder": "@nrwl/node:package",
           "options": {
-            "srcRootForCompilationRoot": "libs/plugins/react/src",
-            "outputPath": "libs/plugins/react/dist",
+            "outputPath": "dist/libs/plugins/react",
             "tsConfig": "libs/plugins/react/tsconfig.lib.json",
             "packageJson": "libs/plugins/react/package.json",
             "main": "libs/plugins/react/src/index.ts",
@@ -38,12 +37,7 @@
               "libs/plugins/react/*.md",
               {
                 "input": "./libs/plugins/react/src",
-                "glob": "**/.*.!(ts|spec.ts)",
-                "output": "./src"
-              },
-              {
-                "input": "./libs/plugins/react/src",
-                "glob": "**/*.!(ts|spec.ts)",
+                "glob": "**/*.!(ts)",
                 "output": "./src"
               },
               {

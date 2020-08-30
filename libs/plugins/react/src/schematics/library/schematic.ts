@@ -78,21 +78,23 @@ function addFiles(options: NormalizedSchema): Rule {
 export default function (options: ReactSchematicSchema): Rule {
   const normalizedOptions = normalizeOptions(options)
 
+  console.log(normalizedOptions)
+
   return chain([
     /**
      * We want to extend the `@nrwl/react` schematics, and override the eslintrc file.
      */
-    externalSchematic('@nrwl/react', 'lib', {
+    externalSchematic('@nrwl/react', 'library', {
       name: normalizedOptions.name,
       linter: Linter.EsLint,
     }),
     externalSchematic('@nrwl/react', 'storybook-configuration', {
       name: normalizedOptions.name,
     }),
-    removeFiles({
-      directory: '/',
-      filesToRemove: ['.eslintrc'],
-    }),
+    // removeFiles({
+    //   directory: '/',
+    //   filesToRemove: ['.eslintrc'],
+    // }),
     // updateWorkspace((workspace) => {
     //   workspace.projects
     //     .add({
@@ -109,6 +111,6 @@ export default function (options: ReactSchematicSchema): Rule {
     // addProjectToNxJsonInTree(normalizedOptions.projectName, {
     //   tags: normalizedOptions.parsedTags,
     // }),
-    addFiles(normalizedOptions),
+    // addFiles(normalizedOptions),
   ])
 }

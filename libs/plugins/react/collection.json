@@ -4,8 +4,8 @@
   "version": "0.0.1",
   "schematics": {
     "library": {
-      "factory": "./dist/src/schematics/library/schematic",
-      "schema": "./dist/src/schematics/library/schema.json",
+      "factory": "./src/schematics/library/schematic",
+      "schema": "./src/schematics/library/schema.json",
       "description": "react library schematic"
     }
   }
