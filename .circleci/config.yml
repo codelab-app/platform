@@ -84,7 +84,6 @@ commands:
             - ~/app/node_modules
             # Save yarn workspace
             - ~/app/libs/eslint-config-codelab/node_modules
-            - ~/app/plugins/react/node_modules
   build_app:
     description: 'Build Application'
     steps:
@@ -134,7 +133,6 @@ jobs:
             - app/node_modules
             # Save yarn workspace
             - app/libs/eslint-config-codelab
-            - app/libs/plugins/react
             # - .cache/Cypress
       - notify-failure
   lint:
