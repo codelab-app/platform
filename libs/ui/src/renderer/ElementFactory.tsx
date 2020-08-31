@@ -149,6 +149,8 @@ export const elementParameterFactory = <P extends Props>(
       return [Select.Option as any, props]
     case 'Grid':
       return [Grid.Default, props]
+    case 'ResponsiveGrid':
+      return [Grid.Responsive, props]
     case 'Provider':
       return [Provider.Default, props]
     case 'Modal':
