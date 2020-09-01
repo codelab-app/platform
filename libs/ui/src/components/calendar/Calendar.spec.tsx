@@ -11,7 +11,9 @@ describe('Calendar', () => {
   const numericMonth = today.toLocaleDateString('en-GB', {
     month: '2-digit',
   })
-  const date = today.getDate().toString()
+  const date = today.toLocaleDateString('en-GB', {
+    day: '2-digit',
+  })
 
   it('should render with text in Month mode', () => {
     const { getByTitle, getByLabelText } = render(<Default />)
