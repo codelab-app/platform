@@ -76,15 +76,11 @@
         "build": {
           "builder": "@nrwl/node:package",
           "options": {
-            "srcRootForCompilationRoot": "libs/eslint-config/codelab/src",
-            "outputPath": "libs/eslint-config-codelab/dist",
+            "outputPath": "dist/libs/eslint-config-codelab",
             "tsConfig": "libs/eslint-config-codelab/tsconfig.lib.json",
             "packageJson": "libs/eslint-config-codelab/package.json",
             "main": "libs/eslint-config-codelab/src/index.ts",
-            "assets": [
-              "libs/eslint-config-codelab/*.md",
-              "libs/eslint-config-codelab/src/.eslintrc.*.yml"
-            ]
+            "assets": ["libs/eslint-config-codelab/**/.*.yml"]
           }
         }
       }

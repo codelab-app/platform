@@ -4,9 +4,8 @@
     "module": "commonjs",
     "outDir": "../../dist/out-tsc",
     "declaration": true,
-    "rootDir": "./src",
     "types": ["node"]
   },
-  "exclude": ["**/*.spec.ts", "dist"],
+  "exclude": ["**/*.spec.ts"],
   "include": ["**/*.ts", "**/*.yml"]
 }

@@ -1,9 +1,7 @@
 {
   "name": "codelab",
   "workspaces": {
-    "packages": [
-      "libs/eslint-config-codelab"
-    ],
+    "packages": [],
     "nohoist": []
   },
   "engines": {
@@ -13,7 +11,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "postinstall": "nx run-many --target=build --projects=eslint-config-codelab",
+    "postinstall": "nx build eslint-config-codelab",
     "docker": "docker-compose -f .docker/docker-compose.yaml up",
     "nx": "nx",
     "commit": "git-cz",
@@ -99,7 +97,8 @@
     "ts-toolbelt": "6.13.33",
     "utility-types": "3.10.0",
     "uuid": "8.2.0",
-    "voca": "1.4.0"
+    "voca": "1.4.0",
+    "js-yaml": "3.14.0"
   },
   "devDependencies": {
     "@angular-devkit/core": "10.0.6",
@@ -182,6 +181,21 @@
     "typedoc": "0.17.8",
     "typescript": "3.9.7",
     "@types/webpack": "4.41.21",
-    "eslint-plugin-cypress": "2.10.3"
+    "eslint-plugin-cypress": "2.10.3",
+    "@typescript-eslint/parser": "2.19.2",
+    "@typescript-eslint/eslint-plugin": "2.19.2",
+    "eslint-config-prettier": "6.0.0",
+    "eslint-config-airbnb-typescript-prettier": "3.1.0",
+    "@types/js-yaml": "3.12.5",
+    "eslint-config-airbnb": "18.2.0",
+    "eslint-config-airbnb-typescript": "9.0.0",
+    "eslint-import-resolver-node": "0.3.4",
+    "eslint-import-resolver-typescript": "2.2.1",
+    "eslint-plugin-import": "2.22.0",
+    "eslint-plugin-jsx-a11y": "6.3.1",
+    "eslint-plugin-react": "7.20.6",
+    "eslint-plugin-react-hooks": "4.1.0",
+    "eslint-plugin-unused-imports": "0.1.3",
+    "eslint-plugin-prettier": "3.1.4"
   }
 }
