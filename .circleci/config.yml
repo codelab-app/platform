@@ -82,8 +82,6 @@ commands:
           paths:
             - ~/.cache/yarn
             - ~/app/node_modules
-            # Save yarn workspace
-            - ~/app/libs/eslint-config-codelab/node_modules
   build_app:
     description: 'Build Application'
     steps:
@@ -113,12 +111,7 @@ commands:
       - slack/status:
           fail_only: true
           channel: $SLACK_CHANNEL_UPDATE
-          # color: $COLOR_FAILURE
           mentions: $SLACK_USER
-          # message: >
-          #   *Status*: :red_circle: Failure \n
-          #   *Branch*: << pipeline.git.branch >> \n
-          #   *Message*: $GIT_COMMIT_MSG \n
 
 jobs:
   install:
@@ -126,14 +119,11 @@ jobs:
     steps:
       - checkout
       - yarn_install
-      # - build_app
       - persist_to_workspace:
           root: ..
           paths:
             - app/node_modules
-            # Save yarn workspace
-            - app/libs/eslint-config-codelab
-            # - .cache/Cypress
+            - dist/libs/eslint-config-codelab
       - notify-failure
   lint:
     environment:
