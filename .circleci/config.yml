@@ -123,7 +123,7 @@ jobs:
           root: ..
           paths:
             - app/node_modules
-            - dist/libs/eslint-config-codelab
+            - app/dist/libs/eslint-config-codelab
       - notify-failure
   lint:
     environment:
