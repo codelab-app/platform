@@ -78,8 +78,6 @@ function addFiles(options: NormalizedSchema): Rule {
 export default function (options: ReactSchematicSchema): Rule {
   const normalizedOptions = normalizeOptions(options)
 
-  console.log(normalizedOptions)
-
   return chain([
     /**
      * We want to extend the `@nrwl/react` schematics, and override the eslintrc file.

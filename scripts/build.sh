@@ -1,3 +1,7 @@
 #!/usr/bin/env bash
-rm -rf build
-nx run-many --target=build --all --parallel --maxWorkers=4 $@
+
+if [ "$CI" == true ]; then
+  nx run-many --target=build --all --parallel --maxWorkers=4 $@
+else
+  nx affected:build --parallel $@
+fi
