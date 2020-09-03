@@ -26,7 +26,6 @@ export namespace Form {
                           key: [field.name, child.props.name],
                         })
                       })}
-
                       <AntForm.Item key="Form-list--delete">
                         <MinusCircleOutlined
                           onClick={() => {

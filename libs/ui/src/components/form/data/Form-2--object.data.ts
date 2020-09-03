@@ -13,8 +13,7 @@ export const formObjectData: ReactNodeI<
   type: 'Form',
   nodeType: 'React',
   props: {
-    ctx: { eval: true, value: '' },
-    name: 'basic',
+    // name: 'app',
     initialValues: {
       company: {
         name: 'Codelab',
@@ -108,20 +107,6 @@ export const formObjectData: ReactNodeI<
             },
           ],
         },
-        // {
-        //   type: 'Form.Item',
-        //   nodeType: 'React',
-        //   props: {
-        //     name: 'type',
-        //     label: 'Type',
-        //   },
-        //   children: [
-        //     {
-        //       type: 'Input',
-        //       nodeType: 'React',
-        //     },
-        //   ],
-        // },
       ],
     },
     {

@@ -1,6 +1,6 @@
 import { render, fireEvent } from '@testing-library/react'
 import React from 'react'
-import { Default } from './Form.stories'
+import { Default, ObjectForm } from './Form.stories'
 
 describe('Form', () => {
   it('should render with labels', () => {
@@ -21,5 +21,17 @@ describe('Form', () => {
 
     expect(getByLabelText('Name')).toBeTruthy()
     expect(getByLabelText('Type')).toBeTruthy()
+  })
+
+  it('should render objects with default values', () => {
+    const { getByText, getByLabelText, getByDisplayValue } = render(
+      <ObjectForm />,
+    )
+
+    expect(getByDisplayValue('Codelab').id).toBe('company_name')
+    expect(getByDisplayValue('USA').id).toBe('company_address_country')
+    expect(getByDisplayValue('Los Angeles').id).toBe('company_address_city')
+    expect(getByDisplayValue('Webber').id).toBe('company_devs_0_name')
+    expect(getByDisplayValue('Vien').id).toBe('company_devs_1_name')
   })
 })

@@ -16,7 +16,7 @@ export const Default = () => {
 /**
  * Contains nested object, or arrays
  */
-export const Object = () => {
+export const ObjectForm = () => {
   const Form = TreeDom.render(formObjectData)
 
   return <Form />
