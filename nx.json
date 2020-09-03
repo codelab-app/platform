@@ -88,6 +88,9 @@
     },
     "factory": {
       "tags": []
+    },
+    "plugins-plug": {
+      "tags": []
     }
   }
 }

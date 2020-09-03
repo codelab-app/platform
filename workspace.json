@@ -25,6 +25,33 @@
             "tsConfig": "libs/plugins/react/tsconfig.spec.json",
             "passWithNoTests": true
           }
+        },
+        "build": {
+          "builder": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/libs/plugins/react",
+            "tsConfig": "libs/plugins/react/tsconfig.lib.json",
+            "packageJson": "libs/plugins/react/package.json",
+            "main": "libs/plugins/react/src/index.ts",
+            "assets": [
+              "libs/plugins/react/*.md",
+              {
+                "input": "./libs/plugins/react/src",
+                "glob": "**/*.!(ts)",
+                "output": "./src"
+              },
+              {
+                "input": "./libs/plugins/react",
+                "glob": "collection.json",
+                "output": "."
+              },
+              {
+                "input": "./libs/plugins/react",
+                "glob": "builders.json",
+                "output": "."
+              }
+            ]
+          }
         }
       }
     },
@@ -831,6 +858,60 @@
             "ci": {
               "quiet": true
             }
+          }
+        }
+      }
+    },
+    "plugins-plug": {
+      "root": "libs/plugins/plug",
+      "sourceRoot": "libs/plugins/plug/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "libs/plugins/plug/tsconfig.lib.json",
+              "libs/plugins/plug/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/plugins/plug/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/plugins/plug/jest.config.js",
+            "tsConfig": "libs/plugins/plug/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "builder": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/libs/plugins/plug",
+            "tsConfig": "libs/plugins/plug/tsconfig.lib.json",
+            "packageJson": "libs/plugins/plug/package.json",
+            "main": "libs/plugins/plug/src/index.ts",
+            "assets": [
+              "libs/plugins/plug/*.md",
+              {
+                "input": "./libs/plugins/plug/src",
+                "glob": "**/*.!(ts)",
+                "output": "./src"
+              },
+              {
+                "input": "./libs/plugins/plug",
+                "glob": "collection.json",
+                "output": "."
+              },
+              {
+                "input": "./libs/plugins/plug",
+                "glob": "builders.json",
+                "output": "."
+              }
+            ]
           }
         }
       }

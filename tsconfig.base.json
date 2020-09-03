@@ -36,7 +36,8 @@
       "@codelab/model": ["libs/model/src/index.ts"],
       "@codelab/factory": ["libs/factory/src/index.ts"],
       "plugins-my-plugin": ["libs/plugins/my-plugin/src/index.ts"],
-      "plug": ["libs/plug/src/index.ts"]
+      "plug": ["libs/plug/src/index.ts"],
+      "plugins-plug": ["libs/plugins/plug/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"]
