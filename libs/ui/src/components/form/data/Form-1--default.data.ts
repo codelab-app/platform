@@ -1,9 +1,9 @@
 import { ReactNodeI } from '@codelab/graph'
-import { ButtonProps } from '../button/Button'
-import { FormItemProps, FormProps } from './Form.types'
-import { TextProps } from '../text/Text.types'
+import { ButtonProps } from '../../button/Button'
+import { FormItemProps, FormProps } from '../Form.types'
+import { TextProps } from '../../text/Text.types'
 
-export const formData: ReactNodeI<
+export const formDefaultData: ReactNodeI<
   FormProps | FormItemProps | TextProps | ButtonProps
 > = {
   type: 'Form',
@@ -12,7 +12,7 @@ export const formData: ReactNodeI<
     ctx: { eval: true, value: '' },
     name: 'basic',
     initialValues: { select: 'a' },
-    onFinish: '',
+    onFinish: '() => console.log("good")',
   },
   children: [
     {

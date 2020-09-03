@@ -61,6 +61,10 @@ module.exports = {
       value: 'revert',
       name: '11) revert:  Reverts a previous commit',
     },
+    {
+      value: 'story',
+      name: '12) story:  Storybook examples',
+    },
   ],
   scopes: [{ value: 'default', name: '1) default' }, ...scopes],
   allowTicketNumber: true,

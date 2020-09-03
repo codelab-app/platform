@@ -73,6 +73,7 @@ export interface Operation {
 
 export interface AntFormListProps {
   name: string | number | Array<string | number>
+  label: string
   children: Array<(fields: FieldData, operation: Operation) => React.ReactNode>
 }
 
