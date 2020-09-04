@@ -12,7 +12,6 @@ export interface ModelNode {
 }
 
 export interface ModelInterface {
-  name: string
   schema?: mongoose.Schema
   model?: mongoose.Model<any>
 }
