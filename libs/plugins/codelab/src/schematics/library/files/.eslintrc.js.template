@@ -1,0 +1,8 @@
+module.exports = {
+  "extends": "<%= offsetFromRoot %>.eslintrc",
+  "root": true,
+  parserOptions: {
+    tsconfigRootDir: __dirname,
+    project: ['tsconfig.lib.json', 'tsconfig.spec.json'],
+  },
+}

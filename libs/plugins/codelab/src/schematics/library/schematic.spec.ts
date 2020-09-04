@@ -5,12 +5,12 @@ import { join } from 'path'
 import { readJsonInTree } from '@nrwl/workspace'
 import { ReactSchematicSchema } from './schema.d'
 
-describe('@codelab/react:library', () => {
+describe('@codelab/plugins-codelab:library', () => {
   let appTree: Tree
   const options: ReactSchematicSchema = { name: 'test' }
 
   const testRunner = new SchematicTestRunner(
-    '@codelab/react',
+    '@codelab/plugins-codelab',
     join(__dirname, '../../../collection.json'),
   )
 

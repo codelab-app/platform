@@ -24,12 +24,12 @@
     }
   },
   "projects": {
-    "plugins-react": {
+    "plugins-codelab": {
       "tags": []
     },
-    "plugins-react-e2e": {
+    "plugins-codelab-e2e": {
       "tags": [],
-      "implicitDependencies": ["plugins-react"]
+      "implicitDependencies": ["plugins-codelab"]
     },
     "eslint-config-codelab": {
       "tags": []

@@ -1,5 +1,5 @@
 module.exports = {
-  name: 'plugins-react',
+  name: 'plugins-codelab',
   preset: '../../../jest.config.js',
   globals: {
     'ts-jest': {
@@ -10,5 +10,5 @@ module.exports = {
     '^.+\\.[tj]sx?$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'html'],
-  coverageDirectory: '../../../coverage/libs/plugins-react',
+  coverageDirectory: '../../../coverage/libs/plugins-codelab',
 }

@@ -1,9 +1,9 @@
 {
   "version": 1,
   "projects": {
-    "plugins-react": {
-      "root": "libs/plugins/react",
-      "sourceRoot": "libs/plugins/react/src",
+    "plugins-codelab": {
+      "root": "libs/plugins/codelab",
+      "sourceRoot": "libs/plugins/codelab/src",
       "projectType": "library",
       "schematics": {},
       "architect": {
@@ -12,41 +12,41 @@
           "options": {
             "linter": "eslint",
             "tsConfig": [
-              "libs/plugins/react/tsconfig.lib.json",
-              "libs/plugins/react/tsconfig.spec.json"
+              "libs/plugins/codelab/tsconfig.lib.json",
+              "libs/plugins/codelab/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/plugins/react/**/*"]
+            "exclude": ["**/node_modules/**", "!libs/plugins/codelab/**/*"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/plugins/react/jest.config.js",
-            "tsConfig": "libs/plugins/react/tsconfig.spec.json",
+            "jestConfig": "libs/plugins/codelab/jest.config.js",
+            "tsConfig": "libs/plugins/codelab/tsconfig.spec.json",
             "passWithNoTests": true
           }
         },
         "build": {
           "builder": "@nrwl/node:package",
           "options": {
-            "outputPath": "dist/libs/plugins/react",
-            "tsConfig": "libs/plugins/react/tsconfig.lib.json",
-            "packageJson": "libs/plugins/react/package.json",
-            "main": "libs/plugins/react/src/index.ts",
+            "outputPath": "dist/libs/plugins/codelab",
+            "tsConfig": "libs/plugins/codelab/tsconfig.lib.json",
+            "packageJson": "libs/plugins/codelab/package.json",
+            "main": "libs/plugins/codelab/src/index.ts",
             "assets": [
-              "libs/plugins/react/*.md",
+              "libs/plugins/codelab/*.md",
               {
-                "input": "./libs/plugins/react/src",
+                "input": "./libs/plugins/codelab/src",
                 "glob": "**/*.!(ts)",
                 "output": "./src"
               },
               {
-                "input": "./libs/plugins/react",
+                "input": "./libs/plugins/codelab",
                 "glob": "collection.json",
                 "output": "."
               },
               {
-                "input": "./libs/plugins/react",
+                "input": "./libs/plugins/codelab",
                 "glob": "builders.json",
                 "output": "."
               }
@@ -55,7 +55,7 @@
         }
       }
     },
-    "plugins-react-e2e": {
+    "plugins-codelab-e2e": {
       "projectType": "application",
       "root": "apps/plugins/react-e2e",
       "sourceRoot": "apps/plugins/react-e2e/src",
@@ -63,8 +63,8 @@
         "e2e": {
           "builder": "@nrwl/nx-plugin:e2e",
           "options": {
-            "target": "plugins-react:build",
-            "npmPackageName": "@codelab/react",
+            "target": "plugins-codelab:build",
+            "npmPackageName": "@codelab/plugins-codelab",
             "pluginOutputPath": "dist/libs/react",
             "jestConfig": "apps/plugins/react-e2e/jest.config.js",
             "tsSpecConfig": "apps/plugins/react-e2e/tsconfig.spec.json"

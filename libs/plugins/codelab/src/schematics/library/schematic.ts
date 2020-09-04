@@ -16,6 +16,8 @@ import {
   ProjectType,
   toFileName,
   Linter,
+  updateWorkspace,
+  addProjectToNxJsonInTree,
 } from '@nrwl/workspace'
 import { ReactSchematicSchema } from './schema.d'
 
@@ -51,15 +53,15 @@ function normalizeOptions(options: ReactSchematicSchema): NormalizedSchema {
   }
 }
 
-function removeFiles(options: any): Rule {
-  const { filesToRemove, directory } = options
+// function removeFiles(options: any): Rule {
+//   const { filesToRemove, directory } = options
 
-  return (tree) => {
-    filesToRemove.forEach((file) => {
-      tree.delete(`${directory}/${file}`)
-    })
-  }
-}
+//   return (tree) => {
+//     filesToRemove.forEach((file) => {
+//       tree.delete(`${directory}/${file}`)
+//     })
+//   }
+// }
 
 function addFiles(options: NormalizedSchema): Rule {
   return mergeWith(
@@ -89,6 +91,23 @@ export default function (options: ReactSchematicSchema): Rule {
     externalSchematic('@nrwl/react', 'storybook-configuration', {
       name: normalizedOptions.name,
     }),
+    // updateWorkspace((workspace) => {
+    //   workspace.projects
+    //     .add({
+    //       name: normalizedOptions.projectName,
+    //       root: normalizedOptions.projectRoot,
+    //       sourceRoot: `${normalizedOptions.projectRoot}/src`,
+    //       projectType,
+    //     })
+    //     .targets.add({
+    //       name: 'build',
+    //       builder: '@codelab/plugins-codelab:build',
+    //     })
+    // }),
+    addProjectToNxJsonInTree(normalizedOptions.projectName, {
+      tags: normalizedOptions.parsedTags,
+    }),
+    addFiles(normalizedOptions),
     // removeFiles({
     //   directory: '/',
     //   filesToRemove: ['.eslintrc'],
@@ -103,7 +122,7 @@ export default function (options: ReactSchematicSchema): Rule {
     //     })
     //     .targets.add({
     //       name: 'build',
-    //       builder: '@codelab/react:build',
+    //       builder: '@codelab/plugins-codelab:build',
     //     })
     // }),
     // addProjectToNxJsonInTree(normalizedOptions.projectName, {

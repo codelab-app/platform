@@ -17,7 +17,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@codelab/react": ["libs/plugins/react/src/index.ts"],
+      "@codelab/plugins-codelab": ["libs/plugins/codelab/src/index.ts"],
       "@codelab/eslint-config-codelab": [
         "libs/eslint-config-codelab/src/index.ts"
       ],
