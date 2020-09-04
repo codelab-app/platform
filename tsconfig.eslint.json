@@ -1,4 +1,11 @@
 {
   "extends": "./tsconfig.base.json",
-  "include": [".*.js"]
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.json",
+    "**/*.js",
+    "**/*.jsx",
+    ".*.js"
+  ]
 }

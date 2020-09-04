@@ -14,7 +14,7 @@ const filesSinceBaseRevision = shell
   .stdout.trim()
   .split('\n')
 
-// console.log(filesSinceBaseRevision)
+console.log(`Files since base revision: ${filesSinceBaseRevision}`)
 
 const filesToLint = filesSinceBaseRevision
   .filter((file) => {
@@ -25,7 +25,7 @@ const filesToLint = filesSinceBaseRevision
   })
   .join(' ')
 
-// console.log(filesToLint)
+console.log(`Linting: ${filesToLint}`)
 
 const { code, stderr, stdout } = shell.exec(`eslint ${filesToLint}`)
 
