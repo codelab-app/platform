@@ -22,5 +22,8 @@ module.exports = async ({ config }) => {
     ? config.resolve.plugins.push(tsPaths)
     : (config.resolve.plugins = [tsPaths])
 
+  config.resolve.extensions.push('.tsx')
+  config.resolve.extensions.push('.ts')
+
   return config
 }

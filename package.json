@@ -118,6 +118,7 @@
     "@nestjs/schematics": "7.0.1",
     "@nestjs/testing": "7.4.2",
     "@nrwl/cli": "10.1.0",
+    "@codelab/plugins-codelab": "0.0.1",
     "@nrwl/cypress": "10.1.0",
     "@nrwl/eslint-plugin-nx": "10.1.0",
     "@nrwl/gatsby": "0.10.0",

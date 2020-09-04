@@ -92,6 +92,8 @@ export default function (options: ReactSchematicSchema): Rule {
     }),
     externalSchematic('@nrwl/react', 'storybook-configuration', {
       name: normalizedOptions.name,
+      configureCypress: false,
+      generateStories: false,
     }),
     // updateWorkspace((workspace) => {
     //   workspace.projects

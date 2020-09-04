@@ -91,6 +91,9 @@
     },
     "plugins-plug": {
       "tags": []
+    },
+    "tests": {
+      "tags": []
     }
   }
 }

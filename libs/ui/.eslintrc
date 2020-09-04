@@ -1,0 +1,7 @@
+{
+  "extends": "../../.eslintrc",
+  "parserOptions": {
+    "tsconfigRootDir": "libs/ui",
+    "project": ["tsconfig.lib.json", "tsconfig.spec.json"]
+  }
+}

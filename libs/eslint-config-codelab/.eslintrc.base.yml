@@ -40,6 +40,7 @@ rules:
   #  sort-imports: error
   unused-imports/no-unused-imports-ts: off
   '@typescript-eslint/no-unused-vars': off
+  '@typescript-eslint/explicit-function-return-type': off
   no-unused-expressions:
     - error
     - allowTernary: true
@@ -60,7 +61,6 @@ overrides:
     rules:
       no-inner-declarations: off
       '@typescript-eslint/no-namespace': off
-      '@typescript-eslint/explicit-function-return-type': off
       '@typescript-eslint/no-useless-constructor': ['error']
       '@typescript-eslint/ban-types':
         - 0
