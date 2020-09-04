@@ -1,3 +1,6 @@
+/**
+ * @jest-environment node
+ */
 import * as mongoose from 'mongoose'
 import { Model } from './model'
 import { ModelNode } from './model-interface'

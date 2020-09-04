@@ -1,3 +1,6 @@
+/**
+ * @jest-environment node
+ */
 import * as mongoose from 'mongoose'
 import { SchemaDefinition } from './schema-interface'
 import { Schema } from './schema'
