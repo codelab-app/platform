@@ -4,13 +4,12 @@
  *
  * See: https://www.gatsbyjs.org/docs/use-static-query/
  */
-
 import { Layout as ALayout, Menu } from 'antd'
 import { Link } from 'gatsby'
 import './app.scss'
 import { reduce } from 'lodash'
 import React, { ReactElement } from 'react'
-import { Node } from '@codelab/graph'
+import { Node } from '@codelab/node'
 import { Frontmatter } from '../templates/docTemplate.i'
 
 const { Header, Content, Footer, Sider } = ALayout
