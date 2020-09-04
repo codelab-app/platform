@@ -16,7 +16,7 @@ import {
   toFileName,
   updateWorkspace,
 } from '@nrwl/workspace'
-import { PluginsPlugSchematicSchema } from './schema'
+import { PluginsPlugSchematicSchema } from './schema.d'
 
 /**
  * Depending on your needs, you can change this to either `Library` or `Application`
@@ -67,6 +67,7 @@ function addFiles(options: NormalizedSchema): Rule {
 
 export default function (options: PluginsPlugSchematicSchema): Rule {
   const normalizedOptions = normalizeOptions(options)
+
   return chain([
     updateWorkspace((workspace) => {
       workspace.projects
