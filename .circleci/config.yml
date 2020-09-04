@@ -76,6 +76,10 @@ commands:
       - run:
           name: 'Install NPM Packages'
           command: yarn install --frozen-lockfile --non-interactive
+      # Need to link the dist packages created by postinstall
+      - run:
+          name: 'Link Monorepo Packages'
+          command: yarn
       - save_cache:
           name: 'Save Cache'
           key: dep-cache-{{ checksum "yarn.lock" }}

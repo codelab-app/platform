@@ -1,5 +1,5 @@
 import { curry } from 'ramda'
-import { SchemaNode } from '@codelab/node'
+import { SchemaNode, ModelNode } from '@codelab/node'
 import { ModelInterface } from './model.i'
 
 export const modelWalker = curry(

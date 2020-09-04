@@ -1,7 +1,7 @@
 import * as mongoose from 'mongoose'
 
 export interface ModelInterface {
-  name: string
+  name?: string
   schema?: mongoose.Schema
   model?: mongoose.Model<any>
 }

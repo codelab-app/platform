@@ -3,7 +3,7 @@ import { reduce } from 'lodash'
 import { ModelNode, SchemaNode } from '@codelab/node'
 import { modelWalker } from './model-traversal'
 import { modelCreationIteratee } from './model-traversal-iteratee'
-import { SchemaNode } from '../schema'
+import { ModelInterface } from './model.i'
 
 export class Model {
   static makeModel(input: ModelNode): mongoose.Model<any> {
