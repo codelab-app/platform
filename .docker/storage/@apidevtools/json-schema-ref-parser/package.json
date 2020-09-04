@@ -1,0 +1,943 @@
+{
+	"name": "@apidevtools/json-schema-ref-parser",
+	"versions": {
+		"7.1.4": {
+			"name": "@apidevtools/json-schema-ref-parser",
+			"version": "7.1.4",
+			"description": "Parse, Resolve, and Dereference JSON Schema $ref pointers",
+			"keywords": [
+				"json",
+				"schema",
+				"jsonschema",
+				"json-schema",
+				"json-pointer",
+				"$ref",
+				"dereference",
+				"resolve"
+			],
+			"author": {
+				"name": "James Messinger",
+				"url": "https://jamesmessinger.com"
+			},
+			"contributors": [
+				{
+					"name": "Boris Cherny",
+					"email": "boris@performancejs.com"
+				}
+			],
+			"homepage": "https://apitools.dev/json-schema-ref-parser/",
+			"repository": {
+				"type": "git",
+				"url": "git+https://github.com/APIDevTools/json-schema-ref-parser.git"
+			},
+			"license": "MIT",
+			"main": "lib/index.js",
+			"typings": "lib/index.d.ts",
+			"browser": {
+				"fs": false
+			},
+			"scripts": {
+				"clean": "shx rm -rf .nyc_output coverage",
+				"lint": "eslint lib test/fixtures test/specs",
+				"test": "npm run test:node && npm run test:typescript && npm run test:browser && npm run lint",
+				"test:node": "mocha",
+				"test:browser": "karma start --single-run",
+				"test:typescript": "tsc --noEmit --strict --lib esnext test/specs/typescript-definition.spec.ts",
+				"coverage": "npm run coverage:node && npm run coverage:browser",
+				"coverage:node": "nyc node_modules/mocha/bin/mocha",
+				"coverage:browser": "npm run test:browser -- --coverage",
+				"upgrade": "npm-check -u && npm audit fix",
+				"bump": "bump --tag --push --all",
+				"release": "npm run upgrade && npm run clean && npm test && npm run bump"
+			},
+			"devDependencies": {
+				"@babel/polyfill": "^7.7.0",
+				"@jsdevtools/eslint-config-modular": "^8.0.0",
+				"@jsdevtools/host-environment": "^2.0.2",
+				"@jsdevtools/karma-config": "^3.1.2",
+				"@jsdevtools/version-bump-prompt": "^6.0.2",
+				"@types/json-schema": "^7.0.4",
+				"@types/node": "^13.1.2",
+				"chai": "^4.2.0",
+				"eslint": "^6.8.0",
+				"karma": "^4.4.1",
+				"karma-cli": "^2.0.0",
+				"mocha": "^7.1.0",
+				"npm-check": "^5.9.0",
+				"nyc": "^15.0.0",
+				"shx": "^0.3.2",
+				"typescript": "^3.7.4"
+			},
+			"dependencies": {
+				"call-me-maybe": "^1.0.1",
+				"js-yaml": "^3.13.1",
+				"@jsdevtools/ono": "^7.1.0"
+			},
+			"gitHead": "3de8b4a9b9bd77d898d150b471822b917016673e",
+			"bugs": {
+				"url": "https://github.com/APIDevTools/json-schema-ref-parser/issues"
+			},
+			"_id": "@apidevtools/json-schema-ref-parser@7.1.4",
+			"_nodeVersion": "13.3.0",
+			"_npmVersion": "6.13.1",
+			"dist": {
+				"integrity": "sha512-Fa7Rk3UbF7/RMk8po/GWsG7ETWx1LOA/mQB/8+8kiovbA7dd4qq8VzMVbUvcKJmXbQwmvLtlxyjRqn6Ea1pXlg==",
+				"shasum": "22849fbbd23b0853a9b5a1343dbc2c47b4c8b4b5",
+				"tarball": "https://registry.npmjs.org/@apidevtools/json-schema-ref-parser/-/json-schema-ref-parser-7.1.4.tgz",
+				"fileCount": 24,
+				"unpackedSize": 135495,
+				"npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJea32zCRA9TVsSAnZWagAAKYcP/iwhZaPwNN57UWAfNwbk\nRdYdw9tHgG40K50ZiluWObpXkV96RXcG6k8XldYA/RU1dnecVwSVNyfNXYVW\n73I5vtH0pJA0qFmCAeQxDGVDgmf/5tSR/qpyyzti1hw0WofTP78WtL7OAsur\nFp/7Oe46tcIUYtTK576giNOCQ7F05sxD+8y5JC+f6RkspPqPHWQbeKR70BVk\n6KFsR40U/CSLY7WFmi6h4A/moOL9fsrDSBHpo+Kngi9uZw/2HStSXndns0cY\nirPf9WcsIzAcETCkoiQotAfNHlW8fYL6lbfqDYwUmYNZ8RK3g0wDZhPIsrqt\nAoQuP2K+4qNxUCF7D2A6tZtifWV/Ke5AWputVvpN6uGnieJZIDrTG6pGLVEk\nujVJpZYJlRF3PwdyBkUSDXJTjoXX755wMxkvlAwTZ5ZYM8DZX/IETrKsEJTG\nGdFkuKv6/pNsBQURv9CeRgFh1QIoup2zsNQiz5EBJ3DZRHjdMmhw/OpcIHFl\nO454PoeDy01qVdnM/7ZiPQgBvCOYHh7AGGs3WHTYevYXz/5TqDIUUaxvmuIR\nMfwEvVF980ITpyHbi+fFptA/PqWeEDik4elXKEeffb8VJPh/9lmGkGfodOyr\nsDaYlmPk9bDJnA16JI2FJ9T5zYWuCqrxZ5MxkXfhVWQJalr9df5DciiO9GIE\nTV7g\r\n=jfaN\r\n-----END PGP SIGNATURE-----\r\n"
+			},
+			"maintainers": [
+				{
+					"name": "jamesmessinger",
+					"email": "james.messinger@gmail.com"
+				},
+				{
+					"name": "james_messinger",
+					"email": "j.ames.messinger@gmail.com"
+				}
+			],
+			"_npmUser": {
+				"name": "jamesmessinger",
+				"email": "james.messinger@gmail.com"
+			},
+			"directories": {},
+			"_npmOperationalInternal": {
+				"host": "s3://npm-registry-packages",
+				"tmp": "tmp/json-schema-ref-parser_7.1.4_1584102834514_0.14624612134225834"
+			},
+			"_hasShrinkwrap": false
+		},
+		"8.0.0": {
+			"name": "@apidevtools/json-schema-ref-parser",
+			"version": "8.0.0",
+			"description": "Parse, Resolve, and Dereference JSON Schema $ref pointers",
+			"keywords": [
+				"json",
+				"schema",
+				"jsonschema",
+				"json-schema",
+				"json-pointer",
+				"$ref",
+				"dereference",
+				"resolve"
+			],
+			"author": {
+				"name": "James Messinger",
+				"url": "https://jamesmessinger.com"
+			},
+			"contributors": [
+				{
+					"name": "Boris Cherny",
+					"email": "boris@performancejs.com"
+				}
+			],
+			"homepage": "https://apitools.dev/json-schema-ref-parser/",
+			"repository": {
+				"type": "git",
+				"url": "git+https://github.com/APIDevTools/json-schema-ref-parser.git"
+			},
+			"license": "MIT",
+			"main": "lib/index.js",
+			"typings": "lib/index.d.ts",
+			"browser": {
+				"fs": false
+			},
+			"scripts": {
+				"clean": "shx rm -rf .nyc_output coverage",
+				"lint": "eslint lib test/fixtures test/specs",
+				"test": "npm run test:node && npm run test:typescript && npm run test:browser && npm run lint",
+				"test:node": "mocha",
+				"test:browser": "karma start --single-run",
+				"test:typescript": "tsc --noEmit --strict --lib esnext test/specs/typescript-definition.spec.ts",
+				"coverage": "npm run coverage:node && npm run coverage:browser",
+				"coverage:node": "nyc node_modules/mocha/bin/mocha",
+				"coverage:browser": "npm run test:browser -- --coverage",
+				"upgrade": "npm-check -u && npm audit fix",
+				"bump": "bump --tag --push --all",
+				"release": "npm run upgrade && npm run clean && npm test && npm run bump"
+			},
+			"devDependencies": {
+				"@babel/polyfill": "^7.7.0",
+				"@jsdevtools/eslint-config-modular": "^8.0.0",
+				"@jsdevtools/host-environment": "^2.0.2",
+				"@jsdevtools/karma-config": "^3.1.2",
+				"@jsdevtools/version-bump-prompt": "^6.0.2",
+				"@types/json-schema": "^7.0.4",
+				"@types/node": "^13.1.2",
+				"chai": "^4.2.0",
+				"eslint": "^6.8.0",
+				"karma": "^4.4.1",
+				"karma-cli": "^2.0.0",
+				"mocha": "^7.1.0",
+				"npm-check": "^5.9.0",
+				"nyc": "^15.0.0",
+				"shx": "^0.3.2",
+				"typescript": "^3.7.4"
+			},
+			"dependencies": {
+				"call-me-maybe": "^1.0.1",
+				"js-yaml": "^3.13.1",
+				"@jsdevtools/ono": "^7.1.0"
+			},
+			"gitHead": "4fa22bcea67f2039c7a88e57cae1c4cf089c224b",
+			"bugs": {
+				"url": "https://github.com/APIDevTools/json-schema-ref-parser/issues"
+			},
+			"_id": "@apidevtools/json-schema-ref-parser@8.0.0",
+			"_nodeVersion": "10.19.0",
+			"_npmVersion": "6.13.4",
+			"dist": {
+				"integrity": "sha512-n4YBtwQhdpLto1BaUCyAeflizmIbaloGShsPyRtFf5qdFJxfssj+GgLavczgKJFa3Bq+3St2CKcpRJdjtB4EBw==",
+				"shasum": "9eb749499b3f8d919e90bb141e4b6f67aee4692d",
+				"tarball": "https://registry.npmjs.org/@apidevtools/json-schema-ref-parser/-/json-schema-ref-parser-8.0.0.tgz",
+				"fileCount": 24,
+				"unpackedSize": 135151,
+				"npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJebLd5CRA9TVsSAnZWagAA5awQAJ9hJbx27ErZkchoXcoe\nLNeaGrztNnUFqwS5Jc85vFyJbtdUofc+F2N4h3vuWr3L0f7fklK1XVIK1H2X\nehEQNJTnzuWQDvYMBvhoXwxaZ7rbWcu9ar3E6YTdt+ufvGz21t9ER6pwgC1h\neaxQTiuueTxvQ9eudMrt0NAakuQb7BEgN9fr+G4m+KdBCsOVet4Ps9RPWfYW\nmGUKN/6nULuwG54WNlXUvd5IkDhOqOmD9XPIncySjkUlbxBon1iEQNb9iQqN\nsC9/eoHLjx6H4AANlshxp5Kyx+PEq10bs3S+xsQot4Aj1KPPsk8I8bvc9Xoc\niKd0Hw4Ja3+dJQD6hHiBNtoayRV4MnVtL3Hma/NvIN0jgXcciGS4EsvEITuw\nGNqORMoi7nqNpyFWL7vUPOoCngI4Sz5l2uCPvBwr7NNKjOCT/bsDnq7Gsjxs\ndozskL9xA9GVMddnEA9u9yGv5YBMT+FjW8mlbSw6C0Ie6wnNiAhe1oZlJHo1\nHS+me5mHo1oh/VX9cBqzrIvl/3CP980LS+aTkL8s1Z7Ha04WMg+uAL7lWUaG\nkM1ofPgN3Sr5RjfTIKBNzh2nd2qOckDoMH68IlCoZlBb+kjbIxDX9Z9xbt6w\nzDS2AwpDInz70RrZIpM+TijH83l0YYZQUuwlFpUG0Mn6RFj4lf+JeVc36iRo\n1nSz\r\n=nUAV\r\n-----END PGP SIGNATURE-----\r\n"
+			},
+			"maintainers": [
+				{
+					"name": "james_messinger",
+					"email": "j.ames.messinger@gmail.com"
+				},
+				{
+					"name": "jamesmessinger",
+					"email": "james.messinger@gmail.com"
+				}
+			],
+			"_npmUser": {
+				"name": "jamesmessinger",
+				"email": "james.messinger@gmail.com"
+			},
+			"directories": {},
+			"_npmOperationalInternal": {
+				"host": "s3://npm-registry-packages",
+				"tmp": "tmp/json-schema-ref-parser_8.0.0_1584183160799_0.1412739421947542"
+			},
+			"_hasShrinkwrap": false
+		},
+		"9.0.0": {
+			"name": "@apidevtools/json-schema-ref-parser",
+			"version": "9.0.0",
+			"description": "Parse, Resolve, and Dereference JSON Schema $ref pointers",
+			"keywords": [
+				"json",
+				"schema",
+				"jsonschema",
+				"json-schema",
+				"json-pointer",
+				"$ref",
+				"dereference",
+				"resolve"
+			],
+			"author": {
+				"name": "James Messinger",
+				"url": "https://jamesmessinger.com"
+			},
+			"contributors": [
+				{
+					"name": "Boris Cherny",
+					"email": "boris@performancejs.com"
+				}
+			],
+			"homepage": "https://apitools.dev/json-schema-ref-parser/",
+			"repository": {
+				"type": "git",
+				"url": "git+https://github.com/APIDevTools/json-schema-ref-parser.git"
+			},
+			"license": "MIT",
+			"main": "lib/index.js",
+			"typings": "lib/index.d.ts",
+			"browser": {
+				"fs": false
+			},
+			"scripts": {
+				"clean": "shx rm -rf .nyc_output coverage",
+				"lint": "eslint lib test/fixtures test/specs",
+				"test": "npm run test:node && npm run test:typescript && npm run test:browser && npm run lint",
+				"test:node": "mocha",
+				"test:browser": "karma start --single-run",
+				"test:typescript": "tsc --noEmit --strict --lib esnext test/specs/typescript-definition.spec.ts",
+				"coverage": "npm run coverage:node && npm run coverage:browser",
+				"coverage:node": "nyc node_modules/mocha/bin/mocha",
+				"coverage:browser": "npm run test:browser -- --coverage",
+				"upgrade": "npm-check -u && npm audit fix",
+				"bump": "bump --tag --push --all",
+				"release": "npm run upgrade && npm run clean && npm test && npm run bump"
+			},
+			"devDependencies": {
+				"@babel/polyfill": "^7.7.0",
+				"@jsdevtools/eslint-config-modular": "^8.0.3",
+				"@jsdevtools/host-environment": "^2.0.3",
+				"@jsdevtools/karma-config": "^3.1.4",
+				"@jsdevtools/version-bump-prompt": "^6.0.3",
+				"@types/json-schema": "^7.0.4",
+				"@types/node": "^13.13.0",
+				"chai": "^4.2.0",
+				"chai-subset": "^1.6.0",
+				"eslint": "^6.8.0",
+				"karma": "^5.0.2",
+				"karma-cli": "^2.0.0",
+				"mocha": "^7.1.1",
+				"npm-check": "^5.9.0",
+				"nyc": "^15.0.1",
+				"shx": "^0.3.2",
+				"typescript": "^3.7.4"
+			},
+			"dependencies": {
+				"@jsdevtools/ono": "^7.1.2",
+				"call-me-maybe": "^1.0.1",
+				"js-yaml": "^3.13.1"
+			},
+			"gitHead": "b4c7389e8a7267c2978179091b47a2fef31d1354",
+			"bugs": {
+				"url": "https://github.com/APIDevTools/json-schema-ref-parser/issues"
+			},
+			"_id": "@apidevtools/json-schema-ref-parser@9.0.0",
+			"_nodeVersion": "10.20.1",
+			"_npmVersion": "6.14.4",
+			"dist": {
+				"integrity": "sha512-Wc2/D8FrzVVfdIBX0nF/bu5dfmuV3X7hTCggYt+pZ6p1AjQm9sl25jfrdGEf+nViJ794pgo9IX28aDAkBnxncQ==",
+				"shasum": "8c3c19cfb6d15df3859ee63cae73e68bfa6fa766",
+				"tarball": "https://registry.npmjs.org/@apidevtools/json-schema-ref-parser/-/json-schema-ref-parser-9.0.0.tgz",
+				"fileCount": 25,
+				"unpackedSize": 146165,
+				"npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJentdlCRA9TVsSAnZWagAAeegP/RWl4eMey1MEuFjSgWeX\nK/biJQseZu6wYyVGE+nO7LZB1C7EylpbI2saqiuVh6HbcODrTZZqQLFrLZYR\n1obU7wVMozHMRxECJ2B1I8IYpusw4rAYfKJX1rlCQb+WdhaxDirKhlESMWyp\nzSN4gSwru7mNi4gYACnneNRlU/NunS97hn1Ce1fQdCm2iCwGgy+3J9vAsOdZ\nQZbnpjgxMgM7MF5tVbY2Ce8Y/ZMBJ2ky3jpRpzMvKHdsZ+NJm2IslKMSsQ9/\nD2avwCUCcpj+XqRARV/K7ZIK4FQelEsYEUlZlR1jcOuKu0QJFaVcirtrFTat\nBTSAFjhmFo56zwEj1yZC1/dJLKyPGg/dVys0eUttIz7Ssbv8Ws7Hmi6UHiaR\ndEAhZIqzkxnUTHfmFjeZMId9RL7ecO2LmabOkhFGbFNEeLJepcfz2t9KLsxB\nuhOLnaOaBasV9uDN+6N28rR5MYfhwiWT1r2qnKIR1/g7VT62C5+HzNYFbL1/\nNYaTmswvIBf/TL9J3KZ8Am5fHtGKy38eSc62l18ZIj6PdEfH5Ee4VN1VErLB\nlep+QIHf11e4ZA2Th9+NLKDlRrgHMk3Pf+woc6uI43PKeZfsch7+jILhXvmT\nKQLb/HPHLYtXW4Qwzmz2I0tBbZaaBGcigJnMGkl60QiYihpytdgDEtK2UbOA\ndSA3\r\n=c5pJ\r\n-----END PGP SIGNATURE-----\r\n"
+			},
+			"maintainers": [
+				{
+					"name": "james_messinger",
+					"email": "j.ames.messinger@gmail.com"
+				},
+				{
+					"name": "jamesmessinger",
+					"email": "james.messinger@gmail.com"
+				}
+			],
+			"_npmUser": {
+				"name": "jamesmessinger",
+				"email": "james.messinger@gmail.com"
+			},
+			"directories": {},
+			"_npmOperationalInternal": {
+				"host": "s3://npm-registry-packages",
+				"tmp": "tmp/json-schema-ref-parser_9.0.0_1587468132976_0.8716785650082397"
+			},
+			"_hasShrinkwrap": false
+		},
+		"9.0.1": {
+			"name": "@apidevtools/json-schema-ref-parser",
+			"version": "9.0.1",
+			"description": "Parse, Resolve, and Dereference JSON Schema $ref pointers",
+			"keywords": [
+				"json",
+				"schema",
+				"jsonschema",
+				"json-schema",
+				"json-pointer",
+				"$ref",
+				"dereference",
+				"resolve"
+			],
+			"author": {
+				"name": "James Messinger",
+				"url": "https://jamesmessinger.com"
+			},
+			"contributors": [
+				{
+					"name": "Boris Cherny",
+					"email": "boris@performancejs.com"
+				}
+			],
+			"homepage": "https://apitools.dev/json-schema-ref-parser/",
+			"repository": {
+				"type": "git",
+				"url": "git+https://github.com/APIDevTools/json-schema-ref-parser.git"
+			},
+			"license": "MIT",
+			"main": "lib/index.js",
+			"typings": "lib/index.d.ts",
+			"browser": {
+				"fs": false
+			},
+			"scripts": {
+				"clean": "shx rm -rf .nyc_output coverage",
+				"lint": "eslint lib test/fixtures test/specs",
+				"test": "npm run test:node && npm run test:typescript && npm run test:browser && npm run lint",
+				"test:node": "mocha",
+				"test:browser": "karma start --single-run",
+				"test:typescript": "tsc --noEmit --strict --lib esnext test/specs/typescript-definition.spec.ts",
+				"coverage": "npm run coverage:node && npm run coverage:browser",
+				"coverage:node": "nyc node_modules/mocha/bin/mocha",
+				"coverage:browser": "npm run test:browser -- --coverage",
+				"upgrade": "npm-check -u && npm audit fix",
+				"bump": "bump --tag --push --all",
+				"release": "npm run upgrade && npm run clean && npm test && npm run bump"
+			},
+			"devDependencies": {
+				"@babel/polyfill": "^7.7.0",
+				"@jsdevtools/eslint-config-modular": "^8.0.3",
+				"@jsdevtools/host-environment": "^2.0.3",
+				"@jsdevtools/karma-config": "^3.1.4",
+				"@jsdevtools/version-bump-prompt": "^6.0.3",
+				"@types/json-schema": "^7.0.4",
+				"@types/node": "^13.13.0",
+				"chai": "^4.2.0",
+				"chai-subset": "^1.6.0",
+				"eslint": "^6.8.0",
+				"karma": "^5.0.2",
+				"karma-cli": "^2.0.0",
+				"mocha": "^7.1.1",
+				"npm-check": "^5.9.0",
+				"nyc": "^15.0.1",
+				"shx": "^0.3.2",
+				"typescript": "^3.7.4"
+			},
+			"dependencies": {
+				"@jsdevtools/ono": "^7.1.2",
+				"call-me-maybe": "^1.0.1",
+				"js-yaml": "^3.13.1"
+			},
+			"gitHead": "71747c9e06f53d44f71e24d291db9b250cacd1d2",
+			"bugs": {
+				"url": "https://github.com/APIDevTools/json-schema-ref-parser/issues"
+			},
+			"_id": "@apidevtools/json-schema-ref-parser@9.0.1",
+			"_nodeVersion": "10.20.1",
+			"_npmVersion": "6.14.4",
+			"dist": {
+				"integrity": "sha512-Qsdz0W0dyK84BuBh5KZATWXOtVDXIF2EeNRzpyWblPUeAmnIokwWcwrpAm5pTPMjuWoIQt9C67X3Af1OlL6oSw==",
+				"shasum": "c0ed0bd21a7397d2d7a83b69565268f2d78f2d7a",
+				"tarball": "https://registry.npmjs.org/@apidevtools/json-schema-ref-parser/-/json-schema-ref-parser-9.0.1.tgz",
+				"fileCount": 24,
+				"unpackedSize": 145011,
+				"npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJentmpCRA9TVsSAnZWagAAKEgP/3KQhBvTgV7/QmWjVVve\nczwsMaZGwoEB4rCe4sfJnu7mn6XJsDSyUhF1GbT3evwHb42qQO+VgOtnnehb\nL0Mz2s4c22vjCZf5pndOvKjsDUViTgTRONaWZAEjed9Q6oWV2UMePxKu88w2\nbzP2q9wSK7IdIrgeMwbIPyGIHP94kHybiy2+TLCGr6/euMee4sKTbl41Ajk5\nvBrz72HYLDkbtDzdz6GgvLMmXGdKf5rLNxda/lnhgEs9c7qz4hAs40ZS35Tb\n54z/rger7o+C88YWEV0vb1T3Wy2A82acfsVfkYqdt3CPoEPbZyK4LG8yCjGV\nX99KaVO/4qtza8NvMyT+vT91Sm4AQ4cXtP4eAm0E4bBIxyBrWoLp/RFSJmcz\nw5LCks1b4B69OZ4iNLxzkbWDYwkgbe4nV74XDJs/xpbPZq4UiAkBzTp0GdTM\nxSFiRIeWLIZ8CYxZk+c3QHmDKQszQnCqS0kWoyBUngI7tYcyakuvYXurE8d9\ncI8qFp81vJ+O3oWivacVLYhqkYCEQ+Y7+Fwpb+QlzLOc5v5nosAWYYPhDN/m\n9V3zy6PZ9vKsMpcYqxzO0Fvm2/i439Tyt9sxfq/GWyC5zUeJgDgW9g4OvJh1\nVwyleTH4q+/8Zgic37EdkvxxXiGPEXWqSVmO58CpEEHeqL5G/2kZXwJieycP\nngB4\r\n=zqL0\r\n-----END PGP SIGNATURE-----\r\n"
+			},
+			"maintainers": [
+				{
+					"name": "james_messinger",
+					"email": "j.ames.messinger@gmail.com"
+				},
+				{
+					"name": "jamesmessinger",
+					"email": "james.messinger@gmail.com"
+				}
+			],
+			"_npmUser": {
+				"name": "jamesmessinger",
+				"email": "james.messinger@gmail.com"
+			},
+			"directories": {},
+			"_npmOperationalInternal": {
+				"host": "s3://npm-registry-packages",
+				"tmp": "tmp/json-schema-ref-parser_9.0.1_1587468712591_0.051069272254683495"
+			},
+			"_hasShrinkwrap": false
+		},
+		"9.0.2": {
+			"name": "@apidevtools/json-schema-ref-parser",
+			"version": "9.0.2",
+			"description": "Parse, Resolve, and Dereference JSON Schema $ref pointers",
+			"keywords": [
+				"json",
+				"schema",
+				"jsonschema",
+				"json-schema",
+				"json-pointer",
+				"$ref",
+				"dereference",
+				"resolve"
+			],
+			"author": {
+				"name": "James Messinger",
+				"url": "https://jamesmessinger.com"
+			},
+			"contributors": [
+				{
+					"name": "Boris Cherny",
+					"email": "boris@performancejs.com"
+				}
+			],
+			"homepage": "https://apitools.dev/json-schema-ref-parser/",
+			"repository": {
+				"type": "git",
+				"url": "git+https://github.com/APIDevTools/json-schema-ref-parser.git"
+			},
+			"license": "MIT",
+			"main": "lib/index.js",
+			"typings": "lib/index.d.ts",
+			"browser": {
+				"fs": false
+			},
+			"scripts": {
+				"clean": "shx rm -rf .nyc_output coverage",
+				"lint": "eslint lib test/fixtures test/specs",
+				"test": "npm run test:node && npm run test:typescript && npm run test:browser && npm run lint",
+				"test:node": "mocha",
+				"test:browser": "karma start --single-run",
+				"test:typescript": "tsc --noEmit --strict --lib esnext test/specs/typescript-definition.spec.ts",
+				"coverage": "npm run coverage:node && npm run coverage:browser",
+				"coverage:node": "nyc node_modules/mocha/bin/mocha",
+				"coverage:browser": "npm run test:browser -- --coverage",
+				"upgrade": "npm-check -u && npm audit fix",
+				"bump": "bump --tag --push --all",
+				"release": "npm run upgrade && npm run clean && npm test && npm run bump"
+			},
+			"devDependencies": {
+				"@babel/polyfill": "^7.10.4",
+				"@jsdevtools/eslint-config-modular": "^8.0.3",
+				"@jsdevtools/host-environment": "^2.0.3",
+				"@jsdevtools/karma-config": "^3.1.4",
+				"@jsdevtools/version-bump-prompt": "^6.0.3",
+				"@types/json-schema": "^7.0.4",
+				"@types/node": "^14.0.19",
+				"chai": "^4.2.0",
+				"chai-subset": "^1.6.0",
+				"eslint": "^7.4.0",
+				"karma": "^5.0.2",
+				"karma-cli": "^2.0.0",
+				"mocha": "^8.0.1",
+				"npm-check": "^5.9.0",
+				"nyc": "^15.0.1",
+				"shx": "^0.3.2",
+				"typescript": "^3.9.6"
+			},
+			"dependencies": {
+				"@jsdevtools/ono": "^7.1.2",
+				"call-me-maybe": "^1.0.1",
+				"js-yaml": "^3.13.1"
+			},
+			"gitHead": "4fcadcfc8686d85ed8584bb5df9571149fd3e722",
+			"bugs": {
+				"url": "https://github.com/APIDevTools/json-schema-ref-parser/issues"
+			},
+			"_id": "@apidevtools/json-schema-ref-parser@9.0.2",
+			"_nodeVersion": "10.21.0",
+			"_npmVersion": "6.14.4",
+			"dist": {
+				"integrity": "sha512-Q8QNyluEhbCCZS6F1wLqVkp5GuUHwq4qveZmZWE2OZA7dTEjyg3dkgxAy6fUzDNaEzzcNrY3D58cfph4881nlg==",
+				"shasum": "b3f82509dea6c50f49ff9eeb35af50bef60fe577",
+				"tarball": "https://registry.npmjs.org/@apidevtools/json-schema-ref-parser/-/json-schema-ref-parser-9.0.2.tgz",
+				"fileCount": 24,
+				"unpackedSize": 145722,
+				"npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJfBcsJCRA9TVsSAnZWagAACjYP/1+52UnroW21LAvX/hHp\n37HdDIK6h4mT7RBAXXo+7zMQ5CfPwHf8Ue23jxD2Y5f+VJ8fjn9ucn+hMbmJ\n4cKIrLESW0158gIJo6nUsIlr69FECDxHBmFNy9G7GLvJPQx6fxdkd9zpYdrI\nzgmyr4UwF3u7YUqENFd54DCGmMjfbfw9RxKL+NNvX1CPOeiOnYZJr5zb5FFp\nDzAT2lGlb8vFAlm1QZCGxkYupkTU4d8Vt7ekG8GH2yzH8S22yo1bohUk3TeI\nE0bn0uaUv46KCFVMrdfINX68yELb16RpZpGNXDeICa97VaxO9RiUL3oAYNk5\nDmLvJkwWSuCalMkAtwZ9fmJ6QRn5LUcOOyjTok6C5ABvhMQSPupCISKqgvJT\ngxN2gQBGWWcRuJEtaQIU3rN0DMDfSJpOi9R31lcqRTsp2hrLp2bzySFA0ue+\nOHUwG7GtY6ND6vFR9YFkyxqgg9C40c3vfGsfA+zCPEXE39S1CIi6b9rWungG\n8P0eTy/e+z2PKZu3+63z9C1ISMxVBSC65m5UNLIpychZUzXkylIj8pXlcUTw\nTisnPfohyfcwcQz1YsjIS8CnfuUQW9DcpL4u/ohGJfid3xxeKpY0GlkwCXlq\nc9/XyowDTd26AzUiIrjaFx2ofY1MyII5M62qvqOc9Mr/PVFMnvFK5n8KNSUG\nRoSw\r\n=s87h\r\n-----END PGP SIGNATURE-----\r\n"
+			},
+			"maintainers": [
+				{
+					"name": "james_messinger",
+					"email": "j.ames.messinger@gmail.com"
+				},
+				{
+					"name": "jamesmessinger",
+					"email": "james.messinger@gmail.com"
+				}
+			],
+			"_npmUser": {
+				"name": "jamesmessinger",
+				"email": "james.messinger@gmail.com"
+			},
+			"directories": {},
+			"_npmOperationalInternal": {
+				"host": "s3://npm-registry-packages",
+				"tmp": "tmp/json-schema-ref-parser_9.0.2_1594215176529_0.6773757683599193"
+			},
+			"_hasShrinkwrap": false
+		},
+		"9.0.3": {
+			"name": "@apidevtools/json-schema-ref-parser",
+			"version": "9.0.3",
+			"description": "Parse, Resolve, and Dereference JSON Schema $ref pointers",
+			"keywords": [
+				"json",
+				"schema",
+				"jsonschema",
+				"json-schema",
+				"json-pointer",
+				"$ref",
+				"dereference",
+				"resolve"
+			],
+			"author": {
+				"name": "James Messinger",
+				"url": "https://jamesmessinger.com"
+			},
+			"contributors": [
+				{
+					"name": "Boris Cherny",
+					"email": "boris@performancejs.com"
+				}
+			],
+			"homepage": "https://apitools.dev/json-schema-ref-parser/",
+			"repository": {
+				"type": "git",
+				"url": "git+https://github.com/APIDevTools/json-schema-ref-parser.git"
+			},
+			"license": "MIT",
+			"main": "lib/index.js",
+			"typings": "lib/index.d.ts",
+			"browser": {
+				"fs": false
+			},
+			"scripts": {
+				"clean": "shx rm -rf .nyc_output coverage",
+				"lint": "eslint lib test/fixtures test/specs",
+				"test": "npm run test:node && npm run test:typescript && npm run test:browser && npm run lint",
+				"test:node": "mocha",
+				"test:browser": "karma start --single-run",
+				"test:typescript": "tsc --noEmit --strict --lib esnext test/specs/typescript-definition.spec.ts",
+				"coverage": "npm run coverage:node && npm run coverage:browser",
+				"coverage:node": "nyc node_modules/mocha/bin/mocha",
+				"coverage:browser": "npm run test:browser -- --coverage",
+				"upgrade": "npm-check -u && npm audit fix",
+				"bump": "bump --tag --push --all",
+				"release": "npm run upgrade && npm run clean && npm test && npm run bump"
+			},
+			"devDependencies": {
+				"@babel/polyfill": "^7.10.4",
+				"@jsdevtools/eslint-config-modular": "^8.0.3",
+				"@jsdevtools/host-environment": "^2.0.3",
+				"@jsdevtools/karma-config": "^3.1.4",
+				"@jsdevtools/version-bump-prompt": "^6.0.3",
+				"@types/json-schema": "^7.0.4",
+				"@types/node": "^14.0.20",
+				"chai": "^4.2.0",
+				"chai-subset": "^1.6.0",
+				"eslint": "^7.4.0",
+				"karma": "^5.0.2",
+				"karma-cli": "^2.0.0",
+				"mocha": "^8.0.1",
+				"npm-check": "^5.9.0",
+				"nyc": "^15.0.1",
+				"shx": "^0.3.2",
+				"typescript": "^3.9.6"
+			},
+			"dependencies": {
+				"@jsdevtools/ono": "^7.1.2",
+				"call-me-maybe": "^1.0.1",
+				"js-yaml": "^3.13.1"
+			},
+			"gitHead": "4553481a6bcc93f383182b2c6d4b051fab607397",
+			"bugs": {
+				"url": "https://github.com/APIDevTools/json-schema-ref-parser/issues"
+			},
+			"_id": "@apidevtools/json-schema-ref-parser@9.0.3",
+			"_nodeVersion": "10.21.0",
+			"_npmVersion": "6.14.4",
+			"dist": {
+				"integrity": "sha512-SWaTn0CZ7iUUbe2WuqIUkoXhTcMYyavL5vKqp61ehOi8XWl52MSdo80+RytnC10VjpKmHJlRzhgLc6QopKOehg==",
+				"shasum": "4ec58992c8f15778cc59baf7a872c8ad6294fed5",
+				"tarball": "https://registry.npmjs.org/@apidevtools/json-schema-ref-parser/-/json-schema-ref-parser-9.0.3.tgz",
+				"fileCount": 24,
+				"unpackedSize": 145806,
+				"npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJfCE/aCRA9TVsSAnZWagAA2QMP/iWzpkJK82e8h4PWEKpV\njBHAy6DvTcIfCYyz98SSvlt5QKa9cHo3c2G/8RrtOLH6lWeZe4lruCPHj50S\nM1eHBHgpDqwH+PA5uBl/kYrE6TJaWCrjZpN9OrT3U6i0mdVf+GyYjrSSCGxW\nJYu8A1aHOBtagvVjjUoZz9id6+Gx53HhcfX+N+7Jl9XJky8Gx50v+G1k3249\nm5M8PMy/m5vszDxu6cAk6leP9LHFsWCEUMg2/FUrwlmy16lcBuVOADxj+OcX\nDWbml7iIK8bXDYiAhSb/rE4nnBuoe5FOnDavFbWRELHBqH2U6vtWrWqhN7/b\ns4RGBgzO1e8CBEzzbAzAGkL6A/jryL/L+Rren+ppuSO9MKNaUpSbFhqDUlux\nUwqefV54OWtoxeYT6PgB7aWRJxuJ32mPrruMNKA93m7Hm+91BHK9i6IZ64jg\nvkGH846Zq/fq3q1RtANtJOKEm23Xnh8h0V/q4183HYcdz82BYa1BM9hQdAXb\nnSmEWO/O04QUb8V4I/4QrSSm/1YDMcc4XzKcjfPGc15VbxONSGyrx5yrCIRJ\nbaYxoxr8ZSqC3o1dPEVuxIZeptwhKCH+KqsbkECFU3EJvjNajidARSRtkDlk\nw4P9Fndm2TkM8IooUoGYj7niQw1atopJ8BwIdX9zjN3omo6lZpLPqJUo0SwB\nyynR\r\n=IAni\r\n-----END PGP SIGNATURE-----\r\n"
+			},
+			"maintainers": [
+				{
+					"name": "james_messinger",
+					"email": "j.ames.messinger@gmail.com"
+				},
+				{
+					"name": "jamesmessinger",
+					"email": "james.messinger@gmail.com"
+				}
+			],
+			"_npmUser": {
+				"name": "jamesmessinger",
+				"email": "james.messinger@gmail.com"
+			},
+			"directories": {},
+			"_npmOperationalInternal": {
+				"host": "s3://npm-registry-packages",
+				"tmp": "tmp/json-schema-ref-parser_9.0.3_1594380250101_0.6776279856822214"
+			},
+			"_hasShrinkwrap": false
+		},
+		"9.0.5": {
+			"name": "@apidevtools/json-schema-ref-parser",
+			"version": "9.0.5",
+			"description": "Parse, Resolve, and Dereference JSON Schema $ref pointers",
+			"keywords": [
+				"json",
+				"schema",
+				"jsonschema",
+				"json-schema",
+				"json-pointer",
+				"$ref",
+				"dereference",
+				"resolve"
+			],
+			"author": {
+				"name": "James Messinger",
+				"url": "https://jamesmessinger.com"
+			},
+			"contributors": [
+				{
+					"name": "Boris Cherny",
+					"email": "boris@performancejs.com"
+				}
+			],
+			"homepage": "https://apitools.dev/json-schema-ref-parser/",
+			"repository": {
+				"type": "git",
+				"url": "git+https://github.com/APIDevTools/json-schema-ref-parser.git"
+			},
+			"license": "MIT",
+			"main": "lib/index.js",
+			"typings": "lib/index.d.ts",
+			"browser": {
+				"fs": false
+			},
+			"scripts": {
+				"clean": "shx rm -rf .nyc_output coverage",
+				"lint": "eslint lib test/fixtures test/specs",
+				"test": "npm run test:node && npm run test:typescript && npm run test:browser && npm run lint",
+				"test:node": "mocha",
+				"test:browser": "karma start --single-run",
+				"test:typescript": "tsc --noEmit --strict --lib esnext,dom test/specs/typescript-definition.spec.ts",
+				"coverage": "npm run coverage:node && npm run coverage:browser",
+				"coverage:node": "nyc node_modules/mocha/bin/mocha",
+				"coverage:browser": "npm run test:browser -- --coverage",
+				"upgrade": "npm-check -u && npm audit fix",
+				"bump": "bump --tag --push --all",
+				"release": "npm run upgrade && npm run clean && npm test && npm run bump"
+			},
+			"devDependencies": {
+				"@babel/polyfill": "^7.10.4",
+				"@jsdevtools/eslint-config": "^1.0.5",
+				"@jsdevtools/host-environment": "^2.0.4",
+				"@jsdevtools/karma-config": "^3.1.7",
+				"@jsdevtools/version-bump-prompt": "^6.0.6",
+				"@types/json-schema": "^7.0.4",
+				"@types/node": "^14.0.23",
+				"chai": "^4.2.0",
+				"chai-subset": "^1.6.0",
+				"eslint": "^7.5.0",
+				"karma": "^5.0.2",
+				"karma-cli": "^2.0.0",
+				"mocha": "^8.0.1",
+				"npm-check": "^5.9.0",
+				"nyc": "^15.0.1",
+				"shx": "^0.3.2",
+				"typescript": "^3.9.7"
+			},
+			"dependencies": {
+				"@jsdevtools/ono": "^7.1.3",
+				"call-me-maybe": "^1.0.1",
+				"js-yaml": "^3.13.1"
+			},
+			"gitHead": "5674d1941042602d81165dbbd46879071d4af9ba",
+			"bugs": {
+				"url": "https://github.com/APIDevTools/json-schema-ref-parser/issues"
+			},
+			"_id": "@apidevtools/json-schema-ref-parser@9.0.5",
+			"_nodeVersion": "10.21.0",
+			"_npmVersion": "6.14.4",
+			"dist": {
+				"integrity": "sha512-+tOjAEtnsa0/0lAEpR9zDBkVhhszU+J23egkniV4zCYWVW7yd2Rjxr+NSYz6Zo2VbNdJiuoN22rg6qGz5OKGDQ==",
+				"shasum": "972f7b9f579dff1ce2229d891592932a70a8d1ee",
+				"tarball": "https://registry.npmjs.org/@apidevtools/json-schema-ref-parser/-/json-schema-ref-parser-9.0.5.tgz",
+				"fileCount": 24,
+				"unpackedSize": 146535,
+				"npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJfFDC9CRA9TVsSAnZWagAA1sEP/Av296CRCM/FaxhFloWb\njgwBgr6cU89e/SEv9JEW7lCa37PcBcMoS8Kqz5USHkGNDZjFogNy9Y9Ztcsk\n265+jXBbaDcmxAB7EF5eCq/XhvQgCajb6OntIgqxfBDzwBuW3cROk28gBKft\nknEGxtIb2VVkgdlhHsqRYSNeXTejdZTxPDsQARtfv7zmxkVjJUsmk1kV6Yrk\niHOVrdnCu2ar4cgNWd1nVmJk+X0MOvKNoE8sJtxcTB1jYAzwzD0JYhuoTZ5Q\nHDmvkIkvbUzyJecGJWadPDvRj7oylppw5UwjbvrKZE35TYX8XxwK4NIXOu4W\nsRnkMUiMBEEnNI8lXXjjJKuC0wAwElV/2YLTVqZf7FZV6R4f2ifgZrnI7Dhi\nWklLC0+1ntfT8Eax1/xNMEugxxpVng+owuKM/z7pvOQKHWnJVsdFJRG1Myrb\nbigjjlvru4n2A47dnZcMEq+CfOdfkvD+Oq4UMAzJG/GbV9bTVko9j5XDesgv\n8RvR8MSnhfRWX+mvntDTXI6v3RnRPnQkcQr8WWtPzrL/WQzy9ZI9IsBafZOZ\noa95Ma+dvtmsrsvUpdMX4spZzaD6ZkxYY1S1gRNOK0RUaA94wJa6leMN3VBl\nqbMgW/sWqW4hiKAPm+b/MdX1Tj1l7XcFpEpuXfSwfahRDfYjSliNR1iEvwmc\nmbFZ\r\n=NsNP\r\n-----END PGP SIGNATURE-----\r\n"
+			},
+			"maintainers": [
+				{
+					"name": "james_messinger",
+					"email": "j.ames.messinger@gmail.com"
+				},
+				{
+					"name": "jamesmessinger",
+					"email": "james.messinger@gmail.com"
+				}
+			],
+			"_npmUser": {
+				"name": "jamesmessinger",
+				"email": "james.messinger@gmail.com"
+			},
+			"directories": {},
+			"_npmOperationalInternal": {
+				"host": "s3://npm-registry-packages",
+				"tmp": "tmp/json-schema-ref-parser_9.0.5_1595158717495_0.2955399638578007"
+			},
+			"_hasShrinkwrap": false
+		},
+		"9.0.6": {
+			"name": "@apidevtools/json-schema-ref-parser",
+			"version": "9.0.6",
+			"description": "Parse, Resolve, and Dereference JSON Schema $ref pointers",
+			"keywords": [
+				"json",
+				"schema",
+				"jsonschema",
+				"json-schema",
+				"json-pointer",
+				"$ref",
+				"dereference",
+				"resolve"
+			],
+			"author": {
+				"name": "James Messinger",
+				"url": "https://jamesmessinger.com"
+			},
+			"contributors": [
+				{
+					"name": "Boris Cherny",
+					"email": "boris@performancejs.com"
+				}
+			],
+			"homepage": "https://apitools.dev/json-schema-ref-parser/",
+			"repository": {
+				"type": "git",
+				"url": "git+https://github.com/APIDevTools/json-schema-ref-parser.git"
+			},
+			"license": "MIT",
+			"main": "lib/index.js",
+			"typings": "lib/index.d.ts",
+			"browser": {
+				"fs": false
+			},
+			"scripts": {
+				"clean": "shx rm -rf .nyc_output coverage",
+				"lint": "eslint lib test/fixtures test/specs",
+				"test": "npm run test:node && npm run test:typescript && npm run test:browser && npm run lint",
+				"test:node": "mocha",
+				"test:browser": "karma start --single-run",
+				"test:typescript": "tsc --noEmit --strict --lib esnext,dom test/specs/typescript-definition.spec.ts",
+				"coverage": "npm run coverage:node && npm run coverage:browser",
+				"coverage:node": "nyc node_modules/mocha/bin/mocha",
+				"coverage:browser": "npm run test:browser -- --coverage",
+				"upgrade": "npm-check -u && npm audit fix",
+				"bump": "bump --tag --push --all",
+				"release": "npm run upgrade && npm run clean && npm test && npm run bump"
+			},
+			"devDependencies": {
+				"@babel/polyfill": "^7.10.4",
+				"@jsdevtools/eslint-config": "^1.0.7",
+				"@jsdevtools/host-environment": "^2.0.4",
+				"@jsdevtools/karma-config": "^3.1.7",
+				"@jsdevtools/version-bump-prompt": "^6.0.6",
+				"@types/json-schema": "^7.0.4",
+				"@types/node": "^14.0.25",
+				"chai": "^4.2.0",
+				"chai-subset": "^1.6.0",
+				"eslint": "^7.5.0",
+				"karma": "^5.0.2",
+				"karma-cli": "^2.0.0",
+				"mocha": "^8.0.1",
+				"npm-check": "^5.9.0",
+				"nyc": "^15.0.1",
+				"shx": "^0.3.2",
+				"typescript": "^3.9.7"
+			},
+			"dependencies": {
+				"@jsdevtools/ono": "^7.1.3",
+				"call-me-maybe": "^1.0.1",
+				"js-yaml": "^3.13.1"
+			},
+			"gitHead": "d3bc1985a9a1d301a5eddc7a4bbfaca542887d8c",
+			"bugs": {
+				"url": "https://github.com/APIDevTools/json-schema-ref-parser/issues"
+			},
+			"_id": "@apidevtools/json-schema-ref-parser@9.0.6",
+			"_nodeVersion": "10.21.0",
+			"_npmVersion": "6.14.4",
+			"dist": {
+				"integrity": "sha512-M3YgsLjI0lZxvrpeGVk9Ap032W6TPQkH6pRAZz81Ac3WUNF79VQooAFnp8umjvVzUmD93NkogxEwbSce7qMsUg==",
+				"shasum": "5d9000a3ac1fd25404da886da6b266adcd99cf1c",
+				"tarball": "https://registry.npmjs.org/@apidevtools/json-schema-ref-parser/-/json-schema-ref-parser-9.0.6.tgz",
+				"fileCount": 24,
+				"unpackedSize": 147131,
+				"npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJfGqztCRA9TVsSAnZWagAAUgYP/0S+fZu+CP1ntUnpPX/O\nGbdvVhzuZ6NzeTCja86a8cGirBJ05yBpZ0IuszPJmMAuyMTiF9/smOsAjw+w\nA5PfPMl43VguIrhsT4EkT/OpJAdVgk83A9jXLrZXOXJgN/BlHLT2sWK/HyJM\nw6YZj/U1yxNHeo5nYdI99e2KXFxIVgC60IR9dHvWWPSK/eT6jmGxlvafchck\nH1/UaSIF7LF20yA3160Pt3FpZkxW/PsZurPKANVj1I0/U47h1iUabqyS6vnO\nFR0kuOI2J2/Z9wH0N/9Pyt0pHq0lmHw5yglvYPa3K+TvOwKelMYHbV2MZIxB\nMxTQHyWtpHK607MiFeOQVC+Zw+Qjd7ob9yscaEWCdbZwoMdBz7PhsdYvSAF7\nI+RVYs8xRF/vIDQUtU/pJBIuzKkoDOf7kakKSoQ2JIBda86ghX3IU3mI2vxT\nQNZRfjI3dfvLqDEstEyzybYkaQTt4PKyUysE8hlRFD2SB1uTCnt1dUBwMkZ1\nTwD8uy7+Tj2TER9s5/Uf4Jr/1gj5S62ukbC1YpD4gLmuxIFhfvKUQkmj284w\n/9sb6FxpqKAJ+e9ll2bs/gEH8er4LBXxCXntzj71Hn88xwCVQWiEg1kOKuJK\nWU0s6L8mCgN5xjUQkoG7hhOkyiUefEnXImqMtMn7wAq8BbTvLqAxPNtM82EN\nZP7w\r\n=ABlD\r\n-----END PGP SIGNATURE-----\r\n"
+			},
+			"maintainers": [
+				{
+					"name": "james_messinger",
+					"email": "j.ames.messinger@gmail.com"
+				},
+				{
+					"name": "jamesmessinger",
+					"email": "james.messinger@gmail.com"
+				}
+			],
+			"_npmUser": {
+				"name": "jamesmessinger",
+				"email": "james.messinger@gmail.com"
+			},
+			"directories": {},
+			"_npmOperationalInternal": {
+				"host": "s3://npm-registry-packages",
+				"tmp": "tmp/json-schema-ref-parser_9.0.6_1595583725163_0.7596635066731545"
+			},
+			"_hasShrinkwrap": false
+		}
+	},
+	"time": {
+		"created": "2020-03-13T12:33:54.350Z",
+		"7.1.4": "2020-03-13T12:33:54.654Z",
+		"modified": "2020-07-24T09:42:07.790Z",
+		"8.0.0": "2020-03-14T10:52:40.987Z",
+		"9.0.0": "2020-04-21T11:22:13.083Z",
+		"9.0.1": "2020-04-21T11:31:52.765Z",
+		"9.0.2": "2020-07-08T13:32:56.700Z",
+		"9.0.3": "2020-07-10T11:24:10.205Z",
+		"9.0.5": "2020-07-19T11:38:37.642Z",
+		"9.0.6": "2020-07-24T09:42:05.308Z"
+	},
+	"users": {},
+	"dist-tags": {
+		"latest": "9.0.6"
+	},
+	"_uplinks": {
+		"npmjs": {
+			"etag": "W/\"4543cfc198b448254527dd8d37c79ff8\"",
+			"fetched": 1599196084028
+		}
+	},
+	"_distfiles": {
+		"json-schema-ref-parser-7.1.4.tgz": {
+			"url": "https://registry.npmjs.org/@apidevtools/json-schema-ref-parser/-/json-schema-ref-parser-7.1.4.tgz",
+			"sha": "22849fbbd23b0853a9b5a1343dbc2c47b4c8b4b5",
+			"registry": "npmjs"
+		},
+		"json-schema-ref-parser-8.0.0.tgz": {
+			"url": "https://registry.npmjs.org/@apidevtools/json-schema-ref-parser/-/json-schema-ref-parser-8.0.0.tgz",
+			"sha": "9eb749499b3f8d919e90bb141e4b6f67aee4692d",
+			"registry": "npmjs"
+		},
+		"json-schema-ref-parser-9.0.0.tgz": {
+			"url": "https://registry.npmjs.org/@apidevtools/json-schema-ref-parser/-/json-schema-ref-parser-9.0.0.tgz",
+			"sha": "8c3c19cfb6d15df3859ee63cae73e68bfa6fa766",
+			"registry": "npmjs"
+		},
+		"json-schema-ref-parser-9.0.1.tgz": {
+			"url": "https://registry.npmjs.org/@apidevtools/json-schema-ref-parser/-/json-schema-ref-parser-9.0.1.tgz",
+			"sha": "c0ed0bd21a7397d2d7a83b69565268f2d78f2d7a",
+			"registry": "npmjs"
+		},
+		"json-schema-ref-parser-9.0.2.tgz": {
+			"url": "https://registry.npmjs.org/@apidevtools/json-schema-ref-parser/-/json-schema-ref-parser-9.0.2.tgz",
+			"sha": "b3f82509dea6c50f49ff9eeb35af50bef60fe577",
+			"registry": "npmjs"
+		},
+		"json-schema-ref-parser-9.0.3.tgz": {
+			"url": "https://registry.npmjs.org/@apidevtools/json-schema-ref-parser/-/json-schema-ref-parser-9.0.3.tgz",
+			"sha": "4ec58992c8f15778cc59baf7a872c8ad6294fed5",
+			"registry": "npmjs"
+		},
+		"json-schema-ref-parser-9.0.5.tgz": {
+			"url": "https://registry.npmjs.org/@apidevtools/json-schema-ref-parser/-/json-schema-ref-parser-9.0.5.tgz",
+			"sha": "972f7b9f579dff1ce2229d891592932a70a8d1ee",
+			"registry": "npmjs"
+		},
+		"json-schema-ref-parser-9.0.6.tgz": {
+			"url": "https://registry.npmjs.org/@apidevtools/json-schema-ref-parser/-/json-schema-ref-parser-9.0.6.tgz",
+			"sha": "5d9000a3ac1fd25404da886da6b266adcd99cf1c",
+			"registry": "npmjs"
+		}
+	},
+	"_attachments": {},
+	"_rev": "1-7f2d4fab7649a1ca",
+	"_id": "@apidevtools/json-schema-ref-parser",
+	"readme": "JSON Schema $Ref Parser\n============================\n#### Parse, Resolve, and Dereference JSON Schema $ref pointers\n\n[![Build Status](https://github.com/APIDevTools/json-schema-ref-parser/workflows/CI-CD/badge.svg?branch=master)](https://github.com/APIDevTools/json-schema-ref-parser/actions)\n[![Coverage Status](https://coveralls.io/repos/github/APIDevTools/json-schema-ref-parser/badge.svg?branch=master)](https://coveralls.io/github/APIDevTools/json-schema-ref-parser)\n\n[![npm](https://img.shields.io/npm/v/@apidevtools/json-schema-ref-parser.svg)](https://www.npmjs.com/package/@apidevtools/json-schema-ref-parser)\n[![Dependencies](https://david-dm.org/APIDevTools/json-schema-ref-parser.svg)](https://david-dm.org/APIDevTools/json-schema-ref-parser)\n[![License](https://img.shields.io/npm/l/@apidevtools/json-schema-ref-parser.svg)](LICENSE)\n[![Buy us a tree](https://img.shields.io/badge/Treeware-%F0%9F%8C%B3-lightgreen)](https://plant.treeware.earth/APIDevTools/json-schema-ref-parser)\n\n\n[![OS and Browser Compatibility](https://apitools.dev/img/badges/ci-badges-with-ie.svg)](https://github.com/APIDevTools/json-schema-ref-parser/actions)\n\n\nThe Problem:\n--------------------------\nYou've got a JSON Schema with `$ref` pointers to other files and/or URLs.  Maybe you know all the referenced files ahead of time.  Maybe you don't.  Maybe some are local files, and others are remote URLs.  Maybe they are a mix of JSON and YAML format.  Maybe some of the files contain cross-references to each other.\n\n```javascript\n{\n  \"definitions\": {\n    \"person\": {\n      // references an external file\n      \"$ref\": \"schemas/people/Bruce-Wayne.json\"\n    },\n    \"place\": {\n      // references a sub-schema in an external file\n      \"$ref\": \"schemas/places.yaml#/definitions/Gotham-City\"\n    },\n    \"thing\": {\n      // references a URL\n      \"$ref\": \"http://wayne-enterprises.com/things/batmobile\"\n    },\n    \"color\": {\n      // references a value in an external file via an internal reference\n      \"$ref\": \"#/definitions/thing/properties/colors/black-as-the-night\"\n    }\n  }\n}\n```\n\n\nThe Solution:\n--------------------------\nJSON Schema $Ref Parser is a full [JSON Reference](https://tools.ietf.org/html/draft-pbryan-zyp-json-ref-03) and [JSON Pointer](https://tools.ietf.org/html/rfc6901) implementation that crawls even the most complex [JSON Schemas](http://json-schema.org/latest/json-schema-core.html) and gives you simple, straightforward JavaScript objects.\n\n- Use **JSON** or **YAML** schemas &mdash; or even a mix of both!\n- Supports `$ref` pointers to external files and URLs, as well as [custom sources](https://apitools.dev/json-schema-ref-parser/docs/plugins/resolvers.html) such as databases\n- Can [bundle](https://apitools.dev/json-schema-ref-parser/docs/ref-parser.html#bundlepath-options-callback) multiple files into a single schema that only has _internal_ `$ref` pointers\n- Can [dereference](https://apitools.dev/json-schema-ref-parser/docs/ref-parser.html#dereferencepath-options-callback) your schema, producing a plain-old JavaScript object that's easy to work with\n- Supports [circular references](https://apitools.dev/json-schema-ref-parser/docs/#circular-refs), nested references, back-references, and cross-references between files\n- Maintains object reference equality &mdash; `$ref` pointers to the same value always resolve to the same object instance\n- Tested in Node and all major web browsers on Windows, Mac, and Linux\n\n\nExample\n--------------------------\n\n```javascript\n$RefParser.dereference(mySchema, (err, schema) => {\n  if (err) {\n    console.error(err);\n  }\n  else {\n    // `schema` is just a normal JavaScript object that contains your entire JSON Schema,\n    // including referenced files, combined into a single object\n    console.log(schema.definitions.person.properties.firstName);\n  }\n})\n```\n\nOr use `async`/`await` syntax instead. The following example is the same as above:\n\n```javascript\ntry {\n  let schema = await $RefParser.dereference(mySchema);\n  console.log(schema.definitions.person.properties.firstName);\n}\ncatch(err) {\n  console.error(err);\n}\n```\n\nFor more detailed examples, please see the [API Documentation](https://apitools.dev/json-schema-ref-parser/docs/)\n\n\n\nInstallation\n--------------------------\nInstall using [npm](https://docs.npmjs.com/about-npm/):\n\n```bash\nnpm install @apidevtools/json-schema-ref-parser\n```\n\n\n\nUsage\n--------------------------\nWhen using JSON Schema $Ref Parser in Node.js apps, you'll probably want to use **CommonJS** syntax:\n\n```javascript\nconst $RefParser = require(\"@apidevtools/json-schema-ref-parser\");\n```\n\nWhen using a transpiler such as [Babel](https://babeljs.io/) or [TypeScript](https://www.typescriptlang.org/), or a bundler such as [Webpack](https://webpack.js.org/) or [Rollup](https://rollupjs.org/), you can use **ECMAScript modules** syntax instead:\n\n```javascript\nimport $RefParser from \"@apidevtools/json-schema-ref-parser\";\n```\n\n\n\nBrowser support\n--------------------------\nJSON Schema $Ref Parser supports recent versions of every major web browser.  Older browsers may require [Babel](https://babeljs.io/) and/or [polyfills](https://babeljs.io/docs/en/next/babel-polyfill).\n\nTo use JSON Schema $Ref Parser in a browser, you'll need to use a bundling tool such as [Webpack](https://webpack.js.org/), [Rollup](https://rollupjs.org/), [Parcel](https://parceljs.org/), or [Browserify](http://browserify.org/). Some bundlers may require a bit of configuration, such as setting `browser: true` in [rollup-plugin-resolve](https://github.com/rollup/rollup-plugin-node-resolve).\n\n\n\nAPI Documentation\n--------------------------\nFull API documentation is available [right here](https://apitools.dev/json-schema-ref-parser/docs/)\n\n\n\nContributing\n--------------------------\nI welcome any contributions, enhancements, and bug-fixes.  [Open an issue](https://github.com/APIDevTools/json-schema-ref-parser/issues) on GitHub and [submit a pull request](https://github.com/APIDevTools/json-schema-ref-parser/pulls).\n\n#### Building/Testing\nTo build/test the project locally on your computer:\n\n1. __Clone this repo__<br>\n`git clone https://github.com/APIDevTools/json-schema-ref-parser.git`\n\n2. __Install dependencies__<br>\n`npm install`\n\n3. __Run the tests__<br>\n`npm test`\n\n\n\nLicense\n--------------------------\nJSON Schema $Ref Parser is 100% free and open-source, under the [MIT license](LICENSE). Use it however you want.\n\nThis package is [Treeware](http://treeware.earth). If you use it in production, then we ask that you [**buy the world a tree**](https://plant.treeware.earth/APIDevTools/json-schema-ref-parser) to thank us for our work. By contributing to the Treeware forest you’ll be creating employment for local families and restoring wildlife habitats.\n\n\n\nBig Thanks To\n--------------------------\nThanks to these awesome companies for their support of Open Source developers ❤\n\n[![Travis CI](https://jstools.dev/img/badges/travis-ci.svg)](https://travis-ci.com)\n[![SauceLabs](https://jstools.dev/img/badges/sauce-labs.svg)](https://saucelabs.com)\n[![Coveralls](https://jstools.dev/img/badges/coveralls.svg)](https://coveralls.io)"
+}

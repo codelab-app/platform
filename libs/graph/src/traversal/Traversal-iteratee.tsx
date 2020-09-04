@@ -2,8 +2,8 @@
  * These callbacks are executed when visiting each Node during Tree traversal
  */
 import { Props } from '@codelab/props'
-import { findNode, NodeFinderAcc, NodeI } from '@codelab/graph'
-import { Node } from '../node/Node'
+import { findNode, NodeFinderAcc, NodeI } from '@codelab/node'
+import { Node } from '../../../node/src/Node'
 import { GraphSubTreeContext, TreeSubTreeContext } from '../tree/Tree.i'
 
 export function nodeFinderIteratee<P extends Props = {}>(

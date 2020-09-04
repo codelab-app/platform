@@ -3,9 +3,9 @@ import { JSONSchema7 } from 'json-schema'
 import { reduce } from 'lodash'
 import { Schema } from '../json-schema'
 
-export type Models = Map<string, Model>
+export type JsonModels = Map<string, JsonModel>
 
-export class Model {
+export class JsonModel {
   public readonly name: string
 
   private readonly _model: mongoose.Model<any>
@@ -23,7 +23,7 @@ export class Model {
   }
 
   // TODO: test that empty jsonSchema returns empty map
-  static parse(jsonSchema: JSONSchema7): Models {
+  static parse(jsonSchema: JSONSchema7): JsonModels {
     if (!jsonSchema || !('definitions' in jsonSchema)) {
       return new Map()
     }
@@ -34,7 +34,7 @@ export class Model {
       definitions,
       (modelsAcc, definition, name) => {
         const schema = new Schema((definition as JSONSchema7).properties)
-        const model = new Model(name, schema)
+        const model = new JsonModel(name, schema)
 
         return { ...modelsAcc, [name]: model }
       },

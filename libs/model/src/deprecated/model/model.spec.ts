@@ -3,7 +3,7 @@
  */
 import * as mongoose from 'mongoose'
 import { JSONSchema7 } from 'json-schema'
-import { Model, Models } from './model'
+import { JsonModel, JsonModels } from './model'
 
 describe('Json Schema', () => {
   const schema: JSONSchema7 = {
@@ -76,11 +76,11 @@ describe('Json Schema', () => {
   const componentModel = mongoose.model('component2', componentSchema)
   const propModel = mongoose.model('prop2', propSchema)
 
-  let models: Models
+  let models: JsonModels
 
   beforeAll(() => {
     delete mongoose.models
-    models = Model.parse(schema)
+    models = JsonModel.parse(schema)
   })
 
   // it('validates', () => {

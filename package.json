@@ -14,8 +14,10 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "postinstall": "nx run-many --target=build --projects=eslint-config-codelab,plugins-codelab",
+    "postinstall": "nx run-many --target=build --projects=eslint-config-codelab,plugins-codelab,plugins-plug",
     "docker": "docker-compose -f .docker/docker-compose.yaml up",
+    "local-registry": "./scripts/local-registry.sh",
+    "publish": "./scripts/publish.sh",
     "nx": "nx",
     "commit": "git-cz",
     "start": "nx serve",

@@ -49,6 +49,11 @@
                 "input": "./libs/plugins/codelab",
                 "glob": "builders.json",
                 "output": "."
+              },
+              {
+                "input": "./libs/plugins/codelab",
+                "glob": "migrations.json",
+                "output": "."
               }
             ]
           }
@@ -963,6 +968,109 @@
             "outputPath": "dist/storybook/tests",
             "config": {
               "configFolder": "libs/tests/.storybook"
+            }
+          },
+          "configurations": {
+            "ci": {
+              "quiet": true
+            }
+          }
+        }
+      }
+    },
+    "publishable": {
+      "root": "libs/publishable",
+      "sourceRoot": "libs/publishable/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "libs/publishable/tsconfig.lib.json",
+              "libs/publishable/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/publishable/**/*"]
+          }
+        },
+        "build": {
+          "builder": "@nrwl/web:package",
+          "options": {
+            "outputPath": "dist/libs/publishable",
+            "tsConfig": "libs/publishable/tsconfig.lib.json",
+            "project": "libs/publishable/package.json",
+            "entryFile": "libs/publishable/src/index.ts",
+            "external": ["react", "react-dom"],
+            "babelConfig": "@nrwl/react/plugins/bundle-babel",
+            "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+            "assets": [
+              {
+                "glob": "README.md",
+                "input": ".",
+                "output": "."
+              }
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/publishable/jest.config.js",
+            "tsConfig": "libs/publishable/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "node": {
+      "root": "libs/node",
+      "sourceRoot": "libs/node/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "libs/node/tsconfig.lib.json",
+              "libs/node/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/node/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/node/jest.config.js",
+            "tsConfig": "libs/node/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        },
+        "storybook": {
+          "builder": "@nrwl/storybook:storybook",
+          "options": {
+            "uiFramework": "@storybook/react",
+            "port": 4400,
+            "config": {
+              "configFolder": "libs/node/.storybook"
+            }
+          },
+          "configurations": {
+            "ci": {
+              "quiet": true
+            }
+          }
+        },
+        "build-storybook": {
+          "builder": "@nrwl/storybook:build",
+          "options": {
+            "uiFramework": "@storybook/react",
+            "outputPath": "dist/storybook/node",
+            "config": {
+              "configFolder": "libs/node/.storybook"
             }
           },
           "configurations": {

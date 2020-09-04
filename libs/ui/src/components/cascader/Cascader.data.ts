@@ -1,4 +1,4 @@
-import { ReactNodeI } from '../../../../graph/src/node/codec/Node-react'
+import { ReactNodeI } from '../../../../node/src/codec/Node-react'
 import { CascaderProps } from './Cascader.types'
 
 export const cascaderData: ReactNodeI<CascaderProps> = {

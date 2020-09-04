@@ -3,16 +3,16 @@
  */
 import { Props } from '@codelab/props'
 import { reduce } from 'lodash'
+import { NodeInterface, Node } from '@codelab/node'
 import { treeWalker } from '../traversal'
 import {
   graphAppenderIteratee,
   treeAppenderIteratee,
 } from '../traversal/Traversal-iteratee'
-import { NodeInterface, Node } from '../node'
 import { GraphSubTreeContext, TreeSubTreeContext } from './Tree.i'
 import { Graph } from '../graph'
-import { TreeNodeI } from '../node/codec/Node-tree'
-import { ReactNodeI } from '../node/codec/Node-react'
+import { TreeNodeI } from '../../../node/src/codec/Node-tree'
+import { ReactNodeI } from '../../../node/src/codec/Node-react'
 
 /**
  * This method generates a non-binary tree given JSON input. Each input node is

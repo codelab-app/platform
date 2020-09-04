@@ -1,10 +1,5 @@
-import {
-  makeTree,
-  Node,
-  traversePostOrder,
-  TreeNodeI,
-  ReactNodeI,
-} from '@codelab/graph'
+import { makeTree, traversePostOrder } from '@codelab/graph'
+import { Node, TreeNodeI, ReactNodeI } from '@codelab/node'
 import { evalPropsWithContext, Props } from '@codelab/props'
 import React, { FunctionComponent, PropsWithChildren } from 'react'
 import { elementParameterFactory } from './ElementFactory'

@@ -1,0 +1,2588 @@
+{
+	"name": "nx",
+	"versions": {
+		"0.7.3": {
+			"name": "nx",
+			"description": "Next JS is Application Server on node.js.",
+			"keywords": [
+				"framework",
+				"web",
+				"Web Server",
+				"Application Server",
+				"NextJS",
+				"Ext JS"
+			],
+			"version": "0.7.3",
+			"author": {
+				"name": "Kazuhiro Kotsutsumi",
+				"email": "kotsutsumi@xenophy.com"
+			},
+			"repository": {
+				"type": "git",
+				"url": "git://github.com/xenophy/NextJS.git"
+			},
+			"dependencies": {
+				"nx-core": ">= 0.1.1"
+			},
+			"main": "./lib/nx",
+			"_npmJsonOpts": {
+				"file": "/Users/kotsutsumi/.npm/nx/0.7.3/package/package.json",
+				"contributors": false,
+				"serverjs": false,
+				"wscript": true
+			},
+			"_id": "nx@0.7.3",
+			"scripts": {
+				"preinstall": "node-waf clean || true; node-waf configure build"
+			},
+			"devDependencies": {},
+			"engines": {
+				"node": "*"
+			},
+			"_engineSupported": true,
+			"_npmVersion": "1.0.22",
+			"_nodeVersion": "v0.5.3",
+			"_defaultsLoaded": true,
+			"dist": {
+				"shasum": "86d55ca2faa7e666304964d647fc7e2831cda8c4",
+				"tarball": "https://registry.npmjs.org/nx/-/nx-0.7.3.tgz"
+			},
+			"maintainers": [
+				{
+					"name": "kotsutsumi",
+					"email": "kotsutsumi@xenophy.com"
+				}
+			],
+			"directories": {},
+			"_npmUser": {
+				"name": "kotsutsumi",
+				"email": "kotsutsumi@xenophy.com"
+			},
+			"contributors": []
+		},
+		"0.7.4": {
+			"name": "nx",
+			"description": "Next JS is Application Server on node.js.",
+			"keywords": [
+				"framework",
+				"web",
+				"Web Server",
+				"Application Server",
+				"NextJS",
+				"Ext JS"
+			],
+			"version": "0.7.4",
+			"author": {
+				"name": "Kazuhiro Kotsutsumi",
+				"email": "kotsutsumi@xenophy.com"
+			},
+			"repository": {
+				"type": "git",
+				"url": "git://github.com/xenophy/NextJS.git"
+			},
+			"dependencies": {
+				"iconv-jp": "1.1.2",
+				"nx-core": ">= 0.1.5"
+			},
+			"main": "./lib/nx",
+			"_npmJsonOpts": {
+				"file": "/Users/kotsutsumi/.npm/nx/0.7.4/package/package.json",
+				"contributors": false,
+				"serverjs": false,
+				"wscript": true
+			},
+			"_id": "nx@0.7.4",
+			"scripts": {
+				"preinstall": "node-waf clean || true; node-waf configure build"
+			},
+			"devDependencies": {},
+			"engines": {
+				"node": "*"
+			},
+			"_engineSupported": true,
+			"_npmVersion": "1.0.24",
+			"_nodeVersion": "v0.5.4",
+			"_defaultsLoaded": true,
+			"dist": {
+				"shasum": "34628136f0c2a4d4e795568db33d67bbbe2638ad",
+				"tarball": "https://registry.npmjs.org/nx/-/nx-0.7.4.tgz"
+			},
+			"maintainers": [
+				{
+					"name": "kotsutsumi",
+					"email": "kotsutsumi@xenophy.com"
+				}
+			],
+			"directories": {},
+			"_npmUser": {
+				"name": "kotsutsumi",
+				"email": "kotsutsumi@xenophy.com"
+			},
+			"contributors": []
+		},
+		"0.7.5": {
+			"name": "nx",
+			"description": "Next JS is Application Server on node.js.",
+			"keywords": [
+				"framework",
+				"web",
+				"Web Server",
+				"Application Server",
+				"NextJS",
+				"Ext JS"
+			],
+			"version": "0.7.5",
+			"author": {
+				"name": "Kazuhiro Kotsutsumi",
+				"email": "kotsutsumi@xenophy.com"
+			},
+			"repository": {
+				"type": "git",
+				"url": "git://github.com/xenophy/NextJS.git"
+			},
+			"dependencies": {
+				"iconv-jp": "1.1.2",
+				"nx-core": ">= 0.1.8"
+			},
+			"main": "./lib/nx",
+			"engines": {
+				"node": ">= 0.5.4"
+			},
+			"_npmJsonOpts": {
+				"file": "/Users/kotsutsumi/.npm/nx/0.7.5/package/package.json",
+				"contributors": false,
+				"serverjs": false,
+				"wscript": true
+			},
+			"_id": "nx@0.7.5",
+			"scripts": {
+				"preinstall": "node-waf clean || true; node-waf configure build"
+			},
+			"devDependencies": {},
+			"_engineSupported": true,
+			"_npmVersion": "1.0.24",
+			"_nodeVersion": "v0.5.4",
+			"_defaultsLoaded": true,
+			"dist": {
+				"shasum": "90ee6d02ce0c82d4c3afb4ea46c2a56f3749c547",
+				"tarball": "https://registry.npmjs.org/nx/-/nx-0.7.5.tgz"
+			},
+			"maintainers": [
+				{
+					"name": "kotsutsumi",
+					"email": "kotsutsumi@xenophy.com"
+				}
+			],
+			"directories": {},
+			"_npmUser": {
+				"name": "kotsutsumi",
+				"email": "kotsutsumi@xenophy.com"
+			},
+			"contributors": []
+		},
+		"0.7.6": {
+			"name": "nx",
+			"description": "Next JS is Application Server on node.js.",
+			"keywords": [
+				"framework",
+				"web",
+				"Web Server",
+				"Application Server",
+				"NextJS",
+				"Ext JS"
+			],
+			"version": "0.7.6",
+			"author": {
+				"name": "Kazuhiro Kotsutsumi",
+				"email": "kotsutsumi@xenophy.com"
+			},
+			"repository": {
+				"type": "git",
+				"url": "git://github.com/xenophy/NextJS.git"
+			},
+			"dependencies": {
+				"iconv-jp": "1.1.2",
+				"nx-core": ">= 0.1.8"
+			},
+			"main": "./lib/nx",
+			"engines": {
+				"node": ">= 0.5.4"
+			},
+			"_npmJsonOpts": {
+				"file": "/Users/kotsutsumi/.npm/nx/0.7.6/package/package.json",
+				"contributors": false,
+				"serverjs": false,
+				"wscript": true
+			},
+			"_id": "nx@0.7.6",
+			"scripts": {
+				"preinstall": "node-waf clean || true; node-waf configure build"
+			},
+			"devDependencies": {},
+			"_engineSupported": true,
+			"_npmVersion": "1.0.24",
+			"_nodeVersion": "v0.5.4",
+			"_defaultsLoaded": true,
+			"dist": {
+				"shasum": "25616579a99c0e9d16afeda66835bf32c8d5ba07",
+				"tarball": "https://registry.npmjs.org/nx/-/nx-0.7.6.tgz"
+			},
+			"maintainers": [
+				{
+					"name": "kotsutsumi",
+					"email": "kotsutsumi@xenophy.com"
+				}
+			],
+			"directories": {},
+			"_npmUser": {
+				"name": "kotsutsumi",
+				"email": "kotsutsumi@xenophy.com"
+			},
+			"contributors": []
+		},
+		"0.8.0": {
+			"name": "nx",
+			"description": "Next JS is Application Server on node.js.",
+			"keywords": [
+				"framework",
+				"web",
+				"Web Server",
+				"Application Server",
+				"NextJS",
+				"Ext JS"
+			],
+			"version": "0.8.0",
+			"author": {
+				"name": "Kazuhiro Kotsutsumi",
+				"email": "kotsutsumi@xenophy.com"
+			},
+			"repository": {
+				"type": "git",
+				"url": "git://github.com/xenophy/NextJS.git"
+			},
+			"dependencies": {
+				"mysql": "0.9.3",
+				"iconv-jp": "1.1.2",
+				"nx-daemon": ">= 0.1.0",
+				"nx-core": ">= 0.1.8"
+			},
+			"main": "./lib/nx",
+			"engines": {
+				"node": ">= 0.5.4"
+			},
+			"_npmJsonOpts": {
+				"file": "/Users/kotsutsumi/.npm/nx/0.8.0/package/package.json",
+				"wscript": false,
+				"contributors": false,
+				"serverjs": false
+			},
+			"_id": "nx@0.8.0",
+			"devDependencies": {},
+			"_engineSupported": true,
+			"_npmVersion": "1.0.24",
+			"_nodeVersion": "v0.5.4",
+			"_defaultsLoaded": true,
+			"dist": {
+				"shasum": "8d19a7b353e7a28de3c1e84321bed3130ba64dc8",
+				"tarball": "https://registry.npmjs.org/nx/-/nx-0.8.0.tgz"
+			},
+			"scripts": {},
+			"maintainers": [
+				{
+					"name": "kotsutsumi",
+					"email": "kotsutsumi@xenophy.com"
+				}
+			],
+			"directories": {},
+			"_npmUser": {
+				"name": "kotsutsumi",
+				"email": "kotsutsumi@xenophy.com"
+			},
+			"contributors": []
+		},
+		"0.8.1": {
+			"name": "nx",
+			"description": "Next JS is Application Server on node.js.",
+			"keywords": [
+				"framework",
+				"web",
+				"Web Server",
+				"Application Server",
+				"NextJS",
+				"Ext JS"
+			],
+			"version": "0.8.1",
+			"author": {
+				"name": "Kazuhiro Kotsutsumi",
+				"email": "kotsutsumi@xenophy.com"
+			},
+			"repository": {
+				"type": "git",
+				"url": "git://github.com/xenophy/NextJS.git"
+			},
+			"dependencies": {
+				"mysql": "0.9.3",
+				"iconv-jp": "1.1.2",
+				"nx-daemon": ">= 0.1.0",
+				"nx-core": ">= 0.1.8"
+			},
+			"main": "./lib/nx",
+			"engines": {
+				"node": ">= 0.5.4"
+			},
+			"_npmJsonOpts": {
+				"file": "/Users/kotsutsumi/.npm/nx/0.8.1/package/package.json",
+				"wscript": false,
+				"contributors": false,
+				"serverjs": false
+			},
+			"_id": "nx@0.8.1",
+			"devDependencies": {},
+			"_engineSupported": true,
+			"_npmVersion": "1.0.24",
+			"_nodeVersion": "v0.5.5",
+			"_defaultsLoaded": true,
+			"dist": {
+				"shasum": "93ccc042552a1f2589c8d8fc092de476ea417744",
+				"tarball": "https://registry.npmjs.org/nx/-/nx-0.8.1.tgz"
+			},
+			"scripts": {},
+			"maintainers": [
+				{
+					"name": "kotsutsumi",
+					"email": "kotsutsumi@xenophy.com"
+				}
+			],
+			"directories": {},
+			"_npmUser": {
+				"name": "kotsutsumi",
+				"email": "kotsutsumi@xenophy.com"
+			},
+			"contributors": []
+		},
+		"0.8.2": {
+			"name": "nx",
+			"description": "Next JS is Application Server on node.js.",
+			"keywords": [
+				"framework",
+				"web",
+				"Web Server",
+				"Application Server",
+				"NextJS",
+				"Ext JS"
+			],
+			"version": "0.8.2",
+			"author": {
+				"name": "Kazuhiro Kotsutsumi",
+				"email": "kotsutsumi@xenophy.com"
+			},
+			"repository": {
+				"type": "git",
+				"url": "git://github.com/xenophy/NextJS.git"
+			},
+			"dependencies": {
+				"mysql": "0.9.3",
+				"iconv-jp": "1.1.2",
+				"nx-daemon": ">= 0.1.0",
+				"nx-core": ">= 0.1.9"
+			},
+			"main": "./lib/nx",
+			"engines": {
+				"node": ">= 0.5.4"
+			},
+			"_npmJsonOpts": {
+				"file": "/Users/kotsutsumi/.npm/nx/0.8.2/package/package.json",
+				"wscript": false,
+				"contributors": false,
+				"serverjs": false
+			},
+			"_id": "nx@0.8.2",
+			"devDependencies": {},
+			"_engineSupported": true,
+			"_npmVersion": "1.0.28-pre-DEV-UNSTABLE",
+			"_nodeVersion": "v0.5.5",
+			"_defaultsLoaded": true,
+			"dist": {
+				"shasum": "67e72106ce40aa4b24e73475d569df7d835d2beb",
+				"tarball": "https://registry.npmjs.org/nx/-/nx-0.8.2.tgz"
+			},
+			"maintainers": [
+				{
+					"name": "kotsutsumi",
+					"email": "kotsutsumi@xenophy.com"
+				}
+			],
+			"directories": {},
+			"_npmUser": {
+				"name": "kotsutsumi",
+				"email": "kotsutsumi@xenophy.com"
+			},
+			"contributors": []
+		},
+		"0.8.3": {
+			"name": "nx",
+			"description": "Next JS is Application Server on node.js.",
+			"keywords": [
+				"framework",
+				"web",
+				"Web Server",
+				"Application Server",
+				"NextJS",
+				"Ext JS"
+			],
+			"version": "0.8.3",
+			"author": {
+				"name": "Kazuhiro Kotsutsumi",
+				"email": "kotsutsumi@xenophy.com"
+			},
+			"repository": {
+				"type": "git",
+				"url": "git://github.com/xenophy/NextJS.git"
+			},
+			"dependencies": {
+				"mongodb": "0.9.6-18",
+				"mysql": "0.9.3",
+				"iconv-jp": "1.1.2",
+				"nx-daemon": ">= 0.1.0",
+				"nx-core": ">= 0.1.9"
+			},
+			"main": "./lib/nx",
+			"engines": {
+				"node": ">= 0.5.4"
+			},
+			"_npmJsonOpts": {
+				"file": "/Users/kotsutsumi/.npm/nx/0.8.3/package/package.json",
+				"wscript": false,
+				"contributors": false,
+				"serverjs": false
+			},
+			"_id": "nx@0.8.3",
+			"devDependencies": {},
+			"_engineSupported": true,
+			"_npmVersion": "1.0.27",
+			"_nodeVersion": "v0.5.5",
+			"_defaultsLoaded": true,
+			"dist": {
+				"shasum": "eab824df493fb588f6a3b72c0151b91cafd099c1",
+				"tarball": "https://registry.npmjs.org/nx/-/nx-0.8.3.tgz"
+			},
+			"maintainers": [
+				{
+					"name": "kotsutsumi",
+					"email": "kotsutsumi@xenophy.com"
+				}
+			],
+			"directories": {},
+			"_npmUser": {
+				"name": "kotsutsumi",
+				"email": "kotsutsumi@xenophy.com"
+			},
+			"contributors": []
+		},
+		"0.8.4": {
+			"name": "nx",
+			"description": "Next JS is Application Server on node.js.",
+			"keywords": [
+				"framework",
+				"web",
+				"Web Server",
+				"Application Server",
+				"NextJS",
+				"Ext JS"
+			],
+			"version": "0.8.4",
+			"author": {
+				"name": "Kazuhiro Kotsutsumi",
+				"email": "kotsutsumi@xenophy.com"
+			},
+			"repository": {
+				"type": "git",
+				"url": "git://github.com/xenophy/NextJS.git"
+			},
+			"dependencies": {
+				"mongodb": "0.9.6-18",
+				"mysql": "0.9.3",
+				"iconv-jp": "1.1.2",
+				"nx-daemon": ">= 0.1.0",
+				"nx-core": ">= 0.1.9"
+			},
+			"main": "./lib/nx",
+			"engines": {
+				"node": ">= 0.5.4"
+			},
+			"_npmUser": {
+				"name": "kotsutsumi",
+				"email": "kotsutsumi@xenophy.com"
+			},
+			"_id": "nx@0.8.4",
+			"devDependencies": {},
+			"_engineSupported": true,
+			"_npmVersion": "1.0.96",
+			"_nodeVersion": "v0.5.10",
+			"_defaultsLoaded": true,
+			"dist": {
+				"shasum": "e4c3475e7606e78e1ccdef8fb24a42d2620501f3",
+				"tarball": "https://registry.npmjs.org/nx/-/nx-0.8.4.tgz"
+			},
+			"maintainers": [
+				{
+					"name": "kotsutsumi",
+					"email": "kotsutsumi@xenophy.com"
+				}
+			],
+			"directories": {},
+			"contributors": []
+		},
+		"0.8.5": {
+			"name": "nx",
+			"description": "Next JS is Application Server on node.js.",
+			"keywords": [
+				"framework",
+				"web",
+				"Web Server",
+				"Application Server",
+				"NextJS",
+				"Ext JS"
+			],
+			"version": "0.8.5",
+			"author": {
+				"name": "Kazuhiro Kotsutsumi",
+				"email": "kotsutsumi@xenophy.com"
+			},
+			"repository": {
+				"type": "git",
+				"url": "git://github.com/xenophy/NextJS.git"
+			},
+			"dependencies": {
+				"mongodb": ">= 0.9.6-18",
+				"mysql": ">= 0.9.3",
+				"redis": ">= 0.6.7",
+				"emailjs": ">= 0.1.15",
+				"socket.io": ">= 0.8.6",
+				"iconv-jp": ">= 1.1.3",
+				"nx-daemon": ">= 0.1.1",
+				"nx-core": ">= 0.1.9"
+			},
+			"main": "./lib/nx",
+			"engines": {
+				"node": ">= 0.6.0"
+			},
+			"_npmUser": {
+				"name": "kotsutsumi",
+				"email": "kotsutsumi@xenophy.com"
+			},
+			"_id": "nx@0.8.5",
+			"devDependencies": {},
+			"_engineSupported": true,
+			"_npmVersion": "1.0.105",
+			"_nodeVersion": "v0.6.0",
+			"_defaultsLoaded": true,
+			"dist": {
+				"shasum": "e452896d078d5980aa9a7a3322dacf1bebb96e03",
+				"tarball": "https://registry.npmjs.org/nx/-/nx-0.8.5.tgz"
+			},
+			"maintainers": [
+				{
+					"name": "kotsutsumi",
+					"email": "kotsutsumi@xenophy.com"
+				}
+			],
+			"directories": {},
+			"contributors": []
+		},
+		"0.8.6": {
+			"name": "nx",
+			"description": "Next JS is Application Server on node.js.",
+			"keywords": [
+				"framework",
+				"web",
+				"Web Server",
+				"Application Server",
+				"NextJS",
+				"Ext JS"
+			],
+			"version": "0.8.6",
+			"author": {
+				"name": "Kazuhiro Kotsutsumi",
+				"email": "kotsutsumi@xenophy.com"
+			},
+			"repository": {
+				"type": "git",
+				"url": "git://github.com/xenophy/NextJS.git"
+			},
+			"dependencies": {
+				"mongodb": ">= 0.9.6-18",
+				"mysql": ">= 0.9.3",
+				"redis": ">= 0.6.7",
+				"emailjs": ">= 0.1.15",
+				"socket.io": ">= 0.8.6",
+				"iconv-jp": ">= 1.1.3",
+				"nx-daemon": ">= 0.1.1",
+				"nx-core": ">= 0.1.9"
+			},
+			"main": "./lib/nx",
+			"engines": {
+				"node": ">= 0.6.0"
+			},
+			"_npmUser": {
+				"name": "kotsutsumi",
+				"email": "kotsutsumi@xenophy.com"
+			},
+			"_id": "nx@0.8.6",
+			"devDependencies": {},
+			"_engineSupported": true,
+			"_npmVersion": "1.0.105",
+			"_nodeVersion": "v0.6.1",
+			"_defaultsLoaded": true,
+			"dist": {
+				"shasum": "276a49bd4b9d5a99f4520b8d6340086758931ff7",
+				"tarball": "https://registry.npmjs.org/nx/-/nx-0.8.6.tgz"
+			},
+			"maintainers": [
+				{
+					"name": "kotsutsumi",
+					"email": "kotsutsumi@xenophy.com"
+				}
+			],
+			"directories": {},
+			"contributors": []
+		},
+		"0.8.7": {
+			"name": "nx",
+			"description": "Next JS is Application Server on node.js.",
+			"keywords": [
+				"framework",
+				"web",
+				"Web Server",
+				"Application Server",
+				"NextJS",
+				"Ext JS"
+			],
+			"version": "0.8.7",
+			"author": {
+				"name": "Kazuhiro Kotsutsumi",
+				"email": "kotsutsumi@xenophy.com"
+			},
+			"repository": {
+				"type": "git",
+				"url": "git://github.com/xenophy/NextJS.git"
+			},
+			"dependencies": {
+				"mongodb": ">= 0.9.6-18",
+				"mysql": ">= 0.9.3",
+				"redis": ">= 0.6.7",
+				"emailjs": ">= 0.1.15",
+				"socket.io": ">= 0.8.6",
+				"iconv-jp": ">= 1.1.3",
+				"nx-daemon": ">= 0.1.1",
+				"nx-core": ">= 0.1.9",
+				"geoip-lite": ">= 1.0.3"
+			},
+			"main": "./lib/nx",
+			"engines": {
+				"node": ">= 0.6.0"
+			},
+			"_npmUser": {
+				"name": "kotsutsumi",
+				"email": "kotsutsumi@xenophy.com"
+			},
+			"_id": "nx@0.8.7",
+			"devDependencies": {},
+			"_engineSupported": true,
+			"_npmVersion": "1.1.0-alpha-2",
+			"_nodeVersion": "v0.6.3",
+			"_defaultsLoaded": true,
+			"dist": {
+				"shasum": "4deb48cbbf53814039becb6628f8c7ec7b3f95a8",
+				"tarball": "https://registry.npmjs.org/nx/-/nx-0.8.7.tgz"
+			},
+			"maintainers": [
+				{
+					"name": "kotsutsumi",
+					"email": "kotsutsumi@xenophy.com"
+				}
+			],
+			"directories": {},
+			"contributors": []
+		},
+		"0.8.8": {
+			"name": "nx",
+			"description": "Next JS is Application Server on node.js.",
+			"keywords": [
+				"framework",
+				"web",
+				"Web Server",
+				"Application Server",
+				"NextJS",
+				"Ext JS"
+			],
+			"version": "0.8.8",
+			"author": {
+				"name": "Kazuhiro Kotsutsumi",
+				"email": "kotsutsumi@xenophy.com"
+			},
+			"repository": {
+				"type": "git",
+				"url": "git://github.com/xenophy/NextJS.git"
+			},
+			"dependencies": {
+				"mongodb": ">= 0.9.6-18",
+				"mysql": ">= 0.9.3",
+				"redis": ">= 0.6.7",
+				"emailjs": ">= 0.1.15",
+				"socket.io": ">= 0.8.6",
+				"iconv-jp": ">= 1.1.3",
+				"nx-daemon": ">= 0.1.1",
+				"nx-core": ">= 0.1.9",
+				"geoip-lite": ">= 1.0.3"
+			},
+			"main": "./lib/nx",
+			"engines": {
+				"node": ">= 0.6.0"
+			},
+			"_npmUser": {
+				"name": "kotsutsumi",
+				"email": "kotsutsumi@xenophy.com"
+			},
+			"_id": "nx@0.8.8",
+			"devDependencies": {},
+			"_engineSupported": true,
+			"_npmVersion": "1.1.0-alpha-6",
+			"_nodeVersion": "v0.6.5",
+			"_defaultsLoaded": true,
+			"dist": {
+				"shasum": "ce51709c18354cbf281fae6ad09705ddbcd73095",
+				"tarball": "https://registry.npmjs.org/nx/-/nx-0.8.8.tgz"
+			},
+			"maintainers": [
+				{
+					"name": "kotsutsumi",
+					"email": "kotsutsumi@xenophy.com"
+				}
+			],
+			"directories": {},
+			"contributors": []
+		},
+		"0.8.9": {
+			"name": "nx",
+			"description": "Next JS is Application Server on node.js.",
+			"keywords": [
+				"framework",
+				"web",
+				"Web Server",
+				"Application Server",
+				"NextJS",
+				"Ext JS"
+			],
+			"version": "0.8.9",
+			"author": {
+				"name": "Kazuhiro Kotsutsumi",
+				"email": "kotsutsumi@xenophy.com"
+			},
+			"repository": {
+				"type": "git",
+				"url": "git://github.com/xenophy/NextJS.git"
+			},
+			"dependencies": {
+				"mongodb": ">= 0.9.6-18",
+				"mysql": ">= 0.9.3",
+				"redis": ">= 0.6.7",
+				"emailjs": ">= 0.1.15",
+				"socket.io": ">= 0.8.6",
+				"iconv-jp": ">= 1.1.3",
+				"nx-daemon": ">= 0.1.1",
+				"nx-core": ">= 0.1.9",
+				"geoip-lite": ">= 1.0.3"
+			},
+			"main": "./lib/nx",
+			"engines": {
+				"node": ">= 0.6.0"
+			},
+			"_npmUser": {
+				"name": "kotsutsumi",
+				"email": "kotsutsumi@xenophy.com"
+			},
+			"_id": "nx@0.8.9",
+			"devDependencies": {},
+			"optionalDependencies": {},
+			"_engineSupported": true,
+			"_npmVersion": "1.1.0-3",
+			"_nodeVersion": "v0.6.10",
+			"_defaultsLoaded": true,
+			"dist": {
+				"shasum": "d270b458f491746ed4fce6636310b5fa677954b6",
+				"tarball": "https://registry.npmjs.org/nx/-/nx-0.8.9.tgz"
+			},
+			"maintainers": [
+				{
+					"name": "kotsutsumi",
+					"email": "kotsutsumi@xenophy.com"
+				}
+			],
+			"directories": {},
+			"contributors": []
+		},
+		"10.0.7-beta.2": {
+			"name": "nx",
+			"version": "10.0.7-beta.2",
+			"description": "<p align=\"center\"><img src=\"https://raw.githubusercontent.com/nrwl/nx/master/images/nx.png\" width=\"600\"></p>",
+			"repository": {
+				"type": "git",
+				"url": "git+https://github.com/nrwl/nx.git"
+			},
+			"keywords": [
+				"Monorepo",
+				"Angular",
+				"React",
+				"Web",
+				"Node",
+				"Nest",
+				"Jest",
+				"Cypress",
+				"CLI"
+			],
+			"bin": {
+				"nx": "bin/nx.js"
+			},
+			"author": {
+				"name": "Victor Savkin"
+			},
+			"license": "MIT",
+			"bugs": {
+				"url": "https://github.com/nrwl/nx/issues"
+			},
+			"homepage": "https://nx.dev",
+			"dependencies": {
+				"tmp": "0.0.33",
+				"yargs-parser": "10.0.0",
+				"yargs": "^11.0.0",
+				"@nrwl/tao": "10.0.7-beta.2",
+				"chalk": "2.4.2"
+			},
+			"readmeFilename": "README.md",
+			"_id": "nx@10.0.7-beta.2",
+			"_nodeVersion": "12.18.2",
+			"_npmVersion": "6.14.5",
+			"dist": {
+				"integrity": "sha512-UmEw7ToNB0Jvq7IQxRqomXhUEll1v+/I7/U8JOz9a82mlCeBISnQo2gUMmyYviE+0HHKEZo6Vy4IPXb+W3JoUA==",
+				"shasum": "762745e212f03c2e96e36b57c4ff7ae7cce10f5c",
+				"tarball": "https://registry.npmjs.org/nx/-/nx-10.0.7-beta.2.tgz",
+				"fileCount": 31,
+				"unpackedSize": 41390,
+				"npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJfINq9CRA9TVsSAnZWagAAnfgP+gLPkfjwHUu8RNl8qeWT\nG21hImoyUGuVeVs5FVmUqYgmRCcXuPQKV9PzU7eeR3py7Qve2dE4wwSGMdKQ\nwrhPISdJMs0Poq0tY0pH+zSQ0rixZCXhvTdH29wtBpYLA7mB548FQQwTcYgr\nTJTCLy8IStU39hyvMpK+AFQFeFigCUJcpZmQFRPo1hoacSyM9BuCW/ZHYG9j\nCKDwLKdOPMCfso5BExoAFZeMQKzgJxLH41eGsiMhoWoNG2DfeEl6b4sY0mJK\nNAsy4tfqamBaQsPQVOxoNpW0+q1N0ZlRUSrHd1bPYLcwe33U06J1rSNDvKq7\nahZoaemIhrv4fRznfqf9hLgKPLSjKtphxX9hdY6BFkVHxkNIaOZRZ3qrvRZa\nC6ixN6ko7tBlqH0+DLpptKv7obUXyqCRen3bDVpYPv5C0C5LD1nEePITCjqP\n77fAoObZA6MuAsbDbkdv4EGXj0O0iNAf3NICYYPLpcGIwgANngU/dbIu+7KA\n30J2vME/j12agaOJrRniLgS6jYeIku2P3MgZnGRUcaGORP+u3op9Ubb7k65Z\njYdPvd3GFb74pCZduAT+OHqY67M+9E/FYzrwUkKgZgKWQZSJd24tmmsORcl5\n4cQiwmOpm4Fupy+XTNj4yLyV5PNMDCjHsJ0ydxEJa8NvgC5M+q7dqfnrjmKm\n/Jyj\r\n=QFbq\r\n-----END PGP SIGNATURE-----\r\n"
+			},
+			"maintainers": [
+				{
+					"email": "bigab@live.ca",
+					"name": "bigab"
+				},
+				{
+					"email": "hello@nrwl.io",
+					"name": "nrwl"
+				},
+				{
+					"email": "avix1000@gmail.com",
+					"name": "vsavkin"
+				}
+			],
+			"_npmUser": {
+				"name": "nrwl",
+				"email": "hello@nrwl.io"
+			},
+			"directories": {},
+			"_npmOperationalInternal": {
+				"host": "s3://npm-registry-packages",
+				"tmp": "tmp/nx_10.0.7-beta.2_1595988669275_0.094865559036303"
+			},
+			"_hasShrinkwrap": false,
+			"contributors": []
+		},
+		"10.0.7-beta.3": {
+			"name": "nx",
+			"version": "10.0.7-beta.3",
+			"description": "Extensible Dev Tools for Monorepos",
+			"repository": {
+				"type": "git",
+				"url": "git+https://github.com/nrwl/nx.git"
+			},
+			"keywords": [
+				"Monorepo",
+				"Angular",
+				"React",
+				"Web",
+				"Node",
+				"Nest",
+				"Jest",
+				"Cypress",
+				"CLI"
+			],
+			"author": {
+				"name": "Victor Savkin"
+			},
+			"license": "MIT",
+			"bugs": {
+				"url": "https://github.com/nrwl/nx/issues"
+			},
+			"homepage": "https://nx.dev",
+			"dependencies": {
+				"@nrwl/cli": "*"
+			},
+			"readmeFilename": "README.md",
+			"_id": "nx@10.0.7-beta.3",
+			"_nodeVersion": "12.18.3",
+			"_npmVersion": "6.14.6",
+			"dist": {
+				"integrity": "sha512-D+CbdfgLuDewFRlm51yADjlEimD15I5fMjziSQWecB6wsrJczrzCSUTp7+GQfHrz4b7/wb+PPZy35zzXp5WB4Q==",
+				"shasum": "f5094d4860beed994ab8b5d99bce78c85af4dba1",
+				"tarball": "https://registry.npmjs.org/nx/-/nx-10.0.7-beta.3.tgz",
+				"fileCount": 7,
+				"unpackedSize": 12871,
+				"npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJfIcRzCRA9TVsSAnZWagAAAFsP/iHnlR9DG4SrULphuFss\n86oyvUcuoBM7YE0xCWpwo5AOCEjcWl/3QrfBLwLnJkqGO3XXz3HEPIDc2wS9\nPJ6YSEwB820lAPvc8FGqaq7WF/LJ09vkinSrdz+w4hDWoV92tsbqUJRB7gQn\n9HU9Vbk4hH2zM14yfp/f034JZMlvB0JUHRhsg4J4lFZybBHpAZJzv3Clj42O\niiIWR65chH/qgzysZDq7gY/BlSngA+JiFgCwEHn73iplS5UfVembzJ3Pb+rE\n6/OIO4tOfrNZYvcL3UQAxi/vR1fkzDVXRwHcI6Vi3T0Szyo6rONYfxf056Vm\nMHfTM6mUXxD6imfvoxnGeBKpmQOezQTwx8uK1ZVjkSWFF12Uy+cfgn6X3G0f\n5IU6GqLfMTNF2UUYNzrl1LCXlkMTC9SXSrYpsg8eaKPjhzo7gOVbiiYBnS0/\ncZoYwHoQCdi0zgROvC1a1xCdHuCQbZ5uqv5x/x8/8dhBs5pzlBnnFogRD+27\nUAayPILdB87LWBRRvRTDfEqud/xBrWjWqocG1b+LRaytVHfzpliG4Te655cL\nhalo5hdTavvb5DXBStV4IwWY6G3MLn7qDjIkig1jTAgR73PbliyrRhFfcG6a\nWztjfokCWlOLLfEF+wsa+yY2PS/G1Dq/g2fji+z4JPcKmrqZ7TxMrQEQw4Zv\nJPo+\r\n=Ljjd\r\n-----END PGP SIGNATURE-----\r\n"
+			},
+			"maintainers": [
+				{
+					"email": "hello@nrwl.io",
+					"name": "nrwl"
+				},
+				{
+					"email": "avix1000@gmail.com",
+					"name": "vsavkin"
+				}
+			],
+			"_npmUser": {
+				"name": "nrwl",
+				"email": "hello@nrwl.io"
+			},
+			"directories": {},
+			"_npmOperationalInternal": {
+				"host": "s3://npm-registry-packages",
+				"tmp": "tmp/nx_10.0.7-beta.3_1596048499073_0.7180513344495572"
+			},
+			"_hasShrinkwrap": false,
+			"contributors": []
+		},
+		"10.0.7-beta.4": {
+			"name": "nx",
+			"version": "10.0.7-beta.4",
+			"description": "Extensible Dev Tools for Monorepos",
+			"repository": {
+				"type": "git",
+				"url": "git+https://github.com/nrwl/nx.git"
+			},
+			"keywords": [
+				"Monorepo",
+				"Angular",
+				"React",
+				"Web",
+				"Node",
+				"Nest",
+				"Jest",
+				"Cypress",
+				"CLI"
+			],
+			"bin": {
+				"nx": "bin/nx.js"
+			},
+			"author": {
+				"name": "Victor Savkin"
+			},
+			"license": "MIT",
+			"bugs": {
+				"url": "https://github.com/nrwl/nx/issues"
+			},
+			"homepage": "https://nx.dev",
+			"dependencies": {
+				"@nrwl/cli": "*"
+			},
+			"readmeFilename": "README.md",
+			"_id": "nx@10.0.7-beta.4",
+			"_nodeVersion": "12.18.2",
+			"_npmVersion": "6.14.5",
+			"dist": {
+				"integrity": "sha512-ydLhozKzR4ngh1O/IIn/p4EczQjgLcFSCd+kDXA3x1LYOqbFEmafh8ScDNkbPZBh2eo0kh+GYe7NOTRhepcdpw==",
+				"shasum": "2514f2a9b47fb802893bf332440820742b2a76f3",
+				"tarball": "https://registry.npmjs.org/nx/-/nx-10.0.7-beta.4.tgz",
+				"fileCount": 10,
+				"unpackedSize": 13159,
+				"npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJfIcwhCRA9TVsSAnZWagAAZJEP/AuF57yy9gjAEtD3OnLm\nehW+ySnB32q7P6Oy1/vlapVc/fioOyvZX1jhlw+e6JOgcw4nQbErzX1YvCJq\nDinXfpCRjKP22uUXil2Wpqti9b+YtDFkg/GK7LXFKhdbPQftxJfLzusiLql5\nL+eO3FV8uGsE3DnZhtFDBavJZih+jSBKkyBz050m4dCYvfUFMXDlhcNjHkBF\nliTbzA0siYTiMKbOQ7Mju00cS9N/F4zkJS25IoNyRYn4/F8dzOBho13qpm1u\njtcYNC/VL0M+LcPEjXx+uAy19OiHsQ50iPbmgV3jGnlODRasTxXBHR3XrtyH\nXPGVHlzBiT3YMeT7Z6zpejmeIC8qs1/q1V/Nb58XCc8+x7UjtSRvzN3v2rH8\n0u9QzRHjVXaRY6d11urwY9hJxpupE3QtDZNLElBFmQ0HXQYqgKGE1LHyw7Hx\ntfHpKj14PhLUSCQUa7aoiMNppAN/2IO0UXVAKUW9KDX/SyZJsyWS4qrlCHhe\nnT7OO7DX7QfKqUKmfLIMsDEmaxnKvvqvo+cN3X+46BhMLWUbYXmhOG6KV8Ee\nWLFQVbexRjU8qIBjOSWr0v/uiNQ/KofTrROIIESTn6QCghtaIFiUQpw3rykn\nyKHRScjIoNKOfkoygDTvObW7L9pK3ViENwBGBSOOw7ptDm92fNS0vZ4lv+uO\nAHRn\r\n=vHQB\r\n-----END PGP SIGNATURE-----\r\n"
+			},
+			"maintainers": [
+				{
+					"email": "hello@nrwl.io",
+					"name": "nrwl"
+				},
+				{
+					"email": "avix1000@gmail.com",
+					"name": "vsavkin"
+				}
+			],
+			"_npmUser": {
+				"name": "nrwl",
+				"email": "hello@nrwl.io"
+			},
+			"directories": {},
+			"_npmOperationalInternal": {
+				"host": "s3://npm-registry-packages",
+				"tmp": "tmp/nx_10.0.7-beta.4_1596050465403_0.20264363118226103"
+			},
+			"_hasShrinkwrap": false,
+			"contributors": []
+		},
+		"10.0.7-beta.5": {
+			"name": "nx",
+			"version": "10.0.7-beta.5",
+			"description": "Extensible Dev Tools for Monorepos",
+			"repository": {
+				"type": "git",
+				"url": "git+https://github.com/nrwl/nx.git"
+			},
+			"keywords": [
+				"Monorepo",
+				"Angular",
+				"React",
+				"Web",
+				"Node",
+				"Nest",
+				"Jest",
+				"Cypress",
+				"CLI"
+			],
+			"bin": {
+				"nx": "bin/nx.js"
+			},
+			"author": {
+				"name": "Victor Savkin"
+			},
+			"license": "MIT",
+			"bugs": {
+				"url": "https://github.com/nrwl/nx/issues"
+			},
+			"homepage": "https://nx.dev",
+			"dependencies": {
+				"@nrwl/cli": "*"
+			},
+			"readmeFilename": "README.md",
+			"_id": "nx@10.0.7-beta.5",
+			"_nodeVersion": "12.18.2",
+			"_npmVersion": "6.14.5",
+			"dist": {
+				"integrity": "sha512-Dw5VnGEf4iPaooHxp7PF0xYsykWzymSO8fEVwZv1frbru8joHfXAFAXpQGZXq+8O/5ach6yMg8q8dPuNTDYDNg==",
+				"shasum": "29405e2abb3fce37fd8443421504b46ec17c0342",
+				"tarball": "https://registry.npmjs.org/nx/-/nx-10.0.7-beta.5.tgz",
+				"fileCount": 10,
+				"unpackedSize": 13159,
+				"npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJfIc1TCRA9TVsSAnZWagAAFCIP/jr9NeVxxeiiSC3qP30A\n6repeJ2RTlX1dLNyrW4KtLMJctSUAR4jWR/bHqnhgXtqiC09e/v/0hX/Rf+o\n6X7Hr6/QOohiHouU9uoePf8WVTxEWaQtdVOGe5dmoDZQ1I/l55EhXYqZjk8Z\n/41LfaTtJL8SLA7WKRoqCrX92B1OnpnTdycYPKlf4krzjL+Oc9kU5WcIs5S2\nxXl6zJab0HKjpydYc8c+Iwu4LPTyvbHB32w+B5lKW8RmDMtlxth3eHWl7xMO\nzXElAwUgNwFRvWlvxVy0MqdEF76DooEUrB05TOvVu2UjZd88za4/2ScnDITT\ny2USE7Q3RhSRHTnscTXqFG23y/EWOvC1H001lgGeKVFMIeCWujXxOZmuPjPa\nk1E6nG4FLjG4dr6aQPhAiO45fBYWJ/rN/c0fFlwTzKb1JE5MwoRELnynvLOA\narSAYABamgf/7B/zIcVP6+pGoJoibqHBY7uVi8GApexlv2BKWnVgl1z5tClv\nY/ccPhkjGzDfAdvV2xcfgjsN8w3H9XWwTdQ1g2xya+FBBoYrMg6+b3p6lOte\nofHyZQFVptq/YWEjXcoZ8VcCXFR2YshnW3g5GLxWhhYWDhf/dsOrIsm3sXcC\nB1SigYbyJYJlEepcFJge3PRgea9s1oHqVLXU4pz2BNFRV/+srKiECXx+XNju\n5/fF\r\n=s52/\r\n-----END PGP SIGNATURE-----\r\n"
+			},
+			"maintainers": [
+				{
+					"email": "hello@nrwl.io",
+					"name": "nrwl"
+				},
+				{
+					"email": "avix1000@gmail.com",
+					"name": "vsavkin"
+				}
+			],
+			"_npmUser": {
+				"name": "nrwl",
+				"email": "hello@nrwl.io"
+			},
+			"directories": {},
+			"_npmOperationalInternal": {
+				"host": "s3://npm-registry-packages",
+				"tmp": "tmp/nx_10.0.7-beta.5_1596050771309_0.2028241213805222"
+			},
+			"_hasShrinkwrap": false,
+			"contributors": []
+		},
+		"10.0.7": {
+			"name": "nx",
+			"version": "10.0.7",
+			"description": "Extensible Dev Tools for Monorepos",
+			"repository": {
+				"type": "git",
+				"url": "git+https://github.com/nrwl/nx.git"
+			},
+			"keywords": [
+				"Monorepo",
+				"Angular",
+				"React",
+				"Web",
+				"Node",
+				"Nest",
+				"Jest",
+				"Cypress",
+				"CLI"
+			],
+			"bin": {
+				"nx": "bin/nx.js"
+			},
+			"author": {
+				"name": "Victor Savkin"
+			},
+			"license": "MIT",
+			"bugs": {
+				"url": "https://github.com/nrwl/nx/issues"
+			},
+			"homepage": "https://nx.dev",
+			"dependencies": {
+				"@nrwl/cli": "*"
+			},
+			"_id": "nx@10.0.7",
+			"_nodeVersion": "12.18.2",
+			"_npmVersion": "6.14.5",
+			"dist": {
+				"integrity": "sha512-p1ncEgdqyRrZ28cXw43uTwja8+KBeZAYWuCPnb5RbspEiQb2Bf/VQmFCfW+5bu2+tTQqDzPS/TZhXMBcwkFe6w==",
+				"shasum": "d92cfe164c979f448083b9acff1b0a26c6121b24",
+				"tarball": "https://registry.npmjs.org/nx/-/nx-10.0.7.tgz",
+				"fileCount": 10,
+				"unpackedSize": 13152,
+				"npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJfIc8KCRA9TVsSAnZWagAAeRgQAJO10LHMnj16Sovl5mTg\n7jb//oWSxa+9MObhjZRHSS8ber5aZnomjhwyJfwZrTLEmact/nfBauT1FAB8\nKcTdM01O0UVZPGEIeXHjfJMLzh1PvJnj/PqqC0LK37wHUBISCAk48/D4HtDV\ngKdUg5z2PMDsGSs800qC6C0cVo4aVUVn+4B06pDIMkdXML0tmFasKJwF1LxS\n48AMK9QGvPobP6S0jH+pnKj4aLwnjvhNc0V1jo45VkOl9f2dKIcPGa27rvMb\nqXBItS4AFRHAOfjkkQvToVWAGXfPAC+xin3XBwziPN2lg33IhhC3w9ekgPoM\nR6tqWnFhmBhX9nV8q/ooQT+WRT2n91sI0sKcIgxy4go+HVx6WHiyXXT5JycF\nJYN2y6FIzWs7R5O/jiAJMouE9H6PYCQjAmKI/rAYRLS1T8LLmgq7szug7nAn\n8bRVriFCJufm2qMAcaCalVdYqDXBVDk39+O3en3wWueVRF+n98OcgR4ehm9e\nj9KN1MNaGtq4ok6rfJEgWQaxyZ5/BkugYYKKj9UtBznLdSX2cvkijGeByfFy\n0MBYyh27/Scm60N0tGZ/LIT/MqxgJwydke4PuPJvXvgNAO0e6ci1fUIj4LCy\nIkAAhSA4qBk6RnsAghs6xcavccEUCdd+fKkVoSZwX6mfyvW0P7OJhmQlB/sf\nGQhY\r\n=fnEV\r\n-----END PGP SIGNATURE-----\r\n"
+			},
+			"maintainers": [
+				{
+					"email": "hello@nrwl.io",
+					"name": "nrwl"
+				},
+				{
+					"email": "avix1000@gmail.com",
+					"name": "vsavkin"
+				}
+			],
+			"_npmUser": {
+				"name": "nrwl",
+				"email": "hello@nrwl.io"
+			},
+			"directories": {},
+			"_npmOperationalInternal": {
+				"host": "s3://npm-registry-packages",
+				"tmp": "tmp/nx_10.0.7_1596051209838_0.26692468412803105"
+			},
+			"_hasShrinkwrap": false,
+			"contributors": []
+		},
+		"10.0.8": {
+			"name": "nx",
+			"version": "10.0.8",
+			"description": "Extensible Dev Tools for Monorepos",
+			"repository": {
+				"type": "git",
+				"url": "git+https://github.com/nrwl/nx.git"
+			},
+			"keywords": [
+				"Monorepo",
+				"Angular",
+				"React",
+				"Web",
+				"Node",
+				"Nest",
+				"Jest",
+				"Cypress",
+				"CLI"
+			],
+			"bin": {
+				"nx": "bin/nx.js"
+			},
+			"author": {
+				"name": "Victor Savkin"
+			},
+			"license": "MIT",
+			"bugs": {
+				"url": "https://github.com/nrwl/nx/issues"
+			},
+			"homepage": "https://nx.dev",
+			"dependencies": {
+				"@nrwl/cli": "*"
+			},
+			"_id": "nx@10.0.8",
+			"_nodeVersion": "12.18.2",
+			"_npmVersion": "6.14.5",
+			"dist": {
+				"integrity": "sha512-RYF5xl7pyR/dFUl2/EDmC6Bz/rpc4jATJwJ8ik4zZGuiuN/i8qVVS4eHUXbdDA/xkQyUyDy0n5zKXXZI2WEVDA==",
+				"shasum": "885ea66c09eb274b9fade7417017898531c9d7e3",
+				"tarball": "https://registry.npmjs.org/nx/-/nx-10.0.8.tgz",
+				"fileCount": 10,
+				"unpackedSize": 13152,
+				"npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJfK3pCCRA9TVsSAnZWagAAGfQP/3XEwGhcdi70qrVmGX/H\n+9AQExlFkk6UIC7+i87w+MXyvLHr5r7ZzxXH4TvrOnXjhfsVZoLSqtfIvpbw\n+d3if3B6E428ZtAhHhKiEJi0VxVJb5Z3RvuYnyhiyH8Z2TBh04bY9Njw76Yv\n/ei/IB1v3l+7uEdJTlLwBGa5pY9tD05gSlbxYJSU8x0C4NNp32HIAa66s7Ka\n7eqfkgjD1Jxeg0TeT77hXGILMDpgXkbYhwVb2SeG4BfuW4jSTwIp01M6gmrL\nC7Cz9fhhYQqi+HyHvvr3Dzgu3dwIuFS8Sbc4Z+ADZS+uSBFSZuVznyh8WEBk\n63U5vFLSZy/Eda378m3cZsLQM4lBFe4BoQ3m29A4V9bRWbBUE5OwhRRuPLhp\nTdaAbig/lEi5xNqscYfPaTgboyuzM9A3o6qEx+iZ29Hr9LmGbVFPX9ZEf6Wc\nJzWoe6E8fuaImxKBPTib9IJqVn58hNVIopl/x3SaYYFjaP+8Xaj6vWkfnaih\nnUsg3RtxpsCPdeHxhL3I6+3UizBKIuPddccGK7sdrTs09DQZPc5iaPI3LrSz\ngTIq+cZK98p8kyByo4BIFsmxBS7QmLTf97UwAtHA5t094PzNoauEGCwZ3Io8\nVcytehiWxn/QAQVkEiizBaBdWJoRVcY59t/+Y/1EPwX7WOsRxNb3yKevEmak\nZtc7\r\n=BOuc\r\n-----END PGP SIGNATURE-----\r\n"
+			},
+			"maintainers": [
+				{
+					"email": "hello@nrwl.io",
+					"name": "nrwl"
+				},
+				{
+					"email": "avix1000@gmail.com",
+					"name": "vsavkin"
+				}
+			],
+			"_npmUser": {
+				"name": "nrwl",
+				"email": "hello@nrwl.io"
+			},
+			"directories": {},
+			"_npmOperationalInternal": {
+				"host": "s3://npm-registry-packages",
+				"tmp": "tmp/nx_10.0.8_1596684866554_0.5511352874178144"
+			},
+			"_hasShrinkwrap": false,
+			"contributors": []
+		},
+		"10.0.9-beta.1": {
+			"name": "nx",
+			"version": "10.0.9-beta.1",
+			"description": "Extensible Dev Tools for Monorepos",
+			"repository": {
+				"type": "git",
+				"url": "git+https://github.com/nrwl/nx.git"
+			},
+			"keywords": [
+				"Monorepo",
+				"Angular",
+				"React",
+				"Web",
+				"Node",
+				"Nest",
+				"Jest",
+				"Cypress",
+				"CLI"
+			],
+			"bin": {
+				"nx": "bin/nx.js"
+			},
+			"author": {
+				"name": "Victor Savkin"
+			},
+			"license": "MIT",
+			"bugs": {
+				"url": "https://github.com/nrwl/nx/issues"
+			},
+			"homepage": "https://nx.dev",
+			"dependencies": {
+				"@nrwl/cli": "*"
+			},
+			"readmeFilename": "README.md",
+			"_id": "nx@10.0.9-beta.1",
+			"_nodeVersion": "12.18.2",
+			"_npmVersion": "6.14.5",
+			"dist": {
+				"integrity": "sha512-6HzakY1sdHiQ3sZUPVsdVj5MrXCCXhG5ivZTZYFtDX3JN28zwpFqeYUdnB1T8vBSbZViTioVs7Svfl0bdga9pA==",
+				"shasum": "380c5efdef741ef114e82d291ac73af2f85c945b",
+				"tarball": "https://registry.npmjs.org/nx/-/nx-10.0.9-beta.1.tgz",
+				"fileCount": 10,
+				"unpackedSize": 13159,
+				"npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJfLL00CRA9TVsSAnZWagAAlwoP/j4tR40+ILQwIW1o7YRf\nkamlLV1zY3+zyhAxfINU0QsWuqTtYf24n6l/nBBVBIn1SqgWmjZ42quJ0mkQ\ndRX4TMDRTPE1rfMYNvto8S1B7nIpr9rYD5ObF0bjB4BRchzlHqtteQiqzDpK\nAAAdstqH9MXyyvMSNGYi4NJce93QCQEb+PyiNKv88wiOnzQjBmKJPkkgwcD/\npFFK7USGmOtMHQQ+FQIeks0zyO03RgQ/hFpTzJwRuIzC3eCHlQJpttyGm4N1\nsBLEMcwEBzY9QzdoxcKKWmbOV5kBHXyxUs6InSYSqHT5FgBS9gVwiTaPiYLC\n+QIIuVGnpZLWQzihi4EB5WfZfNTZFEs3VeTquwM7saSWmlPzoAuAPm1PZjK3\nxs1wxVzo3EkwnVPN4/RPY5n+GfmJglV32vCdS3W4sdrU53s/L4maXcB6NI4x\n/l+Vch5iAptVULfrOiskfbn2xoaIaiWg9iPdB92w/81J7PGoNZRGBzq5lyez\nwGOrDpCsTUyb9CZwqR63E2tj/gOLPx96mnOAeN/+wpg9qhvqHTAPQKpSdBUs\ncUZIsgKdUJaTo2YJkxK4qGe7aJy1MyBm3dwQBMjfmtNvav9TbyDlTdDt7hQ+\n9vCMyzy7NZvscRdjOgVWp87gVMJS0X4UAfhoRdmYF5hbMAdj1+tcYpJ9AYwC\npX2y\r\n=gJy6\r\n-----END PGP SIGNATURE-----\r\n"
+			},
+			"maintainers": [
+				{
+					"email": "hello@nrwl.io",
+					"name": "nrwl"
+				},
+				{
+					"email": "avix1000@gmail.com",
+					"name": "vsavkin"
+				}
+			],
+			"_npmUser": {
+				"name": "nrwl",
+				"email": "hello@nrwl.io"
+			},
+			"directories": {},
+			"_npmOperationalInternal": {
+				"host": "s3://npm-registry-packages",
+				"tmp": "tmp/nx_10.0.9-beta.1_1596767540047_0.8820580940456342"
+			},
+			"_hasShrinkwrap": false,
+			"contributors": []
+		},
+		"10.0.9": {
+			"name": "nx",
+			"version": "10.0.9",
+			"description": "Extensible Dev Tools for Monorepos",
+			"repository": {
+				"type": "git",
+				"url": "git+https://github.com/nrwl/nx.git"
+			},
+			"keywords": [
+				"Monorepo",
+				"Angular",
+				"React",
+				"Web",
+				"Node",
+				"Nest",
+				"Jest",
+				"Cypress",
+				"CLI"
+			],
+			"bin": {
+				"nx": "bin/nx.js"
+			},
+			"author": {
+				"name": "Victor Savkin"
+			},
+			"license": "MIT",
+			"bugs": {
+				"url": "https://github.com/nrwl/nx/issues"
+			},
+			"homepage": "https://nx.dev",
+			"dependencies": {
+				"@nrwl/cli": "*"
+			},
+			"_id": "nx@10.0.9",
+			"_nodeVersion": "12.18.3",
+			"_npmVersion": "6.14.6",
+			"dist": {
+				"integrity": "sha512-Fa8txXSmeQVCSSkAJDvmjuQLJW1acRzonB67QDwHYUHx//Xo1K1JdJ1U92/Ih6Z3R4J/yJDqrsiUbcWeXpeHvg==",
+				"shasum": "ccfca3d387af12edce888464abc2b80af6e2bd4f",
+				"tarball": "https://registry.npmjs.org/nx/-/nx-10.0.9.tgz",
+				"fileCount": 10,
+				"unpackedSize": 13152,
+				"npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJfLXj8CRA9TVsSAnZWagAAwicP/2L3g9zv6L18824eP4Pm\ns2ZMMNy1+Hcaj498xnOzSXqkS2yiXI77CoMxaunpG6Lf82YKdoZKzMXutJ+/\nUjUj6CVDcFtZziuDjHCJTf56VE4t1aXJVJW6tpaaty960JAqFx15oJ5y6Cd4\nisGPsgHO7AP7uAzkI/2N0u4qTPw3b91ejaUdbxZDKNCmLp/xXczLRf7KQXAj\ncJCcP4x28FBYzC2ur1cI4UpFapDEzh/S5YCALxQQQSEbSiHpInTqa7zHhKsh\ndthHjeP8EbVwpSo296gZmxagmkWSAdVv4Dv++k/r9LgXQxqJ5S6uK7yTZNJ5\nLIaA2M3QNTwP/X7+nV9jXuK398uyGnAH1zo5T+fI+34RiZFQLCHj5zpxcHSW\nbYcqu6Bgk3yk/9axGnNTWL/bmxtIM++CFG1A2M6BEUaCkGYov+/jbDSmcI/z\nGprMiSQ+48PSjS1Tb1gwfWodte2Ex0MJE/NmZbJV1e3Lxw+ZYuAOcikiWUwf\npwc6tQpBXSf0P3b2TGGS+6auB7wmAp+Ospv0C2PqL/XZ6u6WKbPO6RhmeRaJ\nz8349qZPc2LZjBITDtfS0riIzEVe1d95PBO7b8c+P5PZb5R2PBXXmcJ2uY3/\nE8xQK5TYqHdbuqH7UBv+qkqmDnafP265fSHRMTqC3womF7djs23BASWuvTRE\nQQGy\r\n=0/2b\r\n-----END PGP SIGNATURE-----\r\n"
+			},
+			"maintainers": [
+				{
+					"email": "hello@nrwl.io",
+					"name": "nrwl"
+				},
+				{
+					"email": "avix1000@gmail.com",
+					"name": "vsavkin"
+				}
+			],
+			"_npmUser": {
+				"name": "nrwl",
+				"email": "hello@nrwl.io"
+			},
+			"directories": {},
+			"_npmOperationalInternal": {
+				"host": "s3://npm-registry-packages",
+				"tmp": "tmp/nx_10.0.9_1596815612055_0.32854428045034045"
+			},
+			"_hasShrinkwrap": false,
+			"contributors": []
+		},
+		"10.0.10": {
+			"name": "nx",
+			"version": "10.0.10",
+			"description": "Extensible Dev Tools for Monorepos",
+			"repository": {
+				"type": "git",
+				"url": "git+https://github.com/nrwl/nx.git"
+			},
+			"keywords": [
+				"Monorepo",
+				"Angular",
+				"React",
+				"Web",
+				"Node",
+				"Nest",
+				"Jest",
+				"Cypress",
+				"CLI"
+			],
+			"bin": {
+				"nx": "bin/nx.js"
+			},
+			"author": {
+				"name": "Victor Savkin"
+			},
+			"license": "MIT",
+			"bugs": {
+				"url": "https://github.com/nrwl/nx/issues"
+			},
+			"homepage": "https://nx.dev",
+			"dependencies": {
+				"@nrwl/cli": "*"
+			},
+			"_id": "nx@10.0.10",
+			"_nodeVersion": "12.18.2",
+			"_npmVersion": "6.14.5",
+			"dist": {
+				"integrity": "sha512-23sepe9gSSxB8VGEW0+ztjtB6NAkUK+ADdKv+J2sOrVbq5bBxwCQ/2UNUx8+Kq/5oWXjLg5S0aaVJHgwDOczYw==",
+				"shasum": "064a85422a7e28149418765a2641d9c34ba6ef81",
+				"tarball": "https://registry.npmjs.org/nx/-/nx-10.0.10.tgz",
+				"fileCount": 10,
+				"unpackedSize": 13153,
+				"npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJfLguYCRA9TVsSAnZWagAAIEYP/3x5oZAqdlcLuBGSfvkC\nzdXeAZCykvbrbSoku9CrebGMBzRRVpXKsCTMycRJRTVSFQE46sU11KZnfrZp\nyeXUgBfklmum1picVBZpl+5z1fBfd8s8knFmJw+W9DNTLn+pPAuzIkC9rDXt\nEenjOcccfpvH099Ku2mHui4WC2IjdZJBVyTQJAMnw63Vyks62tXCSK8FbQFJ\nWrzqZJJixFnCHUwwN5y/OCZ1IcGg60y7JAOe1xB9KSz16tEKQgBl7mhDbsHK\nVEkLLevdncXwz8NCoDGbPdPwXTAvJWmMEo2K/wkqQKeMuPrfSdPeSKAVGADG\nRTtChfjv98Cw0ePaz4+SCves6JygBsAB5O7gsydPtOcB2nu3az7BDORoAi0B\nGrVGLu7Z7oCK8jvMSgaAOh1tsiVBhIRNn9FZxqW8tqtV4a5QUfjNzwF9byfE\nlgXbYa226PtbSfKI25cKK3GwdADPROnoKDJ29/JGbe7W7tnVezNkKYGwiJ54\nGb/lUM3hTay4HKeUlo0jvVf5/u6yxvm9d2eh6p3+4QMqUZ+40R0xgdjmjjcC\nXbYbLndB1/x4c9pc4UgJ6HLqOkHfwq7/Dl00Kxb5uG8k0wgWMjBHeEYrrcuY\nBcq1fiPe+jQtEU34114XygLYRptLfXe80qpEQl9k4YK1DjNcJvC7faokBgC9\nqnPf\r\n=FrIB\r\n-----END PGP SIGNATURE-----\r\n"
+			},
+			"maintainers": [
+				{
+					"email": "hello@nrwl.io",
+					"name": "nrwl"
+				},
+				{
+					"email": "avix1000@gmail.com",
+					"name": "vsavkin"
+				}
+			],
+			"_npmUser": {
+				"name": "nrwl",
+				"email": "hello@nrwl.io"
+			},
+			"directories": {},
+			"_npmOperationalInternal": {
+				"host": "s3://npm-registry-packages",
+				"tmp": "tmp/nx_10.0.10_1596853143364_0.675830803319373"
+			},
+			"_hasShrinkwrap": false,
+			"contributors": []
+		},
+		"10.0.11": {
+			"name": "nx",
+			"version": "10.0.11",
+			"description": "Extensible Dev Tools for Monorepos",
+			"repository": {
+				"type": "git",
+				"url": "git+https://github.com/nrwl/nx.git"
+			},
+			"keywords": [
+				"Monorepo",
+				"Angular",
+				"React",
+				"Web",
+				"Node",
+				"Nest",
+				"Jest",
+				"Cypress",
+				"CLI"
+			],
+			"bin": {
+				"nx": "bin/nx.js"
+			},
+			"author": {
+				"name": "Victor Savkin"
+			},
+			"license": "MIT",
+			"bugs": {
+				"url": "https://github.com/nrwl/nx/issues"
+			},
+			"homepage": "https://nx.dev",
+			"dependencies": {
+				"@nrwl/cli": "*"
+			},
+			"_id": "nx@10.0.11",
+			"_nodeVersion": "12.18.3",
+			"_npmVersion": "6.14.6",
+			"dist": {
+				"integrity": "sha512-7MPMv5WFQozXkpL/ICJ5GPkBRhHgtwyVu2tYvvXJafh3OGUL/Tl1On6eL9kZDbJo9aN82nfB9+o7Nhbbq5LtbA==",
+				"shasum": "094c4d2976ce0d3fe2e152166242f590acba7938",
+				"tarball": "https://registry.npmjs.org/nx/-/nx-10.0.11.tgz",
+				"fileCount": 10,
+				"unpackedSize": 13153,
+				"npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJfMsAPCRA9TVsSAnZWagAAM00P/0qah15R42iFczRZUD+8\nFTjLaghC5xRHjscJlNBsuAj822uW95yUpl+lk7dKjRtQBR3JhWuNLeWVmEDn\n8HSBe+oiNhU/3eN+UwEF5ZuAW/BMkOPM4QBWd/4Jy7sUDsGQyP4zk3y22Gg+\nKx2rqzq3Y5yr9yhybvQGZBDc8nLfMWz2Fvy2IzkhxAA2r5u+duIObwFw4RTF\n1qJqbcxnGMLiF7n3QK0jLF+va3bbgZGGepqpwOygaoET/SDEH/aihw7e8UaF\na555fp7jLNDYTeLuNb1f+aPiRsn8loraNzq+lykLU7368sNz8nMF8XOkfXjQ\n+9/vXL4wE1qcO0Pxo6SRX9XLJuyF3Jd6TpcnPqLw9byKvK9fGpcSc1x7FjfM\nAaxtf4PNxTiyY9cAoxXTwv3tf08x2V9+tZ+ZDof9OwRE+E63DeM2Vo2n5igc\nSnEVLBEXJ9QYVKqkXPpAdUbheauZnKVWko3ahJs5Ra0r/aEORvI0LiwZ7W6/\nQ53EmRLLjq/UD+6BClTDNPdfgdX9zj03rc1dPklgV+dhwdig2hAEgwckCmgj\n1ACLsvHymjpm6kSGQrYFafObbWpdgwNaC+fb7KR2A5TF9iSV2yc1Lp1XtEDu\nJ/hDaKU+mBn98zfmGQInkeXvwKsGBH+jDvfTNsJvlICD7QfWT5lQuYjiAPTl\n6iZh\r\n=bZBC\r\n-----END PGP SIGNATURE-----\r\n"
+			},
+			"maintainers": [
+				{
+					"email": "hello@nrwl.io",
+					"name": "nrwl"
+				},
+				{
+					"email": "avix1000@gmail.com",
+					"name": "vsavkin"
+				}
+			],
+			"_npmUser": {
+				"name": "nrwl",
+				"email": "hello@nrwl.io"
+			},
+			"directories": {},
+			"_npmOperationalInternal": {
+				"host": "s3://npm-registry-packages",
+				"tmp": "tmp/nx_10.0.11_1597161487342_0.22545174051861272"
+			},
+			"_hasShrinkwrap": false,
+			"contributors": []
+		},
+		"10.0.12": {
+			"name": "nx",
+			"version": "10.0.12",
+			"description": "Extensible Dev Tools for Monorepos",
+			"repository": {
+				"type": "git",
+				"url": "git+https://github.com/nrwl/nx.git"
+			},
+			"keywords": [
+				"Monorepo",
+				"Angular",
+				"React",
+				"Web",
+				"Node",
+				"Nest",
+				"Jest",
+				"Cypress",
+				"CLI"
+			],
+			"bin": {
+				"nx": "bin/nx.js"
+			},
+			"author": {
+				"name": "Victor Savkin"
+			},
+			"license": "MIT",
+			"bugs": {
+				"url": "https://github.com/nrwl/nx/issues"
+			},
+			"homepage": "https://nx.dev",
+			"dependencies": {
+				"@nrwl/cli": "*"
+			},
+			"_id": "nx@10.0.12",
+			"_nodeVersion": "12.18.3",
+			"_npmVersion": "6.14.6",
+			"dist": {
+				"integrity": "sha512-ptXiCLo5HzAgp8/eY2KrfwChbv2MXaVjJNybAM1PwbN0AlBqRsE3MiNbSQlIRudO7yT01HO3lga2ZNNJz7AoWw==",
+				"shasum": "c60980a98cbe4a946f37fa4235a56c27b53c9b00",
+				"tarball": "https://registry.npmjs.org/nx/-/nx-10.0.12.tgz",
+				"fileCount": 10,
+				"unpackedSize": 13153,
+				"npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJfNZyJCRA9TVsSAnZWagAABMEQAIwoTwro+dPZlD3ScwWa\n6euP0KBK8yJFVwxbYEOB1FsvK4U4DLswoK/GdJPDLXtLlBxnzHUmVePwUbxn\nwVaczPEJBDPIgt4wT059psMe62KGPsiaKb6z/CbkhXTuG1d31UcidfPdC2/o\nxppZ3SuzpRAQRvTr1DhTK3qefvYY3fzQv/wBjKl69s6LO9KBKM2+4puYLuZe\nwhIL9BHUEhPnAhJCBWXZsJe9YTSzyw2G50HrmNyMVjqVOtXsClUi8NNITTMo\nJsj+DIMBp/K48SmuOHTkztIfdgtAZuNWo0crUr5uPHbt5MhMfj05gztGaFLH\nsXz78gjLFw19l4gw/IHquUOHik1QOa/W6k7qO7M5kjfw1X51IDoJahvQsIim\nPVStJ8gFZ8ypIS+IWFGMfPvLCEi+7NYHIZRpiMrkh9xjrozzJBL0DV8gVKMI\nF6C7/2CQzydZbIfUzru2HEJllrXm0p+hFHn/YKpYJLp6FfIv8+9vH6ofgfqt\nJWRllkby/h3+f7ZffsZHMDy/+5KkpnSQ6TDmaG0woEVt+Obm3WFBJup+qScB\ndEKlzBgDKQWU2kyrhPYZXqgAhLe3PzaNZehjDNW95K0Ky7XKxCw0KDBScsIA\nM77OoYzbUjv8pZepDzZBbFnLNUCEK4HdP9Y04jr0TlM53xwWdVj/CYM+TMWh\nEv2q\r\n=EKYF\r\n-----END PGP SIGNATURE-----\r\n"
+			},
+			"maintainers": [
+				{
+					"email": "hello@nrwl.io",
+					"name": "nrwl"
+				},
+				{
+					"email": "avix1000@gmail.com",
+					"name": "vsavkin"
+				}
+			],
+			"_npmUser": {
+				"name": "nrwl",
+				"email": "hello@nrwl.io"
+			},
+			"directories": {},
+			"_npmOperationalInternal": {
+				"host": "s3://npm-registry-packages",
+				"tmp": "tmp/nx_10.0.12_1597349000814_0.6864300116291386"
+			},
+			"_hasShrinkwrap": false,
+			"contributors": []
+		},
+		"10.1.0-beta.0": {
+			"name": "nx",
+			"version": "10.1.0-beta.0",
+			"description": "Extensible Dev Tools for Monorepos",
+			"repository": {
+				"type": "git",
+				"url": "git+https://github.com/nrwl/nx.git"
+			},
+			"keywords": [
+				"Monorepo",
+				"Angular",
+				"React",
+				"Web",
+				"Node",
+				"Nest",
+				"Jest",
+				"Cypress",
+				"CLI"
+			],
+			"bin": {
+				"nx": "bin/nx.js"
+			},
+			"author": {
+				"name": "Victor Savkin"
+			},
+			"license": "MIT",
+			"bugs": {
+				"url": "https://github.com/nrwl/nx/issues"
+			},
+			"homepage": "https://nx.dev",
+			"dependencies": {
+				"@nrwl/cli": "*"
+			},
+			"readmeFilename": "README.md",
+			"_id": "nx@10.1.0-beta.0",
+			"_nodeVersion": "12.18.3",
+			"_npmVersion": "6.14.6",
+			"dist": {
+				"integrity": "sha512-9SvQ6DIuN4P8rsfYD15j69+rAvcr+DdJ/nboCqgcwwpe3d0AwmicLVtqelNHfzFpj9hYdLYaQXyY4Lgcae0RJA==",
+				"shasum": "89f3a590700c09024c798753f1dbba964ed3e163",
+				"tarball": "https://registry.npmjs.org/nx/-/nx-10.1.0-beta.0.tgz",
+				"fileCount": 10,
+				"unpackedSize": 13159,
+				"npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJfO+4uCRA9TVsSAnZWagAAaTwP/RLTMP+BxPXeJ75wDokK\n41QuH7f63EvOkTRPRwuxnQiKg0kcpla/9YQtruJgfns1jqekqLxu+oyCt2kG\ncGrFGbu2ta5NxV4RYPVGka7MPzIwQlKLOpKpJSKLmLN3Pgs8qxyGF0PBPwIS\n8UK5uO9JFA3ia8o4o0nT/1lh4aiZSWNjHMDiHrHWVbAUi3vUqMI0zMWJJ7t2\nclmCuR6BG8qm8zAEGaQ7VZ2aybrwQKASzxiNMxF+GxKc5oa9NDsN+Irp3bK0\npEaOk9DoBjiFQIVSdp2DPRVXiEOHOaFal4xRyHVHeQ0VGDk3ZkUDjD5DzmYr\nJVR/7TSsv2JEU7qKotl7JGMKgDqzDEgRmiHrPM+ODZ9LqZAJbqqkf/bCCooQ\nOPlUFqpbTilIdPOXv8Fe1DvQULb1MBWlsacULuA4Tc6E3U1BFQ62WMsbtwlA\nTWwyt1Eyph3/wK+KAdEEoD1sapWcyzOjz5RtwqYN1Dt2xW6iepIbibtwYVO7\nu+MynDaBJaa9OIpif0hXagh4nnPcvozNoNeUCU013auhdbA8upUNhczSZGcK\nVjlI8xyQFz7eU7kratFUxih/Vq0hK9Htk6i98o5DTqdWyDTiBOf0/zOZE32H\nO1TQ2SPhTha/h1J2+E9+0eLKlVGAS5dAn/POfd2JKLO1DlKQjX3PAaBIUfqe\nEGEY\r\n=w+Wk\r\n-----END PGP SIGNATURE-----\r\n"
+			},
+			"maintainers": [
+				{
+					"email": "hello@nrwl.io",
+					"name": "nrwl"
+				},
+				{
+					"email": "avix1000@gmail.com",
+					"name": "vsavkin"
+				}
+			],
+			"_npmUser": {
+				"name": "nrwl",
+				"email": "hello@nrwl.io"
+			},
+			"directories": {},
+			"_npmOperationalInternal": {
+				"host": "s3://npm-registry-packages",
+				"tmp": "tmp/nx_10.1.0-beta.0_1597763117844_0.35760113756841183"
+			},
+			"_hasShrinkwrap": false,
+			"contributors": []
+		},
+		"0.0.1": {
+			"name": "nx",
+			"version": "0.0.1",
+			"description": "Extensible Dev Tools for Monorepos",
+			"repository": {
+				"type": "git",
+				"url": "git+https://github.com/nrwl/nx.git"
+			},
+			"keywords": [
+				"Monorepo",
+				"Angular",
+				"React",
+				"Web",
+				"Node",
+				"Nest",
+				"Jest",
+				"Cypress",
+				"CLI"
+			],
+			"bin": {
+				"nx": "bin/nx.js"
+			},
+			"author": {
+				"name": "Victor Savkin"
+			},
+			"license": "MIT",
+			"bugs": {
+				"url": "https://github.com/nrwl/nx/issues"
+			},
+			"homepage": "https://nx.dev",
+			"dependencies": {
+				"@nrwl/cli": "*"
+			},
+			"readmeFilename": "README.md",
+			"_id": "nx@0.0.1",
+			"_nodeVersion": "12.18.3",
+			"_npmVersion": "6.14.6",
+			"dist": {
+				"integrity": "sha512-IMVeR9aQBCxmaA4AtOTHxK6HUNv3T6UY2IG+DNDbQD/H0ysUI5kNxtdSnR0yhfGU7YDE6z8Z648dhvTnZOXxWQ==",
+				"shasum": "185ad71a9504fae37f756453b89badef5702823e",
+				"tarball": "https://registry.npmjs.org/nx/-/nx-0.0.1.tgz",
+				"fileCount": 10,
+				"unpackedSize": 13151,
+				"npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJfPCjyCRA9TVsSAnZWagAAnmkP/jRWpQ2BWB6vQepPgjO0\nrIOn2HK5t9mVMz/pX+4euaJV1nLVM+GUrM6EyY2IXUCS+s1o2vfDYzilWGlI\nq87U0EGVnGKVTgUCMbh6PyV2qaQLiLDXQF49jcuGA3BDMfyMc66AIXdsTNs8\nviAy2Kq5GVaULmEFhbA4G/PrbIihY03c2Q6VzAszybE+3pujCVVokBoeYYTE\nEN23W2d00zf/OcQEGchgsA3TyuOv845nHSh10ycMoBAyj0nwcEWUUadl8K+X\nwqmv00LMMSygNaPPFVlM3+sRQ7GS1gt7LBlw7Ynn6g6sItnT7AiGx/GVF993\nrfKbIpCGhj71eAjhkslQuDgMjO0Igt8BIlhEXIxUVMMFeD2B/Pk9kQIVIhF4\n2oGyJr3C8WZmqS3GHqzxHQPXFuEXKl9xTaoiJuOGburl9/k+CQlPf+xvWxSR\n/cMGsWJ6EqShxiNcSysPpl26tHKP6Nin7k9UdjhAIOzmcmzJ3CsukvcJerbu\nlysUPNIK7R10GBmt2JgKa+H6iLKk3CzEMi0Hnc7RRBWJA9s1LmDzt3Ky3I5Y\nibTtMuvEYi1h4GT7f8/bxE3ckMDRSMYNKhwrICm1zIHaob0sRId5R5YrxqiP\ny2Pso32F7qLvN94jia7GizjXLEJ1goj0ZtSHBQq/4ILEc2ITyreiZadyV1yW\nHIhf\r\n=/NZ9\r\n-----END PGP SIGNATURE-----\r\n"
+			},
+			"maintainers": [
+				{
+					"email": "hello@nrwl.io",
+					"name": "nrwl"
+				},
+				{
+					"email": "avix1000@gmail.com",
+					"name": "vsavkin"
+				}
+			],
+			"_npmUser": {
+				"name": "nrwl",
+				"email": "hello@nrwl.io"
+			},
+			"directories": {},
+			"_npmOperationalInternal": {
+				"host": "s3://npm-registry-packages",
+				"tmp": "tmp/nx_0.0.1_1597778162165_0.19378555697305266"
+			},
+			"_hasShrinkwrap": false,
+			"contributors": []
+		},
+		"10.1.0-beta.1": {
+			"name": "nx",
+			"version": "10.1.0-beta.1",
+			"description": "Extensible Dev Tools for Monorepos",
+			"repository": {
+				"type": "git",
+				"url": "git+https://github.com/nrwl/nx.git"
+			},
+			"keywords": [
+				"Monorepo",
+				"Angular",
+				"React",
+				"Web",
+				"Node",
+				"Nest",
+				"Jest",
+				"Cypress",
+				"CLI"
+			],
+			"bin": {
+				"nx": "bin/nx.js"
+			},
+			"author": {
+				"name": "Victor Savkin"
+			},
+			"license": "MIT",
+			"bugs": {
+				"url": "https://github.com/nrwl/nx/issues"
+			},
+			"homepage": "https://nx.dev",
+			"dependencies": {
+				"@nrwl/cli": "*"
+			},
+			"readmeFilename": "README.md",
+			"_id": "nx@10.1.0-beta.1",
+			"_nodeVersion": "12.18.3",
+			"_npmVersion": "6.14.6",
+			"dist": {
+				"integrity": "sha512-QKY2Szkx6kJTJjxgQR4rnP+ePldRj70Y9MW8FuxhIt+MhTryMphsMNIX1CEUcpN4jvIhq+D2okr1bT6/tTNoxw==",
+				"shasum": "fe9374c67c0632d2a61cb26d5281d098b4b6d4c6",
+				"tarball": "https://registry.npmjs.org/nx/-/nx-10.1.0-beta.1.tgz",
+				"fileCount": 10,
+				"unpackedSize": 13159,
+				"npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJfPEPECRA9TVsSAnZWagAAA94P/R7MUXWECCg3fAgPNjI+\nYyMkzqx9xMz1oVqDPhFmZxBANEVzy4qkOQhe7zG6vmIw/klBaWEOsMqyJ2a7\n2X1U3agRjBA34RbenD3DtO0bKofQgNvVx0YZX8BLeDrSRbTaV9PuyYLRoIUW\nhb1F3LATNiQ7Ir3oxq1A2lvcJNyEtfZqrG52fvlbUnD1BiE3TwlbG+tGWCW3\nOZqrC41qk7KRcPiXs4FR2rMVEsvtTd5398LlRs2ROf6Ry4TSLCkdt0SVc2Lq\nIar1B6ypuB6r4vUWbXIDONbugfgBC3q2onjesgW+cnh+K6safKelyvBal8oS\nv71HVWytQ9PIp2CaO9gN9ogSEWx6WW67NmlsnHuJvmgaCpgign9efbxa+ZX/\nO6lBFeeMKUmh//tXQjIl/MsUp9hGfvWFIv7E3Nlyv9iyQ06aDWuAXkOYdWiO\nsSdtqpxo2x2wFLNDbXEG1wdYRM3XU0yGulPxSrgkQunJfbLSWeG44toxFxB6\n01j7b5YouVnod5wshqBxsqGOY57D8nD0uf6UVcVhbhZE3cHzV+mVas1XtjhG\ngK8+Vl3zZAOwiQWKtxZ71Nj06P8WXOlc/gVELareor0xshpTb8ELN4jby8xv\nNDx7d5aO5iOzrum82N3Sf4/eoYcDTqagMJwKsb26puKAi4/gjklQTSBIAIpE\nGvdZ\r\n=MV9E\r\n-----END PGP SIGNATURE-----\r\n"
+			},
+			"maintainers": [
+				{
+					"email": "hello@nrwl.io",
+					"name": "nrwl"
+				},
+				{
+					"email": "avix1000@gmail.com",
+					"name": "vsavkin"
+				}
+			],
+			"_npmUser": {
+				"name": "nrwl",
+				"email": "hello@nrwl.io"
+			},
+			"directories": {},
+			"_npmOperationalInternal": {
+				"host": "s3://npm-registry-packages",
+				"tmp": "tmp/nx_10.1.0-beta.1_1597785028539_0.503807863090153"
+			},
+			"_hasShrinkwrap": false,
+			"contributors": []
+		},
+		"10.1.0-beta.2": {
+			"name": "nx",
+			"version": "10.1.0-beta.2",
+			"description": "Extensible Dev Tools for Monorepos",
+			"repository": {
+				"type": "git",
+				"url": "git+https://github.com/nrwl/nx.git"
+			},
+			"keywords": [
+				"Monorepo",
+				"Angular",
+				"React",
+				"Web",
+				"Node",
+				"Nest",
+				"Jest",
+				"Cypress",
+				"CLI"
+			],
+			"bin": {
+				"nx": "bin/nx.js"
+			},
+			"author": {
+				"name": "Victor Savkin"
+			},
+			"license": "MIT",
+			"bugs": {
+				"url": "https://github.com/nrwl/nx/issues"
+			},
+			"homepage": "https://nx.dev",
+			"dependencies": {
+				"@nrwl/cli": "*"
+			},
+			"readmeFilename": "README.md",
+			"_id": "nx@10.1.0-beta.2",
+			"_nodeVersion": "12.18.3",
+			"_npmVersion": "6.14.6",
+			"dist": {
+				"integrity": "sha512-qQkKJqIAvpMeVXKPf7kNvgJbSghzI+M9gThnACf2YUq6tbovIUo1RE5Zy3s3rt6H1Tefkhk1wxCxTmznOkteow==",
+				"shasum": "72a6cd4a5d1773990c4cd665f21c95b1904f37d8",
+				"tarball": "https://registry.npmjs.org/nx/-/nx-10.1.0-beta.2.tgz",
+				"fileCount": 10,
+				"unpackedSize": 13159,
+				"npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJfPFk1CRA9TVsSAnZWagAAx+EP/2C2KBV00VPNsu/d+v0V\nVIBfURJc8Pm7sc0K0aVD78CWzywdlukpDT7+T/iiWjtEqOT8PUAq7B8V4n7J\n7TOl8wF5AXL52sRAZ0jh8+kOjlaKFej3zk8kJXYdwUnYebqPnsmjWTGThe7G\n6hR3ikMNpVKmg+DGhbCYsHMmmzaAxfqDN9qlnZbnRdtMYizfH4h6mW1FGbzG\nTemlT5KrTZXR1ZtoRJoiJrGgBiL/hVgJ5IqWE2ebZwAuOw3jQSxDwERMcNKv\ngkaEDfhBFyKkd2XYx+sAWrcMWENPKnKBzhu8Qg+O3ujP5B4Aar2MNRYEeavO\nwUFCV9Msk/7Bq+Z8Obw5gZZ1LFVqmdohmpxF28gtrsMJoLgwOFTRDU7q2892\nncqXk8ODhJ+5//1Yq5KHcPQD8RvJuTSKLyUUcrUg6pqbb0Zt7K9buj+Ix3ph\nVFTkD3832Yvxe4ozaZfMbRD0z8xawf4gNKVSQGfuQyNi8t4pCUHoTo0EGuPB\n1zC4nf2Ogg5d94lEqSEoy73VoZMWAakxrPC//ERuWfVrUZsrepzZBxORENA7\n7T4QQY4Srt5sq/t/q9GIipJPLiLKiqG596Xr4uNTayL9uihozRpA/zciqkdV\nuewoSQnvAfdxRq+gqp46UtOwnax8uLFu6elFcQtHw+LwMQKPqG10vYVUCscD\nN67n\r\n=yLsf\r\n-----END PGP SIGNATURE-----\r\n"
+			},
+			"maintainers": [
+				{
+					"email": "hello@nrwl.io",
+					"name": "nrwl"
+				},
+				{
+					"email": "avix1000@gmail.com",
+					"name": "vsavkin"
+				}
+			],
+			"_npmUser": {
+				"name": "nrwl",
+				"email": "hello@nrwl.io"
+			},
+			"directories": {},
+			"_npmOperationalInternal": {
+				"host": "s3://npm-registry-packages",
+				"tmp": "tmp/nx_10.1.0-beta.2_1597790516660_0.16572487257211832"
+			},
+			"_hasShrinkwrap": false,
+			"contributors": []
+		},
+		"10.1.0-beta.3": {
+			"name": "nx",
+			"version": "10.1.0-beta.3",
+			"description": "Extensible Dev Tools for Monorepos",
+			"repository": {
+				"type": "git",
+				"url": "git+https://github.com/nrwl/nx.git"
+			},
+			"keywords": [
+				"Monorepo",
+				"Angular",
+				"React",
+				"Web",
+				"Node",
+				"Nest",
+				"Jest",
+				"Cypress",
+				"CLI"
+			],
+			"bin": {
+				"nx": "bin/nx.js"
+			},
+			"author": {
+				"name": "Victor Savkin"
+			},
+			"license": "MIT",
+			"bugs": {
+				"url": "https://github.com/nrwl/nx/issues"
+			},
+			"homepage": "https://nx.dev",
+			"dependencies": {
+				"@nrwl/cli": "*"
+			},
+			"readmeFilename": "README.md",
+			"_id": "nx@10.1.0-beta.3",
+			"_nodeVersion": "12.18.3",
+			"_npmVersion": "6.14.6",
+			"dist": {
+				"integrity": "sha512-I9/PO098hKtXkfWrHtph9g8F3WTEffqRXjXEKvBMwJETWQlJLv/Pe642HASzB85Dh1RE7xYU/w46UHnkEOYjog==",
+				"shasum": "ad5f18452b89878ab04095c64449d1c2bea91fcb",
+				"tarball": "https://registry.npmjs.org/nx/-/nx-10.1.0-beta.3.tgz",
+				"fileCount": 10,
+				"unpackedSize": 13159,
+				"npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJfPTo1CRA9TVsSAnZWagAAQCgP/2ewyiQLE+zO4OhCdqZe\n2inSSM+l/dioaEbNcPAcdZDq4v1K8Nv2QTiKJGMuGDFzUAg9DUXEKDebNQ3j\n8I41/CQ350lxlWwPwNce3Y1K3JUNWGk30ZMwVhetBLKOsSPla/vprxiU5ZvD\nGNVvBEJsVnxBcPasIQzOI4cKq5+BAYOxWaT2TmY4v3JywA48qE92++vSC+ig\nkxHW1ei2HvZTGUYFDJpCU1XmdKfn8pNvwdC7vm/FTyv+kTEkURhjbWyi/MPH\nLye4ttmRXm5g6zhF61Y4ij5T90Frp/oCioNFjCVERsb6aaGZUvNRTcRapRZI\n8HFCQgFWhyxkjbR5JBeRYTjnwSAAQjGfKYygMDseLhnsppE0VhiOQGSGZ90i\newlO6BKckzZryF4Rb0Bmj3EyMJe6lvXI9CIUsQjlRLd5lhnpsrOeHxgar3tf\nOw3hLy2jmTYvdfDVUQbgG73l7pTiFhfJ5Y9bJIiHbu3oZ8m0kWaEoszUqyZB\nDSfBImEUfbWeKJzZsrQa0c5Xd2K9RhQfrJ/NKrvmHsKZISUuZosO4JXq+AA3\ny+A+/XTtfTn7JV76CKVincmySvkrJk7Rx7nBxniipgCni3beSGSUqbUF5GML\nhj1IfLV0ORdqRQyVCJQZg5Kry8/rOAkCVDrl05LVTN1elml/ben7boFLbTVl\n3Rbo\r\n=P1XI\r\n-----END PGP SIGNATURE-----\r\n"
+			},
+			"maintainers": [
+				{
+					"email": "hello@nrwl.io",
+					"name": "nrwl"
+				},
+				{
+					"email": "avix1000@gmail.com",
+					"name": "vsavkin"
+				}
+			],
+			"_npmUser": {
+				"name": "nrwl",
+				"email": "hello@nrwl.io"
+			},
+			"directories": {},
+			"_npmOperationalInternal": {
+				"host": "s3://npm-registry-packages",
+				"tmp": "tmp/nx_10.1.0-beta.3_1597848117608_0.21763157492257657"
+			},
+			"_hasShrinkwrap": false,
+			"contributors": []
+		},
+		"10.0.13": {
+			"name": "nx",
+			"version": "10.0.13",
+			"description": "Extensible Dev Tools for Monorepos",
+			"repository": {
+				"type": "git",
+				"url": "git+https://github.com/nrwl/nx.git"
+			},
+			"keywords": [
+				"Monorepo",
+				"Angular",
+				"React",
+				"Web",
+				"Node",
+				"Nest",
+				"Jest",
+				"Cypress",
+				"CLI"
+			],
+			"bin": {
+				"nx": "bin/nx.js"
+			},
+			"author": {
+				"name": "Victor Savkin"
+			},
+			"license": "MIT",
+			"bugs": {
+				"url": "https://github.com/nrwl/nx/issues"
+			},
+			"homepage": "https://nx.dev",
+			"dependencies": {
+				"@nrwl/cli": "*"
+			},
+			"_id": "nx@10.0.13",
+			"_nodeVersion": "12.18.3",
+			"_npmVersion": "6.14.6",
+			"dist": {
+				"integrity": "sha512-4dBOa8EGQyxjQ9bmj0Ju6ccKR0NRMhgXVgDn5Sh5Rr4x34F+3oy7KaUQ2XCNfTsioiR0e2lHCfUpWGjva1sXRQ==",
+				"shasum": "75e687ecf492b5a60877bd146ec6aba323ceff7f",
+				"tarball": "https://registry.npmjs.org/nx/-/nx-10.0.13.tgz",
+				"fileCount": 10,
+				"unpackedSize": 13153,
+				"npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJfPZglCRA9TVsSAnZWagAA8SsP/2/HUa5Snj4NBeflPq8V\nO+A2/IRoMj8ND9lIhqtRigIE7U22t4rL8fdV58nRVPuuamuDUk85m/4l9IMn\nRMXme+EhNBmZAMbCN4SW+cJFhlS2fBmU3k/NsAo36cQxsL/bZoD6u8vIRLKb\netkSXqJwkxOgTPv1+UbtQVwol0BuvzYRxVOpJUl1Y/WogjGcGphDb2mKC2si\nWSIFjXhgp/ojCULhjit2cyXSvbQI9D3qLWWCmE+2yPpUj/XUuCxG51GGU5+t\npct5/6ApLbmWkSu7Yq+jZtuAtKdLY8W+s37DqHqVSjzJmnAbfHW1P/w72Hr7\neX37kPGicqzYFtZ0WCQLmRKqAKh0uelCSqUmJRKIHNF2HZzmIkzBm1n0YRhl\nJU0+xPLiho/vkrST/iQQ3K71j385rJdayCNPRG1Clcm9Y5dTLALE/SpXe68H\n9eobg8Oih6DeUUem13Ko6zHP5kvF3KrnKxNq9bCTMnkW0guUtLr3ZHTLuugn\n/F3tYYmCFkiGr51znNGpPzVrMkeuUx6Y4wheY2VitreiOtTaFEhFQIXiLqvi\n8+7OgoJuXqWrK0MmCblTUfxXB1YhZ41DdV04ebd5ICTtSRbIPLSIKmMF4X5+\nG94QgH65S5n4f6KdevRkxxxPUAqEk4uPFbdgbQqI9j2GG9sGO9L6JitFe62p\nss7G\r\n=Ng9K\r\n-----END PGP SIGNATURE-----\r\n"
+			},
+			"maintainers": [
+				{
+					"email": "hello@nrwl.io",
+					"name": "nrwl"
+				},
+				{
+					"email": "avix1000@gmail.com",
+					"name": "vsavkin"
+				}
+			],
+			"_npmUser": {
+				"name": "nrwl",
+				"email": "hello@nrwl.io"
+			},
+			"directories": {},
+			"_npmOperationalInternal": {
+				"host": "s3://npm-registry-packages",
+				"tmp": "tmp/nx_10.0.13_1597872165071_0.6868607762735839"
+			},
+			"_hasShrinkwrap": false,
+			"contributors": []
+		},
+		"10.1.0-beta.4": {
+			"name": "nx",
+			"version": "10.1.0-beta.4",
+			"description": "Extensible Dev Tools for Monorepos",
+			"repository": {
+				"type": "git",
+				"url": "git+https://github.com/nrwl/nx.git"
+			},
+			"keywords": [
+				"Monorepo",
+				"Angular",
+				"React",
+				"Web",
+				"Node",
+				"Nest",
+				"Jest",
+				"Cypress",
+				"CLI"
+			],
+			"bin": {
+				"nx": "bin/nx.js"
+			},
+			"author": {
+				"name": "Victor Savkin"
+			},
+			"license": "MIT",
+			"bugs": {
+				"url": "https://github.com/nrwl/nx/issues"
+			},
+			"homepage": "https://nx.dev",
+			"dependencies": {
+				"@nrwl/cli": "*"
+			},
+			"readmeFilename": "README.md",
+			"_id": "nx@10.1.0-beta.4",
+			"_nodeVersion": "12.18.3",
+			"_npmVersion": "6.14.6",
+			"dist": {
+				"integrity": "sha512-ShNCLoABYY4BaaDx6jr0JNiu25UDC4YT+PIMq2Q5F3Kcosvf/HhTK5VdrPA0xnTtQZYZh3zM8+be8eqEXXA4Bg==",
+				"shasum": "b30efada7ae29e728cace0219af7fc3dd913aa14",
+				"tarball": "https://registry.npmjs.org/nx/-/nx-10.1.0-beta.4.tgz",
+				"fileCount": 10,
+				"unpackedSize": 13138,
+				"npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJfPrOICRA9TVsSAnZWagAAZfYP/0MNvEvrWQiqkG58J5Ns\na4LmxOpWwqSe8cdDpEvTlfgjvJFIh8ktUoyhxpdNeLOhV5BvJPQJRKPMCLKU\nCp/TduujAMDB0Z1+3ygpmDByDkwMGQNUsJoil6xxKHT7GGSchYxjZMhzUHBp\nawfVaDAWAqA934vE0bw6Jg6zyOtRBg4MTIsYWm4gjMJuwtVChTo+iAKqUgN9\nf8KrxWutP6uOajPDPkIMs5YVfPYzEN27LoK9FTpG/JuILopgVy8de1PA5eQg\npkJkMpo7ffl5Ffl2VVOCix7jLlWiHvnp0MBhe4RSQfIJektmmhnYyRqvp55n\nISlHkE1Y6g+qcyOjuVBPf30ycvbhJOCxB7bthhOMB82bFWa1LOt99NpR2bnS\nT9b/lz8QcERZhC22AuAv3XQy1cbyXIA6psuwqsNY80rLhOHWrmfz4EQgeegq\nD1DEZ0eupprVzLqNFL4Errw5YaZeM3Et8VDo0gOlhljfk/rggR18hSApavW4\nlFKmzGbL8UZo7OX0Q0ICXGy07BpUabvarOjlttwiBbQKgVqdmLMM/ynNGH/v\nnlDWnUTvNBE1v61pOD0VwGlSVVa3wTo4EwOpcvWpAgB1k52Aq8Sz0MHfVaHD\nqXPs6AwluVpoMTO2mjvPyfxNhe2munefan1NjJpLxVMWLqDLAsYQBFefy1yC\nVl4J\r\n=HHk+\r\n-----END PGP SIGNATURE-----\r\n"
+			},
+			"maintainers": [
+				{
+					"email": "hello@nrwl.io",
+					"name": "nrwl"
+				},
+				{
+					"email": "avix1000@gmail.com",
+					"name": "vsavkin"
+				}
+			],
+			"_npmUser": {
+				"name": "nrwl",
+				"email": "hello@nrwl.io"
+			},
+			"directories": {},
+			"_npmOperationalInternal": {
+				"host": "s3://npm-registry-packages",
+				"tmp": "tmp/nx_10.1.0-beta.4_1597944711847_0.975706470469534"
+			},
+			"_hasShrinkwrap": false,
+			"contributors": []
+		},
+		"10.1.0-rc.0": {
+			"name": "nx",
+			"version": "10.1.0-rc.0",
+			"description": "Extensible Dev Tools for Monorepos",
+			"repository": {
+				"type": "git",
+				"url": "git+https://github.com/nrwl/nx.git"
+			},
+			"keywords": [
+				"Monorepo",
+				"Angular",
+				"React",
+				"Web",
+				"Node",
+				"Nest",
+				"Jest",
+				"Cypress",
+				"CLI"
+			],
+			"bin": {
+				"nx": "bin/nx.js"
+			},
+			"author": {
+				"name": "Victor Savkin"
+			},
+			"license": "MIT",
+			"bugs": {
+				"url": "https://github.com/nrwl/nx/issues"
+			},
+			"homepage": "https://nx.dev",
+			"dependencies": {
+				"@nrwl/cli": "*"
+			},
+			"readmeFilename": "README.md",
+			"_id": "nx@10.1.0-rc.0",
+			"_nodeVersion": "12.18.3",
+			"_npmVersion": "6.14.6",
+			"dist": {
+				"integrity": "sha512-W0Joe/aIdIA1iXiaRyti/8MC7c6A/1MXMdyLeGp2a7pww1+icq4faRW3wb5n3mrkhOYQzr0dfQNWQbtG5t696w==",
+				"shasum": "4ff49f4a750ada7c3b096fe217eb35e50d59d7c8",
+				"tarball": "https://registry.npmjs.org/nx/-/nx-10.1.0-rc.0.tgz",
+				"fileCount": 10,
+				"unpackedSize": 13136,
+				"npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJfQBNtCRA9TVsSAnZWagAA0XoP/0qx/7a3iXp9EbtYXO2S\nMSsO3YqfwnadPFvxE1d8rJmHkHvgFEyuCGNsERGfWJJjmdKRzK+blnzGCCXw\n2JBzgdQxNcU+UmmFI4WfZsyWNh1xa8T+1bRuA9pptM7nPBSXAGeHjUoPggof\n/6z6FNiJkW5O33NxUFGcN1Sf40LmTr+Ecwh7unHH/BNhT6RTx+lVQnuoAe7Y\nOiX/4qhEfSUvw6Ylqm88ghpx8ruw2y09uwVe8TRvo8Hrz6anRpL/eKw1WkBx\nUBgHWSvxe1cTfThm+U4EnN0oICsS73RuZRUQeN+GC+eF1ZUIUma1MqpG/fGq\n+l1DtuYpAL1G0SkNtqAunNTQ+4gof+80HrAy7XLiBI4jk74PqRR1yCOPXyLd\ntr22ZMrjE+2FmUXuOizeBS9UrT2meBBtWsjKJmobZfh4fT/M7EvJxxxUrzPf\nZJEjg+L5oO6Xr987Eg7uKvE4i7kNJ/IhkjD1e8inUcuJ4EntiChM6qCrFpUL\nINaTu/khSEQb5sfacoiAnEX9kTcyABR8C38Aq3a3qSxq4rOf3JmmZXoxwGVl\npbuEbnLj1FX4S2E05F1g8a+nbQmFANzF7GhaFqDEZktV5EXWet+jbGsmYiVj\ngmZ4A4WiELDpNmktKRXR8u4ptuqkKgRHG/Mnf+5JKwWAk5lLTnetM6sfMdM9\nb/eJ\r\n=KgLw\r\n-----END PGP SIGNATURE-----\r\n"
+			},
+			"maintainers": [
+				{
+					"email": "hello@nrwl.io",
+					"name": "nrwl"
+				},
+				{
+					"email": "avix1000@gmail.com",
+					"name": "vsavkin"
+				}
+			],
+			"_npmUser": {
+				"name": "nrwl",
+				"email": "hello@nrwl.io"
+			},
+			"directories": {},
+			"_npmOperationalInternal": {
+				"host": "s3://npm-registry-packages",
+				"tmp": "tmp/nx_10.1.0-rc.0_1598034796954_0.9469704825580718"
+			},
+			"_hasShrinkwrap": false,
+			"contributors": []
+		},
+		"10.1.0": {
+			"name": "nx",
+			"version": "10.1.0",
+			"description": "Extensible Dev Tools for Monorepos",
+			"repository": {
+				"type": "git",
+				"url": "git+https://github.com/nrwl/nx.git"
+			},
+			"keywords": [
+				"Monorepo",
+				"Angular",
+				"React",
+				"Web",
+				"Node",
+				"Nest",
+				"Jest",
+				"Cypress",
+				"CLI"
+			],
+			"bin": {
+				"nx": "bin/nx.js"
+			},
+			"author": {
+				"name": "Victor Savkin"
+			},
+			"license": "MIT",
+			"bugs": {
+				"url": "https://github.com/nrwl/nx/issues"
+			},
+			"homepage": "https://nx.dev",
+			"dependencies": {
+				"@nrwl/cli": "*"
+			},
+			"_id": "nx@10.1.0",
+			"_nodeVersion": "12.18.3",
+			"_npmVersion": "6.14.6",
+			"dist": {
+				"integrity": "sha512-AJU7l0zg2602zj0j/TBCLZUL8/veTXIkvRFySfFztqOn58733qZ0fUbZHEf7Q1rAeNrC5pJN9Zo23H97G1qqgQ==",
+				"shasum": "d1e379c731ee436d50c22bdb8f26e92c3760e822",
+				"tarball": "https://registry.npmjs.org/nx/-/nx-10.1.0.tgz",
+				"fileCount": 10,
+				"unpackedSize": 13131,
+				"npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJfQCXgCRA9TVsSAnZWagAA4McP/RyXxFB2kk7HMIo4tJ/j\nhF73UBr8oLPQWDd9bmIH29XCXyoFH9WGq5oWVLzO9KcujyCOtDixi62NKGam\n1yQUS3oI3iAyvOktMsI49wWxiYu5fsuRY4hVqdqqFCwhiIQerdoXqyeBic1t\nF5l1iQmk8mPBcvwUtGxEA+KmrHkxCj6L1bS8+tB4TB5sw9FLtrJrVO0VtSUR\n0bTS/y73+ZMmYGe58Uu3veAygD7FaVu6lA0yOE7m6818LYqmM6PdPe1VlDgf\nt2cXVW2gAhYzfHRYYAIo/m4vqFrjd0Gquly/nWBPhvXKByLpqE++8eDXjbVv\n/kVOg5rRnEGHccXDQ7OQODdfEDmgdrqG4M1QUtenTeOS5PRl4F4cpfV46K+H\nzuFbobMRCDWq5V/ZqKffR0GoJeCGKhUhZkF8N5KH//coKAHmPrD4+8VJUoPJ\n3AN21t/fN5QwvNnBHEZG1SKEx/4/7dLnrk5QcDqoItOs5huDA6KAy1Saqdv0\ng3ae1rKt9ogF7kncVphRTTOb99m2M/Zj942rbdD2CzLv9vZbisZnTncWDTpB\nTdi8NSXVwoWYoQgmINW343xHtYWOtF+pKzBNB7to0F2j/TmwNFk5xtamUTsB\nx52h1tVdobd5U7QkhyrDA0DEcBNUT4WNOrFtb4l8rPf+Lx2Ja5QfdzupLFDR\nOdoq\r\n=y/l2\r\n-----END PGP SIGNATURE-----\r\n"
+			},
+			"maintainers": [
+				{
+					"email": "hello@nrwl.io",
+					"name": "nrwl"
+				},
+				{
+					"email": "avix1000@gmail.com",
+					"name": "vsavkin"
+				}
+			],
+			"_npmUser": {
+				"name": "nrwl",
+				"email": "hello@nrwl.io"
+			},
+			"directories": {},
+			"_npmOperationalInternal": {
+				"host": "s3://npm-registry-packages",
+				"tmp": "tmp/nx_10.1.0_1598039520236_0.06711726263809781"
+			},
+			"_hasShrinkwrap": false,
+			"contributors": []
+		},
+		"10.1.1-beta.1": {
+			"name": "nx",
+			"version": "10.1.1-beta.1",
+			"description": "Extensible Dev Tools for Monorepos",
+			"repository": {
+				"type": "git",
+				"url": "git+https://github.com/nrwl/nx.git"
+			},
+			"keywords": [
+				"Monorepo",
+				"Angular",
+				"React",
+				"Web",
+				"Node",
+				"Nest",
+				"Jest",
+				"Cypress",
+				"CLI"
+			],
+			"bin": {
+				"nx": "bin/nx.js"
+			},
+			"author": {
+				"name": "Victor Savkin"
+			},
+			"license": "MIT",
+			"bugs": {
+				"url": "https://github.com/nrwl/nx/issues"
+			},
+			"homepage": "https://nx.dev",
+			"dependencies": {
+				"@nrwl/cli": "*"
+			},
+			"readmeFilename": "README.md",
+			"_id": "nx@10.1.1-beta.1",
+			"_nodeVersion": "12.18.3",
+			"_npmVersion": "6.14.6",
+			"dist": {
+				"integrity": "sha512-nPagsQ0o8T/Dmj1hK7XHSgh10hB5lzq94UrSW0yDEeMoBsnZdlnCZ/8/H5fbK63L4YVc9HJXCsdvJWmVkCLiQw==",
+				"shasum": "c1ef56437fa5e7067bc733945b92a71ab9031001",
+				"tarball": "https://registry.npmjs.org/nx/-/nx-10.1.1-beta.1.tgz",
+				"fileCount": 10,
+				"unpackedSize": 13138,
+				"npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJfTuilCRA9TVsSAnZWagAA3DYP/ja3xmL+EAu6EgOJBebZ\nb0Hx9bQzp4QJK+eCoeLa2sIxX+rETehDSSk07jfG9wF8s5O+rJJgF8Ji/hEu\n+Z8L3PpN5YUHOK/AjCZM129UkEx0HwCsJWHDXlPA7UhFwjCzB5o6BwHejhfl\nAW4+u0ixLAHSIwU64nN9jS4iMxrzOHR31NnAFaro5ZfJ2roH+BsoKSBO5y/J\nDiKo1drvnj0buOAv90pRK/gQIdwog6b5b6d3g+V6VaN5uv9dGSXzpc+2kL1f\nZz+WcauglOBxR4MaH0qXV5P1B0dzT/qjH/ZEv4vYbzy/twg4CdXMcaxRP6GJ\nsp4K7IcSR7cb/HHwkpI9mEC58PAhx19/oYye9/EiZS9d0toXGkZyJCk3Tz5b\nQiyjebq7RN0oQEkewarIgt+NeXuwLSuYli1uGmvMa/Ionrd8KBqRiJn2IHsY\n5PK5qh8WAng7rsND0+af8wIgdEoUvx4f0QPXGljdQicFpCBS+iWK+co+22I8\n7yjZT/Ua6ItmcpFN5mDqs9CMSbR90B/6tQGa14AUsJl4yQ7XvrbgFtyZshNk\njTVLxLLmvtr1mDfRhfd74F4CmPIjHzZeuA+wdnN+dXwgMJUliX4nkQ3+FHcN\nfoxuD3dyuOmkTc4FtcN5ezPw1SammczWChw+GhWcRCNlqB729+XKGepwBnXt\nqfy+\r\n=ScNU\r\n-----END PGP SIGNATURE-----\r\n"
+			},
+			"maintainers": [
+				{
+					"email": "hello@nrwl.io",
+					"name": "nrwl"
+				},
+				{
+					"email": "avix1000@gmail.com",
+					"name": "vsavkin"
+				}
+			],
+			"_npmUser": {
+				"name": "nrwl",
+				"email": "hello@nrwl.io"
+			},
+			"directories": {},
+			"_npmOperationalInternal": {
+				"host": "s3://npm-registry-packages",
+				"tmp": "tmp/nx_10.1.1-beta.1_1599006885267_0.8597733256762863"
+			},
+			"_hasShrinkwrap": false,
+			"contributors": []
+		},
+		"10.1.1-beta.2": {
+			"name": "nx",
+			"version": "10.1.1-beta.2",
+			"description": "Extensible Dev Tools for Monorepos",
+			"repository": {
+				"type": "git",
+				"url": "git+https://github.com/nrwl/nx.git"
+			},
+			"keywords": [
+				"Monorepo",
+				"Angular",
+				"React",
+				"Web",
+				"Node",
+				"Nest",
+				"Jest",
+				"Cypress",
+				"CLI"
+			],
+			"bin": {
+				"nx": "bin/nx.js"
+			},
+			"author": {
+				"name": "Victor Savkin"
+			},
+			"license": "MIT",
+			"bugs": {
+				"url": "https://github.com/nrwl/nx/issues"
+			},
+			"homepage": "https://nx.dev",
+			"dependencies": {
+				"@nrwl/cli": "*"
+			},
+			"readmeFilename": "README.md",
+			"_id": "nx@10.1.1-beta.2",
+			"_nodeVersion": "12.18.3",
+			"_npmVersion": "6.14.6",
+			"dist": {
+				"integrity": "sha512-hWHa4XWCTmdJ3nS4kQb7yykuafWmd6k4kNOivqpeGOfnfhu4U9jXFbTb3XvN8cDQ0URe9KhPkbfndTuv4tYn6Q==",
+				"shasum": "7b08a717ca7342e1951b4121db81974a67cdd61c",
+				"tarball": "https://registry.npmjs.org/nx/-/nx-10.1.1-beta.2.tgz",
+				"fileCount": 10,
+				"unpackedSize": 13138,
+				"npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJfTwhKCRA9TVsSAnZWagAA69IP/1oAt88W+8zBKo6xZdqp\n2EcbXP0xR9e4Gx9PBXFCjV+Ryfnq+1zCDnQpt9MzyszXSf3zKQqnxLApOlVu\nQ+sIv1W81TDB9p2d+rA1NJ7uUeIdhJUxF+h543sVk2ULNnuaz2vtGuIYYmRa\nmVfuGEU1IkzAC/uGxqhEROkKb5CkNqbrubUEfA9NQRHlnSiteX59AZHHZnVC\nHQqsLDrkss9qlSXWn71KO+ELe0zs101NXhEGjX8JQV4MLwgAfTnhfFsyNZrx\nmfCeu9D4ABK+vgTAJYw/i5xgFRWy5SWbQWZLAVCLpylaFfs2e7rwmERPrg9D\ndL9WnEIDy1CjrqJo6jjRNP4Kr/Stj7A581z4QoZj+Rchi86XkCrCNlubguaF\nQn9lginuYWcwY5vXVfgXOWVGZAZGDdWnF4sfGqQ4KlVrggZALBl81XMLMIg3\nbD3bg3XumWVbNeMjxhzFxTrMokbi80UIMJUr9Gkw3toEeuBjEvR6bMal25T/\n75mSvVucsiFV0ACXWYjRquRknTvVc8SnafLL/BhGVfypIwXfXnTGMZHHsIEA\noEV137vXa0xUpJotCuwq4QVmfPu/LUt5JNGetN0CI74zjx+xK7FBajK56INn\nFSyTyac1re8x/0WIDZ7fPGMOhyBcwnFBEIWgxnTu09jQHU3dESYLioqpDmUa\n4nRJ\r\n=fppj\r\n-----END PGP SIGNATURE-----\r\n"
+			},
+			"maintainers": [
+				{
+					"email": "hello@nrwl.io",
+					"name": "nrwl"
+				},
+				{
+					"email": "avix1000@gmail.com",
+					"name": "vsavkin"
+				}
+			],
+			"_npmUser": {
+				"name": "nrwl",
+				"email": "hello@nrwl.io"
+			},
+			"directories": {},
+			"_npmOperationalInternal": {
+				"host": "s3://npm-registry-packages",
+				"tmp": "tmp/nx_10.1.1-beta.2_1599014985823_0.34406317011258736"
+			},
+			"_hasShrinkwrap": false,
+			"contributors": []
+		},
+		"999.9.9": {
+			"name": "nx",
+			"version": "999.9.9",
+			"description": "Extensible Dev Tools for Monorepos",
+			"repository": {
+				"type": "git",
+				"url": "git+https://github.com/nrwl/nx.git"
+			},
+			"keywords": [
+				"Monorepo",
+				"Angular",
+				"React",
+				"Web",
+				"Node",
+				"Nest",
+				"Jest",
+				"Cypress",
+				"CLI"
+			],
+			"bin": {
+				"nx": "bin/nx.js"
+			},
+			"author": {
+				"name": "Victor Savkin"
+			},
+			"license": "MIT",
+			"bugs": {
+				"url": "https://github.com/nrwl/nx/issues"
+			},
+			"homepage": "https://nx.dev",
+			"dependencies": {
+				"@nrwl/cli": "*"
+			},
+			"readmeFilename": "README.md",
+			"_id": "nx@999.9.9",
+			"_nodeVersion": "14.7.0",
+			"_npmVersion": "6.14.7",
+			"_npmUser": {
+				"name": "test",
+				"email": "webber@codelab.ai"
+			},
+			"dist": {
+				"integrity": "sha512-GELxYW7kuuApWcDF5NvkKShwbAaRpgUxxls9TqTYwQapuw8fqkdOKGNhR+D0CoNXNeLot8zJuXGUTYZPuBTU0A==",
+				"shasum": "b7a6a47bb4883a275d7d29472fd7afe3ba43ad34",
+				"tarball": "http://localhost:4873/nx/-/nx-999.9.9.tgz"
+			},
+			"contributors": []
+		}
+	},
+	"time": {
+		"modified": "2020-09-04T01:38:02.712Z",
+		"created": "2011-08-08T05:06:23.816Z",
+		"0.7.3": "2011-12-08T06:49:58.515Z",
+		"0.7.4": "2011-12-08T06:49:58.515Z",
+		"0.7.5": "2011-12-08T06:49:58.515Z",
+		"0.7.6": "2011-12-08T06:49:58.515Z",
+		"0.8.0": "2011-12-08T06:49:58.515Z",
+		"0.8.1": "2011-12-08T06:49:58.515Z",
+		"0.8.2": "2011-12-08T06:49:58.515Z",
+		"0.8.3": "2011-12-08T06:49:58.515Z",
+		"0.8.4": "2011-10-30T22:08:40.747Z",
+		"0.8.5": "2011-11-11T05:12:52.130Z",
+		"0.8.6": "2011-11-17T09:41:12.694Z",
+		"0.8.7": "2011-11-28T03:47:19.105Z",
+		"0.8.8": "2011-12-08T06:49:58.515Z",
+		"0.8.9": "2012-02-04T21:16:40.879Z",
+		"10.0.7-beta.2": "2020-07-29T02:11:09.483Z",
+		"10.0.7-beta.3": "2020-07-29T18:48:19.207Z",
+		"10.0.7-beta.4": "2020-07-29T19:21:05.494Z",
+		"10.0.7-beta.5": "2020-07-29T19:26:11.439Z",
+		"10.0.7": "2020-07-29T19:33:30.027Z",
+		"10.0.8": "2020-08-06T03:34:26.658Z",
+		"10.0.9-beta.1": "2020-08-07T02:32:20.167Z",
+		"10.0.9": "2020-08-07T15:53:32.259Z",
+		"10.0.10": "2020-08-08T02:19:04.387Z",
+		"10.0.11": "2020-08-11T15:58:07.461Z",
+		"10.0.12": "2020-08-13T20:03:20.932Z",
+		"10.1.0-beta.0": "2020-08-18T15:05:17.950Z",
+		"0.0.1": "2020-08-18T19:16:02.285Z",
+		"10.1.0-beta.1": "2020-08-18T21:10:28.638Z",
+		"10.1.0-beta.2": "2020-08-18T22:41:56.787Z",
+		"10.1.0-beta.3": "2020-08-19T14:41:57.703Z",
+		"10.0.13": "2020-08-19T21:22:45.270Z",
+		"10.1.0-beta.4": "2020-08-20T17:31:51.997Z",
+		"10.1.0-rc.0": "2020-08-21T18:33:17.063Z",
+		"10.1.0": "2020-08-21T19:52:00.393Z",
+		"10.1.1-beta.1": "2020-09-02T00:34:45.356Z",
+		"10.1.1-beta.2": "2020-09-02T02:49:46.130Z",
+		"999.9.9": "2020-09-04T01:38:02.712Z"
+	},
+	"users": {},
+	"dist-tags": {
+		"latest": "999.9.9",
+		"next": "10.1.1-beta.2"
+	},
+	"_uplinks": {
+		"npmjs": {
+			"etag": "W/\"c0f14564070f801a3a5ef87ccc1865fa\"",
+			"fetched": 1599183482671
+		}
+	},
+	"_distfiles": {
+		"nx-0.7.3.tgz": {
+			"url": "https://registry.npmjs.org/nx/-/nx-0.7.3.tgz",
+			"sha": "86d55ca2faa7e666304964d647fc7e2831cda8c4",
+			"registry": "npmjs"
+		},
+		"nx-0.7.4.tgz": {
+			"url": "https://registry.npmjs.org/nx/-/nx-0.7.4.tgz",
+			"sha": "34628136f0c2a4d4e795568db33d67bbbe2638ad",
+			"registry": "npmjs"
+		},
+		"nx-0.7.5.tgz": {
+			"url": "https://registry.npmjs.org/nx/-/nx-0.7.5.tgz",
+			"sha": "90ee6d02ce0c82d4c3afb4ea46c2a56f3749c547",
+			"registry": "npmjs"
+		},
+		"nx-0.7.6.tgz": {
+			"url": "https://registry.npmjs.org/nx/-/nx-0.7.6.tgz",
+			"sha": "25616579a99c0e9d16afeda66835bf32c8d5ba07",
+			"registry": "npmjs"
+		},
+		"nx-0.8.0.tgz": {
+			"url": "https://registry.npmjs.org/nx/-/nx-0.8.0.tgz",
+			"sha": "8d19a7b353e7a28de3c1e84321bed3130ba64dc8",
+			"registry": "npmjs"
+		},
+		"nx-0.8.1.tgz": {
+			"url": "https://registry.npmjs.org/nx/-/nx-0.8.1.tgz",
+			"sha": "93ccc042552a1f2589c8d8fc092de476ea417744",
+			"registry": "npmjs"
+		},
+		"nx-0.8.2.tgz": {
+			"url": "https://registry.npmjs.org/nx/-/nx-0.8.2.tgz",
+			"sha": "67e72106ce40aa4b24e73475d569df7d835d2beb",
+			"registry": "npmjs"
+		},
+		"nx-0.8.3.tgz": {
+			"url": "https://registry.npmjs.org/nx/-/nx-0.8.3.tgz",
+			"sha": "eab824df493fb588f6a3b72c0151b91cafd099c1",
+			"registry": "npmjs"
+		},
+		"nx-0.8.4.tgz": {
+			"url": "https://registry.npmjs.org/nx/-/nx-0.8.4.tgz",
+			"sha": "e4c3475e7606e78e1ccdef8fb24a42d2620501f3",
+			"registry": "npmjs"
+		},
+		"nx-0.8.5.tgz": {
+			"url": "https://registry.npmjs.org/nx/-/nx-0.8.5.tgz",
+			"sha": "e452896d078d5980aa9a7a3322dacf1bebb96e03",
+			"registry": "npmjs"
+		},
+		"nx-0.8.6.tgz": {
+			"url": "https://registry.npmjs.org/nx/-/nx-0.8.6.tgz",
+			"sha": "276a49bd4b9d5a99f4520b8d6340086758931ff7",
+			"registry": "npmjs"
+		},
+		"nx-0.8.7.tgz": {
+			"url": "https://registry.npmjs.org/nx/-/nx-0.8.7.tgz",
+			"sha": "4deb48cbbf53814039becb6628f8c7ec7b3f95a8",
+			"registry": "npmjs"
+		},
+		"nx-0.8.8.tgz": {
+			"url": "https://registry.npmjs.org/nx/-/nx-0.8.8.tgz",
+			"sha": "ce51709c18354cbf281fae6ad09705ddbcd73095",
+			"registry": "npmjs"
+		},
+		"nx-0.8.9.tgz": {
+			"url": "https://registry.npmjs.org/nx/-/nx-0.8.9.tgz",
+			"sha": "d270b458f491746ed4fce6636310b5fa677954b6",
+			"registry": "npmjs"
+		},
+		"nx-10.0.7-beta.2.tgz": {
+			"url": "https://registry.npmjs.org/nx/-/nx-10.0.7-beta.2.tgz",
+			"sha": "762745e212f03c2e96e36b57c4ff7ae7cce10f5c",
+			"registry": "npmjs"
+		},
+		"nx-10.0.7-beta.3.tgz": {
+			"url": "https://registry.npmjs.org/nx/-/nx-10.0.7-beta.3.tgz",
+			"sha": "f5094d4860beed994ab8b5d99bce78c85af4dba1",
+			"registry": "npmjs"
+		},
+		"nx-10.0.7-beta.4.tgz": {
+			"url": "https://registry.npmjs.org/nx/-/nx-10.0.7-beta.4.tgz",
+			"sha": "2514f2a9b47fb802893bf332440820742b2a76f3",
+			"registry": "npmjs"
+		},
+		"nx-10.0.7-beta.5.tgz": {
+			"url": "https://registry.npmjs.org/nx/-/nx-10.0.7-beta.5.tgz",
+			"sha": "29405e2abb3fce37fd8443421504b46ec17c0342",
+			"registry": "npmjs"
+		},
+		"nx-10.0.7.tgz": {
+			"url": "https://registry.npmjs.org/nx/-/nx-10.0.7.tgz",
+			"sha": "d92cfe164c979f448083b9acff1b0a26c6121b24",
+			"registry": "npmjs"
+		},
+		"nx-10.0.8.tgz": {
+			"url": "https://registry.npmjs.org/nx/-/nx-10.0.8.tgz",
+			"sha": "885ea66c09eb274b9fade7417017898531c9d7e3",
+			"registry": "npmjs"
+		},
+		"nx-10.0.9-beta.1.tgz": {
+			"url": "https://registry.npmjs.org/nx/-/nx-10.0.9-beta.1.tgz",
+			"sha": "380c5efdef741ef114e82d291ac73af2f85c945b",
+			"registry": "npmjs"
+		},
+		"nx-10.0.9.tgz": {
+			"url": "https://registry.npmjs.org/nx/-/nx-10.0.9.tgz",
+			"sha": "ccfca3d387af12edce888464abc2b80af6e2bd4f",
+			"registry": "npmjs"
+		},
+		"nx-10.0.10.tgz": {
+			"url": "https://registry.npmjs.org/nx/-/nx-10.0.10.tgz",
+			"sha": "064a85422a7e28149418765a2641d9c34ba6ef81",
+			"registry": "npmjs"
+		},
+		"nx-10.0.11.tgz": {
+			"url": "https://registry.npmjs.org/nx/-/nx-10.0.11.tgz",
+			"sha": "094c4d2976ce0d3fe2e152166242f590acba7938",
+			"registry": "npmjs"
+		},
+		"nx-10.0.12.tgz": {
+			"url": "https://registry.npmjs.org/nx/-/nx-10.0.12.tgz",
+			"sha": "c60980a98cbe4a946f37fa4235a56c27b53c9b00",
+			"registry": "npmjs"
+		},
+		"nx-10.1.0-beta.0.tgz": {
+			"url": "https://registry.npmjs.org/nx/-/nx-10.1.0-beta.0.tgz",
+			"sha": "89f3a590700c09024c798753f1dbba964ed3e163",
+			"registry": "npmjs"
+		},
+		"nx-0.0.1.tgz": {
+			"url": "https://registry.npmjs.org/nx/-/nx-0.0.1.tgz",
+			"sha": "185ad71a9504fae37f756453b89badef5702823e",
+			"registry": "npmjs"
+		},
+		"nx-10.1.0-beta.1.tgz": {
+			"url": "https://registry.npmjs.org/nx/-/nx-10.1.0-beta.1.tgz",
+			"sha": "fe9374c67c0632d2a61cb26d5281d098b4b6d4c6",
+			"registry": "npmjs"
+		},
+		"nx-10.1.0-beta.2.tgz": {
+			"url": "https://registry.npmjs.org/nx/-/nx-10.1.0-beta.2.tgz",
+			"sha": "72a6cd4a5d1773990c4cd665f21c95b1904f37d8",
+			"registry": "npmjs"
+		},
+		"nx-10.1.0-beta.3.tgz": {
+			"url": "https://registry.npmjs.org/nx/-/nx-10.1.0-beta.3.tgz",
+			"sha": "ad5f18452b89878ab04095c64449d1c2bea91fcb",
+			"registry": "npmjs"
+		},
+		"nx-10.0.13.tgz": {
+			"url": "https://registry.npmjs.org/nx/-/nx-10.0.13.tgz",
+			"sha": "75e687ecf492b5a60877bd146ec6aba323ceff7f",
+			"registry": "npmjs"
+		},
+		"nx-10.1.0-beta.4.tgz": {
+			"url": "https://registry.npmjs.org/nx/-/nx-10.1.0-beta.4.tgz",
+			"sha": "b30efada7ae29e728cace0219af7fc3dd913aa14",
+			"registry": "npmjs"
+		},
+		"nx-10.1.0-rc.0.tgz": {
+			"url": "https://registry.npmjs.org/nx/-/nx-10.1.0-rc.0.tgz",
+			"sha": "4ff49f4a750ada7c3b096fe217eb35e50d59d7c8",
+			"registry": "npmjs"
+		},
+		"nx-10.1.0.tgz": {
+			"url": "https://registry.npmjs.org/nx/-/nx-10.1.0.tgz",
+			"sha": "d1e379c731ee436d50c22bdb8f26e92c3760e822",
+			"registry": "npmjs"
+		},
+		"nx-10.1.1-beta.1.tgz": {
+			"url": "https://registry.npmjs.org/nx/-/nx-10.1.1-beta.1.tgz",
+			"sha": "c1ef56437fa5e7067bc733945b92a71ab9031001",
+			"registry": "npmjs"
+		},
+		"nx-10.1.1-beta.2.tgz": {
+			"url": "https://registry.npmjs.org/nx/-/nx-10.1.1-beta.2.tgz",
+			"sha": "7b08a717ca7342e1951b4121db81974a67cdd61c",
+			"registry": "npmjs"
+		}
+	},
+	"_attachments": {
+		"nx-999.9.9.tgz": {
+			"shasum": "b7a6a47bb4883a275d7d29472fd7afe3ba43ad34",
+			"version": "999.9.9"
+		}
+	},
+	"_rev": "4-0591203c825c53fd",
+	"_id": "nx",
+	"readme": "<p align=\"center\"><img src=\"https://raw.githubusercontent.com/nrwl/nx/master/images/nx.png\" width=\"600\"></p>\n\n<div align=\"center\">\n\n[![CircleCI](https://circleci.com/gh/nrwl/nx.svg?style=svg)](https://circleci.com/gh/nrwl/nx)\n[![License](https://img.shields.io/npm/l/@nrwl/workspace.svg?style=flat-square)]()\n[![NPM Version](https://badge.fury.io/js/%40nrwl%2Fworkspace.svg)](https://www.npmjs.com/@nrwl/workspace)\n[![Semantic Release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=flat-square)]()\n[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)\n[![Join the chat at https://gitter.im/nrwl-nx/community](https://badges.gitter.im/nrwl-nx/community.svg)](https://gitter.im/nrwl-nx/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)\n[![Join us @nrwl/community on slack](https://img.shields.io/badge/slack-%40nrwl%2Fcommunity-brightgreen)](https://join.slack.com/t/nrwlcommunity/shared_invite/enQtNzU5MTE4OTQwOTk0LTgxY2E0ZWYzMWE0YzA5ZDA2MWM1NDVhNmI2ZWMyYmZhNWJiODk3MjkxZjY3MzU5ZjRmM2NmNWU1OTgyZmE4Mzc)\n\n</div>\n\n\n<hr>\n\n# Nx CLI\n\n## What is Nx?\n\n🔎 **Extensible Dev Tools for Monorepos.**\n\n## Nx Helps You\n\n### Develop like Google, Facebook, and Microsoft\n\nNx helps scale your development from one team building one application to many teams building multiple frontend and backend applications all in the same workspace. When using Nx, developers have a holistic dev experience powered by an advanced CLI (with editor plugins), capabilities for controlled code sharing and consistent code generation.\n\n### Use Intelligent Build System with Distributed Caching\n\nNx is smart. It analyzes your workspace and figures out what can be affected by every code change. That's why Nx doesn't rebuild and retest everything on every commit--it only rebuilds what is necessary.\n\nNx also uses a distributed computation cache. If someone has already built or tested similar code, Nx will use their results to speed up the command for everyone else instead of rebuilding or retesting the code from scratch. This, in combination with Nx’s support for distributed and incremental builds, can help teams see up to 10x reduction in build and test times.\n\n### Use Modern Tools\n\nNx is an open platform with plugins for many modern tools and frameworks. It has support for TypeScript, React, Angular, Cypress, Jest, Prettier, Nest.js, Next.js, Storybook, Ionic among others. With Nx, you get a consistent dev experience regardless of the tools used.\n\n\n## Getting Started\n\n### Creating an Nx Workspace\n\n**Using `npx`**\n\n```bash\nnpx create-nx-workspace\n```\n\n**Using `npm init`**\n\n```bash\nnpm init nx-workspace\n```\n\n**Using `yarn create`**\n\n```bash\nyarn create nx-workspace\n```\n\nThe `create-nx-workspace` command will ask you to select a preset, which will configure some plugins and create your applications to help you get started.\n\n```\n? What to create in the new workspace (Use arrow keys)\n❯ empty             [an empty workspace with a layout that works best for building apps]\n  oss               [an empty workspace with a layout that works best for open-source projects]\n  web components    [a workspace with a single app built using web components]\n  angular           [a workspace with a single Angular application]\n  angular-nest      [a workspace with a full stack application (Angular + Nest)]\n  react             [a workspace with a single React application]\n  react-express     [a workspace with a full stack application (React + Express)]\n  next.js           [a workspace with a single Next.js application]\n```\n\nSelect the preset that works best for you.\n\n\n### Serving Application\n\n- Run `nx serve myapp` to serve the newly generated application!\n- Run `nx test myapp` to test it.\n- Run `nx e2e myapp-e2e` to run e2e tests for it.\n\n## Documentation\n\n- [Nx Repo](https://github.com/nrwl/nx)\n- [Nx Documentation and Guides](https://nx.dev)\n\n### Courses\n\n<table>\n  <tr>\n    <td>\n      <a href=\"https://www.youtube.com/watch?v=2mYLe9Kp9VM&list=PLakNactNC1dH38AfqmwabvOszDmKriGco\" target=\"_blank\">\n        <p align=\"center\"><img src=\"https://raw.githubusercontent.com/nrwl/nx/master/images/nx-workspace-course.png\" width=\"350\"></p>\n      </a>\n    </td>\n    <td>    \n      <a href=\"https://nxplaybook.com/p/advanced-nx-workspaces\" target=\"_blank\">\n      <p align=\"center\"><img src=\"https://raw.githubusercontent.com/nrwl/nx/master/images/advanced-nx-workspace-course.png\" width=\"350\"></p>\n      </a>\n    </td>\n  </tr>\n</table>\n\n### Talks\n\n- [React Development At Scale (React Vancouver Virtual Meetup)](https://youtu.be/ZGXuzVipe1U?t=3721), Jack Hsu (May 27, 2020)\n\n- [Scalable React Development (React Summit Remote Edition)](https://www.youtube.com/watch?v=Lr-u2ALSEQg), Jason Jean (April 17, 2020)  \n  Slides: [https://prezi.com/view/fm9sUbR7vbr5fZlO9C8D/](https://prezi.com/view/fm9sUbR7vbr5fZlO9C8D/)\n\n- [Beyond Basics: Scaling Development across Large Teams (Angular Rome Meetup online)](https://docs.google.com/presentation/d/1zEgeppole9avhrvV6Zmpmk-L1W9-6JsHbnjaJwBigtQ/edit?usp=sharing), Juri Strumpflohner (April 2, 2020)\n\n- [Develop like Google, Microsoft, and Facebook with Nx - Dev Nexus](https://prezi.com/view/BVhl92reqg7cnhvv6hhH/), Jason Jean (February 18, 2020)\n\n- [Enhancing the workspace with Custom Builders - AngularToronto](https://www.youtube.com/watch?v=M1Bk_O49n94), Benjamin Cabanes (February 18, 2020)\n\n- [Advanced Nx - Angular Air](https://www.youtube.com/watch?v=pcTSDMid-aE), Isaac Mann (February 5th, 2020)\n\n- [Teach Me Anything - HackFlix](https://www.youtube.com/watch?v=WRmj4JwfoMs) - Isaac Mann (January 9th, 2020)\n\n* [E2E Testing at Half the Cost - NG-BE 2019](https://www.youtube.com/watch?v=C88th0SbepE), Isaac Mann (Dev 10, 2019)\n\n* [Sneak Peek of New Nx Workspace Course - ngHouston](https://www.youtube.com/watch?v=uLbA4f2SINE&feature=youtu.be), Isaac Mann (Nov 27, 2019)\n\n* [Building Large Angular Apps - ngBucharest](https://www.youtube.com/watch?v=bKhyTeTCf7M), Isaac Mann (March 30, 2019)\n\n  - Slides: [https://prezi.com/view/jglXvEfeqnjEr4l2L11h/](https://prezi.com/view/jglXvEfeqnjEr4l2L11h/)\n\n* [Modern Development with Angular CLI & Nrwl Nx](https://www.youtube.com/watch?v=tE8sUAfKI3g), Victor Savkin at ngAtlanta (Feb 5, 2019)\n\n* [Supercharging the Angular CLI](https://www.youtube.com/watch?v=bMkKz8AedHc) - ngVikings, James Henry (March 10, 2018)\n\n* [Hands on Full Stack development with Nx and Bazel](https://www.youtube.com/watch?v=1KDDIhcQORM) - ngConf, Alex Eagle, Torgeir Helgevold (April 19, 2018)\n\n* [Angular at Large Organizations](https://www.youtube.com/watch?v=piQ0EZhtus0) - ngConf, Victor Savkin(April 20, 2018)\n\n* [Building Large Angular Apps Successfully with Nx - AngularNYC Meetup](https://youtu.be/Jwv3wRZ3BTM), Jason Jean (December 19, 2018)\n\n- [Nx: The New Way to Build Enterprise Angular Apps](https://www.youtube.com/watch?v=xo-1SDmvM8Y) - Angular Mix, Jeff Cross & Victor Savkin (October 11, 2017)\n\n### Podcasts and Shows\n\n- [Nx Plugins - ngHouston](https://youtu.be/bydqr-Yxsu8), Wes Grimes and Jon Cammisuli (April 8 2020)\n\n- [Apollo GQL, Angular & Nx - ngHouston](https://youtu.be/bydqr-Yxsu8), Philip Fulcher (Feb 26, 2020)\n\n- [Teach Me Anything - With Isaac Mann from Nrwl](https://youtu.be/WRmj4JwfoMs), Isaac Mann (Jan 9, 2020)\n\n- [Sneak Peek of New Nx Workspace Course - ngHouston](https://www.youtube.com/watch?v=uLbA4f2SINE&feature=youtu.be), Isaac Mann (Nov 27, 2019)\n\n- [React Roundup: Nx and Monorepos](https://player.fm/series/react-round-up/rru-081-nx-and-monorepos-with-jeffrey-cross-and-victor-savkin), Victor Savkin (Oct 1, 2019)\n\n- [Nx and Angular CLI - Adventures in Angular](https://devchat.tv/adv-in-angular/aia-254-nx-and-angular-cli-with-brandon-roberts/), Brandon Roberts (Aug 27th 2019)\n\n- [ngHouston: NX Demo](https://www.youtube.com/watch?v=E_UlU2Yv4G0) (Dec 7, 2017)\n\n- [ngAir 140: Nx for Enterprise Angular Development](https://www.youtube.com/watch?v=qYNiOKDno_I), Victor Savkin (Dec 12, 2017)\n\n### Nx Demo & Tutorial Videos\n\n- [Nx Dev Tools for Monorepos, In-Depth Explainer (React)](https://www.youtube.com/watch?v=jCf92IyR-GE)\n\n- [Nx Dev Tools for Monorepos, In-Depth Explainer (Angular)](https://youtu.be/h5FIGDn5YM0)\n\n- [Storybook Integration with Nx](https://youtu.be/sFpqyjT7u4s)\n\n- [Building Custom Plugins for Nx](https://youtu.be/XYO689PAhow)\n\n- [Improved Dependency Graph Visualization for Nx](https://youtu.be/cMZ-ReC-jWU)\n\n- [Group all your stories into a single viewable Storybook with Nx](https://youtu.be/c323HOuFKkA)\n\n- [Debug Nx with Node and VSCode](https://youtu.be/OGV4R0cPRPc)\n\n- [Debug your Jest tests in Nx with VSCode](https://youtu.be/9_lgM2nokLg)\n\n- [Nx Console - A Must-Have Visual Studio Code Extension for Angular Developers](https://youtu.be/IIetmfgozgI)\n\n- [Introducing Nx Cloud](https://youtu.be/pwG20nNTEQc)\n\n- [Setting up distributed caching using Nx Cloud, @nrwl/nx-cloud](https://youtu.be/w1-GiB74ddc)\n\n- [High Quality React apps with Nx & Cypress](https://youtu.be/mfJBLhjYMdo)\n\n### Books amd Blogs\n\n- [Nx blog posts](https://blog.nrwl.io/nx/home)\n\n- [Angular Enterprise Monorepo Patterns Book (free)](https://go.nrwl.io/angular-enterprise-monorepo-patterns-new-book?utm_campaign=Book%3A%20Monorepo%20Patterns%2C%20Jan%202019&utm_source=Github&utm_medium=Banner%20Ad)\n\n* [High Quality React apps with Nx & Cypress](https://cypress.io/blog/2020/04/14/high-quality-react-apps-with-nx-cypress/) (April 2020)\n\n* [Shell Library patterns with Nx and Monorepo Architectures](https://indepth.dev/the-shell-library-patterns-with-nx-and-monorepo-architectures/) (March 2020)\n\n- [Tiny Angular application projects in Nx workspaces](https://indepth.dev/tiny-angular-application-projects-in-nx-workspaces/#peer-reviewers--30/) (March 2020)\n\n### Misc\n\n- [nx-examples](https://github.com/nrwl/nx-examples) repo has branches for different nx comments to display expected behavior and example app and libraries. Check out the branch (workspace, ngrx...) to see what gets created for you. More info on readme.\n\n- [xplat - Cross-platform tools for Nx workspaces](https://nstudio.io/xplat/)\n\n"
+}

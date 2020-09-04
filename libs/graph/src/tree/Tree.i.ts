@@ -1,6 +1,6 @@
 import { Props } from '@codelab/props'
 import { NodeInterface } from '@codelab/graph'
-import { HasChildren } from '../node/Node.i'
+import { HasChildren } from '../../../node/src/Node.i'
 import { Graph } from '../graph/Graph.i'
 
 export type NodeIteratee<SubTree, TreeNode extends HasChildren<TreeNode>> = (

@@ -1,6 +1,6 @@
 import React from 'react'
 import { reduce } from 'lodash'
-import { ReactNodeI, isReactNode, TreeNodeI, isTreeNode } from '@codelab/graph'
+import { ReactNodeI, isReactNode, TreeNodeI, isTreeNode } from '@codelab/node'
 import { Props } from '@codelab/props'
 // eslint-disable-next-line import/no-cycle
 import { TreeDom } from '../renderer/TreeDom'

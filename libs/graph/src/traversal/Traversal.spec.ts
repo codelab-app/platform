@@ -1,6 +1,6 @@
+import { NodeInterface } from '@codelab/node'
 import { treeData } from '../tree/Tree.data'
 import { traversePostOrder } from './Traversal'
-import { NodeInterface } from '../node'
 import { makeTree } from '../tree'
 
 describe('Node traversal', () => {

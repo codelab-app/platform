@@ -17,7 +17,12 @@
     "default": {
       "runner": "@nrwl/nx-cloud",
       "options": {
-        "cacheableOperations": ["build", "test", "lint", "e2e"],
+        "cacheableOperations": [
+          "build",
+          "test",
+          "lint",
+          "e2e"
+        ],
         "canTrackAnalytics": false,
         "showUsageWarnings": true
       }
@@ -29,7 +34,9 @@
     },
     "plugins-codelab-e2e": {
       "tags": [],
-      "implicitDependencies": ["plugins-codelab"]
+      "implicitDependencies": [
+        "plugins-codelab"
+      ]
     },
     "eslint-config-codelab": {
       "tags": []
@@ -81,7 +88,9 @@
     },
     "core-e2e": {
       "tags": [],
-      "implicitDependencies": ["core"]
+      "implicitDependencies": [
+        "core"
+      ]
     },
     "model": {
       "tags": []
@@ -93,6 +102,12 @@
       "tags": []
     },
     "tests": {
+      "tags": []
+    },
+    "publishable": {
+      "tags": []
+    },
+    "node": {
       "tags": []
     }
   }

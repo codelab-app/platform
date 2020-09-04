@@ -1,5 +1,5 @@
 import { curry } from 'ramda'
-import { Curry, CurryReduce, hasChildren } from '../node/Node.i'
+import { Curry, CurryReduce, hasChildren } from '../../../node/src/Node.i'
 
 export function treeReduce<T, R>(
   childrenKey = 'children',

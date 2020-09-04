@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react'
 import React from 'react'
 import { TreeDom } from '../renderer/TreeDom'
-import { ReactNodeI } from '../../../graph/src/node/codec/Node-react'
+import { ReactNodeI } from '../../../node/src/codec/Node-react'
 
 describe('RootChildren', () => {
   // const data = {

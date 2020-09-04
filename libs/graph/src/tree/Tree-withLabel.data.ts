@@ -1,4 +1,4 @@
-import { TreeNodeI } from '../node/codec/Node-tree'
+import { TreeNodeI } from '../../../node/src/codec/Node-tree'
 /**
  * No type because nodeType doesn't exist on build tree
  */

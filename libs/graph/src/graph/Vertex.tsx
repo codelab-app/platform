@@ -1,5 +1,5 @@
 import { Vertex as IVertex, VertexProps } from './Vertex.i'
-import { HasID } from '../node/Node.i'
+import { HasID } from '../../../node/src/Node.i'
 
 export class Vertex implements IVertex {
   id: string
