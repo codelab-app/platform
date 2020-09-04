@@ -87,6 +87,8 @@ export default function (options: ReactSchematicSchema): Rule {
     externalSchematic('@nrwl/react', 'library', {
       name: normalizedOptions.name,
       linter: Linter.EsLint,
+      component: false,
+      style: '@emotion/styled',
     }),
     externalSchematic('@nrwl/react', 'storybook-configuration', {
       name: normalizedOptions.name,

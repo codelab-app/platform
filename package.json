@@ -2,7 +2,8 @@
   "name": "codelab",
   "workspaces": {
     "packages": [
-      "dist/libs/plugins/*"
+      "dist/libs/plugins/*",
+      "dist/libs/eslint-config-codelab"
     ],
     "nohoist": []
   },
