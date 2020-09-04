@@ -10,7 +10,7 @@
 import { Props } from '@codelab/props'
 import { reduce } from 'lodash'
 import { curry } from 'ramda'
-import { Node } from '../../../node/src/Node'
+import { Node } from '../../../node/src/base/Node'
 import { NodeIteratee, TreeSubTreeContext } from '../tree/Tree.i'
 
 /**

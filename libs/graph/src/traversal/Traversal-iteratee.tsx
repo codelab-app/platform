@@ -3,7 +3,7 @@
  */
 import { Props } from '@codelab/props'
 import { findNode, NodeFinderAcc, NodeI } from '@codelab/node'
-import { Node } from '../../../node/src/Node'
+import { Node } from '../../../node/src/base/Node'
 import { GraphSubTreeContext, TreeSubTreeContext } from '../tree/Tree.i'
 
 export function nodeFinderIteratee<P extends Props = {}>(

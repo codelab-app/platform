@@ -45,9 +45,9 @@ rules:
     - error
     - allowTernary: true
   max-classes-per-file: off
-
 #  unused-imports/no-unused-vars-ts:
 #    - warn
+
 overrides:
   - files: ['*.js', '*.jsx']
     parser: esprima

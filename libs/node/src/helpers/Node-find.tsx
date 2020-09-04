@@ -1,8 +1,8 @@
 import { Props } from '@codelab/props'
 import { reduce } from 'lodash'
-import { NodeInterface, NodeFinderAcc } from './Node.i'
-import { treeWalker } from '../../graph/src/traversal'
-import { nodeFinderIteratee } from '../../graph/src/traversal/Traversal-iteratee'
+import { NodeInterface, NodeFinderAcc } from '../base/Node.i'
+import { treeWalker } from '../../../graph/src/traversal'
+import { nodeFinderIteratee } from '../../../graph/src/traversal/Traversal-iteratee'
 
 export function findNode<P extends Props = {}>(
   id: string | undefined,

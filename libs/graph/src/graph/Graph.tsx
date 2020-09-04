@@ -1,5 +1,5 @@
 import { D3GraphProps } from '@codelab/d3'
-import { HasID } from '../../../node/src/Node.i'
+import { HasID } from '../../../node/src/base/Node.i'
 import { Graph as IGraph, GraphProps } from './Graph.i'
 import { Vertex } from './Vertex'
 import { Edge } from './Edge'

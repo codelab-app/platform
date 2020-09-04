@@ -2,11 +2,11 @@ import { decode } from '@codelab/common'
 import { evalPropsWithContext, filterRenderProps, Props } from '@codelab/props'
 import { reduce } from 'lodash'
 import React, { FunctionComponent, ReactNode } from 'react'
-import { nodeC } from './codec/Node.codec'
+import { nodeC } from '../codec/Node.codec'
 import { HasChildren, NodeInterface } from './Node.i'
-import { isReactNode } from './codec/Node-react'
-import { NodeI } from './codec/Node.codec.i'
-import { NodeTypeEnum } from './codec/Node--type.i'
+import { isReactNode } from '../subtypes/react/Node-react'
+import { NodeI } from '../codec/Node.codec.i'
+import { NodeTypeEnum } from '../codec/Node--type.i'
 
 /**
  * Node is instantiated during Tree traversal

@@ -1,5 +1,5 @@
-import { Node } from './Node'
-import { findNode } from './Node-find'
+import { Node } from './base/Node'
+import { findNode } from './helpers/Node-find'
 
 describe('Node', () => {
   it('can add a child', () => {

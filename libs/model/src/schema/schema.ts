@@ -1,5 +1,5 @@
 import * as mongoose from 'mongoose'
-import { SchemaNode } from './schema-interface'
+import { SchemaNode } from '@codelab/node'
 import { produceSchemaDefinition } from './schema-types'
 
 export class Schema {

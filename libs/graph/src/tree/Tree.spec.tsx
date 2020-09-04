@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { makeGraph, makeTree } from './Tree-factory'
-import { Mapper } from '../../../node/src/Node.i'
+import { Mapper } from '../../../node/src/base/Node.i'
 import { D3TreeData } from '../../../d3/src/tree/Tree'
 import { treeMap } from './Tree-map'
 import { treeDataWithLabel } from './Tree-withLabel.data'
 import { Vertex } from '../graph/Vertex'
 import { Edge } from '../graph/Edge'
 import { treeData } from './Tree.data'
-import { findNode } from '../../../node/src/Node-find'
-import { TreeNodeI } from '../../../node/src/codec/Node-tree'
+import { findNode } from '../../../node/src/helpers/Node-find'
+import { TreeNodeI } from '../../../node/src/subtypes/tree/Node-tree'
 import { NodeA } from '../../../node/src/codec/Node.codec.i'
 
 describe('Tree', () => {

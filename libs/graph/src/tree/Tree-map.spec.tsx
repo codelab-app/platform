@@ -1,5 +1,5 @@
 import v from 'voca'
-import { Mapper } from '../../../node/src/Node.i'
+import { Mapper } from '../../../node/src/base/Node.i'
 import {
   mapData,
   mapDataCustomChildrenKey,

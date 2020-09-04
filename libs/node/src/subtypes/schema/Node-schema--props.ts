@@ -10,8 +10,3 @@ export interface SchemaTypeOpts
 export interface SchemaDefinition {
   [path: string]: SchemaTypeOpts
 }
-
-export interface SchemaNode {
-  nodeType: 'Schema'
-  props: SchemaDefinition
-}

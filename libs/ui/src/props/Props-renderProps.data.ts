@@ -1,4 +1,4 @@
-import { ReactNodeI } from '../../../node/src/codec/Node-react'
+import { ReactNodeI } from '../../../node/src/subtypes/react/Node-react'
 
 export const renderPropsData: ReactNodeI = {
   type: 'Html.div',

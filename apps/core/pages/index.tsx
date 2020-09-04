@@ -1,5 +1,4 @@
 import React from 'react'
-import styled from '@emotion/styled'
 import { ReactComponent as NxLogo } from '../public/nx-logo-white.svg'
 
 export const Index = () => {

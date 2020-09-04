@@ -1,6 +1,6 @@
+import { SchemaTypeOpts, SchemaDefinition } from '@codelab/node'
 import * as mongoose from 'mongoose'
 import { reduce } from 'lodash'
-import { SchemaTypeOpts, SchemaDefinition } from './schema-interface'
 
 export function getSchemaType(
   property: SchemaTypeOpts,

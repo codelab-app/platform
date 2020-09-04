@@ -11,8 +11,8 @@ import {
 } from '../traversal/Traversal-iteratee'
 import { GraphSubTreeContext, TreeSubTreeContext } from './Tree.i'
 import { Graph } from '../graph'
-import { TreeNodeI } from '../../../node/src/codec/Node-tree'
-import { ReactNodeI } from '../../../node/src/codec/Node-react'
+import { TreeNodeI } from '../../../node/src/subtypes/tree/Node-tree'
+import { ReactNodeI } from '../../../node/src/subtypes/react/Node-react'
 
 /**
  * This method generates a non-binary tree given JSON input. Each input node is

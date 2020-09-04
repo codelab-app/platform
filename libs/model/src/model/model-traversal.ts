@@ -1,7 +1,6 @@
 import { curry } from 'ramda'
-import { reduce } from 'lodash'
-import { ModelInterface, ModelNode } from './model-interface'
-import { SchemaNode } from '../schema'
+import { SchemaNode } from '@codelab/node'
+import { ModelInterface } from './model.i'
 
 export const modelWalker = curry(
   (

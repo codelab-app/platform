@@ -2,7 +2,7 @@
  * @jest-environment node
  */
 import * as mongoose from 'mongoose'
-import { SchemaDefinition } from './schema-interface'
+import { SchemaDefinition } from '@codelab/node'
 import { Schema } from './schema'
 
 describe('Schema', () => {

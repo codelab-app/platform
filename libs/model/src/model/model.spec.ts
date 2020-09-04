@@ -2,8 +2,8 @@
  * @jest-environment node
  */
 import * as mongoose from 'mongoose'
+import { ModelNode } from '@codelab/node'
 import { Model } from './model'
-import { ModelNode } from './model-interface'
 
 describe('Model', () => {
   const personSchema = new mongoose.Schema({

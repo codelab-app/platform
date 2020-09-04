@@ -1,4 +1,4 @@
-import { TreeNodeI } from '../../../node/src/codec/Node-tree'
+import { TreeNodeI } from '../../../node/src/subtypes/tree/Node-tree'
 
 export const treeData: TreeNodeI = {
   id: 'Root',

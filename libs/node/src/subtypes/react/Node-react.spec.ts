@@ -1,7 +1,7 @@
 import { decode, DecodeError } from '@codelab/common'
-import { nodeC } from './Node.codec'
-import { NodeA, NodeI } from './Node.codec.i'
-import { NodeTypeEnum } from './Node--type.i'
+import { nodeC } from '../../codec/Node.codec'
+import { NodeA, NodeI } from '../../codec/Node.codec.i'
+import { NodeTypeEnum } from '../../codec/Node--type.i'
 import { ReactNodeA } from './Node-react'
 
 describe('React Node', () => {

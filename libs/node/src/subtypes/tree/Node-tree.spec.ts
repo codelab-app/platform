@@ -1,13 +1,13 @@
 import { decode, DecodeError } from '@codelab/common'
-import { RefNodeI } from './Node-ref'
-import { NodeA, NodeI } from './Node.codec.i'
-import { NodeTypeEnum } from './Node--type.i'
-import { nodeC } from './Node.codec'
+import { TreeNodeI } from './Node-tree'
+import { NodeA, NodeI } from '../../codec/Node.codec.i'
+import { NodeTypeEnum } from '../../codec/Node--type.i'
+import { nodeC } from '../../codec/Node.codec'
 
-describe('Ref Node', () => {
+describe('Tree Node', () => {
   it('sets the ID correctly', () => {
-    const input: RefNodeI = {
-      nodeType: NodeTypeEnum.Ref,
+    const input: TreeNodeI = {
+      nodeType: NodeTypeEnum.Tree,
       id: 'A',
     }
     const { data } = decode<NodeA, NodeA, NodeI>(input, nodeC)
@@ -17,7 +17,7 @@ describe('Ref Node', () => {
 
   it('throws an error for a missing ID', () => {
     const incorrectInput: any = {
-      nodeType: NodeTypeEnum.Ref,
+      nodeType: NodeTypeEnum.Tree,
     }
 
     const decodeIncorrectInput = () =>

@@ -1,4 +1,4 @@
-import { NestModule, MiddlewareConsumer } from '@nestjs/common'
+import { MiddlewareConsumer, NestModule } from '@nestjs/common'
 
 export class SchemaModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

@@ -1,10 +1,11 @@
 import { Props } from '@codelab/props'
 import * as t from 'io-ts'
 import { withFallback } from 'io-ts-types/lib/withFallback'
-import { NodeID, NodeTypeEnum, WithNodeType } from './Node--type.i'
+import { NodeTypeEnum, NodeID, WithNodeType } from '../../codec/Node--type.i'
 
 export interface ReactNodeI<P extends Props = any> extends WithNodeType {
   type: string
+  nodeType: NodeTypeEnum.React
   props?: P
   children?: Array<ReactNodeI<P>>
 }
@@ -12,6 +13,7 @@ export interface ReactNodeI<P extends Props = any> extends WithNodeType {
 export interface ReactNodeA<P extends Props = any> extends WithNodeType {
   id: NodeID
   type: string
+  nodeType: NodeTypeEnum.React
   props: P
   children: Array<ReactNodeA<P>>
 }
@@ -19,11 +21,7 @@ export interface ReactNodeA<P extends Props = any> extends WithNodeType {
 export const reactNode: t.Type<ReactNodeI> = t.recursion('ReactNode', (self) =>
   t.intersection([
     t.type({
-      nodeType: t.union([
-        t.literal(NodeTypeEnum.React),
-        t.literal(NodeTypeEnum.Tree),
-        t.literal(NodeTypeEnum.Ref),
-      ]),
+      nodeType: t.literal(NodeTypeEnum.React),
       type: t.string,
     }),
     t.partial({

@@ -1,7 +1,11 @@
 export enum NodeTypeEnum {
+  // Tree
   React = 'React',
   Tree = 'Tree',
   Ref = 'Ref',
+  // Model
+  Schema = 'Schema',
+  Model = 'Model',
 }
 
 export type NodeType =
@@ -17,6 +21,14 @@ export type NodeType =
    * Flat array, uses ref to build tree, requires parentRef, childrenRef
    */
   | 'Ref'
+  /**
+   * Mongoose Model
+   */
+  | 'Model'
+  /**
+   * Mongoose Schema
+   */
+  | 'Schema'
 
 export interface WithNodeType {
   nodeType: NodeType

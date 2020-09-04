@@ -1,7 +1,7 @@
 import * as mongoose from 'mongoose'
 import { reduce } from 'lodash'
+import { ModelNode, SchemaNode } from '@codelab/node'
 import { modelWalker } from './model-traversal'
-import { ModelNode, ModelInterface } from './model-interface'
 import { modelCreationIteratee } from './model-traversal-iteratee'
 import { SchemaNode } from '../schema'
 

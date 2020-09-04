@@ -1,8 +1,8 @@
 import { Props } from '@codelab/props'
 import * as t from 'io-ts'
 import { withFallback } from 'io-ts-types/lib/withFallback'
-import { nodeID } from './Node--id'
-import { NodeID, NodeTypeEnum, WithNodeType } from './Node--type.i'
+import { nodeID } from '../../codec/Node--id'
+import { NodeID, NodeTypeEnum, WithNodeType } from '../../codec/Node--type.i'
 
 /**
  * Parent/child relationship is encoded in the data structure itself, and is used to construct the tree.

@@ -1,6 +1,6 @@
 import { omit } from 'lodash'
 import { curry } from 'ramda'
-import { CurryMap, hasChildren } from '../../../node/src/Node.i'
+import { CurryMap, hasChildren } from '../../../node/src/base/Node.i'
 
 export function treeMap<P1 extends object = {}, P2 extends object = P1>(
   srcChildrenKey = 'children',
