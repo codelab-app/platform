@@ -1,6 +1,8 @@
-import { ReactNodeI } from '../../../../node/src/subtypes/react/Node-react'
+import { ReactNodeI } from '@codelab/node'
+import { TextProps } from '../text/Text.types'
+import { ButtonProps } from './Button.types'
 
-export const buttonData: ReactNodeI = {
+export const buttonData: ReactNodeI<ButtonProps | TextProps> = {
   type: 'Button',
   nodeType: 'React',
   props: {

@@ -1,5 +1,5 @@
 import { ReactNodeI } from '@codelab/graph'
-import { ButtonProps } from '../../button/Button'
+import { ButtonProps } from '../../button'
 import { FormItemProps, FormProps } from '../Form.types'
 import { TextProps } from '../../text/Text.types'
 import { DividerProps } from '../../divider/Divider.types'

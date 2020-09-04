@@ -63,7 +63,7 @@ import {
 import React from 'react'
 import { Icon } from '@ant-design/compatible'
 import { ElementParameters } from './ElementFactory.interface'
-import { buttonPropKeys } from '../components/button/Button'
+import { buttonPropKeys } from '../components/button'
 import { Form as CodelabForm } from '../components/form/Form'
 import { Grid } from '../components/grid/Grid'
 import { Html } from '../components/html/Html'

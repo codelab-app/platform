@@ -1,5 +1,5 @@
 import { ReactNodeI } from '@codelab/graph'
-import { ButtonProps } from '../button/Button'
+import { ButtonProps } from '../button'
 import { ModalProps } from './Modal.types'
 
 export const modalData: ReactNodeI<ModalProps | ButtonProps> = {

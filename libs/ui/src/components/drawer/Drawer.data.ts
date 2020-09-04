@@ -1,6 +1,6 @@
 import { ReactNodeI } from '@codelab/graph'
 import { TextProps } from '../text/Text.types'
-import { ButtonProps } from '../button/Button'
+import { ButtonProps } from '../button'
 import { DrawerProps } from './Drawer.types'
 
 export const drawerData: ReactNodeI<DrawerProps | ButtonProps | TextProps> = {

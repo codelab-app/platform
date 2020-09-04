@@ -1,6 +1,6 @@
 import { ReactNodeI } from '@codelab/graph'
 import { TextProps } from '../text/Text.types'
-import { ButtonProps } from '../button/Button'
+import { ButtonProps } from '../button'
 import { SelectProps } from '../select/Select.types'
 import { InputProps } from '../input/Input.types'
 import { ConfigProviderProps } from './ConfigProvider.types'

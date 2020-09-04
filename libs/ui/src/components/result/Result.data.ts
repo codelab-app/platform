@@ -1,6 +1,6 @@
 import { ReactNodeI } from '@codelab/graph'
 import { TextProps } from '../text/Text.types'
-import { ButtonProps } from '../button/Button'
+import { ButtonProps } from '../button'
 import { ResultProps } from './Result.types'
 
 export const resultData: ReactNodeI<ResultProps | ButtonProps | TextProps> = {
