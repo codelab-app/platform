@@ -5,7 +5,7 @@ import {
 } from '@angular-devkit/architect'
 import { Observable, of } from 'rxjs'
 import { tap } from 'rxjs/operators'
-import { BuildBuilderSchema } from './schema'
+import { BuildBuilderSchema } from './schema.d'
 
 export function runBuilder(
   options: BuildBuilderSchema,

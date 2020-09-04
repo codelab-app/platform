@@ -18,6 +18,7 @@
     "baseUrl": ".",
     "paths": {
       "@codelab/plugins-codelab": ["libs/plugins/codelab/src/index.ts"],
+      "@codelab/plugins-plug": ["libs/plugins/plug/src/index.ts"],
       "@codelab/eslint-config-codelab": [
         "libs/eslint-config-codelab/src/index.ts"
       ],
@@ -35,9 +36,6 @@
       "@codelab/api-restify": ["libs/api/restify/src/index.ts"],
       "@codelab/model": ["libs/model/src/index.ts"],
       "@codelab/factory": ["libs/factory/src/index.ts"],
-      "plugins-my-plugin": ["libs/plugins/my-plugin/src/index.ts"],
-      "plug": ["libs/plug/src/index.ts"],
-      "plugins-plug": ["libs/plugins/plug/src/index.ts"],
       "@codelab/tests": ["libs/tests/src/index.ts"],
       "@codelab/publishable": ["libs/publishable/src/index.ts"],
       "@codelab/node": ["libs/node/src/index.ts"]

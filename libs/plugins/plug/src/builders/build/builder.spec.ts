@@ -2,7 +2,7 @@ import { Architect } from '@angular-devkit/architect'
 import { TestingArchitectHost } from '@angular-devkit/architect/testing'
 import { schema } from '@angular-devkit/core'
 import { join } from 'path'
-import { BuildBuilderSchema } from './schema'
+import { BuildBuilderSchema } from './schema.d'
 
 const options: BuildBuilderSchema = {}
 
@@ -12,6 +12,7 @@ describe('Command Runner Builder', () => {
 
   beforeEach(async () => {
     const registry = new schema.CoreSchemaRegistry()
+
     registry.addPostTransform(schema.transforms.addUndefinedDefaults)
 
     architectHost = new TestingArchitectHost('/root', '/root')

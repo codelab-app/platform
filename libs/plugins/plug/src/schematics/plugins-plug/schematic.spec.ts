@@ -3,14 +3,14 @@ import { SchematicTestRunner } from '@angular-devkit/schematics/testing'
 import { createEmptyWorkspace } from '@nrwl/workspace/testing'
 import { join } from 'path'
 
-import { PluginsPlugSchematicSchema } from './schema'
+import { PluginsPlugSchematicSchema } from './schema.d'
 
 describe('plugins-plug schematic', () => {
   let appTree: Tree
   const options: PluginsPlugSchematicSchema = { name: 'test' }
 
   const testRunner = new SchematicTestRunner(
-    '@codelab/plugins-plug',
+    '@codelab/plug',
     join(__dirname, '../../../collection.json'),
   )
 

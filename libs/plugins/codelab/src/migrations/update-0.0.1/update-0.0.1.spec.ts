@@ -4,7 +4,7 @@ import { readJsonInTree, serializeJson } from '@nrwl/workspace'
 import { createEmptyWorkspace } from '@nrwl/workspace/testing'
 import * as path from 'path'
 
-describe('update-0.0.2', () => {
+describe('update-0.0.1', () => {
   let initialTree: Tree
   let schematicRunner: SchematicTestRunner
 
@@ -26,10 +26,12 @@ describe('update-0.0.2', () => {
 
   it(`should update dependencies`, async () => {
     const result = await schematicRunner
-      .runSchematicAsync('update-0.0.2', {}, initialTree)
+      .runSchematicAsync('update-0.0.1', {}, initialTree)
       .toPromise()
 
     const { dependencies } = readJsonInTree(result, '/package.json')
+
+    console.log(dependencies)
 
     expect(dependencies).toEqual({})
   })
