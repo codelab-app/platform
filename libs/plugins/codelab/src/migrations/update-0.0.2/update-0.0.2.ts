@@ -1,5 +1,5 @@
 import { chain, Rule } from '@angular-devkit/schematics'
-import { formatFiles, updatePackagesInPackageJson } from '@nrwl/workspace'
+import { updatePackagesInPackageJson } from '@nrwl/workspace'
 import * as path from 'path'
 
 export default function update(): Rule {
@@ -8,6 +8,5 @@ export default function update(): Rule {
       path.join(__dirname, '../../../', 'migrations.json'),
       '0.0.2',
     ),
-    formatFiles(),
   ])
 }

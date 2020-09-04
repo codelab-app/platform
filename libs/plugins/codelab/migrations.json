@@ -5,5 +5,11 @@
       "description": "update-0.0.2",
       "factory": "./src/migrations/update-0.0.2/update-0.0.2"
     }
+  },
+  "packageJsonUpdates": {
+    "0.0.2": {
+      "version": "0.0.2",
+      "packages": {}
+    }
   }
 }
