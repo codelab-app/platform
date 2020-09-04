@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/camelcase */
+/* eslint-disable camelcase */
 import { makeGraph, makeTree } from './Tree-factory'
 import { Mapper } from '../../../node/src/base/Node.i'
 import { D3TreeData } from '../../../d3/src/tree/Tree'

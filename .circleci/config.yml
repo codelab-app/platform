@@ -28,6 +28,7 @@ executors:
       GITHUB_ALEX: aburtsev
       COLOR_SUCCESS: '#b7eb8f'
       COLOR_FAILURE: '#ffccc7'
+      NODE_OPTIONS: --max_old_space_size=4096
     docker:
       - image: circleci/node:14-browsers
 
