@@ -5,7 +5,7 @@ import { NodeTypeEnum, NodeID, WithNodeType } from '../../codec/Node--type.i'
 
 export interface ReactNodeI<P extends Props = any> extends WithNodeType {
   type: string
-  nodeType: NodeTypeEnum.React
+  nodeType: 'React'
   props?: P
   children?: Array<ReactNodeI<P>>
 }
@@ -13,7 +13,7 @@ export interface ReactNodeI<P extends Props = any> extends WithNodeType {
 export interface ReactNodeA<P extends Props = any> extends WithNodeType {
   id: NodeID
   type: string
-  nodeType: NodeTypeEnum.React
+  nodeType: 'React'
   props: P
   children: Array<ReactNodeA<P>>
 }

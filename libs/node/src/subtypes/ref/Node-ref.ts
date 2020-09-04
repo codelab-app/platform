@@ -9,7 +9,7 @@ import { NodeID, NodeTypeEnum, WithNodeType } from '../../codec/Node--type.i'
  */
 export interface RefNodeI<P extends Props = any> extends WithNodeType {
   id: NodeID
-  nodeType: NodeTypeEnum.Ref
+  nodeType: 'Ref'
   props?: P
   parentRef?: NodeID
   childrenRef?: Array<NodeID>
@@ -17,7 +17,7 @@ export interface RefNodeI<P extends Props = any> extends WithNodeType {
 
 export interface RefNodeA<P extends Props = any> extends WithNodeType {
   id: NodeID
-  nodeType: NodeTypeEnum.Ref
+  nodeType: 'Ref'
   props: P
   parentRef: NodeID
   childrenRef: Array<NodeID>
@@ -30,7 +30,7 @@ export interface RefNodeA<P extends Props = any> extends WithNodeType {
  */
 export interface RefNodeO<P extends Props = any> extends WithNodeType {
   id: string
-  nodeType: NodeTypeEnum.Ref
+  nodeType: 'Ref'
   props?: P
   parentRef?: string
   childrenRef?: Array<string>

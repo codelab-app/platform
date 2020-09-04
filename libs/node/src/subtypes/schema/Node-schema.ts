@@ -8,7 +8,7 @@ export interface SchemaNode {
 }
 
 export interface SchemaNodeI<P extends Props = any> extends WithNodeType {
-  nodeType: NodeTypeEnum.Schema
+  nodeType: 'Schema'
   props?: P
 }
 
