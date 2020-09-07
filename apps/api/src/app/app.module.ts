@@ -1,8 +1,9 @@
+import { RestifyModule } from '@codelab/api-restify'
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { ApiConfigModule } from '@codelab/api-config'
 import { RouterModule } from '@codelab/api-router'
-import { UserModule } from '@codelab/api-model'
+import { UserModule, NodeModule } from '@codelab/api-model'
 import { MongooseModule } from '@nestjs/mongoose'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
@@ -11,9 +12,9 @@ import { AppMiddleware } from './app.middleware'
 @Module({
   imports: [
     ApiConfigModule,
-    RouterModule,
+    RestifyModule,
+    // RouterModule,
     MongooseModule.forRoot('mongodb://127.0.0.1:27017/codelab-ai'),
-    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService, ConfigService],

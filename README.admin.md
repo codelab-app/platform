@@ -21,3 +21,27 @@ So we need to specify path using `__dirname` for `tsconfigRootDir`
 
 - `nx build [repo]` in `nx` repo
 - Yarn link to this repo for usage
+
+# Atomic Design
+
+Similar to this https://bradfrost.com/blog/post/atomic-web-design/#molecules, we use our own hierarchy.
+
+## Page
+
+An instance of a template
+
+## Template
+
+A re-useable context for data binding, has all UI in place.
+
+## Section
+
+A distinct building block like sidebar, header, footer etc.
+
+## Snippet
+
+Collection of components like a search bar (composed of button + input)
+
+## Component
+
+Smallest UI part, button etc.

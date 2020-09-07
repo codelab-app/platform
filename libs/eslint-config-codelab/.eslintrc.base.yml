@@ -54,6 +54,9 @@ overrides:
     rules:
       '@typescript-eslint/no-var-requires': off
       no-param-reassign: off
+  - files: ['*.ts']
+    rules:
+      react/static-property-placement: off
   - files: ['*.ts', '*.tsx']
     settings:
       import/parser:

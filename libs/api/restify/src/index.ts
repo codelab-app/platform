@@ -1,1 +1,2 @@
-export * from './api-restify.module'
+export * from './restify.module'
+export * from './restify.provider'

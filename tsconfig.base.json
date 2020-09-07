@@ -38,7 +38,8 @@
       "@codelab/factory": ["libs/factory/src/index.ts"],
       "@codelab/tests": ["libs/tests/src/index.ts"],
       "@codelab/publishable": ["libs/publishable/src/index.ts"],
-      "@codelab/node": ["libs/node/src/index.ts"]
+      "@codelab/node": ["libs/node/src/index.ts"],
+      "@codelab/api/database": ["libs/api/database/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"]

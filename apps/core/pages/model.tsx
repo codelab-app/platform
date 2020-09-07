@@ -1,15 +1,8 @@
+import React from 'react'
 import { ReactNodeI } from '@codelab/node'
-import { ButtonProps } from '../../button'
-import { FormItemProps, FormProps } from '../Form.types'
-import { TextProps } from '../../text/Text.types'
-import { DividerProps } from '../../divider/Divider.types'
+import { TreeDom } from '@codelab/ui'
 
-/**
- * We create a user object, which is keyed by 'user'
- */
-export const formObjectData: ReactNodeI<
-  FormProps | FormItemProps | TextProps | ButtonProps | DividerProps
-> = {
+export const modelFormData: ReactNodeI = {
   type: 'Form',
   nodeType: 'React',
   props: {
@@ -134,3 +127,11 @@ export const formObjectData: ReactNodeI<
     },
   ],
 }
+
+const Model = () => {
+  const ModelForm = TreeDom.render(modelFormData)
+
+  return <ModelForm />
+}
+
+export default Model
