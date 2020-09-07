@@ -1,3 +1,3 @@
 export * from './Graph'
-export { D3GraphProps } from './Graph.i'
-export { IDMatcher } from './Graph-filters'
+export * from './Graph.i'
+export * from './Graph-filters'

@@ -1,5 +1,5 @@
 import { mouseEventHandlerKeys } from '@codelab/event'
-import { Node } from '@codelab/graph'
+import { Node } from '@codelab/node'
 import { Props, propsFilter, withFilters } from '@codelab/props'
 import {
   Affix,

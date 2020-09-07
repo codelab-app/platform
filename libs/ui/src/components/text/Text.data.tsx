@@ -1,4 +1,4 @@
-import { ReactNodeI } from '@codelab/graph'
+import { ReactNodeI } from '@codelab/node'
 import { TextProps } from './Text.types'
 
 export const textData: ReactNodeI<TextProps> = {

@@ -1,5 +1,5 @@
 import { Props } from '@codelab/props'
-import { NodeInterface } from '@codelab/graph'
+import { NodeInterface } from '@codelab/node'
 import { HasChildren } from '../../../node/src/base/Node.i'
 import { Graph } from '../graph/Graph.i'
 
