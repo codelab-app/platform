@@ -8,6 +8,8 @@ import {
   url,
   externalSchematic,
   MergeStrategy,
+  SchematicContext,
+  Tree,
 } from '@angular-devkit/schematics'
 import {
   names,
@@ -53,85 +55,70 @@ function normalizeOptions(options: ReactSchematicSchema): NormalizedSchema {
   }
 }
 
-// function removeFiles(options: any): Rule {
-//   const { filesToRemove, directory } = options
+/**
+ * We use `.eslintrc.js` instead of `.eslintrc`, so need to remove generated files
+ */
+function removeFiles(options: NormalizedSchema): Rule {
+  const { projectRoot } = options
+  const filesToRemove = ['.eslintrc', `${projectRoot}/.eslintrc`]
 
-//   return (tree) => {
-//     filesToRemove.forEach((file) => {
-//       tree.delete(`${directory}/${file}`)
-//     })
-//   }
-// }
+  return (tree: Tree, context: SchematicContext) => {
+    filesToRemove.forEach((file) => {
+      tree.delete(file)
+    })
+  }
+}
 
 function addFiles(options: NormalizedSchema): Rule {
-  return mergeWith(
-    apply(url(`./files`), [
-      applyTemplates({
-        ...options,
-        ...names(options.name),
-        offsetFromRoot: offsetFromRoot(options.projectRoot),
-      }),
-      move(options.projectRoot),
-    ]),
-    MergeStrategy.Overwrite,
-  )
+  return (tree: Tree, context: SchematicContext) => {
+    return mergeWith(
+      apply(url(`./files`), [
+        applyTemplates({
+          ...options,
+          ...names(options.name),
+          offsetFromRoot: offsetFromRoot(options.projectRoot),
+        }),
+        move(options.projectRoot),
+      ]),
+      MergeStrategy.Overwrite,
+    )
+  }
+}
+
+export function createReactLibrary(options: NormalizedSchema): Rule {
+  return (_: Tree, context: SchematicContext) => {
+    return externalSchematic('@nrwl/react', 'library', {
+      name: options.name,
+      directory: options.directory,
+      linter: Linter.EsLint,
+      component: false,
+      style: '@emotion/styled',
+    })
+  }
+}
+
+export function addStorybookConfig(options: NormalizedSchema): Rule {
+  return (tree: Tree, context: SchematicContext) => {
+    return externalSchematic('@nrwl/react', 'storybook-configuration', {
+      name: options.name,
+      configureCypress: false,
+      generateStories: false,
+    })
+  }
 }
 
 export default function (options: ReactSchematicSchema): Rule {
   const normalizedOptions = normalizeOptions(options)
 
+  console.log(normalizedOptions)
+
   return chain([
     /**
      * We want to extend the `@nrwl/react` schematics, and override the eslintrc file.
      */
-    externalSchematic('@nrwl/react', 'library', {
-      name: normalizedOptions.name,
-      linter: Linter.EsLint,
-      component: false,
-      style: '@emotion/styled',
-    }),
-    externalSchematic('@nrwl/react', 'storybook-configuration', {
-      name: normalizedOptions.name,
-      configureCypress: false,
-      generateStories: false,
-    }),
-    // updateWorkspace((workspace) => {
-    //   workspace.projects
-    //     .add({
-    //       name: normalizedOptions.projectName,
-    //       root: normalizedOptions.projectRoot,
-    //       sourceRoot: `${normalizedOptions.projectRoot}/src`,
-    //       projectType,
-    //     })
-    //     .targets.add({
-    //       name: 'build',
-    //       builder: '@codelab/plugins-codelab:build',
-    //     })
-    // }),
-    addProjectToNxJsonInTree(normalizedOptions.projectName, {
-      tags: normalizedOptions.parsedTags,
-    }),
+    createReactLibrary(normalizedOptions),
+    addStorybookConfig(normalizedOptions),
     addFiles(normalizedOptions),
-    // removeFiles({
-    //   directory: '/',
-    //   filesToRemove: ['.eslintrc'],
-    // }),
-    // updateWorkspace((workspace) => {
-    //   workspace.projects
-    //     .add({
-    //       name: normalizedOptions.projectName,
-    //       root: normalizedOptions.projectRoot,
-    //       sourceRoot: `${normalizedOptions.projectRoot}/src`,
-    //       projectType,
-    //     })
-    //     .targets.add({
-    //       name: 'build',
-    //       builder: '@codelab/plugins-codelab:build',
-    //     })
-    // }),
-    // addProjectToNxJsonInTree(normalizedOptions.projectName, {
-    //   tags: normalizedOptions.parsedTags,
-    // }),
-    // addFiles(normalizedOptions),
+    removeFiles(normalizedOptions),
   ])
 }

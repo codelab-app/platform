@@ -36,6 +36,11 @@
             "assets": [
               "libs/plugins/codelab/*.md",
               {
+                "input": "./libs/plugins/codelab/src/schematics/library/files",
+                "glob": "**/.*",
+                "output": "./src/schematics/library/files"
+              },
+              {
                 "input": "./libs/plugins/codelab/src",
                 "glob": "**/*.!(ts)",
                 "output": "./src"
