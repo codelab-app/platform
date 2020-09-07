@@ -3,6 +3,7 @@
   "compilerOptions": {
     "jsx": "react",
     "allowJs": true,
+    "isolatedModules": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "types": ["node", "jest"]
