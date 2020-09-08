@@ -64,10 +64,12 @@ export namespace Form {
       <AntForm.Item noStyle shouldUpdate={shouldUpdate}>
         {(form) => {
           const hidden = shouldRender(form.getFieldsValue())
+
           return (
             <>
               {(Array.isArray(children) ? children : [children]).map(
                 (child, index: number) => (
+                  // eslint-disable-next-line react/no-array-index-key
                   <React.Fragment key={index}>
                     {React.cloneElement(child, {
                       ...restProps,
