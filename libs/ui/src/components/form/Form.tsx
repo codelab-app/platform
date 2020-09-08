@@ -1,6 +1,6 @@
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
 import { Button, Form as AntForm, Space, Divider } from 'antd'
-import React, { ReactNode, ReactElement } from 'react'
+import React from 'react'
 import { FieldData, FormListProps } from './Form.types'
 
 export namespace Form {
@@ -62,20 +62,17 @@ export namespace Form {
       <AntForm.Item noStyle shouldUpdate={shouldUpdate}>
         {(form) => {
           const hidden = shouldRender(form.getFieldsValue())
-
           return (
             <>
-              {React.Children.toArray(children).map(
-                (child: ReactElement, index: number) => {
-                  return !hidden ? (
-                    // eslint-disable-next-line react/no-array-index-key
-                    <React.Fragment key={index}>
-                      {React.cloneElement(child, {
-                        ...restProps,
-                      })}
-                    </React.Fragment>
-                  ) : null
-                },
+              {(Array.isArray(children) ? children : [children]).map(
+                (child, index: number) => (
+                  <React.Fragment key={index}>
+                    {React.cloneElement(child, {
+                      ...restProps,
+                      hidden,
+                    })}
+                  </React.Fragment>
+                ),
               )}
             </>
           )
