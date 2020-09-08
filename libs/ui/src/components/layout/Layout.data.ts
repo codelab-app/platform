@@ -184,13 +184,13 @@ export const layoutData: ReactNodeI<
                 {
                   type: 'Text',
                   nodeType: 'React',
-                  // props: { value: 'Content' },
-                  props: {
-                    value: {
-                      eval: true,
-                      value: 'console.log(this)',
-                    },
-                  },
+                  props: { value: 'Content' },
+                  // props: {
+                  //   value: {
+                  //     eval: true,
+                  //     value: 'console.log(this)',
+                  //   },
+                  // },
                 },
               ],
             },
