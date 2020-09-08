@@ -54,4 +54,30 @@ export namespace Form {
       </>
     )
   }
+
+  export const ItemHook: React.FC<any> = ({ children, ...props }) => {
+    const { shouldUpdate, shouldRender, ...restProps } = props
+
+    return (
+      <AntForm.Item noStyle shouldUpdate={shouldUpdate}>
+        {(form) => {
+          const hidden = shouldRender(form.getFieldsValue())
+          return (
+            <>
+              {(Array.isArray(children) ? children : [children]).map(
+                (child, index: number) => (
+                  <React.Fragment key={index}>
+                    {React.cloneElement(child, {
+                      ...restProps,
+                      hidden,
+                    })}
+                  </React.Fragment>
+                ),
+              )}
+            </>
+          )
+        }}
+      </AntForm.Item>
+    )
+  }
 }

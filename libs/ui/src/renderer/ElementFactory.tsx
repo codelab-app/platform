@@ -142,6 +142,8 @@ export const elementParameterFactory = <P extends Props>(
       return [Form.Item as any, props]
     case 'Form.List':
       return [CodelabForm.List as any, props]
+    case 'Form.ItemHook':
+      return [CodelabForm.ItemHook as any, props]
     case 'Checkbox':
       return [Checkbox as any, props]
     case 'Input': // can't have children
