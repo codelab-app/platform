@@ -18,7 +18,7 @@ describe('@codelab/plugins-codelab:library', () => {
     appTree = createEmptyWorkspace(Tree.empty())
   })
 
-  it.only('should run successfully', async () => {
+  it('should run successfully', async () => {
     await expect(
       testRunner.runSchematicAsync('library', options, appTree).toPromise(),
     ).resolves.not.toThrowError()
