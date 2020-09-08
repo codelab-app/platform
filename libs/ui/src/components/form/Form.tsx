@@ -68,15 +68,16 @@ export namespace Form {
           return (
             <>
               {(Array.isArray(children) ? children : [children]).map(
-                (child, index: number) => (
-                  // eslint-disable-next-line react/no-array-index-key
-                  <React.Fragment key={index}>
-                    {React.cloneElement(child, {
-                      ...restProps,
-                      hidden,
-                    })}
-                  </React.Fragment>
-                ),
+                (child, index: number) => {
+                  return !hidden ? (
+                    // eslint-disable-next-line react/no-array-index-key
+                    <React.Fragment key={index}>
+                      {React.cloneElement(child, {
+                        ...restProps,
+                      })}
+                    </React.Fragment>
+                  ) : null
+                },
               )}
             </>
           )
