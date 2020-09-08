@@ -13,14 +13,18 @@ describe('TreeSelect', () => {
     await waitFor(() => {
       expect(getByText('parent 1')).toBeInTheDocument()
       expect(getByText('parent 1-0')).toBeInTheDocument()
-      expect(getByText('leaf1')).toBeInTheDocument()
-      expect(getByText('leaf2')).toBeInTheDocument()
+      expect(getByText('leaf 1')).toBeInTheDocument()
+      expect(getByText('leaf 2')).toBeInTheDocument()
       expect(getByText('parent 1-1')).toBeInTheDocument()
-      expect(getByText('sss')).toBeInTheDocument()
+      expect(getByText('leaf 1-1 1')).toBeInTheDocument()
     })
 
-    fireEvent.click(getByText('leaf2'))
+    fireEvent.click(getByText('leaf 2'))
 
-    expect(getAllByText('leaf2')).toHaveLength(2)
+    expect(
+      document.getElementsByClassName('ant-select-selection-item')[0],
+    ).toHaveTextContent('leaf 2')
+    // Screen reader attaches extra node depending on context
+    // expect(getAllByText('leaf 2')).toHaveLength(2)
   })
 })

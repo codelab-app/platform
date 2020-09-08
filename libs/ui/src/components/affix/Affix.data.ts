@@ -1,4 +1,4 @@
-import { ReactNodeI } from '@codelab/graph'
+import { ReactNodeI } from '@codelab/node'
 import { PropsFromKeys } from '@codelab/props'
 import { TextProps } from '../text/Text.types'
 import { ButtonProps } from '../button'

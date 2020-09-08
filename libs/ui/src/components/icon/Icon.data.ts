@@ -1,4 +1,4 @@
-import { ReactNodeI } from '@codelab/graph'
+import { ReactNodeI } from '@codelab/node'
 import { IconProps } from './Icon.types'
 
 export const iconData: ReactNodeI<IconProps> = {

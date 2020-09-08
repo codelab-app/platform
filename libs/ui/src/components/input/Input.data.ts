@@ -1,4 +1,4 @@
-import { ReactNodeI } from '@codelab/graph'
+import { ReactNodeI } from '@codelab/node'
 import { InputProps } from './Input.types'
 
 export const inputData: ReactNodeI<InputProps> = {

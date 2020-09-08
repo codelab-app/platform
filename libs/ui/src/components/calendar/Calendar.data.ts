@@ -1,4 +1,4 @@
-import { ReactNodeI } from '@codelab/graph'
+import { ReactNodeI } from '@codelab/node'
 import { CalendarProps } from './Calendar.types'
 
 export const calendarData: ReactNodeI<CalendarProps> = {

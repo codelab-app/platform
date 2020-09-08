@@ -1,4 +1,4 @@
-import { ReactNodeI } from '@codelab/graph'
+import { ReactNodeI } from '@codelab/node'
 import { SpinProps } from './Spin.types'
 
 export const spinData: ReactNodeI<SpinProps> = {

@@ -1,4 +1,4 @@
-import { ReactNodeI } from '@codelab/graph'
+import { ReactNodeI } from '@codelab/node'
 import { BadgeProps } from './Badge.types'
 
 export const badgeData: ReactNodeI<BadgeProps> = {

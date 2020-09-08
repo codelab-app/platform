@@ -1,4 +1,4 @@
-import { ReactNodeI } from '@codelab/graph'
+import { ReactNodeI } from '@codelab/node'
 import { TextProps } from '../text/Text.types'
 import { MenuProps, ItemProps, ItemGroupProps } from '../menu/Menu.types'
 import { LayoutProps, SiderProps } from './Layout.types'
@@ -184,7 +184,13 @@ export const layoutData: ReactNodeI<
                 {
                   type: 'Text',
                   nodeType: 'React',
-                  props: { value: 'Content' },
+                  // props: { value: 'Content' },
+                  props: {
+                    value: {
+                      eval: true,
+                      value: 'console.log(this)',
+                    },
+                  },
                 },
               ],
             },

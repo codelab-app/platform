@@ -1,4 +1,4 @@
-import { ReactNodeI } from '@codelab/graph'
+import { ReactNodeI } from '@codelab/node'
 import { PropsFromKeys } from '@codelab/props'
 
 export const pageHeaderPropKeys = [

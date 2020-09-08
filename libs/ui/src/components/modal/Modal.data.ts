@@ -1,4 +1,4 @@
-import { ReactNodeI } from '@codelab/graph'
+import { ReactNodeI } from '@codelab/node'
 import { ButtonProps } from '../button'
 import { ModalProps } from './Modal.types'
 

@@ -1,4 +1,4 @@
-import { ReactNodeI } from '@codelab/graph'
+import { ReactNodeI } from '@codelab/node'
 import { AlertProps } from './Alert.types'
 
 export const alertData: ReactNodeI<AlertProps> = {

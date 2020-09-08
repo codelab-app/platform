@@ -1,4 +1,4 @@
-import { ReactNodeI } from '@codelab/graph'
+import { ReactNodeI } from '@codelab/node'
 import { AutoCompleteProps } from './AutoComplete.types'
 
 export const autocompleteData: ReactNodeI<AutoCompleteProps> = {

@@ -1,11 +1,15 @@
 import { makeTree, traversePostOrder } from '@codelab/graph'
 import { Node, TreeNodeI, ReactNodeI } from '@codelab/node'
-import { evalPropsWithContext, Props } from '@codelab/props'
+import {
+  evalPropsWithContext,
+  Props,
+  convertToRenderProps,
+} from '@codelab/props'
 import React, { FunctionComponent, PropsWithChildren } from 'react'
 import { elementParameterFactory } from './ElementFactory'
 import { ElementFactory } from './ElementFactory.interface'
 // eslint-disable-next-line import/no-cycle
-import { produceReactNodeProps } from '../props/Props-node'
+import { renderReactProps } from '../props/Props-node'
 
 export class TreeDom {
   static render<P extends Props>(
@@ -21,24 +25,24 @@ export class TreeDom {
      * (2) RenderProps are passed down
      */
     const componentBuilderIteratee = (node: Node<P>) => {
-      const [Type, props] = factory(node)
+      const [Component, props] = factory(node)
+      const renderedReactProps = renderReactProps(props)
 
-      const reactNodeProps = produceReactNodeProps(props)
-
-      /**
-       * internalProps is generally AntD internal like Menu to Menu.Item
-       */
       /* eslint-disable no-param-reassign */
       node.Component = ({
         children,
+        // internalProps is generally AntD internal like Menu to Menu.Item
+        // also contains rootProps
         ...internalProps
       }: PropsWithChildren<P>) => {
+        console.log(internalProps)
+
         return node.hasChildren() || hasRootChildren ? (
-          <Type {...internalProps} {...reactNodeProps}>
+          <Component {...internalProps} {...renderedReactProps}>
             {children}
-          </Type>
+          </Component>
         ) : (
-          <Type {...internalProps} {...reactNodeProps} />
+          <Component {...internalProps} {...renderedReactProps} />
         )
       }
 
@@ -54,13 +58,25 @@ export class TreeDom {
 
     traversePostOrder<P>(root, componentBuilderIteratee)
 
-    return ({ children: rootChildren }: PropsWithChildren<P>) => {
+    return ({ children: rootChildren, ...rootProps }: PropsWithChildren<P>) => {
       if (rootChildren) {
         hasRootChildren = true
       }
 
+      console.log({
+        ...evalPropsWithContext({
+          ...root.props,
+          ...convertToRenderProps(rootProps),
+        }),
+      })
+
       return (
-        <root.Component {...evalPropsWithContext(root.props)}>
+        <root.Component
+          {...evalPropsWithContext({
+            ...root.props,
+            ...convertToRenderProps(rootProps),
+          })}
+        >
           {root.Children(rootChildren)}
         </root.Component>
       )

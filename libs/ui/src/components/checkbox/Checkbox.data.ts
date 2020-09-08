@@ -1,4 +1,4 @@
-import { ReactNodeI } from '@codelab/graph'
+import { ReactNodeI } from '@codelab/node'
 import { CheckboxGroupProps, CheckBoxProps } from './Checkbox.types'
 import { TextProps } from '../text/Text.types'
 

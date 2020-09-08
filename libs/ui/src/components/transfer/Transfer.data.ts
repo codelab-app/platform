@@ -1,4 +1,4 @@
-import { ReactNodeI } from '@codelab/graph'
+import { ReactNodeI } from '@codelab/node'
 import { TransferProps, RenderProps } from './Transfer.types'
 
 export const transferData: ReactNodeI<TransferProps | RenderProps> = {

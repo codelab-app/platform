@@ -1,4 +1,4 @@
-import { ReactNodeI } from '@codelab/graph'
+import { ReactNodeI } from '@codelab/node'
 
 export const divData: ReactNodeI = {
   type: 'Html.div',

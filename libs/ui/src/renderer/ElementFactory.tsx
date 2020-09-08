@@ -1,6 +1,11 @@
 import { mouseEventHandlerKeys } from '@codelab/event'
 import { Node } from '@codelab/node'
-import { Props, propsFilter, withFilters } from '@codelab/props'
+import {
+  Props,
+  propsFilter,
+  withFilters,
+  evalPropsWithContext,
+} from '@codelab/props'
 import {
   Affix,
   Alert,
@@ -256,6 +261,8 @@ export const elementParameterFactory = <P extends Props>(
     case 'Mentions.Option':
       return [Mentions.Option as any, props]
     case 'Layout':
+      console.log(props)
+
       return [Layout as any, props]
     case 'Layout.Header':
       return [Layout.Header as any, props]

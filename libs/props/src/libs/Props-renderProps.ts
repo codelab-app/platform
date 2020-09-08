@@ -3,7 +3,7 @@ import { isRenderPropValue } from './Props.guards'
 import { Props } from './Props.interface'
 
 /**
- * Remove render props
+ * Remove non-render props
  */
 export function filterRenderProps(props: Props): Props {
   return reduce<Props, Props>(
@@ -18,6 +18,26 @@ export function filterRenderProps(props: Props): Props {
 
       return {
         ...prop,
+      }
+    },
+    {},
+  )
+}
+
+/**
+ * RootProps should be passed all the way down.
+ * @param props
+ */
+export function convertToRenderProps(props: Props): Props {
+  return reduce<Props, Props>(
+    props,
+    (prop: Props, propValue: Props[keyof Props], propKey: keyof Props) => {
+      return {
+        ...prop,
+        [propKey]: {
+          renderProps: true,
+          value: propValue,
+        },
       }
     },
     {},

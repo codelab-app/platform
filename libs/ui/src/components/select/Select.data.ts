@@ -1,4 +1,4 @@
-import { ReactNodeI } from '@codelab/graph'
+import { ReactNodeI } from '@codelab/node'
 import { SelectProps, OptionProps } from './Select.types'
 import { TextProps } from '../text/Text.types'
 

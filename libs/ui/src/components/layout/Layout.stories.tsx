@@ -9,5 +9,5 @@ export default {
 export const Default = () => {
   const Layout = TreeDom.render(layoutData)
 
-  return <Layout />
+  return <Layout Content="Content" />
 }

@@ -5,7 +5,7 @@ import { Props } from '@codelab/props'
 // eslint-disable-next-line import/no-cycle
 import { TreeDom } from '../renderer/TreeDom'
 
-export const renderNodePropValue = (
+export const renderReactNodes = (
   nodePropValue: TreeNodeI | ReactNodeI,
 ): React.ReactNode => {
   const Node = TreeDom.render(nodePropValue)
@@ -13,20 +13,23 @@ export const renderNodePropValue = (
   return <Node />
 }
 
-export function produceReactNodeProps<P extends Props = Props>(props: P) {
+/**
+ * Render react nodes
+ */
+export function renderReactProps<P extends Props = Props>(props: P) {
   return reduce<P, Props>(
     props,
     (
-      renderedProp: Props,
+      evaluatedProps: Props,
       propValue: Props[keyof Props],
       propKey: keyof Props,
     ) => {
       return isReactNode(propValue) || isTreeNode(propValue)
         ? {
-            ...renderedProp,
-            [propKey]: renderNodePropValue(propValue),
+            ...evaluatedProps,
+            [propKey]: renderReactNodes(propValue),
           }
-        : { ...renderedProp }
+        : { ...evaluatedProps }
     },
     {},
   )

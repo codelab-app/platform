@@ -1,4 +1,4 @@
-import { ReactNodeI } from '@codelab/graph'
+import { ReactNodeI } from '@codelab/node'
 import { TreeNodeProps, TreeSelectProps } from './TreeSelect.types'
 
 export const treeSelectData: ReactNodeI<TreeNodeProps | TreeSelectProps> = {
@@ -33,18 +33,18 @@ export const treeSelectData: ReactNodeI<TreeNodeProps | TreeSelectProps> = {
               type: 'TreeNode',
               nodeType: 'React',
               props: {
-                key: 'leaf1',
-                value: 'leaf1',
-                title: 'leaf1',
+                key: 'leaf 1',
+                value: 'leaf 1',
+                title: 'leaf 1',
               },
             },
             {
               type: 'TreeNode',
               nodeType: 'React',
               props: {
-                key: 'leaf2',
-                value: 'leaf2',
-                title: 'leaf2',
+                key: 'leaf 2',
+                value: 'leaf 2',
+                title: 'leaf 2',
               },
             },
           ],
@@ -62,9 +62,9 @@ export const treeSelectData: ReactNodeI<TreeNodeProps | TreeSelectProps> = {
               type: 'TreeNode',
               nodeType: 'React',
               props: {
-                key: 'sss',
-                value: 'sss',
-                title: 'sss',
+                key: 'leaf 1-1 1',
+                value: 'leaf 1-1 1',
+                title: 'leaf 1-1 1',
               },
             },
           ],
