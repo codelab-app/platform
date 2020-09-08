@@ -34,14 +34,17 @@ describe('Form', () => {
   })
 
   it('should render conditional form field', async () => {
-    const { getByText, getByLabelText, queryByLabelText, getByRole } = render(
-      <ConditionalForm />,
-    )
+    const { getByText, getByLabelText, getByRole } = render(<ConditionalForm />)
 
     expect(getByLabelText('Select')).toBeTruthy()
-    expect(queryByLabelText('Field A')).toBeFalsy()
-    expect(queryByLabelText('Field B')).toBeFalsy()
-    expect(queryByLabelText('Field C')).toBeFalsy()
+
+    const fieldA = getByText('Field A').parentElement.parentElement
+    const fieldB = getByText('Field B').parentElement.parentElement
+    const fieldC = getByText('Field C').parentElement.parentElement
+
+    expect(fieldA).toHaveClass('ant-form-item-hidden')
+    expect(fieldB).toHaveClass('ant-form-item-hidden')
+    expect(fieldC).toHaveClass('ant-form-item-hidden')
 
     fireEvent.mouseDown(getByRole('combobox').parentElement)
 
@@ -53,8 +56,8 @@ describe('Form', () => {
 
     fireEvent.click(getByText('A'))
 
-    expect(queryByLabelText('Field A')).toBeTruthy()
-    expect(queryByLabelText('Field B')).toBeFalsy()
-    expect(queryByLabelText('Field C')).toBeFalsy()
+    expect(fieldA).not.toHaveClass('ant-form-item-hidden')
+    expect(fieldB).toHaveClass('ant-form-item-hidden')
+    expect(fieldC).toHaveClass('ant-form-item-hidden')
   })
 })
