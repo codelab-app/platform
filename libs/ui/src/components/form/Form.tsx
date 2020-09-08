@@ -1,6 +1,6 @@
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
 import { Button, Form as AntForm, Space, Divider } from 'antd'
-import React from 'react'
+import React, { ReactNode, ReactElement } from 'react'
 import { FieldData, FormListProps } from './Form.types'
 
 export namespace Form {
@@ -65,8 +65,8 @@ export namespace Form {
 
           return (
             <>
-              {(Array.isArray(children) ? children : [children]).map(
-                (child, index: number) => {
+              {React.Children.toArray(children).map(
+                (child: ReactElement, index: number) => {
                   return !hidden ? (
                     // eslint-disable-next-line react/no-array-index-key
                     <React.Fragment key={index}>

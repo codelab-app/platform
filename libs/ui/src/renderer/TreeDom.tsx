@@ -35,8 +35,6 @@ export class TreeDom {
         // also contains rootProps
         ...internalProps
       }: PropsWithChildren<P>) => {
-        console.log(internalProps)
-
         return node.hasChildren() || hasRootChildren ? (
           <Component {...internalProps} {...renderedReactProps}>
             {children}
@@ -62,13 +60,6 @@ export class TreeDom {
       if (rootChildren) {
         hasRootChildren = true
       }
-
-      console.log({
-        ...evalPropsWithContext({
-          ...root.props,
-          ...convertToRenderProps(rootProps),
-        }),
-      })
 
       return (
         <root.Component
