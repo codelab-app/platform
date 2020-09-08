@@ -9,7 +9,7 @@ describe('Props with renderProps type', () => {
   it('converts all props to renderProps', () => {
     const renderProps = convertToRenderProps(props)
 
-    expect(renderProps.renderProps).toBeTruthy()
-    expect(renderProps.value).toBe('Content')
+    expect(renderProps.Content.renderProps).toBeTruthy()
+    expect(renderProps.Content.value).toBe('Content')
   })
 })
