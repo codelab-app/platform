@@ -4,17 +4,19 @@ import React, { FunctionComponent } from 'react'
 import { Props } from './Props.interface'
 
 export type PropFilterPredicate = (
-  propKeys: Array<string>,
+  allowedKeys: Array<string>,
   value: Props[keyof Props],
   key: keyof Props,
 ) => boolean
 
-export const isValidKey = curry<PropFilterPredicate>((propKeys, value, key) => {
-  return [...propKeys, 'children'].includes(key as any)
-})
+export const isValidKey = curry<PropFilterPredicate>(
+  (allowedKeys, value, key) => {
+    return [...allowedKeys, 'children'].includes(key as any)
+  },
+)
 
-export const propsFilter = curry((propKeys: Array<string>, props: Props) => {
-  return pickBy(props, anyPass([isValidKey(propKeys) as any]))
+export const propsFilter = curry((allowedKeys: Array<string>, props: Props) => {
+  return pickBy(props, anyPass([isValidKey(allowedKeys) as any]))
 })
 
 export type PropsFilter<P> = (props: P) => P
