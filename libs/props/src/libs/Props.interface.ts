@@ -4,14 +4,14 @@ import { CSSProperties } from 'react'
 export type PropItem = any & Function & PropValue
 
 // Only prop value of this type is evaluated
-export type PropValue = {
+export interface PropValue {
   eval?: boolean // evaluate to function
   renderProps?: boolean // Pass props to child
   value: string
 }
 
 // This is purely object shape, not concerning React props like PropTypes
-export type Props = {
+export interface Props {
   ctx?: PropItem // Made available to current function props
   [name: string]: PropItem
 }

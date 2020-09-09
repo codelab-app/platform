@@ -103,6 +103,9 @@
     },
     "shared-common": {
       "tags": []
+    },
+    "shared-interface": {
+      "tags": []
     }
   }
 }
