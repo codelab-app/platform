@@ -76,7 +76,7 @@ export class Node<P extends Props = {}> implements NodeInterface<P> {
     return filterRenderProps(this.props) ?? {}
   }
 
-  get mergedProps() {
+  get evaluatedProps() {
     return {
       key: this.key,
       ...this.props,
@@ -90,6 +90,8 @@ export class Node<P extends Props = {}> implements NodeInterface<P> {
     children: ReactNode,
     hasRootChildren: boolean,
   ): ReactElement {
+    // const evaluatedProps = evalPropsWithContext(props)
+
     return this.hasChildren() || hasRootChildren ? (
       <Component {...props}>{children}</Component>
     ) : (
@@ -114,19 +116,19 @@ export class Node<P extends Props = {}> implements NodeInterface<P> {
     const children = reduce<Node<P>, Array<ReactNode>>(
       this.children,
       (Components: Array<ReactNode>, child: Node<P>) => {
-        const { Component: Child, mergedProps } = child
+        const { Component: Child, evaluatedProps } = child
 
         // console.debug(`${this.type} -> ${child.type}`, props)
 
         let ChildComponent: ReactNode = rootChildren ? (
-          <Child {...mergedProps}>{rootChildren}</Child>
+          <Child {...evaluatedProps}>{rootChildren}</Child>
         ) : (
-          <Child {...mergedProps} />
+          <Child {...evaluatedProps} />
         )
 
         if (child.hasChildren()) {
           ChildComponent = (
-            <Child {...mergedProps}>{child.Children(rootChildren)}</Child>
+            <Child {...evaluatedProps}>{child.Children(rootChildren)}</Child>
           )
         }
 

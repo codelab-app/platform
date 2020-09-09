@@ -18,11 +18,6 @@ export const evalPropsFactory = (propValue: PropItem, ctx?: any) => {
   }
 
   if (isReactNode(propValue) || isTreeNode(propValue)) {
-    // We pass TreeDom via ctx to avoid circular depedency
-    if (!ctx?.TreeDom) {
-      throw new Error('TreeDom can not be found')
-    }
-
     return renderReactNodes(propValue, ctx.TreeDom.render)
   }
 
