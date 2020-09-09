@@ -5,7 +5,7 @@
  * https://github.com/gcanti/io-ts-codegen/issues/42
  * https://github.com/gcanti/io-ts/issues/307
  */
-import { decode } from '@codelab/common'
+import { decode } from '@codelab/shared/common'
 import * as t from 'io-ts'
 import { Context, Validation } from 'io-ts'
 import { v4 as uuidv4 } from 'uuid'

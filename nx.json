@@ -47,9 +47,6 @@
     "graph": {
       "tags": []
     },
-    "common": {
-      "tags": []
-    },
     "event": {
       "tags": []
     },
@@ -102,6 +99,9 @@
       "tags": []
     },
     "tools-plugins-plug": {
+      "tags": []
+    },
+    "shared-common": {
       "tags": []
     }
   }

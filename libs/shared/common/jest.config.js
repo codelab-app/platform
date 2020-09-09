@@ -1,6 +1,6 @@
 module.exports = {
-  name: 'common',
-  preset: '../../jest.config.js',
+  name: 'shared-common',
+  preset: '../../../jest.config.js',
   transform: {
     '^.+\\.[tj]sx?$': [
       'babel-jest',
@@ -8,5 +8,5 @@ module.exports = {
     ],
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'html'],
-  coverageDirectory: '../../coverage/libs/common',
+  coverageDirectory: '../../../coverage/libs/shared/common',
 }

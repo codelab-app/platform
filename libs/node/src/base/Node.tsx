@@ -1,4 +1,4 @@
-import { decode } from '@codelab/common'
+import { decode } from '@codelab/shared/common'
 import { evalPropsWithContext, filterRenderProps, Props } from '@codelab/props'
 import { reduce, merge } from 'lodash'
 import React, {

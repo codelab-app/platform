@@ -1,4 +1,4 @@
-import { decode } from '@codelab/common'
+import { decode } from '@codelab/shared/common'
 import * as t from 'io-ts'
 import { withFallback } from 'io-ts-types/lib/withFallback'
 

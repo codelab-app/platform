@@ -1,4 +1,4 @@
-import { decode, DecodeError } from '@codelab/common'
+import { decode, DecodeError } from '@codelab/shared/common'
 import { nodeC } from '../../codec/Node.codec'
 import { NodeA, NodeI } from '../../codec/Node.codec.i'
 import { NodeTypeEnum } from '../../codec/Node--type.i'

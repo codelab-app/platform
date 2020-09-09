@@ -100,7 +100,7 @@ export function createReactLibrary(options: NormalizedSchema): Rule {
 export function addStorybookConfig(options: NormalizedSchema): Rule {
   return (tree: Tree, context: SchematicContext) => {
     return externalSchematic('@nrwl/react', 'storybook-configuration', {
-      name: options.name,
+      name: options.projectName,
       configureCypress: false,
       generateStories: false,
     })

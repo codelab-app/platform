@@ -34,9 +34,6 @@
       "@codelab/graph": [
         "libs/graph/src/index.ts"
       ],
-      "@codelab/common": [
-        "libs/common/src/index.ts"
-      ],
       "@codelab/event": [
         "libs/event/src/index.ts"
       ],
@@ -75,6 +72,9 @@
       ],
       "@codelab/tools/plugins/plug": [
         "libs/tools/plugins/plug/src/index.ts"
+      ],
+      "@codelab/shared/common": [
+        "libs/shared/common/src/index.ts"
       ]
     }
   },
