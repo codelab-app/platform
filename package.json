@@ -13,7 +13,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "postinstall": "nx run-many --target=build --projects=tools-eslint-config-codelab,plugins-codelab,plugins-plug",
+    "postinstall": "nx run-many --target=build --projects=tools-eslint-config-codelab,tools-plugins-codelab,tools-plugins-plug",
     "docker": "docker-compose -f .docker/docker-compose.yaml up",
     "local-registry": "./scripts/local-registry.sh",
     "publish": "./scripts/publish.sh",

@@ -22,12 +22,6 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@codelab/plugins-codelab": [
-        "libs/plugins/codelab/src/index.ts"
-      ],
-      "@codelab/plugins-plug": [
-        "libs/plugins/plug/src/index.ts"
-      ],
       "@codelab/ui": [
         "libs/ui/src/index.ts"
       ],
@@ -75,6 +69,12 @@
       ],
       "@codelab/tools/eslint-config-codelab": [
         "libs/tools/eslint-config-codelab/src/index.ts"
+      ],
+      "@codelab/tools/plugins/codelab": [
+        "libs/tools/plugins/codelab/src/index.ts"
+      ],
+      "@codelab/tools/plugins/plug": [
+        "libs/tools/plugins/plug/src/index.ts"
       ]
     }
   },

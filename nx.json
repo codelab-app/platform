@@ -29,13 +29,10 @@
     }
   },
   "projects": {
-    "plugins-codelab": {
-      "tags": []
-    },
     "plugins-codelab-e2e": {
       "tags": [],
       "implicitDependencies": [
-        "plugins-codelab"
+        "tools-plugins-codelab"
       ]
     },
     "ui": {
@@ -92,9 +89,6 @@
     "factory": {
       "tags": []
     },
-    "plugins-plug": {
-      "tags": []
-    },
     "node": {
       "tags": []
     },
@@ -102,6 +96,12 @@
       "tags": []
     },
     "tools-eslint-config-codelab": {
+      "tags": []
+    },
+    "tools-plugins-codelab": {
+      "tags": []
+    },
+    "tools-plugins-plug": {
       "tags": []
     }
   }
