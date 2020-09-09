@@ -2,8 +2,10 @@ import { reduce } from 'lodash'
 import React from 'react'
 import axios from 'axios'
 import { notification, message } from 'antd'
+import { isTreeNode, isReactNode } from '@codelab/node'
 import { isEvalPropValue, isRenderPropValue } from './Props.guards'
 import { Props, PropValue, PropItem } from './Props.interface'
+import { renderReactNodes } from './Props-react'
 
 export const evalPropValue = (propValue: PropValue, ctx?: any): Function => {
   // eslint-disable-next-line no-new-func
@@ -15,18 +17,20 @@ export const evalPropsFactory = (propValue: PropItem, ctx?: any) => {
     return evalPropValue(propValue, ctx)
   }
 
-  // if (isRenderPropValue(propValue)) {
-  //   return
-  // }
-
-  // if (isReactNode) {
-  //   return
-  // }
+  if (isReactNode(propValue) || isTreeNode(propValue)) {
+    return renderReactNodes(propValue, ctx.TreeDom.render)
+  }
 
   return propValue
 }
 
-export function evalProps<P extends Props = Props>(props: P, ctx?: any) {
+/**
+ * Goes through each object key/value pair, and apply the iteratee
+ */
+export function evalPropsIterator<P extends Props = Props>(
+  props: P,
+  ctx?: any,
+) {
   return reduce<P, Props>(
     props,
     (evaluatedProp: Props, propValue: PropItem, propKey: keyof Props) => ({
@@ -47,14 +51,14 @@ export function evalPropsWithContext(props: Props): Props {
     axios,
     antd: { notification, message },
     props,
-    evalProps,
+    evalProps: evalPropsIterator,
   }
 
   // Then pass the ctx into rest of props
   return {
-    ...evalProps(restProps, {
+    ...evalPropsIterator(restProps, {
       // We first take ctx from current props & eval that
-      ...evalProps({ ctx }, libraryCtx).ctx,
+      ...evalPropsIterator({ ctx }, libraryCtx).ctx,
       ...libraryCtx,
     }),
   }

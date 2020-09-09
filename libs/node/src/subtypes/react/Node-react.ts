@@ -1,7 +1,7 @@
 import { Props } from '@codelab/props'
 import * as t from 'io-ts'
 import { withFallback } from 'io-ts-types/lib/withFallback'
-import { NodeTypeEnum, NodeID, WithNodeType } from '../../codec/Node--type.i'
+import { NodeID, NodeTypeEnum, WithNodeType } from '../../codec/Node--type.i'
 
 export interface ReactNodeI<P extends Props = any> extends WithNodeType {
   type: string
@@ -34,6 +34,3 @@ export const reactNode: t.Type<ReactNodeI> = t.recursion('ReactNode', (self) =>
   ]),
 )
 
-export const isReactNode = (node: any): node is ReactNodeI => {
-  return node.nodeType === NodeTypeEnum.React && node.type
-}

@@ -1,5 +1,5 @@
 import { Props } from '@codelab/props'
-import { NodeTypeEnum, WithNodeType } from '../../codec/Node--type.i'
+import { WithNodeType } from '../../codec/Node--type.i'
 import { SchemaDefinition } from './Node-schema--props'
 
 export interface SchemaNode {
@@ -10,8 +10,4 @@ export interface SchemaNode {
 export interface SchemaNodeI<P extends Props = any> extends WithNodeType {
   nodeType: 'Schema'
   props?: P
-}
-
-export const isSchemaNode = (node: any): node is SchemaNodeI => {
-  return node.nodeType === NodeTypeEnum.Schema
 }

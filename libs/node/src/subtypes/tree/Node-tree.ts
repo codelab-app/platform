@@ -53,8 +53,4 @@ export const treeNode: RecursiveTreeNode = t.recursion(
     ]),
 )
 
-export const isTreeNode = (node: any): node is TreeNodeI => {
-  return node.nodeType === NodeTypeEnum.Tree
-}
-
 type RecursiveTreeNode = t.RecursiveType<t.Type<TreeNodeI, TreeNodeO>>

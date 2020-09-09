@@ -49,6 +49,3 @@ export const refNode: t.Type<RefNodeI, RefNodeO> = t.intersection([
   }),
 ])
 
-export const isRefNode = (node: any): node is RefNodeI => {
-  return node.nodeType === NodeTypeEnum.Ref
-}

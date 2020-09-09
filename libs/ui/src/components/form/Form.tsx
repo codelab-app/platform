@@ -19,6 +19,8 @@ export namespace Form {
                     <Space key={field.key} style={{ display: 'flex' }}>
                       {/* Need to cast to array, our Node will convert single children from array of length 1 to a non-array object */}
                       {React.Children.toArray(children).map((child: any) => {
+                        console.log(field, field.name, child.props)
+
                         return React.cloneElement(child, {
                           ...field,
                           ...child.props,

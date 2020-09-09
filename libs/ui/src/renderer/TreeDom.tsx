@@ -1,32 +1,36 @@
 import { makeTree, traversePostOrder } from '@codelab/graph'
 import { Node, TreeNodeI, ReactNodeI } from '@codelab/node'
 import {
-  evalPropsWithContext,
   Props,
   convertToRenderProps,
+  evalPropsWithContext,
 } from '@codelab/props'
 import React, { FunctionComponent, PropsWithChildren } from 'react'
+import { merge } from 'lodash'
 import { elementParameterFactory } from './ElementFactory'
 import { ElementFactory } from './ElementFactory.interface'
-// eslint-disable-next-line import/no-cycle
-import { renderReactProps } from '../props/Props-node'
+
+const evalPropsWithTreeContext = (props: Props): Props => {
+  // eslint-disable-next-line no-use-before-define
+  return evalPropsWithContext(merge(props, { ctx: { TreeDom } }))
+}
 
 export class TreeDom {
   static render<P extends Props>(
     data: TreeNodeI<P> | ReactNodeI<P>,
-    factory: ElementFactory<P> = elementParameterFactory,
   ): FunctionComponent<any> {
     let hasRootChildren = false
     const root = makeTree(data)
 
     /**
+     * Called during traversal for each node.
+     *
      * (1) ctx is passed to props
      *
      * (2) RenderProps are passed down
      */
     const componentBuilderIteratee = (node: Node<P>) => {
-      const [Component, props] = factory(node)
-      const renderedReactProps = renderReactProps(props)
+      const [Component, props] = elementParameterFactory(node)
 
       /* eslint-disable no-param-reassign */
       node.Component = ({
@@ -35,12 +39,11 @@ export class TreeDom {
         // also contains rootProps
         ...internalProps
       }: PropsWithChildren<P>) => {
-        return node.hasChildren() || hasRootChildren ? (
-          <Component {...internalProps} {...renderedReactProps}>
-            {children}
-          </Component>
-        ) : (
-          <Component {...internalProps} {...renderedReactProps} />
+        return node.render(
+          Component,
+          evalPropsWithTreeContext({ ...props, ...internalProps }),
+          children,
+          hasRootChildren,
         )
       }
 
@@ -56,6 +59,9 @@ export class TreeDom {
 
     traversePostOrder<P>(root, componentBuilderIteratee)
 
+    /**
+     * rootChildren & rootProps allow us to programmatically modify components
+     */
     return ({ children: rootChildren, ...rootProps }: PropsWithChildren<P>) => {
       if (rootChildren) {
         hasRootChildren = true
@@ -63,7 +69,7 @@ export class TreeDom {
 
       return (
         <root.Component
-          {...evalPropsWithContext({
+          {...evalPropsWithTreeContext({
             ...root.props,
             ...convertToRenderProps(rootProps),
           })}

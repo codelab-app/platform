@@ -12,6 +12,7 @@ import { reduce } from 'lodash'
 import { curry } from 'ramda'
 import { Node } from '../../../node/src/base/Node'
 import { NodeIteratee, TreeSubTreeContext } from '../tree/Tree.i'
+import { NodeInterface } from '../../../node/src/base/Node.i'
 
 /**
  * Curried function allows us to first initialize the treeWalker with an iteratee.
@@ -55,15 +56,15 @@ export const treeWalker = curry(
 )
 
 export interface TraversalOrder<P extends Props = {}> {
-  (node: Node<P>, iteratee: (node: Node<P>) => void)
+  (node: NodeInterface<P>, iteratee: (node: NodeInterface<P>) => void)
 }
 
 export interface TraversalIteratee<P extends Props = {}> {
-  (node: Node<P>): void
+  (node: NodeInterface<P>): void
 }
 
 export function traversePostOrder<P extends Props = {}>(
-  node: Node<P>,
+  node: NodeInterface<P>,
   iteratee: TraversalIteratee<P>,
 ) {
   node.children.forEach((child) => {
@@ -74,7 +75,7 @@ export function traversePostOrder<P extends Props = {}>(
 }
 
 export function traversePreOrder<P extends Props = {}>(
-  node: Node<P>,
+  node: NodeInterface<P>,
   iteratee: TraversalIteratee<P>,
 ) {
   if (!node) {

@@ -10,13 +10,15 @@ import * as t from 'io-ts'
 import { Context, Validation } from 'io-ts'
 import { v4 as uuidv4 } from 'uuid'
 import {
-  isReactNode,
   reactNode,
   ReactNodeA,
 } from '../subtypes/react/Node-react'
-import { isTreeNode, treeNode, TreeNodeA } from '../subtypes/tree/Node-tree'
-import { isRefNode, refNode, RefNodeA } from '../subtypes/ref/Node-ref'
+import { treeNode, TreeNodeA } from '../subtypes/tree/Node-tree'
+import { refNode, RefNodeA } from '../subtypes/ref/Node-ref'
 import { NodeA, NodeI } from './Node.codec.i'
+import { isReactNode } from '../subtypes/react/Node-react--guard'
+import { isRefNode } from '../subtypes/ref/Node-ref--guard'
+import { isTreeNode } from '../subtypes/tree/Node-tree--guard'
 
 export const nodeInput: t.Type<NodeI> = t.union([reactNode, treeNode, refNode])
 
