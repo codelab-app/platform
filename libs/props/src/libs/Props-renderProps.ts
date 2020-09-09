@@ -9,7 +9,26 @@ export function filterRenderProps(props: Props): Props {
   return reduce<Props, Props>(
     props,
     (prop: Props, propValue: Props[keyof Props], propKey: keyof Props) => {
-      if (isRenderPropValue(propValue)) {
+      if (isRenderPropValue(propValue) && !propValue.renderProps.leaf) {
+        return {
+          ...prop,
+          [propKey]: propValue,
+        }
+      }
+
+      return {
+        ...prop,
+      }
+    },
+    {},
+  )
+}
+
+export function filterLeafRenderProps(props: Props): Props {
+  return reduce<Props, Props>(
+    props,
+    (prop: Props, propValue: Props[keyof Props], propKey: keyof Props) => {
+      if (isRenderPropValue(propValue) && propValue.renderProps.leaf) {
         return {
           ...prop,
           [propKey]: propValue,

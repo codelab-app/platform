@@ -21,7 +21,32 @@ export const renderPropsData: ReactNodeI = {
   ],
 }
 
-export const div = {
+export const leafRenderPropsData: ReactNodeI = {
   type: 'Html.div',
   nodeType: 'React',
+  props: {
+    visibility: '',
+    leafprops: {
+      renderProps: { leaf: true },
+      value: {},
+    },
+  },
+  children: [
+    {
+      type: 'Html.div',
+      nodeType: 'React',
+      props: {
+        childprops: {},
+      },
+      children: [
+        {
+          type: 'Html.div',
+          nodeType: 'React',
+          props: {
+            grandChildProps: {},
+          },
+        },
+      ],
+    },
+  ],
 }

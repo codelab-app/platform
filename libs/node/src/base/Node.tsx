@@ -2,7 +2,7 @@ import { decode } from '@codelab/shared/common'
 import { reduce } from 'lodash'
 import React, { FunctionComponent, ReactNode, ReactElement } from 'react'
 import { Props } from '@codelab/shared/interface'
-import { filterRenderProps } from '@codelab/props'
+import { filterRenderProps, filterLeafRenderProps } from '@codelab/props'
 import { nodeC } from '../codec/Node.codec'
 import { HasChildren, NodeInterface } from './Node.i'
 import { NodeI } from '../codec/Node.codec.i'
@@ -31,6 +31,8 @@ export class Node<P extends Props = {}> implements NodeInterface<P> {
   // Use this to prevent circular dep
   public treeDom: any
 
+  public leafRenderProps: Props
+
   /**
    * Can take just ID, but fills out other fields
    */
@@ -42,6 +44,7 @@ export class Node<P extends Props = {}> implements NodeInterface<P> {
     this.nodeType = NodeTypeEnum[nodeType]
     this.props = props
     this.id = id
+    this.leafRenderProps = filterLeafRenderProps(this.props) ?? {}
   }
 
   get key(): React.Key {
@@ -73,9 +76,15 @@ export class Node<P extends Props = {}> implements NodeInterface<P> {
   }
 
   get mergedProps() {
+    this.leafRenderProps = {
+      ...this.parent.leafRenderProps,
+      ...this.leafRenderProps,
+    }
+
     return {
       key: this.key,
       ...this.props,
+      ...this.leafRenderProps,
       ...this.parent.renderProps,
     }
   }
