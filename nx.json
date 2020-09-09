@@ -46,9 +46,6 @@
     "graph": {
       "tags": []
     },
-    "dto": {
-      "tags": []
-    },
     "common": {
       "tags": []
     },
@@ -90,12 +87,6 @@
       "tags": []
     },
     "plugins-plug": {
-      "tags": []
-    },
-    "tests": {
-      "tags": []
-    },
-    "publishable": {
       "tags": []
     },
     "node": {
