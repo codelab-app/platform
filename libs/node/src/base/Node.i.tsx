@@ -20,7 +20,10 @@ export interface NodeInterface<P extends Props = {}> {
   addChild(child: NodeInterface<P>): void
   addParent(parent: NodeInterface<P>): void
   hasChildren(): boolean
-  Children(rootChildren: ReactNode): ReactNode | Array<ReactNode>
+  Children(
+    rootChildren: ReactNode,
+    rootRenderProps: Props,
+  ): ReactNode | Array<ReactNode>
 }
 
 export interface HasChildren<T> {

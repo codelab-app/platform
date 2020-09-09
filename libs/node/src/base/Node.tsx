@@ -1,8 +1,8 @@
 import { decode } from '@codelab/shared/common'
-import { filterRenderProps } from '@codelab/props'
 import { reduce } from 'lodash'
 import React, { FunctionComponent, ReactNode, ReactElement } from 'react'
 import { Props } from '@codelab/shared/interface'
+import { filterRenderProps } from '@codelab/props'
 import { nodeC } from '../codec/Node.codec'
 import { HasChildren, NodeInterface } from './Node.i'
 import { NodeI } from '../codec/Node.codec.i'
@@ -106,7 +106,10 @@ export class Node<P extends Props = {}> implements NodeInterface<P> {
    * <Component>{jsxChildren}</Component>
    * ```
    */
-  public Children(rootChildren: ReactNode): ReactNode | Array<ReactNode> {
+  public Children(
+    rootChildren: ReactNode,
+    rootRenderProps: Props,
+  ): ReactNode | Array<ReactNode> {
     const children = reduce<Node<P>, Array<ReactNode>>(
       this.children,
       (Components: Array<ReactNode>, child: Node<P>) => {
@@ -115,14 +118,18 @@ export class Node<P extends Props = {}> implements NodeInterface<P> {
         // console.debug(`${this.type} -> ${child.type}`, props)
 
         let ChildComponent: ReactNode = rootChildren ? (
-          <Child {...mergedProps}>{rootChildren}</Child>
+          <Child {...mergedProps} {...rootRenderProps}>
+            {rootChildren}
+          </Child>
         ) : (
-          <Child {...mergedProps} />
+          <Child {...mergedProps} {...rootRenderProps} />
         )
 
         if (child.hasChildren()) {
           ChildComponent = (
-            <Child {...mergedProps}>{child.Children(rootChildren)}</Child>
+            <Child {...mergedProps} {...rootRenderProps}>
+              {child.Children(rootChildren, rootRenderProps)}
+            </Child>
           )
         }
 
