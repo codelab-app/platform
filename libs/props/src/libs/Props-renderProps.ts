@@ -1,6 +1,6 @@
 import { reduce } from 'lodash'
+import { Props } from '@codelab/shared/interface'
 import { isRenderPropValue } from './Props.guards'
-import { Props } from './Props.interface'
 
 /**
  * Remove non-render props

@@ -1,12 +1,8 @@
 import { decode } from '@codelab/shared/common'
-import { evalPropsWithContext, filterRenderProps, Props } from '@codelab/props'
-import { reduce, merge } from 'lodash'
-import React, {
-  FunctionComponent,
-  ReactNode,
-  ReactElement,
-  ReactChildren,
-} from 'react'
+import { filterRenderProps } from '@codelab/props'
+import { reduce } from 'lodash'
+import React, { FunctionComponent, ReactNode, ReactElement } from 'react'
+import { Props } from '@codelab/shared/interface'
 import { nodeC } from '../codec/Node.codec'
 import { HasChildren, NodeInterface } from './Node.i'
 import { NodeI } from '../codec/Node.codec.i'

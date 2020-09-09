@@ -66,7 +66,7 @@ module.exports = {
       name: '12) story:  Storybook examples',
     },
   ],
-  scopes: [{ value: 'default', name: '1) default' }, ...scopes],
+  scopes: [{ value: 'libs' }, { value: 'apps' }, { value: 'tools' }, ...scopes],
   allowTicketNumber: true,
   isTicketNumberRequired: false,
   ticketNumberPrefix: '',

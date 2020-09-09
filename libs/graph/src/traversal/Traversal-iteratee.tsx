@@ -1,7 +1,7 @@
 /**
  * These callbacks are executed when visiting each Node during Tree traversal
  */
-import { Props } from '@codelab/props'
+import { Props } from '@codelab/shared/interface'
 import { findNode, NodeFinderAcc, NodeI } from '@codelab/node'
 import { Node } from '../../../node/src/base/Node'
 import { GraphSubTreeContext, TreeSubTreeContext } from '../tree/Tree.i'

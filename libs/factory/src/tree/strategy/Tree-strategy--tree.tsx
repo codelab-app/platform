@@ -1,4 +1,4 @@
-import { Props } from '@codelab/props'
+import { Props } from '@codelab/shared/interface'
 import {
   Node,
   ReactNodeI,

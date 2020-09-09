@@ -1,7 +1,9 @@
-import { Node, ReactNodeI, traversePostOrder, TreeNodeI } from '@codelab/graph'
-import { evalPropsWithContext, Props } from '@codelab/props'
+import { traversePostOrder } from '@codelab/graph'
+import { Node, ReactNodeI, TreeNodeI } from '@codelab/node'
+import { evalPropsWithContext } from '@codelab/props'
+import { Props } from '@codelab/shared/interface'
 import React, { PropsWithChildren } from 'react'
-import { elementParameterFactory, produceReactNodeProps } from '@codelab/ui'
+import { elementParameterFactory } from '@codelab/ui'
 import { TreeStrategy } from './Tree-strategy'
 import { TreeStrategyTree } from './Tree-strategy--tree'
 
@@ -18,7 +20,7 @@ export class TreeStrategyReact implements TreeStrategy {
     const componentBuilderIteratee = (node: Node<P>) => {
       const [Type, props] = elementParameterFactory(node)
 
-      const reactNodeProps = produceReactNodeProps(props)
+      const reactNodeProps = evalPropsWithContext(props)
 
       /**
        * internalProps is generally AntD internal like Menu to Menu.Item

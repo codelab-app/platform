@@ -1,4 +1,4 @@
-import { Props } from '@codelab/props'
+import { Props } from '@codelab/shared/interface'
 import { reduce } from 'lodash'
 import { treeWalker, nodeFinderIteratee } from '@codelab/graph'
 import { NodeInterface, NodeFinderAcc } from '../base/Node.i'

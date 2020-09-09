@@ -7,7 +7,7 @@
  *
  * For building a DOM from React components, we want to use post-order. Check `Traversal.spec.ts` for an example.
  */
-import { Props } from '@codelab/props'
+import { Props } from '@codelab/shared/interface'
 import { reduce } from 'lodash'
 import { curry } from 'ramda'
 import { Node } from '../../../node/src/base/Node'

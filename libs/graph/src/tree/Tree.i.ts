@@ -1,4 +1,4 @@
-import { Props } from '@codelab/props'
+import { Props } from '@codelab/shared/interface'
 import { NodeInterface } from '@codelab/node'
 import { HasChildren } from '../../../node/src/base/Node.i'
 import { Graph } from '../graph/Graph.i'

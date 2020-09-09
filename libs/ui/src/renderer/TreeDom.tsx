@@ -1,14 +1,10 @@
 import { makeTree, traversePostOrder } from '@codelab/graph'
 import { Node, TreeNodeI, ReactNodeI } from '@codelab/node'
-import {
-  Props,
-  convertToRenderProps,
-  evalPropsWithContext,
-} from '@codelab/props'
+import { convertToRenderProps, evalPropsWithContext } from '@codelab/props'
+import { Props } from '@codelab/shared/interface'
 import React, { FunctionComponent, PropsWithChildren } from 'react'
 import { merge } from 'lodash'
 import { elementParameterFactory } from './ElementFactory'
-import { ElementFactory } from './ElementFactory.interface'
 
 /**
  * We need this function in ui package because TreeDom is required, can't put in node or props package

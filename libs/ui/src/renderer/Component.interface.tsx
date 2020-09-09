@@ -1,5 +1,5 @@
 import { Node } from '@codelab/graph'
-import { Props } from '@codelab/props'
+import { Props } from '@codelab/shared/interface'
 import {
   ForwardRefExoticComponent,
   PropsWithoutRef,

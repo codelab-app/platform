@@ -1,4 +1,4 @@
-import { PropsFromKeys } from '@codelab/props'
+import { PropsFromKeys } from '@codelab/shared/interface'
 
 export const skeletonPropKeys = [
   'active',

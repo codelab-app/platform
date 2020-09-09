@@ -1,4 +1,4 @@
-import { Props } from '@codelab/props'
+import { Props } from '@codelab/shared/interface'
 import { SchemaNodeI } from '../subtypes/schema/Node-schema'
 import { ReactNodeA, ReactNodeI } from '../subtypes/react/Node-react'
 import { TreeNodeA, TreeNodeI } from '../subtypes/tree/Node-tree'

@@ -1,5 +1,5 @@
 import { ReactNodeI } from '@codelab/node'
-import { PropsFromKeys } from '@codelab/props'
+import { PropsFromKeys } from '@codelab/shared/interface'
 
 export const emptyPropKeys = ['description', 'imageStyle', 'image']
 

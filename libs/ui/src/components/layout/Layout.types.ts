@@ -1,4 +1,4 @@
-import { PropsFromKeys } from '@codelab/props'
+import { PropsFromKeys } from '@codelab/shared/interface'
 
 export const layoutPropKeys = ['hasSider', 'className', 'style'] as const
 

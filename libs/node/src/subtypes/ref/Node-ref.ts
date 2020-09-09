@@ -1,4 +1,4 @@
-import { Props } from '@codelab/props'
+import { Props } from '@codelab/shared/interface'
 import * as t from 'io-ts'
 import { withFallback } from 'io-ts-types/lib/withFallback'
 import { nodeID } from '../../codec/Node--id'

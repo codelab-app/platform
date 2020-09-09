@@ -1,7 +1,7 @@
 /**
  * We construct a tree by traversing the tree data using the treeAppender strategy
  */
-import { Props } from '@codelab/props'
+import { Props } from '@codelab/shared/interface'
 import { reduce } from 'lodash'
 import { NodeInterface, Node } from '@codelab/node'
 import { treeWalker } from '../traversal'

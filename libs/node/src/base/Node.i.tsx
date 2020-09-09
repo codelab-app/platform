@@ -1,4 +1,4 @@
-import { Props } from '@codelab/props'
+import { Props } from '@codelab/shared/interface'
 import { FunctionComponent, ReactNode } from 'react'
 import * as _ from 'ts-toolbelt'
 import { NodeTypeEnum } from '../codec/Node--type.i'

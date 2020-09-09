@@ -1,8 +1,9 @@
 import { ReactNodeI } from '@codelab/node'
-import { PropsFromKeys } from '@codelab/props'
+import { PropsFromKeys } from '@codelab/shared/interface'
 import { TextProps } from '../text/Text.types'
 import { ButtonProps } from '../button'
 
+//
 export const affixPropKeys = [
   'offsetBottom',
   'offsetTop',
