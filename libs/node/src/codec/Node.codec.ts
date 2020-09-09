@@ -9,10 +9,7 @@ import { decode } from '@codelab/common'
 import * as t from 'io-ts'
 import { Context, Validation } from 'io-ts'
 import { v4 as uuidv4 } from 'uuid'
-import {
-  reactNode,
-  ReactNodeA,
-} from '../subtypes/react/Node-react'
+import { reactNode, ReactNodeA } from '../subtypes/react/Node-react'
 import { treeNode, TreeNodeA } from '../subtypes/tree/Node-tree'
 import { refNode, RefNodeA } from '../subtypes/ref/Node-ref'
 import { NodeA, NodeI } from './Node.codec.i'

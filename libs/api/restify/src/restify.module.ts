@@ -19,8 +19,6 @@ export class RestifyModule {
     @Inject(ROUTER_SERVICE) private readonly routerService: RouterService,
     @InjectModel(Node.name) private readonly nodeModel: Model<Node>,
   ) {
-    // console.log(this.routerService.expressRouter)
-    // console.log(this.nodeModel.schema.paths)
     restify.serve(this.routerService.expressRouter, this.nodeModel)
   }
 }

@@ -258,8 +258,6 @@ export const elementParameterFactory = <P extends Props>(
     case 'Mentions.Option':
       return [Mentions.Option as any, props]
     case 'Layout':
-      console.log(props)
-
       return [Layout as any, props]
     case 'Layout.Header':
       return [Layout.Header as any, props]
