@@ -1,4 +1,4 @@
-import { evalProps, evalPropValue } from './Props-eval'
+import { evalPropValue, evalPropsIterator } from './Props-eval'
 
 describe('Props with eval type', () => {
   const props = {
@@ -25,14 +25,14 @@ describe('Props with eval type', () => {
   })
 
   it('evaluates a props object', () => {
-    const { onSuccess, onError } = evalProps(props)
+    const { onSuccess, onError } = evalPropsIterator(props)
 
     expect((onSuccess as Function)()).toBeTruthy()
     expect((onError as Function)()).toBeFalsy()
   })
 
   it('can access context', () => {
-    const { onPending } = evalProps(props, { status: 'pending' })
+    const { onPending } = evalPropsIterator(props, { status: 'pending' })
 
     expect((onPending as Function)()).toBe('pending')
   })
