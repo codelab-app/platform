@@ -1,5 +1,5 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+
 import { mount } from 'enzyme'
 import { propsFilter, withFilters } from './Props-filter'
 

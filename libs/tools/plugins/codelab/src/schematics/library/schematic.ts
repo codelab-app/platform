@@ -18,8 +18,6 @@ import {
   ProjectType,
   toFileName,
   Linter,
-  updateWorkspace,
-  addProjectToNxJsonInTree,
 } from '@nrwl/workspace'
 import { ReactSchematicSchema } from './schema.d'
 

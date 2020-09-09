@@ -1,6 +1,6 @@
 import { ReactNodeI } from '@codelab/node'
 import { TextProps } from '../text/Text.types'
-import { MenuProps, ItemProps, ItemGroupProps } from '../menu/Menu.types'
+import { MenuProps, ItemProps } from '../menu/Menu.types'
 import { LayoutProps, SiderProps } from './Layout.types'
 
 export const layoutData: ReactNodeI<

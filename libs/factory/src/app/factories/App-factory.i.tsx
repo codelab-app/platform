@@ -1,7 +1,5 @@
-import { TraversalIteratee, TraversalOrder } from '@codelab/graph'
-import { Factory } from '@codelab/ui'
 import { AppOrder } from '../builder/web/AppWeb-builder--order'
-import { TreeStrategy } from '../../tree/strategy/Tree-strategy'
+
 import { TreeProduct } from '../../tree/Tree-product.i'
 
 /**

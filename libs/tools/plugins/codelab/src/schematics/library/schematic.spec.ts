@@ -2,7 +2,7 @@ import { Tree } from '@angular-devkit/schematics'
 import { SchematicTestRunner } from '@angular-devkit/schematics/testing'
 import { createEmptyWorkspace } from '@nrwl/workspace/testing'
 import { join } from 'path'
-import { readJsonInTree } from '@nrwl/workspace'
+
 import * as requireFromString from 'require-from-string'
 import { ReactSchematicSchema } from './schema.d'
 

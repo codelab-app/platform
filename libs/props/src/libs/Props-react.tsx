@@ -1,7 +1,5 @@
 import React from 'react'
-import { reduce } from 'lodash'
-import { ReactNodeI, isReactNode, TreeNodeI, isTreeNode } from '@codelab/node'
-import { Props } from '@codelab/shared/interface'
+import { ReactNodeI, TreeNodeI } from '@codelab/node'
 
 export const renderReactNodes = (
   nodePropValue: TreeNodeI | ReactNodeI,

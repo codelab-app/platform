@@ -1,9 +1,6 @@
 import { NodeI, TreeNodeI } from '@codelab/graph'
-import { TreeStrategyReact } from './strategy/Tree-strategy--react'
-import { TreeStrategyGraph } from './strategy/Tree-strategy--graph'
+
 import { TreeStrategy } from './strategy/Tree-strategy'
-import { AppOrder } from '../app/builder/web/AppWeb-builder--order'
-import { TreeStrategyTree } from './strategy/Tree-strategy--tree'
 
 export enum TreeType {
   // Products a tree using parent-child
