@@ -48,8 +48,6 @@ describe('RenderProps', () => {
 
     const actualChildProps = omit(child.props, 'children')
 
-    console.log(actualChildProps)
-
     expect(actualChildProps).toEqual({
       parentprops: {
         renderProps: true,

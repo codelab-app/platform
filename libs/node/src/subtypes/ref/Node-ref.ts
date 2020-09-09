@@ -48,4 +48,3 @@ export const refNode: t.Type<RefNodeI, RefNodeO> = t.intersection([
     childrenRef: t.array(nodeID),
   }),
 ])
-
