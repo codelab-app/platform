@@ -10,6 +10,9 @@ import { merge } from 'lodash'
 import { elementParameterFactory } from './ElementFactory'
 import { ElementFactory } from './ElementFactory.interface'
 
+/**
+ * We need this function in ui package because TreeDom is required, can't put in node or props package
+ */
 const evalPropsWithTreeContext = (props: Props): Props => {
   // eslint-disable-next-line no-use-before-define
   return evalPropsWithContext(merge(props, { ctx: { TreeDom } }))
