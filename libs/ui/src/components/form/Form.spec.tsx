@@ -24,9 +24,7 @@ describe('Form', () => {
   })
 
   it('should render objects with default values', () => {
-    const { getByText, getByLabelText, getByDisplayValue } = render(
-      <ObjectForm />,
-    )
+    const { getByDisplayValue } = render(<ObjectForm />)
 
     expect(getByDisplayValue('Codelab').id).toBe('company_name')
     expect(getByDisplayValue('USA').id).toBe('company_address_country')
