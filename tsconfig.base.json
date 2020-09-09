@@ -11,33 +11,76 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "typeRoots": ["node_modules/@types"],
-    "lib": ["es2017", "dom"],
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2017",
+      "dom"
+    ],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@codelab/plugins-codelab": ["libs/plugins/codelab/src/index.ts"],
-      "@codelab/plugins-plug": ["libs/plugins/plug/src/index.ts"],
-      "@codelab/eslint-config-codelab": [
-        "libs/eslint-config-codelab/src/index.ts"
+      "@codelab/plugins-codelab": [
+        "libs/plugins/codelab/src/index.ts"
       ],
-      "@codelab/ui": ["libs/ui/src/index.ts"],
-      "@codelab/props": ["libs/props/src/index.ts"],
-      "@codelab/d3": ["libs/d3/src/index.ts"],
-      "@codelab/graph": ["libs/graph/src/index.ts"],
-      "@codelab/common": ["libs/common/src/index.ts"],
-      "@codelab/event": ["libs/event/src/index.ts"],
-      "@codelab/utils": ["libs/utils/src/index.ts"],
-      "@codelab/api-config": ["libs/api/config/src/index.ts"],
-      "@codelab/api-model": ["libs/api/model/src/index.ts"],
-      "@codelab/api-router": ["libs/api/router/src/index.ts"],
-      "@codelab/api-restify": ["libs/api/restify/src/index.ts"],
-      "@codelab/model": ["libs/model/src/index.ts"],
-      "@codelab/factory": ["libs/factory/src/index.ts"],
-      "@codelab/node": ["libs/node/src/index.ts"],
-      "@codelab/api/database": ["libs/api/database/src/index.ts"]
+      "@codelab/plugins-plug": [
+        "libs/plugins/plug/src/index.ts"
+      ],
+      "@codelab/ui": [
+        "libs/ui/src/index.ts"
+      ],
+      "@codelab/props": [
+        "libs/props/src/index.ts"
+      ],
+      "@codelab/d3": [
+        "libs/d3/src/index.ts"
+      ],
+      "@codelab/graph": [
+        "libs/graph/src/index.ts"
+      ],
+      "@codelab/common": [
+        "libs/common/src/index.ts"
+      ],
+      "@codelab/event": [
+        "libs/event/src/index.ts"
+      ],
+      "@codelab/utils": [
+        "libs/utils/src/index.ts"
+      ],
+      "@codelab/api-config": [
+        "libs/api/config/src/index.ts"
+      ],
+      "@codelab/api-model": [
+        "libs/api/model/src/index.ts"
+      ],
+      "@codelab/api-router": [
+        "libs/api/router/src/index.ts"
+      ],
+      "@codelab/api-restify": [
+        "libs/api/restify/src/index.ts"
+      ],
+      "@codelab/model": [
+        "libs/model/src/index.ts"
+      ],
+      "@codelab/factory": [
+        "libs/factory/src/index.ts"
+      ],
+      "@codelab/node": [
+        "libs/node/src/index.ts"
+      ],
+      "@codelab/api/database": [
+        "libs/api/database/src/index.ts"
+      ],
+      "@codelab/tools/eslint-config-codelab": [
+        "libs/tools/eslint-config-codelab/src/index.ts"
+      ]
     }
   },
-  "exclude": ["node_modules", "tmp", "dist"]
+  "exclude": [
+    "node_modules",
+    "tmp",
+    "dist"
+  ]
 }

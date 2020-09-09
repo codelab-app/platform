@@ -15,7 +15,10 @@
               "libs/plugins/codelab/tsconfig.lib.json",
               "libs/plugins/codelab/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/plugins/codelab/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/plugins/codelab/**/*"
+            ]
           }
         },
         "test": {
@@ -82,46 +85,6 @@
         }
       }
     },
-    "eslint-config-codelab": {
-      "root": "libs/eslint-config-codelab",
-      "sourceRoot": "libs/eslint-config-codelab/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:lint",
-          "options": {
-            "linter": "eslint",
-            "tsConfig": [
-              "libs/eslint-config-codelab/tsconfig.lib.json",
-              "libs/eslint-config-codelab/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/eslint-config-codelab/**/*"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/eslint-config-codelab/jest.config.js",
-            "tsConfig": "libs/eslint-config-codelab/tsconfig.spec.json",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "builder": "@nrwl/node:package",
-          "options": {
-            "outputPath": "dist/libs/eslint-config-codelab",
-            "tsConfig": "libs/eslint-config-codelab/tsconfig.lib.json",
-            "packageJson": "libs/eslint-config-codelab/package.json",
-            "main": "libs/eslint-config-codelab/src/index.ts",
-            "assets": ["libs/eslint-config-codelab/**/.*.yml"]
-          }
-        }
-      }
-    },
     "ui": {
       "root": "libs/ui",
       "sourceRoot": "libs/ui/src",
@@ -136,7 +99,10 @@
               "libs/ui/tsconfig.lib.json",
               "libs/ui/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/ui/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/ui/**/*"
+            ]
           }
         },
         "test": {
@@ -193,7 +159,10 @@
               "libs/props/tsconfig.lib.json",
               "libs/props/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/props/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/props/**/*"
+            ]
           }
         },
         "test": {
@@ -220,7 +189,10 @@
               "libs/d3/tsconfig.lib.json",
               "libs/d3/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/d3/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/d3/**/*"
+            ]
           }
         },
         "test": {
@@ -277,7 +249,10 @@
               "libs/graph/tsconfig.lib.json",
               "libs/graph/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/graph/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/graph/**/*"
+            ]
           }
         },
         "test": {
@@ -334,7 +309,10 @@
               "libs/common/tsconfig.lib.json",
               "libs/common/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/common/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/common/**/*"
+            ]
           }
         },
         "test": {
@@ -361,7 +339,10 @@
               "libs/event/tsconfig.lib.json",
               "libs/event/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/event/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/event/**/*"
+            ]
           }
         },
         "test": {
@@ -411,7 +392,10 @@
               "apps/docs/tsconfig.json",
               "apps/docs/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/docs/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/docs/**/*"
+            ]
           }
         },
         "test": {
@@ -438,7 +422,10 @@
               "libs/utils/tsconfig.lib.json",
               "libs/utils/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/utils/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/utils/**/*"
+            ]
           }
         },
         "test": {
@@ -494,7 +481,9 @@
             "outputPath": "dist/apps/api",
             "main": "apps/api/src/main.ts",
             "tsConfig": "apps/api/tsconfig.app.json",
-            "assets": ["apps/api/src/assets"]
+            "assets": [
+              "apps/api/src/assets"
+            ]
           },
           "configurations": {
             "production": {
@@ -524,7 +513,10 @@
               "apps/api/tsconfig.app.json",
               "apps/api/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/api/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/api/**/*"
+            ]
           }
         },
         "test": {
@@ -551,7 +543,10 @@
               "libs/api/config/tsconfig.lib.json",
               "libs/api/config/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/api/config/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/api/config/**/*"
+            ]
           }
         },
         "test": {
@@ -578,7 +573,10 @@
               "libs/api/model/tsconfig.lib.json",
               "libs/api/model/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/api/model/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/api/model/**/*"
+            ]
           }
         },
         "test": {
@@ -605,7 +603,10 @@
               "libs/api/router/tsconfig.lib.json",
               "libs/api/router/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/api/router/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/api/router/**/*"
+            ]
           }
         },
         "test": {
@@ -632,7 +633,10 @@
               "libs/api/restify/tsconfig.lib.json",
               "libs/api/restify/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/api/restify/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/api/restify/**/*"
+            ]
           }
         },
         "test": {
@@ -688,7 +692,10 @@
               "apps/core/tsconfig.json",
               "apps/core/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/core/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/core/**/*"
+            ]
           }
         },
         "test": {
@@ -723,8 +730,13 @@
           "builder": "@nrwl/linter:lint",
           "options": {
             "linter": "eslint",
-            "tsConfig": ["apps/core-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/core-e2e/**/*"]
+            "tsConfig": [
+              "apps/core-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/core-e2e/**/*"
+            ]
           }
         }
       }
@@ -743,7 +755,10 @@
               "libs/model/tsconfig.lib.json",
               "libs/model/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/model/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/model/**/*"
+            ]
           }
         },
         "test": {
@@ -802,7 +817,10 @@
               "libs/factory/.storybook/tsconfig.json",
               "libs/factory/.storybook/tsconfig.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/factory/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/factory/**/*"
+            ]
           }
         },
         "test": {
@@ -859,7 +877,10 @@
               "libs/plugins/plug/tsconfig.lib.json",
               "libs/plugins/plug/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/plugins/plug/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/plugins/plug/**/*"
+            ]
           }
         },
         "test": {
@@ -913,7 +934,10 @@
               "libs/node/tsconfig.lib.json",
               "libs/node/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/node/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/node/**/*"
+            ]
           }
         },
         "test": {
@@ -970,7 +994,10 @@
               "libs/api/database/tsconfig.lib.json",
               "libs/api/database/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/api/database/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/api/database/**/*"
+            ]
           }
         },
         "test": {
@@ -979,6 +1006,48 @@
             "jestConfig": "libs/api/database/jest.config.js",
             "tsConfig": "libs/api/database/tsconfig.spec.json",
             "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "tools-eslint-config-codelab": {
+      "root": "libs/tools/eslint-config-codelab",
+      "sourceRoot": "libs/tools/eslint-config-codelab/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "libs/tools/eslint-config-codelab/tsconfig.lib.json",
+              "libs/tools/eslint-config-codelab/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/tools/eslint-config-codelab/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/tools/eslint-config-codelab/jest.config.js",
+            "tsConfig": "libs/tools/eslint-config-codelab/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "builder": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/libs/tools/eslint-config-codelab",
+            "tsConfig": "libs/tools/eslint-config-codelab/tsconfig.lib.json",
+            "packageJson": "libs/tools/eslint-config-codelab/package.json",
+            "main": "libs/tools/eslint-config-codelab/src/index.ts",
+            "assets": [
+              "libs/tools/eslint-config-codelab/**/.*.yml"
+            ]
           }
         }
       }
