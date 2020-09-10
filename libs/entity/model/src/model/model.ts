@@ -7,10 +7,16 @@ import { ModelInterface } from './model.i'
 
 export class Model {
   static makeModel(input: ModelNode): mongoose.Model<any> {
-    return reduce<SchemaNode, ModelInterface>(
+    const { model } = reduce<SchemaNode, ModelInterface>(
       input.children ?? [],
       modelWalker(input, modelCreationIteratee),
       {},
-    ).model
+    )
+
+    if (model === undefined) {
+      throw new Error('Model.makeModel failed to create model')
+    }
+
+    return model
   }
 }
