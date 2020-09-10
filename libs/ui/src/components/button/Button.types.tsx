@@ -16,6 +16,4 @@ export const buttonPropKeys = [
   'danger',
 ] as const
 
-// Some changes here
-
 export type ButtonProps = PropsFromKeys<typeof buttonPropKeys[number]>

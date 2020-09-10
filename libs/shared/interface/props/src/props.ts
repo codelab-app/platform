@@ -15,7 +15,7 @@ export interface Props {
   [name: string]: PropItem
 }
 
-export type PropsFromKeys<Keys extends string, P extends {}> =
+export type PropsFromKeys<Keys extends string, P extends {} = {}> =
   | {
       [K in Keys]?: string | number | boolean | PropValue | P | object
     }
