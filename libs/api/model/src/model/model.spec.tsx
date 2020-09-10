@@ -10,7 +10,7 @@ Object.defineProperty(MockSchemaService, 'jsonSchemaData', {
 })
 
 describe('ModelModule', () => {
-  let schemaServiceSpy
+  let schemaServiceSpy: jest.SpyInstance
   let module: TestingModule
 
   beforeEach(async () => {

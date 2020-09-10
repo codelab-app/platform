@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing'
 import { SchemaService } from './schema.service'
 
 describe('SchemaModule', () => {
-  let schemaServiceSpy
+  let schemaServiceSpy: jest.SpyInstance
   let module: TestingModule
 
   beforeEach(async () => {

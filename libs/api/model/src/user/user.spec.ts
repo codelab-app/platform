@@ -9,8 +9,8 @@ MockUserModel.prototype.save = jest.fn()
 
 describe('User module', () => {
   let userService: UserService
-  let userServiceSpy
-  let mockUserModelSpy
+  let userServiceSpy: jest.SpyInstance
+  let mockUserModelSpy: jest.SpyInstance
 
   beforeEach(async () => {
     const userModule: TestingModule = await Test.createTestingModule({

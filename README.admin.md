@@ -51,3 +51,5 @@ Smallest UI part, button etc.
 Using tsconfig paths require https://www.npmjs.com/package/eslint-import-resolver-typescript
 
 Using package resolution requires https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/parser
+
+We add `tsconfig.eslint.json` that includes all files for linting only. `eslintrc.js` has 2 config that each package needs to create, 1 for `import/no-resolved`, the other for resolving tsconfig project location.
