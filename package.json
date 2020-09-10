@@ -144,6 +144,7 @@
     "@types/d3": "5.7.2",
     "@types/d3-force": "1.2.1",
     "@types/d3-selection": "1.4.2",
+    "@types/enzyme": "^3.10.6",
     "@types/jest": "26.0.10",
     "@types/js-yaml": "3.12.5",
     "@types/mongoose": "5.7.36",

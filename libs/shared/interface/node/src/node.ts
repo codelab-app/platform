@@ -16,7 +16,6 @@ export interface NodeInterface<P extends Props = {}> {
   props: P
   parent?: NodeInterface<P>
   children: Array<NodeInterface<P>>
-  readonly renderProps: Props
   addChild(child: NodeInterface<P>): void
   addParent(parent: NodeInterface<P>): void
   hasChildren(): boolean

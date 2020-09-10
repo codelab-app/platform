@@ -1,41 +1,61 @@
 import { reduce } from 'lodash'
 import { Props } from '@codelab/shared/interface/props'
-import { isRenderPropValue } from './Props.guards'
+import {
+  isSingleRenderPropValue,
+  isLeafRenderPropValue,
+  isRenderPropValue,
+} from './Props.guards'
+
+type PropIteratee = (
+  prop: Props,
+  propValue: Props[keyof Props],
+  propKey: keyof Props,
+) => any
+
+/**
+ * Determine how far down we pass the props
+ */
+export type RenderPropsFilter =
+  // Single level
+  | 'single'
+  // All the way
+  | 'leaf'
+
+export function propsIterator<P extends Props = Props>(
+  props: P,
+  predicate: any = () => true,
+  onTruthy: Function,
+  onFalsy?: Function,
+) {
+  return reduce<Props, Props>(
+    props,
+    (prop: Props, propValue: Props[keyof Props], propKey: keyof Props) => {
+      return predicate(prop, propValue, propKey) || onFalsy === undefined
+        ? onTruthy(prop, propValue, propKey)
+        : onFalsy(prop, propValue, propKey)
+    },
+    {},
+  )
+}
 
 /**
  * Remove non-render props
  */
 export function filterRenderProps(
-  props: Props,
-  filter?: '1-level' | 'leaf',
+  props: Props = {},
+  filter?: RenderPropsFilter,
 ): Props {
   return reduce<Props, Props>(
     props,
     (prop: Props, propValue: Props[keyof Props], propKey: keyof Props) => {
-      if (filter === '1-level') {
-        if (isRenderPropValue(propValue) && propValue.renderProps === true) {
-          return {
-            ...prop,
-            [propKey]: propValue,
-          }
-        }
-      }
-
-      if (filter === 'leaf') {
-        if (isRenderPropValue(propValue) && propValue.renderProps === 'leaf') {
-          return {
-            ...prop,
-            [propKey]: propValue,
-          }
-        }
-      }
-
-      if (!filter) {
-        if (isRenderPropValue(propValue)) {
-          return {
-            ...prop,
-            [propKey]: propValue,
-          }
+      if (
+        (filter === undefined && isRenderPropValue(propValue)) ||
+        (filter === 'single' && isSingleRenderPropValue(propValue)) ||
+        (filter === 'leaf' && isLeafRenderPropValue(propValue))
+      ) {
+        return {
+          ...prop,
+          [propKey]: propValue,
         }
       }
 

@@ -1,7 +1,8 @@
 import { ReactNodeI } from '@codelab/shared/interface/node'
-import { TextProps } from '../text/Text.types'
-import { MenuProps, ItemProps } from '../menu/Menu.types'
-import { LayoutProps, SiderProps } from './Layout.types'
+import { TextProps } from '../../html/Html'
+import { MenuProps } from '../../menu/Menu.types'
+import { ItemProps } from '../../timeline/Timeline.types'
+import { LayoutProps, SiderProps } from '../Layout.types'
 
 export const layoutData: ReactNodeI<
   LayoutProps | SiderProps | TextProps | MenuProps | ItemProps

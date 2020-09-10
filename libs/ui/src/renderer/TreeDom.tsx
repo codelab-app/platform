@@ -2,9 +2,8 @@ import { makeTree, traversePostOrder } from '@codelab/entity/graph'
 import { Node } from '@codelab/entity/node'
 import { TreeNodeI, ReactNodeI } from '@codelab/shared/interface/node'
 import {
-  convertToRenderProps,
   evalPropsWithContext,
-convertToLeafRenderProps
+  convertToLeafRenderProps,
 } from '@codelab/entity/props'
 import { Props } from '@codelab/shared/interface/props'
 import React, { FunctionComponent, PropsWithChildren } from 'react'

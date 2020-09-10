@@ -31,11 +31,6 @@ export class Node<P extends Props = {}> implements NodeInterface<P> {
 
   public children: Array<Node<P>> = []
 
-  // Use this to prevent circular dep
-  public treeDom: any
-
-  // public leafRenderProps: Props
-
   /**
    * Can take just ID, but fills out other fields
    */
@@ -43,7 +38,7 @@ export class Node<P extends Props = {}> implements NodeInterface<P> {
     const { data } = decode(node, nodeC)
     const { props, nodeType, id } = data
 
-    this.type = isReactNode(data) ? data.type : undefined
+    this.type = isReactNode(data) ? data.type : ''
     this.nodeType = NodeTypeEnum[nodeType]
     this.props = props
     this.id = id
@@ -73,25 +68,21 @@ export class Node<P extends Props = {}> implements NodeInterface<P> {
     return !!this.children.length
   }
 
-  public get renderProps() {
-    return filterRenderProps(this.props) ?? {}
-  }
-
   public get leafRenderProps() {
-    return filterRenderProps(this.props, 'leaf') ?? {}
+    return filterRenderProps(this.parent?.props, 'leaf') ?? {}
   }
 
   public get parentRenderProps() {
-    return filterRenderProps(this.props, '1-level') ?? {}
+    return filterRenderProps(this.parent?.props, 'single') ?? {}
   }
 
   get mergedProps() {
-    this.props = { ...this.props, ...this.parent.leafRenderProps }
+    this.props = { ...this.props, ...this.leafRenderProps }
 
     return {
       key: this.key,
       ...this.props,
-      ...this.parent.parentRenderProps,
+      ...this.parentRenderProps,
     }
   }
 

@@ -1,4 +1,4 @@
-import { convertToRenderProps } from '@codelab/props'
+import { convertToRenderProps } from '@codelab/entity/props'
 import {
   filterRenderProps,
   convertToLeafRenderProps,
@@ -52,7 +52,7 @@ describe('Props with renderProps type', () => {
     })
   })
 
-  it('filters 1-level render props', () => {
+  it('filters single render props', () => {
     const renderProps = {
       data: {
         renderProps: true,
@@ -65,7 +65,7 @@ describe('Props with renderProps type', () => {
       component: 'Codelab',
     }
 
-    const filteredRenderProps = filterRenderProps(renderProps, '1-level')
+    const filteredRenderProps = filterRenderProps(renderProps, 'single')
 
     expect(filteredRenderProps).toEqual({
       data: {
