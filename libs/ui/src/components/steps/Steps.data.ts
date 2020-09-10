@@ -1,4 +1,4 @@
-import { ReactNodeI } from '@codelab/node'
+import { ReactNodeI } from '@codelab/shared/interface/node'
 import { StepsProps, StepProps } from './Steps.types'
 
 export const stepsData: ReactNodeI<StepsProps | StepProps> = {

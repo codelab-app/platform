@@ -1,14 +1,10 @@
-import { Props } from '@codelab/shared/interface'
-import {
-  Node,
-  ReactNodeI,
-  treeAppenderIteratee,
-  TreeNodeI,
-  treeWalker,
-} from '@codelab/graph'
+import { Props } from '@codelab/shared/interface/props'
+import { ReactNodeI, TreeNodeI } from '@codelab/shared/interface/node'
+import { TreeSubTreeContext } from '@codelab/shared/interface/tree'
+import { Node } from '@codelab/entity/node'
+import { treeAppenderIteratee, treeWalker } from '@codelab/entity/graph'
 import { reduce } from 'lodash'
 import { TreeStrategy } from './Tree-strategy'
-import { TreeSubTreeContext } from '../../../../graph/src/tree/Tree.i'
 
 export class TreeStrategyTree implements TreeStrategy {
   execute<P extends Props = {}>(data: TreeNodeI<P> | ReactNodeI<P>) {

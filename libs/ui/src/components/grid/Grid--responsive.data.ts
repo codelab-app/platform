@@ -1,4 +1,4 @@
-import { ReactNodeI } from '@codelab/node'
+import { ReactNodeI } from '@codelab/shared/interface/node'
 import { TextProps } from '../text/Text.types'
 import { GridProps, ResponsiveGridProps, GridItemProps } from './Grid.types'
 

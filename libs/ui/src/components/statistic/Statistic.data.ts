@@ -1,4 +1,4 @@
-import { ReactNodeI } from '@codelab/node'
+import { ReactNodeI } from '@codelab/shared/interface/node'
 import { StatisticProps, CountdownProps } from './Statistic.types'
 
 export const statisticData: ReactNodeI<StatisticProps | CountdownProps> = {

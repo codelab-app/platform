@@ -1,4 +1,4 @@
-import { ReactNodeI } from '@codelab/node'
+import { ReactNodeI } from '@codelab/shared/interface/node'
 import { ProgressProps } from './Progress.types'
 
 export const progressData: ReactNodeI<ProgressProps> = {

@@ -4,4 +4,19 @@ module.exports = {
     tsconfigRootDir: '.',
     project: ['tsconfig.eslint.json'],
   },
+  rules: {
+    // 'nx-enforce-module-boundaries': [
+    //   'error',
+    //   {
+    //     allow: [],
+    //     depConstraints: [
+    //       // standalone cannot have deps
+    //       {
+    //         sourceTag: 'scope:standalone',
+    //         onlyDependOnLibsWithTags: [],
+    //       },
+    //     ],
+    //   },
+    // ],
+  },
 }

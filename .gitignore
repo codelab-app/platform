@@ -40,6 +40,5 @@ testem.log
 .DS_Store
 Thumbs.db
 
-/apps/docs/node_modules
 /apps/docs/public
 /apps/docs/.cache

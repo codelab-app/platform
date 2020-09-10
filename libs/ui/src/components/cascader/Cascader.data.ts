@@ -1,4 +1,4 @@
-import { ReactNodeI } from '../../../../node/src/subtypes/react/Node-react'
+import { ReactNodeI } from '@codelab/shared/interface/node'
 import { CascaderProps } from './Cascader.types'
 
 export const cascaderData: ReactNodeI<CascaderProps> = {

@@ -1,7 +1,7 @@
 import { Attributes, ComponentClass, FunctionComponent } from 'react'
-import { PropsFilter } from '@codelab/props'
-import { Props } from '@codelab/shared/interface'
-import { Node } from '@codelab/node'
+import { PropsFilter } from '@codelab/entity/props'
+import { Props } from '@codelab/shared/interface/props'
+import { Node } from '@codelab/entity/node'
 
 export interface Factory<P extends Props = any, T = any> {
   (node: Node<P>): T

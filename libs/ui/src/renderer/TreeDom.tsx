@@ -1,7 +1,11 @@
-import { makeTree, traversePostOrder } from '@codelab/graph'
-import { Node, TreeNodeI, ReactNodeI } from '@codelab/node'
-import { convertToRenderProps, evalPropsWithContext } from '@codelab/props'
-import { Props } from '@codelab/shared/interface'
+import { makeTree, traversePostOrder } from '@codelab/entity/graph'
+import { Node } from '@codelab/entity/node'
+import { TreeNodeI, ReactNodeI } from '@codelab/shared/interface/node'
+import {
+  convertToRenderProps,
+  evalPropsWithContext,
+} from '@codelab/entity/props'
+import { Props } from '@codelab/shared/interface/props'
 import React, { FunctionComponent, PropsWithChildren } from 'react'
 import { merge } from 'lodash'
 import { elementParameterFactory } from './ElementFactory'

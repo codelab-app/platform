@@ -1,4 +1,4 @@
-import { ReactNodeI } from '../../../node/src/subtypes/react/Node-react'
+import { ReactNodeI } from '@codelab/shared/interface/node'
 
 export const renderPropsData: ReactNodeI = {
   type: 'Html.div',

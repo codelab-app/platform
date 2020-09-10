@@ -1,4 +1,4 @@
-import { TreeNodeI, ReactNodeI } from '@codelab/graph'
+import { TreeNodeI, ReactNodeI } from '@codelab/shared/interface/node'
 import { mocked } from 'ts-jest/utils'
 import { TreeFactoryMethod, TreeOrder, TreeType } from './Tree-factory'
 import { TreeStrategyReact } from './strategy/Tree-strategy--react'

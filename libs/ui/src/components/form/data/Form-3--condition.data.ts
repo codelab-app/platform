@@ -1,5 +1,5 @@
-import { ReactNodeI } from '@codelab/node'
-import { PropValue } from '@codelab/props'
+import { ReactNodeI } from '@codelab/shared/interface/node'
+import { PropValue } from '@codelab/shared/interface/props'
 import { FormItemProps, FormProps } from '../Form.types'
 import { TextProps } from '../../text/Text.types'
 

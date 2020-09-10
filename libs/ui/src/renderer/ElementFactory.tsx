@@ -1,7 +1,7 @@
 import { mouseEventHandlerKeys } from '@codelab/event'
-import { Node } from '@codelab/node'
-import { propsFilter, withFilters } from '@codelab/props'
-import { Props } from '@codelab/shared/interface'
+import { Node } from '@codelab/entity/node'
+import { propsFilter, withFilters } from '@codelab/entity/props'
+import { Props } from '@codelab/shared/interface/props'
 import {
   Affix,
   Alert,

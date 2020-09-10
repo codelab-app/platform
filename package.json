@@ -1,9 +1,7 @@
 {
   "name": "codelab",
   "workspaces": {
-    "packages": [
-      "dist/libs/tools/plugins/*"
-    ],
+    "packages": [],
     "nohoist": []
   },
   "engines": {
@@ -44,6 +42,7 @@
   },
   "private": true,
   "dependencies": {
+    "@codelab/plugins-codelab": "file:./dist/libs/tools/plugins/codelab",
     "@ant-design/compatible": "1.0.5",
     "@ant-design/icons": "4.2.2",
     "@apidevtools/json-schema-ref-parser": "9.0.6",
@@ -137,10 +136,10 @@
     "@nrwl/workspace": "10.1.0",
     "@storybook/addon-knobs": "5.3.19",
     "@storybook/react": "5.3.19",
-    "@testing-library/dom": "^7.22.5",
+    "@testing-library/dom": "7.22.5",
     "@testing-library/jest-dom": "5.11.3",
     "@testing-library/react": "10.4.8",
-    "@testing-library/user-event": "^12.1.2",
+    "@testing-library/user-event": "12.1.2",
     "@types/d3": "5.7.2",
     "@types/d3-force": "1.2.1",
     "@types/d3-selection": "1.4.2",
@@ -154,7 +153,7 @@
     "@types/uuid": "8.3.0",
     "@types/webpack": "4.41.21",
     "@typescript-eslint/eslint-plugin": "4.0.1",
-    "@typescript-eslint/parser": "4.0.1",
+    "@typescript-eslint/parser": "^4.1.0",
     "babel-jest": "26.3.0",
     "babel-loader": "8.1.0",
     "babel-plugin-module-resolver": "4.0.0",

@@ -1,4 +1,8 @@
-import { isReactNode, isRefNode, isTreeNode } from '@codelab/node'
+import {
+  isReactNode,
+  isRefNode,
+  isTreeNode,
+} from '@codelab/shared/interface/node'
 import { AppBuilder } from '../App-builder.i'
 import { AppFactory } from '../../factories/App-factory.i'
 import { AppWebFactory } from '../../factories/AppWeb-factory'

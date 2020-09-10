@@ -3,10 +3,10 @@ import {
   graphAppenderIteratee,
   treeWalker,
   GraphSubTreeContext,
-} from '@codelab/graph'
-import { TreeNodeI } from '@codelab/node'
+} from '@codelab/entity/graph'
+import { TreeNodeI } from '@codelab/shared/interface/node'
 import { reduce } from 'lodash'
-import { Props } from '@codelab/shared/interface'
+import { Props } from '@codelab/shared/interface/props'
 import { TreeStrategy } from './Tree-strategy'
 import { TreeStrategyTree } from './Tree-strategy--tree'
 

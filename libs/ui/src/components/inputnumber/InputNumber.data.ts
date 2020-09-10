@@ -1,4 +1,4 @@
-import { ReactNodeI } from '@codelab/node'
+import { ReactNodeI } from '@codelab/shared/interface/node'
 import { InputNumberProps } from './InputNumber.types'
 
 export const inputNumberData: ReactNodeI<InputNumberProps> = {

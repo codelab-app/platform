@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react'
-import { ReactNodeI } from '@codelab/node'
+import { ReactNodeI } from '@codelab/shared/interface/node'
 import React from 'react'
 import { TreeDom } from '../../renderer/TreeDom'
 

@@ -1,3 +1,3 @@
-import { mouseEventHandlerKeys } from './Event-mouse'
+import { mouseEventHandlerKeys } from './event-mouse'
 
 export { mouseEventHandlerKeys }

@@ -1,5 +1,5 @@
 import { StoreValue } from 'rc-field-form/lib/interface'
-import { PropsFromKeys } from '@codelab/shared/interface'
+import { PropsFromKeys } from '@codelab/shared/interface/props'
 import React from 'react'
 
 export const formPropKeys = [

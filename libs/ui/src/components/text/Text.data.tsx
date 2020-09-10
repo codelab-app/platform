@@ -1,4 +1,4 @@
-import { ReactNodeI } from '@codelab/node'
+import { ReactNodeI } from '@codelab/shared/interface/node'
 import { TextProps } from './Text.types'
 
 export const textData: ReactNodeI<TextProps> = {

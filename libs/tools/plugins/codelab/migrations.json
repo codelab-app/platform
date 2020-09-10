@@ -9,7 +9,11 @@
   "packageJsonUpdates": {
     "0.0.2": {
       "version": "0.0.2",
-      "packages": {}
+      "packages": {
+        "eslint-config-airbnb-typescript": {
+          "version": "10.0.0"
+        }
+      }
     }
   }
 }

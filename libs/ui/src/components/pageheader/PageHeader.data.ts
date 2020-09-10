@@ -1,5 +1,5 @@
-import { ReactNodeI } from '@codelab/node'
-import { PropsFromKeys } from '@codelab/shared/interface'
+import { ReactNodeI } from '@codelab/shared/interface/node'
+import { PropsFromKeys } from '@codelab/shared/interface/props'
 
 export const pageHeaderPropKeys = [
   'title',

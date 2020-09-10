@@ -45,3 +45,9 @@ Collection of components like a search bar (composed of button + input)
 ## Component
 
 Smallest UI part, button etc.
+
+# Linter
+
+Using tsconfig paths require https://www.npmjs.com/package/eslint-import-resolver-typescript
+
+Using package resolution requires https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/parser

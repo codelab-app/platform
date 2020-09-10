@@ -1,6 +1,6 @@
 import React from 'react'
-import { filterRenderProps } from '@codelab/props'
-import { Props } from '@codelab/shared/interface'
+import { filterRenderProps } from '@codelab/entity/props'
+import { Props } from '@codelab/shared/interface/props'
 import { mount } from 'enzyme'
 import { omit } from 'lodash'
 import { TreeDom } from '../renderer/TreeDom'

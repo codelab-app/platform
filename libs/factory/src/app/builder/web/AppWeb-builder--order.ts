@@ -1,3 +1,3 @@
-import { NodeI } from '@codelab/graph'
+import { NodeI } from '@codelab/shared/interface/node'
 
 export type AppOrder = NodeI

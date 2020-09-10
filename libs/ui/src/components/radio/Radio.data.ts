@@ -1,4 +1,4 @@
-import { ReactNodeI } from '@codelab/node'
+import { ReactNodeI } from '@codelab/shared/interface/node'
 import { RadioGroupProps, RadioProps } from './Radio.types'
 import { TextProps } from '../text/Text.types'
 

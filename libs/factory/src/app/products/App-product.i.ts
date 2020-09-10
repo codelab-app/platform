@@ -1,8 +1,8 @@
+import { NodeInterface } from '@codelab/shared/interface/node'
 import {
-  NodeInterface,
   TraversalIteratee,
   TraversalOrder,
-} from '@codelab/graph'
+} from '@codelab/shared/interface/graph'
 import { ComponentType } from 'react'
 import { AppFactory } from '../factories/App-factory.i'
 

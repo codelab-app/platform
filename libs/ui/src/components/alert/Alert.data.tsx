@@ -1,4 +1,4 @@
-import { ReactNodeI } from '@codelab/node'
+import { ReactNodeI } from '@codelab/shared/interface/node'
 import { AlertProps } from './Alert.types'
 
 export const alertData: ReactNodeI<AlertProps> = {

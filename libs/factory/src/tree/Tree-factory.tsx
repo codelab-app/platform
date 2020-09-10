@@ -1,5 +1,4 @@
-import { NodeI, TreeNodeI } from '@codelab/graph'
-
+import { NodeI, TreeNodeI } from '@codelab/shared/interface/node'
 import { TreeStrategy } from './strategy/Tree-strategy'
 
 export enum TreeType {

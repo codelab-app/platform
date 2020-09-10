@@ -1,1 +1,1 @@
-export * from './lib/api-database.module'
+export * from './database.module'

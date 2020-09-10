@@ -1,5 +1,5 @@
 import React from 'react'
-import { ReactNodeI } from '@codelab/node'
+import { ReactNodeI } from '@codelab/shared/interface/node'
 import { TreeDom } from '@codelab/ui'
 
 export const modelFormData: ReactNodeI = {
