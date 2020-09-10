@@ -3,13 +3,13 @@ import * as mongoose from 'mongoose'
 
 @Schema()
 export class Node extends mongoose.Document {
-  name: 'Node'
+  name = 'Node'
 
   @Prop({ required: true })
-  nodeType: string
+  nodeType?: string
 
   @Prop({ type: mongoose.Schema.Types.Mixed })
-  props: object
+  props?: object
 
   // @Prop([Node])
   // children: Array<Node>

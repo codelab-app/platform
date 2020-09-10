@@ -1,7 +1,7 @@
 module.exports = function (wallaby) {
   return {
     autoDetect: true,
-    // filesWithNoCoverageCalculated: ['**/*'],
+    filesWithNoCoverageCalculated: ['**/*'],
     // files: [
     //   'src/**/*.js',
     //   // is the same as
