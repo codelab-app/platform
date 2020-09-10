@@ -25,9 +25,9 @@ export const isRef = (property: JSONSchema7): property is JSONSchema7Object => {
 
 export const getRef = (property: JSONSchema7): string => {
   const { $ref } = property.items as JSONSchema7
-  const ref = $ref.split('/')
+  const ref = $ref?.split('/')
 
-  return ref[ref.length - 1]
+  return ref?.[ref.length - 1] ?? ''
 }
 
 interface SchemaTypeFactory<SchemaI, SchemaO> {
