@@ -42,7 +42,6 @@
   },
   "private": true,
   "dependencies": {
-    "@codelab/plugins-codelab": "file:./dist/libs/tools/plugins/codelab",
     "@ant-design/compatible": "1.0.5",
     "@ant-design/icons": "4.2.2",
     "@apidevtools/json-schema-ref-parser": "9.0.6",
