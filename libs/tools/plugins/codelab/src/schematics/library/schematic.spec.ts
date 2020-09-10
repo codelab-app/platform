@@ -29,7 +29,7 @@ describe('@codelab/plugins-codelab:library', () => {
       .runSchematicAsync('library', options, appTree)
       .toPromise()
 
-    const file = appTree.read('/libs/test/.eslintrc.js')?.toString()
+    const file = appTree.read('/libs/test/.eslintrc.js')?.toString() ?? ''
     const eslintrcContents = requireFromString(file)
     const eslintrc = appTree.exists('/libs/test/.eslintrc.js')
 
