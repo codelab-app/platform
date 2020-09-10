@@ -11,14 +11,10 @@ projects: 'Dev'
 
 <!-- What is the behavior that you would like to see introduced? -->
 
-## Motivation
+## Use Case
 
 <!-- Why do you believe this behavior would be beneficial? -->
 
 ## Suggested Implementation
 
 <!-- How do you imagine this might work? -->
-
-## Alternate Implementations
-
-<!-- How else do you imagine this might work? -->
