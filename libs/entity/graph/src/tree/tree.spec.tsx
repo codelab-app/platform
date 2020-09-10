@@ -22,12 +22,12 @@ describe('Tree', () => {
     const A = findNode('A', tree)
     const E = findNode('E', tree)
 
-    expect(A.children).toMatchObject([{ id: 'B' }])
-    expect(E.children).toMatchObject([{ id: 'F' }, { id: 'G' }, { id: 'H' }])
+    expect(A?.children).toMatchObject([{ id: 'B' }])
+    expect(E?.children).toMatchObject([{ id: 'F' }, { id: 'G' }, { id: 'H' }])
 
     const B = findNode('B', tree)
 
-    expect(B.children).toMatchObject([{ id: 'C' }, { id: 'D' }])
+    expect(B?.children).toMatchObject([{ id: 'C' }, { id: 'D' }])
   })
 
   it('has a parent', () => {
@@ -100,7 +100,7 @@ describe('Tree', () => {
 
     expect(node.id).toBe('A')
     expect(node.props).toStrictEqual({})
-    expect(node.type).toBe(undefined)
+    expect(node.type).toBe('')
   })
 
   // it('sets unique id by default', () => {

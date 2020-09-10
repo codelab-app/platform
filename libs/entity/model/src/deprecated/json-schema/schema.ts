@@ -29,20 +29,26 @@ export class Schema {
     return this._schema
   }
 
-  private registerMongooseSchema(properties: JSONSchema7): mongoose.Schema {
+  private registerMongooseSchema(
+    properties: JSONSchema7['properties'],
+  ): mongoose.Schema {
+    if (!properties) {
+      throw new Error('JsonSchema7 properties is undefined')
+    }
+
     const schemaDefinition: mongoose.SchemaDefinition = reduce<
-      JSONSchema7,
+      JSONSchema7['properties'],
       mongoose.SchemaDefinition
     >(
-      properties,
+      properties as any,
       (
         mongooseSchemaDefinition: mongoose.SchemaDefinition,
-        type: JSONSchema7,
+        type: JSONSchema7['properties'],
         schemaName,
       ) => {
         return {
           ...mongooseSchemaDefinition,
-          [schemaName]: getSchemaType(type),
+          [schemaName]: getSchemaType(type as any),
         }
       },
       {},

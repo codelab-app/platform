@@ -25,7 +25,6 @@ describe('ModelModule', () => {
     /**
      * TODO: Jest mock type issue
      * @body We want to remove the "as any" cast
-     * @autoAssign webberwang
      */
     schemaServiceSpy = jest.spyOn(
       MockSchemaService,
