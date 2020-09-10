@@ -1,4 +1,4 @@
-import { SchemaNode } from '../schema'
+import { SchemaNode } from '../schema/node-schema'
 
 export interface ModelProps {
   name: string
