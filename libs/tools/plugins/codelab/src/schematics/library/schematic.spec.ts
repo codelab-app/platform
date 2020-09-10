@@ -2,7 +2,6 @@ import { Tree } from '@angular-devkit/schematics'
 import { SchematicTestRunner } from '@angular-devkit/schematics/testing'
 import { createEmptyWorkspace } from '@nrwl/workspace/testing'
 import { join } from 'path'
-
 import * as requireFromString from 'require-from-string'
 import { ReactSchematicSchema } from './schema.d'
 
@@ -30,7 +29,7 @@ describe('@codelab/plugins-codelab:library', () => {
       .runSchematicAsync('library', options, appTree)
       .toPromise()
 
-    const file = appTree.read('/libs/test/.eslintrc.js').toString()
+    const file = appTree.read('/libs/test/.eslintrc.js')?.toString()
     const eslintrcContents = requireFromString(file)
     const eslintrc = appTree.exists('/libs/test/.eslintrc.js')
 

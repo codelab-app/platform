@@ -4833,6 +4833,11 @@
   dependencies:
     "@types/react" "*"
 
+"@types/require-from-string@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@types/require-from-string/-/require-from-string-1.2.0.tgz#c18cfc8a2c1a0259e5841d1fef2b5e9d01c64242"
+  integrity sha512-5vE9WoOOC9/DoD3Zj53UISpM+5tSvh8k0mL4fe2zFI6vO715/W4IQ3EdVUrWVMrFi1/NZhyMvm2iKsDFkEGddQ==
+
 "@types/resolve@0.0.8":
   version "0.0.8"
   resolved "https://registry.yarnpkg.com/@types/resolve/-/resolve-0.0.8.tgz#f26074d238e02659e323ce1a13d041eee280e194"
