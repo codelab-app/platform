@@ -51,6 +51,21 @@ export function filterRenderProps(
  * RootProps should be passed all the way down.
  * @param props
  */
+export function convertToRenderProps(props: Props): Props {
+  return reduce<Props, Props>(
+    props,
+    (prop: Props, propValue: Props[keyof Props], propKey: keyof Props) => {
+      return {
+        ...prop,
+        [propKey]: {
+          renderProps: true,
+          value: propValue,
+        },
+      }
+    },
+    {},
+  )
+}
 export function convertToLeafRenderProps(props: Props): Props {
   return reduce<Props, Props>(
     props,
