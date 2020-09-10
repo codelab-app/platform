@@ -1,14 +1,12 @@
 import { ReactNodeI } from '@codelab/shared/interface/node'
-import {
-  ListProps,
-  PaginationProps,
-  GridProps,
-  ItemProps,
-  MetaProps,
-} from './List.types'
+import { List } from './List.types'
 
 export const listData: ReactNodeI<
-  ListProps | PaginationProps | GridProps | ItemProps | MetaProps
+  | List.Props
+  | List.PaginationProps
+  | List.GridProps
+  | List.ItemMetaProps
+  | List.ItemProps
 > = {
   type: 'List',
   nodeType: 'React',
