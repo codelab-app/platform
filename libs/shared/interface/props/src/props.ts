@@ -5,7 +5,7 @@ export type PropItem = any & Function & PropValue
 // Only prop value of this type is evaluated
 export interface PropValue {
   eval?: boolean // evaluate to function
-  renderProps?: boolean // Pass props to child
+  renderProps?: boolean | 'leaf' // Pass props to child
   value: string
 }
 

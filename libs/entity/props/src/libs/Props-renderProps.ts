@@ -5,14 +5,37 @@ import { isRenderPropValue } from './Props.guards'
 /**
  * Remove non-render props
  */
-export function filterRenderProps(props: Props): Props {
+export function filterRenderProps(
+  props: Props,
+  filter?: '1-level' | 'leaf',
+): Props {
   return reduce<Props, Props>(
     props,
     (prop: Props, propValue: Props[keyof Props], propKey: keyof Props) => {
-      if (isRenderPropValue(propValue)) {
-        return {
-          ...prop,
-          [propKey]: propValue,
+      if (filter === '1-level') {
+        if (isRenderPropValue(propValue) && propValue.renderProps === true) {
+          return {
+            ...prop,
+            [propKey]: propValue,
+          }
+        }
+      }
+
+      if (filter === 'leaf') {
+        if (isRenderPropValue(propValue) && propValue.renderProps === 'leaf') {
+          return {
+            ...prop,
+            [propKey]: propValue,
+          }
+        }
+      }
+
+      if (!filter) {
+        if (isRenderPropValue(propValue)) {
+          return {
+            ...prop,
+            [propKey]: propValue,
+          }
         }
       }
 
@@ -28,14 +51,14 @@ export function filterRenderProps(props: Props): Props {
  * RootProps should be passed all the way down.
  * @param props
  */
-export function convertToRenderProps(props: Props): Props {
+export function convertToLeafRenderProps(props: Props): Props {
   return reduce<Props, Props>(
     props,
     (prop: Props, propValue: Props[keyof Props], propKey: keyof Props) => {
       return {
         ...prop,
         [propKey]: {
-          renderProps: true,
+          renderProps: 'leaf',
           value: propValue,
         },
       }

@@ -34,6 +34,8 @@ export class Node<P extends Props = {}> implements NodeInterface<P> {
   // Use this to prevent circular dep
   public treeDom: any
 
+  // public leafRenderProps: Props
+
   /**
    * Can take just ID, but fills out other fields
    */
@@ -75,11 +77,21 @@ export class Node<P extends Props = {}> implements NodeInterface<P> {
     return filterRenderProps(this.props) ?? {}
   }
 
+  public get leafRenderProps() {
+    return filterRenderProps(this.props, 'leaf') ?? {}
+  }
+
+  public get parentRenderProps() {
+    return filterRenderProps(this.props, '1-level') ?? {}
+  }
+
   get mergedProps() {
+    this.props = { ...this.props, ...this.parent.leafRenderProps }
+
     return {
       key: this.key,
       ...this.props,
-      ...this.parent.renderProps,
+      ...this.parent.parentRenderProps,
     }
   }
 

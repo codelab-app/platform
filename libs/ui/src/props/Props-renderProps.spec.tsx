@@ -4,7 +4,7 @@ import { Props } from '@codelab/shared/interface/props'
 import { mount } from 'enzyme'
 import { omit } from 'lodash'
 import { TreeDom } from '../renderer/TreeDom'
-import { renderPropsData } from './Props-renderProps.data'
+import { renderPropsData, leafRenderPropsData } from './Props-renderProps.data'
 
 describe('RenderProps', () => {
   it('filters props for renderProps', () => {
@@ -35,6 +35,7 @@ describe('RenderProps', () => {
 
     const parent = wrapper.find('div').get(0)
     const child = wrapper.find('div').get(1)
+    const grandchild = wrapper.find('div').get(2)
 
     // Test parent component's props
     const actualParentProps = omit(parent.props, 'children')
@@ -55,6 +56,52 @@ describe('RenderProps', () => {
         value: {},
       },
       childprops: {},
+    })
+
+    const actualGrandChildProps = omit(grandchild.props, 'children')
+
+    expect(actualGrandChildProps).toEqual({
+      grandchildprops: {},
+    })
+  })
+
+  it('can pass leaf props to all level of children', () => {
+    const Component = TreeDom.render(leafRenderPropsData)
+    const wrapper = mount(<Component />)
+
+    const parent = wrapper.find('div').get(0)
+    const child = wrapper.find('div').get(1)
+    const grandchild = wrapper.find('div').get(2)
+
+    // Test parent component's props
+    const actualParentProps = omit(parent.props, 'children')
+
+    expect(actualParentProps).toEqual({
+      visibility: '',
+      leafprops: {
+        renderProps: 'leaf',
+        value: {},
+      },
+    })
+
+    const actualChildProps = omit(child.props, 'children')
+
+    expect(actualChildProps).toEqual({
+      leafprops: {
+        renderProps: 'leaf',
+        value: {},
+      },
+      childprops: {},
+    })
+
+    const actualGrandChildProps = omit(grandchild.props, 'children')
+
+    expect(actualGrandChildProps).toEqual({
+      leafprops: {
+        renderProps: 'leaf',
+        value: {},
+      },
+      grandChildProps: {},
     })
   })
 })

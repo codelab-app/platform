@@ -1,4 +1,4 @@
-import { ReactNodeI } from '@codelab/shared/interface/node'
+import { ReactNodeI } from '@codelab/node'
 
 export const renderPropsData: ReactNodeI = {
   type: 'Html.div',
@@ -17,11 +17,45 @@ export const renderPropsData: ReactNodeI = {
       props: {
         childprops: {},
       },
+      children: [
+        {
+          type: 'Html.div',
+          nodeType: 'React',
+          props: {
+            grandchildprops: {},
+      },
+    },
+  ],
     },
   ],
 }
 
-export const div = {
+export const leafRenderPropsData: ReactNodeI = {
   type: 'Html.div',
   nodeType: 'React',
+  props: {
+    visibility: '',
+    leafprops: {
+      renderProps: 'leaf',
+      value: {},
+    },
+  },
+  children: [
+    {
+      type: 'Html.div',
+      nodeType: 'React',
+      props: {
+        childprops: {},
+      },
+      children: [
+        {
+  type: 'Html.div',
+  nodeType: 'React',
+          props: {
+            grandChildProps: {},
+          },
+        },
+      ],
+    },
+  ],
 }
