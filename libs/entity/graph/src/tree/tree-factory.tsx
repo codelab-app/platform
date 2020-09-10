@@ -8,6 +8,8 @@ import {
   NodeInterface,
   TreeNodeI,
   ReactNodeI,
+  TreeNodeA,
+  ReactNodeA,
 } from '@codelab/shared/interface/node'
 import {
   GraphSubTreeContext,
@@ -44,7 +46,10 @@ export function makeTree<P extends Props>(
 
   return reduce<TreeNodeI<P> | ReactNodeI<P>, TreeSubTreeContext<P>>(
     input?.children ?? [],
-    treeWalker<TreeSubTreeContext<P>>(root, treeAppenderIteratee),
+    treeWalker<TreeSubTreeContext<P>, TreeNodeA<P> | ReactNodeA<P>>(
+      root,
+      treeAppenderIteratee,
+    ),
     subTreeContext,
   ).subTree
 }
@@ -67,7 +72,10 @@ export function makeGraph<P extends Props>(input: TreeNodeI<P>): Graph {
 
   return reduce<TreeNodeI<P>, GraphSubTreeContext<P>>(
     input.children ?? [],
-    treeWalker<GraphSubTreeContext<P>>(root, graphAppenderIteratee),
+    treeWalker<GraphSubTreeContext<P>, TreeNodeA<P>>(
+      root,
+      graphAppenderIteratee,
+    ),
     subTreeContext,
   ).graph
 }
