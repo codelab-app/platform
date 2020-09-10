@@ -39,7 +39,7 @@ export function nodeFinderIteratee<P extends Props = {}>(
 export function findNode<P extends Props = {}>(
   id: string | undefined,
   node: NodeInterface<P>,
-): NodeInterface<P> {
+): NodeInterface<P> | null {
   if (!node) {
     throw new Error(`Node is undefined`)
   }

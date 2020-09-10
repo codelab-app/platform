@@ -1,3 +1,4 @@
+import { NodeInterface } from '@codelab/shared/interface/node'
 /**
  * There are 3 types of traversal orders for a Tree data structure:
  *
@@ -14,9 +15,19 @@ import {
   NodeIteratee,
   TreeSubTreeContext,
 } from '@codelab/shared/interface/tree'
-import { NodeInterface } from '@codelab/shared/interface/node'
 import { TraversalIteratee } from '@codelab/shared/interface/graph'
 import { Node } from '../../../node/src/base/Node'
+
+// export type TreeWalk<Node extends NodeInterface, R> = (
+//   parent: Node,
+//   nodeIteratee: NodeIteratee<TreeSubTreeContext, Node>,
+//   subTreeContext: TreeSubTreeContext,
+//   child: Node,
+//   index: number,
+// ) => R
+
+// TODO: Improve type
+export type TreeWalk = <Acc, Node>(...args: any) => any
 
 /**
  * Curried function allows us to first initialize the treeWalker with an iteratee.
@@ -25,39 +36,34 @@ import { Node } from '../../../node/src/base/Node'
  *
  * @param parent - Parent `Node` of current iteratee
  */
-export const treeWalker = curry(
-  (
-    parent: Node,
-    nodeIteratee: NodeIteratee<TreeSubTreeContext, Node>,
-    subTreeContext: TreeSubTreeContext, // prev (reduce arg)
-    child: Node, // curr (reduce arg)
-    index: number, // index (reduce arg)
-  ) => {
-    if (parent && !parent?.id) {
-      throw Error('id missing from parent')
-    }
 
-    const newSubTreeContext: TreeSubTreeContext = nodeIteratee(
-      { ...subTreeContext, parent },
-      child,
-      index,
-    )
+export const treeWalker: TreeWalk = curry(function <P>(
+  parent: Node<P>,
+  nodeIteratee: NodeIteratee<TreeSubTreeContext<P>, Node<P>>,
+  subTreeContext: TreeSubTreeContext<P>, // prev (reduce arg)
+  child: Node<P>, // curr (reduce arg)
+  index: number, // index (reduce arg)
+) {
+  if (parent && !parent?.id) {
+    throw Error('id missing from parent')
+  }
 
-    if (!Node.hasChildren<Node>(child)) {
-      return newSubTreeContext
-    }
+  const newSubTreeContext: TreeSubTreeContext<P> = nodeIteratee(
+    { ...subTreeContext, parent },
+    child,
+    index,
+  )
 
-    // At junctions of tree, returns when all children appended
-    return reduce<Node, TreeSubTreeContext>(
-      child.children,
-      treeWalker<TreeSubTreeContext, Node>(
-        newSubTreeContext.prev,
-        nodeIteratee,
-      ),
-      newSubTreeContext,
-    )
-  },
-)
+  if (!Node.hasChildren<Node>(child)) {
+    return newSubTreeContext
+  }
+
+  // At junctions of tree, returns when all children appended
+  return reduce<
+    Node,
+    TreeSubTreeContext
+  >(child.children, treeWalker(newSubTreeContext.prev, nodeIteratee), newSubTreeContext)
+})
 
 export function traversePostOrder<P extends Props = {}>(
   node: NodeInterface<P>,

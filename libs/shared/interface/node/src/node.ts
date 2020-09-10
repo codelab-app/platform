@@ -22,8 +22,9 @@ export interface NodeInterface<P extends Props = {}> {
   Children(rootChildren: ReactNode): ReactNode | Array<ReactNode>
 }
 
-export interface HasChildren<T> {
-  children?: Array<T>
+export type HasChildren<P> = {
+  children: Array<HasChildren<P>>
+  [children: string]: any
 }
 
 export interface HasParent<SubTree> {
@@ -32,8 +33,8 @@ export interface HasParent<SubTree> {
 
 export type Curry<F extends (...args: any) => any> = _.F.Curry<F>
 
-export const hasChildren = <T extends any>(
-  node: HasChildren<T>,
+export const hasChildren = <T extends HasChildren<T>>(
+  node: T,
   childrenKey = 'children',
 ) =>
   typeof node === 'object' &&

@@ -15,7 +15,8 @@ import { nodeC } from '../codec/node.codec'
 /**
  * Node is instantiated during Tree traversal
  */
-export class Node<P extends Props = {}> implements NodeInterface<P> {
+export class Node<P extends Props = {}>
+  implements NodeInterface<P>, HasChildren<P> {
   public Component: FunctionComponent<any> = () => null
 
   public id: string
