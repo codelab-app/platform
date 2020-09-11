@@ -1,34 +1,27 @@
 export enum NodeTypeEnum {
-  // Tree
-  React = 'React',
-  Tree = 'Tree',
-  Ref = 'Ref',
-  // Model
-  Schema = 'Schema',
-  Model = 'Model',
-}
-
-export type NodeType =
   /**
-   * A React, requires a type
+   * React, requires additional `type` key
    */
-  | 'React'
+  React = 'React',
   /**
    * Non-react tree, requires ID
    */
-  | 'Tree'
+  Tree = 'Tree',
   /**
    * Flat array, uses ref to build tree, requires parentRef, childrenRef
    */
-  | 'Ref'
+  Ref = 'Ref',
   /**
    * Mongoose Model
    */
-  | 'Model'
+  Model = 'Model',
   /**
    * Mongoose Schema
    */
-  | 'Schema'
+  Schema = 'Schema',
+}
+
+export type NodeType = keyof typeof NodeTypeEnum
 
 export interface WithNodeType {
   nodeType: NodeType
