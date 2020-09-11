@@ -5,7 +5,7 @@ Codelab.ai is a web application builder consisting of a data modeling tool and a
 - Create models with fields & configure their relationships using a D3.js graph interface.
 - Build the UI by editing the DOM Tree & configuring the components
 
-# Built With
+## Built With
 
 ### Build
 
@@ -40,7 +40,7 @@ Codelab.ai is a web application builder consisting of a data modeling tool and a
 - [Cypress](https://www.cypress.io)
   - E2e testing framework
 
-# Plugins to Install
+## Plugins to Install
 
 1. Install [NX Console](https://marketplace.visualstudio.com/items?itemName=nrwl.angular-console), you will use the interface to run the application
 2. Install [Move TS](https://marketplace.visualstudio.com/items?itemName=stringham.move-ts)
@@ -56,7 +56,7 @@ Codelab.ai is a web application builder consisting of a data modeling tool and a
 
 The project directory structure is based on NX, with `apps` directory containing all the user facing sites, while `libs` containing all imported libraries.
 
-# Getting Started
+## Getting Started
 
 1. Clone a forked version of the repository
 2. `cp .env.example .env.dev`
@@ -66,7 +66,7 @@ The NX Console tab has all the commands you'll need to interact with the app und
 
 4. Select `Run`, which will display all commands in the format of `[package]:[command]`. Use `test` for Jest, & `storybook` for Storybook.
 
-# CI/CD pipeline
+## CI/CD pipeline
 
 Clone off master and create a local branch using a name that is relevant to the task in hyphenated-lowercase-or-kebab-case. Always rebase master branch before you push, so merge won't have any issues.
 
@@ -78,6 +78,25 @@ Follow the CLI prompt to complete the commit. ([Commitizen](https://github.com/c
 
 Once pushed to the remote repository, create a Pull Request on Github to `master`. Make sure all the tests run successfully, the PR will then be reviewed by the administrator.
 
-<!-- # Site Documentation
+## Project Structure
 
-For a more detailed documentation, go to the [Documentation Site](https://docs.codelab.ai) -->
+### Apps
+
+Contain main user-facing applications like web frontend, api backend, & e2e tests.
+
+### Libs
+
+Contain libraries that is used by apps
+
+### Lib folders
+
+- api: contain Nest.js modules
+- entity: contain domain specific business logic
+
+[Graph](libs/entity/graph/README.md)
+[Node](libs/entity/node/README.md)
+[Props](libs/entity/props/README.md)
+[Props](libs/entity/props/README.md)
+
+- shared: contain interface & other shared code, contain no external dep
+- tools: contain ci/cd & workspace related code
