@@ -5,12 +5,12 @@ import { join } from 'path'
 import * as requireFromString from 'require-from-string'
 import { ReactSchematicSchema } from './schema.d'
 
-describe('@codelab/plugins-codelab:library', () => {
+describe('@codelab/tools-plugins-codelab:library', () => {
   let appTree: Tree
   const options: ReactSchematicSchema = { name: 'test' }
 
   const testRunner = new SchematicTestRunner(
-    '@codelab/plugins-codelab',
+    '@codelab/tools-plugins-codelab',
     join(__dirname, '../../../collection.json'),
   )
 

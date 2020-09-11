@@ -108,7 +108,7 @@ export function addStorybookConfig(options: NormalizedSchema): Rule {
 export default function (options: ReactSchematicSchema): Rule {
   const normalizedOptions = normalizeOptions(options)
 
-  console.log(normalizedOptions)
+  // console.log(normalizedOptions)
 
   return chain([
     /**

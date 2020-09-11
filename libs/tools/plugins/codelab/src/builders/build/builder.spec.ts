@@ -11,7 +11,7 @@ describe('Command Runner Builder', () => {
   let architectHost: TestingArchitectHost
 
   beforeEach(async () => {
-    const registry = new schema.CoreSchemaRegistry()
+    const registry: any = new schema.CoreSchemaRegistry()
 
     registry.addPostTransform(schema.transforms.addUndefinedDefaults)
 
@@ -26,7 +26,7 @@ describe('Command Runner Builder', () => {
   it('can run', async () => {
     // A "run" can have multiple outputs, and contains progress information.
     const run = await architect.scheduleBuilder(
-      '@codelab/plugins-codelab:build',
+      '@codelab/tools-plugins-codelab:build',
       options,
     )
     // The "result" member (of type BuilderOutput) is the next output.

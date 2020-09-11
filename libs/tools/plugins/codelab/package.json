@@ -1,10 +1,7 @@
 {
-  "name": "@codelab/plugins-codelab",
+  "name": "@codelab/tools-plugins-codelab",
   "version": "0.0.1",
   "main": "src/index.js",
   "schematics": "./collection.json",
-  "builders": "./builders.json",
-  "ng-update": {
-    "migrations": "./migrations.json"
-  }
+  "builders": "./builders.json"
 }

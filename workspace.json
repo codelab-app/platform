@@ -662,60 +662,6 @@
         }
       }
     },
-    "tools-plugins-plug": {
-      "root": "libs/tools/plugins/plug",
-      "sourceRoot": "libs/tools/plugins/plug/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:lint",
-          "options": {
-            "linter": "eslint",
-            "tsConfig": [
-              "libs/tools/plugins/plug/tsconfig.lib.json",
-              "libs/tools/plugins/plug/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/tools/plugins/plug/**/*"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/tools/plugins/plug/jest.config.js",
-            "tsConfig": "libs/tools/plugins/plug/tsconfig.spec.json",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "builder": "@nrwl/node:package",
-          "options": {
-            "outputPath": "dist/libs/tools/plugins/plug",
-            "tsConfig": "libs/tools/plugins/plug/tsconfig.lib.json",
-            "packageJson": "libs/tools/plugins/plug/package.json",
-            "main": "libs/tools/plugins/plug/src/index.ts",
-            "assets": [
-              "libs/tools/plugins/plug/*.md",
-              {
-                "input": "./libs/tools/plugins/plug/src",
-                "glob": "**/*.!(ts)",
-                "output": "./src"
-              },
-              {
-                "input": "./libs/tools/plugins/plug",
-                "glob": "collection.json",
-                "output": "."
-              },
-              {
-                "input": "./libs/tools/plugins/plug",
-                "glob": "builders.json",
-                "output": "."
-              }
-            ]
-          }
-        }
-      }
-    },
     "shared-common": {
       "root": "libs/shared/common",
       "sourceRoot": "libs/shared/common/src",
