@@ -1,9 +1,9 @@
 import { ReactNodeI } from '@codelab/shared/interface/node'
-import { DropdownButtonProps, DropdownProps } from './Dropdown.types'
-import { TextProps } from '../text/Text.types'
+import { Dropdown } from './Dropdown.types'
+import { Text } from '../text'
 
 export const dropdownData: ReactNodeI<
-  DropdownProps | TextProps | DropdownButtonProps
+  Dropdown.Props | Text.Props | Dropdown.ButtonProps
 > = {
   type: 'Dropdown',
   nodeType: 'React',

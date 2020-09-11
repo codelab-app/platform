@@ -1,7 +1,7 @@
 import { ReactNodeI } from '@codelab/shared/interface/node'
-import { SpinProps } from './Spin.types'
+import { Spin } from './Spin.types'
 
-export const spinData: ReactNodeI<SpinProps> = {
+export const spinData: ReactNodeI<Spin.Props> = {
   type: 'Spin',
   nodeType: 'React',
   props: {

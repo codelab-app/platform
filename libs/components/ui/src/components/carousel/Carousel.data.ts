@@ -1,8 +1,8 @@
 import { ReactNodeI } from '@codelab/shared/interface/node'
-import { TextProps } from '../text/Text.types'
-import { CarouselProps } from './Carousel.types'
+import { Text } from '../text'
+import { Carousel } from './Carousel.types'
 
-export const carouselData: ReactNodeI<CarouselProps | TextProps> = {
+export const carouselData: ReactNodeI<Carousel.Props | Text.Props> = {
   type: 'Carousel',
   nodeType: 'React',
   props: {

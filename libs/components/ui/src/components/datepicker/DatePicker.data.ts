@@ -1,22 +1,14 @@
 import { ReactNodeI } from '@codelab/shared/interface/node'
-import {
-  CommonPickerProps,
-  DatePickerProps,
-  YearPickerProps,
-  QuarterPickerProps,
-  MonthPickerProps,
-  WeekPickerProps,
-  RangePickerProps,
-} from './DatePicker.types'
+import { DatePicker } from './DatePicker.types'
 
 export const datePickerData: ReactNodeI<
-  | CommonPickerProps
-  | DatePickerProps
-  | YearPickerProps
-  | QuarterPickerProps
-  | MonthPickerProps
-  | WeekPickerProps
-  | RangePickerProps
+  | DatePicker.CommonPickerProps
+  | DatePicker.DatePickerProps
+  | DatePicker.YearPickerProps
+  | DatePicker.QuarterPickerProps
+  | DatePicker.MonthPickerProps
+  | DatePicker.WeekPickerProps
+  | DatePicker.RangePickerProps
 > = {
   nodeType: 'React',
   type: 'DatePicker',

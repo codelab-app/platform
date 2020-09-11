@@ -1,9 +1,9 @@
 import { ReactNodeI } from '@codelab/shared/interface/node'
-import { TextProps } from '../text/Text.types'
-import { ButtonProps } from '../button'
-import { SpaceProps } from './Space.types'
+import { Text } from '../text'
+import { Button } from '../button'
+import { Space } from './Space.types'
 
-export const spaceData: ReactNodeI<SpaceProps | ButtonProps | TextProps> = {
+export const spaceData: ReactNodeI<Space.Props | Button.Props | Text.Props> = {
   type: 'Space',
   nodeType: 'React',
   props: {

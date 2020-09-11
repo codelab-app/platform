@@ -1,10 +1,10 @@
 import { ReactNodeI } from '@codelab/shared/interface/node'
-import { TextProps } from '../text/Text.types'
-import { ButtonProps } from '../button'
-import { MessageProps } from './Message.types'
+import { Text } from '../text'
+import { Button } from '../button'
+import { Message } from './Message.types'
 
 export const messageData: ReactNodeI<
-  TextProps | ButtonProps | MessageProps | { config: object }
+  Text.Props | Button.Props | Message.Props | { config: object }
 > = {
   type: 'Provider',
   nodeType: 'React',

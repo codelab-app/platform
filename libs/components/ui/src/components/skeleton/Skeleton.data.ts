@@ -1,20 +1,13 @@
 import { ReactNodeI } from '@codelab/shared/interface/node'
-import {
-  SkeletonProps,
-  AvatarProps,
-  TitleProps,
-  ParagraphProps,
-  ButtonProps,
-  InputProps,
-} from './Skeleton.types'
+import { Skeleton } from './Skeleton.types'
 
 export const skeletonData: ReactNodeI<
-  | SkeletonProps
-  | AvatarProps
-  | TitleProps
-  | ParagraphProps
-  | ButtonProps
-  | InputProps
+  | Skeleton.Props
+  | Skeleton.AvatarProps
+  | Skeleton.TitleProps
+  | Skeleton.ParagraphProps
+  | Skeleton.ButtonProps
+  | Skeleton.InputProps
 > = {
   type: 'Skeleton',
   nodeType: 'React',

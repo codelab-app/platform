@@ -1,8 +1,8 @@
 import { ReactNodeI } from '@codelab/shared/interface/node'
-import { TextProps } from '../text/Text.types'
-import { TooltipProps } from './Tooltip.types'
+import { Text } from '../text'
+import { Tooltip } from './Tooltip.types'
 
-export const tooltipData: ReactNodeI<TooltipProps | TextProps> = {
+export const tooltipData: ReactNodeI<Tooltip.Props | Text.Props> = {
   type: 'Tooltip',
   nodeType: 'React',
   props: {

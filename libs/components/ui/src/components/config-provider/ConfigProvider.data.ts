@@ -1,12 +1,12 @@
 import { ReactNodeI } from '@codelab/shared/interface/node'
-import { TextProps } from '../text/Text.types'
-import { ButtonProps } from '../button'
-import { SelectProps } from '../select/Select.types'
-import { InputProps } from '../input/Input.types'
-import { ConfigProviderProps } from './ConfigProvider.types'
+import { Text } from '../text'
+import { Button } from '../button'
+import { Select } from '../select'
+import { Input } from '../input'
+import { ConfigProvider } from './ConfigProvider.types'
 
 export const configProviderData: ReactNodeI<
-  ConfigProviderProps | TextProps | ButtonProps | SelectProps | InputProps
+  ConfigProvider.Props | Text.Props | Button.Props | Select.Props | Input.Props
 > = {
   type: 'ConfigProvider',
   nodeType: 'React',

@@ -1,7 +1,7 @@
 import { ReactNodeI } from '@codelab/shared/interface/node'
-import { CalendarProps } from './Calendar.types'
+import { Calendar } from './Calendar.types'
 
-export const calendarData: ReactNodeI<CalendarProps> = {
+export const calendarData: ReactNodeI<Calendar.Props> = {
   type: 'Calendar',
   nodeType: 'React',
   props: {

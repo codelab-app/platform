@@ -1,16 +1,12 @@
 import { ReactNodeI } from '@codelab/shared/interface/node'
-import {
-  TypographyTextProps,
-  TypographyTitleProps,
-  TypographyParagraphProps,
-} from './Typography.types'
-import { TextProps } from '../text/Text.types'
+import { Typography } from './Typography.types'
+import { Text } from '../text'
 
 export const typographyData: ReactNodeI<
-  | TypographyTextProps
-  | TypographyTitleProps
-  | TypographyParagraphProps
-  | TextProps
+  | Typography.TextProps
+  | Typography.TitleProps
+  | Typography.ParagraphProps
+  | Text.Props
 > = {
   type: 'Typography',
   nodeType: 'React',

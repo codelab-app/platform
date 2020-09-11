@@ -1,28 +1,23 @@
 import { PropsFromKeys } from '@codelab/shared/interface/props'
 
-export namespace AutoComplete {
+export namespace Rate {
   export const propKeys = [
     'allowClear',
+    'allowHalf',
     'autoFocus',
-    'backfill',
-    'children',
-    'defaultActiveFirstOption',
+    'character',
+    'className',
+    'count',
     'defaultValue',
     'disabled',
-    'filterOption',
-    'options',
-    'placeholder',
+    'style',
+    'tooltips',
     'value',
     'onBlur',
     'onChange',
     'onFocus',
-    'onSearch',
-    'onSelect',
-    'onSelect',
-    'defaultOpen',
-    'open',
-    'onDropdownVisibleChange',
-    'notFoundContent',
+    'onHoverChange',
+    'onKeyDown',
   ] as const
 
   export type Props = PropsFromKeys<typeof propKeys[number]>

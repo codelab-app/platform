@@ -1,12 +1,14 @@
 import { PropsFromKeys } from '@codelab/shared/interface/props'
 
-export const spinPropKeys = [
-  'delay',
-  'indicator',
-  'size',
-  'spinning',
-  'tip',
-  'wrapperClassName',
-] as const
+export namespace Spin {
+  export const propKeys = [
+    'delay',
+    'indicator',
+    'size',
+    'spinning',
+    'tip',
+    'wrapperClassName',
+  ] as const
 
-export type SpinProps = PropsFromKeys<typeof spinPropKeys[number]>
+  export type Props = PropsFromKeys<typeof propKeys[number]>
+}

@@ -1,14 +1,13 @@
 import { PropsFromKeys } from '@codelab/shared/interface/props'
 
-export namespace Message {
+export namespace Tag {
   export const propKeys = [
-    'content',
-    'duration',
+    'closable',
+    'color',
+    'closeIcon',
     'onClose',
+    'visible',
     'icon',
-    'key',
-    'className',
-    'style',
   ] as const
 
   export type Props = PropsFromKeys<typeof propKeys[number]>

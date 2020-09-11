@@ -1,27 +1,29 @@
 import { PropsFromKeys } from '@codelab/shared/interface/props'
 
-export const stepsPropKeys = [
-  'className',
-  'type',
-  'current',
-  'direction',
-  'labelPlacement',
-  'progressDot',
-  'size',
-  'status',
-  'initial',
-  'onChange',
-]
+export namespace Steps {
+  export const propKeys = [
+    'className',
+    'type',
+    'current',
+    'direction',
+    'labelPlacement',
+    'progressDot',
+    'size',
+    'status',
+    'initial',
+    'onChange',
+  ]
 
-export const stepPropKeys = [
-  'description',
-  'icon',
-  'status',
-  'title',
-  'subTitle',
-  'disabled',
-]
+  export const stepPropKeys = [
+    'description',
+    'icon',
+    'status',
+    'title',
+    'subTitle',
+    'disabled',
+  ]
 
-export type StepsProps = PropsFromKeys<typeof stepsPropKeys[number]>
+  export type Props = PropsFromKeys<typeof propKeys[number]>
 
-export type StepProps = PropsFromKeys<typeof stepPropKeys[number]>
+  export type StepProps = PropsFromKeys<typeof stepPropKeys[number]>
+}

@@ -1,19 +1,9 @@
 import { ReactNodeI } from '@codelab/shared/interface/node'
-import { PropsFromKeys } from '@codelab/shared/interface/props'
-import { TextProps } from '../text/Text.types'
-import { ButtonProps } from '../button'
+import { Text } from '../text'
+import { Button } from '../button'
+import { Affix } from './Affix.types'
 
-//
-export const affixPropKeys = [
-  'offsetBottom',
-  'offsetTop',
-  'target',
-  'onChange',
-] as const
-
-type AffixProps = PropsFromKeys<typeof affixPropKeys[number]>
-
-export const affixData: ReactNodeI<AffixProps | TextProps | ButtonProps> = {
+export const affixData: ReactNodeI<Affix.Props | Text.Props | Button.Props> = {
   type: 'Affix',
   nodeType: 'React',
   props: {

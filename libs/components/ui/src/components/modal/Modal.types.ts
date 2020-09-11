@@ -1,32 +1,34 @@
 import { PropsFromKeys } from '@codelab/shared/interface/props'
 
-export const modalPropKeys = [
-  'afterClose',
-  'bodyStyle',
-  'cancelText',
-  'centered',
-  'closable',
-  'closeIcon',
-  'confirmLoading',
-  'destroyOnClose',
-  'footer',
-  'forceRender',
-  'getContainer',
-  'mask',
-  'maskClosable',
-  'maskStyle',
-  'okText',
-  'okType',
-  'okButtonProps',
-  'cancelButtonProps',
-  'style',
-  'title',
-  'visible',
-  'width',
-  'wrapClassName',
-  'zIndex',
-  'onCancel',
-  'onOk',
-]
+export namespace Modal {
+  export const propKeys = [
+    'afterClose',
+    'bodyStyle',
+    'cancelText',
+    'centered',
+    'closable',
+    'closeIcon',
+    'confirmLoading',
+    'destroyOnClose',
+    'footer',
+    'forceRender',
+    'getContainer',
+    'mask',
+    'maskClosable',
+    'maskStyle',
+    'okText',
+    'okType',
+    'okButtonProps',
+    'cancelButtonProps',
+    'style',
+    'title',
+    'visible',
+    'width',
+    'wrapClassName',
+    'zIndex',
+    'onCancel',
+    'onOk',
+  ]
 
-export type ModalProps = PropsFromKeys<typeof modalPropKeys[number]>
+  export type Props = PropsFromKeys<typeof propKeys[number]>
+}

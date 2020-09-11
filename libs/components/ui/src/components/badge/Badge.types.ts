@@ -1,15 +1,17 @@
 import { PropsFromKeys } from '@codelab/shared/interface/props'
 
-export const badgePropKeys = [
-  'color',
-  'count',
-  'dot',
-  'offset',
-  'overflowCount',
-  'showZero',
-  'status',
-  'text',
-  'title',
-] as const
+export namespace Badge {
+  export const propKeys = [
+    'color',
+    'count',
+    'dot',
+    'offset',
+    'overflowCount',
+    'showZero',
+    'status',
+    'text',
+    'title',
+  ] as const
 
-export type BadgeProps = PropsFromKeys<typeof badgePropKeys[number]>
+  export type Props = PropsFromKeys<typeof propKeys[number]>
+}

@@ -1,8 +1,10 @@
 import { ReactNodeI } from '@codelab/shared/interface/node'
-import { TextProps } from '../text/Text.types'
-import { TabsProps, TabPaneProps } from './Tabs.types'
+import { Text } from '../text'
+import { Tabs } from './Tabs.types'
 
-export const tabsData: ReactNodeI<TabsProps | TabPaneProps | TextProps> = {
+export const tabsData: ReactNodeI<
+  Tabs.Props | Tabs.TabPaneProps | Text.Props
+> = {
   type: 'Tabs',
   nodeType: 'React',
   props: {

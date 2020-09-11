@@ -1,7 +1,7 @@
 import React from 'react'
 import { TreeDom } from '../../renderer/TreeDom'
-import { gridData } from './Grid.data'
-import { responsiveGridData } from './Grid--responsive.data'
+import { gridData } from './data/Grid-1--default.data'
+import { responsiveGridData } from './data/Grid-2--responsive.data'
 
 export default {
   title: 'Grid',

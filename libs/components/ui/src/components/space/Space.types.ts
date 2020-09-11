@@ -1,5 +1,7 @@
 import { PropsFromKeys } from '@codelab/shared/interface/props'
 
-export const spacePropKeys = ['align', 'direction', 'size'] as const
+export namespace Space {
+  export const propKeys = ['align', 'direction', 'size'] as const
 
-export type SpaceProps = PropsFromKeys<typeof spacePropKeys[number]>
+  export type Props = PropsFromKeys<typeof propKeys[number]>
+}

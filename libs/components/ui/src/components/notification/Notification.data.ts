@@ -1,10 +1,10 @@
 import { ReactNodeI } from '@codelab/shared/interface/node'
-import { TextProps } from '../text/Text.types'
-import { ButtonProps } from '../button'
-import { NotificationProps } from './Notification.types'
+import { Text } from '../text'
+import { Button } from '../button'
+import { Notification } from './Notification.types'
 
 export const notificationData: ReactNodeI<
-  TextProps | NotificationProps | ButtonProps | { config: object }
+  Text.Props | Notification.Props | Button.Props | { config: object }
 > = {
   type: 'Provider',
   nodeType: 'React',

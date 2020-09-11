@@ -1,9 +1,12 @@
 import { ReactNodeI } from '@codelab/shared/interface/node'
-import { TextProps } from '../text/Text.types'
-import { BreadcrumbProps, ItemProps, SeparatorProps } from './Breadcrumb.types'
+import { Text } from '../text'
+import { Breadcrumb } from './Breadcrumb.types'
 
 export const breadcrumbData: ReactNodeI<
-  BreadcrumbProps | ItemProps | SeparatorProps | TextProps
+  | Breadcrumb.Props
+  | Breadcrumb.ItemProps
+  | Breadcrumb.SeparatorProps
+  | Text.Props
 > = {
   type: 'Breadcrumb',
   nodeType: 'React',

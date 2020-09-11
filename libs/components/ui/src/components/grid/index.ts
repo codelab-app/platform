@@ -1,2 +1,2 @@
-export * from './Grid.data'
+export * from './data'
 export * from './Grid.types'

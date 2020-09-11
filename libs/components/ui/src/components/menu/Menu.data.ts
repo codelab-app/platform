@@ -1,14 +1,13 @@
 import { ReactNodeI } from '@codelab/shared/interface/node'
-import { TextProps } from '../text/Text.types'
-import {
-  MenuProps,
-  ItemProps,
-  SubmenuProps,
-  ItemGroupProps,
-} from './Menu.types'
+import { Text } from '../text'
+import { Menu } from './Menu.types'
 
 export const menuData: ReactNodeI<
-  MenuProps | ItemProps | SubmenuProps | ItemGroupProps | TextProps
+  | Menu.Props
+  | Menu.ItemProps
+  | Menu.SubmenuProps
+  | Menu.ItemGroupProps
+  | Text.Props
 > = {
   type: 'Menu',
   nodeType: 'React',

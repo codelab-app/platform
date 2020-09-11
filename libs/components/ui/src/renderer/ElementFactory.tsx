@@ -64,10 +64,10 @@ import {
 import React from 'react'
 import { Icon } from '@ant-design/compatible'
 import { ElementParameters } from './ElementFactory.interface'
-import { buttonPropKeys } from '../components/button'
-import { Form as CodelabForm } from '../components/form/Form'
+import { Button as ButtonTypes } from '../components/button'
+import { CodelabForm } from '../components/form/Form'
 import { Grid } from '../components/grid/Grid'
-import { Html } from '../components/html/Html'
+import { CodelabHtml } from '../components/html/Html'
 import { Provider } from '../components/provider/Provider'
 
 export const elementParameterFactory = <P extends Props>(
@@ -87,7 +87,7 @@ export const elementParameterFactory = <P extends Props>(
     case 'Html.span':
       return ['span', props]
     case 'Text':
-      return [Html.Text as any, props]
+      return [CodelabHtml.Text as any, props]
     case 'Icon':
       return [Icon as any, props]
     case 'Menu':
@@ -121,7 +121,7 @@ export const elementParameterFactory = <P extends Props>(
     case 'Button':
       return [
         withFilters(
-          propsFilter([...mouseEventHandlerKeys, ...buttonPropKeys]),
+          propsFilter([...mouseEventHandlerKeys, ...ButtonTypes.propKeys]),
           Button,
         ),
         props,

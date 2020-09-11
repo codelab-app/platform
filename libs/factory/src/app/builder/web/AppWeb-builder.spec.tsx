@@ -1,4 +1,4 @@
-import { ButtonProps, TextProps } from '@codelab/components/ui'
+import { Button, Text } from '@codelab/components/ui'
 import { ReactNodeI } from '@codelab/shared/interface/node'
 import { AppWebBuilder } from './AppWeb-builder'
 import { AppWebProduct } from '../../products/web/AppWeb-product'
@@ -9,7 +9,7 @@ describe('Web App Builder', () => {
 
   beforeAll(() => {
     const building: AppBuilder = new AppWebBuilder()
-    const reactNode: ReactNodeI<ButtonProps | TextProps> = {
+    const reactNode: ReactNodeI<Button.Props | Text.Props> = {
       nodeType: 'React',
       type: 'Button',
       props: {},

@@ -1,8 +1,10 @@
 import { ReactNodeI } from '@codelab/shared/interface/node'
-import { RadioGroupProps, RadioProps } from './Radio.types'
-import { TextProps } from '../text/Text.types'
+import { Radio } from './Radio.types'
+import { Text } from '../text'
 
-export const radioData: ReactNodeI<RadioProps | RadioGroupProps | TextProps> = {
+export const radioData: ReactNodeI<
+  Radio.Props | Radio.GroupProps | Text.Props
+> = {
   type: 'Provider',
   nodeType: 'React',
   props: {

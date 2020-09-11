@@ -1,34 +1,34 @@
 import { PropsFromKeys } from '@codelab/shared/interface/props'
 
-export const dropdownPropKeys = [
-  'arrow',
-  'disabled',
-  'getPopupContainer',
-  'overlay',
-  'overlayClassName',
-  'overlayStyle',
-  'placement',
-  'trigger',
-  'visible',
-  'onVisibleChange',
-] as const
+export namespace Dropdown {
+  export const propKeys = [
+    'arrow',
+    'disabled',
+    'getPopupContainer',
+    'overlay',
+    'overlayClassName',
+    'overlayStyle',
+    'placement',
+    'trigger',
+    'visible',
+    'onVisibleChange',
+  ] as const
 
-export const dropdownButtonPropKeys = [
-  'disabled',
-  'icon',
-  'overlay',
-  'placement',
-  'size',
-  'trigger',
-  'type',
-  'visible',
-  'onClick',
-  'onVisibleChange',
-  'buttonsRender',
-] as const
+  export const buttonPropKeys = [
+    'disabled',
+    'icon',
+    'overlay',
+    'placement',
+    'size',
+    'trigger',
+    'type',
+    'visible',
+    'onClick',
+    'onVisibleChange',
+    'buttonsRender',
+  ] as const
 
-export type DropdownProps = PropsFromKeys<typeof dropdownPropKeys[number]>
+  export type Props = PropsFromKeys<typeof propKeys[number]>
 
-export type DropdownButtonProps = PropsFromKeys<
-  typeof dropdownButtonPropKeys[number]
->
+  export type ButtonProps = PropsFromKeys<typeof buttonPropKeys[number]>
+}

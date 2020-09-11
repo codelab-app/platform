@@ -4,7 +4,7 @@ export interface TextProps {
   value: string
 }
 
-export namespace Html {
+export namespace CodelabHtml {
   export function Text({ value }: TextProps) {
     return <>{value}</>
   }

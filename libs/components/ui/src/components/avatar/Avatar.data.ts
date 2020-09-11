@@ -1,7 +1,8 @@
 import { ReactNodeI } from '@codelab/shared/interface/node'
-import { AvatarProps } from './Avatar.types'
+import { Avatar } from './Avatar.types'
+import { Icon } from '../icon'
 
-export const avatarData: ReactNodeI<AvatarProps> = {
+export const avatarData: ReactNodeI<Avatar.Props | Icon.Props> = {
   type: 'Avatar',
   nodeType: 'React',
   props: {

@@ -1,7 +1,7 @@
 import { ReactNodeI } from '@codelab/shared/interface/node'
-import { TreeProps, TreeNodeProps } from './Tree.types'
+import { Tree } from './Tree.types'
 
-export const treeData: ReactNodeI<TreeProps | TreeNodeProps> = {
+export const treeData: ReactNodeI<Tree.Props | Tree.TreeNodeProps> = {
   type: 'Tree',
   nodeType: 'React',
   props: {

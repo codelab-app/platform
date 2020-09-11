@@ -1,14 +1,11 @@
 import { PropsFromKeys } from '@codelab/shared/interface/props'
 
-export namespace Message {
+export namespace Affix {
   export const propKeys = [
-    'content',
-    'duration',
-    'onClose',
-    'icon',
-    'key',
-    'className',
-    'style',
+    'offsetBottom',
+    'offsetTop',
+    'target',
+    'onChange',
   ] as const
 
   export type Props = PropsFromKeys<typeof propKeys[number]>

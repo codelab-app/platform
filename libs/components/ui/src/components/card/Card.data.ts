@@ -1,9 +1,9 @@
 import { ReactNodeI } from '@codelab/shared/interface/node'
-import { TextProps } from '../text/Text.types'
-import { CardProps, CardGridProps, CardMetaProps } from './Card.types'
+import { Text } from '../text'
+import { Card } from './Card.types'
 
 export const cardData: ReactNodeI<
-  CardProps | CardGridProps | CardMetaProps | TextProps
+  Card.Props | Card.GridProps | Card.MetaProps | Text.Props
 > = {
   type: 'Card',
   nodeType: 'React',

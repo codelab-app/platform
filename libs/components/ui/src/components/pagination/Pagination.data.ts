@@ -1,7 +1,7 @@
 import { ReactNodeI } from '@codelab/shared/interface/node'
-import { PaginationProps } from './Pagination.types'
+import { Pagination } from './Pagination.types'
 
-export const paginationData: ReactNodeI<PaginationProps> = {
+export const paginationData: ReactNodeI<Pagination.Props> = {
   type: 'Pagination',
   nodeType: 'React',
   props: {

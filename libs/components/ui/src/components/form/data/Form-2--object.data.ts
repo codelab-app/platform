@@ -1,14 +1,14 @@
 import { ReactNodeI } from '@codelab/shared/interface/node'
-import { ButtonProps } from '../../button'
-import { FormItemProps, FormProps } from '../Form.types'
-import { TextProps } from '../../text/Text.types'
-import { DividerProps } from '../../divider/Divider.types'
+import { Button } from '../../button'
+import { Form } from '../Form.types'
+import { Text } from '../../text'
+import { Divider } from '../../divider'
 
 /**
  * We create a user object, which is keyed by 'user'
  */
 export const formObjectData: ReactNodeI<
-  FormProps | FormItemProps | TextProps | ButtonProps | DividerProps
+  Form.Props | Form.ItemProps | Text.Props | Button.Props | Divider.Props
 > = {
   type: 'Form',
   nodeType: 'React',

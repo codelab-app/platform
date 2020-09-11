@@ -1,11 +1,13 @@
 import { PropsFromKeys } from '@codelab/shared/interface/props'
 
-export const resultPropKeys = [
-  'title',
-  'subTitle',
-  'status',
-  'icon',
-  'extra',
-] as const
+export namespace Result {
+  export const propKeys = [
+    'title',
+    'subTitle',
+    'status',
+    'icon',
+    'extra',
+  ] as const
 
-export type ResultProps = PropsFromKeys<typeof resultPropKeys[number]>
+  export type Props = PropsFromKeys<typeof propKeys[number]>
+}

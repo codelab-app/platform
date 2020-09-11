@@ -1,28 +1,7 @@
 import { ReactNodeI } from '@codelab/shared/interface/node'
-import { PropsFromKeys } from '@codelab/shared/interface/props'
+import { Rate } from './Rate.types'
 
-export const ratePropKeys = [
-  'allowClear',
-  'allowHalf',
-  'autoFocus',
-  'character',
-  'className',
-  'count',
-  'defaultValue',
-  'disabled',
-  'style',
-  'tooltips',
-  'value',
-  'onBlur',
-  'onChange',
-  'onFocus',
-  'onHoverChange',
-  'onKeyDown',
-] as const
-
-type RateProps = PropsFromKeys<typeof ratePropKeys[number]>
-
-export const rateData: ReactNodeI<RateProps> = {
+export const rateData: ReactNodeI<Rate.Props> = {
   type: 'Rate',
   nodeType: 'React',
   props: {

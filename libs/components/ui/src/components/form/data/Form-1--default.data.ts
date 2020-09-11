@@ -1,10 +1,10 @@
 import { ReactNodeI } from '@codelab/shared/interface/node'
-import { ButtonProps } from '../../button'
-import { FormItemProps, FormProps } from '../Form.types'
-import { TextProps } from '../../text/Text.types'
+import { Button } from '../../button'
+import { Form } from '../Form.types'
+import { Text } from '../../text'
 
 export const formDefaultData: ReactNodeI<
-  FormProps | FormItemProps | TextProps | ButtonProps
+  Form.Props | Form.ItemProps | Text.Props | Button.Props
 > = {
   type: 'Form',
   nodeType: 'React',

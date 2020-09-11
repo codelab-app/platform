@@ -1,7 +1,7 @@
 import { ReactNodeI } from '@codelab/shared/interface/node'
-import { TransferProps, RenderProps } from './Transfer.types'
+import { Transfer } from './Transfer.types'
 
-export const transferData: ReactNodeI<TransferProps | RenderProps> = {
+export const transferData: ReactNodeI<Transfer.Props | Transfer.RenderProps> = {
   type: 'Provider',
   nodeType: 'React',
   props: {

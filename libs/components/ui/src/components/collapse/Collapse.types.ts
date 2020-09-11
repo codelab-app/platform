@@ -1,27 +1,27 @@
 import { PropsFromKeys } from '@codelab/shared/interface/props'
 
-export const collapsePropKeys = [
-  'activeKey',
-  'defaultActiveKey',
-  'bordered',
-  'accordion',
-  'onChange',
-  'expandIcon',
-  'expandIconPosition',
-  'destroyInactivePanel',
-] as const
+export namespace Collapse {
+  export const propKeys = [
+    'activeKey',
+    'defaultActiveKey',
+    'bordered',
+    'accordion',
+    'onChange',
+    'expandIcon',
+    'expandIconPosition',
+    'destroyInactivePanel',
+  ] as const
 
-export const collapsePanelPropKeys = [
-  'disabled',
-  'forceRender',
-  'header',
-  'key',
-  'showArrow',
-  'extra',
-] as const
+  export const panelPropKeys = [
+    'disabled',
+    'forceRender',
+    'header',
+    'key',
+    'showArrow',
+    'extra',
+  ] as const
 
-export type CollapseProps = PropsFromKeys<typeof collapsePropKeys[number]>
+  export type Props = PropsFromKeys<typeof propKeys[number]>
 
-export type CollapsePanelProps = PropsFromKeys<
-  typeof collapsePanelPropKeys[number]
->
+  export type PanelProps = PropsFromKeys<typeof panelPropKeys[number]>
+}

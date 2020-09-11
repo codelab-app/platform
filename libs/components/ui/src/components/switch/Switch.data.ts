@@ -1,23 +1,7 @@
 import { ReactNodeI } from '@codelab/shared/interface/node'
-import { PropsFromKeys } from '@codelab/shared/interface/props'
+import { Switch } from './Switch.types'
 
-export const switchPropKeys = [
-  'autoFocus',
-  'checked',
-  'checkedChildren',
-  'defaultChecked',
-  'disabled',
-  'loading',
-  'size',
-  'unCheckedChildren',
-  'onChange',
-  'onClick',
-  'className',
-] as const
-
-type SwitchProps = PropsFromKeys<typeof switchPropKeys[number]>
-
-export const switchData: ReactNodeI<SwitchProps> = {
+export const switchData: ReactNodeI<Switch.Props> = {
   type: 'Switch',
   nodeType: 'React',
   props: {

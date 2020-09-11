@@ -1,7 +1,7 @@
 import { ReactNodeI } from '@codelab/shared/interface/node'
-import { ProgressProps } from './Progress.types'
+import { Progress } from './Progress.types'
 
-export const progressData: ReactNodeI<ProgressProps> = {
+export const progressData: ReactNodeI<Progress.Props> = {
   type: 'Progress',
   nodeType: 'React',
   props: {

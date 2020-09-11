@@ -1,7 +1,7 @@
 import { ReactNodeI } from '@codelab/shared/interface/node'
-import { BadgeProps } from './Badge.types'
+import { Badge } from './Badge.types'
 
-export const badgeData: ReactNodeI<BadgeProps> = {
+export const badgeData: ReactNodeI<Badge.Props> = {
   type: 'Badge',
   nodeType: 'React',
   props: {

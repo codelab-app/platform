@@ -1,25 +1,27 @@
 import { PropsFromKeys } from '@codelab/shared/interface/props'
 
-export const radioPropKeys = [
-  'autoFocus',
-  'checked',
-  'defaultChecked',
-  'disabled',
-  'value',
-] as const
+export namespace Radio {
+  export const propKeys = [
+    'autoFocus',
+    'checked',
+    'defaultChecked',
+    'disabled',
+    'value',
+  ] as const
 
-export const radioGroupPropKeys = [
-  'defaultValue',
-  'disabled',
-  'name',
-  'options',
-  'size',
-  'value',
-  'onChange',
-  'optionType',
-  'buttonStyle',
-] as const
+  export const groupPropKeys = [
+    'defaultValue',
+    'disabled',
+    'name',
+    'options',
+    'size',
+    'value',
+    'onChange',
+    'optionType',
+    'buttonStyle',
+  ] as const
 
-export type RadioProps = PropsFromKeys<typeof radioPropKeys[number]>
+  export type Props = PropsFromKeys<typeof propKeys[number]>
 
-export type RadioGroupProps = PropsFromKeys<typeof radioGroupPropKeys[number]>
+  export type GroupProps = PropsFromKeys<typeof groupPropKeys[number]>
+}

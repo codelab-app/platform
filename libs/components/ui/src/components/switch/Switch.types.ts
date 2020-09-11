@@ -1,21 +1,18 @@
 import { PropsFromKeys } from '@codelab/shared/interface/props'
 
-export namespace InputNumber {
+export namespace Switch {
   export const propKeys = [
     'autoFocus',
-    'defaultValue',
+    'checked',
+    'checkedChildren',
+    'defaultChecked',
     'disabled',
-    'formatter',
-    'max',
-    'min',
-    'parser',
-    'precision',
-    'decimalSeparator',
+    'loading',
     'size',
-    'step',
-    'value',
+    'unCheckedChildren',
     'onChange',
-    'onPressEnter',
+    'onClick',
+    'className',
   ] as const
 
   export type Props = PropsFromKeys<typeof propKeys[number]>

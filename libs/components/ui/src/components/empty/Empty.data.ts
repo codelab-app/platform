@@ -1,11 +1,7 @@
 import { ReactNodeI } from '@codelab/shared/interface/node'
-import { PropsFromKeys } from '@codelab/shared/interface/props'
+import { Empty } from './Empty.types'
 
-export const emptyPropKeys = ['description', 'imageStyle', 'image']
-
-type EmptyProps = PropsFromKeys<typeof emptyPropKeys[number]>
-
-export const emptyData: ReactNodeI<EmptyProps> = {
+export const emptyData: ReactNodeI<Empty.Props> = {
   type: 'Empty',
   nodeType: 'React',
   props: {
