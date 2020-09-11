@@ -1,9 +1,7 @@
-import {
-  Graph,
-  graphAppenderIteratee,
-  treeWalker,
-  GraphSubTreeContext,
-} from '@codelab/core/graph'
+import { Graph } from '@codelab/core/graph'
+import { GraphSubTreeContext } from '@codelab/shared/interface/tree'
+import { graphAppenderIteratee, treeWalker } from '@codelab/core/traversal'
+
 import { TreeNodeI } from '@codelab/shared/interface/node'
 import { reduce } from 'lodash'
 import { Props } from '@codelab/shared/interface/props'

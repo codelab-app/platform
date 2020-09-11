@@ -1,4 +1,4 @@
-const rootWebpackConfig = require('../../../.storybook/webpack.config')
+const rootWebpackConfig = require('../../../../.storybook/webpack.config')
 
 module.exports = async ({ config, mode }) => {
   config = await rootWebpackConfig({ config, mode })
