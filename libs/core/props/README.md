@@ -1,5 +1,7 @@
 # Props
 
+Props contain configurations & data for how we configure Components. Each Node can contain multiple props, & each prop can be considered as having a `PropType`.
+
 ```typescript
 // prettier-ignore
 type PropTypeLiteral =
@@ -17,10 +19,6 @@ type Prop = {
   [key: string]: string | PropValue
 }
 ```
-
-Each Node contains multiple props, each prop can be considered as having a PropType, just like NodeType. Props hold the configuration for the Node object, and is what makes Nodes unique.
-
-Props can exist outside the context of React, can be plain JavaScript objects.
 
 ## PropTypes
 
