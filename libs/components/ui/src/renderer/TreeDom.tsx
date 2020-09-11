@@ -9,6 +9,7 @@ import {
 import { Props } from '@codelab/shared/interface/props'
 import React, { FunctionComponent, PropsWithChildren } from 'react'
 import { merge } from 'lodash'
+// eslint-disable-next-line import/no-cycle
 import { elementParameterFactory } from './ElementFactory'
 
 /**

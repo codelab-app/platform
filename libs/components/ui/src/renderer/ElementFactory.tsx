@@ -69,6 +69,8 @@ import { CodelabForm } from '../components/form/Form'
 import { Grid } from '../components/grid/Grid'
 import { CodelabHtml } from '../components/html/Html'
 import { Provider } from '../components/provider/Provider'
+// eslint-disable-next-line import/no-cycle
+import { CodelabTable } from '../components/table/Table'
 
 export const elementParameterFactory = <P extends Props>(
   node: Node<P>,
@@ -272,6 +274,8 @@ export const elementParameterFactory = <P extends Props>(
       return [Cascader as any, props]
     case 'Popover':
       return [Popover as any, props]
+    case 'Table':
+      return [CodelabTable.Default as any, props]
     default:
       throw new Error('Missing element in ElementFactory')
     // return ['div', props]
