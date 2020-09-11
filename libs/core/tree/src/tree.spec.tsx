@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { D3TreeData } from '@codelab/d3'
+import { D3TreeData } from '@codelab/components/d3'
 import { Mapper, TreeNodeI, NodeA } from '@codelab/shared/interface/node'
 import { findNode } from '@codelab/core/traversal'
 import { Vertex, Edge } from '@codelab/core/graph'

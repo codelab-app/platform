@@ -7,7 +7,7 @@ import React from 'react'
  *
  * @param props
  */
-const Menu = (props) => {
+const Menu = (props: any) => {
   const { level, path, order, title } = props
 
   switch (level) {
@@ -18,7 +18,7 @@ const Menu = (props) => {
         </AntMenu.Item>
       )
     case 1:
-      return (p) => (
+      return (p: any) => (
         <AntMenu.SubMenu
           key="sub4"
           title={

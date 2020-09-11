@@ -1,4 +1,4 @@
-import { buttonData } from '@codelab/ui'
+import { buttonData } from '@codelab/components/ui'
 import { AppBuilder } from '../app/builder/App-builder.i'
 import { AppWebBuilder } from '../app/builder/web/AppWeb-builder'
 import { AppOrder } from '../app/builder/web/AppWeb-builder--order'

@@ -1,4 +1,4 @@
-import { ButtonProps, TextProps } from '@codelab/ui'
+import { ButtonProps, TextProps } from '@codelab/components/ui'
 import { ReactNodeI } from '@codelab/shared/interface/node'
 import { AppWebBuilder } from './AppWeb-builder'
 import { AppWebProduct } from '../../products/web/AppWeb-product'

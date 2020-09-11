@@ -32,16 +32,16 @@ export const pageQuery = graphql`
         title
       }
     }
-    typedoc {
-      id
-      source {
-        id
-        kind
-        name
-      }
-      internal {
-        content
-      }
-    }
+    # typedoc {
+    #   id
+    #   source {
+    #     id
+    #     kind
+    #     name
+    #   }
+    #   internal {
+    #     content
+    #   }
+    # }
   }
 `

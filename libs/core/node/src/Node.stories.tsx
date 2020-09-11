@@ -1,4 +1,4 @@
-import { D3Graph, D3Tree, D3TreeData } from '@codelab/d3'
+import { D3Graph, D3Tree, D3TreeData } from '@codelab/components/d3'
 import React from 'react'
 import { Mapper } from '@codelab/shared/interface/node'
 import { makeGraph, makeTree } from '../../tree/src/tree-factory'

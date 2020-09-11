@@ -1,4 +1,4 @@
-import { findNode } from '@codelab/core/graph'
+import { findNode } from '@codelab/core/traversal'
 import { Node } from './base/Node'
 
 describe('Node', () => {

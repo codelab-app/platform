@@ -1,6 +1,6 @@
 module.exports = {
-  name: 'ui',
-  preset: '../../jest.config.js',
+  name: 'shared-utils',
+  preset: '../../../jest.config.js',
   transform: {
     '^.+\\.[tj]sx?$': [
       'babel-jest',
@@ -8,5 +8,5 @@ module.exports = {
     ],
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'html'],
-  coverageDirectory: '../../coverage/libs/ui',
+  coverageDirectory: '../../../coverage/libs/shared/utils',
 }

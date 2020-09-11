@@ -1,10 +1,10 @@
-import { traversePostOrder } from '@codelab/core/graph'
+import { traversePostOrder } from '@codelab/core/traversal'
 import { ReactNodeI, TreeNodeI } from '@codelab/shared/interface/node'
 import { Node } from '@codelab/core/node'
 import { evalPropsWithContext } from '@codelab/core/props'
 import { Props } from '@codelab/shared/interface/props'
 import React, { PropsWithChildren } from 'react'
-import { elementParameterFactory } from '@codelab/ui'
+import { elementParameterFactory } from '@codelab/components/ui'
 import { TreeStrategy } from './Tree-strategy'
 import { TreeStrategyTree } from './Tree-strategy--tree'
 

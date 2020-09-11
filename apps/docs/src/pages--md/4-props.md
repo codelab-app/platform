@@ -6,7 +6,7 @@ key: 'props'
 title: 'Props'
 ---
 
-The goal is to extract all the props required for building a component like Ant Design into a json file. We use the `Tree.render` method to transform data into a React node. Many examples can be found inside `@codelab/ui` package as Storybooks.
+The goal is to extract all the props required for building a component like Ant Design into a json file. We use the `Tree.render` method to transform data into a React node. Many examples can be found inside `@codelab/components/ui` package as Storybooks.
 
 ## Basic Example
 
@@ -102,4 +102,4 @@ Combine this with the previous example, the `visible` prop will be available to 
 
 ## Full examples
 
-Check out the Default example in `modal/Modal.story.tsx` in `@codelab/ui` package
+Check out the Default example in `modal/Modal.story.tsx` in `@codelab/components/ui` package

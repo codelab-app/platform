@@ -29,19 +29,7 @@
     }
   },
   "projects": {
-    "ui": {
-      "tags": []
-    },
-    "d3": {
-      "tags": []
-    },
-    "event": {
-      "tags": []
-    },
     "docs": {
-      "tags": []
-    },
-    "utils": {
       "tags": []
     },
     "api": {
@@ -110,6 +98,18 @@
       "tags": []
     },
     "core-tree": {
+      "tags": []
+    },
+    "components-ui": {
+      "tags": []
+    },
+    "components-d3": {
+      "tags": []
+    },
+    "shared-utils": {
+      "tags": []
+    },
+    "shared-event": {
       "tags": []
     }
   }

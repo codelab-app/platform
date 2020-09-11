@@ -1,6 +1,6 @@
 module.exports = {
-  name: 'd3',
-  preset: '../../jest.config.js',
+  name: 'components-d3',
+  preset: '../../../jest.config.js',
   transform: {
     '^.+\\.[tj]sx?$': [
       'babel-jest',
@@ -8,5 +8,5 @@ module.exports = {
     ],
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'html'],
-  coverageDirectory: '../../coverage/libs/d3',
+  coverageDirectory: '../../../coverage/libs/components/d3',
 }

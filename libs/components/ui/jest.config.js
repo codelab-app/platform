@@ -1,6 +1,6 @@
 module.exports = {
-  name: 'utils',
-  preset: '../../jest.config.js',
+  name: 'components-ui',
+  preset: '../../../jest.config.js',
   transform: {
     '^.+\\.[tj]sx?$': [
       'babel-jest',
@@ -8,5 +8,5 @@ module.exports = {
     ],
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'html'],
-  coverageDirectory: '../../coverage/libs/utils',
+  coverageDirectory: '../../../coverage/libs/components/ui',
 }

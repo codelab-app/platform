@@ -1,4 +1,4 @@
-import { D3GraphProps } from '@codelab/d3'
+import { D3GraphProps } from '@codelab/components/d3'
 import { HasID } from '@codelab/shared/interface/node'
 import { Vertex } from './vertex'
 import { Edge } from './edge'

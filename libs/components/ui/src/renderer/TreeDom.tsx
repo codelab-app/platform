@@ -1,4 +1,5 @@
-import { makeTree, traversePostOrder } from '@codelab/core/graph'
+import { traversePostOrder } from '@codelab/core/traversal'
+import { makeTree } from '@codelab/core/tree'
 import { Node } from '@codelab/core/node'
 import { TreeNodeI, ReactNodeI } from '@codelab/shared/interface/node'
 import {
