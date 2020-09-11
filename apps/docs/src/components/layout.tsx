@@ -9,7 +9,7 @@ import { Link } from 'gatsby'
 import './app.scss'
 import { reduce } from 'lodash'
 import React, { ReactElement } from 'react'
-import { Node } from '@codelab/entity/node'
+import { Node } from '@codelab/core/node'
 import { Frontmatter } from '../templates/docTemplate.i'
 
 const { Header, Content, Footer, Sider } = ALayout

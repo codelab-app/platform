@@ -1,5 +1,5 @@
 import { decode, DecodeError } from '@codelab/shared/common'
-import { nodeC } from '@codelab/entity/node'
+import { nodeC } from '@codelab/core/node'
 import { RefNodeI } from './node-ref'
 import { NodeA, NodeI } from '../../node--codec'
 import { NodeTypeEnum } from '../../node--enum'

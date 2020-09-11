@@ -1,4 +1,4 @@
-import { Node } from '@codelab/entity/node'
+import { Node } from '@codelab/core/node'
 import { Props } from '@codelab/shared/interface/props'
 import {
   ForwardRefExoticComponent,

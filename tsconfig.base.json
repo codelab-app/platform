@@ -47,14 +47,16 @@
       "@codelab/shared/interface/model": [
         "libs/shared/interface/model/src/index.ts"
       ],
-      "@codelab/entity/graph": ["libs/entity/graph/src/index.ts"],
-      "@codelab/entity/node": ["libs/entity/node/src/index.ts"],
-      "@codelab/entity/props": ["libs/entity/props/src/index.ts"],
-      "@codelab/entity/model": ["libs/entity/model/src/index.ts"],
       "@codelab/shared/interface/tree": [
         "libs/shared/interface/tree/src/index.ts"
       ],
-      "@codelab/tools-plugins-demo": ["libs/tools/plugins/demo/src/index.ts"]
+      "@codelab/tools-plugins-demo": ["libs/tools/plugins/demo/src/index.ts"],
+      "@codelab/core/graph": ["libs/core/graph/src/index.ts"],
+      "@codelab/core/model": ["libs/core/model/src/index.ts"],
+      "@codelab/core/props": ["libs/core/props/src/index.ts"],
+      "@codelab/core/node": ["libs/core/node/src/index.ts"],
+      "@codelab/core/traversal": ["libs/core/traversal/src/index.ts"],
+      "@codelab/core/tree": ["libs/core/tree/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"]

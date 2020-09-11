@@ -3,7 +3,7 @@ import {
   graphAppenderIteratee,
   treeWalker,
   GraphSubTreeContext,
-} from '@codelab/entity/graph'
+} from '@codelab/core/graph'
 import { TreeNodeI } from '@codelab/shared/interface/node'
 import { reduce } from 'lodash'
 import { Props } from '@codelab/shared/interface/props'

@@ -1,5 +1,5 @@
 import React from 'react'
-import { filterRenderProps } from '@codelab/entity/props'
+import { filterRenderProps } from '@codelab/core/props'
 import { Props } from '@codelab/shared/interface/props'
 import { mount } from 'enzyme'
 import { omit } from 'lodash'

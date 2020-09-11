@@ -93,10 +93,9 @@ Contain libraries that is used by apps
 - api: contain Nest.js modules
 - entity: contain domain specific business logic
 
-[Graph](libs/entity/graph/README.md)
-[Node](libs/entity/node/README.md)
-[Props](libs/entity/props/README.md)
-[Props](libs/entity/props/README.md)
+[Graph](libs/core/graph/README.md)
+[Node](libs/core/node/README.md)
+[Props](libs/core/props/README.md)
 
 - shared: contain interface & other shared code, contain no external dep
 - tools: contain ci/cd & workspace related code
