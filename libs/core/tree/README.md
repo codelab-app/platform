@@ -1,7 +1,9 @@
-# core-tree
+The Tree class is responsible for constructing a Tree structure composed of Nodes from data, or InputNodes.
 
-This library was generated with [Nx](https://nx.dev).
+The `makeTree` strategy uses data that mimicks the structure of the tree, with InputNodes nested with the children property.
 
-## Running unit tests
+'makeGraph' follows the same strategy, but produces a Graph instead.
 
-Run `nx test core-tree` to execute the unit tests via [Jest](https://jestjs.io).
+In other situations, we may have a flat array of data, which would require a different instantiation method. We would build each node according to the `children` or `parent` property.
+
+Note that in the flat array scenario, children would be an array of ID's, as opposed to the array of NodeInput which is found in `makeTree`.

@@ -1,10 +1,6 @@
 import v from 'voca'
 import { Mapper } from '@codelab/shared/interface/node'
-import {
-  mapData,
-  mapDataCustomChildrenKey,
-  mapDataLowerProps,
-} from './data/tree-map.data'
+import { mapData, mapDataCustomChildrenKey, mapDataLowerProps } from './data'
 import { treeMap } from './tree-map'
 
 describe('Tree mappers', () => {

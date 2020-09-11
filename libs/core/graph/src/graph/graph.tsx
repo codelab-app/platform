@@ -4,8 +4,8 @@ import {
   Graph as GraphInterface,
   GraphProps,
 } from '@codelab/shared/interface/graph'
-import { Vertex } from './vertex'
-import { Edge } from './edge'
+import { Vertex } from '../vertex'
+import { Edge } from '../edge'
 
 export class Graph implements GraphInterface {
   vertices: Array<Vertex> = []

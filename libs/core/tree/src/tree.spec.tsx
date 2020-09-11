@@ -1,13 +1,11 @@
 /* eslint-disable camelcase */
 import { D3TreeData } from '@codelab/d3'
 import { Mapper, TreeNodeI, NodeA } from '@codelab/shared/interface/node'
-import { findNode } from '@codelab/core/graph'
+import { findNode } from '@codelab/core/traversal'
+import { Vertex, Edge } from '@codelab/core/graph'
 import { makeGraph, makeTree } from './tree-factory'
 import { treeMap } from './tree-map'
-import { treeDataWithLabel } from './tree-withLabel.data'
-import { Vertex } from '../graph/vertex'
-import { Edge } from '../graph/edge'
-import { treeData } from './tree.data'
+import { treeDataWithLabel, treeData } from './data'
 
 describe('Tree', () => {
   it('can build a tree from json', () => {

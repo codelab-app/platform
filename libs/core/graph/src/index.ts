@@ -1,3 +1,3 @@
+export * from './edge'
+export * from './vertex'
 export * from './graph'
-export * from './traversal'
-export * from './tree'

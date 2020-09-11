@@ -1,9 +1,9 @@
 import { D3Graph, D3Tree, D3TreeData } from '@codelab/d3'
 import React from 'react'
 import { Mapper } from '@codelab/shared/interface/node'
-import { makeGraph, makeTree } from '../../graph/src/tree/tree-factory'
-import { treeMap } from '../../graph/src/tree/tree-map'
-import { componentData } from '../../graph/src/tree/data/tree-component.data'
+import { makeGraph, makeTree } from '../../tree/src/tree-factory'
+import { treeMap } from '../../tree/src/tree-map'
+import { componentData } from '../../tree/src/data/tree-component.data'
 
 export default {
   // component: Node,

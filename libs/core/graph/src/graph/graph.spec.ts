@@ -1,6 +1,6 @@
 import { Graph } from './graph'
-import { Edge } from './edge'
-import { Vertex } from './vertex'
+import { Edge } from '../edge/edge'
+import { Vertex } from '../vertex/vertex'
 
 describe('Graph', () => {
   it('adds vertex from a node', () => {

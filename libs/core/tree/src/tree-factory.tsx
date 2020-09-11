@@ -15,12 +15,12 @@ import {
   GraphSubTreeContext,
   TreeSubTreeContext,
 } from '@codelab/shared/interface/tree'
-import { treeWalker } from '../traversal'
 import {
+  treeWalker,
   graphAppenderIteratee,
   treeAppenderIteratee,
-} from '../traversal/traversal-iteratee'
-import { Graph } from '../graph'
+} from '@codelab/core/traversal'
+import { Graph } from '@codelab/core/graph'
 
 /**
  * This method generates a non-binary tree given JSON input. Each input node is

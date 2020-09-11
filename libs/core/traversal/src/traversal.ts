@@ -16,7 +16,7 @@ import {
   TreeSubTreeContext,
 } from '@codelab/shared/interface/tree'
 import { TraversalIteratee } from '@codelab/shared/interface/graph'
-import { Node } from '../../../node/src/base/Node'
+import { Node } from '@codelab/core/node'
 
 // export type TreeWalk<Node extends NodeInterface, R> = (
 //   parent: Node,
