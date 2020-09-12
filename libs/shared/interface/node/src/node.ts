@@ -2,6 +2,7 @@ import { Props } from '@codelab/shared/interface/props'
 import { FunctionComponent, ReactNode } from 'react'
 import * as _ from 'ts-toolbelt'
 import { NodeTypeEnum } from './node--enum'
+import { NodeA } from './node--codec'
 
 export interface HasID {
   id: string
@@ -22,8 +23,8 @@ export interface NodeInterface<P extends Props = {}> {
   Children(rootChildren: ReactNode): ReactNode | Array<ReactNode>
 }
 
-export type HasChildren<P> = {
-  children: Array<HasChildren<P>>
+export type HasChildren<N> = {
+  children?: Array<HasChildren<N>>
   [children: string]: any
 }
 
@@ -47,8 +48,9 @@ export type CurryReduce<T, R> = (reducerFn: Function, init: R, node: T) => R
 
 export type CurryMap<T1, T2> = (mapFn: Mapper<T1, T2>, node: T1) => T2
 
-export interface NodeFinderAcc<P extends Props> extends HasParent<any> {
-  node: NodeInterface<P>
-  found: NodeInterface<P> | null // found node
+export interface NodeFinderAcc<N> extends HasParent<N> {
+  node: N
+  found: N | null // found node
   id: string // id we want to search for
+  prev: undefined // not used, just to satisfy interface
 }

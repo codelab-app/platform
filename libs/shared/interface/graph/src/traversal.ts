@@ -1,10 +1,9 @@
-import { NodeInterface } from '@codelab/shared/interface/node'
-import { Props } from '@codelab/shared/interface/props'
+import { Node } from '@codelab/core/node'
 
-export interface TraversalOrder<P extends Props = {}> {
-  (node: NodeInterface<P>, iteratee: (node: NodeInterface<P>) => void)
+export interface TraversalOrder {
+  (node: Node, iteratee: (node: Node) => void): void
 }
 
-export interface TraversalIteratee<P extends Props = {}> {
-  (node: NodeInterface<P>): void
+export interface TraversalIteratee {
+  (node: Node): void
 }

@@ -1,10 +1,6 @@
 import * as t from 'io-ts'
 import { withFallback } from 'io-ts-types/lib/withFallback'
-import {
-  ReactNodeI,
-  NodeReactTypeEnum,
-  NodeReactType,
-} from '@codelab/shared/interface/node'
+import { ReactNodeI, NodeReactTypeEnum } from '@codelab/shared/interface/node'
 
 // export const reactNodeTypeLiterals = t.union([t.literal('Button'), t.literal('Table')])
 

@@ -1,20 +1,11 @@
 /**
  * We construct a tree by traversing the tree data using the treeAppender strategy
  */
-import { Props } from '@codelab/shared/interface/props'
+
 import { reduce } from 'lodash'
 import { Node } from '@codelab/core/node'
-import {
-  NodeInterface,
-  TreeNodeI,
-  ReactNodeI,
-  TreeNodeA,
-  ReactNodeA,
-} from '@codelab/shared/interface/node'
-import {
-  GraphSubTreeContext,
-  TreeSubTreeContext,
-} from '@codelab/shared/interface/tree'
+import { TreeNodeI, NodeI } from '@codelab/shared/interface/node'
+import { GraphSubTreeAcc, TreeSubTreeAcc } from '@codelab/shared/interface/tree'
 import {
   treeWalker,
   graphAppenderIteratee,
@@ -34,22 +25,18 @@ import { Graph } from '@codelab/core/graph'
  * ```
  *
  */
-export function makeTree<P extends Props>(
-  input: TreeNodeI<P> | ReactNodeI<P>,
-): NodeInterface<P> {
-  const root = new Node<P>(input)
+
+export function makeTree(input: NodeI): any {
+  const root = new Node(input)
   const subTreeContext = {
     subTree: root,
     prev: root,
     parent: root,
   }
 
-  return reduce<TreeNodeI<P> | ReactNodeI<P>, TreeSubTreeContext<P>>(
-    input?.children ?? [],
-    treeWalker<TreeSubTreeContext<P>, TreeNodeA<P> | ReactNodeA<P>>(
-      root,
-      treeAppenderIteratee,
-    ),
+  return reduce<Node, TreeSubTreeAcc>(
+    (input as Node)?.children ?? [],
+    treeWalker<TreeSubTreeAcc>(root, treeAppenderIteratee),
     subTreeContext,
   ).subTree
 }
@@ -57,7 +44,7 @@ export function makeTree<P extends Props>(
 /**
  * Using Vertex/Edge representation
  */
-export function makeGraph<P extends Props>(input: TreeNodeI<P>): Graph {
+export function makeGraph(input: TreeNodeI): Graph {
   // Convert input to Node input structure first, nodeFinder requires Node representation
   const root = makeTree(input)
   const graph = new Graph({ vertices: [], edges: [] })
@@ -70,31 +57,28 @@ export function makeGraph<P extends Props>(input: TreeNodeI<P>): Graph {
 
   graph.addVertexFromNode(root)
 
-  return reduce<TreeNodeI<P>, GraphSubTreeContext<P>>(
-    input.children ?? [],
-    treeWalker<GraphSubTreeContext<P>, TreeNodeA<P>>(
-      root,
-      graphAppenderIteratee,
-    ),
+  return reduce<Node, GraphSubTreeAcc>(
+    (input as Node).children ?? [],
+    treeWalker<GraphSubTreeAcc>(root, graphAppenderIteratee),
     subTreeContext,
   ).graph
 }
 
 // export function fromNodes<P extends Props = any>(
-//   inputNodes: Array<Node<P>>,
-// ): Node<P> {
+//   inputNodes: Array<Node>,
+// ): Node {
 //   const nodes = inputNodes.map((inputNode) => new Node(inputNode))
 
 //   return new Node()
-//   // const root = new Node<P>(input)
+//   // const root = new Node(input)
 //   // const subTreeAcc = {
 //   //   subTree: root,
 //   //   prev: root,
 //   //   parent: root,
 //   // }
-//   // return reduce<DTONode<P>, TreeAcc<P>>(
+//   // return reduce<DTONode, TreeAcc>(
 //   //   root.dto.children,
-//   //   treeWalker<TreeAcc<P>, DTONode<P>>(root.dto, treeAppenderIteratee),
+//   //   treeWalker<TreeAcc, DTONode>(root.dto, treeAppenderIteratee),
 //   //   subTreeAcc,
 //   // ).subTree
 // }

@@ -5,10 +5,11 @@ import React, { FunctionComponent, ReactNode, ReactElement } from 'react'
 import { Props } from '@codelab/shared/interface/props'
 import {
   HasChildren,
-  NodeInterface,
   NodeI,
   NodeTypeEnum,
   isReactNode,
+  NodeA,
+  NodeInterface,
 } from '@codelab/shared/interface/node'
 import { nodeC } from '../codec/node.codec'
 
@@ -33,10 +34,17 @@ export class Node<P extends Props = {}>
   public children: Array<Node<P>> = []
 
   /**
+   * The class Node & the codec Node should be kept separate. Node is the container for behavior, while codec Node holds the shape of the data
+   */
+  public data: NodeA<P>
+
+  /**
    * Can take just ID, but fills out other fields
    */
   constructor(node: NodeI) {
     const { data } = decode(node, nodeC)
+
+    this.data = data
     const { props, nodeType, id } = data
 
     this.type = isReactNode(data) ? data.type : ''
@@ -58,7 +66,7 @@ export class Node<P extends Props = {}>
     this.parent = parent
   }
 
-  static hasChildren<TreeNode extends HasChildren<TreeNode>>(node: TreeNode) {
+  static hasChildren<N extends HasChildren<N>>(node: N) {
     return !!node.children?.length
   }
 

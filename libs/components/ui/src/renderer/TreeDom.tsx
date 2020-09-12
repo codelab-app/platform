@@ -34,7 +34,7 @@ export class TreeDom {
      *
      * (2) RenderProps are passed down
      */
-    const componentBuilderIteratee = (node: Node<P>) => {
+    const componentBuilderIteratee = (node: Node) => {
       const [Component, props] = elementParameterFactory(node)
 
       /* eslint-disable no-param-reassign */
@@ -62,7 +62,7 @@ export class TreeDom {
       }
     }
 
-    traversePostOrder<P>(root, componentBuilderIteratee)
+    traversePostOrder(root, componentBuilderIteratee)
 
     /**
      * rootChildren & rootProps allow us to programmatically modify components
