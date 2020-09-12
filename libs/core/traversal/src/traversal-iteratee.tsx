@@ -2,8 +2,11 @@
  * These callbacks are executed when visiting each Node during Tree traversal
  */
 import { Node } from '@codelab/core/node'
-import { NodeFinderAcc } from '@codelab/shared/interface/node'
-import { GraphSubTreeAcc, TreeSubTreeAcc } from '@codelab/shared/interface/tree'
+import {
+  NodeFinderAcc,
+  GraphSubTreeAcc,
+  TreeSubTreeAcc,
+} from '@codelab/shared/interface/tree'
 import { reduce } from 'lodash'
 import { treeWalker } from './traversal'
 
