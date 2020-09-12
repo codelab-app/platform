@@ -46,7 +46,7 @@ describe('Tree', () => {
     }
 
     const tree = makeTree(treeData)
-    const mappedTree = treeMap('children', 'children')(treeMapper, tree)
+    const mappedTree = treeMap(treeMapper, 'children', 'children')(tree)
 
     expect(mappedTree).toMatchObject(treeDataWithLabel)
   })

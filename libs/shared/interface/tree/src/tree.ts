@@ -1,10 +1,4 @@
-import { Node } from '@codelab/core/node'
-import { Props } from '@codelab/shared/interface/props'
-import {
-  NodeInterface,
-  HasChildren,
-  HasParent,
-} from '@codelab/shared/interface/node'
+import { HasChildren, HasParent } from '@codelab/shared/interface/node'
 import { Graph } from '@codelab/shared/interface/graph'
 
 export type NodeIteratee<
@@ -20,4 +14,11 @@ export interface TreeSubTreeAcc<N> extends HasParent<N> {
 
 export interface GraphSubTreeAcc<N> extends TreeSubTreeAcc<N> {
   graph: Graph
+}
+
+export interface NodeFinderAcc<N> extends HasParent<N> {
+  node: N
+  found: N | null // found node
+  id: string // id we want to search for
+  prev: undefined // not used, just to satisfy interface
 }

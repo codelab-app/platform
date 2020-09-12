@@ -15,13 +15,13 @@ describe('Tree mappers', () => {
   })
 
   it('it maps each node', () => {
-    const mappedTreeData = treeMap()(mapper, mapData)
+    const mappedTreeData = treeMap(mapper)(mapData)
 
     expect(mappedTreeData).toStrictEqual(mapDataLowerProps)
   })
 
   it('it maps each node including children', () => {
-    const mappedTreeData = treeMap('children', 'myChildren')(mapper, mapData)
+    const mappedTreeData = treeMap(mapper, 'children', 'myChildren')(mapData)
 
     expect(mappedTreeData).toStrictEqual(mapDataCustomChildrenKey)
   })
