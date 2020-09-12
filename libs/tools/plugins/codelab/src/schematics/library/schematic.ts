@@ -33,7 +33,7 @@ interface NormalizedSchema extends ReactSchematicSchema {
   parsedTags: string[]
 }
 
-function normalizeOptions(options: ReactSchematicSchema): NormalizedSchema {
+const normalizeOptions = (options: ReactSchematicSchema): NormalizedSchema => {
   const name = toFileName(options.name)
   const projectDirectory = options.directory
     ? `${toFileName(options.directory)}/${name}`
@@ -56,7 +56,7 @@ function normalizeOptions(options: ReactSchematicSchema): NormalizedSchema {
 /**
  * We use `.eslintrc.js` instead of `.eslintrc`, so need to remove generated files
  */
-function removeFiles(options: NormalizedSchema): Rule {
+const removeFiles = (options: NormalizedSchema): Rule => {
   const { projectRoot } = options
   const filesToRemove = ['.eslintrc', `${projectRoot}/.eslintrc`]
 
@@ -67,7 +67,7 @@ function removeFiles(options: NormalizedSchema): Rule {
   }
 }
 
-function addFiles(options: NormalizedSchema): Rule {
+const addFiles = (options: NormalizedSchema): Rule => {
   return (tree: Tree, context: SchematicContext) => {
     return mergeWith(
       apply(url(`./files`), [
@@ -83,7 +83,7 @@ function addFiles(options: NormalizedSchema): Rule {
   }
 }
 
-export function createReactLibrary(options: NormalizedSchema): Rule {
+export const createReactLibrary = (options: NormalizedSchema): Rule => {
   return (_: Tree, context: SchematicContext) => {
     return externalSchematic('@nrwl/react', 'library', {
       name: options.name,
@@ -95,7 +95,7 @@ export function createReactLibrary(options: NormalizedSchema): Rule {
   }
 }
 
-export function addStorybookConfig(options: NormalizedSchema): Rule {
+export const addStorybookConfig = (options: NormalizedSchema): Rule => {
   return (tree: Tree, context: SchematicContext) => {
     return externalSchematic('@nrwl/react', 'storybook-configuration', {
       name: options.projectName,

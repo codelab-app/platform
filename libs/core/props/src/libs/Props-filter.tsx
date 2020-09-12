@@ -21,9 +21,9 @@ export const propsFilter = curry((allowedKeys: Array<string>, props: Props) => {
 
 export type PropsFilter<P> = (props: P) => P
 
-export function withFilters(
+export const withFilters = (
   filterFn: (props: Props) => Props,
   Component: FunctionComponent<Props>,
-): FunctionComponent<Props> {
+): FunctionComponent<Props> => {
   return compose((props: Props) => <Component {...props} />, filterFn)
 }

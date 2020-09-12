@@ -32,10 +32,10 @@ export const evalPropsFactory = (propValue: PropItem, ctx?: any) => {
 /**
  * Goes through each object key/value pair, and apply the iteratee
  */
-export function evalPropsIterator<P extends Props = Props>(
+export const evalPropsIterator = <P extends Props = Props>(
   props: P,
   ctx?: any,
-) {
+) => {
   return reduce<P, Props>(
     props,
     (evaluatedProp: Props, propValue: PropItem, propKey: keyof Props) => ({
@@ -49,7 +49,7 @@ export function evalPropsIterator<P extends Props = Props>(
 /**
  * Allows us to build ctx & pass into props without needing a parent & child component
  */
-export function evalPropsWithContext(props: Props): Props {
+export const evalPropsWithContext = (props: Props): Props => {
   const { ctx = {}, ...restProps } = props
   const libraryCtx = {
     React,

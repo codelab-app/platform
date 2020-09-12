@@ -5,7 +5,7 @@ export interface TextProps {
 }
 
 export namespace CodelabHtml {
-  export function Text({ value }: TextProps) {
+  export const Text = ({ value }: TextProps) => {
     return <>{value}</>
   }
 }

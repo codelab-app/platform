@@ -8,7 +8,7 @@ export type NodeIteratee<
 
 export interface TreeSubTreeAcc<N> extends HasParent<N> {
   subTree: N
-  prev: N
+  prev?: N
   parent?: N
 }
 
@@ -16,9 +16,7 @@ export interface GraphSubTreeAcc<N> extends TreeSubTreeAcc<N> {
   graph: Graph
 }
 
-export interface NodeFinderAcc<N> extends HasParent<N> {
-  node: N
-  found: N | null // found node
+export interface NodeFinderAcc<N> extends TreeSubTreeAcc<N> {
   id: string // id we want to search for
-  prev: undefined // not used, just to satisfy interface
+  found: N | null // found node
 }

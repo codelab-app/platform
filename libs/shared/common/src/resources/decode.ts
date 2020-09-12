@@ -6,10 +6,10 @@ import { PathReporter } from 'io-ts/lib/PathReporter'
 import { Result } from '../data'
 import { DecodeError } from '../errors'
 
-export function decode<A, O = A, I = unknown>(
+export const decode = <A, O = A, I = unknown>(
   data: I,
   codec: t.Type<A, O, I>,
-): Result<A> {
+): Result<A> => {
   return pipe<I, Validation<A>, Result<A>>(
     data,
     codec.decode,

@@ -7,10 +7,10 @@ import * as mongoose from 'mongoose'
 import { Schema } from '../schema'
 import { ModelInterface } from './model.i'
 
-export function modelCreationIteratee(
+export const modelCreationIteratee = (
   modelTree: ModelInterface,
   node: SchemaNode | ModelNode,
-): ModelInterface {
+): ModelInterface => {
   if (node.nodeType === NodeTypeEnum.Schema) {
     return { ...modelTree, schema: Schema.create(node) }
   }

@@ -34,9 +34,9 @@ interface SchemaTypeFactory<SchemaI, SchemaO> {
   (schemaType: SchemaI): SchemaO
 }
 
-export function getSchemaType(
+export const getSchemaType = (
   property: JSONSchema7,
-): mongoose.SchemaTypeOpts<any> | mongoose.Schema | mongoose.SchemaType {
+): mongoose.SchemaTypeOpts<any> | mongoose.Schema | mongoose.SchemaType => {
   const { type } = property
 
   if (type === 'string') {

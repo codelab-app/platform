@@ -7,7 +7,7 @@ import { TreeDom } from '../../renderer/TreeDom'
 export type TableProps<T extends object = any> = AntTableProps<T>
 
 export namespace CodelabTable {
-  export function Default<T extends object = any>(props: TableProps<T>) {
+  export const Default = <T extends object = any>(props: TableProps<T>) => {
     const { dataSource, columns } = props
 
     const mappedColumns = columns?.map(({ render, ...column }: any) => {

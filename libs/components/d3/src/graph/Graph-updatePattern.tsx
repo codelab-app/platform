@@ -17,8 +17,9 @@ export const defineMarkers = (selection: any) => {
 }
 
 /**
- * Use function for this context
+ * Use function for this context, allow func style since this is used
  */
+// eslint-disable-next-line func-style
 export function ticked(this: any): any {
   updateNodes(this.d3Nodes)
   updateLinks(this.d3Links)

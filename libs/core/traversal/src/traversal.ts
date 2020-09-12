@@ -23,10 +23,10 @@ import { Node } from '@codelab/core/node'
 // P -> Prop
 // S -> SubTree or Acc
 // N -> Node
-export function treeWalker<S extends TreeSubTreeAcc<Node>>(
-  parent: Node | null,
+export const treeWalker = <S extends TreeSubTreeAcc<Node>>(
+  parent: Node | undefined,
   nodeIteratee: NodeIteratee<S, Node>,
-) {
+) => {
   return (
     subTreeContext: S, // prev (reduce arg)
     child: Node, // curr (reduce arg)
@@ -55,7 +55,7 @@ export function treeWalker<S extends TreeSubTreeAcc<Node>>(
   }
 }
 
-export function traversePostOrder(node: Node, iteratee: TraversalIteratee) {
+export const traversePostOrder = (node: Node, iteratee: TraversalIteratee) => {
   node.children.forEach((child) => {
     traversePostOrder(child, iteratee)
   })
@@ -63,7 +63,7 @@ export function traversePostOrder(node: Node, iteratee: TraversalIteratee) {
   iteratee(node)
 }
 
-export function traversePreOrder(node: Node, iteratee: TraversalIteratee) {
+export const traversePreOrder = (node: Node, iteratee: TraversalIteratee) => {
   if (!node) {
     return
   }

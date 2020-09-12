@@ -11,17 +11,16 @@ import { reduce } from 'lodash'
 import { treeWalker } from './traversal'
 
 export const nodeFinderIteratee = (
-  { id, found, node }: NodeFinderAcc<Node>,
+  { id, found, subTree }: NodeFinderAcc<Node>,
   child: Node,
 ): NodeFinderAcc<Node> => ({
   id,
   found: child.id === id ? child : found,
-  node,
-  prev: undefined,
+  subTree,
 })
 
 // This needs to be in tree/graph/traversal level, a node doesn't know how to find itself. plus findNode uses treeWalker methods which is just <traversal></traversal>
-export function findNode(id: string | undefined, node: Node): Node | null {
+export const findNode = (id: string | undefined, node: Node): Node | null => {
   if (!node) {
     throw new Error(`Node is undefined`)
   }
@@ -38,18 +37,17 @@ export function findNode(id: string | undefined, node: Node): Node | null {
     node?.children ?? [],
     treeWalker<NodeFinderAcc<Node>>(null, nodeFinderIteratee),
     {
-      node,
       found: null,
       id,
-      prev: undefined,
+      subTree: node,
     },
   ).found
 }
 
-export function treeAppenderIteratee(
+export const treeAppenderIteratee = (
   { subTree, parent }: TreeSubTreeAcc<Node>,
   child: Node,
-) {
+) => {
   const childNode = new Node(child)
   const parentNode = findNode(parent?.id, subTree)
 
@@ -62,14 +60,13 @@ export function treeAppenderIteratee(
   return {
     prev: childNode,
     subTree,
-    parent: null,
   }
 }
 
-export function graphAppenderIteratee(
+export const graphAppenderIteratee = (
   { graph, subTree, parent }: GraphSubTreeAcc<Node>,
   child: Node,
-) {
+) => {
   const node = new Node(child)
   const parentNode = findNode(parent?.id, subTree)
 

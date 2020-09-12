@@ -6,6 +6,9 @@ module.exports = {
   },
   rules: {
     'unused-imports/no-unused-imports-ts': 'error',
+    'prefer-arrow-callback': 'error',
+    'func-style': 'error',
+    // 'arrow-body-style': off,
     // 'nx-enforce-module-boundaries': [
     //   'error',
     //   {

@@ -25,8 +25,7 @@ import { Graph } from '@codelab/core/graph'
  * ```
  *
  */
-
-export function makeTree(input: NodeI): any {
+export const makeTree = (input: NodeI): Node => {
   const root = new Node(input)
   const subTreeContext = {
     subTree: root,
@@ -34,9 +33,9 @@ export function makeTree(input: NodeI): any {
     parent: root,
   }
 
-  return reduce<Node, TreeSubTreeAcc>(
+  return reduce<Node, TreeSubTreeAcc<Node>>(
     (input as Node)?.children ?? [],
-    treeWalker<TreeSubTreeAcc>(root, treeAppenderIteratee),
+    treeWalker<TreeSubTreeAcc<Node>>(root, treeAppenderIteratee),
     subTreeContext,
   ).subTree
 }
@@ -44,7 +43,7 @@ export function makeTree(input: NodeI): any {
 /**
  * Using Vertex/Edge representation
  */
-export function makeGraph(input: TreeNodeI): Graph {
+export const makeGraph = (input: TreeNodeI): Graph => {
   // Convert input to Node input structure first, nodeFinder requires Node representation
   const root = makeTree(input)
   const graph = new Graph({ vertices: [], edges: [] })
@@ -57,16 +56,16 @@ export function makeGraph(input: TreeNodeI): Graph {
 
   graph.addVertexFromNode(root)
 
-  return reduce<Node, GraphSubTreeAcc>(
+  return reduce<Node, GraphSubTreeAcc<Node>>(
     (input as Node).children ?? [],
-    treeWalker<GraphSubTreeAcc>(root, graphAppenderIteratee),
+    treeWalker<GraphSubTreeAcc<Node>>(root, graphAppenderIteratee),
     subTreeContext,
   ).graph
 }
 
-// export function fromNodes<P extends Props = any>(
+// export const fromNodes = <P extends Props = any>(
 //   inputNodes: Array<Node>,
-// ): Node {
+// ): Node => {
 //   const nodes = inputNodes.map((inputNode) => new Node(inputNode))
 
 //   return new Node()

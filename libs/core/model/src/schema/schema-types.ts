@@ -5,9 +5,9 @@ import {
 import * as mongoose from 'mongoose'
 import { reduce } from 'lodash'
 
-export function getSchemaType(
+export const getSchemaType = (
   property: SchemaTypeOpts,
-): mongoose.SchemaTypeOpts<any> {
+): mongoose.SchemaTypeOpts<any> => {
   const { type } = property
 
   if ('enum' in property) {
@@ -33,9 +33,9 @@ export function getSchemaType(
   return { type: mongoose.Schema.Types.String }
 }
 
-export function produceSchemaDefinition(
+export const produceSchemaDefinition = (
   props: SchemaDefinition,
-): mongoose.SchemaDefinition {
+): mongoose.SchemaDefinition => {
   const schemaDefinition: mongoose.SchemaDefinition = reduce<
     SchemaDefinition,
     mongoose.SchemaDefinition
