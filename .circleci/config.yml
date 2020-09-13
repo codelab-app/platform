@@ -55,7 +55,7 @@ commands:
               echo 'export SLACK_USER=${SLACK_VIEN}' >> $BASH_ENV
             elif [ $CIRCLE_USERNAME == $GITHUB_ALEX ]; then
               echo 'export SLACK_USER=${SLACK_ALEX}' >> $BASH_ENV
-            else [ $CIRCLE_USERNAME == $GITHUB_WEBBER ];
+            else
               echo 'export SLACK_USER=${SLACK_WEBBER}' >> $BASH_ENV
             fi
             source $BASH_ENV
