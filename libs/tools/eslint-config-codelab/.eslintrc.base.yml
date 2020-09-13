@@ -16,10 +16,15 @@ rules:
     - allowAfterThis: true
   no-case-declarations: off
   no-restricted-syntax: off
+
+  # --- CLASS ---
   class-methods-use-this: off
   no-useless-constructor: off
+  # --- !CLASS ---
+
   react/jsx-props-no-spreading: off
-  # Format
+
+  # --- FORMAT ---
   newline-before-return: error
   newline-after-var: error
   padding-line-between-statements:
@@ -27,7 +32,9 @@ rules:
     - blankLine: always
       prev: if
       next: '*'
-  # imports
+  # --- !FORMAT ---
+
+  # --- IMPORTS ---
   import/no-extraneous-dependencies:
     - error
     - devDependencies: true
@@ -35,22 +42,20 @@ rules:
   import/no-unresolved: error
   import/order:
     - error
-    # - alphabetize:
-    #   order: asc
-    #   caseInsensitive: true
-  #  sort-imports: error
   import/extensions:
     - error
     - js: never
-  # unused-imports/no-unused-imports-ts: error
-  '@typescript-eslint/no-unused-vars': off
-  '@typescript-eslint/explicit-function-return-type': off
+  # --- !IMPORTS ---
+
   no-unused-expressions:
     - error
     - allowTernary: true
   max-classes-per-file: off
-#  unused-imports/no-unused-vars-ts:
-#    - warn
+
+  # --- ES6 ---
+  prefer-arrow-callback: error
+  func-style: error
+  # --- !ES6 ---
 
 overrides:
   - files: ['*.js', '*.jsx']
@@ -77,3 +82,5 @@ overrides:
       '@typescript-eslint/no-explicit-any': off
       '@typescript-eslint/explicit-module-boundary-types': off
       '@typescript-eslint/indent': off
+      '@typescript-eslint/no-unused-vars': off
+      '@typescript-eslint/explicit-function-return-type': off
