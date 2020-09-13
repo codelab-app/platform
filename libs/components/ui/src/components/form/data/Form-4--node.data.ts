@@ -1,5 +1,4 @@
 import { ReactNodeI, NodeTypeEnum } from '@codelab/shared/interface/node'
-import { Select } from '../../select/Select.types'
 import { Button } from '../../button'
 import { Form } from '../Form.types'
 import { Text } from '../../text'
@@ -12,30 +11,15 @@ export const nodeFormData: ReactNodeI<
   props: {
     ctx: { eval: true, value: '' },
     name: 'basic',
-    initialValues: { nodeType: 'React' },
+    initialValues: { node_type: 'React' },
     onFinish: '() => console.log("good")',
   },
   children: [
-    {
-      type: 'Form.Item',
-      nodeType: 'React',
-      props: {
-        label: 'Select',
-        name: 'nodeType',
-      },
-      children: [
-        {
-          type: 'Select',
-          nodeType: 'React',
-          props: {
-            style: {
-              width: 120,
-            },
-          },
-          children: Select.createOptions(NodeTypeEnum),
-        },
-      ],
-    },
+    Form.createSelect({
+      label: 'Node Type',
+      name: 'node_type',
+      options: NodeTypeEnum,
+    }),
     {
       type: 'Form.Item',
       nodeType: 'React',

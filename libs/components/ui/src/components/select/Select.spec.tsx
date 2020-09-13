@@ -9,6 +9,7 @@ import {
 import { cLog } from '@codelab/shared/utils'
 import { Default } from './Select.stories'
 import { Select } from './Select.types'
+import { Form } from '../form/Form.types'
 
 describe('Select', () => {
   it('should render with text', async () => {
@@ -27,7 +28,7 @@ describe('Select', () => {
       BTC = 'btc',
       ETH = 'eth',
     }
-    const options = Select.createOptions(Coins as any)
+    const options = Form.createOptions(Coins as any)
 
     cLog(options)
 
