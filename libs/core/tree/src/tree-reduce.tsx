@@ -1,8 +1,8 @@
 import { hasChildren, HasChildren } from '@codelab/shared/interface/node'
 
 export const treeReduce = <T extends HasChildren<T>, R>(
-  childrenKey = 'children',
   reducerFn: Function,
+  childrenKey = 'children',
 ) => (init: R, node: T) => {
   const acc = reducerFn(init, node)
 
@@ -11,7 +11,7 @@ export const treeReduce = <T extends HasChildren<T>, R>(
   }
 
   return node[childrenKey]?.reduce(
-    treeReduce<HasChildren<T>, R>(childrenKey, reducerFn),
+    treeReduce<HasChildren<T>, R>(reducerFn, childrenKey),
     acc,
   )
 }

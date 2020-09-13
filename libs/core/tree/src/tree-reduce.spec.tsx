@@ -12,14 +12,13 @@ describe('Tree reducers', () => {
   }
 
   it('it reduces each node', () => {
-    const viewCount = treeReduce()(reducer, 0, reducerData)
+    const viewCount = treeReduce(reducer)(0, reducerData)
 
     expect(viewCount).toEqual(13)
   })
 
   it('it reduces each node using custom children key', () => {
-    const viewCount = treeReduce('myChildren')(
-      reducer,
+    const viewCount = treeReduce(reducer, 'myChildren')(
       0,
       reducerDataCustomChildrenKey,
     )

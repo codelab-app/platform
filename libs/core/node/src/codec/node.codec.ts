@@ -53,9 +53,9 @@ export const nodeC = new t.Type<NodeA, NodeA, NodeI>(
       return t.success<ReactNodeA>({ id: uuidv4(), ...data } as ReactNodeA)
     }
 
-    // if (isRefNode(data)) {
-    //   return t.success<RefNodeA>(data as RefNodeA)
-    // }
+    if (isRefNode(data)) {
+      return t.success<RefNodeA>(data as RefNodeA)
+    }
 
     if (isTreeNode(data)) {
       return t.success<TreeNodeA>(data as TreeNodeA)
