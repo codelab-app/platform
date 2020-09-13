@@ -1,6 +1,14 @@
 import { render, fireEvent, waitFor } from '@testing-library/react'
 import React from 'react'
+import { get } from 'lodash'
+import {
+  ReactNodeI,
+  ReactNodeTypeEnum,
+  NodeTypeEnum,
+} from '@codelab/shared/interface/node'
+import { cLog } from '@codelab/shared/utils'
 import { Default } from './Select.stories'
+import { Select } from './Select.types'
 
 describe('Select', () => {
   it('should render with text', async () => {
@@ -12,5 +20,21 @@ describe('Select', () => {
 
     await waitFor(() => expect(getByText('B')).toBeInTheDocument())
     await waitFor(() => expect(getByText('C')).toBeInTheDocument())
+  })
+
+  it('should generate option input data with an array of enum types', () => {
+    enum Coins {
+      BTC = 'btc',
+      ETH = 'eth',
+    }
+    const options = Select.createOptions(Coins as any)
+
+    cLog(options)
+
+    expect(get(options, '0.props.value')).toBe('btc')
+    expect(get(options, '0.children.0.props.value')).toBe('BTC')
+
+    expect(get(options, '1.props.value')).toBe('eth')
+    expect(get(options, '1.children.0.props.value')).toBe('ETH')
   })
 })

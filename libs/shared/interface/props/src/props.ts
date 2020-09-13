@@ -15,8 +15,6 @@ export interface Props {
   [name: string]: PropItem
 }
 
-export type PropsFromKeys<Keys extends string, P extends {} = {}> =
-  | {
-      [K in Keys]?: string | number | boolean | PropValue | P | object
-    }
-  | { ctx?: PropItem; style?: CSSProperties }
+export type PropsFromKeys<Keys extends string, P extends object = {}> = {
+  [K in Keys]?: string | number | boolean | PropValue | P
+} & { ctx?: PropItem; style?: CSSProperties }

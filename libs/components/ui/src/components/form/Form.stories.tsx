@@ -1,8 +1,11 @@
 import React from 'react'
-import { formDefaultData } from './data/Form-1--default.data'
+import {
+  formDefaultData,
+  formObjectData,
+  formConditionData,
+  nodeFormData,
+} from './data'
 import { TreeDom } from '../../renderer/TreeDom'
-import { formObjectData } from './data/Form-2--object.data'
-import { formConditionData } from './data/Form-3--condition.data'
 
 export default {
   title: 'Form',
@@ -28,6 +31,12 @@ export const ObjectForm = () => {
  */
 export const ConditionalForm = () => {
   const Form = TreeDom.render(formConditionData)
+
+  return <Form />
+}
+
+export const NodeForm = () => {
+  const Form = TreeDom.render(nodeFormData)
 
   return <Form />
 }

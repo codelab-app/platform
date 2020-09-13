@@ -41,16 +41,14 @@ export namespace CodelabForm {
                   return (
                     <Space key={field.key} style={{ display: 'flex' }}>
                       {/* Need to cast to array, our Node will convert single children from array of length 1 to a non-array object */}
-                      {React.Children.toArray(children).map(
-                        (child: ReactElement) => {
-                          return React.cloneElement(child, {
-                            ...field,
-                            ...child.props,
-                            name: [field.name, child.props.name],
-                            key: [field.name, child.props.name],
-                          })
-                        },
-                      )}
+                      {React.Children.toArray(children).map((child: any) => {
+                        return React.cloneElement(child, {
+                          ...field,
+                          ...child.props,
+                          name: [field.name, child.props.name],
+                          key: [field.name, child.props.name],
+                        })
+                      })}
                       <AntForm.Item key="Form-list--delete">
                         <MinusCircleOutlined
                           onClick={() => {
@@ -91,7 +89,7 @@ export namespace CodelabForm {
           return (
             <>
               {React.Children.toArray(children).map(
-                (child: ReactElement, index: number) => {
+                (child: any, index: number) => {
                   return !hidden ? (
                     // eslint-disable-next-line react/no-array-index-key
                     <React.Fragment key={index}>

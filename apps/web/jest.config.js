@@ -1,5 +1,5 @@
 module.exports = {
-  name: 'core',
+  name: 'web',
   preset: '../../jest.config.js',
   transform: {
     '^(?!.*\\.(js|jsx|ts|tsx|css|json)$)': '@nrwl/react/plugins/jest',
@@ -9,5 +9,5 @@ module.exports = {
     ],
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'html'],
-  coverageDirectory: '../../coverage/apps/core',
+  coverageDirectory: '../../coverage/apps/web',
 }

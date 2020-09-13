@@ -22,16 +22,16 @@ export class Node<P extends Props = {}>
 
   public id: string
 
-  public type: string
-
   public nodeType: NodeTypeEnum
-
-  // eslint-disable-next-line react/static-property-placement
-  public props: P
 
   public parent?: Node<P>
 
   public children: Array<Node<P>> = []
+
+  // eslint-disable-next-line react/static-property-placement
+  public props: P
+
+  public type: string
 
   /**
    * The class Node & the codec Node should be kept separate. Node is the container for behavior, while codec Node holds the shape of the data

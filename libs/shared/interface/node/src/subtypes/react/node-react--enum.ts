@@ -1,4 +1,4 @@
-export enum NodeReactTypeEnum {
+export enum ReactNodeTypeEnum {
   'React.Fragment' = 'React.Fragment',
   'Html.div' = 'Html.div',
   'Html.p' = 'Html.p',
@@ -97,4 +97,4 @@ export enum NodeReactTypeEnum {
   'Popover' = 'Popover',
 }
 
-export type NodeReactType = keyof typeof NodeReactTypeEnum
+export type ReactNodeType = keyof typeof ReactNodeTypeEnum
