@@ -7,9 +7,10 @@ afterEach(cleanup)
 describe('Table', () => {
   let consoleOutput = ''
 
-  function mockedLog(output: string) {
+  const mockedLog = (output: string) => {
     consoleOutput = output
   }
+
   // eslint-disable-next-line no-console
   console.log = mockedLog
 

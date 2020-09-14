@@ -2,7 +2,11 @@ import { reduce } from 'lodash'
 import React from 'react'
 import axios from 'axios'
 import { notification, message } from 'antd'
-import { isTreeNode, isReactNode } from '@codelab/shared/interface/node'
+import {
+  isTreeNode,
+  isReactNode,
+  isReactNodeArray,
+} from '@codelab/shared/interface/node'
 import { PropValue, PropItem, Props } from '@codelab/shared/interface/props'
 import { isEvalPropValue } from './Props.guards'
 import { renderReactNodes } from './Props-react'
@@ -17,7 +21,11 @@ export const evalPropsFactory = (propValue: PropItem, ctx?: any) => {
     return evalPropValue(propValue, ctx)
   }
 
-  if (isReactNode(propValue) || isTreeNode(propValue)) {
+  if (
+    isReactNode(propValue) ||
+    isTreeNode(propValue) ||
+    isReactNodeArray(propValue)
+  ) {
     // We pass TreeDom via ctx to avoid circular depedency
     if (!ctx?.TreeDom) {
       throw new Error('TreeDom can not be found')
