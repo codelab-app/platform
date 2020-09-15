@@ -1,10 +1,10 @@
-import React from 'react'
-import { filterRenderProps } from '@codelab/core/props'
-import { Props } from '@codelab/shared/interface/props'
 import { mount } from 'enzyme'
 import { omit } from 'lodash'
+import React from 'react'
+import { leafRenderPropsData, renderPropsData } from './Props-renderProps.data'
+import { filterRenderProps } from '@codelab/core/props'
 import { TreeDom } from '@codelab/core/renderer'
-import { renderPropsData, leafRenderPropsData } from './Props-renderProps.data'
+import { Props } from '@codelab/shared/interface/props'
 
 describe('RenderProps', () => {
   it('filters props for renderProps', () => {

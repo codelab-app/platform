@@ -1,8 +1,7 @@
-import { ReactNodeI } from '@codelab/shared/interface/node'
+import { NodeDtoI } from '@codelab/shared/interface/node'
 
-export const providerData: ReactNodeI = {
-  type: 'Provider',
-  nodeType: 'React',
+export const providerData: NodeDtoI = {
+  type: 'React.Provider',
   props: {
     onClick: {
       eval: true,
@@ -11,16 +10,13 @@ export const providerData: ReactNodeI = {
   },
   children: [
     {
-      type: 'Html.div',
-      nodeType: 'React',
+      type: 'React.Html.div',
       children: [
         {
-          type: 'Button',
-          nodeType: 'React',
+          type: 'React.Button',
           children: [
             {
-              type: 'Text',
-              nodeType: 'React',
+              type: 'React.Text',
               props: {
                 value: 'Click me',
               },

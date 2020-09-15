@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common'
-import { modelsProvider, MODELS_PROVIDER } from './model.provider'
 import { SchemaModule } from '../schema'
+import { MODELS_PROVIDER, modelsProvider } from './model.provider'
 
 @Module({
   imports: [SchemaModule],

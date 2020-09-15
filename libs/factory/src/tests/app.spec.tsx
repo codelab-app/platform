@@ -1,8 +1,8 @@
-import { buttonData } from '@codelab/components/ui'
 import { AppBuilder } from '../app/builder/App-builder.i'
 import { AppWebBuilder } from '../app/builder/web/AppWeb-builder'
 import { AppOrder } from '../app/builder/web/AppWeb-builder--order'
 import { AppWebProduct } from '../app/products/web/AppWeb-product'
+import { buttonData } from '@codelab/components/ui'
 
 describe('App factory', () => {
   it('creates the view', () => {

@@ -1,10 +1,10 @@
 import { reduce } from 'lodash'
-import { Props } from '@codelab/shared/interface/props'
 import {
-  isSingleRenderPropValue,
   isLeafRenderPropValue,
   isRenderPropValue,
+  isSingleRenderPropValue,
 } from './Props.guards'
+import { Props } from '@codelab/shared/interface/props'
 
 type PropIteratee = (
   prop: Props,

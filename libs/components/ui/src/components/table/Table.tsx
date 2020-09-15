@@ -1,6 +1,6 @@
-import React from 'react'
 import { Table as AntTable } from 'antd'
 import { TableProps as AntTableProps } from 'antd/lib/table'
+import React from 'react'
 // eslint-disable-next-line import/no-cycle
 import { TreeDom } from '@codelab/core/renderer'
 

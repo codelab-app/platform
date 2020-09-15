@@ -1,14 +1,9 @@
-import { render, fireEvent, waitFor } from '@testing-library/react'
-import React from 'react'
+import { fireEvent, render, waitFor } from '@testing-library/react'
 import { get } from 'lodash'
-import {
-  ReactNodeI,
-  ReactNodeTypeEnum,
-  NodeTypeEnum,
-} from '@codelab/shared/interface/node'
-import { cLog } from '@codelab/shared/utils'
-import { Default } from './Select.stories'
+import React from 'react'
 import { Form } from '../form/Form.types'
+import { Default } from './Select.stories'
+import { cLog } from '@codelab/shared/utils'
 
 describe('Select', () => {
   it('should render with text', async () => {
@@ -16,7 +11,13 @@ describe('Select', () => {
 
     expect(getByText('A')).toBeTruthy()
 
-    fireEvent.mouseDown(getByText('A').parentElement)
+    const elem = getByText('A').parentElement
+
+    if (!elem) {
+      throw new Error('missing elem')
+    }
+
+    fireEvent.mouseDown(elem)
 
     await waitFor(() => expect(getByText('B')).toBeInTheDocument())
     await waitFor(() => expect(getByText('C')).toBeInTheDocument())
@@ -27,7 +28,7 @@ describe('Select', () => {
       BTC = 'btc',
       ETH = 'eth',
     }
-    const options = Form.createOptions<string>(Object.entries(Coins))
+    const options = Form.createOptions(Object.entries(Coins))
 
     cLog(options)
 

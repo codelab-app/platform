@@ -1,8 +1,8 @@
-import { convertToRenderProps } from '@codelab/core/props'
 import {
-  filterRenderProps,
   convertToLeafRenderProps,
+  filterRenderProps,
 } from './Props-renderProps'
+import { convertToRenderProps } from '@codelab/core/props'
 
 describe('Props with renderProps type', () => {
   it('converts all props to renderProps', () => {

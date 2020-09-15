@@ -1,6 +1,6 @@
-import { TestingModule, Test } from '@nestjs/testing'
+import { Test, TestingModule } from '@nestjs/testing'
 import { SchemaModule, SchemaService } from '../schema'
-import { modelsProvider, MODELS_PROVIDER } from './model.provider'
+import { MODELS_PROVIDER, modelsProvider } from './model.provider'
 
 const MockSchemaService: jest.Mock<typeof SchemaService> = jest.fn()
 

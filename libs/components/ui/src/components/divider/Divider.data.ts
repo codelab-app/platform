@@ -1,30 +1,26 @@
-import { ReactNodeI } from '@codelab/shared/interface/node'
-import { Divider } from './Divider.types'
 import { Text } from '../text'
+import { Divider } from './Divider.types'
+import { NodeDtoI } from '@codelab/shared/interface/node'
 
-export const dividerData: ReactNodeI<Divider.Props | Text.Props> = {
-  type: 'Provider',
-  nodeType: 'React',
+export const dividerData: NodeDtoI<Divider.Props | Text.Props> = {
+  type: 'React.Provider',
   children: [
     {
-      type: 'Text',
-      nodeType: 'React',
+      type: 'React.Text',
       props: {
         value:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi ista probare, quae sunt a te dicta? Refert tamen, quo modo',
       },
     },
     {
-      type: 'Divider',
-      nodeType: 'React',
+      type: 'React.Divider',
       props: {
         orientation: 'center',
-        type: 'horizontal',
+        type: 'React.horizontal',
       },
     },
     {
-      type: 'Text',
-      nodeType: 'React',
+      type: 'React.Text',
       props: {
         value:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi ista probare, quae sunt a te dicta? Refert tamen, quo modo',

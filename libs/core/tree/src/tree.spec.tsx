@@ -1,11 +1,11 @@
 /* eslint-disable camelcase */
-import { D3TreeData } from '@codelab/components/d3'
-import { Mapper, TreeNodeI, NodeA } from '@codelab/shared/interface/node'
-import { findNode } from '@codelab/core/traversal'
-import { Vertex, Edge } from '@codelab/core/graph'
+import { treeData, treeDataWithLabel } from './data'
 import { makeGraph, makeTree } from './tree-factory'
 import { treeMap } from './tree-map'
-import { treeDataWithLabel, treeData } from './data'
+import { D3TreeData } from '@codelab/components/d3'
+import { Edge, Vertex } from '@codelab/core/graph'
+import { findNode } from '@codelab/core/traversal'
+import { Mapper, NodeDtoI } from '@codelab/shared/interface/node'
 
 describe('Tree', () => {
   it('can build a tree from json', () => {
@@ -37,11 +37,13 @@ describe('Tree', () => {
   })
 
   it('can map a tree', () => {
-    const treeMapper: Mapper<any, D3TreeData> = (node: NodeA) => {
+    const treeMapper: Mapper<any, any> = (node: NodeDtoI) => {
       return {
         id: node.id,
-        label: node.id as string,
-        nodeType: node.nodeType,
+        type: node.type,
+        props: {
+          label: node.id as string,
+        },
       }
     }
 
@@ -83,22 +85,22 @@ describe('Tree', () => {
   })
 
   it('returns the root node with properties set', () => {
-    const data: TreeNodeI = {
+    const data: NodeDtoI = {
       id: 'A',
-      nodeType: 'Tree',
+      type: 'Tree',
       children: [
         {
           id: 'B',
-          nodeType: 'Tree',
+          type: 'Tree',
         },
-        { id: 'C', nodeType: 'Tree' },
+        { id: 'C', type: 'Tree' },
       ],
     }
     const node = makeTree(data)
 
     expect(node.id).toBe('A')
     expect(node.props).toStrictEqual({})
-    expect(node.type).toBe('')
+    expect(node.type).toBe('Tree')
   })
 
   // it('sets unique id by default', () => {

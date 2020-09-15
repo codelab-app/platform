@@ -1,5 +1,5 @@
-import { NodeI, TreeNodeI } from '@codelab/shared/interface/node'
 import { TreeStrategy } from './strategy/Tree-strategy'
+import { NodeDtoI } from '@codelab/shared/interface/node'
 
 export enum TreeType {
   // Products a tree using parent-child
@@ -14,11 +14,11 @@ export enum TreeType {
 
 export type TreeOrder = {
   type: TreeType
-  data: NodeI
+  data: NodeDtoI
 }
 
 export class TreeFactoryMethod {
-  private _strategy: TreeStrategy
+  private _strategy?: TreeStrategy
 
   setStrategy(strategy: TreeStrategy) {
     this._strategy = strategy

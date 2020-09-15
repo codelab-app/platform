@@ -1,31 +1,41 @@
-import { TreeNodeI } from '@codelab/shared/interface/node'
+import { NodeDtoI } from '@codelab/shared/interface/node'
 /**
- * No type because nodeType doesn't exist on build tree
+ * No type because type doesn't exist on build tree
  */
-export const treeDataWithLabel: TreeNodeI = {
+export const treeDataWithLabel: NodeDtoI = {
   id: 'Root',
-  nodeType: 'Tree',
-  label: 'Root',
+  type: 'Tree',
+  props: {
+    label: 'Root',
+  },
   children: [
     {
       id: 'A',
-      nodeType: 'Tree',
-      label: 'A',
+      type: 'Tree',
+      props: {
+        label: 'A',
+      },
       children: [
         {
           id: 'B',
-          nodeType: 'Tree',
-          label: 'B',
+          type: 'Tree',
+          props: {
+            label: 'B',
+          },
           children: [
             {
               id: 'C',
-              nodeType: 'Tree',
-              label: 'C',
+              type: 'Tree',
+              props: {
+                label: 'C',
+              },
             },
             {
               id: 'D',
-              nodeType: 'Tree',
-              label: 'D',
+              type: 'Tree',
+              props: {
+                label: 'D',
+              },
             },
           ],
         },
@@ -33,23 +43,31 @@ export const treeDataWithLabel: TreeNodeI = {
     },
     {
       id: 'E',
-      nodeType: 'Tree',
-      label: 'E',
+      type: 'Tree',
+      props: {
+        label: 'E',
+      },
       children: [
         {
           id: 'F',
-          nodeType: 'Tree',
-          label: 'F',
+          type: 'Tree',
+          props: {
+            label: 'F',
+          },
         },
         {
           id: 'G',
-          nodeType: 'Tree',
-          label: 'G',
+          type: 'Tree',
+          props: {
+            label: 'G',
+          },
         },
         {
           id: 'H',
-          nodeType: 'Tree',
-          label: 'H',
+          type: 'Tree',
+          props: {
+            label: 'H',
+          },
         },
       ],
     },

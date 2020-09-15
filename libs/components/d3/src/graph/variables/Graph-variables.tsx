@@ -5,10 +5,10 @@ type NodeAttributesMap = (
   color: string,
   radius: number,
   distance: number,
-) => (nodeType: NodeType) => NodeTypeMap
+) => (type: NodeType) => NodeTypeMap
 
 type NodeTypeMap = {
-  [nodeType: string]: NodeAttribute
+  [type: string]: NodeAttribute
 }
 
 export type NodeAttribute = {
@@ -18,9 +18,9 @@ export type NodeAttribute = {
 }
 
 const nodeAttributes: NodeAttributesMap = (color, radius, distance) => (
-  nodeType,
+  type,
 ) => ({
-  [nodeType]: {
+  [type]: {
     color,
     radius,
     distance,

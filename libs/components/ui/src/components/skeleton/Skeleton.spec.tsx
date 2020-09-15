@@ -1,18 +1,18 @@
 import { render } from '@testing-library/react'
-import { ReactNodeI } from '@codelab/shared/interface/node'
 import React from 'react'
 import { TreeDom } from '@codelab/core/renderer'
+import { NodeDtoI } from '@codelab/shared/interface/node'
 
 describe('Skeleton', () => {
   it('should render with text', () => {
-    const skeleton: ReactNodeI = {
-      type: 'Html.div',
-      nodeType: 'React',
+    const skeleton: NodeDtoI = {
+      type: 'React.Html.div',
+
       props: { 'data-testid': 'skeleton' },
       children: [
         {
-          type: 'Skeleton',
-          nodeType: 'React',
+          type: 'React.Skeleton',
+
           props: {
             active: 'true',
             paragraph: 'true',

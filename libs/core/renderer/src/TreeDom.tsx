@@ -1,16 +1,17 @@
-import { traversePostOrder } from '@codelab/core/traversal'
-import { makeTree } from '@codelab/core/tree'
-import { Node } from '@codelab/core/node'
-import { TreeNodeI, ReactNodeI } from '@codelab/shared/interface/node'
-import {
-  evalPropsWithContext,
-  convertToLeafRenderProps,
-} from '@codelab/core/props'
-import { Props } from '@codelab/shared/interface/props'
-import React, { FunctionComponent, PropsWithChildren } from 'react'
 import { merge } from 'lodash'
+import React, { FunctionComponent, PropsWithChildren } from 'react'
 // eslint-disable-next-line import/no-cycle
 import { elementParameterFactory } from './ElementFactory'
+import { Node } from '@codelab/core/node'
+import {
+  convertToLeafRenderProps,
+  evalPropsWithContext,
+} from '@codelab/core/props'
+import { traversePostOrder } from '@codelab/core/traversal'
+import { makeTree } from '@codelab/core/tree'
+import { NodeDtoI } from '@codelab/shared/interface/node'
+import { Props } from '@codelab/shared/interface/props'
+// eslint-disable-next-line import/no-cycle
 
 /**
  * We need this function in ui package because TreeDom is required, can't put in node or props package
@@ -21,9 +22,7 @@ const evalPropsWithTreeContext = (props: Props): Props => {
 }
 
 export class TreeDom {
-  static render<P extends Props>(
-    data: TreeNodeI<P> | ReactNodeI<P>,
-  ): FunctionComponent<any> {
+  static render<P extends Props>(data: NodeDtoI): FunctionComponent<any> {
     let hasRootChildren = false
     const root = makeTree(data)
 
@@ -52,11 +51,11 @@ export class TreeDom {
         )
       }
 
-      if (node.type === 'Select.Option') {
+      if (node.type === 'React.Select.Option') {
         ;(node.Component as any).isSelectOption = true
       }
 
-      if (node.type === 'Breadcrumb.Item') {
+      if (node.type === 'React.Breadcrumb.Item') {
         // eslint-disable-next-line no-underscore-dangle
         ;(node.Component as any).__ANT_BREADCRUMB_ITEM = true
       }

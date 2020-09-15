@@ -1,6 +1,6 @@
-import { NodeInterface } from '@codelab/shared/interface/node'
-import { treeReduce } from './tree-reduce'
 import { reducerData, reducerDataCustomChildrenKey } from './data'
+import { treeReduce } from './tree-reduce'
+import { NodeInterface } from '@codelab/shared/interface/node'
 
 describe('Tree reducers', () => {
   type PageStats = {

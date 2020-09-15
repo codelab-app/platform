@@ -1,5 +1,5 @@
+import { JSONSchema7, JSONSchema7Object } from 'json-schema'
 import * as mongoose from 'mongoose'
-import { JSONSchema7Object, JSONSchema7 } from 'json-schema'
 
 export enum SchemaType {
   String = 'String',

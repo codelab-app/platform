@@ -1,10 +1,9 @@
-import { ReactNodeI } from '@codelab/shared/interface/node'
 import { Button } from '../button'
 import { Modal } from './Modal.types'
+import { NodeDtoI } from '@codelab/shared/interface/node'
 
-export const modalData: ReactNodeI<Modal.Props | Button.Props> = {
-  type: 'Provider',
-  nodeType: 'React',
+export const modalData: NodeDtoI<Modal.Props | Button.Props> = {
+  type: 'React.Provider',
   props: {
     ctx: {
       eval: true,
@@ -30,27 +29,21 @@ export const modalData: ReactNodeI<Modal.Props | Button.Props> = {
   },
   children: [
     {
-      nodeType: 'React',
-      type: 'Button',
-      props: { type: 'primary' },
-      children: [
-        { type: 'Text', nodeType: 'React', props: { value: 'Open modal' } },
-      ],
+      type: 'React.Button',
+      props: { type: 'React.primary' },
+      children: [{ type: 'React.Text', props: { value: 'Open modal' } }],
     },
     {
-      type: 'Modal',
-      nodeType: 'React',
+      type: 'React.Modal',
       props: {
         title: 'Basic Modal',
       },
       children: [
         {
-          type: 'Html.p',
-          nodeType: 'React',
+          type: 'React.Html.p',
           children: [
             {
-              type: 'Text',
-              nodeType: 'React',
+              type: 'React.Text',
               props: {
                 value: 'Some contents...',
               },

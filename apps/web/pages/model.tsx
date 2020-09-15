@@ -1,10 +1,9 @@
 import React from 'react'
-import { ReactNodeI } from '@codelab/shared/interface/node'
 import { TreeDom } from '@codelab/core/renderer'
+import { NodeDtoI } from '@codelab/shared/interface/node'
 
-export const modelFormData: ReactNodeI = {
-  type: 'Form',
-  nodeType: 'React',
+export const modelFormData: NodeDtoI = {
+  type: 'React.Form',
   props: {
     // name: 'app',
     initialValues: {
@@ -21,29 +20,25 @@ export const modelFormData: ReactNodeI = {
   },
   children: [
     {
-      type: 'Form.Item',
-      nodeType: 'React',
+      type: 'React.Form.Item',
       props: {
         label: 'Name',
         name: ['company', 'name'],
       },
       children: [
         {
-          type: 'Input',
-          nodeType: 'React',
+          type: 'React.Input',
         },
       ],
     },
     {
-      type: 'Divider',
-      nodeType: 'React',
+      type: 'React.Divider',
       props: {
         orientation: 'left',
       },
       children: [
         {
-          type: 'Text',
-          nodeType: 'React',
+          type: 'React.Text',
           props: {
             value: 'Address',
           },
@@ -51,72 +46,62 @@ export const modelFormData: ReactNodeI = {
       ],
     },
     {
-      type: 'Form.Item',
-      nodeType: 'React',
+      type: 'React.Form.Item',
       props: {
         label: 'Country',
         name: ['company', 'address', 'country'],
       },
       children: [
         {
-          type: 'Input',
-          nodeType: 'React',
+          type: 'React.Input',
         },
       ],
     },
     {
-      type: 'Form.Item',
-      nodeType: 'React',
+      type: 'React.Form.Item',
       props: {
         label: 'City',
         name: ['company', 'address', 'city'],
       },
       children: [
         {
-          type: 'Input',
-          nodeType: 'React',
+          type: 'React.Input',
         },
       ],
     },
     {
-      type: 'Form.List',
-      nodeType: 'React',
+      type: 'React.Form.List',
       props: {
         label: 'Devs',
         name: ['company', 'devs'],
       },
       children: [
         {
-          type: 'Form.Item',
-          nodeType: 'React',
+          type: 'React.Form.Item',
           props: {
             name: 'name',
             label: 'Name',
           },
           children: [
             {
-              type: 'Input',
-              nodeType: 'React',
+              type: 'React.Input',
             },
           ],
         },
       ],
     },
     {
-      type: 'Form.Item',
-      nodeType: 'React',
+      type: 'React.Form.Item',
       children: [
         {
-          type: 'Button',
-          nodeType: 'React',
+          type: 'React.Button',
           props: {
             type: 'primary',
             htmlType: 'submit',
           },
           children: [
             {
-              type: 'Text',
-              nodeType: 'React',
+              type: 'React.Text',
               props: {
                 value: 'Submit',
               },

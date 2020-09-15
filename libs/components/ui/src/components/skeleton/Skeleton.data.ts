@@ -1,7 +1,7 @@
-import { ReactNodeI } from '@codelab/shared/interface/node'
 import { Skeleton } from './Skeleton.types'
+import { NodeDtoI } from '@codelab/shared/interface/node'
 
-export const skeletonData: ReactNodeI<
+export const skeletonData: NodeDtoI<
   | Skeleton.Props
   | Skeleton.AvatarProps
   | Skeleton.TitleProps
@@ -9,8 +9,7 @@ export const skeletonData: ReactNodeI<
   | Skeleton.ButtonProps
   | Skeleton.InputProps
 > = {
-  type: 'Skeleton',
-  nodeType: 'React',
+  type: 'React.Skeleton',
   props: {
     active: true,
     paragraph: true,

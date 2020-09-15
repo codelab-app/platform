@@ -1,28 +1,30 @@
-import { ReactNodeI } from '@codelab/shared/interface/node'
 import { Text } from '../text'
 import { Popover } from './Popover.types'
+import { NodeDtoI } from '@codelab/shared/interface/node'
 
-export const popoverData: ReactNodeI<Popover.Props | Text.Props> = {
-  type: 'Popover',
-  nodeType: 'React',
+export const popoverData: NodeDtoI<Popover.Props | Text.Props> = {
+  type: 'React.Popover',
   props: {
     title: 'Title',
     content: {
-      type: 'Html.div',
-      nodeType: 'React',
+      type: 'React.Html.div',
       children: [
         {
-          type: 'Html.p',
-          nodeType: 'React',
+          type: 'React.Html.p',
           children: [
-            { type: 'Text', nodeType: 'React', props: { value: 'Content' } },
+            {
+              type: 'React.Text',
+              props: { value: 'Content' },
+            },
           ],
         },
         {
-          type: 'Html.p',
-          nodeType: 'React',
+          type: 'React.Html.p',
           children: [
-            { type: 'Text', nodeType: 'React', props: { value: 'Content' } },
+            {
+              type: 'React.Text',
+              props: { value: 'Content' },
+            },
           ],
         },
       ],
@@ -30,13 +32,11 @@ export const popoverData: ReactNodeI<Popover.Props | Text.Props> = {
   },
   children: [
     {
-      type: 'Button',
-      nodeType: 'React',
+      type: 'React.Button',
       props: {},
       children: [
         {
-          type: 'Text',
-          nodeType: 'React',
+          type: 'React.Text',
           props: {
             value: 'Hover me',
           },

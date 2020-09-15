@@ -1,14 +1,14 @@
 /**
  * These callbacks are executed when visiting each Node during Tree traversal
  */
-import { Node } from '@codelab/core/node'
-import {
-  NodeFinderAcc,
-  GraphSubTreeAcc,
-  TreeSubTreeAcc,
-} from '@codelab/shared/interface/tree'
 import { reduce } from 'lodash'
 import { treeWalker } from './traversal'
+import { Node } from '@codelab/core/node'
+import {
+  GraphSubTreeAcc,
+  NodeFinderAcc,
+  TreeSubTreeAcc,
+} from '@codelab/shared/interface/tree'
 
 export const nodeFinderIteratee = (
   { id, found, subTree }: NodeFinderAcc<Node>,

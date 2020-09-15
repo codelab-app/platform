@@ -1,7 +1,7 @@
 /* eslint-disable react/no-this-in-sfc */
 import React, { ComponentType } from 'react'
-import { evalPropsWithContext } from '@codelab/core/props'
 import { AppProduct } from '../App-product.i'
+import { evalPropsWithContext } from '@codelab/core/props'
 
 export class AppWebProduct extends AppProduct {
   // Called by builder

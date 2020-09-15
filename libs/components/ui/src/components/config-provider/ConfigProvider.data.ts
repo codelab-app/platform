@@ -1,51 +1,50 @@
-import { ReactNodeI } from '@codelab/shared/interface/node'
-import { Text } from '../text'
 import { Button } from '../button'
-import { Select } from '../select'
 import { Input } from '../input'
+import { Select } from '../select'
+import { Text } from '../text'
 import { ConfigProvider } from './ConfigProvider.types'
+import { NodeDtoI } from '@codelab/shared/interface/node'
 
-export const configProviderData: ReactNodeI<
+export const configProviderData: NodeDtoI<
   ConfigProvider.Props | Text.Props | Button.Props | Select.Props | Input.Props
 > = {
-  type: 'ConfigProvider',
-  nodeType: 'React',
+  type: 'React.ConfigProvider',
   props: {
     componentSize: 'large',
   },
   children: [
     {
-      type: 'Html.div',
-      nodeType: 'React',
+      type: 'React.Html.div',
       children: [
-        { type: 'Input', nodeType: 'React', props: { placeholder: 'Input' } },
+        {
+          type: 'React.Input',
+          props: { placeholder: 'Input' },
+        },
       ],
     },
     {
-      type: 'Html.div',
-      nodeType: 'React',
+      type: 'React.Html.div',
       children: [
         {
-          type: 'Select',
-          nodeType: 'React',
+          type: 'React.Select',
           props: { defaultValue: 'Demo', options: [{ value: 'Demo' }] },
         },
       ],
     },
     {
-      type: 'Html.div',
-      nodeType: 'React',
-      children: [{ type: 'DatePicker', nodeType: 'React' }],
+      type: 'React.Html.div',
+      children: [{ type: 'React.DatePicker' }],
     },
     {
-      type: 'Html.div',
-      nodeType: 'React',
+      type: 'React.Html.div',
       children: [
         {
-          type: 'Button',
-          nodeType: 'React',
+          type: 'React.Button',
           children: [
-            { type: 'Text', nodeType: 'React', props: { value: 'Button' } },
+            {
+              type: 'React.Text',
+              props: { value: 'Button' },
+            },
           ],
         },
       ],

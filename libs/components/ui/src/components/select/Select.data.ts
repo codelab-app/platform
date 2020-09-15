@@ -1,40 +1,36 @@
-import { ReactNodeI } from '@codelab/shared/interface/node'
-import { Select } from './Select.types'
 import { Text } from '../text'
+import { Select } from './Select.types'
+import { NodeDtoI } from '@codelab/shared/interface/node'
 
-export const selectData: ReactNodeI<
+export const selectData: NodeDtoI<
   Select.Props | Select.OptionProps | Text.Props
 > = {
-  type: 'Select',
-  nodeType: 'React',
+  type: 'React.Select',
   props: {
     style: { width: 120 },
     defaultValue: 'a',
   },
   children: [
     {
-      nodeType: 'React',
-      type: 'Select.Option',
+      type: 'React.Select.Option',
       props: {
         value: 'a',
       },
-      children: [{ type: 'Text', nodeType: 'React', props: { value: 'A' } }],
+      children: [{ type: 'React.Text', props: { value: 'A' } }],
     },
     {
-      nodeType: 'React',
-      type: 'Select.Option',
+      type: 'React.Select.Option',
       props: {
         value: 'b',
       },
-      children: [{ type: 'Text', nodeType: 'React', props: { value: 'B' } }],
+      children: [{ type: 'React.Text', props: { value: 'B' } }],
     },
     {
-      nodeType: 'React',
-      type: 'Select.Option',
+      type: 'React.Select.Option',
       props: {
         value: 'c',
       },
-      children: [{ type: 'Text', nodeType: 'React', props: { value: 'C' } }],
+      children: [{ type: 'React.Text', props: { value: 'C' } }],
     },
   ],
 }

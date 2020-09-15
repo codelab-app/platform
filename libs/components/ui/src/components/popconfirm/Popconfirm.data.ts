@@ -1,10 +1,9 @@
-import { ReactNodeI } from '@codelab/shared/interface/node'
 import { Text } from '../text'
 import { Popconfirm } from './Popconfirm.types'
+import { NodeDtoI } from '@codelab/shared/interface/node'
 
-export const popconfirmData: ReactNodeI<Popconfirm.Props | Text.Props> = {
-  type: 'Popconfirm',
-  nodeType: 'React',
+export const popconfirmData: NodeDtoI<Popconfirm.Props | Text.Props> = {
+  type: 'React.Popconfirm',
   props: {
     cancelText: 'Cancel',
     okText: 'OK',
@@ -13,13 +12,11 @@ export const popconfirmData: ReactNodeI<Popconfirm.Props | Text.Props> = {
   },
   children: [
     {
-      type: 'Button',
-      nodeType: 'React',
+      type: 'React.Button',
       props: {},
       children: [
         {
-          type: 'Text',
-          nodeType: 'React',
+          type: 'React.Text',
           props: {
             value: 'Delete',
           },

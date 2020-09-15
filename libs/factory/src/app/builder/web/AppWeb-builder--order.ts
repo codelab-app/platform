@@ -1,3 +1,3 @@
-import { NodeI } from '@codelab/shared/interface/node'
+import { NodeDtoI } from '@codelab/shared/interface/node'
 
-export type AppOrder = NodeI
+export type AppOrder = NodeDtoI

@@ -1,8 +1,8 @@
-import { Test, TestingModule } from '@nestjs/testing'
 import { getModelToken } from '@nestjs/mongoose'
+import { Test, TestingModule } from '@nestjs/testing'
+import { CreateUserDto } from './dto/create-user.dto'
 import { User } from './user.schema'
 import { UserService } from './user.service'
-import { CreateUserDto } from './dto/create-user.dto'
 
 export const MockUserModel: jest.Mock = jest.fn()
 MockUserModel.prototype.save = jest.fn()

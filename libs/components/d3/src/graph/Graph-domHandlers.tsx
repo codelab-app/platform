@@ -1,8 +1,7 @@
 import * as d3 from 'd3'
-
+import { DomHandler, DomHandlerHOC } from './Graph-domHandlers.i'
 import { nonActiveLinks, nonActiveNodes } from './Graph-filters'
 import { g, linkAttribute, nodeAttribute } from './variables/Graph-variables'
-import { DomHandler, DomHandlerHOC } from './Graph-domHandlers.i'
 
 export const drawingTempLink = (source: any, target: any) => {
   const [x1, y1, x2, y2] = [source.x, source.y, target.x, target.y]

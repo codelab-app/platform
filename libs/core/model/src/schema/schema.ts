@@ -1,9 +1,9 @@
 import * as mongoose from 'mongoose'
-import { SchemaNode } from '@codelab/shared/interface/node'
 import { produceSchemaDefinition } from './schema-types'
+import { NodeDtoI } from '@codelab/shared/interface/node'
 
 export class Schema {
-  static create(schemaNode: SchemaNode) {
+  static create(schemaNode: NodeDtoI) {
     const { props } = schemaNode
     const schemaDefinition = produceSchemaDefinition(props)
 

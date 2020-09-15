@@ -1,28 +1,24 @@
-import { ReactNodeI } from '@codelab/shared/interface/node'
-import { Dropdown } from './Dropdown.types'
 import { Text } from '../text'
+import { Dropdown } from './Dropdown.types'
+import { NodeDtoI } from '@codelab/shared/interface/node'
 
-export const dropdownData: ReactNodeI<
+export const dropdownData: NodeDtoI<
   Dropdown.Props | Text.Props | Dropdown.ButtonProps
 > = {
-  type: 'Dropdown',
-  nodeType: 'React',
+  type: 'React.Dropdown',
   props: {
     overlay: {
-      type: 'Menu',
-      nodeType: 'React',
+      type: 'React.Menu',
       props: { style: { width: 120 } },
       children: [
         {
-          type: 'Menu.Item',
-          nodeType: 'React',
+          type: 'React.Menu.Item',
           props: {
             key: '1',
           },
           children: [
             {
-              type: 'Text',
-              nodeType: 'React',
+              type: 'React.Text',
               props: {
                 value: 'Option 1',
               },
@@ -30,15 +26,13 @@ export const dropdownData: ReactNodeI<
           ],
         },
         {
-          type: 'Menu.Item',
-          nodeType: 'React',
+          type: 'React.Menu.Item',
           props: {
             key: '2',
           },
           children: [
             {
-              type: 'Text',
-              nodeType: 'React',
+              type: 'React.Text',
               props: {
                 value: 'Option 2',
               },
@@ -50,12 +44,10 @@ export const dropdownData: ReactNodeI<
   },
   children: [
     {
-      type: 'Html.a',
-      nodeType: 'React',
+      type: 'React.Html.a',
       children: [
         {
-          type: 'Text',
-          nodeType: 'React',
+          type: 'React.Text',
           props: {
             value: 'Hover me',
           },

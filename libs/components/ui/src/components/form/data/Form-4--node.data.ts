@@ -1,13 +1,12 @@
-import { ReactNodeI, NodeTypeEnum } from '@codelab/shared/interface/node'
 import { Button } from '../../button'
-import { Form } from '../Form.types'
 import { Text } from '../../text'
+import { Form } from '../Form.types'
+import { NodeDtoI, NodeTypeEnum } from '@codelab/shared/interface/node'
 
-export const nodeFormData: ReactNodeI<
+export const nodeFormData: NodeDtoI<
   Form.Props | Form.ItemProps | Text.Props | Button.Props
 > = {
-  type: 'Form',
-  nodeType: 'React',
+  type: 'React.Form',
   props: {
     ctx: { eval: true, value: '' },
     name: 'basic',
@@ -21,20 +20,17 @@ export const nodeFormData: ReactNodeI<
       options: Object.entries(NodeTypeEnum),
     }),
     {
-      type: 'Form.Item',
-      nodeType: 'React',
+      type: 'React.Form.Item',
       children: [
         {
-          type: 'Button',
-          nodeType: 'React',
+          type: 'React.Button',
           props: {
-            type: 'primary',
+            type: 'React.primary',
             htmlType: 'submit',
           },
           children: [
             {
-              type: 'Text',
-              nodeType: 'React',
+              type: 'React.Text',
               props: {
                 value: 'Submit',
               },

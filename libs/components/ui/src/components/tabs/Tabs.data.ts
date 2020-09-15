@@ -1,27 +1,22 @@
-import { ReactNodeI } from '@codelab/shared/interface/node'
 import { Text } from '../text'
 import { Tabs } from './Tabs.types'
+import { NodeDtoI } from '@codelab/shared/interface/node'
 
-export const tabsData: ReactNodeI<
-  Tabs.Props | Tabs.TabPaneProps | Text.Props
-> = {
-  type: 'Tabs',
-  nodeType: 'React',
+export const tabsData: NodeDtoI<Tabs.Props | Tabs.TabPaneProps | Text.Props> = {
+  type: 'React.Tabs',
   props: {
     defaultActiveKey: 1,
   },
   children: [
     {
-      type: 'Tabs.TabPane',
-      nodeType: 'React',
+      type: 'React.Tabs.TabPane',
       props: {
         tab: 'Tab 1',
         key: '1',
       },
       children: [
         {
-          type: 'Text',
-          nodeType: 'React',
+          type: 'React.Text',
           props: {
             value: 'Content of Tab pane 1',
           },
@@ -29,16 +24,14 @@ export const tabsData: ReactNodeI<
       ],
     },
     {
-      type: 'Tabs.TabPane',
-      nodeType: 'React',
+      type: 'React.Tabs.TabPane',
       props: {
         tab: 'Tab 2',
         key: '2',
       },
       children: [
         {
-          type: 'Text',
-          nodeType: 'React',
+          type: 'React.Text',
           props: {
             value: 'Content of Tab pane 2',
           },
@@ -46,8 +39,7 @@ export const tabsData: ReactNodeI<
       ],
     },
     {
-      type: 'Tabs.TabPane',
-      nodeType: 'React',
+      type: 'React.Tabs.TabPane',
       props: {
         tab: 'Tab 3',
         key: '3',

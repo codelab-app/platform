@@ -1,16 +1,15 @@
-import { ReactNodeI } from '@codelab/shared/interface/node'
 import { Text } from '../../text'
 import { Grid } from '../Grid.types'
+import { NodeDtoI } from '@codelab/shared/interface/node'
 
-export const responsiveGridData: ReactNodeI<
+export const responsiveGridData: NodeDtoI<
   | Text.Props
   | Grid.Props
   | Grid.ItemProps
   | Grid.ResponsiveProps
   | { key: string }
 > = {
-  type: 'ResponsiveGrid',
-  nodeType: 'React',
+  type: 'React.ResponsiveGrid',
   props: {
     layouts: {
       lg: [
@@ -35,16 +34,14 @@ export const responsiveGridData: ReactNodeI<
   },
   children: [
     {
-      type: 'Html.div',
-      nodeType: 'React',
+      type: 'React.Html.div',
       props: {
         key: 'a',
         style: { border: '1px solid #000', padding: 10 },
       },
       children: [
         {
-          type: 'Text',
-          nodeType: 'React',
+          type: 'React.Text',
           props: {
             value: 'A',
           },
@@ -52,16 +49,14 @@ export const responsiveGridData: ReactNodeI<
       ],
     },
     {
-      type: 'Html.div',
-      nodeType: 'React',
+      type: 'React.Html.div',
       props: {
         key: 'b',
         style: { border: '1px solid #000', padding: 10 },
       },
       children: [
         {
-          type: 'Text',
-          nodeType: 'React',
+          type: 'React.Text',
           props: {
             value: 'B',
           },
@@ -69,16 +64,14 @@ export const responsiveGridData: ReactNodeI<
       ],
     },
     {
-      type: 'Html.div',
-      nodeType: 'React',
+      type: 'React.Html.div',
       props: {
         key: 'c',
         style: { border: '1px solid #000', padding: 10 },
       },
       children: [
         {
-          type: 'Text',
-          nodeType: 'React',
+          type: 'React.Text',
           props: {
             value: 'C',
           },

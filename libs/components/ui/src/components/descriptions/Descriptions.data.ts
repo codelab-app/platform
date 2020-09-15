@@ -1,26 +1,23 @@
-import { ReactNodeI } from '@codelab/shared/interface/node'
 import { Text } from '../text'
 import { Descriptions } from './Descriptions.types'
+import { NodeDtoI } from '@codelab/shared/interface/node'
 
-export const descriptionsData: ReactNodeI<
+export const descriptionsData: NodeDtoI<
   Descriptions.Props | Descriptions.ItemProps | Text.Props
 > = {
-  type: 'Descriptions',
-  nodeType: 'React',
+  type: 'React.Descriptions',
   props: {
     title: 'User Info',
   },
   children: [
     {
-      type: 'Descriptions.Item',
-      nodeType: 'React',
+      type: 'React.Descriptions.Item',
       props: {
         label: 'UserName',
       },
       children: [
         {
-          type: 'Text',
-          nodeType: 'React',
+          type: 'React.Text',
           props: {
             value: 'Zhou Maomao',
           },
@@ -28,15 +25,13 @@ export const descriptionsData: ReactNodeI<
       ],
     },
     {
-      type: 'Descriptions.Item',
-      nodeType: 'React',
+      type: 'React.Descriptions.Item',
       props: {
         label: 'Telephone',
       },
       children: [
         {
-          type: 'Text',
-          nodeType: 'React',
+          type: 'React.Text',
           props: {
             value: '1810000000',
           },
@@ -44,15 +39,13 @@ export const descriptionsData: ReactNodeI<
       ],
     },
     {
-      type: 'Descriptions.Item',
-      nodeType: 'React',
+      type: 'React.Descriptions.Item',
       props: {
         label: 'Live',
       },
       children: [
         {
-          type: 'Text',
-          nodeType: 'React',
+          type: 'React.Text',
           props: {
             value: 'Hangzhou, Zhejiang',
           },
@@ -60,15 +53,13 @@ export const descriptionsData: ReactNodeI<
       ],
     },
     {
-      type: 'Descriptions.Item',
-      nodeType: 'React',
+      type: 'React.Descriptions.Item',
       props: {
         label: 'Address',
       },
       children: [
         {
-          type: 'Text',
-          nodeType: 'React',
+          type: 'React.Text',
           props: {
             value:
               'No. 18, Wantang Road, Xihu District, Hangzhou, Zhejiang, China',

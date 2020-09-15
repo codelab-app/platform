@@ -1,5 +1,5 @@
-import { updateNodes } from './nodes/Graph-nodes'
 import { updateLinks } from './links/Graph-links'
+import { updateNodes } from './nodes/Graph-nodes'
 
 export const defineMarkers = (selection: any) => {
   selection

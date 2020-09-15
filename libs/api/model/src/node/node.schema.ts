@@ -6,7 +6,7 @@ export class Node extends mongoose.Document {
   name = 'Node'
 
   @Prop({ required: true })
-  nodeType?: string
+  type?: string
 
   @Prop({ type: mongoose.Schema.Types.Mixed })
   props?: object

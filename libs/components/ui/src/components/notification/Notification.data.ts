@@ -1,13 +1,12 @@
-import { ReactNodeI } from '@codelab/shared/interface/node'
-import { Text } from '../text'
 import { Button } from '../button'
+import { Text } from '../text'
 import { Notification } from './Notification.types'
+import { NodeDtoI } from '@codelab/shared/interface/node'
 
-export const notificationData: ReactNodeI<
+export const notificationData: NodeDtoI<
   Text.Props | Notification.Props | Button.Props | { config: object }
 > = {
-  type: 'Provider',
-  nodeType: 'React',
+  type: 'React.Provider',
   props: {
     onClick: {
       eval: true,
@@ -25,12 +24,10 @@ export const notificationData: ReactNodeI<
   },
   children: [
     {
-      type: 'Button',
-      nodeType: 'React',
+      type: 'React.Button',
       children: [
         {
-          type: 'Text',
-          nodeType: 'React',
+          type: 'React.Text',
           props: {
             value: 'Display notification',
           },

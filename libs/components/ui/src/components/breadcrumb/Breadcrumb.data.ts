@@ -1,24 +1,22 @@
-import { ReactNodeI } from '@codelab/shared/interface/node'
 import { Text } from '../text'
 import { Breadcrumb } from './Breadcrumb.types'
+import { NodeDtoI } from '@codelab/shared/interface/node'
 
-export const breadcrumbData: ReactNodeI<
+export const breadcrumbData: NodeDtoI<
   | Breadcrumb.Props
   | Breadcrumb.ItemProps
   | Breadcrumb.SeparatorProps
   | Text.Props
 > = {
-  type: 'Breadcrumb',
-  nodeType: 'React',
+  type: 'React.Breadcrumb',
   children: [
     {
-      type: 'Breadcrumb.Item',
-      nodeType: 'React',
+      type: 'React.Breadcrumb.Item',
       props: { href: '#' },
       children: [
         {
-          type: 'Text',
-          nodeType: 'React',
+          type: 'React.Text',
+
           props: {
             value: 'Home',
           },
@@ -26,13 +24,12 @@ export const breadcrumbData: ReactNodeI<
       ],
     },
     {
-      type: 'Breadcrumb.Item',
-      nodeType: 'React',
+      type: 'React.Breadcrumb.Item',
       props: { href: '#' },
       children: [
         {
-          type: 'Text',
-          nodeType: 'React',
+          type: 'React.Text',
+
           props: {
             value: 'Application Center',
           },
@@ -40,21 +37,17 @@ export const breadcrumbData: ReactNodeI<
       ],
     },
     {
-      type: 'Breadcrumb.Item',
-      nodeType: 'React',
+      type: 'React.Breadcrumb.Item',
       props: {
         href: '#',
         overlay: {
-          type: 'Menu',
-          nodeType: 'React',
+          type: 'React.Menu',
           children: [
             {
-              type: 'Menu.Item',
-              nodeType: 'React',
+              type: 'React.Menu.Item',
               children: [
                 {
-                  type: 'Text',
-                  nodeType: 'React',
+                  type: 'React.Text',
                   props: {
                     value: 'Detail 1',
                   },
@@ -62,12 +55,10 @@ export const breadcrumbData: ReactNodeI<
               ],
             },
             {
-              type: 'Menu.Item',
-              nodeType: 'React',
+              type: 'React.Menu.Item',
               children: [
                 {
-                  type: 'Text',
-                  nodeType: 'React',
+                  type: 'React.Text',
                   props: {
                     value: 'Detail 2',
                   },
@@ -79,8 +70,7 @@ export const breadcrumbData: ReactNodeI<
       },
       children: [
         {
-          type: 'Text',
-          nodeType: 'React',
+          type: 'React.Text',
           props: {
             value: 'Application List',
           },
@@ -88,13 +78,11 @@ export const breadcrumbData: ReactNodeI<
       ],
     },
     {
-      type: 'Breadcrumb.Item',
-      nodeType: 'React',
+      type: 'React.Breadcrumb.Item',
       props: { href: '#' },
       children: [
         {
-          type: 'Text',
-          nodeType: 'React',
+          type: 'React.Text',
           props: {
             value: 'An Application',
           },

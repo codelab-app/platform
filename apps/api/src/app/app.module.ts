@@ -1,12 +1,11 @@
-import { RestifyModule } from '@codelab/api-restify'
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
-import { ApiConfigModule } from '@codelab/api-config'
-
 import { MongooseModule } from '@nestjs/mongoose'
 import { AppController } from './app.controller'
-import { AppService } from './app.service'
 import { AppMiddleware } from './app.middleware'
+import { AppService } from './app.service'
+import { ApiConfigModule } from '@codelab/api-config'
+import { RestifyModule } from '@codelab/api-restify'
 
 @Module({
   imports: [

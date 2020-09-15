@@ -1,9 +1,8 @@
-import { ReactNodeI } from '@codelab/shared/interface/node'
 import { AutoComplete } from './AutoComplete.types'
+import { NodeDtoI } from '@codelab/shared/interface/node'
 
-export const autocompleteData: ReactNodeI<AutoComplete.Props> = {
-  type: 'Provider',
-  nodeType: 'React',
+export const autocompleteData: NodeDtoI<AutoComplete.Props> = {
+  type: 'React.Provider',
   props: {
     ctx: {
       eval: true,
@@ -26,8 +25,7 @@ export const autocompleteData: ReactNodeI<AutoComplete.Props> = {
   },
   children: [
     {
-      type: 'AutoComplete',
-      nodeType: 'React',
+      type: 'React.AutoComplete',
       props: {
         placeholder: 'input here',
         style: { width: 200 },

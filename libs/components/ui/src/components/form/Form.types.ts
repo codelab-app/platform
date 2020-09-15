@@ -1,6 +1,6 @@
-import { PropsFromKeys, PropJsonValue } from '@codelab/shared/interface/props'
-import { ReactNodeI } from '@codelab/shared/interface/node'
 import { Select } from '../select'
+import { NodeDtoI } from '@codelab/shared/interface/node'
+import { PropJsonValue, PropsFromKeys } from '@codelab/shared/interface/props'
 
 export namespace Form {
   export const propKeys = [
@@ -71,17 +71,17 @@ export namespace Form {
     label,
     name,
     options,
-  }: CreateSelect): ReactNodeI<Select.Props | Form.ItemProps> => ({
-    type: 'Form.Item',
-    nodeType: 'React',
+  }: CreateSelect): NodeDtoI<Select.Props | Form.ItemProps> => ({
+    type: 'React.Form.Item',
+
     props: {
       label,
       name,
     },
     children: [
       {
-        type: 'Select',
-        nodeType: 'React',
+        type: 'React.Select',
+
         props: {
           style: {
             width: 120,
@@ -94,17 +94,17 @@ export namespace Form {
 
   export const createOptions = (
     options: Array<OptionConfig>,
-  ): Array<ReactNodeI<Select.OptionProps>> =>
+  ): Array<NodeDtoI<Select.OptionProps>> =>
     options.map(([key, value]: [string, PropJsonValue]) => ({
-      type: 'Select.Option',
-      nodeType: 'React',
+      type: 'React.Select.Option',
+
       props: {
         value,
       },
       children: [
         {
-          type: 'Text',
-          nodeType: 'React',
+          type: 'React.Text',
+
           props: {
             value: key,
           },

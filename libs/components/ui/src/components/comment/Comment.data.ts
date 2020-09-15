@@ -1,21 +1,17 @@
-import { ReactNodeI } from '@codelab/shared/interface/node'
-import { Comment } from './Comment.types'
-import { Text } from '../text'
 import { Icon } from '../icon'
+import { Text } from '../text'
+import { Comment } from './Comment.types'
+import { NodeDtoI } from '@codelab/shared/interface/node'
 
-export const commentData: ReactNodeI<
-  Comment.Props | Text.Props | Icon.Props
-> = {
-  type: 'Comment',
-  nodeType: 'React',
+export const commentData: NodeDtoI<Comment.Props | Text.Props | Icon.Props> = {
+  type: 'React.Comment',
   props: {
     author: 'Han Solo',
     content:
       'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
     datetime: '1 July 2020',
     avatar: {
-      type: 'Avatar',
-      nodeType: 'React',
+      type: 'React.Avatar',
       props: {
         src: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
         alt: 'Han Solo',
@@ -23,8 +19,7 @@ export const commentData: ReactNodeI<
     },
     actions: [
       {
-        type: 'Provider',
-        nodeType: 'React',
+        type: 'React.Provider',
         props: {
           ctx: {
             eval: true,
@@ -58,8 +53,7 @@ export const commentData: ReactNodeI<
         },
         children: [
           {
-            type: 'Icon',
-            nodeType: 'React',
+            type: 'React.Icon',
             props: {
               type: 'like',
               theme: {
@@ -75,15 +69,13 @@ export const commentData: ReactNodeI<
             },
           },
           {
-            type: 'Text',
-            nodeType: 'React',
+            type: 'React.Text',
             props: {
               value: { eval: true, value: 'return this.props.likes' },
             },
           },
           {
-            type: 'Icon',
-            nodeType: 'React',
+            type: 'React.Icon',
             props: {
               type: 'dislike',
               theme: {
@@ -100,18 +92,19 @@ export const commentData: ReactNodeI<
             },
           },
           {
-            type: 'Text',
-            nodeType: 'React',
+            type: 'React.Text',
             props: {
               value: { eval: true, value: 'return this.props.dislikes' },
             },
           },
           {
-            type: 'Html.span',
-            nodeType: 'React',
+            type: 'React.Html.span',
             props: { style: { paddingLeft: '8px' } },
             children: [
-              { type: 'Text', nodeType: 'React', props: { value: 'Reply to' } },
+              {
+                type: 'React.Text',
+                props: { value: 'Reply to' },
+              },
             ],
           },
         ],

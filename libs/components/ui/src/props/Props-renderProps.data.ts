@@ -1,8 +1,7 @@
-import { ReactNodeI } from '@codelab/shared/interface/node'
+import { NodeDtoI } from '@codelab/shared/interface/node'
 
-export const renderPropsData: ReactNodeI = {
-  type: 'Html.div',
-  nodeType: 'React',
+export const renderPropsData: NodeDtoI = {
+  type: 'React.Html.div',
   props: {
     visibility: '',
     parentprops: {
@@ -12,15 +11,13 @@ export const renderPropsData: ReactNodeI = {
   },
   children: [
     {
-      type: 'Html.div',
-      nodeType: 'React',
+      type: 'React.Html.div',
       props: {
         childprops: {},
       },
       children: [
         {
-          type: 'Html.div',
-          nodeType: 'React',
+          type: 'React.Html.div',
           props: {
             grandchildprops: {},
           },
@@ -30,9 +27,8 @@ export const renderPropsData: ReactNodeI = {
   ],
 }
 
-export const leafRenderPropsData: ReactNodeI = {
-  type: 'Html.div',
-  nodeType: 'React',
+export const leafRenderPropsData: NodeDtoI = {
+  type: 'React.Html.div',
   props: {
     visibility: '',
     leafprops: {
@@ -42,15 +38,13 @@ export const leafRenderPropsData: ReactNodeI = {
   },
   children: [
     {
-      type: 'Html.div',
-      nodeType: 'React',
+      type: 'React.Html.div',
       props: {
         childprops: {},
       },
       children: [
         {
-          type: 'Html.div',
-          nodeType: 'React',
+          type: 'React.Html.div',
           props: {
             grandChildProps: {},
           },

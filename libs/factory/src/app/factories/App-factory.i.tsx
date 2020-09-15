@@ -1,6 +1,5 @@
-import { AppOrder } from '../builder/web/AppWeb-builder--order'
-
 import { TreeProduct } from '../../tree/Tree-product.i'
+import { AppOrder } from '../builder/web/AppWeb-builder--order'
 
 /**
  * Factory creates parts for products, then the builder assembles them

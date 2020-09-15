@@ -1,11 +1,11 @@
+import { Edge } from '../edge'
+import { Vertex } from '../vertex'
 import { D3GraphProps } from '@codelab/components/d3'
-import { HasID } from '@codelab/shared/interface/node'
 import {
   Graph as GraphInterface,
   GraphProps,
 } from '@codelab/shared/interface/graph'
-import { Vertex } from '../vertex'
-import { Edge } from '../edge'
+import { HasID } from '@codelab/shared/interface/node'
 
 export class Graph implements GraphInterface {
   vertices: Array<Vertex> = []

@@ -1,7 +1,7 @@
 import React from 'react'
-import { TreeDom } from '@codelab/core/renderer'
-import { renderPropsData } from './Props-renderProps.data'
 import { divData } from '../components/html/Html.data'
+import { renderPropsData } from './Props-renderProps.data'
+import { TreeDom } from '@codelab/core/renderer'
 
 export default {
   title: 'Props',

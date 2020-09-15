@@ -1,8 +1,5 @@
 /* eslint-disable import/no-cycle */
-import { mouseEventHandlerKeys } from '@codelab/shared/event'
-import { Node } from '@codelab/core/node'
-import { propsFilter, withFilters } from '@codelab/core/props'
-import { Props } from '@codelab/shared/interface/props'
+import { Icon } from '@ant-design/compatible'
 import {
   Affix,
   Alert,
@@ -51,10 +48,10 @@ import {
   Statistic,
   Steps,
   Switch,
-  Tag,
-  Timeline,
-  TimePicker,
   Tabs,
+  Tag,
+  TimePicker,
+  Timeline,
   Tooltip,
   Transfer,
   Tree,
@@ -63,67 +60,69 @@ import {
   Upload,
 } from 'antd'
 import React from 'react'
-import { Icon } from '@ant-design/compatible'
+import { ElementParameters } from './element-factory.interface'
 import {
   Button as ButtonTypes,
   CodelabForm,
-  Grid,
   CodelabHtml,
-  Provider,
   CodelabTable,
+  Grid,
+  Provider,
 } from '@codelab/components/ui'
-
-import { ElementParameters } from './element-factory.interface'
+import { Node } from '@codelab/core/node'
+import { propsFilter, withFilters } from '@codelab/core/props'
+import { mouseEventHandlerKeys } from '@codelab/shared/event'
+import { Props } from '@codelab/shared/interface/props'
 
 export const elementParameterFactory = <P extends Props>(
-  node: Node<P>,
+  node: Node,
 ): ElementParameters<Props> => {
   const { type, props } = node
 
   switch (type) {
     case 'React.Fragment':
       return [React.Fragment, props]
-    case 'Html.div':
+    case 'React.Html.div':
       return ['div', props]
-    case 'Html.p':
+    case 'React.Html.p':
       return ['p', props]
-    case 'Html.a':
+    case 'React.Html.a':
       return ['a', props]
-    case 'Html.span':
+    case 'React.Html.span':
       return ['span', props]
-    case 'Text':
+    case 'React.Text':
       return [CodelabHtml.Text as any, props]
-    case 'Icon':
+    case 'React.Icon':
       return [Icon as any, props]
-    case 'Menu':
+    case 'React.Menu':
       return [Menu as any, props]
-    case 'Menu.Item':
+    case 'React.Menu.Item':
       return [Menu.Item as any, props]
-    case 'Menu.ItemGroup':
+    case 'React.Menu.ItemGroup':
       return [Menu.ItemGroup as any, props]
-    case 'Menu.SubMenu':
+    case 'React.Menu.SubMenu':
       return [Menu.SubMenu as any, props]
-    case 'Card':
+    case 'React.Card':
       return [Card, props]
-    case 'Card.Grid':
+    case 'React.Card.Grid':
       return [Card.Grid, props]
-    case 'Card.Meta':
+    case 'React.Card.Meta':
       return [Card.Meta, props]
-    case 'Typography':
+    case 'React.Typography':
       return [Typography as any, props]
-    case 'Typography.Title':
+    case 'React.Typography.Title':
       return [Typography.Title as any, props]
-    case 'Typography.Text':
+    case 'React.Typography.Text':
       return [Typography.Text as any, props]
-    case 'Typography.Paragraph':
+    case 'React.Typography.Paragraph':
       return [Typography.Paragraph as any, props]
-    case 'Alert':
+    case 'React.Alert':
       return [Alert as any, props]
-    case 'Affix':
+    case 'React.Affix':
       return [Affix as any, props]
-    case 'AutoComplete':
+    case 'React.AutoComplete':
       return [AutoComplete as any, props]
-    case 'Button':
+    case 'React.Button':
       return [
         withFilters(
           propsFilter([...mouseEventHandlerKeys, ...ButtonTypes.propKeys]),
@@ -131,153 +130,153 @@ export const elementParameterFactory = <P extends Props>(
         ),
         props,
       ]
-    case 'Breadcrumb':
+    case 'React.Breadcrumb':
       return [Breadcrumb as any, props]
-    case 'Breadcrumb.Item':
+    case 'React.Breadcrumb.Item':
       return [Breadcrumb.Item as any, props]
-    case 'Dropdown':
+    case 'React.Dropdown':
       return [Dropdown as any, props]
-    case 'Form':
+    case 'React.Form':
       return [Form, props]
-    case 'Form.Item':
+    case 'React.Form.Item':
       return [Form.Item as any, props]
-    case 'Form.List':
+    case 'React.Form.List':
       return [CodelabForm.List as any, props]
-    case 'Form.ItemHook':
+    case 'React.Form.ItemHook':
       return [CodelabForm.ItemHook as any, props]
-    case 'Checkbox':
+    case 'React.Checkbox':
       return [Checkbox as any, props]
-    case 'Input': // can't have children
+    case 'React.Input': // can't have children
       return [Input as any, props]
-    case 'InputNumber':
+    case 'React.InputNumber':
       return [InputNumber as any, props]
-    case 'Select':
+    case 'React.Select':
       return [Select as any, props]
-    case 'Select.Option':
+    case 'React.Select.Option':
       return [Select.Option as any, props]
-    case 'Grid':
+    case 'React.Grid':
       return [Grid.Default, props]
-    case 'ResponsiveGrid':
+    case 'React.ResponsiveGrid':
       return [Grid.Responsive, props]
-    case 'Provider':
+    case 'React.Provider':
       return [Provider.Default, props]
-    case 'Modal':
+    case 'React.Modal':
       return [Modal as any, props]
-    case 'Radio.Group':
+    case 'React.Radio.Group':
       return [Radio.Group as any, props]
-    case 'Radio':
+    case 'React.Radio':
       return [Radio as any, props]
-    case 'Rate':
+    case 'React.Rate':
       return [Rate as any, props]
-    case 'Slider':
+    case 'React.Slider':
       return [Slider as any, props]
-    case 'Switch':
+    case 'React.Switch':
       return [Switch as any, props]
-    case 'Space':
+    case 'React.Space':
       return [Space as any, props]
-    case 'DatePicker':
+    case 'React.DatePicker':
       return [DatePicker as any, props]
-    case 'Divider':
+    case 'React.Divider':
       return [Divider as any, props]
-    case 'Pagination':
+    case 'React.Pagination':
       return [Pagination as any, props]
-    case 'PageHeader':
+    case 'React.PageHeader':
       return [PageHeader as any, props]
-    case 'Badge':
+    case 'React.Badge':
       return [Badge as any, props]
-    case 'Avatar':
+    case 'React.Avatar':
       return [Avatar as any, props]
-    case 'Comment':
+    case 'React.Comment':
       return [Comment as any, props]
-    case 'Calendar':
+    case 'React.Calendar':
       return [Calendar as any, props]
-    case 'Descriptions':
+    case 'React.Descriptions':
       return [Descriptions as any, props]
-    case 'Descriptions.Item':
+    case 'React.Descriptions.Item':
       return [Descriptions.Item as any, props]
-    case 'Empty':
+    case 'React.Empty':
       return [Empty as any, props]
-    case 'Timeline':
+    case 'React.Timeline':
       return [Timeline as any, props]
-    case 'Timeline.Item':
+    case 'React.Timeline.Item':
       return [Timeline.Item as any, props]
-    case 'Tabs':
+    case 'React.Tabs':
       return [Tabs as any, props]
-    case 'Tabs.TabPane':
+    case 'React.Tabs.TabPane':
       return [Tabs.TabPane as any, props]
-    case 'Statistic':
+    case 'React.Statistic':
       return [Statistic as any, props]
-    case 'Tooltip':
+    case 'React.Tooltip':
       return [Tooltip as any, props]
-    case 'Tag':
+    case 'React.Tag':
       return [Tag as any, props]
-    case 'Tree':
+    case 'React.Tree':
       return [Tree as any, props]
-    case 'Drawer':
+    case 'React.Drawer':
       return [Drawer as any, props]
-    case 'Progress':
+    case 'React.Progress':
       return [Progress as any, props]
-    case 'Result':
+    case 'React.Result':
       return [Result as any, props]
-    case 'Spin':
+    case 'React.Spin':
       return [Spin as any, props]
-    case 'Skeleton':
+    case 'React.Skeleton':
       return [Skeleton as any, props]
-    case 'Anchor':
+    case 'React.Anchor':
       return [Anchor as any, props]
-    case 'Anchor.Link':
+    case 'React.Anchor.Link':
       return [Anchor.Link as any, props]
-    case 'BackTop':
+    case 'React.BackTop':
       return [BackTop as any, props]
-    case 'ConfigProvider':
+    case 'React.ConfigProvider':
       return [ConfigProvider as any, props]
-    case 'Popconfirm':
+    case 'React.Popconfirm':
       return [Popconfirm as any, props]
-    case 'Transfer':
+    case 'React.Transfer':
       return [Transfer as any, props]
-    case 'TreeSelect':
+    case 'React.TreeSelect':
       return [TreeSelect as any, props]
-    case 'TreeNode':
+    case 'React.TreeNode':
       return [TreeSelect.TreeNode as any, props]
-    case 'TimePicker':
+    case 'React.TimePicker':
       return [TimePicker as any, props]
-    case 'Upload':
+    case 'React.Upload':
       return [Upload as any, props]
-    case 'Steps':
+    case 'React.Steps':
       return [Steps as any, props]
-    case 'Steps.Step':
+    case 'React.Steps.Step':
       return [Steps.Step as any, props]
-    case 'Collapse':
+    case 'React.Collapse':
       return [Collapse as any, props]
-    case 'Collapse.Panel':
+    case 'React.Collapse.Panel':
       return [Collapse.Panel as any, props]
-    case 'Carousel':
+    case 'React.Carousel':
       return [Carousel as any, props]
-    case 'List':
+    case 'React.List':
       return [List as any, props]
-    case 'List.Item':
+    case 'React.List.Item':
       return [List.Item as any, props]
-    case 'List.Item.Meta':
+    case 'React.List.Item.Meta':
       return [List.Item.Meta as any, props]
-    case 'Mentions':
+    case 'React.Mentions':
       return [Mentions as any, props]
-    case 'Mentions.Option':
+    case 'React.Mentions.Option':
       return [Mentions.Option as any, props]
-    case 'Layout':
+    case 'React.Layout':
       return [Layout as any, props]
-    case 'Layout.Header':
+    case 'React.Layout.Header':
       return [Layout.Header as any, props]
-    case 'Layout.Sider':
+    case 'React.Layout.Sider':
       return [Layout.Sider as any, props]
-    case 'Layout.Content':
+    case 'React.Layout.Content':
       return [Layout.Content as any, props]
-    case 'Layout.Footer':
+    case 'React.Layout.Footer':
       return [Layout.Footer as any, props]
-    case 'Cascader':
+    case 'React.Cascader':
       return [Cascader as any, props]
-    case 'Popover':
+    case 'React.Popover':
       return [Popover as any, props]
-    case 'Table':
+    case 'React.Table':
       return [CodelabTable.Default as any, props]
     default:
       throw new Error('Missing element in ElementFactory')

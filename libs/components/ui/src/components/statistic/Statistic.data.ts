@@ -1,11 +1,10 @@
-import { ReactNodeI } from '@codelab/shared/interface/node'
 import { Statistic } from './Statistic.types'
+import { NodeDtoI } from '@codelab/shared/interface/node'
 
-export const statisticData: ReactNodeI<
+export const statisticData: NodeDtoI<
   Statistic.Props | Statistic.CountdownProps
 > = {
-  type: 'Statistic',
-  nodeType: 'React',
+  type: 'React.Statistic',
   props: {
     title: 'Active Users',
     value: 545465,

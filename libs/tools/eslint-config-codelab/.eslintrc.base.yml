@@ -1,14 +1,17 @@
 #  https://github.com/toshi-toma/eslint-config-airbnb-typescript-prettier#readme
 extends:
   - airbnb-typescript-prettier
+  - plugin:import/errors
+  - plugin:import/warnings
 env:
   browser: true
   es6: true
   node: true
   jest: true
 plugins:
-  - import
+  - import # https://github.com/benmosher/eslint-plugin-import
   - unused-imports
+  - sort-exports # https://github.com/jrdrg/eslint-plugin-sort-exports#readme
 rules:
   no-undef: error # not included in preset, surprisingly
   no-underscore-dangle:
@@ -40,11 +43,20 @@ rules:
     - devDependencies: true
   import/prefer-default-export: off
   import/no-unresolved: error
+  sort-imports:
+    - error
+    - ignoreDeclarationSort: true # Handled by import/order
   import/order:
     - error
+    - newlines-between: never
+      alphabetize:
+        order: asc
   import/extensions:
     - error
     - js: never
+  # sort-exports/sort-exports:
+  #   - error
+  #   - sortDir: asc
   # --- !IMPORTS ---
 
   no-unused-expressions:

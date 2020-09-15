@@ -1,6 +1,6 @@
-import { render, fireEvent, waitFor } from '@testing-library/react'
+import { fireEvent, render, waitFor } from '@testing-library/react'
 import React from 'react'
-import { Default, ObjectForm, ConditionalForm } from './Form.stories'
+import { ConditionalForm, Default, ObjectForm } from './Form.stories'
 
 describe('Form', () => {
   it('should render with labels', () => {
@@ -38,7 +38,7 @@ describe('Form', () => {
       <ConditionalForm />,
     )
 
-    expect(getByLabelText('Select')).toBeTruthy()
+    expect(getByLabelText('Select Type')).toBeTruthy()
     expect(queryByLabelText('Field A')).toBeFalsy()
     expect(queryByLabelText('Field B')).toBeFalsy()
     expect(queryByLabelText('Field C')).toBeFalsy()

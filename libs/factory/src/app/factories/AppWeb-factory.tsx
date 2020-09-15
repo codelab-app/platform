@@ -1,6 +1,6 @@
-import { AppFactory } from './App-factory.i'
-import { TreeStrategyReact } from '../../tree/strategy/Tree-strategy--react'
 import { TreeProductReact } from '../../tree/Tree-product.i'
+import { TreeStrategyReact } from '../../tree/strategy/Tree-strategy--react'
+import { AppFactory } from './App-factory.i'
 
 export class AppWebFactory extends AppFactory {
   createModel() {

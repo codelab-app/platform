@@ -1,9 +1,9 @@
-import { TreeNodeI, ReactNodeI } from '@codelab/shared/interface/node'
 import { mocked } from 'ts-jest/utils'
 import { TreeFactoryMethod, TreeOrder, TreeType } from './Tree-factory'
-import { TreeStrategyReact } from './strategy/Tree-strategy--react'
 import { TreeStrategyGraph } from './strategy/Tree-strategy--graph'
+import { TreeStrategyReact } from './strategy/Tree-strategy--react'
 import { TreeStrategyTree } from './strategy/Tree-strategy--tree'
+import { NodeDtoI } from '@codelab/shared/interface/node'
 
 /**
  * This is an integration test for a factory method. We're testing whether the correct class and methods are called given the input parameter.
@@ -17,18 +17,17 @@ describe('Tree factory method', () => {
   let treeStrategy: TreeStrategyTree
   let graphStrategy: TreeStrategyGraph
 
-  const reactDataMock: ReactNodeI = mocked({
+  const reactDataMock: NodeDtoI = mocked({
     id: '',
-    nodeType: 'React',
-    type: 'Button',
+    type: 'React.Button',
   })
-  const treeDataMock: TreeNodeI = mocked({
+  const treeDataMock: NodeDtoI = mocked({
     id: '',
-    nodeType: 'Tree',
+    type: 'Tree',
   })
-  const graphDataMock: TreeNodeI = mocked({
+  const graphDataMock: NodeDtoI = mocked({
     id: '',
-    nodeType: 'Tree',
+    type: 'Tree',
   })
 
   const reactOrder: TreeOrder = {

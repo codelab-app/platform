@@ -1,16 +1,15 @@
-import { ReactNodeI } from '@codelab/shared/interface/node'
 import { Text } from '../text'
 import { Menu } from './Menu.types'
+import { NodeDtoI } from '@codelab/shared/interface/node'
 
-export const menuData: ReactNodeI<
+export const menuData: NodeDtoI<
   | Menu.Props
   | Menu.ItemProps
   | Menu.SubmenuProps
   | Menu.ItemGroupProps
   | Text.Props
 > = {
-  type: 'Menu',
-  nodeType: 'React',
+  type: 'React.Menu',
   props: {
     mode: 'inline',
     theme: 'dark',
@@ -21,39 +20,34 @@ export const menuData: ReactNodeI<
   },
   children: [
     {
-      type: 'Menu.SubMenu',
-      nodeType: 'React',
+      type: 'React.Menu.SubMenu',
       props: {
         key: 'sub1',
         title: 'Navigation One',
         icon: {
-          type: 'Icon',
-          nodeType: 'React',
+          type: 'React.Icon',
           props: {
-            type: 'mail',
+            type: 'React.mail',
             theme: 'outlined',
           },
         },
       },
       children: [
         {
-          type: 'Menu.ItemGroup',
-          nodeType: 'React',
+          type: 'React.Menu.ItemGroup',
           props: {
             key: 'g1',
             title: 'Item 1',
           },
           children: [
             {
-              type: 'Menu.Item',
-              nodeType: 'React',
+              type: 'React.Menu.Item',
               props: {
                 key: '1',
               },
               children: [
                 {
-                  type: 'Text',
-                  nodeType: 'React',
+                  type: 'React.Text',
                   props: {
                     value: 'Option 1',
                   },
@@ -61,15 +55,13 @@ export const menuData: ReactNodeI<
               ],
             },
             {
-              type: 'Menu.Item',
-              nodeType: 'React',
+              type: 'React.Menu.Item',
               props: {
                 key: '2',
               },
               children: [
                 {
-                  type: 'Text',
-                  nodeType: 'React',
+                  type: 'React.Text',
                   props: {
                     value: 'Option 2',
                   },
@@ -79,23 +71,20 @@ export const menuData: ReactNodeI<
           ],
         },
         {
-          type: 'Menu.ItemGroup',
-          nodeType: 'React',
+          type: 'React.Menu.ItemGroup',
           props: {
             key: 'g2',
             title: 'Item 2',
           },
           children: [
             {
-              type: 'Menu.Item',
-              nodeType: 'React',
+              type: 'React.Menu.Item',
               props: {
                 key: '3',
               },
               children: [
                 {
-                  type: 'Text',
-                  nodeType: 'React',
+                  type: 'React.Text',
                   props: {
                     value: 'Option 3',
                   },
@@ -103,15 +92,13 @@ export const menuData: ReactNodeI<
               ],
             },
             {
-              type: 'Menu.Item',
-              nodeType: 'React',
+              type: 'React.Menu.Item',
               props: {
                 key: '4',
               },
               children: [
                 {
-                  type: 'Text',
-                  nodeType: 'React',
+                  type: 'React.Text',
                   props: {
                     value: 'Option 4',
                   },
@@ -123,31 +110,27 @@ export const menuData: ReactNodeI<
       ],
     },
     {
-      type: 'Menu.SubMenu',
-      nodeType: 'React',
+      type: 'React.Menu.SubMenu',
       props: {
         key: 'sub2',
         title: 'Navigation Two',
         icon: {
-          type: 'Icon',
-          nodeType: 'React',
+          type: 'React.Icon',
           props: {
-            type: 'appstore',
+            type: 'React.appstore',
             theme: 'outlined',
           },
         },
       },
       children: [
         {
-          type: 'Menu.Item',
-          nodeType: 'React',
+          type: 'React.Menu.Item',
           props: {
             key: '5',
           },
           children: [
             {
-              type: 'Text',
-              nodeType: 'React',
+              type: 'React.Text',
               props: {
                 value: 'Option 5',
               },
@@ -155,15 +138,13 @@ export const menuData: ReactNodeI<
           ],
         },
         {
-          type: 'Menu.Item',
-          nodeType: 'React',
+          type: 'React.Menu.Item',
           props: {
             key: '6',
           },
           children: [
             {
-              type: 'Text',
-              nodeType: 'React',
+              type: 'React.Text',
               props: {
                 value: 'Option 6',
               },
@@ -171,23 +152,20 @@ export const menuData: ReactNodeI<
           ],
         },
         {
-          type: 'Menu.SubMenu',
-          nodeType: 'React',
+          type: 'React.Menu.SubMenu',
           props: {
             key: 'sub3',
             title: 'Submenu',
           },
           children: [
             {
-              type: 'Menu.Item',
-              nodeType: 'React',
+              type: 'React.Menu.Item',
               props: {
                 key: '7',
               },
               children: [
                 {
-                  type: 'Text',
-                  nodeType: 'React',
+                  type: 'React.Text',
                   props: {
                     value: 'Option 7',
                   },
@@ -195,15 +173,13 @@ export const menuData: ReactNodeI<
               ],
             },
             {
-              type: 'Menu.Item',
-              nodeType: 'React',
+              type: 'React.Menu.Item',
               props: {
                 key: '8',
               },
               children: [
                 {
-                  type: 'Text',
-                  nodeType: 'React',
+                  type: 'React.Text',
                   props: {
                     value: 'Option 8',
                   },

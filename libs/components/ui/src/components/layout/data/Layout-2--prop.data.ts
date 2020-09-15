@@ -1,17 +1,15 @@
-import { ReactNodeI } from '@codelab/shared/interface/node'
 import { Text } from '../../text'
 import { Layout } from '../Layout.types'
+import { NodeDtoI } from '@codelab/shared/interface/node'
 
-export const propLayoutData: ReactNodeI<
+export const propLayoutData: NodeDtoI<
   Layout.Props | Layout.SiderProps | Text.Props
 > = {
-  type: 'Layout',
-  nodeType: 'React',
+  type: 'React.Layout',
   props: { style: { minHeight: '100vh' }, hasSider: true },
   children: [
     {
-      type: 'Layout.Sider',
-      nodeType: 'React',
+      type: 'React.Layout.Sider',
       props: {
         ctx: {
           eval: true,
@@ -30,26 +28,21 @@ export const propLayoutData: ReactNodeI<
       },
       children: [
         {
-          type: 'Text',
-          nodeType: 'React',
+          type: 'React.Text',
           props: {
             value: { eval: true, value: 'return this.props.Sidebar.value' },
           },
         },
       ],
     },
-
     {
-      type: 'Layout',
-      nodeType: 'React',
+      type: 'React.Layout',
       children: [
         {
-          type: 'Layout.Header',
-          nodeType: 'React',
+          type: 'React.Layout.Header',
           children: [
             {
-              type: 'Text',
-              nodeType: 'React',
+              type: 'React.Text',
               props: {
                 value: { eval: true, value: 'return this.props.Header.value' },
               },
@@ -57,8 +50,7 @@ export const propLayoutData: ReactNodeI<
           ],
         },
         {
-          type: 'Layout.Content',
-          nodeType: 'React',
+          type: 'React.Layout.Content',
           props: {
             style: {
               margin: '24px 16px 0',
@@ -66,13 +58,11 @@ export const propLayoutData: ReactNodeI<
           },
           children: [
             {
-              type: 'Html.div',
-              nodeType: 'React',
+              type: 'React.Html.div',
               props: { style: { padding: 24 } },
               children: [
                 {
-                  type: 'Text',
-                  nodeType: 'React',
+                  type: 'React.Text',
                   props: {
                     value: {
                       eval: true,
@@ -85,16 +75,13 @@ export const propLayoutData: ReactNodeI<
           ],
         },
         {
-          type: 'Layout.Footer',
-          nodeType: 'React',
+          type: 'React.Layout.Footer',
           children: [
             {
-              type: 'Html.p',
-              nodeType: 'React',
+              type: 'React.Html.p',
               children: [
                 {
-                  type: 'Text',
-                  nodeType: 'React',
+                  type: 'React.Text',
                   props: {
                     value: {
                       eval: true,

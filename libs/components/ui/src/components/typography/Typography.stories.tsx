@@ -1,6 +1,6 @@
 import React from 'react'
-import { TreeDom } from '@codelab/core/renderer'
 import { typographyData } from './Typography.data'
+import { TreeDom } from '@codelab/core/renderer'
 
 export default {
   title: 'Typography',

@@ -1,26 +1,23 @@
-import { ReactNodeI } from '@codelab/shared/interface/node'
 import { Text } from '../text'
 import { Card } from './Card.types'
+import { NodeDtoI } from '@codelab/shared/interface/node'
 
-export const cardData: ReactNodeI<
+export const cardData: NodeDtoI<
   Card.Props | Card.GridProps | Card.MetaProps | Text.Props
 > = {
-  type: 'Card',
-  nodeType: 'React',
+  type: 'React.Card',
   props: {
     title: 'Card Title',
   },
   children: [
     {
-      type: 'Card.Grid',
-      nodeType: 'React',
+      type: 'React.Card.Grid',
       props: {
         hoverable: true,
       },
       children: [
         {
-          type: 'Text',
-          nodeType: 'React',
+          type: 'React.Text',
           props: {
             value: 'Content',
           },
@@ -28,15 +25,13 @@ export const cardData: ReactNodeI<
       ],
     },
     {
-      type: 'Card.Grid',
-      nodeType: 'React',
+      type: 'React.Card.Grid',
       props: {
         hoverable: true,
       },
       children: [
         {
-          type: 'Text',
-          nodeType: 'React',
+          type: 'React.Text',
           props: {
             value: 'Content',
           },
@@ -44,15 +39,13 @@ export const cardData: ReactNodeI<
       ],
     },
     {
-      type: 'Card.Grid',
-      nodeType: 'React',
+      type: 'React.Card.Grid',
       props: {
         hoverable: true,
       },
       children: [
         {
-          type: 'Card.Meta',
-          nodeType: 'React',
+          type: 'React.Card.Meta',
           props: {
             title: 'Euro Street beat',
             description: 'www.instagram.com',

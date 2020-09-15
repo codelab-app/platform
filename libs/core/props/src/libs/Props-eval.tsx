@@ -1,15 +1,15 @@
+import { message, notification } from 'antd'
+import axios from 'axios'
 import { reduce } from 'lodash'
 import React from 'react'
-import axios from 'axios'
-import { notification, message } from 'antd'
+import { renderReactNodes } from './Props-react'
+import { isEvalPropValue } from './Props.guards'
 import {
-  isTreeNode,
   isReactNode,
   isReactNodeArray,
+  isTreeNode,
 } from '@codelab/shared/interface/node'
-import { PropValue, PropItem, Props } from '@codelab/shared/interface/props'
-import { isEvalPropValue } from './Props.guards'
-import { renderReactNodes } from './Props-react'
+import { PropItem, PropValue, Props } from '@codelab/shared/interface/props'
 
 export const evalPropValue = (propValue: PropValue, ctx?: any): Function => {
   // eslint-disable-next-line no-new-func

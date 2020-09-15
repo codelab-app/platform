@@ -1,7 +1,7 @@
 import {
-  evalPropsWithContext,
   evalPropValue,
   evalPropsIterator,
+  evalPropsWithContext,
 } from './Props-eval'
 import * as propsReact from './Props-react'
 
@@ -46,8 +46,7 @@ describe('Props with eval type', () => {
     // Same as above, but tests as integration test
     const reactProps = {
       icon: {
-        type: 'Icon',
-        nodeType: 'React',
+        type: 'React.Icon',
         props: {
           type: 'mail',
           theme: 'outlined',

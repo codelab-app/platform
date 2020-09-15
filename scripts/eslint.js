@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-const shell = require('shelljs')
 const path = require('path')
+const shell = require('shelljs')
 
 /**
  * Files modified since base revision, could contain files from several commits.
@@ -14,7 +14,7 @@ const filesSinceBaseRevision = shell
   .stdout.trim()
   .split('\n')
 
-console.log(`Files since base revision: ${filesSinceBaseRevision}`)
+shell.echo(`Files since base revision: ${filesSinceBaseRevision}`)
 
 const filesToLint = filesSinceBaseRevision
   .filter((file) => {
@@ -25,7 +25,7 @@ const filesToLint = filesSinceBaseRevision
   })
   .join(' ')
 
-console.log(`Linting: ${filesToLint}`)
+shell.echo(`Linting: ${filesToLint}`)
 
 const { code, stderr, stdout } = shell.exec(`eslint ${filesToLint}`)
 
@@ -33,5 +33,5 @@ if (code !== 0) {
   shell.echo(stderr)
   shell.exit(1)
 } else {
-  console.log(stdout)
+  shell.echo(stdout)
 }

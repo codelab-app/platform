@@ -1,13 +1,13 @@
-import { Node } from '@codelab/core/node'
-import { Props } from '@codelab/shared/interface/props'
 import {
   ForwardRefExoticComponent,
   PropsWithoutRef,
   ReactElement,
   RefAttributes,
 } from 'react'
+import { Node } from '@codelab/core/node'
+import { Props } from '@codelab/shared/interface/props'
 
-export type Factory<P extends Props> = (node: Node<P>) => FactoryComponent<P>
+export type Factory<P extends Props> = (node: Node) => FactoryComponent<P>
 
 export type RenderComponent<P extends ComponentProps> = (
   props: P,

@@ -1,7 +1,7 @@
 import { Edge } from './edge'
-import { GraphProps, Graph } from './graph'
-import { TraversalOrder, TraversalIteratee } from './traversal'
-import { VertexProps, Vertex } from './vertex'
+import { Graph, GraphProps } from './graph'
+import { TraversalIteratee, TraversalOrder } from './traversal'
+import { Vertex, VertexProps } from './vertex'
 
 export type {
   Edge,

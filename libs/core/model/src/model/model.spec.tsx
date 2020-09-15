@@ -2,8 +2,8 @@
  * @jest-environment node
  */
 import * as mongoose from 'mongoose'
-import { ModelNode } from '@codelab/shared/interface/node'
 import { Model } from './model'
+import { NodeDtoI } from '@codelab/shared/interface/node'
 
 describe('Model', () => {
   const personSchema = new mongoose.Schema({
@@ -20,14 +20,14 @@ describe('Model', () => {
     title: { type: mongoose.Schema.Types.String },
   })
 
-  const personExample: ModelNode = {
-    nodeType: 'Model',
+  const personExample: NodeDtoI = {
+    type: 'Model',
     props: {
       name: 'PersonExample',
     },
     children: [
       {
-        nodeType: 'Schema',
+        type: 'Schema',
         props: {
           name: { type: 'string' },
           age: { type: 'number' },
@@ -38,11 +38,11 @@ describe('Model', () => {
   }
 
   const storyExample: ModelNode = {
-    nodeType: 'Model',
+    type: 'Model',
     props: { name: 'StoryExample' },
     children: [
       {
-        nodeType: 'Schema',
+        type: 'Schema',
         props: {
           author: { type: 'string', ref: 'PersonExample' },
           title: { type: 'string' },

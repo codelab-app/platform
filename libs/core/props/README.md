@@ -26,7 +26,7 @@ type Prop = {
 
 ```typescript
 const node = {
-  nodeType: 'React',
+  type: 'React',
   type: 'Button',
   props: {
     size: {

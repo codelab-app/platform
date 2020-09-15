@@ -1,6 +1,6 @@
 import * as t from 'io-ts'
-import { decode } from './decode'
 import { DecodeError } from '../errors'
+import { decode } from './decode'
 
 describe('Codec decode helper', () => {
   interface Todo {

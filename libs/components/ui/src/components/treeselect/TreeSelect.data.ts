@@ -1,11 +1,10 @@
-import { ReactNodeI } from '@codelab/shared/interface/node'
 import { TreeSelect } from './TreeSelect.types'
+import { NodeDtoI } from '@codelab/shared/interface/node'
 
-export const treeSelectData: ReactNodeI<
+export const treeSelectData: NodeDtoI<
   TreeSelect.TreeNodeProps | TreeSelect.Props
 > = {
-  type: 'TreeSelect',
-  nodeType: 'React',
+  type: 'React.TreeSelect',
   props: {
     showSearch: true,
     style: { width: 200 },
@@ -14,8 +13,7 @@ export const treeSelectData: ReactNodeI<
   },
   children: [
     {
-      type: 'TreeNode',
-      nodeType: 'React',
+      type: 'React.TreeNode',
       props: {
         key: 'parent 1',
         value: 'parent 1',
@@ -23,8 +21,7 @@ export const treeSelectData: ReactNodeI<
       },
       children: [
         {
-          type: 'TreeNode',
-          nodeType: 'React',
+          type: 'React.TreeNode',
           props: {
             key: 'parent 1-0',
             value: 'parent 1-0',
@@ -32,8 +29,7 @@ export const treeSelectData: ReactNodeI<
           },
           children: [
             {
-              type: 'TreeNode',
-              nodeType: 'React',
+              type: 'React.TreeNode',
               props: {
                 key: 'leaf 1',
                 value: 'leaf 1',
@@ -41,8 +37,7 @@ export const treeSelectData: ReactNodeI<
               },
             },
             {
-              type: 'TreeNode',
-              nodeType: 'React',
+              type: 'React.TreeNode',
               props: {
                 key: 'leaf 2',
                 value: 'leaf 2',
@@ -52,8 +47,7 @@ export const treeSelectData: ReactNodeI<
           ],
         },
         {
-          type: 'TreeNode',
-          nodeType: 'React',
+          type: 'React.TreeNode',
           props: {
             key: 'parent 1-1',
             value: 'parent 1-1',
@@ -61,8 +55,7 @@ export const treeSelectData: ReactNodeI<
           },
           children: [
             {
-              type: 'TreeNode',
-              nodeType: 'React',
+              type: 'React.TreeNode',
               props: {
                 key: 'leaf 1-1 1',
                 value: 'leaf 1-1 1',

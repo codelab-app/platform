@@ -1,15 +1,15 @@
-import { traversePostOrder } from '@codelab/core/traversal'
-import { ReactNodeI, TreeNodeI } from '@codelab/shared/interface/node'
-import { Node } from '@codelab/core/node'
-import { evalPropsWithContext } from '@codelab/core/props'
-import { Props } from '@codelab/shared/interface/props'
 import React, { PropsWithChildren } from 'react'
-import { elementParameterFactory } from '@codelab/components/ui'
 import { TreeStrategy } from './Tree-strategy'
 import { TreeStrategyTree } from './Tree-strategy--tree'
+import { Node } from '@codelab/core/node'
+import { evalPropsWithContext } from '@codelab/core/props'
+import { elementParameterFactory } from '@codelab/core/renderer'
+import { traversePostOrder } from '@codelab/core/traversal'
+import { NodeDtoI } from '@codelab/shared/interface/node'
+import { Props } from '@codelab/shared/interface/props'
 
 export class TreeStrategyReact implements TreeStrategy {
-  execute<P extends Props = {}>(data: TreeNodeI<P> | ReactNodeI<P>) {
+  execute<P extends Props = {}>(data: NodeDtoI) {
     const defaultStrategy = new TreeStrategyTree()
     const root = defaultStrategy.execute(data)
 
@@ -18,7 +18,7 @@ export class TreeStrategyReact implements TreeStrategy {
      *
      * (2) RenderProps are passed down
      */
-    const componentBuilderIteratee = (node: Node<P>) => {
+    const componentBuilderIteratee = (node: Node) => {
       const [Type, props] = elementParameterFactory(node)
 
       const reactNodeProps = evalPropsWithContext(props)
@@ -40,17 +40,17 @@ export class TreeStrategyReact implements TreeStrategy {
         )
       }
 
-      if (node.type === 'Select.Option') {
+      if (node.type === 'React.Select.Option') {
         ;(node.Component as any).isSelectOption = true
       }
 
-      if (node.type === 'Breadcrumb.Item') {
+      if (node.type === 'React.Breadcrumb.Item') {
         // eslint-disable-next-line no-underscore-dangle
         ;(node.Component as any).__ANT_BREADCRUMB_ITEM = true
       }
     }
 
-    traversePostOrder<P>(root, componentBuilderIteratee)
+    traversePostOrder(root, componentBuilderIteratee)
 
     return () => <root.Component {...evalPropsWithContext(root.props)} />
   }

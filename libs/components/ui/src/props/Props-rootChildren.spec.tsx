@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react'
 import React from 'react'
-import { ReactNodeI } from '@codelab/shared/interface/node'
 import { TreeDom } from '@codelab/core/renderer'
+import { NodeDtoI } from '@codelab/shared/interface/node'
 
 describe('RootChildren', () => {
   // const data = {
@@ -60,23 +60,20 @@ describe('RootChildren', () => {
    * This should put C in all valid children of B, which then puts that in all valid children of A
    */
   it('renders nested children', () => {
-    const dataA: ReactNodeI = {
-      type: 'Html.div',
-      nodeType: 'React',
+    const dataA: NodeDtoI = {
+      type: 'React.Html.div',
       props: {
         'data-testid': 'a',
       },
       children: [
         {
-          type: 'Html.div',
-          nodeType: 'React',
+          type: 'React.Html.div',
           props: {
             'data-testid': 'a0',
           },
           children: [
             {
-              type: 'Html.div',
-              nodeType: 'React',
+              type: 'React.Html.div',
               props: {
                 'data-testid': 'a0-0',
               },
@@ -84,47 +81,41 @@ describe('RootChildren', () => {
           ],
         },
         {
-          type: 'Html.div',
-          nodeType: 'React',
+          type: 'React.Html.div',
           props: {
             'data-testid': 'a1',
           },
         },
         {
-          type: 'Html.div',
-          nodeType: 'React',
+          type: 'React.Html.div',
           props: {
             'data-testid': 'a2',
           },
         },
       ],
     }
-    const dataB: ReactNodeI = {
-      type: 'Html.div',
-      nodeType: 'React',
+    const dataB: NodeDtoI = {
+      type: 'React.Html.div',
       props: {
         'data-testid': 'b',
       },
       children: [
         {
-          type: 'Html.div',
-          nodeType: 'React',
+          type: 'React.Html.div',
           props: {
             'data-testid': 'b0',
           },
         },
         {
-          type: 'Html.div',
-          nodeType: 'React',
+          type: 'React.Html.div',
           props: {
             'data-testid': 'b1',
           },
         },
       ],
     }
-    const dataC: ReactNodeI = {
-      type: 'Html.div',
-      nodeType: 'React',
+    const dataC: NodeDtoI = {
+      type: 'React.Html.div',
       props: {
         'data-testid': 'c',
       },

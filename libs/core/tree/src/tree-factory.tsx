@@ -3,15 +3,15 @@
  */
 
 import { reduce } from 'lodash'
+import { Graph } from '@codelab/core/graph'
 import { Node } from '@codelab/core/node'
-import { TreeNodeI, NodeI } from '@codelab/shared/interface/node'
-import { GraphSubTreeAcc, TreeSubTreeAcc } from '@codelab/shared/interface/tree'
 import {
-  treeWalker,
   graphAppenderIteratee,
   treeAppenderIteratee,
+  treeWalker,
 } from '@codelab/core/traversal'
-import { Graph } from '@codelab/core/graph'
+import { NodeDtoI } from '@codelab/shared/interface/node'
+import { GraphSubTreeAcc, TreeSubTreeAcc } from '@codelab/shared/interface/tree'
 
 /**
  * This method generates a non-binary tree given JSON input. Each input node is
@@ -25,7 +25,7 @@ import { Graph } from '@codelab/core/graph'
  * ```
  *
  */
-export const makeTree = (input: NodeI): Node => {
+export const makeTree = (input: NodeDtoI): Node => {
   const root = new Node(input)
   const subTreeContext = {
     subTree: root,
@@ -43,7 +43,7 @@ export const makeTree = (input: NodeI): Node => {
 /**
  * Using Vertex/Edge representation
  */
-export const makeGraph = (input: TreeNodeI): Graph => {
+export const makeGraph = (input: NodeDtoI): Graph => {
   // Convert input to Node input structure first, nodeFinder requires Node representation
   const root = makeTree(input)
   const graph = new Graph({ vertices: [], edges: [] })

@@ -1,7 +1,7 @@
-import { Module } from '@nestjs/common'
 import * as Joi from '@hapi/joi'
-import findConfig from 'findup-sync'
+import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
+import findConfig from 'findup-sync'
 import configuration from './configuration'
 
 @Module({

@@ -6,19 +6,5 @@ module.exports = {
   },
   rules: {
     // 'unused-imports/no-unused-imports-ts': 'error',
-    // 'arrow-body-style': off,
-    // 'nx-enforce-module-boundaries': [
-    //   'error',
-    //   {
-    //     allow: [],
-    //     depConstraints: [
-    //       // standalone cannot have deps
-    //       {
-    //         sourceTag: 'scope:standalone',
-    //         onlyDependOnLibsWithTags: [],
-    //       },
-    //     ],
-    //   },
-    // ],
   },
 }

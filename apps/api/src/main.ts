@@ -4,12 +4,12 @@
  */
 import { Logger } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
-import { ROUTER_SERVICE } from '@codelab/api-router'
-import methodOverride from 'method-override'
 import bodyParser from 'body-parser'
+import methodOverride from 'method-override'
 import { AppModule } from './app/app.module'
+import { ROUTER_SERVICE } from '@codelab/api-router'
 
-async function bootstrap() {
+const bootstrap = async () => {
   const app = await NestFactory.create(AppModule)
   const { expressRouter } = app.get(ROUTER_SERVICE)
 

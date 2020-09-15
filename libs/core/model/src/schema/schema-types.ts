@@ -1,9 +1,9 @@
-import {
-  SchemaTypeOpts,
-  SchemaDefinition,
-} from '@codelab/shared/interface/node'
-import * as mongoose from 'mongoose'
 import { reduce } from 'lodash'
+import * as mongoose from 'mongoose'
+import {
+  SchemaDefinition,
+  SchemaTypeOpts,
+} from '@codelab/shared/interface/node'
 
 export const getSchemaType = (
   property: SchemaTypeOpts,
@@ -34,7 +34,7 @@ export const getSchemaType = (
 }
 
 export const produceSchemaDefinition = (
-  props: SchemaDefinition,
+  props?: SchemaDefinition,
 ): mongoose.SchemaDefinition => {
   const schemaDefinition: mongoose.SchemaDefinition = reduce<
     SchemaDefinition,

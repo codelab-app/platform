@@ -9,8 +9,8 @@ import { Link } from 'gatsby'
 import './app.scss'
 import { reduce } from 'lodash'
 import React, { ReactElement } from 'react'
-import { Node } from '@codelab/core/node'
 import { Frontmatter } from '../templates/docTemplate.i'
+import { Node } from '@codelab/core/node'
 
 const { Header, Content, Footer, Sider } = ALayout
 
@@ -25,15 +25,15 @@ const Layout = (props: LayoutProps) => {
 
   const nodes = menuNodes.map(
     (node) =>
-      new Node<Frontmatter>({
+      new Node({
         id: node.order.toString(),
-        nodeType: 'Tree',
+        type: 'Tree',
         props: { ...node },
       }),
   )
 
   const menu = {
-    type: 'Menu',
+    type: 'React.Menu',
     props: {
       mode: 'inline',
       theme: 'dark',
@@ -44,35 +44,35 @@ const Layout = (props: LayoutProps) => {
     children: [],
   }
 
-  const menuData = reduce(
-    nodes,
-    (acc, menuNode, index) => {
-      const { level, key } = menuNode.props
+  // const menuData = reduce(
+  //   nodes,
+  //   (acc, menuNode, index) => {
+  //     const { level, key } = menuNode.props
 
-      let node = {}
+  //     let node = {}
 
-      if (level === 0 || level === 2) {
-        node = {
-          type: 'Menu.Item',
-          props: {
-            key,
-          },
-        }
-      }
+  //     if (level === 0 || level === 2) {
+  //       node = {
+  //         type: 'Menu.Item',
+  //         props: {
+  //           key,
+  //         },
+  //       }
+  //     }
 
-      if (level === 1) {
-        node = {
-          type: 'Menu.SubMenu',
-          props: {
-            key,
-          },
-        }
-      }
+  //     if (level === 1) {
+  //       node = {
+  //         type: 'Menu.SubMenu',
+  //         props: {
+  //           key,
+  //         },
+  //       }
+  //     }
 
-      return { ...acc, children: [...acc.children, node] }
-    },
-    menu,
-  )
+  //     return { ...acc, children: [...acc.children, node] }
+  //   },
+  //   menu,
+  // )
 
   // const data = useStaticQuery(graphql`
   //     query SiteTitleQuery {

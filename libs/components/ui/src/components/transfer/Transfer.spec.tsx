@@ -1,4 +1,4 @@
-import { render, getByTitle, fireEvent, waitFor } from '@testing-library/react'
+import { fireEvent, getByTitle, render, waitFor } from '@testing-library/react'
 import React from 'react'
 import { Default } from './Transfer.stories'
 

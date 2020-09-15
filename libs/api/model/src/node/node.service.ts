@@ -1,8 +1,8 @@
-import { Model } from 'mongoose'
 import { Injectable } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
-import { Node } from './node.schema'
+import { Model } from 'mongoose'
 import { CreateNodeDto } from './dto/create-node.dto'
+import { Node } from './node.schema'
 
 @Injectable()
 export class NodeService {

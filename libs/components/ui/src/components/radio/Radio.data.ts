@@ -1,12 +1,11 @@
-import { ReactNodeI } from '@codelab/shared/interface/node'
-import { Radio } from './Radio.types'
 import { Text } from '../text'
+import { Radio } from './Radio.types'
+import { NodeDtoI } from '@codelab/shared/interface/node'
 
-export const radioData: ReactNodeI<
+export const radioData: NodeDtoI<
   Radio.Props | Radio.GroupProps | Text.Props
 > = {
-  type: 'Provider',
-  nodeType: 'React',
+  type: 'React.Provider',
   props: {
     ctx: {
       eval: true,
@@ -24,40 +23,27 @@ export const radioData: ReactNodeI<
   },
   children: [
     {
-      nodeType: 'React',
-      type: 'Radio.Group',
+      type: 'React.Radio.Group',
       children: [
         {
-          type: 'Radio',
-          nodeType: 'React',
+          type: 'React.Radio',
           props: { value: 'a' },
-          children: [
-            { type: 'Text', nodeType: 'React', props: { value: 'A' } },
-          ],
+          children: [{ type: 'React.Text', props: { value: 'A' } }],
         },
         {
-          type: 'Radio',
-          nodeType: 'React',
+          type: 'React.Radio',
           props: { value: 'b' },
-          children: [
-            { type: 'Text', nodeType: 'React', props: { value: 'B' } },
-          ],
+          children: [{ type: 'React.Text', props: { value: 'B' } }],
         },
         {
-          type: 'Radio',
-          nodeType: 'React',
+          type: 'React.Radio',
           props: { value: 'c' },
-          children: [
-            { type: 'Text', nodeType: 'React', props: { value: 'C' } },
-          ],
+          children: [{ type: 'React.Text', props: { value: 'C' } }],
         },
         {
-          type: 'Radio',
-          nodeType: 'React',
+          type: 'React.Radio',
           props: { value: 'd' },
-          children: [
-            { type: 'Text', nodeType: 'React', props: { value: 'D' } },
-          ],
+          children: [{ type: 'React.Text', props: { value: 'D' } }],
         },
       ],
     },

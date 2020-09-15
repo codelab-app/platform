@@ -1,4 +1,4 @@
-import { render, cleanup, fireEvent } from '@testing-library/react'
+import { cleanup, fireEvent, render } from '@testing-library/react'
 import React from 'react'
 import { Default } from './Table.stories'
 

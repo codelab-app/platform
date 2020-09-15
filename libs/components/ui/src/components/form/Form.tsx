@@ -1,7 +1,7 @@
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
-import { Button, Form as AntForm, Space, Divider } from 'antd'
-import React, { ReactElement } from 'react'
+import { Form as AntForm, Button, Divider, Space } from 'antd'
 import { StoreValue } from 'rc-field-form/lib/interface'
+import React, { ReactElement } from 'react'
 
 // Copy because not exported from antd
 export interface FieldData {

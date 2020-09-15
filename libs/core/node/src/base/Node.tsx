@@ -1,68 +1,68 @@
-import { decode } from '@codelab/shared/common'
-import { filterRenderProps } from '@codelab/core/props'
 import { reduce } from 'lodash'
-import React, { FunctionComponent, ReactNode, ReactElement } from 'react'
-import { Props } from '@codelab/shared/interface/props'
+import React, { FunctionComponent, ReactElement, ReactNode } from 'react'
+import { v4 as uuidv4 } from 'uuid'
+import { filterRenderProps } from '@codelab/core/props'
+import { decode } from '@codelab/shared/common'
 import {
   HasChildren,
-  NodeI,
-  NodeTypeEnum,
-  isReactNode,
-  NodeA,
+  NodeDtoA,
+  NodeDtoI,
   NodeInterface,
+  NodeTypeEnum,
 } from '@codelab/shared/interface/node'
-import { nodeC } from '../codec/node.codec'
+import { Props } from '@codelab/shared/interface/props'
 
 /**
  * Node is instantiated during Tree traversal
  */
-export class Node<P extends Props = {}>
-  implements NodeInterface<P>, HasChildren<P> {
+export class Node implements NodeInterface, HasChildren<Node>, NodeDtoA {
   public Component: FunctionComponent<any> = () => null
 
   public id: string
 
-  public nodeType: NodeTypeEnum
+  public type: NodeTypeEnum
 
-  public parent?: Node<P>
+  public parent?: Node
 
-  public children: Array<Node<P>> = []
+  public children: Array<Node> = []
 
   // eslint-disable-next-line react/static-property-placement
-  public props: P
-
-  public type: string
+  public props: Props
 
   /**
    * The class Node & the codec Node should be kept separate. Node is the container for behavior, while codec Node holds the shape of the data
    */
-  public data: NodeA
+  public data: NodeDtoI
 
   /**
    * Can take just ID, but fills out other fields
    */
-  constructor(node: NodeI) {
-    const { data } = decode(node, nodeC)
+  constructor(node: NodeDtoI) {
+    const { props, id, type } = node
 
-    this.data = data
-    const { props, nodeType, id } = data
+    if (
+      !type ||
+      !(Object.values(NodeTypeEnum) ?? []).includes(type as NodeTypeEnum)
+    ) {
+      throw new Error(`${type} is not a valid Node type`)
+    }
 
-    this.type = isReactNode(data) ? data.type : ''
-    this.nodeType = NodeTypeEnum[nodeType]
-    this.props = props
-    this.id = id
+    this.data = node
+    this.type = type as NodeTypeEnum
+    this.props = props ?? {}
+    this.id = id ?? uuidv4()
   }
 
   get key(): React.Key {
     return (this.props.key as React.Key) ?? this.id
   }
 
-  public addChild(child: Node<P>) {
+  public addChild(child: Node) {
     this.children.push(child)
     child.addParent(this)
   }
 
-  public addParent(parent: Node<P>) {
+  public addParent(parent: Node) {
     this.parent = parent
   }
 
@@ -122,9 +122,9 @@ export class Node<P extends Props = {}>
    * ```
    */
   public Children(rootChildren: ReactNode): ReactNode | Array<ReactNode> {
-    const children = reduce<Node<P>, Array<ReactNode>>(
+    const children = reduce<Node, Array<ReactNode>>(
       this.children,
-      (Components: Array<ReactNode>, child: Node<P>) => {
+      (Components: Array<ReactNode>, child: Node) => {
         const { Component: Child, mergedProps } = child
 
         // console.debug(`${this.type} -> ${child.type}`, props)

@@ -1,19 +1,18 @@
-import { ReactNodeI } from '@codelab/shared/interface/node'
 import { Button } from '../button'
 import { Text } from '../text'
 import { Table } from './Table.types'
+import { NodeDtoI } from '@codelab/shared/interface/node'
 
-const deleteButton: ReactNodeI<
+const deleteButton: NodeDtoI<
   | Table.Props
   | Table.ColumnProps
   | Table.ColumnGroupProps
   | Text.Props
   | Button.Props
 > = {
-  type: 'Button',
-  nodeType: 'React',
+  type: 'React.Button',
   props: {
-    type: 'danger',
+    type: 'React.danger',
     onClick: {
       eval: true,
       value: 'return () => console.log(this.props.record.value.name)',
@@ -21,8 +20,7 @@ const deleteButton: ReactNodeI<
   },
   children: [
     {
-      type: 'Text',
-      nodeType: 'React',
+      type: 'React.Text',
       props: {
         value: 'Delete',
       },
@@ -30,16 +28,14 @@ const deleteButton: ReactNodeI<
   ],
 }
 
-const editButton: ReactNodeI = {
-  type: 'Button',
-  nodeType: 'React',
+const editButton: NodeDtoI = {
+  type: 'React.Button',
   props: {
-    type: 'warning',
+    type: 'React.warning',
   },
   children: [
     {
-      type: 'Text',
-      nodeType: 'React',
+      type: 'React.Text',
       props: {
         value: 'Edit',
       },
@@ -47,9 +43,8 @@ const editButton: ReactNodeI = {
   ],
 }
 
-export const tableData: ReactNodeI = {
-  type: 'Table',
-  nodeType: 'React',
+export const tableData: NodeDtoI = {
+  type: 'React.Table',
   props: {
     dataSource: [
       {
@@ -86,8 +81,7 @@ export const tableData: ReactNodeI = {
         dataIndex: 'action',
         key: 'action',
         render: {
-          type: 'Space',
-          nodeType: 'React',
+          type: 'React.Space',
           children: [editButton, deleteButton],
         },
       },

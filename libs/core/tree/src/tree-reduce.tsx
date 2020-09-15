@@ -1,4 +1,4 @@
-import { hasChildren, HasChildren } from '@codelab/shared/interface/node'
+import { HasChildren, hasChildren } from '@codelab/shared/interface/node'
 
 export const treeReduce = <T extends HasChildren<T>, R>(
   reducerFn: Function,

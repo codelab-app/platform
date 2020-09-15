@@ -1,12 +1,12 @@
-import React, { useEffect, useRef } from 'react'
 import * as d3 from 'd3'
 import { cloneDeep } from 'lodash'
-import { defineMarkers, ticked } from './Graph-updatePattern'
-import { enterLinks, updateLinks } from './links/Graph-links'
-import { g, linkAttribute } from './variables/Graph-variables'
-import { D3GraphProps } from './Graph.i'
-import { enterNodes, updateNodes } from './nodes/Graph-nodes'
+import React, { useEffect, useRef } from 'react'
 import { IDMatcher } from './Graph-filters'
+import { defineMarkers, ticked } from './Graph-updatePattern'
+import { D3GraphProps } from './Graph.i'
+import { enterLinks, updateLinks } from './links/Graph-links'
+import { enterNodes, updateNodes } from './nodes/Graph-nodes'
+import { g, linkAttribute } from './variables/Graph-variables'
 
 export const useD3Hooks = () => {
   return {

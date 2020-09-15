@@ -1,8 +1,8 @@
 import React from 'react'
-import { ReactNodeI, TreeNodeI } from '@codelab/shared/interface/node'
+import { NodeDtoI } from '@codelab/shared/interface/node'
 
 export const renderReactNodes = (
-  nodePropValue: TreeNodeI | ReactNodeI | Array<ReactNodeI>,
+  nodePropValue: NodeDtoI | Array<NodeDtoI>,
   cb: any,
 ): React.ReactNode => {
   const Nodes = (Array.isArray(nodePropValue)

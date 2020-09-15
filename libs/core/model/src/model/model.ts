@@ -1,13 +1,13 @@
-import * as mongoose from 'mongoose'
 import { reduce } from 'lodash'
-import { ModelNode, SchemaNode } from '@codelab/shared/interface/node'
+import * as mongoose from 'mongoose'
 import { modelWalker } from './model-traversal'
 import { modelCreationIteratee } from './model-traversal--iteratee'
 import { ModelInterface } from './model.i'
+import { NodeDtoI } from '@codelab/shared/interface/node'
 
 export class Model {
-  static makeModel(input: ModelNode): mongoose.Model<any> {
-    const { model } = reduce<SchemaNode, ModelInterface>(
+  static makeModel(input: NodeDtoI): mongoose.Model<any> {
+    const { model } = reduce<NodeDtoI, ModelInterface>(
       input.children ?? [],
       modelWalker(input, modelCreationIteratee),
       {},

@@ -1,6 +1,4 @@
 import { drag } from 'd3'
-import { g, nodeAttribute } from '../variables/Graph-variables'
-import { D3Node } from '../Graph.i'
 import {
   handleClickNode,
   handleDragEndNode,
@@ -9,6 +7,8 @@ import {
   handleMouseoutNode,
   handleMouseoverNode,
 } from '../Graph-domHandlers'
+import { D3Node } from '../Graph.i'
+import { g, nodeAttribute } from '../variables/Graph-variables'
 
 /**
  * D3 update methods

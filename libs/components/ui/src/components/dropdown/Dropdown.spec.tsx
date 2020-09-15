@@ -1,4 +1,4 @@
-import { render, fireEvent, waitFor, getByRole } from '@testing-library/react'
+import { fireEvent, getByRole, render, waitFor } from '@testing-library/react'
 import React from 'react'
 import { Default } from './Dropdown.stories'
 

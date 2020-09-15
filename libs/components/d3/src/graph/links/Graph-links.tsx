@@ -1,9 +1,9 @@
-import { D3Link } from '../Graph.i'
 import {
   handleClickLink,
   handleMouseoutLink,
   handleMouseoverLink,
 } from '../Graph-domHandlers'
+import { D3Link } from '../Graph.i'
 
 export const enterLinks = (selection: any, d3Hooks: any, links: any) => {
   /**

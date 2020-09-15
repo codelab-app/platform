@@ -1,6 +1,6 @@
-import * as mongoose from 'mongoose'
 import { JSONSchema7 } from 'json-schema'
 import { reduce } from 'lodash'
+import * as mongoose from 'mongoose'
 import { Schema } from '../json-schema'
 
 export type JsonModels = Map<string, JsonModel>

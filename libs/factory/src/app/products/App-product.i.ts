@@ -1,10 +1,10 @@
-import { NodeInterface } from '@codelab/shared/interface/node'
+import { ComponentType } from 'react'
+import { AppFactory } from '../factories/App-factory.i'
 import {
   TraversalIteratee,
   TraversalOrder,
 } from '@codelab/shared/interface/graph'
-import { ComponentType } from 'react'
-import { AppFactory } from '../factories/App-factory.i'
+import { NodeInterface } from '@codelab/shared/interface/node'
 
 /**
  * Product knows about a factory, is called by builder

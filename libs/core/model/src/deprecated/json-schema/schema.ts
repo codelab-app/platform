@@ -1,7 +1,6 @@
 import { JSONSchema7 } from 'json-schema'
-import * as mongoose from 'mongoose'
-
 import { reduce } from 'lodash'
+import * as mongoose from 'mongoose'
 import { getSchemaType } from './schema-types'
 
 export class Schema {

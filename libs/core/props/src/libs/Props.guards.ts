@@ -1,4 +1,4 @@
-import { Props, PropItem } from '@codelab/shared/interface/props'
+import { PropItem, Props } from '@codelab/shared/interface/props'
 
 export const isEvalPropValue = (
   propValue: Props[keyof Props],

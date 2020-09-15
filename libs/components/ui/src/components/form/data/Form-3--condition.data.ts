@@ -1,13 +1,12 @@
-import { ReactNodeI } from '@codelab/shared/interface/node'
-import { PropValue } from '@codelab/shared/interface/props'
-import { Form } from '../Form.types'
 import { Text } from '../../text'
+import { Form } from '../Form.types'
+import { NodeDtoI } from '@codelab/shared/interface/node'
+import { PropValue } from '@codelab/shared/interface/props'
 
-export const formConditionData: ReactNodeI<
+export const formConditionData: NodeDtoI<
   Form.Props | Form.ItemProps | Text.Props | { shouldRender: PropValue }
 > = {
-  type: 'Form',
-  nodeType: 'React',
+  type: 'React.Form',
   props: {
     // name: 'form',
     initialValues: {},
@@ -15,16 +14,14 @@ export const formConditionData: ReactNodeI<
   },
   children: [
     {
-      type: 'Form.Item',
-      nodeType: 'React',
+      type: 'React.Form.Item',
       props: {
-        label: 'Select',
-        name: 'select',
+        label: 'Select Type',
+        name: 'select_type',
       },
       children: [
         {
-          type: 'Select',
-          nodeType: 'React',
+          type: 'React.Select',
           props: {
             style: {
               width: 120,
@@ -32,15 +29,13 @@ export const formConditionData: ReactNodeI<
           },
           children: [
             {
-              type: 'Select.Option',
-              nodeType: 'React',
+              type: 'React.Select.Option',
               props: {
                 value: 'a',
               },
               children: [
                 {
-                  type: 'Text',
-                  nodeType: 'React',
+                  type: 'React.Text',
                   props: {
                     value: 'A',
                   },
@@ -48,15 +43,13 @@ export const formConditionData: ReactNodeI<
               ],
             },
             {
-              type: 'Select.Option',
-              nodeType: 'React',
+              type: 'React.Select.Option',
               props: {
                 value: 'b',
               },
               children: [
                 {
-                  type: 'Text',
-                  nodeType: 'React',
+                  type: 'React.Text',
                   props: {
                     value: 'B',
                   },
@@ -64,15 +57,13 @@ export const formConditionData: ReactNodeI<
               ],
             },
             {
-              type: 'Select.Option',
-              nodeType: 'React',
+              type: 'React.Select.Option',
               props: {
                 value: 'c',
               },
               children: [
                 {
-                  type: 'Text',
-                  nodeType: 'React',
+                  type: 'React.Text',
                   props: {
                     value: 'C',
                   },
@@ -84,68 +75,62 @@ export const formConditionData: ReactNodeI<
       ],
     },
     {
-      type: 'Form.ItemHook',
-      nodeType: 'React',
+      type: 'React.Form.ItemHook',
       props: {
         shouldUpdate: true,
         shouldRender: {
           eval: true,
-          value: 'return (values) => values.select !== "a"',
+          value: 'return (values) => values.select_type !== "a"',
         },
       },
       children: [
         {
-          type: 'Form.Item',
-          nodeType: 'React',
+          type: 'React.Form.Item',
           props: {
             label: 'Field A',
             name: 'a',
           },
-          children: [{ type: 'Input', nodeType: 'React', props: {} }],
+          children: [{ type: 'React.Input', props: {} }],
         },
       ],
     },
     {
-      type: 'Form.ItemHook',
-      nodeType: 'React',
+      type: 'React.Form.ItemHook',
       props: {
         shouldUpdate: true,
         shouldRender: {
           eval: true,
-          value: 'return (values) => values.select !== "b"',
+          value: 'return (values) => values.select_type !== "b"',
         },
       },
       children: [
         {
-          type: 'Form.Item',
-          nodeType: 'React',
+          type: 'React.Form.Item',
           props: {
             label: 'Field B',
             name: 'b',
           },
-          children: [{ type: 'Input', nodeType: 'React', props: {} }],
+          children: [{ type: 'React.Input', props: {} }],
         },
       ],
     },
     {
-      type: 'Form.ItemHook',
-      nodeType: 'React',
+      type: 'React.Form.ItemHook',
       props: {
         shouldUpdate: true,
         shouldRender: {
           eval: true,
-          value: 'return (values) => values.select !== "c"',
+          value: 'return (values) => values.select_type !== "c"',
         },
       },
       children: [
         {
-          type: 'Form.Item',
-          nodeType: 'React',
+          type: 'React.Form.Item',
           props: {
             label: 'Field C',
             name: 'c',
           },
-          children: [{ type: 'Input', nodeType: 'React', props: {} }],
+          children: [{ type: 'React.Input', props: {} }],
         },
       ],
     },

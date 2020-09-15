@@ -1,5 +1,5 @@
-import React from 'react'
 import { mount } from 'enzyme'
+import React from 'react'
 import { propsFilter, withFilters } from './Props-filter'
 
 describe('Props filter', () => {

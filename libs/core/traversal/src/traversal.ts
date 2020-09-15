@@ -9,9 +9,9 @@
  */
 
 import { reduce } from 'lodash'
-import { NodeIteratee, TreeSubTreeAcc } from '@codelab/shared/interface/tree'
-import { TraversalIteratee } from '@codelab/shared/interface/graph'
 import { Node } from '@codelab/core/node'
+import { TraversalIteratee } from '@codelab/shared/interface/graph'
+import { NodeIteratee, TreeSubTreeAcc } from '@codelab/shared/interface/tree'
 
 /**
  * Curried function allows us to first initialize the treeWalker with an iteratee.

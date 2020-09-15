@@ -1,27 +1,24 @@
-import React from 'react'
-import { ReactNodeI } from '@codelab/shared/interface/node'
 import { mount } from 'enzyme'
 import { omit } from 'lodash'
+import React from 'react'
 import { TreeDom } from '@codelab/core/renderer'
+import { NodeDtoI } from '@codelab/shared/interface/node'
 
 describe('RootRenderProps', () => {
-  const data: ReactNodeI = {
-    type: 'Html.div',
-    nodeType: 'React',
+  const data: NodeDtoI = {
+    type: 'React.Html.div',
     props: {
       parentprops: {},
     },
     children: [
       {
-        type: 'Html.div',
-        nodeType: 'React',
+        type: 'React.Html.div',
         props: {
           childprops: {},
         },
         children: [
           {
-            type: 'Html.div',
-            nodeType: 'React',
+            type: 'React.Html.div',
             props: {
               grandChildProps: {},
             },

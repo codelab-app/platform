@@ -1,5 +1,5 @@
-import { HasChildren, HasParent } from '@codelab/shared/interface/node'
 import { Graph } from '@codelab/shared/interface/graph'
+import { HasChildren, HasParent } from '@codelab/shared/interface/node'
 
 export type NodeIteratee<
   SubTree extends HasParent<TreeNode>,

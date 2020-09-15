@@ -1,11 +1,10 @@
-import { ReactNodeI } from '@codelab/shared/interface/node'
-import { Text } from '../text'
 import { Icon } from '../icon'
+import { Text } from '../text'
 import { Upload } from './Upload.types'
+import { NodeDtoI } from '@codelab/shared/interface/node'
 
-export const uploadData: ReactNodeI<Upload.Props | Text.Props | Icon.Props> = {
-  type: 'Upload',
-  nodeType: 'React',
+export const uploadData: NodeDtoI<Upload.Props | Text.Props | Icon.Props> = {
+  type: 'React.Upload',
   props: {
     name: 'file',
     action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
@@ -15,20 +14,17 @@ export const uploadData: ReactNodeI<Upload.Props | Text.Props | Icon.Props> = {
   },
   children: [
     {
-      type: 'Button',
-      nodeType: 'React',
+      type: 'React.Button',
       children: [
         {
-          type: 'Icon',
-          nodeType: 'React',
+          type: 'React.Icon',
           props: {
-            type: 'upload',
+            type: 'React.upload',
             theme: 'outlined',
           },
         },
         {
-          type: 'Text',
-          nodeType: 'React',
+          type: 'React.Text',
           props: {
             value: ' Click to Upload',
           },

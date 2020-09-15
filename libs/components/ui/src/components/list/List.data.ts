@@ -1,15 +1,14 @@
-import { ReactNodeI } from '@codelab/shared/interface/node'
 import { List } from './List.types'
+import { NodeDtoI } from '@codelab/shared/interface/node'
 
-export const listData: ReactNodeI<
+export const listData: NodeDtoI<
   | List.Props
   | List.PaginationProps
   | List.GridProps
   | List.ItemMetaProps
   | List.ItemProps
 > = {
-  type: 'List',
-  nodeType: 'React',
+  type: 'React.List',
   props: {
     header: 'Header',
     split: 'true',
@@ -18,12 +17,10 @@ export const listData: ReactNodeI<
   },
   children: [
     {
-      type: 'List.Item',
-      nodeType: 'React',
+      type: 'React.List.Item',
       children: [
         {
-          type: 'List.Item.Meta',
-          nodeType: 'React',
+          type: 'React.List.Item.Meta',
           props: {
             title: 'Racing car sprays burning fuel into crowd.',
           },
@@ -31,12 +28,10 @@ export const listData: ReactNodeI<
       ],
     },
     {
-      type: 'List.Item',
-      nodeType: 'React',
+      type: 'React.List.Item',
       children: [
         {
-          type: 'List.Item.Meta',
-          nodeType: 'React',
+          type: 'React.List.Item.Meta',
           props: {
             title: 'Japanese princess to wed commoner.',
           },
@@ -44,12 +39,10 @@ export const listData: ReactNodeI<
       ],
     },
     {
-      type: 'List.Item',
-      nodeType: 'React',
+      type: 'React.List.Item',
       children: [
         {
-          type: 'List.Item.Meta',
-          nodeType: 'React',
+          type: 'React.List.Item.Meta',
           props: {
             title: 'Australian walks 100km after outback crash.',
           },
@@ -57,12 +50,10 @@ export const listData: ReactNodeI<
       ],
     },
     {
-      type: 'List.Item',
-      nodeType: 'React',
+      type: 'React.List.Item',
       children: [
         {
-          type: 'List.Item.Meta',
-          nodeType: 'React',
+          type: 'React.List.Item.Meta',
           props: {
             title: 'Man charged over missing wedding girl.',
           },
@@ -70,12 +61,10 @@ export const listData: ReactNodeI<
       ],
     },
     {
-      type: 'List.Item',
-      nodeType: 'React',
+      type: 'React.List.Item',
       children: [
         {
-          type: 'List.Item.Meta',
-          nodeType: 'React',
+          type: 'React.List.Item.Meta',
           props: {
             title: 'Los Angeles battles huge wildfires.',
           },

@@ -1,6 +1,6 @@
 import { FactoryProvider } from '@nestjs/common'
-import { JsonModel, JsonModels } from '@codelab/core/model'
 import { SchemaService } from '../schema'
+import { JsonModel, JsonModels } from '@codelab/core/model'
 
 export const MODELS_PROVIDER = 'MODELS_PROVIDER'
 
