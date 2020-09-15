@@ -1,3 +1,3 @@
-export * from './router.module'
-export * from './router.provider'
-export * from './router.service'
+export { RouterModule } from './router.module'
+export { ROUTER_SERVICE, routerServiceProvider } from './router.provider'
+export { RouterService } from './router.service'

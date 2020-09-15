@@ -1,1 +1,6 @@
-export * from './tree'
+export type {
+  NodeIteratee,
+  TreeSubTreeAcc,
+  GraphSubTreeAcc,
+  NodeFinderAcc,
+} from './tree'

@@ -1,4 +1,4 @@
-export * from './tree-factory'
-export * from './tree-map'
-export * from './tree-reduce'
-export * from './data/tree.data'
+export { makeGraph, makeTree } from './tree-factory'
+export { treeMap } from './tree-map'
+export { treeReduce } from './tree-reduce'
+export { treeData } from './data/tree.data'

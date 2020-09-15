@@ -1,2 +1,2 @@
 export * from './components'
-export * from './renderer'
+export { TreeDom, elementParameterFactory } from './renderer'

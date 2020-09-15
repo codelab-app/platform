@@ -1,2 +1,2 @@
-export * from './user'
-export * from './node'
+export { UserModule } from './user'
+export { Node, NodeSchema, NodeModule } from './node'

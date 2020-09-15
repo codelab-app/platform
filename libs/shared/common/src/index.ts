@@ -1,4 +1,4 @@
-export * from './errors'
-export * from './endpoint'
-export * from './data'
-export * from './resources'
+export { DecodeError } from './errors'
+export { Endpoint } from './endpoint'
+export type { Success, Failure, Result } from './data'
+export { decode } from './resources'
