@@ -21,3 +21,16 @@ export type PropsFromKeys<Keys extends string, P extends object = {}> = {
 
 // Accepted value from JSON representation
 export type PropJsonValue = string | number | boolean
+export type PropsFactory = (
+  acc: Props,
+  propValue: PropItem,
+  propKey: keyof Props,
+) => Props
+
+export type PropsIterator = (
+  props: Props,
+  iteratee: PropsFactory,
+  ctx?: any,
+) => Props
+
+export type PropsBuilder = (current: Props, parent: Props) => Props

@@ -4,6 +4,18 @@ import {
   PropValue,
   Props,
   PropsFromKeys,
+  PropsFactory,
+  PropsIterator,
+  PropsBuilder,
 } from './props'
 
-export type { PropItem, PropValue, Props, PropsFromKeys, PropJsonValue }
+export type {
+  PropItem,
+  PropValue,
+  Props,
+  PropsFromKeys,
+  PropJsonValue,
+  PropsFactory,
+  PropsIterator,
+  PropsBuilder,
+}

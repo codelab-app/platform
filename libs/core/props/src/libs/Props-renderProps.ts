@@ -1,10 +1,11 @@
 import { reduce } from 'lodash'
+import { Props, PropsFactory, PropItem } from '@codelab/shared/interface/props'
 import {
   isLeafRenderPropValue,
   isRenderPropValue,
   isSingleRenderPropValue,
 } from './Props.guards'
-import { Props } from '@codelab/shared/interface/props'
+import { evalPropsIterator } from './Props-eval'
 
 type PropIteratee = (
   prop: Props,
@@ -101,4 +102,36 @@ export const convertToLeafRenderProps = (props: Props): Props => {
     },
     {},
   )
+}
+
+export const leafRenderPropsFactory: PropsFactory = (
+  acc: Props,
+  propValue: PropItem,
+  propKey: keyof Props,
+): Props => {
+  if (isLeafRenderPropValue(propValue)) {
+    return { ...acc, [propKey]: propValue }
+  }
+
+  return { ...acc }
+}
+
+export const singleRenderPropsFactory: PropsFactory = (
+  acc: Props,
+  propValue: PropItem,
+  propKey: keyof Props,
+): Props => {
+  if (isSingleRenderPropValue(propValue)) {
+    return { ...acc, [propKey]: propValue }
+  }
+
+  return { ...acc }
+}
+
+export const leafRenderPropsFilter = <P extends Props = Props>(props: P) => {
+  return evalPropsIterator(props, leafRenderPropsFactory)
+}
+
+export const singleRenderPropsFilter = <P extends Props = Props>(props: P) => {
+  return evalPropsIterator(props, singleRenderPropsFactory)
 }

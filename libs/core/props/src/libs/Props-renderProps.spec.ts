@@ -1,8 +1,10 @@
 import {
+  convertToRenderProps,
   convertToLeafRenderProps,
   filterRenderProps,
+  leafRenderPropsFilter,
+  singleRenderPropsFilter,
 } from './Props-renderProps'
-import { convertToRenderProps } from '@codelab/core/props'
 
 describe('Props with renderProps type', () => {
   it('converts all props to renderProps', () => {
@@ -89,6 +91,50 @@ describe('Props with renderProps type', () => {
     }
 
     const filteredRenderProps = filterRenderProps(renderProps, 'leaf')
+
+    expect(filteredRenderProps).toEqual({
+      event: {
+        renderProps: 'leaf',
+        value: 'event',
+      },
+    })
+  })
+
+  it('should filter single props', () => {
+    const renderProps = {
+      data: {
+        renderProps: true,
+        value: 'data',
+      },
+      event: {
+        renderProps: 'leaf',
+        value: 'event',
+      },
+      component: 'Codelab',
+    }
+    const filteredRenderProps = singleRenderPropsFilter(renderProps)
+
+    expect(filteredRenderProps).toEqual({
+      data: {
+        renderProps: true,
+        value: 'data',
+      },
+    })
+  })
+
+  it('should filter leaf props', () => {
+    const renderProps = {
+      data: {
+        renderProps: true,
+        value: 'data',
+      },
+      event: {
+        renderProps: 'leaf',
+        value: 'event',
+      },
+      component: 'Codelab',
+    }
+    const filteredRenderProps = leafRenderPropsFilter(renderProps)
 
     expect(filteredRenderProps).toEqual({
       event: {

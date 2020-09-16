@@ -2,6 +2,7 @@ import {
   evalPropValue,
   evalPropsIterator,
   evalPropsWithContext,
+  evalPropsFactory,
 } from './Props-eval'
 import * as propsReact from './Props-react'
 
@@ -30,14 +31,16 @@ describe('Props with eval type', () => {
   })
 
   it('evaluates a props object', () => {
-    const { onSuccess, onError } = evalPropsIterator(props)
+    const { onSuccess, onError } = evalPropsIterator(props, evalPropsFactory)
 
     expect((onSuccess as Function)()).toBeTruthy()
     expect((onError as Function)()).toBeFalsy()
   })
 
   it('can access context', () => {
-    const { onPending } = evalPropsIterator(props, { status: 'pending' })
+    const { onPending } = evalPropsIterator(props, evalPropsFactory, {
+      status: 'pending',
+    })
 
     expect((onPending as Function)()).toBe('pending')
   })
@@ -55,7 +58,7 @@ describe('Props with eval type', () => {
     }
 
     it('evals for evalProps', () => {
-      const { onSuccess, onError } = evalPropsWithContext(props)
+      const { onSuccess, onError } = evalPropsWithContext(props, {})
 
       expect((onSuccess as Function)()).toBeTruthy()
       expect((onError as Function)()).toBeFalsy()
@@ -66,13 +69,16 @@ describe('Props with eval type', () => {
         render: jest.fn().mockReturnValue(() => null),
       }
       const renderReactNodesSpy = jest.spyOn(propsReact, 'renderReactNodes')
-      const { icon } = evalPropsWithContext({ ...reactProps, ctx: { TreeDom } })
+      const { icon } = evalPropsWithContext(
+        { ...reactProps, ctx: { TreeDom } },
+        {},
+      )
 
       expect(icon).toBeDefined()
       expect(renderReactNodesSpy).toHaveBeenCalled()
     })
     it('should throw an error when missing TreeDom ctx', () => {
-      expect(() => evalPropsWithContext({ ...reactProps })).toThrowError()
+      expect(() => evalPropsWithContext({ ...reactProps }, {})).toThrowError()
     })
   })
 })

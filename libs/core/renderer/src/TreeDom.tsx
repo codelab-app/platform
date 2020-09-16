@@ -14,9 +14,9 @@ import { Props } from '@codelab/shared/interface/props'
 /**
  * We need this function in ui package because TreeDom is required, can't put in node or props package
  */
-const evalPropsWithTreeContext = (props: Props): Props => {
+const evalPropsWithTreeContext = (props: Props, parentProps: Props): Props => {
   // eslint-disable-next-line no-use-before-define
-  return evalPropsWithContext(merge(props, { ctx: { TreeDom } }))
+  return evalPropsWithContext(merge(props, { ctx: { TreeDom } }), parentProps)
 }
 
 export class TreeDom {
@@ -45,7 +45,10 @@ export class TreeDom {
       }: PropsWithChildren<P>) => {
         return node.render(
           Component,
-          evalPropsWithTreeContext({ ...props, ...internalProps }),
+          evalPropsWithTreeContext(
+            { ...props, ...internalProps },
+            node.parent ? node.parent.props : {},
+          ),
           children,
           hasRootChildren,
         )
@@ -74,7 +77,7 @@ export class TreeDom {
       root.props = { ...root.props, ...convertToLeafRenderProps(rootProps) }
 
       return (
-        <root.Component {...evalPropsWithTreeContext(root.props)}>
+        <root.Component {...root.props}>
           {root.Children(rootChildren)}
         </root.Component>
       )

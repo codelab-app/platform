@@ -1,24 +1,35 @@
 import { message, notification } from 'antd'
 import axios from 'axios'
-import { reduce } from 'lodash'
+import { reduce, omit } from 'lodash'
 import React from 'react'
-import { renderReactNodes } from './Props-react'
-import { isEvalPropValue } from './Props.guards'
 import {
   isReactNode,
   isReactNodeArray,
   isTreeNode,
 } from '@codelab/shared/interface/node'
-import { PropItem, PropValue, Props } from '@codelab/shared/interface/props'
+import {
+  PropValue,
+  PropItem,
+  Props,
+  PropsFactory,
+  PropsIterator,
+  PropsBuilder,
+} from '@codelab/shared/interface/props'
+import { isEvalPropValue } from './Props.guards'
+import { renderReactNodes } from './Props-react'
 
 export const evalPropValue = (propValue: PropValue, ctx?: any): Function => {
   // eslint-disable-next-line no-new-func
   return new Function(propValue.value).call(ctx)
 }
 
-export const evalPropsFactory = (propValue: PropItem, ctx?: any) => {
+export const evalPropsFactory: PropsFactory = (
+  acc: Props,
+  propValue: PropItem,
+  propKey: keyof Props,
+): Props => {
   if (isEvalPropValue(propValue)) {
-    return evalPropValue(propValue, ctx)
+    return { ...acc, [propKey]: evalPropValue(propValue, acc.ctx) }
   }
 
   if (
@@ -27,52 +38,64 @@ export const evalPropsFactory = (propValue: PropItem, ctx?: any) => {
     isReactNodeArray(propValue)
   ) {
     // We pass TreeDom via ctx to avoid circular depedency
-    if (!ctx?.TreeDom) {
+    if (!acc.ctx?.TreeDom) {
       throw new Error('TreeDom can not be found')
     }
 
-    return renderReactNodes(propValue, ctx.TreeDom.render)
+    return {
+      ...acc,
+      [propKey]: renderReactNodes(propValue, acc.ctx.TreeDom.render),
+    }
   }
 
-  return propValue
+  return { ...acc, [propKey]: propValue }
 }
 
 /**
  * Goes through each object key/value pair, and apply the iteratee
  */
-export const evalPropsIterator = <P extends Props = Props>(
+export const evalPropsIterator: PropsIterator = <P extends Props = Props>(
   props: P,
+  iteratee: PropsFactory,
   ctx?: any,
 ) => {
   return reduce<P, Props>(
     props,
-    (evaluatedProp: Props, propValue: PropItem, propKey: keyof Props) => ({
-      ...evaluatedProp,
-      [propKey]: evalPropsFactory(propValue, ctx),
-    }),
-    {},
+    (evaluatedProp: Props, propValue: PropItem, propKey: keyof Props) => {
+      return iteratee(evaluatedProp, propValue, propKey)
+    },
+    ctx ? { ctx } : {},
   )
 }
 
 /**
  * Allows us to build ctx & pass into props without needing a parent & child component
  */
-export const evalPropsWithContext = (props: Props): Props => {
-  const { ctx = {}, ...restProps } = props
+export const evalPropsWithContext: PropsBuilder = (
+  currentI: Props,
+  parentI: Props,
+): Props => {
+  const { ctx: currentCtx, ...restCurrentProps } = currentI
+  const { ctx: parentCtx } = parentI
   const libraryCtx = {
     React,
     axios,
     antd: { notification, message },
-    props,
+    props: currentI,
     evalProps: evalPropsIterator,
+    evalPropsFactory,
   }
 
-  // Then pass the ctx into rest of props
-  return {
-    ...evalPropsIterator(restProps, {
-      // We first take ctx from current props & eval that
-      ...evalPropsIterator({ ctx }, libraryCtx).ctx,
-      ...libraryCtx,
-    }),
+  const ctx = {
+    ...evalPropsIterator(
+      { ctx: { ...parentCtx, ...currentCtx } },
+      evalPropsFactory,
+      libraryCtx,
+    ).ctx,
+    ...libraryCtx,
   }
+
+  const currentA = evalPropsIterator(restCurrentProps, evalPropsFactory, ctx)
+
+  return omit(currentA, 'ctx')
 }

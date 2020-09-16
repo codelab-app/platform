@@ -11,7 +11,7 @@ export const notificationData: NodeDtoReactI<
     onClick: {
       eval: true,
       value:
-        'return () => this.antd.notification.info(this.evalProps(this.props.config, {}))',
+        'return () => this.antd.notification.info(this.evalProps(this.props.config, this.evalPropsFactory, {}))',
     },
     config: {
       message: 'Notification Title',
