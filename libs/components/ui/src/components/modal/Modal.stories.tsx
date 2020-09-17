@@ -12,9 +12,7 @@ export const Default = () => {
   return <Modal />
 }
 
-
 export const WithForm = () => {
-
   const Modal = TreeDom.render(modalDataWithForm)
   return <Modal />
 }

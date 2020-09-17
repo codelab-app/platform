@@ -1,6 +1,9 @@
 import React from 'react'
 import { TreeDom } from '../renderer/TreeDom'
-import { renderPropsData, BasicPropsPassedInDeepData } from './Props-renderProps.data'
+import {
+  renderPropsData,
+  BasicPropsPassedInDeepData,
+} from './Props-renderProps.data'
 import { divData } from '../components/html/Html.data'
 
 export default {
@@ -19,8 +22,7 @@ export const Children = () => {
   return <Div>Content</Div>
 }
 
-export const BasicPropsPassedInDeep= ()=>{
-
+export const BasicPropsPassedInDeep = () => {
   const Component = TreeDom.render(BasicPropsPassedInDeepData)
 
   return <Component />

@@ -86,7 +86,7 @@ export const BasicPropsPassedInDeepData: ReactNodeI = {
                   nodeType: 'React',
                   type: 'Text',
                   props: {
-                    value: "3rd level but Cb still available",
+                    value: '3rd level but Cb still available',
                   },
                 },
               ],

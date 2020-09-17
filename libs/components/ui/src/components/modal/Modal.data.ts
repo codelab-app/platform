@@ -101,7 +101,7 @@ export const modalDataWithForm: ReactNodeI<Modal.Props | Button.Props> = {
       nodeType: 'React',
       props: {
         title: 'Basic Modal',
-            footer: null,
+        footer: null,
       },
       children: [
         {
