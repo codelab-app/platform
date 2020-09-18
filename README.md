@@ -1,9 +1,15 @@
 # What is Codelab.ai
 
-Codelab.ai is a web application builder consisting of a data modeling tool and a view binding layer. It was the only available domain extension left & has nothing to do with Artificial Intelligence, but is a likely addition in the future.
+Codelab.ai is a web application builder that renders components using React. Users can...
 
-- Create models with fields & configure their relationships using a D3.js graph interface.
-- Build the UI by editing the DOM Tree & configuring the components
+(not related to artificial intelligence)
+
+- configure the layout using React Grid Layout
+- create components by specifying props
+- create Mongoose schema & add data
+- attach components to layout
+
+Everything can be done using an abstracted UI layer (via forms, tables, custom UI etc). Our approach differs from Wordpress, Shopify & other platforms in that our core code resembles code you would normally write. We have just created a convenient wrapper at the UI layer for you to interact with.
 
 ## Built With
 
@@ -82,16 +88,18 @@ Once pushed to the remote repository, create a Pull Request on Github to `master
 
 ### Apps
 
-Contain main user-facing applications like web frontend, api backend, & e2e tests.
+`/apps` Contain main user-facing applications like web frontend, api backend, & e2e tests.
+
+- `api` is our API endpoint, composed of multiple Nest.js modules
+- `docs` our documentation site, currently outdated
+- `web` is our web entry into the application
 
 ### Libs
 
-Contain libraries that is used by apps
+`/libs` contain libraries that is used by apps
 
-### Lib folders
-
-- api: contain Nest.js modules
-- entity: contain domain specific business logic
+- `api`: contain Nest.js modules that is imported into `/apps/api`
+- `core`: contain our domain specific business logic
 
 <!-- [Graph](libs/core/graph/README.md) -->
 <!-- [Model](libs/core/model/README.md) -->
@@ -102,5 +110,27 @@ Contain libraries that is used by apps
 <!-- [Traversal](libs/core/traversal/README.md) -->
 <!-- [Tree](libs/core/tree/README.md) -->
 
-- shared: contain interface & other shared code, contain no external dep
-- tools: contain ci/cd & workspace related code
+- `shared`: contain interface & other shared code, contain no external dep
+- `tools`: contain ci/cd & workspace related code
+
+## Core Concept
+
+We conceptualize an application as a `Tree`, just as how the browser uses a Dom tree. If we can have a way of constructing the Tree, we can build the Dom tree.
+
+## Tree Representations
+
+There are 2 `Tree` data structures that we use. The first is thinking it like a tree, & the natural hierarchy is apparent in the data.
+
+1. As a recursive collection of `Nodes`.
+
+The second approach is to think about it like a `Graph`. A graph comprises of edges & vertices, where each vertex connects 2 edges.
+
+2. As a collection of edges or vertices
+
+#2 gives us a flat structure as there is no recursive nesting, so it is suitable for persistent storage. While #1 is a closer representation to the Dom tree, so we transform a `Graph` representation into a `Tree` representation before rendering onto the view.
+
+### Graph Theory
+
+A `Tree` is a specialized `Graph`, so we can use Graph Theory to help us conceptualize a Tree.
+
+Tree `Traversal` is a common way to interact with a tree. You can configure the traversal order, and what transformations to apply to each node.

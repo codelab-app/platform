@@ -1,13 +1,12 @@
 import { D3Graph, D3Tree, D3TreeData } from '@codelab/components/d3'
 import React from 'react'
 import { Mapper } from '@codelab/shared/interface/node'
-import { makeGraph, makeTree } from '../../tree/src/tree-factory'
-import { treeMap } from '../../tree/src/tree-map'
-import { componentData } from '../../tree/src/data/tree-component.data'
+import { makeTree, makeGraph } from './tree-factory'
+import { treeMap } from './tree-map'
+import { componentData } from './data'
 
 export default {
-  // component: Node,
-  title: 'Node',
+  title: 'Tree',
 }
 
 export const Tree = () => {
@@ -19,10 +18,11 @@ export const Tree = () => {
       label: node.id,
     }
   }
-  const mappedTree = treeMap<any, D3TreeData>('children', 'children')(
+  const mappedTree = treeMap<any, D3TreeData>(
     treeMapper,
-    nodeTree,
-  )
+    'children',
+    'children',
+  )(nodeTree)
 
   return <D3Tree data={mappedTree} />
 }
