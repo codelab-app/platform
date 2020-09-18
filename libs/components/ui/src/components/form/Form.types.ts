@@ -1,4 +1,4 @@
-import { PropsFromKeys } from '@codelab/shared/interface/props'
+import { PropsFromKeys, PropJsonValue } from '@codelab/shared/interface/props'
 import { ReactNodeI } from '@codelab/shared/interface/node'
 import { Select } from '../select'
 
@@ -59,19 +59,19 @@ export namespace Form {
 
   export type ItemProps = PropsFromKeys<typeof itemPropKeys[number]>
 
-  export type OptionConfig<T = unknown> = [string, T]
+  export type OptionConfig = [string, PropJsonValue]
 
-  export interface CreateSelect<T = unknown> {
+  export interface CreateSelect {
     label: string
     name: string
-    options: OptionConfig<T>[]
+    options: Array<OptionConfig>
   }
 
-  export const createSelect = <T = unknown>({
+  export const createSelect = ({
     label,
     name,
     options,
-  }: CreateSelect<T>): ReactNodeI<Select.Props | Form.ItemProps> => ({
+  }: CreateSelect): ReactNodeI<Select.Props | Form.ItemProps> => ({
     type: 'Form.Item',
     nodeType: 'React',
     props: {
@@ -87,15 +87,15 @@ export namespace Form {
             width: 120,
           },
         },
-        children: Form.createOptions<T>(options),
+        children: Form.createOptions(options),
       },
     ],
   })
 
-  export const createOptions = <T = unknown>(
-    options: OptionConfig<T>[],
+  export const createOptions = (
+    options: Array<OptionConfig>,
   ): Array<ReactNodeI<Select.OptionProps>> =>
-    options.map(([key, value]: [string, any]) => ({
+    options.map(([key, value]: [string, PropJsonValue]) => ({
       type: 'Select.Option',
       nodeType: 'React',
       props: {

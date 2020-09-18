@@ -72,6 +72,9 @@ overrides:
         '@typescript-eslint/parser': ['.ts', '.tsx']
     rules:
       no-inner-declarations: off
+      '@typescript-eslint/array-type':
+        - error
+        - default: generic
       '@typescript-eslint/no-namespace': off
       '@typescript-eslint/no-useless-constructor': ['error']
       '@typescript-eslint/ban-types':

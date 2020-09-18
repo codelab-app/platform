@@ -1,1 +1,7 @@
-export type { PropItem, PropValue, Props, PropsFromKeys } from './props'
+export type {
+  PropItem,
+  PropValue,
+  Props,
+  PropsFromKeys,
+  PropJsonValue,
+} from './props'

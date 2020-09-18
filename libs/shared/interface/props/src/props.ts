@@ -18,3 +18,6 @@ export interface Props {
 export type PropsFromKeys<Keys extends string, P extends object = {}> = {
   [K in Keys]?: string | number | boolean | PropValue | P
 } & { ctx?: PropItem; style?: CSSProperties }
+
+// Accepted value from JSON representation
+export type PropJsonValue = string | number | boolean
