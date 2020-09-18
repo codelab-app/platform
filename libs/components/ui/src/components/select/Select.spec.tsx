@@ -8,7 +8,6 @@ import {
 } from '@codelab/shared/interface/node'
 import { cLog } from '@codelab/shared/utils'
 import { Default } from './Select.stories'
-import { Select } from './Select.types'
 import { Form } from '../form/Form.types'
 
 describe('Select', () => {
@@ -28,7 +27,7 @@ describe('Select', () => {
       BTC = 'btc',
       ETH = 'eth',
     }
-    const options = Form.createOptions(Coins as any)
+    const options = Form.createOptions<string>(Object.entries(Coins))
 
     cLog(options)
 

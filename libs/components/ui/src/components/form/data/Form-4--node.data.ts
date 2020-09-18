@@ -18,7 +18,7 @@ export const nodeFormData: ReactNodeI<
     Form.createSelect({
       label: 'Node Type',
       name: 'node_type',
-      options: NodeTypeEnum,
+      options: Object.entries(NodeTypeEnum),
     }),
     {
       type: 'Form.Item',
