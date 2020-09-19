@@ -1,1 +1,3 @@
-export { ApiConfigModule } from './lib/api-config.module'
+import { ApiConfigModule } from './lib/api-config.module'
+
+export { ApiConfigModule }

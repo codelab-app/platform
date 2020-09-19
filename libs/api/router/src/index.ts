@@ -1,3 +1,5 @@
-export { RouterModule } from './router.module'
-export { ROUTER_SERVICE, routerServiceProvider } from './router.provider'
-export { RouterService } from './router.service'
+import { RouterModule } from './router.module'
+import { ROUTER_SERVICE, routerServiceProvider } from './router.provider'
+import { RouterService } from './router.service'
+
+export { RouterModule, ROUTER_SERVICE, routerServiceProvider, RouterService }

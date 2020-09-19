@@ -1,2 +1,4 @@
-export { UserModule } from './user'
-export { Node, NodeSchema, NodeModule } from './node'
+import { UserModule } from './user'
+import { Node, NodeSchema, NodeModule } from './node'
+
+export { UserModule, Node, NodeSchema, NodeModule }

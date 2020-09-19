@@ -1,1 +1,1 @@
-export { Node } from './base'
+import { Node } from './base'

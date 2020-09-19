@@ -1,5 +1,20 @@
 /* eslint-disable import/no-cycle */
-export * from './TreeDom'
-export * from './ElementFactory'
-export * from './component.interface'
-export * from './element-factory.interface'
+import { TreeDom } from './TreeDom'
+import { elementParameterFactory } from './ElementFactory'
+import {
+  Factory,
+  FactoryComponent,
+  ComponentProps,
+  RenderComponent,
+} from './component.interface'
+import { ElementParameters } from './element-factory.interface'
+
+export type {
+  Factory,
+  FactoryComponent,
+  ComponentProps,
+  RenderComponent,
+  ElementParameters,
+}
+
+export { elementParameterFactory, TreeDom }

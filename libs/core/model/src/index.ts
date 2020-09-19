@@ -1,3 +1,5 @@
-export { Model } from './model'
-export * from './deprecated/model'
-export * from './deprecated/json-schema'
+import { Model } from './model'
+import { JsonModel, JsonModels } from './deprecated/model'
+import { Schema } from './deprecated/json-schema'
+
+export { Model, JsonModel, JsonModels, Schema }

@@ -1,3 +1,5 @@
-export { Edge } from './edge'
-export { Graph } from './graph'
-export { Vertex } from './vertex'
+import { Edge } from './edge'
+import { Graph } from './graph'
+import { Vertex } from './vertex'
+
+export { Edge, Graph, Vertex }

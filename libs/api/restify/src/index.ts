@@ -1,2 +1,4 @@
-export { RestifyModule } from './restify.module'
-export { RESTIFY_SERVICE } from './restify.provider'
+import { RestifyModule } from './restify.module'
+import { RESTIFY_SERVICE } from './restify.provider'
+
+export { RestifyModule, RESTIFY_SERVICE }
