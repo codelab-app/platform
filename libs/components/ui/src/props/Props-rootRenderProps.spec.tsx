@@ -2,7 +2,7 @@ import React from 'react'
 import { ReactNodeI } from '@codelab/shared/interface/node'
 import { mount } from 'enzyme'
 import { omit } from 'lodash'
-import { TreeDom } from '../renderer/TreeDom'
+import { TreeDom } from '@codelab/core/renderer'
 
 describe('RootRenderProps', () => {
   const data: ReactNodeI = {

@@ -2,7 +2,7 @@ import React from 'react'
 import { Table as AntTable } from 'antd'
 import { TableProps as AntTableProps } from 'antd/lib/table'
 // eslint-disable-next-line import/no-cycle
-import { TreeDom } from '../../renderer/TreeDom'
+import { TreeDom } from '@codelab/core/renderer'
 
 export type TableProps<T extends object = any> = AntTableProps<T>
 

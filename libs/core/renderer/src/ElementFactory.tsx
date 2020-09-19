@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import { mouseEventHandlerKeys } from '@codelab/shared/event'
 import { Node } from '@codelab/core/node'
 import { propsFilter, withFilters } from '@codelab/core/props'
@@ -63,14 +64,16 @@ import {
 } from 'antd'
 import React from 'react'
 import { Icon } from '@ant-design/compatible'
-import { ElementParameters } from './ElementFactory.interface'
-import { Button as ButtonTypes } from '../components/button'
-import { CodelabForm } from '../components/form/Form'
-import { Grid } from '../components/grid/Grid'
-import { CodelabHtml } from '../components/html/Html'
-import { Provider } from '../components/provider/Provider'
-// eslint-disable-next-line import/no-cycle
-import { CodelabTable } from '../components/table/Table'
+import {
+  Button as ButtonTypes,
+  CodelabForm,
+  Grid,
+  CodelabHtml,
+  Provider,
+  CodelabTable,
+} from '@codelab/components/ui'
+
+import { ElementParameters } from './element-factory.interface'
 
 export const elementParameterFactory = <P extends Props>(
   node: Node<P>,

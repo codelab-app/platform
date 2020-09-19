@@ -22,18 +22,4 @@ export type FactoryComponent<
   // Return type of React.forwardRef
   | ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<T>>
 
-export type ComponentProps =
-  // | AntButtonProps
-  // | FormProps
-  // | FormItemProps
-  // | InputProps
-  // | TextAreaProps
-  // | PasswordProps
-  // | SearchProps
-  // | GroupProps
-  // | AlertProps
-  // | TextProps
-  // | SelectProps
-  // | OptionsProps
-  // | SliderProps
-  Props
+export type ComponentProps = Props

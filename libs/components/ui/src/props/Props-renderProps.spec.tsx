@@ -3,7 +3,7 @@ import { filterRenderProps } from '@codelab/core/props'
 import { Props } from '@codelab/shared/interface/props'
 import { mount } from 'enzyme'
 import { omit } from 'lodash'
-import { TreeDom } from '../renderer/TreeDom'
+import { TreeDom } from '@codelab/core/renderer'
 import { renderPropsData, leafRenderPropsData } from './Props-renderProps.data'
 
 describe('RenderProps', () => {

@@ -1,7 +1,7 @@
 import { NodeInterface } from '@codelab/shared/interface/node'
 import { makeTree } from '@codelab/core/tree'
-import { treeData } from '../../tree/src/data/tree.data'
-import { traversePostOrder } from './traversal'
+import { traversePostOrder } from '@codelab/core/traversal'
+import { treeData } from './data/tree.data'
 
 describe('Node traversal', () => {
   it('can traverse post order', () => {

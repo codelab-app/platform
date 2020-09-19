@@ -1,6 +1,6 @@
 import React from 'react'
+import { TreeDom } from '@codelab/core/renderer'
 import { rateData } from './Rate.data'
-import { TreeDom } from '../../renderer/TreeDom'
 
 export default {
   title: 'Rate',

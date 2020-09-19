@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react'
 import React from 'react'
 import { ReactNodeI } from '@codelab/shared/interface/node'
-import { TreeDom } from '../renderer/TreeDom'
+import { TreeDom } from '@codelab/core/renderer'
 
 describe('RootChildren', () => {
   // const data = {

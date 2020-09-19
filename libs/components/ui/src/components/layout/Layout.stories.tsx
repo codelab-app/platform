@@ -1,9 +1,9 @@
 import React from 'react'
 import { Menu } from 'antd'
 import { UserOutlined, VideoCameraOutlined } from '@ant-design/icons'
+import { TreeDom } from '@codelab/core/renderer'
 import { layoutData } from './data/Layout-1--default.data'
 import { propLayoutData } from './data/Layout-2--prop.data'
-import { TreeDom } from '../../renderer/TreeDom'
 
 export default {
   title: 'Layout',

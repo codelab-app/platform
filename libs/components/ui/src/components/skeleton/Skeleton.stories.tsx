@@ -1,6 +1,6 @@
 import React from 'react'
+import { TreeDom } from '@codelab/core/renderer'
 import { skeletonData } from './Skeleton.data'
-import { TreeDom } from '../../renderer/TreeDom'
 
 export default {
   title: 'Skeleton',

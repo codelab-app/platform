@@ -23,7 +23,7 @@ export interface AntFormListProps {
 }
 
 export type FormListProps = Omit<AntFormListProps, 'children'> & {
-  children: React.ReactElement[]
+  children: Array<React.ReactElement>
 }
 
 export namespace CodelabForm {

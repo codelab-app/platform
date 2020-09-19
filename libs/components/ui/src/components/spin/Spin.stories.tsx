@@ -1,6 +1,6 @@
 import React from 'react'
+import { TreeDom } from '@codelab/core/renderer'
 import { spinData } from './Spin.data'
-import { TreeDom } from '../../renderer/TreeDom'
 
 export default {
   title: 'Spin',

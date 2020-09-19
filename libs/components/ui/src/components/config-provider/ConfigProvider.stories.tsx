@@ -1,6 +1,6 @@
 import React from 'react'
+import { TreeDom } from '@codelab/core/renderer'
 import { configProviderData } from './ConfigProvider.data'
-import { TreeDom } from '../../renderer/TreeDom'
 
 export default {
   title: 'ConfigProvider',

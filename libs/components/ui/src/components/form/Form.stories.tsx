@@ -1,11 +1,11 @@
 import React from 'react'
+import { TreeDom } from '@codelab/core/renderer'
 import {
   formDefaultData,
   formObjectData,
   formConditionData,
   nodeFormData,
 } from './data'
-import { TreeDom } from '../../renderer/TreeDom'
 
 export default {
   title: 'Form',

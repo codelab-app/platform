@@ -1,6 +1,6 @@
 import React from 'react'
+import { TreeDom } from '@codelab/core/renderer'
 import { affixData } from './Affix.data'
-import { TreeDom } from '../../renderer'
 
 export default {
   title: 'Affix',

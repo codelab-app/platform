@@ -1,5 +1,5 @@
 import React from 'react'
-import { TreeDom } from '../../renderer/TreeDom'
+import { TreeDom } from '@codelab/core/renderer'
 import { divData } from './Html.data'
 
 export default {

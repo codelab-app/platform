@@ -111,6 +111,9 @@
     },
     "web": {
       "tags": []
+    },
+    "core-renderer": {
+      "tags": []
     }
   }
 }

@@ -56,7 +56,8 @@
       "@codelab/components/ui": ["libs/components/ui/src/index.ts"],
       "@codelab/components/d3": ["libs/components/d3/src/index.ts"],
       "@codelab/shared/utils": ["libs/shared/utils/src/index.ts"],
-      "@codelab/shared/event": ["libs/shared/event/src/index.ts"]
+      "@codelab/shared/event": ["libs/shared/event/src/index.ts"],
+      "@codelab/core/renderer": ["libs/core/renderer/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"]

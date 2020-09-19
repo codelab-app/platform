@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react'
 import { ReactNodeI } from '@codelab/shared/interface/node'
 import React from 'react'
-import { TreeDom } from '../../renderer/TreeDom'
+import { TreeDom } from '@codelab/core/renderer'
 
 describe('Skeleton', () => {
   it('should render with text', () => {

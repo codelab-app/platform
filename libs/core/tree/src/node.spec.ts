@@ -1,5 +1,5 @@
 import { findNode } from '@codelab/core/traversal'
-import { Node } from './base/Node'
+import { Node } from '@codelab/core/node'
 
 describe('Node', () => {
   it('can add a child', () => {

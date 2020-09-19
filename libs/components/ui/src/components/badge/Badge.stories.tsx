@@ -1,6 +1,6 @@
 import React from 'react'
+import { TreeDom } from '@codelab/core/renderer'
 import { badgeData } from './Badge.data'
-import { TreeDom } from '../../renderer/TreeDom'
 
 export default {
   title: 'Badge',

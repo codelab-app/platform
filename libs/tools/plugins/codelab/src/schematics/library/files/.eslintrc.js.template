@@ -1,7 +1,7 @@
 module.exports = {
   extends: '<%= offsetFromRoot %>.eslintrc.js',
   root: true,
-    settings: {
+  settings: {
     'import/resolver': {
       typescript: {
         project: 'tsconfig.eslint.json',

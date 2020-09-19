@@ -36,7 +36,7 @@ export class Node<P extends Props = {}>
   /**
    * The class Node & the codec Node should be kept separate. Node is the container for behavior, while codec Node holds the shape of the data
    */
-  public data: NodeA<P>
+  public data: NodeA
 
   /**
    * Can take just ID, but fills out other fields
