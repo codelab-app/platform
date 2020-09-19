@@ -1,5 +1,6 @@
 import { PropsFromKeys, PropJsonValue } from '@codelab/shared/interface/props'
 import { ReactNodeI } from '@codelab/shared/interface/node'
+import { CSSProperties } from 'react'
 import { Select } from '../select'
 
 export namespace Form {
@@ -65,12 +66,18 @@ export namespace Form {
     label: string
     name: string
     options: Array<OptionConfig>
+    style?: CSSProperties
+  }
+
+  const defaultSelectStyle: CSSProperties = {
+    width: 120,
   }
 
   export const createSelect = ({
     label,
     name,
     options,
+    style = defaultSelectStyle,
   }: CreateSelect): ReactNodeI<Select.Props | Form.ItemProps> => ({
     type: 'Form.Item',
     nodeType: 'React',
@@ -83,9 +90,7 @@ export namespace Form {
         type: 'Select',
         nodeType: 'React',
         props: {
-          style: {
-            width: 120,
-          },
+          style,
         },
         children: Form.createOptions(options),
       },
