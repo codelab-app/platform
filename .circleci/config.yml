@@ -31,7 +31,7 @@ executors:
       COLOR_FAILURE: '#ffccc7'
       NODE_OPTIONS: --max_old_space_size=8192
     docker:
-      - image: circleci/node:12-browsers
+      - image: circleci/node:14-browsers
     resource_class: large
     # resource_class: medium+
 

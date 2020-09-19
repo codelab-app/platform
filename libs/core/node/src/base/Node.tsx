@@ -2,7 +2,6 @@ import { reduce } from 'lodash'
 import React, { FunctionComponent, ReactElement, ReactNode } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import { filterRenderProps } from '@codelab/core/props'
-import { decode } from '@codelab/shared/common'
 import {
   HasChildren,
   NodeDtoA,
