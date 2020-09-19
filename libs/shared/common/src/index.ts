@@ -1,6 +1,6 @@
-import { DecodeError } from './errors'
+import type { Failure, Result, Success } from './data'
 import { Endpoint } from './endpoint'
-import type { Success, Failure, Result } from './data'
+import { DecodeError } from './errors'
 import { decode } from './resources'
 
 export { DecodeError, Endpoint, decode }

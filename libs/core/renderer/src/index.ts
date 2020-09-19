@@ -1,10 +1,10 @@
 /* eslint-disable import/no-cycle */
-import { TreeDom } from './TreeDom'
 import { elementParameterFactory } from './ElementFactory'
+import { TreeDom } from './TreeDom'
 import {
+  ComponentProps,
   Factory,
   FactoryComponent,
-  ComponentProps,
   RenderComponent,
 } from './component.interface'
 import { ElementParameters } from './element-factory.interface'

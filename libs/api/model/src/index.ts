@@ -1,4 +1,4 @@
+import { Node, NodeModule, NodeSchema } from './node'
 import { UserModule } from './user'
-import { Node, NodeSchema, NodeModule } from './node'
 
 export { UserModule, Node, NodeSchema, NodeModule }

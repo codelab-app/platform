@@ -1,9 +1,9 @@
-import { treeWalker, traversePostOrder, traversePreOrder } from './traversal'
+import { traversePostOrder, traversePreOrder, treeWalker } from './traversal'
 import {
-  nodeFinderIteratee,
   findNode,
-  treeAppenderIteratee,
   graphAppenderIteratee,
+  nodeFinderIteratee,
+  treeAppenderIteratee,
 } from './traversal-iteratee'
 
 export {
