@@ -38,7 +38,7 @@ describe('Form', () => {
       <ConditionalForm />,
     )
 
-    expect(getByLabelText('Select')).toBeTruthy()
+    expect(getByLabelText('Select condition')).toBeTruthy()
     expect(queryByLabelText('Field A')).toBeFalsy()
     expect(queryByLabelText('Field B')).toBeFalsy()
     expect(queryByLabelText('Field C')).toBeFalsy()

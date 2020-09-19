@@ -18,8 +18,8 @@ export const formConditionData: ReactNodeI<
       type: 'Form.Item',
       nodeType: 'React',
       props: {
-        label: 'Select',
-        name: 'select',
+        label: 'Select condition',
+        name: 'nameOfSelect',
       },
       children: [
         {
@@ -90,7 +90,7 @@ export const formConditionData: ReactNodeI<
         shouldUpdate: true,
         shouldRender: {
           eval: true,
-          value: 'return (values) => values.select !== "a"',
+          value: 'return (values) => values.nameOfSelect !== "a"',
         },
       },
       children: [
@@ -112,7 +112,7 @@ export const formConditionData: ReactNodeI<
         shouldUpdate: true,
         shouldRender: {
           eval: true,
-          value: 'return (values) => values.select !== "b"',
+          value: 'return (values) => values.nameOfSelect !== "b"',
         },
       },
       children: [
@@ -134,7 +134,7 @@ export const formConditionData: ReactNodeI<
         shouldUpdate: true,
         shouldRender: {
           eval: true,
-          value: 'return (values) => values.select !== "c"',
+          value: 'return (values) => values.nameOfSelect !== "c"',
         },
       },
       children: [
