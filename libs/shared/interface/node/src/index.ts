@@ -13,6 +13,7 @@ import {
   NodeDtoTreeRefI,
 } from './dto/node-dto--tree'
 import {
+  BaseNodeTypeEnum,
   NodeType,
   NodeTypeEnum,
   NodeTypeLiteral,
@@ -32,6 +33,7 @@ import { hasChildren } from './node'
 import type { SchemaDefinition, SchemaTypeOpts } from './node-schema--props'
 
 export type {
+  BaseNodeTypeEnum,
   NodeTypeEnum,
   NodeType,
   SchemaDefinition,

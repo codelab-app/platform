@@ -5,19 +5,24 @@ import { NodeTypeTreeEnum } from './node-enum--tree'
 /**
  * We have 3 top level node types `Tree`, `Model`, & `React`, each can be broken down further
  */
-export enum NodeTypeEnum {
+export enum BaseNodeTypeEnum {
   React = 'React',
   Tree = 'Tree',
   Model = 'Model',
 }
 
-export const nodeTypeEnumEntries = Object.entries(NodeTypeEnum)
+export const nodeTypeEnumEntries = Object.entries(BaseNodeTypeEnum)
 
 export type NodeType = {
-  [NodeTypeEnum.Model]: NodeTypeModelEnum
-  [NodeTypeEnum.Tree]: NodeTypeTreeEnum
-  [NodeTypeEnum.React]: NodeTypeReactEnum
+  [BaseNodeTypeEnum.Model]: NodeTypeModelEnum
+  [BaseNodeTypeEnum.Tree]: NodeTypeTreeEnum
+  [BaseNodeTypeEnum.React]: NodeTypeReactEnum
 }
+
+export type NodeTypeEnum =
+  | NodeTypeModelEnum
+  | NodeTypeTreeEnum
+  | NodeTypeReactEnum
 
 export type NodeTypeLiteral =
   | keyof typeof NodeTypeModelEnum

@@ -1,18 +1,21 @@
 import * as mongoose from 'mongoose'
-import { NodeDtoI } from '../../../../shared/interface/node/src/dto/node-dto'
 import { Schema } from '../schema'
 import { ModelInterface } from './model.i'
-import { NodeTypeEnum } from '@codelab/shared/interface/node'
+import {
+  NodeDtoModelI,
+  isModelNode,
+  isSchemaNode,
+} from '@codelab/shared/interface/node'
 
 export const modelCreationIteratee = (
   modelTree: ModelInterface,
-  node: NodeDtoI<ModelInterface>,
+  node: NodeDtoModelI<ModelInterface>,
 ): ModelInterface => {
-  if (node.type === NodeTypeEnum.Schema) {
+  if (isSchemaNode(node)) {
     return { ...modelTree, schema: Schema.create(node) }
   }
 
-  if (node.type === NodeTypeEnum.Model) {
+  if (isModelNode(node)) {
     if (!modelTree.schema) {
       throw new Error('Missing schema as children')
     }
