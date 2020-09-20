@@ -1,8 +1,8 @@
-import { ReactNodeI } from '@codelab/shared/interface/node'
+import { TreeDom } from '@codelab/core/renderer'
+import { NodeDtoReactI } from '@codelab/shared/interface/node'
 
-export const treeData: ReactNodeI = {
-  type: 'Tree',
-  nodeType: 'React',
+export const nodeTreeData: NodeDtoReactI = {
+  type: 'React.Tree',
   props: {
     showLine: true,
     showIcon: true,
@@ -17,3 +17,5 @@ export const treeData: ReactNodeI = {
     },
   },
 }
+
+export const NodeTree = TreeDom.render(nodeTreeData)

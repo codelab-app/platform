@@ -1,14 +1,13 @@
 import { DataNode } from 'antd/lib/tree'
+import { NodeDtoI } from '@codelab/shared/interface/node'
 
-import { Node } from '@codelab/core/node'
-
-export const convertNodeTreeToAntTreeDataNode = (node: Node): DataNode => {
+export const convertNodeTreeToAntTreeDataNode = (node: NodeDtoI): DataNode => {
   const treeData: DataNode = {
     key: node.id,
-    title: node.nodeType,
+    title: node.type,
   }
 
-  if (node.hasChildren()) {
+  if (node.children.length) {
     treeData.children = node.children.map((c) =>
       convertNodeTreeToAntTreeDataNode(c),
     )

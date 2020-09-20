@@ -73,7 +73,6 @@ export namespace Form {
     options,
   }: CreateSelect): NodeDtoReactI<Select.Props | Form.ItemProps> => ({
     type: 'React.Form.Item',
-
     props: {
       label,
       name,
@@ -81,10 +80,9 @@ export namespace Form {
     children: [
       {
         type: 'React.Select',
-
         props: {
           style: {
-            width: 120,
+            width: '100%',
           },
         },
         children: Form.createOptions(options),
@@ -97,14 +95,12 @@ export namespace Form {
   ): Array<NodeDtoReactI<Select.OptionProps>> =>
     options.map(([key, value]: [string, PropJsonValue]) => ({
       type: 'React.Select.Option',
-
       props: {
         value,
       },
       children: [
         {
           type: 'React.Text',
-
           props: {
             value: key,
           },

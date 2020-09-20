@@ -20,6 +20,7 @@ import {
   nodeTypeEnumEntries,
   nodeTypeLiterals,
 } from './enums'
+import { NodeTypeReactEnum } from './enums/node-enum--react'
 import {
   isModelNode,
   isReactNode,
@@ -33,7 +34,6 @@ import { hasChildren } from './node'
 import type { SchemaDefinition, SchemaTypeOpts } from './node-schema--props'
 
 export type {
-  BaseNodeTypeEnum,
   NodeTypeEnum,
   NodeType,
   SchemaDefinition,
@@ -58,6 +58,8 @@ export type {
 }
 
 export {
+  BaseNodeTypeEnum,
+  NodeTypeReactEnum,
   nodeTypeLiterals,
   nodeTypeEnumEntries,
   isModelNode,
