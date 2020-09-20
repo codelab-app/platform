@@ -1,7 +1,7 @@
 import { Tree } from './Tree.types'
-import { NodeDtoI } from '@codelab/shared/interface/node'
+import { NodeReactDtoI } from '@codelab/shared/interface/node'
 
-export const treeData: NodeDtoI<Tree.Props | Tree.TreeNodeProps> = {
+export const treeData: NodeReactDtoI<Tree.Props | Tree.TreeNodeProps> = {
   type: 'React.Tree',
   props: {
     checkable: true,

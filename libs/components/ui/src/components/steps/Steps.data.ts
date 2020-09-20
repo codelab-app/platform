@@ -1,7 +1,7 @@
 import { Steps } from './Steps.types'
-import { NodeDtoI } from '@codelab/shared/interface/node'
+import { NodeReactDtoI } from '@codelab/shared/interface/node'
 
-export const stepsData: NodeDtoI<Steps.Props | Steps.StepProps> = {
+export const stepsData: NodeReactDtoI<Steps.Props | Steps.StepProps> = {
   type: 'React.Steps',
   props: {
     type: 'React.default',

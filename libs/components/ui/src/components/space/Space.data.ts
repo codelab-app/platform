@@ -1,9 +1,11 @@
 import { Button } from '../button'
 import { Text } from '../text'
 import { Space } from './Space.types'
-import { NodeDtoI } from '@codelab/shared/interface/node'
+import { NodeReactDtoI } from '@codelab/shared/interface/node'
 
-export const spaceData: NodeDtoI<Space.Props | Button.Props | Text.Props> = {
+export const spaceData: NodeReactDtoI<
+  Space.Props | Button.Props | Text.Props
+> = {
   type: 'React.Space',
   props: {
     size: 'middle',

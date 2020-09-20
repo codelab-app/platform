@@ -1,7 +1,7 @@
 import { Alert } from './Alert.types'
-import { NodeDtoI } from '@codelab/shared/interface/node'
+import { NodeReactDtoI } from '@codelab/shared/interface/node'
 
-export const alertData: NodeDtoI<Alert.Props> = {
+export const alertData: NodeReactDtoI<Alert.Props> = {
   type: 'React.Alert',
   props: {
     message: 'Success Tips',

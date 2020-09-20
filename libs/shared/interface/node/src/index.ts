@@ -1,5 +1,8 @@
 import { NodeCreateDto, NodeDtoA, NodeDtoI } from './dto'
-import { NodeType, NodeTypeEnum } from './enums/node-enum'
+import { NodeModelDtoA, NodeSchemaDtoA } from './dto/node-dto--model'
+import { NodeReactDtoA } from './dto/node-dto--react'
+import { NodeRefDtoA, NodeTreeDtoA } from './dto/node-dto--tree'
+import { NodeTypeEnum, NodeTypeLiteral } from './enums'
 import {
   isModelNode,
   isReactNode,
@@ -8,7 +11,7 @@ import {
   isSchemaNode,
   isTreeNode,
 } from './guards/node-guards'
-import type { HasChildren, HasParent, Mapper } from './node'
+import type { HasParent, Mapper } from './node'
 import { hasChildren } from './node'
 import type { SchemaDefinition, SchemaTypeOpts } from './node-schema--props'
 
@@ -16,12 +19,16 @@ export type {
   SchemaDefinition,
   SchemaTypeOpts,
   NodeDtoA,
-  HasChildren,
   HasParent,
   Mapper,
-  NodeType,
+  NodeTypeLiteral,
   NodeDtoI,
   NodeCreateDto,
+  NodeReactDtoA,
+  NodeRefDtoA,
+  NodeTreeDtoA,
+  NodeModelDtoA,
+  NodeSchemaDtoA,
 }
 
 export {

@@ -1,14 +1,20 @@
-import { NodeType } from '../enums/node-enum'
+import { NodeTypeLiteral } from '../enums'
 import { Props } from '@codelab/shared/interface/props'
 
-export interface NodeDtoI<T extends NodeType = NodeType, P extends Props = {}> {
+export interface NodeDtoI<
+  T extends NodeTypeLiteral = NodeTypeLiteral,
+  P extends Props = {}
+> {
   id?: string
-  type: NodeType
+  type: T
   props?: P
   children?: Array<NodeDtoI<T, P>>
 }
 
-export interface NodeDtoA<T extends NodeType = NodeType, P extends Props = {}> {
+export interface NodeDtoA<
+  T extends NodeTypeLiteral = NodeTypeLiteral,
+  P extends Props = {}
+> {
   id: string
   type: T
   props: P

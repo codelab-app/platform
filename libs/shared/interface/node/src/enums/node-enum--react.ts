@@ -1,4 +1,4 @@
-export enum NodeTypeEnum {
+export enum NodeTypeReactEnum {
   /**
    * React, requires additional `type` key
    */
@@ -98,24 +98,6 @@ export enum NodeTypeEnum {
   'React.Layout.Footer' = 'React.Layout.Footer',
   'React.Cascader' = 'React.Cascader',
   'React.Popover' = 'React.Popover',
-
-  React = 'React',
-  /**
-   * Non-react tree, requires ID
-   */
-  Tree = 'Tree',
-  /**
-   * Flat array, uses ref to build tree, requires parentRef, childrenRef
-   */
-  Ref = 'Ref',
-  /**
-   * Mongoose Model
-   */
-  Model = 'Model',
-  /**
-   * Mongoose Schema
-   */
-  Schema = 'Schema',
 }
 
-export type NodeType = keyof typeof NodeTypeEnum
+export type NodeTypeReactLiteral = keyof typeof NodeTypeReactEnum

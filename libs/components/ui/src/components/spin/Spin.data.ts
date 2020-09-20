@@ -1,7 +1,7 @@
 import { Spin } from './Spin.types'
-import { NodeDtoI } from '@codelab/shared/interface/node'
+import { NodeReactDtoI } from '@codelab/shared/interface/node'
 
-export const spinData: NodeDtoI<Spin.Props> = {
+export const spinData: NodeReactDtoI<Spin.Props> = {
   type: 'React.Spin',
   props: {
     size: 'default',

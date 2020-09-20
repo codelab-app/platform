@@ -1,7 +1,7 @@
 import { AutoComplete } from './AutoComplete.types'
-import { NodeDtoI } from '@codelab/shared/interface/node'
+import { NodeReactDtoI } from '@codelab/shared/interface/node'
 
-export const autocompleteData: NodeDtoI<AutoComplete.Props> = {
+export const autocompleteData: NodeReactDtoI<AutoComplete.Props> = {
   type: 'React.Provider',
   props: {
     ctx: {

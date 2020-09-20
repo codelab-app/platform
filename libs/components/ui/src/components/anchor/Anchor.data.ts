@@ -1,8 +1,8 @@
 import { Text } from '../text'
 import { Anchor } from './Anchor.types'
-import { NodeDtoI } from '@codelab/shared/interface/node'
+import { NodeReactDtoI } from '@codelab/shared/interface/node'
 
-export const anchorData: NodeDtoI<
+export const anchorData: NodeReactDtoI<
   Anchor.Props | Anchor.LinkProps | Text.Props | { id: string }
 > = {
   type: 'React.Html.div',

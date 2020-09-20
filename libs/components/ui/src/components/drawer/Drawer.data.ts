@@ -1,9 +1,11 @@
 import { Button } from '../button'
 import { Text } from '../text'
 import { DrawerProps } from './Drawer.types'
-import { NodeDtoI } from '@codelab/shared/interface/node'
+import { NodeReactDtoI } from '@codelab/shared/interface/node'
 
-export const drawerData: NodeDtoI<DrawerProps | Button.Props | Text.Props> = {
+export const drawerData: NodeReactDtoI<
+  DrawerProps | Button.Props | Text.Props
+> = {
   type: 'React.Provider',
   props: {
     ctx: {

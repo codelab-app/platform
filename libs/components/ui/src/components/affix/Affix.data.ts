@@ -1,9 +1,11 @@
 import { Button } from '../button'
 import { Text } from '../text'
 import { Affix } from './Affix.types'
-import { NodeDtoI } from '@codelab/shared/interface/node'
+import { NodeReactDtoI } from '@codelab/shared/interface/node'
 
-export const affixData: NodeDtoI<Affix.Props | Text.Props | Button.Props> = {
+export const affixData: NodeReactDtoI<
+  Affix.Props | Text.Props | Button.Props
+> = {
   type: 'React.Affix',
   props: {
     offsetTop: 120,

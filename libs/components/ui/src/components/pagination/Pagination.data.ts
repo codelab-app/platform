@@ -1,7 +1,7 @@
 import { Pagination } from './Pagination.types'
-import { NodeDtoI } from '@codelab/shared/interface/node'
+import { NodeReactDtoI } from '@codelab/shared/interface/node'
 
-export const paginationData: NodeDtoI<Pagination.Props> = {
+export const paginationData: NodeReactDtoI<Pagination.Props> = {
   type: 'React.Pagination',
   props: {
     defaultCurrent: 1,

@@ -1,8 +1,8 @@
 import { Text } from '../text'
 import { Select } from './Select.types'
-import { NodeDtoI } from '@codelab/shared/interface/node'
+import { NodeReactDtoI } from '@codelab/shared/interface/node'
 
-export const selectData: NodeDtoI<
+export const selectData: NodeReactDtoI<
   Select.Props | Select.OptionProps | Text.Props
 > = {
   type: 'React.Select',

@@ -1,3 +1,7 @@
 export * from './node-dto--crud'
 export * from './node-dto'
-export * from './node-dto--sub'
+export { NodeReactDtoI, NodeReactDtoA } from './node-dto--react'
+export { NodeSchemaDtoI, NodeSchemaDtoA } from './node-dto--model'
+export { NodeModelDtoI, NodeModelDtoA } from './node-dto--model'
+export { NodeTreeDtoI, NodeTreeDtoA } from './node-dto--tree'
+export { NodeRefDtoI, NodeRefDtoA } from './node-dto--tree'

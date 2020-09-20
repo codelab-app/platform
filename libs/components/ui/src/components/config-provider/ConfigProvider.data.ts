@@ -3,9 +3,9 @@ import { Input } from '../input'
 import { Select } from '../select'
 import { Text } from '../text'
 import { ConfigProvider } from './ConfigProvider.types'
-import { NodeDtoI } from '@codelab/shared/interface/node'
+import { NodeReactDtoI } from '@codelab/shared/interface/node'
 
-export const configProviderData: NodeDtoI<
+export const configProviderData: NodeReactDtoI<
   ConfigProvider.Props | Text.Props | Button.Props | Select.Props | Input.Props
 > = {
   type: 'React.ConfigProvider',

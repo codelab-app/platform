@@ -1,7 +1,7 @@
 import { Switch } from './Switch.types'
-import { NodeDtoI } from '@codelab/shared/interface/node'
+import { NodeReactDtoI } from '@codelab/shared/interface/node'
 
-export const switchData: NodeDtoI<Switch.Props> = {
+export const switchData: NodeReactDtoI<Switch.Props> = {
   type: 'React.Switch',
   props: {
     checkedChildren: 'On',

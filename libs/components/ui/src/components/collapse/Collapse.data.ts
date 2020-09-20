@@ -1,8 +1,8 @@
 import { Text } from '../text'
 import { Collapse } from './Collapse.types'
-import { NodeDtoI } from '@codelab/shared/interface/node'
+import { NodeReactDtoI } from '@codelab/shared/interface/node'
 
-export const collapseData: NodeDtoI<
+export const collapseData: NodeReactDtoI<
   Collapse.PanelProps | Collapse.Props | Text.Props
 > = {
   type: 'React.Collapse',

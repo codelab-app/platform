@@ -1,9 +1,9 @@
 import { Button } from '../../button'
 import { Text } from '../../text'
 import { Form } from '../Form.types'
-import { NodeDtoI } from '@codelab/shared/interface/node'
+import { NodeReactDtoI } from '@codelab/shared/interface/node'
 
-export const formDefaultData: NodeDtoI<
+export const formDefaultData: NodeReactDtoI<
   Form.Props | Form.ItemProps | Text.Props | Button.Props
 > = {
   type: 'React.Form',

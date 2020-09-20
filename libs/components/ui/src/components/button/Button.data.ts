@@ -1,8 +1,8 @@
 import { Text } from '../text'
 import { Button } from './Button.types'
-import { NodeDtoI } from '@codelab/shared/interface/node'
+import { NodeReactDtoI } from '@codelab/shared/interface/node'
 
-export const buttonData: NodeDtoI<Button.Props | Text.Props> = {
+export const buttonData: NodeReactDtoI<Button.Props | Text.Props> = {
   type: 'React.Button',
   props: {
     type: 'React.primary',

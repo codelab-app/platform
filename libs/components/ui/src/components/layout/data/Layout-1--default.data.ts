@@ -1,9 +1,9 @@
 import { Menu } from '../../menu'
 import { Text } from '../../text'
 import { Layout } from '../Layout.types'
-import { NodeDtoI } from '@codelab/shared/interface/node'
+import { NodeReactDtoI } from '@codelab/shared/interface/node'
 
-export const layoutData: NodeDtoI<
+export const layoutData: NodeReactDtoI<
   Layout.Props | Layout.SiderProps | Text.Props | Menu.Props | Menu.ItemProps
 > = {
   type: 'React.Layout',

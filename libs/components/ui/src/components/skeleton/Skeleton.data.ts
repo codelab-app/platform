@@ -1,7 +1,7 @@
 import { Skeleton } from './Skeleton.types'
-import { NodeDtoI } from '@codelab/shared/interface/node'
+import { NodeReactDtoI } from '@codelab/shared/interface/node'
 
-export const skeletonData: NodeDtoI<
+export const skeletonData: NodeReactDtoI<
   | Skeleton.Props
   | Skeleton.AvatarProps
   | Skeleton.TitleProps

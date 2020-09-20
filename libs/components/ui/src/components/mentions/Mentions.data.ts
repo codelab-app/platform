@@ -1,8 +1,8 @@
 import { Text } from '../text'
 import { Mentions } from './Mentions.types'
-import { NodeDtoI } from '@codelab/shared/interface/node'
+import { NodeReactDtoI } from '@codelab/shared/interface/node'
 
-export const mentionsData: NodeDtoI<
+export const mentionsData: NodeReactDtoI<
   Mentions.Props | Mentions.OptionProps | Text.Props
 > = {
   type: 'React.Mentions',

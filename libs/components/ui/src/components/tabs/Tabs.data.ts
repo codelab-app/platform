@@ -1,8 +1,10 @@
 import { Text } from '../text'
 import { Tabs } from './Tabs.types'
-import { NodeDtoI } from '@codelab/shared/interface/node'
+import { NodeReactDtoI } from '@codelab/shared/interface/node'
 
-export const tabsData: NodeDtoI<Tabs.Props | Tabs.TabPaneProps | Text.Props> = {
+export const tabsData: NodeReactDtoI<
+  Tabs.Props | Tabs.TabPaneProps | Text.Props
+> = {
   type: 'React.Tabs',
   props: {
     defaultActiveKey: 1,

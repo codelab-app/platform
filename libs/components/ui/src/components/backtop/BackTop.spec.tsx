@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react'
 import React from 'react'
 import { TreeDom } from '@codelab/core/renderer'
-import { NodeDtoI } from '@codelab/shared/interface/node'
+import { NodeReactDtoI } from '@codelab/shared/interface/node'
 
 describe('BackTop', () => {
-  const backtopData: NodeDtoI = {
+  const backtopData: NodeReactDtoI = {
     type: 'React.Html.div',
     props: { style: { height: '500vh' } },
     children: [

@@ -1,8 +1,8 @@
 import { Text } from '../text'
 import { Popover } from './Popover.types'
-import { NodeDtoI } from '@codelab/shared/interface/node'
+import { NodeReactDtoI } from '@codelab/shared/interface/node'
 
-export const popoverData: NodeDtoI<Popover.Props | Text.Props> = {
+export const popoverData: NodeReactDtoI<Popover.Props | Text.Props> = {
   type: 'React.Popover',
   props: {
     title: 'Title',

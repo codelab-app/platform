@@ -1,7 +1,7 @@
 import { Icon } from './Icon.types'
-import { NodeDtoI } from '@codelab/shared/interface/node'
+import { NodeReactDtoI } from '@codelab/shared/interface/node'
 
-export const iconData: NodeDtoI<Icon.Props> = {
+export const iconData: NodeReactDtoI<Icon.Props> = {
   type: 'React.Icon',
   props: {
     type: 'home',

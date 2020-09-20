@@ -1,9 +1,11 @@
 import { Icon } from '../icon'
 import { Text } from '../text'
 import { Comment } from './Comment.types'
-import { NodeDtoI } from '@codelab/shared/interface/node'
+import { NodeReactDtoI } from '@codelab/shared/interface/node'
 
-export const commentData: NodeDtoI<Comment.Props | Text.Props | Icon.Props> = {
+export const commentData: NodeReactDtoI<
+  Comment.Props | Text.Props | Icon.Props
+> = {
   type: 'React.Comment',
   props: {
     author: 'Han Solo',

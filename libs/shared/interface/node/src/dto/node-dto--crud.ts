@@ -1,8 +1,8 @@
-import { NodeType } from '../enums/node-enum'
+import { NodeTypeLiteral } from '../enums'
 import { NodeDtoI } from './node-dto'
 import { Props } from '@codelab/shared/interface/props'
 
 export type NodeCreateDto<
-  T extends NodeType = NodeType,
+  T extends NodeTypeLiteral = NodeTypeLiteral,
   P extends Props = {}
 > = NodeDtoI<T, P>
