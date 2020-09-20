@@ -26,7 +26,7 @@ export class Graph implements GraphInterface {
     this.vertices.push(Vertex.fromNode(node))
   }
 
-  public addEdgeFromNodes(start: NodeDtoA, end: NodeDtoA): void {
+  public addEdgeFromNodes(start: NodeDtoA | undefined, end: NodeDtoA): void {
     if (!start) {
       throw new Error('Missing start Node')
     }

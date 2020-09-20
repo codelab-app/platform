@@ -3,8 +3,8 @@ export interface HasChildren<N> {
   [children: string]: any
 }
 
-export interface HasParent<N> {
-  parent?: N
+export interface HasParent<T> {
+  parent?: T
 }
 
 export const hasChildren = <T extends HasChildren<T>>(

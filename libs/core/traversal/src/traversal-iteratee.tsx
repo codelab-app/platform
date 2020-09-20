@@ -4,6 +4,7 @@
 import { reduce } from 'lodash'
 import { treeWalker } from './traversal'
 import { Node } from '@codelab/core/node'
+import { NodeDtoA } from '@codelab/shared/interface/node'
 import {
   GraphSubTreeAcc,
   NodeFinderAcc,
@@ -11,16 +12,19 @@ import {
 } from '@codelab/shared/interface/tree'
 
 export const nodeFinderIteratee = (
-  { id, found, subTree }: NodeFinderAcc<Node>,
-  child: Node,
-): NodeFinderAcc<Node> => ({
+  { id, found, subTree }: NodeFinderAcc<NodeDtoA>,
+  child: NodeDtoA,
+): NodeFinderAcc<NodeDtoA> => ({
   id,
   found: child.id === id ? child : found,
   subTree,
 })
 
 // This needs to be in tree/graph/traversal level, a node doesn't know how to find itself. plus findNode uses treeWalker methods which is just <traversal></traversal>
-export const findNode = (id: string | undefined, node: Node): Node | null => {
+export const findNode = (
+  id: string | undefined,
+  node: NodeDtoA,
+): NodeDtoA | undefined => {
   if (!node) {
     throw new Error(`Node is undefined`)
   }
@@ -33,11 +37,14 @@ export const findNode = (id: string | undefined, node: Node): Node | null => {
     return node
   }
 
-  return reduce<Node, NodeFinderAcc<Node>>(
-    node?.children ?? [],
-    treeWalker<NodeFinderAcc<Node>>(null, nodeFinderIteratee),
+  return reduce<NodeDtoA, NodeFinderAcc<NodeDtoA>>(
+    (node?.children ?? []) as Array<NodeDtoA>,
+    treeWalker<NodeDtoA, NodeFinderAcc<NodeDtoA>>(
+      undefined,
+      nodeFinderIteratee,
+    ),
     {
-      found: null,
+      found: undefined,
       id,
       subTree: node,
     },
@@ -45,11 +52,11 @@ export const findNode = (id: string | undefined, node: Node): Node | null => {
 }
 
 export const treeAppenderIteratee = (
-  { subTree, parent }: TreeSubTreeAcc<Node>,
-  child: Node,
+  { subTree, parent }: TreeSubTreeAcc<NodeDtoA>,
+  child: NodeDtoA,
 ) => {
   const childNode = new Node(child)
-  const parentNode = findNode(parent?.id, subTree)
+  const parentNode = findNode(parent?.id, subTree) as Node
 
   if (!parentNode) {
     throw Error(`Node of id ${parent?.id} not found`)
@@ -64,8 +71,8 @@ export const treeAppenderIteratee = (
 }
 
 export const graphAppenderIteratee = (
-  { graph, subTree, parent }: GraphSubTreeAcc<Node>,
-  child: Node,
+  { graph, subTree, parent }: GraphSubTreeAcc<NodeDtoA>,
+  child: NodeDtoA,
 ) => {
   const node = new Node(child)
   const parentNode = findNode(parent?.id, subTree)

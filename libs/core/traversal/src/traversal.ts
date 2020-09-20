@@ -11,6 +11,7 @@
 import { reduce } from 'lodash'
 import { Node } from '@codelab/core/node'
 import { TraversalIteratee } from '@codelab/shared/interface/graph'
+import { NodeDtoA, NodeDtoI } from '@codelab/shared/interface/node'
 import { NodeIteratee, TreeSubTreeAcc } from '@codelab/shared/interface/tree'
 
 /**
@@ -23,13 +24,13 @@ import { NodeIteratee, TreeSubTreeAcc } from '@codelab/shared/interface/tree'
 // P -> Prop
 // S -> SubTree or Acc
 // N -> Node
-export const treeWalker = <S extends TreeSubTreeAcc<Node>>(
-  parent: Node | undefined,
-  nodeIteratee: NodeIteratee<S, Node>,
+export const treeWalker = <T extends NodeDtoI, S extends TreeSubTreeAcc<T>>(
+  parent: T | undefined,
+  nodeIteratee: NodeIteratee<S, T>,
 ) => {
   return (
     subTreeContext: S, // prev (reduce arg)
-    child: Node, // curr (reduce arg)
+    child: T, // curr (reduce arg)
     index: number, // index (reduce arg)
   ): any => {
     if (parent && !parent?.id) {
@@ -42,20 +43,23 @@ export const treeWalker = <S extends TreeSubTreeAcc<Node>>(
       index,
     )
 
-    if (!Node.hasChildren<Node>(child)) {
+    if (!Node.hasChildren<T>(child)) {
       return newSubTreeContext
     }
 
     // At junctions of tree, returns when all children appended
-    return reduce<Node, S>(
-      child.children,
-      treeWalker<S>(newSubTreeContext.prev, nodeIteratee),
+    return reduce<T, S>(
+      ((child?.children ?? []) as Array<T>) ?? [],
+      treeWalker<T, S>(newSubTreeContext.prev, nodeIteratee),
       newSubTreeContext,
     )
   }
 }
 
-export const traversePostOrder = (node: Node, iteratee: TraversalIteratee) => {
+export const traversePostOrder = (
+  node: NodeDtoA,
+  iteratee: TraversalIteratee,
+) => {
   node.children.forEach((child) => {
     traversePostOrder(child, iteratee)
   })
@@ -63,7 +67,10 @@ export const traversePostOrder = (node: Node, iteratee: TraversalIteratee) => {
   iteratee(node)
 }
 
-export const traversePreOrder = (node: Node, iteratee: TraversalIteratee) => {
+export const traversePreOrder = (
+  node: NodeDtoA,
+  iteratee: TraversalIteratee,
+) => {
   if (!node) {
     return
   }

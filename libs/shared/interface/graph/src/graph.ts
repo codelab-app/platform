@@ -14,5 +14,5 @@ export interface Graph {
   parent?: NodeDtoA
   readonly D3Graph: D3GraphProps
   addVertexFromNode(node: NodeDtoA): void
-  addEdgeFromNodes(start: NodeDtoA, end: NodeDtoA): void
+  addEdgeFromNodes(start: NodeDtoA | undefined, end: NodeDtoA): void
 }

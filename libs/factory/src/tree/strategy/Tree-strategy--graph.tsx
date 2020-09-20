@@ -5,7 +5,7 @@ import { Graph } from '@codelab/core/graph'
 import { Node } from '@codelab/core/node'
 import { graphAppenderIteratee, treeWalker } from '@codelab/core/traversal'
 import { NodeDtoI } from '@codelab/shared/interface/node'
-import { GraphSubTreeAcc, TreeSubTreeAcc } from '@codelab/shared/interface/tree'
+import { GraphSubTreeAcc } from '@codelab/shared/interface/tree'
 
 export class TreeStrategyGraph implements TreeStrategy {
   execute(data: NodeDtoI) {
@@ -24,7 +24,7 @@ export class TreeStrategyGraph implements TreeStrategy {
 
     return reduce<Node, GraphSubTreeAcc<Node>>(
       (data as Node).children ?? [],
-      treeWalker<GraphSubTreeAcc<Node>>(root, graphAppenderIteratee),
+      treeWalker<Node, GraphSubTreeAcc<Node>>(root, graphAppenderIteratee),
       subTreeContext,
     ).graph
   }

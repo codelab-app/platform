@@ -3,7 +3,6 @@ import { TreeStrategy } from './Tree-strategy'
 import { Node } from '@codelab/core/node'
 import { treeAppenderIteratee, treeWalker } from '@codelab/core/traversal'
 import { NodeDtoI } from '@codelab/shared/interface/node'
-import { Props } from '@codelab/shared/interface/props'
 import { TreeSubTreeAcc } from '@codelab/shared/interface/tree'
 
 export class TreeStrategyTree implements TreeStrategy {
@@ -17,7 +16,7 @@ export class TreeStrategyTree implements TreeStrategy {
 
     return reduce<Node, TreeSubTreeAcc<Node>>(
       (data as Node)?.children ?? [],
-      treeWalker<TreeSubTreeAcc<Node>>(root, treeAppenderIteratee),
+      treeWalker<Node, TreeSubTreeAcc<Node>>(root, treeAppenderIteratee as any),
       subTreeContext,
     ).subTree
   }

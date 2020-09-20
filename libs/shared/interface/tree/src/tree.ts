@@ -1,22 +1,26 @@
 import { Graph } from '@codelab/shared/interface/graph'
-import { HasChildren, HasParent } from '@codelab/shared/interface/node'
+import {
+  HasChildren,
+  HasParent,
+  NodeDtoI,
+} from '@codelab/shared/interface/node'
 
 export type NodeIteratee<
   SubTree extends HasParent<TreeNode>,
   TreeNode extends HasChildren<TreeNode>
 > = (acc: SubTree, curr: TreeNode, index: number) => SubTree
 
-export interface TreeSubTreeAcc<N> extends HasParent<N> {
-  subTree: N
-  prev?: N
-  parent?: N
+export interface TreeSubTreeAcc<T extends NodeDtoI> extends HasParent<T> {
+  subTree: T
+  prev?: T
+  parent?: T
 }
 
-export interface GraphSubTreeAcc<N> extends TreeSubTreeAcc<N> {
+export interface GraphSubTreeAcc<T extends NodeDtoI> extends TreeSubTreeAcc<T> {
   graph: Graph
 }
 
-export interface NodeFinderAcc<N> extends TreeSubTreeAcc<N> {
+export interface NodeFinderAcc<T extends NodeDtoI> extends TreeSubTreeAcc<T> {
   id: string // id we want to search for
-  found: N | null // found node
+  found: T | undefined // found node
 }

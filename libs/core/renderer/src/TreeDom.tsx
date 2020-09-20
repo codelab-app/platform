@@ -22,7 +22,7 @@ const evalPropsWithTreeContext = (props: Props): Props => {
 }
 
 export class TreeDom {
-  static render<P extends Props>(data: NodeDtoI): FunctionComponent<any> {
+  static render<P extends Props = {}>(data: NodeDtoI): FunctionComponent<any> {
     let hasRootChildren = false
     const root = makeTree(data)
 
