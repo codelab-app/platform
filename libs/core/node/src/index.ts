@@ -1,3 +1,3 @@
-import { Node } from './base'
+import { NodeEntity } from './node-entity'
 
-export { Node }
+export { NodeEntity as Node }

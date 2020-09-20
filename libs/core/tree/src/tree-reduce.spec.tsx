@@ -1,13 +1,16 @@
 import { reducerData, reducerDataCustomChildrenKey } from './data'
 import { treeReduce } from './tree-reduce'
-import { NodeInterface } from '@codelab/shared/interface/node'
+import { NodeDtoA, NodeTypeEnum } from '@codelab/shared/interface/node'
 
 describe('Tree reducers', () => {
   type PageStats = {
     views: number
   }
 
-  const reducer = (total: number, node: NodeInterface<PageStats>) => {
+  const reducer = (
+    total: number,
+    node: NodeDtoA<NodeTypeEnum.Tree, PageStats>,
+  ) => {
     return total + (node.props?.views ?? 0)
   }
 

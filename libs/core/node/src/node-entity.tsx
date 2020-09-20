@@ -4,9 +4,9 @@ import { v4 as uuidv4 } from 'uuid'
 import { filterRenderProps } from '@codelab/core/props'
 import {
   HasChildren,
+  NodeCreateDto,
   NodeDtoA,
   NodeDtoI,
-  NodeInterface,
   NodeTypeEnum,
 } from '@codelab/shared/interface/node'
 import { Props } from '@codelab/shared/interface/props'
@@ -14,29 +14,30 @@ import { Props } from '@codelab/shared/interface/props'
 /**
  * Node is instantiated during Tree traversal
  */
-export class Node implements NodeInterface, HasChildren<Node>, NodeDtoA {
+export class NodeEntity<P extends Props = {}>
+  implements HasChildren<NodeEntity>, NodeDtoA {
   public Component: FunctionComponent<any> = () => null
 
   public id: string
 
   public type: NodeTypeEnum
 
-  public parent?: Node
+  public parent?: NodeEntity
 
-  public children: Array<Node> = []
+  public children: Array<NodeEntity> = []
 
   // eslint-disable-next-line react/static-property-placement
-  public props: Props
+  public props: P
 
   /**
    * The class Node & the codec Node should be kept separate. Node is the container for behavior, while codec Node holds the shape of the data
    */
-  public data: NodeDtoI
+  public data: NodeCreateDto<P>
 
   /**
    * Can take just ID, but fills out other fields
    */
-  constructor(node: NodeDtoI) {
+  constructor(node: NodeCreateDto<P>) {
     const { props, id, type } = node
 
     if (
@@ -48,7 +49,7 @@ export class Node implements NodeInterface, HasChildren<Node>, NodeDtoA {
 
     this.data = node
     this.type = type as NodeTypeEnum
-    this.props = props ?? {}
+    this.props = (props ?? {}) as P
     this.id = id ?? uuidv4()
   }
 
@@ -56,12 +57,12 @@ export class Node implements NodeInterface, HasChildren<Node>, NodeDtoA {
     return (this.props.key as React.Key) ?? this.id
   }
 
-  public addChild(child: Node) {
+  public addChild(child: NodeEntity) {
     this.children.push(child)
     child.addParent(this)
   }
 
-  public addParent(parent: Node) {
+  public addParent(parent: NodeEntity) {
     this.parent = parent
   }
 
@@ -121,9 +122,9 @@ export class Node implements NodeInterface, HasChildren<Node>, NodeDtoA {
    * ```
    */
   public Children(rootChildren: ReactNode): ReactNode | Array<ReactNode> {
-    const children = reduce<Node, Array<ReactNode>>(
+    const children = reduce<NodeEntity, Array<ReactNode>>(
       this.children,
-      (Components: Array<ReactNode>, child: Node) => {
+      (Components: Array<ReactNode>, child: NodeEntity) => {
         const { Component: Child, mergedProps } = child
 
         // console.debug(`${this.type} -> ${child.type}`, props)

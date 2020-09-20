@@ -1,7 +1,7 @@
 import { treeData } from './data/tree.data'
 import { traversePostOrder } from '@codelab/core/traversal'
 import { makeTree } from '@codelab/core/tree'
-import { NodeInterface } from '@codelab/shared/interface/node'
+import { NodeDtoA } from '@codelab/shared/interface/node'
 
 describe('Node traversal', () => {
   it('can traverse post order', () => {
@@ -19,7 +19,7 @@ describe('Node traversal', () => {
       'Root',
     ]
 
-    const cb = (node: NodeInterface) => {
+    const cb = (node: NodeDtoA) => {
       queue.push(node.id)
     }
 

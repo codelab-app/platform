@@ -1,7 +1,7 @@
 import { Edge } from './edge'
 import { Vertex } from './vertex'
 import { D3GraphProps } from '@codelab/components/d3'
-import { HasID } from '@codelab/shared/interface/node'
+import { NodeDtoA } from '@codelab/shared/interface/node'
 
 export type GraphProps = {
   vertices: Array<Vertex>
@@ -11,8 +11,8 @@ export type GraphProps = {
 export interface Graph {
   vertices: Array<Vertex>
   edges: Array<Edge>
-  parent?: HasID
+  parent?: NodeDtoA
   readonly D3Graph: D3GraphProps
-  addVertexFromNode(node: HasID): void
-  addEdgeFromNodes(start: HasID | undefined | null, end: HasID): void
+  addVertexFromNode(node: NodeDtoA): void
+  addEdgeFromNodes(start: NodeDtoA, end: NodeDtoA): void
 }

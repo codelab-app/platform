@@ -4,7 +4,7 @@ import {
   TraversalIteratee,
   TraversalOrder,
 } from '@codelab/shared/interface/graph'
-import { NodeInterface } from '@codelab/shared/interface/node'
+import { NodeDtoA } from '@codelab/shared/interface/node'
 
 /**
  * Product knows about a factory, is called by builder
@@ -16,11 +16,11 @@ export abstract class AppProduct {
 
   protected factory: AppFactory
 
-  protected traversal: TraversalOrder
+  protected traversal?: TraversalOrder
 
-  protected iteratee: TraversalIteratee
+  protected iteratee?: TraversalIteratee
 
-  protected root: NodeInterface
+  protected root?: NodeDtoA
 
   constructor(factory: AppFactory) {
     this.factory = factory

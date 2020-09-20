@@ -1,25 +1,16 @@
-import { Optional } from 'utility-types'
-import { NodeType, NodeTypeEnum } from '../enums/node-enum'
+import { NodeType } from '../enums/node-enum'
+import { Props } from '@codelab/shared/interface/props'
 
-export interface NodeDTO {
-  id: string
-  type: string
-  props: any
-  children: Array<NodeDTO>
-}
-
-export interface NodeDtoI<P extends object = {}> {
+export interface NodeDtoI<T extends NodeType = NodeType, P extends Props = {}> {
   id?: string
   type: NodeType
   props?: P
-  children?: Array<NodeDtoI<P>>
+  children?: Array<NodeDtoI<T, P>>
 }
 
-export interface NodeDtoA<T extends NodeTypeEnum = NodeTypeEnum> {
+export interface NodeDtoA<T extends NodeType = NodeType, P extends Props = {}> {
   id: string
   type: T
-  props: any
-  children: Array<NodeDtoA<T>>
+  props: P
+  children: Array<NodeDtoA<T, P>>
 }
-
-export type CreateNodeDTO = Optional<NodeDTO, 'id'> // using utility-types NPM

@@ -1,4 +1,4 @@
-import { NodeDtoA, NodeDtoI } from './dto/node-dto'
+import { NodeCreateDto, NodeDtoA, NodeDtoI } from './dto'
 import { NodeType, NodeTypeEnum } from './enums/node-enum'
 import {
   isModelNode,
@@ -8,27 +8,20 @@ import {
   isSchemaNode,
   isTreeNode,
 } from './guards/node-guards'
-import type {
-  HasChildren,
-  HasID,
-  HasParent,
-  Mapper,
-  NodeInterface,
-} from './node'
+import type { HasChildren, HasParent, Mapper } from './node'
 import { hasChildren } from './node'
 import type { SchemaDefinition, SchemaTypeOpts } from './node-schema--props'
 
 export type {
   SchemaDefinition,
   SchemaTypeOpts,
-  NodeInterface,
-  HasID,
+  NodeDtoA,
   HasChildren,
   HasParent,
   Mapper,
   NodeType,
-  NodeDtoA,
   NodeDtoI,
+  NodeCreateDto,
 }
 
 export {
