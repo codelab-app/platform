@@ -6,6 +6,16 @@ import { TreeDom } from '@codelab/core/renderer'
 
 export type TableProps<T extends object = any> = AntTableProps<T>
 
+interface CellProps<T = any> {
+  // title: React.ReactNode
+  // editable: boolean
+  index: number
+  record: T
+  // children: React.ReactNode
+  // dataIndex: string
+  // handleSave: (record: T) => void
+}
+
 export namespace CodelabTable {
   export const Default = <T extends object = any>(props: TableProps<T>) => {
     const { dataSource, columns } = props
@@ -15,7 +25,7 @@ export namespace CodelabTable {
         return {
           ...column,
           render: (text: string, record: any, index: number) => {
-            const Cell = TreeDom.render(render)
+            const Cell = TreeDom.render<CellProps>(render)
 
             return <Cell record={record} index={index} />
           },

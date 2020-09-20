@@ -82,11 +82,9 @@ const nodeButtonGroupData: NodeDtoReactI = {
   ],
 }
 
-export interface NodeButtonGroupProps {
-  toggleform: () => void
-  handledelete: () => void
+export interface ButtonGroupProps {
+  setvisibility: Function
+  handledelete: Function
 }
 
-export const ButtonGroup = TreeDom.render<NodeButtonGroupProps>(
-  nodeButtonGroupData,
-)
+export const ButtonGroup = TreeDom.render<ButtonGroupProps>(nodeButtonGroupData)

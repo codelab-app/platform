@@ -178,4 +178,10 @@ export const modalFormData: NodeDtoReactI = {
   ],
 }
 
-export const ModalForm = TreeDom.render(modalFormData)
+interface ModalFormProps {
+  handlesubmit: Function
+  visibility: boolean
+  setvisibility: Function
+}
+
+export const ModalForm = TreeDom.render<ModalFormProps>(modalFormData)
