@@ -3,11 +3,11 @@ import * as mongoose from 'mongoose'
 import { modelWalker } from './model-traversal'
 import { modelCreationIteratee } from './model-traversal--iteratee'
 import { ModelInterface } from './model.i'
-import { NodeDtoI } from '@codelab/shared/interface/node'
+import { NodeDtoModelI } from '@codelab/shared/interface/node'
 
 export class Model {
-  static makeModel(input: NodeDtoI): mongoose.Model<any> {
-    const { model } = reduce<NodeDtoI, ModelInterface>(
+  static makeModel(input: NodeDtoModelI): mongoose.Model<any> {
+    const { model } = reduce<NodeDtoModelI, ModelInterface>(
       input.children ?? [],
       modelWalker(input, modelCreationIteratee),
       {},
