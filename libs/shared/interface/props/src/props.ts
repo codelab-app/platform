@@ -1,6 +1,6 @@
 import { CSSProperties } from 'react'
 
-export type PropItem = any & Function & PropValue
+export type PropItem = Function & PropValue & any
 
 // Only prop value of this type is evaluated
 export interface PropValue {
