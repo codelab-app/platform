@@ -69,13 +69,13 @@ import {
   Grid,
   Provider,
 } from '@codelab/components/ui'
-import { Node } from '@codelab/core/node'
 import { propsFilter, withFilters } from '@codelab/core/props'
 import { mouseEventHandlerKeys } from '@codelab/shared/event'
+import { NodeDtoA } from '@codelab/shared/interface/node'
 import { Props } from '@codelab/shared/interface/props'
 
 export const elementParameterFactory = <P extends Props>(
-  node: Node,
+  node: NodeDtoA,
 ): ElementParameters<Props> => {
   const { type, props } = node
 

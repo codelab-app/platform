@@ -56,12 +56,12 @@ export const treeWalker = <T extends NodeDtoI, S extends TreeSubTreeAcc<T>>(
   }
 }
 
-export const traversePostOrder = (
-  node: NodeDtoA,
-  iteratee: TraversalIteratee,
+export const traversePostOrder = <T extends NodeDtoA>(
+  node: T,
+  iteratee: TraversalIteratee<T>,
 ) => {
   node.children.forEach((child) => {
-    traversePostOrder(child, iteratee)
+    traversePostOrder<T>(child as T, iteratee)
   })
 
   iteratee(node)
