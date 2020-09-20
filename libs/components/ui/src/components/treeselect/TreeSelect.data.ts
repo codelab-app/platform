@@ -1,7 +1,7 @@
 import { TreeSelect } from './TreeSelect.types'
-import { NodeReactDtoI } from '@codelab/shared/interface/node'
+import { NodeDtoReactI } from '@codelab/shared/interface/node'
 
-export const treeSelectData: NodeReactDtoI<
+export const treeSelectData: NodeDtoReactI<
   TreeSelect.TreeNodeProps | TreeSelect.Props
 > = {
   type: 'React.TreeSelect',

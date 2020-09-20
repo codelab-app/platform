@@ -1,8 +1,8 @@
 import { Text } from '../text'
 import { Typography } from './Typography.types'
-import { NodeReactDtoI } from '@codelab/shared/interface/node'
+import { NodeDtoReactI } from '@codelab/shared/interface/node'
 
-export const typographyData: NodeReactDtoI<
+export const typographyData: NodeDtoReactI<
   | Typography.TextProps
   | Typography.TitleProps
   | Typography.ParagraphProps

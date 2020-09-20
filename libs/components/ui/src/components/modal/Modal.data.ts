@@ -1,8 +1,8 @@
 import { Button } from '../button'
 import { Modal } from './Modal.types'
-import { NodeReactDtoI } from '@codelab/shared/interface/node'
+import { NodeDtoReactI } from '@codelab/shared/interface/node'
 
-export const modalData: NodeReactDtoI<Modal.Props | Button.Props> = {
+export const modalData: NodeDtoReactI<Modal.Props | Button.Props> = {
   type: 'React.Provider',
   props: {
     ctx: {

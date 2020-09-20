@@ -1,8 +1,8 @@
 import { Text } from '../text'
 import { Tag } from './Tag.types'
-import { NodeReactDtoI } from '@codelab/shared/interface/node'
+import { NodeDtoReactI } from '@codelab/shared/interface/node'
 
-export const tagData: NodeReactDtoI<Tag.Props | Text.Props> = {
+export const tagData: NodeDtoReactI<Tag.Props | Text.Props> = {
   type: 'React.Tag',
   props: { closable: true },
   children: [

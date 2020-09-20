@@ -1,8 +1,8 @@
 import { Text } from '../text'
 import { Divider } from './Divider.types'
-import { NodeReactDtoI } from '@codelab/shared/interface/node'
+import { NodeDtoReactI } from '@codelab/shared/interface/node'
 
-export const dividerData: NodeReactDtoI<Divider.Props | Text.Props> = {
+export const dividerData: NodeDtoReactI<Divider.Props | Text.Props> = {
   type: 'React.Provider',
   children: [
     {

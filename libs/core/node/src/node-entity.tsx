@@ -6,25 +6,27 @@ import {
   HasChildren,
   NodeCreateDto,
   NodeDtoA,
-  NodeDtoI,
-  NodeTypeEnum,
+  NodeTypeLiteral,
+  nodeTypeLiterals,
 } from '@codelab/shared/interface/node'
 import { Props } from '@codelab/shared/interface/props'
 
 /**
  * Node is instantiated during Tree traversal
  */
-export class NodeEntity<P extends Props = {}>
-  implements HasChildren<NodeEntity>, NodeDtoA {
+export class NodeEntity<
+  T extends NodeTypeLiteral = NodeTypeLiteral,
+  P extends Props = {}
+> implements HasChildren<NodeEntity>, NodeDtoA<T, P> {
   public Component: FunctionComponent<any> = () => null
 
   public id: string
 
-  public type: NodeTypeEnum
+  public type: T
 
   public parent?: NodeEntity
 
-  public children: Array<NodeEntity> = []
+  public children: Array<NodeEntity<T, P>> = []
 
   // eslint-disable-next-line react/static-property-placement
   public props: P
@@ -32,23 +34,20 @@ export class NodeEntity<P extends Props = {}>
   /**
    * The class Node & the codec Node should be kept separate. Node is the container for behavior, while codec Node holds the shape of the data
    */
-  public data: NodeCreateDto<P>
+  public data: NodeCreateDto<T, P>
 
   /**
    * Can take just ID, but fills out other fields
    */
-  constructor(node: NodeCreateDto<P>) {
+  constructor(node: NodeCreateDto<T, P>) {
     const { props, id, type } = node
 
-    if (
-      !type ||
-      !(Object.values(NodeTypeEnum) ?? []).includes(type as NodeTypeEnum)
-    ) {
+    if (!type || !nodeTypeLiterals.includes(type)) {
       throw new Error(`${type} is not a valid Node type`)
     }
 
     this.data = node
-    this.type = type as NodeTypeEnum
+    this.type = type
     this.props = (props ?? {}) as P
     this.id = id ?? uuidv4()
   }
@@ -57,7 +56,7 @@ export class NodeEntity<P extends Props = {}>
     return (this.props.key as React.Key) ?? this.id
   }
 
-  public addChild(child: NodeEntity) {
+  public addChild(child: NodeEntity<T, P>) {
     this.children.push(child)
     child.addParent(this)
   }

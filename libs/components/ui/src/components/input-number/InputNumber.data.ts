@@ -1,7 +1,7 @@
 import { InputNumber } from './InputNumber.types'
-import { NodeReactDtoI } from '@codelab/shared/interface/node'
+import { NodeDtoReactI } from '@codelab/shared/interface/node'
 
-export const inputNumberData: NodeReactDtoI<InputNumber.Props> = {
+export const inputNumberData: NodeDtoReactI<InputNumber.Props> = {
   type: 'React.InputNumber',
   props: {
     min: 1,

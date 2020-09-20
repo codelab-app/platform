@@ -1,7 +1,7 @@
 import { Text } from './Text.types'
-import { NodeReactDtoI } from '@codelab/shared/interface/node'
+import { NodeDtoReactI } from '@codelab/shared/interface/node'
 
-export const textData: NodeReactDtoI<Text.Props> = {
+export const textData: NodeDtoReactI<Text.Props> = {
   type: 'React.Text',
   props: {
     value: 'Some text',

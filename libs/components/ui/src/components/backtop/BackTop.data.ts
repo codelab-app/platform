@@ -1,8 +1,8 @@
 import { Text } from '../text'
 import { BackTop } from './BackTop.types'
-import { NodeReactDtoI } from '@codelab/shared/interface/node'
+import { NodeDtoReactI } from '@codelab/shared/interface/node'
 
-export const backtopData: NodeReactDtoI<BackTop.Props | Text.Props> = {
+export const backtopData: NodeDtoReactI<BackTop.Props | Text.Props> = {
   type: 'React.Html.div',
   props: { style: { height: '200vh' } },
   children: [

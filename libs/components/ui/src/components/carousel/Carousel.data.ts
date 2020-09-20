@@ -1,8 +1,8 @@
 import { Text } from '../text'
 import { Carousel } from './Carousel.types'
-import { NodeReactDtoI } from '@codelab/shared/interface/node'
+import { NodeDtoReactI } from '@codelab/shared/interface/node'
 
-export const carouselData: NodeReactDtoI<Carousel.Props | Text.Props> = {
+export const carouselData: NodeDtoReactI<Carousel.Props | Text.Props> = {
   type: 'React.Carousel',
   props: {
     dotPosition: 'bottom',

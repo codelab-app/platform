@@ -1,9 +1,9 @@
 import { Icon } from '../icon'
 import { Text } from '../text'
 import { Upload } from './Upload.types'
-import { NodeReactDtoI } from '@codelab/shared/interface/node'
+import { NodeDtoReactI } from '@codelab/shared/interface/node'
 
-export const uploadData: NodeReactDtoI<
+export const uploadData: NodeDtoReactI<
   Upload.Props | Text.Props | Icon.Props
 > = {
   type: 'React.Upload',

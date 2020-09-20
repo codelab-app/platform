@@ -7,20 +7,21 @@ import { Props } from '@codelab/shared/interface/props'
  */
 
 // Ref
-export type NodeRefDtoI<P extends Props = {}> = NodeDtoI<
+export type NodeDtoTreeRefI<P extends Props = {}> = NodeDtoI<
   NodeTypeTreeEnum.Ref,
   P
 >
-export type NodeRefDtoA<P extends Props = {}> = NodeDtoA<
+export type NodeDtoTreeRefA<P extends Props = {}> = NodeDtoA<
   NodeTypeTreeEnum.Ref,
   P
 >
+
 // Tree
-export type NodeTreeDtoI<P extends Props = {}> = NodeDtoI<
+export type NodeDtoTreeI<P extends Props = {}> = NodeDtoI<
   NodeTypeTreeEnum.Tree,
   P
 >
-export type NodeTreeDtoA<P extends Props = {}> = NodeDtoA<
+export type NodeDtoTreeA<P extends Props = {}> = NodeDtoA<
   NodeTypeTreeEnum.Tree,
   P
 >

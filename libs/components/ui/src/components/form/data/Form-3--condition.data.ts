@@ -1,9 +1,9 @@
 import { Text } from '../../text'
 import { Form } from '../Form.types'
-import { NodeReactDtoI } from '@codelab/shared/interface/node'
+import { NodeDtoReactI } from '@codelab/shared/interface/node'
 import { PropValue } from '@codelab/shared/interface/props'
 
-export const formConditionData: NodeReactDtoI<
+export const formConditionData: NodeDtoReactI<
   Form.Props | Form.ItemProps | Text.Props | { shouldRender: PropValue }
 > = {
   type: 'React.Form',

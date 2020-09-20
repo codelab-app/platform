@@ -1,9 +1,12 @@
 import { Button } from '../../button'
 import { Text } from '../../text'
 import { Form } from '../Form.types'
-import { NodeReactDtoI, NodeTypeEnum } from '@codelab/shared/interface/node'
+import {
+  NodeDtoReactI,
+  nodeTypeEnumEntries,
+} from '@codelab/shared/interface/node'
 
-export const nodeFormData: NodeReactDtoI<
+export const nodeFormData: NodeDtoReactI<
   Form.Props | Form.ItemProps | Text.Props | Button.Props
 > = {
   type: 'React.Form',
@@ -17,7 +20,7 @@ export const nodeFormData: NodeReactDtoI<
     Form.createSelect({
       label: 'Node Type',
       name: 'node_type',
-      options: Object.entries(NodeTypeEnum),
+      options: nodeTypeEnumEntries,
     }),
     {
       type: 'React.Form.Item',

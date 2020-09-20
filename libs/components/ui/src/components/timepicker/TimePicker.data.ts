@@ -1,7 +1,7 @@
 import { TimePicker } from './TimePicker.types'
-import { NodeReactDtoI } from '@codelab/shared/interface/node'
+import { NodeDtoReactI } from '@codelab/shared/interface/node'
 
-export const timePickerData: NodeReactDtoI<
+export const timePickerData: NodeDtoReactI<
   TimePicker.Props | TimePicker.RangePickerProps
 > = {
   type: 'React.TimePicker',

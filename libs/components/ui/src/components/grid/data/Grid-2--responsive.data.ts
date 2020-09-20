@@ -1,8 +1,8 @@
 import { Text } from '../../text'
 import { Grid } from '../Grid.types'
-import { NodeReactDtoI } from '@codelab/shared/interface/node'
+import { NodeDtoReactI } from '@codelab/shared/interface/node'
 
-export const responsiveGridData: NodeReactDtoI<
+export const responsiveGridData: NodeDtoReactI<
   | Text.Props
   | Grid.Props
   | Grid.ItemProps

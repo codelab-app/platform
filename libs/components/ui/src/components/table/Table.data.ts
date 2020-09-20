@@ -1,9 +1,9 @@
 import { Button } from '../button'
 import { Text } from '../text'
 import { Table } from './Table.types'
-import { NodeReactDtoI } from '@codelab/shared/interface/node'
+import { NodeDtoReactI } from '@codelab/shared/interface/node'
 
-const deleteButton: NodeReactDtoI<
+const deleteButton: NodeDtoReactI<
   | Table.Props
   | Table.ColumnProps
   | Table.ColumnGroupProps
@@ -28,7 +28,7 @@ const deleteButton: NodeReactDtoI<
   ],
 }
 
-const editButton: NodeReactDtoI = {
+const editButton: NodeDtoReactI = {
   type: 'React.Button',
   props: {
     type: 'React.warning',
@@ -43,7 +43,7 @@ const editButton: NodeReactDtoI = {
   ],
 }
 
-export const tableData: NodeReactDtoI = {
+export const tableData: NodeDtoReactI = {
   type: 'React.Table',
   props: {
     dataSource: [

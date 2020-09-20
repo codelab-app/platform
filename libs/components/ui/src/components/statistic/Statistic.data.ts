@@ -1,7 +1,7 @@
 import { Statistic } from './Statistic.types'
-import { NodeReactDtoI } from '@codelab/shared/interface/node'
+import { NodeDtoReactI } from '@codelab/shared/interface/node'
 
-export const statisticData: NodeReactDtoI<
+export const statisticData: NodeDtoReactI<
   Statistic.Props | Statistic.CountdownProps
 > = {
   type: 'React.Statistic',

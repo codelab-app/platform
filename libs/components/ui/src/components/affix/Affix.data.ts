@@ -1,9 +1,9 @@
 import { Button } from '../button'
 import { Text } from '../text'
 import { Affix } from './Affix.types'
-import { NodeReactDtoI } from '@codelab/shared/interface/node'
+import { NodeDtoReactI } from '@codelab/shared/interface/node'
 
-export const affixData: NodeReactDtoI<
+export const affixData: NodeDtoReactI<
   Affix.Props | Text.Props | Button.Props
 > = {
   type: 'React.Affix',

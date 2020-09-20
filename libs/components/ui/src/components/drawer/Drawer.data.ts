@@ -1,9 +1,9 @@
 import { Button } from '../button'
 import { Text } from '../text'
 import { DrawerProps } from './Drawer.types'
-import { NodeReactDtoI } from '@codelab/shared/interface/node'
+import { NodeDtoReactI } from '@codelab/shared/interface/node'
 
-export const drawerData: NodeReactDtoI<
+export const drawerData: NodeDtoReactI<
   DrawerProps | Button.Props | Text.Props
 > = {
   type: 'React.Provider',

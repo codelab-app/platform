@@ -1,7 +1,7 @@
 import { Empty } from './Empty.types'
-import { NodeReactDtoI } from '@codelab/shared/interface/node'
+import { NodeDtoReactI } from '@codelab/shared/interface/node'
 
-export const emptyData: NodeReactDtoI<Empty.Props> = {
+export const emptyData: NodeDtoReactI<Empty.Props> = {
   type: 'React.Empty',
   props: {
     description: 'No Data',
