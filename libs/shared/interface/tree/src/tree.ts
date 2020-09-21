@@ -6,11 +6,12 @@ import {
   NodeDtoI,
 } from '@codelab/shared/interface/node'
 
-export type NodeIteratee<SubTree extends HasParent<T>, T extends NodeDtoA> = (
-  acc: SubTree,
-  curr: T,
-  index?: number,
-) => SubTree
+export type TraversalIteratee<
+  SubTree extends HasParent<T>,
+  T extends NodeDtoA
+> = (acc: SubTree, curr: T, index?: number) => SubTree
+
+export type NodeIteratee = (node: NodeDtoA) => void
 
 export interface TreeSubTreeAcc<T extends NodeDtoI> extends HasParent<T> {
   prev?: T

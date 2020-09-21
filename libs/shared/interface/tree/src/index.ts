@@ -1,5 +1,6 @@
 export type {
   Tree,
+  TraversalIteratee,
   NodeIteratee,
   TreeSubTreeAcc,
   GraphSubTreeAcc,

@@ -10,9 +10,12 @@
 
 import { reduce } from 'lodash'
 import { NodeEntity } from '@codelab/core/node'
-import { TraversalIteratee } from '@codelab/shared/interface/graph'
 import { NodeDtoA } from '@codelab/shared/interface/node'
-import { NodeIteratee, TreeSubTreeAcc } from '@codelab/shared/interface/tree'
+import {
+  NodeIteratee,
+  TraversalIteratee,
+  TreeSubTreeAcc,
+} from '@codelab/shared/interface/tree'
 
 /**
  * Curried function allows us to first initialize the treeWalker with an iteratee.
@@ -29,7 +32,7 @@ export const treeWalker = <
   S extends TreeSubTreeAcc<T> = TreeSubTreeAcc<T>
 >(
   parent: T | undefined,
-  nodeIteratee: NodeIteratee<S, T>,
+  nodeIteratee: TraversalIteratee<S, T>,
 ) => {
   return (
     subTreeAcc: S, // prev (reduce arg)
@@ -64,10 +67,7 @@ export const treeWalker = <
   }
 }
 
-export const traversePostOrder = (
-  node: NodeDtoA,
-  iteratee: TraversalIteratee,
-) => {
+export const traversePostOrder = (node: NodeDtoA, iteratee: NodeIteratee) => {
   node.children.forEach((child) => {
     traversePostOrder(child, iteratee)
   })
@@ -75,10 +75,7 @@ export const traversePostOrder = (
   iteratee(node)
 }
 
-export const traversePreOrder = (
-  node: NodeDtoA,
-  iteratee: TraversalIteratee,
-) => {
+export const traversePreOrder = (node: NodeDtoA, iteratee: NodeIteratee) => {
   if (!node) {
     return
   }
