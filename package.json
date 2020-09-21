@@ -7,7 +7,7 @@
     "nohoist": []
   },
   "engines": {
-    "node": ">=14",
+    "node": ">=13",
     "yarn": "1.22.4"
   },
   "version": "0.0.0",
@@ -105,7 +105,7 @@
     "rxjs": "6.5.5",
     "ts-toolbelt": "6.13.33",
     "utility-types": "^3.10.0",
-    "uuid": "8.2.0",
+    "uuid": "8.3.0",
     "voca": "1.4.0",
     "xstate": "^4.13.0"
   },
