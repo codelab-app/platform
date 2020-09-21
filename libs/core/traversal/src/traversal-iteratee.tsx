@@ -4,7 +4,13 @@
 import { reduce } from 'lodash'
 import { treeWalker } from './traversal'
 import { NodeEntity } from '@codelab/core/node'
-import { NodeDtoA, isID, isNode } from '@codelab/shared/interface/node'
+import {
+  Node,
+  NodeDtoA,
+  isID,
+  isNode,
+  isNodeDtoA,
+} from '@codelab/shared/interface/node'
 import {
   GraphSubTreeAcc,
   NodeFinderAcc,
@@ -29,7 +35,7 @@ export const findNode = (
   node: NodeDtoA,
 ): NodeDtoA | undefined => {
   isID(id)
-  isNode(node)
+  isNodeDtoA(node)
 
   if (node.id === id) {
     return node
@@ -55,10 +61,10 @@ export const findNode = (
  * treeWalker passes in a new parent at each level
  */
 export const treeAppenderIteratee = (
-  { root, parent }: TreeSubTreeAcc<NodeDtoA>,
+  { root, parent }: TreeSubTreeAcc<Node>,
   child: NodeDtoA,
 ) => {
-  // isNode(parent)
+  isNode(parent)
 
   const childNode = new NodeEntity(child)
 

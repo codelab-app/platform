@@ -1,4 +1,4 @@
-import { isID, isNode } from './assertions/node-assertions'
+import { isID, isNode, isNodeDtoA } from './assertions/node-assertions'
 import { NodeCreateDto, NodeDtoA, NodeDtoI } from './dto'
 import {
   NodeDtoModelA,
@@ -61,6 +61,7 @@ export type {
 
 export {
   isNode,
+  isNodeDtoA,
   isID,
   BaseNodeTypeEnum,
   NodeTypeReactEnum,

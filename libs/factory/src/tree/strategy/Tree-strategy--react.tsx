@@ -1,11 +1,10 @@
 import React, { PropsWithChildren } from 'react'
 import { TreeStrategy } from './Tree-strategy'
 import { TreeStrategyTree } from './Tree-strategy--tree'
-import { Node } from '@codelab/core/node'
 import { evalPropsWithContext } from '@codelab/core/props'
 import { elementParameterFactory } from '@codelab/core/renderer'
 import { traversePostOrder } from '@codelab/core/traversal'
-import { NodeDtoI } from '@codelab/shared/interface/node'
+import { Node, NodeDtoI } from '@codelab/shared/interface/node'
 import { Props } from '@codelab/shared/interface/props'
 
 export class TreeStrategyReact implements TreeStrategy {

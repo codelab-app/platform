@@ -10,7 +10,7 @@ import {
   treeAppenderIteratee,
   treeWalker,
 } from '@codelab/core/traversal'
-import { Node, NodeDtoI } from '@codelab/shared/interface/node'
+import { NodeDtoA, NodeDtoI } from '@codelab/shared/interface/node'
 import { GraphSubTreeAcc, TreeSubTreeAcc } from '@codelab/shared/interface/tree'
 
 /**
@@ -25,7 +25,7 @@ import { GraphSubTreeAcc, TreeSubTreeAcc } from '@codelab/shared/interface/tree'
  * ```
  *
  */
-export const makeTree = (input: NodeDtoI): Node => {
+export const makeTree = (input: NodeDtoI): NodeDtoA => {
   const parent = new NodeEntity(input)
   const subTreeAcc = {
     root: parent,
@@ -33,9 +33,12 @@ export const makeTree = (input: NodeDtoI): Node => {
     parent,
   }
 
-  return reduce<Node, TreeSubTreeAcc<Node>>(
-    (input as Node)?.children ?? [],
-    treeWalker<Node, TreeSubTreeAcc<Node>>(parent, treeAppenderIteratee),
+  return reduce<NodeDtoA, TreeSubTreeAcc<NodeDtoA>>(
+    (input as NodeDtoA)?.children ?? [],
+    treeWalker<NodeDtoA, TreeSubTreeAcc<NodeDtoA>>(
+      parent,
+      treeAppenderIteratee,
+    ),
     subTreeAcc,
   ).root
 }
@@ -56,9 +59,12 @@ export const makeGraph = (input: NodeDtoI): Graph => {
 
   graph.addVertexFromNode(root)
 
-  return reduce<Node, GraphSubTreeAcc<Node>>(
-    (input as Node).children ?? [],
-    treeWalker<Node, GraphSubTreeAcc<Node>>(root, graphAppenderIteratee),
+  return reduce<NodeDtoA, GraphSubTreeAcc<NodeDtoA>>(
+    (input as NodeDtoA).children ?? [],
+    treeWalker<NodeDtoA, GraphSubTreeAcc<NodeDtoA>>(
+      root,
+      graphAppenderIteratee,
+    ),
     subTreeContext,
   ).graph
 }

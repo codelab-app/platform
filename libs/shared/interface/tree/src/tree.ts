@@ -1,8 +1,8 @@
-import { NodeEntity } from '@codelab/core/node'
 import { Graph } from '@codelab/shared/interface/graph'
 import {
   HasChildren,
   HasParent,
+  Node,
   NodeDtoI,
 } from '@codelab/shared/interface/node'
 
@@ -28,6 +28,6 @@ export interface NodeFinderAcc<T extends NodeDtoI> extends TreeSubTreeAcc<T> {
 }
 
 export interface Tree {
-  current: NodeEntity
-  root: NodeEntity
+  current: Node
+  root: Node
 }

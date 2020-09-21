@@ -5,6 +5,7 @@ import { ModalForm } from '../src/node/ModalForm'
 import { NodeTree } from '../src/node/NodeTree'
 import { convertNodeTreeToAntTreeDataNode } from '../src/node/utils/convertNodeTreeToAntTreeNode'
 import { NodeEntity } from '@codelab/core/node'
+import { Node } from '@codelab/shared/interface/node'
 
 const NodePage = () => {
   const [selectedNode, setSelectedNode] = React.useState(null)

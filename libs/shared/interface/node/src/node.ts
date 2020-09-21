@@ -27,4 +27,8 @@ export interface Node<
 > extends NodeDtoA<T, P> {
   id: string
   addChild(node: NodeDtoA): void
+  // TODO: Need to move somewhere else
+  Component: any
+  render: any
+  Children: any
 }

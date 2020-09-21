@@ -4,7 +4,7 @@ import {
   ReactElement,
   RefAttributes,
 } from 'react'
-import { Node } from '@codelab/core/node'
+import { Node } from '@codelab/shared/interface/node'
 import { Props } from '@codelab/shared/interface/props'
 
 export type Factory<P extends Props> = (node: Node) => FactoryComponent<P>

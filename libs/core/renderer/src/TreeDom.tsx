@@ -2,7 +2,6 @@ import { merge } from 'lodash'
 import React, { FunctionComponent, PropsWithChildren } from 'react'
 // eslint-disable-next-line import/no-cycle
 import { elementParameterFactory } from './ElementFactory'
-import { Node } from '@codelab/core/node'
 import {
   convertToLeafRenderProps,
   evalPropsWithContext,
@@ -10,9 +9,8 @@ import {
 import { traversePostOrder } from '@codelab/core/traversal'
 import { makeTree } from '@codelab/core/tree'
 import { TraversalIteratee } from '@codelab/shared/interface/graph'
-import { NodeDtoI } from '@codelab/shared/interface/node'
+import { Node, NodeDtoI } from '@codelab/shared/interface/node'
 import { Props } from '@codelab/shared/interface/props'
-// eslint-disable-next-line import/no-cycle
 
 /**
  * We need this function in ui package because TreeDom is required, can't put in node or props package

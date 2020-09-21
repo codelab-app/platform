@@ -2,9 +2,8 @@ import { reduce } from 'lodash'
 import { TreeStrategy } from './Tree-strategy'
 import { TreeStrategyTree } from './Tree-strategy--tree'
 import { Graph } from '@codelab/core/graph'
-import { Node } from '@codelab/core/node'
 import { graphAppenderIteratee, treeWalker } from '@codelab/core/traversal'
-import { NodeDtoI } from '@codelab/shared/interface/node'
+import { Node, NodeDtoI } from '@codelab/shared/interface/node'
 import { GraphSubTreeAcc } from '@codelab/shared/interface/tree'
 
 export class TreeStrategyGraph implements TreeStrategy {
