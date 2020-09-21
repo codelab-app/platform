@@ -7,10 +7,9 @@
 import { Layout as ALayout, Menu } from 'antd'
 import { Link } from 'gatsby'
 import './app.scss'
-import { reduce } from 'lodash'
 import React, { ReactElement } from 'react'
 import { Frontmatter } from '../templates/docTemplate.i'
-import { Node } from '@codelab/core/node'
+import { NodeEntity } from '@codelab/core/node'
 
 const { Header, Content, Footer, Sider } = ALayout
 
@@ -25,7 +24,7 @@ const Layout = (props: LayoutProps) => {
 
   const nodes = menuNodes.map(
     (node) =>
-      new Node({
+      new NodeEntity({
         id: node.order.toString(),
         type: 'Tree',
         props: { ...node },

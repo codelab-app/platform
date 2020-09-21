@@ -3,8 +3,8 @@
  */
 import { reduce } from 'lodash'
 import { treeWalker } from './traversal'
-import { Node } from '@codelab/core/node'
-import { NodeDtoA } from '@codelab/shared/interface/node'
+import { NodeEntity } from '@codelab/core/node'
+import { NodeDtoA, isID, isNode } from '@codelab/shared/interface/node'
 import {
   GraphSubTreeAcc,
   NodeFinderAcc,
@@ -12,26 +12,24 @@ import {
 } from '@codelab/shared/interface/tree'
 
 export const nodeFinderIteratee = (
-  { id, found, subTree }: NodeFinderAcc<NodeDtoA>,
+  { id, found, parent, root }: NodeFinderAcc<NodeDtoA>,
   child: NodeDtoA,
 ): NodeFinderAcc<NodeDtoA> => ({
   id,
   found: child.id === id ? child : found,
-  subTree,
+  parent,
+  root, // not used, just to satisfy interface
 })
 
 // This needs to be in tree/graph/traversal level, a node doesn't know how to find itself. plus findNode uses treeWalker methods which is just <traversal></traversal>
+
+// TODO: needs to be optimized for traversal performance
 export const findNode = (
   id: string | undefined,
   node: NodeDtoA,
 ): NodeDtoA | undefined => {
-  if (!node) {
-    throw new Error(`Node is undefined`)
-  }
-
-  if (!id) {
-    throw new Error(`id is undefined`)
-  }
+  isID(id)
+  isNode(node)
 
   if (node.id === id) {
     return node
@@ -46,44 +44,46 @@ export const findNode = (
     {
       found: undefined,
       id,
-      subTree: node,
+      root: node,
     },
   ).found
 }
 
+// TODO: subTree does not change in both tree & graph functions, it stays as the root node and is used to hold reference to tree for findNode lookup
+
+/**
+ * treeWalker passes in a new parent at each level
+ */
 export const treeAppenderIteratee = (
-  { subTree, parent }: TreeSubTreeAcc<NodeDtoA>,
+  { root, parent }: TreeSubTreeAcc<NodeDtoA>,
   child: NodeDtoA,
 ) => {
-  const childNode = new Node(child)
-  const parentNode = findNode(parent?.id, subTree) as Node
+  // isNode(parent)
 
-  if (!parentNode) {
-    throw Error(`Node of id ${parent?.id} not found`)
-  }
+  const childNode = new NodeEntity(child)
 
-  parentNode.addChild(childNode)
+  parent.addChild(childNode)
 
   return {
+    root,
+    parent,
     prev: childNode,
-    subTree,
   }
 }
 
 export const graphAppenderIteratee = (
-  { graph, subTree, parent }: GraphSubTreeAcc<NodeDtoA>,
+  { graph, root, parent }: GraphSubTreeAcc<NodeDtoA>,
   child: NodeDtoA,
 ) => {
-  const node = new Node(child)
-  const parentNode = findNode(parent?.id, subTree)
+  const node = new NodeEntity(child)
 
   graph.addVertexFromNode(node)
-  graph.addEdgeFromNodes(parentNode, node)
+  graph.addEdgeFromNodes(parent, node)
 
   return {
-    graph,
-    subTree,
+    root,
     parent,
     prev: node,
+    graph,
   }
 }

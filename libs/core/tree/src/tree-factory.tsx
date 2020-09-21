@@ -4,13 +4,13 @@
 
 import { reduce } from 'lodash'
 import { Graph } from '@codelab/core/graph'
-import { Node } from '@codelab/core/node'
+import { NodeEntity } from '@codelab/core/node'
 import {
   graphAppenderIteratee,
   treeAppenderIteratee,
   treeWalker,
 } from '@codelab/core/traversal'
-import { NodeDtoA, NodeDtoI } from '@codelab/shared/interface/node'
+import { Node, NodeDtoI } from '@codelab/shared/interface/node'
 import { GraphSubTreeAcc, TreeSubTreeAcc } from '@codelab/shared/interface/tree'
 
 /**
@@ -25,19 +25,19 @@ import { GraphSubTreeAcc, TreeSubTreeAcc } from '@codelab/shared/interface/tree'
  * ```
  *
  */
-export const makeTree = (input: NodeDtoI): NodeDtoA => {
-  const root = new Node(input)
-  const subTreeContext = {
-    subTree: root,
-    prev: root,
-    parent: root,
+export const makeTree = (input: NodeDtoI): Node => {
+  const parent = new NodeEntity(input)
+  const subTreeAcc = {
+    root: parent,
+    prev: parent,
+    parent,
   }
 
-  return reduce<NodeDtoA, TreeSubTreeAcc<NodeDtoA>>(
-    (input as NodeDtoA)?.children ?? [],
-    treeWalker<NodeDtoA, TreeSubTreeAcc<NodeDtoA>>(root, treeAppenderIteratee),
-    subTreeContext,
-  ).subTree
+  return reduce<Node, TreeSubTreeAcc<Node>>(
+    (input as Node)?.children ?? [],
+    treeWalker<Node, TreeSubTreeAcc<Node>>(parent, treeAppenderIteratee),
+    subTreeAcc,
+  ).root
 }
 
 /**
@@ -48,20 +48,17 @@ export const makeGraph = (input: NodeDtoI): Graph => {
   const root = makeTree(input)
   const graph = new Graph({ vertices: [], edges: [] })
   const subTreeContext = {
-    graph,
-    subTree: root,
+    root,
     parent: root,
     prev: root,
+    graph,
   }
 
   graph.addVertexFromNode(root)
 
-  return reduce<NodeDtoA, GraphSubTreeAcc<NodeDtoA>>(
-    (input as NodeDtoA).children ?? [],
-    treeWalker<NodeDtoA, GraphSubTreeAcc<NodeDtoA>>(
-      root,
-      graphAppenderIteratee,
-    ),
+  return reduce<Node, GraphSubTreeAcc<Node>>(
+    (input as Node).children ?? [],
+    treeWalker<Node, GraphSubTreeAcc<Node>>(root, graphAppenderIteratee),
     subTreeContext,
   ).graph
 }

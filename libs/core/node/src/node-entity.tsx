@@ -17,7 +17,7 @@ import { Props } from '@codelab/shared/interface/props'
 export class NodeEntity<
   T extends NodeTypeLiteral = NodeTypeLiteral,
   P extends Props = {}
-> implements HasChildren<NodeEntity>, NodeDtoA<T, P> {
+> implements NodeDtoA<T, P> {
   public Component: FunctionComponent<any> = () => null
 
   public id: string

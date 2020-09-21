@@ -9,7 +9,7 @@
  */
 
 import { reduce } from 'lodash'
-import { Node } from '@codelab/core/node'
+import { NodeEntity } from '@codelab/core/node'
 import { TraversalIteratee } from '@codelab/shared/interface/graph'
 import { NodeDtoA, NodeDtoI } from '@codelab/shared/interface/node'
 import { NodeIteratee, TreeSubTreeAcc } from '@codelab/shared/interface/tree'
@@ -29,7 +29,7 @@ export const treeWalker = <T extends NodeDtoI, S extends TreeSubTreeAcc<T>>(
   nodeIteratee: NodeIteratee<S, T>,
 ) => {
   return (
-    subTreeContext: S, // prev (reduce arg)
+    subTreeAcc: S, // prev (reduce arg)
     child: T, // curr (reduce arg)
     index: number, // index (reduce arg)
   ): any => {
@@ -37,21 +37,31 @@ export const treeWalker = <T extends NodeDtoI, S extends TreeSubTreeAcc<T>>(
       throw Error('id missing from parent')
     }
 
-    const newSubTreeContext: S = nodeIteratee(
-      { ...subTreeContext, parent },
+    /**
+     * Append parent with acc
+     */
+    const newSubTreeAcc: S = nodeIteratee(
+      { ...subTreeAcc, parent },
       child,
       index,
     )
 
-    if (!Node.hasChildren<T>(child)) {
-      return newSubTreeContext
+    /**
+     * Return traversal if no more children
+     */
+    if (!NodeEntity.hasChildren<T>(child)) {
+      return newSubTreeAcc
     }
 
-    // At junctions of tree, returns when all children appended
+    const newParent = newSubTreeAcc.prev
+
+    /**
+     * At junction of tree, call children recursively with new parent & context passed in
+     */
     return reduce<T, S>(
       ((child?.children ?? []) as Array<T>) ?? [],
-      treeWalker<T, S>(newSubTreeContext.prev, nodeIteratee),
-      newSubTreeContext,
+      treeWalker<T, S>(newParent, nodeIteratee),
+      newSubTreeAcc,
     )
   }
 }

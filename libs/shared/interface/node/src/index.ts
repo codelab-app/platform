@@ -1,3 +1,4 @@
+import { isID, isNode } from './assertions/node-assertions'
 import { NodeCreateDto, NodeDtoA, NodeDtoI } from './dto'
 import {
   NodeDtoModelA,
@@ -29,11 +30,12 @@ import {
   isSchemaNode,
   isTreeNode,
 } from './guards/node-guards'
-import type { HasChildren, HasParent, Mapper } from './node'
+import type { HasChildren, HasParent, Mapper, Node } from './node'
 import { hasChildren } from './node'
 import type { SchemaDefinition, SchemaTypeOpts } from './node-schema--props'
 
 export type {
+  Node,
   NodeTypeEnum,
   NodeType,
   SchemaDefinition,
@@ -58,6 +60,8 @@ export type {
 }
 
 export {
+  isNode,
+  isID,
   BaseNodeTypeEnum,
   NodeTypeReactEnum,
   nodeTypeLiterals,

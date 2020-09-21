@@ -1,10 +1,10 @@
-import { Node } from '@codelab/core/node'
+import { NodeEntity } from '@codelab/core/node'
 import { findNode } from '@codelab/core/traversal'
 
 describe('Node', () => {
   it('can add a child', () => {
-    const parent = new Node({ id: 'parent', type: 'Tree' })
-    const child = new Node({ id: 'child', type: 'Tree' })
+    const parent = new NodeEntity({ id: 'parent', type: 'Tree' })
+    const child = new NodeEntity({ id: 'child', type: 'Tree' })
 
     expect(parent.hasChildren()).toBeFalsy()
 
@@ -18,9 +18,9 @@ describe('Node', () => {
   })
 
   it('can add a second child', () => {
-    const parent = new Node({ id: 'parent', type: 'Tree' })
-    const child = new Node({ id: 'child', type: 'Tree' })
-    const secondChild = new Node({ id: 'secondChild', type: 'Tree' })
+    const parent = new NodeEntity({ id: 'parent', type: 'Tree' })
+    const child = new NodeEntity({ id: 'child', type: 'Tree' })
+    const secondChild = new NodeEntity({ id: 'secondChild', type: 'Tree' })
 
     parent.addChild(child)
     parent.addChild(secondChild)
@@ -31,10 +31,10 @@ describe('Node', () => {
   })
 
   it('can find a node', () => {
-    const parent = new Node({ id: 'parent', type: 'Tree' })
-    const child = new Node({ id: 'child', type: 'Tree' })
-    const secondChild = new Node({ id: 'secondChild', type: 'Tree' })
-    const grandChild = new Node({ id: 'grandChild', type: 'Tree' })
+    const parent = new NodeEntity({ id: 'parent', type: 'Tree' })
+    const child = new NodeEntity({ id: 'child', type: 'Tree' })
+    const secondChild = new NodeEntity({ id: 'secondChild', type: 'Tree' })
+    const grandChild = new NodeEntity({ id: 'grandChild', type: 'Tree' })
 
     parent.addChild(child)
     parent.addChild(secondChild)

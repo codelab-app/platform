@@ -4,7 +4,7 @@ import { ButtonGroup } from '../src/node/ButtonGroup'
 import { ModalForm } from '../src/node/ModalForm'
 import { NodeTree } from '../src/node/NodeTree'
 import { convertNodeTreeToAntTreeDataNode } from '../src/node/utils/convertNodeTreeToAntTreeNode'
-import { Node } from '@codelab/core/node'
+import { NodeEntity } from '@codelab/core/node'
 
 const NodePage = () => {
   const [selectedNode, setSelectedNode] = React.useState(null)
@@ -15,7 +15,7 @@ const NodePage = () => {
   // TODO: specify type of values. It should combine types for all types(React, Tree, Model, etc)
   const addChild = (values) => {
     console.log('addChild', this)
-    const newNode = new Node(values)
+    const newNode = new NodeEntity(values)
 
     if (rootNode === null) {
       setRootNode(newNode)
