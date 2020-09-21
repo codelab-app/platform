@@ -8,7 +8,6 @@ import {
 } from '@codelab/core/props'
 import { traversePostOrder } from '@codelab/core/traversal'
 import { makeTree } from '@codelab/core/tree'
-import { TraversalIteratee } from '@codelab/shared/interface/graph'
 import { Node, NodeDtoI } from '@codelab/shared/interface/node'
 import { Props } from '@codelab/shared/interface/props'
 
@@ -34,7 +33,7 @@ export class TreeDom {
      *
      * (2) RenderProps are passed down
      */
-    const componentBuilderIteratee: TraversalIteratee<Node> = (node: Node) => {
+    const componentBuilderIteratee = (node: Node) => {
       const [Component, props] = elementParameterFactory(node)
 
       /* eslint-disable no-param-reassign */
@@ -62,7 +61,7 @@ export class TreeDom {
       }
     }
 
-    traversePostOrder<Node>(root, componentBuilderIteratee)
+    traversePostOrder(root, componentBuilderIteratee)
 
     /**
      * rootChildren & rootProps allow us to programmatically modify components

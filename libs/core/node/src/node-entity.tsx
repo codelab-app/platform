@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { filterRenderProps } from '@codelab/core/props'
 import {
   HasChildren,
+  Node,
   NodeCreateDto,
   NodeDtoA,
   NodeTypeLiteral,
@@ -24,9 +25,9 @@ export class NodeEntity<
 
   public type: T
 
-  public parent?: NodeEntity
+  public parent?: Node<T, P>
 
-  public children: Array<NodeEntity<T, P>> = []
+  public children: Array<Node<T, P>> = []
 
   // eslint-disable-next-line react/static-property-placement
   public props: P
@@ -56,12 +57,12 @@ export class NodeEntity<
     return (this.props.key as React.Key) ?? this.id
   }
 
-  public addChild(child: NodeEntity<T, P>) {
+  public addChild(child: Node<T, P>) {
     this.children.push(child)
     child.addParent(this)
   }
 
-  public addParent(parent: NodeEntity) {
+  public addParent(parent: Node<T, P>) {
     this.parent = parent
   }
 
@@ -121,8 +122,8 @@ export class NodeEntity<
    * ```
    */
   public Children(rootChildren: ReactNode): ReactNode | Array<ReactNode> {
-    const children = reduce<NodeEntity, Array<ReactNode>>(
-      this.children,
+    const children = reduce<NodeEntity<T, P>, Array<ReactNode>>(
+      this.children as Array<NodeEntity<T, P>>,
       (Components: Array<ReactNode>, child: NodeEntity) => {
         const { Component: Child, mergedProps } = child
 

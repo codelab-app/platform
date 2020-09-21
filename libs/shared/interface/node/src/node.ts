@@ -26,8 +26,9 @@ export interface Node<
   P extends Props = {}
 > extends NodeDtoA<T, P> {
   id: string
-  addChild(node: NodeDtoA): void
   // TODO: Need to move somewhere else
+  addChild(node: NodeDtoA): void
+  addParent(node: NodeDtoA): void
   Component: any
   render: any
   Children: any

@@ -28,19 +28,20 @@ import { GraphSubTreeAcc, TreeSubTreeAcc } from '@codelab/shared/interface/tree'
 export const makeTree = (input: NodeDtoI): NodeDtoA => {
   const parent = new NodeEntity(input)
   const subTreeAcc = {
-    root: parent,
     prev: parent,
     parent,
   }
 
-  return reduce<NodeDtoA, TreeSubTreeAcc<NodeDtoA>>(
-    (input as NodeDtoA)?.children ?? [],
+  reduce<NodeDtoA, TreeSubTreeAcc<NodeDtoA>>(
+    (input.children ?? []) as Array<NodeDtoA>,
     treeWalker<NodeDtoA, TreeSubTreeAcc<NodeDtoA>>(
       parent,
       treeAppenderIteratee,
     ),
     subTreeAcc,
-  ).root
+  )
+
+  return parent
 }
 
 /**
@@ -51,7 +52,6 @@ export const makeGraph = (input: NodeDtoI): Graph => {
   const root = makeTree(input)
   const graph = new Graph({ vertices: [], edges: [] })
   const subTreeContext = {
-    root,
     parent: root,
     prev: root,
     graph,

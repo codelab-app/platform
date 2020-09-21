@@ -18,13 +18,12 @@ import {
 } from '@codelab/shared/interface/tree'
 
 export const nodeFinderIteratee = (
-  { id, found, parent, root }: NodeFinderAcc<NodeDtoA>,
+  { id, parent, found }: NodeFinderAcc<NodeDtoA>,
   child: NodeDtoA,
 ): NodeFinderAcc<NodeDtoA> => ({
   id,
   found: child.id === id ? child : found,
   parent,
-  root, // not used, just to satisfy interface
 })
 
 // This needs to be in tree/graph/traversal level, a node doesn't know how to find itself. plus findNode uses treeWalker methods which is just <traversal></traversal>
@@ -42,15 +41,13 @@ export const findNode = (
   }
 
   return reduce<NodeDtoA, NodeFinderAcc<NodeDtoA>>(
-    (node?.children ?? []) as Array<NodeDtoA>,
+    node.children,
     treeWalker<NodeDtoA, NodeFinderAcc<NodeDtoA>>(
       undefined,
       nodeFinderIteratee,
     ),
     {
-      found: undefined,
       id,
-      root: node,
     },
   ).found
 }
@@ -61,24 +58,23 @@ export const findNode = (
  * treeWalker passes in a new parent at each level
  */
 export const treeAppenderIteratee = (
-  { root, parent }: TreeSubTreeAcc<Node>,
+  { parent }: TreeSubTreeAcc<NodeDtoA>,
   child: NodeDtoA,
 ) => {
-  isNode(parent)
+  isNode(parent as Node)
 
   const childNode = new NodeEntity(child)
 
-  parent.addChild(childNode)
+  ;(parent as Node).addChild(childNode)
 
   return {
-    root,
     parent,
     prev: childNode,
   }
 }
 
 export const graphAppenderIteratee = (
-  { graph, root, parent }: GraphSubTreeAcc<NodeDtoA>,
+  { graph, parent }: GraphSubTreeAcc<NodeDtoA>,
   child: NodeDtoA,
 ) => {
   const node = new NodeEntity(child)
@@ -87,7 +83,6 @@ export const graphAppenderIteratee = (
   graph.addEdgeFromNodes(parent, node)
 
   return {
-    root,
     parent,
     prev: node,
     graph,

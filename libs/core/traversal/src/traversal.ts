@@ -11,7 +11,7 @@
 import { reduce } from 'lodash'
 import { NodeEntity } from '@codelab/core/node'
 import { TraversalIteratee } from '@codelab/shared/interface/graph'
-import { NodeDtoA, NodeDtoI } from '@codelab/shared/interface/node'
+import { NodeDtoA } from '@codelab/shared/interface/node'
 import { NodeIteratee, TreeSubTreeAcc } from '@codelab/shared/interface/tree'
 
 /**
@@ -24,14 +24,16 @@ import { NodeIteratee, TreeSubTreeAcc } from '@codelab/shared/interface/tree'
 // P -> Prop
 // S -> SubTree or Acc
 // N -> Node
-export const treeWalker = <T extends NodeDtoI, S extends TreeSubTreeAcc<T>>(
+export const treeWalker = <
+  T extends NodeDtoA = NodeDtoA,
+  S extends TreeSubTreeAcc<T> = TreeSubTreeAcc<T>
+>(
   parent: T | undefined,
   nodeIteratee: NodeIteratee<S, T>,
 ) => {
   return (
     subTreeAcc: S, // prev (reduce arg)
     child: T, // curr (reduce arg)
-    index: number, // index (reduce arg)
   ): any => {
     if (parent && !parent?.id) {
       throw Error('id missing from parent')
@@ -40,11 +42,7 @@ export const treeWalker = <T extends NodeDtoI, S extends TreeSubTreeAcc<T>>(
     /**
      * Append parent with acc
      */
-    const newSubTreeAcc: S = nodeIteratee(
-      { ...subTreeAcc, parent },
-      child,
-      index,
-    )
+    const newSubTreeAcc: S = nodeIteratee({ ...subTreeAcc, parent }, child)
 
     /**
      * Return traversal if no more children
@@ -59,19 +57,19 @@ export const treeWalker = <T extends NodeDtoI, S extends TreeSubTreeAcc<T>>(
      * At junction of tree, call children recursively with new parent & context passed in
      */
     return reduce<T, S>(
-      ((child?.children ?? []) as Array<T>) ?? [],
+      child.children as Array<T>,
       treeWalker<T, S>(newParent, nodeIteratee),
       newSubTreeAcc,
     )
   }
 }
 
-export const traversePostOrder = <T extends NodeDtoA>(
-  node: T,
-  iteratee: TraversalIteratee<T>,
+export const traversePostOrder = (
+  node: NodeDtoA,
+  iteratee: TraversalIteratee,
 ) => {
   node.children.forEach((child) => {
-    traversePostOrder<T>(child as T, iteratee)
+    traversePostOrder(child, iteratee)
   })
 
   iteratee(node)
