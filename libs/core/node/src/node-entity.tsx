@@ -1,7 +1,8 @@
 import { reduce } from 'lodash'
 import React, { FunctionComponent, ReactElement, ReactNode } from 'react'
 import { v4 as uuidv4 } from 'uuid'
-import { filterRenderProps } from '@codelab/core/props'
+// eslint-disable-next-line import/no-cycle
+import { buildProps, leafRenderPropsFilter } from '@codelab/core/props'
 import {
   HasChildren,
   Node,
@@ -77,34 +78,24 @@ export class NodeEntity<
     return !!this.children.length
   }
 
-  public get leafRenderProps() {
-    return filterRenderProps(this.parent?.props, 'leaf') ?? {}
-  }
-
-  public get parentRenderProps() {
-    return filterRenderProps(this.parent?.props, 'single') ?? {}
-  }
-
-  get mergedProps() {
-    this.props = { ...this.props, ...this.leafRenderProps }
-
-    return {
-      key: this.key,
-      ...this.props,
-      ...this.parentRenderProps,
-    }
-  }
-
   render(
     Component: any,
     props: Props,
     children: ReactNode,
     hasRootChildren: boolean,
   ): ReactElement {
+    const parentProps = this.parent?.props ?? {}
+    const evaluatedProps = buildProps(props, parentProps)
+
+    this.props = {
+      ...leafRenderPropsFilter(evaluatedProps),
+      ...props,
+    } as P
+
     return this.hasChildren() || hasRootChildren ? (
-      <Component {...props}>{children}</Component>
+      <Component {...evaluatedProps}>{children}</Component>
     ) : (
-      <Component {...props} />
+      <Component {...evaluatedProps} />
     )
   }
 
@@ -125,19 +116,23 @@ export class NodeEntity<
     const children = reduce<NodeEntity<T, P>, Array<ReactNode>>(
       this.children as Array<NodeEntity<T, P>>,
       (Components: Array<ReactNode>, child: NodeEntity) => {
-        const { Component: Child, mergedProps } = child
+        const { Component: Child, key, props } = child
 
         // console.debug(`${this.type} -> ${child.type}`, props)
 
         let ChildComponent: ReactNode = rootChildren ? (
-          <Child {...mergedProps}>{rootChildren}</Child>
+          <Child key={key} {...props}>
+            {rootChildren}
+          </Child>
         ) : (
-          <Child {...mergedProps} />
+          <Child key={key} {...props} />
         )
 
         if (child.hasChildren()) {
           ChildComponent = (
-            <Child {...mergedProps}>{child.Children(rootChildren)}</Child>
+            <Child key={key} {...props}>
+              {child.Children(rootChildren)}
+            </Child>
           )
         }
 

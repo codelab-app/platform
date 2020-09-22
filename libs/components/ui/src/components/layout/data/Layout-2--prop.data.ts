@@ -5,89 +5,97 @@ import { NodeDtoReactI } from '@codelab/shared/interface/node'
 export const propLayoutData: NodeDtoReactI<
   Layout.Props | Layout.SiderProps | Text.Props
 > = {
-  type: 'React.Layout',
-  props: { style: { minHeight: '100vh' }, hasSider: true },
+  type: 'React.Provider',
+  props: {
+    ctx: {
+      eval: true,
+      value:
+        'const [collapsed, setCollapsed] = this.React.useState(false); return { collapsed, setCollapsed }',
+    },
+    collapsible: true,
+    onCollapse: {
+      eval: true,
+      value: 'return () => this.setCollapsed(!this.collapsed)',
+    },
+    collapsed: {
+      eval: true,
+      value: 'return this.collapsed',
+    },
+  },
   children: [
     {
-      type: 'React.Layout.Sider',
-      props: {
-        ctx: {
-          eval: true,
-          value:
-            'const [collapsed, setCollapsed] = this.React.useState(false); return { collapsed, setCollapsed }',
-        },
-        collapsible: true,
-        onCollapse: {
-          eval: true,
-          value: 'return () => this.setCollapsed(!this.collapsed)',
-        },
-        collapsed: {
-          eval: true,
-          value: 'return this.collapsed',
-        },
-      },
-      children: [
-        {
-          type: 'React.Text',
-          props: {
-            value: { eval: true, value: 'return this.props.Sidebar.value' },
-          },
-        },
-      ],
-    },
-    {
       type: 'React.Layout',
+      props: { style: { minHeight: '100vh' }, hasSider: true },
       children: [
         {
-          type: 'React.Layout.Header',
+          type: 'React.Layout.Sider',
           children: [
             {
               type: 'React.Text',
               props: {
-                value: { eval: true, value: 'return this.props.Header.value' },
+                value: { eval: true, value: 'return this.props.Sidebar.value' },
               },
             },
           ],
         },
         {
-          type: 'React.Layout.Content',
-          props: {
-            style: {
-              margin: '24px 16px 0',
-            },
-          },
+          type: 'React.Layout',
           children: [
             {
-              type: 'React.Html.div',
-              props: { style: { padding: 24 } },
+              type: 'React.Layout.Header',
               children: [
                 {
                   type: 'React.Text',
                   props: {
                     value: {
                       eval: true,
-                      value: 'return this.props.Content.value',
+                      value: 'return this.props.Header.value',
                     },
                   },
                 },
               ],
             },
-          ],
-        },
-        {
-          type: 'React.Layout.Footer',
-          children: [
             {
-              type: 'React.Html.p',
+              type: 'React.Layout.Content',
+              props: {
+                style: {
+                  margin: '24px 16px 0',
+                },
+              },
               children: [
                 {
-                  type: 'React.Text',
-                  props: {
-                    value: {
-                      eval: true,
-                      value: 'return this.props.Footer.value',
+                  type: 'React.Html.div',
+                  props: { style: { padding: 24 } },
+                  children: [
+                    {
+                      type: 'React.Text',
+                      props: {
+                        value: {
+                          eval: true,
+                          value: 'return this.props.Content.value',
+                        },
+                      },
                     },
-                  },
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'React.Layout.Footer',
+              children: [
+                {
+                  type: 'React.Html.p',
+                  children: [
+                    {
+                      type: 'React.Text',
+                      props: {
+                        value: {
+                          eval: true,
+                          value: 'return this.props.Footer.value',
+                        },
+                      },
+                    },
+                  ],
                 },
               ],
             },

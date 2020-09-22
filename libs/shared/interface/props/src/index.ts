@@ -3,19 +3,19 @@ import {
   PropJsonValue,
   PropValue,
   Props,
-  PropsFromKeys,
-  PropsFactory,
-  PropsIterator,
   PropsBuilder,
+  PropsFactory,
+  PropsFromKeys,
+  PropsIterator,
 } from './props'
 
 export type {
   PropItem,
+  PropJsonValue,
   PropValue,
   Props,
-  PropsFromKeys,
-  PropJsonValue,
   PropsFactory,
+  PropsFromKeys,
   PropsIterator,
   PropsBuilder,
 }

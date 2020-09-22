@@ -15,12 +15,17 @@ export namespace Provider {
     return (
       <>
         {(Array.isArray(children) ? children : [children]).map(
-          (child: React.ReactElement, index: number) => (
-            // eslint-disable-next-line react/no-array-index-key
-            <React.Fragment key={index}>
-              {React.cloneElement(child, { ...props, ...child.props })}
-            </React.Fragment>
-          ),
+          (child: React.ReactElement, index: number) => {
+            return (
+              // eslint-disable-next-line react/no-array-index-key
+              <React.Fragment key={index}>
+                {React.cloneElement(child, {
+                  ...props,
+                  ...child.props,
+                })}
+              </React.Fragment>
+            )
+          },
         )}
       </>
     )

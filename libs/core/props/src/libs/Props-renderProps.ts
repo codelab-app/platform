@@ -1,11 +1,11 @@
 import { reduce } from 'lodash'
-import { Props, PropsFactory, PropItem } from '@codelab/shared/interface/props'
+import { propsIterator } from './Props-iterator'
 import {
   isLeafRenderPropValue,
   isRenderPropValue,
   isSingleRenderPropValue,
 } from './Props.guards'
-import { evalPropsIterator } from './Props-eval'
+import { PropItem, Props, PropsFactory } from '@codelab/shared/interface/props'
 
 type PropIteratee = (
   prop: Props,
@@ -22,22 +22,22 @@ export type RenderPropsFilter =
   // All the way
   | 'leaf'
 
-export const propsIterator = <P extends Props = Props>(
-  props: P,
-  predicate: any = () => true,
-  onTruthy: Function,
-  onFalsy?: Function,
-) => {
-  return reduce<Props, Props>(
-    props,
-    (prop: Props, propValue: Props[keyof Props], propKey: keyof Props) => {
-      return predicate(prop, propValue, propKey) || onFalsy === undefined
-        ? onTruthy(prop, propValue, propKey)
-        : onFalsy(prop, propValue, propKey)
-    },
-    {},
-  )
-}
+// export const propsIterator = <P extends Props = Props>(
+//   props: P,
+//   predicate: any = () => true,
+//   onTruthy: Function,
+//   onFalsy?: Function,
+// ) => {
+//   return reduce<Props, Props>(
+//     props,
+//     (prop: Props, propValue: Props[keyof Props], propKey: keyof Props) => {
+//       return predicate(prop, propValue, propKey) || onFalsy === undefined
+//         ? onTruthy(prop, propValue, propKey)
+//         : onFalsy(prop, propValue, propKey)
+//     },
+//     {},
+//   )
+// }
 
 /**
  * Remove non-render props
@@ -129,9 +129,9 @@ export const singleRenderPropsFactory: PropsFactory = (
 }
 
 export const leafRenderPropsFilter = <P extends Props = Props>(props: P) => {
-  return evalPropsIterator(props, leafRenderPropsFactory)
+  return propsIterator(props, leafRenderPropsFactory)
 }
 
 export const singleRenderPropsFilter = <P extends Props = Props>(props: P) => {
-  return evalPropsIterator(props, singleRenderPropsFactory)
+  return propsIterator(props, singleRenderPropsFactory)
 }

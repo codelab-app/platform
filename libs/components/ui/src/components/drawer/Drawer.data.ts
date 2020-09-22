@@ -29,7 +29,7 @@ export const drawerData: NodeDtoReactI<
   children: [
     {
       type: 'React.Button',
-      props: { type: 'React.primary' },
+      props: { type: 'primary' },
       children: [
         {
           type: 'React.Text',

@@ -164,7 +164,7 @@ export const formDefaultData: NodeDtoReactI<
         {
           type: 'React.Button',
           props: {
-            type: 'React.primary',
+            type: 'primary',
             htmlType: 'submit',
           },
           children: [

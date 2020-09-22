@@ -5,7 +5,7 @@ import { NodeDtoReactI } from '@codelab/shared/interface/node'
 export const buttonData: NodeDtoReactI<Button.Props | Text.Props> = {
   type: 'React.Button',
   props: {
-    type: 'React.primary',
+    type: 'primary',
   },
   children: [
     {

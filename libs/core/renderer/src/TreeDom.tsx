@@ -1,23 +1,11 @@
-import { merge } from 'lodash'
+/* eslint-disable import/no-cycle */
 import React, { FunctionComponent, PropsWithChildren } from 'react'
-// eslint-disable-next-line import/no-cycle
 import { elementParameterFactory } from './ElementFactory'
-import {
-  convertToLeafRenderProps,
-  evalPropsWithContext,
-} from '@codelab/core/props'
+import { buildCtx, convertToLeafRenderProps } from '@codelab/core/props'
 import { traversePostOrder } from '@codelab/core/traversal'
 import { makeTree } from '@codelab/core/tree'
 import { Node, NodeDtoI } from '@codelab/shared/interface/node'
 import { Props } from '@codelab/shared/interface/props'
-
-/**
- * We need this function in ui package because TreeDom is required, can't put in node or props package
- */
-const evalPropsWithTreeContext = (props: Props, parentProps: Props): Props => {
-  // eslint-disable-next-line no-use-before-define
-  return evalPropsWithContext(merge(props, { ctx: { TreeDom } }), parentProps)
-}
 
 export class TreeDom {
   static render<P extends Props = {}>(
@@ -43,15 +31,16 @@ export class TreeDom {
         // also contains rootProps
         ...internalProps
       }: PropsWithChildren<P>) => {
-        return node.render(
-          Component,
-          evalPropsWithTreeContext(
-            { ...props, ...internalProps },
-            node.parent ? node.parent.props : {},
-          ),
-          children,
-          hasRootChildren,
-        )
+        const mergedProps =
+          node.type === 'React.Provider'
+            ? {
+                ...props,
+                ...internalProps,
+                ctx: buildCtx({ ...props, ...internalProps }),
+              }
+            : { ...props, ...internalProps }
+
+        return node.render(Component, mergedProps, children, hasRootChildren)
       }
 
       if (node.type === 'React.Select.Option') {

@@ -12,7 +12,7 @@ const deleteButton: NodeDtoReactI<
 > = {
   type: 'React.Button',
   props: {
-    type: 'React.danger',
+    type: 'danger',
     onClick: {
       eval: true,
       value: 'return () => console.log(this.props.record.value.name)',
@@ -81,8 +81,13 @@ export const tableData: NodeDtoReactI = {
         dataIndex: 'action',
         key: 'action',
         render: {
-          type: 'React.Space',
-          children: [editButton, deleteButton],
+          type: 'React.Provider',
+          children: [
+            {
+              type: 'React.Space',
+              children: [editButton, deleteButton],
+            },
+          ],
         },
       },
     ],

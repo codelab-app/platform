@@ -1,6 +1,6 @@
 import {
-  convertToRenderProps,
   convertToLeafRenderProps,
+  convertToRenderProps,
   filterRenderProps,
   leafRenderPropsFilter,
   singleRenderPropsFilter,

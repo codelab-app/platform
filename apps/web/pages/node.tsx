@@ -39,7 +39,11 @@ const NodePage = () => {
 
   return (
     <>
-      <ButtonGroup setvisibility={setVisibility} handledelete={deleteNode} />
+      <ButtonGroup
+        setvisibility={setVisibility}
+        handledelete={deleteNode}
+        selectednode={selectedNode}
+      />
       <ModalForm
         handlesubmit={handleSubmitForm}
         visibility={visibility}

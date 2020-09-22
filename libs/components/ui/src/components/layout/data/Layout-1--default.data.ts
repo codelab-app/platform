@@ -6,100 +6,37 @@ import { NodeDtoReactI } from '@codelab/shared/interface/node'
 export const layoutData: NodeDtoReactI<
   Layout.Props | Layout.SiderProps | Text.Props | Menu.Props | Menu.ItemProps
 > = {
-  type: 'React.Layout',
-  props: { style: { minHeight: '100vh' }, hasSider: true },
+  type: 'React.Provider',
+  props: {
+    ctx: {
+      eval: true,
+      value:
+        'const [collapsed, setCollapsed] = this.React.useState(false); return { collapsed, setCollapsed }',
+    },
+    collapsible: true,
+    onCollapse: {
+      eval: true,
+      value: 'return () => this.setCollapsed(!this.collapsed)',
+    },
+    collapsed: {
+      eval: true,
+      value: 'return this.collapsed',
+    },
+  },
   children: [
     {
-      type: 'React.Layout.Sider',
-      props: {
-        ctx: {
-          eval: true,
-          value:
-            'const [collapsed, setCollapsed] = this.React.useState(false); return { collapsed, setCollapsed }',
-        },
-        collapsible: true,
-        onCollapse: {
-          eval: true,
-          value: 'return () => this.setCollapsed(!this.collapsed)',
-        },
-        collapsed: {
-          eval: true,
-          value: 'return this.collapsed',
-        },
-      },
-      children: [
-        {
-          type: 'React.Menu',
-          props: {
-            theme: 'dark',
-            mode: 'inline',
-            defaultSelectedKeys: ['1'],
-          },
-          children: [
-            {
-              type: 'React.Menu.Item',
-              props: {
-                key: '1',
-              },
-              children: [
-                {
-                  type: 'React.Icon',
-                  props: { type: 'React.user', theme: 'outlined' },
-                },
-                {
-                  type: 'React.Html.span',
-                  children: [
-                    {
-                      type: 'React.Text',
-
-                      props: {
-                        value: 'Option 1',
-                      },
-                    },
-                  ],
-                },
-              ],
-            },
-            {
-              type: 'React.Menu.Item',
-              props: {
-                key: '2',
-              },
-              children: [
-                {
-                  type: 'React.Icon',
-                  props: { type: 'React.videoCamera', theme: 'outlined' },
-                },
-                {
-                  type: 'React.Html.span',
-                  children: [
-                    {
-                      type: 'React.Text',
-                      props: {
-                        value: 'Option 2',
-                      },
-                    },
-                  ],
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
-
-    {
       type: 'React.Layout',
+      props: { style: { minHeight: '100vh' }, hasSider: true },
       children: [
         {
-          type: 'React.Layout.Header',
+          type: 'React.Layout.Sider',
           children: [
             {
               type: 'React.Menu',
               props: {
                 theme: 'dark',
-                mode: 'horizontal',
-                defaultSelectedKeys: ['2'],
+                mode: 'inline',
+                defaultSelectedKeys: ['1'],
               },
               children: [
                 {
@@ -109,10 +46,19 @@ export const layoutData: NodeDtoReactI<
                   },
                   children: [
                     {
-                      type: 'React.Text',
-                      props: {
-                        value: 'nav 1',
-                      },
+                      type: 'React.Icon',
+                      props: { type: 'user', theme: 'outlined' },
+                    },
+                    {
+                      type: 'React.Html.span',
+                      children: [
+                        {
+                          type: 'React.Text',
+                          props: {
+                            value: 'Option 1',
+                          },
+                        },
+                      ],
                     },
                   ],
                 },
@@ -123,60 +69,123 @@ export const layoutData: NodeDtoReactI<
                   },
                   children: [
                     {
-                      type: 'React.Text',
-                      props: {
-                        value: 'nav 2',
-                      },
+                      type: 'React.Icon',
+                      props: { type: 'videoCamera', theme: 'outlined' },
+                    },
+                    {
+                      type: 'React.Html.span',
+                      children: [
+                        {
+                          type: 'React.Text',
+                          props: {
+                            value: 'Option 2',
+                          },
+                        },
+                      ],
                     },
                   ],
                 },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'React.Layout',
+          children: [
+            {
+              type: 'React.Layout.Header',
+              children: [
                 {
-                  type: 'React.Menu.Item',
+                  type: 'React.Menu',
                   props: {
-                    key: '3',
+                    theme: 'dark',
+                    mode: 'horizontal',
+                    defaultSelectedKeys: ['2'],
                   },
                   children: [
                     {
-                      type: 'React.Text',
+                      type: 'React.Menu.Item',
                       props: {
-                        value: 'nav 3',
+                        key: '1',
                       },
+                      children: [
+                        {
+                          type: 'React.Text',
+                          props: {
+                            value: 'nav 1',
+                          },
+                        },
+                      ],
+                    },
+                    {
+                      type: 'React.Menu.Item',
+                      props: {
+                        key: '2',
+                      },
+                      children: [
+                        {
+                          type: 'React.Text',
+                          props: {
+                            value: 'nav 2',
+                          },
+                        },
+                      ],
+                    },
+                    {
+                      type: 'React.Menu.Item',
+                      props: {
+                        key: '3',
+                      },
+                      children: [
+                        {
+                          type: 'React.Text',
+                          props: {
+                            value: 'nav 3',
+                          },
+                        },
+                      ],
                     },
                   ],
                 },
               ],
             },
-          ],
-        },
-        {
-          type: 'React.Layout.Content',
-          props: {
-            style: {
-              margin: '24px 16px 0',
-            },
-          },
-          children: [
             {
-              type: 'React.Html.div',
-              props: { style: { padding: 24 } },
+              type: 'React.Layout.Content',
+              props: {
+                style: {
+                  margin: '24px 16px 0',
+                },
+              },
               children: [
                 {
-                  type: 'React.Text',
-                  props: { value: 'Content' },
+                  type: 'React.Html.div',
+                  props: { style: { padding: 24 } },
+                  children: [
+                    {
+                      type: 'React.Text',
+                      props: { value: 'Content' },
+                      // props: {
+                      //   value: {
+                      //     eval: true,
+                      //     value: 'console.log(this)',
+                      //   },
+                      // },
+                    },
+                  ],
                 },
               ],
             },
-          ],
-        },
-        {
-          type: 'React.Layout.Footer',
-          children: [
             {
-              type: 'React.Html.p',
+              type: 'React.Layout.Footer',
               children: [
                 {
-                  type: 'React.Text',
-                  props: { value: 'Footer' },
+                  type: 'React.Html.p',
+                  children: [
+                    {
+                      type: 'React.Text',
+                      props: { value: 'Footer' },
+                    },
+                  ],
                 },
               ],
             },

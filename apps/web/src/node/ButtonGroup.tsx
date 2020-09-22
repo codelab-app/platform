@@ -16,7 +16,7 @@ const nodeButtonGroupData: NodeDtoReactI = {
           props: {
             value: {
               eval: true,
-              value: 'return this.props.selectedNode',
+              value: 'return this.props.selectednode.value',
             },
           },
         },
@@ -85,6 +85,7 @@ const nodeButtonGroupData: NodeDtoReactI = {
 export interface ButtonGroupProps {
   setvisibility: Function
   handledelete: Function
+  selectednode: any
 }
 
 export const ButtonGroup = TreeDom.render<ButtonGroupProps>(nodeButtonGroupData)

@@ -11,7 +11,7 @@ export const messageData: NodeDtoReactI<
     onClick: {
       eval: true,
       value:
-        'return () => this.antd.message.info(this.evalProps(this.props.config, this.evalPropsFactory, {}))',
+        'return () => { this.antd.message.info(this.evalProps(this.props.config, this.evalPropsFactory))}',
     },
     config: {
       content: 'This is a normal message',

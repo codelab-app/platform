@@ -13,7 +13,7 @@ export const spaceData: NodeDtoReactI<
   children: [
     {
       type: 'React.Button',
-      props: { type: 'React.primary' },
+      props: { type: 'primary' },
       children: [{ type: 'React.Text', props: { value: 'Primary' } }],
     },
     {
