@@ -29,7 +29,10 @@ export type NodeTypeLiteral =
   | keyof typeof NodeTypeTreeEnum
   | keyof typeof NodeTypeReactEnum
 
-export const nodeTypeLiterals: Array<string> = [
+/**
+ * All possible values
+ */
+export const nodeTypeLiterals: Array<NodeTypeLiteral> = [
   ...Object.values(NodeTypeModelEnum),
   ...Object.values(NodeTypeTreeEnum),
   ...Object.values(NodeTypeReactEnum),

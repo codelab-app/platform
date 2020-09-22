@@ -1,11 +1,16 @@
-import { NodeCreateDto } from '@codelab/shared/interface/node'
+import axios from 'axios'
+import { NodeCreateDto, NodeDtoA } from '@codelab/shared/interface/node'
 
 export interface MongooseRepository {
-  save<T>(data: T): Promise<T>
+  save<T, R>(data: T): Promise<R>
 }
 
 export class NodeRepository implements MongooseRepository {
-  save<NodeCreateDto>(data: NodeCreateDto): Promise<any> {
-    return Promise.resolve('test')
+  save<CreateDto = NodeCreateDto, A = NodeDtoA>(data: CreateDto): Promise<A> {
+    return axios.post('')
+  }
+
+  get<A = NodeDtoA>(id: string): Promise<A> {
+    return axios.get('')
   }
 }
