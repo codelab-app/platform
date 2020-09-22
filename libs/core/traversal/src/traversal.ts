@@ -32,13 +32,14 @@ export const treeWalker = <
   T extends NodeDtoI = NodeDtoI,
   S extends TreeSubTreeAcc<T> = TreeSubTreeAcc<T>
 >(
-  parent: T | undefined,
   nodeIteratee: TraversalIteratee<S, T>,
+  parent?: T,
 ) => {
   return (
     subTreeAcc: S, // prev (reduce arg)
     child: T, // curr (reduce arg)
   ): any => {
+    console.log(parent?.id, subTreeAcc.parent?.id)
     if (parent && !parent?.id) {
       throw Error('id missing from parent')
     }
@@ -62,8 +63,8 @@ export const treeWalker = <
      */
     return reduce<T, S>(
       child.children as Array<T>,
-      treeWalker<T, S>(newParent, nodeIteratee),
-      newSubTreeAcc,
+      treeWalker<T, S>(nodeIteratee, newParent),
+      { ...newSubTreeAcc },
     )
   }
 }

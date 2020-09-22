@@ -44,12 +44,11 @@ export const treeAppenderIteratee: TraversalIteratee<
 
   const childNode = new NodeEntity(child)
 
-  console.debug(`Adding ${childNode?.id} to ${parent?.id}`)
+  // console.debug(`Adding ${childNode?.id} to ${parent?.id}`)
   ;(parent as Node).addChild(childNode)
 
   return {
-    parent,
-    prev: childNode,
+    prev: childNode, // Used by treeWalker to determine parent for next set of nodes
   }
 }
 
@@ -63,7 +62,6 @@ export const graphAppenderIteratee: TraversalIteratee<
   graph.addEdgeFromNodes(parent, node)
 
   return {
-    parent,
     prev: node,
     graph,
   }

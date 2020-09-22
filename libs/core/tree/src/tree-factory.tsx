@@ -41,14 +41,13 @@ export const makeTree = (input: NodeDtoI): NodeDtoA => {
   const parent = new NodeEntity(input)
   const subTreeAcc = {
     prev: parent,
-    parent,
   }
 
   reduce<NodeDtoA, TreeSubTreeAcc<NodeDtoA>>(
     (input.children ?? []) as Array<NodeDtoA>,
     treeWalker<NodeDtoA, TreeSubTreeAcc<NodeDtoA>>(
-      parent,
       treeAppenderIteratee,
+      parent,
     ),
     subTreeAcc,
   )
@@ -64,7 +63,6 @@ export const makeGraph = (input: NodeDtoI): Graph => {
   const root = makeTree(input)
   const graph = new Graph({ vertices: [], edges: [] })
   const subTreeAcc = {
-    parent: root,
     prev: root,
     graph,
   }
@@ -74,14 +72,12 @@ export const makeGraph = (input: NodeDtoI): Graph => {
   return reduce<NodeDtoA, GraphSubTreeAcc<NodeDtoA>>(
     (input as NodeDtoA).children ?? [],
     treeWalker<NodeDtoA, GraphSubTreeAcc<NodeDtoA>>(
-      root,
       graphAppenderIteratee,
+      root,
     ),
     subTreeAcc,
   ).graph
 }
-
-type Model = Required<Pick<ModelAcc<NodeDtoA>, 'name' | 'model' | 'schema'>>
 
 /**
  * traversePostOrder doesn't allow us to use acc, so we reduce and build from bottom up. Since we won't need to worry about branching order for Models, we can do this.
@@ -91,7 +87,7 @@ export const makeModel = (input: NodeDtoI) => {
 
   const acc = reduce<NodeDtoA, ModelAcc<NodeDtoA>>(
     (input.children ?? []) as Array<NodeDtoA>,
-    treeWalker<NodeDtoA, ModelAcc<NodeDtoA>>(root, modelCreationIteratee),
+    treeWalker<NodeDtoA, ModelAcc<NodeDtoA>>(modelCreationIteratee, root),
     {},
   )
 
@@ -114,10 +110,7 @@ export const findNode = (
 
   return reduce<NodeDtoA, NodeFinderAcc<NodeDtoA>>(
     node.children,
-    treeWalker<NodeDtoA, NodeFinderAcc<NodeDtoA>>(
-      undefined,
-      nodeFinderIteratee,
-    ),
+    treeWalker<NodeDtoA, NodeFinderAcc<NodeDtoA>>(nodeFinderIteratee),
     {
       id,
     },
