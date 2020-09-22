@@ -1,13 +1,13 @@
 import React from 'react'
 import { listData } from './List.data'
-import { TreeDom } from '@codelab/core/renderer'
+import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'List',
 }
 
 export const Default = () => {
-  const List = TreeDom.render(listData)
+  const List = Renderer.components(listData)
 
   return <List />
 }

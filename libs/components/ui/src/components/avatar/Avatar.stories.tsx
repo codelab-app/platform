@@ -1,13 +1,13 @@
 import React from 'react'
 import { avatarData } from './Avatar.data'
-import { TreeDom } from '@codelab/core/renderer'
+import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'Avatar',
 }
 
 export const Default = () => {
-  const Avatar = TreeDom.render(avatarData)
+  const Avatar = Renderer.components(avatarData)
 
   return <Avatar />
 }

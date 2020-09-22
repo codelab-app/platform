@@ -5,6 +5,7 @@ module.exports = {
     project: ['tsconfig.eslint.json'],
   },
   rules: {
+    'import/no-cycle': 'off',
     // 'unused-imports/no-unused-imports-ts': 'error',
   },
 }

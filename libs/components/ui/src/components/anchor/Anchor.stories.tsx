@@ -1,13 +1,13 @@
 import React from 'react'
 import { anchorData } from './Anchor.data'
-import { TreeDom } from '@codelab/core/renderer'
+import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'Anchor',
 }
 
 export const Default = () => {
-  const Anchor = TreeDom.render(anchorData)
+  const Anchor = Renderer.components(anchorData)
 
   return <Anchor />
 }

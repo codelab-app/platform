@@ -1,13 +1,13 @@
 import React from 'react'
 import { calendarData } from './Calendar.data'
-import { TreeDom } from '@codelab/core/renderer'
+import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'Calendar',
 }
 
 export const Default = () => {
-  const Calendar = TreeDom.render(calendarData)
+  const Calendar = Renderer.components(calendarData)
 
   return <Calendar />
 }

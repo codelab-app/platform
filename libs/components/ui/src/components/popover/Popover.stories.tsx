@@ -1,13 +1,13 @@
 import React from 'react'
 import { popoverData } from './Popover.data'
-import { TreeDom } from '@codelab/core/renderer'
+import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'Popover',
 }
 
 export const Default = () => {
-  const Popover = TreeDom.render(popoverData)
+  const Popover = Renderer.components(popoverData)
 
   return <Popover />
 }

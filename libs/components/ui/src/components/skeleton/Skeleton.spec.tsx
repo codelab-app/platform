@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react'
 import React from 'react'
-import { TreeDom } from '@codelab/core/renderer'
+import { Renderer } from '@codelab/core/renderer'
 import { NodeDtoReactI } from '@codelab/shared/interface/node'
 
 describe('Skeleton', () => {
@@ -22,7 +22,7 @@ describe('Skeleton', () => {
       ],
     }
 
-    const Skeleton = TreeDom.render(skeleton)
+    const Skeleton = Renderer.components(skeleton)
 
     const { getByTestId } = render(<Skeleton />)
 

@@ -1,13 +1,13 @@
 import React from 'react'
 import { autocompleteData } from './AutoComplete.data'
-import { TreeDom } from '@codelab/core/renderer'
+import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'AutoComplete',
 }
 
 export const Default = () => {
-  const AutoComplete = TreeDom.render(autocompleteData)
+  const AutoComplete = Renderer.components(autocompleteData)
 
   return <AutoComplete />
 }

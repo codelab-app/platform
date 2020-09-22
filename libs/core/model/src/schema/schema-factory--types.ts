@@ -1,21 +1,18 @@
 import { reduce } from 'lodash'
 import * as mongoose from 'mongoose'
-import {
-  SchemaDefinition,
-  SchemaTypeOpts,
-} from '@codelab/shared/interface/node'
+import { SchemaProps, SchemaPropsValue } from '@codelab/shared/interface/model'
 
 export const getSchemaType = (
-  property: SchemaTypeOpts,
+  propValue: SchemaPropsValue,
 ): mongoose.SchemaTypeOpts<any> => {
-  const { type } = property
+  const { type } = propValue
 
-  if ('enum' in property) {
-    return { type: mongoose.Schema.Types.String, enum: property.enum }
+  if ('enum' in propValue) {
+    return { type: mongoose.Schema.Types.String, enum: propValue.enum }
   }
 
-  if ('ref' in property) {
-    return { type: mongoose.Schema.Types.ObjectId, ref: property.ref }
+  if ('ref' in propValue) {
+    return { type: mongoose.Schema.Types.ObjectId, ref: propValue.ref }
   }
 
   if (type === 'string') {
@@ -33,18 +30,21 @@ export const getSchemaType = (
   return { type: mongoose.Schema.Types.String }
 }
 
-export const produceSchemaDefinition = (
-  props?: SchemaDefinition,
+/**
+ * Transform props to mongoose Schema
+ */
+export const schemaPropsFactory = (
+  props?: SchemaProps,
 ): mongoose.SchemaDefinition => {
   const schemaDefinition: mongoose.SchemaDefinition = reduce<
-    SchemaDefinition,
+    SchemaProps,
     mongoose.SchemaDefinition
   >(
     props,
     (
       mongooseSchemaDefinition: mongoose.SchemaDefinition,
-      propValue: SchemaDefinition[keyof SchemaDefinition],
-      propKey: keyof SchemaDefinition,
+      propValue: SchemaProps[keyof SchemaProps],
+      propKey: keyof SchemaProps,
     ) => {
       return {
         ...mongooseSchemaDefinition,

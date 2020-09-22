@@ -1,20 +1,20 @@
 import React from 'react'
 import { divData } from '../components/html/Html.data'
 import { renderPropsData } from './Props-renderProps.data'
-import { TreeDom } from '@codelab/core/renderer'
+import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'Props',
 }
 
 export const Default = () => {
-  const Component = TreeDom.render(renderPropsData)
+  const Component = Renderer.components(renderPropsData)
 
   return <Component />
 }
 
 export const Children = () => {
-  const Div = TreeDom.render(divData)
+  const Div = Renderer.components(divData)
 
   return <Div>Content</Div>
 }

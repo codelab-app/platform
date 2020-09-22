@@ -1,5 +1,7 @@
+import { Attributes, ComponentClass, FunctionComponent } from 'react'
 import { NodeDtoA } from './dto/node-dto'
 import { NodeTypeLiteral } from './enums'
+import { PropsFilter } from '@codelab/core/props'
 import { Props } from '@codelab/shared/interface/props'
 
 export interface HasChildren<N> {
@@ -33,3 +35,9 @@ export interface Node<
   render: any
   Children: any
 }
+
+export type ElementParameters<P extends Props> = [
+  FunctionComponent<P> | ComponentClass<P> | string,
+  Attributes & P,
+  PropsFilter<P>?,
+]

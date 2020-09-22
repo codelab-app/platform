@@ -1,5 +1,5 @@
 import React from 'react'
-import { TreeDom } from '@codelab/core/renderer'
+import { Renderer } from '@codelab/core/renderer'
 import { NodeDtoI } from '@codelab/shared/interface/node'
 
 export const modelFormData: NodeDtoI = {
@@ -114,7 +114,7 @@ export const modelFormData: NodeDtoI = {
 }
 
 const Model = () => {
-  const ModelForm = TreeDom.render(modelFormData)
+  const ModelForm = Renderer.components(modelFormData)
 
   return <ModelForm />
 }

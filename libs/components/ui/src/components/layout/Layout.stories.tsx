@@ -3,14 +3,14 @@ import { Menu } from 'antd'
 import React from 'react'
 import { layoutData } from './data/Layout-1--default.data'
 import { propLayoutData } from './data/Layout-2--prop.data'
-import { TreeDom } from '@codelab/core/renderer'
+import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'Layout',
 }
 
 export const Default = () => {
-  const Layout = TreeDom.render(layoutData)
+  const Layout = Renderer.components(layoutData)
 
   return <Layout />
 }
@@ -53,7 +53,7 @@ export const PropLayout = () => {
     </>
   )
 
-  const Layout = TreeDom.render(propLayoutData)
+  const Layout = Renderer.components(propLayoutData)
 
   return (
     <Layout

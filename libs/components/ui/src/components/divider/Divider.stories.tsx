@@ -1,13 +1,13 @@
 import React from 'react'
 import { dividerData } from './Divider.data'
-import { TreeDom } from '@codelab/core/renderer'
+import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'Divider',
 }
 
 export const Default = () => {
-  const Divider = TreeDom.render(dividerData)
+  const Divider = Renderer.components(dividerData)
 
   return <Divider />
 }

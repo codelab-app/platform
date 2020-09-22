@@ -3,15 +3,27 @@
  */
 
 import { reduce } from 'lodash'
+import { modelCreationIteratee } from '../../traversal/src/traversal-iteratee'
 import { Graph } from '@codelab/core/graph'
 import { NodeEntity } from '@codelab/core/node'
 import {
   graphAppenderIteratee,
+  nodeFinderIteratee,
   treeAppenderIteratee,
   treeWalker,
 } from '@codelab/core/traversal'
-import { NodeDtoA, NodeDtoI } from '@codelab/shared/interface/node'
-import { GraphSubTreeAcc, TreeSubTreeAcc } from '@codelab/shared/interface/tree'
+import {
+  NodeDtoA,
+  NodeDtoI,
+  isID,
+  isNodeDtoA,
+} from '@codelab/shared/interface/node'
+import {
+  GraphSubTreeAcc,
+  ModelAcc,
+  NodeFinderAcc,
+  TreeSubTreeAcc,
+} from '@codelab/shared/interface/tree'
 
 /**
  * This method generates a non-binary tree given JSON input. Each input node is
@@ -51,7 +63,7 @@ export const makeGraph = (input: NodeDtoI): Graph => {
   // Convert input to Node input structure first, nodeFinder requires Node representation
   const root = makeTree(input)
   const graph = new Graph({ vertices: [], edges: [] })
-  const subTreeContext = {
+  const subTreeAcc = {
     parent: root,
     prev: root,
     graph,
@@ -65,8 +77,51 @@ export const makeGraph = (input: NodeDtoI): Graph => {
       root,
       graphAppenderIteratee,
     ),
-    subTreeContext,
+    subTreeAcc,
   ).graph
+}
+
+type Model = Required<Pick<ModelAcc<NodeDtoA>, 'name' | 'model' | 'schema'>>
+
+/**
+ * traversePostOrder doesn't allow us to use acc, so we reduce and build from bottom up. Since we won't need to worry about branching order for Models, we can do this.
+ */
+export const makeModel = (input: NodeDtoI) => {
+  const root = new NodeEntity(input)
+
+  const acc = reduce<NodeDtoA, ModelAcc<NodeDtoA>>(
+    (input.children ?? []) as Array<NodeDtoA>,
+    treeWalker<NodeDtoA, ModelAcc<NodeDtoA>>(root, modelCreationIteratee),
+    {},
+  )
+
+  /* We need to call iteratee here because treeWalker doesn't apply the iteratee on the root. This way we process the root node as well.
+   */
+  return modelCreationIteratee(acc, root)
+}
+
+// TODO: needs to be optimized for traversal performance
+export const findNode = (
+  id: string | undefined,
+  node: NodeDtoA,
+): NodeDtoA | undefined => {
+  isID(id)
+  isNodeDtoA(node)
+
+  if (node.id === id) {
+    return node
+  }
+
+  return reduce<NodeDtoA, NodeFinderAcc<NodeDtoA>>(
+    node.children,
+    treeWalker<NodeDtoA, NodeFinderAcc<NodeDtoA>>(
+      undefined,
+      nodeFinderIteratee,
+    ),
+    {
+      id,
+    },
+  ).found
 }
 
 // export const fromNodes = <P extends Props = any>(

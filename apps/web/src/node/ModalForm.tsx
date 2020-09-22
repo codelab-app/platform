@@ -1,5 +1,5 @@
 import { Form } from '@codelab/components/ui'
-import { TreeDom } from '@codelab/core/renderer'
+import { Renderer } from '@codelab/core/renderer'
 import {
   BaseNodeTypeEnum,
   NodeDtoReactI,
@@ -184,4 +184,4 @@ interface ModalFormProps {
   setvisibility: Function
 }
 
-export const ModalForm = TreeDom.render<ModalFormProps>(modalFormData)
+export const ModalForm = Renderer.components<ModalFormProps>(modalFormData)

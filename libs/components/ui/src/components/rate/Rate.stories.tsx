@@ -1,13 +1,13 @@
 import React from 'react'
 import { rateData } from './Rate.data'
-import { TreeDom } from '@codelab/core/renderer'
+import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'Rate',
 }
 
 export const Default = () => {
-  const Rate = TreeDom.render(rateData)
+  const Rate = Renderer.components(rateData)
 
   return <Rate />
 }

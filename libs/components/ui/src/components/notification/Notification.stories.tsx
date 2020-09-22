@@ -1,13 +1,13 @@
 import React from 'react'
 import { notificationData } from './Notification.data'
-import { TreeDom } from '@codelab/core/renderer'
+import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'Notification',
 }
 
 export const Default = () => {
-  const Notification = TreeDom.render(notificationData)
+  const Notification = Renderer.components(notificationData)
 
   return <Notification />
 }

@@ -7,22 +7,6 @@ module.exports = {
   // assetPrefix: `http://storage.googleapis.com/codelab_doc/images`,
   plugins: [
     'gatsby-plugin-tsconfig-paths',
-    {
-      resolve: 'gatsby-source-typedoc',
-      options: {
-        // Array of Typescript files to
-        // include
-        src: [`${__dirname}/src/components/Menu.tsx`],
-
-        // Options passed to Typedoc Application
-        // Usually corresponds to CLI args directly
-        typedoc: {
-          target: 'es5',
-          mode: 'modules',
-          tsconfig: `${__dirname}/tsconfig.json`,
-        },
-      },
-    },
     // Add markdown page https://www.gatsbyjs.org/docs/adding-markdown-pages/
     {
       resolve: `gatsby-source-filesystem`,
@@ -111,7 +95,9 @@ module.exports = {
     {
       resolve: `gatsby-plugin-typescript`,
       options: {
+        allowNamespaces: true,
         // isTSX: true, // defaults to false
+        onlyRemoveTypeImports: true,
         // jsxPragma: `jsx`, // defaults to "React"
         // allExtensions: true, // defaults to false
       },

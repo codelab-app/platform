@@ -3,7 +3,7 @@ import { treeData, treeDataWithLabel } from './data'
 import { makeGraph, makeTree } from './tree-factory'
 import { treeMap } from './tree-map'
 import { Edge, Vertex } from '@codelab/core/graph'
-import { findNode } from '@codelab/core/traversal'
+import { findNode } from '@codelab/core/tree'
 import { Mapper, NodeDtoI } from '@codelab/shared/interface/node'
 
 describe('Tree', () => {

@@ -1,5 +1,5 @@
 import { NodeEntity } from '@codelab/core/node'
-import { findNode } from '@codelab/core/traversal'
+import { findNode } from '@codelab/core/tree'
 
 describe('Node', () => {
   it('can add a child', () => {

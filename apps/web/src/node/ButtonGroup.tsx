@@ -1,5 +1,5 @@
-import { TreeDom } from '@codelab/core/renderer'
-import { NodeDtoReactI } from '@codelab/shared/interface/node'
+import { Renderer } from '@codelab/core/renderer'
+import type { NodeDtoReactI } from '@codelab/shared/interface/node'
 
 const nodeButtonGroupData: NodeDtoReactI = {
   type: 'React.Html.div',
@@ -87,4 +87,6 @@ export interface ButtonGroupProps {
   handledelete: Function
 }
 
-export const ButtonGroup = TreeDom.render<ButtonGroupProps>(nodeButtonGroupData)
+export const ButtonGroup = Renderer.components<ButtonGroupProps>(
+  nodeButtonGroupData,
+)

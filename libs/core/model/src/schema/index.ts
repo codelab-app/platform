@@ -1,2 +1,2 @@
-export * from './schema-types'
-export * from './schema'
+export * from './schema-factory'
+export * from './schema-factory--types'

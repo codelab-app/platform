@@ -9,8 +9,9 @@
  */
 
 import { reduce } from 'lodash'
+// eslint-disable-next-line import/no-cycle
 import { NodeEntity } from '@codelab/core/node'
-import { NodeDtoA } from '@codelab/shared/interface/node'
+import { NodeDtoA, NodeDtoI } from '@codelab/shared/interface/node'
 import {
   NodeIteratee,
   TraversalIteratee,
@@ -28,7 +29,7 @@ import {
 // S -> SubTree or Acc
 // N -> Node
 export const treeWalker = <
-  T extends NodeDtoA = NodeDtoA,
+  T extends NodeDtoI = NodeDtoI,
   S extends TreeSubTreeAcc<T> = TreeSubTreeAcc<T>
 >(
   parent: T | undefined,

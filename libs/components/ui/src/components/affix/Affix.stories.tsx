@@ -1,13 +1,13 @@
 import React from 'react'
 import { affixData } from './Affix.data'
-import { TreeDom } from '@codelab/core/renderer'
+import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'Affix',
 }
 
 export const Default = () => {
-  const Affix = TreeDom.render(affixData)
+  const Affix = Renderer.components(affixData)
 
   return <Affix />
 }

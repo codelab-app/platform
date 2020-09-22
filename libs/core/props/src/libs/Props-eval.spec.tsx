@@ -71,8 +71,9 @@ describe('Props with eval type', () => {
       expect(icon).toBeDefined()
       expect(renderReactNodesSpy).toHaveBeenCalled()
     })
-    it('should throw an error when missing TreeDom ctx', () => {
-      expect(() => evalPropsWithContext({ ...reactProps })).toThrowError()
-    })
+
+    // it('should throw an error when missing Renderer ctx', () => {
+    //   expect(() => evalPropsWithContext({ ...reactProps })).toThrowError()
+    // })
   })
 })

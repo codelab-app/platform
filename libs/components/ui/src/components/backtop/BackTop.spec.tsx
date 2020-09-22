@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react'
 import React from 'react'
-import { TreeDom } from '@codelab/core/renderer'
+import { Renderer } from '@codelab/core/renderer'
 import { NodeDtoReactI } from '@codelab/shared/interface/node'
 
 describe('BackTop', () => {
@@ -20,7 +20,7 @@ describe('BackTop', () => {
   }
 
   it('should render with text', async () => {
-    const BackTop = TreeDom.render(backtopData)
+    const BackTop = Renderer.components(backtopData)
     const { getByText, getByTestId } = render(<BackTop />)
 
     expect(

@@ -1,7 +1,7 @@
 import { mount } from 'enzyme'
 import { omit } from 'lodash'
 import React from 'react'
-import { TreeDom } from '@codelab/core/renderer'
+import { Renderer } from '@codelab/core/renderer'
 import { NodeDtoI } from '@codelab/shared/interface/node'
 
 describe('RootRenderProps', () => {
@@ -29,7 +29,7 @@ describe('RootRenderProps', () => {
   }
 
   it('can pass rootRenderProps to all level of children', () => {
-    const Component = TreeDom.render(data)
+    const Component = Renderer.components(data)
     const wrapper = mount(<Component rootProps="rootProps" />)
 
     const parent = wrapper.find('div').get(0)

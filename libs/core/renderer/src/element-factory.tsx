@@ -60,7 +60,6 @@ import {
   Upload,
 } from 'antd'
 import React from 'react'
-import { ElementParameters } from './element-factory.interface'
 import {
   Button as ButtonTypes,
   CodelabForm,
@@ -71,12 +70,18 @@ import {
 } from '@codelab/components/ui'
 import { propsFilter, withFilters } from '@codelab/core/props'
 import { mouseEventHandlerKeys } from '@codelab/shared/event'
-import { NodeDtoA } from '@codelab/shared/interface/node'
+import {
+  ElementParameters,
+  NodeDtoA,
+  NodeFactory,
+} from '@codelab/shared/interface/node'
 import { Props } from '@codelab/shared/interface/props'
 
-export const elementParameterFactory = <P extends Props>(
+export const elementParameterFactory: NodeFactory<ElementParameters<Props>> = <
+  P extends Props
+>(
   node: NodeDtoA,
-): ElementParameters<Props> => {
+) => {
   const { type, props } = node
 
   switch (type) {

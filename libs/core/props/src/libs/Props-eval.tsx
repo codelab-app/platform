@@ -2,6 +2,7 @@ import { message, notification } from 'antd'
 import axios from 'axios'
 import { reduce } from 'lodash'
 import React from 'react'
+// eslint-disable-next-line import/no-cycle
 import { renderReactNodes } from './Props-react'
 import { isEvalPropValue } from './Props.guards'
 import {
@@ -26,12 +27,7 @@ export const evalPropsFactory = (propValue: PropItem, ctx?: any) => {
     isTreeNode(propValue) ||
     isReactNodeArray(propValue)
   ) {
-    // We pass TreeDom via ctx to avoid circular depedency
-    if (!ctx?.TreeDom) {
-      throw new Error('TreeDom can not be found')
-    }
-
-    return renderReactNodes(propValue, ctx.TreeDom.render)
+    return renderReactNodes(propValue)
   }
 
   return propValue

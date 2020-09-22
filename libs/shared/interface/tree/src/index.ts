@@ -5,4 +5,5 @@ export type {
   TreeSubTreeAcc,
   GraphSubTreeAcc,
   NodeFinderAcc,
+  ModelAcc,
 } from './tree'

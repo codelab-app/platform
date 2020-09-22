@@ -1,13 +1,13 @@
 import React from 'react'
 import { breadcrumbData } from './Breadcrumb.data'
-import { TreeDom } from '@codelab/core/renderer'
+import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'Breadcrumb',
 }
 
 export const Default = () => {
-  const Breadcrumb = TreeDom.render(breadcrumbData)
+  const Breadcrumb = Renderer.components(breadcrumbData)
 
   return <Breadcrumb />
 }

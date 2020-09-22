@@ -20,6 +20,7 @@ describe('Node traversal', () => {
     ]
 
     const cb = (node: NodeDtoA) => {
+      console.debug(`Traversing ${node.id}`)
       queue.push(node.id)
     }
 

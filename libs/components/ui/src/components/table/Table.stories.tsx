@@ -1,13 +1,13 @@
 import React from 'react'
 import { tableData } from './Table.data'
-import { TreeDom } from '@codelab/core/renderer'
+import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'Table',
 }
 
 export const Default = () => {
-  const Table = TreeDom.render(tableData)
+  const Table = Renderer.components(tableData)
 
   return <Table />
 }

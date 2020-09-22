@@ -1,10 +1,5 @@
 import { NodeDtoA, NodeDtoI } from '../dto/node-dto'
-import {
-  NodeDtoModelA,
-  NodeDtoModelI,
-  NodeDtoSchemaA,
-  NodeDtoSchemaI,
-} from '../dto/node-dto--model'
+import { NodeDtoModelA, NodeDtoSchemaA } from '../dto/node-dto--model'
 import { NodeDtoReactA, NodeDtoReactI } from '../dto/node-dto--react'
 import {
   NodeDtoTreeA,
@@ -16,9 +11,7 @@ import { NodeTypeModelEnum } from '../enums/node-enum--model'
 import { NodeTypeTreeEnum } from '../enums/node-enum--tree'
 
 // TODO: type is undefined for some reason
-export const isModelNode = (
-  node: NodeDtoI | NodeDtoA,
-): node is NodeDtoModelI | NodeDtoModelA => {
+export const isModelNode = (node: NodeDtoA): node is NodeDtoModelA => {
   return node?.type === NodeTypeModelEnum.Model
 }
 
@@ -54,8 +47,6 @@ export const isRefNode = (
   return node?.type === NodeTypeModelEnum.Model
 }
 
-export const isSchemaNode = (
-  node: NodeDtoI | NodeDtoA,
-): node is NodeDtoSchemaI | NodeDtoSchemaA => {
+export const isSchemaNode = (node: NodeDtoA): node is NodeDtoSchemaA => {
   return node?.type === NodeTypeModelEnum.Schema
 }

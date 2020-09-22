@@ -1,5 +1,5 @@
 import { Schema } from './deprecated/json-schema'
 import { JsonModel, JsonModels } from './deprecated/model'
-import { Model } from './model'
+import { schemaPropsFactory } from './schema'
 
-export { Model, JsonModel, JsonModels, Schema }
+export { JsonModel, JsonModels, Schema, schemaPropsFactory }

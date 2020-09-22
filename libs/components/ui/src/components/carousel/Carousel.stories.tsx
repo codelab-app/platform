@@ -1,13 +1,13 @@
 import React from 'react'
 import { carouselData } from './Carousel.data'
-import { TreeDom } from '@codelab/core/renderer'
+import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'Carousel',
 }
 
 export const Default = () => {
-  const Carousel = TreeDom.render(carouselData)
+  const Carousel = Renderer.components(carouselData)
 
   return <Carousel />
 }

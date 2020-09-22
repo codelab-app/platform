@@ -1,13 +1,13 @@
 import React from 'react'
 import { selectData } from './Select.data'
-import { TreeDom } from '@codelab/core/renderer'
+import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'Select',
 }
 
 export const Default = () => {
-  const Select = TreeDom.render(selectData)
+  const Select = Renderer.components(selectData)
 
   return <Select />
 }

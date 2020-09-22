@@ -1,13 +1,13 @@
 import React from 'react'
 import { transferData } from './Transfer.data'
-import { TreeDom } from '@codelab/core/renderer'
+import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'Transfer',
 }
 
 export const Default = () => {
-  const Transfer = TreeDom.render(transferData)
+  const Transfer = Renderer.components(transferData)
 
   return <Transfer />
 }

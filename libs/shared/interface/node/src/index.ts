@@ -30,15 +30,24 @@ import {
   isSchemaNode,
   isTreeNode,
 } from './guards/node-guards'
-import type { HasChildren, HasParent, Mapper, Node } from './node'
+import type {
+  ElementParameters,
+  HasChildren,
+  HasParent,
+  Mapper,
+  Node,
+} from './node'
 import { hasChildren } from './node'
+import { NodeFactory } from './node-factory'
 import type { SchemaDefinition, SchemaTypeOpts } from './node-schema--props'
 
 export type {
+  NodeFactory,
   Node,
   NodeTypeEnum,
   NodeType,
   SchemaDefinition,
+  ElementParameters,
   SchemaTypeOpts,
   NodeDtoA,
   HasParent,

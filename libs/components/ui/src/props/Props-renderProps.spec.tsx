@@ -3,7 +3,7 @@ import { omit } from 'lodash'
 import React from 'react'
 import { leafRenderPropsData, renderPropsData } from './Props-renderProps.data'
 import { filterRenderProps } from '@codelab/core/props'
-import { TreeDom } from '@codelab/core/renderer'
+import { Renderer } from '@codelab/core/renderer'
 import { Props } from '@codelab/shared/interface/props'
 
 describe('RenderProps', () => {
@@ -30,7 +30,7 @@ describe('RenderProps', () => {
   })
 
   it('can pass props from parent to child', () => {
-    const Component = TreeDom.render(renderPropsData)
+    const Component = Renderer.components(renderPropsData)
     const wrapper = mount(<Component />)
 
     const parent = wrapper.find('div').get(0)
@@ -66,7 +66,7 @@ describe('RenderProps', () => {
   })
 
   it('can pass leaf props to all level of children', () => {
-    const Component = TreeDom.render(leafRenderPropsData)
+    const Component = Renderer.components(leafRenderPropsData)
     const wrapper = mount(<Component />)
 
     const parent = wrapper.find('div').get(0)

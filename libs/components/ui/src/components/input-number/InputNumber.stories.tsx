@@ -1,13 +1,13 @@
 import React from 'react'
 import { inputNumberData } from './InputNumber.data'
-import { TreeDom } from '@codelab/core/renderer'
+import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'InputNumber',
 }
 
 export const Default = () => {
-  const InputNumber = TreeDom.render(inputNumberData)
+  const InputNumber = Renderer.components(inputNumberData)
 
   return <InputNumber />
 }

@@ -1,13 +1,13 @@
 import React from 'react'
 import { skeletonData } from './Skeleton.data'
-import { TreeDom } from '@codelab/core/renderer'
+import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'Skeleton',
 }
 
 export const Default = () => {
-  const Skeleton = TreeDom.render(skeletonData)
+  const Skeleton = Renderer.components(skeletonData)
 
   return <Skeleton />
 }

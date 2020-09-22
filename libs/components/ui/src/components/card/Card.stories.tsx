@@ -1,13 +1,13 @@
 import React from 'react'
 import { cardData } from './Card.data'
-import { TreeDom } from '@codelab/core/renderer'
+import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'Card',
 }
 
 export const Default = () => {
-  const Card = TreeDom.render(cardData)
+  const Card = Renderer.components(cardData)
 
   return <Card />
 }

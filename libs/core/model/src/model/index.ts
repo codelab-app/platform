@@ -1,2 +1,1 @@
-export * from './model'
-export { ModelInterface } from './model.i'
+export * from './model-factory'

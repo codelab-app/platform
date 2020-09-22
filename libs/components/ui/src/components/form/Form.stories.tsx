@@ -5,14 +5,14 @@ import {
   formObjectData,
   nodeFormData,
 } from './data'
-import { TreeDom } from '@codelab/core/renderer'
+import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'Form',
 }
 
 export const Default = () => {
-  const Form = TreeDom.render(formDefaultData)
+  const Form = Renderer.components(formDefaultData)
 
   return <Form />
 }
@@ -21,7 +21,7 @@ export const Default = () => {
  * Contains nested object, or arrays
  */
 export const ObjectForm = () => {
-  const Form = TreeDom.render(formObjectData)
+  const Form = Renderer.components(formObjectData)
 
   return <Form />
 }
@@ -30,13 +30,13 @@ export const ObjectForm = () => {
  * Conditional form field
  */
 export const ConditionalForm = () => {
-  const Form = TreeDom.render(formConditionData)
+  const Form = Renderer.components(formConditionData)
 
   return <Form />
 }
 
 export const NodeForm = () => {
-  const Form = TreeDom.render(nodeFormData)
+  const Form = Renderer.components(nodeFormData)
 
   return <Form />
 }

@@ -1,13 +1,13 @@
 import React from 'react'
 import { popconfirmData } from './Popconfirm.data'
-import { TreeDom } from '@codelab/core/renderer'
+import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'Popconfirm',
 }
 
 export const Default = () => {
-  const Popconfirm = TreeDom.render(popconfirmData)
+  const Popconfirm = Renderer.components(popconfirmData)
 
   return <Popconfirm />
 }

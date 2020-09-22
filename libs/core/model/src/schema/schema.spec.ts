@@ -2,8 +2,8 @@
  * @jest-environment node
  */
 import * as mongoose from 'mongoose'
-import { Schema } from './schema'
-import { SchemaDefinition } from '@codelab/shared/interface/node'
+import { schemaFactory } from './schema-factory'
+import { SchemaProps } from '@codelab/shared/interface/model'
 
 describe('Schema', () => {
   it('should transform from JSON Schema to Schema', () => {
@@ -16,13 +16,13 @@ describe('Schema', () => {
       },
     })
 
-    const personExample: SchemaDefinition = {
+    const personExample: SchemaProps = {
       name: { type: 'string' },
       age: { type: 'number' },
       role: { type: 'string', enum: ['teacher', 'student'] },
     }
 
-    const personExampleSchema = Schema.create({
+    const personExampleSchema = schemaFactory({
       type: 'Schema',
       props: personExample,
     })

@@ -1,13 +1,13 @@
 import React from 'react'
 import { iconData } from './Icon.data'
-import { TreeDom } from '@codelab/core/renderer'
+import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'Icon',
 }
 
 export const Default = () => {
-  const Icon = TreeDom.render(iconData)
+  const Icon = Renderer.components(iconData)
 
   return <Icon />
 }

@@ -1,6 +1,6 @@
+/* eslint-disable import/no-cycle */
 import { traversePostOrder, traversePreOrder, treeWalker } from './traversal'
 import {
-  findNode,
   graphAppenderIteratee,
   nodeFinderIteratee,
   treeAppenderIteratee,
@@ -11,7 +11,6 @@ export {
   traversePostOrder,
   traversePreOrder,
   nodeFinderIteratee,
-  findNode,
   treeAppenderIteratee,
   graphAppenderIteratee,
 }

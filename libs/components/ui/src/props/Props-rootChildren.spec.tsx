@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react'
 import React from 'react'
-import { TreeDom } from '@codelab/core/renderer'
+import { Renderer } from '@codelab/core/renderer'
 import { NodeDtoI } from '@codelab/shared/interface/node'
 
 describe('RootChildren', () => {
@@ -35,7 +35,7 @@ describe('RootChildren', () => {
   // }
 
   // it('renders children to all available branches', () => {
-  //   const Component = TreeDom.render(data)
+  //   const Component = Renderer.render(data)
   //   const modal = getByRole(document.body, 'dialog')
   //   const div = getByTestId(document.body, 'div')
 
@@ -121,9 +121,9 @@ describe('RootChildren', () => {
       },
     }
 
-    const A = TreeDom.render(dataA)
-    const B = TreeDom.render(dataB)
-    const C = TreeDom.render(dataC)
+    const A = Renderer.components(dataA)
+    const B = Renderer.components(dataB)
+    const C = Renderer.components(dataC)
 
     const component = render(
       <A>
