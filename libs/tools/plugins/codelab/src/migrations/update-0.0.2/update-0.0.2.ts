@@ -1,6 +1,6 @@
+import * as path from 'path'
 import { chain } from '@angular-devkit/schematics'
 import { updatePackagesInPackageJson } from '@nrwl/workspace'
-import * as path from 'path'
 
 interface ProjectDefinition {
   root: string

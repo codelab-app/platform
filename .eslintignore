@@ -1,6 +1,7 @@
 node_modules
 dist
 yarn.lock
+.yarn
 .next
 .cache
 public
