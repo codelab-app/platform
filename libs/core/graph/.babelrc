@@ -1,4 +1,17 @@
 {
-  "presets": ["@nrwl/react/babel"],
-  "plugins": []
+  "presets": [
+    "@nrwl/react/babel",
+    "@babel/preset-env",
+    "@babel/preset-react",
+    "@babel/preset-typescript"
+  ],
+  "plugins": [
+    [
+      "@babel/plugin-transform-typescript",
+      {
+        "allowNamespaces": true
+      }
+    ],
+    "@babel/plugin-proposal-class-properties"
+  ]
 }
