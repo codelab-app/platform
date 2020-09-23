@@ -50,7 +50,7 @@ export const treeAppenderIteratee: TraversalIteratee<
   ;(parent as Node).addChild(childNode)
 
   return {
-    prev: childNode, // Used by treeWalker to determine parent for next set of nodes
+    prev: childNode,
   }
 }
 

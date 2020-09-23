@@ -32,27 +32,22 @@ export const treeWalker = <
   parent?: T,
 ) => {
   return (
-    subTreeAcc: S, // prev (reduce arg)
+    tree: S, // prev acc (reduce arg)
     child: T, // curr (reduce arg)
   ) => {
-    console.log(parent?.id, subTreeAcc.parent?.id)
-    if (parent && !parent?.id) {
-      throw Error('id missing from parent')
-    }
-
     /**
      * Append parent with acc
      */
-    const newSubTreeAcc: S = nodeIteratee({ ...subTreeAcc, parent }, child)
+    const newTree: S = nodeIteratee({ ...tree, parent }, child)
 
     /**
      * Return traversal if no more children
      */
     if (!NodeEntity.hasChildren<T>(child)) {
-      return newSubTreeAcc
+      return newTree
     }
 
-    const newParent = newSubTreeAcc.prev
+    const newParent = newTree.prev
 
     /**
      * At junction of tree, call children recursively with new parent & context passed in
@@ -60,7 +55,7 @@ export const treeWalker = <
     return reduce<T, S>(
       child.children as Array<T>,
       treeWalker<T, S>(nodeIteratee, newParent),
-      newSubTreeAcc,
+      newTree,
     )
   }
 }

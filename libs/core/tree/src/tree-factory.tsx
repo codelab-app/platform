@@ -37,18 +37,12 @@ import {
  * ```
  *
  */
-export const makeTree = (input: NodeI): NodeA => {
-  const parent = new NodeEntity(input)
+export const makeTree = (data: NodeI): NodeA => {
+  const root = new NodeEntity(data)
 
-  // treeWalker(parent, treeAppenderIteratee, { prev: parent })
+  treeWalker<NodeI, TreeSubTreeAcc<NodeI>>(treeAppenderIteratee, root)({}, data)
 
-  reduce(
-    input.children, // we should access children via root node's data property
-    treeWalker<NodeI, TreeSubTreeAcc<NodeI>>(treeAppenderIteratee, parent),
-    { prev: parent },
-  )
-
-  return parent
+  return root
 }
 
 /**
