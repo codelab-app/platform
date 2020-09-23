@@ -43,12 +43,9 @@ export const makeTree = (input: NodeDtoI): NodeDtoA => {
     prev: parent,
   }
 
-  reduce<NodeDtoA, TreeSubTreeAcc<NodeDtoA>>(
-    (input.children ?? []) as Array<NodeDtoA>,
-    treeWalker<NodeDtoA, TreeSubTreeAcc<NodeDtoA>>(
-      treeAppenderIteratee,
-      parent,
-    ),
+  reduce(
+    input.children,
+    treeWalker<TreeSubTreeAcc<NodeDtoI>>(treeAppenderIteratee, parent),
     subTreeAcc,
   )
 
@@ -69,12 +66,9 @@ export const makeGraph = (input: NodeDtoI): Graph => {
 
   graph.addVertexFromNode(root)
 
-  return reduce<NodeDtoA, GraphSubTreeAcc<NodeDtoA>>(
-    (input as NodeDtoA).children ?? [],
-    treeWalker<NodeDtoA, GraphSubTreeAcc<NodeDtoA>>(
-      graphAppenderIteratee,
-      root,
-    ),
+  return reduce(
+    input.children,
+    treeWalker<GraphSubTreeAcc<NodeDtoI>>(graphAppenderIteratee, root),
     subTreeAcc,
   ).graph
 }
@@ -85,9 +79,9 @@ export const makeGraph = (input: NodeDtoI): Graph => {
 export const makeModel = (input: NodeDtoI) => {
   const root = new NodeEntity(input)
 
-  const acc = reduce<NodeDtoA, ModelAcc<NodeDtoA>>(
+  const acc = reduce(
     (input.children ?? []) as Array<NodeDtoA>,
-    treeWalker<NodeDtoA, ModelAcc<NodeDtoA>>(modelCreationIteratee, root),
+    treeWalker<ModelAcc<NodeDtoA>>(modelCreationIteratee, root),
     {},
   )
 
@@ -108,9 +102,9 @@ export const findNode = (
     return node
   }
 
-  return reduce<NodeDtoA, NodeFinderAcc<NodeDtoA>>(
+  return reduce(
     node.children,
-    treeWalker<NodeDtoA, NodeFinderAcc<NodeDtoA>>(nodeFinderIteratee),
+    treeWalker<NodeFinderAcc<NodeDtoA>>(nodeFinderIteratee),
     {
       id,
     },

@@ -7,6 +7,8 @@ import { NodeEntity } from '@codelab/core/node'
 import {
   Node,
   NodeDtoA,
+  NodeDtoI,
+  assertModelI,
   isModelNode,
   isNode,
   isSchemaNode,
@@ -37,9 +39,9 @@ export const nodeFinderIteratee = (
  */
 
 export const treeAppenderIteratee: TraversalIteratee<
-  TreeSubTreeAcc<NodeDtoA>,
-  NodeDtoA
-> = ({ parent }: TreeSubTreeAcc<NodeDtoA>, child: NodeDtoA) => {
+  TreeSubTreeAcc<NodeDtoI>,
+  NodeDtoI
+> = ({ parent }: TreeSubTreeAcc<NodeDtoI>, child: NodeDtoI) => {
   isNode(parent as Node)
 
   const childNode = new NodeEntity(child)
@@ -53,9 +55,9 @@ export const treeAppenderIteratee: TraversalIteratee<
 }
 
 export const graphAppenderIteratee: TraversalIteratee<
-  GraphSubTreeAcc<NodeDtoA>,
-  NodeDtoA
-> = ({ graph, parent }: GraphSubTreeAcc<NodeDtoA>, child: NodeDtoA) => {
+  GraphSubTreeAcc<NodeDtoI>,
+  NodeDtoI
+> = ({ graph, parent }: GraphSubTreeAcc<NodeDtoI>, child: NodeDtoI) => {
   const node = new NodeEntity(child)
 
   graph.addVertexFromNode(node)
@@ -71,22 +73,24 @@ export const graphAppenderIteratee: TraversalIteratee<
  * A factory that takes an iteratee
  */
 export const modelCreationIteratee: TraversalIteratee<
-  ModelAcc<NodeDtoA>,
-  NodeDtoA
-> = ({ name, schema, model }: ModelAcc<NodeDtoA>, node: NodeDtoA) => {
+  ModelAcc<NodeDtoI>,
+  NodeDtoI
+> = ({ name, schema, model }: ModelAcc<NodeDtoI>, node: NodeDtoI) => {
   if (isSchemaNode(node)) {
     return { schema: schemaFactory(node) }
   }
 
   if (isModelNode(node)) {
+    assertModelI(node)
+
     if (!schema) {
       throw new Error('Missing schema as children')
     }
 
     return {
-      name: node.props.name,
+      name: node?.props?.name,
       schema,
-      model: mongoose.model(node.props.name, schema),
+      model: mongoose.model(node?.props.name, schema),
     }
   }
 

@@ -23,6 +23,7 @@ import {
 } from './enums'
 import { NodeTypeReactEnum } from './enums/node-enum--react'
 import {
+  assertModelI,
   isModelNode,
   isReactNode,
   isReactNodeArray,
@@ -76,6 +77,7 @@ export {
   NodeTypeReactEnum,
   nodeTypeLiterals,
   nodeTypeEnumEntries,
+  assertModelI,
   isModelNode,
   isReactNode,
   isReactNodeArray,
