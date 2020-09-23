@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-cycle
 import { buildComponents } from './renderer-components'
 import { NodeI } from '@codelab/shared/interface/node'
 import { Props } from '@codelab/shared/interface/props'

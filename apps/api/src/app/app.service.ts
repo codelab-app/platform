@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
-import { APIConfiguration } from '../../../../libs/api/config/src/lib/configuration'
+import { APIConfiguration } from '../../../../libs/api/config/src/configuration'
 
 @Injectable()
 export class AppService {

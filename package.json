@@ -22,7 +22,7 @@
     "start": "nx run-many --target=serve --parallel --projects=core,api",
     "build": "./scripts/build.sh",
     "test": "./scripts/test.sh",
-    "eslint": "node ./scripts/eslint.js",
+    "eslint": "cross-env NODE_OPTIONS=\"--max-old-space-size=8192\" node ./scripts/eslint.js",
     "commitlint": "./scripts/commitlint.sh",
     "lint": "nx workspace-lint && nx lint",
     "e2e": "nx e2e",

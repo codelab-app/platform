@@ -1,3 +1,1 @@
-import { ModelProps, SchemaProps, SchemaPropsValue } from './model-props'
-
-export type { ModelProps, SchemaProps, SchemaPropsValue }
+export * from './model-props'

@@ -1,2 +1,2 @@
-export { EnumType, createEnumType } from './io-ts'
-export { cLog } from './log'
+export * from './io-ts'
+export * from './log'

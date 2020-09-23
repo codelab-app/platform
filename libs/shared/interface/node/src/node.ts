@@ -1,6 +1,6 @@
 import { Attributes, ComponentClass, FunctionComponent } from 'react'
-import { NodeA } from './dto/node-dto'
-import { NodeTypeLiteral } from './enums/node-enum'
+import { NodeA } from './dto'
+import { NodeTypeLiteral } from './enums'
 import { PropsFilter } from '@codelab/core/props'
 import { Props } from '@codelab/shared/interface/props'
 

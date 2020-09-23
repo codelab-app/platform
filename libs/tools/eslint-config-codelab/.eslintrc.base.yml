@@ -1,8 +1,8 @@
 #  https://github.com/toshi-toma/eslint-config-airbnb-typescript-prettier#readme
 extends:
   - airbnb-typescript-prettier
-  - plugin:import/errors
-  - plugin:import/warnings
+#  - plugin:import/errors
+#  - plugin:import/warnings
 env:
   browser: true
   es6: true

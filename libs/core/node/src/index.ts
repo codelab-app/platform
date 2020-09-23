@@ -1,3 +1,1 @@
-import { NodeEntity } from './node-entity'
-
-export { NodeEntity }
+export * from './node-entity'

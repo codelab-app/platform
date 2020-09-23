@@ -1,4 +1,4 @@
-import { NodeTypeLiteral } from '../enums/node-enum'
+import { NodeTypeLiteral } from '../enums'
 import { Props } from '@codelab/shared/interface/props'
 
 export interface NodeI<
