@@ -12,6 +12,9 @@ plugins:
   - import # https://github.com/benmosher/eslint-plugin-import
   - unused-imports
   - sort-exports # https://github.com/jrdrg/eslint-plugin-sort-exports#readme
+settings:
+  import/parser:
+    '@typescript-eslint/parser': ['.ts', '.tsx']
 rules:
   no-undef: error # not included in preset, surprisingly
   no-underscore-dangle:
@@ -59,6 +62,7 @@ rules:
   #   - sortDir: asc
   # --- !IMPORTS ---
 
+  no-inner-declarations: off
   no-unused-expressions:
     - error
     - allowTernary: true
@@ -69,6 +73,24 @@ rules:
   func-style: error
   # --- !ES6 ---
 
+  # --- TS ---
+  '@typescript-eslint/array-type':
+    - error
+    - default: generic
+  '@typescript-eslint/no-namespace': off
+  '@typescript-eslint/no-useless-constructor': ['error']
+  '@typescript-eslint/ban-types':
+    - 0
+    - extendDefaults: true
+    - types:
+        - Function: off
+  '@typescript-eslint/no-explicit-any': off
+  '@typescript-eslint/explicit-module-boundary-types': off
+  '@typescript-eslint/indent': off
+  '@typescript-eslint/no-unused-vars': off
+  '@typescript-eslint/explicit-function-return-type': off
+  # --- !TS ---
+
 overrides:
   - files: ['*.js', '*.jsx']
     parser: esprima
@@ -78,24 +100,4 @@ overrides:
   - files: ['*.ts']
     rules:
       react/static-property-placement: off
-  - files: ['*.ts', '*.tsx']
-    settings:
-      import/parser:
-        '@typescript-eslint/parser': ['.ts', '.tsx']
-    rules:
-      no-inner-declarations: off
-      '@typescript-eslint/array-type':
-        - error
-        - default: generic
-      '@typescript-eslint/no-namespace': off
-      '@typescript-eslint/no-useless-constructor': ['error']
-      '@typescript-eslint/ban-types':
-        - 0
-        - extendDefaults: true
-        - types:
-            - Function: off
-      '@typescript-eslint/no-explicit-any': off
-      '@typescript-eslint/explicit-module-boundary-types': off
-      '@typescript-eslint/indent': off
-      '@typescript-eslint/no-unused-vars': off
-      '@typescript-eslint/explicit-function-return-type': off
+
