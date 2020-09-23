@@ -15,7 +15,7 @@ const nodeButtonGroupData: NodeReactI = {
           type: 'React.Text',
           props: {
             value: {
-              eval: true,
+              __type: 'eval',
               value: 'return this.props.selectedNode',
             },
           },
@@ -35,10 +35,10 @@ const nodeButtonGroupData: NodeReactI = {
           props: {
             type: 'primary',
             onClick: {
-              eval: true,
+              __type: 'eval',
               value: `return () => {
                   console.log(this.props);
-                  this.props.setvisibility.value(true)
+                  this.props.setvisibility(true)
                 }`,
             },
           },
@@ -61,10 +61,10 @@ const nodeButtonGroupData: NodeReactI = {
           props: {
             type: 'primary',
             onClick: {
-              eval: true,
+              __type: 'eval',
               value: `return () => {
                 console.log(this.props)
-                this.props.handledelete.value()
+                this.props.handledelete()
               }`,
             },
           },

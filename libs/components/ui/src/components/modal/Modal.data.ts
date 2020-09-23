@@ -3,40 +3,42 @@ import { Modal } from './Modal.types'
 import { NodeReactI } from '@codelab/shared/interface/node'
 
 export const modalData: NodeReactI<Modal.Props | Button.Props> = {
-  type: 'React.Provider',
+  type: 'React.Fragment',
   props: {
     ctx: {
-      eval: true,
+      __type: ['eval', 'single'],
       value:
         'const [visible, setVisible] = this.React.useState(false); return { visible, setVisible }',
-    },
-    onOk: {
-      eval: true,
-      value: 'return () => this.setVisible(false)',
-    },
-    onCancel: {
-      eval: true,
-      value: 'return () => this.setVisible(false)',
-    },
-    visible: {
-      eval: true,
-      value: 'return this.visible',
-    },
-    onClick: {
-      eval: true,
-      value: 'return () => this.setVisible(true)',
     },
   },
   children: [
     {
       type: 'React.Button',
-      props: { type: 'primary' },
+      props: {
+        type: 'primary',
+        onClick: {
+          __type: 'eval',
+          value: 'return () => this.setVisible(true)',
+        },
+      },
       children: [{ type: 'React.Text', props: { value: 'Open modal' } }],
     },
     {
       type: 'React.Modal',
       props: {
         title: 'Basic Modal',
+        onOk: {
+          __type: 'eval',
+          value: 'return () => this.setVisible(false)',
+        },
+        onCancel: {
+          __type: 'eval',
+          value: 'return () => this.setVisible(false)',
+        },
+        visible: {
+          __type: 'eval',
+          value: 'return this.visible',
+        },
       },
       children: [
         {

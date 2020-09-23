@@ -2,10 +2,10 @@ import { Transfer } from './Transfer.types'
 import { NodeReactI } from '@codelab/shared/interface/node'
 
 export const transferData: NodeReactI<Transfer.Props | Transfer.RenderProps> = {
-  type: 'React.Provider',
+  type: 'React.Transfer',
   props: {
     ctx: {
-      eval: true,
+      __type: 'eval',
       value:
         'const [targetKeys, setTargetKeys] = this.React.useState(["4", "5"]); return { targetKeys, setTargetKeys }',
     },
@@ -43,21 +43,16 @@ export const transferData: NodeReactI<Transfer.Props | Transfer.RenderProps> = {
       },
     ],
     targetKeys: {
-      eval: true,
+      __type: 'eval',
       value: 'return this.targetKeys',
     },
     onChange: {
-      eval: true,
+      __type: 'eval',
       value: 'return (nextTargetKeys) => this.setTargetKeys(nextTargetKeys)',
     },
     render: {
-      eval: true,
+      __type: 'eval',
       value: 'return (item) => item.title',
     },
   },
-  children: [
-    {
-      type: 'React.Transfer',
-    },
-  ],
 }

@@ -21,36 +21,12 @@ export const commentData: NodeReactI<
     },
     actions: [
       {
-        type: 'React.Provider',
+        type: 'React.Fragment',
         props: {
           ctx: {
-            eval: true,
+            __type: ['eval', 'single'],
             value:
               'const [likes, setLikes] = this.React.useState(0); const [dislikes, setDislikes] = this.React.useState(0); const [action, setAction] = this.React.useState(null); return { likes, setLikes, dislikes, setDislikes, action, setAction }',
-          },
-          likes: {
-            eval: true,
-            value: 'return this.likes',
-          },
-          setLikes: {
-            eval: true,
-            value: 'return (value) => this.setLikes(value)',
-          },
-          dislikes: {
-            eval: true,
-            value: 'return this.dislikes',
-          },
-          setDislikes: {
-            eval: true,
-            value: 'return (value) => this.setDislikes(value)',
-          },
-          action: {
-            eval: true,
-            value: 'return this.action',
-          },
-          setAction: {
-            eval: true,
-            value: 'return (value) => this.setAction(value)',
           },
         },
         children: [
@@ -59,21 +35,20 @@ export const commentData: NodeReactI<
             props: {
               type: 'like',
               theme: {
-                eval: true,
-                value:
-                  'return this.props.action === "like" ? "filled" : "outlined"',
+                __type: 'eval',
+                value: 'return this.action === "like" ? "filled" : "outlined"',
               },
               onClick: {
-                eval: true,
+                __type: 'eval',
                 value:
-                  'return () => { this.props.setLikes(1); this.props.setDislikes(0); this.props.setAction("like") }',
+                  'return () => { this.setLikes(1); this.setDislikes(0); this.setAction("like") }',
               },
             },
           },
           {
             type: 'React.Text',
             props: {
-              value: { eval: true, value: 'return this.props.likes' },
+              value: { __type: 'eval', value: 'return this.likes' },
             },
           },
           {
@@ -81,22 +56,22 @@ export const commentData: NodeReactI<
             props: {
               type: 'dislike',
               theme: {
-                eval: true,
+                __type: 'eval',
                 value:
-                  'return this.props.action === "dislike"? "filled" : "outlined"',
+                  'return this.action === "dislike"? "filled" : "outlined"',
               },
               style: { paddingLeft: '8px' },
               onClick: {
-                eval: true,
+                __type: 'eval',
                 value:
-                  'return () => { this.props.setLikes(0); this.props.setDislikes(1); this.props.setAction("dislike") }',
+                  'return () => { this.setLikes(0); this.setDislikes(1); this.setAction("dislike") }',
               },
             },
           },
           {
             type: 'React.Text',
             props: {
-              value: { eval: true, value: 'return this.props.dislikes' },
+              value: { __type: 'eval', value: 'return this.dislikes' },
             },
           },
           {

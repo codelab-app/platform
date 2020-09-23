@@ -1,7 +1,15 @@
-import { reduce } from 'lodash'
+import { omit, reduce } from 'lodash'
 import React, { FunctionComponent, ReactElement, ReactNode } from 'react'
 import { v4 as uuidv4 } from 'uuid'
-import { filterRenderProps } from '@codelab/core/props'
+// eslint-disable-next-line import/no-cycle
+import { isSingleRenderPropValue } from '../../props/src/libs/Props.guards'
+import {
+  buildCtx,
+  buildProps,
+  filterRenderProps,
+  isLeafRenderPropValue,
+  renderPropsFilter,
+} from '@codelab/core/props'
 import {
   HasChildren,
   Node,
@@ -36,6 +44,8 @@ export class NodeEntity<
    * The class Node & the codec Node should be kept separate. Node is the container for behavior, while codec Node holds the shape of the data
    */
   public data: NodeCreate<T, P>
+
+  public renderProps: Props = {}
 
   /**
    * Can take just ID, but fills out other fields
@@ -95,6 +105,10 @@ export class NodeEntity<
     }
   }
 
+  public get context() {
+    return buildCtx(this.props)
+  }
+
   render(
     Component: any,
     props: Props,
@@ -121,23 +135,46 @@ export class NodeEntity<
    * <Component>{jsxChildren}</Component>
    * ```
    */
-  public Children(rootChildren: ReactNode): ReactNode | Array<ReactNode> {
+  public Children(
+    rootChildren: ReactNode,
+    renderProps: Props,
+    ctx: any,
+  ): ReactNode | Array<ReactNode> {
     const children = reduce<NodeEntity<T, P>, Array<ReactNode>>(
       this.children as Array<NodeEntity<T, P>>,
       (Components: Array<ReactNode>, child: NodeEntity) => {
-        const { Component: Child, mergedProps } = child
+        const { Component: Child, key, props, context } = child
 
         // console.debug(`${this.type} -> ${child.type}`, props)
 
+        let newCtx = context
+
+        if (isLeafRenderPropValue(ctx)) {
+          newCtx = { ...newCtx, ...ctx }
+        } else if (isSingleRenderPropValue(ctx)) {
+          newCtx = { ...newCtx, ...omit(ctx, '__type') }
+        }
+
+        const evaluatedProps = buildProps(
+          { ...props, ctx: newCtx },
+          renderProps,
+        )
+
+        const newRenderProps = renderPropsFilter(evaluatedProps)
+
         let ChildComponent: ReactNode = rootChildren ? (
-          <Child {...mergedProps}>{rootChildren}</Child>
+          <Child key={key} {...evaluatedProps}>
+            {rootChildren}
+          </Child>
         ) : (
-          <Child {...mergedProps} />
+          <Child key={key} {...evaluatedProps} />
         )
 
         if (child.hasChildren()) {
           ChildComponent = (
-            <Child {...mergedProps}>{child.Children(rootChildren)}</Child>
+            <Child key={key} {...evaluatedProps}>
+              {child.Children(rootChildren, newRenderProps, newCtx)}
+            </Child>
           )
         }
 

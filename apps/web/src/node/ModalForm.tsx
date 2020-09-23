@@ -36,7 +36,7 @@ const reactNodeFields: NodeReactI = {
   props: {
     shouldUpdate: true,
     shouldRender: {
-      eval: true,
+      __type: 'eval',
       value: 'return (values) => values.nodeType !== "React"',
     },
   },
@@ -54,7 +54,7 @@ const treeNodeFields: NodeReactI = {
   props: {
     shouldUpdate: true,
     shouldRender: {
-      eval: true,
+      __type: 'eval',
       value: 'return (values) => values.nodeType !== "Tree"',
     },
   },
@@ -75,7 +75,7 @@ const refNodeFields: NodeReactI = {
   props: {
     shouldUpdate: true,
     shouldRender: {
-      eval: true,
+      __type: 'eval',
       value: 'return (values) => values.nodeType !== "Ref"',
     },
   },
@@ -164,13 +164,13 @@ export const modalFormData: NodeReactI = {
     title: 'Create Node Form',
     footer: null,
     visible: {
-      eval: true,
-      value: 'return this.props.visibility.value',
+      __type: 'eval',
+      value: 'return this.props.visibility',
     },
     onCancel: {
-      eval: true,
+      __type: 'eval',
       value: `return () => {
-        this.props.handlecancel.value()
+        this.props.setvisibility(false)
       }`,
     },
   },
@@ -187,8 +187,8 @@ export const modalFormData: NodeReactI = {
         form: { eval: true, value: 'return this.form' },
         name: 'create-node-form',
         onFinish: {
-          eval: true,
-          value: 'return this.props.handlesubmit.value',
+          __type: 'eval',
+          value: 'return this.props.handlesubmit',
         },
       },
       children: [

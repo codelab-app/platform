@@ -1,99 +1,101 @@
 import {
   convertToLeafRenderProps,
-  filterRenderProps,
+  leafRenderPropsFilter,
+  renderPropsFilter,
+  singleRenderPropsFilter,
 } from './Props-renderProps'
-import { convertToRenderProps } from '@codelab/core/props'
 
 describe('Props with renderProps type', () => {
-  it('converts all props to renderProps', () => {
-    const props = {
-      Content: 'Content',
-    }
-    const renderProps = convertToRenderProps(props)
+  const props = {
+    content: 'Content',
+    visibility: {
+      __type: 'eval',
+      value: 'return true',
+    },
+  }
 
-    expect(renderProps.Content.renderProps).toBeTruthy()
-    expect(renderProps.Content.value).toBe('Content')
-  })
+  const renderProps = {
+    data: {
+      __type: 'single',
+      value: 'data',
+    },
+    visibility: {
+      __type: ['single', 'eval'],
+      value: 'return true',
+    },
+    onClick: {
+      __type: 'leaf',
+      value: 'return',
+    },
+    onChange: {
+      __type: ['leaf', 'eval'],
+      value: 'return',
+    },
+    component: 'Codelab',
+  }
 
   it('converts all props to leafRenderProps', () => {
-    const props = {
-      Content: 'Content',
-    }
-    const renderProps = convertToLeafRenderProps(props)
+    const leafRenderProps = convertToLeafRenderProps(props)
 
-    expect(renderProps.Content.renderProps).toBe('leaf')
-    expect(renderProps.Content.value).toBe('Content')
+    expect(leafRenderProps.content).toEqual({
+      __type: 'leaf',
+      value: 'Content',
+    })
+    expect(leafRenderProps.visibility).toEqual({
+      __type: ['eval', 'leaf'],
+      value: 'return true',
+    })
   })
 
   it('filters render props', () => {
-    const renderProps = {
-      data: {
-        renderProps: true,
-        value: 'data',
-      },
-      event: {
-        renderProps: 'leaf',
-        value: 'event',
-      },
-      component: 'Codelab',
-    }
-
-    const filteredRenderProps = filterRenderProps(renderProps)
+    const filteredRenderProps = renderPropsFilter(renderProps)
 
     expect(filteredRenderProps).toEqual({
       data: {
-        renderProps: true,
+        __type: 'single',
         value: 'data',
       },
-      event: {
-        renderProps: 'leaf',
-        value: 'event',
+      visibility: {
+        __type: ['single', 'eval'],
+        value: 'return true',
+      },
+      onClick: {
+        __type: 'leaf',
+        value: 'return',
+      },
+      onChange: {
+        __type: ['leaf', 'eval'],
+        value: 'return',
       },
     })
   })
 
   it('filters single render props', () => {
-    const renderProps = {
+    const singleRenderProps = singleRenderPropsFilter(renderProps)
+
+    expect(singleRenderProps).toEqual({
       data: {
-        renderProps: true,
+        __type: 'single',
         value: 'data',
       },
-      event: {
-        renderProps: 'leaf',
-        value: 'event',
-      },
-      component: 'Codelab',
-    }
-
-    const filteredRenderProps = filterRenderProps(renderProps, 'single')
-
-    expect(filteredRenderProps).toEqual({
-      data: {
-        renderProps: true,
-        value: 'data',
+      visibility: {
+        __type: ['single', 'eval'],
+        value: 'return true',
       },
     })
   })
 
   it('filters leaf render props', () => {
-    const renderProps = {
-      data: {
-        renderProps: true,
-        value: 'data',
-      },
-      event: {
-        renderProps: 'leaf',
-        value: 'event',
-      },
-      component: 'Codelab',
-    }
+    const leafRenderProps = leafRenderPropsFilter(renderProps)
 
-    const filteredRenderProps = filterRenderProps(renderProps, 'leaf')
-
-    expect(filteredRenderProps).toEqual({
-      event: {
-        renderProps: 'leaf',
-        value: 'event',
+    expect(leafRenderProps).toEqual({
+      onClick: {
+        __type: 'leaf',
+        value: 'return',
+      },
+      onChange: {
+        __type: ['leaf', 'eval'],
+        value: 'return',
       },
     })
   })

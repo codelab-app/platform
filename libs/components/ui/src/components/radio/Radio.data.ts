@@ -5,47 +5,42 @@ import { NodeReactI } from '@codelab/shared/interface/node'
 export const radioData: NodeReactI<
   Radio.Props | Radio.GroupProps | Text.Props
 > = {
-  type: 'React.Provider',
+  type: 'React.Radio.Group',
   props: {
     ctx: {
-      eval: true,
+      __type: 'eval',
       value:
         'const [value, setValue] = this.React.useState("a"); return { value, setValue }',
     },
     onChange: {
-      eval: true,
+      __type: 'eval',
       value: 'return (e) => this.setValue(e.target.value)',
     },
     value: {
-      eval: true,
+      __type: 'eval',
       value: 'return this.value',
     },
   },
   children: [
     {
-      type: 'React.Radio.Group',
-      children: [
-        {
-          type: 'React.Radio',
-          props: { value: 'a' },
-          children: [{ type: 'React.Text', props: { value: 'A' } }],
-        },
-        {
-          type: 'React.Radio',
-          props: { value: 'b' },
-          children: [{ type: 'React.Text', props: { value: 'B' } }],
-        },
-        {
-          type: 'React.Radio',
-          props: { value: 'c' },
-          children: [{ type: 'React.Text', props: { value: 'C' } }],
-        },
-        {
-          type: 'React.Radio',
-          props: { value: 'd' },
-          children: [{ type: 'React.Text', props: { value: 'D' } }],
-        },
-      ],
+      type: 'React.Radio',
+      props: { value: 'a' },
+      children: [{ type: 'React.Text', props: { value: 'A' } }],
+    },
+    {
+      type: 'React.Radio',
+      props: { value: 'b' },
+      children: [{ type: 'React.Text', props: { value: 'B' } }],
+    },
+    {
+      type: 'React.Radio',
+      props: { value: 'c' },
+      children: [{ type: 'React.Text', props: { value: 'C' } }],
+    },
+    {
+      type: 'React.Radio',
+      props: { value: 'd' },
+      children: [{ type: 'React.Text', props: { value: 'D' } }],
     },
   ],
 }

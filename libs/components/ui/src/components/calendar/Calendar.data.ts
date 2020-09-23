@@ -5,7 +5,7 @@ export const calendarData: NodeReactI<Calendar.Props> = {
   type: 'React.Calendar',
   props: {
     onSelect: {
-      eval: true,
+      __type: 'eval',
       value: 'return (value) => { console.log(value.format("YYYY-MM-DD")) }',
     },
   },

@@ -12,6 +12,8 @@ export namespace Provider {
     children,
     ...props
   }) => {
+    console.log(props)
+
     return (
       <>
         {(Array.isArray(children) ? children : [children]).map(

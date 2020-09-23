@@ -79,7 +79,7 @@ export const formConditionData: NodeReactI<
       props: {
         shouldUpdate: true,
         shouldRender: {
-          eval: true,
+          __type: 'eval',
           value: 'return (values) => values.select_type !== "a"',
         },
       },
@@ -99,7 +99,7 @@ export const formConditionData: NodeReactI<
       props: {
         shouldUpdate: true,
         shouldRender: {
-          eval: true,
+          __type: 'eval',
           value: 'return (values) => values.select_type !== "b"',
         },
       },
@@ -119,7 +119,7 @@ export const formConditionData: NodeReactI<
       props: {
         shouldUpdate: true,
         shouldRender: {
-          eval: true,
+          __type: 'eval',
           value: 'return (values) => values.select_type !== "c"',
         },
       },

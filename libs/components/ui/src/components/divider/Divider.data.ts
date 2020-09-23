@@ -3,14 +3,19 @@ import { Divider } from './Divider.types'
 import { NodeReactI } from '@codelab/shared/interface/node'
 
 export const dividerData: NodeReactI<Divider.Props | Text.Props> = {
-  type: 'React.Provider',
+  type: 'React.Fragment',
   children: [
     {
-      type: 'React.Text',
-      props: {
-        value:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi ista probare, quae sunt a te dicta? Refert tamen, quo modo',
-      },
+      type: 'React.Html.p',
+      children: [
+        {
+          type: 'React.Text',
+          props: {
+            value:
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi ista probare, quae sunt a te dicta? Refert tamen, quo modo',
+          },
+        },
+      ],
     },
     {
       type: 'React.Divider',
@@ -20,11 +25,16 @@ export const dividerData: NodeReactI<Divider.Props | Text.Props> = {
       },
     },
     {
-      type: 'React.Text',
-      props: {
-        value:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi ista probare, quae sunt a te dicta? Refert tamen, quo modo',
-      },
+      type: 'React.Html.p',
+      children: [
+        {
+          type: 'React.Text',
+          props: {
+            value:
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi ista probare, quae sunt a te dicta? Refert tamen, quo modo',
+          },
+        },
+      ],
     },
   ],
 }

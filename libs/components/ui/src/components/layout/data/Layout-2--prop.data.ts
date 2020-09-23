@@ -6,23 +6,26 @@ export const propLayoutData: NodeReactI<
   Layout.Props | Layout.SiderProps | Text.Props
 > = {
   type: 'React.Layout',
-  props: { style: { minHeight: '100vh' }, hasSider: true },
+  props: {
+    style: { minHeight: '100vh' },
+    hasSider: true,
+  },
   children: [
     {
       type: 'React.Layout.Sider',
       props: {
         ctx: {
-          eval: true,
+          __type: 'eval',
           value:
             'const [collapsed, setCollapsed] = this.React.useState(false); return { collapsed, setCollapsed }',
         },
         collapsible: true,
         onCollapse: {
-          eval: true,
+          __type: 'eval',
           value: 'return () => this.setCollapsed(!this.collapsed)',
         },
         collapsed: {
-          eval: true,
+          __type: 'eval',
           value: 'return this.collapsed',
         },
       },
@@ -30,7 +33,7 @@ export const propLayoutData: NodeReactI<
         {
           type: 'React.Text',
           props: {
-            value: { eval: true, value: 'return this.props.Sidebar.value' },
+            value: { __type: 'eval', value: 'return this.props.sidebar' },
           },
         },
       ],
@@ -44,7 +47,10 @@ export const propLayoutData: NodeReactI<
             {
               type: 'React.Text',
               props: {
-                value: { eval: true, value: 'return this.props.Header.value' },
+                value: {
+                  __type: 'eval',
+                  value: 'return this.props.header',
+                },
               },
             },
           ],
@@ -65,8 +71,8 @@ export const propLayoutData: NodeReactI<
                   type: 'React.Text',
                   props: {
                     value: {
-                      eval: true,
-                      value: 'return this.props.Content.value',
+                      __type: 'eval',
+                      value: 'return this.props.content',
                     },
                   },
                 },
@@ -79,13 +85,14 @@ export const propLayoutData: NodeReactI<
           children: [
             {
               type: 'React.Html.p',
+
               children: [
                 {
                   type: 'React.Text',
                   props: {
                     value: {
-                      eval: true,
-                      value: 'return this.props.Footer.value',
+                      __type: 'eval',
+                      value: 'return this.props.footer',
                     },
                   },
                 },

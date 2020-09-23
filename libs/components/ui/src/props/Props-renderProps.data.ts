@@ -4,22 +4,28 @@ export const renderPropsData: NodeI = {
   type: 'React.Html.div',
   props: {
     visibility: '',
-    parentprops: {
-      renderProps: true,
-      value: {},
+    singleprops: {
+      __type: 'single',
+      value: 'single',
     },
   },
   children: [
     {
       type: 'React.Html.div',
       props: {
-        childprops: {},
+        childprops: {
+          __type: 'eval',
+          value: 'return this.props.singleprops',
+        },
       },
       children: [
         {
           type: 'React.Html.div',
           props: {
-            grandchildprops: {},
+            grandchildprops: {
+              __type: 'eval',
+              value: 'return this.props.singleprops',
+            },
           },
         },
       ],
@@ -32,21 +38,27 @@ export const leafRenderPropsData: NodeI = {
   props: {
     visibility: '',
     leafprops: {
-      renderProps: 'leaf',
-      value: {},
+      __type: 'leaf',
+      value: 'leaf',
     },
   },
   children: [
     {
       type: 'React.Html.div',
       props: {
-        childprops: {},
+        childprops: {
+          __type: 'eval',
+          value: 'return this.props.leafprops',
+        },
       },
       children: [
         {
           type: 'React.Html.div',
           props: {
-            grandChildProps: {},
+            grandchildprops: {
+              __type: 'eval',
+              value: 'return this.props.leafprops',
+            },
           },
         },
       ],

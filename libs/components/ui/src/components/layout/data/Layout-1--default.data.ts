@@ -13,17 +13,17 @@ export const layoutData: NodeReactI<
       type: 'React.Layout.Sider',
       props: {
         ctx: {
-          eval: true,
+          __type: 'eval',
           value:
             'const [collapsed, setCollapsed] = this.React.useState(false); return { collapsed, setCollapsed }',
         },
         collapsible: true,
         onCollapse: {
-          eval: true,
+          __type: 'eval',
           value: 'return () => this.setCollapsed(!this.collapsed)',
         },
         collapsed: {
-          eval: true,
+          __type: 'eval',
           value: 'return this.collapsed',
         },
       },

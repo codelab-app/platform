@@ -53,14 +53,21 @@ export const PropLayout = () => {
     </>
   )
 
-  const Layout = Renderer.components(propLayoutData)
+  interface LayoutProps {
+    header: React.ReactNode
+    content: React.ReactNode
+    footer: React.ReactNode
+    sidebar: React.ReactNode
+  }
+
+  const Layout = Renderer.components<LayoutProps>(propLayoutData)
 
   return (
     <Layout
-      Header={<Header />}
-      Content={<Content />}
-      Footer={<Footer />}
-      Sidebar={<Sidebar />}
+      header={<Header />}
+      content={<Content />}
+      footer={<Footer />}
+      sidebar={<Sidebar />}
     />
   )
 }

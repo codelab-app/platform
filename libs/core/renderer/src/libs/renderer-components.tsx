@@ -2,8 +2,9 @@
 import React, { FunctionComponent, PropsWithChildren } from 'react'
 import { elementParameterFactory } from './element-factory'
 import {
+  buildProps,
   convertToLeafRenderProps,
-  evalPropsWithContext,
+  renderPropsFilter,
 } from '@codelab/core/props'
 import { traversePostOrder } from '@codelab/core/traversal'
 import { makeTree } from '@codelab/core/tree'
@@ -33,9 +34,11 @@ export const buildComponents = <P extends Props = {}>(
       // also contains rootProps
       ...internalProps
     }: PropsWithChildren<P>) => {
+      // console.log(node.type, internalProps)
+
       return node.render(
         Component,
-        evalPropsWithContext({ ...props, ...internalProps }),
+        { ...props, ...internalProps },
         children,
         hasRootChildren,
       )
@@ -63,9 +66,16 @@ export const buildComponents = <P extends Props = {}>(
 
     root.props = { ...root.props, ...convertToLeafRenderProps(rootProps) }
 
+    const evaluatedRootProps = buildProps(
+      { ...root.props, ctx: root.context },
+      {},
+    )
+    const renderProps = renderPropsFilter(evaluatedRootProps)
+
     return (
-      <root.Component {...root.props}>
-        {root.Children(rootChildren)}
+      <root.Component {...evaluatedRootProps}>
+        {/* <root.Component {...buildProps(root.props, {})}> */}
+        {root.Children(rootChildren, renderProps, root.context)}
       </root.Component>
     )
   }

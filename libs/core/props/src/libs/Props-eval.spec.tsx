@@ -1,22 +1,19 @@
-import {
-  evalPropValue,
-  evalPropsIterator,
-  evalPropsWithContext,
-} from './Props-eval'
+import { buildProps, evalPropValue, evalPropsFactory } from './Props-eval'
+import { propsIterator } from './Props-iterator'
 import * as propsReact from './Props-react'
 
 describe('Props with eval type', () => {
   const props = {
     onSuccess: {
-      eval: true,
+      __type: 'eval',
       value: 'return () => true',
     },
     onError: {
-      eval: true,
+      __type: 'eval',
       value: 'return () => false',
     },
     onPending: {
-      eval: true,
+      __type: 'eval',
       value: 'return () => this.status',
     },
   }
@@ -30,19 +27,13 @@ describe('Props with eval type', () => {
   })
 
   it('evaluates a props object', () => {
-    const { onSuccess, onError } = evalPropsIterator(props)
+    const { onSuccess, onError } = propsIterator(props, evalPropsFactory)
 
     expect((onSuccess as Function)()).toBeTruthy()
     expect((onError as Function)()).toBeFalsy()
   })
 
-  it('can access context', () => {
-    const { onPending } = evalPropsIterator(props, { status: 'pending' })
-
-    expect((onPending as Function)()).toBe('pending')
-  })
-
-  describe('evalPropsWithContext', () => {
+  describe('buildProps', () => {
     // Same as above, but tests as integration test
     const reactProps = {
       icon: {
@@ -55,7 +46,7 @@ describe('Props with eval type', () => {
     }
 
     it('evals for evalProps', () => {
-      const { onSuccess, onError } = evalPropsWithContext(props)
+      const { onSuccess, onError } = buildProps(props, {})
 
       expect((onSuccess as Function)()).toBeTruthy()
       expect((onError as Function)()).toBeFalsy()
@@ -66,14 +57,14 @@ describe('Props with eval type', () => {
         render: jest.fn().mockReturnValue(() => null),
       }
       const renderReactNodesSpy = jest.spyOn(propsReact, 'renderReactNodes')
-      const { icon } = evalPropsWithContext({ ...reactProps, ctx: { TreeDom } })
+      const { icon } = buildProps({ ...reactProps, ctx: { TreeDom } }, {})
 
       expect(icon).toBeDefined()
       expect(renderReactNodesSpy).toHaveBeenCalled()
     })
 
     // it('should throw an error when missing Renderer ctx', () => {
-    //   expect(() => evalPropsWithContext({ ...reactProps })).toThrowError()
+    //   expect(() => buildProps({ ...reactProps })).toThrowError()
     // })
   })
 })

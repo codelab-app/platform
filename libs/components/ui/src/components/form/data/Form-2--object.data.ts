@@ -23,7 +23,10 @@ export const formObjectData: NodeReactI<
         devs: [{ name: 'Webber' }, { name: 'Vien' }],
       },
     },
-    onFinish: { eval: true, value: 'return (values) => console.log(values)' },
+    onFinish: {
+      __type: 'eval',
+      value: 'return (values) => console.log(values)',
+    },
   },
   children: [
     {

@@ -12,10 +12,10 @@ const deleteButton: NodeReactI<
 > = {
   type: 'React.Button',
   props: {
-    type: 'React.danger',
+    type: 'danger',
     onClick: {
-      eval: true,
-      value: 'return () => console.log(this.props.record.value.name)',
+      __type: 'eval',
+      value: 'return () => console.log(this.props.record.name)',
     },
   },
   children: [
@@ -31,7 +31,7 @@ const deleteButton: NodeReactI<
 const editButton: NodeReactI = {
   type: 'React.Button',
   props: {
-    type: 'React.warning',
+    type: 'default',
   },
   children: [
     {

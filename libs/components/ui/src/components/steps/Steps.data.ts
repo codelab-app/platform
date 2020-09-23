@@ -4,7 +4,7 @@ import { NodeReactI } from '@codelab/shared/interface/node'
 export const stepsData: NodeReactI<Steps.Props | Steps.StepProps> = {
   type: 'React.Steps',
   props: {
-    type: 'React.default',
+    type: 'default',
     current: 1,
   },
   children: [

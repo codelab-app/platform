@@ -6,32 +6,27 @@ import { NodeReactI } from '@codelab/shared/interface/node'
 export const messageData: NodeReactI<
   Text.Props | Button.Props | Message.Props | { config: object }
 > = {
-  type: 'React.Provider',
+  type: 'React.Button',
   props: {
     onClick: {
-      eval: true,
+      __type: 'eval',
       value:
-        'return () => this.antd.message.info(this.evalProps(this.props.config, {}))',
+        'return () => this.antd.message.info(this.evalProps(this.props.config, this.evalPropsFactory))',
     },
     config: {
       content: 'This is a normal message',
       onClose: {
-        eval: true,
+        __type: 'eval',
         value: 'return () => console.log("Message Closed!")',
       },
     },
   },
   children: [
     {
-      type: 'React.Button',
-      children: [
-        {
-          type: 'React.Text',
-          props: {
-            value: 'Display message',
-          },
-        },
-      ],
+      type: 'React.Text',
+      props: {
+        value: 'Display message',
+      },
     },
   ],
 }

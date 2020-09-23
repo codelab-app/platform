@@ -29,6 +29,7 @@ export interface Node<
 > extends NodeA<T, P> {
   id: string
   // TODO: Need to move somewhere else
+  context: any
   addChild(node: NodeA): void
   addParent(node: NodeA): void
   Component: any

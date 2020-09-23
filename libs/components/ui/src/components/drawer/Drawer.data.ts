@@ -4,30 +4,24 @@ import { DrawerProps } from './Drawer.types'
 import { NodeReactI } from '@codelab/shared/interface/node'
 
 export const drawerData: NodeReactI<DrawerProps | Button.Props | Text.Props> = {
-  type: 'React.Provider',
+  type: 'React.Fragment',
   props: {
     ctx: {
-      eval: true,
+      __type: ['eval', 'single'],
       value:
         'const [visible, setVisible] = this.React.useState(false); return { visible, setVisible }',
-    },
-    onClose: {
-      eval: true,
-      value: 'return () => this.setVisible(false)',
-    },
-    visible: {
-      eval: true,
-      value: 'return this.visible',
-    },
-    onClick: {
-      eval: true,
-      value: 'return () => this.setVisible(true)',
     },
   },
   children: [
     {
       type: 'React.Button',
-      props: { type: 'primary' },
+      props: {
+        type: 'primary',
+        onClick: {
+          __type: 'eval',
+          value: 'return () => this.setVisible(true)',
+        },
+      },
       children: [
         {
           type: 'React.Text',
@@ -41,9 +35,13 @@ export const drawerData: NodeReactI<DrawerProps | Button.Props | Text.Props> = {
       type: 'React.Drawer',
       props: {
         title: 'Basic Drawer',
-        onClick: {
-          eval: true,
-          value: 'return',
+        onClose: {
+          __type: 'eval',
+          value: 'return () => this.setVisible(false)',
+        },
+        visible: {
+          __type: 'eval',
+          value: 'return this.visible',
         },
       },
       children: [

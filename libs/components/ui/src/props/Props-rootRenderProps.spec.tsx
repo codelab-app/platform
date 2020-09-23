@@ -1,5 +1,4 @@
 import { mount } from 'enzyme'
-import { omit } from 'lodash'
 import React from 'react'
 import { Renderer } from '@codelab/core/renderer'
 import { NodeI } from '@codelab/shared/interface/node'
@@ -8,19 +7,28 @@ describe('RootRenderProps', () => {
   const data: NodeI = {
     type: 'React.Html.div',
     props: {
-      parentprops: {},
+      parentprops: {
+        __type: 'eval',
+        value: 'return this.props.rootprops',
+      },
     },
     children: [
       {
         type: 'React.Html.div',
         props: {
-          childprops: {},
+          childprops: {
+            __type: 'eval',
+            value: 'return this.props.rootprops',
+          },
         },
         children: [
           {
             type: 'React.Html.div',
             props: {
-              grandChildProps: {},
+              grandchildprops: {
+                __type: 'eval',
+                value: 'return this.props.rootprops',
+              },
             },
           },
         ],
@@ -29,33 +37,24 @@ describe('RootRenderProps', () => {
   }
 
   it('can pass rootRenderProps to all level of children', () => {
-    const Component = Renderer.components(data)
-    const wrapper = mount(<Component rootProps="rootProps" />)
+    const Component = Renderer.components<{ rootprops: any }>(data)
+    const wrapper = mount(<Component rootprops="rootProps" />)
 
     const parent = wrapper.find('div').get(0)
     const child = wrapper.find('div').get(1)
     const grandchild = wrapper.find('div').get(2)
 
     // Test parent component's props
-    const actualParentProps = omit(parent.props, 'children')
+    const actualParentProps = parent.props
 
-    expect(actualParentProps).toEqual({
-      parentprops: {},
-      rootProps: { renderProps: 'leaf', value: 'rootProps' },
-    })
+    expect(actualParentProps).toHaveProperty('parentprops', 'rootProps')
 
-    const actualChildProps = omit(child.props, 'children')
+    const actualChildProps = child.props
 
-    expect(actualChildProps).toEqual({
-      rootProps: { renderProps: 'leaf', value: 'rootProps' },
-      childprops: {},
-    })
+    expect(actualChildProps).toHaveProperty('childprops', 'rootProps')
 
-    const actualGrandChildProps = omit(grandchild.props, 'children')
+    const actualGrandChildProps = grandchild.props
 
-    expect(actualGrandChildProps).toEqual({
-      rootProps: { renderProps: 'leaf', value: 'rootProps' },
-      grandChildProps: {},
-    })
+    expect(actualGrandChildProps).toHaveProperty('grandchildprops', 'rootProps')
   })
 })
