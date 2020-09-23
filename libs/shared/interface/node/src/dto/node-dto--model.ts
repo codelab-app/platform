@@ -1,4 +1,4 @@
-import { ModelType } from '../enums/node-enum--model'
+import { ModelType } from '../enums'
 import { NodeA, NodeI } from './node-dto'
 import { ModelProps, SchemaProps } from '@codelab/shared/interface/model'
 
