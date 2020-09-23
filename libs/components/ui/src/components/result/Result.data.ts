@@ -12,7 +12,7 @@ export const resultData: NodeReactI<
     title: 'Your operation has been executed',
     extra: {
       type: 'React.Button',
-      props: { type: 'React.primary', key: 'console' },
+      props: { type: 'primary', key: 'console' },
       children: [
         {
           type: 'React.Text',

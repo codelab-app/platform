@@ -41,7 +41,11 @@ import {
 export const makeTree = (data: NodeI): NodeA => {
   const tree = new NodeEntity(data)
 
-  treeWalker<NodeI, TreeSubTreeAcc<NodeI>>(treeAppenderIteratee, tree)({}, data)
+  treeWalker<NodeI, TreeSubTreeAcc<NodeA>>(treeAppenderIteratee, tree)(
+    {},
+    // Error arises when json data doesn't have id to check for root equality, we set the root id on the JSON so we can compare in the iteratee
+    { ...data, id: tree.id },
+  )
 
   return tree
 }

@@ -30,7 +30,7 @@ export const modalData: NodeReactI<Modal.Props | Button.Props> = {
   children: [
     {
       type: 'React.Button',
-      props: { type: 'React.primary' },
+      props: { type: 'primary' },
       children: [{ type: 'React.Text', props: { value: 'Open modal' } }],
     },
     {

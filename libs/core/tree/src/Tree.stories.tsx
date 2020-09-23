@@ -12,6 +12,8 @@ export default {
 export const Tree = () => {
   const nodeTree = makeTree(componentData)
 
+  console.log(nodeTree)
+
   const treeMapper: Mapper<any, D3TreeData> = (node) => {
     return {
       id: node.id,

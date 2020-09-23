@@ -11,6 +11,8 @@ describe('Tree', () => {
   it('can build a tree from json', () => {
     const tree = makeTree(treeData)
 
+    console.log(tree)
+
     expect(tree.id).toEqual('Root')
 
     const { children } = tree

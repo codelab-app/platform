@@ -6,6 +6,7 @@ import { schemaFactory } from '../../model/src/schema'
 import { NodeEntity } from '@codelab/core/node'
 import {
   Node,
+  NodeA,
   NodeI,
   assertsModelA,
   assertsNode,
@@ -37,10 +38,10 @@ export const nodeFinderIteratee = (
  * treeWalker passes in a new parent at each level
  */
 
-export const treeAppenderIteratee: TraversalIteratee<TreeSubTreeAcc<NodeI>> = (
-  { parent }: TreeSubTreeAcc<NodeI>,
-  child: NodeI,
-) => {
+export const treeAppenderIteratee: TraversalIteratee<
+  NodeI,
+  TreeSubTreeAcc<NodeA>
+> = ({ parent }: TreeSubTreeAcc<NodeA>, child: NodeI) => {
   assertsNode(parent as Node)
 
   /**
@@ -66,9 +67,10 @@ export const treeAppenderIteratee: TraversalIteratee<TreeSubTreeAcc<NodeI>> = (
   }
 }
 
-export const graphAppenderIteratee: TraversalIteratee<GraphSubTreeAcc<
-  NodeI
->> = ({ graph, parent }: GraphSubTreeAcc<NodeI>, child: NodeI) => {
+export const graphAppenderIteratee: TraversalIteratee<
+  NodeI,
+  GraphSubTreeAcc<NodeI>
+> = ({ graph, parent }: GraphSubTreeAcc<NodeI>, child: NodeI) => {
   const node = new NodeEntity(child)
 
   graph.addVertexFromNode(node)
@@ -89,7 +91,7 @@ export const graphAppenderIteratee: TraversalIteratee<GraphSubTreeAcc<
 /**
  * A factory that takes an iteratee
  */
-export const modelCreationIteratee: TraversalIteratee<ModelAcc> = (
+export const modelCreationIteratee: TraversalIteratee<NodeI, ModelAcc> = (
   { name, schema, model }: ModelAcc,
   node: NodeI,
 ) => {

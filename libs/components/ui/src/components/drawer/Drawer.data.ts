@@ -27,7 +27,7 @@ export const drawerData: NodeReactI<DrawerProps | Button.Props | Text.Props> = {
   children: [
     {
       type: 'React.Button',
-      props: { type: 'React.primary' },
+      props: { type: 'primary' },
       children: [
         {
           type: 'React.Text',

@@ -2,10 +2,11 @@ import * as mongoose from 'mongoose'
 import { Graph } from '@codelab/shared/interface/graph'
 import { HasParent, Node, NodeA, NodeI } from '@codelab/shared/interface/node'
 
-export type TraversalIteratee<
-  SubTree extends HasParent<T>,
-  T extends NodeI = NodeI
-> = (acc: SubTree, curr: T, index?: number) => SubTree
+export type TraversalIteratee<T extends NodeI, SubTree extends HasParent<T>> = (
+  acc: SubTree,
+  curr: T,
+  index?: number,
+) => SubTree
 
 export type NodeIteratee<T extends NodeA = NodeA> = (node: T) => void
 

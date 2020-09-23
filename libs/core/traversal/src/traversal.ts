@@ -28,7 +28,7 @@ export const treeWalker = <
   T extends NodeI = NodeI,
   S extends TreeSubTreeAcc<T> = TreeSubTreeAcc<T>
 >(
-  nodeIteratee: TraversalIteratee<S, T>,
+  nodeIteratee: TraversalIteratee<T, S>,
   parent?: T,
 ) => {
   return (
@@ -64,7 +64,7 @@ export const treeWalkerPostOrder = <
   T extends NodeI = NodeI,
   S extends TreeSubTreeAcc<T> = TreeSubTreeAcc<T>
 >(
-  nodeIteratee: TraversalIteratee<S, T>,
+  nodeIteratee: TraversalIteratee<T, S>,
   parent?: T,
 ) => {
   return (
