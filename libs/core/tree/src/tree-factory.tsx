@@ -17,7 +17,7 @@ import {
   NodeA,
   NodeI,
   assertsID,
-  assertsNodeA,
+  assertsNodeI,
 } from '@codelab/shared/interface/node'
 import {
   GraphSubTreeAcc,
@@ -71,7 +71,7 @@ export const makeGraph = (data: NodeI): Graph => {
  *
  * Ideally we can add a traverse
  */
-export const makeModel = (input: NodeI) => {
+export const makeModel2 = (input: NodeI) => {
   const root = makeTree(input)
 
   return traversePostOrderReducer({})(modelCreationIteratee, root)
@@ -80,7 +80,7 @@ export const makeModel = (input: NodeI) => {
 /**
  * Alternative implementation
  */
-export const makeModel2 = (input: NodeI) => {
+export const makeModel = (input: NodeI) => {
   const root = new NodeEntity(input)
 
   const acc = reduce(
@@ -97,10 +97,10 @@ export const makeModel2 = (input: NodeI) => {
 // TODO: needs to be optimized for traversal performance
 export const findNode = (
   id: string | undefined,
-  node: NodeA,
-): NodeA | undefined => {
+  node: NodeI,
+): NodeI | undefined => {
   assertsID(id)
-  assertsNodeA(node)
+  assertsNodeI(node)
 
   if (node.id === id) {
     return node
@@ -108,7 +108,7 @@ export const findNode = (
 
   return reduce(
     node.children,
-    treeWalker<NodeA, NodeFinderAcc<NodeA>>(nodeFinderIteratee),
+    treeWalker<NodeI, NodeFinderAcc<NodeI>>(nodeFinderIteratee),
     {
       id,
     },

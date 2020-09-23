@@ -1,6 +1,6 @@
 import { ModelType } from '../enums'
 import { NodeA, NodeI } from './node-dto'
-import { PropsModel, PropsSchema } from '@codelab/shared/interface/model'
+import { PropsModel, PropsSchema } from '@codelab/shared/interface/props'
 
 export type ModelI = NodeI<ModelType.Model, PropsModel>
 

@@ -6,7 +6,6 @@ import { schemaFactory } from '../../model/src/schema'
 import { NodeEntity } from '@codelab/core/node'
 import {
   Node,
-  NodeA,
   NodeI,
   assertsModelA,
   assertsNode,
@@ -22,9 +21,9 @@ import {
 } from '@codelab/shared/interface/tree'
 
 export const nodeFinderIteratee = (
-  { id, parent, found }: NodeFinderAcc<NodeA>,
-  child: NodeA,
-): NodeFinderAcc<NodeA> => ({
+  { id, parent, found }: NodeFinderAcc<NodeI>,
+  child: NodeI,
+): NodeFinderAcc<NodeI> => ({
   id,
   found: child.id === id ? child : found,
   parent,
@@ -73,7 +72,13 @@ export const graphAppenderIteratee: TraversalIteratee<GraphSubTreeAcc<
   const node = new NodeEntity(child)
 
   graph.addVertexFromNode(node)
-  graph.addEdgeFromNodes(parent, node)
+
+  /**
+   * The initial run now contains same parent & child, so we have to check when to add edges.
+   */
+  if (parent?.id !== child.id) {
+    graph.addEdgeFromNodes(parent, node)
+  }
 
   return {
     prev: node,

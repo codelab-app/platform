@@ -32,7 +32,7 @@ describe('Node traversal', () => {
     expect(queue).toEqual(expectedQueue)
   })
 
-  it('can use treeWalker as a reducer', () => {
+  it('can use post order as a reducer', () => {
     const root = makeTree(treeData)
     const expectedQueue: Array<string> = [
       'C',
@@ -55,5 +55,30 @@ describe('Node traversal', () => {
     const nodeList = traversePostOrderReducer([])(cb, root)
 
     expect(nodeList).toEqual(expectedQueue)
+  })
+
+  it('can use treeWalker as post order', () => {
+    const root = makeTree(treeData)
+    const queue: Array<string> = []
+    const expectedQueue: Array<string> = [
+      'C',
+      'D',
+      'B',
+      'A',
+      'F',
+      'G',
+      'H',
+      'E',
+      'Root',
+    ]
+
+    const cb = (node: NodeA) => {
+      console.debug(`Traversing ${node.id}`)
+      queue.push(node.id)
+    }
+
+    traversePostOrder(root, cb)
+
+    expect(queue).toEqual(expectedQueue)
   })
 })

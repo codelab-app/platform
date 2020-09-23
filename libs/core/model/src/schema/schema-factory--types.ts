@@ -3,7 +3,7 @@ import * as mongoose from 'mongoose'
 import {
   PropsSchema,
   PropsSchemaOptions,
-} from '@codelab/shared/interface/model'
+} from '@codelab/shared/interface/props'
 
 export const getSchemaType = (
   propValue: PropsSchemaOptions,

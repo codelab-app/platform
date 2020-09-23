@@ -77,11 +77,10 @@ import {
 } from '@codelab/shared/interface/node'
 import { Props } from '@codelab/shared/interface/props'
 
-export const elementParameterFactory: NodeFactory<ElementParameters<Props>> = <
-  P extends Props
->(
-  node: NodeA,
-) => {
+export const elementParameterFactory: NodeFactory<
+  ElementParameters<Props>,
+  NodeA
+> = <P extends Props>(node: NodeA) => {
   const { type, props } = node
 
   switch (type) {

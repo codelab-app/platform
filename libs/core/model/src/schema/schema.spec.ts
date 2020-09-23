@@ -3,7 +3,7 @@
  */
 import * as mongoose from 'mongoose'
 import { schemaFactory } from './schema-factory'
-import { PropsSchema } from '@codelab/shared/interface/model'
+import { PropsSchema } from '@codelab/shared/interface/props'
 
 describe('Schema', () => {
   it('should transform from JSON Schema to Schema', () => {

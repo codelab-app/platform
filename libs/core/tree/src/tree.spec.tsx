@@ -3,6 +3,7 @@ import { treeData, treeDataWithLabel } from './data'
 import { makeGraph, makeTree } from './tree-factory'
 import { treeMap } from './tree-map'
 import { Edge, Vertex } from '@codelab/core/graph'
+import { NodeEntity } from '@codelab/core/node'
 import { findNode } from '@codelab/core/tree'
 import { Mapper, NodeI } from '@codelab/shared/interface/node'
 
@@ -30,7 +31,7 @@ describe('Tree', () => {
   it('has a parent', () => {
     const tree = makeTree(treeData)
     const B = findNode('B', tree)
-    const C = findNode('C', tree)
+    const C = findNode('C', tree) as NodeEntity
 
     expect(C?.parent?.id).toEqual(B?.id)
   })
