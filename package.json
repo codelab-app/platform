@@ -86,6 +86,7 @@
     "gatsby-source-filesystem": "2.3.30",
     "gatsby-transformer-sharp": "2.5.15",
     "glob": "7.1.6",
+    "highlight.js": "^10.2.0",
     "io-ts": "2.2.10",
     "io-ts-types": "0.5.11",
     "json-schema": "0.2.5",

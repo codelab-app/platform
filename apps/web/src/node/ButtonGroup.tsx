@@ -38,7 +38,6 @@ const nodeButtonGroupData: NodeReactI = {
               __type: ['Eval'],
               value: `
                 return () => {
-                  console.log(this);
                   this.setvisibility(true)
                 }
               `,

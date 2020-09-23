@@ -4,7 +4,11 @@ import {
   NodeReactI,
   ReactType,
   nodeTypeEntries,
+  TreeType,
+  ModelType,
+  BaseNodeType,
 } from '@codelab/shared/interface/node'
+import { FormInstance } from 'antd/lib/form'
 
 const parentNodeSelect: NodeReactI = {
   type: 'React.Form.Item',
@@ -59,18 +63,15 @@ const treeNodeFields: NodeReactI = {
     },
   },
   children: [
-    {
-      type: 'React.Form.Item',
-      props: {
-        label: 'ID',
-        name: 'ID',
-      },
-      children: [{ type: 'React.Input' }],
-    },
+    Form.createSelect({
+      label: 'Type',
+      name: 'type',
+      options: Object.entries(TreeType),
+    }),
   ],
 }
 
-const refNodeFields: NodeReactI = {
+const modelNodeFields: NodeReactI = {
   type: 'React.Form.ItemHook',
   props: {
     shouldUpdate: true,
@@ -80,18 +81,15 @@ const refNodeFields: NodeReactI = {
     },
   },
   children: [
-    {
-      type: 'React.Form.Item',
-      props: {
-        label: 'id',
-        name: 'id',
-      },
-      children: [{ type: 'React.Input' }],
-    },
+    Form.createSelect({
+      label: 'Type',
+      name: 'type',
+      options: Object.entries(ModelType),
+    }),
   ],
 }
 
-export const nodeFormData: NodeReactI = {
+const nodeFormData: NodeReactI = {
   type: 'React.Form.Item',
   props: {
     label: 'Prop',
@@ -137,7 +135,7 @@ export const nodeFormData: NodeReactI = {
   ],
 }
 
-export const submitButtonData: NodeReactI = {
+const submitButtonData: NodeReactI = {
   type: 'React.Form.Item',
   children: [
     {
@@ -189,16 +187,18 @@ export const modalFormData: NodeReactI = {
       props: {
         form: { __type: ['Eval'], value: 'return this.form' },
         name: 'create-node-form',
+        initialValues: { nodeType: BaseNodeType.React },
         onFinish: {
           __type: ['Eval'],
-          value: 'return this.handlesubmit',
+          value:
+            'return (data)=>{this.props.handlesubmit.value(data);this.props.forminstance.value.resetFields();}',
         },
       },
       children: [
         nodeTypeSelect,
         reactNodeFields,
         treeNodeFields,
-        refNodeFields,
+        modelNodeFields,
         nodeFormData,
         parentNodeSelect,
         submitButtonData,
@@ -213,6 +213,7 @@ type ModalFormProps = {
   handlecancel: Function
   parentnodes: Array<any>
   initialvalues?: any
+  forminstance?: FormInstance
 }
 
 export const ModalForm = Renderer.components<ModalFormProps>(modalFormData)

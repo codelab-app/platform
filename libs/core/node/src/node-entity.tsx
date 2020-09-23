@@ -108,6 +108,19 @@ export class NodeEntity<
     child.addParent(this)
   }
 
+  public removeChild(child: Node<T, P>) {
+    const indexOfChild = this.children.indexOf(child)
+
+    this.children.splice(indexOfChild, 1)
+  }
+
+  public move(newParentNode: Node<T, P>) {
+    if (this.parent !== undefined) {
+      this.parent.removeChild(this)
+      newParentNode.addChild(this)
+    }
+  }
+
   public addParent(parent: Node<T, P>) {
     this.parent = parent
   }
