@@ -88,9 +88,9 @@ export const modelCreationIteratee: TraversalIteratee<
     }
 
     return {
-      name: node?.props?.name,
+      name: node.props.name,
       schema,
-      model: mongoose.model(node?.props.name, schema),
+      model: mongoose.model(node.props.name, schema),
     }
   }
 

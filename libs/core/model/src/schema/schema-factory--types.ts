@@ -1,9 +1,12 @@
 import { reduce } from 'lodash'
 import * as mongoose from 'mongoose'
-import { SchemaProps, SchemaPropsValue } from '@codelab/shared/interface/model'
+import {
+  PropsSchema,
+  PropsSchemaOptions,
+} from '@codelab/shared/interface/model'
 
 export const getSchemaType = (
-  propValue: SchemaPropsValue,
+  propValue: PropsSchemaOptions,
 ): mongoose.SchemaTypeOpts<any> => {
   const { type } = propValue
 
@@ -34,17 +37,17 @@ export const getSchemaType = (
  * Transform props to mongoose Schema
  */
 export const schemaPropsFactory = (
-  props?: SchemaProps,
+  props?: PropsSchema,
 ): mongoose.SchemaDefinition => {
   const schemaDefinition: mongoose.SchemaDefinition = reduce<
-    SchemaProps,
+    PropsSchema,
     mongoose.SchemaDefinition
   >(
     props,
     (
       mongooseSchemaDefinition: mongoose.SchemaDefinition,
-      propValue: SchemaProps[keyof SchemaProps],
-      propKey: keyof SchemaProps,
+      propValue: PropsSchema[keyof PropsSchema],
+      propKey: keyof PropsSchema,
     ) => {
       return {
         ...mongooseSchemaDefinition,

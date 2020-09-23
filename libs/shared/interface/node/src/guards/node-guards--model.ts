@@ -22,7 +22,11 @@ export const assertsModelI: AssertsNodeI = (
   }
 }
 
-export const assertsModelA: AssertsNodeI = (
+interface AssertsModelA {
+  (node: NodeI): asserts node is ModelA
+}
+
+export const assertsModelA: AssertsModelA = (
   node: NodeI,
 ): asserts node is ModelA => {
   if (node?.type !== ModelType.Model) {

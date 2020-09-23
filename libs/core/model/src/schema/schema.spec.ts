@@ -3,7 +3,7 @@
  */
 import * as mongoose from 'mongoose'
 import { schemaFactory } from './schema-factory'
-import { SchemaProps } from '@codelab/shared/interface/model'
+import { PropsSchema } from '@codelab/shared/interface/model'
 
 describe('Schema', () => {
   it('should transform from JSON Schema to Schema', () => {
@@ -16,7 +16,7 @@ describe('Schema', () => {
       },
     })
 
-    const personExample: SchemaProps = {
+    const personExample: PropsSchema = {
       name: { type: 'string' },
       age: { type: 'number' },
       role: { type: 'string', enum: ['teacher', 'student'] },

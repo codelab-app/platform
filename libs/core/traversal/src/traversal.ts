@@ -19,15 +19,11 @@ import {
 } from '@codelab/shared/interface/tree'
 
 /**
- * Curried function allows us to first initialize the treeWalker with an iteratee.
+ * Function should traverse each node, then apply a callback function with arguments passed from the reducer
  *
- * The reduce loop then passes the remaining arguments.
- *
- * @param parent - Parent `Node` of current iteratee
+ * @param nodeIteratee
+ * @param parent
  */
-// P -> Prop
-// S -> SubTree or Acc
-// N -> Node
 export const treeWalker = <
   T extends NodeI = NodeI,
   S extends TreeSubTreeAcc<T> = TreeSubTreeAcc<T>
