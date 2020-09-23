@@ -1,7 +1,7 @@
 import { Rate } from './Rate.types'
-import { NodeDtoReactI } from '@codelab/shared/interface/node'
+import { NodeReactI } from '@codelab/shared/interface/node'
 
-export const rateData: NodeDtoReactI<Rate.Props> = {
+export const rateData: NodeReactI<Rate.Props> = {
   type: 'React.Rate',
   props: {
     defaultValue: 2,

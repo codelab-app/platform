@@ -1,13 +1,13 @@
 import { NodeEntity } from './node-entity'
-import { NodeCreateDto, NodeTypeEnum } from '@codelab/shared/interface/node'
+import { NodeCreate, NodeTypeEnum } from '@codelab/shared/interface/node'
 import { Props } from '@codelab/shared/interface/props'
 
 export interface EntityFactory<T> {
-  fromDto<P extends Props = {}>(data: NodeCreateDto<NodeTypeEnum, P>): T
+  fromDto<P extends Props = {}>(data: NodeCreate<NodeTypeEnum, P>): T
 }
 
 export class NodeFactory implements EntityFactory<NodeEntity> {
-  fromDto(data: NodeCreateDto) {
+  fromDto(data: NodeCreate) {
     return new NodeEntity(data)
   }
 }

@@ -1,8 +1,8 @@
 import { Text } from '../text'
 import { Timeline } from './Timeline.types'
-import { NodeDtoReactI } from '@codelab/shared/interface/node'
+import { NodeReactI } from '@codelab/shared/interface/node'
 
-export const timelineData: NodeDtoReactI<
+export const timelineData: NodeReactI<
   Timeline.Props | Timeline.ItemProps | Text.Props
 > = {
   type: 'React.Timeline',

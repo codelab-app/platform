@@ -7,11 +7,11 @@ import {
 } from '@codelab/core/props'
 import { traversePostOrder } from '@codelab/core/traversal'
 import { makeTree } from '@codelab/core/tree'
-import { Node, NodeDtoI, NodeFactory } from '@codelab/shared/interface/node'
+import { Node, NodeFactory, NodeI } from '@codelab/shared/interface/node'
 import { Props } from '@codelab/shared/interface/props'
 
 export const buildComponents = <P extends Props = {}>(
-  data: NodeDtoI,
+  data: NodeI,
 ): FunctionComponent<PropsWithChildren<P>> => {
   let hasRootChildren = false
   const root = makeTree(data) as Node

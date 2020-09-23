@@ -11,7 +11,7 @@
 import { reduce } from 'lodash'
 // eslint-disable-next-line import/no-cycle
 import { NodeEntity } from '@codelab/core/node'
-import { NodeDtoA, NodeDtoI } from '@codelab/shared/interface/node'
+import { NodeA, NodeI } from '@codelab/shared/interface/node'
 import {
   NodeIteratee,
   TraversalIteratee,
@@ -29,14 +29,15 @@ import {
 // S -> SubTree or Acc
 // N -> Node
 export const treeWalker = <
-  S extends TreeSubTreeAcc<NodeDtoI> = TreeSubTreeAcc<NodeDtoI>
+  T extends NodeI = NodeI,
+  S extends TreeSubTreeAcc<T> = TreeSubTreeAcc<T>
 >(
-  nodeIteratee: TraversalIteratee<S, NodeDtoI>,
-  parent?: NodeDtoI,
+  nodeIteratee: TraversalIteratee<S, T>,
+  parent?: T,
 ) => {
   return (
     subTreeAcc: S, // prev (reduce arg)
-    child: NodeDtoI, // curr (reduce arg)
+    child: T, // curr (reduce arg)
   ) => {
     console.log(parent?.id, subTreeAcc.parent?.id)
     if (parent && !parent?.id) {
@@ -51,7 +52,7 @@ export const treeWalker = <
     /**
      * Return traversal if no more children
      */
-    if (!NodeEntity.hasChildren<NodeDtoI>(child)) {
+    if (!NodeEntity.hasChildren<T>(child)) {
       return newSubTreeAcc
     }
 
@@ -60,15 +61,15 @@ export const treeWalker = <
     /**
      * At junction of tree, call children recursively with new parent & context passed in
      */
-    return reduce<NodeDtoI, S>(
-      child.children as Array<NodeDtoI>,
-      treeWalker<S>(nodeIteratee, newParent),
+    return reduce<T, S>(
+      child.children as Array<T>,
+      treeWalker<T, S>(nodeIteratee, newParent),
       newSubTreeAcc,
     )
   }
 }
 
-export const traversePostOrder = (node: NodeDtoA, iteratee: NodeIteratee) => {
+export const traversePostOrder = (node: NodeA, iteratee: NodeIteratee) => {
   node.children.forEach((child) => {
     traversePostOrder(child, iteratee)
   })
@@ -76,7 +77,7 @@ export const traversePostOrder = (node: NodeDtoA, iteratee: NodeIteratee) => {
   iteratee(node)
 }
 
-export const traversePreOrder = (node: NodeDtoA, iteratee: NodeIteratee) => {
+export const traversePreOrder = (node: NodeA, iteratee: NodeIteratee) => {
   if (!node) {
     return
   }

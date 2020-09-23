@@ -1,7 +1,7 @@
 import { Slider } from './Slider.types'
-import { NodeDtoReactI } from '@codelab/shared/interface/node'
+import { NodeReactI } from '@codelab/shared/interface/node'
 
-export const sliderData: NodeDtoReactI<Slider.Props> = {
+export const sliderData: NodeReactI<Slider.Props> = {
   type: 'React.Slider',
   props: {
     defaultValue: 20,

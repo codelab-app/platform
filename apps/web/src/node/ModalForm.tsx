@@ -1,19 +1,19 @@
 import { Form } from '@codelab/components/ui'
 import { Renderer } from '@codelab/core/renderer'
 import {
-  BaseNodeTypeEnum,
-  NodeDtoReactI,
-  NodeTypeReactEnum,
-  nodeTypeEnumEntries,
+  BaseNodeType,
+  NodeReactI,
+  ReactType,
+  nodeTypeEntries,
 } from '@codelab/shared/interface/node'
 
-const nodeTypeSelect: NodeDtoReactI = Form.createSelect({
+const nodeTypeSelect: NodeReactI = Form.createSelect({
   label: 'NodeType',
   name: 'nodeType',
-  options: nodeTypeEnumEntries,
+  options: nodeTypeEntries,
 })
 
-const reactNodeFields: NodeDtoReactI = {
+const reactNodeFields: NodeReactI = {
   type: 'React.Form.ItemHook',
   props: {
     shouldUpdate: true,
@@ -26,12 +26,12 @@ const reactNodeFields: NodeDtoReactI = {
     Form.createSelect({
       label: 'Type',
       name: 'type',
-      options: Object.entries(NodeTypeReactEnum),
+      options: Object.entries(ReactType),
     }),
   ],
 }
 
-const treeNodeFields: NodeDtoReactI = {
+const treeNodeFields: NodeReactI = {
   type: 'React.Form.ItemHook',
   props: {
     shouldUpdate: true,
@@ -52,7 +52,7 @@ const treeNodeFields: NodeDtoReactI = {
   ],
 }
 
-const refNodeFields: NodeDtoReactI = {
+const refNodeFields: NodeReactI = {
   type: 'React.Form.ItemHook',
   props: {
     shouldUpdate: true,
@@ -73,7 +73,7 @@ const refNodeFields: NodeDtoReactI = {
   ],
 }
 
-export const nodeFormData: NodeDtoReactI = {
+export const nodeFormData: NodeReactI = {
   type: 'React.Form.Item',
   props: {
     label: 'Prop',
@@ -118,7 +118,8 @@ export const nodeFormData: NodeDtoReactI = {
     },
   ],
 }
-export const submitButtonData: NodeDtoReactI = {
+
+export const submitButtonData: NodeReactI = {
   type: 'React.Form.Item',
   children: [
     {
@@ -139,7 +140,7 @@ export const submitButtonData: NodeDtoReactI = {
   ],
 }
 
-export const modalFormData: NodeDtoReactI = {
+export const modalFormData: NodeReactI = {
   type: 'React.Modal',
   props: {
     title: 'Create Node Form',
@@ -160,7 +161,7 @@ export const modalFormData: NodeDtoReactI = {
       type: 'React.Form',
       props: {
         name: 'create-node-form',
-        initialValues: { nodeType: BaseNodeTypeEnum.React },
+        initialValues: { nodeType: BaseNodeType.React },
         onFinish: {
           eval: true,
           value: 'return this.props.handlesubmit.value',

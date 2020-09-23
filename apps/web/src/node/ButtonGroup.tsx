@@ -1,7 +1,7 @@
 import { Renderer } from '@codelab/core/renderer'
-import type { NodeDtoReactI } from '@codelab/shared/interface/node'
+import type { NodeReactI } from '@codelab/shared/interface/node'
 
-const nodeButtonGroupData: NodeDtoReactI = {
+const nodeButtonGroupData: NodeReactI = {
   type: 'React.Html.div',
   children: [
     {

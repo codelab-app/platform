@@ -1,9 +1,9 @@
 import { Icon } from '../icon'
 import { Text } from '../text'
 import { Comment } from './Comment.types'
-import { NodeDtoReactI } from '@codelab/shared/interface/node'
+import { NodeReactI } from '@codelab/shared/interface/node'
 
-export const commentData: NodeDtoReactI<
+export const commentData: NodeReactI<
   Comment.Props | Text.Props | Icon.Props
 > = {
   type: 'React.Comment',

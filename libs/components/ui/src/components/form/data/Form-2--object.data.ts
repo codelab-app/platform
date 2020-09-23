@@ -2,12 +2,12 @@ import { Button } from '../../button'
 import { Divider } from '../../divider'
 import { Text } from '../../text'
 import { Form } from '../Form.types'
-import { NodeDtoReactI } from '@codelab/shared/interface/node'
+import { NodeReactI } from '@codelab/shared/interface/node'
 
 /**
  * We create a user object, which is keyed by 'user'
  */
-export const formObjectData: NodeDtoReactI<
+export const formObjectData: NodeReactI<
   Form.Props | Form.ItemProps | Text.Props | Button.Props | Divider.Props
 > = {
   type: 'React.Form',

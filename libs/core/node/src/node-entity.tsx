@@ -5,8 +5,8 @@ import { filterRenderProps } from '@codelab/core/props'
 import {
   HasChildren,
   Node,
-  NodeCreateDto,
-  NodeDtoA,
+  NodeA,
+  NodeCreate,
   NodeTypeLiteral,
   nodeTypeLiterals,
 } from '@codelab/shared/interface/node'
@@ -18,7 +18,7 @@ import { Props } from '@codelab/shared/interface/props'
 export class NodeEntity<
   T extends NodeTypeLiteral = NodeTypeLiteral,
   P extends Props = {}
-> implements NodeDtoA<T, P> {
+> implements NodeA<T, P> {
   public Component: FunctionComponent<any> = () => null
 
   public id: string
@@ -35,12 +35,12 @@ export class NodeEntity<
   /**
    * The class Node & the codec Node should be kept separate. Node is the container for behavior, while codec Node holds the shape of the data
    */
-  public data: NodeCreateDto<T, P>
+  public data: NodeCreate<T, P>
 
   /**
    * Can take just ID, but fills out other fields
    */
-  constructor(node: NodeCreateDto<T, P>) {
+  constructor(node: NodeCreate<T, P>) {
     const { props, id, type } = node
 
     if (!type || !nodeTypeLiterals.includes(type)) {

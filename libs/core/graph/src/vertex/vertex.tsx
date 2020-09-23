@@ -1,5 +1,5 @@
 import { Vertex as IVertex, VertexProps } from '@codelab/shared/interface/graph'
-import { NodeDtoA } from '@codelab/shared/interface/node'
+import { NodeA } from '@codelab/shared/interface/node'
 
 export class Vertex implements IVertex {
   id: string
@@ -10,7 +10,7 @@ export class Vertex implements IVertex {
     this.id = id
   }
 
-  static fromNode(node: NodeDtoA): Vertex {
+  static fromNode(node: NodeA): Vertex {
     const { id } = node
 
     return new Vertex({ id })

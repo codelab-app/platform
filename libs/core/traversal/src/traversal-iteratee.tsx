@@ -6,12 +6,12 @@ import { schemaFactory } from '../../model/src/schema'
 import { NodeEntity } from '@codelab/core/node'
 import {
   Node,
-  NodeDtoA,
-  NodeDtoI,
-  assertModelI,
-  isModelNode,
-  isNode,
-  isSchemaNode,
+  NodeA,
+  NodeI,
+  assertsModelA,
+  assertsNode,
+  isModelI,
+  isSchemaI,
 } from '@codelab/shared/interface/node'
 import {
   GraphSubTreeAcc,
@@ -22,9 +22,9 @@ import {
 } from '@codelab/shared/interface/tree'
 
 export const nodeFinderIteratee = (
-  { id, parent, found }: NodeFinderAcc<NodeDtoA>,
-  child: NodeDtoA,
-): NodeFinderAcc<NodeDtoA> => ({
+  { id, parent, found }: NodeFinderAcc<NodeA>,
+  child: NodeA,
+): NodeFinderAcc<NodeA> => ({
   id,
   found: child.id === id ? child : found,
   parent,
@@ -39,10 +39,10 @@ export const nodeFinderIteratee = (
  */
 
 export const treeAppenderIteratee: TraversalIteratee<
-  TreeSubTreeAcc<NodeDtoI>,
-  NodeDtoI
-> = ({ parent }: TreeSubTreeAcc<NodeDtoI>, child: NodeDtoI) => {
-  isNode(parent as Node)
+  TreeSubTreeAcc<NodeI>,
+  NodeI
+> = ({ parent }: TreeSubTreeAcc<NodeI>, child: NodeI) => {
+  assertsNode(parent as Node)
 
   const childNode = new NodeEntity(child)
 
@@ -55,9 +55,9 @@ export const treeAppenderIteratee: TraversalIteratee<
 }
 
 export const graphAppenderIteratee: TraversalIteratee<
-  GraphSubTreeAcc<NodeDtoI>,
-  NodeDtoI
-> = ({ graph, parent }: GraphSubTreeAcc<NodeDtoI>, child: NodeDtoI) => {
+  GraphSubTreeAcc<NodeI>,
+  NodeI
+> = ({ graph, parent }: GraphSubTreeAcc<NodeI>, child: NodeI) => {
   const node = new NodeEntity(child)
 
   graph.addVertexFromNode(node)
@@ -73,15 +73,15 @@ export const graphAppenderIteratee: TraversalIteratee<
  * A factory that takes an iteratee
  */
 export const modelCreationIteratee: TraversalIteratee<
-  ModelAcc<NodeDtoI>,
-  NodeDtoI
-> = ({ name, schema, model }: ModelAcc<NodeDtoI>, node: NodeDtoI) => {
-  if (isSchemaNode(node)) {
+  ModelAcc<NodeI>,
+  NodeI
+> = ({ name, schema, model }: ModelAcc<NodeI>, node: NodeI) => {
+  if (isSchemaI(node)) {
     return { schema: schemaFactory(node) }
   }
 
-  if (isModelNode(node)) {
-    assertModelI(node)
+  if (isModelI(node)) {
+    assertsModelA(node)
 
     if (!schema) {
       throw new Error('Missing schema as children')

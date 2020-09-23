@@ -1,8 +1,8 @@
 import { Text } from '../text'
 import { Checkbox } from './Checkbox.types'
-import { NodeDtoReactI } from '@codelab/shared/interface/node'
+import { NodeReactI } from '@codelab/shared/interface/node'
 
-export const checkboxData: NodeDtoReactI<
+export const checkboxData: NodeReactI<
   Checkbox.Props | Checkbox.GroupProps | Text.Props
 > = {
   type: 'React.Checkbox',

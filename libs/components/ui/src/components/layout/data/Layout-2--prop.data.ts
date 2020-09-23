@@ -1,8 +1,8 @@
 import { Text } from '../../text'
 import { Layout } from '../Layout.types'
-import { NodeDtoReactI } from '@codelab/shared/interface/node'
+import { NodeReactI } from '@codelab/shared/interface/node'
 
-export const propLayoutData: NodeDtoReactI<
+export const propLayoutData: NodeReactI<
   Layout.Props | Layout.SiderProps | Text.Props
 > = {
   type: 'React.Layout',

@@ -1,5 +1,5 @@
-import { NodeTypeTreeEnum } from '../enums/node-enum--tree'
-import { NodeDtoA, NodeDtoI } from './node-dto'
+import { TreeType } from '../enums/node-enum--tree'
+import { NodeA, NodeI } from './node-dto'
 import { Props } from '@codelab/shared/interface/props'
 
 /**
@@ -7,21 +7,11 @@ import { Props } from '@codelab/shared/interface/props'
  */
 
 // Ref
-export type NodeDtoTreeRefI<P extends Props = {}> = NodeDtoI<
-  NodeTypeTreeEnum.Ref,
-  P
->
-export type NodeDtoTreeRefA<P extends Props = {}> = NodeDtoA<
-  NodeTypeTreeEnum.Ref,
-  P
->
+export type NodeDtoTreeRefI<P extends Props = {}> = NodeI<TreeType.Ref, P>
+
+export type NodeDtoTreeRefA<P extends Props = {}> = NodeA<TreeType.Ref, P>
 
 // Tree
-export type NodeDtoTreeI<P extends Props = {}> = NodeDtoI<
-  NodeTypeTreeEnum.Tree,
-  P
->
-export type NodeDtoTreeA<P extends Props = {}> = NodeDtoA<
-  NodeTypeTreeEnum.Tree,
-  P
->
+export type NodeDtoTreeI<P extends Props = {}> = NodeI<TreeType.Tree, P>
+
+export type NodeDtoTreeA<P extends Props = {}> = NodeA<TreeType.Tree, P>

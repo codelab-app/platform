@@ -1,4 +1,4 @@
-export enum NodeTypeReactEnum {
+export enum ReactType {
   /**
    * React, requires additional `type` key
    */
@@ -100,4 +100,4 @@ export enum NodeTypeReactEnum {
   'React.Popover' = 'React.Popover',
 }
 
-export type NodeTypeReactLiteral = keyof typeof NodeTypeReactEnum
+export type ReactTypeLiteral = keyof typeof ReactType

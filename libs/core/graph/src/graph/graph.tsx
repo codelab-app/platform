@@ -5,7 +5,7 @@ import {
   Graph as GraphInterface,
   GraphProps,
 } from '@codelab/shared/interface/graph'
-import { NodeDtoA } from '@codelab/shared/interface/node'
+import { NodeA } from '@codelab/shared/interface/node'
 
 export class Graph implements GraphInterface {
   vertices: Array<Vertex> = []
@@ -13,7 +13,7 @@ export class Graph implements GraphInterface {
   edges: Array<Edge> = []
 
   // used for graphAppender to keep track of previous node for creating edges
-  parent?: NodeDtoA
+  parent?: NodeA
 
   constructor(props: GraphProps = { vertices: [], edges: [] }) {
     const { vertices, edges } = props
@@ -22,11 +22,11 @@ export class Graph implements GraphInterface {
     this.edges = edges
   }
 
-  public addVertexFromNode(node: NodeDtoA): void {
+  public addVertexFromNode(node: NodeA): void {
     this.vertices.push(Vertex.fromNode(node))
   }
 
-  public addEdgeFromNodes(start: NodeDtoA | undefined, end: NodeDtoA): void {
+  public addEdgeFromNodes(start: NodeA | undefined, end: NodeA): void {
     if (!start) {
       throw new Error('Missing start Node')
     }

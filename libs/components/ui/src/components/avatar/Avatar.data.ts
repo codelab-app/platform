@@ -1,8 +1,8 @@
 import { Icon } from '../icon'
 import { Avatar } from './Avatar.types'
-import { NodeDtoReactI } from '@codelab/shared/interface/node'
+import { NodeReactI } from '@codelab/shared/interface/node'
 
-export const avatarData: NodeDtoReactI<Avatar.Props | Icon.Props> = {
+export const avatarData: NodeReactI<Avatar.Props | Icon.Props> = {
   type: 'React.Avatar',
   props: {
     shape: 'circle',

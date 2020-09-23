@@ -1,6 +1,6 @@
-import { NodeDtoI } from '@codelab/shared/interface/node'
+import { NodeI } from '@codelab/shared/interface/node'
 
-export const renderPropsData: NodeDtoI = {
+export const renderPropsData: NodeI = {
   type: 'React.Html.div',
   props: {
     visibility: '',
@@ -27,7 +27,7 @@ export const renderPropsData: NodeDtoI = {
   ],
 }
 
-export const leafRenderPropsData: NodeDtoI = {
+export const leafRenderPropsData: NodeI = {
   type: 'React.Html.div',
   props: {
     visibility: '',

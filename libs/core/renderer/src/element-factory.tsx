@@ -72,7 +72,7 @@ import { propsFilter, withFilters } from '@codelab/core/props'
 import { mouseEventHandlerKeys } from '@codelab/shared/event'
 import {
   ElementParameters,
-  NodeDtoA,
+  NodeA,
   NodeFactory,
 } from '@codelab/shared/interface/node'
 import { Props } from '@codelab/shared/interface/props'
@@ -80,7 +80,7 @@ import { Props } from '@codelab/shared/interface/props'
 export const elementParameterFactory: NodeFactory<ElementParameters<Props>> = <
   P extends Props
 >(
-  node: NodeDtoA,
+  node: NodeA,
 ) => {
   const { type, props } = node
 

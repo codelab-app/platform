@@ -1,8 +1,8 @@
 import { Text } from '../text'
 import { Radio } from './Radio.types'
-import { NodeDtoReactI } from '@codelab/shared/interface/node'
+import { NodeReactI } from '@codelab/shared/interface/node'
 
-export const radioData: NodeDtoReactI<
+export const radioData: NodeReactI<
   Radio.Props | Radio.GroupProps | Text.Props
 > = {
   type: 'React.Provider',

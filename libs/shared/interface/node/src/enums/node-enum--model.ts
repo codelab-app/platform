@@ -1,7 +1,7 @@
 /**
  * These enum node types are related to Mongoose
  */
-export enum NodeTypeModelEnum {
+export enum ModelType {
   /**
    * Mongoose Model
    */
@@ -12,4 +12,4 @@ export enum NodeTypeModelEnum {
   Schema = 'Schema',
 }
 
-export type NodeTypeModelLiteral = keyof typeof NodeTypeModelEnum
+export type ModelTypeLiteral = keyof typeof ModelType

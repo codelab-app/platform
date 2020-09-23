@@ -1,7 +1,7 @@
 /**
  * These enum node types are related to a Tree
  */
-export enum NodeTypeTreeEnum {
+export enum TreeType {
   /**
    * Non-react tree, requires ID
    */
@@ -12,4 +12,4 @@ export enum NodeTypeTreeEnum {
   Ref = 'Ref',
 }
 
-export type NodeTypeTreeLiteral = keyof typeof NodeTypeTreeEnum
+export type TreeTypeLiteral = keyof typeof TreeType

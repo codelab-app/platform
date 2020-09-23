@@ -1,8 +1,8 @@
 import { Text } from '../text'
 import { Menu } from './Menu.types'
-import { NodeDtoReactI } from '@codelab/shared/interface/node'
+import { NodeReactI } from '@codelab/shared/interface/node'
 
-export const menuData: NodeDtoReactI<
+export const menuData: NodeReactI<
   | Menu.Props
   | Menu.ItemProps
   | Menu.SubmenuProps

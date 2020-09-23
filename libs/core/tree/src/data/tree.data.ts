@@ -1,6 +1,6 @@
-import { NodeDtoI } from '@codelab/shared/interface/node'
+import { NodeI } from '@codelab/shared/interface/node'
 
-export const treeData: NodeDtoI = {
+export const treeData: NodeI = {
   id: 'Root',
   type: 'Tree',
   children: [

@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react'
 import React from 'react'
 import { Renderer } from '@codelab/core/renderer'
-import { NodeDtoI } from '@codelab/shared/interface/node'
+import { NodeI } from '@codelab/shared/interface/node'
 
 describe('RootChildren', () => {
   // const data = {
@@ -60,7 +60,7 @@ describe('RootChildren', () => {
    * This should put C in all valid children of B, which then puts that in all valid children of A
    */
   it('renders nested children', () => {
-    const dataA: NodeDtoI = {
+    const dataA: NodeI = {
       type: 'React.Html.div',
       props: {
         'data-testid': 'a',
@@ -94,7 +94,7 @@ describe('RootChildren', () => {
         },
       ],
     }
-    const dataB: NodeDtoI = {
+    const dataB: NodeI = {
       type: 'React.Html.div',
       props: {
         'data-testid': 'b',
@@ -114,7 +114,7 @@ describe('RootChildren', () => {
         },
       ],
     }
-    const dataC: NodeDtoI = {
+    const dataC: NodeI = {
       type: 'React.Html.div',
       props: {
         'data-testid': 'c',

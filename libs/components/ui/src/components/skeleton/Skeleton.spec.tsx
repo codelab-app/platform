@@ -1,11 +1,11 @@
 import { render } from '@testing-library/react'
 import React from 'react'
 import { Renderer } from '@codelab/core/renderer'
-import { NodeDtoReactI } from '@codelab/shared/interface/node'
+import { NodeReactI } from '@codelab/shared/interface/node'
 
 describe('Skeleton', () => {
   it('should render with text', () => {
-    const skeleton: NodeDtoReactI = {
+    const skeleton: NodeReactI = {
       type: 'React.Html.div',
 
       props: { 'data-testid': 'skeleton' },

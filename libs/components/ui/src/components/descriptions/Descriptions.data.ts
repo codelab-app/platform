@@ -1,8 +1,8 @@
 import { Text } from '../text'
 import { Descriptions } from './Descriptions.types'
-import { NodeDtoReactI } from '@codelab/shared/interface/node'
+import { NodeReactI } from '@codelab/shared/interface/node'
 
-export const descriptionsData: NodeDtoReactI<
+export const descriptionsData: NodeReactI<
   Descriptions.Props | Descriptions.ItemProps | Text.Props
 > = {
   type: 'React.Descriptions',

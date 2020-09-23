@@ -1,5 +1,5 @@
 import { Select } from '../select'
-import { NodeDtoReactI } from '@codelab/shared/interface/node'
+import { NodeReactI } from '@codelab/shared/interface/node'
 import { PropJsonValue, PropsFromKeys } from '@codelab/shared/interface/props'
 
 export namespace Form {
@@ -71,7 +71,7 @@ export namespace Form {
     label,
     name,
     options,
-  }: CreateSelect): NodeDtoReactI<Select.Props | Form.ItemProps> => ({
+  }: CreateSelect): NodeReactI<Select.Props | Form.ItemProps> => ({
     type: 'React.Form.Item',
     props: {
       label,
@@ -92,7 +92,7 @@ export namespace Form {
 
   export const createOptions = (
     options: Array<OptionConfig>,
-  ): Array<NodeDtoReactI<Select.OptionProps>> =>
+  ): Array<NodeReactI<Select.OptionProps>> =>
     options.map(([key, value]: [string, PropJsonValue]) => ({
       type: 'React.Select.Option',
       props: {

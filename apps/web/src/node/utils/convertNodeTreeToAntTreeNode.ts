@@ -1,7 +1,7 @@
 import { DataNode } from 'antd/lib/tree'
-import { NodeDtoI } from '@codelab/shared/interface/node'
+import { NodeI } from '@codelab/shared/interface/node'
 
-export const convertNodeTreeToAntTreeDataNode = (node: NodeDtoI): DataNode => {
+export const convertNodeTreeToAntTreeDataNode = (node: NodeI): DataNode => {
   const treeData: DataNode = {
     key: node.id,
     title: node.type,

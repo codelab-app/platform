@@ -1,5 +1,5 @@
-import { NodeDtoA } from '@codelab/shared/interface/node'
+import { NodeA } from '@codelab/shared/interface/node'
 
 export interface TraversalOrder {
-  (node: NodeDtoA, iteratee: (node: NodeDtoA) => void): void
+  (node: NodeA, iteratee: (node: NodeA) => void): void
 }

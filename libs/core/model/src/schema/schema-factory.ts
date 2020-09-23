@@ -1,9 +1,9 @@
 import * as mongoose from 'mongoose'
 import { schemaPropsFactory } from './schema-factory--types'
-import { NodeDtoSchemaI, NodeFactory } from '@codelab/shared/interface/node'
+import { NodeFactory, SchemaI } from '@codelab/shared/interface/node'
 
-export const schemaFactory: NodeFactory<mongoose.Schema, NodeDtoSchemaI> = (
-  node: NodeDtoSchemaI,
+export const schemaFactory: NodeFactory<mongoose.Schema, SchemaI> = (
+  node: SchemaI,
 ) => {
   const { props } = node
   const schemaDefinition = schemaPropsFactory(props)

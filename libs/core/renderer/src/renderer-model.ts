@@ -1,9 +1,9 @@
 import * as mongoose from 'mongoose'
-import { NodeDtoI } from '@codelab/shared/interface/node'
+import { NodeI } from '@codelab/shared/interface/node'
 import { Props } from '@codelab/shared/interface/props'
 
 export const buildModel = <P extends Props = {}>(
-  data: NodeDtoI,
+  data: NodeI,
 ): mongoose.Model<any> => {
   // const root = makeTree(data)
   //

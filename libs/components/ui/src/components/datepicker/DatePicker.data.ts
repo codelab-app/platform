@@ -1,7 +1,7 @@
 import { DatePicker } from './DatePicker.types'
-import { NodeDtoReactI } from '@codelab/shared/interface/node'
+import { NodeReactI } from '@codelab/shared/interface/node'
 
-export const datePickerData: NodeDtoReactI<
+export const datePickerData: NodeReactI<
   | DatePicker.CommonPickerProps
   | DatePicker.DatePickerProps
   | DatePicker.YearPickerProps

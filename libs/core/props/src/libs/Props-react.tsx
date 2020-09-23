@@ -1,10 +1,10 @@
 import React from 'react'
 // eslint-disable-next-line import/no-cycle
 import { Renderer } from '@codelab/core/renderer'
-import { NodeDtoI } from '@codelab/shared/interface/node'
+import { NodeI } from '@codelab/shared/interface/node'
 
 export const renderReactNodes = (
-  nodePropValue: NodeDtoI | Array<NodeDtoI>,
+  nodePropValue: NodeI | Array<NodeI>,
 ): React.ReactNode => {
   const Nodes = (Array.isArray(nodePropValue)
     ? nodePropValue

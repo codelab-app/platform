@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { NodeRepository } from './node-repository'
-import { NodeCreateDto } from '@codelab/shared/interface/node'
+import { NodeCreate } from '@codelab/shared/interface/node'
 
 describe('Node repository', () => {
   const repo = new NodeRepository()
@@ -8,10 +8,10 @@ describe('Node repository', () => {
   it('can save a node given a create dto', () => {
     const spy = jest.spyOn(axios, 'post').mockResolvedValueOnce({ data: [] })
 
-    const data: NodeCreateDto = {
+    const data: NodeCreate = {
       type: 'React.Button',
     }
-    const results = repo.save<NodeCreateDto>(data)
+    const results = repo.save<NodeCreate>(data)
 
     expect(spy).toHaveBeenCalled()
     expect(results).resolves.toEqual({ data: [] })

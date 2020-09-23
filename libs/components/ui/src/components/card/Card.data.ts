@@ -1,8 +1,8 @@
 import { Text } from '../text'
 import { Card } from './Card.types'
-import { NodeDtoReactI } from '@codelab/shared/interface/node'
+import { NodeReactI } from '@codelab/shared/interface/node'
 
-export const cardData: NodeDtoReactI<
+export const cardData: NodeReactI<
   Card.Props | Card.GridProps | Card.MetaProps | Text.Props
 > = {
   type: 'React.Card',

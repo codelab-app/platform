@@ -1,6 +1,6 @@
 import {
-  NodeCreateDto,
-  NodeDtoI,
+  NodeCreate,
+  NodeI,
   nodeTypeLiterals,
 } from '@codelab/shared/interface/node'
 
@@ -9,10 +9,10 @@ export interface IsSpecification<T = any> {
 }
 
 // Alias for input data specification
-export type IsInputSpecification = IsSpecification<NodeDtoI>
+export type IsInputSpecification = IsSpecification<NodeI>
 
-export class IsValidCreateDto implements IsSpecification<NodeCreateDto> {
-  isSatisfiedBy(data: NodeCreateDto): boolean {
+export class IsValidCreateDto implements IsSpecification<NodeCreate> {
+  isSatisfiedBy(data: NodeCreate): boolean {
     const { type } = data
 
     const validType = nodeTypeLiterals.includes(type)
@@ -24,8 +24,8 @@ export class IsValidCreateDto implements IsSpecification<NodeCreateDto> {
 /**
  * Checks whether our data is valid for creating a mongoose model
  */
-export class IsValidCreateDtoModel implements IsSpecification<NodeDtoI> {
-  isSatisfiedBy(data: NodeCreateDto): boolean {
+export class IsValidCreateDtoModel implements IsSpecification<NodeI> {
+  isSatisfiedBy(data: NodeCreate): boolean {
     const { type } = data
 
     const validType = nodeTypeLiterals.includes(type)

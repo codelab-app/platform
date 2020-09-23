@@ -1,7 +1,7 @@
 import { List } from './List.types'
-import { NodeDtoReactI } from '@codelab/shared/interface/node'
+import { NodeReactI } from '@codelab/shared/interface/node'
 
-export const listData: NodeDtoReactI<
+export const listData: NodeReactI<
   | List.Props
   | List.PaginationProps
   | List.GridProps

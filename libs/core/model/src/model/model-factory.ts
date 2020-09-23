@@ -1,7 +1,7 @@
 import * as mongoose from 'mongoose'
-import { NodeDtoModelA } from '@codelab/shared/interface/node'
+import { ModelA } from '@codelab/shared/interface/node'
 
-export const modelFactory = (node: NodeDtoModelA, schema: mongoose.Schema) => {
+export const modelFactory = (node: ModelA, schema: mongoose.Schema) => {
   if (!schema) {
     throw new Error('Missing schema as children')
   }

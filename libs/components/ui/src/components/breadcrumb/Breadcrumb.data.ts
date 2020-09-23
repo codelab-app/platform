@@ -1,8 +1,8 @@
 import { Text } from '../text'
 import { Breadcrumb } from './Breadcrumb.types'
-import { NodeDtoReactI } from '@codelab/shared/interface/node'
+import { NodeReactI } from '@codelab/shared/interface/node'
 
-export const breadcrumbData: NodeDtoReactI<
+export const breadcrumbData: NodeReactI<
   | Breadcrumb.Props
   | Breadcrumb.ItemProps
   | Breadcrumb.SeparatorProps

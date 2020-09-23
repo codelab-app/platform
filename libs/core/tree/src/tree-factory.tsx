@@ -13,10 +13,10 @@ import {
   treeWalker,
 } from '@codelab/core/traversal'
 import {
-  NodeDtoA,
-  NodeDtoI,
-  isID,
-  isNodeDtoA,
+  NodeA,
+  NodeI,
+  assertsID,
+  assertsNodeA,
 } from '@codelab/shared/interface/node'
 import {
   GraphSubTreeAcc,
@@ -37,7 +37,7 @@ import {
  * ```
  *
  */
-export const makeTree = (input: NodeDtoI): NodeDtoA => {
+export const makeTree = (input: NodeI): NodeA => {
   const parent = new NodeEntity(input)
   const subTreeAcc = {
     prev: parent,
@@ -45,7 +45,7 @@ export const makeTree = (input: NodeDtoI): NodeDtoA => {
 
   reduce(
     input.children,
-    treeWalker<TreeSubTreeAcc<NodeDtoI>>(treeAppenderIteratee, parent),
+    treeWalker<NodeI, TreeSubTreeAcc<NodeI>>(treeAppenderIteratee, parent),
     subTreeAcc,
   )
 
@@ -55,7 +55,7 @@ export const makeTree = (input: NodeDtoI): NodeDtoA => {
 /**
  * Using Vertex/Edge representation
  */
-export const makeGraph = (input: NodeDtoI): Graph => {
+export const makeGraph = (input: NodeI): Graph => {
   // Convert input to Node input structure first, nodeFinder requires Node representation
   const root = makeTree(input)
   const graph = new Graph({ vertices: [], edges: [] })
@@ -68,7 +68,7 @@ export const makeGraph = (input: NodeDtoI): Graph => {
 
   return reduce(
     input.children,
-    treeWalker<GraphSubTreeAcc<NodeDtoI>>(graphAppenderIteratee, root),
+    treeWalker<NodeI, GraphSubTreeAcc<NodeI>>(graphAppenderIteratee, root),
     subTreeAcc,
   ).graph
 }
@@ -76,12 +76,12 @@ export const makeGraph = (input: NodeDtoI): Graph => {
 /**
  * traversePostOrder doesn't allow us to use acc, so we reduce and build from bottom up. Since we won't need to worry about branching order for Models, we can do this.
  */
-export const makeModel = (input: NodeDtoI) => {
+export const makeModel = (input: NodeI) => {
   const root = new NodeEntity(input)
 
   const acc = reduce(
-    (input.children ?? []) as Array<NodeDtoA>,
-    treeWalker<ModelAcc<NodeDtoA>>(modelCreationIteratee, root),
+    input.children,
+    treeWalker<NodeI, ModelAcc<NodeI>>(modelCreationIteratee, root),
     {},
   )
 
@@ -93,10 +93,10 @@ export const makeModel = (input: NodeDtoI) => {
 // TODO: needs to be optimized for traversal performance
 export const findNode = (
   id: string | undefined,
-  node: NodeDtoA,
-): NodeDtoA | undefined => {
-  isID(id)
-  isNodeDtoA(node)
+  node: NodeA,
+): NodeA | undefined => {
+  assertsID(id)
+  assertsNodeA(node)
 
   if (node.id === id) {
     return node
@@ -104,7 +104,7 @@ export const findNode = (
 
   return reduce(
     node.children,
-    treeWalker<NodeFinderAcc<NodeDtoA>>(nodeFinderIteratee),
+    treeWalker<NodeA, NodeFinderAcc<NodeA>>(nodeFinderIteratee),
     {
       id,
     },

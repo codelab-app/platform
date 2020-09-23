@@ -1,6 +1,6 @@
-import { NodeDtoReactI } from '@codelab/shared/interface/node'
+import { NodeReactI } from '@codelab/shared/interface/node'
 
-export const divData: NodeDtoReactI = {
+export const divData: NodeReactI = {
   type: 'React.Html.div',
   props: {
     visibility: '',

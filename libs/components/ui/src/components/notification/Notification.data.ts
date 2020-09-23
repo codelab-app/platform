@@ -1,9 +1,9 @@
 import { Button } from '../button'
 import { Text } from '../text'
 import { Notification } from './Notification.types'
-import { NodeDtoReactI } from '@codelab/shared/interface/node'
+import { NodeReactI } from '@codelab/shared/interface/node'
 
-export const notificationData: NodeDtoReactI<
+export const notificationData: NodeReactI<
   Text.Props | Notification.Props | Button.Props | { config: object }
 > = {
   type: 'React.Provider',

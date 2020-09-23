@@ -1,7 +1,7 @@
 import { Renderer } from '@codelab/core/renderer'
-import type { NodeDtoReactI } from '@codelab/shared/interface/node'
+import type { NodeReactI } from '@codelab/shared/interface/node'
 
-export const nodeTreeData: NodeDtoReactI = {
+export const nodeTreeData: NodeReactI = {
   type: 'React.Tree',
   props: {
     showLine: true,

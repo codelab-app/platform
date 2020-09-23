@@ -1,7 +1,7 @@
 import { Calendar } from './Calendar.types'
-import { NodeDtoReactI } from '@codelab/shared/interface/node'
+import { NodeReactI } from '@codelab/shared/interface/node'
 
-export const calendarData: NodeDtoReactI<Calendar.Props> = {
+export const calendarData: NodeReactI<Calendar.Props> = {
   type: 'React.Calendar',
   props: {
     onSelect: {

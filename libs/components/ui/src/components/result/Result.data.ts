@@ -1,9 +1,9 @@
 import { Button } from '../button'
 import { Text } from '../text'
 import { Result } from './Result.types'
-import { NodeDtoReactI } from '@codelab/shared/interface/node'
+import { NodeReactI } from '@codelab/shared/interface/node'
 
-export const resultData: NodeDtoReactI<
+export const resultData: NodeReactI<
   Result.Props | Button.Props | Text.Props
 > = {
   type: 'React.Result',

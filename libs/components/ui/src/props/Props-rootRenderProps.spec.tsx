@@ -2,10 +2,10 @@ import { mount } from 'enzyme'
 import { omit } from 'lodash'
 import React from 'react'
 import { Renderer } from '@codelab/core/renderer'
-import { NodeDtoI } from '@codelab/shared/interface/node'
+import { NodeI } from '@codelab/shared/interface/node'
 
 describe('RootRenderProps', () => {
-  const data: NodeDtoI = {
+  const data: NodeI = {
     type: 'React.Html.div',
     props: {
       parentprops: {},

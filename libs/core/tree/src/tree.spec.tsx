@@ -4,7 +4,7 @@ import { makeGraph, makeTree } from './tree-factory'
 import { treeMap } from './tree-map'
 import { Edge, Vertex } from '@codelab/core/graph'
 import { findNode } from '@codelab/core/tree'
-import { Mapper, NodeDtoI } from '@codelab/shared/interface/node'
+import { Mapper, NodeI } from '@codelab/shared/interface/node'
 
 describe('Tree', () => {
   it('can build a tree from json', () => {
@@ -36,7 +36,7 @@ describe('Tree', () => {
   })
 
   it('can map a tree', () => {
-    const treeMapper: Mapper<any, any> = (node: NodeDtoI) => {
+    const treeMapper: Mapper<any, any> = (node: NodeI) => {
       return {
         id: node.id,
         type: node.type,
@@ -84,7 +84,7 @@ describe('Tree', () => {
   })
 
   it('returns the root node with properties set', () => {
-    const data: NodeDtoI = {
+    const data: NodeI = {
       id: 'A',
       type: 'Tree',
       children: [

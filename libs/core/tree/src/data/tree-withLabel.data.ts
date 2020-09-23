@@ -1,8 +1,8 @@
-import { NodeDtoI } from '@codelab/shared/interface/node'
+import { NodeI } from '@codelab/shared/interface/node'
 /**
  * No type because type doesn't exist on build tree
  */
-export const treeDataWithLabel: NodeDtoI = {
+export const treeDataWithLabel: NodeI = {
   id: 'Root',
   type: 'Tree',
   props: {

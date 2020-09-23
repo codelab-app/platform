@@ -1,6 +1,6 @@
-import { NodeDtoReactI } from '@codelab/shared/interface/node'
+import { NodeReactI } from '@codelab/shared/interface/node'
 
-export const providerData: NodeDtoReactI = {
+export const providerData: NodeReactI = {
   type: 'React.Provider',
   props: {
     onClick: {
