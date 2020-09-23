@@ -38,26 +38,38 @@ export const nodeFinderIteratee = (
  * treeWalker passes in a new parent at each level
  */
 
-export const treeAppenderIteratee: TraversalIteratee<
-  TreeSubTreeAcc<NodeI>,
-  NodeI
-> = ({ parent }: TreeSubTreeAcc<NodeI>, child: NodeI) => {
+export const treeAppenderIteratee: TraversalIteratee<TreeSubTreeAcc<NodeI>> = (
+  { parent }: TreeSubTreeAcc<NodeI>,
+  child: NodeI,
+) => {
   assertsNode(parent as Node)
 
-  const childNode = new NodeEntity(child)
+  /**
+   * Since we removed passing children into treeWalker from tree-factory, or the initial call to treeWalker, the parent & the child are the same for the first pass.
+   *
+   * We simply return here and wait for treeWalker to call itself with the children passed in.
+   *
+   * You can think of the first iteratee as a noop, we simply are waiting for the recursive call.
+   *
+   * */
+  if (parent?.id === child.id) {
+    return {
+      prev: parent,
+    }
+  }
 
-  // console.debug(`Adding ${childNode?.id} to ${parent?.id}`)
-  ;(parent as Node).addChild(childNode)
+  const node = new NodeEntity(child)
+
+  ;(parent as Node).addChild(node)
 
   return {
-    prev: childNode,
+    prev: node,
   }
 }
 
-export const graphAppenderIteratee: TraversalIteratee<
-  GraphSubTreeAcc<NodeI>,
+export const graphAppenderIteratee: TraversalIteratee<GraphSubTreeAcc<
   NodeI
-> = ({ graph, parent }: GraphSubTreeAcc<NodeI>, child: NodeI) => {
+>> = ({ graph, parent }: GraphSubTreeAcc<NodeI>, child: NodeI) => {
   const node = new NodeEntity(child)
 
   graph.addVertexFromNode(node)
@@ -72,10 +84,10 @@ export const graphAppenderIteratee: TraversalIteratee<
 /**
  * A factory that takes an iteratee
  */
-export const modelCreationIteratee: TraversalIteratee<
-  ModelAcc<NodeI>,
-  NodeI
-> = ({ name, schema, model }: ModelAcc<NodeI>, node: NodeI) => {
+export const modelCreationIteratee: TraversalIteratee<ModelAcc> = (
+  { name, schema, model }: ModelAcc,
+  node: NodeI,
+) => {
   if (isSchemaI(node)) {
     return { schema: schemaFactory(node) }
   }

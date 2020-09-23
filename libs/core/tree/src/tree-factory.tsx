@@ -38,43 +38,44 @@ import {
  *
  */
 export const makeTree = (data: NodeI): NodeA => {
-  const root = new NodeEntity(data)
+  const tree = new NodeEntity(data)
 
-  treeWalker<NodeI, TreeSubTreeAcc<NodeI>>(treeAppenderIteratee, root)({}, data)
+  treeWalker<NodeI, TreeSubTreeAcc<NodeI>>(treeAppenderIteratee, tree)({}, data)
 
-  return root
+  return tree
 }
 
 /**
  * Using Vertex/Edge representation
+ *
+ * We create a Tree first, then use the tree to build the accumulator (which contains the Graph)
  */
-export const makeGraph = (input: NodeI): Graph => {
+export const makeGraph = (data: NodeI): Graph => {
   // Convert input to Node input structure first, nodeFinder requires Node representation
-  const root = makeTree(input)
-  const graph = new Graph({ vertices: [], edges: [] })
-  const subTreeAcc = {
-    prev: root,
-    graph,
-  }
+  const tree = makeTree(data)
 
-  graph.addVertexFromNode(root)
-
-  return reduce(
-    input.children,
-    treeWalker<NodeI, GraphSubTreeAcc<NodeI>>(graphAppenderIteratee, root),
-    subTreeAcc,
+  return treeWalker<NodeI, GraphSubTreeAcc<NodeI>>(graphAppenderIteratee, tree)(
+    {
+      prev: tree,
+      graph: new Graph(),
+    },
+    data,
   ).graph
 }
 
 /**
  * traversePostOrder doesn't allow us to use acc, so we reduce and build from bottom up. Since we won't need to worry about branching order for Models, we can do this.
+ *
+ * In this case we need to build from bottom up, so calling reduce here works by building the children first.
+ *
+ * Ideally we can add a traverse
  */
 export const makeModel = (input: NodeI) => {
   const root = new NodeEntity(input)
 
   const acc = reduce(
     input.children,
-    treeWalker<NodeI, ModelAcc<NodeI>>(modelCreationIteratee, root),
+    treeWalker<NodeI, ModelAcc>(modelCreationIteratee, root),
     {},
   )
 
