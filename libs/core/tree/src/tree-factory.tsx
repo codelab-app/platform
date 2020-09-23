@@ -9,6 +9,7 @@ import { NodeEntity } from '@codelab/core/node'
 import {
   graphAppenderIteratee,
   nodeFinderIteratee,
+  traversePostOrderReducer,
   treeAppenderIteratee,
   treeWalker,
 } from '@codelab/core/traversal'
@@ -71,6 +72,15 @@ export const makeGraph = (data: NodeI): Graph => {
  * Ideally we can add a traverse
  */
 export const makeModel = (input: NodeI) => {
+  const root = makeTree(input)
+
+  return traversePostOrderReducer({})(modelCreationIteratee, root)
+}
+
+/**
+ * Alternative implementation
+ */
+export const makeModel2 = (input: NodeI) => {
   const root = new NodeEntity(input)
 
   const acc = reduce(

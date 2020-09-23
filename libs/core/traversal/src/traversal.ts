@@ -60,12 +60,68 @@ export const treeWalker = <
   }
 }
 
+export const treeWalkerPostOrder = <
+  T extends NodeI = NodeI,
+  S extends TreeSubTreeAcc<T> = TreeSubTreeAcc<T>
+>(
+  nodeIteratee: TraversalIteratee<S, T>,
+  parent?: T,
+) => {
+  return (
+    tree: S, // prev acc (reduce arg)
+    child: T, // curr (reduce arg)
+  ) => {
+    /**
+     * Append parent with acc
+     */
+    const newTree: S = nodeIteratee({ ...tree, parent }, child)
+
+    /**
+     * Return traversal if no more children
+     */
+    if (!NodeEntity.hasChildren<T>(child)) {
+      return newTree
+    }
+
+    const newParent = newTree.prev
+
+    /**
+     * At junction of tree, call children recursively with new parent & context passed in
+     */
+    return reduce<T, S>(
+      child.children as Array<T>,
+      treeWalker<T, S>(nodeIteratee, newParent),
+      newTree,
+    )
+  }
+}
+
 export const traversePostOrder = (node: NodeA, iteratee: NodeIteratee) => {
   node.children.forEach((child) => {
     traversePostOrder(child, iteratee)
   })
 
   iteratee(node)
+}
+
+/**
+ * Need to pass acc in first to keep the acc context for each level, if we don't curry function, the acc will get replaced during each iteration
+ *
+ * This function is good for using it on a tree, it traverses using postOrder & build your acc.
+ *
+ * We can't do with tree alone, as tree can't control traversal order.
+ */
+export const traversePostOrderReducer = (acc: object = {}) => (
+  iteratee: any,
+  node: NodeI,
+) => {
+  ;(node.children ?? []).forEach((child) => {
+    traversePostOrderReducer(acc)(iteratee, child)
+  })
+
+  iteratee(node, acc)
+
+  return acc
 }
 
 export const traversePreOrder = (node: NodeA, iteratee: NodeIteratee) => {
