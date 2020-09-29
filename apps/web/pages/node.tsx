@@ -1,4 +1,5 @@
 import { DataNode } from 'antd/lib/tree'
+import axios from 'axios'
 import React from 'react'
 import { ButtonGroup } from '../src/node/ButtonGroup'
 import { ModalForm } from '../src/node/ModalForm'
@@ -7,11 +8,34 @@ import { convertNodeTreeToAntTreeDataNode } from '../src/node/utils/convertNodeT
 import { NodeEntity } from '@codelab/core/node'
 import { Node } from '@codelab/shared/interface/node'
 
+axios.defaults.baseURL = 'http://localhost:3333'
+axios.defaults.headers.post['Content-Type'] = 'application/json'
+
 const NodePage = () => {
   const [selectedNode, setSelectedNode] = React.useState(null)
   const [rootNode, setRootNode] = React.useState<Node | null>(null)
   const [treeDataNodes, setTreeDataNodes] = React.useState<Array<DataNode>>([])
   const [visibility, setVisibility] = React.useState<boolean>(false)
+  const [nodes, setNodes] = React.useState([])
+
+  React.useEffect(() => {
+    console.log('get')
+    axios
+      .get('/api/v1/Node')
+      .then((res) => {
+        console.log(res.data)
+
+        const nodeData = res.data.map((node) => {
+          // eslint-disable-next-line no-underscore-dangle
+          return { ...node, key: node._id }
+        })
+
+        setNodes(nodeData)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }, [])
 
   // TODO: specify type of values. It should combine types for all types(React, Tree, Model, etc)
   const addChild = (values) => {
@@ -44,6 +68,10 @@ const NodePage = () => {
         handlesubmit={handleSubmitForm}
         visibility={visibility}
         setvisibility={setVisibility}
+        parentnodes={nodes.map((node) => {
+          // eslint-disable-next-line no-underscore-dangle
+          return { label: node._id, value: node._id }
+        })}
       />
       <NodeTree />
     </>

@@ -7,6 +7,22 @@ import {
   nodeTypeEntries,
 } from '@codelab/shared/interface/node'
 
+const parentNodeSelect: NodeReactI = {
+  type: 'React.Form.Item',
+  props: {
+    label: 'Parent',
+    name: 'parent',
+  },
+  children: [
+    {
+      type: 'React.Select',
+      props: {
+        options: { eval: true, value: 'return this.props.parentnodes.value' },
+      },
+    },
+  ],
+}
+
 const nodeTypeSelect: NodeReactI = Form.createSelect({
   label: 'NodeType',
   name: 'nodeType',
@@ -173,6 +189,7 @@ export const modalFormData: NodeReactI = {
         treeNodeFields,
         refNodeFields,
         nodeFormData,
+        parentNodeSelect,
         submitButtonData,
       ],
     },
@@ -183,6 +200,7 @@ interface ModalFormProps {
   handlesubmit: Function
   visibility: boolean
   setvisibility: Function
+  parentnodes: Array<any>
 }
 
 export const ModalForm = Renderer.components<ModalFormProps>(modalFormData)

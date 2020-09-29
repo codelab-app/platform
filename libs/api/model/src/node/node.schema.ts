@@ -11,6 +11,9 @@ export class Node extends mongoose.Document {
   @Prop({ type: mongoose.Schema.Types.Mixed })
   props?: object
 
+  @Prop({ type: mongoose.Schema.Types.ObjectId })
+  parent?: mongoose.Schema.Types.ObjectId
+
   // @Prop([Node])
   // children: Array<Node>
 }
