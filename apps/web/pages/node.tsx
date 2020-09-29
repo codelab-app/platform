@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import { DataNode } from 'antd/lib/tree'
 import axios from 'axios'
 import React from 'react'
@@ -26,7 +27,6 @@ const NodePage = () => {
         console.log(res.data)
 
         const nodeData = res.data.map((node) => {
-          // eslint-disable-next-line no-underscore-dangle
           return { ...node, key: node._id }
         })
 
@@ -50,12 +50,36 @@ const NodePage = () => {
       setTreeDataNodes([convertNodeTreeToAntTreeDataNode(rootNode)])
     }
   }
+
   const selectNode = (values) => {
     console.log(values)
   }
-  const handleSubmitForm = (data) => {
-    setVisibility(false)
-    console.log(data)
+
+  const handleSubmitForm = (formData) => {
+    console.log(formData)
+
+    const { type, parent } = formData
+    const props = formData.props.reduce((acc, prop) => {
+      return { ...acc, [prop.name]: prop.type }
+    }, {})
+
+    axios
+      .post('/api/v1/Node', {
+        type,
+        props,
+        parent,
+      })
+      .then((res) => {
+        const { data } = res
+        const newNodes = [...nodes]
+
+        data.key = data._id
+        newNodes.push(res.data)
+
+        setNodes(newNodes)
+        setVisibility(false)
+      })
+      .catch((err) => console.log(err))
   }
   const deleteNode = () => {
     console.log('delete node fired!')
@@ -69,7 +93,6 @@ const NodePage = () => {
         visibility={visibility}
         setvisibility={setVisibility}
         parentnodes={nodes.map((node) => {
-          // eslint-disable-next-line no-underscore-dangle
           return { label: node._id, value: node._id }
         })}
       />
