@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "files": ["./src/support/index.d.ts"],
+  "include": [],
+  "references": [
+    {
+      "path": "./tsconfig.e2e.json"
+    }
+  ]
+}

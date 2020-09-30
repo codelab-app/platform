@@ -22,5 +22,10 @@
   ],
   "exclude": [
     "node_modules"
+  ],
+  "references": [
+    {
+      "path": "./.storybook/tsconfig.json"
+    }
   ]
 }

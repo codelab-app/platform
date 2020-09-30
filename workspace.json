@@ -38,7 +38,10 @@
               "apps/docs/tsconfig.json",
               "apps/docs/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/docs/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/docs/**/*"
+            ]
           }
         },
         "test": {
@@ -63,7 +66,9 @@
             "outputPath": "dist/apps/api",
             "main": "apps/api/src/main.ts",
             "tsConfig": "apps/api/tsconfig.app.json",
-            "assets": ["apps/api/src/assets"]
+            "assets": [
+              "apps/api/src/assets"
+            ]
           },
           "configurations": {
             "production": {
@@ -93,7 +98,10 @@
               "apps/api/tsconfig.app.json",
               "apps/api/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/api/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/api/**/*"
+            ]
           }
         },
         "test": {
@@ -119,7 +127,10 @@
               "libs/api/config/tsconfig.lib.json",
               "libs/api/config/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/api/config/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/api/config/**/*"
+            ]
           }
         },
         "test": {
@@ -145,7 +156,10 @@
               "libs/api/model/tsconfig.lib.json",
               "libs/api/model/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/api/model/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/api/model/**/*"
+            ]
           }
         },
         "test": {
@@ -171,7 +185,10 @@
               "libs/api/router/tsconfig.lib.json",
               "libs/api/router/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/api/router/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/api/router/**/*"
+            ]
           }
         },
         "test": {
@@ -197,7 +214,10 @@
               "libs/api/restify/tsconfig.lib.json",
               "libs/api/restify/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/api/restify/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/api/restify/**/*"
+            ]
           }
         },
         "test": {
@@ -225,7 +245,10 @@
               "libs/factory/.storybook/tsconfig.json",
               "libs/factory/.storybook/tsconfig.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/factory/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/factory/**/*"
+            ]
           }
         },
         "test": {
@@ -281,7 +304,10 @@
               "libs/api/database/tsconfig.lib.json",
               "libs/api/database/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/api/database/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/api/database/**/*"
+            ]
           }
         },
         "test": {
@@ -327,7 +353,9 @@
             "tsConfig": "libs/tools/eslint-config-codelab/tsconfig.lib.json",
             "packageJson": "libs/tools/eslint-config-codelab/package.json",
             "main": "libs/tools/eslint-config-codelab/src/index.ts",
-            "assets": ["libs/tools/eslint-config-codelab/**/.*.yml"]
+            "assets": [
+              "libs/tools/eslint-config-codelab/**/.*.yml"
+            ]
           }
         }
       }
@@ -412,7 +440,10 @@
               "libs/shared/common/tsconfig.lib.json",
               "libs/shared/common/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/shared/common/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/shared/common/**/*"
+            ]
           }
         },
         "test": {
@@ -733,7 +764,10 @@
               "libs/core/graph/tsconfig.lib.json",
               "libs/core/graph/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/core/graph/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/core/graph/**/*"
+            ]
           }
         },
         "test": {
@@ -789,7 +823,10 @@
               "libs/core/model/tsconfig.lib.json",
               "libs/core/model/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/core/model/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/core/model/**/*"
+            ]
           }
         },
         "test": {
@@ -845,7 +882,10 @@
               "libs/core/props/tsconfig.lib.json",
               "libs/core/props/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/core/props/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/core/props/**/*"
+            ]
           }
         },
         "test": {
@@ -871,7 +911,10 @@
               "libs/core/node/tsconfig.lib.json",
               "libs/core/node/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/core/node/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/core/node/**/*"
+            ]
           }
         },
         "test": {
@@ -927,7 +970,10 @@
               "libs/core/traversal/tsconfig.lib.json",
               "libs/core/traversal/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/core/traversal/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/core/traversal/**/*"
+            ]
           }
         },
         "test": {
@@ -983,7 +1029,10 @@
               "libs/core/tree/tsconfig.lib.json",
               "libs/core/tree/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/core/tree/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/core/tree/**/*"
+            ]
           }
         },
         "test": {
@@ -1039,7 +1088,10 @@
               "libs/components/ui/tsconfig.lib.json",
               "libs/components/ui/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/components/ui/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/components/ui/**/*"
+            ]
           }
         },
         "test": {
@@ -1095,7 +1147,10 @@
               "libs/components/d3/tsconfig.lib.json",
               "libs/components/d3/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/components/d3/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/components/d3/**/*"
+            ]
           }
         },
         "test": {
@@ -1151,7 +1206,10 @@
               "libs/shared/utils/tsconfig.lib.json",
               "libs/shared/utils/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/shared/utils/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/shared/utils/**/*"
+            ]
           }
         },
         "test": {
@@ -1207,7 +1265,10 @@
               "libs/shared/event/tsconfig.lib.json",
               "libs/shared/event/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/shared/event/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/shared/event/**/*"
+            ]
           }
         },
         "test": {
@@ -1260,9 +1321,13 @@
             "linter": "eslint",
             "tsConfig": [
               "apps/web/tsconfig.json",
-              "apps/web/tsconfig.spec.json"
+              "apps/web/tsconfig.spec.json",
+              "apps/web/.storybook/tsconfig.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/web/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/web/**/*"
+            ]
           }
         },
         "test": {
@@ -1270,6 +1335,36 @@
           "options": {
             "jestConfig": "apps/web/jest.config.js",
             "passWithNoTests": true
+          }
+        },
+        "storybook": {
+          "builder": "@nrwl/storybook:storybook",
+          "options": {
+            "uiFramework": "@storybook/react",
+            "port": 4400,
+            "config": {
+              "configFolder": "apps/web/.storybook"
+            }
+          },
+          "configurations": {
+            "ci": {
+              "quiet": true
+            }
+          }
+        },
+        "build-storybook": {
+          "builder": "@nrwl/storybook:build",
+          "options": {
+            "uiFramework": "@storybook/react",
+            "outputPath": "dist/storybook/web",
+            "config": {
+              "configFolder": "apps/web/.storybook"
+            }
+          },
+          "configurations": {
+            "ci": {
+              "quiet": true
+            }
           }
         }
       }
@@ -1288,7 +1383,10 @@
               "libs/core/renderer/tsconfig.lib.json",
               "libs/core/renderer/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/core/renderer/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/core/renderer/**/*"
+            ]
           }
         },
         "test": {
@@ -1326,6 +1424,39 @@
             "ci": {
               "quiet": true
             }
+          }
+        }
+      }
+    },
+    "web-e2e": {
+      "root": "apps/web-e2e",
+      "sourceRoot": "apps/web-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/web-e2e/cypress.json",
+            "tsConfig": "apps/web-e2e/tsconfig.e2e.json",
+            "devServerTarget": "web:storybook"
+          },
+          "configurations": {
+            "ci": {
+              "devServerTarget": "web:storybook:ci"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "apps/web-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/web-e2e/**/*"
+            ]
           }
         }
       }

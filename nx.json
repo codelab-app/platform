@@ -114,6 +114,12 @@
     },
     "core-renderer": {
       "tags": []
+    },
+    "web-e2e": {
+      "tags": [],
+      "implicitDependencies": [
+        "web"
+      ]
     }
   }
 }
