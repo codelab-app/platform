@@ -18,7 +18,9 @@ interface CellProps<T = any> {
 
 export namespace CodelabTable {
   export const Default = <T extends object = any>(props: TableProps<T>) => {
-    const { dataSource, columns } = props
+    const { dataSource, columns, ...restProps } = props
+
+    // console.log(restProps)
 
     const mappedColumns = columns?.map(({ render, ...column }: any) => {
       if (render) {
@@ -27,7 +29,7 @@ export namespace CodelabTable {
           render: (text: string, record: any, index: number) => {
             const Cell = Renderer.components<CellProps>(render)
 
-            return <Cell record={record} index={index} />
+            return <Cell {...restProps} record={record} index={index} />
           },
         }
       }
@@ -37,6 +39,12 @@ export namespace CodelabTable {
       }
     })
 
-    return <AntTable dataSource={dataSource} columns={mappedColumns} />
+    return (
+      <AntTable
+        dataSource={dataSource}
+        columns={mappedColumns}
+        {...restProps}
+      />
+    )
   }
 }

@@ -64,7 +64,7 @@ export const buildComponents = <P extends Props = {}>(
     root.props = { ...root.props, ...convertToLeafRenderProps(rootProps) }
 
     return (
-      <root.Component {...evalPropsWithContext(root.props)}>
+      <root.Component {...root.props}>
         {root.Children(rootChildren)}
       </root.Component>
     )

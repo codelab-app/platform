@@ -105,13 +105,13 @@ export const nodeFormData: NodeReactI = {
         {
           type: 'React.Form.Item',
           props: {
-            name: 'name',
+            name: 'key',
           },
           children: [
             {
               type: 'React.Input',
               props: {
-                placeholder: 'Name',
+                placeholder: 'Key',
               },
             },
           ],
@@ -119,13 +119,13 @@ export const nodeFormData: NodeReactI = {
         {
           type: 'React.Form.Item',
           props: {
-            name: 'type',
+            name: 'value',
           },
           children: [
             {
               type: 'React.Input',
               props: {
-                placeholder: 'Type',
+                placeholder: 'Value',
               },
             },
           ],

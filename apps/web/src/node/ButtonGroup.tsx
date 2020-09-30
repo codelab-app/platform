@@ -54,7 +54,7 @@ const nodeButtonGroupData: NodeReactI = {
       ],
     },
     {
-      type: 'React.Html.div',
+      type: 'React.Space',
       children: [
         {
           type: 'React.Button',
@@ -77,6 +77,26 @@ const nodeButtonGroupData: NodeReactI = {
             },
           ],
         },
+        {
+          type: 'React.Button',
+          props: {
+            type: 'primary',
+            onClick: {
+              eval: true,
+              value: `return () => 
+                this.props.clearfilter.value()
+              `,
+            },
+          },
+          children: [
+            {
+              type: 'React.Text',
+              props: {
+                value: 'Clear ID filter',
+              },
+            },
+          ],
+        },
       ],
     },
   ],
@@ -85,6 +105,7 @@ const nodeButtonGroupData: NodeReactI = {
 export interface ButtonGroupProps {
   setvisibility: Function
   handledelete: Function
+  clearfilter: Function
 }
 
 export const ButtonGroup = Renderer.components<ButtonGroupProps>(

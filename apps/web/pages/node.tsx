@@ -5,6 +5,7 @@ import React from 'react'
 import { ButtonGroup } from '../src/node/ButtonGroup'
 import { ModalForm } from '../src/node/ModalForm'
 import { NodeTree } from '../src/node/NodeTree'
+import { Table } from '../src/node/Table'
 import { convertNodeTreeToAntTreeDataNode } from '../src/node/utils/convertNodeTreeToAntTreeNode'
 import { NodeEntity } from '@codelab/core/node'
 import { Node } from '@codelab/shared/interface/node'
@@ -20,22 +21,33 @@ const NodePage = () => {
   const [nodes, setNodes] = React.useState([])
 
   React.useEffect(() => {
-    console.log('get')
+    // eslint-disable-next-line no-use-before-define
+    fetchNodes()
+  }, [])
+
+  const fetchNodes = () => {
     axios
       .get('/api/v1/Node')
       .then((res) => {
-        console.log(res.data)
-
-        const nodeData = res.data.map((node) => {
-          return { ...node, key: node._id }
-        })
-
-        setNodes(nodeData)
+        setNodes(res.data)
       })
       .catch((err) => {
         console.log(err)
       })
-  }, [])
+  }
+
+  const convertNodes = (inputNodes) => {
+    return inputNodes.map((node) => {
+      const { props } = node
+
+      const convertedProps = Object.entries(props).map((entry) => ({
+        key: entry[0],
+        value: entry[1],
+      }))
+
+      return { ...node, props: convertedProps, key: node._id }
+    })
+  }
 
   // TODO: specify type of values. It should combine types for all types(React, Tree, Model, etc)
   const addChild = (values) => {
@@ -58,16 +70,14 @@ const NodePage = () => {
   const handleSubmitForm = (formData) => {
     console.log(formData)
 
-    const { type, parent } = formData
     const props = formData.props.reduce((acc, prop) => {
       return { ...acc, [prop.name]: prop.type }
     }, {})
 
     axios
       .post('/api/v1/Node', {
-        type,
+        ...formData,
         props,
-        parent,
       })
       .then((res) => {
         const { data } = res
@@ -85,9 +95,19 @@ const NodePage = () => {
     console.log('delete node fired!')
   }
 
+  const data = selectedNode
+    ? nodes.filter((node) => {
+        return node._id === selectedNode
+      })
+    : nodes
+
   return (
     <>
-      <ButtonGroup setvisibility={setVisibility} handledelete={deleteNode} />
+      <ButtonGroup
+        setvisibility={setVisibility}
+        handledelete={deleteNode}
+        clearfilter={() => setSelectedNode(null)}
+      />
       <ModalForm
         handlesubmit={handleSubmitForm}
         visibility={visibility}
@@ -97,6 +117,7 @@ const NodePage = () => {
         })}
       />
       <NodeTree />
+      <Table data={convertNodes(data)} selectnode={setSelectedNode} />
     </>
   )
 }
