@@ -37,19 +37,6 @@ const NodePage = () => {
       })
   }
 
-  const convertNodes = (inputNodes) => {
-    return inputNodes.map((node) => {
-      const { props } = node
-
-      const convertedProps = Object.entries(props).map((entry) => ({
-        key: entry[0],
-        value: entry[1],
-      }))
-
-      return { ...node, props: convertedProps, key: node._id }
-    })
-  }
-
   // TODO: specify type of values. It should combine types for all types(React, Tree, Model, etc)
   const addChild = (values) => {
     console.log('addChild', this)
@@ -71,15 +58,8 @@ const NodePage = () => {
   const handleCreateNode = (formData) => {
     console.log(formData)
 
-    const props = formData.props.reduce((acc, prop) => {
-      return { ...acc, [prop.key]: prop.value }
-    }, {})
-
     axios
-      .post('/api/v1/Node', {
-        ...formData,
-        props,
-      })
+      .post('/api/v1/Node', formData)
       .then((res) => {
         const { data } = res
         const newNodes = [...nodes]
@@ -96,15 +76,8 @@ const NodePage = () => {
   const handleUpdateNode = (formData) => {
     console.log(formData)
 
-    const props = formData.props.reduce((acc, prop) => {
-      return { ...acc, [prop.key]: prop.value }
-    }, {})
-
     axios
-      .patch(`/api/v1/Node/${editedNode._id}`, {
-        ...formData,
-        props,
-      })
+      .patch(`/api/v1/Node/${editedNode._id}`, formData)
       .then((res) => {
         const { data } = res
 
@@ -143,7 +116,7 @@ const NodePage = () => {
 
     setEditedNode({
       nodeType: BaseNodeType.React,
-      ...convertNodes([editNode])[0],
+      ...editNode,
     })
   }
 
@@ -187,7 +160,7 @@ const NodePage = () => {
 
       <NodeTree />
       <Table
-        data={convertNodes(data)}
+        data={data.map((node) => ({ ...node, key: node._id }))}
         selectnode={setSelectedNode}
         handleedit={showEditModal}
         handledelete={handleDeleteNode}
