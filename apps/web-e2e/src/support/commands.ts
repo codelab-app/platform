@@ -33,7 +33,7 @@ Cypress.Commands.add('login', (email, password) => {
 export const findByButtonText = (
   text: Matcher,
   options?: SelectorMatcherOptions,
-): any => {
+): Cypress.Chainable<JQuery> => {
   return cy
     .findByText(text, { exact: true, timeout: 7000, ...options })
     .closest('button')
