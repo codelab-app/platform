@@ -8,7 +8,7 @@ import { NodeTree } from '../src/node/NodeTree'
 import { Table } from '../src/node/Table'
 import { convertNodeTreeToAntTreeDataNode } from '../src/node/utils/convertNodeTreeToAntTreeNode'
 import { NodeEntity } from '@codelab/core/node'
-import { Node } from '@codelab/shared/interface/node'
+import { BaseNodeType, Node } from '@codelab/shared/interface/node'
 
 axios.defaults.baseURL = 'http://localhost:3333'
 axios.defaults.headers.post['Content-Type'] = 'application/json'
@@ -19,6 +19,7 @@ const NodePage = () => {
   const [treeDataNodes, setTreeDataNodes] = React.useState<Array<DataNode>>([])
   const [visibility, setVisibility] = React.useState<boolean>(false)
   const [nodes, setNodes] = React.useState([])
+  const [editedNode, setEditedNode] = React.useState(null)
 
   React.useEffect(() => {
     // eslint-disable-next-line no-use-before-define
@@ -67,11 +68,11 @@ const NodePage = () => {
     console.log(values)
   }
 
-  const handleSubmitForm = (formData) => {
+  const handleCreateNode = (formData) => {
     console.log(formData)
 
     const props = formData.props.reduce((acc, prop) => {
-      return { ...acc, [prop.name]: prop.type }
+      return { ...acc, [prop.key]: prop.value }
     }, {})
 
     axios
@@ -91,8 +92,43 @@ const NodePage = () => {
       })
       .catch((err) => console.log(err))
   }
+
+  const handleUpdateNode = (formData) => {
+    console.log(formData)
+
+    const props = formData.props.reduce((acc, prop) => {
+      return { ...acc, [prop.key]: prop.value }
+    }, {})
+
+    axios
+      .patch(`/api/v1/Node/${editedNode._id}`, {
+        ...formData,
+        props,
+      })
+      .then((res) => {
+        const { data } = res
+
+        const index = nodes.map((node) => node._id).indexOf(editedNode._id)
+        const newNodes = [...nodes]
+
+        newNodes[index] = data
+
+        setNodes(newNodes)
+      })
+      .catch((err) => console.log(err))
+  }
+
   const deleteNode = () => {
     console.log('delete node fired!')
+  }
+
+  const showEditModal = (nodeId) => {
+    const editNode = nodes.find((node) => node._id === nodeId)
+
+    setEditedNode({
+      nodeType: BaseNodeType.React,
+      ...convertNodes([editNode])[0],
+    })
   }
 
   const data = selectedNode
@@ -100,6 +136,13 @@ const NodePage = () => {
         return node._id === selectedNode
       })
     : nodes
+
+  const parentNodes = [
+    { label: 'none', value: null },
+    ...nodes.map((node) => {
+      return { label: node._id, value: node._id }
+    }),
+  ]
 
   return (
     <>
@@ -109,15 +152,29 @@ const NodePage = () => {
         clearfilter={() => setSelectedNode(null)}
       />
       <ModalForm
-        handlesubmit={handleSubmitForm}
+        handlesubmit={handleCreateNode}
         visibility={visibility}
-        setvisibility={setVisibility}
-        parentnodes={nodes.map((node) => {
-          return { label: node._id, value: node._id }
-        })}
+        handlecancel={() => setVisibility(false)}
+        parentnodes={parentNodes}
+        initialvalues={{
+          nodeType: BaseNodeType.React,
+          parent: null,
+        }}
       />
+      <ModalForm
+        handlesubmit={handleUpdateNode}
+        visibility={!!editedNode}
+        handlecancel={() => setEditedNode(null)}
+        parentnodes={parentNodes}
+        initialvalues={editedNode}
+      />
+
       <NodeTree />
-      <Table data={convertNodes(data)} selectnode={setSelectedNode} />
+      <Table
+        data={convertNodes(data)}
+        selectnode={setSelectedNode}
+        handleedit={showEditModal}
+      />
     </>
   )
 }

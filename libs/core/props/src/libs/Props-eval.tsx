@@ -1,4 +1,4 @@
-import { message, notification } from 'antd'
+import { Form, message, notification } from 'antd'
 import axios from 'axios'
 import { reduce } from 'lodash'
 import React from 'react'
@@ -58,7 +58,7 @@ export const evalPropsWithContext = (props: Props): Props => {
   const libraryCtx = {
     React,
     axios,
-    antd: { notification, message },
+    antd: { notification, message, Form },
     props,
     evalProps: evalPropsIterator,
   }

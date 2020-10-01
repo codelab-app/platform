@@ -1,7 +1,6 @@
 import { Form } from '@codelab/components/ui'
 import { Renderer } from '@codelab/core/renderer'
 import {
-  BaseNodeType,
   NodeReactI,
   ReactType,
   nodeTypeEntries,
@@ -17,7 +16,10 @@ const parentNodeSelect: NodeReactI = {
     {
       type: 'React.Select',
       props: {
-        options: { eval: true, value: 'return this.props.parentnodes.value' },
+        options: {
+          eval: true,
+          value: 'return this.props.parentnodes.value',
+        },
       },
     },
   ],
@@ -168,7 +170,7 @@ export const modalFormData: NodeReactI = {
     onCancel: {
       eval: true,
       value: `return () => {
-        this.props.setvisibility.value(false)
+        this.props.handlecancel.value()
       }`,
     },
   },
@@ -176,8 +178,14 @@ export const modalFormData: NodeReactI = {
     {
       type: 'React.Form',
       props: {
+        ctx: {
+          eval: true,
+          value: `const [form] = this.antd.Form.useForm(); 
+                  form.setFieldsValue(this.props.initialvalues.value); 
+                  return { form }`,
+        },
+        form: { eval: true, value: 'return this.form' },
         name: 'create-node-form',
-        initialValues: { nodeType: BaseNodeType.React },
         onFinish: {
           eval: true,
           value: 'return this.props.handlesubmit.value',
@@ -199,8 +207,9 @@ export const modalFormData: NodeReactI = {
 interface ModalFormProps {
   handlesubmit: Function
   visibility: boolean
-  setvisibility: Function
+  handlecancel: Function
   parentnodes: Array<any>
+  initialvalues?: any
 }
 
 export const ModalForm = Renderer.components<ModalFormProps>(modalFormData)
