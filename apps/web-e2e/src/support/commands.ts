@@ -40,3 +40,62 @@ export const findByButtonText = (
 }
 
 Cypress.Commands.add('findByButtonText', findByButtonText)
+
+export const findByModalTitle = (
+  text: Matcher,
+  options?: SelectorMatcherOptions,
+): Cypress.Chainable<JQuery> => {
+  return cy
+    .findByText(text, { exact: true, timeout: 7000, ...options })
+    .closest('.ant-modal-wrap ')
+}
+
+Cypress.Commands.add('findByModalTitle', findByModalTitle)
+
+export const findInputByLabel = (
+  text: Matcher,
+  options?: SelectorMatcherOptions,
+): Cypress.Chainable<JQuery> => {
+  return cy
+    .findByText(text, { exact: true, timeout: 7000, ...options })
+    .invoke('attr', 'for')
+    .then((idOfInput) => {
+      return cy.get(`#${idOfInput}`)
+    })
+}
+
+Cypress.Commands.add('findInputByLabel', findInputByLabel)
+
+export const openSelectByLabel = (
+  text: Matcher,
+  options?: SelectorMatcherOptions,
+): Cypress.Chainable<JQuery> => {
+  return findInputByLabel(text, options).closest('.ant-select').click()
+}
+
+Cypress.Commands.add('openSelectByLabel', openSelectByLabel)
+
+export const getSelectDropdownByLabel = (
+  text: Matcher,
+  options?: SelectorMatcherOptions,
+): Cypress.Chainable<JQuery> => {
+  // NOTE: the list appears in DOM only after first
+  return findInputByLabel(text, options)
+    .invoke('attr', 'aria-owns')
+    .then((optionsListId) => cy.get(`#${optionsListId}`))
+    .closest('.ant-select-dropdown')
+}
+
+Cypress.Commands.add('getSelectDropdownByLabel', getSelectDropdownByLabel)
+
+export const getSelectedOptionByLabel = (
+  text: Matcher,
+  options?: SelectorMatcherOptions,
+): Cypress.Chainable<JQuery> => {
+  // NOTE: the list appears in DOM only after first
+  return findInputByLabel(text, options)
+    .closest('.ant-select-selector')
+    .find('.ant-select-selection-item')
+}
+
+Cypress.Commands.add('getSelectedOptionByLabel', getSelectedOptionByLabel)
