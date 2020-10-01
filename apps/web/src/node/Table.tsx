@@ -8,7 +8,8 @@ const deleteButton: NodeReactI = {
     type: 'danger',
     onClick: {
       eval: true,
-      value: 'return () => console.log(this.props.record.value._id)',
+      value:
+        'return () => this.props.handledelete.value.value(this.props.record.value._id)',
     },
   },
   children: [
@@ -140,6 +141,7 @@ export interface TableProps {
   data: any
   selectnode: Function
   handleedit: Function
+  handledelete: Function
 }
 
 export const Table = Renderer.components<TableProps>(tableData)

@@ -122,6 +122,22 @@ const NodePage = () => {
     console.log('delete node fired!')
   }
 
+  const handleDeleteNode = (nodeId) => {
+    console.log('delete node fired!', nodeId)
+
+    axios
+      .delete(`/api/v1/Node/${nodeId}`)
+      .then((res) => {
+        const index = nodes.map((node) => node._id).indexOf(nodeId)
+        const newNodes = [...nodes]
+
+        newNodes.splice(index, 1)
+
+        setNodes(newNodes)
+      })
+      .catch((err) => console.log(err))
+  }
+
   const showEditModal = (nodeId) => {
     const editNode = nodes.find((node) => node._id === nodeId)
 
@@ -174,6 +190,7 @@ const NodePage = () => {
         data={convertNodes(data)}
         selectnode={setSelectedNode}
         handleedit={showEditModal}
+        handledelete={handleDeleteNode}
       />
     </>
   )
