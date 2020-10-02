@@ -121,6 +121,12 @@ export class NodeEntity<
     }
   }
 
+  public getRoot(node: NodeEntity = this): NodeEntity {
+    return node.parent === undefined
+      ? node
+      : this.getRoot(node.parent as NodeEntity)
+  }
+
   public addParent(parent: Node<T, P>) {
     this.parent = parent
   }

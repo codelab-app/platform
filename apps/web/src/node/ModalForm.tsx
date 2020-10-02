@@ -1,14 +1,13 @@
 import { Form } from '@codelab/components/ui'
 import { Renderer } from '@codelab/core/renderer'
 import {
+  BaseNodeType,
+  ModelType,
   NodeReactI,
   ReactType,
-  nodeTypeEntries,
   TreeType,
-  ModelType,
-  BaseNodeType,
+  nodeTypeEntries,
 } from '@codelab/shared/interface/node'
-import { FormInstance } from 'antd/lib/form'
 
 const parentNodeSelect: NodeReactI = {
   type: 'React.Form.Item',
@@ -167,9 +166,7 @@ export const modalFormData: NodeReactI = {
     },
     onCancel: {
       __type: ['Eval'],
-      value: `
-        return () => this.setvisibility(false)
-      `,
+      value: `return this.handlecancel;`,
     },
     ctx: {
       __type: ['Eval', 'Leaf'],
@@ -185,13 +182,13 @@ export const modalFormData: NodeReactI = {
     {
       type: 'React.Form',
       props: {
-        form: { __type: ['Eval'], value: 'return this.form' },
+        form: { __type: ['Eval'], value: 'return this.ctx.form' },
         name: 'create-node-form',
         initialValues: { nodeType: BaseNodeType.React },
         onFinish: {
           __type: ['Eval'],
           value:
-            'return (data)=>{this.props.handlesubmit.value(data);this.props.forminstance.value.resetFields();}',
+            'return (data)=>{this.handlesubmit(data);this.ctx.form.resetFields();}',
         },
       },
       children: [
@@ -213,7 +210,6 @@ type ModalFormProps = {
   handlecancel: Function
   parentnodes: Array<any>
   initialvalues?: any
-  forminstance?: FormInstance
 }
 
 export const ModalForm = Renderer.components<ModalFormProps>(modalFormData)

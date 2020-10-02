@@ -16,7 +16,7 @@ const nodeButtonGroupData: NodeReactI = {
           props: {
             value: {
               __type: ['Eval'],
-              value: 'return this.selectedNode',
+              value: 'return this.selectednodename',
             },
           },
         },
@@ -109,7 +109,7 @@ const nodeButtonGroupData: NodeReactI = {
 export type ButtonGroupProps = {
   setvisibility: Function
   handledelete: Function
-  selectedNode: any
+  selectednodename: string
   clearfilter: Function
 }
 

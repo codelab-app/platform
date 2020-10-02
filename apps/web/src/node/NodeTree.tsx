@@ -1,6 +1,6 @@
+import { DataNode, TreeProps } from 'antd/lib/tree'
 import { Renderer } from '@codelab/core/renderer'
 import type { NodeReactI } from '@codelab/shared/interface/node'
-import { DataNode, TreeProps } from 'antd/lib/tree'
 
 export const nodeTreeData: NodeReactI = {
   type: 'React.Tree',
@@ -11,22 +11,21 @@ export const nodeTreeData: NodeReactI = {
     draggable: true,
     onSelect: {
       __type: ['Eval'],
-      value:
-        'return (selectedKeys,e)=>this.props.onselect.value(selectedKeys,e)',
+      value: 'return (selectedKeys,e)=>this.onselect(selectedKeys,e)',
     },
     onDrop: {
       __type: ['Eval'],
-      value: 'return (dropDetails)=>this.props.ondrop.value(dropDetails)',
+      value: 'return (dropDetails)=>this.ondrop(dropDetails)',
     },
     treeData: {
       __type: ['Eval'],
-      value: 'return this.props.treedata.value?this.props.treedata.value:[]',
+      value: 'return this.treedata?this.treedata:[]',
     },
   },
 }
 
-export interface NodeTreeProps {
-  treedata: DataNode[]
+export type NodeTreeProps = {
+  treedata: Array<DataNode>
   onselect: TreeProps['onSelect']
   ondrop: TreeProps['onDrop']
 }

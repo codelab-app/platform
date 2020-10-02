@@ -1,8 +1,8 @@
 import { Attributes, ComponentClass, FunctionComponent } from 'react'
-import { PropsFilter } from '@codelab/core/props'
-import { Props } from '@codelab/shared/interface/props'
 import { NodeA, NodeI } from './dto'
 import { NodeTypeLiteral } from './enums'
+import { PropsFilter } from '@codelab/core/props'
+import { Props } from '@codelab/shared/interface/props'
 
 export interface HasChildren<N> {
   children?: Array<HasChildren<N>>
@@ -31,6 +31,7 @@ export interface Node<
   addChild(node: NodeA): void
   removeChild(node: NodeA): void
   move(newParent: NodeA): void
+  getRoot(): NodeA
   addParent(node: NodeA): void
   Component: any
   render: any

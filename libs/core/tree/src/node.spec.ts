@@ -83,4 +83,16 @@ describe('Node', () => {
 
     expect(grandChildChildren).not.toContain(grandGrandChild)
   })
+
+  it('can find root', () => {
+    const root = new NodeEntity({ id: 'parent', type: 'Tree' })
+    const child = new NodeEntity({ id: 'child', type: 'Tree' })
+    const grandChild = new NodeEntity({ id: 'grandChild', type: 'Tree' })
+
+    root.addChild(child)
+    child.addChild(grandChild)
+
+    expect(root.getRoot()).toBe(root)
+    expect(grandChild.getRoot()).toBe(root)
+  })
 })

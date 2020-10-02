@@ -1,27 +1,27 @@
 /* eslint-disable no-underscore-dangle */
+import { DataNode } from 'antd/lib/tree'
 import axios from 'axios'
-import React from 'react'
-import { DataNode, EventDataNode } from 'antd/lib/tree'
-import { ButtonGroup } from '../src/node/ButtonGroup'
-import { ModalForm } from '../src/node/ModalForm'
-import { Table } from '../src/node/Table'
-import { NodeTree, NodeTreeProps } from '../src/node/NodeTree'
-import { convertNodeTreeToAntTreeDataNode } from '../src/node/utils/convertNodeTreeToAntTreeNode'
-import { NodeEntity } from '@codelab/core/node'
-import { BaseNodeType, Node, NodeCreate } from '@codelab/shared/interface/node'
-import { findNode } from '@codelab/core/tree'
 import hljs from 'highlight.js/lib/core'
 import json from 'highlight.js/lib/languages/json'
-import { Form as AntForm } from 'antd'
+import React from 'react'
+import { ButtonGroup } from '../src/node/ButtonGroup'
+import { ModalForm } from '../src/node/ModalForm'
+import { NodeTree, NodeTreeProps } from '../src/node/NodeTree'
+import { Table } from '../src/node/Table'
+import { convertNodeTreeToAntTreeDataNode } from '../src/node/utils/convertNodeTreeToAntTreeNode'
+import { NodeEntity } from '@codelab/core/node'
+import { findNode } from '@codelab/core/tree'
+import { BaseNodeType, NodeCreate } from '@codelab/shared/interface/node'
+
 hljs.registerLanguage('json', json)
 
 axios.defaults.baseURL = 'http://localhost:3333'
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 
 const NodePage = () => {
-  const [selectedNode, setSelectedNode] = React.useState<NodeEntity | null>(
-    null,
-  )
+  const [selectedNode, setSelectedNode] = React.useState<
+    NodeEntity | undefined
+  >(undefined)
   const [rootNode, setRootNode] = React.useState<NodeEntity | null>(null)
   const [treeData, setTreeData] = React.useState<Array<DataNode>>([])
   const [visibility, setVisibility] = React.useState<boolean>(false)
@@ -48,9 +48,11 @@ const NodePage = () => {
 
   React.useEffect(() => {
     let mounted = true
+
     if (mounted) {
       hljs.highlightBlock(selectedNodeDetailsRef.current)
     }
+
     return function cleanup() {
       mounted = false
     }
@@ -59,12 +61,13 @@ const NodePage = () => {
   // TODO: specify type of values. It should combine types for all types(React, Tree, Model, etc)
   const addChild = (values: NodeCreate) => {
     const newNode = new NodeEntity(values)
+
     switch (true) {
       case rootNode === null:
         setRootNode(newNode)
         setTreeData([convertNodeTreeToAntTreeDataNode(newNode)])
         break
-      case selectedNode !== null:
+      case selectedNode !== undefined:
         selectedNode.addChild(newNode)
         setTreeData([convertNodeTreeToAntTreeDataNode(rootNode)])
         break
@@ -76,17 +79,14 @@ const NodePage = () => {
   }
 
   const handleSelectNode: NodeTreeProps['onselect'] = (selectedKeys, e) => {
-    if (selectedKeys.length > 0) {
-      const node = findNode(selectedKeys[0] as string, rootNode) as NodeEntity
-
-      setSelectedNode(node)
-    } else {
-      setSelectedNode(null)
-    }
+    setSelectedNode(
+      findNode(selectedKeys[0] as string | undefined, rootNode) as
+        | NodeEntity
+        | undefined,
+    )
   }
 
   const handleCreateNode = (formData) => {
-    console.log(formData)
     addChild(formData)
 
     axios
@@ -123,15 +123,16 @@ const NodePage = () => {
   }
 
   const deleteNode = () => {
-    if (selectedNode !== null) {
-      if (selectedNode === rootNode) {
+    if (selectedNode !== undefined) {
+      if (selectedNode === selectedNode.getRoot()) {
         setRootNode(null)
         setTreeData([])
       } else {
         selectedNode.parent.removeChild(selectedNode)
         setTreeData([convertNodeTreeToAntTreeDataNode(rootNode)])
       }
-      setSelectedNode(null)
+
+      setSelectedNode(undefined)
     }
   }
 
@@ -171,12 +172,10 @@ const NodePage = () => {
       newTreeNodeParent.key as string,
       rootNode,
     ) as NodeEntity
+
     node.move(newParentNode)
     setTreeData([convertNodeTreeToAntTreeDataNode(rootNode)])
   }
-
-  // a temporary solution until props refactoring will be finished
-  const [form] = AntForm.useForm()
 
   const parentNodes = [
     { label: 'none', value: null },
@@ -189,9 +188,9 @@ const NodePage = () => {
     <>
       <ButtonGroup
         setvisibility={setVisibility}
-        selectedNode={selectedNode}
+        selectednodename={selectedNode ? selectedNode.type : null}
         handledelete={deleteNode}
-        clearfilter={() => setSelectedNode(null)}
+        clearfilter={() => setSelectedNode(undefined)}
       />
       <ModalForm
         handlesubmit={handleCreateNode}
@@ -202,7 +201,6 @@ const NodePage = () => {
           nodeType: BaseNodeType.React,
           parent: null,
         }}
-        forminstance={form}
       />
       <ModalForm
         handlesubmit={handleUpdateNode}
@@ -218,7 +216,7 @@ const NodePage = () => {
       />
       <pre>
         <code ref={selectedNodeDetailsRef}>
-          {selectedNode !== null
+          {selectedNode !== undefined
             ? JSON.stringify(selectedNode.data, null, 2)
             : ''}
         </code>
