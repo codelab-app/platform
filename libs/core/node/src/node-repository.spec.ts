@@ -1,5 +1,7 @@
 describe('Node repository', () => {
-  test.todo('some test to be written in the future')
+  it('is true', () => {
+    expect(true).toBeTruthy()
+  })
   // const repo = new NodeRepository()
   //
   // it('can save a node given a create dto', () => {
