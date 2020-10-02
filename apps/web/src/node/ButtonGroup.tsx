@@ -56,27 +56,27 @@ const nodeButtonGroupData: NodeReactI = {
     {
       type: 'React.Space',
       children: [
-        {
-          type: 'React.Button',
-          props: {
-            type: 'primary',
-            onClick: {
-              eval: true,
-              value: `return () => {
-                console.log(this.props)
-                this.props.handledelete.value()
-              }`,
-            },
-          },
-          children: [
-            {
-              type: 'React.Text',
-              props: {
-                value: 'Delete Selected Node',
-              },
-            },
-          ],
-        },
+        // {
+        //   type: 'React.Button',
+        //   props: {
+        //     type: 'primary',
+        //     onClick: {
+        //       eval: true,
+        //       value: `return () => {
+        //         console.log(this.props)
+        //         this.props.handledelete.value()
+        //       }`,
+        //     },
+        //   },
+        //   children: [
+        //     {
+        //       type: 'React.Text',
+        //       props: {
+        //         value: 'Delete Selected Node',
+        //       },
+        //     },
+        //   ],
+        // },
         {
           type: 'React.Button',
           props: {
