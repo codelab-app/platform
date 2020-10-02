@@ -12,7 +12,7 @@ export class Node extends mongoose.Document {
   props?: object
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Node' })
-  parent?: mongoose.Schema.Types.ObjectId
+  parent?: mongoose.Schema.Types.ObjectId | null
 
   // @Prop([Node])
   // children: Array<Node>
