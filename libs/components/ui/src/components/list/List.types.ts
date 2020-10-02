@@ -16,9 +16,9 @@ export namespace List {
     'split',
     'dataSource',
     'renderItem',
-  ]
+  ] as const
 
-  export const paginationPropKeys = ['position']
+  export const paginationPropKeys = ['position'] as const
 
   export const gridPropKeys = [
     'column',
@@ -29,11 +29,11 @@ export namespace List {
     'lg',
     'xl',
     'xxl',
-  ]
+  ] as const
 
-  export const itemPropKeys = ['actions', 'extra']
+  export const itemPropKeys = ['actions', 'extra'] as const
 
-  export const metaPropKeys = ['avatar', 'description', 'title']
+  export const metaPropKeys = ['avatar', 'description', 'title'] as const
 
   export type Props = PropsFromKeys<typeof propKeys[number]>
 

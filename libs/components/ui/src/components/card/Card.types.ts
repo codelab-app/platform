@@ -19,9 +19,9 @@ export namespace Card {
     'type',
     'onTabChange',
     'tabProps',
-  ]
+  ] as const
 
-  export const gridPropKeys = ['className', 'hoverable', 'style']
+  export const gridPropKeys = ['className', 'hoverable', 'style'] as const
 
   export const metaPropKeys = [
     'avatar',
@@ -29,7 +29,7 @@ export namespace Card {
     'description',
     'style',
     'title',
-  ]
+  ] as const
 
   export type Props = PropsFromKeys<typeof propKeys[number]>
 

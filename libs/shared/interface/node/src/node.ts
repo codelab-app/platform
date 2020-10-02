@@ -25,16 +25,17 @@ export type Mapper<T1, T2 = T1> = (node: T1) => T2
 
 export interface Node<
   T extends NodeTypeLiteral = NodeTypeLiteral,
-  P extends Props = {}
+  P extends Props = Props
 > extends NodeA<T, P> {
   id: string
-  // TODO: Need to move somewhere else
-  context: any
   addChild(node: NodeA): void
   addParent(node: NodeA): void
   Component: any
   render: any
   Children: any
+  // Building props
+  evalProps(renderProps: Props): Props
+  nextRenderProps(renderProps: Props): Props
 }
 
 export type ElementParameters<P extends Props> = [

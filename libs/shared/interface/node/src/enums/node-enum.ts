@@ -16,7 +16,7 @@ export enum BaseNodeType {
  */
 export const nodeTypeEntries = Object.entries(BaseNodeType)
 
-export type NodeTypeEnum = ModelType | TreeType | ReactType
+export type NodeType = ModelType | TreeType | ReactType
 
 /**
  * All possible values

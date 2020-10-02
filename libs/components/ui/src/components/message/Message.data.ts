@@ -6,27 +6,37 @@ import { NodeReactI } from '@codelab/shared/interface/node'
 export const messageData: NodeReactI<
   Text.Props | Button.Props | Message.Props | { config: object }
 > = {
-  type: 'React.Button',
+  type: 'React.Fragment',
   props: {
-    onClick: {
-      __type: 'eval',
-      value:
-        'return () => this.antd.message.info(this.evalProps(this.props.config, this.evalPropsFactory))',
-    },
     config: {
-      content: 'This is a normal message',
-      onClose: {
-        __type: 'eval',
-        value: 'return () => console.log("Message Closed!")',
-      },
+      __type: ['Eval', 'Leaf'],
+      value: `
+        return { 
+          content: 'This is a normal message',
+          onClose: () => console.log("Message Closed!")
+        }
+      `,
     },
   },
   children: [
     {
-      type: 'React.Text',
+      type: 'React.Button',
       props: {
-        value: 'Display message',
+        onClick: {
+          __type: ['Eval'],
+          value: `
+            return () => this.antd.message.info(this.config)
+          `,
+        },
       },
+      children: [
+        {
+          type: 'React.Text',
+          props: {
+            value: 'Display message',
+          },
+        },
+      ],
     },
   ],
 }

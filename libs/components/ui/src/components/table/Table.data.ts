@@ -14,8 +14,8 @@ const deleteButton: NodeReactI<
   props: {
     type: 'danger',
     onClick: {
-      __type: 'eval',
-      value: 'return () => console.log(this.props.record.name)',
+      __type: ['Eval'],
+      value: 'return () => console.log(this.record.name)',
     },
   },
   children: [

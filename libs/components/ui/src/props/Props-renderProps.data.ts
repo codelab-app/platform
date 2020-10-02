@@ -5,7 +5,7 @@ export const renderPropsData: NodeI = {
   props: {
     visibility: '',
     singleprops: {
-      __type: 'single',
+      __type: ['Single'],
       value: 'single',
     },
   },
@@ -14,8 +14,8 @@ export const renderPropsData: NodeI = {
       type: 'React.Html.div',
       props: {
         childprops: {
-          __type: 'eval',
-          value: 'return this.props.singleprops',
+          __type: ['Eval'],
+          value: 'return this.singleprops',
         },
       },
       children: [
@@ -23,8 +23,8 @@ export const renderPropsData: NodeI = {
           type: 'React.Html.div',
           props: {
             grandchildprops: {
-              __type: 'eval',
-              value: 'return this.props.singleprops',
+              __type: ['Eval'],
+              value: 'return this.singleprops',
             },
           },
         },
@@ -38,7 +38,7 @@ export const leafRenderPropsData: NodeI = {
   props: {
     visibility: '',
     leafprops: {
-      __type: 'leaf',
+      __type: ['Leaf'],
       value: 'leaf',
     },
   },
@@ -47,8 +47,9 @@ export const leafRenderPropsData: NodeI = {
       type: 'React.Html.div',
       props: {
         childprops: {
-          __type: 'eval',
-          value: 'return this.props.leafprops',
+          __type: ['Eval'],
+          // value: 'return console.log(this.leafprops)',
+          value: 'return this.leafprops',
         },
       },
       children: [
@@ -56,8 +57,9 @@ export const leafRenderPropsData: NodeI = {
           type: 'React.Html.div',
           props: {
             grandchildprops: {
-              __type: 'eval',
-              value: 'return this.props.leafprops',
+              __type: ['Eval'],
+              // value: 'return console.log(this)',
+              value: 'return this.leafprops',
             },
           },
         },

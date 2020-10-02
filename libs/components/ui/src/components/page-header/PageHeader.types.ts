@@ -12,7 +12,7 @@ export namespace PageHeader {
     'breadcrumb',
     'footer',
     'onBack',
-  ]
+  ] as const
 
   export type Props = PropsFromKeys<typeof propKeys[number]>
 }

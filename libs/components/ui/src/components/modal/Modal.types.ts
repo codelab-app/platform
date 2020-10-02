@@ -28,7 +28,7 @@ export namespace Modal {
     'zIndex',
     'onCancel',
     'onOk',
-  ]
+  ] as const
 
   export type Props = PropsFromKeys<typeof propKeys[number]>
 }

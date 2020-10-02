@@ -17,8 +17,8 @@ const parentNodeSelect: NodeReactI = {
       type: 'React.Select',
       props: {
         options: {
-          eval: true,
-          value: 'return this.props.parentnodes.value',
+          __type: ['Eval'],
+          value: 'return this.parentnodes',
         },
       },
     },
@@ -36,7 +36,7 @@ const reactNodeFields: NodeReactI = {
   props: {
     shouldUpdate: true,
     shouldRender: {
-      __type: 'eval',
+      __type: ['Eval'],
       value: 'return (values) => values.nodeType !== "React"',
     },
   },
@@ -54,7 +54,7 @@ const treeNodeFields: NodeReactI = {
   props: {
     shouldUpdate: true,
     shouldRender: {
-      __type: 'eval',
+      __type: ['Eval'],
       value: 'return (values) => values.nodeType !== "Tree"',
     },
   },
@@ -75,7 +75,7 @@ const refNodeFields: NodeReactI = {
   props: {
     shouldUpdate: true,
     shouldRender: {
-      __type: 'eval',
+      __type: ['Eval'],
       value: 'return (values) => values.nodeType !== "Ref"',
     },
   },
@@ -164,31 +164,34 @@ export const modalFormData: NodeReactI = {
     title: 'Create Node Form',
     footer: null,
     visible: {
-      __type: 'eval',
-      value: 'return this.props.visibility',
+      __type: ['Eval'],
+      value: 'return this.visibility',
     },
     onCancel: {
-      __type: 'eval',
-      value: `return () => {
-        this.props.setvisibility(false)
-      }`,
+      __type: ['Eval'],
+      value: `
+        return () => this.setvisibility(false)
+      `,
+    },
+    ctx: {
+      __type: ['Eval', 'Leaf'],
+      value: `
+        const [form] = this.antd.Form.useForm(); 
+        form.setFieldsValue(this.initialvalues); 
+        
+        return { form }
+      `,
     },
   },
   children: [
     {
       type: 'React.Form',
       props: {
-        ctx: {
-          eval: true,
-          value: `const [form] = this.antd.Form.useForm(); 
-                  form.setFieldsValue(this.props.initialvalues.value); 
-                  return { form }`,
-        },
-        form: { eval: true, value: 'return this.form' },
+        form: { __type: ['Eval'], value: 'return this.form' },
         name: 'create-node-form',
         onFinish: {
-          __type: 'eval',
-          value: 'return this.props.handlesubmit',
+          __type: ['Eval'],
+          value: 'return this.handlesubmit',
         },
       },
       children: [
@@ -204,7 +207,7 @@ export const modalFormData: NodeReactI = {
   ],
 }
 
-interface ModalFormProps {
+type ModalFormProps = {
   handlesubmit: Function
   visibility: boolean
   handlecancel: Function

@@ -7,7 +7,7 @@ export const pageHeaderData: NodeReactI<PageHeader.Props> = {
     title: 'Title',
     subTitle: 'This is a subtitle',
     onBack: {
-      __type: 'eval',
+      __type: ['Eval'],
       value: 'return () => null',
     },
     style: { border: ' 1px solid rgb(235, 237, 240)' },

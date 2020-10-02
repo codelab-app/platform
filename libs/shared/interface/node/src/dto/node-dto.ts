@@ -3,7 +3,7 @@ import { Props } from '@codelab/shared/interface/props'
 
 export interface NodeI<
   T extends NodeTypeLiteral = NodeTypeLiteral,
-  P extends Props = {}
+  P extends Props = Props
 > {
   id?: string
   type: T
@@ -13,7 +13,7 @@ export interface NodeI<
 
 export interface NodeA<
   T extends NodeTypeLiteral = NodeTypeLiteral,
-  P extends Props = {}
+  P extends Props = Props
 > {
   id: string
   type: T

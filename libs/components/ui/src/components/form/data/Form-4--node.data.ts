@@ -8,7 +8,7 @@ export const nodeFormData: NodeReactI<
 > = {
   type: 'React.Form',
   props: {
-    ctx: { __type: 'eval', value: '' },
+    ctx: { __type: ['Eval'], value: '' },
     name: 'basic',
     initialValues: { node_type: 'React' },
     onFinish: '() => console.log("good")',

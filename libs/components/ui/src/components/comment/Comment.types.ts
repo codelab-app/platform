@@ -1,8 +1,9 @@
+import { NodeReactI } from '@codelab/shared/interface/node'
 import { PropsFromKeys } from '@codelab/shared/interface/props'
 
 export namespace Comment {
   export const propKeys = [
-    'actions',
+    // 'actions',
     'author',
     'avatar',
     'children',
@@ -10,5 +11,7 @@ export namespace Comment {
     'datetime',
   ] as const
 
-  export type Props = PropsFromKeys<typeof propKeys[number]>
+  export type Props = PropsFromKeys<typeof propKeys[number]> & {
+    actions: Array<NodeReactI>
+  }
 }

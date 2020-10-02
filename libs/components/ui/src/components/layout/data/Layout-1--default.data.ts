@@ -1,30 +1,38 @@
+import { Icon } from '../../icon'
 import { Menu } from '../../menu'
 import { Text } from '../../text'
 import { Layout } from '../Layout.types'
 import { NodeReactI } from '@codelab/shared/interface/node'
 
 export const layoutData: NodeReactI<
-  Layout.Props | Layout.SiderProps | Text.Props | Menu.Props | Menu.ItemProps
+  | Layout.Props
+  | Layout.SiderProps
+  | Text.Props
+  | Menu.Props
+  | Menu.ItemProps
+  | Icon.Props
 > = {
   type: 'React.Layout',
-  props: { style: { minHeight: '100vh' }, hasSider: true },
+  props: {
+    style: { minHeight: '100vh' },
+    ctx: {
+      __type: ['Eval', 'Leaf'],
+      value:
+        'const [collapsed, setCollapsed] = this.React.useState(false); return { collapsed, setCollapsed }',
+    },
+  },
   children: [
     {
       type: 'React.Layout.Sider',
       props: {
-        ctx: {
-          __type: 'eval',
-          value:
-            'const [collapsed, setCollapsed] = this.React.useState(false); return { collapsed, setCollapsed }',
-        },
         collapsible: true,
         onCollapse: {
-          __type: 'eval',
-          value: 'return () => this.setCollapsed(!this.collapsed)',
+          __type: ['Eval'],
+          value: 'return () => this.ctx.setCollapsed(!this.ctx.collapsed);',
         },
         collapsed: {
-          __type: 'eval',
-          value: 'return this.collapsed',
+          __type: ['Eval'],
+          value: 'return this.ctx.collapsed',
         },
       },
       children: [
@@ -44,7 +52,7 @@ export const layoutData: NodeReactI<
               children: [
                 {
                   type: 'React.Icon',
-                  props: { type: 'React.user', theme: 'outlined' },
+                  props: { type: 'user', theme: 'outlined' },
                 },
                 {
                   type: 'React.Html.span',
@@ -68,7 +76,7 @@ export const layoutData: NodeReactI<
               children: [
                 {
                   type: 'React.Icon',
-                  props: { type: 'React.videoCamera', theme: 'outlined' },
+                  props: { type: 'videoCamera', theme: 'outlined' },
                 },
                 {
                   type: 'React.Html.span',
@@ -87,7 +95,6 @@ export const layoutData: NodeReactI<
         },
       ],
     },
-
     {
       type: 'React.Layout',
       children: [

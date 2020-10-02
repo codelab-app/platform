@@ -1,8 +1,7 @@
 import { UserOutlined, VideoCameraOutlined } from '@ant-design/icons'
 import { Menu } from 'antd'
 import React from 'react'
-import { layoutData } from './data/Layout-1--default.data'
-import { propLayoutData } from './data/Layout-2--prop.data'
+import { layoutData, propLayoutData } from './data'
 import { Renderer } from '@codelab/core/renderer'
 
 export default {
@@ -53,7 +52,7 @@ export const PropLayout = () => {
     </>
   )
 
-  interface LayoutProps {
+  type LayoutProps = {
     header: React.ReactNode
     content: React.ReactNode
     footer: React.ReactNode

@@ -6,7 +6,7 @@ import { Renderer } from '@codelab/core/renderer'
 
 export type TableProps<T extends object = any> = AntTableProps<T>
 
-interface CellProps<T = any> {
+type CellProps<T = any> = {
   // title: React.ReactNode
   // editable: boolean
   index: number

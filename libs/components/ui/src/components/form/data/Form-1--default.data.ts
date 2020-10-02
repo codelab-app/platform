@@ -8,10 +8,12 @@ export const formDefaultData: NodeReactI<
 > = {
   type: 'React.Form',
   props: {
-    ctx: { __type: 'eval', value: '' },
     name: 'basic',
     initialValues: { select: 'a' },
-    onFinish: '() => console.log("good")',
+    onFinish: {
+      __type: ['Eval'],
+      value: 'return () => console.log("good")',
+    },
   },
   children: [
     {

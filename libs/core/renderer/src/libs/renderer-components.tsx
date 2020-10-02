@@ -1,11 +1,7 @@
 /* eslint-disable import/no-cycle */
 import React, { FunctionComponent, PropsWithChildren } from 'react'
+import { propsMapLeaf } from '../../../props/src/mapper/Props-map--leaf'
 import { elementParameterFactory } from './element-factory'
-import {
-  buildProps,
-  convertToLeafRenderProps,
-  renderPropsFilter,
-} from '@codelab/core/props'
 import { traversePostOrder } from '@codelab/core/traversal'
 import { makeTree } from '@codelab/core/tree'
 import { Node, NodeFactory, NodeI } from '@codelab/shared/interface/node'
@@ -59,23 +55,27 @@ export const buildComponents = <P extends Props = {}>(
   /**
    * rootChildren & rootProps allow us to programmatically modify components
    */
-  return ({ children: rootChildren, ...rootProps }: PropsWithChildren<P>) => {
+  return ({
+    children: rootChildren,
+    ...outsideProps
+  }: PropsWithChildren<P>) => {
     if (rootChildren) {
       hasRootChildren = true
     }
 
-    root.props = { ...root.props, ...convertToLeafRenderProps(rootProps) }
+    /**
+     * We only want to transform rootProps to leaf, since root.props contain antd specific props
+     */
+    const props = root.evalProps(propsMapLeaf(outsideProps))
 
-    const evaluatedRootProps = buildProps(
-      { ...root.props, ctx: root.context },
-      {},
-    )
-    const renderProps = renderPropsFilter(evaluatedRootProps)
+    console.log(root, props)
 
     return (
-      <root.Component {...evaluatedRootProps}>
-        {/* <root.Component {...buildProps(root.props, {})}> */}
-        {root.Children(rootChildren, renderProps, root.context)}
+      <root.Component {...props}>
+        {root.Children(
+          rootChildren,
+          root.nextRenderProps(propsMapLeaf(outsideProps)),
+        )}
       </root.Component>
     )
   }

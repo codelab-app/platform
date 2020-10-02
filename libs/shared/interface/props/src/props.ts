@@ -1,37 +1,60 @@
-import { CSSProperties } from 'react'
+import { CSSProperties, ReactNode, ReactNodeArray } from 'react'
+import { PropTypeLiteral } from './props-enum'
+import { NodeReactI } from '@codelab/shared/interface/node'
 
-export type PropItem = Function & PropValue & any
+export type PropJsonValue = string | number | boolean
 
-export type PropType = 'eval' | 'leaf' | 'single'
+export interface PropTypeValue {
+  __type: Array<PropTypeLiteral>
+  value: PropJsonValue | Function
+}
 
-// Only prop value of this type is evaluated
-export interface PropValue {
-  __type: PropType | Array<PropType>
-  value: string
+export type PropItem =
+  | PropTypeValue
+  | PropJsonValue
+  | CSSProperties
+  | undefined
+  // React
+  | NodeReactI
+  | Array<NodeReactI>
+  | ReactNode
+  | ReactNodeArray
+
+type OtherProps = {
+  ctx?: PropTypeValue
+  style?: CSSProperties
 }
 
 // This is purely object shape, not concerning React props like PropTypes
-export interface Props {
-  ctx?: PropItem // Made available to current function props
+export type Props = {
   [name: string]: PropItem
-}
+} & OtherProps
 
 export type PropsFromKeys<Keys extends string, P extends object = {}> = {
-  [K in Keys]?: string | number | boolean | PropValue | P
-} & { ctx?: PropItem; style?: CSSProperties }
+  [K in Keys]?: PropItem
+} &
+  OtherProps
 
-// Accepted value from JSON representation
-export type PropJsonValue = string | number | boolean
-export type PropsFactory = (
+/**
+ * Same as iteratee
+ */
+export type PropsIteratee = (
   acc: Props,
   propValue: PropItem,
   propKey: keyof Props,
 ) => Props
 
-export type PropsIterator = (
-  props: Props,
-  iteratee: PropsFactory,
-  initAccumulator?: any,
-) => Props
+/**
+ * Return same props, converting the subtype of props the factory is responsible for
+ */
+export type PropsFactory = (props: Props) => Props
 
-export type PropsBuilder = (current: Props, parent: Props) => Props
+export type PropsIterator = (props: Props, iteratee: PropsIteratee) => Props
+
+// export type PropsIteratee = (
+//   props: Props,
+//   value: PropItem,
+//   key: keyof Props,
+// ) => Props
+
+export type PropsBuilder = (current: Props, parent?: Props) => Props

@@ -2,28 +2,45 @@ import { AutoComplete } from './AutoComplete.types'
 import { NodeReactI } from '@codelab/shared/interface/node'
 
 export const autocompleteData: NodeReactI<AutoComplete.Props> = {
-  type: 'React.AutoComplete',
+  type: 'React.Fragment',
   props: {
     ctx: {
-      __type: 'eval',
-      value:
-        'const [options, setOptions] = this.React.useState([]); const mockVal = (str, repeat = 1) =>({ value: str.repeat(repeat)}); return { options, setOptions, mockVal }',
+      __type: ['Eval', 'Leaf'],
+      value: `\
+        const [options, setOptions] = this.React.useState([]);\
+        const mockVal = (str, repeat = 1) => ({ value: str.repeat(repeat)});\
+        
+        return { options, setOptions, mockVal }
+      `,
     },
-    onSearch: {
-      __type: 'eval',
-      value:
-        'return (searchText) => this.setOptions(!searchText ? [] : [this.mockVal(searchText), this.mockVal(searchText, 2), this.mockVal(searchText, 3)])',
-    },
-    onSelect: {
-      __type: 'eval',
-      value: 'return (searchText) => console.log("Select", searchText)',
-    },
-    options: {
-      __type: 'eval',
-      value: 'return this.options',
-    },
-
-    placeholder: 'input here',
-    style: { width: 200 },
   },
+  children: [
+    {
+      type: 'React.AutoComplete',
+      props: {
+        onSearch: {
+          __type: ['Eval'],
+          value: `return (searchText) => \
+            this.ctx.setOptions( \
+              !searchText ? [] : [ \
+                this.ctx.mockVal(searchText), \
+                this.ctx.mockVal(searchText, 2), \
+                this.ctx.mockVal(searchText, 3)
+              ]
+            )
+          `,
+        },
+        onSelect: {
+          __type: ['Eval'],
+          value: 'return (searchText) => console.log("Select", searchText)',
+        },
+        options: {
+          __type: ['Eval'],
+          value: 'return this.ctx.options',
+        },
+        placeholder: 'input here',
+        style: { width: 200 },
+      },
+    },
+  ],
 }

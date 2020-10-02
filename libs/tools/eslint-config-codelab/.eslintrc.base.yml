@@ -16,10 +16,12 @@ settings:
   import/parser:
     '@typescript-eslint/parser': ['.ts', '.tsx']
 rules:
+  no-new-func: off
   no-undef: error # not included in preset, surprisingly
-  no-underscore-dangle:
-    - error
-    - allowAfterThis: true
+  no-underscore-dangle: off
+#  no-underscore-dangle:
+#    - error
+#    - allowAfterThis: true
   no-case-declarations: off
   no-restricted-syntax: off
 

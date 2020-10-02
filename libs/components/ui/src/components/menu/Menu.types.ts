@@ -22,9 +22,15 @@ export namespace Menu {
     'onOpenChange',
     'onSelect',
     'overflowedIndicator',
-  ]
+  ] as const
 
-  export const itemPropKeys = ['disabled', 'key', 'title', 'icon', 'danger']
+  export const itemPropKeys = [
+    'disabled',
+    'key',
+    'title',
+    'icon',
+    'danger',
+  ] as const
 
   export const submenuPropKeys = [
     'popupClassName',
@@ -34,9 +40,9 @@ export namespace Menu {
     'title',
     'icon',
     'onTitleClick',
-  ]
+  ] as const
 
-  export const itemGroupPropKeys = ['children', 'title']
+  export const itemGroupPropKeys = ['children', 'title'] as const
 
   export type Props = PropsFromKeys<typeof propKeys[number]>
 

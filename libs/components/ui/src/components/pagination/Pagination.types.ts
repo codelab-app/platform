@@ -21,7 +21,7 @@ export namespace Pagination {
     'total',
     'onChange',
     'onShowSizeChange',
-  ]
+  ] as const
 
   export type Props = PropsFromKeys<typeof propKeys[number]>
 }

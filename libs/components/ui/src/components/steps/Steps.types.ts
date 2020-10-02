@@ -12,7 +12,7 @@ export namespace Steps {
     'status',
     'initial',
     'onChange',
-  ]
+  ] as const
 
   export const stepPropKeys = [
     'description',
@@ -21,7 +21,7 @@ export namespace Steps {
     'title',
     'subTitle',
     'disabled',
-  ]
+  ] as const
 
   export type Props = PropsFromKeys<typeof propKeys[number]>
 

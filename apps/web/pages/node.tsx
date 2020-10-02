@@ -137,6 +137,7 @@ const NodePage = () => {
     <>
       <ButtonGroup
         setvisibility={setVisibility}
+        selectedNode={selectedNode}
         handledelete={deleteNode}
         clearfilter={() => setSelectedNode(null)}
       />
@@ -157,7 +158,6 @@ const NodePage = () => {
         parentnodes={parentNodes}
         initialvalues={editedNode}
       />
-
       <NodeTree />
       <Table
         data={data.map((node) => ({ ...node, key: node._id }))}

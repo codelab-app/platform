@@ -1,19 +1,17 @@
-import { omit, reduce } from 'lodash'
+import { reduce } from 'lodash'
+import { pipe } from 'ramda'
 import React, { FunctionComponent, ReactElement, ReactNode } from 'react'
 import { v4 as uuidv4 } from 'uuid'
-// eslint-disable-next-line import/no-cycle
-import { isSingleRenderPropValue } from '../../props/src/libs/Props.guards'
 import {
-  buildCtx,
-  buildProps,
-  filterRenderProps,
-  isLeafRenderPropValue,
-  renderPropsFilter,
+  propsFactoryEval,
+  propsFactoryReact,
+  propsFilterRenderProps,
+  propsMapGetter,
+  propsRemoveSingle,
 } from '@codelab/core/props'
 import {
   HasChildren,
   Node,
-  NodeA,
   NodeCreate,
   NodeTypeLiteral,
   nodeTypeLiterals,
@@ -25,8 +23,8 @@ import { Props } from '@codelab/shared/interface/props'
  */
 export class NodeEntity<
   T extends NodeTypeLiteral = NodeTypeLiteral,
-  P extends Props = {}
-> implements NodeA<T, P> {
+  P extends Props = any
+> implements Node<T, P> {
   public Component: FunctionComponent<any> = () => null
 
   public id: string
@@ -45,8 +43,6 @@ export class NodeEntity<
    */
   public data: NodeCreate<T, P>
 
-  public renderProps: Props = {}
-
   /**
    * Can take just ID, but fills out other fields
    */
@@ -61,6 +57,46 @@ export class NodeEntity<
     this.type = type
     this.props = (props ?? {}) as P
     this.id = id ?? uuidv4()
+  }
+
+  /**
+   * Props that has been transformed, ready to bind to component.
+   *
+   * @param renderProps
+   */
+  evalProps(renderProps: Props = {}): Props {
+    // console.log('renderProps', propsMapGetter(renderProps))
+    // console.log('current', this.props)
+
+    const props = pipe(
+      propsFactoryEval(renderProps),
+      propsFactoryReact,
+      propsMapGetter,
+    )(this.props)
+
+    // console.log('evaled', props)
+
+    return props
+  }
+
+  /**
+   * Build up the renderProps that will be passed on to the children.
+   *
+   * @param oldRenderProps
+   */
+  nextRenderProps(oldRenderProps: Props = {}): Props {
+    const props = pipe(
+      propsFilterRenderProps,
+      propsRemoveSingle,
+      propsFactoryEval(oldRenderProps),
+    )({
+      ...oldRenderProps,
+      ...this.props,
+    })
+
+    // console.log('nextRenderProps', props)
+
+    return props
   }
 
   get key(): React.Key {
@@ -85,28 +121,6 @@ export class NodeEntity<
    */
   public hasChildren() {
     return !!this.children.length
-  }
-
-  public get leafRenderProps() {
-    return filterRenderProps(this.parent?.props, 'leaf') ?? {}
-  }
-
-  public get parentRenderProps() {
-    return filterRenderProps(this.parent?.props, 'single') ?? {}
-  }
-
-  get mergedProps() {
-    this.props = { ...this.props, ...this.leafRenderProps }
-
-    return {
-      key: this.key,
-      ...this.props,
-      ...this.parentRenderProps,
-    }
-  }
-
-  public get context() {
-    return buildCtx(this.props)
   }
 
   render(
@@ -134,46 +148,35 @@ export class NodeEntity<
    * ```
    * <Component>{jsxChildren}</Component>
    * ```
+   *
+   * @param rootChildren Children passed programatically from root tree component.
+   * @param renderProps Props passed with `__type` intact.
+   * @constructor
    */
   public Children(
     rootChildren: ReactNode,
-    renderProps: Props,
-    ctx: any,
+    oldRenderProps: Props = {},
   ): ReactNode | Array<ReactNode> {
     const children = reduce<NodeEntity<T, P>, Array<ReactNode>>(
-      this.children as Array<NodeEntity<T, P>>,
+      this.children as Array<any>,
       (Components: Array<ReactNode>, child: NodeEntity) => {
-        const { Component: Child, key, props, context } = child
-
-        // console.debug(`${this.type} -> ${child.type}`, props)
-
-        let newCtx = context
-
-        if (isLeafRenderPropValue(ctx)) {
-          newCtx = { ...newCtx, ...ctx }
-        } else if (isSingleRenderPropValue(ctx)) {
-          newCtx = { ...newCtx, ...omit(ctx, '__type') }
-        }
-
-        const evaluatedProps = buildProps(
-          { ...props, ctx: newCtx },
-          renderProps,
-        )
-
-        const newRenderProps = renderPropsFilter(evaluatedProps)
+        const { Component: Child, key } = child
 
         let ChildComponent: ReactNode = rootChildren ? (
-          <Child key={key} {...evaluatedProps}>
+          <Child key={key} {...child.evalProps(oldRenderProps)}>
             {rootChildren}
           </Child>
         ) : (
-          <Child key={key} {...evaluatedProps} />
+          <Child key={key} {...child.evalProps(oldRenderProps)} />
         )
 
         if (child.hasChildren()) {
           ChildComponent = (
-            <Child key={key} {...evaluatedProps}>
-              {child.Children(rootChildren, newRenderProps, newCtx)}
+            <Child key={key} {...child.evalProps(oldRenderProps)}>
+              {child.Children(
+                rootChildren,
+                child.nextRenderProps(oldRenderProps),
+              )}
             </Child>
           )
         }

@@ -1,7 +1,7 @@
 /**
  * Model
  */
-export interface PropsModel {
+export type PropsModel = {
   name: string
 }
 

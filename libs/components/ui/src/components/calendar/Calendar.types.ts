@@ -17,7 +17,7 @@ export namespace Calendar {
     'onSelect',
     'onChange',
     'headerRender',
-  ]
+  ] as const
 
   export type Props = PropsFromKeys<typeof propKeys[number]>
 }

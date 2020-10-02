@@ -15,8 +15,8 @@ const nodeButtonGroupData: NodeReactI = {
           type: 'React.Text',
           props: {
             value: {
-              __type: 'eval',
-              value: 'return this.props.selectedNode',
+              __type: ['Eval'],
+              value: 'return this.selectedNode',
             },
           },
         },
@@ -35,11 +35,13 @@ const nodeButtonGroupData: NodeReactI = {
           props: {
             type: 'primary',
             onClick: {
-              __type: 'eval',
-              value: `return () => {
-                  console.log(this.props);
-                  this.props.setvisibility(true)
-                }`,
+              __type: ['Eval'],
+              value: `
+                return () => {
+                  console.log(this);
+                  this.setvisibility(true)
+                }
+              `,
             },
           },
           children: [
@@ -61,11 +63,13 @@ const nodeButtonGroupData: NodeReactI = {
           props: {
             type: 'primary',
             onClick: {
-              __type: 'eval',
-              value: `return () => {
-                console.log(this.props)
-                this.props.handledelete()
-              }`,
+              __type: ['Eval'],
+              value: `
+                return () => {
+                  console.log(this)
+                  this.handledelete()
+                }
+              `,
             },
           },
           children: [
@@ -83,8 +87,9 @@ const nodeButtonGroupData: NodeReactI = {
             type: 'primary',
             onClick: {
               eval: true,
-              value: `return () => 
-                this.props.clearfilter.value()
+              value: `
+                return () => 
+                this.clearfilter()
               `,
             },
           },
@@ -102,9 +107,10 @@ const nodeButtonGroupData: NodeReactI = {
   ],
 }
 
-export interface ButtonGroupProps {
+export type ButtonGroupProps = {
   setvisibility: Function
   handledelete: Function
+  selectedNode: any
   clearfilter: Function
 }
 

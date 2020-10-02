@@ -60,8 +60,6 @@ export namespace Select {
     'className',
   ] as const
 
-  type Test = typeof optionPropKeys[number]
-
   export type Props = PropsFromKeys<typeof propKeys[number]>
 
   export type OptionProps = PropsFromKeys<typeof optionPropKeys[number]>

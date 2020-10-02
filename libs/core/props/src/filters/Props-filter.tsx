@@ -1,7 +1,9 @@
 import { pickBy } from 'lodash'
 import { anyPass, compose, curry } from 'ramda'
 import React, { FunctionComponent } from 'react'
-import { Props } from '@codelab/shared/interface/props'
+import { propsIterator } from '../builder/Props-iterator'
+import { isRenderProp } from '../guards/Props-guards'
+import { PropItem, Props, PropsFactory } from '@codelab/shared/interface/props'
 
 export type PropFilterPredicate = (
   allowedKeys: Array<string>,

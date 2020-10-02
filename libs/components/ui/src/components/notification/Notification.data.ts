@@ -6,28 +6,40 @@ import { NodeReactI } from '@codelab/shared/interface/node'
 export const notificationData: NodeReactI<
   Text.Props | Notification.Props | Button.Props | { config: object }
 > = {
-  type: 'React.Button',
+  type: 'React.Fragment',
   props: {
-    onClick: {
-      __type: 'eval',
-      value:
-        'return () => this.antd.notification.info(this.evalProps(this.props.config, this.evalPropsFactory))',
-    },
     config: {
-      message: 'Notification Title',
-      description: 'This is the content of the notification.',
-      onClick: {
-        __type: 'eval',
-        value: 'return () => console.log("Notification Clicked!")',
-      },
+      __type: ['Eval', 'Leaf'],
+      value: `
+        return {
+          message: 'Notification Title',
+          description: 'This is the content of the notification.',
+          onClick: () => console.log("notification clicked!")
+        }
+      `,
     },
   },
   children: [
     {
-      type: 'React.Text',
+      type: 'React.Button',
       props: {
-        value: 'Display notification',
+        onClick: {
+          __type: ['Eval'],
+          value: `
+            return () => this.antd.notification.info(
+              this.config
+            )
+          `,
+        },
       },
+      children: [
+        {
+          type: 'React.Text',
+          props: {
+            value: 'Display notification',
+          },
+        },
+      ],
     },
   ],
 }

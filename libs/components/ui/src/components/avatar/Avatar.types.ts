@@ -10,7 +10,7 @@ export namespace Avatar {
     'alt',
     'onError',
     'gap',
-  ]
+  ] as const
 
   export type Props = PropsFromKeys<typeof avatarPropKeys[number]>
 }

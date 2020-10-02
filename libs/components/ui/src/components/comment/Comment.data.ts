@@ -1,10 +1,11 @@
+import { Avatar } from '../avatar'
 import { Icon } from '../icon'
 import { Text } from '../text'
 import { Comment } from './Comment.types'
 import { NodeReactI } from '@codelab/shared/interface/node'
 
 export const commentData: NodeReactI<
-  Comment.Props | Text.Props | Icon.Props
+  Comment.Props | Text.Props | Icon.Props | Avatar.Props
 > = {
   type: 'React.Comment',
   props: {
@@ -24,9 +25,14 @@ export const commentData: NodeReactI<
         type: 'React.Fragment',
         props: {
           ctx: {
-            __type: ['eval', 'single'],
-            value:
-              'const [likes, setLikes] = this.React.useState(0); const [dislikes, setDislikes] = this.React.useState(0); const [action, setAction] = this.React.useState(null); return { likes, setLikes, dislikes, setDislikes, action, setAction }',
+            __type: ['Eval', 'Single'],
+            value: `
+              const [likes, setLikes] = this.React.useState(0); 
+              const [dislikes, setDislikes] = this.React.useState(0); 
+              const [action, setAction] = this.React.useState(null); 
+              
+              return { likes, setLikes, dislikes, setDislikes, action, setAction }
+            `,
           },
         },
         children: [
@@ -35,20 +41,27 @@ export const commentData: NodeReactI<
             props: {
               type: 'like',
               theme: {
-                __type: 'eval',
-                value: 'return this.action === "like" ? "filled" : "outlined"',
+                __type: ['Eval'],
+                value: `
+                  return this.ctx.action === "like" ? "filled" : "outlined"
+                `,
               },
               onClick: {
-                __type: 'eval',
-                value:
-                  'return () => { this.setLikes(1); this.setDislikes(0); this.setAction("like") }',
+                __type: ['Eval'],
+                value: `
+                  return () => { 
+                    this.ctx.setLikes(1); 
+                    this.ctx.setDislikes(0); 
+                    this.ctx.setAction("like");
+                  }
+                `,
               },
             },
           },
           {
             type: 'React.Text',
             props: {
-              value: { __type: 'eval', value: 'return this.likes' },
+              value: { __type: ['Eval'], value: 'return this.ctx.likes' },
             },
           },
           {
@@ -56,22 +69,27 @@ export const commentData: NodeReactI<
             props: {
               type: 'dislike',
               theme: {
-                __type: 'eval',
+                __type: ['Eval'],
                 value:
-                  'return this.action === "dislike"? "filled" : "outlined"',
+                  'return this.ctx.action === "dislike"? "filled" : "outlined"',
               },
               style: { paddingLeft: '8px' },
               onClick: {
-                __type: 'eval',
-                value:
-                  'return () => { this.setLikes(0); this.setDislikes(1); this.setAction("dislike") }',
+                __type: ['Eval'],
+                value: `
+                  return () => { 
+                    this.ctx.setLikes(0); 
+                    this.ctx.setDislikes(1); 
+                    this.ctx.setAction("dislike");
+                  }
+                `,
               },
             },
           },
           {
             type: 'React.Text',
             props: {
-              value: { __type: 'eval', value: 'return this.dislikes' },
+              value: { __type: ['Eval'], value: 'return this.ctx.dislikes' },
             },
           },
           {

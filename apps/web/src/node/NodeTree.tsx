@@ -7,11 +7,11 @@ export const nodeTreeData: NodeReactI = {
     showLine: true,
     showIcon: true,
     // onSelect: {
-    //   __type: 'eval',
+    //   __type: ['Eval'],
     //   value: '(values)=>{console.log("node. onSelect"); this.props.onTreeNodeSelected.value(values)}'
     // },
     treeData: {
-      __type: 'eval',
+      __type: ['Eval'],
       value: 'return []',
       // value: 'return this.props.treeDataNodes.value?this.props.treeDataNodes.value:[]',
     },

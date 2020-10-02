@@ -7,9 +7,9 @@ const deleteButton: NodeReactI = {
   props: {
     type: 'danger',
     onClick: {
-      eval: true,
+      __type: ['Eval'],
       value:
-        'return () => this.props.handledelete.value.value(this.props.record.value._id)',
+        'return () => this.handledelete.value.value(this.record.value._id)',
     },
   },
   children: [
@@ -27,9 +27,8 @@ const editButton: NodeReactI = {
   props: {
     type: 'React.warning',
     onClick: {
-      eval: true,
-      value:
-        'return () => this.props.handleedit.value.value(this.props.record.value._id)',
+      __type: ['Eval'],
+      value: 'return () => this.handleedit.value(this.record._id)',
     },
   },
   children: [
@@ -47,16 +46,15 @@ const tagId: NodeReactI = {
   props: {
     color: 'geekblue',
     onClick: {
-      eval: true,
-      value:
-        'return () => this.props.selectnode.value.value(this.props.record.value.parent)',
+      __type: ['Eval'],
+      value: 'return () => this.selectnode.value.value(this.record.parent)',
     },
   },
   children: [
     {
       type: 'React.Text',
       props: {
-        value: { eval: true, value: 'return this.props.record.value.parent' },
+        value: { __type: ['Eval'], value: 'return this.record.parent' },
       },
     },
   ],
@@ -72,8 +70,8 @@ export const tableData: NodeReactI = {
   type: 'React.Table',
   props: {
     dataSource: {
-      eval: true,
-      value: 'return this.props.data.value',
+      __type: ['Eval'],
+      value: 'return this.data',
     },
     columns: [
       {
@@ -98,8 +96,8 @@ export const tableData: NodeReactI = {
             showHeader: false,
             pagination: false,
             dataSource: {
-              eval: true,
-              value: 'return this.props.record.value.props',
+              __type: ['Eval'],
+              value: 'return this.record.props',
             },
             columns: [
               { title: 'Key', dataIndex: 'key', key: 'key', width: '50%' },
@@ -137,7 +135,7 @@ export const tableData: NodeReactI = {
   },
 }
 
-export interface TableProps {
+export type TableProps = {
   data: any
   selectnode: Function
   handleedit: Function

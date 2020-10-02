@@ -10,7 +10,7 @@ export const mentionsData: NodeReactI<
     defaultValue: '@afc163',
     placeholder: 'You can use @ to ref user here',
     onChange: {
-      __type: 'eval',
+      __type: ['Eval'],
       value: 'return (value) => console.log(value)',
     },
   },

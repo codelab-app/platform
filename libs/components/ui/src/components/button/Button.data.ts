@@ -2,17 +2,47 @@ import { Text } from '../text'
 import { Button } from './Button.types'
 import { NodeReactI } from '@codelab/shared/interface/node'
 
+// export const buttonData: NodeReactI<Button.Props | Text.Props> = {
+//   type: 'React.Button',
+//   props: {
+//     type: 'primary',
+//   },
+//   children: [
+//     {
+//       type: 'React.Text',
+//       props: {
+//         value: 'Click me',
+//       },
+//     },
+//   ],
+// }
+
 export const buttonData: NodeReactI<Button.Props | Text.Props> = {
-  type: 'React.Button',
+  type: 'React.Fragment',
   props: {
-    type: 'primary',
+    ctx: {
+      __type: ['Eval', 'Leaf'],
+      value: `return { a: 1, b: 2 }`,
+    },
   },
   children: [
     {
-      type: 'React.Text',
+      type: 'React.Button',
       props: {
-        value: 'Click me',
+        onClick: {
+          __type: ['Eval'],
+          value: `return () => console.log(this.ctx.a)`,
+        },
+        type: 'primary',
       },
+      children: [
+        {
+          type: 'React.Text',
+          props: {
+            value: 'Click me',
+          },
+        },
+      ],
     },
   ],
 }

@@ -8,8 +8,8 @@ describe('RootRenderProps', () => {
     type: 'React.Html.div',
     props: {
       parentprops: {
-        __type: 'eval',
-        value: 'return this.props.rootprops',
+        __type: ['Eval'],
+        value: 'return this.rootprops',
       },
     },
     children: [
@@ -17,8 +17,8 @@ describe('RootRenderProps', () => {
         type: 'React.Html.div',
         props: {
           childprops: {
-            __type: 'eval',
-            value: 'return this.props.rootprops',
+            __type: ['Eval'],
+            value: 'return this.rootprops',
           },
         },
         children: [
@@ -26,8 +26,8 @@ describe('RootRenderProps', () => {
             type: 'React.Html.div',
             props: {
               grandchildprops: {
-                __type: 'eval',
-                value: 'return this.props.rootprops',
+                __type: ['Eval'],
+                value: 'return this.rootprops',
               },
             },
           },

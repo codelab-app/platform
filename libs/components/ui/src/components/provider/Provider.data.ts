@@ -4,7 +4,7 @@ export const providerData: NodeReactI = {
   type: 'React.Provider',
   props: {
     onClick: {
-      __type: 'eval',
+      __type: ['Eval'],
       value: 'return () => console.log("Root onClick cb is fired")',
     },
   },

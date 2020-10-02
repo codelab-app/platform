@@ -17,7 +17,7 @@ export const modelFormData: NodeI = {
       },
     },
     onFinish: {
-      __type: 'eval',
+      __type: ['Eval'],
       value: 'return (values) => console.log(values)',
     },
   },

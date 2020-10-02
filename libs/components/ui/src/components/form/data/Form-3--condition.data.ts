@@ -1,10 +1,10 @@
 import { Text } from '../../text'
 import { Form } from '../Form.types'
 import { NodeReactI } from '@codelab/shared/interface/node'
-import { PropValue } from '@codelab/shared/interface/props'
+import { PropTypeValue } from '@codelab/shared/interface/props'
 
 export const formConditionData: NodeReactI<
-  Form.Props | Form.ItemProps | Text.Props | { shouldRender: PropValue }
+  Form.Props | Form.ItemProps | Text.Props | { shouldRender: PropTypeValue }
 > = {
   type: 'React.Form',
   props: {
@@ -79,7 +79,7 @@ export const formConditionData: NodeReactI<
       props: {
         shouldUpdate: true,
         shouldRender: {
-          __type: 'eval',
+          __type: ['Eval'],
           value: 'return (values) => values.select_type !== "a"',
         },
       },
@@ -99,7 +99,7 @@ export const formConditionData: NodeReactI<
       props: {
         shouldUpdate: true,
         shouldRender: {
-          __type: 'eval',
+          __type: ['Eval'],
           value: 'return (values) => values.select_type !== "b"',
         },
       },
@@ -119,7 +119,7 @@ export const formConditionData: NodeReactI<
       props: {
         shouldUpdate: true,
         shouldRender: {
-          __type: 'eval',
+          __type: ['Eval'],
           value: 'return (values) => values.select_type !== "c"',
         },
       },
