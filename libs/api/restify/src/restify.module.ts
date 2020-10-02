@@ -18,6 +18,17 @@ export class RestifyModule {
     @Inject(ROUTER_SERVICE) private readonly routerService: RouterService,
     @InjectModel(Node.name) private readonly nodeModel: Model<Node>,
   ) {
-    restify.serve(this.routerService.expressRouter, this.nodeModel)
+    restify.serve(this.routerService.expressRouter, this.nodeModel, {
+      postDelete: (req: any, res: any, next: any) => {
+        const { id } = req.params
+
+        // eslint-disable-next-line consistent-return
+        this.nodeModel.updateMany({ parent: id }, { parent: null }, (err) => {
+          if (err) return err
+
+          next()
+        })
+      },
+    })
   }
 }

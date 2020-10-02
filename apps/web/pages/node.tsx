@@ -117,12 +117,7 @@ const NodePage = () => {
     axios
       .delete(`/api/v1/Node/${nodeId}`)
       .then((res) => {
-        const index = nodes.map((node: any) => node._id).indexOf(nodeId)
-        const newNodes = [...nodes]
-
-        newNodes.splice(index, 1)
-
-        setNodes(newNodes)
+        fetchNodes()
       })
       .catch((err) => console.log(err))
   }
