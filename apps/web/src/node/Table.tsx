@@ -41,10 +41,13 @@ const editButton: NodeReactI = {
   ],
 }
 
-const tagId: NodeReactI = {
+const parentTag: NodeReactI = {
   type: 'React.Tag',
   props: {
-    color: 'geekblue',
+    color: {
+      eval: true,
+      value: 'return this.props.record.value.parent? "geekblue" : "white"',
+    },
     onClick: {
       __type: ['Eval'],
       value: 'return () => this.selectnode.value.value(this.record.parent)',
@@ -60,12 +63,35 @@ const tagId: NodeReactI = {
   ],
 }
 
+const propsTable: NodeReactI = {
+  type: 'React.Table',
+  props: {
+    showHeader: false,
+    pagination: false,
+    locale: { emptyText: ' ' },
+    dataSource: {
+      eval: true,
+      value: 'return this.props.record.value.props',
+    },
+    columns: [
+      { title: 'Key', dataIndex: 'key', key: 'key', width: '50%' },
+      {
+        title: 'Value',
+        dataIndex: 'value',
+        key: 'value',
+        width: '50%',
+      },
+    ],
+  },
+}
+
 const childrenTags: NodeReactI = {
   type: 'React.Table',
   props: {
     rowKey: '_id',
     showHeader: false,
     pagination: false,
+    locale: { emptyText: ' ' },
     dataSource: {
       eval: true,
       value: 'return this.props.record.value.children',
@@ -131,32 +157,13 @@ export const tableData: NodeReactI = {
         title: 'Props',
         dataIndex: 'props',
         key: 'props',
-        render: {
-          type: 'React.Table',
-          props: {
-            showHeader: false,
-            pagination: false,
-            dataSource: {
-              __type: ['Eval'],
-              value: 'return this.record.props',
-            },
-            columns: [
-              { title: 'Key', dataIndex: 'key', key: 'key', width: '50%' },
-              {
-                title: 'Value',
-                dataIndex: 'value',
-                key: 'value',
-                width: '50%',
-              },
-            ],
-          },
-        },
+        render: propsTable,
       },
       {
         title: 'Parent',
         dataIndex: 'parent',
         key: 'parent',
-        render: tagId,
+        render: parentTag,
       },
       {
         title: 'Children',
