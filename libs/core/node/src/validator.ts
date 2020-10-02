@@ -1,5 +1,8 @@
 import { IsSpecification } from './node-specification'
 
+/**
+ * We encapsulate validator logic in here, and call before making calls to database.
+ */
 export class Validator {
   rules: Array<IsSpecification> = []
 

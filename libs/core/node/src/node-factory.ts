@@ -1,13 +1,22 @@
-import { NodeEntity } from './node-entity'
-import { NodeCreate, NodeTypeEnum } from '@codelab/shared/interface/node'
-import { Props } from '@codelab/shared/interface/props'
+import { DataMapperStrategy } from './node-mapper'
 
-export interface EntityFactory<T> {
-  fromDto<P extends Props = {}>(data: NodeCreate<NodeTypeEnum, P>): T
-}
+/**
+ * A factory encapsulates different representations of data using mappers. We encode domain specific data shapes, like form data, node dto, query data.
+ */
+export class NodeFactory {
+  data?: any
 
-export class NodeFactory implements EntityFactory<NodeEntity> {
-  fromDto(data: NodeCreate) {
-    return new NodeEntity(data)
+  mapper?: DataMapperStrategy
+
+  setData(data: any) {
+    this.data = data
+  }
+
+  setStrategy(mapper: DataMapperStrategy) {
+    this.mapper = mapper
+  }
+
+  mapData() {
+    return this.mapper?.execute(this.data)
   }
 }

@@ -1,23 +1,33 @@
+import { NodeFactory } from './node-factory'
+import { CreateFormStrategy } from './node-mapper'
+import { NodeRepository } from './node-repository'
 import { IsValidCreateDtoModel } from './node-specification'
 import { Validator } from './validator'
 import { NodeI } from '@codelab/shared/interface/node'
+
 /**
- * Responsible for making API call to database to fetch records. The domain object interacts with services
+ * Our application layer interacts with our domain objects via services Although they include CRUD methods, they can include domain language specific methods like `move` node or `swap` node.
  */
 export class NodeService {
   validator
 
+  factory
+
+  repository
+
   constructor() {
     this.validator = new Validator()
+    this.factory = new NodeFactory()
+    this.repository = new NodeRepository(this.factory)
   }
 
-  /**
-   * Allows user to create a Mongoose model
-   */
   createModel(data: NodeI) {
     this.validator.addRule(new IsValidCreateDtoModel()).validate(data)
 
-    // const modelValidation = new Node()
+    this.factory.setData(data)
+    this.factory.setStrategy(new CreateFormStrategy())
+
+    return this.repository.save()
   }
 
   // updateModel() {}
