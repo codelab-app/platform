@@ -60,6 +60,47 @@ const tagId: NodeReactI = {
   ],
 }
 
+const childrenTags: NodeReactI = {
+  type: 'React.Table',
+  props: {
+    rowKey: '_id',
+    showHeader: false,
+    pagination: false,
+    dataSource: {
+      eval: true,
+      value: 'return this.props.record.value.children',
+    },
+    columns: [
+      {
+        dataIndex: '_id',
+        key: '_id',
+        render: {
+          type: 'React.Tag',
+          props: {
+            color: 'magenta',
+            onClick: {
+              eval: true,
+              value:
+                'return () => this.props.selectnode.value.value.value(this.props.record.value._id)',
+            },
+          },
+          children: [
+            {
+              type: 'React.Text',
+              props: {
+                value: {
+                  eval: true,
+                  value: 'return this.props.record.value._id',
+                },
+              },
+            },
+          ],
+        },
+      },
+    ],
+  },
+}
+
 const filters = nodeTypeLiterals.map((type) => {
   return { text: type, value: type }
 })
@@ -121,6 +162,7 @@ export const tableData: NodeReactI = {
         title: 'Children',
         dataIndex: 'children',
         key: 'children',
+        render: childrenTags,
       },
       {
         title: 'Action',

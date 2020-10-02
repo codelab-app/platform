@@ -37,6 +37,19 @@ const NodePage = () => {
       })
   }
 
+  const findChildren = (inputNodes) => {
+    return inputNodes.map((node) => {
+      const children = inputNodes.filter(
+        (childNode) => childNode.parent === node._id,
+      )
+
+      return {
+        ...node,
+        children,
+      }
+    })
+  }
+
   // TODO: specify type of values. It should combine types for all types(React, Tree, Model, etc)
   const addChild = (values: any) => {
     console.log('addChild', this)
@@ -123,11 +136,13 @@ const NodePage = () => {
     })
   }
 
-  const data = selectedNode
-    ? nodes.filter((node: any) => {
-        return node._id === selectedNode
-      })
-    : nodes
+  const data = findChildren(
+    selectedNode
+      ? nodes.filter((node) => {
+          return node._id === selectedNode
+        })
+      : nodes,
+  )
 
   const parentNodes = [
     { label: 'none', value: null },
