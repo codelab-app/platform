@@ -3,11 +3,11 @@
  */
 
 import { reduce } from 'lodash'
-import { modelCreationIteratee } from '../../traversal/src/traversal-iteratee'
 import { Graph } from '@codelab/core/graph'
 import { NodeEntity } from '@codelab/core/node'
 import {
   graphAppenderIteratee,
+  modelCreationIteratee,
   nodeFinderIteratee,
   traversePostOrderReducer,
   treeAppenderIteratee,
@@ -17,7 +17,7 @@ import {
   NodeA,
   NodeI,
   assertsID,
-  assertsNodeI,
+  assertsNodeA,
 } from '@codelab/shared/interface/node'
 import {
   GraphSubTreeAcc,
@@ -98,13 +98,23 @@ export const makeModel = (input: NodeI) => {
   return modelCreationIteratee(acc, root)
 }
 
-// TODO: needs to be optimized for traversal performance
+/**
+ *
+ * Searches for a Node in a Tree given a Node ID.
+ *
+ * @remarks
+ * This should be used on a Tree built using {@link makeTree}
+ *
+ * @param id - The ID of the node we are searching for
+ * @param node - The root Node of the Tree we will be searching from
+ * @returns The node that we are looking for
+ */
 export const findNode = (
   id: string | undefined,
-  node: NodeI,
-): NodeI | undefined => {
+  node: NodeA,
+): NodeA | undefined => {
   assertsID(id)
-  assertsNodeI(node)
+  assertsNodeA(node)
 
   if (node.id === id) {
     return node
@@ -112,7 +122,7 @@ export const findNode = (
 
   return reduce(
     node.children,
-    treeWalker<NodeI, NodeFinderAcc<NodeI>>(nodeFinderIteratee),
+    treeWalker<NodeA, NodeFinderAcc<NodeA>>(nodeFinderIteratee),
     {
       id,
     },

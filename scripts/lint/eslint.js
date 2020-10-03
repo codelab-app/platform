@@ -1,5 +1,9 @@
 #!/usr/bin/env node
 
+/**
+ * Triggered by CircleCI
+ */
+
 const path = require('path')
 const shell = require('shelljs')
 
@@ -27,7 +31,7 @@ const filesToLint = filesSinceBaseRevision
 
 shell.echo(`Linting: ${filesToLint}`)
 
-const { code, stderr, stdout } = shell.exec(`eslint ${filesToLint}`)
+const { code, stderr, stdout } = shell.exec(`npx eslint ${filesToLint}`)
 
 if (code !== 0) {
   shell.echo(stderr)

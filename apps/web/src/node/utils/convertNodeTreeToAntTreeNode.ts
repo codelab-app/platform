@@ -3,11 +3,11 @@ import { NodeI } from '@codelab/shared/interface/node'
 
 export const convertNodeTreeToAntTreeDataNode = (node: NodeI): DataNode => {
   const treeData: DataNode = {
-    key: node.id,
+    key: node?.id || '',
     title: node.type,
   }
 
-  if (node.children.length) {
+  if (node?.children?.length) {
     treeData.children = node.children.map((c) =>
       convertNodeTreeToAntTreeDataNode(c),
     )

@@ -64,7 +64,7 @@ const filters = nodeTypeLiterals.map((type) => {
   return { text: type, value: type }
 })
 
-const onTypeFilter = (value, record) => record.type === value
+const onTypeFilter = (value: any, record: any) => record.type === value
 
 export const tableData: NodeReactI = {
   type: 'React.Table',

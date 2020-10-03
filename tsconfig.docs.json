@@ -1,0 +1,22 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "jsx": "react",
+    "allowJs": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "include": [
+    "libs/core/**/*.ts",
+    "libs/core/**/*.tsx",
+  ],
+  "exclude": [
+    "**/deprecated",
+    "**/*.spec.ts",
+    "**/*.spec.tsx",
+    "**/*.stories.ts",
+    "**/*.stories.tsx",
+    "**/*.data.ts",
+    "**/*.data.tsx"
+  ]
+}

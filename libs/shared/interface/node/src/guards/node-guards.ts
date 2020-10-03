@@ -30,8 +30,8 @@ export const assertsNodeI: AssertsNodeI = (
 export const assertsNodeA: AssertsNodeA = (
   node: NodeA | undefined,
 ): asserts node is NodeA => {
-  if (!node) {
-    throw new Error('NodeI is not valid')
+  if (!node?.id) {
+    throw new Error('NodeA is not valid')
   }
 }
 

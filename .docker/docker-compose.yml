@@ -1,0 +1,41 @@
+version: '3.8'
+services:
+  codelab:
+    ports:
+      - 3333:3333
+      - 4200:4200
+    build:
+      context: ../
+      cache_from:
+        # - codelabstudios/codelab_builder:v0.0.1
+        - node:14.11.0-alpine
+      dockerfile: $PWD/.docker/Dockerfile
+    image: codelabai/codelab:0.1
+    # volumes:
+    #   # your fs has a docker area reserved for volumes
+    #   # this binds the container's yarn cache to your fs
+    #   - yarn_cache:/usr/local/share/.cache/yarn/v6
+    #   - node_modules_cache:/codelab/node_modules
+    environment:
+      - YARN_CACHE_DIR=/yarn
+      # Used for build.sh
+      # - NODE_ENV=${NODE_ENV}
+  verdaccio:
+    image: verdaccio/verdaccio:4
+    container_name: verdaccio-docker-local-storage-vol
+    ports:
+      - 4873:4873
+    volumes:
+      # This is bind mounted
+      - ./storage:/verdaccio/storage
+      - ./conf:/verdaccio/conf
+
+volumes:
+  # Codelab
+  yarn_cache:
+    name: cache_yarn
+  node_modules_cache:
+    name: node_modules_cache
+  # Verdaccio
+  verdaccio:
+    driver: local

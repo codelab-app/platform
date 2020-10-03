@@ -1,0 +1,9 @@
+{
+  "tsconfig": "./tsconfig.docs.json",
+  "mode": "file",
+  "out": "dist/docs",
+  "excludeExternals": true,
+  "excludeNotExported": true,
+  "externalPattern": "**/index.ts",
+  "toc": ["NodeEntity", "findNode"]
+}

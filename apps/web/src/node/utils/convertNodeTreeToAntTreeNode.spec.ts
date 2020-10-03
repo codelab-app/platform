@@ -33,12 +33,12 @@ describe('convertNodeTreeToAntTreeNode. Node with child', () => {
   it('should create tree props from node with nested children', () => {
     const treeProps = convertNodeTreeToAntTreeDataNode(parent)
 
-    expect(treeProps.children.find((c) => c.key === child.id)).toBeDefined()
-    expect(treeProps.children.find((c) => c.key === child2.id)).toBeDefined()
+    expect(treeProps?.children?.find((c) => c.key === child.id)).toBeDefined()
+    expect(treeProps?.children?.find((c) => c.key === child2.id)).toBeDefined()
     expect(
-      treeProps.children
-        .find((c) => c.key === child.id)
-        .children.find((c) => c.key === grandchild.id),
+      treeProps?.children
+        ?.find((c: any) => c.key === child.id)
+        ?.children?.find((c: any) => c.key === grandchild?.id),
     ).toBeDefined()
   })
 })

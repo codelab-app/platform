@@ -36,7 +36,6 @@ executors:
     # resource_class: medium+
 
 commands:
-  # SETUP
   setup:
     description: 'Setup Context'
     steps:
@@ -61,6 +60,7 @@ commands:
             source $BASH_ENV
             echo $SLACK_USER
 
+
   # use this for jobs that require the repository
   setup-workspace:
     description: 'Setup Workspace'
@@ -69,8 +69,7 @@ commands:
       - attach_workspace:
           at: ..
 
-  # INSTALL
-  yarn_install:
+  yarn-install:
     description: 'Install Dependencies'
     steps:
       - restore_cache:
@@ -88,6 +87,7 @@ commands:
           paths:
             - ~/.cache/yarn
             - ~/app/node_modules
+
   build_app:
     description: 'Build Application'
     steps:
@@ -95,17 +95,16 @@ commands:
           name: 'Build Packages'
           command: yarn build
 
-  # LINT
   eslint:
     description: 'ESLint on New Commits'
     steps:
       - run: yarn eslint
+
   commitlint:
     description: 'Commitlint on New Commits'
     steps:
       - run: yarn commitlint
 
-  # TEST
   unit-tests:
     description: 'Unit Tests'
     steps:
@@ -120,11 +119,11 @@ commands:
           mentions: $SLACK_USER
 
 jobs:
-  install:
+  install-and-build:
     executor: node
     steps:
       - checkout
-      - yarn_install
+      - yarn-install
       - persist_to_workspace:
           root: ..
           paths:
@@ -140,14 +139,14 @@ jobs:
     steps:
       - run: echo "This is pipeline ID << pipeline.id >>"
       - run: echo $CIRCLE_COMPARE_URL
-      - setup-workspace
+#      - setup-workspace
       - eslint
       - commitlint
       - notify-failure
   test:
     executor: node
     steps:
-      - setup-workspace
+#      - setup-workspace
       - unit-tests
       - notify-failure
   notify-success:
@@ -163,6 +162,21 @@ jobs:
             *Branch*: << pipeline.git.branch >> \n
             *Message*: $GIT_COMMIT_MSG \n
           # webhook URL is setup using circleci integration
+  deploy-app:
+    executor: node
+    steps:
+#      - setup-workspace
+      - run:
+          name: 'Build Production NPM'
+          command: yarn install --frozen-lockfile --non-interactive --production=false
+      - setup_remote_docker
+      - run:
+          description: "Build Docker Image"
+          command: ./scripts/docker/build.sh
+      - run:
+          description: "Push Docker Image"
+          command: ./scripts/docker/push.sh
+
   notify-failure:
     executor: node
     steps:
@@ -177,16 +191,33 @@ jobs:
           #   *Branch*: << pipeline.git.branch >> \n
           #   *Message*: $GIT_COMMIT_MSG \n
 workflows:
-  check_app:
+  check-app:
     jobs:
-      - install
+      - install-and-build
       - lint:
+          pre-steps:
+            - setup-workspace
+            - run:
+                description: 'Build Lint'
+                command: ./scripts/lint/build.sh
           requires:
-            - install
+            - install-and-build
       - test:
+          pre-steps:
+            - setup-workspace
           requires:
-            - install
+            - install-and-build
       - notify-success:
+          pre-steps:
+            - setup-workspace
           requires:
             - lint
             - test
+      - deploy-app:
+          pre-steps:
+            - setup-workspace
+          requires:
+            - notify-success
+          filters:
+            tags:
+              only: /^deploy$/

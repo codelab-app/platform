@@ -91,6 +91,9 @@ Once pushed to the remote repository, create a Pull Request on Github to `master
 `/apps` Contain main user-facing applications like web frontend, api backend, & e2e tests.
 
 - `api` is our API endpoint, composed of multiple Nest.js modules
+
+  Access `http://localhost:3333/api/v1/Node`
+
 - `docs` our documentation site, currently outdated
 - `web` is our web entry into the application
 

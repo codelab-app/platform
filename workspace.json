@@ -1,58 +1,6 @@
 {
   "version": 1,
   "projects": {
-    "docs": {
-      "root": "apps/docs",
-      "sourceRoot": "apps/docs/src",
-      "projectType": "application",
-      "schematics": {},
-      "architect": {
-        "build": {
-          "builder": "@nrwl/gatsby:build",
-          "options": {
-            "outputPath": "apps/docs/public",
-            "uglify": true,
-            "color": true,
-            "profile": false
-          },
-          "configurations": {
-            "production": {}
-          }
-        },
-        "serve": {
-          "builder": "@nrwl/gatsby:server",
-          "options": {
-            "buildTarget": "docs:build"
-          },
-          "configurations": {
-            "production": {
-              "buildTarget": "docs:build:production"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:lint",
-          "options": {
-            "linter": "eslint",
-            "tsConfig": [
-              "apps/docs/tsconfig.json",
-              "apps/docs/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/docs/**/*"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "apps/docs/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
     "api": {
       "root": "apps/api",
       "sourceRoot": "apps/api/src",

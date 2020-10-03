@@ -22,9 +22,9 @@ import {
 } from '@codelab/shared/interface/tree'
 
 export const nodeFinderIteratee = (
-  { id, parent, found }: NodeFinderAcc<NodeI>,
-  child: NodeI,
-): NodeFinderAcc<NodeI> => ({
+  { id, parent, found }: NodeFinderAcc<NodeA>,
+  child: NodeA,
+): NodeFinderAcc<NodeA> => ({
   id,
   found: child.id === id ? child : found,
   parent,

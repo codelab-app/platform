@@ -19,7 +19,7 @@ const NodePage = () => {
   const [treeDataNodes, setTreeDataNodes] = React.useState<Array<DataNode>>([])
   const [visibility, setVisibility] = React.useState<boolean>(false)
   const [nodes, setNodes] = React.useState([])
-  const [editedNode, setEditedNode] = React.useState(null)
+  const [editedNode, setEditedNode] = React.useState<any>(null)
 
   React.useEffect(() => {
     // eslint-disable-next-line no-use-before-define
@@ -38,7 +38,7 @@ const NodePage = () => {
   }
 
   // TODO: specify type of values. It should combine types for all types(React, Tree, Model, etc)
-  const addChild = (values) => {
+  const addChild = (values: any) => {
     console.log('addChild', this)
     const newNode = new NodeEntity(values)
 
@@ -51,18 +51,18 @@ const NodePage = () => {
     }
   }
 
-  const selectNode = (values) => {
+  const selectNode = (values: any) => {
     console.log(values)
   }
 
-  const handleCreateNode = (formData) => {
+  const handleCreateNode = (formData: any) => {
     console.log(formData)
 
     axios
       .post('/api/v1/Node', formData)
-      .then((res) => {
+      .then((res: any) => {
         const { data } = res
-        const newNodes = [...nodes]
+        const newNodes: any = [...nodes]
 
         data.key = data._id
         newNodes.push(res.data)
@@ -73,16 +73,19 @@ const NodePage = () => {
       .catch((err) => console.log(err))
   }
 
-  const handleUpdateNode = (formData) => {
+  const handleUpdateNode = (formData: any) => {
     console.log(formData)
+    if (typeof editedNode?._id) {
+      return
+    }
 
     axios
       .patch(`/api/v1/Node/${editedNode._id}`, formData)
       .then((res) => {
         const { data } = res
 
-        const index = nodes.map((node) => node._id).indexOf(editedNode._id)
-        const newNodes = [...nodes]
+        const index = nodes.map((node: any) => node._id).indexOf(editedNode._id)
+        const newNodes: any = [...nodes]
 
         newNodes[index] = data
 
@@ -95,13 +98,13 @@ const NodePage = () => {
     console.log('delete node fired!')
   }
 
-  const handleDeleteNode = (nodeId) => {
+  const handleDeleteNode = (nodeId: any) => {
     console.log('delete node fired!', nodeId)
 
     axios
       .delete(`/api/v1/Node/${nodeId}`)
       .then((res) => {
-        const index = nodes.map((node) => node._id).indexOf(nodeId)
+        const index = nodes.map((node: any) => node._id).indexOf(nodeId)
         const newNodes = [...nodes]
 
         newNodes.splice(index, 1)
@@ -111,8 +114,8 @@ const NodePage = () => {
       .catch((err) => console.log(err))
   }
 
-  const showEditModal = (nodeId) => {
-    const editNode = nodes.find((node) => node._id === nodeId)
+  const showEditModal = (nodeId: any) => {
+    const editNode: any = nodes.find((node: any) => node._id === nodeId)
 
     setEditedNode({
       nodeType: BaseNodeType.React,
@@ -121,14 +124,14 @@ const NodePage = () => {
   }
 
   const data = selectedNode
-    ? nodes.filter((node) => {
+    ? nodes.filter((node: any) => {
         return node._id === selectedNode
       })
     : nodes
 
   const parentNodes = [
     { label: 'none', value: null },
-    ...nodes.map((node) => {
+    ...nodes.map((node: any) => {
       return { label: node._id, value: node._id }
     }),
   ]
@@ -160,7 +163,7 @@ const NodePage = () => {
       />
       <NodeTree />
       <Table
-        data={data.map((node) => ({ ...node, key: node._id }))}
+        data={data.map((node: any) => ({ ...node, key: node._id }))}
         selectnode={setSelectedNode}
         handleedit={showEditModal}
         handledelete={handleDeleteNode}
