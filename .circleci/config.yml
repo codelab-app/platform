@@ -213,14 +213,56 @@ workflows:
           requires:
             - lint
             - test
+  deploy-app:
+    jobs:
+      - install-and-build
+        filters:
+          branches:
+            ignore: /.*/
+          tags:
+            only: /^deploy$/
+      - lint:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^deploy$/
+          pre-steps:
+            - setup-workspace
+            - run:
+                description: 'Build Lint'
+                command: ./scripts/lint/build.sh
+          requires:
+            - install-and-build
+      - test:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^deploy$/
+          pre-steps:
+            - setup-workspace
+          requires:
+            - install-and-build
+      - notify-success:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^deploy$/
+          pre-steps:
+            - setup-workspace
+          requires:
+            - lint
+            - test
       - deploy-app:
           pre-steps:
             - setup-workspace
           requires:
             - notify-success
           filters:
-            # Need this otherwise tags won't work
             branches:
               ignore: /.*/
             tags:
               only: /^deploy$/
+
