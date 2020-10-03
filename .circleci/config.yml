@@ -7,10 +7,7 @@
 
 filters: &deploy-filters
   branches:
-    ignore: /.*/
-  tags:
-    only: /^deploy$/
-
+    only: /^master$/
 
 version: 2.1
 
@@ -223,17 +220,9 @@ workflows:
   deploy-app:
     jobs:
       - install-and-build:
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^deploy$/
+          <<: * &deploy-filters
       - lint:
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^deploy$/
+          <<: * &deploy-filters
           pre-steps:
             - setup-workspace
             - run:
@@ -242,29 +231,21 @@ workflows:
           requires:
             - install-and-build
       - test:
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^deploy$/
+          <<: * &deploy-filters
           pre-steps:
             - setup-workspace
           requires:
             - install-and-build
       - notify-success:
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^deploy$/
+          <<: * &deploy-filters
           pre-steps:
             - setup-workspace
           requires:
             - lint
             - test
       - deploy-app:
+          <<: * &deploy-filters
           pre-steps:
             - setup-workspace
           requires:
             - notify-success
-          <<: * &deploy-filters
