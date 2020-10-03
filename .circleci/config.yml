@@ -220,9 +220,9 @@ workflows:
   deploy-app:
     jobs:
       - install-and-build:
-          <<: * &deploy-filters
+          <<: *deploy-filters
       - lint:
-          <<: * &deploy-filters
+          <<: *deploy-filters
           pre-steps:
             - setup-workspace
             - run:
@@ -231,20 +231,20 @@ workflows:
           requires:
             - install-and-build
       - test:
-          <<: * &deploy-filters
+          <<: *deploy-filters
           pre-steps:
             - setup-workspace
           requires:
             - install-and-build
       - notify-success:
-          <<: * &deploy-filters
+          <<: *deploy-filters
           pre-steps:
             - setup-workspace
           requires:
             - lint
             - test
       - deploy-app:
-          <<: * &deploy-filters
+          <<: *deploy-filters
           pre-steps:
             - setup-workspace
           requires:
