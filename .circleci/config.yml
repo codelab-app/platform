@@ -5,9 +5,10 @@
 
 # Success notification is added to end of workflow, while failure notification is added to end of each job.
 
-filters: &deploy-filters
-  branches:
-    only: /^master$/
+deploy-filters: &deploy-filters
+  filters:
+    branches:
+      only: /^master$/
 
 version: 2.1
 
@@ -195,7 +196,7 @@ jobs:
           #   *Branch*: << pipeline.git.branch >> \n
           #   *Message*: $GIT_COMMIT_MSG \n
 workflows:
-  check-app:
+  app-dev:
     jobs:
       - install-and-build
       - lint:
@@ -217,7 +218,7 @@ workflows:
           requires:
             - lint
             - test
-  deploy-app:
+  app-prod:
     jobs:
       - install-and-build:
           <<: *deploy-filters
