@@ -219,5 +219,7 @@ workflows:
           requires:
             - notify-success
           filters:
+            branches:
+              ignore: /.*/
             tags:
               only: /^deploy$/

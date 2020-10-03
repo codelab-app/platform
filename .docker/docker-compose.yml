@@ -16,8 +16,8 @@ services:
     #   # this binds the container's yarn cache to your fs
     #   - yarn_cache:/usr/local/share/.cache/yarn/v6
     #   - node_modules_cache:/codelab/node_modules
-    environment:
-      - YARN_CACHE_DIR=/yarn
+#    environment:
+#      - YARN_CACHE_DIR=/yarn
       # Used for build.sh
       # - NODE_ENV=${NODE_ENV}
   verdaccio:
@@ -32,10 +32,10 @@ services:
 
 volumes:
   # Codelab
-  yarn_cache:
-    name: cache_yarn
-  node_modules_cache:
-    name: node_modules_cache
+#  yarn_cache:
+#    name: cache_yarn
+#  node_modules_cache:
+#    name: node_modules_cache
   # Verdaccio
   verdaccio:
     driver: local
