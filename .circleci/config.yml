@@ -216,11 +216,11 @@ workflows:
   deploy-app:
     jobs:
       - install-and-build
-        filters:
-          branches:
-            ignore: /.*/
-          tags:
-            only: /^deploy$/
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^deploy$/
       - lint:
           filters:
             branches:
