@@ -5,10 +5,17 @@
 
 # Success notification is added to end of workflow, while failure notification is added to end of each job.
 
-deploy-filters: &deploy-filters
+dev-filters: &dev-filters
+  filters:
+    tags:
+      ignore: /^staging-/
+
+staging-filters: &staging-filters
   filters:
     branches:
-      only: /^master$/
+      ignore: /.*/
+    tags:
+      only: /^staging-/
 
 version: 2.1
 
@@ -198,8 +205,10 @@ jobs:
 workflows:
   app-dev:
     jobs:
-      - install-and-build
+      - install-and-build:
+          <<: *dev-filters
       - lint:
+          <<: *dev-filters
           pre-steps:
             - setup-workspace
             - run:
@@ -208,11 +217,13 @@ workflows:
           requires:
             - install-and-build
       - test:
+          <<: *dev-filters
           pre-steps:
             - setup-workspace
           requires:
             - install-and-build
       - notify-success:
+          <<: *dev-filters
           pre-steps:
             - setup-workspace
           requires:
@@ -221,9 +232,9 @@ workflows:
   app-prod:
     jobs:
       - install-and-build:
-          <<: *deploy-filters
+          <<: *staging-filters
       - lint:
-          <<: *deploy-filters
+          <<: *staging-filters
           pre-steps:
             - setup-workspace
             - run:
@@ -232,20 +243,20 @@ workflows:
           requires:
             - install-and-build
       - test:
-          <<: *deploy-filters
+          <<: *staging-filters
           pre-steps:
             - setup-workspace
           requires:
             - install-and-build
       - notify-success:
-          <<: *deploy-filters
+          <<: *staging-filters
           pre-steps:
             - setup-workspace
           requires:
             - lint
             - test
       - deploy-app:
-          <<: *deploy-filters
+          <<: *staging-filters
           pre-steps:
             - setup-workspace
           requires:
