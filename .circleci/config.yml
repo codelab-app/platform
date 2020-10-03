@@ -215,7 +215,7 @@ workflows:
             - test
   deploy-app:
     jobs:
-      - install-and-build
+      - install-and-build:
           filters:
             branches:
               ignore: /.*/
