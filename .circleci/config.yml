@@ -219,6 +219,7 @@ workflows:
           requires:
             - notify-success
           filters:
+            # Need this otherwise tags won't work
             branches:
               ignore: /.*/
             tags:
