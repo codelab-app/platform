@@ -5,17 +5,21 @@
 
 # Success notification is added to end of workflow, while failure notification is added to end of each job.
 
+# Don't run on master
 dev-filters: &dev-filters
   filters:
-    tags:
-      ignore: /^staging-/
+    branches:
+      ignore: /^master$/
+#    tags:
+#      ignore: /^staging-/
 
+# Run on master only
 staging-filters: &staging-filters
   filters:
     branches:
-      ignore: /.*/
-    tags:
-      only: /^staging-/
+      only: /^master$/
+#    tags:
+#      only: /^staging-/
 
 version: 2.1
 
