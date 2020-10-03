@@ -5,6 +5,13 @@
 
 # Success notification is added to end of workflow, while failure notification is added to end of each job.
 
+filters: &deploy-filters
+  branches:
+    ignore: /.*/
+  tags:
+    only: /^deploy$/
+
+
 version: 2.1
 
 orbs:
@@ -260,9 +267,4 @@ workflows:
             - setup-workspace
           requires:
             - notify-success
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^deploy$/
-
+          <<: * &deploy-filters
