@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import { DataNode } from 'antd/lib/tree'
+import axios from 'axios'
 import React from 'react'
-import { NodeService } from '../../../libs/core/node/src/node-service'
 import { ButtonGroup } from '../src/node/ButtonGroup'
 import { ModalForm } from '../src/node/ModalForm'
 import { NodeTree } from '../src/node/NodeTree'
@@ -10,7 +10,8 @@ import { convertNodeTreeToAntTreeDataNode } from '../src/node/utils/convertNodeT
 import { NodeEntity } from '@codelab/core/node'
 import { BaseNodeType, Node } from '@codelab/shared/interface/node'
 
-const service = new NodeService()
+axios.defaults.baseURL = 'http://localhost:3333'
+axios.defaults.headers.post['Content-Type'] = 'application/json'
 
 const NodePage = () => {
   const [selectedNode, setSelectedNode] = React.useState(null)
@@ -26,28 +27,19 @@ const NodePage = () => {
   }, [])
 
   const fetchNodes = () => {
-    service
-      .getNodes()
-      .then((res: any) => setNodes(res.data))
-      .catch((err: any) => console.log(err))
-  }
-
-  const findChildren = (inputNodes: Array<any>) => {
-    return inputNodes.map((node) => {
-      const children = inputNodes.filter(
-        (childNode) => childNode.parent === node._id,
-      )
-
-      return {
-        ...node,
-        children,
-      }
-    })
+    axios
+      .get('/api/v1/Node')
+      .then((res) => {
+        setNodes(res.data)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }
 
   // TODO: specify type of values. It should combine types for all types(React, Tree, Model, etc)
   const addChild = (values: any) => {
-    // console.log('addChild', this)
+    console.log('addChild', this)
     const newNode = new NodeEntity(values)
 
     if (rootNode === null) {
@@ -66,8 +58,8 @@ const NodePage = () => {
   const handleCreateNode = (formData: any) => {
     console.log(formData)
 
-    service
-      .createNode(formData)
+    axios
+      .post('/api/v1/Node', formData)
       .then((res: any) => {
         const { data } = res
         const newNodes: any = [...nodes]
@@ -78,15 +70,18 @@ const NodePage = () => {
         setNodes(newNodes)
         setVisibility(false)
       })
-      .catch((err: any) => console.log(err))
+      .catch((err) => console.log(err))
   }
 
   const handleUpdateNode = (formData: any) => {
     console.log(formData)
+    if (typeof editedNode?._id) {
+      return
+    }
 
-    service
-      .updateNode(editedNode._id, formData)
-      .then((res: any) => {
+    axios
+      .patch(`/api/v1/Node/${editedNode._id}`, formData)
+      .then((res) => {
         const { data } = res
 
         const index = nodes.map((node: any) => node._id).indexOf(editedNode._id)
@@ -94,10 +89,9 @@ const NodePage = () => {
 
         newNodes[index] = data
 
-        setEditedNode(null)
         setNodes(newNodes)
       })
-      .catch((err: any) => console.log(err))
+      .catch((err) => console.log(err))
   }
 
   const deleteNode = () => {
@@ -107,12 +101,17 @@ const NodePage = () => {
   const handleDeleteNode = (nodeId: any) => {
     console.log('delete node fired!', nodeId)
 
-    service
-      .deleteNode(nodeId)
-      .then((res: any) => {
-        fetchNodes()
+    axios
+      .delete(`/api/v1/Node/${nodeId}`)
+      .then((res) => {
+        const index = nodes.map((node: any) => node._id).indexOf(nodeId)
+        const newNodes = [...nodes]
+
+        newNodes.splice(index, 1)
+
+        setNodes(newNodes)
       })
-      .catch((err: any) => console.log(err))
+      .catch((err) => console.log(err))
   }
 
   const showEditModal = (nodeId: any) => {
@@ -124,13 +123,11 @@ const NodePage = () => {
     })
   }
 
-  const data = findChildren(
-    selectedNode
-      ? nodes.filter((node: any) => {
-          return node._id === selectedNode
-        })
-      : nodes,
-  )
+  const data = selectedNode
+    ? nodes.filter((node: any) => {
+        return node._id === selectedNode
+      })
+    : nodes
 
   const parentNodes = [
     { label: 'none', value: null },

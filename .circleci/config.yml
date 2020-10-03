@@ -5,68 +5,41 @@
 
 # Success notification is added to end of workflow, while failure notification is added to end of each job.
 
-# Don't run on master
-filters-dev: &filters-dev
-  filters:
-    branches:
-      only: /^.*$/
-#      ignore: /^master$/
-#    tags:
-#      ignore: /^staging-/
-
-# Run on master only
-filters-staging: &filters-staging
-  filters:
-    branches:
-#      only: /^master$/
-      # turn off for now
-      only: /^never$/
-#    tags:
-#      only: /^staging-/
-
-executor-params: &executor-params
-  parameters:
-    e:
-      type: executor
-      default: machine-ubuntu
-  executor: << parameters.e >>
-
-executor-config: &executor-config
-  environment:
-    GITHUB_VIEN: VienNguyen24hdev
-    SLACK_VIEN: UBPECLD4P
-    GITHUB_WEBBER: webberwang
-    SLACK_WEBBER: U0J401GAH
-    GITHUB_ALEX: aburtsev
-    SLACK_ALEX: U01APQT5XCH
-    SLACK_CHANNEL_UPDATE: CQVPNKS8K
-    COLOR_SUCCESS: '#b7eb8f'
-    COLOR_FAILURE: '#ffccc7'
-    NODE_OPTIONS: --max_old_space_size=8192
-    NODE_ENV: production
-  working_directory: ~/app
-
 version: 2.1
 
 orbs:
   slack: circleci/slack@3.4.2
+  # node: circleci/node@3.0.1
 
 executors:
-  machine-ubuntu:
-    <<: *executor-config
-    machine:
-      docker_layer_caching: true
-      image: ubuntu-2004:202008-01
-    resource_class: large
-  docker-node:
-    <<: *executor-config
+  node:
+    working_directory: ~/app
+    environment:
+      # install Cypress in Linux-like cache folder
+      # CYPRESS_CACHE_FOLDER: '~/.cache/Cypress'
+      NX_VERBOSE_LOGGING: true
+      # GATSBY_TELEMETRY_DISABLED: 1
+      # NODE_ENV: production
+      SLACK_CHANNEL_UPDATE: CQVPNKS8K
+      GITHUB_VIEN: VienNguyen24hdev
+      SLACK_VIEN: UBPECLD4P
+      GITHUB_WEBBER: webberwang
+      SLACK_WEBBER: U0J401GAH
+      GITHUB_ALEX: aburtsev
+      SLACK_ALEX: U01APQT5XCH
+      COLOR_SUCCESS: '#b7eb8f'
+      COLOR_FAILURE: '#ffccc7'
+      NODE_OPTIONS: --max_old_space_size=8192
     docker:
       - image: circleci/node:14-browsers
+    resource_class: large
+    # resource_class: medium+
 
 commands:
-  setup-env:
-    description: 'Setup env'
+  setup:
+    description: 'Setup Context'
     steps:
+      - checkout
       - run:
           name: 'Setup GIT_COMMIT_MSG'
           command: |
@@ -87,50 +60,57 @@ commands:
             source $BASH_ENV
             echo $SLACK_USER
 
+
+  # use this for jobs that require the repository
   setup-workspace:
-    description: 'Setup workspace'
+    description: 'Setup Workspace'
     steps:
-      - checkout
-      - setup-env
+      - setup
       - attach_workspace:
           at: ..
 
-  yarn-install-dev:
+  yarn-install:
+    description: 'Install Dependencies'
     steps:
       - restore_cache:
-          name: 'Restore Yarn cache'
+          name: 'Restore Yarn Package Cache'
           keys:
-            - dep-cache-dev-{{ checksum "yarn.lock" }}
+            - dep-cache-{{ checksum "yarn.lock" }}
             # https://discuss.circleci.com/t/circle-2-0-caching-is-too-limited-to-be-very-useful/11694
-            - dep-cache-dev-
+            - dep-cache-
       - run:
-          name: 'Install NPM packages'
-          command: yarn install --frozen-lockfile --prod=false
+          name: 'Install NPM Packages'
+          command: yarn install --frozen-lockfile --non-interactive
       - save_cache:
-          name: 'Save cache'
-          key: dep-cache-dev-{{ checksum "yarn.lock" }}
+          name: 'Save Cache'
+          key: dep-cache-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
             - ~/app/node_modules
 
-  yarn-install-prod:
-    description: 'Install prod dependencies'
+  build_app:
+    description: 'Build Application'
     steps:
-      - restore_cache:
-          name: 'Restore Yarn cache'
-          keys:
-            - dep-cache-prod-{{ checksum "yarn.lock" }}
-            - dep-cache-prod-
       - run:
-          name: 'Install NPM packages'
-          command: yarn install --frozen-lockfile --prod=true
-      - save_cache:
-          name: 'Save cache'
-          key: dep-cache-prod-{{ checksum "yarn.lock" }}
-          paths:
-            - ~/.cache/yarn
-            - ~/app/node_modules
+          name: 'Build Packages'
+          command: yarn build
 
+  eslint:
+    description: 'ESLint on New Commits'
+    steps:
+      - run: yarn eslint
+
+  commitlint:
+    description: 'Commitlint on New Commits'
+    steps:
+      - run: yarn commitlint
+
+  unit-tests:
+    description: 'Unit Tests'
+    steps:
+      - run: yarn test
+
+  # webhook URL is setup using circleci integration
   notify-failure:
     steps:
       - slack/status:
@@ -139,42 +119,40 @@ commands:
           mentions: $SLACK_USER
 
 jobs:
-  install-and-build-workspace:
-    <<: *executor-params
+  install-and-build:
+    executor: node
     steps:
       - checkout
-      - yarn-install-dev
-      - run:
-          name: 'Build CI'
-          command: make build-ci
+      - yarn-install
       - persist_to_workspace:
           root: ..
           paths:
             - app/node_modules
-            - app/dist
+            - app/dist/libs/tools/eslint-config-codelab
       - notify-failure
-
   lint:
-    <<: *executor-params
     environment:
+      CIRCLE_COMPARE_URL: <<pipeline.project.git_url>>/compare/<<pipeline.git.base_revision>>..<<pipeline.git.revision>>
       CIRCLE_BASE_REVISION: <<pipeline.git.base_revision>>
+      CIRCLE_REVISION: <<pipeline.git.revision>>
+    executor: node
     steps:
-      - setup-workspace
-      - run: make lint-eslint
-      - run: make lint-commit-ci
+      - run: echo "This is pipeline ID << pipeline.id >>"
+      - run: echo $CIRCLE_COMPARE_URL
+#      - setup-workspace
+      - eslint
+      - commitlint
       - notify-failure
-
   test:
-    <<: *executor-params
+    executor: node
     steps:
-      - setup-workspace
-      - run: make test-ci
+#      - setup-workspace
+      - unit-tests
       - notify-failure
-
   notify-success:
-    <<: *executor-params
+    executor: node
     steps:
-      - setup-env
+      - setup
       - slack/notify:
           channel: $SLACK_CHANNEL_UPDATE
           color: $COLOR_SUCCESS
@@ -183,60 +161,63 @@ jobs:
             *Status*: :white_check_mark: Success \n
             *Branch*: << pipeline.git.branch >> \n
             *Message*: $GIT_COMMIT_MSG \n
-
+          # webhook URL is setup using circleci integration
   deploy-app:
-    <<: *executor-params
+    executor: node
     steps:
-      - setup-workspace
-      - yarn-install-prod
+#      - setup-workspace
       - run:
-          name: 'Build Docker image'
-          command: make docker-build
+          name: 'Build Production NPM'
+          command: yarn install --frozen-lockfile --non-interactive --production=false
+      - setup_remote_docker
       - run:
-          name: 'Docker login'
-          command: echo "${DOCKER_PASS}" | docker login --username "${DOCKER_USER}" --password-stdin
+          description: "Build Docker Image"
+          command: ./scripts/docker/build.sh
       - run:
-          name: 'Push Docker image'
-          command: make docker-push
+          description: "Push Docker Image"
+          command: ./scripts/docker/push.sh
 
   notify-failure:
-    <<: *executor-params
+    executor: node
     steps:
-      - setup-env
+      - setup
       - slack/status:
           fail_only: true
           channel: $SLACK_CHANNEL_UPDATE
+          # color: $COLOR_FAILURE
           mentions: $SLACK_USER
-
+          # message: >
+          #   *Status*: :red_circle: Failure \n
+          #   *Branch*: << pipeline.git.branch >> \n
+          #   *Message*: $GIT_COMMIT_MSG \n
 workflows:
-  app-dev:
+  check-app:
     jobs:
-      - install-and-build-workspace:
-          <<: *filters-dev
-          e: docker-node
+      - install-and-build
       - lint:
-          <<: *filters-dev
-          e: docker-node
+          pre-steps:
+            - setup-workspace
+            - run:
+                description: 'Build Lint'
+                command: ./scripts/lint/build.sh
           requires:
-            - install-and-build-workspace
+            - install-and-build
       - test:
-          <<: *filters-dev
-          e: docker-node
+          pre-steps:
+            - setup-workspace
           requires:
-            - install-and-build-workspace
+            - install-and-build
       - notify-success:
-          <<: *filters-dev
-          e: docker-node
+          pre-steps:
+            - setup-workspace
           requires:
             - lint
             - test
-
-  app-staging:
-    jobs:
-      - install-and-build-workspace:
-          <<: *filters-staging
       - deploy-app:
-          <<: *filters-staging
-          context: default
+          pre-steps:
+            - setup-workspace
           requires:
-            - install-and-build-workspace
+            - notify-success
+          filters:
+            tags:
+              only: /^deploy$/

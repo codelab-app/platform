@@ -1,14 +1,2 @@
-#
-# Dockerignore has issues with wildcard exclude
-# Copy required files only instead in Dockerfiles
-
-# Ignore everything
-*
-
-# Except
-!/package.json
-!/makefile
-!/node_modules/
-!/dist/apps/
-!/config
-!/scripts
+node_modules
+tmp

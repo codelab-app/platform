@@ -9,8 +9,6 @@
 
 # Add this point, the project as already been tested & linted in CircleCI, our goal then is only to build & deploy.
 
-# `dist` & `node_modules` must be present locally
-
 # COPY uses local file system, so we can leverage CircleCI's built files instead of building in Docker
 
 # RUN acts on docker layer, not filesystem
@@ -20,7 +18,7 @@
 #
 # [1] ---- Base Node ----
 #
-FROM node:14.8.0-alpine AS base
+FROM node:14.11.0-alpine AS base
 
 #
 # ---- Machine Deps ----
@@ -28,7 +26,7 @@ FROM node:14.8.0-alpine AS base
 RUN apk add \
   bash
 
-RUN yarn global add pm2
+RUN yarn global add pm2 npx nx
 
 # Set variables
 #
@@ -36,25 +34,11 @@ RUN yarn global add pm2
 ARG NODE_ENV=production
 ENV NODE_ENV=$NODE_ENV
 
-# ARG CI=true
-# ENV CI=$CI
+WORKDIR /codelab
 
-# circleci docker remote docker can't access local files
-# need to copy from local workspace to ad hoc container volume
-# then build docker image with that volume mounted here
-
-WORKDIR /home/codelab/app
-
-COPY . ./
-# COPY node_modules ./node_modules
-# COPY package.json ./
-# COPY dist/apps ./dist/apps
-# COPY config ./config
-# COPY scripts/start.sh ./scripts/
-
-RUN ls
-
-# RUN ./scripts/install.sh
+COPY package.json dist ./
+COPY node_modules_prod ./node_modules
+COPY scripts/start.sh ./scripts/start.sh
 
 # #
 # # [2] ---- Project Deps ----
@@ -95,5 +79,4 @@ EXPOSE 3333 4200
 # # The node user is provided in the Node.js Alpine base image
 # #USER node
 
-# ENTRYPOINT ["pm2", "startOrReload", "config/pm2.json"]
-ENTRYPOINT ["pm2-runtime", "config/pm2.json"]
+ENTRYPOINT ["./scripts/start.sh"]
