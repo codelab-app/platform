@@ -6,9 +6,9 @@ services:
       - 4200:4200
     build:
       context: ../
-      cache_from:
-        # - codelabstudios/codelab_builder:v0.0.1
-        - node:14.11.0-alpine
+#      cache_from:
+#        # - codelabstudios/codelab_builder:v0.0.1
+#        - node:14.11.0-alpine
       dockerfile: $PWD/.docker/Dockerfile
     image: codelabai/codelab:0.1
     # volumes:

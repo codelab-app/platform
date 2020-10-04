@@ -18,7 +18,7 @@
 #
 # [1] ---- Base Node ----
 #
-FROM node:14.11.0-alpine AS base
+FROM node:14.8.0-alpine AS base
 
 #
 # ---- Machine Deps ----
@@ -34,11 +34,21 @@ RUN yarn global add pm2 npx nx
 ARG NODE_ENV=production
 ENV NODE_ENV=$NODE_ENV
 
-WORKDIR /codelab
+RUN ls
+RUN pwd
 
-COPY package.json dist ./
-COPY node_modules_prod ./node_modules
-COPY scripts/start.sh ./scripts/start.sh
+#WORKDIR /home/circleci/app
+
+#WORKDIR /usr/local/
+#COPY go go/
+
+COPY /home/circleci/app/package.json ./
+COPY /home/circleci/app/dist ./dist
+COPY /home/circleci/app/node_modules ./node_modules
+COPY /home/circleci/app/scripts/start.sh ./scripts/
+
+RUN ls
+RUN pwd
 
 # #
 # # [2] ---- Project Deps ----

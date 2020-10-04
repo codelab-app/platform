@@ -155,14 +155,12 @@ jobs:
     steps:
       - run: echo "This is pipeline ID << pipeline.id >>"
       - run: echo $CIRCLE_COMPARE_URL
-#      - setup-workspace
       - eslint
       - commitlint
       - notify-failure
   test:
     executor: node
     steps:
-#      - setup-workspace
       - unit-tests
       - notify-failure
   notify-success:
@@ -181,11 +179,23 @@ jobs:
   deploy-app:
     executor: node
     steps:
-#      - setup-workspace
       - run:
           name: 'Build Production NPM'
-          command: yarn install --frozen-lockfile --non-interactive --production=false
-      - setup_remote_docker
+          command: yarn install --frozen-lockfile --non-interactive --production=true
+      - setup_remote_docker:
+          version: 19.03.13
+      - run: |
+
+          # create a dummy container which will hold a volume with config
+          ./scripts/docker/vol_create.sh
+
+          # docker create -v /app --name codelab-volume alpine:3.4
+
+          # copy a config file into this volume
+          docker cp /home/circleci/app codelab-volume:/app
+
+          # start an application container using this volume
+          # docker run --volumes-from codelab-volume app-image:1.2.3
       - run:
           description: "Build Docker Image"
           command: ./scripts/docker/build.sh
@@ -230,6 +240,19 @@ workflows:
           <<: *dev-filters
           pre-steps:
             - setup-workspace
+            - run:
+                description: 'Build Lint'
+                command: ./scripts/lint/build.sh
+          requires:
+            - install-and-build
+      - test:
+          <<: *filters-staging
+          pre-steps:
+            - setup-workspace
+          requires:
+            - install-and-build
+      - notify-success:
+          <<: *filters-staging
           requires:
             - lint
             - test
@@ -263,5 +286,8 @@ workflows:
           <<: *staging-filters
           pre-steps:
             - setup-workspace
+            - run:
+                description: 'Build Production'
+                command: ./scripts/build.sh
           requires:
             - notify-success

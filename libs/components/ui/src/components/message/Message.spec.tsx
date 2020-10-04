@@ -9,7 +9,6 @@ describe('Message', () => {
     expect(getByText('Display message')).toBeTruthy()
 
     fireEvent.click(getByText('Display message'))
-
     await waitFor(() => {
       expect(getByText('This is a normal message')).toBeTruthy()
     })

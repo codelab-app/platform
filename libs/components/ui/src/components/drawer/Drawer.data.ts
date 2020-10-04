@@ -9,8 +9,8 @@ export const drawerData: NodeReactI<DrawerProps | Button.Props | Text.Props> = {
     ctx: {
       __type: ['Eval', 'Single'],
       value: `
-        const [visible, setVisible] = this.React.useState(false); 
-        
+        const [visible, setVisible] = this.React.useState(false);
+
         return { visible, setVisible }
       `,
     },
