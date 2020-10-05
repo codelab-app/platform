@@ -170,18 +170,14 @@ export const modalFormData: NodeReactI = {
     onCancel: {
       __type: ['Eval'],
       value: `
-        return () => this.handlecancel()
+        return () => this.handlecancel
       `,
     },
     ctx: {
       __type: ['Eval', 'Leaf'],
       value: `
         const [form] = this.antd.Form.useForm(); 
-
-        this.React.useEffect(()=> { 
-          if (this.visibility) form.setFieldsValue(this.initialvalues); 
-          else form.resetFields() 
-        }, [this.visibility])
+        form.setFieldsValue(this.initialvalues); 
         
         return { form }
       `,
