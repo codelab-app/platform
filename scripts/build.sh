@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+echo "Running build with CI=${CI}, NODE_ENV=${NODE_ENV}"
+
 if [ "$CI" == true ] && [ "$NODE_ENV" == "development" ]; then
   npx nx run-many \
     --target=build \

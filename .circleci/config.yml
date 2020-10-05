@@ -25,17 +25,15 @@ version: 2.1
 
 orbs:
   slack: circleci/slack@3.4.2
-  # node: circleci/node@3.0.1
 
 executors:
-  node:
+  docker-node:
     working_directory: ~/app
     environment:
       # install Cypress in Linux-like cache folder
       # CYPRESS_CACHE_FOLDER: '~/.cache/Cypress'
       NX_VERBOSE_LOGGING: true
       # GATSBY_TELEMETRY_DISABLED: 1
-      # NODE_ENV: production
       SLACK_CHANNEL_UPDATE: CQVPNKS8K
       GITHUB_VIEN: VienNguyen24hdev
       SLACK_VIEN: UBPECLD4P
@@ -50,6 +48,15 @@ executors:
       - image: circleci/node:14-browsers
     resource_class: large
     # resource_class: medium+
+  machine-ubuntu:
+    environment:
+      NODE_OPTIONS: --max_old_space_size=8192
+      NODE_ENV: production
+    working_directory: ~/app
+    machine:
+      docker_layer_caching: true
+      image: ubuntu-2004:202008-01
+    resource_class: large
 
 commands:
   setup:
@@ -76,7 +83,6 @@ commands:
             source $BASH_ENV
             echo $SLACK_USER
 
-
   # use this for jobs that require the repository
   setup-workspace:
     description: 'Setup Workspace'
@@ -85,21 +91,40 @@ commands:
       - attach_workspace:
           at: ..
 
-  yarn-install:
-    description: 'Install Dependencies'
+  yarn-install-dev:
+    description: 'Install NPM dev dependencies'
     steps:
       - restore_cache:
           name: 'Restore Yarn Package Cache'
           keys:
-            - dep-cache-{{ checksum "yarn.lock" }}
+            - dep-cache-dev-{{ checksum "yarn.lock" }}
             # https://discuss.circleci.com/t/circle-2-0-caching-is-too-limited-to-be-very-useful/11694
-            - dep-cache-
+            - dep-cache-dev-
       - run:
           name: 'Install NPM Packages'
-          command: yarn install --frozen-lockfile --non-interactive
+          command: yarn install --frozen-lockfile --non-interactive --production=false
       - save_cache:
           name: 'Save Cache'
-          key: dep-cache-{{ checksum "yarn.lock" }}
+          key: dep-cache-dev-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+            - ~/app/node_modules
+
+  yarn-install-prod:
+    description: 'Install NPM production dependencies'
+    steps:
+      - restore_cache:
+          name: 'Restore Yarn Package Cache'
+          keys:
+            - dep-cache-prod-{{ checksum "yarn.lock" }}
+            # https://discuss.circleci.com/t/circle-2-0-caching-is-too-limited-to-be-very-useful/11694
+            - dep-cache-prod-
+      - run:
+          name: 'Install NPM Packages'
+          command: yarn install --frozen-lockfile --non-interactive --production=true
+      - save_cache:
+          name: 'Save Cache'
+          key: dep-cache-prod-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
             - ~/app/node_modules
@@ -135,23 +160,24 @@ commands:
           mentions: $SLACK_USER
 
 jobs:
-  install-and-build:
-    executor: node
+  install-to-workspace:
+    # executor: docker-node
+    executor: machine-ubuntu
     steps:
       - checkout
-      - yarn-install
+      - yarn-install-dev
       - persist_to_workspace:
           root: ..
           paths:
             - app/node_modules
-            - app/dist/libs/tools/eslint-config-codelab
+            - app/dist
       - notify-failure
   lint:
     environment:
       CIRCLE_COMPARE_URL: <<pipeline.project.git_url>>/compare/<<pipeline.git.base_revision>>..<<pipeline.git.revision>>
       CIRCLE_BASE_REVISION: <<pipeline.git.base_revision>>
       CIRCLE_REVISION: <<pipeline.git.revision>>
-    executor: node
+    executor: docker-node
     steps:
       - run: echo "This is pipeline ID << pipeline.id >>"
       - run: echo $CIRCLE_COMPARE_URL
@@ -159,12 +185,12 @@ jobs:
       - commitlint
       - notify-failure
   test:
-    executor: node
+    executor: docker-node
     steps:
       - unit-tests
       - notify-failure
   notify-success:
-    executor: node
+    executor: docker-node
     steps:
       - setup
       - slack/notify:
@@ -177,25 +203,34 @@ jobs:
             *Message*: $GIT_COMMIT_MSG \n
           # webhook URL is setup using circleci integration
   deploy-app:
-    executor: node
+    executor: machine-ubuntu
+    # executor: docker-node
     steps:
       - run:
-          name: 'Build Production NPM'
+          name: 'Build production NPM'
           command: yarn install --frozen-lockfile --non-interactive --production=true
-      - setup_remote_docker:
-          version: 19.03.13
-      - run: |
+      # - setup_remote_docker:
+      #     version: 19.03.13
+      # - run: |
 
-          # create a dummy container which will hold a volume with config
-          ./scripts/docker/vol_create.sh
+      #     # -x prints all commands to terminal
+      #     # -e stops at first error
+      #     set -ex
 
-          # docker create -v /app --name codelab-volume alpine:3.4
+      #     docker container ls -a
 
-          # copy a config file into this volume
-          docker cp /home/circleci/app codelab-volume:/app
+      #     # create a dummy container which will hold a volume with config
+      #     ./scripts/docker/vol_create.sh
 
-          # start an application container using this volume
-          # docker run --volumes-from codelab-volume app-image:1.2.3
+      #     # docker create -v /app --name codelab-volume alpine:3.4
+
+      #     # copy a config file into this volume
+      #     docker cp /home/circleci/app/package.json codelab-volume:/app
+      #     # docker cp /home/circleci/app codelab-volume:/app
+
+
+      #     # start an application container using this volume
+      #     # docker run --volumes-from codelab-volume app-image:1.2.3
       - run:
           description: "Build Docker Image"
           command: ./scripts/docker/build.sh
@@ -204,7 +239,7 @@ jobs:
           command: ./scripts/docker/push.sh
 
   notify-failure:
-    executor: node
+    executor: docker-node
     steps:
       - setup
       - slack/status:
@@ -219,8 +254,8 @@ jobs:
 workflows:
   app-dev:
     jobs:
-      - install-and-build:
-          <<: *dev-filters
+      - install-to-workspace:
+          <<: *filters-dev
       - lint:
           <<: *dev-filters
           pre-steps:
@@ -229,13 +264,13 @@ workflows:
                 description: 'Build Lint'
                 command: ./scripts/lint/build.sh
           requires:
-            - install-and-build
+            - install-to-workspace
       - test:
           <<: *dev-filters
           pre-steps:
             - setup-workspace
           requires:
-            - install-and-build
+            - install-to-workspace
       - notify-success:
           <<: *dev-filters
           pre-steps:
@@ -258,36 +293,17 @@ workflows:
             - test
   app-prod:
     jobs:
-      - install-and-build:
-          <<: *staging-filters
-      - lint:
-          <<: *staging-filters
-          pre-steps:
-            - setup-workspace
-            - run:
-                description: 'Build Lint'
-                command: ./scripts/lint/build.sh
-          requires:
-            - install-and-build
-      - test:
-          <<: *staging-filters
-          pre-steps:
-            - setup-workspace
-          requires:
-            - install-and-build
-      - notify-success:
-          <<: *staging-filters
-          pre-steps:
-            - setup-workspace
-          requires:
-            - lint
-            - test
+      - install-to-workspace:
+          <<: *filters-staging
       - deploy-app:
-          <<: *staging-filters
+          <<: *filters-staging
+          context: default
           pre-steps:
             - setup-workspace
+            - run: ls -l
             - run:
-                description: 'Build Production'
+                description: 'Build production'
                 command: ./scripts/build.sh
           requires:
-            - notify-success
+            - install-to-workspace
+            # - notify-success

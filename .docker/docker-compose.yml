@@ -20,6 +20,7 @@ services:
 #      - YARN_CACHE_DIR=/yarn
       # Used for build.sh
       # - NODE_ENV=${NODE_ENV}
+
   verdaccio:
     image: verdaccio/verdaccio:4
     container_name: verdaccio-docker-local-storage-vol

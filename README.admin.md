@@ -10,6 +10,10 @@ VSCode ESLint doesn't respect `root: true`, but includes uses it's own implement
 
 So we need to specify path using `__dirname` for `tsconfigRootDir`
 
+# CircleCI
+
+Docker executor can't mount volumes, or use local files on remote docker environment. We use machine executor to access local files.
+
 # NX Developemnt flow
 
 ## 1) NPM Proxy with Verdaccio
