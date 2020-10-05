@@ -52,25 +52,11 @@ export const findByModalTitle = (
 
 Cypress.Commands.add('findByModalTitle', findByModalTitle)
 
-export const findInputByLabel = (
-  text: Matcher,
-  options?: SelectorMatcherOptions,
-): Cypress.Chainable<JQuery> => {
-  return cy
-    .findByText(text, { exact: true, timeout: 7000, ...options })
-    .invoke('attr', 'for')
-    .then((idOfInput) => {
-      return cy.get(`#${idOfInput}`)
-    })
-}
-
-Cypress.Commands.add('findInputByLabel', findInputByLabel)
-
 export const openSelectByLabel = (
   text: Matcher,
   options?: SelectorMatcherOptions,
 ): Cypress.Chainable<JQuery> => {
-  return findInputByLabel(text, options).closest('.ant-select').click()
+  return cy.findByLabelText(text, options).closest('.ant-select').click()
 }
 
 Cypress.Commands.add('openSelectByLabel', openSelectByLabel)
@@ -80,7 +66,8 @@ export const getSelectDropdownByLabel = (
   options?: SelectorMatcherOptions,
 ): Cypress.Chainable<JQuery> => {
   // NOTE: the list appears in DOM only after first
-  return findInputByLabel(text, options)
+  return cy
+    .findByLabelText(text, options)
     .invoke('attr', 'aria-owns')
     .then((optionsListId) => cy.get(`#${optionsListId}`))
     .closest('.ant-select-dropdown')
@@ -93,9 +80,25 @@ export const getSelectedOptionByLabel = (
   options?: SelectorMatcherOptions,
 ): Cypress.Chainable<JQuery> => {
   // NOTE: the list appears in DOM only after first
-  return findInputByLabel(text, options)
+  return cy
+    .findByLabelText(text, options)
     .closest('.ant-select-selector')
     .find('.ant-select-selection-item')
 }
 
 Cypress.Commands.add('getSelectedOptionByLabel', getSelectedOptionByLabel)
+
+export const getSelectOptionsContentByLabel = (
+  text: Matcher,
+  options?: SelectorMatcherOptions,
+): Cypress.Chainable<JQuery> => {
+  // NOTE: the list appears in DOM only after first
+  return getSelectDropdownByLabel(text, options).find(
+    '.ant-select-item-option-content',
+  )
+}
+
+Cypress.Commands.add(
+  'getSelectOptionsContentByLabel',
+  getSelectOptionsContentByLabel,
+)
