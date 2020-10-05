@@ -8,6 +8,8 @@ export interface DataMapperStrategy {
 export class CreateFormStrategy implements DataMapperStrategy {
   execute(data: any) {
     // Do mapping logic here
+    if (!data.props) return { ...data, props: [] }
+
     return data
   }
 }

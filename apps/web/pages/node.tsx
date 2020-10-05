@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import { DataNode } from 'antd/lib/tree'
-import axios from 'axios'
 import React from 'react'
+import { NodeService } from '../../../libs/core/node/src/node-service'
 import { ButtonGroup } from '../src/node/ButtonGroup'
 import { ModalForm } from '../src/node/ModalForm'
 import { NodeTree } from '../src/node/NodeTree'
@@ -10,8 +10,7 @@ import { convertNodeTreeToAntTreeDataNode } from '../src/node/utils/convertNodeT
 import { NodeEntity } from '@codelab/core/node'
 import { BaseNodeType, Node } from '@codelab/shared/interface/node'
 
-axios.defaults.baseURL = 'http://localhost:3333'
-axios.defaults.headers.post['Content-Type'] = 'application/json'
+const service = new NodeService()
 
 const NodePage = () => {
   const [selectedNode, setSelectedNode] = React.useState(null)
@@ -27,14 +26,10 @@ const NodePage = () => {
   }, [])
 
   const fetchNodes = () => {
-    axios
-      .get('/api/v1/Node')
-      .then((res: any) => {
-        setNodes(res.data)
-      })
-      .catch((err: any) => {
-        console.log(err)
-      })
+    service
+      .getNodes()
+      .then((res: any) => setNodes(res.data))
+      .catch((err: any) => console.log(err))
   }
 
   const findChildren = (inputNodes: Array<any>) => {
@@ -71,8 +66,8 @@ const NodePage = () => {
   const handleCreateNode = (formData: any) => {
     console.log(formData)
 
-    axios
-      .post('/api/v1/Node', formData)
+    service
+      .createNode(formData)
       .then((res: any) => {
         const { data } = res
         const newNodes: any = [...nodes]
@@ -89,8 +84,8 @@ const NodePage = () => {
   const handleUpdateNode = (formData: any) => {
     console.log(formData)
 
-    axios
-      .patch(`/api/v1/Node/${editedNode._id}`, formData)
+    service
+      .updateNode(editedNode._id, formData)
       .then((res: any) => {
         const { data } = res
 
@@ -99,6 +94,7 @@ const NodePage = () => {
 
         newNodes[index] = data
 
+        setEditedNode(null)
         setNodes(newNodes)
       })
       .catch((err: any) => console.log(err))
@@ -111,8 +107,8 @@ const NodePage = () => {
   const handleDeleteNode = (nodeId: any) => {
     console.log('delete node fired!', nodeId)
 
-    axios
-      .delete(`/api/v1/Node/${nodeId}`)
+    service
+      .deleteNode(nodeId)
       .then((res: any) => {
         fetchNodes()
       })

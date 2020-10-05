@@ -30,6 +30,32 @@ export class NodeService {
     return this.repository.save()
   }
 
+  createNode(data: NodeI) {
+    this.validator.addRule(new IsValidCreateDtoModel()).validate(data)
+
+    this.factory.setData(data)
+    this.factory.setStrategy(new CreateFormStrategy())
+
+    return this.repository.save()
+  }
+
+  getNodes() {
+    return this.repository.getAll()
+  }
+
+  updateNode(id: string, data: NodeI) {
+    this.validator.addRule(new IsValidCreateDtoModel()).validate(data)
+
+    this.factory.setData(data)
+    this.factory.setStrategy(new CreateFormStrategy())
+
+    return this.repository.update(id)
+  }
+
+  deleteNode(id: string) {
+    return this.repository.delete(id)
+  }
+
   // updateModel() {}
 
   // editModel() {}
