@@ -7,6 +7,7 @@
 
 # Except
 !/package.json
+!/makefile
 !/node_modules/
 !/dist/apps/
 !/config

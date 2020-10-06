@@ -9,6 +9,8 @@
 
 # Add this point, the project as already been tested & linted in CircleCI, our goal then is only to build & deploy.
 
+# `dist` & `node_modules` must be present locally
+
 # COPY uses local file system, so we can leverage CircleCI's built files instead of building in Docker
 
 # RUN acts on docker layer, not filesystem
@@ -26,7 +28,7 @@ FROM node:14.8.0-alpine AS base
 RUN apk add \
   bash
 
-# RUN yarn global add pm2 npx nx
+RUN yarn global add pm2
 
 # Set variables
 #
@@ -93,4 +95,5 @@ EXPOSE 3333 4200
 # # The node user is provided in the Node.js Alpine base image
 # #USER node
 
-ENTRYPOINT ["./scripts/start.sh"]
+# ENTRYPOINT ["pm2", "startOrReload", "config/pm2.json"]
+ENTRYPOINT ["pm2-runtime", "config/pm2.json"]

@@ -6,7 +6,6 @@
 # BUILD
 #
 
-
 build-dev:
 	@npx nx run-many \
 	--target=build \
@@ -33,6 +32,15 @@ build-prod:
 #
 # Docker
 #
+
+# local usage
+docker-start:
+	yarn --frozen-lockfile; \
+	make build-prod; \
+	yarn --frozen-lockfile --prod; \
+	docker-compose \
+	-f .docker/docker-compose.yml \
+	up --build app
 
 docker-build:
 	@docker-compose \
@@ -91,3 +99,9 @@ start-dev:
 
 start-prod:
 	@pm2 startOrReload config/pm2.json
+
+#
+# Other
+#
+docs:
+	typedoc --out libs/core/tree/docs libs/core/tree
