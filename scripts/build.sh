@@ -19,7 +19,8 @@ elif [ "$CI" == true ] && [ "$NODE_ENV" == "production" ]; then
     --maxWorkers=4 \
     "$@"
 else
-  npx nx affected:build \
+  npx nx affected \
+  --target=build \
   --parallel \
   "$@"
 fi

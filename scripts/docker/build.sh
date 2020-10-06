@@ -12,4 +12,4 @@ echo $PWD
 docker-compose \
   --verbose \
   -f .docker/docker-compose.yml \
-  build codelab
+  build app

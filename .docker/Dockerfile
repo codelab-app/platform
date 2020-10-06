@@ -23,8 +23,8 @@ FROM node:14.8.0-alpine AS base
 #
 # ---- Machine Deps ----
 
-# RUN apk add \
-#   bash
+RUN apk add \
+  bash
 
 # RUN yarn global add pm2 npx nx
 
@@ -34,24 +34,25 @@ FROM node:14.8.0-alpine AS base
 ARG NODE_ENV=production
 ENV NODE_ENV=$NODE_ENV
 
+# ARG CI=true
+# ENV CI=$CI
 
 # circleci docker remote docker can't access local files
 # need to copy from local workspace to ad hoc container volume
 # then build docker image with that volume mounted here
 
-# COPY /home/circleci/app/package.json ./
 WORKDIR /home/codelab/app
-COPY . ./
 
-RUN pwd
+COPY . ./
+# COPY node_modules ./node_modules
+# COPY package.json ./
+# COPY dist/apps ./dist/apps
+# COPY config ./config
+# COPY scripts/start.sh ./scripts/
+
 RUN ls
 
-# COPY /home/circleci/app/package.json ./
-# COPY /home/circleci/app/dist ./dist
-# COPY /home/circleci/app/node_modules ./node_modules
-# COPY /home/circleci/app/scripts/start.sh ./scripts/
-
-
+# RUN ./scripts/install.sh
 
 # #
 # # [2] ---- Project Deps ----

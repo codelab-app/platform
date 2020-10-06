@@ -1,6 +1,7 @@
 version: '3.8'
 services:
-  codelab:
+  app:
+    restart: always
     ports:
       - 3333:3333
       - 4200:4200
@@ -10,16 +11,21 @@ services:
 #        # - codelabstudios/codelab_builder:v0.0.1
 #        - node:14.11.0-alpine
       dockerfile: $PWD/.docker/Dockerfile
+      args:
+        - CI=true
+        - NODE_ENV=production
     image: codelabai/codelab:0.1
     # volumes:
-    #   # your fs has a docker area reserved for volumes
-    #   # this binds the container's yarn cache to your fs
-    #   - yarn_cache:/usr/local/share/.cache/yarn/v6
-    #   - node_modules_cache:/codelab/node_modules
-#    environment:
-#      - YARN_CACHE_DIR=/yarn
-      # Used for build.sh
-      # - NODE_ENV=${NODE_ENV}
+    #   - codelab-volume:/app
+
+  mongodb:
+    image: mongo
+    restart: always
+    volumes:
+      - ./data-node:/data/db
+    ports:
+      - 27017:27017
+    command: mongod --noauth --smallfiles
 
   verdaccio:
     image: verdaccio/verdaccio:4
