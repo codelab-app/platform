@@ -29,15 +29,15 @@ const NodePage = () => {
   const fetchNodes = () => {
     axios
       .get('/api/v1/Node')
-      .then((res) => {
+      .then((res: any) => {
         setNodes(res.data)
       })
-      .catch((err) => {
+      .catch((err: any) => {
         console.log(err)
       })
   }
 
-  const findChildren = (inputNodes) => {
+  const findChildren = (inputNodes: Array<any>) => {
     return inputNodes.map((node) => {
       const children = inputNodes.filter(
         (childNode) => childNode.parent === node._id,
@@ -52,7 +52,7 @@ const NodePage = () => {
 
   // TODO: specify type of values. It should combine types for all types(React, Tree, Model, etc)
   const addChild = (values: any) => {
-    console.log('addChild', this)
+    // console.log('addChild', this)
     const newNode = new NodeEntity(values)
 
     if (rootNode === null) {
@@ -83,18 +83,15 @@ const NodePage = () => {
         setNodes(newNodes)
         setVisibility(false)
       })
-      .catch((err) => console.log(err))
+      .catch((err: any) => console.log(err))
   }
 
   const handleUpdateNode = (formData: any) => {
     console.log(formData)
-    if (typeof editedNode?._id) {
-      return
-    }
 
     axios
       .patch(`/api/v1/Node/${editedNode._id}`, formData)
-      .then((res) => {
+      .then((res: any) => {
         const { data } = res
 
         const index = nodes.map((node: any) => node._id).indexOf(editedNode._id)
@@ -104,7 +101,7 @@ const NodePage = () => {
 
         setNodes(newNodes)
       })
-      .catch((err) => console.log(err))
+      .catch((err: any) => console.log(err))
   }
 
   const deleteNode = () => {
@@ -116,10 +113,10 @@ const NodePage = () => {
 
     axios
       .delete(`/api/v1/Node/${nodeId}`)
-      .then((res) => {
+      .then((res: any) => {
         fetchNodes()
       })
-      .catch((err) => console.log(err))
+      .catch((err: any) => console.log(err))
   }
 
   const showEditModal = (nodeId: any) => {
@@ -133,7 +130,7 @@ const NodePage = () => {
 
   const data = findChildren(
     selectedNode
-      ? nodes.filter((node) => {
+      ? nodes.filter((node: any) => {
           return node._id === selectedNode
         })
       : nodes,

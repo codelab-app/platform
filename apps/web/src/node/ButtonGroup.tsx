@@ -63,7 +63,7 @@ const nodeButtonGroupData: NodeReactI = {
         //   props: {
         //     type: 'primary',
         //     onClick: {
-        //       eval: true,
+        //       __type: ["Eval"],
         //       value: `return () => {
         //         console.log(this.props)
         //         this.props.handledelete.value()
@@ -84,11 +84,8 @@ const nodeButtonGroupData: NodeReactI = {
           props: {
             type: 'primary',
             onClick: {
-              eval: true,
-              value: `
-                return () => 
-                this.clearfilter()
-              `,
+              __type: ['Eval'],
+              value: `return () => this.clearfilter()`,
             },
           },
           children: [

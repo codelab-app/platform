@@ -170,14 +170,18 @@ export const modalFormData: NodeReactI = {
     onCancel: {
       __type: ['Eval'],
       value: `
-        return () => this.setvisibility(false)
+        return () => this.handlecancel()
       `,
     },
     ctx: {
       __type: ['Eval', 'Leaf'],
       value: `
         const [form] = this.antd.Form.useForm(); 
-        form.setFieldsValue(this.initialvalues); 
+
+        this.React.useEffect(()=> { 
+          if (this.visibility) form.setFieldsValue(this.initialvalues); 
+          else form.resetFields() 
+        }, [this.visibility])
         
         return { form }
       `,
@@ -187,7 +191,7 @@ export const modalFormData: NodeReactI = {
     {
       type: 'React.Form',
       props: {
-        form: { __type: ['Eval'], value: 'return this.form' },
+        form: { __type: ['Eval'], value: 'return this.ctx.form' },
         name: 'create-node-form',
         onFinish: {
           __type: ['Eval'],

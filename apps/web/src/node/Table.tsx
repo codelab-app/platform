@@ -8,8 +8,7 @@ const deleteButton: NodeReactI = {
     type: 'danger',
     onClick: {
       __type: ['Eval'],
-      value:
-        'return () => this.handledelete.value.value(this.record.value._id)',
+      value: 'return () => this.handleDelete(this.record._id)',
     },
   },
   children: [
@@ -28,7 +27,7 @@ const editButton: NodeReactI = {
     type: 'React.warning',
     onClick: {
       __type: ['Eval'],
-      value: 'return () => this.handleedit.value(this.record._id)',
+      value: 'return () => this.handleEdit(this.record._id)',
     },
   },
   children: [
@@ -45,19 +44,22 @@ const parentTag: NodeReactI = {
   type: 'React.Tag',
   props: {
     color: {
-      eval: true,
-      value: 'return this.props.record.value.parent? "geekblue" : "white"',
+      __type: ['Eval'],
+      value: 'return this.record.parent? "geekblue" : "white"',
     },
     onClick: {
       __type: ['Eval'],
-      value: 'return () => this.selectnode.value.value(this.record.parent)',
+      value: 'return () => this.selectNode(this.record.parent)',
     },
   },
   children: [
     {
       type: 'React.Text',
       props: {
-        value: { __type: ['Eval'], value: 'return this.record.parent' },
+        value: {
+          __type: ['Eval'],
+          value: 'return this.record.parent? this.record.parent : ""',
+        },
       },
     },
   ],
@@ -70,8 +72,8 @@ const propsTable: NodeReactI = {
     pagination: false,
     locale: { emptyText: ' ' },
     dataSource: {
-      eval: true,
-      value: 'return this.props.record.value.props',
+      __type: ['Eval'],
+      value: 'return this.record.props',
     },
     columns: [
       { title: 'Key', dataIndex: 'key', key: 'key', width: '50%' },
@@ -88,13 +90,14 @@ const propsTable: NodeReactI = {
 const childrenTags: NodeReactI = {
   type: 'React.Table',
   props: {
+    selectNode: { __type: ['Eval'], value: 'return this.selectNode' },
     rowKey: '_id',
     showHeader: false,
     pagination: false,
     locale: { emptyText: ' ' },
     dataSource: {
-      eval: true,
-      value: 'return this.props.record.value.children',
+      __type: ['Eval'],
+      value: 'return this.record.children',
     },
     columns: [
       {
@@ -105,9 +108,8 @@ const childrenTags: NodeReactI = {
           props: {
             color: 'magenta',
             onClick: {
-              eval: true,
-              value:
-                'return () => this.props.selectnode.value.value.value(this.props.record.value._id)',
+              __type: ['Eval'],
+              value: 'return () => this.selectNode(this.record._id)',
             },
           },
           children: [
@@ -115,8 +117,8 @@ const childrenTags: NodeReactI = {
               type: 'React.Text',
               props: {
                 value: {
-                  eval: true,
-                  value: 'return this.props.record.value._id',
+                  __type: ['Eval'],
+                  value: 'return this.record._id',
                 },
               },
             },
@@ -136,6 +138,15 @@ const onTypeFilter = (value: any, record: any) => record.type === value
 export const tableData: NodeReactI = {
   type: 'React.Table',
   props: {
+    handleEdit: {
+      __type: ['Eval'],
+      value: 'return this.handleedit',
+    },
+    handleDelete: {
+      __type: ['Eval'],
+      value: 'return this.handledelete',
+    },
+    selectNode: { __type: ['Eval'], value: 'return this.selectnode' },
     dataSource: {
       __type: ['Eval'],
       value: 'return this.data',
