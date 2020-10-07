@@ -9,6 +9,5 @@ module.exports = {
     'pre-push': tasks(['make build-dev', 'make test-dev']),
     'commit-msg': 'make lint-commit-dev',
     'pre-commit': lintstaged,
-    'post-rewrite': './scripts/git-post-rewrite.sh',
   },
 }
