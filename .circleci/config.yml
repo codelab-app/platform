@@ -9,7 +9,7 @@
 filters-dev: &filters-dev
   filters:
     branches:
-      # only: /^test$/
+      only: /^.*$/
 #      ignore: /^master$/
 #    tags:
 #      ignore: /^staging-/
