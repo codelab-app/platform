@@ -26,16 +26,17 @@ const NodePage = () => {
   }, [])
 
   const fetchNodes = () => {
-    service
-      .getNodes()
-      .then((res: any) => setNodes(res.data))
-      .catch((err: any) => console.log(err))
+    const cb = (data: any) => {
+      setNodes(data)
+    }
+
+    service.getNodes(cb)
   }
 
   const findChildren = (inputNodes: Array<any>) => {
     return inputNodes.map((node) => {
       const children = inputNodes.filter(
-        (childNode) => childNode.parent === node._id,
+        (childNode) => childNode.parent === node.id,
       )
 
       return {
@@ -66,38 +67,34 @@ const NodePage = () => {
   const handleCreateNode = (formData: any) => {
     console.log(formData)
 
-    service
-      .createNode(formData)
-      .then((res: any) => {
-        const { data } = res
-        const newNodes: any = [...nodes]
+    const cb = (data: any) => {
+      const newNodes: any = [...nodes]
 
-        data.key = data._id
-        newNodes.push(res.data)
+      // eslint-disable-next-line no-param-reassign
+      data.key = data.id
+      newNodes.push(data)
 
-        setNodes(newNodes)
-        setVisibility(false)
-      })
-      .catch((err: any) => console.log(err))
+      setNodes(newNodes)
+      setVisibility(false)
+    }
+
+    service.createNode(formData, cb)
   }
 
   const handleUpdateNode = (formData: any) => {
     console.log(formData)
 
-    service
-      .updateNode(editedNode._id, formData)
-      .then((res: any) => {
-        const { data } = res
+    const cb = (data: any) => {
+      const index = nodes.map((node: any) => node.id).indexOf(editedNode.id)
+      const newNodes: any = [...nodes]
 
-        const index = nodes.map((node: any) => node._id).indexOf(editedNode._id)
-        const newNodes: any = [...nodes]
+      newNodes[index] = data
 
-        newNodes[index] = data
+      setEditedNode(null)
+      setNodes(newNodes)
+    }
 
-        setEditedNode(null)
-        setNodes(newNodes)
-      })
-      .catch((err: any) => console.log(err))
+    service.updateNode(editedNode.id, formData, cb)
   }
 
   const deleteNode = () => {
@@ -107,16 +104,13 @@ const NodePage = () => {
   const handleDeleteNode = (nodeId: any) => {
     console.log('delete node fired!', nodeId)
 
-    service
-      .deleteNode(nodeId)
-      .then((res: any) => {
-        fetchNodes()
-      })
-      .catch((err: any) => console.log(err))
+    const cb = () => fetchNodes()
+
+    service.deleteNode(nodeId, cb)
   }
 
   const showEditModal = (nodeId: any) => {
-    const editNode: any = nodes.find((node: any) => node._id === nodeId)
+    const editNode: any = nodes.find((node: any) => node.id === nodeId)
 
     setEditedNode({
       nodeType: BaseNodeType.React,
@@ -127,7 +121,7 @@ const NodePage = () => {
   const data = findChildren(
     selectedNode
       ? nodes.filter((node: any) => {
-          return node._id === selectedNode
+          return node.id === selectedNode
         })
       : nodes,
   )
@@ -135,7 +129,7 @@ const NodePage = () => {
   const parentNodes = [
     { label: 'none', value: null },
     ...nodes.map((node: any) => {
-      return { label: node._id, value: node._id }
+      return { label: node.id, value: node.id }
     }),
   ]
 
@@ -166,7 +160,7 @@ const NodePage = () => {
       />
       <NodeTree />
       <Table
-        data={data.map((node: any) => ({ ...node, key: node._id }))}
+        data={data.map((node: any) => ({ ...node, key: node.id }))}
         selectnode={setSelectedNode}
         handleedit={showEditModal}
         handledelete={handleDeleteNode}

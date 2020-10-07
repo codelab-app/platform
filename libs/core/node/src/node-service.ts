@@ -21,39 +21,43 @@ export class NodeService {
     this.repository = new NodeRepository(this.factory)
   }
 
-  createModel(data: NodeI) {
+  // createModel(data: NodeI) {
+  //   this.validator.addRule(new IsValidCreateDtoModel()).validate(data)
+
+  //   this.factory.setData(data)
+  //   this.factory.setStrategy(new CreateFormStrategy())
+
+  //   return this.repository.save()
+  // }
+
+  createNode(data: NodeI, cb: Function) {
     this.validator.addRule(new IsValidCreateDtoModel()).validate(data)
 
     this.factory.setData(data)
     this.factory.setStrategy(new CreateFormStrategy())
 
-    return this.repository.save()
+    this.repository.save(cb).catch((err: any) => err)
   }
 
-  createNode(data: NodeI) {
+  getNodes(cb: Function) {
+    this.factory.setStrategy(new CreateFormStrategy())
+
+    this.repository.getAll(cb).catch((err: any) => err)
+  }
+
+  updateNode(id: string, data: NodeI, cb: Function) {
     this.validator.addRule(new IsValidCreateDtoModel()).validate(data)
 
     this.factory.setData(data)
     this.factory.setStrategy(new CreateFormStrategy())
 
-    return this.repository.save()
+    this.repository.update(id, cb).catch((err: any) => err)
   }
 
-  getNodes() {
-    return this.repository.getAll()
-  }
-
-  updateNode(id: string, data: NodeI) {
-    this.validator.addRule(new IsValidCreateDtoModel()).validate(data)
-
-    this.factory.setData(data)
+  deleteNode(id: string, cb: Function) {
     this.factory.setStrategy(new CreateFormStrategy())
 
-    return this.repository.update(id)
-  }
-
-  deleteNode(id: string) {
-    return this.repository.delete(id)
+    this.repository.delete(id, cb).catch((err: any) => err)
   }
 
   // updateModel() {}

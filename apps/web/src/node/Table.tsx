@@ -8,7 +8,7 @@ const deleteButton: NodeReactI = {
     type: 'danger',
     onClick: {
       __type: ['Eval'],
-      value: 'return () => this.handleDelete(this.record._id)',
+      value: 'return () => this.handleDelete(this.record.id)',
     },
   },
   children: [
@@ -27,7 +27,7 @@ const editButton: NodeReactI = {
     type: 'React.warning',
     onClick: {
       __type: ['Eval'],
-      value: 'return () => this.handleEdit(this.record._id)',
+      value: 'return () => this.handleEdit(this.record.id)',
     },
   },
   children: [
@@ -91,7 +91,7 @@ const childrenTags: NodeReactI = {
   type: 'React.Table',
   props: {
     selectNode: { __type: ['Eval'], value: 'return this.selectNode' },
-    rowKey: '_id',
+    rowKey: 'id',
     showHeader: false,
     pagination: false,
     locale: { emptyText: ' ' },
@@ -101,15 +101,15 @@ const childrenTags: NodeReactI = {
     },
     columns: [
       {
-        dataIndex: '_id',
-        key: '_id',
+        dataIndex: 'id',
+        key: 'id',
         render: {
           type: 'React.Tag',
           props: {
             color: 'magenta',
             onClick: {
               __type: ['Eval'],
-              value: 'return () => this.selectNode(this.record._id)',
+              value: 'return () => this.selectNode(this.record.id)',
             },
           },
           children: [
@@ -118,7 +118,7 @@ const childrenTags: NodeReactI = {
               props: {
                 value: {
                   __type: ['Eval'],
-                  value: 'return this.record._id',
+                  value: 'return this.record.id',
                 },
               },
             },
@@ -154,8 +154,8 @@ export const tableData: NodeReactI = {
     columns: [
       {
         title: 'Id',
-        dataIndex: '_id',
-        key: '_id',
+        dataIndex: 'id',
+        key: 'id',
       },
       {
         title: 'Type',

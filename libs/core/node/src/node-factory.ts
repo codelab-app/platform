@@ -19,4 +19,8 @@ export class NodeFactory {
   mapData() {
     return this.mapper?.execute(this.data)
   }
+
+  mapRes(resData: any) {
+    return this.mapper?.revert(resData)
+  }
 }
