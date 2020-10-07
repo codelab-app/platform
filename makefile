@@ -65,7 +65,7 @@ lint-commit-dev:
 	@npx commitlint -E HUSKY_GIT_PARAMS
 
 lint-eslint:
-	@node NODE_OPTIONS=--max-old-space-size=8192 scripts/lint/eslint.js
+	NODE_OPTIONS=--max-old-space-size=8192 node scripts/lint/eslint.js
 
 #
 # TEST
