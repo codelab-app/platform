@@ -193,8 +193,7 @@ export const modalFormData: NodeReactI = {
         const [form] = this.antd.Form.useForm();
 
         this.React.useEffect(()=> {
-          if (this.visibility) form.setFieldsValue(this.initialvalues);
-          else form.resetFields()
+          this.visibility ? form.setFieldsValue(this.initialvalues) : form.resetFields()
         }, [this.visibility])
 
         return { form }

@@ -58,7 +58,7 @@ const parentTag: NodeReactI = {
       props: {
         value: {
           __type: ['Eval'],
-          value: 'return this.record.parent? this.record.parent : ""',
+          value: 'return this.record.parent ?? ""',
         },
       },
     },
