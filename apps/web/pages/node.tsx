@@ -1,21 +1,16 @@
 /* eslint-disable no-underscore-dangle */
-import { DataNode } from 'antd/lib/tree'
+
 import React from 'react'
 import { NodeService } from '../../../libs/core/node/src/node-service'
 import { ButtonGroup } from '../src/node/ButtonGroup'
 import { ModalForm } from '../src/node/ModalForm'
-import { NodeTree } from '../src/node/NodeTree'
 import { Table } from '../src/node/Table'
-import { convertNodeTreeToAntTreeDataNode } from '../src/node/utils/convertNodeTreeToAntTreeNode'
-import { NodeEntity } from '@codelab/core/node'
-import { BaseNodeType, Node } from '@codelab/shared/interface/node'
+import { BaseNodeType } from '@codelab/shared/interface/node'
 
 const service = new NodeService()
 
 const NodePage = () => {
   const [selectedNode, setSelectedNode] = React.useState(null)
-  const [rootNode, setRootNode] = React.useState<Node | null>(null)
-  const [treeDataNodes, setTreeDataNodes] = React.useState<Array<DataNode>>([])
   const [visibility, setVisibility] = React.useState<boolean>(false)
   const [nodes, setNodes] = React.useState([])
   const [editedNode, setEditedNode] = React.useState<any>(null)
@@ -46,24 +41,6 @@ const NodePage = () => {
     })
   }
 
-  // TODO: specify type of values. It should combine types for all types(React, Tree, Model, etc)
-  const addChild = (values: any) => {
-    // console.log('addChild', this)
-    const newNode = new NodeEntity(values)
-
-    if (rootNode === null) {
-      setRootNode(newNode)
-      setTreeDataNodes([convertNodeTreeToAntTreeDataNode(newNode)])
-    } else {
-      rootNode.addChild(newNode)
-      setTreeDataNodes([convertNodeTreeToAntTreeDataNode(rootNode)])
-    }
-  }
-
-  const selectNode = (values: any) => {
-    console.log(values)
-  }
-
   const handleCreateNode = (formData: any) => {
     console.log(formData)
 
@@ -83,6 +60,7 @@ const NodePage = () => {
 
   const handleUpdateNode = (formData: any) => {
     console.log(formData)
+    console.log(editedNode)
 
     const cb = (data: any) => {
       const index = nodes.map((node: any) => node.id).indexOf(editedNode.id)
@@ -94,7 +72,7 @@ const NodePage = () => {
       setNodes(newNodes)
     }
 
-    service.updateNode(editedNode.id, formData, cb)
+    service.updateNode(formData, cb)
   }
 
   const deleteNode = () => {
@@ -127,7 +105,7 @@ const NodePage = () => {
   )
 
   const parentNodes = [
-    { label: 'none', value: null },
+    // { label: 'none', value: null },
     ...nodes.map((node: any) => {
       return { label: node.id, value: node.id }
     }),
@@ -158,7 +136,6 @@ const NodePage = () => {
         parentnodes={parentNodes}
         initialvalues={editedNode}
       />
-      <NodeTree />
       <Table
         data={data.map((node: any) => ({ ...node, key: node.id }))}
         selectnode={setSelectedNode}

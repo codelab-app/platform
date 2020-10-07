@@ -11,6 +11,7 @@ import configuration from './configuration'
       load: [configuration],
       envFilePath: findConfig('.env.dev') ?? '',
       validationSchema: Joi.object({
+        API_PORT: Joi.string().required(),
         MONGO_ENDPOINT: Joi.string().required(),
         MONGO_ENDPOINT_DEMO: Joi.string().required(),
       }),

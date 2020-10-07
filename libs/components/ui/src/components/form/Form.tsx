@@ -1,5 +1,5 @@
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
-import { Form as AntForm, Button, Divider, Space } from 'antd'
+import { Form as AntForm, Button, Space } from 'antd'
 import { StoreValue } from 'rc-field-form/lib/interface'
 import React, { ReactElement } from 'react'
 
@@ -31,50 +31,45 @@ export namespace CodelabForm {
     const { name, label } = props
 
     return (
-      <>
-        <Divider orientation="left">{label}</Divider>
-        <AntForm.List name={name}>
-          {(fields, { add, remove }) => {
-            return (
-              <>
-                {fields.map((field: FieldData) => {
-                  return (
-                    <Space key={field.key} style={{ display: 'flex' }}>
-                      {/* Need to cast to array, our Node will convert single children from array of length 1 to a non-array object */}
-                      {React.Children.toArray(children).map((child: any) => {
-                        return React.cloneElement(child, {
-                          ...field,
-                          ...child.props,
-                          name: [field.name, child.props.name],
-                          key: [field.name, child.props.name],
-                        })
-                      })}
-                      <AntForm.Item key="Form-list--delete">
-                        <MinusCircleOutlined
-                          onClick={() => {
-                            remove(field.name)
-                          }}
-                        />
-                      </AntForm.Item>
-                    </Space>
-                  )
-                })}
-                <AntForm.Item key="Form-list--add">
-                  <Button
-                    onClick={() => {
-                      add()
-                    }}
-                    type="dashed"
-                    style={{ width: '100%' }}
-                  >
-                    <PlusOutlined /> Add
-                  </Button>
-                </AntForm.Item>
-              </>
-            )
-          }}
-        </AntForm.List>
-      </>
+      <AntForm.List name={name}>
+        {(fields, { add, remove }) => {
+          return (
+            <>
+              {fields.map((field: FieldData) => {
+                return (
+                  <Space key={field.key} style={{ display: 'flex' }}>
+                    {/* Need to cast to array, our Node will convert single children from array of length 1 to a non-array object */}
+                    {React.Children.toArray(children).map((child: any) => {
+                      return React.cloneElement(child, {
+                        ...field,
+                        ...child.props,
+                        name: [field.name, child.props.name],
+                        key: [field.name, child.props.name],
+                      })
+                    })}
+                    <AntForm.Item key="Form-list--delete">
+                      <MinusCircleOutlined
+                        onClick={() => {
+                          remove(field.name)
+                        }}
+                      />
+                    </AntForm.Item>
+                  </Space>
+                )
+              })}
+              <Button
+                onClick={() => {
+                  add()
+                }}
+                type="dashed"
+                style={{ width: '100%' }}
+              >
+                <PlusOutlined /> Add
+              </Button>
+            </>
+          )
+        }}
+      </AntForm.List>
     )
   }
 

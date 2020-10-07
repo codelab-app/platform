@@ -68,7 +68,7 @@ export const buildComponents = <P extends Props = {}>(
      */
     const props = root.evalProps(propsMapLeaf(outsideProps))
 
-    console.log(root, props)
+    // console.log(root, props)
 
     return (
       <root.Component {...props}>

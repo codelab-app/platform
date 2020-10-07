@@ -3,6 +3,7 @@
  * This is only a minimal backend to get started.
  */
 import { Logger } from '@nestjs/common'
+import { ConfigService } from '@nestjs/config'
 import { NestFactory } from '@nestjs/core'
 import bodyParser from 'body-parser'
 import methodOverride from 'method-override'
@@ -12,6 +13,7 @@ import { ROUTER_SERVICE } from '@codelab/api-router'
 const bootstrap = async () => {
   const app = await NestFactory.create(AppModule)
   const { expressRouter } = app.get(ROUTER_SERVICE)
+  const config = app.get(ConfigService)
 
   const globalPrefix = ''
 
@@ -20,7 +22,7 @@ const bootstrap = async () => {
   app.use(methodOverride())
   app.use(expressRouter)
 
-  const port = process.env.PORT || 3333
+  const port = config.get('port')
 
   await app.listen(port, () => {
     Logger.log(`Listening at http://localhost:${port}/${globalPrefix}`)

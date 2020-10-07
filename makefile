@@ -95,6 +95,7 @@ start-dev:
 	@npx nx run-many \
 	--target=serve \
 	--projects=web,api \
+	--parallel \
 	"$@"
 
 start-prod:

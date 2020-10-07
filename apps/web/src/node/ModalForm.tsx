@@ -31,6 +31,20 @@ const nodeTypeSelect: NodeReactI = Form.createSelect({
   options: nodeTypeEntries,
 })
 
+const nodeID: NodeReactI = {
+  type: 'React.Form.Item',
+  props: {
+    label: 'ID',
+    name: 'id',
+  },
+  children: [
+    {
+      type: 'React.Input',
+      props: { disabled: true },
+    },
+  ],
+}
+
 const reactNodeFields: NodeReactI = {
   type: 'React.Form.ItemHook',
   props: {
@@ -176,13 +190,13 @@ export const modalFormData: NodeReactI = {
     ctx: {
       __type: ['Eval', 'Leaf'],
       value: `
-        const [form] = this.antd.Form.useForm(); 
+        const [form] = this.antd.Form.useForm();
 
-        this.React.useEffect(()=> { 
-          if (this.visibility) form.setFieldsValue(this.initialvalues); 
-          else form.resetFields() 
+        this.React.useEffect(()=> {
+          if (this.visibility) form.setFieldsValue(this.initialvalues);
+          else form.resetFields()
         }, [this.visibility])
-        
+
         return { form }
       `,
     },
@@ -199,6 +213,7 @@ export const modalFormData: NodeReactI = {
         },
       },
       children: [
+        nodeID,
         nodeTypeSelect,
         reactNodeFields,
         treeNodeFields,
