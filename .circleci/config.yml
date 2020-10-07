@@ -6,7 +6,7 @@
 # Success notification is added to end of workflow, while failure notification is added to end of each job.
 
 # Don't run on master
-dev-filters: &dev-filters
+filters-dev: &filters-dev
   filters:
     branches:
       # only: /^test$/
@@ -15,7 +15,7 @@ dev-filters: &dev-filters
 #      ignore: /^staging-/
 
 # Run on master only
-staging-filters: &staging-filters
+filters-staging: &filters-staging
   filters:
     branches:
 #      only: /^master$/
@@ -208,25 +208,9 @@ workflows:
           requires:
             - install-and-build-workspace
       - notify-success:
-          <<: *dev-filters
-          pre-steps:
-            - setup-workspace
-            - run:
-                description: 'Build Lint'
-                command: ./scripts/lint/build.sh
+          <<: *filters-dev
           requires:
-            - install-and-build
-      - test:
-          <<: *filters-staging
-          pre-steps:
-            - setup-workspace
-          requires:
-            - install-and-build
-      - notify-success:
-          <<: *filters-staging
-          requires:
-            - lint
-            - test
+            - install-and-build-workspace
 
   app-staging:
     jobs:
