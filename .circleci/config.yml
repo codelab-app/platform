@@ -9,14 +9,6 @@
 filters-dev: &filters-dev
   filters:
     branches:
-      ignore: /^master$/
-#    tags:
-#      ignore: /^staging-/
-
-# Run on master only
-staging-filters: &staging-filters
-  filters:
-    branches:
       only: /^.*$/
 #      ignore: /^master$/
 #    tags:
@@ -220,38 +212,6 @@ workflows:
           requires:
             - lint
             - test
-  app-prod:
-    jobs:
-      - install-and-build:
-          <<: *staging-filters
-      - lint:
-          <<: *staging-filters
-          pre-steps:
-            - setup-workspace
-            - run:
-                description: 'Build Lint'
-                command: ./scripts/lint/build.sh
-          requires:
-            - install-and-build
-      - test:
-          <<: *staging-filters
-          pre-steps:
-            - setup-workspace
-          requires:
-            - install-and-build
-      - notify-success:
-          <<: *staging-filters
-          pre-steps:
-            - setup-workspace
-          requires:
-            - lint
-            - test
-      - deploy-app:
-          <<: *staging-filters
-          pre-steps:
-            - setup-workspace
-          requires:
-            - notify-success
 
   app-staging:
     jobs:
