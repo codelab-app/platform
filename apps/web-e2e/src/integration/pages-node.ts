@@ -45,7 +45,7 @@ describe('App - Node Page', () => {
           )
         })
     })
-    it('shows "Type" selector when "React" NodeType is selected', () => {
+    it('selects "Type" when "React" NodeType is selected', () => {
       cy.openSelectByLabel(nodeTypeSelectorLabel)
       cy.getSelectDropdownByLabel(nodeTypeSelectorLabel)
         .find('.rc-virtual-list')
@@ -89,6 +89,41 @@ describe('App - Node Page', () => {
             .closest('.ant-select-item')
             .click()
           cy.getSelectedOptionByLabel(typeSelectorLabel).contains(optionText)
+        })
+    })
+
+    it('add custom property', () => {
+      cy.findByModalTitle(createFromModalTitle)
+        .findByButtonText('Add')
+        .should('exist')
+        .click()
+      cy.findByModalTitle(createFromModalTitle)
+        .findByPlaceholderText('Key')
+        .should('exist')
+        .type('name')
+      cy.findByModalTitle(createFromModalTitle)
+        .findByPlaceholderText('Value')
+        .should('exist')
+        .type('react-fragment')
+    })
+
+    it('submit form', () => {
+      cy.server()
+
+      cy.route('POST', '**/Node').as('submitCreateNodeForm')
+
+      cy.findByModalTitle(createFromModalTitle)
+        .findByButtonText('Submit')
+        .should('exist')
+        .click()
+
+      cy.wait('@submitCreateNodeForm')
+        .its('requestBody')
+        .should('deep.equal', {
+          nodeType: 'React',
+          props: [{ key: 'name', value: 'react-fragment' }],
+          parent: null,
+          type: 'React.Fragment',
         })
     })
   })
