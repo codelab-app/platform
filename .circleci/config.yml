@@ -24,6 +24,28 @@ filters-staging: &filters-staging
 #    tags:
 #      only: /^staging-/
 
+executor-params: &executor-params
+  parameters:
+    e:
+      type: executor
+      default: machine-ubuntu
+  executor: << parameters.e >>
+
+executor-config: &executor-config
+  environment:
+    GITHUB_VIEN: VienNguyen24hdev
+    SLACK_VIEN: UBPECLD4P
+    GITHUB_WEBBER: webberwang
+    SLACK_WEBBER: U0J401GAH
+    GITHUB_ALEX: aburtsev
+    SLACK_ALEX: U01APQT5XCH
+    SLACK_CHANNEL_UPDATE: CQVPNKS8K
+    COLOR_SUCCESS: '#b7eb8f'
+    COLOR_FAILURE: '#ffccc7'
+    NODE_OPTIONS: --max_old_space_size=8192
+    NODE_ENV: production
+  working_directory: ~/app
+
 version: 2.1
 
 orbs:
@@ -31,23 +53,15 @@ orbs:
 
 executors:
   machine-ubuntu:
-    environment:
-      GITHUB_VIEN: VienNguyen24hdev
-      SLACK_VIEN: UBPECLD4P
-      GITHUB_WEBBER: webberwang
-      SLACK_WEBBER: U0J401GAH
-      GITHUB_ALEX: aburtsev
-      SLACK_ALEX: U01APQT5XCH
-      SLACK_CHANNEL_UPDATE: CQVPNKS8K
-      COLOR_SUCCESS: '#b7eb8f'
-      COLOR_FAILURE: '#ffccc7'
-      NODE_OPTIONS: --max_old_space_size=8192
-      NODE_ENV: production
-    working_directory: ~/app
+    <<: *executor-config
     machine:
       docker_layer_caching: true
       image: ubuntu-2004:202008-01
     resource_class: large
+  docker-node:
+    <<: *executor-config
+    docker:
+      - image: circleci/node:14-browsers
 
 commands:
   setup-env:
@@ -126,7 +140,7 @@ commands:
 
 jobs:
   install-and-build-workspace:
-    executor: machine-ubuntu
+    <<: *executor-params
     steps:
       - checkout
       - yarn-install-dev
@@ -141,9 +155,9 @@ jobs:
       - notify-failure
 
   lint:
+    <<: *executor-params
     environment:
       CIRCLE_BASE_REVISION: <<pipeline.git.base_revision>>
-    executor: machine-ubuntu
     steps:
       - setup-workspace
       - run: make lint-eslint
@@ -151,14 +165,14 @@ jobs:
       - notify-failure
 
   test:
-    executor: machine-ubuntu
+    <<: *executor-params
     steps:
       - setup-workspace
       - run: make test-ci
       - notify-failure
 
   notify-success:
-    executor: machine-ubuntu
+    <<: *executor-params
     steps:
       - setup-env
       - slack/notify:
@@ -171,7 +185,7 @@ jobs:
             *Message*: $GIT_COMMIT_MSG \n
 
   deploy-app:
-    executor: machine-ubuntu
+    <<: *executor-params
     steps:
       - setup-workspace
       - yarn-install-prod
@@ -186,7 +200,7 @@ jobs:
           command: make docker-push
 
   notify-failure:
-    executor: machine-ubuntu
+    <<: *executor-params
     steps:
       - setup-env
       - slack/status:
@@ -199,16 +213,20 @@ workflows:
     jobs:
       - install-and-build-workspace:
           <<: *filters-dev
+          e: docker-node
       - lint:
           <<: *filters-dev
+          e: docker-node
           requires:
             - install-and-build-workspace
       - test:
           <<: *filters-dev
+          e: docker-node
           requires:
             - install-and-build-workspace
       - notify-success:
           <<: *filters-dev
+          e: docker-node
           requires:
             - lint
             - test
@@ -217,22 +235,8 @@ workflows:
     jobs:
       - install-and-build-workspace:
           <<: *filters-staging
-      # - lint:
-      #     <<: *filters-staging
-      #     requires:
-      #       - install-and-build-workspace
-      # - test:
-      #     <<: *filters-staging
-      #     requires:
-      #       - install-and-build-workspace
-      # - notify-success:
-      #     <<: *filters-staging
-      #     requires:
-      #       - lint
-      #       - test
       - deploy-app:
           <<: *filters-staging
           context: default
           requires:
             - install-and-build-workspace
-            # - notify-success
