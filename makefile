@@ -35,9 +35,9 @@ build-prod:
 
 # local usage
 docker-start:
-	yarn --frozen-lockfile; \
-	make build-prod; \
-	yarn --frozen-lockfile --prod; \
+	# yarn --frozen-lockfile; \
+	# make build-prod; \
+	# yarn --frozen-lockfile --prod;
 	docker-compose \
 	-f .docker/docker-compose.yml \
 	up --build app

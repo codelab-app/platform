@@ -9,7 +9,8 @@
 dev-filters: &dev-filters
   filters:
     branches:
-      ignore: /^master$/
+      # only: /^test$/
+#      ignore: /^master$/
 #    tags:
 #      ignore: /^staging-/
 
@@ -17,7 +18,9 @@ dev-filters: &dev-filters
 staging-filters: &staging-filters
   filters:
     branches:
-      only: /^master$/
+#      only: /^master$/
+      # turn off for now
+      only: /^never$/
 #    tags:
 #      only: /^staging-/
 
