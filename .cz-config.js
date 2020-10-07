@@ -14,11 +14,13 @@ const scopes = glob
 
     return paths.join('-')
   })
+  .concat('libs', 'apps', 'tools')
+  .sort()
   // Get concatenated path names
   .map((name, index) => {
     return {
       value: name,
-      name: `${index + 2}) ${name}`,
+      name: `${index + 1}) ${name}`,
     }
   })
 
@@ -66,7 +68,7 @@ module.exports = {
       name: '12) story:  Storybook examples',
     },
   ],
-  scopes: [{ value: 'libs' }, { value: 'apps' }, { value: 'tools' }, ...scopes],
+  scopes,
   allowTicketNumber: true,
   isTicketNumberRequired: false,
   ticketNumberPrefix: '',
