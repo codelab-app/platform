@@ -210,7 +210,8 @@ workflows:
       - notify-success:
           <<: *filters-dev
           requires:
-            - install-and-build-workspace
+            - lint
+            - test
 
   app-staging:
     jobs:
