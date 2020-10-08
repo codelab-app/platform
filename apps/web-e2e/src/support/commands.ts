@@ -33,10 +33,72 @@ Cypress.Commands.add('login', (email, password) => {
 export const findByButtonText = (
   text: Matcher,
   options?: SelectorMatcherOptions,
-): any => {
+): Cypress.Chainable<JQuery> => {
   return cy
     .findByText(text, { exact: true, timeout: 7000, ...options })
     .closest('button')
 }
 
 Cypress.Commands.add('findByButtonText', findByButtonText)
+
+export const findByModalTitle = (
+  text: Matcher,
+  options?: SelectorMatcherOptions,
+): Cypress.Chainable<JQuery> => {
+  return cy
+    .findByText(text, { exact: true, timeout: 7000, ...options })
+    .closest('.ant-modal-wrap ')
+}
+
+Cypress.Commands.add('findByModalTitle', findByModalTitle)
+
+export const openSelectByLabel = (
+  text: Matcher,
+  options?: SelectorMatcherOptions,
+): Cypress.Chainable<JQuery> => {
+  return cy.findByLabelText(text, options).closest('.ant-select').click()
+}
+
+Cypress.Commands.add('openSelectByLabel', openSelectByLabel)
+
+export const getSelectDropdownByLabel = (
+  text: Matcher,
+  options?: SelectorMatcherOptions,
+): Cypress.Chainable<JQuery> => {
+  // NOTE: the list appears in DOM only after first
+  return cy
+    .findByLabelText(text, options)
+    .invoke('attr', 'aria-owns')
+    .then((optionsListId) => cy.get(`#${optionsListId}`))
+    .closest('.ant-select-dropdown')
+}
+
+Cypress.Commands.add('getSelectDropdownByLabel', getSelectDropdownByLabel)
+
+export const getSelectedOptionByLabel = (
+  text: Matcher,
+  options?: SelectorMatcherOptions,
+): Cypress.Chainable<JQuery> => {
+  // NOTE: the list appears in DOM only after first
+  return cy
+    .findByLabelText(text, options)
+    .closest('.ant-select-selector')
+    .find('.ant-select-selection-item')
+}
+
+Cypress.Commands.add('getSelectedOptionByLabel', getSelectedOptionByLabel)
+
+export const getSelectOptionsContentByLabel = (
+  text: Matcher,
+  options?: SelectorMatcherOptions,
+): Cypress.Chainable<JQuery> => {
+  // NOTE: the list appears in DOM only after first
+  return getSelectDropdownByLabel(text, options).find(
+    '.ant-select-item-option-content',
+  )
+}
+
+Cypress.Commands.add(
+  'getSelectOptionsContentByLabel',
+  getSelectOptionsContentByLabel,
+)
