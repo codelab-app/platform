@@ -1,3 +1,4 @@
+import { DataNode, TreeProps } from 'antd/lib/tree'
 import { Renderer } from '@codelab/core/renderer'
 import type { NodeReactI } from '@codelab/shared/interface/node'
 
@@ -6,16 +7,27 @@ export const nodeTreeData: NodeReactI = {
   props: {
     showLine: true,
     showIcon: true,
-    // onSelect: {
-    //   __type: ['Eval'],
-    //   value: '(values)=>{console.log("node. onSelect"); this.props.onTreeNodeSelected.value(values)}'
-    // },
+    draggable: true,
+    onDrop: {
+      __type: ['Eval'],
+      value: 'return this.ondrop',
+    },
+    onSelect: {
+      __type: ['Eval'],
+      value:
+        'return (values)=>{console.log("node. onSelect"); this.onselect(values)}',
+    },
     treeData: {
       __type: ['Eval'],
-      value: 'return []',
-      // value: 'return this.props.treeDataNodes.value?this.props.treeDataNodes.value:[]',
+      value: 'return this.treedata? this.treedata: []',
     },
   },
 }
 
-export const NodeTree = Renderer.components(nodeTreeData)
+export type NodeTreeProps = {
+  treedata: Array<DataNode>
+  onselect: TreeProps['onSelect']
+  ondrop: TreeProps['onDrop']
+}
+
+export const NodeTree = Renderer.components<NodeTreeProps>(nodeTreeData)

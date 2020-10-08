@@ -56,6 +56,7 @@
     "express": "4.17.1",
     "express-restify-mongoose": "6.1.2",
     "findup-sync": "4.0.0",
+    "highlight.js": "^10.2.1",
     "lodash": "4.17.20",
     "method-override": "3.0.0",
     "mongoose": "5.10.7",
