@@ -29,6 +29,9 @@ export interface Node<
 > extends NodeA<T, P> {
   id: string
   addChild(node: NodeA): void
+  removeChild(node: NodeA): void
+  move(newParent: NodeA): void
+  getRoot(): NodeA
   addParent(node: NodeA): void
   Component: any
   render: any
