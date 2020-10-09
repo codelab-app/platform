@@ -1,23 +1,24 @@
 import {
+  MergeStrategy,
+  Rule,
+  SchematicContext,
+  Tree,
   apply,
   applyTemplates,
   chain,
+  externalSchematic,
   mergeWith,
   move,
-  Rule,
+  noop,
   url,
-  externalSchematic,
-  MergeStrategy,
-  SchematicContext,
-  Tree,
 } from '@angular-devkit/schematics'
 import {
+  Linter,
+  ProjectType,
   names,
   offsetFromRoot,
   projectRootDir,
-  ProjectType,
   toFileName,
-  Linter,
 } from '@nrwl/workspace'
 import { ReactSchematicSchema } from './schema.d'
 
@@ -30,7 +31,7 @@ interface NormalizedSchema extends ReactSchematicSchema {
   projectName: string
   projectRoot: string
   projectDirectory: string
-  parsedTags: string[]
+  parsedTags: Array<string>
 }
 
 const normalizeOptions = (options: ReactSchematicSchema): NormalizedSchema => {
@@ -115,7 +116,7 @@ export default function (options: ReactSchematicSchema): Rule {
      * We want to extend the `@nrwl/react` schematics, and override the eslintrc file.
      */
     createReactLibrary(normalizedOptions),
-    addStorybookConfig(normalizedOptions),
+    options.storybook ? addStorybookConfig(normalizedOptions) : noop(),
     addFiles(normalizedOptions),
     removeFiles(normalizedOptions),
   ])
