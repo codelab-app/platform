@@ -62,6 +62,7 @@ executors:
     <<: *executor-config
     docker:
       - image: circleci/node:14-browsers
+    resource_class: large
 
 commands:
   setup-env:
