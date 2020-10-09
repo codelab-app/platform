@@ -69,6 +69,12 @@ commands:
     description: 'Setup env'
     steps:
       - run:
+          name: 'Setup node options'
+          command: |
+            echo 'export NODE_OPTIONS=$NODE_OPTIONS' >> $BASH_ENV
+            source $BASH_ENV
+            echo $NODE_OPTIONS
+      - run:
           name: 'Setup GIT_COMMIT_MSG'
           command: |
             echo 'export GIT_COMMIT_MSG=$(git log --format="format:%s" -n 1 ${CIRCLE_SHA1})' >> $BASH_ENV
@@ -238,6 +244,6 @@ workflows:
           <<: *filters-staging
       - deploy-app:
           <<: *filters-staging
-          context: default
+          context: credentials-docker
           requires:
             - install-and-build-workspace
