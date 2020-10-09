@@ -149,6 +149,7 @@ jobs:
   install-and-build-workspace:
     <<: *executor-params
     steps:
+      - setup-env
       - checkout
       - yarn-install-dev
       - run:

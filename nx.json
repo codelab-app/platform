@@ -108,6 +108,9 @@
     },
     "state-app": {
       "tags": []
+    },
+    "state-node": {
+      "tags": []
     }
   }
 }

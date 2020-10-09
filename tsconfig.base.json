@@ -57,7 +57,8 @@
       "@codelab/shared/utils": ["libs/shared/utils/src/index.ts"],
       "@codelab/shared/event": ["libs/shared/event/src/index.ts"],
       "@codelab/core/renderer": ["libs/core/renderer/src/index.ts"],
-      "@codelab/state/app": ["libs/state/app/src/index.ts"]
+      "@codelab/state/app": ["libs/state/app/src/index.ts"],
+      "@codelab/state/node": ["libs/state/node/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"]
