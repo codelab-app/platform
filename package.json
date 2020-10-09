@@ -42,6 +42,7 @@
     "@nestjs/core": "7.4.4",
     "@nestjs/mongoose": "7.0.2",
     "@nestjs/platform-express": "7.4.4",
+    "xstate": "4.13.0",
     "@xstate/react": "1.0.1",
     "ajv": "6.12.5",
     "antd": "4.6.6",
@@ -70,8 +71,7 @@
     "reflect-metadata": "0.1.13",
     "rxjs": "6.6.3",
     "uuid": "8.3.0",
-    "voca": "1.4.0",
-    "xstate": "4.13.0"
+    "voca": "1.4.0"
   },
   "devDependencies": {
     "@angular-devkit/core": "10.0.6",

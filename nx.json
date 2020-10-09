@@ -17,7 +17,12 @@
     "default": {
       "runner": "@nrwl/nx-cloud",
       "options": {
-        "cacheableOperations": ["build", "test", "lint", "e2e"],
+        "cacheableOperations": [
+          "build",
+          "test",
+          "lint",
+          "e2e"
+        ],
         "canTrackAnalytics": false,
         "showUsageWarnings": true
       }
@@ -61,7 +66,9 @@
       "tags": []
     },
     "shared-interface-props": {
-      "tags": ["scope:standalone"]
+      "tags": [
+        "scope:standalone"
+      ]
     },
     "shared-interface-model": {
       "tags": []
@@ -110,6 +117,9 @@
       "implicitDependencies": [
         "web"
       ]
+    },
+    "state-app": {
+      "tags": []
     }
   }
 }

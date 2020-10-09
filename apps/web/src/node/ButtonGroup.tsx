@@ -39,7 +39,7 @@ const nodeButtonGroupData: NodeReactI = {
               value: `
                 return () => {
                   console.log(this);
-                  this.setvisibility(true)
+                  this.openmodal()
                 }
               `,
             },
@@ -103,7 +103,7 @@ const nodeButtonGroupData: NodeReactI = {
 }
 
 export type ButtonGroupProps = {
-  setvisibility: Function
+  openmodal: Function
   handledelete: Function
   selectedNode: any
   clearfilter: Function

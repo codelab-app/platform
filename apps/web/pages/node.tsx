@@ -9,9 +9,8 @@ import { BaseNodeType } from '@codelab/shared/interface/node'
 
 const service = new NodeService()
 
-const NodePage = () => {
+const NodePage = (props: any) => {
   const [selectedNode, setSelectedNode] = React.useState(null)
-  const [visibility, setVisibility] = React.useState<boolean>(false)
   const [nodes, setNodes] = React.useState([])
   const [editedNode, setEditedNode] = React.useState<any>(null)
 
@@ -52,7 +51,9 @@ const NodePage = () => {
       newNodes.push(data)
 
       setNodes(newNodes)
-      setVisibility(false)
+      props.sendModal('CLOSE')
+
+      // setVisibility(false)
     }
 
     service.createNode(formData, cb)
@@ -113,16 +114,19 @@ const NodePage = () => {
 
   return (
     <>
+      <p>App state: {JSON.stringify(props.stateApp.value)}</p>
+      <p>Modal state: {JSON.stringify(props.stateModal.value)}</p>
+      <p>Node state: {JSON.stringify(props.stateNode.value)}</p>
       <ButtonGroup
-        setvisibility={setVisibility}
+        openmodal={() => props.sendModal('OPEN')}
         selectedNode={selectedNode}
         handledelete={deleteNode}
         clearfilter={() => setSelectedNode(null)}
       />
       <ModalForm
         handlesubmit={handleCreateNode}
-        visibility={visibility}
-        handlecancel={() => setVisibility(false)}
+        visibility={props.stateModal.context.visible}
+        handlecancel={() => props.sendModal('CLOSE')}
         parentnodes={parentNodes}
         initialvalues={{
           nodeType: BaseNodeType.React,
