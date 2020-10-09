@@ -61,19 +61,11 @@ export const openSelectByLabel = (
 
 Cypress.Commands.add('openSelectByLabel', openSelectByLabel)
 
-export const getSelectDropdownByLabel = (
-  text: Matcher,
-  options?: SelectorMatcherOptions,
-): Cypress.Chainable<JQuery> => {
+export const getSelectDropdown = (): Cypress.Chainable<JQuery> => {
   // NOTE: the list appears in DOM only after first
-  return cy
-    .findByLabelText(text, options)
-    .invoke('attr', 'aria-owns')
-    .then((optionsListId) => cy.get(`#${optionsListId}`))
-    .closest('.ant-select-dropdown')
+  return cy.get('.ant-select-dropdown:not(.ant-select-dropdown-hidden)')
 }
-
-Cypress.Commands.add('getSelectDropdownByLabel', getSelectDropdownByLabel)
+Cypress.Commands.add('getSelectDropdown', getSelectDropdown)
 
 export const getSelectedOptionByLabel = (
   text: Matcher,
@@ -88,17 +80,21 @@ export const getSelectedOptionByLabel = (
 
 Cypress.Commands.add('getSelectedOptionByLabel', getSelectedOptionByLabel)
 
-export const getSelectOptionsContentByLabel = (
-  text: Matcher,
-  options?: SelectorMatcherOptions,
-): Cypress.Chainable<JQuery> => {
+export const getSelectOptionsContent = (): Cypress.Chainable<JQuery> => {
   // NOTE: the list appears in DOM only after first
-  return getSelectDropdownByLabel(text, options).find(
-    '.ant-select-item-option-content',
-  )
+  return getSelectDropdown().find('.ant-select-item-option-content')
 }
 
-Cypress.Commands.add(
-  'getSelectOptionsContentByLabel',
-  getSelectOptionsContentByLabel,
-)
+Cypress.Commands.add('getSelectOptionsContent', getSelectOptionsContent)
+
+export const getSelectOptionItemByValue = (
+  value: Matcher,
+): Cypress.Chainable<JQuery> => {
+  return cy
+    .getSelectDropdown()
+    .find('.rc-virtual-list')
+    .findByText(value)
+    .closest('.ant-select-item')
+}
+
+Cypress.Commands.add('getSelectOptionItemByValue', getSelectOptionItemByValue)

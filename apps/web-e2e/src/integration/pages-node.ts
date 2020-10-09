@@ -6,7 +6,7 @@ describe('App - Node Page', () => {
   const createFromModalTitle = 'Create Node Form'
 
   it(`opens the modal for creating nodes`, () => {
-    cy.findByButtonText('Show Create Node Form').should('exist').click()
+    cy.findByButtonText('Show Create Node Form').click()
     cy.findByModalTitle(createFromModalTitle)
       .should('exist')
       .should('be.visible')
@@ -24,22 +24,16 @@ describe('App - Node Page', () => {
       const visibleOptions = ['React', 'Tree', 'Model']
 
       visibleOptions.forEach((optionName) =>
-        cy
-          .getSelectOptionsContentByLabel(nodeTypeSelectorLabel)
-          .contains(optionName),
+        cy.getSelectOptionsContent().contains(optionName),
       )
 
       // select first unselected item and check that it became selected
-      cy.getSelectDropdownByLabel(nodeTypeSelectorLabel)
-        .find('.ant-select-item[aria-selected="false"]')
+      cy.getSelectDropdown()
+        .findByRole('option', { selected: false })
         .first()
         .invoke('text')
         .then((optionText) => {
-          cy.getSelectDropdownByLabel(nodeTypeSelectorLabel)
-            .find('.rc-virtual-list')
-            .findByText(optionText.trim())
-            .closest('.ant-select-item')
-            .click()
+          cy.getSelectOptionItemByValue(optionText.trim()).click()
           cy.getSelectedOptionByLabel(nodeTypeSelectorLabel).contains(
             optionText,
           )
@@ -47,11 +41,7 @@ describe('App - Node Page', () => {
     })
     it('selects "Type" when "React" NodeType is selected', () => {
       cy.openSelectByLabel(nodeTypeSelectorLabel)
-      cy.getSelectDropdownByLabel(nodeTypeSelectorLabel)
-        .find('.rc-virtual-list')
-        .findByText('React')
-        .closest('.ant-select-item')
-        .click()
+      cy.getSelectOptionItemByValue('React').click()
 
       const typeSelectorLabel = 'Type'
 
@@ -72,31 +62,22 @@ describe('App - Node Page', () => {
       ]
 
       visibleOptions.forEach((optionName) =>
-        cy
-          .getSelectOptionsContentByLabel(typeSelectorLabel)
-          .contains(optionName),
+        cy.getSelectOptionsContent().contains(optionName),
       )
 
       // select first unselected item and check that it became selected
-      cy.getSelectDropdownByLabel(typeSelectorLabel)
-        .find('.ant-select-item[aria-selected="false"]')
+      cy.getSelectDropdown()
+        .findAllByRole('option', { selected: false })
         .first()
         .invoke('text')
         .then((optionText) => {
-          cy.getSelectDropdownByLabel(typeSelectorLabel)
-            .find('.rc-virtual-list')
-            .findByText(optionText.trim())
-            .closest('.ant-select-item')
-            .click()
+          cy.getSelectOptionItemByValue(optionText.trim()).click()
           cy.getSelectedOptionByLabel(typeSelectorLabel).contains(optionText)
         })
     })
 
     it('add custom property', () => {
-      cy.findByModalTitle(createFromModalTitle)
-        .findByButtonText('Add')
-        .should('exist')
-        .click()
+      cy.findByModalTitle(createFromModalTitle).findByButtonText('Add').click()
       cy.findByModalTitle(createFromModalTitle)
         .findByPlaceholderText('Key')
         .should('exist')
@@ -114,7 +95,6 @@ describe('App - Node Page', () => {
 
       cy.findByModalTitle(createFromModalTitle)
         .findByButtonText('Submit')
-        .should('exist')
         .click()
 
       cy.wait('@submitCreateNodeForm')

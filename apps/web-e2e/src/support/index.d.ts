@@ -1,10 +1,11 @@
 import {
   findByButtonText,
   findByModalTitle,
-  getSelectDropdownByLabel,
   openSelectByLabel,
   getSelectedOptionByLabel,
-  getSelectOptionsContentByLabel,
+  getSelectOptionsContent,
+  getSelectDropdown,
+  getSelectOptionItemByValue,
 } from './commands'
 
 declare global {
@@ -13,10 +14,11 @@ declare global {
       login(email: string, password: string): void
       findByButtonText: typeof findByButtonText
       findByModalTitle: typeof findByModalTitle
-      getSelectDropdownByLabel: typeof getSelectDropdownByLabel
       openSelectByLabel: typeof openSelectByLabel
       getSelectedOptionByLabel: typeof getSelectedOptionByLabel
-      getSelectOptionsContentByLabel: typeof getSelectOptionsContentByLabel
+      getSelectOptionsContent: typeof getSelectOptionsContent
+      getSelectDropdown: typeof getSelectDropdown
+      getSelectOptionItemByValue: typeof getSelectOptionItemByValue
     }
   }
 }
