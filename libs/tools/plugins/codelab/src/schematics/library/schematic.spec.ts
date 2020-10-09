@@ -7,7 +7,7 @@ import { ReactSchematicSchema } from './schema.d'
 
 describe('@codelab/tools-plugins-codelab:library', () => {
   let appTree: Tree
-  const options: ReactSchematicSchema = { name: 'test' }
+  const options: ReactSchematicSchema = { name: 'test', storybook: false }
 
   const testRunner = new SchematicTestRunner(
     '@codelab/tools-plugins-codelab',
