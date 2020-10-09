@@ -4,6 +4,8 @@ const fetchNodes = () => {
   return new Promise((resolve) => setTimeout(() => resolve([1, 2, 3]), 1000))
 }
 
+export enum NodeStateName {}
+
 export const machineNode = Machine({
   id: 'node',
   initial: 'idle',

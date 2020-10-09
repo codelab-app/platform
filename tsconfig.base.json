@@ -22,7 +22,6 @@
       "@codelab/api-model": ["libs/api/model/src/index.ts"],
       "@codelab/api-router": ["libs/api/router/src/index.ts"],
       "@codelab/api-restify": ["libs/api/restify/src/index.ts"],
-      "@codelab/factory": ["libs/factory/src/index.ts"],
       "@codelab/api/database": ["libs/api/database/src/index.ts"],
       "@codelab/tools-eslint-config-codelab": [
         "libs/tools/eslint-config-codelab/src/index.ts"

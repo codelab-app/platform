@@ -17,12 +17,7 @@
     "default": {
       "runner": "@nrwl/nx-cloud",
       "options": {
-        "cacheableOperations": [
-          "build",
-          "test",
-          "lint",
-          "e2e"
-        ],
+        "cacheableOperations": ["build", "test", "lint", "e2e"],
         "canTrackAnalytics": false,
         "showUsageWarnings": true
       }
@@ -44,9 +39,6 @@
     "api-restify": {
       "tags": []
     },
-    "factory": {
-      "tags": []
-    },
     "api-database": {
       "tags": []
     },
@@ -66,9 +58,7 @@
       "tags": []
     },
     "shared-interface-props": {
-      "tags": [
-        "scope:standalone"
-      ]
+      "tags": ["scope:standalone"]
     },
     "shared-interface-model": {
       "tags": []
@@ -114,9 +104,7 @@
     },
     "web-e2e": {
       "tags": [],
-      "implicitDependencies": [
-        "web"
-      ]
+      "implicitDependencies": ["web"]
     },
     "state-app": {
       "tags": []
