@@ -2,12 +2,14 @@
 
 .PHONY: %
 
+NODE_OPTIONS_DEV=NODE_OPTIONS=--max-old-space-size=4096
+
 #
 # BUILD
 #
 
 build-dev:
-	@npx nx run-many \
+	$(NODE_OPTIONS_DEV) npx nx run-many \
 	--target=build \
 	--all \
 	--parallel \
@@ -62,17 +64,17 @@ lint-commit-ci:
 	@npx commitlint --from="${CIRCLE_BASE_REVISION}" "$@"
 
 lint-commit-dev:
-	@npx commitlint -E HUSKY_GIT_PARAMS
+	$(NODE_OPTIONS_DEV) npx commitlint -E HUSKY_GIT_PARAMS
 
 lint-eslint:
-	NODE_OPTIONS=--max-old-space-size=8192 node scripts/lint/eslint.js
+	node scripts/lint/eslint.js
 
 #
 # TEST
 #
 
 test-dev:
-	@npx nx run-many \
+	$(NODE_OPTIONS_DEV) npx nx run-many \
 	--target=test \
 	--all \
 	--parallel \

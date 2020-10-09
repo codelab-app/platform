@@ -12,7 +12,7 @@ module.exports = {
       .filter(async (file) => !(await eslint.isPathIgnored(file)))
       .join(' ')
 
-    const cmd = `eslint ${processedFiles} ${rules} --fix`
+    const cmd = `cross-env NODE_OPTIONS=--max-old-space-size=4096 eslint ${processedFiles} ${rules} --fix`
 
     console.log(`Running: ${cmd}`)
 
