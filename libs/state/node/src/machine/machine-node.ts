@@ -1,27 +1,28 @@
 import { Machine, assign } from 'xstate'
+import { ContextNode } from './machine-node--context'
+import { EventNode } from './machine-node--event'
+import { StateNameNode, StateSchemaNode } from './machine-node--state'
 
 const fetchNodes = () => {
   return new Promise((resolve) => setTimeout(() => resolve([1, 2, 3]), 1000))
 }
 
-export enum NodeStateName {}
-
-export const machineNode = Machine({
+export const machineNode = Machine<ContextNode, StateSchemaNode, EventNode>({
   id: 'node',
-  initial: 'idle',
+  initial: StateNameNode.IDLE,
   context: {
     nodes: [],
     node: null,
   },
   states: {
-    idle: {
-      always: [{ target: 'loading', cond: () => true }],
+    [StateNameNode.IDLE]: {
+      always: [{ target: StateNameNode.LOADING, cond: () => true }],
       // after: {
       //   1000: 'loading',
       // },
       on: {
         LOAD: {
-          target: 'loading',
+          target: StateNameNode.LOADING,
           // actions: assign({
           //   nodes: (context: any, event) => {
           //     console.log('loading!')
@@ -32,12 +33,12 @@ export const machineNode = Machine({
         },
       },
     },
-    loading: {
+    [StateNameNode.LOADING]: {
       invoke: {
         id: 'getNodes',
         src: (context, event) => fetchNodes(),
         onDone: {
-          target: 'success',
+          target: StateNameNode.SUCCESS,
           actions: assign({
             nodes: (context, event) => {
               console.log(event)
@@ -47,13 +48,13 @@ export const machineNode = Machine({
           }),
         },
         onError: {
-          target: 'error',
+          target: StateNameNode.ERROR,
         },
       },
     },
-    editing: {},
-    creating: {},
-    error: {},
-    success: {},
+    [StateNameNode.EDITING]: {},
+    [StateNameNode.CREATING]: {},
+    [StateNameNode.ERROR]: {},
+    [StateNameNode.SUCCESS]: {},
   },
 })

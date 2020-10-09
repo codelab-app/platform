@@ -1,56 +1,34 @@
 import { Machine, assign, spawn } from 'xstate'
-import { machineModal } from './machine-modal'
-import { machineNode } from './machine-node'
+import { ContextApp } from './machine-app--context'
+import { EventApp } from './machine-app--event'
+import { StateNameApp, StateSchemaApp } from './machine-app--state'
+import { machineModal } from '@codelab/state/modal'
+import { machineNode } from '@codelab/state/node'
 
-export enum AppStateName {
-  INIT = 'INIT',
-  LOADING = 'LOADING',
-  READY = 'READY',
-}
-
-export interface AppContext {
-  machineModalRef: any
-  machineNodeRef: any
-}
-
-export interface AppStateSchema {
-  states: {
-    [AppStateName.INIT]: object
-    [AppStateName.LOADING]: object
-    [AppStateName.READY]: object
-  }
-}
-
-export enum AppEventName {
-  FETCH_DATA = 'FETCH_DATA',
-}
-
-export type AppEvent = { type: AppEventName.FETCH_DATA }
-
-export const machineApp = Machine<AppContext, AppStateSchema, AppEvent>({
+export const machineApp = Machine<ContextApp, StateSchemaApp, EventApp>({
   id: 'app',
-  initial: AppStateName.INIT,
+  initial: StateNameApp.INIT,
   context: {
     machineModalRef: null,
     machineNodeRef: null,
   },
   states: {
-    [AppStateName.INIT]: {
+    [StateNameApp.INIT]: {
       entry: assign({
         machineModalRef: () => spawn(machineModal),
         machineNodeRef: () => spawn(machineNode),
       }),
       on: {
         '': {
-          target: AppStateName.LOADING,
+          target: StateNameApp.LOADING,
         },
       },
     },
-    [AppStateName.LOADING]: {
+    [StateNameApp.LOADING]: {
       after: {
-        1000: AppStateName.READY,
+        1000: StateNameApp.READY,
       },
     },
-    [AppStateName.READY]: {},
+    [StateNameApp.READY]: {},
   },
 })

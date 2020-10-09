@@ -58,7 +58,8 @@
       "@codelab/shared/event": ["libs/shared/event/src/index.ts"],
       "@codelab/core/renderer": ["libs/core/renderer/src/index.ts"],
       "@codelab/state/app": ["libs/state/app/src/index.ts"],
-      "@codelab/state/node": ["libs/state/node/src/index.ts"]
+      "@codelab/state/node": ["libs/state/node/src/index.ts"],
+      "@codelab/state/modal": ["libs/state/modal/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"]

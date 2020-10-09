@@ -1,1 +1,6 @@
 export * from './machine-app'
+export { EventApp } from './machine-app--event'
+export { EventNameApp } from './machine-app--event'
+export { ContextApp } from './machine-app--context'
+export { StateSchemaApp } from './machine-app--state'
+export { StateNameApp } from './machine-app--state'

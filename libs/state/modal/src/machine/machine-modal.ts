@@ -1,14 +1,17 @@
 import { Machine, assign } from 'xstate'
+import { ContextModal } from './machine-modal--context'
+import { EventModal } from './machine-modal--event'
+import { StateNameModal, StateSchemaModal } from './machine-modal--state'
 
-export const machineModal = Machine(
+export const machineModal = Machine<ContextModal, StateSchemaModal, EventModal>(
   {
     id: 'modal',
-    initial: 'inactive',
+    initial: StateNameModal.INACTIVE,
     context: {
       visible: false,
     },
     states: {
-      inactive: {
+      [StateNameModal.INACTIVE]: {
         entry: ['enterInactive'],
         on: {
           OPEN: {
@@ -23,7 +26,7 @@ export const machineModal = Machine(
           },
         },
       },
-      active: {
+      [StateNameModal.ACTIVE]: {
         on: {
           CLOSE: {
             target: 'inactive',

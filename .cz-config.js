@@ -1,28 +1,44 @@
 const path = require('path')
 const glob = require('glob')
+const R = require('ramda')
 
-const scopes = glob
-  .sync('@(apps|libs)/**/tsconfig.json', {
-    ignore: [
-      '**/node_modules/**/tsconfig.json',
-      '**/.storybook/**/tsconfig.json',
-    ],
-  })
-  // Array of filepaths
-  .map((file) => {
-    const paths = path.dirname(file).split(path.sep)
+const files = glob.sync('@(apps|libs)/**/tsconfig.json', {
+  ignore: [
+    '**/node_modules/**/tsconfig.json',
+    '**/.storybook/**/tsconfig.json',
+  ],
+})
 
-    return paths.join('-')
-  })
-  .concat('libs', 'apps', 'tools')
-  .sort()
-  // Get concatenated path names
-  .map((name, index) => {
+/**
+ * We take the file path and creating array of dirnames. We then create all ordered combinations. We will have duplicates at this point
+ */
+const allPathCombinations = (paths, file) => {
+  // ['libs', 'core', 'node']
+  const pathSepArr = path.dirname(file).split(path.sep)
+
+  // ['libs']
+  // ['libs-core']
+  // ['libs-core-node']
+  const nestedPaths = pathSepArr.reduce((acc, curr, index) => {
+    return [...acc, pathSepArr.slice(0, index + 1).join('-')]
+  }, [])
+
+  return [...paths, ...nestedPaths]
+}
+
+const scopes = R.pipe(
+  R.reduce(allPathCombinations, []),
+  R.sort((a, b) => a.localeCompare(b)),
+  R.uniq,
+  R.addIndex(R.map)((name, index) => {
     return {
       value: name,
       name: `${index + 1}) ${name}`,
     }
-  })
+  }),
+)(files)
+
+// console.log(scopes)
 
 module.exports = {
   types: [
