@@ -1,5 +1,9 @@
+import { EventObject } from 'xstate'
+
 export enum EventNameNode {
   LOAD = 'LOAD',
 }
 
-export type EventNode = { type: EventNameNode.LOAD }
+export interface EventNode extends EventObject {
+  type: EventNameNode.LOAD
+}

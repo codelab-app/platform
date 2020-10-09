@@ -16,7 +16,7 @@ export const machineNode = Machine<ContextNode, StateSchemaNode, EventNode>({
   },
   states: {
     [StateNameNode.IDLE]: {
-      always: [{ target: StateNameNode.LOADING, cond: () => true }],
+      // always: [{ target: StateNameNode.LOADING, cond: () => true }],
       // after: {
       //   1000: 'loading',
       // },

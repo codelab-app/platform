@@ -15,7 +15,7 @@ export const machineModal = Machine<ContextModal, StateSchemaModal, EventModal>(
         entry: ['enterInactive'],
         on: {
           OPEN: {
-            target: 'active',
+            target: StateNameModal.ACTIVE,
             actions: assign({
               visible: (context: any, event) => {
                 console.log('OPEN')
@@ -29,7 +29,7 @@ export const machineModal = Machine<ContextModal, StateSchemaModal, EventModal>(
       [StateNameModal.ACTIVE]: {
         on: {
           CLOSE: {
-            target: 'inactive',
+            target: StateNameModal.INACTIVE,
             actions: assign({
               visible: (context: any, event) => {
                 console.log('CLOSE')

@@ -1,12 +1,10 @@
+import { EventObject } from 'xstate'
+
 export enum EventNameModal {
   OPEN = 'OPEN',
   CLOSE = 'CLOSE',
 }
 
-export type EventModal =
-  | {
-      type: EventNameModal.CLOSE
-    }
-  | {
-      type: EventNameModal.OPEN
-    }
+export interface EventModal extends EventObject {
+  type: EventNameModal.CLOSE | EventNameModal.OPEN
+}

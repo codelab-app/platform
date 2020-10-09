@@ -10,6 +10,7 @@ import { BaseNodeType } from '@codelab/shared/interface/node'
 const service = new NodeService()
 
 const NodePage = (props: any) => {
+  return null
   const [selectedNode, setSelectedNode] = React.useState(null)
   const [nodes, setNodes] = React.useState([])
   const [editedNode, setEditedNode] = React.useState<any>(null)
