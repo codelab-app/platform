@@ -12,41 +12,24 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2017",
-      "dom"
-    ],
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2017", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@codelab/api-config": [
-        "libs/api/config/src/index.ts"
-      ],
-      "@codelab/api-model": [
-        "libs/api/model/src/index.ts"
-      ],
-      "@codelab/api-router": [
-        "libs/api/router/src/index.ts"
-      ],
-      "@codelab/api-restify": [
-        "libs/api/restify/src/index.ts"
-      ],
-      "@codelab/api/database": [
-        "libs/api/database/src/index.ts"
-      ],
+      "@codelab/api-config": ["libs/api/config/src/index.ts"],
+      "@codelab/api-model": ["libs/api/model/src/index.ts"],
+      "@codelab/api-router": ["libs/api/router/src/index.ts"],
+      "@codelab/api-restify": ["libs/api/restify/src/index.ts"],
+      "@codelab/api/database": ["libs/api/database/src/index.ts"],
       "@codelab/tools-eslint-config-codelab": [
         "libs/tools/eslint-config-codelab/src/index.ts"
       ],
       "@codelab/tools-plugins-codelab": [
         "libs/tools/plugins/codelab/src/index.ts"
       ],
-      "@codelab/shared/common": [
-        "libs/shared/common/src/index.ts"
-      ],
+      "@codelab/shared/common": ["libs/shared/common/src/index.ts"],
       "@codelab/shared/interface/node": [
         "libs/shared/interface/node/src/index.ts"
       ],
@@ -62,56 +45,26 @@
       "@codelab/shared/interface/tree": [
         "libs/shared/interface/tree/src/index.ts"
       ],
-      "@codelab/tools-plugins-demo": [
-        "libs/tools/plugins/demo/src/index.ts"
-      ],
-      "@codelab/core/graph": [
-        "libs/core/graph/src/index.ts"
-      ],
-      "@codelab/core/model": [
-        "libs/core/model/src/index.ts"
-      ],
-      "@codelab/core/props": [
-        "libs/core/props/src/index.ts"
-      ],
-      "@codelab/core/node": [
-        "libs/core/node/src/index.ts"
-      ],
-      "@codelab/core/traversal": [
-        "libs/core/traversal/src/index.ts"
-      ],
-      "@codelab/core/tree": [
-        "libs/core/tree/src/index.ts"
-      ],
-      "@codelab/shared/utils": [
-        "libs/shared/utils/src/index.ts"
-      ],
-      "@codelab/shared/event": [
-        "libs/shared/event/src/index.ts"
-      ],
-      "@codelab/core/renderer": [
-        "libs/core/renderer/src/index.ts"
-      ],
-      "@codelab/state/app": [
-        "libs/state/app/src/index.ts"
-      ],
-      "@codelab/state/node": [
-        "libs/state/node/src/index.ts"
-      ],
-      "@codelab/state/modal": [
-        "libs/state/modal/src/index.ts"
-      ],
-      "@codelab/ui/antd": [
-        "libs/ui/antd/src/index.ts"
-      ],
-      "@codelab/ui/d3": [
-        "libs/ui/d3/src/index.ts"
+      "@codelab/tools-plugins-demo": ["libs/tools/plugins/demo/src/index.ts"],
+      "@codelab/core/graph": ["libs/core/graph/src/index.ts"],
+      "@codelab/core/model": ["libs/core/model/src/index.ts"],
+      "@codelab/core/props": ["libs/core/props/src/index.ts"],
+      "@codelab/core/node": ["libs/core/node/src/index.ts"],
+      "@codelab/core/traversal": ["libs/core/traversal/src/index.ts"],
+      "@codelab/core/tree": ["libs/core/tree/src/index.ts"],
+      "@codelab/shared/utils": ["libs/shared/utils/src/index.ts"],
+      "@codelab/shared/event": ["libs/shared/event/src/index.ts"],
+      "@codelab/core/renderer": ["libs/core/renderer/src/index.ts"],
+      "@codelab/state/app": ["libs/state/app/src/index.ts"],
+      "@codelab/state/node": ["libs/state/node/src/index.ts"],
+      "@codelab/state/modal": ["libs/state/modal/src/index.ts"],
+      "@codelab/ui/antd": ["libs/ui/antd/src/index.ts"],
+      "@codelab/ui/d3": ["libs/ui/d3/src/index.ts"],
+      "@codelab/ui/component": ["libs/ui/component/src/index.ts"],
+      "@codelab/shared/interface/component": [
+        "libs/shared/interface/component/src/index.ts"
       ]
     }
   },
-  "exclude": [
-    "node_modules",
-    "tmp",
-    "dist"
-  ]
+  "exclude": ["node_modules", "tmp", "dist"]
 }

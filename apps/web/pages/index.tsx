@@ -10,6 +10,8 @@ const Index = (props: any) => {
   const [stateModal, sendModal] = useActor<EventModal>(machineModal)
   const [stateNode, sendNode] = useActor<EventNode>(machineNode)
 
+  console.log(stateModal)
+
   return (
     <>
       <Button onClick={() => sendNode({ type: EventNameNode.LOAD })}>

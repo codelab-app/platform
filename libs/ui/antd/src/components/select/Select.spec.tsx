@@ -1,7 +1,7 @@
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import { get } from 'lodash'
 import React from 'react'
-import { Form } from '../form/Form.types'
+import { CodelabForm } from '../form'
 import { Default } from './Select.stories'
 import { cLog } from '@codelab/shared/utils'
 
@@ -28,7 +28,7 @@ describe('Select', () => {
       BTC = 'btc',
       ETH = 'eth',
     }
-    const options = Form.createOptions(Object.entries(Coins))
+    const options = CodelabForm.createOptions(Object.entries(Coins))
 
     cLog(options)
 

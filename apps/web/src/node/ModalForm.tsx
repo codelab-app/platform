@@ -4,7 +4,7 @@ import {
   ReactType,
   nodeTypeEntries,
 } from '@codelab/shared/interface/node'
-import { Form } from '@codelab/ui/antd'
+import { CodelabForm } from '@codelab/ui/antd'
 
 const parentNodeSelect: NodeReactI = {
   type: 'React.Form.Item',
@@ -25,7 +25,7 @@ const parentNodeSelect: NodeReactI = {
   ],
 }
 
-const nodeTypeSelect: NodeReactI = Form.createSelect({
+const nodeTypeSelect: NodeReactI = CodelabForm.createSelect({
   label: 'NodeType',
   name: 'nodeType',
   options: nodeTypeEntries,
@@ -55,7 +55,7 @@ const reactNodeFields: NodeReactI = {
     },
   },
   children: [
-    Form.createSelect({
+    CodelabForm.createSelect({
       label: 'Type',
       name: 'type',
       options: Object.entries(ReactType),

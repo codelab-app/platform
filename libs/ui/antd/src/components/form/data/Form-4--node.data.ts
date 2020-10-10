@@ -1,5 +1,6 @@
 import { Button } from '../../button'
 import { Text } from '../../text'
+import { CodelabForm } from '../Form'
 import { Form } from '../Form.types'
 import { NodeReactI, nodeTypeEntries } from '@codelab/shared/interface/node'
 
@@ -14,7 +15,7 @@ export const nodeFormData: NodeReactI<
     onFinish: '() => console.log("good")',
   },
   children: [
-    Form.createSelect({
+    CodelabForm.createSelect({
       label: 'Node Type',
       name: 'node_type',
       options: nodeTypeEntries,
