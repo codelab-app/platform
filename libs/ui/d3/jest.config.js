@@ -1,5 +1,5 @@
 module.exports = {
-  name: 'components-d3',
+  name: 'ui-d3',
   preset: '../../../jest.config.js',
   transform: {
     '^.+\\.[tj]sx?$': [
@@ -8,5 +8,5 @@ module.exports = {
     ],
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'html'],
-  coverageDirectory: '../../../coverage/libs/components/d3',
+  coverageDirectory: '../../../coverage/libs/ui/d3',
 }

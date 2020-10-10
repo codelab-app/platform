@@ -1,7 +1,7 @@
 import { Edge } from './edge'
 import { Vertex } from './vertex'
-import { D3GraphProps } from '@codelab/components/d3'
 import { NodeA, NodeI } from '@codelab/shared/interface/node'
+import { D3GraphProps } from '@codelab/ui/d3'
 
 export type GraphProps = {
   vertices: Array<Vertex>

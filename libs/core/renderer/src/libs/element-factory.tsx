@@ -60,14 +60,6 @@ import {
   Upload,
 } from 'antd'
 import React from 'react'
-import {
-  Button as ButtonTypes,
-  CodelabForm,
-  CodelabHtml,
-  CodelabTable,
-  Grid,
-  Provider,
-} from '@codelab/components/ui'
 import { propsFilter, withFilters } from '@codelab/core/props'
 import { mouseEventHandlerKeys } from '@codelab/shared/event'
 import {
@@ -76,6 +68,14 @@ import {
   NodeFactory,
 } from '@codelab/shared/interface/node'
 import { Props } from '@codelab/shared/interface/props'
+import {
+  Button as ButtonTypes,
+  CodelabForm,
+  CodelabHtml,
+  CodelabTable,
+  Grid,
+  Provider,
+} from '@codelab/ui/antd'
 
 export const elementParameterFactory: NodeFactory<
   ElementParameters<Props>,

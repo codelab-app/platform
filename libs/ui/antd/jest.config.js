@@ -1,5 +1,5 @@
 module.exports = {
-  name: 'components-ui',
+  name: 'ui-antd',
   preset: '../../../jest.config.js',
   transform: {
     '^.+\\.[tj]sx?$': [
@@ -8,5 +8,5 @@ module.exports = {
     ],
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'html'],
-  coverageDirectory: '../../../coverage/libs/components/ui',
+  coverageDirectory: '../../../coverage/libs/ui/antd',
 }
