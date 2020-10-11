@@ -9,15 +9,15 @@ export const machineApp = Machine<ContextApp, StateSchemaApp, EventApp>({
   id: 'app',
   initial: StateNameApp.INIT,
   context: {
-    machineModalRef: null,
-    machineNodeRef: null,
+    modal: null,
+    node: null,
   },
   states: {
     [StateNameApp.INIT]: {
       // always: [{ cond: () => true }],
       entry: assign({
-        machineModalRef: () => spawn(machineModal),
-        machineNodeRef: () => spawn(machineNode),
+        modal: () => spawn(machineModal),
+        node: () => spawn(machineNode),
       }),
       on: {
         [EventNameApp.FETCH_DATA]: {

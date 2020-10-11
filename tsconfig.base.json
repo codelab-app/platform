@@ -63,7 +63,8 @@
       "@codelab/ui/component": ["libs/ui/component/src/index.ts"],
       "@codelab/shared/interface/component": [
         "libs/shared/interface/component/src/index.ts"
-      ]
+      ],
+      "@codelab/ui/hoc": ["libs/ui/hoc/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"]
