@@ -2,16 +2,16 @@
 import React, { FunctionComponent, PropsWithChildren } from 'react'
 import { propsMapLeaf } from '../../../props/src/mapper/Props-map--leaf'
 import { elementParameterFactory } from './element-factory'
+import { NodeEntity } from '@codelab/core/node'
 import { traversePostOrder } from '@codelab/core/traversal'
 import { makeTree } from '@codelab/core/tree'
-import { Node, NodeFactory, NodeI } from '@codelab/shared/interface/node'
-import { Props } from '@codelab/shared/interface/props'
+import { NodeFactory, NodeI } from '@codelab/shared/interface/node'
 
-export const buildComponents = <P extends Props = {}>(
+export const buildComponents = <P extends {} = {}>(
   data: NodeI,
 ): FunctionComponent<PropsWithChildren<P>> => {
   let hasRootChildren = false
-  const root = makeTree(data) as Node
+  const root = makeTree(data) as NodeEntity
 
   /**
    * Called during traversal for each node.
@@ -70,10 +70,12 @@ export const buildComponents = <P extends Props = {}>(
 
     return (
       <root.Component {...props}>
-        {root.Children(
-          rootChildren,
-          root.nextRenderProps(propsMapLeaf(outsideProps)),
-        )}
+        {root.hasChildren()
+          ? root.Children(
+              rootChildren,
+              root.nextRenderProps(propsMapLeaf(outsideProps)),
+            )
+          : rootChildren}
       </root.Component>
     )
   }
