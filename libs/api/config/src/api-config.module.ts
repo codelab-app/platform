@@ -1,15 +1,15 @@
 import * as Joi from '@hapi/joi'
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
-import findConfig from 'findup-sync'
 import configuration from './configuration'
+import { envConfig } from '@codelab/shared/utils'
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
       load: [configuration],
-      envFilePath: findConfig('.env.dev') ?? '',
+      envFilePath: envConfig ?? '',
       validationSchema: Joi.object({
         API_PORT: Joi.string().required(),
         MONGO_ENDPOINT: Joi.string().required(),

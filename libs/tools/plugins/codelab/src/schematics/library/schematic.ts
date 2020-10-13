@@ -20,7 +20,7 @@ import {
   projectRootDir,
   toFileName,
 } from '@nrwl/workspace'
-import { ReactSchematicSchema } from './schema.d'
+import { ReactSchematicSchema } from './schema'
 
 /**
  * Depending on your needs, you can change this to either `Library` or `Application`

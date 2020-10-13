@@ -65,18 +65,11 @@ export class NodeEntity<
    * @param renderProps
    */
   evalProps(renderProps: Props = {}): Props {
-    // console.log('renderProps', propsMapGetter(renderProps))
-    // console.log('current', this.props)
-
-    const props = pipe(
+    return pipe(
       propsFactoryEval(renderProps),
       propsFactoryReact,
       propsMapGetter,
     )(this.props)
-
-    // console.log('evaled', props)
-
-    return props
   }
 
   /**
@@ -85,7 +78,7 @@ export class NodeEntity<
    * @param oldRenderProps
    */
   nextRenderProps(oldRenderProps: Props = {}): Props {
-    const props = pipe(
+    return pipe(
       propsFilterRenderProps,
       propsRemoveSingle,
       propsFactoryEval(oldRenderProps),
@@ -93,10 +86,6 @@ export class NodeEntity<
       ...oldRenderProps,
       ...this.props,
     })
-
-    // console.log('nextRenderProps', props)
-
-    return props
   }
 
   get key(): React.Key {
@@ -176,8 +165,6 @@ export class NodeEntity<
     rootChildren: ReactNode,
     oldRenderProps: Props = {},
   ): ReactNode | Array<ReactNode> {
-    console.log(rootChildren)
-
     const children = reduce<NodeEntity<T, P>, Array<ReactNode>>(
       this.children as Array<any>,
       (Components: Array<ReactNode>, child: NodeEntity) => {

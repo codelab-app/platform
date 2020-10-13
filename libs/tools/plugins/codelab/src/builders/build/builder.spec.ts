@@ -1,8 +1,8 @@
+import { join } from 'path'
 import { Architect } from '@angular-devkit/architect'
 import { TestingArchitectHost } from '@angular-devkit/architect/testing'
 import { schema } from '@angular-devkit/core'
-import { join } from 'path'
-import { BuildBuilderSchema } from './schema.d'
+import { BuildBuilderSchema } from './schema'
 
 const options: BuildBuilderSchema = {}
 

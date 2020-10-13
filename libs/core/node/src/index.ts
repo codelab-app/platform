@@ -1,1 +1,2 @@
-export * from './node-entity'
+export * from './resource'
+export * from './entity'

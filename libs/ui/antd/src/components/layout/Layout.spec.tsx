@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react'
 import React from 'react'
-import { Default, PropLayout } from './Layout.stories'
+import { Default, Layout } from './Layout.stories'
 
 describe('Layout', () => {
   it('should render with text', () => {
@@ -16,7 +16,7 @@ describe('Layout', () => {
   })
 
   it('should render with text', () => {
-    const { getByText } = render(<PropLayout />)
+    const { getByText } = render(<Layout />)
 
     expect(getByText('Option 1')).toBeTruthy()
     expect(getByText('Option 2')).toBeTruthy()

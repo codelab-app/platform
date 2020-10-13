@@ -25,12 +25,16 @@ Everything can be done using an abstracted UI layer (via forms, tables, custom U
   - A JavasScript library for building user interfaces, although we only use `.tsx`
 - [Next.js](https://nextjs.org)
   - A React Framework for server-side rendering (SSR) & other performance optimizations
+- [Rest Hooks](https://resthooks.io)
+  - A repository layer that handles data fetching, caching, validation, data mapping, error handling 
 
 ### Backend
 
-- [Mongoose]()
+- [Mongoose](https://mongoosejs.com)
 - [Nest.js](https://nestjs.com)
   - A Node.js framework suitable for micro-services architecture, which heavily uses OOP principles such as dependency injection (DI)
+- [Express Restify Mongoose](https://florianholzapfel.github.io/express-restify-mongoose)
+  - A wrapper around Mongoose to provide easy to use API endpoints
 
 ### UI
 

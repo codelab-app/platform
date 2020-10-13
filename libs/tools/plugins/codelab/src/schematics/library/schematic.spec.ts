@@ -3,7 +3,7 @@ import { Tree } from '@angular-devkit/schematics'
 import { SchematicTestRunner } from '@angular-devkit/schematics/testing'
 import { createEmptyWorkspace } from '@nrwl/workspace/testing'
 import * as requireFromString from 'require-from-string'
-import { ReactSchematicSchema } from './schema.d'
+import { ReactSchematicSchema } from './schema'
 
 describe('@codelab/tools-plugins-codelab:library', () => {
   let appTree: Tree

@@ -14,7 +14,7 @@ export const Default = () => {
   return <Layout />
 }
 
-export const PropLayout = () => {
+export const Layout = () => {
   const Sidebar = () => (
     <>
       <div className="logo" />
@@ -59,10 +59,10 @@ export const PropLayout = () => {
     sidebar: React.ReactNode
   }
 
-  const Layout = Renderer.components<LayoutProps>(propLayoutData)
+  const LayoutComp = Renderer.components<LayoutProps>(propLayoutData)
 
   return (
-    <Layout
+    <LayoutComp
       header={<Header />}
       content={<Content />}
       footer={<Footer />}

@@ -9,7 +9,7 @@ import { NodeFactory, NodeI } from '@codelab/shared/interface/node'
 
 export const buildComponents = <P extends {} = {}>(
   data: NodeI,
-): FunctionComponent<PropsWithChildren<P>> => {
+): FunctionComponent<P> => {
   let hasRootChildren = false
   const root = makeTree(data) as NodeEntity
 

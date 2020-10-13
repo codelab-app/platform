@@ -8,8 +8,8 @@ import {
 } from 'xstate'
 
 export type ComponentProps<
-  TContext,
-  TEvent extends EventObject
+  TContext = any,
+  TEvent extends EventObject = any
 > = PropsWithChildren<ActorProps<TContext, TEvent>>
 
 export interface ActorProps<TContext, TEvent extends EventObject> {

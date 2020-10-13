@@ -1,6 +1,6 @@
 import { useMachine } from '@xstate/react'
 import React from 'react'
-import { modal, modalButton } from './Modal'
+import { modal, modalButton } from './Modal.data'
 import { Renderer } from '@codelab/core/renderer'
 import { machineApp } from '@codelab/state/app'
 import { machineModal } from '@codelab/state/modal'

@@ -51,6 +51,38 @@ describe('RootChildren', () => {
   // })
 
   /**
+   * Single level wasn't working before, because rootChildren was only called in children reduce
+   */
+  it('renders root children', () => {
+    const dataA: NodeI = {
+      type: 'React.Html.div',
+      props: {
+        'data-testid': 'a',
+      },
+    }
+    const dataB: NodeI = {
+      type: 'React.Html.div',
+      props: {
+        'data-testid': 'b',
+      },
+    }
+
+    const A = Renderer.components(dataA)
+    const B = Renderer.components(dataB)
+
+    const component = render(
+      <A>
+        <B />
+      </A>,
+    )
+
+    const a = component.getByTestId(dataA?.props?.['data-testid'] as string)
+    const b = component.getByTestId(dataB?.props?.['data-testid'] as string)
+
+    expect(a.children[0]).toBe(b)
+  })
+
+  /**
    * <A>
    *   <B>
    *     <C/>
@@ -133,9 +165,9 @@ describe('RootChildren', () => {
       </A>,
     )
 
-    const a = component.getByTestId(dataA.props['data-testid'])
-    const b = component.getAllByTestId(dataB.props['data-testid'])
-    const c = component.getAllByTestId(dataC.props['data-testid'])
+    const a = component.getByTestId(dataA?.props?.['data-testid'] as string)
+    const b = component.getAllByTestId(dataB?.props?.['data-testid'] as string)
+    const c = component.getAllByTestId(dataC?.props?.['data-testid'] as string)
 
     expect(a.children[0].children[0].children[0]).toBe(b[0])
     expect(a.children[1].children[0]).toBe(b[1])

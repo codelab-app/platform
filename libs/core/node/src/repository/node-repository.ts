@@ -26,7 +26,7 @@ export class NodeRepository extends MongooseRepository {
     const data = this.factory.mapData()
 
     return axios
-      .post('Node', data)
+      .post('node', data)
       .then((res) => cb(this.factory.mapRes(res.data)))
   }
 
@@ -35,18 +35,18 @@ export class NodeRepository extends MongooseRepository {
   }
 
   getAll<A = NodeA>(cb: Function): Promise<A> {
-    return axios.get('Node').then((res) => cb(this.factory.mapRes(res.data)))
+    return axios.get('node').then((res) => cb(this.factory.mapRes(res.data)))
   }
 
   update<A = NodeA>(cb: Function): Promise<A> {
     const { id, ...data } = this.factory.mapData()
 
     return axios
-      .patch(`Node/${id}`, data)
+      .patch(`node/${id}`, data)
       .then((res) => cb(this.factory.mapRes(res.data)))
   }
 
   delete<A = NodeA>(id: string, cb: Function): Promise<A> {
-    return axios.delete(`Node/${id}`).then((res) => cb(res.data))
+    return axios.delete(`node/${id}`).then((res) => cb(res.data))
   }
 }

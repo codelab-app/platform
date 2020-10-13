@@ -1,4 +1,4 @@
-import { NodeEntity } from './node-entity'
+import { NodeEntity } from '../entity/node-entity'
 import { NodeFactory } from './node-factory'
 import { NodeCreate } from '@codelab/shared/interface/node'
 
