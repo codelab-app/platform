@@ -165,8 +165,6 @@ export class NodeEntity<
     rootChildren: ReactNode,
     oldRenderProps: Props = {},
   ): ReactNode | Array<ReactNode> {
-    console.log(rootChildren)
-
     const children = reduce<NodeEntity<T, P>, Array<ReactNode>>(
       this.children as Array<any>,
       (Components: Array<ReactNode>, child: NodeEntity) => {
