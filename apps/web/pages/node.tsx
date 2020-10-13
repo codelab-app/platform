@@ -1,14 +1,21 @@
-import React from 'react'
-import { NodeService } from '../../../libs/core/node/src/repository/node-service'
+/* eslint-disable no-underscore-dangle */
+
+import { useActor } from '@xstate/react'
+import React, { useContext } from 'react'
 import { ButtonGroup } from '../src/node/ButtonGroup'
 import { ModalForm } from '../src/node/ModalForm'
 import { Table } from '../src/node/Table'
+import { NodeService } from '@codelab/core/node'
 import { BaseNodeType } from '@codelab/shared/interface/node'
+import { MachineContext } from '@codelab/ui/component'
 
 const service = new NodeService()
 
 const NodePage = (props: any) => {
+  const { app, actors } = useContext(MachineContext)
+  const [stateModal, sendModal] = useActor(actors.modal)
   const [selectedNode, setSelectedNode] = React.useState(null)
+  const [visibility, setVisibility] = React.useState<boolean>(false)
   const [nodes, setNodes] = React.useState([])
   const [editedNode, setEditedNode] = React.useState<any>(null)
 
@@ -49,9 +56,7 @@ const NodePage = (props: any) => {
       newNodes.push(data)
 
       setNodes(newNodes)
-      props.sendModal('CLOSE')
-
-      // setVisibility(false)
+      sendModal({ type: 'CLOSE' })
     }
 
     service.createNode(formData, cb)
@@ -113,16 +118,15 @@ const NodePage = (props: any) => {
   return (
     <>
       <ButtonGroup
-        openmodal={() => props.sendModal('OPEN')}
+        openmodal={() => sendModal('OPEN')}
         selectedNode={selectedNode}
         handledelete={deleteNode}
         clearfilter={() => setSelectedNode(null)}
       />
       <ModalForm
         handlesubmit={handleCreateNode}
-        // visibility={props.stateModal.context.visible}
-        visibility={false}
-        handlecancel={() => props.sendModal('CLOSE')}
+        visibility={stateModal.context.visible}
+        handlecancel={() => sendModal('CLOSE')}
         parentnodes={parentNodes}
         initialvalues={{
           nodeType: BaseNodeType.React,
