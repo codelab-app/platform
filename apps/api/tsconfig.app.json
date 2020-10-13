@@ -6,7 +6,9 @@
     "emitDecoratorMetadata": true,
     "target": "es2015"
   },
-  "files": ["../../types.d.ts"],
+  "files": [
+    "../../types/express-restify-mongoose/index.d.ts"
+  ],
   "exclude": ["**/*.spec.ts"],
   "include": ["**/*.ts"]
 }

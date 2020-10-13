@@ -7,7 +7,8 @@
     "allowSyntheticDefaultImports": true,
     "types": [
       "node",
-      "jest"
+      "jest",
+      "@xstate/react"
     ],
     "strict": true,
     "forceConsistentCasingInFileNames": true,
@@ -18,8 +19,7 @@
   "include": [
     "**/*.ts",
     "**/*.tsx",
-    "next-env.d.ts",
-    "../../types.d.ts"
+    "next-env.d.ts"
   ],
   "exclude": [
     "node_modules"

@@ -4,9 +4,10 @@
     "module": "commonjs",
     "outDir": "../../../dist/out-tsc",
     "declaration": true,
-    "types": ["node"],
+    "types": ["node", "express-restify-mongoose"],
     "target": "es6"
   },
+  "files": [],
   "exclude": ["**/*.spec.ts"],
   "include": ["**/*.ts"]
 }
