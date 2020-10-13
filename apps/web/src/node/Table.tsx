@@ -1,6 +1,5 @@
 import { Renderer } from '@codelab/core/renderer'
-import type { NodeReactI } from '@codelab/shared/interface/node'
-import { nodeTypeLiterals } from '@codelab/shared/interface/node'
+import { NodeReactI, nodeTypeLiterals } from '@codelab/shared/interface/node'
 
 const deleteButton: NodeReactI = {
   type: 'React.Button',

@@ -110,8 +110,6 @@ const NodePage = (props: any) => {
     }),
   ]
 
-  console.log(props)
-
   return (
     <>
       <ButtonGroup

@@ -6,7 +6,29 @@ import {
   MachineContext,
   Modal,
   ModalButton,
+  NodeFormData,
+  Table,
 } from '@codelab/ui/component'
+import { withSuspense } from '@codelab/ui/hoc'
+
+const isServer = typeof window === 'undefined'
+
+const TableNodeWithSuspense = withSuspense(() => (
+  <NodeFormData>
+    {(data) => {
+      console.log(data)
+
+      return (
+        <Table
+          data={data}
+          // selectnode={() => null}
+          // handleedit={() => null}
+          // handledelete={() => null}
+        />
+      )
+    }}
+  </NodeFormData>
+))
 
 // Error: ReactDOMServer does not yet support Suspense.
 // https://github.com/coinbase/rest-hooks/issues/172
@@ -21,6 +43,8 @@ const Index = (props: any) => {
       <Modal actor={actors.modal}>
         <FormNode actor={actors.modal} form={form} />
       </Modal>
+
+      <>{!isServer ? <TableNodeWithSuspense /> : null}</>
 
       <p>Modal state: {JSON.stringify(state.value)}</p>
       <p>Modal context: {JSON.stringify(state.context)}</p>

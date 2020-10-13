@@ -4,7 +4,7 @@ import React from 'react'
 // eslint-disable-next-line import/no-cycle
 import { Renderer } from '@codelab/core/renderer'
 
-export type TableProps<T extends object = any> = AntTableProps<T>
+export type TableProps<T extends any = any> = AntTableProps<T>
 
 type CellProps<T = any> = {
   // title: React.ReactNode
@@ -20,10 +20,32 @@ export namespace CodelabTable {
   export const Default = <T extends object = any>(props: TableProps<T>) => {
     const { dataSource, columns, ...restProps } = props
 
-    // console.log(restProps)
-
     const mappedColumns = columns?.map(({ render, ...column }: any) => {
-      if (render) {
+      console.log(render, typeof render, render?.$$typeof)
+
+      // If is React component
+      // if (React.isValidElement(render)) {
+      // TODO: need better checking for react component here
+      if (typeof render === 'function') {
+        console.log('react element!')
+
+        return {
+          ...column,
+          render: (text: string, record: any, index: number) => {
+            console.log(record)
+
+            // return <Comp {...restProps} record={record} index={index} />
+            return React.createElement(render, {
+              ...restProps,
+              record,
+              index,
+            })
+          },
+        }
+      }
+
+      // If is JSON representation of React component
+      if (typeof render?.type === 'string' && render.type.includes('React.')) {
         return {
           ...column,
           render: (text: string, record: any, index: number) => {
@@ -34,9 +56,7 @@ export namespace CodelabTable {
         }
       }
 
-      return {
-        ...column,
-      }
+      return column
     })
 
     return (
