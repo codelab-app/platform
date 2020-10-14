@@ -1,6 +1,6 @@
 import { reduce } from 'lodash'
 import { pipe } from 'ramda'
-import React, { FunctionComponent, ReactElement, ReactNode } from 'react'
+import React, { ReactElement, ReactNode } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import {
   propsFactoryEval,
@@ -25,7 +25,7 @@ export class NodeEntity<
   T extends NodeTypeLiteral = NodeTypeLiteral,
   P extends Props = any
 > implements Node<T, P> {
-  public Component: FunctionComponent<any> = () => null
+  public Component: ReactElement<any> = React.createElement('')
 
   public id: string
 
@@ -110,10 +110,8 @@ export class NodeEntity<
     }
   }
 
-  public getRoot(node: NodeEntity = this): NodeEntity {
-    return node.parent === undefined
-      ? node
-      : this.getRoot(node.parent as NodeEntity)
+  public getRoot(node: Node<T, P> = this): Node {
+    return node.parent === undefined ? node : this.getRoot(node.parent)
   }
 
   public addParent(parent: Node<T, P>) {
@@ -129,19 +127,6 @@ export class NodeEntity<
    */
   public hasChildren() {
     return !!this.children.length
-  }
-
-  render(
-    Component: any,
-    props: Props,
-    children: ReactNode,
-    hasRootChildren: boolean,
-  ): ReactElement {
-    return this.hasChildren() || hasRootChildren ? (
-      <Component {...props}>{children}</Component>
-    ) : (
-      <Component {...props} />
-    )
   }
 
   /**
@@ -165,27 +150,35 @@ export class NodeEntity<
     rootChildren: ReactNode,
     oldRenderProps: Props = {},
   ): ReactNode | Array<ReactNode> {
+    /**
+     * Handle case where no children exists, since reduce block won't fire
+     */
+    if (rootChildren && !this.hasChildren()) {
+      return rootChildren
+    }
+
+    // If have children
     const children = reduce<NodeEntity<T, P>, Array<ReactNode>>(
       this.children as Array<any>,
       (Components: Array<ReactNode>, child: NodeEntity) => {
         const { Component: Child, key } = child
 
-        let ChildComponent: ReactNode = rootChildren ? (
-          <Child key={key} {...child.evalProps(oldRenderProps)}>
-            {rootChildren}
-          </Child>
-        ) : (
-          <Child key={key} {...child.evalProps(oldRenderProps)} />
-        )
+        let ChildComponent: ReactNode = rootChildren
+          ? React.cloneElement(
+              Child,
+              { key, ...child.evalProps(oldRenderProps) },
+              rootChildren,
+            )
+          : React.cloneElement(Child, {
+              key,
+              ...child.evalProps(oldRenderProps),
+            })
 
         if (child.hasChildren()) {
-          ChildComponent = (
-            <Child key={key} {...child.evalProps(oldRenderProps)}>
-              {child.Children(
-                rootChildren,
-                child.nextRenderProps(oldRenderProps),
-              )}
-            </Child>
+          ChildComponent = React.cloneElement(
+            Child,
+            { key, ...child.evalProps(oldRenderProps) },
+            child.Children(rootChildren, child.nextRenderProps(oldRenderProps)),
           )
         }
 

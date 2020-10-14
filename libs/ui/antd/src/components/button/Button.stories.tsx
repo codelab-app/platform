@@ -9,5 +9,7 @@ export default {
 export const Default = () => {
   const Button = Renderer.components(buttonData)
 
+  console.log(Button)
+
   return <Button />
 }

@@ -2,7 +2,8 @@
 
 .PHONY: %
 
-NODE_OPTIONS_DEV=NODE_OPTIONS=--max-old-space-size=4096
+# NODE_OPTIONS_DEV=NODE_OPTIONS=--max-old-space-size=4096
+NODE_OPTIONS_DEV=NODE_OPTIONS=--max-old-space-size=2048
 
 #
 # BUILD

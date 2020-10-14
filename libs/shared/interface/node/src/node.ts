@@ -34,8 +34,8 @@ export interface Node<
   getRoot(): NodeA
   addParent(node: NodeA): void
   Component: any
-  render: any
   Children: any
+  parent?: Node<T, P>
   // Building props
   evalProps(renderProps: Props): Props
   nextRenderProps(renderProps: Props): Props
