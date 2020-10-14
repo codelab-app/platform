@@ -1,5 +1,6 @@
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
 import { Form as AntForm, Button, Space } from 'antd'
+import { FormProps } from 'antd/lib/form'
 import { StoreValue } from 'rc-field-form/lib/interface'
 import React, { ReactElement } from 'react'
 import { Select } from '../..'
@@ -28,6 +29,28 @@ export interface AntFormListProps {
 
 export type FormListProps = Omit<AntFormListProps, 'children'> & {
   children: Array<React.ReactElement>
+}
+
+// Not used
+const CustomForm: React.FC<FormProps> = ({ children, ...props }: any) => {
+  const [antform] = AntForm.useForm()
+
+  return (
+    <AntForm {...props}>
+      {React.Children.toArray(children).map((child: any, index: number) => {
+        return React.cloneElement(child, {
+          ...child.props,
+          // eslint-disable-next-line react/no-array-index-key
+          key: index,
+          form: {
+            __type: ['Leaf'],
+            value: [antform],
+          },
+        })
+      })}
+      {/* <>{React.cloneElement(children, mergedProps)}</> */}
+    </AntForm>
+  )
 }
 
 const List: React.FC<FormListProps> = ({ children, ...props }) => {
@@ -106,6 +129,8 @@ const ItemHook: React.FC<any> = ({ children, ...props }) => {
 }
 
 export class CodelabForm {
+  static Form = CustomForm
+
   static List = List
 
   static ItemHook = ItemHook

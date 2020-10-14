@@ -12,7 +12,10 @@ export const formDefaultData: NodeReactI<
     initialValues: { select: 'a' },
     onFinish: {
       __type: ['Eval'],
-      value: 'return () => console.log("good")',
+      value: `
+        console.log(this);
+        return () => console.log("good");
+      `,
     },
   },
   children: [
