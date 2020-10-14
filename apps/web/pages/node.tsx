@@ -2,6 +2,7 @@
 
 import { useActor } from '@xstate/react'
 import React, { useContext } from 'react'
+import Highlight from 'react-highlight'
 import { ButtonGroup } from '../src/node/ButtonGroup'
 import { ModalForm } from '../src/node/ModalForm'
 import { Table } from '../src/node/Table'
@@ -117,6 +118,7 @@ const NodePage = (props: any) => {
 
   return (
     <>
+      <Highlight className="json">{JSON.stringify({ a: 1, b: 2 })}</Highlight>
       <ButtonGroup
         openmodal={() => sendModal('OPEN')}
         selectedNode={selectedNode}

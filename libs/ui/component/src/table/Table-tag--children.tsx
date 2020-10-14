@@ -1,4 +1,4 @@
-import { Renderer } from '@codelab/core/renderer'
+import React from 'react'
 import { NodeReactI } from '@codelab/shared/interface/node'
 
 export const tagChildren: NodeReactI = {
@@ -48,4 +48,13 @@ interface TagChildrenProps {
   record: any
 }
 
-export const TagChildren = Renderer.components<TagChildrenProps>(tagChildren)
+// export const TagChildren = Renderer.components<TagChildrenProps>(tagChildren)
+
+export const TagChildren = (props: TagChildrenProps) => {
+  console.log(props)
+  const nodeChildren = props.record?.children ?? []
+
+  return nodeChildren.map((record: any) => {
+    return <p>{record.id}</p>
+  })
+}

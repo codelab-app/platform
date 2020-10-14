@@ -26,8 +26,8 @@ const Index = (props: any) => {
 
   return (
     <>
-      {/* <>{!isServer ? <NodeDetailWithSuspense /> : null}</> */}
-      <>{!isServer ? <NodeListWithSuspense /> : null}</>
+      <>{!isServer ? <NodeDetailWithSuspense /> : null}</>
+      {/* <>{!isServer ? <NodeListWithSuspense /> : null}</> */}
     </>
   )
 }

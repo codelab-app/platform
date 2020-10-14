@@ -1,13 +1,24 @@
-import { Resource } from 'rest-hooks'
+import { AbstractInstanceType, Resource, SimpleRecord } from 'rest-hooks'
 
 export class ResourceNode extends Resource {
   readonly id: string | undefined = undefined
 
   readonly type: string = ''
 
+  readonly children: Array<any> = []
+
   pk(parent: any, key: string): string | undefined {
-    // return this.id?.toString() ?? this._id?.toString()
     return this.id
+  }
+
+  static fromJS<T extends typeof SimpleRecord>(
+    this: T, // Passed automatically
+    props: Partial<AbstractInstanceType<T>> = {},
+  ): any {
+    return super.fromJS<typeof SimpleRecord>({
+      ...props,
+      id: (props as any)._id,
+    })
   }
 
   static formShape<T extends typeof Resource>(this: T) {
@@ -18,13 +29,12 @@ export class ResourceNode extends Resource {
       fetch: async (params: any) => {
         const data: any = await shape.fetch(params)
 
-        console.log(data, typeof data)
-
         const list = data.map((item: any) => {
+          const result = this.fromJS<typeof SimpleRecord>(item) as ResourceNode
+
           return {
-            ...item,
-            id: item._id,
-            key: item._id,
+            ...result,
+            key: result.id,
           }
         })
 
@@ -41,7 +51,7 @@ export class ResourceNode extends Resource {
       fetch: async (params: any) => {
         const data: any = await shape.fetch(params)
 
-        console.log(data, typeof data)
+        console.log(data)
 
         const list = data.map((item: any) => {
           return {
@@ -63,12 +73,9 @@ export class ResourceNode extends Resource {
       fetch: async (params: any) => {
         const data: any = await shape.fetch(params)
 
-        console.log(data, typeof data)
+        const result = this.fromJS<typeof SimpleRecord>(data)
 
-        return {
-          ...data,
-          id: data._id,
-        }
+        return result
       },
     }
   }

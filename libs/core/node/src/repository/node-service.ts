@@ -28,8 +28,8 @@ export class NodeService {
   createNode(data: NodeI, cb: Function) {
     this.validator.addRule(new IsValidCreateDtoModel()).validate(data)
 
-  //   this.factory.setData(data)
-  //   this.factory.setStrategy(new CreateFormStrategy())
+    this.factory.setData(data)
+    this.factory.setStrategy(new CreateFormStrategy())
 
     this.repository.save(cb).catch((err: any) => err)
   }

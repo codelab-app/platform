@@ -21,19 +21,15 @@ export namespace CodelabTable {
     const { dataSource, columns, ...restProps } = props
 
     const mappedColumns = columns?.map(({ render, ...column }: any) => {
-      console.log(render, typeof render, render?.$$typeof)
+      // console.log(render, typeof render, render?.$$typeof)
 
       // If is React component
       // if (React.isValidElement(render)) {
       // TODO: need better checking for react component here
       if (typeof render === 'function') {
-        console.log('react element!')
-
         return {
           ...column,
           render: (text: string, record: any, index: number) => {
-            console.log(record)
-
             // return <Comp {...restProps} record={record} index={index} />
             return React.createElement(render, {
               ...restProps,
