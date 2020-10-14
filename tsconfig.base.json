@@ -64,7 +64,8 @@
       "@codelab/shared/interface/component": [
         "libs/shared/interface/component/src/index.ts"
       ],
-      "@codelab/ui/hoc": ["libs/ui/hoc/src/index.ts"]
+      "@codelab/ui/hoc": ["libs/ui/hoc/src/index.ts"],
+      "@codelab/api/neo4j": ["libs/api/neo4j/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"]
