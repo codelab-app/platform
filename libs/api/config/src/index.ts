@@ -1,2 +1,2 @@
-export * from './config.module'
-export * from './config'
+export * from './api-config.module'
+export * from './configuration'

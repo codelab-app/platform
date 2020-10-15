@@ -126,9 +126,6 @@
     },
     "api-neo4j": {
       "tags": []
-    },
-    "api-graphql": {
-      "tags": []
     }
   }
 }

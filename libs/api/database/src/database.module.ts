@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common'
 import { databaseProviders } from './database.providers'
-import { ConfigModule } from '@codelab/api/config'
+import { ApiConfigModule } from '@codelab/api/config'
 
 @Module({
-  imports: [ConfigModule],
+  imports: [ApiConfigModule],
   providers: [...databaseProviders],
   exports: [...databaseProviders],
 })

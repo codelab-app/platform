@@ -2,11 +2,12 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
-    "types": ["node", "express-restify-mongoose", "neo4j-graphql-js"],
+    "types": ["node"],
     "emitDecoratorMetadata": true,
     "target": "es2015"
   },
   "files": [
+    "../../types/express-restify-mongoose/index.d.ts"
   ],
   "exclude": ["**/*.spec.ts"],
   "include": ["**/*.ts"]
