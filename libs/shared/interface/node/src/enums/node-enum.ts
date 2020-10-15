@@ -9,6 +9,7 @@ export enum BaseNodeType {
   React = 'React',
   Tree = 'Tree',
   Model = 'Model',
+  Field = 'Field',
 }
 
 /**

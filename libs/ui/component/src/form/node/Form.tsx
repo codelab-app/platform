@@ -1,5 +1,6 @@
 import { FormInstance } from 'antd/lib/form'
 import React from 'react'
+import { formLabel } from './Form-label'
 import { nodeID } from './Form-nodeID--text'
 import { nodeTypeSelect } from './Form-nodeType--select'
 import { propsFields } from './Form-props'
@@ -20,11 +21,12 @@ export const formNode: NodeReactI = {
     name: 'create-node-form',
     onFinish: {
       __type: ['Eval'],
-      value: 'return this.handlesubmit',
+      value: 'return this.handleSubmit',
     },
   },
   children: [
     nodeID,
+    formLabel,
     nodeTypeSelect,
     reactNodeFields,
     treeNodeFields,
@@ -37,6 +39,7 @@ export const formNode: NodeReactI = {
 
 interface FormProps {
   form: FormInstance
+  handleSubmit: Function
 }
 
 export const FormNode: React.FC<

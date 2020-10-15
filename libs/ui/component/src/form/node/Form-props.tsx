@@ -4,7 +4,6 @@ export const propsFields: NodeReactI = {
   type: 'React.Form.Item',
   props: {
     label: 'Prop',
-    name: 'prop',
   },
   children: [
     {

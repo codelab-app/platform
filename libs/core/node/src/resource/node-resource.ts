@@ -3,18 +3,22 @@ import { AbstractInstanceType, Resource, SimpleRecord } from 'rest-hooks'
 export class ResourceNode extends Resource {
   readonly id: string | undefined = undefined
 
+  readonly _id: string | undefined = undefined
+
   readonly type: string = ''
 
   readonly children: Array<any> = []
 
   pk(parent: any, key: string): string | undefined {
-    return this.id
+    return this.id ?? this._id
   }
 
   static fromJS<T extends typeof SimpleRecord>(
     this: T, // Passed automatically
     props: Partial<AbstractInstanceType<T>> = {},
   ): any {
+    console.log('fromJS', props)
+
     return super.fromJS<typeof SimpleRecord>({
       ...props,
       id: (props as any)._id,
@@ -73,9 +77,7 @@ export class ResourceNode extends Resource {
       fetch: async (params: any) => {
         const data: any = await shape.fetch(params)
 
-        const result = this.fromJS<typeof SimpleRecord>(data)
-
-        return result
+        return data
       },
     }
   }

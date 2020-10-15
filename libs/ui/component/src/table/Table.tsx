@@ -84,8 +84,8 @@ export const tableData: NodeReactI = {
       //   key: 'action',
       //   render: {
       //     type: 'React.Space',
-      //     children: [buttonEdit, buttonDelete],
-      //     // children: [<ButtonEdit />, <ButtonDelete />],
+      //     // children: [buttonEdit, buttonDelete],
+      //     children: [ButtonEdit, ButtonDelete],
       //   },
       // },
     ],

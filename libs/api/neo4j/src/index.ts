@@ -1,1 +1,1 @@
-export * from './lib/api-neo4j.module'
+export * from './lib'

@@ -8,7 +8,7 @@ import { NestFactory } from '@nestjs/core'
 import bodyParser from 'body-parser'
 import methodOverride from 'method-override'
 import { AppModule } from './app/app.module'
-import { ROUTER_SERVICE } from '@codelab/api-router'
+import { ROUTER_SERVICE } from '@codelab/api/router'
 
 const bootstrap = async () => {
   const app = await NestFactory.create(AppModule)

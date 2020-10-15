@@ -41,7 +41,13 @@ const Index = (props: any) => {
     <>
       <ModalButton actor={actors.modal} />
       <Modal actor={actors.modal}>
-        <FormNode actor={actors.modal} form={form} />
+        <FormNode
+          actor={actors.modal}
+          form={form}
+          handleSubmit={(values: object) => {
+            console.log(values)
+          }}
+        />
       </Modal>
 
       <>{!isServer ? <TableNodeWithSuspense /> : null}</>

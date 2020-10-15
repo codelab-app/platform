@@ -2,12 +2,12 @@ import { Inject, Module } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
 import restify from 'express-restify-mongoose'
 import { Model } from 'mongoose'
-import { Node, NodeModule } from '@codelab/api-model'
+import { Node, NodeModule } from '@codelab/api/model'
 import {
   ROUTER_SERVICE,
   RouterModule,
   RouterService,
-} from '@codelab/api-router'
+} from '@codelab/api/router'
 
 @Module({
   imports: [RouterModule, NodeModule],

@@ -4,11 +4,13 @@ import { MongooseModule } from '@nestjs/mongoose'
 import { AppController } from './app.controller'
 import { AppMiddleware } from './app.middleware'
 import { AppService } from './app.service'
-import { ApiConfigModule } from '@codelab/api-config'
-import { RestifyModule } from '@codelab/api-restify'
+import { ApiConfigModule } from '@codelab/api/config'
+import { Neo4jModule } from '@codelab/api/neo4j'
+import { RestifyModule } from '@codelab/api/restify'
 
 @Module({
   imports: [
+    Neo4jModule,
     ApiConfigModule,
     RestifyModule,
     // RouterModule,
