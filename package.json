@@ -7,7 +7,7 @@
     "nohoist": []
   },
   "engines": {
-    "node": ">=14",
+    "node": ">=13",
     "yarn": ">=1.20.0"
   },
   "version": "0.0.0",
