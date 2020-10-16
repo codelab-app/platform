@@ -1,8 +1,8 @@
 import { FormInstance } from 'antd/lib/form'
 import React from 'react'
-import { formLabel } from './Form-label'
 import { nodeID } from './Form-nodeID--text'
 import { nodeTypeSelect } from './Form-nodeType--select'
+import { parentNodeSelect } from './Form-parentNode'
 import { propsFields } from './Form-props'
 import { reactNodeFields } from './Form-reactNode'
 import { refNodeFields } from './Form-refNode'
@@ -26,13 +26,13 @@ export const formNode: NodeReactI = {
   },
   children: [
     nodeID,
-    formLabel,
+    // formLabel,
     nodeTypeSelect,
     reactNodeFields,
     treeNodeFields,
     refNodeFields,
     propsFields,
-    // parentNodeSelect,
+    parentNodeSelect,
     submitButtonData,
   ],
 }

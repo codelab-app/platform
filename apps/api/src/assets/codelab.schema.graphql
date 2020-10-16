@@ -1,0 +1,10 @@
+enum NodeType {
+  REACT_BUTTON,
+  REACT_DIV
+}
+
+type Node {
+  id: ID
+  type: NodeType
+  props: ID
+}

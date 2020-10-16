@@ -4,7 +4,7 @@ export const formLabel: NodeReactI = {
   type: 'React.Form.Item',
   props: {
     label: 'Label',
-    name: 'lable',
+    name: 'label',
   },
   children: [
     {

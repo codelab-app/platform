@@ -6,23 +6,23 @@ import Highlight from 'react-highlight'
 import { ButtonGroup } from '../src/node/ButtonGroup'
 import { ModalForm } from '../src/node/ModalForm'
 import { Table } from '../src/node/Table'
-import { NodeService } from '@codelab/core/node'
 import { BaseNodeType } from '@codelab/shared/interface/node'
-import { MachineContext } from '@codelab/ui/component'
-
-const service = new NodeService()
+import { MachineContext, NodeServiceContext } from '@codelab/ui/component'
 
 const NodePage = (props: any) => {
   const { app, actors } = useContext(MachineContext)
   const [stateModal, sendModal] = useActor(actors.modal)
   const [selectedNode, setSelectedNode] = React.useState(null)
-  const [visibility, setVisibility] = React.useState<boolean>(false)
   const [nodes, setNodes] = React.useState([])
   const [editedNode, setEditedNode] = React.useState<any>(null)
+  const { nodeService } = useContext(NodeServiceContext)
+
+  console.log(nodeService)
 
   React.useEffect(() => {
     // eslint-disable-next-line no-use-before-define
     fetchNodes()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const fetchNodes = () => {
@@ -30,7 +30,7 @@ const NodePage = (props: any) => {
       setNodes(data)
     }
 
-    service.getNodes(cb)
+    nodeService.getNodes(cb)
   }
 
   const findChildren = (inputNodes: Array<any>) => {
@@ -60,7 +60,7 @@ const NodePage = (props: any) => {
       sendModal({ type: 'CLOSE' })
     }
 
-    service.createNode(formData, cb)
+    nodeService.createNode(formData, cb)
   }
 
   const handleUpdateNode = (formData: any) => {
@@ -77,7 +77,7 @@ const NodePage = (props: any) => {
       setNodes(newNodes)
     }
 
-    service.updateNode(formData, cb)
+    nodeService.updateNode(formData, cb)
   }
 
   const deleteNode = () => {
@@ -89,7 +89,7 @@ const NodePage = (props: any) => {
 
     const cb = () => fetchNodes()
 
-    service.deleteNode(nodeId, cb)
+    nodeService.deleteNode(nodeId, cb)
   }
 
   const showEditModal = (nodeId: any) => {

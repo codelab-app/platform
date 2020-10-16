@@ -1,9 +1,9 @@
 import React from 'react'
-import { Resource, useResource } from 'rest-hooks'
+import { useResource } from 'rest-hooks'
 import { ResourceNode } from '@codelab/core/node'
 
-export type RenderProps<P extends Resource | Array<ResourceNode>> = {
-  children: (props: P) => JSX.Element
+export type RenderProps<P extends object = {}, C extends object = {}> = P & {
+  children: (props: C) => JSX.Element
 }
 
 type NodeDetailProps = {

@@ -1,9 +1,9 @@
-import { Machine, assign } from 'xstate'
+import { InvokeCreator, Machine, assign } from 'xstate'
 import { ContextNode } from './machine-node--context'
 import { EventNode } from './machine-node--event'
 import { StateNameNode, StateSchemaNode } from './machine-node--state'
 
-const fetchNodes = () => {
+const fetchNodes: InvokeCreator<ContextNode, EventNode> = (context, event) => {
   return new Promise((resolve) => setTimeout(() => resolve([1, 2, 3]), 1000))
 }
 
@@ -36,7 +36,7 @@ export const machineNode = Machine<ContextNode, StateSchemaNode, EventNode>({
     [StateNameNode.LOADING]: {
       invoke: {
         id: 'getNodes',
-        src: (context, event) => fetchNodes(),
+        src: fetchNodes,
         onDone: {
           target: StateNameNode.SUCCESS,
           actions: assign({

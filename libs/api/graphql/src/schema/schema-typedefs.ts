@@ -6,7 +6,7 @@ import * as path from 'path'
  *
  * Only `apps/api/src/assets` is built, so our `schema.graphql` is loaded there.
  */
-const schemaPath = path.resolve(__dirname, './assets/schema.graphql')
+const schemaPath = path.resolve(__dirname, './assets/codelab.schema.graphql')
 
 /**
  * We are loading this invalid as a string, which will be merged with neo4j provided typeDefs using `makeAugmentedSchema`.

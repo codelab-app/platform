@@ -12,7 +12,7 @@ export const parentNodeSelect: NodeReactI = {
       props: {
         options: {
           __type: ['Eval'],
-          value: 'return this.parentnodes',
+          value: 'return this.parentnodes ?? []',
         },
       },
     },
