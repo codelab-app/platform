@@ -1,4 +1,4 @@
-import { Mapper } from './mapper'
+import { MapData, Mapper } from './mapper-object'
 
 describe('Mapper', () => {
   it('maps from one shape to another', () => {
@@ -17,7 +17,7 @@ describe('Mapper', () => {
         city: 'New York',
       },
     }
-    const map = [
+    const map: Array<MapData> = [
       ['data.address.street_1', 'address.street'],
       ['data.address.city', 'address.city'],
     ]
