@@ -8,7 +8,7 @@ export type RenderProps<P extends object = {}, C extends object = {}> = P & {
 
 type NodeDetailProps = {
   id: string
-} & RenderProps<ResourceNode>
+} & RenderProps<{}, ResourceNode>
 
 export const NodeDetailData = ({ id, children }: NodeDetailProps) => {
   console.log('node detail')
