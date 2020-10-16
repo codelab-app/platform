@@ -66,7 +66,8 @@
       "@codelab/ui/d3": ["libs/ui/d3/src/index.ts"],
       "@codelab/ui/component": ["libs/ui/component/src/index.ts"],
       "@codelab/ui/hoc": ["libs/ui/hoc/src/index.ts"],
-      "@codelab/api/graphql": ["libs/api/graphql/src/index.ts"]
+      "@codelab/api/graphql": ["libs/api/graphql/src/index.ts"],
+      "@codelab/state/apollo": ["libs/state/apollo/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"]

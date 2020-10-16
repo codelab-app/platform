@@ -33,6 +33,12 @@ build-prod:
     --maxWorkers=4
 
 #
+# Generate
+#
+generate-graphql:
+	@npx graphql-codegen --config codegen.yml
+
+#
 # Docker
 #
 

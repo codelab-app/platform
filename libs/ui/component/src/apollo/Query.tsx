@@ -1,20 +1,21 @@
-import { useQuery } from '@apollo/client'
 import { Spin } from 'antd'
 import { DocumentNode } from 'graphql'
 import React from 'react'
 import { RenderProps } from '../node'
 
+interface QueryProps {
+  // useQuery: (options: QueryHookOptions) => ReturnType<typeof useApolloQuery>
+  useQuery: any
+  gql: DocumentNode
+}
+
 type QueryResult = {
   data: any
 }
 
-interface QueryProps {
-  gql: DocumentNode
-}
-
 export const Query = (props: RenderProps<QueryProps, QueryResult>) => {
-  const { children, gql } = props
-  const { loading, error, data } = useQuery(gql)
+  const { children, useQuery, gql } = props
+  const { loading, error, data } = useQuery({ query: gql })
 
   if (loading) return <Spin />
 

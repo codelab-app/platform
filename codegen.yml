@@ -1,0 +1,16 @@
+overwrite: true
+schema: "http://localhost:3333/graphql"
+documents: "apps/api/src/assets/**/*.graphql"
+generates:
+  # Generate into lib so we can import
+  libs/state/apollo/src/__generated__/types.d.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-react-apollo"
+      - "typescript-graphql-files-modules"
+      # - "typescript-document-nodes"
+      # - "fragment-matcher"
+  # libs/state/apollo/src/__generated__/graphql.schema.json:
+  #   plugins:
+  #     - "introspection"

@@ -1,8 +1,8 @@
 import { useActor } from '@xstate/react'
 import { Button, Form } from 'antd'
 import React, { useContext } from 'react'
-import { NODE_CREATE } from '../../../libs/state/node/src/apollo/mutations'
-import { NODES } from '@codelab/state/node'
+import { useNodesQuery } from '@codelab/state/apollo'
+import { NODES, NODE_CREATE } from '@codelab/state/node'
 import {
   FormNode,
   MachineContext,
@@ -36,7 +36,7 @@ const Graphql = (props: any) => {
           return <Button onClick={() => action()}>Mutate</Button>
         }}
       </Mutation>
-      <Query gql={NODES}>
+      <Query gql={NODES} useQuery={useNodesQuery}>
         {({ data }) => {
           console.log(data)
           // return <FormNode />
