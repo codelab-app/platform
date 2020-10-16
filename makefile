@@ -35,8 +35,13 @@ build-prod:
 #
 # Generate
 #
+
 generate-graphql:
 	@npx graphql-codegen --config codegen.yml
+
+generate-graphql-watch:
+	@npx graphql-codegen --config codegen.yml --watch "apps/api/src/assets/**/*.graphql"
+
 
 #
 # Docker
@@ -101,11 +106,19 @@ test-ci:
 #
 
 start-dev:
-	@npx nx run-many \
-	--target=serve \
-	--projects=web,api \
-	--parallel \
-	"$@"
+	@npx concurrently \
+	--names="start,codegen" \
+		'nx run-many \
+		--target=serve \
+		--projects=web,api \
+		--parallel \
+		"$@"' \
+		'nodemon \
+			--ext graphql \
+			--watch "apps/api/src/assets/**/*.graphql" \
+			--verbose \
+			--exec "wait-on http://localhost:4000 && make generate-graphql"'
+		# Need to wait for graphql server to finish reloading
 
 start-prod:
 	@pm2 startOrReload config/pm2.json

@@ -1,4 +1,10 @@
-import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client'
+import {
+  ApolloClient,
+  ApolloLink,
+  HttpLink,
+  InMemoryCache,
+} from '@apollo/client'
+import { onError } from '@apollo/client/link/error'
 import { concatPagination } from '@apollo/client/utilities'
 import { useMemo } from 'react'
 
@@ -7,14 +13,29 @@ interface CacheShape {}
 
 let apolloClient: ApolloClient<CacheShape>
 
+const errorLink = onError(({ graphQLErrors, networkError }) => {
+  if (graphQLErrors)
+    graphQLErrors.map(({ message, locations, path }) =>
+      console.log(
+        `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
+      ),
+    )
+
+  if (networkError) console.log(`[Network error]: ${networkError}`)
+})
+
+const httpLink = new HttpLink({
+  uri: `${process.env.NEXT_PUBLIC_API_ORIGIN}/graphql`,
+  // Additional fetch() options like `credentials` or `headers`
+  credentials: 'same-origin',
+})
+
+const link = ApolloLink.from([errorLink, httpLink])
+
 const createApolloClient = () => {
   return new ApolloClient({
     ssrMode: typeof window === 'undefined',
-    link: new HttpLink({
-      uri: `${process.env.NEXT_PUBLIC_API_ORIGIN}/graphql`,
-      // Additional fetch() options like `credentials` or `headers`
-      credentials: 'same-origin',
-    }),
+    link,
     cache: new InMemoryCache({
       typePolicies: {
         Query: {

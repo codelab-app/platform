@@ -17,12 +17,10 @@ export enum NodeType {
 }
 
 export type _NodeInput = {
-  id: Scalars['ID'];
+  props: Scalars['ID'];
 };
 
 export enum _NodeOrdering {
-  IdAsc = 'id_asc',
-  IdDesc = 'id_desc',
   TypeAsc = 'type_asc',
   TypeDesc = 'type_desc',
   PropsAsc = 'props_asc',
@@ -34,16 +32,6 @@ export enum _NodeOrdering {
 export type _NodeFilter = {
   AND?: Maybe<Array<_NodeFilter>>;
   OR?: Maybe<Array<_NodeFilter>>;
-  id?: Maybe<Scalars['ID']>;
-  id_not?: Maybe<Scalars['ID']>;
-  id_in?: Maybe<Array<Scalars['ID']>>;
-  id_not_in?: Maybe<Array<Scalars['ID']>>;
-  id_contains?: Maybe<Scalars['ID']>;
-  id_not_contains?: Maybe<Scalars['ID']>;
-  id_starts_with?: Maybe<Scalars['ID']>;
-  id_not_starts_with?: Maybe<Scalars['ID']>;
-  id_ends_with?: Maybe<Scalars['ID']>;
-  id_not_ends_with?: Maybe<Scalars['ID']>;
   type?: Maybe<NodeType>;
   type_not?: Maybe<NodeType>;
   type_in?: Maybe<Array<NodeType>>;
@@ -62,7 +50,6 @@ export type _NodeFilter = {
 
 export type Node = {
   __typename?: 'Node';
-  id?: Maybe<Scalars['ID']>;
   type?: Maybe<NodeType>;
   props?: Maybe<Scalars['ID']>;
   /** Generated field for querying the Neo4j [system id](https://neo4j.com/docs/cypher-manual/current/functions/scalar/#functions-id) of this node. */
@@ -247,7 +234,6 @@ export type Query = {
 
 
 export type QueryNodeArgs = {
-  id?: Maybe<Scalars['ID']>;
   type?: Maybe<NodeType>;
   props?: Maybe<Scalars['ID']>;
   _id?: Maybe<Scalars['String']>;
@@ -271,29 +257,39 @@ export type Mutation = {
 
 
 export type MutationCreateNodeArgs = {
-  id?: Maybe<Scalars['ID']>;
   type?: Maybe<NodeType>;
   props?: Maybe<Scalars['ID']>;
 };
 
 
 export type MutationUpdateNodeArgs = {
-  id: Scalars['ID'];
   type?: Maybe<NodeType>;
-  props?: Maybe<Scalars['ID']>;
+  props: Scalars['ID'];
 };
 
 
 export type MutationDeleteNodeArgs = {
-  id: Scalars['ID'];
+  props: Scalars['ID'];
 };
 
 
 export type MutationMergeNodeArgs = {
-  id: Scalars['ID'];
   type?: Maybe<NodeType>;
-  props?: Maybe<Scalars['ID']>;
+  props: Scalars['ID'];
 };
+
+export type NodeCreateMutationVariables = Exact<{
+  type?: Maybe<NodeType>;
+}>;
+
+
+export type NodeCreateMutation = (
+  { __typename?: 'Mutation' }
+  & { CreateNode?: Maybe<(
+    { __typename?: 'Node' }
+    & Pick<Node, 'type'>
+  )> }
+);
 
 export type NodesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -302,15 +298,46 @@ export type NodesQuery = (
   { __typename?: 'Query' }
   & { Node?: Maybe<Array<Maybe<(
     { __typename?: 'Node' }
-    & Pick<Node, 'id' | 'type'>
+    & Pick<Node, 'type'>
   )>>> }
 );
 
 
+export const NodeCreateDocument = gql`
+    mutation nodeCreate($type: NodeType) {
+  CreateNode(type: $type) {
+    type
+  }
+}
+    `;
+export type NodeCreateMutationFn = Apollo.MutationFunction<NodeCreateMutation, NodeCreateMutationVariables>;
+
+/**
+ * __useNodeCreateMutation__
+ *
+ * To run a mutation, you first call `useNodeCreateMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useNodeCreateMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [nodeCreateMutation, { data, loading, error }] = useNodeCreateMutation({
+ *   variables: {
+ *      type: // value for 'type'
+ *   },
+ * });
+ */
+export function useNodeCreateMutation(baseOptions?: Apollo.MutationHookOptions<NodeCreateMutation, NodeCreateMutationVariables>) {
+        return Apollo.useMutation<NodeCreateMutation, NodeCreateMutationVariables>(NodeCreateDocument, baseOptions);
+      }
+export type NodeCreateMutationHookResult = ReturnType<typeof useNodeCreateMutation>;
+export type NodeCreateMutationResult = Apollo.MutationResult<NodeCreateMutation>;
+export type NodeCreateMutationOptions = Apollo.BaseMutationOptions<NodeCreateMutation, NodeCreateMutationVariables>;
 export const NodesDocument = gql`
     query nodes {
   Node {
-    id
     type
   }
 }
@@ -340,12 +367,3 @@ export function useNodesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Node
 export type NodesQueryHookResult = ReturnType<typeof useNodesQuery>;
 export type NodesLazyQueryHookResult = ReturnType<typeof useNodesLazyQuery>;
 export type NodesQueryResult = Apollo.QueryResult<NodesQuery, NodesQueryVariables>;
-
-declare module '*/operations.graphql' {
-  import { DocumentNode } from 'graphql';
-  const defaultDocument: DocumentNode;
-  export const nodes: DocumentNode;
-
-  export default defaultDocument;
-}
-    

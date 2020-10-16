@@ -1,7 +1,7 @@
 import { useActor } from '@xstate/react'
 import { Button, Form } from 'antd'
 import React, { useContext } from 'react'
-import { useNodesQuery } from '@codelab/state/apollo'
+import { NodeType, useNodesQuery } from '@codelab/state/apollo'
 import { NODES, NODE_CREATE } from '@codelab/state/node'
 import {
   FormNode,
@@ -31,7 +31,7 @@ const Graphql = (props: any) => {
           }}
         />
       </Modal>
-      <Mutation gql={NODE_CREATE} variables={{}}>
+      <Mutation gql={NODE_CREATE} variables={{ type: NodeType.ReactButton }}>
         {({ data, action }) => {
           return <Button onClick={() => action()}>Mutate</Button>
         }}

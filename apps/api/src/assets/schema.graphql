@@ -4,7 +4,6 @@ enum NodeType {
 }
 
 type Node {
-  id: ID
   type: NodeType
   props: ID
 }

@@ -1020,7 +1020,8 @@
           "builder": "@nrwl/next:server",
           "options": {
             "buildTarget": "web:build",
-            "dev": true
+            "dev": true,
+            "port": 3000
           },
           "configurations": {
             "production": {
@@ -1571,6 +1572,18 @@
               "libs/state/apollo/tsconfig.spec.json"
             ],
             "exclude": ["**/node_modules/**", "!libs/state/apollo/**/*"]
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "command": "sleep 30 && make generate-graphql-watch"
+          }
+        },
+        "build": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "command": "make generate-graphql"
           }
         },
         "test": {

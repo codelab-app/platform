@@ -1,16 +1,20 @@
 overwrite: true
-schema: "http://localhost:3333/graphql"
-documents: "apps/api/src/assets/**/*.graphql"
+schema: http://localhost:4000/graphql
+documents: apps/api/src/assets/**/*.graphql
+# documents: libs/state/apollo/src/__generated__/graphql-schema.json
 generates:
   # Generate into lib so we can import
-  libs/state/apollo/src/__generated__/types.d.ts:
+  libs/state/apollo/src/__generated__/graphql-react.ts:
     plugins:
-      - "typescript"
-      - "typescript-operations"
-      - "typescript-react-apollo"
-      - "typescript-graphql-files-modules"
-      # - "typescript-document-nodes"
-      # - "fragment-matcher"
-  # libs/state/apollo/src/__generated__/graphql.schema.json:
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo
+  # libs/state/apollo/src/__generated__/graphql-documents.ts:
   #   plugins:
-  #     - "introspection"
+  #     - typescript
+  #     - typescript-document-nodes
+  #     - typescript-graphql-files-modules
+  #     - fragment-matcher
+  # libs/state/apollo/src/__generated__/graphql-schema.graphql:
+  #   plugins:
+  #     - schema-ast
