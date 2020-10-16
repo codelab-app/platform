@@ -4,20 +4,12 @@ export const resolvers = {
     // Movie(object: any, params: any, ctx: any, resolveInfo: any) {
     //   return neo4jgraphql(object, params, ctx, resolveInfo, true)
     // },
-    // MoviesByYear(object: any, params: any, ctx: any, resolveInfo: any) {
-    //   return neo4jgraphql(object, params, ctx, resolveInfo, true)
-    // },
-    // AllMovies(object: any, params: any, ctx: any, resolveInfo: any) {
-    //   return neo4jgraphql(object, params, ctx, resolveInfo, true)
-    // },
-    // MovieById(object: any, params: any, ctx: any, resolveInfo: any) {
-    //   return neo4jgraphql(object, params, ctx, resolveInfo, true)
-    // },
-    // GenresBySubstring(object: any, params: any, ctx: any, resolveInfo: any) {
-    //   return neo4jgraphql(object, params, ctx, resolveInfo, true)
-    // },
-    // Books(object: any, params: any, ctx: any, resolveInfo: any) {
-    //   return neo4jgraphql(object, params, ctx, resolveInfo, true)
-    // },
+  },
+  Node: {
+    props: async (object: any, params: any, ctx: any, resolveInfo: any) => {
+      console.log(object, params, ctx, resolveInfo)
+
+      console.log('resolving prop')
+    },
   },
 }

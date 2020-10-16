@@ -3,7 +3,11 @@ enum NodeType {
   REACT_DIV
 }
 
+# type Prop {
+#   ref: String
+# }
+
 type Node {
   type: NodeType
-  props: ID
+  props: String
 }

@@ -242,6 +242,16 @@
     core-js "^3.4.0"
     lodash.xorby "^4.7.0"
 
+"@apollo/federation@^0.20.4":
+  version "0.20.4"
+  resolved "https://registry.yarnpkg.com/@apollo/federation/-/federation-0.20.4.tgz#49baf1e94e7b9dea3e3736c9801c7c230157f94f"
+  integrity sha512-A/2BtgSytrrA2nSuCrKIlXYemfMEzCosIOD4vUjK7Y1LvNuPCBxt6mdZ+hjKrfpY4IXhZdgbtHjI5/Q2Pkqsmg==
+  dependencies:
+    apollo-graphql "^0.6.0"
+    apollo-server-env "^2.4.5"
+    core-js "^3.4.0"
+    lodash.xorby "^4.7.0"
+
 "@apollo/gateway@^0.17.0":
   version "0.17.0"
   resolved "https://registry.yarnpkg.com/@apollo/gateway/-/gateway-0.17.0.tgz#beeddd001f9754c00f0cbadc03102989319655ff"

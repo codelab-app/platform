@@ -35,6 +35,7 @@
     "@ant-design/compatible": "1.0.8",
     "@ant-design/icons": "4.2.2",
     "@apollo/client": "^3.2.4",
+    "@apollo/federation": "^0.20.4",
     "@emotion/core": "10.0.35",
     "@emotion/styled": "10.0.27",
     "@hapi/joi": "17.1.1",
