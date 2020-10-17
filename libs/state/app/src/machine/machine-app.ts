@@ -11,12 +11,14 @@ export const machineApp = Machine<ContextApp, StateSchemaApp, EventApp>({
   context: {
     modal: null,
     node: null,
+    layout: null,
   },
   states: {
     [StateNameApp.INIT]: {
       // always: [{ cond: () => true }],
       entry: assign({
         modal: () => spawn(machineModal),
+        layout: () => spawn(machineModal),
         node: () => spawn(machineNode),
       }),
       on: {

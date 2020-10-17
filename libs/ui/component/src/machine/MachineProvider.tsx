@@ -21,6 +21,7 @@ interface MachineContextProps<
   }
   actors: {
     modal: any
+    layout: any
     node: any
   }
 }
@@ -35,6 +36,7 @@ export const MachineContext = React.createContext<
   },
   actors: {
     modal: undefined,
+    layout: undefined,
     node: undefined,
   },
 })
@@ -53,6 +55,7 @@ export const MachineProvider = (
     },
     actors: {
       modal: state.context?.modal,
+      layout: state.context?.layout,
       node: state.context?.node,
     },
   }

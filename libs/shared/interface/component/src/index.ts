@@ -9,8 +9,9 @@ import {
 
 export type ComponentProps<
   TContext = any,
-  TEvent extends EventObject = any
-> = PropsWithChildren<ActorProps<TContext, TEvent>>
+  TEvent extends EventObject = any,
+  TProps = any
+> = PropsWithChildren<ActorProps<TContext, TEvent> & TProps>
 
 export interface ActorProps<TContext, TEvent extends EventObject> {
   actor: Actor<TContext, TEvent>

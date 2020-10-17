@@ -2,6 +2,7 @@ import { useActor } from '@xstate/react'
 import React, { useContext } from 'react'
 import {
   FormNode,
+  Layout,
   MachineContext,
   Modal,
   ModalButton,
@@ -33,24 +34,32 @@ const TableNodeWithSuspense = withSuspense(() => (
 // https://github.com/coinbase/rest-hooks/issues/172
 const Index = (props: any) => {
   const { app, actors } = useContext(MachineContext)
-  const [state, send] = useActor(actors.modal)
+  const [modalState] = useActor(actors.modal)
+  const [layoutState] = useActor(actors.layout)
 
+  // <>{!isServer ? <TableNodeWithSuspense /> : null}</>
   return (
     <>
-      <ModalButton actor={actors.modal} />
-      <Modal actor={actors.modal}>
-        <FormNode
-          actor={actors.modal}
-          handleSubmit={(values: object) => {
-            console.log(values)
-          }}
-        />
-      </Modal>
-
-      <>{!isServer ? <TableNodeWithSuspense /> : null}</>
-
-      <p>Modal state: {JSON.stringify(state.value)}</p>
-      <p>Modal context: {JSON.stringify(state.context)}</p>
+      <Layout
+        actor={actors.layout}
+        content={
+          <>
+            <ModalButton actor={actors.modal} />
+            <Modal actor={actors.modal}>
+              <FormNode
+                actor={actors.modal}
+                handleSubmit={(values: object) => {
+                  console.log(values)
+                }}
+              />
+            </Modal>
+            <p>Modal state: {JSON.stringify(modalState.value)}</p>
+            <p>Modal context: {JSON.stringify(modalState.context)}</p>
+            <p>Layout state: {JSON.stringify(layoutState.value)}</p>
+            <p>Layout context: {JSON.stringify(layoutState.context)}</p>
+          </>
+        }
+      />
     </>
   )
 }

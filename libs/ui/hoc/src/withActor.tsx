@@ -3,9 +3,9 @@ import React from 'react'
 import { EventObject } from 'xstate'
 import { ComponentProps } from '@codelab/shared/interface/component'
 
-export const withActor = <TContext, TEvent extends EventObject>(
-  Component: React.FC<ComponentProps<TContext, TEvent>>,
-) => (props: ComponentProps<TContext, TEvent>) => {
+export const withActor = <TContext, TEvent extends EventObject, TProps = any>(
+  Component: React.FC<ComponentProps<TContext, TEvent, TProps>>,
+) => (props: ComponentProps<TContext, TEvent, TProps>) => {
   const { actor, children } = props
 
   const [state, send] = useActor<TContext, TEvent>(actor)
