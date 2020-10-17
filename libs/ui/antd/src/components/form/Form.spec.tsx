@@ -1,6 +1,6 @@
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import React from 'react'
-import { ConditionalForm, Default, ObjectForm } from './Form.stories'
+import { ConditionalForm, Default, FormHooks, ObjectForm } from './Form.stories'
 
 describe('Form', () => {
   it('should render with labels', () => {
@@ -56,5 +56,23 @@ describe('Form', () => {
     expect(queryByLabelText('Field A')).toBeTruthy()
     expect(queryByLabelText('Field B')).toBeFalsy()
     expect(queryByLabelText('Field C')).toBeFalsy()
+  })
+
+  it('should be able to reset to defaults', async () => {
+    const { getByLabelText, getByText } = render(<FormHooks />)
+
+    const defaultValue = (getByLabelText('Name') as HTMLInputElement).value
+
+    const newValue = 'new value'
+
+    fireEvent.change(getByLabelText('Name') as HTMLInputElement, {
+      target: { value: newValue },
+    })
+    expect((getByLabelText('Name') as HTMLInputElement).value).toBe(newValue)
+
+    fireEvent.click(getByText('Reset'))
+    expect((getByLabelText('Name') as HTMLInputElement).value).toBe(
+      defaultValue,
+    )
   })
 })
