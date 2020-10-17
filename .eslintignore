@@ -11,3 +11,4 @@ public
 *.mp4
 *.log
 !.*
+jest.preset.js

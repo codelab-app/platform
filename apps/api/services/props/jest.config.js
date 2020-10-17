@@ -1,6 +1,5 @@
 module.exports = {
-  name: 'api-services-props',
-  preset: '../../../../jest.config.js',
+  preset: '../../../../jest.preset.js',
   globals: {
     'ts-jest': {
       tsConfig: '<rootDir>/tsconfig.spec.json',
@@ -11,4 +10,5 @@ module.exports = {
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
   coverageDirectory: '../../../../coverage/apps/api/services/props',
+  displayName: 'api-services-props',
 }

@@ -3,7 +3,13 @@
   "compilerOptions": {
     "emitDecoratorMetadata": true
   },
-  "exclude": ["../src/test.ts", "../**/*.spec.ts"],
+  "exclude": [
+    "../src/test.ts",
+    "../**/*.spec.ts",
+    "../**/*.spec.js",
+    "../**/*.spec.tsx",
+    "../**/*.spec.jsx"
+  ],
   "include": ["../src/**/*"],
   "files": [
     "../../../node_modules/@nrwl/react/typings/cssmodule.d.ts",

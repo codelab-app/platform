@@ -103,4 +103,3 @@ overrides:
   - files: ['*.ts']
     rules:
       react/static-property-placement: off
-

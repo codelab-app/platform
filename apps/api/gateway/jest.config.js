@@ -1,5 +1,5 @@
 module.exports = {
-  name: 'api-gateway',
-  preset: '../../../jest.config.js',
+  preset: '../../../jest.preset.js',
   coverageDirectory: '../../../coverage/apps/api/gateway',
+  displayName: 'api-gateway',
 }
