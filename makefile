@@ -26,7 +26,7 @@ build-ci:
 build-prod:
 	@npx nx run-many \
     --target=build \
-    --projects=web,api \
+    --projects=web,api-gateway,api-services-props \
     --with-deps \
     --parallel \
     --skip-nx-cache \
@@ -110,12 +110,12 @@ start-dev:
 	--names="start,codegen" \
 		'nx run-many \
 		--target=serve \
-		--projects=web,api \
+		--projects=web,api-gateway,api-services-props \
 		--parallel \
 		"$@"' \
 		'nodemon \
 			--ext graphql \
-			--watch "apps/api/src/assets/**/*.graphql" \
+			--watch "apps/api/gateway/src/assets/**/*.graphql" \
 			--verbose \
 			--exec "wait-on http://localhost:4000 && make generate-graphql"'
 		# Need to wait for graphql server to finish reloading

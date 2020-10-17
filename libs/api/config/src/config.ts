@@ -1,12 +1,18 @@
 export interface ApiConfig {
-  port: number
+  mongoEndpoint: string
+  'port.gateway': number
+  'port.services.props': number
+  'port.services.user': number
   'neo4j.url': string
   'neo4j.user': string
   'neo4j.pass': string
 }
 
 export const config = () => ({
-  port: process.env.API_PORT,
+  mongoEndpoint: process.env.MONGO_ENDPOINT,
+  'port.gateway': process.env.API_PORT_GATEWAY,
+  'port.services.props': process.env.API_PORT_SERVICES_PROPS,
+  'port.services.user': process.env.API_PORT_SERVICES_USER,
   'neo4j.url': process.env.NEO4J_URL,
   'neo4j.user': process.env.NEO4J_USERNAME,
   'neo4j.pass': process.env.NEO4J_PASSWORD,

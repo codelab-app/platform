@@ -11,7 +11,11 @@ import { envConfig } from '@codelab/shared/utils'
       load: [config],
       envFilePath: envConfig ?? '',
       validationSchema: Joi.object({
-        API_PORT: Joi.string().required(),
+        // Ports
+        API_PORT_GATEWAY: Joi.string().required(),
+        API_PORT_SERVICES_PROPS: Joi.string().required(),
+        API_PORT_SERVICES_USER: Joi.string().required(),
+        // Mongo
         MONGO_ENDPOINT: Joi.string().required(),
         // Neo4j
         NEO4J_URL: Joi.string().required(),

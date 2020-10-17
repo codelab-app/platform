@@ -125,6 +125,7 @@
     "@nrwl/tao": "10.2.1",
     "@nrwl/web": "10.2.1",
     "@nrwl/workspace": "10.2.1",
+    "@prisma/cli": "^2.9.0",
     "@storybook/addon-knobs": "5.3.19",
     "@storybook/react": "5.3.19",
     "@testing-library/cypress": "7.0.1",

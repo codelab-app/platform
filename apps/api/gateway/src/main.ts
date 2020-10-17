@@ -8,12 +8,13 @@ import { NestFactory } from '@nestjs/core'
 import bodyParser from 'body-parser'
 import methodOverride from 'method-override'
 import { AppModule } from './app/app.module'
+import { ApiConfig } from '@codelab/api/config'
 import { ROUTER_SERVICE } from '@codelab/api/router'
 
 const bootstrap = async () => {
   const app = await NestFactory.create(AppModule)
   const { expressRouter } = app.get(ROUTER_SERVICE)
-  const config = app.get(ConfigService)
+  const config: ConfigService<ApiConfig> = app.get(ConfigService)
 
   const globalPrefix = ''
 
@@ -22,7 +23,7 @@ const bootstrap = async () => {
   app.use(methodOverride())
   app.use(expressRouter)
 
-  const port = config.get('port')
+  const port = config.get('port.gateway')
 
   await app.listen(port, () => {
     Logger.log(`Listening at http://localhost:${port}/${globalPrefix}`)

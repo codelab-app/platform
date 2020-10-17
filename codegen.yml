@@ -1,6 +1,6 @@
 overwrite: true
 schema: http://localhost:4000/graphql
-documents: apps/api/src/assets/**/*.graphql
+documents: apps/api/gateway/src/assets/**/*.graphql
 # documents: libs/state/apollo/src/__generated__/graphql-schema.json
 generates:
   # Generate into lib so we can import

@@ -17,7 +17,7 @@ export enum NodeType {
 }
 
 export type _NodeInput = {
-  props: Scalars['ID'];
+  type: NodeType;
 };
 
 export enum _NodeOrdering {
@@ -36,22 +36,22 @@ export type _NodeFilter = {
   type_not?: Maybe<NodeType>;
   type_in?: Maybe<Array<NodeType>>;
   type_not_in?: Maybe<Array<NodeType>>;
-  props?: Maybe<Scalars['ID']>;
-  props_not?: Maybe<Scalars['ID']>;
-  props_in?: Maybe<Array<Scalars['ID']>>;
-  props_not_in?: Maybe<Array<Scalars['ID']>>;
-  props_contains?: Maybe<Scalars['ID']>;
-  props_not_contains?: Maybe<Scalars['ID']>;
-  props_starts_with?: Maybe<Scalars['ID']>;
-  props_not_starts_with?: Maybe<Scalars['ID']>;
-  props_ends_with?: Maybe<Scalars['ID']>;
-  props_not_ends_with?: Maybe<Scalars['ID']>;
+  props?: Maybe<Scalars['String']>;
+  props_not?: Maybe<Scalars['String']>;
+  props_in?: Maybe<Array<Scalars['String']>>;
+  props_not_in?: Maybe<Array<Scalars['String']>>;
+  props_contains?: Maybe<Scalars['String']>;
+  props_not_contains?: Maybe<Scalars['String']>;
+  props_starts_with?: Maybe<Scalars['String']>;
+  props_not_starts_with?: Maybe<Scalars['String']>;
+  props_ends_with?: Maybe<Scalars['String']>;
+  props_not_ends_with?: Maybe<Scalars['String']>;
 };
 
 export type Node = {
   __typename?: 'Node';
   type?: Maybe<NodeType>;
-  props?: Maybe<Scalars['ID']>;
+  props?: Maybe<Scalars['String']>;
   /** Generated field for querying the Neo4j [system id](https://neo4j.com/docs/cypher-manual/current/functions/scalar/#functions-id) of this node. */
   _id?: Maybe<Scalars['String']>;
 };
@@ -235,7 +235,7 @@ export type Query = {
 
 export type QueryNodeArgs = {
   type?: Maybe<NodeType>;
-  props?: Maybe<Scalars['ID']>;
+  props?: Maybe<Scalars['String']>;
   _id?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
@@ -258,24 +258,24 @@ export type Mutation = {
 
 export type MutationCreateNodeArgs = {
   type?: Maybe<NodeType>;
-  props?: Maybe<Scalars['ID']>;
+  props?: Maybe<Scalars['String']>;
 };
 
 
 export type MutationUpdateNodeArgs = {
-  type?: Maybe<NodeType>;
-  props: Scalars['ID'];
+  type: NodeType;
+  props?: Maybe<Scalars['String']>;
 };
 
 
 export type MutationDeleteNodeArgs = {
-  props: Scalars['ID'];
+  type: NodeType;
 };
 
 
 export type MutationMergeNodeArgs = {
-  type?: Maybe<NodeType>;
-  props: Scalars['ID'];
+  type: NodeType;
+  props?: Maybe<Scalars['String']>;
 };
 
 export type NodeCreateMutationVariables = Exact<{

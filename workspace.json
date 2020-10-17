@@ -1,61 +1,6 @@
 {
   "version": 1,
   "projects": {
-    "api": {
-      "root": "apps/api",
-      "sourceRoot": "apps/api/src",
-      "projectType": "application",
-      "prefix": "api",
-      "schematics": {},
-      "architect": {
-        "build": {
-          "builder": "@nrwl/node:build",
-          "options": {
-            "outputPath": "dist/apps/api",
-            "main": "apps/api/src/main.ts",
-            "tsConfig": "apps/api/tsconfig.app.json",
-            "assets": ["apps/api/src/assets"]
-          },
-          "configurations": {
-            "production": {
-              "optimization": true,
-              "extractLicenses": true,
-              "inspect": false,
-              "fileReplacements": [
-                {
-                  "replace": "apps/api/src/environments/environment.ts",
-                  "with": "apps/api/src/environments/environment.prod.ts"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "builder": "@nrwl/node:execute",
-          "options": {
-            "buildTarget": "api:build"
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:lint",
-          "options": {
-            "linter": "eslint",
-            "tsConfig": [
-              "apps/api/tsconfig.app.json",
-              "apps/api/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!apps/api/**/*"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "apps/api/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
     "api-config": {
       "root": "libs/api/config",
       "sourceRoot": "libs/api/config/src",
@@ -1021,7 +966,9 @@
           "options": {
             "buildTarget": "web:build",
             "dev": true,
-            "port": 3000
+            "port": 3000,
+            "maxWorkers": 4,
+            "memoryLimit": 2048
           },
           "configurations": {
             "production": {
@@ -1590,6 +1537,197 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/state/apollo/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "api-gateway": {
+      "root": "apps/api/gateway",
+      "sourceRoot": "apps/api/gateway/src",
+      "projectType": "application",
+      "prefix": "api",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/api/gateway",
+            "main": "apps/api/gateway/src/main.ts",
+            "tsConfig": "apps/api/gateway/tsconfig.app.json",
+            "assets": ["apps/api/gateway/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/api/gateway/src/environments/environment.ts",
+                  "with": "apps/api/gateway/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "api-gateway:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "apps/api/gateway/tsconfig.app.json",
+              "apps/api/gateway/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/api/gateway/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/api/gateway/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "api-services-props": {
+      "root": "apps/api/services/props",
+      "sourceRoot": "apps/api/services/props/src",
+      "projectType": "application",
+      "prefix": "services-props",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/api/services/props",
+            "main": "apps/api/services/props/src/main.ts",
+            "tsConfig": "apps/api/services/props/tsconfig.app.json",
+            "assets": ["apps/api/services/props/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/api/services/props/src/environments/environment.ts",
+                  "with": "apps/api/services/props/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "api-services-props:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "apps/api/services/props/tsconfig.app.json",
+              "apps/api/services/props/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/api/services/props/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/api/services/props/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "api-services-user": {
+      "root": "apps/api/services/user",
+      "sourceRoot": "apps/api/services/user/src",
+      "projectType": "application",
+      "prefix": "api-services-user",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/api/services/user",
+            "main": "apps/api/services/user/src/main.ts",
+            "tsConfig": "apps/api/services/user/tsconfig.app.json",
+            "assets": ["apps/api/services/user/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/api/services/user/src/environments/environment.ts",
+                  "with": "apps/api/services/user/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "api-services-user:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "apps/api/services/user/tsconfig.app.json",
+              "apps/api/services/user/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/api/services/user/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/api/services/user/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "api-prisma": {
+      "root": "libs/api/prisma",
+      "sourceRoot": "libs/api/prisma/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "libs/api/prisma/tsconfig.lib.json",
+              "libs/api/prisma/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/api/prisma/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/api/prisma/jest.config.js",
             "passWithNoTests": true
           }
         }

@@ -8,7 +8,7 @@ export class AppService {
 
   getData(): { message: string } {
     return {
-      message: `Welcome to api ${this.config.get<number>('port')}`,
+      message: `Welcome to api ${this.config.get<number>('port.gateway')}`,
     }
   }
 }
