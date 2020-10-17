@@ -113,7 +113,7 @@ start-dev:
 	--names="start,codegen" \
 		'nx run-many \
 		--target=serve \
-		--projects=web,api-gateway,api-services-props \
+		--projects=web,api-gateway,api-services-props,api-services-graph \
 		--parallel \
 		"$@"' \
 		'nodemon \

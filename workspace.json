@@ -85,62 +85,6 @@
         }
       }
     },
-    "api-restify": {
-      "root": "libs/api/restify",
-      "sourceRoot": "libs/api/restify/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/api/restify/**/*.ts",
-              "libs/api/restify/**/*.spec.ts",
-              "libs/api/restify/**/*.spec.tsx",
-              "libs/api/restify/**/*.spec.js",
-              "libs/api/restify/**/*.spec.jsx",
-              "libs/api/restify/**/*.d.ts"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/api/restify/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "api-database": {
-      "root": "libs/api/database",
-      "sourceRoot": "libs/api/database/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/api/database/**/*.ts",
-              "libs/api/database/**/*.spec.ts",
-              "libs/api/database/**/*.spec.tsx",
-              "libs/api/database/**/*.spec.js",
-              "libs/api/database/**/*.spec.jsx",
-              "libs/api/database/**/*.d.ts"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/api/database/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
     "tools-eslint-config-codelab": {
       "root": "libs/tools/eslint-config-codelab",
       "sourceRoot": "libs/tools/eslint-config-codelab/src",
@@ -1564,63 +1508,6 @@
         }
       }
     },
-    "api-neo4j": {
-      "root": "libs/api/neo4j",
-      "sourceRoot": "libs/api/neo4j/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/api/neo4j/**/*.ts",
-              "libs/api/neo4j/**/*.spec.ts",
-              "libs/api/neo4j/**/*.spec.tsx",
-              "libs/api/neo4j/**/*.spec.js",
-              "libs/api/neo4j/**/*.spec.jsx",
-              "libs/api/neo4j/**/*.d.ts"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/api/neo4j/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "api-graphql": {
-      "root": "libs/api/graphql",
-      "sourceRoot": "libs/api/graphql/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/api/graphql/**/*.ts",
-              "libs/api/graphql/**/*.graphql",
-              "libs/api/graphql/**/*.spec.ts",
-              "libs/api/graphql/**/*.spec.tsx",
-              "libs/api/graphql/**/*.spec.js",
-              "libs/api/graphql/**/*.spec.jsx",
-              "libs/api/graphql/**/*.d.ts"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/api/graphql/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
     "state-apollo": {
       "root": "libs/state/apollo",
       "sourceRoot": "libs/state/apollo/src",
@@ -1822,9 +1709,9 @@
         }
       }
     },
-    "api-prisma": {
-      "root": "libs/api/prisma",
-      "sourceRoot": "libs/api/prisma/src",
+    "api-drivers-neo4j": {
+      "root": "libs/api/drivers/neo4j",
+      "sourceRoot": "libs/api/drivers/neo4j/src",
       "projectType": "library",
       "schematics": {},
       "architect": {
@@ -1832,19 +1719,182 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
-              "libs/api/prisma/**/*.ts",
-              "libs/api/prisma/**/*.spec.ts",
-              "libs/api/prisma/**/*.spec.tsx",
-              "libs/api/prisma/**/*.spec.js",
-              "libs/api/prisma/**/*.spec.jsx",
-              "libs/api/prisma/**/*.d.ts"
+              "libs/api/drivers/neo4j/**/*.ts",
+              "libs/api/drivers/neo4j/**/*.spec.ts",
+              "libs/api/drivers/neo4j/**/*.spec.tsx",
+              "libs/api/drivers/neo4j/**/*.spec.js",
+              "libs/api/drivers/neo4j/**/*.spec.jsx",
+              "libs/api/drivers/neo4j/**/*.d.ts"
             ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/api/prisma/jest.config.js",
+            "jestConfig": "libs/api/drivers/neo4j/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "api-drivers-prisma": {
+      "root": "libs/api/drivers/prisma",
+      "sourceRoot": "libs/api/drivers/prisma/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/api/drivers/prisma/**/*.ts",
+              "libs/api/drivers/prisma/**/*.spec.ts",
+              "libs/api/drivers/prisma/**/*.spec.tsx",
+              "libs/api/drivers/prisma/**/*.spec.js",
+              "libs/api/drivers/prisma/**/*.spec.jsx",
+              "libs/api/drivers/prisma/**/*.d.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/api/drivers/prisma/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "api-drivers-restify": {
+      "root": "libs/api/drivers/restify",
+      "sourceRoot": "libs/api/drivers/restify/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/api/drivers/restify/**/*.ts",
+              "libs/api/drivers/restify/**/*.spec.ts",
+              "libs/api/drivers/restify/**/*.spec.tsx",
+              "libs/api/drivers/restify/**/*.spec.js",
+              "libs/api/drivers/restify/**/*.spec.jsx",
+              "libs/api/drivers/restify/**/*.d.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/api/drivers/restify/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "api-drivers-graphql": {
+      "root": "libs/api/drivers/graphql",
+      "sourceRoot": "libs/api/drivers/graphql/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/api/drivers/graphql/**/*.ts",
+              "libs/api/drivers/graphql/**/*.graphql",
+              "libs/api/drivers/graphql/**/*.spec.ts",
+              "libs/api/drivers/graphql/**/*.spec.tsx",
+              "libs/api/drivers/graphql/**/*.spec.js",
+              "libs/api/drivers/graphql/**/*.spec.jsx",
+              "libs/api/drivers/graphql/**/*.d.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/api/drivers/graphql/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "api-drivers-database": {
+      "root": "libs/api/drivers/database",
+      "sourceRoot": "libs/api/drivers/database/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/api/drivers/database/**/*.ts",
+              "libs/api/drivers/database/**/*.spec.ts",
+              "libs/api/drivers/database/**/*.spec.tsx",
+              "libs/api/drivers/database/**/*.spec.js",
+              "libs/api/drivers/database/**/*.spec.jsx",
+              "libs/api/drivers/database/**/*.d.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/api/drivers/database/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "api-services-graph": {
+      "root": "apps/api/services/graph",
+      "sourceRoot": "apps/api/services/graph/src",
+      "projectType": "application",
+      "prefix": "api-services-graph",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/api/services/graph",
+            "main": "apps/api/services/graph/src/main.ts",
+            "tsConfig": "apps/api/services/graph/tsconfig.app.json",
+            "assets": ["apps/api/services/graph/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/api/services/graph/src/environments/environment.ts",
+                  "with": "apps/api/services/graph/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "api-services-graph:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/api/services/graph/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/api/services/graph/jest.config.js",
             "passWithNoTests": true
           }
         }

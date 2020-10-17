@@ -1,0 +1,5 @@
+mutation nodeCreate($type: NodeType) {
+  CreateNode(type: $type) {
+    type
+  }
+}

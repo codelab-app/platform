@@ -4,7 +4,7 @@ import { MongooseModule } from '@nestjs/mongoose'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { ApiConfig, ConfigModule } from '@codelab/api/config'
-import { RestifyModule } from '@codelab/api/restify'
+import { RestifyModule } from '@codelab/api/drivers/restify'
 
 @Module({
   imports: [

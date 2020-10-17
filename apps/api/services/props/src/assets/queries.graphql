@@ -1,0 +1,12 @@
+query nodes {
+  Node {
+    type
+  }
+}
+
+
+
+
+
+
+

@@ -10,7 +10,7 @@ const bootstrap = async () => {
   const globalPrefix = ''
 
   app.setGlobalPrefix(globalPrefix)
-  const port = config.get('port.services.user')
+  const port = config.get('port.services.graph')
 
   await app.listen(port, () => {
     Logger.log(`Listening at http://localhost:${port}/${globalPrefix}`)

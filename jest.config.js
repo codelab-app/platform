@@ -39,5 +39,6 @@ module.exports = {
     '<rootDir>/apps/api/services/user',
     '<rootDir>/libs/api/prisma',
     '<rootDir>/libs/state/ui',
+    '<rootDir>/apps/api/services/graph',
   ],
 }

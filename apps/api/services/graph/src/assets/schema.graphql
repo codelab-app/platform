@@ -1,0 +1,14 @@
+enum NodeType {
+  REACT_BUTTON,
+  REACT_DIV
+}
+
+# type Prop {
+#   ref: String
+# }
+
+type Node @key(fields: "id") {
+  id: ID!
+  type: NodeType
+  props: String
+}

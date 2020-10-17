@@ -15,6 +15,7 @@ import { envConfig } from '@codelab/shared/utils'
         API_PORT_GATEWAY: Joi.string().required(),
         API_PORT_SERVICES_PROPS: Joi.string().required(),
         API_PORT_SERVICES_USER: Joi.string().required(),
+        API_PORT_SERVICES_GRAPH: Joi.string().required(),
         // Mongo
         MONGO_ENDPOINT: Joi.string().required(),
         // Neo4j
