@@ -1,4 +1,3 @@
-import { FormInstance } from 'antd/lib/form'
 import React from 'react'
 import { nodeID } from './Form-nodeID--text'
 import { nodeTypeSelect } from './Form-nodeType--select'
@@ -15,30 +14,47 @@ import { ContextModal, EventModal } from '@codelab/state/modal'
 import { withActor } from '@codelab/ui/hoc'
 
 export const formNode: NodeReactI = {
-  type: 'React.Form',
+  type: 'React.Fragment',
   props: {
-    form: { __type: ['Eval'], value: 'return this.form' },
-    name: 'create-node-form',
-    onFinish: {
-      __type: ['Eval'],
-      value: 'return this.handleSubmit',
+    form: {
+      __type: ['Eval', 'Single'],
+      value: `
+        const [form] = this.antd.Form.useForm();
+        return form
+        `,
     },
   },
   children: [
-    nodeID,
-    // formLabel,
-    nodeTypeSelect,
-    reactNodeFields,
-    treeNodeFields,
-    refNodeFields,
-    propsFields,
-    parentNodeSelect,
-    submitButtonData,
+    {
+      type: 'React.Form',
+      props: {
+        form: {
+          __type: ['Eval', 'Leaf'],
+          value: 'return this.form',
+        },
+        name: 'create-node-form',
+        onFinish: {
+          __type: ['Eval'],
+          value:
+            'return (values)=>{this.handleSubmit(values); this.form.resetFields();}',
+        },
+      },
+      children: [
+        nodeID,
+        // formLabel,
+        nodeTypeSelect,
+        reactNodeFields,
+        treeNodeFields,
+        refNodeFields,
+        propsFields,
+        parentNodeSelect,
+        submitButtonData,
+      ],
+    },
   ],
 }
 
 interface FormProps {
-  form: FormInstance
   handleSubmit: Function
 }
 

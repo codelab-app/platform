@@ -1,5 +1,4 @@
 import { useActor } from '@xstate/react'
-import { Form } from 'antd'
 import React, { useContext } from 'react'
 import {
   FormNode,
@@ -35,7 +34,6 @@ const TableNodeWithSuspense = withSuspense(() => (
 const Index = (props: any) => {
   const { app, actors } = useContext(MachineContext)
   const [state, send] = useActor(actors.modal)
-  const [form] = Form.useForm()
 
   return (
     <>
@@ -43,7 +41,6 @@ const Index = (props: any) => {
       <Modal actor={actors.modal}>
         <FormNode
           actor={actors.modal}
-          form={form}
           handleSubmit={(values: object) => {
             console.log(values)
           }}
