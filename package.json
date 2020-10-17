@@ -45,6 +45,7 @@
     "@nestjs/graphql": "7.7.0",
     "@nestjs/mongoose": "7.0.2",
     "@nestjs/platform-express": "7.4.4",
+    "@prisma/client": "^2.9.0",
     "@xstate/react": "1.0.1",
     "ajv": "6.12.5",
     "antd": "4.6.6",

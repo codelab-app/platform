@@ -36,6 +36,9 @@ build-prod:
 # Generate
 #
 
+generate-prisma:
+	@npx prisma generate --schema libs/api/prisma/schema.prisma
+
 generate-graphql:
 	@npx graphql-codegen --config codegen.yml
 
