@@ -116,11 +116,11 @@ start-dev:
 		--projects=web,api-gateway,api-services-props,api-services-graph \
 		--parallel \
 		"$@"' \
-		'nodemon \
-			--ext graphql \
-			--watch "apps/api/gateway/src/assets/**/*.graphql" \
-			--verbose \
-			--exec "wait-on http://localhost:4000 && make generate-graphql"'
+#		'nodemon \
+#			--ext graphql \
+#			--watch "apps/api/gateway/src/assets/**/*.graphql" \
+#			--verbose \
+#			--exec "wait-on http://localhost:4000 && make generate-graphql"'
 		# Need to wait for graphql server to finish reloading
 
 start-prod:

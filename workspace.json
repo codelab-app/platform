@@ -1579,7 +1579,8 @@
         "serve": {
           "builder": "@nrwl/node:execute",
           "options": {
-            "buildTarget": "api-gateway:build"
+            "buildTarget": "api-gateway:build",
+            "waitUntilTargets": ["api-services-graph:serve"]
           }
         },
         "lint": {
