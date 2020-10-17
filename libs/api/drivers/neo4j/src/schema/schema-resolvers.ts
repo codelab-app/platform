@@ -1,4 +1,6 @@
-export const resolvers = {
+import { GraphQLResolverMap } from 'apollo-graphql'
+
+export const resolvers: GraphQLResolverMap = {
   // root entry point to GraphQL service
   Query: {
     // Movie(object: any, params: any, ctx: any, resolveInfo: any) {

@@ -1,5 +1,7 @@
 import * as fs from 'fs'
 import * as path from 'path'
+import { gql } from '@apollo/client/core'
+import { DocumentNode } from 'graphql'
 
 /**
  * When we serve `apps/api`, it actually compiles all `libs/api` into a single js file into `dist` then serves from there.
@@ -13,4 +15,4 @@ const schemaPath = path.resolve(__dirname, './assets/schema.graphql')
  *
  * If we load using `loadTypedefsSync`, it will throw error for incomplete types.
  */
-export const typeDefs = fs.readFileSync(schemaPath, 'utf8')
+export const typeDefs: DocumentNode = gql(fs.readFileSync(schemaPath, 'utf8'))

@@ -12,10 +12,13 @@ export const graphqlSchemaProvider: FactoryProvider<GraphQLSchema> = {
   useFactory: () => {
     const neo4jExtendedSchema = makeAugmentedSchema({
       typeDefs,
+      resolvers,
       resolverValidationOptions: {
         requireResolversForResolveType: false,
       },
-      resolvers,
+      config: {
+        isFederated: true,
+      },
     })
 
     return buildFederatedSchema([neo4jExtendedSchema])

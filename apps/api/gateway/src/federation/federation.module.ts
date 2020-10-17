@@ -22,7 +22,7 @@ import { ApiConfig } from '@codelab/api/config'
               // },
               {
                 name: 'graph',
-                url: `http://localhost${config.get(
+                url: `http://localhost:${config.get(
                   'port.services.graph',
                 )}/graphql`,
               },
