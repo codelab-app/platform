@@ -59,10 +59,10 @@ const normalizeOptions = (options: ReactSchematicSchema): NormalizedSchema => {
  */
 const removeFiles = (options: NormalizedSchema): Rule => {
   const { projectRoot } = options
-  const filesToRemove = ['.eslintrc', `${projectRoot}/.eslintrc`]
+  const filesToRemove = ['.eslintrc.json', `${projectRoot}/.eslintrc.json`]
 
   return (tree: Tree, context: SchematicContext) => {
-    filesToRemove.forEach((file) => {
+    filesToRemove.forEach((file: any) => {
       tree.delete(file)
     })
   }
