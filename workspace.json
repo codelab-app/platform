@@ -1645,13 +1645,11 @@
         },
         "serve": {
           "builder": "@nrwl/workspace:run-commands",
-          "options": {
-          }
+          "options": {}
         },
         "build": {
           "builder": "@nrwl/workspace:run-commands",
-          "options": {
-          }
+          "options": {}
         },
         "test": {
           "builder": "@nrwl/jest:jest",

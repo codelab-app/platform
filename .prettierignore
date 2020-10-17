@@ -4,7 +4,3 @@ dist
 .next
 yarn-error.log
 yarn.lock
-
-/apps/docs/node_modules
-/apps/docs/public
-/apps/docs/.cache

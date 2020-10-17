@@ -11,10 +11,9 @@ module.exports = {
 
     return cmd
   },
-  '**/*.{json}': (files) => {
-    console.log(files)
-
+  '**/*.json': (files) => {
     const stagedFiles = files.join(' ')
+
     const cmd = `prettier --write ${stagedFiles}`
 
     console.log(`Running: ${cmd}`)
