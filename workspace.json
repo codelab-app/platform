@@ -1580,7 +1580,10 @@
           "builder": "@nrwl/node:execute",
           "options": {
             "buildTarget": "api-gateway:build",
-            "waitUntilTargets": ["api-services-graph:serve"]
+            "waitUntilTargets": [
+              "api-services-graph:serve",
+              "api-services-props:serve"
+            ]
           }
         },
         "lint": {
@@ -1896,6 +1899,48 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "apps/api/services/graph/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "api-schema-props": {
+      "root": "libs/api/schema/props",
+      "sourceRoot": "libs/api/schema/props/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/api/schema/props/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/api/schema/props/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "api-schema-node": {
+      "root": "libs/api/schema/node",
+      "sourceRoot": "libs/api/schema/node/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/api/schema/node/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/api/schema/node/jest.config.js",
             "passWithNoTests": true
           }
         }

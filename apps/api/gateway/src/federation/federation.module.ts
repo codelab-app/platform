@@ -26,12 +26,12 @@ import { ApiConfig } from '@codelab/api/config'
                   'port.services.graph',
                 )}/graphql`,
               },
-              // {
-              //   name: 'prop',
-              //   url: `http://localhost:${config.get(
-              //     'port.services.props',
-              //   )}/graphql`,
-              // },
+              {
+                name: 'prop',
+                url: `http://localhost:${config.get(
+                  'port.services.props',
+                )}/graphql`,
+              },
             ],
           },
         }

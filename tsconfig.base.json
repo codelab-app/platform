@@ -72,7 +72,9 @@
       "@codelab/api/drivers/graphql": ["libs/api/drivers/graphql/src/index.ts"],
       "@codelab/api/drivers/database": [
         "libs/api/drivers/database/src/index.ts"
-      ]
+      ],
+      "@codelab/api/schema/props": ["libs/api/schema/props/src/index.ts"],
+      "@codelab/api/schema/node": ["libs/api/schema/node/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"]

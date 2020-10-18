@@ -146,6 +146,12 @@
     "api-services-graph": {
       "tags": []
     },
+    "api-schema-props": {
+      "tags": []
+    },
+    "api-schema-node": {
+      "tags": []
+    },
     "state-ui": {
       "tags": []
     }

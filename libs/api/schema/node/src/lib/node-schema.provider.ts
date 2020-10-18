@@ -2,13 +2,13 @@ import { buildFederatedSchema } from '@apollo/federation'
 import { FactoryProvider } from '@nestjs/common'
 import { GraphQLSchema } from 'graphql'
 import { makeAugmentedSchema } from 'neo4j-graphql-js'
-import { resolvers } from './schema-resolvers'
-import { typeDefs } from './schema-typedefs'
+import { typeDefs } from './node-typedefs'
+import { resolvers } from './node.resolvers'
 
-export const GRAPHQL_SCHEMA_PROVIDER = 'GRAPHQL_SCHEMA_PROVIDER'
+export const NODE_SCHEMA_PROVIDER = 'NODE_SCHEMA_PROVIDER'
 
-export const graphqlSchemaProvider: FactoryProvider<GraphQLSchema> = {
-  provide: GRAPHQL_SCHEMA_PROVIDER,
+export const nodeSchemaProvider: FactoryProvider<GraphQLSchema> = {
+  provide: NODE_SCHEMA_PROVIDER,
   useFactory: () => {
     const neo4jExtendedSchema = makeAugmentedSchema({
       typeDefs,
