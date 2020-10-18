@@ -1,20 +1,31 @@
 import { join } from 'path'
 import { Module } from '@nestjs/common'
 import { GraphQLFederationModule } from '@nestjs/graphql'
-import { PropsResolver } from './props.resolver'
+import { Node } from './model'
 import { PropsService } from './props.service'
-import { Node } from '@codelab/api/schema/node'
+import { NodesResolver, PropsResolver } from './resolvers'
 
 @Module({
   imports: [
-    GraphQLFederationModule.forRoot({
-      autoSchemaFile: join(
-        process.cwd(),
-        'apps/api/services/props/src/schema.gql',
-      ),
-      buildSchemaOptions: { orphanedTypes: [Node] },
+    GraphQLFederationModule.forRootAsync({
+      useFactory: () => {
+        return {
+          autoSchemaFile: join(
+            process.cwd(),
+            'apps/api/services/props/src/schema.gql',
+          ),
+          // here provide all the types that are missing in schema
+          // since we're not importing .graphql typedefs
+          buildSchemaOptions: { orphanedTypes: [Node] },
+          // formatError: (error) => {
+          //   console.error('error', error)
+          //
+          //   return error
+          // },
+        }
+      },
     }),
   ],
-  providers: [PropsResolver, PropsService],
+  providers: [PropsResolver, NodesResolver, PropsService],
 })
 export class PropsModule {}

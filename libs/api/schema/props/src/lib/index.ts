@@ -1,2 +1,2 @@
 export * from './props.module'
-export * from './prop.model'
+export * from './model/prop.model'

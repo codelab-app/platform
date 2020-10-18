@@ -4,6 +4,8 @@ enum NodeType {
 }
 
 type Node @key(fields: "id") {
-  id: ID!
+  id: ID! @id
   type: NodeType
 }
+
+

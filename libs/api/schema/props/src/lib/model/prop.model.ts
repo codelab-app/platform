@@ -11,6 +11,7 @@ export class Prop {
   declare props: object
 
   // constructor(prop: Partial<Prop>) {
+  //   console.log(prop)
   //   Object.assign(prop)
   // }
 }

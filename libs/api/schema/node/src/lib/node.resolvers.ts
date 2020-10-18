@@ -16,6 +16,8 @@ export const resolvers: GraphQLResolverMap = {
   },
   Node: {
     __resolveReference(node) {
+      console.log('hi')
+
       return nodes.find(({ id }) => id === node.id)
     },
     // props: async (object: any, params: any, ctx: any, resolveInfo: any) => {

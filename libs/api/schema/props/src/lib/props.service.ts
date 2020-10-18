@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { Prop } from './prop.model'
+import { Prop } from './model/prop.model'
 
 @Injectable()
 export class PropsService {
@@ -10,7 +10,7 @@ export class PropsService {
     },
   ]
 
-  findOneById(propId: number): Prop | undefined {
-    return this.props.find(({ id }) => id === propId)
+  findOneById(nodeId: number): Prop | undefined {
+    return this.props.find(({ id }) => id === nodeId)
   }
 }

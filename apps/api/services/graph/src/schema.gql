@@ -11,22 +11,3 @@ directive @external on OBJECT | FIELD_DEFINITION
 directive @requires(fields: String!) on FIELD_DEFINITION
 
 directive @provides(fields: String!) on FIELD_DEFINITION
-
-type Node {
-  id: ID!
-  props: Prop
-}
-
-type Prop {
-  id: ID!
-  props: JSONObject!
-}
-
-"""
-The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
-"""
-scalar JSONObject @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
-
-type Query {
-  props(id: Int!): Prop!
-}

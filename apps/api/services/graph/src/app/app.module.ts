@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common'
+import { Logger, Module } from '@nestjs/common'
 import { GraphQLFederationModule } from '@nestjs/graphql'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
@@ -13,15 +13,17 @@ import { NODE_SCHEMA_PROVIDER, NodeModule } from '@codelab/api/schema/node'
   imports: [
     ConfigModule,
     GraphQLFederationModule.forRootAsync({
-      imports: [Neo4jDriversModule, NodeModule],
+      imports: [Neo4jDriversModule, NodeModule, Logger],
       inject: [NEO4J_DRIVER_PROVIDER, NODE_SCHEMA_PROVIDER],
-      useFactory: (driver, schema) => ({
-        schema,
-        context: ({ req }) => ({
-          driver,
-          req,
-        }),
-      }),
+      useFactory: (driver, schema) => {
+        return {
+          schema,
+          context: ({ req }) => ({
+            driver,
+            req,
+          }),
+        }
+      },
     }),
   ],
   controllers: [AppController],
