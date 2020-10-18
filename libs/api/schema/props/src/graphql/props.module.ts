@@ -1,11 +1,12 @@
 import { join } from 'path'
-import { Module } from '@nestjs/common'
+import { Logger, Module } from '@nestjs/common'
 import { GraphQLFederationModule } from '@nestjs/graphql'
 import { Node } from './model'
 import { PropsService } from './props.service'
 import { NodesResolver, PropsResolver } from './resolvers'
 
 @Module({
+  // Resolvers must be added to same level as GraphQLFederationModule
   imports: [
     GraphQLFederationModule.forRootAsync({
       useFactory: () => {
@@ -17,15 +18,14 @@ import { NodesResolver, PropsResolver } from './resolvers'
           // here provide all the types that are missing in schema
           // since we're not importing .graphql typedefs
           buildSchemaOptions: { orphanedTypes: [Node] },
-          // formatError: (error) => {
-          //   console.error('error', error)
-          //
-          //   return error
-          // },
         }
       },
     }),
   ],
   providers: [PropsResolver, NodesResolver, PropsService],
 })
-export class PropsModule {}
+export class PropsModule {
+  constructor() {
+    Logger.log('Starting!')
+  }
+}

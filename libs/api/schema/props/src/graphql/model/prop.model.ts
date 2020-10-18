@@ -9,9 +9,4 @@ export class Prop {
 
   @Field(() => GraphQLJSONObject)
   declare props: object
-
-  // constructor(prop: Partial<Prop>) {
-  //   console.log(prop)
-  //   Object.assign(prop)
-  // }
 }

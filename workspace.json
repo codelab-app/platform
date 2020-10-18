@@ -1946,6 +1946,27 @@
         }
       }
     },
+    "api-drivers-mongoose": {
+      "root": "libs/api/drivers/mongoose",
+      "sourceRoot": "libs/api/drivers/mongoose/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/api/drivers/mongoose/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/api/drivers/mongoose/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "state-ui": {
       "root": "libs/state/ui",
       "sourceRoot": "libs/state/ui/src",

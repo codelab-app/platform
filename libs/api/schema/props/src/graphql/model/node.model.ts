@@ -11,9 +11,4 @@ export class Node {
 
   @Field(() => Prop, { nullable: true })
   props?: Prop
-
-  // constructor(node: Partial<Node>) {
-  //   console.log(node)
-  //   Object.assign(node)
-  // }
 }

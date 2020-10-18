@@ -9,12 +9,14 @@ export class PropsResolver {
 
   @ResolveReference()
   resolveReference(reference: { __typename: string; id: number }) {
+    Logger.log('resolverReference')
+
     return this.propsService.findOneById(reference.id)
   }
 
   @Query(() => Prop, { name: 'props' })
-  getProps(@Args('id', { type: () => Int }) id: number): Prop | undefined {
-    Logger.warn('Test')
+  props(@Args('id', { type: () => Int }) id: number): Prop | undefined {
+    Logger.log('props')
 
     return this.propsService.findOneById(id)
   }

@@ -26,3 +26,7 @@ type Node {
   id: ID!
   props: Prop
 }
+
+type Query {
+  props(id: Int!): Prop!
+}

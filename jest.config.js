@@ -42,5 +42,6 @@ module.exports = {
     '<rootDir>/apps/api/services/graph',
     '<rootDir>/libs/api/schema/props',
     '<rootDir>/libs/api/schema/node',
+    '<rootDir>/libs/api/drivers/mongoose',
   ],
 }

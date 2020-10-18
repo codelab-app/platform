@@ -33,6 +33,9 @@ import { ApiConfig } from '@codelab/api/config'
                 )}/graphql`,
               },
             ],
+            server: {
+              orphanedTypes: [],
+            },
           },
         }
       },
