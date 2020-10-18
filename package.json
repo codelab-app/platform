@@ -2,7 +2,8 @@
   "name": "codelab",
   "workspaces": {
     "packages": [
-      "dist/libs/tools/plugins/*"
+      "dist/libs/tools/plugins/*",
+      "dist/nrwl/*"
     ],
     "nohoist": []
   },

@@ -2,8 +2,8 @@
 
 .PHONY: %
 
-# NODE_OPTIONS_DEV=NODE_OPTIONS=--max-old-space-size=4096
-NODE_OPTIONS_DEV=NODE_OPTIONS=--max-old-space-size=2048
+NODE_OPTIONS_DEV=NODE_OPTIONS=--max-old-space-size=4096
+#NODE_OPTIONS_DEV=NODE_OPTIONS=--max-old-space-size=2048
 
 #
 # BUILD
@@ -109,13 +109,19 @@ test-ci:
 #
 
 start-dev:
-	@npx concurrently \
-	--names="start,codegen" \
-		'nx run-many \
+	@npx nx run-many \
+		--maxParallel=6 \
 		--target=serve \
-		--projects=web,api-gateway,api-services-props,api-services-graph \
+		--projects=api-services-props,api-services-graph,api-gateway,web \
 		--parallel \
-		"$@"' \
+		"$@"
+#	@npx concurrently \
+#	--names="start" \
+#		'nx run-many \
+#		--target=serve \
+#		--projects=web,api-gateway,api-services-props,api-services-graph \
+#		--parallel \
+#		"$@"' \
 #		'nodemon \
 #			--ext graphql \
 #			--watch "apps/api/gateway/src/assets/**/*.graphql" \
