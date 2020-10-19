@@ -1,12 +1,14 @@
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
 import { Form as AntForm, Button, Space } from 'antd'
 import { FormProps } from 'antd/lib/form'
+import { reduce } from 'lodash'
 import { StoreValue } from 'rc-field-form/lib/interface'
 import React, { ReactElement } from 'react'
 import { Select } from '../..'
 import { Form } from './Form.types'
 import { NodeReactI } from '@codelab/shared/interface/node'
 import { PropJsonValue } from '@codelab/shared/interface/props'
+import { MapData, Mapper } from '@codelab/shared/utils'
 
 // Copy because not exported from antd
 export interface FieldData {
@@ -31,12 +33,46 @@ export type FormListProps = Omit<AntFormListProps, 'children'> & {
   children: Array<React.ReactElement>
 }
 
+export const mapperDotProps = (propsArr: Array<object>) => {
+  const temp = { props: propsArr }
+
+  const mapArr: Array<MapData> = temp.props.map(
+    (prop: object, index: number) => {
+      const keys = Object.keys(prop) as Array<keyof typeof prop>
+
+      return [`props[${index}].${keys[1]}`, prop[keys[0]]]
+    },
+  )
+
+  const mapper = new Mapper(temp, mapArr)
+
+  return mapper.execute()
+}
+
 // Not used
 const CustomForm: React.FC<FormProps> = ({ children, ...props }: any) => {
   const [antform] = AntForm.useForm()
 
+  const { onFinish, ...restProps } = props
+
+  const finish = (values: any) => {
+    const mappedValues = reduce(
+      values,
+      (acc: any, value: any, key: any) => {
+        if (Array.isArray(value)) {
+          return { ...acc, [key]: mapperDotProps(value) }
+        }
+
+        return { ...acc, [key]: value }
+      },
+      {},
+    )
+
+    onFinish(mappedValues)
+  }
+
   return (
-    <AntForm {...props}>
+    <AntForm {...restProps} form={antform} onFinish={finish}>
       {React.Children.toArray(children).map((child: any, index: number) => {
         return React.cloneElement(child, {
           ...child.props,

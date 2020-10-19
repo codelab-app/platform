@@ -1,6 +1,7 @@
 import React from 'react'
 import {
   formConditionData,
+  formCustomData,
   formDefaultData,
   formObjectData,
   nodeFormData,
@@ -37,6 +38,12 @@ export const ConditionalForm = () => {
 
 export const NodeForm = () => {
   const Form = Renderer.components(nodeFormData)
+
+  return <Form />
+}
+
+export const CustomForm = () => {
+  const Form = Renderer.components(formCustomData)
 
   return <Form />
 }

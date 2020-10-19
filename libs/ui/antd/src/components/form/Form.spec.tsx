@@ -1,6 +1,13 @@
-import { fireEvent, render, waitFor } from '@testing-library/react'
+import { cleanup, fireEvent, render, waitFor } from '@testing-library/react'
 import React from 'react'
-import { ConditionalForm, Default, ObjectForm } from './Form.stories'
+import {
+  ConditionalForm,
+  CustomForm,
+  Default,
+  ObjectForm,
+} from './Form.stories'
+
+afterEach(cleanup)
 
 describe('Form', () => {
   it('should render with labels', () => {
@@ -56,5 +63,35 @@ describe('Form', () => {
     expect(queryByLabelText('Field A')).toBeTruthy()
     expect(queryByLabelText('Field B')).toBeFalsy()
     expect(queryByLabelText('Field C')).toBeFalsy()
+  })
+
+  let consoleOutput = ''
+
+  const mockedLog = (output: string) => {
+    consoleOutput = output
+  }
+
+  // eslint-disable-next-line no-console
+  console.log = mockedLog
+
+  it('should return mapped values on finish', async () => {
+    const { getByText, getByLabelText, getAllByLabelText } = render(
+      <CustomForm />,
+    )
+
+    fireEvent.click(getByText('Submit'))
+
+    await waitFor(() =>
+      expect(consoleOutput).toBe(
+        JSON.stringify({
+          id: '1',
+          info: {
+            user: {
+              address: { number: '1200', street: 'Park ave.', city: 'London' },
+            },
+          },
+        }),
+      ),
+    )
   })
 })

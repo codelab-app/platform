@@ -13,7 +13,6 @@ export const formDefaultData: NodeReactI<
     onFinish: {
       __type: ['Eval'],
       value: `
-        console.log(this);
         return () => console.log("good");
       `,
     },
