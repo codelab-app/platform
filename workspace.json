@@ -1967,6 +1967,27 @@
         }
       }
     },
+    "api-logger": {
+      "root": "libs/api/logger",
+      "sourceRoot": "libs/api/logger/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/api/logger/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/api/logger/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "state-ui": {
       "root": "libs/state/ui",
       "sourceRoot": "libs/state/ui/src",

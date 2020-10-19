@@ -1,12 +1,15 @@
-import { Controller, Get } from '@nestjs/common'
-import { AppService } from './app.service'
+import { Controller, Get, Inject } from '@nestjs/common'
+import { CODELAB_LOGGER_PROVIDER, CodelabLogger } from '@codelab/api/logger'
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    @Inject(CODELAB_LOGGER_PROVIDER)
+    private readonly logger: CodelabLogger,
+  ) {}
 
   @Get()
-  getData() {
-    return this.appService.getData()
+  log() {
+    this.logger.log({ from: 'userA', to: 'userB' })
   }
 }

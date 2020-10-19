@@ -17,6 +17,21 @@ services:
     # volumes:
     #   - codelab-volume:/app
 
+  fluentd:
+    ports:
+      - 24224:24224
+    container_name: fluentd
+    image: fluentd
+    tty: true # colorize output
+    environment:
+      DEBUG_COLORS: "true"
+      TERM: xterm-256color
+      COLORTERM: truecolor
+    build:
+      context: ./monitoring
+    volumes:
+      - ./monitoring/configurations:/fluentd/etc/
+
   mongodb:
     image: mongo
     restart: always

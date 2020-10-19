@@ -7,10 +7,12 @@ import {
   NEO4J_DRIVER_PROVIDER,
   Neo4jDriversModule,
 } from '@codelab/api/drivers/neo4j'
+import { LoggerModule } from '@codelab/api/logger'
 import { NODE_SCHEMA_PROVIDER, NodeModule } from '@codelab/api/schema/node'
 
 @Module({
   imports: [
+    LoggerModule,
     ConfigModule,
     GraphQLFederationModule.forRootAsync({
       imports: [Neo4jDriversModule, NodeModule],

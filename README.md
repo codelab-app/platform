@@ -52,6 +52,11 @@ Everything can be done using an abstracted UI layer (via forms, tables, custom U
 - [Cypress](https://www.cypress.io)
   - E2e testing framework
 
+### Logging
+- [Winston]
+- [Fluentd]
+- [Kibana]
+
 ## Plugins to Install
 
 1. Install [NX Console](https://marketplace.visualstudio.com/items?itemName=nrwl.angular-console), you will use the interface to run the application
@@ -67,6 +72,11 @@ Everything can be done using an abstracted UI layer (via forms, tables, custom U
 3. Install [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint), for realtime visual linting
 
 The project directory structure is based on NX, with `apps` directory containing all the user facing sites, while `libs` containing all imported libraries.
+
+## System Setup
+- Fluentd
+- MongoDB
+- Neo4j
 
 ## Getting Started
 

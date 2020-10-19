@@ -77,7 +77,8 @@
       "@codelab/api/schema/node": ["libs/api/schema/node/src/index.ts"],
       "@codelab/api/drivers/mongoose": [
         "libs/api/drivers/mongoose/src/index.ts"
-      ]
+      ],
+      "@codelab/api/logger": ["libs/api/logger/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"]

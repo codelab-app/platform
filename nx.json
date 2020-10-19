@@ -155,6 +155,9 @@
     "api-drivers-mongoose": {
       "tags": []
     },
+    "api-logger": {
+      "tags": []
+    },
     "state-ui": {
       "tags": []
     }

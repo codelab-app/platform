@@ -43,5 +43,6 @@ module.exports = {
     '<rootDir>/libs/api/schema/props',
     '<rootDir>/libs/api/schema/node',
     '<rootDir>/libs/api/drivers/mongoose',
+    '<rootDir>/libs/api/logger',
   ],
 }
