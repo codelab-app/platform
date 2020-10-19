@@ -68,7 +68,8 @@
       "@codelab/ui/hoc": ["libs/ui/hoc/src/index.ts"],
       "@codelab/api/graphql": ["libs/api/graphql/src/index.ts"],
       "@codelab/state/apollo": ["libs/state/apollo/src/index.ts"],
-      "@codelab/api/prisma": ["libs/api/prisma/src/index.ts"]
+      "@codelab/api/prisma": ["libs/api/prisma/src/index.ts"],
+      "@codelab/state/ui": ["libs/state/ui/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"]

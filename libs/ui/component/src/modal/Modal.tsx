@@ -2,14 +2,14 @@ import React from 'react'
 import { modal, modalButton } from './Modal.data'
 import { Renderer } from '@codelab/core/renderer'
 import { ComponentProps } from '@codelab/shared/interface/component'
-import { ContextModal, EventModal } from '@codelab/state/modal'
+import { ContextUI, EventUI } from '@codelab/state/ui'
 import { withActor } from '@codelab/ui/hoc'
 
-export const ModalButton = withActor<ContextModal, EventModal>(
+export const ModalButton = withActor<ContextUI, EventUI>(
   Renderer.components(modalButton),
 )
 
-export const Modal: React.FC<ComponentProps<
-  ContextModal,
-  EventModal
->> = withActor<ContextModal, EventModal>(Renderer.components(modal))
+export const Modal: React.FC<ComponentProps<ContextUI, EventUI>> = withActor<
+  ContextUI,
+  EventUI
+>(Renderer.components(modal))

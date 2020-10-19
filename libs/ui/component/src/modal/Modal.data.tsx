@@ -7,7 +7,7 @@ export const modalButton: NodeReactI<Button.Props | Text.Props> = {
     type: 'primary',
     onClick: {
       __type: ['Eval'],
-      value: `return () => this.send({ type: 'OPEN' })`,
+      value: `return () => this.send({ type: 'OPEN_MODAL' })`,
     },
   },
   children: [{ type: 'React.Text', props: { value: 'Open modal' } }],
@@ -19,15 +19,15 @@ export const modal: NodeReactI<Modal.Props | Text.Props> = {
     title: 'Basic Modal',
     onOk: {
       __type: ['Eval'],
-      value: `return () => this.send({ type: 'CLOSE' })`,
+      value: `return () => this.send({ type: 'CLOSE_MODAL' })`,
     },
     onCancel: {
       __type: ['Eval'],
-      value: `return () => this.send({ type: 'CLOSE' })`,
+      value: `return () => this.send({ type: 'CLOSE_MODAL' })`,
     },
     visible: {
       __type: ['Eval'],
-      value: 'return this.state.context.visible',
+      value: 'return this.state.context.modal.visible',
     },
   },
   // children: [

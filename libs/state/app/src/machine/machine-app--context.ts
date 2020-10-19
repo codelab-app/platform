@@ -1,5 +1,4 @@
 export interface ContextApp {
-  modal: any
-  layout: any
+  ui: any
   node: any
 }
