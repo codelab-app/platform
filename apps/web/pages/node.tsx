@@ -11,7 +11,7 @@ import { MachineContext, NodeServiceContext } from '@codelab/ui/component'
 
 const NodePage = (props: any) => {
   const { app, actors } = useContext(MachineContext)
-  const [stateModal, sendModal] = useActor(actors.modal)
+  const [uiModal, sendUI] = useActor(actors.ui)
   const [selectedNode, setSelectedNode] = React.useState(null)
   const [nodes, setNodes] = React.useState([])
   const [editedNode, setEditedNode] = React.useState<any>(null)
@@ -57,7 +57,7 @@ const NodePage = (props: any) => {
       newNodes.push(data)
 
       setNodes(newNodes)
-      sendModal({ type: 'CLOSE' })
+      sendUI({ type: 'CLOSE_MODAL' })
     }
 
     nodeService.createNode(formData, cb)
@@ -120,15 +120,15 @@ const NodePage = (props: any) => {
     <>
       <Highlight className="json">{JSON.stringify({ a: 1, b: 2 })}</Highlight>
       <ButtonGroup
-        openmodal={() => sendModal('OPEN')}
+        openmodal={() => sendUI('OPEN_MODAL')}
         selectedNode={selectedNode}
         handledelete={deleteNode}
         clearfilter={() => setSelectedNode(null)}
       />
       <ModalForm
         handlesubmit={handleCreateNode}
-        visibility={stateModal.context.visible}
-        handlecancel={() => sendModal('CLOSE')}
+        visibility={uiModal.context.visible}
+        handlecancel={() => sendUI('CLOSE_MODAL')}
         parentnodes={parentNodes}
         initialvalues={{
           nodeType: BaseNodeType.React,
