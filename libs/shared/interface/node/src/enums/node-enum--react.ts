@@ -98,6 +98,8 @@ export enum ReactType {
   'React.Layout.Footer' = 'React.Layout.Footer',
   'React.Cascader' = 'React.Cascader',
   'React.Popover' = 'React.Popover',
+  'React.RenderComponent' = 'React.RenderComponent',
+  'React.RenderContainer' = 'React.RenderContainer',
 }
 
 export type ReactTypeLiteral = keyof typeof ReactType

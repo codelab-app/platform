@@ -75,6 +75,7 @@ import {
   CodelabTable,
   Grid,
   Provider,
+  RenderComponent,
 } from '@codelab/ui/antd'
 
 export const elementParameterFactory: NodeFactory<
@@ -282,6 +283,10 @@ export const elementParameterFactory: NodeFactory<
       return [Popover as any, props]
     case 'React.Table':
       return [CodelabTable.Default as any, props]
+    case 'React.RenderComponent':
+      return [RenderComponent.Default as any, props]
+    case 'React.RenderContainer':
+      return [RenderComponent.Container as any, props]
     default:
       throw new Error('Missing element in ElementFactory')
     // return ['div', props]
