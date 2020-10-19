@@ -19,16 +19,16 @@ import {
 
 const Graphql = (props: any) => {
   const { app, actors } = useContext(MachineContext)
-  const [state, send] = useActor(actors.modal)
+  const [state, send] = useActor(actors.ui)
   const [form] = Form.useForm()
   const { nodeService } = useContext(NodeServiceContext)
 
   return (
     <>
-      <ModalButton actor={actors.modal} />
-      <Modal actor={actors.modal}>
+      <ModalButton actor={actors.ui} />
+      <Modal actor={actors.ui}>
         <FormNode
-          actor={actors.modal}
+          actor={actors.ui}
           form={form}
           handleSubmit={(values: object) => {
             console.log(values)
