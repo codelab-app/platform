@@ -15,24 +15,12 @@ const LayoutSrc = (
   props: ComponentProps<ContextModal, EventModal, LayoutProps>,
 ) => {
   const { ...restProps } = props
-  const Sidebar = () => <></>
-
-  const Header = () => <></>
-
-  const Footer = () => <h1>Footer</h1>
 
   const LayoutComp = Renderer.components<
     ComponentProps<ContextModal, EventModal, LayoutProps>
   >(layoutData)
 
-  return (
-    <LayoutComp
-      {...restProps}
-      header={<Header />}
-      footer={<Footer />}
-      sidebar={<Sidebar />}
-    />
-  )
+  return <LayoutComp {...restProps} />
 }
 
 export const Layout: React.FC<ComponentProps<

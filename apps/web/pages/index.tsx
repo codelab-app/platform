@@ -59,6 +59,9 @@ const Index = (props: any) => {
             <p>Layout context: {JSON.stringify(layoutState.context)}</p>
           </>
         }
+        sidebar={<>Side bar</>}
+        header={<>Header</>}
+        footer={<>Footer</>}
       />
     </>
   )
