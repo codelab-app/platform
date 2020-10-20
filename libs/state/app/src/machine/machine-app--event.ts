@@ -5,5 +5,5 @@ export enum EventNameApp {
 }
 
 export interface EventApp extends EventObject {
-  type: EventNameApp.FETCH_DATA
+  type: keyof typeof EventNameApp
 }

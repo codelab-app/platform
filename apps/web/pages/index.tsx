@@ -34,26 +34,29 @@ const TableNodeWithSuspense = withSuspense(() => (
 // https://github.com/coinbase/rest-hooks/issues/172
 const Index = (props: any) => {
   const { app, actors } = useContext(MachineContext)
-  const [uiState] = useActor(actors.ui)
+  const [modalState] = useActor(actors.modal)
+  const [layoutState] = useActor(actors.layout)
 
   // <>{!isServer ? <TableNodeWithSuspense /> : null}</>
   return (
     <>
       <Layout
-        actor={actors.ui}
+        actor={actors.layout}
         content={
           <>
-            <ModalButton actor={actors.ui} />
-            <Modal actor={actors.ui}>
+            <ModalButton actor={actors.modal} />
+            <Modal actor={actors.modal}>
               <FormNode
-                actor={actors.ui}
+                actor={actors.modal}
                 handleSubmit={(values: object) => {
                   console.log(values)
                 }}
               />
             </Modal>
-            <p>state: {JSON.stringify(uiState.value)}</p>
-            <p>context: {JSON.stringify(uiState.context)}</p>
+            <p>modal state: {JSON.stringify(modalState.value)}</p>
+            <p>modal context: {JSON.stringify(modalState.context)}</p>
+            <p>layout state: {JSON.stringify(layoutState.value)}</p>
+            <p>layout context: {JSON.stringify(layoutState.context)}</p>
           </>
         }
         sidebar={<>Side bar</>}
