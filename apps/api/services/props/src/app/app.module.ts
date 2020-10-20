@@ -17,7 +17,6 @@ import { PropsModule } from '@codelab/api/schema/props'
           autoSchemaFile: true,
           // here provide all the types that are missing in schema
           // since we're not importing .graphql typedefs
-          // buildSchemaOptions: { orphanedTypes: [Node] },
           buildSchemaOptions: { orphanedTypes: [] },
         }
       },

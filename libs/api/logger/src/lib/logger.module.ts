@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common'
+import { Global, Module } from '@nestjs/common'
 import * as logger from 'fluent-logger'
 import { WinstonModule, utilities } from 'nest-winston'
 import * as winston from 'winston'
@@ -16,6 +16,7 @@ const fluentConfig = {
   reconnectInterval: 600000, // 10 minutes
 }
 
+@Global()
 @Module({
   imports: [
     WinstonModule.forRootAsync({

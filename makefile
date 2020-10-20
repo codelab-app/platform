@@ -70,6 +70,11 @@ docker-push:
 		-f .docker/docker-compose.yml \
 		push app
 
+docker-log:
+	docker-compose \
+		-f .docker/docker-compose.yml \
+		up fluentd
+
 #
 # LINT
 #
