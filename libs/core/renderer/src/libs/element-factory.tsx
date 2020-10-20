@@ -72,6 +72,7 @@ import {
   Button as ButtonTypes,
   CodelabForm,
   CodelabHtml,
+  CodelabMapper,
   CodelabTable,
   Grid,
   Provider,
@@ -287,6 +288,8 @@ export const elementParameterFactory: NodeFactory<
       return [RenderComponent.Default as any, props]
     case 'React.RenderContainer':
       return [RenderComponent.Container as any, props]
+    case 'React.Mapper':
+      return [CodelabMapper.Default as any, props]
     default:
       throw new Error('Missing element in ElementFactory')
     // return ['div', props]

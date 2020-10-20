@@ -242,6 +242,7 @@ export enum NodeType {
   'React.Popover' = 'React.Popover',
   'React.RenderComponent' = 'React.RenderComponent',
   'React.RenderContainer' = 'React.RenderContainer',
+  'React.Mapper' = 'React.Mapper',
   /**
    * Mongoose Model
    */
