@@ -21,8 +21,4 @@ export class Node {
 
   @Field(() => NodeType)
   declare type: object
-
-  // constructor(prop: Partial<Prop>) {
-  //   Object.assign(prop)
-  // }
 }

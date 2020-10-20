@@ -1,4 +1,3 @@
-import { Logger } from '@nestjs/common'
 import { GraphQLResolverMap } from 'apollo-graphql'
 
 const nodes = [
@@ -11,13 +10,13 @@ const nodes = [
 
 export const resolvers: GraphQLResolverMap = {
   Query: {
-    // Movie(object: any, params: any, ctx: any, resolveInfo: any) {
-    //   return neo4jgraphql(object, params, ctx, resolveInfo, true)
-    // },
+    titties: () => {
+      return ''
+    },
   },
   Node: {
     __resolveReference(node) {
-      Logger.log(node)
+      console.log('test')
 
       return nodes.find(({ id }) => id === node.id)
     },

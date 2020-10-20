@@ -4,10 +4,12 @@ import { GraphQLFederationModule } from '@nestjs/graphql'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { ConfigModule } from '@codelab/api/config'
+import { LoggerModule } from '@codelab/api/logger'
 import { Node, PropsModule } from '@codelab/api/schema/props'
 
 @Module({
   imports: [
+    LoggerModule,
     GraphQLFederationModule.forRootAsync({
       useFactory: () => {
         return {

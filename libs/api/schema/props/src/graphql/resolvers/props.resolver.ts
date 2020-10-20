@@ -8,10 +8,10 @@ export class PropsResolver {
   constructor(private readonly propsService: PropsService) {}
 
   @ResolveReference()
-  resolveReference(reference: { __typename: string; id: number }) {
+  resolveReference(prop: { __typename: string; id: number }) {
     Logger.log('resolverReference')
 
-    return this.propsService.findOneById(reference.id)
+    return this.propsService.findOneById(prop.id)
   }
 
   @Query(() => Prop, { name: 'props' })
