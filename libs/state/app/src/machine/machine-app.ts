@@ -1,35 +1,41 @@
-import { Machine, assign, spawn } from 'xstate'
+import { Actor, Machine, assign, send, spawn } from 'xstate'
 import { ContextApp } from './machine-app--context'
 import { EventApp, EventNameApp } from './machine-app--event'
 import { StateNameApp, StateSchemaApp } from './machine-app--state'
-import { machineNode } from '@codelab/state/node'
-import { machineUI } from '@codelab/state/ui'
+import { NodeService as NodeServiceEntity } from '@codelab/core/node'
+import { machineLayout } from '@codelab/state/layout'
+import { EventNameModal, machineModal } from '@codelab/state/modal'
+import { createMachineNode } from '@codelab/state/node'
 
-export const machineApp = Machine<ContextApp, StateSchemaApp, EventApp>({
-  id: 'app',
-  initial: StateNameApp.INIT,
-  context: {
-    node: null,
-    ui: null,
-  },
-  states: {
-    [StateNameApp.INIT]: {
-      // always: [{ cond: () => true }],
-      entry: assign({
-        ui: () => spawn(machineUI),
-        node: () => spawn(machineNode),
-      }),
-      on: {
-        [EventNameApp.FETCH_DATA]: {
-          target: StateNameApp.LOADING,
+export const createMachineApp = (nodeService: NodeServiceEntity) => {
+  return Machine<ContextApp, StateSchemaApp, EventApp>({
+    id: 'app',
+    initial: StateNameApp.IDLE,
+    entry: assign<ContextApp, EventApp>({
+      modal: () => spawn(machineModal),
+      layout: () => spawn(machineLayout),
+      node: () => spawn(createMachineNode(nodeService)),
+    }),
+    states: {
+      [StateNameApp.IDLE]: {
+        on: {
+          [EventNameApp.CREATED_NODE]: {
+            actions: [
+              send(EventNameModal.CLOSE, { to: (ctx) => ctx.modal as Actor }), // Need of type assert will be fixed in xState v5
+            ],
+          },
+          [EventNameApp.EDITING_NODE]: {
+            actions: [
+              send(EventNameModal.OPEN, { to: (ctx) => ctx.modal as Actor }), // Need of type assert will be fixed in xState v5
+            ],
+          },
+          [EventNameApp.EDITED_NODE]: {
+            actions: [
+              send(EventNameModal.CLOSE, { to: (ctx) => ctx.modal as Actor }), // Need of type assert will be fixed in xState v5
+            ],
+          },
         },
       },
     },
-    [StateNameApp.LOADING]: {
-      // after: {
-      //   1000: StateNameApp.READY,
-      // },
-    },
-    [StateNameApp.READY]: {},
-  },
-})
+  })
+}

@@ -65,7 +65,6 @@
       "@codelab/ui/hoc": ["libs/ui/hoc/src/index.ts"],
       "@codelab/state/apollo": ["libs/state/apollo/src/index.ts"],
       "@codelab/api/prisma": ["libs/api/prisma/src/index.ts"],
-      "@codelab/state/ui": ["libs/state/ui/src/index.ts"],
       "@codelab/api/drivers/neo4j": ["libs/api/drivers/neo4j/src/index.ts"],
       "@codelab/api/drivers/prisma": ["libs/api/drivers/prisma/src/index.ts"],
       "@codelab/api/drivers/restify": ["libs/api/drivers/restify/src/index.ts"],
@@ -78,7 +77,9 @@
       "@codelab/api/drivers/mongoose": [
         "libs/api/drivers/mongoose/src/index.ts"
       ],
-      "@codelab/api/logger": ["libs/api/logger/src/index.ts"]
+      "@codelab/api/logger": ["libs/api/logger/src/index.ts"],
+      "@codelab/api/services/props": ["libs/api/services/props/src/index.ts"],
+      "@codelab/state/layout": ["libs/state/layout/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"]

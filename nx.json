@@ -159,7 +159,7 @@
     "api-logger": {
       "tags": []
     },
-    "state-ui": {
+    "state-layout": {
       "tags": []
     }
   }

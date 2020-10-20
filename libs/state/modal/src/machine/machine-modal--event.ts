@@ -5,6 +5,12 @@ export enum EventNameModal {
   CLOSE = 'CLOSE',
 }
 
-export interface EventModal extends EventObject {
-  type: EventNameModal.CLOSE | EventNameModal.OPEN
+export interface EventModalOpen extends EventObject {
+  type: EventNameModal.OPEN
 }
+
+export interface EventModalClose extends EventObject {
+  type: EventNameModal.CLOSE
+}
+
+export type EventModal = EventModalOpen | EventModalClose

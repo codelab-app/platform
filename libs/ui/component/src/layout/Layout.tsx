@@ -2,7 +2,7 @@ import React from 'react'
 import { layoutData } from './Layout.data'
 import { Renderer } from '@codelab/core/renderer'
 import { ComponentProps } from '@codelab/shared/interface/component'
-import { ContextUI, EventUI } from '@codelab/state/ui'
+import { ContextLayout, EventLayout } from '@codelab/state/layout'
 import { withActor } from '@codelab/ui/hoc'
 
 type LayoutProps = {
@@ -11,18 +11,20 @@ type LayoutProps = {
   footer?: React.ReactNode
   sidebar?: React.ReactNode
 }
-const LayoutSrc = (props: ComponentProps<ContextUI, EventUI, LayoutProps>) => {
+const LayoutSrc = (
+  props: ComponentProps<ContextLayout, EventLayout, LayoutProps>,
+) => {
   const { ...restProps } = props
 
   const LayoutComp = Renderer.components<
-    ComponentProps<ContextUI, EventUI, LayoutProps>
+    ComponentProps<ContextLayout, EventLayout, LayoutProps>
   >(layoutData)
 
   return <LayoutComp {...restProps} />
 }
 
 export const Layout: React.FC<ComponentProps<
-  ContextUI,
-  EventUI,
+  ContextLayout,
+  EventLayout,
   LayoutProps
->> = withActor<ContextUI, EventUI, LayoutProps>(LayoutSrc)
+>> = withActor<ContextLayout, EventLayout, LayoutProps>(LayoutSrc)

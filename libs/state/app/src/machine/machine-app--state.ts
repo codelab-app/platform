@@ -1,17 +1,13 @@
-import { Typestate } from 'xstate'
+import { StateSchema, Typestate } from 'xstate'
 import { ContextApp } from './machine-app--context'
 
 export enum StateNameApp {
-  INIT = 'INIT',
-  LOADING = 'LOADING',
-  READY = 'READY',
+  IDLE = 'IDLE',
 }
 
-export interface StateSchemaApp {
+export interface StateSchemaApp<T = ContextApp> extends StateSchema<T> {
   states: {
-    [StateNameApp.INIT]: object
-    [StateNameApp.LOADING]: object
-    [StateNameApp.READY]: object
+    [StateNameApp.IDLE]: StateSchema<T>
   }
 }
 

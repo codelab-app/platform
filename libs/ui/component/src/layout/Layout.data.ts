@@ -16,11 +16,11 @@ export const layoutData: NodeReactI<
         collapsible: true,
         onCollapse: {
           __type: ['Eval'],
-          value: `return () => {this.state.context.visible? this.send({type:'CLOSE'}): this.send({type:'OPEN'})}`,
+          value: `return () => {this.state.context.sidebarCollapsed? this.send({type:'CLOSE_SIDEBAR'}): this.send({type:'OPEN_SIDEBAR'})}`,
         },
         collapsed: {
           __type: ['Eval'],
-          value: `return !this.state.context.visible`,
+          value: `return !this.state.context.sidebarCollapsed`,
         },
       },
       children: [
