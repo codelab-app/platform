@@ -31,6 +31,16 @@ export const machineNode = Machine<ContextNode, StateSchemaNode, EventNode>({
           //   },
           // }),
         },
+        NODE_CREATE: {
+          target: StateNameNode.CREATING,
+          actions: assign({
+            nodes: (context, event) => {
+              console.log(context, event)
+
+              return [...context.nodes]
+            },
+          }),
+        },
       },
     },
     [StateNameNode.LOADING]: {

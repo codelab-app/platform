@@ -14,14 +14,14 @@ import { ContextModal, EventModal } from '@codelab/state/modal'
 import { withActor } from '@codelab/ui/hoc'
 
 export const formNode: NodeReactI = {
-  type: 'React.Fragment',
+  type: 'React.Html.div',
   props: {
     form: {
       __type: ['Eval', 'Single'],
       value: `
         const [form] = this.antd.Form.useForm();
         return form
-        `,
+      `,
     },
   },
   children: [
@@ -35,8 +35,12 @@ export const formNode: NodeReactI = {
         name: 'create-node-form',
         onFinish: {
           __type: ['Eval'],
-          value:
-            'return (values)=>{this.handleSubmit(values); this.form.resetFields();}',
+          value: `
+            return (values) => {
+              this.handleSubmit(values);
+              this.form.resetFields();
+            }
+          `,
         },
       },
       children: [

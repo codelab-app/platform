@@ -35,8 +35,6 @@ Everything can be done using an abstracted UI layer (via forms, tables, custom U
   - A graph database
 - [Nest.js](https://nestjs.com)
   - A Node.js framework suitable for micro-services architecture, which heavily uses OOP principles such as dependency injection (DI)
-- [Express Restify Mongoose](https://florianholzapfel.github.io/express-restify-mongoose)
-  - A wrapper around Mongoose to provide easy to use API endpoints
 
 ### UI
 
@@ -78,11 +76,18 @@ The project directory structure is based on NX, with `apps` directory containing
 - MongoDB
 - Neo4j
 
+1. Install [Neo4j](https://neo4j.com/docs/operations-manual/current/installation)
+  - Update `NEO4J_URL`, `NEO4J_USERNAME`, `NEO4J_PASSWORD` in `.env`
+  - Usually is `NEO4j_URL=bolt://localhost:7687`
+2. Install [MongoDB](https://docs.mongodb.com/manual/installation/)
+
 ## Getting Started
 
-1. Clone a forked version of the repository
-2. `cp .env.example .env.dev`
-3. `yarn`
+1. `cp .env.example .env.dev`
+2. `yarn`
+3. `yarn start` will run backend & frontend
+  - for frontend only, run `nx serve web --with-deps --parallel`
+  - for backend only, run `nx serve api-gateway --with-deps --parallel`
 
 The NX Console tab has all the commands you'll need to interact with the app under the `Generate & Run Target` section. For the most part, you'll be developing with Jest & Storybook.
 
@@ -94,7 +99,7 @@ Clone off master and create a local branch using a name that is relevant to the 
 
 To commit code, run `yarn commit`. (This will trigger the git `pre-commit` hook via [Husky](https://github.com/typicode/husky), which then uses [Lint Staged](https://github.com/okonet/lint-staged) to run [ESLint](https://github.com/eslint/eslint) on staged files. ESLint will use [Prettier](https://github.com/prettier/prettier) to format files.)
 
-After using `yarn commit` a couple times and understanding the commit mesage format, you can manually create the message if you wish.
+After using `yarn commit` a couple times and understanding the commit message format, you can manually create the message if you wish.
 
 Follow the CLI prompt to complete the commit. ([Commitizen](https://github.com/commitizen/cz-cli) is used to trigger the terminal prompt for constructing the proper commit message format.)
 
@@ -106,11 +111,8 @@ Once pushed to the remote repository, create a Pull Request on Github to `master
 
 `/apps` Contain main user-facing applications like web frontend, api backend, & e2e tests.
 
-- `api` is our API endpoint, composed of multiple Nest.js modules
-
-  Access `http://localhost:3333/api/v1/Node`
-
-- `docs` our documentation site, currently outdated
+- `api-gateway` is our Apollo Federation endpoint, which combines multiple GraphQL endpoints
+- `api-services` contains GraphQL micro-services
 - `web` is our web entry into the application
 
 ### Libs
