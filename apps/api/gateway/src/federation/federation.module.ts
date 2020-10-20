@@ -21,21 +21,18 @@ import { ApiConfig } from '@codelab/api/config'
               //   )}/graphql`,
               // },
               {
-                name: 'graph',
+                name: 'graph-service',
                 url: `http://localhost:${config.get(
                   'port.services.graph',
                 )}/graphql`,
               },
               {
-                name: 'prop',
+                name: 'prop-service',
                 url: `http://localhost:${config.get(
                   'port.services.props',
                 )}/graphql`,
               },
             ],
-            server: {
-              orphanedTypes: [],
-            },
           },
         }
       },

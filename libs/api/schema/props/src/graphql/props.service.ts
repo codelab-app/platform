@@ -6,7 +6,8 @@ export class PropsService {
   private props: Array<Prop> = [
     {
       id: 1,
-      props: { text: 'Button', size: 'medium', type: 'primary' },
+      // props: { text: 'Button', size: 'medium', type: 'primary' },
+      value: 'button',
     },
   ]
 

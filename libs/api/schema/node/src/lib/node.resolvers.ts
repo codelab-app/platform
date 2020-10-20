@@ -1,4 +1,5 @@
-import { GraphQLResolverMap } from 'apollo-graphql'
+import { Query, ResolveReference, Resolver } from '@nestjs/graphql'
+import { Node } from './node.model'
 
 const nodes = [
   {
@@ -8,22 +9,15 @@ const nodes = [
   { id: 2, type: 'React.Div' },
 ]
 
-export const resolvers: GraphQLResolverMap = {
-  Query: {
-    titties: () => {
-      return ''
-    },
-  },
-  Node: {
-    __resolveReference(node) {
-      console.log('test')
+@Resolver(() => Node)
+export class NodeResolvers {
+  @ResolveReference()
+  resolveReference(node: { __typename: string; id: number }) {
+    return nodes.find(({ id }) => id === node.id)
+  }
 
-      return nodes.find(({ id }) => id === node.id)
-    },
-    // props: async (object: any, params: any, ctx: any, resolveInfo: any) => {
-    //   console.log(object, params, ctx, resolveInfo)
-    //
-    //   console.log('resolving prop')
-    // },
-  },
+  @Query((returns) => Node)
+  node() {
+    return nodes[0]
+  }
 }

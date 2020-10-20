@@ -1,5 +1,5 @@
 import { Logger } from '@nestjs/common'
-import { Args, Int, Query, ResolveReference, Resolver } from '@nestjs/graphql'
+import { Args, Query, Resolver } from '@nestjs/graphql'
 import { Prop } from '../model/prop.model'
 import { PropsService } from '../props.service'
 
@@ -7,15 +7,15 @@ import { PropsService } from '../props.service'
 export class PropsResolver {
   constructor(private readonly propsService: PropsService) {}
 
-  @ResolveReference()
-  resolveReference(prop: { __typename: string; id: number }) {
-    Logger.log('resolverReference')
+  // @ResolveReference()
+  // resolveReference(prop: { __typename: string; id: number }) {
+  //   Logger.log('resolverReference')
 
-    return this.propsService.findOneById(prop.id)
-  }
+  //   return this.propsService.findOneById(prop.id)
+  // }
 
   @Query(() => Prop, { name: 'props' })
-  props(@Args('id', { type: () => Int }) id: number): Prop | undefined {
+  props(@Args('id') id: number): Prop | undefined {
     Logger.log('props')
 
     return this.propsService.findOneById(id)

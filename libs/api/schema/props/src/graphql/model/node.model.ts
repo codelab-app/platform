@@ -1,5 +1,5 @@
 import { Directive, Field, ID, ObjectType } from '@nestjs/graphql'
-import { Prop } from '@codelab/api/schema/props'
+import { Prop } from '.'
 
 @ObjectType()
 @Directive('@extends')
@@ -10,5 +10,9 @@ export class Node {
   declare id: number
 
   @Field(() => Prop, { nullable: true })
-  props?: Prop
+  declare props?: Prop
+
+  // constructor(node: Partial<Node>) {
+  //   Object.assign(node)
+  // }
 }

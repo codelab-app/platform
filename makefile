@@ -112,7 +112,8 @@ start-dev:
 	@npx nx run-many \
 		--maxParallel=6 \
 		--target=serve \
-		--projects=api-services-props,api-services-graph,api-gateway,web \
+		--projects=api-gateway,web \
+		--with-deps \
 		--parallel \
 		"$@"
 

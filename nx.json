@@ -120,7 +120,8 @@
       "tags": []
     },
     "api-gateway": {
-      "tags": []
+      "tags": [],
+      "implicitDependencies": ["api-services-props", "api-services-graph"]
     },
     "api-services-props": {
       "tags": []

@@ -1,2 +1,2 @@
-export * from './nodes.resolver'
-export * from './props.resolver'
+export * from './nodes.resolvers'
+export * from './props.resolvers'

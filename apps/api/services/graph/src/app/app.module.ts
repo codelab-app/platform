@@ -1,10 +1,8 @@
-import { join } from 'path'
 import { buildFederatedSchema } from '@apollo/federation'
 import { Module } from '@nestjs/common'
 import { GraphQLModule } from '@nestjs/graphql'
 import { GraphQLSchema } from 'graphql'
 import { printSchema } from 'graphql/utilities'
-// ES6
 import { makeAugmentedSchema } from 'neo4j-graphql-js'
 import { extractResolversFromSchema } from 'neo4j-graphql-js/dist/augment/resolvers'
 import { AppController } from './app.controller'
@@ -16,12 +14,6 @@ import {
 } from '@codelab/api/drivers/neo4j'
 import { LoggerModule } from '@codelab/api/logger'
 import { NodeModule } from '@codelab/api/schema/node'
-
-const schemaFile = join(
-  process.cwd(),
-  'apps/api/services/graph/src/schema.graphql',
-)
-
 @Module({
   imports: [
     LoggerModule,
@@ -34,7 +26,7 @@ const schemaFile = join(
       useFactory: (driver) => {
         return {
           include: [NodeModule],
-          autoSchemaFile: schemaFile,
+          autoSchemaFile: true,
           transformSchema: (schema: GraphQLSchema) => {
             // Here schema already has federation added
 
