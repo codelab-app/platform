@@ -14,6 +14,129 @@ export enum BaseNodeType {
  */
 export const nodeTypeEntries = Object.entries(BaseNodeType)
 
+// /**
+//  * Used with Graphql
+//  */
+// export enum NodeType {
+//   /**
+//    * React, requires additional `type` key
+//    */
+//   React_Fragment,
+//   React_Html_Div,
+//   React_Html_P,
+//   React_Html_A = 'React.Html.a',
+//   React_Html_Span = 'React.Html.span',
+//   React_Text = 'React.Text',
+//   React_Icon = 'React.Icon',
+//   React_Menu = 'React.Menu',
+//   React_Menu_Item = 'React.Menu.Item',
+//   React_Menu_ItemGroup = 'React.Menu.ItemGroup',
+//   React_Menu_SubMenu = 'React.Menu.SubMenu',
+//   React_Card = 'React.Card',
+//   React_Card_Grid = 'React.Card.Grid',
+//   React_Card_Meta = 'React.Card.Meta',
+//   React_Typography = 'React.Typography',
+//   React_Typography_Title = 'React.Typography.Title',
+//   React_Typography_Text = 'React.Typography.Text',
+//   React_Typography_Paragraph = 'React.Typography.Paragraph',
+//   React_Alert = 'React.Alert',
+//   React_Affix = 'React.Affix',
+//   React_AutoComplete = 'React.AutoComplete',
+//   React_Button = 'React.Button',
+//   React_Breadcrumb = 'React.Breadcrumb',
+//   React_Breadcrumb_Item = 'React.Breadcrumb.Item',
+//   React_Dropdown = 'React.Dropdown',
+//   React_Form = 'React.Form',
+//   React_Form_Item = 'React.Form.Item',
+//   React_Form_ItemHook = 'React.Form.ItemHook',
+//   React_Form_List = 'React.Form.List',
+//   React_Checkbox = 'React.Checkbox',
+//   React_Input = 'React.Input',
+//   React_InputNumber = 'React.InputNumber',
+//   React_Select = 'React.Select',
+//   React_Select_Option = 'React.Select.Option',
+//   React_Grid = 'React.Grid',
+//   React_ResponsiveGrid = 'React.ResponsiveGrid',
+//   React_Provider = 'React.Provider',
+//   React_Modal = 'React.Modal',
+//   React_Radio_Group = 'React.Radio.Group',
+//   React_Radio = 'React.Radio',
+//   React_Rate = 'React.Rate',
+//   React_Slider = 'React.Slider',
+//   React_Switch = 'React.Switch',
+//   React_Table = 'React.Table',
+//   React_Space = 'React.Space',
+//   React_DatePicker = 'React.DatePicker',
+//   React_Divider = 'React.Divider',
+//   React_Pagination = 'React.Pagination',
+//   React_PageHeader = 'React.PageHeader',
+//   React_Badge = 'React.Badge',
+//   React_Avatar = 'React.Avatar',
+//   React_Comment = 'React.Comment',
+//   React_Calendar = 'React.Calendar',
+//   React_Descriptions = 'React.Descriptions',
+//   React_Descriptions_Item = 'React.Descriptions.Item',
+//   React_Empty = 'React.Empty',
+//   React_Timeline = 'React.Timeline',
+//   React_Timeline_Item = 'React.Timeline.Item',
+//   React_Tabs = 'React.Tabs',
+//   React_Tabs_TabPane = 'React.Tabs.TabPane',
+//   React_Statistic = 'React.Statistic',
+//   React_Tooltip = 'React.Tooltip',
+//   React_Tag = 'React.Tag',
+//   React_Tree = 'React.Tree',
+//   React_Drawer = 'React.Drawer',
+//   React_Progress = 'React.Progress',
+//   React_Result = 'React.Result',
+//   React_Spin = 'React.Spin',
+//   React_Skeleton = 'React.Skeleton',
+//   React_Anchor = 'React.Anchor',
+//   React_Anchor_Link = 'React.Anchor.Link',
+//   React_BackTop = 'React.BackTop',
+//   React_ConfigProvider = 'React.ConfigProvider',
+//   React_Popconfirm = 'React.Popconfirm',
+//   React_Transfer = 'React.Transfer',
+//   React_TreeSelect = 'React.TreeSelect',
+//   React_TreeNode = 'React.TreeNode',
+//   React_TimePicker = 'React.TimePicker',
+//   React_Upload = 'React.Upload',
+//   React_Steps = 'React.Steps',
+//   React_Steps_Step = 'React.Steps.Step',
+//   React_Collapse = 'React.Collapse',
+//   React_Collapse_Panel = 'React.Collapse.Panel',
+//   React_Carousel = 'React.Carousel',
+//   React_List = 'React.List',
+//   React_List_Item = 'React.List.Item',
+//   React_List_Item_Meta = 'React.List.Item.Meta',
+//   React_Mentions = 'React.Mentions',
+//   React_Mentions_Option = 'React.Mentions.Option',
+//   React_Layout = 'React.Layout',
+//   React_Layout_Header = 'React.Layout.Header',
+//   React_Layout_Sider = 'React.Layout.Sider',
+//   React_Layout_Content = 'React.Layout.Content',
+//   React_Layout_Footer = 'React.Layout.Footer',
+//   React_Cascader = 'React.Cascader',
+//   React_Popover = 'React.Popover',
+//   React_RenderComponent = 'React.RenderComponent',
+//   React_RenderContainer = 'React.RenderContainer',
+//   /**
+//    * Mongoose Model
+//    */
+//   Model = 'Model',
+//   /**
+//    * Mongoose Schema
+//    */
+//   Schema = 'Schema',
+//   /**
+//    * Non-react tree, requires ID
+//    */
+//   Tree = 'Tree',
+//   /**
+//    * Flat array, uses ref to build tree, requires parentRef, childrenRef
+//    */
+//   Ref = 'Ref',
+// }
+
 /**
  * Used with Graphql
  */

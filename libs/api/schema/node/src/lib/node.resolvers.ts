@@ -1,7 +1,14 @@
 import { Inject } from '@nestjs/common'
-import { Query, ResolveReference, Resolver } from '@nestjs/graphql'
+import {
+  Args,
+  Mutation,
+  Query,
+  ResolveReference,
+  Resolver,
+} from '@nestjs/graphql'
 import { Node } from './node.model'
 import { CODELAB_LOGGER_PROVIDER, CodelabLogger } from '@codelab/api/logger'
+import { NodeType } from '@codelab/shared/interface/node'
 
 const nodes = [
   {
@@ -29,10 +36,10 @@ export class NodeResolvers {
     return nodes[0]
   }
 
-  // @Mutation((returns) => Node)
-  // createNode(@Args({ name: 'type', type: () => NodeType }) type: NodeType) {
-  //   console.log('create')
+  @Mutation((returns) => Node)
+  createNode(@Args({ name: 'type', type: () => NodeType }) type: NodeType) {
+    console.log('create')
 
-  //   return {}
-  // }
+    return {}
+  }
 }
