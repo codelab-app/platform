@@ -33,6 +33,7 @@ Everything can be done using an abstracted UI layer (via forms, tables, custom U
 - [Mongoose](https://mongoosejs.com)
 - [Neo4j](https://neo4j.com/)
   - A graph database
+  - [Neo4j GraphQL](https://grandstack.io/docs/neo4j-graphql-js)
 - [Nest.js](https://nestjs.com)
   - A Node.js framework suitable for micro-services architecture, which heavily uses OOP principles such as dependency injection (DI)
 
@@ -79,6 +80,7 @@ The project directory structure is based on NX, with `apps` directory containing
 1. Install [Neo4j](https://neo4j.com/docs/operations-manual/current/installation)
   - Update `NEO4J_URL`, `NEO4J_USERNAME`, `NEO4J_PASSWORD` in `.env`
   - Usually is `NEO4j_URL=bolt://localhost:7687`
+  - Enable APOC under Plugins in Neo4j Deskto (click 3 dots at top right of Database)
 2. Install [MongoDB](https://docs.mongodb.com/manual/installation/)
 
 ## Getting Started

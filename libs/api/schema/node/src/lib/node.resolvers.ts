@@ -28,4 +28,11 @@ export class NodeResolvers {
   node() {
     return nodes[0]
   }
+
+  // @Mutation((returns) => Node)
+  // createNode(@Args({ name: 'type', type: () => NodeType }) type: NodeType) {
+  //   console.log('create')
+
+  //   return {}
+  // }
 }

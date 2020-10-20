@@ -122,6 +122,12 @@ start-dev:
 		--parallel \
 		"$@"
 
+start-api:
+	@npx nx serve api-gateway \
+		--with-deps \
+		--parallel \
+		"$@"
+
 start-dev-gateway:
 	@npx nx run-many \
 		--target=serve \
