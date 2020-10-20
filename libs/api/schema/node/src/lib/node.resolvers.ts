@@ -6,9 +6,8 @@ import {
   ResolveReference,
   Resolver,
 } from '@nestjs/graphql'
-import { Node } from './node.model'
+import { Node, NodeType } from './node.model'
 import { CODELAB_LOGGER_PROVIDER, CodelabLogger } from '@codelab/api/logger'
-import { NodeType } from '@codelab/shared/interface/node'
 
 const nodes = [
   {
