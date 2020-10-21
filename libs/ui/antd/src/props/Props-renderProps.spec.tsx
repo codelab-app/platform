@@ -38,4 +38,34 @@ describe('RenderProps', () => {
 
     expect(actualGrandChildProps).toHaveProperty('grandchildprops', 'leaf')
   })
+
+  it('can pass props outside and override internal props if prop name is the same', () => {
+    const Component = Renderer.components<{
+      singleprops: string
+      newprop: string
+    }>(renderPropsData)
+    const wrapper = mount(
+      <Component singleprops="external_prop" newprop="new_ext_prop" />,
+    )
+
+    const rootCmt = wrapper.find('div').get(0)
+    const child = wrapper.find('div').get(1)
+    const grandchild = wrapper.find('div').get(2)
+
+    const actualRootProps = rootCmt.props
+
+    expect(actualRootProps).toHaveProperty('singleprops', 'external_prop')
+    expect(actualRootProps).toHaveProperty('newprop', 'new_ext_prop')
+
+    const actualChildProps = child.props
+
+    expect(actualChildProps).toHaveProperty('childprops', 'external_prop')
+
+    const actualGrandChildProps = grandchild.props
+
+    expect(actualGrandChildProps).toHaveProperty(
+      'grandchildprops',
+      'external_prop',
+    )
+  })
 })
