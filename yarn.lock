@@ -2986,6 +2986,15 @@
   resolved "https://registry.yarnpkg.com/@nestjs/mapped-types/-/mapped-types-0.1.0.tgz#248435b4af4305bf6d1214d228c84926be56125a"
   integrity sha512-FfQsZK5K1OvvGqjPHCJtrNTLlKLg7bLuphtCRTFb5K2P98JTfslauMbT7bS8huOoK/86HMNmNoHR/EVLAd4FzA==
 
+"@nestjs/microservices@^7.4.4":
+  version "7.4.4"
+  resolved "https://registry.yarnpkg.com/@nestjs/microservices/-/microservices-7.4.4.tgz#82d3b9b303a38aee9070cdcbd6a7fef98589e15d"
+  integrity sha512-5DTxJJcQ6d1deTCytwKWXQpB3nyxSnF5VFoMeeuduIszRjhKAETTdEaymk9tInKiTey9tmWf3RTlQa1x7ytglQ==
+  dependencies:
+    iterare "1.2.1"
+    json-socket "0.3.0"
+    tslib "2.0.1"
+
 "@nestjs/mongoose@^7.0.2":
   version "7.0.2"
   resolved "https://registry.yarnpkg.com/@nestjs/mongoose/-/mongoose-7.0.2.tgz#cfb087de6e75e3fdc2e3a490abfa737009128da0"
@@ -14433,6 +14442,11 @@ json-schema@0.2.3:
   version "0.2.3"
   resolved "https://registry.yarnpkg.com/json-schema/-/json-schema-0.2.3.tgz#b480c892e59a2f05954ce727bd3f2a4e882f9e13"
   integrity sha1-tIDIkuWaLwWVTOcnvT8qTogvnhM=
+
+json-socket@0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/json-socket/-/json-socket-0.3.0.tgz#f4b953c685bb8e8bd0b72438f5208d9a0799ae07"
+  integrity sha512-jc8ZbUnYIWdxERFWQKVgwSLkGSe+kyzvmYxwNaRgx/c8NNyuHes4UHnPM3LUrAFXUx1BhNJ94n1h/KCRlbvV0g==
 
 json-stable-stringify-without-jsonify@^1.0.1:
   version "1.0.1"

@@ -8,7 +8,7 @@ import { NestFactory } from '@nestjs/core'
 import bodyParser from 'body-parser'
 import methodOverride from 'method-override'
 import { AppModule } from './app/app.module'
-import { ApiConfig } from '@codelab/api/config'
+import { ApiConfig, ApiConfigTypes } from '@codelab/api/config'
 import { ROUTER_SERVICE } from '@codelab/api/router'
 
 const bootstrap = async () => {
@@ -23,7 +23,7 @@ const bootstrap = async () => {
   app.use(methodOverride())
   app.use(expressRouter)
 
-  const port = config.get('port.gateway')
+  const port = config.get(ApiConfigTypes.PORT_GATEWAY)
 
   await app.listen(port, () => {
     Logger.log(`Listening at http://localhost:${port}/${globalPrefix}`)

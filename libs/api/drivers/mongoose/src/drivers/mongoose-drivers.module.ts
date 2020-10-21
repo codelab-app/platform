@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { MongooseModule } from '@nestjs/mongoose'
-import { ApiConfig } from '@codelab/api/config'
+import { ApiConfig, ApiConfigTypes } from '@codelab/api/config'
 
 @Module({
   imports: [
@@ -9,7 +9,7 @@ import { ApiConfig } from '@codelab/api/config'
       inject: [ConfigService],
       useFactory: (config: ConfigService<ApiConfig>) => {
         return {
-          uri: config.get('mongoEndpoint'),
+          uri: config.get(ApiConfigTypes.MONGO_ENDPOINT),
         }
       },
     }),
