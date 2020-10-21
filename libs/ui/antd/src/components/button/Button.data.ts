@@ -17,7 +17,9 @@ import { NodeReactI } from '@codelab/shared/interface/node'
 //   ],
 // }
 
-export const buttonData: NodeReactI<Button.Props | Text.Props> = {
+export const fragmentWrappedButtonData: NodeReactI<
+  Button.Props | Text.Props
+> = {
   type: 'React.Fragment',
   props: {
     ctx: {
@@ -43,6 +45,25 @@ export const buttonData: NodeReactI<Button.Props | Text.Props> = {
           },
         },
       ],
+    },
+  ],
+}
+
+export const buttonData: NodeReactI<Button.Props | Text.Props> = {
+  type: 'React.Button',
+  props: {
+    onClick: {
+      __type: ['Eval'],
+      value: `return () => console.log(this.ctx.a)`,
+    },
+    type: 'primary',
+  },
+  children: [
+    {
+      type: 'React.Text',
+      props: {
+        value: 'Click me',
+      },
     },
   ],
 }

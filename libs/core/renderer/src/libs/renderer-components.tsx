@@ -31,6 +31,8 @@ export const buildComponents = <P extends {} = {}>(
     children: rootChildren,
     ...outsideProps
   }: PropsWithChildren<P>) => {
+    root.props = { ...root.props, ...propsMapLeaf(outsideProps) }
+
     /**
      * We only want to transform rootProps to leaf, since root.props contain antd specific props
      */
