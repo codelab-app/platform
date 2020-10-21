@@ -5,7 +5,6 @@ import {
   ObjectType,
   registerEnumType,
 } from '@nestjs/graphql'
-// import { NodeType } from '@codelab/shared/interface/node'
 
 export enum NodeType {
   REACT_BUTTON,
@@ -21,7 +20,7 @@ export class Node {
   declare id: number
 
   @Field(() => NodeType)
-  declare type: NodeType
+  declare type: object
 
   constructor(node: Partial<Node>) {
     Object.assign(node)
