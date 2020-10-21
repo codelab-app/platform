@@ -1,10 +1,10 @@
-import { NodeReactI } from '@codelab/shared/interface/node'
+import { NodeReactI, NodeType } from '@codelab/shared/interface/node'
 
 export const renderComponentData: NodeReactI<any> = {
-  type: 'React.RenderComponent',
+  type: NodeType.React_RenderComponent,
   children: [
     {
-      type: 'React.Button',
+      type: NodeType.React_Button,
       props: {
         onClick: {
           __type: ['Eval'],
@@ -13,7 +13,7 @@ export const renderComponentData: NodeReactI<any> = {
       },
       children: [
         {
-          type: 'React.Text',
+          type: NodeType.React_Text,
           props: {
             value: {
               __type: ['Eval'],
@@ -27,6 +27,6 @@ export const renderComponentData: NodeReactI<any> = {
 }
 
 export const renderContainerData: NodeReactI<any> = {
-  type: 'React.RenderContainer',
+  type: NodeType.React_RenderContainer,
   props: { data: 'Data' },
 }

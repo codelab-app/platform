@@ -1,17 +1,17 @@
 import { Text } from '../text'
 import { BackTop } from './BackTop.types'
-import { NodeReactI } from '@codelab/shared/interface/node'
+import { NodeReactI, NodeType } from '@codelab/shared/interface/node'
 
 export const backtopData: NodeReactI<BackTop.Props | Text.Props> = {
-  type: 'React.Html.div',
+  type: NodeType.React_Html_Div,
   props: { style: { height: '200vh' } },
   children: [
     {
-      type: 'React.Text',
+      type: NodeType.React_Text,
       props: { value: 'Scroll down to see the bottom-right gray button' },
     },
     {
-      type: 'React.BackTop',
+      type: NodeType.React_BackTop,
       props: { visibilityHeight: 100 },
     },
   ],

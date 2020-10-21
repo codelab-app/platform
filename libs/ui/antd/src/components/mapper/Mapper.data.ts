@@ -1,15 +1,15 @@
-import { NodeReactI } from '@codelab/shared/interface/node'
+import { NodeReactI, NodeType } from '@codelab/shared/interface/node'
 
 export const mapperData: NodeReactI = {
-  type: 'React.Mapper',
+  type: NodeType.React_Mapper,
   props: {
     dataSource: ['Webber', 'Alex', 'Vien'],
     render: {
-      type: 'React.Tag',
+      type: NodeType.React_Tag,
 
       children: [
         {
-          type: 'React.Text',
+          type: NodeType.React_Text,
           props: {
             value: { __type: ['Eval'], value: 'return this.item' },
           },

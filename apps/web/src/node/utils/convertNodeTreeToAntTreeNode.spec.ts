@@ -1,11 +1,12 @@
 import { convertNodeTreeToAntTreeDataNode } from './convertNodeTreeToAntTreeNode'
 import { NodeEntity } from '@codelab/core/node'
+import { NodeType } from '@codelab/shared/interface/node'
 
 describe('convertNodeTreeToAntTreeNode. Single node without children', () => {
   let node: NodeEntity
 
   beforeAll(() => {
-    node = new NodeEntity({ type: 'React.Alert', id: 'key' })
+    node = new NodeEntity({ type: NodeType.React_Alert, id: 'key' })
   })
   it('should convert id of the node to key of the antd tree node', () => {
     expect(convertNodeTreeToAntTreeDataNode(node).key).toBe(node.id)
@@ -22,10 +23,10 @@ describe('convertNodeTreeToAntTreeNode. Node with child', () => {
   let grandchild: NodeEntity
 
   beforeAll(() => {
-    parent = new NodeEntity({ type: 'Tree', id: 'parent' })
-    child = new NodeEntity({ type: 'Tree', id: 'child' })
-    child2 = new NodeEntity({ type: 'Tree', id: 'child' })
-    grandchild = new NodeEntity({ type: 'Tree', id: 'child' })
+    parent = new NodeEntity({ type: NodeType.Tree, id: 'parent' })
+    child = new NodeEntity({ type: NodeType.Tree, id: 'child' })
+    child2 = new NodeEntity({ type: NodeType.Tree, id: 'child' })
+    grandchild = new NodeEntity({ type: NodeType.Tree, id: 'child' })
     parent.addChild(child)
     parent.addChild(child2)
     child.addChild(grandchild)

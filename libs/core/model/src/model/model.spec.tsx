@@ -3,7 +3,7 @@
  */
 import * as mongoose from 'mongoose'
 import { makeModel } from '@codelab/core/tree'
-import { NodeI } from '@codelab/shared/interface/node'
+import { NodeI, NodeType } from '@codelab/shared/interface/node'
 
 describe('Model', () => {
   const personSchema = new mongoose.Schema({
@@ -21,13 +21,13 @@ describe('Model', () => {
   })
 
   const personExample: NodeI = {
-    type: 'Model',
+    type: NodeType.Model,
     props: {
       name: 'PersonExample',
     },
     children: [
       {
-        type: 'Schema',
+        type: NodeType.Schema,
         props: {
           name: { type: 'string' },
           age: { type: 'number' },
@@ -38,11 +38,11 @@ describe('Model', () => {
   }
 
   const storyExample: NodeI = {
-    type: 'Model',
+    type: NodeType.Model,
     props: { name: 'StoryExample' },
     children: [
       {
-        type: 'Schema',
+        type: NodeType.Schema,
         props: {
           author: { type: 'string', ref: 'PersonExample' },
           title: { type: 'string' },

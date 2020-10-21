@@ -1,14 +1,14 @@
-import { NodeReactI } from '@codelab/shared/interface/node'
+import { NodeReactI, NodeType } from '@codelab/shared/interface/node'
 
 export const nodeID: NodeReactI = {
-  type: 'React.Form.Item',
+  type: NodeType.React_Form_Item,
   props: {
     label: 'ID',
     name: 'id',
   },
   children: [
     {
-      type: 'React.Input',
+      type: NodeType.React_Input,
       props: { disabled: true },
     },
   ],

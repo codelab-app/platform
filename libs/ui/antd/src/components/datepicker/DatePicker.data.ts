@@ -1,5 +1,5 @@
 import { DatePicker } from './DatePicker.types'
-import { NodeReactI } from '@codelab/shared/interface/node'
+import { NodeReactI, NodeType } from '@codelab/shared/interface/node'
 
 export const datePickerData: NodeReactI<
   | DatePicker.CommonPickerProps
@@ -10,7 +10,7 @@ export const datePickerData: NodeReactI<
   | DatePicker.WeekPickerProps
   | DatePicker.RangePickerProps
 > = {
-  type: 'React.DatePicker',
+  type: NodeType.React_DatePicker,
   props: {
     picker: 'date',
   },

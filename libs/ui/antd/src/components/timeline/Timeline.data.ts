@@ -1,18 +1,18 @@
 import { Text } from '../text'
 import { Timeline } from './Timeline.types'
-import { NodeReactI } from '@codelab/shared/interface/node'
+import { NodeReactI, NodeType } from '@codelab/shared/interface/node'
 
 export const timelineData: NodeReactI<
   Timeline.Props | Timeline.ItemProps | Text.Props
 > = {
-  type: 'React.Timeline',
+  type: NodeType.React_Timeline,
   children: [
     {
-      type: 'React.Timeline.Item',
+      type: NodeType.React_Timeline_Item,
       props: {},
       children: [
         {
-          type: 'React.Text',
+          type: NodeType.React_Text,
           props: {
             value: 'Create a services site 2015-09-01',
           },
@@ -20,11 +20,11 @@ export const timelineData: NodeReactI<
       ],
     },
     {
-      type: 'React.Timeline.Item',
+      type: NodeType.React_Timeline_Item,
       props: {},
       children: [
         {
-          type: 'React.Text',
+          type: NodeType.React_Text,
           props: {
             value: 'Solve initial network problems 2015-09-01',
           },
@@ -32,11 +32,11 @@ export const timelineData: NodeReactI<
       ],
     },
     {
-      type: 'React.Timeline.Item',
+      type: NodeType.React_Timeline_Item,
       props: {},
       children: [
         {
-          type: 'React.Text',
+          type: NodeType.React_Text,
           props: {
             value: 'Technical testing 2015-09-01',
           },
@@ -44,11 +44,11 @@ export const timelineData: NodeReactI<
       ],
     },
     {
-      type: 'React.Timeline.Item',
+      type: NodeType.React_Timeline_Item,
       props: {},
       children: [
         {
-          type: 'React.Text',
+          type: NodeType.React_Text,
           props: {
             value: 'Network problems being solved 2015-09-01',
           },

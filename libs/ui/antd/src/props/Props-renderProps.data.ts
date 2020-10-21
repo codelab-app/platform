@@ -1,7 +1,7 @@
-import { NodeI } from '@codelab/shared/interface/node'
+import { NodeI, NodeType } from '@codelab/shared/interface/node'
 
 export const renderPropsData: NodeI = {
-  type: 'React.Html.div',
+  type: NodeType.React_Html_Div,
   props: {
     visibility: '',
     singleprops: {
@@ -11,7 +11,7 @@ export const renderPropsData: NodeI = {
   },
   children: [
     {
-      type: 'React.Html.div',
+      type: NodeType.React_Html_Div,
       props: {
         childprops: {
           __type: ['Eval'],
@@ -20,7 +20,7 @@ export const renderPropsData: NodeI = {
       },
       children: [
         {
-          type: 'React.Html.div',
+          type: NodeType.React_Html_Div,
           props: {
             grandchildprops: {
               __type: ['Eval'],
@@ -34,7 +34,7 @@ export const renderPropsData: NodeI = {
 }
 
 export const leafRenderPropsData: NodeI = {
-  type: 'React.Html.div',
+  type: NodeType.React_Html_Div,
   props: {
     visibility: '',
     leafprops: {
@@ -44,7 +44,7 @@ export const leafRenderPropsData: NodeI = {
   },
   children: [
     {
-      type: 'React.Html.div',
+      type: NodeType.React_Html_Div,
       props: {
         childprops: {
           __type: ['Eval'],
@@ -54,7 +54,7 @@ export const leafRenderPropsData: NodeI = {
       },
       children: [
         {
-          type: 'React.Html.div',
+          type: NodeType.React_Html_Div,
           props: {
             grandchildprops: {
               __type: ['Eval'],

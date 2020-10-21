@@ -1,25 +1,25 @@
-import { NodeReactI } from '@codelab/shared/interface/node'
+import { NodeReactI, NodeType } from '@codelab/shared/interface/node'
 
 export const propsFields: NodeReactI = {
-  type: 'React.Form.Item',
+  type: NodeType.React_Form_Item,
   props: {
     label: 'Prop',
   },
   children: [
     {
-      type: 'React.Form.List',
+      type: NodeType.React_Form_List,
       props: {
         name: 'props',
       },
       children: [
         {
-          type: 'React.Form.Item',
+          type: NodeType.React_Form_Item,
           props: {
             name: 'key',
           },
           children: [
             {
-              type: 'React.Input',
+              type: NodeType.React_Input,
               props: {
                 placeholder: 'Key',
               },
@@ -27,13 +27,13 @@ export const propsFields: NodeReactI = {
           ],
         },
         {
-          type: 'React.Form.Item',
+          type: NodeType.React_Form_Item,
           props: {
             name: 'value',
           },
           children: [
             {
-              type: 'React.Input',
+              type: NodeType.React_Input,
               props: {
                 placeholder: 'Value',
               },

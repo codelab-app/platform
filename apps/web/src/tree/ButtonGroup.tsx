@@ -1,18 +1,19 @@
 import { Renderer } from '@codelab/core/renderer'
 import type { NodeReactI } from '@codelab/shared/interface/node'
+import { NodeType } from '@codelab/shared/interface/node'
 
 const nodeButtonGroupData: NodeReactI = {
-  type: 'React.Html.div',
+  type: NodeType.React_Html_Div,
   children: [
     {
-      type: 'React.Html.div',
+      type: NodeType.React_Html_Div,
       children: [
         {
-          type: 'React.Text',
+          type: NodeType.React_Text,
           props: { value: 'Current Selection: ' },
         },
         {
-          type: 'React.Text',
+          type: NodeType.React_Text,
           props: {
             value: {
               __type: ['Eval'],
@@ -23,7 +24,7 @@ const nodeButtonGroupData: NodeReactI = {
       ],
     },
     {
-      type: 'React.Html.div',
+      type: NodeType.React_Html_Div,
       props: {
         style: {
           margin: '5px 0',
@@ -31,7 +32,7 @@ const nodeButtonGroupData: NodeReactI = {
       },
       children: [
         {
-          type: 'React.Button',
+          type: NodeType.React_Button,
           props: {
             type: 'primary',
             onClick: {
@@ -45,7 +46,7 @@ const nodeButtonGroupData: NodeReactI = {
           },
           children: [
             {
-              type: 'React.Text',
+              type: NodeType.React_Text,
               props: {
                 value: 'Show Create Node Form',
               },
@@ -55,10 +56,10 @@ const nodeButtonGroupData: NodeReactI = {
       ],
     },
     {
-      type: 'React.Space',
+      type: NodeType.React_Space,
       children: [
         {
-          type: 'React.Button',
+          type: NodeType.React_Button,
           props: {
             type: 'primary',
             onClick: {
@@ -73,7 +74,7 @@ const nodeButtonGroupData: NodeReactI = {
           },
           children: [
             {
-              type: 'React.Text',
+              type: NodeType.React_Text,
               props: {
                 value: 'Delete Selected Node',
               },
@@ -81,7 +82,7 @@ const nodeButtonGroupData: NodeReactI = {
           ],
         },
         {
-          type: 'React.Button',
+          type: NodeType.React_Button,
           props: {
             type: 'primary',
             onClick: {
@@ -94,7 +95,7 @@ const nodeButtonGroupData: NodeReactI = {
           },
           children: [
             {
-              type: 'React.Text',
+              type: NodeType.React_Text,
               props: {
                 value: 'Clear ID filter',
               },

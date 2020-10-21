@@ -1,8 +1,8 @@
 import { Transfer } from './Transfer.types'
-import { NodeReactI } from '@codelab/shared/interface/node'
+import { NodeReactI, NodeType } from '@codelab/shared/interface/node'
 
 export const transferData: NodeReactI<Transfer.Props | Transfer.RenderProps> = {
-  type: 'React.Fragment',
+  type: NodeType.React_Fragment,
   props: {
     ctx: {
       __type: ['Eval', 'Leaf'],
@@ -15,7 +15,7 @@ export const transferData: NodeReactI<Transfer.Props | Transfer.RenderProps> = {
   },
   children: [
     {
-      type: 'React.Transfer',
+      type: NodeType.React_Transfer,
       props: {
         titles: ['Source', 'Target'],
         dataSource: [

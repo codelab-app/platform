@@ -1,21 +1,21 @@
 import { Button } from '../button'
 import { Text } from '../text'
 import { Result } from './Result.types'
-import { NodeReactI } from '@codelab/shared/interface/node'
+import { NodeReactI, NodeType } from '@codelab/shared/interface/node'
 
 export const resultData: NodeReactI<
   Result.Props | Button.Props | Text.Props
 > = {
-  type: 'React.Result',
+  type: NodeType.React_Result,
   props: {
     status: 'info',
     title: 'Your operation has been executed',
     extra: {
-      type: 'React.Button',
+      type: NodeType.React_Button,
       props: { type: 'primary', key: 'console' },
       children: [
         {
-          type: 'React.Text',
+          type: NodeType.React_Text,
           props: { value: 'Go Console' },
         },
       ],

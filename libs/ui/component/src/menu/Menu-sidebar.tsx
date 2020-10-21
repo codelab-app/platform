@@ -1,5 +1,5 @@
 import { Renderer } from '@codelab/core/renderer'
-import { NodeReactI } from '@codelab/shared/interface/node'
+import { NodeReactI, NodeType } from '@codelab/shared/interface/node'
 import { Menu, Text } from '@codelab/ui/antd'
 
 export const menuSidebar: NodeReactI<
@@ -9,7 +9,7 @@ export const menuSidebar: NodeReactI<
   | Menu.ItemGroupProps
   | Text.Props
 > = {
-  type: 'React.Menu',
+  type: NodeType.React_Menu,
   props: {
     mode: 'inline',
     theme: 'dark',
@@ -20,34 +20,34 @@ export const menuSidebar: NodeReactI<
   },
   children: [
     {
-      type: 'React.Menu.SubMenu',
+      type: NodeType.React_Menu_SubMenu,
       props: {
         key: 'sub1',
         title: 'Navigation One',
         icon: {
-          type: 'React.Icon',
+          type: NodeType.React_Icon,
           props: {
-            type: 'React.mail',
+            type: 'mail',
             theme: 'outlined',
           },
         },
       },
       children: [
         {
-          type: 'React.Menu.ItemGroup',
+          type: NodeType.React_Menu_ItemGroup,
           props: {
             key: 'g1',
             title: 'Item 1',
           },
           children: [
             {
-              type: 'React.Menu.Item',
+              type: NodeType.React_Menu_Item,
               props: {
                 key: '1',
               },
               children: [
                 {
-                  type: 'React.Text',
+                  type: NodeType.React_Text,
                   props: {
                     value: 'Option 1',
                   },
@@ -55,13 +55,13 @@ export const menuSidebar: NodeReactI<
               ],
             },
             {
-              type: 'React.Menu.Item',
+              type: NodeType.React_Menu_Item,
               props: {
                 key: '2',
               },
               children: [
                 {
-                  type: 'React.Text',
+                  type: NodeType.React_Text,
                   props: {
                     value: 'Option 2',
                   },
@@ -71,20 +71,20 @@ export const menuSidebar: NodeReactI<
           ],
         },
         {
-          type: 'React.Menu.ItemGroup',
+          type: NodeType.React_Menu_ItemGroup,
           props: {
             key: 'g2',
             title: 'Item 2',
           },
           children: [
             {
-              type: 'React.Menu.Item',
+              type: NodeType.React_Menu_Item,
               props: {
                 key: '3',
               },
               children: [
                 {
-                  type: 'React.Text',
+                  type: NodeType.React_Text,
                   props: {
                     value: 'Option 3',
                   },
@@ -92,13 +92,13 @@ export const menuSidebar: NodeReactI<
               ],
             },
             {
-              type: 'React.Menu.Item',
+              type: NodeType.React_Menu_Item,
               props: {
                 key: '4',
               },
               children: [
                 {
-                  type: 'React.Text',
+                  type: NodeType.React_Text,
                   props: {
                     value: 'Option 4',
                   },
@@ -110,27 +110,27 @@ export const menuSidebar: NodeReactI<
       ],
     },
     {
-      type: 'React.Menu.SubMenu',
+      type: NodeType.React_Menu_SubMenu,
       props: {
         key: 'sub2',
         title: 'Navigation Two',
         icon: {
-          type: 'React.Icon',
+          type: NodeType.React_Icon,
           props: {
-            type: 'React.appstore',
+            type: 'appstore',
             theme: 'outlined',
           },
         },
       },
       children: [
         {
-          type: 'React.Menu.Item',
+          type: NodeType.React_Menu_Item,
           props: {
             key: '5',
           },
           children: [
             {
-              type: 'React.Text',
+              type: NodeType.React_Text,
               props: {
                 value: 'Option 5',
               },
@@ -138,13 +138,13 @@ export const menuSidebar: NodeReactI<
           ],
         },
         {
-          type: 'React.Menu.Item',
+          type: NodeType.React_Menu_Item,
           props: {
             key: '6',
           },
           children: [
             {
-              type: 'React.Text',
+              type: NodeType.React_Text,
               props: {
                 value: 'Option 6',
               },
@@ -152,20 +152,20 @@ export const menuSidebar: NodeReactI<
           ],
         },
         {
-          type: 'React.Menu.SubMenu',
+          type: NodeType.React_Menu_SubMenu,
           props: {
             key: 'sub3',
             title: 'Submenu',
           },
           children: [
             {
-              type: 'React.Menu.Item',
+              type: NodeType.React_Menu_Item,
               props: {
                 key: '7',
               },
               children: [
                 {
-                  type: 'React.Text',
+                  type: NodeType.React_Text,
                   props: {
                     value: 'Option 7',
                   },
@@ -173,13 +173,13 @@ export const menuSidebar: NodeReactI<
               ],
             },
             {
-              type: 'React.Menu.Item',
+              type: NodeType.React_Menu_Item,
               props: {
                 key: '8',
               },
               children: [
                 {
-                  type: 'React.Text',
+                  type: NodeType.React_Text,
                   props: {
                     value: 'Option 8',
                   },

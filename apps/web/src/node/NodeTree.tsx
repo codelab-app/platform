@@ -1,9 +1,10 @@
 import { DataNode, TreeProps } from 'antd/lib/tree'
 import { Renderer } from '@codelab/core/renderer'
 import type { NodeReactI } from '@codelab/shared/interface/node'
+import { NodeType } from '@codelab/shared/interface/node'
 
 export const nodeTreeData: NodeReactI = {
-  type: 'React.Tree',
+  type: NodeType.React_Tree,
   props: {
     showLine: true,
     showIcon: true,

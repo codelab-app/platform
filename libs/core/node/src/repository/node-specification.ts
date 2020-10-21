@@ -1,8 +1,4 @@
-import {
-  NodeCreate,
-  NodeI,
-  nodeTypeLiterals,
-} from '@codelab/shared/interface/node'
+import { NodeCreate, NodeI, NodeType } from '@codelab/shared/interface/node'
 
 export interface IsSpecification<T = any> {
   isSatisfiedBy(data: T): boolean
@@ -15,7 +11,7 @@ export class IsValidCreateDto implements IsSpecification<NodeCreate> {
   isSatisfiedBy(data: NodeCreate): boolean {
     const { type } = data
 
-    const validType = nodeTypeLiterals.includes(type)
+    const validType = type in NodeType
 
     return validType
   }
@@ -28,7 +24,7 @@ export class IsValidCreateDtoModel implements IsSpecification<NodeI> {
   isSatisfiedBy(data: NodeCreate): boolean {
     const { type } = data
 
-    const validType = nodeTypeLiterals.includes(type)
+    const validType = type in NodeType
 
     return validType
   }

@@ -1,5 +1,5 @@
 import { List } from './List.types'
-import { NodeReactI } from '@codelab/shared/interface/node'
+import { NodeReactI, NodeType } from '@codelab/shared/interface/node'
 
 export const listData: NodeReactI<
   | List.Props
@@ -8,7 +8,7 @@ export const listData: NodeReactI<
   | List.ItemMetaProps
   | List.ItemProps
 > = {
-  type: 'React.List',
+  type: NodeType.React_List,
   props: {
     header: 'Header',
     split: 'true',
@@ -17,10 +17,10 @@ export const listData: NodeReactI<
   },
   children: [
     {
-      type: 'React.List.Item',
+      type: NodeType.React_List_Item,
       children: [
         {
-          type: 'React.List.Item.Meta',
+          type: NodeType.React_List_Item_Meta,
           props: {
             title: 'Racing car sprays burning fuel into crowd.',
           },
@@ -28,10 +28,10 @@ export const listData: NodeReactI<
       ],
     },
     {
-      type: 'React.List.Item',
+      type: NodeType.React_List_Item,
       children: [
         {
-          type: 'React.List.Item.Meta',
+          type: NodeType.React_List_Item_Meta,
           props: {
             title: 'Japanese princess to wed commoner.',
           },
@@ -39,10 +39,10 @@ export const listData: NodeReactI<
       ],
     },
     {
-      type: 'React.List.Item',
+      type: NodeType.React_List_Item,
       children: [
         {
-          type: 'React.List.Item.Meta',
+          type: NodeType.React_List_Item_Meta,
           props: {
             title: 'Australian walks 100km after outback crash.',
           },
@@ -50,10 +50,10 @@ export const listData: NodeReactI<
       ],
     },
     {
-      type: 'React.List.Item',
+      type: NodeType.React_List_Item,
       children: [
         {
-          type: 'React.List.Item.Meta',
+          type: NodeType.React_List_Item_Meta,
           props: {
             title: 'Man charged over missing wedding girl.',
           },
@@ -61,10 +61,10 @@ export const listData: NodeReactI<
       ],
     },
     {
-      type: 'React.List.Item',
+      type: NodeType.React_List_Item,
       children: [
         {
-          type: 'React.List.Item.Meta',
+          type: NodeType.React_List_Item_Meta,
           props: {
             title: 'Los Angeles battles huge wildfires.',
           },

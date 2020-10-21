@@ -1,10 +1,10 @@
 import { Button } from '../button'
 import { Text } from '../text'
 import { Modal } from '.'
-import { NodeReactI } from '@codelab/shared/interface/node'
+import { NodeReactI, NodeType } from '@codelab/shared/interface/node'
 
 export const modalData: NodeReactI<Modal.Props | Button.Props | Text.Props> = {
-  type: 'React.Fragment',
+  type: NodeType.React_Fragment,
   props: {
     ctx: {
       __type: ['Eval', 'Leaf'],
@@ -14,7 +14,7 @@ export const modalData: NodeReactI<Modal.Props | Button.Props | Text.Props> = {
   },
   children: [
     {
-      type: 'React.Button',
+      type: NodeType.React_Button,
       props: {
         type: 'primary',
         onClick: {
@@ -22,10 +22,10 @@ export const modalData: NodeReactI<Modal.Props | Button.Props | Text.Props> = {
           value: 'console.log(this); return () => this.ctx.setVisible(true)',
         },
       },
-      children: [{ type: 'React.Text', props: { value: 'Open modal' } }],
+      children: [{ type: NodeType.React_Text, props: { value: 'Open modal' } }],
     },
     {
-      type: 'React.Modal',
+      type: NodeType.React_Modal,
       props: {
         title: 'Basic Modal',
         onOk: {
@@ -43,10 +43,10 @@ export const modalData: NodeReactI<Modal.Props | Button.Props | Text.Props> = {
       },
       children: [
         {
-          type: 'React.Html.p',
+          type: NodeType.React_Html_P,
           children: [
             {
-              type: 'React.Text',
+              type: NodeType.React_Text,
               props: {
                 value: 'Some contents...',
               },

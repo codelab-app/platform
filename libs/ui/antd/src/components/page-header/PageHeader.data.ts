@@ -1,8 +1,8 @@
 import { PageHeader } from './PageHeader.types'
-import { NodeReactI } from '@codelab/shared/interface/node'
+import { NodeReactI, NodeType } from '@codelab/shared/interface/node'
 
 export const pageHeaderData: NodeReactI<PageHeader.Props> = {
-  type: 'React.PageHeader',
+  type: NodeType.React_PageHeader,
   props: {
     title: 'Title',
     subTitle: 'This is a subtitle',

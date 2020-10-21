@@ -1,9 +1,9 @@
 import { Text } from '../text'
 import { Carousel } from './Carousel.types'
-import { NodeReactI } from '@codelab/shared/interface/node'
+import { NodeReactI, NodeType } from '@codelab/shared/interface/node'
 
 export const carouselData: NodeReactI<Carousel.Props | Text.Props> = {
-  type: 'React.Carousel',
+  type: NodeType.React_Carousel,
   props: {
     dotPosition: 'bottom',
     dots: 'true',
@@ -19,28 +19,28 @@ export const carouselData: NodeReactI<Carousel.Props | Text.Props> = {
   },
   children: [
     {
-      type: 'React.Html.div',
+      type: NodeType.React_Html_Div,
       children: [
         {
-          type: 'React.Text',
+          type: NodeType.React_Text,
           props: { value: 'Slide 1' },
         },
       ],
     },
     {
-      type: 'React.Html.div',
+      type: NodeType.React_Html_Div,
       children: [
         {
-          type: 'React.Text',
+          type: NodeType.React_Text,
           props: { value: 'Slide 2' },
         },
       ],
     },
     {
-      type: 'React.Html.div',
+      type: NodeType.React_Html_Div,
       children: [
         {
-          type: 'React.Text',
+          type: NodeType.React_Text,
           props: { value: 'Slide 3' },
         },
       ],

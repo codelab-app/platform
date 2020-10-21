@@ -1,8 +1,8 @@
 import { Input } from './Input.types'
-import { NodeReactI } from '@codelab/shared/interface/node'
+import { NodeReactI, NodeType } from '@codelab/shared/interface/node'
 
 export const inputData: NodeReactI<Input.Props> = {
-  type: 'React.Input',
+  type: NodeType.React_Input,
   props: {
     placeholder: 'Input here',
     style: { width: 300 },

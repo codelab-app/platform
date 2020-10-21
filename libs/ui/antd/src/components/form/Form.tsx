@@ -5,7 +5,7 @@ import { StoreValue } from 'rc-field-form/lib/interface'
 import React, { ReactElement } from 'react'
 import { Select } from '../..'
 import { Form } from './Form.types'
-import { NodeReactI } from '@codelab/shared/interface/node'
+import { NodeReactI, NodeType } from '@codelab/shared/interface/node'
 import { PropJsonValue } from '@codelab/shared/interface/props'
 
 // Copy because not exported from antd
@@ -140,14 +140,14 @@ export class CodelabForm {
     name,
     options,
   }: Form.CreateSelect): NodeReactI<Select.Props | Form.ItemProps> => ({
-    type: 'React.Form.Item',
+    type: NodeType.React_Form_Item,
     props: {
       label,
       name,
     },
     children: [
       {
-        type: 'React.Select',
+        type: NodeType.React_Select,
         props: {
           style: {
             width: '100%',
@@ -162,13 +162,13 @@ export class CodelabForm {
     options: Array<Form.OptionConfig>,
   ): Array<NodeReactI<Select.OptionProps>> =>
     options.map(([key, value]: [string, PropJsonValue]) => ({
-      type: 'React.Select.Option',
+      type: NodeType.React_Select_Option,
       props: {
         value,
       },
       children: [
         {
-          type: 'React.Text',
+          type: NodeType.React_Text,
           props: {
             value: key,
           },

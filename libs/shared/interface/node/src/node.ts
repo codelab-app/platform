@@ -1,6 +1,6 @@
 import { Attributes, ComponentClass, FunctionComponent } from 'react'
 import { NodeA, NodeI } from './dto'
-import { NodeTypeLiteral } from './enums'
+import { NodeType } from './enums'
 import { PropsFilter } from '@codelab/core/props'
 import { Props } from '@codelab/shared/interface/props'
 
@@ -23,10 +23,8 @@ export const hasChildren = <T extends HasChildren<T>>(
 
 export type Mapper<T1, T2 = T1> = (node: T1) => T2
 
-export interface Node<
-  T extends NodeTypeLiteral = NodeTypeLiteral,
-  P extends Props = Props
-> extends NodeA<T, P> {
+export interface Node<T extends NodeType = NodeType, P extends Props = Props>
+  extends NodeA<T, P> {
   id: string
   addChild(node: NodeA): void
   removeChild(node: NodeA): void

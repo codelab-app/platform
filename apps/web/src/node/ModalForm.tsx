@@ -1,20 +1,21 @@
 import { Renderer } from '@codelab/core/renderer'
 import {
   NodeReactI,
+  NodeType,
   ReactType,
   nodeTypeEntries,
 } from '@codelab/shared/interface/node'
 import { CodelabForm } from '@codelab/ui/antd'
 
 const parentNodeSelect: NodeReactI = {
-  type: 'React.Form.Item',
+  type: NodeType.React_Form_Item,
   props: {
     label: 'Parent',
     name: 'parent',
   },
   children: [
     {
-      type: 'React.Select',
+      type: NodeType.React_Select,
       props: {
         options: {
           __type: ['Eval'],
@@ -32,21 +33,21 @@ const nodeTypeSelect: NodeReactI = CodelabForm.createSelect({
 })
 
 const nodeID: NodeReactI = {
-  type: 'React.Form.Item',
+  type: NodeType.React_Form_Item,
   props: {
     label: 'ID',
     name: 'id',
   },
   children: [
     {
-      type: 'React.Input',
+      type: NodeType.React_Input,
       props: { disabled: true },
     },
   ],
 }
 
 const reactNodeFields: NodeReactI = {
-  type: 'React.Form.ItemHook',
+  type: NodeType.React_Form_ItemHook,
   props: {
     shouldUpdate: true,
     shouldRender: {
@@ -64,7 +65,7 @@ const reactNodeFields: NodeReactI = {
 }
 
 const treeNodeFields: NodeReactI = {
-  type: 'React.Form.ItemHook',
+  type: NodeType.React_Form_ItemHook,
   props: {
     shouldUpdate: true,
     shouldRender: {
@@ -74,18 +75,18 @@ const treeNodeFields: NodeReactI = {
   },
   children: [
     {
-      type: 'React.Form.Item',
+      type: NodeType.React_Form_Item,
       props: {
         label: 'ID',
         name: 'ID',
       },
-      children: [{ type: 'React.Input' }],
+      children: [{ type: NodeType.React_Input }],
     },
   ],
 }
 
 const refNodeFields: NodeReactI = {
-  type: 'React.Form.ItemHook',
+  type: NodeType.React_Form_ItemHook,
   props: {
     shouldUpdate: true,
     shouldRender: {
@@ -95,37 +96,37 @@ const refNodeFields: NodeReactI = {
   },
   children: [
     {
-      type: 'React.Form.Item',
+      type: NodeType.React_Form_Item,
       props: {
         label: 'id',
         name: 'id',
       },
-      children: [{ type: 'React.Input' }],
+      children: [{ type: NodeType.React_Input }],
     },
   ],
 }
 
 export const nodeFormData: NodeReactI = {
-  type: 'React.Form.Item',
+  type: NodeType.React_Form_Item,
   props: {
     label: 'Prop',
     name: 'prop',
   },
   children: [
     {
-      type: 'React.Form.List',
+      type: NodeType.React_Form_List,
       props: {
         name: 'props',
       },
       children: [
         {
-          type: 'React.Form.Item',
+          type: NodeType.React_Form_Item,
           props: {
             name: 'key',
           },
           children: [
             {
-              type: 'React.Input',
+              type: NodeType.React_Input,
               props: {
                 placeholder: 'Key',
               },
@@ -133,13 +134,13 @@ export const nodeFormData: NodeReactI = {
           ],
         },
         {
-          type: 'React.Form.Item',
+          type: NodeType.React_Form_Item,
           props: {
             name: 'value',
           },
           children: [
             {
-              type: 'React.Input',
+              type: NodeType.React_Input,
               props: {
                 placeholder: 'Value',
               },
@@ -152,17 +153,17 @@ export const nodeFormData: NodeReactI = {
 }
 
 export const submitButtonData: NodeReactI = {
-  type: 'React.Form.Item',
+  type: NodeType.React_Form_Item,
   children: [
     {
-      type: 'React.Button',
+      type: NodeType.React_Button,
       props: {
         type: 'primary',
         htmlType: 'submit',
       },
       children: [
         {
-          type: 'React.Text',
+          type: NodeType.React_Text,
           props: {
             value: 'Submit',
           },
@@ -173,7 +174,7 @@ export const submitButtonData: NodeReactI = {
 }
 
 export const modalFormData: NodeReactI = {
-  type: 'React.Modal',
+  type: NodeType.React_Modal,
   props: {
     title: 'Create Node Form',
     footer: null,
@@ -202,7 +203,7 @@ export const modalFormData: NodeReactI = {
   },
   children: [
     {
-      type: 'React.Form',
+      type: NodeType.React_Form,
       props: {
         form: { __type: ['Eval'], value: 'return this.ctx.form' },
         name: 'create-node-form',

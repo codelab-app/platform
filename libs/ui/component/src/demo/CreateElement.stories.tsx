@@ -1,7 +1,7 @@
 import { Button as AntButton } from 'antd'
 import React from 'react'
 import { Renderer } from '@codelab/core/renderer'
-import { NodeReactI } from '@codelab/shared/interface/node'
+import { NodeReactI, NodeType } from '@codelab/shared/interface/node'
 
 export default {
   title: 'Demo',
@@ -29,7 +29,7 @@ export const DoubleCloneChildren = () => {
 
 export const RootChildren = () => {
   const data: NodeReactI = {
-    type: 'React.Html.div',
+    type: NodeType.React_Html_Div,
     // children: [
     //   {
     //     type: 'React.Text',
@@ -49,13 +49,13 @@ export const RootChildren = () => {
 
 export const RootChildren2 = () => {
   const dataA: NodeReactI = {
-    type: 'React.Html.div',
+    type: NodeType.React_Html_Div,
     props: {
       'data-testid': 'a',
     },
   }
   const dataB: NodeReactI = {
-    type: 'React.Html.div',
+    type: NodeType.React_Html_Div,
     props: {
       'data-testid': 'b',
     },

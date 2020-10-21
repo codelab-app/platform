@@ -1,5 +1,5 @@
 import { Skeleton } from './Skeleton.types'
-import { NodeReactI } from '@codelab/shared/interface/node'
+import { NodeReactI, NodeType } from '@codelab/shared/interface/node'
 
 export const skeletonData: NodeReactI<
   | Skeleton.Props
@@ -9,7 +9,7 @@ export const skeletonData: NodeReactI<
   | Skeleton.ButtonProps
   | Skeleton.InputProps
 > = {
-  type: 'React.Skeleton',
+  type: NodeType.React_Skeleton,
   props: {
     active: true,
     paragraph: true,

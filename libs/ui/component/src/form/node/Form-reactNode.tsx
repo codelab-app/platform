@@ -1,8 +1,8 @@
-import { NodeReactI, ReactType } from '@codelab/shared/interface/node'
+import { NodeReactI, NodeType, ReactType } from '@codelab/shared/interface/node'
 import { CodelabForm } from '@codelab/ui/antd'
 
 export const reactNodeFields: NodeReactI = {
-  type: 'React.Form.ItemHook',
+  type: NodeType.React_Form_ItemHook,
   props: {
     shouldUpdate: true,
     shouldRender: {

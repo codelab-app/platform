@@ -11,7 +11,7 @@ describe('Upload', () => {
 
     const input = getByText('Click to Upload')
       .previousSibling as HTMLInputElement
-    const file = new File(['hello'], 'hello.png', { type: 'React.image/png' })
+    const file = new File(['hello'], 'hello.png', { type: 'image/png' })
 
     userEvent.upload(input, file)
 

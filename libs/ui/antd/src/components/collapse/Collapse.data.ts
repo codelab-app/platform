@@ -1,24 +1,24 @@
 import { Text } from '../text'
 import { Collapse } from './Collapse.types'
-import { NodeReactI } from '@codelab/shared/interface/node'
+import { NodeReactI, NodeType } from '@codelab/shared/interface/node'
 
 export const collapseData: NodeReactI<
   Collapse.PanelProps | Collapse.Props | Text.Props
 > = {
-  type: 'React.Collapse',
+  type: NodeType.React_Collapse,
   props: {
     defaultActiveKey: '1',
   },
   children: [
     {
-      type: 'React.Collapse.Panel',
+      type: NodeType.React_Collapse_Panel,
       props: {
         header: 'This is panel header 1',
         key: 1,
       },
       children: [
         {
-          type: 'React.Text',
+          type: NodeType.React_Text,
           props: {
             value: 'This is panel text 1',
           },
@@ -26,14 +26,14 @@ export const collapseData: NodeReactI<
       ],
     },
     {
-      type: 'React.Collapse.Panel',
+      type: NodeType.React_Collapse_Panel,
       props: {
         header: 'This is panel header 2',
         key: 2,
       },
       children: [
         {
-          type: 'React.Text',
+          type: NodeType.React_Text,
           props: {
             value: 'This is panel text 2',
           },
@@ -41,7 +41,7 @@ export const collapseData: NodeReactI<
       ],
     },
     {
-      type: 'React.Collapse.Panel',
+      type: NodeType.React_Collapse_Panel,
       props: {
         header: 'This is panel header 3',
         key: 3,
@@ -49,7 +49,7 @@ export const collapseData: NodeReactI<
       },
       children: [
         {
-          type: 'React.Text',
+          type: NodeType.React_Text,
           props: {
             value: 'This is panel text 3',
           },

@@ -1,24 +1,24 @@
-import { NodeI } from '@codelab/shared/interface/node'
+import { NodeI, NodeType } from '@codelab/shared/interface/node'
 
 export const componentData: NodeI = {
   id: 'root',
-  type: 'Tree',
+  type: NodeType.Tree,
   children: [
     {
       id: 'A',
-      type: 'Tree',
+      type: NodeType.Tree,
       children: [
         {
           id: 'B',
-          type: 'Tree',
+          type: NodeType.Tree,
           children: [
             {
               id: 'C',
-              type: 'Tree',
+              type: NodeType.Tree,
             },
             {
               id: 'D',
-              type: 'Tree',
+              type: NodeType.Tree,
             },
           ],
         },
@@ -26,19 +26,19 @@ export const componentData: NodeI = {
     },
     {
       id: 'E',
-      type: 'Tree',
+      type: NodeType.Tree,
       children: [
         {
           id: 'F',
-          type: 'Tree',
+          type: NodeType.Tree,
         },
         {
           id: 'G',
-          type: 'Tree',
+          type: NodeType.Tree,
         },
         {
           id: 'H',
-          type: 'Tree',
+          type: NodeType.Tree,
         },
       ],
     },

@@ -1,28 +1,28 @@
 import { Text } from '../text'
 import { Popover } from './Popover.types'
-import { NodeReactI } from '@codelab/shared/interface/node'
+import { NodeReactI, NodeType } from '@codelab/shared/interface/node'
 
 export const popoverData: NodeReactI<Popover.Props | Text.Props> = {
-  type: 'React.Popover',
+  type: NodeType.React_Popover,
   props: {
     title: 'Title',
     content: {
-      type: 'React.Html.div',
+      type: NodeType.React_Html_Div,
       children: [
         {
-          type: 'React.Html.p',
+          type: NodeType.React_Html_P,
           children: [
             {
-              type: 'React.Text',
+              type: NodeType.React_Text,
               props: { value: 'Content' },
             },
           ],
         },
         {
-          type: 'React.Html.p',
+          type: NodeType.React_Html_P,
           children: [
             {
-              type: 'React.Text',
+              type: NodeType.React_Text,
               props: { value: 'Content' },
             },
           ],
@@ -32,11 +32,11 @@ export const popoverData: NodeReactI<Popover.Props | Text.Props> = {
   },
   children: [
     {
-      type: 'React.Button',
+      type: NodeType.React_Button,
       props: {},
       children: [
         {
-          type: 'React.Text',
+          type: NodeType.React_Text,
           props: {
             value: 'Hover me',
           },

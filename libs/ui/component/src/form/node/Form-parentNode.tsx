@@ -1,14 +1,14 @@
-import { NodeReactI } from '@codelab/shared/interface/node'
+import { NodeReactI, NodeType } from '@codelab/shared/interface/node'
 
 export const parentNodeSelect: NodeReactI = {
-  type: 'React.Form.Item',
+  type: NodeType.React_Form_Item,
   props: {
     label: 'Parent',
     name: 'parent',
   },
   children: [
     {
-      type: 'React.Select',
+      type: NodeType.React_Select,
       props: {
         options: {
           __type: ['Eval'],

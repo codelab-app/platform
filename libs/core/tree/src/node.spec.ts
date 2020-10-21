@@ -1,10 +1,11 @@
 import { NodeEntity } from '@codelab/core/node'
 import { findNode } from '@codelab/core/tree'
+import { NodeType } from '@codelab/shared/interface/node'
 
 describe('Node', () => {
   it('can add a child', () => {
-    const parent = new NodeEntity({ id: 'parent', type: 'Tree' })
-    const child = new NodeEntity({ id: 'child', type: 'Tree' })
+    const parent = new NodeEntity({ id: 'parent', type: NodeType.Tree })
+    const child = new NodeEntity({ id: 'child', type: NodeType.Tree })
 
     expect(parent.hasChildren()).toBeFalsy()
 
@@ -18,9 +19,12 @@ describe('Node', () => {
   })
 
   it('can add a second child', () => {
-    const parent = new NodeEntity({ id: 'parent', type: 'Tree' })
-    const child = new NodeEntity({ id: 'child', type: 'Tree' })
-    const secondChild = new NodeEntity({ id: 'secondChild', type: 'Tree' })
+    const parent = new NodeEntity({ id: 'parent', type: NodeType.Tree })
+    const child = new NodeEntity({ id: 'child', type: NodeType.Tree })
+    const secondChild = new NodeEntity({
+      id: 'secondChild',
+      type: NodeType.Tree,
+    })
 
     parent.addChild(child)
     parent.addChild(secondChild)
@@ -31,10 +35,13 @@ describe('Node', () => {
   })
 
   it('can find a node', () => {
-    const parent = new NodeEntity({ id: 'parent', type: 'Tree' })
-    const child = new NodeEntity({ id: 'child', type: 'Tree' })
-    const secondChild = new NodeEntity({ id: 'secondChild', type: 'Tree' })
-    const grandChild = new NodeEntity({ id: 'grandChild', type: 'Tree' })
+    const parent = new NodeEntity({ id: 'parent', type: NodeType.Tree })
+    const child = new NodeEntity({ id: 'child', type: NodeType.Tree })
+    const secondChild = new NodeEntity({
+      id: 'secondChild',
+      type: NodeType.Tree,
+    })
+    const grandChild = new NodeEntity({ id: 'grandChild', type: NodeType.Tree })
 
     parent.addChild(child)
     parent.addChild(secondChild)

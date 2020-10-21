@@ -1,8 +1,8 @@
-import { NodeReactI } from '@codelab/shared/interface/node'
+import { NodeReactI, NodeType } from '@codelab/shared/interface/node'
 import { Button, Modal, Text } from '@codelab/ui/antd'
 
 export const modalButton: NodeReactI<Button.Props | Text.Props> = {
-  type: 'React.Button',
+  type: NodeType.React_Button,
   props: {
     type: 'primary',
     onClick: {
@@ -10,11 +10,11 @@ export const modalButton: NodeReactI<Button.Props | Text.Props> = {
       value: `return () => this.send({ type: 'OPEN_MODAL' })`,
     },
   },
-  children: [{ type: 'React.Text', props: { value: 'Open modal' } }],
+  children: [{ type: NodeType.React_Text, props: { value: 'Open modal' } }],
 }
 
 export const modal: NodeReactI<Modal.Props | Text.Props> = {
-  type: 'React.Modal',
+  type: NodeType.React_Modal,
   props: {
     title: 'Basic Modal',
     onOk: {
@@ -35,7 +35,7 @@ export const modal: NodeReactI<Modal.Props | Text.Props> = {
   //     type: 'React.Html.p',
   //     children: [
   //       {
-  //         type: 'React.Text',
+  //         type: NodeType.React_Text,
   //         props: {
   //           value: 'Some contents...',
   //         },

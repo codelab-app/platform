@@ -1,24 +1,24 @@
 import { Text } from '../text'
 import { Dropdown } from './Dropdown.types'
-import { NodeReactI } from '@codelab/shared/interface/node'
+import { NodeReactI, NodeType } from '@codelab/shared/interface/node'
 
 export const dropdownData: NodeReactI<
   Dropdown.Props | Text.Props | Dropdown.ButtonProps
 > = {
-  type: 'React.Dropdown',
+  type: NodeType.React_Dropdown,
   props: {
     overlay: {
-      type: 'React.Menu',
+      type: NodeType.React_Menu,
       props: { style: { width: 120 } },
       children: [
         {
-          type: 'React.Menu.Item',
+          type: NodeType.React_Menu_Item,
           props: {
             key: '1',
           },
           children: [
             {
-              type: 'React.Text',
+              type: NodeType.React_Text,
               props: {
                 value: 'Option 1',
               },
@@ -26,13 +26,13 @@ export const dropdownData: NodeReactI<
           ],
         },
         {
-          type: 'React.Menu.Item',
+          type: NodeType.React_Menu_Item,
           props: {
             key: '2',
           },
           children: [
             {
-              type: 'React.Text',
+              type: NodeType.React_Text,
               props: {
                 value: 'Option 2',
               },
@@ -44,10 +44,10 @@ export const dropdownData: NodeReactI<
   },
   children: [
     {
-      type: 'React.Html.a',
+      type: NodeType.React_Html_A,
       children: [
         {
-          type: 'React.Text',
+          type: NodeType.React_Text,
           props: {
             value: 'Hover me',
           },

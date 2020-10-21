@@ -11,7 +11,7 @@ import { convertNodeTreeToAntTreeDataNode } from '../src/node/utils/convertNodeT
 import { ButtonGroup } from '../src/tree/ButtonGroup'
 import { NodeEntity } from '@codelab/core/node'
 import { findNode } from '@codelab/core/tree'
-import { BaseNodeType, NodeA } from '@codelab/shared/interface/node'
+import { BaseNodeType, NodeA, NodeType } from '@codelab/shared/interface/node'
 
 hljs.registerLanguage('json', json)
 
@@ -201,7 +201,7 @@ const TreePage = () => {
     <>
       <ButtonGroup
         setvisibility={setVisibility}
-        selectednodename={selectedNode ? selectedNode.type : ''}
+        selectednodename={selectedNode ? NodeType[selectedNode.type] : ''}
         handledelete={deleteNode}
         clearfilter={() => setSelectedNode(undefined)}
       />

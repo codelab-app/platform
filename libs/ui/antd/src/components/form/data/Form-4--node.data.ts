@@ -2,12 +2,16 @@ import { Button } from '../../button'
 import { Text } from '../../text'
 import { CodelabForm } from '../Form'
 import { Form } from '../Form.types'
-import { NodeReactI, nodeTypeEntries } from '@codelab/shared/interface/node'
+import {
+  NodeReactI,
+  NodeType,
+  nodeTypeEntries,
+} from '@codelab/shared/interface/node'
 
 export const nodeFormData: NodeReactI<
   Form.Props | Form.ItemProps | Text.Props | Button.Props
 > = {
-  type: 'React.Form',
+  type: NodeType.React_Form,
   props: {
     ctx: { __type: ['Eval'], value: '' },
     name: 'basic',
@@ -21,17 +25,17 @@ export const nodeFormData: NodeReactI<
       options: nodeTypeEntries,
     }),
     {
-      type: 'React.Form.Item',
+      type: NodeType.React_Form_Item,
       children: [
         {
-          type: 'React.Button',
+          type: NodeType.React_Button,
           props: {
             type: 'primary',
             htmlType: 'submit',
           },
           children: [
             {
-              type: 'React.Text',
+              type: NodeType.React_Text,
               props: {
                 value: 'Submit',
               },

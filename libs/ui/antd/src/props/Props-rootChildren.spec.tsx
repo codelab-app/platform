@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react'
 import React from 'react'
 import { Renderer } from '@codelab/core/renderer'
-import { NodeI } from '@codelab/shared/interface/node'
+import { NodeI, NodeType } from '@codelab/shared/interface/node'
 
 describe('RootChildren', () => {
   // const data = {
@@ -55,13 +55,13 @@ describe('RootChildren', () => {
    */
   it('renders root children', () => {
     const dataA: NodeI = {
-      type: 'React.Html.div',
+      type: NodeType.React_Html_Div,
       props: {
         'data-testid': 'a',
       },
     }
     const dataB: NodeI = {
-      type: 'React.Html.div',
+      type: NodeType.React_Html_Div,
       props: {
         'data-testid': 'b',
       },
@@ -93,19 +93,19 @@ describe('RootChildren', () => {
    */
   it('renders nested children', () => {
     const dataA: NodeI = {
-      type: 'React.Html.div',
+      type: NodeType.React_Html_Div,
       props: {
         'data-testid': 'a',
       },
       children: [
         {
-          type: 'React.Html.div',
+          type: NodeType.React_Html_Div,
           props: {
             'data-testid': 'a0',
           },
           children: [
             {
-              type: 'React.Html.div',
+              type: NodeType.React_Html_Div,
               props: {
                 'data-testid': 'a0-0',
               },
@@ -113,13 +113,13 @@ describe('RootChildren', () => {
           ],
         },
         {
-          type: 'React.Html.div',
+          type: NodeType.React_Html_Div,
           props: {
             'data-testid': 'a1',
           },
         },
         {
-          type: 'React.Html.div',
+          type: NodeType.React_Html_Div,
           props: {
             'data-testid': 'a2',
           },
@@ -127,19 +127,19 @@ describe('RootChildren', () => {
       ],
     }
     const dataB: NodeI = {
-      type: 'React.Html.div',
+      type: NodeType.React_Html_Div,
       props: {
         'data-testid': 'b',
       },
       children: [
         {
-          type: 'React.Html.div',
+          type: NodeType.React_Html_Div,
           props: {
             'data-testid': 'b0',
           },
         },
         {
-          type: 'React.Html.div',
+          type: NodeType.React_Html_Div,
           props: {
             'data-testid': 'b1',
           },
@@ -147,7 +147,7 @@ describe('RootChildren', () => {
       ],
     }
     const dataC: NodeI = {
-      type: 'React.Html.div',
+      type: NodeType.React_Html_Div,
       props: {
         'data-testid': 'c',
       },

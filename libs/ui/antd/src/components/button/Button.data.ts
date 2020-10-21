@@ -1,15 +1,16 @@
 import { Text } from '../text'
 import { Button } from './Button.types'
-import { NodeReactI } from '@codelab/shared/interface/node'
+import { NodeReactI, NodeType } from '@codelab/shared/interface/node'
+import { PropType } from '@codelab/shared/interface/props'
 
 export const buttonData: NodeReactI<Button.Props | Text.Props> = {
-  type: 'React.Button',
+  type: NodeType.React_Button,
   props: {
     type: 'primary',
   },
   children: [
     {
-      type: 'React.Text',
+      type: NodeType.React_Text,
       props: {
         value: 'Click me',
       },
@@ -18,17 +19,17 @@ export const buttonData: NodeReactI<Button.Props | Text.Props> = {
 }
 
 export const buttonEvalData: NodeReactI<Button.Props | Text.Props> = {
-  type: 'React.Button',
+  type: NodeType.React_Button,
   props: {
     onClick: {
-      __type: ['Eval'],
+      __type: [PropType.Eval],
       value: `return () => console.log(this.ctx.a)`,
     },
     type: 'primary',
   },
   children: [
     {
-      type: 'React.Text',
+      type: NodeType.React_Text,
       props: {
         value: 'Click me',
       },

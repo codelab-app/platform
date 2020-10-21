@@ -1,12 +1,12 @@
 import { Button } from '../button'
 import { Text } from '../text'
 import { Message } from './Message.types'
-import { NodeReactI } from '@codelab/shared/interface/node'
+import { NodeReactI, NodeType } from '@codelab/shared/interface/node'
 
 export const messageData: NodeReactI<
   Text.Props | Button.Props | Message.Props | { config: object }
 > = {
-  type: 'React.Fragment',
+  type: NodeType.React_Fragment,
   props: {
     config: {
       __type: ['Eval', 'Leaf'],
@@ -20,7 +20,7 @@ export const messageData: NodeReactI<
   },
   children: [
     {
-      type: 'React.Button',
+      type: NodeType.React_Button,
       props: {
         onClick: {
           __type: ['Eval'],
@@ -31,7 +31,7 @@ export const messageData: NodeReactI<
       },
       children: [
         {
-          type: 'React.Text',
+          type: NodeType.React_Text,
           props: {
             value: 'Display message',
           },

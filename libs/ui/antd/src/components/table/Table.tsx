@@ -2,6 +2,7 @@ import { Table as AntTable } from 'antd'
 import { TableProps as AntTableProps } from 'antd/lib/table'
 import React from 'react'
 // eslint-disable-next-line import/no-cycle
+import { isReactNode } from '../../../../../shared/interface/node/src/guards/node-guards--react'
 import { Renderer } from '@codelab/core/renderer'
 
 export type TableProps<T extends any = any> = AntTableProps<T>
@@ -41,7 +42,7 @@ export namespace CodelabTable {
       }
 
       // If is JSON representation of React component
-      if (typeof render?.type === 'string' && render.type.includes('React.')) {
+      if (isReactNode(render)) {
         return {
           ...column,
           render: (text: string, record: any, index: number) => {

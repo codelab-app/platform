@@ -1,8 +1,8 @@
 import { AutoComplete } from './AutoComplete.types'
-import { NodeReactI } from '@codelab/shared/interface/node'
+import { NodeReactI, NodeType } from '@codelab/shared/interface/node'
 
 export const autocompleteData: NodeReactI<AutoComplete.Props> = {
-  type: 'React.Fragment',
+  type: NodeType.React_Fragment,
   props: {
     ctx: {
       __type: ['Eval', 'Leaf'],
@@ -16,7 +16,7 @@ export const autocompleteData: NodeReactI<AutoComplete.Props> = {
   },
   children: [
     {
-      type: 'React.AutoComplete',
+      type: NodeType.React_AutoComplete,
       props: {
         onSearch: {
           __type: ['Eval'],

@@ -1,17 +1,17 @@
-import { NodeReactI } from '@codelab/shared/interface/node'
+import { NodeReactI, NodeType } from '@codelab/shared/interface/node'
 
 export const submitButtonData: NodeReactI = {
-  type: 'React.Form.Item',
+  type: NodeType.React_Form_Item,
   children: [
     {
-      type: 'React.Button',
+      type: NodeType.React_Button,
       props: {
         type: 'primary',
         htmlType: 'submit',
       },
       children: [
         {
-          type: 'React.Text',
+          type: NodeType.React_Text,
           props: {
             value: 'Submit',
           },

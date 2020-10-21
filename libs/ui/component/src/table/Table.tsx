@@ -1,10 +1,14 @@
 import { TagChildren } from './Table-tag--children'
 import { TagParent } from './Table-tag--parent'
 import { Renderer } from '@codelab/core/renderer'
-import { NodeReactI, nodeTypeLiterals } from '@codelab/shared/interface/node'
+import {
+  NodeReactI,
+  NodeType,
+  nodeTypeLiterals,
+} from '@codelab/shared/interface/node'
 
 const propsTable: NodeReactI = {
-  type: 'React.Table',
+  type: NodeType.React_Table,
   props: {
     showHeader: false,
     pagination: false,
@@ -32,7 +36,7 @@ const filters = nodeTypeLiterals.map((type) => {
 const onTypeFilter = (value: any, record: any) => record.type === value
 
 export const tableData: NodeReactI = {
-  type: 'React.Table',
+  type: NodeType.React_Table,
   props: {
     // handleEdit: {
     //   __type: ['Eval'],

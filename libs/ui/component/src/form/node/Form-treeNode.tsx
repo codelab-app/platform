@@ -1,7 +1,7 @@
-import { NodeReactI } from '@codelab/shared/interface/node'
+import { NodeReactI, NodeType } from '@codelab/shared/interface/node'
 
 export const treeNodeFields: NodeReactI = {
-  type: 'React.Form.ItemHook',
+  type: NodeType.React_Form_ItemHook,
   props: {
     shouldUpdate: true,
     shouldRender: {
@@ -11,12 +11,12 @@ export const treeNodeFields: NodeReactI = {
   },
   children: [
     {
-      type: 'React.Form.Item',
+      type: NodeType.React_Form_Item,
       props: {
         label: 'ID',
         name: 'ID',
       },
-      children: [{ type: 'React.Input' }],
+      children: [{ type: NodeType.React_Input }],
     },
   ],
 }

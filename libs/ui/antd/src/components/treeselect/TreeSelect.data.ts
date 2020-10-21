@@ -1,10 +1,10 @@
 import { TreeSelect } from './TreeSelect.types'
-import { NodeReactI } from '@codelab/shared/interface/node'
+import { NodeReactI, NodeType } from '@codelab/shared/interface/node'
 
 export const treeSelectData: NodeReactI<
   TreeSelect.TreeNodeProps | TreeSelect.Props
 > = {
-  type: 'React.TreeSelect',
+  type: NodeType.React_TreeSelect,
   props: {
     showSearch: true,
     style: { width: 200 },
@@ -13,7 +13,7 @@ export const treeSelectData: NodeReactI<
   },
   children: [
     {
-      type: 'React.TreeNode',
+      type: NodeType.React_TreeNode,
       props: {
         key: 'parent 1',
         value: 'parent 1',
@@ -21,7 +21,7 @@ export const treeSelectData: NodeReactI<
       },
       children: [
         {
-          type: 'React.TreeNode',
+          type: NodeType.React_TreeNode,
           props: {
             key: 'parent 1-0',
             value: 'parent 1-0',
@@ -29,7 +29,7 @@ export const treeSelectData: NodeReactI<
           },
           children: [
             {
-              type: 'React.TreeNode',
+              type: NodeType.React_TreeNode,
               props: {
                 key: 'leaf 1',
                 value: 'leaf 1',
@@ -37,7 +37,7 @@ export const treeSelectData: NodeReactI<
               },
             },
             {
-              type: 'React.TreeNode',
+              type: NodeType.React_TreeNode,
               props: {
                 key: 'leaf 2',
                 value: 'leaf 2',
@@ -47,7 +47,7 @@ export const treeSelectData: NodeReactI<
           ],
         },
         {
-          type: 'React.TreeNode',
+          type: NodeType.React_TreeNode,
           props: {
             key: 'parent 1-1',
             value: 'parent 1-1',
@@ -55,7 +55,7 @@ export const treeSelectData: NodeReactI<
           },
           children: [
             {
-              type: 'React.TreeNode',
+              type: NodeType.React_TreeNode,
               props: {
                 key: 'leaf 1-1 1',
                 value: 'leaf 1-1 1',

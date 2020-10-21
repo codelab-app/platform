@@ -1,18 +1,18 @@
 import { Text } from '../text'
 import { Tooltip } from './Tooltip.types'
-import { NodeReactI } from '@codelab/shared/interface/node'
+import { NodeReactI, NodeType } from '@codelab/shared/interface/node'
 
 export const tooltipData: NodeReactI<Tooltip.Props | Text.Props> = {
-  type: 'React.Tooltip',
+  type: NodeType.React_Tooltip,
   props: {
     title: 'prompt text',
   },
   children: [
     {
-      type: 'React.Html.span',
+      type: NodeType.React_Html_Span,
       children: [
         {
-          type: 'React.Text',
+          type: NodeType.React_Text,
           props: { value: 'Tooltip will show on mouse enter.' },
         },
       ],

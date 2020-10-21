@@ -13,18 +13,15 @@ import {
   HasChildren,
   Node,
   NodeCreate,
-  NodeTypeLiteral,
-  nodeTypeLiterals,
+  NodeType,
 } from '@codelab/shared/interface/node'
 import { Props } from '@codelab/shared/interface/props'
 
 /**
  * Node is instantiated during Tree traversal
  */
-export class NodeEntity<
-  T extends NodeTypeLiteral = NodeTypeLiteral,
-  P extends Props = any
-> implements Node<T, P> {
+export class NodeEntity<T extends NodeType = NodeType, P extends Props = any>
+  implements Node<T, P> {
   public Component: ReactElement<any> = React.createElement('')
 
   public id: string
@@ -49,7 +46,7 @@ export class NodeEntity<
   constructor(node: NodeCreate<T, P>) {
     const { props, id, type } = node
 
-    if (!type || !nodeTypeLiterals.includes(type)) {
+    if (type === undefined || type === null || !(type in NodeType)) {
       throw new Error(`${type} is not a valid Node type`)
     }
 

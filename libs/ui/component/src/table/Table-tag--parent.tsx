@@ -1,8 +1,8 @@
 import { Renderer } from '@codelab/core/renderer'
-import { NodeReactI } from '@codelab/shared/interface/node'
+import { NodeReactI, NodeType } from '@codelab/shared/interface/node'
 
 export const tagParent: NodeReactI = {
-  type: 'React.Tag',
+  type: NodeType.React_Tag,
   props: {
     color: {
       __type: ['Eval'],
@@ -15,7 +15,7 @@ export const tagParent: NodeReactI = {
   },
   children: [
     {
-      type: 'React.Text',
+      type: NodeType.React_Text,
       props: {
         value: {
           __type: ['Eval'],
