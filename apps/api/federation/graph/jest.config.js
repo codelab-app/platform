@@ -1,5 +1,5 @@
 module.exports = {
-  displayName: 'api-services-graph',
+  displayName: 'api-federation-graph',
   preset: '../../../../jest.preset.js',
   globals: {
     'ts-jest': {
@@ -10,5 +10,5 @@ module.exports = {
     '^.+\\.[tj]s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../../../coverage/apps/api/services/graph',
+  coverageDirectory: '../../../../coverage/apps/api/federation/graph',
 }

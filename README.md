@@ -12,9 +12,15 @@ The end goal is the create a highly configurable UI layer that can compete with 
 
 ## Table of Contents
 [Installation](documentation/1-installation.md)
+
 [Tech Stack](documentation/2-tech-stack.md)
+
 [Project Structure](documentation/3-project-structure.md)
+
 [Getting Started](documentation/4-getting-started.md)
+
 [Dev Tools](documentation/5-devtools.md)
+
 [CI/CD Pipeline](documentation/6-pipeline.md)
+
 [Concepts](documentation/7-concepts.md)

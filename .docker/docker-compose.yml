@@ -33,14 +33,23 @@ services:
       - ./monitoring/configurations:/fluentd/etc/
 
   mongodb:
-    image: mongo
+    image: mongo:4.4
+    container_name: codelab-mongo
     restart: always
     volumes:
-      - ./data-node:/data/db
+      - ./mongo-volume:/data/db
     ports:
       - 27017:27017
-    command: mongod --noauth --smallfiles
+    command: mongod --noauth
 
+  neo4j:
+    image: neo4j
+    restart: always
+    volumes:
+      - ./neo4j/data:/data
+    ports:
+      - 7687:7687
+    command: neo4j
   # verdaccio:
   #   image: verdaccio/verdaccio:4
   #   container_name: verdaccio-docker-local-storage-vol

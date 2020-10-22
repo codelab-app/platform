@@ -121,12 +121,9 @@
     },
     "api-gateway": {
       "tags": [],
-      "implicitDependencies": ["api-services-props", "api-services-graph"]
+      "implicitDependencies": ["api-federation-props", "api-federation-graph"]
     },
     "api-services-props": {
-      "tags": []
-    },
-    "api-services-user": {
       "tags": []
     },
     "api-drivers-neo4j": {
@@ -144,9 +141,6 @@
     "api-drivers-database": {
       "tags": []
     },
-    "api-services-graph": {
-      "tags": []
-    },
     "api-schema-props": {
       "tags": []
     },
@@ -160,6 +154,15 @@
       "tags": []
     },
     "state-ui": {
+      "tags": []
+    },
+    "api-federation-graph": {
+      "tags": []
+    },
+    "api-federation-props": {
+      "tags": []
+    },
+    "api-federation-user": {
       "tags": []
     }
   }

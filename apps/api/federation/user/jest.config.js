@@ -9,6 +9,6 @@ module.exports = {
     '^.+\\.[tj]s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../../../coverage/apps/api/services/user',
-  displayName: 'api-services-user',
+  coverageDirectory: '../../../../coverage/apps/api/federation/user',
+  displayName: 'api-federation-user',
 }
