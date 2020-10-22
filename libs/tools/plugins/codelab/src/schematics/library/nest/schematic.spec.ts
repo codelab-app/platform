@@ -7,12 +7,12 @@ import { NestSchematicSchema } from './schema'
 
 const SCHEMATIC_NAME = 'nest-lib'
 
-describe('@codelab/tools-plugins-codelab:nest-lib', () => {
+describe('@codelab/schematics:nest-lib', () => {
   let appTree: Tree
   const options: NestSchematicSchema = { name: 'test' }
 
   const testRunner = new SchematicTestRunner(
-    '@codelab/tools-plugins-codelab',
+    '@codelab/schematics',
     join(__dirname, '../../../../collection.json'),
   )
 

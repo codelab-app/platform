@@ -7,12 +7,12 @@ import { ReactSchematicSchema } from './schema'
 
 const SCHEMATIC_NAME = 'react-lib'
 
-describe('@codelab/tools-plugins-codelab:react-lib', () => {
+describe('@codelab/schematics:react-lib', () => {
   let appTree: Tree
   const options: ReactSchematicSchema = { name: 'test', storybook: false }
 
   const testRunner = new SchematicTestRunner(
-    '@codelab/tools-plugins-codelab',
+    '@codelab/schematics',
     join(__dirname, '../../../../collection.json'),
   )
 
