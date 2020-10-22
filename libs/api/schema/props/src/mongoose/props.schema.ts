@@ -5,11 +5,13 @@ export type PropsDocument = Props & Document
 
 @Schema()
 export class Props {
+  static __name = 'props'
+
   @Prop()
   declare id: string
 
   @Prop(Object)
-  declare props: number
+  declare values: object
 }
 
-export const CatSchema = SchemaFactory.createForClass(Props)
+export const PropsSchema = SchemaFactory.createForClass(Props)

@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package api.services.props;
+
+service PropsService {
+  rpc PropsCreate (PropsCreateInput) returns (Props) {}
+}
+
+message PropsCreateInput {
+//  int32 id = 1;
+  string values = 2;
+}
+
+message Props {
+  int32 id = 1;
+  string values = 2;
+}

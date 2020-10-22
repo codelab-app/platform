@@ -21,13 +21,10 @@
       "@codelab/api/config": ["libs/api/config/src/index.ts"],
       "@codelab/api/model": ["libs/api/model/src/index.ts"],
       "@codelab/api/router": ["libs/api/router/src/index.ts"],
-      "@codelab/tools-plugins-demo": ["libs/tools/plugins/demo/src/index.ts"],
       "@codelab/tools-eslint-config-codelab": [
         "libs/tools/eslint-config-codelab/src/index.ts"
       ],
-      "@codelab/tools-plugins-codelab": [
-        "libs/tools/plugins/codelab/src/index.ts"
-      ],
+      "@codelab/schematics": ["libs/tools/plugins/codelab/src/index.ts"],
       "@codelab/shared/common": ["libs/shared/common/src/index.ts"],
       "@codelab/shared/interface/node": [
         "libs/shared/interface/node/src/index.ts"
@@ -78,7 +75,8 @@
       "@codelab/api/drivers/mongoose": [
         "libs/api/drivers/mongoose/src/index.ts"
       ],
-      "@codelab/api/logger": ["libs/api/logger/src/index.ts"]
+      "@codelab/api/logger": ["libs/api/logger/src/index.ts"],
+      "@codelab/api/services/props": ["libs/api/services/props/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"]

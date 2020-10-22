@@ -1,5 +1,5 @@
 {
-  "name": "@codelab/tools-plugins-codelab",
+  "name": "@codelab/schematics",
   "version": "0.0.1",
   "main": "src/index.js",
   "schematics": "./collection.json",
