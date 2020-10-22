@@ -1606,54 +1606,21 @@
       }
     },
     "api-services-props": {
-      "root": "apps/api/services/props",
-      "sourceRoot": "apps/api/services/props/src",
-      "projectType": "application",
-      "prefix": "services-props",
+      "root": "libs/api/services/props",
+      "sourceRoot": "libs/api/services/props/src",
+      "projectType": "library",
       "schematics": {},
       "architect": {
-        "build": {
-          "builder": "@nrwl/node:build",
-          "options": {
-            "outputPath": "dist/apps/api/services/props",
-            "main": "apps/api/services/props/src/main.ts",
-            "tsConfig": "apps/api/services/props/tsconfig.app.json",
-            "assets": ["apps/api/services/props/src/assets"]
-          },
-          "configurations": {
-            "production": {
-              "optimization": true,
-              "extractLicenses": true,
-              "inspect": false,
-              "fileReplacements": [
-                {
-                  "replace": "apps/api/services/props/src/environments/environment.ts",
-                  "with": "apps/api/services/props/src/environments/environment.prod.ts"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "builder": "@nrwl/node:execute",
-          "options": {
-            "buildTarget": "api-services-props:build"
-          }
-        },
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/api/services/props/**/*.ts",
-              "apps/api/services/props/**/*.spec.ts",
-              "apps/api/services/props/**/*.d.ts"
-            ]
+            "lintFilePatterns": ["libs/api/services/props/**/*.ts"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "apps/api/services/props/jest.config.js",
+            "jestConfig": "libs/api/services/props/jest.config.js",
             "passWithNoTests": true
           }
         }

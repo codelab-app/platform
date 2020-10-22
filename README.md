@@ -157,3 +157,17 @@ The second approach is to think about it like a `Graph`. A graph comprises of ed
 A `Tree` is a specialized `Graph`, so we can use Graph Theory to help us conceptualize a Tree.
 
 Tree `Traversal` is a common way to interact with a tree. You can configure the traversal order, and what transformations to apply to each node.
+
+## Recipes
+
+These are guidelines to accomplish certain tasks
+
+### Generating libraries
+
+There are 2 primary schematics types we use for generating libraries. You'll need to install VSCode with the NX Console plugin.
+
+Select `Generate`...
+
+<img src="https://codelab.sfo2.digitaloceanspaces.com/docs/nx-generate.png" width="240">
+
+then

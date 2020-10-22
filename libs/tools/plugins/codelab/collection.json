@@ -3,10 +3,10 @@
   "name": "react",
   "version": "0.0.1",
   "schematics": {
-    "library": {
+    "react-lib": {
       "factory": "./src/schematics/library/schematic",
       "schema": "./src/schematics/library/schema.json",
-      "description": "react library schematic"
+      "description": "Create a React library"
     }
   }
 }

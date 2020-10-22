@@ -15,9 +15,9 @@ export enum ApiConfigTypes {
   /**
    * These values aren't loaded from .env file
    */
-  SERVICES_PROPS_NAME = 'api-services-props',
-  SERVICES_USER_NAME = 'api-services-user',
-  SERVICES_GRAPH_NAME = 'api-services-graph',
+  SERVICES_PROPS_NAME = 'api.services.props',
+  SERVICES_USER_NAME = 'api.services.user',
+  SERVICES_GRAPH_NAME = 'api.services.graph',
 }
 
 export interface ApiConfig {
