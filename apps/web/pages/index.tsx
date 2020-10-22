@@ -53,6 +53,7 @@ const Index = (props: any) => {
                 }}
               />
             </Modal>
+            <>{!isServer ? <TableNodeWithSuspense /> : null}</>
             <p>modal state: {JSON.stringify(modalState.value)}</p>
             <p>modal context: {JSON.stringify(modalState.context)}</p>
             <p>layout state: {JSON.stringify(layoutState.value)}</p>
