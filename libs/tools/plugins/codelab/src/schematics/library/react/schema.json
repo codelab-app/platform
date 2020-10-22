@@ -13,11 +13,6 @@
       },
       "x-prompt": "What name would you like to use?"
     },
-    "tags": {
-      "type": "string",
-      "description": "Add tags to the project (used for linting)",
-      "alias": "t"
-    },
     "directory": {
       "type": "string",
       "description": "A directory where the project is placed",
@@ -26,7 +21,7 @@
     "storybook": {
       "type": "boolean",
       "description": "Include Storybook config",
-      "default": false
+      "default": true
     }
   },
   "required": ["name"]

@@ -111,7 +111,7 @@ module.exports = {
       'Provide a LONGER description of the change (optional). Use "|" to break new line:\n',
     breaking: 'List any BREAKING CHANGES (optional):\n',
     footer:
-      'List any ISSUES CLOSED by this change (optional). E.g.: #31, #34:\n',
+      'This commit CLOSES any issues if specified (optional). E.g.: #31, #34:\n',
     confirmCommit: 'Are you sure you want to proceed with the commit above?',
   },
   allowCustomScopes: false,
@@ -122,6 +122,6 @@ module.exports = {
   // limit subject length
   subjectLimit: 100,
   // breaklineChar: '|', // It is supported for fields body and footer.
-  // footerPrefix : 'ISSUES CLOSED:'
+  footerPrefix: 'CLOSES:',
   // askForBreakingChangeFirst : true, // default is false
 }

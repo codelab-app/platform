@@ -124,7 +124,7 @@
         }
       }
     },
-    "tools-plugins-codelab": {
+    "codelab-schematics": {
       "root": "libs/tools/plugins/codelab",
       "sourceRoot": "libs/tools/plugins/codelab/src",
       "projectType": "library",
