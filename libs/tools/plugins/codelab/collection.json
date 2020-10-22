@@ -4,9 +4,14 @@
   "version": "0.0.1",
   "schematics": {
     "react-lib": {
-      "factory": "./src/schematics/library/schematic",
-      "schema": "./src/schematics/library/schema.json",
+      "factory": "./src/schematics/library/react/schematic",
+      "schema": "./src/schematics/library/react/schema.json",
       "description": "Create a React library"
+    },
+    "nest-lib": {
+      "factory": "./src/schematics/library/nest/schematic",
+      "schema": "./src/schematics/library/nest/schema.json",
+      "description": "Create a Nest.js library"
     }
   }
 }
