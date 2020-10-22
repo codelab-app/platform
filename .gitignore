@@ -48,3 +48,8 @@ Thumbs.db
 
 /apps/docs/public
 /apps/docs/.cache
+
+# Docker-compose DB folder 
+
+data-node/
+neo4j/
