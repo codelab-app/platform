@@ -8,6 +8,10 @@
 # BUILD
 #
 
+build-dev-affected:
+	npx nx affected:build \
+		--parallel
+
 build-dev:
 	npx nx run-many \
 	--target=build \
@@ -93,6 +97,11 @@ lint-eslint:
 #
 # TEST
 #
+
+test-dev-affected:
+	npx nx affected:test \
+	--parallel \
+	--silent
 
 test-dev:
 	npx nx run-many \
