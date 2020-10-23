@@ -18,9 +18,6 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@codelab/api/config": ["libs/api/config/src/index.ts"],
-      "@codelab/api/model": ["libs/api/model/src/index.ts"],
-      "@codelab/api/router": ["libs/api/router/src/index.ts"],
       "@codelab/tools-eslint-config-codelab": [
         "libs/tools/eslint-config-codelab/src/index.ts"
       ],
@@ -63,20 +60,20 @@
       "@codelab/state/apollo": ["libs/state/apollo/src/index.ts"],
       "@codelab/api/prisma": ["libs/api/prisma/src/index.ts"],
       "@codelab/state/ui": ["libs/state/ui/src/index.ts"],
-      "@codelab/api/drivers/neo4j": ["libs/api/drivers/neo4j/src/index.ts"],
-      "@codelab/api/drivers/prisma": ["libs/api/drivers/prisma/src/index.ts"],
-      "@codelab/api/drivers/restify": ["libs/api/drivers/restify/src/index.ts"],
-      "@codelab/api/drivers/graphql": ["libs/api/drivers/graphql/src/index.ts"],
-      "@codelab/api/drivers/database": [
-        "libs/api/drivers/database/src/index.ts"
+      "@codelab/api/services/props": ["libs/api/services/props/src/index.ts"],
+      "@codelab/api/services/node": ["libs/api/services/node/src/index.ts"],
+      "@codelab/api/services/restify": [
+        "libs/api/services/restify/src/index.ts"
       ],
-      "@codelab/api/schema/props": ["libs/api/schema/props/src/index.ts"],
-      "@codelab/api/schema/node": ["libs/api/schema/node/src/index.ts"],
-      "@codelab/api/drivers/mongoose": [
-        "libs/api/drivers/mongoose/src/index.ts"
+      "@codelab/api/providers/config": [
+        "libs/api/providers/config/src/index.ts"
       ],
-      "@codelab/api/logger": ["libs/api/logger/src/index.ts"],
-      "@codelab/api/services/props": ["libs/api/services/props/src/index.ts"]
+      "@codelab/api/providers/logger": [
+        "libs/api/providers/logger/src/index.ts"
+      ],
+      "@codelab/api/providers/router": [
+        "libs/api/providers/router/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"]

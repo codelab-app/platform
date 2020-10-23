@@ -25,15 +25,6 @@
     }
   },
   "projects": {
-    "api-config": {
-      "tags": []
-    },
-    "api-model": {
-      "tags": []
-    },
-    "api-router": {
-      "tags": []
-    },
     "tools-eslint-config-codelab": {
       "tags": []
     },
@@ -126,33 +117,6 @@
     "api-services-props": {
       "tags": []
     },
-    "api-drivers-neo4j": {
-      "tags": []
-    },
-    "api-drivers-prisma": {
-      "tags": []
-    },
-    "api-drivers-restify": {
-      "tags": []
-    },
-    "api-drivers-graphql": {
-      "tags": []
-    },
-    "api-drivers-database": {
-      "tags": []
-    },
-    "api-schema-props": {
-      "tags": []
-    },
-    "api-schema-node": {
-      "tags": []
-    },
-    "api-drivers-mongoose": {
-      "tags": []
-    },
-    "api-logger": {
-      "tags": []
-    },
     "state-ui": {
       "tags": []
     },
@@ -163,6 +127,21 @@
       "tags": []
     },
     "api-federation-user": {
+      "tags": []
+    },
+    "api-services-node": {
+      "tags": []
+    },
+    "api-services-restify": {
+      "tags": []
+    },
+    "api-providers-config": {
+      "tags": []
+    },
+    "api-providers-logger": {
+      "tags": []
+    },
+    "api-providers-router": {
       "tags": []
     }
   }

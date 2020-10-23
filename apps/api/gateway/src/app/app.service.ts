@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
-import { ApiConfig, ApiConfigTypes } from '@codelab/api/config'
+import { ApiConfig, ApiConfigTypes } from '@codelab/api/providers/config'
 
 @Injectable()
 export class AppService {

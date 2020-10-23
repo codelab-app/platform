@@ -4,10 +4,10 @@ import { FederationModule } from '../federation'
 import { AppController } from './app.controller'
 import { AppMiddleware } from './app.middleware'
 import { AppService } from './app.service'
-import { ConfigModule } from '@codelab/api/config'
-import { RestifyModule } from '@codelab/api/drivers/restify'
-import { LoggerModule } from '@codelab/api/logger'
-import { RouterModule } from '@codelab/api/router'
+import { ConfigModule } from '@codelab/api/providers/config'
+import { LoggerModule } from '@codelab/api/providers/logger'
+import { RouterModule } from '@codelab/api/providers/router'
+import { RestifyModule } from '@codelab/api/services/restify'
 
 @Module({
   imports: [

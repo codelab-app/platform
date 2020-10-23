@@ -2,7 +2,7 @@ import { join } from 'path'
 import { DynamicModule, Module } from '@nestjs/common'
 import { ClientsModule, Transport } from '@nestjs/microservices'
 import { GrpcPropsClientService } from './grpc-props-client.service'
-import { ApiConfigTypes } from '@codelab/api/config'
+import { ApiConfigTypes } from '@codelab/api/providers/config'
 
 @Module({
   imports: [

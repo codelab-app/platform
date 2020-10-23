@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { GraphQLGatewayModule } from '@nestjs/graphql'
-import { ApiConfig, ApiConfigTypes } from '@codelab/api/config'
+import { ApiConfig, ApiConfigTypes } from '@codelab/api/providers/config'
 
 @Module({
   imports: [

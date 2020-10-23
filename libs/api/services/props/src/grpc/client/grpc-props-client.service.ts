@@ -1,6 +1,6 @@
 import { Inject, Injectable, OnModuleInit } from '@nestjs/common'
 import { ClientGrpc } from '@nestjs/microservices'
-import { ApiConfigTypes } from '@codelab/api/config'
+import { ApiConfigTypes } from '@codelab/api/providers/config'
 
 interface PropsService {
   create: Function

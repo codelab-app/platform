@@ -45,5 +45,6 @@ module.exports = {
     '<rootDir>/libs/state/ui',
     '<rootDir>/apps/api/services/graph',
     '<rootDir>/libs/api/services/props',
+    '<rootDir>/libs/api/services/node',
   ],
 }

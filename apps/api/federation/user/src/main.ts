@@ -2,7 +2,7 @@ import { Logger } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { NestFactory } from '@nestjs/core'
 import { AppModule } from './app/app.module'
-import { ApiConfig, ApiConfigTypes } from '@codelab/api/config'
+import { ApiConfig, ApiConfigTypes } from '@codelab/api/providers/config'
 
 const bootstrap = async () => {
   const app = await NestFactory.create(AppModule)

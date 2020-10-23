@@ -1,5 +1,8 @@
 import { Controller, Get, Inject } from '@nestjs/common'
-import { CODELAB_LOGGER_PROVIDER, CodelabLogger } from '@codelab/api/logger'
+import {
+  CODELAB_LOGGER_PROVIDER,
+  CodelabLogger,
+} from '@codelab/api/providers/logger'
 import { GrpcPropsClientService } from '@codelab/api/services/props'
 
 @Controller()

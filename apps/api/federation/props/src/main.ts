@@ -5,7 +5,7 @@ import { NestFactory } from '@nestjs/core'
 import { Transport } from '@nestjs/microservices'
 import { GrpcOptions } from '@nestjs/microservices/interfaces/microservice-configuration.interface'
 import { AppModule } from './app/app.module'
-import { ApiConfig, ApiConfigTypes } from '@codelab/api/config'
+import { ApiConfig, ApiConfigTypes } from '@codelab/api/providers/config'
 
 const bootstrapMicroservices = async (app: INestApplication) => {
   app.connectMicroservice<GrpcOptions>({
