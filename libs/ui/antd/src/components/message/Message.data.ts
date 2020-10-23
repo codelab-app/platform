@@ -2,6 +2,7 @@ import { Button } from '../button'
 import { Text } from '../text'
 import { Message } from './Message.types'
 import { NodeReactI, NodeType } from '@codelab/shared/interface/node'
+import { PropType } from '@codelab/shared/interface/props'
 
 export const messageData: NodeReactI<
   Text.Props | Button.Props | Message.Props | { config: object }
@@ -9,7 +10,7 @@ export const messageData: NodeReactI<
   type: NodeType.React_Fragment,
   props: {
     config: {
-      __type: ['Eval', 'Leaf'],
+      __type: [PropType.Eval, PropType.Leaf],
       value: `
         return { 
           content: 'This is a normal message',
@@ -23,7 +24,7 @@ export const messageData: NodeReactI<
       type: NodeType.React_Button,
       props: {
         onClick: {
-          __type: ['Eval'],
+          __type: [PropType.Eval],
           value: `
             return () => this.antd.message.info(this.config)
           `,

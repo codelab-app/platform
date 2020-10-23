@@ -1,25 +1,25 @@
 import { pipe } from 'ramda'
 import { propsFactoryEval } from './factories'
 import { propsFilterRenderProps } from './filters'
-import { propsMapGetter, propsRemoveSingle } from './mapper'
-import { PropTypeValue, Props } from '@codelab/shared/interface/props'
+import { propsRemoveSingle } from './mapper'
+import { PropType, Props } from '@codelab/shared/interface/props'
 
 describe('Props', () => {
   const parent: Props = {
     data_eval_leaf: {
-      __type: ['Eval', 'Leaf'],
+      __type: [PropType.Eval, PropType.Leaf],
       value: 'return { a: 1, b: 2 }',
     },
     data_eval_single: {
-      __type: ['Eval', 'Single'],
+      __type: [PropType.Eval, PropType.Single],
       value: 'return { c: 0 }',
     },
     data_leaf: {
-      __type: ['Leaf'],
+      __type: [PropType.Leaf],
       value: 3,
     },
     data_single: {
-      __type: ['Single'],
+      __type: [PropType.Single],
       value: 0,
     },
     data_default: 4,
@@ -27,7 +27,7 @@ describe('Props', () => {
 
   const current: Props = {
     log: {
-      __type: ['Eval'],
+      __type: [PropType.Eval],
       value: 'return () => this.data_eval_leaf.a',
     },
   }
@@ -37,19 +37,19 @@ describe('Props', () => {
 
     expect(props).toStrictEqual({
       data_eval_leaf: {
-        __type: ['Eval', 'Leaf'],
+        __type: [PropType.Eval, PropType.Leaf],
         value: 'return { a: 1, b: 2 }',
       },
       data_eval_single: {
-        __type: ['Eval', 'Single'],
+        __type: [PropType.Eval, PropType.Single],
         value: 'return { c: 0 }',
       },
       data_leaf: {
-        __type: ['Leaf'],
+        __type: [PropType.Leaf],
         value: 3,
       },
       data_single: {
-        __type: ['Single'],
+        __type: [PropType.Single],
         value: 0,
       },
     })
@@ -60,15 +60,15 @@ describe('Props', () => {
 
     expect(props).toStrictEqual({
       data_eval_leaf: {
-        __type: ['Eval', 'Leaf'],
+        __type: [PropType.Eval, PropType.Leaf],
         value: 'return { a: 1, b: 2 }',
       },
       data_eval_single: {
-        __type: ['Eval'],
+        __type: [PropType.Eval],
         value: 'return { c: 0 }',
       },
       data_leaf: {
-        __type: ['Leaf'],
+        __type: [PropType.Leaf],
         value: 3,
       },
       data_single: {
@@ -85,19 +85,19 @@ describe('Props', () => {
     it('evaluates props', () => {
       expect(parentProps).toStrictEqual({
         data_eval_leaf: {
-          __type: ['Leaf'],
+          __type: [PropType.Leaf],
           value: { a: 1, b: 2 },
         },
         data_eval_single: {
-          __type: ['Single'],
+          __type: [PropType.Single],
           value: { c: 0 },
         },
         data_leaf: {
-          __type: ['Leaf'],
+          __type: [PropType.Leaf],
           value: 3,
         },
         data_single: {
-          __type: ['Single'],
+          __type: [PropType.Single],
           value: 0,
         },
         data_default: 4,

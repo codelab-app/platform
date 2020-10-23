@@ -10,6 +10,7 @@ import { treeNodeFields } from './Form-treeNode'
 import { Renderer } from '@codelab/core/renderer'
 import { ComponentProps } from '@codelab/shared/interface/component'
 import { NodeReactI, NodeType } from '@codelab/shared/interface/node'
+import { PropType } from '@codelab/shared/interface/props'
 import { ContextModal, EventModal } from '@codelab/state/modal'
 import { withActor } from '@codelab/ui/hoc'
 
@@ -17,7 +18,7 @@ export const formNode: NodeReactI = {
   type: NodeType.React_Html_Div,
   props: {
     form: {
-      __type: ['Eval', 'Single'],
+      __type: [PropType.Eval, PropType.Single],
       value: `
         const [form] = this.antd.Form.useForm();
         return form
@@ -29,12 +30,12 @@ export const formNode: NodeReactI = {
       type: NodeType.React_Form,
       props: {
         form: {
-          __type: ['Eval', 'Leaf'],
+          __type: [PropType.Eval, PropType.Leaf],
           value: 'return this.form',
         },
         name: 'create-node-form',
         onFinish: {
-          __type: ['Eval'],
+          __type: [PropType.Eval],
           value: `
             return (values) => {
               this.handleSubmit(values);

@@ -6,6 +6,7 @@ import {
   NodeType,
   nodeTypeLiterals,
 } from '@codelab/shared/interface/node'
+import { PropType } from '@codelab/shared/interface/props'
 
 const propsTable: NodeReactI = {
   type: NodeType.React_Table,
@@ -14,7 +15,7 @@ const propsTable: NodeReactI = {
     pagination: false,
     locale: { emptyText: ' ' },
     dataSource: {
-      __type: ['Eval'],
+      __type: [PropType.Eval],
       value: 'return this.record.props',
     },
     columns: [
@@ -39,16 +40,16 @@ export const tableData: NodeReactI = {
   type: NodeType.React_Table,
   props: {
     // handleEdit: {
-    //   __type: ['Eval'],
+    //   __type: [PropType.Eval],
     //   value: 'return this.handleedit',
     // },
     // handleDelete: {
-    //   __type: ['Eval'],
+    //   __type: [PropType.Eval],
     //   value: 'return this.handledelete',
     // },
-    // selectNode: { __type: ['Eval'], value: 'return this.selectnode' },
+    // selectNode: { __type: [PropType.Eval], value: 'return this.selectnode' },
     dataSource: {
-      __type: ['Eval'],
+      __type: [PropType.Eval],
       value: 'return this.data',
     },
     columns: [

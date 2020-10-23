@@ -1,6 +1,7 @@
 import { isPropTypeValue, propsIterator } from '@codelab/core/props'
 import {
   PropItem,
+  PropType,
   PropTypeValue,
   Props,
   PropsFactory,
@@ -19,7 +20,7 @@ export const propsMapLeaf: PropsFactory = (props: Props) =>
         return {
           ...acc,
           [key]: {
-            __type: ['Leaf'],
+            __type: [PropType.Leaf],
             value,
           } as PropTypeValue,
         }

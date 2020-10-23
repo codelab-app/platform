@@ -1,16 +1,15 @@
 import { propsRemoveSingle } from './Props-remove--single'
-import { propsIterator } from '@codelab/core/props'
-import { Props } from '@codelab/shared/interface/props'
+import { PropType, Props } from '@codelab/shared/interface/props'
 
 describe('Props Transform Single', () => {
   it('turns a single renderProps into regular prop', () => {
     const props: Props = {
       a: {
-        __type: ['Single'],
+        __type: [PropType.Single],
         value: 3,
       },
       b: {
-        __type: ['Leaf', 'Eval'],
+        __type: [PropType.Leaf, PropType.Eval],
         value: '',
       },
     }
@@ -23,7 +22,7 @@ describe('Props Transform Single', () => {
         value: 3,
       },
       b: {
-        __type: ['Leaf', 'Eval'],
+        __type: [PropType.Leaf, PropType.Eval],
         value: '',
       },
     })

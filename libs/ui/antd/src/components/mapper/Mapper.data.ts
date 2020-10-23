@@ -1,4 +1,5 @@
 import { NodeReactI, NodeType } from '@codelab/shared/interface/node'
+import { PropType } from '@codelab/shared/interface/props'
 
 export const mapperData: NodeReactI = {
   type: NodeType.React_Mapper,
@@ -11,7 +12,7 @@ export const mapperData: NodeReactI = {
         {
           type: NodeType.React_Text,
           props: {
-            value: { __type: ['Eval'], value: 'return this.item' },
+            value: { __type: [PropType.Eval], value: 'return this.item' },
           },
         },
       ],

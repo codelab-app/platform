@@ -1,6 +1,7 @@
 import React from 'react'
 import { Renderer } from '@codelab/core/renderer'
 import { NodeI, NodeType } from '@codelab/shared/interface/node'
+import { PropType } from '@codelab/shared/interface/props'
 
 export const modelFormData: NodeI = {
   type: NodeType.React_Form,
@@ -17,7 +18,7 @@ export const modelFormData: NodeI = {
       },
     },
     onFinish: {
-      __type: ['Eval'],
+      __type: [PropType.Eval],
       value: 'return (values) => console.log(values)',
     },
   },

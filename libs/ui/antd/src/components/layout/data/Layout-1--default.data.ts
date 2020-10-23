@@ -3,6 +3,7 @@ import { Menu } from '../../menu'
 import { Text } from '../../text'
 import { Layout } from '../Layout.types'
 import { NodeReactI, NodeType } from '@codelab/shared/interface/node'
+import { PropType } from '@codelab/shared/interface/props'
 
 export const layoutData: NodeReactI<
   | Layout.Props
@@ -16,7 +17,7 @@ export const layoutData: NodeReactI<
   props: {
     style: { minHeight: '100vh' },
     ctx: {
-      __type: ['Eval', 'Leaf'],
+      __type: [PropType.Eval, PropType.Leaf],
       value:
         'const [collapsed, setCollapsed] = this.React.useState(false); return { collapsed, setCollapsed }',
     },
@@ -27,11 +28,11 @@ export const layoutData: NodeReactI<
       props: {
         collapsible: true,
         onCollapse: {
-          __type: ['Eval'],
+          __type: [PropType.Eval],
           value: 'return () => this.ctx.setCollapsed(!this.ctx.collapsed);',
         },
         collapsed: {
-          __type: ['Eval'],
+          __type: [PropType.Eval],
           value: 'return this.ctx.collapsed',
         },
       },

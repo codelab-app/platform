@@ -43,7 +43,7 @@ export const buttonData = {
   props: {
     type: 'primary',
     onClick: {
-      __type: ['Eval'],
+      __type: [PropType.Eval],
       value: 'return () => console.log("Clicked!")',
     },
   },
@@ -60,7 +60,7 @@ For eval props, NPM libraries are always available as `this`
 const hooksProps = {
   props: {
     ctx: {
-      __type: ['Eval'],
+      __type: [PropType.Eval],
       value:
         'const [visible, setVisible] = this.React.useState(false); return { visible, setVisible }',
     },
@@ -76,12 +76,12 @@ We can also create our own context to be used by eval props by using the special
 const hooksProps = {
   props: {
     ctx: {
-      __type: ['Eval'],
+      __type: [PropType.Eval],
       value:
         'const [visible, setVisible] = this.React.useState(false); return { visible, setVisible }',
     },
     visible: {
-      __type: ['Eval'],
+      __type: [PropType.Eval],
       value: 'return this.visible',
     },
   },

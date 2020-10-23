@@ -1,12 +1,13 @@
 import { Renderer } from '@codelab/core/renderer'
 import { NodeReactI, NodeType } from '@codelab/shared/interface/node'
+import { PropType } from '@codelab/shared/interface/props'
 
 export const buttonDelete: NodeReactI = {
   type: NodeType.React_Button,
   props: {
     type: 'danger',
     onClick: {
-      __type: ['Eval'],
+      __type: [PropType.Eval],
       value: 'return () => this.handledelete(this.record.id)',
     },
   },

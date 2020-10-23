@@ -2,6 +2,7 @@ import { mount } from 'enzyme'
 import React from 'react'
 import { leafRenderPropsData, renderPropsData } from './Props-renderProps.data'
 import { Renderer } from '@codelab/core/renderer'
+import { PropType } from '@codelab/shared/interface/props'
 
 describe('RenderProps', () => {
   it('can pass props from parent to child', () => {
@@ -13,13 +14,13 @@ describe('RenderProps', () => {
 
     const actualChildProps = child.props
 
-    expect(actualChildProps).toHaveProperty('childprops', 'single')
+    expect(actualChildProps).toHaveProperty('childprops', PropType.Single)
 
     const actualGrandChildProps = grandchild.props
 
     expect(actualGrandChildProps).not.toHaveProperty(
       'grandchildprops',
-      'single',
+      PropType.Single,
     )
   })
 
@@ -32,11 +33,14 @@ describe('RenderProps', () => {
 
     const actualChildProps = child.props
 
-    expect(actualChildProps).toHaveProperty('childprops', 'leaf')
+    expect(actualChildProps).toHaveProperty('childprops', PropType.Leaf)
 
     const actualGrandChildProps = grandchild.props
 
-    expect(actualGrandChildProps).toHaveProperty('grandchildprops', 'leaf')
+    expect(actualGrandChildProps).toHaveProperty(
+      'grandchildprops',
+      PropType.Leaf,
+    )
   })
 
   it('can pass props outside and override internal props if prop name is the same', () => {

@@ -1,4 +1,5 @@
 import { NodeReactI, NodeType } from '@codelab/shared/interface/node'
+import { PropType } from '@codelab/shared/interface/props'
 import { Layout, Text } from '@codelab/ui/antd'
 
 export const layoutData: NodeReactI<
@@ -15,11 +16,11 @@ export const layoutData: NodeReactI<
       props: {
         collapsible: true,
         onCollapse: {
-          __type: ['Eval'],
+          __type: [PropType.Eval],
           value: `return () => {this.state.context.visible? this.send({type:'CLOSE'}): this.send({type:'OPEN'})}`,
         },
         collapsed: {
-          __type: ['Eval'],
+          __type: [PropType.Eval],
           value: `return !this.state.context.visible`,
         },
       },
@@ -27,7 +28,7 @@ export const layoutData: NodeReactI<
         {
           type: NodeType.React_Text,
           props: {
-            value: { __type: ['Eval'], value: 'return this.sidebar' },
+            value: { __type: [PropType.Eval], value: 'return this.sidebar' },
           },
         },
       ],
@@ -42,7 +43,7 @@ export const layoutData: NodeReactI<
               type: NodeType.React_Text,
               props: {
                 value: {
-                  __type: ['Eval'],
+                  __type: [PropType.Eval],
                   value: 'return this.header',
                 },
               },
@@ -65,7 +66,7 @@ export const layoutData: NodeReactI<
                   type: NodeType.React_Text,
                   props: {
                     value: {
-                      __type: ['Eval'],
+                      __type: [PropType.Eval],
                       value: 'return this.content',
                     },
                   },
@@ -85,7 +86,7 @@ export const layoutData: NodeReactI<
                   type: NodeType.React_Text,
                   props: {
                     value: {
-                      __type: ['Eval'],
+                      __type: [PropType.Eval],
                       value: 'return this.footer',
                     },
                   },

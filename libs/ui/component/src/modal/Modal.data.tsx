@@ -1,4 +1,5 @@
 import { NodeReactI, NodeType } from '@codelab/shared/interface/node'
+import { PropType } from '@codelab/shared/interface/props'
 import { Button, Modal, Text } from '@codelab/ui/antd'
 
 export const modalButton: NodeReactI<Button.Props | Text.Props> = {
@@ -6,7 +7,7 @@ export const modalButton: NodeReactI<Button.Props | Text.Props> = {
   props: {
     type: 'primary',
     onClick: {
-      __type: ['Eval'],
+      __type: [PropType.Eval],
       value: `return () => this.send({ type: 'OPEN_MODAL' })`,
     },
   },
@@ -18,15 +19,15 @@ export const modal: NodeReactI<Modal.Props | Text.Props> = {
   props: {
     title: 'Basic Modal',
     onOk: {
-      __type: ['Eval'],
+      __type: [PropType.Eval],
       value: `return () => this.send({ type: 'CLOSE_MODAL' })`,
     },
     onCancel: {
-      __type: ['Eval'],
+      __type: [PropType.Eval],
       value: `return () => this.send({ type: 'CLOSE_MODAL' })`,
     },
     visible: {
-      __type: ['Eval'],
+      __type: [PropType.Eval],
       value: 'return this.state.context.modal.visible',
     },
   },

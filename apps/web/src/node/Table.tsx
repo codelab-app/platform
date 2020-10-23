@@ -4,13 +4,14 @@ import {
   NodeType,
   nodeTypeLiterals,
 } from '@codelab/shared/interface/node'
+import { PropType } from '@codelab/shared/interface/props'
 
 const deleteButton: NodeReactI = {
   type: NodeType.React_Button,
   props: {
     type: 'danger',
     onClick: {
-      __type: ['Eval'],
+      __type: [PropType.Eval],
       value: 'return () => this.handleDelete(this.record.id)',
     },
   },
@@ -29,7 +30,7 @@ const editButton: NodeReactI = {
   props: {
     type: 'warning',
     onClick: {
-      __type: ['Eval'],
+      __type: [PropType.Eval],
       value: 'return () => this.handleEdit(this.record.id)',
     },
   },
@@ -47,11 +48,11 @@ const parentTag: NodeReactI = {
   type: NodeType.React_Tag,
   props: {
     color: {
-      __type: ['Eval'],
+      __type: [PropType.Eval],
       value: 'return this.record.parent? "geekblue" : "white"',
     },
     onClick: {
-      __type: ['Eval'],
+      __type: [PropType.Eval],
       value: 'return () => this.selectNode(this.record.parent)',
     },
   },
@@ -60,7 +61,7 @@ const parentTag: NodeReactI = {
       type: NodeType.React_Text,
       props: {
         value: {
-          __type: ['Eval'],
+          __type: [PropType.Eval],
           value: 'return this.record.parent ?? ""',
         },
       },
@@ -75,7 +76,7 @@ const propsTable: NodeReactI = {
     pagination: false,
     locale: { emptyText: ' ' },
     dataSource: {
-      __type: ['Eval'],
+      __type: [PropType.Eval],
       value: 'return this.record.props',
     },
     columns: [
@@ -93,9 +94,9 @@ const propsTable: NodeReactI = {
 const childrenTags: NodeReactI = {
   type: NodeType.React_Mapper,
   props: {
-    selectNode: { __type: ['Eval'], value: 'return this.selectNode' },
+    selectNode: { __type: [PropType.Eval], value: 'return this.selectNode' },
     dataSource: {
-      __type: ['Eval'],
+      __type: [PropType.Eval],
       value: 'return this.record.children',
     },
     render: {
@@ -103,7 +104,7 @@ const childrenTags: NodeReactI = {
       props: {
         color: 'magenta',
         onClick: {
-          __type: ['Eval'],
+          __type: [PropType.Eval],
           value: 'return () => this.selectNode(this.item.id)',
         },
       },
@@ -112,7 +113,7 @@ const childrenTags: NodeReactI = {
           type: NodeType.React_Text,
           props: {
             value: {
-              __type: ['Eval'],
+              __type: [PropType.Eval],
               value: 'return this.item.id',
             },
           },
@@ -132,16 +133,16 @@ export const tableData: NodeReactI = {
   type: NodeType.React_Table,
   props: {
     handleEdit: {
-      __type: ['Eval'],
+      __type: [PropType.Eval],
       value: 'return this.handleedit',
     },
     handleDelete: {
-      __type: ['Eval'],
+      __type: [PropType.Eval],
       value: 'return this.handledelete',
     },
-    selectNode: { __type: ['Eval'], value: 'return this.selectnode' },
+    selectNode: { __type: [PropType.Eval], value: 'return this.selectnode' },
     dataSource: {
-      __type: ['Eval'],
+      __type: [PropType.Eval],
       value: 'return this.data',
     },
     columns: [

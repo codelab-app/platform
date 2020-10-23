@@ -1,12 +1,13 @@
 import { Renderer } from '@codelab/core/renderer'
 import { NodeReactI, NodeType } from '@codelab/shared/interface/node'
+import { PropType } from '@codelab/shared/interface/props'
 
 export const buttonEdit: NodeReactI = {
   type: NodeType.React_Button,
   props: {
     type: 'warning',
     onClick: {
-      __type: ['Eval'],
+      __type: [PropType.Eval],
       value: 'return () => this.handleedit(this.record.id)',
     },
   },

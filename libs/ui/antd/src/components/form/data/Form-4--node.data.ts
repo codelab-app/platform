@@ -7,13 +7,14 @@ import {
   NodeType,
   nodeTypeEntries,
 } from '@codelab/shared/interface/node'
+import { PropType } from '@codelab/shared/interface/props'
 
 export const nodeFormData: NodeReactI<
   Form.Props | Form.ItemProps | Text.Props | Button.Props
 > = {
   type: NodeType.React_Form,
   props: {
-    ctx: { __type: ['Eval'], value: '' },
+    ctx: { __type: [PropType.Eval], value: '' },
     name: 'basic',
     initialValues: { node_type: 'React' },
     onFinish: '() => console.log("good")',

@@ -1,4 +1,5 @@
 import { NodeReactI, NodeType } from '@codelab/shared/interface/node'
+import { PropType } from '@codelab/shared/interface/props'
 
 export const renderComponentData: NodeReactI<any> = {
   type: NodeType.React_RenderComponent,
@@ -7,7 +8,7 @@ export const renderComponentData: NodeReactI<any> = {
       type: NodeType.React_Button,
       props: {
         onClick: {
-          __type: ['Eval'],
+          __type: [PropType.Eval],
           value: 'return () => console.log(this)',
         },
       },
@@ -16,7 +17,7 @@ export const renderComponentData: NodeReactI<any> = {
           type: NodeType.React_Text,
           props: {
             value: {
-              __type: ['Eval'],
+              __type: [PropType.Eval],
               value: 'return this.data',
             },
           },

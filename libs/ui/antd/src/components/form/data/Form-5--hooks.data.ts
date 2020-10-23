@@ -2,6 +2,7 @@ import { Button } from '../../button'
 import { Text } from '../../text'
 import { Form } from '../Form.types'
 import { NodeReactI, NodeType } from '@codelab/shared/interface/node'
+import { PropType } from '@codelab/shared/interface/props'
 
 export const hooksData: NodeReactI<
   Form.Props | Form.ItemProps | Text.Props | Button.Props
@@ -9,7 +10,7 @@ export const hooksData: NodeReactI<
   type: NodeType.React_Fragment,
   props: {
     form: {
-      __type: ['Eval', 'Single'],
+      __type: [PropType.Eval, PropType.Single],
       value: `
         const [form] = this.antd.Form.useForm();
         return form
@@ -25,11 +26,11 @@ export const hooksData: NodeReactI<
           name: 'Codelab',
         },
         form: {
-          __type: ['Eval', 'Leaf'],
+          __type: [PropType.Eval, PropType.Leaf],
           value: `return this.form`,
         },
         onFinish: {
-          __type: ['Leaf', 'Eval'],
+          __type: [PropType.Leaf, PropType.Eval],
           value: 'console.log(this); return (values) => console.log(values)',
         },
       },
@@ -57,7 +58,7 @@ export const hooksData: NodeReactI<
               props: {
                 type: 'primary',
                 onClick: {
-                  __type: ['Eval'],
+                  __type: [PropType.Eval],
                   value: 'return () => this.form.resetFields()',
                 },
               },

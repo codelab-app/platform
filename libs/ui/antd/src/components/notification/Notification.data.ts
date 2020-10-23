@@ -2,6 +2,7 @@ import { Button } from '../button'
 import { Text } from '../text'
 import { Notification } from './Notification.types'
 import { NodeReactI, NodeType } from '@codelab/shared/interface/node'
+import { PropType } from '@codelab/shared/interface/props'
 
 export const notificationData: NodeReactI<
   Text.Props | Notification.Props | Button.Props | { config: object }
@@ -9,7 +10,7 @@ export const notificationData: NodeReactI<
   type: NodeType.React_Fragment,
   props: {
     config: {
-      __type: ['Eval', 'Leaf'],
+      __type: [PropType.Eval, PropType.Leaf],
       value: `
         return {
           message: 'Notification Title',
@@ -24,7 +25,7 @@ export const notificationData: NodeReactI<
       type: NodeType.React_Button,
       props: {
         onClick: {
-          __type: ['Eval'],
+          __type: [PropType.Eval],
           value: `
             return () => this.antd.notification.info(
               this.config

@@ -1,11 +1,11 @@
 import { CSSProperties, ReactNode, ReactNodeArray } from 'react'
-import { PropTypeLiteral } from './props-enum'
+import { PropType } from './props-enum'
 import { NodeReactI } from '@codelab/shared/interface/node'
 
 export type PropJsonValue = string | number | boolean
 
 export interface PropTypeValue {
-  __type: Array<PropTypeLiteral>
+  __type: Array<PropType>
   value: PropJsonValue | Function
 }
 

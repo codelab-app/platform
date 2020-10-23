@@ -1,16 +1,15 @@
-import { propsMapLeaf } from './Props-map--leaf'
 import { propsMapGetter } from '@codelab/core/props'
-import { Props } from '@codelab/shared/interface/props'
+import { PropType, Props } from '@codelab/shared/interface/props'
 
 describe('Props Map Getter', () => {
   it('maps all props to a getter style', () => {
     const props: Props = {
       a: {
-        __type: ['Eval'],
+        __type: [PropType.Eval],
         value: 'return { a: 1, b: 2 }',
       },
       b: {
-        __type: ['Leaf'],
+        __type: [PropType.Leaf],
         value: 4,
       },
       c: 'c',

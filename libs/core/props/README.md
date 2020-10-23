@@ -6,7 +6,7 @@ Props contain configurations & data for how we configure Components. Each Node c
 // prettier-ignore
 type PropTypeLiteral =
   | 'Default'
-  | 'Eval'
+  | PropType.Eval
   | 'RenderProps'
   | 'LeafRenderProps'
 
@@ -57,7 +57,7 @@ const node = {
   // ...
   props: {
     secondsInAnHour: {
-      propType: 'Eval',
+      propType: PropType.Eval,
       value: 'return 60 * 60 * 1',
     },
   },
@@ -71,7 +71,7 @@ const node = {
   // ...
   props: {
     onClick: {
-      propType: 'Eval',
+      propType: PropType.Eval,
       value: 'return () => console.log("Clicked!")',
     },
   },
@@ -85,7 +85,7 @@ const node = {
   // ...
   props: {
     addItem: {
-      propType: 'Eval',
+      propType: PropType.Eval,
       value: `
         const items = []
         return this.lodash.concat(items, 'Apple')
@@ -102,7 +102,7 @@ const node = {
   // ...
   props: {
     addItem: {
-      propType: 'Eval',
+      propType: PropType.Eval,
       value: `
         return this.lodash.concat(this.props.items, 'Apple')
       `,
@@ -129,7 +129,7 @@ const node = {
   children: [
     props: {
       addItem: {
-        propType: 'Eval',
+        propType: PropType.Eval,
         value: `
           return this.lodash.concat(this.props.items, 'Apple')
         `,
@@ -146,7 +146,7 @@ const node = {
   // ...
   props: {
     items: {
-      propType: ['RenderProps', 'Eval'],
+      propType: ['RenderProps', PropType.Eval],
       value: `return []`,
     },
   },

@@ -1,6 +1,7 @@
 import { Renderer } from '@codelab/core/renderer'
 import type { NodeReactI } from '@codelab/shared/interface/node'
 import { NodeType } from '@codelab/shared/interface/node'
+import { PropType } from '@codelab/shared/interface/props'
 
 const nodeButtonGroupData: NodeReactI = {
   type: NodeType.React_Html_Div,
@@ -16,7 +17,7 @@ const nodeButtonGroupData: NodeReactI = {
           type: NodeType.React_Text,
           props: {
             value: {
-              __type: ['Eval'],
+              __type: [PropType.Eval],
               value: 'return this.selectednodename',
             },
           },
@@ -36,7 +37,7 @@ const nodeButtonGroupData: NodeReactI = {
           props: {
             type: 'primary',
             onClick: {
-              __type: ['Eval'],
+              __type: [PropType.Eval],
               value: `
                 return () => {
                   this.setvisibility(true)
@@ -63,7 +64,7 @@ const nodeButtonGroupData: NodeReactI = {
           props: {
             type: 'primary',
             onClick: {
-              __type: ['Eval'],
+              __type: [PropType.Eval],
               value: `
                 return () => {
                   console.log(this)

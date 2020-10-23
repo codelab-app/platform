@@ -2,9 +2,10 @@ import { Renderer } from '@codelab/core/renderer'
 import {
   NodeReactI,
   NodeType,
-  ReactType,
+  ReactTypeEnum,
   nodeTypeEntries,
 } from '@codelab/shared/interface/node'
+import { PropType } from '@codelab/shared/interface/props'
 import { CodelabForm } from '@codelab/ui/antd'
 
 const parentNodeSelect: NodeReactI = {
@@ -18,7 +19,7 @@ const parentNodeSelect: NodeReactI = {
       type: NodeType.React_Select,
       props: {
         options: {
-          __type: ['Eval'],
+          __type: [PropType.Eval],
           value: 'return this.parentnodes',
         },
       },
@@ -51,7 +52,7 @@ const reactNodeFields: NodeReactI = {
   props: {
     shouldUpdate: true,
     shouldRender: {
-      __type: ['Eval'],
+      __type: [PropType.Eval],
       value: 'return (values) => values.nodeType !== "React"',
     },
   },
@@ -59,7 +60,7 @@ const reactNodeFields: NodeReactI = {
     CodelabForm.createSelect({
       label: 'Type',
       name: 'type',
-      options: Object.entries(ReactType),
+      options: Object.entries(ReactTypeEnum),
     }),
   ],
 }
@@ -69,7 +70,7 @@ const treeNodeFields: NodeReactI = {
   props: {
     shouldUpdate: true,
     shouldRender: {
-      __type: ['Eval'],
+      __type: [PropType.Eval],
       value: 'return (values) => values.nodeType !== "Tree"',
     },
   },
@@ -90,7 +91,7 @@ const refNodeFields: NodeReactI = {
   props: {
     shouldUpdate: true,
     shouldRender: {
-      __type: ['Eval'],
+      __type: [PropType.Eval],
       value: 'return (values) => values.nodeType !== "Ref"',
     },
   },
@@ -179,17 +180,17 @@ export const modalFormData: NodeReactI = {
     title: 'Create Node Form',
     footer: null,
     visible: {
-      __type: ['Eval'],
+      __type: [PropType.Eval],
       value: 'return this.visibility',
     },
     onCancel: {
-      __type: ['Eval'],
+      __type: [PropType.Eval],
       value: `
         return () => this.handlecancel()
       `,
     },
     ctx: {
-      __type: ['Eval', 'Leaf'],
+      __type: [PropType.Eval, PropType.Leaf],
       value: `
         const [form] = this.antd.Form.useForm();
 
@@ -205,10 +206,10 @@ export const modalFormData: NodeReactI = {
     {
       type: NodeType.React_Form,
       props: {
-        form: { __type: ['Eval'], value: 'return this.ctx.form' },
+        form: { __type: [PropType.Eval], value: 'return this.ctx.form' },
         name: 'create-node-form',
         onFinish: {
-          __type: ['Eval'],
+          __type: [PropType.Eval],
           value: 'return this.handlesubmit',
         },
       },

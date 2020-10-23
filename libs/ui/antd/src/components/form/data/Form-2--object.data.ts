@@ -3,6 +3,7 @@ import { Divider } from '../../divider'
 import { Text } from '../../text'
 import { Form } from '../Form.types'
 import { NodeReactI, NodeType } from '@codelab/shared/interface/node'
+import { PropType } from '@codelab/shared/interface/props'
 
 /**
  * We create a user object, which is keyed by 'user'
@@ -24,7 +25,7 @@ export const formObjectData: NodeReactI<
       },
     },
     onFinish: {
-      __type: ['Eval'],
+      __type: [PropType.Eval],
       value: 'return (values) => console.log(values)',
     },
   },

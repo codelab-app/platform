@@ -1,20 +1,20 @@
 import { propsFilterSingle } from '@codelab/core/props'
-import { Props } from '@codelab/shared/interface/props'
+import { PropType, Props } from '@codelab/shared/interface/props'
 
 describe('Props filter single', () => {
   it('filters single render props', () => {
     const props: Props = {
       a: {
-        __type: ['Leaf'],
+        __type: [PropType.Leaf],
         value: 4,
       },
       b: {
-        __type: ['Single'],
+        __type: [PropType.Single],
         value: 2,
       },
       c: 0,
       d: {
-        __type: ['Eval', 'Leaf'],
+        __type: [PropType.Eval, PropType.Leaf],
         value: '',
       },
     }
@@ -23,7 +23,7 @@ describe('Props filter single', () => {
 
     expect(filtered).toStrictEqual({
       b: {
-        __type: ['Single'],
+        __type: [PropType.Single],
         value: 2,
       },
     })

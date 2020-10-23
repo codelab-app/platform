@@ -1,5 +1,5 @@
 import { propsMapLeaf } from './Props-map--leaf'
-import { Props } from '@codelab/shared/interface/props'
+import { PropType, Props } from '@codelab/shared/interface/props'
 
 describe('Props Map Leaf', () => {
   it('maps all props to a Leaf prop type', () => {
@@ -13,16 +13,16 @@ describe('Props Map Leaf', () => {
 
     expect(leafProps).toStrictEqual({
       a: {
-        __type: ['Leaf'],
+        __type: [PropType.Leaf],
         value: 1,
       },
       b: {
-        __type: ['Leaf'],
+        __type: [PropType.Leaf],
         value: 2,
       },
 
       c: {
-        __type: ['Leaf'],
+        __type: [PropType.Leaf],
         value: 'c',
       },
     })

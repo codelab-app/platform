@@ -1,6 +1,7 @@
 import { Text } from '../text'
 import { Mentions } from './Mentions.types'
 import { NodeReactI, NodeType } from '@codelab/shared/interface/node'
+import { PropType } from '@codelab/shared/interface/props'
 
 export const mentionsData: NodeReactI<
   Mentions.Props | Mentions.OptionProps | Text.Props
@@ -10,7 +11,7 @@ export const mentionsData: NodeReactI<
     defaultValue: '@afc163',
     placeholder: 'You can use @ to ref user here',
     onChange: {
-      __type: ['Eval'],
+      __type: [PropType.Eval],
       value: 'return (value) => console.log(value)',
     },
   },

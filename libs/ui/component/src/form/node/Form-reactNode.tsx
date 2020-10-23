@@ -1,4 +1,9 @@
-import { NodeReactI, NodeType, ReactType } from '@codelab/shared/interface/node'
+import {
+  NodeReactI,
+  NodeType,
+  ReactTypeEnum,
+} from '@codelab/shared/interface/node'
+import { PropType } from '@codelab/shared/interface/props'
 import { CodelabForm } from '@codelab/ui/antd'
 
 export const reactNodeFields: NodeReactI = {
@@ -6,7 +11,7 @@ export const reactNodeFields: NodeReactI = {
   props: {
     shouldUpdate: true,
     shouldRender: {
-      __type: ['Eval'],
+      __type: [PropType.Eval],
       value: 'return (values) => values.nodeType !== "React"',
     },
   },
@@ -14,7 +19,7 @@ export const reactNodeFields: NodeReactI = {
     CodelabForm.createSelect({
       label: 'Type',
       name: 'type',
-      options: Object.entries(ReactType),
+      options: Object.entries(ReactTypeEnum),
     }),
   ],
 }

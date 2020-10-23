@@ -1,6 +1,7 @@
 import { Text } from '../../text'
 import { Layout } from '../Layout.types'
 import { NodeReactI, NodeType } from '@codelab/shared/interface/node'
+import { PropType } from '@codelab/shared/interface/props'
 
 export const propLayoutData: NodeReactI<
   Layout.Props | Layout.SiderProps | Text.Props
@@ -10,7 +11,7 @@ export const propLayoutData: NodeReactI<
     style: { minHeight: '100vh' },
     hasSider: true,
     ctx: {
-      __type: ['Eval', 'Leaf'],
+      __type: [PropType.Eval, PropType.Leaf],
       value: `
         const [collapsed, setCollapsed] = this.React.useState(false); 
           
@@ -24,11 +25,11 @@ export const propLayoutData: NodeReactI<
       props: {
         collapsible: true,
         onCollapse: {
-          __type: ['Eval'],
+          __type: [PropType.Eval],
           value: 'return () => this.ctx.setCollapsed(!this.ctx.collapsed)',
         },
         collapsed: {
-          __type: ['Eval'],
+          __type: [PropType.Eval],
           value: 'return this.ctx.collapsed',
         },
       },
@@ -36,7 +37,7 @@ export const propLayoutData: NodeReactI<
         {
           type: NodeType.React_Text,
           props: {
-            value: { __type: ['Eval'], value: 'return this.sidebar' },
+            value: { __type: [PropType.Eval], value: 'return this.sidebar' },
           },
         },
       ],
@@ -51,7 +52,7 @@ export const propLayoutData: NodeReactI<
               type: NodeType.React_Text,
               props: {
                 value: {
-                  __type: ['Eval'],
+                  __type: [PropType.Eval],
                   value: 'return this.header',
                 },
               },
@@ -74,7 +75,7 @@ export const propLayoutData: NodeReactI<
                   type: NodeType.React_Text,
                   props: {
                     value: {
-                      __type: ['Eval'],
+                      __type: [PropType.Eval],
                       value: 'return this.content',
                     },
                   },
@@ -94,7 +95,7 @@ export const propLayoutData: NodeReactI<
                   type: NodeType.React_Text,
                   props: {
                     value: {
-                      __type: ['Eval'],
+                      __type: [PropType.Eval],
                       value: 'return this.footer',
                     },
                   },

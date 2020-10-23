@@ -1,12 +1,13 @@
 import { NodeI, NodeType } from '@codelab/shared/interface/node'
+import { PropType } from '@codelab/shared/interface/props'
 
 export const renderPropsData: NodeI = {
   type: NodeType.React_Html_Div,
   props: {
     visibility: '',
     singleprops: {
-      __type: ['Single'],
-      value: 'single',
+      __type: [PropType.Single],
+      value: PropType.Single,
     },
   },
   children: [
@@ -14,7 +15,7 @@ export const renderPropsData: NodeI = {
       type: NodeType.React_Html_Div,
       props: {
         childprops: {
-          __type: ['Eval'],
+          __type: [PropType.Eval],
           value: 'return this.singleprops',
         },
       },
@@ -23,7 +24,7 @@ export const renderPropsData: NodeI = {
           type: NodeType.React_Html_Div,
           props: {
             grandchildprops: {
-              __type: ['Eval'],
+              __type: [PropType.Eval],
               value: 'return this.singleprops',
             },
           },
@@ -38,8 +39,8 @@ export const leafRenderPropsData: NodeI = {
   props: {
     visibility: '',
     leafprops: {
-      __type: ['Leaf'],
-      value: 'leaf',
+      __type: [PropType.Leaf],
+      value: PropType.Leaf,
     },
   },
   children: [
@@ -47,7 +48,7 @@ export const leafRenderPropsData: NodeI = {
       type: NodeType.React_Html_Div,
       props: {
         childprops: {
-          __type: ['Eval'],
+          __type: [PropType.Eval],
           // value: 'return console.log(this.leafprops)',
           value: 'return this.leafprops',
         },
@@ -57,7 +58,7 @@ export const leafRenderPropsData: NodeI = {
           type: NodeType.React_Html_Div,
           props: {
             grandchildprops: {
-              __type: ['Eval'],
+              __type: [PropType.Eval],
               // value: 'return console.log(this)',
               value: 'return this.leafprops',
             },

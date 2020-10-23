@@ -2,6 +2,7 @@ import { Button } from '../../button'
 import { Text } from '../../text'
 import { Form } from '../Form.types'
 import { NodeReactI, NodeType } from '@codelab/shared/interface/node'
+import { PropType } from '@codelab/shared/interface/props'
 
 export const formDefaultData: NodeReactI<
   Form.Props | Form.ItemProps | Text.Props | Button.Props
@@ -11,7 +12,7 @@ export const formDefaultData: NodeReactI<
     name: 'basic',
     initialValues: { select: 'a' },
     onFinish: {
-      __type: ['Eval'],
+      __type: [PropType.Eval],
       value: `
         console.log(this);
         return () => console.log("good");
