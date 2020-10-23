@@ -14,8 +14,6 @@ import { RouterModule } from '@codelab/api/router'
     LoggerModule,
     ConfigModule,
     FederationModule,
-    // GraphqlModule,
-    // Neo4jModule,
     RouterModule,
     RestifyModule,
     MongooseModule.forRoot('mongodb://127.0.0.1:27017/codelab-ai'),

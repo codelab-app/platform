@@ -3,7 +3,6 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
-  "eslint.enable": true,
   "eslint.run": "onSave",
   "eslint.format.enable": true,
   "eslint.packageManager": "yarn",

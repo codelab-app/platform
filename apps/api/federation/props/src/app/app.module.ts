@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common'
 import { GraphQLFederationModule } from '@nestjs/graphql'
 import { MongooseModule } from '@nestjs/mongoose'
+import { GrpcPropsServerModule } from '../../../../../../libs/api/services/props/src/grpc/server/grpc-props-server.module'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { ConfigModule } from '@codelab/api/config'
@@ -10,6 +11,7 @@ import { Props, PropsModule, PropsSchema } from '@codelab/api/schema/props'
 
 @Module({
   imports: [
+    GrpcPropsServerModule,
     LoggerModule,
     MongooseDriversModule,
     MongooseModule.forFeature([

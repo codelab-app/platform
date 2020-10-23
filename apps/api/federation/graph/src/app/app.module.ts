@@ -14,12 +14,13 @@ import {
 } from '@codelab/api/drivers/neo4j'
 import { LoggerModule } from '@codelab/api/logger'
 import { NodeModule } from '@codelab/api/schema/node'
+import { GrpcPropsClientModule } from '@codelab/api/services/props'
 @Module({
   imports: [
+    GrpcPropsClientModule,
     LoggerModule,
     ConfigModule,
     NodeModule,
-    // TODO: switch to GraphQLFederationModule
     GraphQLModule.forRootAsync({
       imports: [Neo4jDriversModule],
       inject: [NEO4J_DRIVER_PROVIDER],
@@ -27,9 +28,8 @@ import { NodeModule } from '@codelab/api/schema/node'
         return {
           include: [NodeModule],
           autoSchemaFile: true,
+          // Here schema already has federation added
           transformSchema: (schema: GraphQLSchema) => {
-            // Here schema already has federation added
-
             const resolvers = extractResolversFromSchema(schema)
 
             // Our user defined schema

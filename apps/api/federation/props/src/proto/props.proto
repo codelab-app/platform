@@ -1,9 +1,9 @@
 syntax = "proto3";
 
-package api.services.props;
+package api.federation.props;
 
 service PropsService {
-  rpc PropsCreate (PropsCreateInput) returns (Props) {}
+  rpc Create (PropsCreateInput) returns (Props) {}
 }
 
 message PropsCreateInput {
