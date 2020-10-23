@@ -88,7 +88,7 @@ lint-commit-dev:
 	npx commitlint -E HUSKY_GIT_PARAMS
 
 lint-eslint:
-	node scripts/lint/eslint.js
+	npx $(NODE_OPTIONS) node scripts/lint/eslint.js
 
 #
 # TEST
