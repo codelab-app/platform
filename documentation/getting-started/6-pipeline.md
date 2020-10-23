@@ -8,7 +8,7 @@ Here I'll take you through the lifecycle of a Task to give you an overview of ou
 
 The `To do` column will be your assigned Tasks to work on. Any assigned issues that aren't present in this column should be held off until further notice.
 
-<img src="https://codelab.sfo2.digitaloceanspaces.com/docs/workflow/github-project-board.png">
+<img src="https://codelab.sfo2.digitaloceanspaces.com/docs/workflow/github-project-board.png" width="480">
 
 Use the `To do` column as the single source of truth for what to work on.
 
@@ -16,7 +16,7 @@ Use the `To do` column as the single source of truth for what to work on.
 
 The Task closer to the top of the list takes priority.
 
-<img src="https://codelab.sfo2.digitaloceanspaces.com/docs/workflow/github-project-priority.png">
+<img src="https://codelab.sfo2.digitaloceanspaces.com/docs/workflow/github-project-priority.png" width="480">
 
 ---
 
@@ -47,7 +47,7 @@ The code will be tested by Jest, and built prior to pushing to the repository.
 
 Once you create the PR, CircleCI will perform checks before the branch can be merged to master. Once the checks are complete, this is the second time you'll have to move the Task card. Move it from `In progress` to `Review in progress` and assign me as the `Reviewer`
 
-<img src="https://codelab.sfo2.digitaloceanspaces.com/docs/workflow/github-project-reviewers.png">
+<img src="https://codelab.sfo2.digitaloceanspaces.com/docs/workflow/github-project-reviewers.png" width="480">
 
 
 

@@ -48,7 +48,7 @@ We are developing using a monorepo with multiple libraries, so a tool for creati
 
 Select `generate` & choose the appropriate schematic for your purpose.
 
-<img src="https://codelab.sfo2.digitaloceanspaces.com/docs/devtools/nx-generate-dropdown.png">
+<img src="https://codelab.sfo2.digitaloceanspaces.com/docs/devtools/nx-generate-dropdown.png" width="480">
 
 ### `@codelab/schematics:nest-lib`
 
@@ -60,6 +60,6 @@ For a React or Typescript library use this schematic.
 
 In both cases you'll choose a `name` and a `directory`. `lib` is prepended by default to the directory path.
 
-<img src="https://codelab.sfo2.digitaloceanspaces.com/docs/devtools/nx-generate-code.png">
+<img src="https://codelab.sfo2.digitaloceanspaces.com/docs/devtools/nx-generate-code.png" width="480">
 
 
