@@ -28,28 +28,32 @@ services:
       TERM: xterm-256color
       COLORTERM: truecolor
     build:
-      context: ./monitoring
+      context: ./fluentd
     volumes:
-      - ./monitoring/configurations:/fluentd/etc/
+      - ./fluentd/configs:/fluentd/etc/
 
   mongodb:
     image: mongo:4.4
     container_name: codelab-mongo
     restart: always
     volumes:
-      - ./mongo-volume:/data/db
+      - ./mongo/data:/data/db
     ports:
       - 27017:27017
     command: mongod --noauth
 
   neo4j:
-    image: neo4j
+    image: neo4j:4.1.3
+    container_name: codelab-neo4j
     restart: always
     volumes:
       - ./neo4j/data:/data
+      - ./neo4j/plugins:/plugins
+      - ./neo4j/import:/import
     ports:
       - 7687:7687
     command: neo4j
+
   # verdaccio:
   #   image: verdaccio/verdaccio:4
   #   container_name: verdaccio-docker-local-storage-vol

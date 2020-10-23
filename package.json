@@ -18,6 +18,7 @@
     "build": "make build-dev",
     "init": "make init",
     "start": "make start-dev",
+    "docker": "./scripts/docker/start.sh",
     "test": "make test-dev",
     "commit": "git-cz",
     "lint": "nx workspace-lint && nx lint",

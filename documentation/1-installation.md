@@ -19,13 +19,14 @@
 
 5. Install [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint), for realtime visual linting
 
+6. Install [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+
 ## System Setup
 - Fluentd
 - MongoDB
 - Neo4j
 
 1. Install [Neo4j](https://neo4j.com/docs/operations-manual/current/installation)
-  - Update `NEO4J_URL`, `NEO4J_USERNAME`, `NEO4J_PASSWORD` in `.env`
-  - Usually is `NEO4j_URL=bolt://localhost:7687`
-  - Enable APOC under Plugins in Neo4j Deskto (click 3 dots at top right of Database)
+
+  - Enable APOC under Plugins in Neo4j Desktop (click 3 dots at top right of Database)
 2. Install [MongoDB](https://docs.mongodb.com/manual/installation/)
