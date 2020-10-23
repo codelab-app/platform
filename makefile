@@ -2,28 +2,31 @@
 
 .PHONY: %
 
-# NODE_OPTIONS=NODE_OPTIONS=--max-old-space-size=4096
+NODE_OPTIONS_DEV=NODE_OPTIONS=--max-old-space-size=4096
+#NODE_OPTIONS_DEV=NODE_OPTIONS=--max-old-space-size=2048
 
 #
 # BUILD
 #
 
 build-dev:
-	npx $(NODE_OPTIONS) nx run-many \
+	npx nx run-many \
 	--target=build \
 	--all \
 	--parallel \
 	"$@"
 
 build-ci:
-	npx $(NODE_OPTIONS) run-many \
+	npx nx run-many \
+		--memoryLimit=4096 \
     --target=build \
     --all \
     --parallel \
     --maxWorkers=4
 
 build-prod:
-	npx $(NODE_OPTIONS) run-many \
+	npx nx run-many \
+		--memoryLimit=4096 \
     --target=build \
     --projects=web,api-gateway,api-services-props \
     --with-deps \
@@ -79,21 +82,21 @@ docker-log:
 #
 
 lint-commit-ci:
-	echo "${CIRCLE_BASE_REVISION}"
+	@echo "${CIRCLE_BASE_REVISION}"
 	npx commitlint --from="${CIRCLE_BASE_REVISION}" "$@"
 
 lint-commit-dev:
-	npx $(NODE_OPTIONS) commitlint -E HUSKY_GIT_PARAMS
+	$(NODE_OPTIONS_DEV) npx commitlint -E HUSKY_GIT_PARAMS
 
 lint-eslint:
-	npx $(NODE_OPTIONS) node scripts/lint/eslint.js
+	node scripts/lint/eslint.js
 
 #
 # TEST
 #
 
 test-dev:
-	npx $(NODE_OPTIONS) nx run-many \
+	$(NODE_OPTIONS_DEV) npx nx run-many \
 	--target=test \
 	--all \
 	--parallel \
@@ -101,7 +104,8 @@ test-dev:
 	"$@"
 
 test-ci:
-	npx $(NODE_OPTIONS) nx run-many \
+	npx nx run-many \
+	--memoryLimit=4096 \
 	--target=test \
 	--all \
 	--parallel \
@@ -113,7 +117,7 @@ test-ci:
 #
 
 start-dev:
-	npx $(NODE_OPTIONS) nx run-many \
+	npx nx run-many \
 		--maxParallel=6 \
 		--target=serve \
 		--projects=api-gateway,web \
@@ -122,15 +126,8 @@ start-dev:
 		"$@"
 
 start-api:
-	npx $(NODE_OPTIONS) nx serve api-gateway \
+	npx nx serve api-gateway \
 		--with-deps \
-		--parallel \
-		"$@"
-
-start-dev-gateway:
-	npx $(NODE_OPTIONS) nx run-many \
-		--target=serve \
-		--projects=api-gateway \
 		--parallel \
 		"$@"
 
@@ -149,7 +146,7 @@ start-dev-gateway:
 		# Need to wait for graphql server to finish reloading
 
 start-prod:
-	@pm2 startOrReload config/pm2.json
+	pm2 startOrReload config/pm2.json
 
 #
 # Other
