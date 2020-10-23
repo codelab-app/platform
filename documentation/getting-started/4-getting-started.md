@@ -1,6 +1,6 @@
 # Getting Started
 
-[Back](../README.md)
+[Back](../../README.md)
 
 1. `cp .env.example .env.dev`
 2. Update `NEO4J_URL`, `NEO4J_USERNAME`, `NEO4J_PASSWORD` in `.env`

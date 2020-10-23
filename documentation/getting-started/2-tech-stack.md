@@ -1,6 +1,6 @@
 # Technology Stack
 
-[Back](../README.md)
+[Back](../../README.md)
 
 ## Build
 

@@ -1,6 +1,6 @@
 # Dev Tools
 
-[Back](../README.md)
+[Back](../../README.md)
 
 To manage our monorepo, we require a specialized tool to meet all the requirements. [NX](https://github.com/nrwl/nx) provides "Extensible Dev Tools for Monorepos" for us to manage the application. Having a dev tool like NX allows us to manage the complexity of a large codebase at scale.
 

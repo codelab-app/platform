@@ -1,6 +1,6 @@
 # Core Concept
 
-[Back](../README.md)
+[Back](../../README.md)
 
 We conceptualize an application as a `Tree`, just as how the browser uses a Dom tree. If we can have a way of constructing the Tree, we can build the Dom tree.
 

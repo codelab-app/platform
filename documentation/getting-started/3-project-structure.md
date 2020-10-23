@@ -1,6 +1,6 @@
 # Project Structure
 
-[Back](../README.md)
+[Back](../../README.md)
 
 ## Apps
 
@@ -21,7 +21,7 @@
 <!-- [Model](libs/core/model/README.md) -->
 <!-- [Node](libs/core/node/README.md) -->
 
-[Props](libs/core/props/README.md)
+[Props](../../libs/core/props/README.md)
 
 <!-- [Traversal](libs/core/traversal/README.md) -->
 <!-- [Tree](libs/core/tree/README.md) -->

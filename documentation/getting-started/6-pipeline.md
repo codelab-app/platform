@@ -1,6 +1,6 @@
 # CI/CD Pipeline
 
-[Back](../README.md)
+[Back](../../README.md)
 
 Here I'll take you through the lifecycle of a Task to give you an overview of our pipeline
 

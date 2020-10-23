@@ -1,7 +1,7 @@
 
 # Installation
 
-[Back](../README.md)
+[Back](../../README.md)
 
 ## Plugins to Install
 
