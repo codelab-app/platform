@@ -28,9 +28,9 @@ As shown in our [Demo](../getting-started/8-demo.md), the JSON data representing
 
 UI state is complex in that there are many states a state machine can be in. We use XState to manage all our local states.
 
-<img src="https://codelab.sfo2.digitaloceanspaces.com/docs/xstate/xstate-node-component.png">
+<img src="https://codelab.sfo2.digitaloceanspaces.com/docs/xstate/xstate-node-component.png" width="640">
 
-<img src="https://codelab.sfo2.digitaloceanspaces.com/docs/xstate/xstate-node-sequence.png">
+<img src="https://codelab.sfo2.digitaloceanspaces.com/docs/xstate/xstate-node-sequence.png" width="640">
 
 We start with a ListMachine, think of this as a container for our ItemMachine. We then bind actions to ListMachine by extending it.
 

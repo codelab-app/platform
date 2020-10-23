@@ -8,7 +8,7 @@ Here I'll take you through the lifecycle of a Task to give you an overview of ou
 
 The `To do` column will be your assigned Tasks to work on. Any assigned issues that aren't present in this column should be held off until further notice.
 
-<img src="https://codelab.sfo2.digitaloceanspaces.com/docs/workflow/github-project-board.png" width="480">
+<img src="https://codelab.sfo2.digitaloceanspaces.com/docs/workflow/github-project-board.png" width="640">
 
 Use the `To do` column as the single source of truth for what to work on.
 
@@ -16,7 +16,7 @@ Use the `To do` column as the single source of truth for what to work on.
 
 The Task closer to the top of the list takes priority.
 
-<img src="https://codelab.sfo2.digitaloceanspaces.com/docs/workflow/github-project-priority.png" width="480">
+<img src="https://codelab.sfo2.digitaloceanspaces.com/docs/workflow/github-project-priority.png" width="320">
 
 ---
 
