@@ -4,12 +4,14 @@ import { MongooseModule } from '@nestjs/mongoose'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { ConfigModule } from '@codelab/api/config'
+import { MongooseDriversModule } from '@codelab/api/drivers/mongoose'
 import { LoggerModule } from '@codelab/api/logger'
 import { Props, PropsModule, PropsSchema } from '@codelab/api/schema/props'
 
 @Module({
   imports: [
     LoggerModule,
+    MongooseDriversModule,
     MongooseModule.forFeature([
       {
         name: Props.name,

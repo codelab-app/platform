@@ -26,6 +26,8 @@ const bootstrap = async () => {
   const config: ConfigService<ApiConfig> = app.get(ConfigService)
   const port = config.get(ApiConfigTypes.SERVICES_PROPS_PORT)
 
+  console.log(port)
+
   await bootstrapMicroservices(app)
 
   await app.listen(port, () => {

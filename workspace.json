@@ -1926,7 +1926,7 @@
       "root": "apps/api/federation/props",
       "sourceRoot": "apps/api/federation/props/src",
       "projectType": "application",
-      "prefix": "api-services-graph",
+      "prefix": "api-federation-props",
       "schematics": {},
       "architect": {
         "build": {
@@ -1954,7 +1954,7 @@
         "serve": {
           "builder": "@nrwl/node:execute",
           "options": {
-            "buildTarget": "api-federation-graph:build"
+            "buildTarget": "api-federation-props:build"
           }
         },
         "lint": {
