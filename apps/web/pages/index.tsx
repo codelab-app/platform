@@ -1,5 +1,6 @@
 import { useActor } from '@xstate/react'
 import React, { useContext } from 'react'
+import { EventNameNode, EventNode } from '@codelab/state/node'
 import {
   FormNode,
   Layout,
@@ -16,14 +17,12 @@ const isServer = typeof window === 'undefined'
 const TableNodeWithSuspense = withSuspense(() => (
   <NodeFormData>
     {(data) => {
-      console.log(data)
-
       return (
         <Table
           data={data}
-          // selectnode={() => null}
-          // handleedit={() => null}
-          // handledelete={() => null}
+          selectnode={() => null}
+          handleedit={() => null}
+          handledelete={() => null}
         />
       )
     }}
@@ -34,10 +33,10 @@ const TableNodeWithSuspense = withSuspense(() => (
 // https://github.com/coinbase/rest-hooks/issues/172
 const Index = (props: any) => {
   const { app, actors } = useContext(MachineContext)
-  const [modalState] = useActor(actors.modal)
+  const [modalState, modalSend] = useActor(actors.modal)
   const [layoutState] = useActor(actors.layout)
+  const [nodeState, nodeSend] = useActor<EventNode>(actors.node)
 
-  // <>{!isServer ? <TableNodeWithSuspense /> : null}</>
   return (
     <>
       <Layout
@@ -49,7 +48,8 @@ const Index = (props: any) => {
               <FormNode
                 actor={actors.modal}
                 handleSubmit={(values: object) => {
-                  console.log(values)
+                  nodeSend({ type: EventNameNode.NODE_CREATE, payload: values })
+                  // modalSend(EventNameModal.CLOSE)
                 }}
               />
             </Modal>

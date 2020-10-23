@@ -45,6 +45,7 @@ export const MachineProvider = (
   props: PropsWithChildren<MachineProps<ContextApp, StateSchemaApp, EventApp>>,
 ) => {
   const { machine, children } = props
+
   const [state, send, service] = useMachine(machine)
 
   const value = {

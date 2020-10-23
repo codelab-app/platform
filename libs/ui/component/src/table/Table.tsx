@@ -99,6 +99,9 @@ export const tableData: NodeReactI = {
 
 export type TableProps = {
   data: any
+  selectnode: Function
+  handleedit: Function
+  handledelete: Function
 }
 
 export const Table = Renderer.components<TableProps>(tableData)
