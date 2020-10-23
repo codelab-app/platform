@@ -1935,7 +1935,14 @@
             "outputPath": "dist/apps/api/federation/props",
             "main": "apps/api/federation/props/src/main.ts",
             "tsConfig": "apps/api/federation/props/tsconfig.app.json",
-            "assets": ["apps/api/federation/props/src/assets"]
+            "assets": [
+              "apps/api/federation/props/src/assets",
+              {
+                "input": "apps/api/federation/props/src",
+                "glob": "**/*.proto",
+                "output": "."
+              }
+            ]
           },
           "configurations": {
             "production": {
