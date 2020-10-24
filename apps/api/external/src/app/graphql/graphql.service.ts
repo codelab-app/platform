@@ -30,8 +30,8 @@ export class GraphqlService implements GqlOptionsFactory {
       installSubscriptionHandlers: true,
       transformSchema: async (schema: GraphQLSchema) => {
       
-        // console.log('localSchema', schema.getQueryType());
-        // console.log('remote', remoteExecutableSchema.getQueryType());
+        console.log('localSchema', schema.getQueryType());
+        console.log('remote', remoteExecutableSchema.getQueryType());
         return mergeSchemas({
           schemas: [
             schema,
