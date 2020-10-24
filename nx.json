@@ -143,6 +143,9 @@
     },
     "api-providers-router": {
       "tags": []
+    },
+    "api-external": {
+      "tags": []
     }
   }
 }
