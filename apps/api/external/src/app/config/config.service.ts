@@ -1,7 +1,5 @@
 import * as dotenv from "dotenv";
 import * as fs from "fs";
-// import { IRedisConfig, IRedisEndpoints } from "../interfaces/common/redis.interface";
-// import { IRateLimitConfig } from "../interfaces/common/ratelimit.interface";
 import { Logger } from "@nestjs/common";
 import {IGQLConfig} from "../interfaces/gql.interface"
 
@@ -19,7 +17,7 @@ export class ConfigService {
         return {
             debug: parseInt(this.envConfig.GQL_DEBUG, 10) ? true : false,
             tracing: parseInt(this.envConfig.GQL_TRACING, 10) ? true : false,
-            playground: parseInt(this.envConfig.GQL_PLAYGROUND, 10) ? true : false,
+            playground: true,
             cache : parseInt(this.envConfig.GQL_CACHE,10) ? true : false,
             cacheTTL : parseInt(this.envConfig.GQL_CACHE_TTL),
         };
