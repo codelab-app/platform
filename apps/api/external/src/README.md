@@ -4,7 +4,7 @@
 1. [Install Hasura using Docker](https://hasura.io/docs/1.0/graphql/core/getting-started/docker-simple.html)
 2. Start Hasura using docker 
 3. Navigate to `http://localhost:8080/` - this is your Hasura GUI
-4. Set .env variables (you can get these from the docker yml file)
+4. Copy .env.examplle to .env. Set .env variables (you can get these from the docker yml file)
     
     * GQL_ENGINE_URI = "http://localhost:8080/v1/graphql"
     * GQL_ENGINE_ACCESS_KEY = "myadminsecretkey"
