@@ -73,7 +73,7 @@
     "findup-sync": "4.0.0",
     "graphql": "15.3.0",
     "graphql-tag": "2.11.0",
-    "graphql-tools": "6.2.4",
+
     "graphql-type-json": "^0.3.2",
     "graphqurl": "^0.3.3",
     "grpc": "^1.24.3",

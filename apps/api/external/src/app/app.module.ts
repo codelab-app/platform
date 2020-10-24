@@ -9,6 +9,7 @@ import {ConfigService} from "./config/config.service"
 import {GraphQLModule} from "@nestjs/graphql"
 import {GraphqlService} from "./graphql/graphql.service"
 import { GraphQLSchema } from "graphql";
+import { HealthModule } from './health/health.module';
 
 @Module({
   imports: 
@@ -38,6 +39,7 @@ import { GraphQLSchema } from "graphql";
     useClass: GraphqlService,
     inject: [ConfigService]
   }),
+  HealthModule,
 ],
   controllers: [AppController],
   providers: [AppService],
