@@ -3,11 +3,8 @@ import {GqlModuleOptions, GqlOptionsFactory} from '@nestjs/graphql';
 import {ConfigService} from '../config/config.service';
 import {HttpLink} from 'apollo-link-http';
 import nodeFetch from 'node-fetch';
-import {buildSchema as buildSchemaGraphql, GraphQLSchema, print, printSchema} from 'graphql';
+import {buildSchema as buildSchemaGraphql, GraphQLSchema, print, printSchema, GraphQLObjectType, GraphQLString} from 'graphql';
 import {introspectSchema, makeRemoteExecutableSchema, mergeSchemas} from 'graphql-tools';
-import { linkToExecutor } from '@graphql-tools/links';
-
-const { query } = require('graphqurl');
 
 
 const CONSTRUCTOR_NAME = 'GraphqlService';
@@ -32,12 +29,14 @@ export class GraphqlService implements GqlOptionsFactory {
       autoSchemaFile: 'schema.gql',
       installSubscriptionHandlers: true,
       transformSchema: async (schema: GraphQLSchema) => {
-        console.log('localSchema', schema);
+      
+        // console.log('localSchema', schema.getQueryType());
+        // console.log('remote', remoteExecutableSchema.getQueryType());
         return mergeSchemas({
           schemas: [
             schema,
             remoteExecutableSchema
-          ],
+          ]
         });
       },
 
@@ -60,20 +59,18 @@ export class GraphqlService implements GqlOptionsFactory {
         }
       });
 
-      const executor = linkToExecutor(httpLink);
+      const remoteIntrospectedSchema = await introspectSchema(httpLink);
+      // const executor = linkToExecutor(httpLink) as AsyncExecutor;
 
-      // const remoteIntrospectedSchema = await introspectSchema(httpLink);
-      const remoteIntrospectedSchema = await introspectSchema(executor);
+      // const remoteIntrospectedSchema = await introspectSchema(executor);
       
       const remoteSchema = printSchema(remoteIntrospectedSchema);
-      // const resolvers = extractResolversFromSchema(remoteSchema);
-      // console.log('remoteSchema', remoteSchema);
       const buildedHasuraSchema = buildSchemaGraphql(remoteSchema);
       
       const remoteExecutableSchema = makeRemoteExecutableSchema({
         // schema: buildedHasuraSchema,
         schema: remoteSchema,
-        executor
+        link: httpLink
       });
 
       // const remoteExecutableSchema = wrapSchema({
