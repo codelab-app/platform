@@ -143,6 +143,9 @@
     },
     "api-federation-node": {
       "tags": []
+    },
+    "api-external": {
+      "tags": []
     }
   }
 }

@@ -1859,6 +1859,60 @@
           }
         }
       }
+    },
+    "api-external": {
+      "root": "apps/api/external",
+      "sourceRoot": "apps/api/external/src",
+      "projectType": "application",
+      "prefix": "api-external",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/api/external",
+            "main": "apps/api/external/src/main.ts",
+            "tsConfig": "apps/api/external/tsconfig.app.json",
+            "assets": ["apps/api/external/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/api/external/src/environments/environment.ts",
+                  "with": "apps/api/external/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "api-external:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/api/external/tsconfig.app.json",
+              "apps/api/external/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/api/external/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/api/external/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {
