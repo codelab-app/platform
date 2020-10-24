@@ -1,7 +1,7 @@
 import { Inject } from '@nestjs/common'
 import { Args, Query, Resolver } from '@nestjs/graphql'
 import { GraphqlPropsService } from '../graphql-props.service'
-import { Prop } from '../model/prop.model'
+import { Prop } from '../model'
 import {
   CODELAB_LOGGER_PROVIDER,
   CodelabLogger,
@@ -21,8 +21,8 @@ export class PropsResolver {
   //   return this.propsService.findOneById(prop.id)
   // }
 
-  @Query(() => Prop, { name: 'props' })
-  props(@Args('id') id: number): Prop | undefined {
+  @Query(() => Prop, { name: 'prop' })
+  prop(@Args('id') id: number): Prop | undefined {
     this.logger.log('resolve props!')
 
     return this.propsService.findOneById(id)

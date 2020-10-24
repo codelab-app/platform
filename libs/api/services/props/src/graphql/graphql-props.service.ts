@@ -6,7 +6,7 @@ export class GraphqlPropsService {
   private props: Array<Prop> = [
     {
       id: 1,
-      props: { text: 'Button', size: 'medium', type: 'primary' },
+      values: { text: 'Button', size: 'medium', type: 'primary' },
     },
   ]
 

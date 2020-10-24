@@ -6,14 +6,12 @@ import { ConfigModule } from '@codelab/api/providers/config'
 import { LoggerModule } from '@codelab/api/providers/logger'
 import {
   GraphqlPropsModule,
-  GrpcPropsServerModule,
   MongoosePropsModule,
 } from '@codelab/api/services/props'
 
 @Module({
   imports: [
     MongoosePropsModule,
-    GrpcPropsServerModule,
     LoggerModule,
     GraphQLFederationModule.forRootAsync({
       imports: [GraphqlPropsModule],

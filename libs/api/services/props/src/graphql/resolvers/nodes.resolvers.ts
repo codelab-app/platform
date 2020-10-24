@@ -1,8 +1,7 @@
 import { Logger } from '@nestjs/common'
 import { Parent, ResolveField, Resolver } from '@nestjs/graphql'
 import { GraphqlPropsService } from '../graphql-props.service'
-import { Node } from '../model'
-import { Prop } from '../model/prop.model'
+import { Node, Prop } from '../model'
 
 @Resolver(() => Node)
 export class NodesResolver {
