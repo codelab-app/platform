@@ -29,9 +29,8 @@ export class GraphqlService implements GqlOptionsFactory {
       autoSchemaFile: 'schema.gql',
       installSubscriptionHandlers: true,
       transformSchema: async (schema: GraphQLSchema) => {
-      
-        console.log('localSchema', schema.getQueryType());
-        console.log('remote', remoteExecutableSchema.getQueryType());
+        // console.log('localSchema', schema.getQueryType());
+        // console.log('remote', remoteExecutableSchema.getQueryType());
         return mergeSchemas({
           schemas: [
             schema,
@@ -60,28 +59,19 @@ export class GraphqlService implements GqlOptionsFactory {
       });
 
       const remoteIntrospectedSchema = await introspectSchema(httpLink);
-      // const executor = linkToExecutor(httpLink) as AsyncExecutor;
-
-      // const remoteIntrospectedSchema = await introspectSchema(executor);
       
       const remoteSchema = printSchema(remoteIntrospectedSchema);
       const buildedHasuraSchema = buildSchemaGraphql(remoteSchema);
       
       const remoteExecutableSchema = makeRemoteExecutableSchema({
-        // schema: buildedHasuraSchema,
-        schema: remoteSchema,
+        schema: buildedHasuraSchema,
+        // schema: remoteSchema,
         link: httpLink
       });
-
-      // const remoteExecutableSchema = wrapSchema({
-      //   schema: await introspectSchema(executor),
-      //   executor,
-      // });
 
       return Promise.resolve(remoteExecutableSchema);
     }
     catch (err) {
-      console.log('error:!!!!')
       console.log(err);
       return Promise.reject(err);
     }
