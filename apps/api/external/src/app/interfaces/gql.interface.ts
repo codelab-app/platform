@@ -3,5 +3,4 @@ export interface IGQLConfig {
     playground: boolean;
     tracing : boolean;
     cache : boolean;
-    cacheTTL : number;
 }

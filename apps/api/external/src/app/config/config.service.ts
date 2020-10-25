@@ -8,18 +8,16 @@ export class ConfigService {
     private readonly logger = new Logger(this.constructor.name);
 
     constructor(filePath: string) {
-        this.logger.log('cwd: ', process.cwd());
         this.envConfig = dotenv.parse(fs.readFileSync(filePath));
         this.logger.log("Config " + JSON.stringify(this.envConfig));
     }
 
     get GQLConfig(): IGQLConfig {
         return {
-            debug: parseInt(this.envConfig.GQL_DEBUG, 10) ? true : false,
-            tracing: parseInt(this.envConfig.GQL_TRACING, 10) ? true : false,
+            debug: false,
+            tracing: false,
             playground: true,
-            cache : parseInt(this.envConfig.GQL_CACHE,10) ? true : false,
-            cacheTTL : parseInt(this.envConfig.GQL_CACHE_TTL),
+            cache : false,
         };
     }
 
