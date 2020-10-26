@@ -4,7 +4,7 @@ import { AppProps } from 'next/app'
 import React from 'react'
 import { CacheProvider } from 'rest-hooks'
 import { NodeService as NodeServiceEntity } from '@codelab/core/node'
-import { machineApp } from '@codelab/state/app'
+import { createMachineApp } from '@codelab/state/app'
 import { MachineProvider, NodeServiceProvider } from '@codelab/ui/component'
 import { useApollo } from '@codelab/ui/hoc'
 
@@ -21,30 +21,13 @@ const App: React.FC<AppProps> = (props) => {
 
   const apolloClient = useApollo(pageProps.initialApolloState)
   const nodeService = new NodeServiceEntity()
-  const machineAppConnected = machineApp.withConfig({
-    actions: {
-      createNode: (ctx, event) => {
-        console.log('create node')
-        nodeService.createNode(event.payload, () => {
-          console.log('node saved!!!')
-        })
-      },
-      updateNode: (ctx, event) => {
-        // nodeService.updateNode(formData)
-        console.log('update node')
-      },
-      deleteNode: (ctx, event) => {
-        console.log('delete node')
-      },
-      // 'getNodes': (ctx, event) => { }
-    },
-  })
+  const machineApp = createMachineApp(nodeService)
 
   return (
     <ApolloProvider client={apolloClient}>
       <CacheProvider>
         <NodeServiceProvider nodeService={nodeService}>
-          <MachineProvider machine={machineAppConnected}>
+          <MachineProvider machine={machineApp}>
             <Component {...pageProps} />
           </MachineProvider>
         </NodeServiceProvider>

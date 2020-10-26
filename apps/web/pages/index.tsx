@@ -1,6 +1,6 @@
 import { useActor } from '@xstate/react'
 import React, { useContext } from 'react'
-import { EventNameNode, EventNode } from '@codelab/state/node'
+import { ContextNode, EventNameNode, EventNode } from '@codelab/state/node'
 import {
   FormNode,
   Layout,
@@ -33,9 +33,10 @@ const TableNodeWithSuspense = withSuspense(() => (
 // https://github.com/coinbase/rest-hooks/issues/172
 const Index = (props: any) => {
   const { app, actors } = useContext(MachineContext)
-  const [modalState, modalSend] = useActor(actors.modal)
+  const [modalState] = useActor(actors.modal)
   const [layoutState] = useActor(actors.layout)
-  const [nodeState, nodeSend] = useActor<EventNode>(actors.node)
+  const [nodeState, nodeSend] = useActor<ContextNode, EventNode>(actors.node)
+  // <>{!isServer ? <TableNodeWithSuspense /> : null}</>
 
   return (
     <>
@@ -47,13 +48,20 @@ const Index = (props: any) => {
             <Modal actor={actors.modal}>
               <FormNode
                 actor={actors.modal}
-                handleSubmit={(values: object) => {
+                handlesubmit={(values: object) => {
                   nodeSend({ type: EventNameNode.NODE_CREATE, payload: values })
-                  // modalSend(EventNameModal.CLOSE)
                 }}
               />
             </Modal>
-            <>{!isServer ? <TableNodeWithSuspense /> : null}</>
+            <Table
+              data={nodeState.context.nodes.map((node: any) => ({
+                ...node,
+                key: node.id,
+              }))}
+              selectnode={() => null}
+              handleedit={() => null}
+              handledelete={() => null}
+            />
             <p>modal state: {JSON.stringify(modalState.value)}</p>
             <p>modal context: {JSON.stringify(modalState.context)}</p>
             <p>layout state: {JSON.stringify(layoutState.value)}</p>

@@ -1,4 +1,5 @@
 import { Interpreter } from 'xstate'
+import { NodeService } from '@codelab/core/node'
 import {
   ContextLayout,
   EventLayout,
@@ -16,5 +17,10 @@ export interface ContextApp {
   layout:
     | null
     | (() => Interpreter<ContextLayout, StateSchemaLayout, EventLayout>)
-  node: null | (() => Interpreter<ContextNode, StateSchemaNode, EventNode>)
+  node:
+    | null
+    | ((
+        ctx: ContextApp,
+      ) => Interpreter<ContextNode, StateSchemaNode, EventNode>)
+  nodeService: NodeService
 }
