@@ -1,59 +1,60 @@
-import * as dotenv from "dotenv";
-import * as fs from "fs";
-import { Logger } from "@nestjs/common";
-import {IGQLConfig} from "../interfaces/gql.interface"
+import * as fs from 'fs'
+import { Logger } from '@nestjs/common'
+import * as dotenv from 'dotenv'
+import { IGQLConfig } from '../interfaces/gql.interface'
 
 export class ConfigService {
-    private readonly envConfig: Record<string, string>;
-    private readonly logger = new Logger(this.constructor.name);
+  private readonly envConfig: Record<string, string>
 
-    constructor(filePath: string) {
-        this.envConfig = dotenv.parse(fs.readFileSync(filePath));
-        this.logger.log("Config " + JSON.stringify(this.envConfig));
-    }
+  private readonly logger = new Logger(this.constructor.name)
 
-    get GQLConfig(): IGQLConfig {
-        return {
-            debug: false,
-            tracing: false,
-            playground: true,
-            cache : false,
-        };
-    }
+  constructor(filePath: string) {
+    this.envConfig = dotenv.parse(fs.readFileSync(filePath))
+    this.logger.log(`Config ${JSON.stringify(this.envConfig)}`)
+  }
 
-    get graphQLEngineAccessKey(): string {
-        return this.envConfig.GQL_ENGINE_ACCESS_KEY;
+  get GQLConfig(): IGQLConfig {
+    return {
+      debug: false,
+      tracing: false,
+      playground: true,
+      cache: false,
     }
+  }
 
-    get graphQLEngineURI(): string {
-        return this.envConfig.GQL_ENGINE_URI;
-    }
+  get graphQLEngineAccessKey(): string {
+    return this.envConfig.GQL_ENGINE_ACCESS_KEY
+  }
 
-    get jwtSecret() : string {
-        return this.envConfig.JWT_SECRET;
-    }
+  get graphQLEngineURI(): string {
+    return this.envConfig.GQL_ENGINE_URI
+  }
 
-    get dbHost(): string {
-        return this.envConfig.DB_HOST;
-    }
+  get jwtSecret(): string {
+    return this.envConfig.JWT_SECRET
+  }
 
-    get dbType(): string {
-        return this.envConfig.DB_TYPE;
-    }
+  get dbHost(): string {
+    return this.envConfig.DB_HOST
+  }
 
-    get dbPort(): number {
-        return parseInt(this.envConfig.DB_PORT);
-    }
-    
-    get dbUsername(): string {
-        return this.envConfig.DB_USERNAME;
-    }
+  get dbType(): string {
+    return this.envConfig.DB_TYPE
+  }
 
-    get dbPassword(): string {
-        return this.envConfig.DB_PASSWORD;
-    }
+  get dbPort(): number {
+    return parseInt(this.envConfig.DB_PORT, 10)
+  }
 
-    get db(): string {
-        return this.envConfig.DB;
-    }
+  get dbUsername(): string {
+    return this.envConfig.DB_USERNAME
+  }
+
+  get dbPassword(): string {
+    return this.envConfig.DB_PASSWORD
+  }
+
+  get db(): string {
+    return this.envConfig.DB
+  }
 }

@@ -1,30 +1,31 @@
-import {Injectable} from '@nestjs/common';
-import {GqlModuleOptions, GqlOptionsFactory} from '@nestjs/graphql';
-import {ConfigService} from '../config/config.service';
-import {HttpLink} from 'apollo-link-http';
-import nodeFetch from 'node-fetch';
-import {buildSchema as buildSchemaGraphql, GraphQLSchema, print, printSchema, GraphQLObjectType, GraphQLString} from 'graphql';
-import {introspectSchema, makeRemoteExecutableSchema, mergeSchemas} from 'graphql-tools';
+import { Injectable } from '@nestjs/common'
+import { GqlModuleOptions, GqlOptionsFactory } from '@nestjs/graphql'
+import { HttpLink } from 'apollo-link-http'
+import { GraphQLSchema, buildSchema, printSchema } from 'graphql'
+import {
+  introspectSchema,
+  makeRemoteExecutableSchema,
+  mergeSchemas,
+  // eslint-disable-next-line import/no-extraneous-dependencies
+} from 'graphql-tools'
+import nodeFetch from 'node-fetch'
+import { ConfigService } from '../config/config.service'
 
-
-const CONSTRUCTOR_NAME = 'GraphqlService';
-
+const CONSTRUCTOR_NAME = 'GraphqlService'
 
 @Injectable()
 export class GraphqlService implements GqlOptionsFactory {
-
-  
-  constructor(private readonly config: ConfigService) {
-    
-  }
-
+  constructor(private readonly config: ConfigService) {}
 
   async createGqlOptions(): Promise<GqlModuleOptions> {
-    let remoteExecutableSchema: any = null;
+    let remoteExecutableSchema: any = null
+
     try {
-      remoteExecutableSchema = await this.createRemoteSchema();
-    } catch (e) {}
-    
+      remoteExecutableSchema = await this.createRemoteSchema()
+    } catch (e) {
+      console.log(e)
+    }
+
     return {
       autoSchemaFile: 'schema.gql',
       installSubscriptionHandlers: true,
@@ -32,21 +33,16 @@ export class GraphqlService implements GqlOptionsFactory {
         // console.log('localSchema', schema.getQueryType());
         // console.log('remote', remoteExecutableSchema.getQueryType());
         return mergeSchemas({
-          schemas: [
-            schema,
-            remoteExecutableSchema
-          ]
-        });
+          schemas: [schema, remoteExecutableSchema],
+        })
       },
 
       path: '/graphql',
       debug: this.config.GQLConfig.debug,
       tracing: this.config.GQLConfig.tracing,
-      playground: this.config.GQLConfig.playground
+      playground: this.config.GQLConfig.playground,
     }
-  };
-
-
+  }
 
   private async createRemoteSchema(): Promise<GraphQLSchema> {
     try {
@@ -54,27 +50,38 @@ export class GraphqlService implements GqlOptionsFactory {
         uri: this.config.graphQLEngineURI,
         fetch: nodeFetch as any,
         headers: {
-          "X-Hasura-Access-Key": this.config.graphQLEngineAccessKey
-        }
-      });
+          'X-Hasura-Access-Key': this.config.graphQLEngineAccessKey,
+        },
+      }) as any
 
-      const remoteIntrospectedSchema = await introspectSchema(httpLink);
-      
-      const remoteSchema = printSchema(remoteIntrospectedSchema);
-      const buildedHasuraSchema = buildSchemaGraphql(remoteSchema);
-      
+      const remoteIntrospectedSchema = await introspectSchema(httpLink)
+
+      const remoteSchema = printSchema(remoteIntrospectedSchema)
+      const builtHasuraSchema = buildSchema(remoteSchema)
+
       const remoteExecutableSchema = makeRemoteExecutableSchema({
-        schema: buildedHasuraSchema,
+        schema: builtHasuraSchema,
         // schema: remoteSchema,
-        link: httpLink
-      });
+        link: httpLink,
+      })
 
-      return Promise.resolve(remoteExecutableSchema);
-    }
-    catch (err) {
-      console.log(err);
-      return Promise.reject(err);
+      // const httpLinkExecutor = linkToExecutor(httpLink)
+
+      // const hasuraSchema = await introspectSchema(
+      //   httpLinkExecutor as AsyncExecutor,
+      // )
+
+      // //
+      // const remoteExecutableSchema = makeRemoteExecutableSchema({
+      //   schema: hasuraSchema,
+      //   // link: httpLinkExecutor,
+      // })
+
+      return Promise.resolve(remoteExecutableSchema)
+    } catch (err) {
+      console.log(err)
+
+      return Promise.reject(err)
     }
   }
-
 }

@@ -124,6 +124,11 @@ test-ci:
 # START
 #
 
+docker-start-external:
+	docker-compose \
+	-f apps/api/external/docker-compose.yml \
+	up graphql-engine
+
 start-dev:
 	npx nx run-many \
 		--maxParallel=6 \
