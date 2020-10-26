@@ -1,7 +1,7 @@
-import { ObjectType, Field } from "@nestjs/graphql";
+import { Field, ObjectType } from '@nestjs/graphql'
 
 @ObjectType()
 export class HealthOutput {
-    @Field({ nullable: true })
-    isRunning: boolean = false;
+  @Field({ nullable: true })
+  isRunning = false
 }
