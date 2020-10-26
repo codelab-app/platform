@@ -1,11 +1,9 @@
-import { join } from 'path'
 import { Module } from '@nestjs/common'
 import { GraphQLModule } from '@nestjs/graphql'
-import { ClientsModule, Transport } from '@nestjs/microservices'
 import { Driver } from 'neo4j-driver'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
-import { ApiConfigTypes, ConfigModule } from '@codelab/api/providers/config'
+import { ConfigModule } from '@codelab/api/providers/config'
 import { LoggerModule } from '@codelab/api/providers/logger'
 import {
   GraphqlNodeModule,
@@ -18,25 +16,7 @@ import {
   imports: [
     LoggerModule,
     ConfigModule,
-    // Main code
-    ClientsModule.registerAsync([
-      {
-        name: `${ApiConfigTypes.GRPC_PROPS_PACKAGE}`,
-        useFactory: () => {
-          return {
-            transport: Transport.GRPC,
-            options: {
-              package: 'api.federation.props',
-              protoPath: join(
-                process.cwd(),
-                'apps/api/federation/props/src/proto/props.proto',
-              ),
-            },
-          }
-        },
-      },
-    ]),
-    // GraphqlNodeModule, // Adding only for Query root
+    // Main
     GraphQLModule.forRootAsync({
       imports: [Neo4jConnectorModule, GraphqlNodeModule],
       inject: [NEO4J_DRIVERS_PROVIDER, Neo4jSchemaService],

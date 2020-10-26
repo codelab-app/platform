@@ -1,25 +1,19 @@
 import { Module } from '@nestjs/common'
-import { ConfigService } from '@nestjs/config'
 import { MongooseModule } from '@nestjs/mongoose'
 import { MongooseProps, MongoosePropsSchema } from './mongoose-props.schema'
-import { ApiConfig, ApiConfigTypes } from '@codelab/api/providers/config'
+import { MongoosePropsService } from './mongoose-props.service'
 
 @Module({
   imports: [
-    MongooseModule.forRootAsync({
-      inject: [ConfigService],
-      useFactory: (config: ConfigService<ApiConfig>) => {
-        return {
-          uri: config.get(ApiConfigTypes.MONGO_ENDPOINT),
-        }
-      },
-    }),
     MongooseModule.forFeature([
       {
-        name: MongooseProps.name,
+        name: MongooseProps.__name,
         schema: MongoosePropsSchema,
       },
     ]),
   ],
+  controllers: [MongoosePropsService],
+  providers: [MongoosePropsService],
+  exports: [MongoosePropsService],
 })
 export class MongoosePropsModule {}

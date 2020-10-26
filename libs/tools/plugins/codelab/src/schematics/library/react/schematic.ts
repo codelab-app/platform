@@ -9,7 +9,6 @@ import {
   externalSchematic,
   mergeWith,
   move,
-  noop,
   url,
 } from '@angular-devkit/schematics'
 import {
@@ -68,56 +67,41 @@ const removeFiles = (options: NormalizedSchema): Rule => {
   }
 }
 
-const addFiles = (options: NormalizedSchema): Rule => {
-  return (tree: Tree, context: SchematicContext) => {
-    return mergeWith(
-      apply(url(`./files`), [
-        applyTemplates({
-          ...options,
-          ...names(options.name),
-          offsetFromRoot: offsetFromRoot(options.projectRoot),
-        }),
-        move(options.projectRoot),
-      ]),
-      MergeStrategy.Overwrite,
-    )
-  }
+const createFiles = (options: NormalizedSchema): Rule => {
+  return mergeWith(
+    apply(url(`./files`), [
+      applyTemplates({
+        ...options,
+        ...names(options.name),
+        offsetFromRoot: offsetFromRoot(options.projectRoot),
+      }),
+      move(options.projectRoot),
+    ]),
+    MergeStrategy.Overwrite,
+  )
 }
 
 export const createReactLibrary = (options: NormalizedSchema): Rule => {
-  return (_: Tree, context: SchematicContext) => {
-    return externalSchematic('@nrwl/react', 'library', {
-      name: options.name,
-      directory: options.directory,
-      linter: Linter.EsLint,
-      component: false,
-      style: '@emotion/styled',
-    })
-  }
-}
-
-export const addStorybookConfig = (options: NormalizedSchema): Rule => {
-  return (tree: Tree, context: SchematicContext) => {
-    return externalSchematic('@nrwl/react', 'storybook-configuration', {
-      name: options.projectName,
-      configureCypress: false,
-      generateStories: false,
-    })
-  }
+  return externalSchematic('@nrwl/react', 'library', {
+    name: options.name,
+    directory: options.directory,
+    linter: Linter.EsLint,
+    component: false,
+    style: '@emotion/styled',
+  })
 }
 
 export default function (options: ReactSchematicSchema): Rule {
   const normalizedOptions = normalizeOptions(options)
 
-  // console.log(normalizedOptions)
-
-  return chain([
-    /**
-     * We want to extend the `@nrwl/react` schematics, and override the eslintrc file.
-     */
-    createReactLibrary(normalizedOptions),
-    options.storybook ? addStorybookConfig(normalizedOptions) : noop(),
-    addFiles(normalizedOptions),
-    removeFiles(normalizedOptions),
-  ])
+  return (host: Tree, context: SchematicContext) => {
+    return chain([
+      /**
+       * We want to extend the `@nrwl/react` schematics, and override the eslintrc file.
+       */
+      createReactLibrary(normalizedOptions),
+      createFiles(normalizedOptions),
+      removeFiles(normalizedOptions),
+    ])
+  }
 }

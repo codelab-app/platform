@@ -17,9 +17,4 @@ export class AppController {
   log() {
     this.logger.log({ from: 'userA', to: 'userB' })
   }
-
-  @Get('props')
-  props() {
-    return this.appService.create()
-  }
 }

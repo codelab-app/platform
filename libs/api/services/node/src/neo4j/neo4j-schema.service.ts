@@ -18,8 +18,6 @@ export class Neo4jSchemaService {
     // Our user defined schema
     const typeDefs: string = printSchema(schema)
 
-    console.log(typeDefs)
-
     const neo4jExtendedSchema = makeAugmentedSchema({
       resolvers,
       typeDefs,
