@@ -1,6 +1,7 @@
 import { Module, OnModuleInit } from '@nestjs/common'
 import { GraphQLModule } from '@nestjs/graphql'
 import { TypeOrmModule, TypeOrmModuleAsyncOptions } from '@nestjs/typeorm'
+import * as shell from 'shelljs'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { ConfigModule } from './config/config.module'
@@ -11,8 +12,6 @@ import { HealthModule } from './health/health.module'
 import { RestaurantModule } from './restaurant/restaurant.module'
 import { SeedDbModule } from './seed-db/seed-db.module'
 import { SeedDbService } from './seed-db/seed-db.service'
-
-const resetDb = true
 
 @Module({
   imports: [
@@ -30,8 +29,8 @@ const resetDb = true
           database: config.db,
           autoLoadEntities: true,
           // synchronize and dropSchema resets the database
-          synchronize: resetDb,
-          dropSchema: resetDb,
+          synchronize: config.resetDb,
+          dropSchema: config.resetDb,
           logging: ['query', 'error', 'schema'],
           extra: {
             connectionLimit: 5,
@@ -53,10 +52,21 @@ const resetDb = true
   providers: [AppService],
 })
 export class AppModule implements OnModuleInit {
-  constructor(public seedDbService: SeedDbService) {}
+  constructor(
+    public seedDbService: SeedDbService,
+    public config: ConfigService,
+  ) {}
 
   async onModuleInit() {
-    if (resetDb) {
+    if (this.config.resetDb) {
+      if (
+        shell.exec('make -C apps/api/external hasura-metadata-import').code !==
+        0
+      ) {
+        shell.echo('make hasura-metadata-import failed')
+        shell.exit(1)
+      }
+
       await this.seedDbService.seedDB()
     }
   }

@@ -35,7 +35,7 @@ export class ConfigService {
   }
 
   get dbHost(): string {
-    return this.envConfig.DB_HOST
+    return this.envConfig.POSTGRES_HOST
   }
 
   get dbType(): string {
@@ -43,18 +43,24 @@ export class ConfigService {
   }
 
   get dbPort(): number {
-    return parseInt(this.envConfig.DB_PORT, 10)
+    return parseInt(this.envConfig.POSTGRES_PORT, 10)
   }
 
   get dbUsername(): string {
-    return this.envConfig.DB_USERNAME
+    return this.envConfig.POSTGRES_USER
   }
 
   get dbPassword(): string {
-    return this.envConfig.DB_PASSWORD
+    return this.envConfig.POSTGRES_PASSWORD
   }
 
   get db(): string {
-    return this.envConfig.DB
+    return this.envConfig.POSTGRES_DB
+  }
+
+  get resetDb(): boolean {
+    const { argv } = process
+
+    return argv.includes('--reset')
   }
 }

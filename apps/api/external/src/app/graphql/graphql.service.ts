@@ -63,6 +63,9 @@ export class GraphqlService implements GqlOptionsFactory {
       const remoteSchema = printSchema(remoteIntrospectedSchema)
       const builtHasuraSchema = buildSchemaGraphql(remoteSchema)
 
+      /**
+       * Need to be using graphql-tools@4 for stitching
+       */
       const remoteExecutableSchema = makeRemoteExecutableSchema({
         schema: builtHasuraSchema,
         // schema: remoteSchema,
@@ -75,7 +78,7 @@ export class GraphqlService implements GqlOptionsFactory {
       //   httpLinkExecutor as AsyncExecutor,
       // )
 
-      // //
+      //
       // const remoteExecutableSchema = makeRemoteExecutableSchema({
       //   schema: hasuraSchema,
       //   // link: httpLinkExecutor,
