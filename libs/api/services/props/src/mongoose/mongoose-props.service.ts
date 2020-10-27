@@ -15,6 +15,7 @@ export class MongoosePropsService {
   // @UseInterceptors(ClassSerializerInterceptor)
   @GrpcMethod('PropsService', 'CreateProps')
   async create(propsCreateDto: NodeCreateInput): Promise<any> {
+    console.log(propsCreateDto)
     // const props = new this.PropsModel(propsCreateDto)
 
     // const results: any = await props.save()
@@ -26,7 +27,7 @@ export class MongoosePropsService {
     return {
       id: 1,
       type: 'REACT_BUTTON',
-      values: {},
+      values: {}, // needs to be object
     }
   }
 }
