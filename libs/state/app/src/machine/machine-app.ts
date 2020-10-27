@@ -24,7 +24,6 @@ export const createMachineApp = (nodeService: NodeServiceEntity) => {
           layout: () => spawn(machineLayout),
           node: (ctx: ContextApp) => spawn(createMachineNode(ctx.nodeService)),
         }),
-
         always: StateNameApp.IDLE,
       },
       [StateNameApp.IDLE]: {
@@ -34,7 +33,17 @@ export const createMachineApp = (nodeService: NodeServiceEntity) => {
           },
           [EventNameApp.CREATED_NODE]: {
             actions: [
-              send(EventNameModal.CLOSE, { to: (ctx) => ctx.modal as any }),
+              send(EventNameModal.CLOSE, { to: (ctx) => ctx.modal as any }), // TODO: fix type
+            ],
+          },
+          [EventNameApp.EDITING_NODE]: {
+            actions: [
+              send(EventNameModal.OPEN, { to: (ctx) => ctx.modal as any }), // TODO: fix type
+            ],
+          },
+          [EventNameApp.EDITED_NODE]: {
+            actions: [
+              send(EventNameModal.CLOSE, { to: (ctx) => ctx.modal as any }), // TODO: fix type
             ],
           },
         },

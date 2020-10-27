@@ -33,6 +33,12 @@ export const formNode: NodeReactI = {
           __type: [PropType.Eval, PropType.Leaf],
           value: 'return this.form',
         },
+        initialvalues: {
+          __type: ['Eval'],
+          value: `
+            this.initialvalues? this.form.setFieldsValue(this.initialvalues): null
+          `,
+        },
         name: 'create-node-form',
         onFinish: {
           __type: [PropType.Eval],
@@ -61,6 +67,7 @@ export const formNode: NodeReactI = {
 
 interface FormProps {
   handlesubmit: Function
+  initialvalues?: any
 }
 
 export const FormNode: React.FC<

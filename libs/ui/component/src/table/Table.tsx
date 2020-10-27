@@ -1,3 +1,5 @@
+import { buttonDelete } from './Table-button--delete'
+import { buttonEdit } from './Table-button--edit'
 import { TagChildren } from './Table-tag--children'
 import { TagParent } from './Table-tag--parent'
 import { Renderer } from '@codelab/core/renderer'
@@ -83,16 +85,15 @@ export const tableData: NodeReactI = {
         key: 'children',
         render: TagChildren,
       },
-      // {
-      //   title: 'Action',
-      //   dataIndex: 'action',
-      //   key: 'action',
-      //   render: {
-      //     type: 'React.Space',
-      //     // children: [buttonEdit, buttonDelete],
-      //     children: [ButtonEdit, ButtonDelete],
-      //   },
-      // },
+      {
+        title: 'Action',
+        dataIndex: 'action',
+        key: 'action',
+        render: {
+          type: 'React.Space',
+          children: [buttonEdit, buttonDelete],
+        },
+      },
     ],
   },
 }

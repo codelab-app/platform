@@ -1,6 +1,16 @@
+/* eslint-disable no-unused-expressions */
+// TODO: find out error cause
 import { useActor } from '@xstate/react'
 import React, { useContext } from 'react'
-import { ContextNode, EventNameNode, EventNode } from '@codelab/state/node'
+import { BaseNodeType, NodeA } from '@codelab/shared/interface/node'
+import {
+  ContextNode,
+  EventNameNode,
+  EventNode,
+  EventNodeCreate,
+  EventNodeEditSubmit,
+  StateNameNode,
+} from '@codelab/state/node'
 import {
   FormNode,
   Layout,
@@ -38,6 +48,11 @@ const Index = (props: any) => {
   const [nodeState, nodeSend] = useActor<ContextNode, EventNode>(actors.node)
   // <>{!isServer ? <TableNodeWithSuspense /> : null}</>
 
+  // <p>modal state: {JSON.stringify(modalState.value)}</p>
+  // <p>modal context: {JSON.stringify(modalState.context)}</p>
+  // <p>layout state: {JSON.stringify(layoutState.value)}</p>
+  // <p>layout context: {JSON.stringify(layoutState.context)}</p>
+  // <p>Node context: {JSON.stringify(nodeState.context.editedNode)}</p>
   return (
     <>
       <Layout
@@ -45,12 +60,38 @@ const Index = (props: any) => {
         content={
           <>
             <ModalButton actor={actors.modal} />
-            <Modal actor={actors.modal}>
+            <Modal
+              actor={actors.modal}
+              handlecancel={() => {
+                nodeState.value === StateNameNode.EDITING
+                  ? nodeSend({ type: EventNameNode.NODE_EDIT_CANCEL })
+                  : null
+              }}
+            >
               <FormNode
                 actor={actors.modal}
                 handlesubmit={(values: object) => {
-                  nodeSend({ type: EventNameNode.NODE_CREATE, payload: values })
+                  nodeState.value === StateNameNode.EDITING
+                    ? nodeSend({
+                        type: EventNameNode.NODE_EDIT_SUBMIT,
+                        payload: values,
+                      } as EventNodeEditSubmit)
+                    : nodeSend({
+                        type: EventNameNode.NODE_CREATE,
+                        payload: values,
+                      } as EventNodeCreate)
                 }}
+                initialvalues={
+                  nodeState.value === StateNameNode.EDITING
+                    ? {
+                        nodeType: BaseNodeType.React,
+                        ...nodeState.context.editedNode,
+                      }
+                    : {
+                        nodeType: BaseNodeType.React,
+                        parent: null,
+                      }
+                }
               />
             </Modal>
             <Table
@@ -59,13 +100,13 @@ const Index = (props: any) => {
                 key: node.id,
               }))}
               selectnode={() => null}
-              handleedit={() => null}
-              handledelete={() => null}
+              handleedit={(nodeId: NodeA['id']) =>
+                nodeSend({ type: EventNameNode.NODE_EDIT, payload: nodeId })
+              }
+              handledelete={(nodeId: NodeA['id']) =>
+                nodeSend({ type: EventNameNode.NODE_DELETE, payload: nodeId })
+              }
             />
-            <p>modal state: {JSON.stringify(modalState.value)}</p>
-            <p>modal context: {JSON.stringify(modalState.context)}</p>
-            <p>layout state: {JSON.stringify(layoutState.value)}</p>
-            <p>layout context: {JSON.stringify(layoutState.context)}</p>
           </>
         }
         sidebar={<>Side bar</>}
