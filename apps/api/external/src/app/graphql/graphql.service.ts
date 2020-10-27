@@ -10,6 +10,7 @@ import {
   introspectSchema,
   makeRemoteExecutableSchema,
   mergeSchemas,
+  // eslint-disable-next-line import/no-extraneous-dependencies
 } from 'graphql-tools'
 import nodeFetch from 'node-fetch'
 import { ConfigService } from '../config/config.service'
@@ -60,13 +61,25 @@ export class GraphqlService implements GqlOptionsFactory {
       const remoteIntrospectedSchema = await introspectSchema(httpLink)
 
       const remoteSchema = printSchema(remoteIntrospectedSchema)
-      const buildedHasuraSchema = buildSchemaGraphql(remoteSchema)
+      const builtHasuraSchema = buildSchemaGraphql(remoteSchema)
 
       const remoteExecutableSchema = makeRemoteExecutableSchema({
-        schema: buildedHasuraSchema,
+        schema: builtHasuraSchema,
         // schema: remoteSchema,
         link: httpLink,
       })
+
+      // const httpLinkExecutor = linkToExecutor(httpLink)
+
+      // const hasuraSchema = await introspectSchema(
+      //   httpLinkExecutor as AsyncExecutor,
+      // )
+
+      // //
+      // const remoteExecutableSchema = makeRemoteExecutableSchema({
+      //   schema: hasuraSchema,
+      //   // link: httpLinkExecutor,
+      // })
 
       return Promise.resolve(remoteExecutableSchema)
     } catch (err) {

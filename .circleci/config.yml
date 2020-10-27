@@ -33,6 +33,8 @@ executor-params: &executor-params
 
 executor-config: &executor-config
   environment:
+    GITHUB_ANTON: artonio
+    SLACK_ANTON: U01DSP39DME
     GITHUB_VIEN: VienNguyen24hdev
     SLACK_VIEN: UBPECLD4P
     GITHUB_WEBBER: webberwang

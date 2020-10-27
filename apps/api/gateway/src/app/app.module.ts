@@ -13,6 +13,7 @@ import { RestifyModule } from '@codelab/api/services/restify'
   imports: [
     LoggerModule,
     ConfigModule,
+    // Main code
     FederationModule,
     RouterModule,
     RestifyModule,

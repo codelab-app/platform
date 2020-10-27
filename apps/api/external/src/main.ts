@@ -9,7 +9,6 @@ import { AppModule } from './app/app.module'
 
 const bootstrap = async () => {
   const app = await NestFactory.create(AppModule)
-
   const globalPrefix = 'api'
 
   app.setGlobalPrefix(globalPrefix)

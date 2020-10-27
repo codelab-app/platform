@@ -7,9 +7,11 @@ import {
 } from '@nestjs/graphql'
 
 export enum NodeType {
-  REACT_BUTTON,
-  REACT_DIV,
+  REACT_BUTTON = 'REACT_BUTTON',
+  REACT_DIV = 'REACT_DIV',
 }
+
+export const NodeTypeLiteral = Object.values
 
 registerEnumType(NodeType, { name: 'NodeType' })
 

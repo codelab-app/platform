@@ -11,7 +11,8 @@ const bootstrapMicroservices = async (app: INestApplication) => {
   app.connectMicroservice<GrpcOptions>({
     transport: Transport.GRPC,
     options: {
-      package: `${ApiConfigTypes.FEDERATION_PROPS_NAME}`,
+      package: 'api.federation.props',
+      url: 'localhost:50051',
       protoPath: join(
         process.cwd(),
         'apps/api/federation/props/src/proto/props.proto',
@@ -28,8 +29,6 @@ const bootstrap = async () => {
   // Config
   const config: ConfigService<ApiConfig> = app.get(ConfigService)
   const port = config.get(ApiConfigTypes.FEDERATION_PROPS_PORT)
-
-  console.log(port)
 
   await bootstrapMicroservices(app)
 

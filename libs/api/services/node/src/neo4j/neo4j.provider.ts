@@ -3,10 +3,10 @@ import { ConfigService } from '@nestjs/config'
 import neo4j, { Driver } from 'neo4j-driver'
 import { ApiConfig, ApiConfigTypes } from '@codelab/api/providers/config'
 
-export const NEO4J_DATABASE_PROVIDER = 'NEO4J_DATABASE_PROVIDER'
+export const NEO4J_DRIVERS_PROVIDER = 'NEO4J_DRIVERS_PROVIDER'
 
-export const neo4DatabaseProvider: FactoryProvider<Driver> = {
-  provide: NEO4J_DATABASE_PROVIDER,
+export const neo4DriversProvider: FactoryProvider<Driver> = {
+  provide: NEO4J_DRIVERS_PROVIDER,
   inject: [ConfigService],
   useFactory: (config: ConfigService<ApiConfig>) =>
     neo4j.driver(

@@ -1,5 +1,5 @@
 import { Directive, Field, ID, ObjectType } from '@nestjs/graphql'
-import { Prop } from '.'
+import { Prop } from './prop.model'
 
 @ObjectType()
 @Directive('@extends')

@@ -76,13 +76,23 @@
             "assets": [
               "libs/tools/plugins/codelab/*.md",
               {
-                "input": "./libs/tools/plugins/codelab/src/schematics/library/files",
+                "input": "./libs/tools/plugins/codelab/src/schematics/library/nest/files",
                 "glob": "**/.*",
-                "output": "./src/schematics/library/files"
+                "output": "./src/schematics/library/nest/files"
+              },
+              {
+                "input": "./libs/tools/plugins/codelab/src/schematics/library/react/files",
+                "glob": "**/.*",
+                "output": "./src/schematics/library/react/files"
+              },
+              {
+                "input": "./libs/tools/plugins/codelab/src/schematics/library/react/files/.storybook",
+                "glob": "*",
+                "output": "./src/schematics/library/react/files/.storybook"
               },
               {
                 "input": "./libs/tools/plugins/codelab/src",
-                "glob": "**/*.!(ts)",
+                "glob": "**/*.!(spec.ts|ts)",
                 "output": "./src"
               },
               {
@@ -1497,7 +1507,7 @@
           "options": {
             "buildTarget": "api-gateway:build",
             "waitUntilTargets": [
-              "api-federation-graph:serve",
+              "api-federation-node:serve",
               "api-federation-props:serve"
             ]
           }
@@ -1558,56 +1568,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/state/ui/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "api-federation-graph": {
-      "root": "apps/api/federation/graph",
-      "sourceRoot": "apps/api/federation/graph/src",
-      "projectType": "application",
-      "prefix": "api-services-graph",
-      "schematics": {},
-      "architect": {
-        "build": {
-          "builder": "@nrwl/node:build",
-          "options": {
-            "outputPath": "dist/apps/api/federation/graph",
-            "main": "apps/api/federation/graph/src/main.ts",
-            "tsConfig": "apps/api/federation/graph/tsconfig.app.json",
-            "assets": ["apps/api/federation/graph/src/assets"]
-          },
-          "configurations": {
-            "production": {
-              "optimization": true,
-              "extractLicenses": true,
-              "inspect": false,
-              "fileReplacements": [
-                {
-                  "replace": "apps/api/federation/graph/src/environments/environment.ts",
-                  "with": "apps/api/federation/graph/src/environments/environment.prod.ts"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "builder": "@nrwl/node:execute",
-          "options": {
-            "buildTarget": "api-federation-graph:build"
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["apps/api/federation/graph/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "apps/api/federation/graph/jest.config.js",
             "passWithNoTests": true
           }
         }
