@@ -35,3 +35,4 @@ services:
 
 volumes:
   db_data:
+    name: codelab-postgres-volume
