@@ -31,7 +31,7 @@ export class GraphqlService implements GqlOptionsFactory {
     }
 
     return {
-      autoSchemaFile: 'schema.gql',
+      autoSchemaFile: true,
       installSubscriptionHandlers: true,
       transformSchema: async (schema: GraphQLSchema) => {
         // console.log('localSchema', schema.getQueryType());
