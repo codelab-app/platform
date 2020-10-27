@@ -53,7 +53,7 @@ export const Neo4j = () => {
             sendNode({
               type: EventNameNode.NODE_CREATE,
               payload: { data: values },
-            })
+            } as any)
           }}
         />
       </Modal>
