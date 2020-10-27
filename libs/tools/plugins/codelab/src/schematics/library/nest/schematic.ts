@@ -56,47 +56,45 @@ const normalizeOptions = (options: NestSchematicSchema): NormalizedSchema => {
  * We use `.eslintrc.js` instead of `.eslintrc`, so need to remove generated files
  */
 const removeFiles = (options: NormalizedSchema): Rule => {
-  const { projectRoot } = options
-  const filesToRemove = ['.eslintrc.json', `${projectRoot}/.eslintrc.json`]
-
   return (tree: Tree, context: SchematicContext) => {
+    const { projectRoot } = options
+    const filesToRemove = ['.eslintrc.json', `${projectRoot}/.eslintrc.json`]
+
     filesToRemove.forEach((file: any) => {
       tree.delete(file)
     })
   }
 }
 
-const addFiles = (options: NormalizedSchema): Rule => {
-  return (tree: Tree, context: SchematicContext) => {
-    return mergeWith(
-      apply(url(`./files`), [
-        applyTemplates({
-          ...options,
-          ...names(options.name),
-          offsetFromRoot: offsetFromRoot(options.projectRoot),
-        }),
-        move(options.projectRoot),
-      ]),
-      MergeStrategy.Overwrite,
-    )
-  }
+const createFiles = (options: NormalizedSchema): Rule => {
+  return mergeWith(
+    apply(url(`./files`), [
+      applyTemplates({
+        ...options,
+        ...names(options.name),
+        offsetFromRoot: offsetFromRoot(options.projectRoot),
+      }),
+      move(options.projectRoot),
+    ]),
+    MergeStrategy.Overwrite,
+  )
 }
 
 export const createNestjsLibrary = (options: NormalizedSchema): Rule => {
-  return (_: Tree, context: SchematicContext) => {
-    return externalSchematic('@nrwl/nest', 'library', {
-      name: options.name,
-      directory: options.directory,
-    })
-  }
+  return externalSchematic('@nrwl/nest', 'library', {
+    name: options.name,
+    directory: options.directory,
+  })
 }
 
 export default function (options: NestSchematicSchema): Rule {
   const normalizedOptions = normalizeOptions(options)
 
-  return chain([
-    createNestjsLibrary(normalizedOptions),
-    addFiles(normalizedOptions),
-    removeFiles(normalizedOptions),
-  ])
+  return (host: Tree, context: SchematicContext) => {
+    return chain([
+      createNestjsLibrary(normalizedOptions),
+      createFiles(normalizedOptions),
+      removeFiles(normalizedOptions),
+    ])
+  }
 }

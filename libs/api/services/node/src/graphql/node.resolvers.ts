@@ -1,4 +1,5 @@
-import { Inject } from '@nestjs/common'
+import { join } from 'path'
+import { Inject, OnModuleInit } from '@nestjs/common'
 import {
   Args,
   Mutation,
@@ -6,6 +7,7 @@ import {
   ResolveReference,
   Resolver,
 } from '@nestjs/graphql'
+import { Client, ClientGrpc, Transport } from '@nestjs/microservices'
 import { NodeCreateInput } from './node.input'
 import { Node } from './node.model'
 import {
@@ -22,29 +24,44 @@ const nodes = [
 ]
 
 @Resolver(() => Node)
-export class NodeResolvers {
+export class NodeResolvers implements OnModuleInit {
+  @Client({
+    transport: Transport.GRPC,
+    options: {
+      package: 'api.federation.props',
+      url: 'localhost:50051',
+      protoPath: join(
+        process.cwd(),
+        'apps/api/federation/props/src/proto/props.proto',
+      ),
+    },
+  })
+  private declare readonly client: ClientGrpc
+
+  private declare nodeService: any
+
   constructor(
     @Inject(CODELAB_LOGGER_PROVIDER) private readonly logger: CodelabLogger,
   ) {}
 
+  onModuleInit() {
+    this.nodeService = this.client.getService('PropsService')
+  }
+
   @ResolveReference()
   resolveReference(node: { __typename: string; id: number }) {
-    this.logger.log('Hello')
+    // this.logger.log('Hello')
 
     return nodes.find(({ id }) => id === node.id)
   }
 
-  @Query((returns) => Node)
+  @Query(() => Node)
   node() {
     return nodes[0]
   }
 
-  @Mutation((returns) => Node)
-  nodeCreate(@Args('input') input: NodeCreateInput) {
-    console.log(input)
-
-    // gRPC to call props service to create prop
-
-    return input
+  @Mutation(() => Node)
+  async nodeCreate(@Args('input') input: NodeCreateInput) {
+    return this.nodeService.createProps(input)
   }
 }

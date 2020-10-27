@@ -8,5 +8,5 @@ export class Prop {
   declare id: number
 
   @Field(() => GraphQLJSONObject)
-  declare props: object
+  declare values: object
 }

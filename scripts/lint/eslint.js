@@ -18,6 +18,10 @@ const filesSinceBaseRevision = shell
   .stdout.trim()
   .split('\n')
 
+shell.echo(
+  `CIRCLE_BASE_REVISION=${process.env.CIRCLE_BASE_REVISION}`,
+  `CIRCLE_REVISION=${process.env.CIRCLE_REVISION}`,
+)
 shell.echo(`Files since base revision: ${filesSinceBaseRevision}`)
 
 const filesToLint = filesSinceBaseRevision

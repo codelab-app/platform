@@ -112,15 +112,15 @@
     },
     "api-gateway": {
       "tags": [],
-      "implicitDependencies": ["api-federation-props", "api-federation-graph"]
+      "implicitDependencies": ["api-federation-props", "api-federation-node"]
     },
     "api-services-props": {
       "tags": []
     },
-    "state-ui": {
+    "api-federation-node": {
       "tags": []
     },
-    "api-federation-graph": {
+    "state-ui": {
       "tags": []
     },
     "api-federation-props": {
@@ -142,6 +142,9 @@
       "tags": []
     },
     "api-providers-router": {
+      "tags": []
+    },
+    "api-external": {
       "tags": []
     }
   }

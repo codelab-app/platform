@@ -1,20 +1,33 @@
 import { Module } from '@nestjs/common'
+import { ConfigService } from '@nestjs/config'
 import { GraphQLFederationModule } from '@nestjs/graphql'
+import { MongooseModule } from '@nestjs/mongoose'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
-import { ConfigModule } from '@codelab/api/providers/config'
+import {
+  ApiConfig,
+  ApiConfigTypes,
+  ConfigModule,
+} from '@codelab/api/providers/config'
 import { LoggerModule } from '@codelab/api/providers/logger'
 import {
   GraphqlPropsModule,
-  GrpcPropsServerModule,
   MongoosePropsModule,
 } from '@codelab/api/services/props'
 
 @Module({
   imports: [
-    MongoosePropsModule,
-    GrpcPropsServerModule,
     LoggerModule,
+    // Main
+    MongooseModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: (config: ConfigService<ApiConfig>) => {
+        return {
+          uri: config.get(ApiConfigTypes.MONGO_ENDPOINT),
+        }
+      },
+    }),
+    MongoosePropsModule,
     GraphQLFederationModule.forRootAsync({
       imports: [GraphqlPropsModule],
       useFactory: () => {

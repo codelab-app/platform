@@ -22,7 +22,7 @@ And 3 categories of state
 
 ## Component
 
-As shown in our [Demo](../getting-started/8-demo.md), the JSON data representing our components will be persisted to the database.
+As shown in our [Demo](../getting-started/7-demo.md), the JSON data representing our components will be persisted to the database.
 
 ## UI
 

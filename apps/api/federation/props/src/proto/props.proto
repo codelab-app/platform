@@ -3,15 +3,16 @@ syntax = "proto3";
 package api.federation.props;
 
 service PropsService {
-  rpc Create (PropsCreateInput) returns (Props) {}
+  rpc CreateProps (PropsCreateInput) returns (Props) {}
 }
 
 message PropsCreateInput {
-//  int32 id = 1;
+  string type = 1;
   string values = 2;
 }
 
 message Props {
   int32 id = 1;
-  string values = 2;
+  string type = 2;
+  string values = 3;
 }
