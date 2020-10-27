@@ -61,7 +61,7 @@ export class NodeResolvers implements OnModuleInit {
   }
 
   @Mutation(() => Node)
-  nodeCreate(@Args('input') input: NodeCreateInput) {
+  async nodeCreate(@Args('input') input: NodeCreateInput) {
     return this.nodeService.createProps(input)
   }
 }

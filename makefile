@@ -124,21 +124,19 @@ test-ci:
 # START
 #
 
-
 start-dev:
 	npx nx run-many \
 		--maxParallel=6 \
 		--target=serve \
 		--projects=api-gateway,web \
 		--with-deps \
-		--parallel \
-		"$@"
+		--parallel
 
 start-api:
 	npx nx serve api-gateway \
+		--maxParallel=6 \
 		--with-deps \
-		--parallel \
-		"$@"
+		--parallel
 
 #	@npx concurrently \
 #	--names="start" \

@@ -139,29 +139,35 @@ export class CodelabForm {
     label,
     name,
     options,
-  }: Form.CreateSelect): NodeReactI<Select.Props | Form.ItemProps> => ({
-    type: NodeType.React_Form_Item,
-    props: {
-      label,
-      name,
-    },
-    children: [
-      {
-        type: NodeType.React_Select,
-        props: {
-          style: {
-            width: '100%',
-          },
-        },
-        children: CodelabForm.createOptions(options),
+    showSearch,
+    filterOption,
+  }: Form.CreateSelect): NodeReactI<Select.Props | Form.ItemProps> => {
+    return {
+      type: NodeType.React_Form_Item,
+      props: {
+        label,
+        name,
       },
-    ],
-  })
+      children: [
+        {
+          type: NodeType.React_Select,
+          props: {
+            style: {
+              width: '100%',
+            },
+            showSearch,
+            filterOption,
+          },
+          children: CodelabForm.createOptions(options),
+        },
+      ],
+    }
+  }
 
   static createOptions = (
     options: Array<Form.OptionConfig>,
-  ): Array<NodeReactI<Select.OptionProps>> =>
-    options.map(([key, value]: [string, PropJsonValue]) => ({
+  ): Array<NodeReactI<Select.OptionProps>> => {
+    return options.map(([key, value]: [string, PropJsonValue]) => ({
       type: NodeType.React_Select_Option,
       props: {
         value,
@@ -175,4 +181,5 @@ export class CodelabForm {
         },
       ],
     }))
+  }
 }
