@@ -2,6 +2,6 @@ import { Field, ObjectType } from '@nestjs/graphql'
 
 @ObjectType()
 export class HealthOutput {
-  @Field({ nullable: true })
+  @Field((type) => Boolean, { nullable: true })
   isRunning = false
 }

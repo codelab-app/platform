@@ -1,4 +1,4 @@
-import { Module, OnModuleInit } from '@nestjs/common'
+import { Logger, Module, OnModuleInit } from '@nestjs/common'
 import { GraphQLModule } from '@nestjs/graphql'
 import { TypeOrmModule, TypeOrmModuleAsyncOptions } from '@nestjs/typeorm'
 import { AppController } from './app.controller'
@@ -13,6 +13,7 @@ import { SeedDbModule } from './seed-db/seed-db.module'
 import { SeedDbService } from './seed-db/seed-db.service'
 
 const resetDb = true
+const logger = new Logger('appModule')
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ const resetDb = true
           // synchronize and dropSchema resets the database
           synchronize: resetDb,
           dropSchema: resetDb,
+          logging: ['query', 'error', 'schema'],
           extra: {
             connectionLimit: 5,
           },
@@ -56,7 +58,9 @@ export class AppModule implements OnModuleInit {
   constructor(public seedDbService: SeedDbService) {}
 
   async onModuleInit() {
+    logger.log('resetDB')
     if (resetDb) {
+      Logger.log('resetDB')
       await this.seedDbService.seedDB()
     }
   }

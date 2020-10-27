@@ -11,6 +11,7 @@ export class ConfigService {
   constructor(filePath: string) {
     this.envConfig = dotenv.parse(fs.readFileSync(filePath))
     this.logger.log(`Config ${JSON.stringify(this.envConfig)}`)
+    this.logger.log(`filepath: ${filePath}`)
   }
 
   get GQLConfig(): IGQLConfig {

@@ -6,8 +6,10 @@ services:
     restart: always
     volumes:
     - db_data:/var/lib/postgresql/data
-    ports:
-      - 5432:5432
+    # ports:
+    #   - 5430:5432
+    expose:
+      - "5432"
     environment:
       POSTGRES_PASSWORD: postgrespassword
 
