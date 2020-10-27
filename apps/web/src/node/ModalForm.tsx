@@ -61,6 +61,12 @@ const reactNodeFields: NodeReactI = {
       label: 'Type',
       name: 'type',
       options: Object.entries(ReactTypeEnum),
+      showSearch: true,
+      filterOption: {
+        __type: [PropType.Eval],
+        value:
+          'return (input, option) => option.children.props.value.toLowerCase().indexOf(input.toLowerCase()) >= 0',
+      },
     }),
   ],
 }

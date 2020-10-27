@@ -1,4 +1,8 @@
-import { PropJsonValue, PropsFromKeys } from '@codelab/shared/interface/props'
+import {
+  PropJsonValue,
+  PropTypeValue,
+  PropsFromKeys,
+} from '@codelab/shared/interface/props'
 
 const propKeys = [
   'component',
@@ -63,5 +67,7 @@ export namespace Form {
     label: string
     name: string
     options: Array<OptionConfig>
+    showSearch?: boolean
+    filterOption?: PropTypeValue
   }
 }

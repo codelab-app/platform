@@ -24,6 +24,12 @@ export const nodeFormData: NodeReactI<
       label: 'Node Type',
       name: 'node_type',
       options: nodeTypeEntries,
+      showSearch: true,
+      filterOption: {
+        __type: [PropType.Eval],
+        value:
+          'return (input, option) => option.children.props.value.toLowerCase().indexOf(input.toLowerCase()) >= 0',
+      },
     }),
     {
       type: NodeType.React_Form_Item,
