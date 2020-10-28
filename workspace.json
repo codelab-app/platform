@@ -1552,22 +1552,22 @@
         }
       }
     },
-    "state-ui": {
-      "root": "libs/state/ui",
-      "sourceRoot": "libs/state/ui/src",
+    "state-layout": {
+      "root": "libs/state/layout",
+      "sourceRoot": "libs/state/layout/src",
       "projectType": "library",
       "schematics": {},
       "architect": {
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/state/ui/**/*.{ts,tsx,js,jsx}"]
+            "lintFilePatterns": ["libs/state/layout/**/*.{ts,tsx,js,jsx}"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/state/ui/jest.config.js",
+            "jestConfig": "libs/state/layout/jest.config.js",
             "passWithNoTests": true
           }
         }
