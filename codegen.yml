@@ -6,7 +6,7 @@ generates:
   # Generate into lib so we can import
   libs/state/apollo/src/__generated__/graphql-react.ts:
     plugins:
-      - typescript
+      # - typescript
       - typescript-operations
       - typescript-react-apollo
   # libs/state/apollo/src/__generated__/graphql-documents.ts:

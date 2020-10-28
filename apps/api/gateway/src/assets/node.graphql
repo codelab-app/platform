@@ -1,0 +1,10 @@
+query {
+  Node {
+    id
+    type
+    #
+    # props {
+    #   id
+    # }
+  }
+}

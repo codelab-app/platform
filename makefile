@@ -41,15 +41,11 @@ build-prod:
 # Generate
 #
 
-generate-prisma:
-	npx prisma generate --schema libs/api/prisma/schema.prisma
-
 generate-graphql:
 	npx graphql-codegen --config codegen.yml
 
-generate-graphql-watch:
-	npx graphql-codegen --config codegen.yml --watch "apps/api/src/assets/**/*.graphql"
-
+# generate-graphql-watch:
+# 	npx graphql-codegen --config codegen.yml --watch "apps/api/src/assets/**/*.graphql"
 
 #
 # Docker

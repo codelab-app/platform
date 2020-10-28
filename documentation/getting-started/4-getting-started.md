@@ -14,7 +14,14 @@
   - for frontend only, run `nx serve web --with-deps --parallel`
   - for backend only, run `nx serve api-gateway --with-deps --parallel`
 
-
 Read more about [dev tools](5-devtools.md)
 
-4. Select `Run`, which will display all commands in the format of `[package]:[command]`. Use `test` for Jest, & `storybook` for Storybook.
+## Running other commands
+
+Select `Run`, which will display all commands in the format of `[package]:[command]`. Use `test` for Jest, & `storybook` for Storybook.
+
+## GraphQL Code Generation
+
+Whenever `api-gateway` services, it will generate from `assets` the `.graphql` files, and put that in `libs-state-apollo` for import. This uses [GraphQL Code Generator](https://graphql-code-generator.com) to help us generate types, queries, and other useful operations.
+
+
