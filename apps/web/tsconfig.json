@@ -5,25 +5,15 @@
     "allowJs": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "types": [
-      "node",
-      "jest",
-      "@xstate/react"
-    ],
+    "types": ["node", "jest", "@xstate/react"],
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "resolveJsonModule": true,
     "isolatedModules": true
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    "next-env.d.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ],
+  "include": ["**/*.ts", "**/*.tsx", "**/*.graphql", "next-env.d.ts"],
+  "exclude": ["node_modules"],
   "references": [
     {
       "path": "./.storybook/tsconfig.json"

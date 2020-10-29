@@ -13,6 +13,8 @@ export class Neo4jSchemaService {
    * @param schema Nest.js code first schema
    */
   transformSchema(schema: GraphQLSchema) {
+    // console.log(schema.getDirectives())
+
     const resolvers = extractResolversFromSchema(schema)
 
     // Our user defined schema

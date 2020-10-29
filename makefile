@@ -41,15 +41,14 @@ build-prod:
 # Generate
 #
 
-generate-prisma:
-	npx prisma generate --schema libs/api/prisma/schema.prisma
-
 generate-graphql:
 	npx graphql-codegen --config codegen.yml
 
 generate-graphql-watch:
-	npx graphql-codegen --config codegen.yml --watch "apps/api/src/assets/**/*.graphql"
-
+	@npx chokidar "apps/api/gateway/src/assets/**/*.graphql" "codegen.yml" \
+		-t 1000 \
+		-c "wait-on http://localhost:4000 \
+		&& make generate-graphql"
 
 #
 # Docker
@@ -125,12 +124,18 @@ test-ci:
 #
 
 start-dev:
-	npx nx run-many \
-		--maxParallel=6 \
+	@npx concurrently \
+		--names="start,codegen" \
+		"make start-dev-projects" \
+		"make generate-graphql-watch"
+
+start-dev-projects:
+	@npx nx run-many \
 		--target=serve \
-		--projects=api-gateway,web \
 		--with-deps \
-		--parallel
+		--projects=api-gateway,web \
+		--parallel \
+		--maxParallel=10
 
 start-api:
 	npx nx serve api-gateway \

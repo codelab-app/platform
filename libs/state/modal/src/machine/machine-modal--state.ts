@@ -1,11 +1,14 @@
+import { StateSchema } from 'xstate'
+import { ContextModal } from './machine-modal--context'
+
 export enum StateNameModal {
   INACTIVE = 'INACTIVE',
   ACTIVE = 'ACTIVE',
 }
 
-export interface StateSchemaModal {
+export interface StateSchemaModal<T = ContextModal> extends StateSchema<T> {
   states: {
-    [StateNameModal.INACTIVE]: object
-    [StateNameModal.ACTIVE]: object
+    [StateNameModal.INACTIVE]: StateSchema<T>
+    [StateNameModal.ACTIVE]: StateSchema<T>
   }
 }

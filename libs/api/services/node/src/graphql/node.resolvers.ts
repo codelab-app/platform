@@ -56,7 +56,7 @@ export class NodeResolvers implements OnModuleInit {
   }
 
   @Query(() => Node)
-  node() {
+  getNode() {
     return nodes[0]
   }
 

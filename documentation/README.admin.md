@@ -67,3 +67,8 @@ We add `tsconfig.eslint.json` that includes all files for linting only. `eslintr
 
 ## Query Object
 - like wrapper around sql
+
+
+# Build
+
+`api-gateway` depends on `api-federation-node` & `api-federation-props`, while `api-federation-node` depends on `api-federation-props`

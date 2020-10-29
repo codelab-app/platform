@@ -15,6 +15,6 @@ export class AppController {
 
   @Get()
   log() {
-    this.logger.log({ from: 'userA', to: 'userB' })
+    // this.logger.log({ from: 'userA', to: 'userB' })
   }
 }

@@ -1,6 +1,6 @@
 import { Button } from '../button'
 import { Text } from '../text'
-import { Modal } from '.'
+import { Modal } from './Modal.types'
 import { NodeReactI, NodeType } from '@codelab/shared/interface/node'
 import { PropType } from '@codelab/shared/interface/props'
 

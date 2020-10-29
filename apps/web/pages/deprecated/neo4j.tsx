@@ -34,7 +34,6 @@ import {
 
 export const Neo4j = () => {
   const { app, actors } = useContext(MachineContext)
-  const [uiState] = useActor(actors.ui)
   const [stateNode, sendNode] = useActor<EventNode>(actors.node)
 
   console.log(EventNameNode)
@@ -42,19 +41,19 @@ export const Neo4j = () => {
   return (
     <>
       <ModalButton
-        actor={actors.ui}
+        actor={actors.modal}
         icon={<PoweroffOutlined />}
         loading
         size="small"
       />
-      <Modal actor={actors.ui}>
+      <Modal actor={actors.modal}>
         <FormNode
-          actor={actors.ui}
+          actor={actors.modal}
           handleSubmit={(values: object) => {
             sendNode({
               type: EventNameNode.NODE_CREATE,
               payload: { data: values },
-            })
+            } as any)
           }}
         />
       </Modal>

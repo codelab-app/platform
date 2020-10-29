@@ -1,17 +1,42 @@
-enum NodeType {
-  REACT_BUTTON
-  REACT_DIV
-}
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+directive @key(fields: String!) on OBJECT | INTERFACE
+
+directive @extends on OBJECT | INTERFACE
+
+directive @external on OBJECT | FIELD_DEFINITION
+
+directive @requires(fields: String!) on FIELD_DEFINITION
+
+directive @provides(fields: String!) on FIELD_DEFINITION
+
+directive @cypher(statement: String) on FIELD_DEFINITION
+
+directive @relation(name: String, direction: _RelationDirections, from: String, to: String) on FIELD_DEFINITION | OBJECT
+
+directive @additionalLabels(labels: [String]) on OBJECT
+
+directive @MutationMeta(relationship: String, from: String, to: String) on FIELD_DEFINITION
+
+directive @neo4j_ignore on FIELD_DEFINITION
+
+directive @id on FIELD_DEFINITION
+
+directive @unique on FIELD_DEFINITION
+
+directive @index on FIELD_DEFINITION
 
 input _NodeInput {
-  props: ID!
+  id: ID!
 }
 
 enum _NodeOrdering {
+  id_asc
+  id_desc
   type_asc
   type_desc
-  props_asc
-  props_desc
   _id_asc
   _id_desc
 }
@@ -19,30 +44,39 @@ enum _NodeOrdering {
 input _NodeFilter {
   AND: [_NodeFilter!]
   OR: [_NodeFilter!]
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
   type: NodeType
   type_not: NodeType
   type_in: [NodeType!]
   type_not_in: [NodeType!]
-  props: ID
-  props_not: ID
-  props_in: [ID!]
-  props_not_in: [ID!]
-  props_contains: ID
-  props_not_contains: ID
-  props_starts_with: ID
-  props_not_starts_with: ID
-  props_ends_with: ID
-  props_not_ends_with: ID
 }
 
 type Node {
-  type: NodeType
-  props: ID
+  id: ID!
+  type: NodeType!
 
   """
   Generated field for querying the Neo4j [system id](https://neo4j.com/docs/cypher-manual/current/functions/scalar/#functions-id) of this node.
   """
   _id: String
+}
+
+enum NodeType {
+  REACT_BUTTON
+  REACT_DIV
+}
+
+input NodeCreateInput {
+  type: NodeType!
 }
 
 """
@@ -264,30 +298,42 @@ enum _RelationDirections {
 }
 
 type Query {
+  _service: _Service!
+  getNode(filter: _NodeFilter): Node!
+
   """
   [Generated query](https://grandstack.io/docs/graphql-schema-generation-augmentation#generated-queries) for Node type nodes.
   """
-  Node(type: NodeType, props: ID, _id: String, first: Int, offset: Int, orderBy: [_NodeOrdering], filter: _NodeFilter): [Node]
+  Node(id: ID, type: NodeType, _id: String, first: Int, offset: Int, orderBy: [_NodeOrdering], filter: _NodeFilter): [Node]
+}
+
+type _Service {
+  """
+  The sdl representing the federated service capabilities. Includes federation directives, removes federation types, and includes rest of full schema after schema directives have been applied
+  """
+  sdl: String
 }
 
 type Mutation {
+  nodeCreate(input: NodeCreateInput!): Node!
+
   """
   [Generated mutation](https://grandstack.io/docs/graphql-schema-generation-augmentation/#create) for [creating](https://neo4j.com/docs/cypher-manual/4.1/clauses/create/#create-nodes) a Node node.
   """
-  CreateNode(type: NodeType, props: ID): Node
+  CreateNode(id: ID, type: NodeType!): Node
 
   """
   [Generated mutation](https://grandstack.io/docs/graphql-schema-generation-augmentation/#update) for [updating](https://neo4j.com/docs/cypher-manual/4.1/clauses/set/#set-update-a-property) a Node node.
   """
-  UpdateNode(type: NodeType, props: ID!): Node
+  UpdateNode(id: ID!, type: NodeType): Node
 
   """
   [Generated mutation](https://grandstack.io/docs/graphql-schema-generation-augmentation/#delete) for [deleting](https://neo4j.com/docs/cypher-manual/4.1/clauses/delete/#delete-delete-single-node) a Node node.
   """
-  DeleteNode(props: ID!): Node
+  DeleteNode(id: ID!): Node
 
   """
   [Generated mutation](https://grandstack.io/docs/graphql-schema-generation-augmentation/#merge) for [merging](https://neo4j.com/docs/cypher-manual/4.1/clauses/merge/#query-merge-node-derived) a Node node.
   """
-  MergeNode(type: NodeType, props: ID!): Node
+  MergeNode(id: ID!, type: NodeType): Node
 }

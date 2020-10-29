@@ -1,58 +1,58 @@
-import { useActor } from '@xstate/react'
-import { Button, Form } from 'antd'
-import React, { useContext } from 'react'
+import { Button } from 'antd'
+import React from 'react'
 import {
-  NodeCreateDocument,
   NodeType,
-  useNodesQuery,
+  PageNodesComp,
+  ssrNodes,
+  useNodeCreateMutation,
+  useNodeDeleteMutation,
 } from '@codelab/state/apollo'
-import { NODES } from '@codelab/state/node'
-import {
-  FormNode,
-  MachineContext,
-  Modal,
-  ModalButton,
-  Mutation,
-  NodeServiceContext,
-  Query,
-} from '@codelab/ui/component'
+import { withApollo } from '@codelab/ui/hoc'
 
-const Graphql = (props: any) => {
-  const { app, actors } = useContext(MachineContext)
-  const [state, send] = useActor(actors.ui)
-  const [form] = Form.useForm()
-  const { nodeService } = useContext(NodeServiceContext)
+const Item = (node: any) => {
+  const [nodeDeleteMutation] = useNodeDeleteMutation({
+    variables: {
+      id: node.id,
+    },
+  })
 
   return (
-    <>
-      <ModalButton actor={actors.ui} />
-      <Modal actor={actors.ui}>
-        <FormNode
-          actor={actors.ui}
-          form={form}
-          handleSubmit={(values: object) => {
-            console.log(values)
-          }}
-        />
-      </Modal>
-      <Mutation
-        gql={NodeCreateDocument}
-        variables={{ type: NodeType.ReactButton }}
-      >
-        {({ data, action }) => {
-          return <Button onClick={() => action()}>Mutate</Button>
-        }}
-      </Mutation>
-      <Query gql={NODES} useQuery={useNodesQuery}>
-        {({ data }) => {
-          console.log(data)
-          // return <FormNode />
-
-          return <h2>Query</h2>
-        }}
-      </Query>
-    </>
+    <article>
+      <p>
+        {node.id} <Button onClick={() => nodeDeleteMutation()}>Delete</Button>
+      </p>
+      <p>{node.type}</p>
+    </article>
   )
 }
 
-export default Graphql
+const GraphqlPage: PageNodesComp = (props) => {
+  const { data } = props
+
+  const [nodeCreateMutation, { data: mutationResults }] = useNodeCreateMutation(
+    {
+      variables: {
+        type: NodeType.REACT_BUTTON,
+      },
+    },
+  )
+
+  if (!data) {
+    return null
+  }
+
+  const nodes = data.Node
+
+  return (
+    <section>
+      <Button onClick={() => nodeCreateMutation()}>Create</Button>
+      <>
+        {nodes?.map((node: any) => {
+          return <Item key={node.id} {...node} />
+        })}
+      </>
+    </section>
+  )
+}
+
+export default withApollo(ssrNodes.withPage(() => ({}))(GraphqlPage))
