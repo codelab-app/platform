@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { AppProps } from 'next/app'
 import React from 'react'
 import { CacheProvider } from 'rest-hooks'
 import { NodeService as NodeServiceEntity } from '@codelab/core/node'
