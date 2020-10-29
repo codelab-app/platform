@@ -1,7 +1,13 @@
 /**
  * Source from https://github.com/correttojs/graphql-codegen-apollo-next-ssr
  */
-import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client'
+import {
+  ApolloClient,
+  ApolloProvider,
+  InMemoryCache,
+  NormalizedCacheObject,
+} from '@apollo/client'
+import { NextPage } from 'next'
 import React from 'react'
 import { httpLink } from './useApollo'
 
