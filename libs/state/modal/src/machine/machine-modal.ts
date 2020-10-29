@@ -1,6 +1,6 @@
 import { Machine, assign } from 'xstate'
 import { ContextModal } from './machine-modal--context'
-import { EventModal } from './machine-modal--event'
+import { EventModal, EventNameModal } from './machine-modal--event'
 import { StateNameModal, StateSchemaModal } from './machine-modal--state'
 
 export const machineModal = Machine<ContextModal, StateSchemaModal, EventModal>(
@@ -12,36 +12,24 @@ export const machineModal = Machine<ContextModal, StateSchemaModal, EventModal>(
     },
     states: {
       [StateNameModal.INACTIVE]: {
-        entry: ['enterInactive'],
+        entry: assign<ContextModal, EventModal>({
+          visible: false,
+        }),
         on: {
-          OPEN: {
+          [EventNameModal.OPEN]: {
             target: StateNameModal.ACTIVE,
-            actions: assign({
-              visible: (context: any, event) => {
-                return true
-              },
-            }),
           },
         },
       },
       [StateNameModal.ACTIVE]: {
+        entry: assign<ContextModal, EventModal>({
+          visible: true,
+        }),
         on: {
-          CLOSE: {
+          [EventNameModal.CLOSE]: {
             target: StateNameModal.INACTIVE,
-            actions: assign({
-              visible: (context: any, event) => {
-                return false
-              },
-            }),
           },
         },
-      },
-    },
-  },
-  {
-    actions: {
-      enterInactive: (context: any, event) => {
-        return null
       },
     },
   },

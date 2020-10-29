@@ -1456,10 +1456,6 @@
             ]
           }
         },
-        "serve": {
-          "builder": "@nrwl/workspace:run-commands",
-          "options": {}
-        },
         "build": {
           "builder": "@nrwl/workspace:run-commands",
           "options": {}
@@ -1507,8 +1503,8 @@
           "options": {
             "buildTarget": "api-gateway:build",
             "waitUntilTargets": [
-              "api-federation-node:serve",
-              "api-federation-props:serve"
+              "api-federation-props:serve",
+              "api-federation-node:serve"
             ]
           }
         },
@@ -1552,22 +1548,22 @@
         }
       }
     },
-    "state-ui": {
-      "root": "libs/state/ui",
-      "sourceRoot": "libs/state/ui/src",
+    "state-layout": {
+      "root": "libs/state/layout",
+      "sourceRoot": "libs/state/layout/src",
       "projectType": "library",
       "schematics": {},
       "architect": {
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/state/ui/**/*.{ts,tsx,js,jsx}"]
+            "lintFilePatterns": ["libs/state/layout/**/*.{ts,tsx,js,jsx}"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/state/ui/jest.config.js",
+            "jestConfig": "libs/state/layout/jest.config.js",
             "passWithNoTests": true
           }
         }
@@ -1605,7 +1601,8 @@
         "serve": {
           "builder": "@nrwl/node:execute",
           "options": {
-            "buildTarget": "api-federation-node:build"
+            "buildTarget": "api-federation-node:build",
+            "waitUntilTargets": ["api-federation-props:serve"]
           }
         },
         "lint": {
