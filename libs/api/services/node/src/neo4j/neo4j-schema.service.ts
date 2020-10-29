@@ -1,5 +1,6 @@
 import { buildFederatedSchema } from '@apollo/federation'
-import { Injectable } from '@nestjs/common'
+import { Injectable, Logger } from '@nestjs/common'
+import { GraphQLSchemaModule } from 'apollo-graphql'
 import { GraphQLSchema } from 'graphql'
 import { makeAugmentedSchema } from 'neo4j-graphql-js'
 import { extractResolversFromSchema } from 'neo4j-graphql-js/dist/augment/resolvers'
@@ -13,7 +14,10 @@ export class Neo4jSchemaService {
    * @param schema Nest.js code first schema
    */
   transformSchema(schema: GraphQLSchema) {
-    const schemaPrinter = new SchemaPrinter()
+    const schemaPrinter = new SchemaPrinter({
+      excludeScalar: true,
+      excludeDirectives: true,
+    })
 
     const resolvers = extractResolversFromSchema(schema)
 
@@ -21,8 +25,9 @@ export class Neo4jSchemaService {
     // printSchema(schema) from 'graphql' removes our NestJs Custom Directives
     // const typeDefs: string = printSchema(schema)
     const typeDefs: string = schemaPrinter.printSchemaWithDirectives(schema)
-    // Logger.log(typeDefs);
-    const neo4jExtendedSchema = makeAugmentedSchema({
+
+    Logger.log(typeDefs)
+    const neo4jExtendedSchema: GraphQLSchemaModule = makeAugmentedSchema({
       resolvers,
       typeDefs,
       config: {
@@ -30,8 +35,6 @@ export class Neo4jSchemaService {
       },
     })
 
-    const fd = buildFederatedSchema([neo4jExtendedSchema])
-
-    return fd
+    return buildFederatedSchema([neo4jExtendedSchema])
   }
 }

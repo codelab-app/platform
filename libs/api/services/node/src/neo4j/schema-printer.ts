@@ -1,5 +1,6 @@
 import {
   ASTNode,
+  GraphQLDirective,
   GraphQLEnumType,
   GraphQLInputObjectType,
   GraphQLInterfaceType,
@@ -11,7 +12,33 @@ import {
   print,
 } from 'graphql'
 
+export interface ISchemaPrinterConfig {
+  excludeScalar?: boolean
+  excludeDirectives?: boolean
+  excludeObjectType?: boolean
+  excludeInterfaceType?: boolean
+  excludeUnionType?: boolean
+  excludeEnumType?: boolean
+  excludeInputObjectType?: boolean
+}
+
 export class SchemaPrinter {
+  config: ISchemaPrinterConfig = {
+    excludeScalar: false,
+    excludeDirectives: false,
+    excludeObjectType: false,
+    excludeInterfaceType: false,
+    excludeUnionType: false,
+    excludeEnumType: false,
+    excludeInputObjectType: false,
+  }
+
+  constructor(config?: ISchemaPrinterConfig) {
+    if (config) {
+      this.config = { ...config }
+    }
+  }
+
   printSchemaWithDirectives(schema: any) {
     const directives = schema.getDirectives()
     const typeMap = schema.getTypeMap()
@@ -20,42 +47,48 @@ export class SchemaPrinter {
       .sort((name1, name2) => name1.localeCompare(name2))
       .map((typeName) => typeMap[typeName])
 
-    const m = types.map((type) => {
+    const typesList: Array<string> = types.map((type) => {
       if (type instanceof GraphQLScalarType) {
-        // return this.printScalar(type);
-        return ''
+        return this.config.excludeScalar ? '' : this.printScalar(type)
       }
 
       if (type instanceof GraphQLObjectType) {
-        return this.printObject(type)
+        return this.config.excludeObjectType ? '' : this.printObject(type)
       }
 
       if (type instanceof GraphQLInterfaceType) {
-        return this.printInterface(type)
+        return this.config.excludeInterfaceType ? '' : this.printInterface(type)
       }
 
       if (type instanceof GraphQLUnionType) {
-        return this.printUnion(type)
+        return this.config.excludeUnionType ? '' : this.printUnion(type)
       }
 
       if (type instanceof GraphQLEnumType) {
-        return this.printEnum(type)
+        return this.config.excludeEnumType ? '' : this.printEnum(type)
       }
 
       if (type instanceof GraphQLInputObjectType) {
-        return this.printInputObject(type as GraphQLInputObjectType)
+        return this.config.excludeInputObjectType
+          ? ''
+          : this.printInputObject(type as GraphQLInputObjectType)
       }
 
       return ''
     })
-    // Logger.log(m);
-    // return [this.printSchemaDefinition(schema)].concat(
-    //     directives.map((directive: GraphQLDirective) => {
-    //       return 'directive @' + directive.name + this.printArgs(directive) +
-    //           ' on ' + directive.locations.join(' | ');
-    //     }), m).join('\n\n') + '\n';
+    let directiveList = []
 
-    return [this.printSchemaDefinition(schema)].concat(m).join('\n')
+    if (!this.config.excludeDirectives) {
+      directiveList = directives.map((directive: GraphQLDirective) => {
+        return `directive @${directive.name}${this.printArgs(
+          directive,
+        )} on ${directive.locations.join(' | ')}`
+      })
+    }
+
+    return [this.printSchemaDefinition(schema)]
+      .concat(typesList, directiveList)
+      .join('\n')
   }
 
   printSchemaDefinition(schema: GraphQLSchema): string {
@@ -70,7 +103,7 @@ export class SchemaPrinter {
     const mutationType = schema.getMutationType()
 
     if (mutationType) {
-      operationTypes.push(`  mutation: ${mutationType}`)
+      operationTypes.push(`  mutation: ${mutationType}\n`)
     }
 
     const subscriptionType = schema.getSubscriptionType()
@@ -81,24 +114,6 @@ export class SchemaPrinter {
 
     return `schema {\n${operationTypes.join('\n')}}`
   }
-
-  // printType(type: GraphQLType): string {
-  //     if (type instanceof GraphQLScalarType) {
-  //         return this.printScalar(type);
-  //     } else if (type instanceof GraphQLObjectType) {
-  //         return this.printObject(type);
-  //     } else if (type instanceof GraphQLInterfaceType) {
-  //         return this.printInterface(type);
-  //     } else if (type instanceof GraphQLUnionType) {
-  //         return this.printUnion(type);
-  //     } else if (type instanceof GraphQLEnumType) {
-  //         return this.printEnum(type);
-  //     }
-  //     if (type instanceof GraphQLInputObjectType) {
-  //         return this.printInputObject(type as GraphQLInputObjectType);
-  //     }
-  //     return '';
-  // }
 
   invariant(condition: any, message?: string) {
     if (!condition) {
