@@ -1,5 +1,9 @@
 import { Controller, Get, Inject } from '@nestjs/common'
-import { CODELAB_LOGGER_PROVIDER } from '@codelab/api/providers/logger'
+import { AppService } from './app.service'
+import {
+  CODELAB_LOGGER_PROVIDER,
+  CodelabLogger,
+} from '@codelab/api/providers/logger'
 
 @Controller()
 export class AppController {
