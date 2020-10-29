@@ -41,6 +41,7 @@
     "@apollo/federation": "0.20.4",
     "@emotion/core": "10.0.35",
     "@emotion/styled": "10.0.27",
+    "@graphql-tools/utils": "^7.0.1",
     "@grpc/proto-loader": "0.5.5",
     "@hapi/joi": "17.1.1",
     "@nestjs/common": "7.4.4",
