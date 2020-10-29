@@ -10,19 +10,25 @@
 4. `yarn` (links the built workspace to our monorepo)
 5. `yarn docker [service ...]`
   - service can be `neo4j`, `neo4j`, `fluentd`
-6. `npx nodemon` to run project
-  - `nodemon` will watch files for code generation & call `yarn start`
-  - for frontend only, run `nx serve web --with-deps --parallel`
-  - for backend only, run `nx serve api-gateway --with-deps --parallel`
 
-Read more about [dev tools](5-devtools.md)
+I find that its useful to create separate terminal tabs for different commands, as opposed to combining all scripts into one. We may not need all commands to run at once, and running separate scripts give us more flexibility.
+
+## Frontend
+- `nx serve web`
+
+## Backend
+- `nx serve api-gateway --with-deps --parallel`
+- This will start `api-federation-props` & `api-federation-nodes` first
+
+## Codegen
+
+- `make graphql-codegen` will generate files into `@codelab/state/apollo` for usage
 
 ## Running other commands
 
 Select `Run`, which will display all commands in the format of `[package]:[command]`. Use `test` for Jest, & `storybook` for Storybook.
 
-## GraphQL Code Generation
+Read more about [dev tools](5-devtools.md)
 
-Whenever `api-gateway` services, it will generate from `assets` the `.graphql` files, and put that in `libs-state-apollo` for import. This uses [GraphQL Code Generator](https://graphql-code-generator.com) to help us generate types, queries, and other useful operations.
 
 

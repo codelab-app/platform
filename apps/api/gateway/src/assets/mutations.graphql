@@ -1,0 +1,12 @@
+mutation nodeCreate($type: NodeType!) {
+  CreateNode(type: $type) {
+    id
+    type
+  }
+}
+
+mutation nodeDelete($id: ID!) {
+  DeleteNode(id: $id) {
+    id
+  }
+}

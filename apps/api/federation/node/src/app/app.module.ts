@@ -1,3 +1,4 @@
+import { resolve } from 'path'
 import { Module } from '@nestjs/common'
 import { GraphQLModule } from '@nestjs/graphql'
 import { GraphQLSchema } from 'graphql'
@@ -12,6 +13,13 @@ import {
   Neo4jConnectorModule,
   Neo4jSchemaService,
 } from '@codelab/api/services/node'
+
+const schemaFile = resolve(
+  process.cwd(),
+  'libs/state/apollo/src/generated/node.schema.graphql',
+)
+
+console.log(schemaFile)
 
 @Module({
   imports: [
@@ -53,7 +61,7 @@ import {
         return {
           include: [GraphqlNodeModule],
           // schemaDirectives: neo4jSchemaDirectives,
-          autoSchemaFile: true,
+          autoSchemaFile: schemaFile,
           transformSchema: schemaService.transformSchema,
           transformAutoSchemaFile: true,
           context: (ctx) => ({

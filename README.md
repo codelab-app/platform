@@ -26,3 +26,7 @@ The end goal is the create a highly configurable UI layer that can compete with 
 [Demo](documentation/getting-started/7-demo.md)
 
 [Concepts](documentation/getting-started/8-concepts.md)
+
+[Codegen](documentation/getting-started/9-codegen.md)
+
+[Data flow](documentation/getting-started/10-data-flow.md)

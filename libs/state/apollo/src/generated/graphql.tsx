@@ -1,6 +1,6 @@
-import gql from 'graphql-tag';
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
+
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 /** All built-in and custom scalars, mapped to their actual values */
@@ -242,14 +242,14 @@ export type Prop = {
 
 export type Query = {
   __typename?: 'Query';
-  node: Node;
+  getNode: Node;
   /** [Generated query](https://grandstack.io/docs/graphql-schema-generation-augmentation#generated-queries) for Node type nodes. */
   Node?: Maybe<Array<Maybe<Node>>>;
   prop: Prop;
 };
 
 
-export type QuerynodeArgs = {
+export type QueryGetNodeArgs = {
   filter?: Maybe<_NodeFilter>;
 };
 
@@ -265,7 +265,7 @@ export type QueryNodeArgs = {
 };
 
 
-export type QuerypropArgs = {
+export type QueryPropArgs = {
   id: Scalars['Float'];
 };
 
@@ -283,7 +283,7 @@ export type Mutation = {
 };
 
 
-export type MutationnodeCreateArgs = {
+export type MutationNodeCreateArgs = {
   input: NodeCreateInput;
 };
 
@@ -310,10 +310,36 @@ export type MutationMergeNodeArgs = {
   type?: Maybe<NodeType>;
 };
 
-export type getNodesQueryVariables = Exact<{ [key: string]: never; }>;
+export type NodeCreateMutationVariables = Exact<{
+  type: NodeType;
+}>;
 
 
-export type getNodesQuery = (
+export type NodeCreateMutation = (
+  { __typename?: 'Mutation' }
+  & { CreateNode?: Maybe<(
+    { __typename?: 'Node' }
+    & Pick<Node, 'id' | 'type'>
+  )> }
+);
+
+export type NodeDeleteMutationVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type NodeDeleteMutation = (
+  { __typename?: 'Mutation' }
+  & { DeleteNode?: Maybe<(
+    { __typename?: 'Node' }
+    & Pick<Node, 'id'>
+  )> }
+);
+
+export type NodesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type NodesQuery = (
   { __typename?: 'Query' }
   & { Node?: Maybe<Array<Maybe<(
     { __typename?: 'Node' }
@@ -322,17 +348,73 @@ export type getNodesQuery = (
 );
 
 
-export const getNodes = gql`
-    query getNodes {
-  Node {
+export const NodeCreateDocument = gql`
+    mutation nodeCreate($type: NodeType!) {
+  CreateNode(type: $type) {
     id
     type
   }
 }
     `;
+export type NodeCreateMutationFn = Apollo.MutationFunction<NodeCreateMutation, NodeCreateMutationVariables>;
 
-export const getNodesDocument = gql`
-    query getNodes {
+/**
+ * __useNodeCreateMutation__
+ *
+ * To run a mutation, you first call `useNodeCreateMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useNodeCreateMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [nodeCreateMutation, { data, loading, error }] = useNodeCreateMutation({
+ *   variables: {
+ *      type: // value for 'type'
+ *   },
+ * });
+ */
+export function useNodeCreateMutation(baseOptions?: Apollo.MutationHookOptions<NodeCreateMutation, NodeCreateMutationVariables>) {
+        return Apollo.useMutation<NodeCreateMutation, NodeCreateMutationVariables>(NodeCreateDocument, baseOptions);
+      }
+export type NodeCreateMutationHookResult = ReturnType<typeof useNodeCreateMutation>;
+export type NodeCreateMutationResult = Apollo.MutationResult<NodeCreateMutation>;
+export type NodeCreateMutationOptions = Apollo.BaseMutationOptions<NodeCreateMutation, NodeCreateMutationVariables>;
+export const NodeDeleteDocument = gql`
+    mutation nodeDelete($id: ID!) {
+  DeleteNode(id: $id) {
+    id
+  }
+}
+    `;
+export type NodeDeleteMutationFn = Apollo.MutationFunction<NodeDeleteMutation, NodeDeleteMutationVariables>;
+
+/**
+ * __useNodeDeleteMutation__
+ *
+ * To run a mutation, you first call `useNodeDeleteMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useNodeDeleteMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [nodeDeleteMutation, { data, loading, error }] = useNodeDeleteMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useNodeDeleteMutation(baseOptions?: Apollo.MutationHookOptions<NodeDeleteMutation, NodeDeleteMutationVariables>) {
+        return Apollo.useMutation<NodeDeleteMutation, NodeDeleteMutationVariables>(NodeDeleteDocument, baseOptions);
+      }
+export type NodeDeleteMutationHookResult = ReturnType<typeof useNodeDeleteMutation>;
+export type NodeDeleteMutationResult = Apollo.MutationResult<NodeDeleteMutation>;
+export type NodeDeleteMutationOptions = Apollo.BaseMutationOptions<NodeDeleteMutation, NodeDeleteMutationVariables>;
+export const NodesDocument = gql`
+    query nodes {
   Node {
     id
     type
@@ -341,26 +423,26 @@ export const getNodesDocument = gql`
     `;
 
 /**
- * __usegetNodesQuery__
+ * __useNodesQuery__
  *
- * To run a query within a React component, call `usegetNodesQuery` and pass it any options that fit your needs.
- * When your component renders, `usegetNodesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useNodesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useNodesQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = usegetNodesQuery({
+ * const { data, loading, error } = useNodesQuery({
  *   variables: {
  *   },
  * });
  */
-export function usegetNodesQuery(baseOptions?: Apollo.QueryHookOptions<getNodesQuery, getNodesQueryVariables>) {
-        return Apollo.useQuery<getNodesQuery, getNodesQueryVariables>(getNodesDocument, baseOptions);
+export function useNodesQuery(baseOptions?: Apollo.QueryHookOptions<NodesQuery, NodesQueryVariables>) {
+        return Apollo.useQuery<NodesQuery, NodesQueryVariables>(NodesDocument, baseOptions);
       }
-export function usegetNodesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<getNodesQuery, getNodesQueryVariables>) {
-          return Apollo.useLazyQuery<getNodesQuery, getNodesQueryVariables>(getNodesDocument, baseOptions);
+export function useNodesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<NodesQuery, NodesQueryVariables>) {
+          return Apollo.useLazyQuery<NodesQuery, NodesQueryVariables>(NodesDocument, baseOptions);
         }
-export type getNodesQueryHookResult = ReturnType<typeof usegetNodesQuery>;
-export type getNodesLazyQueryHookResult = ReturnType<typeof usegetNodesLazyQuery>;
-export type getNodesQueryResult = Apollo.QueryResult<getNodesQuery, getNodesQueryVariables>;
+export type NodesQueryHookResult = ReturnType<typeof useNodesQuery>;
+export type NodesLazyQueryHookResult = ReturnType<typeof useNodesLazyQuery>;
+export type NodesQueryResult = Apollo.QueryResult<NodesQuery, NodesQueryVariables>;

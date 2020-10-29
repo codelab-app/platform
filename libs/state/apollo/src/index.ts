@@ -1,2 +1,2 @@
-// export * from './__generated__/graphql-documents'
-export * from './__generated__/graphql-react-apollo'
+export * from './generated/graphql'
+export * from './generated/page'

@@ -1,4 +1,4 @@
-query getNodes {
+query nodes {
   Node {
     id
     type
@@ -7,3 +7,4 @@ query getNodes {
     # }
   }
 }
+
