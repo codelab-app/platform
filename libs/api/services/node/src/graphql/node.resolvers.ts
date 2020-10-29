@@ -1,5 +1,5 @@
 import { join } from 'path'
-import { Inject } from '@nestjs/common'
+import { Inject, OnModuleInit } from '@nestjs/common'
 import {
   Args,
   Mutation,
@@ -7,9 +7,13 @@ import {
   ResolveReference,
   Resolver,
 } from '@nestjs/graphql'
-import { Client, Transport } from '@nestjs/microservices'
+import { Client, ClientGrpc, Transport } from '@nestjs/microservices'
+import { NodeCreateInput } from './node.input'
 import { Node } from './node.model'
-import { CODELAB_LOGGER_PROVIDER } from '@codelab/api/providers/logger'
+import {
+  CODELAB_LOGGER_PROVIDER,
+  CodelabLogger,
+} from '@codelab/api/providers/logger'
 
 const nodes = [
   {
