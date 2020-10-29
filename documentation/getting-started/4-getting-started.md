@@ -10,7 +10,8 @@
 4. `yarn` (links the built workspace to our monorepo)
 5. `yarn docker [service ...]`
   - service can be `neo4j`, `neo4j`, `fluentd`
-6. `yarn start` will run backend & frontend
+6. `npx nodemon` to run project
+  - `nodemon` will watch files for code generation & call `yarn start`
   - for frontend only, run `nx serve web --with-deps --parallel`
   - for backend only, run `nx serve api-gateway --with-deps --parallel`
 

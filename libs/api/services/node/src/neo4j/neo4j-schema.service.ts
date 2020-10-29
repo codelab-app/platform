@@ -1,6 +1,5 @@
 import { buildFederatedSchema } from '@apollo/federation'
 import { Injectable } from '@nestjs/common'
-import { GraphQLSchema } from 'graphql'
 import { printSchema } from 'graphql/utilities'
 import { makeAugmentedSchema } from 'neo4j-graphql-js'
 import { extractResolversFromSchema } from 'neo4j-graphql-js/dist/augment/resolvers'
@@ -13,6 +12,8 @@ export class Neo4jSchemaService {
    * @param schema Nest.js code first schema
    */
   transformSchema(schema: GraphQLSchema) {
+    // console.log(schema.getDirectives())
+
     const resolvers = extractResolversFromSchema(schema)
 
     // Our user defined schema

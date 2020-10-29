@@ -24,6 +24,10 @@ export class Node {
   @Field(() => NodeType)
   declare type: object
 
+  @Directive('@relation(name: "children", direction: "OUT")')
+  @Field(() => [NodeType])
+  declare children: Array<NodeType>
+
   constructor(node: Partial<Node>) {
     Object.assign(node)
   }

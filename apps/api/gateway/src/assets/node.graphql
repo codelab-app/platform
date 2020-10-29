@@ -1,8 +1,7 @@
-query {
+query getNodes {
   Node {
     id
     type
-    #
     # props {
     #   id
     # }

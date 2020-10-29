@@ -1456,12 +1456,6 @@
             ]
           }
         },
-        "serve": {
-          "builder": "@nrwl/workspace:run-commands",
-          "options": {
-            "command": "nodemon --ext graphql --watch \"apps/api/gateway/src/assets/**/*.graphql\" --verbose --exec \"wait-on http://localhost:4000 && make generate-graphql\""
-          }
-        },
         "build": {
           "builder": "@nrwl/workspace:run-commands",
           "options": {}
@@ -1509,8 +1503,8 @@
           "options": {
             "buildTarget": "api-gateway:build",
             "waitUntilTargets": [
-              "api-federation-node:serve",
-              "api-federation-props:serve"
+              "api-federation-props:serve",
+              "api-federation-node:serve"
             ]
           }
         },
@@ -1607,7 +1601,8 @@
         "serve": {
           "builder": "@nrwl/node:execute",
           "options": {
-            "buildTarget": "api-federation-node:build"
+            "buildTarget": "api-federation-node:build",
+            "waitUntilTargets": ["api-federation-props:serve"]
           }
         },
         "lint": {

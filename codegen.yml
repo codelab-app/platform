@@ -4,11 +4,17 @@ documents: apps/api/gateway/src/assets/**/*.graphql
 # documents: libs/state/apollo/src/__generated__/graphql-schema.json
 generates:
   # Generate into lib so we can import
-  libs/state/apollo/src/__generated__/graphql-react.ts:
+  libs/state/apollo/src/__generated__/graphql-react-apollo.ts:
     plugins:
-      # - typescript
+      - typescript
       - typescript-operations
+      - typescript-document-nodes
+      - graphql-codegen-apollo-next-ssr
+      # - fragment-matcher
+      # - typescript-graphql-files-modules
       - typescript-react-apollo
+    config:
+      namingConvention: keep
   # libs/state/apollo/src/__generated__/graphql-documents.ts:
   #   plugins:
   #     - typescript

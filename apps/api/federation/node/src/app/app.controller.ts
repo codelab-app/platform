@@ -1,9 +1,5 @@
 import { Controller, Get, Inject } from '@nestjs/common'
-import { AppService } from './app.service'
-import {
-  CODELAB_LOGGER_PROVIDER,
-  CodelabLogger,
-} from '@codelab/api/providers/logger'
+import { CODELAB_LOGGER_PROVIDER } from '@codelab/api/providers/logger'
 
 @Controller()
 export class AppController {
@@ -15,6 +11,6 @@ export class AppController {
 
   @Get()
   log() {
-    this.logger.log({ from: 'userA', to: 'userB' })
+    // this.logger.log({ from: 'userA', to: 'userB' })
   }
 }
