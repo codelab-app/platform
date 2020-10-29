@@ -5,6 +5,8 @@ import {
   ObjectType,
   registerEnumType,
 } from '@nestjs/graphql'
+import {relation} from "cypher-query-builder"
+
 
 export enum NodeType {
   REACT_BUTTON = 'REACT_BUTTON',
@@ -21,8 +23,13 @@ export class Node {
   @Field((type) => ID)
   declare id: number
 
+  // @Directive('@upper')
   @Field(() => NodeType)
   declare type: object
+
+  @Directive('@relation(name: "parent", direction: "OUT")')
+  @Field(() => Node)
+  declare node: Node
 
   constructor(node: Partial<Node>) {
     Object.assign(node)

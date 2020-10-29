@@ -5,7 +5,7 @@ import {
   Mutation,
   Query,
   ResolveReference,
-  Resolver,
+  Resolver, Directive,
 } from '@nestjs/graphql'
 import { Client, ClientGrpc, Transport } from '@nestjs/microservices'
 import { NodeCreateInput } from './node.input'
@@ -55,6 +55,7 @@ export class NodeResolvers implements OnModuleInit {
     return nodes.find(({ id }) => id === node.id)
   }
 
+  @Directive('@deprecated(reason: "This query will be removed in the next version")')
   @Query(() => Node)
   node() {
     return nodes[0]

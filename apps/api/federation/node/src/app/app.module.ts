@@ -10,6 +10,7 @@ import {
   NEO4J_DRIVERS_PROVIDER,
   Neo4jConnectorModule,
   Neo4jSchemaService,
+  UpperCaseDirective
 } from '@codelab/api/services/node'
 
 @Module({
@@ -22,6 +23,12 @@ import {
       inject: [NEO4J_DRIVERS_PROVIDER, Neo4jSchemaService],
       useFactory: (driver: Driver, schemaService: Neo4jSchemaService) => {
         return {
+          // schemaDirectives: {
+          //   upper: UpperCaseDirective,
+          // },
+          // buildSchemaOptions: {schemaDirectives: {
+          //     upper: UpperCaseDirective,
+          //   }},
           include: [GraphqlNodeModule],
           autoSchemaFile: true,
           transformSchema: schemaService.transformSchema,
