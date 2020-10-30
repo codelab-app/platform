@@ -15,12 +15,13 @@ filters-dev: &filters-dev
     #   ignore: /^staging-.*$/
 
 filters-staging: &filters-staging
-  # filters:
-  #   branches:
-  #     only: /^master$/
-  #     # only: /^never$/
-  #   tags:
-  #     only: /^staging-.*$/
+  filters:
+    branches:
+      only: /^.*$/
+      # only: /^master$/
+      # only: /^never$/
+    # tags:
+    #   only: /^staging-.*$/
 
 executor-params: &executor-params
   parameters:
