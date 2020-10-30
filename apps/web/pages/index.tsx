@@ -1,6 +1,5 @@
-/* eslint-disable no-unused-expressions */
-// TODO: find out error cause
 import { useActor } from '@xstate/react'
+import { noop } from 'lodash'
 import React, { useContext } from 'react'
 import { BaseNodeType, NodeA } from '@codelab/shared/interface/node'
 import {
@@ -65,7 +64,7 @@ const Index = (props: any) => {
               handlecancel={() => {
                 nodeState.value === StateNameNode.EDITING
                   ? nodeSend({ type: EventNameNode.NODE_EDIT_CANCEL })
-                  : null
+                  : noop()
               }}
             >
               <FormNode
