@@ -1,12 +1,19 @@
+#
+# A role binding grants the permissions defined in a role to a user or set of users.
+#
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: cicd
   namespace: default
+
+# List of subjects (users, groups, or service accounts) for defining permissions
 subjects:
   - kind: ServiceAccount
     name: cicd
     namespace: default
+
+# Reference to the role being granted
 roleRef:
   kind: Role
   name: cicd

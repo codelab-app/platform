@@ -21,3 +21,12 @@ spec:
           ports:
             - containerPort: 80
               name: http
+          resources:
+            # Running container is not allowed to pass the set limit
+            limits:
+              memory: 512Mi
+              cpu: "1"
+            # Used by scheduler to determine which node to place the Pod on, think of it as minimum required resource
+            requests:
+              memory: 256Mi
+              cpu: "0.2"
