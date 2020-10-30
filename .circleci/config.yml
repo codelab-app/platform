@@ -81,7 +81,7 @@ commands:
             echo 'export NVM_DIR="/opt/circleci/.nvm"' >> $BASH_ENV
             echo ' [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> $BASH_ENV
             nvm install 14.13.0
-            nvm use 14.13.0
+            nvm t add alias default 14.13.0
             node -v
       - run:
           name: 'Setup GIT_COMMIT_MSG'
