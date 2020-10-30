@@ -6,20 +6,21 @@
 # Success notification is added to end of workflow, while failure notification is added to end of each job.
 
 filters-dev: &filters-dev
-  # filters:
-    # branches:
-    #   only: /^.*$/
-#      ignore: /^master$/
+  filters:
+    branches:
+      # only: /^.*$/
+      only: /^never$/
     # tags:
+    #   ignore: /^master$/
     #   ignore: /^staging-.*$/
 
 filters-staging: &filters-staging
-  filters:
-    branches:
-      only: /^master$/
-      # only: /^never$/
-    tags:
-      only: /^staging-.*$/
+  # filters:
+  #   branches:
+  #     only: /^master$/
+  #     # only: /^never$/
+  #   tags:
+  #     only: /^staging-.*$/
 
 executor-params: &executor-params
   parameters:
