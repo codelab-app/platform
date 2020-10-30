@@ -7,13 +7,15 @@ RUN yarn global add pm2
 
 ARG NODE_ENV=production
 ENV NODE_ENV=$NODE_ENV
-ENV API_PORT_GATEWAY
+ENV EXPOSED_PORT
+ENV ENTRY_COMMAND
 
 WORKDIR /home/codelab/app
 
 COPY . ./
 RUN ls
+RUN ls -al node_modules | head -10
 
-EXPOSE API_PORT_GATEWAY
+EXPOSE $EXPOSED_PORT
 
-ENTRYPOINT ["yarn", "start:prod:api-gateway"]
+ENTRYPOINT $ENTRY_COMMAND

@@ -5,5 +5,5 @@ if [ "$CI" == true ]; then
 fi
 
 docker-compose \
-  -f .docker/docker-compose.yml \
+  -f .docker/docker-compose.yaml \
   push codelab

@@ -18,11 +18,12 @@
     "build": "make build-dev",
     "start": "make start-dev",
     "test": "make test-dev",
+    "docker:build": "./scripts/docker/build.sh",
     "commit": "git-cz",
-    "start:prod:web": "",
-    "start:prod:api-gateway": "",
-    "start:prod:api-federation-nodes": "",
-    "start:prod:api-federation-props": ""
+    "start:prod:web": "pm2-runtime dist/apps/web/pm2.json",
+    "start:prod:api-gateway": "pm2-runtime dist/apps/api/gateway/pm2.json",
+    "start:prod:api-federation-nodes": "pm2-runtime dist/apps/api/federation/nodes/pm2.json",
+    "start:prod:api-federation-props": "pm2-runtime dist/apps/api/federation/props/pm2.json"
   },
   "private": true,
   "dependencies": {

@@ -6,10 +6,15 @@ services:
       - 3000:3000
     build:
       context: ../
-      dockerfile: $PWD/.docker/web/Dockerfile
+      dockerfile: $PWD/.docker/Dockerfile
       args:
         - NODE_ENV=production
-    image: codelabai/codelab-web:0.1
+    image: codelabai/codelab:0.1
+    env_file:
+      - ../.env
+    environment:
+      - EXPOSED_PORT=3000
+      - ENTRY_COMMAND="yarn star:prod:web"
 
   api-gateway:
     restart: always
@@ -51,7 +56,7 @@ services:
     image: fluentd
     tty: true # colorize output
     environment:
-      DEBUG_COLORS: "true"
+      DEBUG_COLORS: 'true'
       TERM: xterm-256color
       COLORTERM: truecolor
     build:
@@ -90,11 +95,10 @@ services:
   #     # This is bind mounted
   #     - ./storage:/verdaccio/storage
   #     - ./conf:/verdaccio/conf
-
 # volumes:
-  # https://docs.docker.com/compose/compose-file/#volume-configuration-reference
-  # codelab-volume:
-  #   external:
-  #     name: codelab-volume
-  # verdaccio:
-  #   driver: local
+# https://docs.docker.com/compose/compose-file/#volume-configuration-reference
+# codelab-volume:
+#   external:
+#     name: codelab-volume
+# verdaccio:
+#   driver: local

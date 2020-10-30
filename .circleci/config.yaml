@@ -201,14 +201,23 @@ jobs:
             *Branch*: << pipeline.git.branch >> \n
             *Message*: $GIT_COMMIT_MSG \n
 
-  deploy-app:
+  build-and-push-docker-image:
     <<: *executor-params
     steps:
       - setup-workspace
       - yarn-install-prod
       - run:
-          name: 'Build Docker image'
-          command: make docker-build
+          name: 'Build Docker image (web)'
+          command: make -C .docker/web docker-build
+      - run:
+          name: 'Build Docker image (api-gateway)'
+          command: make -C .docker/api-gateway docker-build
+      - run:
+          name: 'Build Docker image (api-federation-nodes)'
+          command: make -C .docker/api-federation-nodes docker-build
+      - run:
+          name: 'Build Docker image (api-federation-props)'
+          command: make -C .docker/api-federation-props docker-build
       - run:
           name: 'Docker login'
           command: echo "${DOCKER_PASS}" | docker login --username "${DOCKER_USER}" --password-stdin
@@ -252,7 +261,7 @@ workflows:
     jobs:
       - install-and-build-workspace:
           <<: *filters-staging
-      - deploy-app:
+      - build-and-push-docker-image:
           <<: *filters-staging
           context: credentials-docker
           requires:
@@ -260,4 +269,4 @@ workflows:
       - notify-success:
           <<: *filters-staging
           requires:
-            - deploy-app
+            - build-and-push-docker-image

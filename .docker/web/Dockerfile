@@ -35,6 +35,7 @@ RUN yarn global add pm2
 # https://stackoverflow.com/questions/39597925/how-do-i-set-environment-variables-during-the-build-in-docker
 ARG NODE_ENV=production
 ENV NODE_ENV=$NODE_ENV
+ENV WEB_PORT
 
 # ARG CI=true
 # ENV CI=$CI
@@ -89,11 +90,10 @@ RUN ls
 # COPY --from=build /codelab/dist ./dist
 
 # Expose the listening port
-EXPOSE 3000
+EXPOSE $WEB_PORT
 
 # # Run container as non-root (unprivileged) user
 # # The node user is provided in the Node.js Alpine base image
 # #USER node
 
-# ENTRYPOINT ["pm2", "startOrReload", "config/pm2.json"]
-ENTRYPOINT ["pm2-runtime", ".docker/web/pm2.json"]
+ENTRYPOINT ["yarn", "start:prod:web"]

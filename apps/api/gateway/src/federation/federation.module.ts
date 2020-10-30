@@ -15,9 +15,9 @@ import { ApiConfig, ApiConfigTypes } from '@codelab/api/providers/config'
           gateway: {
             serviceList: [
               {
-                name: `${ApiConfigTypes.FEDERATION_GRAPH_NAME}`,
+                name: `${ApiConfigTypes.FEDERATION_NODE_NAME}`,
                 url: `http://localhost:${config.get(
-                  ApiConfigTypes.FEDERATION_GRAPH_PORT,
+                  ApiConfigTypes.FEDERATION_NODE_PORT,
                 )}/graphql`,
               },
               {

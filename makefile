@@ -62,12 +62,6 @@ docker-start:
 	-f .docker/docker-compose.yaml \
 	up --build app
 
-docker-build:
-	docker-compose \
-  --verbose \
-  -f .docker/docker-compose.yaml \
-  build app
-
 docker-push:
 	docker-compose \
 		-f .docker/docker-compose.yaml \

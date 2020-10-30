@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
+SERVICES="$*"
+
 docker-compose \
   --verbose \
-  -f .docker/docker-compose.yml \
-  build codelab
+  -f .docker/docker-compose.yaml \
+  build $SERVICES
