@@ -5,24 +5,21 @@
 
 # Success notification is added to end of workflow, while failure notification is added to end of each job.
 
-# Don't run on master
 filters-dev: &filters-dev
-  filters:
-    branches:
-      only: /^.*$/
+  # filters:
+    # branches:
+    #   only: /^.*$/
 #      ignore: /^master$/
-#    tags:
-#      ignore: /^staging-/
+    # tags:
+    #   ignore: /^staging-.*$/
 
-# Run on master only
 filters-staging: &filters-staging
   filters:
     branches:
-#      only: /^master$/
-      # turn off for now
-      only: /^never$/
-#    tags:
-#      only: /^staging-/
+      only: /^master$/
+      # only: /^never$/
+    tags:
+      only: /^staging-.*$/
 
 executor-params: &executor-params
   parameters:
@@ -250,3 +247,7 @@ workflows:
           context: credentials-docker
           requires:
             - install-and-build-workspace
+      - notify-success:
+          <<: *filters-staging
+          requires:
+            - deploy-app
