@@ -19,9 +19,9 @@ rules:
   no-new-func: off
   no-undef: error # not included in preset, surprisingly
   no-underscore-dangle: off
-#  no-underscore-dangle:
-#    - error
-#    - allowAfterThis: true
+  #  no-underscore-dangle:
+  #    - error
+  #    - allowAfterThis: true
   no-case-declarations: off
   no-restricted-syntax: off
 
@@ -100,6 +100,3 @@ overrides:
     rules:
       '@typescript-eslint/no-var-requires': off
       no-param-reassign: off
-  - files: ['*.ts']
-    rules:
-      react/static-property-placement: off

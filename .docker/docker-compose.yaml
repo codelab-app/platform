@@ -1,21 +1,48 @@
 version: '3.8'
 services:
-  app:
+  web:
     restart: always
     ports:
-      - 3333:3333
-      - 4200:4200
+      - 3000:3000
     build:
       context: ../
-#      cache_from:
-#        # - codelabstudios/codelab_builder:v0.0.1
-#        - node:14.11.0-alpine
-      dockerfile: $PWD/.docker/Dockerfile
+      dockerfile: $PWD/.docker/web/Dockerfile
       args:
         - NODE_ENV=production
-    image: codelabai/codelab:0.1
-    # volumes:
-    #   - codelab-volume:/app
+    image: codelabai/codelab-web:0.1
+
+  api-gateway:
+    restart: always
+    ports:
+      - 3000:3000
+    build:
+      context: ../
+      dockerfile: $PWD/.docker/api-gateway/Dockerfile
+      args:
+        - NODE_ENV=production
+    image: codelabai/codelab-api-gateway:0.1
+
+  api-federation-nodes:
+    restart: always
+    ports:
+      - 3000:3000
+    build:
+      context: ../
+      dockerfile: $PWD/.docker/api-federation-nodes/Dockerfile
+      args:
+        - NODE_ENV=production
+    image: codelabai/codelab-api-federation-nodes:0.1
+
+  api-federation-props:
+    restart: always
+    ports:
+      - 3000:3000
+    build:
+      context: ../
+      dockerfile: $PWD/.docker/api-federation-props/Dockerfile
+      args:
+        - NODE_ENV=production
+    image: codelabai/codelab-api-federation-props:0.1
 
   fluentd:
     ports:
@@ -28,7 +55,7 @@ services:
       TERM: xterm-256color
       COLORTERM: truecolor
     build:
-      context: ./fluentd
+      context: vendors/fluentd
     volumes:
       - ./fluentd/configs:/fluentd/etc/
 

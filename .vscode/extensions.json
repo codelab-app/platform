@@ -1,8 +1,13 @@
 {
   "recommendations": [
     "nrwl.angular-console",
-    "ms-vscode.vscode-typescript-tslint-plugin",
     "esbenp.prettier-vscode",
-    "firsttris.vscode-jest-runner"
+    "zxh404.vscode-proto3",
+    "redhat.vscode-yaml",
+    "q.typescript-mono-repo-import-helper",
+    "wayou.vscode-todo-highlight",
+    "graphql.vscode-graphql",
+    "dbaeumer.vscode-eslint",
+    "mikestead.dotenv"
   ]
 }

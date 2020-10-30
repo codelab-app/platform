@@ -1,0 +1,14 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: codelab-deployment
+# spec:
+#   replicas: 2
+#   template:
+#     spec:
+#       containers:
+#         - name: codelab-app-staging
+#           resources:
+#             limits:
+#               cpu: "2"

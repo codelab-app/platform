@@ -7,8 +7,8 @@
 
 # Except
 !/package.json
-!/makefile
 !/node_modules/
 !/dist/apps/
-!/config
-!/scripts
+
+# Ignore again
+/node_modules/.cache/

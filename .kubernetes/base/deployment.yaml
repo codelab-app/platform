@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: codelab-app-staging
+  name: codelab-deployment
   namespace: default
   labels:
-    app: codelab-app-staging
+    app: web
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: codelab-app-staging
+      app: web
   template:
     metadata:
       labels:
-        app: codelab-app-staging
+        app: web
     spec:
       containers:
-        - name: codelab-app-staging
+        - name: codelab-container
           image: codelabai/codelab:0.1
           ports:
             - containerPort: 80

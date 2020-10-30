@@ -89,7 +89,7 @@ RUN ls
 # COPY --from=build /codelab/dist ./dist
 
 # Expose the listening port
-EXPOSE 3333 4200
+EXPOSE 3000 4000
 
 # # Run container as non-root (unprivileged) user
 # # The node user is provided in the Node.js Alpine base image
