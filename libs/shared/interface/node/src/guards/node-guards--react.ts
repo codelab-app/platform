@@ -3,13 +3,16 @@ import {
   NodeI,
   NodeReactA,
   NodeReactI,
-  ReactTypeEnum,
 } from '@codelab/shared/interface/node'
 
 export const isReactNode = (
   node: NodeI | NodeA,
 ): node is NodeReactI | NodeReactA => {
-  return node?.type in ReactTypeEnum
+  if (typeof node?.type !== 'string') {
+    return false
+  }
+
+  return node?.type.includes('React_')
 }
 
 export const isReactNodeArray = (
