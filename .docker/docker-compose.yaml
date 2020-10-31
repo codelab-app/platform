@@ -1,53 +1,76 @@
 version: '3.8'
 services:
-  web:
-    restart: always
-    ports:
-      - 3000:3000
+  # All other services derive from this
+  codelab:
     build:
       context: ../
-      dockerfile: $PWD/.docker/Dockerfile
-      args:
-        - NODE_ENV=production
+      dockerfile: ${PWD}/.docker/Dockerfile
+      # args:
+      #   - NODE_ENV=production
     image: codelabai/codelab:0.1
+
+  web:
+    ports:
+      - ${WEB_PORT}:${WEB_PORT}
+    expose:
+      - ${WEB_PORT}
+    entrypoint: ['yarn', 'start:prod:web']
+    image: codelabai/codelab:0.1
+    depends_on:
+      - codelab
     env_file:
       - ../.env
     environment:
-      - EXPOSED_PORT=3000
-      - ENTRY_COMMAND="yarn star:prod:web"
+      - NEXT_PUBLIC_API_ORIGIN
+      - NEXT_PUBLIC_API_PATHNAME
 
   api-gateway:
-    restart: always
     ports:
-      - 3000:3000
-    build:
-      context: ../
-      dockerfile: $PWD/.docker/api-gateway/Dockerfile
-      args:
-        - NODE_ENV=production
-    image: codelabai/codelab-api-gateway:0.1
+      - ${API_PORT_GATEWAY}:${API_PORT_GATEWAY}
+    expose:
+      - ${API_PORT_GATEWAY}
+    entrypoint: ['yarn', 'start:prod:api-gateway']
+    image: codelabai/codelab:0.1
+    depends_on:
+      - codelab
+      - api-federation-nodes
+      - api-federation-props
+    env_file:
+      - ../.env
+    environment:
+      - API_PORT_GATEWAY
+      - API_PORT_FEDERATION_PROPS
+      - API_PORT_FEDERATION_USER
+      - API_PORT_FEDERATION_NODE
 
   api-federation-nodes:
-    restart: always
     ports:
-      - 3000:3000
-    build:
-      context: ../
-      dockerfile: $PWD/.docker/api-federation-nodes/Dockerfile
-      args:
-        - NODE_ENV=production
-    image: codelabai/codelab-api-federation-nodes:0.1
+      - ${API_PORT_FEDERATION_NODE}:${API_PORT_FEDERATION_NODE}
+    expose:
+      - ${API_PORT_FEDERATION_NODE}
+    entrypoint: ['yarn', 'start:prod:api-federation-nodes']
+    image: codelabai/codelab:0.1
+    depends_on:
+      - codelab
+      - api-federation-props
+    env_file:
+      - ../.env
+    environment:
+      - API_PORT_FEDERATION_NODE
 
   api-federation-props:
-    restart: always
     ports:
-      - 3000:3000
-    build:
-      context: ../
-      dockerfile: $PWD/.docker/api-federation-props/Dockerfile
-      args:
-        - NODE_ENV=production
-    image: codelabai/codelab-api-federation-props:0.1
+      - ${API_PORT_FEDERATION_PROPS}:${API_PORT_FEDERATION_PROPS}
+    expose:
+      - ${API_PORT_FEDERATION_PROPS}
+    entrypoint: ['yarn', 'start:prod:api-federation-props']
+    image: codelabai/codelab:0.1
+    depends_on:
+      - codelab
+    env_file:
+      - ../.env
+    environment:
+      - API_PORT_FEDERATION_PROPS
 
   fluentd:
     ports:

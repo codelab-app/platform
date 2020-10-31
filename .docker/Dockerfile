@@ -1,21 +1,19 @@
 FROM node:14.8.0-alpine AS base
 
-RUN apk add \
-  bash
-
+RUN apk add bash
 RUN yarn global add pm2
-
-ARG NODE_ENV=production
-ENV NODE_ENV=$NODE_ENV
-ENV EXPOSED_PORT
-ENV ENTRY_COMMAND
 
 WORKDIR /home/codelab/app
 
-COPY . ./
+# Opted out of .dockerignore due to performance issues
+COPY package.json package.json
+# Rely on build pipeline to build
+COPY dist dist
+# Rely on build pipeline to remove node_modules/.cache
+COPY node_modules node_modules
+
 RUN ls
 RUN ls -al node_modules | head -10
 
-EXPOSE $EXPOSED_PORT
+# At runtime need to specify `EXPOSE`, `ENTRYPOINT`
 
-ENTRYPOINT $ENTRY_COMMAND

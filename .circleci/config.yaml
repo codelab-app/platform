@@ -95,6 +95,8 @@ commands:
           command: |
             if [ $CIRCLE_USERNAME == $GITHUB_VIEN ]; then
               echo 'export SLACK_USER=${SLACK_VIEN}' >> $BASH_ENV
+            elif [ $CIRCLE_USERNAME == $GITHUB_ANTON ]; then
+              echo 'export SLACK_USER=${SLACK_ANTON}' >> $BASH_ENV
             elif [ $CIRCLE_USERNAME == $GITHUB_ALEX ]; then
               echo 'export SLACK_USER=${SLACK_ALEX}' >> $BASH_ENV
             else

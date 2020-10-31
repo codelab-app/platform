@@ -9,7 +9,7 @@
   },
   "engines": {
     "node": ">=13",
-    "yarn": "1.22.5"
+    "yarn": ">=1.20.0"
   },
   "version": "0.0.0",
   "license": "MIT",
@@ -19,6 +19,7 @@
     "start": "make start-dev",
     "test": "make test-dev",
     "docker:build": "./scripts/docker/build.sh",
+    "docker:up": "./scripts/docker/up.sh",
     "commit": "git-cz",
     "start:prod:web": "pm2-runtime dist/apps/web/pm2.json",
     "start:prod:api-gateway": "pm2-runtime dist/apps/api/gateway/pm2.json",
