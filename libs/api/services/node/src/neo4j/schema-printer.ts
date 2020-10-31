@@ -14,6 +14,7 @@ import {
 
 export interface ISchemaPrinterConfig {
   excludeScalar?: boolean
+  includeSpecificScalarTypes?: Array<string>
   excludeDirectives?: boolean
   excludeObjectType?: boolean
   excludeInterfaceType?: boolean
@@ -31,6 +32,7 @@ export class SchemaPrinter {
     excludeUnionType: false,
     excludeEnumType: false,
     excludeInputObjectType: false,
+    includeSpecificScalarTypes: [],
   }
 
   constructor(config?: ISchemaPrinterConfig) {
@@ -126,7 +128,11 @@ export class SchemaPrinter {
   }
 
   printScalar(type: GraphQLScalarType): string {
-    return `scalar ${type.name}`
+    if (this.config.includeSpecificScalarTypes?.includes(type.name)) {
+      return `scalar ${type.name}`
+    }
+
+    return ''
   }
 
   printObject(type: GraphQLObjectType): string {

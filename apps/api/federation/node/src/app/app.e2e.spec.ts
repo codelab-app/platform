@@ -1,8 +1,29 @@
 import { INestApplication } from '@nestjs/common'
 import { Test } from '@nestjs/testing'
+import request from 'supertest'
 import { AppModule } from './app.module'
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const request = require('supertest')
+
+class RequestBuilder {
+  static async executeQuery(
+    query: string,
+    app: INestApplication,
+    queryName = '',
+    expected?: any,
+  ) {
+    return expected
+      ? request(app.getHttpServer())
+          .post('/graphql')
+          .send({ query })
+          .expect(200)
+          .then((response: any) => {
+            expect(response.body.data[queryName]).toStrictEqual(expected)
+          })
+      : request(app.getHttpServer())
+          .post('/graphql')
+          .send({ query })
+          .expect(200)
+  }
+}
 
 describe('AppModule', () => {
   let app: INestApplication
@@ -20,21 +41,68 @@ describe('AppModule', () => {
     await app.init()
   })
 
-  it(`Get Node`, () => {
-    return request(app.getHttpServer())
-      .post('/graphql')
-      .send({ query: '{Node(id: 1) {id type }}' })
-      .expect(200)
-      .then((response: any) => {
-        // Logger.log(response, 'app.e2e.spec.ts')
-        // Logger.log("HELLO")
-        expect(response.body.data.Node).toStrictEqual([
-          { id: '1', type: 'REACT_DIV' },
-        ])
-      })
+  it('should create nodes', async () => {
+    const mutation = (id: string, type: string): string => {
+      return `
+        mutation {
+        CreateNode (id: ${id}, type: ${type}) {
+              id,
+              type
+            } 
+        }
+        `
+    }
+
+    await RequestBuilder.executeQuery(
+      mutation('1', 'REACT_DIV'),
+      app,
+      'CreateNode',
+      { id: '1', type: 'REACT_DIV' },
+    )
+    await RequestBuilder.executeQuery(
+      mutation('2', 'REACT_BUTTON'),
+      app,
+      'CreateNode',
+      { id: '2', type: 'REACT_BUTTON' },
+    )
+    await RequestBuilder.executeQuery(
+      mutation('3', 'REACT_HTML_A'),
+      app,
+      'CreateNode',
+      { id: '3', type: 'REACT_HTML_A' },
+    )
+    await RequestBuilder.executeQuery(
+      mutation('4', 'REACT_HTML_P'),
+      app,
+      'CreateNode',
+      { id: '4', type: 'REACT_HTML_P' },
+    )
+  })
+
+  it(`Get Nodes`, async () => {
+    await RequestBuilder.executeQuery('{Node(id: 1) {id type }}', app, 'Node', [
+      { id: '1', type: 'REACT_DIV' },
+    ])
+    await RequestBuilder.executeQuery('{Node(id: 2) {id type }}', app, 'Node', [
+      { id: '2', type: 'REACT_BUTTON' },
+    ])
+    await RequestBuilder.executeQuery('{Node(id: 3) {id type }}', app, 'Node', [
+      { id: '3', type: 'REACT_HTML_A' },
+    ])
+    await RequestBuilder.executeQuery('{Node(id: 4) {id type }}', app, 'Node', [
+      { id: '4', type: 'REACT_HTML_P' },
+    ])
   })
 
   afterAll(async () => {
+    const query = `{
+       clearGraph {
+        result
+      }
+    }`
+    // Clear whole graph
+
+    await RequestBuilder.executeQuery(query, app)
     await app.close()
   })
 })

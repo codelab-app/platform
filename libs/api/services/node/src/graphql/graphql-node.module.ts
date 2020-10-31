@@ -1,10 +1,12 @@
 import * as path from 'path'
 import { Module } from '@nestjs/common'
 import { ClientsModule, Transport } from '@nestjs/microservices'
+import { Neo4jConnectorModule, Neo4jNodeService } from '../neo4j'
 import { NodeResolvers } from './node.resolvers'
 
 @Module({
   imports: [
+    Neo4jConnectorModule,
     ClientsModule.register([
       {
         name: 'NODE_PACKAGE',
@@ -20,7 +22,7 @@ import { NodeResolvers } from './node.resolvers'
       },
     ]),
   ],
-  providers: [NodeResolvers],
+  providers: [NodeResolvers, Neo4jNodeService],
   exports: [],
 })
 export class GraphqlNodeModule {}

@@ -1,15 +1,19 @@
 import * as path from 'path'
-import { Inject, OnModuleInit } from '@nestjs/common'
+import { Inject, Logger, OnModuleInit } from '@nestjs/common'
 import {
   Args,
   Directive,
+  Field,
   Mutation,
+  ObjectType,
   Query,
   ResolveReference,
   Resolver,
 } from '@nestjs/graphql'
 import { ClientGrpc, Transport } from '@nestjs/microservices'
 import { ClientOptions } from '@nestjs/microservices/interfaces/client-metadata.interface'
+import { GraphQLJSONObject } from 'graphql-type-json'
+import { Neo4jNodeService } from '../neo4j'
 import { NodeCreateInput } from './node.input'
 import { Node } from './node.model'
 import {
@@ -37,6 +41,16 @@ const clientOptions: ClientOptions = {
   },
 }
 
+@ObjectType()
+class DeleteResponse {
+  constructor(response: any) {
+    this.result = response
+  }
+
+  @Field((returns) => GraphQLJSONObject!)
+  result: any
+}
+
 @Resolver(() => Node)
 export class NodeResolvers implements OnModuleInit {
   // @Client(clientOptions)
@@ -47,6 +61,7 @@ export class NodeResolvers implements OnModuleInit {
   constructor(
     @Inject(CODELAB_LOGGER_PROVIDER) private readonly logger: CodelabLogger,
     @Inject('NODE_PACKAGE') private client: ClientGrpc,
+    private readonly neo4jNodeService: Neo4jNodeService,
   ) {}
 
   onModuleInit() {
@@ -71,5 +86,14 @@ export class NodeResolvers implements OnModuleInit {
   @Mutation(() => Node)
   async nodeCreate(@Args('input') input: NodeCreateInput) {
     return this.nodeService.createProps(input)
+  }
+
+  @Query(() => DeleteResponse)
+  async clearGraph() {
+    Logger.log('clearing graph', 'node.resolvers.ts')
+
+    return new DeleteResponse(
+      await this.neo4jNodeService.run(`MATCH (n) DETACH DELETE n`),
+    )
   }
 }

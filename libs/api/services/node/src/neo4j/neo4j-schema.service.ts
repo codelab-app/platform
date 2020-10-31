@@ -1,5 +1,5 @@
 import { buildFederatedSchema } from '@apollo/federation'
-import { Injectable } from '@nestjs/common'
+import { Injectable, Logger } from '@nestjs/common'
 import { GraphQLSchemaModule } from 'apollo-graphql'
 import { GraphQLSchema } from 'graphql'
 import { makeAugmentedSchema } from 'neo4j-graphql-js'
@@ -15,7 +15,8 @@ export class Neo4jSchemaService {
    */
   transformSchema(schema: GraphQLSchema) {
     const schemaPrinter = new SchemaPrinter({
-      excludeScalar: true,
+      excludeScalar: false,
+      includeSpecificScalarTypes: ['JSONObject'],
       excludeDirectives: true,
     })
 
@@ -26,7 +27,7 @@ export class Neo4jSchemaService {
     // const typeDefs: string = printSchema(schema)
     const typeDefs: string = schemaPrinter.printSchemaWithDirectives(schema)
 
-    // Logger.log(typeDefs)
+    Logger.log(typeDefs)
     const neo4jExtendedSchema: GraphQLSchemaModule = makeAugmentedSchema({
       resolvers,
       typeDefs,
