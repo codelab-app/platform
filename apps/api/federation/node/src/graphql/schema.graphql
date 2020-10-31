@@ -1,0 +1,39 @@
+directive @cypher(statement: String) on FIELD_DEFINITION
+directive @relation(
+    name: String
+    direction: _RelationDirections
+    from: String
+    to: String
+) on FIELD_DEFINITION | OBJECT
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+enum _RelationDirections {
+    IN
+    OUT
+}
+
+
+type Mutation {
+    nodeCreate(input: NodeCreateInput!): Node!
+}
+type Node {
+    id: ID!
+    type: NodeType!
+    children: [Node!] @relation(name: "child", direction: "OUT")
+    parent: Node @relation(name: "parent", direction: "IN") @cypher(statement: "MATCH (this)-->(parent) RETURN parent")
+}
+input NodeCreateInput {
+    type: NodeType!
+}
+enum NodeType {
+    REACT_BUTTON
+    REACT_DIV
+    React_HTML_P
+    React_HTML_A
+}
+type Query {
+    node: Node! @deprecated(reason: "This query will be removed in the next version")
+}

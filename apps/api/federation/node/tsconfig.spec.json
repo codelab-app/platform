@@ -3,7 +3,8 @@
   "compilerOptions": {
     "outDir": "../../../../dist/out-tsc",
     "module": "commonjs",
-    "types": ["jest", "node"]
+    "allowSyntheticDefaultImports": true,
+    "types": ["jest", "node", "neo4j-graphql-js"]
   },
   "include": ["**/*.spec.ts", "**/*.d.ts"]
 }
