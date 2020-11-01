@@ -3,13 +3,21 @@
 #
 # Install Ambassardor, a self-service edge management for Kubernetes
 #
-# https://argoproj.github.io/argo-cd/getting_started/
+# https://www.getambassador.io/docs/latest/topics/install/helm/
 #
 
- kubectl apply -f https://www.getambassador.io/yaml/aes-crds.yaml
+helm repo add datawire https://www.getambassador.io
 
- kubectl wait --for condition=established --timeout=90s crd -lproduct=aes
+kubectl create namespace ambassador
 
- kubectl apply -f https://www.getambassador.io/yaml/aes.yaml
+helm install ambassador --namespace ambassador datawire/ambassador
 
- kubectl -n ambassador wait --for condition=available --timeout=90s deploy -lproduct=aes
+edgectl install
+
+#  kubectl apply -f https://www.getambassador.io/yaml/aes-crds.yaml
+
+#  kubectl wait --for condition=established --timeout=90s crd -lproduct=aes
+
+#  kubectl apply -f https://www.getambassador.io/yaml/aes.yaml
+
+#  kubectl -n ambassador wait --for condition=available --timeout=90s deploy -lproduct=aes
