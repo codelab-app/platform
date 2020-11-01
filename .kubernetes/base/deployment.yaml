@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: codelab-deployment
-  namespace: default
+  namespace: codelab
   labels:
     app: web
 spec:
@@ -17,16 +17,28 @@ spec:
     spec:
       containers:
         - name: codelab-container
-          image: codelabai/codelab:0.1
+          imagePullPolicy: Always
+          image: codelabai/codelab:0.01
+          # ENTRYPOINT in Docker
+          command: ['yarn', 'start:prod:web']
+          env:
+            - name: WEB_PORT
+              value: '3000'
+            - name: NODE_ENV
+              value: production
+            - name: NEXT_PUBLIC_API_ORIGIN
+              value: http://localhost:4000
+            - name: NEXT_PUBLIC_API_PATHNAME
+              value: api/v1
           ports:
-            - containerPort: 80
+            - containerPort: 3000
               name: http
           resources:
             # Running container is not allowed to pass the set limit
             limits:
               memory: 512Mi
-              cpu: "1"
+              cpu: '0.5'
             # Used by scheduler to determine which node to place the Pod on, think of it as minimum required resource
             requests:
               memory: 256Mi
-              cpu: "0.2"
+              cpu: '0.2'

@@ -51,42 +51,6 @@ generate-graphql-watch:
 		&& make generate-graphql"
 
 #
-# DOCKER
-#
-
-docker-start:
-	# yarn --frozen-lockfile; \
-	# make build-prod; \
-	# yarn --frozen-lockfile --prod;
-	docker-compose \
-	-f .docker/docker-compose.yaml \
-	up --build app
-
-docker-push:
-	docker-compose \
-		-f .docker/docker-compose.yaml \
-		push app
-
-docker-log:
-	docker-compose \
-		-f .docker/docker-compose.yaml \
-		up fluentd
-
-#
-# KUBERNETES
-#
-
-kube-apply:
-	kustomize build .kubernetes/overlays/staging | kubectl apply -f -
-	# kubectl apply -k .kubernetes
-
-kube-replace:
-	kustomize build .kubernetes/overlays/staging | kubectl replace -f -
-
-kube-build:
-	kustomize build .kubernetes/overlays/staging
-
-#
 # LINT
 #
 

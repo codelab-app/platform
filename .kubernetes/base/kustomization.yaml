@@ -1,9 +1,10 @@
 resources:
-- deployment.yaml
-- role-binding.yaml
-- role.yaml
-- service-account.yaml
-- service.yaml
+  - deployment.yaml
+  - role-binding.yaml
+  - role.yaml
+  - service-account.yaml
+  - service.yaml
+  - namespaces.yaml
 # configMapGenerator:
 # - name: codelab-configmap
 #   files:

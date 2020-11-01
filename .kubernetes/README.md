@@ -32,4 +32,7 @@ The primary purpose of a multi-container Pod is to support co-located, co-manage
 - Ambassador (proxy service)
 
 
+## Kustomize
+
+https://kubectl.docs.kubernetes.io/pages/reference/kustomize.html
 

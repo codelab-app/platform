@@ -21,10 +21,10 @@ kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: codelab-role
-  namespace: default
-
+  namespace: codelab
 # Permissions being granted, additive only
 rules:
-  - apiGroups: ["", "apps", "batch", "extensions"]
-    resources: ["deployments", "services", "replicasets", "pods", "jobs", "cronjobs"]
-    verbs: ["*"]
+  - apiGroups: ['', 'apps', 'batch', 'extensions']
+    resources:
+      ['deployments', 'services', 'replicasets', 'pods', 'jobs', 'cronjobs']
+    verbs: ['*']

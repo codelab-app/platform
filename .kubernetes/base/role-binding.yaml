@@ -5,13 +5,13 @@ kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: codelab-role-binding
-  namespace: default
+  namespace: codelab
 
 # List of subjects (users, groups, or service accounts) for defining permissions
 subjects:
   - kind: ServiceAccount
     name: codelab-role-binding
-    namespace: default
+    namespace: codelab
 
 # Reference to the role being granted
 roleRef:

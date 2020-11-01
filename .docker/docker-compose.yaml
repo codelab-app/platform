@@ -7,7 +7,9 @@ services:
       dockerfile: ${PWD}/.docker/Dockerfile
       # args:
       #   - NODE_ENV=production
-    image: codelabai/codelab:0.1
+    image: codelabai/codelab:0.01
+    environment:
+      - NODE_ENV=production
 
   web:
     ports:
@@ -15,7 +17,7 @@ services:
     expose:
       - ${WEB_PORT}
     entrypoint: ['yarn', 'start:prod:web']
-    image: codelabai/codelab:0.1
+    image: codelabai/codelab:0.01
     depends_on:
       - codelab
     env_file:
@@ -30,7 +32,7 @@ services:
     expose:
       - ${API_PORT_GATEWAY}
     entrypoint: ['yarn', 'start:prod:api-gateway']
-    image: codelabai/codelab:0.1
+    image: codelabai/codelab:0.01
     depends_on:
       - codelab
       - api-federation-nodes
@@ -49,7 +51,7 @@ services:
     expose:
       - ${API_PORT_FEDERATION_NODE}
     entrypoint: ['yarn', 'start:prod:api-federation-nodes']
-    image: codelabai/codelab:0.1
+    image: codelabai/codelab:0.01
     depends_on:
       - codelab
       - api-federation-props
@@ -64,7 +66,7 @@ services:
     expose:
       - ${API_PORT_FEDERATION_PROPS}
     entrypoint: ['yarn', 'start:prod:api-federation-props']
-    image: codelabai/codelab:0.1
+    image: codelabai/codelab:0.01
     depends_on:
       - codelab
     env_file:
