@@ -280,7 +280,7 @@ workflows:
           <<: *filters-staging
           context: credentials-docker
           requires:
-            - install-and-build-workspace
+            - install-and-build-workspace-staging
       - notify-success:
           <<: *filters-staging
           requires:
