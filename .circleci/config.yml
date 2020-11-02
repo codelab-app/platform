@@ -113,7 +113,6 @@ commands:
     description: 'Setup workspace'
     steps:
       - checkout
-      - setup-node-version
       - setup-env
       - attach_workspace:
           at: ..
@@ -229,6 +228,7 @@ jobs:
   build-and-push-docker-image:
     <<: *executor-params
     steps:
+      - setup-node-version
       - setup-workspace
       - yarn-install-prod
       - run:
