@@ -14,6 +14,8 @@ if [ "$CI" != true ]; then
   rm -rf node_modules/.cache
 fi
 
+cp .env.example .env
+
 docker-compose \
   --verbose \
   -f .docker/docker-compose.yaml \
