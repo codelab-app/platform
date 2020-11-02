@@ -1,2 +1,2 @@
-mongo/
-neo4j/
+vendors/mongo/
+vendors/neo4j/

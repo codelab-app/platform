@@ -1,8 +1,5 @@
-import { set } from 'lodash'
+import objectMapper from 'object-mapper'
 import { MapData, Mapper } from './mapper-object'
-import { cLog } from '@codelab/shared/utils'
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const objectMapper = require('object-mapper')
 
 describe('Mapper', () => {
   it('maps from one shape to another', () => {
@@ -72,54 +69,21 @@ describe('Mapper', () => {
     }
 
     const mapper = {
-      company: [
-        {
-          key: 'devs',
-          transform: (
-            sourceValue: any,
-            sourceObject: any,
-            destinationObject: any,
-            destinationKey: any,
-          ) => {
-            // console.log('sourceValue', sourceValue)
-            // console.log('sourceObject', sourceObject)
-            // console.log('destinationObject', destinationObject)
-            // console.log('destinationKey', destinationKey)
-
-            return sourceValue.devs
-          },
-        },
-      ],
+      'company.devs': 'devs',
       info: {
-        key: 'user',
         transform: (
-          sourceValue: any,
+          sourceValue: Array<any>,
           sourceObject: any,
           destinationObject: any,
-          destinationKey: any,
         ) => {
-          // console.log('sourceValue', sourceValue)
-          // console.log('sourceObject', sourceObject)
-          // console.log('destinationObject', destinationObject)
-          // console.log('destinationKey', destinationKey)
-
-          const userObject = sourceValue.reduce((acc: object, curr: any) => {
-            const { key } = curr
-            const { value } = curr
-
-            set(acc, key, value)
-
-            return acc
-          }, {})
-
-          return userObject.user
+          sourceValue.map(({ key, value }) =>
+            objectMapper.setKeyValue(destinationObject, key, value),
+          )
         },
       },
     }
 
     const results = objectMapper(original, mapper)
-
-    cLog(results)
 
     expect(results).toStrictEqual(expected)
   })

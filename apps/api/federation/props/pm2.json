@@ -1,0 +1,11 @@
+{
+  "apps": [
+    {
+      "name": "API",
+      "script": "dist/apps/api/federation/props/main.js",
+      "env": {
+        "COMMON_VARIABLE": "true"
+      }
+    }
+  ]
+}

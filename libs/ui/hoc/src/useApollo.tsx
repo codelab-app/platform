@@ -24,7 +24,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (networkError) console.log(`[Network error]: ${networkError}`)
 })
 
-const httpLink = new HttpLink({
+export const httpLink = new HttpLink({
   uri: `${process.env.NEXT_PUBLIC_API_ORIGIN}/graphql`,
   // Additional fetch() options like `credentials` or `headers`
   credentials: 'same-origin',

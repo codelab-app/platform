@@ -1,35 +1,55 @@
-import { Machine, assign, spawn } from 'xstate'
+import { Machine, assign, send, spawn } from 'xstate'
 import { ContextApp } from './machine-app--context'
 import { EventApp, EventNameApp } from './machine-app--event'
 import { StateNameApp, StateSchemaApp } from './machine-app--state'
-import { machineNode } from '@codelab/state/node'
-import { machineUI } from '@codelab/state/ui'
+import { NodeService as NodeServiceEntity } from '@codelab/core/node'
+import { machineLayout } from '@codelab/state/layout'
+import { EventNameModal, machineModal } from '@codelab/state/modal'
+import { createMachineNode } from '@codelab/state/node'
 
-export const machineApp = Machine<ContextApp, StateSchemaApp, EventApp>({
-  id: 'app',
-  initial: StateNameApp.INIT,
-  context: {
-    node: null,
-    ui: null,
-  },
-  states: {
-    [StateNameApp.INIT]: {
-      // always: [{ cond: () => true }],
-      entry: assign({
-        ui: () => spawn(machineUI),
-        node: () => spawn(machineNode),
-      }),
-      on: {
-        [EventNameApp.FETCH_DATA]: {
-          target: StateNameApp.LOADING,
+export const createMachineApp = (nodeService: NodeServiceEntity) => {
+  return Machine<ContextApp, StateSchemaApp, EventApp>({
+    id: 'app',
+    initial: StateNameApp.INIT,
+    context: {
+      node: null,
+      modal: null,
+      layout: null,
+      nodeService,
+    },
+    states: {
+      [StateNameApp.INIT]: {
+        entry: assign<ContextApp, EventApp>({
+          modal: () => spawn(machineModal),
+          layout: () => spawn(machineLayout),
+          node: (ctx: ContextApp) => spawn(createMachineNode(ctx.nodeService)),
+        }),
+        always: StateNameApp.IDLE,
+      },
+      [StateNameApp.IDLE]: {
+        on: {
+          [EventNameApp.FETCH_DATA]: {
+            target: StateNameApp.LOADING,
+          },
+          [EventNameApp.CREATED_NODE]: {
+            actions: [
+              send(EventNameModal.CLOSE, { to: (ctx) => ctx.modal as any }), // TODO: fix type
+            ],
+          },
+          [EventNameApp.EDITING_NODE]: {
+            actions: [
+              send(EventNameModal.OPEN, { to: (ctx) => ctx.modal as any }), // TODO: fix type
+            ],
+          },
+          [EventNameApp.EDITED_NODE]: {
+            actions: [
+              send(EventNameModal.CLOSE, { to: (ctx) => ctx.modal as any }), // TODO: fix type
+            ],
+          },
         },
       },
+      [StateNameApp.LOADING]: {},
+      [StateNameApp.READY]: {},
     },
-    [StateNameApp.LOADING]: {
-      // after: {
-      //   1000: StateNameApp.READY,
-      // },
-    },
-    [StateNameApp.READY]: {},
-  },
-})
+  })
+}

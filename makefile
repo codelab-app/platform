@@ -41,44 +41,14 @@ build-prod:
 # Generate
 #
 
-generate-prisma:
-	npx prisma generate --schema libs/api/prisma/schema.prisma
-
 generate-graphql:
-	npx graphql-codegen --config codegen.yml
+	npx graphql-codegen --config codegen.yaml
 
 generate-graphql-watch:
-	npx graphql-codegen --config codegen.yml --watch "apps/api/src/assets/**/*.graphql"
-
-
-#
-# Docker
-#
-
-# local usage
-docker-start:
-	# yarn --frozen-lockfile; \
-	# make build-prod; \
-	# yarn --frozen-lockfile --prod;
-	docker-compose \
-	-f .docker/docker-compose.yml \
-	up --build app
-
-docker-build:
-	docker-compose \
-  --verbose \
-  -f .docker/docker-compose.yml \
-  build app
-
-docker-push:
-	docker-compose \
-		-f .docker/docker-compose.yml \
-		push app
-
-docker-log:
-	docker-compose \
-		-f .docker/docker-compose.yml \
-		up fluentd
+	@npx chokidar "apps/api/gateway/src/assets/**/*.graphql" "codegen.yaml" \
+		-t 1000 \
+		-c "wait-on http://localhost:4000 \
+		&& make generate-graphql"
 
 #
 # LINT
@@ -125,12 +95,18 @@ test-ci:
 #
 
 start-dev:
-	npx nx run-many \
-		--maxParallel=6 \
+	@npx concurrently \
+		--names="start,codegen" \
+		"make start-dev-projects" \
+		"make generate-graphql-watch"
+
+start-dev-projects:
+	@npx nx run-many \
 		--target=serve \
-		--projects=api-gateway,web \
 		--with-deps \
-		--parallel
+		--projects=api-gateway,web \
+		--parallel \
+		--maxParallel=10
 
 start-api:
 	npx nx serve api-gateway \

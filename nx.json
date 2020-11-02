@@ -74,7 +74,8 @@
       "tags": []
     },
     "web": {
-      "tags": []
+      "tags": [],
+      "implicitDependencies": ["state-apollo"]
     },
     "core-renderer": {
       "tags": []
@@ -120,7 +121,7 @@
     "api-federation-node": {
       "tags": []
     },
-    "state-ui": {
+    "state-layout": {
       "tags": []
     },
     "api-federation-props": {

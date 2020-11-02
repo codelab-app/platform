@@ -2,7 +2,6 @@
 
 set -ex
 
-
 # Create an alpine container that mounts
 # -v [name of volume]:[container path to mount]
 

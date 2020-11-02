@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -x
+
 # Mounts pwd of host to /app in container
 
 docker run -it \
