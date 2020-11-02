@@ -16,4 +16,3 @@ RUN ls
 RUN ls -al node_modules | head -10
 
 # At runtime need to specify `EXPOSE`, `ENTRYPOINT`
-
