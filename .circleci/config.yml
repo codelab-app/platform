@@ -161,6 +161,11 @@ commands:
           mentions: $SLACK_USER
 
 jobs:
+  j-setup-node-version:
+    <<: *executor-params
+    steps:
+      - setup-node-version
+
   install-and-build-workspace:
     <<: *executor-params
     steps:
@@ -210,7 +215,6 @@ jobs:
   build-and-push-docker-image:
     <<: *executor-params
     steps:
-      - setup-node-version
       - setup-workspace
       - yarn-install-prod
       - run:
@@ -257,6 +261,8 @@ workflows:
 
   app-staging:
     jobs:
+      - j-setup-node-version:
+          <<: *filters-staging
       - install-and-build-workspace:
           <<: *filters-staging
       - build-and-push-docker-image:
