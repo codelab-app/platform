@@ -9,29 +9,24 @@
   },
   "engines": {
     "node": ">=13",
-    "yarn": "1.22.5"
+    "yarn": ">=1.20.0"
   },
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
     "nx": "nx",
     "build": "make build-dev",
-    "init": "make init",
     "start": "make start-dev",
-    "docker": "./scripts/docker/start.sh",
     "test": "make test-dev",
     "commit": "git-cz",
-    "lint": "nx workspace-lint && nx lint",
-    "e2e": "nx e2e",
-    "affected:dep-graph": "nx affected:dep-graph",
-    "affected": "nx affected",
-    "format": "nx format:write",
-    "format:write": "nx format:write",
-    "format:check": "nx format:check",
-    "update": "nx migrate latest",
-    "workspace-schematic": "nx workspace-schematic",
-    "dep-graph": "nx dep-graph",
-    "help": "nx help"
+    "docker:build": "./scripts/docker/build.sh",
+    "docker:up": "./scripts/docker/up.sh",
+    "docker:push": "./scripts/docker/push.sh",
+    "kube:apply": "cd .kubernetes && ./setup.sh",
+    "start:prod:web": "pm2-runtime dist/apps/web/pm2.json",
+    "start:prod:api-gateway": "pm2-runtime dist/apps/api/gateway/pm2.json",
+    "start:prod:api-federation-nodes": "pm2-runtime dist/apps/api/federation/nodes/pm2.json",
+    "start:prod:api-federation-props": "pm2-runtime dist/apps/api/federation/props/pm2.json"
   },
   "private": true,
   "dependencies": {
@@ -205,7 +200,6 @@
     "eslint-import-resolver-typescript": "2.3.0",
     "eslint-plugin-cypress": "2.11.2",
     "eslint-plugin-import": "2.22.1",
-    "eslint-plugin-json": "2.1.2",
     "eslint-plugin-jsx-a11y": "6.3.1",
     "eslint-plugin-prettier": "3.1.4",
     "eslint-plugin-react": "7.21.4",

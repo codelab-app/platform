@@ -3,15 +3,15 @@
  * Needs to use require since .eslintrc loads using commonjs
  */
 export {}
-const yaml = require('js-yaml')
 const fs = require('fs')
 const path = require('path')
+const yaml = require('js-yaml')
 // const util = require('util')
 
 let eslintrc: any
 
 try {
-  const file = path.resolve(__dirname, '../.eslintrc.base.yml')
+  const file = path.resolve(__dirname, '../.eslintrc.base.yaml')
 
   eslintrc = yaml.safeLoad(fs.readFileSync(file, 'utf8'))
   // console.log(util.inspect(doc, false, null, true))
