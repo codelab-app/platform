@@ -1,7 +1,9 @@
 import { INestApplication } from '@nestjs/common'
 import { Test } from '@nestjs/testing'
 import request from 'supertest'
-import { AppModule } from './app.module'
+import { GraphqlConfigModule } from './graphql-config/graphql-config.module'
+import { ConfigModule } from '@codelab/api/providers/config'
+import { LoggerModule } from '@codelab/api/providers/logger'
 
 class RequestBuilder {
   static async executeQuery(
@@ -31,7 +33,11 @@ describe('AppModule', () => {
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
-      imports: [AppModule],
+      imports: [
+        LoggerModule,
+        ConfigModule.forRoot('.test.env'),
+        GraphqlConfigModule,
+      ],
     }).compile()
 
     app = moduleRef.createNestApplication()
@@ -45,7 +51,7 @@ describe('AppModule', () => {
     const mutation = (id: string, type: string): string => {
       return `
         mutation {
-        CreateNode (id: ${id}, type: ${type}) {
+          CreateNode (id: ${id}, type: ${type}) {
               id,
               type
             } 
@@ -102,7 +108,7 @@ describe('AppModule', () => {
     }`
     // Clear whole graph
 
-    await RequestBuilder.executeQuery(query, app)
+    // await RequestBuilder.executeQuery(query, app)
     await app.close()
   })
 })

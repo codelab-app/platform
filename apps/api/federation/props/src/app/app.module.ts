@@ -40,7 +40,7 @@ import {
         }
       },
     }),
-    ConfigModule,
+    ConfigModule.forRoot(),
   ],
   controllers: [AppController],
   providers: [AppService],
