@@ -210,8 +210,8 @@ jobs:
   build-and-push-docker-image:
     <<: *executor-params
     steps:
-      - setup-workspace
       - setup-node-version
+      - setup-workspace
       - yarn-install-prod
       - run:
           name: 'Build Docker image'
