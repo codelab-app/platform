@@ -5,16 +5,12 @@ set -x
 SERVICES="$*"
 
 if [ "$CI" != true ]; then
+  env > ./.env
   yarn
-
   yarn build
-
   yarn --prod
-
   rm -rf node_modules/.cache
 fi
-
-cp .env.example .env
 
 docker-compose \
   --verbose \
