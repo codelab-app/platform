@@ -10,4 +10,4 @@ docker run \
   --env NEXT_PUBLIC_API_ORIGIN=http://localhost:4000 \
   --env NEXT_PUBLIC_API_PATHNAME=api/v1 \
   codelabai/codelab:0.01 \
-  /usr/local/bin/yarn start:prod:web
+  yarn start:prod:web
