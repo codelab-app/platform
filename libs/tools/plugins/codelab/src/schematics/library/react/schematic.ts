@@ -91,6 +91,13 @@ export const createReactLibrary = (options: NormalizedSchema): Rule => {
   })
 }
 
+export const createStorybookLibrary = (options: NormalizedSchema): Rule => {
+  return externalSchematic('@nrwl/storybook', 'configuration', {
+    name: options.name,
+    uiFramework: '@storybook/react',
+  })
+}
+
 export default function (options: ReactSchematicSchema): Rule {
   const normalizedOptions = normalizeOptions(options)
 
@@ -100,7 +107,8 @@ export default function (options: ReactSchematicSchema): Rule {
        * We want to extend the `@nrwl/react` schematics, and override the eslintrc file.
        */
       createReactLibrary(normalizedOptions),
-      createFiles(normalizedOptions),
+      createStorybookLibrary(normalizedOptions),
+      // createFiles(normalizedOptions),
       removeFiles(normalizedOptions),
     ])
   }

@@ -73,7 +73,8 @@
       ],
       "@codelab/api/providers/router": [
         "libs/api/providers/router/src/index.ts"
-      ]
+      ],
+      "@codelab/test": ["libs/test/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"]

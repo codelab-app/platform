@@ -8,6 +8,7 @@
     "wayou.vscode-todo-highlight",
     "graphql.vscode-graphql",
     "dbaeumer.vscode-eslint",
-    "mikestead.dotenv"
+    "mikestead.dotenv",
+    "firsttris.vscode-jest-runner"
   ]
 }

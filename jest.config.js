@@ -46,5 +46,6 @@ module.exports = {
     '<rootDir>/libs/api/services/props',
     '<rootDir>/libs/api/services/node',
     '<rootDir>/apps/api/external',
+    '<rootDir>/libs/test',
   ],
 }
