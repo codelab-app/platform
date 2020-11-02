@@ -113,6 +113,7 @@ commands:
     description: 'Setup workspace'
     steps:
       - checkout
+      - setup-node-version
       - setup-env
       - attach_workspace:
           at: ..
