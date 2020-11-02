@@ -11,7 +11,7 @@ if [ "$CI" != true ]; then
   rm -rf node_modules/.cache
 fi
 
-env > ./env
+env > ./.env
 
 docker-compose \
   --verbose \

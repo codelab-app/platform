@@ -257,6 +257,7 @@ workflows:
       - build-and-push-docker-image:
           <<: *filters-staging
           context: credentials-docker
+          e: docker-node
           requires:
             - install-and-build-workspace
       - notify-success:
