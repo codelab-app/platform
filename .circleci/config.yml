@@ -161,10 +161,23 @@ commands:
           mentions: $SLACK_USER
 
 jobs:
-  j-setup-node-version:
+
+  install-and-build-workspace-staging:
     <<: *executor-params
     steps:
       - setup-node-version
+      - setup-env
+      - checkout
+      - yarn-install-dev
+      - run:
+          name: 'Build CI'
+          command: make build-ci
+      - persist_to_workspace:
+          root: ..
+          paths:
+            - app/node_modules
+            - app/dist
+      - notify-failure
 
   install-and-build-workspace:
     <<: *executor-params
@@ -261,9 +274,7 @@ workflows:
 
   app-staging:
     jobs:
-      - j-setup-node-version:
-          <<: *filters-staging
-      - install-and-build-workspace:
+      - install-and-build-workspace-staging:
           <<: *filters-staging
       - build-and-push-docker-image:
           <<: *filters-staging
