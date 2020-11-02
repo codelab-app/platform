@@ -66,6 +66,18 @@ executors:
     resource_class: large
 
 commands:
+  setup-node-version:
+    description: "Set node version"
+    steps:
+      - run:
+          name: 'Set node version'
+          command: |
+            echo 'export NVM_DIR="/opt/circleci/.nvm"' >> $BASH_ENV
+            echo ' [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> $BASH_ENV
+            nvm install 14.13.0
+            nvm alias default 14.13.0
+            node -v
+
   setup-env:
     description: 'Setup env'
     steps:
@@ -75,14 +87,6 @@ commands:
             echo 'export NODE_OPTIONS=$NODE_OPTIONS' >> $BASH_ENV
             source $BASH_ENV
             echo $NODE_OPTIONS
-      - run:
-          name: 'Set node version'
-          command: |
-            echo 'export NVM_DIR="/opt/circleci/.nvm"' >> $BASH_ENV
-            echo ' [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> $BASH_ENV
-            nvm install 14.13.0
-            nvm alias default 14.13.0
-            node -v
       - run:
           name: 'Setup GIT_COMMIT_MSG'
           command: |
@@ -207,6 +211,7 @@ jobs:
     <<: *executor-params
     steps:
       - setup-workspace
+      - setup-node-version
       - yarn-install-prod
       - run:
           name: 'Build Docker image'
