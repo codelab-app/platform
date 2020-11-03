@@ -79,15 +79,16 @@ commands:
       - run:
           name: 'Install NVM'
           command: |
-            wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
-
             # Docker executor
             echo 'export NVM_DIR=$HOME/.nvm' >> $BASH_ENV
             echo 'source $NVM_DIR/nvm.sh' >> $BASH_ENV
 
             # Machine executor
-            echo 'export NVM_DIR=/opt/circleci/.nvm' >> $BASH_ENV
-            echo 'source $NVM_DIR/nvm.sh' >> $BASH_ENV
+            # echo 'export NVM_DIR=/opt/circleci/.nvm' >> $BASH_ENV
+            # echo 'source $NVM_DIR/nvm.sh' >> $BASH_ENV
+
+            wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+
       - run:
           name: 'Set node version'
           command: |
