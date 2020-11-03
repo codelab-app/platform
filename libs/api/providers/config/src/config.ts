@@ -13,7 +13,7 @@ export enum ApiConfigTypes {
   NEO4J_PASS,
   // Services name
   /**
-   * These values aren't loaded from .env file
+   * These values aren't loaded from .env.dev file
    */
   FEDERATION_PROPS_NAME = 'api.federation.props',
   FEDERATION_USER_NAME = 'api.services.user',

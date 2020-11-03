@@ -1,11 +1,9 @@
 import * as path from 'path'
-import { Inject, Logger, OnModuleInit } from '@nestjs/common'
+import { Inject, OnModuleInit } from '@nestjs/common'
 import {
   Args,
   Directive,
-  Field,
   Mutation,
-  ObjectType,
   Query,
   ResolveReference,
   Resolver,
@@ -39,16 +37,6 @@ const clientOptions: ClientOptions = {
       'apps/api/federation/props/src/proto/props.proto',
     ),
   },
-}
-
-@ObjectType()
-class DeleteResponse {
-  constructor(response: any) {
-    this.result = response
-  }
-
-  @Field((returns) => GraphQLJSONObject!)
-  result: any
 }
 
 @Resolver(() => Node)
@@ -88,12 +76,8 @@ export class NodeResolvers implements OnModuleInit {
     return this.nodeService.createProps(input)
   }
 
-  @Query(() => DeleteResponse)
+  @Query(() => GraphQLJSONObject!)
   async clearGraph() {
-    Logger.log('clearing graph', 'node.resolvers.ts')
-
-    return new DeleteResponse(
-      await this.neo4jNodeService.run(`MATCH (n) DETACH DELETE n`),
-    )
+    return this.neo4jNodeService.run(`MATCH (n) DETACH DELETE n`)
   }
 }

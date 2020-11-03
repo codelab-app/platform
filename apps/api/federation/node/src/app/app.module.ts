@@ -8,8 +8,9 @@ import { LoggerModule } from '@codelab/api/providers/logger'
 @Module({
   imports: [
     LoggerModule,
-    // ConfigModule.forRoot('.test.env'),
-    ConfigModule.forRoot(),
+    // ConfigModule.forRoot('.env.dev'),
+    ConfigModule.forRoot('.test.env'),
+    // ConfigModule.forRoot(),
     // Main
     GraphqlConfigModule,
   ],

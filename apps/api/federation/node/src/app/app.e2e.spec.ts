@@ -29,7 +29,6 @@ class RequestBuilder {
 
 describe('AppModule', () => {
   let app: INestApplication
-  let httpServer
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
@@ -41,8 +40,6 @@ describe('AppModule', () => {
     }).compile()
 
     app = moduleRef.createNestApplication()
-    httpServer = app.getHttpServer()
-    // Logger.log(httpServer, 'app.e2e.spec.ts')
 
     await app.init()
   })
@@ -85,6 +82,126 @@ describe('AppModule', () => {
     )
   })
 
+  it('Link parents to children', async () => {
+    const mutation = (fromId: string, toId: string) => {
+      return `
+        mutation {
+          AddNodeChildren(from: {id: ${fromId}}, to: {id: ${toId}}) {
+            from {
+              id,
+              type
+            },
+            to {
+              id,
+              type
+            }
+          }
+        }
+    `
+    }
+
+    await RequestBuilder.executeQuery(mutation('1', '2'), app)
+    await RequestBuilder.executeQuery(mutation('1', '3'), app)
+    await RequestBuilder.executeQuery(mutation('1', '4'), app)
+
+    const query = `{
+      Node(id: "1") {
+        id,
+        type,
+        children {
+          id, type 
+        }
+      }
+    }`
+
+    await RequestBuilder.executeQuery(query, app, 'Node', [
+      {
+        id: '1',
+        type: 'REACT_DIV',
+        children: [
+          {
+            id: '4',
+            type: 'REACT_HTML_P',
+          },
+          {
+            id: '3',
+            type: 'REACT_HTML_A',
+          },
+          {
+            id: '2',
+            type: 'REACT_BUTTON',
+          },
+        ],
+      },
+    ])
+  })
+
+  it('Link children to parent', async () => {
+    const mutation = (fromId: string, toId: string) => {
+      return `
+        mutation {
+           AddNodeParent(from: {id: ${fromId}}, to: {id: ${toId}}) {
+            from {
+              id,
+              type
+            },
+            to {
+              id,
+              type
+            }
+          }
+        }
+      `
+    }
+
+    await RequestBuilder.executeQuery(mutation('2', '1'), app)
+    await RequestBuilder.executeQuery(mutation('3', '1'), app)
+    await RequestBuilder.executeQuery(mutation('4', '1'), app)
+
+    const query = (id: string) => {
+      return `{
+        Node(id: ${id}) {
+          id,
+          type,
+          parent {
+            id, type 
+          }
+        }
+      }`
+    }
+
+    await RequestBuilder.executeQuery(query('4'), app, 'Node', [
+      {
+        id: '4',
+        type: 'REACT_HTML_P',
+        parent: {
+          id: '1',
+          type: 'REACT_DIV',
+        },
+      },
+    ])
+    await RequestBuilder.executeQuery(query('3'), app, 'Node', [
+      {
+        id: '3',
+        type: 'REACT_HTML_A',
+        parent: {
+          id: '1',
+          type: 'REACT_DIV',
+        },
+      },
+    ])
+    await RequestBuilder.executeQuery(query('2'), app, 'Node', [
+      {
+        id: '2',
+        type: 'REACT_BUTTON',
+        parent: {
+          id: '1',
+          type: 'REACT_DIV',
+        },
+      },
+    ])
+  })
+
   it(`Get Nodes`, async () => {
     await RequestBuilder.executeQuery('{Node(id: 1) {id type }}', app, 'Node', [
       { id: '1', type: 'REACT_DIV' },
@@ -100,6 +217,21 @@ describe('AppModule', () => {
     ])
   })
 
+  it('Should Delete Node', async () => {
+    const mutation = `
+      mutation {
+        DeleteNode(id: 3) {
+          id, type
+        }
+      }
+    `
+
+    await RequestBuilder.executeQuery(mutation, app, 'DeleteNode', {
+      id: '3',
+      type: 'REACT_HTML_A',
+    })
+  })
+
   afterAll(async () => {
     const query = `{
        clearGraph {
@@ -108,8 +240,7 @@ describe('AppModule', () => {
     }`
     // Clear whole graph
 
-    // await RequestBuilder.executeQuery(query, app)
+    await RequestBuilder.executeQuery(query, app)
     await app.close()
   })
 })
-// Logger.log(process.cwd());
