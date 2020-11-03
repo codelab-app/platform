@@ -72,6 +72,7 @@ commands:
       - run:
           name: 'Setup node options'
           command: |
+            echo $BASH_ENV
             echo 'export NODE_OPTIONS=$NODE_OPTIONS' >> $BASH_ENV
             source $BASH_ENV
             echo $NODE_OPTIONS
@@ -82,12 +83,11 @@ commands:
 
             # Docker executor
             echo 'export NVM_DIR=$HOME/.nvm' >> $BASH_ENV
+            echo 'source $NVM_DIR/nvm.sh' >> $BASH_ENV
 
             # Machine executor
-            # echo 'export NVM_DIR=/opt/circleci/.nvm' >> $BASH_ENV
-
+            echo 'export NVM_DIR=/opt/circleci/.nvm' >> $BASH_ENV
             echo 'source $NVM_DIR/nvm.sh' >> $BASH_ENV
-            echo 'source /opt/circleci/.nvm/nvm.sh' >> $BASH_ENV
       - run:
           name: 'Set node version'
           command: |
