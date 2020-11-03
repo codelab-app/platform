@@ -8,8 +8,8 @@
 filters-dev: &filters-dev
   filters:
     branches:
-      only: /^.*$/
-      # only: /^never$/
+      # only: /^.*$/
+      only: /^never$/
     # tags:
     #   ignore: /^master$/
     #   ignore: /^staging-.*$/
@@ -17,9 +17,9 @@ filters-dev: &filters-dev
 filters-staging: &filters-staging
   filters:
     branches:
-      # only: /^.*$/
+      only: /^.*$/
+      # only: /^never$/
       # only: /^master$/
-      only: /^never$/
     # tags:
     #   only: /^staging-.*$/
 
@@ -79,16 +79,10 @@ commands:
       - run:
           name: 'Install NVM'
           command: |
-            # Docker executor
+            # Set path before install, otherwise paths will be different in the executors
             echo 'export NVM_DIR=$HOME/.nvm' >> $BASH_ENV
             echo 'source $NVM_DIR/nvm.sh' >> $BASH_ENV
-
-            # Machine executor
-            # echo 'export NVM_DIR=/opt/circleci/.nvm' >> $BASH_ENV
-            # echo 'source $NVM_DIR/nvm.sh' >> $BASH_ENV
-
             wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
-
       - run:
           name: 'Set node version'
           command: |
