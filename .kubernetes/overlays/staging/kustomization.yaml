@@ -6,10 +6,10 @@ bases:
 
 # resources:
 #   - deployment.yaml
-patchesStrategicMerge:
-  - deployment.yaml
+# patchesStrategicMerge:
+#   - deployment.yaml
 
-namespace: codelab
+# namespace: codelab
 namePrefix: staging-
 # configMapGenerator:
 # - name: env-config

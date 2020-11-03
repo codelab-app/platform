@@ -62,7 +62,7 @@ executors:
   docker-node:
     <<: *executor-config
     docker:
-      - image: circleci/node:14-browsers
+      - image: cimg/node:14.15.0-browsers
     resource_class: large
 
 commands:
@@ -75,7 +75,6 @@ commands:
             echo 'export NODE_OPTIONS=$NODE_OPTIONS' >> $BASH_ENV
             source $BASH_ENV
             echo $NODE_OPTIONS
-      # Commented out, didn't work with docker executor
       # - run:
       #     name: 'Set node version'
       #     command: |
