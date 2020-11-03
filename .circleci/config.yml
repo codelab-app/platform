@@ -8,8 +8,8 @@
 filters-dev: &filters-dev
   filters:
     branches:
-      only: /^.*$/
-      # only: /^never$/
+      # only: /^.*$/
+      only: /^never$/
     # tags:
     #   ignore: /^master$/
     #   ignore: /^staging-.*$/
@@ -17,9 +17,9 @@ filters-dev: &filters-dev
 filters-staging: &filters-staging
   filters:
     branches:
-      # only: /^.*$/
+      only: /^.*$/
       # only: /^master$/
-      only: /^never$/
+      # only: /^never$/
     # tags:
     #   only: /^staging-.*$/
 
@@ -79,14 +79,18 @@ commands:
           name: 'Install NVM'
           command: |
             wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
-            export NVM_DIR="$HOME/.nvm"
-            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-            [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+            # Docker executor
+            echo 'export NVM_DIR=$HOME/.nvm' >> $BASH_ENV
+
+            # Machine executor
+            # echo 'export NVM_DIR=/opt/circleci/.nvm' >> $BASH_ENV
+
+            echo 'source $NVM_DIR/nvm.sh' >> $BASH_ENV
+            echo 'source /opt/circleci/.nvm/nvm.sh' >> $BASH_ENV
       - run:
           name: 'Set node version'
           command: |
-            echo 'export NVM_DIR="/opt/circleci/.nvm"' >> $BASH_ENV
-            echo ' [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> $BASH_ENV
             nvm install 14.13.0
             nvm alias default 14.13.0
             node -v
