@@ -1,8 +1,8 @@
+import * as path from 'path'
 import { Tree } from '@angular-devkit/schematics'
 import { SchematicTestRunner } from '@angular-devkit/schematics/testing'
 import { readJsonInTree, serializeJson } from '@nrwl/workspace'
 import { createEmptyWorkspace } from '@nrwl/workspace/testing'
-import * as path from 'path'
 
 describe('update-0.0.2', () => {
   let initialTree: Tree

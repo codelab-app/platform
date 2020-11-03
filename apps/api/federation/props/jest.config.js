@@ -10,5 +10,5 @@ module.exports = {
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
   coverageDirectory: '../../../../coverage/apps/api/services/props',
-  displayName: 'api-services-props',
+  displayName: 'api-federation-props',
 }

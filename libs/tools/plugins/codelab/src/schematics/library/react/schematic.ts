@@ -1,3 +1,4 @@
+import * as path from 'path'
 import {
   MergeStrategy,
   Rule,
@@ -67,9 +68,13 @@ const removeFiles = (options: NormalizedSchema): Rule => {
   }
 }
 
-const createFiles = (options: NormalizedSchema): Rule => {
+export const createStorybookProjectFiles = (
+  options: Pick<NormalizedSchema, 'name' | 'projectRoot'>,
+): Rule => {
+  const filesPath = path.resolve(__dirname, './files')
+
   return mergeWith(
-    apply(url(`./files`), [
+    apply(url(filesPath), [
       applyTemplates({
         ...options,
         ...names(options.name),
@@ -98,7 +103,7 @@ export const createStorybookLibrary = (options: NormalizedSchema): Rule => {
   })
 }
 
-export default function (options: ReactSchematicSchema): Rule {
+export default (options: ReactSchematicSchema): Rule => {
   const normalizedOptions = normalizeOptions(options)
 
   return (host: Tree, context: SchematicContext) => {
@@ -108,7 +113,7 @@ export default function (options: ReactSchematicSchema): Rule {
        */
       createReactLibrary(normalizedOptions),
       createStorybookLibrary(normalizedOptions),
-      // createFiles(normalizedOptions),
+      createStorybookProjectFiles(normalizedOptions),
       removeFiles(normalizedOptions),
     ])
   }
