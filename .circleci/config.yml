@@ -8,12 +8,12 @@
 filters-dev: &filters-dev
   filters:
     branches:
-      only: /^.*$/
+      only: /never/
 
 filters-staging: &filters-staging
   filters:
     branches:
-      only: /never/
+      only: /^.*$/
     # tags:
     #   ignore: /^master$/
     #   ignore: /^staging-.*$/
@@ -160,24 +160,7 @@ commands:
 
 jobs:
 
-  install-and-build-workspace-staging:
-    <<: *executor-params
-    steps:
-      - setup-node-version
-      - setup-env
-      - checkout
-      - yarn-install-dev
-      - run:
-          name: 'Build CI'
-          command: make build-ci
-      - persist_to_workspace:
-          root: ..
-          paths:
-            - app/node_modules
-            - app/dist
-      - notify-failure
-
-  install-and-build-workspace-dev:
+  install-and-build-workspace:
     <<: *executor-params
     steps:
       - setup-node-version
@@ -254,19 +237,19 @@ jobs:
 workflows:
   app-dev:
     jobs:
-      - install-and-build-workspace-dev:
+      - install-and-build-workspace:
           <<: *filters-dev
           e: docker-node
       - lint:
           <<: *filters-dev
           e: docker-node
           requires:
-            - install-and-build-workspace-dev
+            - install-and-build-workspace
       - test:
           <<: *filters-dev
           e: docker-node
           requires:
-            - install-and-build-workspace-dev
+            - install-and-build-workspace
       - notify-success:
           <<: *filters-dev
           e: docker-node
@@ -276,13 +259,13 @@ workflows:
 
   app-staging:
     jobs:
-      - install-and-build-workspace-staging:
+      - install-and-build-workspace:
           <<: *filters-staging
       - build-and-push-docker-image:
           <<: *filters-staging
           context: credentials-docker
           requires:
-            - install-and-build-workspace-staging
+            - install-and-build-workspace
       - notify-success:
           <<: *filters-staging
           requires:
