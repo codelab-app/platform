@@ -148,9 +148,6 @@
     },
     "api-external": {
       "tags": []
-    },
-    "test": {
-      "tags": []
     }
   }
 }

@@ -167,13 +167,6 @@
               "libs/shared/interface/node/**/*.d.ts"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/shared/interface/node/jest.config.js",
-            "passWithNoTests": true
-          }
         }
       }
     },
@@ -197,13 +190,6 @@
               "libs/shared/interface/graph/**/*.spec.jsx",
               "libs/shared/interface/graph/**/*.d.ts"
             ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/shared/interface/graph/jest.config.js",
-            "passWithNoTests": true
           }
         }
       }
@@ -229,13 +215,6 @@
               "libs/shared/interface/props/**/*.d.ts"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/shared/interface/props/jest.config.js",
-            "passWithNoTests": true
-          }
         }
       }
     },
@@ -260,13 +239,6 @@
               "libs/shared/interface/model/**/*.d.ts"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/shared/interface/model/jest.config.js",
-            "passWithNoTests": true
-          }
         }
       }
     },
@@ -290,13 +262,6 @@
               "libs/shared/interface/tree/**/*.spec.jsx",
               "libs/shared/interface/tree/**/*.d.ts"
             ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/shared/interface/tree/jest.config.js",
-            "passWithNoTests": true
           }
         }
       }
@@ -1231,13 +1196,6 @@
               "libs/shared/interface/component/**/*.d.ts"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/shared/interface/component/jest.config.js",
-            "passWithNoTests": true
-          }
         }
       }
     },
@@ -1795,57 +1753,6 @@
           "options": {
             "jestConfig": "apps/api/external/jest.config.js",
             "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "test": {
-      "root": "libs/test",
-      "sourceRoot": "libs/test/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/test/**/*.{ts,tsx,js,jsx}"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/test/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "storybook": {
-          "builder": "@nrwl/storybook:storybook",
-          "options": {
-            "uiFramework": "@storybook/react",
-            "port": 4400,
-            "config": {
-              "configFolder": "libs/test/.storybook"
-            }
-          },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          }
-        },
-        "build-storybook": {
-          "builder": "@nrwl/storybook:build",
-          "options": {
-            "uiFramework": "@storybook/react",
-            "outputPath": "dist/storybook/test",
-            "config": {
-              "configFolder": "libs/test/.storybook"
-            }
-          },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
           }
         }
       }
