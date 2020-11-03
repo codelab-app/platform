@@ -4,6 +4,12 @@ import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'Button',
+  parameters: {
+    data: {
+      Default: buttonData,
+      EvalButton: buttonEvalData,
+    },
+  },
 }
 
 export const Default = () => {

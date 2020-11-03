@@ -4,6 +4,11 @@ import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'Typography',
+  parameters: {
+    data: {
+      Default: typographyData,
+    },
+  },
 }
 
 export const Default = () => {

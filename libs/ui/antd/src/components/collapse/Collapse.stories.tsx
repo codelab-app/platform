@@ -4,6 +4,11 @@ import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'Collapse',
+  parameters: {
+    data: {
+      Default: collapseData,
+    },
+  },
 }
 
 export const Default = () => {

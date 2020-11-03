@@ -1,3 +1,4 @@
+import * as path from 'path'
 import {
   MergeStrategy,
   Rule,
@@ -67,9 +68,13 @@ const removeFiles = (options: NormalizedSchema): Rule => {
   }
 }
 
-const createFiles = (options: NormalizedSchema): Rule => {
+export const createStorybookProjectFiles = (
+  options: Pick<NormalizedSchema, 'name' | 'projectRoot'>,
+): Rule => {
+  const filesPath = path.resolve(__dirname, './files')
+
   return mergeWith(
-    apply(url(`./files`), [
+    apply(url(filesPath), [
       applyTemplates({
         ...options,
         ...names(options.name),
@@ -91,7 +96,14 @@ export const createReactLibrary = (options: NormalizedSchema): Rule => {
   })
 }
 
-export default function (options: ReactSchematicSchema): Rule {
+export const createStorybookLibrary = (options: NormalizedSchema): Rule => {
+  return externalSchematic('@nrwl/storybook', 'configuration', {
+    name: options.name,
+    uiFramework: '@storybook/react',
+  })
+}
+
+export default (options: ReactSchematicSchema): Rule => {
   const normalizedOptions = normalizeOptions(options)
 
   return (host: Tree, context: SchematicContext) => {
@@ -100,7 +112,8 @@ export default function (options: ReactSchematicSchema): Rule {
        * We want to extend the `@nrwl/react` schematics, and override the eslintrc file.
        */
       createReactLibrary(normalizedOptions),
-      createFiles(normalizedOptions),
+      createStorybookLibrary(normalizedOptions),
+      createStorybookProjectFiles(normalizedOptions),
       removeFiles(normalizedOptions),
     ])
   }

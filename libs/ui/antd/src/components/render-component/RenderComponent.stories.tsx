@@ -7,6 +7,11 @@ import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'RenderComponent',
+  parameters: {
+    data: {
+      Default: renderComponentData,
+    },
+  },
 }
 
 export const Default = () => {

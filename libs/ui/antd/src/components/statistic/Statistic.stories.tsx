@@ -4,6 +4,11 @@ import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'Statistic',
+  parameters: {
+    data: {
+      Default: statisticData,
+    },
+  },
 }
 
 export const Default = () => {

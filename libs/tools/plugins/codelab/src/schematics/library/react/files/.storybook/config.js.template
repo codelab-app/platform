@@ -1,6 +1,0 @@
-import { configure, addDecorator } from '@storybook/react'
-import { withKnobs } from '@storybook/addon-knobs'
-import '<%= offsetFromRoot %>../.storybook/addons'
-
-addDecorator(withKnobs)
-configure(require.context('../src', true, /\.stories\.(j|t)sx?$/), module)

@@ -4,6 +4,11 @@ import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'PageHeader',
+  parameters: {
+    data: {
+      Default: pageHeaderData,
+    },
+  },
 }
 
 export const Default = () => {

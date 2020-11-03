@@ -4,6 +4,11 @@ import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'Timeline',
+  parameters: {
+    data: {
+      Default: timelineData,
+    },
+  },
 }
 
 export const Default = () => {

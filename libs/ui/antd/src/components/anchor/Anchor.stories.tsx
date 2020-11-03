@@ -4,6 +4,11 @@ import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'Anchor',
+  parameters: {
+    data: {
+      Default: anchorData,
+    },
+  },
 }
 
 export const Default = () => {

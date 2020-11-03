@@ -4,6 +4,11 @@ import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'Html',
+  parameters: {
+    data: {
+      Default: divData,
+    },
+  },
 }
 
 export const div = () => {

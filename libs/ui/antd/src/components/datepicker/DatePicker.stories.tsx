@@ -4,6 +4,11 @@ import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'DatePicker',
+  parameters: {
+    data: {
+      Default: datePickerData,
+    },
+  },
 }
 
 export const Default = () => {

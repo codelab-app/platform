@@ -4,6 +4,11 @@ import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'Skeleton',
+  parameters: {
+    data: {
+      Default: skeletonData,
+    },
+  },
 }
 
 export const Default = () => {

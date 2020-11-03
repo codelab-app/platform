@@ -4,6 +4,11 @@ import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'Slider',
+  parameters: {
+    data: {
+      Default: sliderData,
+    },
+  },
 }
 
 export const Default = () => {

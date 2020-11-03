@@ -4,6 +4,11 @@ import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'Message',
+  parameters: {
+    data: {
+      Default: messageData,
+    },
+  },
 }
 
 export const Default = () => {

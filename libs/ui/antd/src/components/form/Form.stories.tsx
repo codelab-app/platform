@@ -10,6 +10,15 @@ import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'Form',
+  parameters: {
+    data: {
+      Default: formDefaultData,
+      ObjectForm: formObjectData,
+      ConditionalForm: formConditionData,
+      NodeForm: nodeFormData,
+      FormHooks: hooksData,
+    },
+  },
 }
 
 export const Default = () => {

@@ -4,6 +4,11 @@ import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'Calendar',
+  parameters: {
+    data: {
+      Default: calendarData,
+    },
+  },
 }
 
 export const Default = () => {

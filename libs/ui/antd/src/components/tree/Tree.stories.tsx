@@ -4,6 +4,11 @@ import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'Tree',
+  parameters: {
+    data: {
+      Default: treeData,
+    },
+  },
 }
 
 export const Default = () => {

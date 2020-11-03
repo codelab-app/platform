@@ -4,6 +4,11 @@ import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'Cascader',
+  parameters: {
+    data: {
+      Default: cascaderData,
+    },
+  },
 }
 
 export const Default = () => {

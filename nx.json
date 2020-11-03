@@ -12,7 +12,8 @@
     "tslint.json": "*",
     "nx.json": "*",
     "tsconfig.base.json": "*",
-    ".eslintrc.js": "*"
+    ".eslintrc.js": "*",
+    ".eslintrc.json": "*"
   },
   "tasksRunnerOptions": {
     "default": {

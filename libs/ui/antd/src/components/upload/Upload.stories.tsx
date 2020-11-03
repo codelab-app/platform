@@ -4,6 +4,11 @@ import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'Upload',
+  parameters: {
+    data: {
+      Default: uploadData,
+    },
+  },
 }
 
 export const Default = () => {

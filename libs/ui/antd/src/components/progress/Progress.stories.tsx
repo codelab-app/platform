@@ -4,6 +4,11 @@ import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'Progress',
+  parameters: {
+    data: {
+      Default: progressData,
+    },
+  },
 }
 
 export const Default = () => {

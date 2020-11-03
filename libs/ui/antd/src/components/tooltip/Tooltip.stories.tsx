@@ -4,6 +4,11 @@ import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'Tooltip',
+  parameters: {
+    data: {
+      Default: tooltipData,
+    },
+  },
 }
 
 export const Default = () => {

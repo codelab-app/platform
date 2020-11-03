@@ -4,6 +4,11 @@ import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'Carousel',
+  parameters: {
+    data: {
+      Default: carouselData,
+    },
+  },
 }
 
 export const Default = () => {

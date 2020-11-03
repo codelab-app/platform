@@ -4,6 +4,11 @@ import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'Badge',
+  parameters: {
+    data: {
+      Default: badgeData,
+    },
+  },
 }
 
 export const Default = () => {

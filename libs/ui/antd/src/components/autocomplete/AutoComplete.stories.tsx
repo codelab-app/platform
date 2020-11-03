@@ -4,6 +4,11 @@ import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'AutoComplete',
+  parameters: {
+    data: {
+      Default: autocompleteData,
+    },
+  },
 }
 
 export const Default = () => {

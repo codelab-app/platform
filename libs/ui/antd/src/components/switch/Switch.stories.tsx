@@ -4,6 +4,11 @@ import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'Switch',
+  parameters: {
+    data: {
+      Default: switchData,
+    },
+  },
 }
 
 export const Default = () => {

@@ -4,6 +4,11 @@ import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'Dropdown',
+  parameters: {
+    data: {
+      Default: dropdownData,
+    },
+  },
 }
 
 export const Default = () => {
