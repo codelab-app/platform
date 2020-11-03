@@ -10,7 +10,7 @@ kubectl apply -k overlays/staging
 #
 # Install external dependencies
 #
-./setup/argocd.sh
+# ./setup/argocd.sh
 ./setup/ambassador.sh
 
 

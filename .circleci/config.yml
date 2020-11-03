@@ -62,7 +62,7 @@ executors:
   docker-node:
     <<: *executor-config
     docker:
-      - image: circleci/node:14-browsers
+      - image: cimg/node:14.15.0-browsers
     resource_class: large
 
 commands:

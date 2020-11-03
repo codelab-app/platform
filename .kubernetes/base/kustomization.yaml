@@ -2,12 +2,15 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  - deployment.yaml
+  # - deployment.yaml
   - role-binding.yaml
   - role.yaml
   - service-account.yaml
-  - service.yaml
+  # - service.yaml
   - namespaces.yaml
+  # - mapping.yaml
+  - ambassador-demo.yaml
+  - ambassador.yaml
 # configMapGenerator:
 # - name: codelab-configmap
 #   files:
