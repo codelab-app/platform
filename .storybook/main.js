@@ -1,4 +1,7 @@
 module.exports = {
   stories: [],
-  addons: ['@storybook/addon-knobs/register'],
+  addons: [
+    require.resolve('./addons/register.tsx'),
+    '@storybook/addon-knobs/register',
+  ],
 }

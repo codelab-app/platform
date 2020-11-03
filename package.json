@@ -145,6 +145,7 @@
     "@nrwl/workspace": "10.3.1",
     "@prisma/cli": "2.9.0",
     "@storybook/addon-knobs": "6.0.28",
+    "@storybook/addons": "6.0.28",
     "@storybook/api": "6.0.28",
     "@storybook/components": "6.0.28",
     "@storybook/react": "6.0.28",
