@@ -19,6 +19,8 @@
     "start": "make start-dev",
     "test": "make test-dev",
     "commit": "git-cz",
+    "migration:generate": "nx migrate @nrwl/workspace@latest",
+    "migration:run": "nx migrate --run-migrations=migrations.json",
     "docker:build": "./scripts/docker/build.sh",
     "docker:up": "./scripts/docker/up.sh",
     "docker:push": "./scripts/docker/push.sh",

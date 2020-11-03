@@ -1,5 +1,5 @@
 import { withKnobs } from '@storybook/addon-knobs'
 import { addDecorator } from '@storybook/react'
-import '<%= offsetFromRoot %>../.storybook/preview'
+import '../../../../.storybook/preview'
 
 addDecorator(withKnobs)

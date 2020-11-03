@@ -5,7 +5,7 @@ import {
   chain,
   noop,
 } from '@angular-devkit/schematics'
-import { getWorkspacePath, readJsonInTree } from '@nrwl/workspace'
+import { formatFiles, getWorkspacePath, readJsonInTree } from '@nrwl/workspace'
 import { createStorybookProjectFiles } from '../../schematics/library/react/schematic'
 
 interface ProjectDefinition {
@@ -26,8 +26,6 @@ const update = (): Rule => {
 
     const rules = Object.entries<ProjectDefinition>(config.projects).reduce(
       (tmpRules: Array<Rule>, [projectName, projectConfig]) => {
-        console.log(projectConfig)
-
         const isStorybook = !!projectConfig.architect.storybook?.builder
 
         return [
@@ -49,6 +47,6 @@ const update = (): Rule => {
 
 export default () => {
   return (host: Tree, context: SchematicContext) => {
-    return chain([update()])
+    return chain([update(), formatFiles()])
   }
 }
