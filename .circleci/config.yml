@@ -73,7 +73,7 @@ commands:
             nvm install $NODE_VERSION
             nvm alias default $NODE_VERSION
             node -v
-  set-node-version-dev:
+  setup-node-version-dev:
     description: "Setup node for docker"
     steps:
       - run:
