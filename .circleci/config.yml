@@ -63,7 +63,7 @@ executors:
 
 commands:
   setup-node-version:
-    description: "Setup node for docker"
+    description: "Install node"
     steps:
       - run:
           name: 'Download and extract node'
@@ -112,6 +112,7 @@ commands:
     steps:
       - checkout
       - setup-env
+      - setup-node-version
       - attach_workspace:
           at: ..
 
@@ -159,12 +160,11 @@ commands:
           mentions: $SLACK_USER
 
 jobs:
-
   install-and-build-workspace:
     <<: *executor-params
     steps:
-      - setup-node-version
       - setup-env
+      - setup-node-version
       - checkout
       - yarn-install-dev
       - run:
@@ -182,7 +182,6 @@ jobs:
     environment:
       CIRCLE_BASE_REVISION: <<pipeline.git.base_revision>>
     steps:
-      - setup-node-version
       - setup-workspace
       - run: make lint-eslint
       - run: make lint-commit-ci
@@ -191,7 +190,6 @@ jobs:
   test:
     <<: *executor-params
     steps:
-      - setup-node-version
       - setup-workspace
       - run: make test-ci
       - notify-failure
@@ -212,7 +210,6 @@ jobs:
   build-and-push-docker-image:
     <<: *executor-params
     steps:
-      - setup-node-version
       - setup-workspace
       - yarn-install-prod
       - run:
