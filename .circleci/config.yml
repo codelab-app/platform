@@ -8,20 +8,15 @@
 filters-dev: &filters-dev
   filters:
     branches:
-      only: /^.*$/
-      # only: /^never$/
-    # tags:
-    #   ignore: /^master$/
-    #   ignore: /^staging-.*$/
+      only: /never/
 
 filters-staging: &filters-staging
   filters:
     branches:
-      # only: /^.*$/
-      # only: /^master$/
-      only: /^never$/
+      only: /^.*$/
     # tags:
-    #   only: /^staging-.*$/
+    #   ignore: /^master$/
+    #   ignore: /^staging-.*$/
 
 executor-params: &executor-params
   parameters:
@@ -43,6 +38,7 @@ executor-config: &executor-config
     SLACK_CHANNEL_UPDATE: CQVPNKS8K
     COLOR_SUCCESS: '#b7eb8f'
     COLOR_FAILURE: '#ffccc7'
+    NODE_VERSION: "14.13.0"
     NODE_OPTIONS: --max_old_space_size=8192
     NODE_ENV: production
   working_directory: ~/app
@@ -66,6 +62,31 @@ executors:
     resource_class: large
 
 commands:
+  setup-node-version-staging:
+    description: "Set node version"
+    steps:
+      - run:
+          name: 'Set node version'
+          command: |
+            echo 'export NVM_DIR="/opt/circleci/.nvm"' >> $BASH_ENV
+            echo ' [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> $BASH_ENV
+            nvm install $NODE_VERSION
+            nvm alias default $NODE_VERSION
+            node -v
+  set-node-version-dev:
+    description: "Setup node for docker"
+    steps:
+      - run:
+          name: 'Download and extract node'
+          command: |
+            wget -O ~/node.tar.gz https://nodejs.org/download/release/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz
+            mkdir -p ~/node ~/.local/bin
+            echo "Path is: $PATH"
+            tar  xzf ~/node.tar.gz  --strip-components  1 -C ~/node
+            ln -s /home/circleci/node/bin/node ~/.local/bin/
+            ln -s /home/circleci/node/bin/npx ~/.local/bin/
+            ln -s /home/circleci/node/bin/npm ~/.local/bin/
+            node -v
   setup-env:
     description: 'Setup env'
     steps:
@@ -75,15 +96,6 @@ commands:
             echo 'export NODE_OPTIONS=$NODE_OPTIONS' >> $BASH_ENV
             source $BASH_ENV
             echo $NODE_OPTIONS
-      # Commented out, didn't work with docker executor
-      # - run:
-      #     name: 'Set node version'
-      #     command: |
-      #       echo 'export NVM_DIR="/opt/circleci/.nvm"' >> $BASH_ENV
-      #       echo ' [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> $BASH_ENV
-      #       nvm install 14.13.0
-      #       nvm alias default 14.13.0
-      #       node -v
       - run:
           name: 'Setup GIT_COMMIT_MSG'
           command: |
@@ -158,9 +170,28 @@ commands:
           mentions: $SLACK_USER
 
 jobs:
-  install-and-build-workspace:
+
+  install-and-build-workspace-staging:
     <<: *executor-params
     steps:
+      - setup-node-version-staging
+      - setup-env
+      - checkout
+      - yarn-install-dev
+      - run:
+          name: 'Build CI'
+          command: make build-ci
+      - persist_to_workspace:
+          root: ..
+          paths:
+            - app/node_modules
+            - app/dist
+      - notify-failure
+
+  install-and-build-workspace-dev:
+    <<: *executor-params
+    steps:
+      - setup-node-version-dev
       - setup-env
       - checkout
       - yarn-install-dev
@@ -179,6 +210,7 @@ jobs:
     environment:
       CIRCLE_BASE_REVISION: <<pipeline.git.base_revision>>
     steps:
+      - setup-node-version-dev
       - setup-workspace
       - run: make lint-eslint
       - run: make lint-commit-ci
@@ -187,6 +219,7 @@ jobs:
   test:
     <<: *executor-params
     steps:
+      - setup-node-version-dev
       - setup-workspace
       - run: make test-ci
       - notify-failure
@@ -207,6 +240,7 @@ jobs:
   build-and-push-docker-image:
     <<: *executor-params
     steps:
+      - setup-node-version-staging
       - setup-workspace
       - yarn-install-prod
       - run:
@@ -217,7 +251,7 @@ jobs:
           command: echo "${DOCKER_PASS}" | docker login --username "${DOCKER_USER}" --password-stdin
       - run:
           name: 'Push Docker image'
-          command: yarn docker-push codelab
+          command: yarn docker:push codelab
 
   notify-failure:
     <<: *executor-params
@@ -231,19 +265,19 @@ jobs:
 workflows:
   app-dev:
     jobs:
-      - install-and-build-workspace:
+      - install-and-build-workspace-dev:
           <<: *filters-dev
           e: docker-node
       - lint:
           <<: *filters-dev
           e: docker-node
           requires:
-            - install-and-build-workspace
+            - install-and-build-workspace-dev
       - test:
           <<: *filters-dev
           e: docker-node
           requires:
-            - install-and-build-workspace
+            - install-and-build-workspace-dev
       - notify-success:
           <<: *filters-dev
           e: docker-node
@@ -253,13 +287,13 @@ workflows:
 
   app-staging:
     jobs:
-      - install-and-build-workspace:
+      - install-and-build-workspace-staging:
           <<: *filters-staging
       - build-and-push-docker-image:
           <<: *filters-staging
           context: credentials-docker
           requires:
-            - install-and-build-workspace
+            - install-and-build-workspace-staging
       - notify-success:
           <<: *filters-staging
           requires:
