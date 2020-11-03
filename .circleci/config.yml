@@ -33,7 +33,7 @@ executor-config: &executor-config
     SLACK_VIEN: UBPECLD4P
     GITHUB_WEBBER: webberwang
     SLACK_WEBBER: U0J401GAH
-    GITHUB_ALEX: aburtsev
+    GIeHUB_ALEX: aburtsev
     SLACK_ALEX: U01APQT5XCH
     SLACK_CHANNEL_UPDATE: CQVPNKS8K
     COLOR_SUCCESS: '#b7eb8f'
@@ -62,18 +62,7 @@ executors:
     resource_class: large
 
 commands:
-  setup-node-version-staging:
-    description: "Set node version"
-    steps:
-      - run:
-          name: 'Set node version'
-          command: |
-            echo 'export NVM_DIR="/opt/circleci/.nvm"' >> $BASH_ENV
-            echo ' [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> $BASH_ENV
-            nvm install $NODE_VERSION
-            nvm alias default $NODE_VERSION
-            node -v
-  setup-node-version-dev:
+  setup-node-version:
     description: "Setup node for docker"
     steps:
       - run:
@@ -174,7 +163,7 @@ jobs:
   install-and-build-workspace-staging:
     <<: *executor-params
     steps:
-      - setup-node-version-staging
+      - setup-node-version
       - setup-env
       - checkout
       - yarn-install-dev
@@ -191,7 +180,7 @@ jobs:
   install-and-build-workspace-dev:
     <<: *executor-params
     steps:
-      - setup-node-version-dev
+      - setup-node-version
       - setup-env
       - checkout
       - yarn-install-dev
@@ -210,7 +199,7 @@ jobs:
     environment:
       CIRCLE_BASE_REVISION: <<pipeline.git.base_revision>>
     steps:
-      - setup-node-version-dev
+      - setup-node-version
       - setup-workspace
       - run: make lint-eslint
       - run: make lint-commit-ci
@@ -219,7 +208,7 @@ jobs:
   test:
     <<: *executor-params
     steps:
-      - setup-node-version-dev
+      - setup-node-version
       - setup-workspace
       - run: make test-ci
       - notify-failure
@@ -240,7 +229,7 @@ jobs:
   build-and-push-docker-image:
     <<: *executor-params
     steps:
-      - setup-node-version-staging
+      - setup-node-version
       - setup-workspace
       - yarn-install-prod
       - run:
