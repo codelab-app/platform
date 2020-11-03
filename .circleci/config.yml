@@ -83,7 +83,9 @@ commands:
           command: |
             echo 'export NODE_OPTIONS=$NODE_OPTIONS' >> $BASH_ENV
             echo 'export PATH=~/.local/bin:$PATH' >> $BASH_ENV
+            echo 'export PATH=~/.local/bin:$PATH' >> ~/.bashrc
             source $BASH_ENV
+            source ~/.bashrc
             echo $NODE_OPTIONS
       - run:
           name: 'Setup GIT_COMMIT_MSG'
