@@ -8,12 +8,12 @@
 filters-dev: &filters-dev
   filters:
     branches:
-      only: /never/
+      only: /^.*$/
 
 filters-staging: &filters-staging
   filters:
     branches:
-      only: /^.*$/
+      only: /never/
     # tags:
     #   ignore: /^master$/
     #   ignore: /^staging-.*$/
@@ -82,10 +82,10 @@ commands:
             wget -O ~/node.tar.gz https://nodejs.org/download/release/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz
             mkdir -p ~/node ~/.local/bin
             echo "Path is: $PATH"
-            tar  xzf ~/node.tar.gz  --strip-components  1 -C ~/node
-            ln -s /home/circleci/node/bin/node ~/.local/bin/
-            ln -s /home/circleci/node/bin/npx ~/.local/bin/
-            ln -s /home/circleci/node/bin/npm ~/.local/bin/
+            tar xzf ~/node.tar.gz --strip-components 1 -C ~/node
+            ln -s ~/node/bin/node ~/.local/bin/
+            ln -s ~/node/bin/npx ~/.local/bin/
+            ln -s ~/node/bin/npm ~/.local/bin/
             node -v
   setup-env:
     description: 'Setup env'
