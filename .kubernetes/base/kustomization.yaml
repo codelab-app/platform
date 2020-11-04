@@ -3,14 +3,17 @@ kind: Kustomization
 
 resources:
   # - deployment.yaml
+  - volumes.yaml
   - role-binding.yaml
   - role.yaml
   - service-account.yaml
+  - web.yaml
+  - web-nginx.yaml
   # - service.yaml
-  - namespaces.yaml
+  # - namespaces.yaml
   # - mapping.yaml
-  - ambassador-demo.yaml
-  - ambassador.yaml
+  # - ambassador-demo.yaml
+  # - ambassador.yaml
 # configMapGenerator:
 # - name: codelab-configmap
 #   files:
