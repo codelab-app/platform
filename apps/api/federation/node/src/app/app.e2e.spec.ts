@@ -27,7 +27,7 @@ class RequestBuilder {
   }
 }
 
-describe('AppModule', () => {
+describe.skip('AppModule', () => {
   let app: INestApplication
 
   beforeAll(async () => {

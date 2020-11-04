@@ -2,7 +2,9 @@ import * as path from 'path'
 import { Inject, OnModuleInit } from '@nestjs/common'
 import {
   Args,
+  Context,
   Directive,
+  Info,
   Mutation,
   Query,
   ResolveReference,
@@ -11,6 +13,7 @@ import {
 import { ClientGrpc, Transport } from '@nestjs/microservices'
 import { ClientOptions } from '@nestjs/microservices/interfaces/client-metadata.interface'
 import { GraphQLJSONObject } from 'graphql-type-json'
+import { neo4jgraphql } from 'neo4j-graphql-js'
 import { Neo4jNodeService } from '../neo4j'
 import { NodeCreateInput } from './node.input'
 import { Node } from './node.model'
@@ -72,8 +75,18 @@ export class NodeResolvers implements OnModuleInit {
   }
 
   @Mutation(() => Node)
-  async nodeCreate(@Args('input') input: NodeCreateInput) {
-    return this.nodeService.createProps(input)
+  @Directive(
+    `@cypher(statement:"UNWIND $data as node CREATE (n:Node {id: node.id, type: node.type}) RETURN n")`,
+  )
+  async nodeCreate(
+    @Args('data') data: NodeCreateInput,
+    @Context() context: any,
+    @Info() resolveInfo: any,
+  ) {
+    const object = null
+    // return this.nodeService.createProps(input)
+
+    return neo4jgraphql(object, { data }, context, resolveInfo)
   }
 
   @Query(() => GraphQLJSONObject!)

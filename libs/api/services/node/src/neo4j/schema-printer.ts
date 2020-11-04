@@ -1,3 +1,4 @@
+import { Logger } from '@nestjs/common'
 import {
   ASTNode,
   GraphQLDirective,
@@ -11,6 +12,7 @@ import {
   astFromValue,
   print,
 } from 'graphql'
+import { DirectiveNode } from 'graphql/language/ast'
 
 export interface ISchemaPrinterConfig {
   excludeScalar?: boolean
@@ -114,7 +116,7 @@ export class SchemaPrinter {
       operationTypes.push(`  subscription: ${subscriptionType}`)
     }
 
-    return `schema {\n${operationTypes.join('\n')}}`
+    return `schema {\n${operationTypes.join('\n')}\n}`
   }
 
   invariant(condition: any, message?: string) {
@@ -183,7 +185,15 @@ export class SchemaPrinter {
 
     fields.forEach((f) => {
       if (f.astNode) {
-        mappedFields.push(`  ${print(f.astNode)}`)
+        const directives = this.printDirectives(f.astNode.directives)
+
+        Logger.log(this.printDirectives(f.astNode.directives), 'printFields')
+        // mappedFields.push(`  ${print(f.astNode)}`)
+        mappedFields.push(
+          `  ${f.name}${this.printArgs(f)}: ${f.type} ${this.printDirectives(
+            f.astNode.directives,
+          )}`,
+        )
       } else {
         mappedFields.push(`  ${f.name}${this.printArgs(f)}: ${f.type}`)
       }
@@ -222,5 +232,30 @@ export class SchemaPrinter {
     }
 
     return argDecl
+  }
+
+  private printDirectives(directives: ReadonlyArray<DirectiveNode>): string {
+    const res: Array<any> = []
+
+    directives.forEach((dir) => {
+      const name = dir.name.value
+      const args = dir.arguments
+
+      if (args) {
+        const argString = args
+          .map((arg) => {
+            if (arg.value.kind === 'StringValue') {
+              return `${arg.name.value}: "${arg.value.value}"`
+            }
+
+            return ''
+          })
+          .join(', ')
+
+        res.push(`@${name}(${argString})`)
+      }
+    })
+
+    return res.join(' ')
   }
 }
