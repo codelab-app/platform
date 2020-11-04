@@ -3,14 +3,13 @@ kind: Kustomization
 
 bases:
   - ../../base
-
 # resources:
 #   - deployment.yaml
 # patchesStrategicMerge:
 #   - deployment.yaml
 
 # namespace: codelab
-namePrefix: staging-
+# namePrefix: staging-
 # configMapGenerator:
 # - name: env-config
 #   files:

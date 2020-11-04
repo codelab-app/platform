@@ -3,7 +3,7 @@ FROM node:14.8.0-alpine AS base
 RUN apk add bash
 RUN yarn global add pm2
 
-WORKDIR /home/codelab/app
+WORKDIR /usr/local/codelab
 
 # Opted out of .dockerignore due to performance issues
 COPY package.json package.json
