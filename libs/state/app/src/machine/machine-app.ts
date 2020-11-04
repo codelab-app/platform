@@ -1,4 +1,4 @@
-import { Machine, assign, send, spawn } from 'xstate'
+import { Actor, Machine, assign, send, spawn } from 'xstate'
 import { ContextApp } from './machine-app--context'
 import { EventApp, EventNameApp } from './machine-app--event'
 import { StateNameApp, StateSchemaApp } from './machine-app--state'
@@ -6,51 +6,40 @@ import { NodeService as NodeServiceEntity } from '@codelab/core/node'
 import { machineLayout } from '@codelab/state/layout'
 import { EventNameModal, machineModal } from '@codelab/state/modal'
 import { createMachineNode } from '@codelab/state/node'
+import { ApolloClient } from '@apollo/client'
+import { createGraphQLDemoMachine } from 'libs/state/node/src/machine/dataLoader/machine-graphql-demo'
 
-export const createMachineApp = (nodeService: NodeServiceEntity) => {
+export const createMachineApp = (nodeService: NodeServiceEntity, apolloClient: ApolloClient<any>) => {
+  const graphQLDemoMachine = createGraphQLDemoMachine(apolloClient)
   return Machine<ContextApp, StateSchemaApp, EventApp>({
     id: 'app',
-    initial: StateNameApp.INIT,
-    context: {
-      app: null,
-      node: null,
-      modal: null,
-      layout: null,
-      nodeService,
-    },
+    initial: StateNameApp.IDLE,
+    entry: assign<ContextApp, EventApp>({
+      modal: () => spawn(machineModal),
+      layout: () => spawn(machineLayout),
+      node: () => spawn(createMachineNode(nodeService)),
+      graphQLDemo: () => spawn(graphQLDemoMachine)
+    }),
     states: {
-      [StateNameApp.INIT]: {
-        entry: assign<ContextApp, EventApp>({
-          modal: () => spawn(machineModal),
-          layout: () => spawn(machineLayout),
-          node: (ctx: ContextApp) => spawn(createMachineNode(ctx.nodeService)),
-        }),
-        always: StateNameApp.IDLE,
-      },
       [StateNameApp.IDLE]: {
         on: {
-          [EventNameApp.FETCH_DATA]: {
-            target: StateNameApp.LOADING,
-          },
           [EventNameApp.CREATED_NODE]: {
             actions: [
-              send(EventNameModal.CLOSE, { to: (ctx) => ctx.modal as any }), // TODO: fix type
+              send(EventNameModal.CLOSE, { to: (ctx) => ctx.modal as Actor }), // Need of type assert will be fixed in xState v5
             ],
           },
           [EventNameApp.EDITING_NODE]: {
             actions: [
-              send(EventNameModal.OPEN, { to: (ctx) => ctx.modal as any }), // TODO: fix type
+              send(EventNameModal.OPEN, { to: (ctx) => ctx.modal as Actor }), // Need of type assert will be fixed in xState v5
             ],
           },
           [EventNameApp.EDITED_NODE]: {
             actions: [
-              send(EventNameModal.CLOSE, { to: (ctx) => ctx.modal as any }), // TODO: fix type
+              send(EventNameModal.CLOSE, { to: (ctx) => ctx.modal as Actor }), // Need of type assert will be fixed in xState v5
             ],
           },
         },
       },
-      [StateNameApp.LOADING]: {},
-      [StateNameApp.READY]: {},
     },
   })
 }

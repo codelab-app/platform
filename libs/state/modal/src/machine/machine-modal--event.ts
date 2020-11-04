@@ -6,6 +6,12 @@ export enum EventNameModal {
   OK = 'OK',
 }
 
-export interface EventModal extends EventObject {
-  type: keyof typeof EventNameModal
+export interface EventModalOpen extends EventObject {
+  type: EventNameModal.OPEN
 }
+
+export interface EventModalClose extends EventObject {
+  type: EventNameModal.CLOSE
+}
+
+export type EventModal = EventModalOpen | EventModalClose
