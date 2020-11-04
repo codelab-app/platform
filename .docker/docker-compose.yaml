@@ -85,7 +85,7 @@ services:
       TERM: xterm-256color
       COLORTERM: truecolor
     build:
-      context: vendors/fluentd
+      context: fluentd
     volumes:
       - ./fluentd/configs:/fluentd/etc/
 

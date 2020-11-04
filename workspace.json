@@ -725,6 +725,16 @@
           }
         },
         "build": {
+          "builder": "@nrwl/next:build",
+          "options": {
+            "root": "apps/web",
+            "outputPath": "dist/apps/web"
+          },
+          "configurations": {
+            "production": {}
+          }
+        },
+        "build-custom": {
           "builder": "@nrwl/workspace:run-commands",
           "options": {
             "commands": ["nx build-next web", "nx build-copy-assets web"]
