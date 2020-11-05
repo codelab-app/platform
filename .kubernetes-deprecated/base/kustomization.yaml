@@ -8,7 +8,7 @@ resources:
   - role.yaml
   - service-account.yaml
   - service-web.yaml
-  # - service-nginx.yaml
+  - service-nginx.yaml
   # - service.yaml
   # - namespaces.yaml
   # - mapping.yaml
