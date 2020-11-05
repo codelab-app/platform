@@ -718,22 +718,20 @@
             "production": {}
           }
         },
-        "build-copy-assets": {
-          "builder": "@nrwl/workspace:run-commands",
-          "options": {
-            "commands": ["npx copyfiles -f apps/web/pm2.json dist/apps/web"]
-          }
-        },
         "build": {
           "builder": "@nrwl/workspace:run-commands",
           "options": {
-            "commands": ["nx build-next web", "nx build-copy-assets web"]
+            "commands": [
+              "nx build-next web",
+              "npx copyfiles -f apps/web/pm2.json dist/apps/web"
+            ],
+            "parallel": false
           }
         },
         "serve": {
           "builder": "@nrwl/next:server",
           "options": {
-            "buildTarget": "web:build",
+            "buildTarget": "web:build-next",
             "dev": true,
             "port": 3000,
             "maxWorkers": 4,
@@ -741,7 +739,7 @@
           },
           "configurations": {
             "production": {
-              "buildTarget": "web:build:production",
+              "buildTarget": "web:build-next:production",
               "dev": false
             }
           }
