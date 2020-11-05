@@ -1,3 +1,6 @@
+#
+# We want to setup a multi-container pod, where our web service shared the same volume with nginx, so we can serve web assets
+#
 apiVersion: v1
 kind: Namespace
 metadata:
@@ -8,8 +11,6 @@ kind: Deployment
 metadata:
   name: web
   namespace: codelab
-  # labels:
-  #   app: web
 spec:
   replicas: 1
   selector:
@@ -40,8 +41,8 @@ spec:
             - name: http
               containerPort: 3000
           # volumeMounts:
-          #   - mountPath: '/home/codelab/app/dist/apps/web'
-          #     name: web-storage
+          #   - name: web-volume
+          #     mountPath: /home/codelab/app
           resources:
             # Running container is not allowed to pass the set limit
             limits:
@@ -51,28 +52,33 @@ spec:
             requests:
               memory: 256Mi
               cpu: '0.2'
-        # - name: web-server
-        #   image: nginx
-        #   ports:
-        #     - containerPort: 8080
-        #   volumeMounts:
-        #     - mountPath: /etc/nginx # mount nginx-conf volumn to /etc/nginx
-        #       readOnly: true
-        #       name: nginx-conf
-        #     - mountPath: /var/log/nginx
-        #       name: log
-      # volumes:
-      #   - name: web-storage
-      #     persistentVolumeClaim:
-      #       claimName: csi-pvc
-      #   - name: nginx-conf
-      #     configMap:
-      #       name: nginx-conf # place ConfigMap `nginx-conf` on /etc/nginx
-      #       items:
-      #         - key: nginx.conf
-      #           path: nginx.conf
-      #   - name: log
-      #     emptyDir: {}
+        - name: web-server
+          image: nginx:1.19.3
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: nginx-conf
+              mountPath: /etc/nginx/nginx.conf # mount nginx-conf volumn to /etc/nginx
+              readOnly: true
+              subPath: nginx.conf
+            # - name: web-volume
+            #   mountPath: /etc/share/nginx
+            #   # subPath: nginx.conf
+            # - name: web-volume
+            #   mountPath: /var/log/nginx
+      volumes:
+        # - name: web-volume
+        #   persistentVolumeClaim:
+        #     claimName: csi-pvc
+        # https://stackoverflow.com/questions/61266532/configmap-mounted-on-persistent-volume-claims
+        - name: nginx-conf
+          configMap:
+            name: nginx-conf # place ConfigMap `nginx-conf` on /etc/nginx
+            items:
+              - key: nginx.conf
+                path: nginx.conf
+        # - name: log
+        #   emptyDir: {}
 ---
 # Service
 #
@@ -88,10 +94,34 @@ spec:
   ports:
     - name: http
       port: 80 # Exposes within cluster
-      # targetPort: 8080 # Target from external
-      targetPort: 3000 # Target from external
+      targetPort: 80 # Target from external
   selector:
     app: web
+# ---
+# apiVersion: v1
+# # https://gist.github.com/petitviolet/d36f33d145d0bbf4b54eb187b79d0244
+# kind: ConfigMap
+# metadata:
+#   name: nginx-conf
+#   namespace: codelab
+# data:
+#   nginx.conf: |
+#     http {
+#       upstream web {
+#         server 127.0.0.1:3000;
+#       }
+
+#       server {
+#         listen 80;
+#         root /home/codelab/app/dist/apps/web;
+
+#         location / {
+#           proxy_pass http://web;
+#         }
+#       }
+#     }
+
+#     events {}
 ---
 apiVersion: getambassador.io/v2
 kind: Mapping

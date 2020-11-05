@@ -7,8 +7,8 @@ resources:
   - role-binding.yaml
   - role.yaml
   - service-account.yaml
-  - web.yaml
-  - web-nginx.yaml
+  - service-web.yaml
+  - service-nginx.yaml
   # - service.yaml
   # - namespaces.yaml
   # - mapping.yaml
