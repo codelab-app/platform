@@ -30,9 +30,11 @@ const update = (): Rule => {
     const rules = Object.entries<ProjectDefinition>(config.projects).reduce(
       (tmpRules: Array<Rule>, [projectName, projectConfig]) => {
         const isStorybook = !!projectConfig.architect.storybook?.builder
+        const projectRoot = projectConfig.root
 
-        console.log(projectConfig)
-        const projectRoot = projectConfig.sourceRoot
+        if (isStorybook) {
+          console.log(`Running migration for: ${projectConfig.root}`)
+        }
 
         return [
           ...tmpRules,
@@ -40,7 +42,7 @@ const update = (): Rule => {
             ? chain([
                 createStorybookProjectFiles({
                   name: projectName,
-                  projectRoot: projectConfig.root,
+                  projectRoot,
                 }),
                 removeFiles([
                   `${projectRoot}/.storybook/addons.js`,

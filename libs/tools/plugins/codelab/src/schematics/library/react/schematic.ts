@@ -59,8 +59,10 @@ const normalizeOptions = (options: ReactSchematicSchema): NormalizedSchema => {
  */
 export const removeFiles = (filesToRemove: Array<string>): Rule => {
   return (tree: Tree, context: SchematicContext) => {
-    filesToRemove.forEach((file: any) => {
-      tree.delete(file)
+    filesToRemove.forEach((file: string) => {
+      if (tree.exists(file)) {
+        tree.delete(file)
+      }
     })
   }
 }
