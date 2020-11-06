@@ -57,13 +57,12 @@ const normalizeOptions = (options: ReactSchematicSchema): NormalizedSchema => {
 /**
  * We use `.eslintrc.js` instead of `.eslintrc`, so need to remove generated files
  */
-const removeFiles = (options: NormalizedSchema): Rule => {
-  const { projectRoot } = options
-  const filesToRemove = ['.eslintrc.json', `${projectRoot}/.eslintrc.json`]
-
+export const removeFiles = (filesToRemove: Array<string>): Rule => {
   return (tree: Tree, context: SchematicContext) => {
-    filesToRemove.forEach((file: any) => {
-      tree.delete(file)
+    filesToRemove.forEach((file: string) => {
+      if (tree.exists(file)) {
+        tree.delete(file)
+      }
     })
   }
 }
@@ -105,6 +104,10 @@ export const createStorybookLibrary = (options: NormalizedSchema): Rule => {
 
 export default (options: ReactSchematicSchema): Rule => {
   const normalizedOptions = normalizeOptions(options)
+  const filesToRemove = [
+    '.eslintrc.json',
+    `${normalizedOptions.projectRoot}/.eslintrc.json`,
+  ]
 
   return (host: Tree, context: SchematicContext) => {
     return chain([
@@ -114,7 +117,7 @@ export default (options: ReactSchematicSchema): Rule => {
       createReactLibrary(normalizedOptions),
       createStorybookLibrary(normalizedOptions),
       createStorybookProjectFiles(normalizedOptions),
-      removeFiles(normalizedOptions),
+      removeFiles(filesToRemove),
     ])
   }
 }

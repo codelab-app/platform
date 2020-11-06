@@ -8,9 +8,10 @@ import { ReactSchematicSchema } from '../../schematics/library/react/schema'
 
 const SCHEMATIC_NAME = 'react-lib'
 
-describe('update-0.0.2', () => {
+describe('update-10.3.1', () => {
   let appTree: Tree
   let schematicRunner: SchematicTestRunner
+  const projectRoot = '/libs/test'
 
   const options: ReactSchematicSchema = { name: 'test' }
 
@@ -26,7 +27,8 @@ describe('update-0.0.2', () => {
       updateWorkspace((workspace) => {
         workspace.projects.add({
           name: 'test',
-          root: 'libs/test',
+          root: projectRoot,
+          sourceRoot: projectRoot,
           targets: {
             storybook: {
               builder: '@nrwl/storybook:storybook',
@@ -36,6 +38,15 @@ describe('update-0.0.2', () => {
       }),
       appTree,
     )
+
+    /**
+     * Create .storybook files manually to simulate current state of project repo (before migration)
+     *
+     * These should be deleted afterwards
+     */
+
+    appTree.create(`${projectRoot}/.storybook/addons.js`, '')
+    appTree.create(`${projectRoot}/.storybook/config.js`, '')
 
     schematicRunner = new SchematicTestRunner(
       '@nrwl/nx-plugin',
@@ -59,17 +70,37 @@ describe('update-0.0.2', () => {
     // )
   })
 
-  it(`should update dependencies`, async () => {
+  it('should update .storybook config files', async () => {
     const result = await schematicRunner
-      .runSchematicAsync('update-0.0.2', {}, appTree)
+      .runSchematicAsync('update-10.3.1', {}, appTree)
       .toPromise()
 
-    // const { dependencies } = readJsonInTree(result, '/package.json')
+    const storybookFiles: Array<string> = []
 
-    // expect(dependencies).toEqual({})
-
-    result.getDir('libs/test/.storybook').visit((filePath) => {
-      console.log(filePath)
+    result.getDir(`${projectRoot}/.storybook`).visit((filePath) => {
+      storybookFiles.push(filePath)
     })
+
+    // Files that previously existed, but should now be absent
+    expect(
+      storybookFiles.includes(`${projectRoot}/.storybook/addon.js`),
+    ).toBeFalsy()
+    expect(
+      storybookFiles.includes(`${projectRoot}/.storybook/config.js`),
+    ).toBeFalsy()
+
+    // Files we should have
+    expect(
+      storybookFiles.includes(`${projectRoot}/.storybook/main.js`),
+    ).toBeTruthy()
+    expect(
+      storybookFiles.includes(`${projectRoot}/.storybook/preview.js`),
+    ).toBeTruthy()
+    expect(
+      storybookFiles.includes(`${projectRoot}/.storybook/tsconfig.json`),
+    ).toBeTruthy()
+    expect(
+      storybookFiles.includes(`${projectRoot}/.storybook/webpack.config.js`),
+    ).toBeTruthy()
   })
 })

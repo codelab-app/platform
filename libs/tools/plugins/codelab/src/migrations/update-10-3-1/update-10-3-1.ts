@@ -6,9 +6,12 @@ import {
   noop,
 } from '@angular-devkit/schematics'
 import { formatFiles, getWorkspacePath, readJsonInTree } from '@nrwl/workspace'
-import { createStorybookProjectFiles } from '../../schematics/library/react/schematic'
+import {
+  createStorybookProjectFiles,
+  removeFiles,
+} from '../../schematics/library/react/schematic'
 
-interface ProjectDefinition {
+export interface ProjectDefinition {
   root: string
   sourceRoot: string
   projectType: 'library' | 'application'
@@ -27,14 +30,25 @@ const update = (): Rule => {
     const rules = Object.entries<ProjectDefinition>(config.projects).reduce(
       (tmpRules: Array<Rule>, [projectName, projectConfig]) => {
         const isStorybook = !!projectConfig.architect.storybook?.builder
+        const projectRoot = projectConfig.root
+
+        if (isStorybook) {
+          console.log(`Running migration for: ${projectConfig.root}`)
+        }
 
         return [
           ...tmpRules,
           isStorybook
-            ? createStorybookProjectFiles({
-                name: projectName,
-                projectRoot: projectConfig.root,
-              })
+            ? chain([
+                createStorybookProjectFiles({
+                  name: projectName,
+                  projectRoot,
+                }),
+                removeFiles([
+                  `${projectRoot}/.storybook/addons.js`,
+                  `${projectRoot}/.storybook/config.js`,
+                ]),
+              ])
             : noop(),
         ]
       },
