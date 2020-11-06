@@ -4,6 +4,11 @@ import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'Breadcrumb',
+  parameters: {
+    data: {
+      Default: breadcrumbData,
+    },
+  },
 }
 
 export const Default = () => {

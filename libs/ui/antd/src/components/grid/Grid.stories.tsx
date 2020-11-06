@@ -5,6 +5,12 @@ import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'Grid',
+  parameters: {
+    data: {
+      Default: gridData,
+      ResponsiveGrid: responsiveGridData,
+    },
+  },
 }
 
 export const Default = () => {

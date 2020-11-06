@@ -59,7 +59,7 @@
       "@codelab/ui/hoc": ["libs/ui/hoc/src/index.ts"],
       "@codelab/state/apollo": ["libs/state/apollo/src/index.ts"],
       "@codelab/api/prisma": ["libs/api/prisma/src/index.ts"],
-      "@codelab/state/ui": ["libs/state/ui/src/index.ts"],
+      "@codelab/state/layout": ["libs/state/layout/src/index.ts"],
       "@codelab/api/services/props": ["libs/api/services/props/src/index.ts"],
       "@codelab/api/services/node": ["libs/api/services/node/src/index.ts"],
       "@codelab/api/services/restify": [

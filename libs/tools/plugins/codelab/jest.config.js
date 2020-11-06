@@ -10,5 +10,5 @@ module.exports = {
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'html'],
   coverageDirectory: '../../../../coverage/libs/plugins/codelab',
-  displayName: 'tools-plugins-codelab',
+  displayName: 'codelab-schematics',
 }

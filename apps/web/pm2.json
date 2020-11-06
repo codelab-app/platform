@@ -1,0 +1,9 @@
+{
+  "apps": [
+    {
+      "name": "WEB",
+      "script": "npx",
+      "args": "next start dist/apps/web"
+    }
+  ]
+}

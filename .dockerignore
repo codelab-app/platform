@@ -1,14 +1,18 @@
 #
 # Dockerignore has issues with wildcard exclude
 # Copy required files only instead in Dockerfiles
+#
+# Dockeringore is too slow, https://github.com/moby/moby/issues/23470#issuecomment-233581824
+#
+# Instead copy all required files to directoy, then go from there
 
-# Ignore everything
-*
+# # Ignore everything
+# *
 
-# Except
-!/package.json
-!/makefile
-!/node_modules/
-!/dist/apps/
-!/config
-!/scripts
+# # Except
+# !/package.json
+# !/node_modules/
+# !/dist/apps/
+
+# # Ignore again
+# /node_modules/.cache/

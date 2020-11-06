@@ -4,6 +4,11 @@ import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'BackTop',
+  parameters: {
+    data: {
+      Default: backtopData,
+    },
+  },
 }
 
 export const Default = () => {

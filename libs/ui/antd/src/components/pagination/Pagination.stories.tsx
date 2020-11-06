@@ -4,6 +4,11 @@ import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'Pagination',
+  parameters: {
+    data: {
+      Default: paginationData,
+    },
+  },
 }
 
 export const Default = () => {

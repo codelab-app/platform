@@ -4,6 +4,11 @@ import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'Transfer',
+  parameters: {
+    data: {
+      Default: transferData,
+    },
+  },
 }
 
 export const Default = () => {

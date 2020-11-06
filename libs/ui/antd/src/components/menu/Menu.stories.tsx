@@ -4,6 +4,11 @@ import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'Menu',
+  parameters: {
+    data: {
+      Default: menuData,
+    },
+  },
 }
 
 export const Default = () => {

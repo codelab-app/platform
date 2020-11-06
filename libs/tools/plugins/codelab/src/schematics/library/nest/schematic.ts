@@ -87,7 +87,7 @@ export const createNestjsLibrary = (options: NormalizedSchema): Rule => {
   })
 }
 
-export default function (options: NestSchematicSchema): Rule {
+export default (options: NestSchematicSchema): Rule => {
   const normalizedOptions = normalizeOptions(options)
 
   return (host: Tree, context: SchematicContext) => {

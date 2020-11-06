@@ -4,6 +4,11 @@ import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'Affix',
+  parameters: {
+    data: {
+      Default: affixData,
+    },
+  },
 }
 
 export const Default = () => {

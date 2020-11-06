@@ -4,6 +4,11 @@ import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'Checkbox',
+  parameters: {
+    data: {
+      Default: checkboxData,
+    },
+  },
 }
 
 export const Default = () => {

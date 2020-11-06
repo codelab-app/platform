@@ -4,6 +4,11 @@ import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'Popconfirm',
+  parameters: {
+    data: {
+      Default: popconfirmData,
+    },
+  },
 }
 
 export const Default = () => {

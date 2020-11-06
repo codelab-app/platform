@@ -5,24 +5,23 @@
 
 # Success notification is added to end of workflow, while failure notification is added to end of each job.
 
-# Don't run on master
 filters-dev: &filters-dev
   filters:
     branches:
       only: /^.*$/
-#      ignore: /^master$/
-#    tags:
-#      ignore: /^staging-/
+      # only: /^never$/
+    # tags:
+    #   ignore: /^master$/
+    #   ignore: /^staging-.*$/
 
-# Run on master only
 filters-staging: &filters-staging
   filters:
     branches:
-#      only: /^master$/
-      # turn off for now
+      # only: /^.*$/
       only: /^never$/
-#    tags:
-#      only: /^staging-/
+      # only: /^master$/
+    # tags:
+    #   only: /^staging-.*$/
 
 executor-params: &executor-params
   parameters:
@@ -58,12 +57,12 @@ executors:
     <<: *executor-config
     machine:
       docker_layer_caching: true
-      image: ubuntu-2004:202008-01
+      image: ubuntu-2004:202010-01
     resource_class: large
   docker-node:
     <<: *executor-config
     docker:
-      - image: circleci/node:14-browsers
+      - image: cimg/node:14.15.0-browsers
     resource_class: large
 
 commands:
@@ -73,9 +72,23 @@ commands:
       - run:
           name: 'Setup node options'
           command: |
+            echo $BASH_ENV
             echo 'export NODE_OPTIONS=$NODE_OPTIONS' >> $BASH_ENV
             source $BASH_ENV
             echo $NODE_OPTIONS
+      - run:
+          name: 'Install NVM'
+          command: |
+            # Set path before install, otherwise paths will be different in the executors
+            echo 'export NVM_DIR=$HOME/.nvm' >> $BASH_ENV
+            echo 'source $NVM_DIR/nvm.sh' >> $BASH_ENV
+            wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+      - run:
+          name: 'Set node version'
+          command: |
+            nvm install 14.13.0
+            nvm alias default 14.13.0
+            node -v
       - run:
           name: 'Setup GIT_COMMIT_MSG'
           command: |
@@ -88,6 +101,8 @@ commands:
           command: |
             if [ $CIRCLE_USERNAME == $GITHUB_VIEN ]; then
               echo 'export SLACK_USER=${SLACK_VIEN}' >> $BASH_ENV
+            elif [ $CIRCLE_USERNAME == $GITHUB_ANTON ]; then
+              echo 'export SLACK_USER=${SLACK_ANTON}' >> $BASH_ENV
             elif [ $CIRCLE_USERNAME == $GITHUB_ALEX ]; then
               echo 'export SLACK_USER=${SLACK_ALEX}' >> $BASH_ENV
             else
@@ -194,20 +209,20 @@ jobs:
             *Branch*: << pipeline.git.branch >> \n
             *Message*: $GIT_COMMIT_MSG \n
 
-  deploy-app:
+  build-and-push-docker-image:
     <<: *executor-params
     steps:
       - setup-workspace
       - yarn-install-prod
       - run:
           name: 'Build Docker image'
-          command: make docker-build
+          command: yarn docker:build codelab
       - run:
           name: 'Docker login'
           command: echo "${DOCKER_PASS}" | docker login --username "${DOCKER_USER}" --password-stdin
       - run:
           name: 'Push Docker image'
-          command: make docker-push
+          command: yarn docker-push codelab
 
   notify-failure:
     <<: *executor-params
@@ -245,8 +260,12 @@ workflows:
     jobs:
       - install-and-build-workspace:
           <<: *filters-staging
-      - deploy-app:
+      - build-and-push-docker-image:
           <<: *filters-staging
           context: credentials-docker
           requires:
             - install-and-build-workspace
+      - notify-success:
+          <<: *filters-staging
+          requires:
+            - build-and-push-docker-image

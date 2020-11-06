@@ -12,7 +12,7 @@
           "options": {
             "lintFilePatterns": [
               "libs/tools/eslint-config-codelab/**/*.ts",
-              "libs/tools/eslint-config-codelab/**/*.yml",
+              "libs/tools/eslint-config-codelab/**/*.yaml",
               "libs/tools/eslint-config-codelab/**/*.spec.ts",
               "libs/tools/eslint-config-codelab/**/*.spec.tsx",
               "libs/tools/eslint-config-codelab/**/*.spec.js",
@@ -35,7 +35,7 @@
             "tsConfig": "libs/tools/eslint-config-codelab/tsconfig.lib.json",
             "packageJson": "libs/tools/eslint-config-codelab/package.json",
             "main": "libs/tools/eslint-config-codelab/src/index.ts",
-            "assets": ["libs/tools/eslint-config-codelab/**/.*.yml"]
+            "assets": ["libs/tools/eslint-config-codelab/**/.*.yaml"]
           }
         }
       }
@@ -167,43 +167,6 @@
               "libs/shared/interface/node/**/*.d.ts"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/shared/interface/node/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "storybook": {
-          "builder": "@nrwl/storybook:storybook",
-          "options": {
-            "uiFramework": "@storybook/react",
-            "port": 4400,
-            "config": {
-              "configFolder": "libs/shared/interface/node/.storybook"
-            }
-          },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          }
-        },
-        "build-storybook": {
-          "builder": "@nrwl/storybook:build",
-          "options": {
-            "uiFramework": "@storybook/react",
-            "outputPath": "dist/storybook/shared-interface-node",
-            "config": {
-              "configFolder": "libs/shared/interface/node/.storybook"
-            }
-          },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          }
         }
       }
     },
@@ -227,43 +190,6 @@
               "libs/shared/interface/graph/**/*.spec.jsx",
               "libs/shared/interface/graph/**/*.d.ts"
             ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/shared/interface/graph/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "storybook": {
-          "builder": "@nrwl/storybook:storybook",
-          "options": {
-            "uiFramework": "@storybook/react",
-            "port": 4400,
-            "config": {
-              "configFolder": "libs/shared/interface/graph/.storybook"
-            }
-          },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          }
-        },
-        "build-storybook": {
-          "builder": "@nrwl/storybook:build",
-          "options": {
-            "uiFramework": "@storybook/react",
-            "outputPath": "dist/storybook/shared-interface-graph",
-            "config": {
-              "configFolder": "libs/shared/interface/graph/.storybook"
-            }
-          },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
           }
         }
       }
@@ -289,43 +215,6 @@
               "libs/shared/interface/props/**/*.d.ts"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/shared/interface/props/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "storybook": {
-          "builder": "@nrwl/storybook:storybook",
-          "options": {
-            "uiFramework": "@storybook/react",
-            "port": 4400,
-            "config": {
-              "configFolder": "libs/shared/interface/props/.storybook"
-            }
-          },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          }
-        },
-        "build-storybook": {
-          "builder": "@nrwl/storybook:build",
-          "options": {
-            "uiFramework": "@storybook/react",
-            "outputPath": "dist/storybook/shared-interface-props",
-            "config": {
-              "configFolder": "libs/shared/interface/props/.storybook"
-            }
-          },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          }
         }
       }
     },
@@ -350,43 +239,6 @@
               "libs/shared/interface/model/**/*.d.ts"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/shared/interface/model/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "storybook": {
-          "builder": "@nrwl/storybook:storybook",
-          "options": {
-            "uiFramework": "@storybook/react",
-            "port": 4400,
-            "config": {
-              "configFolder": "libs/shared/interface/model/.storybook"
-            }
-          },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          }
-        },
-        "build-storybook": {
-          "builder": "@nrwl/storybook:build",
-          "options": {
-            "uiFramework": "@storybook/react",
-            "outputPath": "dist/storybook/shared-interface-model",
-            "config": {
-              "configFolder": "libs/shared/interface/model/.storybook"
-            }
-          },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          }
         }
       }
     },
@@ -410,43 +262,6 @@
               "libs/shared/interface/tree/**/*.spec.jsx",
               "libs/shared/interface/tree/**/*.d.ts"
             ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/shared/interface/tree/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "storybook": {
-          "builder": "@nrwl/storybook:storybook",
-          "options": {
-            "uiFramework": "@storybook/react",
-            "port": 4400,
-            "config": {
-              "configFolder": "libs/shared/interface/tree/.storybook"
-            }
-          },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          }
-        },
-        "build-storybook": {
-          "builder": "@nrwl/storybook:build",
-          "options": {
-            "uiFramework": "@storybook/react",
-            "outputPath": "dist/storybook/shared-interface-tree",
-            "config": {
-              "configFolder": "libs/shared/interface/tree/.storybook"
-            }
-          },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
           }
         }
       }
@@ -886,20 +701,37 @@
       "projectType": "application",
       "schematics": {},
       "architect": {
-        "build": {
+        "build-next": {
           "builder": "@nrwl/next:build",
           "options": {
             "root": "apps/web",
-            "outputPath": "dist/apps/web"
+            "outputPath": "dist/apps/web",
+            "assets": [
+              {
+                "glob": "pm2.json",
+                "input": "apps/web",
+                "output": "."
+              }
+            ]
           },
           "configurations": {
             "production": {}
           }
         },
+        "build": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": [
+              "nx build-next web",
+              "npx copyfiles -f apps/web/pm2.json dist/apps/web"
+            ],
+            "parallel": false
+          }
+        },
         "serve": {
           "builder": "@nrwl/next:server",
           "options": {
-            "buildTarget": "web:build",
+            "buildTarget": "web:build-next",
             "dev": true,
             "port": 3000,
             "maxWorkers": 4,
@@ -907,7 +739,7 @@
           },
           "configurations": {
             "production": {
-              "buildTarget": "web:build:production",
+              "buildTarget": "web:build-next:production",
               "dev": false
             }
           }
@@ -1362,13 +1194,6 @@
               "libs/shared/interface/component/**/*.d.ts"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/shared/interface/component/jest.config.js",
-            "passWithNoTests": true
-          }
         }
       }
     },
@@ -1456,10 +1281,6 @@
             ]
           }
         },
-        "serve": {
-          "builder": "@nrwl/workspace:run-commands",
-          "options": {}
-        },
         "build": {
           "builder": "@nrwl/workspace:run-commands",
           "options": {}
@@ -1486,7 +1307,14 @@
             "outputPath": "dist/apps/api/gateway",
             "main": "apps/api/gateway/src/main.ts",
             "tsConfig": "apps/api/gateway/tsconfig.app.json",
-            "assets": ["apps/api/gateway/src/assets"]
+            "assets": [
+              "apps/api/gateway/src/assets",
+              {
+                "glob": "pm2.json",
+                "input": "apps/api/gateway",
+                "output": "."
+              }
+            ]
           },
           "configurations": {
             "production": {
@@ -1507,8 +1335,8 @@
           "options": {
             "buildTarget": "api-gateway:build",
             "waitUntilTargets": [
-              "api-federation-node:serve",
-              "api-federation-props:serve"
+              "api-federation-props:serve",
+              "api-federation-node:serve"
             ]
           }
         },
@@ -1552,22 +1380,22 @@
         }
       }
     },
-    "state-ui": {
-      "root": "libs/state/ui",
-      "sourceRoot": "libs/state/ui/src",
+    "state-layout": {
+      "root": "libs/state/layout",
+      "sourceRoot": "libs/state/layout/src",
       "projectType": "library",
       "schematics": {},
       "architect": {
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/state/ui/**/*.{ts,tsx,js,jsx}"]
+            "lintFilePatterns": ["libs/state/layout/**/*.{ts,tsx,js,jsx}"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/state/ui/jest.config.js",
+            "jestConfig": "libs/state/layout/jest.config.js",
             "passWithNoTests": true
           }
         }
@@ -1586,7 +1414,14 @@
             "outputPath": "dist/apps/api/federation/node",
             "main": "apps/api/federation/node/src/main.ts",
             "tsConfig": "apps/api/federation/node/tsconfig.app.json",
-            "assets": ["apps/api/federation/node/src/assets"]
+            "assets": [
+              "apps/api/federation/node/src/assets",
+              {
+                "glob": "pm2.json",
+                "input": "apps/api/federation/node",
+                "output": "."
+              }
+            ]
           },
           "configurations": {
             "production": {
@@ -1605,7 +1440,8 @@
         "serve": {
           "builder": "@nrwl/node:execute",
           "options": {
-            "buildTarget": "api-federation-node:build"
+            "buildTarget": "api-federation-node:build",
+            "waitUntilTargets": ["api-federation-props:serve"]
           }
         },
         "lint": {
@@ -1641,6 +1477,11 @@
               {
                 "input": "apps/api/federation/props/src",
                 "glob": "**/*.proto",
+                "output": "."
+              },
+              {
+                "glob": "pm2.json",
+                "input": "apps/api/federation/props",
                 "output": "."
               }
             ]

@@ -4,6 +4,11 @@ import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'Spin',
+  parameters: {
+    data: {
+      Default: spinData,
+    },
+  },
 }
 
 export const Default = () => {

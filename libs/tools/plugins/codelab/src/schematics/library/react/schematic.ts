@@ -1,3 +1,4 @@
+import * as path from 'path'
 import {
   MergeStrategy,
   Rule,
@@ -56,20 +57,23 @@ const normalizeOptions = (options: ReactSchematicSchema): NormalizedSchema => {
 /**
  * We use `.eslintrc.js` instead of `.eslintrc`, so need to remove generated files
  */
-const removeFiles = (options: NormalizedSchema): Rule => {
-  const { projectRoot } = options
-  const filesToRemove = ['.eslintrc.json', `${projectRoot}/.eslintrc.json`]
-
+export const removeFiles = (filesToRemove: Array<string>): Rule => {
   return (tree: Tree, context: SchematicContext) => {
-    filesToRemove.forEach((file: any) => {
-      tree.delete(file)
+    filesToRemove.forEach((file: string) => {
+      if (tree.exists(file)) {
+        tree.delete(file)
+      }
     })
   }
 }
 
-const createFiles = (options: NormalizedSchema): Rule => {
+export const createStorybookProjectFiles = (
+  options: Pick<NormalizedSchema, 'name' | 'projectRoot'>,
+): Rule => {
+  const filesPath = path.resolve(__dirname, './files')
+
   return mergeWith(
-    apply(url(`./files`), [
+    apply(url(filesPath), [
       applyTemplates({
         ...options,
         ...names(options.name),
@@ -91,8 +95,19 @@ export const createReactLibrary = (options: NormalizedSchema): Rule => {
   })
 }
 
-export default function (options: ReactSchematicSchema): Rule {
+export const createStorybookLibrary = (options: NormalizedSchema): Rule => {
+  return externalSchematic('@nrwl/storybook', 'configuration', {
+    name: options.name,
+    uiFramework: '@storybook/react',
+  })
+}
+
+export default (options: ReactSchematicSchema): Rule => {
   const normalizedOptions = normalizeOptions(options)
+  const filesToRemove = [
+    '.eslintrc.json',
+    `${normalizedOptions.projectRoot}/.eslintrc.json`,
+  ]
 
   return (host: Tree, context: SchematicContext) => {
     return chain([
@@ -100,8 +115,9 @@ export default function (options: ReactSchematicSchema): Rule {
        * We want to extend the `@nrwl/react` schematics, and override the eslintrc file.
        */
       createReactLibrary(normalizedOptions),
-      createFiles(normalizedOptions),
-      removeFiles(normalizedOptions),
+      createStorybookLibrary(normalizedOptions),
+      createStorybookProjectFiles(normalizedOptions),
+      removeFiles(filesToRemove),
     ])
   }
 }

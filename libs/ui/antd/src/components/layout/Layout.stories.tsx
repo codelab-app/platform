@@ -6,6 +6,12 @@ import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'Layout',
+  parameters: {
+    data: {
+      Default: layoutData,
+      Layout: propLayoutData,
+    },
+  },
 }
 
 export const Default = () => {

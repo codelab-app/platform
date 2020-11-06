@@ -1,0 +1,129 @@
+version: '3.8'
+services:
+  # All other services derive from this
+  codelab:
+    build:
+      context: ../
+      dockerfile: ${PWD}/.docker/Dockerfile
+      # args:
+      #   - NODE_ENV=production
+    image: codelabai/codelab:0.01
+    environment:
+      - NODE_ENV=production
+
+  web:
+    ports:
+      - ${WEB_PORT}:${WEB_PORT}
+    expose:
+      - ${WEB_PORT}
+    entrypoint: ['yarn', 'start:prod:web']
+    image: codelabai/codelab:0.01
+    depends_on:
+      - codelab
+    env_file:
+      - ../.env
+    environment:
+      - NEXT_PUBLIC_API_ORIGIN
+      - NEXT_PUBLIC_API_PATHNAME
+
+  api-gateway:
+    ports:
+      - ${API_PORT_GATEWAY}:${API_PORT_GATEWAY}
+    expose:
+      - ${API_PORT_GATEWAY}
+    entrypoint: ['yarn', 'start:prod:api-gateway']
+    image: codelabai/codelab:0.01
+    depends_on:
+      - codelab
+      - api-federation-nodes
+      - api-federation-props
+    env_file:
+      - ../.env
+    environment:
+      - API_PORT_GATEWAY
+      - API_PORT_FEDERATION_PROPS
+      - API_PORT_FEDERATION_USER
+      - API_PORT_FEDERATION_NODE
+
+  api-federation-nodes:
+    ports:
+      - ${API_PORT_FEDERATION_NODE}:${API_PORT_FEDERATION_NODE}
+    expose:
+      - ${API_PORT_FEDERATION_NODE}
+    entrypoint: ['yarn', 'start:prod:api-federation-nodes']
+    image: codelabai/codelab:0.01
+    depends_on:
+      - codelab
+      - api-federation-props
+    env_file:
+      - ../.env
+    environment:
+      - API_PORT_FEDERATION_NODE
+
+  api-federation-props:
+    ports:
+      - ${API_PORT_FEDERATION_PROPS}:${API_PORT_FEDERATION_PROPS}
+    expose:
+      - ${API_PORT_FEDERATION_PROPS}
+    entrypoint: ['yarn', 'start:prod:api-federation-props']
+    image: codelabai/codelab:0.01
+    depends_on:
+      - codelab
+    env_file:
+      - ../.env
+    environment:
+      - API_PORT_FEDERATION_PROPS
+
+  fluentd:
+    ports:
+      - 24224:24224
+    container_name: fluentd
+    image: fluentd
+    tty: true # colorize output
+    environment:
+      DEBUG_COLORS: 'true'
+      TERM: xterm-256color
+      COLORTERM: truecolor
+    build:
+      context: fluentd
+    volumes:
+      - ./fluentd/configs:/fluentd/etc/
+
+  mongodb:
+    image: mongo:4.4
+    container_name: codelab-mongo
+    restart: always
+    volumes:
+      - ./mongo/data:/data/db
+    ports:
+      - 27017:27017
+    command: mongod --noauth
+
+  neo4j:
+    image: neo4j:4.1.3
+    container_name: codelab-neo4j
+    restart: always
+    volumes:
+      - ./neo4j/data:/data
+      - ./neo4j/plugins:/plugins
+      - ./neo4j/import:/import
+    ports:
+      - 7687:7687
+    command: neo4j
+
+  # verdaccio:
+  #   image: verdaccio/verdaccio:4
+  #   container_name: verdaccio-docker-local-storage-vol
+  #   ports:
+  #     - 4873:4873
+  #   volumes:
+  #     # This is bind mounted
+  #     - ./storage:/verdaccio/storage
+  #     - ./conf:/verdaccio/conf
+# volumes:
+# https://docs.docker.com/compose/compose-file/#volume-configuration-reference
+# codelab-volume:
+#   external:
+#     name: codelab-volume
+# verdaccio:
+#   driver: local

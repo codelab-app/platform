@@ -63,13 +63,17 @@ describe('@codelab/schematics:react-lib', () => {
       appTree = await testRunner
         .runSchematicAsync(SCHEMATIC_NAME, options, appTree)
         .toPromise()
-      const configJs = appTree.exists('/libs/test/.storybook/config.js')
+      const mainJs = appTree.exists('/libs/test/.storybook/main.js')
+      const previewJs = appTree.exists('/libs/test/.storybook/preview.js')
       const webpackConfigJs = appTree.exists(
         '/libs/test/.storybook/webpack.config.js',
       )
+      const tsconfigJson = appTree.exists('/libs/test/.storybook/tsconfig.json')
 
-      expect(configJs).toBeTruthy()
+      expect(mainJs).toBeTruthy()
+      expect(previewJs).toBeTruthy()
       expect(webpackConfigJs).toBeTruthy()
+      expect(tsconfigJson).toBeTruthy()
     })
   })
 })

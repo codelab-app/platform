@@ -1,0 +1,73 @@
+# docker run --name some-nginx -d -p 3000:80 nginx
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: codelab
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+  namespace: codelab
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+        - name: codelab-web
+          # imagePullPolicy: Always
+          image: codelabai/codelab:0.01
+          # ENTRYPOINT in Docker
+          command: ['yarn', 'start:prod:web']
+          env:
+            # Can only be changed by `next start -p 3000 dist/apps/web`
+            # - name: WEB_PORT
+            #   value: '3000'
+            - name: NODE_ENV
+              value: 'production'
+            - name: NEXT_PUBLIC_API_ORIGIN
+              value: 'http://localhost:4000'
+            - name: NEXT_PUBLIC_API_PATHNAME
+              value: 'api/v1'
+          ports:
+            - name: http
+              containerPort: 3000
+          resources:
+            # Running container is not allowed to pass the set limit
+            limits:
+              memory: 512Mi
+              cpu: '0.5'
+            # Used by scheduler to determine which node to place the Pod on, think of it as minimum required resource
+            requests:
+              memory: 256Mi
+              cpu: '0.2'
+---
+# Service
+#
+# A Service enables network access to a set of Pods in Kubernetes.
+#
+# Services select Pods based on their labels. When a network request is made to the service, it selects all Pods in the cluster matching the service's selector, chooses one of them, and forwards the network request to it.
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: web
+  namespace: codelab
+spec:
+  type: NodePort
+  selector:
+    app: web
+  ports:
+    - name: http
+      nodePort: 30475
+      protocol: TCP
+      # Exposes within cluster, not needed for web service since it needs to be accessible externally only
+      port: 80
+      targetPort: 3000 # Target from external

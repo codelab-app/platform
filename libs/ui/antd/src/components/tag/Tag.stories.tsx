@@ -4,6 +4,11 @@ import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'Tag',
+  parameters: {
+    data: {
+      Default: tagData,
+    },
+  },
 }
 
 export const Default = () => {

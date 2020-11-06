@@ -4,6 +4,11 @@ import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'Divider',
+  parameters: {
+    data: {
+      Default: dividerData,
+    },
+  },
 }
 
 export const Default = () => {

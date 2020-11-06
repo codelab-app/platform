@@ -4,6 +4,11 @@ import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'Popover',
+  parameters: {
+    data: {
+      Default: popoverData,
+    },
+  },
 }
 
 export const Default = () => {

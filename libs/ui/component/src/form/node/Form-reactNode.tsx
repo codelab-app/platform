@@ -1,10 +1,10 @@
-import {
-  NodeReactI,
-  NodeType,
-  ReactTypeEnum,
-} from '@codelab/shared/interface/node'
+import { NodeReactI, NodeType } from '@codelab/shared/interface/node'
 import { PropType } from '@codelab/shared/interface/props'
 import { CodelabForm } from '@codelab/ui/antd'
+
+const reactType = Object.entries(NodeType).filter(([key, value]) =>
+  value.includes('React_'),
+)
 
 export const reactNodeFields: NodeReactI = {
   type: NodeType.React_Form_ItemHook,
@@ -19,7 +19,7 @@ export const reactNodeFields: NodeReactI = {
     CodelabForm.createSelect({
       label: 'Type',
       name: 'type',
-      options: Object.entries(ReactTypeEnum),
+      options: reactType,
       showSearch: true,
       filterOption: {
         __type: [PropType.Eval],

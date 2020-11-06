@@ -4,6 +4,11 @@ import { Renderer } from '@codelab/core/renderer'
 
 export default {
   title: 'Mapper',
+  parameters: {
+    data: {
+      Default: mapperData,
+    },
+  },
 }
 
 export const Default = () => {
