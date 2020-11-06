@@ -2,7 +2,7 @@
 
 [Back](../../README.md)
 
-1. `cp .env.example .env.dev`
+1. `cp .env.example .env`
 2. Update `NEO4J_URL`, `NEO4J_USERNAME`, `NEO4J_PASSWORD` in `.env`
 
 - Usually is `NEO4j_URL=bolt://localhost:7687`
