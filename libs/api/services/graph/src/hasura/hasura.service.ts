@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common'
+import { ConfigService } from '@nestjs/config'
 import { GqlModuleOptions, GqlOptionsFactory } from '@nestjs/graphql'
 import { HttpLink } from 'apollo-link-http'
 import {
@@ -13,13 +14,13 @@ import {
   // eslint-disable-next-line import/no-extraneous-dependencies
 } from 'graphql-tools'
 import nodeFetch from 'node-fetch'
-import { ConfigService } from '../config/config.service'
+import { ApiConfig, ApiConfigTypes } from '@codelab/api/providers/config'
 
-const CONSTRUCTOR_NAME = 'GraphqlService'
+const CONSTRUCTOR_NAME = 'HasuraService'
 
 @Injectable()
-export class GraphqlService implements GqlOptionsFactory {
-  constructor(private readonly config: ConfigService) {}
+export class HasuraService implements GqlOptionsFactory {
+  constructor(private readonly config: ConfigService<ApiConfig>) {}
 
   async createGqlOptions(): Promise<GqlModuleOptions> {
     let remoteExecutableSchema: any = null
@@ -32,29 +33,29 @@ export class GraphqlService implements GqlOptionsFactory {
 
     return {
       autoSchemaFile: true,
-      installSubscriptionHandlers: true,
+      installSubscriptionHandlers: false,
       transformSchema: async (schema: GraphQLSchema) => {
-        // console.log('localSchema', schema.getQueryType());
-        // console.log('remote', remoteExecutableSchema.getQueryType());
         return mergeSchemas({
           schemas: [schema, remoteExecutableSchema],
         })
       },
-
+      transformAutoSchemaFile: true,
       path: '/graphql',
-      debug: this.config.GQLConfig.debug,
-      tracing: this.config.GQLConfig.tracing,
-      playground: this.config.GQLConfig.playground,
+      debug: true,
+      tracing: true,
+      playground: true,
     }
   }
 
   private async createRemoteSchema(): Promise<GraphQLSchema> {
     try {
       const httpLink = new HttpLink({
-        uri: this.config.graphQLEngineURI,
+        uri: this.config.get(ApiConfigTypes.GQL_ENGINE_URI),
         fetch: nodeFetch as any,
         headers: {
-          'X-Hasura-Access-Key': this.config.graphQLEngineAccessKey,
+          'X-Hasura-Access-Key': this.config.get(
+            ApiConfigTypes.GQL_ENGINE_ACCESS_KEY,
+          ),
         },
       })
 
@@ -68,7 +69,6 @@ export class GraphqlService implements GqlOptionsFactory {
        */
       const remoteExecutableSchema = makeRemoteExecutableSchema({
         schema: builtHasuraSchema,
-        // schema: remoteSchema,
         link: httpLink,
       })
 
