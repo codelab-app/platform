@@ -7,8 +7,6 @@ import {
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions'
 import { ApiConfig, ApiConfigTypes } from '@codelab/api/providers/config'
 
-const resetDb = false
-
 @Injectable()
 export class OrmService implements TypeOrmOptionsFactory {
   constructor(private readonly config: ConfigService<ApiConfig>) {}
@@ -23,12 +21,18 @@ export class OrmService implements TypeOrmOptionsFactory {
       database: this.config.get(ApiConfigTypes.DB),
       autoLoadEntities: true,
       // synchronize and dropSchema resets the database
-      synchronize: resetDb,
-      dropSchema: resetDb,
+      synchronize: this.resetDb,
+      dropSchema: this.resetDb,
       logging: ['query', 'error', 'schema'],
       extra: {
         connectionLimit: 5,
       },
     } as PostgresConnectionOptions
+  }
+
+  get resetDb(): boolean {
+    const { argv } = process
+
+    return argv.includes('--reset')
   }
 }

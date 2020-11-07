@@ -1,4 +1,5 @@
-import { Module } from '@nestjs/common'
+import { Module, OnModuleInit } from '@nestjs/common'
+import * as shell from 'shelljs'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { ConfigModule } from '@codelab/api/providers/config'
@@ -24,4 +25,15 @@ import {
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule implements OnModuleInit {
+  onModuleInit(): any {
+    if (process.argv.includes('--reset')) {
+      if (
+        shell.exec('make -C apps/api/graph hasura-metadata-import').code !== 0
+      ) {
+        shell.echo('make hasura-metadata-import failed')
+        shell.exit(1)
+      }
+    }
+  }
+}
