@@ -148,6 +148,12 @@
     },
     "api-external": {
       "tags": []
+    },
+    "api-graph": {
+      "tags": []
+    },
+    "api-services-graph": {
+      "tags": []
     }
   }
 }

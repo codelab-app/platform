@@ -25,7 +25,7 @@ console.log(schemaFile)
 @Module({
   imports: [
     LoggerModule,
-    ConfigModule,
+    ConfigModule.forRoot(),
     // Main
     GraphQLModule.forRootAsync({
       imports: [Neo4jConnectorModule, GraphqlNodeModule],
