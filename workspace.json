@@ -1754,6 +1754,77 @@
           }
         }
       }
+    },
+    "api-graph": {
+      "root": "apps/api/graph",
+      "sourceRoot": "apps/api/graph/src",
+      "projectType": "application",
+      "prefix": "api-graph",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/api/graph",
+            "main": "apps/api/graph/src/main.ts",
+            "tsConfig": "apps/api/graph/tsconfig.app.json",
+            "assets": ["apps/api/graph/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/api/graph/src/environments/environment.ts",
+                  "with": "apps/api/graph/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "api-graph:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/api/graph/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/api/graph/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "api-services-graph": {
+      "root": "libs/api/services/graph",
+      "sourceRoot": "libs/api/services/graph/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/api/services/graph/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/api/services/graph/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {
