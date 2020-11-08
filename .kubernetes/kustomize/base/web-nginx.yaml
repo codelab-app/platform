@@ -1,0 +1,19 @@
+apiVersion: v1
+# https://gist.github.com/petitviolet/d36f33d145d0bbf4b54eb187b79d0244
+kind: ConfigMap
+metadata:
+  name: nginx-conf
+data:
+  nginx.conf: |
+    upstream web {
+      server 127.0.0.1:3000;
+    }
+
+    server {
+      listen 8080;
+      root /home/codelab/app/dist/apps/web;
+
+      location / {
+        proxy_pass http://web;
+      }
+    }
