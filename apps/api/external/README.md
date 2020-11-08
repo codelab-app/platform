@@ -1,13 +1,15 @@
 # Hasura Backend
 
 ## Installation
+
 1. Copy `.env.example` to `.env` within `apps/api/external`
 2. `make docker-start` within `apps/api/external`
 3. `nx serve-api-external serve` from workspace root
 
-> or if you want to reset schema & seed data, run `nx serve-api-external serve --args="--reset"`, exit that command, then run the default without reset
+> or if you want to reset schema & seed data, run `nx serve api-external --args="--reset"`, exit that command, then run the default without reset
 
 ## Explore
+
 1. Navigate to `http://localhost:8080` - this is your Hasura GUI
 2. Visit `http://localhost:3333/graphql` for GraphQL playground
 

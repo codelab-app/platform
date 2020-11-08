@@ -113,7 +113,7 @@ services:
 
   postgres:
     image: postgres:12
-    container_name: codelab-prop-postgres
+    container_name: codelab-postgres
     restart: always
     volumes:
       - db_data:/var/lib/postgresql/data
@@ -122,47 +122,31 @@ services:
     ports:
       # - HOST:CONTAINER
       # Allow local machine access
-      - 5433:5432
+      - ${POSTGRES_PORT}:5432
     env_file:
-      - .env
+      - ../.env
     environment:
       - POSTGRES_USER
       - POSTGRES_PASSWORD
       - POSTGRES_DB
 
-  graphql-engine:
+  hasura:
     image: hasura/graphql-engine:v1.3.2
-    container_name: codelab-prop-hasura
+    container_name: codelab-hasura
     ports:
       - 8080:8080
     depends_on:
       - postgres
     restart: always
     env_file:
-      - .env
+      - ../.env
     environment:
       - HASURA_GRAPHQL_DATABASE_URL
+      - HASURA_GRAPHQL_ADMIN_SECRET
       - HASURA_GRAPHQL_ENABLE_CONSOLE
       - HASURA_GRAPHQL_DEV_MODE
       - HASURA_GRAPHQL_ENABLED_LOG_TYPES
-      - HASURA_GRAPHQL_ADMIN_SECRET
-  volumes:
-    db_data:
-      name: codelab-postgres-volume
 
-  # verdaccio:
-  #   image: verdaccio/verdaccio:4
-  #   container_name: verdaccio-docker-local-storage-vol
-  #   ports:
-  #     - 4873:4873
-  #   volumes:
-  #     # This is bind mounted
-  #     - ./storage:/verdaccio/storage
-  #     - ./conf:/verdaccio/conf
-# volumes:
-# https://docs.docker.com/compose/compose-file/#volume-configuration-reference
-# codelab-volume:
-#   external:
-#     name: codelab-volume
-# verdaccio:
-#   driver: local
+volumes:
+  db_data:
+    name: codelab-postgres-volume

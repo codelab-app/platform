@@ -1,6 +1,6 @@
 import { ObjectType } from '@nestjs/graphql'
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
-import { IVertex } from './IVertex'
+import { IVertex, VertexType } from './vertex.interface'
 
 @Entity('vertex')
 @ObjectType({
@@ -8,10 +8,17 @@ import { IVertex } from './IVertex'
 })
 export class VertexEntity {
   @PrimaryGeneratedColumn()
-  declare id: number
+  declare id?: string
+
+  @Column({
+    type: 'enum',
+    enum: VertexType,
+    // default: VertexType.GHOST
+  })
+  declare type: VertexType
 
   @Column({
     type: 'jsonb',
   })
-  declare props?: any
+  declare props?: object
 }

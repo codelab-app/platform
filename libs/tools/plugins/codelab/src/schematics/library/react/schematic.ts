@@ -8,8 +8,10 @@ import {
   applyTemplates,
   chain,
   externalSchematic,
+  filter,
   mergeWith,
   move,
+  noop,
   url,
 } from '@angular-devkit/schematics'
 import {
@@ -70,6 +72,24 @@ export const removeFiles = (filesToRemove: Array<string>): Rule => {
 export const createStorybookProjectFiles = (
   options: Pick<NormalizedSchema, 'name' | 'projectRoot'>,
 ): Rule => {
+  const filesPath = path.resolve(__dirname, './files/.storybook')
+
+  return mergeWith(
+    apply(url(filesPath), [
+      applyTemplates({
+        ...options,
+        ...names(options.name),
+        offsetFromRoot: offsetFromRoot(options.projectRoot),
+      }),
+      move(`${options.projectRoot}/.storybook`),
+    ]),
+    MergeStrategy.Overwrite,
+  )
+}
+
+export const createProjectFiles = (
+  options: Pick<NormalizedSchema, 'name' | 'projectRoot'>,
+): Rule => {
   const filesPath = path.resolve(__dirname, './files')
 
   return mergeWith(
@@ -78,6 +98,9 @@ export const createStorybookProjectFiles = (
         ...options,
         ...names(options.name),
         offsetFromRoot: offsetFromRoot(options.projectRoot),
+      }),
+      filter((file) => {
+        return !file.includes('.storybook')
       }),
       move(options.projectRoot),
     ]),
@@ -97,7 +120,7 @@ export const createReactLibrary = (options: NormalizedSchema): Rule => {
 
 export const createStorybookLibrary = (options: NormalizedSchema): Rule => {
   return externalSchematic('@nrwl/storybook', 'configuration', {
-    name: options.name,
+    name: options.projectName,
     uiFramework: '@storybook/react',
   })
 }
@@ -111,12 +134,17 @@ export default (options: ReactSchematicSchema): Rule => {
 
   return (host: Tree, context: SchematicContext) => {
     return chain([
-      /**
+      /*
        * We want to extend the `@nrwl/react` schematics, and override the eslintrc file.
        */
       createReactLibrary(normalizedOptions),
-      createStorybookLibrary(normalizedOptions),
-      createStorybookProjectFiles(normalizedOptions),
+      createProjectFiles(normalizedOptions),
+      normalizedOptions.storybook === true
+        ? chain([
+            createStorybookLibrary(normalizedOptions),
+            createStorybookProjectFiles(normalizedOptions),
+          ])
+        : noop(),
       removeFiles(filesToRemove),
     ])
   }

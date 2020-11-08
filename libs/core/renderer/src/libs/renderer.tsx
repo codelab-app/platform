@@ -5,4 +5,6 @@ export class Renderer {
   static components<P>(data: NodeI) {
     return buildComponents<P>(data)
   }
+
+  // static
 }

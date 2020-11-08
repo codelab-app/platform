@@ -57,12 +57,22 @@ describe('@codelab/schematics:react-lib', () => {
       expect(eslintrcContents.extends).toBe('../../.eslintrc.js')
       expect(tsconfigEslintJson).toBeTruthy()
       expect(babelrc).toBeTruthy()
+
+      // Shouldn't generate storybook
+      const storybookFolder = appTree.exists('/libs/test/.storybook')
+
+      expect(storybookFolder).toBeFalsy()
     })
 
     it('should generate .storybook configs', async () => {
       appTree = await testRunner
-        .runSchematicAsync(SCHEMATIC_NAME, options, appTree)
+        .runSchematicAsync(
+          SCHEMATIC_NAME,
+          { storybook: true, ...options },
+          appTree,
+        )
         .toPromise()
+
       const mainJs = appTree.exists('/libs/test/.storybook/main.js')
       const previewJs = appTree.exists('/libs/test/.storybook/preview.js')
       const webpackConfigJs = appTree.exists(

@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { Repository } from 'typeorm'
+import { DeleteResult, Repository } from 'typeorm'
 import { VertexEntity } from './vertex.entity'
+import { CreateVertexDTO, DeleteVertexDTO } from './vertex.interface'
 
 @Injectable()
 export class VertexService {
@@ -12,5 +13,13 @@ export class VertexService {
 
   async findAll(): Promise<Array<VertexEntity>> {
     return this.vertexRepository.find()
+  }
+
+  async create(createVertexDto: CreateVertexDTO): Promise<VertexEntity> {
+    return this.vertexRepository.create(createVertexDto)
+  }
+
+  async delete(deleteVertexDto: DeleteVertexDTO): Promise<DeleteResult> {
+    return this.vertexRepository.delete(deleteVertexDto)
   }
 }

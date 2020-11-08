@@ -1405,7 +1405,7 @@
       "root": "apps/api/federation/node",
       "sourceRoot": "apps/api/federation/node/src",
       "projectType": "application",
-      "prefix": "api-services-graph",
+      "prefix": "api-services-node",
       "schematics": {},
       "architect": {
         "build": {
@@ -1821,6 +1821,29 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/api/services/graph/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "shared-interface-form": {
+      "root": "libs/shared/interface/form",
+      "sourceRoot": "libs/shared/interface/form/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared/interface/form/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/interface/form/jest.config.js",
             "passWithNoTests": true
           }
         }

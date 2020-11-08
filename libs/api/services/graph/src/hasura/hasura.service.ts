@@ -50,16 +50,18 @@ export class HasuraService implements GqlOptionsFactory {
   private async createRemoteSchema(): Promise<GraphQLSchema> {
     try {
       const httpLink = new HttpLink({
-        uri: this.config.get(ApiConfigTypes.GQL_ENGINE_URI),
+        uri: this.config.get(ApiConfigTypes.HASURA_GRAPHQL_URI),
         fetch: nodeFetch as any,
         headers: {
-          'X-Hasura-Access-Key': this.config.get(
-            ApiConfigTypes.GQL_ENGINE_ACCESS_KEY,
+          'X-Hasura-Admin-Secret': this.config.get(
+            ApiConfigTypes.HASURA_GRAPHQL_ADMIN_SECRET,
           ),
         },
       })
 
       const remoteIntrospectedSchema = await introspectSchema(httpLink)
+
+      console.log(remoteIntrospectedSchema)
 
       const remoteSchema = printSchema(remoteIntrospectedSchema)
       const builtHasuraSchema = buildSchemaGraphql(remoteSchema)

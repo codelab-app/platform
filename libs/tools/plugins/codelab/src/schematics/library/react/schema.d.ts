@@ -2,5 +2,5 @@ export interface ReactSchematicSchema {
   name: string
   tags?: string
   directory?: string
-  // storybook: boolean
+  storybook?: boolean
 }
