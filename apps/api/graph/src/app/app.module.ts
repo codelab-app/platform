@@ -5,10 +5,12 @@ import { AppService } from './app.service'
 import { ConfigModule } from '@codelab/api/providers/config'
 import {
   EdgeModule,
+  GraphModule,
   HasuraModule,
   OrmModule,
   VertexModule,
 } from '@codelab/api/services/graph'
+import { ApiServicesUserModule } from '@codelab/api/services/user'
 
 @Module({
   imports: [
@@ -19,6 +21,9 @@ import {
     OrmModule,
     VertexModule,
     EdgeModule,
+    VertexModule,
+    GraphModule,
+    ApiServicesUserModule,
   ],
   controllers: [AppController],
   providers: [AppService],

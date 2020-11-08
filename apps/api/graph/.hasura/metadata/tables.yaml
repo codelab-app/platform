@@ -5,13 +5,87 @@
     "table": {
       "schema": "public",
       "name": "edge"
+    },
+    "array_relationships": [
+    {
+      "name": "graphs",
+      "using": {
+        "foreign_key_constraint_on": {
+          "column": "edgeId",
+          "table": {
+            "schema": "public",
+            "name": "graph"
+          }
+        }
+      }
     }
+    ]
+  },
+  {
+    "table": {
+      "schema": "public",
+      "name": "graph"
+    },
+    "object_relationships": [
+    {
+      "name": "edge",
+      "using": {
+        "foreign_key_constraint_on": "edgeId"
+      }
+    },
+    {
+      "name": "user",
+      "using": {
+        "foreign_key_constraint_on": "userId"
+      }
+    },
+    {
+      "name": "vertex",
+      "using": {
+        "foreign_key_constraint_on": "vertexId"
+      }
+    }
+    ]
+  },
+  {
+    "table": {
+      "schema": "public",
+      "name": "user"
+    },
+    "array_relationships": [
+    {
+      "name": "graphs",
+      "using": {
+        "foreign_key_constraint_on": {
+          "column": "userId",
+          "table": {
+            "schema": "public",
+            "name": "graph"
+          }
+        }
+      }
+    }
+    ]
   },
   {
     "table": {
       "schema": "public",
       "name": "vertex"
+    },
+    "array_relationships": [
+    {
+      "name": "graphs",
+      "using": {
+        "foreign_key_constraint_on": {
+          "column": "vertexId",
+          "table": {
+            "schema": "public",
+            "name": "graph"
+          }
+        }
+      }
     }
+    ]
   }
   ]
 }

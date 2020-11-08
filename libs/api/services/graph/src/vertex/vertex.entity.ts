@@ -1,14 +1,15 @@
 import { ObjectType } from '@nestjs/graphql'
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
-import { IVertex, VertexType } from './vertex.interface'
+import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm'
+import { GraphEntity } from '../graph/graph.entity'
+import { IVertex } from './IVertex'
 
 @Entity('vertex')
 @ObjectType({
   implements: [IVertex],
 })
 export class VertexEntity {
-  @PrimaryGeneratedColumn()
-  declare id?: string
+  @PrimaryColumn()
+  declare id: string
 
   @Column({
     type: 'enum',
@@ -20,5 +21,8 @@ export class VertexEntity {
   @Column({
     type: 'jsonb',
   })
-  declare props?: object
+  declare props?: any
+
+  @OneToMany((type) => GraphEntity, (graph) => graph.vertex)
+  declare graphs: Array<GraphEntity>
 }
