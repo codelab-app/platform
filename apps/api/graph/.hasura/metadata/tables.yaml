@@ -6,17 +6,11 @@
       "schema": "public",
       "name": "edge"
     },
-    "array_relationships": [
+    "object_relationships": [
     {
-      "name": "graphs",
+      "name": "graph",
       "using": {
-        "foreign_key_constraint_on": {
-          "column": "edgeId",
-          "table": {
-            "schema": "public",
-            "name": "graph"
-          }
-        }
+        "foreign_key_constraint_on": "graphId"
       }
     }
     ]
@@ -28,21 +22,35 @@
     },
     "object_relationships": [
     {
-      "name": "edge",
-      "using": {
-        "foreign_key_constraint_on": "edgeId"
-      }
-    },
-    {
       "name": "user",
       "using": {
         "foreign_key_constraint_on": "userId"
       }
+    }
+    ],
+    "array_relationships": [
+    {
+      "name": "edges",
+      "using": {
+        "foreign_key_constraint_on": {
+          "column": "graphId",
+          "table": {
+            "schema": "public",
+            "name": "edge"
+          }
+        }
+      }
     },
     {
-      "name": "vertex",
+      "name": "vertices",
       "using": {
-        "foreign_key_constraint_on": "vertexId"
+        "foreign_key_constraint_on": {
+          "column": "graphId",
+          "table": {
+            "schema": "public",
+            "name": "vertex"
+          }
+        }
       }
     }
     ]
@@ -72,17 +80,11 @@
       "schema": "public",
       "name": "vertex"
     },
-    "array_relationships": [
+    "object_relationships": [
     {
-      "name": "graphs",
+      "name": "graph",
       "using": {
-        "foreign_key_constraint_on": {
-          "column": "vertexId",
-          "table": {
-            "schema": "public",
-            "name": "graph"
-          }
-        }
+        "foreign_key_constraint_on": "graphId"
       }
     }
     ]
