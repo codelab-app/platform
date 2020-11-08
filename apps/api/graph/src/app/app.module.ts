@@ -3,8 +3,6 @@ import * as shell from 'shelljs'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { ConfigModule } from '@codelab/api/providers/config'
-import { LoggerModule } from '@codelab/api/providers/logger'
-import { RouterModule } from '@codelab/api/providers/router'
 import {
   EdgeModule,
   HasuraModule,
@@ -14,13 +12,13 @@ import {
 
 @Module({
   imports: [
-    RouterModule,
-    LoggerModule,
+    // RouterModule,
+    // LoggerModule,
     ConfigModule.forRoot(),
     HasuraModule,
     OrmModule,
-    EdgeModule,
     VertexModule,
+    EdgeModule,
   ],
   controllers: [AppController],
   providers: [AppService],
@@ -29,9 +27,13 @@ export class AppModule implements OnModuleInit {
   onModuleInit(): any {
     if (process.argv.includes('--reset')) {
       if (
-        shell.exec('make -C apps/api/graph hasura-metadata-import').code !== 0
+        shell.exec(
+          `npx hasura metadata apply \
+          --project apps/api/graph/.hasura \
+          --envfile .env`,
+        ).code !== 0
       ) {
-        shell.echo('make hasura-metadata-import failed')
+        shell.echo('"hasura metadata apply" failed')
         shell.exit(1)
       }
     }

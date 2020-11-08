@@ -1,31 +1,15 @@
-import { v4 as uuidv4 } from 'uuid'
-import { EdgeA, EdgeI, IEdge } from '@codelab/shared/interface/graph'
+import { Edge as EdgeInterface, Vertex } from '@codelab/shared/interface/graph'
 
-export class Edge implements IEdge {
+export class Edge implements EdgeInterface {
   id: string
 
-  start: string
+  start: Vertex
 
-  end: string
+  end: Vertex
 
-  label: string
-
-  constructor({ id, label = '', start, end }: EdgeA) {
-    this.id = id
+  constructor(start: Vertex, end: Vertex, id?: string) {
     this.start = start
     this.end = end
-    this.label = label
-  }
-
-  static async fromCreateForm({ label, start, end }: EdgeI): Promise<Edge> {
-    // Simulate remote data storage,
-    const data = await Promise.resolve({
-      id: uuidv4(),
-      label,
-      start,
-      end,
-    })
-
-    return new Edge(data)
+    this.id = id ?? `${start.id}_${end.id}`
   }
 }

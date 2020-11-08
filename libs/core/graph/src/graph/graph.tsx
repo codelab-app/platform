@@ -1,91 +1,50 @@
-import cytoscape, { Core } from 'cytoscape'
 import { Edge } from '../edge'
 import { Vertex } from '../vertex'
 import {
-  EdgeA,
-  GraphA,
-  IGraph,
-  VertexA,
-  VertexI,
-  isVertexI,
+  Graph as GraphInterface,
+  GraphProps,
 } from '@codelab/shared/interface/graph'
+import { NodeA } from '@codelab/shared/interface/node'
 import { D3GraphProps } from '@codelab/ui/d3'
 
-export class Graph implements IGraph {
-  id: string
+export class Graph implements GraphInterface {
+  vertices: Array<Vertex> = []
 
-  vertices: Array<VertexA> = []
+  edges: Array<Edge> = []
 
-  edges: Array<EdgeA> = []
+  // used for graphAppender to keep track of previous node for creating edges
+  parent?: NodeA
 
-  /**
-   * We make constructor validation agnostic & forgiving, defer validation to each use case.
-   *
-   * Allows easier testing
-   *
-   * @param param
-   */
-  constructor({ id, vertices = [], edges = [] }: GraphA) {
-    this.id = id
+  constructor(props: GraphProps = { vertices: [], edges: [] }) {
+    const { vertices, edges } = props
+
     this.vertices = vertices
     this.edges = edges
   }
 
-  /**
-   *
-   * Add a child with vertex input
-   *
-   * @param parent Must be an existing vertex
-   * @param child Could either be input data or already created
-   */
-  async addChild(parent: VertexA, child: VertexI | VertexA): Promise<Vertex> {
-    let childVertex = child
+  public addVertexFromNode(node: NodeA): void {
+    this.vertices.push(Vertex.fromNode(node))
+  }
 
-    if (isVertexI(child)) {
-      childVertex = await Vertex.fromCreateForm(child)
+  public addEdgeFromNodes(start: NodeA | undefined, end: NodeA): void {
+    if (!start) {
+      throw new Error('Missing start Node')
     }
 
-    const edge = await Edge.fromCreateForm({
-      start: parent.id,
-      end: childVertex.id,
-    })
+    const startVertex = Vertex.fromNode(start)
+    const endVertex = Vertex.fromNode(end)
+    const edge = new Edge(startVertex, endVertex)
 
-    this.vertices = [...this.vertices, vertex]
-    this.edges = [...this.edges, edge]
-
-    return vertex
+    this.edges.push(edge)
   }
 
-  // public addVertexFromNode(node: any): void {
-  //   this.vertices.push(Vertex.fromNode(node))
-  // }
-
-  // public addEdgeFromNodes(start: string, end: string): void {
-  //   if (!start) {
-  //     throw new Error('Missing start Node')
-  //   }
-
-  //   const startVertex = Vertex.fromNode(start)
-  //   const endVertex = Vertex.fromNode(end)
-  //   const edge = new Edge({ start: startVertex, end: endVertex })
-
-  //   this.edges.push(edge)
-  // }
-
-  get cy(): Core {
-    return cytoscape({
-      headless: true,
-      // elements: {},
-    })
-  }
-
-  get d3Graph(): D3GraphProps {
+  get D3Graph(): D3GraphProps {
     const nodes = this.vertices
     const links = this.edges.map((edge) => {
       return {
         id: edge.id,
-        source: edge.start,
-        target: edge.end,
+        source: edge.start.id,
+        target: edge.end.id,
       }
     })
 

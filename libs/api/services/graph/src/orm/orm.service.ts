@@ -1,9 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
-import {
-  TypeOrmModuleOptions,
-  TypeOrmOptionsFactory,
-} from '@nestjs/typeorm/dist/interfaces/typeorm-options.interface'
+import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm'
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions'
 import { ApiConfig, ApiConfigTypes } from '@codelab/api/providers/config'
 
@@ -13,12 +10,12 @@ export class OrmService implements TypeOrmOptionsFactory {
 
   createTypeOrmOptions(connectionName?: string): TypeOrmModuleOptions {
     return {
-      host: this.config.get(ApiConfigTypes.DB_HOST),
-      type: this.config.get(ApiConfigTypes.DB_TYPE),
-      port: this.config.get(ApiConfigTypes.DB_PORT),
-      username: this.config.get(ApiConfigTypes.DB_USERNAME),
-      password: this.config.get(ApiConfigTypes.DB_PASSWORD),
-      database: this.config.get(ApiConfigTypes.DB),
+      host: this.config.get(ApiConfigTypes.POSTGRES_HOST),
+      type: 'postgres',
+      port: this.config.get(ApiConfigTypes.POSTGRES_PORT),
+      username: this.config.get(ApiConfigTypes.POSTGRES_USER),
+      password: this.config.get(ApiConfigTypes.POSTGRES_PASSWORD),
+      database: this.config.get(ApiConfigTypes.POSTGRES_DB),
       autoLoadEntities: true,
       // synchronize and dropSchema resets the database
       synchronize: this.resetDb,

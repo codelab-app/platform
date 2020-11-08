@@ -9,3 +9,16 @@ export abstract class IVertex {
   @Field((returns) => GraphQLJSONObject, { nullable: true })
   declare props?: any
 }
+
+export enum VertexType {
+  REACT_BUTTON = 'REACT_BUTTON',
+  REACT_TEXT = 'REACT_TEXT',
+}
+
+export interface DeleteVertexDTO {
+  id: string
+}
+
+export interface CreateVertexDTO {
+  type: VertexType
+}

@@ -1,13 +1,7 @@
-export interface EdgeI {
-  label?: string
-  start: string
-  end: string
-}
+import { Vertex } from './vertex'
 
-export interface EdgeA extends EdgeI {
+export interface Edge {
   id: string
-}
-
-export interface IEdge extends EdgeA {
-  test?: any
+  start: Vertex
+  end: Vertex
 }

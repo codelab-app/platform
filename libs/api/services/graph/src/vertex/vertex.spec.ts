@@ -1,3 +1,3 @@
-describe('Vertex model', () => {
+describe.skip('Vertex model', () => {
   it('')
 })

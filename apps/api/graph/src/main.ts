@@ -10,11 +10,10 @@ import bodyParser from 'body-parser'
 import methodOverride from 'method-override'
 import { AppModule } from './app/app.module'
 import { ApiConfig, ApiConfigTypes } from '@codelab/api/providers/config'
-import { ROUTER_SERVICE } from '@codelab/api/providers/router'
 
 const bootstrap = async () => {
   const app = await NestFactory.create(AppModule)
-  const { expressRouter } = app.get(ROUTER_SERVICE)
+  // const { expressRouter } = app.get(ROUTER_SERVICE)
   const config: ConfigService<ApiConfig> = app.get(ConfigService)
 
   const globalPrefix = ''
@@ -22,7 +21,7 @@ const bootstrap = async () => {
   app.setGlobalPrefix(globalPrefix)
   app.use(bodyParser.json())
   app.use(methodOverride())
-  app.use(expressRouter)
+  // app.use(expressRouter)
 
   const port = config.get(ApiConfigTypes.API_PORT_GRAPH)
 
