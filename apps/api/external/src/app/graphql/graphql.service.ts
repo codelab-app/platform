@@ -72,18 +72,6 @@ export class GraphqlService implements GqlOptionsFactory {
         link: httpLink,
       })
 
-      // const httpLinkExecutor = linkToExecutor(httpLink)
-
-      // const hasuraSchema = await introspectSchema(
-      //   httpLinkExecutor as AsyncExecutor,
-      // )
-
-      //
-      // const remoteExecutableSchema = makeRemoteExecutableSchema({
-      //   schema: hasuraSchema,
-      //   // link: httpLinkExecutor,
-      // })
-
       return Promise.resolve(remoteExecutableSchema)
     } catch (err) {
       console.log(err)

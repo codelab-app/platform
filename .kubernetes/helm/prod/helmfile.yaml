@@ -1,0 +1,11 @@
+repositories:
+- name: stable
+  url: https://charts.helm.sh/stable
+
+releases:
+- name: cert-manager
+  namespace: cert-manager
+  chart: jetstack/cert-manager
+  version: v0.11.0
+  values:
+    - values/cert-manager.yaml

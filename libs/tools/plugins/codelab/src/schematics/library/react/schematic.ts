@@ -8,8 +8,10 @@ import {
   applyTemplates,
   chain,
   externalSchematic,
+  filter,
   mergeWith,
   move,
+  noop,
   url,
 } from '@angular-devkit/schematics'
 import {
@@ -57,18 +59,35 @@ const normalizeOptions = (options: ReactSchematicSchema): NormalizedSchema => {
 /**
  * We use `.eslintrc.js` instead of `.eslintrc`, so need to remove generated files
  */
-const removeFiles = (options: NormalizedSchema): Rule => {
-  const { projectRoot } = options
-  const filesToRemove = ['.eslintrc.json', `${projectRoot}/.eslintrc.json`]
-
+export const removeFiles = (filesToRemove: Array<string>): Rule => {
   return (tree: Tree, context: SchematicContext) => {
-    filesToRemove.forEach((file: any) => {
-      tree.delete(file)
+    filesToRemove.forEach((file: string) => {
+      if (tree.exists(file)) {
+        tree.delete(file)
+      }
     })
   }
 }
 
 export const createStorybookProjectFiles = (
+  options: Pick<NormalizedSchema, 'name' | 'projectRoot'>,
+): Rule => {
+  const filesPath = path.resolve(__dirname, './files/.storybook')
+
+  return mergeWith(
+    apply(url(filesPath), [
+      applyTemplates({
+        ...options,
+        ...names(options.name),
+        offsetFromRoot: offsetFromRoot(options.projectRoot),
+      }),
+      move(`${options.projectRoot}/.storybook`),
+    ]),
+    MergeStrategy.Overwrite,
+  )
+}
+
+export const createProjectFiles = (
   options: Pick<NormalizedSchema, 'name' | 'projectRoot'>,
 ): Rule => {
   const filesPath = path.resolve(__dirname, './files')
@@ -79,6 +98,9 @@ export const createStorybookProjectFiles = (
         ...options,
         ...names(options.name),
         offsetFromRoot: offsetFromRoot(options.projectRoot),
+      }),
+      filter((file) => {
+        return !file.includes('.storybook')
       }),
       move(options.projectRoot),
     ]),
@@ -98,23 +120,32 @@ export const createReactLibrary = (options: NormalizedSchema): Rule => {
 
 export const createStorybookLibrary = (options: NormalizedSchema): Rule => {
   return externalSchematic('@nrwl/storybook', 'configuration', {
-    name: options.name,
+    name: options.projectName,
     uiFramework: '@storybook/react',
   })
 }
 
 export default (options: ReactSchematicSchema): Rule => {
   const normalizedOptions = normalizeOptions(options)
+  const filesToRemove = [
+    '.eslintrc.json',
+    `${normalizedOptions.projectRoot}/.eslintrc.json`,
+  ]
 
   return (host: Tree, context: SchematicContext) => {
     return chain([
-      /**
+      /*
        * We want to extend the `@nrwl/react` schematics, and override the eslintrc file.
        */
       createReactLibrary(normalizedOptions),
-      createStorybookLibrary(normalizedOptions),
-      createStorybookProjectFiles(normalizedOptions),
-      removeFiles(normalizedOptions),
+      createProjectFiles(normalizedOptions),
+      normalizedOptions.storybook === true
+        ? chain([
+            createStorybookLibrary(normalizedOptions),
+            createStorybookProjectFiles(normalizedOptions),
+          ])
+        : noop(),
+      removeFiles(filesToRemove),
     ])
   }
 }
