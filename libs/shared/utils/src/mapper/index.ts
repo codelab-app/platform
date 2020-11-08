@@ -1,1 +1,1 @@
-export * from './mapper-object'
+export const test = ''
