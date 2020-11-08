@@ -31,7 +31,7 @@ export const Tree = () => {
 
 export const Graph = () => {
   const nodeGraph = makeGraph(componentData)
-  const { nodes, links } = nodeGraph.D3Graph
+  const { nodes, links } = nodeGraph.d3Graph
 
   return <D3Graph nodes={nodes} links={links} />
 }

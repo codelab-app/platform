@@ -1825,6 +1825,50 @@
           }
         }
       }
+    },
+    "shared-interface-form": {
+      "root": "libs/shared/interface/form",
+      "sourceRoot": "libs/shared/interface/form/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared/interface/form/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/interface/form/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "api-graph": {
+      "root": "libs/api/graph",
+      "sourceRoot": "libs/api/graph/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/api/graph/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/api/graph/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {
