@@ -7,11 +7,11 @@ export abstract class IGraph {
   @Field((type) => Int)
   declare id: number
 
-  @Field((returns) => VertexEntity, { nullable: true })
-  declare vertex: VertexEntity
+  @Field((returns) => [VertexEntity], { nullable: true })
+  declare vertices: Array<VertexEntity>
 
-  @Field((returns) => EdgeEntity, { nullable: true })
-  declare edge: EdgeEntity
+  @Field((returns) => [EdgeEntity], { nullable: true })
+  declare edge: Array<EdgeEntity>
 
   @Field((returns) => UserEntity, { nullable: true })
   declare user: UserEntity

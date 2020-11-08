@@ -8,6 +8,8 @@ import {
   GraphModule,
   HasuraModule,
   OrmModule,
+  SeedDbModule,
+  SeedDbService,
   VertexModule,
 } from '@codelab/api/services/graph'
 import { ApiServicesUserModule } from '@codelab/api/services/user'
@@ -17,6 +19,7 @@ import { ApiServicesUserModule } from '@codelab/api/services/user'
     // RouterModule,
     // LoggerModule,
     ConfigModule.forRoot(),
+    SeedDbModule,
     HasuraModule,
     OrmModule,
     VertexModule,
@@ -29,7 +32,9 @@ import { ApiServicesUserModule } from '@codelab/api/services/user'
   providers: [AppService],
 })
 export class AppModule implements OnModuleInit {
-  onModuleInit(): any {
+  constructor(public seedDbService: SeedDbService) {}
+
+  async onModuleInit() {
     if (process.argv.includes('--reset')) {
       if (
         shell.exec(
@@ -41,6 +46,8 @@ export class AppModule implements OnModuleInit {
         shell.echo('"hasura metadata apply" failed')
         shell.exit(1)
       }
+
+      await this.seedDbService.seedDB()
     }
   }
 }

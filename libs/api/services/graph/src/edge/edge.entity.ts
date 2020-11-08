@@ -1,5 +1,5 @@
 import { ObjectType } from '@nestjs/graphql'
-import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm'
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm'
 import { GraphEntity } from '../graph'
 import { IEdge } from './IEdge'
 
@@ -26,6 +26,9 @@ export class EdgeEntity {
   })
   declare props?: any
 
-  @OneToMany((type) => GraphEntity, (graph) => graph.edge)
-  declare graphs: Array<GraphEntity>
+  declare graphId: number
+
+  @ManyToOne('GraphEntity', 'edges')
+  @JoinColumn({ name: 'graphId', referencedColumnName: 'id' })
+  declare graph: GraphEntity
 }

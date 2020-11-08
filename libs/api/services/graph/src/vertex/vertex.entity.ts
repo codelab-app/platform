@@ -1,5 +1,5 @@
 import { ObjectType } from '@nestjs/graphql'
-import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm'
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm'
 import { GraphEntity } from '../graph/graph.entity'
 import { IVertex } from './IVertex'
 
@@ -23,6 +23,9 @@ export class VertexEntity {
   })
   declare props?: any
 
-  @OneToMany((type) => GraphEntity, (graph) => graph.vertex)
-  declare graphs: Array<GraphEntity>
+  declare graphId: number
+
+  @ManyToOne('GraphEntity', 'vertices')
+  @JoinColumn({ name: 'graphId', referencedColumnName: 'id' })
+  declare graph: GraphEntity
 }

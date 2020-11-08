@@ -3,6 +3,7 @@ import { ConfigService } from '@nestjs/config'
 import { GqlModuleOptions, GqlOptionsFactory } from '@nestjs/graphql'
 import { HttpLink } from 'apollo-link-http'
 import {
+  GraphQLError,
   GraphQLSchema,
   buildSchema as buildSchemaGraphql,
   printSchema,
@@ -44,6 +45,17 @@ export class HasuraService implements GqlOptionsFactory {
       debug: true,
       tracing: true,
       playground: true,
+      formatError: (err: GraphQLError) => {
+        // Don't give the specific errors to the client.
+        // const a = err;
+        // if (err.message.startsWith("Nothing was")) {
+        //
+        // }
+        // return new Error('Internal server error');
+        // Otherwise return the original error.  The error can also
+        // be manipulated in other ways, so long as it's returned.
+        return err
+      },
     }
   }
 

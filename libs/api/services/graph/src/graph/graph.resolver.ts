@@ -1,5 +1,4 @@
-import { Args, Int, Query, Resolver } from '@nestjs/graphql'
-import { GraphObject } from './graph.object'
+import { Query, Resolver } from '@nestjs/graphql'
 import { GraphService } from './graph.service'
 import { GraphEntity } from '@codelab/api/services/graph'
 
@@ -10,12 +9,5 @@ export class GraphResolver {
   @Query(() => [GraphEntity])
   async getAll() {
     return this.graphService.findAll()
-  }
-
-  @Query(() => GraphObject)
-  async getGraphsForUser(
-    @Args({ name: 'userId', type: () => Int }) userId: number,
-  ): Promise<GraphObject> {
-    return this.graphService.getGraphsForUser(userId)
   }
 }
