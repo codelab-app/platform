@@ -1,6 +1,8 @@
 repositories:
 - name: stable
   url: https://charts.helm.sh/stable
+- name: datawire
+  url: https://www.getambassador.io
 
 releases:
 - name: cert-manager
@@ -9,3 +11,9 @@ releases:
   version: v0.11.0
   values:
     - values/cert-manager.yaml
+- name: ambassador
+  namespace: ambassador
+  chart: datawire/ambassador
+  version: 6.5.11
+  values:
+    - values/ambassador.yaml
