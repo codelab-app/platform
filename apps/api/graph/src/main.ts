@@ -7,22 +7,22 @@ import { Logger } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { NestFactory } from '@nestjs/core'
 import bodyParser from 'body-parser'
-import methodOverride from 'method-override'
 import { AppModule } from './app/app.module'
+import { GraphErrorHandler } from './app/filters/graph-error-handler'
 import { ApiConfig, ApiConfigTypes } from '@codelab/api/providers/config'
-import { ROUTER_SERVICE } from '@codelab/api/providers/router'
 
 const bootstrap = async () => {
   const app = await NestFactory.create(AppModule)
-  const { expressRouter } = app.get(ROUTER_SERVICE)
+  // const { expressRouter } = app.get(ROUTER_SERVICE)
   const config: ConfigService<ApiConfig> = app.get(ConfigService)
 
   const globalPrefix = ''
 
   app.setGlobalPrefix(globalPrefix)
+  app.useGlobalFilters(new GraphErrorHandler())
   app.use(bodyParser.json())
-  app.use(methodOverride())
-  app.use(expressRouter)
+  // app.use(methodOverride())
+  // app.use(expressRouter)
 
   const port = config.get(ApiConfigTypes.API_PORT_GRAPH)
 

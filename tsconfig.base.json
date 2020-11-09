@@ -60,11 +60,6 @@
       "@codelab/state/apollo": ["libs/state/apollo/src/index.ts"],
       "@codelab/api/prisma": ["libs/api/prisma/src/index.ts"],
       "@codelab/state/layout": ["libs/state/layout/src/index.ts"],
-      "@codelab/api/services/props": ["libs/api/services/props/src/index.ts"],
-      "@codelab/api/services/node": ["libs/api/services/node/src/index.ts"],
-      "@codelab/api/services/restify": [
-        "libs/api/services/restify/src/index.ts"
-      ],
       "@codelab/api/providers/config": [
         "libs/api/providers/config/src/index.ts"
       ],
@@ -73,8 +68,7 @@
       ],
       "@codelab/api/providers/router": [
         "libs/api/providers/router/src/index.ts"
-      ],
-      "@codelab/api/services/graph": ["libs/api/services/graph/src/index.ts"]
+      ]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"]

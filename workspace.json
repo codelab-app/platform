@@ -1294,92 +1294,6 @@
         }
       }
     },
-    "api-gateway": {
-      "root": "apps/api/gateway",
-      "sourceRoot": "apps/api/gateway/src",
-      "projectType": "application",
-      "prefix": "api",
-      "schematics": {},
-      "architect": {
-        "build": {
-          "builder": "@nrwl/node:build",
-          "options": {
-            "outputPath": "dist/apps/api/gateway",
-            "main": "apps/api/gateway/src/main.ts",
-            "tsConfig": "apps/api/gateway/tsconfig.app.json",
-            "assets": [
-              "apps/api/gateway/src/assets",
-              {
-                "glob": "pm2.json",
-                "input": "apps/api/gateway",
-                "output": "."
-              }
-            ]
-          },
-          "configurations": {
-            "production": {
-              "optimization": true,
-              "extractLicenses": true,
-              "inspect": false,
-              "fileReplacements": [
-                {
-                  "replace": "apps/api/gateway/src/environments/environment.ts",
-                  "with": "apps/api/gateway/src/environments/environment.prod.ts"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "builder": "@nrwl/node:execute",
-          "options": {
-            "buildTarget": "api-gateway:build",
-            "waitUntilTargets": [
-              "api-federation-props:serve",
-              "api-federation-node:serve"
-            ]
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "apps/api/gateway/**/*.ts",
-              "apps/api/gateway/**/*.spec.ts",
-              "apps/api/gateway/**/*.d.ts"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "apps/api/gateway/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "api-services-props": {
-      "root": "libs/api/services/props",
-      "sourceRoot": "libs/api/services/props/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/api/services/props/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/api/services/props/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
     "state-layout": {
       "root": "libs/state/layout",
       "sourceRoot": "libs/state/layout/src",
@@ -1396,229 +1310,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/state/layout/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "api-federation-node": {
-      "root": "apps/api/federation/node",
-      "sourceRoot": "apps/api/federation/node/src",
-      "projectType": "application",
-      "prefix": "api-services-graph",
-      "schematics": {},
-      "architect": {
-        "build": {
-          "builder": "@nrwl/node:build",
-          "options": {
-            "outputPath": "dist/apps/api/federation/node",
-            "main": "apps/api/federation/node/src/main.ts",
-            "tsConfig": "apps/api/federation/node/tsconfig.app.json",
-            "assets": [
-              "apps/api/federation/node/src/assets",
-              {
-                "glob": "pm2.json",
-                "input": "apps/api/federation/node",
-                "output": "."
-              }
-            ]
-          },
-          "configurations": {
-            "production": {
-              "optimization": true,
-              "extractLicenses": true,
-              "inspect": false,
-              "fileReplacements": [
-                {
-                  "replace": "apps/api/federation/node/src/environments/environment.ts",
-                  "with": "apps/api/federation/node/src/environments/environment.prod.ts"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "builder": "@nrwl/node:execute",
-          "options": {
-            "buildTarget": "api-federation-node:build",
-            "waitUntilTargets": ["api-federation-props:serve"]
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["apps/api/federation/node/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "apps/api/federation/node/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "api-federation-props": {
-      "root": "apps/api/federation/props",
-      "sourceRoot": "apps/api/federation/props/src",
-      "projectType": "application",
-      "prefix": "api-federation-props",
-      "schematics": {},
-      "architect": {
-        "build": {
-          "builder": "@nrwl/node:build",
-          "options": {
-            "outputPath": "dist/apps/api/federation/props",
-            "main": "apps/api/federation/props/src/main.ts",
-            "tsConfig": "apps/api/federation/props/tsconfig.app.json",
-            "assets": [
-              "apps/api/federation/props/src/assets",
-              {
-                "input": "apps/api/federation/props/src",
-                "glob": "**/*.proto",
-                "output": "."
-              },
-              {
-                "glob": "pm2.json",
-                "input": "apps/api/federation/props",
-                "output": "."
-              }
-            ]
-          },
-          "configurations": {
-            "production": {
-              "optimization": true,
-              "extractLicenses": true,
-              "inspect": false,
-              "fileReplacements": [
-                {
-                  "replace": "apps/api/federation/props/src/environments/environment.ts",
-                  "with": "apps/api/federation/props/src/environments/environment.prod.ts"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "builder": "@nrwl/node:execute",
-          "options": {
-            "buildTarget": "api-federation-props:build"
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["apps/api/federation/props/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "apps/api/federation/props/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "api-federation-user": {
-      "root": "apps/api/federation/user",
-      "sourceRoot": "apps/api/federation/user/src",
-      "projectType": "application",
-      "prefix": "api-services-user",
-      "schematics": {},
-      "architect": {
-        "build": {
-          "builder": "@nrwl/node:build",
-          "options": {
-            "outputPath": "dist/apps/api/federation/user",
-            "main": "apps/api/federation/user/src/main.ts",
-            "tsConfig": "apps/api/federation/user/tsconfig.app.json",
-            "assets": ["apps/api/federation/user/src/assets"]
-          },
-          "configurations": {
-            "production": {
-              "optimization": true,
-              "extractLicenses": true,
-              "inspect": false,
-              "fileReplacements": [
-                {
-                  "replace": "apps/api/federation/user/src/environments/environment.ts",
-                  "with": "apps/api/federation/user/src/environments/environment.prod.ts"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "builder": "@nrwl/node:execute",
-          "options": {
-            "buildTarget": "api-federation-user:build"
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "apps/api/federation/user/**/*.ts",
-              "apps/api/federation/user/**/*.spec.ts",
-              "apps/api/federation/user/**/*.d.ts"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "apps/api/federation/user/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "api-services-node": {
-      "root": "libs/api/services/node",
-      "sourceRoot": "libs/api/services/node/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/api/services/node/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/api/services/node/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "api-services-restify": {
-      "root": "libs/api/services/restify",
-      "sourceRoot": "libs/api/services/restify/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/api/services/restify/**/*.ts",
-              "libs/api/services/restify/**/*.spec.ts",
-              "libs/api/services/restify/**/*.spec.tsx",
-              "libs/api/services/restify/**/*.spec.js",
-              "libs/api/services/restify/**/*.spec.jsx",
-              "libs/api/services/restify/**/*.d.ts"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/api/services/restify/jest.config.js",
             "passWithNoTests": true
           }
         }
@@ -1755,6 +1446,29 @@
         }
       }
     },
+    "shared-interface-form": {
+      "root": "libs/shared/interface/form",
+      "sourceRoot": "libs/shared/interface/form/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared/interface/form/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/interface/form/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "api-graph": {
       "root": "apps/api/graph",
       "sourceRoot": "apps/api/graph/src",
@@ -1800,27 +1514,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "apps/api/graph/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "api-services-graph": {
-      "root": "libs/api/services/graph",
-      "sourceRoot": "libs/api/services/graph/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/api/services/graph/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/api/services/graph/jest.config.js",
             "passWithNoTests": true
           }
         }

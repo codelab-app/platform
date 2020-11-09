@@ -1,39 +1,42 @@
-import { Module, OnModuleInit } from '@nestjs/common'
-import * as shell from 'shelljs'
+import { Module } from '@nestjs/common'
+import { ConfigService } from '@nestjs/config'
+import { GraphQLModule } from '@nestjs/graphql'
+import { TypeOrmModule } from '@nestjs/typeorm'
+import { EdgeModule } from '../models/edge/edge.module'
+import { GraphModule } from '../models/graph/graph.module'
+import { UserModule } from '../models/user/user.module'
+import { VertexModule } from '../models/vertex/vertex.module'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
-import { ConfigModule } from '@codelab/api/providers/config'
-import { LoggerModule } from '@codelab/api/providers/logger'
-import { RouterModule } from '@codelab/api/providers/router'
 import {
-  EdgeModule,
-  HasuraModule,
-  OrmModule,
-  VertexModule,
-} from '@codelab/api/services/graph'
+  ConfigGraphqlHasuraService,
+  ConfigModule,
+  ConfigTypeormHasuraService,
+} from '@codelab/api/providers/config'
 
 @Module({
   imports: [
-    RouterModule,
-    LoggerModule,
-    ConfigModule.forRoot(),
-    HasuraModule,
-    OrmModule,
+    // RouterModule,
+    // LoggerModule,
+    ConfigModule,
+    // SeedDbModule,
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useClass: ConfigTypeormHasuraService,
+    }),
+    GraphQLModule.forRootAsync({
+      imports: [ConfigModule],
+      useClass: ConfigGraphqlHasuraService,
+      inject: [ConfigService],
+    }),
+    // Our models
     EdgeModule,
     VertexModule,
+    GraphModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule implements OnModuleInit {
-  onModuleInit(): any {
-    if (process.argv.includes('--reset')) {
-      if (
-        shell.exec('make -C apps/api/graph hasura-metadata-import').code !== 0
-      ) {
-        shell.echo('make hasura-metadata-import failed')
-        shell.exit(1)
-      }
-    }
-  }
-}
+export class AppModule {}

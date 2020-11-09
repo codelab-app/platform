@@ -1,0 +1,9 @@
+---
+apiVersion: getambassador.io/v2
+kind: Mapping
+metadata:
+  name: codelab-mapping
+  namespace: codelab
+spec:
+  prefix: /web/
+  service: web

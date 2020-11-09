@@ -11,3 +11,4 @@ public
 *.log
 !.*
 jest.preset.js
+**/graph-new

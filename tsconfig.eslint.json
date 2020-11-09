@@ -3,6 +3,7 @@
   "exclude": ["./jest.preset.js"],
   "include": [
     "**/*.ts",
+    "**/*.d.ts",
     "**/*.tsx",
     "**/*.json",
     "**/*.js",
