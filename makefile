@@ -38,7 +38,7 @@ build-prod:
     --maxWorkers=4
 
 #
-# Generate
+# GENERATE
 #
 
 generate-graphql:
@@ -50,6 +50,18 @@ generate-graphql-watch:
 		-c "wait-on http://localhost:4000 \
 		&& make generate-graphql"
 
+#
+# HASURA
+#
+hasura-metadata-export:
+	npx hasura metadata export \
+    --project apps/api/graph/.hasura \
+    --envfile ../../../../.env
+
+hasura-metadata-apply:
+	npx hasura metadata apply \
+    --project apps/api/graph/.hasura \
+    --envfile ../../../../.env
 #
 # LINT
 #
