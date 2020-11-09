@@ -16,6 +16,6 @@ export class UserEntity {
   })
   declare username: string
 
-  @OneToMany('GraphEntity', 'user')
+  @OneToMany((type) => GraphEntity, (graph) => graph.user)
   declare graphs: Array<GraphEntity>
 }

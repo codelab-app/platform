@@ -23,6 +23,6 @@ export class VertexEntity {
   })
   declare props?: any
 
-  @ManyToOne('GraphEntity', 'vertices')
+  @ManyToOne((type) => GraphEntity, (graph) => graph.vertices)
   declare graph: GraphEntity
 }

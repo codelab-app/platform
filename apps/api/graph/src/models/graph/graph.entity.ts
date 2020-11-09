@@ -13,12 +13,12 @@ export class GraphEntity {
   @PrimaryGeneratedColumn()
   declare id: number
 
-  @OneToMany('VertexEntity', 'graph')
+  @OneToMany((type) => VertexEntity, (vertex) => vertex.graph)
   declare vertices: Array<VertexEntity>
 
-  @OneToMany('EdgeEntity', 'graph')
+  @OneToMany((type) => EdgeEntity, (edge) => edge.graph)
   declare edges: Array<EdgeEntity>
 
-  @ManyToOne('UserEntity', 'graphs')
+  @ManyToOne((type) => UserEntity, (user) => user.graphs)
   declare user: UserEntity
 }

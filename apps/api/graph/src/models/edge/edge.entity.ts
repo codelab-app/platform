@@ -26,6 +26,6 @@ export class EdgeEntity {
   })
   declare props?: any
 
-  @ManyToOne('GraphEntity', 'edges')
+  @ManyToOne((type) => GraphEntity, (graph) => graph.edges)
   declare graph: GraphEntity
 }
