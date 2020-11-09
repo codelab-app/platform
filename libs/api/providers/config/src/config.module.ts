@@ -2,7 +2,10 @@ import * as Joi from '@hapi/joi'
 import { Module } from '@nestjs/common'
 import { ConfigModule as NestConfigModule } from '@nestjs/config'
 import { config } from './config'
-import { ConfigTypeormHasuraService } from './hasura'
+import {
+  ConfigGraphqlHasuraService,
+  ConfigTypeormHasuraService,
+} from './hasura'
 import { envPath } from '@codelab/shared/utils'
 
 @Module({
@@ -35,7 +38,7 @@ import { envPath } from '@codelab/shared/utils'
       }),
     }),
   ],
-  providers: [ConfigTypeormHasuraService],
-  exports: [ConfigTypeormHasuraService],
+  providers: [ConfigTypeormHasuraService, ConfigGraphqlHasuraService],
+  exports: [ConfigTypeormHasuraService, ConfigGraphqlHasuraService],
 })
 export class ConfigModule {}

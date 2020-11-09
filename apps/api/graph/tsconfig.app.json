@@ -4,10 +4,11 @@
     "outDir": "../../../dist/out-tsc",
     "types": ["node"],
     "esModuleInterop": true,
+    "module": "CommonJS",
     "allowSyntheticDefaultImports": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es2015"
+    "target": "esnext"
   },
   "exclude": ["**/*.spec.ts"],
   "include": ["**/*.ts"]

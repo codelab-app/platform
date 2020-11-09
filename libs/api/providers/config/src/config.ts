@@ -52,7 +52,7 @@ export interface ApiConfig {
   [ApiConfigTypes.POSTGRES_HOST]: string | undefined
   [ApiConfigTypes.POSTGRES_PORT]: number | undefined
   [ApiConfigTypes.POSTGRES_USER]: string | undefined
-  [ApiConfigTypes.POSTGRES_PASSWORD]: number | undefined
+  [ApiConfigTypes.POSTGRES_PASSWORD]: string | undefined
   [ApiConfigTypes.POSTGRES_DB]: string | undefined
   [ApiConfigTypes.HASURA_GRAPHQL_URI]: string | undefined
   [ApiConfigTypes.HASURA_GRAPHQL_ADMIN_SECRET]: string | undefined
@@ -77,7 +77,7 @@ export const config: ConfigFactory<ApiConfig> = () => ({
   [ApiConfigTypes.POSTGRES_HOST]: process.env.POSTGRES_HOST,
   [ApiConfigTypes.POSTGRES_PORT]: Number(process.env.POSTGRES_PORT),
   [ApiConfigTypes.POSTGRES_USER]: process.env.POSTGRES_USER,
-  [ApiConfigTypes.POSTGRES_PASSWORD]: Number(process.env.POSTGRES_PASSWORD),
+  [ApiConfigTypes.POSTGRES_PASSWORD]: process.env.POSTGRES_PASSWORD,
   [ApiConfigTypes.POSTGRES_DB]: process.env.POSTGRES_DB,
   [ApiConfigTypes.HASURA_GRAPHQL_URI]: process.env.HASURA_GRAPHQL_URI,
   [ApiConfigTypes.HASURA_GRAPHQL_ADMIN_SECRET]:

@@ -1,4 +1,4 @@
-import { Module, OnModuleInit } from '@nestjs/common'
+import { Module } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { GraphQLModule } from '@nestjs/graphql'
 import { TypeOrmModule } from '@nestjs/typeorm'
@@ -39,22 +39,4 @@ import {
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule implements OnModuleInit {
-  // constructor(public seedDbService: SeedDbService) {}
-
-  async onModuleInit() {
-    // if (process.argv.includes('--reset')) {
-    //   if (
-    //     shell.exec(
-    //       `npx hasura metadata apply \
-    //       --project apps/api/graph/.hasura \
-    //       --envfile .env`,
-    //     ).code !== 0
-    //   ) {
-    //     shell.echo('"hasura metadata apply" failed')
-    //     shell.exit(1)
-    //   }
-    //   await this.seedDbService.seedDB()
-    // }
-  }
-}
+export class AppModule {}
