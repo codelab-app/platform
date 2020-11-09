@@ -1,3 +1,4 @@
+import { ApolloClient } from '@apollo/client'
 import { Actor, Machine, assign, send, spawn } from 'xstate'
 import { ContextApp } from './machine-app--context'
 import { EventApp, EventNameApp } from './machine-app--event'
@@ -5,12 +6,17 @@ import { StateNameApp, StateSchemaApp } from './machine-app--state'
 import { NodeService as NodeServiceEntity } from '@codelab/core/node'
 import { machineLayout } from '@codelab/state/layout'
 import { EventNameModal, machineModal } from '@codelab/state/modal'
-import { createMachineNode } from '@codelab/state/node'
-import { ApolloClient } from '@apollo/client'
-import { createGraphQLDemoMachine } from 'libs/state/node/src/machine/dataLoader/machine-graphql-demo'
+import {
+  createGraphQLDemoMachine,
+  createMachineNode,
+} from '@codelab/state/node'
 
-export const createMachineApp = (nodeService: NodeServiceEntity, apolloClient: ApolloClient<any>) => {
+export const createMachineApp = (
+  nodeService: NodeServiceEntity,
+  apolloClient: ApolloClient<any>,
+) => {
   const graphQLDemoMachine = createGraphQLDemoMachine(apolloClient)
+
   return Machine<ContextApp, StateSchemaApp, EventApp>({
     id: 'app',
     initial: StateNameApp.IDLE,
@@ -18,7 +24,7 @@ export const createMachineApp = (nodeService: NodeServiceEntity, apolloClient: A
       modal: () => spawn(machineModal),
       layout: () => spawn(machineLayout),
       node: () => spawn(createMachineNode(nodeService)),
-      graphQLDemo: () => spawn(graphQLDemoMachine)
+      graphQLDemo: () => spawn(graphQLDemoMachine),
     }),
     states: {
       [StateNameApp.IDLE]: {
