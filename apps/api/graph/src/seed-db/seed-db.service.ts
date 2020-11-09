@@ -1,7 +1,10 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
-import { EdgeEntity, GraphEntity, UserEntity, VertexEntity } from '../models'
+import { EdgeEntity } from '../models/edge/edge.entity'
+import { GraphEntity } from '../models/graph/graph.entity'
+import { UserEntity } from '../models/user/user.entity'
+import { VertexEntity } from '../models/vertex/vertex.entity'
 
 @Injectable()
 export class SeedDbService {

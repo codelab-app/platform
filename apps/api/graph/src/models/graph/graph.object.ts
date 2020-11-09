@@ -1,6 +1,6 @@
 import { Field, ObjectType } from '@nestjs/graphql'
-import { EdgeEntity } from '../edge'
-import { VertexEntity } from '../vertex'
+import { EdgeEntity } from '../edge/edge.entity'
+import { VertexEntity } from '../vertex/vertex.entity'
 
 @ObjectType()
 export class GraphObject {

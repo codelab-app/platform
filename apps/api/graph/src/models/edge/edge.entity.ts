@@ -1,6 +1,6 @@
 import { ObjectType } from '@nestjs/graphql'
 import { Column, Entity, ManyToOne, PrimaryColumn } from 'typeorm'
-import { GraphEntity } from '../graph'
+import { GraphEntity } from '../graph/graph.entity'
 import { IEdge } from './IEdge'
 
 @Entity('edge')
