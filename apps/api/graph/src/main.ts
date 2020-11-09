@@ -7,8 +7,8 @@ import { Logger } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { NestFactory } from '@nestjs/core'
 import bodyParser from 'body-parser'
-import methodOverride from 'method-override'
 import { AppModule } from './app/app.module'
+import { GraphErrorHandler } from './app/filters/graph-error-handler'
 import { ApiConfig, ApiConfigTypes } from '@codelab/api/providers/config'
 
 const bootstrap = async () => {
@@ -19,8 +19,9 @@ const bootstrap = async () => {
   const globalPrefix = ''
 
   app.setGlobalPrefix(globalPrefix)
+  app.useGlobalFilters(new GraphErrorHandler())
   app.use(bodyParser.json())
-  app.use(methodOverride())
+  // app.use(methodOverride())
   // app.use(expressRouter)
 
   const port = config.get(ApiConfigTypes.API_PORT_GRAPH)

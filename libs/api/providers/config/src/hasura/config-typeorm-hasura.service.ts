@@ -5,7 +5,7 @@ import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConne
 import { ApiConfig, ApiConfigTypes } from '@codelab/api/providers/config'
 
 @Injectable()
-export class OrmService implements TypeOrmOptionsFactory {
+export class ConfigTypeormHasuraService implements TypeOrmOptionsFactory {
   constructor(private readonly config: ConfigService<ApiConfig>) {}
 
   createTypeOrmOptions(connectionName?: string): TypeOrmModuleOptions {

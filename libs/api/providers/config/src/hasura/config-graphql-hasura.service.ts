@@ -3,6 +3,7 @@ import { ConfigService } from '@nestjs/config'
 import { GqlModuleOptions, GqlOptionsFactory } from '@nestjs/graphql'
 import { HttpLink } from 'apollo-link-http'
 import {
+  GraphQLError,
   GraphQLSchema,
   buildSchema as buildSchemaGraphql,
   printSchema,
@@ -19,7 +20,7 @@ import { ApiConfig, ApiConfigTypes } from '@codelab/api/providers/config'
 const CONSTRUCTOR_NAME = 'HasuraService'
 
 @Injectable()
-export class HasuraService implements GqlOptionsFactory {
+export class ConfigGraphqlHasuraService implements GqlOptionsFactory {
   constructor(private readonly config: ConfigService<ApiConfig>) {}
 
   async createGqlOptions(): Promise<GqlModuleOptions> {
@@ -44,6 +45,17 @@ export class HasuraService implements GqlOptionsFactory {
       debug: true,
       tracing: true,
       playground: true,
+      formatError: (err: GraphQLError) => {
+        // Don't give the specific errors to the client.
+        // const a = err;
+        // if (err.message.startsWith("Nothing was")) {
+        //
+        // }
+        // return new Error('Internal server error');
+        // Otherwise return the original error.  The error can also
+        // be manipulated in other ways, so long as it's returned.
+        return err
+      },
     }
   }
 
@@ -60,9 +72,6 @@ export class HasuraService implements GqlOptionsFactory {
       })
 
       const remoteIntrospectedSchema = await introspectSchema(httpLink)
-
-      console.log(remoteIntrospectedSchema)
-
       const remoteSchema = printSchema(remoteIntrospectedSchema)
       const builtHasuraSchema = buildSchemaGraphql(remoteSchema)
 

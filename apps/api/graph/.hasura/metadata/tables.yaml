@@ -5,13 +5,89 @@
     "table": {
       "schema": "public",
       "name": "edge"
+    },
+    "object_relationships": [
+    {
+      "name": "graph",
+      "using": {
+        "foreign_key_constraint_on": "graphId"
+      }
     }
+    ]
+  },
+  {
+    "table": {
+      "schema": "public",
+      "name": "graph"
+    },
+    "object_relationships": [
+    {
+      "name": "user",
+      "using": {
+        "foreign_key_constraint_on": "userId"
+      }
+    }
+    ],
+    "array_relationships": [
+    {
+      "name": "edges",
+      "using": {
+        "foreign_key_constraint_on": {
+          "column": "graphId",
+          "table": {
+            "schema": "public",
+            "name": "edge"
+          }
+        }
+      }
+    },
+    {
+      "name": "vertices",
+      "using": {
+        "foreign_key_constraint_on": {
+          "column": "graphId",
+          "table": {
+            "schema": "public",
+            "name": "vertex"
+          }
+        }
+      }
+    }
+    ]
+  },
+  {
+    "table": {
+      "schema": "public",
+      "name": "user"
+    },
+    "array_relationships": [
+    {
+      "name": "graphs",
+      "using": {
+        "foreign_key_constraint_on": {
+          "column": "userId",
+          "table": {
+            "schema": "public",
+            "name": "graph"
+          }
+        }
+      }
+    }
+    ]
   },
   {
     "table": {
       "schema": "public",
       "name": "vertex"
+    },
+    "object_relationships": [
+    {
+      "name": "graph",
+      "using": {
+        "foreign_key_constraint_on": "graphId"
+      }
     }
+    ]
   }
   ]
 }

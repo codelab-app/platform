@@ -23,7 +23,7 @@ import { ApiConfig, ApiConfigTypes } from '@codelab/api/providers/config'
               {
                 name: `${ApiConfigTypes.FEDERATION_PROPS_NAME}`,
                 url: `http://localhost:${config.get(
-                  ApiConfigTypes.FEDERATION_PROPS_PORT,
+                  ApiConfigTypes.API_PORT_FEDERATION_PROPS,
                 )}/graphql`,
               },
             ],
