@@ -9,7 +9,7 @@ const resetDb = false
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
-      imports: [ConfigModule.forRoot()],
+      imports: [ConfigModule],
       inject: [ConfigService],
       useClass: OrmService,
     }),

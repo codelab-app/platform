@@ -7,7 +7,7 @@ import { ConfigModule } from '@codelab/api/providers/config'
 @Module({
   imports: [
     GraphQLModule.forRootAsync({
-      imports: [ConfigModule.forRoot()],
+      imports: [ConfigModule],
       useClass: HasuraService,
       inject: [ConfigService],
     }),

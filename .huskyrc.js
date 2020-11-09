@@ -8,6 +8,6 @@ module.exports = {
      */
     'pre-push': tasks(['make build-dev-affected', 'make test-dev-affected']),
     'commit-msg': 'make lint-commit-dev',
-    'pre-commit': lintstaged,
+    'pre-commit': tasks([lintstaged]),
   },
 }
