@@ -112,29 +112,7 @@
     "state-apollo": {
       "tags": []
     },
-    "api-gateway": {
-      "tags": [],
-      "implicitDependencies": ["api-federation-props", "api-federation-node"]
-    },
-    "api-services-props": {
-      "tags": []
-    },
-    "api-federation-node": {
-      "tags": []
-    },
     "state-layout": {
-      "tags": []
-    },
-    "api-federation-props": {
-      "tags": []
-    },
-    "api-federation-user": {
-      "tags": []
-    },
-    "api-services-node": {
-      "tags": []
-    },
-    "api-services-restify": {
       "tags": []
     },
     "api-providers-config": {
@@ -149,10 +127,10 @@
     "api-external": {
       "tags": []
     },
-    "api-graph": {
+    "shared-interface-form": {
       "tags": []
     },
-    "shared-interface-form": {
+    "api-graph": {
       "tags": []
     }
   }
