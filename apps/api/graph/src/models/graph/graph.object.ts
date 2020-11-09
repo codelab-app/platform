@@ -1,5 +1,6 @@
 import { Field, ObjectType } from '@nestjs/graphql'
-import { EdgeEntity, VertexEntity } from '@codelab/api/services/graph'
+import { EdgeEntity } from '../edge'
+import { VertexEntity } from '../vertex'
 
 @ObjectType()
 export class GraphObject {

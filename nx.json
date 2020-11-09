@@ -152,16 +152,7 @@
     "api-graph": {
       "tags": []
     },
-    "api-services-graph": {
-      "tags": []
-    },
     "shared-interface-form": {
-      "tags": []
-    },
-    "api-graph": {
-      "tags": []
-    },
-    "api-services-user": {
       "tags": []
     }
   }

@@ -1,9 +1,9 @@
 import { ObjectType } from '@nestjs/graphql'
 import { Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 import { EdgeEntity } from '../edge'
+import { UserEntity } from '../user'
 import { VertexEntity } from '../vertex'
 import { IGraph } from './IGraph'
-import { UserEntity } from '@codelab/api/services/user'
 
 @Entity('graph')
 @ObjectType({

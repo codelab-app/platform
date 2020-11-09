@@ -21,7 +21,7 @@ services:
     depends_on:
       - codelab
     env_file:
-      - .env
+      - ../.env
     environment:
       - NEXT_PUBLIC_API_ORIGIN
       - NEXT_PUBLIC_API_PATHNAME

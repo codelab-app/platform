@@ -1,12 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
-import {
-  EdgeEntity,
-  GraphEntity,
-  VertexEntity,
-} from '@codelab/api/services/graph'
-import { UserEntity } from '@codelab/api/services/user'
+import { EdgeEntity, GraphEntity, UserEntity, VertexEntity } from '../models'
 
 @Injectable()
 export class SeedDbService {

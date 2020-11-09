@@ -1,7 +1,7 @@
 import { ObjectType } from '@nestjs/graphql'
 import { Column, Entity, ManyToOne, PrimaryColumn } from 'typeorm'
 import { GraphEntity } from '../graph/graph.entity'
-import { IVertex } from './IVertex'
+import { IVertex, VertexType } from './vertex.interface'
 
 @Entity('vertex')
 @ObjectType({

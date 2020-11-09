@@ -9,4 +9,4 @@ import { UserService } from './user.service'
   providers: [UserService, UserResolver],
   exports: [TypeOrmModule],
 })
-export class ApiServicesUserModule {}
+export class UserModule {}

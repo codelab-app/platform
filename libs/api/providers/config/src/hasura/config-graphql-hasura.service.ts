@@ -20,7 +20,7 @@ import { ApiConfig, ApiConfigTypes } from '@codelab/api/providers/config'
 const CONSTRUCTOR_NAME = 'HasuraService'
 
 @Injectable()
-export class HasuraService implements GqlOptionsFactory {
+export class ConfigGraphqlHasuraService implements GqlOptionsFactory {
   constructor(private readonly config: ConfigService<ApiConfig>) {}
 
   async createGqlOptions(): Promise<GqlModuleOptions> {
@@ -72,9 +72,6 @@ export class HasuraService implements GqlOptionsFactory {
       })
 
       const remoteIntrospectedSchema = await introspectSchema(httpLink)
-
-      console.log(remoteIntrospectedSchema)
-
       const remoteSchema = printSchema(remoteIntrospectedSchema)
       const builtHasuraSchema = buildSchemaGraphql(remoteSchema)
 

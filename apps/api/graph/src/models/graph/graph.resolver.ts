@@ -1,6 +1,6 @@
 import { Query, Resolver } from '@nestjs/graphql'
+import { GraphEntity } from './graph.entity'
 import { GraphService } from './graph.service'
-import { GraphEntity } from '@codelab/api/services/graph'
 
 @Resolver(() => GraphEntity)
 export class GraphResolver {

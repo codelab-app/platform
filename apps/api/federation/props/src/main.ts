@@ -28,7 +28,7 @@ const bootstrap = async () => {
 
   // Config
   const config: ConfigService<ApiConfig> = app.get(ConfigService)
-  const port = config.get(ApiConfigTypes.FEDERATION_PROPS_PORT)
+  const port = config.get(ApiConfigTypes.API_PORT_FEDERATION_PROPS)
 
   await bootstrapMicroservices(app)
 

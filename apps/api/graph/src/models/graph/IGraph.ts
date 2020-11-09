@@ -1,6 +1,7 @@
 import { Field, Int, InterfaceType } from '@nestjs/graphql'
-import { EdgeEntity, VertexEntity } from '@codelab/api/services/graph'
-import { UserEntity } from '@codelab/api/services/user'
+import { EdgeEntity } from '../edge'
+import { UserEntity } from '../user'
+import { VertexEntity } from '../vertex'
 
 @InterfaceType()
 export abstract class IGraph {

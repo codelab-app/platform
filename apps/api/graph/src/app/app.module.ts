@@ -1,32 +1,39 @@
 import { Module, OnModuleInit } from '@nestjs/common'
+import { ConfigService } from '@nestjs/config'
+import { GraphQLModule } from '@nestjs/graphql'
+import { TypeOrmModule } from '@nestjs/typeorm'
 import * as shell from 'shelljs'
+import { EdgeModule, GraphModule, UserModule, VertexModule } from '../models'
+import { SeedDbService } from '../seed-db'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
-import { ConfigModule } from '@codelab/api/providers/config'
 import {
-  EdgeModule,
-  GraphModule,
-  HasuraModule,
-  OrmModule,
-  SeedDbModule,
-  SeedDbService,
-  VertexModule,
-} from '@codelab/api/services/graph'
-import { ApiServicesUserModule } from '@codelab/api/services/user'
+  ConfigGraphqlHasuraService,
+  ConfigModule,
+  ConfigTypeormHasuraService,
+} from '@codelab/api/providers/config'
 
 @Module({
   imports: [
     // RouterModule,
     // LoggerModule,
-    ConfigModule.forRoot(),
-    SeedDbModule,
-    HasuraModule,
-    OrmModule,
-    VertexModule,
+    ConfigModule,
+    // SeedDbModule,
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useClass: ConfigTypeormHasuraService,
+    }),
+    GraphQLModule.forRootAsync({
+      imports: [ConfigModule],
+      useClass: ConfigGraphqlHasuraService,
+      inject: [ConfigService],
+    }),
+    // Our models
     EdgeModule,
     VertexModule,
     GraphModule,
-    ApiServicesUserModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1805,27 +1805,6 @@
         }
       }
     },
-    "api-services-graph": {
-      "root": "libs/api/services/graph",
-      "sourceRoot": "libs/api/services/graph/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/api/services/graph/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/api/services/graph/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
     "shared-interface-form": {
       "root": "libs/shared/interface/form",
       "sourceRoot": "libs/shared/interface/form/src",
@@ -1844,27 +1823,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/shared/interface/form/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "api-services-user": {
-      "root": "libs/api/services/user",
-      "sourceRoot": "libs/api/services/user/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/api/services/user/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/api/services/user/jest.config.js",
             "passWithNoTests": true
           }
         }
