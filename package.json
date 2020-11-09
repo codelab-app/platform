@@ -26,9 +26,7 @@
     "docker:push": "./scripts/docker/push.sh",
     "kube:apply": "cd .kubernetes-deprecated && ./setup.sh",
     "start:prod:web": "pm2-runtime dist/apps/web/pm2.json",
-    "start:prod:api-gateway": "pm2-runtime dist/apps/api/gateway/pm2.json",
-    "start:prod:api-federation-nodes": "pm2-runtime dist/apps/api/federation/nodes/pm2.json",
-    "start:prod:api-federation-props": "pm2-runtime dist/apps/api/federation/props/pm2.json"
+    "start:prod:api-services-graph": "pm2-runtime dist/apps/api/graph/pm2.json"
   },
   "private": true,
   "dependencies": {

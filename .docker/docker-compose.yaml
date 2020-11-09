@@ -26,53 +26,67 @@ services:
       - NEXT_PUBLIC_API_ORIGIN
       - NEXT_PUBLIC_API_PATHNAME
 
-  api-gateway:
+  api-services-graph:
     ports:
-      - ${API_PORT_GATEWAY}:${API_PORT_GATEWAY}
+      - ${API_PORT_GRAPH}:${API_PORT_GRAPH}
     expose:
-      - ${API_PORT_GATEWAY}
-    entrypoint: ['yarn', 'start:prod:api-gateway']
+      - ${API_PORT_GRAPH}
+    entrypoint: ['yarn', 'start:prod:api-services-graph']
     image: codelabai/codelab:0.01
     depends_on:
       - codelab
-      - api-federation-nodes
-      - api-federation-props
     env_file:
       - ../.env
     environment:
-      - API_PORT_GATEWAY
-      - API_PORT_FEDERATION_PROPS
-      - API_PORT_FEDERATION_USER
-      - API_PORT_FEDERATION_NODE
+      - API_PORT_GRAPH
 
-  api-federation-nodes:
-    ports:
-      - ${API_PORT_FEDERATION_NODE}:${API_PORT_FEDERATION_NODE}
-    expose:
-      - ${API_PORT_FEDERATION_NODE}
-    entrypoint: ['yarn', 'start:prod:api-federation-nodes']
-    image: codelabai/codelab:0.01
-    depends_on:
-      - codelab
-      - api-federation-props
-    env_file:
-      - ../.env
-    environment:
-      - API_PORT_FEDERATION_NODE
+  # api-gateway:
+  #   ports:
+  #     - ${API_PORT_GATEWAY}:${API_PORT_GATEWAY}
+  #   expose:
+  #     - ${API_PORT_GATEWAY}
+  #   entrypoint: ['yarn', 'start:prod:api-gateway']
+  #   image: codelabai/codelab:0.01
+  #   depends_on:
+  #     - codelab
+  #     - api-federation-nodes
+  #     - api-federation-props
+  #   env_file:
+  #     - ../.env
+  #   environment:
+  #     - API_PORT_GATEWAY
+  #     - API_PORT_FEDERATION_PROPS
+  #     - API_PORT_FEDERATION_USER
+  #     - API_PORT_FEDERATION_NODE
 
-  api-federation-props:
-    ports:
-      - ${API_PORT_FEDERATION_PROPS}:${API_PORT_FEDERATION_PROPS}
-    expose:
-      - ${API_PORT_FEDERATION_PROPS}
-    entrypoint: ['yarn', 'start:prod:api-federation-props']
-    image: codelabai/codelab:0.01
-    depends_on:
-      - codelab
-    env_file:
-      - ../.env
-    environment:
-      - API_PORT_FEDERATION_PROPS
+  # api-federation-nodes:
+  #   ports:
+  #     - ${API_PORT_FEDERATION_NODE}:${API_PORT_FEDERATION_NODE}
+  #   expose:
+  #     - ${API_PORT_FEDERATION_NODE}
+  #   entrypoint: ['yarn', 'start:prod:api-federation-nodes']
+  #   image: codelabai/codelab:0.01
+  #   depends_on:
+  #     - codelab
+  #     - api-federation-props
+  #   env_file:
+  #     - ../.env
+  #   environment:
+  #     - API_PORT_FEDERATION_NODE
+
+  # api-federation-props:
+  #   ports:
+  #     - ${API_PORT_FEDERATION_PROPS}:${API_PORT_FEDERATION_PROPS}
+  #   expose:
+  #     - ${API_PORT_FEDERATION_PROPS}
+  #   entrypoint: ['yarn', 'start:prod:api-federation-props']
+  #   image: codelabai/codelab:0.01
+  #   depends_on:
+  #     - codelab
+  #   env_file:
+  #     - ../.env
+  #   environment:
+  #     - API_PORT_FEDERATION_PROPS
 
   fluentd:
     ports:

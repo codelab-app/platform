@@ -1,0 +1,31 @@
+# apiVersion: getambassador.io/v2
+# kind: Host
+# metadata:
+#   name: codelab.ai
+#   namespace: codelab
+# spec:
+#   hostname: host.codelab.ai
+#   acmeProvider:
+#     authority: https://acme-v02.api.letsencrypt.org/directory
+#     email: webber@codelab.ai
+#   # tlsSecret:
+#   #   name: tls-cert
+# ---
+# kind: Service
+# apiVersion: v1
+# metadata:
+#   name: ingress-ambassador
+#   labels:
+#     app.kubernetes.io/component: ambassador-service
+# spec:
+#   externalTrafficPolicy: Local
+#   type: LoadBalancer
+#   selector:
+#     service: ambassador
+#   ports:
+#     - name: http
+#       port: 80
+#       targetPort: http
+#     - name: https
+#       port: 443
+#       targetPort: https
