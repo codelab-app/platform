@@ -22,7 +22,7 @@ export const createMachineApp = (nodeService: NodeServiceEntity) => {
       [StateNameApp.INIT]: {
         entry: assign<ContextApp, EventApp>({
           modal: () => spawn(machineModal),
-          // modal: () => spawn(machineModalCrud),
+          // modal: () => spawn(machi neModalCrud),
           layout: () => spawn(machineLayout),
           node: (ctx: ContextApp) => spawn(createMachineNode(ctx.nodeService)),
         }),
