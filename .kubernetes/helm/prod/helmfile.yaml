@@ -17,3 +17,10 @@ releases:
   version: 6.5.11
   values:
     - values/ambassador.yaml
+
+- name: ingress-nginx
+  namespace: ingress-nginx
+  chart: stable/nginx-ingress
+  version: 1.39.0
+  values:
+    - values/ingress-nginx.yaml
