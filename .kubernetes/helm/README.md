@@ -25,7 +25,7 @@ helm plugin install https://github.com/databus23/helm-diff --version 3.1.3
 
 #### 1. Cert manger
 
-On staging:
+On staging
 ```
 cd stag
 kubectl apply \
@@ -55,4 +55,32 @@ $ k get clusterissuer
 NAME                  AGE
 letsencrypt-prod      59s
 letsencrypt-staging   59s
+```
+#### 2. Ambassador
+
+##### a. Cluster side
+On production
+```
+cd prod
+kubectl apply -f https://www.getambassador.io/yaml/aes-crds.yaml
+kubectl create namespace ambassador
+helmfile -l name=ambassador diff
+helmfile -l name=ambassador apply
+```
+
+##### b. Client side
+Install edgectl on Mac OS
+```
+curl -fL https://metriton.datawire.io/downloads/darwin/edgectl \
+  -o ~/.local/bin/edgectl \
+  && chmod +x ~/.loca/bin/edgectl
+
+edgectl install
+```
+After ran `edgectl install`, a new ambassador admin site will be created, e.g: https://randomize-xxxx-4199.edgestack.me/
+It also automatically open Ambassador admin from the web browser. In here, we can do management of Ambassador.
+
+In the future, to login to Admabsssador admin page again, we need to run
+```
+edgectl login  https://randomize-xxxx-4199.edgestack.me/
 ```
