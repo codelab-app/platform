@@ -1,8 +1,12 @@
-import Form from '@rjsf/antd'
+import { Theme as AntDTheme } from '@rjsf/antd'
+import { withTheme } from '@rjsf/core'
+import { JSONSchema7 } from 'json-schema'
 import React from 'react'
 
-export const FormJsonSchema = () => {
-  const schema = {
+const Form = withTheme(AntDTheme)
+
+export const FormGraph = () => {
+  const schema: JSONSchema7 = {
     title: 'Todo',
     type: 'object',
     required: ['title'],

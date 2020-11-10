@@ -12,6 +12,7 @@ export const createMachineApp = (nodeService: NodeServiceEntity) => {
     id: 'app',
     initial: StateNameApp.INIT,
     context: {
+      app: null,
       node: null,
       modal: null,
       layout: null,

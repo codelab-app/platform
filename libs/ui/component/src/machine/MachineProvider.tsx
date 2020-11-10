@@ -1,6 +1,6 @@
 import { useMachine } from '@xstate/react'
 import React, { PropsWithChildren } from 'react'
-import { EventObject, Interpreter, State, Typestate } from 'xstate'
+import { EventObject, Typestate } from 'xstate'
 import { MachineProps } from '@codelab/shared/interface/component'
 import {
   ContextApp,
@@ -14,12 +14,13 @@ interface MachineContextProps<
   TEvent extends EventObject,
   TTypestate extends Typestate<TContext>
 > {
-  app: {
-    state?: State<TContext, TEvent, any, TTypestate>
-    send?: Interpreter<TContext, any, TEvent, TTypestate>['send']
-    service?: Interpreter<TContext, any, TEvent, TTypestate>
-  }
+  // app: {
+  //   state?: State<TContext, TEvent, any, TTypestate>
+  //   send?: Interpreter<TContext, any, TEvent, TTypestate>['send']
+  //   service?: Interpreter<TContext, any, TEvent, TTypestate>
+  // }
   actors: {
+    app: any
     layout: any
     modal: any
     node: any
@@ -29,12 +30,13 @@ interface MachineContextProps<
 export const MachineContext = React.createContext<
   MachineContextProps<ContextApp, EventApp, StateApp>
 >({
-  app: {
-    state: undefined,
-    send: undefined,
-    service: undefined,
-  },
+  // app: {
+  //   state: undefined,
+  //   send: undefined,
+  //   service: undefined,
+  // },
   actors: {
+    app: undefined,
     layout: undefined,
     modal: undefined,
     node: undefined,
@@ -46,15 +48,11 @@ export const MachineProvider = (
 ) => {
   const { machine, children } = props
 
-  const [state, send, service] = useMachine(machine)
+  const [state] = useMachine(machine)
 
   const value = {
-    app: {
-      state,
-      send,
-      service,
-    },
     actors: {
+      app: state.context?.app,
       layout: state.context?.layout,
       modal: state.context?.modal,
       node: state.context?.node,

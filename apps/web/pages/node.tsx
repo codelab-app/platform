@@ -10,7 +10,7 @@ import { BaseNodeType } from '@codelab/shared/interface/node'
 import { MachineContext, NodeServiceContext } from '@codelab/ui/component'
 
 const NodePage = (props: any) => {
-  const { app, actors } = useContext(MachineContext)
+  const { actors } = useContext(MachineContext)
   const [stateModal, sendModal] = useActor(actors.modal)
   const [selectedNode, setSelectedNode] = React.useState(null)
   const [nodes, setNodes] = React.useState([])
