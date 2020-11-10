@@ -1,1 +1,1 @@
-export * from './machine-graphql-demo'
+export * from './example'

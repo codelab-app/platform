@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
-import { DataStreamEvents, EventNameDataLoader } from './DataStreamEvents'
+import { DataStreamEvents, EventNameDataStream } from './DataStreamEvents'
 import { QueryResult, QueryResultStatus } from './handleResult'
 
 export const createDataStream = <
@@ -20,13 +20,13 @@ export const createDataStream = <
         (result): DataStreamEvents<TData, typeof dataStreamId> => {
           if (result.type === QueryResultStatus.ERROR) {
             return {
-              type: EventNameDataLoader.FAILED_TO_LOAD_DATA,
+              type: EventNameDataStream.FAILED_TO_LOAD_DATA,
               id: dataStreamId,
             }
           }
 
           return {
-            type: EventNameDataLoader.DATA_LOADED,
+            type: EventNameDataStream.DATA_LOADED,
             data: result.data,
             id: dataStreamId,
           }

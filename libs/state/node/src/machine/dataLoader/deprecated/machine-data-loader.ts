@@ -3,9 +3,9 @@ import { Observable } from 'rxjs'
 import { Required } from 'utility-types'
 import { v4 as uuidv4 } from 'uuid'
 import { Actor, createMachine } from 'xstate'
+import { QueryResult } from '../handleResult'
 // import { assertEventType } from '@codelab/state/app'
 // import { EventNameDataLoader, DataStreamEvents } from './DataStreamEvents'
-import { QueryResult } from './handleResult'
 
 enum Actions {
   submitData = 'submitData',
