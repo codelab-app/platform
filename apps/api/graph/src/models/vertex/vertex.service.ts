@@ -3,7 +3,10 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { classToPlain } from 'class-transformer'
 import { DeleteResult, Repository } from 'typeorm'
 import { VertexEntity } from './vertex.entity'
-import { CreateVertexDTO, DeleteVertexDTO } from './vertex.interface'
+import {
+  CreateVertexDTO,
+  DeleteVertexDTO,
+} from '@codelab/shared/interface/graph'
 @Injectable()
 export class VertexService {
   constructor(
