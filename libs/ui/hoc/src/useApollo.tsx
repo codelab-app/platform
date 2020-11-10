@@ -9,7 +9,7 @@ import { concatPagination } from '@apollo/client/utilities'
 import { useMemo } from 'react'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface CacheShape { }
+interface CacheShape {}
 
 let apolloClient: ApolloClient<CacheShape>
 
