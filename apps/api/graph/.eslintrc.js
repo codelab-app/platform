@@ -16,5 +16,6 @@ module.exports = {
     'react/static-property-placement': 'off',
     'import/no-extraneous-dependencies': 'off',
     '@typescript-eslint/no-useless-constructor': 'off',
+    '@typescript-eslint/no-empty-function': 'off',
   },
 }
