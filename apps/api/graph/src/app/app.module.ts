@@ -1,7 +1,8 @@
-import { Module } from '@nestjs/common'
+import { Module, OnModuleInit } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { GraphQLModule } from '@nestjs/graphql'
 import { TypeOrmModule } from '@nestjs/typeorm'
+import * as shell from 'shelljs'
 import { EdgeModule } from '../models/edge/edge.module'
 import { GraphModule } from '../models/graph/graph.module'
 import { UserModule } from '../models/user/user.module'
@@ -39,4 +40,13 @@ import {
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule implements OnModuleInit {
+  onModuleInit(): any {
+    if (process.argv.includes('--reset')) {
+      if (shell.exec('make hasura-metadata-apply').code !== 0) {
+        shell.echo('make hasura-metadata-import failed')
+        shell.exit(1)
+      }
+    }
+  }
+}
