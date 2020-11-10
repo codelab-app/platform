@@ -1,4 +1,6 @@
 import { Interpreter } from 'xstate'
+import { EventApp } from './machine-app--event'
+import { StateSchemaApp } from './machine-app--state'
 import { NodeService } from '@codelab/core/node'
 import {
   ContextLayout,
@@ -13,6 +15,7 @@ import {
 import { ContextNode, EventNode, StateSchemaNode } from '@codelab/state/node'
 
 export interface ContextApp {
+  app: null | (() => Interpreter<ContextApp, StateSchemaApp, EventApp>)
   modal: null | (() => Interpreter<ContextModal, StateSchemaModal, EventModal>)
   layout:
     | null

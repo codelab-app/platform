@@ -1,4 +1,5 @@
 import { Machine, assign } from 'xstate'
+import { modalActions } from './machine-modal--actions'
 import { ContextModal } from './machine-modal--context'
 import { EventModal, EventNameModal } from './machine-modal--event'
 import { StateNameModal, StateSchemaModal } from './machine-modal--state'
@@ -29,8 +30,13 @@ export const machineModal = Machine<ContextModal, StateSchemaModal, EventModal>(
           [EventNameModal.CLOSE]: {
             target: StateNameModal.INACTIVE,
           },
+          [EventNameModal.OK]: {
+            target: StateNameModal.INACTIVE,
+          },
         },
       },
     },
   },
-)
+).withConfig({
+  actions: modalActions,
+})

@@ -13,10 +13,11 @@ import {
   MachineContext,
   Modal,
   ModalButton,
+  ReactJson,
   Table,
 } from '@codelab/ui/component'
 
-const Index = () => {
+const VertexPage = () => {
   const { actors } = useContext(MachineContext)
   const [nodeState, nodeSend] = useActor<ContextNode, EventNode>(actors.node)
 
@@ -83,7 +84,7 @@ const Index = () => {
         actor={actors.layout}
         content={
           <>
-            {/* <ReactJson data={actors.modal.state} /> */}
+            <ReactJson data={actors.modal.state} />
             <ModalButton actor={actors.modal} />
             <Modal {...modalProps}>
               <FormNode {...formNodeProps} />
@@ -99,4 +100,4 @@ const Index = () => {
   )
 }
 
-export default Index
+export default VertexPage

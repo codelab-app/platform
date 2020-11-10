@@ -1,5 +1,6 @@
 import { StateSchema } from 'xstate'
 import { ContextModal } from './machine-modal--context'
+import { StateNameEntity } from '@codelab/shared/interface/model'
 
 export enum StateNameModal {
   INACTIVE = 'INACTIVE',
@@ -8,7 +9,15 @@ export enum StateNameModal {
 
 export interface StateSchemaModal<T = ContextModal> extends StateSchema<T> {
   states: {
-    [StateNameModal.INACTIVE]: StateSchema<T>
-    [StateNameModal.ACTIVE]: StateSchema<T>
+    [StateNameModal.INACTIVE]: StateSchemaModalCrud<T>
+    [StateNameModal.ACTIVE]: StateSchemaModalCrud<T>
+  }
+}
+
+export interface StateSchemaModalCrud<T = ContextModal> extends StateSchema<T> {
+  states: {
+    [StateNameEntity.IDLE]: StateSchemaModal<T>
+    [StateNameEntity.CREATING]: StateSchemaModal<T>
+    [StateNameEntity.EDITING]: StateSchemaModal<T>
   }
 }

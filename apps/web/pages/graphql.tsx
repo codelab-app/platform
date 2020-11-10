@@ -44,14 +44,14 @@ const GraphqlPage: PageNodesComp = (props) => {
   const nodes = data.Node
 
   return (
-    <section>
+    <>
       <Button onClick={() => nodeCreateMutation()}>Create</Button>
       <>
         {nodes?.map((node: any) => {
           return <Item key={node.id} {...node} />
         })}
       </>
-    </section>
+    </>
   )
 }
 

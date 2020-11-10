@@ -11,20 +11,13 @@ type LayoutProps = {
   footer?: React.ReactNode
   sidebar?: React.ReactNode
 }
-const LayoutSrc = (
-  props: ComponentProps<ContextLayout, EventLayout, LayoutProps>,
-) => {
-  const { ...restProps } = props
-
-  const LayoutComp = Renderer.components<
-    ComponentProps<ContextLayout, EventLayout, LayoutProps>
-  >(layoutData)
-
-  return <LayoutComp {...restProps} />
-}
 
 export const Layout: React.FC<ComponentProps<
   ContextLayout,
   EventLayout,
   LayoutProps
->> = withActor<ContextLayout, EventLayout, LayoutProps>(LayoutSrc)
+>> = withActor<ContextLayout, EventLayout, LayoutProps>(
+  Renderer.components<ComponentProps<ContextLayout, EventLayout, LayoutProps>>(
+    layoutData,
+  ),
+)

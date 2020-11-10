@@ -6,7 +6,7 @@ import { VertexService } from './vertex.service'
 
 @Module({
   imports: [TypeOrmModule.forFeature([VertexEntity])],
-  exports: [TypeOrmModule],
-  providers: [VertexService, VertexResolver],
+  providers: [VertexService, VertexResolver, VertexEntity],
+  exports: [TypeOrmModule, VertexService],
 })
 export class VertexModule {}
