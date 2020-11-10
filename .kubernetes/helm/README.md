@@ -84,3 +84,21 @@ In the future, to login to Admabsssador admin page again, we need to run
 ```
 edgectl login  https://randomize-xxxx-4199.edgestack.me/
 ```
+
+#### 3. Ingress-nginx
+
+On production
+
+```
+cd prod
+helmfile -l name=ingress-nginx diff
+helmfile -l name=ingress-nginx apply
+```
+
+On staging
+
+```
+cd stag
+helmfile -l name=ingress-nginx diff
+helmfile -l name=ingress-nginx apply
+```
