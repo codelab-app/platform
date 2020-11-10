@@ -10,6 +10,7 @@ import bodyParser from 'body-parser'
 import { AppModule } from './app/app.module'
 import { GraphErrorHandler } from './app/filters/graph-error-handler'
 import { ApiConfig, ApiConfigTypes } from '@codelab/api/providers/config'
+import 'reflect-metadata'
 
 const bootstrap = async () => {
   const app = await NestFactory.create(AppModule)

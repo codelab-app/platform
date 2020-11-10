@@ -6,7 +6,6 @@ import {
   hooksData,
   nodeFormData,
 } from './data'
-import { FormJsonSchema } from './json-schema'
 import { Renderer } from '@codelab/core/renderer'
 
 export default {
@@ -56,8 +55,4 @@ export const FormHooks = () => {
   const Form = Renderer.components(hooksData)
 
   return <Form />
-}
-
-export const JsonSchema = () => {
-  return <FormJsonSchema />
 }
