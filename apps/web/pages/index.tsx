@@ -20,13 +20,12 @@ const Index = () => {
   const { actors } = useContext(MachineContext)
   const [nodeState, nodeSend] = useActor<ContextNode, EventNode>(actors.node)
 
-  // const handlecancel = () => {
-  //   actors.modal.send({ type: EventNameModal.CLOSE })
-
-  //   nodeState.value === StateNameNode.EDITING
-  //     ? nodeSend({ type: EventNameNode.NODE_EDIT_CANCEL })
-  //     : noop()
-  // }
+  const handlecancel = () => {
+    // actors.modal.send({ type: EventNameModal.CLOSE })
+    if (nodeState.value === StateNameNode.EDITING) {
+      nodeSend({ type: EventNameNode.NODE_EDIT_CANCEL })
+    }
+  }
 
   const handlesubmit = (values: any) => {
     return nodeState.value === StateNameNode.EDITING
@@ -57,7 +56,7 @@ const Index = () => {
     nodeSend({ type: EventNameNode.NODE_DELETE, payload: nodeId })
 
   const modalProps = {
-    // handlecancel,
+    handlecancel,
     actor: actors.modal,
   }
 

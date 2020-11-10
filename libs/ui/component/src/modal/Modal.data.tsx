@@ -20,11 +20,11 @@ export const modal: NodeReactI<Modal.Props | Text.Props> = {
     title: 'Basic Modal',
     onOk: {
       __type: [PropType.Eval],
-      value: `return () => this.send({ type: 'OK' })`,
+      value: `return () => this.handlecancel()`,
     },
     onCancel: {
       __type: [PropType.Eval],
-      value: `return () => this.send({ type: 'CLOSE' })`,
+      value: `return () => this.handelcancel()`,
     },
     visible: {
       __type: [PropType.Eval],
