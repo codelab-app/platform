@@ -12,3 +12,4 @@ public
 !.*
 jest.preset.js
 **/graph-new
+**/deprecated

@@ -1,11 +1,10 @@
 import { useActor } from '@xstate/react'
 import { Button } from 'antd'
 import React, { useContext } from 'react'
-import { PageNodesComp } from '@codelab/state/apollo'
 import { MachineContext } from '@codelab/ui/component'
 
-const MachineDataLoaderPage: PageNodesComp = (props) => {
-  const { app, actors } = useContext(MachineContext)
+const MachineDataLoaderPage = (props: any) => {
+  const { actors } = useContext(MachineContext)
 
   const [graphQLState, sendGraphQLDemo] = useActor(actors.graphQLDemo)
   const createVertex = () => {

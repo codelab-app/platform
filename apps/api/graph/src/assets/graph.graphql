@@ -3,3 +3,7 @@ query graphs {
     id
   }
 }
+
+mutation createGraph {
+
+}

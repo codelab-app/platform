@@ -20,7 +20,7 @@ interface MachineContextProps<
   //   service?: Interpreter<TContext, any, TEvent, TTypestate>
   // }
   actors: {
-    app: any
+    // app: any
     layout: any
     modal: any
     node: any
@@ -37,7 +37,7 @@ export const MachineContext = React.createContext<
   //   service: undefined,
   // },
   actors: {
-    app: undefined,
+    // app: undefined,
     layout: undefined,
     modal: undefined,
     node: undefined,
@@ -54,7 +54,7 @@ export const MachineProvider = (
 
   const value = {
     actors: {
-      app: state.context?.app,
+      // app: state.context?.app,
       layout: state.context?.layout,
       modal: state.context?.modal,
       node: state.context?.node,

@@ -14,4 +14,8 @@ export interface EventModalClose extends EventObject {
   type: EventNameModal.CLOSE
 }
 
-export type EventModal = EventModalOpen | EventModalClose
+export interface EventModalOk extends EventObject {
+  type: EventNameModal.OK
+}
+
+export type EventModal = EventModalOpen | EventModalClose | EventModalOk
