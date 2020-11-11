@@ -1,0 +1,5 @@
+query graphs {
+  graph {
+    id
+  }
+}

@@ -1,6 +1,6 @@
 overwrite: true
-schema: http://localhost:4000/graphql
-documents: apps/api/gateway/src/assets/**/*.graphql
+schema: http://localhost:4004/graphql
+documents: apps/api/graph/src/assets/**/*.graphql
 # documents: libs/state/apollo/src/__generated__/graphql-schema.json
 generates:
   # Generate into lib so we can import
@@ -39,6 +39,7 @@ generates:
     preset: import-types
     presetConfig:
       typesPath: ./graphql
+
   # libs/state/apollo/src/__generated__/graphql-files-modules.d.ts:
   #   plugins:
   #     - typescript-graphql-files-modules
