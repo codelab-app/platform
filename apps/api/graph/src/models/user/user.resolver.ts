@@ -7,7 +7,7 @@ export class UserResolver {
   constructor(public userService: UserService) {}
 
   @Query(() => [UserEntity])
-  async getAll() {
+  async getAllUsers() {
     return this.userService.findAll()
   }
 }

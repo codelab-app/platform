@@ -24,11 +24,16 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   async login(user: any) {
     const payload = {
       username: user.username,
-      sub: user.userId,
+      sub: user.userId.toString(),
+      'https://hasura.io/jwt/claims': {
+        'x-hasura-allowed-roles': ['editor', 'user', 'mod'],
+        'x-hasura-default-role': 'user',
+        'x-hasura-user-id': '1234567890',
+        'x-hasura-org-id': '123',
+        'x-hasura-custom': 'custom-value',
+      },
     }
 
-    return {
-      access_token: this.jwtService.sign(payload),
-    }
+    return this.jwtService.sign(payload)
   }
 }
