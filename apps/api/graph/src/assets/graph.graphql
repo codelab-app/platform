@@ -1,0 +1,9 @@
+query graphs {
+  graph {
+    id
+  }
+}
+
+mutation createGraph {
+
+}
