@@ -55,3 +55,49 @@ export const ssrGraphs = {
       withPage: withPageGraphs,
       usePage: useGraphs,
     }
+export async function getServerPageCreateGraph<T extends true | false>(options: Omit<Apollo.QueryOptions<Types.CreateGraphMutationVariables>, 'query'>, ctx? :any
+    , rawQueryResult?: T): Promise<{props: T extends true ? Apollo.ApolloQueryResult<Types.CreateGraphMutation> : {apolloState: NormalizedCacheObject} }>  {
+        const apolloClient = getApolloClient(ctx);
+        
+        const data = await apolloClient.query<Types.CreateGraphMutation>({ ...options, query:Operations.CreateGraphDocument });
+
+        if(rawQueryResult){
+          return {
+             props: data,
+          } as any;
+        }
+
+        const apolloState = apolloClient.cache.extract();
+
+        
+return {
+            props: {
+                apolloState,
+            },
+        } as any;
+        
+        
+      }
+export const useCreateGraph = (
+  optionsFunc?: (router: NextRouter)=> QueryHookOptions<Types.CreateGraphMutation, Types.CreateGraphMutationVariables>) => {
+  const router = useRouter();
+  const options = optionsFunc ? optionsFunc(router) : {};
+
+  
+return useQuery(Operations.CreateGraphDocument, options);
+};
+export type PageCreateGraphComp = React.FC<{data?: Types.CreateGraphMutation, error?: Apollo.ApolloError}>;
+export const withPageCreateGraph = (optionsFunc?: (router: NextRouter)=> QueryHookOptions<Types.CreateGraphMutation, Types.CreateGraphMutationVariables>) => (WrappedComponent:PageCreateGraphComp) : NextPage  => (props) => {
+                const router = useRouter()
+                const options = optionsFunc ? optionsFunc(router) : {};
+                const {data, error } = useQuery(Operations.CreateGraphDocument, options)    
+
+                
+return <WrappedComponent {...props} data={data} error={error} /> ;
+                   
+            }; 
+export const ssrCreateGraph = {
+      getServerPage: getServerPageCreateGraph,
+      withPage: withPageCreateGraph,
+      usePage: useCreateGraph,
+    }

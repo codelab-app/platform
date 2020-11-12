@@ -1,0 +1,2156 @@
+type Query {
+  getAll: [VertexEntity!]!
+
+  """
+  fetch data from the table: "edge"
+  """
+  edge(
+    """distinct select on columns"""
+    distinct_on: [edge_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [edge_order_by!]
+
+    """filter the rows returned"""
+    where: edge_bool_exp
+  ): [edge!]!
+
+  """
+  fetch aggregated fields from the table: "edge"
+  """
+  edge_aggregate(
+    """distinct select on columns"""
+    distinct_on: [edge_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [edge_order_by!]
+
+    """filter the rows returned"""
+    where: edge_bool_exp
+  ): edge_aggregate!
+
+  """fetch data from the table: "edge" using primary key columns"""
+  edge_by_pk(id: String!): edge
+
+  """
+  fetch data from the table: "graph"
+  """
+  graph(
+    """distinct select on columns"""
+    distinct_on: [graph_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [graph_order_by!]
+
+    """filter the rows returned"""
+    where: graph_bool_exp
+  ): [graph!]!
+
+  """
+  fetch aggregated fields from the table: "graph"
+  """
+  graph_aggregate(
+    """distinct select on columns"""
+    distinct_on: [graph_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [graph_order_by!]
+
+    """filter the rows returned"""
+    where: graph_bool_exp
+  ): graph_aggregate!
+
+  """fetch data from the table: "graph" using primary key columns"""
+  graph_by_pk(id: Int!): graph
+
+  """
+  fetch data from the table: "user"
+  """
+  user(
+    """distinct select on columns"""
+    distinct_on: [user_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [user_order_by!]
+
+    """filter the rows returned"""
+    where: user_bool_exp
+  ): [user!]!
+
+  """
+  fetch aggregated fields from the table: "user"
+  """
+  user_aggregate(
+    """distinct select on columns"""
+    distinct_on: [user_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [user_order_by!]
+
+    """filter the rows returned"""
+    where: user_bool_exp
+  ): user_aggregate!
+
+  """fetch data from the table: "user" using primary key columns"""
+  user_by_pk(id: Int!): user
+
+  """
+  fetch data from the table: "vertex"
+  """
+  vertex(
+    """distinct select on columns"""
+    distinct_on: [vertex_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [vertex_order_by!]
+
+    """filter the rows returned"""
+    where: vertex_bool_exp
+  ): [vertex!]!
+
+  """
+  fetch aggregated fields from the table: "vertex"
+  """
+  vertex_aggregate(
+    """distinct select on columns"""
+    distinct_on: [vertex_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [vertex_order_by!]
+
+    """filter the rows returned"""
+    where: vertex_bool_exp
+  ): vertex_aggregate!
+
+  """fetch data from the table: "vertex" using primary key columns"""
+  vertex_by_pk(id: String!): vertex
+}
+
+type UserEntity implements IUser {
+  id: Int!
+  username: String!
+}
+
+interface IUser {
+  id: Int!
+  username: String!
+}
+
+type VertexEntity implements IVertex {
+  id: String!
+  props: JSONObject
+}
+
+interface IVertex {
+  id: String!
+  props: JSONObject
+}
+
+"""
+The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSONObject
+
+type GraphEntity implements IGraph {
+  id: Int!
+  vertices: [VertexEntity!]
+  edges: [EdgeEntity!]
+  user: UserEntity
+}
+
+interface IGraph {
+  id: Int!
+  vertices: [VertexEntity!]
+  edges: [EdgeEntity!]
+  user: UserEntity
+}
+
+type EdgeEntity implements IEdge {
+  id: String!
+  source: String!
+  target: String!
+  props: JSONObject
+}
+
+interface IEdge {
+  id: String!
+  source: String!
+  target: String!
+  props: JSONObject
+}
+
+type Mutation {
+  """
+  delete data from the table: "edge"
+  """
+  delete_edge(
+    """filter the rows which have to be deleted"""
+    where: edge_bool_exp!
+  ): edge_mutation_response
+
+  """
+  delete single row from the table: "edge"
+  """
+  delete_edge_by_pk(id: String!): edge
+
+  """
+  delete data from the table: "graph"
+  """
+  delete_graph(
+    """filter the rows which have to be deleted"""
+    where: graph_bool_exp!
+  ): graph_mutation_response
+
+  """
+  delete single row from the table: "graph"
+  """
+  delete_graph_by_pk(id: Int!): graph
+
+  """
+  delete data from the table: "user"
+  """
+  delete_user(
+    """filter the rows which have to be deleted"""
+    where: user_bool_exp!
+  ): user_mutation_response
+
+  """
+  delete single row from the table: "user"
+  """
+  delete_user_by_pk(id: Int!): user
+
+  """
+  delete data from the table: "vertex"
+  """
+  delete_vertex(
+    """filter the rows which have to be deleted"""
+    where: vertex_bool_exp!
+  ): vertex_mutation_response
+
+  """
+  delete single row from the table: "vertex"
+  """
+  delete_vertex_by_pk(id: String!): vertex
+
+  """
+  insert data into the table: "edge"
+  """
+  insert_edge(
+    """the rows to be inserted"""
+    objects: [edge_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: edge_on_conflict
+  ): edge_mutation_response
+
+  """
+  insert a single row into the table: "edge"
+  """
+  insert_edge_one(
+    """the row to be inserted"""
+    object: edge_insert_input!
+
+    """on conflict condition"""
+    on_conflict: edge_on_conflict
+  ): edge
+
+  """
+  insert data into the table: "graph"
+  """
+  insert_graph(
+    """the rows to be inserted"""
+    objects: [graph_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: graph_on_conflict
+  ): graph_mutation_response
+
+  """
+  insert a single row into the table: "graph"
+  """
+  insert_graph_one(
+    """the row to be inserted"""
+    object: graph_insert_input!
+
+    """on conflict condition"""
+    on_conflict: graph_on_conflict
+  ): graph
+
+  """
+  insert data into the table: "user"
+  """
+  insert_user(
+    """the rows to be inserted"""
+    objects: [user_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: user_on_conflict
+  ): user_mutation_response
+
+  """
+  insert a single row into the table: "user"
+  """
+  insert_user_one(
+    """the row to be inserted"""
+    object: user_insert_input!
+
+    """on conflict condition"""
+    on_conflict: user_on_conflict
+  ): user
+
+  """
+  insert data into the table: "vertex"
+  """
+  insert_vertex(
+    """the rows to be inserted"""
+    objects: [vertex_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: vertex_on_conflict
+  ): vertex_mutation_response
+
+  """
+  insert a single row into the table: "vertex"
+  """
+  insert_vertex_one(
+    """the row to be inserted"""
+    object: vertex_insert_input!
+
+    """on conflict condition"""
+    on_conflict: vertex_on_conflict
+  ): vertex
+
+  """
+  update data of the table: "edge"
+  """
+  update_edge(
+    """append existing jsonb value of filtered columns with new jsonb value"""
+    _append: edge_append_input
+
+    """
+    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+    """
+    _delete_at_path: edge_delete_at_path_input
+
+    """
+    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+    """
+    _delete_elem: edge_delete_elem_input
+
+    """
+    delete key/value pair or string element. key/value pairs are matched based on their key value
+    """
+    _delete_key: edge_delete_key_input
+
+    """increments the integer columns with given value of the filtered values"""
+    _inc: edge_inc_input
+
+    """prepend existing jsonb value of filtered columns with new jsonb value"""
+    _prepend: edge_prepend_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: edge_set_input
+
+    """filter the rows which have to be updated"""
+    where: edge_bool_exp!
+  ): edge_mutation_response
+
+  """
+  update single row of the table: "edge"
+  """
+  update_edge_by_pk(
+    """append existing jsonb value of filtered columns with new jsonb value"""
+    _append: edge_append_input
+
+    """
+    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+    """
+    _delete_at_path: edge_delete_at_path_input
+
+    """
+    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+    """
+    _delete_elem: edge_delete_elem_input
+
+    """
+    delete key/value pair or string element. key/value pairs are matched based on their key value
+    """
+    _delete_key: edge_delete_key_input
+
+    """increments the integer columns with given value of the filtered values"""
+    _inc: edge_inc_input
+
+    """prepend existing jsonb value of filtered columns with new jsonb value"""
+    _prepend: edge_prepend_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: edge_set_input
+    pk_columns: edge_pk_columns_input!
+  ): edge
+
+  """
+  update data of the table: "graph"
+  """
+  update_graph(
+    """increments the integer columns with given value of the filtered values"""
+    _inc: graph_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: graph_set_input
+
+    """filter the rows which have to be updated"""
+    where: graph_bool_exp!
+  ): graph_mutation_response
+
+  """
+  update single row of the table: "graph"
+  """
+  update_graph_by_pk(
+    """increments the integer columns with given value of the filtered values"""
+    _inc: graph_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: graph_set_input
+    pk_columns: graph_pk_columns_input!
+  ): graph
+
+  """
+  update data of the table: "user"
+  """
+  update_user(
+    """increments the integer columns with given value of the filtered values"""
+    _inc: user_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: user_set_input
+
+    """filter the rows which have to be updated"""
+    where: user_bool_exp!
+  ): user_mutation_response
+
+  """
+  update single row of the table: "user"
+  """
+  update_user_by_pk(
+    """increments the integer columns with given value of the filtered values"""
+    _inc: user_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: user_set_input
+    pk_columns: user_pk_columns_input!
+  ): user
+
+  """
+  update data of the table: "vertex"
+  """
+  update_vertex(
+    """append existing jsonb value of filtered columns with new jsonb value"""
+    _append: vertex_append_input
+
+    """
+    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+    """
+    _delete_at_path: vertex_delete_at_path_input
+
+    """
+    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+    """
+    _delete_elem: vertex_delete_elem_input
+
+    """
+    delete key/value pair or string element. key/value pairs are matched based on their key value
+    """
+    _delete_key: vertex_delete_key_input
+
+    """increments the integer columns with given value of the filtered values"""
+    _inc: vertex_inc_input
+
+    """prepend existing jsonb value of filtered columns with new jsonb value"""
+    _prepend: vertex_prepend_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: vertex_set_input
+
+    """filter the rows which have to be updated"""
+    where: vertex_bool_exp!
+  ): vertex_mutation_response
+
+  """
+  update single row of the table: "vertex"
+  """
+  update_vertex_by_pk(
+    """append existing jsonb value of filtered columns with new jsonb value"""
+    _append: vertex_append_input
+
+    """
+    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+    """
+    _delete_at_path: vertex_delete_at_path_input
+
+    """
+    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+    """
+    _delete_elem: vertex_delete_elem_input
+
+    """
+    delete key/value pair or string element. key/value pairs are matched based on their key value
+    """
+    _delete_key: vertex_delete_key_input
+
+    """increments the integer columns with given value of the filtered values"""
+    _inc: vertex_inc_input
+
+    """prepend existing jsonb value of filtered columns with new jsonb value"""
+    _prepend: vertex_prepend_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: vertex_set_input
+    pk_columns: vertex_pk_columns_input!
+  ): vertex
+}
+
+type Subscription {
+  """
+  fetch data from the table: "edge"
+  """
+  edge(
+    """distinct select on columns"""
+    distinct_on: [edge_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [edge_order_by!]
+
+    """filter the rows returned"""
+    where: edge_bool_exp
+  ): [edge!]!
+
+  """
+  fetch aggregated fields from the table: "edge"
+  """
+  edge_aggregate(
+    """distinct select on columns"""
+    distinct_on: [edge_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [edge_order_by!]
+
+    """filter the rows returned"""
+    where: edge_bool_exp
+  ): edge_aggregate!
+
+  """fetch data from the table: "edge" using primary key columns"""
+  edge_by_pk(id: String!): edge
+
+  """
+  fetch data from the table: "graph"
+  """
+  graph(
+    """distinct select on columns"""
+    distinct_on: [graph_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [graph_order_by!]
+
+    """filter the rows returned"""
+    where: graph_bool_exp
+  ): [graph!]!
+
+  """
+  fetch aggregated fields from the table: "graph"
+  """
+  graph_aggregate(
+    """distinct select on columns"""
+    distinct_on: [graph_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [graph_order_by!]
+
+    """filter the rows returned"""
+    where: graph_bool_exp
+  ): graph_aggregate!
+
+  """fetch data from the table: "graph" using primary key columns"""
+  graph_by_pk(id: Int!): graph
+
+  """
+  fetch data from the table: "user"
+  """
+  user(
+    """distinct select on columns"""
+    distinct_on: [user_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [user_order_by!]
+
+    """filter the rows returned"""
+    where: user_bool_exp
+  ): [user!]!
+
+  """
+  fetch aggregated fields from the table: "user"
+  """
+  user_aggregate(
+    """distinct select on columns"""
+    distinct_on: [user_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [user_order_by!]
+
+    """filter the rows returned"""
+    where: user_bool_exp
+  ): user_aggregate!
+
+  """fetch data from the table: "user" using primary key columns"""
+  user_by_pk(id: Int!): user
+
+  """
+  fetch data from the table: "vertex"
+  """
+  vertex(
+    """distinct select on columns"""
+    distinct_on: [vertex_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [vertex_order_by!]
+
+    """filter the rows returned"""
+    where: vertex_bool_exp
+  ): [vertex!]!
+
+  """
+  fetch aggregated fields from the table: "vertex"
+  """
+  vertex_aggregate(
+    """distinct select on columns"""
+    distinct_on: [vertex_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [vertex_order_by!]
+
+    """filter the rows returned"""
+    where: vertex_bool_exp
+  ): vertex_aggregate!
+
+  """fetch data from the table: "vertex" using primary key columns"""
+  vertex_by_pk(id: String!): vertex
+}
+
+"""
+expression to compare columns of type Int. All fields are combined with logical 'AND'.
+"""
+input Int_comparison_exp {
+  _eq: Int
+  _gt: Int
+  _gte: Int
+  _in: [Int!]
+  _is_null: Boolean
+  _lt: Int
+  _lte: Int
+  _neq: Int
+  _nin: [Int!]
+}
+
+"""
+expression to compare columns of type String. All fields are combined with logical 'AND'.
+"""
+input String_comparison_exp {
+  _eq: String
+  _gt: String
+  _gte: String
+  _ilike: String
+  _in: [String!]
+  _is_null: Boolean
+  _like: String
+  _lt: String
+  _lte: String
+  _neq: String
+  _nilike: String
+  _nin: [String!]
+  _nlike: String
+  _nsimilar: String
+  _similar: String
+}
+
+"""
+columns and relationships of "edge"
+"""
+type edge {
+  graphId: Int
+  id: String!
+  props(
+    """JSON select path"""
+    path: String
+  ): jsonb!
+  source: String!
+  target: String!
+}
+
+"""
+aggregated selection of "edge"
+"""
+type edge_aggregate {
+  aggregate: edge_aggregate_fields
+  nodes: [edge!]!
+}
+
+"""
+aggregate fields of "edge"
+"""
+type edge_aggregate_fields {
+  avg: edge_avg_fields
+  count(columns: [edge_select_column!], distinct: Boolean): Int
+  max: edge_max_fields
+  min: edge_min_fields
+  stddev: edge_stddev_fields
+  stddev_pop: edge_stddev_pop_fields
+  stddev_samp: edge_stddev_samp_fields
+  sum: edge_sum_fields
+  var_pop: edge_var_pop_fields
+  var_samp: edge_var_samp_fields
+  variance: edge_variance_fields
+}
+
+"""
+order by aggregate values of table "edge"
+"""
+input edge_aggregate_order_by {
+  avg: edge_avg_order_by
+  count: order_by
+  max: edge_max_order_by
+  min: edge_min_order_by
+  stddev: edge_stddev_order_by
+  stddev_pop: edge_stddev_pop_order_by
+  stddev_samp: edge_stddev_samp_order_by
+  sum: edge_sum_order_by
+  var_pop: edge_var_pop_order_by
+  var_samp: edge_var_samp_order_by
+  variance: edge_variance_order_by
+}
+
+"""append existing jsonb value of filtered columns with new jsonb value"""
+input edge_append_input {
+  props: jsonb
+}
+
+"""
+input type for inserting array relation for remote table "edge"
+"""
+input edge_arr_rel_insert_input {
+  data: [edge_insert_input!]!
+  on_conflict: edge_on_conflict
+}
+
+"""aggregate avg on columns"""
+type edge_avg_fields {
+  graphId: Float
+}
+
+"""
+order by avg() on columns of table "edge"
+"""
+input edge_avg_order_by {
+  graphId: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "edge". All fields are combined with a logical 'AND'.
+"""
+input edge_bool_exp {
+  _and: [edge_bool_exp]
+  _not: edge_bool_exp
+  _or: [edge_bool_exp]
+  graphId: Int_comparison_exp
+  id: String_comparison_exp
+  props: jsonb_comparison_exp
+  source: String_comparison_exp
+  target: String_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "edge"
+"""
+enum edge_constraint {
+  """unique or primary key constraint"""
+  PK_bf6f43c9af56d05094d8c57b311
+}
+
+"""
+delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+"""
+input edge_delete_at_path_input {
+  props: [String]
+}
+
+"""
+delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+"""
+input edge_delete_elem_input {
+  props: Int
+}
+
+"""
+delete key/value pair or string element. key/value pairs are matched based on their key value
+"""
+input edge_delete_key_input {
+  props: String
+}
+
+"""
+input type for incrementing integer column in table "edge"
+"""
+input edge_inc_input {
+  graphId: Int
+}
+
+"""
+input type for inserting data into table "edge"
+"""
+input edge_insert_input {
+  graphId: Int
+  id: String
+  props: jsonb
+  source: String
+  target: String
+}
+
+"""aggregate max on columns"""
+type edge_max_fields {
+  graphId: Int
+  id: String
+  source: String
+  target: String
+}
+
+"""
+order by max() on columns of table "edge"
+"""
+input edge_max_order_by {
+  graphId: order_by
+  id: order_by
+  source: order_by
+  target: order_by
+}
+
+"""aggregate min on columns"""
+type edge_min_fields {
+  graphId: Int
+  id: String
+  source: String
+  target: String
+}
+
+"""
+order by min() on columns of table "edge"
+"""
+input edge_min_order_by {
+  graphId: order_by
+  id: order_by
+  source: order_by
+  target: order_by
+}
+
+"""
+response of any mutation on the table "edge"
+"""
+type edge_mutation_response {
+  """number of affected rows by the mutation"""
+  affected_rows: Int!
+
+  """data of the affected rows by the mutation"""
+  returning: [edge!]!
+}
+
+"""
+input type for inserting object relation for remote table "edge"
+"""
+input edge_obj_rel_insert_input {
+  data: edge_insert_input!
+  on_conflict: edge_on_conflict
+}
+
+"""
+on conflict condition type for table "edge"
+"""
+input edge_on_conflict {
+  constraint: edge_constraint!
+  update_columns: [edge_update_column!]!
+  where: edge_bool_exp
+}
+
+"""
+ordering options when selecting data from "edge"
+"""
+input edge_order_by {
+  graphId: order_by
+  id: order_by
+  props: order_by
+  source: order_by
+  target: order_by
+}
+
+"""
+primary key columns input for table: "edge"
+"""
+input edge_pk_columns_input {
+  id: String!
+}
+
+"""prepend existing jsonb value of filtered columns with new jsonb value"""
+input edge_prepend_input {
+  props: jsonb
+}
+
+"""
+select columns of table "edge"
+"""
+enum edge_select_column {
+  """column name"""
+  graphId
+
+  """column name"""
+  id
+
+  """column name"""
+  props
+
+  """column name"""
+  source
+
+  """column name"""
+  target
+}
+
+"""
+input type for updating data in table "edge"
+"""
+input edge_set_input {
+  graphId: Int
+  id: String
+  props: jsonb
+  source: String
+  target: String
+}
+
+"""aggregate stddev on columns"""
+type edge_stddev_fields {
+  graphId: Float
+}
+
+"""
+order by stddev() on columns of table "edge"
+"""
+input edge_stddev_order_by {
+  graphId: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type edge_stddev_pop_fields {
+  graphId: Float
+}
+
+"""
+order by stddev_pop() on columns of table "edge"
+"""
+input edge_stddev_pop_order_by {
+  graphId: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type edge_stddev_samp_fields {
+  graphId: Float
+}
+
+"""
+order by stddev_samp() on columns of table "edge"
+"""
+input edge_stddev_samp_order_by {
+  graphId: order_by
+}
+
+"""aggregate sum on columns"""
+type edge_sum_fields {
+  graphId: Int
+}
+
+"""
+order by sum() on columns of table "edge"
+"""
+input edge_sum_order_by {
+  graphId: order_by
+}
+
+"""
+update columns of table "edge"
+"""
+enum edge_update_column {
+  """column name"""
+  graphId
+
+  """column name"""
+  id
+
+  """column name"""
+  props
+
+  """column name"""
+  source
+
+  """column name"""
+  target
+}
+
+"""aggregate var_pop on columns"""
+type edge_var_pop_fields {
+  graphId: Float
+}
+
+"""
+order by var_pop() on columns of table "edge"
+"""
+input edge_var_pop_order_by {
+  graphId: order_by
+}
+
+"""aggregate var_samp on columns"""
+type edge_var_samp_fields {
+  graphId: Float
+}
+
+"""
+order by var_samp() on columns of table "edge"
+"""
+input edge_var_samp_order_by {
+  graphId: order_by
+}
+
+"""aggregate variance on columns"""
+type edge_variance_fields {
+  graphId: Float
+}
+
+"""
+order by variance() on columns of table "edge"
+"""
+input edge_variance_order_by {
+  graphId: order_by
+}
+
+"""
+columns and relationships of "graph"
+"""
+type graph {
+  id: Int!
+  label: String!
+  userId: Int
+}
+
+"""
+aggregated selection of "graph"
+"""
+type graph_aggregate {
+  aggregate: graph_aggregate_fields
+  nodes: [graph!]!
+}
+
+"""
+aggregate fields of "graph"
+"""
+type graph_aggregate_fields {
+  avg: graph_avg_fields
+  count(columns: [graph_select_column!], distinct: Boolean): Int
+  max: graph_max_fields
+  min: graph_min_fields
+  stddev: graph_stddev_fields
+  stddev_pop: graph_stddev_pop_fields
+  stddev_samp: graph_stddev_samp_fields
+  sum: graph_sum_fields
+  var_pop: graph_var_pop_fields
+  var_samp: graph_var_samp_fields
+  variance: graph_variance_fields
+}
+
+"""
+order by aggregate values of table "graph"
+"""
+input graph_aggregate_order_by {
+  avg: graph_avg_order_by
+  count: order_by
+  max: graph_max_order_by
+  min: graph_min_order_by
+  stddev: graph_stddev_order_by
+  stddev_pop: graph_stddev_pop_order_by
+  stddev_samp: graph_stddev_samp_order_by
+  sum: graph_sum_order_by
+  var_pop: graph_var_pop_order_by
+  var_samp: graph_var_samp_order_by
+  variance: graph_variance_order_by
+}
+
+"""
+input type for inserting array relation for remote table "graph"
+"""
+input graph_arr_rel_insert_input {
+  data: [graph_insert_input!]!
+  on_conflict: graph_on_conflict
+}
+
+"""aggregate avg on columns"""
+type graph_avg_fields {
+  id: Float
+  userId: Float
+}
+
+"""
+order by avg() on columns of table "graph"
+"""
+input graph_avg_order_by {
+  id: order_by
+  userId: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "graph". All fields are combined with a logical 'AND'.
+"""
+input graph_bool_exp {
+  _and: [graph_bool_exp]
+  _not: graph_bool_exp
+  _or: [graph_bool_exp]
+  id: Int_comparison_exp
+  label: String_comparison_exp
+  userId: Int_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "graph"
+"""
+enum graph_constraint {
+  """unique or primary key constraint"""
+  PK_eb3e36eefae596e0ba9122fff16
+}
+
+"""
+input type for incrementing integer column in table "graph"
+"""
+input graph_inc_input {
+  id: Int
+  userId: Int
+}
+
+"""
+input type for inserting data into table "graph"
+"""
+input graph_insert_input {
+  id: Int
+  label: String
+  userId: Int
+}
+
+"""aggregate max on columns"""
+type graph_max_fields {
+  id: Int
+  label: String
+  userId: Int
+}
+
+"""
+order by max() on columns of table "graph"
+"""
+input graph_max_order_by {
+  id: order_by
+  label: order_by
+  userId: order_by
+}
+
+"""aggregate min on columns"""
+type graph_min_fields {
+  id: Int
+  label: String
+  userId: Int
+}
+
+"""
+order by min() on columns of table "graph"
+"""
+input graph_min_order_by {
+  id: order_by
+  label: order_by
+  userId: order_by
+}
+
+"""
+response of any mutation on the table "graph"
+"""
+type graph_mutation_response {
+  """number of affected rows by the mutation"""
+  affected_rows: Int!
+
+  """data of the affected rows by the mutation"""
+  returning: [graph!]!
+}
+
+"""
+input type for inserting object relation for remote table "graph"
+"""
+input graph_obj_rel_insert_input {
+  data: graph_insert_input!
+  on_conflict: graph_on_conflict
+}
+
+"""
+on conflict condition type for table "graph"
+"""
+input graph_on_conflict {
+  constraint: graph_constraint!
+  update_columns: [graph_update_column!]!
+  where: graph_bool_exp
+}
+
+"""
+ordering options when selecting data from "graph"
+"""
+input graph_order_by {
+  id: order_by
+  label: order_by
+  userId: order_by
+}
+
+"""
+primary key columns input for table: "graph"
+"""
+input graph_pk_columns_input {
+  id: Int!
+}
+
+"""
+select columns of table "graph"
+"""
+enum graph_select_column {
+  """column name"""
+  id
+
+  """column name"""
+  label
+
+  """column name"""
+  userId
+}
+
+"""
+input type for updating data in table "graph"
+"""
+input graph_set_input {
+  id: Int
+  label: String
+  userId: Int
+}
+
+"""aggregate stddev on columns"""
+type graph_stddev_fields {
+  id: Float
+  userId: Float
+}
+
+"""
+order by stddev() on columns of table "graph"
+"""
+input graph_stddev_order_by {
+  id: order_by
+  userId: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type graph_stddev_pop_fields {
+  id: Float
+  userId: Float
+}
+
+"""
+order by stddev_pop() on columns of table "graph"
+"""
+input graph_stddev_pop_order_by {
+  id: order_by
+  userId: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type graph_stddev_samp_fields {
+  id: Float
+  userId: Float
+}
+
+"""
+order by stddev_samp() on columns of table "graph"
+"""
+input graph_stddev_samp_order_by {
+  id: order_by
+  userId: order_by
+}
+
+"""aggregate sum on columns"""
+type graph_sum_fields {
+  id: Int
+  userId: Int
+}
+
+"""
+order by sum() on columns of table "graph"
+"""
+input graph_sum_order_by {
+  id: order_by
+  userId: order_by
+}
+
+"""
+update columns of table "graph"
+"""
+enum graph_update_column {
+  """column name"""
+  id
+
+  """column name"""
+  label
+
+  """column name"""
+  userId
+}
+
+"""aggregate var_pop on columns"""
+type graph_var_pop_fields {
+  id: Float
+  userId: Float
+}
+
+"""
+order by var_pop() on columns of table "graph"
+"""
+input graph_var_pop_order_by {
+  id: order_by
+  userId: order_by
+}
+
+"""aggregate var_samp on columns"""
+type graph_var_samp_fields {
+  id: Float
+  userId: Float
+}
+
+"""
+order by var_samp() on columns of table "graph"
+"""
+input graph_var_samp_order_by {
+  id: order_by
+  userId: order_by
+}
+
+"""aggregate variance on columns"""
+type graph_variance_fields {
+  id: Float
+  userId: Float
+}
+
+"""
+order by variance() on columns of table "graph"
+"""
+input graph_variance_order_by {
+  id: order_by
+  userId: order_by
+}
+
+scalar jsonb
+
+"""
+expression to compare columns of type jsonb. All fields are combined with logical 'AND'.
+"""
+input jsonb_comparison_exp {
+  """is the column contained in the given json value"""
+  _contained_in: jsonb
+
+  """does the column contain the given json value at the top level"""
+  _contains: jsonb
+  _eq: jsonb
+  _gt: jsonb
+  _gte: jsonb
+
+  """does the string exist as a top-level key in the column"""
+  _has_key: String
+
+  """do all of these strings exist as top-level keys in the column"""
+  _has_keys_all: [String!]
+
+  """do any of these strings exist as top-level keys in the column"""
+  _has_keys_any: [String!]
+  _in: [jsonb!]
+  _is_null: Boolean
+  _lt: jsonb
+  _lte: jsonb
+  _neq: jsonb
+  _nin: [jsonb!]
+}
+
+"""column ordering options"""
+enum order_by {
+  """in the ascending order, nulls last"""
+  asc
+
+  """in the ascending order, nulls first"""
+  asc_nulls_first
+
+  """in the ascending order, nulls last"""
+  asc_nulls_last
+
+  """in the descending order, nulls first"""
+  desc
+
+  """in the descending order, nulls first"""
+  desc_nulls_first
+
+  """in the descending order, nulls last"""
+  desc_nulls_last
+}
+
+"""
+columns and relationships of "user"
+"""
+type user {
+  id: Int!
+  username: String!
+}
+
+"""
+aggregated selection of "user"
+"""
+type user_aggregate {
+  aggregate: user_aggregate_fields
+  nodes: [user!]!
+}
+
+"""
+aggregate fields of "user"
+"""
+type user_aggregate_fields {
+  avg: user_avg_fields
+  count(columns: [user_select_column!], distinct: Boolean): Int
+  max: user_max_fields
+  min: user_min_fields
+  stddev: user_stddev_fields
+  stddev_pop: user_stddev_pop_fields
+  stddev_samp: user_stddev_samp_fields
+  sum: user_sum_fields
+  var_pop: user_var_pop_fields
+  var_samp: user_var_samp_fields
+  variance: user_variance_fields
+}
+
+"""
+order by aggregate values of table "user"
+"""
+input user_aggregate_order_by {
+  avg: user_avg_order_by
+  count: order_by
+  max: user_max_order_by
+  min: user_min_order_by
+  stddev: user_stddev_order_by
+  stddev_pop: user_stddev_pop_order_by
+  stddev_samp: user_stddev_samp_order_by
+  sum: user_sum_order_by
+  var_pop: user_var_pop_order_by
+  var_samp: user_var_samp_order_by
+  variance: user_variance_order_by
+}
+
+"""
+input type for inserting array relation for remote table "user"
+"""
+input user_arr_rel_insert_input {
+  data: [user_insert_input!]!
+  on_conflict: user_on_conflict
+}
+
+"""aggregate avg on columns"""
+type user_avg_fields {
+  id: Float
+}
+
+"""
+order by avg() on columns of table "user"
+"""
+input user_avg_order_by {
+  id: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "user". All fields are combined with a logical 'AND'.
+"""
+input user_bool_exp {
+  _and: [user_bool_exp]
+  _not: user_bool_exp
+  _or: [user_bool_exp]
+  id: Int_comparison_exp
+  username: String_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "user"
+"""
+enum user_constraint {
+  """unique or primary key constraint"""
+  PK_cace4a159ff9f2512dd42373760
+}
+
+"""
+input type for incrementing integer column in table "user"
+"""
+input user_inc_input {
+  id: Int
+}
+
+"""
+input type for inserting data into table "user"
+"""
+input user_insert_input {
+  id: Int
+  username: String
+}
+
+"""aggregate max on columns"""
+type user_max_fields {
+  id: Int
+  username: String
+}
+
+"""
+order by max() on columns of table "user"
+"""
+input user_max_order_by {
+  id: order_by
+  username: order_by
+}
+
+"""aggregate min on columns"""
+type user_min_fields {
+  id: Int
+  username: String
+}
+
+"""
+order by min() on columns of table "user"
+"""
+input user_min_order_by {
+  id: order_by
+  username: order_by
+}
+
+"""
+response of any mutation on the table "user"
+"""
+type user_mutation_response {
+  """number of affected rows by the mutation"""
+  affected_rows: Int!
+
+  """data of the affected rows by the mutation"""
+  returning: [user!]!
+}
+
+"""
+input type for inserting object relation for remote table "user"
+"""
+input user_obj_rel_insert_input {
+  data: user_insert_input!
+  on_conflict: user_on_conflict
+}
+
+"""
+on conflict condition type for table "user"
+"""
+input user_on_conflict {
+  constraint: user_constraint!
+  update_columns: [user_update_column!]!
+  where: user_bool_exp
+}
+
+"""
+ordering options when selecting data from "user"
+"""
+input user_order_by {
+  id: order_by
+  username: order_by
+}
+
+"""
+primary key columns input for table: "user"
+"""
+input user_pk_columns_input {
+  id: Int!
+}
+
+"""
+select columns of table "user"
+"""
+enum user_select_column {
+  """column name"""
+  id
+
+  """column name"""
+  username
+}
+
+"""
+input type for updating data in table "user"
+"""
+input user_set_input {
+  id: Int
+  username: String
+}
+
+"""aggregate stddev on columns"""
+type user_stddev_fields {
+  id: Float
+}
+
+"""
+order by stddev() on columns of table "user"
+"""
+input user_stddev_order_by {
+  id: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type user_stddev_pop_fields {
+  id: Float
+}
+
+"""
+order by stddev_pop() on columns of table "user"
+"""
+input user_stddev_pop_order_by {
+  id: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type user_stddev_samp_fields {
+  id: Float
+}
+
+"""
+order by stddev_samp() on columns of table "user"
+"""
+input user_stddev_samp_order_by {
+  id: order_by
+}
+
+"""aggregate sum on columns"""
+type user_sum_fields {
+  id: Int
+}
+
+"""
+order by sum() on columns of table "user"
+"""
+input user_sum_order_by {
+  id: order_by
+}
+
+"""
+update columns of table "user"
+"""
+enum user_update_column {
+  """column name"""
+  id
+
+  """column name"""
+  username
+}
+
+"""aggregate var_pop on columns"""
+type user_var_pop_fields {
+  id: Float
+}
+
+"""
+order by var_pop() on columns of table "user"
+"""
+input user_var_pop_order_by {
+  id: order_by
+}
+
+"""aggregate var_samp on columns"""
+type user_var_samp_fields {
+  id: Float
+}
+
+"""
+order by var_samp() on columns of table "user"
+"""
+input user_var_samp_order_by {
+  id: order_by
+}
+
+"""aggregate variance on columns"""
+type user_variance_fields {
+  id: Float
+}
+
+"""
+order by variance() on columns of table "user"
+"""
+input user_variance_order_by {
+  id: order_by
+}
+
+"""
+columns and relationships of "vertex"
+"""
+type vertex {
+  graphId: Int
+  id: String!
+  props(
+    """JSON select path"""
+    path: String
+  ): jsonb!
+  type: vertex_type_enum!
+}
+
+"""
+aggregated selection of "vertex"
+"""
+type vertex_aggregate {
+  aggregate: vertex_aggregate_fields
+  nodes: [vertex!]!
+}
+
+"""
+aggregate fields of "vertex"
+"""
+type vertex_aggregate_fields {
+  avg: vertex_avg_fields
+  count(columns: [vertex_select_column!], distinct: Boolean): Int
+  max: vertex_max_fields
+  min: vertex_min_fields
+  stddev: vertex_stddev_fields
+  stddev_pop: vertex_stddev_pop_fields
+  stddev_samp: vertex_stddev_samp_fields
+  sum: vertex_sum_fields
+  var_pop: vertex_var_pop_fields
+  var_samp: vertex_var_samp_fields
+  variance: vertex_variance_fields
+}
+
+"""
+order by aggregate values of table "vertex"
+"""
+input vertex_aggregate_order_by {
+  avg: vertex_avg_order_by
+  count: order_by
+  max: vertex_max_order_by
+  min: vertex_min_order_by
+  stddev: vertex_stddev_order_by
+  stddev_pop: vertex_stddev_pop_order_by
+  stddev_samp: vertex_stddev_samp_order_by
+  sum: vertex_sum_order_by
+  var_pop: vertex_var_pop_order_by
+  var_samp: vertex_var_samp_order_by
+  variance: vertex_variance_order_by
+}
+
+"""append existing jsonb value of filtered columns with new jsonb value"""
+input vertex_append_input {
+  props: jsonb
+}
+
+"""
+input type for inserting array relation for remote table "vertex"
+"""
+input vertex_arr_rel_insert_input {
+  data: [vertex_insert_input!]!
+  on_conflict: vertex_on_conflict
+}
+
+"""aggregate avg on columns"""
+type vertex_avg_fields {
+  graphId: Float
+}
+
+"""
+order by avg() on columns of table "vertex"
+"""
+input vertex_avg_order_by {
+  graphId: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "vertex". All fields are combined with a logical 'AND'.
+"""
+input vertex_bool_exp {
+  _and: [vertex_bool_exp]
+  _not: vertex_bool_exp
+  _or: [vertex_bool_exp]
+  graphId: Int_comparison_exp
+  id: String_comparison_exp
+  props: jsonb_comparison_exp
+  type: vertex_type_enum_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "vertex"
+"""
+enum vertex_constraint {
+  """unique or primary key constraint"""
+  PK_c8ba7ae73ad81b9f3991ad76684
+}
+
+"""
+delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+"""
+input vertex_delete_at_path_input {
+  props: [String]
+}
+
+"""
+delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+"""
+input vertex_delete_elem_input {
+  props: Int
+}
+
+"""
+delete key/value pair or string element. key/value pairs are matched based on their key value
+"""
+input vertex_delete_key_input {
+  props: String
+}
+
+"""
+input type for incrementing integer column in table "vertex"
+"""
+input vertex_inc_input {
+  graphId: Int
+}
+
+"""
+input type for inserting data into table "vertex"
+"""
+input vertex_insert_input {
+  graphId: Int
+  id: String
+  props: jsonb
+  type: vertex_type_enum
+}
+
+"""aggregate max on columns"""
+type vertex_max_fields {
+  graphId: Int
+  id: String
+}
+
+"""
+order by max() on columns of table "vertex"
+"""
+input vertex_max_order_by {
+  graphId: order_by
+  id: order_by
+}
+
+"""aggregate min on columns"""
+type vertex_min_fields {
+  graphId: Int
+  id: String
+}
+
+"""
+order by min() on columns of table "vertex"
+"""
+input vertex_min_order_by {
+  graphId: order_by
+  id: order_by
+}
+
+"""
+response of any mutation on the table "vertex"
+"""
+type vertex_mutation_response {
+  """number of affected rows by the mutation"""
+  affected_rows: Int!
+
+  """data of the affected rows by the mutation"""
+  returning: [vertex!]!
+}
+
+"""
+input type for inserting object relation for remote table "vertex"
+"""
+input vertex_obj_rel_insert_input {
+  data: vertex_insert_input!
+  on_conflict: vertex_on_conflict
+}
+
+"""
+on conflict condition type for table "vertex"
+"""
+input vertex_on_conflict {
+  constraint: vertex_constraint!
+  update_columns: [vertex_update_column!]!
+  where: vertex_bool_exp
+}
+
+"""
+ordering options when selecting data from "vertex"
+"""
+input vertex_order_by {
+  graphId: order_by
+  id: order_by
+  props: order_by
+  type: order_by
+}
+
+"""
+primary key columns input for table: "vertex"
+"""
+input vertex_pk_columns_input {
+  id: String!
+}
+
+"""prepend existing jsonb value of filtered columns with new jsonb value"""
+input vertex_prepend_input {
+  props: jsonb
+}
+
+"""
+select columns of table "vertex"
+"""
+enum vertex_select_column {
+  """column name"""
+  graphId
+
+  """column name"""
+  id
+
+  """column name"""
+  props
+
+  """column name"""
+  type
+}
+
+"""
+input type for updating data in table "vertex"
+"""
+input vertex_set_input {
+  graphId: Int
+  id: String
+  props: jsonb
+  type: vertex_type_enum
+}
+
+"""aggregate stddev on columns"""
+type vertex_stddev_fields {
+  graphId: Float
+}
+
+"""
+order by stddev() on columns of table "vertex"
+"""
+input vertex_stddev_order_by {
+  graphId: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type vertex_stddev_pop_fields {
+  graphId: Float
+}
+
+"""
+order by stddev_pop() on columns of table "vertex"
+"""
+input vertex_stddev_pop_order_by {
+  graphId: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type vertex_stddev_samp_fields {
+  graphId: Float
+}
+
+"""
+order by stddev_samp() on columns of table "vertex"
+"""
+input vertex_stddev_samp_order_by {
+  graphId: order_by
+}
+
+"""aggregate sum on columns"""
+type vertex_sum_fields {
+  graphId: Int
+}
+
+"""
+order by sum() on columns of table "vertex"
+"""
+input vertex_sum_order_by {
+  graphId: order_by
+}
+
+scalar vertex_type_enum
+
+"""
+expression to compare columns of type vertex_type_enum. All fields are combined with logical 'AND'.
+"""
+input vertex_type_enum_comparison_exp {
+  _eq: vertex_type_enum
+  _gt: vertex_type_enum
+  _gte: vertex_type_enum
+  _in: [vertex_type_enum!]
+  _is_null: Boolean
+  _lt: vertex_type_enum
+  _lte: vertex_type_enum
+  _neq: vertex_type_enum
+  _nin: [vertex_type_enum!]
+}
+
+"""
+update columns of table "vertex"
+"""
+enum vertex_update_column {
+  """column name"""
+  graphId
+
+  """column name"""
+  id
+
+  """column name"""
+  props
+
+  """column name"""
+  type
+}
+
+"""aggregate var_pop on columns"""
+type vertex_var_pop_fields {
+  graphId: Float
+}
+
+"""
+order by var_pop() on columns of table "vertex"
+"""
+input vertex_var_pop_order_by {
+  graphId: order_by
+}
+
+"""aggregate var_samp on columns"""
+type vertex_var_samp_fields {
+  graphId: Float
+}
+
+"""
+order by var_samp() on columns of table "vertex"
+"""
+input vertex_var_samp_order_by {
+  graphId: order_by
+}
+
+"""aggregate variance on columns"""
+type vertex_variance_fields {
+  graphId: Float
+}
+
+"""
+order by variance() on columns of table "vertex"
+"""
+input vertex_variance_order_by {
+  graphId: order_by
+}

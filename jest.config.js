@@ -50,5 +50,8 @@ module.exports = {
     '<rootDir>/apps/api/graph',
     '<rootDir>/libs/api/services/graph',
     '<rootDir>/libs/api/services/user',
+    '<rootDir>/libs/shared/state/crud',
+    '<rootDir>/libs/state/crud',
+    '<rootDir>/libs/state/vertex',
   ],
 }
