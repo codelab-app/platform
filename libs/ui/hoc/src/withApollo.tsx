@@ -9,7 +9,7 @@ import {
 } from '@apollo/client'
 import { NextPage } from 'next'
 import React from 'react'
-import { httpLink } from './useApollo'
+import { link } from './useApollo'
 
 export const getApolloClient = (
   ctx?: any,
@@ -18,7 +18,7 @@ export const getApolloClient = (
   const cache = new InMemoryCache().restore(initialState || {})
 
   return new ApolloClient({
-    link: httpLink,
+    link,
     cache,
   })
 }

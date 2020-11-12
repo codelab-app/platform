@@ -14,23 +14,21 @@ export const createDataStream = <
   observableFactory: TObservableFactory,
   dataStreamId = 'dataStream',
 ) => {
-  return () =>
+  return (): Observable<DataStreamEvents<TData, typeof dataStreamId>> =>
     observableFactory().pipe(
-      map(
-        (result): DataStreamEvents<TData, typeof dataStreamId> => {
-          if (result.type === QueryResultStatus.ERROR) {
-            return {
-              type: EventNameDataStream.FAILED_TO_LOAD_DATA,
-              id: dataStreamId,
-            }
-          }
-
+      map((result) => {
+        if (result.type === QueryResultStatus.ERROR) {
           return {
-            type: EventNameDataStream.DATA_LOADED,
-            data: result.data,
+            type: EventNameDataStream.FAILED_TO_LOAD_DATA,
             id: dataStreamId,
           }
-        },
-      ),
+        }
+
+        return {
+          type: EventNameDataStream.DATA_LOADED,
+          data: result.data,
+          id: dataStreamId,
+        }
+      }),
     )
 }

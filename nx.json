@@ -132,6 +132,12 @@
     },
     "api-graph": {
       "tags": []
+    },
+    "state-vertex": {
+      "tags": []
+    },
+    "state-entity": {
+      "tags": []
     }
   }
 }
