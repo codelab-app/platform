@@ -1,1 +1,2 @@
 .kubernetes/helm/lib/resources/cert-manager/* filter=git-crypt diff=git-crypt
+.kubernetes/helm/README.md filter=git-crypt diff=git-crypt
