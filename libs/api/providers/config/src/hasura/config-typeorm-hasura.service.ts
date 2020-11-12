@@ -18,8 +18,8 @@ export class ConfigTypeormHasuraService implements TypeOrmOptionsFactory {
       database: this.config.get(ApiConfigTypes.POSTGRES_DB),
       autoLoadEntities: true,
       // synchronize and dropSchema resets the database
-      synchronize: this.resetDb,
-      dropSchema: this.resetDb,
+      synchronize: true,
+      dropSchema: false,
       logging: ['query', 'error', 'schema'],
       extra: {
         connectionLimit: 5,

@@ -102,8 +102,9 @@ export const createGraphQLDemoMachine = (apolloClient: ApolloClient<any>) => {
             }),
           },
         ]),
-        [Action.notifyParent]: () =>
-          console.log('here we can pass data where we need or process them'),
+        [Action.notifyParent]: () => {
+          // console.log('here we can pass data where we need or process them'),
+        },
         [Action.createVertix]: (context: any, event: any) =>
           createVertex(event.payload),
         [Action.createEdge]: (context: any, event: any) =>
