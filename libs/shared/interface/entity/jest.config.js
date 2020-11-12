@@ -7,6 +7,6 @@ module.exports = {
     ],
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'html'],
-  coverageDirectory: '../../../../coverage/libs/shared/interface/model',
-  displayName: 'shared-interface-model',
+  coverageDirectory: '../../../../coverage/libs/shared/interface/entity',
+  displayName: 'shared-interface-entity',
 }

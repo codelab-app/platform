@@ -1,6 +1,6 @@
 import { StateSchema } from 'xstate'
 import { ContextModal } from './machine-modal--context'
-import { StateNameEntity } from '@codelab/shared/interface/model'
+import { StateNameEntity } from '@codelab/shared/interface/entity'
 
 export enum StateNameModal {
   INACTIVE = 'INACTIVE',

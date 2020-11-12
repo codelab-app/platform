@@ -1,10 +1,11 @@
 import { ApolloClient } from '@apollo/client'
 import { Machine, assign, send, spawn } from 'xstate'
+import { VertexA } from '../../../../shared/interface/entity/src/vertex'
 import { ContextApp } from './machine-app--context'
 import { EventApp, EventNameApp } from './machine-app--event'
 import { StateNameApp, StateSchemaApp } from './machine-app--state'
 import { NodeService as NodeServiceEntity } from '@codelab/core/node'
-import { machineEntity } from '@codelab/state/entity'
+import { createMachineEntity } from '@codelab/state/entity'
 import { machineLayout } from '@codelab/state/layout'
 import { EventNameModal, machineModal } from '@codelab/state/modal'
 import {
@@ -25,7 +26,7 @@ export const createMachineApp = (
       entry: assign<ContextApp, EventApp>({
         modal: () => spawn(machineModal),
         layout: () => spawn(machineLayout),
-        vertex: () => spawn(machineEntity),
+        vertex: () => spawn(createMachineEntity<VertexA>()),
         node: () => spawn(createMachineNode(nodeService)),
         graphQLDemo: () => spawn(graphQLDemoMachine),
       }),
