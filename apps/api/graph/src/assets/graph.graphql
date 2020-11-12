@@ -1,9 +1,14 @@
+# import graph_insert_input from './hasura-schema.graphql'
+
 query graphs {
   graph {
     id
+    label
   }
 }
 
-mutation createGraph {
-
+mutation createGraph($input: graph_insert_input!) {
+  insert_graph_one(object: $input) {
+    id
+  }
 }

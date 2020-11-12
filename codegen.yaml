@@ -1,8 +1,10 @@
 overwrite: true
 schema: http://localhost:4004/graphql
-documents: apps/api/graph/src/assets/**/*.graphql
-# documents: libs/state/apollo/src/__generated__/graphql-schema.json
 generates:
+  apps/api/graph/src/assets/hasura-schema.graphql:
+    plugins:
+      - schema-ast
+
   # Generate into lib so we can import
   libs/state/apollo/src/generated/graphql.tsx:
     plugins:
@@ -22,6 +24,11 @@ generates:
       documentMode: graphQLTag
       namingConvention:
         enumValues: keep
+    documents: apps/api/graph/src/assets/**/*.graphql
+    hooks:
+      afterAllFileWrite:
+        - 'eslint --fix'
+
   libs/state/apollo/src/generated/page.tsx:
     plugins:
       - graphql-codegen-apollo-next-ssr
@@ -39,6 +46,10 @@ generates:
     preset: import-types
     presetConfig:
       typesPath: ./graphql
+    documents: apps/api/graph/src/assets/**/*.graphql
+    hooks:
+      afterAllFileWrite:
+        - 'eslint --fix'
 
   # libs/state/apollo/src/__generated__/graphql-files-modules.d.ts:
   #   plugins:
@@ -51,6 +62,3 @@ generates:
   #     - typescript-document-nodes
   #     # - typescript-graphql-files-modules
   #     # - fragment-matcher
-hooks:
-  afterAllFileWrite:
-    - 'eslint --fix'

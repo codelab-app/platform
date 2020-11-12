@@ -42,7 +42,7 @@ build-prod:
 #
 
 generate-graphql:
-	npx graphql-codegen --config codegen.yaml
+	npx graphql-codegen --config codegen.yaml --watch "apps/api/graph/src/assets/**/*.graphql"
 
 generate-graphql-watch:
 	@npx chokidar "apps/api/gateway/src/assets/**/*.graphql" "codegen.yaml" \
@@ -60,6 +60,11 @@ hasura-metadata-export:
 
 hasura-metadata-apply:
 	npx hasura metadata apply \
+    --project apps/api/graph/.hasura \
+    --envfile ../../../../.env
+
+hasura-metadata-reload:
+	npx hasura metadata reload \
     --project apps/api/graph/.hasura \
     --envfile ../../../../.env
 #

@@ -45,7 +45,8 @@ export const createMachineNode = (nodeService: NodeServiceEntity) => {
         entry: [
           assign<ContextNode, any>({
             nodes: (ctx: ContextNode, event: any) => {
-              return [...event.data]
+              return []
+              // return [...event.data]
             },
           }),
         ],

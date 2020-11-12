@@ -881,6 +881,7 @@ export type Edge_Variance_Order_By = {
 export type Graph = {
   __typename?: 'graph';
   id: Scalars['Int'];
+  label: Scalars['String'];
   userId?: Maybe<Scalars['Int']>;
 };
 
@@ -954,6 +955,7 @@ export type Graph_Bool_Exp = {
   _not?: Maybe<Graph_Bool_Exp>;
   _or?: Maybe<Array<Maybe<Graph_Bool_Exp>>>;
   id?: Maybe<Int_Comparison_Exp>;
+  label?: Maybe<String_Comparison_Exp>;
   userId?: Maybe<Int_Comparison_Exp>;
 };
 
@@ -972,6 +974,7 @@ export type Graph_Inc_Input = {
 /** input type for inserting data into table "graph" */
 export type Graph_Insert_Input = {
   id?: Maybe<Scalars['Int']>;
+  label?: Maybe<Scalars['String']>;
   userId?: Maybe<Scalars['Int']>;
 };
 
@@ -979,12 +982,14 @@ export type Graph_Insert_Input = {
 export type Graph_Max_Fields = {
   __typename?: 'graph_max_fields';
   id?: Maybe<Scalars['Int']>;
+  label?: Maybe<Scalars['String']>;
   userId?: Maybe<Scalars['Int']>;
 };
 
 /** order by max() on columns of table "graph" */
 export type Graph_Max_Order_By = {
   id?: Maybe<Order_By>;
+  label?: Maybe<Order_By>;
   userId?: Maybe<Order_By>;
 };
 
@@ -992,12 +997,14 @@ export type Graph_Max_Order_By = {
 export type Graph_Min_Fields = {
   __typename?: 'graph_min_fields';
   id?: Maybe<Scalars['Int']>;
+  label?: Maybe<Scalars['String']>;
   userId?: Maybe<Scalars['Int']>;
 };
 
 /** order by min() on columns of table "graph" */
 export type Graph_Min_Order_By = {
   id?: Maybe<Order_By>;
+  label?: Maybe<Order_By>;
   userId?: Maybe<Order_By>;
 };
 
@@ -1026,6 +1033,7 @@ export type Graph_On_Conflict = {
 /** ordering options when selecting data from "graph" */
 export type Graph_Order_By = {
   id?: Maybe<Order_By>;
+  label?: Maybe<Order_By>;
   userId?: Maybe<Order_By>;
 };
 
@@ -1039,12 +1047,15 @@ export enum Graph_Select_Column {
   /** column name */
   id = 'id',
   /** column name */
+  label = 'label',
+  /** column name */
   userId = 'userId'
 }
 
 /** input type for updating data in table "graph" */
 export type Graph_Set_Input = {
   id?: Maybe<Scalars['Int']>;
+  label?: Maybe<Scalars['String']>;
   userId?: Maybe<Scalars['Int']>;
 };
 
@@ -1104,6 +1115,8 @@ export type Graph_Sum_Order_By = {
 export enum Graph_Update_Column {
   /** column name */
   id = 'id',
+  /** column name */
+  label = 'label',
   /** column name */
   userId = 'userId'
 }
@@ -1763,6 +1776,19 @@ export type GraphsQuery = (
   { __typename?: 'Query' }
   & { graph: Array<(
     { __typename?: 'graph' }
+    & Pick<Graph, 'id' | 'label'>
+  )> }
+);
+
+export type CreateGraphMutationVariables = Exact<{
+  input: Graph_Insert_Input;
+}>;
+
+
+export type CreateGraphMutation = (
+  { __typename?: 'Mutation' }
+  & { insert_graph_one?: Maybe<(
+    { __typename?: 'graph' }
     & Pick<Graph, 'id'>
   )> }
 );
@@ -1772,6 +1798,7 @@ export const GraphsDocument = gql`
     query graphs {
   graph {
     id
+    label
   }
 }
     `;
@@ -1800,3 +1827,35 @@ export function useGraphsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Gra
 export type GraphsQueryHookResult = ReturnType<typeof useGraphsQuery>;
 export type GraphsLazyQueryHookResult = ReturnType<typeof useGraphsLazyQuery>;
 export type GraphsQueryResult = Apollo.QueryResult<GraphsQuery, GraphsQueryVariables>;
+export const CreateGraphDocument = gql`
+    mutation createGraph($input: graph_insert_input!) {
+  insert_graph_one(object: $input) {
+    id
+  }
+}
+    `;
+export type CreateGraphMutationFn = Apollo.MutationFunction<CreateGraphMutation, CreateGraphMutationVariables>;
+
+/**
+ * __useCreateGraphMutation__
+ *
+ * To run a mutation, you first call `useCreateGraphMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateGraphMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createGraphMutation, { data, loading, error }] = useCreateGraphMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateGraphMutation(baseOptions?: Apollo.MutationHookOptions<CreateGraphMutation, CreateGraphMutationVariables>) {
+        return Apollo.useMutation<CreateGraphMutation, CreateGraphMutationVariables>(CreateGraphDocument, baseOptions);
+      }
+export type CreateGraphMutationHookResult = ReturnType<typeof useCreateGraphMutation>;
+export type CreateGraphMutationResult = Apollo.MutationResult<CreateGraphMutation>;
+export type CreateGraphMutationOptions = Apollo.BaseMutationOptions<CreateGraphMutation, CreateGraphMutationVariables>;
