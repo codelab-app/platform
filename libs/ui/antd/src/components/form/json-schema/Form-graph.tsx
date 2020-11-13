@@ -7,12 +7,11 @@ const Form = withTheme(AntDTheme)
 
 export const FormGraph = () => {
   const schema: JSONSchema7 = {
-    title: 'Todo',
+    title: 'Graph',
     type: 'object',
-    required: ['title'],
+    required: ['label'],
     properties: {
-      title: { type: 'string', title: 'Title', default: 'A new task' },
-      done: { type: 'boolean', title: 'Done?', default: false },
+      label: { type: 'string', title: 'label', default: '' },
     },
   }
   const log = (type: any) => console.log.bind(console, type)

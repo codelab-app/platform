@@ -10,9 +10,8 @@ export const FormVertex = () => {
   const propsSchema: JSONSchema7 = {
     title: 'Props',
     type: 'object',
-    additionalProperties: {
-      type: 'string',
-      // enum: [1, 2, 3],
+    properties: {
+      props: { type: 'string', title: 'Additional prop', default: '' },
     },
   }
 
@@ -24,7 +23,6 @@ export const FormVertex = () => {
       type: {
         type: 'string',
         title: 'Type',
-        // default: '',
         enum: Object.keys(VertexType),
       },
       props: propsSchema,
@@ -32,19 +30,7 @@ export const FormVertex = () => {
   }
   const log = (type: any) => console.log.bind(console, type)
 
-  const uiSchema = {
-    // 'ui:options': {
-    //   expandable: false,
-    // },
-  }
-
   return (
-    <Form
-      uiSchema={uiSchema}
-      schema={schema}
-      onChange={log('changed')}
-      onSubmit={log('submitted')}
-      onError={log('errors')}
-    />
+    <Form schema={schema} onSubmit={log('submitted')} onError={log('errors')} />
   )
 }
