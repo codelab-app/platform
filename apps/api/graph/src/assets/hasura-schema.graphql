@@ -771,6 +771,8 @@ input String_comparison_exp {
 columns and relationships of "edge"
 """
 type edge {
+  """An object relationship"""
+  graph: graph
   graphId: Int
   id: String!
   props(
@@ -855,6 +857,7 @@ input edge_bool_exp {
   _and: [edge_bool_exp]
   _not: edge_bool_exp
   _or: [edge_bool_exp]
+  graph: graph_bool_exp
   graphId: Int_comparison_exp
   id: String_comparison_exp
   props: jsonb_comparison_exp
@@ -902,6 +905,7 @@ input edge_inc_input {
 input type for inserting data into table "edge"
 """
 input edge_insert_input {
+  graph: graph_obj_rel_insert_input
   graphId: Int
   id: String
   props: jsonb
@@ -977,6 +981,7 @@ input edge_on_conflict {
 ordering options when selecting data from "edge"
 """
 input edge_order_by {
+  graph: graph_order_by
   graphId: order_by
   id: order_by
   props: order_by
@@ -1135,9 +1140,83 @@ input edge_variance_order_by {
 columns and relationships of "graph"
 """
 type graph {
+  """An array relationship"""
+  edges(
+    """distinct select on columns"""
+    distinct_on: [edge_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [edge_order_by!]
+
+    """filter the rows returned"""
+    where: edge_bool_exp
+  ): [edge!]!
+
+  """An aggregated array relationship"""
+  edges_aggregate(
+    """distinct select on columns"""
+    distinct_on: [edge_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [edge_order_by!]
+
+    """filter the rows returned"""
+    where: edge_bool_exp
+  ): edge_aggregate!
   id: Int!
   label: String!
+
+  """An object relationship"""
+  user: user
   userId: Int
+
+  """An array relationship"""
+  vertices(
+    """distinct select on columns"""
+    distinct_on: [vertex_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [vertex_order_by!]
+
+    """filter the rows returned"""
+    where: vertex_bool_exp
+  ): [vertex!]!
+
+  """An aggregated array relationship"""
+  vertices_aggregate(
+    """distinct select on columns"""
+    distinct_on: [vertex_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [vertex_order_by!]
+
+    """filter the rows returned"""
+    where: vertex_bool_exp
+  ): vertex_aggregate!
 }
 
 """
@@ -1211,9 +1290,12 @@ input graph_bool_exp {
   _and: [graph_bool_exp]
   _not: graph_bool_exp
   _or: [graph_bool_exp]
+  edges: edge_bool_exp
   id: Int_comparison_exp
   label: String_comparison_exp
+  user: user_bool_exp
   userId: Int_comparison_exp
+  vertices: vertex_bool_exp
 }
 
 """
@@ -1236,9 +1318,12 @@ input graph_inc_input {
 input type for inserting data into table "graph"
 """
 input graph_insert_input {
+  edges: edge_arr_rel_insert_input
   id: Int
   label: String
+  user: user_obj_rel_insert_input
   userId: Int
+  vertices: vertex_arr_rel_insert_input
 }
 
 """aggregate max on columns"""
@@ -1305,9 +1390,12 @@ input graph_on_conflict {
 ordering options when selecting data from "graph"
 """
 input graph_order_by {
+  edges_aggregate: edge_aggregate_order_by
   id: order_by
   label: order_by
+  user: user_order_by
   userId: order_by
+  vertices_aggregate: vertex_aggregate_order_by
 }
 
 """
@@ -1508,6 +1596,41 @@ enum order_by {
 columns and relationships of "user"
 """
 type user {
+  """An array relationship"""
+  graphs(
+    """distinct select on columns"""
+    distinct_on: [graph_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [graph_order_by!]
+
+    """filter the rows returned"""
+    where: graph_bool_exp
+  ): [graph!]!
+
+  """An aggregated array relationship"""
+  graphs_aggregate(
+    """distinct select on columns"""
+    distinct_on: [graph_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [graph_order_by!]
+
+    """filter the rows returned"""
+    where: graph_bool_exp
+  ): graph_aggregate!
   id: Int!
   username: String!
 }
@@ -1581,6 +1704,7 @@ input user_bool_exp {
   _and: [user_bool_exp]
   _not: user_bool_exp
   _or: [user_bool_exp]
+  graphs: graph_bool_exp
   id: Int_comparison_exp
   username: String_comparison_exp
 }
@@ -1604,6 +1728,7 @@ input user_inc_input {
 input type for inserting data into table "user"
 """
 input user_insert_input {
+  graphs: graph_arr_rel_insert_input
   id: Int
   username: String
 }
@@ -1668,6 +1793,7 @@ input user_on_conflict {
 ordering options when selecting data from "user"
 """
 input user_order_by {
+  graphs_aggregate: graph_aggregate_order_by
   id: order_by
   username: order_by
 }
@@ -1797,6 +1923,8 @@ input user_variance_order_by {
 columns and relationships of "vertex"
 """
 type vertex {
+  """An object relationship"""
+  graph: graph
   graphId: Int
   id: String!
   props(
@@ -1880,6 +2008,7 @@ input vertex_bool_exp {
   _and: [vertex_bool_exp]
   _not: vertex_bool_exp
   _or: [vertex_bool_exp]
+  graph: graph_bool_exp
   graphId: Int_comparison_exp
   id: String_comparison_exp
   props: jsonb_comparison_exp
@@ -1926,6 +2055,7 @@ input vertex_inc_input {
 input type for inserting data into table "vertex"
 """
 input vertex_insert_input {
+  graph: graph_obj_rel_insert_input
   graphId: Int
   id: String
   props: jsonb
@@ -1992,6 +2122,7 @@ input vertex_on_conflict {
 ordering options when selecting data from "vertex"
 """
 input vertex_order_by {
+  graph: graph_order_by
   graphId: order_by
   id: order_by
   props: order_by

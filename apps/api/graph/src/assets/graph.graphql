@@ -1,9 +1,33 @@
-# import graph_insert_input from './hasura-schema.graphql'
+# import './hasura-schema.graphql'
+# import './edge.graphql'
+# import './vertex.graphql'
+
+fragment graphFragment on graph {
+  id
+  label
+}
 
 query graphs {
   graph {
+    ...graphFragment
+    edges {
+      ...edgeFragment
+    }
+    vertices {
+      ...vertexFragment
+    }
+  }
+}
+
+query graph($id: Int!) {
+  graph_by_pk(id: $id) {
     id
-    label
+    edges {
+      ...edgeFragment
+    }
+    vertices {
+      ...vertexFragment
+    }
   }
 }
 

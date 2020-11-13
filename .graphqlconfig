@@ -1,0 +1,15 @@
+{
+  "name": "Hasura GraphQL Schema",
+  "schemaPath": "./apps/api/graph/src/assets/hasura-schema.graphql",
+  "extensions": {
+    "endpoints": {
+      "Default GraphQL Endpoint": {
+        "url": "http://localhost:4004/graphql",
+        "headers": {
+          "user-agent": "JS GraphQL"
+        },
+        "introspect": false
+      }
+    }
+  }
+}

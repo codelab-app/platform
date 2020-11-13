@@ -26,11 +26,8 @@ export const createMachineEntity = <I extends EntityI, A extends EntityA>(
         entry: () => {
           console.log('idle')
         },
-        // entry: [send(StateNameEntity.FETCHING)],
-        on: {
-          '': {
-            target: StateNameEntity.FETCHING,
-          },
+        always: {
+          target: StateNameEntity.FETCHING,
         },
       },
       [StateNameEntity.FETCHING]: {
@@ -44,7 +41,6 @@ export const createMachineEntity = <I extends EntityI, A extends EntityA>(
             target: StateNameEntity.LOADED,
           },
         },
-        // entry: [ActionsEntity.FETCH_DATA],
       },
       [StateNameEntity.LOADED]: {
         entry: () => {

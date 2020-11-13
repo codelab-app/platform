@@ -561,6 +561,8 @@ export type String_Comparison_Exp = {
 /** columns and relationships of "edge" */
 export type Edge = {
   __typename?: 'edge';
+  /** An object relationship */
+  graph?: Maybe<Graph>;
   graphId?: Maybe<Scalars['Int']>;
   id: Scalars['String'];
   props: Scalars['jsonb'];
@@ -646,6 +648,7 @@ export type Edge_Bool_Exp = {
   _and?: Maybe<Array<Maybe<Edge_Bool_Exp>>>;
   _not?: Maybe<Edge_Bool_Exp>;
   _or?: Maybe<Array<Maybe<Edge_Bool_Exp>>>;
+  graph?: Maybe<Graph_Bool_Exp>;
   graphId?: Maybe<Int_Comparison_Exp>;
   id?: Maybe<String_Comparison_Exp>;
   props?: Maybe<Jsonb_Comparison_Exp>;
@@ -681,6 +684,7 @@ export type Edge_Inc_Input = {
 
 /** input type for inserting data into table "edge" */
 export type Edge_Insert_Input = {
+  graph?: Maybe<Graph_Obj_Rel_Insert_Input>;
   graphId?: Maybe<Scalars['Int']>;
   id?: Maybe<Scalars['String']>;
   props?: Maybe<Scalars['jsonb']>;
@@ -746,6 +750,7 @@ export type Edge_On_Conflict = {
 
 /** ordering options when selecting data from "edge" */
 export type Edge_Order_By = {
+  graph?: Maybe<Graph_Order_By>;
   graphId?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
   props?: Maybe<Order_By>;
@@ -880,9 +885,59 @@ export type Edge_Variance_Order_By = {
 /** columns and relationships of "graph" */
 export type Graph = {
   __typename?: 'graph';
+  /** An array relationship */
+  edges: Array<Edge>;
+  /** An aggregated array relationship */
+  edges_aggregate: Edge_Aggregate;
   id: Scalars['Int'];
   label: Scalars['String'];
+  /** An object relationship */
+  user?: Maybe<User>;
   userId?: Maybe<Scalars['Int']>;
+  /** An array relationship */
+  vertices: Array<Vertex>;
+  /** An aggregated array relationship */
+  vertices_aggregate: Vertex_Aggregate;
+};
+
+
+/** columns and relationships of "graph" */
+export type GraphEdgesArgs = {
+  distinct_on?: Maybe<Array<Edge_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Edge_Order_By>>;
+  where?: Maybe<Edge_Bool_Exp>;
+};
+
+
+/** columns and relationships of "graph" */
+export type GraphEdges_AggregateArgs = {
+  distinct_on?: Maybe<Array<Edge_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Edge_Order_By>>;
+  where?: Maybe<Edge_Bool_Exp>;
+};
+
+
+/** columns and relationships of "graph" */
+export type GraphVerticesArgs = {
+  distinct_on?: Maybe<Array<Vertex_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Vertex_Order_By>>;
+  where?: Maybe<Vertex_Bool_Exp>;
+};
+
+
+/** columns and relationships of "graph" */
+export type GraphVertices_AggregateArgs = {
+  distinct_on?: Maybe<Array<Vertex_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Vertex_Order_By>>;
+  where?: Maybe<Vertex_Bool_Exp>;
 };
 
 /** aggregated selection of "graph" */
@@ -954,9 +1009,12 @@ export type Graph_Bool_Exp = {
   _and?: Maybe<Array<Maybe<Graph_Bool_Exp>>>;
   _not?: Maybe<Graph_Bool_Exp>;
   _or?: Maybe<Array<Maybe<Graph_Bool_Exp>>>;
+  edges?: Maybe<Edge_Bool_Exp>;
   id?: Maybe<Int_Comparison_Exp>;
   label?: Maybe<String_Comparison_Exp>;
+  user?: Maybe<User_Bool_Exp>;
   userId?: Maybe<Int_Comparison_Exp>;
+  vertices?: Maybe<Vertex_Bool_Exp>;
 };
 
 /** unique or primary key constraints on table "graph" */
@@ -973,9 +1031,12 @@ export type Graph_Inc_Input = {
 
 /** input type for inserting data into table "graph" */
 export type Graph_Insert_Input = {
+  edges?: Maybe<Edge_Arr_Rel_Insert_Input>;
   id?: Maybe<Scalars['Int']>;
   label?: Maybe<Scalars['String']>;
+  user?: Maybe<User_Obj_Rel_Insert_Input>;
   userId?: Maybe<Scalars['Int']>;
+  vertices?: Maybe<Vertex_Arr_Rel_Insert_Input>;
 };
 
 /** aggregate max on columns */
@@ -1032,9 +1093,12 @@ export type Graph_On_Conflict = {
 
 /** ordering options when selecting data from "graph" */
 export type Graph_Order_By = {
+  edges_aggregate?: Maybe<Edge_Aggregate_Order_By>;
   id?: Maybe<Order_By>;
   label?: Maybe<Order_By>;
+  user?: Maybe<User_Order_By>;
   userId?: Maybe<Order_By>;
+  vertices_aggregate?: Maybe<Vertex_Aggregate_Order_By>;
 };
 
 /** primary key columns input for table: "graph" */
@@ -1203,8 +1267,32 @@ export enum Order_By {
 /** columns and relationships of "user" */
 export type User = {
   __typename?: 'user';
+  /** An array relationship */
+  graphs: Array<Graph>;
+  /** An aggregated array relationship */
+  graphs_aggregate: Graph_Aggregate;
   id: Scalars['Int'];
   username: Scalars['String'];
+};
+
+
+/** columns and relationships of "user" */
+export type UserGraphsArgs = {
+  distinct_on?: Maybe<Array<Graph_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Graph_Order_By>>;
+  where?: Maybe<Graph_Bool_Exp>;
+};
+
+
+/** columns and relationships of "user" */
+export type UserGraphs_AggregateArgs = {
+  distinct_on?: Maybe<Array<Graph_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Graph_Order_By>>;
+  where?: Maybe<Graph_Bool_Exp>;
 };
 
 /** aggregated selection of "user" */
@@ -1274,6 +1362,7 @@ export type User_Bool_Exp = {
   _and?: Maybe<Array<Maybe<User_Bool_Exp>>>;
   _not?: Maybe<User_Bool_Exp>;
   _or?: Maybe<Array<Maybe<User_Bool_Exp>>>;
+  graphs?: Maybe<Graph_Bool_Exp>;
   id?: Maybe<Int_Comparison_Exp>;
   username?: Maybe<String_Comparison_Exp>;
 };
@@ -1291,6 +1380,7 @@ export type User_Inc_Input = {
 
 /** input type for inserting data into table "user" */
 export type User_Insert_Input = {
+  graphs?: Maybe<Graph_Arr_Rel_Insert_Input>;
   id?: Maybe<Scalars['Int']>;
   username?: Maybe<Scalars['String']>;
 };
@@ -1345,6 +1435,7 @@ export type User_On_Conflict = {
 
 /** ordering options when selecting data from "user" */
 export type User_Order_By = {
+  graphs_aggregate?: Maybe<Graph_Aggregate_Order_By>;
   id?: Maybe<Order_By>;
   username?: Maybe<Order_By>;
 };
@@ -1456,6 +1547,8 @@ export type User_Variance_Order_By = {
 /** columns and relationships of "vertex" */
 export type Vertex = {
   __typename?: 'vertex';
+  /** An object relationship */
+  graph?: Maybe<Graph>;
   graphId?: Maybe<Scalars['Int']>;
   id: Scalars['String'];
   props: Scalars['jsonb'];
@@ -1540,6 +1633,7 @@ export type Vertex_Bool_Exp = {
   _and?: Maybe<Array<Maybe<Vertex_Bool_Exp>>>;
   _not?: Maybe<Vertex_Bool_Exp>;
   _or?: Maybe<Array<Maybe<Vertex_Bool_Exp>>>;
+  graph?: Maybe<Graph_Bool_Exp>;
   graphId?: Maybe<Int_Comparison_Exp>;
   id?: Maybe<String_Comparison_Exp>;
   props?: Maybe<Jsonb_Comparison_Exp>;
@@ -1574,6 +1668,7 @@ export type Vertex_Inc_Input = {
 
 /** input type for inserting data into table "vertex" */
 export type Vertex_Insert_Input = {
+  graph?: Maybe<Graph_Obj_Rel_Insert_Input>;
   graphId?: Maybe<Scalars['Int']>;
   id?: Maybe<Scalars['String']>;
   props?: Maybe<Scalars['jsonb']>;
@@ -1630,6 +1725,7 @@ export type Vertex_On_Conflict = {
 
 /** ordering options when selecting data from "vertex" */
 export type Vertex_Order_By = {
+  graph?: Maybe<Graph_Order_By>;
   graphId?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
   props?: Maybe<Order_By>;
@@ -1769,6 +1865,16 @@ export type Vertex_Variance_Order_By = {
   graphId?: Maybe<Order_By>;
 };
 
+export type EdgeFragmentFragment = (
+  { __typename?: 'edge' }
+  & Pick<Edge, 'id' | 'source' | 'target'>
+);
+
+export type GraphFragmentFragment = (
+  { __typename?: 'graph' }
+  & Pick<Graph, 'id' | 'label'>
+);
+
 export type GraphsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -1776,7 +1882,34 @@ export type GraphsQuery = (
   { __typename?: 'Query' }
   & { graph: Array<(
     { __typename?: 'graph' }
-    & Pick<Graph, 'id' | 'label'>
+    & { edges: Array<(
+      { __typename?: 'edge' }
+      & EdgeFragmentFragment
+    )>, vertices: Array<(
+      { __typename?: 'vertex' }
+      & VertexFragmentFragment
+    )> }
+    & GraphFragmentFragment
+  )> }
+);
+
+export type GraphQueryVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type GraphQuery = (
+  { __typename?: 'Query' }
+  & { graph_by_pk?: Maybe<(
+    { __typename?: 'graph' }
+    & Pick<Graph, 'id'>
+    & { edges: Array<(
+      { __typename?: 'edge' }
+      & EdgeFragmentFragment
+    )>, vertices: Array<(
+      { __typename?: 'vertex' }
+      & VertexFragmentFragment
+    )> }
   )> }
 );
 
@@ -1793,15 +1926,56 @@ export type CreateGraphMutation = (
   )> }
 );
 
+export type VerticesQueryVariables = Exact<{ [key: string]: never; }>;
 
+
+export type VerticesQuery = (
+  { __typename?: 'Query' }
+  & { vertex: Array<(
+    { __typename?: 'vertex' }
+    & VertexFragmentFragment
+  )> }
+);
+
+export type VertexFragmentFragment = (
+  { __typename?: 'vertex' }
+  & Pick<Vertex, 'id' | 'type'>
+);
+
+export const EdgeFragmentFragmentDoc = gql`
+    fragment edgeFragment on edge {
+  id
+  source
+  target
+}
+    `;
+export const GraphFragmentFragmentDoc = gql`
+    fragment graphFragment on graph {
+  id
+  label
+}
+    `;
+export const VertexFragmentFragmentDoc = gql`
+    fragment vertexFragment on vertex {
+  id
+  type
+}
+    `;
 export const GraphsDocument = gql`
     query graphs {
   graph {
-    id
-    label
+    ...graphFragment
+    edges {
+      ...edgeFragment
+    }
+    vertices {
+      ...vertexFragment
+    }
   }
 }
-    `;
+    ${GraphFragmentFragmentDoc}
+${EdgeFragmentFragmentDoc}
+${VertexFragmentFragmentDoc}`;
 
 /**
  * __useGraphsQuery__
@@ -1827,6 +2001,46 @@ export function useGraphsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Gra
 export type GraphsQueryHookResult = ReturnType<typeof useGraphsQuery>;
 export type GraphsLazyQueryHookResult = ReturnType<typeof useGraphsLazyQuery>;
 export type GraphsQueryResult = Apollo.QueryResult<GraphsQuery, GraphsQueryVariables>;
+export const GraphDocument = gql`
+    query graph($id: Int!) {
+  graph_by_pk(id: $id) {
+    id
+    edges {
+      ...edgeFragment
+    }
+    vertices {
+      ...vertexFragment
+    }
+  }
+}
+    ${EdgeFragmentFragmentDoc}
+${VertexFragmentFragmentDoc}`;
+
+/**
+ * __useGraphQuery__
+ *
+ * To run a query within a React component, call `useGraphQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGraphQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGraphQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGraphQuery(baseOptions?: Apollo.QueryHookOptions<GraphQuery, GraphQueryVariables>) {
+        return Apollo.useQuery<GraphQuery, GraphQueryVariables>(GraphDocument, baseOptions);
+      }
+export function useGraphLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GraphQuery, GraphQueryVariables>) {
+          return Apollo.useLazyQuery<GraphQuery, GraphQueryVariables>(GraphDocument, baseOptions);
+        }
+export type GraphQueryHookResult = ReturnType<typeof useGraphQuery>;
+export type GraphLazyQueryHookResult = ReturnType<typeof useGraphLazyQuery>;
+export type GraphQueryResult = Apollo.QueryResult<GraphQuery, GraphQueryVariables>;
 export const CreateGraphDocument = gql`
     mutation createGraph($input: graph_insert_input!) {
   insert_graph_one(object: $input) {
@@ -1859,3 +2073,60 @@ export function useCreateGraphMutation(baseOptions?: Apollo.MutationHookOptions<
 export type CreateGraphMutationHookResult = ReturnType<typeof useCreateGraphMutation>;
 export type CreateGraphMutationResult = Apollo.MutationResult<CreateGraphMutation>;
 export type CreateGraphMutationOptions = Apollo.BaseMutationOptions<CreateGraphMutation, CreateGraphMutationVariables>;
+export const VerticesDocument = gql`
+    query vertices {
+  vertex {
+    ...vertexFragment
+  }
+}
+    ${VertexFragmentFragmentDoc}`;
+
+/**
+ * __useVerticesQuery__
+ *
+ * To run a query within a React component, call `useVerticesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useVerticesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useVerticesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useVerticesQuery(baseOptions?: Apollo.QueryHookOptions<VerticesQuery, VerticesQueryVariables>) {
+        return Apollo.useQuery<VerticesQuery, VerticesQueryVariables>(VerticesDocument, baseOptions);
+      }
+export function useVerticesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<VerticesQuery, VerticesQueryVariables>) {
+          return Apollo.useLazyQuery<VerticesQuery, VerticesQueryVariables>(VerticesDocument, baseOptions);
+        }
+export type VerticesQueryHookResult = ReturnType<typeof useVerticesQuery>;
+export type VerticesLazyQueryHookResult = ReturnType<typeof useVerticesLazyQuery>;
+export type VerticesQueryResult = Apollo.QueryResult<VerticesQuery, VerticesQueryVariables>;
+
+      export interface PossibleTypesResultData {
+        possibleTypes: {
+          [key: string]: Array<string>
+        }
+      }
+      const result: PossibleTypesResultData = {
+  "possibleTypes": {
+    "IUser": [
+      "UserEntity"
+    ],
+    "IVertex": [
+      "VertexEntity"
+    ],
+    "IGraph": [
+      "GraphEntity"
+    ],
+    "IEdge": [
+      "EdgeEntity"
+    ]
+  }
+};
+
+      export default result;
+    
