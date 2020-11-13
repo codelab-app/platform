@@ -8,6 +8,7 @@ import {
 } from './machine-entity--event'
 import { StateNameEntity, StateSchemaEntity } from './machine-entity--state'
 import { EntityA, EntityI } from '@codelab/shared/interface/entity'
+import { CustomMachineOptions } from '@codelab/shared/interface/machine'
 import { watchQuery } from '@codelab/shared/utils'
 import { GraphsDocument } from '@codelab/state/apollo'
 import { getApolloClient } from '@codelab/ui/hoc'
@@ -25,7 +26,9 @@ export enum ActionsEntity {
   FETCH_DATA = 'FETCH_DATA',
 }
 
-export const createMachineEntity = <I extends EntityI, A extends EntityA>() =>
+export const createMachineEntity = <I extends EntityI, A extends EntityA>(
+  config?: CustomMachineOptions,
+) =>
   Machine<ContextEntity<I, A>, StateSchemaEntity<I, A>, EventEntity<I, A>>(
     {
       id: 'entity',
@@ -103,7 +106,7 @@ export const createMachineEntity = <I extends EntityI, A extends EntityA>() =>
           item: (context, event) => {
             return Promise.resolve({
               id: 'vertex-id',
-              label: 'My Vertex',
+              // label: 'My Vertex',
             })
           },
         }),

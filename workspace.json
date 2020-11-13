@@ -1560,6 +1560,52 @@
           }
         }
       }
+    },
+    "shared-interface-graph-v2": {
+      "root": "libs/shared/interface/graph-v2",
+      "sourceRoot": "libs/shared/interface/graph-v2/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared/interface/graph-v2/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/interface/graph-v2/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "shared-interface-machine": {
+      "root": "libs/shared/interface/machine",
+      "sourceRoot": "libs/shared/interface/machine/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared/interface/machine/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/interface/machine/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {

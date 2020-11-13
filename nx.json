@@ -138,6 +138,12 @@
     },
     "shared-interface-entity": {
       "tags": []
+    },
+    "shared-interface-graph-v2": {
+      "tags": []
+    },
+    "shared-interface-machine": {
+      "tags": []
     }
   }
 }

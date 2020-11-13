@@ -70,6 +70,12 @@
       "@codelab/state/entity": ["libs/state/entity/src/index.ts"],
       "@codelab/shared/interface/entity": [
         "libs/shared/interface/entity/src/index.ts"
+      ],
+      "@codelab/shared/interface/graph-v2": [
+        "libs/shared/interface/graph-v2/src/index.ts"
+      ],
+      "@codelab/shared/interface/machine": [
+        "libs/shared/interface/machine/src/index.ts"
       ]
     }
   },

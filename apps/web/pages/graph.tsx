@@ -7,7 +7,7 @@ import { MachineContext, ReactJson } from '@codelab/ui/component'
 const GraphPage = () => {
   const { actors } = useContext(MachineContext)
   const [appState, appSend] = useService(actors.app)
-  const [vertexState] = useActor(actors.vertex)
+  const [vertexState] = useActor(actors.graph)
 
   // const createVertex = () =>
   //   mutate<CreateGraphMutation, CreateGraphMutationVariables>(
