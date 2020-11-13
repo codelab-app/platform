@@ -55,5 +55,6 @@ module.exports = {
     '<rootDir>/libs/state/vertex',
     '<rootDir>/libs/shared/interface/graph-v2',
     '<rootDir>/libs/shared/interface/machine',
+    '<rootDir>/libs/shared/factory',
   ],
 }

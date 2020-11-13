@@ -10,7 +10,7 @@ export interface GraphI extends EntityI {
 }
 
 export interface GraphA extends EntityA {
-  id: string
+  id: string | number
   vertices: Array<VertexA>
   edges: Array<EdgeA>
 }

@@ -144,6 +144,9 @@
     },
     "shared-interface-machine": {
       "tags": []
+    },
+    "shared-factory": {
+      "tags": []
     }
   }
 }

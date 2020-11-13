@@ -76,7 +76,8 @@
       ],
       "@codelab/shared/interface/machine": [
         "libs/shared/interface/machine/src/index.ts"
-      ]
+      ],
+      "@codelab/shared/factory": ["libs/shared/factory/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"]

@@ -11,6 +11,7 @@ generates:
       - typescript
       - typescript-operations
       - typescript-react-apollo
+      - fragment-matcher
       # - typescript-document-nodes
       # - typescript-graphql-files-modules
       # - graphql-codegen-apollo-next-ssr
