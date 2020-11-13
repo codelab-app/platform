@@ -12,7 +12,8 @@ export enum EventNameEntity {
 
 export interface EventEntitySuccess<A extends EntityA> extends EventObject {
   type: EventNameEntity.SUCCESS
-  data: A
+  data: any
+  // data: A
 }
 
 export interface EventEntityFailure extends EventObject {

@@ -1,5 +1,6 @@
 import { ApolloClient } from '@apollo/client'
 import { Machine, assign, send, spawn } from 'xstate'
+import { graphConfig } from '../config'
 import { ContextApp } from './machine-app--context'
 import { EventApp, EventNameApp } from './machine-app--event'
 import { StateNameApp, StateSchemaApp } from './machine-app--state'
@@ -27,7 +28,7 @@ export const createMachineApp = (
         modal: () => spawn(machineModal),
         layout: () => spawn(machineLayout),
         // vertex: () => spawn(createMachineEntity<VertexI, VertexA>()),
-        graph: () => spawn(createMachineEntity<GraphI, GraphA>({})),
+        graph: () => spawn(createMachineEntity<GraphI, GraphA>(graphConfig)),
         node: () => spawn(createMachineNode(nodeService)),
         graphQLDemo: () => spawn(graphQLDemoMachine),
       }),
