@@ -1,4 +1,5 @@
 import { EventObject } from 'xstate'
+import { EntityA, EntityI } from '@codelab/shared/interface/entity'
 
 export enum EventNameEntity {
   // START_CREATE = 'START_CREATE',
@@ -9,9 +10,10 @@ export enum EventNameEntity {
   FETCH = 'FETCH',
 }
 
-export interface EventEntitySuccess extends EventObject {
+export interface EventEntitySuccess<A extends EntityA> extends EventObject {
   type: EventNameEntity.SUCCESS
   data: any
+  // data: A
 }
 
 export interface EventEntityFailure extends EventObject {
@@ -22,7 +24,7 @@ export interface EventEntityFetch extends EventObject {
   type: EventNameEntity.FETCH
 }
 
-export type EventEntity =
-  | EventEntitySuccess
+export type EventEntity<I extends EntityI, A extends EntityA> =
+  | EventEntitySuccess<A>
   | EventEntityFailure
   | EventEntityFetch

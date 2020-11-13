@@ -18,6 +18,7 @@ interface MachineContextProps<
     app: any
     layout: any
     vertex: any
+    graph: any
     modal: any
     node: any
     graphQLDemo: any
@@ -31,6 +32,7 @@ export const MachineContext = React.createContext<
     app: undefined,
     layout: undefined,
     vertex: undefined,
+    graph: undefined,
     modal: undefined,
     node: undefined,
     graphQLDemo: undefined,
@@ -49,6 +51,7 @@ export const MachineProvider = (
       app: service,
       layout: state.context?.layout,
       vertex: state.context?.vertex,
+      graph: state.context?.graph,
       modal: state.context?.modal,
       node: state.context?.node,
       graphQLDemo: state.context?.graphQLDemo,

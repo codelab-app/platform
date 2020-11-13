@@ -53,5 +53,7 @@ module.exports = {
     '<rootDir>/libs/shared/state/crud',
     '<rootDir>/libs/state/crud',
     '<rootDir>/libs/state/vertex',
+    '<rootDir>/libs/shared/interface/graph-v2',
+    '<rootDir>/libs/shared/interface/machine',
   ],
 }

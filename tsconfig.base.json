@@ -32,9 +32,6 @@
       "@codelab/shared/interface/props": [
         "libs/shared/interface/props/src/index.ts"
       ],
-      "@codelab/shared/interface/model": [
-        "libs/shared/interface/model/src/index.ts"
-      ],
       "@codelab/shared/interface/tree": [
         "libs/shared/interface/tree/src/index.ts"
       ],
@@ -70,7 +67,16 @@
         "libs/api/providers/router/src/index.ts"
       ],
       "@codelab/state/vertex": ["libs/state/vertex/src/index.ts"],
-      "@codelab/state/entity": ["libs/state/entity/src/index.ts"]
+      "@codelab/state/entity": ["libs/state/entity/src/index.ts"],
+      "@codelab/shared/interface/entity": [
+        "libs/shared/interface/entity/src/index.ts"
+      ],
+      "@codelab/shared/interface/graph-v2": [
+        "libs/shared/interface/graph-v2/src/index.ts"
+      ],
+      "@codelab/shared/interface/machine": [
+        "libs/shared/interface/machine/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"]

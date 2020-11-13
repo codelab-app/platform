@@ -1,10 +1,12 @@
 import { ApolloClient } from '@apollo/client'
 import { Machine, assign, send, spawn } from 'xstate'
+import { graphConfig } from '../config'
 import { ContextApp } from './machine-app--context'
 import { EventApp, EventNameApp } from './machine-app--event'
 import { StateNameApp, StateSchemaApp } from './machine-app--state'
 import { NodeService as NodeServiceEntity } from '@codelab/core/node'
-import { machineEntity } from '@codelab/state/entity'
+import { GraphA, GraphI } from '@codelab/shared/interface/graph-v2'
+import { createMachineEntity } from '@codelab/state/entity'
 import { machineLayout } from '@codelab/state/layout'
 import { EventNameModal, machineModal } from '@codelab/state/modal'
 import {
@@ -25,7 +27,8 @@ export const createMachineApp = (
       entry: assign<ContextApp, EventApp>({
         modal: () => spawn(machineModal),
         layout: () => spawn(machineLayout),
-        vertex: () => spawn(machineEntity),
+        // vertex: () => spawn(createMachineEntity<VertexI, VertexA>()),
+        graph: () => spawn(createMachineEntity<GraphI, GraphA>(graphConfig)),
         node: () => spawn(createMachineNode(nodeService)),
         graphQLDemo: () => spawn(graphQLDemoMachine),
       }),
@@ -83,5 +86,5 @@ export const createMachineApp = (
       },
       services: {},
     },
-  )
+  ).withConfig({})
 }

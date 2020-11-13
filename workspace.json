@@ -218,30 +218,6 @@
         }
       }
     },
-    "shared-interface-model": {
-      "root": "libs/shared/interface/model",
-      "sourceRoot": "libs/shared/interface/model/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/shared/interface/model/**/*.js",
-              "libs/shared/interface/model/**/*.jsx",
-              "libs/shared/interface/model/**/*.ts",
-              "libs/shared/interface/model/**/*.tsx",
-              "libs/shared/interface/model/**/*.spec.ts",
-              "libs/shared/interface/model/**/*.spec.tsx",
-              "libs/shared/interface/model/**/*.spec.js",
-              "libs/shared/interface/model/**/*.spec.jsx",
-              "libs/shared/interface/model/**/*.d.ts"
-            ]
-          }
-        }
-      }
-    },
     "shared-interface-tree": {
       "root": "libs/shared/interface/tree",
       "sourceRoot": "libs/shared/interface/tree/src",
@@ -1556,6 +1532,76 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/state/entity/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "shared-interface-entity": {
+      "root": "libs/shared/interface/entity",
+      "sourceRoot": "libs/shared/interface/entity/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared/interface/entity/**/*.js",
+              "libs/shared/interface/entity/**/*.jsx",
+              "libs/shared/interface/entity/**/*.ts",
+              "libs/shared/interface/entity/**/*.tsx",
+              "libs/shared/interface/entity/**/*.spec.ts",
+              "libs/shared/interface/entity/**/*.spec.tsx",
+              "libs/shared/interface/entity/**/*.spec.js",
+              "libs/shared/interface/entity/**/*.spec.jsx",
+              "libs/shared/interface/entity/**/*.d.ts"
+            ]
+          }
+        }
+      }
+    },
+    "shared-interface-graph-v2": {
+      "root": "libs/shared/interface/graph-v2",
+      "sourceRoot": "libs/shared/interface/graph-v2/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared/interface/graph-v2/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/interface/graph-v2/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "shared-interface-machine": {
+      "root": "libs/shared/interface/machine",
+      "sourceRoot": "libs/shared/interface/machine/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared/interface/machine/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/interface/machine/jest.config.js",
             "passWithNoTests": true
           }
         }

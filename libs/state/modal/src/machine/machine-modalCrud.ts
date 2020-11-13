@@ -7,7 +7,7 @@ import {
   StateSchemaModal,
   StateSchemaModalCrud,
 } from './machine-modal--state'
-import { StateNameEntity } from '@codelab/shared/interface/model'
+import { StateNameEntity } from '@codelab/shared/interface/entity'
 
 const stateModalCrud: MachineConfig<
   ContextModal,

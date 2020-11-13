@@ -24,7 +24,7 @@ export class VertexEntity {
   @Column({
     type: 'jsonb',
   })
-  declare props?: any
+  declare props?: object
 
   @ManyToOne((type) => GraphEntity, (graph) => graph.vertices)
   declare graph: GraphEntity
