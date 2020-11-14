@@ -72,7 +72,8 @@ export class ConfigGraphqlHasuraService implements GqlOptionsFactory {
       // we will use it to pass JWT to Hasura
       const authLink: ApolloLink = setContext(
         (_request: GraphQLRequest, prevContext: any) => {
-          const { authorization } = prevContext.graphQLContext.req.headers
+          const authorization =
+            prevContext?.graphQLContext?.req?.headers?.authorization
 
           return {
             headers: {

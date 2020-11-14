@@ -32,6 +32,8 @@ export class UserEntity {
 
   /**
    * Won't trigger if we use `repository.save()`
+   *
+   * https://github.com/typeorm/typeorm/issues/5493
    */
   @BeforeInsert()
   @BeforeUpdate()
