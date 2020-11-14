@@ -6,23 +6,27 @@ import React from 'react'
 const Form = withTheme(AntDTheme)
 
 export const FormEdge = () => {
+  const propsSchema: JSONSchema7 = {
+    title: 'Props',
+    type: 'object',
+    properties: {
+      props: { type: 'string', title: 'Additional prop', default: '' },
+    },
+  }
+
   const schema: JSONSchema7 = {
     title: 'Edge',
     type: 'object',
-    required: ['title'],
+    required: ['source', 'target'],
     properties: {
-      title: { type: 'string', title: 'Title', default: 'A new task' },
-      done: { type: 'boolean', title: 'Done?', default: false },
+      source: { type: 'string', title: 'source', default: '' },
+      target: { type: 'string', title: 'target', default: '' },
+      props: propsSchema,
     },
   }
   const log = (type: any) => console.log.bind(console, type)
 
   return (
-    <Form
-      schema={schema}
-      onChange={log('changed')}
-      onSubmit={log('submitted')}
-      onError={log('errors')}
-    />
+    <Form schema={schema} onSubmit={log('submitted')} onError={log('errors')} />
   )
 }
