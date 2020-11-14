@@ -157,9 +157,12 @@ services:
     environment:
       - HASURA_GRAPHQL_DATABASE_URL
       - HASURA_GRAPHQL_ADMIN_SECRET
+      - 'HASURA_GRAPHQL_JWT_SECRET={"type": "HS512", "key": "AQang2XTwWG8odE3WiI-0bc0f3O0Gq0h3SDs2rp6Kl00P-MOHzB6_DjKi525E0B5-kvacmu1kjc3bQQp7FQusA"}'
       - HASURA_GRAPHQL_ENABLE_CONSOLE
       - HASURA_GRAPHQL_DEV_MODE
       - HASURA_GRAPHQL_ENABLED_LOG_TYPES
+      - HASURA_GRAPHQL_MIGRATIONS_DIR=../apps/api/graph/.hasura/migrations
+      - HASURA_GRAPHQL_METADATA_DIR=../apps/api/graph/.hasura/metadata
 
 volumes:
   db_data:

@@ -58,16 +58,15 @@ export class AppModule implements OnModuleInit {
   ) {}
 
   async onModuleInit() {
-    if (this.config.resetDb) {
-      if (
-        shell.exec('make -C apps/api/external hasura-metadata-import').code !==
-        0
-      ) {
-        shell.echo('make hasura-metadata-import failed')
-        shell.exit(1)
-      }
+    if (!this.config.resetDb) return
 
-      await this.seedDbService.seedDB()
+    if (
+      shell.exec('make -C apps/api/external hasura-metadata-import').code !== 0
+    ) {
+      shell.echo('make hasura-metadata-import failed')
+      shell.exit(1)
     }
+
+    await this.seedDbService.seedDB()
   }
 }

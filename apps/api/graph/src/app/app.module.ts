@@ -3,10 +3,13 @@ import { ConfigService } from '@nestjs/config'
 import { GraphQLModule } from '@nestjs/graphql'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import * as shell from 'shelljs'
+import { AuthModule } from '../models/auth/auth.module'
 import { EdgeModule } from '../models/edge/edge.module'
 import { GraphModule } from '../models/graph/graph.module'
 import { UserModule } from '../models/user/user.module'
 import { VertexModule } from '../models/vertex/vertex.module'
+import { SeedDbModule } from '../seed-db/seed-db.module'
+import { SeedDbService } from '../seed-db/seed-db.service'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import {
@@ -20,7 +23,7 @@ import {
     // RouterModule,
     // LoggerModule,
     ConfigModule,
-    // SeedDbModule,
+    SeedDbModule,
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -36,17 +39,25 @@ import {
     VertexModule,
     GraphModule,
     UserModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule implements OnModuleInit {
-  onModuleInit(): any {
-    if (process.argv.includes('--reset')) {
-      if (shell.exec('make hasura-metadata-apply').code !== 0) {
-        shell.echo('make hasura-metadata-import failed')
-        shell.exit(1)
-      }
+  constructor(
+    public seedDbService: SeedDbService,
+    public config: ConfigTypeormHasuraService,
+  ) {}
+
+  async onModuleInit() {
+    if (!this.config.resetDb) return
+
+    if (shell.exec('make hasura-metadata-apply').code !== 0) {
+      shell.echo('make hasura-metadata-import failed')
+      shell.exit(1)
     }
+
+    await this.seedDbService.seedDB()
   }
 }

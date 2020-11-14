@@ -64,6 +64,17 @@ hasura-metadata-reload:
 	npx hasura metadata reload \
     --project apps/api/graph/.hasura \
     --envfile ../../../../.env
+
+hasura-seed:
+	npx hasura seeds apply \
+    --project apps/api/graph/.hasura \
+    --envfile ../../../../.env
+
+# Temp command
+hasura:
+	npx hasura seeds create demo \
+    --project apps/api/graph/.hasura \
+    --envfile ../../../../.env
 #
 # LINT
 #

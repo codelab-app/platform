@@ -7,7 +7,7 @@ export class EdgeResolver {
   constructor(public edgeService: EdgeService) {}
 
   @Query(() => [EdgeEntity])
-  async getAll() {
+  async getAllEdges() {
     return this.edgeService.findAll()
   }
 }
