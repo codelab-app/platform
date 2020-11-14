@@ -18,8 +18,8 @@ export const createMachineEntity = <I extends EntityI, A extends EntityA>(
     initial: StateNameEntity.IDLE,
     context: {
       current: undefined,
-      item: undefined,
-      list: [],
+      item: { data: null },
+      list: { data: null },
     },
     states: {
       [StateNameEntity.IDLE]: {

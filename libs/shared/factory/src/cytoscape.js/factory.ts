@@ -1,6 +1,6 @@
 import cytoscape from 'cytoscape'
 import { cyMapEdges, cyMapVertices } from './mapper'
-import { EdgeA, VertexA } from '@codelab/shared/interface/graph'
+import { EdgeA, VertexA } from '@codelab/shared/interface/graph-v2'
 
 export interface CytoscapeI {
   vertices: Array<VertexA>

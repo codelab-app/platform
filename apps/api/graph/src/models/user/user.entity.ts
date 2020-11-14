@@ -8,8 +8,8 @@ import { IUser } from './IUser'
   implements: [IUser],
 })
 export class UserEntity {
-  @PrimaryGeneratedColumn()
-  declare id: number
+  @PrimaryGeneratedColumn('uuid')
+  declare id: string
 
   @Column({
     type: 'text',

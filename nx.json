@@ -147,6 +147,12 @@
     },
     "shared-factory": {
       "tags": []
+    },
+    "shared-interface-mapper": {
+      "tags": []
+    },
+    "shared-interface-collections": {
+      "tags": []
     }
   }
 }

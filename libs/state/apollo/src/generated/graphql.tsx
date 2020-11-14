@@ -13,6 +13,7 @@ export type Scalars = {
   /** The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
   JSONObject: any;
   jsonb: any;
+  uuid: any;
   vertex_type_enum: any;
 };
 
@@ -65,7 +66,7 @@ export type QueryEdge_AggregateArgs = {
 
 
 export type QueryEdge_By_PkArgs = {
-  id: Scalars['String'];
+  id: Scalars['uuid'];
 };
 
 
@@ -88,7 +89,7 @@ export type QueryGraph_AggregateArgs = {
 
 
 export type QueryGraph_By_PkArgs = {
-  id: Scalars['Int'];
+  id: Scalars['uuid'];
 };
 
 
@@ -111,7 +112,7 @@ export type QueryUser_AggregateArgs = {
 
 
 export type QueryUser_By_PkArgs = {
-  id: Scalars['Int'];
+  id: Scalars['uuid'];
 };
 
 
@@ -134,7 +135,7 @@ export type QueryVertex_AggregateArgs = {
 
 
 export type QueryVertex_By_PkArgs = {
-  id: Scalars['String'];
+  id: Scalars['uuid'];
 };
 
 export type UserEntity = IUser & {
@@ -249,7 +250,7 @@ export type MutationDelete_EdgeArgs = {
 
 
 export type MutationDelete_Edge_By_PkArgs = {
-  id: Scalars['String'];
+  id: Scalars['uuid'];
 };
 
 
@@ -259,7 +260,7 @@ export type MutationDelete_GraphArgs = {
 
 
 export type MutationDelete_Graph_By_PkArgs = {
-  id: Scalars['Int'];
+  id: Scalars['uuid'];
 };
 
 
@@ -269,7 +270,7 @@ export type MutationDelete_UserArgs = {
 
 
 export type MutationDelete_User_By_PkArgs = {
-  id: Scalars['Int'];
+  id: Scalars['uuid'];
 };
 
 
@@ -279,7 +280,7 @@ export type MutationDelete_VertexArgs = {
 
 
 export type MutationDelete_Vertex_By_PkArgs = {
-  id: Scalars['String'];
+  id: Scalars['uuid'];
 };
 
 
@@ -336,7 +337,6 @@ export type MutationUpdate_EdgeArgs = {
   _delete_at_path?: Maybe<Edge_Delete_At_Path_Input>;
   _delete_elem?: Maybe<Edge_Delete_Elem_Input>;
   _delete_key?: Maybe<Edge_Delete_Key_Input>;
-  _inc?: Maybe<Edge_Inc_Input>;
   _prepend?: Maybe<Edge_Prepend_Input>;
   _set?: Maybe<Edge_Set_Input>;
   where: Edge_Bool_Exp;
@@ -348,7 +348,6 @@ export type MutationUpdate_Edge_By_PkArgs = {
   _delete_at_path?: Maybe<Edge_Delete_At_Path_Input>;
   _delete_elem?: Maybe<Edge_Delete_Elem_Input>;
   _delete_key?: Maybe<Edge_Delete_Key_Input>;
-  _inc?: Maybe<Edge_Inc_Input>;
   _prepend?: Maybe<Edge_Prepend_Input>;
   _set?: Maybe<Edge_Set_Input>;
   pk_columns: Edge_Pk_Columns_Input;
@@ -356,28 +355,24 @@ export type MutationUpdate_Edge_By_PkArgs = {
 
 
 export type MutationUpdate_GraphArgs = {
-  _inc?: Maybe<Graph_Inc_Input>;
   _set?: Maybe<Graph_Set_Input>;
   where: Graph_Bool_Exp;
 };
 
 
 export type MutationUpdate_Graph_By_PkArgs = {
-  _inc?: Maybe<Graph_Inc_Input>;
   _set?: Maybe<Graph_Set_Input>;
   pk_columns: Graph_Pk_Columns_Input;
 };
 
 
 export type MutationUpdate_UserArgs = {
-  _inc?: Maybe<User_Inc_Input>;
   _set?: Maybe<User_Set_Input>;
   where: User_Bool_Exp;
 };
 
 
 export type MutationUpdate_User_By_PkArgs = {
-  _inc?: Maybe<User_Inc_Input>;
   _set?: Maybe<User_Set_Input>;
   pk_columns: User_Pk_Columns_Input;
 };
@@ -388,7 +383,6 @@ export type MutationUpdate_VertexArgs = {
   _delete_at_path?: Maybe<Vertex_Delete_At_Path_Input>;
   _delete_elem?: Maybe<Vertex_Delete_Elem_Input>;
   _delete_key?: Maybe<Vertex_Delete_Key_Input>;
-  _inc?: Maybe<Vertex_Inc_Input>;
   _prepend?: Maybe<Vertex_Prepend_Input>;
   _set?: Maybe<Vertex_Set_Input>;
   where: Vertex_Bool_Exp;
@@ -400,7 +394,6 @@ export type MutationUpdate_Vertex_By_PkArgs = {
   _delete_at_path?: Maybe<Vertex_Delete_At_Path_Input>;
   _delete_elem?: Maybe<Vertex_Delete_Elem_Input>;
   _delete_key?: Maybe<Vertex_Delete_Key_Input>;
-  _inc?: Maybe<Vertex_Inc_Input>;
   _prepend?: Maybe<Vertex_Prepend_Input>;
   _set?: Maybe<Vertex_Set_Input>;
   pk_columns: Vertex_Pk_Columns_Input;
@@ -454,7 +447,7 @@ export type SubscriptionEdge_AggregateArgs = {
 
 
 export type SubscriptionEdge_By_PkArgs = {
-  id: Scalars['String'];
+  id: Scalars['uuid'];
 };
 
 
@@ -477,7 +470,7 @@ export type SubscriptionGraph_AggregateArgs = {
 
 
 export type SubscriptionGraph_By_PkArgs = {
-  id: Scalars['Int'];
+  id: Scalars['uuid'];
 };
 
 
@@ -500,7 +493,7 @@ export type SubscriptionUser_AggregateArgs = {
 
 
 export type SubscriptionUser_By_PkArgs = {
-  id: Scalars['Int'];
+  id: Scalars['uuid'];
 };
 
 
@@ -523,20 +516,7 @@ export type SubscriptionVertex_AggregateArgs = {
 
 
 export type SubscriptionVertex_By_PkArgs = {
-  id: Scalars['String'];
-};
-
-/** expression to compare columns of type Int. All fields are combined with logical 'AND'. */
-export type Int_Comparison_Exp = {
-  _eq?: Maybe<Scalars['Int']>;
-  _gt?: Maybe<Scalars['Int']>;
-  _gte?: Maybe<Scalars['Int']>;
-  _in?: Maybe<Array<Scalars['Int']>>;
-  _is_null?: Maybe<Scalars['Boolean']>;
-  _lt?: Maybe<Scalars['Int']>;
-  _lte?: Maybe<Scalars['Int']>;
-  _neq?: Maybe<Scalars['Int']>;
-  _nin?: Maybe<Array<Scalars['Int']>>;
+  id: Scalars['uuid'];
 };
 
 /** expression to compare columns of type String. All fields are combined with logical 'AND'. */
@@ -563,8 +543,8 @@ export type Edge = {
   __typename?: 'edge';
   /** An object relationship */
   graph?: Maybe<Graph>;
-  graphId?: Maybe<Scalars['Int']>;
-  id: Scalars['String'];
+  graphId?: Maybe<Scalars['uuid']>;
+  id: Scalars['uuid'];
   props: Scalars['jsonb'];
   source: Scalars['String'];
   target: Scalars['String'];
@@ -586,17 +566,9 @@ export type Edge_Aggregate = {
 /** aggregate fields of "edge" */
 export type Edge_Aggregate_Fields = {
   __typename?: 'edge_aggregate_fields';
-  avg?: Maybe<Edge_Avg_Fields>;
   count?: Maybe<Scalars['Int']>;
   max?: Maybe<Edge_Max_Fields>;
   min?: Maybe<Edge_Min_Fields>;
-  stddev?: Maybe<Edge_Stddev_Fields>;
-  stddev_pop?: Maybe<Edge_Stddev_Pop_Fields>;
-  stddev_samp?: Maybe<Edge_Stddev_Samp_Fields>;
-  sum?: Maybe<Edge_Sum_Fields>;
-  var_pop?: Maybe<Edge_Var_Pop_Fields>;
-  var_samp?: Maybe<Edge_Var_Samp_Fields>;
-  variance?: Maybe<Edge_Variance_Fields>;
 };
 
 
@@ -608,17 +580,9 @@ export type Edge_Aggregate_FieldsCountArgs = {
 
 /** order by aggregate values of table "edge" */
 export type Edge_Aggregate_Order_By = {
-  avg?: Maybe<Edge_Avg_Order_By>;
   count?: Maybe<Order_By>;
   max?: Maybe<Edge_Max_Order_By>;
   min?: Maybe<Edge_Min_Order_By>;
-  stddev?: Maybe<Edge_Stddev_Order_By>;
-  stddev_pop?: Maybe<Edge_Stddev_Pop_Order_By>;
-  stddev_samp?: Maybe<Edge_Stddev_Samp_Order_By>;
-  sum?: Maybe<Edge_Sum_Order_By>;
-  var_pop?: Maybe<Edge_Var_Pop_Order_By>;
-  var_samp?: Maybe<Edge_Var_Samp_Order_By>;
-  variance?: Maybe<Edge_Variance_Order_By>;
 };
 
 /** append existing jsonb value of filtered columns with new jsonb value */
@@ -632,25 +596,14 @@ export type Edge_Arr_Rel_Insert_Input = {
   on_conflict?: Maybe<Edge_On_Conflict>;
 };
 
-/** aggregate avg on columns */
-export type Edge_Avg_Fields = {
-  __typename?: 'edge_avg_fields';
-  graphId?: Maybe<Scalars['Float']>;
-};
-
-/** order by avg() on columns of table "edge" */
-export type Edge_Avg_Order_By = {
-  graphId?: Maybe<Order_By>;
-};
-
 /** Boolean expression to filter rows from the table "edge". All fields are combined with a logical 'AND'. */
 export type Edge_Bool_Exp = {
   _and?: Maybe<Array<Maybe<Edge_Bool_Exp>>>;
   _not?: Maybe<Edge_Bool_Exp>;
   _or?: Maybe<Array<Maybe<Edge_Bool_Exp>>>;
   graph?: Maybe<Graph_Bool_Exp>;
-  graphId?: Maybe<Int_Comparison_Exp>;
-  id?: Maybe<String_Comparison_Exp>;
+  graphId?: Maybe<Uuid_Comparison_Exp>;
+  id?: Maybe<Uuid_Comparison_Exp>;
   props?: Maybe<Jsonb_Comparison_Exp>;
   source?: Maybe<String_Comparison_Exp>;
   target?: Maybe<String_Comparison_Exp>;
@@ -677,16 +630,11 @@ export type Edge_Delete_Key_Input = {
   props?: Maybe<Scalars['String']>;
 };
 
-/** input type for incrementing integer column in table "edge" */
-export type Edge_Inc_Input = {
-  graphId?: Maybe<Scalars['Int']>;
-};
-
 /** input type for inserting data into table "edge" */
 export type Edge_Insert_Input = {
   graph?: Maybe<Graph_Obj_Rel_Insert_Input>;
-  graphId?: Maybe<Scalars['Int']>;
-  id?: Maybe<Scalars['String']>;
+  graphId?: Maybe<Scalars['uuid']>;
+  id?: Maybe<Scalars['uuid']>;
   props?: Maybe<Scalars['jsonb']>;
   source?: Maybe<Scalars['String']>;
   target?: Maybe<Scalars['String']>;
@@ -695,8 +643,8 @@ export type Edge_Insert_Input = {
 /** aggregate max on columns */
 export type Edge_Max_Fields = {
   __typename?: 'edge_max_fields';
-  graphId?: Maybe<Scalars['Int']>;
-  id?: Maybe<Scalars['String']>;
+  graphId?: Maybe<Scalars['uuid']>;
+  id?: Maybe<Scalars['uuid']>;
   source?: Maybe<Scalars['String']>;
   target?: Maybe<Scalars['String']>;
 };
@@ -712,8 +660,8 @@ export type Edge_Max_Order_By = {
 /** aggregate min on columns */
 export type Edge_Min_Fields = {
   __typename?: 'edge_min_fields';
-  graphId?: Maybe<Scalars['Int']>;
-  id?: Maybe<Scalars['String']>;
+  graphId?: Maybe<Scalars['uuid']>;
+  id?: Maybe<Scalars['uuid']>;
   source?: Maybe<Scalars['String']>;
   target?: Maybe<Scalars['String']>;
 };
@@ -760,7 +708,7 @@ export type Edge_Order_By = {
 
 /** primary key columns input for table: "edge" */
 export type Edge_Pk_Columns_Input = {
-  id: Scalars['String'];
+  id: Scalars['uuid'];
 };
 
 /** prepend existing jsonb value of filtered columns with new jsonb value */
@@ -784,55 +732,11 @@ export enum Edge_Select_Column {
 
 /** input type for updating data in table "edge" */
 export type Edge_Set_Input = {
-  graphId?: Maybe<Scalars['Int']>;
-  id?: Maybe<Scalars['String']>;
+  graphId?: Maybe<Scalars['uuid']>;
+  id?: Maybe<Scalars['uuid']>;
   props?: Maybe<Scalars['jsonb']>;
   source?: Maybe<Scalars['String']>;
   target?: Maybe<Scalars['String']>;
-};
-
-/** aggregate stddev on columns */
-export type Edge_Stddev_Fields = {
-  __typename?: 'edge_stddev_fields';
-  graphId?: Maybe<Scalars['Float']>;
-};
-
-/** order by stddev() on columns of table "edge" */
-export type Edge_Stddev_Order_By = {
-  graphId?: Maybe<Order_By>;
-};
-
-/** aggregate stddev_pop on columns */
-export type Edge_Stddev_Pop_Fields = {
-  __typename?: 'edge_stddev_pop_fields';
-  graphId?: Maybe<Scalars['Float']>;
-};
-
-/** order by stddev_pop() on columns of table "edge" */
-export type Edge_Stddev_Pop_Order_By = {
-  graphId?: Maybe<Order_By>;
-};
-
-/** aggregate stddev_samp on columns */
-export type Edge_Stddev_Samp_Fields = {
-  __typename?: 'edge_stddev_samp_fields';
-  graphId?: Maybe<Scalars['Float']>;
-};
-
-/** order by stddev_samp() on columns of table "edge" */
-export type Edge_Stddev_Samp_Order_By = {
-  graphId?: Maybe<Order_By>;
-};
-
-/** aggregate sum on columns */
-export type Edge_Sum_Fields = {
-  __typename?: 'edge_sum_fields';
-  graphId?: Maybe<Scalars['Int']>;
-};
-
-/** order by sum() on columns of table "edge" */
-export type Edge_Sum_Order_By = {
-  graphId?: Maybe<Order_By>;
 };
 
 /** update columns of table "edge" */
@@ -849,39 +753,6 @@ export enum Edge_Update_Column {
   target = 'target'
 }
 
-/** aggregate var_pop on columns */
-export type Edge_Var_Pop_Fields = {
-  __typename?: 'edge_var_pop_fields';
-  graphId?: Maybe<Scalars['Float']>;
-};
-
-/** order by var_pop() on columns of table "edge" */
-export type Edge_Var_Pop_Order_By = {
-  graphId?: Maybe<Order_By>;
-};
-
-/** aggregate var_samp on columns */
-export type Edge_Var_Samp_Fields = {
-  __typename?: 'edge_var_samp_fields';
-  graphId?: Maybe<Scalars['Float']>;
-};
-
-/** order by var_samp() on columns of table "edge" */
-export type Edge_Var_Samp_Order_By = {
-  graphId?: Maybe<Order_By>;
-};
-
-/** aggregate variance on columns */
-export type Edge_Variance_Fields = {
-  __typename?: 'edge_variance_fields';
-  graphId?: Maybe<Scalars['Float']>;
-};
-
-/** order by variance() on columns of table "edge" */
-export type Edge_Variance_Order_By = {
-  graphId?: Maybe<Order_By>;
-};
-
 /** columns and relationships of "graph" */
 export type Graph = {
   __typename?: 'graph';
@@ -889,11 +760,11 @@ export type Graph = {
   edges: Array<Edge>;
   /** An aggregated array relationship */
   edges_aggregate: Edge_Aggregate;
-  id: Scalars['Int'];
+  id: Scalars['uuid'];
   label: Scalars['String'];
   /** An object relationship */
   user?: Maybe<User>;
-  userId?: Maybe<Scalars['Int']>;
+  userId?: Maybe<Scalars['uuid']>;
   /** An array relationship */
   vertices: Array<Vertex>;
   /** An aggregated array relationship */
@@ -950,17 +821,9 @@ export type Graph_Aggregate = {
 /** aggregate fields of "graph" */
 export type Graph_Aggregate_Fields = {
   __typename?: 'graph_aggregate_fields';
-  avg?: Maybe<Graph_Avg_Fields>;
   count?: Maybe<Scalars['Int']>;
   max?: Maybe<Graph_Max_Fields>;
   min?: Maybe<Graph_Min_Fields>;
-  stddev?: Maybe<Graph_Stddev_Fields>;
-  stddev_pop?: Maybe<Graph_Stddev_Pop_Fields>;
-  stddev_samp?: Maybe<Graph_Stddev_Samp_Fields>;
-  sum?: Maybe<Graph_Sum_Fields>;
-  var_pop?: Maybe<Graph_Var_Pop_Fields>;
-  var_samp?: Maybe<Graph_Var_Samp_Fields>;
-  variance?: Maybe<Graph_Variance_Fields>;
 };
 
 
@@ -972,17 +835,9 @@ export type Graph_Aggregate_FieldsCountArgs = {
 
 /** order by aggregate values of table "graph" */
 export type Graph_Aggregate_Order_By = {
-  avg?: Maybe<Graph_Avg_Order_By>;
   count?: Maybe<Order_By>;
   max?: Maybe<Graph_Max_Order_By>;
   min?: Maybe<Graph_Min_Order_By>;
-  stddev?: Maybe<Graph_Stddev_Order_By>;
-  stddev_pop?: Maybe<Graph_Stddev_Pop_Order_By>;
-  stddev_samp?: Maybe<Graph_Stddev_Samp_Order_By>;
-  sum?: Maybe<Graph_Sum_Order_By>;
-  var_pop?: Maybe<Graph_Var_Pop_Order_By>;
-  var_samp?: Maybe<Graph_Var_Samp_Order_By>;
-  variance?: Maybe<Graph_Variance_Order_By>;
 };
 
 /** input type for inserting array relation for remote table "graph" */
@@ -991,29 +846,16 @@ export type Graph_Arr_Rel_Insert_Input = {
   on_conflict?: Maybe<Graph_On_Conflict>;
 };
 
-/** aggregate avg on columns */
-export type Graph_Avg_Fields = {
-  __typename?: 'graph_avg_fields';
-  id?: Maybe<Scalars['Float']>;
-  userId?: Maybe<Scalars['Float']>;
-};
-
-/** order by avg() on columns of table "graph" */
-export type Graph_Avg_Order_By = {
-  id?: Maybe<Order_By>;
-  userId?: Maybe<Order_By>;
-};
-
 /** Boolean expression to filter rows from the table "graph". All fields are combined with a logical 'AND'. */
 export type Graph_Bool_Exp = {
   _and?: Maybe<Array<Maybe<Graph_Bool_Exp>>>;
   _not?: Maybe<Graph_Bool_Exp>;
   _or?: Maybe<Array<Maybe<Graph_Bool_Exp>>>;
   edges?: Maybe<Edge_Bool_Exp>;
-  id?: Maybe<Int_Comparison_Exp>;
+  id?: Maybe<Uuid_Comparison_Exp>;
   label?: Maybe<String_Comparison_Exp>;
   user?: Maybe<User_Bool_Exp>;
-  userId?: Maybe<Int_Comparison_Exp>;
+  userId?: Maybe<Uuid_Comparison_Exp>;
   vertices?: Maybe<Vertex_Bool_Exp>;
 };
 
@@ -1023,28 +865,22 @@ export enum Graph_Constraint {
   PK_eb3e36eefae596e0ba9122fff16 = 'PK_eb3e36eefae596e0ba9122fff16'
 }
 
-/** input type for incrementing integer column in table "graph" */
-export type Graph_Inc_Input = {
-  id?: Maybe<Scalars['Int']>;
-  userId?: Maybe<Scalars['Int']>;
-};
-
 /** input type for inserting data into table "graph" */
 export type Graph_Insert_Input = {
   edges?: Maybe<Edge_Arr_Rel_Insert_Input>;
-  id?: Maybe<Scalars['Int']>;
+  id?: Maybe<Scalars['uuid']>;
   label?: Maybe<Scalars['String']>;
   user?: Maybe<User_Obj_Rel_Insert_Input>;
-  userId?: Maybe<Scalars['Int']>;
+  userId?: Maybe<Scalars['uuid']>;
   vertices?: Maybe<Vertex_Arr_Rel_Insert_Input>;
 };
 
 /** aggregate max on columns */
 export type Graph_Max_Fields = {
   __typename?: 'graph_max_fields';
-  id?: Maybe<Scalars['Int']>;
+  id?: Maybe<Scalars['uuid']>;
   label?: Maybe<Scalars['String']>;
-  userId?: Maybe<Scalars['Int']>;
+  userId?: Maybe<Scalars['uuid']>;
 };
 
 /** order by max() on columns of table "graph" */
@@ -1057,9 +893,9 @@ export type Graph_Max_Order_By = {
 /** aggregate min on columns */
 export type Graph_Min_Fields = {
   __typename?: 'graph_min_fields';
-  id?: Maybe<Scalars['Int']>;
+  id?: Maybe<Scalars['uuid']>;
   label?: Maybe<Scalars['String']>;
-  userId?: Maybe<Scalars['Int']>;
+  userId?: Maybe<Scalars['uuid']>;
 };
 
 /** order by min() on columns of table "graph" */
@@ -1103,7 +939,7 @@ export type Graph_Order_By = {
 
 /** primary key columns input for table: "graph" */
 export type Graph_Pk_Columns_Input = {
-  id: Scalars['Int'];
+  id: Scalars['uuid'];
 };
 
 /** select columns of table "graph" */
@@ -1118,61 +954,9 @@ export enum Graph_Select_Column {
 
 /** input type for updating data in table "graph" */
 export type Graph_Set_Input = {
-  id?: Maybe<Scalars['Int']>;
+  id?: Maybe<Scalars['uuid']>;
   label?: Maybe<Scalars['String']>;
-  userId?: Maybe<Scalars['Int']>;
-};
-
-/** aggregate stddev on columns */
-export type Graph_Stddev_Fields = {
-  __typename?: 'graph_stddev_fields';
-  id?: Maybe<Scalars['Float']>;
-  userId?: Maybe<Scalars['Float']>;
-};
-
-/** order by stddev() on columns of table "graph" */
-export type Graph_Stddev_Order_By = {
-  id?: Maybe<Order_By>;
-  userId?: Maybe<Order_By>;
-};
-
-/** aggregate stddev_pop on columns */
-export type Graph_Stddev_Pop_Fields = {
-  __typename?: 'graph_stddev_pop_fields';
-  id?: Maybe<Scalars['Float']>;
-  userId?: Maybe<Scalars['Float']>;
-};
-
-/** order by stddev_pop() on columns of table "graph" */
-export type Graph_Stddev_Pop_Order_By = {
-  id?: Maybe<Order_By>;
-  userId?: Maybe<Order_By>;
-};
-
-/** aggregate stddev_samp on columns */
-export type Graph_Stddev_Samp_Fields = {
-  __typename?: 'graph_stddev_samp_fields';
-  id?: Maybe<Scalars['Float']>;
-  userId?: Maybe<Scalars['Float']>;
-};
-
-/** order by stddev_samp() on columns of table "graph" */
-export type Graph_Stddev_Samp_Order_By = {
-  id?: Maybe<Order_By>;
-  userId?: Maybe<Order_By>;
-};
-
-/** aggregate sum on columns */
-export type Graph_Sum_Fields = {
-  __typename?: 'graph_sum_fields';
-  id?: Maybe<Scalars['Int']>;
-  userId?: Maybe<Scalars['Int']>;
-};
-
-/** order by sum() on columns of table "graph" */
-export type Graph_Sum_Order_By = {
-  id?: Maybe<Order_By>;
-  userId?: Maybe<Order_By>;
+  userId?: Maybe<Scalars['uuid']>;
 };
 
 /** update columns of table "graph" */
@@ -1184,45 +968,6 @@ export enum Graph_Update_Column {
   /** column name */
   userId = 'userId'
 }
-
-/** aggregate var_pop on columns */
-export type Graph_Var_Pop_Fields = {
-  __typename?: 'graph_var_pop_fields';
-  id?: Maybe<Scalars['Float']>;
-  userId?: Maybe<Scalars['Float']>;
-};
-
-/** order by var_pop() on columns of table "graph" */
-export type Graph_Var_Pop_Order_By = {
-  id?: Maybe<Order_By>;
-  userId?: Maybe<Order_By>;
-};
-
-/** aggregate var_samp on columns */
-export type Graph_Var_Samp_Fields = {
-  __typename?: 'graph_var_samp_fields';
-  id?: Maybe<Scalars['Float']>;
-  userId?: Maybe<Scalars['Float']>;
-};
-
-/** order by var_samp() on columns of table "graph" */
-export type Graph_Var_Samp_Order_By = {
-  id?: Maybe<Order_By>;
-  userId?: Maybe<Order_By>;
-};
-
-/** aggregate variance on columns */
-export type Graph_Variance_Fields = {
-  __typename?: 'graph_variance_fields';
-  id?: Maybe<Scalars['Float']>;
-  userId?: Maybe<Scalars['Float']>;
-};
-
-/** order by variance() on columns of table "graph" */
-export type Graph_Variance_Order_By = {
-  id?: Maybe<Order_By>;
-  userId?: Maybe<Order_By>;
-};
 
 
 /** expression to compare columns of type jsonb. All fields are combined with logical 'AND'. */
@@ -1271,7 +1016,7 @@ export type User = {
   graphs: Array<Graph>;
   /** An aggregated array relationship */
   graphs_aggregate: Graph_Aggregate;
-  id: Scalars['Int'];
+  id: Scalars['uuid'];
   username: Scalars['String'];
 };
 
@@ -1305,17 +1050,9 @@ export type User_Aggregate = {
 /** aggregate fields of "user" */
 export type User_Aggregate_Fields = {
   __typename?: 'user_aggregate_fields';
-  avg?: Maybe<User_Avg_Fields>;
   count?: Maybe<Scalars['Int']>;
   max?: Maybe<User_Max_Fields>;
   min?: Maybe<User_Min_Fields>;
-  stddev?: Maybe<User_Stddev_Fields>;
-  stddev_pop?: Maybe<User_Stddev_Pop_Fields>;
-  stddev_samp?: Maybe<User_Stddev_Samp_Fields>;
-  sum?: Maybe<User_Sum_Fields>;
-  var_pop?: Maybe<User_Var_Pop_Fields>;
-  var_samp?: Maybe<User_Var_Samp_Fields>;
-  variance?: Maybe<User_Variance_Fields>;
 };
 
 
@@ -1327,17 +1064,9 @@ export type User_Aggregate_FieldsCountArgs = {
 
 /** order by aggregate values of table "user" */
 export type User_Aggregate_Order_By = {
-  avg?: Maybe<User_Avg_Order_By>;
   count?: Maybe<Order_By>;
   max?: Maybe<User_Max_Order_By>;
   min?: Maybe<User_Min_Order_By>;
-  stddev?: Maybe<User_Stddev_Order_By>;
-  stddev_pop?: Maybe<User_Stddev_Pop_Order_By>;
-  stddev_samp?: Maybe<User_Stddev_Samp_Order_By>;
-  sum?: Maybe<User_Sum_Order_By>;
-  var_pop?: Maybe<User_Var_Pop_Order_By>;
-  var_samp?: Maybe<User_Var_Samp_Order_By>;
-  variance?: Maybe<User_Variance_Order_By>;
 };
 
 /** input type for inserting array relation for remote table "user" */
@@ -1346,24 +1075,13 @@ export type User_Arr_Rel_Insert_Input = {
   on_conflict?: Maybe<User_On_Conflict>;
 };
 
-/** aggregate avg on columns */
-export type User_Avg_Fields = {
-  __typename?: 'user_avg_fields';
-  id?: Maybe<Scalars['Float']>;
-};
-
-/** order by avg() on columns of table "user" */
-export type User_Avg_Order_By = {
-  id?: Maybe<Order_By>;
-};
-
 /** Boolean expression to filter rows from the table "user". All fields are combined with a logical 'AND'. */
 export type User_Bool_Exp = {
   _and?: Maybe<Array<Maybe<User_Bool_Exp>>>;
   _not?: Maybe<User_Bool_Exp>;
   _or?: Maybe<Array<Maybe<User_Bool_Exp>>>;
   graphs?: Maybe<Graph_Bool_Exp>;
-  id?: Maybe<Int_Comparison_Exp>;
+  id?: Maybe<Uuid_Comparison_Exp>;
   username?: Maybe<String_Comparison_Exp>;
 };
 
@@ -1373,22 +1091,17 @@ export enum User_Constraint {
   PK_cace4a159ff9f2512dd42373760 = 'PK_cace4a159ff9f2512dd42373760'
 }
 
-/** input type for incrementing integer column in table "user" */
-export type User_Inc_Input = {
-  id?: Maybe<Scalars['Int']>;
-};
-
 /** input type for inserting data into table "user" */
 export type User_Insert_Input = {
   graphs?: Maybe<Graph_Arr_Rel_Insert_Input>;
-  id?: Maybe<Scalars['Int']>;
+  id?: Maybe<Scalars['uuid']>;
   username?: Maybe<Scalars['String']>;
 };
 
 /** aggregate max on columns */
 export type User_Max_Fields = {
   __typename?: 'user_max_fields';
-  id?: Maybe<Scalars['Int']>;
+  id?: Maybe<Scalars['uuid']>;
   username?: Maybe<Scalars['String']>;
 };
 
@@ -1401,7 +1114,7 @@ export type User_Max_Order_By = {
 /** aggregate min on columns */
 export type User_Min_Fields = {
   __typename?: 'user_min_fields';
-  id?: Maybe<Scalars['Int']>;
+  id?: Maybe<Scalars['uuid']>;
   username?: Maybe<Scalars['String']>;
 };
 
@@ -1442,7 +1155,7 @@ export type User_Order_By = {
 
 /** primary key columns input for table: "user" */
 export type User_Pk_Columns_Input = {
-  id: Scalars['Int'];
+  id: Scalars['uuid'];
 };
 
 /** select columns of table "user" */
@@ -1455,52 +1168,8 @@ export enum User_Select_Column {
 
 /** input type for updating data in table "user" */
 export type User_Set_Input = {
-  id?: Maybe<Scalars['Int']>;
+  id?: Maybe<Scalars['uuid']>;
   username?: Maybe<Scalars['String']>;
-};
-
-/** aggregate stddev on columns */
-export type User_Stddev_Fields = {
-  __typename?: 'user_stddev_fields';
-  id?: Maybe<Scalars['Float']>;
-};
-
-/** order by stddev() on columns of table "user" */
-export type User_Stddev_Order_By = {
-  id?: Maybe<Order_By>;
-};
-
-/** aggregate stddev_pop on columns */
-export type User_Stddev_Pop_Fields = {
-  __typename?: 'user_stddev_pop_fields';
-  id?: Maybe<Scalars['Float']>;
-};
-
-/** order by stddev_pop() on columns of table "user" */
-export type User_Stddev_Pop_Order_By = {
-  id?: Maybe<Order_By>;
-};
-
-/** aggregate stddev_samp on columns */
-export type User_Stddev_Samp_Fields = {
-  __typename?: 'user_stddev_samp_fields';
-  id?: Maybe<Scalars['Float']>;
-};
-
-/** order by stddev_samp() on columns of table "user" */
-export type User_Stddev_Samp_Order_By = {
-  id?: Maybe<Order_By>;
-};
-
-/** aggregate sum on columns */
-export type User_Sum_Fields = {
-  __typename?: 'user_sum_fields';
-  id?: Maybe<Scalars['Int']>;
-};
-
-/** order by sum() on columns of table "user" */
-export type User_Sum_Order_By = {
-  id?: Maybe<Order_By>;
 };
 
 /** update columns of table "user" */
@@ -1511,37 +1180,18 @@ export enum User_Update_Column {
   username = 'username'
 }
 
-/** aggregate var_pop on columns */
-export type User_Var_Pop_Fields = {
-  __typename?: 'user_var_pop_fields';
-  id?: Maybe<Scalars['Float']>;
-};
 
-/** order by var_pop() on columns of table "user" */
-export type User_Var_Pop_Order_By = {
-  id?: Maybe<Order_By>;
-};
-
-/** aggregate var_samp on columns */
-export type User_Var_Samp_Fields = {
-  __typename?: 'user_var_samp_fields';
-  id?: Maybe<Scalars['Float']>;
-};
-
-/** order by var_samp() on columns of table "user" */
-export type User_Var_Samp_Order_By = {
-  id?: Maybe<Order_By>;
-};
-
-/** aggregate variance on columns */
-export type User_Variance_Fields = {
-  __typename?: 'user_variance_fields';
-  id?: Maybe<Scalars['Float']>;
-};
-
-/** order by variance() on columns of table "user" */
-export type User_Variance_Order_By = {
-  id?: Maybe<Order_By>;
+/** expression to compare columns of type uuid. All fields are combined with logical 'AND'. */
+export type Uuid_Comparison_Exp = {
+  _eq?: Maybe<Scalars['uuid']>;
+  _gt?: Maybe<Scalars['uuid']>;
+  _gte?: Maybe<Scalars['uuid']>;
+  _in?: Maybe<Array<Scalars['uuid']>>;
+  _is_null?: Maybe<Scalars['Boolean']>;
+  _lt?: Maybe<Scalars['uuid']>;
+  _lte?: Maybe<Scalars['uuid']>;
+  _neq?: Maybe<Scalars['uuid']>;
+  _nin?: Maybe<Array<Scalars['uuid']>>;
 };
 
 /** columns and relationships of "vertex" */
@@ -1549,8 +1199,8 @@ export type Vertex = {
   __typename?: 'vertex';
   /** An object relationship */
   graph?: Maybe<Graph>;
-  graphId?: Maybe<Scalars['Int']>;
-  id: Scalars['String'];
+  graphId?: Maybe<Scalars['uuid']>;
+  id: Scalars['uuid'];
   props: Scalars['jsonb'];
   type: Scalars['vertex_type_enum'];
 };
@@ -1571,17 +1221,9 @@ export type Vertex_Aggregate = {
 /** aggregate fields of "vertex" */
 export type Vertex_Aggregate_Fields = {
   __typename?: 'vertex_aggregate_fields';
-  avg?: Maybe<Vertex_Avg_Fields>;
   count?: Maybe<Scalars['Int']>;
   max?: Maybe<Vertex_Max_Fields>;
   min?: Maybe<Vertex_Min_Fields>;
-  stddev?: Maybe<Vertex_Stddev_Fields>;
-  stddev_pop?: Maybe<Vertex_Stddev_Pop_Fields>;
-  stddev_samp?: Maybe<Vertex_Stddev_Samp_Fields>;
-  sum?: Maybe<Vertex_Sum_Fields>;
-  var_pop?: Maybe<Vertex_Var_Pop_Fields>;
-  var_samp?: Maybe<Vertex_Var_Samp_Fields>;
-  variance?: Maybe<Vertex_Variance_Fields>;
 };
 
 
@@ -1593,17 +1235,9 @@ export type Vertex_Aggregate_FieldsCountArgs = {
 
 /** order by aggregate values of table "vertex" */
 export type Vertex_Aggregate_Order_By = {
-  avg?: Maybe<Vertex_Avg_Order_By>;
   count?: Maybe<Order_By>;
   max?: Maybe<Vertex_Max_Order_By>;
   min?: Maybe<Vertex_Min_Order_By>;
-  stddev?: Maybe<Vertex_Stddev_Order_By>;
-  stddev_pop?: Maybe<Vertex_Stddev_Pop_Order_By>;
-  stddev_samp?: Maybe<Vertex_Stddev_Samp_Order_By>;
-  sum?: Maybe<Vertex_Sum_Order_By>;
-  var_pop?: Maybe<Vertex_Var_Pop_Order_By>;
-  var_samp?: Maybe<Vertex_Var_Samp_Order_By>;
-  variance?: Maybe<Vertex_Variance_Order_By>;
 };
 
 /** append existing jsonb value of filtered columns with new jsonb value */
@@ -1617,25 +1251,14 @@ export type Vertex_Arr_Rel_Insert_Input = {
   on_conflict?: Maybe<Vertex_On_Conflict>;
 };
 
-/** aggregate avg on columns */
-export type Vertex_Avg_Fields = {
-  __typename?: 'vertex_avg_fields';
-  graphId?: Maybe<Scalars['Float']>;
-};
-
-/** order by avg() on columns of table "vertex" */
-export type Vertex_Avg_Order_By = {
-  graphId?: Maybe<Order_By>;
-};
-
 /** Boolean expression to filter rows from the table "vertex". All fields are combined with a logical 'AND'. */
 export type Vertex_Bool_Exp = {
   _and?: Maybe<Array<Maybe<Vertex_Bool_Exp>>>;
   _not?: Maybe<Vertex_Bool_Exp>;
   _or?: Maybe<Array<Maybe<Vertex_Bool_Exp>>>;
   graph?: Maybe<Graph_Bool_Exp>;
-  graphId?: Maybe<Int_Comparison_Exp>;
-  id?: Maybe<String_Comparison_Exp>;
+  graphId?: Maybe<Uuid_Comparison_Exp>;
+  id?: Maybe<Uuid_Comparison_Exp>;
   props?: Maybe<Jsonb_Comparison_Exp>;
   type?: Maybe<Vertex_Type_Enum_Comparison_Exp>;
 };
@@ -1661,16 +1284,11 @@ export type Vertex_Delete_Key_Input = {
   props?: Maybe<Scalars['String']>;
 };
 
-/** input type for incrementing integer column in table "vertex" */
-export type Vertex_Inc_Input = {
-  graphId?: Maybe<Scalars['Int']>;
-};
-
 /** input type for inserting data into table "vertex" */
 export type Vertex_Insert_Input = {
   graph?: Maybe<Graph_Obj_Rel_Insert_Input>;
-  graphId?: Maybe<Scalars['Int']>;
-  id?: Maybe<Scalars['String']>;
+  graphId?: Maybe<Scalars['uuid']>;
+  id?: Maybe<Scalars['uuid']>;
   props?: Maybe<Scalars['jsonb']>;
   type?: Maybe<Scalars['vertex_type_enum']>;
 };
@@ -1678,8 +1296,8 @@ export type Vertex_Insert_Input = {
 /** aggregate max on columns */
 export type Vertex_Max_Fields = {
   __typename?: 'vertex_max_fields';
-  graphId?: Maybe<Scalars['Int']>;
-  id?: Maybe<Scalars['String']>;
+  graphId?: Maybe<Scalars['uuid']>;
+  id?: Maybe<Scalars['uuid']>;
 };
 
 /** order by max() on columns of table "vertex" */
@@ -1691,8 +1309,8 @@ export type Vertex_Max_Order_By = {
 /** aggregate min on columns */
 export type Vertex_Min_Fields = {
   __typename?: 'vertex_min_fields';
-  graphId?: Maybe<Scalars['Int']>;
-  id?: Maybe<Scalars['String']>;
+  graphId?: Maybe<Scalars['uuid']>;
+  id?: Maybe<Scalars['uuid']>;
 };
 
 /** order by min() on columns of table "vertex" */
@@ -1734,7 +1352,7 @@ export type Vertex_Order_By = {
 
 /** primary key columns input for table: "vertex" */
 export type Vertex_Pk_Columns_Input = {
-  id: Scalars['String'];
+  id: Scalars['uuid'];
 };
 
 /** prepend existing jsonb value of filtered columns with new jsonb value */
@@ -1756,54 +1374,10 @@ export enum Vertex_Select_Column {
 
 /** input type for updating data in table "vertex" */
 export type Vertex_Set_Input = {
-  graphId?: Maybe<Scalars['Int']>;
-  id?: Maybe<Scalars['String']>;
+  graphId?: Maybe<Scalars['uuid']>;
+  id?: Maybe<Scalars['uuid']>;
   props?: Maybe<Scalars['jsonb']>;
   type?: Maybe<Scalars['vertex_type_enum']>;
-};
-
-/** aggregate stddev on columns */
-export type Vertex_Stddev_Fields = {
-  __typename?: 'vertex_stddev_fields';
-  graphId?: Maybe<Scalars['Float']>;
-};
-
-/** order by stddev() on columns of table "vertex" */
-export type Vertex_Stddev_Order_By = {
-  graphId?: Maybe<Order_By>;
-};
-
-/** aggregate stddev_pop on columns */
-export type Vertex_Stddev_Pop_Fields = {
-  __typename?: 'vertex_stddev_pop_fields';
-  graphId?: Maybe<Scalars['Float']>;
-};
-
-/** order by stddev_pop() on columns of table "vertex" */
-export type Vertex_Stddev_Pop_Order_By = {
-  graphId?: Maybe<Order_By>;
-};
-
-/** aggregate stddev_samp on columns */
-export type Vertex_Stddev_Samp_Fields = {
-  __typename?: 'vertex_stddev_samp_fields';
-  graphId?: Maybe<Scalars['Float']>;
-};
-
-/** order by stddev_samp() on columns of table "vertex" */
-export type Vertex_Stddev_Samp_Order_By = {
-  graphId?: Maybe<Order_By>;
-};
-
-/** aggregate sum on columns */
-export type Vertex_Sum_Fields = {
-  __typename?: 'vertex_sum_fields';
-  graphId?: Maybe<Scalars['Int']>;
-};
-
-/** order by sum() on columns of table "vertex" */
-export type Vertex_Sum_Order_By = {
-  graphId?: Maybe<Order_By>;
 };
 
 
@@ -1831,39 +1405,6 @@ export enum Vertex_Update_Column {
   /** column name */
   type = 'type'
 }
-
-/** aggregate var_pop on columns */
-export type Vertex_Var_Pop_Fields = {
-  __typename?: 'vertex_var_pop_fields';
-  graphId?: Maybe<Scalars['Float']>;
-};
-
-/** order by var_pop() on columns of table "vertex" */
-export type Vertex_Var_Pop_Order_By = {
-  graphId?: Maybe<Order_By>;
-};
-
-/** aggregate var_samp on columns */
-export type Vertex_Var_Samp_Fields = {
-  __typename?: 'vertex_var_samp_fields';
-  graphId?: Maybe<Scalars['Float']>;
-};
-
-/** order by var_samp() on columns of table "vertex" */
-export type Vertex_Var_Samp_Order_By = {
-  graphId?: Maybe<Order_By>;
-};
-
-/** aggregate variance on columns */
-export type Vertex_Variance_Fields = {
-  __typename?: 'vertex_variance_fields';
-  graphId?: Maybe<Scalars['Float']>;
-};
-
-/** order by variance() on columns of table "vertex" */
-export type Vertex_Variance_Order_By = {
-  graphId?: Maybe<Order_By>;
-};
 
 export type EdgeFragmentFragment = (
   { __typename?: 'edge' }
@@ -1894,7 +1435,7 @@ export type GraphsQuery = (
 );
 
 export type GraphQueryVariables = Exact<{
-  id: Scalars['Int'];
+  id: Scalars['uuid'];
 }>;
 
 
@@ -2002,7 +1543,7 @@ export type GraphsQueryHookResult = ReturnType<typeof useGraphsQuery>;
 export type GraphsLazyQueryHookResult = ReturnType<typeof useGraphsLazyQuery>;
 export type GraphsQueryResult = Apollo.QueryResult<GraphsQuery, GraphsQueryVariables>;
 export const GraphDocument = gql`
-    query graph($id: Int!) {
+    query graph($id: uuid!) {
   graph_by_pk(id: $id) {
     id
     edges {

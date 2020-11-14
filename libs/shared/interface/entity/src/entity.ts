@@ -24,5 +24,5 @@ export type EntityI = Record<string, any>
  * Here the id is required, since database has auto-assigned a UUID when storing the record
  */
 export interface EntityA extends EntityI {
-  id: string | number
+  id: string
 }

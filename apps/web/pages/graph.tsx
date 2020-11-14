@@ -34,6 +34,7 @@ const GraphPage = () => {
   return (
     <>
       <ReactJson data={vertexState.value} />
+      <ReactJson data={vertexState.context} />
       <Button onClick={() => appSend(EventNameApp.START_CREATE)}>
         Show Create Form
       </Button>
