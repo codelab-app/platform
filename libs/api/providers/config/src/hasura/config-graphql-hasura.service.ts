@@ -1,23 +1,17 @@
 import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { GqlModuleOptions, GqlOptionsFactory } from '@nestjs/graphql'
+import { ApolloLink, GraphQLRequest } from 'apollo-link'
+import { setContext } from 'apollo-link-context'
 import { HttpLink } from 'apollo-link-http'
-import {
-  GraphQLError,
-  GraphQLSchema,
-  buildSchema as buildSchemaGraphql,
-  printSchema,
-} from 'graphql'
+import { GraphQLError, GraphQLSchema } from 'graphql'
 import {
   introspectSchema,
   makeRemoteExecutableSchema,
   mergeSchemas,
-  // eslint-disable-next-line import/no-extraneous-dependencies
 } from 'graphql-tools'
 import nodeFetch from 'node-fetch'
 import { ApiConfig, ApiConfigTypes } from '@codelab/api/providers/config'
-
-const CONSTRUCTOR_NAME = 'HasuraService'
 
 @Injectable()
 export class ConfigGraphqlHasuraService implements GqlOptionsFactory {
@@ -64,23 +58,46 @@ export class ConfigGraphqlHasuraService implements GqlOptionsFactory {
       const httpLink = new HttpLink({
         uri: this.config.get(ApiConfigTypes.HASURA_GRAPHQL_URI),
         fetch: nodeFetch as any,
+      })
+
+      const adminSecretLink: ApolloLink = setContext(() => ({
         headers: {
-          'X-Hasura-Admin-Secret': this.config.get(
+          'x-hasura-admin-secret': this.config.get(
             ApiConfigTypes.HASURA_GRAPHQL_ADMIN_SECRET,
           ),
         },
-      })
+      })).concat(httpLink)
 
-      const remoteIntrospectedSchema = await introspectSchema(httpLink)
-      const remoteSchema = printSchema(remoteIntrospectedSchema)
-      const builtHasuraSchema = buildSchemaGraphql(remoteSchema)
+      // This will trigger every time there is a graphql request through this server to hasura
+      // we will use it to pass JWT to Hasura
+      const authLink: ApolloLink = setContext(
+        (_request: GraphQLRequest, prevContext: any) => {
+          const { authorization } = prevContext.graphQLContext.req.headers
+
+          return {
+            headers: {
+              Authorization: authorization,
+            },
+          }
+        },
+      ).concat(httpLink)
+
+      // First we get the schema using our hasura admin key
+      const remoteIntrospectedSchema = await introspectSchema(adminSecretLink)
+
+      // Next two line appear to be not needed
+      // const remoteSchema = printSchema(remoteIntrospectedSchema)
+      // const builtHasuraSchema = buildSchemaGraphql(remoteSchema)
 
       /**
        * Need to be using graphql-tools@4 for stitching
+       * But here we pass our JWT token to execute the queries that are
+       * forwarded to Hasura through our server
        */
       const remoteExecutableSchema = makeRemoteExecutableSchema({
-        schema: builtHasuraSchema,
-        link: httpLink,
+        // schema: builtHasuraSchema,
+        schema: remoteIntrospectedSchema,
+        link: authLink,
       })
 
       return Promise.resolve(remoteExecutableSchema)

@@ -50,5 +50,13 @@ module.exports = {
     '<rootDir>/apps/api/graph',
     '<rootDir>/libs/api/services/graph',
     '<rootDir>/libs/api/services/user',
+    '<rootDir>/libs/shared/state/crud',
+    '<rootDir>/libs/state/crud',
+    '<rootDir>/libs/state/vertex',
+    '<rootDir>/libs/shared/interface/graph-v2',
+    '<rootDir>/libs/shared/interface/machine',
+    '<rootDir>/libs/shared/factory',
+    '<rootDir>/libs/shared/interface/mapper',
+    '<rootDir>/libs/shared/interface/collections',
   ],
 }

@@ -28,6 +28,7 @@ export interface EventNodeEditSubmit extends EventObject {
   type: EventNameNode.NODE_EDIT_SUBMIT
   payload: NodeA
 }
+
 export type EventNode =
   | EventNodeCreate
   | EventNodeDelete

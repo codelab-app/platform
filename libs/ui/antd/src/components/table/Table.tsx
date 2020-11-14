@@ -2,10 +2,10 @@ import { Table as AntTable } from 'antd'
 import { TableProps as AntTableProps } from 'antd/lib/table'
 import React from 'react'
 // eslint-disable-next-line import/no-cycle
-import { isReactNode } from '../../../../../shared/interface/node/src/guards/node-guards--react'
 import { Renderer } from '@codelab/core/renderer'
+import { isReactNode } from '@codelab/shared/interface/node'
 
-export type TableProps<T extends any = any> = AntTableProps<T>
+export type TableProps<RecordType = any> = AntTableProps<RecordType>
 
 type CellProps<T = any> = {
   // title: React.ReactNode

@@ -92,15 +92,3 @@ spec:
       targetPort: 3000 # Target from external
   selector:
     app: web
----
-apiVersion: getambassador.io/v2
-kind: Mapping
-metadata:
-  name: codelab-mapping
-  namespace: codelab
-spec:
-  prefix: /web/
-  # https://www.getambassador.io/docs/latest/topics/using/intro-mappings/
-  #
-  # Required format
-  service: web.codelab

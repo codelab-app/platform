@@ -1,6 +1,6 @@
 import { useMachine } from '@xstate/react'
 import React, { PropsWithChildren } from 'react'
-import { EventObject, Interpreter, State, Typestate } from 'xstate'
+import { EventObject, Typestate } from 'xstate'
 import { MachineProps } from '@codelab/shared/interface/component'
 import {
   ContextApp,
@@ -14,30 +14,28 @@ interface MachineContextProps<
   TEvent extends EventObject,
   TTypestate extends Typestate<TContext>
 > {
-  app: {
-    state?: State<TContext, TEvent, any, TTypestate>
-    send?: Interpreter<TContext, any, TEvent, TTypestate>['send']
-    service?: Interpreter<TContext, any, TEvent, TTypestate>
-  }
   actors: {
+    app: any
     layout: any
+    vertex: any
+    graph: any
     modal: any
     node: any
+    graphQLDemo: any
   }
 }
 
 export const MachineContext = React.createContext<
   MachineContextProps<ContextApp, EventApp, StateApp>
 >({
-  app: {
-    state: undefined,
-    send: undefined,
-    service: undefined,
-  },
   actors: {
+    app: undefined,
     layout: undefined,
+    vertex: undefined,
+    graph: undefined,
     modal: undefined,
     node: undefined,
+    graphQLDemo: undefined,
   },
 })
 
@@ -49,15 +47,14 @@ export const MachineProvider = (
   const [state, send, service] = useMachine(machine)
 
   const value = {
-    app: {
-      state,
-      send,
-      service,
-    },
     actors: {
+      app: service,
       layout: state.context?.layout,
+      vertex: state.context?.vertex,
+      graph: state.context?.graph,
       modal: state.context?.modal,
       node: state.context?.node,
+      graphQLDemo: state.context?.graphQLDemo,
     },
   }
 

@@ -9,3 +9,10 @@ releases:
   version: v0.11.0
   values:
     - values/cert-manager.yaml
+
+- name: ingress-nginx
+  namespace: ingress-nginx
+  chart: stable/nginx-ingress
+  version: 1.39.0
+  values:
+    - values/ingress-nginx.yaml

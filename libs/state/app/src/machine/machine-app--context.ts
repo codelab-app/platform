@@ -1,5 +1,17 @@
 import { Interpreter } from 'xstate'
-import { NodeService } from '@codelab/core/node'
+import { EventApp } from './machine-app--event'
+import { StateSchemaApp } from './machine-app--state'
+import {
+  GraphA,
+  GraphI,
+  VertexA,
+  VertexI,
+} from '@codelab/shared/interface/graph-v2'
+import {
+  ContextEntity,
+  EventEntity,
+  StateSchemaEntity,
+} from '@codelab/state/entity'
 import {
   ContextLayout,
   EventLayout,
@@ -13,14 +25,19 @@ import {
 import { ContextNode, EventNode, StateSchemaNode } from '@codelab/state/node'
 
 export interface ContextApp {
-  modal: null | (() => Interpreter<ContextModal, StateSchemaModal, EventModal>)
-  layout:
-    | null
-    | (() => Interpreter<ContextLayout, StateSchemaLayout, EventLayout>)
-  node:
-    | null
-    | ((
-        ctx: ContextApp,
-      ) => Interpreter<ContextNode, StateSchemaNode, EventNode>)
-  nodeService: NodeService
+  app: Interpreter<ContextApp, StateSchemaApp, EventApp>
+  vertex: Interpreter<
+    ContextEntity<VertexI, VertexA>,
+    StateSchemaEntity<VertexI, VertexA>,
+    EventEntity<VertexI, VertexA>
+  >
+  graph: Interpreter<
+    ContextEntity<GraphI, GraphA>,
+    StateSchemaEntity<GraphI, GraphA>,
+    EventEntity<GraphI, GraphA>
+  >
+  modal: Interpreter<ContextModal, StateSchemaModal, EventModal>
+  layout: Interpreter<ContextLayout, StateSchemaLayout, EventLayout>
+  node: Interpreter<ContextNode, StateSchemaNode, EventNode>
+  graphQLDemo: Interpreter<any, any, any>
 }

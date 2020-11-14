@@ -1,0 +1,10 @@
+query vertices {
+  vertex {
+    ...vertexFragment
+  }
+}
+
+fragment vertexFragment on vertex {
+  id
+  type
+}

@@ -24,13 +24,28 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (networkError) console.log(`[Network error]: ${networkError}`)
 })
 
-export const httpLink = new HttpLink({
-  uri: `${process.env.NEXT_PUBLIC_API_ORIGIN}/graphql`,
+// export const httpLink = new HttpLink({
+//   uri: `${process.env.NEXT_PUBLIC_API_ORIGIN}/graphql`,
+//   // Additional fetch() options like `credentials` or `headers`
+//   credentials: 'same-origin',
+// })
+
+export const graphcmsLink = new HttpLink({
+  uri: 'https://api-us-west-2.graphcms.com/v2/ckh5y0eokmsbt01wcacc25fix/master',
   // Additional fetch() options like `credentials` or `headers`
   credentials: 'same-origin',
 })
 
-const link = ApolloLink.from([errorLink, httpLink])
+export const hasuraLink = new HttpLink({
+  uri: 'http://localhost:4004/graphql',
+  credentials: 'same-origin',
+})
+
+export const link = ApolloLink.from([errorLink]).split(
+  (operation) => operation.getContext().clientName === 'hasura',
+  hasuraLink,
+  graphcmsLink,
+)
 
 const createApolloClient = () => {
   return new ApolloClient({

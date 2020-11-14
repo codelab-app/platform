@@ -10,3 +10,12 @@ kube-replace:
 
 kube-build:
 	kustomize build overlays/staging
+
+kube-prod-apply:
+	kustomize build overlays/prod | kubectl apply -n codelab -f -
+
+kube-prod-replace:
+	kustomize build overlays/prod | kubectl replace -f -
+
+kube-prod-build:
+	kustomize build overlays/prod

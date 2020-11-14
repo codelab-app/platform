@@ -44,9 +44,6 @@
     "shared-interface-props": {
       "tags": ["scope:standalone"]
     },
-    "shared-interface-model": {
-      "tags": []
-    },
     "shared-interface-tree": {
       "tags": []
     },
@@ -131,6 +128,30 @@
       "tags": []
     },
     "api-graph": {
+      "tags": []
+    },
+    "state-vertex": {
+      "tags": []
+    },
+    "state-entity": {
+      "tags": []
+    },
+    "shared-interface-entity": {
+      "tags": []
+    },
+    "shared-interface-graph-v2": {
+      "tags": []
+    },
+    "shared-interface-machine": {
+      "tags": []
+    },
+    "shared-factory": {
+      "tags": []
+    },
+    "shared-interface-mapper": {
+      "tags": []
+    },
+    "shared-interface-collections": {
       "tags": []
     }
   }

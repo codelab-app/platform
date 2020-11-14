@@ -1,6 +1,10 @@
 repositories:
 - name: stable
   url: https://charts.helm.sh/stable
+- name: datawire
+  url: https://www.getambassador.io
+- name: argo
+  url: https://argoproj.github.io/argo-helm
 
 releases:
 - name: cert-manager
@@ -9,3 +13,17 @@ releases:
   version: v0.11.0
   values:
     - values/cert-manager.yaml
+
+- name: ingress-nginx
+  namespace: ingress-nginx
+  chart: stable/nginx-ingress
+  version: 1.39.0
+  values:
+    - values/ingress-nginx.yaml
+
+- name: argocd
+  namespace: argocd
+  chart: argo/argo-cd
+  version: 2.9.5
+  values:
+    - values/argocd.yaml

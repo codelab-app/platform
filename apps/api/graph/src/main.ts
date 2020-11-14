@@ -7,9 +7,12 @@ import { Logger } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { NestFactory } from '@nestjs/core'
 import bodyParser from 'body-parser'
+import * as shell from 'shelljs'
 import { AppModule } from './app/app.module'
 import { GraphErrorHandler } from './app/filters/graph-error-handler'
 import { ApiConfig, ApiConfigTypes } from '@codelab/api/providers/config'
+
+import 'reflect-metadata'
 
 const bootstrap = async () => {
   const app = await NestFactory.create(AppModule)
@@ -27,6 +30,9 @@ const bootstrap = async () => {
   const port = config.get(ApiConfigTypes.API_PORT_GRAPH)
 
   await app.listen(port, () => {
+    // Reload Hasura metadata
+    shell.exec('make hasura-metadata-reload')
+
     Logger.log(`Listening at http://localhost:${port}/${globalPrefix}`)
   })
 }

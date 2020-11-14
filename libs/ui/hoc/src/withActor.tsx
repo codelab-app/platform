@@ -16,6 +16,8 @@ export const withActor = <TContext, TEvent extends EventObject, TProps = any>(
     send,
   }
 
+  console.log(innerProps, Component)
+
   return children ? (
     <Component {...innerProps}>{children}</Component>
   ) : (

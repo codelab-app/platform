@@ -1,9 +1,9 @@
 import { EdgeDefinition, NodeDefinition } from 'cytoscape'
 import objectMapper from 'object-mapper'
-import { EdgeA, VertexA } from '@codelab/shared/interface/graph'
+import { EdgeA, VertexA } from '@codelab/shared/interface/graph-v2'
 
 export const cyMapVertices = (
-  vertices: Array<VertexA>,
+  vertices: Array<Partial<VertexA>>,
 ): Array<NodeDefinition> => {
   const mapper = {
     id: 'data.id',

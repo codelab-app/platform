@@ -1,13 +1,6 @@
 import { Machine, assign, sendParent } from 'xstate'
 import { ContextNode } from './machine-node--context'
-import {
-  EventNameNode,
-  EventNode,
-  EventNodeCreate,
-  EventNodeDelete,
-  EventNodeEdit,
-  EventNodeEditSubmit,
-} from './machine-node--event'
+import { EventNameNode, EventNode } from './machine-node--event'
 import { StateNameNode, StateSchemaNode } from './machine-node--state'
 import { NodeService as NodeServiceEntity } from '@codelab/core/node'
 import { EventNameApp } from '@codelab/state/app'
@@ -52,7 +45,8 @@ export const createMachineNode = (nodeService: NodeServiceEntity) => {
         entry: [
           assign<ContextNode, any>({
             nodes: (ctx: ContextNode, event: any) => {
-              return [...event.data]
+              return []
+              // return [...event.data]
             },
           }),
         ],
@@ -61,15 +55,16 @@ export const createMachineNode = (nodeService: NodeServiceEntity) => {
       [StateNameNode.CREATING]: {
         invoke: {
           id: 'creating_node',
-          src: (ctx, event) =>
+          src: (ctx, event: any) =>
             new Promise((resolve, reject) => {
-              ctx.nodeService.createNode(
-                (event as EventNodeCreate).payload,
-                resolve,
-              )
+              // assertEventType(event, EventNameNode.NODE_CREATE)
+              ctx.nodeService.createNode(event.payload, resolve)
             }),
           onDone: {
             target: StateNameNode.CREATED,
+          },
+          onError: {
+            actions: [() => console.log('Error')], // need to process errors
           },
         },
       },
@@ -80,25 +75,33 @@ export const createMachineNode = (nodeService: NodeServiceEntity) => {
               return [...ctx.nodes, { ...event.data, key: event.data.id }]
             },
           }),
-          sendParent((ctx, event) => ({
+          sendParent({
             type: EventNameApp.CREATED_NODE,
-            payload: (event as EventNodeCreate).payload,
-          })),
+          }),
         ],
         always: StateNameNode.IDLE,
       },
       [StateNameNode.DELETING]: {
         invoke: {
           id: 'deleting_node',
-          src: (ctx, event) =>
+          src: (ctx, event: any) =>
             new Promise((resolve, reject) => {
-              ctx.nodeService.deleteNode(
-                (event as EventNodeDelete).payload,
-                resolve,
-              )
+              console.log('Promise')
+              // assertEventType(event, EventNameNode.NODE_DELETE)
+              setTimeout(() => {
+                ctx.nodeService.deleteNode(event.payload, resolve)
+              }, 1000)
             }),
           onDone: {
             target: StateNameNode.DELETED,
+          },
+          onError: {
+            actions: [() => console.log('Error')], // need to process errors
+          },
+        },
+        on: {
+          [EventNameNode.NODE_DELETE]: {
+            target: StateNameNode.DELETING,
           },
         },
       },
@@ -108,14 +111,17 @@ export const createMachineNode = (nodeService: NodeServiceEntity) => {
       [StateNameNode.EDITING]: {
         entry: [
           assign({
-            editedNode: (ctx, event) =>
-              ctx.nodes.find(
-                (node) => node.id === (event as EventNodeEdit).payload,
-              ) as ContextNode['nodes'][number],
+            editedNode: (ctx, event: any) => {
+              // assertEventType(event, EventNameNode.NODE_EDIT)
+
+              return ctx.nodes.find(
+                (node) => node.id === event.payload,
+              ) as ContextNode['nodes'][number]
+            },
           }),
-          sendParent((ctx, event) => ({
+          sendParent({
             type: EventNameApp.EDITING_NODE,
-          })),
+          }),
         ],
         on: {
           [EventNameNode.NODE_EDIT_CANCEL]: {
@@ -132,15 +138,18 @@ export const createMachineNode = (nodeService: NodeServiceEntity) => {
       [StateNameNode.EDIT_SUBMITTING]: {
         invoke: {
           id: 'edit_node_submitting',
-          src: (ctx, event) =>
-            new Promise((resolve, reject) => {
-              ctx.nodeService.updateNode(
-                (event as EventNodeEditSubmit).payload,
-                resolve,
-              )
-            }),
+          src: (ctx, event: any) => {
+            // assertEventType(event, EventNameNode.NODE_EDIT_SUBMIT)
+
+            return new Promise((resolve, reject) => {
+              ctx.nodeService.updateNode(event.payload, resolve)
+            })
+          },
           onDone: {
             target: StateNameNode.EDITED,
+          },
+          onError: {
+            actions: [() => console.log('Error')], // need to process errors
           },
         },
       },
@@ -159,10 +168,9 @@ export const createMachineNode = (nodeService: NodeServiceEntity) => {
               return newNodes
             },
           }),
-          sendParent((ctx, event) => ({
+          sendParent({
             type: EventNameApp.EDITED_NODE,
-            payload: (event as EventNodeCreate).payload,
-          })),
+          }),
         ],
         always: StateNameNode.IDLE,
       },

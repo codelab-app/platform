@@ -1,0 +1,38 @@
+# import './hasura-schema.graphql'
+# import './edge.graphql'
+# import './vertex.graphql'
+
+fragment graphFragment on graph {
+  id
+  label
+}
+
+query graphs {
+  graph {
+    ...graphFragment
+    edges {
+      ...edgeFragment
+    }
+    vertices {
+      ...vertexFragment
+    }
+  }
+}
+
+query graph($id: uuid!) {
+  graph_by_pk(id: $id) {
+    id
+    edges {
+      ...edgeFragment
+    }
+    vertices {
+      ...vertexFragment
+    }
+  }
+}
+
+mutation createGraph($input: graph_insert_input!) {
+  insert_graph_one(object: $input) {
+    id
+  }
+}

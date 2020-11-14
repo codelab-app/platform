@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm'
-import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions'
+import { SnakeNamingStrategy } from 'typeorm-naming-strategies'
 import { ApiConfig, ApiConfigTypes } from '@codelab/api/providers/config'
 
 @Injectable()
@@ -18,13 +18,14 @@ export class ConfigTypeormHasuraService implements TypeOrmOptionsFactory {
       database: this.config.get(ApiConfigTypes.POSTGRES_DB),
       autoLoadEntities: true,
       // synchronize and dropSchema resets the database
-      synchronize: this.resetDb,
+      synchronize: true,
       dropSchema: this.resetDb,
       logging: ['query', 'error', 'schema'],
       extra: {
         connectionLimit: 5,
       },
-    } as PostgresConnectionOptions
+      namingStrategy: new SnakeNamingStrategy(),
+    }
   }
 
   get resetDb(): boolean {

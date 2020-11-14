@@ -38,18 +38,43 @@ build-prod:
     --maxWorkers=4
 
 #
-# Generate
+# GENERATE
 #
 
 generate-graphql:
 	npx graphql-codegen --config codegen.yaml
 
 generate-graphql-watch:
-	@npx chokidar "apps/api/gateway/src/assets/**/*.graphql" "codegen.yaml" \
-		-t 1000 \
-		-c "wait-on http://localhost:4000 \
-		&& make generate-graphql"
+	npx graphql-codegen --config codegen.yaml --watch "apps/api/graph/src/assets/**/*.graphql"
 
+#
+# HASURA
+#
+hasura-metadata-export:
+	npx hasura metadata export \
+    --project apps/api/graph/.hasura \
+    --envfile ../../../../.env
+
+hasura-metadata-apply:
+	npx hasura metadata apply \
+    --project apps/api/graph/.hasura \
+    --envfile ../../../../.env
+
+hasura-metadata-reload:
+	npx hasura metadata reload \
+    --project apps/api/graph/.hasura \
+    --envfile ../../../../.env
+
+hasura-seed:
+	npx hasura seeds apply \
+    --project apps/api/graph/.hasura \
+    --envfile ../../../../.env
+
+# Temp command
+hasura:
+	npx hasura seeds create demo \
+    --project apps/api/graph/.hasura \
+    --envfile ../../../../.env
 #
 # LINT
 #

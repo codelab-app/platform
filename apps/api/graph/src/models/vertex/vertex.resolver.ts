@@ -7,7 +7,7 @@ export class VertexResolver {
   constructor(public vertexService: VertexService) {}
 
   @Query(() => [VertexEntity])
-  async getAll() {
+  async getAllVertices() {
     return this.vertexService.findAll()
   }
 }

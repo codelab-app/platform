@@ -29,6 +29,9 @@ export const machineModal = Machine<ContextModal, StateSchemaModal, EventModal>(
           [EventNameModal.CLOSE]: {
             target: StateNameModal.INACTIVE,
           },
+          [EventNameModal.OK]: {
+            target: StateNameModal.INACTIVE,
+          },
         },
       },
     },
