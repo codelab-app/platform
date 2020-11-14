@@ -1,5 +1,5 @@
 import { ObjectType } from '@nestjs/graphql'
-import { Column, Entity, ManyToOne, PrimaryColumn } from 'typeorm'
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
 import { GraphEntity } from '../graph/graph.entity'
 import { IEdge } from './IEdge'
 
@@ -8,7 +8,7 @@ import { IEdge } from './IEdge'
   implements: [IEdge],
 })
 export class EdgeEntity {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn('uuid')
   declare id: string
 
   @Column({

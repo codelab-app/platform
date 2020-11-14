@@ -1,1 +1,1 @@
-export * from './graph-mapper'
+export * from './mapper/query-to-graphA'

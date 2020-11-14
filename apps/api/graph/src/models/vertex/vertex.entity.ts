@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { ObjectType } from '@nestjs/graphql'
-import { Column, Entity, ManyToOne, PrimaryColumn } from 'typeorm'
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
 import { GraphEntity } from '../graph/graph.entity'
 import { IVertex } from './vertex.interface'
 import { VertexType } from '@codelab/shared/interface/graph'
@@ -11,7 +11,7 @@ import { VertexType } from '@codelab/shared/interface/graph'
 })
 @Injectable()
 export class VertexEntity {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn('uuid')
   declare id: string
 
   @Column({

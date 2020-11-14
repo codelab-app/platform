@@ -56,5 +56,7 @@ module.exports = {
     '<rootDir>/libs/shared/interface/graph-v2',
     '<rootDir>/libs/shared/interface/machine',
     '<rootDir>/libs/shared/factory',
+    '<rootDir>/libs/shared/interface/mapper',
+    '<rootDir>/libs/shared/interface/collections',
   ],
 }
