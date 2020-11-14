@@ -1,20 +1,14 @@
-import { ApolloQueryResult } from '@apollo/client'
 import objectMapper from 'object-mapper'
 import { GraphA } from '@codelab/shared/interface/graph-v2'
+import { ApolloQueryMapper } from '@codelab/shared/interface/mapper'
 import { GraphsQueryResult } from '@codelab/state/apollo'
-
-export type ApolloQueryMapper<
-  TDataI extends Partial<ApolloQueryResult<any>>,
-  TDataO
-> = (results: Partial<TDataI>) => TDataO
 
 /**
  * Maps from apollo query results to EntityA
  */
-export const graphQueryToGraphAMapper: ApolloQueryMapper<
-  GraphsQueryResult,
-  GraphA
-> = (original) => {
+export const queryToGraphA: ApolloQueryMapper<GraphsQueryResult, GraphA> = (
+  original,
+) => {
   const graphMapper = {
     id: 'id',
     label: 'label',
@@ -24,8 +18,7 @@ export const graphQueryToGraphAMapper: ApolloQueryMapper<
 
   const resultsMapper = {
     'data.graph': {
-      // TODO: can we remove this
-      key: 'graph',
+      key: 'data',
       transform: (sourceValue: Array<any>) => {
         return sourceValue.map((graph) => {
           return objectMapper(graph, graphMapper)
@@ -34,7 +27,5 @@ export const graphQueryToGraphAMapper: ApolloQueryMapper<
     },
   }
 
-  const { graph } = objectMapper(original, resultsMapper)
-
-  return graph
+  return objectMapper(original, resultsMapper)
 }

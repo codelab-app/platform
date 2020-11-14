@@ -22294,6 +22294,11 @@ ts-invariant@^0.4.0, ts-invariant@^0.4.4:
   dependencies:
     tslib "^1.9.3"
 
+ts-japi@^1.3.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/ts-japi/-/ts-japi-1.3.1.tgz#cc8cbc80ae89eddf164a11e4e0d4485ebf1672c6"
+  integrity sha512-96HX70np+qKXRH3laZcQomXEPUIqE8wZ6SB19nchscsBCGnuT7Had0akw9p53qtkU2McaF6Qxusm/UpbR79ECA==
+
 ts-jest@26.4.0:
   version "26.4.0"
   resolved "https://registry.yarnpkg.com/ts-jest/-/ts-jest-26.4.0.tgz#903c7827f3d3bc33efc2f91be294b164400c32e3"

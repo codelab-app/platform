@@ -19,7 +19,7 @@ query graphs {
   }
 }
 
-query graph($id: Int!) {
+query graph($id: uuid!) {
   graph_by_pk(id: $id) {
     id
     edges {

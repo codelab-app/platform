@@ -5,12 +5,14 @@ import { NodeA } from '@codelab/shared/interface/node'
 import { D3GraphProps } from '@codelab/ui/d3'
 
 export interface GraphI extends EntityI {
+  label?: string
   vertices: Array<VertexA>
   edges: Array<EdgeA>
 }
 
 export interface GraphA extends EntityA {
-  id: string | number
+  id: string
+  label?: string
   vertices: Array<VertexA>
   edges: Array<EdgeA>
 }

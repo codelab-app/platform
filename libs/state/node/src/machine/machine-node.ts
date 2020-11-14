@@ -1,9 +1,9 @@
-import { Machine, assign, sendParent, spawn } from 'xstate'
+import { Machine, assign, sendParent } from 'xstate'
 import { ContextNode } from './machine-node--context'
 import { EventNameNode, EventNode } from './machine-node--event'
 import { StateNameNode, StateSchemaNode } from './machine-node--state'
 import { NodeService as NodeServiceEntity } from '@codelab/core/node'
-import { EventNameApp, assertEventType } from '@codelab/state/app'
+import { EventNameApp } from '@codelab/state/app'
 
 export const createMachineNode = (nodeService: NodeServiceEntity) => {
   return Machine<ContextNode, StateSchemaNode, EventNode>({
@@ -55,9 +55,9 @@ export const createMachineNode = (nodeService: NodeServiceEntity) => {
       [StateNameNode.CREATING]: {
         invoke: {
           id: 'creating_node',
-          src: (ctx, event) =>
+          src: (ctx, event: any) =>
             new Promise((resolve, reject) => {
-              assertEventType(event, EventNameNode.NODE_CREATE)
+              // assertEventType(event, EventNameNode.NODE_CREATE)
               ctx.nodeService.createNode(event.payload, resolve)
             }),
           onDone: {
@@ -84,10 +84,10 @@ export const createMachineNode = (nodeService: NodeServiceEntity) => {
       [StateNameNode.DELETING]: {
         invoke: {
           id: 'deleting_node',
-          src: (ctx, event) =>
+          src: (ctx, event: any) =>
             new Promise((resolve, reject) => {
               console.log('Promise')
-              assertEventType(event, EventNameNode.NODE_DELETE)
+              // assertEventType(event, EventNameNode.NODE_DELETE)
               setTimeout(() => {
                 ctx.nodeService.deleteNode(event.payload, resolve)
               }, 1000)
@@ -111,8 +111,8 @@ export const createMachineNode = (nodeService: NodeServiceEntity) => {
       [StateNameNode.EDITING]: {
         entry: [
           assign({
-            editedNode: (ctx, event) => {
-              assertEventType(event, EventNameNode.NODE_EDIT)
+            editedNode: (ctx, event: any) => {
+              // assertEventType(event, EventNameNode.NODE_EDIT)
 
               return ctx.nodes.find(
                 (node) => node.id === event.payload,
@@ -138,8 +138,8 @@ export const createMachineNode = (nodeService: NodeServiceEntity) => {
       [StateNameNode.EDIT_SUBMITTING]: {
         invoke: {
           id: 'edit_node_submitting',
-          src: (ctx, event) => {
-            assertEventType(event, EventNameNode.NODE_EDIT_SUBMIT)
+          src: (ctx, event: any) => {
+            // assertEventType(event, EventNameNode.NODE_EDIT_SUBMIT)
 
             return new Promise((resolve, reject) => {
               ctx.nodeService.updateNode(event.payload, resolve)

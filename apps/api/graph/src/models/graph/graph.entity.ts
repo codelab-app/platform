@@ -16,8 +16,8 @@ import { IGraph } from './IGraph'
   implements: [IGraph],
 })
 export class GraphEntity {
-  @PrimaryGeneratedColumn()
-  declare id: number
+  @PrimaryGeneratedColumn('uuid')
+  declare id: string
 
   @Column({ type: 'text', nullable: false })
   declare label: string

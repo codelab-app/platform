@@ -1,4 +1,4 @@
-import { ApolloQueryResult } from '@apollo/client'
+import { QueryResult } from '@apollo/client'
 import { EventObject } from 'xstate'
 import { EntityA, EntityI } from '@codelab/shared/interface/entity'
 
@@ -11,9 +11,11 @@ export enum EventNameEntity {
   FETCH = 'FETCH',
 }
 
-export interface EventEntitySuccess<TData = any> extends EventObject {
+export interface EventEntitySuccess<
+  TApolloQueryResult extends QueryResult = any
+> extends EventObject {
   type: EventNameEntity.SUCCESS
-  results: ApolloQueryResult<TData>
+  results: TApolloQueryResult
 }
 
 export interface EventEntityFailure extends EventObject {
@@ -25,6 +27,6 @@ export interface EventEntityFetch extends EventObject {
 }
 
 export type EventEntity<I extends EntityI, A extends EntityA> =
-  | EventEntitySuccess<A>
+  | EventEntitySuccess<QueryResult>
   | EventEntityFailure
   | EventEntityFetch
