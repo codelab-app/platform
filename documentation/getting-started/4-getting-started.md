@@ -18,6 +18,7 @@ I find that its useful to create separate terminal tabs for different commands, 
 
 - `yarn docker:up hasura` this only needs to be run once, then it will run in background
 - `npx nx serve api-graph`
+- `npx nx serve api-graph --args="--reset"` to reset & seed database
 
 ## Codegen
 

@@ -13,8 +13,6 @@ import {
 import nodeFetch from 'node-fetch'
 import { ApiConfig, ApiConfigTypes } from '@codelab/api/providers/config'
 
-const CONSTRUCTOR_NAME = 'HasuraService'
-
 @Injectable()
 export class ConfigGraphqlHasuraService implements GqlOptionsFactory {
   constructor(private readonly config: ConfigService<ApiConfig>) {}
@@ -74,24 +72,13 @@ export class ConfigGraphqlHasuraService implements GqlOptionsFactory {
       // we will use it to pass JWT to Hasura
       const authLink: ApolloLink = setContext(
         (_request: GraphQLRequest, prevContext: any) => {
-          let result = {}
-          const graphQlContext = prevContext.graphqlContext
+          const { authorization } = prevContext.graphQLContext.req.headers
 
-          if (graphQlContext) {
-            const { headers } = graphQlContext.req
-
-            if (
-              Object.prototype.hasOwnProperty.call(headers, 'authorization')
-            ) {
-              result = {
-                headers: {
-                  Authorization: headers.authorization,
-                },
-              }
-            }
+          return {
+            headers: {
+              Authorization: authorization,
+            },
           }
-
-          return result
         },
       ).concat(httpLink)
 

@@ -1,6 +1,13 @@
-import * as crypto from 'crypto'
 import { ObjectType } from '@nestjs/graphql'
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
+import * as bcrypt from 'bcrypt'
+import {
+  BeforeInsert,
+  BeforeUpdate,
+  Column,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm'
 import { GraphEntity } from '../graph/graph.entity'
 import { IUser } from './IUser'
 
@@ -19,16 +26,21 @@ export class UserEntity {
 
   @Column({
     type: 'text',
-    name: 'password',
+    select: false,
   })
-  private declare passwordHash: string
+  declare password: string
 
-  set password(password: string) {
-    this.passwordHash = crypto.createHmac('sha256', password).digest('hex')
+  /**
+   * Won't trigger if we use `repository.save()`
+   */
+  @BeforeInsert()
+  @BeforeUpdate()
+  async hashPassword() {
+    this.password = await bcrypt.hash(this.password, 10)
   }
 
-  get password() {
-    return this.passwordHash
+  async comparePassword(attempt: string): Promise<boolean> {
+    return bcrypt.compare(attempt, this.password)
   }
 
   @OneToMany((type) => GraphEntity, (graph) => graph.user)

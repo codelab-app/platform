@@ -5,7 +5,7 @@ import { EdgeEntity } from '../models/edge/edge.entity'
 import { GraphEntity } from '../models/graph/graph.entity'
 import { UserEntity } from '../models/user/user.entity'
 import { VertexEntity } from '../models/vertex/vertex.entity'
-import { VertexType } from '../models/vertex/vertex.interface'
+import { VertexType } from '@codelab/shared/interface/graph'
 
 @Injectable()
 export class SeedDbService {
@@ -21,58 +21,65 @@ export class SeedDbService {
   ) {}
 
   async seedDB() {
-    const user = new UserEntity()
+    /**
+     * Vertices
+     */
+    const vertex1 = await this.vertexRepository.save(
+      this.vertexRepository.create({
+        type: VertexType.REACT_BUTTON,
+        props: {},
+      }),
+    )
+    const vertex2 = await this.vertexRepository.save(
+      this.vertexRepository.create({
+        type: VertexType.REACT_BUTTON,
+        props: {},
+      }),
+    )
+    const vertex3 = await this.vertexRepository.save(
+      this.vertexRepository.create({
+        type: VertexType.REACT_BUTTON,
+        props: {},
+      }),
+    )
 
-    user.username = 'john'
-    user.password = '1234'
+    /**
+     * Edges
+     */
+    const edge1 = await this.edgeRepository.save(
+      this.edgeRepository.create({
+        source: vertex1.id,
+        target: vertex2.id,
+        props: {},
+      }),
+    )
+    const edge2 = await this.edgeRepository.save(
+      this.edgeRepository.create({
+        source: vertex2.id,
+        target: vertex3.id,
+        props: {},
+      }),
+    )
 
-    await this.userRepository.save(user)
+    /**
+     * User
+     */
+    const user = await this.userRepository.save(
+      this.userRepository.create({
+        username: 'Codelab',
+        password: 'password',
+      }),
+    )
 
-    const graph = new GraphEntity()
-
-    graph.user = user
-
-    await this.graphRepository.save(graph)
-
-    const vertex1 = new VertexEntity()
-
-    vertex1.id = 'v-A'
-    vertex1.graph = graph
-    vertex1.type = VertexType.REACT_BUTTON
-    vertex1.props = {}
-
-    const vertex2 = new VertexEntity()
-
-    vertex2.id = 'v-B'
-    vertex2.graph = graph
-    vertex2.type = VertexType.REACT_BUTTON
-    vertex2.props = {}
-
-    const vertex3 = new VertexEntity()
-
-    vertex3.id = 'v-C'
-    vertex3.graph = graph
-    vertex3.type = VertexType.REACT_BUTTON
-    vertex3.props = {}
-
-    await this.vertexRepository.save([vertex1, vertex2, vertex3])
-
-    const edge1 = new EdgeEntity()
-
-    edge1.id = 'e-A'
-    edge1.source = 'v-A'
-    edge1.target = 'v-B'
-    edge1.graph = graph
-    edge1.props = {}
-
-    const edge2 = new EdgeEntity()
-
-    edge2.id = 'e-B'
-    edge2.source = 'v-A'
-    edge2.target = 'v-C'
-    edge2.graph = graph
-    edge2.props = {}
-
-    await this.edgeRepository.save([edge1, edge2])
+    /**
+     * Graph
+     */
+    const graph = await this.graphRepository.save(
+      this.graphRepository.create({
+        user,
+        vertices: [vertex1, vertex2, vertex3],
+        edges: [edge1, edge2],
+      }),
+    )
   }
 }
