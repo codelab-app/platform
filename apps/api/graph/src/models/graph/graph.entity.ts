@@ -19,8 +19,8 @@ export class GraphEntity {
   @PrimaryGeneratedColumn('uuid')
   declare id: string
 
-  @Column({ type: 'text', nullable: false })
-  declare label: string
+  @Column({ type: 'text', nullable: true })
+  declare label?: string
 
   @OneToMany((type) => VertexEntity, (vertex) => vertex.graph)
   declare vertices: Array<VertexEntity>

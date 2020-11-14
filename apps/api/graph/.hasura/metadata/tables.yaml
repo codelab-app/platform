@@ -4,26 +4,26 @@
   object_relationships:
   - name: graph
     using:
-      foreign_key_constraint_on: graphId
+      foreign_key_constraint_on: graph_id
 - table:
     schema: public
     name: graph
   object_relationships:
   - name: user
     using:
-      foreign_key_constraint_on: userId
+      foreign_key_constraint_on: user_id
   array_relationships:
   - name: edges
     using:
       foreign_key_constraint_on:
-        column: graphId
+        column: graph_id
         table:
           schema: public
           name: edge
   - name: vertices
     using:
       foreign_key_constraint_on:
-        column: graphId
+        column: graph_id
         table:
           schema: public
           name: vertex
@@ -34,7 +34,7 @@
   - name: graphs
     using:
       foreign_key_constraint_on:
-        column: userId
+        column: user_id
         table:
           schema: public
           name: graph
@@ -44,4 +44,4 @@
   object_relationships:
   - name: graph
     using:
-      foreign_key_constraint_on: graphId
+      foreign_key_constraint_on: graph_id

@@ -7,7 +7,7 @@ export class GraphResolver {
   constructor(public graphService: GraphService) {}
 
   @Query(() => [GraphEntity])
-  async getAll() {
+  async getAllGraphs() {
     return this.graphService.findAll()
   }
 }
