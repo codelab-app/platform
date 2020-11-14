@@ -1,11 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { GqlModuleOptions, GqlOptionsFactory } from '@nestjs/graphql'
-import {
-  ApolloLink,
-  GraphQLRequest,
-  // eslint-disable-next-line import/no-extraneous-dependencies
-} from 'apollo-link'
+import { ApolloLink, GraphQLRequest } from 'apollo-link'
 import { setContext } from 'apollo-link-context'
 import { HttpLink } from 'apollo-link-http'
 import { GraphQLError, GraphQLSchema } from 'graphql'
@@ -13,7 +9,6 @@ import {
   introspectSchema,
   makeRemoteExecutableSchema,
   mergeSchemas,
-  // eslint-disable-next-line import/no-extraneous-dependencies
 } from 'graphql-tools'
 import nodeFetch from 'node-fetch'
 import { ApiConfig, ApiConfigTypes } from '@codelab/api/providers/config'

@@ -5,6 +5,7 @@ import { EdgeEntity } from '../models/edge/edge.entity'
 import { GraphEntity } from '../models/graph/graph.entity'
 import { UserEntity } from '../models/user/user.entity'
 import { VertexEntity } from '../models/vertex/vertex.entity'
+import { VertexType } from '../models/vertex/vertex.interface'
 
 @Injectable()
 export class SeedDbService {
@@ -23,6 +24,7 @@ export class SeedDbService {
     const user = new UserEntity()
 
     user.username = 'john'
+    user.password = '1234'
 
     await this.userRepository.save(user)
 
@@ -36,18 +38,21 @@ export class SeedDbService {
 
     vertex1.id = 'v-A'
     vertex1.graph = graph
+    vertex1.type = VertexType.REACT_BUTTON
     vertex1.props = {}
 
     const vertex2 = new VertexEntity()
 
     vertex2.id = 'v-B'
     vertex2.graph = graph
+    vertex2.type = VertexType.REACT_BUTTON
     vertex2.props = {}
 
     const vertex3 = new VertexEntity()
 
     vertex3.id = 'v-C'
     vertex3.graph = graph
+    vertex3.type = VertexType.REACT_BUTTON
     vertex3.props = {}
 
     await this.vertexRepository.save([vertex1, vertex2, vertex3])

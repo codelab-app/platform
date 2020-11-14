@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm'
+import { SnakeNamingStrategy } from 'typeorm-naming-strategies'
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions'
 import { ApiConfig, ApiConfigTypes } from '@codelab/api/providers/config'
 
@@ -24,6 +25,7 @@ export class ConfigTypeormHasuraService implements TypeOrmOptionsFactory {
       extra: {
         connectionLimit: 5,
       },
+      namingStrategy: new SnakeNamingStrategy(),
     } as PostgresConnectionOptions
   }
 
