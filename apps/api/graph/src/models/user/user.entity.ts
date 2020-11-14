@@ -19,13 +19,16 @@ export class UserEntity {
 
   @Column({
     type: 'text',
-    select: false,
     name: 'password',
   })
   private declare passwordHash: string
 
   set password(password: string) {
     this.passwordHash = crypto.createHmac('sha256', password).digest('hex')
+  }
+
+  get password() {
+    return this.passwordHash
   }
 
   @OneToMany((type) => GraphEntity, (graph) => graph.user)

@@ -4,29 +4,92 @@
   object_relationships:
   - name: graph
     using:
-      foreign_key_constraint_on: graphId
+      foreign_key_constraint_on: graph_id
+  insert_permissions:
+  - role: user
+    permission:
+      check: {}
+      columns:
+      - id
+      - source
+      - target
+      - props
+      - graph_id
+      backend_only: false
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - id
+      - source
+      - target
+      - props
+      - graph_id
+      filter: {}
+  update_permissions:
+  - role: user
+    permission:
+      columns:
+      - id
+      - source
+      - target
+      - props
+      - graph_id
+      filter: {}
+      check: {}
+  delete_permissions:
+  - role: user
+    permission:
+      filter: {}
 - table:
     schema: public
     name: graph
   object_relationships:
   - name: user
     using:
-      foreign_key_constraint_on: userId
+      foreign_key_constraint_on: user_id
   array_relationships:
   - name: edges
     using:
       foreign_key_constraint_on:
-        column: graphId
+        column: graph_id
         table:
           schema: public
           name: edge
   - name: vertices
     using:
       foreign_key_constraint_on:
-        column: graphId
+        column: graph_id
         table:
           schema: public
           name: vertex
+  insert_permissions:
+  - role: user
+    permission:
+      check: {}
+      columns:
+      - id
+      - user_id
+      backend_only: false
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - id
+      - user_id
+      filter: {}
+  update_permissions:
+  - role: user
+    permission:
+      columns:
+      - id
+      - user_id
+      filter: {}
+      check: {}
+  delete_permissions:
+  - role: user
+    permission:
+      filter: {}
 - table:
     schema: public
     name: user
@@ -34,14 +97,77 @@
   - name: graphs
     using:
       foreign_key_constraint_on:
-        column: userId
+        column: user_id
         table:
           schema: public
           name: graph
+  insert_permissions:
+  - role: user
+    permission:
+      check: {}
+      columns:
+      - id
+      - password
+      - username
+      backend_only: false
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - id
+      - username
+      - password
+      filter: {}
+  update_permissions:
+  - role: user
+    permission:
+      columns:
+      - id
+      - password
+      - username
+      filter: {}
+      check: {}
+  delete_permissions:
+  - role: user
+    permission:
+      filter: {}
 - table:
     schema: public
     name: vertex
   object_relationships:
   - name: graph
     using:
-      foreign_key_constraint_on: graphId
+      foreign_key_constraint_on: graph_id
+  insert_permissions:
+  - role: user
+    permission:
+      check: {}
+      columns:
+      - id
+      - type
+      - props
+      - graph_id
+      backend_only: false
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - graph_id
+      - props
+      - id
+      - type
+      filter: {}
+  update_permissions:
+  - role: user
+    permission:
+      columns:
+      - graph_id
+      - props
+      - id
+      - type
+      filter: {}
+      check: {}
+  delete_permissions:
+  - role: user
+    permission:
+      filter: {}

@@ -1,10 +1,10 @@
 import { ArgumentsHost, Catch, ExceptionFilter } from '@nestjs/common'
 import { Response } from 'express'
-import { AppError } from './AppError'
+import { ApolloCodelabError } from './ApolloCodelabError'
 
-@Catch(AppError)
+@Catch(ApolloCodelabError)
 export class RestErrorHandler implements ExceptionFilter {
-  catch(exception: AppError, host: ArgumentsHost): any {
+  catch(exception: ApolloCodelabError, host: ArgumentsHost): any {
     const ctx = host.switchToHttp()
     const res: Response = ctx.getResponse()
 

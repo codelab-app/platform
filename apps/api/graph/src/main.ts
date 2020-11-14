@@ -10,7 +10,6 @@ import bodyParser from 'body-parser'
 import * as shell from 'shelljs'
 import { AppModule } from './app/app.module'
 import { GraphErrorHandler } from './app/filters/graph-error-handler'
-import { RestErrorHandler } from './app/filters/rest-error-handler'
 import { ApiConfig, ApiConfigTypes } from '@codelab/api/providers/config'
 
 import 'reflect-metadata'
@@ -23,7 +22,7 @@ const bootstrap = async () => {
   const globalPrefix = ''
 
   app.setGlobalPrefix(globalPrefix)
-  app.useGlobalFilters(new GraphErrorHandler(), new RestErrorHandler())
+  app.useGlobalFilters(new GraphErrorHandler())
   app.use(bodyParser.json())
   // app.use(methodOverride())
   // app.use(expressRouter)

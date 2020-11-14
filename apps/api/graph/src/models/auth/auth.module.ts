@@ -13,7 +13,7 @@ import { JwtStrategy } from './jwt.strategy'
       secret: jwtConstants.secret,
       signOptions: {
         algorithm: 'HS512',
-        expiresIn: '120s',
+        expiresIn: '1d',
       },
     }),
   ],

@@ -30,9 +30,8 @@ export class ConfigTypeormHasuraService implements TypeOrmOptionsFactory {
   }
 
   get resetDb(): boolean {
-    // const { argv } = process
-    //
-    // return argv.includes('--reset')
-    return true
+    const { argv } = process
+
+    return argv.includes('--reset')
   }
 }

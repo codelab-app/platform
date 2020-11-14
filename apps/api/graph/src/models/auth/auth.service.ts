@@ -2,6 +2,7 @@ import { Injectable, OnModuleInit } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { ModuleRef } from '@nestjs/core'
 import { GraphQLModule } from '@nestjs/graphql'
+import { UserEntity } from '../user/user.entity'
 import { UserService } from '../user/user.service'
 import { JwtStrategy } from './jwt.strategy'
 import { ApiConfig } from '@codelab/api/providers/config'
@@ -18,10 +19,6 @@ export class AuthService implements OnModuleInit {
     private readonly config: ConfigService<ApiConfig>,
   ) {}
 
-  async validateUser() {}
-
-  async registerUser() {}
-
   async createAuthToken() {
     const user = {
       username: 'test',
@@ -33,6 +30,10 @@ export class AuthService implements OnModuleInit {
 
   async killServer() {
     process.exit(1)
+  }
+
+  async getToken(user: UserEntity) {
+    return this.jwtStrategy.getToken(user)
   }
 
   onModuleInit(): any {
