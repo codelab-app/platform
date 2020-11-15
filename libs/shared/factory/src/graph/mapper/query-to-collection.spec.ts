@@ -1,4 +1,4 @@
-import { queryToGraphA } from './query-to-graphA'
+import { queryToCollection } from './query-to-collection'
 import { Collection } from '@codelab/shared/interface/collections'
 import { GraphA } from '@codelab/shared/interface/graph-v2'
 import { GraphsQueryResult } from '@codelab/state/apollo'
@@ -43,6 +43,6 @@ describe('Graph mapper', () => {
       ],
     }
 
-    expect(queryToGraphA(original)).toStrictEqual(transformed)
+    expect(queryToCollection(original)).toStrictEqual(transformed)
   })
 })

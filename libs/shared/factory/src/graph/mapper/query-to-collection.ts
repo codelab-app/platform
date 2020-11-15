@@ -6,7 +6,7 @@ import { GraphsQueryResult } from '@codelab/state/apollo'
 /**
  * Maps from apollo query results to EntityA
  */
-export const queryToGraphA: ApolloQueryMapper<GraphsQueryResult, GraphA> = (
+export const queryToCollection: ApolloQueryMapper<GraphsQueryResult, GraphA> = (
   original,
 ) => {
   const graphMapper = {

@@ -1,6 +1,7 @@
 import React from 'react'
 import { FormEdge } from './Form-edge'
 import { FormGraph } from './Form-graph'
+import { FormGraphVertices } from './Form-graph--vertices'
 import { FormVertex } from './Form-vertex'
 
 export default {
@@ -20,4 +21,8 @@ export const EdgeForm = () => {
 
 export const GraphForm = () => {
   return <FormGraph />
+}
+
+export const GraphVertexForm = () => {
+  return <FormGraphVertices />
 }

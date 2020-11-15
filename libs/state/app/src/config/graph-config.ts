@@ -1,6 +1,6 @@
 import { map } from 'rxjs/operators'
 import { assign } from 'xstate'
-import { queryToGraphA } from '@codelab/shared/factory'
+import { queryToCollection } from '@codelab/shared/factory'
 import { ActionsEntity, ServicesEntity } from '@codelab/shared/interface/entity'
 import { CustomMachineOptions } from '@codelab/shared/interface/machine'
 import { watchQuery } from '@codelab/shared/utils'
@@ -28,7 +28,7 @@ export const graphConfig: CustomMachineOptions = {
       list: (context, event: EventEntitySuccess<GraphsQueryResult>) => {
         const { results, type } = event
 
-        return queryToGraphA(results)
+        return queryToCollection(results)
       },
     }),
   },
