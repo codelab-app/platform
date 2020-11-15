@@ -1,4 +1,4 @@
-import { queryToTable } from './graph-to-table'
+import { collectionToTable } from './collection-to-table'
 import { Collection } from '@codelab/shared/interface/collections'
 import { GraphA } from '@codelab/shared/interface/graph-v2'
 import { TableProps } from '@codelab/ui/antd'
@@ -65,6 +65,6 @@ describe('Graph mapper', () => {
       ],
     }
 
-    expect(queryToTable(original)).toStrictEqual(transformed)
+    expect(collectionToTable(original)).toStrictEqual(transformed)
   })
 })

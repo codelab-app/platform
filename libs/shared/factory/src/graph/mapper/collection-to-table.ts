@@ -8,7 +8,14 @@ import { TableMapper } from '@codelab/shared/interface/mapper'
 /**
  * Maps from apollo query results to EntityA
  */
-export const queryToTable: TableMapper<GraphA> = (collection) => {
+export const collectionToTable: TableMapper<GraphA> = (collection) => {
+  if (!collection?.data) {
+    return {
+      dataSource: [],
+      columns: [],
+    }
+  }
+
   const dataSourceMapper = {
     id: [
       {
@@ -17,19 +24,8 @@ export const queryToTable: TableMapper<GraphA> = (collection) => {
       { key: 'key' },
     ],
     label: 'label',
-    edges: 'edges',
-    vertices: 'vertices',
-  }
-  const columnsMapper = {
-    id: [
-      {
-        key: 'id',
-      },
-      { key: 'key' },
-    ],
-    label: 'label',
-    edges: 'edges',
-    vertices: 'vertices',
+    // edges: 'edges',
+    // vertices: 'vertices',
   }
 
   const mapper = {

@@ -1,13 +1,14 @@
 import { useActor, useService } from '@xstate/react'
-import { Button, Modal } from 'antd'
+import { Button, Modal, Table } from 'antd'
 import React, { useContext } from 'react'
+import { collectionToTable } from '@codelab/shared/factory'
 import { EventNameApp } from '@codelab/state/app'
-import { MachineContext, ReactJson } from '@codelab/ui/component'
+import { FormGraph, MachineContext } from '@codelab/ui/component'
 
 const GraphPage = () => {
   const { actors } = useContext(MachineContext)
   const [appState, appSend] = useService(actors.app)
-  const [vertexState] = useActor(actors.graph)
+  const [graphState] = useActor(actors.graph)
 
   // const createVertex = () =>
   //   mutate<CreateGraphMutation, CreateGraphMutationVariables>(
@@ -33,15 +34,15 @@ const GraphPage = () => {
 
   return (
     <>
-      <ReactJson data={vertexState.value} />
-      <ReactJson data={vertexState.context} />
+      {/* <ReactJson data={graphState.value} /> */}
+      {/* <ReactJson data={collectionToTable(graphState.context.list)} /> */}
       <Button onClick={() => appSend(EventNameApp.START_CREATE)}>
-        Show Create Form
+        + Create New
       </Button>
       <Modal title="Basic Modal" {...modalProps}>
-        <p>Some contents...</p>
+        <FormGraph />
       </Modal>
-      {/* <Table dataSource={dataSource} columns={columns} />; */}
+      <Table {...collectionToTable(graphState.context.list)} />
     </>
   )
 }
