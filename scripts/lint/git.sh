@@ -5,7 +5,7 @@ local_branch_name="$(git rev-parse --abbrev-ref HEAD)"
 valid_branch_regex='^([0-9]*-)([a-z][a-z]*)(-[a-z]+)*$'
 
 message="
-Branch names must be kebab case starting with issue number:\n
+Branch names must be lower kebab case starting with the issue number:\n
   $valid_branch_regex\n
   Eg. 203-your-branch-name\n"
 
