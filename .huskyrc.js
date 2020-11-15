@@ -1,3 +1,5 @@
+const shell = require('shelljs')
+
 const tasks = (arr) => arr.join(' && ')
 const lintstaged = 'cross-env TIMING=1 lint-staged --verbose'
 
@@ -8,6 +10,6 @@ module.exports = {
      */
     'pre-push': tasks(['make build-dev-affected', 'make test-dev-affected']),
     'commit-msg': 'make lint-commit-dev',
-    'pre-commit': tasks([lintstaged]),
+    'pre-commit': tasks([lintstaged, './scripts/lint/git.sh']),
   },
 }
