@@ -28,10 +28,6 @@ export class AuthService implements OnModuleInit {
     return this.jwtStrategy.login(user)
   }
 
-  async killServer() {
-    process.exit(1)
-  }
-
   async getToken(user: UserEntity) {
     return this.jwtStrategy.getToken(user)
   }

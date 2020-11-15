@@ -17,9 +17,6 @@ import { envPath } from '@codelab/shared/utils'
       validationSchema: Joi.object({
         // Ports
         API_PORT_GATEWAY: Joi.string().required(),
-        // API_PORT_FEDERATION_PROPS: Joi.string().required(),
-        // API_PORT_FEDERATION_USER: Joi.string().required(),
-        // API_PORT_FEDERATION_NODE: Joi.string().required(),
         // Mongo
         MONGO_ENDPOINT: Joi.string().required(),
         // Neo4j
