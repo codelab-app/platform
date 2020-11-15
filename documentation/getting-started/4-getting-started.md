@@ -2,7 +2,7 @@
 
 [Back](../../README.md)
 
-1. `cp .env.example .env`
+1. `cp .env.example .env.dev`
 2. `yarn`
 3. `yarn build` (this only required after a fresh clone)
 4. `yarn` (links the built workspace to our monorepo)
