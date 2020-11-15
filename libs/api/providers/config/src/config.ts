@@ -36,12 +36,8 @@ export enum ApiConfigTypes {
 }
 
 export interface ApiConfig {
-  [ApiConfigTypes.MONGO_ENDPOINT]: string | undefined
   [ApiConfigTypes.PORT_GATEWAY]: number | undefined
   [ApiConfigTypes.API_PORT_GRAPH]: number | undefined
-  [ApiConfigTypes.NEO4J_URL]: string | undefined
-  [ApiConfigTypes.NEO4J_USER]: string | undefined
-  [ApiConfigTypes.NEO4J_PASS]: string | undefined
   [ApiConfigTypes.POSTGRES_HOST]: string | undefined
   [ApiConfigTypes.POSTGRES_PORT]: number | undefined
   [ApiConfigTypes.POSTGRES_USER]: string | undefined
@@ -52,12 +48,8 @@ export interface ApiConfig {
 }
 
 export const config: ConfigFactory<ApiConfig> = () => ({
-  [ApiConfigTypes.MONGO_ENDPOINT]: process.env.MONGO_ENDPOINT,
   [ApiConfigTypes.PORT_GATEWAY]: Number(process.env.API_PORT_GATEWAY),
   [ApiConfigTypes.API_PORT_GRAPH]: Number(process.env.API_PORT_GRAPH),
-  [ApiConfigTypes.NEO4J_URL]: process.env.NEO4J_URL,
-  [ApiConfigTypes.NEO4J_USER]: process.env.NEO4J_USERNAME,
-  [ApiConfigTypes.NEO4J_PASS]: process.env.NEO4J_PASSWORD,
   [ApiConfigTypes.POSTGRES_HOST]: process.env.POSTGRES_HOST,
   [ApiConfigTypes.POSTGRES_PORT]: Number(process.env.POSTGRES_PORT),
   [ApiConfigTypes.POSTGRES_USER]: process.env.POSTGRES_USER,
