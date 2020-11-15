@@ -27,8 +27,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       username: user.username,
       sub: user.id.toString(),
       'https://hasura.io/jwt/claims': {
-        'x-hasura-allowed-roles': ['user'],
-        'x-hasura-default-role': 'user',
+        'x-hasura-allowed-roles': ['admin'],
+        'x-hasura-default-role': 'admin',
         'x-hasura-user-id': user.id.toString(),
       },
     }
@@ -41,8 +41,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       username: user.username,
       sub: user.userId.toString(),
       'https://hasura.io/jwt/claims': {
-        'x-hasura-allowed-roles': ['user'],
-        'x-hasura-default-role': 'user',
+        'x-hasura-allowed-roles': ['admin'],
+        'x-hasura-default-role': 'admin',
         'x-hasura-user-id': user.userId.toString(),
       },
     }
