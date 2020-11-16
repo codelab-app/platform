@@ -18,11 +18,11 @@ filters-dev: &filters-dev
 filters-staging: &filters-staging
   filters:
     branches:
-      # only: /^.*$/
-      only: /^never$/
+      only: /^.*$/
+      # only: /^never$/
       # only: /^master$/
-    # tags:
-    #   only: /^staging-.*$/
+    tags:
+      only: /^staging-.*$/
 
 executor-params: &executor-params
   parameters:
@@ -33,6 +33,7 @@ executor-params: &executor-params
 
 executor-config: &executor-config
   environment:
+    DOCKER_TAG_VERSION: 0.02
     GITHUB_ANTON: artonio
     SLACK_ANTON: U01DSP39DME
     GITHUB_VIEN: VienNguyen24hdev
