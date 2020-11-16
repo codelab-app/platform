@@ -24,7 +24,7 @@ describe('Graph mapper', () => {
       ],
     }
 
-    const transformed: Partial<TableProps<GraphA>> = {
+    const transformed: TableProps<Partial<GraphA>> = {
       columns: [
         {
           title: 'Id',
@@ -52,15 +52,15 @@ describe('Graph mapper', () => {
           key: '1',
           id: '1',
           label: 'My Graph',
-          edges: [],
-          vertices: [],
+          // edges: [],
+          // vertices: [],
         },
         {
           key: '2',
           id: '2',
           label: 'My Second Graph',
-          edges: [],
-          vertices: [],
+          // edges: [],
+          // vertices: [],
         },
       ],
     }

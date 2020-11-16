@@ -10,16 +10,11 @@ filters-dev: &filters-dev
   filters:
     branches:
       only: /^.*$/
-      # only: /^never$/
-    # tags:
-    #   ignore: /^master$/
-    #   ignore: /^staging-.*$/
 
 filters-staging: &filters-staging
   filters:
     branches:
-      # only: /^.*$/
-      only: /^never$/
+      only: /^master$/
     tags:
       only: /^staging-.*$/
 

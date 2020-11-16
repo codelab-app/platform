@@ -51,7 +51,9 @@ export class AppModule implements OnModuleInit {
   constructor(
     private readonly seedDbService: SeedDbService,
     private readonly config: ConfigService<ApiConfig>,
-  ) {}
+  ) {
+    console.log('CODELAB_ENV', this.config.get(ApiConfigTypes.CODELAB_ENV))
+  }
 
   async onModuleInit() {
     if (isDev && shell.exec('make hasura-metadata-apply').code !== 0) {

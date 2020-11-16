@@ -8,10 +8,6 @@ import {
 } from './hasura'
 import { envPath, isDev } from '@codelab/shared/utils'
 
-console.log('NDOE_ENV', process.env.CODELAB_ENV)
-
-console.log(isDev)
-
 @Module({
   imports: [
     NestConfigModule.forRoot({
