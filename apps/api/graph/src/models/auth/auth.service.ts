@@ -25,6 +25,10 @@ export class AuthService implements OnModuleInit {
     return this.jwtStrategy.login(user)
   }
 
+  async refreshToken(token: string) {
+    return this.jwtStrategy.refreshToken(token)
+  }
+
   async getToken(user: UserEntity) {
     return this.jwtStrategy.getToken(user)
   }

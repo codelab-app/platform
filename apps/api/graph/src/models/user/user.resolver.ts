@@ -22,4 +22,11 @@ export class UserResolver {
   async login(@Args('user') user: UserInput) {
     return this.userService.login(user)
   }
+
+  @Query(() => String)
+  async refreshToken(
+    @Args({ name: 'token', type: () => String }) token: string,
+  ) {
+    return this.userService.refreshToken(token)
+  }
 }

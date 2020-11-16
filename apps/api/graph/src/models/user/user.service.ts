@@ -26,6 +26,10 @@ export class UserService implements OnModuleInit {
     return this.userEntityRepository.find()
   }
 
+  async refreshToken(token: string) {
+    return this.authService.refreshToken(token)
+  }
+
   async loginGoogle(user: IGoogleUser): Promise<UserDto> {
     let accessToken = ''
     const result = new UserDto()

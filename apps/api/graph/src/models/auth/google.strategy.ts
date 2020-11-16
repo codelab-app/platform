@@ -1,6 +1,7 @@
 import { IncomingMessage } from 'http'
 import { stringify } from 'querystring'
 import { BadRequestException, Injectable } from '@nestjs/common'
+import { ConfigService } from '@nestjs/config'
 import { PassportStrategy } from '@nestjs/passport'
 import {
   Profile,
@@ -9,28 +10,24 @@ import {
   VerifyCallback,
 } from 'passport-google-oauth20'
 import { IGoogleUser } from './IGoogleUser'
-
-const clientID =
-  '643753825270-av4vhjsm2vqmkc0oce9jpmjj3nlghp0b.apps.googleusercontent.com'
-const clientSecret = 'HfRAgHSWa037f4gVuGFi4WbO'
-const callbackURL = '/auth/google/redirect'
+import { ApiConfig, ApiConfigTypes } from '@codelab/api/providers/config'
 
 @Injectable()
 export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
-  constructor() {
+  constructor(private readonly config: ConfigService<ApiConfig>) {
     super({
       passReqToCallback: true,
-      authorizationURL: `https://accounts.google.com/o/oauth2/v2/auth?${stringify(
-        {
-          client_id: clientID,
-          redirect_uri: callbackURL,
-          response_type: 'code',
-          scope: ['profile', 'email'],
-        },
-      )}`,
-      clientID,
-      clientSecret,
-      callbackURL,
+      authorizationURL: `${config.get(
+        ApiConfigTypes.GOOGLE_AUTH_URL,
+      )}?${stringify({
+        client_id: config.get(ApiConfigTypes.GOOGLE_CLIENT_ID),
+        redirect_uri: config.get(ApiConfigTypes.GOOGLE_CALLBACK_URL),
+        response_type: 'code',
+        scope: ['profile', 'email'],
+      })}`,
+      clientID: config.get(ApiConfigTypes.GOOGLE_CLIENT_ID),
+      clientSecret: config.get(ApiConfigTypes.GOOGLE_CLIENT_SECRET),
+      callbackURL: config.get(ApiConfigTypes.GOOGLE_CALLBACK_URL),
       scope: ['profile', 'email'],
     } as StrategyOptionsWithRequest)
   }
