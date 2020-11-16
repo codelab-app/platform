@@ -12,11 +12,15 @@ filters-dev: &filters-dev
       only: /^.*$/
 
 filters-staging: &filters-staging
+# https://discuss.circleci.com/t/circle-2-0-workflow-filters-should-be-logical-and-not-or/18231
   filters:
-    # branches:
-    #   only: /^master$/
     tags:
       only: /^staging-.*$/
+
+filters-master-branch-only: &filters-master-branch-only
+  when:
+    and:
+      - equal: [ master, <<pipeline.git.branch>> ]
 
 executor-params: &executor-params
   parameters:
@@ -207,6 +211,7 @@ jobs:
 
   build-and-push-docker-image:
     <<: *executor-params
+    <<: *filters-master-branch-only
     steps:
       - setup-workspace
       - yarn-install-prod
