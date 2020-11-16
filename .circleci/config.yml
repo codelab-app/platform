@@ -17,12 +17,8 @@ filters-dev: &filters-dev
 
 filters-staging: &filters-staging
   filters:
-    branches:
-      # only: /^.*$/
-      only: /^never$/
-      # only: /^master$/
-    # tags:
-    #   only: /^staging-.*$/
+    tags:
+      only: /^staging-.*$/
 
 executor-params: &executor-params
   parameters:
