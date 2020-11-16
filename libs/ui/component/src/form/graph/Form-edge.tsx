@@ -1,5 +1,6 @@
 import { Theme as AntDTheme } from '@rjsf/antd'
 import { withTheme } from '@rjsf/core'
+import { Button } from 'antd'
 import { JSONSchema7 } from 'json-schema'
 import React from 'react'
 
@@ -27,6 +28,8 @@ export const FormEdge = () => {
   const log = (type: any) => console.log.bind(console, type)
 
   return (
-    <Form schema={schema} onSubmit={log('submitted')} onError={log('errors')} />
+    <Form schema={schema} onSubmit={log('submitted')} onError={log('errors')}>
+      <Button type="primary">Submit</Button>
+    </Form>
   )
 }

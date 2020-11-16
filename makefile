@@ -143,7 +143,7 @@ start-api:
 #	--names="start" \
 #		'nx run-many \
 #		--target=serve \
-#		--projects=web,api-gateway,api-services-props,api-services-graph \
+#		--projects=web,api-gateway,api-services-props,api-graph \
 #		--parallel \
 #		"$@"' \
 #		'nodemon \

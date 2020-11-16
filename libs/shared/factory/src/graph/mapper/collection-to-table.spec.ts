@@ -1,4 +1,4 @@
-import { queryToTable } from './graph-to-table'
+import { collectionToTable } from './collection-to-table'
 import { Collection } from '@codelab/shared/interface/collections'
 import { GraphA } from '@codelab/shared/interface/graph-v2'
 import { TableProps } from '@codelab/ui/antd'
@@ -24,7 +24,7 @@ describe('Graph mapper', () => {
       ],
     }
 
-    const transformed: Partial<TableProps<GraphA>> = {
+    const transformed: TableProps<Partial<GraphA>> = {
       columns: [
         {
           title: 'Id',
@@ -52,19 +52,19 @@ describe('Graph mapper', () => {
           key: '1',
           id: '1',
           label: 'My Graph',
-          edges: [],
-          vertices: [],
+          // edges: [],
+          // vertices: [],
         },
         {
           key: '2',
           id: '2',
           label: 'My Second Graph',
-          edges: [],
-          vertices: [],
+          // edges: [],
+          // vertices: [],
         },
       ],
     }
 
-    expect(queryToTable(original)).toStrictEqual(transformed)
+    expect(collectionToTable(original)).toStrictEqual(transformed)
   })
 })

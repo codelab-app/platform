@@ -6,15 +6,21 @@ import {
   ConfigGraphqlHasuraService,
   ConfigTypeormHasuraService,
 } from './hasura'
-import { envPath } from '@codelab/shared/utils'
+import { envPath, isDev } from '@codelab/shared/utils'
 
 @Module({
   imports: [
     NestConfigModule.forRoot({
       isGlobal: true,
       load: [config],
-      envFilePath: envPath(),
+      /**
+       * Only load locally
+       */
+      envFilePath: isDev ? envPath() : '',
+      ignoreEnvFile: !isDev,
       validationSchema: Joi.object({
+        CODELAB_ENV: Joi.string().required(),
+        TYPEORM_SEED: Joi.string().required().valid('true', 'false'),
         // Ports
         API_PORT_GATEWAY: Joi.string().required(),
         // Postgres DB
