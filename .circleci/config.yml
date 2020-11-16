@@ -13,11 +13,10 @@ filters-dev: &filters-dev
 
 filters-staging: &filters-staging
   filters:
-    and:
-      branches:
-        only: /^master$/
-      tags:
-        only: /^staging-.*$/
+    # branches:
+    #   only: /^master$/
+    tags:
+      only: /^staging-.*$/
 
 executor-params: &executor-params
   parameters:
