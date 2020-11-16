@@ -14,11 +14,4 @@ export class AuthResolver {
 
     return dto
   }
-
-  @Query((returns) => String)
-  async killServer() {
-    await this.authService.killServer()
-
-    return "Doesn't matter, nothing will be returned after server is killed"
-  }
 }

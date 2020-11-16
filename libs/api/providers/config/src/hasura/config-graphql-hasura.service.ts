@@ -39,6 +39,7 @@ export class ConfigGraphqlHasuraService implements GqlOptionsFactory {
       debug: true,
       tracing: true,
       playground: true,
+      context: ({ req }) => ({ req }),
       formatError: (err: GraphQLError) => {
         // Don't give the specific errors to the client.
         // const a = err;
@@ -72,7 +73,7 @@ export class ConfigGraphqlHasuraService implements GqlOptionsFactory {
       // we will use it to pass JWT to Hasura
       const authLink: ApolloLink = setContext(
         (_request: GraphQLRequest, prevContext: any) => {
-          const { authorization } = prevContext.graphQLContext.req.headers
+          const { authorization } = prevContext?.graphQLContext?.req?.headers
 
           return {
             headers: {

@@ -6,16 +6,19 @@ import { UserEntity } from '../user/user.entity'
 import { jwtConstants } from './constants'
 
 @Injectable()
-export class JwtStrategy extends PassportStrategy(Strategy) {
+export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
   constructor(private jwtService: JwtService) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
       secretOrKey: jwtConstants.secret,
+      passReqToCallback: true,
     })
   }
 
   async validate(payload: any) {
+    const p = payload
+
     return {
       userId: payload.sub,
       username: payload.username,
