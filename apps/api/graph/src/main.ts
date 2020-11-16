@@ -11,6 +11,7 @@ import * as shell from 'shelljs'
 import { AppModule } from './app/app.module'
 import { GraphErrorHandler } from './app/filters/graph-error-handler'
 import { ApiConfig, ApiConfigTypes } from '@codelab/api/providers/config'
+import { isDev } from '@codelab/shared/utils'
 
 import 'reflect-metadata'
 
@@ -31,7 +32,9 @@ const bootstrap = async () => {
 
   await app.listen(port, () => {
     // Reload Hasura metadata
-    shell.exec('make hasura-metadata-reload')
+    if (isDev) {
+      shell.exec('make hasura-metadata-reload')
+    }
 
     Logger.log(`Listening at http://localhost:${port}/${globalPrefix}`)
   })

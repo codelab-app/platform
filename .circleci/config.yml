@@ -18,9 +18,8 @@ filters-dev: &filters-dev
 filters-staging: &filters-staging
   filters:
     branches:
-      only: /^.*$/
-      # only: /^never$/
-      # only: /^master$/
+      # only: /^.*$/
+      only: /^never$/
     tags:
       only: /^staging-.*$/
 

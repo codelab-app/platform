@@ -3,6 +3,7 @@ import { ConfigService } from '@nestjs/config'
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm'
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies'
 import { ApiConfig, ApiConfigTypes } from '@codelab/api/providers/config'
+import { isDev } from '@codelab/shared/utils'
 
 @Injectable()
 export class ConfigTypeormHasuraService implements TypeOrmOptionsFactory {
@@ -18,19 +19,13 @@ export class ConfigTypeormHasuraService implements TypeOrmOptionsFactory {
       database: this.config.get(ApiConfigTypes.POSTGRES_DB),
       autoLoadEntities: true,
       // synchronize and dropSchema resets the database
-      synchronize: true,
-      dropSchema: this.resetDb,
+      synchronize: isDev,
+      dropSchema: false,
       logging: ['query', 'error', 'schema'],
       extra: {
         connectionLimit: 5,
       },
       namingStrategy: new SnakeNamingStrategy(),
     }
-  }
-
-  get resetDb(): boolean {
-    const { argv } = process
-
-    return argv.includes('--reset')
   }
 }

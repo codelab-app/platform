@@ -13,10 +13,13 @@ import { SeedDbService } from '../seed-db/seed-db.service'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import {
+  ApiConfig,
+  ApiConfigTypes,
   ConfigGraphqlHasuraService,
   ConfigModule,
   ConfigTypeormHasuraService,
 } from '@codelab/api/providers/config'
+import { isDev } from '@codelab/shared/utils'
 
 @Module({
   imports: [
@@ -46,18 +49,18 @@ import {
 })
 export class AppModule implements OnModuleInit {
   constructor(
-    public seedDbService: SeedDbService,
-    public config: ConfigTypeormHasuraService,
+    private readonly seedDbService: SeedDbService,
+    private readonly config: ConfigService<ApiConfig>,
   ) {}
 
   async onModuleInit() {
-    if (!this.config.resetDb) return
-
-    if (shell.exec('make hasura-metadata-apply').code !== 0) {
-      shell.echo('make hasura-metadata-import failed')
+    if (isDev && shell.exec('make hasura-metadata-apply').code !== 0) {
+      shell.echo('make hasura-metadata-apply failed')
       shell.exit(1)
     }
 
-    await this.seedDbService.seedDB()
+    if (this.config.get(ApiConfigTypes.TYPEORM_SEED)) {
+      await this.seedDbService.seedDB()
+    }
   }
 }
