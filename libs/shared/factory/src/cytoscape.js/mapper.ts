@@ -8,6 +8,8 @@ export const cyMapVertices = (
   const mapper = {
     id: 'data.id',
     parent: 'data.parent',
+    type: 'data.type',
+    props: 'data.props',
   }
 
   return vertices.map((vertex) => {

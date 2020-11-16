@@ -2,6 +2,7 @@ import React from 'react'
 import {
   formConditionData,
   formDefaultData,
+  formGraphData,
   formObjectData,
   hooksData,
   nodeFormData,
@@ -17,6 +18,7 @@ export default {
       ConditionalForm: formConditionData,
       NodeForm: nodeFormData,
       FormHooks: hooksData,
+      FormGraph: formGraphData,
     },
   },
 }
@@ -55,4 +57,10 @@ export const FormHooks = () => {
   const Form = Renderer.components(hooksData)
 
   return <Form />
+}
+
+export const FormGraph = () => {
+  const RenderGraph = Renderer.componentsGraph(formGraphData)
+
+  return <RenderGraph />
 }

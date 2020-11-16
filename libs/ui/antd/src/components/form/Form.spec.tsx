@@ -1,6 +1,6 @@
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import React from 'react'
-import { ConditionalForm, Default, FormHooks, ObjectForm } from './Form.stories'
+import { ConditionalForm, Default, FormHooks, ObjectForm, FormGraph } from './Form.stories'
 
 describe('Form', () => {
   it('should render with labels', () => {
@@ -43,7 +43,7 @@ describe('Form', () => {
     expect(queryByLabelText('Field B')).toBeFalsy()
     expect(queryByLabelText('Field C')).toBeFalsy()
 
-    fireEvent.mouseDown(getByRole('combobox').parentElement)
+    fireEvent.mouseDown(getByRole('combobox').parentElement as any)
 
     await waitFor(() => {
       expect(getByText('A')).toBeInTheDocument()
@@ -74,5 +74,9 @@ describe('Form', () => {
     expect((getByLabelText('Name') as HTMLInputElement).value).toBe(
       defaultValue,
     )
+  })
+
+  it('should render graph components', () => {
+    const { getByDisplayValue } = render(<FormGraph />)
   })
 })
