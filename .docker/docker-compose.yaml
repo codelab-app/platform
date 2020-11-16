@@ -12,7 +12,7 @@ services:
       dockerfile: ${PWD}/.docker/Dockerfile
       # args:
       #   - NODE_ENV=production
-    image: codelabai/codelab:0.01
+    image: codelabai/codelab:${DOCKER_TAG_VERSION}
     environment:
       - NODE_ENV=production
 
@@ -22,7 +22,7 @@ services:
     expose:
       - ${WEB_PORT}
     entrypoint: ['yarn', 'start:prod:web']
-    image: codelabai/codelab:0.01
+    image: codelabai/codelab:${DOCKER_TAG_VERSION}
     depends_on:
       - codelab
     env_file:
@@ -37,7 +37,7 @@ services:
     expose:
       - ${API_PORT_GRAPH}
     entrypoint: ['yarn', 'start:prod:api-services-graph']
-    image: codelabai/codelab:0.01
+    image: codelabai/codelab:${DOCKER_TAG_VERSION}
     depends_on:
       - codelab
     env_file:
