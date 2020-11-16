@@ -211,7 +211,6 @@ jobs:
 
   build-and-push-docker-image:
     <<: *executor-params
-    <<: *filters-master-branch-only
     steps:
       - setup-workspace
       - yarn-install-prod
@@ -258,6 +257,7 @@ workflows:
             - test
 
   app-staging:
+    <<: *filters-master-branch-only
     jobs:
       - install-and-build-workspace:
           <<: *filters-staging
