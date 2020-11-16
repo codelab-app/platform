@@ -28,8 +28,15 @@ export class UserEntity {
   @Column({
     type: 'text',
     select: false,
+    nullable: true,
   })
   declare password: string
+
+  @Column({
+    type: 'text',
+    nullable: true,
+  })
+  declare googleProviderId: string
 
   /**
    * Won't trigger if we use `repository.save()`

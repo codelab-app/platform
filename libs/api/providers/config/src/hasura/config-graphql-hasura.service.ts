@@ -39,6 +39,7 @@ export class ConfigGraphqlHasuraService implements GqlOptionsFactory {
       debug: true,
       tracing: true,
       playground: true,
+      context: ({ req }) => ({ req }),
       formatError: (err: GraphQLError) => {
         // Don't give the specific errors to the client.
         // const a = err;
