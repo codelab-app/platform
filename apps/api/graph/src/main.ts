@@ -9,10 +9,9 @@ import { NestFactory } from '@nestjs/core'
 import bodyParser from 'body-parser'
 import * as shell from 'shelljs'
 import { AppModule } from './app/app.module'
-import { GraphErrorHandler } from './app/filters/graph-error-handler'
+import { GeneralExceptionFilter } from './app/filters/general-exception.filter'
 import { ApiConfig, ApiConfigTypes } from '@codelab/api/providers/config'
 import { isDev } from '@codelab/shared/utils'
-
 import 'reflect-metadata'
 
 const bootstrap = async () => {
@@ -23,7 +22,7 @@ const bootstrap = async () => {
   const globalPrefix = ''
 
   app.setGlobalPrefix(globalPrefix)
-  app.useGlobalFilters(new GraphErrorHandler())
+  app.useGlobalFilters(new GeneralExceptionFilter())
   app.use(bodyParser.json())
   // app.use(methodOverride())
   // app.use(expressRouter)
@@ -32,6 +31,7 @@ const bootstrap = async () => {
 
   await app.listen(port, () => {
     // Reload Hasura metadata
+
     if (isDev) {
       shell.exec('make hasura-metadata-reload')
     }

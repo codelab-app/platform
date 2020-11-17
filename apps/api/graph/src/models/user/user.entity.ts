@@ -22,19 +22,25 @@ export class UserEntity {
 
   @Column({
     type: 'text',
+    unique: true,
   })
-  declare username: string
+  declare email: string
 
   @Column({
     type: 'text',
     select: false,
+    nullable: true,
   })
   declare password: string
 
+  @Column({
+    type: 'text',
+    nullable: true,
+  })
+  declare googleProviderId: string
+
   /**
    * Won't trigger if we use `repository.save()`
-   *
-   * https://github.com/typeorm/typeorm/issues/5493
    */
   @BeforeInsert()
   @BeforeUpdate()

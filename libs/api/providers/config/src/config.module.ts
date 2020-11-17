@@ -6,6 +6,7 @@ import {
   ConfigGraphqlHasuraService,
   ConfigTypeormHasuraService,
 } from './hasura'
+import { ConfigJwtService } from './jwt'
 import { envPath, isDev } from '@codelab/shared/utils'
 
 @Module({
@@ -35,7 +36,15 @@ import { envPath, isDev } from '@codelab/shared/utils'
       }),
     }),
   ],
-  providers: [ConfigTypeormHasuraService, ConfigGraphqlHasuraService],
-  exports: [ConfigTypeormHasuraService, ConfigGraphqlHasuraService],
+  providers: [
+    ConfigTypeormHasuraService,
+    ConfigGraphqlHasuraService,
+    ConfigJwtService,
+  ],
+  exports: [
+    ConfigTypeormHasuraService,
+    ConfigGraphqlHasuraService,
+    ConfigJwtService,
+  ],
 })
 export class ConfigModule {}

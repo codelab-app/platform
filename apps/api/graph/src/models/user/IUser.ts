@@ -6,5 +6,5 @@ export abstract class IUser {
   declare id: number
 
   @Field({ nullable: false })
-  declare username: string
+  declare email: string
 }

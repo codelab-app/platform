@@ -27,6 +27,14 @@ export enum ApiConfigTypes {
   HASURA_GRAPHQL_ADMIN_SECRET,
   HASURA_GRAPHQL_URI,
 
+  // Auth
+  JWT_SECRET,
+  JWT_EXPIRY,
+  // Google
+  GOOGLE_CLIENT_ID,
+  GOOGLE_CLIENT_SECRET,
+  GOOGLE_CALLBACK_URL,
+  GOOGLE_AUTH_URL,
   /**
    * These values aren't loaded from .env file
    */
@@ -49,6 +57,12 @@ export interface ApiConfig {
   [ApiConfigTypes.POSTGRES_DB]: string | undefined
   [ApiConfigTypes.HASURA_GRAPHQL_URI]: string | undefined
   [ApiConfigTypes.HASURA_GRAPHQL_ADMIN_SECRET]: string | undefined
+  [ApiConfigTypes.JWT_SECRET]: string | undefined
+  [ApiConfigTypes.JWT_EXPIRY]: number | undefined
+  [ApiConfigTypes.GOOGLE_CLIENT_ID]: string | undefined
+  [ApiConfigTypes.GOOGLE_CLIENT_SECRET]: string | undefined
+  [ApiConfigTypes.GOOGLE_CALLBACK_URL]: string | undefined
+  [ApiConfigTypes.GOOGLE_AUTH_URL]: string | undefined
 }
 
 export const config: ConfigFactory<ApiConfig> = () => ({
@@ -64,4 +78,10 @@ export const config: ConfigFactory<ApiConfig> = () => ({
   [ApiConfigTypes.HASURA_GRAPHQL_URI]: process.env.HASURA_GRAPHQL_URI,
   [ApiConfigTypes.HASURA_GRAPHQL_ADMIN_SECRET]:
     process.env.HASURA_GRAPHQL_ADMIN_SECRET,
+  [ApiConfigTypes.JWT_SECRET]: process.env.JWT_SECRET,
+  [ApiConfigTypes.JWT_EXPIRY]: Number(process.env.JWT_EXPIRY),
+  [ApiConfigTypes.GOOGLE_CLIENT_ID]: process.env.GOOGLE_CLIENT_ID,
+  [ApiConfigTypes.GOOGLE_CLIENT_SECRET]: process.env.GOOGLE_CLIENT_SECRET,
+  [ApiConfigTypes.GOOGLE_CALLBACK_URL]: process.env.GOOGLE_CALLBACK_URL,
+  [ApiConfigTypes.GOOGLE_AUTH_URL]: process.env.GOOGLE_AUTH_URL,
 })

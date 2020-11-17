@@ -3,8 +3,10 @@ import { ApolloError } from 'apollo-server-errors'
 export enum AppErrorEnum {
   USER_NOT_FOUND = 'USER_NOT_FOUND',
   USER_EXIST = 'USER_EXISTS',
+  DUPLICATE_RECORD = 'DUPLICATE_RECORD',
   WRONG_PASSWORD = 'WRONG_PASSWORD',
   WRONG_CREDENTIALS = 'WRONG_CREDENTIALS',
+  OTHER = 'OTHER',
 }
 
 export class ApolloCodelabError extends ApolloError {
