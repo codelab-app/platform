@@ -34,7 +34,7 @@ export class UserService implements OnModuleInit {
     let accessToken = ''
     const result = new UserDto()
     const foundUser = await this.userEntityRepository.findOne({
-      select: ['id', 'username'],
+      select: ['id', 'email'],
       where: { googleProviderId: user.userId },
     })
 
@@ -46,7 +46,7 @@ export class UserService implements OnModuleInit {
     } else {
       const u = new UserEntity()
 
-      u.username = user.username as string
+      u.email = user.username as string
       u.googleProviderId = user.userId
 
       // Set listeners to false to avoid @BeforeInsert and @BeforeUpdate
@@ -64,8 +64,8 @@ export class UserService implements OnModuleInit {
 
   async login(user: UserInput): Promise<UserDto> {
     const foundUser = await this.userEntityRepository.findOne({
-      select: ['id', 'username', 'password'],
-      where: { username: user.username },
+      select: ['id', 'email', 'password'],
+      where: { email: user.email },
     })
     const passwordMatch = await foundUser?.comparePassword(user.password)
 
@@ -79,7 +79,7 @@ export class UserService implements OnModuleInit {
     }
 
     throw new ApolloCodelabError(
-      `Wrong username or password for user: ${user.username}`,
+      `Wrong username or password for user: ${user.email}`,
       AppErrorEnum.WRONG_CREDENTIALS,
       HttpStatus.UNAUTHORIZED.toString(),
     )
@@ -88,28 +88,18 @@ export class UserService implements OnModuleInit {
   async createUser(user: UserInput): Promise<UserDto> {
     const u = new UserEntity()
 
-    u.username = user.username
+    u.email = user.email
     u.password = user.password
 
-    const existingUser = await this.userEntityRepository.findOne({
-      where: { username: user.username },
-    })
+    const newUser = await this.userEntityRepository.save(
+      this.userEntityRepository.create(u),
+    )
+    const res = new UserDto()
 
-    if (existingUser) {
-      throw new ApolloCodelabError(
-        `User with username ${existingUser.username} exists`,
-        AppErrorEnum.USER_EXIST,
-        HttpStatus.CONFLICT.toString(),
-      )
-    } else {
-      const newUser = await this.userEntityRepository.save(u)
-      const res = new UserDto()
+    res.user = newUser
+    res.accessToken = await this.authService.getToken(newUser)
 
-      res.user = newUser
-      res.accessToken = await this.authService.getToken(newUser)
-
-      return res
-    }
+    return res
   }
 
   onModuleInit() {

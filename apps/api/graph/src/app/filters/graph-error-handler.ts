@@ -6,7 +6,6 @@ import { ApolloError } from 'apollo-server-errors'
 export class GraphErrorHandler implements GqlExceptionFilter {
   catch(exception: ApolloError, host: ArgumentsHost): any {
     const gqlHost: GqlArgumentsHost = GqlArgumentsHost.create(host)
-    const err = exception
 
     return exception
   }

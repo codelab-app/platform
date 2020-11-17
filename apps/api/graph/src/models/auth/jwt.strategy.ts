@@ -56,7 +56,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
 
   async getToken(user: UserEntity) {
     const payload = {
-      username: user.username,
+      username: user.email,
       sub: user.id.toString(),
       'https://hasura.io/jwt/claims': {
         'x-hasura-allowed-roles': ['user'],
