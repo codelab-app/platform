@@ -2,9 +2,9 @@
 
 These services can be accessed via `yarn docker:up [...services]`
 
-We have a `web` service entry-point accessible at `https://codelab.ai`, which will retrieve data at the `api-services-graph` service.
+We have a `web` service entry-point accessible at `https://codelab.ai`, which will retrieve data at the `api-graph` service.
 
-Use `yarn docker:up web api-services-graph` to run the 2 applications.
+Use `yarn docker:up web api-graph` to run the 2 applications.
 
 <!-- The `api-gateway` service is the entry-point for all our micro-services. Currently we have `api-federation-nodes` and `api-federation-props`
 
@@ -14,7 +14,7 @@ We can run `yarn docker:up web api-gateway` since `depends_on` will trigger `api
 
 - hardcoded port 3000 (env actually doesn't change the port currently)
 
-## 'api-services-graph`
+## 'api-graph`
 
 - The only currently api for `web`
 

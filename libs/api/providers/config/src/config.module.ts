@@ -7,26 +7,23 @@ import {
   ConfigTypeormHasuraService,
 } from './hasura'
 import { ConfigJwtService } from './jwt'
-import { envPath } from '@codelab/shared/utils'
+import { envPath, isDev } from '@codelab/shared/utils'
 
 @Module({
   imports: [
     NestConfigModule.forRoot({
       isGlobal: true,
       load: [config],
-      envFilePath: envPath(),
+      /**
+       * Only load locally
+       */
+      envFilePath: isDev ? envPath() : '',
+      ignoreEnvFile: !isDev,
       validationSchema: Joi.object({
+        CODELAB_ENV: Joi.string().required(),
+        TYPEORM_SEED: Joi.string().required().valid('true', 'false'),
         // Ports
         API_PORT_GATEWAY: Joi.string().required(),
-        // API_PORT_FEDERATION_PROPS: Joi.string().required(),
-        // API_PORT_FEDERATION_USER: Joi.string().required(),
-        // API_PORT_FEDERATION_NODE: Joi.string().required(),
-        // Mongo
-        MONGO_ENDPOINT: Joi.string().required(),
-        // Neo4j
-        NEO4J_URL: Joi.string().required(),
-        NEO4J_USERNAME: Joi.string().required(),
-        NEO4J_PASSWORD: Joi.string().required(),
         // Postgres DB
         POSTGRES_HOST: Joi.string().required(),
         POSTGRES_PORT: Joi.number().required(),

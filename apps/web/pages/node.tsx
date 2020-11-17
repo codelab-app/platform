@@ -17,8 +17,6 @@ const NodePage = (props: any) => {
   const [editedNode, setEditedNode] = React.useState<any>(null)
   const { nodeService } = useContext(NodeServiceContext)
 
-  console.log(nodeService)
-
   React.useEffect(() => {
     // eslint-disable-next-line no-use-before-define
     fetchNodes()

@@ -10,19 +10,17 @@ filters-dev: &filters-dev
   filters:
     branches:
       only: /^.*$/
-      # only: /^never$/
-    # tags:
-    #   ignore: /^master$/
-    #   ignore: /^staging-.*$/
 
 filters-staging: &filters-staging
+# https://discuss.circleci.com/t/circle-2-0-workflow-filters-should-be-logical-and-not-or/18231
   filters:
-    branches:
-      # only: /^.*$/
-      only: /^never$/
-      # only: /^master$/
-    # tags:
-    #   only: /^staging-.*$/
+    tags:
+      only: /^staging-.*$/
+
+filters-master-branch-only: &filters-master-branch-only
+  when:
+    and:
+      - equal: [ master, <<pipeline.git.branch>> ]
 
 executor-params: &executor-params
   parameters:
@@ -33,6 +31,7 @@ executor-params: &executor-params
 
 executor-config: &executor-config
   environment:
+    DOCKER_TAG_VERSION: 0.02
     GITHUB_ANTON: artonio
     SLACK_ANTON: U01DSP39DME
     GITHUB_VIEN: VienNguyen24hdev
@@ -258,6 +257,7 @@ workflows:
             - test
 
   app-staging:
+    <<: *filters-master-branch-only
     jobs:
       - install-and-build-workspace:
           <<: *filters-staging

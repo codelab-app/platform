@@ -1,0 +1,9 @@
+{
+  "apps": [
+    {
+      "name": "API-GRAPH",
+      "script": "dist/apps/api/graph/main.js",
+      "args": "--reset"
+    }
+  ]
+}

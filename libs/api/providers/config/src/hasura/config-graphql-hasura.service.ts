@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { GqlModuleOptions, GqlOptionsFactory } from '@nestjs/graphql'
-import { ApolloLink, GraphQLRequest } from 'apollo-link'
+import { GraphQLRequest } from 'apollo-link'
 import { setContext } from 'apollo-link-context'
 import { HttpLink } from 'apollo-link-http'
 import { GraphQLError, GraphQLSchema } from 'graphql'
@@ -54,6 +54,13 @@ export class ConfigGraphqlHasuraService implements GqlOptionsFactory {
     }
   }
 
+  /**
+   * https://hasura.io/blog/hasura-authentication-explained/
+   * (1) Admin secret - access to all resources
+   * (2) JWT
+   * (3) Webhook
+   * (4) Unauthenticated
+   */
   private async createRemoteSchema(): Promise<GraphQLSchema> {
     try {
       const httpLink = new HttpLink({
@@ -61,7 +68,12 @@ export class ConfigGraphqlHasuraService implements GqlOptionsFactory {
         fetch: nodeFetch as any,
       })
 
-      const adminSecretLink: ApolloLink = setContext(() => ({
+      /**
+       * HttpLink with Hasura admin secret set, allows access to all hasura resources.
+       *
+       * We only use this for server-to-server access in order to build remote schema
+       */
+      const adminAccessLink = setContext(() => ({
         headers: {
           'x-hasura-admin-secret': this.config.get(
             ApiConfigTypes.HASURA_GRAPHQL_ADMIN_SECRET,
@@ -69,22 +81,32 @@ export class ConfigGraphqlHasuraService implements GqlOptionsFactory {
         },
       })).concat(httpLink)
 
-      // This will trigger every time there is a graphql request through this server to hasura
-      // we will use it to pass JWT to Hasura
-      const authLink: ApolloLink = setContext(
+      /**
+       *  This will trigger every time there is a graphql request through this server to hasura
+       *
+       * we will use it to pass JWT to Hasura
+       *
+       * Issue with `setContext`
+       *
+       * https://github.com/apollographql/apollo-link/issues/630
+       */
+      const jwtAccessLink = setContext(
         (_request: GraphQLRequest, prevContext: any) => {
           const { authorization } = prevContext?.graphQLContext?.req?.headers
 
           return {
-            headers: {
-              Authorization: authorization,
-            },
+            ...prevContext,
+            headers: authorization
+              ? {
+                  Authorization: authorization,
+                }
+              : {},
           }
         },
       ).concat(httpLink)
 
       // First we get the schema using our hasura admin key
-      const remoteIntrospectedSchema = await introspectSchema(adminSecretLink)
+      const remoteIntrospectedSchema = await introspectSchema(adminAccessLink)
 
       // Next two line appear to be not needed
       // const remoteSchema = printSchema(remoteIntrospectedSchema)
@@ -98,7 +120,7 @@ export class ConfigGraphqlHasuraService implements GqlOptionsFactory {
       const remoteExecutableSchema = makeRemoteExecutableSchema({
         // schema: builtHasuraSchema,
         schema: remoteIntrospectedSchema,
-        link: authLink,
+        link: jwtAccessLink,
       })
 
       return Promise.resolve(remoteExecutableSchema)
