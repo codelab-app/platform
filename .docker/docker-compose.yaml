@@ -16,21 +16,23 @@ services:
       - CODELAB_ENV=production
 
   web:
+    container_name: web
     ports:
       - ${WEB_PORT}:${WEB_PORT}
     expose:
       - ${WEB_PORT}
-    entrypoint: ['yarn', 'start:prod:web']
+    entrypoint: ['pm2-runtime', 'dist/apps/web/pm2.json']
     image: codelabai/codelab:${DOCKER_TAG_VERSION}
     env_file:
       - ../.env.dev
     environment:
       - NODE_ENV=production
-      - CODELAB_ENV=production
+      # - CODELAB_ENV=production
       - NEXT_PUBLIC_API_ORIGIN
       - NEXT_PUBLIC_API_PATHNAME
 
   api-graph:
+    container_name: api-graph
     ports:
       - ${API_PORT_GRAPH}:${API_PORT_GRAPH}
     expose:
@@ -43,7 +45,7 @@ services:
       - ../.env.dev
     environment:
       - NODE_ENV=production
-      - CODELAB_ENV=production
+      # - CODELAB_ENV=production
       - API_PORT_GRAPH
       - HASURA_GRAPHQL_URI=http://hasura:8080/v1/graphql
       - POSTGRES_HOST=postgres
@@ -62,28 +64,6 @@ services:
       context: fluentd
     volumes:
       - ./fluentd/configs:/fluentd/etc/
-
-  # mongodb:
-  #   image: mongo:4.4
-  #   container_name: codelab-mongo
-  #   restart: always
-  #   volumes:
-  #     - ./mongo/data:/data/db
-  #   ports:
-  #     - 27017:27017
-  #   command: mongod --noauth
-
-  # neo4j:
-  #   image: neo4j:4.1.3
-  #   container_name: codelab-neo4j
-  #   restart: always
-  #   volumes:
-  #     - ./neo4j/data:/data
-  #     - ./neo4j/plugins:/plugins
-  #     - ./neo4j/import:/import
-  #   ports:
-  #     - 7687:7687
-  #   command: neo4j
 
   postgres:
     image: postgres:12
@@ -124,7 +104,7 @@ services:
       - HASURA_GRAPHQL_DEV_MODE
       - HASURA_GRAPHQL_ENABLED_LOG_TYPES
       # - HASURA_GRAPHQL_MIGRATIONS_DIR=../apps/api/graph/.hasura/migrations
-      - HASURA_GRAPHQL_METADATA_DIR=../apps/api/graph/.hasura/metadata
+      # - HASURA_GRAPHQL_METADATA_DIR=../apps/api/graph/.hasura/metadata
 
 volumes:
   db_data:
