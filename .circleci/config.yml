@@ -17,6 +17,7 @@ filters-staging: &filters-staging
     tags:
       only: /^staging-.*$/
 
+# Workaround for the lack of logical "AND" for filters
 filters-master-branch-only: &filters-master-branch-only
   when:
     and:
