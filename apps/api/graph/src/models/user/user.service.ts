@@ -85,7 +85,18 @@ export class UserService implements OnModuleInit {
     )
   }
 
-  async createUser(user: UserInput): Promise<UserDto> {
+  async createUserAndGetToken(user: UserInput): Promise<UserDto> {
+    const res = new UserDto()
+
+    const newUser = await this.createNewUser(user)
+
+    res.user = newUser
+    res.accessToken = await this.authService.getToken(newUser)
+
+    return res
+  }
+
+  async createNewUser(user: UserInput): Promise<UserEntity> {
     const u = new UserEntity()
 
     u.email = user.email
@@ -94,12 +105,8 @@ export class UserService implements OnModuleInit {
     const newUser = await this.userEntityRepository.save(
       this.userEntityRepository.create(u),
     )
-    const res = new UserDto()
 
-    res.user = newUser
-    res.accessToken = await this.authService.getToken(newUser)
-
-    return res
+    return newUser
   }
 
   onModuleInit() {

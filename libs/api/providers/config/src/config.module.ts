@@ -20,19 +20,19 @@ import { envPath, isDev } from '@codelab/shared/utils'
       envFilePath: isDev ? envPath() : '',
       ignoreEnvFile: !isDev,
       validationSchema: Joi.object({
-        CODELAB_ENV: Joi.string().required(),
-        TYPEORM_SEED: Joi.string().required().valid('true', 'false'),
-        // Ports
-        API_PORT_GATEWAY: Joi.string().required(),
-        // Postgres DB
-        POSTGRES_HOST: Joi.string().required(),
-        POSTGRES_PORT: Joi.number().required(),
-        POSTGRES_USER: Joi.string().required(),
-        POSTGRES_PASSWORD: Joi.string().required(),
-        POSTGRES_DB: Joi.string().required(),
-        // Hasura
-        HASURA_GRAPHQL_ADMIN_SECRET: Joi.string().required(),
-        HASURA_GRAPHQL_URI: Joi.string().required(),
+        // CODELAB_ENV: Joi.string().required(),
+        // TYPEORM_SEED: Joi.string().required().valid('true', 'false'),
+        // // Ports
+        // API_PORT_GATEWAY: Joi.string().required(),
+        // // Postgres DB
+        // POSTGRES_HOST: Joi.string().required(),
+        // POSTGRES_PORT: Joi.number().required(),
+        // POSTGRES_USER: Joi.string().required(),
+        // POSTGRES_PASSWORD: Joi.string().required(),
+        // POSTGRES_DB: Joi.string().required(),
+        // // Hasura
+        // HASURA_GRAPHQL_ADMIN_SECRET: Joi.string().required(),
+        // HASURA_GRAPHQL_URI: Joi.string().required(),
       }),
     }),
   ],
