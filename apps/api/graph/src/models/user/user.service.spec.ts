@@ -1,3 +1,4 @@
+import { ConfigService } from '@nestjs/config'
 import { Test } from '@nestjs/testing'
 import { getRepositoryToken } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
@@ -16,6 +17,23 @@ export const repositoryMockFactory: () => MockType<Repository<any>> = jest.fn(
   }),
 )
 
+const mockConfig: ConfigService = {
+  get(key: string) {
+    switch (key) {
+      case 'CODELAB_ENV':
+        return 'e2e'
+      case 'TYPEORM_SEED':
+        return true
+      case 'JWT_SECRET':
+        return 'something'
+      case 'JWT_EXPIRY':
+        return 3600
+      default:
+        return ''
+    }
+  },
+} as ConfigService
+
 describe('UserService', () => {
   let userService: UserService
   let userRepositoryMock: MockType<Repository<UserEntity>>
@@ -32,6 +50,10 @@ describe('UserService', () => {
         {
           provide: JwtStrategy,
           useValue: {},
+        },
+        {
+          provide: ConfigService,
+          useValue: mockConfig,
         },
       ],
     }).compile()
