@@ -134,6 +134,7 @@
     "@babel/preset-typescript": "7.10.4",
     "@commitlint/cli": "11.0.0",
     "@commitlint/config-conventional": "11.0.0",
+    "@devniel/nestjs-typeorm-testing": "^0.1.0-alpha",
     "@emotion/babel-preset-css-prop": "10.0.27",
     "@graphql-codegen/cli": "1.17.10",
     "@graphql-codegen/fragment-matcher": "2.0.0",
