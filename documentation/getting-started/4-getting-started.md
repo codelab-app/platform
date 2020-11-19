@@ -16,9 +16,37 @@ I find that its useful to create separate terminal tabs for different commands, 
 
 ## Backend
 
+### Dev Ops Mode
+
+If you want to run our api services in Docker, you'll need to make some modifications to the `.env.dev` file before starting the services.
+
+```
+CODELAB_ENV=
+HASURA_GRAPHQL_URI=http://hasura:8080/v1/graphql
+POSTGRES_HOST=postgres
+```
+
+Instead of `localhost`, docker-compose will use the service name `postgres` instead. `CODELAB_ENV=` must be set to none.
+
 - `yarn docker:up hasura` this only needs to be run once, then it will run in background
 - `npx nx serve api-graph`
 - `npx nx serve api-graph --args="--reset"` to reset & seed database
+
+### Seeding
+
+```
+TYPEORM_SEED=true
+TYPEORM_DROP_SCHEMA=true
+TYPEORM_SYNCHRONIZE=true
+```
+
+`TYPEORM_SEED` will run our custom seeder
+`TYPEORM_DROP_SCHEMA` will clear the database schema
+`TYPEORM_SYNCHRONIZE` will auto update our database schema with our models
+
+If you're not modifying the models, set `TYPEORM_SEED=true`, start project, then set to false & restart
+
+If you're working on the models, do the previous, but also set `TYPEORM_SYNCHRONIZE=true`. Use `TYPEORM_DROP_SCHEMA=true` only when some syncing doesn't work anymore
 
 ## Codegen
 
