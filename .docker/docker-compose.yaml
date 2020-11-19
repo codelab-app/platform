@@ -11,9 +11,9 @@ services:
       context: ../
       dockerfile: ${PWD}/.docker/Dockerfile
     image: codelabai/codelab:${DOCKER_TAG_VERSION}
-    environment:
-      - NODE_ENV=production
-      - CODELAB_ENV=production
+    # environment:
+    #   - NODE_ENV=production
+    #   - CODELAB_ENV=production
 
   web:
     container_name: web
@@ -26,7 +26,7 @@ services:
     env_file:
       - ../.env.dev
     environment:
-      - NODE_ENV=production
+      # - NODE_ENV=production
       # - CODELAB_ENV=production
       - NEXT_PUBLIC_API_ORIGIN
       - NEXT_PUBLIC_API_PATHNAME
@@ -44,11 +44,11 @@ services:
     env_file:
       - ../.env.dev
     environment:
-      - NODE_ENV=production
+      # - NODE_ENV=production
       # - CODELAB_ENV=production
       - API_PORT_GRAPH
-      - HASURA_GRAPHQL_URI=http://hasura:8080/v1/graphql
-      - POSTGRES_HOST=postgres
+      - HASURA_GRAPHQL_URI
+      - POSTGRES_HOST
 
   fluentd:
     ports:
