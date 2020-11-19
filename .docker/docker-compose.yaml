@@ -95,13 +95,13 @@ services:
     ports:
       # - HOST:CONTAINER
       # Allow local machine access
-      - ${POSTGRES_E2E_PORT}:5432
+      - ${POSTGRES_PORT_E2E}:5432
     env_file:
       - ../.env.dev
     environment:
       - POSTGRES_USER
       - POSTGRES_PASSWORD
-      - POSTGRES_DB_E2E
+      - POSTGRES_DB=postgres # Override with default table
 
   hasura:
     image: hasura/graphql-engine:v1.3.2

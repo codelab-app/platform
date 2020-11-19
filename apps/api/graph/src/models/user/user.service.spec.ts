@@ -18,7 +18,8 @@ import { UserService } from './user.service'
 const email = 'codelab@gmail.com'
 const password = 'password'
 
-describe('UserService', () => {
+// TODO: need to remove
+describe.skip('UserService', () => {
   let userService: UserService
   let repository: Repository<UserEntity>
 
