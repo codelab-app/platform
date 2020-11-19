@@ -1,6 +1,6 @@
-# Context Mapping
+# Graph vs Tree
 
-## Graph vs Tree
+## Intro
 
 A Tree is a subset of a Graph, and we can represent a Tree using a graph-like representation or a tree-like representation.
 
