@@ -2,7 +2,6 @@ import { Module, OnModuleInit } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { GraphQLModule } from '@nestjs/graphql'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import * as shell from 'shelljs'
 import { AuthModule } from '../models/auth/auth.module'
 import { EdgeModule } from '../models/edge/edge.module'
 import { GraphModule } from '../models/graph/graph.module'
@@ -64,7 +63,7 @@ export class AppModule implements OnModuleInit {
     }
 
     if (this.config.get(ApiConfigTypes.TYPEORM_SEED)) {
-      await this.seedDbService.seedDB()
+      // await this.seedDbService.seedDB()
     }
   }
 }
