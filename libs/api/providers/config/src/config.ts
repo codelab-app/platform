@@ -5,6 +5,8 @@ export enum ApiConfigTypes {
   CODELAB_ENV,
 
   TYPEORM_SEED,
+  TYPEORM_DROP_SCHEMA,
+  TYPEORM_SYNCHRONIZE,
 
   // Gateway
   PORT_GATEWAY,
@@ -47,7 +49,9 @@ export enum ApiConfigTypes {
 
 export interface ApiConfig {
   [ApiConfigTypes.CODELAB_ENV]: environments | undefined
-  [ApiConfigTypes.TYPEORM_SEED]: string | undefined
+  [ApiConfigTypes.TYPEORM_SEED]: boolean
+  [ApiConfigTypes.TYPEORM_DROP_SCHEMA]: boolean
+  [ApiConfigTypes.TYPEORM_SYNCHRONIZE]: boolean
   [ApiConfigTypes.PORT_GATEWAY]: number | undefined
   [ApiConfigTypes.API_PORT_GRAPH]: number | undefined
   [ApiConfigTypes.POSTGRES_HOST]: string | undefined
@@ -67,7 +71,9 @@ export interface ApiConfig {
 
 export const config: ConfigFactory<ApiConfig> = () => ({
   [ApiConfigTypes.CODELAB_ENV]: process.env.CODELAB_ENV as environments,
-  [ApiConfigTypes.TYPEORM_SEED]: process.env.TYPEORM_SEED,
+  [ApiConfigTypes.TYPEORM_SEED]: process.env.TYPEORM_SEED === 'true',
+  [ApiConfigTypes.TYPEORM_DROP_SCHEMA]: process.env.TYPEORM_SEED === 'true',
+  [ApiConfigTypes.TYPEORM_SYNCHRONIZE]: process.env.TYPEORM_SEED === 'true',
   [ApiConfigTypes.PORT_GATEWAY]: Number(process.env.API_PORT_GATEWAY),
   [ApiConfigTypes.API_PORT_GRAPH]: Number(process.env.API_PORT_GRAPH),
   [ApiConfigTypes.POSTGRES_HOST]: process.env.POSTGRES_HOST,

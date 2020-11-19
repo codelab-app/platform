@@ -11,7 +11,7 @@ import * as shell from 'shelljs'
 import { AppModule } from './app/app.module'
 import { GeneralExceptionFilter } from './app/filters/general-exception.filter'
 import { ApiConfig, ApiConfigTypes } from '@codelab/api/providers/config'
-import { isDev } from '@codelab/shared/utils'
+
 import 'reflect-metadata'
 
 const bootstrap = async () => {
@@ -31,8 +31,7 @@ const bootstrap = async () => {
 
   await app.listen(port, () => {
     // Reload Hasura metadata
-
-    if (isDev) {
+    if (config.get(ApiConfigTypes.TYPEORM_SYNCHRONIZE)) {
       shell.exec('make hasura-metadata-reload')
     }
 
