@@ -46,6 +46,8 @@ executor-config: &executor-config
     COLOR_FAILURE: '#ffccc7'
     NODE_OPTIONS: --max_old_space_size=8192
     NODE_ENV: production
+    API_PORT_GRAPH: 3000
+    POSTGRES_PORT: 5432
   working_directory: ~/app
 
 version: 2.1
