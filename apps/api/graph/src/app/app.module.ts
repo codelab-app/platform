@@ -2,7 +2,6 @@ import { Module, OnModuleInit } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { GraphQLModule } from '@nestjs/graphql'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import * as shell from 'shelljs'
 import { AuthModule } from '../models/auth/auth.module'
 import { EdgeModule } from '../models/edge/edge.module'
 import { GraphModule } from '../models/graph/graph.module'
@@ -19,7 +18,6 @@ import {
   ConfigModule,
   ConfigTypeormHasuraService,
 } from '@codelab/api/providers/config'
-import { isDev } from '@codelab/shared/utils'
 
 @Module({
   imports: [
@@ -56,13 +54,13 @@ export class AppModule implements OnModuleInit {
   }
 
   async onModuleInit() {
-    if (isDev && shell.exec('make hasura-metadata-apply').code !== 0) {
-      shell.echo('make hasura-metadata-apply failed')
-      shell.exit(1)
-    }
+    // if (isDev && shell.exec('make hasura-metadata-apply').code !== 0) {
+    //   shell.echo('make hasura-metadata-apply failed')
+    //   shell.exit(1)
+    // }
 
     if (this.config.get(ApiConfigTypes.TYPEORM_SEED)) {
-      await this.seedDbService.seedDB()
+      // await this.seedDbService.seedDB()
     }
   }
 }
