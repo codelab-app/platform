@@ -21,7 +21,10 @@ import { envPath, isDev } from '@codelab/shared/utils'
       ignoreEnvFile: !isDev,
       validationSchema: Joi.object({
         CODELAB_ENV: Joi.string().required(),
+        // Typeorm
         TYPEORM_SEED: Joi.string().required().valid('true', 'false'),
+        TYPEORM_DROP_SCHEMA: Joi.string().required().valid('true', 'false'),
+        TYPEORM_SYNCHRONIZE: Joi.string().required().valid('true', 'false'),
         // Ports
         API_PORT_GATEWAY: Joi.string().required(),
         // Postgres DB

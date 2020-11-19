@@ -19,7 +19,6 @@ import {
   ConfigModule,
   ConfigTypeormHasuraService,
 } from '@codelab/api/providers/config'
-import { isDev } from '@codelab/shared/utils'
 
 @Module({
   imports: [
@@ -56,7 +55,10 @@ export class AppModule implements OnModuleInit {
   }
 
   async onModuleInit() {
-    if (isDev && shell.exec('make hasura-metadata-apply').code !== 0) {
+    if (
+      this.config.get(ApiConfigTypes.TYPEORM_SYNCHRONIZE) &&
+      shell.exec('make hasura-metadata-apply').code !== 0
+    ) {
       shell.echo('make hasura-metadata-apply failed')
       shell.exit(1)
     }
