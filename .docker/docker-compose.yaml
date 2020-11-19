@@ -104,6 +104,25 @@ services:
       - POSTGRES_PASSWORD
       - POSTGRES_DB
 
+  postgres-e2e:
+    image: postgres:12
+    container_name: codelab-postgres-e2e
+    restart: always
+    volumes:
+      - db_e2e_data:/var/lib/postgresql/data
+    expose:
+      - 5432
+    ports:
+      # - HOST:CONTAINER
+      # Allow local machine access
+      - ${POSTGRES_E2E_PORT}:5432
+    env_file:
+      - ../.env.dev
+    environment:
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB_E2E
+
   hasura:
     image: hasura/graphql-engine:v1.3.2
     container_name: codelab-hasura
@@ -129,3 +148,5 @@ services:
 volumes:
   db_data:
     name: codelab-postgres-volume
+  db_e2e_data:
+    name: codelab-postgres-e2e-volume

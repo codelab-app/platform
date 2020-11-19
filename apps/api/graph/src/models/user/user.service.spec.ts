@@ -1,86 +1,79 @@
-import { ConfigService } from '@nestjs/config'
 import { Test } from '@nestjs/testing'
-import { getRepositoryToken } from '@nestjs/typeorm'
-import { Repository } from 'typeorm'
-import { AuthService } from '../auth/auth.service'
-import { JwtStrategy } from '../auth/jwt.strategy'
+import { TypeOrmModule } from '@nestjs/typeorm'
+import * as bcrypt from 'bcrypt'
+import { QueryFailedError, Repository } from 'typeorm'
+import { SnakeNamingStrategy } from 'typeorm-naming-strategies'
+import { PSQLErrorCode } from '../../app/filters/general-exception.filter'
+import { EdgeEntity } from '../edge/edge.entity'
+import { GraphEntity } from '../graph/graph.entity'
+import { VertexEntity } from '../vertex/vertex.entity'
 import { UserEntity } from './user.entity'
+import { UserModule } from './user.module'
 import { UserService } from './user.service'
-import Mock = jest.Mock
-
-type MockType<Repository> = { save: Mock; create: Mock }
-
-export const repositoryMockFactory: () => MockType<Repository<any>> = jest.fn(
-  () => ({
-    save: jest.fn((entity) => entity),
-    create: jest.fn((entity) => entity),
-  }),
-)
-
-const mockConfig: ConfigService = {
-  get(key: string) {
-    switch (key) {
-      case 'CODELAB_ENV':
-        return 'e2e'
-      case 'TYPEORM_SEED':
-        return true
-      case 'JWT_SECRET':
-        return 'something'
-      case 'JWT_EXPIRY':
-        return 3600
-      default:
-        return ''
-    }
-  },
-} as ConfigService
 
 describe('UserService', () => {
   let userService: UserService
-  let userRepositoryMock: MockType<Repository<UserEntity>>
+  let repository: Repository<UserEntity>
 
   beforeAll(async () => {
     const module = await Test.createTestingModule({
-      providers: [
-        UserService,
-        AuthService,
-        {
-          provide: getRepositoryToken(UserEntity),
-          useFactory: repositoryMockFactory,
-        },
-        {
-          provide: JwtStrategy,
-          useValue: {},
-        },
-        {
-          provide: ConfigService,
-          useValue: mockConfig,
-        },
+      imports: [
+        UserModule,
+        TypeOrmModule.forRoot({
+          type: 'postgres',
+          host: '127.0.0.1',
+          port: 5431,
+          username: 'postgres',
+          password: 'postgrespassword',
+          database: 'postgres',
+          entities: [UserEntity, GraphEntity, VertexEntity, EdgeEntity],
+          synchronize: true,
+          dropSchema: true,
+          namingStrategy: new SnakeNamingStrategy(),
+        }),
       ],
+      providers: [UserService],
     }).compile()
 
     userService = module.get<UserService>(UserService)
-    userRepositoryMock = module.get(getRepositoryToken(UserEntity))
+    repository = module.get('UserEntityRepository')
+  })
+
+  afterEach(async () => {
+    await repository.query(`DELETE FROM "user"; COMMIT;`)
   })
 
   it('Should handle password hashing when creating an account', async () => {
     const email = 'codelab@gmail.com'
     const password = 'password'
-    const hashedPassword =
-      '$2b$10$IWePpeMddiEWl0E9NRpp3OMM5J7xCufgCFscIO2C4mVrZ.Fe9cdOK'
     const u = new UserEntity()
 
     u.email = email
     u.password = password
-    userRepositoryMock.save.mockReturnValue(
-      Promise.resolve({
-        email,
-        password: hashedPassword,
-      }),
-    )
 
     const newUser = await userService.createNewUser({ email, password })
+    const compare = await bcrypt.compare(password, newUser.password)
 
     expect(newUser.email).toEqual(email)
-    expect(newUser.password).toEqual(hashedPassword)
+    expect(compare).toBeTruthy()
+  })
+
+  it('Should throw Error if user exists', async () => {
+    const email = 'codelab@gmail.com'
+    const password = 'password'
+
+    await repository.save(repository.create({ email, password }))
+
+    try {
+      await userService.createNewUser({ email, password })
+    } catch (e) {
+      expect(e.code).toEqual(PSQLErrorCode.DUPLICATE_KEY_VIOLATION)
+      expect(e).toBeInstanceOf(QueryFailedError)
+    }
+  })
+
+  // Teardown, otherwise Jest does not exit
+  afterAll(async () => {
+    await repository.manager.connection.close()
   })
 })
