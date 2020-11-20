@@ -16,6 +16,8 @@ filters-staging: &filters-staging
   filters:
     tags:
       only: /^staging-.*$/
+    branches:
+      ignore: /.*/
 
 # Workaround for the lack of logical "AND" for filters
 filters-master-branch-only: &filters-master-branch-only
@@ -261,7 +263,7 @@ workflows:
             - test
 
   app-staging:
-    # <<: *filters-master-branch-only
+    <<: *filters-master-branch-only
     jobs:
       - install-and-build-workspace:
           <<: *filters-staging
