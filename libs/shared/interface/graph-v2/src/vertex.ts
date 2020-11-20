@@ -26,7 +26,7 @@ export interface VertexA extends EntityA {
   id: string
   parent?: string
   label?: string
-  type: NodeType
+  type?: NodeType
 }
 
 export interface IVertex extends VertexA {
