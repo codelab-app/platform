@@ -1,4 +1,5 @@
 import { EdgeDefinition, NodeDefinition } from 'cytoscape'
+import { merge } from 'lodash'
 import objectMapper from 'object-mapper'
 import { EdgeA, VertexA } from '@codelab/shared/interface/graph-v2'
 
@@ -11,7 +12,10 @@ export const cyMapVertices = (
   }
 
   return vertices.map((vertex) => {
-    return objectMapper<NodeDefinition>(vertex, mapper)
+    // Spread rest of vertex props
+    return merge(objectMapper<NodeDefinition>(vertex, mapper), {
+      data: { ...vertex },
+    })
   })
 }
 

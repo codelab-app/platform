@@ -1,16 +1,21 @@
-import { CytoscapeI, makeCytoscape } from './factory'
+import {
+  e_A,
+  e_B,
+  e_C,
+  e_D,
+  input,
+  v_0,
+  v_1_0,
+  v_1_1,
+  v_2_0,
+  v_2_1,
+} from './demo-data'
+import { makeCytoscape } from './factory'
 
 describe('Cytoscape factory', () => {
-  it('creates a cytoscape object from input', () => {
-    const input: CytoscapeI = {
-      vertices: [{ id: 'v-A' }, { id: 'v-B' }, { id: 'v-C' }],
-      edges: [
-        { id: 'e-A', start: 'v-A', end: 'v-B' },
-        { id: 'e-B', start: 'v-A', end: 'v-C' },
-      ],
-    }
-    const cy = makeCytoscape(input)
+  const cy = makeCytoscape(input)
 
+  it('creates a cytoscape object from input', () => {
     const vertices = cy.nodes().map((ele) => {
       return ele.id()
     })
@@ -18,7 +23,22 @@ describe('Cytoscape factory', () => {
       return ele.id()
     })
 
-    expect(vertices).toMatchObject(['v-A', 'v-B', 'v-C'])
-    expect(edges).toMatchObject(['e-A', 'e-B'])
+    expect(vertices).toMatchObject([v_0, v_1_0, v_1_1, v_2_0, v_2_1])
+    expect(edges).toMatchObject([e_A, e_B, e_C, e_D])
+  })
+
+  it.only('can traverse graph using BFS', () => {
+    const root = cy.elements().roots().first()
+    const queue: Array<string> = []
+    const expected: Array<string> = [v_0, v_1_0, v_1_1, v_2_0, v_2_1]
+
+    cy.elements().breadthFirstSearch({
+      root: `#${root.id()}`,
+      visit: (node) => {
+        queue.push(node.id())
+      },
+    })
+
+    expect(queue).toMatchObject(expected)
   })
 })
