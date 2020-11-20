@@ -20,8 +20,7 @@ export const isProd = process.env.CODELAB_ENV === 'production'
 /**
  * Used for local development
  */
-export const isDev =
-  process.env.CODELAB_ENV === 'development' || (!isE2e && !isStaging && !isProd)
+export const isDev = process.env.CODELAB_ENV === 'development'
 
 /**
  * Traverses up directory to find closest file with name
