@@ -51,8 +51,8 @@ If you're working on the models, do the previous, but also set `TYPEORM_SYNCHRON
 ## Codegen
 
 - Make sure our GraphQL server is running first, otherwise it won't work
-- `make graphql-codegen` will generate files into `@codelab/state/apollo` for usage
-- `make graphql-codegen-watch` to watch for changes
+- `make generate-graphql` will generate files into `@codelab/state/apollo` for usage
+- `make generate-graphql-watch` to watch for changes
 - These contain mostly Typescript interfaces generated from GraphQL schema
 - We also generate a `hasura-schema.graphql`, which uses remote schema introspection to download our schema
 - This can be used by Webstorm IDE for `.graphql` file linting
