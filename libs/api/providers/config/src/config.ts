@@ -5,6 +5,8 @@ export enum ApiConfigTypes {
   CODELAB_ENV,
 
   TYPEORM_SEED,
+  TYPEORM_DROP_SCHEMA,
+  TYPEORM_SYNCHRONIZE,
 
   // Gateway
   PORT_GATEWAY,
@@ -19,6 +21,7 @@ export enum ApiConfigTypes {
   // Postgres
   POSTGRES_HOST,
   POSTGRES_PORT,
+  POSTGRES_E2E_PORT,
   POSTGRES_USER,
   POSTGRES_PASSWORD,
   POSTGRES_DB,
@@ -47,11 +50,14 @@ export enum ApiConfigTypes {
 
 export interface ApiConfig {
   [ApiConfigTypes.CODELAB_ENV]: environments | undefined
-  [ApiConfigTypes.TYPEORM_SEED]: string | undefined
+  [ApiConfigTypes.TYPEORM_SEED]: boolean
+  [ApiConfigTypes.TYPEORM_DROP_SCHEMA]: boolean
+  [ApiConfigTypes.TYPEORM_SYNCHRONIZE]: boolean
   [ApiConfigTypes.PORT_GATEWAY]: number | undefined
   [ApiConfigTypes.API_PORT_GRAPH]: number | undefined
   [ApiConfigTypes.POSTGRES_HOST]: string | undefined
   [ApiConfigTypes.POSTGRES_PORT]: number | undefined
+  [ApiConfigTypes.POSTGRES_E2E_PORT]: number | undefined
   [ApiConfigTypes.POSTGRES_USER]: string | undefined
   [ApiConfigTypes.POSTGRES_PASSWORD]: string | undefined
   [ApiConfigTypes.POSTGRES_DB]: string | undefined
@@ -67,11 +73,14 @@ export interface ApiConfig {
 
 export const config: ConfigFactory<ApiConfig> = () => ({
   [ApiConfigTypes.CODELAB_ENV]: process.env.CODELAB_ENV as environments,
-  [ApiConfigTypes.TYPEORM_SEED]: process.env.TYPEORM_SEED,
+  [ApiConfigTypes.TYPEORM_SEED]: process.env.TYPEORM_SEED === 'true',
+  [ApiConfigTypes.TYPEORM_DROP_SCHEMA]: process.env.TYPEORM_SEED === 'true',
+  [ApiConfigTypes.TYPEORM_SYNCHRONIZE]: process.env.TYPEORM_SEED === 'true',
   [ApiConfigTypes.PORT_GATEWAY]: Number(process.env.API_PORT_GATEWAY),
   [ApiConfigTypes.API_PORT_GRAPH]: Number(process.env.API_PORT_GRAPH),
   [ApiConfigTypes.POSTGRES_HOST]: process.env.POSTGRES_HOST,
   [ApiConfigTypes.POSTGRES_PORT]: Number(process.env.POSTGRES_PORT),
+  [ApiConfigTypes.POSTGRES_E2E_PORT]: Number(process.env.POSTGRES_E2E_PORT),
   [ApiConfigTypes.POSTGRES_USER]: process.env.POSTGRES_USER,
   [ApiConfigTypes.POSTGRES_PASSWORD]: process.env.POSTGRES_PASSWORD,
   [ApiConfigTypes.POSTGRES_DB]: process.env.POSTGRES_DB,

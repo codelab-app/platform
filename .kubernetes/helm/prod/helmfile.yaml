@@ -5,6 +5,8 @@ repositories:
   url: https://www.getambassador.io
 - name: argo
   url: https://argoproj.github.io/argo-helm
+- name: hashicorp
+  url: https://helm.releases.hashicorp.com
 
 releases:
 - name: cert-manager
@@ -27,3 +29,10 @@ releases:
   version: 2.9.5
   values:
     - values/argocd.yaml
+
+- name: vault
+  namespace: vault
+  chart: hashicorp/vault
+  version: 0.8.0
+  values:
+    - values/vault.yaml

@@ -12,7 +12,6 @@ import { AppModule } from './app/app.module'
 import { GeneralExceptionFilter } from './app/filters/general-exception.filter'
 import { ApiConfig, ApiConfigTypes } from '@codelab/api/providers/config'
 import 'reflect-metadata'
-import { isDev } from '@codelab/shared/utils'
 
 const bootstrap = async () => {
   const app = await NestFactory.create(AppModule)
@@ -31,8 +30,7 @@ const bootstrap = async () => {
 
   await app.listen(port, () => {
     // Reload Hasura metadata
-
-    if (isDev) {
+    if (config.get(ApiConfigTypes.TYPEORM_SYNCHRONIZE)) {
       shell.exec('make hasura-metadata-reload')
     }
 

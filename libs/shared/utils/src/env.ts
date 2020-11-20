@@ -20,22 +20,17 @@ export const isProd = process.env.CODELAB_ENV === 'production'
 /**
  * Used for local development
  */
-export const isDev = !isE2e && !isStaging && !isProd
+export const isDev =
+  process.env.CODELAB_ENV === 'development' || (!isE2e && !isStaging && !isProd)
 
 /**
  * Traverses up directory to find closest file with name
  */
 export const envPath = (): string => {
-  let filename = '.env.dev'
+  const filename = '.env.dev'
 
-  if (isStaging) {
-    filename = '.env.dev'
-  } else if (isProd) {
-    filename = '.env.prod'
-  } else if (isE2e) {
-    filename = '.env.e2e'
-  } else if (isStaging) {
-    filename = '.env.staging'
+  if (!isDev) {
+    return ''
   }
 
   const path = findConfig(filename)
