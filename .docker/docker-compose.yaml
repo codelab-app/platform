@@ -5,16 +5,6 @@
 #
 version: '3.8'
 services:
-  # All other services derive from this
-  codelab:
-    build:
-      context: ../
-      dockerfile: ${PWD}/.docker/Dockerfile
-    image: codelabai/codelab:${DOCKER_TAG_VERSION}
-    # environment:
-    #   - NODE_ENV=production
-    #   - CODELAB_ENV=production
-
   web:
     container_name: web
     ports:
