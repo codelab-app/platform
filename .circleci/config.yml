@@ -34,6 +34,7 @@ executor-config: &executor-config
   environment:
     DOCKER_TAG_VERSION: 0.02
     API_PORT_GRAPH: 4004
+    # CircleCI
     GITHUB_ANTON: artonio
     SLACK_ANTON: U01DSP39DME
     GITHUB_VIEN: VienNguyen24hdev
@@ -248,6 +249,7 @@ workflows:
             - install-and-build-workspace
       - test:
           <<: *filters-dev
+          context: .env.ci
           e: docker-node
           requires:
             - install-and-build-workspace
@@ -259,7 +261,7 @@ workflows:
             - test
 
   app-staging:
-    <<: *filters-master-branch-only
+    # <<: *filters-master-branch-only
     jobs:
       - install-and-build-workspace:
           <<: *filters-staging

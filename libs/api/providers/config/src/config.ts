@@ -10,13 +10,7 @@ export enum ApiConfigTypes {
 
   // Gateway
   PORT_GATEWAY,
-  API_PORT_GATEWAY,
   API_PORT_GRAPH,
-
-  // Neo4j
-  NEO4J_URL,
-  NEO4J_USER,
-  NEO4J_PASS,
 
   // Postgres
   POSTGRES_HOST,
@@ -38,14 +32,6 @@ export enum ApiConfigTypes {
   GOOGLE_CLIENT_SECRET,
   GOOGLE_CALLBACK_URL,
   GOOGLE_AUTH_URL,
-  /**
-   * These values aren't loaded from .env file
-   */
-  FEDERATION_PROPS_NAME = 'api.federation.props',
-  FEDERATION_USER_NAME = 'api.services.user',
-  FEDERATION_NODE_NAME = 'api.federation.node',
-
-  GRPC_PROPS_PACKAGE = 'GRPC_PROPS_PACKAGE',
 }
 
 export interface ApiConfig {
@@ -53,7 +39,6 @@ export interface ApiConfig {
   [ApiConfigTypes.TYPEORM_SEED]: boolean
   [ApiConfigTypes.TYPEORM_DROP_SCHEMA]: boolean
   [ApiConfigTypes.TYPEORM_SYNCHRONIZE]: boolean
-  [ApiConfigTypes.PORT_GATEWAY]: number | undefined
   [ApiConfigTypes.API_PORT_GRAPH]: number | undefined
   [ApiConfigTypes.POSTGRES_HOST]: string | undefined
   [ApiConfigTypes.POSTGRES_PORT]: number | undefined
@@ -76,7 +61,6 @@ export const config: ConfigFactory<ApiConfig> = () => ({
   [ApiConfigTypes.TYPEORM_SEED]: process.env.TYPEORM_SEED === 'true',
   [ApiConfigTypes.TYPEORM_DROP_SCHEMA]: process.env.TYPEORM_SEED === 'true',
   [ApiConfigTypes.TYPEORM_SYNCHRONIZE]: process.env.TYPEORM_SEED === 'true',
-  [ApiConfigTypes.PORT_GATEWAY]: Number(process.env.API_PORT_GATEWAY),
   [ApiConfigTypes.API_PORT_GRAPH]: Number(process.env.API_PORT_GRAPH),
   [ApiConfigTypes.POSTGRES_HOST]: process.env.POSTGRES_HOST,
   [ApiConfigTypes.POSTGRES_PORT]: Number(process.env.POSTGRES_PORT),

@@ -1,7 +1,7 @@
 import * as Joi from '@hapi/joi'
 import { Module } from '@nestjs/common'
 import { ConfigModule as NestConfigModule } from '@nestjs/config'
-import { config } from './config'
+import { ApiConfig, ApiConfigTypes, config } from './config'
 import {
   ConfigGraphqlHasuraService,
   ConfigTypeormHasuraService,
@@ -19,23 +19,27 @@ import { envPath, envs, isDev } from '@codelab/shared/utils'
        */
       envFilePath: isDev ? envPath() : '',
       ignoreEnvFile: !isDev,
-      validationSchema: Joi.object({
-        CODELAB_ENV: Joi.string().valid(...envs),
+      validationSchema: Joi.object<ApiConfig>({
+        [ApiConfigTypes.CODELAB_ENV]: Joi.string().valid(...envs),
         // Typeorm
-        TYPEORM_SEED: Joi.string().valid('true', 'false'),
-        TYPEORM_DROP_SCHEMA: Joi.string().valid('true', 'false'),
-        TYPEORM_SYNCHRONIZE: Joi.string().valid('true', 'false'),
-        // Ports
-        API_PORT_GATEWAY: Joi.string().required(),
+        [ApiConfigTypes.TYPEORM_SEED]: Joi.string().valid('true', 'false'),
+        [ApiConfigTypes.TYPEORM_DROP_SCHEMA]: Joi.string().valid(
+          'true',
+          'false',
+        ),
+        [ApiConfigTypes.TYPEORM_SYNCHRONIZE]: Joi.string().valid(
+          'true',
+          'false',
+        ),
         // Postgres DB
-        POSTGRES_HOST: Joi.string().required(),
-        POSTGRES_PORT: Joi.number().required(),
-        POSTGRES_USER: Joi.string().required(),
-        POSTGRES_PASSWORD: Joi.string().required(),
-        POSTGRES_DB: Joi.string().required(),
+        [ApiConfigTypes.POSTGRES_HOST]: Joi.string().required(),
+        [ApiConfigTypes.POSTGRES_PORT]: Joi.number().required(),
+        [ApiConfigTypes.POSTGRES_USER]: Joi.string().required(),
+        [ApiConfigTypes.POSTGRES_PASSWORD]: Joi.string().required(),
+        [ApiConfigTypes.POSTGRES_DB]: Joi.string().required(),
         // Hasura
-        HASURA_GRAPHQL_ADMIN_SECRET: Joi.string().required(),
-        HASURA_GRAPHQL_URI: Joi.string().required(),
+        [ApiConfigTypes.HASURA_GRAPHQL_ADMIN_SECRET]: Joi.string().required(),
+        [ApiConfigTypes.HASURA_GRAPHQL_URI]: Joi.string().required(),
       }),
     }),
   ],
