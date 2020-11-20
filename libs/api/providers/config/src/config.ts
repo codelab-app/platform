@@ -2,36 +2,36 @@ import { ConfigFactory } from '@nestjs/config/dist/interfaces'
 import { environments } from '@codelab/shared/utils'
 
 export enum ApiConfigTypes {
-  CODELAB_ENV,
+  CODELAB_ENV = 'CODELAB_ENV',
 
-  TYPEORM_SEED,
-  TYPEORM_DROP_SCHEMA,
-  TYPEORM_SYNCHRONIZE,
+  TYPEORM_SEED = 'TYPEORM_SEED',
+  TYPEORM_DROP_SCHEMA = 'TYPEORM_DROP_SCHEMA',
+  TYPEORM_SYNCHRONIZE = 'TYPEORM_SYNCHRONIZE',
 
   // Gateway
-  PORT_GATEWAY,
-  API_PORT_GRAPH,
+  PORT_GATEWAY = 'PORT_GATEWAY',
+  API_PORT_GRAPH = 'API_PORT_GRAPH',
 
   // Postgres
-  POSTGRES_HOST,
-  POSTGRES_PORT,
-  POSTGRES_E2E_PORT,
-  POSTGRES_USER,
-  POSTGRES_PASSWORD,
-  POSTGRES_DB,
+  POSTGRES_HOST = 'POSTGRES_HOST',
+  POSTGRES_PORT = 'POSTGRES_PORT',
+  POSTGRES_PORT_E2E = 'POSTGRES_PORT_E2E',
+  POSTGRES_USER = 'POSTGRES_USER',
+  POSTGRES_PASSWORD = 'POSTGRES_PASSWORD',
+  POSTGRES_DB = 'POSTGRES_DB',
 
   // Hasura
-  HASURA_GRAPHQL_ADMIN_SECRET,
-  HASURA_GRAPHQL_URI,
+  HASURA_GRAPHQL_ADMIN_SECRET = 'HASURA_GRAPHQL_ADMIN_SECRET',
+  HASURA_GRAPHQL_URI = 'HASURA_GRAPHQL_URI',
 
   // Auth
-  JWT_SECRET,
-  JWT_EXPIRY,
+  JWT_SECRET = 'JWT_SECRET',
+  JWT_EXPIRY = 'JWT_EXPIRY',
   // Google
-  GOOGLE_CLIENT_ID,
-  GOOGLE_CLIENT_SECRET,
-  GOOGLE_CALLBACK_URL,
-  GOOGLE_AUTH_URL,
+  GOOGLE_CLIENT_ID = 'GOOGLE_CLIENT_ID',
+  GOOGLE_CLIENT_SECRET = 'GOOGLE_CLIENT_SECRET',
+  GOOGLE_CALLBACK_URL = 'GOOGLE_CALLBACK_URL',
+  GOOGLE_AUTH_URL = 'GOOGLE_AUTH_URL',
 }
 
 export interface ApiConfig {
@@ -42,7 +42,7 @@ export interface ApiConfig {
   [ApiConfigTypes.API_PORT_GRAPH]: number | undefined
   [ApiConfigTypes.POSTGRES_HOST]: string | undefined
   [ApiConfigTypes.POSTGRES_PORT]: number | undefined
-  [ApiConfigTypes.POSTGRES_E2E_PORT]: number | undefined
+  [ApiConfigTypes.POSTGRES_PORT_E2E]: number | undefined
   [ApiConfigTypes.POSTGRES_USER]: string | undefined
   [ApiConfigTypes.POSTGRES_PASSWORD]: string | undefined
   [ApiConfigTypes.POSTGRES_DB]: string | undefined
@@ -64,7 +64,7 @@ export const config: ConfigFactory<ApiConfig> = () => ({
   [ApiConfigTypes.API_PORT_GRAPH]: Number(process.env.API_PORT_GRAPH),
   [ApiConfigTypes.POSTGRES_HOST]: process.env.POSTGRES_HOST,
   [ApiConfigTypes.POSTGRES_PORT]: Number(process.env.POSTGRES_PORT),
-  [ApiConfigTypes.POSTGRES_E2E_PORT]: Number(process.env.POSTGRES_E2E_PORT),
+  [ApiConfigTypes.POSTGRES_PORT_E2E]: Number(process.env.POSTGRES_PORT_E2E),
   [ApiConfigTypes.POSTGRES_USER]: process.env.POSTGRES_USER,
   [ApiConfigTypes.POSTGRES_PASSWORD]: process.env.POSTGRES_PASSWORD,
   [ApiConfigTypes.POSTGRES_DB]: process.env.POSTGRES_DB,

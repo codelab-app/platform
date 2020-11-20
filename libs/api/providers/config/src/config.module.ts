@@ -20,7 +20,9 @@ import { envPath, envs, isDev } from '@codelab/shared/utils'
       envFilePath: isDev ? envPath() : '',
       ignoreEnvFile: !isDev,
       validationSchema: Joi.object<ApiConfig>({
-        [ApiConfigTypes.CODELAB_ENV]: Joi.string().valid(...envs),
+        [ApiConfigTypes.CODELAB_ENV]: Joi.string()
+          .required()
+          .valid(...envs),
         // Typeorm
         [ApiConfigTypes.TYPEORM_SEED]: Joi.string().valid('true', 'false'),
         [ApiConfigTypes.TYPEORM_DROP_SCHEMA]: Joi.string().valid(

@@ -249,8 +249,8 @@ workflows:
             - install-and-build-workspace
       - test:
           <<: *filters-dev
-          context: .env.ci
           e: docker-node
+          context: .env.ci
           requires:
             - install-and-build-workspace
       - notify-success:

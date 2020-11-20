@@ -1,6 +1,12 @@
 import findConfig from 'findup-sync'
 
-export const envs = ['e2e', 'staging', 'production', 'development'] as const
+export const envs = [
+  'development',
+  'ci',
+  'e2e',
+  'staging',
+  'production',
+] as const
 
 export type environments = typeof envs[number]
 
@@ -22,7 +28,7 @@ export const isProd = process.env.CODELAB_ENV === 'production'
 /**
  * Used for local development
  */
-export const isDev = process.env.CODELAB_ENV === 'development'
+export const isDev = !isStaging && !isProd && !isE2e
 
 /**
  * Traverses up directory to find closest file with name

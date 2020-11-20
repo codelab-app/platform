@@ -18,7 +18,7 @@ export class ConfigTypeormService implements TypeOrmOptionsFactory {
     return {
       type: 'postgres',
       host: this.config.get(ApiConfigTypes.POSTGRES_HOST),
-      port: this.config.get(ApiConfigTypes.POSTGRES_E2E_PORT),
+      port: this.config.get(ApiConfigTypes.POSTGRES_PORT_E2E),
       username: this.config.get(ApiConfigTypes.POSTGRES_USER),
       password: this.config.get(ApiConfigTypes.POSTGRES_PASSWORD),
       database: this.config.get(ApiConfigTypes.POSTGRES_DB),
