@@ -15,7 +15,7 @@ export class UserResolver {
 
   @Mutation((returns) => UserDto)
   async registerUser(@Args('user') user: UserInput) {
-    return this.userService.createUser(user)
+    return this.userService.createUserAndGetToken(user)
   }
 
   @Query((returns) => UserDto)

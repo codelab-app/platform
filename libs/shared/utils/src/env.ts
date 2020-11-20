@@ -1,6 +1,14 @@
 import findConfig from 'findup-sync'
 
-export type environments = 'e2e' | 'staging' | 'production' | 'development'
+export const envs = [
+  'development',
+  'ci',
+  'e2e',
+  'staging',
+  'production',
+] as const
+
+export type environments = typeof envs[number]
 
 /**
  * Used for e2e testing, database is cleared each time
@@ -18,10 +26,14 @@ export const isStaging = process.env.CODELAB_ENV === 'staging'
 export const isProd = process.env.CODELAB_ENV === 'production'
 
 /**
+ * Used for CircleCI
+ */
+export const isCi = process.env.CODELAB_ENV === 'ci'
+
+/**
  * Used for local development
  */
-export const isDev =
-  process.env.CODELAB_ENV === 'development' || (!isE2e && !isStaging && !isProd)
+export const isDev = !isCi && !isE2e && !isStaging && !isProd
 
 /**
  * Traverses up directory to find closest file with name

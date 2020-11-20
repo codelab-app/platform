@@ -39,7 +39,6 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     profile: Profile,
     done: VerifyCallback,
   ) {
-    // TODO: Handle denied access request
     if (!profile) {
       done(new BadRequestException(), null)
     }

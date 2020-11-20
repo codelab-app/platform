@@ -66,7 +66,7 @@ export class SeedDbService {
      */
     const user = await this.userRepository.save(
       this.userRepository.create({
-        email: 'Codelab',
+        email: 'Codelab@gmail.com',
         password: 'password',
       }),
     )
