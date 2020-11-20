@@ -53,27 +53,32 @@ generate-graphql-watch:
 hasura-metadata-export:
 	npx hasura metadata export \
     --project apps/api/graph/.hasura \
+		--skip-update-check \
     --envfile ../../../../.env.dev
 
 hasura-metadata-apply:
 	npx hasura metadata apply \
     --project apps/api/graph/.hasura \
+		--skip-update-check \
     --envfile ../../../../.env.dev
 
 hasura-metadata-reload:
 	npx hasura metadata reload \
     --project apps/api/graph/.hasura \
+		--skip-update-check \
     --envfile ../../../../.env.dev
 
 hasura-seed:
 	npx hasura seeds apply \
     --project apps/api/graph/.hasura \
+		--skip-update-check \
     --envfile ../../../../.env.dev
 
 # Temp command
 hasura:
 	npx hasura seeds create demo \
     --project apps/api/graph/.hasura \
+		--skip-update-check \
     --envfile ../../../../.env.dev
 #
 # LINT

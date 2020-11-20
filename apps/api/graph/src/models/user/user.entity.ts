@@ -1,14 +1,21 @@
 import { ObjectType } from '@nestjs/graphql'
 import * as bcrypt from 'bcrypt'
 import {
+  IsEmail,
+  IsOptional,
+  MinLength,
+  ValidationError,
+  validate,
+} from 'class-validator'
+import {
   BeforeInsert,
   BeforeUpdate,
   Column,
   Entity,
   OneToMany,
   PrimaryGeneratedColumn,
-  //
 } from 'typeorm'
+import { CodelabValidationError } from '../../app/filters/CodelabValidationError'
 import { GraphEntity } from '../graph/graph.entity'
 import { IUser } from './IUser'
 
@@ -24,6 +31,7 @@ export class UserEntity {
     type: 'text',
     unique: true,
   })
+  @IsEmail({ allow_display_name: false }, { message: 'Invalid email' })
   declare email: string
 
   @Column({
@@ -31,12 +39,17 @@ export class UserEntity {
     select: false,
     nullable: true,
   })
+  @MinLength(3, {
+    message: 'Password must be more then 3 characters',
+    always: false,
+  })
   declare password: string
 
   @Column({
     type: 'text',
     nullable: true,
   })
+  @IsOptional()
   declare googleProviderId: string
 
   /**
@@ -48,10 +61,25 @@ export class UserEntity {
     this.password = await bcrypt.hash(this.password, 10)
   }
 
+  @BeforeInsert()
+  @BeforeUpdate()
+  async validate() {
+    const errors: Array<ValidationError> = await validate(this, {
+      skipMissingProperties: true,
+    })
+
+    if (errors.length > 0) {
+      const err: ValidationError = errors[0]
+
+      throw new CodelabValidationError(err.toString())
+    }
+  }
+
   async comparePassword(attempt: string): Promise<boolean> {
     return bcrypt.compare(attempt, this.password)
   }
 
   @OneToMany((type) => GraphEntity, (graph) => graph.user)
+  @IsOptional()
   declare graphs: Array<GraphEntity>
 }

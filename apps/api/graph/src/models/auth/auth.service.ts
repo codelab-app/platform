@@ -1,10 +1,8 @@
 import { Injectable, OnModuleInit } from '@nestjs/common'
-import { ConfigService } from '@nestjs/config'
 import { ModuleRef } from '@nestjs/core'
 import { UserEntity } from '../user/user.entity'
 import { UserService } from '../user/user.service'
 import { JwtStrategy } from './jwt.strategy'
-import { ApiConfig } from '@codelab/api/providers/config'
 
 @Injectable()
 export class AuthService implements OnModuleInit {
@@ -13,7 +11,6 @@ export class AuthService implements OnModuleInit {
   constructor(
     private readonly moduleRef: ModuleRef,
     private jwtStrategy: JwtStrategy,
-    private readonly config: ConfigService<ApiConfig>,
   ) {}
 
   async createAuthToken() {
