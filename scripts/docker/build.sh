@@ -12,8 +12,7 @@ if [ "$CI" != true ]; then
 fi
 
 docker-compose \
-  --env-file .env.dev \
   --verbose \
-  -f .docker/docker-compose.yaml \
+  -f .docker/docker-compose.build.yaml \
   build \
   $SERVICES

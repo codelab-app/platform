@@ -1626,6 +1626,21 @@
             "lintFilePatterns": ["libs/shared/factory/**/*.{ts,tsx,js,jsx}"]
           }
         },
+        "storybook": {
+          "builder": "@nrwl/storybook:storybook",
+          "options": {
+            "uiFramework": "@storybook/react",
+            "port": 4400,
+            "config": {
+              "configFolder": "libs/shared/factory/.storybook"
+            }
+          },
+          "configurations": {
+            "ci": {
+              "quiet": true
+            }
+          }
+        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {

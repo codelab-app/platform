@@ -21,7 +21,7 @@ RUN yarn --prod --frozen-lockfile
 #
 # (2) Prod
 #
-FROM build AS prod
+FROM node:14.15.0-alpine AS prod
 
 WORKDIR /usr/local/codelab
 
