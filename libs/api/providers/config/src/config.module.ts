@@ -7,7 +7,7 @@ import {
   ConfigTypeormHasuraService,
 } from './hasura'
 import { ConfigJwtService } from './jwt'
-import { envPath, isDev } from '@codelab/shared/utils'
+import { envPath, envs, isDev } from '@codelab/shared/utils'
 
 @Module({
   imports: [
@@ -20,11 +20,11 @@ import { envPath, isDev } from '@codelab/shared/utils'
       envFilePath: isDev ? envPath() : '',
       ignoreEnvFile: !isDev,
       validationSchema: Joi.object({
-        CODELAB_ENV: Joi.string().required(),
+        CODELAB_ENV: Joi.string().valid(...envs),
         // Typeorm
-        TYPEORM_SEED: Joi.string().required().valid('true', 'false'),
-        TYPEORM_DROP_SCHEMA: Joi.string().required().valid('true', 'false'),
-        TYPEORM_SYNCHRONIZE: Joi.string().required().valid('true', 'false'),
+        TYPEORM_SEED: Joi.string().valid('true', 'false'),
+        TYPEORM_DROP_SCHEMA: Joi.string().valid('true', 'false'),
+        TYPEORM_SYNCHRONIZE: Joi.string().valid('true', 'false'),
         // Ports
         API_PORT_GATEWAY: Joi.string().required(),
         // Postgres DB

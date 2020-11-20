@@ -1,6 +1,8 @@
 import findConfig from 'findup-sync'
 
-export type environments = 'e2e' | 'staging' | 'production' | 'development'
+export const envs = ['e2e', 'staging', 'production', 'development'] as const
+
+export type environments = typeof envs[number]
 
 /**
  * Used for e2e testing, database is cleared each time
