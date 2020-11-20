@@ -63,13 +63,21 @@ export class UserService implements OnModuleInit {
   }
 
   async login(user: UserInput): Promise<UserDto> {
-    const foundUser = await this.userEntityRepository.findOne({
+    // Global error handler will catch not found user
+    const foundUser = await this.userEntityRepository.findOneOrFail({
       select: ['id', 'email', 'password'],
       where: { email: user.email },
     })
+
     const passwordMatch = await foundUser?.comparePassword(user.password)
 
-    if (foundUser && passwordMatch) {
+    if (!passwordMatch) {
+      throw new ApolloCodelabError(
+        `Wrong password for user: ${user.email}`,
+        AppErrorEnum.WRONG_CREDENTIALS,
+        HttpStatus.UNAUTHORIZED.toString(),
+      )
+    } else {
       const res = new UserDto()
 
       res.user = foundUser
@@ -77,15 +85,20 @@ export class UserService implements OnModuleInit {
 
       return res
     }
-
-    throw new ApolloCodelabError(
-      `Wrong username or password for user: ${user.email}`,
-      AppErrorEnum.WRONG_CREDENTIALS,
-      HttpStatus.UNAUTHORIZED.toString(),
-    )
   }
 
-  async createUser(user: UserInput): Promise<UserDto> {
+  async createUserAndGetToken(user: UserInput): Promise<UserDto> {
+    const res = new UserDto()
+
+    const newUser = await this.createNewUser(user)
+
+    res.user = newUser
+    res.accessToken = await this.authService.getToken(newUser)
+
+    return res
+  }
+
+  async createNewUser(user: UserInput): Promise<UserEntity> {
     const u = new UserEntity()
 
     u.email = user.email
@@ -94,12 +107,8 @@ export class UserService implements OnModuleInit {
     const newUser = await this.userEntityRepository.save(
       this.userEntityRepository.create(u),
     )
-    const res = new UserDto()
 
-    res.user = newUser
-    res.accessToken = await this.authService.getToken(newUser)
-
-    return res
+    return newUser
   }
 
   onModuleInit() {
