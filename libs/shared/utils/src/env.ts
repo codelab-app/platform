@@ -26,9 +26,14 @@ export const isStaging = process.env.CODELAB_ENV === 'staging'
 export const isProd = process.env.CODELAB_ENV === 'production'
 
 /**
+ * Used for CircleCI
+ */
+export const isCi = process.env.CODELAB_ENV === 'ci'
+
+/**
  * Used for local development
  */
-export const isDev = !isStaging && !isProd && !isE2e
+export const isDev = !isCi && !isE2e && !isStaging && !isProd
 
 /**
  * Traverses up directory to find closest file with name
