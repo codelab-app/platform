@@ -14,7 +14,29 @@ export class Graph {
     this.edges = edges
   }
 
-  moveVertex(source: VertexA, target: VertexA) {}
+  moveVertex(source: VertexA, target: VertexA) {
+    const sourceIndexE = this.edges.findIndex((e: EdgeA) => {
+      return e.end === source.id
+    })
+
+    const targetIndexE = this.edges.findIndex((e: EdgeA) => {
+      return e.end === target.id
+    })
+
+    this.arrayMove(this.edges, sourceIndexE, targetIndexE)
+  }
+
+  private arrayMove(arr: Array<any>, oldIndex: number, newIndex: number) {
+    if (newIndex >= arr.length) {
+      let k = newIndex - arr.length + 1
+
+      while (k--) {
+        arr.push(undefined)
+      }
+    }
+
+    arr.splice(newIndex, 0, arr.splice(oldIndex, 1)[0])
+  }
 
   addVertex(v: VertexA): void {
     if (!this.hasVertex(v.id)) {

@@ -1,4 +1,8 @@
-import cytoscape, { EdgeCollection, NodeCollection } from 'cytoscape'
+import cytoscape, {
+  EdgeCollection,
+  NodeCollection,
+  NodeSingular,
+} from 'cytoscape'
 import { v4 as uuidv4 } from 'uuid'
 import { Graph } from './graph'
 import { VertexA } from '@codelab/shared/interface/graph-v2'
@@ -20,17 +24,17 @@ describe('Graph', () => {
     }
     item0 = {
       id: uuidv4(),
-      label: 'item',
+      label: 'item0',
       type: NodeType.React_List_Item,
     }
     item1 = {
       id: uuidv4(),
-      label: 'item',
+      label: 'item1',
       type: NodeType.React_List_Item,
     }
     item2 = {
       id: uuidv4(),
-      label: 'item',
+      label: 'item2',
       type: NodeType.React_List_Item,
     }
   })
@@ -105,5 +109,46 @@ describe('Graph', () => {
     expect(nodes.getElementById(item0.id).isChild()).toBeTruthy()
     expect(nodes.getElementById(item1.id).isChild()).toBeTruthy()
     expect(nodes.getElementById(item2.id).isChild()).toBeTruthy()
+  })
+
+  it('Can traverse graph using BFS', () => {
+    g.addVertices([list, item0, item1, item2])
+    g.addEdge(list, item0)
+    g.addEdge(list, item1)
+    g.addEdge(list, item2)
+
+    const cy: cytoscape.Core = g.makeCytoscape(g)
+    const root: NodeSingular = cy.elements().roots().first()
+    const queue: Array<string> = []
+
+    cy.elements().breadthFirstSearch({
+      root: `#${root.id()}`,
+      visit: (node) => {
+        queue.push(node.id())
+      },
+    })
+    expect(queue).toMatchObject([list.id, item0.id, item1.id, item2.id])
+  })
+
+  it('Should move vertices', () => {
+    g.addVertices([list, item0, item1, item2])
+    g.addEdge(list, item0)
+    g.addEdge(list, item1)
+    g.addEdge(list, item2)
+
+    g.moveVertex(item2, item0)
+
+    const cy: cytoscape.Core = g.makeCytoscape(g)
+    const root: NodeSingular = cy.elements().roots().first()
+    const queue: Array<string> = []
+
+    cy.elements().breadthFirstSearch({
+      root: `#${root.id()}`,
+      visit: (node) => {
+        queue.push(node.id())
+      },
+    })
+
+    expect(queue).toMatchObject([list.id, item2.id, item0.id, item1.id])
   })
 })

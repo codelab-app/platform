@@ -18,5 +18,6 @@ module.exports = {
     '@typescript-eslint/no-useless-constructor': 'off',
     '@typescript-eslint/no-empty-function': 'off',
     'no-param-reassign': 'off',
+    'no-plusplus': 'off',
   },
 }
