@@ -19,9 +19,17 @@ export class Graph {
       return e.end === source.id
     })
 
+    if (sourceIndexE === -1) {
+      throw new Error(`Vertex with source id ${source.id} does not exist`)
+    }
+
     const targetIndexE = this.edges.findIndex((e: EdgeA) => {
       return e.end === target.id
     })
+
+    if (targetIndexE === -1) {
+      throw new Error(`Vertex with target id ${target.id} does not exist`)
+    }
 
     this.arrayMove(this.edges, sourceIndexE, targetIndexE)
   }

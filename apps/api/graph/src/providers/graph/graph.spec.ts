@@ -151,4 +151,24 @@ describe('Graph', () => {
 
     expect(queue).toMatchObject([list.id, item2.id, item0.id, item1.id])
   })
+
+  it('Should throw error if vertex source does not exist when moving vertices', () => {
+    g.addVertices([list, item0, item1, item2])
+    g.addEdge(list, item0)
+    g.addEdge(list, item1)
+
+    expect(() => g.moveVertex(item2, item0)).toThrowError(
+      `Vertex with source id ${item2.id} does not exist`,
+    )
+  })
+
+  it('Should throw error if vertex target does not exist when moving vertices', () => {
+    g.addVertices([list, item0, item1, item2])
+    g.addEdge(list, item1)
+    g.addEdge(list, item2)
+
+    expect(() => g.moveVertex(item2, item0)).toThrowError(
+      `Vertex with target id ${item0.id} does not exist`,
+    )
+  })
 })
