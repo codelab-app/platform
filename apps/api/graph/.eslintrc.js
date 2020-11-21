@@ -17,5 +17,6 @@ module.exports = {
     'import/no-extraneous-dependencies': 'off',
     '@typescript-eslint/no-useless-constructor': 'off',
     '@typescript-eslint/no-empty-function': 'off',
+    'no-param-reassign': 'off',
   },
 }

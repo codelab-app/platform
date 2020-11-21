@@ -7,8 +7,8 @@ module.exports = {
     },
   },
   transform: {
-    '^.+\\.[tj]s$': 'ts-jest',
+    '^.+\\.[tj]sx$': 'ts-jest',
   },
-  moduleFileExtensions: ['ts', 'js', 'html'],
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'html'],
   coverageDirectory: '../../../coverage/apps/api/graph',
 }
