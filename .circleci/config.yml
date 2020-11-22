@@ -16,6 +16,8 @@ filters-staging: &filters-staging
   filters:
     tags:
       only: /^staging-.*$/
+    branches:
+      ignore: /.*/
 
 # Workaround for the lack of logical "AND" for filters
 filters-master-branch-only: &filters-master-branch-only
@@ -34,6 +36,7 @@ executor-config: &executor-config
   environment:
     DOCKER_TAG_VERSION: 0.02
     API_PORT_GRAPH: 4004
+    # CircleCI
     GITHUB_ANTON: artonio
     SLACK_ANTON: U01DSP39DME
     GITHUB_VIEN: VienNguyen24hdev
@@ -249,6 +252,7 @@ workflows:
       - test:
           <<: *filters-dev
           e: docker-node
+          context: .env.ci
           requires:
             - install-and-build-workspace
       - notify-success:
