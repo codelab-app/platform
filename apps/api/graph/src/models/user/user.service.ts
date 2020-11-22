@@ -63,7 +63,13 @@ export class UserService implements OnModuleInit {
         user.graphs = [g]
       }
 
-      return this.userEntityRepository.save(user)
+      const savedUser = await this.userEntityRepository.save(user)
+
+      savedUser.graphs.forEach((g: GraphEntity) => {
+        g.sortEdges()
+      })
+
+      return savedUser
     }
 
     throw new ApolloCodelabError('User not found', AppErrorEnum.USER_NOT_FOUND)
