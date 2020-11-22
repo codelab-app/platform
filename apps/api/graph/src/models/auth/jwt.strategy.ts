@@ -4,6 +4,7 @@ import { JwtService } from '@nestjs/jwt'
 import { PassportStrategy } from '@nestjs/passport'
 import { ExtractJwt, Strategy } from 'passport-jwt'
 import { UserEntity } from '../user/user.entity'
+import { Itoken } from './Itoken'
 import { ApiConfig, ApiConfigTypes } from '@codelab/api/providers/config'
 
 @Injectable()
@@ -20,14 +21,12 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
     })
   }
 
-  // For future if we need to validate JWT on custom resolvers
-  async validate(payload: any) {
-    const p = payload
+  async validate(payload: any): Promise<Itoken> {
+    let token = payload.headers.authorization
 
-    return {
-      userId: payload.sub,
-      username: payload.username,
-    }
+    token = token.replace('Bearer', '').trim()
+
+    return this.jwtService.decode(token) as Itoken
   }
 
   async refreshToken(token: string) {

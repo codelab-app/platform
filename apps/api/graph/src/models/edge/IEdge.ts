@@ -3,7 +3,7 @@ import { GraphQLJSONObject } from 'graphql-type-json'
 
 @InterfaceType()
 export abstract class IEdge {
-  @Field((type) => String)
+  @Field()
   declare id: string
 
   @Field({ nullable: false })

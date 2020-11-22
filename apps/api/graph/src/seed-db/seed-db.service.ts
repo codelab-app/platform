@@ -5,7 +5,7 @@ import { EdgeEntity } from '../models/edge/edge.entity'
 import { GraphEntity } from '../models/graph/graph.entity'
 import { UserEntity } from '../models/user/user.entity'
 import { VertexEntity } from '../models/vertex/vertex.entity'
-import { VertexType } from '@codelab/shared/interface/graph'
+import { NodeType } from '@codelab/shared/interface/node'
 
 @Injectable()
 export class SeedDbService {
@@ -24,21 +24,28 @@ export class SeedDbService {
     /**
      * Vertices
      */
-    const vertex1 = await this.vertexRepository.save(
+    const vList = await this.vertexRepository.save(
       this.vertexRepository.create({
-        type: VertexType.REACT_BUTTON,
+        type: NodeType.React_List,
         props: {},
       }),
     )
-    const vertex2 = await this.vertexRepository.save(
+    const vListItem0 = await this.vertexRepository.save(
       this.vertexRepository.create({
-        type: VertexType.REACT_BUTTON,
+        type: NodeType.React_List_Item,
         props: {},
       }),
     )
-    const vertex3 = await this.vertexRepository.save(
+    const vListItem1 = await this.vertexRepository.save(
       this.vertexRepository.create({
-        type: VertexType.REACT_BUTTON,
+        type: NodeType.React_List_Item,
+        props: {},
+      }),
+    )
+
+    const vListItem2 = await this.vertexRepository.save(
+      this.vertexRepository.create({
+        type: NodeType.React_List_Item,
         props: {},
       }),
     )
@@ -48,15 +55,26 @@ export class SeedDbService {
      */
     const edge1 = await this.edgeRepository.save(
       this.edgeRepository.create({
-        source: vertex1.id,
-        target: vertex2.id,
+        order: 0,
+        source: vList.id,
+        target: vListItem0.id,
         props: {},
       }),
     )
     const edge2 = await this.edgeRepository.save(
       this.edgeRepository.create({
-        source: vertex2.id,
-        target: vertex3.id,
+        order: 1,
+        source: vList.id,
+        target: vListItem1.id,
+        props: {},
+      }),
+    )
+
+    const edge3 = await this.edgeRepository.save(
+      this.edgeRepository.create({
+        order: 2,
+        source: vList.id,
+        target: vListItem2.id,
         props: {},
       }),
     )
@@ -77,8 +95,8 @@ export class SeedDbService {
     const graph = await this.graphRepository.save(
       this.graphRepository.create({
         user,
-        vertices: [vertex1, vertex2, vertex3],
-        edges: [edge1, edge2],
+        vertices: [vList, vListItem0, vListItem1, vListItem2],
+        edges: [edge1, edge2, edge3],
       }),
     )
   }

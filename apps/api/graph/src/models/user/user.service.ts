@@ -8,6 +8,7 @@ import {
 } from '../../app/filters/ApolloCodelabError'
 import { IGoogleUser } from '../auth/IGoogleUser'
 import { AuthService } from '../auth/auth.service'
+import { GraphEntity } from '../graph/graph.entity'
 import { UserInput } from './UserInput'
 import { UserDto } from './dto/UserDto'
 import { UserEntity } from './user.entity'
@@ -26,8 +27,46 @@ export class UserService implements OnModuleInit {
     return this.userEntityRepository.find()
   }
 
+  async findOne(userId: string): Promise<UserEntity> {
+    return this.userEntityRepository.findOneOrFail(userId)
+  }
+
   async refreshToken(token: string) {
     return this.authService.refreshToken(token)
+  }
+
+  async moveVertex(
+    userId: string,
+    src: string,
+    target: string,
+  ): Promise<UserEntity | undefined> {
+    const user = await this.userEntityRepository
+      .createQueryBuilder('user')
+      .leftJoinAndSelect('user.graphs', 'graphs', 'graphs.user_id = user.id')
+      .leftJoinAndSelect(
+        'graphs.vertices',
+        'vertices',
+        'vertices.graph_id = graphs.id',
+      )
+      .leftJoinAndSelect('graphs.edges', 'edges', 'edges.graph_id = graphs.id')
+      .orderBy({
+        'edges.order': 'ASC',
+      })
+      .where('user.id = :id', { id: userId })
+      .getOne()
+
+    if (user) {
+      if (user.graphs.length > 0) {
+        const g: GraphEntity = user.graphs[0]
+
+        g.moveVertexById(src, target)
+        user.graphs = [g]
+      }
+
+      return this.userEntityRepository.save(user)
+    }
+
+    throw new ApolloCodelabError('User not found', AppErrorEnum.USER_NOT_FOUND)
   }
 
   async loginGoogle(user: IGoogleUser): Promise<UserDto> {

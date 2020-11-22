@@ -14,6 +14,26 @@ export class Graph {
     this.edges = edges
   }
 
+  public moveVertexById(sourceId: string, targetId: string) {
+    const sourceIndexE = this.edges.findIndex((e: EdgeA) => {
+      return e.end === sourceId
+    })
+
+    if (sourceIndexE === -1) {
+      throw new Error(`Vertex with source id ${sourceId} does not exist`)
+    }
+
+    const targetIndexE = this.edges.findIndex((e: EdgeA) => {
+      return e.end === targetId
+    })
+
+    if (targetIndexE === -1) {
+      throw new Error(`Vertex with target id ${targetId} does not exist`)
+    }
+
+    this.arrayMove(this.edges, sourceIndexE, targetIndexE)
+  }
+
   moveVertex(source: VertexA, target: VertexA) {
     const sourceIndexE = this.edges.findIndex((e: EdgeA) => {
       return e.end === source.id
@@ -58,6 +78,35 @@ export class Graph {
         this.vertices.push(v)
       }
     })
+  }
+
+  addEdgeById(sourceId: string, targetId: string): void {
+    if (!this.hasVertex(sourceId)) {
+      throw new Error(`Vertex with source id ${sourceId} does not exist`)
+    }
+
+    if (!this.hasVertex(sourceId)) {
+      throw new Error(`Vertex with target id ${sourceId} does not exist`)
+    }
+
+    if (!this.hasEdge(sourceId, targetId)) {
+      const target: VertexA | undefined = this.vertices.find((v: VertexA) => {
+        return v.id === targetId
+      })
+
+      if (target) {
+        target.parent = sourceId
+        const edge: EdgeA = {
+          id: uuidv4(),
+          start: sourceId,
+          end: targetId,
+        }
+
+        this.edges.push(edge)
+      } else {
+        throw new Error(`Vertex with target id: ${targetId} was not found`)
+      }
+    }
   }
 
   addEdge(source: VertexA, target: VertexA): void {

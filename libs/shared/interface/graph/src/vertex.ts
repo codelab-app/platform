@@ -1,3 +1,5 @@
+import { NodeType } from '@codelab/shared/interface/node'
+
 export type VertexProps = {
   id: string
 }
@@ -16,5 +18,5 @@ export interface DeleteVertexDTO {
 }
 
 export interface CreateVertexDTO {
-  type: VertexType
+  type: NodeType
 }

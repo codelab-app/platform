@@ -22,6 +22,11 @@ export class EdgeEntity {
   declare target: string
 
   @Column({
+    type: 'int',
+  })
+  declare order: number
+
+  @Column({
     type: 'jsonb',
   })
   declare props?: any
