@@ -1,4 +1,4 @@
-import { Field, InterfaceType } from '@nestjs/graphql'
+import { Field, Int, InterfaceType } from '@nestjs/graphql'
 import { GraphQLJSONObject } from 'graphql-type-json'
 
 @InterfaceType()
@@ -11,6 +11,9 @@ export abstract class IEdge {
 
   @Field({ nullable: false })
   declare target: string
+
+  @Field(() => Int)
+  declare order: number
 
   @Field((returns) => GraphQLJSONObject, { nullable: true })
   declare props?: any

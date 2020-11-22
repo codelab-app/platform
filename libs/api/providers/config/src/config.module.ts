@@ -24,15 +24,9 @@ import { envPath, envs, isDev } from '@codelab/shared/utils'
           .required()
           .valid(...envs),
         // Typeorm
-        [ApiConfigTypes.TYPEORM_SEED]: Joi.string().valid('true', 'false'),
-        [ApiConfigTypes.TYPEORM_DROP_SCHEMA]: Joi.string().valid(
-          'true',
-          'false',
-        ),
-        [ApiConfigTypes.TYPEORM_SYNCHRONIZE]: Joi.string().valid(
-          'true',
-          'false',
-        ),
+        [ApiConfigTypes.TYPEORM_SEED]: Joi.number().required(),
+        [ApiConfigTypes.TYPEORM_DROP_SCHEMA]: Joi.number().required(),
+        [ApiConfigTypes.TYPEORM_SYNCHRONIZE]: Joi.number().required(),
         // Postgres DB
         [ApiConfigTypes.POSTGRES_HOST]: Joi.string().required(),
         [ApiConfigTypes.POSTGRES_PORT]: Joi.number().required(),
@@ -42,6 +36,9 @@ import { envPath, envs, isDev } from '@codelab/shared/utils'
         // Hasura
         [ApiConfigTypes.HASURA_GRAPHQL_ADMIN_SECRET]: Joi.string().required(),
         [ApiConfigTypes.HASURA_GRAPHQL_URI]: Joi.string().required(),
+        // JWT
+        [ApiConfigTypes.JWT_EXPIRY]: Joi.number().required(),
+        [ApiConfigTypes.JWT_SECRET]: Joi.string().required(),
       }),
     }),
   ],

@@ -1,17 +1,24 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, OnModuleInit } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
+import { ModuleRef } from '@nestjs/core'
 import { JwtService } from '@nestjs/jwt'
 import { PassportStrategy } from '@nestjs/passport'
 import { ExtractJwt, Strategy } from 'passport-jwt'
 import { UserEntity } from '../user/user.entity'
+import { UserService } from '../user/user.service'
 import { Itoken } from './Itoken'
 import { ApiConfig, ApiConfigTypes } from '@codelab/api/providers/config'
 
 @Injectable()
-export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
+export class JwtStrategy
+  extends PassportStrategy(Strategy, 'jwt')
+  implements OnModuleInit {
+  private declare userService: UserService
+
   constructor(
     private jwtService: JwtService,
     private readonly config: ConfigService<ApiConfig>,
+    private moduleRef: ModuleRef,
   ) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -21,12 +28,13 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
     })
   }
 
-  async validate(payload: any): Promise<Itoken> {
+  async validate(payload: any): Promise<UserEntity> {
     let token = payload.headers.authorization
 
     token = token.replace('Bearer', '').trim()
+    const decodedToken = this.jwtService.decode(token) as Itoken
 
-    return this.jwtService.decode(token) as Itoken
+    return this.userService.findOne(decodedToken.sub)
   }
 
   async refreshToken(token: string) {
@@ -79,5 +87,9 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
     }
 
     return this.jwtService.sign(payload)
+  }
+
+  onModuleInit(): any {
+    this.userService = this.moduleRef.get(UserService, { strict: false })
   }
 }

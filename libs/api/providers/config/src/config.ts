@@ -36,9 +36,9 @@ export enum ApiConfigTypes {
 
 export interface ApiConfig {
   [ApiConfigTypes.CODELAB_ENV]: environments | undefined
-  [ApiConfigTypes.TYPEORM_SEED]: boolean
-  [ApiConfigTypes.TYPEORM_DROP_SCHEMA]: boolean
-  [ApiConfigTypes.TYPEORM_SYNCHRONIZE]: boolean
+  [ApiConfigTypes.TYPEORM_SEED]: number
+  [ApiConfigTypes.TYPEORM_DROP_SCHEMA]: number
+  [ApiConfigTypes.TYPEORM_SYNCHRONIZE]: number
   [ApiConfigTypes.API_PORT_GRAPH]: number | undefined
   [ApiConfigTypes.POSTGRES_HOST]: string | undefined
   [ApiConfigTypes.POSTGRES_PORT]: number | undefined
@@ -58,9 +58,9 @@ export interface ApiConfig {
 
 export const config: ConfigFactory<ApiConfig> = () => ({
   [ApiConfigTypes.CODELAB_ENV]: process.env.CODELAB_ENV as environments,
-  [ApiConfigTypes.TYPEORM_SEED]: process.env.TYPEORM_SEED === 'true',
-  [ApiConfigTypes.TYPEORM_DROP_SCHEMA]: process.env.TYPEORM_SEED === 'true',
-  [ApiConfigTypes.TYPEORM_SYNCHRONIZE]: process.env.TYPEORM_SEED === 'true',
+  [ApiConfigTypes.TYPEORM_SEED]: Number(process.env.TYPEORM_SEED),
+  [ApiConfigTypes.TYPEORM_DROP_SCHEMA]: Number(process.env.TYPEORM_DROP_SCHEMA),
+  [ApiConfigTypes.TYPEORM_SYNCHRONIZE]: Number(process.env.TYPEORM_SYNCHRONIZE),
   [ApiConfigTypes.API_PORT_GRAPH]: Number(process.env.API_PORT_GRAPH),
   [ApiConfigTypes.POSTGRES_HOST]: process.env.POSTGRES_HOST,
   [ApiConfigTypes.POSTGRES_PORT]: Number(process.env.POSTGRES_PORT),

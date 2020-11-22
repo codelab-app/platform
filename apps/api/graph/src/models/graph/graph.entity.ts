@@ -51,6 +51,12 @@ export class GraphEntity {
     })
   }
 
+  sortEdges() {
+    this.edges.sort((a, b) => {
+      return a.order - b.order
+    })
+  }
+
   addVertex(v: VertexEntity): void {
     if (!this.hasVertex(v.id)) {
       this.vertices.push(v)
