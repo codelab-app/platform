@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hasura
+  namespace: codelab
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hasura
+  template:
+    metadata:
+      labels:
+        app: hasura
+    spec:
+      containers:
+        - name: hasura
+          imagePullPolicy: IfNotPresent
+          image: hasura/graphql-engine:v1.3.2
+          env:
+            - name: HASURA_GRAPHQL_ENABLE_CONSOLE
+              value: "true"
+            - name: HASURA_GRAPHQL_DEV_MODE
+              value: "true"
+            - name: HASURA_GRAPHQL_ENABLED_LOG_TYPES
+              value: "startup, http-log, webhook-log, websocket-log, query-log"
+            - name: HASURA_GRAPHQL_URI
+              value: "http://hasura:8080/v1/graphql"
+            - name: HASURA_GRAPHQL_ADMIN_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: hasura
+                  key: HASURA_GRAPHQL_ADMIN_SECRET
+            - name: HASURA_GRAPHQL_DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: hasura
+                  key: HASURA_GRAPHQL_DATABASE_URL
+          ports:
+            - name: http
+              containerPort: 8080
+          resources:
+            # requests:
+            #   memory: 256Mi
+            #   cpu: '0.2'
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hasura
+  namespace: codelab
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+  selector:
+    app: hasura

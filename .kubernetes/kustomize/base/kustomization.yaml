@@ -8,3 +8,5 @@ resources:
   - service-account.yaml
   - web.yaml
   - web-nginx.yaml
+  - api-graph.yaml
+  - hasura.yaml
