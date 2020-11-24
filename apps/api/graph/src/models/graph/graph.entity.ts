@@ -11,8 +11,9 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm'
 import { v4 as uuidv4 } from 'uuid'
+import { CodelabAppEntity } from '../app/codelab-app.entity'
 import { EdgeEntity } from '../edge/edge.entity'
-import { UserEntity } from '../user/user.entity'
+import { PageEntity } from '../page/page.entity'
 import { VertexEntity } from '../vertex/vertex.entity'
 import { IGraph } from './IGraph'
 
@@ -33,8 +34,11 @@ export class GraphEntity {
   @OneToMany((type) => EdgeEntity, (edge) => edge.graph)
   declare edges: Array<EdgeEntity>
 
-  @ManyToOne((type) => UserEntity, (user) => user.graphs)
-  declare user: UserEntity
+  @ManyToOne((type) => CodelabAppEntity, (app) => app.graphs)
+  declare app: CodelabAppEntity
+
+  @ManyToOne((type) => PageEntity, (page) => page.graphs)
+  declare page: PageEntity
 
   @AfterLoad()
   setVertexParent() {
