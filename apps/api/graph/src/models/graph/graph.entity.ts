@@ -42,7 +42,7 @@ export class GraphEntity {
 
   @AfterLoad()
   setVertexParent() {
-    this.edges.forEach((edge: EdgeEntity) => {
+    this.edges?.forEach((edge: EdgeEntity) => {
       const v: VertexEntity | undefined = this.vertices.find(
         (vertex: VertexEntity) => {
           return vertex.id === edge.target
@@ -56,7 +56,7 @@ export class GraphEntity {
   }
 
   sortEdges() {
-    this.edges.sort((a, b) => {
+    this.edges?.sort((a, b) => {
       return a.order - b.order
     })
   }
@@ -164,6 +164,9 @@ export class GraphEntity {
     }
 
     this.arrayMove(this.edges, sourceIndexE, targetIndexE)
+    this.edges?.forEach((edge: EdgeEntity, index) => {
+      edge.order = index
+    })
   }
 
   moveVertex(source: VertexEntity, target: VertexEntity) {
@@ -184,7 +187,7 @@ export class GraphEntity {
     }
 
     this.arrayMove(this.edges, sourceIndexE, targetIndexE)
-    this.edges.forEach((edge: EdgeEntity, index) => {
+    this.edges?.forEach((edge: EdgeEntity, index) => {
       edge.order = index
     })
   }

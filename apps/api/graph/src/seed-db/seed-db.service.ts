@@ -102,7 +102,7 @@ export class SeedDbService {
 
     const layoutEdge2 = await this.edgeRepository.save(
       this.edgeRepository.create({
-        order: 0,
+        order: 1,
         source: layoutVertex.id,
         target: textWithDataVertex1.id,
         props: {},
@@ -111,7 +111,7 @@ export class SeedDbService {
 
     const layoutEdge3 = await this.edgeRepository.save(
       this.edgeRepository.create({
-        order: 0,
+        order: 2,
         source: layoutVertex.id,
         target: textWithDataVertex2.id,
         props: {},
