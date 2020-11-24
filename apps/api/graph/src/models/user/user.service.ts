@@ -34,46 +34,6 @@ export class UserService implements OnModuleInit {
     return this.authService.refreshToken(token)
   }
 
-  async moveVertex(
-    userId: string,
-    src: string,
-    target: string,
-  ): Promise<UserEntity | undefined> {
-    const user = await this.userEntityRepository
-      .createQueryBuilder('user')
-      .leftJoinAndSelect('user.graphs', 'graphs', 'graphs.user_id = user.id')
-      .leftJoinAndSelect(
-        'graphs.vertices',
-        'vertices',
-        'vertices.graph_id = graphs.id',
-      )
-      .leftJoinAndSelect('graphs.edges', 'edges', 'edges.graph_id = graphs.id')
-      .orderBy({
-        'edges.order': 'ASC',
-      })
-      .where('user.id = :id', { id: userId })
-      .getOne()
-
-    // if (user) {
-    //   if (user.graphs.length > 0) {
-    //     const g: GraphEntity = user.graphs[0]
-    //
-    //     g.moveVertexById(src, target)
-    //     user.graphs = [g]
-    //   }
-    //
-    //   const savedUser = await this.userEntityRepository.save(user)
-    //
-    //   savedUser.graphs.forEach((g: GraphEntity) => {
-    //     g.sortEdges()
-    //   })
-    //
-    //   return savedUser
-    // }
-
-    throw new ApolloCodelabError('User not found', AppErrorEnum.USER_NOT_FOUND)
-  }
-
   async loginGoogle(user: IGoogleUser): Promise<UserDto> {
     let accessToken = ''
     const result = new UserDto()
