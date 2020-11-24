@@ -19,7 +19,7 @@ import {
 const email = 'codelab@gmail.com'
 const password = 'password'
 
-describe.skip('UserService', () => {
+describe('UserService', () => {
   let userService: UserService
   let repository: Repository<UserEntity>
 
