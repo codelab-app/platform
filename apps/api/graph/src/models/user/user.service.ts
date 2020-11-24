@@ -8,7 +8,6 @@ import {
 } from '../../app/filters/ApolloCodelabError'
 import { IGoogleUser } from '../auth/IGoogleUser'
 import { AuthService } from '../auth/auth.service'
-import { GraphEntity } from '../graph/graph.entity'
 import { UserInput } from './UserInput'
 import { UserDto } from './dto/UserDto'
 import { UserEntity } from './user.entity'
@@ -55,22 +54,22 @@ export class UserService implements OnModuleInit {
       .where('user.id = :id', { id: userId })
       .getOne()
 
-    if (user) {
-      if (user.graphs.length > 0) {
-        const g: GraphEntity = user.graphs[0]
-
-        g.moveVertexById(src, target)
-        user.graphs = [g]
-      }
-
-      const savedUser = await this.userEntityRepository.save(user)
-
-      savedUser.graphs.forEach((g: GraphEntity) => {
-        g.sortEdges()
-      })
-
-      return savedUser
-    }
+    // if (user) {
+    //   if (user.graphs.length > 0) {
+    //     const g: GraphEntity = user.graphs[0]
+    //
+    //     g.moveVertexById(src, target)
+    //     user.graphs = [g]
+    //   }
+    //
+    //   const savedUser = await this.userEntityRepository.save(user)
+    //
+    //   savedUser.graphs.forEach((g: GraphEntity) => {
+    //     g.sortEdges()
+    //   })
+    //
+    //   return savedUser
+    // }
 
     throw new ApolloCodelabError('User not found', AppErrorEnum.USER_NOT_FOUND)
   }
