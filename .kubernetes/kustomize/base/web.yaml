@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          # imagePullPolicy: Always
+          imagePullPolicy: Always
           image: codelabai/codelab:0.01
           # ENTRYPOINT in Docker
           command: ['yarn', 'start:prod:web']
