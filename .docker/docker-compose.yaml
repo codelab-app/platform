@@ -11,13 +11,13 @@ services:
       - ${WEB_PORT}:${WEB_PORT}
     expose:
       - ${WEB_PORT}
-    entrypoint: ['pm2-runtime', 'dist/apps/web/pm2.json']
+    entrypoint: ['yarn', 'pm2-runtime', 'dist/apps/web/pm2.json']
     image: codelabai/codelab:${DOCKER_TAG_VERSION}
     env_file:
       - ../.env.dev
     environment:
-      # - NODE_ENV=production
-      # - CODELAB_ENV=production
+      - NODE_ENV=production
+      - CODELAB_ENV=production
       - NEXT_PUBLIC_API_ORIGIN
       - NEXT_PUBLIC_API_PATHNAME
 
@@ -27,15 +27,15 @@ services:
       - ${API_PORT_GRAPH}:${API_PORT_GRAPH}
     expose:
       - ${API_PORT_GRAPH}
-    entrypoint: ['pm2-runtime', 'dist/apps/api/graph/pm2.json']
+    entrypoint: ['yarn', 'pm2-runtime', 'dist/apps/api/graph/pm2.json']
     depends_on:
       - hasura
     image: codelabai/codelab:${DOCKER_TAG_VERSION}
     env_file:
       - ../.env.dev
     environment:
-      # - NODE_ENV=production
-      # - CODELAB_ENV=production
+      - NODE_ENV=production
+      - CODELAB_ENV=production
       - API_PORT_GRAPH
       - HASURA_GRAPHQL_URI
       - POSTGRES_HOST
