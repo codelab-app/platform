@@ -1,9 +1,13 @@
 import { Injectable } from '@nestjs/common'
-import { ObjectType } from '@nestjs/graphql'
+import { ObjectType, registerEnumType } from '@nestjs/graphql'
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
 import { GraphEntity } from '../graph/graph.entity'
 import { IVertex } from './vertex.interface'
-import { VertexType } from '@codelab/shared/interface/graph'
+import { NodeType } from '@codelab/shared/interface/node'
+
+registerEnumType(NodeType, {
+  name: 'NodeType',
+})
 
 @Entity('vertex')
 @ObjectType({
@@ -16,10 +20,13 @@ export class VertexEntity {
 
   @Column({
     type: 'enum',
-    enum: VertexType,
+    // enum: VertexType,
+    enum: NodeType,
     // default: VertexType.GHOST
   })
-  declare type: VertexType
+  declare type: NodeType
+
+  parent?: string
 
   @Column({
     type: 'jsonb',

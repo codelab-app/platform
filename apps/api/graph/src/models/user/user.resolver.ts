@@ -1,5 +1,8 @@
+import { UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
+import { GqlAuthGuard } from '../auth/gql.authguard'
 import { UserInput } from './UserInput'
+import { CurrentUser } from './current-user.decorator'
 import { UserDto } from './dto/UserDto'
 import { UserEntity } from './user.entity'
 import { UserService } from './user.service'
@@ -28,5 +31,15 @@ export class UserResolver {
     @Args({ name: 'token', type: () => String }) token: string,
   ) {
     return this.userService.refreshToken(token)
+  }
+
+  @Mutation(() => UserEntity)
+  @UseGuards(GqlAuthGuard)
+  async moveVertex(
+    @CurrentUser() user: UserEntity,
+    @Args({ name: 'src', type: () => String }) src: string,
+    @Args({ name: 'target', type: () => String }) target: string,
+  ) {
+    return this.userService.moveVertex(user.id, src, target)
   }
 }

@@ -1,12 +1,12 @@
-import { Field, Int, InterfaceType } from '@nestjs/graphql'
+import { Field, InterfaceType } from '@nestjs/graphql'
 import { EdgeEntity } from '../edge/edge.entity'
 import { UserEntity } from '../user/user.entity'
 import { VertexEntity } from '../vertex/vertex.entity'
 
 @InterfaceType()
 export abstract class IGraph {
-  @Field((type) => Int)
-  declare id: number
+  @Field()
+  declare id: string
 
   @Field((returns) => [VertexEntity], { nullable: true })
   declare vertices: Array<VertexEntity>

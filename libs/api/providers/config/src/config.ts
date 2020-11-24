@@ -58,9 +58,13 @@ export interface ApiConfig {
 
 export const config: ConfigFactory<ApiConfig> = () => ({
   [ApiConfigTypes.CODELAB_ENV]: process.env.CODELAB_ENV as environments,
-  [ApiConfigTypes.TYPEORM_SEED]: process.env.TYPEORM_SEED === 'true',
-  [ApiConfigTypes.TYPEORM_DROP_SCHEMA]: process.env.TYPEORM_SEED === 'true',
-  [ApiConfigTypes.TYPEORM_SYNCHRONIZE]: process.env.TYPEORM_SEED === 'true',
+  [ApiConfigTypes.TYPEORM_SEED]: Boolean(process.env.TYPEORM_SEED),
+  [ApiConfigTypes.TYPEORM_DROP_SCHEMA]: Boolean(
+    process.env.TYPEORM_DROP_SCHEMA,
+  ),
+  [ApiConfigTypes.TYPEORM_SYNCHRONIZE]: Boolean(
+    process.env.TYPEORM_SYNCHRONIZE,
+  ),
   [ApiConfigTypes.API_PORT_GRAPH]: Number(process.env.API_PORT_GRAPH),
   [ApiConfigTypes.POSTGRES_HOST]: process.env.POSTGRES_HOST,
   [ApiConfigTypes.POSTGRES_PORT]: Number(process.env.POSTGRES_PORT),
