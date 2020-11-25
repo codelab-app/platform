@@ -1,6 +1,7 @@
 import { Field, InterfaceType } from '@nestjs/graphql'
+import { CodelabAppEntity } from '../app/codelab-app.entity'
 import { EdgeEntity } from '../edge/edge.entity'
-import { UserEntity } from '../user/user.entity'
+import { PageEntity } from '../page/page.entity'
 import { VertexEntity } from '../vertex/vertex.entity'
 
 @InterfaceType()
@@ -14,6 +15,9 @@ export abstract class IGraph {
   @Field((returns) => [EdgeEntity], { nullable: true })
   declare edges: Array<EdgeEntity>
 
-  @Field((returns) => UserEntity, { nullable: true })
-  declare user: UserEntity
+  @Field((returns) => CodelabAppEntity, { nullable: true })
+  declare app: CodelabAppEntity
+
+  @Field((returns) => PageEntity, { nullable: true })
+  declare page: PageEntity
 }
