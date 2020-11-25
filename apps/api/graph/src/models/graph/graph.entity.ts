@@ -11,8 +11,9 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm'
 import { v4 as uuidv4 } from 'uuid'
+import { CodelabAppEntity } from '../app/codelab-app.entity'
 import { EdgeEntity } from '../edge/edge.entity'
-import { UserEntity } from '../user/user.entity'
+import { PageEntity } from '../page/page.entity'
 import { VertexEntity } from '../vertex/vertex.entity'
 import { IGraph } from './IGraph'
 
@@ -33,12 +34,15 @@ export class GraphEntity {
   @OneToMany((type) => EdgeEntity, (edge) => edge.graph)
   declare edges: Array<EdgeEntity>
 
-  @ManyToOne((type) => UserEntity, (user) => user.graphs)
-  declare user: UserEntity
+  @ManyToOne((type) => CodelabAppEntity, (app) => app.graphs)
+  declare app: CodelabAppEntity
+
+  @ManyToOne((type) => PageEntity, (page) => page.graphs)
+  declare page: PageEntity
 
   @AfterLoad()
   setVertexParent() {
-    this.edges.forEach((edge: EdgeEntity) => {
+    this.edges?.forEach((edge: EdgeEntity) => {
       const v: VertexEntity | undefined = this.vertices.find(
         (vertex: VertexEntity) => {
           return vertex.id === edge.target
@@ -52,7 +56,7 @@ export class GraphEntity {
   }
 
   sortEdges() {
-    this.edges.sort((a, b) => {
+    this.edges?.sort((a, b) => {
       return a.order - b.order
     })
   }
@@ -160,6 +164,9 @@ export class GraphEntity {
     }
 
     this.arrayMove(this.edges, sourceIndexE, targetIndexE)
+    this.edges?.forEach((edge: EdgeEntity, index) => {
+      edge.order = index
+    })
   }
 
   moveVertex(source: VertexEntity, target: VertexEntity) {
@@ -180,7 +187,7 @@ export class GraphEntity {
     }
 
     this.arrayMove(this.edges, sourceIndexE, targetIndexE)
-    this.edges.forEach((edge: EdgeEntity, index) => {
+    this.edges?.forEach((edge: EdgeEntity, index) => {
       edge.order = index
     })
   }
