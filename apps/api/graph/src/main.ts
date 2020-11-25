@@ -7,10 +7,12 @@ import { Logger } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { NestFactory } from '@nestjs/core'
 import bodyParser from 'body-parser'
+import * as shell from 'shelljs'
 import { AppModule } from './app/app.module'
 import { GeneralExceptionFilter } from './app/filters/general-exception.filter'
 import { ApiConfig, ApiConfigTypes } from '@codelab/api/providers/config'
 import 'reflect-metadata'
+import { isDev } from '@codelab/shared/utils'
 
 const bootstrap = async () => {
   const app = await NestFactory.create(AppModule)
