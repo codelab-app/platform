@@ -171,20 +171,19 @@ commands:
 
 jobs:
   test-k8s-integration:
-    create-update:
-      docker:
-        - image: 'cimg/base:stable'
-      steps:
-        - setup-env
-        - checkout
-        - kubernetes/install-kubectl
-        - kubernetes/install-kubeconfig:
-            kubeconfig: STAGING_KUBECONFIG
-        - kubernetes/create-or-update-resource:
-            get-rollout-status: true
-            resource-file-path: .kubernetes/test.yaml
-            resource-name: ingress/test-ingress
-            show-kubectl-command: true
+    docker:
+      - image: 'cimg/base:stable'
+    steps:
+      - setup-env
+      - checkout
+      - kubernetes/install-kubectl
+      - kubernetes/install-kubeconfig:
+          kubeconfig: STAGING_KUBECONFIG
+      - kubernetes/create-or-update-resource:
+          get-rollout-status: true
+          resource-file-path: .kubernetes/test.yaml
+          resource-name: ingress/test-ingress
+          show-kubectl-command: true
   install-and-build-workspace:
     <<: *executor-params
     steps:
