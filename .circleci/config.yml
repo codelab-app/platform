@@ -9,7 +9,8 @@
 filters-dev: &filters-dev
   filters:
     branches:
-      only: /^.*$/
+      only: circle-ci-k8s-integrating
+      # only: /^.*$/
 
 filters-staging: &filters-staging
 # https://discuss.circleci.com/t/circle-2-0-workflow-filters-should-be-logical-and-not-or/18231
@@ -56,6 +57,7 @@ version: 2.1
 
 orbs:
   slack: circleci/slack@3.4.2
+  kubernetes: circleci/kubernetes@0.11.2
 
 executors:
   machine-ubuntu:
@@ -168,6 +170,20 @@ commands:
           mentions: $SLACK_USER
 
 jobs:
+  test-k8s-integration:
+    create-update:
+      docker:
+        - image: 'cimg/base:stable'
+      steps:
+        - checkout
+        - kubernetes/install-kubectl
+        - kubernetes/install-kubeconfig:
+            kubeconfig: STAGING_KUBECONFIG
+        - kubernetes/create-or-update-resource:
+            get-rollout-status: true
+            resource-file-path: .kubernetes/test.yaml
+            resource-name: ingress/test-ingress
+            show-kubectl-command: true
   install-and-build-workspace:
     <<: *executor-params
     steps:
@@ -241,26 +257,28 @@ jobs:
 workflows:
   app-dev:
     jobs:
-      - install-and-build-workspace:
+      - test-k8s-integration:
           <<: *filters-dev
-          e: docker-node
-      - lint:
-          <<: *filters-dev
-          e: docker-node
-          requires:
-            - install-and-build-workspace
-      - test:
-          <<: *filters-dev
-          e: docker-node
-          context: .env.ci
-          requires:
-            - install-and-build-workspace
-      - notify-success:
-          <<: *filters-dev
-          e: docker-node
-          requires:
-            - lint
-            - test
+      # - install-and-build-workspace:
+      #     <<: *filters-dev
+      #     e: docker-node
+      # - lint:
+      #     <<: *filters-dev
+      #     e: docker-node
+      #     requires:
+      #       - install-and-build-workspace
+      # - test:
+      #     <<: *filters-dev
+      #     e: docker-node
+      #     context: .env.ci
+      #     requires:
+      #       - install-and-build-workspace
+      # - notify-success:
+      #     <<: *filters-dev
+      #     e: docker-node
+      #     requires:
+      #       - lint
+      #       - test
 
   app-staging:
     <<: *filters-master-branch-only
