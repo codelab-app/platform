@@ -179,9 +179,8 @@ jobs:
       - kubernetes/install-kubeconfig:
           kubeconfig: STAGING_KUBECONFIG
       - kubernetes/create-or-update-resource:
-          get-rollout-status: true
+          get-rollout-status: false
           resource-file-path: .kubernetes/test.yaml
-          resource-name: ingress/test-ingress
           show-kubectl-command: true
   install-and-build-workspace:
     <<: *executor-params
