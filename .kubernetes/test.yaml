@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: test-ingress
+  namespace: codelab
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+spec:
+  tls:
+  - secretName: tls-test-ingrss.codelab.ai
+    hosts:
+    - test-ingress.codelab.ai
+  rules:
+  - host: test-ingress.codelab.ai
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: web
+          servicePort: 80

@@ -175,6 +175,7 @@ jobs:
       docker:
         - image: 'cimg/base:stable'
       steps:
+        - setup-env
         - checkout
         - kubernetes/install-kubectl
         - kubernetes/install-kubeconfig:
