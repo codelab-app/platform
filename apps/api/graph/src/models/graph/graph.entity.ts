@@ -16,6 +16,9 @@ import { EdgeEntity } from '../edge/edge.entity'
 import { PageEntity } from '../page/page.entity'
 import { VertexEntity } from '../vertex/vertex.entity'
 import { IGraph } from './IGraph'
+import { NodeType } from '@codelab/shared/interface/node'
+
+export type VertexID = string
 
 @Entity('graph')
 @ObjectType({
@@ -75,7 +78,7 @@ export class GraphEntity {
     })
   }
 
-  addEdgeById(sourceId: string, targetId: string): void {
+  addEdge(sourceId: VertexID, targetId: VertexID): void {
     if (!this.hasVertex(sourceId)) {
       throw new Error(`Vertex with source id ${sourceId} does not exist`)
     }
@@ -100,33 +103,12 @@ export class GraphEntity {
         edge.target = targetId
 
         this.edges.push(edge)
+        this.edges.forEach((e: EdgeEntity, index) => {
+          e.order = index
+        })
       } else {
         throw new Error(`Vertex with target id: ${targetId} was not found`)
       }
-    }
-  }
-
-  addEdge(source: VertexEntity, target: VertexEntity): void {
-    if (!this.hasVertex(source.id)) {
-      throw new Error(`Vertex with source id ${source.id} does not exist`)
-    }
-
-    if (!this.hasVertex(target.id)) {
-      throw new Error(`Vertex with target id ${target.id} does not exist`)
-    }
-
-    if (!this.hasEdge(source.id, target.id)) {
-      target.parent = source.id
-      const edge: EdgeEntity = new EdgeEntity()
-
-      edge.id = uuidv4()
-      edge.source = source.id
-      edge.target = target.id
-
-      this.edges.push(edge)
-      this.edges.forEach((e: EdgeEntity, index) => {
-        e.order = index
-      })
     }
   }
 
@@ -146,7 +128,7 @@ export class GraphEntity {
     return index !== -1
   }
 
-  public moveVertexById(sourceId: string, targetId: string) {
+  public moveVertex(sourceId: VertexID, targetId: VertexID) {
     const sourceIndexE = this.edges.findIndex((e: EdgeEntity) => {
       return e.target === sourceId
     })
@@ -169,27 +151,14 @@ export class GraphEntity {
     })
   }
 
-  moveVertex(source: VertexEntity, target: VertexEntity) {
-    const sourceIndexE = this.edges.findIndex((e: EdgeEntity) => {
-      return e.target === source.id
-    })
+  moveUsingCytoscape(
+    cy: cytoscape.Core,
+    source: VertexID,
+    target: VertexID,
+  ): cytoscape.Core {
+    cy.edges().move({ source, target })
 
-    if (sourceIndexE === -1) {
-      throw new Error(`Vertex with source id ${source.id} does not exist`)
-    }
-
-    const targetIndexE = this.edges.findIndex((e: EdgeEntity) => {
-      return e.target === target.id
-    })
-
-    if (targetIndexE === -1) {
-      throw new Error(`Vertex with target id ${target.id} does not exist`)
-    }
-
-    this.arrayMove(this.edges, sourceIndexE, targetIndexE)
-    this.edges?.forEach((edge: EdgeEntity, index) => {
-      edge.order = index
-    })
+    return cy
   }
 
   private arrayMove(arr: Array<any>, oldIndex: number, newIndex: number) {
@@ -212,6 +181,32 @@ export class GraphEntity {
         edges: this.cyMapEdges(graph.edges),
       },
     })
+  }
+
+  public makeGraphEntity(cy: cytoscape.Core): GraphEntity {
+    const json = cy.json() as any
+    const g = new GraphEntity()
+
+    g.vertices = []
+    g.edges = []
+
+    g.vertices = json?.elements?.nodes?.map((node: any) => {
+      return {
+        id: node.data.id,
+        type: NodeType[node.data.type as keyof typeof NodeType],
+      } as VertexEntity
+    })
+
+    g.edges = json?.elements?.edges?.map((edge: any, index: number) => {
+      return {
+        id: edge.data.id,
+        source: edge.data.source,
+        target: edge.data.target,
+        order: index,
+      } as EdgeEntity
+    })
+
+    return g
   }
 
   private cyMapEdges(edges: Array<EdgeEntity>): Array<EdgeDefinition> {

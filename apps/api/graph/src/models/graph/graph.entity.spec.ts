@@ -63,9 +63,9 @@ describe('GraphEntity', () => {
 
   it('Should have correct parent', () => {
     g.addVertices([list, item0, item1, item2])
-    g.addEdge(list, item0)
-    g.addEdge(list, item1)
-    g.addEdge(list, item2)
+    g.addEdge(list.id, item0.id)
+    g.addEdge(list.id, item1.id)
+    g.addEdge(list.id, item2.id)
 
     expect(g.vertices[1].parent).toEqual(g.vertices[0].id)
     expect(g.vertices[2].parent).toEqual(g.vertices[0].id)
@@ -73,23 +73,35 @@ describe('GraphEntity', () => {
   })
 
   it('Should throw error if vertex source does not exist', () => {
-    expect(() => g.addEdge(list, item0)).toThrowError(
+    expect(() => g.addEdge(list.id, item0.id)).toThrowError(
       `Vertex with source id ${list.id} does not exist`,
     )
   })
 
   it('Should throw error if vertex target does not exist', () => {
     g.addVertex(list)
-    expect(() => g.addEdge(list, item0)).toThrowError(
-      `Vertex with target id ${item0.id} does not exist`,
+    expect(() => g.addEdge(list.id, item0.id)).toThrowError(
+      `Vertex with target id: ${item0.id} was not found`,
     )
+  })
+
+  it('should make GraphEntity from cytoscape object', () => {
+    g.addVertices([list, item0, item1, item2])
+    g.addEdge(list.id, item0.id)
+    g.addEdge(list.id, item1.id)
+    g.addEdge(list.id, item2.id)
+
+    const cy: cytoscape.Core = g.makeCytoscape(g)
+    const newG: GraphEntity = g.makeGraphEntity(cy)
+
+    expect(g).toMatchObject(newG)
   })
 
   it('Should make cytoscape object', () => {
     g.addVertices([list, item0, item1, item2])
-    g.addEdge(list, item0)
-    g.addEdge(list, item1)
-    g.addEdge(list, item2)
+    g.addEdge(list.id, item0.id)
+    g.addEdge(list.id, item1.id)
+    g.addEdge(list.id, item2.id)
 
     const cy: cytoscape.Core = g.makeCytoscape(g)
     const nodes: NodeCollection = cy.nodes()
@@ -111,9 +123,9 @@ describe('GraphEntity', () => {
 
   it('Can traverse graph using BFS', () => {
     g.addVertices([list, item0, item1, item2])
-    g.addEdge(list, item0)
-    g.addEdge(list, item1)
-    g.addEdge(list, item2)
+    g.addEdge(list.id, item0.id)
+    g.addEdge(list.id, item1.id)
+    g.addEdge(list.id, item2.id)
 
     const cy: cytoscape.Core = g.makeCytoscape(g)
     const root: NodeSingular = cy.elements().roots().first()
@@ -130,11 +142,11 @@ describe('GraphEntity', () => {
 
   it('Should move vertices', () => {
     g.addVertices([list, item0, item1, item2])
-    g.addEdge(list, item0)
-    g.addEdge(list, item1)
-    g.addEdge(list, item2)
+    g.addEdge(list.id, item0.id)
+    g.addEdge(list.id, item1.id)
+    g.addEdge(list.id, item2.id)
 
-    g.moveVertex(item2, item0)
+    g.moveVertex(item2.id, item0.id)
 
     const cy: cytoscape.Core = g.makeCytoscape(g)
     const root: NodeSingular = cy.elements().roots().first()
@@ -150,22 +162,46 @@ describe('GraphEntity', () => {
     expect(queue).toMatchObject([list.id, item2.id, item0.id, item1.id])
   })
 
+  it('should move Vertices using cytoscape', () => {
+    g.addVertices([list, item0, item1, item2])
+    g.addEdge(list.id, item0.id)
+    g.addEdge(list.id, item1.id)
+    g.addEdge(list.id, item2.id)
+
+    const cy: cytoscape.Core = g.makeCytoscape(g)
+
+    g.moveUsingCytoscape(cy, item2.id, item0.id)
+
+    const root: NodeSingular = cy.elements().roots().first()
+    const queue: Array<string> = []
+
+    cy.elements().breadthFirstSearch({
+      root: `#${root.id()}`,
+      visit: (node) => {
+        queue.push(node.id())
+      },
+    })
+    const newG = g.makeGraphEntity(cy)
+
+    expect(queue).toMatchObject([list.id, item2.id, item0.id, item1.id])
+  })
+
   it('Should throw error if vertex source does not exist when moving vertices', () => {
     g.addVertices([list, item0, item1, item2])
-    g.addEdge(list, item0)
-    g.addEdge(list, item1)
+    g.addEdge(list.id, item0.id)
+    g.addEdge(list.id, item1.id)
 
-    expect(() => g.moveVertex(item2, item0)).toThrowError(
+    expect(() => g.moveVertex(item2.id, item0.id)).toThrowError(
       `Vertex with source id ${item2.id} does not exist`,
     )
   })
 
   it('Should throw error if vertex target does not exist when moving vertices', () => {
     g.addVertices([list, item0, item1, item2])
-    g.addEdge(list, item1)
-    g.addEdge(list, item2)
+    g.addEdge(list.id, item1.id)
+    g.addEdge(list.id, item2.id)
 
-    expect(() => g.moveVertex(item2, item0)).toThrowError(
+    expect(() => g.moveVertex(item2.id, item0.id)).toThrowError(
       `Vertex with target id ${item0.id} does not exist`,
     )
   })

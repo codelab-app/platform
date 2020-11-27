@@ -1,3 +1,4 @@
+import { IncomingMessage } from 'http'
 import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { GqlModuleOptions, GqlOptionsFactory } from '@nestjs/graphql'
@@ -12,6 +13,14 @@ import {
 } from 'graphql-tools'
 import nodeFetch from 'node-fetch'
 import { ApiConfig, ApiConfigTypes } from '@codelab/api/providers/config'
+
+export interface IGraphqlContext {
+  req: IncomingMessage
+}
+
+export interface IPrevContext {
+  graphqlContext: IGraphqlContext
+}
 
 @Injectable()
 export class ConfigGraphqlHasuraService implements GqlOptionsFactory {
@@ -91,9 +100,9 @@ export class ConfigGraphqlHasuraService implements GqlOptionsFactory {
        * https://github.com/apollographql/apollo-link/issues/630
        */
       const jwtAccessLink = setContext(
-        (_request: GraphQLRequest, prevContext: any) => {
-          const authorization =
-            prevContext?.graphqlContext?.req?.headers?.authorization
+
+        (_request: GraphQLRequest, prevContext: IPrevContext) => {
+          const { authorization } = prevContext?.graphqlContext?.req?.headers
 
           return {
             ...prevContext,

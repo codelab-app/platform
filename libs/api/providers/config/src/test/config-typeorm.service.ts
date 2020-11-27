@@ -13,8 +13,6 @@ export class ConfigTypeormService implements TypeOrmOptionsFactory {
   constructor(private readonly config: ConfigService<ApiConfig>) {}
 
   createTypeOrmOptions(connectionName?: string): TypeOrmModuleOptions {
-    const c = this.config
-
     return {
       type: 'postgres',
       host: this.config.get(ApiConfigTypes.POSTGRES_HOST),
