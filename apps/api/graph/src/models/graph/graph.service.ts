@@ -43,7 +43,7 @@ export class GraphService implements OnModuleInit {
           },
         )
 
-        graph.moveVertexById(src, target)
+        graph.moveVertex(src, target)
         const savedGraph = await this.graphEntityRepository.save(graph)
 
         savedGraph.sortEdges()
