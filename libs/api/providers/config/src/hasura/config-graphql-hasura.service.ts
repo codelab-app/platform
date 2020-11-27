@@ -92,7 +92,8 @@ export class ConfigGraphqlHasuraService implements GqlOptionsFactory {
        */
       const jwtAccessLink = setContext(
         (_request: GraphQLRequest, prevContext: any) => {
-          const { authorization } = prevContext?.graphQLContext?.req?.headers
+          const authorization =
+            prevContext?.graphqlContext?.req?.headers?.authorization
 
           return {
             ...prevContext,
