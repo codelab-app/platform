@@ -6,7 +6,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm'
-import { GraphEntity } from '../graph/graph.entity'
+import { GraphEntity, VertexID } from '../graph/graph.entity'
 import { IEdge } from './IEdge'
 
 @Entity('edge')
@@ -21,13 +21,13 @@ export class EdgeEntity {
     type: 'text',
   })
   @Index()
-  declare source: string
+  declare source: VertexID
 
   @Column({
     type: 'text',
   })
   @Index()
-  declare target: string
+  declare target: VertexID
 
   @Column({
     type: 'int',
