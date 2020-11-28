@@ -154,7 +154,10 @@
     "shared-interface-collections": {
       "tags": []
     },
-    "ddd-shared-module": {
+    "ddd-shared": {
+      "tags": []
+    },
+    "ddd-modules-users": {
       "tags": []
     }
   }

@@ -59,5 +59,6 @@ module.exports = {
     '<rootDir>/libs/shared/interface/mapper',
     '<rootDir>/libs/shared/interface/collections',
     '<rootDir>/libs/ddd/shared/module',
+    '<rootDir>/libs/ddd/modules/users',
   ],
 }
