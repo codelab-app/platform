@@ -1,0 +1,3 @@
+interface UserProps {
+  email: string
+}

@@ -153,6 +153,9 @@
     },
     "shared-interface-collections": {
       "tags": []
+    },
+    "ddd-shared-module": {
+      "tags": []
     }
   }
 }

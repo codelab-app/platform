@@ -58,5 +58,6 @@ module.exports = {
     '<rootDir>/libs/shared/factory',
     '<rootDir>/libs/shared/interface/mapper',
     '<rootDir>/libs/shared/interface/collections',
+    '<rootDir>/libs/ddd/shared/module',
   ],
 }

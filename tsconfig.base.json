@@ -83,7 +83,8 @@
       ],
       "@codelab/shared/interface/collections": [
         "libs/shared/interface/collections/src/index.ts"
-      ]
+      ],
+      "@codelab/ddd/shared": ["libs/ddd/shared/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"]
