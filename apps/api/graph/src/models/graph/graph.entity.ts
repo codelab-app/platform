@@ -20,6 +20,12 @@ import { NodeType } from '@codelab/shared/interface/node'
 
 export type VertexID = string
 
+export interface ICyEdge {
+  id: string
+  source: VertexID
+  target: VertexID
+}
+
 @Entity('graph')
 @ObjectType({
   implements: [IGraph],
@@ -156,7 +162,36 @@ export class GraphEntity {
     source: VertexID,
     target: VertexID,
   ): cytoscape.Core {
-    cy.edges().move({ source, target })
+    const cyJson = cy.json() as any
+    const cyEdges = cyJson.elements.edges.map((e: any) => e.data)
+
+    const sourceEdge = cyEdges.find((edge: ICyEdge) => {
+      return edge.target === source
+    })
+
+    if (!sourceEdge) {
+      throw new Error(`Source edge with id ${source} was not found`)
+    }
+
+    const targetEdgeIndex = cyEdges.findIndex((edge: ICyEdge) => {
+      return edge.target === target
+    })
+
+    if (targetEdgeIndex === -1) {
+      throw new Error(`Target edge with id: ${target} was not found`)
+    }
+
+    const targetEdge = cyEdges[targetEdgeIndex + 1]
+
+    cy.edges()
+      .$id(targetEdge.id)
+      .move({ source: sourceEdge.source, target: source })
+    cy.edges()
+      .$id(sourceEdge.id)
+      .move({ source: sourceEdge.source, target: targetEdge.target })
+
+    // cyJson = cy.json() as any
+    // const movedEdges = cyJson.elements.edges.map((e: any) => e.data)
 
     return cy
   }
