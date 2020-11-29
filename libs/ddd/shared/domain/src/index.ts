@@ -1,3 +1,5 @@
+export * from './core'
+export * from './events'
 export * from './AggregateRoot'
 export * from './DomainService'
 export * from './Entity'

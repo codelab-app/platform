@@ -15,5 +15,6 @@ module.exports = {
   rules: {
     'react/static-property-placement': 'off',
     'no-prototype-builtins': 'off',
+    'no-use-before-define': 'off',
   },
 }
