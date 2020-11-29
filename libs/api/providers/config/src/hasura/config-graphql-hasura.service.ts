@@ -116,11 +116,9 @@ export class ConfigGraphqlHasuraService implements GqlOptionsFactory {
       ).concat(httpLink)
 
       // First we get the schema using our hasura admin key
-      const remoteIntrospectedSchema = await introspectSchema(adminAccessLink)
-
-      // Next two line appear to be not needed
-      // const remoteSchema = printSchema(remoteIntrospectedSchema)
-      // const builtHasuraSchema = buildSchemaGraphql(remoteSchema)
+      const remoteIntrospectedSchema = await this.getHasuraSchema(
+        adminAccessLink as HttpLink,
+      )
 
       /**
        * Need to be using graphql-tools@4 for stitching
@@ -128,7 +126,6 @@ export class ConfigGraphqlHasuraService implements GqlOptionsFactory {
        * forwarded to Hasura through our server
        */
       const remoteExecutableSchema = makeRemoteExecutableSchema({
-        // schema: builtHasuraSchema,
         schema: remoteIntrospectedSchema,
         link: jwtAccessLink,
       })
@@ -139,5 +136,9 @@ export class ConfigGraphqlHasuraService implements GqlOptionsFactory {
 
       return Promise.reject(err)
     }
+  }
+
+  private async getHasuraSchema(link: HttpLink): Promise<GraphQLSchema> {
+    return introspectSchema(link)
   }
 }
