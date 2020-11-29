@@ -19,5 +19,7 @@ module.exports = {
     '@typescript-eslint/no-empty-function': 'off',
     'no-param-reassign': 'off',
     'no-plusplus': 'off',
+    'func-style': 'off',
+    'no-shadow': 'off',
   },
 }
