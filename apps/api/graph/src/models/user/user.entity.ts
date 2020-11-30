@@ -16,10 +16,10 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm'
 import { CodelabValidationError } from '../../app/filters/CodelabValidationError'
-import { GraphEntity } from '../graph/graph.entity'
+import { CodelabAppEntity } from '../app/codelab-app.entity'
 import { IUser } from './IUser'
 
-@Entity('user')
+@Entity('users')
 @ObjectType({
   implements: [IUser],
 })
@@ -79,7 +79,6 @@ export class UserEntity {
     return bcrypt.compare(attempt, this.password)
   }
 
-  @OneToMany((type) => GraphEntity, (graph) => graph.user)
-  @IsOptional()
-  declare graphs: Array<GraphEntity>
+  @OneToMany((type) => CodelabAppEntity, (app) => app.user)
+  declare apps: Array<CodelabAppEntity>
 }
