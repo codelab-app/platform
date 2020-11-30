@@ -1,6 +1,12 @@
 import { ObjectType } from '@nestjs/graphql'
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
-import { GraphEntity } from '../graph/graph.entity'
+import {
+  Column,
+  Entity,
+  Index,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm'
+import { GraphEntity, VertexID } from '../graph/graph.entity'
 import { IEdge } from './IEdge'
 
 @Entity('edge')
@@ -14,12 +20,14 @@ export class EdgeEntity {
   @Column({
     type: 'text',
   })
-  declare source: string
+  @Index()
+  declare source: VertexID
 
   @Column({
     type: 'text',
   })
-  declare target: string
+  @Index()
+  declare target: VertexID
 
   @Column({
     type: 'int',
