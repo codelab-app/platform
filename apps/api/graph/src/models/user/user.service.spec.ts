@@ -45,7 +45,7 @@ describe('UserService', () => {
   })
 
   afterEach(async () => {
-    await repository.query(`DELETE FROM "user"; COMMIT;`)
+    await repository.query(`DELETE FROM users; COMMIT;`)
   })
 
   it('Should handle password hashing when creating an account', async () => {

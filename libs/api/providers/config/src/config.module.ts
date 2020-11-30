@@ -24,9 +24,9 @@ import { envPath, envs, isDev } from '@codelab/shared/utils'
           .required()
           .valid(...envs),
         // Typeorm
-        [ApiConfigTypes.TYPEORM_SEED]: Joi.boolean(),
-        [ApiConfigTypes.TYPEORM_DROP_SCHEMA]: Joi.boolean(),
-        [ApiConfigTypes.TYPEORM_SYNCHRONIZE]: Joi.boolean(),
+        [ApiConfigTypes.TYPEORM_SEED]: Joi.number(),
+        [ApiConfigTypes.TYPEORM_DROP_SCHEMA]: Joi.number(),
+        [ApiConfigTypes.TYPEORM_SYNCHRONIZE]: Joi.number(),
         // Postgres DB
         [ApiConfigTypes.POSTGRES_HOST]: Joi.string().required(),
         [ApiConfigTypes.POSTGRES_PORT]: Joi.number().required(),

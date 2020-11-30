@@ -1,3 +1,4 @@
+import { IncomingMessage } from 'http'
 import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { GqlModuleOptions, GqlOptionsFactory } from '@nestjs/graphql'
@@ -12,6 +13,14 @@ import {
 } from 'graphql-tools'
 import nodeFetch from 'node-fetch'
 import { ApiConfig, ApiConfigTypes } from '@codelab/api/providers/config'
+
+export interface IGraphqlContext {
+  req: IncomingMessage
+}
+
+export interface IPrevContext {
+  graphqlContext: IGraphqlContext
+}
 
 @Injectable()
 export class ConfigGraphqlHasuraService implements GqlOptionsFactory {
@@ -91,8 +100,8 @@ export class ConfigGraphqlHasuraService implements GqlOptionsFactory {
        * https://github.com/apollographql/apollo-link/issues/630
        */
       const jwtAccessLink = setContext(
-        (_request: GraphQLRequest, prevContext: any) => {
-          const { authorization } = prevContext?.graphQLContext?.req?.headers
+        (_request: GraphQLRequest, prevContext: IPrevContext) => {
+          const { authorization } = prevContext?.graphqlContext?.req?.headers
 
           return {
             ...prevContext,
@@ -106,11 +115,9 @@ export class ConfigGraphqlHasuraService implements GqlOptionsFactory {
       ).concat(httpLink)
 
       // First we get the schema using our hasura admin key
-      const remoteIntrospectedSchema = await introspectSchema(adminAccessLink)
-
-      // Next two line appear to be not needed
-      // const remoteSchema = printSchema(remoteIntrospectedSchema)
-      // const builtHasuraSchema = buildSchemaGraphql(remoteSchema)
+      const remoteIntrospectedSchema = await this.getHasuraSchema(
+        adminAccessLink as HttpLink,
+      )
 
       /**
        * Need to be using graphql-tools@4 for stitching
@@ -118,7 +125,6 @@ export class ConfigGraphqlHasuraService implements GqlOptionsFactory {
        * forwarded to Hasura through our server
        */
       const remoteExecutableSchema = makeRemoteExecutableSchema({
-        // schema: builtHasuraSchema,
         schema: remoteIntrospectedSchema,
         link: jwtAccessLink,
       })
@@ -129,5 +135,9 @@ export class ConfigGraphqlHasuraService implements GqlOptionsFactory {
 
       return Promise.reject(err)
     }
+  }
+
+  private async getHasuraSchema(link: HttpLink): Promise<GraphQLSchema> {
+    return introspectSchema(link)
   }
 }
