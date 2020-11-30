@@ -1,32 +1,16 @@
-import * as Joi from '@hapi/joi'
 import * as bcrypt from 'bcrypt'
 // import { Validation } from '@codelab/ddd/shared/domain'
-import { IsGoodPasswordStrength } from './specifications/IsGoodPasswordStrength'
+import { MinLength, validateOrReject } from 'class-validator'
 import { Result, ValueObject } from '@codelab/ddd/shared/domain'
 
-export interface IUserPasswordProps {
+export interface UserPasswordProps {
   value: string
-  // hashed?: boolean
+  hashed?: boolean
 }
 
-interface Validation {
-  rules: any
-}
-
-export class UserPassword extends ValueObject<IUserPasswordProps> {
-  private static rules = Joi.string().min(3).required()
-
-  get value(): string {
-    return this.props.value
-  }
-
-  private constructor(props: IUserPasswordProps) {
-    super(props)
-  }
-
-  // private static isAppropriateLength(password: string): boolean {
-  //   return password.length >= this.minLength
-  // }
+export class UserPassword extends ValueObject<UserPasswordProps> {
+  @MinLength(3)
+  declare value: string
 
   /**
    * @method comparePassword
@@ -36,32 +20,28 @@ export class UserPassword extends ValueObject<IUserPasswordProps> {
   public async comparePassword(plainTextPassword: string): Promise<boolean> {
     let hashed: string
 
-    // if (this.isAlreadyHashed()) {
-    //   hashed = this.props.value
+    if (this.isAlreadyHashed()) {
+      hashed = this.props.value
 
-    //   return this.bcryptCompare(plainTextPassword, hashed)
-    // }
+      return this.bcryptCompare(plainTextPassword, hashed)
+    }
 
     return this.props.value === plainTextPassword
   }
 
   private bcryptCompare(plainText: string, hashed: string): Promise<boolean> {
-    return new Promise((resolve, reject) => {
-      bcrypt.compare(plainText, hashed, (err, compareResult) => {
-        if (err) return resolve(false)
-
-        return resolve(compareResult)
-      })
+    return bcrypt.compare(plainText, hashed, (err, compareResult) => {
+      return compareResult
     })
   }
 
-  // public isAlreadyHashed(): boolean {
-  //   return this.props.hashed ?? false
-  // }
+  public isAlreadyHashed(): boolean {
+    return this.props.hashed ?? false
+  }
 
-  // private hashPassword(password: string): Promise<string> {
-  //   return bcrypt.hash(password, 10)
-  // }
+  private hashPassword(password: string): Promise<string> {
+    return bcrypt.hash(password, 10)
+  }
 
   // public getHashedValue(): Promise<string> {
   //   return new Promise((resolve) => {
@@ -73,17 +53,15 @@ export class UserPassword extends ValueObject<IUserPasswordProps> {
   //   })
   // }
 
-  public static create(props: IUserPasswordProps): Result<UserPassword> {
-    const rules = new IsGoodPasswordStrength<IUserPasswordProps, UserPassword>()
+  public static create(props: UserPasswordProps): Result<UserPassword> {
+    const userPassword = new UserPassword(props)
 
-    if (rules.isNotSatisfiedBy(props)) {
-      return Result.fail<UserPassword>('Password strength')
-    }
+    validateOrReject(userPassword).catch((errors) => {
+      console.log(errors)
 
-    return Result.ok<UserPassword>(
-      new UserPassword({
-        value: props.value,
-      }),
-    )
+      return Result.fail<UserPassword>('Password not valid')
+    })
+
+    return Result.ok<UserPassword>(userPassword)
   }
 }

@@ -1,3 +1,6 @@
+import { User } from '../../../domain/user'
+import { UserEmail } from '../../../domain/user-email'
+import { UserPassword } from '../../../domain/user-password'
 import { IUserRepo } from '../../../infra/repos/userRepo'
 import { CreateUserDTO } from './CreateUserDTO'
 import { CreateUserErrors } from './CreateUserErrors'
@@ -6,6 +9,7 @@ import {
   Either,
   Result,
   UseCase,
+  left,
   right,
 } from '@codelab/ddd/shared/domain'
 
@@ -26,61 +30,38 @@ export class CreateUserUseCase
   }
 
   async execute(request: CreateUserDTO): Promise<Response> {
-    // const emailOrError = UserEmail.create(request.email)
-    // const passwordOrError = UserPassword.create({ value: request.password })
+    const emailResult = UserEmail.create({ value: request.email })
+    const passwordResult = UserPassword.create({ value: request.password })
 
-    // const dtoResult = Result.combine([emailOrError, passwordOrError])
+    const dtoResult = Result.combine([emailResult, passwordResult])
 
-    // // if (dtoResult.isFailure) {
-    // //   return left(Result.fail<void>(dtoResult.error)) as Response
-    // // }
+    if (dtoResult.isFailure) {
+      return left(Result.fail<void>(dtoResult.errors)) as Response
+    }
 
-    // const email: UserEmail = emailOrError.getValue()
-    // const password: UserPassword = passwordOrError.getValue()
+    const email: UserEmail = emailResult.value
+    const password: UserPassword = passwordResult.value
 
-    return right(Result.ok<void>())
-    // try {
-    //   const userAlreadyExists = await this.userRepo.exists(email)
+    const userAlreadyExists = this.userRepo.getUserByEmail(email)
 
-    //   if (userAlreadyExists) {
-    //     return left(
-    //       new CreateUserErrors.EmailAlreadyExistsError(email.value),
-    //     ) as Response
-    //   }
+    if (userAlreadyExists) {
+      return left(new CreateUserErrors.EmailAlreadyExistsError(email.value))
+    }
 
-    //   try {
-    //     const alreadyCreatedUserByUserName = await this.userRepo.getUserByUserName(
-    //       username,
-    //     )
+    const userResult = User.create({ email, password })
 
-    //     const userNameTaken = !!alreadyCreatedUserByUserName === true
+    if (userResult.isFailure) {
+      return left(Result.fail<void>(userResult.errors.toString()))
+    }
 
-    //     if (userNameTaken) {
-    //       return left(
-    //         new CreateUserErrors.UsernameTakenError(username.value),
-    //       ) as Response
-    //     }
-    //   } catch (err) {
-    //     console.log(err)
-    //   }
+    const user = userResult.value
 
-    //   const userOrError: Result<User> = User.create({
-    //     email,
-    //     password,
-    //     username,
-    //   })
+    try {
+      await this.userRepo.save(user)
 
-    //   if (userOrError.isFailure) {
-    //     return left(Result.fail<User>(userOrError.error.toString())) as Response
-    //   }
-
-    //   const user: User = userOrError.getValue()
-
-    //   await this.userRepo.save(user)
-
-    //   return right(Result.ok<void>())
-    // } catch (err) {
-    //   return left(new AppError.UnexpectedError(err)) as Response
-    // }
+      return right(Result.ok<void>())
+    } catch (e) {
+      return left(new AppError.UnexpectedError(e)) as Response
+    }
   }
 }

@@ -3,18 +3,18 @@ export class Result<T> {
 
   public isFailure: boolean
 
-  private _message?: T | string
+  private _errors?: T | string
 
   private _value?: T
 
-  protected constructor(isSuccess: boolean, message?: T | string, value?: T) {
-    if (isSuccess && message) {
+  protected constructor(isSuccess: boolean, errors?: T | string, value?: T) {
+    if (isSuccess && errors) {
       throw new Error(
         'InvalidOperation: A result cannot be successful and contain an error',
       )
     }
 
-    if (!isSuccess && !message) {
+    if (!isSuccess && !errors) {
       throw new Error(
         'InvalidOperation: A failing result needs to contain an error message',
       )
@@ -22,7 +22,7 @@ export class Result<T> {
 
     this.isSuccess = isSuccess
     this.isFailure = !isSuccess
-    this._message = message
+    this._errors = errors
     this._value = value
 
     Object.freeze(this)
@@ -30,7 +30,7 @@ export class Result<T> {
 
   get value(): T {
     if (!this.isSuccess) {
-      console.log(this._message)
+      console.log(this._errors)
       throw new Error(
         "Can't get the value of an error result. Use 'errorValue' instead.",
       )
@@ -39,8 +39,8 @@ export class Result<T> {
     return this._value as T
   }
 
-  get message(): T {
-    return this._message as T
+  get errors(): T {
+    return this._errors as T
   }
 
   public static ok<U>(value?: U): Result<U> {
@@ -51,6 +51,11 @@ export class Result<T> {
     return new Result<U>(false, error)
   }
 
+  /**
+   * Returns first failure result
+   *
+   * @param results
+   */
   public static combine(results: Array<Result<any>>): Result<any> {
     for (const result of results) {
       if (result.isFailure) return result

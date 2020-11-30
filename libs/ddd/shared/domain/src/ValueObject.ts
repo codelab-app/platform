@@ -1,4 +1,5 @@
 interface ValueObjectProps {
+  value: any
   [index: string]: any
 }
 
@@ -8,12 +9,15 @@ interface ValueObjectProps {
  */
 
 export abstract class ValueObject<T extends ValueObjectProps> {
-  public props: T
+  protected props: T
 
-  constructor(props: T) {
+  protected value: any
+
+  protected constructor(props: T) {
     this.props = {
       ...props,
     }
+    this.value = props.value
   }
 
   // public equals(vo?: ValueObject<T>): boolean {

@@ -1,13 +1,15 @@
 import { UserCreated } from './events/userCreated'
+import { UserEmail } from './user-email'
+import { UserPassword } from './user-password'
 import {
   AggregateRoot,
-  Guard,
   Result,
   UniqueEntityID,
 } from '@codelab/ddd/shared/domain'
 
 interface UserProps {
-  email: string
+  email: UserEmail
+  password: UserPassword
 }
 
 export class User extends AggregateRoot<UserProps> {
@@ -15,22 +17,18 @@ export class User extends AggregateRoot<UserProps> {
     super(props, id)
   }
 
+  /**
+   * Used for hydrating the entity, Use Case should decide which fields to create
+   *
+   * @param props Already been validated via individual field's `create` method
+   * @param id Determines whether we are creating new user, or hydarting an existing user object
+   */
   public static create(props: UserProps, id?: UniqueEntityID): Result<User> {
-    const guardResult = Guard.againstNullOrUndefinedBulk([
-      { argument: props.email, argumentName: 'email' },
-    ])
-
-    if (!guardResult.succeeded) {
-      return Result.fail<User>(guardResult.message)
-    }
-
     const isNewUser = !!id === false
+
     const user = new User(
       {
         ...props,
-        // isDeleted: props.isDeleted ? props.isDeleted : false,
-        // isEmailVerified: props.isEmailVerified ? props.isEmailVerified : false,
-        // isAdminUser: props.isAdminUser ? props.isAdminUser : false,
       },
       id,
     )

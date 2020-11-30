@@ -1,4 +1,4 @@
-import * as Joi from '@hapi/joi'
+import { IsEmail, validateOrReject } from 'class-validator'
 import { Result, ValueObject } from '@codelab/ddd/shared/domain'
 
 export interface UserEmailProps {
@@ -6,29 +6,18 @@ export interface UserEmailProps {
 }
 
 export class UserEmail extends ValueObject<UserEmailProps> {
-  get value(): string {
-    return this.props.value
-  }
+  @IsEmail()
+  declare value: string
 
-  private constructor(props: UserEmailProps) {
-    super(props)
-  }
+  public static create(props: UserEmailProps): Result<UserEmail> {
+    const userEmail = new UserEmail(props)
 
-  private static isValidEmail(email: string) {
-    const schema = Joi.string().email({})
+    validateOrReject(userEmail).catch((errors) => {
+      console.log(errors)
 
-    return schema.validate(email)
-  }
-
-  private static format(email: string): string {
-    return email.trim().toLowerCase()
-  }
-
-  public static create(email: string): Result<UserEmail> {
-    if (!this.isValidEmail(email)) {
       return Result.fail<UserEmail>('Email address not valid')
-    }
+    })
 
-    return Result.ok<UserEmail>(new UserEmail({ value: this.format(email) }))
+    return Result.ok<UserEmail>(userEmail)
   }
 }
