@@ -100,7 +100,6 @@ export class ConfigGraphqlHasuraService implements GqlOptionsFactory {
        * https://github.com/apollographql/apollo-link/issues/630
        */
       const jwtAccessLink = setContext(
-
         (_request: GraphQLRequest, prevContext: IPrevContext) => {
           const { authorization } = prevContext?.graphqlContext?.req?.headers
 
