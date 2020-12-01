@@ -10,7 +10,6 @@ import {
 import { ConfigJwtService } from './jwt'
 import { envPath, envs, isDev } from '@codelab/shared/utils'
 
-checkDotEnvExistence()
 @Module({
   imports: [
     NestConfigModule.forRoot({
@@ -55,4 +54,8 @@ checkDotEnvExistence()
     ConfigJwtService,
   ],
 })
-export class ConfigModule {}
+export class ConfigModule {
+  constructor() {
+    checkDotEnvExistence()
+  }
+}

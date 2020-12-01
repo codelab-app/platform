@@ -1,8 +1,9 @@
 import findConfig from 'findup-sync'
 
+const DEFAULT_DOTENV_FILE = '.env'
+
 export const checkDotEnvExistence = () => {
-  const defaultDotevFile = '.env'
-  const path = findConfig(defaultDotevFile)
+  const path = findConfig(DEFAULT_DOTENV_FILE)
 
   if (path) {
     throw new Error(
