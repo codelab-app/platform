@@ -1,6 +1,7 @@
 import * as Joi from '@hapi/joi'
 import { Module } from '@nestjs/common'
 import { ConfigModule as NestConfigModule } from '@nestjs/config'
+import { checkDotEnvExistence } from './checkDotEnvExistence'
 import { ApiConfig, ApiConfigTypes, config } from './config'
 import {
   ConfigGraphqlHasuraService,
@@ -9,6 +10,7 @@ import {
 import { ConfigJwtService } from './jwt'
 import { envPath, envs, isDev } from '@codelab/shared/utils'
 
+checkDotEnvExistence()
 @Module({
   imports: [
     NestConfigModule.forRoot({
