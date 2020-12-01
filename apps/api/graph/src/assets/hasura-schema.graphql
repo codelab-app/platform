@@ -1,5 +1,13 @@
 type Query {
-  getAll: [VertexEntity!]!
+  createAccessToken: AuthDto!
+  getAllEdges: [EdgeEntity!]!
+  getAllGraphs: [GraphEntity!]!
+  getAllUsers: [UserEntity!]!
+  login(user: UserInput!): UserDto!
+  refreshToken(token: String!): String!
+  getAllVertices: [VertexEntity!]!
+  getAllApps: [CodelabAppEntity!]!
+  getAllPages: [PageEntity!]!
 
   """
   fetch data from the table: "edge"
@@ -174,60 +182,10 @@ type Query {
   vertex_by_pk(id: uuid!): vertex
 }
 
-type UserEntity implements IUser {
-  id: Int!
-  username: String!
-}
-
-interface IUser {
-  id: Int!
-  username: String!
-}
-
-type VertexEntity implements IVertex {
-  id: String!
-  props: JSONObject
-}
-
-interface IVertex {
-  id: String!
-  props: JSONObject
-}
-
-"""
-The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
-"""
-scalar JSONObject
-
-type GraphEntity implements IGraph {
-  id: Int!
-  vertices: [VertexEntity!]
-  edges: [EdgeEntity!]
-  user: UserEntity
-}
-
-interface IGraph {
-  id: Int!
-  vertices: [VertexEntity!]
-  edges: [EdgeEntity!]
-  user: UserEntity
-}
-
-type EdgeEntity implements IEdge {
-  id: String!
-  source: String!
-  target: String!
-  props: JSONObject
-}
-
-interface IEdge {
-  id: String!
-  source: String!
-  target: String!
-  props: JSONObject
-}
-
 type Mutation {
+  moveVertex(target: String!, src: String!): GraphEntity!
+  registerUser(user: UserInput!): UserDto!
+
   """
   delete data from the table: "edge"
   """
@@ -390,6 +348,9 @@ type Mutation {
     """
     _delete_key: edge_delete_key_input
 
+    """increments the integer columns with given value of the filtered values"""
+    _inc: edge_inc_input
+
     """prepend existing jsonb value of filtered columns with new jsonb value"""
     _prepend: edge_prepend_input
 
@@ -421,6 +382,9 @@ type Mutation {
     delete key/value pair or string element. key/value pairs are matched based on their key value
     """
     _delete_key: edge_delete_key_input
+
+    """increments the integer columns with given value of the filtered values"""
+    _inc: edge_inc_input
 
     """prepend existing jsonb value of filtered columns with new jsonb value"""
     _prepend: edge_prepend_input
@@ -531,6 +495,215 @@ type Mutation {
     _set: vertex_set_input
     pk_columns: vertex_pk_columns_input!
   ): vertex
+}
+
+type EdgeEntity implements IEdge {
+  id: String!
+  source: String!
+  target: String!
+  order: Int!
+  props: JSONObject
+}
+
+interface IEdge {
+  id: String!
+  source: String!
+  target: String!
+  order: Int!
+  props: JSONObject
+}
+
+"""
+The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSONObject
+
+type PageEntity implements IPage {
+  id: String!
+  app: CodelabAppEntity
+  graphs: [GraphEntity!]
+}
+
+interface IPage {
+  id: String!
+  app: CodelabAppEntity
+  graphs: [GraphEntity!]
+}
+
+type VertexEntity implements IVertex {
+  id: String!
+  props: JSONObject
+  parent: String
+  type: NodeType!
+}
+
+interface IVertex {
+  id: String!
+  props: JSONObject
+  parent: String
+  type: NodeType!
+}
+
+enum NodeType {
+  React_Fragment
+  React_Html_Div
+  React_Html_P
+  React_Html_A
+  React_Html_Span
+  React_Text
+  React_Icon
+  React_Menu
+  React_Menu_Item
+  React_Menu_ItemGroup
+  React_Menu_SubMenu
+  React_Card
+  React_Card_Grid
+  React_Card_Meta
+  React_Typography
+  React_Typography_Title
+  React_Typography_Text
+  React_Typography_Paragraph
+  React_Alert
+  React_Affix
+  React_AutoComplete
+  React_Button
+  React_Breadcrumb
+  React_Breadcrumb_Item
+  React_Dropdown
+  React_Form
+  React_Form_Item
+  React_Form_ItemHook
+  React_Form_List
+  React_Checkbox
+  React_Input
+  React_InputNumber
+  React_Select
+  React_Select_Option
+  React_Grid
+  React_ResponsiveGrid
+  React_Provider
+  React_Modal
+  React_Radio_Group
+  React_Radio
+  React_Rate
+  React_Slider
+  React_Switch
+  React_Table
+  React_Space
+  React_DatePicker
+  React_Divider
+  React_Pagination
+  React_PageHeader
+  React_Badge
+  React_Avatar
+  React_Comment
+  React_Calendar
+  React_Descriptions
+  React_Descriptions_Item
+  React_Empty
+  React_Timeline
+  React_Timeline_Item
+  React_Tabs
+  React_Tabs_TabPane
+  React_Statistic
+  React_Tooltip
+  React_Tag
+  React_Tree
+  React_Drawer
+  React_Progress
+  React_Result
+  React_Spin
+  React_Skeleton
+  React_Anchor
+  React_Anchor_Link
+  React_BackTop
+  React_ConfigProvider
+  React_Popconfirm
+  React_Transfer
+  React_TreeSelect
+  React_TreeNode
+  React_TimePicker
+  React_Upload
+  React_Steps
+  React_Steps_Step
+  React_Collapse
+  React_Collapse_Panel
+  React_Carousel
+  React_List
+  React_List_Item
+  React_List_Item_Meta
+  React_Mentions
+  React_Mentions_Option
+  React_Layout
+  React_Layout_Header
+  React_Layout_Sider
+  React_Layout_Content
+  React_Layout_Footer
+  React_Cascader
+  React_Popover
+  React_RenderComponent
+  React_RenderContainer
+  React_Mapper
+  Model
+  Schema
+  Tree
+  Ref
+}
+
+type GraphEntity implements IGraph {
+  id: String!
+  vertices: [VertexEntity!]
+  edges: [EdgeEntity!]
+  app: CodelabAppEntity
+  page: PageEntity
+}
+
+interface IGraph {
+  id: String!
+  vertices: [VertexEntity!]
+  edges: [EdgeEntity!]
+  app: CodelabAppEntity
+  page: PageEntity
+}
+
+type UserEntity implements IUser {
+  id: String!
+  email: String!
+  apps: [CodelabAppEntity!]!
+}
+
+interface IUser {
+  id: String!
+  email: String!
+  apps: [CodelabAppEntity!]!
+}
+
+type CodelabAppEntity implements IApp {
+  id: String!
+  user: UserEntity
+  pages: [PageEntity!]
+  graphs: [GraphEntity!]
+}
+
+interface IApp {
+  id: String!
+  user: UserEntity
+  pages: [PageEntity!]
+  graphs: [GraphEntity!]
+}
+
+type UserDto {
+  user: UserEntity!
+  accessToken: String!
+}
+
+type AuthDto {
+  accessToken: String!
+}
+
+input UserInput {
+  email: String!
+  password: String!
 }
 
 type Subscription {
@@ -708,6 +881,21 @@ type Subscription {
 }
 
 """
+expression to compare columns of type Int. All fields are combined with logical 'AND'.
+"""
+input Int_comparison_exp {
+  _eq: Int
+  _gt: Int
+  _gte: Int
+  _in: [Int!]
+  _is_null: Boolean
+  _lt: Int
+  _lte: Int
+  _neq: Int
+  _nin: [Int!]
+}
+
+"""
 expression to compare columns of type String. All fields are combined with logical 'AND'.
 """
 input String_comparison_exp {
@@ -734,8 +922,9 @@ columns and relationships of "edge"
 type edge {
   """An object relationship"""
   graph: graph
-  graphId: uuid
+  graph_id: uuid
   id: uuid!
+  order: Int!
   props(
     """JSON select path"""
     path: String
@@ -756,18 +945,34 @@ type edge_aggregate {
 aggregate fields of "edge"
 """
 type edge_aggregate_fields {
+  avg: edge_avg_fields
   count(columns: [edge_select_column!], distinct: Boolean): Int
   max: edge_max_fields
   min: edge_min_fields
+  stddev: edge_stddev_fields
+  stddev_pop: edge_stddev_pop_fields
+  stddev_samp: edge_stddev_samp_fields
+  sum: edge_sum_fields
+  var_pop: edge_var_pop_fields
+  var_samp: edge_var_samp_fields
+  variance: edge_variance_fields
 }
 
 """
 order by aggregate values of table "edge"
 """
 input edge_aggregate_order_by {
+  avg: edge_avg_order_by
   count: order_by
   max: edge_max_order_by
   min: edge_min_order_by
+  stddev: edge_stddev_order_by
+  stddev_pop: edge_stddev_pop_order_by
+  stddev_samp: edge_stddev_samp_order_by
+  sum: edge_sum_order_by
+  var_pop: edge_var_pop_order_by
+  var_samp: edge_var_samp_order_by
+  variance: edge_variance_order_by
 }
 
 """append existing jsonb value of filtered columns with new jsonb value"""
@@ -783,6 +988,18 @@ input edge_arr_rel_insert_input {
   on_conflict: edge_on_conflict
 }
 
+"""aggregate avg on columns"""
+type edge_avg_fields {
+  order: Float
+}
+
+"""
+order by avg() on columns of table "edge"
+"""
+input edge_avg_order_by {
+  order: order_by
+}
+
 """
 Boolean expression to filter rows from the table "edge". All fields are combined with a logical 'AND'.
 """
@@ -791,8 +1008,9 @@ input edge_bool_exp {
   _not: edge_bool_exp
   _or: [edge_bool_exp]
   graph: graph_bool_exp
-  graphId: uuid_comparison_exp
+  graph_id: uuid_comparison_exp
   id: uuid_comparison_exp
+  order: Int_comparison_exp
   props: jsonb_comparison_exp
   source: String_comparison_exp
   target: String_comparison_exp
@@ -828,12 +1046,20 @@ input edge_delete_key_input {
 }
 
 """
+input type for incrementing integer column in table "edge"
+"""
+input edge_inc_input {
+  order: Int
+}
+
+"""
 input type for inserting data into table "edge"
 """
 input edge_insert_input {
   graph: graph_obj_rel_insert_input
-  graphId: uuid
+  graph_id: uuid
   id: uuid
+  order: Int
   props: jsonb
   source: String
   target: String
@@ -841,8 +1067,9 @@ input edge_insert_input {
 
 """aggregate max on columns"""
 type edge_max_fields {
-  graphId: uuid
+  graph_id: uuid
   id: uuid
+  order: Int
   source: String
   target: String
 }
@@ -851,16 +1078,18 @@ type edge_max_fields {
 order by max() on columns of table "edge"
 """
 input edge_max_order_by {
-  graphId: order_by
+  graph_id: order_by
   id: order_by
+  order: order_by
   source: order_by
   target: order_by
 }
 
 """aggregate min on columns"""
 type edge_min_fields {
-  graphId: uuid
+  graph_id: uuid
   id: uuid
+  order: Int
   source: String
   target: String
 }
@@ -869,8 +1098,9 @@ type edge_min_fields {
 order by min() on columns of table "edge"
 """
 input edge_min_order_by {
-  graphId: order_by
+  graph_id: order_by
   id: order_by
+  order: order_by
   source: order_by
   target: order_by
 }
@@ -908,8 +1138,9 @@ ordering options when selecting data from "edge"
 """
 input edge_order_by {
   graph: graph_order_by
-  graphId: order_by
+  graph_id: order_by
   id: order_by
+  order: order_by
   props: order_by
   source: order_by
   target: order_by
@@ -932,10 +1163,13 @@ select columns of table "edge"
 """
 enum edge_select_column {
   """column name"""
-  graphId
+  graph_id
 
   """column name"""
   id
+
+  """column name"""
+  order
 
   """column name"""
   props
@@ -951,11 +1185,60 @@ enum edge_select_column {
 input type for updating data in table "edge"
 """
 input edge_set_input {
-  graphId: uuid
+  graph_id: uuid
   id: uuid
+  order: Int
   props: jsonb
   source: String
   target: String
+}
+
+"""aggregate stddev on columns"""
+type edge_stddev_fields {
+  order: Float
+}
+
+"""
+order by stddev() on columns of table "edge"
+"""
+input edge_stddev_order_by {
+  order: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type edge_stddev_pop_fields {
+  order: Float
+}
+
+"""
+order by stddev_pop() on columns of table "edge"
+"""
+input edge_stddev_pop_order_by {
+  order: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type edge_stddev_samp_fields {
+  order: Float
+}
+
+"""
+order by stddev_samp() on columns of table "edge"
+"""
+input edge_stddev_samp_order_by {
+  order: order_by
+}
+
+"""aggregate sum on columns"""
+type edge_sum_fields {
+  order: Int
+}
+
+"""
+order by sum() on columns of table "edge"
+"""
+input edge_sum_order_by {
+  order: order_by
 }
 
 """
@@ -963,10 +1246,13 @@ update columns of table "edge"
 """
 enum edge_update_column {
   """column name"""
-  graphId
+  graph_id
 
   """column name"""
   id
+
+  """column name"""
+  order
 
   """column name"""
   props
@@ -976,6 +1262,42 @@ enum edge_update_column {
 
   """column name"""
   target
+}
+
+"""aggregate var_pop on columns"""
+type edge_var_pop_fields {
+  order: Float
+}
+
+"""
+order by var_pop() on columns of table "edge"
+"""
+input edge_var_pop_order_by {
+  order: order_by
+}
+
+"""aggregate var_samp on columns"""
+type edge_var_samp_fields {
+  order: Float
+}
+
+"""
+order by var_samp() on columns of table "edge"
+"""
+input edge_var_samp_order_by {
+  order: order_by
+}
+
+"""aggregate variance on columns"""
+type edge_variance_fields {
+  order: Float
+}
+
+"""
+order by variance() on columns of table "edge"
+"""
+input edge_variance_order_by {
+  order: order_by
 }
 
 """
@@ -1018,11 +1340,11 @@ type graph {
     where: edge_bool_exp
   ): edge_aggregate!
   id: uuid!
-  label: String!
+  label: String
 
   """An object relationship"""
   user: user
-  userId: uuid
+  user_id: uuid
 
   """An array relationship"""
   vertices(
@@ -1106,7 +1428,7 @@ input graph_bool_exp {
   id: uuid_comparison_exp
   label: String_comparison_exp
   user: user_bool_exp
-  userId: uuid_comparison_exp
+  user_id: uuid_comparison_exp
   vertices: vertex_bool_exp
 }
 
@@ -1126,7 +1448,7 @@ input graph_insert_input {
   id: uuid
   label: String
   user: user_obj_rel_insert_input
-  userId: uuid
+  user_id: uuid
   vertices: vertex_arr_rel_insert_input
 }
 
@@ -1134,7 +1456,7 @@ input graph_insert_input {
 type graph_max_fields {
   id: uuid
   label: String
-  userId: uuid
+  user_id: uuid
 }
 
 """
@@ -1143,14 +1465,14 @@ order by max() on columns of table "graph"
 input graph_max_order_by {
   id: order_by
   label: order_by
-  userId: order_by
+  user_id: order_by
 }
 
 """aggregate min on columns"""
 type graph_min_fields {
   id: uuid
   label: String
-  userId: uuid
+  user_id: uuid
 }
 
 """
@@ -1159,7 +1481,7 @@ order by min() on columns of table "graph"
 input graph_min_order_by {
   id: order_by
   label: order_by
-  userId: order_by
+  user_id: order_by
 }
 
 """
@@ -1198,7 +1520,7 @@ input graph_order_by {
   id: order_by
   label: order_by
   user: user_order_by
-  userId: order_by
+  user_id: order_by
   vertices_aggregate: vertex_aggregate_order_by
 }
 
@@ -1220,7 +1542,7 @@ enum graph_select_column {
   label
 
   """column name"""
-  userId
+  user_id
 }
 
 """
@@ -1229,7 +1551,7 @@ input type for updating data in table "graph"
 input graph_set_input {
   id: uuid
   label: String
-  userId: uuid
+  user_id: uuid
 }
 
 """
@@ -1243,7 +1565,7 @@ enum graph_update_column {
   label
 
   """column name"""
-  userId
+  user_id
 }
 
 scalar jsonb
@@ -1302,6 +1624,9 @@ enum order_by {
 columns and relationships of "user"
 """
 type user {
+  email: String!
+  google_provider_id: String
+
   """An array relationship"""
   graphs(
     """distinct select on columns"""
@@ -1338,7 +1663,7 @@ type user {
     where: graph_bool_exp
   ): graph_aggregate!
   id: uuid!
-  username: String!
+  password: String
 }
 
 """
@@ -1382,9 +1707,11 @@ input user_bool_exp {
   _and: [user_bool_exp]
   _not: user_bool_exp
   _or: [user_bool_exp]
+  email: String_comparison_exp
+  google_provider_id: String_comparison_exp
   graphs: graph_bool_exp
   id: uuid_comparison_exp
-  username: String_comparison_exp
+  password: String_comparison_exp
 }
 
 """
@@ -1393,43 +1720,56 @@ unique or primary key constraints on table "user"
 enum user_constraint {
   """unique or primary key constraint"""
   PK_cace4a159ff9f2512dd42373760
+
+  """unique or primary key constraint"""
+  UQ_e12875dfb3b1d92d7d7c5377e22
 }
 
 """
 input type for inserting data into table "user"
 """
 input user_insert_input {
+  email: String
+  google_provider_id: String
   graphs: graph_arr_rel_insert_input
   id: uuid
-  username: String
+  password: String
 }
 
 """aggregate max on columns"""
 type user_max_fields {
+  email: String
+  google_provider_id: String
   id: uuid
-  username: String
+  password: String
 }
 
 """
 order by max() on columns of table "user"
 """
 input user_max_order_by {
+  email: order_by
+  google_provider_id: order_by
   id: order_by
-  username: order_by
+  password: order_by
 }
 
 """aggregate min on columns"""
 type user_min_fields {
+  email: String
+  google_provider_id: String
   id: uuid
-  username: String
+  password: String
 }
 
 """
 order by min() on columns of table "user"
 """
 input user_min_order_by {
+  email: order_by
+  google_provider_id: order_by
   id: order_by
-  username: order_by
+  password: order_by
 }
 
 """
@@ -1464,9 +1804,11 @@ input user_on_conflict {
 ordering options when selecting data from "user"
 """
 input user_order_by {
+  email: order_by
+  google_provider_id: order_by
   graphs_aggregate: graph_aggregate_order_by
   id: order_by
-  username: order_by
+  password: order_by
 }
 
 """
@@ -1481,18 +1823,26 @@ select columns of table "user"
 """
 enum user_select_column {
   """column name"""
+  email
+
+  """column name"""
+  google_provider_id
+
+  """column name"""
   id
 
   """column name"""
-  username
+  password
 }
 
 """
 input type for updating data in table "user"
 """
 input user_set_input {
+  email: String
+  google_provider_id: String
   id: uuid
-  username: String
+  password: String
 }
 
 """
@@ -1500,10 +1850,16 @@ update columns of table "user"
 """
 enum user_update_column {
   """column name"""
+  email
+
+  """column name"""
+  google_provider_id
+
+  """column name"""
   id
 
   """column name"""
-  username
+  password
 }
 
 scalar uuid
@@ -1529,7 +1885,7 @@ columns and relationships of "vertex"
 type vertex {
   """An object relationship"""
   graph: graph
-  graphId: uuid
+  graph_id: uuid
   id: uuid!
   props(
     """JSON select path"""
@@ -1585,7 +1941,7 @@ input vertex_bool_exp {
   _not: vertex_bool_exp
   _or: [vertex_bool_exp]
   graph: graph_bool_exp
-  graphId: uuid_comparison_exp
+  graph_id: uuid_comparison_exp
   id: uuid_comparison_exp
   props: jsonb_comparison_exp
   type: vertex_type_enum_comparison_exp
@@ -1625,7 +1981,7 @@ input type for inserting data into table "vertex"
 """
 input vertex_insert_input {
   graph: graph_obj_rel_insert_input
-  graphId: uuid
+  graph_id: uuid
   id: uuid
   props: jsonb
   type: vertex_type_enum
@@ -1633,7 +1989,7 @@ input vertex_insert_input {
 
 """aggregate max on columns"""
 type vertex_max_fields {
-  graphId: uuid
+  graph_id: uuid
   id: uuid
 }
 
@@ -1641,13 +1997,13 @@ type vertex_max_fields {
 order by max() on columns of table "vertex"
 """
 input vertex_max_order_by {
-  graphId: order_by
+  graph_id: order_by
   id: order_by
 }
 
 """aggregate min on columns"""
 type vertex_min_fields {
-  graphId: uuid
+  graph_id: uuid
   id: uuid
 }
 
@@ -1655,7 +2011,7 @@ type vertex_min_fields {
 order by min() on columns of table "vertex"
 """
 input vertex_min_order_by {
-  graphId: order_by
+  graph_id: order_by
   id: order_by
 }
 
@@ -1692,7 +2048,7 @@ ordering options when selecting data from "vertex"
 """
 input vertex_order_by {
   graph: graph_order_by
-  graphId: order_by
+  graph_id: order_by
   id: order_by
   props: order_by
   type: order_by
@@ -1715,7 +2071,7 @@ select columns of table "vertex"
 """
 enum vertex_select_column {
   """column name"""
-  graphId
+  graph_id
 
   """column name"""
   id
@@ -1731,7 +2087,7 @@ enum vertex_select_column {
 input type for updating data in table "vertex"
 """
 input vertex_set_input {
-  graphId: uuid
+  graph_id: uuid
   id: uuid
   props: jsonb
   type: vertex_type_enum
@@ -1759,7 +2115,7 @@ update columns of table "vertex"
 """
 enum vertex_update_column {
   """column name"""
-  graphId
+  graph_id
 
   """column name"""
   id

@@ -1,8 +1,10 @@
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
+import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+export type RequireFields<T, K extends keyof T> = { [X in Exclude<keyof T, K>]?: T[X] } & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -19,7 +21,15 @@ export type Scalars = {
 
 export type Query = {
   __typename?: 'Query';
-  getAll: Array<VertexEntity>;
+  createAccessToken: AuthDto;
+  getAllEdges: Array<EdgeEntity>;
+  getAllGraphs: Array<GraphEntity>;
+  getAllUsers: Array<UserEntity>;
+  login: UserDto;
+  refreshToken: Scalars['String'];
+  getAllVertices: Array<VertexEntity>;
+  getAllApps: Array<CodelabAppEntity>;
+  getAllPages: Array<PageEntity>;
   /** fetch data from the table: "edge" */
   edge: Array<Edge>;
   /** fetch aggregated fields from the table: "edge" */
@@ -44,6 +54,16 @@ export type Query = {
   vertex_aggregate: Vertex_Aggregate;
   /** fetch data from the table: "vertex" using primary key columns */
   vertex_by_pk?: Maybe<Vertex>;
+};
+
+
+export type QueryLoginArgs = {
+  user: UserInput;
+};
+
+
+export type QueryRefreshTokenArgs = {
+  token: Scalars['String'];
 };
 
 
@@ -138,61 +158,10 @@ export type QueryVertex_By_PkArgs = {
   id: Scalars['uuid'];
 };
 
-export type UserEntity = IUser & {
-  __typename?: 'UserEntity';
-  id: Scalars['Int'];
-  username: Scalars['String'];
-};
-
-export type IUser = {
-  id: Scalars['Int'];
-  username: Scalars['String'];
-};
-
-export type VertexEntity = IVertex & {
-  __typename?: 'VertexEntity';
-  id: Scalars['String'];
-  props?: Maybe<Scalars['JSONObject']>;
-};
-
-export type IVertex = {
-  id: Scalars['String'];
-  props?: Maybe<Scalars['JSONObject']>;
-};
-
-
-export type GraphEntity = IGraph & {
-  __typename?: 'GraphEntity';
-  id: Scalars['Int'];
-  vertices?: Maybe<Array<VertexEntity>>;
-  edges?: Maybe<Array<EdgeEntity>>;
-  user?: Maybe<UserEntity>;
-};
-
-export type IGraph = {
-  id: Scalars['Int'];
-  vertices?: Maybe<Array<VertexEntity>>;
-  edges?: Maybe<Array<EdgeEntity>>;
-  user?: Maybe<UserEntity>;
-};
-
-export type EdgeEntity = IEdge & {
-  __typename?: 'EdgeEntity';
-  id: Scalars['String'];
-  source: Scalars['String'];
-  target: Scalars['String'];
-  props?: Maybe<Scalars['JSONObject']>;
-};
-
-export type IEdge = {
-  id: Scalars['String'];
-  source: Scalars['String'];
-  target: Scalars['String'];
-  props?: Maybe<Scalars['JSONObject']>;
-};
-
 export type Mutation = {
   __typename?: 'Mutation';
+  moveVertex: GraphEntity;
+  registerUser: UserDto;
   /** delete data from the table: "edge" */
   delete_edge?: Maybe<Edge_Mutation_Response>;
   /** delete single row from the table: "edge" */
@@ -241,6 +210,17 @@ export type Mutation = {
   update_vertex?: Maybe<Vertex_Mutation_Response>;
   /** update single row of the table: "vertex" */
   update_vertex_by_pk?: Maybe<Vertex>;
+};
+
+
+export type MutationMoveVertexArgs = {
+  target: Scalars['String'];
+  src: Scalars['String'];
+};
+
+
+export type MutationRegisterUserArgs = {
+  user: UserInput;
 };
 
 
@@ -337,6 +317,7 @@ export type MutationUpdate_EdgeArgs = {
   _delete_at_path?: Maybe<Edge_Delete_At_Path_Input>;
   _delete_elem?: Maybe<Edge_Delete_Elem_Input>;
   _delete_key?: Maybe<Edge_Delete_Key_Input>;
+  _inc?: Maybe<Edge_Inc_Input>;
   _prepend?: Maybe<Edge_Prepend_Input>;
   _set?: Maybe<Edge_Set_Input>;
   where: Edge_Bool_Exp;
@@ -348,6 +329,7 @@ export type MutationUpdate_Edge_By_PkArgs = {
   _delete_at_path?: Maybe<Edge_Delete_At_Path_Input>;
   _delete_elem?: Maybe<Edge_Delete_Elem_Input>;
   _delete_key?: Maybe<Edge_Delete_Key_Input>;
+  _inc?: Maybe<Edge_Inc_Input>;
   _prepend?: Maybe<Edge_Prepend_Input>;
   _set?: Maybe<Edge_Set_Input>;
   pk_columns: Edge_Pk_Columns_Input;
@@ -397,6 +379,219 @@ export type MutationUpdate_Vertex_By_PkArgs = {
   _prepend?: Maybe<Vertex_Prepend_Input>;
   _set?: Maybe<Vertex_Set_Input>;
   pk_columns: Vertex_Pk_Columns_Input;
+};
+
+export type EdgeEntity = IEdge & {
+  __typename?: 'EdgeEntity';
+  id: Scalars['String'];
+  source: Scalars['String'];
+  target: Scalars['String'];
+  order: Scalars['Int'];
+  props?: Maybe<Scalars['JSONObject']>;
+};
+
+export type IEdge = {
+  id: Scalars['String'];
+  source: Scalars['String'];
+  target: Scalars['String'];
+  order: Scalars['Int'];
+  props?: Maybe<Scalars['JSONObject']>;
+};
+
+
+export type PageEntity = IPage & {
+  __typename?: 'PageEntity';
+  id: Scalars['String'];
+  app?: Maybe<CodelabAppEntity>;
+  graphs?: Maybe<Array<GraphEntity>>;
+};
+
+export type IPage = {
+  id: Scalars['String'];
+  app?: Maybe<CodelabAppEntity>;
+  graphs?: Maybe<Array<GraphEntity>>;
+};
+
+export type VertexEntity = IVertex & {
+  __typename?: 'VertexEntity';
+  id: Scalars['String'];
+  props?: Maybe<Scalars['JSONObject']>;
+  parent?: Maybe<Scalars['String']>;
+  type: NodeType;
+};
+
+export type IVertex = {
+  id: Scalars['String'];
+  props?: Maybe<Scalars['JSONObject']>;
+  parent?: Maybe<Scalars['String']>;
+  type: NodeType;
+};
+
+export enum NodeType {
+  React_Fragment = 'React_Fragment',
+  React_Html_Div = 'React_Html_Div',
+  React_Html_P = 'React_Html_P',
+  React_Html_A = 'React_Html_A',
+  React_Html_Span = 'React_Html_Span',
+  React_Text = 'React_Text',
+  React_Icon = 'React_Icon',
+  React_Menu = 'React_Menu',
+  React_Menu_Item = 'React_Menu_Item',
+  React_Menu_ItemGroup = 'React_Menu_ItemGroup',
+  React_Menu_SubMenu = 'React_Menu_SubMenu',
+  React_Card = 'React_Card',
+  React_Card_Grid = 'React_Card_Grid',
+  React_Card_Meta = 'React_Card_Meta',
+  React_Typography = 'React_Typography',
+  React_Typography_Title = 'React_Typography_Title',
+  React_Typography_Text = 'React_Typography_Text',
+  React_Typography_Paragraph = 'React_Typography_Paragraph',
+  React_Alert = 'React_Alert',
+  React_Affix = 'React_Affix',
+  React_AutoComplete = 'React_AutoComplete',
+  React_Button = 'React_Button',
+  React_Breadcrumb = 'React_Breadcrumb',
+  React_Breadcrumb_Item = 'React_Breadcrumb_Item',
+  React_Dropdown = 'React_Dropdown',
+  React_Form = 'React_Form',
+  React_Form_Item = 'React_Form_Item',
+  React_Form_ItemHook = 'React_Form_ItemHook',
+  React_Form_List = 'React_Form_List',
+  React_Checkbox = 'React_Checkbox',
+  React_Input = 'React_Input',
+  React_InputNumber = 'React_InputNumber',
+  React_Select = 'React_Select',
+  React_Select_Option = 'React_Select_Option',
+  React_Grid = 'React_Grid',
+  React_ResponsiveGrid = 'React_ResponsiveGrid',
+  React_Provider = 'React_Provider',
+  React_Modal = 'React_Modal',
+  React_Radio_Group = 'React_Radio_Group',
+  React_Radio = 'React_Radio',
+  React_Rate = 'React_Rate',
+  React_Slider = 'React_Slider',
+  React_Switch = 'React_Switch',
+  React_Table = 'React_Table',
+  React_Space = 'React_Space',
+  React_DatePicker = 'React_DatePicker',
+  React_Divider = 'React_Divider',
+  React_Pagination = 'React_Pagination',
+  React_PageHeader = 'React_PageHeader',
+  React_Badge = 'React_Badge',
+  React_Avatar = 'React_Avatar',
+  React_Comment = 'React_Comment',
+  React_Calendar = 'React_Calendar',
+  React_Descriptions = 'React_Descriptions',
+  React_Descriptions_Item = 'React_Descriptions_Item',
+  React_Empty = 'React_Empty',
+  React_Timeline = 'React_Timeline',
+  React_Timeline_Item = 'React_Timeline_Item',
+  React_Tabs = 'React_Tabs',
+  React_Tabs_TabPane = 'React_Tabs_TabPane',
+  React_Statistic = 'React_Statistic',
+  React_Tooltip = 'React_Tooltip',
+  React_Tag = 'React_Tag',
+  React_Tree = 'React_Tree',
+  React_Drawer = 'React_Drawer',
+  React_Progress = 'React_Progress',
+  React_Result = 'React_Result',
+  React_Spin = 'React_Spin',
+  React_Skeleton = 'React_Skeleton',
+  React_Anchor = 'React_Anchor',
+  React_Anchor_Link = 'React_Anchor_Link',
+  React_BackTop = 'React_BackTop',
+  React_ConfigProvider = 'React_ConfigProvider',
+  React_Popconfirm = 'React_Popconfirm',
+  React_Transfer = 'React_Transfer',
+  React_TreeSelect = 'React_TreeSelect',
+  React_TreeNode = 'React_TreeNode',
+  React_TimePicker = 'React_TimePicker',
+  React_Upload = 'React_Upload',
+  React_Steps = 'React_Steps',
+  React_Steps_Step = 'React_Steps_Step',
+  React_Collapse = 'React_Collapse',
+  React_Collapse_Panel = 'React_Collapse_Panel',
+  React_Carousel = 'React_Carousel',
+  React_List = 'React_List',
+  React_List_Item = 'React_List_Item',
+  React_List_Item_Meta = 'React_List_Item_Meta',
+  React_Mentions = 'React_Mentions',
+  React_Mentions_Option = 'React_Mentions_Option',
+  React_Layout = 'React_Layout',
+  React_Layout_Header = 'React_Layout_Header',
+  React_Layout_Sider = 'React_Layout_Sider',
+  React_Layout_Content = 'React_Layout_Content',
+  React_Layout_Footer = 'React_Layout_Footer',
+  React_Cascader = 'React_Cascader',
+  React_Popover = 'React_Popover',
+  React_RenderComponent = 'React_RenderComponent',
+  React_RenderContainer = 'React_RenderContainer',
+  React_Mapper = 'React_Mapper',
+  Model = 'Model',
+  Schema = 'Schema',
+  Tree = 'Tree',
+  Ref = 'Ref'
+}
+
+export type GraphEntity = IGraph & {
+  __typename?: 'GraphEntity';
+  id: Scalars['String'];
+  vertices?: Maybe<Array<VertexEntity>>;
+  edges?: Maybe<Array<EdgeEntity>>;
+  app?: Maybe<CodelabAppEntity>;
+  page?: Maybe<PageEntity>;
+};
+
+export type IGraph = {
+  id: Scalars['String'];
+  vertices?: Maybe<Array<VertexEntity>>;
+  edges?: Maybe<Array<EdgeEntity>>;
+  app?: Maybe<CodelabAppEntity>;
+  page?: Maybe<PageEntity>;
+};
+
+export type UserEntity = IUser & {
+  __typename?: 'UserEntity';
+  id: Scalars['String'];
+  email: Scalars['String'];
+  apps: Array<CodelabAppEntity>;
+};
+
+export type IUser = {
+  id: Scalars['String'];
+  email: Scalars['String'];
+  apps: Array<CodelabAppEntity>;
+};
+
+export type CodelabAppEntity = IApp & {
+  __typename?: 'CodelabAppEntity';
+  id: Scalars['String'];
+  user?: Maybe<UserEntity>;
+  pages?: Maybe<Array<PageEntity>>;
+  graphs?: Maybe<Array<GraphEntity>>;
+};
+
+export type IApp = {
+  id: Scalars['String'];
+  user?: Maybe<UserEntity>;
+  pages?: Maybe<Array<PageEntity>>;
+  graphs?: Maybe<Array<GraphEntity>>;
+};
+
+export type UserDto = {
+  __typename?: 'UserDto';
+  user: UserEntity;
+  accessToken: Scalars['String'];
+};
+
+export type AuthDto = {
+  __typename?: 'AuthDto';
+  accessToken: Scalars['String'];
+};
+
+export type UserInput = {
+  email: Scalars['String'];
+  password: Scalars['String'];
 };
 
 export type Subscription = {
@@ -519,6 +714,19 @@ export type SubscriptionVertex_By_PkArgs = {
   id: Scalars['uuid'];
 };
 
+/** expression to compare columns of type Int. All fields are combined with logical 'AND'. */
+export type Int_Comparison_Exp = {
+  _eq?: Maybe<Scalars['Int']>;
+  _gt?: Maybe<Scalars['Int']>;
+  _gte?: Maybe<Scalars['Int']>;
+  _in?: Maybe<Array<Scalars['Int']>>;
+  _is_null?: Maybe<Scalars['Boolean']>;
+  _lt?: Maybe<Scalars['Int']>;
+  _lte?: Maybe<Scalars['Int']>;
+  _neq?: Maybe<Scalars['Int']>;
+  _nin?: Maybe<Array<Scalars['Int']>>;
+};
+
 /** expression to compare columns of type String. All fields are combined with logical 'AND'. */
 export type String_Comparison_Exp = {
   _eq?: Maybe<Scalars['String']>;
@@ -543,8 +751,9 @@ export type Edge = {
   __typename?: 'edge';
   /** An object relationship */
   graph?: Maybe<Graph>;
-  graphId?: Maybe<Scalars['uuid']>;
+  graph_id?: Maybe<Scalars['uuid']>;
   id: Scalars['uuid'];
+  order: Scalars['Int'];
   props: Scalars['jsonb'];
   source: Scalars['String'];
   target: Scalars['String'];
@@ -566,9 +775,17 @@ export type Edge_Aggregate = {
 /** aggregate fields of "edge" */
 export type Edge_Aggregate_Fields = {
   __typename?: 'edge_aggregate_fields';
+  avg?: Maybe<Edge_Avg_Fields>;
   count?: Maybe<Scalars['Int']>;
   max?: Maybe<Edge_Max_Fields>;
   min?: Maybe<Edge_Min_Fields>;
+  stddev?: Maybe<Edge_Stddev_Fields>;
+  stddev_pop?: Maybe<Edge_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Edge_Stddev_Samp_Fields>;
+  sum?: Maybe<Edge_Sum_Fields>;
+  var_pop?: Maybe<Edge_Var_Pop_Fields>;
+  var_samp?: Maybe<Edge_Var_Samp_Fields>;
+  variance?: Maybe<Edge_Variance_Fields>;
 };
 
 
@@ -580,9 +797,17 @@ export type Edge_Aggregate_FieldsCountArgs = {
 
 /** order by aggregate values of table "edge" */
 export type Edge_Aggregate_Order_By = {
+  avg?: Maybe<Edge_Avg_Order_By>;
   count?: Maybe<Order_By>;
   max?: Maybe<Edge_Max_Order_By>;
   min?: Maybe<Edge_Min_Order_By>;
+  stddev?: Maybe<Edge_Stddev_Order_By>;
+  stddev_pop?: Maybe<Edge_Stddev_Pop_Order_By>;
+  stddev_samp?: Maybe<Edge_Stddev_Samp_Order_By>;
+  sum?: Maybe<Edge_Sum_Order_By>;
+  var_pop?: Maybe<Edge_Var_Pop_Order_By>;
+  var_samp?: Maybe<Edge_Var_Samp_Order_By>;
+  variance?: Maybe<Edge_Variance_Order_By>;
 };
 
 /** append existing jsonb value of filtered columns with new jsonb value */
@@ -596,14 +821,26 @@ export type Edge_Arr_Rel_Insert_Input = {
   on_conflict?: Maybe<Edge_On_Conflict>;
 };
 
+/** aggregate avg on columns */
+export type Edge_Avg_Fields = {
+  __typename?: 'edge_avg_fields';
+  order?: Maybe<Scalars['Float']>;
+};
+
+/** order by avg() on columns of table "edge" */
+export type Edge_Avg_Order_By = {
+  order?: Maybe<Order_By>;
+};
+
 /** Boolean expression to filter rows from the table "edge". All fields are combined with a logical 'AND'. */
 export type Edge_Bool_Exp = {
   _and?: Maybe<Array<Maybe<Edge_Bool_Exp>>>;
   _not?: Maybe<Edge_Bool_Exp>;
   _or?: Maybe<Array<Maybe<Edge_Bool_Exp>>>;
   graph?: Maybe<Graph_Bool_Exp>;
-  graphId?: Maybe<Uuid_Comparison_Exp>;
+  graph_id?: Maybe<Uuid_Comparison_Exp>;
   id?: Maybe<Uuid_Comparison_Exp>;
+  order?: Maybe<Int_Comparison_Exp>;
   props?: Maybe<Jsonb_Comparison_Exp>;
   source?: Maybe<String_Comparison_Exp>;
   target?: Maybe<String_Comparison_Exp>;
@@ -630,11 +867,17 @@ export type Edge_Delete_Key_Input = {
   props?: Maybe<Scalars['String']>;
 };
 
+/** input type for incrementing integer column in table "edge" */
+export type Edge_Inc_Input = {
+  order?: Maybe<Scalars['Int']>;
+};
+
 /** input type for inserting data into table "edge" */
 export type Edge_Insert_Input = {
   graph?: Maybe<Graph_Obj_Rel_Insert_Input>;
-  graphId?: Maybe<Scalars['uuid']>;
+  graph_id?: Maybe<Scalars['uuid']>;
   id?: Maybe<Scalars['uuid']>;
+  order?: Maybe<Scalars['Int']>;
   props?: Maybe<Scalars['jsonb']>;
   source?: Maybe<Scalars['String']>;
   target?: Maybe<Scalars['String']>;
@@ -643,16 +886,18 @@ export type Edge_Insert_Input = {
 /** aggregate max on columns */
 export type Edge_Max_Fields = {
   __typename?: 'edge_max_fields';
-  graphId?: Maybe<Scalars['uuid']>;
+  graph_id?: Maybe<Scalars['uuid']>;
   id?: Maybe<Scalars['uuid']>;
+  order?: Maybe<Scalars['Int']>;
   source?: Maybe<Scalars['String']>;
   target?: Maybe<Scalars['String']>;
 };
 
 /** order by max() on columns of table "edge" */
 export type Edge_Max_Order_By = {
-  graphId?: Maybe<Order_By>;
+  graph_id?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
+  order?: Maybe<Order_By>;
   source?: Maybe<Order_By>;
   target?: Maybe<Order_By>;
 };
@@ -660,16 +905,18 @@ export type Edge_Max_Order_By = {
 /** aggregate min on columns */
 export type Edge_Min_Fields = {
   __typename?: 'edge_min_fields';
-  graphId?: Maybe<Scalars['uuid']>;
+  graph_id?: Maybe<Scalars['uuid']>;
   id?: Maybe<Scalars['uuid']>;
+  order?: Maybe<Scalars['Int']>;
   source?: Maybe<Scalars['String']>;
   target?: Maybe<Scalars['String']>;
 };
 
 /** order by min() on columns of table "edge" */
 export type Edge_Min_Order_By = {
-  graphId?: Maybe<Order_By>;
+  graph_id?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
+  order?: Maybe<Order_By>;
   source?: Maybe<Order_By>;
   target?: Maybe<Order_By>;
 };
@@ -699,8 +946,9 @@ export type Edge_On_Conflict = {
 /** ordering options when selecting data from "edge" */
 export type Edge_Order_By = {
   graph?: Maybe<Graph_Order_By>;
-  graphId?: Maybe<Order_By>;
+  graph_id?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
+  order?: Maybe<Order_By>;
   props?: Maybe<Order_By>;
   source?: Maybe<Order_By>;
   target?: Maybe<Order_By>;
@@ -719,9 +967,11 @@ export type Edge_Prepend_Input = {
 /** select columns of table "edge" */
 export enum Edge_Select_Column {
   /** column name */
-  graphId = 'graphId',
+  graph_id = 'graph_id',
   /** column name */
   id = 'id',
+  /** column name */
+  order = 'order',
   /** column name */
   props = 'props',
   /** column name */
@@ -732,19 +982,66 @@ export enum Edge_Select_Column {
 
 /** input type for updating data in table "edge" */
 export type Edge_Set_Input = {
-  graphId?: Maybe<Scalars['uuid']>;
+  graph_id?: Maybe<Scalars['uuid']>;
   id?: Maybe<Scalars['uuid']>;
+  order?: Maybe<Scalars['Int']>;
   props?: Maybe<Scalars['jsonb']>;
   source?: Maybe<Scalars['String']>;
   target?: Maybe<Scalars['String']>;
 };
 
+/** aggregate stddev on columns */
+export type Edge_Stddev_Fields = {
+  __typename?: 'edge_stddev_fields';
+  order?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev() on columns of table "edge" */
+export type Edge_Stddev_Order_By = {
+  order?: Maybe<Order_By>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Edge_Stddev_Pop_Fields = {
+  __typename?: 'edge_stddev_pop_fields';
+  order?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_pop() on columns of table "edge" */
+export type Edge_Stddev_Pop_Order_By = {
+  order?: Maybe<Order_By>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Edge_Stddev_Samp_Fields = {
+  __typename?: 'edge_stddev_samp_fields';
+  order?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_samp() on columns of table "edge" */
+export type Edge_Stddev_Samp_Order_By = {
+  order?: Maybe<Order_By>;
+};
+
+/** aggregate sum on columns */
+export type Edge_Sum_Fields = {
+  __typename?: 'edge_sum_fields';
+  order?: Maybe<Scalars['Int']>;
+};
+
+/** order by sum() on columns of table "edge" */
+export type Edge_Sum_Order_By = {
+  order?: Maybe<Order_By>;
+};
+
 /** update columns of table "edge" */
 export enum Edge_Update_Column {
   /** column name */
-  graphId = 'graphId',
+  graph_id = 'graph_id',
   /** column name */
   id = 'id',
+  /** column name */
+  order = 'order',
   /** column name */
   props = 'props',
   /** column name */
@@ -752,6 +1049,39 @@ export enum Edge_Update_Column {
   /** column name */
   target = 'target'
 }
+
+/** aggregate var_pop on columns */
+export type Edge_Var_Pop_Fields = {
+  __typename?: 'edge_var_pop_fields';
+  order?: Maybe<Scalars['Float']>;
+};
+
+/** order by var_pop() on columns of table "edge" */
+export type Edge_Var_Pop_Order_By = {
+  order?: Maybe<Order_By>;
+};
+
+/** aggregate var_samp on columns */
+export type Edge_Var_Samp_Fields = {
+  __typename?: 'edge_var_samp_fields';
+  order?: Maybe<Scalars['Float']>;
+};
+
+/** order by var_samp() on columns of table "edge" */
+export type Edge_Var_Samp_Order_By = {
+  order?: Maybe<Order_By>;
+};
+
+/** aggregate variance on columns */
+export type Edge_Variance_Fields = {
+  __typename?: 'edge_variance_fields';
+  order?: Maybe<Scalars['Float']>;
+};
+
+/** order by variance() on columns of table "edge" */
+export type Edge_Variance_Order_By = {
+  order?: Maybe<Order_By>;
+};
 
 /** columns and relationships of "graph" */
 export type Graph = {
@@ -761,10 +1091,10 @@ export type Graph = {
   /** An aggregated array relationship */
   edges_aggregate: Edge_Aggregate;
   id: Scalars['uuid'];
-  label: Scalars['String'];
+  label?: Maybe<Scalars['String']>;
   /** An object relationship */
   user?: Maybe<User>;
-  userId?: Maybe<Scalars['uuid']>;
+  user_id?: Maybe<Scalars['uuid']>;
   /** An array relationship */
   vertices: Array<Vertex>;
   /** An aggregated array relationship */
@@ -855,7 +1185,7 @@ export type Graph_Bool_Exp = {
   id?: Maybe<Uuid_Comparison_Exp>;
   label?: Maybe<String_Comparison_Exp>;
   user?: Maybe<User_Bool_Exp>;
-  userId?: Maybe<Uuid_Comparison_Exp>;
+  user_id?: Maybe<Uuid_Comparison_Exp>;
   vertices?: Maybe<Vertex_Bool_Exp>;
 };
 
@@ -871,7 +1201,7 @@ export type Graph_Insert_Input = {
   id?: Maybe<Scalars['uuid']>;
   label?: Maybe<Scalars['String']>;
   user?: Maybe<User_Obj_Rel_Insert_Input>;
-  userId?: Maybe<Scalars['uuid']>;
+  user_id?: Maybe<Scalars['uuid']>;
   vertices?: Maybe<Vertex_Arr_Rel_Insert_Input>;
 };
 
@@ -880,14 +1210,14 @@ export type Graph_Max_Fields = {
   __typename?: 'graph_max_fields';
   id?: Maybe<Scalars['uuid']>;
   label?: Maybe<Scalars['String']>;
-  userId?: Maybe<Scalars['uuid']>;
+  user_id?: Maybe<Scalars['uuid']>;
 };
 
 /** order by max() on columns of table "graph" */
 export type Graph_Max_Order_By = {
   id?: Maybe<Order_By>;
   label?: Maybe<Order_By>;
-  userId?: Maybe<Order_By>;
+  user_id?: Maybe<Order_By>;
 };
 
 /** aggregate min on columns */
@@ -895,14 +1225,14 @@ export type Graph_Min_Fields = {
   __typename?: 'graph_min_fields';
   id?: Maybe<Scalars['uuid']>;
   label?: Maybe<Scalars['String']>;
-  userId?: Maybe<Scalars['uuid']>;
+  user_id?: Maybe<Scalars['uuid']>;
 };
 
 /** order by min() on columns of table "graph" */
 export type Graph_Min_Order_By = {
   id?: Maybe<Order_By>;
   label?: Maybe<Order_By>;
-  userId?: Maybe<Order_By>;
+  user_id?: Maybe<Order_By>;
 };
 
 /** response of any mutation on the table "graph" */
@@ -933,7 +1263,7 @@ export type Graph_Order_By = {
   id?: Maybe<Order_By>;
   label?: Maybe<Order_By>;
   user?: Maybe<User_Order_By>;
-  userId?: Maybe<Order_By>;
+  user_id?: Maybe<Order_By>;
   vertices_aggregate?: Maybe<Vertex_Aggregate_Order_By>;
 };
 
@@ -949,14 +1279,14 @@ export enum Graph_Select_Column {
   /** column name */
   label = 'label',
   /** column name */
-  userId = 'userId'
+  user_id = 'user_id'
 }
 
 /** input type for updating data in table "graph" */
 export type Graph_Set_Input = {
   id?: Maybe<Scalars['uuid']>;
   label?: Maybe<Scalars['String']>;
-  userId?: Maybe<Scalars['uuid']>;
+  user_id?: Maybe<Scalars['uuid']>;
 };
 
 /** update columns of table "graph" */
@@ -966,7 +1296,7 @@ export enum Graph_Update_Column {
   /** column name */
   label = 'label',
   /** column name */
-  userId = 'userId'
+  user_id = 'user_id'
 }
 
 
@@ -1012,12 +1342,14 @@ export enum Order_By {
 /** columns and relationships of "user" */
 export type User = {
   __typename?: 'user';
+  email: Scalars['String'];
+  google_provider_id?: Maybe<Scalars['String']>;
   /** An array relationship */
   graphs: Array<Graph>;
   /** An aggregated array relationship */
   graphs_aggregate: Graph_Aggregate;
   id: Scalars['uuid'];
-  username: Scalars['String'];
+  password?: Maybe<Scalars['String']>;
 };
 
 
@@ -1080,48 +1412,62 @@ export type User_Bool_Exp = {
   _and?: Maybe<Array<Maybe<User_Bool_Exp>>>;
   _not?: Maybe<User_Bool_Exp>;
   _or?: Maybe<Array<Maybe<User_Bool_Exp>>>;
+  email?: Maybe<String_Comparison_Exp>;
+  google_provider_id?: Maybe<String_Comparison_Exp>;
   graphs?: Maybe<Graph_Bool_Exp>;
   id?: Maybe<Uuid_Comparison_Exp>;
-  username?: Maybe<String_Comparison_Exp>;
+  password?: Maybe<String_Comparison_Exp>;
 };
 
 /** unique or primary key constraints on table "user" */
 export enum User_Constraint {
   /** unique or primary key constraint */
-  PK_cace4a159ff9f2512dd42373760 = 'PK_cace4a159ff9f2512dd42373760'
+  PK_cace4a159ff9f2512dd42373760 = 'PK_cace4a159ff9f2512dd42373760',
+  /** unique or primary key constraint */
+  UQ_e12875dfb3b1d92d7d7c5377e22 = 'UQ_e12875dfb3b1d92d7d7c5377e22'
 }
 
 /** input type for inserting data into table "user" */
 export type User_Insert_Input = {
+  email?: Maybe<Scalars['String']>;
+  google_provider_id?: Maybe<Scalars['String']>;
   graphs?: Maybe<Graph_Arr_Rel_Insert_Input>;
   id?: Maybe<Scalars['uuid']>;
-  username?: Maybe<Scalars['String']>;
+  password?: Maybe<Scalars['String']>;
 };
 
 /** aggregate max on columns */
 export type User_Max_Fields = {
   __typename?: 'user_max_fields';
+  email?: Maybe<Scalars['String']>;
+  google_provider_id?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['uuid']>;
-  username?: Maybe<Scalars['String']>;
+  password?: Maybe<Scalars['String']>;
 };
 
 /** order by max() on columns of table "user" */
 export type User_Max_Order_By = {
+  email?: Maybe<Order_By>;
+  google_provider_id?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
-  username?: Maybe<Order_By>;
+  password?: Maybe<Order_By>;
 };
 
 /** aggregate min on columns */
 export type User_Min_Fields = {
   __typename?: 'user_min_fields';
+  email?: Maybe<Scalars['String']>;
+  google_provider_id?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['uuid']>;
-  username?: Maybe<Scalars['String']>;
+  password?: Maybe<Scalars['String']>;
 };
 
 /** order by min() on columns of table "user" */
 export type User_Min_Order_By = {
+  email?: Maybe<Order_By>;
+  google_provider_id?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
-  username?: Maybe<Order_By>;
+  password?: Maybe<Order_By>;
 };
 
 /** response of any mutation on the table "user" */
@@ -1148,9 +1494,11 @@ export type User_On_Conflict = {
 
 /** ordering options when selecting data from "user" */
 export type User_Order_By = {
+  email?: Maybe<Order_By>;
+  google_provider_id?: Maybe<Order_By>;
   graphs_aggregate?: Maybe<Graph_Aggregate_Order_By>;
   id?: Maybe<Order_By>;
-  username?: Maybe<Order_By>;
+  password?: Maybe<Order_By>;
 };
 
 /** primary key columns input for table: "user" */
@@ -1161,23 +1509,33 @@ export type User_Pk_Columns_Input = {
 /** select columns of table "user" */
 export enum User_Select_Column {
   /** column name */
+  email = 'email',
+  /** column name */
+  google_provider_id = 'google_provider_id',
+  /** column name */
   id = 'id',
   /** column name */
-  username = 'username'
+  password = 'password'
 }
 
 /** input type for updating data in table "user" */
 export type User_Set_Input = {
+  email?: Maybe<Scalars['String']>;
+  google_provider_id?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['uuid']>;
-  username?: Maybe<Scalars['String']>;
+  password?: Maybe<Scalars['String']>;
 };
 
 /** update columns of table "user" */
 export enum User_Update_Column {
   /** column name */
+  email = 'email',
+  /** column name */
+  google_provider_id = 'google_provider_id',
+  /** column name */
   id = 'id',
   /** column name */
-  username = 'username'
+  password = 'password'
 }
 
 
@@ -1199,7 +1557,7 @@ export type Vertex = {
   __typename?: 'vertex';
   /** An object relationship */
   graph?: Maybe<Graph>;
-  graphId?: Maybe<Scalars['uuid']>;
+  graph_id?: Maybe<Scalars['uuid']>;
   id: Scalars['uuid'];
   props: Scalars['jsonb'];
   type: Scalars['vertex_type_enum'];
@@ -1257,7 +1615,7 @@ export type Vertex_Bool_Exp = {
   _not?: Maybe<Vertex_Bool_Exp>;
   _or?: Maybe<Array<Maybe<Vertex_Bool_Exp>>>;
   graph?: Maybe<Graph_Bool_Exp>;
-  graphId?: Maybe<Uuid_Comparison_Exp>;
+  graph_id?: Maybe<Uuid_Comparison_Exp>;
   id?: Maybe<Uuid_Comparison_Exp>;
   props?: Maybe<Jsonb_Comparison_Exp>;
   type?: Maybe<Vertex_Type_Enum_Comparison_Exp>;
@@ -1287,7 +1645,7 @@ export type Vertex_Delete_Key_Input = {
 /** input type for inserting data into table "vertex" */
 export type Vertex_Insert_Input = {
   graph?: Maybe<Graph_Obj_Rel_Insert_Input>;
-  graphId?: Maybe<Scalars['uuid']>;
+  graph_id?: Maybe<Scalars['uuid']>;
   id?: Maybe<Scalars['uuid']>;
   props?: Maybe<Scalars['jsonb']>;
   type?: Maybe<Scalars['vertex_type_enum']>;
@@ -1296,26 +1654,26 @@ export type Vertex_Insert_Input = {
 /** aggregate max on columns */
 export type Vertex_Max_Fields = {
   __typename?: 'vertex_max_fields';
-  graphId?: Maybe<Scalars['uuid']>;
+  graph_id?: Maybe<Scalars['uuid']>;
   id?: Maybe<Scalars['uuid']>;
 };
 
 /** order by max() on columns of table "vertex" */
 export type Vertex_Max_Order_By = {
-  graphId?: Maybe<Order_By>;
+  graph_id?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
 };
 
 /** aggregate min on columns */
 export type Vertex_Min_Fields = {
   __typename?: 'vertex_min_fields';
-  graphId?: Maybe<Scalars['uuid']>;
+  graph_id?: Maybe<Scalars['uuid']>;
   id?: Maybe<Scalars['uuid']>;
 };
 
 /** order by min() on columns of table "vertex" */
 export type Vertex_Min_Order_By = {
-  graphId?: Maybe<Order_By>;
+  graph_id?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
 };
 
@@ -1344,7 +1702,7 @@ export type Vertex_On_Conflict = {
 /** ordering options when selecting data from "vertex" */
 export type Vertex_Order_By = {
   graph?: Maybe<Graph_Order_By>;
-  graphId?: Maybe<Order_By>;
+  graph_id?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
   props?: Maybe<Order_By>;
   type?: Maybe<Order_By>;
@@ -1363,7 +1721,7 @@ export type Vertex_Prepend_Input = {
 /** select columns of table "vertex" */
 export enum Vertex_Select_Column {
   /** column name */
-  graphId = 'graphId',
+  graph_id = 'graph_id',
   /** column name */
   id = 'id',
   /** column name */
@@ -1374,7 +1732,7 @@ export enum Vertex_Select_Column {
 
 /** input type for updating data in table "vertex" */
 export type Vertex_Set_Input = {
-  graphId?: Maybe<Scalars['uuid']>;
+  graph_id?: Maybe<Scalars['uuid']>;
   id?: Maybe<Scalars['uuid']>;
   props?: Maybe<Scalars['jsonb']>;
   type?: Maybe<Scalars['vertex_type_enum']>;
@@ -1397,7 +1755,7 @@ export type Vertex_Type_Enum_Comparison_Exp = {
 /** update columns of table "vertex" */
 export enum Vertex_Update_Column {
   /** column name */
-  graphId = 'graphId',
+  graph_id = 'graph_id',
   /** column name */
   id = 'id',
   /** column name */
@@ -1405,6 +1763,836 @@ export enum Vertex_Update_Column {
   /** column name */
   type = 'type'
 }
+
+
+
+export type ResolverTypeWrapper<T> = Promise<T> | T;
+
+
+export type LegacyStitchingResolver<TResult, TParent, TContext, TArgs> = {
+  fragment: string;
+  resolve: ResolverFn<TResult, TParent, TContext, TArgs>;
+};
+
+export type NewStitchingResolver<TResult, TParent, TContext, TArgs> = {
+  selectionSet: string;
+  resolve: ResolverFn<TResult, TParent, TContext, TArgs>;
+};
+export type StitchingResolver<TResult, TParent, TContext, TArgs> = LegacyStitchingResolver<TResult, TParent, TContext, TArgs> | NewStitchingResolver<TResult, TParent, TContext, TArgs>;
+export type Resolver<TResult, TParent = {}, TContext = {}, TArgs = {}> =
+  | ResolverFn<TResult, TParent, TContext, TArgs>
+  | StitchingResolver<TResult, TParent, TContext, TArgs>;
+
+export type ResolverFn<TResult, TParent, TContext, TArgs> = (
+  parent: TParent,
+  args: TArgs,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => Promise<TResult> | TResult;
+
+export type SubscriptionSubscribeFn<TResult, TParent, TContext, TArgs> = (
+  parent: TParent,
+  args: TArgs,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => AsyncIterator<TResult> | Promise<AsyncIterator<TResult>>;
+
+export type SubscriptionResolveFn<TResult, TParent, TContext, TArgs> = (
+  parent: TParent,
+  args: TArgs,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => TResult | Promise<TResult>;
+
+export interface SubscriptionSubscriberObject<TResult, TKey extends string, TParent, TContext, TArgs> {
+  subscribe: SubscriptionSubscribeFn<{ [key in TKey]: TResult }, TParent, TContext, TArgs>;
+  resolve?: SubscriptionResolveFn<TResult, { [key in TKey]: TResult }, TContext, TArgs>;
+}
+
+export interface SubscriptionResolverObject<TResult, TParent, TContext, TArgs> {
+  subscribe: SubscriptionSubscribeFn<any, TParent, TContext, TArgs>;
+  resolve: SubscriptionResolveFn<TResult, any, TContext, TArgs>;
+}
+
+export type SubscriptionObject<TResult, TKey extends string, TParent, TContext, TArgs> =
+  | SubscriptionSubscriberObject<TResult, TKey, TParent, TContext, TArgs>
+  | SubscriptionResolverObject<TResult, TParent, TContext, TArgs>;
+
+export type SubscriptionResolver<TResult, TKey extends string, TParent = {}, TContext = {}, TArgs = {}> =
+  | ((...args: Array<any>) => SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>)
+  | SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>;
+
+export type TypeResolveFn<TTypes, TParent = {}, TContext = {}> = (
+  parent: TParent,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => Maybe<TTypes> | Promise<Maybe<TTypes>>;
+
+export type IsTypeOfResolverFn<T = {}, TContext = {}> = (obj: T, context: TContext, info: GraphQLResolveInfo) => boolean | Promise<boolean>;
+
+export type NextResolverFn<T> = () => Promise<T>;
+
+export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs = {}> = (
+  next: NextResolverFn<TResult>,
+  parent: TParent,
+  args: TArgs,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => TResult | Promise<TResult>;
+
+/** Mapping between all available schema types and the resolvers types */
+export type ResolversTypes = {
+  Query: ResolverTypeWrapper<{}>;
+  String: ResolverTypeWrapper<Scalars['String']>;
+  Int: ResolverTypeWrapper<Scalars['Int']>;
+  Mutation: ResolverTypeWrapper<{}>;
+  EdgeEntity: ResolverTypeWrapper<EdgeEntity>;
+  IEdge: ResolversTypes['EdgeEntity'];
+  JSONObject: ResolverTypeWrapper<Scalars['JSONObject']>;
+  PageEntity: ResolverTypeWrapper<PageEntity>;
+  IPage: ResolversTypes['PageEntity'];
+  VertexEntity: ResolverTypeWrapper<VertexEntity>;
+  IVertex: ResolversTypes['VertexEntity'];
+  NodeType: NodeType;
+  GraphEntity: ResolverTypeWrapper<GraphEntity>;
+  IGraph: ResolversTypes['GraphEntity'];
+  UserEntity: ResolverTypeWrapper<UserEntity>;
+  IUser: ResolversTypes['UserEntity'];
+  CodelabAppEntity: ResolverTypeWrapper<CodelabAppEntity>;
+  IApp: ResolversTypes['CodelabAppEntity'];
+  UserDto: ResolverTypeWrapper<UserDto>;
+  AuthDto: ResolverTypeWrapper<AuthDto>;
+  UserInput: UserInput;
+  Subscription: ResolverTypeWrapper<{}>;
+  Int_comparison_exp: Int_Comparison_Exp;
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  String_comparison_exp: String_Comparison_Exp;
+  edge: ResolverTypeWrapper<Edge>;
+  edge_aggregate: ResolverTypeWrapper<Edge_Aggregate>;
+  edge_aggregate_fields: ResolverTypeWrapper<Edge_Aggregate_Fields>;
+  edge_aggregate_order_by: Edge_Aggregate_Order_By;
+  edge_append_input: Edge_Append_Input;
+  edge_arr_rel_insert_input: Edge_Arr_Rel_Insert_Input;
+  edge_avg_fields: ResolverTypeWrapper<Edge_Avg_Fields>;
+  Float: ResolverTypeWrapper<Scalars['Float']>;
+  edge_avg_order_by: Edge_Avg_Order_By;
+  edge_bool_exp: Edge_Bool_Exp;
+  edge_constraint: Edge_Constraint;
+  edge_delete_at_path_input: Edge_Delete_At_Path_Input;
+  edge_delete_elem_input: Edge_Delete_Elem_Input;
+  edge_delete_key_input: Edge_Delete_Key_Input;
+  edge_inc_input: Edge_Inc_Input;
+  edge_insert_input: Edge_Insert_Input;
+  edge_max_fields: ResolverTypeWrapper<Edge_Max_Fields>;
+  edge_max_order_by: Edge_Max_Order_By;
+  edge_min_fields: ResolverTypeWrapper<Edge_Min_Fields>;
+  edge_min_order_by: Edge_Min_Order_By;
+  edge_mutation_response: ResolverTypeWrapper<Edge_Mutation_Response>;
+  edge_obj_rel_insert_input: Edge_Obj_Rel_Insert_Input;
+  edge_on_conflict: Edge_On_Conflict;
+  edge_order_by: Edge_Order_By;
+  edge_pk_columns_input: Edge_Pk_Columns_Input;
+  edge_prepend_input: Edge_Prepend_Input;
+  edge_select_column: Edge_Select_Column;
+  edge_set_input: Edge_Set_Input;
+  edge_stddev_fields: ResolverTypeWrapper<Edge_Stddev_Fields>;
+  edge_stddev_order_by: Edge_Stddev_Order_By;
+  edge_stddev_pop_fields: ResolverTypeWrapper<Edge_Stddev_Pop_Fields>;
+  edge_stddev_pop_order_by: Edge_Stddev_Pop_Order_By;
+  edge_stddev_samp_fields: ResolverTypeWrapper<Edge_Stddev_Samp_Fields>;
+  edge_stddev_samp_order_by: Edge_Stddev_Samp_Order_By;
+  edge_sum_fields: ResolverTypeWrapper<Edge_Sum_Fields>;
+  edge_sum_order_by: Edge_Sum_Order_By;
+  edge_update_column: Edge_Update_Column;
+  edge_var_pop_fields: ResolverTypeWrapper<Edge_Var_Pop_Fields>;
+  edge_var_pop_order_by: Edge_Var_Pop_Order_By;
+  edge_var_samp_fields: ResolverTypeWrapper<Edge_Var_Samp_Fields>;
+  edge_var_samp_order_by: Edge_Var_Samp_Order_By;
+  edge_variance_fields: ResolverTypeWrapper<Edge_Variance_Fields>;
+  edge_variance_order_by: Edge_Variance_Order_By;
+  graph: ResolverTypeWrapper<Graph>;
+  graph_aggregate: ResolverTypeWrapper<Graph_Aggregate>;
+  graph_aggregate_fields: ResolverTypeWrapper<Graph_Aggregate_Fields>;
+  graph_aggregate_order_by: Graph_Aggregate_Order_By;
+  graph_arr_rel_insert_input: Graph_Arr_Rel_Insert_Input;
+  graph_bool_exp: Graph_Bool_Exp;
+  graph_constraint: Graph_Constraint;
+  graph_insert_input: Graph_Insert_Input;
+  graph_max_fields: ResolverTypeWrapper<Graph_Max_Fields>;
+  graph_max_order_by: Graph_Max_Order_By;
+  graph_min_fields: ResolverTypeWrapper<Graph_Min_Fields>;
+  graph_min_order_by: Graph_Min_Order_By;
+  graph_mutation_response: ResolverTypeWrapper<Graph_Mutation_Response>;
+  graph_obj_rel_insert_input: Graph_Obj_Rel_Insert_Input;
+  graph_on_conflict: Graph_On_Conflict;
+  graph_order_by: Graph_Order_By;
+  graph_pk_columns_input: Graph_Pk_Columns_Input;
+  graph_select_column: Graph_Select_Column;
+  graph_set_input: Graph_Set_Input;
+  graph_update_column: Graph_Update_Column;
+  jsonb: ResolverTypeWrapper<Scalars['jsonb']>;
+  jsonb_comparison_exp: Jsonb_Comparison_Exp;
+  order_by: Order_By;
+  user: ResolverTypeWrapper<User>;
+  user_aggregate: ResolverTypeWrapper<User_Aggregate>;
+  user_aggregate_fields: ResolverTypeWrapper<User_Aggregate_Fields>;
+  user_aggregate_order_by: User_Aggregate_Order_By;
+  user_arr_rel_insert_input: User_Arr_Rel_Insert_Input;
+  user_bool_exp: User_Bool_Exp;
+  user_constraint: User_Constraint;
+  user_insert_input: User_Insert_Input;
+  user_max_fields: ResolverTypeWrapper<User_Max_Fields>;
+  user_max_order_by: User_Max_Order_By;
+  user_min_fields: ResolverTypeWrapper<User_Min_Fields>;
+  user_min_order_by: User_Min_Order_By;
+  user_mutation_response: ResolverTypeWrapper<User_Mutation_Response>;
+  user_obj_rel_insert_input: User_Obj_Rel_Insert_Input;
+  user_on_conflict: User_On_Conflict;
+  user_order_by: User_Order_By;
+  user_pk_columns_input: User_Pk_Columns_Input;
+  user_select_column: User_Select_Column;
+  user_set_input: User_Set_Input;
+  user_update_column: User_Update_Column;
+  uuid: ResolverTypeWrapper<Scalars['uuid']>;
+  uuid_comparison_exp: Uuid_Comparison_Exp;
+  vertex: ResolverTypeWrapper<Vertex>;
+  vertex_aggregate: ResolverTypeWrapper<Vertex_Aggregate>;
+  vertex_aggregate_fields: ResolverTypeWrapper<Vertex_Aggregate_Fields>;
+  vertex_aggregate_order_by: Vertex_Aggregate_Order_By;
+  vertex_append_input: Vertex_Append_Input;
+  vertex_arr_rel_insert_input: Vertex_Arr_Rel_Insert_Input;
+  vertex_bool_exp: Vertex_Bool_Exp;
+  vertex_constraint: Vertex_Constraint;
+  vertex_delete_at_path_input: Vertex_Delete_At_Path_Input;
+  vertex_delete_elem_input: Vertex_Delete_Elem_Input;
+  vertex_delete_key_input: Vertex_Delete_Key_Input;
+  vertex_insert_input: Vertex_Insert_Input;
+  vertex_max_fields: ResolverTypeWrapper<Vertex_Max_Fields>;
+  vertex_max_order_by: Vertex_Max_Order_By;
+  vertex_min_fields: ResolverTypeWrapper<Vertex_Min_Fields>;
+  vertex_min_order_by: Vertex_Min_Order_By;
+  vertex_mutation_response: ResolverTypeWrapper<Vertex_Mutation_Response>;
+  vertex_obj_rel_insert_input: Vertex_Obj_Rel_Insert_Input;
+  vertex_on_conflict: Vertex_On_Conflict;
+  vertex_order_by: Vertex_Order_By;
+  vertex_pk_columns_input: Vertex_Pk_Columns_Input;
+  vertex_prepend_input: Vertex_Prepend_Input;
+  vertex_select_column: Vertex_Select_Column;
+  vertex_set_input: Vertex_Set_Input;
+  vertex_type_enum: ResolverTypeWrapper<Scalars['vertex_type_enum']>;
+  vertex_type_enum_comparison_exp: Vertex_Type_Enum_Comparison_Exp;
+  vertex_update_column: Vertex_Update_Column;
+};
+
+/** Mapping between all available schema types and the resolvers parents */
+export type ResolversParentTypes = {
+  Query: {};
+  String: Scalars['String'];
+  Int: Scalars['Int'];
+  Mutation: {};
+  EdgeEntity: EdgeEntity;
+  IEdge: ResolversParentTypes['EdgeEntity'];
+  JSONObject: Scalars['JSONObject'];
+  PageEntity: PageEntity;
+  IPage: ResolversParentTypes['PageEntity'];
+  VertexEntity: VertexEntity;
+  IVertex: ResolversParentTypes['VertexEntity'];
+  GraphEntity: GraphEntity;
+  IGraph: ResolversParentTypes['GraphEntity'];
+  UserEntity: UserEntity;
+  IUser: ResolversParentTypes['UserEntity'];
+  CodelabAppEntity: CodelabAppEntity;
+  IApp: ResolversParentTypes['CodelabAppEntity'];
+  UserDto: UserDto;
+  AuthDto: AuthDto;
+  UserInput: UserInput;
+  Subscription: {};
+  Int_comparison_exp: Int_Comparison_Exp;
+  Boolean: Scalars['Boolean'];
+  String_comparison_exp: String_Comparison_Exp;
+  edge: Edge;
+  edge_aggregate: Edge_Aggregate;
+  edge_aggregate_fields: Edge_Aggregate_Fields;
+  edge_aggregate_order_by: Edge_Aggregate_Order_By;
+  edge_append_input: Edge_Append_Input;
+  edge_arr_rel_insert_input: Edge_Arr_Rel_Insert_Input;
+  edge_avg_fields: Edge_Avg_Fields;
+  Float: Scalars['Float'];
+  edge_avg_order_by: Edge_Avg_Order_By;
+  edge_bool_exp: Edge_Bool_Exp;
+  edge_delete_at_path_input: Edge_Delete_At_Path_Input;
+  edge_delete_elem_input: Edge_Delete_Elem_Input;
+  edge_delete_key_input: Edge_Delete_Key_Input;
+  edge_inc_input: Edge_Inc_Input;
+  edge_insert_input: Edge_Insert_Input;
+  edge_max_fields: Edge_Max_Fields;
+  edge_max_order_by: Edge_Max_Order_By;
+  edge_min_fields: Edge_Min_Fields;
+  edge_min_order_by: Edge_Min_Order_By;
+  edge_mutation_response: Edge_Mutation_Response;
+  edge_obj_rel_insert_input: Edge_Obj_Rel_Insert_Input;
+  edge_on_conflict: Edge_On_Conflict;
+  edge_order_by: Edge_Order_By;
+  edge_pk_columns_input: Edge_Pk_Columns_Input;
+  edge_prepend_input: Edge_Prepend_Input;
+  edge_set_input: Edge_Set_Input;
+  edge_stddev_fields: Edge_Stddev_Fields;
+  edge_stddev_order_by: Edge_Stddev_Order_By;
+  edge_stddev_pop_fields: Edge_Stddev_Pop_Fields;
+  edge_stddev_pop_order_by: Edge_Stddev_Pop_Order_By;
+  edge_stddev_samp_fields: Edge_Stddev_Samp_Fields;
+  edge_stddev_samp_order_by: Edge_Stddev_Samp_Order_By;
+  edge_sum_fields: Edge_Sum_Fields;
+  edge_sum_order_by: Edge_Sum_Order_By;
+  edge_var_pop_fields: Edge_Var_Pop_Fields;
+  edge_var_pop_order_by: Edge_Var_Pop_Order_By;
+  edge_var_samp_fields: Edge_Var_Samp_Fields;
+  edge_var_samp_order_by: Edge_Var_Samp_Order_By;
+  edge_variance_fields: Edge_Variance_Fields;
+  edge_variance_order_by: Edge_Variance_Order_By;
+  graph: Graph;
+  graph_aggregate: Graph_Aggregate;
+  graph_aggregate_fields: Graph_Aggregate_Fields;
+  graph_aggregate_order_by: Graph_Aggregate_Order_By;
+  graph_arr_rel_insert_input: Graph_Arr_Rel_Insert_Input;
+  graph_bool_exp: Graph_Bool_Exp;
+  graph_insert_input: Graph_Insert_Input;
+  graph_max_fields: Graph_Max_Fields;
+  graph_max_order_by: Graph_Max_Order_By;
+  graph_min_fields: Graph_Min_Fields;
+  graph_min_order_by: Graph_Min_Order_By;
+  graph_mutation_response: Graph_Mutation_Response;
+  graph_obj_rel_insert_input: Graph_Obj_Rel_Insert_Input;
+  graph_on_conflict: Graph_On_Conflict;
+  graph_order_by: Graph_Order_By;
+  graph_pk_columns_input: Graph_Pk_Columns_Input;
+  graph_set_input: Graph_Set_Input;
+  jsonb: Scalars['jsonb'];
+  jsonb_comparison_exp: Jsonb_Comparison_Exp;
+  user: User;
+  user_aggregate: User_Aggregate;
+  user_aggregate_fields: User_Aggregate_Fields;
+  user_aggregate_order_by: User_Aggregate_Order_By;
+  user_arr_rel_insert_input: User_Arr_Rel_Insert_Input;
+  user_bool_exp: User_Bool_Exp;
+  user_insert_input: User_Insert_Input;
+  user_max_fields: User_Max_Fields;
+  user_max_order_by: User_Max_Order_By;
+  user_min_fields: User_Min_Fields;
+  user_min_order_by: User_Min_Order_By;
+  user_mutation_response: User_Mutation_Response;
+  user_obj_rel_insert_input: User_Obj_Rel_Insert_Input;
+  user_on_conflict: User_On_Conflict;
+  user_order_by: User_Order_By;
+  user_pk_columns_input: User_Pk_Columns_Input;
+  user_set_input: User_Set_Input;
+  uuid: Scalars['uuid'];
+  uuid_comparison_exp: Uuid_Comparison_Exp;
+  vertex: Vertex;
+  vertex_aggregate: Vertex_Aggregate;
+  vertex_aggregate_fields: Vertex_Aggregate_Fields;
+  vertex_aggregate_order_by: Vertex_Aggregate_Order_By;
+  vertex_append_input: Vertex_Append_Input;
+  vertex_arr_rel_insert_input: Vertex_Arr_Rel_Insert_Input;
+  vertex_bool_exp: Vertex_Bool_Exp;
+  vertex_delete_at_path_input: Vertex_Delete_At_Path_Input;
+  vertex_delete_elem_input: Vertex_Delete_Elem_Input;
+  vertex_delete_key_input: Vertex_Delete_Key_Input;
+  vertex_insert_input: Vertex_Insert_Input;
+  vertex_max_fields: Vertex_Max_Fields;
+  vertex_max_order_by: Vertex_Max_Order_By;
+  vertex_min_fields: Vertex_Min_Fields;
+  vertex_min_order_by: Vertex_Min_Order_By;
+  vertex_mutation_response: Vertex_Mutation_Response;
+  vertex_obj_rel_insert_input: Vertex_Obj_Rel_Insert_Input;
+  vertex_on_conflict: Vertex_On_Conflict;
+  vertex_order_by: Vertex_Order_By;
+  vertex_pk_columns_input: Vertex_Pk_Columns_Input;
+  vertex_prepend_input: Vertex_Prepend_Input;
+  vertex_set_input: Vertex_Set_Input;
+  vertex_type_enum: Scalars['vertex_type_enum'];
+  vertex_type_enum_comparison_exp: Vertex_Type_Enum_Comparison_Exp;
+};
+
+export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  createAccessToken?: Resolver<ResolversTypes['AuthDto'], ParentType, ContextType>;
+  getAllEdges?: Resolver<Array<ResolversTypes['EdgeEntity']>, ParentType, ContextType>;
+  getAllGraphs?: Resolver<Array<ResolversTypes['GraphEntity']>, ParentType, ContextType>;
+  getAllUsers?: Resolver<Array<ResolversTypes['UserEntity']>, ParentType, ContextType>;
+  login?: Resolver<ResolversTypes['UserDto'], ParentType, ContextType, RequireFields<QueryLoginArgs, 'user'>>;
+  refreshToken?: Resolver<ResolversTypes['String'], ParentType, ContextType, RequireFields<QueryRefreshTokenArgs, 'token'>>;
+  getAllVertices?: Resolver<Array<ResolversTypes['VertexEntity']>, ParentType, ContextType>;
+  getAllApps?: Resolver<Array<ResolversTypes['CodelabAppEntity']>, ParentType, ContextType>;
+  getAllPages?: Resolver<Array<ResolversTypes['PageEntity']>, ParentType, ContextType>;
+  edge?: Resolver<Array<ResolversTypes['edge']>, ParentType, ContextType, RequireFields<QueryEdgeArgs, never>>;
+  edge_aggregate?: Resolver<ResolversTypes['edge_aggregate'], ParentType, ContextType, RequireFields<QueryEdge_AggregateArgs, never>>;
+  edge_by_pk?: Resolver<Maybe<ResolversTypes['edge']>, ParentType, ContextType, RequireFields<QueryEdge_By_PkArgs, 'id'>>;
+  graph?: Resolver<Array<ResolversTypes['graph']>, ParentType, ContextType, RequireFields<QueryGraphArgs, never>>;
+  graph_aggregate?: Resolver<ResolversTypes['graph_aggregate'], ParentType, ContextType, RequireFields<QueryGraph_AggregateArgs, never>>;
+  graph_by_pk?: Resolver<Maybe<ResolversTypes['graph']>, ParentType, ContextType, RequireFields<QueryGraph_By_PkArgs, 'id'>>;
+  user?: Resolver<Array<ResolversTypes['user']>, ParentType, ContextType, RequireFields<QueryUserArgs, never>>;
+  user_aggregate?: Resolver<ResolversTypes['user_aggregate'], ParentType, ContextType, RequireFields<QueryUser_AggregateArgs, never>>;
+  user_by_pk?: Resolver<Maybe<ResolversTypes['user']>, ParentType, ContextType, RequireFields<QueryUser_By_PkArgs, 'id'>>;
+  vertex?: Resolver<Array<ResolversTypes['vertex']>, ParentType, ContextType, RequireFields<QueryVertexArgs, never>>;
+  vertex_aggregate?: Resolver<ResolversTypes['vertex_aggregate'], ParentType, ContextType, RequireFields<QueryVertex_AggregateArgs, never>>;
+  vertex_by_pk?: Resolver<Maybe<ResolversTypes['vertex']>, ParentType, ContextType, RequireFields<QueryVertex_By_PkArgs, 'id'>>;
+};
+
+export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  moveVertex?: Resolver<ResolversTypes['GraphEntity'], ParentType, ContextType, RequireFields<MutationMoveVertexArgs, 'target' | 'src'>>;
+  registerUser?: Resolver<ResolversTypes['UserDto'], ParentType, ContextType, RequireFields<MutationRegisterUserArgs, 'user'>>;
+  delete_edge?: Resolver<Maybe<ResolversTypes['edge_mutation_response']>, ParentType, ContextType, RequireFields<MutationDelete_EdgeArgs, 'where'>>;
+  delete_edge_by_pk?: Resolver<Maybe<ResolversTypes['edge']>, ParentType, ContextType, RequireFields<MutationDelete_Edge_By_PkArgs, 'id'>>;
+  delete_graph?: Resolver<Maybe<ResolversTypes['graph_mutation_response']>, ParentType, ContextType, RequireFields<MutationDelete_GraphArgs, 'where'>>;
+  delete_graph_by_pk?: Resolver<Maybe<ResolversTypes['graph']>, ParentType, ContextType, RequireFields<MutationDelete_Graph_By_PkArgs, 'id'>>;
+  delete_user?: Resolver<Maybe<ResolversTypes['user_mutation_response']>, ParentType, ContextType, RequireFields<MutationDelete_UserArgs, 'where'>>;
+  delete_user_by_pk?: Resolver<Maybe<ResolversTypes['user']>, ParentType, ContextType, RequireFields<MutationDelete_User_By_PkArgs, 'id'>>;
+  delete_vertex?: Resolver<Maybe<ResolversTypes['vertex_mutation_response']>, ParentType, ContextType, RequireFields<MutationDelete_VertexArgs, 'where'>>;
+  delete_vertex_by_pk?: Resolver<Maybe<ResolversTypes['vertex']>, ParentType, ContextType, RequireFields<MutationDelete_Vertex_By_PkArgs, 'id'>>;
+  insert_edge?: Resolver<Maybe<ResolversTypes['edge_mutation_response']>, ParentType, ContextType, RequireFields<MutationInsert_EdgeArgs, 'objects'>>;
+  insert_edge_one?: Resolver<Maybe<ResolversTypes['edge']>, ParentType, ContextType, RequireFields<MutationInsert_Edge_OneArgs, 'object'>>;
+  insert_graph?: Resolver<Maybe<ResolversTypes['graph_mutation_response']>, ParentType, ContextType, RequireFields<MutationInsert_GraphArgs, 'objects'>>;
+  insert_graph_one?: Resolver<Maybe<ResolversTypes['graph']>, ParentType, ContextType, RequireFields<MutationInsert_Graph_OneArgs, 'object'>>;
+  insert_user?: Resolver<Maybe<ResolversTypes['user_mutation_response']>, ParentType, ContextType, RequireFields<MutationInsert_UserArgs, 'objects'>>;
+  insert_user_one?: Resolver<Maybe<ResolversTypes['user']>, ParentType, ContextType, RequireFields<MutationInsert_User_OneArgs, 'object'>>;
+  insert_vertex?: Resolver<Maybe<ResolversTypes['vertex_mutation_response']>, ParentType, ContextType, RequireFields<MutationInsert_VertexArgs, 'objects'>>;
+  insert_vertex_one?: Resolver<Maybe<ResolversTypes['vertex']>, ParentType, ContextType, RequireFields<MutationInsert_Vertex_OneArgs, 'object'>>;
+  update_edge?: Resolver<Maybe<ResolversTypes['edge_mutation_response']>, ParentType, ContextType, RequireFields<MutationUpdate_EdgeArgs, 'where'>>;
+  update_edge_by_pk?: Resolver<Maybe<ResolversTypes['edge']>, ParentType, ContextType, RequireFields<MutationUpdate_Edge_By_PkArgs, 'pk_columns'>>;
+  update_graph?: Resolver<Maybe<ResolversTypes['graph_mutation_response']>, ParentType, ContextType, RequireFields<MutationUpdate_GraphArgs, 'where'>>;
+  update_graph_by_pk?: Resolver<Maybe<ResolversTypes['graph']>, ParentType, ContextType, RequireFields<MutationUpdate_Graph_By_PkArgs, 'pk_columns'>>;
+  update_user?: Resolver<Maybe<ResolversTypes['user_mutation_response']>, ParentType, ContextType, RequireFields<MutationUpdate_UserArgs, 'where'>>;
+  update_user_by_pk?: Resolver<Maybe<ResolversTypes['user']>, ParentType, ContextType, RequireFields<MutationUpdate_User_By_PkArgs, 'pk_columns'>>;
+  update_vertex?: Resolver<Maybe<ResolversTypes['vertex_mutation_response']>, ParentType, ContextType, RequireFields<MutationUpdate_VertexArgs, 'where'>>;
+  update_vertex_by_pk?: Resolver<Maybe<ResolversTypes['vertex']>, ParentType, ContextType, RequireFields<MutationUpdate_Vertex_By_PkArgs, 'pk_columns'>>;
+};
+
+export type EdgeEntityResolvers<ContextType = any, ParentType extends ResolversParentTypes['EdgeEntity'] = ResolversParentTypes['EdgeEntity']> = {
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  source?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  target?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  order?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  props?: Resolver<Maybe<ResolversTypes['JSONObject']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type IEdgeResolvers<ContextType = any, ParentType extends ResolversParentTypes['IEdge'] = ResolversParentTypes['IEdge']> = {
+  __resolveType: TypeResolveFn<'EdgeEntity', ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  source?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  target?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  order?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  props?: Resolver<Maybe<ResolversTypes['JSONObject']>, ParentType, ContextType>;
+};
+
+export interface JsonObjectScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['JSONObject'], any> {
+  name: 'JSONObject';
+}
+
+export type PageEntityResolvers<ContextType = any, ParentType extends ResolversParentTypes['PageEntity'] = ResolversParentTypes['PageEntity']> = {
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  app?: Resolver<Maybe<ResolversTypes['CodelabAppEntity']>, ParentType, ContextType>;
+  graphs?: Resolver<Maybe<Array<ResolversTypes['GraphEntity']>>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type IPageResolvers<ContextType = any, ParentType extends ResolversParentTypes['IPage'] = ResolversParentTypes['IPage']> = {
+  __resolveType: TypeResolveFn<'PageEntity', ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  app?: Resolver<Maybe<ResolversTypes['CodelabAppEntity']>, ParentType, ContextType>;
+  graphs?: Resolver<Maybe<Array<ResolversTypes['GraphEntity']>>, ParentType, ContextType>;
+};
+
+export type VertexEntityResolvers<ContextType = any, ParentType extends ResolversParentTypes['VertexEntity'] = ResolversParentTypes['VertexEntity']> = {
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  props?: Resolver<Maybe<ResolversTypes['JSONObject']>, ParentType, ContextType>;
+  parent?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  type?: Resolver<ResolversTypes['NodeType'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type IVertexResolvers<ContextType = any, ParentType extends ResolversParentTypes['IVertex'] = ResolversParentTypes['IVertex']> = {
+  __resolveType: TypeResolveFn<'VertexEntity', ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  props?: Resolver<Maybe<ResolversTypes['JSONObject']>, ParentType, ContextType>;
+  parent?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  type?: Resolver<ResolversTypes['NodeType'], ParentType, ContextType>;
+};
+
+export type GraphEntityResolvers<ContextType = any, ParentType extends ResolversParentTypes['GraphEntity'] = ResolversParentTypes['GraphEntity']> = {
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  vertices?: Resolver<Maybe<Array<ResolversTypes['VertexEntity']>>, ParentType, ContextType>;
+  edges?: Resolver<Maybe<Array<ResolversTypes['EdgeEntity']>>, ParentType, ContextType>;
+  app?: Resolver<Maybe<ResolversTypes['CodelabAppEntity']>, ParentType, ContextType>;
+  page?: Resolver<Maybe<ResolversTypes['PageEntity']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type IGraphResolvers<ContextType = any, ParentType extends ResolversParentTypes['IGraph'] = ResolversParentTypes['IGraph']> = {
+  __resolveType: TypeResolveFn<'GraphEntity', ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  vertices?: Resolver<Maybe<Array<ResolversTypes['VertexEntity']>>, ParentType, ContextType>;
+  edges?: Resolver<Maybe<Array<ResolversTypes['EdgeEntity']>>, ParentType, ContextType>;
+  app?: Resolver<Maybe<ResolversTypes['CodelabAppEntity']>, ParentType, ContextType>;
+  page?: Resolver<Maybe<ResolversTypes['PageEntity']>, ParentType, ContextType>;
+};
+
+export type UserEntityResolvers<ContextType = any, ParentType extends ResolversParentTypes['UserEntity'] = ResolversParentTypes['UserEntity']> = {
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  apps?: Resolver<Array<ResolversTypes['CodelabAppEntity']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type IUserResolvers<ContextType = any, ParentType extends ResolversParentTypes['IUser'] = ResolversParentTypes['IUser']> = {
+  __resolveType: TypeResolveFn<'UserEntity', ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  apps?: Resolver<Array<ResolversTypes['CodelabAppEntity']>, ParentType, ContextType>;
+};
+
+export type CodelabAppEntityResolvers<ContextType = any, ParentType extends ResolversParentTypes['CodelabAppEntity'] = ResolversParentTypes['CodelabAppEntity']> = {
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  user?: Resolver<Maybe<ResolversTypes['UserEntity']>, ParentType, ContextType>;
+  pages?: Resolver<Maybe<Array<ResolversTypes['PageEntity']>>, ParentType, ContextType>;
+  graphs?: Resolver<Maybe<Array<ResolversTypes['GraphEntity']>>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type IAppResolvers<ContextType = any, ParentType extends ResolversParentTypes['IApp'] = ResolversParentTypes['IApp']> = {
+  __resolveType: TypeResolveFn<'CodelabAppEntity', ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  user?: Resolver<Maybe<ResolversTypes['UserEntity']>, ParentType, ContextType>;
+  pages?: Resolver<Maybe<Array<ResolversTypes['PageEntity']>>, ParentType, ContextType>;
+  graphs?: Resolver<Maybe<Array<ResolversTypes['GraphEntity']>>, ParentType, ContextType>;
+};
+
+export type UserDtoResolvers<ContextType = any, ParentType extends ResolversParentTypes['UserDto'] = ResolversParentTypes['UserDto']> = {
+  user?: Resolver<ResolversTypes['UserEntity'], ParentType, ContextType>;
+  accessToken?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type AuthDtoResolvers<ContextType = any, ParentType extends ResolversParentTypes['AuthDto'] = ResolversParentTypes['AuthDto']> = {
+  accessToken?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type SubscriptionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']> = {
+  edge?: SubscriptionResolver<Array<ResolversTypes['edge']>, "edge", ParentType, ContextType, RequireFields<SubscriptionEdgeArgs, never>>;
+  edge_aggregate?: SubscriptionResolver<ResolversTypes['edge_aggregate'], "edge_aggregate", ParentType, ContextType, RequireFields<SubscriptionEdge_AggregateArgs, never>>;
+  edge_by_pk?: SubscriptionResolver<Maybe<ResolversTypes['edge']>, "edge_by_pk", ParentType, ContextType, RequireFields<SubscriptionEdge_By_PkArgs, 'id'>>;
+  graph?: SubscriptionResolver<Array<ResolversTypes['graph']>, "graph", ParentType, ContextType, RequireFields<SubscriptionGraphArgs, never>>;
+  graph_aggregate?: SubscriptionResolver<ResolversTypes['graph_aggregate'], "graph_aggregate", ParentType, ContextType, RequireFields<SubscriptionGraph_AggregateArgs, never>>;
+  graph_by_pk?: SubscriptionResolver<Maybe<ResolversTypes['graph']>, "graph_by_pk", ParentType, ContextType, RequireFields<SubscriptionGraph_By_PkArgs, 'id'>>;
+  user?: SubscriptionResolver<Array<ResolversTypes['user']>, "user", ParentType, ContextType, RequireFields<SubscriptionUserArgs, never>>;
+  user_aggregate?: SubscriptionResolver<ResolversTypes['user_aggregate'], "user_aggregate", ParentType, ContextType, RequireFields<SubscriptionUser_AggregateArgs, never>>;
+  user_by_pk?: SubscriptionResolver<Maybe<ResolversTypes['user']>, "user_by_pk", ParentType, ContextType, RequireFields<SubscriptionUser_By_PkArgs, 'id'>>;
+  vertex?: SubscriptionResolver<Array<ResolversTypes['vertex']>, "vertex", ParentType, ContextType, RequireFields<SubscriptionVertexArgs, never>>;
+  vertex_aggregate?: SubscriptionResolver<ResolversTypes['vertex_aggregate'], "vertex_aggregate", ParentType, ContextType, RequireFields<SubscriptionVertex_AggregateArgs, never>>;
+  vertex_by_pk?: SubscriptionResolver<Maybe<ResolversTypes['vertex']>, "vertex_by_pk", ParentType, ContextType, RequireFields<SubscriptionVertex_By_PkArgs, 'id'>>;
+};
+
+export type EdgeResolvers<ContextType = any, ParentType extends ResolversParentTypes['edge'] = ResolversParentTypes['edge']> = {
+  graph?: Resolver<Maybe<ResolversTypes['graph']>, ParentType, ContextType>;
+  graph_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  order?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  props?: Resolver<ResolversTypes['jsonb'], ParentType, ContextType, RequireFields<EdgePropsArgs, never>>;
+  source?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  target?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Edge_AggregateResolvers<ContextType = any, ParentType extends ResolversParentTypes['edge_aggregate'] = ResolversParentTypes['edge_aggregate']> = {
+  aggregate?: Resolver<Maybe<ResolversTypes['edge_aggregate_fields']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['edge']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Edge_Aggregate_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['edge_aggregate_fields'] = ResolversParentTypes['edge_aggregate_fields']> = {
+  avg?: Resolver<Maybe<ResolversTypes['edge_avg_fields']>, ParentType, ContextType>;
+  count?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType, RequireFields<Edge_Aggregate_FieldsCountArgs, never>>;
+  max?: Resolver<Maybe<ResolversTypes['edge_max_fields']>, ParentType, ContextType>;
+  min?: Resolver<Maybe<ResolversTypes['edge_min_fields']>, ParentType, ContextType>;
+  stddev?: Resolver<Maybe<ResolversTypes['edge_stddev_fields']>, ParentType, ContextType>;
+  stddev_pop?: Resolver<Maybe<ResolversTypes['edge_stddev_pop_fields']>, ParentType, ContextType>;
+  stddev_samp?: Resolver<Maybe<ResolversTypes['edge_stddev_samp_fields']>, ParentType, ContextType>;
+  sum?: Resolver<Maybe<ResolversTypes['edge_sum_fields']>, ParentType, ContextType>;
+  var_pop?: Resolver<Maybe<ResolversTypes['edge_var_pop_fields']>, ParentType, ContextType>;
+  var_samp?: Resolver<Maybe<ResolversTypes['edge_var_samp_fields']>, ParentType, ContextType>;
+  variance?: Resolver<Maybe<ResolversTypes['edge_variance_fields']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Edge_Avg_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['edge_avg_fields'] = ResolversParentTypes['edge_avg_fields']> = {
+  order?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Edge_Max_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['edge_max_fields'] = ResolversParentTypes['edge_max_fields']> = {
+  graph_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  order?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  source?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  target?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Edge_Min_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['edge_min_fields'] = ResolversParentTypes['edge_min_fields']> = {
+  graph_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  order?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  source?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  target?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Edge_Mutation_ResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['edge_mutation_response'] = ResolversParentTypes['edge_mutation_response']> = {
+  affected_rows?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  returning?: Resolver<Array<ResolversTypes['edge']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Edge_Stddev_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['edge_stddev_fields'] = ResolversParentTypes['edge_stddev_fields']> = {
+  order?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Edge_Stddev_Pop_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['edge_stddev_pop_fields'] = ResolversParentTypes['edge_stddev_pop_fields']> = {
+  order?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Edge_Stddev_Samp_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['edge_stddev_samp_fields'] = ResolversParentTypes['edge_stddev_samp_fields']> = {
+  order?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Edge_Sum_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['edge_sum_fields'] = ResolversParentTypes['edge_sum_fields']> = {
+  order?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Edge_Var_Pop_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['edge_var_pop_fields'] = ResolversParentTypes['edge_var_pop_fields']> = {
+  order?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Edge_Var_Samp_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['edge_var_samp_fields'] = ResolversParentTypes['edge_var_samp_fields']> = {
+  order?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Edge_Variance_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['edge_variance_fields'] = ResolversParentTypes['edge_variance_fields']> = {
+  order?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type GraphResolvers<ContextType = any, ParentType extends ResolversParentTypes['graph'] = ResolversParentTypes['graph']> = {
+  edges?: Resolver<Array<ResolversTypes['edge']>, ParentType, ContextType, RequireFields<GraphEdgesArgs, never>>;
+  edges_aggregate?: Resolver<ResolversTypes['edge_aggregate'], ParentType, ContextType, RequireFields<GraphEdges_AggregateArgs, never>>;
+  id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  label?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  user?: Resolver<Maybe<ResolversTypes['user']>, ParentType, ContextType>;
+  user_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  vertices?: Resolver<Array<ResolversTypes['vertex']>, ParentType, ContextType, RequireFields<GraphVerticesArgs, never>>;
+  vertices_aggregate?: Resolver<ResolversTypes['vertex_aggregate'], ParentType, ContextType, RequireFields<GraphVertices_AggregateArgs, never>>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Graph_AggregateResolvers<ContextType = any, ParentType extends ResolversParentTypes['graph_aggregate'] = ResolversParentTypes['graph_aggregate']> = {
+  aggregate?: Resolver<Maybe<ResolversTypes['graph_aggregate_fields']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['graph']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Graph_Aggregate_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['graph_aggregate_fields'] = ResolversParentTypes['graph_aggregate_fields']> = {
+  count?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType, RequireFields<Graph_Aggregate_FieldsCountArgs, never>>;
+  max?: Resolver<Maybe<ResolversTypes['graph_max_fields']>, ParentType, ContextType>;
+  min?: Resolver<Maybe<ResolversTypes['graph_min_fields']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Graph_Max_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['graph_max_fields'] = ResolversParentTypes['graph_max_fields']> = {
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  label?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  user_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Graph_Min_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['graph_min_fields'] = ResolversParentTypes['graph_min_fields']> = {
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  label?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  user_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Graph_Mutation_ResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['graph_mutation_response'] = ResolversParentTypes['graph_mutation_response']> = {
+  affected_rows?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  returning?: Resolver<Array<ResolversTypes['graph']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export interface JsonbScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['jsonb'], any> {
+  name: 'jsonb';
+}
+
+export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['user'] = ResolversParentTypes['user']> = {
+  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  google_provider_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  graphs?: Resolver<Array<ResolversTypes['graph']>, ParentType, ContextType, RequireFields<UserGraphsArgs, never>>;
+  graphs_aggregate?: Resolver<ResolversTypes['graph_aggregate'], ParentType, ContextType, RequireFields<UserGraphs_AggregateArgs, never>>;
+  id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  password?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type User_AggregateResolvers<ContextType = any, ParentType extends ResolversParentTypes['user_aggregate'] = ResolversParentTypes['user_aggregate']> = {
+  aggregate?: Resolver<Maybe<ResolversTypes['user_aggregate_fields']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['user']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type User_Aggregate_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['user_aggregate_fields'] = ResolversParentTypes['user_aggregate_fields']> = {
+  count?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType, RequireFields<User_Aggregate_FieldsCountArgs, never>>;
+  max?: Resolver<Maybe<ResolversTypes['user_max_fields']>, ParentType, ContextType>;
+  min?: Resolver<Maybe<ResolversTypes['user_min_fields']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type User_Max_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['user_max_fields'] = ResolversParentTypes['user_max_fields']> = {
+  email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  google_provider_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  password?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type User_Min_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['user_min_fields'] = ResolversParentTypes['user_min_fields']> = {
+  email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  google_provider_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  password?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type User_Mutation_ResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['user_mutation_response'] = ResolversParentTypes['user_mutation_response']> = {
+  affected_rows?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  returning?: Resolver<Array<ResolversTypes['user']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export interface UuidScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['uuid'], any> {
+  name: 'uuid';
+}
+
+export type VertexResolvers<ContextType = any, ParentType extends ResolversParentTypes['vertex'] = ResolversParentTypes['vertex']> = {
+  graph?: Resolver<Maybe<ResolversTypes['graph']>, ParentType, ContextType>;
+  graph_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['uuid'], ParentType, ContextType>;
+  props?: Resolver<ResolversTypes['jsonb'], ParentType, ContextType, RequireFields<VertexPropsArgs, never>>;
+  type?: Resolver<ResolversTypes['vertex_type_enum'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Vertex_AggregateResolvers<ContextType = any, ParentType extends ResolversParentTypes['vertex_aggregate'] = ResolversParentTypes['vertex_aggregate']> = {
+  aggregate?: Resolver<Maybe<ResolversTypes['vertex_aggregate_fields']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['vertex']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Vertex_Aggregate_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['vertex_aggregate_fields'] = ResolversParentTypes['vertex_aggregate_fields']> = {
+  count?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType, RequireFields<Vertex_Aggregate_FieldsCountArgs, never>>;
+  max?: Resolver<Maybe<ResolversTypes['vertex_max_fields']>, ParentType, ContextType>;
+  min?: Resolver<Maybe<ResolversTypes['vertex_min_fields']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Vertex_Max_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['vertex_max_fields'] = ResolversParentTypes['vertex_max_fields']> = {
+  graph_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Vertex_Min_FieldsResolvers<ContextType = any, ParentType extends ResolversParentTypes['vertex_min_fields'] = ResolversParentTypes['vertex_min_fields']> = {
+  graph_id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['uuid']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Vertex_Mutation_ResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['vertex_mutation_response'] = ResolversParentTypes['vertex_mutation_response']> = {
+  affected_rows?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  returning?: Resolver<Array<ResolversTypes['vertex']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export interface Vertex_Type_EnumScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['vertex_type_enum'], any> {
+  name: 'vertex_type_enum';
+}
+
+export type Resolvers<ContextType = any> = {
+  Query?: QueryResolvers<ContextType>;
+  Mutation?: MutationResolvers<ContextType>;
+  EdgeEntity?: EdgeEntityResolvers<ContextType>;
+  IEdge?: IEdgeResolvers<ContextType>;
+  JSONObject?: GraphQLScalarType;
+  PageEntity?: PageEntityResolvers<ContextType>;
+  IPage?: IPageResolvers<ContextType>;
+  VertexEntity?: VertexEntityResolvers<ContextType>;
+  IVertex?: IVertexResolvers<ContextType>;
+  GraphEntity?: GraphEntityResolvers<ContextType>;
+  IGraph?: IGraphResolvers<ContextType>;
+  UserEntity?: UserEntityResolvers<ContextType>;
+  IUser?: IUserResolvers<ContextType>;
+  CodelabAppEntity?: CodelabAppEntityResolvers<ContextType>;
+  IApp?: IAppResolvers<ContextType>;
+  UserDto?: UserDtoResolvers<ContextType>;
+  AuthDto?: AuthDtoResolvers<ContextType>;
+  Subscription?: SubscriptionResolvers<ContextType>;
+  edge?: EdgeResolvers<ContextType>;
+  edge_aggregate?: Edge_AggregateResolvers<ContextType>;
+  edge_aggregate_fields?: Edge_Aggregate_FieldsResolvers<ContextType>;
+  edge_avg_fields?: Edge_Avg_FieldsResolvers<ContextType>;
+  edge_max_fields?: Edge_Max_FieldsResolvers<ContextType>;
+  edge_min_fields?: Edge_Min_FieldsResolvers<ContextType>;
+  edge_mutation_response?: Edge_Mutation_ResponseResolvers<ContextType>;
+  edge_stddev_fields?: Edge_Stddev_FieldsResolvers<ContextType>;
+  edge_stddev_pop_fields?: Edge_Stddev_Pop_FieldsResolvers<ContextType>;
+  edge_stddev_samp_fields?: Edge_Stddev_Samp_FieldsResolvers<ContextType>;
+  edge_sum_fields?: Edge_Sum_FieldsResolvers<ContextType>;
+  edge_var_pop_fields?: Edge_Var_Pop_FieldsResolvers<ContextType>;
+  edge_var_samp_fields?: Edge_Var_Samp_FieldsResolvers<ContextType>;
+  edge_variance_fields?: Edge_Variance_FieldsResolvers<ContextType>;
+  graph?: GraphResolvers<ContextType>;
+  graph_aggregate?: Graph_AggregateResolvers<ContextType>;
+  graph_aggregate_fields?: Graph_Aggregate_FieldsResolvers<ContextType>;
+  graph_max_fields?: Graph_Max_FieldsResolvers<ContextType>;
+  graph_min_fields?: Graph_Min_FieldsResolvers<ContextType>;
+  graph_mutation_response?: Graph_Mutation_ResponseResolvers<ContextType>;
+  jsonb?: GraphQLScalarType;
+  user?: UserResolvers<ContextType>;
+  user_aggregate?: User_AggregateResolvers<ContextType>;
+  user_aggregate_fields?: User_Aggregate_FieldsResolvers<ContextType>;
+  user_max_fields?: User_Max_FieldsResolvers<ContextType>;
+  user_min_fields?: User_Min_FieldsResolvers<ContextType>;
+  user_mutation_response?: User_Mutation_ResponseResolvers<ContextType>;
+  uuid?: GraphQLScalarType;
+  vertex?: VertexResolvers<ContextType>;
+  vertex_aggregate?: Vertex_AggregateResolvers<ContextType>;
+  vertex_aggregate_fields?: Vertex_Aggregate_FieldsResolvers<ContextType>;
+  vertex_max_fields?: Vertex_Max_FieldsResolvers<ContextType>;
+  vertex_min_fields?: Vertex_Min_FieldsResolvers<ContextType>;
+  vertex_mutation_response?: Vertex_Mutation_ResponseResolvers<ContextType>;
+  vertex_type_enum?: GraphQLScalarType;
+};
+
+
+/**
+ * @deprecated
+ * Use "Resolvers" root object instead. If you wish to get "IResolvers", add "typesPrefix: I" to your config.
+ */
+export type IResolvers<ContextType = any> = Resolvers<ContextType>;
 
 export type EdgeFragmentFragment = (
   { __typename?: 'edge' }
@@ -1654,8 +2842,11 @@ export type VerticesQueryResult = Apollo.QueryResult<VerticesQuery, VerticesQuer
       }
       const result: PossibleTypesResultData = {
   "possibleTypes": {
-    "IUser": [
-      "UserEntity"
+    "IEdge": [
+      "EdgeEntity"
+    ],
+    "IPage": [
+      "PageEntity"
     ],
     "IVertex": [
       "VertexEntity"
@@ -1663,8 +2854,11 @@ export type VerticesQueryResult = Apollo.QueryResult<VerticesQuery, VerticesQuer
     "IGraph": [
       "GraphEntity"
     ],
-    "IEdge": [
-      "EdgeEntity"
+    "IUser": [
+      "UserEntity"
+    ],
+    "IApp": [
+      "CodelabAppEntity"
     ]
   }
 };

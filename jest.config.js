@@ -60,5 +60,7 @@ module.exports = {
     '<rootDir>/libs/shared/interface/collections',
     '<rootDir>/libs/ddd/shared/module',
     '<rootDir>/libs/ddd/modules/users',
+    '<rootDir>/libs/api/codelab',
+    '<rootDir>/apps/api/codelab',
   ],
 }

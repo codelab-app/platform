@@ -159,6 +159,9 @@
     },
     "ddd-modules-users": {
       "tags": []
+    },
+    "api-codelab": {
+      "tags": []
     }
   }
 }

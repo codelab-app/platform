@@ -1,19 +1,18 @@
-export abstract class GraphqlController {
-  protected abstract executeImpl(
-    req: express.Request,
-    res: express.Response,
-  ): Promise<void | any>
+import { ResolverFn } from '@codelab/state/apollo'
 
-  public async execute(
-    req: express.Request,
-    res: express.Response,
-  ): Promise<void> {
-    try {
-      await this.executeImpl(req, res)
-    } catch (err) {
-      console.log(`[BaseController]: Uncaught controller error`)
-      console.log(err)
-      this.fail(res, 'An unexpected error occurred')
-    }
+export type GraphqlRequest<
+  TResult = any,
+  TParent = any,
+  TContext = any,
+  TArgs = any
+> = ResolverFn<TResult, TParent, TContext, TArgs>
+
+export type GraphqlResponse = any
+
+export abstract class GraphqlController {
+  protected abstract executeImpl(req: GraphqlRequest): Promise<void | any>
+
+  public async execute(req: GraphqlRequest): Promise<void> {
+    await this.executeImpl(req)
   }
 }

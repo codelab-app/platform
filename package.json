@@ -147,6 +147,7 @@
     "@graphql-codegen/typescript-graphql-files-modules": "1.18.0",
     "@graphql-codegen/typescript-operations": "1.17.8",
     "@graphql-codegen/typescript-react-apollo": "2.0.7",
+    "@graphql-codegen/typescript-resolvers": "^1.18.0",
     "@nestjs/schematics": "7.1.2",
     "@nestjs/testing": "7.4.4",
     "@nrwl/cli": "10.3.3",
