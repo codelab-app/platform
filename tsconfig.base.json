@@ -88,6 +88,7 @@
         "libs/ddd/shared/presentation/src/index.ts"
       ],
       "@codelab/ddd/shared/core": ["libs/ddd/shared/core/src/index.ts"],
+      "@codelab/ddd/shared/common": ["libs/ddd/shared/common/src/index.ts"],
       "@codelab/ddd/shared/infrastructure": [
         "libs/ddd/shared/infrastructure/src/index.ts"
       ],

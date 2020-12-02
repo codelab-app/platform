@@ -42,6 +42,8 @@ The DTO's are based on use cases.
 
 A Use Case wraps around a port, controllers depend on the port interface. The controller is an adapter in that it fulfills the requirements of the port with input data.
 
+We can also use Request instead of Port
+
 ## Package by Component
 
 3 components
