@@ -16,7 +16,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm'
 import { CodelabValidationError } from '../../../../../../../../apps/api/graph/src/app/filters/CodelabValidationError'
-import { IUser } from '../../../http/graphql/models/IUser'
+import { IUser } from '../../../graphql/models/IUser'
 // import { CodelabValidationError } from '../../app/filters/CodelabValidationError'
 import { GraphEntity } from './Graph'
 

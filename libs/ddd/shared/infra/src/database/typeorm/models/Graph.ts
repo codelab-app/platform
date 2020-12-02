@@ -11,7 +11,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm'
 import { v4 as uuidv4 } from 'uuid'
-import { IGraph } from '../../../http/graphql/models/IGraph'
+import { IGraph } from '../../../graphql/models/IGraph'
 import { EdgeEntity } from './Edge'
 import { UserEntity } from './User'
 import { VertexEntity } from './Vertex'
