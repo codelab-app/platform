@@ -4,7 +4,7 @@ import { CodelabAppEntity } from '../app/codelab-app.entity'
 import { GraphEntity } from '../graph/graph.entity'
 import { IPage } from './IPage'
 
-@Entity('pages')
+@Entity('page')
 @ObjectType({
   implements: [IPage],
 })
