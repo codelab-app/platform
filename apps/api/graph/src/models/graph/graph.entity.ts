@@ -17,6 +17,7 @@ import { PageEntity } from '../page/page.entity'
 import { VertexEntity } from '../vertex/vertex.entity'
 import { IGraph } from './IGraph'
 import { NodeType } from '@codelab/shared/interface/node'
+import { D3GraphProps } from '@codelab/ui/d3'
 
 export type VertexID = string
 
@@ -134,66 +135,50 @@ export class GraphEntity {
     return index !== -1
   }
 
-  public moveVertex(sourceId: VertexID, targetId: VertexID) {
-    const sourceIndexE = this.edges.findIndex((e: EdgeEntity) => {
-      return e.target === sourceId
-    })
+  moveVertex(source: VertexID, target: VertexID) {
+    const vertexSource = this.vertices?.find(
+      (v: VertexEntity) => v.id === source,
+    )
+    const vertexTarget = this.vertices?.find(
+      (v: VertexEntity) => v.id === target,
+    )
 
-    if (sourceIndexE === -1) {
-      throw new Error(`Vertex with source id ${sourceId} does not exist`)
+    if (!vertexSource) {
+      throw new Error(`Vertex source with id: ${source} was not found`)
     }
 
-    const targetIndexE = this.edges.findIndex((e: EdgeEntity) => {
-      return e.target === targetId
-    })
-
-    if (targetIndexE === -1) {
-      throw new Error(`Vertex with target id ${targetId} does not exist`)
+    if (!vertexTarget) {
+      throw new Error(`Vertex target with id: ${target} was not found`)
     }
 
-    this.arrayMove(this.edges, sourceIndexE, targetIndexE)
-    this.edges?.forEach((edge: EdgeEntity, index) => {
-      edge.order = index
-    })
-  }
+    // Check for same parent
+    if (vertexSource.parent === vertexTarget.parent) {
+      const targetEdgeIndex = this.edges.findIndex((e: EdgeEntity) => {
+        return e.target === vertexTarget.id
+      })
 
-  moveUsingCytoscape(
-    cy: cytoscape.Core,
-    source: VertexID,
-    target: VertexID,
-  ): cytoscape.Core {
-    const cyJson = cy.json() as any
-    const cyEdges = cyJson.elements.edges.map((e: any) => e.data)
+      const sourceEdgeIndex = this.edges.findIndex((e: EdgeEntity) => {
+        return e.target === source
+      })
 
-    const sourceEdge = cyEdges.find((edge: ICyEdge) => {
-      return edge.target === source
-    })
+      this.arrayMove(this.edges, sourceEdgeIndex, targetEdgeIndex + 1)
+      this.edges = this.edges.map((e: EdgeEntity, index: number) => {
+        e.order = index
 
-    if (!sourceEdge) {
-      throw new Error(`Source edge with id ${source} was not found`)
+        return e
+      })
+    } else {
+      const sourceEdge = this.edges.find((e: EdgeEntity) => {
+        return e.source === vertexSource.parent && e.target === source
+      })
+      const targetEdge = this.edges.find((e: EdgeEntity) => {
+        return e.source === vertexTarget.parent && e.target === target
+      })
+
+      if (sourceEdge && targetEdge) {
+        sourceEdge.source = targetEdge.source
+      }
     }
-
-    const targetEdgeIndex = cyEdges.findIndex((edge: ICyEdge) => {
-      return edge.target === target
-    })
-
-    if (targetEdgeIndex === -1) {
-      throw new Error(`Target edge with id: ${target} was not found`)
-    }
-
-    const targetEdge = cyEdges[targetEdgeIndex + 1]
-
-    cy.edges()
-      .$id(targetEdge.id)
-      .move({ source: sourceEdge.source, target: source })
-    cy.edges()
-      .$id(sourceEdge.id)
-      .move({ source: sourceEdge.source, target: targetEdge.target })
-
-    // cyJson = cy.json() as any
-    // const movedEdges = cyJson.elements.edges.map((e: any) => e.data)
-
-    return cy
   }
 
   private arrayMove(arr: Array<any>, oldIndex: number, newIndex: number) {
@@ -208,14 +193,25 @@ export class GraphEntity {
     arr.splice(newIndex, 0, arr.splice(oldIndex, 1)[0])
   }
 
-  public makeCytoscape(graph: GraphEntity): cytoscape.Core {
+  get cy(): cytoscape.Core {
     return cytoscape({
       headless: true,
       elements: {
-        nodes: this.cyMapVertices(graph.vertices),
-        edges: this.cyMapEdges(graph.edges),
+        nodes: this.cyMapVertices(this.vertices),
+        edges: this.cyMapEdges(this.edges),
       },
     })
+  }
+
+  get d3(): D3GraphProps {
+    return {
+      nodes: this.vertices.map((v: VertexEntity) => {
+        return { id: v.id }
+      }),
+      links: this.edges.map((e: EdgeEntity) => {
+        return { id: e.id, source: e.source, target: e.target }
+      }),
+    }
   }
 
   public makeGraphEntity(cy: cytoscape.Core): GraphEntity {
