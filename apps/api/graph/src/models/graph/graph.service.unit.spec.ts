@@ -23,7 +23,7 @@ class MockEdgeService {
   async findByTargetIds(src: string, target: string) {}
 }
 
-describe('GraphService Unit Test', () => {
+describe.skip('GraphService Unit Test', () => {
   let graphService: GraphService
   let edgeService: EdgeService
   let graphRepositoryMock: MockType<Repository<GraphEntity>>
