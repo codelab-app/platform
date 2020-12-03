@@ -19,7 +19,7 @@ import { CodelabValidationError } from '../../app/filters/CodelabValidationError
 import { CodelabAppEntity } from '../app/codelab-app.entity'
 import { IUser } from './IUser'
 
-@Entity('users')
+@Entity('user')
 @ObjectType({
   implements: [IUser],
 })
