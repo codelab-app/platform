@@ -132,3 +132,5 @@ volumes:
     name: codelab-postgres-volume
   db_e2e_data:
     name: codelab-postgres-e2e-volume
+  pgadmin-data:
+    name: codelab-pgadmin-volume
