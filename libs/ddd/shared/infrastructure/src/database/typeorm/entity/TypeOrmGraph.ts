@@ -12,35 +12,35 @@ import {
 } from 'typeorm'
 import { v4 as uuidv4 } from 'uuid'
 import { IGraph } from '../../../graphql/models/IGraph'
-import { EdgeEntity } from './Edge'
-import { UserEntity } from './User'
-import { VertexEntity } from './Vertex'
+import { TypeOrmEdge } from './TypeOrmEdge'
+import { TypeOrmUser } from './TypeOrmUser'
+import { TypeOrmVertex } from './TypeOrmVertex'
 
 @Entity('graph')
 @ObjectType({
   implements: [IGraph],
 })
-export class GraphEntity {
+export class TypeOrmGraph {
   @PrimaryGeneratedColumn('uuid')
   declare id: string
 
   @Column({ type: 'text', nullable: true })
   declare label?: string
 
-  @OneToMany((type) => VertexEntity, (vertex) => vertex.graph)
-  declare vertices: Array<VertexEntity>
+  @OneToMany((type) => TypeOrmVertex, (vertex) => vertex.graph)
+  declare vertices: Array<TypeOrmVertex>
 
-  @OneToMany((type) => EdgeEntity, (edge) => edge.graph)
-  declare edges: Array<EdgeEntity>
+  @OneToMany((type) => TypeOrmEdge, (edge) => edge.graph)
+  declare edges: Array<TypeOrmEdge>
 
-  @ManyToOne((type) => UserEntity, (user) => user.graphs)
-  declare user: UserEntity
+  @ManyToOne((type) => TypeOrmUser, (user) => user.graphs)
+  declare user: TypeOrmUser
 
   @AfterLoad()
   setVertexParent() {
-    this.edges.forEach((edge: EdgeEntity) => {
-      const v: VertexEntity | undefined = this.vertices.find(
-        (vertex: VertexEntity) => {
+    this.edges.forEach((edge: TypeOrmEdge) => {
+      const v: TypeOrmVertex | undefined = this.vertices.find(
+        (vertex: TypeOrmVertex) => {
           return vertex.id === edge.target
         },
       )
@@ -57,14 +57,14 @@ export class GraphEntity {
     })
   }
 
-  addVertex(v: VertexEntity): void {
+  addVertex(v: TypeOrmVertex): void {
     if (!this.hasVertex(v.id)) {
       this.vertices.push(v)
     }
   }
 
-  addVertices(vertices: Array<VertexEntity>): void {
-    vertices.forEach((v: VertexEntity) => {
+  addVertices(vertices: Array<TypeOrmVertex>): void {
+    vertices.forEach((v: TypeOrmVertex) => {
       if (!this.hasVertex(v.id)) {
         this.vertices.push(v)
       }
@@ -81,15 +81,15 @@ export class GraphEntity {
     }
 
     if (!this.hasEdge(sourceId, targetId)) {
-      const target: VertexEntity | undefined = this.vertices.find(
-        (v: VertexEntity) => {
+      const target: TypeOrmVertex | undefined = this.vertices.find(
+        (v: TypeOrmVertex) => {
           return v.id === targetId
         },
       )
 
       if (target) {
         target.parent = sourceId
-        const edge: EdgeEntity = new EdgeEntity()
+        const edge: TypeOrmEdge = new TypeOrmEdge()
 
         edge.id = uuidv4()
         edge.source = sourceId
@@ -102,7 +102,7 @@ export class GraphEntity {
     }
   }
 
-  addEdge(source: VertexEntity, target: VertexEntity): void {
+  addEdge(source: TypeOrmVertex, target: TypeOrmVertex): void {
     if (!this.hasVertex(source.id)) {
       throw new Error(`Vertex with source id ${source.id} does not exist`)
     }
@@ -114,21 +114,21 @@ export class GraphEntity {
     if (!this.hasEdge(source.id, target.id)) {
       // eslint-disable-next-line no-param-reassign
       target.parent = source.id
-      const edge: EdgeEntity = new EdgeEntity()
+      const edge: TypeOrmEdge = new TypeOrmEdge()
 
       edge.id = uuidv4()
       edge.source = source.id
       edge.target = target.id
 
       this.edges.push(edge)
-      this.edges.forEach((e: EdgeEntity, index) => {
+      this.edges.forEach((e: TypeOrmEdge, index) => {
         e.order = index
       })
     }
   }
 
   hasVertex(vertexId: string): boolean {
-    const index = this.vertices.findIndex((v: VertexEntity) => {
+    const index = this.vertices.findIndex((v: TypeOrmVertex) => {
       return v.id === vertexId
     })
 
@@ -136,14 +136,14 @@ export class GraphEntity {
   }
 
   hasEdge(sourceId: string, targetId: string): boolean {
-    const index = this.edges.findIndex((e: EdgeEntity) => {
+    const index = this.edges.findIndex((e: TypeOrmEdge) => {
       return e.source === sourceId && e.target === targetId
     })
 
     return index !== -1
   }
 
-  public makeCytoscape(graph: GraphEntity): cytoscape.Core {
+  public makeCytoscape(graph: TypeOrmGraph): cytoscape.Core {
     return cytoscape({
       headless: true,
       elements: {
@@ -153,7 +153,7 @@ export class GraphEntity {
     })
   }
 
-  private cyMapEdges(edges: Array<EdgeEntity>): Array<EdgeDefinition> {
+  private cyMapEdges(edges: Array<TypeOrmEdge>): Array<EdgeDefinition> {
     const mapper = {
       id: 'data.id',
       source: 'data.source',
@@ -166,7 +166,7 @@ export class GraphEntity {
   }
 
   private cyMapVertices(
-    vertices: Array<Partial<VertexEntity>>,
+    vertices: Array<Partial<TypeOrmVertex>>,
   ): Array<NodeDefinition> {
     const mapper = {
       id: 'data.id',

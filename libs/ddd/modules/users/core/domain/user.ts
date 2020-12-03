@@ -1,38 +1,27 @@
-import { UserCreated } from './events/userCreated'
+import { plainToClass } from 'class-transformer'
+import { ValidateNested } from 'class-validator'
 import { UserEmail } from './user-email'
 import { UserPassword } from './user-password'
-import { AggregateRoot, Result, UniqueEntityID } from '@codelab/ddd/shared/core'
 
 interface UserProps {
-  email: UserEmail
-  password: UserPassword
+  email: string
 }
 
-export class User extends AggregateRoot<UserProps> {
-  private constructor(props: UserProps, id?: UniqueEntityID) {
-    super(props, id)
+export class User {
+  @ValidateNested()
+  declare email: UserEmail
+
+  @ValidateNested()
+  declare password: UserPassword
+
+  // @IsOptional()
+  // declare googleProviderId: string
+
+  public static hydrate(props: UserProps) {
+    const user: User = plainToClass(User, props)
+
+    return user
   }
 
-  /**
-   * Used for hydrating the entity, Use Case should decide which fields to create
-   *
-   * @param props Already been validated via individual field's `create` method
-   * @param id Determines whether we are creating new user, or hydarting an existing user object
-   */
-  public static create(props: UserProps, id?: UniqueEntityID): Result<User> {
-    const isNewUser = !!id === false
-
-    const user = new User(
-      {
-        ...props,
-      },
-      id,
-    )
-
-    if (isNewUser) {
-      user.addDomainEvent(new UserCreated(user))
-    }
-
-    return Result.ok<User>(user)
-  }
+  // public static async new(data: ): Promise<User> {}
 }

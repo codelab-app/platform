@@ -1,4 +1,7 @@
+import { UserEmail } from '../../../domain/user-email'
+import { UserPassword } from '../../../domain/user-password'
+
 export interface CreateUserRequest {
-  email: string
-  password: string
+  email: UserEmail
+  password: UserPassword
 }

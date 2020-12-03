@@ -51,3 +51,7 @@ We can also use Request instead of Port
 - Presentation
 - Core
 - Infrastructure
+
+## Shared Adapter
+
+Our TypeORM entities are kept outside the application core but accessible by all modules

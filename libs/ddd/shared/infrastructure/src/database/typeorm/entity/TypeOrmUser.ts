@@ -18,13 +18,13 @@ import {
 import { CodelabValidationError } from '../../../../../../../../apps/api/graph/src/app/filters/CodelabValidationError'
 import { IUser } from '../../../graphql/models/IUser'
 // import { CodelabValidationError } from '../../app/filters/CodelabValidationError'
-import { GraphEntity } from './Graph'
+import { TypeOrmGraph } from './TypeOrmGraph'
 
 @Entity('user')
 @ObjectType({
   implements: [IUser],
 })
-export class UserEntity {
+export class TypeOrmUser {
   @PrimaryGeneratedColumn('uuid')
   declare id: string
 
@@ -80,7 +80,7 @@ export class UserEntity {
     return bcrypt.compare(attempt, this.password)
   }
 
-  @OneToMany((type) => GraphEntity, (graph) => graph.user)
+  @OneToMany((type) => TypeOrmGraph, (graph) => graph.user)
   @IsOptional()
-  declare graphs: Array<GraphEntity>
+  declare graphs: Array<TypeOrmGraph>
 }

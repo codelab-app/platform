@@ -1,2 +1,3 @@
 export * from './http'
-export * from './database/typeorm/models'
+export * from './repository'
+export * from './database/typeorm/entity'

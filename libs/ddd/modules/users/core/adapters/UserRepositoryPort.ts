@@ -1,15 +1,17 @@
+import { UserIdentity } from '../../common/CommonTypes'
+import { User } from '../domain/user'
+
 export interface UserRepositoryPort {
-  findUser(
-    by: { id?: string; email?: string },
-    options?: RepositoryFindOptions,
-  ): Promise<Optional<User>>
+  // findUser(
+  //   by: UserIdentity,
+  //   options?: RepositoryFindOptions,
+  // ): Promise<Optional<User>>
 
-  countUsers(
-    by: { id?: string; email?: string },
-    options?: RepositoryFindOptions,
-  ): Promise<number>
+  // countUsers(by: UserIdentity, options?: RepositoryFindOptions): Promise<number>
 
-  addUser(user: User): Promise<{ id: string }>
+  createUser(user: User): Promise<{ id: string }>
 
-  updateUser(user: User): Promise<void>
+  // updateUser(user: User): Promise<void>
+
+  exists(by: UserIdentity): Promise<boolean>
 }
