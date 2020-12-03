@@ -5,7 +5,7 @@ import { PageEntity } from '../page/page.entity'
 import { UserEntity } from '../user/user.entity'
 import { IApp } from './IApp'
 
-@Entity('apps')
+@Entity('app')
 @ObjectType({
   implements: [IApp],
 })
