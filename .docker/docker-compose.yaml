@@ -93,6 +93,18 @@ services:
       - POSTGRES_PASSWORD
       - POSTGRES_DB=postgres # Override with default table
 
+  pgadmin:
+    image: dpage/pgadmin4:4.28
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: pgadmin@codelab.ai
+      PGADMIN_DEFAULT_PASSWORD: password
+      PGADMIN_LISTEN_PORT: 80
+    ports:
+      - 5050:80
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+
   hasura:
     image: hasura/graphql-engine:v1.3.3
     container_name: codelab-hasura
