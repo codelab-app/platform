@@ -1,10 +1,10 @@
 import { Field, ObjectType } from '@nestjs/graphql'
-import { UserEntity } from '../database/typeorm/UserEntity'
+import { TypeOrmUser } from '@codelab/ddd/shared/infrastructure'
 
 @ObjectType()
 export class User {
-  @Field((returns) => UserEntity)
-  declare user: UserEntity
+  @Field((returns) => TypeOrmUser)
+  declare user: TypeOrmUser
 
   @Field()
   declare accessToken: string
