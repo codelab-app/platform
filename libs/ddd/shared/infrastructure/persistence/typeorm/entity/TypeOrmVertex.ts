@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { ObjectType, registerEnumType } from '@nestjs/graphql'
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
-import { IVertex } from '../../../graphql/models/IVertex'
+import { IVertex } from '../../graphql/models/IVertex'
 import { TypeOrmGraph } from './TypeOrmGraph'
 import { NodeType } from '@codelab/shared/interface/node'
 

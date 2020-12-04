@@ -1,6 +1,6 @@
 import { Inject } from '@nestjs/common'
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs'
-import { UserDITokens } from '../../../infrastructure/di/UserDITokens'
+import { UserDITokens } from '../../../infrastructure/adapter/UserDITokens'
 import { CreateUserCommand } from '../commands/CreateUserCommand'
 import { CreateUserUseCase } from '../useCases/createUser/CreateUserUseCase'
 

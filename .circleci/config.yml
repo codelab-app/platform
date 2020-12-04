@@ -135,6 +135,9 @@ commands:
       - run:
           name: 'Install NPM packages'
           command: yarn install --frozen-lockfile --prod=false
+      - run:
+          name: 'Remove NPM .cache'
+          command: rm -rf ~/app/node_modules/.cache
       - save_cache:
           name: 'Save cache'
           key: dep-cache-dev-{{ checksum "yarn.lock" }}
@@ -153,6 +156,9 @@ commands:
       - run:
           name: 'Install NPM packages'
           command: yarn install --frozen-lockfile --prod=true
+      - run:
+          name: 'Remove NPM .cache'
+          command: rm -rf ~/app/node_modules/.cache
       - save_cache:
           name: 'Save cache'
           key: dep-cache-prod-{{ checksum "yarn.lock" }}

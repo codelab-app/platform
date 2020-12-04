@@ -3,7 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 import { Connection } from 'typeorm'
 import { CreateUserCommandHandler } from '../../core/application/handlers/CreateUserCommandHandler'
 import { CreateUserService } from '../../core/application/services/CreateUserService'
-import { TypeOrmUserRepositoryAdapter } from '../repository/TypeOrmUserRepositoryAdapter'
+import { TypeOrmUserRepositoryAdapter } from '../persistence/TypeOrmUserRepositoryAdapter'
 import { UserDITokens } from './UserDITokens'
 import { TypeOrmUser } from '@codelab/ddd/shared/infrastructure'
 
