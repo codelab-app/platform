@@ -1,7 +1,10 @@
-import { UserEmail } from '../../../domain/user-email'
-import { UserPassword } from '../../../domain/user-password'
+import { Field, InputType } from '@nestjs/graphql'
 
-export interface CreateUserRequest {
-  email: UserEmail
-  password: UserPassword
+@InputType()
+export class CreateUserRequest {
+  @Field()
+  declare email: string
+
+  @Field()
+  declare password: string
 }

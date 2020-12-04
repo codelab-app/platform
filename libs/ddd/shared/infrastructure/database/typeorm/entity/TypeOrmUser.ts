@@ -15,10 +15,9 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm'
-import { CodelabValidationError } from '../../../../../../../../apps/api/graph/src/app/filters/CodelabValidationError'
 import { IUser } from '../../../graphql/models/IUser'
-// import { CodelabValidationError } from '../../app/filters/CodelabValidationError'
 import { TypeOrmGraph } from './TypeOrmGraph'
+import { CodelabValidationError } from 'apps/api/graph/src/app/filters/CodelabValidationError'
 
 @Entity('user')
 @ObjectType({

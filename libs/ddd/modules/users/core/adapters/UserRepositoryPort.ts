@@ -1,5 +1,4 @@
-import { UserIdentity } from '../../common/CommonTypes'
-import { User } from '../domain/user'
+import { FindUserBy } from '../../common/CommonTypes'
 
 export interface UserRepositoryPort {
   // findUser(
@@ -9,9 +8,9 @@ export interface UserRepositoryPort {
 
   // countUsers(by: UserIdentity, options?: RepositoryFindOptions): Promise<number>
 
-  createUser(user: User): Promise<{ id: string }>
+  // createUser(user: User): Promise<{ id: string }>
 
   // updateUser(user: User): Promise<void>
 
-  exists(by: UserIdentity): Promise<boolean>
+  exists(by: FindUserBy): Promise<boolean>
 }

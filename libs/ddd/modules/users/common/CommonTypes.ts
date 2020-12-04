@@ -1,4 +1,4 @@
-export type UserIdentity =
+export type FindUserBy =
   | {
       id: string
     }
