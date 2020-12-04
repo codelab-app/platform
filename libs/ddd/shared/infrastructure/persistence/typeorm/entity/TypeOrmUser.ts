@@ -15,7 +15,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm'
-import { IUser } from '../../../graphql/models/IUser'
+import { IUser } from '../../graphql/models/IUser'
 import { TypeOrmGraph } from './TypeOrmGraph'
 import { CodelabValidationError } from 'apps/api/graph/src/app/filters/CodelabValidationError'
 

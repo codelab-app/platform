@@ -1,7 +1,7 @@
 import { Field, InterfaceType } from '@nestjs/graphql'
-import { TypeOrmEdge } from '../../database/typeorm/entity/TypeOrmEdge'
-import { TypeOrmUser } from '../../database/typeorm/entity/TypeOrmUser'
-import { TypeOrmVertex } from '../../database/typeorm/entity/TypeOrmVertex'
+import { TypeOrmEdge } from '../../typeorm/entity/TypeOrmEdge'
+import { TypeOrmUser } from '../../typeorm/entity/TypeOrmUser'
+import { TypeOrmVertex } from '../../typeorm/entity/TypeOrmVertex'
 
 @InterfaceType()
 export abstract class IGraph {

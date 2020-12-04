@@ -77,6 +77,7 @@
     "dot-object": "2.1.4",
     "dotenv": "8.2.0",
     "emotion-server": "10.0.27",
+    "env-var": "^7.0.0",
     "express": "4.17.1",
     "express-restify-mongoose": "6.1.2",
     "findup-sync": "4.0.0",

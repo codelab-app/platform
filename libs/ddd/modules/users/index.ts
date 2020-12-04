@@ -1,1 +1,1 @@
-export * from './infrastructure/di/UserModule'
+export * from './infrastructure/adapter/UserModule'
