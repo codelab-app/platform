@@ -1711,7 +1711,7 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/ddd/shared/module/jest.config.js",
+            "jestConfig": "libs/ddd/shared/jest.config.js",
             "passWithNoTests": true
           }
         }
