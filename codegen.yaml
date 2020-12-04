@@ -9,6 +9,7 @@ generates:
   libs/state/apollo/src/generated/graphql.tsx:
     plugins:
       - typescript
+      - typescript-resolvers
       - typescript-operations
       - typescript-react-apollo
       - fragment-matcher

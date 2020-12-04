@@ -153,6 +153,15 @@
     },
     "shared-interface-collections": {
       "tags": []
+    },
+    "ddd-shared": {
+      "tags": []
+    },
+    "ddd-modules-users": {
+      "tags": []
+    },
+    "api-codelab": {
+      "tags": []
     }
   }
 }

@@ -83,7 +83,16 @@
       ],
       "@codelab/shared/interface/collections": [
         "libs/shared/interface/collections/src/index.ts"
-      ]
+      ],
+      "@codelab/ddd/shared/presentation": [
+        "libs/ddd/shared/presentation/index.ts"
+      ],
+      "@codelab/ddd/shared/core": ["libs/ddd/shared/core/index.ts"],
+      "@codelab/ddd/shared/common": ["libs/ddd/shared/common/index.ts"],
+      "@codelab/ddd/shared/infrastructure": [
+        "libs/ddd/shared/infrastructure/index.ts"
+      ],
+      "@codelab/ddd/modules/users": ["libs/ddd/modules/users/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"]

@@ -10,3 +10,8 @@ export default {
 export const BasicGraph = () => {
   return <D3Graph {...d3GraphData} />
 }
+
+// Swap out d3GraphData for your file
+export const MySecondGraph = () => {
+  return <D3Graph {...d3GraphData} />
+}
