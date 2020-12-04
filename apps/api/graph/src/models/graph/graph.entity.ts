@@ -16,7 +16,6 @@ import { EdgeEntity } from '../edge/edge.entity'
 import { PageEntity } from '../page/page.entity'
 import { VertexEntity } from '../vertex/vertex.entity'
 import { IGraph } from './IGraph'
-import { NodeType } from '@codelab/shared/interface/node'
 import { D3GraphProps } from '@codelab/ui/d3'
 
 export type VertexID = string
@@ -162,11 +161,13 @@ export class GraphEntity {
       })
 
       this.arrayMove(this.edges, sourceEdgeIndex, targetEdgeIndex + 1)
-      this.edges = this.edges.map((e: EdgeEntity, index: number) => {
-        e.order = index
+      this.edges = this.edges
+        .filter((e: EdgeEntity) => typeof e !== 'undefined')
+        .map((e: EdgeEntity, index: number) => {
+          e.order = index
 
-        return e
-      })
+          return e
+        })
     } else {
       const sourceEdge = this.edges.find((e: EdgeEntity) => {
         return e.source === vertexSource.parent && e.target === source
@@ -212,32 +213,6 @@ export class GraphEntity {
         return { id: e.id, source: e.source, target: e.target }
       }),
     }
-  }
-
-  public makeGraphEntity(cy: cytoscape.Core): GraphEntity {
-    const json = cy.json() as any
-    const g = new GraphEntity()
-
-    g.vertices = []
-    g.edges = []
-
-    g.vertices = json?.elements?.nodes?.map((node: any) => {
-      return {
-        id: node.data.id,
-        type: NodeType[node.data.type as keyof typeof NodeType],
-      } as VertexEntity
-    })
-
-    g.edges = json?.elements?.edges?.map((edge: any, index: number) => {
-      return {
-        id: edge.data.id,
-        source: edge.data.source,
-        target: edge.data.target,
-        order: index,
-      } as EdgeEntity
-    })
-
-    return g
   }
 
   private cyMapEdges(edges: Array<EdgeEntity>): Array<EdgeDefinition> {

@@ -1,4 +1,4 @@
-import { EdgeCollection, NodeCollection, NodeSingular } from 'cytoscape'
+import { Core, EdgeCollection, NodeCollection, NodeSingular } from 'cytoscape'
 import { EdgeEntity } from '../edge/edge.entity'
 import { VertexEntity } from '../vertex/vertex.entity'
 import { GraphEntity, VertexID } from './graph.entity'
@@ -6,30 +6,39 @@ import { NodeType } from '@codelab/shared/interface/node'
 
 let g: GraphEntity
 let list: VertexEntity
-let item1: VertexEntity
-let item2: VertexEntity
-let item3: VertexEntity
+let a: VertexEntity
+let b: VertexEntity
+let c: VertexEntity
 
-function addThreeItemsToList(
+const addThreeItemsToList = (
   graph: GraphEntity,
   list: VertexEntity,
   item1: VertexEntity,
   item2: VertexEntity,
   item3: VertexEntity,
-) {
+) => {
   g.addVertices([list, item1, item2, item3])
   g.addEdge(list.id, item1.id)
   g.addEdge(list.id, item2.id)
   g.addEdge(list.id, item3.id)
 }
-
-function getEdgeTargetIds(edges: Array<EdgeEntity>): Array<string> {
-  return edges.map((e: EdgeEntity) => e.target)
-}
-
-function resetEdgesAndVertices(graph: GraphEntity) {
+const resetEdgesAndVertices = (graph: GraphEntity) => {
   graph.vertices = []
   graph.edges = []
+}
+
+const getBfsQueue = (cy: Core) => {
+  const root: NodeSingular = cy.elements().roots().first()
+  const queue: Array<string> = []
+
+  cy.elements().breadthFirstSearch({
+    root: `#${root.id()}`,
+    visit: (node) => {
+      queue.push(node.id())
+    },
+  })
+
+  return queue
 }
 
 describe('GraphEntity', () => {
@@ -39,21 +48,20 @@ describe('GraphEntity', () => {
     g.edges = []
 
     list = new VertexEntity()
-    // list.id = uuidv4()
     list.id = 'list'
     list.type = NodeType.React_List
 
-    item1 = new VertexEntity()
-    item1.id = 'a'
-    item1.type = NodeType.React_List_Item
+    a = new VertexEntity()
+    a.id = 'a'
+    a.type = NodeType.React_List_Item
 
-    item2 = new VertexEntity()
-    item2.id = 'b'
-    item2.type = NodeType.React_List_Item
+    b = new VertexEntity()
+    b.id = 'b'
+    b.type = NodeType.React_List_Item
 
-    item3 = new VertexEntity()
-    item3.id = 'c'
-    item3.type = NodeType.React_List_Item
+    c = new VertexEntity()
+    c.id = 'c'
+    c.type = NodeType.React_List_Item
   })
 
   afterEach(() => {
@@ -61,26 +69,26 @@ describe('GraphEntity', () => {
   })
 
   it('Should add vertices using addVertices function', () => {
-    g.addVertices([list, item1, item2, item3])
-    expect(g.vertices).toStrictEqual([list, item1, item2, item3])
+    g.addVertices([list, a, b, c])
+    expect(g.vertices).toStrictEqual([list, a, b, c])
   })
 
   it('Should add vertices using addVertex function', () => {
     g.addVertex(list)
-    g.addVertex(item1)
-    g.addVertex(item2)
-    g.addVertex(item3)
-    expect(g.vertices).toStrictEqual([list, item1, item2, item3])
+    g.addVertex(a)
+    g.addVertex(b)
+    g.addVertex(c)
+    expect(g.vertices).toStrictEqual([list, a, b, c])
   })
 
   it('Should not add vertex more then once', () => {
     g.addVertex(list)
-    g.addVertices([list, item1, item2, item3])
-    expect(g.vertices).toStrictEqual([list, item1, item2, item3])
+    g.addVertices([list, a, b, c])
+    expect(g.vertices).toStrictEqual([list, a, b, c])
   })
 
   it('Should have correct parent', () => {
-    addThreeItemsToList(g, list, item1, item2, item3)
+    addThreeItemsToList(g, list, a, b, c)
 
     expect(g.vertices[1].parent).toEqual(g.vertices[0].id)
     expect(g.vertices[2].parent).toEqual(g.vertices[0].id)
@@ -88,29 +96,20 @@ describe('GraphEntity', () => {
   })
 
   it('Should throw error if vertex source does not exist', () => {
-    expect(() => g.addEdge(list.id, item1.id)).toThrowError(
+    expect(() => g.addEdge(list.id, a.id)).toThrowError(
       `Vertex with source id ${list.id} does not exist`,
     )
   })
 
   it('Should throw error if vertex target does not exist', () => {
     g.addVertex(list)
-    expect(() => g.addEdge(list.id, item1.id)).toThrowError(
-      `Vertex with target id: ${item1.id} was not found`,
+    expect(() => g.addEdge(list.id, a.id)).toThrowError(
+      `Vertex with target id: ${a.id} was not found`,
     )
   })
 
-  it('should make GraphEntity from cytoscape object', () => {
-    addThreeItemsToList(g, list, item1, item2, item3)
-
-    const { cy } = g
-    const newG: GraphEntity = g.makeGraphEntity(cy)
-
-    expect(g).toMatchObject(newG)
-  })
-
   it('Should make cytoscape object', () => {
-    addThreeItemsToList(g, list, item1, item2, item3)
+    addThreeItemsToList(g, list, a, b, c)
 
     const { cy } = g
     const nodes: NodeCollection = cy.nodes()
@@ -120,30 +119,23 @@ describe('GraphEntity', () => {
     expect(edges.nonempty()).toBeTruthy()
 
     expect(nodes.getElementById(list.id)).toBeDefined()
-    expect(nodes.getElementById(item1.id)).toBeDefined()
-    expect(nodes.getElementById(item2.id)).toBeDefined()
-    expect(nodes.getElementById(item3.id)).toBeDefined()
+    expect(nodes.getElementById(a.id)).toBeDefined()
+    expect(nodes.getElementById(b.id)).toBeDefined()
+    expect(nodes.getElementById(c.id)).toBeDefined()
 
     expect(nodes.getElementById(list.id).isParent()).toBeTruthy()
-    expect(nodes.getElementById(item1.id).isChild()).toBeTruthy()
-    expect(nodes.getElementById(item2.id).isChild()).toBeTruthy()
-    expect(nodes.getElementById(item3.id).isChild()).toBeTruthy()
+    expect(nodes.getElementById(a.id).isChild()).toBeTruthy()
+    expect(nodes.getElementById(b.id).isChild()).toBeTruthy()
+    expect(nodes.getElementById(c.id).isChild()).toBeTruthy()
   })
 
   it('Can traverse graph using BFS', () => {
-    addThreeItemsToList(g, list, item1, item2, item3)
+    addThreeItemsToList(g, list, a, b, c)
 
     const { cy } = g
-    const root: NodeSingular = cy.elements().roots().first()
-    const queue: Array<string> = []
+    const queue = getBfsQueue(cy)
 
-    cy.elements().breadthFirstSearch({
-      root: `#${root.id()}`,
-      visit: (node) => {
-        queue.push(node.id())
-      },
-    })
-    expect(queue).toMatchObject([list.id, item1.id, item2.id, item3.id])
+    expect(queue).toMatchObject([list.id, a.id, b.id, c.id])
   })
 
   it('should move with different parent', () => {
@@ -238,36 +230,52 @@ describe('GraphEntity', () => {
     expect(queue).toMatchObject([root.id, a.id, d.id, b.id, c.id, e.id])
   })
 
-  it('should move vertices with same parent', () => {
-    const item4 = new VertexEntity()
+  it('should move item to the end of list with same parent', () => {
+    const d = new VertexEntity()
 
-    item4.id = 'd'
-    item4.type = NodeType.React_List_Item
+    d.id = 'd'
+    d.type = NodeType.React_List_Item
+    const e = new VertexEntity()
 
-    const item5 = new VertexEntity()
+    e.id = 'e'
+    e.type = NodeType.React_List_Item
 
-    item5.id = 'e'
-    item5.type = NodeType.React_List_Item
-    g.addVertices([list, item1, item2, item3, item4, item5])
-    g.addEdge(list.id, item1.id)
-    g.addEdge(list.id, item2.id)
-    g.addEdge(list.id, item3.id)
-    g.addEdge(list.id, item4.id)
-    g.addEdge(list.id, item5.id)
+    g.addVertices([list, a, b, c, d, e])
+    g.addEdge(list.id, a.id)
+    g.addEdge(list.id, b.id)
+    g.addEdge(list.id, c.id)
+    g.addEdge(list.id, d.id)
+    g.addEdge(list.id, e.id)
 
-    g.moveVertex(item4.id, item1.id)
+    g.moveVertex(a.id, e.id)
 
     const { cy } = g
-    const root: NodeSingular = cy.elements().roots().first()
-    const queue: Array<string> = []
+    const queue: Array<string> = getBfsQueue(cy)
 
-    // Looks like using BFS to confirm the order is not reliable, produces wrong results
-    cy.elements().breadthFirstSearch({
-      root: `#${root.id()}`,
-      visit: (node: NodeSingular) => {
-        queue.push(node.id())
-      },
-    })
+    expect(queue).toMatchObject([list.id, b.id, c.id, d.id, e.id, a.id])
+  })
+
+  it('should move vertices with same parent', () => {
+    const d = new VertexEntity()
+
+    d.id = 'd'
+    d.type = NodeType.React_List_Item
+
+    const e = new VertexEntity()
+
+    e.id = 'e'
+    e.type = NodeType.React_List_Item
+    g.addVertices([list, a, b, c, d, e])
+    g.addEdge(list.id, a.id)
+    g.addEdge(list.id, b.id)
+    g.addEdge(list.id, c.id)
+    g.addEdge(list.id, d.id)
+    g.addEdge(list.id, e.id)
+
+    g.moveVertex(d.id, a.id)
+
+    const { cy } = g
+    const queue: Array<string> = getBfsQueue(cy)
 
     const expectedEdges: Array<{
       source: VertexID
@@ -306,31 +314,17 @@ describe('GraphEntity', () => {
       target: 'e',
       order: 4,
     })
-    expect(queue).toMatchObject([
-      list.id,
-      item1.id,
-      item4.id,
-      item2.id,
-      item3.id,
-      item5.id,
-    ])
+    expect(queue).toMatchObject([list.id, a.id, d.id, b.id, c.id, e.id])
   })
 
   it('Should move vertices', () => {
-    addThreeItemsToList(g, list, item1, item2, item3)
+    addThreeItemsToList(g, list, a, b, c)
 
-    g.moveVertex(item3.id, item1.id)
+    g.moveVertex(c.id, a.id)
 
     const { cy } = g
-    const root: NodeSingular = cy.elements().roots().first()
-    const queue: Array<string> = []
+    const queue: Array<string> = getBfsQueue(cy)
 
-    cy.elements().breadthFirstSearch({
-      root: `#${root.id()}`,
-      visit: (node) => {
-        queue.push(node.id())
-      },
-    })
-    expect(queue).toMatchObject([list.id, item1.id, item3.id, item2.id])
+    expect(queue).toMatchObject([list.id, a.id, c.id, b.id])
   })
 })
