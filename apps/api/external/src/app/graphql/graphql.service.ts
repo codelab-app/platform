@@ -10,7 +10,6 @@ import {
   introspectSchema,
   makeRemoteExecutableSchema,
   mergeSchemas,
-  // eslint-disable-next-line import/no-extraneous-dependencies
 } from 'graphql-tools'
 import nodeFetch from 'node-fetch'
 import { ConfigService } from '../config/config.service'

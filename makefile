@@ -16,8 +16,7 @@ build-dev:
 	npx nx run-many \
 	--target=build \
 	--all \
-	--parallel \
-	"$@"
+	--parallel
 
 build-ci:
 	npx nx run-many \
