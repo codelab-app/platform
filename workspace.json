@@ -1257,10 +1257,6 @@
             ]
           }
         },
-        "build": {
-          "builder": "@nrwl/workspace:run-commands",
-          "options": {}
-        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
