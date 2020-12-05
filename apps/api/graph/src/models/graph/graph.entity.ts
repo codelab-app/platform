@@ -1,4 +1,5 @@
 import { ObjectType } from '@nestjs/graphql'
+import arrayMove from 'array-move'
 import cytoscape, { EdgeDefinition, NodeDefinition } from 'cytoscape'
 import { merge } from 'lodash'
 import objectMapper from 'object-mapper'
@@ -19,12 +20,6 @@ import { IGraph } from './IGraph'
 import { D3GraphProps } from '@codelab/ui/d3'
 
 export type VertexID = string
-
-export interface ICyEdge {
-  id: string
-  source: VertexID
-  target: VertexID
-}
 
 @Entity('graph')
 @ObjectType({
@@ -152,46 +147,72 @@ export class GraphEntity {
 
     // Check for same parent
     if (vertexSource.parent === vertexTarget.parent) {
-      const targetEdgeIndex = this.edges.findIndex((e: EdgeEntity) => {
-        return e.target === vertexTarget.id
-      })
-
-      const sourceEdgeIndex = this.edges.findIndex((e: EdgeEntity) => {
-        return e.target === source
-      })
-
-      this.arrayMove(this.edges, sourceEdgeIndex, targetEdgeIndex + 1)
-      this.edges = this.edges
-        .filter((e: EdgeEntity) => typeof e !== 'undefined')
-        .map((e: EdgeEntity, index: number) => {
-          e.order = index
-
-          return e
-        })
+      this.moveWithSameParent(source, target)
     } else {
-      const sourceEdge = this.edges.find((e: EdgeEntity) => {
-        return e.source === vertexSource.parent && e.target === source
-      })
-      const targetEdge = this.edges.find((e: EdgeEntity) => {
-        return e.source === vertexTarget.parent && e.target === target
-      })
+      this.moveWithDifferentParent(vertexSource, vertexTarget, source, target)
+    }
+  }
 
-      if (sourceEdge && targetEdge) {
-        sourceEdge.source = targetEdge.source
+  private moveWithDifferentParent(
+    vertexSource: VertexEntity,
+    vertexTarget: VertexEntity,
+    source: VertexID,
+    target: VertexID,
+  ) {
+    const sourceEdgeIndex = this.getEdgeIndexBySourceAndTarget(
+      vertexSource.parent,
+      source,
+    )
+    const targetEdgeIndex = this.getEdgeIndexBySourceAndTarget(
+      vertexTarget.parent,
+      target,
+    )
+
+    if (sourceEdgeIndex !== -1 && targetEdgeIndex !== -1) {
+      const sourceEdge = this.edges[sourceEdgeIndex]
+      const targetEdge = this.edges[targetEdgeIndex]
+      const children = this.cy.$id(vertexTarget.parent as string).children()
+
+      sourceEdge.source = targetEdge.source
+      if (children.size() > 1) {
+        this.moveEdgeAndUpdateOrder(sourceEdgeIndex, targetEdgeIndex + 1)
       }
     }
   }
 
-  private arrayMove(arr: Array<any>, oldIndex: number, newIndex: number) {
-    if (newIndex >= arr.length) {
-      let k = newIndex - arr.length + 1
-
-      while (k--) {
-        arr.push(undefined)
-      }
+  private getEdgeIndexBySourceAndTarget(
+    source: VertexID | undefined,
+    target: VertexID,
+  ): number {
+    if (source) {
+      return this.edges.findIndex((e: EdgeEntity) => {
+        return e.source === source && e.target === target
+      })
     }
 
-    arr.splice(newIndex, 0, arr.splice(oldIndex, 1)[0])
+    return -1
+  }
+
+  private getEdgeIndexByTarget(target: VertexID) {
+    return this.edges.findIndex((e: EdgeEntity) => {
+      return e.target === target
+    })
+  }
+
+  private moveWithSameParent(source: VertexID, target: VertexID) {
+    const targetEdgeIndex = this.getEdgeIndexByTarget(target)
+    const sourceEdgeIndex = this.getEdgeIndexByTarget(source)
+
+    this.moveEdgeAndUpdateOrder(sourceEdgeIndex, targetEdgeIndex + 1)
+  }
+
+  private moveEdgeAndUpdateOrder(sourceIndex: number, targetIndex: number) {
+    this.edges = arrayMove(this.edges, sourceIndex, targetIndex)
+    this.edges = this.edges.map((e: EdgeEntity, index: number) => {
+      e.order = index
+
+      return e
+    })
   }
 
   get cy(): cytoscape.Core {

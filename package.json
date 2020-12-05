@@ -61,6 +61,7 @@
     "apollo-link-context": "1.0.20",
     "apollo-link-http": "1.5.16",
     "apollo-server-express": "2.18.2",
+    "array-move": "^3.0.1",
     "axios": "0.20.0",
     "bcrypt": "5.0.0",
     "body-parser": "1.19.0",

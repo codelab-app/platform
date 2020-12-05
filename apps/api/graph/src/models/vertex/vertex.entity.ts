@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { ObjectType, registerEnumType } from '@nestjs/graphql'
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
-import { GraphEntity } from '../graph/graph.entity'
+import { GraphEntity, VertexID } from '../graph/graph.entity'
 import { IVertex } from './vertex.interface'
 import { NodeType } from '@codelab/shared/interface/node'
 
@@ -26,7 +26,7 @@ export class VertexEntity {
   })
   declare type: NodeType
 
-  parent?: string
+  parent?: VertexID
 
   @Column({
     type: 'jsonb',

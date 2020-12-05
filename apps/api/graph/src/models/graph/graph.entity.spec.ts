@@ -27,6 +27,47 @@ const resetEdgesAndVertices = (graph: GraphEntity) => {
   graph.edges = []
 }
 
+export const createAtoEVertices = () => {
+  const root = new VertexEntity()
+
+  root.id = 'root'
+  root.type = NodeType.React_Html_Div
+
+  const a = new VertexEntity()
+
+  a.id = 'a'
+  a.type = NodeType.React_List
+
+  const b = new VertexEntity()
+
+  b.id = 'b'
+  b.type = NodeType.React_List_Item
+
+  const c = new VertexEntity()
+
+  c.id = 'c'
+  c.type = NodeType.React_List_Item
+
+  const d = new VertexEntity()
+
+  d.id = 'd'
+  d.type = NodeType.React_List
+
+  const e = new VertexEntity()
+
+  e.id = 'e'
+  e.type = NodeType.React_List_Item
+
+  return {
+    root,
+    a,
+    b,
+    c,
+    d,
+    e,
+  }
+}
+
 const getBfsQueue = (cy: Core) => {
   const root: NodeSingular = cy.elements().roots().first()
   const queue: Array<string> = []
@@ -139,56 +180,27 @@ describe('GraphEntity', () => {
   })
 
   it('should move with different parent', () => {
-    const root = new VertexEntity()
+    const vertices = createAtoEVertices()
 
-    root.id = 'root'
-    root.type = NodeType.React_Html_Div
+    g.addVertices([
+      vertices.root,
+      vertices.a,
+      vertices.b,
+      vertices.c,
+      vertices.d,
+      vertices.e,
+    ])
+    g.addEdge(vertices.root.id, vertices.a.id)
+    g.addEdge(vertices.root.id, vertices.d.id)
+    g.addEdge(vertices.a.id, vertices.b.id)
+    g.addEdge(vertices.a.id, vertices.c.id)
+    g.addEdge(vertices.d.id, vertices.e.id)
 
-    const a = new VertexEntity()
-
-    a.id = 'a'
-    a.type = NodeType.React_List
-
-    const b = new VertexEntity()
-
-    b.id = 'b'
-    b.type = NodeType.React_List_Item
-
-    const c = new VertexEntity()
-
-    c.id = 'c'
-    c.type = NodeType.React_List_Item
-
-    const d = new VertexEntity()
-
-    d.id = 'd'
-    d.type = NodeType.React_List
-
-    const e = new VertexEntity()
-
-    e.id = 'e'
-    e.type = NodeType.React_List_Item
-
-    g.addVertices([root, a, b, c, d, e])
-    g.addEdge(root.id, a.id)
-    g.addEdge(root.id, d.id)
-    g.addEdge(a.id, b.id)
-    g.addEdge(a.id, c.id)
-    g.addEdge(d.id, e.id)
-
-    g.moveVertex(c.id, e.id)
+    g.moveVertex(vertices.c.id, vertices.e.id)
+    // console.log(JSON.stringify(g.d3, null, 2))
 
     const { cy } = g
-    const rooot: NodeSingular = cy.elements().roots().first()
-    const queue: Array<string> = []
-
-    // Looks like using BFS to confirm the order is not reliable, produces wrong results
-    cy.elements().breadthFirstSearch({
-      root: `#${rooot.id()}`,
-      visit: (node: NodeSingular) => {
-        queue.push(node.id())
-      },
-    })
+    const queue: Array<string> = getBfsQueue(cy)
 
     const expectedEdges: Array<{
       source: VertexID
@@ -227,32 +239,87 @@ describe('GraphEntity', () => {
       target: 'e',
       order: 4,
     })
-    expect(queue).toMatchObject([root.id, a.id, d.id, b.id, c.id, e.id])
+    expect(queue).toMatchObject([
+      vertices.root.id,
+      vertices.a.id,
+      vertices.d.id,
+      vertices.b.id,
+      vertices.c.id,
+      vertices.e.id,
+    ])
   })
 
-  it('should move item to the end of list with same parent', () => {
-    const d = new VertexEntity()
+  it('should move with different parent with correct order', () => {
+    const vertices: any = createAtoEVertices()
+    const f = new VertexEntity()
 
-    d.id = 'd'
-    d.type = NodeType.React_List_Item
-    const e = new VertexEntity()
+    f.id = 'f'
+    f.type = NodeType.React_List_Item
+    vertices.f = f
 
-    e.id = 'e'
-    e.type = NodeType.React_List_Item
+    g.addVertices([
+      vertices.root,
+      vertices.a,
+      vertices.b,
+      vertices.c,
+      vertices.d,
+      vertices.e,
+      vertices.f,
+    ])
+    g.addEdge(vertices.root.id, vertices.a.id)
+    g.addEdge(vertices.root.id, vertices.d.id)
+    g.addEdge(vertices.a.id, vertices.b.id)
+    g.addEdge(vertices.a.id, vertices.c.id)
+    g.addEdge(vertices.d.id, vertices.e.id)
+    g.addEdge(vertices.d.id, vertices.f.id)
 
-    g.addVertices([list, a, b, c, d, e])
-    g.addEdge(list.id, a.id)
-    g.addEdge(list.id, b.id)
-    g.addEdge(list.id, c.id)
-    g.addEdge(list.id, d.id)
-    g.addEdge(list.id, e.id)
-
-    g.moveVertex(a.id, e.id)
+    g.moveVertex(vertices.f.id, vertices.b.id)
+    console.log(JSON.stringify(g.d3, null, 2))
 
     const { cy } = g
     const queue: Array<string> = getBfsQueue(cy)
 
-    expect(queue).toMatchObject([list.id, b.id, c.id, d.id, e.id, a.id])
+    expect(queue).toMatchObject([
+      vertices.root.id,
+      vertices.a.id,
+      vertices.d.id,
+      vertices.b.id,
+      vertices.f.id,
+      vertices.c.id,
+      vertices.e.id,
+    ])
+  })
+
+  it('should move item to the end of list with same parent', () => {
+    const vertices = createAtoEVertices()
+
+    g.addVertices([
+      vertices.root,
+      vertices.a,
+      vertices.b,
+      vertices.c,
+      vertices.d,
+      vertices.e,
+    ])
+    g.addEdge(vertices.root.id, vertices.a.id)
+    g.addEdge(vertices.root.id, vertices.b.id)
+    g.addEdge(vertices.root.id, vertices.c.id)
+    g.addEdge(vertices.root.id, vertices.d.id)
+    g.addEdge(vertices.root.id, vertices.e.id)
+
+    g.moveVertex(vertices.a.id, vertices.e.id)
+
+    const { cy } = g
+    const queue: Array<string> = getBfsQueue(cy)
+
+    expect(queue).toMatchObject([
+      vertices.root.id,
+      vertices.b.id,
+      vertices.c.id,
+      vertices.d.id,
+      vertices.e.id,
+      vertices.a.id,
+    ])
   })
 
   it('should move vertices with same parent', () => {
