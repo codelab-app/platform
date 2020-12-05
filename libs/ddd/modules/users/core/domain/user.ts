@@ -1,4 +1,4 @@
-import { plainToClass } from 'class-transformer'
+import { Type, plainToClass } from 'class-transformer'
 import { ValidateNested } from 'class-validator'
 import { CreateUserDto } from './dtos/CreateUserDto'
 import { UserEmail } from './user-email'
@@ -12,13 +12,12 @@ interface UserProps {
 
 export class User extends AggregateRoot<UserProps> {
   @ValidateNested()
+  @Type(() => UserEmail)
   declare email: UserEmail
 
   @ValidateNested()
+  @Type(() => UserPassword)
   declare password: UserPassword
-
-  // @IsOptional()
-  // declare googleProviderId: string
 
   constructor(props: UserProps) {
     super()

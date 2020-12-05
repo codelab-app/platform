@@ -1763,10 +1763,17 @@
             }
           }
         },
-        "serve": {
+        "serve-default": {
           "builder": "@nrwl/node:execute",
           "options": {
             "buildTarget": "api-codelab:build"
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "envFile": ".env.dev",
+            "commands": ["nx serve-default api-codelab"]
           }
         },
         "lint": {

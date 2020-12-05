@@ -12,11 +12,9 @@ import {
   BeforeUpdate,
   Column,
   Entity,
-  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm'
 import { IUser } from '../../graphql/models/IUser'
-import { TypeOrmGraph } from './TypeOrmGraph'
 import { CodelabValidationError } from 'apps/api/graph/src/app/filters/CodelabValidationError'
 
 @Entity('user')
@@ -79,7 +77,7 @@ export class TypeOrmUser {
     return bcrypt.compare(attempt, this.password)
   }
 
-  @OneToMany((type) => TypeOrmGraph, (graph) => graph.user)
-  @IsOptional()
-  declare graphs: Array<TypeOrmGraph>
+  // @OneToMany((type) => TypeOrmGraph, (graph) => graph.user)
+  // @IsOptional()
+  // declare graphs: Array<TypeOrmGraph>
 }

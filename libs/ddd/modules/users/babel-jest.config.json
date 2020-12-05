@@ -4,11 +4,28 @@
       "@babel/preset-env",
       {
         "targets": {
+          "esmodules": true,
           "node": "current"
         }
       }
     ],
     "@babel/preset-typescript",
     "@babel/preset-react"
+  ],
+  "plugins": [
+    [
+      "@babel/plugin-transform-typescript",
+      {
+        "allowNamespaces": true,
+        "allowDeclareFields": true
+      }
+    ],
+    "@babel/plugin-proposal-class-properties",
+    [
+      "@babel/plugin-proposal-decorators",
+      {
+        "decoratorsBeforeExport": true
+      }
+    ]
   ]
 }
