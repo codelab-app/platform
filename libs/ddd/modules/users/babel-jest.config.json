@@ -1,17 +1,15 @@
 {
   "presets": [
-    "@nrwl/react/babel",
     [
       "@babel/preset-env",
       {
         "targets": {
-          "esmodules": true,
           "node": "current"
         }
       }
     ],
-    "@babel/preset-react",
-    "@babel/preset-typescript"
+    "@babel/preset-typescript",
+    "@babel/preset-react"
   ],
   "plugins": [
     [
@@ -21,12 +19,18 @@
         "allowDeclareFields": true
       }
     ],
+    "@babel/plugin-proposal-class-properties",
     [
       "@babel/plugin-proposal-decorators",
       {
         "decoratorsBeforeExport": true
       }
     ],
-    "@babel/plugin-proposal-class-properties"
+    [
+      "@babel/plugin-transform-runtime",
+      {
+        "regenerator": true
+      }
+    ]
   ]
 }
