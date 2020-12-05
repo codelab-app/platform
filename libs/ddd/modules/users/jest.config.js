@@ -5,6 +5,7 @@ module.exports = {
     '^.+\\.[tj]sx?$': [
       'babel-jest',
       { cwd: __dirname, configFile: './babel-jest.config.json' },
+      // { cwd: __dirname, configFile: './.babelrc' },
     ],
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],

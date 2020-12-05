@@ -12,4 +12,8 @@ export abstract class ValueObject<P extends ValueObjectProps> {
 
     this.value = props.value
   }
+
+  public toString() {
+    return this.value
+  }
 }

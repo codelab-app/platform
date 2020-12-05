@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 import { Connection } from 'typeorm'
 import { CreateUserCommandHandler } from '../../core/application/handlers/CreateUserCommandHandler'
 import { CreateUserService } from '../../core/application/services/CreateUserService'
+import { UserController } from '../../presentation/controllers/UserController'
 import { UserResolver } from '../../presentation/controllers/UserResolver'
 import { TypeOrmUserRepositoryAdapter } from '../persistence/TypeOrmUserRepositoryAdapter'
 import { UserDITokens } from './UserDITokens'
@@ -31,6 +32,7 @@ const handlerProviders: Array<Provider> = [CreateUserCommandHandler]
 
 @Module({
   imports: [CqrsModule, TypeOrmModule.forFeature([TypeOrmUser])],
+  controllers: [UserController],
   providers: [
     ...persistenceProviders,
     ...useCaseProviders,

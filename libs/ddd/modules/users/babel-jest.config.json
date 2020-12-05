@@ -1,5 +1,6 @@
 {
   "presets": [
+    "@nrwl/react/babel",
     [
       "@babel/preset-env",
       {
@@ -9,8 +10,8 @@
         }
       }
     ],
-    "@babel/preset-typescript",
-    "@babel/preset-react"
+    "@babel/preset-react",
+    "@babel/preset-typescript"
   ],
   "plugins": [
     [
@@ -20,12 +21,12 @@
         "allowDeclareFields": true
       }
     ],
-    "@babel/plugin-proposal-class-properties",
     [
       "@babel/plugin-proposal-decorators",
       {
         "decoratorsBeforeExport": true
       }
-    ]
+    ],
+    "@babel/plugin-proposal-class-properties"
   ]
 }

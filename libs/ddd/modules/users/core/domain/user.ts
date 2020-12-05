@@ -1,5 +1,4 @@
-import { Type, plainToClass } from 'class-transformer'
-import { ValidateNested } from 'class-validator'
+import { Transform, Type, plainToClass } from 'class-transformer'
 import { CreateUserDto } from './dtos/CreateUserDto'
 import { UserEmail } from './user-email'
 import { UserPassword } from './user-password'
@@ -8,24 +7,27 @@ import { AggregateRoot } from '@codelab/ddd/shared/core'
 interface UserProps {
   email: UserEmail
   password: UserPassword
+  date?: Date
 }
 
 export class User extends AggregateRoot<UserProps> {
-  @ValidateNested()
+  // @ValidateNested()
   @Type(() => UserEmail)
+  @Transform((value) => value.toString())
   declare email: UserEmail
 
-  @ValidateNested()
+  @Type(() => Date)
+  declare date: Date
+
+  // @ValidateNested()
   @Type(() => UserPassword)
+  @Transform((value) => value.toString())
   declare password: UserPassword
 
   constructor(props: UserProps) {
     super()
 
-    const { email, password } = props
-
-    this.email = email
-    this.password = password
+    Object.assign(this, props)
   }
 
   public static hydrate(props: UserProps) {
