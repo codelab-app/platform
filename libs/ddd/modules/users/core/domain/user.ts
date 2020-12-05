@@ -24,12 +24,6 @@ export class User extends AggregateRoot<UserProps> {
   @Transform((value) => value.toString())
   declare password: UserPassword
 
-  constructor(props: UserProps) {
-    super()
-
-    Object.assign(this, props)
-  }
-
   public static hydrate(props: UserProps) {
     const user: User = plainToClass(User, props)
 

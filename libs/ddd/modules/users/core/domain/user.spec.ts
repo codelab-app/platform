@@ -20,11 +20,11 @@ describe('Domain model User', () => {
 
     const serializedUser = classToPlain(user)
 
-    console.log(serializedUser)
-
     expect(serializedUser).toMatchObject({
       email: 'admin@codelab.ai',
       password: 'password',
     })
   })
+
+  // it("validates a user's email", () => {})
 })
