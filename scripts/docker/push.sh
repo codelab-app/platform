@@ -11,7 +11,7 @@ else
 fi
 
 docker-compose \
-  --env-file .env.dev \
+  --env-file .env \
   --verbose \
   -f .docker/docker-compose.build.yaml \
   push $SERVICES

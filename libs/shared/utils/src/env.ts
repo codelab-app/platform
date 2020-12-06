@@ -39,7 +39,7 @@ export const isDev = !isCi && !isE2e && !isStaging && !isProd
  * Traverses up directory to find closest file with name
  */
 export const envPath = (): string => {
-  const filename = '.env.dev'
+  const filename = '.env'
 
   if (!isDev) {
     return ''

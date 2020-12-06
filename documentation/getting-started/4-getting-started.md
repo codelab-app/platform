@@ -2,7 +2,7 @@
 
 [Back](../../README.md)
 
-1. `cp .env.example .env.dev`
+1. `cp .env.example .env`
 2. `yarn`
 3. `yarn build` (this only required after a fresh clone)
 4. `yarn` (links the built workspace to our monorepo)
@@ -18,7 +18,7 @@ I find that its useful to create separate terminal tabs for different commands, 
 
 ### Dev Ops Mode
 
-If you want to run our api services in Docker, you'll need to make some modifications to the `.env.dev` file before starting the services.
+If you want to run our api services in Docker, you'll need to make some modifications to the `.env` file before starting the services.
 
 ```
 CODELAB_ENV=

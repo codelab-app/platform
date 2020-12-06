@@ -23,9 +23,9 @@ spec:
           imagePullPolicy: Always
           image: codelabai/codelab:0.03
           command:
-          - /bin/sh
-          - -c
-          - "cp /mnt/.env.dev /usr/local/codelab/.env.dev && yarn pm2-runtime /usr/local/codelab/dist/apps/api/graph/pm2.json"
+            - /bin/sh
+            - -c
+            - 'cp /mnt/.env /usr/local/codelab/.env && yarn pm2-runtime /usr/local/codelab/dist/apps/api/graph/pm2.json'
           volumeMounts:
             - mountPath: /mnt/
               name: env

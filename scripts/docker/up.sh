@@ -5,6 +5,6 @@ set -x
 SERVICES="$*"
 
 docker-compose \
-  --env-file .env.dev \
+  --env-file .env \
   -f .docker/docker-compose.yaml \
-  up $SERVICES
+  up -d $SERVICES
