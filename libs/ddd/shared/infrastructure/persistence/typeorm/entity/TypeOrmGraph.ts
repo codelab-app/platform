@@ -6,14 +6,12 @@ import {
   AfterLoad,
   Column,
   Entity,
-  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm'
 import { v4 as uuidv4 } from 'uuid'
 import { IGraph } from '../../graphql/models/IGraph'
 import { TypeOrmEdge } from './TypeOrmEdge'
-import { TypeOrmUser } from './TypeOrmUser'
 import { TypeOrmVertex } from './TypeOrmVertex'
 
 @Entity('graph')
@@ -33,8 +31,8 @@ export class TypeOrmGraph {
   @OneToMany((type) => TypeOrmEdge, (edge) => edge.graph)
   declare edges: Array<TypeOrmEdge>
 
-  @ManyToOne((type) => TypeOrmUser, (user) => user.graphs)
-  declare user: TypeOrmUser
+  // @ManyToOne((type) => TypeOrmUser, (user) => user.graphs)
+  // declare user: TypeOrmUser
 
   @AfterLoad()
   setVertexParent() {
