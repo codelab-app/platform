@@ -12,7 +12,7 @@ services:
       dockerfile: ${PWD}/.docker/Dockerfile
     image: codelabai/codelab:${DOCKER_TAG_VERSION}
     env_file:
-      - ../.env.dev
+      - ../.env
     environment:
       - NODE_ENV=production
       - CODELAB_ENV=production

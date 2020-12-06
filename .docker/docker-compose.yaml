@@ -14,7 +14,7 @@ services:
     entrypoint: ['yarn', 'pm2-runtime', 'dist/apps/web/pm2.json']
     image: codelabai/codelab:${DOCKER_TAG_VERSION}
     env_file:
-      - ../.env.dev
+      - ../.env
     environment:
       - NODE_ENV=production
       - CODELAB_ENV=production
@@ -32,7 +32,7 @@ services:
       - hasura
     image: codelabai/codelab:${DOCKER_TAG_VERSION}
     env_file:
-      - ../.env.dev
+      - ../.env
     environment:
       - NODE_ENV=production
       - CODELAB_ENV=production
@@ -68,7 +68,7 @@ services:
       # Allow local machine access
       - ${POSTGRES_PORT}:5432
     env_file:
-      - ../.env.dev
+      - ../.env
     environment:
       - POSTGRES_USER
       - POSTGRES_PASSWORD
@@ -87,7 +87,7 @@ services:
       # Allow local machine access
       - ${POSTGRES_PORT_E2E}:5432
     env_file:
-      - ../.env.dev
+      - ../.env
     environment:
       - POSTGRES_USER
       - POSTGRES_PASSWORD
@@ -116,7 +116,7 @@ services:
       - postgres
     restart: always
     env_file:
-      - ../.env.dev
+      - ../.env
     environment:
       - HASURA_GRAPHQL_DATABASE_URL
       - HASURA_GRAPHQL_ADMIN_SECRET

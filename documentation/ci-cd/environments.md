@@ -4,7 +4,7 @@ We have 5 total environments the project can run in
 
 ## development
 
-This is local development, env is managed by `.env.dev`
+This is local development, env is managed by `.env`
 
 ## ci
 
