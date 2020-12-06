@@ -27,7 +27,7 @@ describe('Cytoscape factory', () => {
     expect(edges).toMatchObject([e_A, e_B, e_C, e_D])
   })
 
-  it.only('can traverse graph using BFS', () => {
+  it('can traverse graph using BFS', () => {
     const root = cy.elements().roots().first()
     const queue: Array<string> = []
     const expected: Array<string> = [v_0, v_1_0, v_1_1, v_2_0, v_2_1]

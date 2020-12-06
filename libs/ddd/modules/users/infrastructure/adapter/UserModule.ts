@@ -1,8 +1,11 @@
 import { Module, Provider } from '@nestjs/common'
+import { CqrsModule } from '@nestjs/cqrs'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { Connection } from 'typeorm'
 import { CreateUserCommandHandler } from '../../core/application/handlers/CreateUserCommandHandler'
 import { CreateUserService } from '../../core/application/services/CreateUserService'
+import { UserController } from '../../presentation/controllers/UserController'
+import { UserResolver } from '../../presentation/controllers/UserResolver'
 import { TypeOrmUserRepositoryAdapter } from '../persistence/TypeOrmUserRepositoryAdapter'
 import { UserDITokens } from './UserDITokens'
 import { TypeOrmUser } from '@codelab/ddd/shared/infrastructure'
@@ -14,6 +17,7 @@ const persistenceProviders: Array<Provider> = [
       connection.getCustomRepository(TypeOrmUserRepositoryAdapter),
     inject: [Connection],
   },
+  UserResolver,
 ]
 
 const useCaseProviders: Array<Provider> = [
@@ -27,7 +31,8 @@ const useCaseProviders: Array<Provider> = [
 const handlerProviders: Array<Provider> = [CreateUserCommandHandler]
 
 @Module({
-  imports: [TypeOrmModule.forFeature([TypeOrmUser])],
+  imports: [CqrsModule, TypeOrmModule.forFeature([TypeOrmUser])],
+  controllers: [UserController],
   providers: [
     ...persistenceProviders,
     ...useCaseProviders,

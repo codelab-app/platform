@@ -1,4 +1,6 @@
+import { classToPlain } from 'class-transformer'
 import { left, right } from 'fp-ts/lib/Either'
+import { FindUserByEmail } from '../../../common/CommonTypes'
 import { UserRepositoryPort } from '../../adapters/UserRepositoryPort'
 import { CreateUserDto } from '../../domain/dtos/CreateUserDto'
 import { User } from '../../domain/user'
@@ -11,15 +13,19 @@ export class CreateUserService implements CreateUserUseCase {
   constructor(private readonly userRepository: UserRepositoryPort) {}
 
   async execute(request: CreateUserDto): Promise<CreateUserResponse> {
-    // Check user doesn't exist
-    const userAlreadyExists = await this.userRepository.exists(request)
+    const user = new User(request)
+    const serializedUser = classToPlain(user) as FindUserByEmail
+
+    const userAlreadyExists = await this.userRepository.exists(serializedUser)
 
     if (userAlreadyExists) {
-      return left(Result.fail<CreateUserErrors.EmailAlreadyExistsError>())
+      return left(
+        new CreateUserErrors.EmailAlreadyExistsError(serializedUser.email),
+      )
     }
 
-    const user = await User.create(request)
+    const newUser = await User.create(request)
 
-    return right(Result.ok(user))
+    return right(Result.ok(newUser))
   }
 }

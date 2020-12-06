@@ -1,4 +1,5 @@
 import { Module, OnApplicationBootstrap, Provider } from '@nestjs/common'
+import { CqrsModule } from '@nestjs/cqrs'
 import { GraphQLModule } from '@nestjs/graphql'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies'
@@ -10,6 +11,7 @@ const providers: Array<Provider> = []
 
 @Module({
   imports: [
+    CqrsModule,
     TypeOrmModule.forRoot({
       name: 'default',
       type: 'postgres',

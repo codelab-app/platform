@@ -55,3 +55,9 @@ We can also use Request instead of Port
 ## Shared Adapter
 
 Our TypeORM entities are kept outside the application core but accessible by all modules
+
+## Request vs Domain validation
+
+Request validation we don't need ad-hoc error classes, decorator messages are okay
+
+Domain validation should have ad-hoc error classes

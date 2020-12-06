@@ -1,5 +1,5 @@
 import { MinLength } from 'class-validator'
-import { ValueObject } from '@codelab/ddd/shared/core'
+import { ValueObject } from '../ValueObject'
 
 interface UserEmailProps {
   value: string

@@ -3,11 +3,15 @@ export class Result<T> {
 
   public isFailure: boolean
 
-  private _errors?: T | string
+  private _errors?: T | string | Array<string>
 
   private _value?: T
 
-  protected constructor(isSuccess: boolean, errors?: T | string, value?: T) {
+  protected constructor(
+    isSuccess: boolean,
+    errors?: T | string | Array<string>,
+    value?: T,
+  ) {
     if (isSuccess && errors) {
       throw new Error(
         'InvalidOperation: A result cannot be successful and contain an error',
@@ -39,15 +43,19 @@ export class Result<T> {
     return this._value as T
   }
 
-  get errors(): T {
-    return this._errors as T
+  get errors() {
+    if (Array.isArray(this._errors) && this._errors.length <= 1) {
+      return this._errors[0]
+    }
+
+    return this._errors
   }
 
   public static ok<U>(value?: U): Result<U> {
     return new Result<U>(true, undefined, value)
   }
 
-  public static fail<U>(error?: string): Result<U> {
+  public static fail<U>(error?: string | Array<string>): Result<U> {
     return new Result<U>(false, error)
   }
 

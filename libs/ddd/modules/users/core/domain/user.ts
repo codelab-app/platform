@@ -1,5 +1,5 @@
-import { plainToClass } from 'class-transformer'
-import { ValidateNested } from 'class-validator'
+import { Type, plainToClass } from 'class-transformer'
+import { TransformBoth } from '../../../../shared/common/src/TransformBoth'
 import { CreateUserDto } from './dtos/CreateUserDto'
 import { UserEmail } from './user-email'
 import { UserPassword } from './user-password'
@@ -11,23 +11,15 @@ interface UserProps {
 }
 
 export class User extends AggregateRoot<UserProps> {
-  @ValidateNested()
+  // @ValidateNested()
+  @Type(() => UserEmail)
+  @TransformBoth(UserEmail)
   declare email: UserEmail
 
-  @ValidateNested()
+  // @ValidateNested()
+  @Type(() => UserPassword)
+  @TransformBoth(UserPassword)
   declare password: UserPassword
-
-  // @IsOptional()
-  // declare googleProviderId: string
-
-  constructor(props: UserProps) {
-    super()
-
-    const { email, password } = props
-
-    this.email = email
-    this.password = password
-  }
 
   public static hydrate(props: UserProps) {
     const user: User = plainToClass(User, props)
