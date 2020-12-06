@@ -10,7 +10,7 @@ export class CreateUserCommand implements CreateUserDto {
 
   password: UserPassword
 
-  constructor(public readonly request: CreateUserRequest) {
+  constructor(request: CreateUserRequest) {
     const { email, password } = request
 
     this.email = new UserEmail({ value: email })

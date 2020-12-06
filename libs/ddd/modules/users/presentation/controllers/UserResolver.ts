@@ -19,6 +19,12 @@ export class UserResolver implements CommandQueryBusPort {
 
   @Mutation((returns) => UserUseCaseDto)
   async createUser(@Args('user') request: CreateUserRequest) {
-    return this.commandBus.execute(new CreateUserCommand(request))
+    const results = await this.commandBus.execute(
+      new CreateUserCommand(request),
+    )
+
+    console.log(results)
+
+    return results
   }
 }

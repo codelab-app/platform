@@ -1,28 +1,40 @@
 import { CommandBus, CqrsModule } from '@nestjs/cqrs'
 import { Test } from '@nestjs/testing'
+import { TypeOrmModule } from '@nestjs/typeorm'
+import { Connection } from 'typeorm'
 import {
   handlerProviders,
   persistenceProviders,
   useCaseProviders,
 } from '../../../../infrastructure/adapter/UserModule'
 import { CreateUserCommand } from '../../commands/CreateUserCommand'
+import {
+  TestTypeOrmModule,
+  TypeOrmUser,
+} from '@codelab/ddd/shared/infrastructure'
 
 describe('CreateUserUseCase', () => {
-  let UserModule: any
+  let userModule: any
 
   beforeAll(async () => {
-    UserModule = await Test.createTestingModule({
-      imports: [CqrsModule],
+    userModule = await Test.createTestingModule({
+      imports: [
+        TestTypeOrmModule,
+        CqrsModule,
+        TypeOrmModule.forFeature([TypeOrmUser]),
+      ],
       providers: [
         ...persistenceProviders,
         ...useCaseProviders,
         ...handlerProviders,
       ],
     }).compile()
+
+    await userModule.init()
   })
 
   it('throws an error when an email is taken', async () => {
-    const commandBus: CommandBus = UserModule.select(CqrsModule).get(CommandBus)
+    const commandBus: CommandBus = userModule.select(CqrsModule).get(CommandBus)
 
     const results = await commandBus.execute(
       new CreateUserCommand({
@@ -46,4 +58,9 @@ describe('CreateUserUseCase', () => {
   //     password: 'password',
   //   })
   // })
+  afterAll(() => {
+    const connection = userModule.get(Connection)
+
+    connection.close()
+  })
 })

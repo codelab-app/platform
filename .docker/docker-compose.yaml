@@ -74,9 +74,9 @@ services:
       - POSTGRES_PASSWORD
       - POSTGRES_DB
 
-  postgres-e2e:
+  postgres-test:
     image: postgres:12
-    container_name: codelab-postgres-e2e
+    container_name: codelab-postgres-test
     restart: always
     volumes:
       - db_e2e_data:/var/lib/postgresql/data
@@ -131,6 +131,6 @@ volumes:
   db_data:
     name: codelab-postgres-volume
   db_e2e_data:
-    name: codelab-postgres-e2e-volume
+    name: codelab-postgres-test-volume
   pgadmin-data:
     name: codelab-pgadmin-volume
