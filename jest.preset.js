@@ -2,8 +2,9 @@ const nxPreset = require('@nrwl/jest/preset')
 
 module.exports = {
   ...nxPreset,
+  // setupFiles: [`${__dirname}/.jest/jest.setup-env.js`],
   setupFilesAfterEnv: [
-    `${__dirname}/jest.setup.js`,
+    `${__dirname}/.jest/jest.setup.js`,
     '@testing-library/jest-dom',
   ],
   // testMatch: ['**/+(*.)+(spec|test).+(ts|js)?(x)'],

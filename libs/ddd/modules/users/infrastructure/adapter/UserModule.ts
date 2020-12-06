@@ -10,7 +10,7 @@ import { TypeOrmUserRepositoryAdapter } from '../persistence/TypeOrmUserReposito
 import { UserDITokens } from './UserDITokens'
 import { TypeOrmUser } from '@codelab/ddd/shared/infrastructure'
 
-const persistenceProviders: Array<Provider> = [
+export const persistenceProviders: Array<Provider> = [
   {
     provide: UserDITokens.UserRepository,
     useFactory: (connection) =>
@@ -20,7 +20,7 @@ const persistenceProviders: Array<Provider> = [
   UserResolver,
 ]
 
-const useCaseProviders: Array<Provider> = [
+export const useCaseProviders: Array<Provider> = [
   {
     provide: UserDITokens.CreateUserUseCase,
     useFactory: (userRepository) => new CreateUserService(userRepository),
@@ -28,7 +28,7 @@ const useCaseProviders: Array<Provider> = [
   },
 ]
 
-const handlerProviders: Array<Provider> = [CreateUserCommandHandler]
+export const handlerProviders: Array<Provider> = [CreateUserCommandHandler]
 
 @Module({
   imports: [CqrsModule, TypeOrmModule.forFeature([TypeOrmUser])],
