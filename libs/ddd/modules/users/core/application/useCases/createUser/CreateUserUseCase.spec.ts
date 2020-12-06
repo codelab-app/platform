@@ -8,6 +8,7 @@ import {
   useCaseProviders,
 } from '../../../../infrastructure/adapter/UserModule'
 import { CreateUserCommand } from '../../commands/CreateUserCommand'
+import { UserUseCaseDto } from '../UserUseCaseDto'
 import {
   TestTypeOrmModule,
   TypeOrmUser,
@@ -36,14 +37,17 @@ describe('CreateUserUseCase', () => {
   it('throws an error when an email is taken', async () => {
     const commandBus: CommandBus = userModule.select(CqrsModule).get(CommandBus)
 
-    const results = await commandBus.execute(
+    const results: UserUseCaseDto = await commandBus.execute(
       new CreateUserCommand({
         email: 'admin@codelab.ai',
         password: 'password',
       }),
     )
 
-    expect(results).toBeTruthy()
+    expect(results).toMatchObject({
+      email: 'admin@codelab.ai',
+      password: 'password',
+    })
   })
 
   // it('validates the request', () => {
