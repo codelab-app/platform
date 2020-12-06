@@ -1,4 +1,5 @@
-import { Transform, Type, plainToClass } from 'class-transformer'
+import { Type, plainToClass } from 'class-transformer'
+import { TransformBoth } from '../../../../shared/common/src/TransformBoth'
 import { CreateUserDto } from './dtos/CreateUserDto'
 import { UserEmail } from './user-email'
 import { UserPassword } from './user-password'
@@ -7,21 +8,17 @@ import { AggregateRoot } from '@codelab/ddd/shared/core'
 interface UserProps {
   email: UserEmail
   password: UserPassword
-  date?: Date
 }
 
 export class User extends AggregateRoot<UserProps> {
   // @ValidateNested()
   @Type(() => UserEmail)
-  @Transform((value) => value.toString())
+  @TransformBoth(UserEmail)
   declare email: UserEmail
-
-  @Type(() => Date)
-  declare date: Date
 
   // @ValidateNested()
   @Type(() => UserPassword)
-  @Transform((value) => value.toString())
+  @TransformBoth(UserPassword)
   declare password: UserPassword
 
   public static hydrate(props: UserProps) {
