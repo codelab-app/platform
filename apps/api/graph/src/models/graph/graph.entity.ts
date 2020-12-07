@@ -163,7 +163,7 @@ export class GraphEntity {
       vertexSource.parent,
       source,
     )
-    const targetEdgeIndex = this.getEdgeIndexBySourceAndTarget(
+    let targetEdgeIndex = this.getEdgeIndexBySourceAndTarget(
       vertexTarget.parent,
       target,
     )
@@ -171,12 +171,15 @@ export class GraphEntity {
     if (sourceEdgeIndex !== -1 && targetEdgeIndex !== -1) {
       const sourceEdge = this.edges[sourceEdgeIndex]
       const targetEdge = this.edges[targetEdgeIndex]
-      const children = this.cy.$id(vertexTarget.parent as string).children()
 
       sourceEdge.source = targetEdge.source
-      if (children.size() > 1) {
-        this.moveEdgeAndUpdateOrder(sourceEdgeIndex, targetEdgeIndex + 1)
+
+      // Move to the left
+      if (targetEdgeIndex < sourceEdgeIndex) {
+        targetEdgeIndex += 1
       }
+
+      this.moveEdgeAndUpdateOrder(sourceEdgeIndex, targetEdgeIndex)
     }
   }
 

@@ -9,6 +9,4 @@ export default {
 
 export const BasicGraph = () => {
   return <D3Graph {...d3GraphData} />
-  // return <D3Graph {...d3TestData} />
-  // return <D3Graph {...d3TestDataMoved} />
 }

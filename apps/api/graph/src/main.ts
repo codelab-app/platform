@@ -19,6 +19,7 @@ const bootstrap = async () => {
 
   const globalPrefix = ''
 
+  app.enableCors()
   app.setGlobalPrefix(globalPrefix)
   app.useGlobalFilters(new GeneralExceptionFilter())
   app.use(bodyParser.json())
