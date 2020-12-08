@@ -1,5 +1,5 @@
 import { Transform } from 'class-transformer'
-import { ValueObject } from '../../core/domain/ValueObject'
+import { ValueObject } from '../core/domain/ValueObject'
 
 export const TransformBoth = (Cls: any) => {
   /**

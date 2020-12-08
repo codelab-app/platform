@@ -29,10 +29,9 @@
 
 - VSCode has issues importing project reference paths
 
-4. (Optional) Install [WebStorm](https://www.jetbrains.com/webstorm/)
+4. [WebStorm](https://www.jetbrains.com/webstorm/)
 
 - VSCode doesn't allow us to move an export (function, variable, class etc.) from one file to another, which is a huge limitation in refactoring, as this is a common procedure
-- WebStorm does have this functionality, but is a paid product. They have a 30-day free trial you can try out the feature. If you find the program useful we can consider purchasing a license for you.
 
 5. Install [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint), for realtime visual linting
 

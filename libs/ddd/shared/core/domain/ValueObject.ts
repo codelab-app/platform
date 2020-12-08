@@ -26,9 +26,7 @@ export abstract class ValueObject<P extends ValueObjectProps> {
     value: any,
     props?: Props,
   ): T {
-    const valueObject = new Cls({ ...props, value } as Props)
-
-    console.log(valueObject)
+    const valueObject = new Cls({ ...props, value } as ValueObjectProps)
 
     const requestValidationErrors = validateSync(valueObject)
 

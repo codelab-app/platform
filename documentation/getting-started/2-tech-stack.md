@@ -11,18 +11,20 @@
 ## Frontend
 
 - [React](https://reactjs.org)
-  - A JavasScript library for building user interfaces, although we only use `.tsx`
+  - A JavaScript library for building user interfaces, although we only use `.tsx`
 - [Next.js](https://nextjs.org)
   - A React Framework for server-side rendering (SSR) & other performance optimizations
-- [Rest Hooks](https://resthooks.io)
-  - A repository layer that handles data fetching, caching, validation, data mapping, error handling
+- [Apollo Client](https://www.apollographql.com/docs/react)
+  - A state management library for handling GraphQL
+- [XState](https://xstate.js.org/docs)
+  - A state machine library
 
 ## Backend
 
-- [Mongoose](https://mongoosejs.com)
-- [Neo4j](https://neo4j.com/)
-  - A graph database
-  - [Neo4j GraphQL](https://grandstack.io/docs/neo4j-graphql-js)
+- [Hasura](https://hasura.io)
+  - Backend as a service GraphQL gateway
+- [TypeOrm](https://typeorm.io)
+  - Typescript based
 - [Nest.js](https://nestjs.com)
   - A Node.js framework suitable for micro-services architecture, which heavily uses OOP principles such as dependency injection (DI)
 
@@ -41,6 +43,7 @@
   - E2e testing framework
 
 ## Logging
+
 - [Winston]()
 - [Fluentd]()
 - [Kibana]()

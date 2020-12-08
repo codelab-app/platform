@@ -1,5 +1,5 @@
 import { Type, plainToClass } from 'class-transformer'
-import { TransformBoth } from '../../../../shared/common/src/TransformBoth'
+import { TransformBoth } from '../../../../shared/common/TransformBoth'
 import { CreateUserRequest } from '../application/useCases/createUser/CreateUserRequest'
 import { UserEmail } from './user-email'
 import { UserPassword } from './user-password'

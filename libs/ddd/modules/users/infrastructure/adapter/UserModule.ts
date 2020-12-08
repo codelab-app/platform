@@ -4,8 +4,8 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 import { Connection } from 'typeorm'
 import { CreateUserCommandHandler } from '../../core/application/handlers/CreateUserCommandHandler'
 import { CreateUserService } from '../../core/application/services/CreateUserService'
+import { UserCommandQueryAdapter } from '../../presentation/controllers/UserCommandQueryAdapter'
 import { UserController } from '../../presentation/controllers/UserController'
-import { UserResolver } from '../../presentation/controllers/UserResolver'
 import { TypeOrmUserRepositoryAdapter } from '../persistence/TypeOrmUserRepositoryAdapter'
 import { UserDITokens } from './UserDITokens'
 import { TypeOrmUser } from '@codelab/ddd/shared/infrastructure'
@@ -17,7 +17,7 @@ export const persistenceProviders: Array<Provider> = [
       connection.getCustomRepository(TypeOrmUserRepositoryAdapter),
     inject: [Connection],
   },
-  UserResolver,
+  UserCommandQueryAdapter,
 ]
 
 export const useCaseProviders: Array<Provider> = [
