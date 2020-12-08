@@ -3,7 +3,7 @@
 global:
   # enabled is the master enabled switch. Setting this to true or false
   # will enable or disable all the components within this chart by default.
-  enabled: false
+  enabled: true
   # Image pull secret to use for registry authentication.
   imagePullSecrets: []
   # imagePullSecrets:
