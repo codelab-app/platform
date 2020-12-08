@@ -1,17 +1,12 @@
+import { ExecutionParams } from '@graphql-tools/delegate'
 import { Injectable } from '@nestjs/common'
 import { GqlModuleOptions, GqlOptionsFactory } from '@nestjs/graphql'
-import { HttpLink } from 'apollo-link-http'
-import {
-  GraphQLSchema,
-  buildSchema as buildSchemaGraphql,
-  printSchema,
-} from 'graphql'
+import { GraphQLSchema, print } from 'graphql'
 import {
   introspectSchema,
   makeRemoteExecutableSchema,
-  mergeSchemas,
+  stitchSchemas,
 } from 'graphql-tools'
-import nodeFetch from 'node-fetch'
 import { ConfigService } from '../config/config.service'
 
 const CONSTRUCTOR_NAME = 'GraphqlService'
@@ -33,10 +28,9 @@ export class GraphqlService implements GqlOptionsFactory {
       autoSchemaFile: true,
       installSubscriptionHandlers: true,
       transformSchema: async (schema: GraphQLSchema) => {
-        // console.log('localSchema', schema.getQueryType());
-        // console.log('remote', remoteExecutableSchema.getQueryType());
-        return mergeSchemas({
-          schemas: [schema, remoteExecutableSchema],
+        return stitchSchemas({
+          subschemas: [schema, remoteExecutableSchema],
+          mergeTypes: true,
         })
       },
 
@@ -49,26 +43,28 @@ export class GraphqlService implements GqlOptionsFactory {
 
   private async createRemoteSchema(): Promise<GraphQLSchema> {
     try {
-      const httpLink = new HttpLink({
-        uri: this.config.graphQLEngineURI,
-        fetch: nodeFetch as any,
-        headers: {
-          'X-Hasura-Access-Key': this.config.graphQLEngineAccessKey,
-        },
-      })
+      const adminExecutor = async ({
+        document,
+        variables,
+      }: ExecutionParams) => {
+        const query = print(document)
+        const uri = this.config.graphQLEngineURI as string
+        const fetchResult = await fetch(uri, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-hasura-admin-secret': this.config.graphQLEngineAccessKey,
+          },
+          body: JSON.stringify({ query, variables }),
+        })
 
-      const remoteIntrospectedSchema = await introspectSchema(httpLink)
+        return fetchResult.json()
+      }
+      const remote: GraphQLSchema = await introspectSchema(adminExecutor)
 
-      const remoteSchema = printSchema(remoteIntrospectedSchema)
-      const builtHasuraSchema = buildSchemaGraphql(remoteSchema)
-
-      /**
-       * Need to be using graphql-tools@4 for stitching
-       */
       const remoteExecutableSchema = makeRemoteExecutableSchema({
-        schema: builtHasuraSchema,
-        // schema: remoteSchema,
-        link: httpLink,
+        schema: remote,
+        executor: adminExecutor,
       })
 
       return Promise.resolve(remoteExecutableSchema)
