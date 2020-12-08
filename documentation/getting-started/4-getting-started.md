@@ -8,17 +8,17 @@
 4. `yarn` (links the built workspace to our monorepo)
 5. `yarn docker:up [...service]`
 
-I find that its useful to create separate terminal tabs for different commands, as opposed to combining all scripts into one. We may not need all commands to run at once, and running separate scripts give us more flexibility.
+- Docker services `hasura` & `postgres-test` are required, so `yarn docker:up hasura postgres-test`
 
 ## Frontend
 
-- `npx nx serve web`
+- `nx serve web`
 
 ## Backend
 
 ### Dev Ops Mode
 
-If you want to run our api services in Docker, you'll need to make some modifications to the `.env` file before starting the services.
+If you want to run our api services in Docker (`yarn docker:up [app]`instead of `nx serve [app]`), you'll need to make some modifications to the `.env` file before starting the services.
 
 ```
 CODELAB_ENV=
@@ -27,10 +27,6 @@ POSTGRES_HOST=postgres
 ```
 
 Instead of `localhost`, docker-compose will use the service name `postgres` instead. `CODELAB_ENV=` must be set to none.
-
-- `yarn docker:up hasura` this only needs to be run once, then it will run in background
-- `npx nx serve api-graph`
-- `npx nx serve api-graph --args="--reset"` to reset & seed database
 
 ### Seeding
 
@@ -47,15 +43,6 @@ TYPEORM_SYNCHRONIZE=true
 If you're not modifying the models, set `TYPEORM_SEED=true`, start project, then set to false & restart
 
 If you're working on the models, do the previous, but also set `TYPEORM_SYNCHRONIZE=true`. Use `TYPEORM_DROP_SCHEMA=true` only when some syncing doesn't work anymore
-
-## Codegen
-
-- Make sure our GraphQL server is running first, otherwise it won't work
-- `make generate-graphql` will generate files into `@codelab/state/apollo` for usage
-- `make generate-graphql-watch` to watch for changes
-- These contain mostly Typescript interfaces generated from GraphQL schema
-- We also generate a `hasura-schema.graphql`, which uses remote schema introspection to download our schema
-- This can be used by Webstorm IDE for `.graphql` file linting
 
 ## Running other commands
 

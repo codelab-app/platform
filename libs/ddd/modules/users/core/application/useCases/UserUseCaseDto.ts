@@ -8,6 +8,6 @@ export class UserUseCaseDto {
   @Field()
   public declare email: string
 
-  @Field()
-  public declare password: string
+  // @Field()
+  // public declare password: string
 }

@@ -3,13 +3,11 @@
   "compilerOptions": {
     "jsx": "react",
     "allowJs": true,
+    "types": ["node", "@xstate/react", "object-mapper"],
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true
   },
-  "include": [
-    "libs/core/**/*.ts",
-    "libs/core/**/*.tsx",
-  ],
+  "include": ["libs/ddd/**/*.ts", "libs/ddd/**/*.tsx"],
   "exclude": [
     "**/deprecated",
     "**/*.spec.ts",

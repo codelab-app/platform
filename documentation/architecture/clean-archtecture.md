@@ -61,3 +61,27 @@ Our TypeORM entities are kept outside the application core but accessible by all
 Request validation we don't need ad-hoc error classes, decorator messages are okay
 
 Domain validation should have ad-hoc error classes
+
+## Validation
+
+4 types
+
+1. Database
+
+- enforced by schema
+
+2. Domain
+
+- entity invariance
+- can throw error here, even we can't show all errors at once
+- validation not designed for end user, but client code
+
+3. Request
+
+- validate input data like command
+- here we can collect all errors
+- use Nest.js validator pipes
+
+4. Browser
+
+- form validation

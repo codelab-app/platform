@@ -1,21 +1,20 @@
 # What is Codelab.ai
 
-Codelab.ai is a web application builder that renders components using React. Users can...
+Codelab.ai is a cloud-based SaaS product designed for developers to build frontend web applications.
 
-- create the UI by configuring components
-- configure custom JavaScript functions
-- specify external API endpoints to query data
-- process those data via map & reduce
-- bind data to the UI
+- create the view by configuring ui components
+- configure external data store & map them to a data transformer
+- bind transformed external data to the view
 
-The end goal is the create a highly configurable UI layer that can compete with writing code.
+The end product is a highly configurable UI layer that competes with writing code.
 
 ## Table of Contents
+
 [Installation](documentation/getting-started/1-installation.md)
 
 [Tech Stack](documentation/getting-started/2-tech-stack.md)
 
-[Project Structure](documentation/getting-started/3-project-structure.md)
+[Project Architecture](documentation/getting-started/3-project-architecture.md)
 
 [Getting Started](documentation/getting-started/4-getting-started.md)
 

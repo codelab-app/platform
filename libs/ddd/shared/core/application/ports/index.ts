@@ -1,1 +1,2 @@
-export * from './CommandQueryBusPort'
+export * from './primary/CommandQueryBusPort'
+export * from './primary/UseCaseRequestPort'

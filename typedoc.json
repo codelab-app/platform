@@ -1,9 +1,12 @@
 {
   "tsconfig": "./tsconfig.docs.json",
-  "mode": "file",
   "out": "dist/docs",
-  "excludeExternals": true,
-  "excludeNotExported": true,
-  "externalPattern": "**/index.ts",
-  "toc": ["NodeEntity", "findNode"]
+  "entryPoints": [
+    "libs/ddd/modules/users/index.ts",
+    "libs/ddd/shared/common/index.ts",
+    "libs/ddd/shared/core/index.ts",
+    "libs/ddd/shared/infrastructure/index.ts",
+    "libs/ddd/shared/presentation/index.ts"
+  ],
+  "excludeNotDocumented": true
 }
