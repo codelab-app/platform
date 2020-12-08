@@ -151,8 +151,8 @@ describe('GraphService Unit Test', () => {
     g1.addEdge(list.id, c.id)
     g1.addEdge(list.id, d.id)
     g1.addEdge(list.id, e.id)
-    g1.edges.forEach((e: EdgeEntity) => {
-      e.graph = g1
+    g1.edges.forEach((edge: EdgeEntity) => {
+      edge.graph = g1
     })
 
     jest
@@ -174,8 +174,8 @@ describe('GraphService Unit Test', () => {
       g1.edges[2],
       g1.edges[4],
     ]
-    mockSavedGraph.edges.forEach((e: EdgeEntity, index: number) => {
-      e.order = index
+    mockSavedGraph.edges.forEach((edge: EdgeEntity, index: number) => {
+      edge.order = index
     })
     mockSavedGraph.vertices = g1.vertices
     graphRepositoryMock.save.mockReturnValue(Promise.resolve(mockSavedGraph))

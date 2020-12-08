@@ -17,16 +17,17 @@ let c: VertexEntity
 
 const addThreeItemsToList = (
   graph: GraphEntity,
-  list: VertexEntity,
+  root: VertexEntity,
   item1: VertexEntity,
   item2: VertexEntity,
   item3: VertexEntity,
 ) => {
-  g.addVertices([list, item1, item2, item3])
-  g.addEdge(list.id, item1.id)
-  g.addEdge(list.id, item2.id)
-  g.addEdge(list.id, item3.id)
+  g.addVertices([root, item1, item2, item3])
+  g.addEdge(root.id, item1.id)
+  g.addEdge(root.id, item2.id)
+  g.addEdge(root.id, item3.id)
 }
+
 const resetEdgesAndVertices = (graph: GraphEntity) => {
   graph.vertices = []
   graph.edges = []
@@ -358,11 +359,11 @@ describe('GraphEntity', () => {
       source: VertexID
       target: VertexID
       order: number
-    }> = g.edges.map((e: EdgeEntity) => {
+    }> = g.edges.map((edge: EdgeEntity) => {
       return {
-        source: e.source,
-        target: e.target,
-        order: e.order,
+        source: edge.source,
+        target: edge.target,
+        order: edge.order,
       }
     })
 

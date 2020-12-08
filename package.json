@@ -53,6 +53,7 @@
     "@prisma/client": "2.9.0",
     "@rjsf/antd": "2.4.0",
     "@rjsf/core": "2.4.0",
+    "@storybook/client-api": "^6.1.10",
     "@types/supertest": "2.0.10",
     "@xstate/react": "1.0.1",
     "ajv": "6.12.5",
