@@ -21,5 +21,6 @@ module.exports = {
     'no-plusplus': 'off',
     'func-style': 'off',
     'no-shadow': 'off',
+    'no-prototype-builtins': 'off',
   },
 }
