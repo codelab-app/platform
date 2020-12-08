@@ -28,6 +28,8 @@ export abstract class ValueObject<P extends ValueObjectProps> {
   ): T {
     const valueObject = new Cls({ ...props, value } as ValueObjectProps)
 
+    console.log(valueObject)
+
     const requestValidationErrors = validateSync(valueObject)
 
     if (requestValidationErrors.length) {
