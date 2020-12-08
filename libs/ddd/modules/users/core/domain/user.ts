@@ -1,4 +1,4 @@
-import { Type, plainToClass } from 'class-transformer'
+import { Exclude, Type, plainToClass } from 'class-transformer'
 import { TransformBoth } from '../../../../shared/common/TransformBoth'
 import { CreateUserRequest } from '../application/useCases/createUser/CreateUserRequest'
 import { UserEmail } from './user-email'
@@ -28,6 +28,7 @@ export class User extends AggregateRoot<UserProps> {
   // @ValidateNested()
   @Type(() => UserPassword)
   @TransformBoth(UserPassword)
+  @Exclude({ toPlainOnly: true })
   declare password: UserPassword
 
   /**
@@ -46,8 +47,6 @@ export class User extends AggregateRoot<UserProps> {
    */
   public static create(request: CreateUserRequest): User {
     const user = User.hydrate(request)
-
-    console.log(user)
 
     user.password.hashPassword()
 

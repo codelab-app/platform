@@ -34,7 +34,7 @@ describe('CreateUserUseCase', () => {
     await userModule.init()
   })
 
-  it('throws an error when an email is taken', async () => {
+  it('returns a user as command request', async () => {
     const commandBus: CommandBus = userModule.select(CqrsModule).get(CommandBus)
 
     const results: UserUseCaseDto = await commandBus.execute(
@@ -44,11 +44,26 @@ describe('CreateUserUseCase', () => {
       }),
     )
 
-    expect(results).toMatchObject({
+    expect(results).toStrictEqual<any>({
       email: 'admin@codelab.ai',
-      password: 'password',
     })
   })
+
+  // it('throws an error when an email is taken', async () => {
+  //   const commandBus: CommandBus = userModule.select(CqrsModule).get(CommandBus)
+
+  //   const results: UserUseCaseDto = await commandBus.execute(
+  //     new CreateUserCommand({
+  //       email: 'admin@codelab.ai',
+  //       password: 'password',
+  //     }),
+  //   )
+
+  //   expect(results).toMatchObject({
+  //     email: 'admin@codelab.ai',
+  //     password: 'password',
+  //   })
+  // })
 
   // it('validates the request', () => {
   //   const email = new UserEmail({ value: 'admin@codelab.ai' })
@@ -62,6 +77,7 @@ describe('CreateUserUseCase', () => {
   //     password: 'password',
   //   })
   // })
+
   afterAll(() => {
     const connection = userModule.get(Connection)
 
