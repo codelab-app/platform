@@ -69,11 +69,14 @@ export class ConfigGraphqlHasuraService implements GqlOptionsFactory {
     const adminExecutor = async ({ document, variables }: ExecutionParams) => {
       const query = print(document)
       const uri = this.config.get(ApiConfigTypes.HASURA_GRAPHQL_URI) as string
+      const hasuraSecret = this.config.get(
+        ApiConfigTypes.HASURA_GRAPHQL_ADMIN_SECRET,
+      ) as string
       const fetchResult = await fetch(uri, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-hasura-admin-secret': 'myadminsecretkey',
+          'x-hasura-admin-secret': hasuraSecret,
         },
         body: JSON.stringify({ query, variables }),
       })
