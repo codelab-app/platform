@@ -23,7 +23,7 @@ export abstract class ValueObject<P extends ValueObjectProps> {
 
   public static create<T = never, Props extends ValueObjectProps = {}>(
     Cls: any,
-    value: any,
+    value: string | number,
     props?: Props,
   ): T {
     const valueObject = new Cls({ ...props, value } as ValueObjectProps)
@@ -33,7 +33,7 @@ export abstract class ValueObject<P extends ValueObjectProps> {
     if (requestValidationErrors.length) {
       const errors = Object.values(requestValidationErrors[0].constraints ?? {})
 
-      throw RequestValidationError.create(errors)
+      RequestValidationError.throw(errors)
     }
 
     return valueObject

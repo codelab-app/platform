@@ -9,13 +9,13 @@ export class RequestValidationError extends Error {
     Object.setPrototypeOf(this, RequestValidationError.prototype)
   }
 
-  public static create(message?: string | Array<string>) {
+  public static throw(message?: string | Array<string>) {
     let msg = message
 
     if (Array.isArray(message)) {
       msg = message.length > 1 ? message.join('\n') : message[0]
     }
 
-    return msg
+    throw new RequestValidationError(<string>msg)
   }
 }

@@ -2,10 +2,10 @@ import { UserPassword } from './user-password'
 import { ValueObject } from '@codelab/ddd/shared/core'
 
 describe('User password', () => {
-  describe('validation', () => {
-    const createUserPassword = (password: string): UserPassword =>
-      ValueObject.create(UserPassword, password)
+  const createUserPassword = (password: string): UserPassword =>
+    ValueObject.create(UserPassword, password)
 
+  describe('validation', () => {
     it('returns a failed result with unsuccessful validation', () => {
       expect(() => createUserPassword('p')).toThrowError(
         'Password must contain at least 3 characters',
@@ -23,7 +23,7 @@ describe('User password', () => {
     let userPassword: UserPassword
 
     beforeAll(() => {
-      userPassword = ValueObject.create<UserPassword>(UserPassword, 'password')
+      userPassword = createUserPassword('password')
 
       userPassword.hashPassword()
     })

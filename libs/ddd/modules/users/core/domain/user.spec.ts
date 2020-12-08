@@ -4,15 +4,6 @@ import { UserEmail } from './user-email'
 import { UserPassword } from './user-password'
 
 describe('Domain model User', () => {
-  // let user: User
-  // const email = new UserEmail({ value: 'admin@codelab.ai' })
-  // const password = new UserPassword({ value: 'password' })
-  // const date = new Date()
-
-  // beforeAll(() => {
-  //   user = new User({ email, password, date })
-  // })
-
   it('creates a user object successfully', () => {
     const userProps = {
       email: 'admin@codelab.ai',
@@ -24,7 +15,7 @@ describe('Domain model User', () => {
     expect(user.password instanceof UserPassword).toBeTruthy()
 
     expect(user.email.toString()).toBe('admin@codelab.ai')
-    expect(user.password.toString()).toBe('password')
+    expect(user.password.toString()).not.toBe('password')
   })
 
   it('throws an exception when given invalid input', () => {
