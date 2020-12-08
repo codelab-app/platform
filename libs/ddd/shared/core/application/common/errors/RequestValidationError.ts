@@ -1,4 +1,4 @@
-export abstract class RequestValidationError extends Error {
+export class RequestValidationError extends Error {
   /**
    * Used to bypass structural typing
    */

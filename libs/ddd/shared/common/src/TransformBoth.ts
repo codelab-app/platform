@@ -1,4 +1,5 @@
 import { Transform } from 'class-transformer'
+import { ValueObject } from '../../core/domain/ValueObject'
 
 export const TransformBoth = (Cls: any) => {
   /**
@@ -11,9 +12,14 @@ export const TransformBoth = (Cls: any) => {
   /**
    * Hydrate to Class
    */
-  const toClass = Transform((value) => new Cls({ value }), {
-    toClassOnly: true,
-  })
+  const toClass = Transform(
+    (value) => {
+      return ValueObject.create(Cls, value)
+    },
+    {
+      toClassOnly: true,
+    },
+  )
 
   return (target: any, key: string) => {
     toPlain(target, key)

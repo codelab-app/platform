@@ -1,9 +1,9 @@
-import { CreateUserDto } from '../../../domain/dtos/CreateUserDto'
+import { CreateUserRequest } from './CreateUserRequest'
 import { CreateUserResponse } from './CreateUserResponse'
 import { TransactionalUseCase } from '@codelab/ddd/shared/core'
 
 export type CreateUserUseCase = TransactionalUseCase<
-  CreateUserDto,
+  CreateUserRequest,
   CreateUserResponse
   // UserUseCaseDto
 >
