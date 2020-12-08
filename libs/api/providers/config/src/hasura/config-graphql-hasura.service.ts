@@ -111,12 +111,12 @@ export class ConfigGraphqlHasuraService implements GqlOptionsFactory {
     try {
       const remote: GraphQLSchema = await introspectSchema(adminExecutor)
 
-      const remoteEx = makeRemoteExecutableSchema({
+      const remoteExecutableSchema = makeRemoteExecutableSchema({
         schema: remote,
         executor: jwtExecutor,
       })
 
-      return Promise.resolve(remoteEx)
+      return Promise.resolve(remoteExecutableSchema)
     } catch (err) {
       return Promise.reject(err)
     }
