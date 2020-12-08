@@ -1,4 +1,4 @@
-# VAULT'S K8s AUTHENTICATION ON STAGING
+# VAULT'S K8S AUTHENTICATION ON STAGING
 
 Here are steps to integrating Vault (https://vault.codelab.ai) with Staging Kubernetes.
 Basically we must follow the following steps:
