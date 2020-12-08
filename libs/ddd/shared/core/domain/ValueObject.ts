@@ -1,16 +1,11 @@
 import { validateSync } from 'class-validator'
 import { RequestValidationError } from '../application/common/errors/RequestValidationError'
 
-type Constructor<P extends ValueObjectProps> = new (props: P) => any
-
-type FunctionReturnType<
-  FunctionType extends (args: any) => any
-> = FunctionType extends (...args: any) => infer ReturnType ? ReturnType : any
-
 export interface ValueObjectProps {
   // value: any
   [index: string]: any
 }
+
 export abstract class ValueObject<P extends ValueObjectProps> {
   protected props: P
 
@@ -33,19 +28,16 @@ export abstract class ValueObject<P extends ValueObjectProps> {
   ): T {
     const valueObject = new Cls({ ...props, value } as Props)
 
+    console.log(valueObject)
+
     const requestValidationErrors = validateSync(valueObject)
 
     if (requestValidationErrors.length) {
-      throw new RequestValidationError(requestValidationErrors.toString())
+      const errors = Object.values(requestValidationErrors[0].constraints ?? {})
+
+      throw RequestValidationError.create(errors)
     }
 
     return valueObject
-
-    // if (validationErrors.length) {
-    //   const errors = Object.values(validationErrors[0].constraints ?? {})
-    //   return Result.fail<T>(errors)
-    // }
-
-    // return Result.ok<T>(valueObject)
   }
 }

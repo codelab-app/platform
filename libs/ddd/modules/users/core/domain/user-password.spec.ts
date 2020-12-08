@@ -1,23 +1,42 @@
 import { UserPassword } from './user-password'
 import { ValueObject } from '@codelab/ddd/shared/core'
 
-describe('User password request validation', () => {
-  it('returns a failed result with unsuccessful validation', () => {
-    const userPassword = ValueObject.create(UserPassword, {
-      value: 'p ',
+describe('User password', () => {
+  describe('validation', () => {
+    const createUserPassword = (password: string): UserPassword =>
+      ValueObject.create(UserPassword, password)
+
+    it('returns a failed result with unsuccessful validation', () => {
+      expect(() => createUserPassword('p')).toThrowError(
+        'Password must contain at least 3 characters',
+      )
     })
 
-    expect(userPassword.isFailure).toBeTruthy()
-    expect(userPassword.errors).toBe(
-      'Password must contain at least 3 characters',
-    )
+    it('returns a ok result with successful validation', () => {
+      const userPassword = createUserPassword('password')
+
+      expect(userPassword.toString()).toBe('password')
+    })
   })
 
-  it('returns a ok result with successful validation', () => {
-    const userPassword = ValueObject.create(UserPassword, {
-      value: 'password ',
+  describe('hashing', () => {
+    let userPassword: UserPassword
+
+    beforeAll(() => {
+      userPassword = ValueObject.create<UserPassword>(UserPassword, 'password')
+
+      userPassword.hashPassword()
+    })
+    it('hashes a password', () => {
+      expect(userPassword.toString()).not.toBe('password')
     })
 
-    expect(userPassword.isSuccess).toBeTruthy()
+    it('compares a password', () => {
+      const validPassword = userPassword.comparePassword('password')
+      const invalidPassword = userPassword.comparePassword('invalid-password')
+
+      expect(validPassword).toBeTruthy()
+      expect(invalidPassword).toBeFalsy()
+    })
   })
 })

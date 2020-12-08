@@ -13,7 +13,11 @@ export class UserPassword extends ValueObject<UserPasswordProps> {
   })
   declare value: string
 
-  public async hashPassword() {
-    this.value = await bcrypt.hash(this.value, 10)
+  public hashPassword() {
+    this.value = bcrypt.hashSync(this.value, 10)
+  }
+
+  public comparePassword(attempt: string): boolean {
+    return bcrypt.compareSync(attempt, this.value)
   }
 }
