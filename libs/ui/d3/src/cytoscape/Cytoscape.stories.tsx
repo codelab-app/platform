@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { CyGraph } from './CyGraph'
 import { CyGraphService } from './CyGraph.service'
+import { ICyGraphProps } from './ICyGraphProps'
 
 export default {
   component: CyGraph,
@@ -10,76 +11,121 @@ export default {
 const service = new CyGraphService()
 
 export const ShouldMoveWithDifferentParent = () => {
-  const [cyElements, setCyElements] = useState({ nodes: [], edges: [] })
+  const [cyGraphProps, setCyGraphProps] = useState<ICyGraphProps>({
+    elements: { nodes: [], edges: [] },
+  })
 
   useEffect(() => {
-    service.shouldMoveWithDifferentParent().then((res) => {
-      const { nodes } = res.data
-      const { edges } = res.data
+    service
+      .callServerWithEndpoint('shouldMoveWithDifferentParent')
+      .then((res) => {
+        const { nodes } = res.data
+        const { edges } = res.data
 
-      setCyElements({ nodes, edges })
-    })
+        setCyGraphProps({ elements: { nodes, edges } })
+      })
   }, [])
 
-  return <CyGraph nodes={cyElements.nodes} edges={cyElements.edges} />
+  return (
+    <CyGraph
+      elements={cyGraphProps.elements}
+      endpoint="shouldMoveWithDifferentParent"
+    />
+  )
 }
 
 export const MoveWithDifferentParentCorrectOrder = () => {
-  const [cyElements, setCyElements] = useState({ nodes: [], edges: [] })
+  const [cyGraphProps, setCyGraphProps] = useState<ICyGraphProps>({
+    elements: { nodes: [], edges: [] },
+  })
 
   useEffect(() => {
-    service.shouldMoveWithDiffParentCorrectOrder().then((res) => {
-      const { nodes } = res.data
-      const { edges } = res.data
+    service
+      .callServerWithEndpoint('shouldMoveWithDiffParentCorrectOrder')
+      .then((res) => {
+        const { nodes } = res.data
+        const { edges } = res.data
 
-      setCyElements({ nodes, edges })
-    })
+        setCyGraphProps({ elements: { nodes, edges } })
+      })
   }, [])
 
-  return <CyGraph nodes={cyElements.nodes} edges={cyElements.edges} />
+  return (
+    <CyGraph
+      elements={cyGraphProps.elements}
+      endpoint="shouldMoveWithDiffParentCorrectOrder"
+    />
+  )
 }
 
 export const ShouldMoveItemToEndOfListSameParent = () => {
-  const [cyElements, setCyElements] = useState({ nodes: [], edges: [] })
+  const [cyGraphProps, setCyGraphProps] = useState<ICyGraphProps>({
+    elements: { nodes: [], edges: [] },
+  })
 
   useEffect(() => {
-    service.shouldMoveItemToEndOfListSameParent().then((res) => {
-      const { nodes } = res.data
-      const { edges } = res.data
+    service
+      .callServerWithEndpoint('shouldMoveItemToEndOfListSameParent')
+      .then((res) => {
+        const { nodes } = res.data
+        const { edges } = res.data
 
-      setCyElements({ nodes, edges })
-    })
+        setCyGraphProps({ elements: { nodes, edges } })
+      })
   }, [])
 
-  return <CyGraph nodes={cyElements.nodes} edges={cyElements.edges} />
+  return (
+    <CyGraph
+      elements={cyGraphProps.elements}
+      endpoint="shouldMoveItemToEndOfListSameParent"
+    />
+  )
 }
 
 export const ShouldMoveItemToEndOfListDifferentParent = () => {
-  const [cyElements, setCyElements] = useState({ nodes: [], edges: [] })
+  const [cyGraphProps, setCyGraphProps] = useState<ICyGraphProps>({
+    elements: { nodes: [], edges: [] },
+  })
 
   useEffect(() => {
-    service.shouldMoveItemToEndOfListDifferentParent().then((res) => {
-      const { nodes } = res.data
-      const { edges } = res.data
+    service
+      .callServerWithEndpoint('shouldMoveItemToEndOfListDifferentParent')
+      .then((res) => {
+        const { nodes } = res.data
+        const { edges } = res.data
 
-      setCyElements({ nodes, edges })
-    })
+        setCyGraphProps({ elements: { nodes, edges } })
+      })
   }, [])
 
-  return <CyGraph nodes={cyElements.nodes} edges={cyElements.edges} />
+  return (
+    <CyGraph
+      elements={cyGraphProps.elements}
+      endpoint="shouldMoveItemToEndOfListDifferentParent"
+    />
+  )
 }
 
 export const ShouldMoveWithDifferentParentWithTwoChildren = () => {
-  const [cyElements, setCyElements] = useState({ nodes: [], edges: [] })
+  const [cyGraphProps, setCyGraphProps] = useState<ICyGraphProps>({
+    elements: { nodes: [], edges: [] },
+  })
 
   useEffect(() => {
-    service.shouldMoveWithDifferentParentWithTwoChildren().then((res) => {
-      const { nodes } = res.data
-      const { edges } = res.data
+    service
+      .callServerWithEndpoint('shouldMoveWithDifferentParentWithTwoChildren')
+      .then((res) => {
+        const { nodes } = res.data
+        const { edges } = res.data
 
-      setCyElements({ nodes, edges })
-    })
+        setCyGraphProps({ elements: { nodes, edges } })
+      })
   }, [])
 
-  return <CyGraph nodes={cyElements.nodes} edges={cyElements.edges} />
+  return (
+    <CyGraph
+      elements={cyGraphProps.elements}
+      endpoint="shouldMoveWithDifferentParentWithTwoChildren"
+    />
+  )
 }

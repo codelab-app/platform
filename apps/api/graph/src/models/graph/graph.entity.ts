@@ -203,10 +203,15 @@ export class GraphEntity {
   }
 
   private moveWithSameParent(source: VertexID, target: VertexID) {
-    const targetEdgeIndex = this.getEdgeIndexByTarget(target)
+    let targetEdgeIndex = this.getEdgeIndexByTarget(target)
     const sourceEdgeIndex = this.getEdgeIndexByTarget(source)
+    // Move to the left
 
-    this.moveEdgeAndUpdateOrder(sourceEdgeIndex, targetEdgeIndex + 1)
+    if (targetEdgeIndex < sourceEdgeIndex) {
+      targetEdgeIndex += 1
+    }
+
+    this.moveEdgeAndUpdateOrder(sourceEdgeIndex, targetEdgeIndex)
   }
 
   private moveEdgeAndUpdateOrder(sourceIndex: number, targetIndex: number) {

@@ -1,4 +1,5 @@
 import axios, { AxiosInstance } from 'axios'
+import { ISrcTarget } from './ICyGraphProps'
 
 export class CyGraphService {
   axiosService: AxiosInstance
@@ -9,23 +10,13 @@ export class CyGraphService {
     })
   }
 
-  shouldMoveWithDifferentParent() {
-    return this.axiosService.get('shouldMoveWithDifferentParent')
-  }
+  callServerWithEndpoint(endpoint: string, srcTarget?: ISrcTarget) {
+    let url = endpoint
 
-  shouldMoveWithDiffParentCorrectOrder() {
-    return this.axiosService.get('shouldMoveWithDiffParentCorrectOrder')
-  }
+    if (srcTarget) {
+      url = `${endpoint}?move=true&source=${srcTarget.source}&target=${srcTarget.target}`
+    }
 
-  shouldMoveItemToEndOfListSameParent() {
-    return this.axiosService.get('shouldMoveItemToEndOfListSameParent')
-  }
-
-  shouldMoveItemToEndOfListDifferentParent() {
-    return this.axiosService.get('shouldMoveItemToEndOfListDifferentParent')
-  }
-
-  shouldMoveWithDifferentParentWithTwoChildren() {
-    return this.axiosService.get('shouldMoveWithDifferentParentWithTwoChildren')
+    return this.axiosService.get(url)
   }
 }

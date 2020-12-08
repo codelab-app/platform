@@ -24,7 +24,10 @@ export class CytoscapeStorybookService {
   }
 
   // should move with different parent with correct order
-  shouldMoveWithDiffParentCorrectOrder(move = false) {
+  shouldMoveWithDiffParentCorrectOrder(
+    move = false,
+    srcTarget?: { source?: string; target?: string },
+  ) {
     this.resetGraph()
     const vertices: any = createAtoFVertices()
 
@@ -43,8 +46,11 @@ export class CytoscapeStorybookService {
     this.g.addEdge(vertices.a.id, vertices.c.id)
     this.g.addEdge(vertices.d.id, vertices.e.id)
     this.g.addEdge(vertices.d.id, vertices.f.id)
-    if (move) {
-      this.g.moveVertex(vertices.f.id, vertices.b.id)
+    if (move && srcTarget) {
+      const source = srcTarget.source as string
+      const target = srcTarget.target as string
+
+      this.g.moveVertex(source, target)
     }
 
     return this.getCyNodesEdges(this.g.cy)
@@ -82,7 +88,10 @@ export class CytoscapeStorybookService {
     return this.getCyNodesEdges(cy)
   }
 
-  shouldMoveWithDifferentParent(move = false) {
+  shouldMoveWithDifferentParent(
+    move = false,
+    srcTarget?: { source?: string; target?: string },
+  ) {
     this.resetGraph()
     const vertices = createAtoEVertices()
 
@@ -100,8 +109,11 @@ export class CytoscapeStorybookService {
     this.g.addEdge(vertices.a.id, vertices.c.id)
     this.g.addEdge(vertices.d.id, vertices.e.id)
 
-    if (move) {
-      this.g.moveVertex(vertices.c.id, vertices.e.id)
+    if (move && srcTarget) {
+      const source = srcTarget.source as string
+      const target = srcTarget.target as string
+
+      this.g.moveVertex(source, target)
     }
 
     const { cy } = this.g
@@ -109,7 +121,10 @@ export class CytoscapeStorybookService {
     return this.getCyNodesEdges(cy)
   }
 
-  shouldMoveItemToEndOfListSameParent(move = false) {
+  shouldMoveItemToEndOfListSameParent(
+    move = false,
+    srcTarget?: { source?: string; target?: string },
+  ) {
     this.resetGraph()
     const vertices = createAtoEVertices()
 
@@ -127,8 +142,11 @@ export class CytoscapeStorybookService {
     this.g.addEdge(vertices.root.id, vertices.d.id)
     this.g.addEdge(vertices.root.id, vertices.e.id)
 
-    if (move) {
-      this.g.moveVertex(vertices.a.id, vertices.e.id)
+    if (move && srcTarget) {
+      const source = srcTarget.source as string
+      const target = srcTarget.target as string
+
+      this.g.moveVertex(source, target)
     }
 
     const { cy } = this.g
@@ -136,7 +154,10 @@ export class CytoscapeStorybookService {
     return this.getCyNodesEdges(cy)
   }
 
-  shouldMoveItemToEndOfListDifferentParent(move = false) {
+  shouldMoveItemToEndOfListDifferentParent(
+    move = false,
+    srcTarget?: { source?: string; target?: string },
+  ) {
     this.resetGraph()
     const vertices = createAtoIVertices()
 
@@ -164,8 +185,11 @@ export class CytoscapeStorybookService {
     this.g.addEdge(vertices.b.id, vertices.h.id)
     this.g.addEdge(vertices.b.id, vertices.i.id)
 
-    if (move) {
-      this.g.moveVertex(vertices.c.id, vertices.i.id)
+    if (move && srcTarget) {
+      const source = srcTarget.source as string
+      const target = srcTarget.target as string
+
+      this.g.moveVertex(source, target)
     }
 
     const { cy } = this.g
@@ -173,7 +197,10 @@ export class CytoscapeStorybookService {
     return this.getCyNodesEdges(cy)
   }
 
-  shouldMoveWithDifferentParentWithTwoChildren(move = false) {
+  shouldMoveWithDifferentParentWithTwoChildren(
+    move = false,
+    srcTarget?: { source?: string; target?: string },
+  ) {
     this.resetGraph()
 
     const vertices = createAtoFVertices()
@@ -197,8 +224,11 @@ export class CytoscapeStorybookService {
     this.g.addEdge(vertices.b.id, vertices.e.id)
     this.g.addEdge(vertices.b.id, vertices.f.id)
 
-    if (move) {
-      this.g.moveVertex(vertices.c.id, vertices.e.id)
+    if (move && srcTarget) {
+      const source = srcTarget.source as string
+      const target = srcTarget.target as string
+
+      this.g.moveVertex(source, target)
     }
 
     const { cy } = this.g
