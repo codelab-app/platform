@@ -94,3 +94,18 @@ path "secret/data/codelab-staging/*" {
   capabilities = ["read"]
 }
 EOF
+
+```
+Finally bind *service_account*, *namespace* to this authentication method
+
+```
+
+vault write auth/k8s-staging/role/readonly \
+        bound_service_account_names=codelab-service-account \
+        bound_service_account_namespaces=codelab \
+        policies=readonly-codelab-staging \
+        ttl=2h
+
+```
+
+```
