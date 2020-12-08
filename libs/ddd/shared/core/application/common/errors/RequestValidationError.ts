@@ -4,7 +4,7 @@ export class RequestValidationError extends Error {
    */
   public readonly _tag = 'REQUEST_VALIDATION_ERROR'
 
-  private constructor(message?: string) {
+  constructor(message?: string) {
     super(message)
     Object.setPrototypeOf(this, RequestValidationError.prototype)
   }
