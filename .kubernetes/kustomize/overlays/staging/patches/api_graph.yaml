@@ -4,6 +4,9 @@ metadata:
   name: api-graph
   namespace: codelab
 spec:
+  replicas: 1
+  strategy:
+    type: Recreate
   template:
     metadata:
       annotations:
