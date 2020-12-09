@@ -8,9 +8,6 @@ module.exports = {
       }
     }
 
-    // Hardcode for now
-    config.plugins.push(new Dotenv({ path: '.env' }))
-
     return config
   },
 }
