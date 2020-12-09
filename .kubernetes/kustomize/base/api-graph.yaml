@@ -5,19 +5,26 @@ metadata:
   namespace: codelab
 spec:
   replicas: 1
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app: api-graph
   template:
     metadata:
+      annotations:
+        vault.hashicorp.com/agent-inject: "true"
+        vault.hashicorp.com/role: "readonly"
+        vault.hashicorp.com/auth-path: "auth/k8s-staging"
+        vault.hashicorp.com/agent-inject-secret-env: "codelab-staging/.env"
+        vault.hashicorp.com/agent-inject-template-env: |
+          {{- with secret "codelab-staging/.env" -}}
+          {{ .Data.data.data }}
+          {{- end }}
       labels:
         app: api-graph
     spec:
-      volumes:
-        - name: env
-          secret:
-            defaultMode: 420
-            secretName: env
+      serviceAccountName: codelab-service-account
       containers:
         - name: api-graph
           imagePullPolicy: Always
@@ -25,10 +32,7 @@ spec:
           command:
             - /bin/sh
             - -c
-            - 'cp /mnt/.env /usr/local/codelab/.env && yarn pm2-runtime /usr/local/codelab/dist/apps/api/graph/pm2.json'
-          volumeMounts:
-            - mountPath: /mnt/
-              name: env
+            - 'ln -sf /vault/secrets/env /usr/local/codelab/.env && yarn pm2-runtime /usr/local/codelab/dist/apps/api/graph/pm2.json'
           ports:
             - name: http
               containerPort: 4004

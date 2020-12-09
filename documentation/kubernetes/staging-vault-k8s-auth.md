@@ -59,6 +59,26 @@ export K8S_HOST=ed9f294c-ad11-48d3-a36b-4819c7e1e78b.k8s.ondigitalocean.com
 
 ```
 
+
+Apply this RBAC
+
+```
+cat <<EOF | k apply -f -
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+    name: role-codelab-sa-tokenreview-binding
+    namespace: codelab
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: system:auth-delegator
+subjects:
+- kind: ServiceAccount
+  name: codelab-service-account
+  namespace: codelab
+EOF
+```
 ### 2.Enable vault methods
 
 ```
@@ -69,7 +89,7 @@ vault auth enable -path=k8s-staging kubernetes
 
 vault write auth/k8s-staging/config \
         token_reviewer_jwt="$SA_JWT_TOKEN" \
-        kubernetes_host="https://$K8S_HOST:8443" \
+        kubernetes_host="https://$K8S_HOST:443" \
         kubernetes_ca_cert="$SA_CA_CRT"
 
 ```
@@ -90,8 +110,8 @@ Then create a new policy name `readonly-codelab-staging` for kv engine `codelab-
 ```
 
 vault policy write readonly-codelab-staging - <<EOF
-path "secret/data/codelab-staging/*" {
-  capabilities = ["read"]
+path "codelab-staging/*" {
+  capabilities = ["read","list"]
 }
 EOF
 
@@ -105,7 +125,5 @@ vault write auth/k8s-staging/role/readonly \
         bound_service_account_namespaces=codelab \
         policies=readonly-codelab-staging \
         ttl=2h
-
-```
 
 ```
