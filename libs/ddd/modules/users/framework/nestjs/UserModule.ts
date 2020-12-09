@@ -4,10 +4,10 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 import { Connection } from 'typeorm'
 import { CreateUserCommandHandler } from '../../core/application/handlers/CreateUserCommandHandler'
 import { CreateUserService } from '../../core/application/services/CreateUserService'
+import { TypeOrmUserRepositoryAdapter } from '../../infrastructure/persistence/TypeOrmUserRepositoryAdapter'
 import { UserCommandQueryAdapter } from '../../presentation/controllers/UserCommandQueryAdapter'
 import { UserController } from '../../presentation/controllers/UserController'
-import { TypeOrmUserRepositoryAdapter } from '../persistence/TypeOrmUserRepositoryAdapter'
-import { UserDITokens } from './UserDITokens'
+import { UserDITokens } from '../UserDITokens'
 import { TypeOrmUser } from '@codelab/ddd/shared/infrastructure'
 
 export const persistenceProviders: Array<Provider> = [

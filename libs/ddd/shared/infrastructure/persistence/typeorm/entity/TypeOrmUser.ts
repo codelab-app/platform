@@ -14,7 +14,7 @@ import {
   Entity,
   PrimaryGeneratedColumn,
 } from 'typeorm'
-import { IUser } from '../../graphql/models/IUser'
+import { IUser } from '../../../graphql/models/IUser'
 import { CodelabValidationError } from 'apps/api/graph/src/app/filters/CodelabValidationError'
 
 @Entity('user')

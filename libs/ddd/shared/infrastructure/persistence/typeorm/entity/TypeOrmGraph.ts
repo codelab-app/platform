@@ -10,7 +10,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm'
 import { v4 as uuidv4 } from 'uuid'
-import { IGraph } from '../../graphql/models/IGraph'
+import { IGraph } from '../../../graphql/models/IGraph'
 import { TypeOrmEdge } from './TypeOrmEdge'
 import { TypeOrmVertex } from './TypeOrmVertex'
 

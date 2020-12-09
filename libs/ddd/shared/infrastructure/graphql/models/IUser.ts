@@ -1,5 +1,5 @@
 import { Field, InterfaceType } from '@nestjs/graphql'
-import { TypeOrmGraph } from '../../typeorm/entity/TypeOrmGraph'
+import { TypeOrmGraph } from '../../persistence/typeorm/entity/TypeOrmGraph'
 
 @InterfaceType()
 export abstract class IUser {

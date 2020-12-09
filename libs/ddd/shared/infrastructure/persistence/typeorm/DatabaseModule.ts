@@ -1,17 +1,10 @@
-import { Module, OnApplicationBootstrap, Provider } from '@nestjs/common'
-import { CqrsModule } from '@nestjs/cqrs'
-import { GraphQLModule } from '@nestjs/graphql'
+import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies'
-import { initializeTransactionalContext } from 'typeorm-transactional-cls-hooked'
 import { DatabaseConfig } from '../config/DatabaseConfig'
-import { GraphqlConfig } from '../config/GraphqlConfig'
-
-const providers: Array<Provider> = []
 
 @Module({
   imports: [
-    CqrsModule,
     TypeOrmModule.forRoot({
       name: 'default',
       type: 'postgres',
@@ -29,14 +22,6 @@ const providers: Array<Provider> = []
       },
       namingStrategy: new SnakeNamingStrategy(),
     }),
-    GraphQLModule.forRootAsync({
-      useClass: GraphqlConfig,
-    }),
   ],
-  providers,
 })
-export class InfrastructureModule implements OnApplicationBootstrap {
-  onApplicationBootstrap() {
-    initializeTransactionalContext()
-  }
-}
+export class DatabaseModule {}

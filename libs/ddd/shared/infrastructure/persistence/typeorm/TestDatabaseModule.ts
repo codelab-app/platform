@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies'
-import { TestDatabaseConfig } from '../../config/TestDatabaseConfig'
+import { TestDatabaseConfig } from '../config/TestDatabaseConfig'
 
 @Module({
   imports: [
@@ -24,4 +24,4 @@ import { TestDatabaseConfig } from '../../config/TestDatabaseConfig'
     }),
   ],
 })
-export class TestTypeOrmModule {}
+export class TestDatabaseModule {}
