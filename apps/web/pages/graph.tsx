@@ -26,7 +26,12 @@ const GraphPage = () => {
   //     },
   //   )
 
+  const buttonProps = {
+    onClick: () => appSend(EventNameApp.START_CREATE),
+  }
+
   const modalProps = {
+    title: 'Create Graph',
     visible: actors.modal.state.context.visible,
     onOk: () => appSend(EventNameApp.CANCEL),
     onCancel: () => appSend(EventNameApp.CANCEL),
@@ -36,10 +41,8 @@ const GraphPage = () => {
     <>
       {/* <ReactJson data={graphState.value} /> */}
       {/* <ReactJson data={collectionToTable(graphState.context.list)} /> */}
-      <Button onClick={() => appSend(EventNameApp.START_CREATE)}>
-        + Create New
-      </Button>
-      <Modal title="Basic Modal" {...modalProps}>
+      <Button {...buttonProps}>+ Create New</Button>
+      <Modal {...modalProps}>
         <FormGraph />
       </Modal>
       <Table {...collectionToTable(graphState.context.list)} />

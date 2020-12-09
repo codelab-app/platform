@@ -1,10 +1,8 @@
 import axios from 'axios'
 import { AppProps } from 'next/app'
 import React from 'react'
-import { NodeService as NodeServiceEntity } from '@codelab/core/node'
 import { createMachineApp } from '@codelab/state/app'
-import { MachineProvider, NodeServiceProvider } from '@codelab/ui/component'
-import { getApolloClient } from '@codelab/ui/hoc'
+import { MachineProvider } from '@codelab/ui/component'
 
 import 'antd/dist/antd.css'
 import 'highlight.js/styles/monokai-sublime.css'
@@ -16,17 +14,16 @@ axios.defaults.headers.post['Content-Type'] = 'application/json'
 const App: React.FC<AppProps> = (props) => {
   const { Component, pageProps } = props
   // const apolloClient = useApollo(pageProps.initialApolloState)
-  const nodeService = new NodeServiceEntity()
-
-  const machineApp = createMachineApp(nodeService, getApolloClient())
+  // const nodeService = new NodeServiceEntity()
+  const machineApp = createMachineApp()
 
   return (
     // <ApolloProvider client={apolloClient}>
-    <NodeServiceProvider nodeService={nodeService}>
-      <MachineProvider machine={machineApp}>
-        <Component {...pageProps} />
-      </MachineProvider>
-    </NodeServiceProvider>
+    // <NodeServiceProvider nodeService={nodeService}>
+    <MachineProvider machine={machineApp}>
+      <Component {...pageProps} />
+    </MachineProvider>
+    // </NodeServiceProvider>
     // </ApolloProvider>
   )
 }
