@@ -1,6 +1,7 @@
 import { useActor, useService } from '@xstate/react'
 import { Button, Modal, Table } from 'antd'
 import React, { useContext } from 'react'
+import { withApollo } from '@codelab/ddd/shared/infrastructure'
 import { collectionToTable } from '@codelab/shared/factory'
 import { EventNameApp } from '@codelab/state/app'
 import { FormGraph, MachineContext } from '@codelab/ui/component'
@@ -50,4 +51,4 @@ const GraphPage = () => {
   )
 }
 
-export default GraphPage
+export default withApollo(GraphPage)

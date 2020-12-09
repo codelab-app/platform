@@ -4,6 +4,7 @@
     "jsx": "preserve",
     "allowJs": true,
     "esModuleInterop": true,
+    "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
     "types": ["node", "jest", "@xstate/react", "object-mapper", "@rjsf/antd"],
     "strict": true,

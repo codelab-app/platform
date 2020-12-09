@@ -13,17 +13,12 @@ axios.defaults.headers.post['Content-Type'] = 'application/json'
 const App: React.FC<AppProps> = (props) => {
   const { Component, pageProps } = props
   // const apolloClient = useApollo(pageProps.initialApolloState)
-  // const nodeService = new NodeServiceEntity()
   const machineApp = createMachineApp()
 
   return (
-    // <ApolloProvider client={apolloClient}>
-    // <NodeServiceProvider nodeService={nodeService}>
     <MachineProvider machine={machineApp}>
       <Component {...pageProps} />
     </MachineProvider>
-    // </NodeServiceProvider>
-    // </ApolloProvider>
   )
 }
 

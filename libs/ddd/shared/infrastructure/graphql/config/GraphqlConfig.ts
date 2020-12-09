@@ -65,13 +65,14 @@ export class GraphqlConfig implements GqlOptionsFactory {
      */
     const adminExecutor = async ({ document, variables }: ExecutionParams) => {
       const query = print(document)
-      const uri = HasuraConfig.HASURA_GRAPHQL_URI as string
-      const hasuraSecret = HasuraConfig.HASURA_GRAPHQL_ADMIN_SECRET as string
+      const uri = HasuraConfig.HASURA_GRAPHQL_URI
+      const hasuraSecret = HasuraConfig.HASURA_GRAPHQL_ADMIN_SECRET
+
       const fetchResult = await fetch(uri, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-hasura-admin-secret': hasuraSecret,
+          'X-Hasura-Admin-Secret': hasuraSecret,
         },
         body: JSON.stringify({ query, variables }),
       })
@@ -95,7 +96,9 @@ export class GraphqlConfig implements GqlOptionsFactory {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: authorization,
+          // Add temporarily
+          'X-Hasura-Admin-Secret': HasuraConfig.HASURA_GRAPHQL_ADMIN_SECRET,
+          // Authorization: authorization,
         },
         body: JSON.stringify({ query, variables }),
       })

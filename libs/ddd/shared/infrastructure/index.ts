@@ -1,2 +1,2 @@
 export * from './persistence/typeorm'
-export * from './graphql/GraphqlModule'
+export * from './graphql'
