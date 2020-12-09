@@ -7,7 +7,6 @@ import { MachineProvider } from '@codelab/ui/component'
 import 'antd/dist/antd.css'
 import 'highlight.js/styles/monokai-sublime.css'
 
-// axios.defaults.baseURL = `${process.env.NEXT_PUBLIC_API_ORIGIN}/${process.env.NEXT_PUBLIC_API_PATHNAME}`
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 
 // TODO: MachineProvider increases page load speed

@@ -20,7 +20,7 @@ export const createMachineApp = () => {
         layout: () => spawn(machineLayout),
         // vertex: () => spawn(createMachineEntity<VertexI, VertexA>()),
         graph: () => spawn(createMachineEntity<GraphI, GraphA>(graphConfig)),
-        // node: () => spawn(createMachineNode(nodeService)),
+        // node: () => spawn(createMachineNode({})),
         // graphQLDemo: () => spawn(graphQLDemoMachine),
       }),
       states: {
