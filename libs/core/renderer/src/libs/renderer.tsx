@@ -1,5 +1,5 @@
 import { buildComponents } from './renderer-components'
-import { buildComponentsGraph, IGraphData } from './renderer-graph-components'
+import { IGraphData, buildComponentsGraph } from './renderer-graph-components'
 import { NodeI } from '@codelab/shared/interface/node'
 
 export class Renderer {

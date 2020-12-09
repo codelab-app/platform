@@ -49,7 +49,7 @@ export const convertGraphToTree = (data: IGraphData): NodeI => {
 
   if (rootsCount !== 1) {
     const errorMsg =
-      rootsCount === 0 ? `There in no root node` : `There is more that one root`
+      rootsCount === 0 ? `There is no root node` : `There is more that one root`
 
     throw new Error(`Graph: ${errorMsg}`)
   }

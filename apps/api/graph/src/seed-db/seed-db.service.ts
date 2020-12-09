@@ -21,14 +21,12 @@ export class SeedDbService {
     private readonly appRepository: Repository<CodelabAppEntity>,
     @InjectRepository(PageEntity)
     private readonly pageRepository: Repository<PageEntity>,
-  ) { }
+  ) {}
 
   async seedDB() {
-
     this.seedDemoDB()
     this.seedButtonData()
   }
-
 
   async seedDemoDB() {
     /**
@@ -189,6 +187,7 @@ export class SeedDbService {
       }),
     )
   }
+
   async seedButtonData() {
     /**
      * Vertices

@@ -23,10 +23,11 @@ const GraphByLabelDocument = gql`
   }
 `
 
-export const withApollo = (Story) => {
+export const useApollo = (Story) => {
   const apolloClient = getApolloClient()
   const [args, updateArgs] = useArgs()
   const graphLabel = useParameter('graphLabel', null)
+
   if (!args.fetched && graphLabel !== null) {
     apolloClient
       .query({
@@ -38,5 +39,6 @@ export const withApollo = (Story) => {
         updateArgs({ graphLabel, data: reponse.data, fetched: true })
       })
   }
+
   return Story()
 }
