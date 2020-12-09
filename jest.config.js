@@ -41,5 +41,6 @@ module.exports = {
     '<rootDir>/libs/ddd/shared',
     '<rootDir>/libs/ddd/modules/users',
     '<rootDir>/apps/api/codelab',
+    '<rootDir>/apps/web2',
   ],
 }

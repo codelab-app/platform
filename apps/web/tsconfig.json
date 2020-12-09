@@ -5,6 +5,7 @@
     "allowJs": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "allowSyntheticDefaultImports": true,
     "types": ["node", "jest", "@xstate/react", "object-mapper", "@rjsf/antd"],
     "strict": true,
@@ -14,10 +15,5 @@
     "isolatedModules": true
   },
   "include": ["**/*.ts", "**/*.tsx", "**/*.graphql", "next-env.d.ts"],
-  "exclude": ["node_modules", "**/deprecated/**/*"],
-  "references": [
-    {
-      "path": "./.storybook/tsconfig.json"
-    }
-  ]
+  "exclude": ["node_modules", "**/deprecated/**/*"]
 }

@@ -9,7 +9,7 @@ import {
 } from '@apollo/client'
 import { NextPage } from 'next'
 import React from 'react'
-import { combinedLink } from '../links/combinedLink'
+import { combinedLink } from './links/combinedLink'
 
 export const getApolloClient = (
   ctx?: any,
