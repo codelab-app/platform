@@ -5,3 +5,5 @@ bases:
 resources:
   - ingress.yaml
   # - secret.yaml
+patchesStrategicMerge:
+  - patches/patch_api_graph.yaml
