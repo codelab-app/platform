@@ -1,4 +1,5 @@
 const Dotenv = require('dotenv-webpack')
+const findConfig = require('findup-sync')
 
 module.exports = {
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
@@ -8,8 +9,11 @@ module.exports = {
       }
     }
 
-    // Hardcode for now
-    config.plugins.push(new Dotenv({ path: '.env' }))
+    const path = findConfig('.env')
+
+    if (path) {
+      config.plugins.push(new Dotenv({ path }))
+    }
 
     return config
   },

@@ -60,8 +60,8 @@ export class GraphqlService implements GqlOptionsFactory {
 
         return fetchResult.json()
       }
-      const remote: GraphQLSchema = await introspectSchema(adminExecutor)
 
+      const remote: GraphQLSchema = await introspectSchema(adminExecutor)
       const remoteExecutableSchema = makeRemoteExecutableSchema({
         schema: remote,
         executor: adminExecutor,
