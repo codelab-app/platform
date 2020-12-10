@@ -20,4 +20,16 @@ export class TestDatabaseConfig {
   public static readonly DB_NAME: string = get('TEST_DB_NAME')
     .required()
     .asString()
+
+  public static readonly TYPEORM_SYNCHRONIZE: boolean = get(
+    'TYPEORM_SYNCHRONIZE',
+  )
+    .default(0)
+    .asBool()
+
+  public static readonly TYPEORM_DROP_SCHEMA: boolean = get(
+    'TYPEORM_DROP_SCHEMA',
+  )
+    .default(0)
+    .asBool()
 }
