@@ -64,7 +64,10 @@ rules:
   #   - sortDir: asc
   # --- !IMPORTS ---
 
+  # React
+  react/require-default-props: off
   react/destructuring-assignment: off
+
   no-inner-declarations: off
   no-unused-expressions:
     - error

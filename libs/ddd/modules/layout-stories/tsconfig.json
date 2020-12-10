@@ -1,7 +1,10 @@
 {
   "extends": "../../../../tsconfig.base.json",
   "compilerOptions": {
+    "composite": true,
     "jsx": "react",
+    "types": ["node", "jest", "@rjsf/antd"],
+    "declaration": true,
     "allowJs": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true
@@ -10,10 +13,22 @@
   "include": [],
   "references": [
     {
+      "path": "./src/store"
+    },
+    {
+      "path": "./src/useCases"
+    },
+    {
+      "path": "./src/view"
+    },
+    {
       "path": "./tsconfig.lib.json"
     },
     {
       "path": "./tsconfig.spec.json"
+    },
+    {
+      "path": "./.storybook/tsconfig.json"
     }
   ]
 }
