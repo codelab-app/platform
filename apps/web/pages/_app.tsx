@@ -9,7 +9,7 @@ import 'antd/dist/antd.css'
 import 'highlight.js/styles/monokai-sublime.css'
 
 const App = ({ children }: PropsWithChildren<any>) => {
-  const appMachine = useAppMachine
+  const appMachine = useAppMachine()
 
   console.log(appMachine)
 
