@@ -1,5 +1,5 @@
 import { ConfigFactory } from '@nestjs/config/dist/interfaces'
-import { environments } from '@codelab/shared/utils'
+import { environments } from './env'
 
 export enum ApiConfigTypes {
   CODELAB_ENV = 'CODELAB_ENV',

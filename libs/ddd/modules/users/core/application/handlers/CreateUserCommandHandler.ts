@@ -7,7 +7,7 @@ import { User } from '../../domain/user'
 import { CreateUserCommand } from '../commands/CreateUserCommand'
 import { UserUseCaseDto } from '../useCases/UserUseCaseDto'
 import { CreateUserUseCase } from '../useCases/createUser/CreateUserUseCase'
-import { Result } from '@codelab/ddd/shared/core'
+import { Result } from '@codelab/ddd/backend/core'
 
 @CommandHandler(CreateUserCommand)
 export class CreateUserCommandHandler

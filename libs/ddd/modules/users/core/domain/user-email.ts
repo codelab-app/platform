@@ -1,5 +1,5 @@
 import { IsEmail } from 'class-validator'
-import { ValueObject } from '@codelab/ddd/shared/core'
+import { ValueObject } from '@codelab/ddd/backend/core'
 
 export interface UserEmailProps {
   value: string

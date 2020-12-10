@@ -1,6 +1,7 @@
 {
   "extends": "../../../tsconfig.base.json",
   "compilerOptions": {
+    "composite": true,
     "jsx": "react",
     "allowJs": true,
     "esModuleInterop": true,
@@ -9,6 +10,21 @@
   "files": [],
   "include": [],
   "references": [
+    {
+      "path": "./common"
+    },
+    {
+      "path": "./core"
+    },
+    {
+      "path": "./framework"
+    },
+    {
+      "path": "./infrastructure"
+    },
+    {
+      "path": "./presentation"
+    },
     {
       "path": "./tsconfig.lib.json"
     },

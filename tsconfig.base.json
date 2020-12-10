@@ -84,16 +84,8 @@
       "@codelab/shared/interface/collections": [
         "libs/shared/interface/collections/src/index.ts"
       ],
-      "@codelab/ddd/backend/core": ["libs/ddd/backend/core/index.ts"],
-      "@codelab/ddd/backend/common": ["libs/ddd/backend/common/index.ts"],
-      "@codelab/ddd/backend/framework": ["libs/ddd/backend/framework/index.ts"],
-      "@codelab/ddd/backend/infrastructure": [
-        "libs/ddd/backend/infrastructure/index.ts"
-      ],
       "@codelab/ddd/modules/users": ["libs/ddd/modules/users/index.ts"],
-      "@codelab/ddd/backend/presentation": [
-        "libs/ddd/backend/presentation/index.ts"
-      ],
+      "@codelab/ddd/backend/*": ["libs/ddd/backend/*"],
       "@codelab/ddd/frontend/users": ["libs/ddd/frontend/users/src/index.ts"],
       "@codelab/ddd/modules/users-stories": [
         "libs/ddd/modules/users-stories/src/index.ts"

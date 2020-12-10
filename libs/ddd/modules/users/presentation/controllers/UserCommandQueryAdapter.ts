@@ -7,8 +7,8 @@ import { CreateUserRequest } from '../../core/application/useCases/createUser/Cr
 import {
   CommandQueryBusPort,
   UseCaseRequestPort,
-} from '@codelab/ddd/shared/core'
-import { TypeOrmUser } from '@codelab/ddd/shared/infrastructure'
+} from '@codelab/ddd/backend/core'
+import { TypeOrmUser } from '@codelab/ddd/backend/infrastructure'
 
 /**
  * An adapter for GraphQL User resolvers.

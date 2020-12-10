@@ -12,7 +12,7 @@ import { UserUseCaseDto } from '../UserUseCaseDto'
 import {
   TestDatabaseModule,
   TypeOrmUser,
-} from '@codelab/ddd/shared/infrastructure'
+} from '@codelab/ddd/backend/infrastructure'
 
 describe('CreateUserUseCase', () => {
   let userModule: any

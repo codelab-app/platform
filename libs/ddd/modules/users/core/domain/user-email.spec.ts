@@ -1,5 +1,5 @@
 import { UserEmail } from './user-email'
-import { ValueObject } from '@codelab/ddd/shared/core'
+import { ValueObject } from '@codelab/ddd/backend/core'
 
 describe('User email request validation', () => {
   const createUserEmail = (email: string): UserEmail =>
