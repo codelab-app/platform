@@ -1692,27 +1692,6 @@
         }
       }
     },
-    "ddd-shared": {
-      "root": "libs/ddd/shared",
-      "sourceRoot": "libs/ddd/shared",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/ddd/shared/**/*.{ts,tsx,js,jsx}"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/ddd/shared/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
     "ddd-modules-users": {
       "root": "libs/ddd/modules/users",
       "sourceRoot": "libs/ddd/modules/users",
@@ -1787,6 +1766,101 @@
           "options": {
             "jestConfig": "apps/api/codelab/jest.config.js",
             "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "ddd-backend": {
+      "root": "libs/ddd/backend",
+      "sourceRoot": "libs/ddd/backend",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/ddd/backend/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/ddd/backend/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "ddd-frontend-users": {
+      "root": "libs/ddd/frontend/users",
+      "sourceRoot": "libs/ddd/frontend/users/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/ddd/frontend/users/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/ddd/frontend/users/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "ddd-modules-users-stories": {
+      "root": "libs/ddd/modules/users-stories",
+      "sourceRoot": "libs/ddd/modules/users-stories/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/ddd/modules/users-stories/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/ddd/modules/users-stories/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "storybook": {
+          "builder": "@nrwl/storybook:storybook",
+          "options": {
+            "uiFramework": "@storybook/react",
+            "port": 4400,
+            "config": {
+              "configFolder": "libs/ddd/modules/users-stories/.storybook"
+            }
+          },
+          "configurations": {
+            "ci": {
+              "quiet": true
+            }
+          }
+        },
+        "build-storybook": {
+          "builder": "@nrwl/storybook:build",
+          "options": {
+            "uiFramework": "@storybook/react",
+            "outputPath": "dist/storybook/ddd-modules-users-stories",
+            "config": {
+              "configFolder": "libs/ddd/modules/users-stories/.storybook"
+            }
+          },
+          "configurations": {
+            "ci": {
+              "quiet": true
+            }
           }
         }
       }

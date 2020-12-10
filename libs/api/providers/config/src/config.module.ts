@@ -2,12 +2,12 @@ import * as Joi from '@hapi/joi'
 import { Module } from '@nestjs/common'
 import { ConfigModule as NestConfigModule } from '@nestjs/config'
 import { ApiConfig, ApiConfigTypes, config } from './config'
+import { envPath, envs, isDev } from './env'
 import {
   ConfigGraphqlHasuraService,
   ConfigTypeormHasuraService,
 } from './hasura'
 import { ConfigJwtService } from './jwt'
-import { envPath, envs, isDev } from '@codelab/shared/utils'
 
 @Module({
   imports: [

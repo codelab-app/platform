@@ -6,9 +6,8 @@ import { CreateUserCommandHandler } from '../../core/application/handlers/Create
 import { CreateUserService } from '../../core/application/services/CreateUserService'
 import { TypeOrmUserRepositoryAdapter } from '../../infrastructure/persistence/TypeOrmUserRepositoryAdapter'
 import { UserCommandQueryAdapter } from '../../presentation/controllers/UserCommandQueryAdapter'
-import { UserController } from '../../presentation/controllers/UserController'
 import { UserDITokens } from '../UserDITokens'
-import { TypeOrmUser } from '@codelab/ddd/shared/infrastructure'
+import { TypeOrmUser } from '@codelab/ddd/backend/infrastructure'
 
 export const persistenceProviders: Array<Provider> = [
   {
@@ -32,7 +31,6 @@ export const handlerProviders: Array<Provider> = [CreateUserCommandHandler]
 
 @Module({
   imports: [CqrsModule, TypeOrmModule.forFeature([TypeOrmUser])],
-  controllers: [UserController],
   providers: [
     ...persistenceProviders,
     ...useCaseProviders,

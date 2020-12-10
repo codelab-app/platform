@@ -1,4 +1,4 @@
-import findConfig from 'findup-sync'
+import * as findConfig from 'findup-sync'
 
 export const envs = [
   'development',

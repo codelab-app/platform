@@ -1,10 +1,8 @@
 import { Module, OnApplicationBootstrap, Provider } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
 import { initializeTransactionalContext } from 'typeorm-transactional-cls-hooked'
-import {
-  DatabaseModule,
-  GraphqlModule,
-} from '@codelab/ddd/shared/infrastructure'
+import { GraphqlModule } from '../../infrastructure/graphql/GraphqlModule'
+import { DatabaseModule } from '../../infrastructure/persistence/typeorm/DatabaseModule'
 
 const providers: Array<Provider> = []
 
