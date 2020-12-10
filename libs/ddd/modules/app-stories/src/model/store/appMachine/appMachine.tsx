@@ -11,12 +11,27 @@ export const appMachine = Machine({
       states: {
         active: {
           on: {
-            TOGGLE: 'inactive',
+            TOGGLE_SIDEBAR: 'inactive',
           },
         },
         inactive: {
           on: {
-            TOGGLE: 'active',
+            TOGGLE_SIDEBAR: 'active',
+          },
+        },
+      },
+    },
+    modal: {
+      initial: 'inactive',
+      states: {
+        active: {
+          on: {
+            TOGGLE_MODAL: 'inactive',
+          },
+        },
+        inactive: {
+          on: {
+            TOGGLE_MODAL: 'active',
           },
         },
       },

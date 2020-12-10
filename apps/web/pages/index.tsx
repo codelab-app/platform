@@ -1,9 +1,8 @@
 import React from 'react'
 import { withApollo } from '@codelab/ddd/frontend/model/store/apollo/apolloClient'
-import { UserSignupButton } from '@codelab/ddd/modules/users-stories'
 
 const HomePage = () => {
-  return <UserSignupButton />
+  return <h1>Home</h1>
 }
 
 export default withApollo(HomePage)

@@ -6,13 +6,15 @@ import {
 import { Menu } from 'antd'
 import React from 'react'
 
-type AppMenuProps = {}
+type AppSidebarProps = {
+  // onCollapse: any
+}
 
 const { SubMenu } = Menu
 
 const rootSubmenuKeys = ['sub1', 'sub2', 'sub4']
 
-export const AppSidebar = (props: AppMenuProps) => {
+export const AppSidebarMenu = (props: AppSidebarProps) => {
   const [openKeys, setOpenKeys] = React.useState(['sub1'])
 
   const onOpenChange = (keys: Array<React.Key>) => {
