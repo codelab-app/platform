@@ -1,28 +1,8 @@
-#
-# ClusterRole vs Role
-#
-# https://stackoverflow.com/questions/51647643/kubernetes-role-vs-clusterrole
-
-#
-# Role
-#
-# A Role can only be used to grant access to resources within a single namespace.
-
-#
-# ClusterRole
-#
-# A ClusterRole can be used to grant the same permissions as a Role, but because they are cluster-scoped, they can also be used to grant access to:
-#
-# cluster-scoped resources (like nodes)
-# non-resource endpoints (like “/healthz”)
-# namespaced resources (like pods) across all namespaces (needed to run kubectl get pods --all-namespaces, for example)
-
 kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: codelab-role
   namespace: codelab
-# Permissions being granted, additive only
 rules:
   - apiGroups: ['', 'apps', 'batch', 'extensions']
     resources:

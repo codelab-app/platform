@@ -3,6 +3,8 @@ repositories:
   url: https://charts.helm.sh/stable
 - name: bitnami
   url: https://charts.bitnami.com/bitnami
+- name: hashicorp
+  url: https://helm.releases.hashicorp.com
 
 releases:
 - name: cert-manager
@@ -25,3 +27,10 @@ releases:
   version: 10.0.0
   values:
     - values/postgresql.yaml
+
+- name: vault-injector
+  namespace: vault
+  chart: hashicorp/vault
+  version: 0.8.0
+  values:
+    - values/vault-injector-staging.yml

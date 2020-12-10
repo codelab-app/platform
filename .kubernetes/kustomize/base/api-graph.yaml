@@ -5,6 +5,8 @@ metadata:
   namespace: codelab
 spec:
   replicas: 1
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app: api-graph
@@ -13,29 +15,14 @@ spec:
       labels:
         app: api-graph
     spec:
-      volumes:
-        - name: env
-          secret:
-            defaultMode: 420
-            secretName: env
+      serviceAccountName: codelab-service-account
       containers:
         - name: api-graph
           imagePullPolicy: Always
           image: codelabai/codelab:0.03
-          command:
-            - /bin/sh
-            - -c
-            - 'cp /mnt/.env /usr/local/codelab/.env && yarn pm2-runtime /usr/local/codelab/dist/apps/api/graph/pm2.json'
-          volumeMounts:
-            - mountPath: /mnt/
-              name: env
           ports:
             - name: http
               containerPort: 4004
-          resources:
-            # requests:
-            #   memory: 256Mi
-            #   cpu: '0.2'
 ---
 apiVersion: v1
 kind: Service
