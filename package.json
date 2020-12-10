@@ -248,7 +248,7 @@
     "eslint-plugin-jsx-a11y": "6.4.1",
     "eslint-plugin-prettier": "3.2.0",
     "eslint-plugin-react": "7.21.5",
-    "eslint-plugin-react-hooks": "4.2.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-sort-exports": "0.3.2",
     "eslint-plugin-unused-imports": "1.0.1",
     "fluent-logger": "3.4.1",

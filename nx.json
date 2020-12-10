@@ -169,6 +169,9 @@
     "ddd-modules-users-stories": {
       "tags": []
     },
+    "ddd-modules-app-stories": {
+      "tags": []
+    },
     "ddd-modules-layout-stories": {
       "tags": []
     }

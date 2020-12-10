@@ -1,7 +1,10 @@
 {
   "extends": "../../../../tsconfig.base.json",
   "compilerOptions": {
+    "composite": true,
     "jsx": "react",
+    "types": ["node", "jest", "@rjsf/antd"],
+    "declaration": true,
     "allowJs": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true
@@ -9,6 +12,15 @@
   "files": [],
   "include": [],
   "references": [
+    {
+      "path": "./src/model"
+    },
+    {
+      "path": "./src/presenters"
+    },
+    {
+      "path": "./src/view"
+    },
     {
       "path": "./tsconfig.lib.json"
     },

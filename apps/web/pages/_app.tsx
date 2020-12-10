@@ -1,13 +1,22 @@
 import { AppProps } from 'next/app'
-import React from 'react'
+import React, { PropsWithChildren } from 'react'
 import { RecoilRoot } from 'recoil'
-import { AppLayout } from '@codelab/ddd/modules/layout-stories/view/AppLayout'
-import { AppSidebar } from '@codelab/ddd/modules/layout-stories/view/AppSidebar'
+import { useAppMachine } from '@codelab/ddd/modules/app-stories/model/store/appMachine/appMachine'
+import { AppLayout } from '@codelab/ddd/modules/app-stories/view/AppLayout'
+import { AppSidebar } from '@codelab/ddd/modules/app-stories/view/AppSidebar'
 
 import 'antd/dist/antd.css'
 import 'highlight.js/styles/monokai-sublime.css'
 
-const App: React.FC<AppProps> = (props) => {
+const App = ({ children }: PropsWithChildren<any>) => {
+  const appMachine = useAppMachine
+
+  console.log(appMachine)
+
+  return <AppLayout sidebar={<AppSidebar />}>{children}</AppLayout>
+}
+
+const AppContainer: React.FC<AppProps> = (props) => {
   const { Component, pageProps } = props
 
   return (
@@ -17,11 +26,11 @@ const App: React.FC<AppProps> = (props) => {
           height: 100%;
         }
       `}</style>
-      <AppLayout sidebar={<AppSidebar />}>
+      <App>
         <Component {...pageProps} />
-      </AppLayout>
+      </App>
     </RecoilRoot>
   )
 }
 
-export default App
+export default AppContainer

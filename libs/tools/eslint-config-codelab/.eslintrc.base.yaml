@@ -12,10 +12,17 @@ plugins:
   - import # https://github.com/benmosher/eslint-plugin-import
   - unused-imports
   - sort-exports # https://github.com/jrdrg/eslint-plugin-sort-exports#readme
+  - react-hooks
 settings:
   import/parser:
     '@typescript-eslint/parser': ['.ts', '.tsx']
 rules:
+  # hooks
+  react-hooks/rules-of-hooks: error
+  react-hooks/exhaustive-deps:
+    - warn
+    - additionalHooks: useRecoilCallback
+
   no-new-func: off
   no-undef: error # not included in preset, surprisingly
   no-underscore-dangle: off

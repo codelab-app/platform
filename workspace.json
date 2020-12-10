@@ -1865,6 +1865,59 @@
         }
       }
     },
+    "ddd-modules-app-stories": {
+      "root": "libs/ddd/modules/app-stories",
+      "sourceRoot": "libs/ddd/modules/app-stories",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/ddd/modules/app-stories/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/ddd/modules/app-stories/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "storybook": {
+          "builder": "@nrwl/storybook:storybook",
+          "options": {
+            "uiFramework": "@storybook/react",
+            "port": 4400,
+            "config": {
+              "configFolder": "libs/ddd/modules/app-stories/.storybook"
+            }
+          },
+          "configurations": {
+            "ci": {
+              "quiet": true
+            }
+          }
+        },
+        "build-storybook": {
+          "builder": "@nrwl/storybook:build",
+          "options": {
+            "uiFramework": "@storybook/react",
+            "outputPath": "dist/storybook/ddd-modules-layout-stories",
+            "config": {
+              "configFolder": "libs/ddd/modules/app-stories/.storybook"
+            }
+          },
+          "configurations": {
+            "ci": {
+              "quiet": true
+            }
+          }
+        }
+      }
+    },
     "ddd-modules-layout-stories": {
       "root": "libs/ddd/modules/layout-stories",
       "sourceRoot": "libs/ddd/modules/layout-stories/src",

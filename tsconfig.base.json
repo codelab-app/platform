@@ -90,8 +90,11 @@
       "@codelab/ddd/modules/users-stories": [
         "libs/ddd/modules/users-stories/src/index.ts"
       ],
-      "@codelab/ddd/modules/layout-stories/*": [
-        "libs/ddd/modules/layout-stories/src/*"
+      "@codelab/ddd/modules/app-stories/*": [
+        "libs/ddd/modules/app-stories/src/*"
+      ],
+      "@codelab/ddd/modules/layout-stories": [
+        "libs/ddd/modules/layout-stories/src/index.ts"
       ]
     }
   },
