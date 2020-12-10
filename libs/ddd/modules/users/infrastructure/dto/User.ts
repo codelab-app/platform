@@ -1,5 +1,5 @@
 import { Field, ObjectType } from '@nestjs/graphql'
-import { TypeOrmUser } from '@codelab/ddd/shared/infrastructure'
+import { TypeOrmUser } from '@codelab/ddd/backend/infrastructure'
 
 @ObjectType()
 export class User {

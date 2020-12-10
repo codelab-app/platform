@@ -3,7 +3,7 @@
   "compilerOptions": {
     "outDir": "../../../dist/out-tsc",
     "types": ["node", "object-mapper"],
-    "jsx": "preserve",
+    "jsx": "react",
     "esModuleInterop": true,
     "module": "CommonJS",
     "allowSyntheticDefaultImports": true,
@@ -11,6 +11,6 @@
     "experimentalDecorators": true,
     "target": "ES2018"
   },
-  "exclude": ["**/*.spec.ts"],
+  "exclude": ["**/*.spec.ts", "**/*.tsx"],
   "include": ["**/*.ts"]
 }

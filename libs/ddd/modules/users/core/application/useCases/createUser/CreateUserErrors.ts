@@ -1,4 +1,4 @@
-import { RequestValidationError } from '@codelab/ddd/shared/core'
+import { RequestValidationError } from '@codelab/ddd/backend/core'
 
 export namespace CreateUserErrors {
   export class EmailAlreadyExistsError extends RequestValidationError {

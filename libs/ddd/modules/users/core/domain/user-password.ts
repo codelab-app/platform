@@ -1,6 +1,6 @@
 import * as bcrypt from 'bcrypt'
 import { MinLength, ValidationArguments } from 'class-validator'
-import { ValueObject } from '@codelab/ddd/shared/core'
+import { ValueObject } from '@codelab/ddd/backend/core'
 
 interface UserPasswordProps {
   value: string

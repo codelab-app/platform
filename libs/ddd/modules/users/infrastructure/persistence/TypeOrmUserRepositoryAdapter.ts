@@ -2,7 +2,7 @@ import { EntityRepository } from 'typeorm'
 import { BaseRepository } from 'typeorm-transactional-cls-hooked'
 import { FindUserBy } from '../../common/CommonTypes'
 import { UserRepositoryPort } from '../../core/adapters/UserRepositoryPort'
-import { TypeOrmUser } from '@codelab/ddd/shared/infrastructure'
+import { TypeOrmUser } from '@codelab/ddd/backend/infrastructure'
 
 @EntityRepository(TypeOrmUser)
 export class TypeOrmUserRepositoryAdapter

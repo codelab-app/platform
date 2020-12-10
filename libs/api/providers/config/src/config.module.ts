@@ -1,13 +1,15 @@
 import * as Joi from '@hapi/joi'
 import { Module } from '@nestjs/common'
 import { ConfigModule as NestConfigModule } from '@nestjs/config'
+import findConfig from 'findup-sync'
 import { ApiConfig, ApiConfigTypes, config } from './config'
 import {
   ConfigGraphqlHasuraService,
   ConfigTypeormHasuraService,
 } from './hasura'
 import { ConfigJwtService } from './jwt'
-import { envPath, envs, isDev } from '@codelab/shared/utils'
+
+const isDev = process.env.NODE_ENV === 'development'
 
 @Module({
   imports: [
@@ -17,12 +19,9 @@ import { envPath, envs, isDev } from '@codelab/shared/utils'
       /**
        * Only load locally
        */
-      envFilePath: isDev ? envPath() : '',
+      envFilePath: isDev ? findConfig('.env') ?? '' : '',
       ignoreEnvFile: !isDev,
       validationSchema: Joi.object<ApiConfig>({
-        [ApiConfigTypes.CODELAB_ENV]: Joi.string()
-          .required()
-          .valid(...envs),
         // Typeorm
         [ApiConfigTypes.TYPEORM_SEED]: Joi.number(),
         [ApiConfigTypes.TYPEORM_DROP_SCHEMA]: Joi.number(),

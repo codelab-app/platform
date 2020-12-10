@@ -15,4 +15,3 @@ services:
       - ../.env
     environment:
       - NODE_ENV=production
-      - CODELAB_ENV=production

@@ -1,9 +1,9 @@
 import { Exclude, Type, plainToClass } from 'class-transformer'
-import { TransformBoth } from '../../../../shared/common/TransformBoth'
 import { CreateUserRequest } from '../application/useCases/createUser/CreateUserRequest'
 import { UserEmail } from './user-email'
 import { UserPassword } from './user-password'
-import { AggregateRoot, Result } from '@codelab/ddd/shared/core'
+import { TransformBoth } from '@codelab/ddd/backend/common'
+import { AggregateRoot, Result } from '@codelab/ddd/backend/core'
 
 interface UserProps {
   email: string

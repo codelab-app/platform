@@ -1,7 +1,7 @@
-import { RequestValidationError } from '../../../../shared/core/application/common/errors/RequestValidationError'
 import { User } from './user'
 import { UserEmail } from './user-email'
 import { UserPassword } from './user-password'
+import { RequestValidationError } from '@codelab/ddd/backend/core'
 
 describe('Domain model User', () => {
   it('creates a user object successfully', () => {

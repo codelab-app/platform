@@ -5,7 +5,7 @@ import { CreateUserErrors } from '../useCases/createUser/CreateUserErrors'
 import { CreateUserRequest } from '../useCases/createUser/CreateUserRequest'
 import { CreateUserResponse } from '../useCases/createUser/CreateUserResponse'
 import { CreateUserUseCase } from '../useCases/createUser/CreateUserUseCase'
-import { Result } from '@codelab/ddd/shared/core'
+import { Result } from '@codelab/ddd/backend/core'
 
 export class CreateUserService implements CreateUserUseCase {
   constructor(private readonly userRepository: UserRepositoryPort) {}

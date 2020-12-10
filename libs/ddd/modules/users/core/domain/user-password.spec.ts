@@ -1,5 +1,5 @@
 import { UserPassword } from './user-password'
-import { ValueObject } from '@codelab/ddd/shared/core'
+import { ValueObject } from '@codelab/ddd/backend/core'
 
 describe('User password', () => {
   const createUserPassword = (password: string): UserPassword =>

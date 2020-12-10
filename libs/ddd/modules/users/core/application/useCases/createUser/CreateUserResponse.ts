@@ -1,7 +1,7 @@
 import { Either } from 'fp-ts/lib/Either'
 import { User } from '../../../domain/user'
 import { CreateUserErrors } from './CreateUserErrors'
-import { Result } from '@codelab/ddd/shared/core'
+import { Result } from '@codelab/ddd/backend/core'
 
 export type CreateUserResponse = Either<
   CreateUserErrors.EmailAlreadyExistsError,

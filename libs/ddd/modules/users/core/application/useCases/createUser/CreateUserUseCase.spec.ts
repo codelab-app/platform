@@ -6,13 +6,13 @@ import {
   handlerProviders,
   persistenceProviders,
   useCaseProviders,
-} from '../../../../infrastructure/adapter/UserModule'
+} from '../../../../framework/nestjs/UserModule'
 import { CreateUserCommand } from '../../commands/CreateUserCommand'
 import { UserUseCaseDto } from '../UserUseCaseDto'
 import {
-  TestTypeOrmModule,
+  TestDatabaseModule,
   TypeOrmUser,
-} from '@codelab/ddd/shared/infrastructure'
+} from '@codelab/ddd/backend/infrastructure'
 
 describe('CreateUserUseCase', () => {
   let userModule: any
@@ -20,7 +20,7 @@ describe('CreateUserUseCase', () => {
   beforeAll(async () => {
     userModule = await Test.createTestingModule({
       imports: [
-        TestTypeOrmModule,
+        TestDatabaseModule,
         CqrsModule,
         TypeOrmModule.forFeature([TypeOrmUser]),
       ],

@@ -17,7 +17,6 @@ services:
       - ../.env
     environment:
       - NODE_ENV=production
-      - CODELAB_ENV=production
       - NEXT_PUBLIC_API_ORIGIN
       - NEXT_PUBLIC_API_PATHNAME
 
@@ -35,7 +34,6 @@ services:
       - ../.env
     environment:
       - NODE_ENV=production
-      - CODELAB_ENV=production
       - API_PORT_GRAPH
       - HASURA_GRAPHQL_URI
       - POSTGRES_HOST
