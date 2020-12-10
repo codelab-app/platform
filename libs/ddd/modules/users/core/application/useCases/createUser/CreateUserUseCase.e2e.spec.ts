@@ -1,8 +1,8 @@
 import { INestApplication } from '@nestjs/common'
 import { Test } from '@nestjs/testing'
 import request from 'supertest'
-import { UserModule } from '@codelab/ddd/modules/users'
-import { TestInfrastructureModule } from '@codelab/ddd/shared/infrastructure'
+import { UserModule } from '../../../../framework/nestjs/UserModule'
+import { TestInfrastructureModule } from '@codelab/ddd/backend/framework/nestjs/test-infrastructure.module'
 
 describe('User E2E test', () => {
   let app: INestApplication

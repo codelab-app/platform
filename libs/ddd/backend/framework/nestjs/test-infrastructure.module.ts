@@ -4,8 +4,10 @@ import { GraphQLModule } from '@nestjs/graphql'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies'
 import { initializeTransactionalContext } from 'typeorm-transactional-cls-hooked'
-import { GraphqlConfig } from '../config/GraphqlConfig'
-import { TestDatabaseConfig } from '../config/TestDatabaseConfig'
+import {
+  GraphqlConfig,
+  TestDatabaseConfig,
+} from '@codelab/ddd/backend/infrastructure'
 
 const providers: Array<Provider> = []
 

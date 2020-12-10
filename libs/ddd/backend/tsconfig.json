@@ -8,7 +8,14 @@
     "allowSyntheticDefaultImports": true
   },
   "files": [],
-  "include": [],
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.js",
+    "**/*.jsx",
+    "**/*.json",
+    ".*.js"
+  ],
   "references": [
     {
       "path": "./common"
