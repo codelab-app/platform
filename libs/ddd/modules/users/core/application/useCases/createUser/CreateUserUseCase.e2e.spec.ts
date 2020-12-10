@@ -2,14 +2,14 @@ import { INestApplication } from '@nestjs/common'
 import { Test } from '@nestjs/testing'
 import request from 'supertest'
 import { UserModule } from '@codelab/ddd/modules/users'
-import { InfrastructureModule } from '@codelab/ddd/shared/infrastructure'
+import { TestInfrastructureModule } from '@codelab/ddd/shared/infrastructure'
 
 describe('User E2E test', () => {
   let app: INestApplication
 
   beforeAll(async () => {
     const m = await Test.createTestingModule({
-      imports: [InfrastructureModule, UserModule],
+      imports: [TestInfrastructureModule, UserModule],
     }).compile()
 
     app = m.createNestApplication()
