@@ -2,6 +2,7 @@ import { AppProps } from 'next/app'
 import React from 'react'
 import { RecoilRoot } from 'recoil'
 import { AppLayout } from '@codelab/ddd/modules/layout-stories/view/AppLayout'
+import { AppSidebar } from '@codelab/ddd/modules/layout-stories/view/AppSidebar'
 
 import 'antd/dist/antd.css'
 import 'highlight.js/styles/monokai-sublime.css'
@@ -16,7 +17,7 @@ const App: React.FC<AppProps> = (props) => {
           height: 100%;
         }
       `}</style>
-      <AppLayout>
+      <AppLayout sidebar={<AppSidebar />}>
         <Component {...pageProps} />
       </AppLayout>
     </RecoilRoot>

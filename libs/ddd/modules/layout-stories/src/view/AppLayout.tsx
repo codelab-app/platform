@@ -5,7 +5,6 @@ const { Header, Footer, Sider, Content } = Layout
 
 type AppLayoutProps = {
   header?: React.ReactNode
-  children?: React.ReactNode
   footer?: React.ReactNode
   sidebar?: React.ReactNode
 }
@@ -15,11 +14,13 @@ export const AppLayout = (props: PropsWithChildren<AppLayoutProps>) => {
 
   return (
     <Layout style={{ height: '100%' }}>
-      <Sider>{sidebar}</Sider>
+      <Sider theme="light" collapsible collapsed={false}>
+        {sidebar}
+      </Sider>
       <Layout>
         <Header>{header}</Header>
         <Content>{children}</Content>
-        <Footer>{footer}</Footer>
+        <Footer style={{ textAlign: 'center' }}>Codelab.ai ©2020</Footer>
       </Layout>
     </Layout>
   )
