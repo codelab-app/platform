@@ -1,6 +1,6 @@
 module.exports = {
-  displayName: 'ddd-frontend-users',
-  preset: '../../../../jest.preset.js',
+  displayName: 'ddd-frontend',
+  preset: '../../../jest.preset.js',
   transform: {
     '^.+\\.[tj]sx?$': [
       'babel-jest',
@@ -8,5 +8,5 @@ module.exports = {
     ],
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../../../coverage/libs/ddd/frontend/users',
+  coverageDirectory: '../../../coverage/libs/ddd/frontend/users',
 }

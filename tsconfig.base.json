@@ -84,11 +84,17 @@
       "@codelab/shared/interface/collections": [
         "libs/shared/interface/collections/src/index.ts"
       ],
-      "@codelab/ddd/modules/users": ["libs/ddd/modules/users/index.ts"],
       "@codelab/ddd/backend/*": ["libs/ddd/backend/*"],
-      "@codelab/ddd/frontend/users": ["libs/ddd/frontend/users/src/index.ts"],
+      "@codelab/ddd/frontend/*": ["libs/ddd/frontend/*"],
+      "@codelab/ddd/modules/users": ["libs/ddd/modules/users/index.ts"],
       "@codelab/ddd/modules/users-stories": [
         "libs/ddd/modules/users-stories/src/index.ts"
+      ],
+      "@codelab/ddd/modules/app-stories/*": [
+        "libs/ddd/modules/app-stories/src/*"
+      ],
+      "@codelab/ddd/modules/layout-stories": [
+        "libs/ddd/modules/layout-stories/src/index.ts"
       ]
     }
   },

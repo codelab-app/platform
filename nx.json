@@ -163,10 +163,16 @@
     "ddd-backend": {
       "tags": []
     },
-    "ddd-frontend-users": {
+    "ddd-frontend": {
       "tags": []
     },
     "ddd-modules-users-stories": {
+      "tags": []
+    },
+    "ddd-modules-app-stories": {
+      "tags": []
+    },
+    "ddd-modules-layout-stories": {
       "tags": []
     }
   }
