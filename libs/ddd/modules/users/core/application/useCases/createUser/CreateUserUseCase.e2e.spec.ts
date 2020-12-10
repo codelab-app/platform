@@ -4,7 +4,7 @@ import request from 'supertest'
 import { UserModule } from '../../../../framework/nestjs/UserModule'
 import { TestInfrastructureModule } from '@codelab/ddd/backend/framework/nestjs/test-infrastructure.module'
 
-describe('User E2E test', () => {
+describe.skip('User E2E test', () => {
   let app: INestApplication
 
   beforeAll(async () => {
