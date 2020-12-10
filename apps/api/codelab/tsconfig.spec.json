@@ -2,8 +2,10 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../../dist/out-tsc",
+    "esModuleInterop": true,
+    "allowJs": true,
     "module": "commonjs",
-    "types": ["jest", "node"]
+    "types": ["jest", "node", "object-mapper"]
   },
   "include": ["**/*.spec.ts", "**/*.d.ts"]
 }

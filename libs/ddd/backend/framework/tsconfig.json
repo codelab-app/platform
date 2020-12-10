@@ -1,4 +1,5 @@
 {
+  "extends": "../tsconfig.json",
   "include": [
     "**/*.ts",
     "**/*.tsx",
@@ -6,5 +7,10 @@
     "**/*.jsx",
     "**/*.json",
     ".*.js"
+  ],
+  "references": [
+    {
+      "path": "../infrastructure"
+    }
   ]
 }
