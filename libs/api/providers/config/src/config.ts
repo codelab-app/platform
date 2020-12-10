@@ -1,9 +1,6 @@
 import { ConfigFactory } from '@nestjs/config/dist/interfaces'
-import { environments } from './env'
 
 export enum ApiConfigTypes {
-  CODELAB_ENV = 'CODELAB_ENV',
-
   TYPEORM_SEED = 'TYPEORM_SEED',
   TYPEORM_DROP_SCHEMA = 'TYPEORM_DROP_SCHEMA',
   TYPEORM_SYNCHRONIZE = 'TYPEORM_SYNCHRONIZE',
@@ -35,7 +32,6 @@ export enum ApiConfigTypes {
 }
 
 export interface ApiConfig {
-  [ApiConfigTypes.CODELAB_ENV]: environments | undefined
   [ApiConfigTypes.TYPEORM_SEED]: boolean
   [ApiConfigTypes.TYPEORM_DROP_SCHEMA]: boolean
   [ApiConfigTypes.TYPEORM_SYNCHRONIZE]: boolean
@@ -57,7 +53,6 @@ export interface ApiConfig {
 }
 
 export const config: ConfigFactory<ApiConfig> = () => ({
-  [ApiConfigTypes.CODELAB_ENV]: process.env.CODELAB_ENV as environments,
   [ApiConfigTypes.TYPEORM_SEED]: Boolean(process.env.TYPEORM_SEED),
   [ApiConfigTypes.TYPEORM_DROP_SCHEMA]: Boolean(
     process.env.TYPEORM_DROP_SCHEMA,
