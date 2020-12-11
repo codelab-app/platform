@@ -1,1 +1,1 @@
-export * from './store/appMachine/appMachine'
+export * from './store/machine-app'
