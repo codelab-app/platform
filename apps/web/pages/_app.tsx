@@ -1,17 +1,20 @@
 import { AppProps } from 'next/app'
 import React, { PropsWithChildren } from 'react'
 import { RecoilRoot } from 'recoil'
-import { useLayoutActor } from '../../../libs/ddd/modules/app-stories/src/model/store/machine-app'
-import { AppModal, AppModalProps } from '@codelab/ddd/modules/app-stories'
+import { appMachine } from '../../../libs/ddd/modules/app-stories/src/model/store/machine-app'
+import { useLayout } from '../../../libs/ddd/modules/layout-stories/src/useLayout'
+import {
+  AppModal,
+  AppModalProps,
+  MachineProvider,
+} from '@codelab/ddd/modules/app-stories'
 import { AppLayoutContainer } from '@codelab/ddd/modules/layout-stories'
 
 import 'antd/dist/antd.css'
 import 'highlight.js/styles/monokai-sublime.css'
 
 const App = ({ children }: PropsWithChildren<any>) => {
-  const layout = useLayoutActor()
-
-  console.log(layout.state.value.modal)
+  const layout = useLayout()
 
   const appModalProps: AppModalProps = {
     visible: layout.state.value.modal === 'active',
@@ -36,16 +39,18 @@ const AppContainer: React.FC<AppProps> = (props) => {
   const { Component, pageProps } = props
 
   return (
-    <RecoilRoot>
-      <style jsx global>{`
-        #__next {
-          height: 100%;
-        }
-      `}</style>
-      <App>
-        <Component {...pageProps} />
-      </App>
-    </RecoilRoot>
+    <MachineProvider rootMachine={appMachine}>
+      <RecoilRoot>
+        <style jsx global>{`
+          #__next {
+            height: 100%;
+          }
+        `}</style>
+        <App>
+          <Component {...pageProps} />
+        </App>
+      </RecoilRoot>
+    </MachineProvider>
   )
 }
 
