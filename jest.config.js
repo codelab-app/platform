@@ -44,5 +44,6 @@ module.exports = {
     '<rootDir>/apps/api/codelab',
     '<rootDir>/libs/ddd/modules/users-stories',
     '<rootDir>/libs/ddd/modules/layout-stories',
+    '<rootDir>/libs/ddd/modules/layout-sidebar-stories',
   ],
 }

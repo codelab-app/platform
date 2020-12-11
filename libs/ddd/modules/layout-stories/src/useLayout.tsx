@@ -1,10 +1,10 @@
 import { useActor } from '@xstate/react'
-import { useAppMachine } from '@codelab/ddd/modules/app-stories'
+import { useRootMachine } from '@codelab/ddd/frontend'
 
 export const useLayout = () => {
-  const appMachine = useAppMachine()
+  const appMachine = useRootMachine()
 
-  const [state, send] = useActor(appMachine.state.context.layout)
+  const [state, send] = useActor<any>(appMachine.state.context.layout)
 
   return { state, send }
 }

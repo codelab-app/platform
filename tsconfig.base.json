@@ -95,6 +95,9 @@
       ],
       "@codelab/ddd/modules/layout-stories": [
         "libs/ddd/modules/layout-stories/src/index.ts"
+      ],
+      "@codelab/ddd/modules/layout-sidebar-stories": [
+        "libs/ddd/modules/layout-sidebar-stories/src/index.ts"
       ]
     }
   },
