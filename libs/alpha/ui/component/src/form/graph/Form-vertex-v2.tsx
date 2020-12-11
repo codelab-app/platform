@@ -3,6 +3,7 @@ import { withTheme } from '@rjsf/core'
 import { Button, Select } from 'antd'
 import { JSONSchema7 } from 'json-schema'
 import React, { useState } from 'react'
+import buttonsPropsSchema from './json-schemas/buttonPropsSchema.json'
 import { VertexType } from '@codelab/alpha/shared/interface/graph'
 
 const { Option } = Select
@@ -15,28 +16,21 @@ const Form = withTheme(AntDTheme)
 // 2.1. 'required" should be shown immediately
 // 2.2. all other should be availiable by "add" with select (choose option) -> specify property
 export const FormVertex = () => {
-  const buttonsPropsSchema: JSONSchema7 = {
-    title: 'Props',
-    type: 'object',
-    additionalProperties: {},
-    required: ['type'],
-    properties: {
-      type: {
-        type: 'string',
-      },
-      size: {
-        type: 'number',
-      },
-      loading: {
-        type: 'boolean',
-      },
-    },
-  }
 
+  /* It's important to place the definition in the root.
+   * Otherwise, we'll need to change dependencies everywhere (it'll be a solution if we meet Symbol conflicts) */
+
+  const {
+    definitions: buttonsDefinitions,
+    ...buttonsProps
+  } = buttonsPropsSchema
   const schema: JSONSchema7 = {
     title: 'Vertex',
     type: 'object',
     required: ['type'],
+    definitions: {
+      ...buttonsDefinitions,
+    } as any,
     properties: {
       type: {
         type: 'string',
@@ -52,7 +46,10 @@ export const FormVertex = () => {
               type: {
                 enum: [VertexType.REACT_BUTTON],
               },
-              props: buttonsPropsSchema,
+              props: {
+                title: 'Props',
+                ...buttonsProps,
+              },
             },
           },
         ],
@@ -63,6 +60,7 @@ export const FormVertex = () => {
   const log = (type: any) => console.log.bind(console, type)
 
   const ObjectFieldTemplate = (props: any) => {
+
     const [addedProps, setAddedProps] = useState<Array<string>>([])
     const [propCandidate, setPropCandidate] = useState<null | string>(null)
 
@@ -71,8 +69,24 @@ export const FormVertex = () => {
         setAddedProps([...addedProps, propCandidate])
       }
     }
-    const formDataPropsKeys = Object.keys(props.formData)
-    const requiredProps = props.schema.required
+
+    const formDataPropsKeys = Object.keys(props.formData).filter(
+      (formItemKey) => {
+        const formItem = props.formData[formItemKey]
+
+        if (typeof formItem === 'object') {
+          return Object.values(formItem).length > 0
+        }
+
+        if (Array.isArray(formItem)) {
+          return formItem.length > 0
+        }
+
+        return formItem !== undefined
+      },
+    )
+
+    const requiredProps = props.schema.required ? props.schema.required : []
     const shownProperties = [
       ...requiredProps,
       ...formDataPropsKeys,

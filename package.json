@@ -26,7 +26,8 @@
     "docker:up": "./scripts/docker/up.sh",
     "docker:push": "./scripts/docker/push.sh",
     "start:prod:web": "pm2-runtime dist/apps/web/pm2.json",
-    "start:prod:api-graph": "pm2-runtime dist/apps/api/graph/pm2.json"
+    "start:prod:api-graph": "pm2-runtime dist/apps/api/graph/pm2.json",
+    "generate-antd-json-schema": "ts-node ./json-schema-generator/json-schema-generator.ts"
   },
   "private": true,
   "dependencies": {
@@ -131,6 +132,7 @@
     "tslib": "2.0.0",
     "typeorm": "0.2.28",
     "typeorm-naming-strategies": "2.0.0",
+    "typescript-json-schema": "^0.45.1",
     "uuid": "8.3.0",
     "voca": "1.4.0",
     "winston": "3.3.3",
