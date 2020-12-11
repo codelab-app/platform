@@ -1,49 +1,22 @@
 import { AppProps } from 'next/app'
 import React, { PropsWithChildren } from 'react'
 import { RecoilRoot } from 'recoil'
-import {
-  AppFooterProps,
-  AppHeaderMenu,
-  AppHeaderMenuProps,
-  AppHeaderProps,
-  AppLayout,
-  AppModal,
-  AppModalProps,
-  AppSidebarMenu,
-  AppSidebarProps,
-  useAppMachine,
-} from '@codelab/ddd/modules/app-stories'
-import { UserSignupButton } from '@codelab/ddd/modules/users-stories'
+import { useLayoutActor } from '../../../libs/ddd/modules/app-stories/src/model/store/machine-app'
+import { AppModal, AppModalProps } from '@codelab/ddd/modules/app-stories'
+import { AppLayoutContainer } from '@codelab/ddd/modules/layout-stories'
 
 import 'antd/dist/antd.css'
 import 'highlight.js/styles/monokai-sublime.css'
 
 const App = ({ children }: PropsWithChildren<any>) => {
-  const [appMachineState, appSend] = useAppMachine() as any
+  const layout = useLayoutActor()
 
-  // const app = useRecoilValue(appMachineAtom)
-  // const [appMachineState, appSend] = useMachine(app)
-
-  const sidebar: AppSidebarProps = {
-    Menu: <AppSidebarMenu />,
-    // collapsed: appMachineState.value.sidebar === 'inactive',
-    onCollapse: () => appSend('TOGGLE_SIDEBAR'),
-  }
-
-  const appHeaderMenuProps: AppHeaderMenuProps = {
-    UserSignupButton: <UserSignupButton />,
-  }
-
-  const header: AppHeaderProps = {
-    Menu: <AppHeaderMenu {...appHeaderMenuProps} />,
-  }
-
-  const footer: AppFooterProps = <span>Codelab.ai ©2020</span>
+  console.log(layout.state.value.modal)
 
   const appModalProps: AppModalProps = {
-    // visible: appMachineState.value.modal === 'active',
-    onCancel: () => appSend('TOGGLE_MODAL'),
-    onOk: () => appSend('TOGGLE_MODAL'),
+    visible: layout.state.value.modal === 'active',
+    onCancel: () => layout.send('TOGGLE_MODAL'),
+    onOk: () => layout.send('TOGGLE_MODAL'),
   }
 
   return (
@@ -51,9 +24,10 @@ const App = ({ children }: PropsWithChildren<any>) => {
       <AppModal {...appModalProps}>
         <h1>Modal</h1>
       </AppModal>
-      <AppLayout sidebar={sidebar} header={header} footer={footer}>
+      <AppLayoutContainer>{children}</AppLayoutContainer>
+      {/* <AppLayout sidebar={sidebar} header={header} footer={footer}>
         {children}
-      </AppLayout>
+      </AppLayout> */}
     </>
   )
 }
