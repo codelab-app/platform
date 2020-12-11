@@ -42,7 +42,6 @@ module.exports = {
     '<rootDir>/libs/ddd/frontend',
     '<rootDir>/libs/ddd/modules/users',
     '<rootDir>/apps/api/codelab',
-    '<rootDir>/apps/web2',
     '<rootDir>/libs/ddd/modules/users-stories',
     '<rootDir>/libs/ddd/modules/layout-stories',
   ],

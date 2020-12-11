@@ -1,14 +1,15 @@
 import { Button } from 'antd'
 import { ButtonProps } from 'antd/lib/button'
 import React from 'react'
-import { useAppMachine } from '@codelab/ddd/modules/app-stories/model/store/appMachine/appMachine'
+import { useAppMachine } from '@codelab/ddd/modules/app-stories'
 
 export type UserSignupButtonProps = ButtonProps
 
 export const UserSignupButton = () => {
   const [appMachineState, appSend] = useAppMachine() as any
 
-  console.log(appMachineState.value)
+  // const app = useRecoilValue(appMachineAtom)
+  // const [appMachineState, appSend] = useMachine(app)
 
   const userSignupButtonProps = {
     onClick: () => {
