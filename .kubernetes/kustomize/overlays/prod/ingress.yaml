@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: codelab-web-staging
+  name: codelab-web
   namespace: codelab
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod

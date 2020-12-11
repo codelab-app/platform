@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hasura
+  namespace: codelab
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        vault.hashicorp.com/agent-inject: "true"
+        vault.hashicorp.com/role: "readonly"
+        vault.hashicorp.com/auth-path: "auth/k8s-prod"
+        vault.hashicorp.com/agent-inject-secret-hasura: "codelab-prod/hasura"
+        vault.hashicorp.com/agent-inject-template-hasura: |
+          {{- with secret "codelab-prod/hasura" -}}
+          {{ range $k, $v := .Data.data }}
+          export {{ $k }}={{ $v }}
+          {{ end }}
+          {{- end }}
+    spec:
+      serviceAccountName: codelab-service-account
+      containers:
+        - name: hasura
+          imagePullPolicy: IfNotPresent
+          image: hasura/graphql-engine:v1.3.2
+          command:
+            - /bin/sh
+            - -c
+            - 'source /vault/secrets/hasura && graphql-engine serve'
