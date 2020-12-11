@@ -1694,7 +1694,7 @@
     },
     "ddd-modules-users": {
       "root": "libs/ddd/modules/users",
-      "sourceRoot": "libs/ddd/modules/users",
+      "sourceRoot": "libs/ddd/modules/users/src",
       "projectType": "library",
       "schematics": {},
       "architect": {
@@ -1772,7 +1772,7 @@
     },
     "ddd-backend": {
       "root": "libs/ddd/backend",
-      "sourceRoot": "libs/ddd/backend",
+      "sourceRoot": "libs/ddd/backend/src",
       "projectType": "library",
       "schematics": {},
       "architect": {
@@ -1793,7 +1793,7 @@
     },
     "ddd-frontend": {
       "root": "libs/ddd/frontend",
-      "sourceRoot": "libs/ddd/frontend",
+      "sourceRoot": "libs/ddd/frontend/src",
       "projectType": "library",
       "schematics": {},
       "architect": {
@@ -1867,7 +1867,7 @@
     },
     "ddd-modules-app-stories": {
       "root": "libs/ddd/modules/app-stories",
-      "sourceRoot": "libs/ddd/modules/app-stories",
+      "sourceRoot": "libs/ddd/modules/app-stories/src",
       "projectType": "library",
       "schematics": {},
       "architect": {

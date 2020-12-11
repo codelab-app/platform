@@ -2,21 +2,17 @@ import { AppProps } from 'next/app'
 import React, { PropsWithChildren } from 'react'
 import { RecoilRoot } from 'recoil'
 import {
-  AppModal,
-  AppModalProps,
-} from '../../../libs/ddd/modules/app-stories/src/view/AppModal'
-import { useAppMachine } from '@codelab/ddd/modules/app-stories/model/store/appMachine/appMachine'
-import {
   AppFooterProps,
   AppHeaderMenu,
   AppHeaderMenuProps,
-} from '@codelab/ddd/modules/app-stories/view'
-import {
   AppHeaderProps,
   AppLayout,
+  AppModal,
+  AppModalProps,
+  AppSidebarMenu,
   AppSidebarProps,
-} from '@codelab/ddd/modules/app-stories/view/AppLayout'
-import { AppSidebarMenu } from '@codelab/ddd/modules/app-stories/view/AppSidebarMenu'
+  useAppMachine,
+} from '@codelab/ddd/modules/app-stories'
 import { UserSignupButton } from '@codelab/ddd/modules/users-stories'
 
 import 'antd/dist/antd.css'
@@ -25,9 +21,12 @@ import 'highlight.js/styles/monokai-sublime.css'
 const App = ({ children }: PropsWithChildren<any>) => {
   const [appMachineState, appSend] = useAppMachine() as any
 
+  // const app = useRecoilValue(appMachineAtom)
+  // const [appMachineState, appSend] = useMachine(app)
+
   const sidebar: AppSidebarProps = {
     Menu: <AppSidebarMenu />,
-    collapsed: appMachineState.value.sidebar === 'inactive',
+    // collapsed: appMachineState.value.sidebar === 'inactive',
     onCollapse: () => appSend('TOGGLE_SIDEBAR'),
   }
 
@@ -42,7 +41,7 @@ const App = ({ children }: PropsWithChildren<any>) => {
   const footer: AppFooterProps = <span>Codelab.ai ©2020</span>
 
   const appModalProps: AppModalProps = {
-    visible: appMachineState.value.modal === 'active',
+    // visible: appMachineState.value.modal === 'active',
     onCancel: () => appSend('TOGGLE_MODAL'),
     onOk: () => appSend('TOGGLE_MODAL'),
   }

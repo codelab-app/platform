@@ -4,38 +4,13 @@ import { Machine } from 'xstate'
 
 export const appMachine = Machine({
   id: 'app',
-  type: 'parallel',
+  // entry: assign({
+  //   // modal: () => spawn(modalMachine),
+  //   // sidebar: () => spawn(layoutMachine),
+  // }),
+  initial: 'idle',
   states: {
-    sidebar: {
-      initial: 'active',
-      states: {
-        active: {
-          on: {
-            TOGGLE_SIDEBAR: 'inactive',
-          },
-        },
-        inactive: {
-          on: {
-            TOGGLE_SIDEBAR: 'active',
-          },
-        },
-      },
-    },
-    modal: {
-      initial: 'inactive',
-      states: {
-        active: {
-          on: {
-            TOGGLE_MODAL: 'inactive',
-          },
-        },
-        inactive: {
-          on: {
-            TOGGLE_MODAL: 'active',
-          },
-        },
-      },
-    },
+    idle: {},
   },
 })
 
