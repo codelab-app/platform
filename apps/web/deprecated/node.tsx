@@ -1,5 +1,4 @@
 /* eslint-disable no-underscore-dangle */
-
 import { useActor } from '@xstate/react'
 import React, { useContext } from 'react'
 import Highlight from 'react-highlight'
@@ -18,7 +17,7 @@ const NodePage = (props: any) => {
   const { nodeService } = useContext(NodeServiceContext)
 
   React.useEffect(() => {
-    // eslint-disable-next-line no-use-before-define
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
     fetchNodes()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])

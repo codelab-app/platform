@@ -2,8 +2,8 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../../dist/out-tsc",
-    "types": ["node", "object-mapper"],
-    "jsx": "react",
+    "types": ["node", "@xstate/react", "object-mapper"],
+    "jsx": "preserve",
     "esModuleInterop": true,
     "module": "CommonJS",
     "allowSyntheticDefaultImports": true,

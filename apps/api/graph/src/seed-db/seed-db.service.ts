@@ -5,15 +5,12 @@ import { CodelabAppEntity } from '../models/app/codelab-app.entity'
 import { EdgeEntity } from '../models/edge/edge.entity'
 import { GraphEntity } from '../models/graph/graph.entity'
 import { PageEntity } from '../models/page/page.entity'
-import { UserEntity } from '../models/user/user.entity'
 import { VertexEntity } from '../models/vertex/vertex.entity'
 import { NodeType } from '@codelab/shared/interface/node'
 
 @Injectable()
 export class SeedDbService {
   constructor(
-    @InjectRepository(UserEntity)
-    private readonly userRepository: Repository<UserEntity>,
     @InjectRepository(VertexEntity)
     private readonly vertexRepository: Repository<VertexEntity>,
     @InjectRepository(EdgeEntity)
@@ -27,6 +24,11 @@ export class SeedDbService {
   ) {}
 
   async seedDB() {
+    this.seedDemoDB()
+    this.seedButtonData()
+  }
+
+  async seedDemoDB() {
     /**
      * Vertices
      */
@@ -146,17 +148,6 @@ export class SeedDbService {
         props: {},
       }),
     )
-
-    /**
-     * User
-     */
-    const user = await this.userRepository.save(
-      this.userRepository.create({
-        email: 'Codelab@gmail.com',
-        password: 'password',
-      }),
-    )
-
     /**
      * Graph
      */
@@ -166,11 +157,6 @@ export class SeedDbService {
         edges: [edge1, edge2, edge3],
       }),
     )
-
-    /**
-     * Layout Graph
-     */
-
     const layoutGraph = await this.graphRepository.save(
       this.graphRepository.create({
         vertices: [
@@ -182,14 +168,11 @@ export class SeedDbService {
         edges: [layoutEdge1, layoutEdge2, layoutEdge3],
       }),
     )
-
     /**
      * App
      */
-
     const app = await this.appRepository.save(
       this.appRepository.create({
-        user,
         graphs: [graph],
       }),
     )
@@ -201,6 +184,76 @@ export class SeedDbService {
       this.pageRepository.create({
         app,
         graphs: [layoutGraph],
+      }),
+    )
+  }
+
+  async seedButtonData() {
+    /**
+     * Vertices
+     */
+
+    const vertexFragment = await this.vertexRepository.save(
+      this.vertexRepository.create({
+        type: NodeType.React_Fragment,
+        props: {},
+      }),
+    )
+    const vertexButton = await this.vertexRepository.save(
+      this.vertexRepository.create({
+        type: NodeType.React_Button,
+        props: {
+          type: 'primary',
+        },
+      }),
+    )
+    const vertexText = await this.vertexRepository.save(
+      this.vertexRepository.create({
+        type: NodeType.React_Text,
+        props: {
+          value: 'Click me',
+        },
+      }),
+    )
+
+    /**
+     * Edges
+     */
+    const edgeFragmentToButton = await this.edgeRepository.save(
+      this.edgeRepository.create({
+        order: 0,
+        source: vertexFragment.id,
+        target: vertexButton.id,
+        props: {},
+      }),
+    )
+    const edgeButtonToText = await this.edgeRepository.save(
+      this.edgeRepository.create({
+        order: 1,
+        source: vertexButton.id,
+        target: vertexText.id,
+        props: {},
+      }),
+    )
+
+    /**
+     * Graph
+     */
+    const graph = await this.graphRepository.save(
+      this.graphRepository.create({
+        vertices: [vertexFragment, vertexButton, vertexText],
+        edges: [edgeFragmentToButton, edgeButtonToText],
+        label: 'button-graph',
+      }),
+    )
+
+    /**
+     * App
+     */
+
+    await this.appRepository.save(
+      this.appRepository.create({
+        graphs: [graph],
       }),
     )
   }
