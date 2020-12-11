@@ -26,7 +26,9 @@ describe.skip('User E2E test', () => {
       .send({
         query: `
 					mutation {
-						createUser(user: {email: "codelab@gmail.com", password: "1234"}) {
+						createUser(user: {
+              email: "codelab@gmail.com", password: "1234"
+            }) {
 							email
 						}
 					}
