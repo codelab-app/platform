@@ -59,6 +59,7 @@ export const FormVertex = () => {
   const log = (type: any) => console.log.bind(console, type)
 
   const ObjectFieldTemplate = (props: any) => {
+
     const [addedProps, setAddedProps] = useState<Array<string>>([])
     const [propCandidate, setPropCandidate] = useState<null | string>(null)
 
