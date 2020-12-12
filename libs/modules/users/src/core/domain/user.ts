@@ -1,12 +1,13 @@
 import { Exclude, Type, plainToClass } from 'class-transformer'
 import { CreateUserRequest } from '../application/useCases/createUser/CreateUserRequest'
+import { EditUserRequest } from '../application/useCases/editUser/EditUserRequest'
 import { UserEmail } from './user-email'
 import { UserPassword } from './user-password'
 import { AggregateRoot, Result, TransformBoth } from '@codelab/backend'
 
 interface UserProps {
   email: string
-  password: string
+  password?: string
 }
 
 interface UserDto {
@@ -50,5 +51,9 @@ export class User extends AggregateRoot<UserProps> {
     user.password.hashPassword()
 
     return user
+  }
+
+  public static update(request: EditUserRequest): User {
+    return User.hydrate(request)
   }
 }

@@ -4,6 +4,8 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 import { Connection } from 'typeorm'
 import { CreateUserCommandHandler } from '../../core/application/handlers/CreateUserCommandHandler'
 import { CreateUserService } from '../../core/application/services/CreateUserService'
+import { DeleteUserService } from '../../core/application/services/DeleteUserService'
+import { EditUserService } from '../../core/application/services/EditUserService'
 import { TypeOrmUserRepositoryAdapter } from '../../infrastructure/persistence/TypeOrmUserRepositoryAdapter'
 import { UserCommandQueryAdapter } from '../../presentation/controllers/UserCommandQueryAdapter'
 import { UserDITokens } from '../UserDITokens'
@@ -23,6 +25,16 @@ export const useCaseProviders: Array<Provider> = [
   {
     provide: UserDITokens.CreateUserUseCase,
     useFactory: (userRepository) => new CreateUserService(userRepository),
+    inject: [UserDITokens.UserRepository],
+  },
+  {
+    provide: UserDITokens.EditUserUseCase,
+    useFactory: (userRepository) => new EditUserService(userRepository),
+    inject: [UserDITokens.UserRepository],
+  },
+  {
+    provide: UserDITokens.DeleteUserUseCase,
+    useFactory: (userRepository) => new DeleteUserService(userRepository),
     inject: [UserDITokens.UserRepository],
   },
 ]

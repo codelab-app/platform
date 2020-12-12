@@ -46,6 +46,19 @@ describe('CreateUserUseCase', () => {
     })
   })
 
+  it('should throw error on invalid email', async () => {
+    const commandBus: CommandBus = userModule.select(CqrsModule).get(CommandBus)
+
+    const results: Promise<UserUseCaseDto> = commandBus.execute(
+      new CreateUserCommand({
+        email: 'notanemail',
+        password: 'password',
+      }),
+    )
+
+    await expect(results).rejects.toThrowError('Email must be valid')
+  })
+
   // it('throws an error when an email is taken', async () => {
   //   const commandBus: CommandBus = userModule.select(CqrsModule).get(CommandBus)
 
