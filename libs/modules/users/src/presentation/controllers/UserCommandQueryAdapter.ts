@@ -3,6 +3,7 @@ import { CommandBus, QueryBus } from '@nestjs/cqrs'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { CreateUserCommand } from '../../core/application/commands/CreateUserCommand'
 import { DeleteUserCommand } from '../../core/application/commands/DeleteUserCommand'
+import { DeleteUserDto } from '../../core/application/useCases/DeleteUserDto'
 import { UserUseCaseDto } from '../../core/application/useCases/UserUseCaseDto'
 import { CreateUserRequest } from '../../core/application/useCases/createUser/CreateUserRequest'
 import { DeleteUserRequest } from '../../core/application/useCases/deleteUser/DeleteUserRequest'
@@ -42,12 +43,15 @@ export class UserCommandQueryAdapter implements CommandQueryBusPort {
     return results
   }
 
-  @Mutation((returns) => UserUseCaseDto)
+  @Mutation((returns) => DeleteUserDto)
   async deleteUser(@Args('user') request: DeleteUserRequest) {
     const results = await this.commandBus.execute(
       new DeleteUserCommand(request),
     )
+    const d = new DeleteUserDto()
 
-    return results
+    d.affectedRows = results.affected
+
+    return d
   }
 }

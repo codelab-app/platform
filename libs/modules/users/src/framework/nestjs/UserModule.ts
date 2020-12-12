@@ -3,6 +3,7 @@ import { CqrsModule } from '@nestjs/cqrs'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { Connection } from 'typeorm'
 import { CreateUserCommandHandler } from '../../core/application/handlers/CreateUserCommandHandler'
+import { DeleteUserCommandHandler } from '../../core/application/handlers/DeleteUserCommandHandler'
 import { CreateUserService } from '../../core/application/services/CreateUserService'
 import { DeleteUserService } from '../../core/application/services/DeleteUserService'
 import { EditUserService } from '../../core/application/services/EditUserService'
@@ -39,7 +40,10 @@ export const useCaseProviders: Array<Provider> = [
   },
 ]
 
-export const handlerProviders: Array<Provider> = [CreateUserCommandHandler]
+export const handlerProviders: Array<Provider> = [
+  CreateUserCommandHandler,
+  DeleteUserCommandHandler,
+]
 
 @Module({
   imports: [CqrsModule, TypeOrmModule.forFeature([TypeOrmUser])],
