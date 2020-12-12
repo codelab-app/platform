@@ -1,7 +1,7 @@
 import { Layout } from 'antd'
 import { SiderProps } from 'antd/lib/layout/Sider'
 import React, { PropsWithChildren, ReactElement } from 'react'
-import { AppHeaderMenuProps } from '../../app-stories/src/view/AppHeaderMenu'
+import { AppHeaderMenuProps } from '../../header-stories/src/HeaderMenu'
 
 const { Header, Footer, Sider, Content } = Layout
 

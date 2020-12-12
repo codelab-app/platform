@@ -3,11 +3,12 @@ import React, { ReactElement } from 'react'
 
 export type AppHeaderMenuProps = {
   UserSignupButton: ReactElement
+  UserLoginButton: ReactElement
 }
 
 // TODO: disable hover effects for button
-export const AppHeaderMenu = (props: AppHeaderMenuProps) => {
-  const { UserSignupButton } = props
+export const HeaderMenu = (props: AppHeaderMenuProps) => {
+  const { UserSignupButton, UserLoginButton } = props
 
   return (
     <>
@@ -17,6 +18,9 @@ export const AppHeaderMenu = (props: AppHeaderMenuProps) => {
         <Menu.Item key="2">nav 2</Menu.Item>
         <Menu.Item key="3" style={{ float: 'right' }}>
           {UserSignupButton}
+        </Menu.Item>
+        <Menu.Item key="4" style={{ float: 'right' }}>
+          {UserLoginButton}
         </Menu.Item>
       </Menu>
     </>

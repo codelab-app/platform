@@ -45,5 +45,8 @@ module.exports = {
     '<rootDir>/libs/ddd/modules/users-stories',
     '<rootDir>/libs/ddd/modules/layout-stories',
     '<rootDir>/libs/ddd/modules/layout-sidebar-stories',
+    '<rootDir>/libs/modules/modal-stories',
+    '<rootDir>/libs/modules/sidebar-stories',
+    '<rootDir>/libs/modules/header-stories',
   ],
 }

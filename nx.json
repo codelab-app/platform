@@ -175,7 +175,13 @@
     "modules-layout-stories": {
       "tags": []
     },
-    "modules-layout-sidebar-stories": {
+    "modules-modal-stories": {
+      "tags": []
+    },
+    "modules-sidebar-stories": {
+      "tags": []
+    },
+    "modules-header-stories": {
       "tags": []
     }
   }

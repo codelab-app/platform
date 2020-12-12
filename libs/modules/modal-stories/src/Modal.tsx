@@ -1,12 +1,12 @@
-import { Modal } from 'antd'
+import { Modal as AntdModal } from 'antd'
 import { ModalProps } from 'antd/lib/modal'
 import React, { PropsWithChildren } from 'react'
 
 export type AppModalProps = ModalProps
 
-export const AppModal = ({
+export const Modal = ({
   children,
   ...props
 }: PropsWithChildren<AppModalProps>) => {
-  return <Modal {...props}>{children}</Modal>
+  return <AntdModal {...props}>{children}</AntdModal>
 }
