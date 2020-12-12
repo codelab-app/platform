@@ -3,7 +3,7 @@ import { atom, useRecoilValue } from 'recoil'
 import { Machine, assign, spawn } from 'xstate'
 import { layoutMachine } from '@codelab/ddd/modules/layout-stories'
 
-export const appMachine = Machine<{ layout: any }>({
+export const appMachine = Machine<any>({
   id: 'app',
   entry: assign({
     layout: () => spawn(layoutMachine),

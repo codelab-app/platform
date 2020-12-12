@@ -9,7 +9,7 @@ import { NestFactory } from '@nestjs/core'
 import bodyParser from 'body-parser'
 import { AppModule } from './app/app.module'
 import { GeneralExceptionFilter } from './app/filters/general-exception.filter'
-import { ApiConfig, ApiConfigTypes } from '@codelab/api/providers/config'
+import { ApiConfig, ApiConfigTypes } from '@codelab/alpha/api/providers/config'
 import 'reflect-metadata'
 
 const bootstrap = async () => {

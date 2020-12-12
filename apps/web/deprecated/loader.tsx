@@ -1,7 +1,7 @@
 import { useActor } from '@xstate/react'
 import { Button } from 'antd'
 import React, { useContext } from 'react'
-import { MachineContext } from '@codelab/ui/component'
+import { MachineContext } from '@codelab/alpha/ui/component'
 
 const MachineDataLoaderPage = (props: any) => {
   const { actors } = useContext(MachineContext)

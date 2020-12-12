@@ -1,15 +1,12 @@
 import { Button } from 'antd'
 import { ButtonProps } from 'antd/lib/button'
 import React from 'react'
-import { useLayoutActor } from '../../../../app-stories/src/model/store/machine-app'
+import { useLayout } from '../../../../layout-stories/src/useLayout'
 
 export type UserSignupButtonProps = ButtonProps
 
 export const UserSignupButton = () => {
-  const layout = useLayoutActor()
-
-  // const app = useRecoilValue(appMachineAtom)
-  // const [appMachineState, appSend] = useMachine(app)
+  const layout = useLayout()
 
   const userSignupButtonProps = {
     onClick: () => {

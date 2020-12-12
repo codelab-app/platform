@@ -14,7 +14,7 @@ import { UserService } from './user.service'
 import {
   ConfigModule,
   ConfigTypeormService,
-} from '@codelab/api/providers/config'
+} from '@codelab/alpha/api/providers/config'
 
 const email = 'codelab@gmail.com'
 const password = 'password'

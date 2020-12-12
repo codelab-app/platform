@@ -5,8 +5,8 @@ import Highlight from 'react-highlight'
 import { ButtonGroup } from '../src/node/ButtonGroup'
 import { ModalForm } from '../src/node/ModalForm'
 import { Table } from '../src/node/Table'
-import { BaseNodeType } from '@codelab/shared/interface/node'
-import { MachineContext, NodeServiceContext } from '@codelab/ui/component'
+import { BaseNodeType } from '@codelab/alpha/shared/interface/node'
+import { MachineContext, NodeServiceContext } from '@codelab/alpha/ui/component'
 
 const NodePage = (props: any) => {
   const { actors } = useContext(MachineContext)

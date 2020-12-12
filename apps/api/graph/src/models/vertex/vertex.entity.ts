@@ -3,7 +3,7 @@ import { ObjectType, registerEnumType } from '@nestjs/graphql'
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
 import { GraphEntity, VertexID } from '../graph/graph.entity'
 import { IVertex } from './vertex.interface'
-import { NodeType } from '@codelab/shared/interface/node'
+import { NodeType } from '@codelab/alpha/shared/interface/node'
 
 registerEnumType(NodeType, {
   name: 'NodeType',

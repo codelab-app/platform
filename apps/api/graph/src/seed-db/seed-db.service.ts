@@ -6,7 +6,7 @@ import { EdgeEntity } from '../models/edge/edge.entity'
 import { GraphEntity } from '../models/graph/graph.entity'
 import { PageEntity } from '../models/page/page.entity'
 import { VertexEntity } from '../models/vertex/vertex.entity'
-import { NodeType } from '@codelab/shared/interface/node'
+import { NodeType } from '@codelab/alpha/shared/interface/node'
 
 @Injectable()
 export class SeedDbService {

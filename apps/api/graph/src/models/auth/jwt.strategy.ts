@@ -7,7 +7,7 @@ import { ExtractJwt, Strategy } from 'passport-jwt'
 import { UserEntity } from '../user/user.entity'
 import { UserService } from '../user/user.service'
 import { Itoken } from './Itoken'
-import { ApiConfig, ApiConfigTypes } from '@codelab/api/providers/config'
+import { ApiConfig, ApiConfigTypes } from '@codelab/alpha/api/providers/config'
 
 @Injectable()
 export class JwtStrategy

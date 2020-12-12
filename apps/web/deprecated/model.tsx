@@ -1,7 +1,7 @@
 import React from 'react'
-import { Renderer } from '@codelab/core/renderer'
-import { NodeI, NodeType } from '@codelab/shared/interface/node'
-import { PropType } from '@codelab/shared/interface/props'
+import { Renderer } from '@codelab/alpha/core/renderer'
+import { NodeI, NodeType } from '@codelab/alpha/shared/interface/node'
+import { PropType } from '@codelab/alpha/shared/interface/props'
 
 export const modelFormData: NodeI = {
   type: NodeType.React_Form,

@@ -9,9 +9,9 @@ import { NodeTree, NodeTreeProps } from '../../src/node/NodeTree'
 import { Table } from '../../src/node/Table'
 import { convertNodeTreeToAntTreeDataNode } from '../../src/node/utils/convertNodeTreeToAntTreeNode'
 import { ButtonGroup } from '../../src/tree/ButtonGroup'
-import { NodeEntity } from '@codelab/core/node'
-import { findNode } from '@codelab/core/tree'
-import { BaseNodeType, NodeA, NodeType } from '@codelab/shared/interface/node'
+import { NodeEntity } from '@codelab/alpha/core/node'
+import { findNode } from '@codelab/alpha/core/tree'
+import { BaseNodeType, NodeA, NodeType } from '@codelab/alpha/shared/interface/node'
 
 hljs.registerLanguage('json', json)
 

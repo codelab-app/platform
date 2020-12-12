@@ -7,7 +7,7 @@ import { EdgeService } from '../edge/edge.service'
 import { VertexEntity } from '../vertex/vertex.entity'
 import { GraphEntity } from './graph.entity'
 import { GraphService } from './graph.service'
-import { NodeType } from '@codelab/shared/interface/node'
+import { NodeType } from '@codelab/alpha/shared/interface/node'
 // eslint-disable-next-line import/order
 import Mock = jest.Mock
 

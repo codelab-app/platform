@@ -32,126 +32,18 @@
     "codelab-schematics": {
       "tags": []
     },
-    "shared-common": {
-      "tags": []
-    },
-    "shared-interface-node": {
-      "tags": []
-    },
-    "shared-interface-graph": {
-      "tags": []
-    },
-    "shared-interface-props": {
-      "tags": ["scope:standalone"]
-    },
-    "shared-interface-tree": {
-      "tags": []
-    },
-    "core-graph": {
-      "tags": []
-    },
-    "core-model": {
-      "tags": []
-    },
-    "core-props": {
-      "tags": []
-    },
-    "core-node": {
-      "tags": []
-    },
-    "core-traversal": {
-      "tags": []
-    },
-    "core-tree": {
-      "tags": []
-    },
-    "shared-utils": {
-      "tags": []
-    },
-    "shared-event": {
-      "tags": []
-    },
     "web": {
       "tags": [],
-      "implicitDependencies": ["state-apollo"]
-    },
-    "core-renderer": {
-      "tags": []
+      "implicitDependencies": ["alpha-state-apollo"]
     },
     "web-e2e": {
       "tags": [],
       "implicitDependencies": ["web"]
     },
-    "state-app": {
-      "tags": []
-    },
-    "state-node": {
-      "tags": []
-    },
-    "state-modal": {
-      "tags": []
-    },
-    "ui-antd": {
-      "tags": []
-    },
-    "ui-d3": {
-      "tags": []
-    },
-    "ui-component": {
-      "tags": []
-    },
-    "shared-interface-component": {
-      "tags": []
-    },
-    "ui-hoc": {
-      "tags": []
-    },
-    "state-apollo": {
-      "tags": []
-    },
-    "state-layout": {
-      "tags": []
-    },
-    "api-providers-config": {
-      "tags": []
-    },
-    "api-providers-logger": {
-      "tags": []
-    },
-    "api-providers-router": {
-      "tags": []
-    },
     "api-external": {
       "tags": []
     },
-    "shared-interface-form": {
-      "tags": []
-    },
     "api-graph": {
-      "tags": []
-    },
-    "state-vertex": {
-      "tags": []
-    },
-    "state-entity": {
-      "tags": []
-    },
-    "shared-interface-entity": {
-      "tags": []
-    },
-    "shared-interface-graph-v2": {
-      "tags": []
-    },
-    "shared-interface-machine": {
-      "tags": []
-    },
-    "shared-factory": {
-      "tags": []
-    },
-    "shared-interface-mapper": {
-      "tags": []
-    },
-    "shared-interface-collections": {
       "tags": []
     },
     "ddd-modules-users": {
@@ -173,6 +65,117 @@
       "tags": []
     },
     "ddd-modules-layout-stories": {
+      "tags": []
+    },
+    "ddd-modules-layout-sidebar-stories": {
+      "tags": []
+    },
+    "alpha-core-graph": {
+      "tags": []
+    },
+    "alpha-api-providers-config": {
+      "tags": []
+    },
+    "alpha-api-providers-logger": {
+      "tags": []
+    },
+    "alpha-api-providers-router": {
+      "tags": []
+    },
+    "alpha-core-model": {
+      "tags": []
+    },
+    "alpha-core-node": {
+      "tags": []
+    },
+    "alpha-core-props": {
+      "tags": []
+    },
+    "alpha-core-renderer": {
+      "tags": []
+    },
+    "alpha-core-traversal": {
+      "tags": []
+    },
+    "alpha-core-tree": {
+      "tags": []
+    },
+    "alpha-shared-common": {
+      "tags": []
+    },
+    "alpha-shared-event": {
+      "tags": []
+    },
+    "alpha-shared-factory": {
+      "tags": []
+    },
+    "alpha-shared-utils": {
+      "tags": []
+    },
+    "alpha-shared-interface-collections": {
+      "tags": []
+    },
+    "alpha-shared-interface-component": {
+      "tags": []
+    },
+    "alpha-shared-interface-entity": {
+      "tags": []
+    },
+    "alpha-shared-interface-form": {
+      "tags": []
+    },
+    "alpha-shared-interface-graph": {
+      "tags": []
+    },
+    "alpha-shared-interface-graph-v2": {
+      "tags": []
+    },
+    "alpha-shared-interface-machine": {
+      "tags": []
+    },
+    "alpha-shared-interface-mapper": {
+      "tags": []
+    },
+    "alpha-shared-interface-node": {
+      "tags": []
+    },
+    "alpha-shared-interface-props": {
+      "tags": ["scope:standalone"]
+    },
+    "alpha-shared-interface-tree": {
+      "tags": []
+    },
+    "alpha-state-apollo": {
+      "tags": []
+    },
+    "alpha-state-app": {
+      "tags": []
+    },
+    "alpha-state-entity": {
+      "tags": []
+    },
+    "alpha-state-layout": {
+      "tags": []
+    },
+    "alpha-state-modal": {
+      "tags": []
+    },
+    "alpha-state-node": {
+      "tags": []
+    },
+    "alpha-state-vertex": {
+      "tags": []
+    },
+    "alpha-ui-component": {
+      "tags": []
+    },
+    "alpha-ui-antd": {
+      "tags": []
+    },
+    "alpha-ui-d3": {
+      "tags": []
+    },
+    "alpha-ui-hoc": {
       "tags": []
     }
   }

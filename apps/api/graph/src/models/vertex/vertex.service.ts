@@ -6,7 +6,7 @@ import { VertexEntity } from './vertex.entity'
 import {
   CreateVertexDTO,
   DeleteVertexDTO,
-} from '@codelab/shared/interface/graph'
+} from '@codelab/alpha/shared/interface/graph'
 @Injectable()
 export class VertexService {
   constructor(

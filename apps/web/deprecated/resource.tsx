@@ -4,8 +4,8 @@ import {
   NodeDetailData,
   NodeList,
   NodeListData,
-} from '@codelab/ui/component'
-import { withSuspense } from '@codelab/ui/hoc'
+} from '@codelab/alpha/ui/component'
+import { withSuspense } from '@codelab/alpha/ui/hoc'
 
 const isServer = typeof window === 'undefined'
 
