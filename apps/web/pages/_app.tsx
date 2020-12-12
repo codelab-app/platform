@@ -2,8 +2,9 @@ import { AppProps } from 'next/app'
 import React, { PropsWithChildren } from 'react'
 import { RecoilRoot } from 'recoil'
 import { MachineProvider } from '@codelab/frontend'
-import { AppModalContainer, appMachine } from '@codelab/modules/app-stories'
+import { appMachine } from '@codelab/modules/app-stories'
 import { AppLayoutContainer } from '@codelab/modules/layout-stories'
+import { ModalContainer } from '@codelab/modules/modal-stories'
 
 require('highlight.js/styles/monokai-sublime.css')
 require('antd/dist/antd.css')
@@ -11,7 +12,7 @@ require('antd/dist/antd.css')
 const App = ({ children }: PropsWithChildren<any>) => {
   return (
     <>
-      <AppModalContainer />
+      <ModalContainer />
       <AppLayoutContainer>{children}</AppLayoutContainer>
     </>
   )

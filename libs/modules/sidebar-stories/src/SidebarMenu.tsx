@@ -14,7 +14,7 @@ const { SubMenu } = Menu
 
 const rootSubmenuKeys = ['sub1', 'sub2', 'sub4']
 
-export const AppSidebarMenu = (props: AppSidebarProps) => {
+export const SidebarMenu = (props: AppSidebarProps) => {
   const [openKeys, setOpenKeys] = React.useState(['sub1'])
 
   const onOpenChange = (keys: Array<React.Key>) => {

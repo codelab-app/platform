@@ -2,7 +2,7 @@ import { useActor, useService } from '@xstate/react'
 import { Button, Modal, Table } from 'antd'
 import React, { useContext } from 'react'
 // import { withApollo } from '@codelab/backend/infrastructure'
-import { UserSignupButton } from '@codelab/modules/users-stories'
+import { UserSignupButtonContainer } from '@codelab/modules/users-stories'
 import { collectionToTable } from '@codelab/alpha/shared/factory'
 import { EventNameApp } from '@codelab/alpha/state/app'
 import { FormGraph, MachineContext } from '@codelab/alpha/ui/component'
@@ -43,7 +43,7 @@ const GraphPage = () => {
     <>
       {/* <ReactJson data={graphState.value} /> */}
       {/* <ReactJson data={collectionToTable(graphState.context.list)} /> */}
-      <UserSignupButton />
+      <UserSignupButtonContainer />
       <Button {...buttonProps}>+ Create New</Button>
       <Modal {...modalProps}>
         <FormGraph />

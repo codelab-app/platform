@@ -1,2 +1,2 @@
-export * from './UserLoginButton'
+export * from './UserLoginButtonContainer'
 export * from './UserLoginForm'

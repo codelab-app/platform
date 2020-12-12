@@ -1,30 +1,34 @@
 import React from 'react'
 import { useLayoutActor } from '../../app-stories/src/model/store/machine-app'
-import { AppSidebarMenu } from '../../app-stories/src/view/AppSidebarMenu'
+import { SidebarMenu } from '../../sidebar-stories/src/SidebarMenu'
 import {
   AppFooterProps,
   AppHeaderProps,
   AppLayout,
   AppSidebarProps,
 } from './AppLayout'
-import { AppHeaderMenu, AppHeaderMenuProps } from '@codelab/modules/app-stories'
-import { UserSignupButton } from '@codelab/modules/users-stories'
+import { AppHeaderMenuProps, HeaderMenu } from '@codelab/modules/app-stories'
+import {
+  UserLoginButtonContainer,
+  UserSignupButtonContainer,
+} from '@codelab/modules/users-stories'
 
 export const AppLayoutContainer = ({ children }: any) => {
   const layout = useLayoutActor()
 
   const sidebar: AppSidebarProps = {
-    Menu: <AppSidebarMenu />,
+    Menu: <SidebarMenu />,
     collapsed: layout.state.value.sidebar === 'inactive',
     onCollapse: () => layout.send('TOGGLE_SIDEBAR'),
   }
 
   const appHeaderMenuProps: AppHeaderMenuProps = {
-    UserSignupButton: <UserSignupButton />,
+    UserSignupButton: <UserSignupButtonContainer />,
+    UserLoginButton: <UserLoginButtonContainer />,
   }
 
   const header: AppHeaderProps = {
-    Menu: <AppHeaderMenu {...appHeaderMenuProps} />,
+    Menu: <HeaderMenu {...appHeaderMenuProps} />,
   }
 
   const footer: AppFooterProps = <span>Codelab.ai ©2020</span>

@@ -1,5 +1,5 @@
 module.exports = {
-  displayName: 'modules-layout-sidebar-stories',
+  displayName: 'modules-sidebar-stories',
   preset: '../../../jest.preset.js',
   transform: {
     '^.+\\.[tj]sx?$': [
@@ -8,5 +8,5 @@ module.exports = {
     ],
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../../coverage/libs/modules/layout-sidebar-stories',
+  coverageDirectory: '../../../coverage/libs/modules/sidebar-stories',
 }
