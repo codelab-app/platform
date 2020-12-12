@@ -5,8 +5,8 @@ import cytoscape, {
 } from 'cytoscape'
 import { v4 as uuidv4 } from 'uuid'
 import { Graph } from './graph'
-import { VertexA } from '@codelab/shared/interface/graph-v2'
-import { NodeType } from '@codelab/shared/interface/node'
+import { VertexA } from '@codelab/alpha/shared/interface/graph-v2'
+import { NodeType } from '@codelab/alpha/shared/interface/node'
 
 let g: Graph
 let list: VertexA

@@ -7,7 +7,7 @@ import { AuthResolver } from './auth.resolver'
 import { AuthService } from './auth.service'
 import { GoogleStrategy } from './google.strategy'
 import { JwtStrategy } from './jwt.strategy'
-import { ConfigJwtService, ConfigModule } from '@codelab/api/providers/config'
+import { ConfigJwtService, ConfigModule } from '@codelab/alpha/api/providers/config'
 
 @Module({
   imports: [

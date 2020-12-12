@@ -1,10 +1,10 @@
-import { Renderer } from '@codelab/core/renderer'
+import { Renderer } from '@codelab/alpha/core/renderer'
 import {
   NodeReactI,
   NodeType,
   nodeTypeLiterals,
-} from '@codelab/shared/interface/node'
-import { PropType } from '@codelab/shared/interface/props'
+} from '@codelab/alpha/shared/interface/node'
+import { PropType } from '@codelab/alpha/shared/interface/props'
 
 const deleteButton: NodeReactI = {
   type: NodeType.React_Button,

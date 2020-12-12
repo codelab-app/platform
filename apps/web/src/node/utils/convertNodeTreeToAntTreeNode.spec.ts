@@ -1,6 +1,6 @@
 import { convertNodeTreeToAntTreeDataNode } from './convertNodeTreeToAntTreeNode'
-import { NodeEntity } from '@codelab/core/node'
-import { NodeType } from '@codelab/shared/interface/node'
+import { NodeEntity } from '@codelab/alpha/core/node'
+import { NodeType } from '@codelab/alpha/shared/interface/node'
 
 describe('convertNodeTreeToAntTreeNode. Single node without children', () => {
   let node: NodeEntity

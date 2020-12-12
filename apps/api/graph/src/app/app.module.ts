@@ -18,7 +18,7 @@ import {
   ConfigGraphqlHasuraService,
   ConfigModule,
   ConfigTypeormHasuraService,
-} from '@codelab/api/providers/config'
+} from '@codelab/alpha/api/providers/config'
 
 @Module({
   imports: [

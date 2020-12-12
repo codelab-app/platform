@@ -6,8 +6,8 @@ import React from 'react'
 //   ssrNodes,
 //   useNodeCreateMutation,
 //   useNodeDeleteMutation,
-// } from '@codelab/state/apollo'
-import { withApollo } from '@codelab/ui/hoc'
+// } from '@codelab/alpha/state/apollo'
+import { withApollo } from '@codelab/alpha/ui/hoc'
 
 // const Item = (node: any) => {
 //   const [nodeDeleteMutation] = useNodeDeleteMutation({

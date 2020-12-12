@@ -1,11 +1,11 @@
-import { Renderer } from '@codelab/core/renderer'
+import { Renderer } from '@codelab/alpha/core/renderer'
 import {
   NodeReactI,
   NodeType,
   nodeTypeEntries,
-} from '@codelab/shared/interface/node'
-import { PropType } from '@codelab/shared/interface/props'
-import { CodelabForm } from '@codelab/ui/antd'
+} from '@codelab/alpha/shared/interface/node'
+import { PropType } from '@codelab/alpha/shared/interface/props'
+import { CodelabForm } from '@codelab/alpha/ui/antd'
 
 const parentNodeSelect: NodeReactI = {
   type: NodeType.React_Form_Item,

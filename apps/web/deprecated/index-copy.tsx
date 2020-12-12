@@ -3,9 +3,9 @@ import { Button, Modal, Table } from 'antd'
 import React, { useContext } from 'react'
 // import { withApollo } from '@codelab/ddd/backend/infrastructure'
 import { UserSignupButton } from '@codelab/ddd/modules/users-stories'
-import { collectionToTable } from '@codelab/shared/factory'
-import { EventNameApp } from '@codelab/state/app'
-import { FormGraph, MachineContext } from '@codelab/ui/component'
+import { collectionToTable } from '@codelab/alpha/shared/factory'
+import { EventNameApp } from '@codelab/alpha/state/app'
+import { FormGraph, MachineContext } from '@codelab/alpha/ui/component'
 
 const GraphPage = () => {
   const { actors } = useContext(MachineContext)
