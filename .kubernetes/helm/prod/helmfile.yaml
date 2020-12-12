@@ -21,7 +21,7 @@ releases:
   chart: stable/nginx-ingress
   version: 1.39.0
   values:
-    - values/ingress-nginx.yaml
+    - values/ingress-nginx-prod.yaml
 
 - name: argocd
   namespace: argocd
