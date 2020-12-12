@@ -12,14 +12,8 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "typeRoots": [
-      "node_modules/@types",
-      "types"
-    ],
-    "lib": [
-      "es2017",
-      "dom"
-    ],
+    "typeRoots": ["node_modules/@types", "types"],
+    "lib": ["es2017", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
@@ -27,36 +21,9 @@
       "@codelab/tools-eslint-config-codelab": [
         "libs/tools/eslint-config-codelab/src/index.ts"
       ],
-      "@codelab/schematics": [
-        "libs/tools/plugins/codelab/src/index.ts"
-      ],
-      "@codelab/api/prisma": [
-        "libs/api/prisma/src/index.ts"
-      ],
-      "@codelab/ddd/backend": [
-        "libs/ddd/backend/src/index"
-      ],
-      "@codelab/ddd/frontend": [
-        "libs/ddd/frontend/src/index.ts"
-      ],
-      "@codelab/ddd/modules/users": [
-        "libs/ddd/modules/users/src/index.ts"
-      ],
-      "@codelab/ddd/modules/users-stories": [
-        "libs/ddd/modules/users-stories/src/index.ts"
-      ],
-      "@codelab/ddd/modules/app-stories": [
-        "libs/ddd/modules/app-stories/src/index.ts"
-      ],
-      "@codelab/ddd/modules/layout-stories": [
-        "libs/ddd/modules/layout-stories/src/index.ts"
-      ],
-      "@codelab/ddd/modules/layout-sidebar-stories": [
-        "libs/ddd/modules/layout-sidebar-stories/src/index.ts"
-      ],
-      "@codelab/alpha/core/graph": [
-        "libs/alpha/core/graph/src/index.ts"
-      ],
+      "@codelab/schematics": ["libs/tools/plugins/codelab/src/index.ts"],
+      "@codelab/api/prisma": ["libs/api/prisma/src/index.ts"],
+      "@codelab/alpha/core/graph": ["libs/alpha/core/graph/src/index.ts"],
       "@codelab/alpha/api/providers/config": [
         "libs/alpha/api/providers/config/src/index.ts"
       ],
@@ -66,36 +33,20 @@
       "@codelab/alpha/api/providers/router": [
         "libs/alpha/api/providers/router/src/index.ts"
       ],
-      "@codelab/alpha/core/model": [
-        "libs/alpha/core/model/src/index.ts"
-      ],
-      "@codelab/alpha/core/node": [
-        "libs/alpha/core/node/src/index.ts"
-      ],
-      "@codelab/alpha/core/props": [
-        "libs/alpha/core/props/src/index.ts"
-      ],
-      "@codelab/alpha/core/renderer": [
-        "libs/alpha/core/renderer/src/index.ts"
-      ],
+      "@codelab/alpha/core/model": ["libs/alpha/core/model/src/index.ts"],
+      "@codelab/alpha/core/node": ["libs/alpha/core/node/src/index.ts"],
+      "@codelab/alpha/core/props": ["libs/alpha/core/props/src/index.ts"],
+      "@codelab/alpha/core/renderer": ["libs/alpha/core/renderer/src/index.ts"],
       "@codelab/alpha/core/traversal": [
         "libs/alpha/core/traversal/src/index.ts"
       ],
-      "@codelab/alpha/core/tree": [
-        "libs/alpha/core/tree/src/index.ts"
-      ],
-      "@codelab/alpha/shared/common": [
-        "libs/alpha/shared/common/src/index.ts"
-      ],
-      "@codelab/alpha/shared/event": [
-        "libs/alpha/shared/event/src/index.ts"
-      ],
+      "@codelab/alpha/core/tree": ["libs/alpha/core/tree/src/index.ts"],
+      "@codelab/alpha/shared/common": ["libs/alpha/shared/common/src/index.ts"],
+      "@codelab/alpha/shared/event": ["libs/alpha/shared/event/src/index.ts"],
       "@codelab/alpha/shared/factory": [
         "libs/alpha/shared/factory/src/index.ts"
       ],
-      "@codelab/alpha/shared/utils": [
-        "libs/alpha/shared/utils/src/index.ts"
-      ],
+      "@codelab/alpha/shared/utils": ["libs/alpha/shared/utils/src/index.ts"],
       "@codelab/alpha/shared/interface/collections": [
         "libs/alpha/shared/interface/collections/src/index.ts"
       ],
@@ -129,44 +80,31 @@
       "@codelab/alpha/shared/interface/tree": [
         "libs/alpha/shared/interface/tree/src/index.ts"
       ],
-      "@codelab/alpha/state/apollo": [
-        "libs/alpha/state/apollo/src/index.ts"
+      "@codelab/alpha/state/apollo": ["libs/alpha/state/apollo/src/index.ts"],
+      "@codelab/alpha/state/app": ["libs/alpha/state/app/src/index.ts"],
+      "@codelab/alpha/state/entity": ["libs/alpha/state/entity/src/index.ts"],
+      "@codelab/alpha/state/layout": ["libs/alpha/state/layout/src/index.ts"],
+      "@codelab/alpha/state/modal": ["libs/alpha/state/modal/src/index.ts"],
+      "@codelab/alpha/state/node": ["libs/alpha/state/node/src/index.ts"],
+      "@codelab/alpha/state/vertex": ["libs/alpha/state/vertex/src/index.ts"],
+      "@codelab/alpha/ui/antd": ["libs/alpha/ui/antd/src/index.ts"],
+      "@codelab/alpha/ui/component": ["libs/alpha/ui/component/src/index.ts"],
+      "@codelab/alpha/ui/d3": ["libs/alpha/ui/d3/src/index.ts"],
+      "@codelab/alpha/ui/hoc": ["libs/alpha/ui/hoc/src/index.ts"],
+      "@codelab/backend": ["libs/backend/src/index"],
+      "@codelab/frontend": ["libs/frontend/src/index.ts"],
+      "@codelab/modules/app-stories": ["libs/modules/app-stories/src/index.ts"],
+      "@codelab/modules/users": ["libs/modules/users/src/index.ts"],
+      "@codelab/modules/users-stories": [
+        "libs/modules/users-stories/src/index.ts"
       ],
-      "@codelab/alpha/state/app": [
-        "libs/alpha/state/app/src/index.ts"
+      "@codelab/modules/layout-stories": [
+        "libs/modules/layout-stories/src/index.ts"
       ],
-      "@codelab/alpha/state/entity": [
-        "libs/alpha/state/entity/src/index.ts"
-      ],
-      "@codelab/alpha/state/layout": [
-        "libs/alpha/state/layout/src/index.ts"
-      ],
-      "@codelab/alpha/state/modal": [
-        "libs/alpha/state/modal/src/index.ts"
-      ],
-      "@codelab/alpha/state/node": [
-        "libs/alpha/state/node/src/index.ts"
-      ],
-      "@codelab/alpha/state/vertex": [
-        "libs/alpha/state/vertex/src/index.ts"
-      ],
-      "@codelab/alpha/ui/antd": [
-        "libs/alpha/ui/antd/src/index.ts"
-      ],
-      "@codelab/alpha/ui/component": [
-        "libs/alpha/ui/component/src/index.ts"
-      ],
-      "@codelab/alpha/ui/d3": [
-        "libs/alpha/ui/d3/src/index.ts"
-      ],
-      "@codelab/alpha/ui/hoc": [
-        "libs/alpha/ui/hoc/src/index.ts"
+      "@codelab/modules/layout-sidebar-stories": [
+        "libs/modules/layout-sidebar-stories/src/index.ts"
       ]
     }
   },
-  "exclude": [
-    "node_modules",
-    "tmp",
-    "dist"
-  ]
+  "exclude": ["node_modules", "tmp", "dist"]
 }

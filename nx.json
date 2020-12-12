@@ -46,28 +46,7 @@
     "api-graph": {
       "tags": []
     },
-    "ddd-modules-users": {
-      "tags": []
-    },
     "api-codelab": {
-      "tags": []
-    },
-    "ddd-backend": {
-      "tags": []
-    },
-    "ddd-frontend": {
-      "tags": []
-    },
-    "ddd-modules-users-stories": {
-      "tags": []
-    },
-    "ddd-modules-app-stories": {
-      "tags": []
-    },
-    "ddd-modules-layout-stories": {
-      "tags": []
-    },
-    "ddd-modules-layout-sidebar-stories": {
       "tags": []
     },
     "alpha-core-graph": {
@@ -176,6 +155,27 @@
       "tags": []
     },
     "alpha-ui-hoc": {
+      "tags": []
+    },
+    "backend": {
+      "tags": []
+    },
+    "frontend": {
+      "tags": []
+    },
+    "modules-app-stories": {
+      "tags": []
+    },
+    "modules-users": {
+      "tags": []
+    },
+    "modules-users-stories": {
+      "tags": []
+    },
+    "modules-layout-stories": {
+      "tags": []
+    },
+    "modules-layout-sidebar-stories": {
       "tags": []
     }
   }
