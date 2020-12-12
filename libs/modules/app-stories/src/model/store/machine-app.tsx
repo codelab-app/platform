@@ -2,13 +2,13 @@ import { useActor, useMachine } from '@xstate/react'
 import { atom, useRecoilValue } from 'recoil'
 import { Machine, assign, spawn } from 'xstate'
 import { layoutMachine } from '@codelab/modules/layout-stories'
-import { userMachine } from '@codelab/modules/users-stories'
+import { createUserMachine } from '@codelab/modules/users-stories'
 
 export const appMachine = Machine<any>({
   id: 'app',
   entry: assign({
     layout: () => spawn(layoutMachine, { sync: true }),
-    user: () => spawn(userMachine, { sync: false, autoForward: true }),
+    user: () => spawn(createUserMachine(), { sync: false, autoForward: true }),
   }),
   initial: 'idle',
   states: {

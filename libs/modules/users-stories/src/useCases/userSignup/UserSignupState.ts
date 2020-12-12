@@ -1,16 +1,10 @@
-export const guestStates = {
+export const userSignupState = {
   idle: {
     on: {
       SIGN_UP: {
         target: 'signingUp',
         actions: () => {
           console.log('signing up')
-        },
-      },
-      LOGIN: {
-        target: 'loggingIn',
-        actions: () => {
-          console.log('logging in')
         },
       },
     },
@@ -22,17 +16,6 @@ export const guestStates = {
         target: 'idle',
         actions: () => {
           console.log('cancel signup')
-        },
-      },
-    },
-  },
-  loggingIn: {
-    on: {
-      // Forwarded from app mediator
-      ON_MODAL_CANCEL: {
-        target: 'idle',
-        actions: () => {
-          console.log('cancel logging in')
         },
       },
     },

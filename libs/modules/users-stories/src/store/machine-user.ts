@@ -1,14 +1,24 @@
 import { Machine } from 'xstate'
-import { guestStates } from './machine-user--guest'
+import { userLoginState } from '../useCases/userLogin'
+import { userSignupState } from '../useCases/userSignup'
+import { mergeState } from '@codelab/frontend'
 
-export const userMachine = Machine({
-  id: 'user',
-  initial: 'guest',
-  states: {
-    guest: {
-      ...guestStates,
+export const createUserMachine = () => {
+  const guestStates = mergeState(userSignupState, userLoginState, ['idle'])
+
+  return Machine({
+    id: 'user',
+    initial: 'guest',
+    states: {
+      guest: {
+        initial: 'idle',
+        states: { ...guestStates },
+      },
+      // authenticated: {
+      //   // initial: 'idle',
+      //   // states: {
+      //   // },
+      // },
     },
-    signedUp: {},
-    loggedIn: {},
-  },
-})
+  })
+}
