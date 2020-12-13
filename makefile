@@ -127,6 +127,18 @@ e2e-ci:
 			"npx cross-env PORT=4001 \
 				node dist/apps/api/codelab/main.js" \
 			"npx next start -p 3001 dist/apps/web"
+#
+# INTEGRATION
+#
+int-ci:
+	npx nx run-many \
+	--target=test \
+	--testPathPattern="[/^e2e-spec.tsx?$/]" \
+	--all \
+	--parallel \
+	--silent \
+	--skip-nx-cache \
+	"$@"
 
 #
 # TEST
