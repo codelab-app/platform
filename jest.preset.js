@@ -7,7 +7,6 @@ module.exports = {
     // `${__dirname}/.jest/jest.setup.js`,
     '@testing-library/jest-dom',
   ],
-  // testMatch: [],
   // testMatch: ['**/+(*.)+(spec|test).+(ts|js)?(x)'],
   // transform: {
   //   '^.+\\.(ts|js|html)$': 'ts-jest',

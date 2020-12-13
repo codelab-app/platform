@@ -107,7 +107,7 @@ e2e-dev:
   	--kill-others \
   	--success=first \
 		--names=web-e2e,api-codelab,web \
-    	"npx wait-on -d 1000 \
+    	"npx wait-on \
 				http://localhost:3001 \
 				http://localhost:4001 && \
 				nx run web-e2e:e2e:ci" \
@@ -128,39 +128,50 @@ e2e-ci:
 				node dist/apps/api/codelab/main.js" \
 			"npx next start -p 3001 dist/apps/web"
 #
-# INTEGRATION
+# INTEGRATION TESTS
 #
-int-ci:
+integration-dev:
 	npx nx run-many \
 	--target=test \
-	--testPathPattern="[/^e2e-spec.tsx?$/]" \
+	--testPathPattern="i.spec.ts" \
 	--all \
-	--parallel \
-	--silent \
-	--skip-nx-cache \
-	"$@"
-
-#
-# TEST
-#
-
-test-dev-affected:
-	npx nx affected:test \
 	--parallel \
 	--silent
 
-test-dev:
+integration-ci:
 	npx nx run-many \
 	--target=test \
+	--testPathPattern="i.spec.ts" \
 	--all \
 	--parallel \
 	--silent \
-	"$@"
+	--skip-nx-cache
 
+#
+# UNIT TEST
+#
 
-test-ci:
+# On local, test runs both unit & integration
+# In ci, we split unit & integration
+
+unit-dev-affected:
+	npx nx affected:test \
+	--testPathIgnorePatterns=["i.spec.ts"] \
+	--parallel \
+	--silent
+
+unit-dev:
+	npx nx run-many \
+	--target=test \
+	--testPathIgnorePatterns=["i.spec.ts"] \
+	--all \
+	--parallel \
+	--silent
+
+unit-ci:
 	npx nx run-many \
 	--memoryLimit=4096 \
+	--testPathIgnorePatterns=["i.spec.ts"] \
 	--target=test \
 	--all \
 	--parallel \

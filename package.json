@@ -17,7 +17,7 @@
     "nx": "nx",
     "build": "make build-dev",
     "start": "make start-dev",
-    "test": "make test-dev",
+    "test": "make unit-dev",
     "commit": "git-cz",
     "docs": "onchange 'libs/ddd/**/*.ts' 'typedoc.json' -- npx typedoc",
     "migration:generate": "nx migrate @nrwl/workspace@latest",
