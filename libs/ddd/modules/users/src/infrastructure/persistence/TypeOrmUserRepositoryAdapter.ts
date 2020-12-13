@@ -1,6 +1,6 @@
 import { DeleteResult, EntityRepository } from 'typeorm'
 import { BaseRepository } from 'typeorm-transactional-cls-hooked'
-import { FindUserBy } from '../../common/CommonTypes'
+import { FindUserBy, FindUserByID } from '../../common/CommonTypes'
 import { UserRepositoryPort } from '../../core/adapters/UserRepositoryPort'
 import { User } from '../../core/domain/user'
 import { UserEmail } from '../../core/domain/user-email'
@@ -16,25 +16,40 @@ export class TypeOrmUserRepositoryAdapter
     return !!entity
   }
 
-  async createUser(user: User): Promise<TypeOrmUser> {
-    const u = new TypeOrmUser()
+  async createUser(user: User): Promise<User> {
+    let typeOrmUser = new TypeOrmUser()
 
-    u.email = user.email.toString()
-    u.password = user.password.value
+    typeOrmUser.email = user.email.toString()
+    typeOrmUser.password = user.password.value
+    typeOrmUser = await this.save(typeOrmUser)
 
-    return this.save(u)
+    const u = new User({ email: typeOrmUser.email })
+
+    return Promise.resolve(u)
   }
 
   async deleteUser(email: UserEmail): Promise<DeleteResult> {
     return this.delete({ email: email.toString() })
   }
 
-  async updateUser(user: User): Promise<User> {
-    const u = new TypeOrmUser()
+  async updateUser(userId: string, user: User): Promise<User> {
+    const foundUser: TypeOrmUser = await this.findUser({ id: userId })
 
-    u.email = user.email.toString()
-    await this.update({ email: user.email.toString() }, u)
+    foundUser.email = user.email.toString()
 
-    return Promise.resolve(user)
+    await this.update(foundUser.id, foundUser)
+
+    const u = new User({ email: foundUser.email })
+
+    return Promise.resolve(u)
+  }
+
+  async findUser(by: FindUserByID): Promise<TypeOrmUser> {
+    const typeOrmUser = await this.findOneOrFail(
+      { id: by.id },
+      { select: ['id', 'email', 'password'] },
+    )
+
+    return Promise.resolve(typeOrmUser)
   }
 }
