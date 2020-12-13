@@ -198,9 +198,9 @@ jobs:
       - persist_to_workspace:
           root: ..
           paths:
-            - ~/app/node_modules
-            - ~/app/dist
-            - ~/.cache/Cypress
+            - app/node_modules
+            - app/dist
+            - .cache/Cypress
       - notify-failure
 
   lint:
