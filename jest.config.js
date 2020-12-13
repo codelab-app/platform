@@ -48,5 +48,6 @@ module.exports = {
     '<rootDir>/libs/modules/modal-stories',
     '<rootDir>/libs/modules/sidebar-stories',
     '<rootDir>/libs/modules/header-stories',
+    '<rootDir>/apps/test',
   ],
 }

@@ -94,6 +94,41 @@ lint-eslint:
 	node scripts/lint/eslint.js
 
 #
+# E2E
+#
+
+# e2e-dev-affected:
+# 	npx nx affected:e2e \
+# 	--parallel \
+# 	--silent
+
+e2e-dev:
+	npx concurrently \
+  	--kill-others \
+  	--success=first \
+		--names=web-e2e,api-codelab,web \
+    	"npx wait-on -d 1000 \
+				http://localhost:3001 \
+				http://localhost:4001 && \
+				nx run web-e2e:e2e:ci" \
+			"npx env-cmd -f .env cross-env PORT=4001 \
+				node dist/apps/api/codelab/main.js" \
+			"npx next start -p 3001 dist/apps/web"
+
+e2e-ci:
+	npx concurrently \
+  	--kill-others \
+  	--success=first \
+		--names=web-e2e,api-codelab,web \
+    	"npx wait-on \
+				http://localhost:3001 \
+				http://localhost:4001 && \
+				nx run web-e2e:e2e:ci" \
+			"npx cross-env PORT=4001 \
+				node dist/apps/api/codelab/main.js" \
+			"npx next start -p 3001 dist/apps/web"
+
+#
 # TEST
 #
 
@@ -109,6 +144,7 @@ test-dev:
 	--parallel \
 	--silent \
 	"$@"
+
 
 test-ci:
 	npx nx run-many \
