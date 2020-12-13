@@ -151,11 +151,11 @@ commands:
   yarn-install-prod:
     description: 'Install prod dependencies'
     steps:
-      - restore_cache:
-          name: 'Restore Yarn cache'
-          keys:
-            - dep-cache-prod-{{ checksum "yarn.lock" }}
-            - dep-cache-prod-
+      # - restore_cache:
+      #     name: 'Restore Yarn cache'
+      #     keys:
+      #       - dep-cache-prod-{{ checksum "yarn.lock" }}
+      #       - dep-cache-prod-
       - run:
           name: 'Install NPM packages'
           command: yarn install --frozen-lockfile --prod=true
