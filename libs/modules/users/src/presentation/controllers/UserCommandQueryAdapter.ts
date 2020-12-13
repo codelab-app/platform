@@ -1,12 +1,14 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, Logger } from '@nestjs/common'
 import { CommandBus, QueryBus } from '@nestjs/cqrs'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { CreateUserCommand } from '../../core/application/commands/CreateUserCommand'
 import { DeleteUserCommand } from '../../core/application/commands/DeleteUserCommand'
+import { EditUserCommand } from '../../core/application/commands/EditUserCommand'
 import { DeleteUserDto } from '../../core/application/useCases/DeleteUserDto'
 import { UserUseCaseDto } from '../../core/application/useCases/UserUseCaseDto'
 import { CreateUserRequest } from '../../core/application/useCases/createUser/CreateUserRequest'
 import { DeleteUserRequest } from '../../core/application/useCases/deleteUser/DeleteUserRequest'
+import { EditUserRequest } from '../../core/application/useCases/editUser/EditUserRequest'
 import {
   CommandQueryBusPort,
   TypeOrmUser,
@@ -51,6 +53,18 @@ export class UserCommandQueryAdapter implements CommandQueryBusPort {
     const d = new DeleteUserDto()
 
     d.affectedRows = results.affected
+
+    return d
+  }
+
+  @Mutation((returns) => UserUseCaseDto)
+  async updateUser(@Args('user') request: EditUserRequest) {
+    const results = await this.commandBus.execute(new EditUserCommand(request))
+
+    Logger.log(results, 'updateUser')
+    const d = new UserUseCaseDto()
+
+    // d.affectedRows = results.affected
 
     return d
   }

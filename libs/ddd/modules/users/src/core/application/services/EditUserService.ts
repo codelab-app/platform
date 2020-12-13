@@ -12,7 +12,7 @@ export class EditUserService implements EditUserUseCase {
   async execute(request: EditUserRequest): Promise<EditUserResponse> {
     const u = User.update(request)
 
-    const result = await this.userRepository.updateUser(u)
+    const result = await this.userRepository.updateUser(request.userId, u)
 
     return right(Result.ok(result))
   }

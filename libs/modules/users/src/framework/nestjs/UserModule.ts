@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 import { Connection } from 'typeorm'
 import { CreateUserCommandHandler } from '../../core/application/handlers/CreateUserCommandHandler'
 import { DeleteUserCommandHandler } from '../../core/application/handlers/DeleteUserCommandHandler'
+import { UpdateUserCommandHandler } from '../../core/application/handlers/UpdateUserCommandHandler'
 import { CreateUserService } from '../../core/application/services/CreateUserService'
 import { DeleteUserService } from '../../core/application/services/DeleteUserService'
 import { EditUserService } from '../../core/application/services/EditUserService'
@@ -43,6 +44,7 @@ export const useCaseProviders: Array<Provider> = [
 export const handlerProviders: Array<Provider> = [
   CreateUserCommandHandler,
   DeleteUserCommandHandler,
+  UpdateUserCommandHandler,
 ]
 
 @Module({

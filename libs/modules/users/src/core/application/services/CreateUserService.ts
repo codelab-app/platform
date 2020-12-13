@@ -11,7 +11,7 @@ export class CreateUserService implements CreateUserUseCase {
   constructor(private readonly userRepository: UserRepositoryPort) {}
 
   async execute(request: CreateUserRequest): Promise<CreateUserResponse> {
-    const user = User.create(request)
+    let user = User.create(request)
 
     const userAlreadyExists = await this.userRepository.exists({
       email: user.email.toString(),
@@ -24,7 +24,7 @@ export class CreateUserService implements CreateUserUseCase {
     }
 
     // Persist here
-    await this.userRepository.createUser(user)
+    user = await this.userRepository.createUser(user)
 
     return right(Result.ok(user))
   }

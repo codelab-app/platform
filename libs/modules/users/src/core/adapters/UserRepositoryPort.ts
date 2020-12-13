@@ -12,9 +12,10 @@ export interface UserRepositoryPort {
 
   // countUsers(by: UserIdentity, options?: RepositoryFindOptions): Promise<number>
 
-  createUser(user: User): Promise<TypeOrmUser>
+  findUser(by: FindUserBy): Promise<TypeOrmUser>
+  createUser(user: User): Promise<User>
   deleteUser(email: UserEmail): Promise<DeleteResult>
-  updateUser(user: User): Promise<User>
+  updateUser(userId: string, user: User): Promise<User>
 
   exists(by: FindUserBy): Promise<boolean>
 }
