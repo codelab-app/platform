@@ -1,5 +1,5 @@
 module.exports = {
-  displayName: 'api--graph',
+  displayName: 'api-graph',
   preset: '../../../jest.preset.js',
   globals: {
     'ts-jest': {

@@ -9,5 +9,5 @@ export const UserSignupButtonContainer = () => {
     onClick: () => user.send('SIGN_UP'),
   }
 
-  return <UserSignupButton {...userSignupButtonProps}>Signup</UserSignupButton>
+  return <UserSignupButton {...userSignupButtonProps}>Sign Up</UserSignupButton>
 }

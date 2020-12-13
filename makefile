@@ -94,25 +94,84 @@ lint-eslint:
 	node scripts/lint/eslint.js
 
 #
-# TEST
+# E2E
 #
 
-test-dev-affected:
-	npx nx affected:test \
+# e2e-dev-affected:
+# 	npx nx affected:e2e \
+# 	--parallel \
+# 	--silent
+
+e2e-dev:
+	npx concurrently \
+  	--kill-others \
+  	--success=first \
+		--names=web-e2e,api-codelab,web \
+    	"npx wait-on \
+				http://localhost:3001 \
+				http://localhost:4001 && \
+				nx run web-e2e:e2e:ci" \
+			"npx env-cmd -f .env cross-env PORT=4001 \
+				node dist/apps/api/codelab/main.js" \
+			"npx next start -p 3001 dist/apps/web"
+
+e2e-ci:
+	npx concurrently \
+  	--kill-others \
+  	--success=first \
+		--names=web-e2e,api-codelab,web \
+    	"npx wait-on \
+				http://localhost:3001 \
+				http://localhost:4001 && \
+				nx run web-e2e:e2e:ci" \
+			"npx cross-env PORT=4001 \
+				node dist/apps/api/codelab/main.js" \
+			"npx next start -p 3001 dist/apps/web"
+#
+# INTEGRATION TESTS
+#
+integration-dev:
+	npx nx run-many \
+	--target=test \
+	--testPathPattern="i.spec.ts" \
+	--all \
 	--parallel \
 	--silent
 
-test-dev:
+integration-ci:
 	npx nx run-many \
 	--target=test \
+	--testPathPattern="i.spec.ts" \
 	--all \
 	--parallel \
 	--silent \
-	"$@"
+	--skip-nx-cache
 
-test-ci:
+#
+# UNIT TEST
+#
+
+# On local, test runs both unit & integration
+# In ci, we split unit & integration
+
+unit-dev-affected:
+	npx nx affected:test \
+	--testPathIgnorePatterns=["i.spec.ts"] \
+	--parallel \
+	--silent
+
+unit-dev:
+	npx nx run-many \
+	--target=test \
+	--testPathIgnorePatterns=["i.spec.ts"] \
+	--all \
+	--parallel \
+	--silent
+
+unit-ci:
 	npx nx run-many \
 	--memoryLimit=4096 \
+	--testPathIgnorePatterns=["i.spec.ts"] \
 	--target=test \
 	--all \
 	--parallel \

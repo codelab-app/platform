@@ -158,6 +158,9 @@
             "memoryLimit": 2048
           },
           "configurations": {
+            "ci": {
+              "port": 3001
+            },
             "production": {
               "buildTarget": "web:build-next:production",
               "dev": false
@@ -235,22 +238,19 @@
           "options": {
             "cypressConfig": "apps/web-e2e/cypress.json",
             "tsConfig": "apps/web-e2e/tsconfig.e2e.json",
-            "devServerTarget": "web:storybook"
+            "baseUrl": "http://localhost:3000"
           },
           "configurations": {
             "ci": {
-              "devServerTarget": "web:storybook:ci"
+              "baseUrl": "http://localhost:3001",
+              "headless": true
             }
           }
         },
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/web-e2e/src/**/*.ts",
-              "apps/web-e2e/src/**/*.js",
-              "apps/web-e2e/src/support/index.d.ts"
-            ]
+            "lintFilePatterns": ["apps/test-e2e/**/*.{js,ts}"]
           }
         }
       }
@@ -406,7 +406,8 @@
           "options": {
             "envFile": ".env",
             "commands": ["nx serve-default api-codelab"]
-          }
+          },
+          "configurations": {}
         },
         "lint": {
           "builder": "@nrwl/linter:eslint",

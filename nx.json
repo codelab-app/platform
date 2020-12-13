@@ -34,7 +34,7 @@
     },
     "web": {
       "tags": [],
-      "implicitDependencies": ["alpha-state-apollo"]
+      "implicitDependencies": ["api-codelab"]
     },
     "web-e2e": {
       "tags": [],
