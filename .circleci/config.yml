@@ -4,6 +4,10 @@
 #
 # https://circleci.com/docs/2.0/env-vars/#built-in-environment-variables
 
+# Cypress issue
+#
+# https://stackoverflow.com/questions/62319657/how-to-resolve-the-cypress-npm-package-is-installed-but-the-cypress-binary-is
+
 # Success notification is added to end of workflow, while failure notification is added to end of each job.
 
 filters-dev: &filters-dev
@@ -138,6 +142,9 @@ commands:
       - run:
           name: 'Install NPM packages'
           command: yarn install --frozen-lockfile --prod=false
+      - run:
+          name: 'List Cypress cache'
+          command: npx cypress cache path
       # - run:
       #     name: 'Remove NPM .cache'
       #     command: rm -rf ~/app/node_modules/.cache

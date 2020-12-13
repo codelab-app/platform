@@ -48,11 +48,10 @@ describe('Mapper', () => {
           sourceValue: Array<any>,
           sourceObject: any,
           destinationObject: any,
-        ) => {
+        ) =>
           sourceValue.map(({ key, value }) =>
             objectMapper.setKeyValue(destinationObject, key, value),
-          )
-        },
+          ),
       },
     }
 
