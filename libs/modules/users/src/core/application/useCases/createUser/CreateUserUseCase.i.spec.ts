@@ -1,10 +1,10 @@
 import { INestApplication } from '@nestjs/common'
 import { Test } from '@nestjs/testing'
 import request from 'supertest'
-import { UserModule } from '../../../../framework/nestjs/UserModule'
 import { TestInfrastructureModule } from '@codelab/backend'
+import { UserModule } from '@codelab/modules/users'
 
-describe.skip('User E2E test', () => {
+describe.skip('Create User E2E test', () => {
   let app: INestApplication
 
   beforeAll(async () => {
@@ -26,9 +26,8 @@ describe.skip('User E2E test', () => {
       .send({
         query: `
 					mutation {
-						createUser(user: {
-              email: "codelab@gmail.com", password: "1234"
-            }) {
+						createUser(user: { email: "codelab@gmail.com", password: "1234" }) 
+                        {
 							email
 						}
 					}
