@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 import { CommandBus, QueryBus } from '@nestjs/cqrs'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { CreateUserCommand } from '../../core/application/commands/CreateUserCommand'
@@ -61,10 +61,9 @@ export class UserCommandQueryAdapter implements CommandQueryBusPort {
   async updateUser(@Args('user') request: EditUserRequest) {
     const results = await this.commandBus.execute(new EditUserCommand(request))
 
-    Logger.log(results, 'updateUser')
     const d = new UserUseCaseDto()
 
-    // d.affectedRows = results.affected
+    d.email = results.email
 
     return d
   }
