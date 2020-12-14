@@ -7,6 +7,7 @@ module.exports = {
     // `${__dirname}/.jest/jest.setup.js`,
     '@testing-library/jest-dom',
   ],
+  // testPathIgnorePatterns: ['i.spec.ts'],
   // testMatch: ['**/+(*.)+(spec|test).+(ts|js)?(x)'],
   // transform: {
   //   '^.+\\.(ts|js|html)$': 'ts-jest',

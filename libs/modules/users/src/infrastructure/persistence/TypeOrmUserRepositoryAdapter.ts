@@ -1,14 +1,14 @@
-import { DeleteResult, EntityRepository } from 'typeorm'
-import { BaseRepository } from 'typeorm-transactional-cls-hooked'
+import { DeleteResult, EntityRepository, Repository } from 'typeorm'
 import { FindUserBy, FindUserByID } from '../../common/CommonTypes'
 import { UserRepositoryPort } from '../../core/adapters/UserRepositoryPort'
 import { User } from '../../core/domain/user'
 import { UserEmail } from '../../core/domain/user-email'
-import {TypeOrmUser} from '@codelab/backend';
+import { TypeOrmUser } from '@codelab/backend'
 
 @EntityRepository(TypeOrmUser)
+// extends BaseRepository<TypeOrmUser>
 export class TypeOrmUserRepositoryAdapter
-  extends BaseRepository<TypeOrmUser>
+  extends Repository<TypeOrmUser>
   implements UserRepositoryPort {
   async exists(searchBy: FindUserBy): Promise<boolean> {
     const entity = await this.findOne(searchBy)
@@ -17,31 +17,24 @@ export class TypeOrmUserRepositoryAdapter
   }
 
   async createUser(user: User): Promise<User> {
-    let typeOrmUser = new TypeOrmUser()
+    const newUser: TypeOrmUser = await this.save(user.toPlain())
 
-    typeOrmUser.email = user.email.toString()
-    typeOrmUser.password = user.password.value
-    typeOrmUser = await this.save(typeOrmUser)
-
-    const u = new User({ email: typeOrmUser.email })
-
-    return Promise.resolve(u)
+    return User.hydrate(newUser)
   }
 
   async deleteUser(email: UserEmail): Promise<DeleteResult> {
     return this.delete({ email: email.toString() })
   }
 
-  async updateUser(userId: string, user: User): Promise<User> {
-    const foundUser: TypeOrmUser = await this.findUser({ id: userId })
+  async updateUser(user: User): Promise<User> {
+    const updatedUser = await this.update(user.toPlain(), user.toPlain())
 
-    foundUser.email = user.email.toString()
+    console.log(updatedUser)
 
-    await this.update(foundUser.id, foundUser)
+    // return User.hydrate()
 
-    const u = new User({ email: foundUser.email })
-
-    return Promise.resolve(u)
+    return user
+    // return User.hydrate({})
   }
 
   async findUser(by: FindUserByID): Promise<TypeOrmUser> {

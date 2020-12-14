@@ -5,7 +5,7 @@ import { DeleteResult } from 'typeorm'
 import { UserDITokens } from '../../../framework/UserDITokens'
 import { DeleteUserCommand } from '../commands/DeleteUserCommand'
 import { DeleteUserUseCase } from '../useCases/deleteUser/DeleteUserUseCase'
-import { Result } from '@codelab/ddd/backend'
+import { Result } from '@codelab/backend'
 
 @CommandHandler(DeleteUserCommand)
 export class DeleteUserCommandHandler

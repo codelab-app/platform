@@ -17,9 +17,6 @@ import { DatabaseConfig } from '../config/DatabaseConfig'
       synchronize: DatabaseConfig.TYPEORM_SYNCHRONIZE,
       dropSchema: DatabaseConfig.TYPEORM_DROP_SCHEMA,
       logging: ['query', 'error', 'schema'],
-      extra: {
-        connectionLimit: 5,
-      },
       namingStrategy: new SnakeNamingStrategy(),
     }),
   ],

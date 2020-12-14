@@ -5,7 +5,7 @@ import { DeleteUserErrors } from '../useCases/deleteUser/DeleteUserErrors'
 import { DeleteUserRequest } from '../useCases/deleteUser/DeleteUserRequest'
 import { DeleteUserResponse } from '../useCases/deleteUser/DeleteUserResponse'
 import { DeleteUserUseCase } from '../useCases/deleteUser/DeleteUserUseCase'
-import { Result } from '@codelab/ddd/backend'
+import { Result } from '@codelab/backend'
 
 export class DeleteUserService implements DeleteUserUseCase {
   constructor(private readonly userRepository: UserRepositoryPort) {}

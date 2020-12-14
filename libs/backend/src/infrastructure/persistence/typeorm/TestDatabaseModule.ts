@@ -17,9 +17,6 @@ import { TestDatabaseConfig } from '../config/TestDatabaseConfig'
       synchronize: true,
       dropSchema: true,
       logging: ['query', 'error', 'schema'],
-      extra: {
-        connectionLimit: 5,
-      },
       namingStrategy: new SnakeNamingStrategy(),
     }),
   ],

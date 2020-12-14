@@ -7,7 +7,7 @@ import { DeleteUserCommandHandler } from '../../core/application/handlers/Delete
 import { UpdateUserCommandHandler } from '../../core/application/handlers/UpdateUserCommandHandler'
 import { CreateUserService } from '../../core/application/services/CreateUserService'
 import { DeleteUserService } from '../../core/application/services/DeleteUserService'
-import { EditUserService } from '../../core/application/services/EditUserService'
+import { UpdateUserService } from '../../core/application/services/UpdateUserService'
 import { TypeOrmUserRepositoryAdapter } from '../../infrastructure/persistence/TypeOrmUserRepositoryAdapter'
 import { UserCommandQueryAdapter } from '../../presentation/controllers/UserCommandQueryAdapter'
 import { UserDITokens } from '../UserDITokens'
@@ -31,7 +31,7 @@ export const useCaseProviders: Array<Provider> = [
   },
   {
     provide: UserDITokens.EditUserUseCase,
-    useFactory: (userRepository) => new EditUserService(userRepository),
+    useFactory: (userRepository) => new UpdateUserService(userRepository),
     inject: [UserDITokens.UserRepository],
   },
   {

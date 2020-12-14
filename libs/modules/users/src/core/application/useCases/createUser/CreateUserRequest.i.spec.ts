@@ -1,39 +1,32 @@
 import { CommandBus, CqrsModule } from '@nestjs/cqrs'
 import { Test } from '@nestjs/testing'
-import { TypeOrmModule } from '@nestjs/typeorm'
-import { Connection } from 'typeorm'
-import {
-  handlerProviders,
-  persistenceProviders,
-  useCaseProviders,
-} from '../../../../framework/nestjs/UserModule'
+import { UserModule } from '../../../../framework/nestjs/UserModule'
 import { CreateUserCommand } from '../../commands/CreateUserCommand'
 import { UserUseCaseDto } from '../UserUseCaseDto'
-import { TestDatabaseModule, TypeOrmUser } from '@codelab/backend'
+import { TestInfrastructureModule } from '@codelab/backend'
 
-describe('CreateUserUseCase', () => {
+describe('CreateUserRequest', () => {
   let userModule: any
+  let commandBus: CommandBus
 
   beforeAll(async () => {
     userModule = await Test.createTestingModule({
-      imports: [
-        TestDatabaseModule,
-        CqrsModule,
-        TypeOrmModule.forFeature([TypeOrmUser]),
-      ],
-      providers: [
-        ...persistenceProviders,
-        ...useCaseProviders,
-        ...handlerProviders,
-      ],
+      imports: [TestInfrastructureModule, UserModule],
     }).compile()
 
     await userModule.init()
+
+    commandBus = userModule.select(CqrsModule).get(CommandBus)
+  })
+
+  afterAll(async () => {
+    // const connection = userModule.get(Connection)
+
+    // await connection.close()
+    await userModule.close()
   })
 
   it('returns a user as command request', async () => {
-    const commandBus: CommandBus = userModule.select(CqrsModule).get(CommandBus)
-
     const results: UserUseCaseDto = await commandBus.execute(
       new CreateUserCommand({
         email: 'admin@codelab.ai',
@@ -46,17 +39,15 @@ describe('CreateUserUseCase', () => {
     })
   })
 
-  it('should throw error on invalid email', async () => {
-    const commandBus: CommandBus = userModule.select(CqrsModule).get(CommandBus)
-
-    const results: Promise<UserUseCaseDto> = commandBus.execute(
+  it('should throw error on invalid email', () => {
+    const execute = commandBus.execute(
       new CreateUserCommand({
         email: 'notanemail',
         password: 'password',
       }),
     )
 
-    await expect(results).rejects.toThrowError('Email must be valid')
+    expect(execute).rejects.toThrowError('Email must be valid')
   })
 
   // it('throws an error when an email is taken', async () => {
@@ -87,10 +78,4 @@ describe('CreateUserUseCase', () => {
   //     password: 'password',
   //   })
   // })
-
-  afterAll(() => {
-    const connection = userModule.get(Connection)
-
-    connection.close()
-  })
 })

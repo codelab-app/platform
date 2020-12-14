@@ -1,4 +1,4 @@
-import { RequestValidationError } from '@codelab/ddd/backend'
+import { RequestValidationError } from '@codelab/backend'
 
 export namespace EditUserErrors {
   export class UserNotFoundError extends RequestValidationError {

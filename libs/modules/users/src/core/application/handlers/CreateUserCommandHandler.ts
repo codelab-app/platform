@@ -1,9 +1,8 @@
 import { Inject } from '@nestjs/common'
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs'
-import { classToPlain } from 'class-transformer'
 import { fold } from 'fp-ts/lib/Either'
 import { UserDITokens } from '../../../framework/UserDITokens'
-import { User } from '../../domain/user'
+import { SerializedUserDto } from '../../domain/dto/SerializedUserDto'
 import { CreateUserCommand } from '../commands/CreateUserCommand'
 import { UserUseCaseDto } from '../useCases/UserUseCaseDto'
 import { CreateUserUseCase } from '../useCases/createUser/CreateUserUseCase'
@@ -26,7 +25,7 @@ export class CreateUserCommandHandler
       (errors) => {
         throw errors
       },
-      (results: Result<User>) => classToPlain(results.value) as UserUseCaseDto,
+      (results: Result<SerializedUserDto>) => results.value as UserUseCaseDto,
     )(createUserResults)
   }
 }

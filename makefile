@@ -24,7 +24,8 @@ build-ci:
     --target=build \
     --all \
     --parallel \
-    --maxWorkers=4
+    --maxWorkers=4 \
+		--skip-nx-cache
 
 build-prod:
 	npx nx run-many \
@@ -121,60 +122,70 @@ e2e-ci:
   	--success=first \
 		--names=web-e2e,api-codelab,web \
     	"npx wait-on \
-				http://localhost:3001 \
-				http://localhost:4001 && \
+				http://localhost:3000 \
+				http://localhost:4000 && \
 				nx run web-e2e:e2e:ci" \
-			"npx cross-env PORT=4001 \
+			"npx cross-env PORT=4000 \
 				node dist/apps/api/codelab/main.js" \
-			"npx next start -p 3001 dist/apps/web"
+			"npx next start -p 3000 dist/apps/web"
 #
 # INTEGRATION TESTS
 #
 integration-dev:
 	npx nx run-many \
 	--target=test \
-	--testPathPattern="i.spec.ts" \
+	--testPathPattern=i.spec.ts \
 	--all \
-	--parallel \
 	--silent
 
 integration-ci:
 	npx nx run-many \
 	--target=test \
-	--testPathPattern="i.spec.ts" \
+	--testPathPattern=i.spec.ts \
 	--all \
-	--parallel \
 	--silent \
 	--skip-nx-cache
 
 #
+# TEST (ALL)
+#
+test-dev-affected:
+	npx concurrently \
+		"make build-dev-affected" \
+ 		"make unit-dev-affected" \
+  	"make integration-dev" \
+  	"make e2e-dev"
+
+test-dev:
+	npx concurrently \
+		"make build-dev" \
+ 		"make unit-dev" \
+  	"make integration-dev" \
+  	"make e2e-dev"
+
+#
 # UNIT TEST
 #
-
-# On local, test runs both unit & integration
-# In ci, we split unit & integration
-
 unit-dev-affected:
 	npx nx affected:test \
-	--testPathIgnorePatterns=["i.spec.ts"] \
+	--testPathPattern=[^i].spec.ts \
 	--parallel \
 	--silent
 
 unit-dev:
 	npx nx run-many \
 	--target=test \
-	--testPathIgnorePatterns=["i.spec.ts"] \
-	--all \
+	--testPathPattern=[^i].spec.ts \
 	--parallel \
+	--all \
 	--silent
 
 unit-ci:
 	npx nx run-many \
 	--memoryLimit=4096 \
-	--testPathIgnorePatterns=["i.spec.ts"] \
+	--testPathPattern=[^i].spec.ts \
 	--target=test \
 	--all \
-	--parallel \
 	--maxWorkers=4 \
 	--silent
 

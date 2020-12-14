@@ -1,16 +1,13 @@
 import { Module, OnApplicationBootstrap, Provider } from '@nestjs/common'
-import { CqrsModule } from '@nestjs/cqrs'
 import { GraphQLModule } from '@nestjs/graphql'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies'
-import { initializeTransactionalContext } from 'typeorm-transactional-cls-hooked'
 import { GraphqlConfig, TestDatabaseConfig } from '../../infrastructure'
 
 const providers: Array<Provider> = []
 
 @Module({
   imports: [
-    CqrsModule,
     TypeOrmModule.forRoot({
       name: 'default',
       type: 'postgres',
@@ -36,6 +33,6 @@ const providers: Array<Provider> = []
 })
 export class TestInfrastructureModule implements OnApplicationBootstrap {
   onApplicationBootstrap() {
-    initializeTransactionalContext()
+    // initializeTransactionalContext()
   }
 }

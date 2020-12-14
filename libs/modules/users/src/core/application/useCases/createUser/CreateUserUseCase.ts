@@ -5,5 +5,4 @@ import { TransactionalUseCase } from '@codelab/backend'
 export type CreateUserUseCase = TransactionalUseCase<
   CreateUserRequest,
   CreateUserResponse
-  // UserUseCaseDto
 >

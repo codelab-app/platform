@@ -1,4 +1,5 @@
 import { AggregateRoot as NestjsAggregateRoot } from '@nestjs/cqrs'
+import { classToPlain } from 'class-transformer'
 import { ValidateNested } from 'class-validator'
 import { Option } from 'fp-ts/Option'
 import { ValueObjectProps } from './ValueObject'
@@ -13,5 +14,9 @@ export class AggregateRoot<
   constructor(props: P) {
     super()
     Object.assign(this, props)
+  }
+
+  toPlain() {
+    return classToPlain(this)
   }
 }
