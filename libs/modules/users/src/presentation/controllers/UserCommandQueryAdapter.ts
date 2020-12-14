@@ -9,6 +9,7 @@ import { CreateUserRequest } from '../../core/application/useCases/createUser/Cr
 import { DeleteUserDto } from '../../core/application/useCases/deleteUser/DeleteUserDto'
 import { DeleteUserRequest } from '../../core/application/useCases/deleteUser/DeleteUserRequest'
 import { UpdateUserRequest } from '../../core/application/useCases/updateUser/UpdateUserRequest'
+import { User } from '../../core/domain/user'
 import {
   CommandQueryBusPort,
   TypeOrmUser,
@@ -38,11 +39,11 @@ export class UserCommandQueryAdapter implements CommandQueryBusPort {
 
   @Mutation((returns) => UserUseCaseDto)
   async createUser(@Args('user') request: CreateUserRequest) {
-    const results = await this.commandBus.execute(
+    const user: User = await this.commandBus.execute(
       new CreateUserCommand(request),
     )
 
-    return results
+    return user.toPlain()
   }
 
   @Mutation((returns) => DeleteUserDto)

@@ -31,10 +31,7 @@ export class TypeOrmUserRepositoryAdapter
 
     console.log(updatedUser)
 
-    // return User.hydrate()
-
     return user
-    // return User.hydrate({})
   }
 
   async findUser(by: FindUserByID): Promise<TypeOrmUser> {
