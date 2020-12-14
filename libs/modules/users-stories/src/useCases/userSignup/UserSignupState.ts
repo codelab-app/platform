@@ -18,6 +18,11 @@ export const userSignupState = {
           console.log('cancel signup')
         },
       },
+      ON_MODAL_OK: {
+        actions: () => {
+          console.log('signingUp on modal ok')
+        },
+      },
     },
   },
 }
