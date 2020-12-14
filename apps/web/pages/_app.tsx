@@ -12,8 +12,12 @@ require('antd/dist/antd.css')
 const App = ({ children }: PropsWithChildren<any>) => {
   return (
     <>
-      <ModalContainer />
-      <AppLayoutContainer>{children}</AppLayoutContainer>
+      {typeof window === 'undefined' ? null : (
+        <>
+          <ModalContainer />
+          <AppLayoutContainer>{children}</AppLayoutContainer>
+        </>
+      )}
     </>
   )
 }
