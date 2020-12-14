@@ -122,12 +122,12 @@ e2e-ci:
   	--success=first \
 		--names=web-e2e,api-codelab,web \
     	"npx wait-on \
-				http://localhost:3000 \
-				http://localhost:4000 && \
+				http://localhost:3001 \
+				http://localhost:4001 && \
 				nx run web-e2e:e2e:ci" \
-			"npx cross-env PORT=4000 \
+			"npx cross-env PORT=4001 \
 				node dist/apps/api/codelab/main.js" \
-			"npx next start -p 3000 dist/apps/web"
+			"npx next start -p 3001 dist/apps/web"
 #
 # INTEGRATION TESTS
 #
