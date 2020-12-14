@@ -1,24 +1,12 @@
-import { Exclude, Type, plainToClass } from 'class-transformer'
+import { Type, classToPlain, plainToClass } from 'class-transformer'
 import { CreateUserRequest } from '../application/useCases/createUser/CreateUserRequest'
+import { UpdateUserRequest } from '../application/useCases/updateUser/UpdateUserRequest'
+import { SerializedUserDto } from './dto/SerializedUserDto'
 import { UserEmail } from './user-email'
 import { UserPassword } from './user-password'
-import { AggregateRoot, Result, TransformBoth } from '@codelab/backend'
+import { AggregateRoot, TransformBoth } from '@codelab/backend'
 
-interface UserProps {
-  email: string
-  password: string
-}
-
-interface UserDto {
-  email: UserEmail
-  password: UserPassword
-}
-
-type DtoResult<T> = {
-  [P in keyof T]: Result<T[P]>
-}
-
-export class User extends AggregateRoot<UserProps> {
+export class User extends AggregateRoot<SerializedUserDto> {
   // @ValidateNested()
   @Type(() => UserEmail)
   @TransformBoth(UserEmail)
@@ -27,14 +15,14 @@ export class User extends AggregateRoot<UserProps> {
   // @ValidateNested()
   @Type(() => UserPassword)
   @TransformBoth(UserPassword)
-  @Exclude({ toPlainOnly: true })
+  // @Exclude({ toPlainOnly: true })
   declare password: UserPassword
 
   /**
    * Used for instantiating a User object
    * @param props
    */
-  private static hydrate(props: UserProps) {
+  public static hydrate(props: SerializedUserDto) {
     const user = plainToClass(User, props)
 
     return user
@@ -50,5 +38,13 @@ export class User extends AggregateRoot<UserProps> {
     user.password.hashPassword()
 
     return user
+  }
+
+  public static update(request: UpdateUserRequest): User {
+    return User.hydrate(request)
+  }
+
+  toPlain() {
+    return classToPlain(this) as SerializedUserDto
   }
 }

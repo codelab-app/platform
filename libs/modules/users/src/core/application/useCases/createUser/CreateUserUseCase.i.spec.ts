@@ -1,42 +1,72 @@
 import { INestApplication } from '@nestjs/common'
 import { Test } from '@nestjs/testing'
 import request from 'supertest'
-import { UserModule } from '../../../../framework/nestjs/UserModule'
+import { Connection } from 'typeorm'
 import { TestInfrastructureModule } from '@codelab/backend'
+import { UserModule } from '@codelab/modules/users'
 
-describe.skip('User E2E test', () => {
+describe('CreateUserUseCase', () => {
   let app: INestApplication
 
   beforeAll(async () => {
-    const m = await Test.createTestingModule({
+    const testModule = await Test.createTestingModule({
       imports: [TestInfrastructureModule, UserModule],
     }).compile()
 
-    app = m.createNestApplication()
+    app = testModule.createNestApplication()
     await app.init()
   })
 
   afterAll(async () => {
+    const connection = app.get(Connection)
+
+    await connection.close()
     await app.close()
   })
 
-  it('should create user', async () => {
-    return request(app.getHttpServer())
+  it('should create a user', async () => {
+    await request(app.getHttpServer())
       .post('/graphql')
       .send({
         query: `
 					mutation {
-						createUser(user: {
-              email: "codelab@gmail.com", password: "1234"
-            }) {
+            createUser(user:
+              {
+                email: "admin@codelab.ai",
+                password: "password"
+              }
+            ) {
 							email
 						}
 					}
-			`,
+			  `,
       })
       .expect(200)
       .expect((res) => {
-        expect(res.body.data.createUser).toEqual({ email: 'codelab@gmail.com' })
+        expect(res.body.data.createUser).toEqual({ email: 'admin@codelab.ai' })
       })
   })
+
+  // it('should raise an error given an existing email', async () => {
+  //   await request(app.getHttpServer())
+  //     .post('/graphql')
+  //     .send({
+  //       query: `
+  //         mutation {
+  //           createUser(user:
+  //             {
+  //               email: "admin@codelab.com",
+  //               password: "password"
+  //             }
+  //           ) {
+  //             email
+  //           }
+  //         }
+  //       `,
+  //     })
+  //     .expect(200)
+  //     .expect((res) => {
+  //       expect(res.body.data.createUser).toEqual({ email: 'codelab@gmail.com' })
+  //     })
+  // })
 })

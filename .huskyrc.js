@@ -6,6 +6,7 @@ module.exports = {
     /**
      * Move build from circleci to here, save time on pipeline
      */
+
     'pre-push': tasks([
       'make build-dev-affected',
       'make unit-dev-affected',

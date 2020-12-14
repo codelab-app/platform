@@ -1,9 +1,9 @@
 import { Either } from 'fp-ts/lib/Either'
-import { User } from '../../../domain/user'
+import { SerializedUserDto } from '../../../domain/dto/SerializedUserDto'
 import { CreateUserErrors } from './CreateUserErrors'
 import { Result } from '@codelab/backend'
 
 export type CreateUserResponse = Either<
   CreateUserErrors.EmailAlreadyExistsError,
-  Result<User>
+  Result<SerializedUserDto>
 >

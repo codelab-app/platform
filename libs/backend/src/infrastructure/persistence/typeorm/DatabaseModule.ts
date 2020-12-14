@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies'
 import { DatabaseConfig } from '../config/DatabaseConfig'
+import { TypeOrmUser } from './entity/TypeOrmUser'
 
 @Module({
   imports: [
@@ -13,13 +14,11 @@ import { DatabaseConfig } from '../config/DatabaseConfig'
       username: DatabaseConfig.DB_USERNAME,
       password: DatabaseConfig.DB_PASSWORD,
       database: DatabaseConfig.DB_NAME,
-      autoLoadEntities: true,
+      entities: [TypeOrmUser],
+      autoLoadEntities: false,
       synchronize: DatabaseConfig.TYPEORM_SYNCHRONIZE,
       dropSchema: DatabaseConfig.TYPEORM_DROP_SCHEMA,
       logging: ['query', 'error', 'schema'],
-      extra: {
-        connectionLimit: 5,
-      },
       namingStrategy: new SnakeNamingStrategy(),
     }),
   ],

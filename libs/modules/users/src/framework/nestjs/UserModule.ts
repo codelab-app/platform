@@ -3,7 +3,11 @@ import { CqrsModule } from '@nestjs/cqrs'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { Connection } from 'typeorm'
 import { CreateUserCommandHandler } from '../../core/application/handlers/CreateUserCommandHandler'
+import { DeleteUserCommandHandler } from '../../core/application/handlers/DeleteUserCommandHandler'
+import { UpdateUserCommandHandler } from '../../core/application/handlers/UpdateUserCommandHandler'
 import { CreateUserService } from '../../core/application/services/CreateUserService'
+import { DeleteUserService } from '../../core/application/services/DeleteUserService'
+import { UpdateUserService } from '../../core/application/services/UpdateUserService'
 import { TypeOrmUserRepositoryAdapter } from '../../infrastructure/persistence/TypeOrmUserRepositoryAdapter'
 import { UserCommandQueryAdapter } from '../../presentation/controllers/UserCommandQueryAdapter'
 import { UserDITokens } from '../UserDITokens'
@@ -25,9 +29,23 @@ export const useCaseProviders: Array<Provider> = [
     useFactory: (userRepository) => new CreateUserService(userRepository),
     inject: [UserDITokens.UserRepository],
   },
+  {
+    provide: UserDITokens.EditUserUseCase,
+    useFactory: (userRepository) => new UpdateUserService(userRepository),
+    inject: [UserDITokens.UserRepository],
+  },
+  {
+    provide: UserDITokens.DeleteUserUseCase,
+    useFactory: (userRepository) => new DeleteUserService(userRepository),
+    inject: [UserDITokens.UserRepository],
+  },
 ]
 
-export const handlerProviders: Array<Provider> = [CreateUserCommandHandler]
+export const handlerProviders: Array<Provider> = [
+  CreateUserCommandHandler,
+  DeleteUserCommandHandler,
+  UpdateUserCommandHandler,
+]
 
 @Module({
   imports: [CqrsModule, TypeOrmModule.forFeature([TypeOrmUser])],
