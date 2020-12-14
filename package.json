@@ -121,7 +121,6 @@
     "react-json-view": "1.19.1",
     "react-json-view-ssr": "1.19.1",
     "react-resizable": "1.11.0",
-    "react-router-dom": "^5.2.0",
     "recoil": "0.1.2",
     "reflect-metadata": "0.1.13",
     "rest-hooks": "4.5.9",

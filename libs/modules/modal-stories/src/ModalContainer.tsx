@@ -1,13 +1,9 @@
 import React from 'react'
-import { Route, Switch } from 'react-router-dom'
+import { UserLoginForm } from '../../users-stories/src/useCases/userLogin/UserLoginForm'
 import { AppModalProps, Modal } from './Modal'
 import { useApp } from '@codelab/modules/app-stories'
 import { useLayout } from '@codelab/modules/layout-stories'
-import {
-  UserLoginForm,
-  UserSignupForm,
-  useUser,
-} from '@codelab/modules/users-stories'
+import { UserSignupForm, useUser } from '@codelab/modules/users-stories'
 
 export const ModalContainer = () => {
   const app = useApp()
@@ -27,14 +23,8 @@ export const ModalContainer = () => {
 
   return (
     <Modal {...appModalProps}>
-      <Switch>
-        <Route path="/guest/sign-up">
-          <UserSignupForm />
-        </Route>
-        <Route path="/guest/login">
-          <UserLoginForm />
-        </Route>
-      </Switch>
+      <>{user.state.value.guest === 'signingUp' ? <UserSignupForm /> : null}</>
+      <>{user.state.value.guest === 'loggingIn' ? <UserLoginForm /> : null}</>
     </Modal>
   )
 }
