@@ -1,5 +1,5 @@
 import { CommandBus, CqrsModule } from '@nestjs/cqrs'
-import { Test } from '@nestjs/testing'
+import { Test, TestingModule } from '@nestjs/testing'
 import { Connection } from 'typeorm'
 import { UserModule } from '../../../../framework/nestjs/UserModule'
 import { CreateUserCommand } from '../../commands/CreateUserCommand'
@@ -7,7 +7,7 @@ import { UserUseCaseDto } from '../UserUseCaseDto'
 import { TestInfrastructureModule } from '@codelab/backend'
 
 describe('CreateUserRequest', () => {
-  let userModule: any
+  let userModule: TestingModule
   let commandBus: CommandBus
 
   beforeAll(async () => {

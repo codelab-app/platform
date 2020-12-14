@@ -136,8 +136,7 @@ integration-dev:
 	--target=test \
 	--testPathPattern=i.spec.ts \
 	--all \
-	--skip-nx-cache \
-	--silent
+	--skip-nx-cache
 
 integration-ci:
 	npx nx run-many \
@@ -170,16 +169,14 @@ test-dev:
 unit-dev-affected:
 	npx nx affected:test \
 	--testPathPattern=[^i].spec.ts \
-	--parallel \
-	--silent
+	--parallel
 
 unit-dev:
 	npx nx run-many \
 	--target=test \
 	--testPathPattern=[^i].spec.ts \
 	--parallel \
-	--all \
-	--silent
+	--all
 
 unit-ci:
 	npx nx run-many \
