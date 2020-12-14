@@ -136,6 +136,7 @@ integration-dev:
 	--target=test \
 	--testPathPattern=i.spec.ts \
 	--all \
+	--skip-nx-cache \
 	--silent
 
 integration-ci:
@@ -187,6 +188,7 @@ unit-ci:
 	--target=test \
 	--all \
 	--maxWorkers=4 \
+	--skip-nx-cache \
 	--silent
 
 #

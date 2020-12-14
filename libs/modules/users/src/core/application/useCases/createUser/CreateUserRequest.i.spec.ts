@@ -1,5 +1,6 @@
 import { CommandBus, CqrsModule } from '@nestjs/cqrs'
 import { Test } from '@nestjs/testing'
+import { Connection } from 'typeorm'
 import { UserModule } from '../../../../framework/nestjs/UserModule'
 import { CreateUserCommand } from '../../commands/CreateUserCommand'
 import { UserUseCaseDto } from '../UserUseCaseDto'
@@ -20,9 +21,9 @@ describe('CreateUserRequest', () => {
   })
 
   afterAll(async () => {
-    // const connection = userModule.get(Connection)
+    const connection = userModule.get(Connection)
 
-    // await connection.close()
+    await connection.close()
     await userModule.close()
   })
 

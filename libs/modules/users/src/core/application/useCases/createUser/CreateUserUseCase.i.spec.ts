@@ -1,6 +1,7 @@
 import { INestApplication } from '@nestjs/common'
 import { Test } from '@nestjs/testing'
 import request from 'supertest'
+import { Connection } from 'typeorm'
 import { TestInfrastructureModule } from '@codelab/backend'
 import { UserModule } from '@codelab/modules/users'
 
@@ -17,9 +18,9 @@ describe('CreateUserUseCase', () => {
   })
 
   afterAll(async () => {
-    // const connection = app.get(Connection)
+    const connection = app.get(Connection)
 
-    // await connection.close()
+    await connection.close()
     await app.close()
   })
 
