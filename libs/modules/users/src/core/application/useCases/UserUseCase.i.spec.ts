@@ -7,7 +7,7 @@ import { UserModule } from '@codelab/modules/users'
 
 const email = 'test_user@codelab.ai'
 
-describe('CreateUserUseCase', () => {
+describe.skip('CreateUserUseCase', () => {
   let app: INestApplication
 
   beforeAll(async () => {
