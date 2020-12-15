@@ -1,6 +1,5 @@
 import { Inject } from '@nestjs/common'
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs'
-import { classToPlain } from 'class-transformer'
 import { fold } from 'fp-ts/Either'
 import { UserDITokens } from '../../../framework/UserDITokens'
 import { User } from '../../domain/user'
@@ -24,7 +23,7 @@ export class UpdateUserCommandHandler
       (errors) => {
         throw errors
       },
-      (results: Result<User>) => classToPlain(results.value) as UserUseCaseDto,
+      (results: Result<User>) => (results.value as unknown) as UserUseCaseDto,
     )(updateUserResults)
   }
 }

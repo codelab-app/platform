@@ -1,3 +1,5 @@
+require('dotenv').config({ path: '../../../.env' })
+
 module.exports = {
   displayName: 'modules-users',
   preset: '../../../jest.preset.js',

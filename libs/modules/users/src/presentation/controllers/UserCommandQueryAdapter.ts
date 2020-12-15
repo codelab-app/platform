@@ -60,14 +60,10 @@ export class UserCommandQueryAdapter implements CommandQueryBusPort {
 
   @Mutation((returns) => UserUseCaseDto)
   async updateUser(@Args('user') request: UpdateUserRequest) {
-    const results = await this.commandBus.execute(
+    const user: User = await this.commandBus.execute(
       new UpdateUserCommand(request),
     )
 
-    const d = new UserUseCaseDto()
-
-    d.email = results.email
-
-    return d
+    return user.toPlain()
   }
 }

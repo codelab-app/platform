@@ -6,7 +6,6 @@ import { UserEmail } from '../../core/domain/user-email'
 import { TypeOrmUser } from '@codelab/backend'
 
 @EntityRepository(TypeOrmUser)
-// extends BaseRepository<TypeOrmUser>
 export class TypeOrmUserRepositoryAdapter
   extends Repository<TypeOrmUser>
   implements UserRepositoryPort {
@@ -27,11 +26,21 @@ export class TypeOrmUserRepositoryAdapter
   }
 
   async updateUser(user: User): Promise<User> {
-    const updatedUser = await this.update(user.toPlain(), user.toPlain())
+    const plain = user.toPlain()
+    const existingUser = await this.findOneOrFail({
+      where: { id: plain.id },
+      select: ['id', 'email', 'password'],
+    })
+    // Update returns UpdateResult not the entity, so cannot use if you want to return the user
+    // back to the client
+    // const updatedUser = await this.update(plain.id as string, user.toPlain())
+    const updatedUser = await this.save({
+      ...existingUser,
+      ...plain,
+    })
+    // const hy = User.hydrate(updatedUser)
 
-    console.log(updatedUser)
-
-    return user
+    return User.hydrate(updatedUser)
   }
 
   async findUser(by: FindUserByID): Promise<TypeOrmUser> {
