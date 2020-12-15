@@ -15,7 +15,7 @@ export class UpdateUserService implements UpdateUserUseCase {
   async execute(request: UpdateUserRequest): Promise<UpdateUserResponse> {
     const u = User.update(request)
 
-    const existingUser: Option<User> = await this.userRepository.findUserById({
+    const existingUser: Option<User> = await this.userRepository.findUser({
       id: request.id.toString(),
     })
 

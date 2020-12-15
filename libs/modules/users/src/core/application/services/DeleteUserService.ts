@@ -13,11 +13,9 @@ export class DeleteUserService implements DeleteUserUseCase {
   constructor(private readonly userRepository: UserRepositoryPort) {}
 
   async execute(request: DeleteUserRequest): Promise<DeleteUserResponse> {
-    const existingUser: Option<User> = await this.userRepository.findUserByEmail(
-      {
-        email: request.email.toString(),
-      },
-    )
+    const existingUser: Option<User> = await this.userRepository.findUser({
+      email: request.email.toString(),
+    })
 
     const leftResult = left(
       new DeleteUserErrors.UserNotFoundError(request.email.toString()),
