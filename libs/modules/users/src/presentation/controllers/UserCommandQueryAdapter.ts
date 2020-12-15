@@ -6,7 +6,6 @@ import { DeleteUserCommand } from '../../core/application/commands/DeleteUserCom
 import { UpdateUserCommand } from '../../core/application/commands/UpdateUserCommand'
 import { UserUseCaseDto } from '../../core/application/useCases/UserUseCaseDto'
 import { CreateUserRequest } from '../../core/application/useCases/createUser/CreateUserRequest'
-import { DeleteUserDto } from '../../core/application/useCases/deleteUser/DeleteUserDto'
 import { DeleteUserRequest } from '../../core/application/useCases/deleteUser/DeleteUserRequest'
 import { UpdateUserRequest } from '../../core/application/useCases/updateUser/UpdateUserRequest'
 import { User } from '../../core/domain/user'
@@ -46,16 +45,11 @@ export class UserCommandQueryAdapter implements CommandQueryBusPort {
     return user.toPlain()
   }
 
-  @Mutation((returns) => DeleteUserDto)
+  @Mutation((returns) => UserUseCaseDto)
   async deleteUser(@Args('user') request: DeleteUserRequest) {
-    const results = await this.commandBus.execute(
-      new DeleteUserCommand(request),
-    )
-    const d = new DeleteUserDto()
+    const user = await this.commandBus.execute(new DeleteUserCommand(request))
 
-    d.affectedRows = results.affected
-
-    return d
+    return user.toPlain()
   }
 
   @Mutation((returns) => UserUseCaseDto)
