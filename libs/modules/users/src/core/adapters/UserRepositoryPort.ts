@@ -1,18 +1,18 @@
+import { Option } from 'fp-ts/Option'
 import {
   FindUserBy,
   FindUserByEmail,
   FindUserByID,
 } from '../../common/CommonTypes'
 import { User } from '../domain/user'
-import { TypeOrmUser } from '@codelab/backend'
 
 export interface UserRepositoryPort {
   // findUser(by: FindUserBy): Promise<TypeOrmUser | undefined>
   createUser(user: User): Promise<User>
-  deleteUser(user: TypeOrmUser): Promise<Array<TypeOrmUser>>
-  updateUser(existingUser: TypeOrmUser, updatedUser: User): Promise<TypeOrmUser>
+  deleteUser(user: User): Promise<Option<User>>
+  updateUser(existingUser: User, updatedUser: User): Promise<User>
   exists(by: FindUserBy): Promise<boolean>
 
-  findUserById(by: FindUserByID): Promise<TypeOrmUser | undefined>
-  findUserByEmail(by: FindUserByEmail): Promise<TypeOrmUser | undefined>
+  findUserById(by: FindUserByID): Promise<Option<User>>
+  findUserByEmail(by: FindUserByEmail): Promise<Option<User>>
 }

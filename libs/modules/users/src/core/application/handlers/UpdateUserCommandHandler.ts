@@ -4,7 +4,6 @@ import { fold } from 'fp-ts/Either'
 import { UserDITokens } from '../../../framework/UserDITokens'
 import { User } from '../../domain/user'
 import { UpdateUserCommand } from '../commands/UpdateUserCommand'
-import { UserUseCaseDto } from '../useCases/UserUseCaseDto'
 import { UpdateUserUseCase } from '../useCases/updateUser/UpdateUserUseCase'
 import { Result } from '@codelab/backend'
 
@@ -16,14 +15,15 @@ export class UpdateUserCommandHandler
     private readonly service: UpdateUserUseCase,
   ) {}
 
-  async execute({ request }: UpdateUserCommand): Promise<UserUseCaseDto> {
+  async execute({ request }: UpdateUserCommand): Promise<User> {
     const updateUserResults = await this.service.execute(request)
 
     return fold(
       (errors) => {
         throw errors
       },
-      (results: Result<User>) => (results.value as unknown) as UserUseCaseDto,
+      // (results: Result<User>) => (results.value as unknown) as UserUseCaseDto,
+      (results: Result<User>) => results.value,
     )(updateUserResults)
   }
 }

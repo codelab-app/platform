@@ -1,3 +1,6 @@
+import { plainToClass } from 'class-transformer'
+import { option as O } from 'fp-ts'
+import { Option } from 'fp-ts/Option'
 import { EntityRepository, Repository } from 'typeorm'
 import {
   FindUserBy,
@@ -24,38 +27,49 @@ export class TypeOrmUserRepositoryAdapter
     return User.hydrate(newUser)
   }
 
-  async deleteUser(user: TypeOrmUser): Promise<Array<TypeOrmUser>> {
-    return this.remove([user])
+  async deleteUser(user: User): Promise<Option<User>> {
+    const typeOrmUser = plainToClass(TypeOrmUser, user.toPlain())
+    const users = await this.remove([typeOrmUser])
+
+    return users.length > 0
+      ? Promise.resolve(O.some(User.hydrate(users[0])))
+      : O.none
   }
 
-  async updateUser(
-    existingUser: TypeOrmUser,
-    user: User,
-  ): Promise<TypeOrmUser> {
-    const plain = user.toPlain()
+  async updateUser(existingUser: User, user: User): Promise<User> {
+    const plainUser = user.toPlain()
+    const typeOrmExistingUser = plainToClass(
+      TypeOrmUser,
+      existingUser.toPlain(),
+    )
+
     const updatedUser = await this.save({
-      ...existingUser,
-      ...plain,
+      ...typeOrmExistingUser,
+      ...plainUser,
     })
 
-    return updatedUser
+    return User.hydrate(updatedUser)
   }
 
-  async findUserById(by: FindUserByID): Promise<TypeOrmUser | undefined> {
+  async findUserById(by: FindUserByID): Promise<Option<User>> {
     const typeOrmUser = await this.findOne(
       { id: by.id },
       { select: ['id', 'email', 'password'] },
     )
 
-    return Promise.resolve(typeOrmUser)
+    return typeOrmUser
+      ? Promise.resolve(O.some(User.hydrate(typeOrmUser)))
+      : O.none
   }
 
-  async findUserByEmail(by: FindUserByEmail): Promise<TypeOrmUser | undefined> {
+  async findUserByEmail(by: FindUserByEmail): Promise<Option<User>> {
     const typeOrmUser = await this.findOne(
       { email: by.email },
       { select: ['id', 'email', 'password'] },
     )
 
-    return Promise.resolve(typeOrmUser)
+    return typeOrmUser
+      ? Promise.resolve(O.some(User.hydrate(typeOrmUser)))
+      : O.none
   }
 }
