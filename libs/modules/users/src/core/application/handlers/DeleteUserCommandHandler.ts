@@ -4,7 +4,6 @@ import { fold } from 'fp-ts/Either'
 import { UserDITokens } from '../../../framework/UserDITokens'
 import { User } from '../../domain/user'
 import { DeleteUserCommand } from '../commands/DeleteUserCommand'
-import { UserUseCaseDto } from '../useCases/UserUseCaseDto'
 import { DeleteUserUseCase } from '../useCases/deleteUser/DeleteUserUseCase'
 import { Result } from '@codelab/backend'
 
@@ -16,14 +15,14 @@ export class DeleteUserCommandHandler
     private readonly service: DeleteUserUseCase,
   ) {}
 
-  async execute({ request }: DeleteUserCommand): Promise<UserUseCaseDto> {
+  async execute({ request }: DeleteUserCommand): Promise<User> {
     const deleteUserResults = await this.service.execute(request)
 
     return fold(
       (errors) => {
         throw errors
       },
-      (results: Result<User>) => (results.value as unknown) as UserUseCaseDto,
+      (results: Result<User>) => results.value,
     )(deleteUserResults)
   }
 }

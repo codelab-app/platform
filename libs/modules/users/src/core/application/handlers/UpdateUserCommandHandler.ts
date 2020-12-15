@@ -22,7 +22,6 @@ export class UpdateUserCommandHandler
       (errors) => {
         throw errors
       },
-      // (results: Result<User>) => (results.value as unknown) as UserUseCaseDto,
       (results: Result<User>) => results.value,
     )(updateUserResults)
   }
