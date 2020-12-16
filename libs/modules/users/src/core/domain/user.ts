@@ -47,4 +47,8 @@ export class User extends AggregateRoot<SerializedUserDto> {
   toPlain() {
     return classToPlain(this) as SerializedUserDto
   }
+
+  public static arrayToPlain(users: Array<User>) {
+    return classToPlain(users) as Array<SerializedUserDto>
+  }
 }

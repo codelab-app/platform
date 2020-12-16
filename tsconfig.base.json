@@ -95,6 +95,7 @@
       "@codelab/frontend": ["libs/frontend/src/index.ts"],
       "@codelab/modules/app-stories": ["libs/modules/app-stories/src/index.ts"],
       "@codelab/modules/users": ["libs/modules/users/src/index.ts"],
+      "@codelab/modules/vertex": ["libs/modules/vertex/src/index.ts"],
       "@codelab/modules/users-stories": [
         "libs/modules/users-stories/src/index.ts"
       ],

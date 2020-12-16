@@ -12,6 +12,12 @@ import { TypeOrmUser } from '@codelab/backend'
 export class TypeOrmUserRepositoryAdapter
   extends Repository<TypeOrmUser>
   implements UserRepositoryPort {
+  async findAll(): Promise<Array<User>> {
+    const users: Array<TypeOrmUser> = await this.find()
+
+    return Promise.resolve(plainToClass(User, users))
+  }
+
   async exists(searchBy: FindUserBy): Promise<boolean> {
     const entity = await this.findOne(searchBy)
 

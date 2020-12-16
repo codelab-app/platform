@@ -8,4 +8,5 @@ export interface UserRepositoryPort {
   updateUser(existingUser: User, updatedUser: User): Promise<User>
   exists(by: FindUserBy): Promise<boolean>
   findUser(by: FindUserBy): Promise<Option<User>>
+  findAll(): Promise<Array<User>>
 }

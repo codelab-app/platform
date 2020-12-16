@@ -4,6 +4,7 @@ import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { CreateUserCommand } from '../../core/application/commands/CreateUserCommand'
 import { DeleteUserCommand } from '../../core/application/commands/DeleteUserCommand'
 import { UpdateUserCommand } from '../../core/application/commands/UpdateUserCommand'
+import { GetUsersQuery } from '../../core/application/queries/GetUsersQuery'
 import { UserUseCaseDto } from '../../core/application/useCases/UserUseCaseDto'
 import { CreateUserRequest } from '../../core/application/useCases/createUser/CreateUserRequest'
 import { DeleteUserRequest } from '../../core/application/useCases/deleteUser/DeleteUserRequest'
@@ -28,12 +29,14 @@ import {
 export class UserCommandQueryAdapter implements CommandQueryBusPort {
   constructor(
     readonly commandBus: CommandBus<UseCaseRequestPort>,
-    readonly queryBus: QueryBus<UseCaseRequestPort>,
+    readonly queryBus: QueryBus<GetUsersQuery>,
   ) {}
 
   @Query(() => [UserUseCaseDto])
-  async getAllUsers() {
-    // return this.userService.findAll()
+  async users() {
+    const users = await this.queryBus.execute(new GetUsersQuery())
+
+    return User.arrayToPlain(users)
   }
 
   @Mutation((returns) => UserUseCaseDto)

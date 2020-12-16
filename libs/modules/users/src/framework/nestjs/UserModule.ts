@@ -4,9 +4,11 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 import { Connection } from 'typeorm'
 import { CreateUserCommandHandler } from '../../core/application/handlers/CreateUserCommandHandler'
 import { DeleteUserCommandHandler } from '../../core/application/handlers/DeleteUserCommandHandler'
+import { GetUsersQueryHandler } from '../../core/application/handlers/GetUsersQueryHandler'
 import { UpdateUserCommandHandler } from '../../core/application/handlers/UpdateUserCommandHandler'
 import { CreateUserService } from '../../core/application/services/CreateUserService'
 import { DeleteUserService } from '../../core/application/services/DeleteUserService'
+import { GetUserService } from '../../core/application/services/GetUserService'
 import { UpdateUserService } from '../../core/application/services/UpdateUserService'
 import { TypeOrmUserRepositoryAdapter } from '../../infrastructure/persistence/TypeOrmUserRepositoryAdapter'
 import { UserCommandQueryAdapter } from '../../presentation/controllers/UserCommandQueryAdapter'
@@ -39,12 +41,18 @@ export const useCaseProviders: Array<Provider> = [
     useFactory: (userRepository) => new DeleteUserService(userRepository),
     inject: [UserDITokens.UserRepository],
   },
+  {
+    provide: UserDITokens.GetUserUseCase,
+    useFactory: (userRepository) => new GetUserService(userRepository),
+    inject: [UserDITokens.UserRepository],
+  },
 ]
 
 export const handlerProviders: Array<Provider> = [
   CreateUserCommandHandler,
   DeleteUserCommandHandler,
   UpdateUserCommandHandler,
+  GetUsersQueryHandler,
 ]
 
 @Module({
