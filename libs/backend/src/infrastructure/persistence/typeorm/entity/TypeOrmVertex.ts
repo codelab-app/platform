@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { ObjectType, registerEnumType } from '@nestjs/graphql'
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 import { IVertex } from '../../../graphql/models/IVertex'
-import { TypeOrmGraph } from './TypeOrmGraph'
 import { NodeType } from '@codelab/alpha/shared/interface/node'
 
 registerEnumType(NodeType, {
@@ -33,6 +32,6 @@ export class TypeOrmVertex {
   })
   declare props?: object
 
-  @ManyToOne((type) => TypeOrmGraph, (graph) => graph.vertices)
-  declare graph: TypeOrmGraph
+  // @ManyToOne((type) => TypeOrmGraph, (graph) => graph.vertices)
+  // declare graph: TypeOrmGraph
 }

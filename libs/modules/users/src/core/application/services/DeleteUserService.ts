@@ -1,6 +1,8 @@
+import { option as O } from 'fp-ts'
+import { Option } from 'fp-ts/Option'
 import { left, right } from 'fp-ts/lib/Either'
 import { UserRepositoryPort } from '../../adapters/UserRepositoryPort'
-import { UserEmail } from '../../domain/user-email'
+import { User } from '../../domain/user'
 import { DeleteUserErrors } from '../useCases/deleteUser/DeleteUserErrors'
 import { DeleteUserRequest } from '../useCases/deleteUser/DeleteUserRequest'
 import { DeleteUserResponse } from '../useCases/deleteUser/DeleteUserResponse'
@@ -11,13 +13,24 @@ export class DeleteUserService implements DeleteUserUseCase {
   constructor(private readonly userRepository: UserRepositoryPort) {}
 
   async execute(request: DeleteUserRequest): Promise<DeleteUserResponse> {
-    const userEmail = new UserEmail({ value: request.email })
-    const result = await this.userRepository.deleteUser(userEmail)
+    const existingUser: Option<User> = await this.userRepository.findUser({
+      email: request.email.toString(),
+    })
 
-    if (result.affected === 0) {
-      return left(new DeleteUserErrors.UserNotFoundError(userEmail.toString()))
+    const leftResult = left(
+      new DeleteUserErrors.UserNotFoundError(request.email.toString()),
+    )
+
+    if (O.isNone(existingUser)) {
+      return leftResult
     }
 
-    return right(Result.ok(result))
+    const result = await this.userRepository.deleteUser(existingUser.value)
+
+    if (O.isSome(result)) {
+      return right(Result.ok(result.value))
+    }
+
+    return leftResult
   }
 }

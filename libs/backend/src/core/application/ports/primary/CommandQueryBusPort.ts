@@ -1,4 +1,5 @@
 import { CommandBus, QueryBus } from '@nestjs/cqrs'
+import { GetUsersQuery } from '../../../../../../modules/users/src/core/application/queries/GetUsersQuery'
 import { UseCaseRequestPort } from './UseCaseRequestPort'
 
 /**
@@ -11,5 +12,5 @@ import { UseCaseRequestPort } from './UseCaseRequestPort'
  */
 export interface CommandQueryBusPort {
   commandBus: CommandBus<UseCaseRequestPort>
-  queryBus: QueryBus<UseCaseRequestPort>
+  queryBus: QueryBus<GetUsersQuery>
 }

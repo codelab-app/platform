@@ -23,7 +23,7 @@ export class CreateUserService implements CreateUserUseCase {
       )
     }
 
-    const persistedUser = await await this.userRepository.createUser(user)
+    const persistedUser = await this.userRepository.createUser(user)
 
     return right(Result.ok(persistedUser))
   }

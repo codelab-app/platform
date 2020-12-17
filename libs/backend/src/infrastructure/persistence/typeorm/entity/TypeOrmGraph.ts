@@ -25,7 +25,7 @@ export class TypeOrmGraph {
   @Column({ type: 'text', nullable: true })
   declare label?: string
 
-  @OneToMany((type) => TypeOrmVertex, (vertex) => vertex.graph)
+  // @OneToMany((type) => TypeOrmVertex, (vertex) => vertex.graph)
   declare vertices: Array<TypeOrmVertex>
 
   @OneToMany((type) => TypeOrmEdge, (edge) => edge.graph)

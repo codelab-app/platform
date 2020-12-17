@@ -1,0 +1,25 @@
+import { Injectable } from '@nestjs/common'
+import { CommandBus, QueryBus } from '@nestjs/cqrs'
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
+
+import {
+  CommandQueryBusPort,
+  UseCaseRequestPort,
+} from '@codelab/backend'
+
+@Resolver(() => TypeOrm<%= moduleName %>)
+@Injectable()
+export class <%= moduleName %>CommandQueryAdapter implements CommandQueryBusPort {
+  constructor(
+    readonly commandBus: CommandBus<UseCaseRequestPort>,
+    readonly queryBus: QueryBus<Get<%= moduleName %>Query>,
+  ) {}
+
+  /**
+    @Query(() => [<%= moduleName %>QueryUseCaseDto])
+    async <%= name %>s() {
+      const results = await this.queryBus.execute(new Get<%= moduleName %>Query())
+
+      return <%= moduleName %>.arrayToPlain(results)
+    }
+   (*/

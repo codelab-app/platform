@@ -4,9 +4,9 @@ import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { CreateUserCommand } from '../../core/application/commands/CreateUserCommand'
 import { DeleteUserCommand } from '../../core/application/commands/DeleteUserCommand'
 import { UpdateUserCommand } from '../../core/application/commands/UpdateUserCommand'
+import { GetUsersQuery } from '../../core/application/queries/GetUsersQuery'
 import { UserUseCaseDto } from '../../core/application/useCases/UserUseCaseDto'
 import { CreateUserRequest } from '../../core/application/useCases/createUser/CreateUserRequest'
-import { DeleteUserDto } from '../../core/application/useCases/deleteUser/DeleteUserDto'
 import { DeleteUserRequest } from '../../core/application/useCases/deleteUser/DeleteUserRequest'
 import { UpdateUserRequest } from '../../core/application/useCases/updateUser/UpdateUserRequest'
 import { User } from '../../core/domain/user'
@@ -29,12 +29,14 @@ import {
 export class UserCommandQueryAdapter implements CommandQueryBusPort {
   constructor(
     readonly commandBus: CommandBus<UseCaseRequestPort>,
-    readonly queryBus: QueryBus<UseCaseRequestPort>,
+    readonly queryBus: QueryBus<GetUsersQuery>,
   ) {}
 
   @Query(() => [UserUseCaseDto])
-  async getAllUsers() {
-    // return this.userService.findAll()
+  async users() {
+    const users = await this.queryBus.execute(new GetUsersQuery())
+
+    return User.arrayToPlain(users)
   }
 
   @Mutation((returns) => UserUseCaseDto)
@@ -46,28 +48,19 @@ export class UserCommandQueryAdapter implements CommandQueryBusPort {
     return user.toPlain()
   }
 
-  @Mutation((returns) => DeleteUserDto)
+  @Mutation((returns) => UserUseCaseDto)
   async deleteUser(@Args('user') request: DeleteUserRequest) {
-    const results = await this.commandBus.execute(
-      new DeleteUserCommand(request),
-    )
-    const d = new DeleteUserDto()
+    const user = await this.commandBus.execute(new DeleteUserCommand(request))
 
-    d.affectedRows = results.affected
-
-    return d
+    return user.toPlain()
   }
 
   @Mutation((returns) => UserUseCaseDto)
   async updateUser(@Args('user') request: UpdateUserRequest) {
-    const results = await this.commandBus.execute(
+    const user: User = await this.commandBus.execute(
       new UpdateUserCommand(request),
     )
 
-    const d = new UserUseCaseDto()
-
-    d.email = results.email
-
-    return d
+    return user.toPlain()
   }
 }

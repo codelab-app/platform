@@ -1868,6 +1868,27 @@
         }
       }
     },
+    "modules-vertex": {
+      "root": "libs/modules/vertex",
+      "sourceRoot": "libs/modules/vertex/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/modules/vertex/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/modules/vertex/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "modules-users-stories": {
       "root": "libs/modules/users-stories",
       "sourceRoot": "libs/modules/users-stories/src",

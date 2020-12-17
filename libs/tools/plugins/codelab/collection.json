@@ -12,6 +12,11 @@
       "factory": "./src/schematics/library/nest/schematic",
       "schema": "./src/schematics/library/nest/schema.json",
       "description": "Create a Nest.js library"
+    },
+    "domain-module": {
+      "factory": "./src/schematics/library/domain-module/schematic",
+      "schema": "./src/schematics/library/domain-module/schema.json",
+      "description": "Create a Nest.js Domain Module"
     }
   }
 }

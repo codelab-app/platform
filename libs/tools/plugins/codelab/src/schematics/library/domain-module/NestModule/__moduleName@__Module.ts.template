@@ -1,0 +1,8 @@
+import {CqrsModule} from '@nestjs/cqrs';
+import { Module } from '@nestjs/common'
+
+@Module({
+  imports: [CqrsModule],
+  providers: [],
+})
+export class <%= moduleName %>Module {}
