@@ -1,0 +1,8 @@
+import { EntityRepository, Repository } from 'typeorm'
+import { <%= moduleName %>RepositoryPort } from '../../core/adapters/<%= moduleName %>RepositoryPort'
+
+
+@EntityRepository(TypeOrm<%= moduleName %>)
+export class TypeOrm<%= moduleName %>RepositoryAdapter
+  extends Repository<TypeOrm<%= moduleName %>>
+  implements <%= moduleName %>RepositoryPort {}
