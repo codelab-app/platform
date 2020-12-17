@@ -20,26 +20,22 @@ import { NestSchematicSchema } from './schema'
  */
 const projectType = ProjectType.Library
 
-const rootDir = 'libs/modules'
-
 interface NormalizedSchema extends NestSchematicSchema {
-  projectName: string
-  projectRoot: string
   projectDirectory: string
-  parsedTags: Array<string>
 }
 
-export const toUpperCase = (name: string) => {
+const toUpperCase = (name: string) => {
   return name.charAt(0).toUpperCase() + name.slice(1)
 }
 
-const normalizeOptions = (
-  options: NestSchematicSchema,
-): NestSchematicSchema => {
+const normalizeOptions = (options: NestSchematicSchema): NormalizedSchema => {
   options.moduleName = toUpperCase(options.name)
+  const projectRoot = 'libs/modules'
+  const projectDirectory = `${projectRoot}/${options.name}`
 
   return {
     ...options,
+    projectDirectory,
   }
 }
 
@@ -48,8 +44,14 @@ const normalizeOptions = (
  */
 const removeFiles = (options: NormalizedSchema): Rule => {
   return (tree: Tree, context: SchematicContext) => {
-    const { projectRoot } = options
-    const filesToRemove = ['.eslintrc.json', `${projectRoot}/.eslintrc.json`]
+    const dir = options.projectDirectory
+    const filesToRemove = [
+      '.eslintrc.json',
+      `${dir}/.eslintrc.json`,
+      `${dir}/src/lib/modules-${options.name}.module.ts`,
+      `${dir}/tsconfig.spec.json`,
+      `${dir}/jest.config.js`,
+    ]
 
     filesToRemove.forEach((file: any) => {
       tree.delete(file)
@@ -57,15 +59,15 @@ const removeFiles = (options: NormalizedSchema): Rule => {
   }
 }
 
-export const createNestjsLibrary = (options: NormalizedSchema): Rule => {
+const createNestjsLibrary = (options: NestSchematicSchema): Rule => {
   return externalSchematic('@nrwl/nest', 'library', {
     name: options.name,
-    directory: options.directory,
+    directory: 'modules',
   })
 }
 
-const createDirs = (options: NestSchematicSchema): Rule => {
-  const dir = `${rootDir}/${options.name}`
+const createDirs = (options: NormalizedSchema): Rule => {
+  const dir = options.projectDirectory
 
   return (tree: Tree) => {
     tree.create(`${dir}/src/common/.gitkeep`, '')
@@ -85,7 +87,29 @@ const createDirs = (options: NestSchematicSchema): Rule => {
   }
 }
 
-const createNestModule = (options: NestSchematicSchema): Rule => {
+const createConfigFiles = (options: NormalizedSchema): Rule => {
+  return mergeWith(
+    apply(url(`./ConfigFiles`), [
+      applyTemplates({
+        ...options,
+        ...names(options.name),
+      }),
+      move(`${options.projectDirectory}/`),
+    ]),
+    MergeStrategy.Overwrite,
+  )
+}
+
+const renameToDotFiles = (options: NormalizedSchema): Rule => {
+  const dir = options.projectDirectory
+
+  return (tree: Tree) => {
+    tree.rename(`${dir}/babelrc`, `${dir}/.babelrc`)
+    tree.rename(`${dir}/eslintrc.js`, `${dir}/.eslintrc.js`)
+  }
+}
+
+const createNestModule = (options: NormalizedSchema): Rule => {
   return mergeWith(
     apply(url(`./NestModule`), [
       applyTemplates({
@@ -93,13 +117,13 @@ const createNestModule = (options: NestSchematicSchema): Rule => {
         ...strings,
         ...names(options.name),
       }),
-      move(`${rootDir}/${options.name}/framework/nestjs/`),
+      move(`${options.projectDirectory}/framework/nestjs/`),
     ]),
     MergeStrategy.Overwrite,
   )
 }
 
-const createDITokens = (options: NestSchematicSchema): Rule => {
+const createDITokens = (options: NormalizedSchema): Rule => {
   return mergeWith(
     apply(url(`./DITokens`), [
       applyTemplates({
@@ -107,13 +131,13 @@ const createDITokens = (options: NestSchematicSchema): Rule => {
         ...strings,
         ...names(options.name),
       }),
-      move(`${rootDir}/${options.name}/src/framework/`),
+      move(`${options.projectDirectory}/src/framework/`),
     ]),
     MergeStrategy.Overwrite,
   )
 }
 
-const createRepositoryAdapter = (options: NestSchematicSchema): Rule => {
+const createRepositoryAdapter = (options: NormalizedSchema): Rule => {
   return mergeWith(
     apply(url(`./RepositoryAdapter`), [
       applyTemplates({
@@ -121,13 +145,13 @@ const createRepositoryAdapter = (options: NestSchematicSchema): Rule => {
         ...strings,
         ...names(options.name),
       }),
-      move(`${rootDir}/${options.name}/src/infrastructure/persistence/`),
+      move(`${options.projectDirectory}/src/infrastructure/persistence/`),
     ]),
     MergeStrategy.Overwrite,
   )
 }
 
-const createCommandQueryAdapter = (options: NestSchematicSchema): Rule => {
+const createCommandQueryAdapter = (options: NormalizedSchema): Rule => {
   return mergeWith(
     apply(url(`./CommandQueryAdapter`), [
       applyTemplates({
@@ -135,13 +159,13 @@ const createCommandQueryAdapter = (options: NestSchematicSchema): Rule => {
         ...strings,
         ...names(options.name),
       }),
-      move(`${rootDir}/${options.name}/src/presentation/controllers/`),
+      move(`${options.projectDirectory}/src/presentation/controllers/`),
     ]),
     MergeStrategy.Overwrite,
   )
 }
 
-const createRepositoryPort = (options: NestSchematicSchema): Rule => {
+const createRepositoryPort = (options: NormalizedSchema): Rule => {
   return mergeWith(
     apply(url(`./RepositoryPort`), [
       applyTemplates({
@@ -149,10 +173,21 @@ const createRepositoryPort = (options: NestSchematicSchema): Rule => {
         ...strings,
         ...names(options.name),
       }),
-      move(`${rootDir}/${options.name}/src/core/adapters/`),
+      move(`${options.projectDirectory}/src/core/adapters/`),
     ]),
     MergeStrategy.Overwrite,
   )
+}
+
+const replaceIndexTsContents = (options: NormalizedSchema): Rule => {
+  const dir = options.projectDirectory
+
+  return (tree: Tree) => {
+    tree.overwrite(
+      `${dir}/src/index.ts`,
+      `export * from './framework/nestjs/${options.moduleName}Module'`,
+    )
+  }
 }
 
 export default function MySchematic(options: NormalizedSchema) {
@@ -160,6 +195,11 @@ export default function MySchematic(options: NormalizedSchema) {
 
   return (host: Tree, context: SchematicContext) => {
     return chain([
+      createNestjsLibrary(normalizedOptions),
+      replaceIndexTsContents(normalizedOptions),
+      removeFiles(normalizedOptions),
+      createConfigFiles(normalizedOptions),
+      renameToDotFiles(normalizedOptions),
       createDirs(normalizedOptions),
       createNestModule(normalizedOptions),
       createDITokens(normalizedOptions),
