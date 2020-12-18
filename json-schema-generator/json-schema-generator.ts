@@ -1,5 +1,5 @@
 import { writeFile } from 'fs'
-import { resolve, join } from 'path'
+import { join, resolve } from 'path'
 import * as TJS from 'typescript-json-schema'
 
 // NOTE: to run script you can use:

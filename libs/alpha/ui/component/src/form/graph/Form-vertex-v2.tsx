@@ -16,7 +16,6 @@ const Form = withTheme(AntDTheme)
 // 2.1. 'required" should be shown immediately
 // 2.2. all other should be availiable by "add" with select (choose option) -> specify property
 export const FormVertex = () => {
-
   /* It's important to place the definition in the root.
    * Otherwise, we'll need to change dependencies everywhere (it'll be a solution if we meet Symbol conflicts) */
 
@@ -48,7 +47,7 @@ export const FormVertex = () => {
               },
               props: {
                 title: 'Props',
-                ...buttonsProps,
+                ...(buttonsProps as any),
               },
             },
           },
@@ -60,7 +59,6 @@ export const FormVertex = () => {
   const log = (type: any) => console.log.bind(console, type)
 
   const ObjectFieldTemplate = (props: any) => {
-
     const [addedProps, setAddedProps] = useState<Array<string>>([])
     const [propCandidate, setPropCandidate] = useState<null | string>(null)
 
