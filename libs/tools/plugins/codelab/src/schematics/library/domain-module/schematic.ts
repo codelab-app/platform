@@ -87,6 +87,19 @@ const createDirs = (options: NormalizedSchema): Rule => {
   }
 }
 
+const createDirsFromStructure = (options: NormalizedSchema): Rule => {
+  return mergeWith(
+    apply(url(`./files`), [
+      applyTemplates({
+        ...options,
+        ...names(options.name),
+      }),
+      move(`${options.projectDirectory}/src`),
+    ]),
+    MergeStrategy.Overwrite,
+  )
+}
+
 const createConfigFiles = (options: NormalizedSchema): Rule => {
   return mergeWith(
     apply(url(`./ConfigFiles`), [
@@ -190,22 +203,24 @@ const replaceIndexTsContents = (options: NormalizedSchema): Rule => {
   }
 }
 
-export default function MySchematic(options: NormalizedSchema) {
+// export default function MySchematic(options: NormalizedSchema) {
+export default (options: NormalizedSchema): Rule => {
   const normalizedOptions = normalizeOptions(options)
 
   return (host: Tree, context: SchematicContext) => {
     return chain([
       createNestjsLibrary(normalizedOptions),
-      replaceIndexTsContents(normalizedOptions),
-      removeFiles(normalizedOptions),
-      createConfigFiles(normalizedOptions),
-      renameToDotFiles(normalizedOptions),
-      createDirs(normalizedOptions),
-      createNestModule(normalizedOptions),
-      createDITokens(normalizedOptions),
-      createRepositoryAdapter(normalizedOptions),
-      createCommandQueryAdapter(normalizedOptions),
-      createRepositoryPort(normalizedOptions),
+      createDirsFromStructure(normalizedOptions),
+      // replaceIndexTsContents(normalizedOptions),
+      // removeFiles(normalizedOptions),
+      // createConfigFiles(normalizedOptions),
+      // renameToDotFiles(normalizedOptions),
+      // createDirs(normalizedOptions),
+      // createNestModule(normalizedOptions),
+      // createDITokens(normalizedOptions),
+      // createRepositoryAdapter(normalizedOptions),
+      // createCommandQueryAdapter(normalizedOptions),
+      // createRepositoryPort(normalizedOptions),
     ])
   }
 }
