@@ -117,7 +117,7 @@ const createNestModule = (options: NormalizedSchema): Rule => {
         ...strings,
         ...names(options.name),
       }),
-      move(`${options.projectDirectory}/framework/nestjs/`),
+      move(`${options.projectDirectory}/src/framework/nestjs/`),
     ]),
     MergeStrategy.Overwrite,
   )

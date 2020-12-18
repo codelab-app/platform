@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "CodelabNestUseCase",
+  "title": "Create Use Case Files for Domain Module for Codelab",
+  "type": "object",
+  "properties": {
+    "useCaseName": {
+      "type": "string",
+      "description": "Use Case name",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "Enter Use Case Name i.e CreateUser"
+    },
+    "moduleName": {
+      "type": "string",
+      "description": "Module under which the use cases will be created",
+      "$default": {
+        "$source": "argv",
+        "index": 1
+      },
+      "x-prompt": "Enter Module name under which the files will be generated i.e users"
+    },
+    "directory": {
+      "type": "string",
+      "description": "A directory where the app is placed",
+      "alias": "d"
+    }
+  },
+  "required": ["useCaseName", "moduleName"]
+}
