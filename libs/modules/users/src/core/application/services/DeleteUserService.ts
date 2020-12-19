@@ -7,7 +7,7 @@ import { DeleteUserErrors } from '../useCases/deleteUser/DeleteUserErrors'
 import { DeleteUserRequest } from '../useCases/deleteUser/DeleteUserRequest'
 import { DeleteUserResponse } from '../useCases/deleteUser/DeleteUserResponse'
 import { DeleteUserUseCase } from '../useCases/deleteUser/DeleteUserUseCase'
-import { Result } from '@codelab/backend'
+import { AppError, Result } from '@codelab/backend'
 
 export class DeleteUserService implements DeleteUserUseCase {
   constructor(private readonly userRepository: UserRepositoryPort) {}
@@ -17,20 +17,20 @@ export class DeleteUserService implements DeleteUserUseCase {
       email: request.email.toString(),
     })
 
-    const leftResult = left(
-      new DeleteUserErrors.UserNotFoundError(request.email.toString()),
+    if (O.isNone(existingUser)) {
+      return left(
+        new DeleteUserErrors.UserNotFoundError(request.email.toString()),
+      )
+    }
+
+    const deletedUserResult = await this.userRepository.deleteUser(
+      existingUser.value,
     )
 
-    if (O.isNone(existingUser)) {
-      return leftResult
+    if (O.isSome(deletedUserResult)) {
+      return right(Result.ok(deletedUserResult.value))
     }
 
-    const result = await this.userRepository.deleteUser(existingUser.value)
-
-    if (O.isSome(result)) {
-      return right(Result.ok(result.value))
-    }
-
-    return leftResult
+    return left(new AppError())
   }
 }
