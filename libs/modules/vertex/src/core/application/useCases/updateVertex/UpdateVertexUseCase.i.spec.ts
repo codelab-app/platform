@@ -3,7 +3,7 @@ import { Test } from '@nestjs/testing'
 import { Connection } from 'typeorm'
 import { TestInfrastructureModule } from '@codelab/backend'
 
-describe('UpdateVertexUseCase', () => {
+describe.skip('UpdateVertexUseCase', () => {
   let app: INestApplication
 
   beforeAll(async () => {
