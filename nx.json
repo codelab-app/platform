@@ -189,6 +189,9 @@
     },
     "modules-grid-stories": {
       "tags": []
+    },
+    "modules-edge": {
+      "tags": []
     }
   }
 }

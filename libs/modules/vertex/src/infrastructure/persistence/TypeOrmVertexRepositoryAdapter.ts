@@ -13,16 +13,17 @@ export class TypeOrmVertexRepositoryAdapter
   extends Repository<TypeOrmVertex>
   implements VertexRepositoryPort {
   async createVertex(vertex: Vertex): Promise<Vertex> {
-    const newVertex = await this.save(vertex.toPlain())
+    const typeOrmVertex = vertex.toPersistence()
+    const newVertex = await this.save(typeOrmVertex)
 
     return Vertex.hydrate(newVertex)
   }
 
   async findAll(): Promise<Array<Vertex>> {
-    const vertices: Array<TypeOrmVertex> = await this.find()
-    const plain = plainToClass(Vertex, vertices)
+    const verticesTypeOrm: Array<TypeOrmVertex> = await this.find()
+    const vertices = plainToClass(Vertex, verticesTypeOrm)
 
-    return Promise.resolve(plain)
+    return Promise.resolve(vertices)
   }
 
   async updateVertex(existingVertex: Vertex, vertex: Vertex): Promise<Vertex> {
@@ -46,8 +47,6 @@ export class TypeOrmVertexRepositoryAdapter
     if (isId(by)) {
       typeOrmVertex = await this.findOne(by.id)
     }
-
-    const h = Vertex.hydrate(typeOrmVertex as any)
 
     return typeOrmVertex
       ? Promise.resolve(O.some(Vertex.hydrate(typeOrmVertex)))

@@ -23,11 +23,11 @@ export class VertexDITokens {
   )
 
   public static readonly EditVertexCommandHandler: unique symbol = Symbol(
-    'CreateVertexCommandHandler',
+    'EditVertexCommandHandler',
   )
 
   public static readonly DeleteVertexCommandHandler: unique symbol = Symbol(
-    'CreateVertexCommandHandler',
+    'DeleteVertexCommandHandler',
   )
 
   // Repositories

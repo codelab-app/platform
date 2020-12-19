@@ -113,7 +113,8 @@
       ],
       "@codelab/modules/grid-stories": [
         "libs/modules/grid-stories/src/index.ts"
-      ]
+      ],
+      "@codelab/modules/edge": ["libs/modules/edge/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"]
