@@ -6,6 +6,7 @@ module.exports = {
   },
   rules: {
     'import/no-cycle': 'off',
+    'import/extensions': [1, { json: 'always' }],
     // 'unused-imports/no-unused-imports-ts': 'error',
   },
 }
