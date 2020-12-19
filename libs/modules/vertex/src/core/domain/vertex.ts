@@ -1,11 +1,10 @@
 import { Type, classToPlain, plainToClass } from 'class-transformer'
 import { IsOptional } from 'class-validator'
-import { SerializedUserDto } from '../../../../users/src/core/domain/dto/SerializedUserDto'
 import { CreateVertexRequest } from '../application/useCases/createVertex/CreateVertexRequest'
 import { SerializedVertexDto } from './dto/SerializedVertexDto'
 import { VertexProps } from './vertex-props'
 import { VertexType } from './vertex-type'
-import { AggregateRoot, TransformBoth } from '@codelab/backend'
+import { AggregateRoot, TransformBoth, TypeOrmVertex } from '@codelab/backend'
 
 export class Vertex extends AggregateRoot<SerializedVertexDto> {
   @Type(() => VertexType)
@@ -41,7 +40,11 @@ export class Vertex extends AggregateRoot<SerializedVertexDto> {
     return classToPlain(this) as SerializedVertexDto
   }
 
+  toPersistence(): TypeOrmVertex {
+    return plainToClass(TypeOrmVertex, this.toPlain())
+  }
+
   public static arrayToPlain(vertices: Array<Vertex>) {
-    return classToPlain(vertices) as Array<SerializedUserDto>
+    return classToPlain(vertices) as Array<SerializedVertexDto>
   }
 }
