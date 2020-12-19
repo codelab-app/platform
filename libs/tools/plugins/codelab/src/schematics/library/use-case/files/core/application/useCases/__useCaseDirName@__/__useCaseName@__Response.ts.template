@@ -1,6 +1,7 @@
 import {Either} from 'fp-ts/lib/Either';
 import {<%= useCaseName %>Errors} from './<%= useCaseName %>Errors';
 import {Result} from '@codelab/backend';
+import {<%= toUpperCase(moduleName) %>} from '../../../domain/<%= moduleName %>';
 
 export type <%= useCaseName %>Response = Either<
   <%= useCaseName %>Errors.DemoError,
