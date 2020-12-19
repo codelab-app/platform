@@ -1,5 +1,4 @@
 import * as fs from 'fs'
-import { strings } from '@angular-devkit/core'
 import {
   MergeStrategy,
   Rule,
@@ -52,76 +51,14 @@ const domainModuleExists = (options: NormalizedSchema): boolean => {
   return fs.existsSync(moduleDirPath)
 }
 
-const createUseCaseDir = (options: NormalizedSchema): Rule => {
-  const { useCaseDirName, projectRoot } = options
-
-  return (tree: Tree) => {
-    tree.create(
-      `${projectRoot}/src/core/application/useCases/${useCaseDirName}/.gitkeep`,
-      '',
-    )
-  }
-}
-
-const createCommand = (options: NormalizedSchema): Rule => {
-  const { projectRoot } = options
-
+const createDirsFromStructure = (options: NormalizedSchema): Rule => {
   return mergeWith(
-    apply(url(`./CommandFiles`), [
+    apply(url(`./files`), [
       applyTemplates({
         ...options,
-        ...strings,
         ...names(options.useCaseName),
       }),
-      move(`${projectRoot}/src/core/application/commands`),
-    ]),
-    MergeStrategy.Overwrite,
-  )
-}
-
-const createCommandHandler = (options: NormalizedSchema): Rule => {
-  const { projectRoot } = options
-
-  return mergeWith(
-    apply(url(`./CommandHandlerFiles`), [
-      applyTemplates({
-        ...options,
-        ...strings,
-        ...names(options.useCaseName),
-      }),
-      move(`${projectRoot}/src/core/application/handlers`),
-    ]),
-    MergeStrategy.Overwrite,
-  )
-}
-
-const createService = (options: NormalizedSchema): Rule => {
-  const { projectRoot } = options
-
-  return mergeWith(
-    apply(url(`./ServiceFiles`), [
-      applyTemplates({
-        ...options,
-        ...strings,
-        ...names(options.useCaseName),
-      }),
-      move(`${projectRoot}/src/core/application/services`),
-    ]),
-    MergeStrategy.Overwrite,
-  )
-}
-
-const createUseCaseFiles = (options: NormalizedSchema): Rule => {
-  const { useCaseDirName, projectRoot } = options
-
-  return mergeWith(
-    apply(url(`./UseCaseFiles`), [
-      applyTemplates({
-        ...options,
-        ...strings,
-        ...names(options.useCaseName),
-      }),
-      move(`${projectRoot}/src/core/application/useCases/${useCaseDirName}`),
+      move(`${options.projectRoot}/src`),
     ]),
     MergeStrategy.Overwrite,
   )
@@ -132,17 +69,11 @@ export default function MySchematic(options: NormalizedSchema) {
 
   return (host: Tree, context: SchematicContext) => {
     if (domainModuleExists(normalizedOptions)) {
-      return chain([
-        createUseCaseDir(normalizedOptions),
-        createCommand(normalizedOptions),
-        createCommandHandler(normalizedOptions),
-        createService(normalizedOptions),
-        createUseCaseFiles(normalizedOptions),
-      ])
+      return chain([createDirsFromStructure(normalizedOptions)])
     }
 
     console.log(
-      `Domain Module does not exists, run ( nx generate @codelab/schematics:domain-module )`,
+      `Domain Module does not exists, run ( nx generate @codelab/schematics:nest-lib )`,
     )
   }
 }
