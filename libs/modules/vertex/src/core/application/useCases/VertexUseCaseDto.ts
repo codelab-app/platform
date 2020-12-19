@@ -4,8 +4,9 @@ import { NodeType } from '@codelab/alpha/shared/interface/node'
 
 @ObjectType()
 export class VertexUseCaseDto {
-  @Field()
-  public declare id: string
+  // Must be nullable as deleteVertex does not return an id
+  @Field({ nullable: true })
+  public declare id?: string
 
   @Field((returns) => NodeType)
   public declare type: NodeType

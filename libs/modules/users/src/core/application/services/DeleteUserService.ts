@@ -21,14 +21,12 @@ export class DeleteUserService implements DeleteUserUseCase {
       new DeleteUserErrors.UserNotFoundError(request.email.toString()),
     )
 
-    if (O.isNone(existingUser)) {
-      return leftResult
-    }
+    if (O.isSome(existingUser)) {
+      const result = await this.userRepository.deleteUser(existingUser.value)
 
-    const result = await this.userRepository.deleteUser(existingUser.value)
-
-    if (O.isSome(result)) {
-      return right(Result.ok(result.value))
+      if (O.isSome(result)) {
+        return right(Result.ok(result.value))
+      }
     }
 
     return leftResult
