@@ -1,0 +1,7 @@
+import { <%= useCaseName %>Request } from '../useCases/<%= toLowerCase(useCaseName) %>/<%= useCaseName %>Request'
+import { UseCaseRequestPort } from '@codelab/backend'
+
+export class <%= useCaseName %>Command
+  implements UseCaseRequestPort<<%= useCaseName %>Request> {
+  constructor(public readonly request: <%= useCaseName %>Request) {}
+}

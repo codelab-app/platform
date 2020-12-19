@@ -16,7 +16,12 @@
     "directory": {
       "type": "string",
       "description": "A directory where the app is placed",
-      "alias": "d"
+      "alias": "d",
+      "$default": {
+        "$source": "argv",
+        "index": 1
+      },
+      "x-prompt": "Enter directory"
     }
   },
   "required": ["name"]

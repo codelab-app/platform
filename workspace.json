@@ -81,6 +81,16 @@
                 "output": "./src/schematics/library/nest/files"
               },
               {
+                "input": "./libs/tools/plugins/codelab/src/schematics/library/domain-module/files",
+                "glob": "**/.*",
+                "output": "./src/schematics/library/domain-module/files"
+              },
+              {
+                "input": "./libs/tools/plugins/codelab/src/schematics/library/use-case/files",
+                "glob": "**/.*",
+                "output": "./src/schematics/library/use-case/files"
+              },
+              {
                 "input": "./libs/tools/plugins/codelab/src/schematics/library/react/files",
                 "glob": "**/.*",
                 "output": "./src/schematics/library/react/files"
