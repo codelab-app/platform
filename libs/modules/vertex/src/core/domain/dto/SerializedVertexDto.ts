@@ -2,6 +2,6 @@ import { NodeType } from '@codelab/alpha/shared/interface/node'
 
 export interface SerializedVertexDto {
   id?: string
-  type: NodeType
+  type?: NodeType
   props?: any
 }

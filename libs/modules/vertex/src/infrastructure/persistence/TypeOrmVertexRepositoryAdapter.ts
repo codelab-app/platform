@@ -25,6 +25,21 @@ export class TypeOrmVertexRepositoryAdapter
     return Promise.resolve(plain)
   }
 
+  async updateVertex(existingVertex: Vertex, vertex: Vertex): Promise<Vertex> {
+    const plainVertex = vertex.toPlain()
+    const typeOrmExistingVertex = plainToClass(
+      TypeOrmVertex,
+      existingVertex.toPlain(),
+    )
+
+    const updatedVertex = await this.save({
+      ...typeOrmExistingVertex,
+      ...plainVertex,
+    })
+
+    return Vertex.hydrate(updatedVertex)
+  }
+
   async findVertex(by: FindVertexBy): Promise<Option<Vertex>> {
     let typeOrmVertex
 
@@ -36,6 +51,16 @@ export class TypeOrmVertexRepositoryAdapter
 
     return typeOrmVertex
       ? Promise.resolve(O.some(Vertex.hydrate(typeOrmVertex)))
+      : O.none
+  }
+
+  async deleteVertex(vertex: Vertex): Promise<Option<Vertex>> {
+    const plainVertex = vertex.toPlain()
+    const typeOrmVertex = plainToClass(TypeOrmVertex, plainVertex)
+    const vertices = await this.remove([typeOrmVertex])
+
+    return vertices.length > 0
+      ? Promise.resolve(O.some(Vertex.hydrate(vertices[0])))
       : O.none
   }
 }

@@ -5,8 +5,8 @@ export class VertexDITokens {
     'CreateVertexUseCase',
   )
 
-  public static readonly EditVertexUseCase: unique symbol = Symbol(
-    'EditVertexUseCase',
+  public static readonly UpdateVertexUseCase: unique symbol = Symbol(
+    'UpdateVertexUseCase',
   )
 
   public static readonly DeleteVertexUseCase: unique symbol = Symbol(
