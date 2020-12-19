@@ -1,7 +1,8 @@
 import { ObjectType } from '@nestjs/graphql'
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { plainToClass } from 'class-transformer'
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 import { IEdge } from '../../../graphql/models/IEdge'
-import { TypeOrmGraph } from './TypeOrmGraph'
+import { Edge } from '@codelab/modules/edge'
 
 @Entity('edge')
 @ObjectType({
@@ -24,13 +25,17 @@ export class TypeOrmEdge {
   @Column({
     type: 'int',
   })
-  declare order: number
+  order = 0
 
   @Column({
     type: 'jsonb',
   })
   declare props?: any
 
-  @ManyToOne((type) => TypeOrmGraph, (graph) => graph.edges)
-  declare graph: TypeOrmGraph
+  toDomain(): Edge {
+    return plainToClass(Edge, this)
+  }
+
+  // @ManyToOne((type) => TypeOrmGraph, (graph) => graph.edges)
+  // declare graph: TypeOrmGraph
 }

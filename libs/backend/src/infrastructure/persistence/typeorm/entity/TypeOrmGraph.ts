@@ -2,13 +2,7 @@ import { ObjectType } from '@nestjs/graphql'
 import cytoscape, { EdgeDefinition, NodeDefinition } from 'cytoscape'
 import { merge } from 'lodash'
 import objectMapper from 'object-mapper'
-import {
-  AfterLoad,
-  Column,
-  Entity,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm'
+import { AfterLoad, Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 import { v4 as uuidv4 } from 'uuid'
 import { IGraph } from '../../../graphql/models/IGraph'
 import { TypeOrmEdge } from './TypeOrmEdge'
@@ -28,7 +22,7 @@ export class TypeOrmGraph {
   // @OneToMany((type) => TypeOrmVertex, (vertex) => vertex.graph)
   declare vertices: Array<TypeOrmVertex>
 
-  @OneToMany((type) => TypeOrmEdge, (edge) => edge.graph)
+  // @OneToMany((type) => TypeOrmEdge, (edge) => edge.graph)
   declare edges: Array<TypeOrmEdge>
 
   // @ManyToOne((type) => TypeOrmUser, (user) => user.graphs)
