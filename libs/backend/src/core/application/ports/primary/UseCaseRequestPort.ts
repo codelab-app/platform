@@ -8,5 +8,5 @@
  * @param request - Incoming request
  */
 export interface UseCaseRequestPort<TRequest = {}> {
-  request: TRequest
+  request?: TRequest
 }
