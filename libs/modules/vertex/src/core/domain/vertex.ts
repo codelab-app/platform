@@ -15,7 +15,7 @@ export class Vertex extends AggregateRoot<SerializedVertexDto> {
   @Type(() => VertexProps)
   @TransformBoth(VertexProps)
   @IsOptional()
-  declare props?: VertexProps
+  declare properties?: VertexProps
 
   /**
    * Used for instantiating a User object

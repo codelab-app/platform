@@ -12,7 +12,7 @@ import {
 export class <%= moduleName %>CommandQueryAdapter implements CommandQueryBusPort {
   constructor(
     readonly commandBus: CommandBus<UseCaseRequestPort>,
-    readonly queryBus: QueryBus<Get<%= moduleName %>Query>,
+    readonly queryBus: QueryBus<UseCaseRequestPort>,
   ) {}
 
   /**
