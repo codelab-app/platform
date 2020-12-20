@@ -2,6 +2,7 @@ import { plainToClass } from 'class-transformer'
 import { option as O } from 'fp-ts'
 import { Option } from 'fp-ts/Option'
 import { EntityRepository, Repository } from 'typeorm'
+import { isGraphId } from '../../../../vertex/src/common/utils'
 import { FindEdgeBy } from '../../common/CommonTypes'
 import { isId } from '../../common/utils'
 import { EdgeRepositoryPort } from '../../core/adapters/EdgeRepositoryPort'
@@ -45,6 +46,23 @@ export class TypeOrmEdgeRepositoryAdapter
     return typeOrmEdge
       ? Promise.resolve(O.some(Edge.hydrate(typeOrmEdge)))
       : O.none
+  }
+
+  async findEdges(by: FindEdgeBy): Promise<Array<Edge>> {
+    let typeOrmEdges: Array<TypeOrmEdge>
+    let edges
+    let error = ''
+
+    if (isGraphId(by)) {
+      typeOrmEdges = await this.find({ where: { graph_id: by.graph_id } })
+      edges = plainToClass(Edge, typeOrmEdges)
+
+      return Promise.resolve(edges)
+    }
+
+    error = 'Only can search by graph id'
+
+    return Promise.reject(error)
   }
 
   async updateEdge(existingEdge: Edge, edge: Edge): Promise<Edge> {

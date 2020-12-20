@@ -23,4 +23,8 @@ export class GetEdgeService {
 
     return right(Result.ok(edgeOpt.value))
   }
+
+  async getEdgesByGraphId(graph_id: string): Promise<Array<Edge>> {
+    return this.repository.findEdges({ graph_id })
+  }
 }

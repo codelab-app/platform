@@ -189,6 +189,9 @@
     },
     "modules-edge": {
       "tags": []
+    },
+    "modules-graph": {
+      "tags": []
     }
   }
 }

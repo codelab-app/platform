@@ -9,4 +9,5 @@ export interface EdgeRepositoryPort {
   updateEdge(existingEdge: Edge, edge: Edge): Promise<Edge>
   // exists(by: FindEdgeBy): Promise<boolean>
   findEdge(by: FindEdgeBy): Promise<Option<Edge>>
+  findEdges(by: FindEdgeBy): Promise<Array<Edge>>
 }

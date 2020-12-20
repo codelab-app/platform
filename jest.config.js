@@ -32,5 +32,6 @@ module.exports = {
     '<rootDir>/libs/tools/eslint-config-codelab',
     '<rootDir>/libs/tools/plugins/codelab',
     '<rootDir>/libs/modules/edge',
+    '<rootDir>/libs/modules/graph',
   ],
 }
