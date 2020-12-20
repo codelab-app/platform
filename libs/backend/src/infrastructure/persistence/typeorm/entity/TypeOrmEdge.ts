@@ -1,6 +1,7 @@
 import { ObjectType } from '@nestjs/graphql'
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
 import { IEdge } from '../../../graphql/models/IEdge'
+import { TypeOrmGraph } from './TypeOrmGraph'
 
 @Entity('edge')
 @ObjectType({
@@ -9,6 +10,9 @@ import { IEdge } from '../../../graphql/models/IEdge'
 export class TypeOrmEdge {
   @PrimaryGeneratedColumn('uuid')
   declare id: string
+
+  @Column()
+  declare graph_id: number
 
   @Column({
     type: 'text',
@@ -30,6 +34,6 @@ export class TypeOrmEdge {
   })
   declare props?: any
 
-  // @ManyToOne((type) => TypeOrmGraph, (graph) => graph.edges)
-  // declare graph: TypeOrmGraph
+  @ManyToOne((type) => TypeOrmGraph, (graph) => graph.edges)
+  declare graph: TypeOrmGraph
 }

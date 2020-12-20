@@ -111,7 +111,8 @@
       "@codelab/modules/header-stories": [
         "libs/modules/header-stories/src/index.ts"
       ],
-      "@codelab/modules/edge": ["libs/modules/edge/src/index.ts"]
+      "@codelab/modules/edge": ["libs/modules/edge/src/index.ts"],
+      "@codelab/modules/graph": ["libs/modules/graph/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"]

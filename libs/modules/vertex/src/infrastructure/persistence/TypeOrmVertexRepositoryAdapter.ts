@@ -3,7 +3,7 @@ import { option as O } from 'fp-ts'
 import { Option } from 'fp-ts/Option'
 import { EntityRepository, Repository } from 'typeorm'
 import { FindVertexBy } from '../../common/CommonTypes'
-import { isId } from '../../common/utils'
+import { isGraphId, isId } from '../../common/utils'
 import { VertexRepositoryPort } from '../../core/adapters/VertexRepositoryPort'
 import { Vertex } from '../../core/domain/vertex'
 import { TypeOrmVertex } from '@codelab/backend'
@@ -51,6 +51,23 @@ export class TypeOrmVertexRepositoryAdapter
     return typeOrmVertex
       ? Promise.resolve(O.some(Vertex.hydrate(typeOrmVertex)))
       : O.none
+  }
+
+  async findVertices(by: FindVertexBy): Promise<Array<Vertex>> {
+    let typeOrmVertices: Array<TypeOrmVertex>
+    let vertices
+    let error = ''
+
+    if (isGraphId(by)) {
+      typeOrmVertices = await this.find({ where: { graph_id: by.graph_id } })
+      vertices = plainToClass(Vertex, typeOrmVertices)
+
+      return Promise.resolve(vertices)
+    }
+
+    error = 'Only can search by graph id'
+
+    return Promise.reject(error)
   }
 
   async deleteVertex(vertex: Vertex): Promise<Option<Vertex>> {
