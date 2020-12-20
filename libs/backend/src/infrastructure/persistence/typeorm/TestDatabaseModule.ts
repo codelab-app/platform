@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies'
 import { TestDatabaseConfig } from '../config/TestDatabaseConfig'
-import { TypeOrmUser } from './entity'
+import { TypeOrmEdge, TypeOrmUser, TypeOrmVertex } from './entity'
 
 @Module({
   imports: [

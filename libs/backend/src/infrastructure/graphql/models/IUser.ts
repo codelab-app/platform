@@ -1,5 +1,4 @@
 import { Field, InterfaceType } from '@nestjs/graphql'
-import { TypeOrmGraph } from '../../persistence/typeorm/entity/TypeOrmGraph'
 
 @InterfaceType()
 export abstract class IUser {
@@ -9,6 +8,6 @@ export abstract class IUser {
   @Field({ nullable: false })
   declare email: string
 
-  @Field((returns) => [TypeOrmGraph])
-  declare graphs: Array<TypeOrmGraph>
+  // @Field((returns) => [TypeOrmGraph])
+  // declare graphs: Array<TypeOrmGraph>
 }
