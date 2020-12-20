@@ -9,4 +9,5 @@ export interface VertexRepositoryPort {
   updateVertex(existingVertex: Vertex, vertex: Vertex): Promise<Vertex>
   // exists(by: FindVertexBy): Promise<boolean>
   findVertex(by: FindVertexBy): Promise<Option<Vertex>>
+  findVertices(by: FindVertexBy): Promise<Array<Vertex>>
 }

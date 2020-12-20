@@ -14,5 +14,6 @@ module.exports = {
   },
   rules: {
     'react/static-property-placement': 'off',
+    camelcase: 'off',
   },
 }

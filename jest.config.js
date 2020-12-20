@@ -34,5 +34,6 @@ module.exports = {
     '<rootDir>/libs/modules/grid-stories',
     '<rootDir>/libs/modules/edge',
     '<rootDir>/libs/modules/vertex',
+    '<rootDir>/libs/modules/graph',
   ],
 }

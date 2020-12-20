@@ -4,6 +4,9 @@ import { NodeType } from '@codelab/alpha/shared/interface/node'
 
 @InputType()
 export class CreateVertexRequest {
+  @Field()
+  declare graph_id: string
+
   @Field((returns) => NodeType)
   declare type: NodeType
 

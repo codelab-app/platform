@@ -23,4 +23,8 @@ export class GetVertexService {
 
     return right(Result.ok(vertexOpt.value))
   }
+
+  async getVerticesByGraphId(graph_id: string): Promise<Array<Vertex>> {
+    return this.repository.findVertices({ graph_id })
+  }
 }
