@@ -39,16 +39,9 @@ export class TypeOrmUserRepositoryAdapter
       : O.none
   }
 
-  async updateUser(existingUser: User, user: User): Promise<User> {
-    const plainUser = user.toPlain()
-    const typeOrmExistingUser = plainToClass(
-      TypeOrmUser,
-      existingUser.toPlain(),
-    )
-
+  async updateUser(user: User): Promise<User> {
     const updatedUser = await this.save({
-      ...typeOrmExistingUser,
-      ...plainUser,
+      ...user.toPlain(),
     })
 
     return User.hydrate(updatedUser)

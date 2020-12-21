@@ -5,9 +5,7 @@ import { Connection } from 'typeorm'
 import { TestInfrastructureModule } from '@codelab/backend'
 import { UserModule } from '@codelab/modules/users'
 
-const email = 'test_user@codelab.ai'
-
-describe.skip('CreateUserUseCase', () => {
+describe('CreateUserUseCase', () => {
   let app: INestApplication
 
   beforeAll(async () => {
@@ -34,7 +32,7 @@ describe.skip('CreateUserUseCase', () => {
 					mutation {
             createUser(user:
               {
-                email: "${email}",
+                email: "admin@codelab.ai",
                 password: "password"
               }
             ) {
@@ -46,7 +44,7 @@ describe.skip('CreateUserUseCase', () => {
       .expect(200)
       .expect((res) => {
         expect(res.body.data.createUser).toEqual({
-          email: 'test_user@codelab.ai',
+          email: 'admin@codelab.ai',
         })
       })
   })
@@ -59,7 +57,7 @@ describe.skip('CreateUserUseCase', () => {
           mutation {
             createUser(user:
               {
-                email: "${email}",
+                email: "admin@codelab.ai",
                 password: "password"
               }
             ) {
@@ -73,7 +71,7 @@ describe.skip('CreateUserUseCase', () => {
         const errorMsg = res.body?.errors[0].message
 
         expect(errorMsg).toEqual(
-          `The email ${email} associated for this account already exists`,
+          `The email admin@codelab.ai associated for this account already exists`,
         )
       })
   })
