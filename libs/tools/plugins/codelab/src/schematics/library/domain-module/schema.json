@@ -12,11 +12,6 @@
         "index": 0
       },
       "x-prompt": "What name would you like to use for the library?"
-    },
-    "directory": {
-      "type": "string",
-      "description": "A directory where the app is placed",
-      "alias": "d"
     }
   },
   "required": ["name"]

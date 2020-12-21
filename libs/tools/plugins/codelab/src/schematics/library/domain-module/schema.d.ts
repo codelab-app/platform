@@ -1,6 +1,6 @@
 export interface NestSchematicSchema {
-  name: string;
-  directory?: string;
-  moduleName?: string
-  tags?: string
+  name: string
+  // directory?: string;
+  // moduleName?: string
+  // tags?: string
 }

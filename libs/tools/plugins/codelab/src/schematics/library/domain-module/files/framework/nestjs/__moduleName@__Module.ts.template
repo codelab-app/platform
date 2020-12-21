@@ -1,4 +1,4 @@
-import {CqrsModule} from '@nestjs/cqrs';
+import { CqrsModule } from '@nestjs/cqrs'
 import { Module } from '@nestjs/common'
 
 @Module({
