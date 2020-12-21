@@ -5,9 +5,6 @@ import { Connection } from 'typeorm'
 import { TestInfrastructureModule } from '@codelab/backend'
 import { UserModule } from '@codelab/modules/users'
 
-<<<<<<< HEAD:libs/modules/users/src/core/application/useCases/createUser/CreateUserUseCase.i.spec.ts
-describe('CreateUserUseCase', () => {
-=======
 const email = 'test_user@codelab.ai'
 
 const createUserMutation = `
@@ -20,7 +17,6 @@ mutation {
 }`
 
 describe.skip('CreateUserUseCase', () => {
->>>>>>> fix(apps-api-codelab): vertex, edge, users e2e tests:libs/modules/users/src/core/application/useCases/UserUseCase.i.spec.ts
   let app: INestApplication
   let connection: Connection
 
@@ -51,22 +47,7 @@ describe.skip('CreateUserUseCase', () => {
     await request(app.getHttpServer())
       .post('/graphql')
       .send({
-<<<<<<< HEAD:libs/modules/users/src/core/application/useCases/createUser/CreateUserUseCase.i.spec.ts
-        query: `
-					mutation {
-            createUser(user:
-              {
-                email: "admin@codelab.ai",
-                password: "password"
-              }
-            ) {
-							email
-						}
-					}
-			  `,
-=======
         query: createUserMutation,
->>>>>>> fix(apps-api-codelab): vertex, edge, users e2e tests:libs/modules/users/src/core/application/useCases/UserUseCase.i.spec.ts
       })
       .expect(200)
       .expect((res) => {
@@ -91,22 +72,7 @@ describe.skip('CreateUserUseCase', () => {
     const createExistingUser = await request(app.getHttpServer())
       .post('/graphql')
       .send({
-<<<<<<< HEAD:libs/modules/users/src/core/application/useCases/createUser/CreateUserUseCase.i.spec.ts
-        query: `
-          mutation {
-            createUser(user:
-              {
-                email: "admin@codelab.ai",
-                password: "password"
-              }
-            ) {
-              email
-            }
-          }
-        `,
-=======
         query: createUserMutation,
->>>>>>> fix(apps-api-codelab): vertex, edge, users e2e tests:libs/modules/users/src/core/application/useCases/UserUseCase.i.spec.ts
       })
       .expect(200)
       .expect((res) => {
