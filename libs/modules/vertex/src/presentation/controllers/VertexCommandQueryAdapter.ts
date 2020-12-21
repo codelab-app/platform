@@ -3,7 +3,6 @@ import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { CreateVertexCommand } from '../../core/application/commands/CreateVertexCommand'
 import { DeleteVertexCommand } from '../../core/application/commands/DeleteVertexCommand'
 import { UpdateVertexCommand } from '../../core/application/commands/UpdateVertexCommand'
-import { CommandQueryBusPort } from '../../core/application/ports/primary/CommandQueryBusPort'
 import { GetVertexByIdQuery } from '../../core/application/queries/GetVertexByIdQuery'
 import { GetVertexQuery } from '../../core/application/queries/GetVertexQuery'
 import { VertexUseCaseDto } from '../../core/application/useCases/VertexUseCaseDto'
@@ -12,7 +11,7 @@ import { DeleteVertexRequest } from '../../core/application/useCases/deleteVerte
 import { GetVertexByIdRequest } from '../../core/application/useCases/getVertex/GetVertexByIdRequest'
 import { UpdateVertexRequest } from '../../core/application/useCases/updateVertex/UpdateVertexRequest'
 import { Vertex } from '../../core/domain/vertex'
-import { UseCaseRequestPort } from '@codelab/backend'
+import { CommandQueryBusPort, UseCaseRequestPort } from '@codelab/backend'
 
 @Resolver(() => Vertex)
 export class VertexCommandQueryAdapter implements CommandQueryBusPort {
@@ -23,7 +22,7 @@ export class VertexCommandQueryAdapter implements CommandQueryBusPort {
 
   @Query((returns) => [VertexUseCaseDto])
   async vertices() {
-    const vertices = await this.queryBus.execute(new GetVertexQuery())
+    const vertices = await this.queryBus.execute(new GetVertexQuery({}))
     const plain = Vertex.arrayToPlain(vertices)
 
     return Vertex.arrayToPlain(vertices)
