@@ -14,7 +14,7 @@ import { TypeOrmEdge, TypeOrmGraph, TypeOrmUser, TypeOrmVertex } from './entity'
       username: TestDatabaseConfig.DB_USERNAME,
       password: TestDatabaseConfig.DB_PASSWORD,
       database: TestDatabaseConfig.DB_NAME,
-      entities: [TypeOrmUser, TypeOrmGraph, TypeOrmVertex, TypeOrmEdge],
+      entities: [TypeOrmUser, TypeOrmEdge, TypeOrmVertex, TypeOrmGraph],
       synchronize: true,
       dropSchema: true,
       logging: ['query', 'error', 'schema'],
