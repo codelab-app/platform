@@ -8,6 +8,7 @@ import { GetUsersQuery } from '../../core/application/queries/GetUsersQuery'
 import { UserUseCaseDto } from '../../core/application/useCases/UserUseCaseDto'
 import { CreateUserRequest } from '../../core/application/useCases/createUser/CreateUserRequest'
 import { DeleteUserRequest } from '../../core/application/useCases/deleteUser/DeleteUserRequest'
+import { GetUserRequest } from '../../core/application/useCases/getUser/GetUserRequest'
 import { UpdateUserRequest } from '../../core/application/useCases/updateUser/UpdateUserRequest'
 import { User } from '../../core/domain/user'
 import {
@@ -29,12 +30,13 @@ import {
 export class UserCommandQueryAdapter implements CommandQueryBusPort {
   constructor(
     readonly commandBus: CommandBus<UseCaseRequestPort>,
-    readonly queryBus: QueryBus<GetUsersQuery>,
+    readonly queryBus: QueryBus<UseCaseRequestPort>,
   ) {}
 
+  // Use email as placeholder for now
   @Query(() => [UserUseCaseDto])
-  async users() {
-    const users = await this.queryBus.execute(new GetUsersQuery())
+  async users(@Args('email') request: GetUserRequest) {
+    const users = await this.queryBus.execute(new GetUsersQuery(request))
 
     return User.arrayToPlain(users)
   }
