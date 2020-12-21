@@ -110,6 +110,9 @@
       ],
       "@codelab/modules/header-stories": [
         "libs/modules/header-stories/src/index.ts"
+      ],
+      "@codelab/modules/grid-stories": [
+        "libs/modules/grid-stories/src/index.ts"
       ]
     }
   },
