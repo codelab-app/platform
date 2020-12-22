@@ -1,19 +1,15 @@
 import { writeFile } from 'fs'
 import { join, resolve } from 'path'
+import { pipe } from 'ramda'
+import { getAntdPropsNames } from './generate-props-names'
 import * as TJS from 'typescript-json-schema'
 
 // NOTE: to run script you can use:
 // `yarn generate-antd-json-schema`
 
-enum ComponentTypeEnum {
-  'button' = 'BaseButtonProps',
-}
-
 const outputRoot = resolve(
   `./libs/alpha/ui/component/src/form/graph/json-schemas/`,
 )
-
-const ComponentsTypes = Object.keys(ComponentTypeEnum)
 
 const settings: TJS.PartialArgs = {
   required: true,
@@ -31,52 +27,72 @@ const program = TJS.getProgramFromFiles(
 const generator = TJS.buildGenerator(program, settings)
 
 const cleanReactDependencies = (definition: TJS.Definition): TJS.Definition => {
-  const { properties, definitions, ...rest } = definition
+  const { properties, required = [], ...rest } = definition
 
-  const propertiesWithoutReact = Object.keys(properties).reduce((acc, curr) => {
-    const prop = properties[curr]
-
-    if ((prop as any)?.$ref?.includes('React')) {
-      return acc
-    }
-
-    return { ...acc, [curr]: prop }
-  }, {})
-
-  const definitionsWithoutReact = Object.keys(definitions).reduce(
+  const [nextRequired, nexProperties] = Object.keys(properties).reduce(
     (acc, curr) => {
-      if (curr.includes('React')) {
-        return acc
+      const prop = properties[curr]
+      const [accRequired, accProperties] = acc
+
+      if ((prop as any)?.$ref?.includes('React')) {
+        // if we filter some props, we should be sure that they will be excluded from 'required'
+        return [
+          accRequired.filter((propName) => propName !== curr),
+          accProperties,
+        ]
       }
 
-      return { ...acc, [curr]: definitions[curr] }
+      return [accRequired, { ...accProperties, [curr]: prop }]
     },
-    {},
+    [required, {}],
   )
 
   return {
     ...rest,
-    definitions: {
-      ...definitionsWithoutReact,
-    },
+    required: [...nextRequired],
     properties: {
-      ...propertiesWithoutReact,
+      ...nexProperties,
     },
   }
 }
 
-ComponentsTypes.forEach((cType) => {
-  const buttonPropsSchema = generator.getSchemaForSymbol(
-    ComponentTypeEnum[cType],
-  )
+const cleanStyleDependencies = (definition: TJS.Definition): TJS.Definition => {
+  const { properties, ...rest } = definition
+  const { style, ...restProperties } = properties
+  return {
+    ...rest,
+    properties: {
+      ...restProperties,
+    },
+  }
+}
 
-  const buttonPropsSchemaWithoutReact = cleanReactDependencies(
-    buttonPropsSchema,
-  )
+const componentsWithErrors = [
+  'CarouselProps',
+  'DatePickerProps',
+  'DrawerProps',
+  'DropdownProps',
+  'FormProps',
+  'GridProps',
+  'IconProps',
+  'ImageProps',
+  'LayoutProps'
+]
+
+getAntdPropsNames().forEach((typeName) => {
+  if (componentsWithErrors.includes(typeName)) {
+    return
+  }
+  console.log(typeName)
+  const propsSchema = pipe(
+    (symbol: string) => generator.getSchemaForSymbol(symbol),
+    cleanReactDependencies,
+    cleanStyleDependencies,
+  )(typeName)
 
   writeFile(
-    join(outputRoot, `${cType}PropsSchema.json`),
-    JSON.stringify(buttonPropsSchemaWithoutReact, null, 2),
+    join(outputRoot, `${typeName}Schema.json`),
+    JSON.stringify(propsSchema, null, 2),
     (err) => {
       if (err) {
         console.log(err)
