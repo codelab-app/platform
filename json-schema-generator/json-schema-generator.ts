@@ -17,6 +17,7 @@ const ComponentsTypes = Object.keys(ComponentTypeEnum)
 
 const settings: TJS.PartialArgs = {
   required: true,
+  ref: false,
 }
 
 const compilerOptions = {
