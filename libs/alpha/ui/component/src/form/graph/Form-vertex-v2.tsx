@@ -3,11 +3,20 @@ import { withTheme } from '@rjsf/core'
 import { Button, Select } from 'antd'
 import { JSONSchema7 } from 'json-schema'
 import React, { useState } from 'react'
-import buttonsPropsSchema from './json-schemas/buttonPropsSchema.json'
+import * as schemas from './json-schemas/schemas'
 import { VertexType } from '@codelab/alpha/shared/interface/graph'
 
 const { Option } = Select
 const Form = withTheme(AntDTheme)
+
+const getTypeFromVertexType = (vertexType: string): string => {
+  return vertexType
+    .replace('REACT_', '')
+    .toLowerCase()
+    .split('_')
+    .map((word) => word[0].toUpperCase() + word.slice(1))
+    .join('')
+}
 
 // Object version
 // Solution:
@@ -19,17 +28,10 @@ export const FormVertex = () => {
   /* It's important to place the definition in the root.
    * Otherwise, we'll need to change dependencies everywhere (it'll be a solution if we meet Symbol conflicts) */
 
-  const {
-    definitions: buttonsDefinitions,
-    ...buttonsProps
-  } = buttonsPropsSchema
   const schema: JSONSchema7 = {
     title: 'Vertex',
     type: 'object',
     required: ['type'],
-    definitions: {
-      ...buttonsDefinitions,
-    } as any,
     properties: {
       type: {
         type: 'string',
@@ -40,17 +42,18 @@ export const FormVertex = () => {
     dependencies: {
       type: {
         oneOf: [
-          {
+          ...Object.values(VertexType).map((vType) => ({
             properties: {
               type: {
-                enum: [VertexType.REACT_BUTTON],
+                enum: [vType],
               },
               props: {
                 title: 'Props',
-                ...(buttonsProps as any),
+                ...((schemas as any)[getTypeFromVertexType(vType)] as any),
+                /* ...(buttonsProps as any), */
               },
             },
-          },
+          })),
         ],
       },
     },

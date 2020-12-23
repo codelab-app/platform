@@ -11,6 +11,9 @@ export interface Vertex {
 export enum VertexType {
   REACT_BUTTON = 'REACT_BUTTON',
   REACT_TEXT = 'REACT_TEXT',
+  REACT_AFFIX = 'REACT_AFFIX',
+  REACT_ALERT = 'REACT_ALERT',
+  REACT_ANCHOR = 'REACT_ANCHOR',
 }
 
 export interface DeleteVertexDTO {
