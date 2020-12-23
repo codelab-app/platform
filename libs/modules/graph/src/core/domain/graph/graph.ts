@@ -1,5 +1,5 @@
 import { Type, classToPlain, plainToClass } from 'class-transformer'
-import { CreateGraphRequest } from '../application/useCases/createGraph/CreateGraphRequest'
+import { CreateGraphRequest } from '../../application/useCases/createGraph/CreateGraphRequest'
 import { SerializedGraphDto } from './dto/SerializedGraphDto'
 import { GraphEdges } from './graph-edges'
 import { GraphLabel } from './graph-label'

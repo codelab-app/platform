@@ -1,4 +1,4 @@
-import { Injectable, OnModuleInit } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 import { ModuleRef } from '@nestjs/core'
 import { CommandBus, QueryBus } from '@nestjs/cqrs'
 import {
@@ -9,29 +9,24 @@ import {
   ResolveField,
   Resolver,
 } from '@nestjs/graphql'
-import { GetEdgeService } from '../../../../edge/src/core/application/services/GetEdgeService'
 import { EdgeUseCaseDto } from '../../../../edge/src/core/application/useCases/EdgeUseCaseDto'
-import { EdgeDITokens } from '../../../../edge/src/framework/EdgeDITokens'
-import { GetVertexService } from '../../../../vertex/src/core/application/services/GetVertexService'
 import { VertexUseCaseDto } from '../../../../vertex/src/core/application/useCases/VertexUseCaseDto'
-import { VertexDITokens } from '../../../../vertex/src/framework/VertexDITokens'
+import { AddChildNodeCommand } from '../../core/application/commands/AddChildNodeCommand'
 import { CreateGraphCommand } from '../../core/application/commands/CreateGraphCommand'
+import { GetEdgesByGraphIdQuery } from '../../core/application/queries/GetEdgesByGraphIdQuery'
 import { GetGraphQuery } from '../../core/application/queries/GetGraphQuery'
+import { GetVerticesByGraphIdQuery } from '../../core/application/queries/GetVerticesByGraphIdQuery'
 import { GraphUseCaseDto } from '../../core/application/useCases/GraphUseCaseDto'
+import { AddChildNodeRequest } from '../../core/application/useCases/addChildNode/AddChildNodeRequest'
 import { CreateGraphRequest } from '../../core/application/useCases/createGraph/CreateGraphRequest'
-import { Graph } from '../../core/domain/graph'
+import { Graph } from '../../core/domain/graph/graph'
 import { CommandQueryBusPort, UseCaseRequestPort } from '@codelab/backend'
 import { Edge } from '@codelab/modules/edge'
 import { Vertex } from '@codelab/modules/vertex'
 
 @Resolver(() => GraphUseCaseDto)
 @Injectable()
-export class GraphCommandQueryAdapter
-  implements CommandQueryBusPort, OnModuleInit {
-  declare vertexService: GetVertexService
-
-  declare edgeService: GetEdgeService
-
+export class GraphCommandQueryAdapter implements CommandQueryBusPort {
   constructor(
     readonly commandBus: CommandBus<UseCaseRequestPort>,
     readonly queryBus: QueryBus<UseCaseRequestPort>,
@@ -54,10 +49,19 @@ export class GraphCommandQueryAdapter
     return graph.toPlain()
   }
 
+  @Mutation(() => GraphUseCaseDto)
+  async addChildNode(@Args('request') request: AddChildNodeRequest) {
+    const graph: Graph = await this.commandBus.execute(
+      new AddChildNodeCommand(request),
+    )
+
+    return graph.toPlain()
+  }
+
   @ResolveField('vertices', (returns) => [VertexUseCaseDto])
   async getVertices(@Parent() graph: GraphUseCaseDto) {
-    const vertices = await this.vertexService.getVerticesByGraphId(
-      graph.id as string,
+    const vertices = await this.queryBus.execute(
+      new GetVerticesByGraphIdQuery(graph),
     )
 
     return Vertex.arrayToPlain(vertices)
@@ -65,17 +69,8 @@ export class GraphCommandQueryAdapter
 
   @ResolveField('edges', (returns) => [EdgeUseCaseDto])
   async getEdges(@Parent() graph: GraphUseCaseDto) {
-    const edges = await this.edgeService.getEdgesByGraphId(graph.id as string)
+    const edges = await this.queryBus.execute(new GetEdgesByGraphIdQuery(graph))
 
     return Edge.arrayToPlain(edges)
-  }
-
-  onModuleInit(): any {
-    this.vertexService = this.moduleRef.get(VertexDITokens.GetVertexUseCase, {
-      strict: false,
-    })
-    this.edgeService = this.moduleRef.get(EdgeDITokens.GetEdgeUseCase, {
-      strict: false,
-    })
   }
 }

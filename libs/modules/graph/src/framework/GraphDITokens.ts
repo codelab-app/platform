@@ -15,6 +15,10 @@ export class GraphDITokens {
     'GetGraphUseCase',
   )
 
+  public static readonly AddChildNodeUseCase: unique symbol = Symbol(
+    'AddChildNodeUseCase',
+  )
+
   // Handlers
   public static readonly CreateGraphCommandHandler: unique symbol = Symbol(
     'CreateGraphCommandHandler',
@@ -26,6 +30,10 @@ export class GraphDITokens {
 
   public static readonly DeleteGraphCommandHandler: unique symbol = Symbol(
     'DeleteGraphCommandHandler',
+  )
+
+  public static readonly AddChildNodeCommandHandler: unique symbol = Symbol(
+    'AddChildNodeCommandHandler',
   )
 
   // Repositories

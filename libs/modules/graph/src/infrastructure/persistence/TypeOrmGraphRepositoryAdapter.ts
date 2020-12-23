@@ -1,7 +1,11 @@
 import { plainToClass } from 'class-transformer'
+import { option as O } from 'fp-ts'
+import { Option } from 'fp-ts/Option'
 import { EntityRepository, Repository } from 'typeorm'
+import { FindGraphBy } from '../../common/CommonTypes'
+import { isGraphById } from '../../common/utils'
 import { GraphRepositoryPort } from '../../core/adapters/GraphRepositoryPort'
-import { Graph } from '../../core/domain/graph'
+import { Graph } from '../../core/domain/graph/graph'
 import { TypeOrmGraph } from '@codelab/backend'
 
 @EntityRepository(TypeOrmGraph)
@@ -20,5 +24,17 @@ export class TypeOrmGraphRepositoryAdapter
     const newGraph = await this.save(typeOrmGraph)
 
     return plainToClass(Graph, newGraph)
+  }
+
+  async findGraphBy(by: FindGraphBy): Promise<Option<Graph>> {
+    let typeOrmGraph
+
+    if (isGraphById(by)) {
+      typeOrmGraph = await this.findOne(by.id)
+    }
+
+    const graph: Graph = plainToClass(Graph, typeOrmGraph)
+
+    return typeOrmGraph ? Promise.resolve(O.some(graph)) : O.none
   }
 }

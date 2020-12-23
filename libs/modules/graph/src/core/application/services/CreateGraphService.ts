@@ -1,6 +1,6 @@
 import { right } from 'fp-ts/lib/Either'
 import { GraphRepositoryPort } from '../../adapters/GraphRepositoryPort'
-import { Graph } from '../../domain/graph'
+import { Graph } from '../../domain/graph/graph'
 import { CreateGraphRequest } from '../useCases/createGraph/CreateGraphRequest'
 import { CreateGraphResponse } from '../useCases/createGraph/CreateGraphResponse'
 import { CreateGraphUseCase } from '../useCases/createGraph/CreateGraphUseCase'
