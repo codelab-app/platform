@@ -19,8 +19,6 @@ export const ModalContainer = () => {
     onOk: () => app.send('ON_MODAL_OK'),
   }
 
-  console.log(user.state.value.guest)
-
   return (
     <Modal {...appModalProps}>
       <>{user.state.value.guest === 'signingUp' ? <UserSignupForm /> : null}</>

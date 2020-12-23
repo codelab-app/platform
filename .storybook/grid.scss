@@ -1,3 +1,15 @@
 .react-grid-item {
   border: 1px solid black;
+
+  // Static
+  &.static {
+    &:hover {
+      cursor: not-allowed;
+    }
+  }
+
+  // Draggable
+  &.react-draggable {
+    cursor: move;
+  }
 }

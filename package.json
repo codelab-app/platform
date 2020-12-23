@@ -175,6 +175,7 @@
     "@nestjs/testing": "7.4.4",
     "@nrwl/cli": "10.4.4",
     "@nrwl/cypress": "10.4.4",
+    "@nrwl/devkit": "^11.0.16",
     "@nrwl/eslint-plugin-nx": "10.4.4",
     "@nrwl/jest": "10.4.4",
     "@nrwl/nest": "10.4.4",

@@ -1,6 +1,7 @@
 import { useActor, useMachine } from '@xstate/react'
 import { atom, useRecoilValue } from 'recoil'
 import { Machine, assign, spawn } from 'xstate'
+import { createGridMachine } from '@codelab/modules/grid-stories'
 import { layoutMachine } from '@codelab/modules/layout-stories'
 import { createUserMachine } from '@codelab/modules/users-stories'
 
@@ -9,6 +10,7 @@ export const appMachine = Machine<any>({
   entry: assign({
     layout: () => spawn(layoutMachine, { sync: true }),
     user: () => spawn(createUserMachine(), { sync: false, autoForward: true }),
+    grid: () => spawn(createGridMachine(), { sync: false, autoForward: true }),
   }),
   initial: 'idle',
   states: {
@@ -44,10 +46,3 @@ export const useLayoutActor = (): any => {
     send,
   }
 }
-
-// export const useAppMachine = () => {
-//   const appAtom = useRecoilValue(appMachineState)
-//   const [state, send] = useMachine(appAtom)
-
-//   return { state, send }
-// }
