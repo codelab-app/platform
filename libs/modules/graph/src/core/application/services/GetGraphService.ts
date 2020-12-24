@@ -1,9 +1,9 @@
 import { EdgeRepositoryPort } from '../../adapters/EdgeRepositoryPort'
 import { GraphRepositoryPort } from '../../adapters/GraphRepositoryPort'
 import { VertexRepositoryPort } from '../../adapters/VertexRepositoryPort'
+import { Edge } from '../../domain/edge/edge'
 import { Graph } from '../../domain/graph/graph'
-import { Edge } from '@codelab/modules/edge'
-import { Vertex } from '@codelab/modules/vertex'
+import { Vertex } from '../../domain/vertex/vertex'
 
 export class GetGraphService {
   constructor(

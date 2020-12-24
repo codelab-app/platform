@@ -1,5 +1,4 @@
 import { Type, classToPlain, plainToClass } from 'class-transformer'
-import { CreateEdgeRequest } from '../../application/useCases/createEdge/CreateEdgeRequest'
 import { SerializedEdgeDto } from './dto/SerializedEdgeDto'
 import { EdgeOrder } from './edge-order'
 import { EdgeProps } from './edge-props'
@@ -38,7 +37,7 @@ export class Edge extends AggregateRoot<SerializedEdgeDto> {
    * Used for creating User
    * @param request
    */
-  public static create(request: CreateEdgeRequest): Edge {
+  public static create(request: any): Edge {
     const vertex = Edge.hydrate(request)
 
     return vertex

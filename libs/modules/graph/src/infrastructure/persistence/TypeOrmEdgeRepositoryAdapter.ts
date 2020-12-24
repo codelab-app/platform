@@ -2,9 +2,8 @@ import { plainToClass } from 'class-transformer'
 import { option as O } from 'fp-ts'
 import { Option } from 'fp-ts/Option'
 import { EntityRepository, Repository } from 'typeorm'
-import { isGraphId } from '../../../../vertex/src/common/utils'
 import { FindEdgeBy } from '../../common/CommonTypes'
-import { isEdgeById } from '../../common/utils'
+import { isEdgeByGraphId, isEdgeById } from '../../common/utils'
 import { EdgeRepositoryPort } from '../../core/adapters/EdgeRepositoryPort'
 import { Edge } from '../../core/domain/edge/edge'
 import { Graph } from '../../core/domain/graph/graph'
@@ -61,7 +60,7 @@ export class TypeOrmEdgeRepositoryAdapter
     let edges
     let error = ''
 
-    if (isGraphId(by)) {
+    if (isEdgeByGraphId(by)) {
       typeOrmEdges = await this.find({ where: { graph_id: by.graph_id } })
       edges = plainToClass(Edge, typeOrmEdges)
 

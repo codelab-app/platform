@@ -3,9 +3,7 @@ import { Test } from '@nestjs/testing'
 import request from 'supertest'
 import { Connection } from 'typeorm'
 import { TestInfrastructureModule } from '@codelab/backend'
-import { EdgeModule } from '@codelab/modules/edge'
 import { GraphModule } from '@codelab/modules/graph'
-import { VertexModule } from '@codelab/modules/vertex'
 
 describe.skip('CreateVertexUseCase', () => {
   let app: INestApplication
@@ -13,12 +11,7 @@ describe.skip('CreateVertexUseCase', () => {
 
   beforeAll(async () => {
     const testModule = await Test.createTestingModule({
-      imports: [
-        TestInfrastructureModule,
-        VertexModule,
-        GraphModule,
-        EdgeModule,
-      ],
+      imports: [TestInfrastructureModule, GraphModule],
     }).compile()
 
     app = testModule.createNestApplication()

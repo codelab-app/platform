@@ -1,5 +1,5 @@
-import { Edge } from '@codelab/modules/edge'
-import { Vertex } from '@codelab/modules/vertex'
+import { Edge } from '../../edge/edge'
+import { Vertex } from '../../vertex/vertex'
 
 export class SerializedGraphDto {
   declare id?: string

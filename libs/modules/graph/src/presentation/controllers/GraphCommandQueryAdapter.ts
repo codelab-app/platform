@@ -9,20 +9,20 @@ import {
   ResolveField,
   Resolver,
 } from '@nestjs/graphql'
-import { EdgeUseCaseDto } from '../../../../edge/src/core/application/useCases/EdgeUseCaseDto'
-import { VertexUseCaseDto } from '../../../../vertex/src/core/application/useCases/VertexUseCaseDto'
 import { AddChildNodeCommand } from '../../core/application/commands/AddChildNodeCommand'
 import { CreateGraphCommand } from '../../core/application/commands/CreateGraphCommand'
 import { GetEdgesByGraphIdQuery } from '../../core/application/queries/GetEdgesByGraphIdQuery'
 import { GetGraphQuery } from '../../core/application/queries/GetGraphQuery'
 import { GetVerticesByGraphIdQuery } from '../../core/application/queries/GetVerticesByGraphIdQuery'
+import { EdgeUseCaseDto } from '../../core/application/useCases/EdgeUseCaseDto'
 import { GraphUseCaseDto } from '../../core/application/useCases/GraphUseCaseDto'
+import { VertexUseCaseDto } from '../../core/application/useCases/VertexUseCaseDto'
 import { AddChildNodeRequest } from '../../core/application/useCases/addChildNode/AddChildNodeRequest'
 import { CreateGraphRequest } from '../../core/application/useCases/createGraph/CreateGraphRequest'
+import { Edge } from '../../core/domain/edge/edge'
 import { Graph } from '../../core/domain/graph/graph'
+import { Vertex } from '../../core/domain/vertex/vertex'
 import { CommandQueryBusPort, UseCaseRequestPort } from '@codelab/backend'
-import { Edge } from '@codelab/modules/edge'
-import { Vertex } from '@codelab/modules/vertex'
 
 @Resolver(() => GraphUseCaseDto)
 @Injectable()

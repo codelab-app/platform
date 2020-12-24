@@ -1,6 +1,6 @@
 import { Field, ObjectType } from '@nestjs/graphql'
-import { EdgeUseCaseDto } from '../../../../../edge/src/core/application/useCases/EdgeUseCaseDto'
-import { VertexUseCaseDto } from '../../../../../vertex/src/core/application/useCases/VertexUseCaseDto'
+import { EdgeUseCaseDto } from './EdgeUseCaseDto'
+import { VertexUseCaseDto } from './VertexUseCaseDto'
 
 @ObjectType()
 export class GraphUseCaseDto {

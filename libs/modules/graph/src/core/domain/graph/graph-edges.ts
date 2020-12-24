@@ -1,5 +1,5 @@
+import { Edge } from '../edge/edge'
 import { ValueObject } from '@codelab/backend'
-import { Edge } from '@codelab/modules/edge'
 
 export interface IGraphEdges {
   value: Array<Edge>

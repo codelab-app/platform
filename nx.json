@@ -169,9 +169,6 @@
     "modules-users": {
       "tags": []
     },
-    "modules-vertex": {
-      "tags": []
-    },
     "modules-users-stories": {
       "tags": []
     },
@@ -188,9 +185,6 @@
       "tags": []
     },
     "modules-grid-stories": {
-      "tags": []
-    },
-    "modules-edge": {
       "tags": []
     },
     "modules-graph": {
