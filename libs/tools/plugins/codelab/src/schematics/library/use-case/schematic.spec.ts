@@ -66,7 +66,7 @@ describe('@codelab/schematics:use-case', () => {
     ].map((file) => `${projectRoot}/src/${file}`)
 
     test.each(expectedFiles)('%p should exist', (file) => {
-      expect(appTree.exists(file)).toBeTruthy()
+      expect(tree.exists(file)).toBeTruthy()
     })
   })
 })
