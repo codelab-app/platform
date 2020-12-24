@@ -11,52 +11,61 @@ import {
   move,
   url,
 } from '@angular-devkit/schematics'
-import { names } from '@nrwl/workspace'
-import { NestSchematicSchema } from './schema'
+import { ProjectType, projectRootDir, toFileName } from '@nrwl/workspace'
+import * as v from 'voca'
+import { dirExists } from '../utils'
+import { UseCaseSchematicSchema } from './schema'
 
-interface NormalizedSchema extends NestSchematicSchema {
-  projectDirectory?: string
-  useCaseDirName: string
+const projectType = ProjectType.Library
+
+export interface NormalizedSchema extends UseCaseSchematicSchema {
+  projectName: string
   projectRoot: string
-  toUpperCase?: (name: string) => string
-  toLowerCase?: (name: string) => string
+  projectDirectory: string
+  UseCaseName: string // capitalized
+  ModuleName: string // capitalized
 }
 
-const toUpperCase = (name: string) => {
-  return name.charAt(0).toUpperCase() + name.slice(1)
-}
+export const normalizeOptions = (
+  options: UseCaseSchematicSchema,
+): NormalizedSchema => {
+  const name = toFileName(options.moduleName)
+  const projectDirectory = `modules/${name}`
+  const projectName = projectDirectory.replace(new RegExp('/', 'g'), '-')
+  const projectRoot = `${projectRootDir(projectType)}/${projectDirectory}`
+  const UseCaseName = v
+    .chain(options.useCaseName)
+    .camelCase()
+    .capitalize()
+    .value()
+  const ModuleName = v
+    .chain(options.moduleName)
+    .camelCase()
+    .capitalize()
+    .value()
 
-const toLowerCase = (name: string) => {
-  return name.charAt(0).toLowerCase() + name.slice(1)
-}
-
-const normalizeOptions = (options: NormalizedSchema): NormalizedSchema => {
-  options.toUpperCase = toUpperCase
-  options.toLowerCase = toLowerCase
-  const useCaseDirName = toLowerCase(options.useCaseName)
-  const projectRoot = `libs/modules/${options.moduleName}`
+  // const moduleName = capitalize(name)
+  // const parsedTags = options.tags
+  //   ? options.tags.split(',').map((s) => s.trim())
+  //   : []
 
   return {
     ...options,
+    projectName,
     projectRoot,
-    useCaseDirName,
+    projectDirectory,
+    UseCaseName,
+    ModuleName,
+    // parsedTags,
   }
 }
 
-const domainModuleExists = (options: NormalizedSchema): boolean => {
-  const { projectRoot } = options
-  const cwd = process.cwd()
-  const moduleDirPath = `${cwd}/${projectRoot}/`
-
-  return fs.existsSync(moduleDirPath)
-}
-
-const createDirsFromStructure = (options: NormalizedSchema): Rule => {
+const createFiles = (options: NormalizedSchema): Rule => {
   return mergeWith(
     apply(url(`./files`), [
       applyTemplates({
         ...options,
-        ...names(options.useCaseName),
+        // ...names(options.useCaseName),
       }),
       move(`${options.projectRoot}/src`),
     ]),
@@ -68,12 +77,24 @@ export default function MySchematic(options: NormalizedSchema) {
   const normalizedOptions = normalizeOptions(options)
 
   return (host: Tree, context: SchematicContext) => {
-    if (domainModuleExists(normalizedOptions)) {
-      return chain([createDirsFromStructure(normalizedOptions)])
+    if (
+      // Missing module in test env
+      (process.env.NODE_ENV === 'test' &&
+        dirExists(host, normalizedOptions.projectDirectory)) ||
+      // Missing module in normal env
+      (process.env.NODE_ENV !== 'test' &&
+        !fs.existsSync(normalizedOptions.projectRoot))
+    ) {
+      console.log(
+        `${normalizedOptions.moduleName} does not exists, run "nx generate @codelab/schematics:domain-module"`,
+      )
+
+      return
     }
 
-    console.log(
-      `Domain Module does not exists, run ( nx generate @codelab/schematics:nest-lib )`,
-    )
+    return chain([
+      createFiles(normalizedOptions),
+      // insertDiToken(normalizedOptions),
+    ])
   }
 }

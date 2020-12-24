@@ -6,26 +6,18 @@
   "properties": {
     "useCaseName": {
       "type": "string",
-      "description": "Use Case name",
+      // Can only have 1 of this
       "$default": {
         "$source": "argv",
         "index": 0
       },
-      "x-prompt": "Enter Use Case Name i.e CreateUser"
+      "description": "Name of your use case.",
+      "x-prompt": "What name would you like to use for the use case?"
     },
     "moduleName": {
       "type": "string",
       "description": "Module under which the use cases will be created",
-      "$default": {
-        "$source": "argv",
-        "index": 1
-      },
-      "x-prompt": "Enter Module name under which the files will be generated i.e users"
-    },
-    "directory": {
-      "type": "string",
-      "description": "A directory where the app is placed",
-      "alias": "d"
+      "x-prompt": "What module is this for?"
     }
   },
   "required": ["useCaseName", "moduleName"]

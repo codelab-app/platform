@@ -20,11 +20,12 @@ import {
   toFileName,
 } from '@nrwl/workspace'
 import { capitalize } from 'voca'
-import { NestSchematicSchema } from './schema'
+import { removeFiles } from '../utils'
+import { DomainModuleSchematicSchema } from './schema'
 
 const projectType = ProjectType.Library
 
-interface NormalizedSchema extends NestSchematicSchema {
+interface NormalizedSchema extends DomainModuleSchematicSchema {
   projectName: string
   moduleName: string
   projectRoot: string
@@ -33,7 +34,7 @@ interface NormalizedSchema extends NestSchematicSchema {
 }
 
 export const normalizeOptions = (
-  options: NestSchematicSchema,
+  options: DomainModuleSchematicSchema,
 ): NormalizedSchema => {
   const name = toFileName(options.name)
   const projectDirectory = `modules/${name}`
@@ -53,17 +54,6 @@ export const normalizeOptions = (
     // parsedTags,
   }
 }
-
-// const removeFiles = (options: NormalizedSchema): Rule => {
-//   return (tree: Tree, context: SchematicContext) => {
-//     const dir = options.projectDirectory
-//     const filesToRemove = [`${dir}/src/lib/modules-${options.name}.module.ts`]
-
-//     filesToRemove.forEach((file: any) => {
-//       tree.delete(file)
-//     })
-//   }
-// }
 
 const createFiles = (options: NormalizedSchema): Rule => {
   return mergeWith(
@@ -91,17 +81,17 @@ export default (options: NormalizedSchema): Rule => {
 
   return (host: Tree, context: SchematicContext) => {
     if (fs.existsSync(normalizedOptions.projectRoot)) {
-      console.log(
-        'Domain Module does not exists, run ( nx generate @codelab/schematics:nest-lib )',
-      )
+      console.log(`module ${normalizedOptions.name} already exists`)
 
       return
     }
 
     return chain([
       createCodelabNestjsLibrary(normalizedOptions),
+      removeFiles([
+        `${options.projectRoot}/src/lib/modules-${options.name}.module.ts`,
+      ]),
       createFiles(normalizedOptions),
-      // removeFiles(normalizedOptions),
     ])
   }
 }

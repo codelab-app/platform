@@ -2,20 +2,19 @@ import { ObjectType } from '@nestjs/graphql'
 import cytoscape, { EdgeDefinition, NodeDefinition } from 'cytoscape'
 import { merge } from 'lodash'
 import objectMapper from 'object-mapper'
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, OneToMany } from 'typeorm'
 import { v4 as uuidv4 } from 'uuid'
 import { IGraph } from '../../../graphql/models/IGraph'
+import { EntityConfig } from '../../config/EntityConfig'
+import { BaseTypeOrm } from './BaseTypeOrm'
 import { TypeOrmVertex } from './TypeOrmVertex'
 import { TypeOrmEdge } from '@codelab/backend'
 
-@Entity('graph')
+@Entity(EntityConfig.GRAPH_ENTITY)
 @ObjectType({
   implements: [IGraph],
 })
-export class TypeOrmGraph {
-  @PrimaryGeneratedColumn('uuid')
-  declare id: string
-
+export class TypeOrmGraph extends BaseTypeOrm {
   @Column({ type: 'text', nullable: true })
   declare label?: string
 

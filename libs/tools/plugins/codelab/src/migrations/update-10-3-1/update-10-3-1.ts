@@ -1,3 +1,4 @@
+import { workspaces } from '@angular-devkit/core'
 import {
   Rule,
   SchematicContext,
@@ -6,20 +7,15 @@ import {
   noop,
 } from '@angular-devkit/schematics'
 import { formatFiles, getWorkspacePath, readJsonInTree } from '@nrwl/workspace'
-import {
-  createStorybookProjectFiles,
-  removeFiles,
-} from '../../schematics/library/react/schematic'
+import { createStorybookProjectFiles } from '../../schematics/library/react/schematic'
+import { removeFiles } from '../../schematics/library/utils'
 
 export interface ProjectDefinition {
   root: string
   sourceRoot: string
   projectType: 'library' | 'application'
   schematic?: Record<string, any>
-  architect: Record<
-    string,
-    import('@angular-devkit/core').workspaces.TargetDefinition
-  >
+  architect: Record<string, workspaces.TargetDefinition>
 }
 
 const update = (): Rule => {

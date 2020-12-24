@@ -2,14 +2,14 @@ import { join } from 'path'
 import { Tree } from '@angular-devkit/schematics'
 import { SchematicTestRunner } from '@angular-devkit/schematics/testing'
 import { createEmptyWorkspace } from '@nrwl/workspace/testing'
-import { NestSchematicSchema } from './schema'
+import { DomainModuleSchematicSchema } from './schema'
 import { normalizeOptions } from './schematic'
 
 const SCHEMATIC_NAME = 'domain-module'
 
 describe('@codelab/schematics:domain-module', () => {
   let appTree: Tree
-  const options: NestSchematicSchema = { name: 'test' }
+  const options: DomainModuleSchematicSchema = { name: 'test' }
 
   const { moduleName, projectRoot } = normalizeOptions(options)
 

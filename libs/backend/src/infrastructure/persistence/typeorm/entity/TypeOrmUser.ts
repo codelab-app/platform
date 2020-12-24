@@ -1,15 +1,14 @@
 import { ObjectType } from '@nestjs/graphql'
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity } from 'typeorm'
 import { IUser } from '../../../graphql/models/IUser'
+import { EntityConfig } from '../../config/EntityConfig'
+import { BaseTypeOrm } from './BaseTypeOrm'
 
-@Entity('user')
+@Entity(EntityConfig.USER_ENTITY)
 @ObjectType({
   implements: [IUser],
 })
-export class TypeOrmUser {
-  @PrimaryGeneratedColumn('uuid')
-  declare id: string
-
+export class TypeOrmUser extends BaseTypeOrm {
   @Column({
     type: 'text',
     unique: true,

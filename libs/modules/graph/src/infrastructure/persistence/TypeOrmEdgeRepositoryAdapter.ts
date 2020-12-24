@@ -3,25 +3,22 @@ import { option as O } from 'fp-ts'
 import { Option } from 'fp-ts/Option'
 import { EntityRepository, Repository } from 'typeorm'
 import { FindEdgeBy } from '../../common/CommonTypes'
-import { isEdgeByGraphId, isEdgeById } from '../../common/utils'
 import { EdgeRepositoryPort } from '../../core/adapters/EdgeRepositoryPort'
-import { Edge } from '../../core/domain/edge/edge'
-import { Graph } from '../../core/domain/graph/graph'
+import { Edge } from '../../core/domain/edge'
 import { TypeOrmEdge } from '@codelab/backend'
 
 @EntityRepository(TypeOrmEdge)
 export class TypeOrmEdgeRepositoryAdapter
   extends Repository<TypeOrmEdge>
   implements EdgeRepositoryPort {
-  async createEdge(edge: Edge, graph?: Graph): Promise<Edge> {
+  async exists(searchBy: FindEdgeBy): Promise<boolean> {
+    const edge = await this.findOne(searchBy.id)
+
+    return !!edge
+  }
+
+  async createEdge(edge: Edge): Promise<Edge> {
     const typeOrmEdge = edge.toPersistence()
-    let typeOrmGraph
-
-    if (graph) {
-      typeOrmGraph = graph.toPersistence()
-      typeOrmEdge.graph = typeOrmGraph
-    }
-
     const newEdge = await this.save(typeOrmEdge)
 
     return Edge.hydrate(newEdge)
@@ -44,41 +41,33 @@ export class TypeOrmEdgeRepositoryAdapter
   }
 
   async findEdge(by: FindEdgeBy): Promise<Option<Edge>> {
-    let typeOrmEdge
-
-    if (isEdgeById(by)) {
-      typeOrmEdge = await this.findOne(by.id)
-    }
+    const typeOrmEdge = await this.findOne(by.id)
 
     return typeOrmEdge
       ? Promise.resolve(O.some(Edge.hydrate(typeOrmEdge)))
       : O.none
   }
 
-  async findEdges(by: FindEdgeBy): Promise<Array<Edge>> {
-    let typeOrmEdges: Array<TypeOrmEdge>
-    let edges
-    let error = ''
+  // async findEdges(by: FindEdgeBy): Promise<Array<Edge>> {
+  //   let typeOrmEdges: Array<TypeOrmEdge>
+  //   let edges
+  //   let error = ''
 
-    if (isEdgeByGraphId(by)) {
-      typeOrmEdges = await this.find({ where: { graph_id: by.graph_id } })
-      edges = plainToClass(Edge, typeOrmEdges)
+  //   if (isGraphId(by)) {
+  //     typeOrmEdges = await this.find({ where: { graph_id: by.graph_id } })
+  //     edges = plainToClass(Edge, typeOrmEdges)
 
-      return Promise.resolve(edges)
-    }
+  //     return Promise.resolve(edges)
+  //   }
 
-    error = 'Only can search by graph id'
+  //   error = 'Only can search by graph id'
 
-    return Promise.reject(error)
-  }
+  //   return Promise.reject(error)
+  // }
 
-  async updateEdge(existingEdge: Edge, edge: Edge): Promise<Edge> {
-    const plainEdge = edge.toPlain()
-    const typeOrmExistingEdge = existingEdge.toPersistence()
-
+  async updateEdge(edge: Edge): Promise<Edge> {
     const updatedEdge = await this.save({
-      ...typeOrmExistingEdge,
-      ...plainEdge,
+      ...edge.toPlain(),
     })
 
     return Edge.hydrate(updatedEdge)

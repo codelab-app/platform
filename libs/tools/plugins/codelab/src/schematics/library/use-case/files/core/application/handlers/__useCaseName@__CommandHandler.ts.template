@@ -1,28 +1,28 @@
 import { Inject } from '@nestjs/common'
-import { <%= useCaseName %>Command } from '../commands/<%= useCaseName %>Command'
+import { <%= UseCaseName %>Command } from '../commands/<%= UseCaseName %>Command'
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs'
 import { fold } from 'fp-ts/lib/Either'
-import { <%= toUpperCase(moduleName) %>DITokens } from '../../../framework/<%= toUpperCase(moduleName) %>DITokens'
-import { <%= useCaseName %>UseCase } from '../useCases/<%=toLowerCase(useCaseName)%>/<%= useCaseName %>UseCase'
+import { <%= ModuleName %>DITokens } from '../../../framework/<%= ModuleName %>DITokens'
+import { <%= UseCaseName %>UseCase } from '../useCases/<%=useCaseName%>/<%= UseCaseName %>UseCase'
 import { Result } from '@codelab/backend'
-import { <%= toUpperCase(moduleName) %> } from '../../domain/<%= toLowerCase(moduleName) %>'
+import { <%= ModuleName %> } from '../../domain/<%= moduleName %>'
 
-@CommandHandler(<%= useCaseName %>Command)
-export class <%= useCaseName %>CommandHandler
-  implements ICommandHandler<<%= useCaseName %>Command> {
+@CommandHandler(<%= UseCaseName %>Command)
+export class <%= UseCaseName %>CommandHandler
+  implements ICommandHandler<<%= UseCaseName %>Command> {
   constructor(
-    @Inject(<%= toUpperCase(moduleName) %>DITokens.<%= useCaseName %>UseCase)
-    private readonly service: <%= useCaseName %>UseCase,
+    @Inject(<%= ModuleName %>DITokens.<%= UseCaseName %>UseCase)
+    private readonly service: <%= UseCaseName %>UseCase,
   ) {}
 
-  public async execute({ request }: <%= useCaseName %>Command): Promise<<%= toUpperCase(moduleName) %>> {
-    const <%= toLowerCase(useCaseName)%>Results = await this.service.execute(request)
+  public async execute({ request }: <%= UseCaseName %>Command): Promise<<%= ModuleName %>> {
+    const <%= useCaseName%>Results = await this.service.execute(request)
 
     return fold(
       (errors) => {
         throw errors
       },
-      (results: Result<<%= toUpperCase(moduleName) %>>) => results.value,
-    )(<%= toLowerCase(useCaseName)%>Results)
+      (results: Result<<%= ModuleName %>>) => results.value,
+    )(<%= useCaseName%>Results)
   }
 }

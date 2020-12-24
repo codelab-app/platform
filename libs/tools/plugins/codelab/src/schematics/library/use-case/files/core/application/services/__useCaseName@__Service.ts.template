@@ -1,31 +1,31 @@
 import { left, right } from 'fp-ts/lib/Either'
-import { <%= toUpperCase(moduleName) %>RepositoryPort } from '../../adapters/<%= toUpperCase(moduleName) %>RepositoryPort'
-import { <%= toUpperCase(moduleName) %> } from '../../domain/<%= toLowerCase(moduleName) %>'
-import { <%= useCaseName %>Errors } from '../useCases/<%= toLowerCase(useCaseName) %>/<%= useCaseName %>Errors'
-import { <%= useCaseName %>Request } from '../useCases/<%= toLowerCase(useCaseName) %>/<%= useCaseName %>Request'
-import { <%= useCaseName %>Response } from '../useCases/<%= toLowerCase(useCaseName) %>/<%= useCaseName %>Response'
-import { <%= useCaseName %>UseCase } from '../useCases/<%= toLowerCase(useCaseName) %>/<%= useCaseName %>UseCase'
+import { <%= ModuleName %>RepositoryPort } from '../../adapters/<%= ModuleName %>RepositoryPort'
+import { <%= ModuleName %> } from '../../domain/<%= moduleName %>'
+import { <%= UseCaseName %>Errors } from '../useCases/<%= useCaseName %>/<%= UseCaseName %>Errors'
+import { <%= UseCaseName %>Request } from '../useCases/<%= useCaseName %>/<%= UseCaseName %>Request'
+import { <%= UseCaseName %>Response } from '../useCases/<%= useCaseName %>/<%= UseCaseName %>Response'
+import { <%= UseCaseName %>UseCase } from '../useCases/<%= useCaseName %>/<%= UseCaseName %>UseCase'
 import { Result } from '@codelab/backend'
 
 
-export class <%= useCaseName %>Service implements <%= useCaseName %>UseCase {
-  constructor(private readonly <%= toLowerCase(moduleName) %>Repository: <%= toUpperCase(moduleName) %>RepositoryPort) {}
+export class <%= UseCaseName %>Service implements <%= UseCaseName %>UseCase {
+  constructor(private readonly <%= moduleName %>Repository: <%= ModuleName %>RepositoryPort) {}
 
-  async execute(request: <%= useCaseName %>Request): Promise<<%= useCaseName %>Response> {
-    // const <%= toLowerCase(moduleName) %> = <%= toUpperCase(moduleName) %>.create(request)
+  async execute(request: <%= UseCaseName %>Request): Promise<<%= UseCaseName %>Response> {
+    // const <%= moduleName %> = <%= ModuleName %>.create(request)
 
-    // const <%= toLowerCase(moduleName) %>AlreadyExists = await this.<%= toLowerCase(moduleName) %>Repository.exists({
+    // const <%= moduleName %>AlreadyExists = await this.<%= moduleName %>Repository.exists({
     //   email: user.email.toString(),
     // })
 
-    // if (<%= toLowerCase(moduleName) %>AlreadyExists) {
+    // if (<%= moduleName %>AlreadyExists) {
     //   return left(
-    //     new <%= useCaseName %>Errors.DemoError('some error'),
+    //     new <%= UseCaseName %>Errors.DemoError('some error'),
     //   )
     // }
 
-    // const persisted<%= toUpperCase(moduleName) %> = await this.<%= toLowerCase(moduleName) %>Repository.<%= toLowerCase(useCaseName) %>(<%= toLowerCase(moduleName) %>)
+    // const persisted<%= ModuleName %> = await this.<%= moduleName %>Repository.<%= useCaseName %>(<%= moduleName %>)
 
-    // return right(Result.ok(persisted<%= toUpperCase(moduleName) %>))
+    // return right(Result.ok(persisted<%= ModuleName %>))
   }
 }

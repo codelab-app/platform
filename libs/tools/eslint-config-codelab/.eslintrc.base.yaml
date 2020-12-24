@@ -38,6 +38,7 @@ rules:
   # --- !CLASS ---
 
   react/jsx-props-no-spreading: off
+  react/static-property-placement: off
 
   # --- FORMAT ---
   newline-before-return: error

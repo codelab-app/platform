@@ -1,4 +1,4 @@
-export interface NestSchematicSchema {
+export interface DomainModuleSchematicSchema {
   name: string
   // directory?: string;
   // moduleName?: string

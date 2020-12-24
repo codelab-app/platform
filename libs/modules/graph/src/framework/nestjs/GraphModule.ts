@@ -3,9 +3,7 @@ import { CqrsModule } from '@nestjs/cqrs'
 import { Connection } from 'typeorm'
 import { AddChildNodeCommandHandler } from '../../core/application/handlers/AddChildNodeCommandHandler'
 import { CreateGraphCommandHandler } from '../../core/application/handlers/CreateGraphCommandHandler'
-import { GetEdgesByGraphIdQueryHandler } from '../../core/application/handlers/GetEdgesByGraphIdQueryHandler'
 import { GetGraphQueryHandler } from '../../core/application/handlers/GetGraphQueryHandler'
-import { GetVerticesByGraphIdQueryHandler } from '../../core/application/handlers/GetVerticesByGraphIdQueryHandler'
 import { AddChildNodeService } from '../../core/application/services/AddChildNodeService'
 import { CreateGraphService } from '../../core/application/services/CreateGraphService'
 import { GetGraphService } from '../../core/application/services/GetGraphService'
@@ -74,8 +72,6 @@ const useCaseProviders: Array<Provider> = [
 export const handlerProviders: Array<Provider> = [
   CreateGraphCommandHandler,
   GetGraphQueryHandler,
-  GetVerticesByGraphIdQueryHandler,
-  GetEdgesByGraphIdQueryHandler,
   AddChildNodeCommandHandler,
 ]
 

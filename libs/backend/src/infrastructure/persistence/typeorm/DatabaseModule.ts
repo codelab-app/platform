@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies'
 import { DatabaseConfig } from '../config/DatabaseConfig'
-import { TypeOrmEdge, TypeOrmGraph, TypeOrmUser, TypeOrmVertex } from './entity'
+import { typeormEntities } from './entity'
 
 @Module({
   imports: [
@@ -14,7 +14,7 @@ import { TypeOrmEdge, TypeOrmGraph, TypeOrmUser, TypeOrmVertex } from './entity'
       username: DatabaseConfig.DB_USERNAME,
       password: DatabaseConfig.DB_PASSWORD,
       database: DatabaseConfig.DB_NAME,
-      entities: [TypeOrmUser, TypeOrmVertex, TypeOrmEdge, TypeOrmGraph],
+      entities: [...typeormEntities],
       autoLoadEntities: false,
       synchronize: DatabaseConfig.TYPEORM_SYNCHRONIZE,
       dropSchema: DatabaseConfig.TYPEORM_DROP_SCHEMA,

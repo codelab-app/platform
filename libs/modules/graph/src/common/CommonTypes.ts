@@ -1,27 +1,28 @@
+/* eslint-disable camelcase */
+
+// Find Graph
+export type GraphID = string
+
 export type FindGraphBy = FindGraphByID
 
 export type FindGraphByID = {
-  id: string
+  id: GraphID
 }
 
-export type FindEdgeBy = FindEdgeByID | FindEdgeByGraphID
+// Find Vertex
+export type VertexID = string
 
-export type FindEdgeByID = {
-  id: string
-}
-
-export type FindEdgeByGraphID = {
-  graph_id: string
-}
-
-export type FindVertexBy = FindVertexByID | FindVertexByGraphID
+export type FindVertexBy = FindVertexByID
 
 export type FindVertexByID = {
-  id: string
+  id: VertexID
 }
 
-export type FindVertexByGraphID = {
-  graph_id: string
-}
+// Find Edge
+export type EdgeID = string
 
-export type VertexID = string
+export type FindEdgeBy = FindEdgeByID
+
+export type FindEdgeByID = {
+  id: EdgeID
+}

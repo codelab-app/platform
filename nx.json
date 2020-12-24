@@ -189,6 +189,9 @@
     },
     "modules-graph": {
       "tags": []
+    },
+    "modules-page": {
+      "tags": []
     }
   }
 }
