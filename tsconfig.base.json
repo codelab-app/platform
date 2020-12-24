@@ -115,6 +115,10 @@
       ],
       "@codelab/modules/page": ["libs/modules/page/src/index.ts"],
       "@codelab/modules/graph": ["libs/modules/graph/src/index.ts"]
+      ],
+      "@codelab/tools/json-schema-generator": [
+        "libs/tools/json-schema-generator/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"]
