@@ -3,8 +3,8 @@ import { withTheme } from '@rjsf/core'
 import { Button, Select } from 'antd'
 import { JSONSchema7 } from 'json-schema'
 import React, { useState } from 'react'
-import * as schemas from './json-schemas/schemas'
 import { VertexType } from '@codelab/alpha/shared/interface/graph'
+import * as schemas from '@codelab/tools/json-schema-generator'
 
 const { Option } = Select
 const Form = withTheme(AntDTheme)

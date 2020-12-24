@@ -2149,6 +2149,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
+            "fix": true,
             "lintFilePatterns": [
               "libs/tools/json-schema-generator/**/*.{ts,tsx,js,jsx}"
             ]
@@ -2161,18 +2162,24 @@
             "passWithNoTests": true
           }
         },
+        "serve": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": [
+              "nx build tools-json-schema-generator",
+              "node dist/libs/tools/json-schema-generator/main.js",
+              "nx lint tools-json-schema-generator"
+            ],
+            "parallel": false
+          }
+        },
         "build": {
           "builder": "@nrwl/node:build",
           "options": {
             "outputPath": "dist/libs/tools/json-schema-generator",
-            "main": "libs/tools/json-schema-generator/src/index.ts",
-            "tsConfig": "libs/tools/json-schema-generator/tsconfig.lib.json"
-          }
-        },
-        "serve": {
-          "builder": "@nrwl/node:execute",
-          "options": {
-            "buildTarget": "tools-json-schema-generator:build"
+            "main": "libs/tools/json-schema-generator/src/generate.ts",
+            "tsConfig": "libs/tools/json-schema-generator/tsconfig.lib.json",
+            "watch": false
           }
         }
       }
