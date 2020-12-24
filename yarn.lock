@@ -4888,10 +4888,10 @@
   dependencies:
     "@types/express" "*"
 
-"@types/cytoscape@3.14.9":
-  version "3.14.9"
-  resolved "https://registry.yarnpkg.com/@types/cytoscape/-/cytoscape-3.14.9.tgz#5e28a54ea53a37b6225465552f76af33dae37082"
-  integrity sha512-iFPBdTNQEgEEileVXze3XzLrIzyQ3y51RHJEArMi+7PTTDrc1qSmXPqYYYorlw56qIWsDaiQ5SC6ln5Xum+tCQ==
+"@types/cytoscape@3.14.11":
+  version "3.14.11"
+  resolved "https://registry.yarnpkg.com/@types/cytoscape/-/cytoscape-3.14.11.tgz#b5b6c90e182843f89aa1fad0d33e3f5d49237c5c"
+  integrity sha512-v/+A/5D4MuHrHZ2cIw4KThM5BA8NdBcltgYTRwqwPpSfBg2OG7EYYpyoQ9ZZzBA5VXi/xw65+AmzqwfFt62DsA==
 
 "@types/d3-array@^1":
   version "1.2.8"

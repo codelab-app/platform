@@ -1,16 +1,15 @@
 import { Injectable } from '@nestjs/common'
 import { ObjectType, registerEnumType } from '@nestjs/graphql'
 import { Column, Entity, ManyToOne } from 'typeorm'
+import { NodeType } from '../../../../common/types/NodeTypes'
 import { IVertex } from '../../../graphql/models/IVertex'
 import { EntityConfig } from '../../config/EntityConfig'
 import { BaseTypeOrm } from './BaseTypeOrm'
 import { TypeOrmGraph } from './TypeOrmGraph'
-import { NodeType } from '@codelab/alpha/shared/interface/node'
 
 registerEnumType(NodeType, {
   name: 'NodeType',
 })
-
 @Entity(EntityConfig.VERTEX_ENTITY)
 @ObjectType({
   implements: [IVertex],
@@ -23,10 +22,10 @@ export class TypeOrmVertex extends BaseTypeOrm {
   })
   declare type: NodeType
 
-  @Column()
-  declare graph_id: number
+  // @Column()
+  // declare graphId: number
 
-  parent?: string
+  // parent?: string
 
   @Column({
     type: 'jsonb',

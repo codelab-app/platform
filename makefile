@@ -151,14 +151,12 @@ integration-ci:
 #
 test-dev-affected:
 	npx concurrently \
-		"make build-dev-affected" \
  		"make unit-dev-affected" \
   	"make integration-dev" \
   	"make e2e-dev"
 
 test-dev:
 	npx concurrently \
-		"make build-dev" \
  		"make unit-dev" \
   	"make integration-dev" \
   	"make e2e-dev"

@@ -5,7 +5,7 @@
     "outDir": "../../../dist/out-tsc",
     "esModuleInterop": true,
     "declaration": true,
-    "types": ["node"],
+    "types": ["node", "object-mapper"],
     "target": "es6"
   },
   "exclude": ["**/*.spec.ts"],

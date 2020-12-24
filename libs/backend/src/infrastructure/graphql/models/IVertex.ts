@@ -1,6 +1,10 @@
-import { Field, InterfaceType } from '@nestjs/graphql'
+import { Field, InterfaceType, registerEnumType } from '@nestjs/graphql'
 import { GraphQLJSONObject } from 'graphql-type-json'
-import { NodeType } from '@codelab/alpha/shared/interface/node'
+import { NodeType } from '../../../common/types/NodeTypes'
+
+registerEnumType(NodeType, {
+  name: 'NodeType',
+})
 
 @InterfaceType()
 export abstract class IVertex {

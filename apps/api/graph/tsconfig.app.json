@@ -4,8 +4,8 @@
     "outDir": "../../../dist/out-tsc",
     "types": ["node", "@xstate/react", "object-mapper"],
     "esModuleInterop": true,
-    "module": "CommonJS",
     "allowSyntheticDefaultImports": true,
+    "module": "CommonJS",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "ES2018"

@@ -10,8 +10,8 @@ import { TypeOrmGraph } from './TypeOrmGraph'
   implements: [IEdge],
 })
 export class TypeOrmEdge extends BaseTypeOrm {
-  @Column()
-  declare graph_id: number
+  // @Column()
+  // declare graphId: number
 
   @Column({
     type: 'text',

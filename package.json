@@ -200,7 +200,7 @@
     "@testing-library/user-event": "12.5.0",
     "@types/bcrypt": "3.0.0",
     "@types/cors": "2.8.7",
-    "@types/cytoscape": "3.14.9",
+    "@types/cytoscape": "3.14.11",
     "@types/d3": "5.16.2",
     "@types/d3-force": "2.1.0",
     "@types/d3-selection": "2.0.0",

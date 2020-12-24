@@ -1,6 +1,6 @@
 import { Field, InputType } from '@nestjs/graphql'
 import { GraphQLJSONObject } from 'graphql-type-json'
-import { NodeType } from '@codelab/alpha/shared/interface/node'
+import { NodeType } from '@codelab/backend'
 
 @InputType()
 export class CreateVertexRequest {

@@ -1,26 +1,24 @@
 import { INestApplication } from '@nestjs/common'
-import { Test } from '@nestjs/testing'
 import { Connection } from 'typeorm'
-import { TestInfrastructureModule } from '@codelab/backend'
 
 describe('CreatePageUseCase', () => {
   let app: INestApplication
+  let connection: Connection
 
-  beforeAll(async () => {
-    const testModule = await Test.createTestingModule({
-      imports: [TestInfrastructureModule],
-    }).compile()
+  // beforeAll(async () => {
+  //   const testModule = await Test.createTestingModule({
+  //     imports: [TestInfrastructureModule],
+  //   }).compile()
 
-    app = testModule.createNestApplication()
-    await app.init()
-  })
+  //   app = testModule.createNestApplication()
+  //   connection = app.get(Connection)
+  //   await app.init()
+  // })
 
-  afterAll(async () => {
-    const connection = app.get(Connection)
-
-    await connection.close()
-    await app.close()
-  })
+  // afterAll(async () => {
+  //   await connection.close()
+  //   await app.close()
+  // })
 
   it('should be truthy', () => {
     expect(true).toBeTruthy()

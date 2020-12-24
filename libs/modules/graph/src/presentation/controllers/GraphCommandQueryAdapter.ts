@@ -20,7 +20,7 @@ export class GraphCommandQueryAdapter implements CommandQueryBusPort {
 
   @Query(() => [GraphUseCaseDto])
   async graphs() {
-    const results = await this.queryBus.execute(new GetGraphQuery())
+    const results = await this.queryBus.execute(new GetGraphQuery({} as any))
 
     return Graph.arrayToPlain(results)
   }

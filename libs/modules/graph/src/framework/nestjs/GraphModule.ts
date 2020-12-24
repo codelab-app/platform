@@ -14,6 +14,8 @@ import { GraphCommandQueryAdapter } from '../../presentation/controllers/GraphCo
 import { EdgeDITokens } from '../EdgeDITokens'
 import { GraphDITokens } from '../GraphDITokens'
 import { VertexDITokens } from '../VertexDITokens'
+import { EdgeModule } from './EdgeModule'
+import { VertexModule } from './VertexModule'
 
 export const persistenceProviders: Array<Provider> = [
   {
@@ -76,11 +78,11 @@ export const handlerProviders: Array<Provider> = [
 ]
 
 @Module({
-  imports: [CqrsModule],
+  imports: [CqrsModule, VertexModule, EdgeModule],
   providers: [
     ...persistenceProviders,
-    ...useCaseProviders,
-    ...handlerProviders,
+    // ...useCaseProviders,
+    // ...handlerProviders,
   ],
 })
 export class GraphModule {}

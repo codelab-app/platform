@@ -8,15 +8,15 @@ import { UserModule } from '@codelab/modules/users'
 const email = 'test_user@codelab.ai'
 
 const createUserMutation = `
-mutation {
-  createUser(user:
-    {
-      email: "${email}",
-      password: "password"
-    }) { email}
+  mutation {
+    createUser(user:
+      {
+        email: "${email}",
+        password: "password"
+      }) { email }
 }`
 
-describe.skip('CreateUserUseCase', () => {
+describe('CreateUserUseCase', () => {
   let app: INestApplication
   let connection: Connection
 
@@ -39,10 +39,6 @@ describe.skip('CreateUserUseCase', () => {
     await connection.query('DELETE FROM "user"')
   })
 
-  afterEach(async () => {
-    await connection.query('DELETE FROM "user"')
-  })
-
   it('should create a user', async () => {
     await request(app.getHttpServer())
       .post('/graphql')
@@ -52,7 +48,7 @@ describe.skip('CreateUserUseCase', () => {
       .expect(200)
       .expect((res) => {
         expect(res.body.data.createUser).toEqual({
-          email: 'admin@codelab.ai',
+          email,
         })
       })
   })
@@ -66,9 +62,10 @@ describe.skip('CreateUserUseCase', () => {
       .expect(200)
       .expect((res) => {
         expect(res.body.data.createUser).toEqual({
-          email: 'test_user@codelab.ai',
+          email,
         })
       })
+
     const createExistingUser = await request(app.getHttpServer())
       .post('/graphql')
       .send({
@@ -79,7 +76,7 @@ describe.skip('CreateUserUseCase', () => {
         const errorMsg = res.body?.errors[0].message
 
         expect(errorMsg).toEqual(
-          `The email admin@codelab.ai associated for this account already exists`,
+          `The email ${email} associated for this account already exists`,
         )
       })
   })

@@ -34,5 +34,6 @@ module.exports = {
     '<rootDir>/libs/modules/grid-stories',
     '<rootDir>/libs/modules/graph',
     '<rootDir>/libs/modules/page',
+    '<rootDir>/libs/test',
   ],
 }
