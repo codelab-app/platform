@@ -930,13 +930,6 @@
               "libs/alpha/shared/common/**/*.d.ts"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/alpha/shared/common/jest.config.js",
-            "passWithNoTests": true
-          }
         }
       }
     },
@@ -960,13 +953,6 @@
               "libs/alpha/shared/event/**/*.spec.jsx",
               "libs/alpha/shared/event/**/*.d.ts"
             ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/alpha/shared/event/jest.config.js",
-            "passWithNoTests": true
           }
         }
       }
@@ -1083,13 +1069,6 @@
               "libs/alpha/shared/interface/collections/**/*.{ts,tsx,js,jsx}"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/alpha/shared/interface/collections/jest.config.js",
-            "passWithNoTests": true
-          }
         }
       }
     },
@@ -1154,13 +1133,6 @@
               "libs/alpha/shared/interface/form/**/*.{ts,tsx,js,jsx}"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/alpha/shared/interface/form/jest.config.js",
-            "passWithNoTests": true
-          }
         }
       }
     },
@@ -1201,13 +1173,6 @@
               "libs/alpha/shared/interface/graph-v2/**/*.{ts,tsx,js,jsx}"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/alpha/shared/interface/graph-v2/jest.config.js",
-            "passWithNoTests": true
-          }
         }
       }
     },
@@ -1224,13 +1189,6 @@
               "libs/alpha/shared/interface/machine/**/*.{ts,tsx,js,jsx}"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/alpha/shared/interface/machine/jest.config.js",
-            "passWithNoTests": true
-          }
         }
       }
     },
@@ -1246,13 +1204,6 @@
             "lintFilePatterns": [
               "libs/alpha/shared/interface/mapper/**/*.{ts,tsx,js,jsx}"
             ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/alpha/shared/interface/mapper/jest.config.js",
-            "passWithNoTests": true
           }
         }
       }
