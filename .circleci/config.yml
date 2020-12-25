@@ -194,6 +194,9 @@ jobs:
       - run:
           name: 'Build CI'
           command: make build-ci
+      - run:
+          name: 'Yarn link workspace'
+          command: yarn install --frozen-lockfile --prod=false
       - persist_to_workspace:
           root: ..
           paths:

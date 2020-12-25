@@ -4,51 +4,44 @@ import {
   SchematicTestRunner,
   UnitTestTree,
 } from '@angular-devkit/schematics/testing'
-import { createTestLib } from '../utils'
+import { createEmptyWorkspace } from '@nrwl/workspace/testing'
+import { DomainModuleSchematicSchema } from '../../../../../../../../dist/libs/tools/plugins/codelab/src/schematics/library/domain-module/schema'
 import { UseCaseSchematicSchema } from './schema'
 import { normalizeOptions } from './schematic'
-
-const SCHEMATIC_NAME = 'use-case'
 
 describe('@codelab/schematics:use-case', () => {
   let appTree: Tree
   let tree: UnitTestTree
-
-  const testRunner = new SchematicTestRunner(
-    '@codelab/schematics',
-    join(__dirname, '../../../../collection.json'),
-  )
 
   const options: UseCaseSchematicSchema = {
     moduleName: 'user',
     useCaseName: 'createUser',
   }
 
+  const testRunner = new SchematicTestRunner(
+    '@codelab/schematics',
+    join(__dirname, '../../../../collection.json'),
+  )
+
   const { moduleName, projectRoot } = normalizeOptions(options)
 
   beforeAll(async () => {
-    appTree = await createTestLib('user')
-
+    appTree = createEmptyWorkspace(Tree.empty())
     tree = await testRunner
-      .runSchematicAsync<UseCaseSchematicSchema>(
-        SCHEMATIC_NAME,
-        options,
+      .runSchematicAsync<DomainModuleSchematicSchema>(
+        'domain-module',
+        { name: 'user' },
         appTree,
       )
       .toPromise()
-
-    // tree = await runSchematic(
-    //   'use-case',
-    //   <UseCaseSchematicSchema>{
-    //     useCaseName: 'createUser',
-    //     moduleName: 'user',
-    //   },
+    tree = await testRunner
+      .runSchematicAsync<UseCaseSchematicSchema>('use-case', options, tree)
+      .toPromise()
+    // Calls from dist
+    // appTree = await callRule(
+    //   externalSchematic('@codelab/schematics', 'use-case', options),
     //   appTree,
     // )
-    // appTree = createEmptyWorkspace(Tree.empty())
-    // appTree = await testRunner
-    //   .runSchematicAsync(SCHEMATIC_NAME, options, appTree)
-    //   .toPromise()
   })
 
   describe('Adds files to existing folders', () => {

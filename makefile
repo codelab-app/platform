@@ -143,7 +143,7 @@ integration-ci:
 	--target=test \
 	--testPathPattern=i.spec.ts \
 	--all \
-	--silent \
+	--verbose \
 	--skip-nx-cache
 
 #
@@ -184,7 +184,7 @@ unit-ci:
 	--all \
 	--maxWorkers=4 \
 	--skip-nx-cache \
-	--silent
+	--verbose
 
 #
 # START

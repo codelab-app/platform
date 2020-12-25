@@ -1350,13 +1350,6 @@
               "libs/alpha/state/apollo/**/*.d.ts"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/alpha/state/apollo/jest.config.js",
-            "passWithNoTests": true
-          }
         }
       }
     },
@@ -1381,13 +1374,6 @@
               "libs/alpha/state/app/**/*.d.ts"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/alpha/state/app/jest.config.js",
-            "passWithNoTests": true
-          }
         }
       }
     },
@@ -1402,13 +1388,6 @@
           "options": {
             "lintFilePatterns": ["libs/alpha/state/entity/**/*.{ts,tsx,js,jsx}"]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/alpha/state/entity/jest.config.js",
-            "passWithNoTests": true
-          }
         }
       }
     },
@@ -1422,13 +1401,6 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["libs/alpha/state/layout/**/*.{ts,tsx,js,jsx}"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/alpha/state/layout/jest.config.js",
-            "passWithNoTests": true
           }
         }
       }
@@ -1454,13 +1426,6 @@
               "libs/alpha/state/modal/**/*.d.ts"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/alpha/state/modal/jest.config.js",
-            "passWithNoTests": true
-          }
         }
       }
     },
@@ -1485,13 +1450,6 @@
               "libs/alpha/state/node/**/*.d.ts"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/alpha/state/node/jest.config.js",
-            "passWithNoTests": true
-          }
         }
       }
     },
@@ -1505,13 +1463,6 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["libs/alpha/state/vertex/**/*.{ts,tsx,js,jsx}"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/alpha/state/vertex/jest.config.js",
-            "passWithNoTests": true
           }
         }
       }

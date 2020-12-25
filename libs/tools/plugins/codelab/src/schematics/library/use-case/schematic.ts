@@ -13,7 +13,7 @@ import {
 } from '@angular-devkit/schematics'
 import { ProjectType, projectRootDir, toFileName } from '@nrwl/workspace'
 import * as v from 'voca'
-import { dirExists } from '../utils'
+import { dirExists, dryRunMode } from '../utils'
 import { UseCaseSchematicSchema } from './schema'
 
 const projectType = ProjectType.Library
@@ -76,17 +76,17 @@ const createFiles = (options: NormalizedSchema): Rule => {
 export default function MySchematic(options: NormalizedSchema) {
   const normalizedOptions = normalizeOptions(options)
 
+  console.log('dry run mode', dryRunMode)
+
   return (host: Tree, context: SchematicContext) => {
     if (
-      // Missing module in test env
-      (process.env.NODE_ENV === 'test' &&
-        dirExists(host, normalizedOptions.projectDirectory)) ||
+      // Missing module in test/ci env
+      (dryRunMode && !dirExists(host, normalizedOptions.projectRoot)) ||
       // Missing module in normal env
-      (process.env.NODE_ENV !== 'test' &&
-        !fs.existsSync(normalizedOptions.projectRoot))
+      (!dryRunMode && !fs.existsSync(normalizedOptions.projectRoot))
     ) {
       console.log(
-        `${normalizedOptions.moduleName} does not exists, run "nx generate @codelab/schematics:domain-module"`,
+        `${normalizedOptions.moduleName} module does not exists, run "nx generate @codelab/schematics:domain-module"`,
       )
 
       return
