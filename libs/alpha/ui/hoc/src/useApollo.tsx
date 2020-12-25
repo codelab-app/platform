@@ -6,6 +6,7 @@ import {
 } from '@apollo/client'
 import { onError } from '@apollo/client/link/error'
 import { concatPagination } from '@apollo/client/utilities'
+import { fetch } from 'cross-fetch'
 import { useMemo } from 'react'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -28,6 +29,7 @@ export const graphcmsLink = new HttpLink({
   uri: `${process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT}`,
   // Additional fetch() options like `credentials` or `headers`
   credentials: 'same-origin',
+  fetch,
 })
 
 export const hasuraLink = new HttpLink({
@@ -36,6 +38,7 @@ export const hasuraLink = new HttpLink({
   headers: {
     authorization: `Bearer ${process.env.NEXT_PUBLIC_JWT_TOKEN}`,
   },
+  fetch,
 })
 
 export const link = ApolloLink.from([errorLink]).split(
