@@ -15,5 +15,3 @@ We follow [Exception or Result](https://enterprisecraftsmanship.com/posts/error-
 ## Entities
 
 Our domain entities contain fields, e.g. `User` contains `email`. We create a class for each field, and use `class-transformer` & `class-validator` for the mapping.
-
-We would never intantiate a

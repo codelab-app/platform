@@ -143,7 +143,7 @@ integration-ci:
 	--target=test \
 	--testPathPattern=i.spec.ts \
 	--all \
-	--silent \
+	--verbose \
 	--skip-nx-cache
 
 #
@@ -151,14 +151,12 @@ integration-ci:
 #
 test-dev-affected:
 	npx concurrently \
-		"make build-dev-affected" \
  		"make unit-dev-affected" \
   	"make integration-dev" \
   	"make e2e-dev"
 
 test-dev:
 	npx concurrently \
-		"make build-dev" \
  		"make unit-dev" \
   	"make integration-dev" \
   	"make e2e-dev"
@@ -186,7 +184,7 @@ unit-ci:
 	--all \
 	--maxWorkers=4 \
 	--skip-nx-cache \
-	--silent
+	--verbose
 
 #
 # START

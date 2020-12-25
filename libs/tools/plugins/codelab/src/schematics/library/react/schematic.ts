@@ -22,6 +22,7 @@ import {
   projectRootDir,
   toFileName,
 } from '@nrwl/workspace'
+import { removeFiles } from '../utils'
 import { ReactSchematicSchema } from './schema'
 
 /**
@@ -53,19 +54,6 @@ const normalizeOptions = (options: ReactSchematicSchema): NormalizedSchema => {
     projectRoot,
     projectDirectory,
     parsedTags,
-  }
-}
-
-/**
- * We use `.eslintrc.js` instead of `.eslintrc`, so need to remove generated files
- */
-export const removeFiles = (filesToRemove: Array<string>): Rule => {
-  return (tree: Tree, context: SchematicContext) => {
-    filesToRemove.forEach((file: string) => {
-      if (tree.exists(file)) {
-        tree.delete(file)
-      }
-    })
   }
 }
 

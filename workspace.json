@@ -930,13 +930,6 @@
               "libs/alpha/shared/common/**/*.d.ts"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/alpha/shared/common/jest.config.js",
-            "passWithNoTests": true
-          }
         }
       }
     },
@@ -960,13 +953,6 @@
               "libs/alpha/shared/event/**/*.spec.jsx",
               "libs/alpha/shared/event/**/*.d.ts"
             ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/alpha/shared/event/jest.config.js",
-            "passWithNoTests": true
           }
         }
       }
@@ -1083,13 +1069,6 @@
               "libs/alpha/shared/interface/collections/**/*.{ts,tsx,js,jsx}"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/alpha/shared/interface/collections/jest.config.js",
-            "passWithNoTests": true
-          }
         }
       }
     },
@@ -1154,13 +1133,6 @@
               "libs/alpha/shared/interface/form/**/*.{ts,tsx,js,jsx}"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/alpha/shared/interface/form/jest.config.js",
-            "passWithNoTests": true
-          }
         }
       }
     },
@@ -1201,13 +1173,6 @@
               "libs/alpha/shared/interface/graph-v2/**/*.{ts,tsx,js,jsx}"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/alpha/shared/interface/graph-v2/jest.config.js",
-            "passWithNoTests": true
-          }
         }
       }
     },
@@ -1224,13 +1189,6 @@
               "libs/alpha/shared/interface/machine/**/*.{ts,tsx,js,jsx}"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/alpha/shared/interface/machine/jest.config.js",
-            "passWithNoTests": true
-          }
         }
       }
     },
@@ -1246,13 +1204,6 @@
             "lintFilePatterns": [
               "libs/alpha/shared/interface/mapper/**/*.{ts,tsx,js,jsx}"
             ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/alpha/shared/interface/mapper/jest.config.js",
-            "passWithNoTests": true
           }
         }
       }
@@ -1350,13 +1301,6 @@
               "libs/alpha/state/apollo/**/*.d.ts"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/alpha/state/apollo/jest.config.js",
-            "passWithNoTests": true
-          }
         }
       }
     },
@@ -1381,13 +1325,6 @@
               "libs/alpha/state/app/**/*.d.ts"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/alpha/state/app/jest.config.js",
-            "passWithNoTests": true
-          }
         }
       }
     },
@@ -1402,13 +1339,6 @@
           "options": {
             "lintFilePatterns": ["libs/alpha/state/entity/**/*.{ts,tsx,js,jsx}"]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/alpha/state/entity/jest.config.js",
-            "passWithNoTests": true
-          }
         }
       }
     },
@@ -1422,13 +1352,6 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["libs/alpha/state/layout/**/*.{ts,tsx,js,jsx}"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/alpha/state/layout/jest.config.js",
-            "passWithNoTests": true
           }
         }
       }
@@ -1454,13 +1377,6 @@
               "libs/alpha/state/modal/**/*.d.ts"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/alpha/state/modal/jest.config.js",
-            "passWithNoTests": true
-          }
         }
       }
     },
@@ -1485,13 +1401,6 @@
               "libs/alpha/state/node/**/*.d.ts"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/alpha/state/node/jest.config.js",
-            "passWithNoTests": true
-          }
         }
       }
     },
@@ -1505,13 +1414,6 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["libs/alpha/state/vertex/**/*.{ts,tsx,js,jsx}"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/alpha/state/vertex/jest.config.js",
-            "passWithNoTests": true
           }
         }
       }
@@ -1878,27 +1780,6 @@
         }
       }
     },
-    "modules-vertex": {
-      "root": "libs/modules/vertex",
-      "sourceRoot": "libs/modules/vertex/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/modules/vertex/**/*.{ts,tsx,js,jsx}"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/modules/vertex/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
     "modules-users-stories": {
       "root": "libs/modules/users-stories",
       "sourceRoot": "libs/modules/users-stories/src",
@@ -2213,6 +2094,48 @@
             "ci": {
               "quiet": true
             }
+          }
+        }
+      }
+    },
+    "modules-graph": {
+      "root": "libs/modules/graph",
+      "sourceRoot": "libs/modules/graph/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/modules/graph/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/modules/graph/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "modules-page": {
+      "root": "libs/modules/page",
+      "sourceRoot": "libs/modules/page/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/modules/page/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/modules/page/jest.config.js",
+            "passWithNoTests": true
           }
         }
       }

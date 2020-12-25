@@ -1,15 +1,17 @@
 import { ObjectType } from '@nestjs/graphql'
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, ManyToOne } from 'typeorm'
 import { IEdge } from '../../../graphql/models/IEdge'
+import { EntityConfig } from '../../config/EntityConfig'
+import { BaseTypeOrm } from './BaseTypeOrm'
 import { TypeOrmGraph } from './TypeOrmGraph'
 
-@Entity('edge')
+@Entity(EntityConfig.EDGE_ENTITY)
 @ObjectType({
   implements: [IEdge],
 })
-export class TypeOrmEdge {
-  @PrimaryGeneratedColumn('uuid')
-  declare id: string
+export class TypeOrmEdge extends BaseTypeOrm {
+  // @Column()
+  // declare graphId: number
 
   @Column({
     type: 'text',
@@ -24,7 +26,7 @@ export class TypeOrmEdge {
   @Column({
     type: 'int',
   })
-  declare order: number
+  order = 0
 
   @Column({
     type: 'jsonb',

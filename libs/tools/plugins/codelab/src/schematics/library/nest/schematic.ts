@@ -18,6 +18,7 @@ import {
   projectRootDir,
   toFileName,
 } from '@nrwl/workspace'
+import { removeFiles } from '../utils'
 import { NestSchematicSchema } from './schema'
 
 /**
@@ -52,20 +53,6 @@ const normalizeOptions = (options: NestSchematicSchema): NormalizedSchema => {
   }
 }
 
-/**
- * We use `.eslintrc.js` instead of `.eslintrc`, so need to remove generated files
- */
-const removeFiles = (options: NormalizedSchema): Rule => {
-  return (tree: Tree, context: SchematicContext) => {
-    const { projectRoot } = options
-    const filesToRemove = ['.eslintrc.json', `${projectRoot}/.eslintrc.json`]
-
-    filesToRemove.forEach((file: any) => {
-      tree.delete(file)
-    })
-  }
-}
-
 const createFiles = (options: NormalizedSchema): Rule => {
   return mergeWith(
     apply(url(`./files`), [
@@ -94,7 +81,10 @@ export default (options: NestSchematicSchema): Rule => {
     return chain([
       createNestjsLibrary(normalizedOptions),
       createFiles(normalizedOptions),
-      removeFiles(normalizedOptions),
+      removeFiles([
+        '.eslintrc.json',
+        `${normalizedOptions.projectRoot}/.eslintrc.json`,
+      ]),
     ])
   }
 }

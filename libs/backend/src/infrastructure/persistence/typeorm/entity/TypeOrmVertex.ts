@@ -1,37 +1,37 @@
 import { Injectable } from '@nestjs/common'
 import { ObjectType, registerEnumType } from '@nestjs/graphql'
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, ManyToOne } from 'typeorm'
+import { NodeType } from '../../../../common/types/NodeTypes'
 import { IVertex } from '../../../graphql/models/IVertex'
-import { NodeType } from '@codelab/alpha/shared/interface/node'
+import { EntityConfig } from '../../config/EntityConfig'
+import { BaseTypeOrm } from './BaseTypeOrm'
+import { TypeOrmGraph } from './TypeOrmGraph'
 
 registerEnumType(NodeType, {
   name: 'NodeType',
 })
-
-@Entity('vertex')
+@Entity(EntityConfig.VERTEX_ENTITY)
 @ObjectType({
   implements: [IVertex],
 })
 @Injectable()
-export class TypeOrmVertex {
-  @PrimaryGeneratedColumn('uuid')
-  declare id: string
-
+export class TypeOrmVertex extends BaseTypeOrm {
   @Column({
     type: 'enum',
-    // enum: VertexType,
     enum: NodeType,
-    // default: VertexType.GHOST
   })
   declare type: NodeType
 
-  parent?: string
+  // @Column()
+  // declare graphId: number
+
+  // parent?: string
 
   @Column({
     type: 'jsonb',
   })
   declare props?: object
 
-  // @ManyToOne((type) => TypeOrmGraph, (graph) => graph.vertices)
-  // declare graph: TypeOrmGraph
+  @ManyToOne((type) => TypeOrmGraph, (graph) => graph.vertices)
+  declare graph: TypeOrmGraph
 }

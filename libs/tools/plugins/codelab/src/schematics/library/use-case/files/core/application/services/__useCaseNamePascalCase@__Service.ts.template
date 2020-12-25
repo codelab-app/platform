@@ -1,0 +1,31 @@
+import { left, right } from 'fp-ts/lib/Either'
+import { <%= moduleNamePascalCase %>RepositoryPort } from '../../adapters/<%= moduleNamePascalCase %>RepositoryPort'
+import { <%= moduleNamePascalCase %> } from '../../domain/<%= moduleName %>'
+import { <%= useCaseNamePascalCase %>Errors } from '../useCases/<%= useCaseName %>/<%= useCaseNamePascalCase %>Errors'
+import { <%= useCaseNamePascalCase %>Request } from '../useCases/<%= useCaseName %>/<%= useCaseNamePascalCase %>Request'
+import { <%= useCaseNamePascalCase %>Response } from '../useCases/<%= useCaseName %>/<%= useCaseNamePascalCase %>Response'
+import { <%= useCaseNamePascalCase %>UseCase } from '../useCases/<%= useCaseName %>/<%= useCaseNamePascalCase %>UseCase'
+import { Result } from '@codelab/backend'
+
+
+export class <%= useCaseNamePascalCase %>Service implements <%= useCaseNamePascalCase %>UseCase {
+  constructor(private readonly <%= moduleName %>Repository: <%= moduleNamePascalCase %>RepositoryPort) {}
+
+  async execute(request: <%= useCaseNamePascalCase %>Request): Promise<<%= useCaseNamePascalCase %>Response> {
+    // const <%= moduleName %> = <%= moduleNamePascalCase %>.create(request)
+
+    // const <%= moduleName %>AlreadyExists = await this.<%= moduleName %>Repository.exists({
+    //   email: user.email.toString(),
+    // })
+
+    // if (<%= moduleName %>AlreadyExists) {
+    //   return left(
+    //     new <%= useCaseNamePascalCase %>Errors.DemoError('some error'),
+    //   )
+    // }
+
+    // const persisted<%= moduleNamePascalCase %> = await this.<%= moduleName %>Repository.<%= useCaseName %>(<%= moduleName %>)
+
+    // return right(Result.ok(persisted<%= moduleNamePascalCase %>))
+  }
+}

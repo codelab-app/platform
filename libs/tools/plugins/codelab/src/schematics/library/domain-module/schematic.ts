@@ -14,18 +14,19 @@ import {
 } from '@angular-devkit/schematics'
 import {
   ProjectType,
-  names,
   offsetFromRoot,
   projectRootDir,
   toFileName,
 } from '@nrwl/workspace'
 import { capitalize } from 'voca'
-import { NestSchematicSchema } from './schema'
+import { removeFiles } from '../utils'
+import { DomainModuleSchematicSchema } from './schema'
 
 const projectType = ProjectType.Library
 
-interface NormalizedSchema extends NestSchematicSchema {
+interface NormalizedSchema extends DomainModuleSchematicSchema {
   projectName: string
+  moduleNamePascalCase: string
   moduleName: string
   projectRoot: string
   projectDirectory: string
@@ -33,44 +34,34 @@ interface NormalizedSchema extends NestSchematicSchema {
 }
 
 export const normalizeOptions = (
-  options: NestSchematicSchema,
+  options: DomainModuleSchematicSchema,
 ): NormalizedSchema => {
   const name = toFileName(options.name)
   const projectDirectory = `modules/${name}`
   const projectName = projectDirectory.replace(new RegExp('/', 'g'), '-')
   const projectRoot = `${projectRootDir(projectType)}/${projectDirectory}`
-  const moduleName = capitalize(name)
+  const moduleNamePascalCase = capitalize(name)
   // const parsedTags = options.tags
   //   ? options.tags.split(',').map((s) => s.trim())
   //   : []
 
   return {
     ...options,
+    moduleName: name,
     projectName,
     projectRoot,
     projectDirectory,
-    moduleName,
+    moduleNamePascalCase,
     // parsedTags,
   }
 }
-
-// const removeFiles = (options: NormalizedSchema): Rule => {
-//   return (tree: Tree, context: SchematicContext) => {
-//     const dir = options.projectDirectory
-//     const filesToRemove = [`${dir}/src/lib/modules-${options.name}.module.ts`]
-
-//     filesToRemove.forEach((file: any) => {
-//       tree.delete(file)
-//     })
-//   }
-// }
 
 const createFiles = (options: NormalizedSchema): Rule => {
   return mergeWith(
     apply(url(`./files`), [
       applyTemplates({
         ...options,
-        ...names(options.name),
+        // ...names(options.name),
         offsetFromRoot: offsetFromRoot(options.projectRoot),
       }),
       move(`${options.projectRoot}/src`),
@@ -91,17 +82,17 @@ export default (options: NormalizedSchema): Rule => {
 
   return (host: Tree, context: SchematicContext) => {
     if (fs.existsSync(normalizedOptions.projectRoot)) {
-      console.log(
-        'Domain Module does not exists, run ( nx generate @codelab/schematics:nest-lib )',
-      )
+      console.log(`module ${normalizedOptions.name} already exists`)
 
       return
     }
 
     return chain([
       createCodelabNestjsLibrary(normalizedOptions),
+      removeFiles([
+        `${options.projectRoot}/src/lib/modules-${options.name}.module.ts`,
+      ]),
       createFiles(normalizedOptions),
-      // removeFiles(normalizedOptions),
     ])
   }
 }

@@ -1,0 +1,28 @@
+import { Inject } from '@nestjs/common'
+import { <%= useCaseNamePascalCase %>Command } from '../commands/<%= useCaseNamePascalCase %>Command'
+import { CommandHandler, ICommandHandler } from '@nestjs/cqrs'
+import { fold } from 'fp-ts/lib/Either'
+import { <%= moduleNamePascalCase %>DITokens } from '../../../framework/<%= moduleNamePascalCase %>DITokens'
+import { <%= useCaseNamePascalCase %>UseCase } from '../useCases/<%=useCaseName%>/<%= useCaseNamePascalCase %>UseCase'
+import { Result } from '@codelab/backend'
+import { <%= moduleNamePascalCase %> } from '../../domain/<%= moduleName %>'
+
+@CommandHandler(<%= useCaseNamePascalCase %>Command)
+export class <%= useCaseNamePascalCase %>CommandHandler
+  implements ICommandHandler<<%= useCaseNamePascalCase %>Command> {
+  constructor(
+    @Inject(<%= moduleNamePascalCase %>DITokens.<%= useCaseNamePascalCase %>UseCase)
+    private readonly service: <%= useCaseNamePascalCase %>UseCase,
+  ) {}
+
+  public async execute({ request }: <%= useCaseNamePascalCase %>Command): Promise<<%= moduleNamePascalCase %>> {
+    const <%= useCaseName%>Results = await this.service.execute(request)
+
+    return fold(
+      (errors) => {
+        throw errors
+      },
+      (results: Result<<%= moduleNamePascalCase %>>) => results.value,
+    )(<%= useCaseName%>Results)
+  }
+}

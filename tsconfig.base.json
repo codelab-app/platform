@@ -95,7 +95,6 @@
       "@codelab/frontend": ["libs/frontend/src/index.ts"],
       "@codelab/modules/app-stories": ["libs/modules/app-stories/src/index.ts"],
       "@codelab/modules/users": ["libs/modules/users/src/index.ts"],
-      "@codelab/modules/vertex": ["libs/modules/vertex/src/index.ts"],
       "@codelab/modules/users-stories": [
         "libs/modules/users-stories/src/index.ts"
       ],
@@ -113,7 +112,9 @@
       ],
       "@codelab/modules/grid-stories": [
         "libs/modules/grid-stories/src/index.ts"
-      ]
+      ],
+      "@codelab/modules/page": ["libs/modules/page/src/index.ts"],
+      "@codelab/modules/graph": ["libs/modules/graph/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"]

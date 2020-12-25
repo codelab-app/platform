@@ -16,7 +16,9 @@
 
 ## Backend
 
-### Dev Ops Mode
+- `nx serve codelab`
+
+<!-- ### Dev Ops Mode
 
 If you want to run our api services in Docker (`yarn docker:up [app]`instead of `nx serve [app]`), you'll need to make some modifications to the `.env` file before starting the services.
 
@@ -25,7 +27,7 @@ HASURA_GRAPHQL_URI=http://hasura:8080/v1/graphql
 POSTGRES_HOST=postgres
 ```
 
-Instead of `localhost`, docker-compose will use the service name `postgres` instead.
+Instead of `localhost`, docker-compose will use the service name `postgres` instead. -->
 
 ### Seeding
 
