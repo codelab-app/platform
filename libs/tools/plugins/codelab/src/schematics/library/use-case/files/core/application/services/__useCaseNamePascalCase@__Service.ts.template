@@ -1,18 +1,18 @@
 import { left, right } from 'fp-ts/lib/Either'
-import { <%= ModuleName %>RepositoryPort } from '../../adapters/<%= ModuleName %>RepositoryPort'
-import { <%= ModuleName %> } from '../../domain/<%= moduleName %>'
-import { <%= UseCaseName %>Errors } from '../useCases/<%= useCaseName %>/<%= UseCaseName %>Errors'
-import { <%= UseCaseName %>Request } from '../useCases/<%= useCaseName %>/<%= UseCaseName %>Request'
-import { <%= UseCaseName %>Response } from '../useCases/<%= useCaseName %>/<%= UseCaseName %>Response'
-import { <%= UseCaseName %>UseCase } from '../useCases/<%= useCaseName %>/<%= UseCaseName %>UseCase'
+import { <%= moduleNamePascalCase %>RepositoryPort } from '../../adapters/<%= moduleNamePascalCase %>RepositoryPort'
+import { <%= moduleNamePascalCase %> } from '../../domain/<%= moduleName %>'
+import { <%= useCaseNamePascalCase %>Errors } from '../useCases/<%= useCaseName %>/<%= useCaseNamePascalCase %>Errors'
+import { <%= useCaseNamePascalCase %>Request } from '../useCases/<%= useCaseName %>/<%= useCaseNamePascalCase %>Request'
+import { <%= useCaseNamePascalCase %>Response } from '../useCases/<%= useCaseName %>/<%= useCaseNamePascalCase %>Response'
+import { <%= useCaseNamePascalCase %>UseCase } from '../useCases/<%= useCaseName %>/<%= useCaseNamePascalCase %>UseCase'
 import { Result } from '@codelab/backend'
 
 
-export class <%= UseCaseName %>Service implements <%= UseCaseName %>UseCase {
-  constructor(private readonly <%= moduleName %>Repository: <%= ModuleName %>RepositoryPort) {}
+export class <%= useCaseNamePascalCase %>Service implements <%= useCaseNamePascalCase %>UseCase {
+  constructor(private readonly <%= moduleName %>Repository: <%= moduleNamePascalCase %>RepositoryPort) {}
 
-  async execute(request: <%= UseCaseName %>Request): Promise<<%= UseCaseName %>Response> {
-    // const <%= moduleName %> = <%= ModuleName %>.create(request)
+  async execute(request: <%= useCaseNamePascalCase %>Request): Promise<<%= useCaseNamePascalCase %>Response> {
+    // const <%= moduleName %> = <%= moduleNamePascalCase %>.create(request)
 
     // const <%= moduleName %>AlreadyExists = await this.<%= moduleName %>Repository.exists({
     //   email: user.email.toString(),
@@ -20,12 +20,12 @@ export class <%= UseCaseName %>Service implements <%= UseCaseName %>UseCase {
 
     // if (<%= moduleName %>AlreadyExists) {
     //   return left(
-    //     new <%= UseCaseName %>Errors.DemoError('some error'),
+    //     new <%= useCaseNamePascalCase %>Errors.DemoError('some error'),
     //   )
     // }
 
-    // const persisted<%= ModuleName %> = await this.<%= moduleName %>Repository.<%= useCaseName %>(<%= moduleName %>)
+    // const persisted<%= moduleNamePascalCase %> = await this.<%= moduleName %>Repository.<%= useCaseName %>(<%= moduleName %>)
 
-    // return right(Result.ok(persisted<%= ModuleName %>))
+    // return right(Result.ok(persisted<%= moduleNamePascalCase %>))
   }
 }

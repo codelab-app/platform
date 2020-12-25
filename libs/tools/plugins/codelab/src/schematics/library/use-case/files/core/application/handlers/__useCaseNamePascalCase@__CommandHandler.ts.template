@@ -1,28 +1,28 @@
 import { Inject } from '@nestjs/common'
-import { <%= UseCaseName %>Command } from '../commands/<%= UseCaseName %>Command'
+import { <%= useCaseNamePascalCase %>Command } from '../commands/<%= useCaseNamePascalCase %>Command'
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs'
 import { fold } from 'fp-ts/lib/Either'
-import { <%= ModuleName %>DITokens } from '../../../framework/<%= ModuleName %>DITokens'
-import { <%= UseCaseName %>UseCase } from '../useCases/<%=useCaseName%>/<%= UseCaseName %>UseCase'
+import { <%= moduleNamePascalCase %>DITokens } from '../../../framework/<%= moduleNamePascalCase %>DITokens'
+import { <%= useCaseNamePascalCase %>UseCase } from '../useCases/<%=useCaseName%>/<%= useCaseNamePascalCase %>UseCase'
 import { Result } from '@codelab/backend'
-import { <%= ModuleName %> } from '../../domain/<%= moduleName %>'
+import { <%= moduleNamePascalCase %> } from '../../domain/<%= moduleName %>'
 
-@CommandHandler(<%= UseCaseName %>Command)
-export class <%= UseCaseName %>CommandHandler
-  implements ICommandHandler<<%= UseCaseName %>Command> {
+@CommandHandler(<%= useCaseNamePascalCase %>Command)
+export class <%= useCaseNamePascalCase %>CommandHandler
+  implements ICommandHandler<<%= useCaseNamePascalCase %>Command> {
   constructor(
-    @Inject(<%= ModuleName %>DITokens.<%= UseCaseName %>UseCase)
-    private readonly service: <%= UseCaseName %>UseCase,
+    @Inject(<%= moduleNamePascalCase %>DITokens.<%= useCaseNamePascalCase %>UseCase)
+    private readonly service: <%= useCaseNamePascalCase %>UseCase,
   ) {}
 
-  public async execute({ request }: <%= UseCaseName %>Command): Promise<<%= ModuleName %>> {
+  public async execute({ request }: <%= useCaseNamePascalCase %>Command): Promise<<%= moduleNamePascalCase %>> {
     const <%= useCaseName%>Results = await this.service.execute(request)
 
     return fold(
       (errors) => {
         throw errors
       },
-      (results: Result<<%= ModuleName %>>) => results.value,
+      (results: Result<<%= moduleNamePascalCase %>>) => results.value,
     )(<%= useCaseName%>Results)
   }
 }

@@ -1,8 +1,8 @@
-import {<%= UseCaseName %>Request} from './<%= UseCaseName %>Request';
+import {<%= useCaseNamePascalCase %>Request} from './<%= useCaseNamePascalCase %>Request';
 import {TransactionalUseCase} from '@codelab/backend';
-import {<%= UseCaseName %>Response} from './<%= UseCaseName %>Response';
+import {<%= useCaseNamePascalCase %>Response} from './<%= useCaseNamePascalCase %>Response';
 
-export type <%= UseCaseName %>UseCase = TransactionalUseCase<
-  <%= UseCaseName %>Request,
-  <%= UseCaseName %>Response
+export type <%= useCaseNamePascalCase %>UseCase = TransactionalUseCase<
+  <%= useCaseNamePascalCase %>Request,
+  <%= useCaseNamePascalCase %>Response
 >
