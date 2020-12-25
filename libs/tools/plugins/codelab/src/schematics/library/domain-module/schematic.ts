@@ -14,7 +14,6 @@ import {
 } from '@angular-devkit/schematics'
 import {
   ProjectType,
-  names,
   offsetFromRoot,
   projectRootDir,
   toFileName,
@@ -28,6 +27,7 @@ const projectType = ProjectType.Library
 interface NormalizedSchema extends DomainModuleSchematicSchema {
   projectName: string
   moduleNamePascalCase: string
+  moduleName: string
   projectRoot: string
   projectDirectory: string
   // parsedTags: Array<string>
@@ -47,6 +47,7 @@ export const normalizeOptions = (
 
   return {
     ...options,
+    moduleName: name,
     projectName,
     projectRoot,
     projectDirectory,
@@ -60,7 +61,7 @@ const createFiles = (options: NormalizedSchema): Rule => {
     apply(url(`./files`), [
       applyTemplates({
         ...options,
-        ...names(options.name),
+        // ...names(options.name),
         offsetFromRoot: offsetFromRoot(options.projectRoot),
       }),
       move(`${options.projectRoot}/src`),

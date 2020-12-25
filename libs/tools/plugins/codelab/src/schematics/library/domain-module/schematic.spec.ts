@@ -21,7 +21,7 @@ describe('@codelab/schematics:domain-module', () => {
 
   const options: DomainModuleSchematicSchema = { name: 'test' }
 
-  const { moduleName, projectRoot } = normalizeOptions(options)
+  const { moduleNamePascalCase, projectRoot } = normalizeOptions(options)
 
   beforeAll(async () => {
     appTree = createEmptyWorkspace(Tree.empty())
@@ -36,7 +36,7 @@ describe('@codelab/schematics:domain-module', () => {
       'common/.gitkeep',
 
       // Core - adapters
-      'core/adapters/.gitkeep',
+      `core/adapters/${moduleNamePascalCase}RepositoryPort.ts`,
 
       // Core - application
       'core/application/commands/.gitkeep',
@@ -49,14 +49,14 @@ describe('@codelab/schematics:domain-module', () => {
       'core/domain/dto/.gitkeep',
 
       // Framework
-      `framework/nestjs/${moduleName}Module.ts`,
-      `framework/${moduleName}DITokens.ts`,
+      `framework/nestjs/${moduleNamePascalCase}Module.ts`,
+      `framework/${moduleNamePascalCase}DITokens.ts`,
 
       // Infrastructure
-      `infrastructure/persistence/TypeOrm${moduleName}RepositoryAdapter.ts`,
+      `infrastructure/persistence/TypeOrm${moduleNamePascalCase}RepositoryAdapter.ts`,
 
       // Presentation
-      `presentation/controllers/${moduleName}CommandQueryAdapter.ts`,
+      `presentation/controllers/${moduleNamePascalCase}CommandQueryAdapter.ts`,
     ].map((file) => `${projectRoot}/src/${file}`)
 
     test.each(expectedFiles)('%p should exist', (file) => {
