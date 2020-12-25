@@ -2167,8 +2167,7 @@
           "options": {
             "commands": [
               "nx build tools-json-schema-generator",
-              "node dist/libs/tools/json-schema-generator/main.js",
-              "nx lint tools-json-schema-generator"
+              "node dist/libs/tools/json-schema-generator/main.js"
             ],
             "parallel": false
           }
