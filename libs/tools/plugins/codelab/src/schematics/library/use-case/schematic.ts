@@ -22,8 +22,8 @@ export interface NormalizedSchema extends UseCaseSchematicSchema {
   projectName: string
   projectRoot: string
   projectDirectory: string
-  UseCaseName: string // capitalized
-  ModuleName: string // capitalized
+  useCaseNamePascalCase: string // PascalCase
+  moduleNamePascalCase: string // PascalCase
 }
 
 export const normalizeOptions = (
@@ -33,12 +33,12 @@ export const normalizeOptions = (
   const projectDirectory = `modules/${name}`
   const projectName = projectDirectory.replace(new RegExp('/', 'g'), '-')
   const projectRoot = `${projectRootDir(projectType)}/${projectDirectory}`
-  const UseCaseName = v
+  const useCaseNamePascalCase = v
     .chain(options.useCaseName)
     .camelCase()
     .capitalize()
     .value()
-  const ModuleName = v
+  const moduleNamePascalCase = v
     .chain(options.moduleName)
     .camelCase()
     .capitalize()
@@ -54,8 +54,8 @@ export const normalizeOptions = (
     projectName,
     projectRoot,
     projectDirectory,
-    UseCaseName,
-    ModuleName,
+    useCaseNamePascalCase,
+    moduleNamePascalCase,
     // parsedTags,
   }
 }
@@ -75,8 +75,6 @@ const createFiles = (options: NormalizedSchema): Rule => {
 
 export default function MySchematic(options: NormalizedSchema) {
   const normalizedOptions = normalizeOptions(options)
-
-  console.log('dry run mode', dryRunMode)
 
   return (host: Tree, context: SchematicContext) => {
     if (

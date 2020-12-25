@@ -43,7 +43,6 @@ executor-config: &executor-config
     # CircleCI
     GITHUB_ANTON: artonio
     SLACK_ANTON: U01DSP39DME
-    GITHUB_VIEN: VienNguyen24hdev
     SLACK_VIEN: UBPECLD4P
     GITHUB_WEBBER: webberwang
     SLACK_WEBBER: U0J401GAH
@@ -52,7 +51,7 @@ executor-config: &executor-config
     SLACK_CHANNEL_UPDATE: CQVPNKS8K
     COLOR_SUCCESS: '#b7eb8f'
     COLOR_FAILURE: '#ffccc7'
-    NODE_OPTIONS: --max_old_space_size=8192
+    NODE_OPTIONS: --max_old_space_size=16384
     NODE_ENV: production
   working_directory: ~/app
 
@@ -110,9 +109,7 @@ commands:
           # Github user who triggered Circle is the slack mention user
           name: 'Setup SLACK_USER'
           command: |
-            if [ $CIRCLE_USERNAME == $GITHUB_VIEN ]; then
-              echo 'export SLACK_USER=${SLACK_VIEN}' >> $BASH_ENV
-            elif [ $CIRCLE_USERNAME == $GITHUB_ANTON ]; then
+            if [ $CIRCLE_USERNAME == $GITHUB_ANTON ]; then
               echo 'export SLACK_USER=${SLACK_ANTON}' >> $BASH_ENV
             elif [ $CIRCLE_USERNAME == $GITHUB_ALEX ]; then
               echo 'export SLACK_USER=${SLACK_ALEX}' >> $BASH_ENV

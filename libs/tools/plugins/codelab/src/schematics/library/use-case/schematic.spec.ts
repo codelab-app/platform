@@ -37,6 +37,8 @@ describe('@codelab/schematics:use-case', () => {
     tree = await testRunner
       .runSchematicAsync<UseCaseSchematicSchema>('use-case', options, tree)
       .toPromise()
+
+    console.log(tree.files)
     // Calls from dist
     // appTree = await callRule(
     //   externalSchematic('@codelab/schematics', 'use-case', options),

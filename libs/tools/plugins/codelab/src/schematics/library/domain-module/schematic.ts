@@ -27,7 +27,7 @@ const projectType = ProjectType.Library
 
 interface NormalizedSchema extends DomainModuleSchematicSchema {
   projectName: string
-  moduleName: string
+  moduleNamePascalCase: string
   projectRoot: string
   projectDirectory: string
   // parsedTags: Array<string>
@@ -40,7 +40,7 @@ export const normalizeOptions = (
   const projectDirectory = `modules/${name}`
   const projectName = projectDirectory.replace(new RegExp('/', 'g'), '-')
   const projectRoot = `${projectRootDir(projectType)}/${projectDirectory}`
-  const moduleName = capitalize(name)
+  const moduleNamePascalCase = capitalize(name)
   // const parsedTags = options.tags
   //   ? options.tags.split(',').map((s) => s.trim())
   //   : []
@@ -50,7 +50,7 @@ export const normalizeOptions = (
     projectName,
     projectRoot,
     projectDirectory,
-    moduleName,
+    moduleNamePascalCase,
     // parsedTags,
   }
 }
