@@ -1,9 +1,0 @@
-import { RequestValidationError } from '@codelab/backend'
-
-export namespace <%= UseCaseName %>Errors {
-  export class DemoError extends RequestValidationError {
-    constructor(value: string) {
-      super(`The value ${value} has some errors`)
-    }
-  }
-}

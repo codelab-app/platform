@@ -14,16 +14,14 @@ describe('@codelab/schematics:domain-module', () => {
   let appTree: Tree
   let tree: UnitTestTree
 
-  const { moduleName, projectRoot } = normalizeOptions(options)
+  const options: DomainModuleSchematicSchema = { name: 'test' }
+
+  const { moduleNamePascalCase, projectRoot } = normalizeOptions(options)
 
   const testRunner = new SchematicTestRunner(
     '@codelab/schematics',
     join(__dirname, '../../../../collection.json'),
   )
-
-  const options: DomainModuleSchematicSchema = { name: 'test' }
-
-  const { moduleNamePascalCase, projectRoot } = normalizeOptions(options)
 
   beforeAll(async () => {
     appTree = createEmptyWorkspace(Tree.empty())
