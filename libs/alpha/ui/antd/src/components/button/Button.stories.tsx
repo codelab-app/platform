@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 import React from 'react'
+import { queryGraph } from '../../apolloLoader'
 import { buttonData, buttonEvalData } from './Button.data'
 import { IGraphData, Renderer } from '@codelab/alpha/core/renderer'
 
@@ -43,3 +44,19 @@ export const GraphButton = (args: IGraphStroyArgs) => {
 GraphButton.parameters = {
   graphLabel: 'button-graph',
 }
+
+export const GraphButtonWithLoaders = (args: any, ctx: any) => {
+  const data = ctx?.loaded?.data
+
+  const GraphButton = Renderer.graphComponents(data as IGraphData)
+
+  return <GraphButton />
+}
+
+GraphButtonWithLoaders.loaders = [
+  async () => {
+    const graphLabel = 'button-graph'
+
+    return queryGraph(graphLabel)
+  },
+]
