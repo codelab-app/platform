@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-shadow */
+import { gql } from '@apollo/client'
 import React from 'react'
 import { queryGraph } from '../../apolloLoader'
 import { buttonData, buttonEvalData } from './Button.data'
@@ -53,10 +54,29 @@ export const GraphButtonWithLoaders = (args: any, ctx: any) => {
   return <GraphButton />
 }
 
+const graphLabel = 'button-graph'
+const GraphByLabelDocument = gql`
+  query graphByLabel {
+    graph(where: { label: {_eq: "${graphLabel}" }}) {
+      id
+      label
+      vertices {
+        id
+        type
+        props
+      }
+      edges {
+        id
+        source
+        target
+        props
+      }
+    }
+  }
+`
+
 GraphButtonWithLoaders.loaders = [
   async () => {
-    const graphLabel = 'button-graph'
-
-    return queryGraph(graphLabel)
+    return queryGraph(GraphByLabelDocument)
   },
 ]
