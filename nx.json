@@ -187,6 +187,9 @@
     "modules-grid-stories": {
       "tags": []
     },
+    "tools-json-schema-generator": {
+      "tags": []
+    },
     "modules-graph": {
       "tags": []
     },

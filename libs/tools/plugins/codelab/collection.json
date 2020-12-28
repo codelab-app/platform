@@ -22,6 +22,11 @@
       "factory": "./src/schematics/library/use-case/schematic",
       "schema": "./src/schematics/library/use-case/schema.json",
       "description": "Create Use Case Files for Domain Module"
+    },
+    "generate-json-schema": {
+      "factory": "./src/schematics/library/use-case/schematic",
+      "schema": "./src/schematics/library/use-case/schema.json",
+      "description": "Create Use Case Files for Domain Module"
     }
   }
 }
