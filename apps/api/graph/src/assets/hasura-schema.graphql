@@ -1,3 +1,4 @@
+"""query root"""
 type Query {
   createAccessToken: AuthDto!
   getAllEdges: [EdgeEntity!]!
@@ -8,6 +9,49 @@ type Query {
   getAllVertices: [VertexEntity!]!
   getAllApps: [CodelabAppEntity!]!
   getAllPages: [PageEntity!]!
+
+  """
+  fetch data from the table: "app"
+  """
+  app(
+    """distinct select on columns"""
+    distinct_on: [app_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [app_order_by!]
+
+    """filter the rows returned"""
+    where: app_bool_exp
+  ): [app!]!
+
+  """
+  fetch aggregated fields from the table: "app"
+  """
+  app_aggregate(
+    """distinct select on columns"""
+    distinct_on: [app_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [app_order_by!]
+
+    """filter the rows returned"""
+    where: app_bool_exp
+  ): app_aggregate!
+
+  """fetch data from the table: "app" using primary key columns"""
+  app_by_pk(id: uuid!): app
 
   """
   fetch data from the table: "edge"
@@ -96,6 +140,49 @@ type Query {
   graph_by_pk(id: uuid!): graph
 
   """
+  fetch data from the table: "page"
+  """
+  page(
+    """distinct select on columns"""
+    distinct_on: [page_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [page_order_by!]
+
+    """filter the rows returned"""
+    where: page_bool_exp
+  ): [page!]!
+
+  """
+  fetch aggregated fields from the table: "page"
+  """
+  page_aggregate(
+    """distinct select on columns"""
+    distinct_on: [page_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [page_order_by!]
+
+    """filter the rows returned"""
+    where: page_bool_exp
+  ): page_aggregate!
+
+  """fetch data from the table: "page" using primary key columns"""
+  page_by_pk(id: uuid!): page
+
+  """
   fetch data from the table: "user"
   """
   user(
@@ -182,9 +269,23 @@ type Query {
   vertex_by_pk(id: uuid!): vertex
 }
 
+"""mutation root"""
 type Mutation {
   moveVertex(target: String!, src: String!): GraphEntity!
   registerUser(user: UserInput!): UserDto!
+
+  """
+  delete data from the table: "app"
+  """
+  delete_app(
+    """filter the rows which have to be deleted"""
+    where: app_bool_exp!
+  ): app_mutation_response
+
+  """
+  delete single row from the table: "app"
+  """
+  delete_app_by_pk(id: uuid!): app
 
   """
   delete data from the table: "edge"
@@ -213,6 +314,19 @@ type Mutation {
   delete_graph_by_pk(id: uuid!): graph
 
   """
+  delete data from the table: "page"
+  """
+  delete_page(
+    """filter the rows which have to be deleted"""
+    where: page_bool_exp!
+  ): page_mutation_response
+
+  """
+  delete single row from the table: "page"
+  """
+  delete_page_by_pk(id: uuid!): page
+
+  """
   delete data from the table: "user"
   """
   delete_user(
@@ -237,6 +351,28 @@ type Mutation {
   delete single row from the table: "vertex"
   """
   delete_vertex_by_pk(id: uuid!): vertex
+
+  """
+  insert data into the table: "app"
+  """
+  insert_app(
+    """the rows to be inserted"""
+    objects: [app_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: app_on_conflict
+  ): app_mutation_response
+
+  """
+  insert a single row into the table: "app"
+  """
+  insert_app_one(
+    """the row to be inserted"""
+    object: app_insert_input!
+
+    """on conflict condition"""
+    on_conflict: app_on_conflict
+  ): app
 
   """
   insert data into the table: "edge"
@@ -283,6 +419,28 @@ type Mutation {
   ): graph
 
   """
+  insert data into the table: "page"
+  """
+  insert_page(
+    """the rows to be inserted"""
+    objects: [page_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: page_on_conflict
+  ): page_mutation_response
+
+  """
+  insert a single row into the table: "page"
+  """
+  insert_page_one(
+    """the row to be inserted"""
+    object: page_insert_input!
+
+    """on conflict condition"""
+    on_conflict: page_on_conflict
+  ): page
+
+  """
   insert data into the table: "user"
   """
   insert_user(
@@ -325,6 +483,26 @@ type Mutation {
     """on conflict condition"""
     on_conflict: vertex_on_conflict
   ): vertex
+
+  """
+  update data of the table: "app"
+  """
+  update_app(
+    """sets the columns of the filtered rows to the given values"""
+    _set: app_set_input
+
+    """filter the rows which have to be updated"""
+    where: app_bool_exp!
+  ): app_mutation_response
+
+  """
+  update single row of the table: "app"
+  """
+  update_app_by_pk(
+    """sets the columns of the filtered rows to the given values"""
+    _set: app_set_input
+    pk_columns: app_pk_columns_input!
+  ): app
 
   """
   update data of the table: "edge"
@@ -413,6 +591,26 @@ type Mutation {
     _set: graph_set_input
     pk_columns: graph_pk_columns_input!
   ): graph
+
+  """
+  update data of the table: "page"
+  """
+  update_page(
+    """sets the columns of the filtered rows to the given values"""
+    _set: page_set_input
+
+    """filter the rows which have to be updated"""
+    where: page_bool_exp!
+  ): page_mutation_response
+
+  """
+  update single row of the table: "page"
+  """
+  update_page_by_pk(
+    """sets the columns of the filtered rows to the given values"""
+    _set: page_set_input
+    pk_columns: page_pk_columns_input!
+  ): page
 
   """
   update data of the table: "user"
@@ -666,18 +864,6 @@ interface IGraph {
   page: PageEntity
 }
 
-type UserEntity implements IUser {
-  id: String!
-  email: String!
-  apps: [CodelabAppEntity!]!
-}
-
-interface IUser {
-  id: String!
-  email: String!
-  apps: [CodelabAppEntity!]!
-}
-
 type CodelabAppEntity implements IApp {
   id: String!
   user: UserEntity
@@ -690,6 +876,18 @@ interface IApp {
   user: UserEntity
   pages: [PageEntity!]
   graphs: [GraphEntity!]
+}
+
+type UserEntity implements IUser {
+  id: String!
+  email: String!
+  apps: [CodelabAppEntity!]!
+}
+
+interface IUser {
+  id: String!
+  email: String!
+  apps: [CodelabAppEntity!]!
 }
 
 type UserDto {
@@ -706,7 +904,51 @@ input UserInput {
   password: String!
 }
 
+"""subscription root"""
 type Subscription {
+  """
+  fetch data from the table: "app"
+  """
+  app(
+    """distinct select on columns"""
+    distinct_on: [app_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [app_order_by!]
+
+    """filter the rows returned"""
+    where: app_bool_exp
+  ): [app!]!
+
+  """
+  fetch aggregated fields from the table: "app"
+  """
+  app_aggregate(
+    """distinct select on columns"""
+    distinct_on: [app_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [app_order_by!]
+
+    """filter the rows returned"""
+    where: app_bool_exp
+  ): app_aggregate!
+
+  """fetch data from the table: "app" using primary key columns"""
+  app_by_pk(id: uuid!): app
+
   """
   fetch data from the table: "edge"
   """
@@ -792,6 +1034,49 @@ type Subscription {
 
   """fetch data from the table: "graph" using primary key columns"""
   graph_by_pk(id: uuid!): graph
+
+  """
+  fetch data from the table: "page"
+  """
+  page(
+    """distinct select on columns"""
+    distinct_on: [page_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [page_order_by!]
+
+    """filter the rows returned"""
+    where: page_bool_exp
+  ): [page!]!
+
+  """
+  fetch aggregated fields from the table: "page"
+  """
+  page_aggregate(
+    """distinct select on columns"""
+    distinct_on: [page_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [page_order_by!]
+
+    """filter the rows returned"""
+    where: page_bool_exp
+  ): page_aggregate!
+
+  """fetch data from the table: "page" using primary key columns"""
+  page_by_pk(id: uuid!): page
 
   """
   fetch data from the table: "user"
@@ -914,6 +1199,259 @@ input String_comparison_exp {
   _nlike: String
   _nsimilar: String
   _similar: String
+}
+
+"""
+columns and relationships of "app"
+"""
+type app {
+  """An array relationship"""
+  graphs(
+    """distinct select on columns"""
+    distinct_on: [graph_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [graph_order_by!]
+
+    """filter the rows returned"""
+    where: graph_bool_exp
+  ): [graph!]!
+
+  """An aggregated array relationship"""
+  graphs_aggregate(
+    """distinct select on columns"""
+    distinct_on: [graph_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [graph_order_by!]
+
+    """filter the rows returned"""
+    where: graph_bool_exp
+  ): graph_aggregate!
+  id: uuid!
+
+  """An array relationship"""
+  pages(
+    """distinct select on columns"""
+    distinct_on: [page_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [page_order_by!]
+
+    """filter the rows returned"""
+    where: page_bool_exp
+  ): [page!]!
+
+  """An aggregated array relationship"""
+  pages_aggregate(
+    """distinct select on columns"""
+    distinct_on: [page_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [page_order_by!]
+
+    """filter the rows returned"""
+    where: page_bool_exp
+  ): page_aggregate!
+
+  """An object relationship"""
+  user: user
+  user_id: uuid
+}
+
+"""
+aggregated selection of "app"
+"""
+type app_aggregate {
+  aggregate: app_aggregate_fields
+  nodes: [app!]!
+}
+
+"""
+aggregate fields of "app"
+"""
+type app_aggregate_fields {
+  count(columns: [app_select_column!], distinct: Boolean): Int
+  max: app_max_fields
+  min: app_min_fields
+}
+
+"""
+order by aggregate values of table "app"
+"""
+input app_aggregate_order_by {
+  count: order_by
+  max: app_max_order_by
+  min: app_min_order_by
+}
+
+"""
+input type for inserting array relation for remote table "app"
+"""
+input app_arr_rel_insert_input {
+  data: [app_insert_input!]!
+  on_conflict: app_on_conflict
+}
+
+"""
+Boolean expression to filter rows from the table "app". All fields are combined with a logical 'AND'.
+"""
+input app_bool_exp {
+  _and: [app_bool_exp]
+  _not: app_bool_exp
+  _or: [app_bool_exp]
+  graphs: graph_bool_exp
+  id: uuid_comparison_exp
+  pages: page_bool_exp
+  user: user_bool_exp
+  user_id: uuid_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "app"
+"""
+enum app_constraint {
+  """unique or primary key constraint"""
+  PK_9478629fc093d229df09e560aea
+}
+
+"""
+input type for inserting data into table "app"
+"""
+input app_insert_input {
+  graphs: graph_arr_rel_insert_input
+  id: uuid
+  pages: page_arr_rel_insert_input
+  user: user_obj_rel_insert_input
+  user_id: uuid
+}
+
+"""aggregate max on columns"""
+type app_max_fields {
+  id: uuid
+  user_id: uuid
+}
+
+"""
+order by max() on columns of table "app"
+"""
+input app_max_order_by {
+  id: order_by
+  user_id: order_by
+}
+
+"""aggregate min on columns"""
+type app_min_fields {
+  id: uuid
+  user_id: uuid
+}
+
+"""
+order by min() on columns of table "app"
+"""
+input app_min_order_by {
+  id: order_by
+  user_id: order_by
+}
+
+"""
+response of any mutation on the table "app"
+"""
+type app_mutation_response {
+  """number of affected rows by the mutation"""
+  affected_rows: Int!
+
+  """data of the affected rows by the mutation"""
+  returning: [app!]!
+}
+
+"""
+input type for inserting object relation for remote table "app"
+"""
+input app_obj_rel_insert_input {
+  data: app_insert_input!
+  on_conflict: app_on_conflict
+}
+
+"""
+on conflict condition type for table "app"
+"""
+input app_on_conflict {
+  constraint: app_constraint!
+  update_columns: [app_update_column!]!
+  where: app_bool_exp
+}
+
+"""
+ordering options when selecting data from "app"
+"""
+input app_order_by {
+  graphs_aggregate: graph_aggregate_order_by
+  id: order_by
+  pages_aggregate: page_aggregate_order_by
+  user: user_order_by
+  user_id: order_by
+}
+
+"""
+primary key columns input for table: "app"
+"""
+input app_pk_columns_input {
+  id: uuid!
+}
+
+"""
+select columns of table "app"
+"""
+enum app_select_column {
+  """column name"""
+  id
+
+  """column name"""
+  user_id
+}
+
+"""
+input type for updating data in table "app"
+"""
+input app_set_input {
+  id: uuid
+  user_id: uuid
+}
+
+"""
+update columns of table "app"
+"""
+enum app_update_column {
+  """column name"""
+  id
+
+  """column name"""
+  user_id
 }
 
 """
@@ -1304,6 +1842,10 @@ input edge_variance_order_by {
 columns and relationships of "graph"
 """
 type graph {
+  """An object relationship"""
+  app: app
+  app_id: uuid
+
   """An array relationship"""
   edges(
     """distinct select on columns"""
@@ -1343,8 +1885,8 @@ type graph {
   label: String
 
   """An object relationship"""
-  user: user
-  user_id: uuid
+  page: page
+  page_id: uuid
 
   """An array relationship"""
   vertices(
@@ -1424,11 +1966,13 @@ input graph_bool_exp {
   _and: [graph_bool_exp]
   _not: graph_bool_exp
   _or: [graph_bool_exp]
+  app: app_bool_exp
+  app_id: uuid_comparison_exp
   edges: edge_bool_exp
   id: uuid_comparison_exp
   label: String_comparison_exp
-  user: user_bool_exp
-  user_id: uuid_comparison_exp
+  page: page_bool_exp
+  page_id: uuid_comparison_exp
   vertices: vertex_bool_exp
 }
 
@@ -1444,44 +1988,50 @@ enum graph_constraint {
 input type for inserting data into table "graph"
 """
 input graph_insert_input {
+  app: app_obj_rel_insert_input
+  app_id: uuid
   edges: edge_arr_rel_insert_input
   id: uuid
   label: String
-  user: user_obj_rel_insert_input
-  user_id: uuid
+  page: page_obj_rel_insert_input
+  page_id: uuid
   vertices: vertex_arr_rel_insert_input
 }
 
 """aggregate max on columns"""
 type graph_max_fields {
+  app_id: uuid
   id: uuid
   label: String
-  user_id: uuid
+  page_id: uuid
 }
 
 """
 order by max() on columns of table "graph"
 """
 input graph_max_order_by {
+  app_id: order_by
   id: order_by
   label: order_by
-  user_id: order_by
+  page_id: order_by
 }
 
 """aggregate min on columns"""
 type graph_min_fields {
+  app_id: uuid
   id: uuid
   label: String
-  user_id: uuid
+  page_id: uuid
 }
 
 """
 order by min() on columns of table "graph"
 """
 input graph_min_order_by {
+  app_id: order_by
   id: order_by
   label: order_by
-  user_id: order_by
+  page_id: order_by
 }
 
 """
@@ -1516,11 +2066,13 @@ input graph_on_conflict {
 ordering options when selecting data from "graph"
 """
 input graph_order_by {
+  app: app_order_by
+  app_id: order_by
   edges_aggregate: edge_aggregate_order_by
   id: order_by
   label: order_by
-  user: user_order_by
-  user_id: order_by
+  page: page_order_by
+  page_id: order_by
   vertices_aggregate: vertex_aggregate_order_by
 }
 
@@ -1536,22 +2088,26 @@ select columns of table "graph"
 """
 enum graph_select_column {
   """column name"""
+  app_id
+
+  """column name"""
   id
 
   """column name"""
   label
 
   """column name"""
-  user_id
+  page_id
 }
 
 """
 input type for updating data in table "graph"
 """
 input graph_set_input {
+  app_id: uuid
   id: uuid
   label: String
-  user_id: uuid
+  page_id: uuid
 }
 
 """
@@ -1559,13 +2115,16 @@ update columns of table "graph"
 """
 enum graph_update_column {
   """column name"""
+  app_id
+
+  """column name"""
   id
 
   """column name"""
   label
 
   """column name"""
-  user_id
+  page_id
 }
 
 scalar jsonb
@@ -1621,11 +2180,12 @@ enum order_by {
 }
 
 """
-columns and relationships of "user"
+columns and relationships of "page"
 """
-type user {
-  email: String!
-  google_provider_id: String
+type page {
+  """An object relationship"""
+  app: app
+  app_id: uuid
 
   """An array relationship"""
   graphs(
@@ -1662,6 +2222,218 @@ type user {
     """filter the rows returned"""
     where: graph_bool_exp
   ): graph_aggregate!
+  id: uuid!
+}
+
+"""
+aggregated selection of "page"
+"""
+type page_aggregate {
+  aggregate: page_aggregate_fields
+  nodes: [page!]!
+}
+
+"""
+aggregate fields of "page"
+"""
+type page_aggregate_fields {
+  count(columns: [page_select_column!], distinct: Boolean): Int
+  max: page_max_fields
+  min: page_min_fields
+}
+
+"""
+order by aggregate values of table "page"
+"""
+input page_aggregate_order_by {
+  count: order_by
+  max: page_max_order_by
+  min: page_min_order_by
+}
+
+"""
+input type for inserting array relation for remote table "page"
+"""
+input page_arr_rel_insert_input {
+  data: [page_insert_input!]!
+  on_conflict: page_on_conflict
+}
+
+"""
+Boolean expression to filter rows from the table "page". All fields are combined with a logical 'AND'.
+"""
+input page_bool_exp {
+  _and: [page_bool_exp]
+  _not: page_bool_exp
+  _or: [page_bool_exp]
+  app: app_bool_exp
+  app_id: uuid_comparison_exp
+  graphs: graph_bool_exp
+  id: uuid_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "page"
+"""
+enum page_constraint {
+  """unique or primary key constraint"""
+  PK_742f4117e065c5b6ad21b37ba1f
+}
+
+"""
+input type for inserting data into table "page"
+"""
+input page_insert_input {
+  app: app_obj_rel_insert_input
+  app_id: uuid
+  graphs: graph_arr_rel_insert_input
+  id: uuid
+}
+
+"""aggregate max on columns"""
+type page_max_fields {
+  app_id: uuid
+  id: uuid
+}
+
+"""
+order by max() on columns of table "page"
+"""
+input page_max_order_by {
+  app_id: order_by
+  id: order_by
+}
+
+"""aggregate min on columns"""
+type page_min_fields {
+  app_id: uuid
+  id: uuid
+}
+
+"""
+order by min() on columns of table "page"
+"""
+input page_min_order_by {
+  app_id: order_by
+  id: order_by
+}
+
+"""
+response of any mutation on the table "page"
+"""
+type page_mutation_response {
+  """number of affected rows by the mutation"""
+  affected_rows: Int!
+
+  """data of the affected rows by the mutation"""
+  returning: [page!]!
+}
+
+"""
+input type for inserting object relation for remote table "page"
+"""
+input page_obj_rel_insert_input {
+  data: page_insert_input!
+  on_conflict: page_on_conflict
+}
+
+"""
+on conflict condition type for table "page"
+"""
+input page_on_conflict {
+  constraint: page_constraint!
+  update_columns: [page_update_column!]!
+  where: page_bool_exp
+}
+
+"""
+ordering options when selecting data from "page"
+"""
+input page_order_by {
+  app: app_order_by
+  app_id: order_by
+  graphs_aggregate: graph_aggregate_order_by
+  id: order_by
+}
+
+"""
+primary key columns input for table: "page"
+"""
+input page_pk_columns_input {
+  id: uuid!
+}
+
+"""
+select columns of table "page"
+"""
+enum page_select_column {
+  """column name"""
+  app_id
+
+  """column name"""
+  id
+}
+
+"""
+input type for updating data in table "page"
+"""
+input page_set_input {
+  app_id: uuid
+  id: uuid
+}
+
+"""
+update columns of table "page"
+"""
+enum page_update_column {
+  """column name"""
+  app_id
+
+  """column name"""
+  id
+}
+
+"""
+columns and relationships of "user"
+"""
+type user {
+  """An array relationship"""
+  apps(
+    """distinct select on columns"""
+    distinct_on: [app_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [app_order_by!]
+
+    """filter the rows returned"""
+    where: app_bool_exp
+  ): [app!]!
+
+  """An aggregated array relationship"""
+  apps_aggregate(
+    """distinct select on columns"""
+    distinct_on: [app_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [app_order_by!]
+
+    """filter the rows returned"""
+    where: app_bool_exp
+  ): app_aggregate!
+  email: String!
+  google_provider_id: String
   id: uuid!
   password: String
 }
@@ -1707,9 +2479,9 @@ input user_bool_exp {
   _and: [user_bool_exp]
   _not: user_bool_exp
   _or: [user_bool_exp]
+  apps: app_bool_exp
   email: String_comparison_exp
   google_provider_id: String_comparison_exp
-  graphs: graph_bool_exp
   id: uuid_comparison_exp
   password: String_comparison_exp
 }
@@ -1729,9 +2501,9 @@ enum user_constraint {
 input type for inserting data into table "user"
 """
 input user_insert_input {
+  apps: app_arr_rel_insert_input
   email: String
   google_provider_id: String
-  graphs: graph_arr_rel_insert_input
   id: uuid
   password: String
 }
@@ -1804,9 +2576,9 @@ input user_on_conflict {
 ordering options when selecting data from "user"
 """
 input user_order_by {
+  apps_aggregate: app_aggregate_order_by
   email: order_by
   google_provider_id: order_by
-  graphs_aggregate: graph_aggregate_order_by
   id: order_by
   password: order_by
 }
