@@ -1,6 +1,6 @@
 import { createWriteStream } from 'fs'
 import * as TJS from 'typescript-json-schema'
-import { getAntdPropsNames } from './generate-props-names'
+import { getAntdPropsNames } from './utils'
 
 export const generateJsonSchemas = (
   generator: TJS.JsonSchemaGenerator | null,
@@ -14,6 +14,7 @@ export const generateJsonSchemas = (
     return
   }
 
+  // Contains all typescript types
   const allSymbols = generator.getUserSymbols()
 
   const stream = createWriteStream(schemasFilePath, { flags: 'a' })
@@ -25,21 +26,10 @@ export const generateJsonSchemas = (
 
     console.log('JSON-schema generated for: ', typeName)
     const propsSchema = generator.getSchemaForSymbol(typeName)
+
+    // typeName = 'Affix.AntdProps'
     const exportedTypeName = typeName.replace('.AntdProps', '')
 
-    // writeFile(
-    //   join(outputRoot, `${exportedTypeName}.schemas.ts`),
-    //   `export const ${exportedTypeName} = ${JSON.stringify(
-    //     propsSchema,
-    //     null,
-    //     2,
-    //   )}`,
-    //   (err) => {
-    //     if (err) {
-    //       console.log(err)
-    //     }
-    //   },
-    // )
     stream.write(
       `export const ${exportedTypeName} = ${JSON.stringify(
         propsSchema,
@@ -61,7 +51,8 @@ export const buildGenerator = (
     ignoreErrors: true,
   }
 
-  const compilerOptions = {
+  const compilerOptions: TJS.CompilerOptions = {
+    strictNullChecks: true,
     skipLibCheck: true,
   }
 

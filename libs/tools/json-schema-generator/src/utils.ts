@@ -1,7 +1,9 @@
 import { readdirSync } from 'fs'
 import { resolve } from 'path'
 
-const COMPONENTS_ROOT_PATH = resolve('./libs/alpha/ui/antd/src/components')
+export const COMPONENTS_ROOT_PATH = resolve(
+  './libs/alpha/ui/antd/src/components',
+)
 
 const getDirectories = (source: string) =>
   readdirSync(source, { withFileTypes: true })

@@ -88,9 +88,6 @@ export const Alert = {
       "type": "boolean"
     }
   },
-  "required": [
-    "message"
-  ],
   "$schema": "http://json-schema.org/draft-07/schema#"
 }
 
