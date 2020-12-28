@@ -37,6 +37,8 @@
     "@apollo/federation": "0.20.4",
     "@emotion/core": "10.0.35",
     "@emotion/styled": "10.0.27",
+    "@graphql-codegen/plugin-helpers": "^1.18.2",
+    "@graphql-codegen/visitor-plugin-common": "^1.17.22",
     "@graphql-tools/delegate": "7.0.7",
     "@grpc/proto-loader": "0.5.5",
     "@hapi/joi": "17.1.1",

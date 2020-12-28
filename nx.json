@@ -195,6 +195,9 @@
     },
     "modules-page": {
       "tags": []
+    },
+    "tools-graphql-codegen": {
+      "tags": []
     }
   }
 }

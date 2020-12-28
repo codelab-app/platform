@@ -1,6 +1,6 @@
 {
   "compileOnSave": false,
-  "compilerOptions": {
+
     "rootDir": ".",
     "sourceMap": true,
     "declaration": false,
@@ -117,6 +117,9 @@
       "@codelab/modules/graph": ["libs/modules/graph/src/index.ts"],
       "@codelab/tools/json-schema-generator": [
         "libs/tools/json-schema-generator/src/index.ts"
+      ],
+      "@codelab/tools/graphql-codegen": [
+        "libs/tools/graphql-codegen/src/index.ts"
       ]
     }
   },

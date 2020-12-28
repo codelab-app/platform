@@ -64,3 +64,14 @@ generates:
   #     - typescript-document-nodes
   #     # - typescript-graphql-files-modules
   #     # - fragment-matcher
+
+  libs/state/apollo/src/generated/graphql-2.ts:
+    documents: apps/api/graph/src/assets/**/*.graphql
+    plugins:
+      - typescript
+      - typescript-resolvers
+      - typescript-operations
+      - './dist/libs/tools/graphql-codegen/main.js'
+    hooks:
+      afterAllFileWrite:
+        - 'eslint --fix'

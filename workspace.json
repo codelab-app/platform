@@ -2140,15 +2140,22 @@
         }
       }
     },
+<<<<<<< HEAD
     "tools-json-schema-generator": {
       "root": "libs/tools/json-schema-generator",
       "sourceRoot": "libs/tools/json-schema-generator/src",
+=======
+    "tools-graphql-codegen": {
+      "root": "libs/tools/graphql-codegen",
+      "sourceRoot": "libs/tools/graphql-codegen/src",
+>>>>>>> feat(libs-tools-graphql-codegen): #412 graphql codegen
       "projectType": "library",
       "schematics": {},
       "architect": {
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
+<<<<<<< HEAD
             "fix": true,
             "lintFilePatterns": [
               "libs/tools/json-schema-generator/**/*.{ts,tsx,js,jsx}"
@@ -2169,6 +2176,26 @@
               "npx ts-node libs/tools/json-schema-generator/src/main.ts"
             ],
             "parallel": false
+=======
+            "lintFilePatterns": [
+              "libs/tools/graphql-codegen/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/libs/tools/graphql-codegen",
+            "main": "libs/tools/graphql-codegen/src/index.ts",
+            "tsConfig": "libs/tools/graphql-codegen/tsconfig.lib.json"
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/tools/graphql-codegen/jest.config.js",
+            "passWithNoTests": true
+>>>>>>> feat(libs-tools-graphql-codegen): #412 graphql codegen
           }
         }
       }

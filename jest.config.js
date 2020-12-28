@@ -35,5 +35,7 @@ module.exports = {
     '<rootDir>/libs/modules/graph',
     '<rootDir>/libs/modules/page',
     '<rootDir>/libs/tools/json-schema-generator',
+    '<rootDir>/libs/test',
+    '<rootDir>/libs/tools/graphql-codegen',
   ],
 }

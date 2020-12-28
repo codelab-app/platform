@@ -2438,8 +2438,7 @@
     "@graphql-codegen/plugin-helpers" "^1.18.2"
     "@graphql-tools/utils" "^6"
     tslib "~2.0.1"
-
-"@graphql-codegen/typescript-document-nodes@1.17.9":
+"@graphql-codegen/typescript-document-nodes@^1.17.9":
   version "1.17.9"
   resolved "https://registry.yarnpkg.com/@graphql-codegen/typescript-document-nodes/-/typescript-document-nodes-1.17.9.tgz#ac4f35b216617d6cf8b4056adc9c36f3b1b63f7c"
   integrity sha512-4sSztahbc0YzoWbSlu/LA99f+gsXNYmXYucy7oEGdTsIDDAsaXoL/ZA7qzu+CwugPEOrP+3ZQiJqg+Btt6sfNQ==
