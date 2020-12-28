@@ -9,8 +9,9 @@ module.exports = {
 
     'pre-push': tasks([
       'make build-dev-affected',
-      'make unit-dev-affected',
-      'make integration-dev',
+      'make test-dev-affected',
+      // 'make unit-dev-affected',
+      // 'make integration-dev-affected',
       'make e2e-dev',
     ]),
     'commit-msg': 'make lint-commit-dev',
