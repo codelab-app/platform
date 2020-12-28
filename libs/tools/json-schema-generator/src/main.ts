@@ -4,6 +4,8 @@ import { buildGenerator, generateJsonSchemas } from './generator'
 import { COMPONENTS_ROOT_PATH } from './utils'
 
 /**
+ * Main entry point for generator
+ *
  * Clears generated output each time, file must contain some export path otherwise error is thrown.
  */
 const schemaOutputPath = resolve(__dirname, 'generated/index.ts')
