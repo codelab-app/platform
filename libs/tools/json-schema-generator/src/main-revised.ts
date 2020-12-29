@@ -3,7 +3,7 @@ import { createWriteStream, writeFileSync } from 'fs'
 import { resolve } from 'path'
 
 try {
-  const cmd = `npx typescript-json-schema libs/modules/graph/tsconfig.lib.json "*" --include libs/modules/graph/src/core/application/useCases/**/*Request.ts`
+  const cmd = `npx typescript-json-schema libs/modules/graph/tsconfig.lib.json "*" --include libs/modules/graph/src/core/application/useCases/**/*Request.ts --refs false`
 
   const jsonSchemaString = execSync(cmd).toString()
 
