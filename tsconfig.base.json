@@ -13,7 +13,7 @@
     "target": "es2015",
     "module": "esnext",
     "typeRoots": ["node_modules/@types", "types"],
-    "lib": ["es2017", "dom"],
+    "lib": ["es2017", "dom", "es2018"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
