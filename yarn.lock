@@ -3449,6 +3449,16 @@
     webpack-node-externals "1.7.2"
     yargs-parser "20.0.0"
 
+"@nrwl/devkit@^11.0.16":
+  version "11.0.16"
+  resolved "https://registry.yarnpkg.com/@nrwl/devkit/-/devkit-11.0.16.tgz#c982322a358cb41141884e08433eb6442b0e9101"
+  integrity sha512-bHrI4oS6TQS7yw346e0XyDl7Pejcb95/eosNGsRqfiZy472Z8YxUmripUK9FrIq9uvSh2W8YNcDirzmwYxI+uA==
+  dependencies:
+    "@nrwl/tao" "11.0.16"
+    ejs "^3.1.5"
+    strip-json-comments "2.0.1"
+    tslib "^2.0.0"
+
 "@nrwl/eslint-plugin-nx@10.4.4":
   version "10.4.4"
   resolved "https://registry.yarnpkg.com/@nrwl/eslint-plugin-nx/-/eslint-plugin-nx-10.4.4.tgz#ac0c42b7c2286031c27ede195e39bc5622b42ef7"
@@ -3601,6 +3611,25 @@
   version "11.0.11"
   resolved "https://registry.yarnpkg.com/@nrwl/tao/-/tao-11.0.11.tgz#9d64582f79840f4239f7ccc3fbcdff92f7714e0a"
   integrity sha512-GC39tETqWIM6N/5ime++yhAkydcH3e9Diths23AzrQSRi6Od6yTNaasKTgI8NDLi6uXi3q3Y13EeFTuZsOI7MQ==
+  dependencies:
+    "@angular-devkit/architect" "~0.1100.1"
+    "@angular-devkit/core" "~11.0.1"
+    "@angular-devkit/schematics" "~11.0.1"
+    chalk "4.1.0"
+    fs-extra "7.0.1"
+    inquirer "^6.3.1"
+    minimist "^1.2.5"
+    rxjs "^6.5.4"
+    semver "6.3.0"
+    strip-json-comments "2.0.1"
+    tmp "0.0.33"
+    tslib "^2.0.0"
+    yargs-parser "20.0.0"
+
+"@nrwl/tao@11.0.16":
+  version "11.0.16"
+  resolved "https://registry.yarnpkg.com/@nrwl/tao/-/tao-11.0.16.tgz#dd3d4bd070909b927bf9253cb4da36668d341f61"
+  integrity sha512-1Y4XWLNOoWfjYHBwYruSFxuyE4ZNvrXBOr/nerTmDgOmAXcVectMyR3ld/Jc1u0rc4iLOQ0ngbwf8thAcTjUeQ==
   dependencies:
     "@angular-devkit/architect" "~0.1100.1"
     "@angular-devkit/core" "~11.0.1"
@@ -11181,7 +11210,7 @@ ee-first@1.1.1:
   resolved "https://registry.yarnpkg.com/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
   integrity sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
 
-ejs@^3.1.2:
+ejs@^3.1.2, ejs@^3.1.5:
   version "3.1.5"
   resolved "https://registry.yarnpkg.com/ejs/-/ejs-3.1.5.tgz#aed723844dc20acb4b170cd9ab1017e476a0d93b"
   integrity sha512-dldq3ZfFtgVTJMLjOe+/3sROTzALlL9E34V4/sDtUd/KlBSS0s6U1/+WPE1B4sj9CXHJpL1M6rhNJnc9Wbal9w==

@@ -8,6 +8,9 @@ import { ModalContainer } from '@codelab/modules/modal-stories'
 
 require('highlight.js/styles/monokai-sublime.css')
 require('antd/dist/antd.css')
+require('react-grid-layout/css/styles.css')
+require('react-resizable/css/styles.css')
+require('../../../.storybook/grid.scss')
 
 const App = ({ children }: PropsWithChildren<any>) => {
   return (

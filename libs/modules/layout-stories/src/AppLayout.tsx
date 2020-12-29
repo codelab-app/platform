@@ -28,8 +28,6 @@ export const AppLayout = (props: PropsWithChildren<AppLayoutProps>) => {
   const { Menu: SidebarMenu, ...sidebarProps } = sidebar
   const { Menu: HeaderMenu } = header
 
-  console.log(router)
-
   return (
     <Layout style={{ height: '100%' }}>
       <Sider theme="light" collapsible {...sidebarProps}>
