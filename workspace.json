@@ -2166,7 +2166,7 @@
           "builder": "@nrwl/workspace:run-commands",
           "options": {
             "commands": [
-              "npx ts-node libs/tools/json-schema-generator/src/main.ts"
+              "npx ts-node libs/tools/json-schema-generator/src/main-revised.ts"
             ],
             "parallel": false
           }

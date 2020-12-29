@@ -1,193 +1,183 @@
-export const Affix = {
-  "type": "object",
-  "properties": {
-    "target": {
-      "description": "设置 Affix 需要监听其滚动事件的元素，值为一个返回对应 DOM 元素的函数",
-      "type": "object"
-    },
-    "onChange": {
-      "description": "固定状态改变时触发的回调函数",
-      "type": "object"
-    },
-    "offsetTop": {
-      "description": "距离窗口顶部达到指定偏移量后触发",
-      "type": "number"
-    },
-    "offsetBottom": {
-      "description": "距离窗口底部达到指定偏移量后触发",
-      "type": "number"
-    }
-  },
-  "$schema": "http://json-schema.org/draft-07/schema#"
-}
-
-export const Alert = {
-  "type": "object",
-  "properties": {
-    "icon": {
-      "$ref": "#/definitions/React.ReactNode"
-    },
-    "type": {
-      "description": "Type of Alert styles, options:`success`, `info`, `warning`, `error`",
-      "enum": [
-        "error",
-        "info",
-        "success",
-        "warning"
-      ],
-      "type": "string"
-    },
-    "onClick": {
-      "type": "object"
-    },
-    "className": {
-      "type": "string"
-    },
-    "role": {
-      "description": "https://www.w3.org/TR/2014/REC-html5-20141028/dom.html#aria-role-attribute",
-      "type": "string"
-    },
-    "onMouseEnter": {
-      "type": "object"
-    },
-    "onMouseLeave": {
-      "type": "object"
-    },
-    "prefixCls": {
-      "type": "string"
-    },
-    "message": {
-      "$ref": "#/definitions/React.ReactNode",
-      "description": "Content of Alert"
-    },
-    "closable": {
-      "description": "Whether Alert can be closed",
-      "type": "boolean"
-    },
-    "closeText": {
-      "$ref": "#/definitions/React.ReactNode",
-      "description": "Close text to show"
-    },
-    "description": {
-      "$ref": "#/definitions/React.ReactNode",
-      "description": "Additional content of Alert"
-    },
-    "onClose": {
-      "description": "Callback when close Alert",
-      "type": "object"
-    },
-    "afterClose": {
-      "description": "Trigger when animation ending of Alert",
-      "type": "object"
-    },
-    "showIcon": {
-      "description": "Whether to show icon",
-      "type": "boolean"
-    },
-    "banner": {
-      "type": "boolean"
-    }
-  },
-  "$schema": "http://json-schema.org/draft-07/schema#"
-}
-
-export const Anchor = {
-  "type": "object",
-  "properties": {
-    "onClick": {
-      "type": "object"
-    },
-    "onChange": {
-      "description": "Listening event when scrolling change active link",
-      "type": "object"
-    },
-    "offsetTop": {
-      "type": "number"
-    },
-    "bounds": {
-      "type": "number"
-    },
-    "affix": {
-      "type": "boolean"
-    },
-    "showInkInFixed": {
-      "type": "boolean"
-    },
-    "getContainer": {
-      "type": "object"
-    },
-    "getCurrentAnchor": {
-      "description": "Return customize highlight anchor",
-      "type": "object"
-    },
-    "targetOffset": {
-      "description": "Scroll to target offset value, if none, it's offsetTop prop value or 0.",
-      "type": "number"
-    }
-  },
-  "$schema": "http://json-schema.org/draft-07/schema#"
-}
-
-export const Button = {
-  "type": "object",
-  "properties": {
-    "loading": {
-      "anyOf": [
-        {
-          "type": "object",
-          "properties": {
-            "delay": {
-              "type": "number"
-            }
-          }
+export const requestJsonSchema = {
+  $schema: 'http://json-schema.org/draft-07/schema#',
+  definitions: {
+    AddChildNodeRequest: {
+      properties: {
+        graphId: {
+          type: 'string',
         },
-        {
-          "type": "boolean"
-        }
-      ]
+        order: {
+          type: 'number',
+        },
+        parentVertexId: {
+          type: 'string',
+        },
+        vertex: {
+          $ref: '#/definitions/CreateVertexRequest',
+        },
+      },
+      type: 'object',
     },
-    "size": {
-      "enum": [
-        "large",
-        "middle",
-        "small"
+    CreateEdgeRequest: {
+      properties: {
+        graphId: {
+          type: 'string',
+        },
+        id: {
+          type: 'string',
+        },
+        props: {},
+        source: {
+          type: 'string',
+        },
+        target: {
+          type: 'string',
+        },
+      },
+      type: 'object',
+    },
+    CreateGraphRequest: {
+      properties: {
+        label: {
+          type: 'string',
+        },
+      },
+      type: 'object',
+    },
+    CreateVertexRequest: {
+      properties: {
+        props: {
+          additionalProperties: true,
+          properties: {},
+          type: 'object',
+        },
+        type: {
+          $ref: '#/definitions/NodeType',
+        },
+      },
+      type: 'object',
+    },
+    NodeType: {
+      description: 'Used with Graphql',
+      enum: [
+        'Model',
+        'React_Affix',
+        'React_Alert',
+        'React_Anchor',
+        'React_Anchor_Link',
+        'React_AutoComplete',
+        'React_Avatar',
+        'React_BackTop',
+        'React_Badge',
+        'React_Breadcrumb',
+        'React_Breadcrumb_Item',
+        'React_Button',
+        'React_Calendar',
+        'React_Card',
+        'React_Card_Grid',
+        'React_Card_Meta',
+        'React_Carousel',
+        'React_Cascader',
+        'React_Checkbox',
+        'React_Collapse',
+        'React_Collapse_Panel',
+        'React_Comment',
+        'React_ConfigProvider',
+        'React_DatePicker',
+        'React_Descriptions',
+        'React_Descriptions_Item',
+        'React_Divider',
+        'React_Drawer',
+        'React_Dropdown',
+        'React_Empty',
+        'React_Form',
+        'React_Form_Item',
+        'React_Form_ItemHook',
+        'React_Form_List',
+        'React_Fragment',
+        'React_Grid',
+        'React_Html_A',
+        'React_Html_Div',
+        'React_Html_P',
+        'React_Html_Span',
+        'React_Icon',
+        'React_Input',
+        'React_InputNumber',
+        'React_Layout',
+        'React_Layout_Content',
+        'React_Layout_Footer',
+        'React_Layout_Header',
+        'React_Layout_Sider',
+        'React_List',
+        'React_List_Item',
+        'React_List_Item_Meta',
+        'React_Mapper',
+        'React_Mentions',
+        'React_Mentions_Option',
+        'React_Menu',
+        'React_Menu_Item',
+        'React_Menu_ItemGroup',
+        'React_Menu_SubMenu',
+        'React_Modal',
+        'React_PageHeader',
+        'React_Pagination',
+        'React_Popconfirm',
+        'React_Popover',
+        'React_Progress',
+        'React_Provider',
+        'React_Radio',
+        'React_Radio_Group',
+        'React_Rate',
+        'React_RenderComponent',
+        'React_RenderContainer',
+        'React_ResponsiveGrid',
+        'React_Result',
+        'React_Select',
+        'React_Select_Option',
+        'React_Skeleton',
+        'React_Slider',
+        'React_Space',
+        'React_Spin',
+        'React_Statistic',
+        'React_Steps',
+        'React_Steps_Step',
+        'React_Switch',
+        'React_Table',
+        'React_Tabs',
+        'React_Tabs_TabPane',
+        'React_Tag',
+        'React_Text',
+        'React_TimePicker',
+        'React_Timeline',
+        'React_Timeline_Item',
+        'React_Tooltip',
+        'React_Transfer',
+        'React_Tree',
+        'React_TreeNode',
+        'React_TreeSelect',
+        'React_Typography',
+        'React_Typography_Paragraph',
+        'React_Typography_Text',
+        'React_Typography_Title',
+        'React_Upload',
+        'Ref',
+        'Schema',
+        'Tree',
       ],
-      "type": "string"
+      type: 'string',
     },
-    "block": {
-      "type": "boolean"
+    UpdateVertexRequest: {
+      properties: {
+        props: {
+          additionalProperties: true,
+          properties: {},
+          type: 'object',
+        },
+        type: {
+          $ref: '#/definitions/NodeType',
+        },
+      },
+      type: 'object',
     },
-    "ghost": {
-      "type": "boolean"
-    },
-    "danger": {
-      "type": "boolean"
-    },
-    "type": {
-      "enum": [
-        "dashed",
-        "default",
-        "ghost",
-        "link",
-        "primary",
-        "text"
-      ],
-      "type": "string"
-    },
-    "className": {
-      "type": "string"
-    },
-    "shape": {
-      "enum": [
-        "circle",
-        "round"
-      ],
-      "type": "string"
-    },
-    "prefixCls": {
-      "type": "string"
-    }
   },
-  "$schema": "http://json-schema.org/draft-07/schema#"
 }
-
