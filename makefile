@@ -135,8 +135,12 @@ integration-dev:
 	npx nx run-many \
 	--target=test \
 	--testPathPattern=i.spec.ts \
-	--all \
-	--skip-nx-cache
+	--all
+
+integration-dev-affected:
+	npx nx affected:test \
+	--testPathPattern=i.spec.ts \
+	--parallel
 
 integration-ci:
 	npx nx run-many \
@@ -152,7 +156,7 @@ integration-ci:
 test-dev-affected:
 	npx concurrently \
  		"make unit-dev-affected" \
-  	"make integration-dev" \
+  	"make integration-dev-affected" \
   	"make e2e-dev"
 
 test-dev:

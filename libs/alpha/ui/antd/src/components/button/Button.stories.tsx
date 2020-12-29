@@ -1,7 +1,10 @@
 /* eslint-disable @typescript-eslint/no-shadow */
+import { gql } from '@apollo/client'
 import React from 'react'
+import { getApolloClient } from '../../../../hoc/src/withApollo'
 import { buttonData, buttonEvalData } from './Button.data'
 import { IGraphData, Renderer } from '@codelab/alpha/core/renderer'
+import { query } from '@codelab/alpha/shared/utils'
 
 export default {
   title: 'Button',
@@ -25,21 +28,60 @@ export const EvalButton = () => {
   return <Button />
 }
 
-export interface IGraphStroyArgs<T = IGraphData> {
-  fetched: boolean | undefined
-  data: T | undefined
+// export interface IGraphStroyArgs<T = IGraphData> {
+//   fetched: boolean | undefined
+//   data: T | undefined
+// }
+
+// export const GraphButton = (args: IGraphStroyArgs) => {
+//   if (args.fetched) {
+//     const GraphButton = Renderer.graphComponents(args.data as IGraphData)
+
+//     return <GraphButton />
+//   }
+
+//   return <div>loading...</div>
+// }
+
+// GraphButton.parameters = {
+//   graphLabel: 'button-graph',
+// }
+
+export const GraphButtonWithLoaders = (args: any, ctx: any) => {
+  const data = ctx?.loaded?.data
+
+  const GraphButton = Renderer.graphComponents(data as IGraphData)
+
+  return <GraphButton />
 }
 
-export const GraphButton = (args: IGraphStroyArgs) => {
-  if (args.fetched) {
-    const GraphButton = Renderer.graphComponents(args.data as IGraphData)
+const graphLabel = 'button-graph'
 
-    return <GraphButton />
+const GraphByLabelDocument = gql`
+  query graphByLabel {
+    graph(where: { label: {_eq: "${graphLabel}" }}) {
+      id
+      label
+      vertices {
+        id
+        type
+        props
+      }
+      edges {
+        id
+        source
+        target
+        props
+      }
+    }
   }
+`
 
-  return <div>loading...</div>
-}
-
-GraphButton.parameters = {
-  graphLabel: 'button-graph',
-}
+GraphButtonWithLoaders.loaders = [
+  async () => {
+    return query(getApolloClient(), {
+      query: GraphByLabelDocument,
+      context: { clientName: 'hasura' },
+    })
+  },
+]

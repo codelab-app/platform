@@ -23,7 +23,7 @@ const GraphByLabelDocument = gql`
   }
 `
 
-export const useApollo = (Story) => {
+export const useApollo = (Story: any) => {
   const apolloClient = getApolloClient()
   const [args, updateArgs] = useArgs()
   const graphLabel = useParameter('graphLabel', null)
