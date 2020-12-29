@@ -1,5 +1,5 @@
 overwrite: true
-schema: http://localhost:4004/graphql
+schema: http://localhost:3333/graphql
 generates:
   apps/api/graph/src/assets/hasura-schema.graphql:
     plugins:
@@ -65,7 +65,7 @@ generates:
   #     # - typescript-graphql-files-modules
   #     # - fragment-matcher
 
-  libs/state/apollo/src/generated/graphql-2.ts:
+  libs/alpha/state/apollo/src/generated/graphql-2.ts:
     documents: apps/api/graph/src/assets/**/*.graphql
     plugins:
       - typescript
