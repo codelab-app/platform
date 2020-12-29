@@ -52,9 +52,9 @@ class GraphQLVisitor extends ClientSideBaseVisitor<
     operationVariablesTypes: string,
   ) {
     return `
-export const ${node?.name?.value}Mutate = (options: MutationOptions<${operationResultType}, ${operationVariablesTypes}> = {}) => {
+export const ${node?.name?.value}Mutate = (options: Partial<MutationOptions<${operationResultType}, ${operationVariablesTypes}>> = {}) => {
   return mutate<${operationResultType}, ${operationVariablesTypes}>(getApolloClient(), {
-    query: ${documentVariableName},
+    mutation: ${documentVariableName},
     context: {
       clientName: 'hasura',
     },
@@ -70,7 +70,7 @@ export const ${node?.name?.value}Mutate = (options: MutationOptions<${operationR
     operationVariablesTypes: string,
   ): string {
     return `
-export const ${node?.name?.value}WatchQuery = (options: WatchQueryOptions<${operationVariablesTypes}, ${operationResultType}> = {}) => {
+export const ${node?.name?.value}WatchQuery = (options: Partial<WatchQueryOptions<${operationVariablesTypes}, ${operationResultType}>> = {}) => {
   return watchQuery<${operationResultType}, ${operationVariablesTypes}>(getApolloClient(), {
     query: ${documentVariableName},
     context: {
