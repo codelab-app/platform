@@ -2,7 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../../../dist/out-tsc",
-    "types": ["node", "@rjsf/antd"]
+    "types": ["node", "@rjsf/antd", "object-mapper", "@xstate/react"]
   },
   "exclude": [
     "**/*.spec.ts",
