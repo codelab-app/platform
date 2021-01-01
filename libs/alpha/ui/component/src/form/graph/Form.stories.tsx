@@ -2,12 +2,12 @@ import { Theme as AntDTheme } from '@rjsf/antd'
 import { withTheme } from '@rjsf/core'
 import { JSONSchema7 } from 'json-schema'
 import React from 'react'
-import { requestJsonSchema } from '../../../../../../tools/json-schema-generator/src/generated/index'
 import { FormEdge } from './Form-edge'
 import { FormGraph } from './Form-graph'
 import { FormGraphVertices } from './Form-graph--vertices'
 import { FormVertex } from './Form-vertex'
 import { FormVertex as FormVertexV2 } from './Form-vertex-v2'
+import { requestJsonSchema } from '@codelab/tools/json-schema-generator'
 
 export default {
   title: 'FormJson',
