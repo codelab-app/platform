@@ -52,9 +52,9 @@ describe('@codelab/schematics:use-case', () => {
     const expectedFiles = [
       'core/application/commands/CreateUserCommand.ts',
       'core/application/handlers/CreateUserCommandHandler.ts',
-      'core/application/services/CreateUserService.ts',
 
       // Use cases
+      'core/application/useCases/createUser/CreateUserService.ts',
       'core/application/useCases/createUser/CreateUserErrors.ts',
       'core/application/useCases/createUser/CreateUserRequest.ts',
       'core/application/useCases/createUser/CreateUserResponse.ts',

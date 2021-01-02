@@ -19,12 +19,9 @@ export class MoveNodeService implements MoveNodeUseCase {
   async execute(request: MoveNodeRequest): Promise<MoveNodeResponse> {
     const { graphId, type } = request
 
-    const graphOpt: Option<Graph> = await this.graphRepository.findGraphBy(
-      {
-        id: graphId,
-      },
-      true,
-    )
+    const graphOpt: Option<Graph> = await this.graphRepository.findGraphBy({
+      id: graphId,
+    })
 
     if (isNone(graphOpt)) {
       return left(new UpdateNodeErrors.GraphNotFoundError(graphId))

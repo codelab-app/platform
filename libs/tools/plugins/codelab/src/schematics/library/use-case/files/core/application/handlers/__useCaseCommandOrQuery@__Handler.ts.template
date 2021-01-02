@@ -3,7 +3,7 @@ import { <%= useCaseNamePascalCase %>Command } from '../commands/<%= useCaseName
 import { <%= handlerType %>, I<%= handlerType %> } from '@nestjs/cqrs'
 import { fold } from 'fp-ts/lib/Either'
 import { <%= moduleNamePascalCase %>DITokens } from '../../../framework/<%= moduleNamePascalCase %>DITokens'
-import { <%= useCaseNamePascalCase %>UseCase } from '../useCases/<%=useCaseName%>/<%= useCaseNamePascalCase %>UseCase'
+import { <%= useCaseNamePascalCase %>UseCase } from '../useCases/<%=useCaseFolderName%>/<%= useCaseNamePascalCase %>UseCase'
 import { Result } from '@codelab/backend'
 import { <%= moduleNamePascalCase %> } from '../../domain/<%= moduleName %>'
 

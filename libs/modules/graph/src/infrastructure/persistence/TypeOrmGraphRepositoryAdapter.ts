@@ -25,19 +25,10 @@ export class TypeOrmGraphRepositoryAdapter
     return plainToClass(Graph, newGraph)
   }
 
-  async findGraphBy(
-    by: FindGraphBy,
-    includeRelations?: boolean,
-  ): Promise<Option<Graph>> {
-    let typeOrmGraph
-
-    if (includeRelations) {
-      typeOrmGraph = await this.findOne(by.id, {
-        relations: ['vertices', 'edges'],
-      })
-    } else {
-      typeOrmGraph = await this.findOne(by.id)
-    }
+  async findGraphBy(by: FindGraphBy): Promise<Option<Graph>> {
+    const typeOrmGraph = await this.findOne(by.id, {
+      relations: ['vertices', 'edges'],
+    })
 
     const graph: Graph = plainToClass(Graph, typeOrmGraph)
 
