@@ -1,10 +1,10 @@
 import { plainToClass } from 'class-transformer'
-import { Option, isNone } from 'fp-ts/Option'
+import { Option, fold, isNone } from 'fp-ts/Option'
+import { pipe } from 'fp-ts/function'
 import { left, right } from 'fp-ts/lib/Either'
 import { EdgeRepositoryPort } from '../../adapters/EdgeRepositoryPort'
 import { GraphRepositoryPort } from '../../adapters/GraphRepositoryPort'
 import { VertexRepositoryPort } from '../../adapters/VertexRepositoryPort'
-import { SerializedEdgeDto } from '../../domain/edge/dto/SerializedEdgeDto'
 import { Edge } from '../../domain/edge/edge'
 import { Graph } from '../../domain/graph/graph'
 import { Vertex } from '../../domain/vertex/vertex'
@@ -22,73 +22,51 @@ export class AddChildNodeService implements AddChildNodeUseCase {
   ) {}
 
   async execute(request: AddChildNodeRequest): Promise<AddChildNodeResponse> {
-    const { graphId, parentVertexId, order } = request
-    const newVertex = request.vertex
-    const error = left(new AddChildNodeErrors.GraphNotFoundError(graphId))
+    const { graphId, parentVertexId, vertex, order } = request
 
-    let graphOpt: Option<Graph> = await this.graphRepository.findGraphBy(
-      {
-        id: graphId,
-      },
-      true,
-    )
+    const graph: Option<Graph> = await this.graphRepository.findGraphBy({
+      id: graphId,
+    })
 
-    if (isNone(graphOpt)) {
-      return error
+    if (isNone(graph)) {
+      return left(new AddChildNodeErrors.GraphNotFoundError(graphId))
     }
 
-    // If no parentVertexId is provided, we just create a vertex
-    // TODO: This will be changed when we create a page with root vertex
-    const graph: Graph = graphOpt.value
-    const vertex: Vertex = plainToClass(Vertex, newVertex)
-    const savedVertex: Vertex = await this.vertexRepository.createVertex(
-      vertex,
-      graph,
-    )
+    const parentVertexExists = await this.vertexRepository.exists({
+      id: parentVertexId,
+    })
 
-    graphOpt = await this.graphRepository.findGraphBy(
-      {
-        id: graphId,
-      },
-      true,
-    )
-
-    if (isNone(graphOpt)) {
-      return error
+    if (!parentVertexExists) {
+      return left(new AddChildNodeErrors.VertexNotFoundError(parentVertexId))
     }
 
-    if (parentVertexId) {
-      // Create Vertex and connect via edge
-      const vertexExists = await this.vertexRepository.exists({
-        id: parentVertexId,
-      })
+    /**
+     * After all invariant checks
+     */
+    const newVertex = await this.vertexRepository.createVertex(
+      plainToClass(Vertex, vertex),
+      graph.value,
+    )
 
-      if (!vertexExists) {
-        return left(new AddChildNodeErrors.VertexNotFoundError(parentVertexId))
-      }
+    const newEdge: Edge = Edge.create({
+      source: parentVertexId,
+      target: newVertex.toPlain().id as string,
+      order: order || 0,
+      props: {},
+    })
 
-      const newEdgeDto: SerializedEdgeDto = {
-        source: parentVertexId,
-        target: savedVertex.toPlain().id as string,
-        order: order || 0,
-        props: newVertex.props,
-      }
+    await this.edgeRepository.createEdge(newEdge, graph.value)
 
-      const newEdge: Edge = Edge.hydrate(newEdgeDto)
+    const newGraph = await this.graphRepository.findGraphBy({
+      id: graphId,
+    })
 
-      await this.edgeRepository.createEdge(newEdge, graph)
-      graphOpt = await this.graphRepository.findGraphBy(
-        {
-          id: graphId,
-        },
-        true,
-      )
-
-      if (isNone(graphOpt)) {
-        return error
-      }
-    }
-
-    return right(Result.ok(graphOpt.value))
+    return pipe(
+      newGraph,
+      fold(
+        () => left(new AddChildNodeErrors.GraphNotFoundError(graphId)),
+        (g) => right(Result.ok(g)),
+      ),
+    )
   }
 }

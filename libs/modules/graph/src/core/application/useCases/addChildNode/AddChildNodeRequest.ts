@@ -8,7 +8,7 @@ export class AddChildNodeRequest {
   declare graphId: string
 
   @Field((returns) => String, { nullable: true })
-  declare parentVertexId?: VertexID
+  declare parentVertexId: VertexID
 
   @Field((returns) => AddChildNodeVertexType)
   declare vertex: AddChildNodeVertexType

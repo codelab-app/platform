@@ -12,8 +12,8 @@ export class CreateGraphService implements CreateGraphUseCase {
   async execute(request: CreateGraphRequest): Promise<CreateGraphResponse> {
     const graph = Graph.create(request)
 
-    const persistedGraph = await this.graphRepository.createGraph(graph)
+    const newGraph = await this.graphRepository.createGraph(graph)
 
-    return right(Result.ok(persistedGraph))
+    return right(Result.ok(newGraph))
   }
 }
