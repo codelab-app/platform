@@ -1,8 +1,28 @@
 import { CqrsModule } from '@nestjs/cqrs'
 import { Module } from '@nestjs/common'
 
+export const persistenceProviders: Array<Provider> = [
+{
+    provide: <%= moduleNamePascalCase %>DITokens.<%= moduleNamePascalCase %>Repository,
+    useFactory: (connection) =>
+      connection.getCustomRepository(TypeOrm<%= moduleNamePascalCase %>RepositoryAdapter),
+    inject: [Connection],
+  },
+  <%= moduleNamePascalCase %>CommandQueryAdapter,
+]
+
+export const useCaseProviders: Array<Provider> = [
+]
+
+export const handlerProviders: Array<Provider> = [
+]
+
 @Module({
   imports: [CqrsModule],
-  providers: [],
+  providers: [
+    ...persistenceProviders,
+    ...useCaseProviders,
+    ...handlerProviders,
+  ],
 })
-export class <%= moduleName %>Module {}
+export class <%= moduleNamePascalCase %>Module {}

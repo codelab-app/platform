@@ -7,18 +7,18 @@ import {
   UseCaseRequestPort,
 } from '@codelab/backend'
 
-@Resolver(() => TypeOrm<%= moduleName %>)
+@Resolver(() => TypeOrm<%= moduleNamePascalCase %>)
 @Injectable()
-export class <%= moduleName %>CommandQueryAdapter implements CommandQueryBusPort {
+export class <%= moduleNamePascalCase %>CommandQueryAdapter implements CommandQueryBusPort {
   constructor(
     readonly commandBus: CommandBus<UseCaseRequestPort>,
     readonly queryBus: QueryBus<UseCaseRequestPort>,
   ) {}
 
   /**
-    @Query(() => [<%= moduleName %>QueryUseCaseDto])
-    async <%= name %>s() {
-      const results = await this.queryBus.execute(new Get<%= moduleName %>Query())
+    @Query(() => [<%= moduleNamePascalCase %>QueryUseCaseDto])
+    async <%= name %>() {
+      const results = await this.queryBus.execute(new Get<%= moduleNamePascalCase %>Query())
 
       return <%= moduleName %>.arrayToPlain(results)
     }

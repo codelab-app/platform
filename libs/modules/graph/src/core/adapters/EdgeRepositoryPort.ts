@@ -5,10 +5,10 @@ import { Graph } from '../domain/graph/graph'
 
 export interface EdgeRepositoryPort {
   createEdge(edge: Edge, graph?: Graph): Promise<Edge>
-  // findAll(): Promise<Array<Edge>>
   deleteEdge(edge: Edge): Promise<Option<Edge>>
+  deleteEdgesByVertexId(vertexId: string): Promise<Array<Edge>>
   updateEdge(edge: Edge): Promise<Edge>
+  updateEdges(edges: Array<Edge>): Promise<Array<Edge>>
   exists(by: FindEdgeBy): Promise<boolean>
   findEdge(by: FindEdgeBy): Promise<Option<Edge>>
-  // findEdges(by: FindEdgeBy): Promise<Array<Edge>>
 }

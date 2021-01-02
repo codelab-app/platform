@@ -1,8 +1,8 @@
 import { EntityRepository, Repository } from 'typeorm'
-import { <%= moduleName %>RepositoryPort } from '../../core/adapters/<%= moduleName %>RepositoryPort'
+import { <%= moduleNamePascalCase %>RepositoryPort } from '../../core/adapters/<%= moduleNamePascalCase %>RepositoryPort'
 
 
-@EntityRepository(TypeOrm<%= moduleName %>)
-export class TypeOrm<%= moduleName %>RepositoryAdapter
-  extends Repository<TypeOrm<%= moduleName %>>
-  implements <%= moduleName %>RepositoryPort {}
+@EntityRepository(TypeOrm<%= moduleNamePascalCase %>)
+export class TypeOrm<%= moduleNamePascalCase %>RepositoryAdapter
+  extends Repository<TypeOrm<%= moduleNamePascalCase %>>
+  implements <%= moduleNamePascalCase %>RepositoryPort {}

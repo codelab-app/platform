@@ -6,6 +6,7 @@ import { <%= useCaseNamePascalCase %>Request } from '../useCases/<%= useCaseName
 import { <%= useCaseNamePascalCase %>Response } from '../useCases/<%= useCaseName %>/<%= useCaseNamePascalCase %>Response'
 import { <%= useCaseNamePascalCase %>UseCase } from '../useCases/<%= useCaseName %>/<%= useCaseNamePascalCase %>UseCase'
 import { Result } from '@codelab/backend'
+import { Option, isNone } from 'fp-ts/Option'
 
 
 export class <%= useCaseNamePascalCase %>Service implements <%= useCaseNamePascalCase %>UseCase {
@@ -27,5 +28,6 @@ export class <%= useCaseNamePascalCase %>Service implements <%= useCaseNamePasca
     // const persisted<%= moduleNamePascalCase %> = await this.<%= moduleName %>Repository.<%= useCaseName %>(<%= moduleName %>)
 
     // return right(Result.ok(persisted<%= moduleNamePascalCase %>))
+    return Promise.reject()
   }
 }

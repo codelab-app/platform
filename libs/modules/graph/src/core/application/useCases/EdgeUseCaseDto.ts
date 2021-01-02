@@ -14,4 +14,7 @@ export class EdgeUseCaseDto {
 
   @Field((returns) => GraphQLJSONObject)
   public declare props: any
+
+  @Field()
+  public declare order: number
 }

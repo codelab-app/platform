@@ -3,10 +3,16 @@ import { CqrsModule } from '@nestjs/cqrs'
 import { Connection } from 'typeorm'
 import { AddChildNodeCommandHandler } from '../../core/application/handlers/AddChildNodeCommandHandler'
 import { CreateGraphCommandHandler } from '../../core/application/handlers/CreateGraphCommandHandler'
+import { DeleteNodeCommandHandler } from '../../core/application/handlers/DeleteNodeCommandHandler'
 import { GetGraphQueryHandler } from '../../core/application/handlers/GetGraphQueryHandler'
+import { MoveNodeCommandHandler } from '../../core/application/handlers/MoveNodeCommandHandler'
+import { UpdateNodeCommandHandler } from '../../core/application/handlers/UpdateNodeCommandHandler'
 import { AddChildNodeService } from '../../core/application/services/AddChildNodeService'
 import { CreateGraphService } from '../../core/application/services/CreateGraphService'
+import { DeleteNodeService } from '../../core/application/services/DeleteNodeService'
 import { GetGraphService } from '../../core/application/services/GetGraphService'
+import { MoveNodeService } from '../../core/application/services/MoveNodeService'
+import { UpdateNodeService } from '../../core/application/services/UpdateNodeService'
 import { TypeOrmEdgeRepositoryAdapter } from '../../infrastructure/persistence/TypeOrmEdgeRepositoryAdapter'
 import { TypeOrmGraphRepositoryAdapter } from '../../infrastructure/persistence/TypeOrmGraphRepositoryAdapter'
 import { TypeOrmVertexRepositoryAdapter } from '../../infrastructure/persistence/TypeOrmVertexRepositoryAdapter'
@@ -41,19 +47,36 @@ export const persistenceProviders: Array<Provider> = [
 
 const useCaseProviders: Array<Provider> = [
   {
-    provide: GraphDITokens.CreateGraphUseCase,
-    useFactory: (graphRepository) => new CreateGraphService(graphRepository),
-    inject: [GraphDITokens.GraphRepository],
+    provide: GraphDITokens.MoveNodeUseCase,
+    useFactory: (graphRepository, edgeRepository) =>
+      new MoveNodeService(graphRepository, edgeRepository),
+    inject: [GraphDITokens.GraphRepository, EdgeDITokens.EdgeRepository],
   },
   {
-    provide: GraphDITokens.GetGraphUseCase,
+    provide: GraphDITokens.DeleteNodeUseCase,
     useFactory: (graphRepository, vertexRepository, edgeRepository) =>
-      new GetGraphService(graphRepository, vertexRepository, edgeRepository),
+      new DeleteNodeService(graphRepository, vertexRepository, edgeRepository),
     inject: [
       GraphDITokens.GraphRepository,
       VertexDITokens.VertexRepository,
       EdgeDITokens.EdgeRepository,
     ],
+  },
+  {
+    provide: GraphDITokens.GetGraphUseCase,
+    useFactory: (graphRepository) => new GetGraphService(graphRepository),
+    inject: [GraphDITokens.GraphRepository],
+  },
+  {
+    provide: GraphDITokens.UpdateNodeUseCase,
+    useFactory: (graphRepository, vertexRepository) =>
+      new UpdateNodeService(graphRepository, vertexRepository),
+    inject: [GraphDITokens.GraphRepository, VertexDITokens.VertexRepository],
+  },
+  {
+    provide: GraphDITokens.CreateGraphUseCase,
+    useFactory: (graphRepository) => new CreateGraphService(graphRepository),
+    inject: [GraphDITokens.GraphRepository],
   },
   {
     provide: GraphDITokens.AddChildNodeUseCase,
@@ -72,8 +95,11 @@ const useCaseProviders: Array<Provider> = [
 ]
 
 export const handlerProviders: Array<Provider> = [
-  CreateGraphCommandHandler,
+  MoveNodeCommandHandler,
+  DeleteNodeCommandHandler,
   GetGraphQueryHandler,
+  UpdateNodeCommandHandler,
+  CreateGraphCommandHandler,
   AddChildNodeCommandHandler,
 ]
 
@@ -81,8 +107,8 @@ export const handlerProviders: Array<Provider> = [
   imports: [CqrsModule, VertexModule, EdgeModule],
   providers: [
     ...persistenceProviders,
-    // ...useCaseProviders,
-    // ...handlerProviders,
+    ...useCaseProviders,
+    ...handlerProviders,
   ],
 })
 export class GraphModule {}

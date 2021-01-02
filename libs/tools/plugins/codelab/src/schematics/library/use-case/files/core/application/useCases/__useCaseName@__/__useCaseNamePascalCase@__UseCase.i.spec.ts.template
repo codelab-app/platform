@@ -5,6 +5,7 @@ import {Connection} from 'typeorm';
 
 describe('<%= useCaseNamePascalCase %>UseCase', () => {
   let app: INestApplication
+  let connection: Connection
 
   beforeAll(async () => {
     const testModule = await Test.createTestingModule({
@@ -12,12 +13,15 @@ describe('<%= useCaseNamePascalCase %>UseCase', () => {
     }).compile()
 
     app = testModule.createNestApplication()
+    connection = app.get(Connection)
     await app.init()
   })
 
-  afterAll(async () => {
-    const connection = app.get(Connection)
+  beforeEach(async () => {
+      await connection.query('DELETE FROM graph')
+    })
 
+  afterAll(async () => {
     await connection.close()
     await app.close()
   })

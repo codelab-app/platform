@@ -1,5 +1,5 @@
 import { ObjectType } from '@nestjs/graphql'
-import { Column, Entity, OneToMany } from 'typeorm'
+import { AfterLoad, Column, Entity, OneToMany } from 'typeorm'
 import { IGraph } from '../../../graphql/models/IGraph'
 import { EntityConfig } from '../../config/EntityConfig'
 import { BaseTypeOrm } from './BaseTypeOrm'
@@ -23,26 +23,27 @@ export class TypeOrmGraph extends BaseTypeOrm {
   // @ManyToOne((type) => TypeOrmUser, (user) => user.graphs)
   // declare user: TypeOrmUser
 
-  // @AfterLoad()
-  // setVertexParent() {
-  //   this.edges.forEach((edge: TypeOrmEdge) => {
-  //     const v: TypeOrmVertex | undefined = this.vertices.find(
-  //       (vertex: TypeOrmVertex) => {
-  //         return vertex.id === edge.target
-  //       },
-  //     )
-  //
-  //     if (v) {
-  //       v.parent = edge.source
-  //     }
-  //   })
-  // }
+  @AfterLoad()
+  setVertexParent() {
+    this.edges?.forEach((edge: TypeOrmEdge) => {
+      const v: TypeOrmVertex | undefined = this.vertices?.find(
+        (vertex: TypeOrmVertex) => {
+          return vertex.id === edge.target
+        },
+      )
 
-  // sortEdges() {
-  //   this.edges.sort((a, b) => {
-  //     return a.order - b.order
-  //   })
-  // }
+      if (v) {
+        v.parent = edge.source
+      }
+    })
+    this.sortEdges()
+  }
+
+  sortEdges() {
+    this.edges?.sort((a, b) => {
+      return a.order - b.order
+    })
+  }
 
   // addVertex(v: TypeOrmVertex): void {
   //   if (!this.hasVertex(v.id)) {

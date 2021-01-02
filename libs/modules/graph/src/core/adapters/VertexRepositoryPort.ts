@@ -5,10 +5,8 @@ import { Vertex } from '../domain/vertex'
 
 export interface VertexRepositoryPort {
   createVertex(vertex: Vertex, graph?: Graph): Promise<Vertex>
-  // findAll(): Promise<Array<Vertex>>
-  deleteVertex(Vertex: Vertex): Promise<Option<Vertex>>
-  updateVertex(vertex: Vertex): Promise<Vertex>
+  deleteVertex(vertexId: string): Promise<Option<Vertex>>
+  updateVertex(vertex: Vertex): Promise<Option<Vertex>>
   exists(by: FindVertexBy): Promise<boolean>
   findVertex(by: FindVertexBy): Promise<Option<Vertex>>
-  // findVertices(by: FindVertexBy): Promise<Array<Vertex>>
 }

@@ -1,1 +1,1 @@
-export interface <%= moduleName %>RepositoryPort {}
+export interface <%= moduleNamePascalCase %>RepositoryPort {}

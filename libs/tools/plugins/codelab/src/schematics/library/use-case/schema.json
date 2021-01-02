@@ -6,7 +6,6 @@
   "properties": {
     "useCaseName": {
       "type": "string",
-      // Can only have 1 of this
       "$default": {
         "$source": "argv",
         "index": 0
@@ -18,7 +17,30 @@
       "type": "string",
       "description": "Module under which the use cases will be created",
       "x-prompt": "What module is this for?"
+    },
+    "resolverMethodName": {
+      "type": "string",
+      "description": "Resolver method name",
+      "x-prompt": "Enter resolver method name"
+    },
+    "resolverType": {
+      "type": "string",
+      "description": "Query or Mutation",
+      "x-prompt": {
+        "message": "Query or Mutation for this Use Case",
+        "type": "list",
+        "items": [
+          {
+            "value": "Query",
+            "label": "Query"
+          },
+          {
+            "value": "Mutation",
+            "label": "Mutation"
+          }
+        ]
+      }
     }
   },
-  "required": ["useCaseName", "moduleName"]
+  "required": ["useCaseName", "moduleName", "resolverMethodName"]
 }

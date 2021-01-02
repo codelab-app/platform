@@ -14,7 +14,9 @@ describe('@codelab/schematics:use-case', () => {
   let tree: UnitTestTree
 
   const options: UseCaseSchematicSchema = {
-    moduleName: 'user',
+    moduleName: 'userss',
+    resolverType: 'Mutation',
+    resolverMethodName: 'createUser',
     useCaseName: 'createUser',
   }
 
@@ -30,14 +32,14 @@ describe('@codelab/schematics:use-case', () => {
     tree = await testRunner
       .runSchematicAsync<DomainModuleSchematicSchema>(
         'domain-module',
-        { name: 'user' },
+        { name: 'userss' },
         appTree,
       )
       .toPromise()
+
     tree = await testRunner
       .runSchematicAsync<UseCaseSchematicSchema>('use-case', options, tree)
       .toPromise()
-
     console.log(tree.files)
     // Calls from dist
     // appTree = await callRule(

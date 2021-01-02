@@ -1,7 +1,7 @@
 import { Type, classToPlain, plainToClass } from 'class-transformer'
-import { CreateUserRequest } from '../application/useCases/createUser/CreateUserRequest'
 import { UpdateUserRequest } from '../application/useCases/updateUser/UpdateUserRequest'
 import { SerializedUserDto } from './dto/SerializedUserDto'
+import { UserAccessToken } from './user-accessToken'
 import { UserEmail } from './user-email'
 import { UserPassword } from './user-password'
 import { AggregateRoot, TransformBoth } from '@codelab/backend'
@@ -18,6 +18,10 @@ export class User extends AggregateRoot<SerializedUserDto> {
   // @Exclude({ toPlainOnly: true })
   declare password: UserPassword
 
+  @Type(() => UserAccessToken)
+  @TransformBoth(UserAccessToken)
+  declare accessToken: UserAccessToken
+
   /**
    * Used for instantiating a User object
    * @param props
@@ -32,7 +36,7 @@ export class User extends AggregateRoot<SerializedUserDto> {
    * Used for creating User
    * @param request
    */
-  public static create(request: CreateUserRequest): User {
+  public static create(request: any): User {
     const user = User.hydrate(request)
 
     user.password.hashPassword()

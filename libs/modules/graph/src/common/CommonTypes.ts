@@ -21,8 +21,16 @@ export type FindVertexByID = {
 // Find Edge
 export type EdgeID = string
 
-export type FindEdgeBy = FindEdgeByID
+export type FindEdgeBy = FindEdgeByID | FindEdgeBySource | FindEdgeByTarget
 
 export type FindEdgeByID = {
   id: EdgeID
+}
+
+export type FindEdgeBySource = {
+  source: VertexID
+}
+
+export type FindEdgeByTarget = {
+  target: VertexID
 }

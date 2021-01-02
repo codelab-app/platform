@@ -1,7 +1,7 @@
 import { Inject } from '@nestjs/common'
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs'
 import { fold } from 'fp-ts/Either'
-import { UserDITokens } from '../../../framework/UserDITokens'
+import { UsersDITokens } from '../../../framework/UsersDITokens'
 import { User } from '../../domain/user'
 import { DeleteUserCommand } from '../commands/DeleteUserCommand'
 import { DeleteUserUseCase } from '../useCases/deleteUser/DeleteUserUseCase'
@@ -11,7 +11,7 @@ import { Result } from '@codelab/backend'
 export class DeleteUserCommandHandler
   implements ICommandHandler<DeleteUserCommand> {
   constructor(
-    @Inject(UserDITokens.DeleteUserUseCase)
+    @Inject(UsersDITokens.DeleteUserUseCase)
     private readonly service: DeleteUserUseCase,
   ) {}
 

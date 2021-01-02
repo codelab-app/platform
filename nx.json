@@ -195,6 +195,9 @@
     },
     "modules-page": {
       "tags": []
+    },
+    "modules-auth": {
+      "tags": []
     }
   }
 }
