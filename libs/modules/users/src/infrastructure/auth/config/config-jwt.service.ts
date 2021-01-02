@@ -1,19 +1,16 @@
 import { Injectable } from '@nestjs/common'
-import {
-  JwtModuleOptions,
-  JwtOptionsFactory,
-} from '@nestjs/jwt/dist/interfaces/jwt-module-options.interface'
-import { JwtConfig } from '@codelab/backend'
+import { JwtModuleOptions, JwtOptionsFactory } from '@nestjs/jwt'
+import { JwtConfig } from './JwtConfig'
 
 @Injectable()
 export class ConfigJwtService implements JwtOptionsFactory {
-  createJwtOptions(): Promise<JwtModuleOptions> | JwtModuleOptions {
+  createJwtOptions(): JwtModuleOptions {
     return {
       secret: JwtConfig.JWT_SECRET,
       signOptions: {
         algorithm: 'HS512',
         expiresIn: JwtConfig.JWT_EXPIRY,
       },
-    } as JwtModuleOptions
+    }
   }
 }

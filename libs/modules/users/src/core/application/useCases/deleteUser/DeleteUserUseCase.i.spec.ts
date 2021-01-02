@@ -2,8 +2,8 @@ import { INestApplication } from '@nestjs/common'
 import { Test } from '@nestjs/testing'
 import request from 'supertest'
 import { Connection } from 'typeorm'
+import { UsersModule } from '../../../../framework/nestjs/UsersModule'
 import { TestInfrastructureModule } from '@codelab/backend'
-import { UsersModule } from '@codelab/modules/users'
 
 describe.skip('DeleteUserUseCase', () => {
   let app: INestApplication

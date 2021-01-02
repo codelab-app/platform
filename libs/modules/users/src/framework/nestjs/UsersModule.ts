@@ -8,14 +8,15 @@ import { GetUsersQueryHandler } from '../../core/application/handlers/GetUsersQu
 import { LoginUserQueryHandler } from '../../core/application/handlers/LoginUserQueryHandler'
 import { RegisterUserCommandHandler } from '../../core/application/handlers/RegisterUserCommandHandler'
 import { UpdateUserCommandHandler } from '../../core/application/handlers/UpdateUserCommandHandler'
-import { DeleteUserService } from '../../core/application/services/DeleteUserService'
-import { GetUserService } from '../../core/application/services/GetUserService'
-import { LoginUserService } from '../../core/application/services/LoginUserService'
-import { RegisterUserService } from '../../core/application/services/RegisterUserService'
-import { UpdateUserService } from '../../core/application/services/UpdateUserService'
+import { DeleteUserService } from '../../core/application/useCases/deleteUser/DeleteUserService'
+import { GetUserService } from '../../core/application/useCases/getUser/GetUserService'
+import { LoginUserService } from '../../core/application/useCases/loginUser/LoginUserService'
+import { RegisterUserService } from '../../core/application/useCases/registerUser/RegisterUserService'
+import { UpdateUserService } from '../../core/application/useCases/updateUser/UpdateUserService'
 import { TypeOrmUserRepositoryAdapter } from '../../infrastructure/persistence/TypeOrmUserRepositoryAdapter'
 import { UsersCommandQueryAdapter } from '../../presentation/controllers/UsersCommandQueryAdapter'
 import { UsersDITokens } from '../UsersDITokens'
+import { AuthModule } from './auth.module'
 import { TypeOrmUser } from '@codelab/backend'
 
 export const persistenceProviders: Array<Provider> = [
@@ -67,7 +68,7 @@ export const handlerProviders: Array<Provider> = [
 ]
 
 @Module({
-  imports: [CqrsModule, TypeOrmModule.forFeature([TypeOrmUser])],
+  imports: [CqrsModule, AuthModule, TypeOrmModule.forFeature([TypeOrmUser])],
   providers: [
     ...persistenceProviders,
     ...useCaseProviders,

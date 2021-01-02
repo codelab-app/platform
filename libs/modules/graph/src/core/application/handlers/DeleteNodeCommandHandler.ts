@@ -4,7 +4,7 @@ import { fold } from 'fp-ts/lib/Either'
 import { GraphDITokens } from '../../../framework/GraphDITokens'
 import { Graph } from '../../domain/graph'
 import { DeleteNodeCommand } from '../commands/DeleteNodeCommand'
-import { DeleteNodeUseCase } from '../useCases/DeleteNode/DeleteNodeUseCase'
+import { DeleteNodeUseCase } from '../useCases/deleteNode/DeleteNodeUseCase'
 import { Result } from '@codelab/backend'
 
 @CommandHandler(DeleteNodeCommand)

@@ -4,7 +4,7 @@ import { fold } from 'fp-ts/lib/Either'
 import { UsersDITokens } from '../../../framework/UsersDITokens'
 import { User } from '../../domain/user'
 import { LoginUserQuery } from '../commands/LoginUserQuery'
-import { LoginUserUseCase } from '../useCases/LoginUser/LoginUserUseCase'
+import { LoginUserUseCase } from '../useCases/loginUser/LoginUserUseCase'
 import { Result } from '@codelab/backend'
 
 @QueryHandler(LoginUserQuery)

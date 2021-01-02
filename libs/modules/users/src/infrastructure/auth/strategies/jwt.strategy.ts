@@ -3,14 +3,11 @@ import { ModuleRef } from '@nestjs/core'
 import { JwtService } from '@nestjs/jwt'
 import { PassportStrategy } from '@nestjs/passport'
 import { ExtractJwt, Strategy } from 'passport-jwt'
-import { SerializedUserDto } from '../../../users/src/core/domain/dto/SerializedUserDto'
-import { Itoken } from './Itoken'
-import { JwtConfig } from '@codelab/backend'
+import { IToken } from '../IToken'
+import { JwtConfig } from '../config/JwtConfig'
 
 @Injectable()
-export class JwtStrategy
-  extends PassportStrategy(Strategy, 'jwt')
-  implements OnModuleInit {
+export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
   // private declare userService: UserService
 
   constructor(private jwtService: JwtService, private moduleRef: ModuleRef) {
@@ -28,7 +25,7 @@ export class JwtStrategy
     let token = payload.headers.authorization
 
     token = token.replace('Bearer', '').trim()
-    const decodedToken = this.jwtService.decode(token) as Itoken
+    const decodedToken = this.jwtService.decode(token) as IToken
 
     // return this.userService.findOne(decodedToken.sub)
   }
@@ -43,8 +40,8 @@ export class JwtStrategy
     //   throw new UnauthorizedException('Token expired');
     // }
 
-    delete user.iat
-    delete user.exp
+    // delete user.iat
+    // delete user.exp
 
     return this.jwtService.sign({
       username: user.username,
@@ -57,8 +54,7 @@ export class JwtStrategy
     })
   }
 
-  // async getToken(user: UserEntity) {
-  async getToken(user: SerializedUserDto) {
+  async getToken(user: any) {
     const payload = {
       username: user.email,
       sub: user.id,
@@ -84,9 +80,5 @@ export class JwtStrategy
     }
 
     return this.jwtService.sign(payload)
-  }
-
-  onModuleInit(): any {
-    // this.userService = this.moduleRef.get(UserService, { strict: false })
   }
 }

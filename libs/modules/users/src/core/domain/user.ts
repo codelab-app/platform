@@ -22,6 +22,10 @@ export class User extends AggregateRoot<SerializedUserDto> {
   @TransformBoth(UserAccessToken)
   declare accessToken: UserAccessToken
 
+  set setAccessToken(token: string) {
+    this.accessToken = new UserAccessToken({ value: token })
+  }
+
   /**
    * Used for instantiating a User object
    * @param props
@@ -52,7 +56,7 @@ export class User extends AggregateRoot<SerializedUserDto> {
     return classToPlain(this) as SerializedUserDto
   }
 
-  public static arrayToPlain(users: Array<User>) {
-    return classToPlain(users) as Array<SerializedUserDto>
-  }
+  // public static arrayToPlain(users: Array<User>) {
+  //   return classToPlain(users) as Array<SerializedUserDto>
+  // }
 }

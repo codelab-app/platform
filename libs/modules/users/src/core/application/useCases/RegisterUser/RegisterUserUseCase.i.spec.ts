@@ -2,8 +2,8 @@ import { INestApplication } from '@nestjs/common'
 import { Test } from '@nestjs/testing'
 import request from 'supertest'
 import { Connection } from 'typeorm'
+import { AuthModule } from '../../../../framework/nestjs/auth.module'
 import { TestInfrastructureModule } from '@codelab/backend'
-import { AuthModule } from '@codelab/modules/auth'
 import { UsersModule } from '@codelab/modules/users'
 
 const email = 'test_user@codelab.ai'
@@ -17,7 +17,7 @@ const registerUserMutation = `
       }) { email accessToken }
 }`
 
-describe.skip('RegisterUserUseCase', () => {
+describe('RegisterUserUseCase', () => {
   let app: INestApplication
   let connection: Connection
 
@@ -48,7 +48,7 @@ describe.skip('RegisterUserUseCase', () => {
       })
       .expect(200)
       .expect((res) => {
-        expect(res.body.data.signup.email).toEqual(email)
+        expect(res.body.data.registerUser.email).toEqual(email)
       })
   })
 
@@ -60,7 +60,7 @@ describe.skip('RegisterUserUseCase', () => {
       })
       .expect(200)
       .expect((res) => {
-        expect(res.body.data.signup.email).toEqual(email)
+        expect(res.body.data.registerUser.email).toEqual(email)
       })
 
     const createExistingUser = await request(app.getHttpServer())

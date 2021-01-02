@@ -1,4 +1,4 @@
-import { UpdateNodeRequest } from '../useCases/UpdateNode/UpdateNodeRequest'
+import { UpdateNodeRequest } from '../useCases/updateNode/UpdateNodeRequest'
 import { UseCaseRequestPort } from '@codelab/backend'
 
 export class UpdateNodeCommand

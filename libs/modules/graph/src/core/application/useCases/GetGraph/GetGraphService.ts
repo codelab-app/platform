@@ -1,11 +1,11 @@
 import { Option, isNone } from 'fp-ts/Option'
 import { left, right } from 'fp-ts/lib/Either'
-import { GraphRepositoryPort } from '../../adapters/GraphRepositoryPort'
-import { Graph } from '../../domain/graph'
-import { GetGraphErrors } from '../useCases/GetGraph/GetGraphErrors'
-import { GetGraphRequest } from '../useCases/GetGraph/GetGraphRequest'
-import { GetGraphResponse } from '../useCases/GetGraph/GetGraphResponse'
-import { GetGraphUseCase } from '../useCases/GetGraph/GetGraphUseCase'
+import { GraphRepositoryPort } from '../../../adapters/GraphRepositoryPort'
+import { Graph } from '../../../domain/graph'
+import { GetGraphErrors } from './GetGraphErrors'
+import { GetGraphRequest } from './GetGraphRequest'
+import { GetGraphResponse } from './GetGraphResponse'
+import { GetGraphUseCase } from './GetGraphUseCase'
 import { Result } from '@codelab/backend'
 
 export class GetGraphService implements GetGraphUseCase {

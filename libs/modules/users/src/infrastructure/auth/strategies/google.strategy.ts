@@ -8,8 +8,8 @@ import {
   StrategyOptionsWithRequest,
   VerifyCallback,
 } from 'passport-google-oauth20'
-import { IGoogleUser } from './IGoogleUser'
-import { GoogleConfig } from '@codelab/backend'
+import { IGoogleUser } from '../IGoogleUser'
+import { GoogleConfig } from '../config/GoogleConfig'
 
 @Injectable()
 export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {

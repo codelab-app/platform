@@ -4,7 +4,7 @@ import { fold } from 'fp-ts/lib/Either'
 import { GraphDITokens } from '../../../framework/GraphDITokens'
 import { Graph } from '../../domain/graph'
 import { GetGraphQuery } from '../queries/GetGraphQuery'
-import { GetGraphUseCase } from '../useCases/GetGraph/GetGraphUseCase'
+import { GetGraphUseCase } from '../useCases/getGraph/GetGraphUseCase'
 import { Result } from '@codelab/backend'
 
 @QueryHandler(GetGraphQuery)

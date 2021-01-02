@@ -1,9 +1,9 @@
 import { right } from 'fp-ts/lib/Either'
-import { GraphRepositoryPort } from '../../adapters/GraphRepositoryPort'
-import { Graph } from '../../domain/graph/graph'
-import { CreateGraphRequest } from '../useCases/createGraph/CreateGraphRequest'
-import { CreateGraphResponse } from '../useCases/createGraph/CreateGraphResponse'
-import { CreateGraphUseCase } from '../useCases/createGraph/CreateGraphUseCase'
+import { GraphRepositoryPort } from '../../../adapters/GraphRepositoryPort'
+import { Graph } from '../../../domain/graph/graph'
+import { CreateGraphRequest } from './CreateGraphRequest'
+import { CreateGraphResponse } from './CreateGraphResponse'
+import { CreateGraphUseCase } from './CreateGraphUseCase'
 import { Result } from '@codelab/backend'
 
 export class CreateGraphService implements CreateGraphUseCase {

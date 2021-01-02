@@ -4,7 +4,7 @@ import { fold } from 'fp-ts/lib/Either'
 import { GraphDITokens } from '../../../framework/GraphDITokens'
 import { Graph } from '../../domain/graph'
 import { MoveNodeCommand } from '../commands/MoveNodeCommand'
-import { MoveNodeUseCase } from '../useCases/MoveNode/MoveNodeUseCase'
+import { MoveNodeUseCase } from '../useCases/moveNode/MoveNodeUseCase'
 import { Result } from '@codelab/backend'
 
 @CommandHandler(MoveNodeCommand)

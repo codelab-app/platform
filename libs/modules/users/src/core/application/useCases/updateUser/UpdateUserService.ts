@@ -1,12 +1,12 @@
 import { option } from 'fp-ts'
 import { Option } from 'fp-ts/Option'
 import { left, right } from 'fp-ts/lib/Either'
-import { UserRepositoryPort } from '../../adapters/UserRepositoryPort'
-import { User } from '../../domain/user'
-import { EditUserErrors } from '../useCases/updateUser/UpdateUserErrors'
-import { UpdateUserRequest } from '../useCases/updateUser/UpdateUserRequest'
-import { UpdateUserResponse } from '../useCases/updateUser/UpdateUserResponse'
-import { UpdateUserUseCase } from '../useCases/updateUser/UpdateUserUseCase'
+import { UserRepositoryPort } from '../../../adapters/UserRepositoryPort'
+import { User } from '../../../domain/user'
+import { EditUserErrors } from './UpdateUserErrors'
+import { UpdateUserRequest } from './UpdateUserRequest'
+import { UpdateUserResponse } from './UpdateUserResponse'
+import { UpdateUserUseCase } from './UpdateUserUseCase'
 import { Result } from '@codelab/backend'
 
 export class UpdateUserService implements UpdateUserUseCase {

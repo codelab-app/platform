@@ -4,7 +4,7 @@ export interface IHasuraClaims {
   'x-hasura-user-id': string
 }
 
-export interface Itoken {
+export interface IToken {
   username: string
   sub: string
   iat: number

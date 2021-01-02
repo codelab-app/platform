@@ -2,13 +2,13 @@ import { OnModuleInit } from '@nestjs/common'
 import { ModuleRef } from '@nestjs/core'
 import { plainToClass } from 'class-transformer'
 import { left, right } from 'fp-ts/lib/Either'
-import { AuthService } from '../../../../../auth/src/lib/auth.service'
-import { UserRepositoryPort } from '../../adapters/UserRepositoryPort'
-import { User } from '../../domain/user'
-import { RegisterUserErrors } from '../useCases/RegisterUser/RegisterUserErrors'
-import { RegisterUserRequest } from '../useCases/RegisterUser/RegisterUserRequest'
-import { RegisterUserResponse } from '../useCases/RegisterUser/RegisterUserResponse'
-import { RegisterUserUseCase } from '../useCases/RegisterUser/RegisterUserUseCase'
+import { UserRepositoryPort } from '../../../adapters/UserRepositoryPort'
+import { User } from '../../../domain/user'
+import { AuthService } from '../../services/auth.service'
+import { RegisterUserErrors } from './RegisterUserErrors'
+import { RegisterUserRequest } from './RegisterUserRequest'
+import { RegisterUserResponse } from './RegisterUserResponse'
+import { RegisterUserUseCase } from './RegisterUserUseCase'
 import { Result } from '@codelab/backend'
 
 export class RegisterUserService implements RegisterUserUseCase, OnModuleInit {
@@ -32,14 +32,11 @@ export class RegisterUserService implements RegisterUserUseCase, OnModuleInit {
       )
     }
 
-    const persistedUser = await this.userRepository.createUser(user)
+    const newUser = await this.userRepository.createUser(user)
 
-    const u = persistedUser.toPlain()
-    const token = await this.authService.getToken(u)
+    newUser.setAccessToken = await this.authService.getToken(newUser)
 
-    u.accessToken = token
-
-    return right(Result.ok(plainToClass(User, u)))
+    return right(Result.ok(newUser))
   }
 
   onModuleInit(): any {

@@ -4,13 +4,13 @@ import { plainToClass } from 'class-transformer'
 import { option as O } from 'fp-ts'
 import { Option } from 'fp-ts/Option'
 import { left, right } from 'fp-ts/lib/Either'
-import { AuthService } from '../../../../../auth/src/lib/auth.service'
-import { UserRepositoryPort } from '../../adapters/UserRepositoryPort'
-import { User } from '../../domain/user'
-import { LoginUserErrors } from '../useCases/LoginUser/LoginUserErrors'
-import { LoginUserRequest } from '../useCases/LoginUser/LoginUserRequest'
-import { LoginUserResponse } from '../useCases/LoginUser/LoginUserResponse'
-import { LoginUserUseCase } from '../useCases/LoginUser/LoginUserUseCase'
+import { UserRepositoryPort } from '../../../adapters/UserRepositoryPort'
+import { User } from '../../../domain/user'
+import { AuthService } from '../../services/auth.service'
+import { LoginUserErrors } from './LoginUserErrors'
+import { LoginUserRequest } from './LoginUserRequest'
+import { LoginUserResponse } from './LoginUserResponse'
+import { LoginUserUseCase } from './LoginUserUseCase'
 import { Result } from '@codelab/backend'
 
 export class LoginUserService implements LoginUserUseCase, OnModuleInit {
@@ -32,19 +32,16 @@ export class LoginUserService implements LoginUserUseCase, OnModuleInit {
       )
     }
 
-    const u: User = existingUser.value
-    const passwordMatch = u.password.comparePassword(request.password)
+    const user: User = existingUser.value
+    const passwordMatch = user.password.comparePassword(request.password)
 
     if (!passwordMatch) {
       return left(new LoginUserErrors.WrongPasswordError())
     }
 
-    const plainUser = u.toPlain()
-    const token = await this.authService.getToken(plainUser)
+    user.setAccessToken = await this.authService.getToken(user)
 
-    plainUser.accessToken = token
-
-    return right(Result.ok(plainToClass(User, plainUser)))
+    return right(Result.ok(user))
   }
 
   onModuleInit(): any {

@@ -1,12 +1,12 @@
 import { option as O } from 'fp-ts'
 import { Option } from 'fp-ts/Option'
 import { left, right } from 'fp-ts/lib/Either'
-import { UserRepositoryPort } from '../../adapters/UserRepositoryPort'
-import { User } from '../../domain/user'
-import { DeleteUserErrors } from '../useCases/deleteUser/DeleteUserErrors'
-import { DeleteUserRequest } from '../useCases/deleteUser/DeleteUserRequest'
-import { DeleteUserResponse } from '../useCases/deleteUser/DeleteUserResponse'
-import { DeleteUserUseCase } from '../useCases/deleteUser/DeleteUserUseCase'
+import { UserRepositoryPort } from '../../../adapters/UserRepositoryPort'
+import { User } from '../../../domain/user'
+import { DeleteUserErrors } from './DeleteUserErrors'
+import { DeleteUserRequest } from './DeleteUserRequest'
+import { DeleteUserResponse } from './DeleteUserResponse'
+import { DeleteUserUseCase } from './DeleteUserUseCase'
 import { AppError, Result } from '@codelab/backend'
 
 export class DeleteUserService implements DeleteUserUseCase {
