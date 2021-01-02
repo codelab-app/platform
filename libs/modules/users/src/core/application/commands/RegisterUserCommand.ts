@@ -1,4 +1,4 @@
-import { RegisterUserRequest } from '../useCases/RegisterUser/RegisterUserRequest'
+import { RegisterUserRequest } from '../useCases/registerUser/RegisterUserRequest'
 import { UseCaseRequestPort } from '@codelab/backend'
 
 export class RegisterUserCommand

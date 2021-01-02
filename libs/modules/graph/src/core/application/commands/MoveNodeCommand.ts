@@ -1,4 +1,4 @@
-import { MoveNodeRequest } from '../useCases/MoveNode/MoveNodeRequest'
+import { MoveNodeRequest } from '../useCases/moveNode/MoveNodeRequest'
 import { UseCaseRequestPort } from '@codelab/backend'
 
 export class MoveNodeCommand implements UseCaseRequestPort<MoveNodeRequest> {

@@ -1,4 +1,4 @@
-import { DeleteNodeRequest } from '../useCases/DeleteNode/DeleteNodeRequest'
+import { DeleteNodeRequest } from '../useCases/deleteNode/DeleteNodeRequest'
 import { UseCaseRequestPort } from '@codelab/backend'
 
 export class DeleteNodeCommand

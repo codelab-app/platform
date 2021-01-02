@@ -4,7 +4,7 @@ import { fold } from 'fp-ts/lib/Either'
 import { UsersDITokens } from '../../../framework/UsersDITokens'
 import { User } from '../../domain/user'
 import { RegisterUserCommand } from '../commands/RegisterUserCommand'
-import { RegisterUserUseCase } from '../useCases/RegisterUser/RegisterUserUseCase'
+import { RegisterUserUseCase } from '../useCases/registerUser/RegisterUserUseCase'
 import { Result } from '@codelab/backend'
 
 @CommandHandler(RegisterUserCommand)

@@ -1,4 +1,4 @@
-import { GetGraphRequest } from '../useCases/GetGraph/GetGraphRequest'
+import { GetGraphRequest } from '../useCases/getGraph/GetGraphRequest'
 import { UseCaseRequestPort } from '@codelab/backend'
 
 export class GetGraphQuery implements UseCaseRequestPort<GetGraphRequest> {

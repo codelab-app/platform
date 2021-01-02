@@ -1,4 +1,4 @@
-import { LoginUserRequest } from '../useCases/LoginUser/LoginUserRequest'
+import { LoginUserRequest } from '../useCases/loginUser/LoginUserRequest'
 import { UseCaseRequestPort } from '@codelab/backend'
 
 export class LoginUserQuery implements UseCaseRequestPort<LoginUserRequest> {
