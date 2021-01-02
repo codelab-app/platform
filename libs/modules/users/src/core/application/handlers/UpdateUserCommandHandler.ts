@@ -1,7 +1,7 @@
 import { Inject } from '@nestjs/common'
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs'
 import { fold } from 'fp-ts/Either'
-import { UserDITokens } from '../../../framework/UserDITokens'
+import { UsersDITokens } from '../../../framework/UsersDITokens'
 import { User } from '../../domain/user'
 import { UpdateUserCommand } from '../commands/UpdateUserCommand'
 import { UpdateUserUseCase } from '../useCases/updateUser/UpdateUserUseCase'
@@ -11,7 +11,7 @@ import { Result } from '@codelab/backend'
 export class UpdateUserCommandHandler
   implements ICommandHandler<UpdateUserCommand> {
   constructor(
-    @Inject(UserDITokens.EditUserUseCase)
+    @Inject(UsersDITokens.EditUserUseCase)
     private readonly service: UpdateUserUseCase,
   ) {}
 

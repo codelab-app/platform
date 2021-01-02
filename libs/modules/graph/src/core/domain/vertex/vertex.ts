@@ -1,8 +1,8 @@
 import { Type, classToPlain, plainToClass } from 'class-transformer'
 import { IsOptional } from 'class-validator'
-import { CreateVertexRequest } from '../../application/useCases/createVertex/CreateVertexRequest'
 import { SerializedVertexDto } from './dto/SerializedVertexDto'
-import { VertexProps } from './vertex-props'
+import { VertexGraphId } from './vertex-graphId'
+import { VertexParent } from './vertex-parent'
 import { VertexType } from './vertex-type'
 import { AggregateRoot, TransformBoth, TypeOrmVertex } from '@codelab/backend'
 
@@ -11,10 +11,19 @@ export class Vertex extends AggregateRoot<SerializedVertexDto> {
   @TransformBoth(VertexType)
   declare type: VertexType
 
-  @Type(() => VertexProps)
-  @TransformBoth(VertexProps)
+  @Type(() => Object)
   @IsOptional()
-  declare properties?: VertexProps
+  declare props?: any
+
+  @Type(() => VertexParent)
+  @TransformBoth(VertexParent)
+  @IsOptional()
+  declare parent?: VertexParent
+
+  @Type(() => VertexGraphId)
+  @TransformBoth(VertexGraphId)
+  @IsOptional()
+  declare graphId?: VertexGraphId
 
   /**
    * Used for instantiating a User object
@@ -30,7 +39,7 @@ export class Vertex extends AggregateRoot<SerializedVertexDto> {
    * Used for creating User
    * @param request
    */
-  public static create(request: CreateVertexRequest): Vertex {
+  public static create(request: any): Vertex {
     const vertex = Vertex.hydrate(request)
 
     return vertex

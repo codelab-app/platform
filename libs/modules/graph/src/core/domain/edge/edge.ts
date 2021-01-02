@@ -1,7 +1,7 @@
 import { Type, classToPlain, plainToClass } from 'class-transformer'
+import { IsOptional } from 'class-validator'
 import { SerializedEdgeDto } from './dto/SerializedEdgeDto'
 import { EdgeOrder } from './edge-order'
-import { EdgeProps } from './edge-props'
 import { EdgeSource } from './edge-source'
 import { EdgeTarget } from './edge-target'
 import { AggregateRoot, TransformBoth, TypeOrmEdge } from '@codelab/backend'
@@ -19,9 +19,9 @@ export class Edge extends AggregateRoot<SerializedEdgeDto> {
   @TransformBoth(EdgeOrder)
   declare order: EdgeOrder
 
-  @Type(() => EdgeProps)
-  @TransformBoth(EdgeProps)
-  declare properties: EdgeProps
+  @Type(() => Object)
+  @IsOptional()
+  declare props?: any
 
   /**
    * Used for instantiating a User object
@@ -51,7 +51,15 @@ export class Edge extends AggregateRoot<SerializedEdgeDto> {
     return plainToClass(TypeOrmEdge, this.toPlain())
   }
 
-  public static arrayToPlain(vertices: Array<Edge>) {
-    return classToPlain(vertices) as Array<SerializedEdgeDto>
+  public static arrayToPlain(edges: Array<Edge>) {
+    return classToPlain(edges) as Array<SerializedEdgeDto>
+  }
+
+  public static arrayToPersistence(edges: Array<Edge>): Array<TypeOrmEdge> {
+    const plainEdges: Array<SerializedEdgeDto> = classToPlain(
+      edges,
+    ) as Array<SerializedEdgeDto>
+
+    return plainToClass(TypeOrmEdge, plainEdges)
   }
 }

@@ -1,6 +1,8 @@
 import {
   FindEdgeBy,
   FindEdgeByID,
+  FindEdgeBySource,
+  FindEdgeByTarget,
   FindVertexBy,
   FindVertexByID,
 } from './CommonTypes'
@@ -17,4 +19,12 @@ export const isVertexId = (value: FindVertexBy): value is FindVertexByID => {
 
 export const isEdgeId = (value: FindEdgeBy): value is FindEdgeByID => {
   return (value as FindEdgeByID).id !== undefined
+}
+
+export const isEdgeSource = (value: FindEdgeBy): value is FindEdgeBySource => {
+  return (value as FindEdgeBySource).source !== undefined
+}
+
+export const isEdgeTarget = (value: FindEdgeBy): value is FindEdgeByTarget => {
+  return (value as FindEdgeByTarget).target !== undefined
 }

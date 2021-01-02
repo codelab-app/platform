@@ -11,8 +11,8 @@ export class VertexUseCaseDto {
   @Field({ nullable: true })
   public declare id?: string
 
-  // @Field((returns) => NodeType)
-  // public declare type: NodeType
+  @Field((returns) => NodeType)
+  public declare type: NodeType
 
   @Field((returns) => GraphQLJSONObject)
   public declare props: any

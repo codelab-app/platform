@@ -3,7 +3,7 @@ import { Test } from '@nestjs/testing'
 import request from 'supertest'
 import { Connection } from 'typeorm'
 import { TestInfrastructureModule } from '@codelab/backend'
-import { UserModule } from '@codelab/modules/users'
+import { UsersModule } from '@codelab/modules/users'
 
 describe.skip('UpdateUserUseCase', () => {
   let app: INestApplication
@@ -11,7 +11,7 @@ describe.skip('UpdateUserUseCase', () => {
 
   beforeAll(async () => {
     const testModule = await Test.createTestingModule({
-      imports: [TestInfrastructureModule, UserModule],
+      imports: [TestInfrastructureModule, UsersModule],
     }).compile()
 
     app = testModule.createNestApplication()

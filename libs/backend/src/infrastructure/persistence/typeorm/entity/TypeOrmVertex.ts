@@ -22,10 +22,11 @@ export class TypeOrmVertex extends BaseTypeOrm {
   })
   declare type: NodeType
 
-  // @Column()
-  // declare graphId: number
+  // We need this to be returned when we delete a node
+  @Column()
+  declare graphId: number
 
-  // parent?: string
+  parent?: string
 
   @Column({
     type: 'jsonb',

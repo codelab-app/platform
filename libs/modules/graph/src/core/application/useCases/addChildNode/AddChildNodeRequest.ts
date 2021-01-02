@@ -1,6 +1,6 @@
 import { Field, InputType } from '@nestjs/graphql'
 import { VertexID } from '../../../../common/CommonTypes'
-import { CreateVertexRequest } from '../createVertex/CreateVertexRequest'
+import { AddChildNodeVertexType } from '../inputTypes/AddChildNodeVertexType'
 
 @InputType()
 export class AddChildNodeRequest {
@@ -10,8 +10,8 @@ export class AddChildNodeRequest {
   @Field((returns) => String, { nullable: true })
   declare parentVertexId?: VertexID
 
-  @Field((returns) => CreateVertexRequest)
-  declare vertex: CreateVertexRequest
+  @Field((returns) => AddChildNodeVertexType)
+  declare vertex: AddChildNodeVertexType
 
   @Field({ nullable: true })
   declare order?: number

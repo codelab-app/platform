@@ -22,26 +22,40 @@ export class AddChildNodeService implements AddChildNodeUseCase {
   ) {}
 
   async execute(request: AddChildNodeRequest): Promise<AddChildNodeResponse> {
-    const { graphId } = request
-    const { parentVertexId } = request
+    const { graphId, parentVertexId, order } = request
     const newVertex = request.vertex
-    const { order } = request
+    const error = left(new AddChildNodeErrors.GraphNotFoundError(graphId))
 
-    const graphOpt: Option<Graph> = await this.graphRepository.findGraphBy({
-      id: graphId,
-    })
+    let graphOpt: Option<Graph> = await this.graphRepository.findGraphBy(
+      {
+        id: graphId,
+      },
+      true,
+    )
 
     if (isNone(graphOpt)) {
-      return left(new AddChildNodeErrors.GraphNotFoundError(graphId))
+      return error
     }
 
     // If no parentVertexId is provided, we just create a vertex
+    // TODO: This will be changed when we create a page with root vertex
     const graph: Graph = graphOpt.value
     const vertex: Vertex = plainToClass(Vertex, newVertex)
     const savedVertex: Vertex = await this.vertexRepository.createVertex(
       vertex,
       graph,
     )
+
+    graphOpt = await this.graphRepository.findGraphBy(
+      {
+        id: graphId,
+      },
+      true,
+    )
+
+    if (isNone(graphOpt)) {
+      return error
+    }
 
     if (parentVertexId) {
       // Create Vertex and connect via edge
@@ -57,14 +71,24 @@ export class AddChildNodeService implements AddChildNodeUseCase {
         source: parentVertexId,
         target: savedVertex.toPlain().id as string,
         order: order || 0,
-        props: {},
+        props: newVertex.props,
       }
 
       const newEdge: Edge = Edge.hydrate(newEdgeDto)
 
       await this.edgeRepository.createEdge(newEdge, graph)
+      graphOpt = await this.graphRepository.findGraphBy(
+        {
+          id: graphId,
+        },
+        true,
+      )
+
+      if (isNone(graphOpt)) {
+        return error
+      }
     }
 
-    return right(Result.ok(graph))
+    return right(Result.ok(graphOpt.value))
   }
 }

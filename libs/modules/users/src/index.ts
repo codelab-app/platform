@@ -1,1 +1,1 @@
-export * from './framework/nestjs/UserModule'
+export * from './framework/nestjs/UsersModule'

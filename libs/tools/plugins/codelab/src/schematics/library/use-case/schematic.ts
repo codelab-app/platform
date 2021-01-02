@@ -14,6 +14,7 @@ import {
 import { ProjectType, projectRootDir, toFileName } from '@nrwl/workspace'
 import * as v from 'voca'
 import { dirExists, dryRunMode } from '../utils'
+import { modifyFiles } from './helpers/modify-files'
 import { UseCaseSchematicSchema } from './schema'
 
 const projectType = ProjectType.Library
@@ -24,6 +25,8 @@ export interface NormalizedSchema extends UseCaseSchematicSchema {
   projectDirectory: string
   useCaseNamePascalCase: string // PascalCase
   moduleNamePascalCase: string // PascalCase
+  useCaseCommandOrQuery: string
+  handlerType: 'CommandHandler' | 'QueryHandler' | string
 }
 
 export const normalizeOptions = (
@@ -44,10 +47,10 @@ export const normalizeOptions = (
     .capitalize()
     .value()
 
-  // const moduleName = capitalize(name)
-  // const parsedTags = options.tags
-  //   ? options.tags.split(',').map((s) => s.trim())
-  //   : []
+  const commandOrQuery =
+    options.resolverType === 'Mutation' ? 'Command' : 'Query'
+  const useCaseCommandOrQuery = useCaseNamePascalCase + commandOrQuery
+  const handlerType = `${commandOrQuery}Handler`
 
   return {
     ...options,
@@ -56,7 +59,8 @@ export const normalizeOptions = (
     projectDirectory,
     useCaseNamePascalCase,
     moduleNamePascalCase,
-    // parsedTags,
+    useCaseCommandOrQuery,
+    handlerType,
   }
 }
 
@@ -73,7 +77,7 @@ const createFiles = (options: NormalizedSchema): Rule => {
   )
 }
 
-export default function MySchematic(options: NormalizedSchema) {
+export default (options: NormalizedSchema) => {
   const normalizedOptions = normalizeOptions(options)
 
   return (host: Tree, context: SchematicContext) => {
@@ -92,7 +96,7 @@ export default function MySchematic(options: NormalizedSchema) {
 
     return chain([
       createFiles(normalizedOptions),
-      // insertDiToken(normalizedOptions),
+      modifyFiles(normalizedOptions),
     ])
   }
 }

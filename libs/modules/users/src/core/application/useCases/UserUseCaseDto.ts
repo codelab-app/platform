@@ -7,4 +7,7 @@ export class UserUseCaseDto {
 
   @Field()
   public declare email: string
+
+  @Field({ nullable: true })
+  public declare accessToken?: string
 }

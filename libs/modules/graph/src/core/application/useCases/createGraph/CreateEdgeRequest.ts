@@ -12,9 +12,9 @@ export class CreateEdgeRequest {
   @Field()
   declare target: string
 
-  @Field()
-  declare graphId: string
+  @Field({ nullable: true })
+  declare graphId?: string
 
-  @Field((returns) => GraphQLJSONObject)
-  declare props: any
+  @Field((returns) => GraphQLJSONObject, { nullable: true })
+  declare props?: any
 }

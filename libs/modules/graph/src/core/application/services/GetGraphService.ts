@@ -1,24 +1,28 @@
-import { EdgeRepositoryPort } from '../../adapters/EdgeRepositoryPort'
+import { Option, isNone } from 'fp-ts/Option'
+import { left, right } from 'fp-ts/lib/Either'
 import { GraphRepositoryPort } from '../../adapters/GraphRepositoryPort'
-import { VertexRepositoryPort } from '../../adapters/VertexRepositoryPort'
-import { Graph } from '../../domain/graph/graph'
+import { Graph } from '../../domain/graph'
+import { GetGraphErrors } from '../useCases/GetGraph/GetGraphErrors'
+import { GetGraphRequest } from '../useCases/GetGraph/GetGraphRequest'
+import { GetGraphResponse } from '../useCases/GetGraph/GetGraphResponse'
+import { GetGraphUseCase } from '../useCases/GetGraph/GetGraphUseCase'
+import { Result } from '@codelab/backend'
 
-export class GetGraphService {
-  constructor(
-    private readonly grpahRepository: GraphRepositoryPort,
-    private readonly vertexRepository: VertexRepositoryPort,
-    private readonly edgeRepository: EdgeRepositoryPort,
-  ) {}
+export class GetGraphService implements GetGraphUseCase {
+  constructor(private readonly graphRepository: GraphRepositoryPort) {}
 
-  async findAll(): Promise<Array<Graph>> {
-    return this.grpahRepository.findAll()
+  async execute(request: GetGraphRequest): Promise<GetGraphResponse> {
+    const { graphId } = request
+
+    const graphOpt: Option<Graph> = await this.graphRepository.findGraphBy(
+      { id: graphId },
+      true,
+    )
+
+    if (isNone(graphOpt)) {
+      return left(new GetGraphErrors.GraphNotFoundError(graphId))
+    }
+
+    return right(Result.ok(graphOpt.value))
   }
-
-  // async getEdgesByGraphId(graph_id: string): Promise<Array<Edge>> {
-  //   return this.edgeRepository.findEdges({ graph_id })
-  // }
-
-  // async getVerticesByGraphId(graph_id: string): Promise<Array<Vertex>> {
-  //   return this.vertexRepository.findVertices({ graph_id })
-  // }
 }
