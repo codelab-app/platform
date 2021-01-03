@@ -3,7 +3,7 @@ import { Test } from '@nestjs/testing'
 import { Connection } from 'typeorm'
 import { TestInfrastructureModule } from '@codelab/backend'
 
-describe('CreateAppUseCase', () => {
+describe.skip('CreateAppUseCase', () => {
   let app: INestApplication
   let connection: Connection
 

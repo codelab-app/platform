@@ -52,6 +52,9 @@ describe('LoginUserUseCase', () => {
       .send({
         query: registerUserMutation({ email, password }),
       })
+      .expect((res) => {
+        expect(res.body.data?.registerUser.email).toEqual(email)
+      })
   })
 
   afterAll(async () => {
