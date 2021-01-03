@@ -69,6 +69,11 @@ executors:
     docker:
       - image: cimg/node:14.15.0-browsers
     resource_class: large
+  vault-img:
+    <<: *executor-config
+    docker:
+      - image: joatmon08/circleci-gcp-agent:287.0-1.14.72
+    resource_class: small
 
 commands:
   setup-env:
@@ -174,6 +179,20 @@ commands:
           mentions: $SLACK_USER
 
 jobs:
+  vault-config-staging:
+    <<: *executor-params
+    description: 'Pull staging .env from vault server'
+    steps:
+      - run:
+          name: "Fetch staging .env"
+          command: |
+            echo $STAGING_VAULT_ROLE_ID > .vault/role-id
+            echo $STAGING_VAULT_SECRET_ID > .vault/secret-id
+            vault agent -address=$VAULT_ADDR -config=.vault/agent.hcl
+      - persist_to_workspace:
+          root: /tmp
+          paths:
+            - ".*_env"
   install-and-build-workspace:
     <<: *executor-params
     steps:
@@ -204,6 +223,9 @@ jobs:
     <<: *executor-params
     steps:
       - setup-workspace
+      - attach_workspace:
+          at: /tmp
+      - run: cp /tmp/.staing_env .env
       - run: make test-ci
       - notify-failure
 
@@ -255,11 +277,14 @@ workflows:
           e: docker-node
           requires:
             - install-and-build-workspace
+      - vault-staging-config:
+          <<: *filters-dev
+          e: vault-img
       - test:
           <<: *filters-dev
           e: docker-node
-          context: .env.ci
           requires:
+            - vault-staging-config
             - install-and-build-workspace
       - notify-success:
           <<: *filters-dev
