@@ -39,8 +39,8 @@ export class UserDITokens {
 
   // Repositories
 
-  public static readonly UsersRepository: unique symbol = Symbol(
-    'UsersRepository',
+  public static readonly UserRepository: unique symbol = Symbol(
+    'UserRepository',
   )
 
   public static readonly AppRepository: unique symbol = Symbol('AppRepository')

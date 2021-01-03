@@ -2,10 +2,37 @@ import { INestApplication } from '@nestjs/common'
 import { Test } from '@nestjs/testing'
 import request from 'supertest'
 import { Connection } from 'typeorm'
+import { RegisterUserRequest } from '../registerUser/RegisterUserRequest'
+import { LoginUserRequest } from './LoginUserRequest'
 import { TestInfrastructureModule } from '@codelab/backend'
 import { UserModule } from '@codelab/modules/user'
 
-describe.skip('LoginUserUseCase', () => {
+const email = 'test_user@codelab.ai'
+const password = 'password'
+
+const loginUserQuery = (loginUserRequest: LoginUserRequest) => `
+  query {
+    loginUser(request: {
+      email: "${loginUserRequest.email}",
+      password: "${loginUserRequest.password}"
+    }) {
+      email
+      accessToken
+    }
+  }`
+
+const registerUserMutation = (registerUserRequest: RegisterUserRequest) => `
+  mutation {
+    registerUser(request: {
+      email: "${registerUserRequest.email}",
+      password: "${registerUserRequest.password}"
+    }) {
+      email
+      accessToken
+    }
+  }`
+
+describe('LoginUserUseCase', () => {
   let app: INestApplication
   let connection: Connection
 
@@ -17,97 +44,43 @@ describe.skip('LoginUserUseCase', () => {
     app = testModule.createNestApplication()
     connection = app.get(Connection)
     await app.init()
+
+    await connection.query('DELETE FROM "user"')
+
+    await request(app.getHttpServer())
+      .post('/graphql')
+      .send({
+        query: registerUserMutation({ email, password }),
+      })
   })
 
   afterAll(async () => {
+    await connection.query('DELETE FROM "user"')
     await connection.close()
     await app.close()
   })
 
-  beforeEach(async () => {
-    await connection.query('DELETE FROM "user"')
-  })
-
   it('should successfully login', async () => {
-    const email = 'test_user@codelab.ai'
-    const password = 'password'
-    const registerUserMutation = `
-      mutation {
-        registerUser(request:
-          {
-            email: "${email}",
-            password: "${password}"
-          }) { email accessToken }
-    }`
-
-    const createNewUser = await request(app.getHttpServer())
+    await request(app.getHttpServer())
       .post('/graphql')
       .send({
-        query: registerUserMutation,
+        query: loginUserQuery({ email, password }),
       })
       .expect(200)
-      .expect((res) => {
-        expect(res.body.data.registerUser.email).toEqual(email)
-      })
-
-    const loginQuery = `
-      {
-        login(request: {email: "${email}", password: "${password}"}) {
-          email
-          accessToken
-        }
-       }
-    `
-
-    const loginUser = await request(app.getHttpServer())
-      .post('/graphql')
-      .send({
-        query: loginQuery,
-      })
-      .expect(200)
-      .expect((res) => {
-        expect(res.body.data.login.email).toEqual(email)
-        expect(res.body.data.login.accessToken).toBeDefined()
+      .then((res) => {
+        expect(res.body.data.loginUser.email).toEqual(email)
+        expect(res.body.data.loginUser.accessToken).toBeDefined()
       })
   })
 
   it('should return error message for wrong password', async () => {
-    const email = 'test_user@codelab.ai'
-    const password = 'password'
-    const registerUserMutation = `
-      mutation {
-        registerUser(request:
-          {
-            email: "${email}",
-            password: "${password}"
-          }) { email accessToken }
-    }`
-
-    const createNewUser = await request(app.getHttpServer())
+    await request(app.getHttpServer())
       .post('/graphql')
       .send({
-        query: registerUserMutation,
+        query: loginUserQuery({ email, password: 'wrong-password' }),
       })
       .expect(200)
-      .expect((res) => {
-        expect(res.body.data.registerUser.email).toEqual(email)
-      })
-
-    const loginQuery = `
-      {
-        login(request: {email: "${email}", password: "wrong password"}) {
-          email
-          accessToken
-        }
-       }
-    `
-    const loginUser = await request(app.getHttpServer())
-      .post('/graphql')
-      .send({
-        query: loginQuery,
-      })
-      .expect(200)
-      .expect((res) => {
+      .then((res) => {
         const errorMsg = res.body?.errors[0].message
 
         expect(errorMsg).toEqual(`Wrong Password`)
@@ -115,42 +88,13 @@ describe.skip('LoginUserUseCase', () => {
   })
 
   it('should return error given wrong email', async () => {
-    const email = 'test_user@codelab.ai'
-    const password = 'password'
-    const registerUserMutation = `
-      mutation {
-        registerUser(request:
-          {
-            email: "${email}",
-            password: "${password}"
-          }) { email accessToken }
-    }`
-
-    const createNewUser = await request(app.getHttpServer())
+    await request(app.getHttpServer())
       .post('/graphql')
       .send({
-        query: registerUserMutation,
+        query: loginUserQuery({ email: 'wrong@gmail.com', password }),
       })
       .expect(200)
-      .expect((res) => {
-        expect(res.body.data.register.email).toEqual(email)
-      })
-
-    const loginQuery = `
-      {
-        login(request: {email: "wrong@gmail.com", password: "${password}"}) {
-          email
-          accessToken
-        }
-       }
-    `
-    const loginUser = await request(app.getHttpServer())
-      .post('/graphql')
-      .send({
-        query: loginQuery,
-      })
-      .expect(200)
-      .expect((res) => {
+      .then((res) => {
         const errorMsg = res.body?.errors[0].message
 
         expect(errorMsg).toEqual(

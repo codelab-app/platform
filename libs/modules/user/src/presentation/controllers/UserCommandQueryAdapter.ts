@@ -71,7 +71,7 @@ export class UserCommandQueryAdapter implements CommandQueryBusPort {
   }
 
   @Query((returns) => UserUseCaseDto)
-  async login(@Args('request') request: LoginUserRequest) {
+  async loginUser(@Args('request') request: LoginUserRequest) {
     const result = await this.queryBus.execute(new LoginUserQuery(request))
 
     return result.toPlain()

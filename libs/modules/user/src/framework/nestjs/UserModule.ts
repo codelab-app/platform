@@ -25,7 +25,7 @@ import { TypeOrmUser } from '@codelab/backend'
 
 export const persistenceProviders: Array<Provider> = [
   {
-    provide: UserDITokens.UsersRepository,
+    provide: UserDITokens.UserRepository,
     useFactory: (connection) =>
       connection.getCustomRepository(TypeOrmUserRepositoryAdapter),
     inject: [Connection],
@@ -43,39 +43,39 @@ export const useCaseProviders: Array<Provider> = [
   {
     provide: UserDITokens.UserService,
     useFactory: (usersRepository) => new UserService(usersRepository),
-    inject: [UserDITokens.UsersRepository],
+    inject: [UserDITokens.UserRepository],
   },
   {
     provide: UserDITokens.GetMeUseCase,
     useFactory: (usersRepository) => new GetMeService(usersRepository),
-    inject: [UserDITokens.UsersRepository],
+    inject: [UserDITokens.UserRepository],
   },
   {
     provide: UserDITokens.LoginUserUseCase,
     useFactory: (usersRepository, moduleRef) =>
       new LoginUserService(usersRepository, moduleRef),
-    inject: [UserDITokens.UsersRepository, ModuleRef],
+    inject: [UserDITokens.UserRepository, ModuleRef],
   },
   {
     provide: UserDITokens.RegisterUserUseCase,
     useFactory: (usersRepository, moduleRef) =>
       new RegisterUserService(usersRepository, moduleRef),
-    inject: [UserDITokens.UsersRepository, ModuleRef],
+    inject: [UserDITokens.UserRepository, ModuleRef],
   },
   {
     provide: UserDITokens.EditUserUseCase,
     useFactory: (userRepository) => new UpdateUserService(userRepository),
-    inject: [UserDITokens.UsersRepository],
+    inject: [UserDITokens.UserRepository],
   },
   {
     provide: UserDITokens.DeleteUserUseCase,
     useFactory: (userRepository) => new DeleteUserService(userRepository),
-    inject: [UserDITokens.UsersRepository],
+    inject: [UserDITokens.UserRepository],
   },
   {
     provide: UserDITokens.GetUserUseCase,
     useFactory: (userRepository) => new GetUserService(userRepository),
-    inject: [UserDITokens.UsersRepository],
+    inject: [UserDITokens.UserRepository],
   },
 ]
 

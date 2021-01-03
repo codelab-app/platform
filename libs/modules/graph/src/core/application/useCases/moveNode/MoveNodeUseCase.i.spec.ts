@@ -13,12 +13,12 @@ const addChildNodeToRootMutation = (
 ): string => {
   return `
       mutation {
-        addChildNode(request: 
+        addChildNode(request:
           {
             order: ${order},
             graphId: "${graphId}",
-            parentVertexId: "${rootNodeId}", 
-            vertex: 
+            parentVertexId: "${rootNodeId}",
+            vertex:
             {
               type: React_Text,
               props: {
@@ -28,7 +28,7 @@ const addChildNodeToRootMutation = (
           }) {
             label
             vertices { id type props }
-            edges { id order source target props } 
+            edges { id order source target props }
           }
       }
     `
@@ -45,7 +45,7 @@ const addChildNodeToRootRequest = async (
       query,
     })
     .expect(200)
-    .expect((res) => {
+    .then((res) => {
       expect(res.body.data.addChildNode.label).toEqual(graphLabel)
     })
 }
@@ -80,23 +80,23 @@ describe.skip('MoveNodeUseCase', () => {
     const createGraphMutation = `mutation {
 			createGraph(graph: {label: "${label}"}) { id label }
 		}`
-    const createNewGraph = await request(app.getHttpServer())
+    const createNewGraph: any = await request(app.getHttpServer())
       .post('/graphql')
       .send({
         query: createGraphMutation,
       })
       .expect(200)
-      .expect((res) => {
+      .then((res) => {
         expect(res.body.data.createGraph.label).toEqual(label)
         expect(res.body.data.createGraph.id).toBeDefined()
       })
     const graphId = createNewGraph.body.data.createGraph.id
     const addRootNodeMutation = `
       mutation {
-        addChildNode(request: 
+        addChildNode(request:
         {
           graphId: "${graphId}",
-          vertex: 
+          vertex:
           {
             type: React_Fragment,
             props: {
@@ -109,13 +109,13 @@ describe.skip('MoveNodeUseCase', () => {
         }
       }
     `
-    const addRootNode = await request(app.getHttpServer())
+    const addRootNode: any = await request(app.getHttpServer())
       .post('/graphql')
       .send({
         query: addRootNodeMutation,
       })
       .expect(200)
-      .expect((res) => {
+      .then((res) => {
         expect(res.body.data.addChildNode.label).toEqual(label)
         expect(res.body.data.addChildNode.vertices.length).toEqual(1)
         expect(res.body.data.addChildNode.vertices[0].type).toEqual(
@@ -177,7 +177,7 @@ describe.skip('MoveNodeUseCase', () => {
       addChildNodeDMutation,
       label,
     )
-    const addE = await addChildNodeToRootRequest(
+    const addE: any = await addChildNodeToRootRequest(
       app,
       addChildNodeEMutation,
       label,
@@ -221,7 +221,7 @@ describe.skip('MoveNodeUseCase', () => {
         query: moveVertexMutation,
       })
       .expect(200)
-      .expect((res) => {
+      .then((res) => {
         expect(res.body.data.moveNode.label).toEqual(label)
         expect(res.body.data.moveNode.edges[0].order).toEqual(0)
         expect(res.body.data.moveNode.edges[0].props).toMatchObject({

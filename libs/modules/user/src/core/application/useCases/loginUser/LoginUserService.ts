@@ -16,12 +16,12 @@ export class LoginUserService implements LoginUserUseCase, OnModuleInit {
   declare authService: AuthService
 
   constructor(
-    private readonly usersRepository: UserRepositoryPort,
+    private readonly userRepository: UserRepositoryPort,
     private readonly moduleRef: ModuleRef,
   ) {}
 
   async execute(request: LoginUserRequest): Promise<LoginUserResponse> {
-    const existingUser: Option<User> = await this.usersRepository.findUser({
+    const existingUser: Option<User> = await this.userRepository.findUser({
       email: request.email.toString(),
     })
 

@@ -42,13 +42,13 @@ describe.skip('UpdateUserUseCase', () => {
 				  password: "password"
 				}) { id email}
 			}`
-    const createNewUser = await request(app.getHttpServer())
+    const createNewUser: any = await request(app.getHttpServer())
       .post('/graphql')
       .send({
         query: createUserMutation,
       })
       .expect(200)
-      .expect((res) => {
+      .then((res) => {
         expect(res.body.data.createUser.email).toEqual(email)
       })
     const newUserId = createNewUser.body.data.createUser.id
@@ -63,7 +63,7 @@ describe.skip('UpdateUserUseCase', () => {
         query: updateUserMutation,
       })
       .expect(200)
-      .expect((res) => {
+      .then((res) => {
         expect(res.body.data.updateUser.email).toEqual(
           'test_user_edited@gmail.com',
         )
@@ -82,7 +82,7 @@ describe.skip('UpdateUserUseCase', () => {
         query: updateUserMutation,
       })
       .expect(200)
-      .expect((res) => {
+      .then((res) => {
         const errorMsg = res.body?.errors[0].message
 
         expect(errorMsg).toEqual(

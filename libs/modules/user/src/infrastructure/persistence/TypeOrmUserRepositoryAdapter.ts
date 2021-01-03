@@ -21,6 +21,8 @@ export class TypeOrmUserRepositoryAdapter
   async exists(searchBy: FindUserBy): Promise<boolean> {
     const entity = await this.findOne(searchBy)
 
+    console.log(entity)
+
     return !!entity
   }
 

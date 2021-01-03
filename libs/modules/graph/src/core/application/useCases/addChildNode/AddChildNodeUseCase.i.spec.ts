@@ -35,23 +35,23 @@ describe.skip('AddChildNodeUseCase', () => {
     const createGraphMutation = `mutation {
 			createGraph(graph: {label: "${label}"}) { id label }
 		}`
-    const createNewGraph = await request(app.getHttpServer())
+    const createNewGraph: any = await request(app.getHttpServer())
       .post('/graphql')
       .send({
         query: createGraphMutation,
       })
       .expect(200)
-      .expect((res) => {
+      .then((res) => {
         expect(res.body.data.createGraph.label).toEqual(label)
         expect(res.body.data.createGraph.id).toBeDefined()
       })
     const graphId = createNewGraph.body.data.createGraph.id
     const addChildNodeMutation = `
       mutation {
-        addChildNode(request: 
+        addChildNode(request:
         {
           graphId: "${graphId}",
-          vertex: 
+          vertex:
           {
             type: React_Text,
             props: {
@@ -70,7 +70,7 @@ describe.skip('AddChildNodeUseCase', () => {
         query: addChildNodeMutation,
       })
       .expect(200)
-      .expect((res) => {
+      .then((res) => {
         expect(res.body.data.addChildNode.label).toEqual(label)
         expect(res.body.data.addChildNode.vertices.length).toEqual(1)
         expect(res.body.data.addChildNode.vertices[0].type).toEqual(
@@ -87,23 +87,23 @@ describe.skip('AddChildNodeUseCase', () => {
     const createGraphMutation = `mutation {
 			createGraph(graph: {label: "${label}"}) { id label }
 		}`
-    const createNewGraph = await request(app.getHttpServer())
+    const createNewGraph: any = await request(app.getHttpServer())
       .post('/graphql')
       .send({
         query: createGraphMutation,
       })
       .expect(200)
-      .expect((res) => {
+      .then((res) => {
         expect(res.body.data.createGraph.label).toEqual(label)
         expect(res.body.data.createGraph.id).toBeDefined()
       })
     const graphId = createNewGraph.body.data.createGraph.id
     const addChildNodeMutation = `
       mutation {
-        addChildNode(request: 
+        addChildNode(request:
         {
           graphId: "${graphId}",
-          vertex: 
+          vertex:
           {
             type: React_Text,
             props: {
@@ -116,13 +116,13 @@ describe.skip('AddChildNodeUseCase', () => {
         }
       }
     `
-    const addChildNode = await request(app.getHttpServer())
+    const addChildNode: any = await request(app.getHttpServer())
       .post('/graphql')
       .send({
         query: addChildNodeMutation,
       })
       .expect(200)
-      .expect((res) => {
+      .then((res) => {
         expect(res.body.data.addChildNode.label).toEqual(label)
         expect(res.body.data.addChildNode.vertices.length).toEqual(1)
         expect(res.body.data.addChildNode.vertices[0].type).toEqual(
@@ -135,12 +135,12 @@ describe.skip('AddChildNodeUseCase', () => {
     const childNodeId = addChildNode.body.data.addChildNode.vertices[0].id
     const addChildNodeWithParentMutation = `
       mutation {
-        addChildNode(request: 
+        addChildNode(request:
           {
             order: 0,
             graphId: "${graphId}",
-            parentVertexId: "${childNodeId}", 
-            vertex: 
+            parentVertexId: "${childNodeId}",
+            vertex:
             {
               type: React_Text,
               props: {
@@ -150,7 +150,7 @@ describe.skip('AddChildNodeUseCase', () => {
           }) {
             label
             vertices { id type props }
-            edges { id order source target props } 
+            edges { id order source target props }
           }
       }
     `
@@ -160,7 +160,7 @@ describe.skip('AddChildNodeUseCase', () => {
         query: addChildNodeWithParentMutation,
       })
       .expect(200)
-      .expect((res) => {
+      .then((res) => {
         expect(res.body.data.addChildNode.label).toEqual(label)
         expect(res.body.data.addChildNode.vertices.length).toEqual(2)
         expect(res.body.data.addChildNode.edges.length).toEqual(1)

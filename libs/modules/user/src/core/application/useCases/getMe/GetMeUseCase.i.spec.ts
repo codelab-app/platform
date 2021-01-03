@@ -46,7 +46,7 @@ describe.skip('GetMeUseCase', () => {
         query: registerUserMutation,
       })
       .expect(200)
-      .expect((res) => {
+      .then((res) => {
         expect(res.body.data.registerUser.email).toEqual(email)
       })
 
@@ -59,13 +59,13 @@ describe.skip('GetMeUseCase', () => {
        }
     `
 
-    const loginUser = await request(app.getHttpServer())
+    const loginUser: any = await request(app.getHttpServer())
       .post('/graphql')
       .send({
         query: loginQuery,
       })
       .expect(200)
-      .expect((res) => {
+      .then((res) => {
         expect(res.body.data.login.email).toEqual(email)
         expect(res.body.data.login.accessToken).toBeDefined()
       })
@@ -78,7 +78,7 @@ describe.skip('GetMeUseCase', () => {
         query: getMeQuery,
       })
       .expect(200)
-      .expect((res) => {
+      .then((res) => {
         expect(res.body.data.getMe.email).toEqual(email)
       })
   })

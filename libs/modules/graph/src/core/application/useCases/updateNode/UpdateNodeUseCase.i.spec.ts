@@ -52,13 +52,13 @@ describe.skip('UpdateNodeUseCase', () => {
     const createGraphMutation = `mutation {
 			createGraph(graph: {label: "${graphLabel}"}) { id label }
 		}`
-    const createNewGraph = await request(app.getHttpServer())
+    const createNewGraph: any = await request(app.getHttpServer())
       .post('/graphql')
       .send({
         query: createGraphMutation,
       })
       .expect(200)
-      .expect((res) => {
+      .then((res) => {
         expect(res.body.data.createGraph.label).toEqual(graphLabel)
         expect(res.body.data.createGraph.id).toBeDefined()
       })
@@ -69,10 +69,10 @@ describe.skip('UpdateNodeUseCase', () => {
   it('should update vertex', async () => {
     const addChildNodeMutation = `
       mutation {
-        addChildNode(request: 
+        addChildNode(request:
         {
           graphId: "${graphId}",
-          vertex: 
+          vertex:
           {
             type: React_Text,
             props: {
@@ -85,13 +85,13 @@ describe.skip('UpdateNodeUseCase', () => {
         }
       }
     `
-    const addChildNode = await request(app.getHttpServer())
+    const addChildNode: any = await request(app.getHttpServer())
       .post('/graphql')
       .send({
         query: addChildNodeMutation,
       })
       .expect(200)
-      .expect((res) => {
+      .then((res) => {
         expect(res.body.data.addChildNode.label).toEqual(graphLabel)
         expect(res.body.data.addChildNode.vertices.length).toEqual(1)
         expect(res.body.data.addChildNode.vertices[0].type).toEqual(
@@ -110,7 +110,7 @@ describe.skip('UpdateNodeUseCase', () => {
         query: updateNodeMutation,
       })
       .expect(200)
-      .expect((res) => {
+      .then((res) => {
         expect(res.body.data.updateNode.label).toEqual(graphLabel)
         expect(res.body.data.updateNode.vertices.length).toEqual(1)
         expect(res.body.data.updateNode.vertices[0].type).toEqual('React_Text')
@@ -130,7 +130,7 @@ describe.skip('UpdateNodeUseCase', () => {
         query: updateNodeMutation,
       })
       .expect(200)
-      .expect((res) => {
+      .then((res) => {
         const errorMsg = res.body?.errors[0].message
 
         expect(errorMsg).toEqual(
