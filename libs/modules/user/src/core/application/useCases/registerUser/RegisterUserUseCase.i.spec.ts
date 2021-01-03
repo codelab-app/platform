@@ -2,7 +2,6 @@ import { INestApplication } from '@nestjs/common'
 import { Test } from '@nestjs/testing'
 import request from 'supertest'
 import { Connection } from 'typeorm'
-import { AuthModule } from '../../../../framework/nestjs/AuthModule'
 import { RegisterUserRequest } from './RegisterUserRequest'
 import { TestInfrastructureModule } from '@codelab/backend'
 import { UserModule } from '@codelab/modules/user'
@@ -27,12 +26,14 @@ describe('RegisterUserUseCase', () => {
 
   beforeAll(async () => {
     const testModule = await Test.createTestingModule({
-      imports: [TestInfrastructureModule, UserModule, AuthModule],
+      imports: [TestInfrastructureModule, UserModule],
     }).compile()
 
     app = testModule.createNestApplication()
     connection = app.get(Connection)
     await app.init()
+
+    await connection.query('DELETE FROM "user"')
   })
 
   afterAll(async () => {
@@ -64,19 +65,17 @@ describe('RegisterUserUseCase', () => {
       .send({
         query: registerUserMutation({ email, password }),
       })
-      .end()
       .expect(200)
       .expect((res) => {
         expect(res.body.data.registerUser.email).toEqual(email)
       })
 
     // Create another user
-    await request(app.getHttpServer())
+    request(app.getHttpServer())
       .post('/graphql')
       .send({
         query: registerUserMutation({ email, password }),
       })
-      .end()
       .expect(200)
       .expect((res) => {
         const errorMsg = res.body?.errors[0].message
