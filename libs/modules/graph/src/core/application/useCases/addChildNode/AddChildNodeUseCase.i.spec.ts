@@ -20,6 +20,10 @@ describe.skip('AddChildNodeUseCase', () => {
   })
 
   afterAll(async () => {
+    await connection.query('DELETE FROM vertex')
+    await connection.query('DELETE FROM edge')
+    await connection.query('DELETE FROM graph')
+
     await connection.close()
     await app.close()
   })

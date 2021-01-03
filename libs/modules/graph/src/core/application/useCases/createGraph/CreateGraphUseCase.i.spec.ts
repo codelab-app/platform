@@ -31,6 +31,7 @@ describe('CreateGraphUseCase', () => {
   })
 
   afterAll(async () => {
+    await connection.query('DELETE FROM graph')
     await connection.close()
     await app.close()
   })

@@ -36,6 +36,7 @@ describe('RegisterUserUseCase', () => {
   })
 
   afterAll(async () => {
+    await connection.query('DELETE FROM "user"')
     await connection.close()
     await app.close()
   })

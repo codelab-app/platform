@@ -3,7 +3,7 @@ import { Test } from '@nestjs/testing'
 import { Connection } from 'typeorm'
 import { TestInfrastructureModule } from '@codelab/backend'
 
-describe.skip('CreateAppUseCase', () => {
+describe('CreateAppUseCase', () => {
   let app: INestApplication
   let connection: Connection
 
@@ -22,6 +22,7 @@ describe.skip('CreateAppUseCase', () => {
   })
 
   afterAll(async () => {
+    await connection.query('DELETE FROM graph')
     await connection.close()
     await app.close()
   })
