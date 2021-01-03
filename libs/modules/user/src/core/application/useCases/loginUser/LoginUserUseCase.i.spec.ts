@@ -84,7 +84,7 @@ describe('LoginUserUseCase', () => {
       })
       .expect(200)
       .expect((res) => {
-        const errorMsg = res.body?.errors[0].message
+        const errorMsg = res.body.errors[0].message
 
         expect(errorMsg).toEqual(`Wrong Password`)
       })
@@ -98,7 +98,7 @@ describe('LoginUserUseCase', () => {
       })
       .expect(200)
       .expect((res) => {
-        const errorMsg = res.body?.errors[0].message
+        const errorMsg = res.body.errors[0].message
 
         expect(errorMsg).toEqual(
           `Theres no email wrong@gmail.com associated with any account`,
