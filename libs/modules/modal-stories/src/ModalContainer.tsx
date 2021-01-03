@@ -1,9 +1,9 @@
 import React from 'react'
-import { UserLoginForm } from '../../users-stories/src/useCases/userLogin/UserLoginForm'
+import { UserLoginForm } from '../../user-stories/src/useCases/userLogin/UserLoginForm'
 import { AppModalProps, Modal } from './Modal'
 import { useApp } from '@codelab/modules/app-stories'
 import { useLayout } from '@codelab/modules/layout-stories'
-import { UserSignupForm, useUser } from '@codelab/modules/users-stories'
+import { UserSignupForm, useUser } from '@codelab/modules/user-stories'
 
 export const ModalContainer = () => {
   const app = useApp()
