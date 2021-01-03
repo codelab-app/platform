@@ -3,12 +3,14 @@ import { ModuleRef } from '@nestjs/core'
 import { CqrsModule } from '@nestjs/cqrs'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { Connection } from 'typeorm'
+import { TypeOrmAppRepositoryAdapter } from '../../../../app/src/infrastructure/persistence/TypeOrmAppRepositoryAdapter'
 import { DeleteUserCommandHandler } from '../../core/application/handlers/DeleteUserCommandHandler'
 import { GetMeQueryHandler } from '../../core/application/handlers/GetMeQueryHandler'
 import { GetUsersQueryHandler } from '../../core/application/handlers/GetUsersQueryHandler'
 import { LoginUserQueryHandler } from '../../core/application/handlers/LoginUserQueryHandler'
 import { RegisterUserCommandHandler } from '../../core/application/handlers/RegisterUserCommandHandler'
 import { UpdateUserCommandHandler } from '../../core/application/handlers/UpdateUserCommandHandler'
+import { UserService } from '../../core/application/services/UserService'
 import { DeleteUserService } from '../../core/application/useCases/deleteUser/DeleteUserService'
 import { GetMeService } from '../../core/application/useCases/getMe/GetMeService'
 import { GetUserService } from '../../core/application/useCases/getUser/GetUserService'
@@ -27,10 +29,21 @@ export const persistenceProviders: Array<Provider> = [
       connection.getCustomRepository(TypeOrmUserRepositoryAdapter),
     inject: [Connection],
   },
+  {
+    provide: UsersDITokens.AppRepository,
+    useFactory: (connection) =>
+      connection.getCustomRepository(TypeOrmAppRepositoryAdapter),
+    inject: [Connection],
+  },
   UsersCommandQueryAdapter,
 ]
 
 export const useCaseProviders: Array<Provider> = [
+  {
+    provide: UsersDITokens.UserService,
+    useFactory: (usersRepository) => new UserService(usersRepository),
+    inject: [UsersDITokens.UsersRepository],
+  },
   {
     provide: UsersDITokens.GetMeUseCase,
     useFactory: (usersRepository) => new GetMeService(usersRepository),

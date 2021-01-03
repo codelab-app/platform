@@ -9,6 +9,7 @@ import {
   TypeOrmUser,
   TypeOrmVertex,
 } from './entity'
+import { TypeOrmApp } from './entity/TypeOrmApp'
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import {
         TypeOrmUser,
         TypeOrmVertex,
         TypeOrmPage,
+        TypeOrmApp,
       ],
       synchronize: true,
       dropSchema: false,

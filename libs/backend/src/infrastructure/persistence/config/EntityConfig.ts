@@ -1,6 +1,8 @@
 export class EntityConfig {
   public static readonly GRAPH_ENTITY = 'graph'
 
+  public static readonly APP_ENTITY = 'app'
+
   public static readonly VERTEX_ENTITY = 'vertex'
 
   public static readonly EDGE_ENTITY = 'edge'

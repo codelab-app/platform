@@ -2,7 +2,14 @@ import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies'
 import { DatabaseConfig } from '../config/DatabaseConfig'
-import { TypeOrmEdge, TypeOrmGraph, TypeOrmUser, TypeOrmVertex } from './entity'
+import {
+  TypeOrmEdge,
+  TypeOrmGraph,
+  TypeOrmPage,
+  TypeOrmUser,
+  TypeOrmVertex,
+} from './entity'
+import { TypeOrmApp } from './entity/TypeOrmApp'
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -18,7 +25,8 @@ import { TypeOrmEdge, TypeOrmGraph, TypeOrmUser, TypeOrmVertex } from './entity'
         TypeOrmGraph,
         TypeOrmUser,
         TypeOrmVertex,
-        // TypeOrmPage,
+        TypeOrmPage,
+        TypeOrmApp,
       ],
       autoLoadEntities: false,
       synchronize: DatabaseConfig.TYPEORM_SYNCHRONIZE,

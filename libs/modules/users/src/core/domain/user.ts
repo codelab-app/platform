@@ -4,7 +4,7 @@ import { SerializedUserDto } from './dto/SerializedUserDto'
 import { UserAccessToken } from './user-accessToken'
 import { UserEmail } from './user-email'
 import { UserPassword } from './user-password'
-import { AggregateRoot, TransformBoth } from '@codelab/backend'
+import { AggregateRoot, TransformBoth, TypeOrmUser } from '@codelab/backend'
 
 export class User extends AggregateRoot<SerializedUserDto> {
   // @ValidateNested()
@@ -54,6 +54,10 @@ export class User extends AggregateRoot<SerializedUserDto> {
 
   toPlain() {
     return classToPlain(this) as SerializedUserDto
+  }
+
+  toPersistence(): TypeOrmUser {
+    return plainToClass(TypeOrmUser, this.toPlain())
   }
 
   // public static arrayToPlain(users: Array<User>) {

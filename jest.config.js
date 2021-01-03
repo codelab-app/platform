@@ -36,5 +36,6 @@ module.exports = {
     '<rootDir>/libs/modules/page',
     '<rootDir>/libs/tools/json-schema-generator',
     '<rootDir>/libs/modules/auth',
+    '<rootDir>/libs/modules/app',
   ],
 }
