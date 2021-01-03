@@ -1,7 +1,7 @@
 import { option } from 'fp-ts'
 import { Option } from 'fp-ts/Option'
 import { left, right } from 'fp-ts/lib/Either'
-import { UserRepositoryPort } from '../../../adapters/UserRepositoryPort'
+import { UsersRepositoryPort } from '../../../adapters/UsersRepositoryPort'
 import { User } from '../../../domain/user'
 import { EditUserErrors } from './UpdateUserErrors'
 import { UpdateUserRequest } from './UpdateUserRequest'
@@ -10,7 +10,7 @@ import { UpdateUserUseCase } from './UpdateUserUseCase'
 import { Result } from '@codelab/backend'
 
 export class UpdateUserService implements UpdateUserUseCase {
-  constructor(private readonly userRepository: UserRepositoryPort) {}
+  constructor(private readonly userRepository: UsersRepositoryPort) {}
 
   async execute(request: UpdateUserRequest): Promise<UpdateUserResponse> {
     const userToUpdate = User.update(request)

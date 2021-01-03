@@ -1,6 +1,6 @@
-import { Injectable, OnModuleInit } from '@nestjs/common'
-import { JwtStrategy } from '../../../infrastructure/auth/strategies/jwt.strategy'
-import { User } from '../../domain/user'
+import { Injectable } from '@nestjs/common'
+import { User } from '../../../../modules/users/src/core/domain/user'
+import { JwtStrategy } from './strategies/jwt.strategy'
 
 @Injectable()
 export class AuthService {

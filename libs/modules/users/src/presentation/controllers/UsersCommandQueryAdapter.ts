@@ -1,14 +1,16 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, UseGuards } from '@nestjs/common'
 import { CommandBus, QueryBus } from '@nestjs/cqrs'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
+import { CurrentUser } from '../../../../../backend/src/infrastructure/auth/CurrentUser'
+import { GqlAuthGuard } from '../../../../../backend/src/infrastructure/auth/gql-auth.guard'
 import { DeleteUserCommand } from '../../core/application/commands/DeleteUserCommand'
+import { GetMeQuery } from '../../core/application/commands/GetMeQuery'
 import { LoginUserQuery } from '../../core/application/commands/LoginUserQuery'
 import { RegisterUserCommand } from '../../core/application/commands/RegisterUserCommand'
 import { UpdateUserCommand } from '../../core/application/commands/UpdateUserCommand'
-import { GetUsersQuery } from '../../core/application/queries/GetUsersQuery'
 import { UserUseCaseDto } from '../../core/application/useCases/UserUseCaseDto'
 import { DeleteUserRequest } from '../../core/application/useCases/deleteUser/DeleteUserRequest'
-import { GetUserRequest } from '../../core/application/useCases/getUser/GetUserRequest'
+import { GetMeRequest } from '../../core/application/useCases/getMe/GetMeRequest'
 import { LoginUserRequest } from '../../core/application/useCases/loginUser/LoginUserRequest'
 import { RegisterUserRequest } from '../../core/application/useCases/registerUser/RegisterUserRequest'
 import { UpdateUserRequest } from '../../core/application/useCases/updateUser/UpdateUserRequest'
@@ -71,6 +73,15 @@ export class UsersCommandQueryAdapter implements CommandQueryBusPort {
   @Query((returns) => UserUseCaseDto)
   async login(@Args('request') request: LoginUserRequest) {
     const result = await this.queryBus.execute(new LoginUserQuery(request))
+
+    return result.toPlain()
+  }
+
+  @Query((returns) => UserUseCaseDto)
+  @UseGuards(GqlAuthGuard)
+  async getMe(@CurrentUser() userId: string) {
+    const request: GetMeRequest = { userId }
+    const result = await this.queryBus.execute(new GetMeQuery(request))
 
     return result.toPlain()
   }

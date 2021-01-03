@@ -2,7 +2,7 @@ import { Option } from 'fp-ts/Option'
 import { FindUserBy } from '../../common/CommonTypes'
 import { User } from '../domain/user'
 
-export interface UserRepositoryPort {
+export interface UsersRepositoryPort {
   createUser(user: User): Promise<User>
   deleteUser(user: User): Promise<Option<User>>
   updateUser(user: User): Promise<User>

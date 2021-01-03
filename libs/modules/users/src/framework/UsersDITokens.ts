@@ -1,4 +1,6 @@
 export class UsersDITokens {
+  public static readonly GetMeUseCase: unique symbol = Symbol('GetMeUseCase')
+
   public static readonly LoginUserUseCase: unique symbol = Symbol(
     'LoginUserUseCase',
   )

@@ -1,7 +1,8 @@
-import { Injectable, OnModuleInit } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 import { ModuleRef } from '@nestjs/core'
 import { JwtService } from '@nestjs/jwt'
 import { PassportStrategy } from '@nestjs/passport'
+import { classToPlain } from 'class-transformer'
 import { ExtractJwt, Strategy } from 'passport-jwt'
 import { IToken } from '../IToken'
 import { JwtConfig } from '../config/JwtConfig'
@@ -20,14 +21,14 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
     })
   }
 
-  // async validate(payload: any): Promise<UserEntity> {
+  // Will return userId here
   async validate(payload: any): Promise<any> {
     let token = payload.headers.authorization
 
     token = token.replace('Bearer', '').trim()
     const decodedToken = this.jwtService.decode(token) as IToken
 
-    // return this.userService.findOne(decodedToken.sub)
+    return decodedToken.sub
   }
 
   async refreshToken(token: string) {
@@ -55,13 +56,14 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
   }
 
   async getToken(user: any) {
+    const plainUser = classToPlain(user)
     const payload = {
-      username: user.email,
-      sub: user.id,
+      username: plainUser.email,
+      sub: plainUser.id,
       'https://hasura.io/jwt/claims': {
         'x-hasura-allowed-roles': ['admin'],
         'x-hasura-default-role': 'admin',
-        'x-hasura-user-id': user.id,
+        'x-hasura-user-id': plainUser.id,
       },
     }
 

@@ -1,10 +1,9 @@
 import { OnModuleInit } from '@nestjs/common'
 import { ModuleRef } from '@nestjs/core'
-import { plainToClass } from 'class-transformer'
 import { left, right } from 'fp-ts/lib/Either'
-import { UserRepositoryPort } from '../../../adapters/UserRepositoryPort'
+import { AuthService } from '../../../../../../../backend/src/infrastructure/auth/auth.service'
+import { UsersRepositoryPort } from '../../../adapters/UsersRepositoryPort'
 import { User } from '../../../domain/user'
-import { AuthService } from '../../services/auth.service'
 import { RegisterUserErrors } from './RegisterUserErrors'
 import { RegisterUserRequest } from './RegisterUserRequest'
 import { RegisterUserResponse } from './RegisterUserResponse'
@@ -15,7 +14,7 @@ export class RegisterUserService implements RegisterUserUseCase, OnModuleInit {
   declare authService: AuthService
 
   constructor(
-    private readonly userRepository: UserRepositoryPort,
+    private readonly userRepository: UsersRepositoryPort,
     private readonly moduleRef: ModuleRef,
   ) {}
 

@@ -4,14 +4,14 @@ import { Option } from 'fp-ts/Option'
 import { EntityRepository, Repository } from 'typeorm'
 import { FindUserBy } from '../../common/CommonTypes'
 import { isEmail, isId } from '../../common/utils'
-import { UserRepositoryPort } from '../../core/adapters/UserRepositoryPort'
+import { UsersRepositoryPort } from '../../core/adapters/UsersRepositoryPort'
 import { User } from '../../core/domain/user'
 import { TypeOrmUser } from '@codelab/backend'
 
 @EntityRepository(TypeOrmUser)
 export class TypeOrmUserRepositoryAdapter
   extends Repository<TypeOrmUser>
-  implements UserRepositoryPort {
+  implements UsersRepositoryPort {
   async findAll(): Promise<Array<User>> {
     const users: Array<TypeOrmUser> = await this.find()
 
