@@ -53,7 +53,7 @@ describe('LoginUserUseCase', () => {
         query: registerUserMutation({ email, password }),
       })
       .expect((res) => {
-        expect(res.body.data?.registerUser.email).toEqual(email)
+        expect(res.body.data.registerUser.email).toEqual(email)
       })
   })
 
