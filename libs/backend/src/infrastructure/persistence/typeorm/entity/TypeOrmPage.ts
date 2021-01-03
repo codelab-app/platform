@@ -1,8 +1,9 @@
 import { ObjectType } from '@nestjs/graphql'
-import { Column, Entity } from 'typeorm'
+import { Column, Entity, ManyToOne } from 'typeorm'
 import { IPage } from '../../../graphql/models/IPage'
 import { EntityConfig } from '../../config/EntityConfig'
 import { BaseTypeOrm } from './BaseTypeOrm'
+import { TypeOrmApp } from './TypeOrmApp'
 
 @Entity(EntityConfig.PAGE_ENTITY)
 @ObjectType({
@@ -14,4 +15,7 @@ export class TypeOrmPage extends BaseTypeOrm {
     unique: true,
   })
   declare title: string
+
+  @ManyToOne((type) => TypeOrmApp, (app) => app.pages)
+  declare app: TypeOrmApp
 }

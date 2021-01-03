@@ -1,4 +1,8 @@
 export class UsersDITokens {
+  public static readonly UserService: unique symbol = Symbol('UserService')
+
+  public static readonly GetMeUseCase: unique symbol = Symbol('GetMeUseCase')
+
   public static readonly LoginUserUseCase: unique symbol = Symbol(
     'LoginUserUseCase',
   )
@@ -38,4 +42,6 @@ export class UsersDITokens {
   public static readonly UsersRepository: unique symbol = Symbol(
     'UsersRepository',
   )
+
+  public static readonly AppRepository: unique symbol = Symbol('AppRepository')
 }

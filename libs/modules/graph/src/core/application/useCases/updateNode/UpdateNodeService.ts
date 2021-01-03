@@ -29,12 +29,9 @@ export class UpdateNodeService implements UpdateNodeUseCase {
       return left(new UpdateNodeErrors.VertexNotFound(type.id))
     }
 
-    const graphOpt: Option<Graph> = await this.graphRepository.findGraphBy(
-      {
-        id: graphId,
-      },
-      true,
-    )
+    const graphOpt: Option<Graph> = await this.graphRepository.findGraphBy({
+      id: graphId,
+    })
 
     if (isNone(graphOpt)) {
       return left(new UpdateNodeErrors.GraphNotFoundError(graphId))

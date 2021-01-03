@@ -1,7 +1,7 @@
 import { option as O } from 'fp-ts'
 import { Option } from 'fp-ts/Option'
 import { left, right } from 'fp-ts/lib/Either'
-import { UserRepositoryPort } from '../../../adapters/UserRepositoryPort'
+import { UsersRepositoryPort } from '../../../adapters/UsersRepositoryPort'
 import { User } from '../../../domain/user'
 import { DeleteUserErrors } from './DeleteUserErrors'
 import { DeleteUserRequest } from './DeleteUserRequest'
@@ -10,7 +10,7 @@ import { DeleteUserUseCase } from './DeleteUserUseCase'
 import { AppError, Result } from '@codelab/backend'
 
 export class DeleteUserService implements DeleteUserUseCase {
-  constructor(private readonly userRepository: UserRepositoryPort) {}
+  constructor(private readonly userRepository: UsersRepositoryPort) {}
 
   async execute(request: DeleteUserRequest): Promise<DeleteUserResponse> {
     const existingUser: Option<User> = await this.userRepository.findUser({

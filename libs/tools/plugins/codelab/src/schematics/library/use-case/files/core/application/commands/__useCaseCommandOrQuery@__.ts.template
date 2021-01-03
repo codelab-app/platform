@@ -1,4 +1,4 @@
-import { <%= useCaseNamePascalCase %>Request } from '../useCases/<%= useCaseName %>/<%= useCaseNamePascalCase %>Request'
+import { <%= useCaseNamePascalCase %>Request } from '../useCases/<%= useCaseFolderName %>/<%= useCaseNamePascalCase %>Request'
 import { UseCaseRequestPort } from '@codelab/backend'
 
 export class <%= useCaseCommandOrQuery %>

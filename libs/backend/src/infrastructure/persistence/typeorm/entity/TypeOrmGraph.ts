@@ -1,8 +1,9 @@
 import { ObjectType } from '@nestjs/graphql'
-import { AfterLoad, Column, Entity, OneToMany } from 'typeorm'
+import { AfterLoad, Column, Entity, ManyToOne, OneToMany } from 'typeorm'
 import { IGraph } from '../../../graphql/models/IGraph'
 import { EntityConfig } from '../../config/EntityConfig'
 import { BaseTypeOrm } from './BaseTypeOrm'
+import { TypeOrmApp } from './TypeOrmApp'
 import { TypeOrmVertex } from './TypeOrmVertex'
 import { TypeOrmEdge } from '@codelab/backend'
 
@@ -19,6 +20,9 @@ export class TypeOrmGraph extends BaseTypeOrm {
 
   @OneToMany((type) => TypeOrmEdge, (edge) => edge.graph)
   declare edges: Array<TypeOrmEdge>
+
+  @ManyToOne((type) => TypeOrmApp, (app) => app.graphs)
+  declare app: TypeOrmApp
 
   // @ManyToOne((type) => TypeOrmUser, (user) => user.graphs)
   // declare user: TypeOrmUser

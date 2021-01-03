@@ -47,7 +47,7 @@ describe.skip('LoginUserUseCase', () => {
       })
       .expect(200)
       .expect((res) => {
-        expect(res.body.data.register.email).toEqual(email)
+        expect(res.body.data.registerUser.email).toEqual(email)
       })
 
     const loginQuery = `
@@ -90,7 +90,7 @@ describe.skip('LoginUserUseCase', () => {
       })
       .expect(200)
       .expect((res) => {
-        expect(res.body.data.register.email).toEqual(email)
+        expect(res.body.data.registerUser.email).toEqual(email)
       })
 
     const loginQuery = `

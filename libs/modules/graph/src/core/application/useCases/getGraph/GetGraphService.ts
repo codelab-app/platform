@@ -14,10 +14,9 @@ export class GetGraphService implements GetGraphUseCase {
   async execute(request: GetGraphRequest): Promise<GetGraphResponse> {
     const { graphId } = request
 
-    const graphOpt: Option<Graph> = await this.graphRepository.findGraphBy(
-      { id: graphId },
-      true,
-    )
+    const graphOpt: Option<Graph> = await this.graphRepository.findGraphBy({
+      id: graphId,
+    })
 
     if (isNone(graphOpt)) {
       return left(new GetGraphErrors.GraphNotFoundError(graphId))

@@ -2,7 +2,7 @@ import { INestApplication } from '@nestjs/common'
 import { Test } from '@nestjs/testing'
 import request from 'supertest'
 import { Connection } from 'typeorm'
-import { AuthModule } from '../../../../framework/nestjs/auth.module'
+import { AuthModule } from '../../../../../../../backend/src/infrastructure/auth/auth.module'
 import { TestInfrastructureModule } from '@codelab/backend'
 import { UsersModule } from '@codelab/modules/users'
 

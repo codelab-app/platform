@@ -24,6 +24,7 @@ export interface NormalizedSchema extends UseCaseSchematicSchema {
   projectRoot: string
   projectDirectory: string
   useCaseNamePascalCase: string // PascalCase
+  useCaseFolderName: string // folderName
   moduleNamePascalCase: string // PascalCase
   useCaseCommandOrQuery: string
   handlerType: 'CommandHandler' | 'QueryHandler' | string
@@ -36,6 +37,7 @@ export const normalizeOptions = (
   const projectDirectory = `modules/${name}`
   const projectName = projectDirectory.replace(new RegExp('/', 'g'), '-')
   const projectRoot = `${projectRootDir(projectType)}/${projectDirectory}`
+  const useCaseFolderName = v.chain(options.useCaseName).camelCase().value()
   const useCaseNamePascalCase = v
     .chain(options.useCaseName)
     .camelCase()
@@ -57,6 +59,7 @@ export const normalizeOptions = (
     projectName,
     projectRoot,
     projectDirectory,
+    useCaseFolderName,
     useCaseNamePascalCase,
     moduleNamePascalCase,
     useCaseCommandOrQuery,

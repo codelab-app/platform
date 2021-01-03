@@ -31,12 +31,9 @@ export class DeleteNodeService implements DeleteNodeUseCase {
 
     await this.edgeRepository.deleteEdgesByVertexId(vertexId)
     const graphId = deleteVertexResultOpt.value.graphId?.value
-    const graphOpt: Option<Graph> = await this.graphRepository.findGraphBy(
-      {
-        id: graphId as string,
-      },
-      true,
-    )
+    const graphOpt: Option<Graph> = await this.graphRepository.findGraphBy({
+      id: graphId as string,
+    })
 
     if (isNone(graphOpt)) {
       return left(new DeleteNodeErrors.GraphNotFoundError(graphId as string))

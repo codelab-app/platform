@@ -117,7 +117,8 @@
       "@codelab/modules/graph": ["libs/modules/graph/src/index.ts"],
       "@codelab/tools/json-schema-generator": [
         "libs/tools/json-schema-generator/src/index.ts"
-      ]
+      ],
+      "@codelab/modules/app": ["libs/modules/app/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"]
