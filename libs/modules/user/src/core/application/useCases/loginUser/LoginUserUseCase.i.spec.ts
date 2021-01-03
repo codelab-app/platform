@@ -63,6 +63,10 @@ describe('LoginUserUseCase', () => {
     await app.close()
   })
 
+  afterEach(async () => {
+    await connection.query('DELETE FROM "user"')
+  })
+
   it('should successfully login', async () => {
     await request(app.getHttpServer())
       .post('/graphql')
