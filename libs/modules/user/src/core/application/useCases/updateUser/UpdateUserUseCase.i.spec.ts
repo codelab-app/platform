@@ -48,7 +48,7 @@ describe.skip('UpdateUserUseCase', () => {
         query: createUserMutation,
       })
       .expect(200)
-      .then((res) => {
+      .expect((res) => {
         expect(res.body.data.createUser.email).toEqual(email)
       })
     const newUserId = createNewUser.body.data.createUser.id
@@ -63,7 +63,7 @@ describe.skip('UpdateUserUseCase', () => {
         query: updateUserMutation,
       })
       .expect(200)
-      .then((res) => {
+      .expect((res) => {
         expect(res.body.data.updateUser.email).toEqual(
           'test_user_edited@gmail.com',
         )
@@ -82,7 +82,7 @@ describe.skip('UpdateUserUseCase', () => {
         query: updateUserMutation,
       })
       .expect(200)
-      .then((res) => {
+      .expect((res) => {
         const errorMsg = res.body?.errors[0].message
 
         expect(errorMsg).toEqual(

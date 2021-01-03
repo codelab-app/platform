@@ -45,7 +45,7 @@ const addChildNodeToRootRequest = async (
       query,
     })
     .expect(200)
-    .then((res) => {
+    .expect((res) => {
       expect(res.body.data.addChildNode.label).toEqual(graphLabel)
     })
 }
@@ -86,7 +86,7 @@ describe.skip('MoveNodeUseCase', () => {
         query: createGraphMutation,
       })
       .expect(200)
-      .then((res) => {
+      .expect((res) => {
         expect(res.body.data.createGraph.label).toEqual(label)
         expect(res.body.data.createGraph.id).toBeDefined()
       })
@@ -115,7 +115,7 @@ describe.skip('MoveNodeUseCase', () => {
         query: addRootNodeMutation,
       })
       .expect(200)
-      .then((res) => {
+      .expect((res) => {
         expect(res.body.data.addChildNode.label).toEqual(label)
         expect(res.body.data.addChildNode.vertices.length).toEqual(1)
         expect(res.body.data.addChildNode.vertices[0].type).toEqual(
@@ -221,7 +221,7 @@ describe.skip('MoveNodeUseCase', () => {
         query: moveVertexMutation,
       })
       .expect(200)
-      .then((res) => {
+      .expect((res) => {
         expect(res.body.data.moveNode.label).toEqual(label)
         expect(res.body.data.moveNode.edges[0].order).toEqual(0)
         expect(res.body.data.moveNode.edges[0].props).toMatchObject({

@@ -51,7 +51,7 @@ describe('RegisterUserUseCase', () => {
         query: registerUserMutation({ email, password }),
       })
       .expect(200)
-      .then((res) => {
+      .expect((res) => {
         expect(res.body.data.registerUser.email).toEqual(email)
       })
   })
@@ -64,7 +64,7 @@ describe('RegisterUserUseCase', () => {
         query: registerUserMutation({ email, password }),
       })
       .expect(200)
-      .then((res) => {
+      .expect((res) => {
         expect(res.body.data.registerUser.email).toEqual(email)
       })
 
@@ -75,7 +75,7 @@ describe('RegisterUserUseCase', () => {
         query: registerUserMutation({ email, password }),
       })
       .expect(200)
-      .then((res) => {
+      .expect((res) => {
         const errorMsg = res.body?.errors[0].message
 
         expect(errorMsg).toEqual(

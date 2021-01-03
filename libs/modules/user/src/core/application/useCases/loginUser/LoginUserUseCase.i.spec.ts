@@ -67,7 +67,7 @@ describe('LoginUserUseCase', () => {
         query: loginUserQuery({ email, password }),
       })
       .expect(200)
-      .then((res) => {
+      .expect((res) => {
         expect(res.body.data.loginUser.email).toEqual(email)
         expect(res.body.data.loginUser.accessToken).toBeDefined()
       })
@@ -80,7 +80,7 @@ describe('LoginUserUseCase', () => {
         query: loginUserQuery({ email, password: 'wrong-password' }),
       })
       .expect(200)
-      .then((res) => {
+      .expect((res) => {
         const errorMsg = res.body?.errors[0].message
 
         expect(errorMsg).toEqual(`Wrong Password`)
@@ -94,7 +94,7 @@ describe('LoginUserUseCase', () => {
         query: loginUserQuery({ email: 'wrong@gmail.com', password }),
       })
       .expect(200)
-      .then((res) => {
+      .expect((res) => {
         const errorMsg = res.body?.errors[0].message
 
         expect(errorMsg).toEqual(

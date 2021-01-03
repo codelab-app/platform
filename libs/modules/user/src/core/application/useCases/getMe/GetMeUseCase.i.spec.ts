@@ -46,7 +46,7 @@ describe.skip('GetMeUseCase', () => {
         query: registerUserMutation,
       })
       .expect(200)
-      .then((res) => {
+      .expect((res) => {
         expect(res.body.data.registerUser.email).toEqual(email)
       })
 
@@ -65,7 +65,7 @@ describe.skip('GetMeUseCase', () => {
         query: loginQuery,
       })
       .expect(200)
-      .then((res) => {
+      .expect((res) => {
         expect(res.body.data.login.email).toEqual(email)
         expect(res.body.data.login.accessToken).toBeDefined()
       })
@@ -78,7 +78,7 @@ describe.skip('GetMeUseCase', () => {
         query: getMeQuery,
       })
       .expect(200)
-      .then((res) => {
+      .expect((res) => {
         expect(res.body.data.getMe.email).toEqual(email)
       })
   })

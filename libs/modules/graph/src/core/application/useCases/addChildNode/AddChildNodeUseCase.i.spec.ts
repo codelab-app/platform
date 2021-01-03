@@ -41,7 +41,7 @@ describe.skip('AddChildNodeUseCase', () => {
         query: createGraphMutation,
       })
       .expect(200)
-      .then((res) => {
+      .expect((res) => {
         expect(res.body.data.createGraph.label).toEqual(label)
         expect(res.body.data.createGraph.id).toBeDefined()
       })
@@ -70,7 +70,7 @@ describe.skip('AddChildNodeUseCase', () => {
         query: addChildNodeMutation,
       })
       .expect(200)
-      .then((res) => {
+      .expect((res) => {
         expect(res.body.data.addChildNode.label).toEqual(label)
         expect(res.body.data.addChildNode.vertices.length).toEqual(1)
         expect(res.body.data.addChildNode.vertices[0].type).toEqual(
@@ -93,7 +93,7 @@ describe.skip('AddChildNodeUseCase', () => {
         query: createGraphMutation,
       })
       .expect(200)
-      .then((res) => {
+      .expect((res) => {
         expect(res.body.data.createGraph.label).toEqual(label)
         expect(res.body.data.createGraph.id).toBeDefined()
       })
@@ -122,7 +122,7 @@ describe.skip('AddChildNodeUseCase', () => {
         query: addChildNodeMutation,
       })
       .expect(200)
-      .then((res) => {
+      .expect((res) => {
         expect(res.body.data.addChildNode.label).toEqual(label)
         expect(res.body.data.addChildNode.vertices.length).toEqual(1)
         expect(res.body.data.addChildNode.vertices[0].type).toEqual(
@@ -160,7 +160,7 @@ describe.skip('AddChildNodeUseCase', () => {
         query: addChildNodeWithParentMutation,
       })
       .expect(200)
-      .then((res) => {
+      .expect((res) => {
         expect(res.body.data.addChildNode.label).toEqual(label)
         expect(res.body.data.addChildNode.vertices.length).toEqual(2)
         expect(res.body.data.addChildNode.edges.length).toEqual(1)

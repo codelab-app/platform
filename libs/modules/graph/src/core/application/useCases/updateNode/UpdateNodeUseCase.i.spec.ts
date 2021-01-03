@@ -58,7 +58,7 @@ describe.skip('UpdateNodeUseCase', () => {
         query: createGraphMutation,
       })
       .expect(200)
-      .then((res) => {
+      .expect((res) => {
         expect(res.body.data.createGraph.label).toEqual(graphLabel)
         expect(res.body.data.createGraph.id).toBeDefined()
       })
@@ -91,7 +91,7 @@ describe.skip('UpdateNodeUseCase', () => {
         query: addChildNodeMutation,
       })
       .expect(200)
-      .then((res) => {
+      .expect((res) => {
         expect(res.body.data.addChildNode.label).toEqual(graphLabel)
         expect(res.body.data.addChildNode.vertices.length).toEqual(1)
         expect(res.body.data.addChildNode.vertices[0].type).toEqual(
@@ -110,7 +110,7 @@ describe.skip('UpdateNodeUseCase', () => {
         query: updateNodeMutation,
       })
       .expect(200)
-      .then((res) => {
+      .expect((res) => {
         expect(res.body.data.updateNode.label).toEqual(graphLabel)
         expect(res.body.data.updateNode.vertices.length).toEqual(1)
         expect(res.body.data.updateNode.vertices[0].type).toEqual('React_Text')
@@ -130,7 +130,7 @@ describe.skip('UpdateNodeUseCase', () => {
         query: updateNodeMutation,
       })
       .expect(200)
-      .then((res) => {
+      .expect((res) => {
         const errorMsg = res.body?.errors[0].message
 
         expect(errorMsg).toEqual(

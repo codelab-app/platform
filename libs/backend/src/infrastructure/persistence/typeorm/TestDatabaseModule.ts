@@ -30,7 +30,7 @@ import { TypeOrmApp } from './entity/TypeOrmApp'
         TypeOrmApp,
       ],
       synchronize: true,
-      dropSchema: false,
+      dropSchema: true,
       logging: ['query', 'error', 'schema'],
       namingStrategy: new SnakeNamingStrategy(),
     }),

@@ -48,7 +48,7 @@ describe('CreateGraphUseCase', () => {
         query: createGraphMutation({ label }),
       })
       .expect(200)
-      .then((res) => {
+      .expect((res) => {
         expect(res.body.data.createGraph.label).toEqual(label)
         expect(res.body.data.createGraph.id).toBeDefined()
       })

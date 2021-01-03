@@ -53,7 +53,7 @@ describe.skip('DeleteUserUseCase', () => {
         query: createUserMutation,
       })
       .expect(200)
-      .then((res) => {
+      .expect((res) => {
         expect(res.body.data.createUser).toEqual({
           email: 'test_user@codelab.ai',
         })
@@ -64,7 +64,7 @@ describe.skip('DeleteUserUseCase', () => {
         query: deleteUserMutation,
       })
       .expect(200)
-      .then((res) => {
+      .expect((res) => {
         expect(res.body.data.deleteUser).toEqual({
           email: 'test_user@codelab.ai',
         })
@@ -82,7 +82,7 @@ describe.skip('DeleteUserUseCase', () => {
         query: deleteUserMutation,
       })
       .expect(200)
-      .then((res) => {
+      .expect((res) => {
         const errorMsg = res.body?.errors[0].message
 
         expect(errorMsg).toEqual(

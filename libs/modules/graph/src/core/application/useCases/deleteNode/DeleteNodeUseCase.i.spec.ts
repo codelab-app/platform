@@ -36,7 +36,7 @@ describe.skip('DeleteNodeUseCase', () => {
         query: createGraphMutation,
       })
       .expect(200)
-      .then((res) => {
+      .expect((res) => {
         expect(res.body.data.createGraph.label).toEqual(graphLabel)
         expect(res.body.data.createGraph.id).toBeDefined()
       })
@@ -74,7 +74,7 @@ describe.skip('DeleteNodeUseCase', () => {
         query: addChildNodeMutation,
       })
       .expect(200)
-      .then((res) => {
+      .expect((res) => {
         expect(res.body.data.addChildNode.label).toEqual(graphLabel)
         expect(res.body.data.addChildNode.vertices.length).toEqual(1)
         expect(res.body.data.addChildNode.vertices[0].type).toEqual(
@@ -112,7 +112,7 @@ describe.skip('DeleteNodeUseCase', () => {
         query: addChildNodeWithParentMutation,
       })
       .expect(200)
-      .then((res) => {
+      .expect((res) => {
         expect(res.body.data.addChildNode.label).toEqual(graphLabel)
         expect(res.body.data.addChildNode.vertices.length).toEqual(2)
         expect(res.body.data.addChildNode.edges.length).toEqual(1)
@@ -150,7 +150,7 @@ describe.skip('DeleteNodeUseCase', () => {
         query: deleteNodeMutation,
       })
       .expect(200)
-      .then((res) => {
+      .expect((res) => {
         expect(res.body.data.deleteNode.label).toEqual(graphLabel)
         expect(res.body.data.deleteNode.edges.length).toEqual(0)
         expect(res.body.data.deleteNode.vertices.length).toEqual(1)
@@ -175,7 +175,7 @@ describe.skip('DeleteNodeUseCase', () => {
         query: deleteNodeMutation,
       })
       .expect(200)
-      .then((res) => {
+      .expect((res) => {
         const errorMsg = res.body?.errors[0].message
 
         expect(errorMsg).toEqual(
