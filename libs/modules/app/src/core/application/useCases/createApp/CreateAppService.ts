@@ -2,8 +2,8 @@ import { OnModuleInit } from '@nestjs/common'
 import { ModuleRef } from '@nestjs/core'
 import { isNone } from 'fp-ts/Option'
 import { left, right } from 'fp-ts/lib/Either'
-import { UserService } from '../../../../../../users/src/core/application/services/UserService'
-import { UsersDITokens } from '../../../../../../users/src/framework/UsersDITokens'
+import { UserService } from '../../../../../../user/src/core/application/services/UserService'
+import { UserDITokens } from '../../../../../../user/src/framework/UserDITokens'
 import { AppRepositoryPort } from '../../../adapters/AppRepositoryPort'
 import { App } from '../../../domain/app'
 import { CreateAppErrors } from './CreateAppErrors'
@@ -36,7 +36,7 @@ export class CreateAppService implements CreateAppUseCase, OnModuleInit {
   }
 
   onModuleInit(): any {
-    this.userService = this.moduleRef.get(UsersDITokens.UserService, {
+    this.userService = this.moduleRef.get(UserDITokens.UserService, {
       strict: false,
     })
   }
