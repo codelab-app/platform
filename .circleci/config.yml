@@ -179,7 +179,7 @@ commands:
           mentions: $SLACK_USER
 
 jobs:
-  vault-config-staging:
+  vault-staging-config:
     <<: *executor-params
     description: 'Pull staging .env from vault server'
     steps:
