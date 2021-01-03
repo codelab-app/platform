@@ -66,7 +66,7 @@ describe('RegisterUserUseCase', () => {
       })
       .expect(200)
       .expect((res) => {
-        expect(res.body.data.registerUser.email).toEqual(email)
+        expect(res.body.data?.registerUser.email).toEqual(email)
       })
 
     // Create another user
