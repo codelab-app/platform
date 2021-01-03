@@ -44,17 +44,6 @@ describe('LoginUserUseCase', () => {
     app = testModule.createNestApplication()
     connection = app.get(Connection)
     await app.init()
-
-    await connection.query('DELETE FROM "user"')
-
-    await request(app.getHttpServer())
-      .post('/graphql')
-      .send({
-        query: registerUserMutation({ email, password }),
-      })
-      .expect((res) => {
-        expect(res.body.data.registerUser.email).toEqual(email)
-      })
   })
 
   afterAll(async () => {
@@ -65,6 +54,19 @@ describe('LoginUserUseCase', () => {
 
   afterEach(async () => {
     await connection.query('DELETE FROM "user"')
+  })
+
+  beforeEach(async () => {
+    await connection.query('DELETE FROM "user"')
+
+    await request(app.getHttpServer())
+      .post('/graphql')
+      .send({
+        query: registerUserMutation({ email, password }),
+      })
+      .expect((res) => {
+        expect(res.body.data.registerUser.email).toEqual(email)
+      })
   })
 
   it('should successfully login', async () => {
