@@ -11,7 +11,7 @@ import { AppHeaderMenuProps, HeaderMenu } from '@codelab/modules/app-stories'
 import {
   UserLoginButtonContainer,
   UserSignupButtonContainer,
-} from '@codelab/modules/users-stories'
+} from '@codelab/modules/user-stories'
 
 export const AppLayoutContainer = ({ children }: any) => {
   const layout = useLayoutActor()

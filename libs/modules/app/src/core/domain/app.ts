@@ -1,6 +1,6 @@
 import { Type, classToPlain, plainToClass } from 'class-transformer'
 import { TypeOrmApp } from '../../../../../backend/src/infrastructure/persistence/typeorm/entity/TypeOrmApp'
-import { SerializedAppDto } from '../../../../users/src/core/domain/dto/SerializedAppDto'
+import { SerializedAppDto } from '../../../../user/src/core/domain/dto/SerializedAppDto'
 import { AppTitle } from './app-title'
 import { AggregateRoot, TransformBoth } from '@codelab/backend'
 

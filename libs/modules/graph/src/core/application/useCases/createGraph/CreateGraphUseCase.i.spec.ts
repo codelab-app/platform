@@ -2,10 +2,21 @@ import { INestApplication } from '@nestjs/common'
 import { Test } from '@nestjs/testing'
 import request from 'supertest'
 import { Connection } from 'typeorm'
+import { CreateGraphRequest } from './CreateGraphRequest'
 import { TestInfrastructureModule } from '@codelab/backend'
 import { GraphModule } from '@codelab/modules/graph'
 
-describe.skip('CreateGraphUseCase', () => {
+const createGraphMutation = ({ label }: CreateGraphRequest) => `
+  mutation {
+		createGraph(graph: {
+      label: "${label}"
+    }) {
+      id
+      label
+    }
+  }`
+
+describe('CreateGraphUseCase', () => {
   let app: INestApplication
   let connection: Connection
 
@@ -20,6 +31,7 @@ describe.skip('CreateGraphUseCase', () => {
   })
 
   afterAll(async () => {
+    await connection.query('DELETE FROM graph')
     await connection.close()
     await app.close()
   })
@@ -30,13 +42,11 @@ describe.skip('CreateGraphUseCase', () => {
 
   it('should create graph with a label', async () => {
     const label = 'Graph 1'
-    const createGraphMutation = `mutation {
-			createGraph(graph: {label: "${label}"}) { id label }
-		}`
-    const createNewGraph = await request(app.getHttpServer())
+
+    await request(app.getHttpServer())
       .post('/graphql')
       .send({
-        query: createGraphMutation,
+        query: createGraphMutation({ label }),
       })
       .expect(200)
       .expect((res) => {

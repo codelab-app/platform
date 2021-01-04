@@ -4,10 +4,10 @@ import { AppService } from './app.service'
 import { InfrastructureModule } from '@codelab/backend'
 import { CodelabAppModule } from '@codelab/modules/app'
 import { GraphModule } from '@codelab/modules/graph'
-import { UsersModule } from '@codelab/modules/users'
+import { UserModule } from '@codelab/modules/user'
 
 @Module({
-  imports: [InfrastructureModule, CodelabAppModule, UsersModule, GraphModule],
+  imports: [InfrastructureModule, CodelabAppModule, UserModule, GraphModule],
   controllers: [AppController],
   providers: [AppService],
 })

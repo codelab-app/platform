@@ -20,6 +20,10 @@ describe.skip('AddChildNodeUseCase', () => {
   })
 
   afterAll(async () => {
+    await connection.query('DELETE FROM vertex')
+    await connection.query('DELETE FROM edge')
+    await connection.query('DELETE FROM graph')
+
     await connection.close()
     await app.close()
   })
@@ -35,7 +39,7 @@ describe.skip('AddChildNodeUseCase', () => {
     const createGraphMutation = `mutation {
 			createGraph(graph: {label: "${label}"}) { id label }
 		}`
-    const createNewGraph = await request(app.getHttpServer())
+    const createNewGraph: any = await request(app.getHttpServer())
       .post('/graphql')
       .send({
         query: createGraphMutation,
@@ -48,10 +52,10 @@ describe.skip('AddChildNodeUseCase', () => {
     const graphId = createNewGraph.body.data.createGraph.id
     const addChildNodeMutation = `
       mutation {
-        addChildNode(request: 
+        addChildNode(request:
         {
           graphId: "${graphId}",
-          vertex: 
+          vertex:
           {
             type: React_Text,
             props: {
@@ -87,7 +91,7 @@ describe.skip('AddChildNodeUseCase', () => {
     const createGraphMutation = `mutation {
 			createGraph(graph: {label: "${label}"}) { id label }
 		}`
-    const createNewGraph = await request(app.getHttpServer())
+    const createNewGraph: any = await request(app.getHttpServer())
       .post('/graphql')
       .send({
         query: createGraphMutation,
@@ -100,10 +104,10 @@ describe.skip('AddChildNodeUseCase', () => {
     const graphId = createNewGraph.body.data.createGraph.id
     const addChildNodeMutation = `
       mutation {
-        addChildNode(request: 
+        addChildNode(request:
         {
           graphId: "${graphId}",
-          vertex: 
+          vertex:
           {
             type: React_Text,
             props: {
@@ -116,7 +120,7 @@ describe.skip('AddChildNodeUseCase', () => {
         }
       }
     `
-    const addChildNode = await request(app.getHttpServer())
+    const addChildNode: any = await request(app.getHttpServer())
       .post('/graphql')
       .send({
         query: addChildNodeMutation,
@@ -135,12 +139,12 @@ describe.skip('AddChildNodeUseCase', () => {
     const childNodeId = addChildNode.body.data.addChildNode.vertices[0].id
     const addChildNodeWithParentMutation = `
       mutation {
-        addChildNode(request: 
+        addChildNode(request:
           {
             order: 0,
             graphId: "${graphId}",
-            parentVertexId: "${childNodeId}", 
-            vertex: 
+            parentVertexId: "${childNodeId}",
+            vertex:
             {
               type: React_Text,
               props: {
@@ -150,7 +154,7 @@ describe.skip('AddChildNodeUseCase', () => {
           }) {
             label
             vertices { id type props }
-            edges { id order source target props } 
+            edges { id order source target props }
           }
       }
     `

@@ -40,6 +40,9 @@ describe.skip('UpdateNodeUseCase', () => {
   })
 
   afterAll(async () => {
+    await connection.query('DELETE FROM vertex')
+    await connection.query('DELETE FROM edge')
+    await connection.query('DELETE FROM graph')
     await connection.close()
     await app.close()
   })
@@ -52,7 +55,7 @@ describe.skip('UpdateNodeUseCase', () => {
     const createGraphMutation = `mutation {
 			createGraph(graph: {label: "${graphLabel}"}) { id label }
 		}`
-    const createNewGraph = await request(app.getHttpServer())
+    const createNewGraph: any = await request(app.getHttpServer())
       .post('/graphql')
       .send({
         query: createGraphMutation,
@@ -69,10 +72,10 @@ describe.skip('UpdateNodeUseCase', () => {
   it('should update vertex', async () => {
     const addChildNodeMutation = `
       mutation {
-        addChildNode(request: 
+        addChildNode(request:
         {
           graphId: "${graphId}",
-          vertex: 
+          vertex:
           {
             type: React_Text,
             props: {
@@ -85,7 +88,7 @@ describe.skip('UpdateNodeUseCase', () => {
         }
       }
     `
-    const addChildNode = await request(app.getHttpServer())
+    const addChildNode: any = await request(app.getHttpServer())
       .post('/graphql')
       .send({
         query: addChildNodeMutation,
