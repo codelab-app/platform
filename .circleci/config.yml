@@ -252,7 +252,7 @@ jobs:
       - setup-workspace
       - attach_workspace:
           at: /tmp
-      - run: cp /tmp/.env .env && ls -a && pwd && cat .ev | wc -l
+      - run: cp /tmp/.env .env && ls -a && pwd && cat .env | grep 'HASURA_GRAPHQL_URI'
       - run: make e2e-ci
       - notify-failure
 
