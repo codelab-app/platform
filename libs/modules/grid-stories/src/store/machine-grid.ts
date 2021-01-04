@@ -64,7 +64,7 @@ export const createGridMachine = () => {
               } = event
 
               console.log(oldItem, newItem)
-              console.log('onDragStop')
+              console.log('onResizeStop')
             },
           },
         },

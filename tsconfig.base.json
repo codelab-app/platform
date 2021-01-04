@@ -97,9 +97,6 @@
       "@codelab/modules/layout-stories": [
         "libs/modules/layout-stories/src/index.ts"
       ],
-      "@codelab/modules/modal-stories": [
-        "libs/modules/modal-stories/src/index.ts"
-      ],
       "@codelab/modules/sidebar-stories": [
         "libs/modules/sidebar-stories/src/index.ts"
       ],
