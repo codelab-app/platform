@@ -191,6 +191,7 @@ jobs:
     <<: *executor-params
     description: 'Pull staging .env from vault server'
     steps:
+      - checkout
       - run:
           name: "Fetch staging .env"
           command: |
