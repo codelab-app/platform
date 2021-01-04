@@ -11,8 +11,6 @@ import {
 export const HeaderMenu = () => {
   const user = useUser()
 
-  console.log(user)
-
   const { userData } = user.state.context
 
   return (
