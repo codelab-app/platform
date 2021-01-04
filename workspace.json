@@ -2136,7 +2136,8 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/modules/user/jest.config.js",
-            "passWithNoTests": true
+            "passWithNoTests": true,
+            "runInBand": true
           }
         }
       }
