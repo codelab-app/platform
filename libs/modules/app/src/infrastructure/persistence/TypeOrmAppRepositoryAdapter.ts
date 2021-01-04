@@ -1,10 +1,10 @@
 import { plainToClass } from 'class-transformer'
 import { EntityRepository, Repository } from 'typeorm'
 import { TypeOrmApp } from '../../../../../backend/src/infrastructure/persistence/typeorm/entity/TypeOrmApp'
-import { User } from '../../../../users/src/core/domain/user'
 import { AppRepositoryPort } from '../../core/adapters/AppRepositoryPort'
 import { App } from '../../core/domain/app'
 import { TypeOrmUser } from '@codelab/backend'
+import { User } from '@codelab/modules/user'
 
 @EntityRepository(TypeOrmApp)
 export class TypeOrmAppRepositoryAdapter

@@ -30,7 +30,7 @@ describe.skip('DeleteNodeUseCase', () => {
     const createGraphMutation = `mutation {
 			createGraph(graph: {label: "${graphLabel}"}) { id label }
 		}`
-    const createNewGraph = await request(app.getHttpServer())
+    const createNewGraph: any = await request(app.getHttpServer())
       .post('/graphql')
       .send({
         query: createGraphMutation,
@@ -45,6 +45,9 @@ describe.skip('DeleteNodeUseCase', () => {
   })
 
   afterAll(async () => {
+    await connection.query('DELETE FROM vertex')
+    await connection.query('DELETE FROM edge')
+    await connection.query('DELETE FROM graph')
     await connection.close()
     await app.close()
   })
@@ -52,10 +55,10 @@ describe.skip('DeleteNodeUseCase', () => {
   it('should delete node', async () => {
     const addChildNodeMutation = `
       mutation {
-        addChildNode(request: 
+        addChildNode(request:
         {
           graphId: "${graphId}",
-          vertex: 
+          vertex:
           {
             type: React_Text,
             props: {
@@ -68,7 +71,7 @@ describe.skip('DeleteNodeUseCase', () => {
         }
       }
     `
-    const addRootNode = await request(app.getHttpServer())
+    const addRootNode: any = await request(app.getHttpServer())
       .post('/graphql')
       .send({
         query: addChildNodeMutation,
@@ -87,12 +90,12 @@ describe.skip('DeleteNodeUseCase', () => {
     const rootNodeId = addRootNode.body.data.addChildNode.vertices[0].id
     const addChildNodeWithParentMutation = `
       mutation {
-        addChildNode(request: 
+        addChildNode(request:
           {
             order: 0,
             graphId: "${graphId}",
-            parentVertexId: "${rootNodeId}", 
-            vertex: 
+            parentVertexId: "${rootNodeId}",
+            vertex:
             {
               type: React_Text,
               props: {
@@ -102,11 +105,11 @@ describe.skip('DeleteNodeUseCase', () => {
           }) {
             label
             vertices { id type props }
-            edges { id order source target props } 
+            edges { id order source target props }
           }
       }
     `
-    const addChildNode = await request(app.getHttpServer())
+    const addChildNode: any = await request(app.getHttpServer())
       .post('/graphql')
       .send({
         query: addChildNodeWithParentMutation,

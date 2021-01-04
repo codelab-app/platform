@@ -166,12 +166,6 @@
     "modules-app-stories": {
       "tags": []
     },
-    "modules-users": {
-      "tags": []
-    },
-    "modules-users-stories": {
-      "tags": []
-    },
     "modules-layout-stories": {
       "tags": []
     },
@@ -197,6 +191,12 @@
       "tags": []
     },
     "modules-app": {
+      "tags": []
+    },
+    "modules-user": {
+      "tags": []
+    },
+    "modules-user-stories": {
       "tags": []
     }
   }

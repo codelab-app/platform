@@ -3,7 +3,7 @@ import { atom, useRecoilValue } from 'recoil'
 import { Machine, assign, spawn } from 'xstate'
 import { createGridMachine } from '@codelab/modules/grid-stories'
 import { layoutMachine } from '@codelab/modules/layout-stories'
-import { createUserMachine } from '@codelab/modules/users-stories'
+import { createUserMachine } from '@codelab/modules/user-stories'
 
 export const appMachine = Machine<any>({
   id: 'app',
