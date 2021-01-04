@@ -60,73 +60,79 @@ describe('LoginUserUseCase', () => {
     await connection.query('DELETE FROM "user"')
   })
 
-  it('should successfully login', async () => {
-    await request(app.getHttpServer())
-      .post('/graphql')
-      .send({
-        query: registerUserMutation({ email, password }),
-      })
-      .expect((res) => {
-        expect(res.body.data.registerUser.email).toEqual(email)
-      })
+  describe('Should successfully login', () => {
+    it('should successfully login', async () => {
+      await request(app.getHttpServer())
+        .post('/graphql')
+        .send({
+          query: registerUserMutation({ email, password }),
+        })
+        .expect((res) => {
+          expect(res.body.data.registerUser.email).toEqual(email)
+        })
 
-    await request(app.getHttpServer())
-      .post('/graphql')
-      .send({
-        query: loginUserQuery({ email, password }),
-      })
-      .expect(200)
-      .expect((res) => {
-        expect(res.body.data.loginUser.email).toEqual(email)
-        expect(res.body.data.loginUser.accessToken).toBeDefined()
-      })
+      await request(app.getHttpServer())
+        .post('/graphql')
+        .send({
+          query: loginUserQuery({ email, password }),
+        })
+        .expect(200)
+        .expect((res) => {
+          expect(res.body.data.loginUser.email).toEqual(email)
+          expect(res.body.data.loginUser.accessToken).toBeDefined()
+        })
+    })
   })
 
-  it('should return error message for wrong password', async () => {
-    await request(app.getHttpServer())
-      .post('/graphql')
-      .send({
-        query: registerUserMutation({ email, password }),
-      })
-      .expect((res) => {
-        expect(res.body.data.registerUser.email).toEqual(email)
-      })
+  describe('return error message for wrong password', () => {
+    it('should return error message for wrong password', async () => {
+      await request(app.getHttpServer())
+        .post('/graphql')
+        .send({
+          query: registerUserMutation({ email, password }),
+        })
+        .expect((res) => {
+          expect(res.body.data.registerUser.email).toEqual(email)
+        })
 
-    await request(app.getHttpServer())
-      .post('/graphql')
-      .send({
-        query: loginUserQuery({ email, password: 'wrong-password' }),
-      })
-      .expect(200)
-      .expect((res) => {
-        const errorMsg = res.body.errors[0].message
+      await request(app.getHttpServer())
+        .post('/graphql')
+        .send({
+          query: loginUserQuery({ email, password: 'wrong-password' }),
+        })
+        .expect(200)
+        .expect((res) => {
+          const errorMsg = res.body.errors[0].message
 
-        expect(errorMsg).toEqual(`Wrong Password`)
-      })
+          expect(errorMsg).toEqual(`Wrong Password`)
+        })
+    })
   })
 
-  it('should return error given wrong email', async () => {
-    await request(app.getHttpServer())
-      .post('/graphql')
-      .send({
-        query: registerUserMutation({ email, password }),
-      })
-      .expect((res) => {
-        expect(res.body.data.registerUser.email).toEqual(email)
-      })
+  describe('return error given wrong email', () => {
+    it('should return error given wrong email', async () => {
+      await request(app.getHttpServer())
+        .post('/graphql')
+        .send({
+          query: registerUserMutation({ email, password }),
+        })
+        .expect((res) => {
+          expect(res.body.data.registerUser.email).toEqual(email)
+        })
 
-    await request(app.getHttpServer())
-      .post('/graphql')
-      .send({
-        query: loginUserQuery({ email: 'wrong@gmail.com', password }),
-      })
-      .expect(200)
-      .expect((res) => {
-        const errorMsg = res.body.errors[0].message
+      await request(app.getHttpServer())
+        .post('/graphql')
+        .send({
+          query: loginUserQuery({ email: 'wrong@gmail.com', password }),
+        })
+        .expect(200)
+        .expect((res) => {
+          const errorMsg = res.body.errors[0].message
 
-        expect(errorMsg).toEqual(
-          `Theres no email wrong@gmail.com associated with any account`,
-        )
-      })
+          expect(errorMsg).toEqual(
+            `Theres no email wrong@gmail.com associated with any account`,
+          )
+        })
+    })
   })
 })
