@@ -32,8 +32,6 @@ describe('RegisterUserUseCase', () => {
     app = testModule.createNestApplication()
     connection = app.get(Connection)
     await app.init()
-
-    await connection.query('DELETE FROM "user"')
   })
 
   afterAll(async () => {
