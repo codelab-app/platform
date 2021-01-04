@@ -187,13 +187,13 @@ commands:
           mentions: $SLACK_USER
 
 jobs:
-  vault-staging-config:
+  vault-ci-config:
     <<: *executor-params
-    description: 'Pull staging .env from vault server'
+    description: 'Pull .env from vault server'
     steps:
       - checkout
       - run:
-          name: "Fetch staging .env"
+          name: "Fetch .env"
           command: |
             echo $STAGING_VAULT_ROLE_ID > .vault/role-id
             echo $STAGING_VAULT_SECRET_ID > .vault/secret-id
@@ -201,7 +201,7 @@ jobs:
       - persist_to_workspace:
           root: /tmp
           paths:
-            - ".*_env"
+            - ".env"
   install-and-build-workspace:
     <<: *executor-params
     steps:
@@ -252,7 +252,7 @@ jobs:
       - setup-workspace
       - attach_workspace:
           at: /tmp
-      - run: cp /tmp/.staging_env .env
+      - run: cp /tmp/.env .env
       - run: make e2e-ci
       - notify-failure
 
@@ -304,7 +304,7 @@ workflows:
           e: docker-node
           requires:
             - install-and-build-workspace
-      - vault-staging-config:
+      - vault-ci-config:
           <<: *filters-dev
           e: vault-img
       - unit:
@@ -323,7 +323,7 @@ workflows:
           <<: *filters-dev
           e: docker-node
           requires:
-            - vault-staging-config
+            - vault-ci-config
             - install-and-build-workspace
       - notify-success:
           <<: *filters-dev

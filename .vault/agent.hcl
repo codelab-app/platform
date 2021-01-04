@@ -19,9 +19,11 @@ auto_auth {
 
 template {
   contents = <<EOF
-    {{- with secret "codelab-staging/.e2e_env" -}}
-    {{ .Data.data.data }}
+    {{- with secret "codelab-ci/.env" -}}
+      {{ range $k, $v := .Data.data }}
+      {{ $k }}={{ $v }}
+      {{ end }}
     {{- end }}
   EOF
-  destination = "/tmp/.staging_env"
+  destination = "/tmp/.env"
 }
