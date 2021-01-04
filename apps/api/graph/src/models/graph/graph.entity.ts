@@ -17,7 +17,7 @@ import { EdgeEntity } from '../edge/edge.entity'
 import { PageEntity } from '../page/page.entity'
 import { VertexEntity } from '../vertex/vertex.entity'
 import { IGraph } from './IGraph'
-import { D3GraphProps } from '@codelab/ui/d3'
+import { D3GraphProps } from '@codelab/alpha/ui/d3'
 
 export type VertexID = string
 

@@ -2,7 +2,7 @@ import cytoscape, { EdgeDefinition, NodeDefinition } from 'cytoscape'
 import { merge } from 'lodash'
 import objectMapper from 'object-mapper'
 import { v4 as uuidv4 } from 'uuid'
-import { EdgeA, VertexA } from '@codelab/shared/interface/graph-v2'
+import { EdgeA, VertexA } from '@codelab/alpha/shared/interface/graph-v2'
 
 export class Graph {
   declare vertices: Array<VertexA>

@@ -38,6 +38,7 @@ rules:
   # --- !CLASS ---
 
   react/jsx-props-no-spreading: off
+  react/static-property-placement: off
 
   # --- FORMAT ---
   newline-before-return: error
@@ -55,6 +56,7 @@ rules:
     - devDependencies: true
   import/prefer-default-export: off
   import/no-unresolved: error
+  import/no-self-import: error
   sort-imports:
     - error
     - ignoreDeclarationSort: true # Handled by import/order

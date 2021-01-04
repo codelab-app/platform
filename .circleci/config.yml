@@ -4,6 +4,10 @@
 #
 # https://circleci.com/docs/2.0/env-vars/#built-in-environment-variables
 
+# Cypress issue
+#
+# https://stackoverflow.com/questions/62319657/how-to-resolve-the-cypress-npm-package-is-installed-but-the-cypress-binary-is
+
 # Success notification is added to end of workflow, while failure notification is added to end of each job.
 
 filters-dev: &filters-dev
@@ -39,7 +43,6 @@ executor-config: &executor-config
     # CircleCI
     GITHUB_ANTON: artonio
     SLACK_ANTON: U01DSP39DME
-    GITHUB_VIEN: VienNguyen24hdev
     SLACK_VIEN: UBPECLD4P
     GITHUB_WEBBER: webberwang
     SLACK_WEBBER: U0J401GAH
@@ -48,7 +51,7 @@ executor-config: &executor-config
     SLACK_CHANNEL_UPDATE: CQVPNKS8K
     COLOR_SUCCESS: '#b7eb8f'
     COLOR_FAILURE: '#ffccc7'
-    NODE_OPTIONS: --max_old_space_size=8192
+    NODE_OPTIONS: --max_old_space_size=16384
     NODE_ENV: production
   working_directory: ~/app
 
@@ -56,6 +59,8 @@ version: 2.1
 
 orbs:
   slack: circleci/slack@3.4.2
+  cypress: cypress-io/cypress@1.26.0
+  node: circleci/node@4.1.0
 
 executors:
   machine-ubuntu:
@@ -109,9 +114,7 @@ commands:
           # Github user who triggered Circle is the slack mention user
           name: 'Setup SLACK_USER'
           command: |
-            if [ $CIRCLE_USERNAME == $GITHUB_VIEN ]; then
-              echo 'export SLACK_USER=${SLACK_VIEN}' >> $BASH_ENV
-            elif [ $CIRCLE_USERNAME == $GITHUB_ANTON ]; then
+            if [ $CIRCLE_USERNAME == $GITHUB_ANTON ]; then
               echo 'export SLACK_USER=${SLACK_ANTON}' >> $BASH_ENV
             elif [ $CIRCLE_USERNAME == $GITHUB_ALEX ]; then
               echo 'export SLACK_USER=${SLACK_ALEX}' >> $BASH_ENV
@@ -141,6 +144,9 @@ commands:
           name: 'Install NPM packages'
           command: yarn install --frozen-lockfile --prod=false
       - run:
+          name: 'List Cypress cache'
+          command: npx cypress cache path
+      - run:
           name: 'Remove NPM .cache'
           command: rm -rf ~/app/node_modules/.cache
       - save_cache:
@@ -148,6 +154,7 @@ commands:
           key: dep-cache-dev-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
+            - ~/.cache/Cypress
             - ~/app/node_modules
 
   yarn-install-prod:
@@ -169,6 +176,7 @@ commands:
           key: dep-cache-prod-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
+            - ~/.cache/Cypress
             - ~/app/node_modules
 
   notify-failure:
@@ -202,11 +210,15 @@ jobs:
       - run:
           name: 'Build CI'
           command: make build-ci
+      - run:
+          name: 'Yarn link workspace'
+          command: yarn install --frozen-lockfile --prod=false
       - persist_to_workspace:
           root: ..
           paths:
             - app/node_modules
             - app/dist
+            - .cache/Cypress
       - notify-failure
 
   lint:
@@ -219,10 +231,25 @@ jobs:
       - run: make lint-commit-ci
       - notify-failure
 
-  test:
+  unit:
     <<: *executor-params
     steps:
       - setup-workspace
+      - run: make unit-ci
+      - notify-failure
+
+  integration:
+    <<: *executor-params
+    steps:
+      - setup-workspace
+      - run: make integration-ci
+      - notify-failure
+
+  e2e:
+    <<: *executor-params
+    steps:
+      - setup-workspace
+      - run: make e2e-ci
       - attach_workspace:
           at: /tmp
       - run: cp /tmp/.staing_env .env
@@ -280,7 +307,19 @@ workflows:
       - vault-staging-config:
           <<: *filters-dev
           e: vault-img
-      - test:
+      - unit:
+          <<: *filters-dev
+          e: docker-node
+          context: .env.ci
+          requires:
+            - install-and-build-workspace
+      - integration:
+          <<: *filters-dev
+          e: docker-node
+          context: .env.ci
+          requires:
+            - install-and-build-workspace
+      - e2e:
           <<: *filters-dev
           e: docker-node
           requires:
@@ -291,7 +330,9 @@ workflows:
           e: docker-node
           requires:
             - lint
-            - test
+            - unit
+            - integration
+            - e2e
 
   app-staging:
     <<: *filters-master-branch-only

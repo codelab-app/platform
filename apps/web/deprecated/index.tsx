@@ -1,12 +1,12 @@
 import { useActor } from '@xstate/react'
 import React, { useContext } from 'react'
-import { BaseNodeType, NodeA } from '@codelab/shared/interface/node'
+import { BaseNodeType, NodeA } from '@codelab/alpha/shared/interface/node'
 import {
   ContextNode,
   EventNameNode,
   EventNode,
   StateNameNode,
-} from '@codelab/state/node'
+} from '@codelab/alpha/state/node'
 import {
   FormNode,
   Layout,
@@ -14,7 +14,7 @@ import {
   Modal,
   ModalButton,
   Table,
-} from '@codelab/ui/component'
+} from '@codelab/alpha/ui/component'
 
 const Index = () => {
   const { actors } = useContext(MachineContext)

@@ -1,8 +1,8 @@
 import { DataNode, TreeProps } from 'antd/lib/tree'
-import { Renderer } from '@codelab/core/renderer'
-import type { NodeReactI } from '@codelab/shared/interface/node'
-import { NodeType } from '@codelab/shared/interface/node'
-import { PropType } from '@codelab/shared/interface/props'
+import { Renderer } from '@codelab/alpha/core/renderer'
+import type { NodeReactI } from '@codelab/alpha/shared/interface/node'
+import { NodeType } from '@codelab/alpha/shared/interface/node'
+import { PropType } from '@codelab/alpha/shared/interface/props'
 
 export const nodeTreeData: NodeReactI = {
   type: NodeType.React_Tree,

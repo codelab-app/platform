@@ -1,0 +1,5 @@
+export class <%= moduleNamePascalCase %>DITokens {
+    public static readonly <%= moduleNamePascalCase %>Repository: unique symbol = Symbol(
+        '<%= moduleNamePascalCase %>Repository',
+    )
+}

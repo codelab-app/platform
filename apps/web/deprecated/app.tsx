@@ -1,8 +1,8 @@
 import axios from 'axios'
 import { AppProps } from 'next/app'
 import React from 'react'
-import { createMachineApp } from '@codelab/state/app'
-import { MachineProvider } from '@codelab/ui/component'
+import { createMachineApp } from '@codelab/alpha/state/app'
+import { MachineProvider } from '@codelab/alpha/ui/component'
 
 import 'antd/dist/antd.css'
 import 'highlight.js/styles/monokai-sublime.css'

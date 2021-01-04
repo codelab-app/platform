@@ -10,7 +10,7 @@ import {
   VerifyCallback,
 } from 'passport-google-oauth20'
 import { IGoogleUser } from './IGoogleUser'
-import { ApiConfig, ApiConfigTypes } from '@codelab/api/providers/config'
+import { ApiConfig, ApiConfigTypes } from '@codelab/alpha/api/providers/config'
 
 @Injectable()
 export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {

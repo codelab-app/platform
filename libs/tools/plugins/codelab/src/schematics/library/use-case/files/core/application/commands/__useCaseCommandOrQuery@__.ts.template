@@ -1,0 +1,7 @@
+import { <%= useCaseNamePascalCase %>Request } from '../useCases/<%= useCaseFolderName %>/<%= useCaseNamePascalCase %>Request'
+import { UseCaseRequestPort } from '@codelab/backend'
+
+export class <%= useCaseCommandOrQuery %>
+  implements UseCaseRequestPort<<%= useCaseNamePascalCase %>Request> {
+  constructor(public readonly request: <%= useCaseNamePascalCase %>Request) {}
+}

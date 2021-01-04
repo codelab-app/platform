@@ -21,3 +21,7 @@ The second approach is to think about it like a `Graph`. A graph comprises of ed
 A `Tree` is a specialized `Graph`, so we can use Graph Theory to help us conceptualize a Tree.
 
 Tree `Traversal` is a common way to interact with a tree. You can configure the traversal order, and what transformations to apply to each node.
+
+# Domain Core
+
+A `User` can create many `Apps`, with each app containing multiple `Pages`. Each `Page` contains a `Grid` that is already created for you.

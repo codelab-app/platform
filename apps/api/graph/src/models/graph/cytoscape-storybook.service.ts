@@ -7,7 +7,7 @@ import {
   createAtoFVertices,
   createAtoIVertices,
 } from './sample.data'
-import { NodeType } from '@codelab/shared/interface/node'
+import { NodeType } from '@codelab/alpha/shared/interface/node'
 
 @Injectable()
 export class CytoscapeStorybookService {

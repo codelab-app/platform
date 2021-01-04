@@ -24,7 +24,8 @@ build-ci:
     --target=build \
     --all \
     --parallel \
-    --maxWorkers=4
+    --maxWorkers=4 \
+		--skip-nx-cache
 
 build-prod:
 	npx nx run-many \
@@ -39,6 +40,14 @@ build-prod:
 #
 # GENERATE
 #
+
+generate-json-schema:
+	npx typescript-json-schema \
+		libs/modules/graph/tsconfig.lib.json \
+		AddChildNodeRequest && \
+	npx typescript-json-schema \
+		libs/alpha/ui/antd/tsconfig.lib.json \
+		Affix.AntdProps
 
 generate-graphql:
 	npx graphql-codegen --config codegen.yaml
@@ -94,30 +103,100 @@ lint-eslint:
 	node scripts/lint/eslint.js
 
 #
-# TEST
+# E2E
 #
 
-test-dev-affected:
+# e2e-dev-affected:
+# 	npx nx affected:e2e \
+# 	--parallel \
+# 	--silent
+
+e2e-dev:
+	npx concurrently \
+  	--kill-others \
+  	--success=first \
+		--names=web-e2e,api-codelab,web \
+    	"npx wait-on \
+				http://localhost:3001 \
+				http://localhost:4001 && \
+				nx run web-e2e:e2e:ci" \
+			"npx env-cmd -f .env cross-env PORT=4001 \
+				node dist/apps/api/codelab/main.js" \
+			"npx next start -p 3001 dist/apps/web"
+
+e2e-ci:
+	npx concurrently \
+  	--kill-others \
+  	--success=first \
+		--names=web-e2e,api-codelab,web \
+    	"npx wait-on \
+				http://localhost:3001 \
+				http://localhost:4001 && \
+				nx run web-e2e:e2e:ci" \
+			"npx cross-env PORT=4001 \
+				node dist/apps/api/codelab/main.js" \
+			"npx next start -p 3001 dist/apps/web"
+#
+# INTEGRATION TESTS
+#
+integration-dev:
+	npx nx run-many \
+	--target=test \
+	--testPathPattern=i.spec.ts \
+	--all
+
+integration-dev-affected:
 	npx nx affected:test \
-	--parallel \
-	--silent
+	--testPathPattern=i.spec.ts \
+	--parallel
+
+integration-ci:
+	npx nx run-many \
+	--target=test \
+	--testPathPattern=i.spec.ts \
+	--all \
+	--verbose \
+	--skip-nx-cache
+
+#
+# TEST (ALL)
+#
+test-dev-affected:
+	npx concurrently \
+ 		"make unit-dev-affected" \
+  	"make integration-dev-affected" \
+  	"make e2e-dev"
 
 test-dev:
+	npx concurrently \
+ 		"make unit-dev" \
+  	"make integration-dev" \
+  	"make e2e-dev"
+
+#
+# UNIT TEST
+#
+unit-dev-affected:
+	npx nx affected:test \
+	--testPathPattern=[^i].spec.ts \
+	--parallel
+
+unit-dev:
 	npx nx run-many \
 	--target=test \
-	--all \
+	--testPathPattern=[^i].spec.ts \
 	--parallel \
-	--silent \
-	"$@"
+	--all
 
-test-ci:
+unit-ci:
 	npx nx run-many \
 	--memoryLimit=4096 \
+	--testPathPattern=[^i].spec.ts \
 	--target=test \
 	--all \
-	--parallel \
 	--maxWorkers=4 \
-	--silent
+	--skip-nx-cache \
+	--verbose
 
 #
 # START

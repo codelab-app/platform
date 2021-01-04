@@ -1,0 +1,11 @@
+import { Icon } from './Icon.types'
+import { NodeReactI, NodeType } from '@codelab/alpha/shared/interface/node'
+
+export const iconData: NodeReactI<Icon.Props> = {
+  type: NodeType.React_Icon,
+  props: {
+    type: 'home',
+    theme: 'outlined',
+    style: { fontSize: '24px' },
+  },
+}

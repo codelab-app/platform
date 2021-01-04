@@ -1,5 +1,5 @@
 import { VertexEntity } from '../vertex/vertex.entity'
-import { NodeType } from '@codelab/shared/interface/node'
+import { NodeType } from '@codelab/alpha/shared/interface/node'
 
 export const createAtoFVertices = () => {
   const root = new VertexEntity()

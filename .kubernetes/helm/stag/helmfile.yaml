@@ -19,14 +19,14 @@ releases:
   chart: stable/nginx-ingress
   version: 1.39.0
   values:
-    - values/ingress-nginx.yaml
+    - values/ingress-nginx-stag.yaml
 
 - name: postgresql
   namespace: codelab
   chart: bitnami/postgresql
   version: 10.0.0
   values:
-    - values/postgresql.yaml
+    - values/postgresql-stag.yaml
 
 - name: vault-injector
   namespace: vault

@@ -1,11 +1,13 @@
 import { Module } from '@nestjs/common'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
-import { InfrastructureModule } from '@codelab/ddd/backend'
-import { UserModule } from '@codelab/ddd/modules/users'
+import { InfrastructureModule } from '@codelab/backend'
+import { CodelabAppModule } from '@codelab/modules/app'
+import { GraphModule } from '@codelab/modules/graph'
+import { UserModule } from '@codelab/modules/user'
 
 @Module({
-  imports: [InfrastructureModule, UserModule],
+  imports: [InfrastructureModule, CodelabAppModule, UserModule, GraphModule],
   controllers: [AppController],
   providers: [AppService],
 })
