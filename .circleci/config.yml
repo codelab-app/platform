@@ -252,7 +252,7 @@ jobs:
       - setup-workspace
       - attach_workspace:
           at: /tmp
-      - run: cp /tmp/.staing_env .env
+      - run: cp /tmp/.staging_env .env
       - run: make e2e-ci
       - notify-failure
 
