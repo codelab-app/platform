@@ -71,7 +71,7 @@ describe('RegisterUserUseCase', () => {
       })
 
     // Create another user
-    request(app.getHttpServer())
+    await request(app.getHttpServer())
       .post('/graphql')
       .send({
         query: registerUserMutation({ email, password }),

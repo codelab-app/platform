@@ -58,7 +58,9 @@ describe('LoginUserUseCase', () => {
 
   beforeEach(async () => {
     await connection.query('DELETE FROM "user"')
+  })
 
+  it('should successfully login', async () => {
     await request(app.getHttpServer())
       .post('/graphql')
       .send({
@@ -67,9 +69,7 @@ describe('LoginUserUseCase', () => {
       .expect((res) => {
         expect(res.body.data.registerUser.email).toEqual(email)
       })
-  })
 
-  it('should successfully login', async () => {
     await request(app.getHttpServer())
       .post('/graphql')
       .send({
@@ -86,6 +86,15 @@ describe('LoginUserUseCase', () => {
     await request(app.getHttpServer())
       .post('/graphql')
       .send({
+        query: registerUserMutation({ email, password }),
+      })
+      .expect((res) => {
+        expect(res.body.data.registerUser.email).toEqual(email)
+      })
+
+    await request(app.getHttpServer())
+      .post('/graphql')
+      .send({
         query: loginUserQuery({ email, password: 'wrong-password' }),
       })
       .expect(200)
@@ -97,6 +106,15 @@ describe('LoginUserUseCase', () => {
   })
 
   it('should return error given wrong email', async () => {
+    await request(app.getHttpServer())
+      .post('/graphql')
+      .send({
+        query: registerUserMutation({ email, password }),
+      })
+      .expect((res) => {
+        expect(res.body.data.registerUser.email).toEqual(email)
+      })
+
     await request(app.getHttpServer())
       .post('/graphql')
       .send({
