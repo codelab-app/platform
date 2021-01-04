@@ -195,8 +195,8 @@ jobs:
       - run:
           name: "Fetch .env"
           command: |
-            echo $STAGING_VAULT_ROLE_ID > .vault/role-id
-            echo $STAGING_VAULT_SECRET_ID > .vault/secret-id
+            echo $CI_VAULT_ROLE_ID > .vault/role-id
+            echo $CI_VAULT_SECRET_ID > .vault/secret-id
             vault agent -address=$VAULT_ADDR -config=.vault/agent.hcl
       - persist_to_workspace:
           root: /tmp
