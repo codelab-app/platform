@@ -1,22 +1,32 @@
 import { Button, Form, Input } from 'antd'
 import React from 'react'
+import { useUser } from '../../store'
 
-export const UserSignupForm = () => {
+export const UserSignupForm = ({
+  formId,
+  hasSubmitButton = true,
+}: {
+  formId?: string
+  hasSubmitButton?: boolean
+}) => {
+  const user = useUser()
+
+  const isLoading = user.state.value.guest.signingUp === 'isLoading'
+
   const onFinish = (values: object) => {
-    console.log('Success:', values)
-  }
-
-  const onFinishFailed = (errorInfo: any) => {
-    console.log('Failed:', errorInfo)
+    user.send({
+      type: 'ON_SUBMIT',
+      data: values,
+    })
   }
 
   return (
     <Form
+      id={formId}
       name="basic"
       layout="vertical"
       initialValues={{ remember: true }}
       onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
     >
       <Form.Item
         name="username"
@@ -32,11 +42,13 @@ export const UserSignupForm = () => {
         <Input.Password placeholder="Password" />
       </Form.Item>
 
-      <Form.Item>
-        <Button type="primary" htmlType="submit">
-          Submit
-        </Button>
-      </Form.Item>
+      {hasSubmitButton && (
+        <Form.Item>
+          <Button loading={isLoading} type="primary" htmlType="submit">
+            Sign up
+          </Button>
+        </Form.Item>
+      )}
     </Form>
   )
 }
