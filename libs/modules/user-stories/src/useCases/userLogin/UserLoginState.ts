@@ -1,21 +1,40 @@
-export const userLoginState = {
-  idle: {
-    on: {
-      LOGIN: {
-        target: 'loggingIn',
-        actions: () => {
-          console.log('logging in')
+import { assign } from 'xstate'
+import { StateNodeConfig } from 'xstate/lib/types'
+
+export const userLoginState: StateNodeConfig<any, any, any> = {
+  on: {
+    ON_MODAL_CANCEL: {
+      target: 'idle',
+    },
+  },
+  initial: 'idle',
+  states: {
+    idle: {
+      on: {
+        // Triggered by the form with the client-validated data
+        ON_SUBMIT: {
+          target: 'loading',
         },
       },
     },
-  },
-  loggingIn: {
-    on: {
-      // Forwarded from app mediator
-      ON_MODAL_CANCEL: {
-        target: 'idle',
-        actions: () => {
-          console.log('cancel logging in')
+    loading: {
+      invoke: {
+        src: 'executeLogIn',
+        onDone: {
+          target: '#authenticated',
+          actions: assign((context, event) => {
+            return {
+              userData: event.data,
+            }
+          }),
+        },
+        onError: {
+          target: 'idle',
+        },
+      },
+      on: {
+        ON_MODAL_CANCEL: {
+          target: 'idle',
         },
       },
     },

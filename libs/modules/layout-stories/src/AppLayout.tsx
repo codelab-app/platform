@@ -2,7 +2,6 @@ import { Layout } from 'antd'
 import { SiderProps } from 'antd/lib/layout/Sider'
 import { useRouter } from 'next/router'
 import React, { PropsWithChildren, ReactElement } from 'react'
-import { AppHeaderMenuProps } from '../../header-stories/src/HeaderMenu'
 
 const { Header, Footer, Sider, Content } = Layout
 
@@ -19,7 +18,7 @@ export type AppSidebarProps = SiderProps & {
 export type AppFooterProps = React.ReactNode
 
 export type AppHeaderProps = {
-  Menu: ReactElement<AppHeaderMenuProps>
+  Menu: ReactElement
 }
 
 export const AppLayout = (props: PropsWithChildren<AppLayoutProps>) => {

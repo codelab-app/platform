@@ -143,11 +143,13 @@ integration-dev:
 	npx nx run-many \
 	--target=test \
 	--testPathPattern=i.spec.ts \
+	--runInBand \
 	--all
 
 integration-dev-affected:
 	npx nx affected:test \
 	--testPathPattern=i.spec.ts \
+	--runInBand \
 	--parallel
 
 integration-ci:
@@ -155,6 +157,7 @@ integration-ci:
 	--target=test \
 	--testPathPattern=i.spec.ts \
 	--all \
+	--runInBand \
 	--verbose \
 	--skip-nx-cache
 
