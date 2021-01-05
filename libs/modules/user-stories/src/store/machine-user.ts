@@ -1,14 +1,17 @@
 import { Machine } from 'xstate'
+import {
+  registerUserServices,
+  registerUserState,
+} from '../useCases/registerUser'
 import { userLoginState } from '../useCases/userLogin'
 import { userLoginServices } from '../useCases/userLogin/UserLoginServices'
 import { userSignOutServices, userSignOutState } from '../useCases/userSignout'
-import { userSignupServices, userSignupState } from '../useCases/userSignup'
 
 export const createUserMachine = () => {
   const services = {
     ...userSignOutServices,
     ...userLoginServices,
-    ...userSignupServices,
+    ...registerUserServices,
   }
 
   return Machine(
@@ -34,7 +37,7 @@ export const createUserMachine = () => {
                 },
               },
             },
-            signingUp: userSignupState,
+            signingUp: registerUserState,
             loggingIn: userLoginState,
           },
         },

@@ -2,12 +2,12 @@ import { Modal } from 'antd'
 import { ModalProps } from 'antd/lib/modal'
 import React from 'react'
 import { useUser } from '../../store/useUser'
-import { UserSignupForm } from './UserSignupForm'
+import { RegisterUserForm } from './RegisterUserForm'
 import { useApp } from '@codelab/modules/app-stories'
 
 const USER_SIGNUP_FORM = 'userSignupForm'
 
-export const UserSignupModal = () => {
+export const RegisterUserModal = () => {
   const app = useApp()
   const user = useUser()
   const sharedModalProps: ModalProps = {
@@ -26,7 +26,7 @@ export const UserSignupModal = () => {
       }}
       {...sharedModalProps}
     >
-      <UserSignupForm formId={USER_SIGNUP_FORM} hasSubmitButton={false} />
+      <RegisterUserForm formId={USER_SIGNUP_FORM} hasSubmitButton={false} />
     </Modal>
   )
 }

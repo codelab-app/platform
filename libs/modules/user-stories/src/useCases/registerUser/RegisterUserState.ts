@@ -1,6 +1,6 @@
 import { StateNodeConfig } from 'xstate/lib/types'
 
-export const userSignupState: StateNodeConfig<any, any, any> = {
+export const registerUserState: StateNodeConfig<any, any, any> = {
   on: {
     ON_MODAL_CANCEL: {
       target: 'idle',

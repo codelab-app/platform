@@ -123,6 +123,7 @@ commands:
             fi
             source $BASH_ENV
             echo $SLACK_USER
+
   setup-workspace:
     description: 'Setup workspace'
     steps:
@@ -186,7 +187,7 @@ commands:
           mentions: $SLACK_USER
 
 jobs:
-  vault-ci-config:
+  setup-vault-env:
     <<: *executor-params
     description: 'Pull .env from vault server'
     steps:
@@ -200,7 +201,8 @@ jobs:
       - persist_to_workspace:
           root: /tmp
           paths:
-            - ".env"
+            - .env
+
   install-and-build-workspace:
     <<: *executor-params
     steps:
@@ -301,7 +303,7 @@ workflows:
           e: docker-node
           requires:
             - install-and-build-workspace
-      - vault-ci-config:
+      - setup-vault-env:
           <<: *filters-dev
           e: vault-img
       - unit:
@@ -320,7 +322,7 @@ workflows:
           <<: *filters-dev
           e: docker-node
           requires:
-            - vault-ci-config
+            - setup-vault-env
             - install-and-build-workspace
       - notify-success:
           <<: *filters-dev

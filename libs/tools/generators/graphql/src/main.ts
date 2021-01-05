@@ -38,7 +38,13 @@ const makeGenerator = async (option: GeneratorOptions) => {
       },
       generates: {
         [`${useCaseDirectory}/${filenameWithoutExtension}.generated.ts`]: {
-          plugins: ['typescript-document-nodes'],
+          plugins: [
+            {
+              'typescript-document-nodes': {
+                nameSuffix: 'Gql',
+              },
+            },
+          ],
         },
       },
     },
