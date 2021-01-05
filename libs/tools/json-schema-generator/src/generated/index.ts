@@ -134,6 +134,17 @@ export const requestJsonSchema = {
       },
       type: 'object',
     },
+    CreateAppRequest: {
+      properties: {
+        title: {
+          type: 'string',
+        },
+        userId: {
+          type: 'string',
+        },
+      },
+      type: 'object',
+    },
     CreateEdgeRequest: {
       properties: {
         graphId: {
@@ -160,6 +171,14 @@ export const requestJsonSchema = {
       },
       type: 'object',
     },
+    CreatePageRequest: {
+      properties: {
+        demo: {
+          type: 'string',
+        },
+      },
+      type: 'object',
+    },
     DeleteNodeRequest: {
       properties: {
         vertexId: {
@@ -168,9 +187,44 @@ export const requestJsonSchema = {
       },
       type: 'object',
     },
+    DeleteUserRequest: {
+      properties: {
+        email: {
+          type: 'string',
+        },
+      },
+      type: 'object',
+    },
     GetGraphRequest: {
       properties: {
         graphId: {
+          type: 'string',
+        },
+      },
+      type: 'object',
+    },
+    GetMeRequest: {
+      properties: {
+        userId: {
+          type: 'string',
+        },
+      },
+      type: 'object',
+    },
+    GetUserRequest: {
+      properties: {
+        email: {
+          type: 'string',
+        },
+      },
+      type: 'object',
+    },
+    LoginUserRequest: {
+      properties: {
+        email: {
+          type: 'string',
+        },
+        password: {
           type: 'string',
         },
       },
@@ -191,6 +245,17 @@ export const requestJsonSchema = {
             },
           },
           type: 'object',
+        },
+      },
+      type: 'object',
+    },
+    RegisterUserRequest: {
+      properties: {
+        email: {
+          type: 'string',
+        },
+        password: {
+          type: 'string',
         },
       },
       type: 'object',
@@ -317,6 +382,17 @@ export const requestJsonSchema = {
             },
           },
           type: 'object',
+        },
+      },
+      type: 'object',
+    },
+    UpdateUserRequest: {
+      properties: {
+        email: {
+          type: 'string',
+        },
+        id: {
+          type: 'string',
         },
       },
       type: 'object',

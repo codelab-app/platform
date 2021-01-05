@@ -3,7 +3,7 @@ export const guestStates = {
     on: {
       SIGN_UP: {
         target: 'signingUp',
-        actions: () => {
+        actions: (_: any, event: any) => {
           console.log('signing up')
         },
       },
