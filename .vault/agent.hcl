@@ -21,7 +21,7 @@ template {
   contents = <<EOF
     {{- with secret "codelab-ci/.env" -}}
       {{ range $k, $v := .Data.data }}
-      {{ $k }}={{ $v }}
+      export {{ $k }}='{{ $v }}'
       {{ end }}
     {{- end }}
   EOF
