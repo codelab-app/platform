@@ -3,7 +3,7 @@ import { withTheme } from '@rjsf/core'
 import { JSONSchema7 } from 'json-schema'
 import React from 'react'
 import { useUser } from '../../store'
-import { requestJsonSchema } from '@codelab/tools/json-schema-generator'
+import { requestJsonSchema } from '@codelab/tools/generators/json-schema'
 
 export const UserSignupForm = ({
   formId,

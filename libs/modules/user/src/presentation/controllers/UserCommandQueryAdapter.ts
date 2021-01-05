@@ -5,7 +5,7 @@ import { CurrentUser } from '../../../../../backend/src/infrastructure/auth/Curr
 import { GqlAuthGuard } from '../../../../../backend/src/infrastructure/auth/gql-auth.guard'
 import { DeleteUserCommand } from '../../core/application/commands/DeleteUserCommand'
 import { GetMeQuery } from '../../core/application/commands/GetMeQuery'
-import { LoginUserQuery } from '../../core/application/commands/LoginUserQuery'
+import { LoginUserCommand } from '../../core/application/commands/LoginUserCommand'
 import { RegisterUserCommand } from '../../core/application/commands/RegisterUserCommand'
 import { UpdateUserCommand } from '../../core/application/commands/UpdateUserCommand'
 import { UserUseCaseDto } from '../../core/application/useCases/UserUseCaseDto'
@@ -70,9 +70,9 @@ export class UserCommandQueryAdapter implements CommandQueryBusPort {
     return user.toPlain()
   }
 
-  @Query((returns) => UserUseCaseDto)
+  @Mutation((returns) => UserUseCaseDto)
   async loginUser(@Args('request') request: LoginUserRequest) {
-    const result = await this.queryBus.execute(new LoginUserQuery(request))
+    const result = await this.queryBus.execute(new LoginUserCommand(request))
 
     return result.toPlain()
   }

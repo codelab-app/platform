@@ -178,9 +178,6 @@
     "modules-grid-stories": {
       "tags": []
     },
-    "tools-json-schema-generator": {
-      "tags": []
-    },
     "modules-graph": {
       "tags": []
     },
@@ -194,6 +191,12 @@
       "tags": []
     },
     "modules-user-stories": {
+      "tags": []
+    },
+    "tools-generators-json-schema": {
+      "tags": []
+    },
+    "tools-generators-graphql": {
       "tags": []
     }
   }

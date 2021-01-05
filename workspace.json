@@ -2013,39 +2013,6 @@
         }
       }
     },
-    "tools-json-schema-generator": {
-      "root": "libs/tools/json-schema-generator",
-      "sourceRoot": "libs/tools/json-schema-generator/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "fix": true,
-            "lintFilePatterns": [
-              "libs/tools/json-schema-generator/**/*.{ts,tsx,js,jsx}"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/tools/json-schema-generator/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "builder": "@nrwl/workspace:run-commands",
-          "options": {
-            "commands": [
-              "npx ts-node libs/tools/json-schema-generator/src/main-revised.ts"
-            ],
-            "parallel": false
-          }
-        }
-      }
-    },
     "modules-app": {
       "root": "libs/modules/app",
       "sourceRoot": "libs/modules/app/src",
@@ -2138,6 +2105,69 @@
             "ci": {
               "quiet": true
             }
+          }
+        }
+      }
+    },
+    "tools-generators-json-schema": {
+      "root": "libs/tools/generators/json-schema",
+      "sourceRoot": "libs/tools/generators/json-schema/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "fix": true,
+            "lintFilePatterns": [
+              "libs/tools/generators/json-schema/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/tools/generators/json-schema/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": [
+              "npx ts-node libs/tools/generators/json-schema/src/main-revised.ts"
+            ],
+            "parallel": false
+          }
+        }
+      }
+    },
+    "tools-generators-graphql": {
+      "root": "libs/tools/generators/graphql",
+      "sourceRoot": "libs/tools/generators/graphql/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/tools/generators/graphql/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/tools/generators/graphql/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": [
+              "npx ts-node libs/tools/generators/graphql/src/main.ts"
+            ],
+            "parallel": false
           }
         }
       }

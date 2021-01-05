@@ -1,6 +1,6 @@
 module.exports = {
-  displayName: 'tools-json-schema-generator',
-  preset: '../../../jest.preset.js',
+  displayName: 'tools-generators-json-schema',
+  preset: '../../../../jest.preset.js',
   transform: {
     '^.+\\.[tj]sx?$': [
       'babel-jest',
@@ -8,5 +8,5 @@ module.exports = {
     ],
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../../coverage/libs/tools/json-schema-generator',
+  coverageDirectory: '../../../../coverage/libs/tools/generators/json-schema',
 }

@@ -22,17 +22,6 @@ hooks:
   #   plugins:
   #     - typescript-operations
   #     - typescript-react-apollo
-
-  types.ts:
-    - typescript
-  /:
-    preset: near-operation-file
-    presetConfig:
-      extension: .generated.tsx
-      baseTypesPath: types.ts
-    plugins:
-      - typescript-document-nodes
-    documents: libs/modules/**/useCases/**/*.graphql
 #  # Generate into lib so we can import
 #  libs/state/apollo/src/generated/graphql.tsx:
 #    plugins:

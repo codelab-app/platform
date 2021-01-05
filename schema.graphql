@@ -3,7 +3,6 @@ query root
 """
 type Query {
   graph(request: GetGraphRequest!): GraphUseCaseDto!
-  loginUser(request: LoginUserRequest!): UserUseCaseDto!
   getMe: UserUseCaseDto!
 }
 
@@ -17,6 +16,7 @@ type Mutation {
   deleteUser(user: DeleteUserRequest!): UserUseCaseDto!
   updateUser(user: UpdateUserRequest!): UserUseCaseDto!
   registerUser(request: RegisterUserRequest!): UserUseCaseDto!
+  loginUser(request: LoginUserRequest!): UserUseCaseDto!
 }
 
 type TypeOrmVertex implements IVertex {
@@ -195,11 +195,6 @@ input GetGraphRequest {
   graphId: String!
 }
 
-input LoginUserRequest {
-  email: String!
-  password: String!
-}
-
 input CreateAppRequest {
   title: String!
 }
@@ -255,6 +250,11 @@ input UpdateUserRequest {
 }
 
 input RegisterUserRequest {
+  email: String!
+  password: String!
+}
+
+input LoginUserRequest {
   email: String!
   password: String!
 }

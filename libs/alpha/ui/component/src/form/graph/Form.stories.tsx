@@ -7,7 +7,7 @@ import { FormGraph } from './Form-graph'
 import { FormGraphVertices } from './Form-graph--vertices'
 import { FormVertex } from './Form-vertex'
 import { FormVertex as FormVertexV2 } from './Form-vertex-v2'
-import { requestJsonSchema } from '@codelab/tools/json-schema-generator'
+import { requestJsonSchema } from '@codelab/tools/generators/json-schema'
 
 export default {
   title: 'FormJson',
