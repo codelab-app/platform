@@ -11,7 +11,7 @@ const email = 'test_user@codelab.ai'
 const password = 'password'
 
 const loginUserQuery = (loginUserRequest: LoginUserRequest) => `
-  query {
+  mutation {
     loginUser(request: {
       email: "${loginUserRequest.email}",
       password: "${loginUserRequest.password}"

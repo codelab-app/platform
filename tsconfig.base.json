@@ -108,13 +108,16 @@
       ],
       "@codelab/modules/page": ["libs/modules/page/src/index.ts"],
       "@codelab/modules/graph": ["libs/modules/graph/src/index.ts"],
-      "@codelab/tools/json-schema-generator": [
-        "libs/tools/json-schema-generator/src/index.ts"
-      ],
       "@codelab/modules/app": ["libs/modules/app/src/index.ts"],
       "@codelab/modules/user": ["libs/modules/user/src/index.ts"],
       "@codelab/modules/user-stories": [
         "libs/modules/user-stories/src/index.ts"
+      ],
+      "@codelab/tools/generators/json-schema": [
+        "libs/tools/generators/json-schema/src/index.ts"
+      ],
+      "@codelab/tools/generators/graphql": [
+        "libs/tools/generators/graphql/src/index.ts"
       ]
     }
   },

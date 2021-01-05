@@ -50,10 +50,10 @@ generate-json-schema:
 		Affix.AntdProps
 
 generate-graphql:
-	npx graphql-codegen --config codegen.yaml
+	npx graphql-codegen --config .graphqlconfig.yaml
 
 generate-graphql-watch:
-	npx graphql-codegen --config codegen.yaml --watch "apps/api/graph/src/assets/**/*.graphql"
+	npx graphql-codegen --config .graphqlconfig.yaml --watch "apps/api/graph/src/assets/**/*.graphql"
 
 #
 # HASURA

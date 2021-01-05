@@ -4,7 +4,7 @@ import { Button, Select } from 'antd'
 import { JSONSchema7 } from 'json-schema'
 import React, { useState } from 'react'
 import { VertexType } from '@codelab/alpha/shared/interface/graph'
-import * as schemas from '@codelab/tools/json-schema-generator'
+import * as schemas from '@codelab/tools/generators/json-schema'
 
 const { Option } = Select
 const Form = withTheme(AntDTheme)

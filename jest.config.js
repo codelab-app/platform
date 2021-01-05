@@ -37,5 +37,6 @@ module.exports = {
     '<rootDir>/libs/tools/json-schema-generator',
     '<rootDir>/libs/modules/auth',
     '<rootDir>/libs/modules/app',
+    '<rootDir>/libs/tools/generators/graphql',
   ],
 }

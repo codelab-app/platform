@@ -7,7 +7,7 @@ import { TypeOrmAppRepositoryAdapter } from '../../../../app/src/infrastructure/
 import { DeleteUserCommandHandler } from '../../core/application/handlers/DeleteUserCommandHandler'
 import { GetMeQueryHandler } from '../../core/application/handlers/GetMeQueryHandler'
 import { GetUsersQueryHandler } from '../../core/application/handlers/GetUsersQueryHandler'
-import { LoginUserQueryHandler } from '../../core/application/handlers/LoginUserQueryHandler'
+import { LoginUserCommandHandler } from '../../core/application/handlers/LoginUserCommandHandler'
 import { RegisterUserCommandHandler } from '../../core/application/handlers/RegisterUserCommandHandler'
 import { UpdateUserCommandHandler } from '../../core/application/handlers/UpdateUserCommandHandler'
 import { UserService } from '../../core/application/services/UserService'
@@ -81,7 +81,7 @@ export const useCaseProviders: Array<Provider> = [
 
 export const handlerProviders: Array<Provider> = [
   GetMeQueryHandler,
-  LoginUserQueryHandler,
+  LoginUserCommandHandler,
   RegisterUserCommandHandler,
   DeleteUserCommandHandler,
   UpdateUserCommandHandler,
