@@ -40,9 +40,6 @@
       "tags": [],
       "implicitDependencies": ["web"]
     },
-    "api-external": {
-      "tags": []
-    },
     "api-graph": {
       "tags": []
     },

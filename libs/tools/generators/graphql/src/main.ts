@@ -32,7 +32,7 @@ const makeGenerator = async (option: GeneratorOptions) => {
         onWatchTriggered: [],
         onError: [],
         afterOneFileWrite: [],
-        afterAllFileWrite: ['eslint --fix'],
+        afterAllFileWrite: ['npx eslint --fix'],
         beforeOneFileWrite: [],
         beforeAllFileWrite: [],
       },

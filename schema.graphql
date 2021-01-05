@@ -3,7 +3,7 @@ query root
 """
 type Query {
   graph(request: GetGraphRequest!): GraphUseCaseDto!
-  getMe: UserUseCaseDto!
+  getMe: User!
 }
 
 type Mutation {
@@ -13,10 +13,10 @@ type Mutation {
   updateNode(request: UpdateNodeRequest!): GraphUseCaseDto!
   deleteNode(request: DeleteNodeRequest!): GraphUseCaseDto!
   moveNode(request: MoveNodeRequest!): GraphUseCaseDto!
-  deleteUser(user: DeleteUserRequest!): UserUseCaseDto!
-  updateUser(user: UpdateUserRequest!): UserUseCaseDto!
-  registerUser(request: RegisterUserRequest!): UserUseCaseDto!
-  loginUser(request: LoginUserRequest!): UserUseCaseDto!
+  deleteUser(user: DeleteUserRequest!): User!
+  updateUser(user: UpdateUserRequest!): User!
+  registerUser(request: RegisterUserRequest!): User!
+  loginUser(request: LoginUserRequest!): User!
 }
 
 type TypeOrmVertex implements IVertex {
@@ -185,7 +185,7 @@ type GraphUseCaseDto {
   edges: [EdgeUseCaseDto!]!
 }
 
-type UserUseCaseDto {
+type User {
   id: String!
   email: String!
   accessToken: String
