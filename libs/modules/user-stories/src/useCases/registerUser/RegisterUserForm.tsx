@@ -5,7 +5,7 @@ import React from 'react'
 import { useUser } from '../../store'
 import { requestJsonSchema } from '@codelab/tools/generators/json-schema'
 
-export const UserSignupForm = ({
+export const RegisterUserForm = ({
   formId,
   hasSubmitButton = true,
 }: {

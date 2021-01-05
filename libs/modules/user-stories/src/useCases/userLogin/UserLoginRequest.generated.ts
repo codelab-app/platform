@@ -1,6 +1,6 @@
 import gql from 'graphql-tag'
 
-export const UserLogin = gql`
+export const UserLoginGql = gql`
   mutation UserLogin($input: LoginUserRequest!) {
     loginUser(request: $input) {
       email

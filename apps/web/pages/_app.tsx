@@ -4,7 +4,10 @@ import { RecoilRoot } from 'recoil'
 import { MachineProvider } from '@codelab/frontend'
 import { appMachine } from '@codelab/modules/app-stories'
 import { AppLayoutContainer } from '@codelab/modules/layout-stories'
-import { UserLoginModal, UserSignupModal } from '@codelab/modules/user-stories'
+import {
+  RegisterUserModal,
+  UserLoginModal,
+} from '@codelab/modules/user-stories'
 
 require('highlight.js/styles/monokai-sublime.css')
 require('antd/dist/antd.css')
@@ -17,7 +20,7 @@ const App = ({ children }: PropsWithChildren<any>) => {
     <>
       {typeof window === 'undefined' ? null : (
         <>
-          <UserSignupModal />
+          <RegisterUserModal />
           <UserLoginModal />
           <AppLayoutContainer>{children}</AppLayoutContainer>
         </>
