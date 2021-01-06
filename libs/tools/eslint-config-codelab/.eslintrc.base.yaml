@@ -83,6 +83,10 @@ rules:
     - allowTernary: true
   max-classes-per-file: off
 
+  # --- Html ---
+  jsx-a11y/anchor-is-valid: off
+  # --- !Html ---
+
   # --- ES6 ---
   prefer-arrow-callback: error
   func-style: error

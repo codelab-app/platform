@@ -1,15 +1,16 @@
 import { Menu } from 'antd'
+import Link from 'next/link'
 import React from 'react'
 import {
-  RegisterUserButtonContainer,
-  UserLoginButtonContainer,
-  UserSignOutButtonContainer,
-  useUser,
+  RegisterUserButton,
+  UserLoginButton,
+  UserSignOutButton,
+  useUserMachine,
 } from '@codelab/modules/user-stories'
 
 // TODO: disable hover effects for button
 export const HeaderMenu = () => {
-  const user = useUser()
+  const user = useUserMachine()
 
   const { userData } = user.state.context
 
@@ -17,12 +18,20 @@ export const HeaderMenu = () => {
     <>
       <div className="logo" />
       <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
-        <Menu.Item key="1">nav 1</Menu.Item>
-        <Menu.Item key="2">nav 2</Menu.Item>
+        <Menu.Item key="1">
+          <Link href="/">
+            <a>Home</a>
+          </Link>
+        </Menu.Item>
+        <Menu.Item key="2">
+          <Link href="/apps">
+            <a>Apps</a>
+          </Link>
+        </Menu.Item>
         {userData ? (
           <>
             <Menu.Item key="3" style={{ float: 'right' }}>
-              <UserSignOutButtonContainer />
+              <UserSignOutButton />
             </Menu.Item>
             <Menu.Item key="4" style={{ float: 'right' }}>
               Hello, {userData.username}
@@ -31,10 +40,10 @@ export const HeaderMenu = () => {
         ) : (
           <>
             <Menu.Item key="3" style={{ float: 'right' }}>
-              <RegisterUserButtonContainer />
+              <RegisterUserButton />
             </Menu.Item>
             <Menu.Item key="4" style={{ float: 'right' }}>
-              <UserLoginButtonContainer />
+              <UserLoginButton />
             </Menu.Item>
           </>
         )}

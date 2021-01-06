@@ -23,6 +23,7 @@ export class AppCommandQueryAdapter implements CommandQueryBusPort {
     @Args('request') request: CreateAppRequest,
     @CurrentUser() userId: string,
   ) {
+    console.log(request)
     request.userId = userId
     const result = await this.commandBus.execute(new CreateAppCommand(request))
 

@@ -1,6 +1,0 @@
-export * from './machine-modal'
-export * from './machine-modalCrud'
-export * from './machine-modal--context'
-export * from './machine-modal--event'
-export * from './machine-modal--state'
-export * from './machine-modal--actions'

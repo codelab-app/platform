@@ -1,36 +1,37 @@
 import { Theme as AntDTheme } from '@rjsf/antd'
 import { withTheme } from '@rjsf/core'
 import { JSONSchema7 } from 'json-schema'
+import { omit } from 'lodash'
 import React from 'react'
-import { useUserMachine } from '../../store'
+import { useAppMachine } from '../../model/store/useAppMachine'
 import { requestJsonSchema } from '@codelab/tools/generators/json-schema'
 
-export const RegisterUserForm = ({
-  formId,
-  hasSubmitButton = true,
-}: {
-  formId?: string
-  hasSubmitButton?: boolean
-}) => {
-  const user = useUserMachine()
+export const CreateAppForm = ({ formId }: { formId?: string }) => {
+  const app = useAppMachine()
 
   const onSubmit = ({ formData }: any) => {
-    user.send({
+    app.send({
       type: 'ON_SUBMIT',
       data: formData,
     })
   }
+
   const Form = withTheme(AntDTheme)
 
   return (
     <Form
       id={formId}
-      schema={requestJsonSchema.definitions.RegisterUserRequest as JSONSchema7}
-      uiSchema={{
-        password: {
-          'ui:widget': 'password',
-        },
-      }}
+      schema={omit(
+        requestJsonSchema.definitions.CreateAppRequest as JSONSchema7,
+        'properties.userId',
+      )}
+      uiSchema={
+        {
+          // password: {
+          //   'ui:widget': 'password',
+          // },
+        }
+      }
       // widgets={widgets}
       // formContext={formCtx}
       // onChange={filterOptions}

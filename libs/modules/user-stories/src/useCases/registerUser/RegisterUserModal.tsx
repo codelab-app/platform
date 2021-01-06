@@ -1,19 +1,19 @@
 import { Modal } from 'antd'
 import { ModalProps } from 'antd/lib/modal'
 import React from 'react'
-import { useUser } from '../../store/useUser'
+import { useUserMachine } from '../../store/useUserMachine'
 import { RegisterUserForm } from './RegisterUserForm'
-import { useApp } from '@codelab/modules/app-stories'
+import { useRootMachine } from '@codelab/frontend'
 
 const USER_SIGNUP_FORM = 'userSignupForm'
 
 export const RegisterUserModal = () => {
-  const app = useApp()
-  const user = useUser()
+  const root = useRootMachine()
+  const user = useUserMachine()
   const sharedModalProps: ModalProps = {
     visible: user.state.value.guest.signingUp === 'idle',
-    onCancel: () => app.send('ON_MODAL_CANCEL'),
-    onOk: () => app.send('ON_MODAL_OK'),
+    onCancel: () => root.send('ON_MODAL_CANCEL'),
+    onOk: () => root.send('ON_MODAL_OK'),
   }
 
   return (

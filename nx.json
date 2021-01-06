@@ -40,22 +40,10 @@
       "tags": [],
       "implicitDependencies": ["web"]
     },
-    "api-graph": {
-      "tags": []
-    },
     "api-codelab": {
       "tags": []
     },
     "alpha-core-graph": {
-      "tags": []
-    },
-    "alpha-api-providers-config": {
-      "tags": []
-    },
-    "alpha-api-providers-logger": {
-      "tags": []
-    },
-    "alpha-api-providers-router": {
       "tags": []
     },
     "alpha-core-model": {
@@ -122,24 +110,6 @@
       "tags": []
     },
     "alpha-state-apollo": {
-      "tags": []
-    },
-    "alpha-state-app": {
-      "tags": []
-    },
-    "alpha-state-entity": {
-      "tags": []
-    },
-    "alpha-state-layout": {
-      "tags": []
-    },
-    "alpha-state-modal": {
-      "tags": []
-    },
-    "alpha-state-node": {
-      "tags": []
-    },
-    "alpha-state-vertex": {
       "tags": []
     },
     "alpha-ui-component": {
