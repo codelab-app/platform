@@ -1,4 +1,5 @@
 import { Machine, StateNodeConfig } from 'xstate'
+import { createAppService } from '../../useCases/createApp/CreateAppService'
 
 const createAppState: StateNodeConfig<any, any, any> = {
   initial: 'fillingForm',
@@ -26,11 +27,11 @@ const createAppState: StateNodeConfig<any, any, any> = {
     },
     success: {
       entry: ['notifySuccess'],
-      on: { '': '#app.idle' },
+      on: { always: '#app.idle' },
     },
     error: {
       entry: ['notifyError'],
-      on: { '': '#app.idle' },
+      on: { always: '#app.idle' },
     },
   },
 }
@@ -41,6 +42,8 @@ const updateAppState: StateNodeConfig<any, any, any> = {
 }
 
 export const createAppMachine = () => {
+  const services = { ...createAppService }
+
   return Machine(
     {
       id: 'app',
@@ -59,15 +62,7 @@ export const createAppMachine = () => {
       },
     },
     {
-      services: {
-        createApp: (context, { data }) => {
-          console.log(context)
-
-          return new Promise((resolve) => {
-            setTimeout(resolve, 500)
-          })
-        },
-      },
+      services,
     },
   )
 }
