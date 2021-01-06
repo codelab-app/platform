@@ -21,11 +21,11 @@ const createAppState: StateNodeConfig<any, any, any> = {
     },
     success: {
       entry: ['notifySuccess'],
-      on: { '': 'idle' },
+      on: { '': '#app.idle' },
     },
     error: {
       entry: ['notifyError'],
-      on: { '': 'idle' },
+      on: { '': '#app.idle' },
     },
   },
 }
