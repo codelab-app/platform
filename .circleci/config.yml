@@ -124,19 +124,13 @@ commands:
             source $BASH_ENV
             echo $SLACK_USER
 
-
   setup-workspace:
     description: 'Setup workspace'
     steps:
       - checkout
+      - setup-env
       - attach_workspace:
           at: ..
-      - setup-env
-      # - attach_workspace:
-      #     at: /tmp
-      - run: ls -al
-      - run: ls -al ~/
-      # - run: source /tmp/.env
 
   yarn-install-dev:
     steps:
@@ -229,13 +223,6 @@ jobs:
             - .cache/Cypress
       - notify-failure
 
-  generate-code:
-    <<: *executor-params
-    steps:
-      - setup-workspace
-      - run: make generate-ci
-      - notify-failure
-
   lint:
     <<: *executor-params
     environment:
@@ -264,7 +251,9 @@ jobs:
     <<: *executor-params
     steps:
       - setup-workspace
-      - run: make e2e-ci
+      - attach_workspace:
+          at: /tmp
+      - run: source /tmp/.env && make e2e-ci
       - notify-failure
 
   notify-success:
@@ -312,13 +301,6 @@ workflows:
       - install-and-build-workspace:
           <<: *filters-dev
           e: docker-node
-          requires:
-            - setup-vault-env
-      - generate-code:
-          <<: *filters-dev
-          e: docker-node
-          requires:
-            - install-and-build-workspace
       - lint:
           <<: *filters-dev
           e: docker-node
@@ -327,19 +309,20 @@ workflows:
       - unit:
           <<: *filters-dev
           e: docker-node
-          # context: .env.ci
           requires:
+            - setup-vault-env
             - install-and-build-workspace
       - integration:
           <<: *filters-dev
           e: docker-node
-          # context: .env.ci
           requires:
+            - setup-vault-env
             - install-and-build-workspace
       - e2e:
           <<: *filters-dev
           e: docker-node
           requires:
+            - setup-vault-env
             - install-and-build-workspace
       - notify-success:
           <<: *filters-dev
