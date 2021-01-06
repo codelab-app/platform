@@ -50,7 +50,7 @@ const graphqlQueryPaths = glob.sync(
   `${process.cwd()}/libs/modules/*@(-stories)/src/useCases/**/*.graphql`,
 )
 
-export const getGenerators = () =>
+export const getAsyncGenerators = () =>
   graphqlQueryPaths.map((queryPath) =>
     makeGenerator({ sourceGqlPath: queryPath }),
   )

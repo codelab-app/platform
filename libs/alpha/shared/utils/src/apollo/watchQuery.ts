@@ -5,7 +5,6 @@ import {
   WatchQueryOptions,
 } from '@apollo/client'
 import { Observable } from 'rxjs'
-// import { EventNameApp } from '@codelab/alpha/state/app'
 
 /**
  * Issue with zen-observable, we convert to rxjs observable instead

@@ -1,5 +1,5 @@
 import { spawn } from 'child_process'
-import { getGenerators } from './generator'
+import { getAsyncGenerators } from './generator'
 
 export const main = async () => {
   const startServerCmd = `npx env-cmd -f .env cross-env PORT=4001 \
@@ -23,10 +23,11 @@ export const main = async () => {
 
   // Server has started
   generator.on('close', async (msg) => {
-    await Promise.all(getGenerators())
+    await Promise.all(getAsyncGenerators())
 
     // Close server
     codelabApiServer.kill()
+    generator.kill()
   })
 }
 

@@ -11,7 +11,6 @@ import { Renderer } from '@codelab/alpha/core/renderer'
 import { ComponentProps } from '@codelab/alpha/shared/interface/component'
 import { NodeReactI, NodeType } from '@codelab/alpha/shared/interface/node'
 import { PropType } from '@codelab/alpha/shared/interface/props'
-import { ContextModal, EventModal } from '@codelab/alpha/state/modal'
 import { withActor } from '@codelab/alpha/ui/hoc'
 
 export const formNode: NodeReactI = {
@@ -70,6 +69,6 @@ interface FormProps {
   initialvalues?: any
 }
 
-export const FormNode: React.FC<
-  ComponentProps<ContextModal, EventModal> & FormProps
-> = withActor<ContextModal, EventModal>(Renderer.components(formNode))
+export const FormNode: React.FC<ComponentProps & FormProps> = withActor(
+  Renderer.components(formNode),
+)
