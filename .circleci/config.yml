@@ -227,6 +227,13 @@ jobs:
             - .cache/Cypress
       - notify-failure
 
+  generate-code:
+    <<: *executor-params
+    steps:
+      - setup-workspace
+      - run: make generate-ci
+      - notify-failure
+
   lint:
     <<: *executor-params
     environment:
@@ -273,6 +280,7 @@ jobs:
             *Status*: :white_check_mark: Success \n
             *Branch*: << pipeline.git.branch >> \n
             *Message*: $GIT_COMMIT_MSG \n
+
   build-and-push-docker-image:
     <<: *executor-params
     steps:
@@ -306,10 +314,17 @@ workflows:
       - install-and-build-workspace:
           <<: *filters-dev
           e: docker-node
+      - generate-code:
+          <<: *filters-dev
+          e: docker-node
+          requires:
+            - setup-vault-env
+            - install-and-build-workspace
       - lint:
           <<: *filters-dev
           e: docker-node
           requires:
+            - setup-vault-env
             - install-and-build-workspace
       - unit:
           <<: *filters-dev
@@ -333,6 +348,7 @@ workflows:
           <<: *filters-dev
           e: docker-node
           requires:
+            - generate-code
             - lint
             - unit
             - integration
