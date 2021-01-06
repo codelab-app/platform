@@ -265,63 +265,6 @@
         }
       }
     },
-    "api-graph": {
-      "root": "apps/api/graph",
-      "sourceRoot": "apps/api/graph/src",
-      "projectType": "application",
-      "prefix": "api-graph",
-      "schematics": {},
-      "architect": {
-        "build": {
-          "builder": "@nrwl/node:build",
-          "options": {
-            "outputPath": "dist/apps/api/graph",
-            "main": "apps/api/graph/src/main.ts",
-            "tsConfig": "apps/api/graph/tsconfig.app.json",
-            "assets": [
-              "apps/api/graph/src/assets",
-              {
-                "glob": "pm2.json",
-                "input": "apps/api/graph",
-                "output": "."
-              }
-            ]
-          },
-          "configurations": {
-            "production": {
-              "optimization": true,
-              "extractLicenses": true,
-              "inspect": false,
-              "fileReplacements": [
-                {
-                  "replace": "apps/api/graph/src/environments/environment.ts",
-                  "with": "apps/api/graph/src/environments/environment.prod.ts"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "builder": "@nrwl/node:execute",
-          "options": {
-            "buildTarget": "api-graph:build"
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["apps/api/graph/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "apps/api/graph/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
     "api-codelab": {
       "root": "apps/api/codelab",
       "sourceRoot": "apps/api/codelab/src",
@@ -438,55 +381,6 @@
             "ci": {
               "quiet": true
             }
-          }
-        }
-      }
-    },
-    "alpha-api-providers-config": {
-      "root": "libs/alpha/api/providers/config",
-      "sourceRoot": "libs/alpha/api/providers/config/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/alpha/api/providers/config/**/*.ts",
-              "libs/alpha/api/providers/config/**/*.spec.ts",
-              "libs/alpha/api/providers/config/**/*.spec.tsx",
-              "libs/alpha/api/providers/config/**/*.spec.js",
-              "libs/alpha/api/providers/config/**/*.spec.jsx",
-              "libs/alpha/api/providers/config/**/*.d.ts"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/alpha/api/providers/config/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "alpha-api-providers-logger": {
-      "root": "libs/alpha/api/providers/logger",
-      "sourceRoot": "libs/alpha/api/providers/logger/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/alpha/api/providers/logger/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/alpha/api/providers/logger/jest.config.js",
-            "passWithNoTests": true
           }
         }
       }

@@ -1,6 +1,5 @@
 import arrayMove from 'array-move'
 import { Type, classToPlain, plainToClass } from 'class-transformer'
-import { VertexID } from '../../../../../../../apps/api/graph/src/models/graph/graph.entity'
 import { CreateGraphRequest } from '../../application/useCases/createGraph/CreateGraphRequest'
 import { Edge } from '../edge'
 import { SerializedEdgeDto } from '../edge/dto/SerializedEdgeDto'
@@ -10,6 +9,8 @@ import { GraphEdges } from './graph-edges'
 import { GraphLabel } from './graph-label'
 import { GraphVertices } from './graph-vertices'
 import { AggregateRoot, TransformBoth, TypeOrmGraph } from '@codelab/backend'
+
+type VertexId = string
 
 export class Graph extends AggregateRoot<SerializedGraphDto> {
   @Type(() => GraphLabel)
@@ -57,7 +58,7 @@ export class Graph extends AggregateRoot<SerializedGraphDto> {
     }
   }
 
-  private moveWithSameParent(source: VertexID, target: VertexID) {
+  private moveWithSameParent(source: VertexId, target: VertexId) {
     let targetEdgeIndex = this.getEdgeIndexByTarget(target)
     const sourceEdgeIndex = this.getEdgeIndexByTarget(source)
 
@@ -72,8 +73,8 @@ export class Graph extends AggregateRoot<SerializedGraphDto> {
   private moveWithDifferentParent(
     vertexSource: SerializedVertexDto,
     vertexTarget: SerializedVertexDto,
-    source: VertexID,
-    target: VertexID,
+    source: VertexId,
+    target: VertexId,
   ) {
     const edges: Array<SerializedEdgeDto> = this.edges.value
     const sourceEdgeIndex = this.getEdgeIndexBySourceAndTarget(
@@ -115,8 +116,8 @@ export class Graph extends AggregateRoot<SerializedGraphDto> {
   }
 
   private getEdgeIndexBySourceAndTarget(
-    source: VertexID | undefined,
-    target: VertexID,
+    source: VertexId | undefined,
+    target: VertexId,
   ): number {
     if (source) {
       const edges: Array<SerializedEdgeDto> = this.edges.value
@@ -129,7 +130,7 @@ export class Graph extends AggregateRoot<SerializedGraphDto> {
     return -1
   }
 
-  private getEdgeIndexByTarget(target: VertexID) {
+  private getEdgeIndexByTarget(target: VertexId) {
     const edges: Array<SerializedEdgeDto> = this.edges.value
 
     return edges.findIndex((e: SerializedEdgeDto) => {

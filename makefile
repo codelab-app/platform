@@ -25,6 +25,7 @@ build-ci:
     --all \
     --parallel \
     --maxWorkers=4 \
+		--verbose \
 		--skip-nx-cache
 
 build-prod:

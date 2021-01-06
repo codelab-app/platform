@@ -40,19 +40,10 @@
       "tags": [],
       "implicitDependencies": ["web"]
     },
-    "api-graph": {
-      "tags": []
-    },
     "api-codelab": {
       "tags": []
     },
     "alpha-core-graph": {
-      "tags": []
-    },
-    "alpha-api-providers-config": {
-      "tags": []
-    },
-    "alpha-api-providers-logger": {
       "tags": []
     },
     "alpha-core-model": {
