@@ -50,7 +50,7 @@ export const createAppMachine = () => {
           },
         },
         creatingApp: createAppState,
-        updatingApp: updateAppState,
+        // updatingApp: updateAppState,
       },
     },
     {
