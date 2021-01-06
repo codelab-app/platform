@@ -5,12 +5,12 @@ import {
   AppLayout,
   AppSidebarProps,
 } from './AppLayout'
-import { useLayoutActor } from '@codelab/modules/app-stories'
+import { useLayoutMachine } from './useLayoutMachine'
 import { HeaderMenu } from '@codelab/modules/header-stories'
 import { SidebarMenu } from '@codelab/modules/sidebar-stories'
 
 export const AppLayoutContainer = ({ children }: any) => {
-  const layout = useLayoutActor()
+  const layout = useLayoutMachine()
 
   const sidebar: AppSidebarProps = {
     Menu: <SidebarMenu />,

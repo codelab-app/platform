@@ -1,9 +1,9 @@
 import { Button } from 'antd'
 import React from 'react'
-import { useUser } from '../../store'
+import { useUserMachine } from '../../store'
 
 export const RegisterUserButton = () => {
-  const user = useUser()
+  const user = useUserMachine()
 
   const registerUserButtonProps = {
     onClick: () => user.send('SIGN_UP'),

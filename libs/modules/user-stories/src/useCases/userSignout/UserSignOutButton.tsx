@@ -1,10 +1,10 @@
 import { Button } from 'antd'
 import { ButtonProps } from 'antd/lib/button'
 import React from 'react'
-import { useUser } from '../../store'
+import { useUserMachine } from '../../store'
 
 export const UserSignOutButton = () => {
-  const user = useUser()
+  const user = useUserMachine()
 
   const userSignupButtonProps: ButtonProps = {
     onClick: () => user.send('SIGN_OUT'),

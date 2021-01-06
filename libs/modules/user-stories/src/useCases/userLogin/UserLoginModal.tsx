@@ -1,15 +1,15 @@
 import { Modal } from 'antd'
 import { ModalProps } from 'antd/lib/modal'
 import React from 'react'
-import { useUser } from '../../store/useUser'
+import { useUserMachine } from '../../store/useUserMachine'
 import { UserLoginForm } from './UserLoginForm'
-import { useApp } from '@codelab/modules/app-stories'
+import { useRootMachine } from '@codelab/frontend'
 
 const USER_LOGIN_FORM = 'userLoginForm'
 
 export const UserLoginModal = () => {
-  const app = useApp()
-  const user = useUser()
+  const app = useRootMachine()
+  const user = useUserMachine()
 
   const sharedModalProps: ModalProps = {
     visible: user.state.value.guest.loggingIn === 'idle',

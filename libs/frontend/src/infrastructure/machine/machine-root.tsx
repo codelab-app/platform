@@ -1,5 +1,5 @@
-import { useActor, useMachine } from '@xstate/react'
 import { Machine, assign, spawn } from 'xstate'
+import { createAppMachine } from '@codelab/modules/app-stories'
 import { createGridMachine } from '@codelab/modules/grid-stories'
 import { layoutMachine } from '@codelab/modules/layout-stories'
 import { createUserMachine } from '@codelab/modules/user-stories'
@@ -10,6 +10,7 @@ export const rootMachine = Machine<any>({
     layout: () => spawn(layoutMachine, { sync: true }),
     user: () => spawn(createUserMachine(), { sync: false, autoForward: true }),
     grid: () => spawn(createGridMachine(), { sync: false, autoForward: true }),
+    app: () => spawn(createAppMachine(), { sync: false, autoForward: true }),
   }),
   initial: 'idle',
   states: {
@@ -29,13 +30,3 @@ export const rootMachine = Machine<any>({
     },
   },
 })
-
-export const useLayout = (): any => {
-  const [appState] = useMachine(rootMachine)
-  const [state, send] = useActor(appState.context.layout)
-
-  return {
-    state,
-    send,
-  }
-}

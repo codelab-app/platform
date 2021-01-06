@@ -2,7 +2,7 @@ import { Theme as AntDTheme } from '@rjsf/antd'
 import { withTheme } from '@rjsf/core'
 import { JSONSchema7 } from 'json-schema'
 import React from 'react'
-import { useUser } from '../../store'
+import { useUserMachine } from '../../store'
 import { requestJsonSchema } from '@codelab/tools/generators/json-schema'
 
 export const RegisterUserForm = ({
@@ -12,7 +12,7 @@ export const RegisterUserForm = ({
   formId?: string
   hasSubmitButton?: boolean
 }) => {
-  const user = useUser()
+  const user = useUserMachine()
 
   console.log(user.state.value)
 

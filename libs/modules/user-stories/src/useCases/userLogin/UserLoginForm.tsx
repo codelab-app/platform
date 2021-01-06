@@ -1,6 +1,6 @@
 import { Button, Form, Input } from 'antd'
 import React from 'react'
-import { useUser } from '../../store'
+import { useUserMachine } from '../../store'
 
 export const UserLoginForm = ({
   formId,
@@ -9,7 +9,7 @@ export const UserLoginForm = ({
   formId?: string
   hasSubmitButton?: boolean
 }) => {
-  const user = useUser()
+  const user = useUserMachine()
   const isLoading = user.state.value.guest.signingUp === 'isLoading'
 
   const onFinish = (values: object) => {

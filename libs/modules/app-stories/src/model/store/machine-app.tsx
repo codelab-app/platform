@@ -1,48 +1,66 @@
-import { useActor, useMachine } from '@xstate/react'
-import { atom, useRecoilValue } from 'recoil'
-import { Machine, assign, spawn } from 'xstate'
-import { createGridMachine } from '@codelab/modules/grid-stories'
-import { layoutMachine } from '@codelab/modules/layout-stories'
-import { createUserMachine } from '@codelab/modules/user-stories'
+import { Machine, StateNodeConfig } from 'xstate'
 
-export const appMachine = Machine<any>({
-  id: 'app',
-  entry: assign({
-    layout: () => spawn(layoutMachine, { sync: true }),
-    user: () => spawn(createUserMachine(), { sync: false, autoForward: true }),
-    grid: () => spawn(createGridMachine(), { sync: false, autoForward: true }),
-  }),
-  initial: 'idle',
+const createAppState: StateNodeConfig<any, any, any> = {
+  initial: 'fillingForm',
   states: {
-    idle: {
+    fillingForm: {
       on: {
-        // ON_MODAL_CANCEL: {
-        //   actions: () => {
-        //     console.log('on modal cancel')
-        //   },
-        // },
-        // ON_MODAL_OK: {
-        //   actions: () => {
-        //     console.log('on modal ok')
-        //   },
-        // },
+        ON_SUBMIT: {},
       },
     },
+    submitting: {
+      invoke: {
+        src: 'createApp',
+        onDone: {
+          target: 'success',
+        },
+        onError: {
+          target: 'error',
+        },
+      },
+    },
+    success: {
+      entry: ['notifySuccess'],
+      on: { '': 'idle' },
+    },
+    error: {
+      entry: ['notifyError'],
+      on: { '': 'idle' },
+    },
   },
-})
+}
 
-export const appMachineState = atom({
-  key: 'appMachine',
-  default: appMachine,
-})
+const updateAppState: StateNodeConfig<any, any, any> = {
+  initial: 'fillingForm',
+  states: {},
+}
 
-export const useLayoutActor = (): any => {
-  const appAtom = useRecoilValue(appMachineState)
-  const [appState] = useMachine(appAtom)
-  const [state, send] = useActor(appState.context.layout)
-
-  return {
-    state,
-    send,
-  }
+export const createAppMachine = () => {
+  return Machine(
+    {
+      id: 'app',
+      initial: 'idle',
+      context: {},
+      states: {
+        idle: {
+          on: {
+            ON_CREATE_APP: {
+              target: 'creatingApp',
+            },
+          },
+        },
+        creatingApp: createAppState,
+        updatingApp: updateAppState,
+      },
+    },
+    {
+      services: {
+        createApp: (context, event) => {
+          return new Promise((resolve) => {
+            setTimeout(resolve, 500)
+          })
+        },
+      },
+    },
+  )
 }

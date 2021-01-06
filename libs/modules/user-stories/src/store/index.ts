@@ -1,2 +1,2 @@
 export * from './machine-user'
-export * from './useUser'
+export * from './useUserMachine'

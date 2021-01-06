@@ -4,12 +4,12 @@ import {
   RegisterUserButton,
   UserLoginButton,
   UserSignOutButton,
-  useUser,
+  useUserMachine,
 } from '@codelab/modules/user-stories'
 
 // TODO: disable hover effects for button
 export const HeaderMenu = () => {
-  const user = useUser()
+  const user = useUserMachine()
 
   const { userData } = user.state.context
 
