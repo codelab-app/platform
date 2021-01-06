@@ -22,7 +22,7 @@ build-ci:
 	npx nx run-many \
 		--memoryLimit=4096 \
     --target=build \
-		--projects=api-codelab,web,web-e2e,tools-eslint-config-codelab,codelab-schematics \
+		--projects=api-codelab,web,tools-eslint-config-codelab,codelab-schematics \
     --parallel \
     --maxWorkers=4 \
 		--verbose \

@@ -136,7 +136,7 @@ commands:
       #     at: /tmp
       - run: ls -al
       - run: ls -al ~/
-      - run: source /tmp/.env
+      # - run: source /tmp/.env
 
   yarn-install-dev:
     steps:
