@@ -1,1 +1,1 @@
-export * from './framework/nestjs/CodelabAppModule'
+export * from './framework/nestjs/AppModule'

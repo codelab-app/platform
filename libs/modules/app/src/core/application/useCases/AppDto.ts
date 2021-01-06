@@ -1,7 +1,7 @@
 import { Field, ObjectType } from '@nestjs/graphql'
 
-@ObjectType()
-export class AppUseCaseDto {
+@ObjectType('App')
+export class AppDto {
   @Field()
   declare title: string
 }

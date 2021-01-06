@@ -6,6 +6,7 @@ import { <%= moduleNamePascalCase %>DITokens } from '../../../framework/<%= modu
 import { <%= useCaseNamePascalCase %>UseCase } from '../useCases/<%=useCaseFolderName%>/<%= useCaseNamePascalCase %>UseCase'
 import { Result } from '@codelab/backend'
 import { <%= moduleNamePascalCase %> } from '../../domain/<%= moduleName %>'
+import { <%= useCaseCommandOrQuery %> } from '../commands/<%= useCaseCommandOrQuery %>'
 
 @<%= handlerType %>(<%= useCaseCommandOrQuery %>)
 export class <%= useCaseCommandOrQuery %>Handler

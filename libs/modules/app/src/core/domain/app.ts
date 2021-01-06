@@ -28,4 +28,8 @@ export class App extends AggregateRoot<SerializedAppDto> {
   toPlain() {
     return classToPlain(this) as SerializedAppDto
   }
+
+  public static arrayToPlain(apps: Array<App>) {
+    return classToPlain(apps) as Array<App>
+  }
 }

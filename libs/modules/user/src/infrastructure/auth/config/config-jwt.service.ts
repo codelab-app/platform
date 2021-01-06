@@ -9,8 +9,7 @@ export class ConfigJwtService implements JwtOptionsFactory {
       secret: JwtConfig.JWT_SECRET,
       signOptions: {
         algorithm: 'HS512',
-        // expiresIn: JwtConfig.JWT_EXPIRY,
-        expiresIn: 3600,
+        expiresIn: JwtConfig.JWT_EXPIRY,
       },
     }
   }

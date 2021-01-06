@@ -9,7 +9,7 @@ export class AggregateRoot<
   P extends ValueObjectProps
 > extends NestjsAggregateRoot {
   @ValidateNested()
-  protected declare id: Option<UUID>
+  declare id: Option<UUID>
 
   constructor(props: P) {
     super()
