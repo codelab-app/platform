@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import React from 'react'
 import {
   ItemCallback,
@@ -10,7 +11,8 @@ import { useGrid } from '@codelab/modules/grid-stories'
 
 const ResponsiveGridLayout = WidthProvider(Responsive)
 
-const AppsPage = () => {
+const AppPage = () => {
+  const router = useRouter()
   const grid = useGrid()
 
   const layouts = {
@@ -69,4 +71,4 @@ const AppsPage = () => {
   )
 }
 
-export default withApollo(AppsPage)
+export default withApollo(AppPage)

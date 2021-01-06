@@ -6,6 +6,9 @@ const createAppState: StateNodeConfig<any, any, any> = {
     fillingForm: {
       on: {
         ON_SUBMIT: {},
+        ON_MODAL_CANCEL: {
+          target: '#app.idle',
+        },
       },
     },
     submitting: {

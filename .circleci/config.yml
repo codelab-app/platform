@@ -131,6 +131,9 @@ commands:
       - setup-env
       - attach_workspace:
           at: ..
+      - attach_workspace:
+          at: /tmp
+      - run: source /tmp/.env
       - run: ls -al .
       - run: ls -al ~/
       - run: ls -al /tmp

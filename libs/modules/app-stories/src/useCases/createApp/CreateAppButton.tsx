@@ -1,11 +1,14 @@
 import { Button } from 'antd'
 import { ButtonProps } from 'antd/lib/button'
 import React from 'react'
+import { useAppMachine } from '../../model/store/useAppMachine'
 
 export const CreateAppButton = () => {
+  const app = useAppMachine()
+
   const createAppButtonProps: ButtonProps = {
-    // onClick: () => user.send('LOGIN'),
+    onClick: () => app.send('ON_CREATE_APP'),
   }
 
-  return <Button {...createAppButtonProps}>Login</Button>
+  return <Button {...createAppButtonProps}>Create App</Button>
 }
