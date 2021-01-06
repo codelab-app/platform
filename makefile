@@ -22,7 +22,7 @@ build-ci:
 	npx nx run-many \
 		--memoryLimit=4096 \
     --target=build \
-    --all \
+		--projects=api-codelab,web,web-e2e,tools-eslint-config-codelab,codelab-schematics \
     --parallel \
     --maxWorkers=4 \
 		--verbose \
@@ -41,6 +41,16 @@ build-prod:
 #
 # GENERATE
 #
+
+generate-ci:
+	npx nx run-many \
+		--memoryLimit=4096 \
+    --target=build \
+		--projects=tools-generators-graphql,tools-generators-json-schema \
+    --parallel \
+    --maxWorkers=4 \
+		--verbose \
+		--skip-nx-cache
 
 generate-json-schema:
 	npx typescript-json-schema \
