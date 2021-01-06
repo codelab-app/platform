@@ -18,5 +18,6 @@ export class CreatePageService implements CreatePageUseCase {
     // }
     // const persistedPage = await this.pageRepository.createPage(page)
     // return right(Result.ok(persistedPage))
+    return Promise.reject()
   }
 }

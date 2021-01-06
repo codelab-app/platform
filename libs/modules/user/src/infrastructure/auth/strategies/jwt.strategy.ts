@@ -3,7 +3,7 @@ import { ModuleRef } from '@nestjs/core'
 import { JwtService } from '@nestjs/jwt'
 import { PassportStrategy } from '@nestjs/passport'
 import { classToPlain } from 'class-transformer'
-import { Option } from 'fp-ts/Option'
+import { Option, isNone } from 'fp-ts/Option'
 import { ExtractJwt, Strategy } from 'passport-jwt'
 import { UserService } from '../../../core/application/services/UserService'
 import { UserDITokens } from '../../../framework/UserDITokens'
@@ -21,14 +21,12 @@ export class JwtStrategy
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
-      // secretOrKey: config.get(ApiConfigTypes.JWT_SECRET),
       secretOrKey: JwtConfig.JWT_SECRET,
       passReqToCallback: true,
     })
   }
 
-  // Will return userId here
-  async validate(payload: any): Promise<Option<User>> {
+  async validate(payload: any): Promise<User> {
     let token = payload.headers.authorization
 
     token = token.replace('Bearer', '').trim()
@@ -37,7 +35,11 @@ export class JwtStrategy
       decodedToken.sub,
     )
 
-    return user
+    if (isNone(user)) {
+      throw new Error('User not found')
+    }
+
+    return user.value
   }
 
   async refreshToken(token: string) {
