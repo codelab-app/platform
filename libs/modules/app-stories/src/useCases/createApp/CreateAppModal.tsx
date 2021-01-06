@@ -17,9 +17,6 @@ export const CreateAppModal = () => {
     onOk: () => root.send('ON_MODAL_OK'),
   }
 
-  console.log(app.state.value)
-  console.log(typeof app.state.value.creatingApp)
-
   return (
     <Modal
       okText="Create App"

@@ -18,7 +18,7 @@ export const registerUserState: StateNodeConfig<any, any, any> = {
     },
     loading: {
       invoke: {
-        src: 'executeSignup',
+        src: 'registerUser',
         onDone: {
           target: 'signedUp',
         },

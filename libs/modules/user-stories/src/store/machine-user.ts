@@ -1,6 +1,6 @@
 import { Machine } from 'xstate'
 import {
-  registerUserServices,
+  registerUserService,
   registerUserState,
 } from '../useCases/registerUser'
 import { userLoginState } from '../useCases/userLogin'
@@ -11,7 +11,7 @@ export const createUserMachine = () => {
   const services = {
     ...userSignOutServices,
     ...userLoginServices,
-    ...registerUserServices,
+    ...registerUserService,
   }
 
   return Machine(

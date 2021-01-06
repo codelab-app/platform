@@ -1,5 +1,5 @@
 export * from './RegisterUserButton'
 export * from './RegisterUserForm'
 export * from './RegisterUserState'
-export * from './RegisterUserServices'
+export * from './RegisterUserService'
 export * from './RegisterUserModal'

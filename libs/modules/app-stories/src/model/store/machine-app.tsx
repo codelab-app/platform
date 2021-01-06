@@ -5,7 +5,9 @@ const createAppState: StateNodeConfig<any, any, any> = {
   states: {
     fillingForm: {
       on: {
-        ON_SUBMIT: {},
+        ON_SUBMIT: {
+          target: 'submitting',
+        },
         ON_MODAL_CANCEL: {
           target: '#app.idle',
         },
@@ -58,7 +60,9 @@ export const createAppMachine = () => {
     },
     {
       services: {
-        createApp: (context, event) => {
+        createApp: (context, { data }) => {
+          console.log(context)
+
           return new Promise((resolve) => {
             setTimeout(resolve, 500)
           })
