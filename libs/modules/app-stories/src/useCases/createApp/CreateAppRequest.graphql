@@ -1,0 +1,5 @@
+mutation CreateApp($input: CreateAppRequest!) {
+  createApp(request: $input) {
+    title
+  }
+}
