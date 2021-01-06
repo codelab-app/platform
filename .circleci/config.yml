@@ -131,10 +131,10 @@ commands:
       - setup-env
       - attach_workspace:
           at: ..
-      - run: cp /tmp/.env .env && source .env
       - run: ls -al .
       - run: ls -al ~/
       - run: ls -al /tmp
+      # - run: cp /tmp/.env .env && source .env
 
   yarn-install-dev:
     steps:
