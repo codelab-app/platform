@@ -1,4 +1,6 @@
 import { plainToClass } from 'class-transformer'
+import { option as O } from 'fp-ts'
+import { Option } from 'fp-ts/Option'
 import { EntityRepository, Repository } from 'typeorm'
 import { AppsWhere } from '../../common/CommonTypes'
 import { AppRepositoryPort } from '../../core/adapters/AppRepositoryPort'
@@ -32,5 +34,20 @@ export class TypeOrmAppRepositoryAdapter
     })
 
     return apps.map((app) => App.hydrate(app))
+  }
+
+  async deleteApp(appId: string): Promise<Option<App>> {
+    let result: Option<App>
+    const typeOrmApp = await this.findOne(appId)
+
+    if (typeOrmApp) {
+      const apps = await this.remove([typeOrmApp])
+
+      result = O.some(App.hydrate(apps[0]))
+    } else {
+      result = O.none
+    }
+
+    return result
   }
 }

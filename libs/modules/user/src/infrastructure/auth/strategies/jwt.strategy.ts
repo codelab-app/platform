@@ -1,15 +1,21 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, OnModuleInit } from '@nestjs/common'
 import { ModuleRef } from '@nestjs/core'
 import { JwtService } from '@nestjs/jwt'
 import { PassportStrategy } from '@nestjs/passport'
 import { classToPlain } from 'class-transformer'
+import { Option } from 'fp-ts/Option'
 import { ExtractJwt, Strategy } from 'passport-jwt'
+import { UserService } from '../../../core/application/services/UserService'
+import { UserDITokens } from '../../../framework/UserDITokens'
 import { IToken } from '../IToken'
 import { JwtConfig } from '../config/JwtConfig'
+import { User } from '@codelab/modules/user'
 
 @Injectable()
-export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
-  // private declare userService: UserService
+export class JwtStrategy
+  extends PassportStrategy(Strategy, 'jwt')
+  implements OnModuleInit {
+  private declare userService: UserService
 
   constructor(private jwtService: JwtService, private moduleRef: ModuleRef) {
     super({
@@ -22,13 +28,16 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
   }
 
   // Will return userId here
-  async validate(payload: any): Promise<any> {
+  async validate(payload: any): Promise<Option<User>> {
     let token = payload.headers.authorization
 
     token = token.replace('Bearer', '').trim()
     const decodedToken = this.jwtService.decode(token) as IToken
+    const user: Option<User> = await this.userService.findUserById(
+      decodedToken.sub,
+    )
 
-    return decodedToken.sub
+    return user
   }
 
   async refreshToken(token: string) {
@@ -82,5 +91,11 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
     }
 
     return this.jwtService.sign(payload)
+  }
+
+  onModuleInit(): any {
+    this.userService = this.moduleRef.get(UserDITokens.UserService, {
+      strict: false,
+    })
   }
 }

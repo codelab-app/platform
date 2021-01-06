@@ -11,6 +11,7 @@ import { AppDto } from '../../core/application/useCases/AppDto'
 import { CreateAppInput } from '../../core/application/useCases/createApp/CreateAppInput'
 import { GetAppsRequest } from '../../core/application/useCases/getApps/GetAppsRequest'
 import { CommandQueryBusPort, UseCaseRequestPort } from '@codelab/backend'
+import { User } from '@codelab/modules/user'
 
 @Resolver(() => TypeOrmApp)
 @Injectable()
@@ -41,5 +42,13 @@ export class AppCommandQueryAdapter implements CommandQueryBusPort {
     const results = await this.queryBus.execute(new GetAppsQuery(request))
 
     return classToPlain(results)
+  }
+
+  @Mutation((returns) => AppUseCaseDto)
+  @UseGuards(GqlAuthGuard)
+  async deleteApp(@Args('request') request: DeleteAppRequest) {
+    const result = await this.commandBus.execute(new DeleteAppCommand(request))
+
+    return result.toPlain()
   }
 }

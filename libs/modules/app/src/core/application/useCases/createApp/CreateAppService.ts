@@ -1,9 +1,5 @@
-import { OnModuleInit } from '@nestjs/common'
-import { ModuleRef } from '@nestjs/core'
 import { isNone } from 'fp-ts/Option'
 import { left, right } from 'fp-ts/lib/Either'
-import { UserService } from '../../../../../../user/src/core/application/services/UserService'
-import { UserDITokens } from '../../../../../../user/src/framework/UserDITokens'
 import { AppRepositoryPort } from '../../../adapters/AppRepositoryPort'
 import { App } from '../../../domain/app'
 import { CreateAppErrors } from './CreateAppErrors'
@@ -12,32 +8,19 @@ import { CreateAppResponse } from './CreateAppResponse'
 import { CreateAppUseCase } from './CreateAppUseCase'
 import { Result } from '@codelab/backend'
 
-export class CreateAppService implements CreateAppUseCase, OnModuleInit {
-  declare userService: UserService
-
-  constructor(
-    private readonly appRepository: AppRepositoryPort,
-    private readonly moduleRef: ModuleRef,
-  ) {}
+export class CreateAppService implements CreateAppUseCase {
+  constructor(private readonly appRepository: AppRepositoryPort) {}
 
   async execute(request: CreateAppRequest): Promise<CreateAppResponse> {
-    const app = App.create(request)
-    const { userId } = request
-
-    const user = await this.userService.findUserById(userId)
+    const { user, title } = request
+    const app = App.create({ title })
 
     if (isNone(user)) {
-      return left(new CreateAppErrors.UserNotFoundError(userId))
+      return left(new CreateAppErrors.UserNotFoundError('User not found'))
     }
 
     const createdApp = await this.appRepository.createApp(app, user.value)
 
     return right(Result.ok(createdApp))
-  }
-
-  onModuleInit(): any {
-    this.userService = this.moduleRef.get(UserDITokens.UserService, {
-      strict: false,
-    })
   }
 }

@@ -2,10 +2,37 @@ import { INestApplication } from '@nestjs/common'
 import { Test } from '@nestjs/testing'
 import request from 'supertest'
 import { Connection } from 'typeorm'
+import { LoginUserRequest } from '../loginUser/LoginUserRequest'
+import { RegisterUserRequest } from '../registerUser/RegisterUserRequest'
 import { TestInfrastructureModule } from '@codelab/backend'
 import { UserModule } from '@codelab/modules/user'
 
-describe.skip('GetMeUseCase', () => {
+const email = 'test_user@codelab.ai'
+const password = 'password'
+
+const loginUserQuery = (loginUserRequest: LoginUserRequest) => `
+  mutation {
+    loginUser(request: {
+      email: "${loginUserRequest.email}",
+      password: "${loginUserRequest.password}"
+    }) {
+      email
+      accessToken
+    }
+  }`
+
+const registerUserMutation = (registerUserRequest: RegisterUserRequest) => `
+  mutation {
+    registerUser(request: {
+      email: "${registerUserRequest.email}",
+      password: "${registerUserRequest.password}"
+    }) {
+      email
+      accessToken
+    }
+  }`
+
+describe('GetMeUseCase', () => {
   let app: INestApplication
   let connection: Connection
 
@@ -30,47 +57,27 @@ describe.skip('GetMeUseCase', () => {
   })
 
   it('should get user with JWT token passed in header', async () => {
-    const email = 'test_user@codelab.ai'
-    const password = 'password'
-    const registerUserMutation = `
-      mutation {
-        registerUser(request:
-          {
-            email: "${email}",
-            password: "${password}"
-          }) { email accessToken }
-    }`
-
     const createNewUser = await request(app.getHttpServer())
       .post('/graphql')
       .send({
-        query: registerUserMutation,
+        query: registerUserMutation({ email, password }),
       })
       .expect(200)
       .expect((res) => {
         expect(res.body.data.registerUser.email).toEqual(email)
       })
 
-    const loginQuery = `
-      {
-        login(request: {email: "${email}", password: "${password}"}) {
-          email
-          accessToken
-        }
-       }
-    `
-
     const loginUser: any = await request(app.getHttpServer())
       .post('/graphql')
       .send({
-        query: loginQuery,
+        query: loginUserQuery({ email, password }),
       })
       .expect(200)
       .expect((res) => {
-        expect(res.body.data.login.email).toEqual(email)
-        expect(res.body.data.login.accessToken).toBeDefined()
+        expect(res.body.data.loginUser.email).toEqual(email)
+        expect(res.body.data.loginUser.accessToken).toBeDefined()
       })
-    const { accessToken } = loginUser.body.data.login
+    const { accessToken } = loginUser.body.data.loginUser
     const getMeQuery = `{getMe { email }}`
     const getMeRequest = await request(app.getHttpServer())
       .post('/graphql')

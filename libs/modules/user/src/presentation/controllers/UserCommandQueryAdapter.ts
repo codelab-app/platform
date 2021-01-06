@@ -1,6 +1,7 @@
 import { Injectable, UseGuards } from '@nestjs/common'
 import { CommandBus, QueryBus } from '@nestjs/cqrs'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
+import { Option } from 'fp-ts/Option'
 import { CurrentUser } from '../../../../../backend/src/infrastructure/auth/CurrentUser'
 import { GqlAuthGuard } from '../../../../../backend/src/infrastructure/auth/gql-auth.guard'
 import { DeleteUserCommand } from '../../core/application/commands/DeleteUserCommand'
@@ -79,8 +80,8 @@ export class UserCommandQueryAdapter implements CommandQueryBusPort {
 
   @Query((returns) => UserDto)
   @UseGuards(GqlAuthGuard)
-  async getMe(@CurrentUser() userId: string) {
-    const request: GetMeRequest = { userId }
+  async getMe(@CurrentUser() user: Option<User>) {
+    const request: GetMeRequest = { user }
     const result = await this.queryBus.execute(new GetMeQuery(request))
 
     return result.toPlain()
