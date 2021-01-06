@@ -1,24 +1,38 @@
 import { plainToClass } from 'class-transformer'
 import { EntityRepository, Repository } from 'typeorm'
-import { TypeOrmApp } from '../../../../../backend/src/infrastructure/persistence/typeorm/entity/TypeOrmApp'
+import { AppsWhere } from '../../common/CommonTypes'
 import { AppRepositoryPort } from '../../core/adapters/AppRepositoryPort'
 import { App } from '../../core/domain/app'
-import { TypeOrmUser } from '@codelab/backend'
+import { TypeOrmApp, UUID } from '@codelab/backend'
 import { User } from '@codelab/modules/user'
 
 @EntityRepository(TypeOrmApp)
 export class TypeOrmAppRepositoryAdapter
   extends Repository<TypeOrmApp>
   implements AppRepositoryPort {
+  // private userRepository: Repository<TypeOrmUser> = getRepository(TypeOrmUser)
+
   async createApp(app: App, user: User): Promise<App> {
-    const typeOrmApp: TypeOrmApp = app.toPersistence()
-    const typeOrmUser: TypeOrmUser = user.toPersistence()
+    const newApp = await this.save({
+      ...app.toPersistence(),
+      user: user.toPersistence(),
+    })
 
-    typeOrmApp.user = typeOrmUser
+    return plainToClass(App, newApp)
+  }
 
-    const savedAppTypeOrm: TypeOrmApp = await this.save(typeOrmApp)
-    const savedApp = plainToClass(App, savedAppTypeOrm)
+  async findApps(by: AppsWhere, userId: UUID): Promise<Array<App>> {
+    console.log('findApps', userId.value)
 
-    return savedApp
+    const apps = await this.find({
+      relations: ['user'],
+      // where: {
+      //   'user.id': userId.value,
+      // },
+    })
+
+    console.log(apps)
+
+    return apps.map((app) => App.hydrate(app))
   }
 }

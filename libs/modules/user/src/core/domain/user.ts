@@ -40,7 +40,7 @@ export class User extends AggregateRoot<SerializedUserDto> {
    * Used for creating User
    * @param request
    */
-  public static create(request: any): User {
+  public static create(request: SerializedUserDto): User {
     const user = User.hydrate(request)
 
     user.password.hashPassword()

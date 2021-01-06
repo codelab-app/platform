@@ -1,5 +1,6 @@
 export * from './TypeOrmEdge'
 export * from './TypeOrmGraph'
 export * from './TypeOrmUser'
+export * from './TypeOrmApp'
 export * from './TypeOrmVertex'
 export * from './TypeOrmPage'

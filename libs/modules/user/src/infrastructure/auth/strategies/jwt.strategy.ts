@@ -23,6 +23,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
 
   // Will return userId here
   async validate(payload: any): Promise<any> {
+    console.log(payload)
     let token = payload.headers.authorization
 
     token = token.replace('Bearer', '').trim()
