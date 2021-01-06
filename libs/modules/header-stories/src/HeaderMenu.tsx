@@ -1,9 +1,9 @@
 import { Menu } from 'antd'
 import React from 'react'
 import {
-  RegisterUserButtonContainer,
-  UserLoginButtonContainer,
-  UserSignOutButtonContainer,
+  RegisterUserButton,
+  UserLoginButton,
+  UserSignOutButton,
   useUser,
 } from '@codelab/modules/user-stories'
 
@@ -22,7 +22,7 @@ export const HeaderMenu = () => {
         {userData ? (
           <>
             <Menu.Item key="3" style={{ float: 'right' }}>
-              <UserSignOutButtonContainer />
+              <UserSignOutButton />
             </Menu.Item>
             <Menu.Item key="4" style={{ float: 'right' }}>
               Hello, {userData.username}
@@ -31,10 +31,10 @@ export const HeaderMenu = () => {
         ) : (
           <>
             <Menu.Item key="3" style={{ float: 'right' }}>
-              <RegisterUserButtonContainer />
+              <RegisterUserButton />
             </Menu.Item>
             <Menu.Item key="4" style={{ float: 'right' }}>
-              <UserLoginButtonContainer />
+              <UserLoginButton />
             </Menu.Item>
           </>
         )}

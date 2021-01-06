@@ -1,4 +1,4 @@
-export * from './RegisterUserButtonContainer'
+export * from './RegisterUserButton'
 export * from './RegisterUserForm'
 export * from './RegisterUserState'
 export * from './RegisterUserServices'

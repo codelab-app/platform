@@ -1,3 +1,3 @@
-export * from './UserSignOutButtonContainer'
+export * from './UserSignOutButton'
 export * from './UserSignOutState'
 export * from './UserSignOutServices'

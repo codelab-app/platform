@@ -1,12 +1,15 @@
 import { Button } from 'antd'
 import { ButtonProps } from 'antd/lib/button'
 import React from 'react'
+import { useUser } from '../../store'
 
-export type UserSignupButtonProps = ButtonProps
+export const UserSignOutButton = () => {
+  const user = useUser()
 
-export const UserSignOutButton = ({
-  children,
-  ...props
-}: UserSignupButtonProps) => {
-  return <Button {...props}>{children}</Button>
+  const userSignupButtonProps: ButtonProps = {
+    onClick: () => user.send('SIGN_OUT'),
+    loading: user.state.value.authenticated === 'signingOut',
+  }
+
+  return <Button {...userSignupButtonProps}>Sign Out</Button>
 }

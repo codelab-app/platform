@@ -2,7 +2,7 @@ import { Button } from 'antd'
 import React from 'react'
 import { useUser } from '../../store'
 
-export const RegisterUserButtonContainer = () => {
+export const RegisterUserButton = () => {
   const user = useUser()
 
   const registerUserButtonProps = {

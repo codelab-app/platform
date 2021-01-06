@@ -1,12 +1,14 @@
 import { Button } from 'antd'
 import { ButtonProps } from 'antd/lib/button'
 import React from 'react'
+import { useUser } from '../../store'
 
-export type UserLoginButtonProps = ButtonProps
+export const UserLoginButton = () => {
+  const user = useUser()
 
-export const UserLoginButton = ({
-  children,
-  ...props
-}: UserLoginButtonProps) => {
-  return <Button {...props}>{children}</Button>
+  const userLoginButtonProps: ButtonProps = {
+    onClick: () => user.send('LOGIN'),
+  }
+
+  return <Button {...userLoginButtonProps}>Login</Button>
 }
