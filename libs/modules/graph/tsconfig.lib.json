@@ -4,7 +4,7 @@
     "module": "commonjs",
     "outDir": "../../../dist/out-tsc",
     "declaration": true,
-    "types": ["node", "@xstate/react"],
+    "types": ["node"],
     "target": "es6"
   },
   "exclude": ["**/*.spec.ts"],
