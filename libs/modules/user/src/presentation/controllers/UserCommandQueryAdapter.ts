@@ -11,7 +11,7 @@ import { UpdateUserCommand } from '../../core/application/commands/UpdateUserCom
 import { DeleteUserRequest } from '../../core/application/useCases/deleteUser/DeleteUserRequest'
 import { GetMeRequest } from '../../core/application/useCases/getMe/GetMeRequest'
 import { LoginUserRequest } from '../../core/application/useCases/loginUser/LoginUserRequest'
-import { RegisterUserRequest } from '../../core/application/useCases/registerUser/RegisterUserRequest'
+import { RegisterUserInput } from '../../core/application/useCases/registerUser/RegisterUserInput'
 import { UpdateUserRequest } from '../../core/application/useCases/updateUser/UpdateUserRequest'
 import { User } from '../../core/domain/user'
 import { UserDto } from '../UserDto'
@@ -62,9 +62,9 @@ export class UserCommandQueryAdapter implements CommandQueryBusPort {
   }
 
   @Mutation((returns) => UserDto)
-  async registerUser(@Args('request') request: RegisterUserRequest) {
+  async registerUser(@Args('input') input: RegisterUserInput) {
     const user: User = await this.commandBus.execute(
-      new RegisterUserCommand(request),
+      new RegisterUserCommand(input),
     )
 
     return user.toPlain()

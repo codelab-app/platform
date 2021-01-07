@@ -8,7 +8,7 @@ import { TypeOrmApp } from '../../../../../backend/src/infrastructure/persistenc
 import { CreateAppCommand } from '../../core/application/commands/CreateAppCommand'
 import { GetAppsQuery } from '../../core/application/commands/GetAppsQuery'
 import { AppDto } from '../../core/application/useCases/AppDto'
-import { CreateAppRequest } from '../../core/application/useCases/createApp/CreateAppRequest'
+import { CreateAppInput } from '../../core/application/useCases/createApp/CreateAppInput'
 import { GetAppsRequest } from '../../core/application/useCases/getApps/GetAppsRequest'
 import { CommandQueryBusPort, UseCaseRequestPort } from '@codelab/backend'
 
@@ -23,11 +23,11 @@ export class AppCommandQueryAdapter implements CommandQueryBusPort {
   @Mutation((returns) => AppDto)
   @UseGuards(GqlAuthGuard)
   async createApp(
-    @Args('request') request: CreateAppRequest,
+    @Args('input') input: CreateAppInput,
     @CurrentUser() userId: string,
   ) {
     const results = await this.commandBus.execute(
-      new CreateAppCommand({ ...request, userId }),
+      new CreateAppCommand({ ...input, userId }),
     )
 
     return results.toPlain()

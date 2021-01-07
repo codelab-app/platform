@@ -1,10 +1,9 @@
 import { Theme as AntDTheme } from '@rjsf/antd'
 import { withTheme } from '@rjsf/core'
 import { JSONSchema7 } from 'json-schema'
-import { omit } from 'lodash'
 import React from 'react'
 import { useAppMachine } from '../../model/store/useAppMachine'
-import { requestJsonSchema } from '@codelab/tools/generators/json-schema'
+import { CreateAppInputSchema } from '@codelab/modules/app'
 
 export const CreateAppForm = ({ formId }: { formId?: string }) => {
   const app = useAppMachine()
@@ -21,10 +20,7 @@ export const CreateAppForm = ({ formId }: { formId?: string }) => {
   return (
     <Form
       id={formId}
-      schema={omit(
-        requestJsonSchema.definitions.CreateAppRequest as JSONSchema7,
-        'properties.userId',
-      )}
+      schema={CreateAppInputSchema as JSONSchema7}
       uiSchema={
         {
           // password: {

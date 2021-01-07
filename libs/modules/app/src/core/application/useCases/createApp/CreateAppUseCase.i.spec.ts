@@ -2,29 +2,27 @@ import { INestApplication } from '@nestjs/common'
 import { Test } from '@nestjs/testing'
 import request from 'supertest'
 import { Connection } from 'typeorm'
-import { RegisterUserRequest } from '../../../../../../user/src/core/application/useCases/registerUser/RegisterUserRequest'
+import { RegisterUserInput } from '../../../../../../user/src/core/application/useCases/registerUser/RegisterUserInput'
 import { AppModule } from '../../../../framework/nestjs/AppModule'
-import { CreateAppRequest } from './CreateAppRequest'
+import { CreateAppInput } from './CreateAppInput'
 import { TestInfrastructureModule } from '@codelab/backend'
 import { UserDto, UserModule } from '@codelab/modules/user'
 
-export const registerUserMutation = (
-  registerUserRequest: RegisterUserRequest,
-) => `
+export const registerUserMutation = (registerUserInput: RegisterUserInput) => `
   mutation {
-    registerUser(request: {
-      email: "${registerUserRequest.email}",
-      password: "${registerUserRequest.password}"
+    registerUser(input: {
+      email: "${registerUserInput.email}",
+      password: "${registerUserInput.password}"
     }) {
       email
       accessToken
     }
   }`
 
-const createAppMutation = (createAppRequest: CreateAppRequest) => `
+const createAppMutation = (createAppInput: CreateAppInput) => `
   mutation {
-    createApp(request: {
-      title: "${createAppRequest.title}",
+    createApp(input: {
+      title: "${createAppInput.title}",
     }) {
       title
     }
@@ -85,12 +83,13 @@ describe('CreateAppUseCase', () => {
 
     await request(app.getHttpServer())
       .post('/graphql')
+      .set('authorization', '')
       .send({
         query: createAppMutation({ title }),
       })
       .expect(200)
       .then((res) => {
-        console.log(res.body.data)
+        expect(res.body.errors[0].extensions.code).toBe('UNAUTHENTICATED')
       })
   })
 })

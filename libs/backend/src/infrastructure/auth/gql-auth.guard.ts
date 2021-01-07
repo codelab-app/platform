@@ -1,11 +1,8 @@
-import {
-  ExecutionContext,
-  Injectable,
-  UnauthorizedException,
-} from '@nestjs/common'
+import { ExecutionContext, Injectable } from '@nestjs/common'
 import { ExecutionContextHost } from '@nestjs/core/helpers/execution-context-host'
 import { GqlExecutionContext } from '@nestjs/graphql'
 import { AuthGuard } from '@nestjs/passport'
+import { AuthenticationError } from 'apollo-server-express'
 
 @Injectable()
 export class GqlAuthGuard extends AuthGuard('jwt') {
@@ -19,7 +16,8 @@ export class GqlAuthGuard extends AuthGuard('jwt') {
   handleRequest(err: any, user: any, info: any) {
     // You can throw an exception based on either "info" or "err" arguments
     if (err || !user) {
-      throw err || new UnauthorizedException()
+      // throw err || new UnauthorizedException()
+      throw err || new AuthenticationError(info)
     }
 
     return user

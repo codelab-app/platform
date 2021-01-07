@@ -1833,7 +1833,7 @@
           "builder": "@nrwl/workspace:run-commands",
           "options": {
             "commands": [
-              "npx ts-node libs/tools/generators/json-schema/src/main-revised.ts"
+              "npx ts-node libs/tools/generators/json-schema/src/index.ts"
             ],
             "parallel": false
           }
@@ -1863,7 +1863,7 @@
           "builder": "@nrwl/workspace:run-commands",
           "options": {
             "commands": [
-              "npx ts-node libs/tools/generators/graphql/src/main.ts"
+              "npx ts-node libs/tools/generators/graphql/src/index.ts"
             ],
             "parallel": false
           }

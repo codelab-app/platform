@@ -1,5 +1,0 @@
-mutation CreateApp($request: CreateAppRequest!) {
-  createApp(request: $request) {
-    title
-  }
-}

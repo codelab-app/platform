@@ -1,5 +1,5 @@
 import { ServiceConfig } from 'xstate/lib/types'
-import { RegisterUserGql } from './RegisterUserRequest.generated'
+import { RegisterUserGql } from './RegisterUserInput.generated'
 import { mutate } from '@codelab/alpha/shared/utils'
 import { getApolloClient } from '@codelab/frontend'
 
