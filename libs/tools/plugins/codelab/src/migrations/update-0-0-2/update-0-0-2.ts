@@ -1,4 +1,5 @@
 import * as path from 'path'
+import { workspaces } from '@angular-devkit/core'
 import { chain } from '@angular-devkit/schematics'
 import { updatePackagesInPackageJson } from '@nrwl/workspace'
 
@@ -8,10 +9,7 @@ interface ProjectDefinition {
   projectType: 'library' | 'application'
 
   schematic?: Record<string, any>
-  architect: Record<
-    string,
-    import('@angular-devkit/core').workspaces.TargetDefinition
-  >
+  architect: Record<string, workspaces.TargetDefinition>
 }
 
 // function update(): Rule {

@@ -141,9 +141,9 @@
     "xstate": "4.13.0"
   },
   "devDependencies": {
-    "@angular-devkit/core": "10.1.7",
-    "@angular-devkit/schematics": "10.1.7",
-    "@angular-devkit/schematics-cli": "^0.1100.4",
+    "@angular-devkit/core": "11.0.4",
+    "@angular-devkit/schematics": "11.0.4",
+    "@angular-devkit/schematics-cli": "0.1100.4",
     "@apollo/graphql": "14.5.0",
     "@babel/core": "7.12.10",
     "@babel/node": "7.12.10",
