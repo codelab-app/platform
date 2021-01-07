@@ -131,6 +131,9 @@ commands:
       - setup-env
       - attach_workspace:
           at: ..
+      - run: |
+          cp ~/.env .
+          source .env
 
   yarn-install-dev:
     steps:
@@ -251,8 +254,6 @@ jobs:
     <<: *executor-params
     steps:
       - setup-workspace
-      - run: cp ~/.env .
-      - run: source .env
       - run: make e2e-ci
       - notify-failure
 
