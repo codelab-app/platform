@@ -306,18 +306,21 @@ workflows:
           <<: *filters-dev
           e: docker-node
           requires:
+            - setup-vault-env
             - install-and-build-workspace
       - unit:
           <<: *filters-dev
           e: docker-node
           context: .env.ci
           requires:
+            - setup-vault-env
             - install-and-build-workspace
       - integration:
           <<: *filters-dev
           e: docker-node
           context: .env.ci
           requires:
+            - setup-vault-env
             - install-and-build-workspace
       - e2e:
           <<: *filters-dev
