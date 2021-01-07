@@ -199,7 +199,7 @@ jobs:
             echo $CI_VAULT_SECRET_ID > .vault/secret-id
             vault agent -address=$VAULT_ADDR -config=.vault/agent.hcl
       - persist_to_workspace:
-          root: /tmp
+          root: .
           paths:
             - .env
 
@@ -251,9 +251,9 @@ jobs:
     <<: *executor-params
     steps:
       - setup-workspace
-      - attach_workspace:
-          at: /tmp
-      - run: source /tmp/.env && make e2e-ci
+      - run: cp ~/.env .
+      - run: source .env
+      - run: make e2e-ci
       - notify-failure
 
   notify-success:
@@ -295,6 +295,9 @@ jobs:
 workflows:
   app-dev:
     jobs:
+      - setup-vault-env:
+          <<: *filters-dev
+          e: vault-img
       - install-and-build-workspace:
           <<: *filters-dev
           e: docker-node
@@ -303,9 +306,6 @@ workflows:
           e: docker-node
           requires:
             - install-and-build-workspace
-      - setup-vault-env:
-          <<: *filters-dev
-          e: vault-img
       - unit:
           <<: *filters-dev
           e: docker-node
