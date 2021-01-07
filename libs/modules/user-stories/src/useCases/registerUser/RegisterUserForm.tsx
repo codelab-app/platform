@@ -2,8 +2,8 @@ import { Theme as AntDTheme } from '@rjsf/antd'
 import { withTheme } from '@rjsf/core'
 import { JSONSchema7 } from 'json-schema'
 import React from 'react'
+import { RegisterUserInputSchema } from '../../../../user/src/core/application/useCases/registerUser/RegisterUserInput.generated'
 import { useUserMachine } from '../../store'
-import { RegisterUserInputSchema } from '@codelab/modules/user'
 
 export const RegisterUserForm = ({
   formId,
