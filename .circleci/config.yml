@@ -41,9 +41,12 @@ executor-config: &executor-config
     DOCKER_TAG_VERSION: 0.02
     API_PORT_GRAPH: 4004
     # CircleCI
+    GITHUB_LUAN: nutshell113
+    SLACK_LUAN: U01EH265D5E
+    GITHUB_ANTON_M: antonmihaylov
+    SLACK_ANTON_M: U01HWRY2USE
     GITHUB_ANTON: artonio
     SLACK_ANTON: U01DSP39DME
-    SLACK_VIEN: UBPECLD4P
     GITHUB_WEBBER: webberwang
     SLACK_WEBBER: U0J401GAH
     GITHUB_ALEX: aburtsev
@@ -116,6 +119,10 @@ commands:
           command: |
             if [ $CIRCLE_USERNAME == $GITHUB_ANTON ]; then
               echo 'export SLACK_USER=${SLACK_ANTON}' >> $BASH_ENV
+            elif [ $CIRCLE_USERNAME == $GITHUB_LUAN ]; then
+              echo 'export SLACK_USER=${SLACK_LUAN}' >> $BASH_ENV
+            elif [ $CIRCLE_USERNAME == $GITHUB_ANTON_M ]; then
+              echo 'export SLACK_USER=${SLACK_ANTOM_M}' >> $BASH_ENV
             elif [ $CIRCLE_USERNAME == $GITHUB_ALEX ]; then
               echo 'export SLACK_USER=${SLACK_ALEX}' >> $BASH_ENV
             else

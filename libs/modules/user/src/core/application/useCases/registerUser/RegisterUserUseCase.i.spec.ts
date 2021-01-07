@@ -2,7 +2,6 @@ import { INestApplication } from '@nestjs/common'
 import { Test } from '@nestjs/testing'
 import request from 'supertest'
 import { Connection } from 'typeorm'
-import { AuthModule } from '../../../../framework/nestjs/AuthModule'
 import { RegisterUserRequest } from './RegisterUserRequest'
 import { TestInfrastructureModule } from '@codelab/backend'
 import { UserModule } from '@codelab/modules/user'
@@ -10,7 +9,9 @@ import { UserModule } from '@codelab/modules/user'
 const email = 'test_user@codelab.ai'
 const password = 'password'
 
-const registerUserMutation = (registerUserRequest: RegisterUserRequest) => `
+export const registerUserMutation = (
+  registerUserRequest: RegisterUserRequest,
+) => `
   mutation {
     registerUser(request: {
       email: "${registerUserRequest.email}",
@@ -27,7 +28,7 @@ describe('RegisterUserUseCase', () => {
 
   beforeAll(async () => {
     const testModule = await Test.createTestingModule({
-      imports: [TestInfrastructureModule, UserModule, AuthModule],
+      imports: [TestInfrastructureModule, UserModule],
     }).compile()
 
     app = testModule.createNestApplication()

@@ -1,7 +1,9 @@
 import { Module, Provider } from '@nestjs/common'
 import { ModuleRef } from '@nestjs/core'
 import { CqrsModule } from '@nestjs/cqrs'
+import { TypeOrmModule } from '@nestjs/typeorm'
 import { Connection } from 'typeorm'
+import { TypeOrmApp } from '../../../../../backend/src/infrastructure/persistence/typeorm/entity/TypeOrmApp'
 import { CreateAppCommandHandler } from '../../core/application/handlers/CreateAppCommandHandler'
 import { GetAppsQueryHandler } from '../../core/application/handlers/GetAppsQueryHandler'
 import { CreateAppService } from '../../core/application/useCases/createApp/CreateAppService'
@@ -40,7 +42,7 @@ export const handlerProviders: Array<Provider> = [
 ]
 
 @Module({
-  imports: [CqrsModule],
+  imports: [CqrsModule, TypeOrmModule.forFeature([TypeOrmApp])],
   providers: [
     ...persistenceProviders,
     ...useCaseProviders,
