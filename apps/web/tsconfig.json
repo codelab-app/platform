@@ -7,7 +7,7 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "allowSyntheticDefaultImports": true,
-    "types": ["node", "jest", "@xstate/react", "object-mapper", "@rjsf/antd"],
+    "types": ["node", "jest", "@xstate/react", "@rjsf/antd", "object-mapper"],
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,

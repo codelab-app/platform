@@ -5,7 +5,7 @@
     "esModuleInterop": true,
     "allowJs": true,
     "module": "commonjs",
-    "types": ["jest", "node", "object-mapper"]
+    "types": ["jest", "node"]
   },
   "include": ["**/*.spec.ts", "**/*.d.ts"]
 }

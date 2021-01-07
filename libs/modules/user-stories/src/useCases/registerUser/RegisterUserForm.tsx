@@ -2,8 +2,8 @@ import { Theme as AntDTheme } from '@rjsf/antd'
 import { withTheme } from '@rjsf/core'
 import { JSONSchema7 } from 'json-schema'
 import React from 'react'
+import { RegisterUserInputSchema } from '../../../../user/src/core/application/useCases/registerUser/RegisterUserInput.generated'
 import { useUserMachine } from '../../store'
-import { requestJsonSchema } from '@codelab/tools/generators/json-schema'
 
 export const RegisterUserForm = ({
   formId,
@@ -25,7 +25,7 @@ export const RegisterUserForm = ({
   return (
     <Form
       id={formId}
-      schema={requestJsonSchema.definitions.RegisterUserRequest as JSONSchema7}
+      schema={RegisterUserInputSchema as JSONSchema7}
       uiSchema={{
         password: {
           'ui:widget': 'password',

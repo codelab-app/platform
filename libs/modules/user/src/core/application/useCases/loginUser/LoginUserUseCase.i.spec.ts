@@ -2,7 +2,7 @@ import { INestApplication } from '@nestjs/common'
 import { Test } from '@nestjs/testing'
 import request from 'supertest'
 import { Connection } from 'typeorm'
-import { RegisterUserRequest } from '../registerUser/RegisterUserRequest'
+import { registerUserMutation } from '../registerUser/RegisterUserUseCase.i.spec'
 import { LoginUserRequest } from './LoginUserRequest'
 import { TestInfrastructureModule } from '@codelab/backend'
 import { UserModule } from '@codelab/modules/user'
@@ -15,17 +15,6 @@ const loginUserQuery = (loginUserRequest: LoginUserRequest) => `
     loginUser(request: {
       email: "${loginUserRequest.email}",
       password: "${loginUserRequest.password}"
-    }) {
-      email
-      accessToken
-    }
-  }`
-
-const registerUserMutation = (registerUserRequest: RegisterUserRequest) => `
-  mutation {
-    registerUser(request: {
-      email: "${registerUserRequest.email}",
-      password: "${registerUserRequest.password}"
     }) {
       email
       accessToken
@@ -47,17 +36,12 @@ describe('LoginUserUseCase', () => {
   })
 
   afterAll(async () => {
-    await connection.query('DELETE FROM "user"')
     await connection.close()
     await app.close()
   })
 
-  afterEach(async () => {
-    await connection.query('DELETE FROM "user"')
-  })
-
   beforeEach(async () => {
-    await connection.query('DELETE FROM "user"')
+    await connection.synchronize(true)
   })
 
   describe('Should successfully login', () => {

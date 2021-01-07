@@ -25,5 +25,5 @@ template {
       {{ end }}
     {{- end }}
   EOF
-  destination = "/tmp/.env"
+  destination = ".env"
 }

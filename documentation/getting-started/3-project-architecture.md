@@ -15,3 +15,11 @@ We follow [Exception or Result](https://enterprisecraftsmanship.com/posts/error-
 ## Entities
 
 Our domain entities contain fields, e.g. `User` contains `email`. We create a class for each field, and use `class-transformer` & `class-validator` for the mapping.
+
+## Input vs Request
+
+Our GraphQL Input type are named `[UseCase]Input.ts` and we use this to generate our forms.
+
+Our GraphQL resolvers then process this input into `[UseCase]Request.ts`,, which is a dto for our use case services.
+
+For example, when creating an app, we don't require the userId from the form. We get the id from the backend so we make sure the user is authorized.

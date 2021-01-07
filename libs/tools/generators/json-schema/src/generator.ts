@@ -1,62 +1,60 @@
-import { createWriteStream } from 'fs'
+import * as fs from 'fs'
+import * as path from 'path'
 import * as TJS from 'typescript-json-schema'
-import { getAntdPropsNames } from './utils'
 
-export const generateJsonSchemas = (
-  generator: TJS.JsonSchemaGenerator | null,
-  schemasFilePath: string,
-): void => {
-  if (generator === null) {
-    console.log(
-      `generateJsonSchemas ERROR: something goes wrong. Generator is null`,
-    )
+export const makeGenerator = (
+  tsconfigFile: string,
+  includeFilePatterns: Array<string>,
+): TJS.JsonSchemaGenerator => {
+  const program = TJS.programFromConfig(tsconfigFile, includeFilePatterns)
 
-    return
+  const settings: TJS.PartialArgs = {
+    ref: false,
+    strictNullChecks: true,
   }
 
-  // Contains all typescript types
-  const allSymbols = generator.getUserSymbols()
+  const generator = TJS.buildGenerator(program, settings, includeFilePatterns)
 
-  const stream = createWriteStream(schemasFilePath, { flags: 'a' })
+  if (!generator) {
+    throw new Error('missing generator')
+  }
 
-  getAntdPropsNames().forEach((typeName) => {
-    if (!allSymbols.includes(typeName)) {
-      return
-    }
-
-    console.log('JSON-schema generated for: ', typeName)
-    const propsSchema = generator.getSchemaForSymbol(typeName)
-
-    // typeName = 'Affix.AntdProps'
-    const exportedTypeName = typeName.replace('.AntdProps', '')
-
-    stream.write(
-      `export const ${exportedTypeName} = ${JSON.stringify(
-        propsSchema,
-        null,
-        2,
-      )}\n\n`,
-    )
-  })
-
-  stream.end()
+  return generator
 }
 
-export const buildGenerator = (
-  root: string,
-): TJS.JsonSchemaGenerator | null => {
-  const settings: TJS.PartialArgs = {
-    required: true,
-    ref: false,
-    ignoreErrors: true,
+export const saveSchema = (
+  schema: TJS.Definition,
+  outputPath: string,
+  symbol: string,
+): string => {
+  const fileContents = `export const ${symbol}Schema = ${JSON.stringify(
+    schema,
+    null,
+    2,
+  )}`
+
+  console.log(`Saving "${symbol}" to "${outputPath}"...`)
+
+  fs.writeFileSync(outputPath, fileContents)
+
+  return outputPath
+}
+
+export const getSymbolDirectory = (
+  symbol: string,
+  includeFilePatterns: Array<string>,
+) => {
+  const includeFilePattern = includeFilePatterns.find((pattern) => {
+    return pattern.includes(symbol)
+  })
+
+  if (!includeFilePattern) {
+    throw new Error('symbol directory not found')
   }
 
-  const compilerOptions: TJS.CompilerOptions = {
-    strictNullChecks: true,
-    skipLibCheck: true,
-  }
+  return path.dirname(includeFilePattern)
+}
 
-  const program = TJS.getProgramFromFiles([root], compilerOptions)
-
-  return TJS.buildGenerator(program, settings)
+export const getOutputFile = (baseDirectory: string, symbol: string) => {
+  return path.resolve(baseDirectory, `${symbol}.generated.ts`)
 }

@@ -5,9 +5,9 @@ generates:
   schema.graphql:
     plugins:
       - schema-ast
-  apps/api/graph/src/assets/hasura-schema.graphql:
-    plugins:
-      - schema-ast
+  # apps/api/graph/src/assets/hasura-schema.graphql:
+  #   plugins:
+  #     - schema-ast
 hooks:
   afterAllFileWrite:
     - prettier --write

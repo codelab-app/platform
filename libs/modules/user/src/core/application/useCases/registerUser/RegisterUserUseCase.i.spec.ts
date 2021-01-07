@@ -2,19 +2,18 @@ import { INestApplication } from '@nestjs/common'
 import { Test } from '@nestjs/testing'
 import request from 'supertest'
 import { Connection } from 'typeorm'
-import { AuthModule } from '../../../../framework/nestjs/AuthModule'
-import { RegisterUserRequest } from './RegisterUserRequest'
+import { RegisterUserInput } from './RegisterUserInput'
 import { TestInfrastructureModule } from '@codelab/backend'
 import { UserModule } from '@codelab/modules/user'
 
 const email = 'test_user@codelab.ai'
 const password = 'password'
 
-const registerUserMutation = (registerUserRequest: RegisterUserRequest) => `
+export const registerUserMutation = (registerUserInput: RegisterUserInput) => `
   mutation {
-    registerUser(request: {
-      email: "${registerUserRequest.email}",
-      password: "${registerUserRequest.password}"
+    registerUser(input: {
+      email: "${registerUserInput.email}",
+      password: "${registerUserInput.password}"
     }) {
       email
       accessToken
@@ -27,7 +26,7 @@ describe('RegisterUserUseCase', () => {
 
   beforeAll(async () => {
     const testModule = await Test.createTestingModule({
-      imports: [TestInfrastructureModule, UserModule, AuthModule],
+      imports: [TestInfrastructureModule, UserModule],
     }).compile()
 
     app = testModule.createNestApplication()
@@ -35,13 +34,13 @@ describe('RegisterUserUseCase', () => {
     await app.init()
   })
 
+  beforeEach(async () => {
+    await connection.synchronize(true)
+  })
+
   afterAll(async () => {
     await connection.close()
     await app.close()
-  })
-
-  beforeEach(async () => {
-    await connection.query('DELETE FROM "user"')
   })
 
   it('should create a user', async () => {

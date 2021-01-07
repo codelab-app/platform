@@ -1,17 +1,12 @@
 import { Module, Provider } from '@nestjs/common'
-import { GraphQLModule } from '@nestjs/graphql'
-import { GraphqlConfig } from '../../infrastructure'
+import { CqrsModule } from '@nestjs/cqrs'
+import { GraphqlModule } from '../../infrastructure'
 import { TestDatabaseModule } from '../../infrastructure/persistence/typeorm/TestDatabaseModule'
 
 const providers: Array<Provider> = []
 
 @Module({
-  imports: [
-    TestDatabaseModule,
-    GraphQLModule.forRootAsync({
-      useClass: GraphqlConfig,
-    }),
-  ],
+  imports: [CqrsModule, TestDatabaseModule, GraphqlModule],
   providers,
 })
 export class TestInfrastructureModule {}

@@ -3,13 +3,13 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies'
 import { DatabaseConfig } from '../config/DatabaseConfig'
 import {
+  TypeOrmApp,
   TypeOrmEdge,
   TypeOrmGraph,
   TypeOrmPage,
   TypeOrmUser,
   TypeOrmVertex,
 } from './entity'
-import { TypeOrmApp } from './entity/TypeOrmApp'
 @Module({
   imports: [
     TypeOrmModule.forRoot({

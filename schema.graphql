@@ -2,12 +2,13 @@
 query root
 """
 type Query {
+  getApps(request: GetAppsRequest!): [App!]!
   graph(request: GetGraphRequest!): GraphUseCaseDto!
   getMe: User!
 }
 
 type Mutation {
-  createApp(request: CreateAppRequest!): AppUseCaseDto!
+  createApp(input: CreateAppInput!): App!
   createGraph(graph: CreateGraphRequest!): GraphUseCaseDto!
   addChildNode(request: AddChildNodeRequest!): GraphUseCaseDto!
   updateNode(request: UpdateNodeRequest!): GraphUseCaseDto!
@@ -15,7 +16,7 @@ type Mutation {
   moveNode(request: MoveNodeRequest!): GraphUseCaseDto!
   deleteUser(user: DeleteUserRequest!): User!
   updateUser(user: UpdateUserRequest!): User!
-  registerUser(request: RegisterUserRequest!): User!
+  registerUser(input: RegisterUserInput!): User!
   loginUser(request: LoginUserRequest!): User!
 }
 
@@ -160,7 +161,7 @@ interface IEdge {
   props: JSONObject
 }
 
-type AppUseCaseDto {
+type App {
   title: String!
 }
 
@@ -191,11 +192,15 @@ type User {
   accessToken: String
 }
 
+input GetAppsRequest {
+  userId: String!
+}
+
 input GetGraphRequest {
   graphId: String!
 }
 
-input CreateAppRequest {
+input CreateAppInput {
   title: String!
 }
 
@@ -249,7 +254,7 @@ input UpdateUserRequest {
   email: String!
 }
 
-input RegisterUserRequest {
+input RegisterUserInput {
   email: String!
   password: String!
 }

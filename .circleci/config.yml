@@ -41,9 +41,12 @@ executor-config: &executor-config
     DOCKER_TAG_VERSION: 0.02
     API_PORT_GRAPH: 4004
     # CircleCI
+    GITHUB_LUAN: nutshell113
+    SLACK_LUAN: U01EH265D5E
+    GITHUB_ANTON_M: antonmihaylov
+    SLACK_ANTON_M: U01HWRY2USE
     GITHUB_ANTON: artonio
     SLACK_ANTON: U01DSP39DME
-    SLACK_VIEN: UBPECLD4P
     GITHUB_WEBBER: webberwang
     SLACK_WEBBER: U0J401GAH
     GITHUB_ALEX: aburtsev
@@ -116,6 +119,10 @@ commands:
           command: |
             if [ $CIRCLE_USERNAME == $GITHUB_ANTON ]; then
               echo 'export SLACK_USER=${SLACK_ANTON}' >> $BASH_ENV
+            elif [ $CIRCLE_USERNAME == $GITHUB_LUAN ]; then
+              echo 'export SLACK_USER=${SLACK_LUAN}' >> $BASH_ENV
+            elif [ $CIRCLE_USERNAME == $GITHUB_ANTON_M ]; then
+              echo 'export SLACK_USER=${SLACK_ANTOM_M}' >> $BASH_ENV
             elif [ $CIRCLE_USERNAME == $GITHUB_ALEX ]; then
               echo 'export SLACK_USER=${SLACK_ALEX}' >> $BASH_ENV
             else
@@ -131,6 +138,7 @@ commands:
       - setup-env
       - attach_workspace:
           at: ..
+      - run: cp ~/.env .
 
   yarn-install-dev:
     steps:
@@ -199,7 +207,7 @@ jobs:
             echo $CI_VAULT_SECRET_ID > .vault/secret-id
             vault agent -address=$VAULT_ADDR -config=.vault/agent.hcl
       - persist_to_workspace:
-          root: /tmp
+          root: .
           paths:
             - .env
 
@@ -237,23 +245,27 @@ jobs:
     <<: *executor-params
     steps:
       - setup-workspace
-      - run: make unit-ci
+      - run: |
+          source .env
+          make unit-ci
       - notify-failure
 
   integration:
     <<: *executor-params
     steps:
       - setup-workspace
-      - run: make integration-ci
+      - run: |
+          source .env
+          make integration-ci
       - notify-failure
 
   e2e:
     <<: *executor-params
     steps:
       - setup-workspace
-      - attach_workspace:
-          at: /tmp
-      - run: source /tmp/.env && make e2e-ci
+      - run: |
+          source .env
+          make e2e-ci
       - notify-failure
 
   notify-success:
@@ -268,6 +280,7 @@ jobs:
             *Status*: :white_check_mark: Success \n
             *Branch*: << pipeline.git.branch >> \n
             *Message*: $GIT_COMMIT_MSG \n
+
   build-and-push-docker-image:
     <<: *executor-params
     steps:
@@ -295,6 +308,9 @@ jobs:
 workflows:
   app-dev:
     jobs:
+      - setup-vault-env:
+          <<: *filters-dev
+          e: vault-img
       - install-and-build-workspace:
           <<: *filters-dev
           e: docker-node
@@ -302,21 +318,19 @@ workflows:
           <<: *filters-dev
           e: docker-node
           requires:
+            - setup-vault-env
             - install-and-build-workspace
-      - setup-vault-env:
-          <<: *filters-dev
-          e: vault-img
       - unit:
           <<: *filters-dev
           e: docker-node
-          context: .env.ci
           requires:
+            - setup-vault-env
             - install-and-build-workspace
       - integration:
           <<: *filters-dev
           e: docker-node
-          context: .env.ci
           requires:
+            - setup-vault-env
             - install-and-build-workspace
       - e2e:
           <<: *filters-dev

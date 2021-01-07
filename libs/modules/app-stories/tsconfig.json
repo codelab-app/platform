@@ -2,7 +2,7 @@
   "extends": "../../../tsconfig.base.json",
   "compilerOptions": {
     "jsx": "react",
-    "types": ["node", "jest", "@rjsf/antd"],
+    "types": ["node", "jest"],
     "allowJs": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true

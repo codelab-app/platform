@@ -37,6 +37,8 @@ export class GraphqlConfig implements GqlOptionsFactory {
       playground: true,
       context: ({ req }) => ({ req }),
       formatError: (err: GraphQLError) => {
+        console.log(err)
+
         // Don't give the specific errors to the client.
         // const a = err;
         // if (err.message.startsWith("Nothing was")) {
