@@ -15,21 +15,5 @@ export class GetAppsService implements GetAppsUseCase {
     )
 
     return right(Result.ok(apps))
-
-    // const app = App.create(request)
-
-    // const appAlreadyExists = await this.appRepository.exists({
-    //   email: user.email.toString(),
-    // })
-
-    // if (appAlreadyExists) {
-    //   return left(
-    //     new GetAppsErrors.DemoError('some error'),
-    //   )
-    // }
-
-    // const persistedApp = await this.appRepository.GetApps(app)
-
-    // return right(Result.ok(persistedApp))
   }
 }

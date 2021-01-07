@@ -22,16 +22,14 @@ export class TypeOrmAppRepositoryAdapter
   }
 
   async findApps(by: AppsWhere, userId: UUID): Promise<Array<App>> {
-    console.log('findApps', userId.value)
-
     const apps = await this.find({
       relations: ['user'],
-      // where: {
-      //   'user.id': userId.value,
-      // },
+      where: {
+        user: {
+          id: userId.value,
+        },
+      },
     })
-
-    console.log(apps)
 
     return apps.map((app) => App.hydrate(app))
   }

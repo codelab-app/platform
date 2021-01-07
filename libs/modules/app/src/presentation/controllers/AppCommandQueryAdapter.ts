@@ -1,6 +1,7 @@
 import { Injectable, UseGuards } from '@nestjs/common'
 import { CommandBus, QueryBus } from '@nestjs/cqrs'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
+import { classToPlain } from 'class-transformer'
 import { CurrentUser } from '../../../../../backend/src/infrastructure/auth/CurrentUser'
 import { GqlAuthGuard } from '../../../../../backend/src/infrastructure/auth/gql-auth.guard'
 import { TypeOrmApp } from '../../../../../backend/src/infrastructure/persistence/typeorm/entity/TypeOrmApp'
@@ -25,8 +26,6 @@ export class AppCommandQueryAdapter implements CommandQueryBusPort {
     @Args('request') request: CreateAppRequest,
     @CurrentUser() userId: string,
   ) {
-    console.log(userId)
-
     const results = await this.commandBus.execute(
       new CreateAppCommand({ ...request, userId }),
     )
@@ -41,6 +40,6 @@ export class AppCommandQueryAdapter implements CommandQueryBusPort {
   ) {
     const results = await this.queryBus.execute(new GetAppsQuery(request))
 
-    return results.toPlain()
+    return classToPlain(results)
   }
 }

@@ -5,7 +5,7 @@ export class JwtConfig {
     .required()
     .asString()
 
-  public static readonly JWT_EXPIRY: string = get('JWT_EXPIRY')
+  public static readonly JWT_EXPIRY: number = get('JWT_EXPIRY')
     .required()
-    .asString()
+    .asInt()
 }
