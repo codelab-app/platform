@@ -245,6 +245,8 @@ jobs:
     <<: *executor-params
     steps:
       - setup-workspace
+      # Doesn't work if we source inside setup-workspace
+      - run: source .env
       - run: make unit-ci
       - notify-failure
 
@@ -252,6 +254,7 @@ jobs:
     <<: *executor-params
     steps:
       - setup-workspace
+      - run: source .env
       - run: make integration-ci
       - notify-failure
 
@@ -259,9 +262,8 @@ jobs:
     <<: *executor-params
     steps:
       - setup-workspace
-      - run: |
-          source .env
-          make e2e-ci
+      - run: source .env
+      - run: make e2e-ci
       - notify-failure
 
   notify-success:
@@ -318,14 +320,12 @@ workflows:
       - unit:
           <<: *filters-dev
           e: docker-node
-          context: .env.ci
           requires:
             - setup-vault-env
             - install-and-build-workspace
       - integration:
           <<: *filters-dev
           e: docker-node
-          context: .env.ci
           requires:
             - setup-vault-env
             - install-and-build-workspace
