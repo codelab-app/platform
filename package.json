@@ -216,7 +216,7 @@
     "@types/findup-sync": "2.0.2",
     "@types/hapi__joi": "17.1.6",
     "@types/inquirer": "^7.3.1",
-    "@types/jest": "26.0.16",
+    "@types/jest": "26.0.20",
     "@types/jquery": "3.5.5",
     "@types/js-yaml": "3.12.5",
     "@types/lodash": "4.14.161",

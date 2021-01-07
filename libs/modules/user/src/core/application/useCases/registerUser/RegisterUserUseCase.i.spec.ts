@@ -34,13 +34,13 @@ describe('RegisterUserUseCase', () => {
     await app.init()
   })
 
+  beforeEach(async () => {
+    await connection.synchronize(true)
+  })
+
   afterAll(async () => {
     await connection.close()
     await app.close()
-  })
-
-  beforeEach(async () => {
-    await connection.query('DELETE FROM "user"')
   })
 
   it('should create a user', async () => {

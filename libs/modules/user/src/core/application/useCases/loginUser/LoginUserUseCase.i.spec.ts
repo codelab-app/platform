@@ -36,17 +36,12 @@ describe('LoginUserUseCase', () => {
   })
 
   afterAll(async () => {
-    await connection.query('DELETE FROM "user"')
     await connection.close()
     await app.close()
   })
 
-  afterEach(async () => {
-    await connection.query('DELETE FROM "user"')
-  })
-
   beforeEach(async () => {
-    await connection.query('DELETE FROM "user"')
+    await connection.synchronize(true)
   })
 
   describe('Should successfully login', () => {
