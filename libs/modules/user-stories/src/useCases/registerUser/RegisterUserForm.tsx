@@ -3,7 +3,7 @@ import { withTheme } from '@rjsf/core'
 import { JSONSchema7 } from 'json-schema'
 import React from 'react'
 import { useUserMachine } from '../../store'
-import { requestJsonSchema } from '@codelab/tools/generators/json-schema'
+import { RegisterUserInputSchema } from '@codelab/modules/user'
 
 export const RegisterUserForm = ({
   formId,
@@ -25,7 +25,7 @@ export const RegisterUserForm = ({
   return (
     <Form
       id={formId}
-      schema={requestJsonSchema.definitions.RegisterUserRequest as JSONSchema7}
+      schema={RegisterUserInputSchema as JSONSchema7}
       uiSchema={{
         password: {
           'ui:widget': 'password',
