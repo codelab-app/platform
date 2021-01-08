@@ -48,13 +48,10 @@ describe('DeleteAppUseCase', () => {
   })
 
   beforeEach(async () => {
-    await connection.query('DELETE FROM app')
-    await connection.query('DELETE FROM "user"')
+    await connection.synchronize(true)
   })
 
   afterAll(async () => {
-    await connection.query('DELETE FROM app')
-    await connection.query('DELETE FROM "user"')
     await connection.close()
     await app.close()
   })
