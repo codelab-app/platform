@@ -43,15 +43,16 @@ describe('GetMeUseCase', () => {
 
     app = testModule.createNestApplication()
     connection = app.get(Connection)
+    await connection.synchronize(true)
     await app.init()
   })
 
   beforeEach(async () => {
-    await connection.query('DELETE FROM "user"')
+    await connection.synchronize(true)
   })
 
   afterAll(async () => {
-    await connection.query('DELETE FROM "user"')
+    await connection.synchronize(true)
     await connection.close()
     await app.close()
   })

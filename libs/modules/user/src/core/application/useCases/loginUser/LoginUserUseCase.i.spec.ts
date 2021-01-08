@@ -32,6 +32,7 @@ describe('LoginUserUseCase', () => {
 
     app = testModule.createNestApplication()
     connection = app.get(Connection)
+    await connection.synchronize(true)
     await app.init()
   })
 
