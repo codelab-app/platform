@@ -82,7 +82,7 @@ describe('DeleteAppUseCase', () => {
     const { accessToken } = loginUserReq.body.data.loginUser
     const createAppMutation = `
       mutation {
-        createApp(request: {title: "Test App"}) { id title }
+        createApp(input: { title: "Test App" }) { id title }
       }
     `
     const createAppReq = await request(app.getHttpServer())
@@ -98,7 +98,7 @@ describe('DeleteAppUseCase', () => {
     const { id } = createAppReq.body.data.createApp
     const deleteAppMutation = `
       mutation {
-        deleteApp(request: {appId: "${id}"}) {
+        deleteApp(request: { appId: "${id}" }) {
           title
         }
       }
@@ -141,7 +141,7 @@ describe('DeleteAppUseCase', () => {
     const { accessToken } = loginUserReq.body.data.loginUser
     const deleteAppMutation = `
       mutation {
-        deleteApp(request: {appId: "${wrongAppId}"}) {
+        deleteApp(request: { appId: "${wrongAppId}" }) {
           title
         }
       }
