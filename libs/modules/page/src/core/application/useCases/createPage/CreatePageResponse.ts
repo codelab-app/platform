@@ -4,6 +4,6 @@ import { CreatePageErrors } from './CreatePageErrors'
 import { Result } from '@codelab/backend'
 
 export type CreatePageResponse = Either<
-  CreatePageErrors.DemoError,
+  CreatePageErrors.AppNotFoundError,
   Result<Page>
 >

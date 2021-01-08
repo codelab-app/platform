@@ -5,7 +5,7 @@ import { EntityConfig } from '../../config/EntityConfig'
 import { BaseTypeOrm } from './BaseTypeOrm'
 import { TypeOrmApp } from './TypeOrmApp'
 import { TypeOrmVertex } from './TypeOrmVertex'
-import { TypeOrmEdge } from '@codelab/backend'
+import { TypeOrmEdge, TypeOrmPage } from '@codelab/backend'
 
 @Entity(EntityConfig.GRAPH_ENTITY)
 @ObjectType({
@@ -15,7 +15,12 @@ export class TypeOrmGraph extends BaseTypeOrm {
   @Column({ type: 'text', nullable: true })
   declare label?: string
 
-  @OneToMany((type) => TypeOrmVertex, (vertex) => vertex.graph)
+  @Column({ nullable: true })
+  declare pageId: string
+
+  @OneToMany((type) => TypeOrmVertex, (vertex) => vertex.graph, {
+    cascade: true,
+  })
   declare vertices: Array<TypeOrmVertex>
 
   @OneToMany((type) => TypeOrmEdge, (edge) => edge.graph)
@@ -23,6 +28,9 @@ export class TypeOrmGraph extends BaseTypeOrm {
 
   @ManyToOne((type) => TypeOrmApp, (app) => app.graphs)
   declare app: TypeOrmApp
+
+  @ManyToOne((type) => TypeOrmPage, (page) => page.graphs, { nullable: true })
+  declare page: TypeOrmPage
 
   // @ManyToOne((type) => TypeOrmUser, (user) => user.graphs)
   // declare user: TypeOrmUser

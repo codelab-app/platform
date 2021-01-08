@@ -1,3 +1,4 @@
+import { option as O } from 'fp-ts'
 import { Option, isNone } from 'fp-ts/Option'
 import { left, right } from 'fp-ts/lib/Either'
 import { GraphRepositoryPort } from '../../../adapters/GraphRepositoryPort'
@@ -12,16 +13,33 @@ export class GetGraphService implements GetGraphUseCase {
   constructor(private readonly graphRepository: GraphRepositoryPort) {}
 
   async execute(request: GetGraphRequest): Promise<GetGraphResponse> {
-    const { graphId } = request
+    const { graphId, pageId } = request
+    let graphOpt: Option<Graph> = O.none
 
-    const graphOpt: Option<Graph> = await this.graphRepository.findGraphBy({
-      id: graphId,
-    })
+    if (graphId) {
+      graphOpt = await this.graphRepository.findGraphBy({
+        id: graphId,
+      })
 
-    if (isNone(graphOpt)) {
-      return left(new GetGraphErrors.GraphNotFoundError(graphId))
+      if (isNone(graphOpt)) {
+        return left(new GetGraphErrors.GraphNotFoundError(graphId))
+      }
+
+      return right(Result.ok(graphOpt.value))
     }
 
-    return right(Result.ok(graphOpt.value))
+    if (pageId) {
+      graphOpt = await this.graphRepository.findGraphBy({
+        pageId,
+      })
+
+      if (isNone(graphOpt)) {
+        return left(new GetGraphErrors.GraphNotFoundError(pageId))
+      }
+
+      return right(Result.ok(graphOpt.value))
+    }
+
+    return left(new GetGraphErrors.GraphNotFoundError(''))
   }
 }

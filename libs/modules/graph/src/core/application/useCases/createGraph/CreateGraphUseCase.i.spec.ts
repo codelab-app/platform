@@ -27,17 +27,13 @@ describe('CreateGraphUseCase', () => {
 
     app = testModule.createNestApplication()
     connection = app.get(Connection)
+    await connection.synchronize(true)
     await app.init()
   })
 
   afterAll(async () => {
-    await connection.query('DELETE FROM graph')
     await connection.close()
     await app.close()
-  })
-
-  beforeEach(async () => {
-    await connection.query('DELETE FROM graph')
   })
 
   it('should create graph with a label', async () => {

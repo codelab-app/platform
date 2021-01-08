@@ -1,12 +1,15 @@
 import { Module, Provider } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
+import { TypeOrmModule } from '@nestjs/typeorm'
 import { Connection } from 'typeorm'
 import { AddChildNodeCommandHandler } from '../../core/application/handlers/AddChildNodeCommandHandler'
+import { AddGraphToPageCommandHandler } from '../../core/application/handlers/AddGraphToPageCommandHandler'
 import { CreateGraphCommandHandler } from '../../core/application/handlers/CreateGraphCommandHandler'
 import { DeleteNodeCommandHandler } from '../../core/application/handlers/DeleteNodeCommandHandler'
 import { GetGraphQueryHandler } from '../../core/application/handlers/GetGraphQueryHandler'
 import { MoveNodeCommandHandler } from '../../core/application/handlers/MoveNodeCommandHandler'
 import { UpdateNodeCommandHandler } from '../../core/application/handlers/UpdateNodeCommandHandler'
+import { GraphPageSaga } from '../../core/application/sagas/GraphPage.saga'
 import { AddChildNodeService } from '../../core/application/useCases/addChildNode/AddChildNodeService'
 import { CreateGraphService } from '../../core/application/useCases/createGraph/CreateGraphService'
 import { DeleteNodeService } from '../../core/application/useCases/deleteNode/DeleteNodeService'
@@ -22,6 +25,7 @@ import { GraphDITokens } from '../GraphDITokens'
 import { VertexDITokens } from '../VertexDITokens'
 import { EdgeModule } from './EdgeModule'
 import { VertexModule } from './VertexModule'
+import { TypeOrmGraph } from '@codelab/backend'
 
 export const persistenceProviders: Array<Provider> = [
   {
@@ -95,6 +99,7 @@ const useCaseProviders: Array<Provider> = [
 ]
 
 export const handlerProviders: Array<Provider> = [
+  AddGraphToPageCommandHandler,
   MoveNodeCommandHandler,
   DeleteNodeCommandHandler,
   GetGraphQueryHandler,
@@ -104,8 +109,15 @@ export const handlerProviders: Array<Provider> = [
 ]
 
 @Module({
-  imports: [CqrsModule, VertexModule, EdgeModule],
+  imports: [
+    CqrsModule,
+    VertexModule,
+    EdgeModule,
+    TypeOrmModule.forFeature([TypeOrmGraph]),
+  ],
   providers: [
+    GraphPageSaga,
+    // GraphPageCreatedEventHandler,
     ...persistenceProviders,
     ...useCaseProviders,
     ...handlerProviders,

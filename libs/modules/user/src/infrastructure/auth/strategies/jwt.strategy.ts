@@ -1,34 +1,48 @@
-import { Injectable } from '@nestjs/common'
-import { ModuleRef } from '@nestjs/core'
+import { Injectable, UnauthorizedException } from '@nestjs/common'
+import { CommandBus } from '@nestjs/cqrs'
 import { JwtService } from '@nestjs/jwt'
 import { PassportStrategy } from '@nestjs/passport'
 import { classToPlain } from 'class-transformer'
+import { Option, fold } from 'fp-ts/Option'
+import { pipe } from 'fp-ts/lib/function'
 import { ExtractJwt, Strategy } from 'passport-jwt'
+import { ValidateUserCommand } from '../../../core/application/commands/ValidateUserCommand'
 import { IToken } from '../IToken'
 import { JwtConfig } from '../config/JwtConfig'
+import { User } from '@codelab/modules/user'
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
-  // private declare userService: UserService
-
-  constructor(private jwtService: JwtService, private moduleRef: ModuleRef) {
+  constructor(
+    private readonly jwtService: JwtService,
+    private readonly commandBus: CommandBus,
+  ) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
-      // secretOrKey: config.get(ApiConfigTypes.JWT_SECRET),
       secretOrKey: JwtConfig.JWT_SECRET,
       passReqToCallback: true,
     })
   }
 
-  // Will return userId here
-  async validate(payload: any): Promise<any> {
-    let token = payload.headers.authorization
-
-    token = token.replace('Bearer', '').trim()
+  async validate(payload: any): Promise<User> {
+    const { authorization } = payload.headers
+    const token = authorization.replace('Bearer', '').trim()
     const decodedToken = this.jwtService.decode(token) as IToken
 
-    return decodedToken.sub
+    const maybeUser: Option<User> = await this.commandBus.execute(
+      new ValidateUserCommand({ userId: decodedToken.sub }),
+    )
+
+    return pipe(
+      maybeUser,
+      fold(
+        () => {
+          throw new UnauthorizedException()
+        },
+        (user) => user,
+      ),
+    )
   }
 
   async refreshToken(token: string) {

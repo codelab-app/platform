@@ -1,4 +1,3 @@
-import { IsEmail } from 'class-validator'
 import { ValueObject } from '@codelab/backend'
 
 export interface PageTitleProps {
@@ -6,11 +5,5 @@ export interface PageTitleProps {
 }
 
 export class PageTitle extends ValueObject<PageTitleProps> {
-  @IsEmail(
-    {},
-    {
-      message: 'Email must be valid',
-    },
-  )
   declare value: string
 }

@@ -31,6 +31,7 @@ describe('RegisterUserUseCase', () => {
 
     app = testModule.createNestApplication()
     connection = app.get(Connection)
+    await connection.synchronize(true)
     await app.init()
   })
 
@@ -39,6 +40,7 @@ describe('RegisterUserUseCase', () => {
   })
 
   afterAll(async () => {
+    await connection.synchronize(true)
     await connection.close()
     await app.close()
   })
