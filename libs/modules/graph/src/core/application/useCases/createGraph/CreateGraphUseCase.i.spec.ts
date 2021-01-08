@@ -27,7 +27,7 @@ describe('CreateGraphUseCase', () => {
 
     app = testModule.createNestApplication()
     connection = app.get(Connection)
-    connection.synchronize(true)
+    await connection.synchronize(true)
     await app.init()
   })
 
