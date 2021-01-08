@@ -41,6 +41,7 @@ export enum NodeType {
   React_InputNumber = 'React_InputNumber',
   React_Select = 'React_Select',
   React_Select_Option = 'React_Select_Option',
+  React_Grid_Layout_Container = 'React_Grid_Layout_Container',
   React_Grid = 'React_Grid',
   React_ResponsiveGrid = 'React_ResponsiveGrid',
   React_Provider = 'React_Provider',

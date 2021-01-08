@@ -1,3 +1,5 @@
+import { Page } from '../domain/page'
+
 export interface PageRepositoryPort {
-  test?: any
+  createPage(page: Page): Promise<Page>
 }

@@ -1,6 +1,4 @@
 export class UserDITokens {
-  public static readonly UserService: unique symbol = Symbol('UserService')
-
   public static readonly GetMeUseCase: unique symbol = Symbol('GetMeUseCase')
 
   public static readonly LoginUserUseCase: unique symbol = Symbol(
@@ -22,6 +20,10 @@ export class UserDITokens {
 
   public static readonly GetUserUseCase: unique symbol = Symbol(
     'GetUserUseCase',
+  )
+
+  public static readonly ValidateUserUseCase: unique symbol = Symbol(
+    'ValidateUserUseCase',
   )
 
   // Handlers

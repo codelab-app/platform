@@ -1,23 +1,23 @@
-import { Injectable, OnModuleInit } from '@nestjs/common'
+import { Injectable, UnauthorizedException } from '@nestjs/common'
 import { ModuleRef } from '@nestjs/core'
+import { CommandBus } from '@nestjs/cqrs'
 import { JwtService } from '@nestjs/jwt'
 import { PassportStrategy } from '@nestjs/passport'
 import { classToPlain } from 'class-transformer'
-import { Option, isNone } from 'fp-ts/Option'
+import { isNone } from 'fp-ts/Option'
 import { ExtractJwt, Strategy } from 'passport-jwt'
-import { UserService } from '../../../core/application/services/UserService'
-import { UserDITokens } from '../../../framework/UserDITokens'
+import { ValidateUserCommand } from '../../../core/application/commands/ValidateUserCommand'
 import { IToken } from '../IToken'
 import { JwtConfig } from '../config/JwtConfig'
 import { User } from '@codelab/modules/user'
 
 @Injectable()
-export class JwtStrategy
-  extends PassportStrategy(Strategy, 'jwt')
-  implements OnModuleInit {
-  private declare userService: UserService
-
-  constructor(private jwtService: JwtService, private moduleRef: ModuleRef) {
+export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
+  constructor(
+    private jwtService: JwtService,
+    private moduleRef: ModuleRef,
+    private commandBus: CommandBus,
+  ) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
@@ -31,12 +31,13 @@ export class JwtStrategy
 
     token = token.replace('Bearer', '').trim()
     const decodedToken = this.jwtService.decode(token) as IToken
-    const user: Option<User> = await this.userService.findUserById(
-      decodedToken.sub,
+
+    const user = await this.commandBus.execute(
+      new ValidateUserCommand({ userId: decodedToken.sub }),
     )
 
     if (isNone(user)) {
-      throw new Error('User not found')
+      throw new UnauthorizedException()
     }
 
     return user.value
@@ -93,11 +94,5 @@ export class JwtStrategy
     }
 
     return this.jwtService.sign(payload)
-  }
-
-  onModuleInit(): any {
-    this.userService = this.moduleRef.get(UserDITokens.UserService, {
-      strict: false,
-    })
   }
 }

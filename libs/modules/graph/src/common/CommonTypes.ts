@@ -3,10 +3,14 @@
 // Find Graph
 export type GraphID = string
 
-export type FindGraphBy = FindGraphByID
+export type FindGraphBy = FindGraphByID | FindGraphByPageID
 
 export type FindGraphByID = {
   id: GraphID
+}
+
+export type FindGraphByPageID = {
+  pageId: string
 }
 
 // Find Vertex

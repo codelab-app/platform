@@ -3,6 +3,7 @@ import { Type, classToPlain, plainToClass } from 'class-transformer'
 import { CreateGraphRequest } from '../../application/useCases/createGraph/CreateGraphRequest'
 import { Edge } from '../edge'
 import { SerializedEdgeDto } from '../edge/dto/SerializedEdgeDto'
+import { Vertex } from '../vertex'
 import { SerializedVertexDto } from '../vertex/dto/SerializedVertexDto'
 import { SerializedGraphDto } from './dto/SerializedGraphDto'
 import { GraphEdges } from './graph-edges'
@@ -30,6 +31,38 @@ export class Graph extends AggregateRoot<SerializedGraphDto> {
     const edges: Array<Edge> = plainToClass(Edge, edgesPlain)
 
     return edges
+  }
+
+  public addVertex(v: Vertex) {
+    const vertex: SerializedVertexDto = v.toPlain()
+    let newVertices
+
+    if (!this.hasVertex(vertex.id as string)) {
+      if (this.vertices) {
+        const vertices: Array<SerializedVertexDto> = this.vertices.value
+
+        vertices.push(vertex)
+        newVertices = new GraphVertices({ value: vertices })
+      } else {
+        newVertices = new GraphVertices({ value: [vertex] })
+      }
+
+      this.vertices = newVertices
+    }
+  }
+
+  private hasVertex(vertexId: string): boolean {
+    if (this.vertices) {
+      const vertices: Array<SerializedVertexDto> = this.vertices.value
+
+      const index = vertices.findIndex((v: SerializedVertexDto) => {
+        return v.id === vertexId
+      })
+
+      return index !== -1
+    }
+
+    return false
   }
 
   public moveVertex(source: string, target: string) {

@@ -5,6 +5,7 @@
 
 import { Logger } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
+import { GeneralExceptionFilter } from './app/GeneralExceptionFilter'
 import { AppModule } from './app/app.module'
 
 async function bootstrap() {
@@ -12,6 +13,7 @@ async function bootstrap() {
   const globalPrefix = ''
 
   app.setGlobalPrefix(globalPrefix)
+  app.useGlobalFilters(new GeneralExceptionFilter())
   const port = process.env.PORT || 3333
 
   await app.listen(port, () => {

@@ -29,7 +29,7 @@ export class TypeOrmVertexRepositoryAdapter
 
     const newVertex = await this.save(typeOrmVertex)
 
-    return Vertex.hydrate(newVertex)
+    return plainToClass(Vertex, newVertex)
   }
 
   async findAll(): Promise<Array<Vertex>> {
@@ -50,7 +50,7 @@ export class TypeOrmVertexRepositoryAdapter
         ...vertex.toPlain(),
       })
 
-      result = O.some(Vertex.hydrate(updatedVertex))
+      result = O.some(plainToClass(Vertex, updatedVertex))
     } else {
       result = O.none
     }
@@ -62,7 +62,7 @@ export class TypeOrmVertexRepositoryAdapter
     const typeOrmVertex = await this.findOne(by.id)
 
     return typeOrmVertex
-      ? Promise.resolve(O.some(Vertex.hydrate(typeOrmVertex)))
+      ? Promise.resolve(O.some(plainToClass(Vertex, typeOrmVertex)))
       : O.none
   }
 
@@ -73,7 +73,8 @@ export class TypeOrmVertexRepositoryAdapter
     if (typeOrmVertex) {
       const vertices = await this.remove([typeOrmVertex])
 
-      result = O.some(Vertex.hydrate(vertices[0]))
+      // result = O.some(Vertex.hydrate(vertices[0]))
+      result = O.some(plainToClass(Vertex, vertices[0]))
     } else {
       result = O.none
     }

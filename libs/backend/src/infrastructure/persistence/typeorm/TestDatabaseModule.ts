@@ -31,7 +31,7 @@ import {
       ],
       autoLoadEntities: true,
       synchronize: true,
-      dropSchema: false,
+      dropSchema: true,
       logging: ['query', 'error', 'schema'],
       namingStrategy: new SnakeNamingStrategy(),
     }),

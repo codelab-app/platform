@@ -2,6 +2,10 @@ import { plainToClass } from 'class-transformer'
 import { option as O } from 'fp-ts'
 import { Option } from 'fp-ts/Option'
 import { EntityRepository, Repository } from 'typeorm'
+import { TypeOrmApp } from '../../../../../backend/src/infrastructure/persistence/typeorm/entity/TypeOrmApp'
+import { Page } from '../../../../page/src/core/domain/page'
+import { FindAppBy } from '../../common/CommonTypes'
+import { isId } from '../../common/utils'
 import { AppsWhere } from '../../common/CommonTypes'
 import { AppRepositoryPort } from '../../core/adapters/AppRepositoryPort'
 import { App } from '../../core/domain/app'
@@ -49,5 +53,30 @@ export class TypeOrmAppRepositoryAdapter
     }
 
     return result
+  }
+
+  async findApp(by: FindAppBy): Promise<Option<App>> {
+    let typeOrmApp
+
+    if (isId(by)) {
+      typeOrmApp = await this.findOne(by.id)
+    }
+
+    return typeOrmApp ? O.some(App.hydrate(typeOrmApp)) : O.none
+  }
+
+  async addPageToApp(app: App, page: Page): Promise<void> {
+    const typeOrmApp = app.toPersistence()
+    const typeOrmPage = page.toPersistence()
+
+    const foundApp = await this.findOneOrFail(typeOrmApp.id)
+
+    if (foundApp.pages && foundApp.pages.length > 0) {
+      foundApp.pages.push(typeOrmPage)
+    } else {
+      foundApp.pages = [typeOrmPage]
+    }
+
+    await this.save(foundApp)
   }
 }
