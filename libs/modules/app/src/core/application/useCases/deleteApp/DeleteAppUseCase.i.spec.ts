@@ -5,7 +5,7 @@ import { Connection } from 'typeorm'
 import { LoginUserRequest } from '../../../../../../user/src/core/application/useCases/loginUser/LoginUserRequest'
 import { RegisterUserRequest } from '../../../../../../user/src/core/application/useCases/registerUser/RegisterUserRequest'
 import { TestInfrastructureModule } from '@codelab/backend'
-import { CodelabAppModule } from '@codelab/modules/app'
+import { AppModule } from '@codelab/modules/app'
 import { UserModule } from '@codelab/modules/user'
 
 const email = 'test_user@codelab.ai'
@@ -39,7 +39,7 @@ describe('DeleteAppUseCase', () => {
 
   beforeAll(async () => {
     const testModule = await Test.createTestingModule({
-      imports: [TestInfrastructureModule, CodelabAppModule, UserModule],
+      imports: [TestInfrastructureModule, AppModule, UserModule],
     }).compile()
 
     app = testModule.createNestApplication()
