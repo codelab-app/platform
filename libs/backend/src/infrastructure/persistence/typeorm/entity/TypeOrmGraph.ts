@@ -15,7 +15,7 @@ export class TypeOrmGraph extends BaseTypeOrm {
   @Column({ type: 'text', nullable: true })
   declare label?: string
 
-  @Column()
+  @Column({ nullable: true })
   declare pageId: string
 
   @OneToMany((type) => TypeOrmVertex, (vertex) => vertex.graph, {
@@ -29,7 +29,7 @@ export class TypeOrmGraph extends BaseTypeOrm {
   @ManyToOne((type) => TypeOrmApp, (app) => app.graphs)
   declare app: TypeOrmApp
 
-  @ManyToOne((type) => TypeOrmPage, (page) => page.graphs)
+  @ManyToOne((type) => TypeOrmPage, (page) => page.graphs, { nullable: true })
   declare page: TypeOrmPage
 
   // @ManyToOne((type) => TypeOrmUser, (user) => user.graphs)
