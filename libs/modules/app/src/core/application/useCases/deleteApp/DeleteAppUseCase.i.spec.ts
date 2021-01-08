@@ -3,7 +3,7 @@ import { Test } from '@nestjs/testing'
 import request from 'supertest'
 import { Connection } from 'typeorm'
 import { LoginUserRequest } from '../../../../../../user/src/core/application/useCases/loginUser/LoginUserRequest'
-import { RegisterUserRequest } from '../../../../../../user/src/core/application/useCases/registerUser/RegisterUserRequest'
+import { RegisterUserInput } from '../../../../../../user/src/core/application/useCases/registerUser/RegisterUserInput'
 import { TestInfrastructureModule } from '@codelab/backend'
 import { AppModule } from '@codelab/modules/app'
 import { UserModule } from '@codelab/modules/user'
@@ -22,11 +22,11 @@ const loginUserQuery = (loginUserRequest: LoginUserRequest) => `
     }
   }`
 
-const registerUserMutation = (registerUserRequest: RegisterUserRequest) => `
+const registerUserMutation = (registerUserInput: RegisterUserInput) => `
   mutation {
-    registerUser(request: {
-      email: "${registerUserRequest.email}",
-      password: "${registerUserRequest.password}"
+    registerUser(input: {
+      email: "${registerUserInput.email}",
+      password: "${registerUserInput.password}"
     }) {
       email
       accessToken
