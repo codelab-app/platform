@@ -3,7 +3,7 @@ import { CommandHandler, ICommandHandler } from '@nestjs/cqrs'
 import { Option } from 'fp-ts/Option'
 import { UserDITokens } from '../../../framework/UserDITokens'
 import { ValidateUserCommand } from '../commands/ValidateUserCommand'
-import { ValidateUserService } from '../useCases/validateUser/ValidateUser.service'
+import { ValidateUserService } from '../useCases/validateUser/ValidateUserService'
 import { User } from '@codelab/modules/user'
 
 @CommandHandler(ValidateUserCommand)

@@ -5,14 +5,13 @@ import { Connection } from 'typeorm'
 import { TypeOrmApp } from '../../../../../backend/src/infrastructure/persistence/typeorm/entity/TypeOrmApp'
 import { AddPageToAppCommandHandler } from '../../core/application/handlers/AddPageToAppCommandHandler'
 import { CreateAppCommandHandler } from '../../core/application/handlers/CreateAppCommandHandler'
-import { GetAppsQueryHandler } from '../../core/application/handlers/GetAppsQueryHandler'
 import { DeleteAppCommandHandler } from '../../core/application/handlers/DeleteAppCommandHandler'
 import { GetAppQueryHandler } from '../../core/application/handlers/GetAppQueryHandler'
 import { AppPageSaga } from '../../core/application/sagas/AppPage.saga'
 import { CreateAppService } from '../../core/application/useCases/createApp/CreateAppService'
-import { GetAppsService } from '../../core/application/useCases/getApps/GetAppsService'
 import { DeleteAppService } from '../../core/application/useCases/deleteApp/DeleteAppService'
 import { GetAppService } from '../../core/application/useCases/getApp/GetAppService'
+import { GetAppsService } from '../../core/application/useCases/getApps/GetAppsService'
 import { TypeOrmAppRepositoryAdapter } from '../../infrastructure/persistence/TypeOrmAppRepositoryAdapter'
 import { AppCommandQueryAdapter } from '../../presentation/controllers/AppCommandQueryAdapter'
 import { AppDITokens } from '../AppDITokens'
@@ -50,10 +49,6 @@ export const useCaseProviders: Array<Provider> = [
   },
 ]
 
-export const handlerProviders: Array<Provider> = [
-  GetAppsQueryHandler,
-  CreateAppCommandHandler,
-]
 export const handlerProviders: Array<Provider> = [
   AddPageToAppCommandHandler,
   GetAppQueryHandler,

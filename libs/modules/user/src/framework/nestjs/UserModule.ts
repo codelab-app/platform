@@ -17,12 +17,12 @@ import { GetUserService } from '../../core/application/useCases/getUser/GetUserS
 import { LoginUserService } from '../../core/application/useCases/loginUser/LoginUserService'
 import { RegisterUserService } from '../../core/application/useCases/registerUser/RegisterUserService'
 import { UpdateUserService } from '../../core/application/useCases/updateUser/UpdateUserService'
-import { ValidateUserService } from '../../core/application/useCases/validateUser/ValidateUser.service'
+import { ValidateUserService } from '../../core/application/useCases/validateUser/ValidateUserService'
 import { TypeOrmUserRepositoryAdapter } from '../../infrastructure/persistence/TypeOrmUserRepositoryAdapter'
 import { UserCommandQueryAdapter } from '../../presentation/controllers/UserCommandQueryAdapter'
 import { UserDITokens } from '../UserDITokens'
 import { AuthModule } from './AuthModule'
-import { TypeOrmUser } from '@codelab/backend'
+import { GqlAuthGuard, TypeOrmUser } from '@codelab/backend'
 
 export const persistenceProviders: Array<Provider> = [
   {
@@ -93,9 +93,11 @@ export const handlerProviders: Array<Provider> = [
 @Module({
   imports: [CqrsModule, AuthModule, TypeOrmModule.forFeature([TypeOrmUser])],
   providers: [
+    GqlAuthGuard,
     ...persistenceProviders,
     ...useCaseProviders,
     ...handlerProviders,
   ],
+  exports: [GqlAuthGuard],
 })
 export class UserModule {}

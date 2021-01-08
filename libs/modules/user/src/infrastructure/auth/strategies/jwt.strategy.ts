@@ -1,10 +1,10 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common'
-import { ModuleRef } from '@nestjs/core'
 import { CommandBus } from '@nestjs/cqrs'
 import { JwtService } from '@nestjs/jwt'
 import { PassportStrategy } from '@nestjs/passport'
 import { classToPlain } from 'class-transformer'
-import { isNone } from 'fp-ts/Option'
+import { Option, fold } from 'fp-ts/Option'
+import { pipe } from 'fp-ts/lib/function'
 import { ExtractJwt, Strategy } from 'passport-jwt'
 import { ValidateUserCommand } from '../../../core/application/commands/ValidateUserCommand'
 import { IToken } from '../IToken'
@@ -14,9 +14,8 @@ import { User } from '@codelab/modules/user'
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
   constructor(
-    private jwtService: JwtService,
-    private moduleRef: ModuleRef,
-    private commandBus: CommandBus,
+    private readonly jwtService: JwtService,
+    private readonly commandBus: CommandBus,
   ) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -27,20 +26,23 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
   }
 
   async validate(payload: any): Promise<User> {
-    let token = payload.headers.authorization
-
-    token = token.replace('Bearer', '').trim()
+    const { authorization } = payload.headers
+    const token = authorization.replace('Bearer', '').trim()
     const decodedToken = this.jwtService.decode(token) as IToken
 
-    const user = await this.commandBus.execute(
+    const maybeUser: Option<User> = await this.commandBus.execute(
       new ValidateUserCommand({ userId: decodedToken.sub }),
     )
 
-    if (isNone(user)) {
-      throw new UnauthorizedException()
-    }
-
-    return user.value
+    return pipe(
+      maybeUser,
+      fold(
+        () => {
+          throw new UnauthorizedException()
+        },
+        (user) => user,
+      ),
+    )
   }
 
   async refreshToken(token: string) {

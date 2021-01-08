@@ -1731,7 +1731,7 @@
           "options": {
             "jestConfig": "libs/modules/graph/jest.config.js",
             "passWithNoTests": true
-          },
+          }
         }
       }
     },
@@ -1774,7 +1774,7 @@
           "options": {
             "jestConfig": "libs/modules/app/jest.config.js",
             "passWithNoTests": true
-          },
+          }
         }
       }
     },

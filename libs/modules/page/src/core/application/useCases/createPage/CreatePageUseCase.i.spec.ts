@@ -5,7 +5,7 @@ import { Connection } from 'typeorm'
 import { LoginUserRequest } from '../../../../../../user/src/core/application/useCases/loginUser/LoginUserRequest'
 import { RegisterUserRequest } from '../../../../../../user/src/core/application/useCases/registerUser/RegisterUserRequest'
 import { TestInfrastructureModule } from '@codelab/backend'
-import { CodelabAppModule } from '@codelab/modules/app'
+import { AppModule } from '@codelab/modules/app'
 import { GraphModule } from '@codelab/modules/graph'
 import { PageModule } from '@codelab/modules/page'
 import { UserModule } from '@codelab/modules/user'
@@ -46,7 +46,7 @@ describe.skip('CreatePageUseCase', () => {
         PageModule,
         GraphModule,
         UserModule,
-        CodelabAppModule,
+        AppModule,
       ],
     }).compile()
 

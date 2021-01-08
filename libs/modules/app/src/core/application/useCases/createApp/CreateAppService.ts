@@ -5,16 +5,14 @@ import { CreateAppRequest } from './CreateAppRequest'
 import { CreateAppResponse } from './CreateAppResponse'
 import { CreateAppUseCase } from './CreateAppUseCase'
 import { Result } from '@codelab/backend'
-import { User } from '@codelab/modules/user'
 
 export class CreateAppService implements CreateAppUseCase {
   constructor(private readonly appRepository: AppRepositoryPort) {}
 
-  async execute(request: CreateAppRequest): Promise<CreateAppResponse> {
-    const { user, title } = request
+  async execute({ user, title }: CreateAppRequest): Promise<CreateAppResponse> {
     const app = App.create({ title })
 
-    const createdApp = await this.appRepository.createApp(app, user as User)
+    const createdApp = await this.appRepository.createApp(app, user)
 
     return right(Result.ok(createdApp))
   }
