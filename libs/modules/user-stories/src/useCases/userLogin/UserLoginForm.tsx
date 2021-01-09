@@ -2,9 +2,9 @@ import { Theme as AntDTheme } from '@rjsf/antd'
 import { ISubmitEvent, withTheme } from '@rjsf/core'
 import { JSONSchema7 } from 'json-schema'
 import React, { useState } from 'react'
+import { LoginUserInputSchema } from '../../../../user/src/core/application/useCases/loginUser/LoginUserInput.generated'
 import { LoginUserRequest } from '../../../../user/src/core/application/useCases/loginUser/LoginUserRequest'
 import { useUserMachine } from '../../store'
-import { requestJsonSchema } from '@codelab/tools/generators/json-schema'
 
 const Form = withTheme(AntDTheme)
 
@@ -34,7 +34,7 @@ export const UserLoginForm = ({
   return (
     <Form
       id={formId}
-      schema={requestJsonSchema.definitions.LoginUserRequest as JSONSchema7}
+      schema={LoginUserInputSchema as JSONSchema7}
       uiSchema={{
         password: {
           'ui:widget': 'password',
