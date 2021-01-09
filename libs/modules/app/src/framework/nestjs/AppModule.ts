@@ -3,7 +3,9 @@ import { ModuleRef } from '@nestjs/core'
 import { CqrsModule } from '@nestjs/cqrs'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { Connection } from 'typeorm'
+import { AddPageToAppCommandHandler } from '../../core/application/handlers/AddPageToAppCommandHandler'
 import { CreateAppCommandHandler } from '../../core/application/handlers/CreateAppCommandHandler'
+import { DeleteAppCommandHandler } from '../../core/application/handlers/DeleteAppCommandHandler'
 import { GetAppsQueryHandler } from '../../core/application/handlers/GetAppsQueryHandler'
 import { CreateAppService } from '../../core/application/useCases/createApp/CreateAppService'
 import { GetAppsService } from '../../core/application/useCases/getApps/GetAppsService'
@@ -42,8 +44,10 @@ export const useCaseProviders: Array<Provider> = [
 ]
 
 export const handlerProviders: Array<Provider> = [
+  AddPageToAppCommandHandler,
   GetAppsQueryHandler,
   CreateAppCommandHandler,
+  DeleteAppCommandHandler,
 ]
 
 @Module({
