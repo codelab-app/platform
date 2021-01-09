@@ -2,9 +2,9 @@ import { Theme as AntDTheme } from '@rjsf/antd'
 import { ISubmitEvent, withTheme } from '@rjsf/core'
 import { JSONSchema7 } from 'json-schema'
 import React, { useState } from 'react'
-import { useUserMachine } from '../../store'
-import { RegisterUserInputSchema } from '../../../../user/src/core/application/useCases/registerUser/RegisterUserInput.generated'
 import { RegisterUserInput } from '../../../../user/src/core/application/useCases/registerUser/RegisterUserInput'
+import { RegisterUserInputSchema } from '../../../../user/src/core/application/useCases/registerUser/RegisterUserInput.generated'
+import { useUserMachine } from '../../store'
 
 const Form = withTheme(AntDTheme)
 
