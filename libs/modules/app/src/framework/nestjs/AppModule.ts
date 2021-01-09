@@ -29,7 +29,7 @@ export const useCaseProviders: Array<Provider> = [
   {
     provide: AppDITokens.CreateAppUseCase,
     useFactory: (appRepository, moduleRef) =>
-      new CreateAppService(appRepository, moduleRef),
+      new CreateAppService(appRepository),
     inject: [AppDITokens.AppRepository, ModuleRef],
   },
 ]
