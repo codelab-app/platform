@@ -34,7 +34,7 @@ export const HeaderMenu = () => {
               <UserSignOutButton />
             </Menu.Item>
             <Menu.Item key="4" style={{ float: 'right' }}>
-              Hello, {userData.username}
+              Hello, {userData.email}
             </Menu.Item>
           </>
         ) : (

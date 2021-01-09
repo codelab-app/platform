@@ -56,8 +56,6 @@ describe('CreateAppUseCase', () => {
       .then((res) => res.body.data.registerUser)
   })
 
-  // beforeEach(async () => {})
-
   afterAll(async () => {
     await connection.close()
     await app.close()

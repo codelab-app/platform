@@ -1,7 +1,7 @@
 export const guestStates = {
   idle: {
     on: {
-      SIGN_UP: {
+      REGISTER_USER: {
         target: 'signingUp',
         actions: (_: any, event: any) => {
           console.log('signing up')

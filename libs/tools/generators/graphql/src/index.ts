@@ -1,6 +1,9 @@
 import { spawn } from 'child_process'
 import { getAsyncGenerators } from './generator'
 
+/**
+ * We're generating frontend graphql queries into gql wrapped functions to be used with apollo client
+ */
 export const main = async () => {
   const startServerCmd = `npx env-cmd -f .env cross-env PORT=4001 \
     node dist/apps/api/codelab/main.js`

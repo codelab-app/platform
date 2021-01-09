@@ -1,32 +1,42 @@
-import { Modal } from 'antd'
-import { ModalProps } from 'antd/lib/modal'
-import React from 'react'
+import { Alert, Modal } from 'antd'
+import React, { createRef } from 'react'
 import { useUserMachine } from '../../store/useUserMachine'
 import { RegisterUserForm } from './RegisterUserForm'
 import { useRootMachine } from '@codelab/frontend'
 
-const USER_SIGNUP_FORM = 'userSignupForm'
-
 export const RegisterUserModal = () => {
   const root = useRootMachine()
   const user = useUserMachine()
-  const sharedModalProps: ModalProps = {
-    visible: user.state.value.guest.signingUp === 'idle',
-    onCancel: () => root.send('ON_MODAL_CANCEL'),
-    onOk: () => root.send('ON_MODAL_OK'),
-  }
+  const submitBtnRef = createRef<HTMLButtonElement>()
+
+  const error =
+    user.state.event?.type === 'error.platform.executeRegister' &&
+    user.state.event?.data?.message
+      ? user.state.event.data.message
+      : undefined
 
   return (
     <Modal
-      okText="Sign Up"
+      okText="Register"
+      destroyOnClose
       okButtonProps={{
         htmlType: 'submit',
-        form: USER_SIGNUP_FORM, // This will trigger the form submission when OK is clicked
+        // form: USER_SIGNUP_FORM, // This will trigger the form submission when OK is clicked. Not working with rjsf, use submitBtnRef
         loading: user.state.value.guest?.signingUp === 'loading',
       }}
-      {...sharedModalProps}
+      visible={Boolean(user.state.value.guest?.signingUp)}
+      onCancel={() => root.send('ON_MODAL_CANCEL')}
+      onOk={() => {
+        if (!submitBtnRef.current)
+          throw new Error('Submit button ref not initialized')
+
+        submitBtnRef.current.click() // The form id trick doesn't seem to work with rjsf, so just call the click on the actual submit button
+        root.send('ON_MODAL_OK')
+      }}
     >
-      <RegisterUserForm formId={USER_SIGNUP_FORM} hasSubmitButton={false} />
+      <RegisterUserForm hasSubmitButton={false} submitBtnRef={submitBtnRef} />
+
+      {error && <Alert message={error} type="error" />}
     </Modal>
   )
 }

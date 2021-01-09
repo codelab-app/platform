@@ -1,53 +1,56 @@
-import { Button, Form, Input } from 'antd'
-import React from 'react'
+import { Theme as AntDTheme } from '@rjsf/antd'
+import { ISubmitEvent, withTheme } from '@rjsf/core'
+import { JSONSchema7 } from 'json-schema'
+import React, { useState } from 'react'
+import { LoginUserInputSchema } from '../../../../user/src/core/application/useCases/loginUser/LoginUserInput.generated'
+import { LoginUserRequest } from '../../../../user/src/core/application/useCases/loginUser/LoginUserRequest'
 import { useUserMachine } from '../../store'
+
+const Form = withTheme(AntDTheme)
 
 export const UserLoginForm = ({
   formId,
   hasSubmitButton = true,
+  submitBtnRef,
 }: {
   formId?: string
   hasSubmitButton?: boolean
+  submitBtnRef?: React.RefObject<HTMLButtonElement>
 }) => {
   const user = useUserMachine()
-  const isLoading = user.state.value.guest.signingUp === 'isLoading'
 
-  const onFinish = (values: object) => {
+  const [formData, setFormData] = useState<LoginUserRequest>({
+    email: '',
+    password: '',
+  })
+
+  const onSubmit = (e: ISubmitEvent<any>) => {
     user.send({
       type: 'ON_SUBMIT',
-      data: values,
+      data: e.formData,
     })
   }
 
   return (
     <Form
       id={formId}
-      name="basic"
-      layout="vertical"
-      initialValues={{ remember: true }}
-      onFinish={onFinish}
+      schema={LoginUserInputSchema as JSONSchema7}
+      uiSchema={{
+        password: {
+          'ui:widget': 'password',
+        },
+      }}
+      formData={formData}
+      onChange={(e) => setFormData(e.formData)}
+      onSubmit={onSubmit}
     >
-      <Form.Item
-        name="username"
-        rules={[{ required: true, message: 'Please input your username!' }]}
+      <button
+        ref={submitBtnRef}
+        type="submit"
+        style={hasSubmitButton ? undefined : { display: 'none' }}
       >
-        <Input placeholder="Username" />
-      </Form.Item>
-
-      <Form.Item
-        name="password"
-        rules={[{ required: true, message: 'Please input your password!' }]}
-      >
-        <Input.Password placeholder="Password" />
-      </Form.Item>
-
-      {hasSubmitButton && (
-        <Form.Item>
-          <Button loading={isLoading} type="primary" htmlType="submit">
-            Log in
-          </Button>
-        </Form.Item>
-      )}
+        Submit
+      </button>
     </Form>
   )
 }

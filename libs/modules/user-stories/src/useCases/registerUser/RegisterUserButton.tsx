@@ -6,8 +6,8 @@ export const RegisterUserButton = () => {
   const user = useUserMachine()
 
   const registerUserButtonProps = {
-    onClick: () => user.send('SIGN_UP'),
+    onClick: () => user.send('REGISTER_USER'),
   }
 
-  return <Button {...registerUserButtonProps}>Sign Up</Button>
+  return <Button {...registerUserButtonProps}>Register</Button>
 }

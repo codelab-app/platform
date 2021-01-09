@@ -1,27 +1,51 @@
-import { Machine } from 'xstate'
+import { Machine, assign } from 'xstate'
+import { getMeServices } from '../useCases/getMe'
 import {
   registerUserService,
   registerUserState,
 } from '../useCases/registerUser'
 import { userLoginState } from '../useCases/userLogin'
 import { userLoginServices } from '../useCases/userLogin/UserLoginServices'
-import { userSignOutServices, userSignOutState } from '../useCases/userSignout'
+import { clearAuthTokenInLocalStorage } from './userLocalStorage'
 
 export const createUserMachine = () => {
   const services = {
-    ...userSignOutServices,
     ...userLoginServices,
     ...registerUserService,
+    ...getMeServices,
   }
 
-  return Machine(
+  return Machine<any, any, any>(
     {
       id: 'user',
-      initial: 'guest',
+      initial: 'initialCheck',
       context: {
-        userData: undefined, // This is used to know: 1. Is the user authenticated? (!userData => not authenticated) and which user is authenticated (e.g. userData.username)
+        // This is used to know: 1. Is the user authenticated? (!userData => not authenticated) and which user is authenticated (e.g. userData.email)
+        userData: undefined,
       },
       states: {
+        initialCheck: {
+          invoke: {
+            src: 'executeGetMe',
+            onDone: {
+              target: '#authenticated',
+              actions: assign((context, event) => {
+                return {
+                  userData: event.data?.data?.getMe,
+                }
+              }),
+            },
+            onError: {
+              target: '#guest',
+              actions: [
+                assign({
+                  userData: undefined,
+                }),
+                () => clearAuthTokenInLocalStorage(),
+              ],
+            },
+          },
+        },
         guest: {
           id: 'guest',
           initial: 'idle',
@@ -29,7 +53,7 @@ export const createUserMachine = () => {
             idle: {
               id: 'userIdle',
               on: {
-                SIGN_UP: {
+                REGISTER_USER: {
                   target: 'signingUp',
                 },
                 LOGIN: {
@@ -48,11 +72,16 @@ export const createUserMachine = () => {
             idle: {
               on: {
                 SIGN_OUT: {
-                  target: 'signingOut',
+                  target: '#guest',
+                  actions: [
+                    assign({
+                      userData: undefined,
+                    }),
+                    () => clearAuthTokenInLocalStorage(),
+                  ],
                 },
               },
             },
-            signingOut: userSignOutState,
           },
         },
       },
