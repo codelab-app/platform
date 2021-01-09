@@ -1,16 +1,10 @@
 import { Module, Provider } from '@nestjs/common'
+import { ModuleRef } from '@nestjs/core'
 import { CqrsModule } from '@nestjs/cqrs'
-import { TypeOrmModule } from '@nestjs/typeorm'
 import { Connection } from 'typeorm'
-import { TypeOrmApp } from '../../../../../backend/src/infrastructure/persistence/typeorm/entity/TypeOrmApp'
-import { AddPageToAppCommandHandler } from '../../core/application/handlers/AddPageToAppCommandHandler'
 import { CreateAppCommandHandler } from '../../core/application/handlers/CreateAppCommandHandler'
-import { DeleteAppCommandHandler } from '../../core/application/handlers/DeleteAppCommandHandler'
-import { GetAppQueryHandler } from '../../core/application/handlers/GetAppQueryHandler'
-import { AppPageSaga } from '../../core/application/sagas/AppPage.saga'
+import { GetAppsQueryHandler } from '../../core/application/handlers/GetAppsQueryHandler'
 import { CreateAppService } from '../../core/application/useCases/createApp/CreateAppService'
-import { DeleteAppService } from '../../core/application/useCases/deleteApp/DeleteAppService'
-import { GetAppService } from '../../core/application/useCases/getApp/GetAppService'
 import { GetAppsService } from '../../core/application/useCases/getApps/GetAppsService'
 import { TypeOrmAppRepositoryAdapter } from '../../infrastructure/persistence/TypeOrmAppRepositoryAdapter'
 import { AppCommandQueryAdapter } from '../../presentation/controllers/AppCommandQueryAdapter'
@@ -33,33 +27,21 @@ export const useCaseProviders: Array<Provider> = [
     inject: [AppDITokens.AppRepository],
   },
   {
-    provide: AppDITokens.GetAppService,
-    useFactory: (appRepository) => new GetAppService(appRepository),
-    inject: [AppDITokens.AppRepository],
-  },
-  {
-    provide: AppDITokens.DeleteAppUseCase,
-    useFactory: (appRepository) => new DeleteAppService(appRepository),
-    inject: [AppDITokens.AppRepository],
-  },
-  {
     provide: AppDITokens.CreateAppUseCase,
-    useFactory: (appRepository) => new CreateAppService(appRepository),
-    inject: [AppDITokens.AppRepository],
+    useFactory: (appRepository, moduleRef) =>
+      new CreateAppService(appRepository, moduleRef),
+    inject: [AppDITokens.AppRepository, ModuleRef],
   },
 ]
 
 export const handlerProviders: Array<Provider> = [
-  AddPageToAppCommandHandler,
-  GetAppQueryHandler,
-  DeleteAppCommandHandler,
+  GetAppsQueryHandler,
   CreateAppCommandHandler,
 ]
 
 @Module({
-  imports: [CqrsModule, TypeOrmModule.forFeature([TypeOrmApp])],
+  imports: [CqrsModule],
   providers: [
-    AppPageSaga,
     ...persistenceProviders,
     ...useCaseProviders,
     ...handlerProviders,

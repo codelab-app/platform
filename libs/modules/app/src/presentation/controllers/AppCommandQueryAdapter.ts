@@ -56,4 +56,14 @@ export class AppCommandQueryAdapter implements CommandQueryBusPort {
 
     return result.toPlain()
   }
+
+  @Query((returns) => [AppDto])
+  async getApps(
+    @Args('request') request: GetAppsRequest,
+    @CurrentUser() userId: string,
+  ) {
+    const results = await this.queryBus.execute(new GetAppsQuery(request))
+
+    return results.toPlain()
+  }
 }

@@ -1,4 +1,5 @@
 import { ApolloLink } from '@apollo/client'
+import { authLink } from './authLink'
 import { codelabLink } from './codelabLink'
 import { errorLink } from './errorLink'
 // import { graphcmsLink } from './graphcmsLink'
@@ -9,4 +10,4 @@ import { errorLink } from './errorLink'
 //   graphcmsLink,
 // )
 
-export const combinedLink = ApolloLink.from([errorLink, codelabLink])
+export const combinedLink = ApolloLink.from([errorLink, authLink, codelabLink])

@@ -1,7 +1,9 @@
 import { assign } from 'xstate'
 import { StateNodeConfig } from 'xstate/lib/types'
+import { storeAuthTokenInLocalStorage } from '../../store'
 
 export const userLoginState: StateNodeConfig<any, any, any> = {
+  id: 'login',
   on: {
     ON_MODAL_CANCEL: {
       target: 'idle',
@@ -22,11 +24,17 @@ export const userLoginState: StateNodeConfig<any, any, any> = {
         src: 'executeLogIn',
         onDone: {
           target: '#authenticated',
-          actions: assign((context, event) => {
-            return {
-              userData: event.data,
-            }
-          }),
+          actions: [
+            assign((context, event) => {
+              return {
+                userData: event.data.data.loginUser,
+              }
+            }),
+            (context, event) =>
+              storeAuthTokenInLocalStorage(
+                event.data.data.loginUser.accessToken,
+              ),
+          ],
         },
         onError: {
           target: 'idle',
