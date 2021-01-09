@@ -14,8 +14,6 @@ import { User } from '@codelab/modules/user'
 export class TypeOrmAppRepositoryAdapter
   extends Repository<TypeOrmApp>
   implements AppRepositoryPort {
-  // private userRepository: Repository<TypeOrmUser> = getRepository(TypeOrmUser)
-
   async createApp(app: App, user: User): Promise<App> {
     const newApp = await this.save({
       ...app.toPersistence(),
@@ -39,18 +37,15 @@ export class TypeOrmAppRepositoryAdapter
   }
 
   async deleteApp(appId: string): Promise<Option<App>> {
-    let result: Option<App>
     const typeOrmApp = await this.findOne(appId)
 
-    if (typeOrmApp) {
-      const apps = await this.remove([typeOrmApp])
-
-      result = O.some(App.hydrate(apps[0]))
-    } else {
-      result = O.none
+    if (!typeOrmApp) {
+      return O.none
     }
 
-    return result
+    const apps = await this.remove([typeOrmApp])
+
+    return O.some(App.hydrate(apps[0]))
   }
 
   async findApp(by: FindAppBy): Promise<Option<App>> {

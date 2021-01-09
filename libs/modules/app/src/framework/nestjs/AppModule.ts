@@ -8,6 +8,7 @@ import { CreateAppCommandHandler } from '../../core/application/handlers/CreateA
 import { DeleteAppCommandHandler } from '../../core/application/handlers/DeleteAppCommandHandler'
 import { GetAppsQueryHandler } from '../../core/application/handlers/GetAppsQueryHandler'
 import { CreateAppService } from '../../core/application/useCases/createApp/CreateAppService'
+import { DeleteAppService } from '../../core/application/useCases/deleteApp/DeleteAppService'
 import { GetAppsService } from '../../core/application/useCases/getApps/GetAppsService'
 import { TypeOrmAppRepositoryAdapter } from '../../infrastructure/persistence/TypeOrmAppRepositoryAdapter'
 import { AppCommandQueryAdapter } from '../../presentation/controllers/AppCommandQueryAdapter'
@@ -36,9 +37,13 @@ export const useCaseProviders: Array<Provider> = [
     inject: [AppDITokens.AppRepository],
   },
   {
+    provide: AppDITokens.DeleteAppUseCase,
+    useFactory: (appRepository) => new DeleteAppService(appRepository),
+    inject: [AppDITokens.AppRepository],
+  },
+  {
     provide: AppDITokens.CreateAppUseCase,
-    useFactory: (appRepository, moduleRef) =>
-      new CreateAppService(appRepository),
+    useFactory: (appRepository) => new CreateAppService(appRepository),
     inject: [AppDITokens.AppRepository, ModuleRef],
   },
 ]
