@@ -53,6 +53,8 @@ describe('DeleteAppUseCase', () => {
         query: registerUserMutation({ email, password }),
       })
       .then((res) => res.body.data.registerUser)
+
+    console.log(user)
   })
 
   beforeEach(async () => {
@@ -94,20 +96,20 @@ describe('DeleteAppUseCase', () => {
       })
   })
 
-  // it('should return error for wrong app id', async () => {
-  //   const wrongAppId = '85e3fd3a-9dde-4c80-bd07-8cf126799698'
+  it('should return error for wrong app id', async () => {
+    const wrongAppId = '85e3fd3a-9dde-4c80-bd07-8cf126799698'
 
-  //   await request(app.getHttpServer())
-  //     .post('/graphql')
-  //     .set('Authorization', `Bearer ${user.accessToken}`)
-  //     .send({
-  //       query: deleteAppMutation({ appId: wrongAppId }),
-  //     })
-  //     .expect(200)
-  //     .expect((res) => {
-  //       const errorMsg = res.body.errors[0].message
+    await request(app.getHttpServer())
+      .post('/graphql')
+      .set('Authorization', `Bearer ${user.accessToken}`)
+      .send({
+        query: deleteAppMutation({ appId: wrongAppId }),
+      })
+      .expect(200)
+      .expect((res) => {
+        const errorMsg = res.body.errors[0].message
 
-  //       expect(errorMsg).toEqual(`The app with id ${wrongAppId} was not found`)
-  //     })
-  // })
+        expect(errorMsg).toEqual(`The app with id ${wrongAppId} was not found`)
+      })
+  })
 })
