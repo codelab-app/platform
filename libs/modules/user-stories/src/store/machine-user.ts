@@ -53,7 +53,7 @@ export const createUserMachine = () => {
             idle: {
               id: 'userIdle',
               on: {
-                SIGN_UP: {
+                REGISTER_USER: {
                   target: 'signingUp',
                 },
                 LOGIN: {
