@@ -1,13 +1,11 @@
 import { Module, Provider } from '@nestjs/common'
 import { CqrsModule, EventPublisher, QueryBus } from '@nestjs/cqrs'
-import { TypeOrmModule } from '@nestjs/typeorm'
 import { Connection } from 'typeorm'
 import { CreatePageCommandHandler } from '../../core/application/handlers/CreatePageCommandHandler'
 import { CreatePageService } from '../../core/application/useCases/createPage/CreatePageService'
 import { TypeOrmPageRepositoryAdapter } from '../../infrastructure/persistence/TypeOrmPageRepositoryAdapter'
 import { PageCommandQueryAdapter } from '../../presentation/controllers/PageCommandQueryAdapter'
 import { PageDITokens } from '../PageDITokens'
-import { TypeOrmPage } from '@codelab/backend'
 
 export const persistenceProviders: Array<Provider> = [
   {
@@ -31,7 +29,7 @@ const useCaseProviders: Array<Provider> = [
 export const handlerProviders: Array<Provider> = [CreatePageCommandHandler]
 
 @Module({
-  imports: [CqrsModule, TypeOrmModule.forFeature([TypeOrmPage])],
+  imports: [CqrsModule],
   providers: [
     ...persistenceProviders,
     ...useCaseProviders,

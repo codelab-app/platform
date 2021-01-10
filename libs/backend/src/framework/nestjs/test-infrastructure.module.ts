@@ -1,12 +1,29 @@
 import { Module, Provider } from '@nestjs/common'
-import { CqrsModule } from '@nestjs/cqrs'
+import { TypeOrmModule } from '@nestjs/typeorm'
 import { GraphqlModule } from '../../infrastructure'
 import { TestDatabaseModule } from '../../infrastructure/persistence/typeorm/TestDatabaseModule'
+import { TypeOrmApp } from '../../infrastructure/persistence/typeorm/entity/TypeOrmApp'
+import { TypeOrmEdge } from '../../infrastructure/persistence/typeorm/entity/TypeOrmEdge'
+import { TypeOrmGraph } from '../../infrastructure/persistence/typeorm/entity/TypeOrmGraph'
+import { TypeOrmPage } from '../../infrastructure/persistence/typeorm/entity/TypeOrmPage'
+import { TypeOrmUser } from '../../infrastructure/persistence/typeorm/entity/TypeOrmUser'
+import { TypeOrmVertex } from '../../infrastructure/persistence/typeorm/entity/TypeOrmVertex'
 
 const providers: Array<Provider> = []
 
 @Module({
-  imports: [CqrsModule, TestDatabaseModule, GraphqlModule],
+  imports: [
+    TestDatabaseModule,
+    GraphqlModule,
+    TypeOrmModule.forFeature([
+      TypeOrmUser,
+      TypeOrmApp,
+      TypeOrmGraph,
+      TypeOrmEdge,
+      TypeOrmVertex,
+      TypeOrmPage,
+    ]),
+  ],
   providers,
 })
 export class TestInfrastructureModule {}

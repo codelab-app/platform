@@ -1,9 +1,6 @@
 import { Module, Provider } from '@nestjs/common'
-import { ModuleRef } from '@nestjs/core'
 import { CqrsModule } from '@nestjs/cqrs'
-import { TypeOrmModule } from '@nestjs/typeorm'
 import { Connection } from 'typeorm'
-import { AddPageToAppCommandHandler } from '../../core/application/handlers/AddPageToAppCommandHandler'
 import { CreateAppCommandHandler } from '../../core/application/handlers/CreateAppCommandHandler'
 import { DeleteAppCommandHandler } from '../../core/application/handlers/DeleteAppCommandHandler'
 import { GetAppsQueryHandler } from '../../core/application/handlers/GetAppsQueryHandler'
@@ -13,7 +10,6 @@ import { GetAppsService } from '../../core/application/useCases/getApps/GetAppsS
 import { TypeOrmAppRepositoryAdapter } from '../../infrastructure/persistence/TypeOrmAppRepositoryAdapter'
 import { AppCommandQueryAdapter } from '../../presentation/controllers/AppCommandQueryAdapter'
 import { AppDITokens } from '../AppDITokens'
-import { TypeOrmApp } from '@codelab/backend'
 
 export const persistenceProviders: Array<Provider> = [
   {
@@ -44,19 +40,19 @@ export const useCaseProviders: Array<Provider> = [
   {
     provide: AppDITokens.CreateAppUseCase,
     useFactory: (appRepository) => new CreateAppService(appRepository),
-    inject: [AppDITokens.AppRepository, ModuleRef],
+    inject: [AppDITokens.AppRepository],
   },
 ]
 
 export const handlerProviders: Array<Provider> = [
-  AddPageToAppCommandHandler,
+  // AddPageToAppCommandHandler,
   GetAppsQueryHandler,
   CreateAppCommandHandler,
   DeleteAppCommandHandler,
 ]
 
 @Module({
-  imports: [CqrsModule, TypeOrmModule.forFeature([TypeOrmApp])],
+  imports: [CqrsModule],
   providers: [
     ...persistenceProviders,
     ...useCaseProviders,
