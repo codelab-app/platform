@@ -44,8 +44,8 @@ describe('LoginUserUseCase', () => {
 
     app = testModule.createNestApplication()
     connection = app.get(Connection)
-    await app.init()
     await connection.synchronize(true)
+    await app.init()
 
     user = await request(app.getHttpServer())
       .post('/graphql')
