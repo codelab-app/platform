@@ -1,4 +1,4 @@
-import { Machine, assign } from 'xstate'
+import { Machine, assign, sendParent } from 'xstate'
 import { getMeServices } from '../useCases/getMe'
 import {
   registerUserService,
@@ -78,6 +78,10 @@ export const createUserMachine = () => {
                       userData: undefined,
                     }),
                     () => clearAuthTokenInLocalStorage(),
+                    sendParent({
+                      type: 'NOTIFY',
+                      title: 'You have been signed out',
+                    }),
                   ],
                 },
               },

@@ -1,4 +1,4 @@
-import { assign } from 'xstate'
+import { assign, sendParent } from 'xstate'
 import { StateNodeConfig } from 'xstate/lib/types'
 import { storeAuthTokenInLocalStorage } from '../../store'
 
@@ -34,10 +34,25 @@ export const userLoginState: StateNodeConfig<any, any, any> = {
               storeAuthTokenInLocalStorage(
                 event.data.data.loginUser.accessToken,
               ),
+            sendParent((context, event) => {
+              return {
+                type: 'NOTIFY',
+                notificationType: 'success',
+                title: `Welcome back, ${event.data?.data?.loginUser?.email}`,
+              }
+            }),
           ],
         },
         onError: {
           target: 'idle',
+          actions: sendParent((context, event) => {
+            return {
+              type: 'NOTIFY',
+              title: 'Error while logging you in',
+              content: event?.data?.message,
+              notificationType: 'error',
+            }
+          }),
         },
       },
       on: {

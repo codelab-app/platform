@@ -1,6 +1,6 @@
 import { Alert, Modal } from 'antd'
 import React, { createRef } from 'react'
-import { useUserMachine } from '../../store/useUserMachine'
+import { useUserMachine } from '../../store'
 import { UserLoginForm } from './UserLoginForm'
 import { useRootMachine } from '@codelab/frontend'
 

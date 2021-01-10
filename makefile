@@ -205,7 +205,7 @@ unit-dev:
 
 unit-ci:
 	npx nx run-many \
-	--memoryLimit=4096 \
+	--memoryLimit=8192 \
 	--testPathPattern=[^i].spec.ts \
 	--target=test \
 	--all \

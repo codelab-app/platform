@@ -104,6 +104,9 @@
       ],
       "@codelab/tools/generators/graphql": [
         "libs/tools/generators/graphql/src/index.ts"
+      ],
+      "@codelab/modules/notification-stories": [
+        "libs/modules/notification-stories/src/index.ts"
       ]
     }
   },
