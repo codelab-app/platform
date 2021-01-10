@@ -38,5 +38,6 @@ module.exports = {
     '<rootDir>/libs/modules/auth',
     '<rootDir>/libs/modules/app',
     '<rootDir>/libs/tools/generators/graphql',
+    '<rootDir>/libs/modules/notification-stories',
   ],
 }
