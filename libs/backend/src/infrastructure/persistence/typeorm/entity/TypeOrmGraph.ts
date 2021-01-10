@@ -11,7 +11,7 @@ export class TypeOrmGraph extends BaseTypeOrm {
   declare label?: string
 
   @Column({ nullable: true })
-  declare pageId: string
+  declare pageId?: string
 
   @OneToMany((type) => TypeOrmVertex, (vertex) => vertex.graph, {
     cascade: true,

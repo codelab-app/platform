@@ -7,17 +7,17 @@ import { DeleteNodeCommand } from '../../core/application/commands/DeleteNodeCom
 import { MoveNodeCommand } from '../../core/application/commands/MoveNodeCommand'
 import { UpdateNodeCommand } from '../../core/application/commands/UpdateNodeCommand'
 import { GetGraphQuery } from '../../core/application/queries/GetGraphQuery'
-import { GraphUseCaseDto } from '../../core/application/useCases/GraphUseCaseDto'
-import { AddChildNodeRequest } from '../../core/application/useCases/addChildNode/AddChildNodeRequest'
-import { CreateGraphRequest } from '../../core/application/useCases/createGraph/CreateGraphRequest'
-import { DeleteNodeRequest } from '../../core/application/useCases/deleteNode/DeleteNodeRequest'
-import { GetGraphRequest } from '../../core/application/useCases/getGraph/GetGraphRequest'
-import { MoveNodeRequest } from '../../core/application/useCases/moveNode/MoveNodeRequest'
-import { UpdateNodeRequest } from '../../core/application/useCases/updateNode/UpdateNodeRequest'
+import { GraphDto } from '../../core/application/useCases/GraphDto'
+import { AddChildNodeInput } from '../../core/application/useCases/addChildNode/AddChildNodeInput'
+import { CreateGraphInput } from '../../core/application/useCases/createGraph/CreateGraphInput'
+import { DeleteNodeInput } from '../../core/application/useCases/deleteNode/DeleteNodeInput'
+import { GetGraphInput } from '../../core/application/useCases/getGraph/GetGraphInput'
+import { MoveNodeInput } from '../../core/application/useCases/moveNode/MoveNodeInput'
+import { UpdateNodeInput } from '../../core/application/useCases/updateNode/UpdateNodeInput'
 import { Graph } from '../../core/domain/graph/graph'
 import { CommandQueryBusPort, UseCaseRequestPort } from '@codelab/backend'
 
-@Resolver(() => GraphUseCaseDto)
+@Resolver(() => GraphDto)
 @Injectable()
 export class GraphCommandQueryAdapter implements CommandQueryBusPort {
   constructor(
@@ -25,48 +25,48 @@ export class GraphCommandQueryAdapter implements CommandQueryBusPort {
     readonly queryBus: QueryBus<UseCaseRequestPort>,
   ) {}
 
-  @Mutation(() => GraphUseCaseDto)
-  async createGraph(@Args('graph') request: CreateGraphRequest) {
+  @Mutation(() => GraphDto)
+  async createGraph(@Args('input') input: CreateGraphInput) {
     const graph: Graph = await this.commandBus.execute(
-      new CreateGraphCommand(request),
+      new CreateGraphCommand(input),
     )
 
     return graph.toPlain()
   }
 
-  @Mutation(() => GraphUseCaseDto)
-  async addChildNode(@Args('request') request: AddChildNodeRequest) {
+  @Mutation(() => GraphDto)
+  async addChildNode(@Args('input') input: AddChildNodeInput) {
     const graph: Graph = await this.commandBus.execute(
-      new AddChildNodeCommand(request),
+      new AddChildNodeCommand(input),
     )
 
     return graph.toPlain()
   }
 
-  @Mutation((returns) => GraphUseCaseDto)
-  async updateNode(@Args('request') request: UpdateNodeRequest) {
-    const result = await this.commandBus.execute(new UpdateNodeCommand(request))
+  @Mutation((returns) => GraphDto)
+  async updateNode(@Args('input') input: UpdateNodeInput) {
+    const result = await this.commandBus.execute(new UpdateNodeCommand(input))
 
     return result.toPlain()
   }
 
-  @Query((returns) => GraphUseCaseDto)
-  async graph(@Args('request') request: GetGraphRequest) {
-    const result = await this.queryBus.execute(new GetGraphQuery(request))
+  @Query((returns) => GraphDto)
+  async graph(@Args('input') input: GetGraphInput) {
+    const result = await this.queryBus.execute(new GetGraphQuery(input))
 
     return result.toPlain()
   }
 
-  @Mutation((returns) => GraphUseCaseDto)
-  async deleteNode(@Args('request') request: DeleteNodeRequest) {
-    const result = await this.commandBus.execute(new DeleteNodeCommand(request))
+  @Mutation((returns) => GraphDto)
+  async deleteNode(@Args('input') input: DeleteNodeInput) {
+    const result = await this.commandBus.execute(new DeleteNodeCommand(input))
 
     return result.toPlain()
   }
 
-  @Mutation((returns) => GraphUseCaseDto)
-  async moveNode(@Args('request') request: MoveNodeRequest) {
-    const result = await this.commandBus.execute(new MoveNodeCommand(request))
+  @Mutation((returns) => GraphDto)
+  async moveNode(@Args('input') input: MoveNodeInput) {
+    const result = await this.commandBus.execute(new MoveNodeCommand(input))
 
     return result.toPlain()
   }

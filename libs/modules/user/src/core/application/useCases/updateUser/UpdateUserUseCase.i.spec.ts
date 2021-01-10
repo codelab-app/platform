@@ -34,7 +34,7 @@ describe.skip('UpdateUserUseCase', () => {
     const email = 'test_user@codelab.ai'
     const createUserMutation = `
 			mutation {
-			  createUser(user:
+			  registerUser(input:
 				{
 				  email: "${email}",
 				  password: "password"
@@ -47,12 +47,12 @@ describe.skip('UpdateUserUseCase', () => {
       })
       .expect(200)
       .expect((res) => {
-        expect(res.body.data.createUser.email).toEqual(email)
+        expect(res.body.data.registerUser.email).toEqual(email)
       })
-    const newUserId = createNewUser.body.data.createUser.id
+    const newUserId = createNewUser.body.data.registerUser.id
     const updateUserMutation = `
 			mutation {
-				updateUser(user: {id: "${newUserId}" email: "test_user_edited@gmail.com"}) { email }
+				updateUser(input: {id: "${newUserId}" email: "test_user_edited@gmail.com"}) { email }
 			}
 		`
     const updateUser = await request(app.getHttpServer())
@@ -71,7 +71,7 @@ describe.skip('UpdateUserUseCase', () => {
     const email = 'test_user_edited@gmail.com'
     const updateUserMutation = `
 			mutation {
-				updateUser(user: {id: "93d12d99-0620-4c12-8a9d-be3aafeaf9f2" email: "${email}"}) { email }
+				updateUser(input: {id: "93d12d99-0620-4c12-8a9d-be3aafeaf9f2" email: "${email}"}) { email }
 			}
 		`
     const updateNonExistentUser = await request(app.getHttpServer())
