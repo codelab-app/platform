@@ -1,9 +1,7 @@
 import { Module, Provider } from '@nestjs/common'
 import { ModuleRef } from '@nestjs/core'
 import { CqrsModule } from '@nestjs/cqrs'
-import { TypeOrmModule } from '@nestjs/typeorm'
 import { Connection } from 'typeorm'
-import { TypeOrmAppRepositoryAdapter } from '../../../../app/src/infrastructure/persistence/TypeOrmAppRepositoryAdapter'
 import { DeleteUserCommandHandler } from '../../core/application/handlers/DeleteUserCommandHandler'
 import { GetMeQueryHandler } from '../../core/application/handlers/GetMeQueryHandler'
 import { GetUsersQueryHandler } from '../../core/application/handlers/GetUsersQueryHandler'
@@ -22,7 +20,7 @@ import { TypeOrmUserRepositoryAdapter } from '../../infrastructure/persistence/T
 import { UserCommandQueryAdapter } from '../../presentation/controllers/UserCommandQueryAdapter'
 import { UserDITokens } from '../UserDITokens'
 import { AuthModule } from './AuthModule'
-import { GqlAuthGuard, TypeOrmUser } from '@codelab/backend'
+import { GqlAuthGuard } from '@codelab/backend'
 
 export const persistenceProviders: Array<Provider> = [
   {
@@ -31,12 +29,12 @@ export const persistenceProviders: Array<Provider> = [
       connection.getCustomRepository(TypeOrmUserRepositoryAdapter),
     inject: [Connection],
   },
-  {
-    provide: UserDITokens.AppRepository,
-    useFactory: (connection) =>
-      connection.getCustomRepository(TypeOrmAppRepositoryAdapter),
-    inject: [Connection],
-  },
+  // {
+  //   provide: UserDITokens.AppRepository,
+  //   useFactory: (connection) =>
+  //     connection.getCustomRepository(TypeOrmAppRepositoryAdapter),
+  //   inject: [Connection],
+  // },
   UserCommandQueryAdapter,
 ]
 
@@ -91,7 +89,7 @@ export const handlerProviders: Array<Provider> = [
 ]
 
 @Module({
-  imports: [CqrsModule, AuthModule, TypeOrmModule.forFeature([TypeOrmUser])],
+  imports: [CqrsModule, AuthModule],
   providers: [
     GqlAuthGuard,
     ...persistenceProviders,

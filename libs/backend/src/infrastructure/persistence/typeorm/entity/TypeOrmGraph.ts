@@ -1,6 +1,4 @@
-import { ObjectType } from '@nestjs/graphql'
 import { AfterLoad, Column, Entity, ManyToOne, OneToMany } from 'typeorm'
-import { IGraph } from '../../../graphql/models/IGraph'
 import { EntityConfig } from '../../config/EntityConfig'
 import { BaseTypeOrm } from './BaseTypeOrm'
 import { TypeOrmApp } from './TypeOrmApp'
@@ -8,9 +6,6 @@ import { TypeOrmVertex } from './TypeOrmVertex'
 import { TypeOrmEdge, TypeOrmPage } from '@codelab/backend'
 
 @Entity(EntityConfig.GRAPH_ENTITY)
-@ObjectType({
-  implements: [IGraph],
-})
 export class TypeOrmGraph extends BaseTypeOrm {
   @Column({ type: 'text', nullable: true })
   declare label?: string

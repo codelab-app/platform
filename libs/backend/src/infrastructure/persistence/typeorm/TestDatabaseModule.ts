@@ -2,17 +2,23 @@ import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies'
 import { TestDatabaseConfig } from '../config/TestDatabaseConfig'
-import {
-  TypeOrmApp,
-  TypeOrmEdge,
-  TypeOrmGraph,
-  TypeOrmPage,
-  TypeOrmUser,
-  TypeOrmVertex,
-} from './entity'
+import { TypeOrmApp } from './entity/TypeOrmApp'
+import { TypeOrmEdge } from './entity/TypeOrmEdge'
+import { TypeOrmGraph } from './entity/TypeOrmGraph'
+import { TypeOrmPage } from './entity/TypeOrmPage'
+import { TypeOrmUser } from './entity/TypeOrmUser'
+import { TypeOrmVertex } from './entity/TypeOrmVertex'
 
 @Module({
   imports: [
+    TypeOrmModule.forFeature([
+      TypeOrmEdge,
+      TypeOrmGraph,
+      TypeOrmUser,
+      TypeOrmVertex,
+      TypeOrmPage,
+      TypeOrmApp,
+    ]),
     TypeOrmModule.forRoot({
       name: 'default',
       type: 'postgres',
@@ -31,7 +37,8 @@ import {
       ],
       autoLoadEntities: true,
       synchronize: true,
-      dropSchema: false,
+      dropSchema: true,
+      keepConnectionAlive: false,
       // logging: ['query', 'error', 'schema'],
       logging: ['error'],
       namingStrategy: new SnakeNamingStrategy(),

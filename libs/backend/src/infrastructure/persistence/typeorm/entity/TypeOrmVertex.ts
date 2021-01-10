@@ -1,20 +1,10 @@
-import { Injectable } from '@nestjs/common'
-import { ObjectType, registerEnumType } from '@nestjs/graphql'
 import { Column, Entity, ManyToOne } from 'typeorm'
 import { NodeType } from '../../../../common/types/NodeTypes'
-import { IVertex } from '../../../graphql/models/IVertex'
 import { EntityConfig } from '../../config/EntityConfig'
 import { BaseTypeOrm } from './BaseTypeOrm'
 import { TypeOrmGraph } from './TypeOrmGraph'
 
-registerEnumType(NodeType, {
-  name: 'NodeType',
-})
 @Entity(EntityConfig.VERTEX_ENTITY)
-@ObjectType({
-  implements: [IVertex],
-})
-@Injectable()
 export class TypeOrmVertex extends BaseTypeOrm {
   @Column({
     type: 'enum',

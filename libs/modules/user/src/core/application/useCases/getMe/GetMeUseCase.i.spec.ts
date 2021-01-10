@@ -2,10 +2,10 @@ import { INestApplication } from '@nestjs/common'
 import { Test } from '@nestjs/testing'
 import request from 'supertest'
 import { Connection } from 'typeorm'
+import { UserModule } from '../../../../framework/nestjs/UserModule'
 import { LoginUserRequest } from '../loginUser/LoginUserRequest'
 import { RegisterUserInput } from '../registerUser/RegisterUserInput'
 import { TestInfrastructureModule } from '@codelab/backend'
-import { UserModule } from '@codelab/modules/user'
 
 const email = 'test_user@codelab.ai'
 const password = 'password'
@@ -43,7 +43,6 @@ describe('GetMeUseCase', () => {
 
     app = testModule.createNestApplication()
     connection = app.get(Connection)
-    await connection.synchronize(true)
     await app.init()
   })
 
@@ -52,7 +51,6 @@ describe('GetMeUseCase', () => {
   })
 
   afterAll(async () => {
-    await connection.synchronize(true)
     await connection.close()
     await app.close()
   })

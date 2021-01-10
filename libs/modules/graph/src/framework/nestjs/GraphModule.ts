@@ -1,6 +1,5 @@
 import { Module, Provider } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
-import { TypeOrmModule } from '@nestjs/typeorm'
 import { Connection } from 'typeorm'
 import { AddChildNodeCommandHandler } from '../../core/application/handlers/AddChildNodeCommandHandler'
 import { AddGraphToPageCommandHandler } from '../../core/application/handlers/AddGraphToPageCommandHandler'
@@ -25,7 +24,6 @@ import { GraphDITokens } from '../GraphDITokens'
 import { VertexDITokens } from '../VertexDITokens'
 import { EdgeModule } from './EdgeModule'
 import { VertexModule } from './VertexModule'
-import { TypeOrmGraph } from '@codelab/backend'
 
 export const persistenceProviders: Array<Provider> = [
   {
@@ -109,12 +107,7 @@ export const handlerProviders: Array<Provider> = [
 ]
 
 @Module({
-  imports: [
-    CqrsModule,
-    VertexModule,
-    EdgeModule,
-    TypeOrmModule.forFeature([TypeOrmGraph]),
-  ],
+  imports: [CqrsModule, VertexModule, EdgeModule],
   providers: [
     GraphPageSaga,
     // GraphPageCreatedEventHandler,
