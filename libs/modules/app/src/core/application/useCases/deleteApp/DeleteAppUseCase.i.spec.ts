@@ -4,9 +4,9 @@ import request from 'supertest'
 import { Connection } from 'typeorm'
 import { RegisterUserInput } from '../../../../../../user/src/core/application/useCases/registerUser/RegisterUserInput'
 import { UserDto } from '../../../../../../user/src/presentation/UserDto'
+import { AppModule } from '../../../../framework/nestjs/AppModule'
 import { DeleteAppRequest } from './DeleteAppRequest'
 import { TestInfrastructureModule } from '@codelab/backend'
-import { AppModule } from '@codelab/modules/app'
 import { UserModule } from '@codelab/modules/user'
 
 const email = 'test_user@codelab.ai'
@@ -62,7 +62,6 @@ describe('DeleteAppUseCase', () => {
   })
 
   afterAll(async () => {
-    await connection.close()
     await app.close()
   })
 

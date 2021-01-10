@@ -8,12 +8,12 @@ import { GetAppsQuery } from '../../core/application/commands/GetAppsQuery'
 import { AppDto } from '../../core/application/useCases/AppDto'
 import { CreateAppInput } from '../../core/application/useCases/createApp/CreateAppInput'
 import { DeleteAppRequest } from '../../core/application/useCases/deleteApp/DeleteAppRequest'
-import { GetAppsRequest } from '../../core/application/useCases/getApps/GetAppsRequest'
 import {
   CommandQueryBusPort,
   CurrentUser,
   GqlAuthGuard,
   TypeOrmApp,
+  UUID,
   UseCaseRequestPort,
 } from '@codelab/backend'
 import { User } from '@codelab/modules/user'
@@ -40,11 +40,9 @@ export class AppCommandQueryAdapter implements CommandQueryBusPort {
   }
 
   @Query((returns) => [AppDto])
-  async getApps(
-    @Args('request') request: GetAppsRequest,
-    @CurrentUser() user: User,
-  ) {
-    const results = await this.queryBus.execute(new GetAppsQuery(request))
+  @UseGuards(GqlAuthGuard)
+  async getApps(@CurrentUser() user: User<UUID>) {
+    const results = await this.queryBus.execute(new GetAppsQuery({ user }))
 
     return classToPlain(results)
   }

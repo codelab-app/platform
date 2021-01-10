@@ -5,7 +5,7 @@ export const TransformBoth = (Cls: any) => {
   /**
    * Convert to primitive
    */
-  const toPlain = Transform((value) => value.toString(), {
+  const toPlain = Transform((value) => value?.toString(), {
     toPlainOnly: true,
   })
 
@@ -14,6 +14,11 @@ export const TransformBoth = (Cls: any) => {
    */
   const toClass = Transform(
     (value) => {
+      // If UUID is undefined, we skip transformation
+      if (Cls.name === 'UUID' && value === undefined) {
+        return undefined
+      }
+
       return ValueObject.create(Cls, value)
     },
     {

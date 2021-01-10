@@ -1,3 +1,5 @@
+import { PlusOutlined } from '@ant-design/icons'
+import { Button } from 'antd'
 import { useRouter } from 'next/router'
 import React from 'react'
 import {
@@ -52,22 +54,27 @@ const AppPage = () => {
   // }
 
   return (
-    <ResponsiveGridLayout
-      onDragStart={onDragStart}
-      // onDrag={onDrag}
-      onDrop={onDrop}
-      onDragStop={onDragStop}
-      onResizeStart={onResizeStart}
-      onResizeStop={onResizeStop}
-      className="layout"
-      layouts={layouts}
-      breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
-      cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }}
-    >
-      <div key="a">A</div>
-      <div key="b">B</div>
-      <div key="c">C</div>
-    </ResponsiveGridLayout>
+    <>
+      <ResponsiveGridLayout
+        onDragStart={onDragStart}
+        // onDrag={onDrag}
+        onDrop={onDrop}
+        onDragStop={onDragStop}
+        onResizeStart={onResizeStart}
+        onResizeStop={onResizeStop}
+        className="layout"
+        layouts={layouts}
+        breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
+        cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }}
+      >
+        <div key="a">A</div>
+        <div key="b">B</div>
+        <div key="c">C</div>
+      </ResponsiveGridLayout>
+      <Button type="dashed" block>
+        <PlusOutlined />
+      </Button>
+    </>
   )
 }
 

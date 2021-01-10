@@ -1,5 +1,6 @@
 import { OnModuleInit } from '@nestjs/common'
 import { ModuleRef } from '@nestjs/core'
+import { plainToClass } from 'class-transformer'
 import { left, right } from 'fp-ts/lib/Either'
 import { UserRepositoryPort } from '../../../adapters/UserRepositoryPort'
 import { User } from '../../../domain/user'
@@ -8,7 +9,7 @@ import { RegisterUserErrors } from './RegisterUserErrors'
 import { RegisterUserRequest } from './RegisterUserRequest'
 import { RegisterUserResponse } from './RegisterUserResponse'
 import { RegisterUserUseCase } from './RegisterUserUseCase'
-import { Result } from '@codelab/backend'
+import { NOID, Result } from '@codelab/backend'
 
 export class RegisterUserService implements RegisterUserUseCase, OnModuleInit {
   declare authService: AuthService
@@ -19,7 +20,9 @@ export class RegisterUserService implements RegisterUserUseCase, OnModuleInit {
   ) {}
 
   async execute(request: RegisterUserRequest): Promise<RegisterUserResponse> {
-    const user = User.create(request)
+    const user = plainToClass<User<NOID>, RegisterUserRequest>(User, request)
+
+    user.password.hashPassword()
 
     const userAlreadyExists = await this.userRepository.exists({
       email: user.email.toString(),

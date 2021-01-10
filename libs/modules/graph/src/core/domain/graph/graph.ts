@@ -1,6 +1,5 @@
 import arrayMove from 'array-move'
-import { Type, classToPlain, plainToClass } from 'class-transformer'
-import { CreateGraphRequest } from '../../application/useCases/createGraph/CreateGraphRequest'
+import { Type, plainToClass } from 'class-transformer'
 import { Edge } from '../edge'
 import { SerializedEdgeDto } from '../edge/dto/SerializedEdgeDto'
 import { Vertex } from '../vertex'
@@ -9,14 +8,23 @@ import { SerializedGraphDto } from './dto/SerializedGraphDto'
 import { GraphEdges } from './graph-edges'
 import { GraphLabel } from './graph-label'
 import { GraphVertices } from './graph-vertices'
-import { AggregateRoot, TransformBoth, TypeOrmGraph } from '@codelab/backend'
+import {
+  AggregateRoot,
+  NOID,
+  TransformBoth,
+  TypeOrmGraph,
+  UUID,
+} from '@codelab/backend'
 
 type VertexId = string
 
-export class Graph extends AggregateRoot<SerializedGraphDto> {
+export class Graph<ID extends UUID | NOID = UUID> extends AggregateRoot<
+  SerializedGraphDto,
+  ID
+> {
   @Type(() => GraphLabel)
   @TransformBoth(GraphLabel)
-  declare label?: GraphLabel
+  declare label: GraphLabel
 
   @Type(() => GraphVertices)
   @TransformBoth(GraphVertices)
@@ -171,35 +179,7 @@ export class Graph extends AggregateRoot<SerializedGraphDto> {
     })
   }
 
-  /**
-   * Used for instantiating a User object
-   * @param props
-   */
-  public static hydrate(props: SerializedGraphDto) {
-    const graph = plainToClass(Graph, props)
-
-    return graph
-  }
-
-  /**
-   * Used for creating User
-   * @param request
-   */
-  public static create(request: CreateGraphRequest): Graph {
-    const graph = Graph.hydrate(request)
-
-    return graph
-  }
-
-  toPlain() {
-    return classToPlain(this) as SerializedGraphDto
-  }
-
   toPersistence(): TypeOrmGraph {
     return plainToClass(TypeOrmGraph, this.toPlain())
-  }
-
-  public static arrayToPlain(graphs: Array<Graph>) {
-    return classToPlain(graphs) as Array<SerializedGraphDto>
   }
 }

@@ -160,8 +160,7 @@ integration-dev:
 integration-dev-affected:
 	npx nx affected:test \
 	--testPathPattern=i.spec.ts \
-	--runInBand \
-	--parallel
+	--runInBand
 
 integration-ci:
 	npx nx run-many \

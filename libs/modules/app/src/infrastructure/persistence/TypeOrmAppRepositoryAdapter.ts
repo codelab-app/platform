@@ -7,14 +7,14 @@ import { AppsWhere, FindAppBy } from '../../common/CommonTypes'
 import { isId } from '../../common/utils'
 import { AppRepositoryPort } from '../../core/adapters/AppRepositoryPort'
 import { App } from '../../core/domain/app'
-import { TypeOrmApp, UUID } from '@codelab/backend'
+import { NOID, TypeOrmApp, UUID } from '@codelab/backend'
 import { User } from '@codelab/modules/user'
 
 @EntityRepository(TypeOrmApp)
 export class TypeOrmAppRepositoryAdapter
   extends Repository<TypeOrmApp>
   implements AppRepositoryPort {
-  async createApp(app: App, user: User): Promise<App> {
+  async createApp(app: App<NOID>, user: User): Promise<App> {
     const newApp = await this.save({
       ...app.toPersistence(),
       user: user.toPersistence(),
@@ -33,7 +33,7 @@ export class TypeOrmAppRepositoryAdapter
       },
     })
 
-    return apps.map((app) => App.hydrate(app))
+    return apps.map((app) => plainToClass(App, app))
   }
 
   async deleteApp(appId: string): Promise<Option<App>> {
@@ -45,7 +45,7 @@ export class TypeOrmAppRepositoryAdapter
 
     const apps = await this.remove([typeOrmApp])
 
-    return O.some(App.hydrate(apps[0]))
+    return O.some(plainToClass(App, apps[0]))
   }
 
   async findApp(by: FindAppBy): Promise<Option<App>> {
@@ -55,7 +55,7 @@ export class TypeOrmAppRepositoryAdapter
       typeOrmApp = await this.findOne(by.id)
     }
 
-    return typeOrmApp ? O.some(App.hydrate(typeOrmApp)) : O.none
+    return typeOrmApp ? O.some(plainToClass(App, typeOrmApp)) : O.none
   }
 
   async addPageToApp(app: App, page: Page): Promise<void> {

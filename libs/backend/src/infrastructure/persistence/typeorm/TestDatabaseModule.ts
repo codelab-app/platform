@@ -37,7 +37,7 @@ import { TypeOrmVertex } from './entity/TypeOrmVertex'
       ],
       autoLoadEntities: false,
       synchronize: true,
-      dropSchema: true,
+      dropSchema: false,
       keepConnectionAlive: false,
       // logging: ['query', 'error', 'schema'],
       logging: ['error'],

@@ -1,3 +1,4 @@
+import { plainToClass } from 'class-transformer'
 import { EntityRepository, Repository } from 'typeorm'
 import { PageRepositoryPort } from '../../core/adapters/PageRepositoryPort'
 import { Page } from '../../core/domain/page'
@@ -11,6 +12,6 @@ export class TypeOrmPageRepositoryAdapter
     const typeOrmPage = page.toPersistence()
     const savedPageTypeOrm = await this.save(typeOrmPage)
 
-    return Page.hydrate(savedPageTypeOrm)
+    return plainToClass(Page, savedPageTypeOrm)
   }
 }

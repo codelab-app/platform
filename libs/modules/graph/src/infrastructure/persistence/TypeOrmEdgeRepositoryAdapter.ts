@@ -1,4 +1,4 @@
-import { classToPlain, plainToClass } from 'class-transformer'
+import { plainToClass } from 'class-transformer'
 import { option as O } from 'fp-ts'
 import { Option } from 'fp-ts/Option'
 import { EntityRepository, Repository } from 'typeorm'
@@ -34,7 +34,7 @@ export class TypeOrmEdgeRepositoryAdapter
 
     const newEdge = await this.save(typeOrmEdge)
 
-    return Edge.hydrate(newEdge)
+    return plainToClass(Edge, newEdge)
   }
 
   async deleteEdge(edge: Edge): Promise<Option<Edge>> {
@@ -42,7 +42,7 @@ export class TypeOrmEdgeRepositoryAdapter
     const edges = await this.remove([typeOrmEdge])
 
     return edges.length > 0
-      ? Promise.resolve(O.some(Edge.hydrate(edges[0])))
+      ? Promise.resolve(O.some(plainToClass(Edge, edges[0])))
       : O.none
   }
 
@@ -78,7 +78,7 @@ export class TypeOrmEdgeRepositoryAdapter
     }
 
     return typeOrmEdge
-      ? Promise.resolve(O.some(Edge.hydrate(typeOrmEdge)))
+      ? Promise.resolve(O.some(plainToClass(Edge, typeOrmEdge)))
       : O.none
   }
 
@@ -90,18 +90,15 @@ export class TypeOrmEdgeRepositoryAdapter
       ...edge.toPlain(),
     })
 
-    return Edge.hydrate(updatedEdge)
+    return plainToClass(Edge, updatedEdge)
   }
 
   async updateEdges(edges: Array<Edge>): Promise<Array<Edge>> {
-    const typeOrmEdges: Array<TypeOrmEdge> = Edge.arrayToPersistence(edges)
+    const typeOrmEdges: Array<TypeOrmEdge> = edges.map((edge) =>
+      edge.toPersistence(),
+    )
     const updatedEdges: Array<TypeOrmEdge> = await this.save(typeOrmEdges)
 
-    const domainEdges = (plainToClass(
-      Edge,
-      classToPlain(updatedEdges),
-    ) as any) as Array<Edge>
-
-    return domainEdges
+    return updatedEdges.map((edge) => plainToClass(Edge, edge))
   }
 }

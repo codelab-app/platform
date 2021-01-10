@@ -18,6 +18,7 @@ import {
   CurrentUser,
   GqlAuthGuard,
   TypeOrmUser,
+  UUID,
   UseCaseRequestPort,
 } from '@codelab/backend'
 
@@ -36,14 +37,6 @@ export class UserCommandQueryAdapter implements CommandQueryBusPort {
     readonly commandBus: CommandBus<UseCaseRequestPort>,
     readonly queryBus: QueryBus<UseCaseRequestPort>,
   ) {}
-
-  // Use email as placeholder for now
-  // @Query(() => [UserUseCaseDto])
-  // async users(@Args('email') request: GetUserRequest) {
-  //   const users = await this.queryBus.execute(new GetUsersQuery(request))
-
-  //   return User.arrayToPlain(users)
-  // }
 
   @Mutation((returns) => UserDto)
   async deleteUser(@Args('user') request: DeleteUserRequest) {
@@ -79,7 +72,7 @@ export class UserCommandQueryAdapter implements CommandQueryBusPort {
 
   @Query((returns) => UserDto)
   @UseGuards(GqlAuthGuard)
-  async getMe(@CurrentUser() user: User) {
+  async getMe(@CurrentUser() user: User<UUID>) {
     const request: GetMeRequest = { user }
     const result = await this.queryBus.execute(new GetMeQuery(request))
 
