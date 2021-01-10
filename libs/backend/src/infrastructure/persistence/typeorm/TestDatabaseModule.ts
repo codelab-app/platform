@@ -11,14 +11,14 @@ import { TypeOrmVertex } from './entity/TypeOrmVertex'
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([
-      TypeOrmEdge,
-      TypeOrmGraph,
-      TypeOrmUser,
-      TypeOrmVertex,
-      TypeOrmPage,
-      TypeOrmApp,
-    ]),
+    // TypeOrmModule.forFeature([
+    //   TypeOrmEdge,
+    //   TypeOrmGraph,
+    //   TypeOrmUser,
+    //   TypeOrmVertex,
+    //   TypeOrmPage,
+    //   TypeOrmApp,
+    // ]),
     TypeOrmModule.forRoot({
       name: 'default',
       type: 'postgres',
@@ -35,7 +35,7 @@ import { TypeOrmVertex } from './entity/TypeOrmVertex'
         TypeOrmPage,
         TypeOrmApp,
       ],
-      autoLoadEntities: true,
+      autoLoadEntities: false,
       synchronize: true,
       dropSchema: true,
       keepConnectionAlive: false,

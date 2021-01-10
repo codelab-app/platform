@@ -29,12 +29,6 @@ export const persistenceProviders: Array<Provider> = [
       connection.getCustomRepository(TypeOrmUserRepositoryAdapter),
     inject: [Connection],
   },
-  // {
-  //   provide: UserDITokens.AppRepository,
-  //   useFactory: (connection) =>
-  //     connection.getCustomRepository(TypeOrmAppRepositoryAdapter),
-  //   inject: [Connection],
-  // },
   UserCommandQueryAdapter,
 ]
 

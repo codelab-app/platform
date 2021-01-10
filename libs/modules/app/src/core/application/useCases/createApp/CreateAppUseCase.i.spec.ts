@@ -3,10 +3,11 @@ import { Test } from '@nestjs/testing'
 import request from 'supertest'
 import { Connection } from 'typeorm'
 import { RegisterUserInput } from '../../../../../../user/src/core/application/useCases/registerUser/RegisterUserInput'
+import { UserModule } from '../../../../../../user/src/framework/nestjs/UserModule'
 import { AppModule } from '../../../../framework/nestjs/AppModule'
 import { CreateAppInput } from './CreateAppInput'
 import { TestInfrastructureModule } from '@codelab/backend'
-import { UserDto, UserModule } from '@codelab/modules/user'
+import { UserDto } from '@codelab/modules/user'
 
 export const registerUserMutation = (registerUserInput: RegisterUserInput) => `
   mutation {

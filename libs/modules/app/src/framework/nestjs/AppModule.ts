@@ -1,8 +1,6 @@
 import { Module, Provider } from '@nestjs/common'
-import { ModuleRef } from '@nestjs/core'
 import { CqrsModule } from '@nestjs/cqrs'
 import { Connection } from 'typeorm'
-import { AddPageToAppCommandHandler } from '../../core/application/handlers/AddPageToAppCommandHandler'
 import { CreateAppCommandHandler } from '../../core/application/handlers/CreateAppCommandHandler'
 import { DeleteAppCommandHandler } from '../../core/application/handlers/DeleteAppCommandHandler'
 import { GetAppsQueryHandler } from '../../core/application/handlers/GetAppsQueryHandler'
@@ -42,12 +40,12 @@ export const useCaseProviders: Array<Provider> = [
   {
     provide: AppDITokens.CreateAppUseCase,
     useFactory: (appRepository) => new CreateAppService(appRepository),
-    inject: [AppDITokens.AppRepository, ModuleRef],
+    inject: [AppDITokens.AppRepository],
   },
 ]
 
 export const handlerProviders: Array<Provider> = [
-  AddPageToAppCommandHandler,
+  // AddPageToAppCommandHandler,
   GetAppsQueryHandler,
   CreateAppCommandHandler,
   DeleteAppCommandHandler,
