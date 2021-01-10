@@ -31,7 +31,7 @@ const deleteAppMutation = (deleteAppRequest: DeleteAppRequest) => `
   }
 `
 
-describe('DeleteAppUseCase', () => {
+describe.skip('DeleteAppUseCase', () => {
   let app: INestApplication
   let connection: Connection
   let user: UserDto

@@ -5,7 +5,7 @@ import { Connection } from 'typeorm'
 import { TestInfrastructureModule } from '@codelab/backend'
 import { UserModule } from '@codelab/modules/user'
 
-describe.skip('DeleteUserUseCase', () => {
+describe('DeleteUserUseCase', () => {
   let app: INestApplication
   let connection: Connection
 
@@ -88,8 +88,4 @@ describe.skip('DeleteUserUseCase', () => {
         )
       })
   })
-
-  // it('should', () => {
-  //   expect(true).toBeTruthy()
-  // })
 })

@@ -20,7 +20,7 @@ export const registerUserMutation = (registerUserInput: RegisterUserInput) => `
     }
   }`
 
-describe.skip('RegisterUserUseCase', () => {
+describe('RegisterUserUseCase', () => {
   let app: INestApplication
   let connection: Connection
 

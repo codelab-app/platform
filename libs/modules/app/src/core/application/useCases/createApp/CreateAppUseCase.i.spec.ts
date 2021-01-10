@@ -32,7 +32,7 @@ const createAppMutation = (createAppInput: CreateAppInput) => `
 const email = 'test_user@codelab.ai'
 const password = 'password'
 
-describe('CreateAppUseCase', () => {
+describe.skip('CreateAppUseCase', () => {
   let app: INestApplication
   let connection: Connection
   let user: UserDto

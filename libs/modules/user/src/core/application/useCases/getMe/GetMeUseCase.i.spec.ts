@@ -3,18 +3,18 @@ import { Test } from '@nestjs/testing'
 import request from 'supertest'
 import { Connection } from 'typeorm'
 import { UserModule } from '../../../../framework/nestjs/UserModule'
-import { LoginUserRequest } from '../loginUser/LoginUserRequest'
+import { LoginUserInput } from '../loginUser/LoginUserInput'
 import { RegisterUserInput } from '../registerUser/RegisterUserInput'
 import { TestInfrastructureModule } from '@codelab/backend'
 
 const email = 'test_user@codelab.ai'
 const password = 'password'
 
-const loginUserQuery = (loginUserRequest: LoginUserRequest) => `
+const loginUserQuery = (loginUserInput: LoginUserInput) => `
   mutation {
-    loginUser(request: {
-      email: "${loginUserRequest.email}",
-      password: "${loginUserRequest.password}"
+    loginUser(input: {
+      email: "${loginUserInput.email}",
+      password: "${loginUserInput.password}"
     }) {
       email
       accessToken
