@@ -1,40 +1,8 @@
 import { Machine, StateNodeConfig } from 'xstate'
 import { createAppService } from '../../useCases/createApp/CreateAppService'
-
-const createAppState: StateNodeConfig<any, any, any> = {
-  initial: 'fillingForm',
-  states: {
-    fillingForm: {
-      on: {
-        ON_SUBMIT: {
-          target: 'submitting',
-        },
-        ON_MODAL_CANCEL: {
-          target: '#app.idle',
-        },
-      },
-    },
-    submitting: {
-      invoke: {
-        src: 'createApp',
-        onDone: {
-          target: 'success',
-        },
-        onError: {
-          target: 'error',
-        },
-      },
-    },
-    success: {
-      entry: ['notifySuccess'],
-      on: { always: '#app.idle' },
-    },
-    error: {
-      entry: ['notifyError'],
-      on: { always: '#app.idle' },
-    },
-  },
-}
+import { createAppState } from '../../useCases/createApp/CreateAppState'
+import { getAppsService } from '../../useCases/getApps/GetAppsService'
+import { getAppsState } from '../../useCases/getApps/GetAppsState'
 
 const updateAppState: StateNodeConfig<any, any, any> = {
   initial: 'fillingForm',
@@ -42,18 +10,31 @@ const updateAppState: StateNodeConfig<any, any, any> = {
 }
 
 export const createAppMachine = () => {
-  const services = { ...createAppService }
+  const services = { ...createAppService, ...getAppsService }
 
   return Machine(
     {
       id: 'app',
       initial: 'idle',
-      context: {},
+      context: {
+        apps: undefined,
+      },
       states: {
         idle: {
           on: {
             ON_CREATE_APP: {
               target: 'creatingApp',
+            },
+            ON_GET_APPS: {
+              target: 'gettingApps',
+            },
+          },
+        },
+        gettingApps: getAppsState,
+        error: {
+          on: {
+            ON_GET_APPS: {
+              target: 'gettingApps',
             },
           },
         },
