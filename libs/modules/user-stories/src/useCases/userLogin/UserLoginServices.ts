@@ -4,7 +4,9 @@ import { mutate } from '@codelab/alpha/shared/utils'
 import { getApolloClient } from '@codelab/frontend'
 
 export const userLoginServices: Record<string, ServiceConfig<any, any>> = {
-  executeLogIn: (context, { data }) => {
+  executeLogIn: async (context, { data }) => {
+    await new Promise((resolve) => setTimeout(resolve, 500))
+
     return mutate(getApolloClient(), {
       mutation: UserLoginGql,
       variables: {

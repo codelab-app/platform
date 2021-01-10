@@ -1,19 +1,13 @@
-import { Alert, Modal } from 'antd'
+import { Modal } from 'antd'
 import React, { createRef } from 'react'
-import { useUserMachine } from '../../store/useUserMachine'
+import { useRootMachine } from '../../../../../frontend/src/infrastructure/machine/useRootMachine'
+import { useUserMachine } from '../../store'
 import { RegisterUserForm } from './RegisterUserForm'
-import { useRootMachine } from '@codelab/frontend'
 
 export const RegisterUserModal = () => {
   const root = useRootMachine()
   const user = useUserMachine()
   const submitBtnRef = createRef<HTMLButtonElement>()
-
-  const error =
-    user.state.event?.type === 'error.platform.executeRegister' &&
-    user.state.event?.data?.message
-      ? user.state.event.data.message
-      : undefined
 
   return (
     <Modal
@@ -35,8 +29,6 @@ export const RegisterUserModal = () => {
       }}
     >
       <RegisterUserForm hasSubmitButton={false} submitBtnRef={submitBtnRef} />
-
-      {error && <Alert message={error} type="error" />}
     </Modal>
   )
 }

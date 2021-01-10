@@ -1,4 +1,4 @@
-import { assign } from 'xstate'
+import { assign, sendParent } from 'xstate'
 import { StateNodeConfig } from 'xstate/lib/types'
 import { storeAuthTokenInLocalStorage } from '../../store'
 
@@ -33,10 +33,23 @@ export const registerUserState: StateNodeConfig<any, any, any> = {
               storeAuthTokenInLocalStorage(
                 event.data.data.registerUser.accessToken,
               ),
+            sendParent({
+              type: 'NOTIFY',
+              title: 'You have registered successfully!',
+              notificationType: 'success',
+            }),
           ],
         },
         onError: {
           target: 'idle',
+          actions: sendParent((context, event) => {
+            return {
+              type: 'NOTIFY',
+              title: 'Error while registering',
+              content: event?.data?.message,
+              notificationType: 'error',
+            }
+          }),
         },
       },
       on: {

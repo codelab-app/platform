@@ -4,17 +4,15 @@ import { mutate } from '@codelab/alpha/shared/utils'
 import { getApolloClient } from '@codelab/frontend'
 
 export const registerUserService: Record<string, ServiceConfig<any, any>> = {
-  registerUser: (context, { data }) => {
-    console.log(data)
+  registerUser: async (context, { data }) => {
+    // TODO: remove sleeping from registerUserService and loginUserService
+    await new Promise((resolve) => setTimeout(resolve, 500))
 
-    // TODO: replace mock with real API call
-    const results = mutate(getApolloClient(), {
+    return mutate(getApolloClient(), {
       mutation: RegisterUserGql,
-      variables: data,
+      variables: {
+        input: data,
+      },
     })
-
-    console.log(results)
-
-    return results
   },
 }
