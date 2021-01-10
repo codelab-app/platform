@@ -38,7 +38,7 @@ import { TypeOrmVertex } from './entity/TypeOrmVertex'
       autoLoadEntities: false,
       synchronize: true,
       dropSchema: false,
-      keepConnectionAlive: false,
+      keepConnectionAlive: true,
       // logging: ['query', 'error', 'schema'],
       logging: ['error'],
       namingStrategy: new SnakeNamingStrategy(),

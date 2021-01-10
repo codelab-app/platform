@@ -3,11 +3,11 @@ import { Test } from '@nestjs/testing'
 import request from 'supertest'
 import { Connection } from 'typeorm'
 import { RegisterUserInput } from '../../../../../../user/src/core/application/useCases/registerUser/RegisterUserInput'
+import { UserModule } from '../../../../../../user/src/framework/nestjs/UserModule'
 import { UserDto } from '../../../../../../user/src/presentation/UserDto'
 import { AppModule } from '../../../../framework/nestjs/AppModule'
 import { DeleteAppRequest } from './DeleteAppRequest'
 import { TestInfrastructureModule } from '@codelab/backend'
-import { UserModule } from '@codelab/modules/user'
 
 const email = 'test_user@codelab.ai'
 const password = 'password'
@@ -53,12 +53,6 @@ describe('DeleteAppUseCase', () => {
         query: registerUserMutation({ email, password }),
       })
       .then((res) => res.body.data.registerUser)
-
-    console.log(user)
-  })
-
-  beforeEach(async () => {
-    // await connection.synchronize(true)
   })
 
   afterAll(async () => {
