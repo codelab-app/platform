@@ -25,13 +25,13 @@ const registerUserMutation = (registerUserInput: RegisterUserInput) => `
 
 const deleteAppMutation = (deleteAppRequest: DeleteAppRequest) => `
   mutation {
-    deleteApp(request: { appId: "${deleteAppRequest.appId}" }) {
+    deleteApp(input: { appId: "${deleteAppRequest.appId}" }) {
       title
     }
   }
 `
 
-describe.skip('DeleteAppUseCase', () => {
+describe('DeleteAppUseCase', () => {
   let app: INestApplication
   let connection: Connection
   let user: UserDto
