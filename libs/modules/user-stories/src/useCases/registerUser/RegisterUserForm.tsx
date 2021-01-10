@@ -45,6 +45,9 @@ export const RegisterUserForm = ({
       onChange={(e) => setFormData(e.formData)}
       onSubmit={onSubmit}
     >
+      {/* This button exists because by default the Form from rjsf includes a submit button.
+       Since we don't want to use it and we want to submit with the modal button, we need to hide it.
+       So if we add our own button and hide it with display: none, it works */}
       <button
         ref={submitBtnRef}
         type="submit"
