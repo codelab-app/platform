@@ -56,7 +56,6 @@ describe('LoginUserUseCase', () => {
   })
 
   afterAll(async () => {
-    await connection.close()
     await app.close()
   })
 

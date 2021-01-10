@@ -18,7 +18,6 @@ describe.skip('GetGraphUseCase', () => {
   afterAll(async () => {
     const connection = app.get(Connection)
 
-    await connection.close()
     await app.close()
   })
 

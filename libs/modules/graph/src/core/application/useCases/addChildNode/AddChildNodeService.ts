@@ -48,7 +48,7 @@ export class AddChildNodeService implements AddChildNodeUseCase {
       graph.value,
     )
 
-    const newEdge: Edge = Edge.create({
+    const newEdge: Edge = new Edge({
       source: parentVertexId,
       target: newVertex.toPlain().id as string,
       order: order || 0,

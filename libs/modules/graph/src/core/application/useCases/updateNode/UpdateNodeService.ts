@@ -19,7 +19,7 @@ export class UpdateNodeService implements UpdateNodeUseCase {
   async execute(request: UpdateNodeRequest): Promise<UpdateNodeResponse> {
     const { graphId, type } = request
 
-    const vertex = Vertex.create(type)
+    const vertex = new Vertex(type)
 
     const updatedVertex: Option<Vertex> = await this.vertexRepository.updateVertex(
       vertex,

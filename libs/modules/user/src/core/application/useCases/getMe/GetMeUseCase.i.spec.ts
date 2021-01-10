@@ -51,7 +51,6 @@ describe('GetMeUseCase', () => {
   })
 
   afterAll(async () => {
-    await connection.close()
     await app.close()
   })
 

@@ -1,0 +1,6 @@
+query GetApps {
+  getApps {
+    id
+    title
+  }
+}

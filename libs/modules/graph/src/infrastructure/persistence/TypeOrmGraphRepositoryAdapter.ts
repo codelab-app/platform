@@ -7,7 +7,7 @@ import { FindGraphBy } from '../../common/CommonTypes'
 import { isGraphId, isPageId } from '../../common/utils'
 import { GraphRepositoryPort } from '../../core/adapters/GraphRepositoryPort'
 import { Graph } from '../../core/domain/graph/graph'
-import { TypeOrmGraph } from '@codelab/backend'
+import { NOID, TypeOrmGraph } from '@codelab/backend'
 
 @EntityRepository(TypeOrmGraph)
 export class TypeOrmGraphRepositoryAdapter
@@ -20,9 +20,10 @@ export class TypeOrmGraphRepositoryAdapter
     return Promise.resolve(graphs)
   }
 
-  async createGraph(graph: Graph): Promise<Graph> {
-    const typeOrmGraph = graph.toPersistence()
-    const newGraph = await this.save(typeOrmGraph)
+  async createGraph(graph: Graph<NOID>): Promise<Graph> {
+    const newGraph = await this.save({
+      ...graph.toPersistence(),
+    })
 
     return plainToClass(Graph, newGraph)
   }
@@ -57,7 +58,7 @@ export class TypeOrmGraphRepositoryAdapter
 
   async addGraphToPage(page: Page): Promise<Graph> {
     const typeOrmPage = page.toPersistence()
-    const newGraph = Graph.create({
+    const newGraph = new Graph({
       label: typeOrmPage.title,
     })
     const typeOrmGraph = newGraph.toPersistence()

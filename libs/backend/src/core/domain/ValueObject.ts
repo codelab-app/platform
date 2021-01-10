@@ -2,11 +2,10 @@ import { validateSync } from 'class-validator'
 import { RequestValidationError } from '../application/common/errors/RequestValidationError'
 
 export interface ValueObjectProps {
-  // value: any
   [index: string]: any
 }
 
-export abstract class ValueObject<P extends ValueObjectProps> {
+export class ValueObject<P extends ValueObjectProps> {
   protected props: P
 
   protected value: any
@@ -18,7 +17,7 @@ export abstract class ValueObject<P extends ValueObjectProps> {
   }
 
   public toString() {
-    return this.value
+    return this?.value
   }
 
   public static create<T = never, Props extends ValueObjectProps = {}>(

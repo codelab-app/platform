@@ -44,7 +44,6 @@ describe('CreateAppUseCase', () => {
 
     app = testModule.createNestApplication()
     connection = app.get(Connection)
-
     await connection.synchronize(true)
     await app.init()
 
@@ -55,10 +54,11 @@ describe('CreateAppUseCase', () => {
         query: registerUserMutation({ email, password }),
       })
       .then((res) => res.body.data.registerUser)
+
+    console.log('createAppUser', user)
   })
 
   afterAll(async () => {
-    await connection.close()
     await app.close()
   })
 

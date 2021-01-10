@@ -13,21 +13,14 @@ export class TypeOrmVertexRepositoryAdapter
   extends Repository<TypeOrmVertex>
   implements VertexRepositoryPort {
   async exists(searchBy: FindVertexBy): Promise<boolean> {
-    const vertex = await this.findOne(searchBy.id)
-
-    return !!vertex
+    return !!(await this.findOne(searchBy.id))
   }
 
-  async createVertex(vertex: Vertex, graph?: Graph): Promise<Vertex> {
-    const typeOrmVertex = vertex.toPersistence()
-
-    if (graph) {
-      const typeOrmGraph = graph.toPersistence()
-
-      typeOrmVertex.graph = typeOrmGraph
-    }
-
-    const newVertex = await this.save(typeOrmVertex)
+  async createVertex(vertex: Vertex, graph: Graph): Promise<Vertex> {
+    const newVertex = await this.save({
+      ...vertex.toPersistence(),
+      graph: graph.toPersistence(),
+    })
 
     return plainToClass(Vertex, newVertex)
   }
@@ -40,45 +33,39 @@ export class TypeOrmVertexRepositoryAdapter
   }
 
   async updateVertex(vertex: Vertex): Promise<Option<Vertex>> {
-    let result: Option<Vertex>
-    const typeOrmVertex = vertex.toPersistence()
-    const existingVertex = await this.findOne(typeOrmVertex.id)
+    const existingVertex = await this.findOne(vertex.id.value)
 
-    if (existingVertex) {
-      const updatedVertex = await this.save({
-        ...existingVertex,
-        ...vertex.toPlain(),
-      })
-
-      result = O.some(plainToClass(Vertex, updatedVertex))
-    } else {
-      result = O.none
+    if (!existingVertex) {
+      return O.none
     }
 
-    return result
+    const updatedVertex = await this.save({
+      ...existingVertex,
+      ...vertex.toPlain(),
+    })
+
+    return O.some(plainToClass(Vertex, updatedVertex))
   }
 
   async findVertex(by: FindVertexBy): Promise<Option<Vertex>> {
     const typeOrmVertex = await this.findOne(by.id)
 
-    return typeOrmVertex
-      ? Promise.resolve(O.some(plainToClass(Vertex, typeOrmVertex)))
-      : O.none
+    if (!typeOrmVertex) {
+      return O.none
+    }
+
+    return O.some(plainToClass(Vertex, typeOrmVertex))
   }
 
   async deleteVertex(vertexId: string): Promise<Option<Vertex>> {
-    let result: Option<Vertex>
     const typeOrmVertex = await this.findOne(vertexId)
 
-    if (typeOrmVertex) {
-      const vertices = await this.remove([typeOrmVertex])
-
-      // result = O.some(Vertex.hydrate(vertices[0]))
-      result = O.some(plainToClass(Vertex, vertices[0]))
-    } else {
-      result = O.none
+    if (!typeOrmVertex) {
+      return O.none
     }
 
-    return result
+    const vertices = await this.remove([typeOrmVertex])
+
+    return O.some(plainToClass(Vertex, vertices[0]))
   }
 }

@@ -22,7 +22,7 @@ describe.skip('UpdateUserUseCase', () => {
 
   afterAll(async () => {
     await connection.synchronize(true)
-    await connection.close()
+
     await app.close()
   })
 

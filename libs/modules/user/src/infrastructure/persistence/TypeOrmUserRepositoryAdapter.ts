@@ -6,7 +6,7 @@ import { FindUserBy } from '../../common/CommonTypes'
 import { isEmail, isId } from '../../common/utils'
 import { UserRepositoryPort } from '../../core/adapters/UserRepositoryPort'
 import { User } from '../../core/domain/user'
-import { TypeOrmUser } from '@codelab/backend'
+import { NOID, TypeOrmUser } from '@codelab/backend'
 
 @EntityRepository(TypeOrmUser)
 export class TypeOrmUserRepositoryAdapter
@@ -24,10 +24,10 @@ export class TypeOrmUserRepositoryAdapter
     return !!entity
   }
 
-  async createUser(user: User): Promise<User> {
+  async createUser(user: User<NOID>): Promise<User> {
     const newUser: TypeOrmUser = await this.save(user.toPlain())
 
-    return User.hydrate(newUser)
+    return plainToClass(User, newUser)
   }
 
   async deleteUser(user: User): Promise<Option<User>> {
@@ -35,7 +35,7 @@ export class TypeOrmUserRepositoryAdapter
     const users = await this.remove([typeOrmUser])
 
     return users.length > 0
-      ? Promise.resolve(O.some(User.hydrate(users[0])))
+      ? Promise.resolve(O.some(plainToClass(User, users[0])))
       : O.none
   }
 
@@ -44,7 +44,7 @@ export class TypeOrmUserRepositoryAdapter
       ...user.toPlain(),
     })
 
-    return User.hydrate(updatedUser)
+    return plainToClass(User, updatedUser)
   }
 
   async findUser(by: FindUserBy): Promise<Option<User>> {
@@ -65,7 +65,7 @@ export class TypeOrmUserRepositoryAdapter
     }
 
     return typeOrmUser
-      ? Promise.resolve(O.some(User.hydrate(typeOrmUser)))
+      ? Promise.resolve(O.some(plainToClass(User, typeOrmUser)))
       : O.none
   }
 }

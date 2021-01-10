@@ -2,22 +2,24 @@
 query root
 """
 type Query {
-  getApps(request: GetAppsRequest!): [App!]!
-  graph(request: GetGraphRequest!): GraphUseCaseDto!
   getMe: User!
+  getApps: [App!]!
+  graph(request: GetGraphRequest!): GraphUseCaseDto!
 }
 
 type Mutation {
+  deleteUser(user: DeleteUserRequest!): User!
+  updateUser(user: UpdateUserRequest!): User!
+  registerUser(input: RegisterUserInput!): User!
+  loginUser(request: LoginUserRequest!): User!
   createApp(input: CreateAppInput!): App!
+  deleteApp(request: DeleteAppRequest!): App!
   createGraph(graph: CreateGraphRequest!): GraphUseCaseDto!
   addChildNode(request: AddChildNodeRequest!): GraphUseCaseDto!
   updateNode(request: UpdateNodeRequest!): GraphUseCaseDto!
   deleteNode(request: DeleteNodeRequest!): GraphUseCaseDto!
   moveNode(request: MoveNodeRequest!): GraphUseCaseDto!
-  deleteUser(user: DeleteUserRequest!): User!
-  updateUser(user: UpdateUserRequest!): User!
-  registerUser(input: RegisterUserInput!): User!
-  loginUser(request: LoginUserRequest!): User!
+  createPage(request: CreatePageRequest!): PageUseCaseDto!
 }
 
 type TypeOrmVertex implements IVertex {
@@ -74,6 +76,7 @@ enum NodeType {
   React_InputNumber
   React_Select
   React_Select_Option
+  React_Grid_Layout_Container
   React_Grid
   React_ResponsiveGrid
   React_Provider
@@ -162,7 +165,14 @@ interface IEdge {
 }
 
 type App {
+  id: String!
   title: String!
+}
+
+type User {
+  id: String!
+  email: String!
+  accessToken: String
 }
 
 type EdgeUseCaseDto {
@@ -186,22 +196,41 @@ type GraphUseCaseDto {
   edges: [EdgeUseCaseDto!]!
 }
 
-type User {
+type PageUseCaseDto {
   id: String!
-  email: String!
-  accessToken: String
-}
-
-input GetAppsRequest {
-  userId: String!
+  title: String!
 }
 
 input GetGraphRequest {
-  graphId: String!
+  graphId: String
+  pageId: String
+}
+
+input DeleteUserRequest {
+  email: String!
+}
+
+input UpdateUserRequest {
+  id: String!
+  email: String!
+}
+
+input RegisterUserInput {
+  email: String!
+  password: String!
+}
+
+input LoginUserRequest {
+  email: String!
+  password: String!
 }
 
 input CreateAppInput {
   title: String!
+}
+
+input DeleteAppRequest {
+  appId: String!
 }
 
 input CreateGraphRequest {
@@ -245,21 +274,7 @@ input EdgeType {
   target: String!
 }
 
-input DeleteUserRequest {
-  email: String!
-}
-
-input UpdateUserRequest {
-  id: String!
-  email: String!
-}
-
-input RegisterUserInput {
-  email: String!
-  password: String!
-}
-
-input LoginUserRequest {
-  email: String!
-  password: String!
+input CreatePageRequest {
+  title: String!
+  appId: String!
 }

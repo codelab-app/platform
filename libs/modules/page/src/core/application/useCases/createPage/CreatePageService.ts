@@ -20,7 +20,7 @@ export class CreatePageService implements CreatePageUseCase {
 
   async execute(request: CreatePageRequest): Promise<CreatePageResponse> {
     const { appId } = request
-    const page = Page.create(request)
+    const page = new Page(request)
 
     const app: Option<App> = await this.queryBus.execute(
       new GetAppQuery({ appId }),

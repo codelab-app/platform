@@ -22,7 +22,7 @@ describe.skip('DeleteUserUseCase', () => {
 
   afterAll(async () => {
     await connection.synchronize(true)
-    await connection.close()
+
     await app.close()
   })
 

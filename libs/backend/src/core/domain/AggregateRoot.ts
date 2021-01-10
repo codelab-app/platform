@@ -1,15 +1,18 @@
 import { AggregateRoot as NestjsAggregateRoot } from '@nestjs/cqrs'
-import { classToPlain } from 'class-transformer'
-import { ValidateNested } from 'class-validator'
-import { Option } from 'fp-ts/Option'
+import { Type, classToPlain } from 'class-transformer'
+import { BaseTypeOrm } from '../../infrastructure/persistence/typeorm/entity/BaseTypeOrm'
 import { ValueObjectProps } from './ValueObject'
+import { NOID } from './valueObject/NOID'
 import { UUID } from './valueObject/UUID'
+import { TransformBoth } from '@codelab/backend'
 
-export class AggregateRoot<
-  P extends ValueObjectProps
+export abstract class AggregateRoot<
+  P extends ValueObjectProps,
+  ID extends UUID | NOID = UUID
 > extends NestjsAggregateRoot {
-  @ValidateNested()
-  declare id: Option<UUID>
+  @Type(() => UUID)
+  @TransformBoth(UUID)
+  declare id: ID
 
   constructor(props: P) {
     super()
@@ -19,4 +22,26 @@ export class AggregateRoot<
   toPlain() {
     return classToPlain(this)
   }
+
+  abstract toPersistence(): BaseTypeOrm
+
+  /**
+   * @typeparam T Domain class of model
+   * @typeparam M TypeOrm class of model
+   *
+   * @param this Domain class
+   * @param typeOrmModel
+   */
+  // static hydrate<T, Props extends ValueObjectProps>(
+  //   this: new (props: Props) => T,
+  //   props: Props,
+  // ): T {
+  //   const { id, ...restProps } = props
+
+  //   if (id === undefined) {
+  //     return plainToClass(this, restProps)
+  //   }
+
+  //   return plainToClass(this, props)
+  // }
 }

@@ -17,7 +17,7 @@ export class AddGraphToPageCommandHandler
   async execute({ page }: AddGraphToPageCommand) {
     const graph: Graph = await this.graphRepository.addGraphToPage(page)
 
-    const rootVertex = Vertex.create({
+    const rootVertex = new Vertex({
       type: 'React_Grid_Layout_Container',
       props: {},
     })

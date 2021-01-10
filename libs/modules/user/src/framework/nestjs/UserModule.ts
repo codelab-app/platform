@@ -40,8 +40,7 @@ export const useCaseProviders: Array<Provider> = [
   },
   {
     provide: UserDITokens.GetMeUseCase,
-    useFactory: (usersRepository) => new GetMeService(usersRepository),
-    inject: [UserDITokens.UserRepository],
+    useFactory: () => new GetMeService(),
   },
   {
     provide: UserDITokens.LoginUserUseCase,

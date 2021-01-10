@@ -5,7 +5,7 @@ import { UserDITokens } from '../../../framework/UserDITokens'
 import { User } from '../../domain/user'
 import { GetMeQuery } from '../commands/GetMeQuery'
 import { GetMeUseCase } from '../useCases/getMe/GetMeUseCase'
-import { Result } from '@codelab/backend'
+import { Result, UUID } from '@codelab/backend'
 
 @QueryHandler(GetMeQuery)
 export class GetMeQueryHandler implements IQueryHandler<GetMeQuery> {
@@ -14,14 +14,14 @@ export class GetMeQueryHandler implements IQueryHandler<GetMeQuery> {
     private readonly service: GetMeUseCase,
   ) {}
 
-  public async execute({ request }: GetMeQuery): Promise<User> {
-    const GetMeResults = await this.service.execute(request)
+  public async execute({ request }: GetMeQuery): Promise<User<UUID>> {
+    const getMeResults = await this.service.execute(request)
 
     return fold(
       (errors) => {
         throw errors
       },
-      (results: Result<User>) => results.value,
-    )(GetMeResults)
+      (results: Result<User<UUID>>) => results.value,
+    )(getMeResults)
   }
 }

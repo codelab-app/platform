@@ -22,7 +22,6 @@ describe.skip('GetAppsUseCase', () => {
   // })
 
   afterAll(async () => {
-    await connection.close()
     await app.close()
   })
 
