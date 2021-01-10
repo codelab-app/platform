@@ -20,6 +20,7 @@ export const RegisterUserForm = ({
   const user = useUserMachine()
 
   // TODO: register fields are not required, perhaps find a way to make them required in the schema through the generator
+  // The state is needed, because the rjsf doesn't keep any state. Every time this rerenders, the input values get lost
   const [formData, setFormData] = useState<RegisterUserInput>({
     email: '',
     password: '',

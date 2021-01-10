@@ -1,5 +1,5 @@
 import { Modal } from 'antd'
-import React, { createRef } from 'react'
+import React, { useRef } from 'react'
 import { useRootMachine } from '../../../../../frontend/src/infrastructure/machine/useRootMachine'
 import { useUserMachine } from '../../store'
 import { RegisterUserForm } from './RegisterUserForm'
@@ -7,7 +7,7 @@ import { RegisterUserForm } from './RegisterUserForm'
 export const RegisterUserModal = () => {
   const root = useRootMachine()
   const user = useUserMachine()
-  const submitBtnRef = createRef<HTMLButtonElement>()
+  const submitBtnRef = useRef<HTMLButtonElement>()
 
   return (
     <Modal
@@ -28,7 +28,10 @@ export const RegisterUserModal = () => {
         root.send('ON_MODAL_OK')
       }}
     >
-      <RegisterUserForm hasSubmitButton={false} submitBtnRef={submitBtnRef} />
+      <RegisterUserForm
+        hasSubmitButton={false}
+        submitBtnRef={submitBtnRef as any}
+      />
     </Modal>
   )
 }
