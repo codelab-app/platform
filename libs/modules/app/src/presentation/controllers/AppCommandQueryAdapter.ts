@@ -7,8 +7,7 @@ import { DeleteAppCommand } from '../../core/application/commands/DeleteAppComma
 import { GetAppsQuery } from '../../core/application/commands/GetAppsQuery'
 import { AppDto } from '../../core/application/useCases/AppDto'
 import { CreateAppInput } from '../../core/application/useCases/createApp/CreateAppInput'
-import { DeleteAppRequest } from '../../core/application/useCases/deleteApp/DeleteAppRequest'
-import { GetAppsRequest } from '../../core/application/useCases/getApps/GetAppsRequest'
+import { DeleteAppInput } from '../../core/application/useCases/deleteApp/DeleteAppInput'
 import {
   CommandQueryBusPort,
   CurrentUser,
@@ -40,18 +39,16 @@ export class AppCommandQueryAdapter implements CommandQueryBusPort {
   }
 
   @Query((returns) => [AppDto])
-  async getApps(
-    @Args('request') request: GetAppsRequest,
-    @CurrentUser() userId: string,
-  ) {
-    const results = await this.queryBus.execute(new GetAppsQuery(request))
+  @UseGuards(GqlAuthGuard)
+  async getApps(@CurrentUser() user: User) {
+    const results = await this.queryBus.execute(new GetAppsQuery({ user }))
 
     return classToPlain(results)
   }
 
   @Mutation((returns) => AppDto)
   @UseGuards(GqlAuthGuard)
-  async deleteApp(@Args('request') request: DeleteAppRequest) {
+  async deleteApp(@Args('input') request: DeleteAppInput) {
     const result = await this.commandBus.execute(new DeleteAppCommand(request))
 
     return result.toPlain()

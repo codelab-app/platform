@@ -6,11 +6,10 @@ import { GetMeQuery } from '../../core/application/commands/GetMeQuery'
 import { LoginUserCommand } from '../../core/application/commands/LoginUserCommand'
 import { RegisterUserCommand } from '../../core/application/commands/RegisterUserCommand'
 import { UpdateUserCommand } from '../../core/application/commands/UpdateUserCommand'
-import { DeleteUserRequest } from '../../core/application/useCases/deleteUser/DeleteUserRequest'
-import { GetMeRequest } from '../../core/application/useCases/getMe/GetMeRequest'
-import { LoginUserRequest } from '../../core/application/useCases/loginUser/LoginUserRequest'
+import { DeleteUserInput } from '../../core/application/useCases/deleteUser/DeleteUserInput'
+import { LoginUserInput } from '../../core/application/useCases/loginUser/LoginUserInput'
 import { RegisterUserInput } from '../../core/application/useCases/registerUser/RegisterUserInput'
-import { UpdateUserRequest } from '../../core/application/useCases/updateUser/UpdateUserRequest'
+import { UpdateUserInput } from '../../core/application/useCases/updateUser/UpdateUserInput'
 import { User } from '../../core/domain/user'
 import { UserDto } from '../UserDto'
 import {
@@ -37,25 +36,17 @@ export class UserCommandQueryAdapter implements CommandQueryBusPort {
     readonly queryBus: QueryBus<UseCaseRequestPort>,
   ) {}
 
-  // Use email as placeholder for now
-  // @Query(() => [UserUseCaseDto])
-  // async users(@Args('email') request: GetUserRequest) {
-  //   const users = await this.queryBus.execute(new GetUsersQuery(request))
-
-  //   return User.arrayToPlain(users)
-  // }
-
   @Mutation((returns) => UserDto)
-  async deleteUser(@Args('user') request: DeleteUserRequest) {
-    const user = await this.commandBus.execute(new DeleteUserCommand(request))
+  async deleteUser(@Args('input') input: DeleteUserInput) {
+    const user = await this.commandBus.execute(new DeleteUserCommand(input))
 
     return user.toPlain()
   }
 
   @Mutation((returns) => UserDto)
-  async updateUser(@Args('user') request: UpdateUserRequest) {
+  async updateUser(@Args('input') input: UpdateUserInput) {
     const user: User = await this.commandBus.execute(
-      new UpdateUserCommand(request),
+      new UpdateUserCommand(input),
     )
 
     return user.toPlain()
@@ -71,8 +62,8 @@ export class UserCommandQueryAdapter implements CommandQueryBusPort {
   }
 
   @Mutation((returns) => UserDto)
-  async loginUser(@Args('request') request: LoginUserRequest) {
-    const result = await this.queryBus.execute(new LoginUserCommand(request))
+  async loginUser(@Args('input') input: LoginUserInput) {
+    const result = await this.commandBus.execute(new LoginUserCommand(input))
 
     return result.toPlain()
   }
@@ -80,8 +71,7 @@ export class UserCommandQueryAdapter implements CommandQueryBusPort {
   @Query((returns) => UserDto)
   @UseGuards(GqlAuthGuard)
   async getMe(@CurrentUser() user: User) {
-    const request: GetMeRequest = { user }
-    const result = await this.queryBus.execute(new GetMeQuery(request))
+    const result = await this.queryBus.execute(new GetMeQuery({ user }))
 
     return result.toPlain()
   }

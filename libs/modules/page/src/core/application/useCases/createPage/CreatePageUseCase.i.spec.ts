@@ -2,8 +2,8 @@ import { INestApplication } from '@nestjs/common'
 import { Test } from '@nestjs/testing'
 import request from 'supertest'
 import { Connection } from 'typeorm'
-import { LoginUserRequest } from '../../../../../../user/src/core/application/useCases/loginUser/LoginUserRequest'
-import { RegisterUserRequest } from '../../../../../../user/src/core/application/useCases/registerUser/RegisterUserRequest'
+import { LoginUserInput } from '../../../../../../user/src/core/application/useCases/loginUser/LoginUserInput'
+import { RegisterUserInput } from '../../../../../../user/src/core/application/useCases/registerUser/RegisterUserInput'
 import { TestInfrastructureModule } from '@codelab/backend'
 import { AppModule } from '@codelab/modules/app'
 import { GraphModule } from '@codelab/modules/graph'
@@ -13,22 +13,22 @@ import { UserModule } from '@codelab/modules/user'
 const email = 'test_user@codelab.ai'
 const password = 'password'
 
-const loginUserQuery = (loginUserRequest: LoginUserRequest) => `
+const loginUserQuery = (loginUserInput: LoginUserInput) => `
   mutation {
-    loginUser(request: {
-      email: "${loginUserRequest.email}",
-      password: "${loginUserRequest.password}"
+    loginUser(input: {
+      email: "${loginUserInput.email}",
+      password: "${loginUserInput.password}"
     }) {
       email
       accessToken
     }
   }`
 
-const registerUserMutation = (registerUserRequest: RegisterUserRequest) => `
+const registerUserMutation = (registerUserInput: RegisterUserInput) => `
   mutation {
-    registerUser(request: {
-      email: "${registerUserRequest.email}",
-      password: "${registerUserRequest.password}"
+    registerUser(input: {
+      email: "${registerUserInput.email}",
+      password: "${registerUserInput.password}"
     }) {
       email
       accessToken
@@ -43,8 +43,8 @@ describe.skip('CreatePageUseCase', () => {
     const testModule = await Test.createTestingModule({
       imports: [
         TestInfrastructureModule,
-        PageModule,
         GraphModule,
+        PageModule,
         UserModule,
         AppModule,
       ],
@@ -52,12 +52,12 @@ describe.skip('CreatePageUseCase', () => {
 
     app = testModule.createNestApplication()
     connection = app.get(Connection)
-    await connection.synchronize(true)
     await app.init()
+    await connection.synchronize(true)
   })
 
   afterAll(async () => {
-    // await connection.synchronize(true)
+    await connection.synchronize(true)
     await connection.close()
     await app.close()
   })
@@ -85,7 +85,7 @@ describe.skip('CreatePageUseCase', () => {
     const { accessToken } = loginUser.body.data.loginUser
     const createAppMutation = `
       mutation {
-        createApp(request: {title: "Test App"}) { id title }
+        createApp(input: {title: "Test App"}) { id title }
       }
     `
     const createAppReq = await request(app.getHttpServer())
@@ -101,7 +101,7 @@ describe.skip('CreatePageUseCase', () => {
     const { id } = createAppReq.body.data.createApp
     const createPageMutation = `
       mutation {
-        createPage(request: {title: "Page 1", appId: "${id}"}) { id title }
+        createPage(input: {title: "Page 1", appId: "${id}"}) { id title }
       }
     `
     const createPageReq = await request(app.getHttpServer())
@@ -116,7 +116,7 @@ describe.skip('CreatePageUseCase', () => {
       })
     const pageId = createPageReq.body.data.createPage.id
     const graphQuery = `{
-      graph(request:{pageId: "${pageId}"}) { vertices { id type } }
+      graph(input:{pageId: "${pageId}"}) { vertices { id type } }
     }`
     const getGraphForPageReq = await request(app.getHttpServer())
       .post('/graphql')

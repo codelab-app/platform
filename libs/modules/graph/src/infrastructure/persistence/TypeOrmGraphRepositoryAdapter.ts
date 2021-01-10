@@ -57,12 +57,12 @@ export class TypeOrmGraphRepositoryAdapter
 
   async addGraphToPage(page: Page): Promise<Graph> {
     const typeOrmPage = page.toPersistence()
-    const newGraph = Graph.create({
-      label: typeOrmPage.title,
-    })
-    const typeOrmGraph = newGraph.toPersistence()
 
-    typeOrmGraph.page = typeOrmPage
+    const typeOrmGraph = await this.create({
+      label: typeOrmPage.title,
+      pageId: typeOrmPage.id,
+    })
+
     const typeOrmSavedGraph = await this.save(typeOrmGraph)
 
     return plainToClass(Graph, typeOrmSavedGraph)

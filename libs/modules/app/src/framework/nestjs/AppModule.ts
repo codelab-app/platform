@@ -7,6 +7,7 @@ import { AddPageToAppCommandHandler } from '../../core/application/handlers/AddP
 import { CreateAppCommandHandler } from '../../core/application/handlers/CreateAppCommandHandler'
 import { DeleteAppCommandHandler } from '../../core/application/handlers/DeleteAppCommandHandler'
 import { GetAppQueryHandler } from '../../core/application/handlers/GetAppQueryHandler'
+import { GetAppsQueryHandler } from '../../core/application/handlers/GetAppsQueryHandler'
 import { AppPageSaga } from '../../core/application/sagas/AppPage.saga'
 import { CreateAppService } from '../../core/application/useCases/createApp/CreateAppService'
 import { DeleteAppService } from '../../core/application/useCases/deleteApp/DeleteAppService'
@@ -52,6 +53,7 @@ export const useCaseProviders: Array<Provider> = [
 export const handlerProviders: Array<Provider> = [
   AddPageToAppCommandHandler,
   GetAppQueryHandler,
+  GetAppsQueryHandler,
   DeleteAppCommandHandler,
   CreateAppCommandHandler,
 ]

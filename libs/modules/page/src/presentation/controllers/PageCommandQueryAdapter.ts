@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common'
 import { CommandBus, QueryBus } from '@nestjs/cqrs'
 import { Args, Mutation, Resolver } from '@nestjs/graphql'
 import { CreatePageCommand } from '../../core/application/commands/CreatePageCommand'
-import { PageUseCaseDto } from '../../core/application/useCases/PageUseCaseDto'
-import { CreatePageRequest } from '../../core/application/useCases/createPage/CreatePageRequest'
+import { PageDto } from '../../core/application/useCases/PageDto'
+import { CreatePageInput } from '../../core/application/useCases/createPage/CreatePageInput'
 import { Page } from '../../core/domain/page'
 import {
   CommandQueryBusPort,
@@ -19,10 +19,10 @@ export class PageCommandQueryAdapter implements CommandQueryBusPort {
     readonly queryBus: QueryBus<UseCaseRequestPort>,
   ) {}
 
-  @Mutation(() => PageUseCaseDto)
-  async createPage(@Args('request') request: CreatePageRequest) {
+  @Mutation(() => PageDto)
+  async createPage(@Args('input') input: CreatePageInput) {
     const page: Page = await this.commandBus.execute(
-      new CreatePageCommand(request),
+      new CreatePageCommand(input),
     )
     const plainPage = page.toPlain()
 

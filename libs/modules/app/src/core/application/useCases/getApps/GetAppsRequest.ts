@@ -1,7 +1,5 @@
-import { Field, InputType } from '@nestjs/graphql'
+import { User } from '@codelab/modules/user'
 
-@InputType()
 export class GetAppsRequest {
-  @Field()
-  declare userId: string
+  declare user: User
 }

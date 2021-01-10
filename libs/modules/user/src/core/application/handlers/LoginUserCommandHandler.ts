@@ -1,5 +1,5 @@
 import { Inject } from '@nestjs/common'
-import { IQueryHandler, QueryHandler } from '@nestjs/cqrs'
+import { CommandHandler, IQueryHandler } from '@nestjs/cqrs'
 import { fold } from 'fp-ts/lib/Either'
 import { UserDITokens } from '../../../framework/UserDITokens'
 import { User } from '../../domain/user'
@@ -7,7 +7,7 @@ import { LoginUserCommand } from '../commands/LoginUserCommand'
 import { LoginUserUseCase } from '../useCases/loginUser/LoginUserUseCase'
 import { Result } from '@codelab/backend'
 
-@QueryHandler(LoginUserCommand)
+@CommandHandler(LoginUserCommand)
 export class LoginUserCommandHandler
   implements IQueryHandler<LoginUserCommand> {
   constructor(
