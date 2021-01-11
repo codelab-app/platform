@@ -24,6 +24,7 @@ export const CreateAppModal = () => {
       }}
       onCancel={() => root.send('ON_MODAL_CANCEL')}
       onOk={() => root.send('ON_MODAL_OK')}
+      destroyOnClose
     >
       <CreateAppForm
         formId={CREATE_APP_FORM}

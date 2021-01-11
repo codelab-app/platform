@@ -1,10 +1,10 @@
 import { Button, Col, Empty, Row } from 'antd'
 import React, { useEffect } from 'react'
 import { useAppMachine } from '../../model'
+import { useDeleteApp } from '../deleteApp'
 import GetAppsItem from './GetAppsItem'
 
 export const GetAppsList = () => {
-  // Xstate init
   const app = useAppMachine()
   const appsList = app.state.context.apps
   const isLoading =
@@ -14,7 +14,8 @@ export const GetAppsList = () => {
   // XState event senders
   const refresh = () => app.send('ON_GET_APPS')
   const create = () => app.send('ON_CREATE_APP')
-  const deleteApp = (id: string) => app.send({ type: 'ON_DELETE_APP', id })
+
+  const { handleDeleteClick } = useDeleteApp()
 
   useEffect(() => {
     refresh() // Initialize the apps on the first render
@@ -24,13 +25,21 @@ export const GetAppsList = () => {
   const appsGrid = (
     <>
       <Row gutter={[16, 16]}>
-        {(appsList && appsList.length > 0 ? appsList : [0, 0, 0, 0, 0, 0]).map(
+        {(appsList && appsList.length > 0 ? appsList : [0, 1, 2, 3, 4, 5]).map(
           (item: any) => (
-            <Col className="gutter-row" span={6} xs={24} sm={12} md={8} lg={8}>
+            <Col
+              key={typeof item === 'number' ? item : item.id}
+              className="gutter-row"
+              span={6}
+              xs={24}
+              sm={12}
+              md={8}
+              lg={8}
+            >
               <GetAppsItem
                 app={item}
                 loading={isLoading}
-                onDeleteConfirmed={deleteApp}
+                handleDeleteClick={handleDeleteClick}
               />
             </Col>
           ),
