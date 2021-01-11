@@ -1,4 +1,6 @@
 export class AppDITokens {
+  public static readonly GetAppUseCase: unique symbol = Symbol('GetAppUseCase')
+
   public static readonly GetAppsUseCase: unique symbol = Symbol(
     'GetAppsUseCase',
   )

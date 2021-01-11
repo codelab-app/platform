@@ -1,5 +1,5 @@
 import { GetAppRequest } from '../useCases/getApp/GetAppRequest'
 
-export class GetAppQuery {
+export class GetAppByIdQuery {
   constructor(public readonly request: GetAppRequest) {}
 }

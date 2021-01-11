@@ -2,13 +2,13 @@ import { INestApplication } from '@nestjs/common'
 import { Test } from '@nestjs/testing'
 import request from 'supertest'
 import { Connection } from 'typeorm'
-import { CreateGraphRequest } from './CreateGraphRequest'
+import { CreateGraphInput } from './CreateGraphInput'
 import { TestInfrastructureModule } from '@codelab/backend'
 import { GraphModule } from '@codelab/modules/graph'
 
-const createGraphMutation = ({ label }: CreateGraphRequest) => `
+const createGraphMutation = ({ label }: CreateGraphInput) => `
   mutation {
-		createGraph(graph: {
+		createGraph(input: {
       label: "${label}"
     }) {
       id
@@ -16,7 +16,7 @@ const createGraphMutation = ({ label }: CreateGraphRequest) => `
     }
   }`
 
-describe.skip('CreateGraphUseCase', () => {
+describe('CreateGraphUseCase', () => {
   let app: INestApplication
   let connection: Connection
 

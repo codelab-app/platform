@@ -1,7 +1,7 @@
 import { EventPublisher, QueryBus } from '@nestjs/cqrs'
 import { Option, isNone } from 'fp-ts/Option'
 import { left, right } from 'fp-ts/lib/Either'
-import { GetAppQuery } from '../../../../../../app/src/core/application/queries/GetAppQuery'
+import { GetAppByIdQuery } from '../../../../../../app/src/core/application/queries/GetAppByIdQuery'
 import { App } from '../../../../../../app/src/core/domain/app'
 import { PageRepositoryPort } from '../../../adapters/PageRepositoryPort'
 import { Page } from '../../../domain/page'
@@ -23,7 +23,7 @@ export class CreatePageService implements CreatePageUseCase {
     const page = new Page(request)
 
     const app: Option<App> = await this.queryBus.execute(
-      new GetAppQuery({ appId }),
+      new GetAppByIdQuery({ appId }),
     )
 
     if (isNone(app)) {
