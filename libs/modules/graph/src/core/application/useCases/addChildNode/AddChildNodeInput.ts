@@ -1,5 +1,4 @@
 import { Field, InputType } from '@nestjs/graphql'
-import { VertexID } from '../../../../common/CommonTypes'
 import { AddChildNodeVertexType } from '../inputTypes/AddChildNodeVertexType'
 
 @InputType()
@@ -8,7 +7,7 @@ export class AddChildNodeInput {
   declare graphId: string
 
   @Field((returns) => String, { nullable: true })
-  declare parentVertexId: VertexID
+  declare parentVertexId: string
 
   @Field((returns) => AddChildNodeVertexType)
   declare vertex: AddChildNodeVertexType

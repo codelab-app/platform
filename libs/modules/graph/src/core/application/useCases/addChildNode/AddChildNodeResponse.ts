@@ -1,4 +1,4 @@
-import { Either } from 'fp-ts/lib/Either'
+import { Either } from 'fp-ts/Either'
 import { Graph } from '../../../domain/graph/graph'
 import { AddChildNodeErrors } from './AddChildNodeErrors'
 import { Result } from '@codelab/backend'

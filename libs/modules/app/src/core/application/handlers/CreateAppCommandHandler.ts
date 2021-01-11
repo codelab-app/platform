@@ -1,6 +1,6 @@
 import { Inject } from '@nestjs/common'
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs'
-import { fold } from 'fp-ts/lib/Either'
+import { fold } from 'fp-ts/Either'
 import { AppDITokens } from '../../../framework/AppDITokens'
 import { App } from '../../domain/app'
 import { CreateAppCommand } from '../commands/CreateAppCommand'

@@ -2,7 +2,6 @@ import { Type, plainToClass } from 'class-transformer'
 import { IsOptional } from 'class-validator'
 import { SerializedVertexDto } from './dto/SerializedVertexDto'
 import { VertexGraphId } from './vertex-graphId'
-import { VertexParent } from './vertex-parent'
 import { VertexType } from './vertex-type'
 import {
   AggregateRoot,
@@ -24,15 +23,15 @@ export class Vertex<ID extends UUID | NOID = UUID> extends AggregateRoot<
   @IsOptional()
   declare props?: any
 
-  @Type(() => VertexParent)
-  @TransformBoth(VertexParent)
-  @IsOptional()
-  declare parent?: VertexParent
+  // @Type(() => VertexParent)
+  // @TransformBoth(VertexParent)
+  // @IsOptional()
+  // declare parent?: VertexParent
 
   @Type(() => VertexGraphId)
   @TransformBoth(VertexGraphId)
-  @IsOptional()
-  declare graphId?: VertexGraphId
+  // @IsOptional()
+  declare graphId: VertexGraphId
 
   toPersistence(): TypeOrmVertex {
     return plainToClass(TypeOrmVertex, this.toPlain())

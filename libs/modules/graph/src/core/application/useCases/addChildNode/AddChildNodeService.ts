@@ -1,7 +1,7 @@
 import { plainToClass } from 'class-transformer'
+import { left, right } from 'fp-ts/Either'
 import { Option, fold, isNone } from 'fp-ts/Option'
 import { pipe } from 'fp-ts/function'
-import { left, right } from 'fp-ts/lib/Either'
 import { EdgeRepositoryPort } from '../../../adapters/EdgeRepositoryPort'
 import { GraphRepositoryPort } from '../../../adapters/GraphRepositoryPort'
 import { VertexRepositoryPort } from '../../../adapters/VertexRepositoryPort'
@@ -24,8 +24,8 @@ export class AddChildNodeService implements AddChildNodeUseCase {
   async execute(request: AddChildNodeRequest): Promise<AddChildNodeResponse> {
     const { graphId, parentVertexId, vertex, order } = request
 
-    const graph: Option<Graph> = await this.graphRepository.findGraphBy({
-      id: graphId,
+    const graph: Option<Graph> = await this.graphRepository.findOne({
+      graphId,
     })
 
     if (isNone(graph)) {
@@ -33,7 +33,7 @@ export class AddChildNodeService implements AddChildNodeUseCase {
     }
 
     const parentVertexExists = await this.vertexRepository.exists({
-      id: parentVertexId,
+      vertexId: parentVertexId,
     })
 
     if (!parentVertexExists) {
@@ -43,7 +43,7 @@ export class AddChildNodeService implements AddChildNodeUseCase {
     /**
      * After all invariant checks
      */
-    const newVertex = await this.vertexRepository.createVertex(
+    const newVertex = await this.vertexRepository.create(
       plainToClass(Vertex, vertex),
       graph.value,
     )
@@ -55,10 +55,10 @@ export class AddChildNodeService implements AddChildNodeUseCase {
       props: {},
     })
 
-    await this.edgeRepository.createEdge(newEdge, graph.value)
+    await this.edgeRepository.create(newEdge, graph.value)
 
-    const newGraph = await this.graphRepository.findGraphBy({
-      id: graphId,
+    const newGraph = await this.graphRepository.findOne({
+      graphId,
     })
 
     return pipe(

@@ -1,5 +1,5 @@
-import { Either } from 'fp-ts/lib/Either'
-import { Option } from 'fp-ts/lib/Option'
+import { Either } from 'fp-ts/Either'
+import { Option } from 'fp-ts/Option'
 import { App } from '../../../domain/app'
 import { GetAppErrors } from './GetAppErrors'
 import { Result } from '@codelab/backend'

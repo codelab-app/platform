@@ -1,6 +1,6 @@
 import { Inject } from '@nestjs/common'
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs'
-import { fold } from 'fp-ts/lib/Either'
+import { fold } from 'fp-ts/Either'
 import { PageDITokens } from '../../../framework/PageDITokens'
 import { Page } from '../../domain/page'
 import { CreatePageCommand } from '../commands/CreatePageCommand'

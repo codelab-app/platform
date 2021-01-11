@@ -1,59 +1,67 @@
 import { plainToClass } from 'class-transformer'
 import { option as O } from 'fp-ts'
 import { Option } from 'fp-ts/Option'
-import { EntityRepository, Repository } from 'typeorm'
+import { AbstractRepository, EntityRepository } from 'typeorm'
 import { Page } from '../../../../page/src/core/domain/page'
-import { FindGraphBy } from '../../common/CommonTypes'
+import { ByGraphCondition } from '../../common/QueryConditions'
 import { isGraphId, isPageId } from '../../common/utils'
 import { GraphRepositoryPort } from '../../core/adapters/GraphRepositoryPort'
-import { Graph } from '../../core/domain/graph/graph'
+import { Graph } from '../../core/domain/graph'
 import { NOID, TypeOrmGraph } from '@codelab/backend'
 
 @EntityRepository(TypeOrmGraph)
 export class TypeOrmGraphRepositoryAdapter
-  extends Repository<TypeOrmGraph>
+  extends AbstractRepository<TypeOrmGraph>
   implements GraphRepositoryPort {
   async findAll(): Promise<Array<Graph>> {
-    const graphsTypeOrm: Array<TypeOrmGraph> = await this.find()
+    const graphsTypeOrm: Array<TypeOrmGraph> = await this.repository.find()
     const graphs = plainToClass(Graph, graphsTypeOrm)
 
     return Promise.resolve(graphs)
   }
 
-  async createGraph(graph: Graph<NOID>): Promise<Graph> {
-    const newGraph = await this.save({
+  async create(graph: Graph<NOID>): Promise<Graph> {
+    const newGraph = await this.repository.save({
       ...graph.toPersistence(),
     })
 
     return plainToClass(Graph, newGraph)
   }
 
-  async updateGraph(graph: Graph): Promise<Graph> {
+  async delete(): Promise<Option<Graph>> {
+    return Promise.resolve(O.none)
+  }
+
+  async findMany(): Promise<Array<Graph>> {
+    return Promise.resolve([])
+  }
+
+  async update(graph: Graph): Promise<Graph> {
     const typeOrmGraph = graph.toPersistence()
-    const typeOrmSavedGraph = await this.save(typeOrmGraph)
+    const typeOrmSavedGraph = await this.repository.save(typeOrmGraph)
 
     return plainToClass(Graph, typeOrmSavedGraph)
   }
 
-  async findGraphBy(by: FindGraphBy): Promise<Option<Graph>> {
-    let typeOrmGraph
+  async findOne(graph: ByGraphCondition): Promise<Option<Graph>> {
+    let typeOrmGraph: TypeOrmGraph | undefined
 
-    if (isGraphId(by)) {
-      typeOrmGraph = await this.findOne(by.id, {
+    if (isGraphId(graph)) {
+      typeOrmGraph = await this.repository.findOne(graph.graphId, {
         relations: ['vertices', 'edges'],
       })
     }
 
-    if (isPageId(by)) {
-      typeOrmGraph = await this.findOne({
-        where: { pageId: by.pageId },
+    if (isPageId(graph)) {
+      typeOrmGraph = await this.repository.findOne({
+        where: { pageId: graph.pageId },
         relations: ['vertices', 'edges'],
       })
     }
 
-    const graph: Graph = plainToClass(Graph, typeOrmGraph)
+    const foundGraph: Graph = plainToClass(Graph, typeOrmGraph)
 
-    return typeOrmGraph ? Promise.resolve(O.some(graph)) : O.none
+    return typeOrmGraph ? O.some(foundGraph) : O.none
   }
 
   async addGraphToPage(page: Page): Promise<Graph> {
@@ -61,10 +69,10 @@ export class TypeOrmGraphRepositoryAdapter
     const newGraph = new Graph({
       label: typeOrmPage.title,
     })
-    const typeOrmGraph = newGraph.toPersistence()
-
-    typeOrmGraph.page = typeOrmPage
-    const typeOrmSavedGraph = await this.save(typeOrmGraph)
+    const typeOrmSavedGraph = await this.repository.save({
+      ...newGraph.toPersistence(),
+      page: typeOrmPage,
+    })
 
     return plainToClass(Graph, typeOrmSavedGraph)
   }

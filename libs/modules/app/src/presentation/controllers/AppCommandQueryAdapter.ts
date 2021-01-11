@@ -60,8 +60,10 @@ export class AppCommandQueryAdapter implements CommandQueryBusPort {
 
   @Mutation((returns) => AppDto)
   @UseGuards(GqlAuthGuard)
-  async deleteApp(@Args('input') input: DeleteAppInput) {
-    const result = await this.commandBus.execute(new DeleteAppCommand(input))
+  async deleteApp(@Args('input') { id }: DeleteAppInput) {
+    const result = await this.commandBus.execute(
+      new DeleteAppCommand({ appId: id }),
+    )
 
     return result.toPlain()
   }

@@ -23,6 +23,6 @@ export class AddGraphToPageCommandHandler
     })
 
     graph.addVertex(rootVertex)
-    await this.graphRepository.updateGraph(graph)
+    await this.graphRepository.update(graph)
   }
 }

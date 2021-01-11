@@ -1,40 +1,21 @@
 import { INestApplication } from '@nestjs/common'
 import { Test } from '@nestjs/testing'
+import { print } from 'graphql'
 import request from 'supertest'
 import { Connection } from 'typeorm'
 import { UserModule } from '../../../../framework/nestjs/UserModule'
-import { LoginUserInput } from '../loginUser/LoginUserInput'
-import { RegisterUserInput } from '../registerUser/RegisterUserInput'
+import { UserDto } from '../../../../presentation/UserDto'
+import { RegisterUserGql } from '../registerUser/RegisterUser.generated'
+import { GetMeGql } from './GetMe.generated'
 import { TestInfrastructureModule } from '@codelab/backend'
 
 const email = 'test_user@codelab.ai'
 const password = 'password'
 
-const loginUserQuery = (loginUserInput: LoginUserInput) => `
-  mutation {
-    loginUser(input: {
-      email: "${loginUserInput.email}",
-      password: "${loginUserInput.password}"
-    }) {
-      email
-      accessToken
-    }
-  }`
-
-const registerUserMutation = (registerUserInput: RegisterUserInput) => `
-  mutation {
-    registerUser(input: {
-      email: "${registerUserInput.email}",
-      password: "${registerUserInput.password}"
-    }) {
-      email
-      accessToken
-    }
-  }`
-
 describe('GetMeUseCase', () => {
   let app: INestApplication
   let connection: Connection
+  let user: UserDto
 
   beforeAll(async () => {
     const testModule = await Test.createTestingModule({
@@ -43,11 +24,22 @@ describe('GetMeUseCase', () => {
 
     app = testModule.createNestApplication()
     connection = app.get(Connection)
-    await app.init()
-  })
-
-  beforeEach(async () => {
     await connection.synchronize(true)
+    await app.init()
+
+    // Create user
+    user = await request(app.getHttpServer())
+      .post('/graphql')
+      .send({
+        query: print(RegisterUserGql),
+        variables: {
+          input: {
+            email,
+            password,
+          },
+        },
+      })
+      .then((res) => res.body.data.registerUser)
   })
 
   afterAll(async () => {
@@ -55,33 +47,11 @@ describe('GetMeUseCase', () => {
   })
 
   it('should get user with JWT token passed in header', async () => {
-    const createNewUser = await request(app.getHttpServer())
+    await request(app.getHttpServer())
       .post('/graphql')
+      .set('Authorization', `Bearer ${user.accessToken}`)
       .send({
-        query: registerUserMutation({ email, password }),
-      })
-      .expect(200)
-      .expect((res) => {
-        expect(res.body.data.registerUser.email).toEqual(email)
-      })
-
-    const loginUser: any = await request(app.getHttpServer())
-      .post('/graphql')
-      .send({
-        query: loginUserQuery({ email, password }),
-      })
-      .expect(200)
-      .expect((res) => {
-        expect(res.body.data.loginUser.email).toEqual(email)
-        expect(res.body.data.loginUser.accessToken).toBeDefined()
-      })
-    const { accessToken } = loginUser.body.data.loginUser
-    const getMeQuery = `{getMe { email }}`
-    const getMeRequest = await request(app.getHttpServer())
-      .post('/graphql')
-      .set('Authorization', `Bearer ${accessToken}`)
-      .send({
-        query: getMeQuery,
+        query: print(GetMeGql),
       })
       .expect(200)
       .expect((res) => {

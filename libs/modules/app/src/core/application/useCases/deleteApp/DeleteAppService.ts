@@ -1,5 +1,5 @@
+import { left, right } from 'fp-ts/Either'
 import { Option, isNone } from 'fp-ts/Option'
-import { left, right } from 'fp-ts/lib/Either'
 import { AppRepositoryPort } from '../../../adapters/AppRepositoryPort'
 import { App } from '../../../domain/app'
 import { DeleteAppErrors } from './DeleteAppErrors'

@@ -1,8 +1,8 @@
 import { OnModuleInit } from '@nestjs/common'
 import { ModuleRef } from '@nestjs/core'
 import { option as O } from 'fp-ts'
+import { left, right } from 'fp-ts/Either'
 import { Option } from 'fp-ts/Option'
-import { left, right } from 'fp-ts/lib/Either'
 import { UserRepositoryPort } from '../../../adapters/UserRepositoryPort'
 import { User } from '../../../domain/user'
 import { AuthService } from '../../services/AuthService'
@@ -21,7 +21,7 @@ export class LoginUserService implements LoginUserUseCase, OnModuleInit {
   ) {}
 
   async execute(request: LoginUserRequest): Promise<LoginUserResponse> {
-    const existingUser: Option<User> = await this.userRepository.findUser({
+    const existingUser: Option<User> = await this.userRepository.findOne({
       email: request.email.toString(),
     })
 

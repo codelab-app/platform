@@ -6,7 +6,7 @@ import { RegisterUserInput } from '../../../../../../user/src/core/application/u
 import { UserModule } from '../../../../../../user/src/framework/nestjs/UserModule'
 import { UserDto } from '../../../../../../user/src/presentation/UserDto'
 import { AppModule } from '../../../../framework/nestjs/AppModule'
-import { DeleteAppRequest } from './DeleteAppRequest'
+import { DeleteAppInput } from './DeleteAppInput'
 import { TestInfrastructureModule } from '@codelab/backend'
 
 const email = 'test_user@codelab.ai'
@@ -23,9 +23,9 @@ const registerUserMutation = (registerUserInput: RegisterUserInput) => `
     }
   }`
 
-const deleteAppMutation = (deleteAppRequest: DeleteAppRequest) => `
+const deleteAppMutation = (deleteAppInput: DeleteAppInput) => `
   mutation {
-    deleteApp(input: { appId: "${deleteAppRequest.appId}" }) {
+    deleteApp(input: { id: "${deleteAppInput.id}" }) {
       title
     }
   }
@@ -81,7 +81,7 @@ describe('DeleteAppUseCase', () => {
       .post('/graphql')
       .set('Authorization', `Bearer ${user.accessToken}`)
       .send({
-        query: deleteAppMutation({ appId: id }),
+        query: deleteAppMutation({ id }),
       })
       .expect(200)
       .expect((res) => {
@@ -96,7 +96,7 @@ describe('DeleteAppUseCase', () => {
       .post('/graphql')
       .set('Authorization', `Bearer ${user.accessToken}`)
       .send({
-        query: deleteAppMutation({ appId: wrongAppId }),
+        query: deleteAppMutation({ id: wrongAppId }),
       })
       .expect(200)
       .expect((res) => {

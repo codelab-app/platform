@@ -1,4 +1,4 @@
-import { right } from 'fp-ts/lib/Either'
+import { right } from 'fp-ts/Either'
 import { GraphRepositoryPort } from '../../../adapters/GraphRepositoryPort'
 import { Graph } from '../../../domain/graph/graph'
 import { CreateGraphRequest } from './CreateGraphRequest'
@@ -12,7 +12,7 @@ export class CreateGraphService implements CreateGraphUseCase {
   async execute(request: CreateGraphRequest): Promise<CreateGraphResponse> {
     const graph = new Graph<NOID>(request)
 
-    const newGraph = await this.graphRepository.createGraph(graph)
+    const newGraph = await this.graphRepository.create(graph)
 
     return right(Result.ok(newGraph))
   }

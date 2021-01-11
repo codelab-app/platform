@@ -1,13 +1,21 @@
 import { INestApplication } from '@nestjs/common'
 import { Test } from '@nestjs/testing'
+import { print } from 'graphql'
 import request from 'supertest'
 import { Connection } from 'typeorm'
+import { UserDto } from '../../../../presentation/UserDto'
+import { RegisterUserGql } from '../registerUser/RegisterUser.generated'
+import { DeleteUserGql } from './DeleteUser.generated'
 import { TestInfrastructureModule } from '@codelab/backend'
 import { UserModule } from '@codelab/modules/user'
+
+const email = 'test_user@codelab.ai'
+const password = 'password'
 
 describe('DeleteUserUseCase', () => {
   let app: INestApplication
   let connection: Connection
+  let user: UserDto
 
   beforeAll(async () => {
     const testModule = await Test.createTestingModule({
@@ -18,73 +26,62 @@ describe('DeleteUserUseCase', () => {
     connection = app.get(Connection)
     await connection.synchronize(true)
     await app.init()
+
+    // Create user
+    user = await request(app.getHttpServer())
+      .post('/graphql')
+      .send({
+        query: print(RegisterUserGql),
+        variables: {
+          input: {
+            email,
+            password,
+          },
+        },
+      })
+      .then((res) => res.body.data.registerUser)
   })
 
   afterAll(async () => {
-    await connection.synchronize(true)
-
     await app.close()
   })
 
-  beforeEach(async () => {
-    await connection.synchronize(true)
-  })
-
   it('should delete an existing user', async () => {
-    const email = 'test_user@codelab.ai'
-
-    const createUserMutation = `
-			mutation {
-			  registerUser(input:
-				{
-				  email: "${email}",
-				  password: "password"
-				}) { email}
-			}`
-    const deleteUserMutation = `mutation {
-			deleteUser(input: {email: "${email}"}) { email }
-		}`
-
-    const createNewUser = await request(app.getHttpServer())
+    await request(app.getHttpServer())
       .post('/graphql')
       .send({
-        query: createUserMutation,
+        query: print(DeleteUserGql),
+        variables: {
+          input: {
+            email,
+          },
+        },
       })
       .expect(200)
       .expect((res) => {
-        expect(res.body.data.registerUser).toEqual({
-          email: 'test_user@codelab.ai',
-        })
-      })
-    const deleteExistingUser = await request(app.getHttpServer())
-      .post('/graphql')
-      .send({
-        query: deleteUserMutation,
-      })
-      .expect(200)
-      .expect((res) => {
-        expect(res.body.data.deleteUser).toEqual({
-          email: 'test_user@codelab.ai',
-        })
+        expect(res.body.data.deleteUser.email).toEqual(email)
       })
   })
 
   it('Should return error when deleting non-existent user', async () => {
-    const email = 'test_user@codelab.ai'
-    const deleteUserMutation = `mutation {
-			deleteUser(input: {email: "${email}"}) { email }
-		}`
-    const deleteNonExistentUser = await request(app.getHttpServer())
+    const incorrectEmail = 'incorrect_email@codelab.ai'
+
+    await request(app.getHttpServer())
       .post('/graphql')
       .send({
-        query: deleteUserMutation,
+        query: print(DeleteUserGql),
+        variables: {
+          input: {
+            email: incorrectEmail,
+          },
+        },
       })
       .expect(200)
       .expect((res) => {
         const errorMsg = res.body?.errors[0].message
 
         expect(errorMsg).toEqual(
-          `Theres no email ${email} associated with any account`,
+          `Theres no email ${incorrectEmail} associated with any account`,
         )
       })
   })

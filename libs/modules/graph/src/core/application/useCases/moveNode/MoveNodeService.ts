@@ -1,5 +1,5 @@
+import { left, right } from 'fp-ts/Either'
 import { Option, isNone } from 'fp-ts/Option'
-import { left, right } from 'fp-ts/lib/Either'
 import { EdgeRepositoryPort } from '../../../adapters/EdgeRepositoryPort'
 import { GraphRepositoryPort } from '../../../adapters/GraphRepositoryPort'
 import { Edge } from '../../../domain/edge'
@@ -19,8 +19,8 @@ export class MoveNodeService implements MoveNodeUseCase {
   async execute(request: MoveNodeRequest): Promise<MoveNodeResponse> {
     const { graphId, type } = request
 
-    const graphOpt: Option<Graph> = await this.graphRepository.findGraphBy({
-      id: graphId,
+    const graphOpt: Option<Graph> = await this.graphRepository.findOne({
+      graphId,
     })
 
     if (isNone(graphOpt)) {
@@ -32,7 +32,7 @@ export class MoveNodeService implements MoveNodeUseCase {
     graph.moveVertex(type.source, type.target)
     const edges: Array<Edge> = graph.getEdgesDomain()
 
-    await this.edgeRepository.updateEdges(edges)
+    await this.edgeRepository.updateMany(edges)
 
     return right(Result.ok(graph))
   }

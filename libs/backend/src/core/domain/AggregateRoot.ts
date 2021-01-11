@@ -7,7 +7,7 @@ import { UUID } from './valueObject/UUID'
 import { TransformBoth } from '@codelab/backend'
 
 export abstract class AggregateRoot<
-  P extends ValueObjectProps,
+  P extends ValueObjectProps = ValueObjectProps,
   ID extends UUID | NOID = UUID
 > extends NestjsAggregateRoot {
   @Type(() => UUID)

@@ -1,4 +1,4 @@
-import { right } from 'fp-ts/lib/Either'
+import { right } from 'fp-ts/Either'
 import { AppRepositoryPort } from '../../../adapters/AppRepositoryPort'
 import { GetAppsRequest } from './GetAppsRequest'
 import { GetAppsResponse } from './GetAppsResponse'

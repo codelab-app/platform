@@ -51,7 +51,7 @@
     "@nestjs/mongoose": "7.0.2",
     "@nestjs/passport": "7.1.0",
     "@nestjs/platform-express": "7.4.4",
-    "@nestjs/typeorm": "7.1.4",
+    "@nestjs/typeorm": "7.1.5",
     "@prisma/client": "2.9.0",
     "@rjsf/antd": "2.4.1",
     "@rjsf/core": "2.4.1",
