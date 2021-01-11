@@ -13,7 +13,7 @@ const AppsPage = () => {
         ghost={false}
         onBack={() => router.back()}
         title="Apps"
-        extra={[<CreateAppButton />]}
+        extra={[<CreateAppButton key={1} />]}
       />
 
       <div style={{ padding: '4rem' }}>
