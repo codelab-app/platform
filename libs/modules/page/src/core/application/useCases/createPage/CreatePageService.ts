@@ -1,7 +1,7 @@
 import { EventPublisher, QueryBus } from '@nestjs/cqrs'
 import { Option, isNone } from 'fp-ts/Option'
 import { left, right } from 'fp-ts/lib/Either'
-import { GetAppByIdQuery } from '../../../../../../app/src/core/application/queries/GetAppByIdQuery'
+import { GetAppQuery } from '../../../../../../app/src/core/application/queries/GetAppQuery'
 import { App } from '../../../../../../app/src/core/domain/app'
 import { PageRepositoryPort } from '../../../adapters/PageRepositoryPort'
 import { Page } from '../../../domain/page'

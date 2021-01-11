@@ -16,6 +16,6 @@ export class GetAppService {
       return left(new GetAppErrors.NotFound(appId))
     }
 
-    return right(Result.ok(app.value))
+    return right(Result.ok(app))
   }
 }
