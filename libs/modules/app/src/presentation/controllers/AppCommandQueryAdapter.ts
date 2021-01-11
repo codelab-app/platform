@@ -8,7 +8,7 @@ import { GetAppQuery } from '../../core/application/queries/GetAppQuery'
 import { GetAppsQuery } from '../../core/application/queries/GetAppsQuery'
 import { AppDto } from '../../core/application/useCases/AppDto'
 import { CreateAppInput } from '../../core/application/useCases/createApp/CreateAppInput'
-import { DeleteAppRequest } from '../../core/application/useCases/deleteApp/DeleteAppRequest'
+import { DeleteAppInput } from '../../core/application/useCases/deleteApp/DeleteAppInput'
 import { GetAppInput } from '../../core/application/useCases/getApp/GetAppInput'
 import {
   CommandQueryBusPort,

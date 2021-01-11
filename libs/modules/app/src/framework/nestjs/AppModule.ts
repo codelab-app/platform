@@ -1,12 +1,10 @@
 import { Module, Provider } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
 import { Connection } from 'typeorm'
-import { AddPageToAppCommandHandler } from '../../core/application/handlers/AddPageToAppCommandHandler'
 import { CreateAppCommandHandler } from '../../core/application/handlers/CreateAppCommandHandler'
 import { DeleteAppCommandHandler } from '../../core/application/handlers/DeleteAppCommandHandler'
 import { GetAppQueryHandler } from '../../core/application/handlers/GetAppQueryHandler'
 import { GetAppsQueryHandler } from '../../core/application/handlers/GetAppsQueryHandler'
-import { AppPageSaga } from '../../core/application/sagas/AppPage.saga'
 import { CreateAppService } from '../../core/application/useCases/createApp/CreateAppService'
 import { DeleteAppService } from '../../core/application/useCases/deleteApp/DeleteAppService'
 import { GetAppService } from '../../core/application/useCases/getApp/GetAppService'
@@ -52,7 +50,7 @@ export const handlerProviders: Array<Provider> = [
   // AddPageToAppCommandHandler,
   GetAppQueryHandler,
   GetAppsQueryHandler,
-  GetAppByIdQueryHandler,
+  GetAppQueryHandler,
   CreateAppCommandHandler,
   DeleteAppCommandHandler,
 ]
