@@ -23,19 +23,6 @@ export class TypeOrmAppRepositoryAdapter
     return plainToClass(App, newApp)
   }
 
-  async findApps(by: AppsWhere, userId: UUID): Promise<Array<App>> {
-    const apps = await this.find({
-      relations: ['user'],
-      where: {
-        user: {
-          id: userId.value,
-        },
-      },
-    })
-
-    return apps.map((app) => plainToClass(App, app))
-  }
-
   async deleteApp(appId: string): Promise<Option<App>> {
     const typeOrmApp = await this.findOne(appId)
 
@@ -56,6 +43,19 @@ export class TypeOrmAppRepositoryAdapter
     }
 
     return typeOrmApp ? O.some(plainToClass(App, typeOrmApp)) : O.none
+  }
+
+  async findApps(by: AppsWhere, userId: UUID): Promise<Array<App>> {
+    const apps = await this.find({
+      relations: ['user'],
+      where: {
+        user: {
+          id: userId.value,
+        },
+      },
+    })
+
+    return apps.map((app) => plainToClass(App, app))
   }
 
   async addPageToApp(app: App, page: Page): Promise<void> {
