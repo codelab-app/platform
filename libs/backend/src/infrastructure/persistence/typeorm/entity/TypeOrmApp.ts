@@ -1,7 +1,9 @@
 import { Column, Entity, ManyToOne, OneToMany } from 'typeorm'
 import { EntityConfig } from '../../config/EntityConfig'
 import { BaseTypeOrm } from './BaseTypeOrm'
-import { TypeOrmGraph, TypeOrmPage, TypeOrmUser } from '@codelab/backend'
+import { TypeOrmGraph } from './TypeOrmGraph'
+import { TypeOrmPage } from './TypeOrmPage'
+import { TypeOrmUser } from './TypeOrmUser'
 
 @Entity(EntityConfig.APP_ENTITY)
 export class TypeOrmApp extends BaseTypeOrm {
