@@ -1,9 +1,9 @@
 import { plainToClass } from 'class-transformer'
 import { option as O } from 'fp-ts'
 import { Option } from 'fp-ts/Option'
-import { EntityRepository, Repository } from 'typeorm'
+import { AbstractRepository, EntityRepository } from 'typeorm'
 import { Page } from '../../../../page/src/core/domain/page'
-import { AppsWhere, FindAppBy } from '../../common/CommonTypes'
+import { ByAppCondition, ByAppConditions } from '../../common/CommonTypes'
 import { isId } from '../../common/utils'
 import { AppRepositoryPort } from '../../core/adapters/AppRepositoryPort'
 import { App } from '../../core/domain/app'
@@ -12,10 +12,10 @@ import { User } from '@codelab/modules/user'
 
 @EntityRepository(TypeOrmApp)
 export class TypeOrmAppRepositoryAdapter
-  extends Repository<TypeOrmApp>
+  extends AbstractRepository<TypeOrmApp>
   implements AppRepositoryPort {
-  async createApp(app: App<NOID>, user: User): Promise<App> {
-    const newApp = await this.save({
+  async create(app: App<NOID>, user: User): Promise<App> {
+    const newApp = await this.repository.save({
       ...app.toPersistence(),
       user: user.toPersistence(),
     })
@@ -24,29 +24,29 @@ export class TypeOrmAppRepositoryAdapter
   }
 
   async deleteApp(appId: string): Promise<Option<App>> {
-    const typeOrmApp = await this.findOne(appId)
+    const typeOrmApp = await this.repository.findOne(appId)
 
     if (!typeOrmApp) {
       return O.none
     }
 
-    const apps = await this.remove([typeOrmApp])
+    const apps = await this.repository.remove([typeOrmApp])
 
     return O.some(plainToClass(App, apps[0]))
   }
 
-  async findApp(by: FindAppBy): Promise<Option<App>> {
+  async findOne(by: ByAppCondition): Promise<Option<App>> {
     let typeOrmApp
 
     if (isId(by)) {
-      typeOrmApp = await this.findOne(by.id)
+      typeOrmApp = await this.repository.findOne(by.id)
     }
 
     return typeOrmApp ? O.some(plainToClass(App, typeOrmApp)) : O.none
   }
 
-  async findApps(by: AppsWhere, userId: UUID): Promise<Array<App>> {
-    const apps = await this.find({
+  async find(by: ByAppConditions, userId: UUID): Promise<Array<App>> {
+    const apps = await this.repository.find({
       relations: ['user'],
       where: {
         user: {
@@ -62,7 +62,7 @@ export class TypeOrmAppRepositoryAdapter
     const typeOrmApp = app.toPersistence()
     const typeOrmPage = page.toPersistence()
 
-    const foundApp = await this.findOneOrFail(typeOrmApp.id)
+    const foundApp = await this.repository.findOneOrFail(typeOrmApp.id)
 
     if (foundApp.pages && foundApp.pages.length > 0) {
       foundApp.pages.push(typeOrmPage)
@@ -70,6 +70,6 @@ export class TypeOrmAppRepositoryAdapter
       foundApp.pages = [typeOrmPage]
     }
 
-    await this.save(foundApp)
+    await this.repository.save(foundApp)
   }
 }

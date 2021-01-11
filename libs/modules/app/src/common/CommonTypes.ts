@@ -1,13 +1,13 @@
-export type FindAppBy = FindAppByTitle | FindAppByID
+export type ByAppCondition = ByAppTitle | ByAppId
 
-export type FindAppByTitle = {
+export type ByAppTitle = {
   title: string
 }
 
-export type FindAppByID = {
+export type ByAppId = {
   id: string
 }
 
-export type AppsWhere = {
+export type ByAppConditions = {
   title?: string
 }

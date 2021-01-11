@@ -7,6 +7,6 @@ export class GetAppService {
   constructor(private readonly appRepository: AppRepositoryPort) {}
 
   async execute(request: GetAppRequest): Promise<Option<App>> {
-    return this.appRepository.findApp({ id: request.appId })
+    return this.appRepository.findOne({ id: request.appId })
   }
 }
