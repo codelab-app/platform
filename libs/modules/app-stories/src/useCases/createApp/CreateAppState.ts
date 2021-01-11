@@ -32,7 +32,7 @@ export const createAppState: StateNodeConfig<any, any, any> = {
           title: `App '${event.data.data.createApp.title}' created successfully`,
         }
       }),
-      always: '#app.idle',
+      always: '#app.gettingApps',
     },
     error: {
       entry: sendParent((context, event) => {
