@@ -6,7 +6,7 @@ registerEnumType(NodeType, {
   name: 'NodeType',
 })
 @ObjectType()
-export class VertexUseCaseDto {
+export class VertexDto {
   // Must be nullable as deleteVertex does not return an id
   @Field({ nullable: true })
   public declare id?: string

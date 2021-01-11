@@ -20,23 +20,19 @@ describe.skip('AddChildNodeUseCase', () => {
   })
 
   afterAll(async () => {
-    await connection.query('DELETE FROM vertex')
-    await connection.query('DELETE FROM edge')
-    await connection.query('DELETE FROM graph')
+    await connection.synchronize(true)
 
     await app.close()
   })
 
   beforeEach(async () => {
-    await connection.query('DELETE FROM vertex')
-    await connection.query('DELETE FROM edge')
-    await connection.query('DELETE FROM graph')
+    await connection.synchronize(true)
   })
 
   it('should create vertex under graph', async () => {
     const label = 'Graph 1'
     const createGraphMutation = `mutation {
-			createGraph(graph: {label: "${label}"}) { id label }
+			createGraph(input: {label: "${label}"}) { id label }
 		}`
     const createNewGraph: any = await request(app.getHttpServer())
       .post('/graphql')
@@ -51,7 +47,7 @@ describe.skip('AddChildNodeUseCase', () => {
     const graphId = createNewGraph.body.data.createGraph.id
     const addChildNodeMutation = `
       mutation {
-        addChildNode(request:
+        addChildNode(input:
         {
           graphId: "${graphId}",
           vertex:
@@ -88,7 +84,7 @@ describe.skip('AddChildNodeUseCase', () => {
   it('should create 2 vertices and link them using edge', async () => {
     const label = 'Graph 1'
     const createGraphMutation = `mutation {
-			createGraph(graph: {label: "${label}"}) { id label }
+			createGraph(input: {label: "${label}"}) { id label }
 		}`
     const createNewGraph: any = await request(app.getHttpServer())
       .post('/graphql')
@@ -103,7 +99,7 @@ describe.skip('AddChildNodeUseCase', () => {
     const graphId = createNewGraph.body.data.createGraph.id
     const addChildNodeMutation = `
       mutation {
-        addChildNode(request:
+        addChildNode(input:
         {
           graphId: "${graphId}",
           vertex:
@@ -138,7 +134,7 @@ describe.skip('AddChildNodeUseCase', () => {
     const childNodeId = addChildNode.body.data.addChildNode.vertices[0].id
     const addChildNodeWithParentMutation = `
       mutation {
-        addChildNode(request:
+        addChildNode(input:
           {
             order: 0,
             graphId: "${graphId}",

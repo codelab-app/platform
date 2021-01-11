@@ -25,7 +25,7 @@ const registerUserMutation = (registerUserInput: RegisterUserInput) => `
 
 const deleteAppMutation = (deleteAppRequest: DeleteAppRequest) => `
   mutation {
-    deleteApp(request: { appId: "${deleteAppRequest.appId}" }) {
+    deleteApp(input: { appId: "${deleteAppRequest.appId}" }) {
       title
     }
   }

@@ -3,9 +3,11 @@ import { CqrsModule } from '@nestjs/cqrs'
 import { Connection } from 'typeorm'
 import { CreateAppCommandHandler } from '../../core/application/handlers/CreateAppCommandHandler'
 import { DeleteAppCommandHandler } from '../../core/application/handlers/DeleteAppCommandHandler'
+import { GetAppQueryHandler } from '../../core/application/handlers/GetAppQueryHandler'
 import { GetAppsQueryHandler } from '../../core/application/handlers/GetAppsQueryHandler'
 import { CreateAppService } from '../../core/application/useCases/createApp/CreateAppService'
 import { DeleteAppService } from '../../core/application/useCases/deleteApp/DeleteAppService'
+import { GetAppService } from '../../core/application/useCases/getApp/GetAppService'
 import { GetAppsService } from '../../core/application/useCases/getApps/GetAppsService'
 import { TypeOrmAppRepositoryAdapter } from '../../infrastructure/persistence/TypeOrmAppRepositoryAdapter'
 import { AppCommandQueryAdapter } from '../../presentation/controllers/AppCommandQueryAdapter'
@@ -22,11 +24,11 @@ export const persistenceProviders: Array<Provider> = [
 ]
 
 export const useCaseProviders: Array<Provider> = [
-  // {
-  //   provide: AppDITokens.GetAppUseCase,
-  //   useFactory: (appRepository) => new GetAppService(appRepository),
-  //   inject: [AppDITokens.AppRepository],
-  // },
+  {
+    provide: AppDITokens.GetAppUseCase,
+    useFactory: (appRepository) => new GetAppService(appRepository),
+    inject: [AppDITokens.AppRepository],
+  },
   {
     provide: AppDITokens.GetAppsUseCase,
     useFactory: (appRepository) => new GetAppsService(appRepository),
@@ -46,7 +48,9 @@ export const useCaseProviders: Array<Provider> = [
 
 export const handlerProviders: Array<Provider> = [
   // AddPageToAppCommandHandler,
+  GetAppQueryHandler,
   GetAppsQueryHandler,
+  GetAppQueryHandler,
   CreateAppCommandHandler,
   DeleteAppCommandHandler,
 ]

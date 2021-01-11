@@ -2,40 +2,40 @@ import { INestApplication } from '@nestjs/common'
 import { Test } from '@nestjs/testing'
 import request from 'supertest'
 import { Connection } from 'typeorm'
-import { LoginUserRequest } from '../../../../../../user/src/core/application/useCases/loginUser/LoginUserRequest'
-import { RegisterUserRequest } from '../../../../../../user/src/core/application/useCases/registerUser/RegisterUserRequest'
-import { TestInfrastructureModule } from '@codelab/backend'
-import { AppModule } from '@codelab/modules/app'
-import { GraphModule } from '@codelab/modules/graph'
-import { PageModule } from '@codelab/modules/page'
-import { UserModule } from '@codelab/modules/user'
+import { TestInfrastructureModule } from '../../../../../../../backend/src/framework/nestjs/test-infrastructure.module'
+import { AppModule } from '../../../../../../app/src/framework/nestjs/AppModule'
+import { GraphModule } from '../../../../../../graph/src/framework/nestjs/GraphModule'
+import { LoginUserInput } from '../../../../../../user/src/core/application/useCases/loginUser/LoginUserInput'
+import { RegisterUserInput } from '../../../../../../user/src/core/application/useCases/registerUser/RegisterUserInput'
+import { UserModule } from '../../../../../../user/src/framework/nestjs/UserModule'
+import { PageModule } from '../../../../framework/nestjs/PageModule'
 
 const email = 'test_user@codelab.ai'
 const password = 'password'
 
-const loginUserQuery = (loginUserRequest: LoginUserRequest) => `
+const loginUserQuery = (loginUserInput: LoginUserInput) => `
   mutation {
-    loginUser(request: {
-      email: "${loginUserRequest.email}",
-      password: "${loginUserRequest.password}"
+    loginUser(input: {
+      email: "${loginUserInput.email}",
+      password: "${loginUserInput.password}"
     }) {
       email
       accessToken
     }
   }`
 
-const registerUserMutation = (registerUserRequest: RegisterUserRequest) => `
+const registerUserMutation = (registerUserInput: RegisterUserInput) => `
   mutation {
-    registerUser(request: {
-      email: "${registerUserRequest.email}",
-      password: "${registerUserRequest.password}"
+    registerUser(input: {
+      email: "${registerUserInput.email}",
+      password: "${registerUserInput.password}"
     }) {
       email
       accessToken
     }
   }`
 
-describe.skip('CreatePageUseCase', () => {
+describe('CreatePageUseCase', () => {
   let app: INestApplication
   let connection: Connection
 
@@ -57,12 +57,14 @@ describe.skip('CreatePageUseCase', () => {
   })
 
   afterAll(async () => {
-    // await connection.synchronize(true)
-
     await app.close()
   })
 
-  it('should create page with graph and a root vertex', async () => {
+  it('should be true', () => {
+    expect(true).toBeTruthy()
+  })
+
+  it.skip('should create page with graph and a root vertex', async () => {
     await request(app.getHttpServer())
       .post('/graphql')
       .send({
@@ -85,7 +87,7 @@ describe.skip('CreatePageUseCase', () => {
     const { accessToken } = loginUser.body.data.loginUser
     const createAppMutation = `
       mutation {
-        createApp(request: {title: "Test App"}) { id title }
+        createApp(input: {title: "Test App"}) { id title }
       }
     `
     const createAppReq = await request(app.getHttpServer())
@@ -101,7 +103,7 @@ describe.skip('CreatePageUseCase', () => {
     const { id } = createAppReq.body.data.createApp
     const createPageMutation = `
       mutation {
-        createPage(request: {title: "Page 1", appId: "${id}"}) { id title }
+        createPage(input: {title: "Page 1", appId: "${id}"}) { id title }
       }
     `
     const createPageReq = await request(app.getHttpServer())
@@ -116,11 +118,31 @@ describe.skip('CreatePageUseCase', () => {
       })
     const pageId = createPageReq.body.data.createPage.id
     const graphQuery = `{
-      graph(request:{pageId: "${pageId}"}) { vertices { id type } }
+      graph(input:{pageId: "${pageId}"}) { vertices { id type } }
     }`
+
     const getGraphForPageReq = await request(app.getHttpServer())
       .post('/graphql')
       .set('Authorization', `Bearer ${accessToken}`)
+      .send({
+        query: graphQuery,
+      })
+      .expect(200)
+      .expect((res) => {
+        expect(res.body.data.graph.vertices.length).toEqual(1)
+        expect(res.body.data.graph.vertices[0].type).toEqual(
+          'React_Grid_Layout_Container',
+        )
+      })
+  })
+
+  it.skip('should find graph', async () => {
+    const graphQuery = `{
+      graph(input:{pageId: "9174934b-c289-4dd3-ace3-7b4c14731c5d"}) { vertices { id type } }
+    }`
+    const getGraphForPageReq = await request(app.getHttpServer())
+      .post('/graphql')
+      // .set('Authorization', `Bearer ${accessToken}`)
       .send({
         query: graphQuery,
       })

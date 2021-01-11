@@ -2,8 +2,9 @@ import { AfterLoad, Column, Entity, ManyToOne, OneToMany } from 'typeorm'
 import { EntityConfig } from '../../config/EntityConfig'
 import { BaseTypeOrm } from './BaseTypeOrm'
 import { TypeOrmApp } from './TypeOrmApp'
+import { TypeOrmEdge } from './TypeOrmEdge'
+import { TypeOrmPage } from './TypeOrmPage'
 import { TypeOrmVertex } from './TypeOrmVertex'
-import { TypeOrmEdge, TypeOrmPage } from '@codelab/backend'
 
 @Entity(EntityConfig.GRAPH_ENTITY)
 export class TypeOrmGraph extends BaseTypeOrm {
@@ -11,7 +12,7 @@ export class TypeOrmGraph extends BaseTypeOrm {
   declare label?: string
 
   @Column({ nullable: true })
-  declare pageId: string
+  declare pageId?: string
 
   @OneToMany((type) => TypeOrmVertex, (vertex) => vertex.graph, {
     cascade: true,

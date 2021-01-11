@@ -2,10 +2,10 @@ import { INestApplication } from '@nestjs/common'
 import { Test } from '@nestjs/testing'
 import request from 'supertest'
 import { Connection } from 'typeorm'
-import { UserModule } from '../../../../framework/nestjs/UserModule'
 import { TestInfrastructureModule } from '@codelab/backend'
+import { UserModule } from '@codelab/modules/user'
 
-describe.skip('DeleteUserUseCase', () => {
+describe('DeleteUserUseCase', () => {
   let app: INestApplication
   let connection: Connection
 
@@ -30,23 +30,19 @@ describe.skip('DeleteUserUseCase', () => {
     await connection.synchronize(true)
   })
 
-  afterEach(async () => {
-    await connection.synchronize(true)
-  })
-
   it('should delete an existing user', async () => {
     const email = 'test_user@codelab.ai'
 
     const createUserMutation = `
 			mutation {
-			  createUser(user:
+			  registerUser(input:
 				{
 				  email: "${email}",
 				  password: "password"
 				}) { email}
 			}`
     const deleteUserMutation = `mutation {
-			deleteUser(user: {email: "${email}"}) { email }
+			deleteUser(input: {email: "${email}"}) { email }
 		}`
 
     const createNewUser = await request(app.getHttpServer())
@@ -56,7 +52,7 @@ describe.skip('DeleteUserUseCase', () => {
       })
       .expect(200)
       .expect((res) => {
-        expect(res.body.data.createUser).toEqual({
+        expect(res.body.data.registerUser).toEqual({
           email: 'test_user@codelab.ai',
         })
       })
@@ -76,7 +72,7 @@ describe.skip('DeleteUserUseCase', () => {
   it('Should return error when deleting non-existent user', async () => {
     const email = 'test_user@codelab.ai'
     const deleteUserMutation = `mutation {
-			deleteUser(user: {email: "${email}"}) { email }
+			deleteUser(input: {email: "${email}"}) { email }
 		}`
     const deleteNonExistentUser = await request(app.getHttpServer())
       .post('/graphql')
