@@ -1,6 +1,6 @@
 import { Inject } from '@nestjs/common'
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs'
-import { fold } from 'fp-ts/lib/Either'
+import { fold } from 'fp-ts/Either'
 import { GraphDITokens } from '../../../framework/GraphDITokens'
 import { Graph } from '../../domain/graph'
 import { UpdateNodeCommand } from '../commands/UpdateNodeCommand'

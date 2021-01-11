@@ -1,6 +1,6 @@
 import { Inject } from '@nestjs/common'
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs'
-import { fold } from 'fp-ts/lib/Either'
+import { fold } from 'fp-ts/Either'
 import { GraphDITokens } from '../../../framework/GraphDITokens'
 import { Graph } from '../../domain/graph'
 import { GetGraphQuery } from '../queries/GetGraphQuery'

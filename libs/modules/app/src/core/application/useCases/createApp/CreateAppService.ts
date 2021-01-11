@@ -1,5 +1,5 @@
 import { plainToClass } from 'class-transformer'
-import { right } from 'fp-ts/lib/Either'
+import { right } from 'fp-ts/Either'
 import { SerializedAppDto } from '../../../../../../user/src/core/domain/dto/SerializedAppDto'
 import { AppRepositoryPort } from '../../../adapters/AppRepositoryPort'
 import { App } from '../../../domain/app'

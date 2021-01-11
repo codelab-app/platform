@@ -1,7 +1,7 @@
 import { OnModuleInit } from '@nestjs/common'
 import { ModuleRef } from '@nestjs/core'
 import { plainToClass } from 'class-transformer'
-import { left, right } from 'fp-ts/lib/Either'
+import { left, right } from 'fp-ts/Either'
 import { UserRepositoryPort } from '../../../adapters/UserRepositoryPort'
 import { User } from '../../../domain/user'
 import { AuthService } from '../../services/AuthService'
@@ -34,7 +34,7 @@ export class RegisterUserService implements RegisterUserUseCase, OnModuleInit {
       )
     }
 
-    const newUser = await this.userRepository.createUser(user)
+    const newUser = await this.userRepository.create(user)
 
     newUser.setAccessToken = await this.authService.getToken(newUser)
 

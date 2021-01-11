@@ -1,6 +1,6 @@
 import { Inject } from '@nestjs/common'
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs'
-import { fold } from 'fp-ts/lib/Either'
+import { fold } from 'fp-ts/Either'
 import { UserDITokens } from '../../../framework/UserDITokens'
 import { User } from '../../domain/user'
 import { GetMeQuery } from '../commands/GetMeQuery'

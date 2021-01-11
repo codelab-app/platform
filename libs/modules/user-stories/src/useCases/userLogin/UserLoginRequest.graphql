@@ -1,6 +1,6 @@
-mutation UserLogin($input: LoginUserRequest!) {
-  loginUser(request: $input) {
-    email,
+mutation UserLogin($input: LoginUserInput!) {
+  loginUser(input: $input) {
+    email
     accessToken
   }
 }

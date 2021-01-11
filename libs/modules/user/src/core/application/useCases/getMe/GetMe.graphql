@@ -1,0 +1,6 @@
+query GetMe {
+  getMe {
+    id
+    email
+  }
+}

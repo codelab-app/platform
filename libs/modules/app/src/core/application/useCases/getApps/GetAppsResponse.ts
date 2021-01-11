@@ -1,4 +1,4 @@
-import { Either } from 'fp-ts/lib/Either'
+import { Either } from 'fp-ts/Either'
 import { App } from '../../../domain/app'
 import { GetAppsErrors } from './GetAppsErrors'
 import { Result } from '@codelab/backend'

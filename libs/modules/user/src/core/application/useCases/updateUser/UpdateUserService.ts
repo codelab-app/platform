@@ -1,7 +1,7 @@
 import { plainToClass } from 'class-transformer'
 import { option } from 'fp-ts'
+import { left, right } from 'fp-ts/Either'
 import { Option } from 'fp-ts/Option'
-import { left, right } from 'fp-ts/lib/Either'
 import { UserRepositoryPort } from '../../../adapters/UserRepositoryPort'
 import { User } from '../../../domain/user'
 import { EditUserErrors } from './UpdateUserErrors'
@@ -16,8 +16,8 @@ export class UpdateUserService implements UpdateUserUseCase {
   async execute(request: UpdateUserRequest): Promise<UpdateUserResponse> {
     const userToUpdate = plainToClass(User, request)
 
-    const existingUser: Option<User> = await this.userRepository.findUser({
-      id: request.id.toString(),
+    const existingUser: Option<User> = await this.userRepository.findOne({
+      userId: request.id.toString(),
     })
 
     if (option.isNone(existingUser)) {
@@ -26,7 +26,7 @@ export class UpdateUserService implements UpdateUserUseCase {
       )
     }
 
-    const result = await this.userRepository.updateUser(userToUpdate)
+    const result = await this.userRepository.update(userToUpdate)
 
     return right(Result.ok(result))
   }

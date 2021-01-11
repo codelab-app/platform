@@ -1,4 +1,4 @@
-import { left, right } from 'fp-ts/lib/Either'
+import { left, right } from 'fp-ts/Either'
 import { <%= moduleNamePascalCase %>RepositoryPort } from '../../../adapters/<%= moduleNamePascalCase %>RepositoryPort'
 import { <%= moduleNamePascalCase %> } from '../../../domain/<%= moduleName %>'
 import { <%= useCaseNamePascalCase %>Errors } from './<%= useCaseNamePascalCase %>Errors'

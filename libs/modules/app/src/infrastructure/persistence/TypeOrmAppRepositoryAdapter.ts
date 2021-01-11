@@ -1,10 +1,13 @@
 import { plainToClass } from 'class-transformer'
 import { option as O } from 'fp-ts'
-import { Option } from 'fp-ts/Option'
+import { Option, isNone } from 'fp-ts/Option'
 import { AbstractRepository, EntityRepository } from 'typeorm'
 import { Page } from '../../../../page/src/core/domain/page'
-import { ByAppCondition, ByAppConditions } from '../../common/CommonTypes'
-import { isId } from '../../common/utils'
+import {
+  ByAppCondition,
+  ByAppConditions,
+  isAppId,
+} from '../../common/QueryConditions'
 import { AppRepositoryPort } from '../../core/adapters/AppRepositoryPort'
 import { App } from '../../core/domain/app'
 import { NOID, TypeOrmApp, UUID } from '@codelab/backend'
@@ -24,28 +27,34 @@ export class TypeOrmAppRepositoryAdapter
   }
 
   async delete(appId: string): Promise<Option<App>> {
-    const typeOrmApp = await this.repository.findOne(appId)
+    const app = await this.findOne({ appId })
 
-    if (!typeOrmApp) {
-      return O.none
+    if (isNone(app)) {
+      return Promise.resolve(O.none)
     }
 
-    const apps = await this.repository.remove([typeOrmApp])
+    await this.repository.remove(app.value.toPersistence())
 
-    return O.some(plainToClass(App, apps[0]))
+    return Promise.resolve(app)
   }
 
-  async findOne(app: ByAppCondition, userId: UUID): Promise<Option<App>> {
-    let foundApp
+  async findOne(app: ByAppCondition, userId?: UUID): Promise<Option<App>> {
+    let foundApp: TypeOrmApp | undefined
+    let where: object = {}
 
-    if (isId(app)) {
+    if (userId) {
+      where = {
+        ...where,
+        user: {
+          id: userId.value,
+        },
+      }
+    }
+
+    if (isAppId(app)) {
       foundApp = await this.repository.findOne({
         relations: ['user'],
-        where: {
-          user: {
-            id: userId.value,
-          },
-        },
+        where,
       })
     }
 

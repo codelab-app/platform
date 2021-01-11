@@ -1,9 +1,8 @@
+import { left, right } from 'fp-ts/Either'
 import { Option, isNone } from 'fp-ts/Option'
-import { left, right } from 'fp-ts/lib/Either'
 import { EdgeRepositoryPort } from '../../../adapters/EdgeRepositoryPort'
 import { GraphRepositoryPort } from '../../../adapters/GraphRepositoryPort'
 import { VertexRepositoryPort } from '../../../adapters/VertexRepositoryPort'
-import { Graph } from '../../../domain/graph'
 import { Vertex } from '../../../domain/vertex'
 import { DeleteNodeErrors } from './DeleteNodeErrors'
 import { DeleteNodeRequest } from './DeleteNodeRequest'
@@ -18,27 +17,33 @@ export class DeleteNodeService implements DeleteNodeUseCase {
     private readonly edgeRepository: EdgeRepositoryPort,
   ) {}
 
-  async execute(request: DeleteNodeRequest): Promise<DeleteNodeResponse> {
-    const { vertexId } = request
+  async execute({ vertexId }: DeleteNodeRequest): Promise<DeleteNodeResponse> {
+    const vertexToDelete = await this.vertexRepository.findOne({ vertexId })
 
-    const deleteVertexResultOpt: Option<Vertex> = await this.vertexRepository.deleteVertex(
+    if (isNone(vertexToDelete)) {
+      return left(new DeleteNodeErrors.VertexNotFound(vertexId))
+    }
+
+    const deletedVertex: Option<Vertex> = await this.vertexRepository.delete(
       vertexId,
     )
 
-    if (isNone(deleteVertexResultOpt)) {
+    if (isNone(deletedVertex)) {
       return left(new DeleteNodeErrors.VertexNotFound(vertexId))
     }
 
     await this.edgeRepository.deleteEdgesByVertexId(vertexId)
-    const graphId = deleteVertexResultOpt.value.graphId?.value
-    const graphOpt: Option<Graph> = await this.graphRepository.findGraphBy({
-      id: graphId as string,
+
+    const { graphId } = vertexToDelete.value
+
+    const graph = await this.graphRepository.findOne({
+      graphId: graphId.toString(),
     })
 
-    if (isNone(graphOpt)) {
-      return left(new DeleteNodeErrors.GraphNotFoundError(graphId as string))
+    if (isNone(graph)) {
+      return left(new DeleteNodeErrors.GraphNotFoundError(graphId.toString()))
     }
 
-    return right(Result.ok(graphOpt.value))
+    return right(Result.ok(graph.value))
   }
 }

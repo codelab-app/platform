@@ -1,12 +1,22 @@
 import { Option } from 'fp-ts/Option'
-import { FindVertexBy } from '../../common/CommonTypes'
-import { Graph } from '../domain/graph/graph'
+import {
+  ByVertexCondition,
+  ByVertexConditions,
+} from '../../common/QueryConditions'
+import { Graph } from '../domain/graph'
 import { Vertex } from '../domain/vertex'
+import { RepositoryPort } from '@codelab/backend'
 
-export interface VertexRepositoryPort {
-  createVertex(vertex: Vertex, graph: Graph): Promise<Vertex>
-  deleteVertex(vertexId: string): Promise<Option<Vertex>>
-  updateVertex(vertex: Vertex): Promise<Option<Vertex>>
-  exists(by: FindVertexBy): Promise<boolean>
-  findVertex(by: FindVertexBy): Promise<Option<Vertex>>
+export abstract class VertexRepositoryPort implements RepositoryPort<Vertex> {
+  abstract create(vertex: Vertex, graph: Graph): Promise<Vertex>
+
+  abstract delete(vertexId: string): Promise<Option<Vertex>>
+
+  abstract update(vertex: Vertex): Promise<Option<Vertex>>
+
+  abstract exists(by: ByVertexCondition): Promise<boolean>
+
+  abstract findOne(vertex: ByVertexCondition): Promise<Option<Vertex>>
+
+  abstract findMany(vertices: ByVertexConditions): Promise<Array<Vertex>>
 }

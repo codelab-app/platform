@@ -1,4 +1,4 @@
-import { right } from 'fp-ts/lib/Either'
+import { right } from 'fp-ts/Either'
 import { GetMeRequest } from './GetMeRequest'
 import { GetMeResponse } from './GetMeResponse'
 import { GetMeUseCase } from './GetMeUseCase'

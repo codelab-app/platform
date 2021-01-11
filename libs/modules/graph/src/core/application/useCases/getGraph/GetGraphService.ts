@@ -1,6 +1,6 @@
 import { option as O } from 'fp-ts'
+import { left, right } from 'fp-ts/Either'
 import { Option, isNone } from 'fp-ts/Option'
-import { left, right } from 'fp-ts/lib/Either'
 import { GraphRepositoryPort } from '../../../adapters/GraphRepositoryPort'
 import { Graph } from '../../../domain/graph'
 import { GetGraphErrors } from './GetGraphErrors'
@@ -17,8 +17,8 @@ export class GetGraphService implements GetGraphUseCase {
     let graphOpt: Option<Graph> = O.none
 
     if (graphId) {
-      graphOpt = await this.graphRepository.findGraphBy({
-        id: graphId,
+      graphOpt = await this.graphRepository.findOne({
+        graphId,
       })
 
       if (isNone(graphOpt)) {
@@ -29,7 +29,7 @@ export class GetGraphService implements GetGraphUseCase {
     }
 
     if (pageId) {
-      graphOpt = await this.graphRepository.findGraphBy({
+      graphOpt = await this.graphRepository.findOne({
         pageId,
       })
 

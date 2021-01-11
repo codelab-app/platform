@@ -3,43 +3,55 @@ query root
 """
 type Query {
   getMe: User!
+  getApp(input: GetAppInput!): App!
   getApps: [App!]!
-  graph(request: GetGraphRequest!): GraphUseCaseDto!
+  graph(input: GetGraphInput!): GraphDto!
 }
 
 type Mutation {
-  deleteUser(user: DeleteUserRequest!): User!
-  updateUser(user: UpdateUserRequest!): User!
+  deleteUser(input: DeleteUserInput!): User!
+  updateUser(input: UpdateUserInput!): User!
   registerUser(input: RegisterUserInput!): User!
-  loginUser(request: LoginUserRequest!): User!
+  loginUser(input: LoginUserInput!): User!
   createApp(input: CreateAppInput!): App!
-  deleteApp(request: DeleteAppRequest!): App!
-  createGraph(graph: CreateGraphRequest!): GraphUseCaseDto!
-  addChildNode(request: AddChildNodeRequest!): GraphUseCaseDto!
-  updateNode(request: UpdateNodeRequest!): GraphUseCaseDto!
-  deleteNode(request: DeleteNodeRequest!): GraphUseCaseDto!
-  moveNode(request: MoveNodeRequest!): GraphUseCaseDto!
-  createPage(request: CreatePageRequest!): PageUseCaseDto!
+  deleteApp(input: DeleteAppInput!): App!
+  createGraph(input: CreateGraphInput!): GraphDto!
+  addChildNode(input: AddChildNodeInput!): GraphDto!
+  updateNode(input: UpdateNodeInput!): GraphDto!
+  deleteNode(input: DeleteNodeInput!): GraphDto!
+  moveNode(input: MoveNodeInput!): GraphDto!
+  createPage(input: CreatePageInput!): PageDto!
 }
 
-type TypeOrmVertex implements IVertex {
+type App {
   id: String!
-  props: JSONObject
-  parent: String
-  type: NodeType!
+  title: String!
 }
 
-interface IVertex {
+type User {
   id: String!
-  props: JSONObject
-  parent: String
-  type: NodeType!
+  email: String!
+  accessToken: String
+}
+
+type EdgeDto {
+  id: String
+  source: String!
+  target: String!
+  props: JSONObject!
+  order: Float!
 }
 
 """
 The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
 scalar JSONObject
+
+type VertexDto {
+  id: String
+  type: NodeType!
+  props: JSONObject!
+}
 
 enum NodeType {
   React_Fragment
@@ -148,69 +160,32 @@ enum NodeType {
   Ref
 }
 
-type TypeOrmEdge implements IEdge {
-  id: String!
-  source: String!
-  target: String!
-  order: Int!
-  props: JSONObject
-}
-
-interface IEdge {
-  id: String!
-  source: String!
-  target: String!
-  order: Int!
-  props: JSONObject
-}
-
-type App {
-  id: String!
-  title: String!
-}
-
-type User {
-  id: String!
-  email: String!
-  accessToken: String
-}
-
-type EdgeUseCaseDto {
-  id: String
-  source: String!
-  target: String!
-  props: JSONObject!
-  order: Float!
-}
-
-type VertexUseCaseDto {
-  id: String
-  type: NodeType!
-  props: JSONObject!
-}
-
-type GraphUseCaseDto {
+type GraphDto {
   id: String
   label: String
-  vertices: [VertexUseCaseDto!]!
-  edges: [EdgeUseCaseDto!]!
+  vertices: [VertexDto!]!
+  edges: [EdgeDto!]!
 }
 
-type PageUseCaseDto {
+type PageDto {
   id: String!
   title: String!
 }
 
-input GetGraphRequest {
+input GetAppInput {
+  appId: String!
+}
+
+input GetGraphInput {
   graphId: String
   pageId: String
 }
 
-input DeleteUserRequest {
+input DeleteUserInput {
   email: String!
 }
 
-input UpdateUserRequest {
+input UpdateUserInput {
   id: String!
   email: String!
 }
@@ -220,7 +195,7 @@ input RegisterUserInput {
   password: String!
 }
 
-input LoginUserRequest {
+input LoginUserInput {
   email: String!
   password: String!
 }
@@ -229,15 +204,15 @@ input CreateAppInput {
   title: String!
 }
 
-input DeleteAppRequest {
-  appId: String!
+input DeleteAppInput {
+  id: String!
 }
 
-input CreateGraphRequest {
+input CreateGraphInput {
   label: String!
 }
 
-input AddChildNodeRequest {
+input AddChildNodeInput {
   graphId: String!
   parentVertexId: String
   vertex: AddChildNodeVertexType!
@@ -249,7 +224,7 @@ input AddChildNodeVertexType {
   props: JSONObject!
 }
 
-input UpdateNodeRequest {
+input UpdateNodeInput {
   graphId: String!
   type: UpdateNodeVertexType!
 }
@@ -260,11 +235,11 @@ input UpdateNodeVertexType {
   props: JSONObject!
 }
 
-input DeleteNodeRequest {
+input DeleteNodeInput {
   vertexId: String!
 }
 
-input MoveNodeRequest {
+input MoveNodeInput {
   graphId: String!
   type: EdgeType!
 }
@@ -274,7 +249,7 @@ input EdgeType {
   target: String!
 }
 
-input CreatePageRequest {
+input CreatePageInput {
   title: String!
   appId: String!
 }

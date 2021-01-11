@@ -47,7 +47,7 @@ const makeGenerator = async (option: GeneratorOptions) => {
 }
 
 const graphqlQueryPaths = glob.sync(
-  `${process.cwd()}/libs/modules/*@(-stories)/src/useCases/**/*.graphql`,
+  `${process.cwd()}/libs/modules/**/useCases/**/*.graphql`,
 )
 
 export const getAsyncGenerators = () =>

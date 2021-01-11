@@ -1,8 +1,8 @@
 import { plainToClass } from 'class-transformer'
 import { option as O } from 'fp-ts'
 import { Option } from 'fp-ts/Option'
-import { EntityRepository, Repository } from 'typeorm'
-import { FindEdgeBy } from '../../common/CommonTypes'
+import { AbstractRepository, EntityRepository } from 'typeorm'
+import { ByEdgeCondition } from '../../common/QueryConditions'
 import { isEdgeId, isEdgeSource, isEdgeTarget } from '../../common/utils'
 import { EdgeRepositoryPort } from '../../core/adapters/EdgeRepositoryPort'
 import { Edge } from '../../core/domain/edge'
@@ -11,35 +11,35 @@ import { TypeOrmEdge } from '@codelab/backend'
 
 @EntityRepository(TypeOrmEdge)
 export class TypeOrmEdgeRepositoryAdapter
-  extends Repository<TypeOrmEdge>
+  extends AbstractRepository<TypeOrmEdge>
   implements EdgeRepositoryPort {
-  async exists(searchBy: FindEdgeBy): Promise<boolean> {
-    let edge
+  async exists(searchBy: ByEdgeCondition): Promise<boolean> {
+    let edge: TypeOrmEdge | undefined
 
     if (isEdgeId(searchBy)) {
-      edge = await this.findOne(searchBy.id)
+      edge = await this.repository.findOne(searchBy.edgeId)
     }
 
     return !!edge
   }
 
-  async createEdge(edge: Edge, graph?: Graph): Promise<Edge> {
+  async findMany(): Promise<Array<Edge>> {
+    return Promise.resolve([])
+  }
+
+  async create(edge: Edge, graph: Graph): Promise<Edge> {
     const typeOrmEdge = edge.toPersistence()
 
-    if (graph) {
-      const typeOrmGraph = graph.toPersistence()
+    typeOrmEdge.graph = graph.toPersistence()
 
-      typeOrmEdge.graph = typeOrmGraph
-    }
-
-    const newEdge = await this.save(typeOrmEdge)
+    const newEdge = await this.repository.save(typeOrmEdge)
 
     return plainToClass(Edge, newEdge)
   }
 
-  async deleteEdge(edge: Edge): Promise<Option<Edge>> {
+  async delete(edge: Edge): Promise<Option<Edge>> {
     const typeOrmEdge = edge.toPersistence()
-    const edges = await this.remove([typeOrmEdge])
+    const edges = await this.repository.remove([typeOrmEdge])
 
     return edges.length > 0
       ? Promise.resolve(O.some(plainToClass(Edge, edges[0])))
@@ -47,34 +47,39 @@ export class TypeOrmEdgeRepositoryAdapter
   }
 
   async deleteEdgesByVertexId(vertexId: string): Promise<Array<Edge>> {
-    const typeOrmEdgesBySource: Array<TypeOrmEdge> = await this.find({
-      where: { source: vertexId },
+    const vertexEdges: Array<TypeOrmEdge> = await this.repository.find({
+      where: [
+        { source: vertexId },
+        {
+          target: vertexId,
+        },
+      ],
     })
-    const typeOrmEdgesByTarget: Array<TypeOrmEdge> = await this.find({
-      where: { target: vertexId },
-    })
 
-    const toRemove = [...typeOrmEdgesBySource, ...typeOrmEdgesByTarget]
-    const removedEdges: Array<TypeOrmEdge> = await this.remove(toRemove)
+    const removedEdges: Array<TypeOrmEdge> = await this.repository.remove(
+      vertexEdges,
+    )
 
-    const edges: Array<Edge> = plainToClass(Edge, removedEdges)
-
-    return edges
+    return plainToClass(Edge, removedEdges)
   }
 
-  async findEdge(by: FindEdgeBy): Promise<Option<Edge>> {
+  async findOne(edge: ByEdgeCondition): Promise<Option<Edge>> {
     let typeOrmEdge
 
-    if (isEdgeId(by)) {
-      typeOrmEdge = await this.findOne(by.id)
+    if (isEdgeId(edge)) {
+      typeOrmEdge = await this.repository.findOne(edge.edgeId)
     }
 
-    if (isEdgeSource(by)) {
-      typeOrmEdge = await this.findOne({ where: { source: by.source } })
+    if (isEdgeSource(edge)) {
+      typeOrmEdge = await this.repository.findOne({
+        where: { source: edge.source },
+      })
     }
 
-    if (isEdgeTarget(by)) {
-      typeOrmEdge = await this.findOne({ where: { target: by.target } })
+    if (isEdgeTarget(edge)) {
+      typeOrmEdge = await this.repository.findOne({
+        where: { target: edge.target },
+      })
     }
 
     return typeOrmEdge
@@ -82,10 +87,10 @@ export class TypeOrmEdgeRepositoryAdapter
       : O.none
   }
 
-  async updateEdge(edge: Edge): Promise<Edge> {
+  async update(edge: Edge): Promise<Edge> {
     const typeOrmEdge = edge.toPersistence()
-    const existingEdge = await this.findOne(typeOrmEdge.id)
-    const updatedEdge = await this.save({
+    const existingEdge = await this.repository.findOne(typeOrmEdge.id)
+    const updatedEdge = await this.repository.save({
       ...existingEdge,
       ...edge.toPlain(),
     })
@@ -93,11 +98,13 @@ export class TypeOrmEdgeRepositoryAdapter
     return plainToClass(Edge, updatedEdge)
   }
 
-  async updateEdges(edges: Array<Edge>): Promise<Array<Edge>> {
+  async updateMany(edges: Array<Edge>): Promise<Array<Edge>> {
     const typeOrmEdges: Array<TypeOrmEdge> = edges.map((edge) =>
       edge.toPersistence(),
     )
-    const updatedEdges: Array<TypeOrmEdge> = await this.save(typeOrmEdges)
+    const updatedEdges: Array<TypeOrmEdge> = await this.repository.save(
+      typeOrmEdges,
+    )
 
     return updatedEdges.map((edge) => plainToClass(Edge, edge))
   }
