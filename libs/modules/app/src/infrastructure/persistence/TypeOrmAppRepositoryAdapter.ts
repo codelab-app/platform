@@ -23,7 +23,7 @@ export class TypeOrmAppRepositoryAdapter
     return plainToClass(App, newApp)
   }
 
-  async deleteApp(appId: string): Promise<Option<App>> {
+  async delete(appId: string): Promise<Option<App>> {
     const typeOrmApp = await this.repository.findOne(appId)
 
     if (!typeOrmApp) {
@@ -35,18 +35,25 @@ export class TypeOrmAppRepositoryAdapter
     return O.some(plainToClass(App, apps[0]))
   }
 
-  async findOne(by: ByAppCondition): Promise<Option<App>> {
-    let typeOrmApp
+  async findOne(app: ByAppCondition, userId: UUID): Promise<Option<App>> {
+    let foundApp
 
-    if (isId(by)) {
-      typeOrmApp = await this.repository.findOne(by.id)
+    if (isId(app)) {
+      foundApp = await this.repository.findOne({
+        relations: ['user'],
+        where: {
+          user: {
+            id: userId.value,
+          },
+        },
+      })
     }
 
-    return typeOrmApp ? O.some(plainToClass(App, typeOrmApp)) : O.none
+    return foundApp ? O.some(plainToClass(App, foundApp)) : O.none
   }
 
-  async find(by: ByAppConditions, userId: UUID): Promise<Array<App>> {
-    const apps = await this.repository.find({
+  async findMany(apps: ByAppConditions, userId: UUID): Promise<Array<App>> {
+    const foundApps = await this.repository.find({
       relations: ['user'],
       where: {
         user: {
@@ -55,7 +62,7 @@ export class TypeOrmAppRepositoryAdapter
       },
     })
 
-    return apps.map((app) => plainToClass(App, app))
+    return foundApps.map((app) => plainToClass(App, app))
   }
 
   async addPageToApp(app: App, page: Page): Promise<void> {

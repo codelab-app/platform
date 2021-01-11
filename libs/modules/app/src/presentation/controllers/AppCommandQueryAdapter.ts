@@ -4,16 +4,17 @@ import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { classToPlain } from 'class-transformer'
 import { CreateAppCommand } from '../../core/application/commands/CreateAppCommand'
 import { DeleteAppCommand } from '../../core/application/commands/DeleteAppCommand'
-import { GetAppsQuery } from '../../core/application/commands/GetAppsQuery'
+import { GetAppQuery } from '../../core/application/queries/GetAppQuery'
+import { GetAppsQuery } from '../../core/application/queries/GetAppsQuery'
 import { AppDto } from '../../core/application/useCases/AppDto'
 import { CreateAppInput } from '../../core/application/useCases/createApp/CreateAppInput'
-import { DeleteAppInput } from '../../core/application/useCases/deleteApp/DeleteAppInput'
+import { DeleteAppRequest } from '../../core/application/useCases/deleteApp/DeleteAppRequest'
+import { GetAppInput } from '../../core/application/useCases/getApp/GetAppInput'
 import {
   CommandQueryBusPort,
   CurrentUser,
   GqlAuthGuard,
   TypeOrmApp,
-  UUID,
   UseCaseRequestPort,
 } from '@codelab/backend'
 import { User } from '@codelab/modules/user'
@@ -39,9 +40,19 @@ export class AppCommandQueryAdapter implements CommandQueryBusPort {
     return results.toPlain()
   }
 
+  @Query((returns) => AppDto)
+  @UseGuards(GqlAuthGuard)
+  async getApp(@Args('input') input: GetAppInput, @CurrentUser() user: User) {
+    const results = await this.queryBus.execute(
+      new GetAppQuery({ user, appId: input.appId }),
+    )
+
+    return classToPlain(results)
+  }
+
   @Query((returns) => [AppDto])
   @UseGuards(GqlAuthGuard)
-  async getApps(@CurrentUser() user: User<UUID>) {
+  async getApps(@CurrentUser() user: User) {
     const results = await this.queryBus.execute(new GetAppsQuery({ user }))
 
     return classToPlain(results)

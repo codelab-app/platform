@@ -1,10 +1,11 @@
 import { Inject } from '@nestjs/common'
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs'
-import { Option } from 'fp-ts/Option'
+import { fold } from 'fp-ts/lib/Either'
 import { AppDITokens } from '../../../framework/AppDITokens'
 import { App } from '../../domain/app'
 import { GetAppByIdQuery } from '../queries/GetAppByIdQuery'
 import { GetAppService } from '../useCases/getApp/GetAppService'
+import { Result } from '@codelab/backend'
 
 @QueryHandler(GetAppByIdQuery)
 export class GetAppByIdQueryHandler implements IQueryHandler<GetAppByIdQuery> {

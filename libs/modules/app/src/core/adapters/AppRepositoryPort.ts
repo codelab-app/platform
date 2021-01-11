@@ -7,8 +7,8 @@ import { User } from '@codelab/modules/user'
 
 export interface AppRepositoryPort {
   create(app: App<NOID>, user: User): Promise<App>
-  find(apps: ByAppConditions, userId: UUID): Promise<Array<App>>
-  deleteApp(appId: string): Promise<Option<App>>
-  findOne(app: ByAppCondition): Promise<Option<App>>
+  findMany(apps: ByAppConditions, userId: UUID): Promise<Array<App>>
+  delete(appId: string): Promise<Option<App>>
+  findOne(app: ByAppCondition, userId: UUID): Promise<Option<App>>
   addPageToApp(app: App, page: Page): Promise<void>
 }

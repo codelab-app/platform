@@ -1,9 +1,9 @@
 import { RequestValidationError } from '@codelab/backend'
 
 export namespace GetAppErrors {
-  export class DemoError extends RequestValidationError {
+  export class NotFound extends RequestValidationError {
     constructor(value: string) {
-      super(`The value ${value} has some errors`)
+      super(`The app ${value} has not been found`)
     }
   }
 }

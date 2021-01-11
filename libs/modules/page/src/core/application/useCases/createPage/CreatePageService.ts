@@ -22,8 +22,10 @@ export class CreatePageService implements CreatePageUseCase {
     const { appId } = request
     const page = new Page(request)
 
+    const user: any = {}
+
     const app: Option<App> = await this.queryBus.execute(
-      new GetAppByIdQuery({ appId }),
+      new GetAppQuery({ appId, user }),
     )
 
     if (isNone(app)) {

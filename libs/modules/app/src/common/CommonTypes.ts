@@ -1,10 +1,10 @@
-export type ByAppCondition = ByAppTitle | ByAppId
+export type ByAppCondition = ByAppTitle | ByUniqueAppId
 
 export type ByAppTitle = {
   title: string
 }
 
-export type ByAppId = {
+export type ByUniqueAppId = {
   id: string
 }
 

@@ -5,8 +5,6 @@ export class AppDITokens {
     'GetAppsUseCase',
   )
 
-  public static readonly GetAppService: unique symbol = Symbol('GetAppService')
-
   public static readonly DeleteAppUseCase: unique symbol = Symbol(
     'DeleteAppUseCase',
   )

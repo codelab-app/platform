@@ -4,7 +4,7 @@ import { Connection } from 'typeorm'
 import { AddPageToAppCommandHandler } from '../../core/application/handlers/AddPageToAppCommandHandler'
 import { CreateAppCommandHandler } from '../../core/application/handlers/CreateAppCommandHandler'
 import { DeleteAppCommandHandler } from '../../core/application/handlers/DeleteAppCommandHandler'
-import { GetAppByIdQueryHandler } from '../../core/application/handlers/GetAppByIdQueryHandler'
+import { GetAppQueryHandler } from '../../core/application/handlers/GetAppQueryHandler'
 import { GetAppsQueryHandler } from '../../core/application/handlers/GetAppsQueryHandler'
 import { AppPageSaga } from '../../core/application/sagas/AppPage.saga'
 import { CreateAppService } from '../../core/application/useCases/createApp/CreateAppService'
@@ -49,8 +49,8 @@ export const useCaseProviders: Array<Provider> = [
 ]
 
 export const handlerProviders: Array<Provider> = [
-  AppPageSaga,
-  AddPageToAppCommandHandler,
+  // AddPageToAppCommandHandler,
+  GetAppQueryHandler,
   GetAppsQueryHandler,
   GetAppByIdQueryHandler,
   CreateAppCommandHandler,

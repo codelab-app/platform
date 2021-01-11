@@ -9,7 +9,7 @@ export class GetAppsService implements GetAppsUseCase {
   constructor(private readonly appRepository: AppRepositoryPort) {}
 
   async execute({ user }: GetAppsRequest): Promise<GetAppsResponse> {
-    const apps = await this.appRepository.find({}, user.id)
+    const apps = await this.appRepository.findMany({}, user.id)
 
     return right(Result.ok(apps))
   }
