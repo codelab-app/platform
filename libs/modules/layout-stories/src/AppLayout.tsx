@@ -2,6 +2,7 @@ import { Layout } from 'antd'
 import { SiderProps } from 'antd/lib/layout/Sider'
 import { useRouter } from 'next/router'
 import React, { PropsWithChildren, ReactElement } from 'react'
+import { contentStyle } from '@codelab/frontend'
 
 const { Header, Footer, Sider, Content } = Layout
 
@@ -34,7 +35,7 @@ export const AppLayout = (props: PropsWithChildren<AppLayoutProps>) => {
       </Sider>
       <Layout>
         {router.asPath === '/apps' ? null : <Header>{HeaderMenu}</Header>}
-        <Content>{children}</Content>
+        <Content style={contentStyle}>{children}</Content>
         <Footer style={{ textAlign: 'center' }}>{footer}</Footer>
       </Layout>
     </Layout>

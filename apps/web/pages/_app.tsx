@@ -1,6 +1,5 @@
 import { AppProps } from 'next/app'
 import React, { PropsWithChildren } from 'react'
-import { RecoilRoot } from 'recoil'
 import { MachineProvider, rootMachine } from '@codelab/frontend'
 import { CreateAppModal } from '@codelab/modules/app-stories'
 import { AppLayoutContainer } from '@codelab/modules/layout-stories'
@@ -35,16 +34,14 @@ const AppContainer: React.FC<AppProps> = (props) => {
 
   return (
     <MachineProvider rootMachine={rootMachine}>
-      <RecoilRoot>
-        <style jsx global>{`
-          #__next {
-            height: 100%;
-          }
-        `}</style>
-        <App>
-          <Component {...pageProps} />
-        </App>
-      </RecoilRoot>
+      <style jsx global>{`
+        #__next {
+          height: 100%;
+        }
+      `}</style>
+      <App>
+        <Component {...pageProps} />
+      </App>
     </MachineProvider>
   )
 }
