@@ -23,6 +23,7 @@ export const threeGridCol = {
 export const cardStyle = {
   display: 'flex',
   alignItems: 'center',
+  width: '100%',
 }
 
 export const padding = {

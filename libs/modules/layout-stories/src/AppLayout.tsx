@@ -30,7 +30,7 @@ export const AppLayout = (props: PropsWithChildren<AppLayoutProps>) => {
 
   return (
     <Layout style={{ height: '100%' }}>
-      <Sider theme="light" collapsible {...sidebarProps}>
+      <Sider theme="light" collapsible={false} {...sidebarProps}>
         {SidebarMenu}
       </Sider>
       <Layout>

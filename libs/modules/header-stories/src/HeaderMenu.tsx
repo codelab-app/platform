@@ -2,17 +2,13 @@ import { HomeOutlined } from '@ant-design/icons'
 import { Menu } from 'antd'
 import Link from 'next/link'
 import React from 'react'
+import { disableMenuHoverEffects } from '@codelab/frontend'
 import {
   RegisterUserButton,
   UserLoginButton,
   UserSignOutButton,
   useUserMachine,
 } from '@codelab/modules/user-stories'
-
-const disableMenuHoverEffects = {
-  backgroundColor: 'initial',
-  cursor: 'initial',
-}
 
 // TODO: disable hover effects for button
 export const HeaderMenu = () => {
