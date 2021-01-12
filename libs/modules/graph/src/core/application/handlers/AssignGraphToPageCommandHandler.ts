@@ -4,18 +4,18 @@ import { GraphDITokens } from '../../../framework/GraphDITokens'
 import { GraphRepositoryPort } from '../../adapters/GraphRepositoryPort'
 import { Graph } from '../../domain/graph'
 import { Vertex } from '../../domain/vertex'
-import { AddGraphToPageCommand } from '../commands/AddGraphToPageCommand'
 import { NodeType } from '@codelab/backend'
+import { AssignGraphToPageCommand } from '../commands/AssignGraphToPageCommand'
 
-@CommandHandler(AddGraphToPageCommand)
-export class AddGraphToPageCommandHandler
-  implements ICommandHandler<AddGraphToPageCommand> {
+@CommandHandler(AssignGraphToPageCommand)
+export class AssignGraphToPageCommandHandler
+  implements ICommandHandler<AssignGraphToPageCommand> {
   constructor(
     @Inject(GraphDITokens.GraphRepository)
     private readonly graphRepository: GraphRepositoryPort,
   ) {}
 
-  async execute({ page }: AddGraphToPageCommand) {
+  async execute({ page }: AssignGraphToPageCommand) {
     const graph: Graph = await this.graphRepository.addGraphToPage(page)
 
     const rootVertex = new Vertex({

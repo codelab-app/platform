@@ -22,23 +22,31 @@ export class GetGraphService implements GetGraphUseCase {
       })
 
       if (isNone(graphOpt)) {
-        return left(new GetGraphErrors.GraphNotFoundError(graphId))
+        return left(
+          new GetGraphErrors.GraphNotFoundError(
+            `The graph with id ${graphId} was not found`,
+          ),
+        )
       }
 
       return right(Result.ok(graphOpt.value))
     }
 
-    // if (pageId) {
-    //   graphOpt = await this.graphRepository.findOne({
-    //     pageId,
-    //   })
+    if (pageId) {
+      graphOpt = await this.graphRepository.findOne({
+        pageId,
+      })
 
-    //   if (isNone(graphOpt)) {
-    //     return left(new GetGraphErrors.GraphNotFoundError(pageId))
-    //   }
+      if (isNone(graphOpt)) {
+        return left(
+          new GetGraphErrors.GraphNotFoundError(
+            `The graph with page id ${pageId} was not found`,
+          ),
+        )
+      }
 
-    //   return right(Result.ok(graphOpt.value))
-    // }
+      return right(Result.ok(graphOpt.value))
+    }
 
     return left(new GetGraphErrors.GraphNotFoundError(''))
   }
