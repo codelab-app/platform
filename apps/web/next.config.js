@@ -9,7 +9,7 @@ const withPlugins = require('next-compose-plugins')
 
 const themeVariables = lessToJS(
   fs.readFileSync(
-    path.resolve(__dirname, './src/styles/antd-custom.less'),
+    path.resolve(process.cwd(), 'apps/web/src/styles/antd-custom.less'),
     'utf8',
   ),
 )

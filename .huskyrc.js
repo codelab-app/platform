@@ -12,7 +12,7 @@ module.exports = {
       'make test-dev-affected',
       // 'make unit-dev-affected',
       // 'make integration-dev-affected',
-      'make e2e-dev',
+      // 'make e2e-dev',
     ]),
     'commit-msg': 'make lint-commit-dev',
     'pre-commit': tasks([lintstaged, './scripts/lint/git.sh']),
