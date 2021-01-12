@@ -9,6 +9,7 @@ import {
 } from '../../common/QueryConditions'
 import { UserRepositoryPort } from '../../core/adapters/UserRepositoryPort'
 import { User } from '../../core/domain/user'
+import { UserDto } from '../../presentation/UserDto'
 import { NOID, TypeOrmUser } from '@codelab/backend'
 
 @EntityRepository(TypeOrmUser)
@@ -24,8 +25,12 @@ export class TypeOrmUserRepositoryAdapter
   async exists(user: ByUserCondition): Promise<boolean> {
     let existingUser: TypeOrmUser | undefined
 
+    if (isUserEmail(user)) {
+      existingUser = await this.repository.findOne({ email: user.email })
+    }
+
     if (isUserId(user)) {
-      existingUser = await this.repository.findOne(user.userId)
+      existingUser = await this.repository.findOne({ id: user.userId })
     }
 
     return !!existingUser
@@ -49,12 +54,23 @@ export class TypeOrmUserRepositoryAdapter
     return Promise.resolve(foundUser)
   }
 
-  async update(user: User): Promise<User> {
-    const updatedUser = await this.repository.save({
-      ...user.toPlain(),
-    })
+  async update(user: ByUserCondition, data: UserDto): Promise<Option<User>> {
+    const foundUser = await this.findOne(user)
 
-    return plainToClass(User, updatedUser)
+    if (isNone(foundUser)) {
+      return O.none
+    }
+
+    const { affected } = await this.repository.update(
+      foundUser.value.id.toString(),
+      data,
+    )
+
+    if (affected) {
+      return this.findOne(user)
+    }
+
+    return O.none
   }
 
   async findMany(): Promise<Array<User>> {

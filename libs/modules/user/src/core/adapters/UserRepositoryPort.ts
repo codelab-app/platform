@@ -1,5 +1,6 @@
 import { Option } from 'fp-ts/Option'
 import { ByUserCondition } from '../../common/QueryConditions'
+import { UserDto } from '../../presentation/UserDto'
 import { User } from '../domain/user'
 import { NOID, RepositoryPort } from '@codelab/backend'
 
@@ -8,7 +9,7 @@ export abstract class UserRepositoryPort implements RepositoryPort<User> {
 
   abstract delete(user: ByUserCondition): Promise<Option<User>>
 
-  abstract update(user: User): Promise<User>
+  abstract update(user: ByUserCondition, data: UserDto): Promise<Option<User>>
 
   abstract exists(by: ByUserCondition): Promise<boolean>
 

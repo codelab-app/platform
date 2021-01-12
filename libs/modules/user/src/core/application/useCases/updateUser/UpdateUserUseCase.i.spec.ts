@@ -1,13 +1,23 @@
 import { INestApplication } from '@nestjs/common'
 import { Test } from '@nestjs/testing'
+import { print } from 'graphql'
 import request from 'supertest'
 import { Connection } from 'typeorm'
+import { v4 as uuidv4 } from 'uuid'
 import { UserModule } from '../../../../framework/nestjs/UserModule'
+import { UserDto } from '../../../../presentation/UserDto'
+import { RegisterUserGql } from '../registerUser/RegisterUser.generated'
+import { UpdateUserGql } from './UpdateUser.generated'
 import { TestInfrastructureModule } from '@codelab/backend'
 
-describe.skip('UpdateUserUseCase', () => {
+const email = 'test_user@codelab.ai'
+const newEmail = 'test_user_edit@codelab.ai'
+const password = 'password'
+
+describe('UpdateUserUseCase', () => {
   let app: INestApplication
   let connection: Connection
+  let user: UserDto
 
   beforeAll(async () => {
     const testModule = await Test.createTestingModule({
@@ -18,73 +28,63 @@ describe.skip('UpdateUserUseCase', () => {
     connection = app.get(Connection)
     await connection.synchronize(true)
     await app.init()
+
+    user = await request(app.getHttpServer())
+      .post('/graphql')
+      .send({
+        query: print(RegisterUserGql),
+        variables: {
+          input: {
+            email,
+            password,
+          },
+        },
+      })
+      .then((res) => res.body.data.registerUser)
   })
 
   afterAll(async () => {
-    await connection.synchronize(true)
-
     await app.close()
   })
 
-  beforeEach(async () => {
-    await connection.synchronize(true)
+  it('should update user', async () => {
+    await request(app.getHttpServer())
+      .post('/graphql')
+      .send({
+        query: print(UpdateUserGql),
+        variables: {
+          input: {
+            id: user.id,
+            email: newEmail,
+          },
+        },
+      })
+      .expect(200)
+      .expect((res) => {
+        expect(res.body.data.updateUser.email).toEqual(newEmail)
+      })
   })
 
-  it('should update user', async () => {
-    const email = 'test_user@codelab.ai'
-    const createUserMutation = `
-			mutation {
-			  registerUser(input:
-				{
-				  email: "${email}",
-				  password: "password"
-				}) { id email}
-			}`
-    const createNewUser: any = await request(app.getHttpServer())
-      .post('/graphql')
-      .send({
-        query: createUserMutation,
-      })
-      .expect(200)
-      .expect((res) => {
-        expect(res.body.data.registerUser.email).toEqual(email)
-      })
-    const newUserId = createNewUser.body.data.registerUser.id
-    const updateUserMutation = `
-			mutation {
-				updateUser(input: {id: "${newUserId}" email: "test_user_edited@gmail.com"}) { email }
-			}
-		`
-    const updateUser = await request(app.getHttpServer())
-      .post('/graphql')
-      .send({
-        query: updateUserMutation,
-      })
-      .expect(200)
-      .expect((res) => {
-        expect(res.body.data.updateUser.email).toEqual(
-          'test_user_edited@gmail.com',
-        )
-      })
-  })
   it('Should return an error when updating non-existent user', async () => {
-    const email = 'test_user_edited@gmail.com'
-    const updateUserMutation = `
-			mutation {
-				updateUser(input: {id: "93d12d99-0620-4c12-8a9d-be3aafeaf9f2" email: "${email}"}) { email }
-			}
-		`
-    const updateNonExistentUser = await request(app.getHttpServer())
+    const userId = uuidv4()
+
+    await request(app.getHttpServer())
       .post('/graphql')
       .send({
-        query: updateUserMutation,
+        query: print(UpdateUserGql),
+        variables: {
+          input: {
+            id: userId,
+            email: newEmail,
+          },
+        },
       })
       .expect(200)
       .expect((res) => {
         const errorMsg = res.body?.errors[0].message
 
         expect(errorMsg).toEqual(
-          `Theres no email ${email} associated with any account`,
+          `Theres no email ${userId} associated with any account`,
         )
       })
   })

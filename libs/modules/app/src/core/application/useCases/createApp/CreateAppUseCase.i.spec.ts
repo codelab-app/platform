@@ -1,33 +1,14 @@
 import { INestApplication } from '@nestjs/common'
 import { Test } from '@nestjs/testing'
+import { print } from 'graphql'
 import request from 'supertest'
 import { Connection } from 'typeorm'
-import { RegisterUserInput } from '../../../../../../user/src/core/application/useCases/registerUser/RegisterUserInput'
+import { RegisterUserGql } from '../../../../../../user/src/core/application/useCases/registerUser/RegisterUser.generated'
 import { UserModule } from '../../../../../../user/src/framework/nestjs/UserModule'
 import { AppModule } from '../../../../framework/nestjs/AppModule'
-import { CreateAppInput } from './CreateAppInput'
+import { CreateAppGql } from './CreateApp.generated'
 import { TestInfrastructureModule } from '@codelab/backend'
 import { UserDto } from '@codelab/modules/user'
-
-export const registerUserMutation = (registerUserInput: RegisterUserInput) => `
-  mutation {
-    registerUser(input: {
-      email: "${registerUserInput.email}",
-      password: "${registerUserInput.password}"
-    }) {
-      email
-      accessToken
-    }
-  }`
-
-const createAppMutation = (createAppInput: CreateAppInput) => `
-  mutation {
-    createApp(input: {
-      title: "${createAppInput.title}",
-    }) {
-      title
-    }
-  }`
 
 const email = 'test_user@codelab.ai'
 const password = 'password'
@@ -51,11 +32,15 @@ describe('CreateAppUseCase', () => {
     user = await request(app.getHttpServer())
       .post('/graphql')
       .send({
-        query: registerUserMutation({ email, password }),
+        query: print(RegisterUserGql),
+        variables: {
+          input: {
+            email,
+            password,
+          },
+        },
       })
       .then((res) => res.body.data.registerUser)
-
-    console.log('createAppUser', user)
   })
 
   afterAll(async () => {
@@ -67,9 +52,14 @@ describe('CreateAppUseCase', () => {
 
     await request(app.getHttpServer())
       .post('/graphql')
-      .set('authorization', `Bearer ${user.accessToken}` ?? '')
+      .set('Authorization', `Bearer ${user.accessToken}` ?? '')
       .send({
-        query: createAppMutation({ title }),
+        query: print(CreateAppGql),
+        variables: {
+          input: {
+            title,
+          },
+        },
       })
       .expect(200)
       .expect((res) => {
@@ -82,9 +72,14 @@ describe('CreateAppUseCase', () => {
 
     await request(app.getHttpServer())
       .post('/graphql')
-      .set('authorization', '')
+      .set('Authorization', '')
       .send({
-        query: createAppMutation({ title }),
+        query: print(CreateAppGql),
+        variables: {
+          input: {
+            title,
+          },
+        },
       })
       .expect(200)
       .then((res) => {
