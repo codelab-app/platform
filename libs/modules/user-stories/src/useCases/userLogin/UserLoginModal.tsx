@@ -1,5 +1,5 @@
 import { Alert, Modal } from 'antd'
-import React, { createRef } from 'react'
+import React, { useRef } from 'react'
 import { useUserMachine } from '../../store'
 import { UserLoginForm } from './UserLoginForm'
 import { useRootMachine } from '@codelab/frontend'
@@ -7,7 +7,7 @@ import { useRootMachine } from '@codelab/frontend'
 export const UserLoginModal = () => {
   const app = useRootMachine()
   const user = useUserMachine()
-  const submitBtnRef = createRef<HTMLButtonElement>()
+  const submitBtnRef = useRef<HTMLButtonElement>()
 
   const error =
     user.state.event?.type === 'error.platform.executeLogIn' &&
@@ -34,7 +34,10 @@ export const UserLoginModal = () => {
         app.send('ON_MODAL_OK')
       }}
     >
-      <UserLoginForm hasSubmitButton={false} submitBtnRef={submitBtnRef} />
+      <UserLoginForm
+        hasSubmitButton={false}
+        submitBtnRef={submitBtnRef as any}
+      />
 
       {error && <Alert message={error} type="error" />}
     </Modal>
