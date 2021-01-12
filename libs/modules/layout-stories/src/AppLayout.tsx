@@ -34,7 +34,9 @@ export const AppLayout = (props: PropsWithChildren<AppLayoutProps>) => {
         {SidebarMenu}
       </Sider>
       <Layout>
-        {router.asPath === '/apps' ? null : <Header>{HeaderMenu}</Header>}
+        {router.asPath === '/apps' ? null : (
+          <Header style={{ height: '50px' }}>{HeaderMenu}</Header>
+        )}
         <Content style={contentStyle}>{children}</Content>
         <Footer style={{ textAlign: 'center' }}>{footer}</Footer>
       </Layout>

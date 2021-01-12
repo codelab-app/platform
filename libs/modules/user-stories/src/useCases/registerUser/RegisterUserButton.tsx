@@ -9,5 +9,9 @@ export const RegisterUserButton = () => {
     onClick: () => user.send('REGISTER_USER'),
   }
 
-  return <Button {...registerUserButtonProps}>Register</Button>
+  return (
+    <Button type="primary" {...registerUserButtonProps}>
+      Register
+    </Button>
+  )
 }

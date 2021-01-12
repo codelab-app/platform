@@ -1,3 +1,4 @@
+import { HomeOutlined } from '@ant-design/icons'
 import { Menu } from 'antd'
 import Link from 'next/link'
 import React from 'react'
@@ -7,6 +8,11 @@ import {
   UserSignOutButton,
   useUserMachine,
 } from '@codelab/modules/user-stories'
+
+const disableMenuHoverEffects = {
+  backgroundColor: 'initial',
+  cursor: 'initial',
+}
 
 // TODO: disable hover effects for button
 export const HeaderMenu = () => {
@@ -18,11 +24,14 @@ export const HeaderMenu = () => {
     <>
       <div className="logo" />
       <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
-        <Menu.Item key="1">
-          <Link href="/">
-            <a>Home</a>
-          </Link>
-        </Menu.Item>
+        <Menu.Item
+          key="1"
+          icon={
+            <Link href="/">
+              <HomeOutlined />
+            </Link>
+          }
+        />
         <Menu.Item key="2">
           <Link href="/apps">
             <a>Apps</a>
@@ -39,12 +48,19 @@ export const HeaderMenu = () => {
           </>
         ) : (
           <>
-            <Menu.Item key="3" style={{ float: 'right' }}>
-              <RegisterUserButton />
-            </Menu.Item>
-            <Menu.Item key="4" style={{ float: 'right' }}>
-              <UserLoginButton />
-            </Menu.Item>
+            <Menu.Item
+              key="3"
+              style={{
+                float: 'right',
+                ...disableMenuHoverEffects,
+              }}
+              icon={<RegisterUserButton />}
+            />
+            <Menu.Item
+              key="4"
+              style={{ float: 'right', ...disableMenuHoverEffects }}
+              icon={<UserLoginButton />}
+            />
           </>
         )}
       </Menu>
