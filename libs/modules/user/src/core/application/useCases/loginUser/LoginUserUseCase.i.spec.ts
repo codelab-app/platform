@@ -1,36 +1,15 @@
 import { INestApplication } from '@nestjs/common'
 import { Test } from '@nestjs/testing'
+import { print } from 'graphql'
 import request from 'supertest'
 import { Connection } from 'typeorm'
 import { UserModule } from '../../../../framework/nestjs/UserModule'
-import { RegisterUserInput } from '../registerUser/RegisterUserInput'
-import { LoginUserInput } from './LoginUserInput'
+import { RegisterUserGql } from '../registerUser/RegisterUser.generated'
+import { LoginUserGql } from './LoginUser.generated'
 import { TestInfrastructureModule } from '@codelab/backend'
 
 const email = 'test_user@codelab.ai'
 const password = 'password'
-
-export const registerUserMutation = (registerUserInput: RegisterUserInput) => `
-  mutation {
-    registerUser(input: {
-      email: "${registerUserInput.email}",
-      password: "${registerUserInput.password}"
-    }) {
-      email
-      accessToken
-    }
-  }`
-
-const loginUserQuery = (loginUserInput: LoginUserInput) => `
-  mutation {
-    loginUser(input: {
-      email: "${loginUserInput.email}",
-      password: "${loginUserInput.password}"
-    }) {
-      email
-      accessToken
-    }
-  }`
 
 describe('LoginUserUseCase', () => {
   let app: INestApplication
@@ -50,7 +29,13 @@ describe('LoginUserUseCase', () => {
     user = await request(app.getHttpServer())
       .post('/graphql')
       .send({
-        query: registerUserMutation({ email, password }),
+        query: print(RegisterUserGql),
+        variables: {
+          input: {
+            email,
+            password,
+          },
+        },
       })
       .then((res) => res.body.data.registerUser)
   })
@@ -63,7 +48,13 @@ describe('LoginUserUseCase', () => {
     await request(app.getHttpServer())
       .post('/graphql')
       .send({
-        query: loginUserQuery({ email, password }),
+        query: print(LoginUserGql),
+        variables: {
+          input: {
+            email,
+            password,
+          },
+        },
       })
       .expect(200)
       .expect((res) => {
@@ -76,7 +67,13 @@ describe('LoginUserUseCase', () => {
     await request(app.getHttpServer())
       .post('/graphql')
       .send({
-        query: loginUserQuery({ email, password: 'wrong-password' }),
+        query: print(LoginUserGql),
+        variables: {
+          input: {
+            email,
+            password: 'wrong-password',
+          },
+        },
       })
       .expect(200)
       .expect((res) => {
@@ -87,17 +84,25 @@ describe('LoginUserUseCase', () => {
   })
 
   it('should return error given wrong email', async () => {
+    const wrongEmail = 'wrong-email@codelab.ai'
+
     await request(app.getHttpServer())
       .post('/graphql')
       .send({
-        query: loginUserQuery({ email: 'wrong@gmail.com', password }),
+        query: print(LoginUserGql),
+        variables: {
+          input: {
+            email: wrongEmail,
+            password,
+          },
+        },
       })
       .expect(200)
       .expect((res) => {
         const errorMsg = res.body.errors[0].message
 
         expect(errorMsg).toEqual(
-          `Theres no email wrong@gmail.com associated with any account`,
+          `Theres no email ${wrongEmail} associated with any account`,
         )
       })
   })

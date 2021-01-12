@@ -51,43 +51,43 @@ describe('RegisterUserUseCase', () => {
       })
   })
 
-  // it('should raise an error given an existing email', async () => {
-  //   // Create a user
-  //   await request(app.getHttpServer())
-  //     .post('/graphql')
-  //     .send({
-  //       query: print(RegisterUserGql),
-  //       variables: {
-  //         input: {
-  //           email,
-  //           password,
-  //         },
-  //       },
-  //     })
-  //     .expect(200)
-  //     .expect((res) => {
-  //       expect(res.body.data.registerUser.email).toEqual(email)
-  //     })
+  it('should raise an error given an existing email', async () => {
+    // Create a user
+    await request(app.getHttpServer())
+      .post('/graphql')
+      .send({
+        query: print(RegisterUserGql),
+        variables: {
+          input: {
+            email,
+            password,
+          },
+        },
+      })
+      .expect(200)
+      .expect((res) => {
+        expect(res.body.data.registerUser.email).toEqual(email)
+      })
 
-  //   // Create another user
-  //   await request(app.getHttpServer())
-  //     .post('/graphql')
-  //     .send({
-  //       query: print(RegisterUserGql),
-  //       variables: {
-  //         input: {
-  //           email,
-  //           password,
-  //         },
-  //       },
-  //     })
-  //     .expect(200)
-  //     .expect((res) => {
-  //       const errorMsg = res.body?.errors[0].message
+    // Create another user
+    await request(app.getHttpServer())
+      .post('/graphql')
+      .send({
+        query: print(RegisterUserGql),
+        variables: {
+          input: {
+            email,
+            password,
+          },
+        },
+      })
+      .expect(200)
+      .expect((res) => {
+        const errorMsg = res.body?.errors[0].message
 
-  //       expect(errorMsg).toEqual(
-  //         `The email ${email} associated for this account already exists`,
-  //       )
-  //     })
-  // })
+        expect(errorMsg).toEqual(
+          `The email ${email} associated for this account already exists`,
+        )
+      })
+  })
 })

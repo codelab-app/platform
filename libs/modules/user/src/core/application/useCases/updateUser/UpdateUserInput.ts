@@ -6,5 +6,5 @@ export class UpdateUserInput {
   declare id: string
 
   @Field()
-  declare email: string
+  declare email?: string
 }
