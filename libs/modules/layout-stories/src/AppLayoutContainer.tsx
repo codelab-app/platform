@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import React from 'react'
 import {
   AppFooterProps,
@@ -11,8 +12,10 @@ import { SidebarMenu } from '@codelab/modules/sidebar-stories'
 
 export const AppLayoutContainer = ({ children }: any) => {
   const layout = useLayoutMachine()
+  const router = useRouter()
 
   const sidebar: AppSidebarProps = {
+    hidden: router.asPath === '/',
     Menu: <SidebarMenu />,
     collapsed: layout.state.value.sidebar === 'inactive',
     onCollapse: () => layout.send('TOGGLE_SIDEBAR'),
