@@ -1,4 +1,5 @@
-import { Card, Col, Row, Typography } from 'antd'
+import { ArrowRightOutlined } from '@ant-design/icons'
+import { Button, Card, Col, Image, Row, Typography } from 'antd'
 import React from 'react'
 import { padding, twoGridCol } from '@codelab/frontend'
 
@@ -30,9 +31,14 @@ export const HomeJumbo = () => {
             We have abstracted everything you need to build out a robust
             frontend web application.
           </p>
+          <Button size="large" icon={<ArrowRightOutlined />} type="primary">
+            Start Building Now
+          </Button>
         </Card>
       </Col>
-      <Col {...twoGridCol}>Home Jumbo</Col>
+      <Col {...twoGridCol}>
+        <Image src="http://via.placeholder.com/1080x1080" />
+      </Col>
     </Row>
   )
 }
