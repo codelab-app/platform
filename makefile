@@ -194,6 +194,7 @@ test-dev:
 unit-dev-affected:
 	npx nx affected:test \
 	--testPathPattern=[^i].spec.ts \
+	--silent \
 	--parallel
 
 unit-dev:

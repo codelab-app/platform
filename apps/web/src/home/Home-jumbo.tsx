@@ -37,7 +37,7 @@ export const HomeJumbo = () => {
         </Card>
       </Col>
       <Col {...twoGridCol}>
-        <Image src="http://via.placeholder.com/1080x1080" />
+        <Image src="http://via.placeholder.com/1080x1080" preview={false} />
       </Col>
     </Row>
   )

@@ -5,7 +5,7 @@ export const twoGridCol = {
   lg: 12,
   style: {
     display: 'inline-flex',
-    'align-self': 'stretch',
+    alignSelf: 'stretch',
   },
 }
 
@@ -16,13 +16,13 @@ export const threeGridCol = {
   lg: 8,
   style: {
     display: 'inline-flex',
-    'align-self': 'stretch',
+    alignSelf: 'stretch',
   },
 }
 
 export const cardStyle = {
   display: 'flex',
-  'align-items': 'center',
+  alignItems: 'center',
 }
 
 export const padding = {
