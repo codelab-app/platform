@@ -2,7 +2,7 @@ import { Module, Provider } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
 import { Connection } from 'typeorm'
 import { AddChildNodeCommandHandler } from '../../core/application/handlers/AddChildNodeCommandHandler'
-import { AddGraphToPageCommandHandler } from '../../core/application/handlers/AddGraphToPageCommandHandler'
+import { AssignGraphToPageCommandHandler } from '../../core/application/handlers/AssignGraphToPageCommandHandler'
 import { CreateGraphCommandHandler } from '../../core/application/handlers/CreateGraphCommandHandler'
 import { DeleteNodeCommandHandler } from '../../core/application/handlers/DeleteNodeCommandHandler'
 import { GetGraphQueryHandler } from '../../core/application/handlers/GetGraphQueryHandler'
@@ -97,7 +97,7 @@ const useCaseProviders: Array<Provider> = [
 ]
 
 export const handlerProviders: Array<Provider> = [
-  AddGraphToPageCommandHandler,
+  AssignGraphToPageCommandHandler,
   MoveNodeCommandHandler,
   DeleteNodeCommandHandler,
   GetGraphQueryHandler,
