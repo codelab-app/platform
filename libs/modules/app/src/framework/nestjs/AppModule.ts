@@ -1,10 +1,12 @@
 import { Module, Provider } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
 import { Connection } from 'typeorm'
+import { AssignPageToAppCommandHandler } from '../../core/application/handlers/AssignPageToAppCommandHandler'
 import { CreateAppCommandHandler } from '../../core/application/handlers/CreateAppCommandHandler'
 import { DeleteAppCommandHandler } from '../../core/application/handlers/DeleteAppCommandHandler'
 import { GetAppQueryHandler } from '../../core/application/handlers/GetAppQueryHandler'
 import { GetAppsQueryHandler } from '../../core/application/handlers/GetAppsQueryHandler'
+import { AppPageSaga } from '../../core/application/sagas/AppPage.saga'
 import { CreateAppService } from '../../core/application/useCases/createApp/CreateAppService'
 import { DeleteAppService } from '../../core/application/useCases/deleteApp/DeleteAppService'
 import { GetAppService } from '../../core/application/useCases/getApp/GetAppService'
@@ -47,7 +49,7 @@ export const useCaseProviders: Array<Provider> = [
 ]
 
 export const handlerProviders: Array<Provider> = [
-  // AddPageToAppCommandHandler,
+  AssignPageToAppCommandHandler,
   GetAppQueryHandler,
   GetAppsQueryHandler,
   GetAppQueryHandler,
@@ -55,9 +57,12 @@ export const handlerProviders: Array<Provider> = [
   DeleteAppCommandHandler,
 ]
 
+export const sagas: Array<Provider> = [AppPageSaga]
+
 @Module({
   imports: [CqrsModule],
   providers: [
+    ...sagas,
     ...persistenceProviders,
     ...useCaseProviders,
     ...handlerProviders,

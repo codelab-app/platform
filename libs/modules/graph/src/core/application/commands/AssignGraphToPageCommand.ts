@@ -1,6 +1,6 @@
 import { Page } from '../../../../../page/src/core/domain/page'
 import { UUID } from '@codelab/backend'
 
-export class AddGraphToPageCommand {
+export class AssignGraphToPageCommand {
   constructor(public readonly page: Page<UUID>) {}
 }

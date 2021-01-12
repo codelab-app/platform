@@ -35,7 +35,7 @@ const registerUserMutation = (registerUserInput: RegisterUserInput) => `
     }
   }`
 
-describe('CreatePageUseCase', () => {
+describe.skip('CreatePageUseCase', () => {
   let app: INestApplication
   let connection: Connection
 
@@ -60,11 +60,11 @@ describe('CreatePageUseCase', () => {
     await app.close()
   })
 
-  it('should be true', () => {
-    expect(true).toBeTruthy()
-  })
+  // it('should be true', () => {
+  //   expect(true).toBeTruthy()
+  // })
 
-  it.skip('should create page with graph and a root vertex', async () => {
+  it('should create page with graph and a root vertex', async () => {
     await request(app.getHttpServer())
       .post('/graphql')
       .send({
@@ -118,7 +118,7 @@ describe('CreatePageUseCase', () => {
       })
     const pageId = createPageReq.body.data.createPage.id
     const graphQuery = `{
-      graph(input:{pageId: "${pageId}"}) { vertices { id type } }
+      graph(input:{pageId: "${pageId}"}) { id vertices { id type } }
     }`
 
     const getGraphForPageReq = await request(app.getHttpServer())
@@ -138,7 +138,7 @@ describe('CreatePageUseCase', () => {
 
   it.skip('should find graph', async () => {
     const graphQuery = `{
-      graph(input:{pageId: "9174934b-c289-4dd3-ace3-7b4c14731c5d"}) { vertices { id type } }
+      graph(input:{pageId: "227572eb-0de9-459f-b0af-16cd482919f7"}) { vertices { id type } }
     }`
     const getGraphForPageReq = await request(app.getHttpServer())
       .post('/graphql')

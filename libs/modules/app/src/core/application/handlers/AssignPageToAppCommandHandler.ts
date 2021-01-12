@@ -2,17 +2,17 @@ import { Inject } from '@nestjs/common'
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs'
 import { AppDITokens } from '../../../framework/AppDITokens'
 import { AppRepositoryPort } from '../../adapters/AppRepositoryPort'
-import { AddPageToAppCommand } from '../commands/AddPageToAppCommand'
+import { AssignPageToAppCommand } from '../commands/AssignPageToAppCommand'
 
-@CommandHandler(AddPageToAppCommand)
-export class AddPageToAppCommandHandler
-  implements ICommandHandler<AddPageToAppCommand> {
+@CommandHandler(AssignPageToAppCommand)
+export class AssignPageToAppCommandHandler
+  implements ICommandHandler<AssignPageToAppCommand> {
   constructor(
     @Inject(AppDITokens.AppRepository)
     private readonly appRepository: AppRepositoryPort,
   ) {}
 
-  public async execute({ app, page }: AddPageToAppCommand) {
+  public async execute({ app, page }: AssignPageToAppCommand) {
     await this.appRepository.addPageToApp(app, page)
   }
 }
