@@ -17,8 +17,9 @@ export const AppLayoutContainer = ({ children }: any) => {
   const sidebar: AppSidebarProps = {
     hidden: router.asPath === '/',
     Menu: <SidebarMenu />,
-    collapsed: layout.state.value.sidebar === 'inactive',
-    onCollapse: () => layout.send('TOGGLE_SIDEBAR'),
+    collapsed: true,
+    // collapsed: layout.state.value.sidebar === 'inactive',
+    // onCollapse: () => layout.send('TOGGLE_SIDEBAR'),
   }
 
   const header: AppHeaderProps = {
