@@ -17,14 +17,10 @@ require('react-resizable/css/styles.css')
 const App = ({ children }: PropsWithChildren<any>) => {
   return (
     <>
-      {typeof window === 'undefined' ? null : (
-        <>
-          <RegisterUserModal />
-          <UserLoginModal />
-          <CreateAppModal />
-          <AppLayoutContainer>{children}</AppLayoutContainer>
-        </>
-      )}
+      <RegisterUserModal />
+      <UserLoginModal />
+      <CreateAppModal />
+      <AppLayoutContainer>{children}</AppLayoutContainer>
     </>
   )
 }

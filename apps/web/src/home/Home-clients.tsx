@@ -19,8 +19,13 @@ export const HomeClients = () => {
               Serving small businesses all around the world
             </Typography.Title>
             <Space align="center" size={50}>
-              {range(0, 5).map(() => (
-                <Image width="200" src={imageUrl} />
+              {range(0, 5).map((_, i) => (
+                <Image
+                  width="200"
+                  src={imageUrl}
+                  key={`${i}` as string}
+                  preview={false}
+                />
               ))}
             </Space>
           </Space>

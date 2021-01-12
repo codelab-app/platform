@@ -285,6 +285,7 @@
     "mutation-observer": "1.0.3",
     "next-compose-plugins": "^2.2.1",
     "nodemon": "2.0.5",
+    "null-loader": "^4.0.1",
     "nx": "10.4.4",
     "onchange": "7.1.0",
     "prettier": "2.2.1",

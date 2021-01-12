@@ -20,6 +20,30 @@ const themeVariables = lessToJS(
 
 const nextConfiguration = {
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+    // https://github.com/vercel/next.js/blob/canary/examples/with-ant-design-less/next.config.js
+    if (isServer) {
+      const antStyles = /antd\/.*?\/style.*?/
+      const origExternals = [...config.externals]
+
+      config.externals = [
+        (context, request, callback) => {
+          if (request.match(antStyles)) return callback()
+
+          if (typeof origExternals[0] === 'function') {
+            return origExternals[0](context, request, callback)
+          }
+
+          return callback()
+        },
+        ...(typeof origExternals[0] === 'function' ? [] : origExternals),
+      ]
+
+      config.module.rules.unshift({
+        test: antStyles,
+        use: 'null-loader',
+      })
+    }
+
     return config
   },
 }
@@ -28,7 +52,16 @@ module.exports = withPlugins(
   [
     // [withNx, {}],
     // Override default css loader support
-    [withCss, {}],
+    [
+      withCss,
+      {
+        // cssModules: true,
+        // cssLoaderOptions: {
+        //   importLoaders: 1,
+        //   localIdentName: '[local]___[hash:base64:5]',
+        // },
+      },
+    ],
     [withSass, {}],
     [
       withLess,
