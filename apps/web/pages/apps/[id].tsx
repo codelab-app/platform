@@ -9,7 +9,7 @@ import {
   WidthProvider,
 } from 'react-grid-layout'
 import { withApollo } from '@codelab/frontend'
-import { useGrid } from '@codelab/modules/grid-stories'
+import { AddGridDrawer, useGrid } from '@codelab/modules/grid-stories'
 import { useLayoutMachine } from '@codelab/modules/layout-stories'
 
 const ResponsiveGridLayout = WidthProvider(Responsive)
@@ -82,6 +82,7 @@ const AppPage = () => {
       >
         Grid
       </Button>
+      <AddGridDrawer />
     </>
   )
 }

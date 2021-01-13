@@ -2,7 +2,8 @@ import { HomeOutlined } from '@ant-design/icons'
 import { Menu } from 'antd'
 import Link from 'next/link'
 import React from 'react'
-import { disableMenuHoverEffects } from '@codelab/frontend'
+import { APP_LIST_PAGE } from '../../../frontend/src/config/Router'
+import { HOME_PAGE, disableMenuHoverEffects } from '@codelab/frontend'
 import {
   RegisterUserButton,
   UserLoginButton,
@@ -10,7 +11,6 @@ import {
   useUserMachine,
 } from '@codelab/modules/user-stories'
 
-// TODO: disable hover effects for button
 export const HeaderMenu = () => {
   const user = useUserMachine()
 
@@ -23,13 +23,13 @@ export const HeaderMenu = () => {
         <Menu.Item
           key="1"
           icon={
-            <Link href="/">
+            <Link href={HOME_PAGE.url}>
               <HomeOutlined />
             </Link>
           }
         />
         <Menu.Item key="2">
-          <Link href="/apps">
+          <Link href={APP_LIST_PAGE.url}>
             <a>Apps</a>
           </Link>
         </Menu.Item>
