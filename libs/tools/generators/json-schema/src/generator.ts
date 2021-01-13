@@ -49,7 +49,9 @@ export const getSymbolDirectory = (
   })
 
   if (!includeFilePattern) {
-    throw new Error('symbol directory not found')
+    throw new Error(
+      `${symbol} base directory not found! \nSymbol name must follow [useCase]Input.ts format`,
+    )
   }
 
   return path.dirname(includeFilePattern)

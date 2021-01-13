@@ -10,14 +10,18 @@ import {
 } from 'react-grid-layout'
 import { withApollo } from '@codelab/frontend'
 import { useGrid } from '@codelab/modules/grid-stories'
+import { useLayoutMachine } from '@codelab/modules/layout-stories'
 
 const ResponsiveGridLayout = WidthProvider(Responsive)
 
 const AppPage = () => {
+  const layout = useLayoutMachine()
   const router = useRouter()
   const grid = useGrid()
 
-  const layouts = {
+  // console.log(layout.state.value.drawer)
+
+  const responsiveLayouts = {
     lg: [
       { i: 'a', x: 0, y: 0, w: 1, h: 2 },
       { i: 'b', x: 1, y: 0, w: 3, h: 2 },
@@ -28,7 +32,7 @@ const AppPage = () => {
     ],
   }
 
-  const onDrop = (layout: Array<Layout>, item: any, e: Event) => {
+  const onDrop = (layouts: Array<Layout>, item: any, e: Event) => {
     const { i: id, ...props } = item
 
     console.log(item)
@@ -63,7 +67,7 @@ const AppPage = () => {
         onResizeStart={onResizeStart}
         onResizeStop={onResizeStop}
         className="layout"
-        layouts={layouts}
+        layouts={responsiveLayouts}
         breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
         cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }}
       >
@@ -71,8 +75,12 @@ const AppPage = () => {
         <div key="b">B</div>
         <div key="c">C</div>
       </ResponsiveGridLayout>
-      <Button type="dashed" block>
-        <PlusOutlined />
+      <Button
+        type="primary"
+        icon={<PlusOutlined />}
+        onClick={() => layout.send('TOGGLE_DRAWER')}
+      >
+        Grid
       </Button>
     </>
   )

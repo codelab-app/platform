@@ -14,13 +14,15 @@ import { lintFiles } from './utils'
 
 const tsconfigFile = path.resolve(process.cwd(), 'tsconfig.base.json')
 
-const includeFilePatterns = glob.sync(
-  `${process.cwd()}/libs/modules/**/src/core/application/useCases/**/*Input.ts`,
-)
+const includeFilePatterns = glob.sync('libs/modules/**/useCases/**/*Input.ts', {
+  cwd: process.cwd(),
+})
 
 const generator = makeGenerator(tsconfigFile, includeFilePatterns)
 
 let savedFiles: Array<string> = []
+
+console.log(includeFilePatterns, generator.getUserSymbols())
 
 for (const symbol of generator.getUserSymbols()) {
   const schema = generator.getSchemaForSymbol(symbol)
