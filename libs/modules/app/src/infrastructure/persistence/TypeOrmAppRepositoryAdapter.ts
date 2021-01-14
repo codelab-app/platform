@@ -57,8 +57,6 @@ export class TypeOrmAppRepositoryAdapter
       }
     }
 
-    console.log(where)
-
     const foundApp = await this.repository.findOne({
       relations: ['user'],
       where,
