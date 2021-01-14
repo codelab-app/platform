@@ -1,7 +1,3 @@
-import { Field, InputType } from '@nestjs/graphql'
-
-@InputType()
 export class <%= useCaseNamePascalCase %>Request {
-  @Field()
   declare demo: string
 }

@@ -1,6 +1,4 @@
-import { ByPageId } from '@codelab/modules/page'
-
-export type ByGraphCondition = ByGraphId | ByPageId
+export type ByGraphCondition = ByGraphId
 
 export type ByGraphConditions = {}
 

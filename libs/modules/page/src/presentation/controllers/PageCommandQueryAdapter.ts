@@ -3,9 +3,11 @@ import { CommandBus, QueryBus } from '@nestjs/cqrs'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { classToPlain } from 'class-transformer'
 import { CreatePageCommand } from '../../core/application/commands/CreatePageCommand'
+import { GetPageQuery } from '../../core/application/queries/GetPageQuery'
 import { GetPagesQuery } from '../../core/application/queries/GetPagesQuery'
 import { PageDto } from '../../core/application/useCases/PageDto'
 import { CreatePageInput } from '../../core/application/useCases/createPage/CreatePageInput'
+import { GetPageInput } from '../../core/application/useCases/getPage/GetPageInput'
 import { GetPagesInput } from '../../core/application/useCases/getPages/GetPagesInput'
 import { Page } from '../../core/domain/page'
 import {
@@ -37,7 +39,7 @@ export class PageCommandQueryAdapter implements CommandQueryBusPort {
 
   @Query((returns) => [PageDto])
   @UseGuards(GqlAuthGuard)
-  async GetPages(
+  async getPages(
     @Args('input') { appId }: GetPagesInput,
     @CurrentUser() user: User,
   ) {
@@ -49,5 +51,12 @@ export class PageCommandQueryAdapter implements CommandQueryBusPort {
     )
 
     return classToPlain(results)
+  }
+
+  @Query((returns) => PageDto)
+  async getPage(@Args('input') input: GetPageInput) {
+    const result = await this.queryBus.execute(new GetPageQuery(input))
+
+    return result.toPlain()
   }
 }

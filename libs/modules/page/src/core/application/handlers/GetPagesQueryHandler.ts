@@ -14,14 +14,14 @@ export class GetPagesQueryHandler implements IQueryHandler<GetPagesQuery> {
     private readonly service: GetPagesUseCase,
   ) {}
 
-  public async execute({ request }: GetPagesQuery): Promise<Page> {
-    const GetPagesResults = await this.service.execute(request)
+  public async execute({ request }: GetPagesQuery): Promise<Array<Page>> {
+    const getPageResults = await this.service.execute(request)
 
     return fold(
       (errors) => {
         throw errors
       },
-      (results: Result<Page>) => results.value,
-    )(GetPagesResults)
+      (results: Result<Array<Page>>) => results.value,
+    )(getPageResults)
   }
 }

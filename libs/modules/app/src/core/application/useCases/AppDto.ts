@@ -1,6 +1,7 @@
 import { Field, ObjectType } from '@nestjs/graphql'
+import { TypeOrmApp } from '@codelab/backend'
 
-@ObjectType('App')
+@ObjectType('App', { implements: () => TypeOrmApp })
 export class AppDto {
   @Field()
   declare id: string

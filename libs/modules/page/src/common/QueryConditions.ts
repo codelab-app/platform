@@ -7,3 +7,7 @@ export type ByPageId = {
 }
 
 export type ByPageConditions = ByAppId
+
+export const isPageId = (value: ByPageId): value is ByPageId => {
+  return (value as ByPageId).pageId !== undefined
+}

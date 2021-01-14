@@ -2,6 +2,7 @@ import { Injectable, UseGuards } from '@nestjs/common'
 import { CommandBus, QueryBus } from '@nestjs/cqrs'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { classToPlain } from 'class-transformer'
+import { isNone } from 'fp-ts/Option'
 import { CreateAppCommand } from '../../core/application/commands/CreateAppCommand'
 import { DeleteAppCommand } from '../../core/application/commands/DeleteAppCommand'
 import { GetAppQuery } from '../../core/application/queries/GetAppQuery'
@@ -47,7 +48,13 @@ export class AppCommandQueryAdapter implements CommandQueryBusPort {
       new GetAppQuery({ user, appId: input.appId }),
     )
 
-    return classToPlain(results)
+    if (isNone(results)) {
+      console.log(new AppDto())
+
+      return new AppDto()
+    }
+
+    return classToPlain(results.value)
   }
 
   @Query((returns) => [AppDto])

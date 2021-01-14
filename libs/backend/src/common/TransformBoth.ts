@@ -16,7 +16,7 @@ export const TransformBoth = (Cls: any) => {
     (value) => {
       // If UUID is undefined, we skip transformation
       if (Cls.name === 'UUID' && value === undefined) {
-        return undefined
+        return null
       }
 
       return ValueObject.create(Cls, value)

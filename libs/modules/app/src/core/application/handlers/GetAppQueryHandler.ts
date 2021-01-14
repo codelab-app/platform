@@ -1,7 +1,7 @@
 import { Inject } from '@nestjs/common'
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs'
 import { fold } from 'fp-ts/Either'
-import { Option } from 'fp-ts/Option'
+import { Option, none } from 'fp-ts/Option'
 import { AppDITokens } from '../../../framework/AppDITokens'
 import { App } from '../../domain/app'
 import { GetAppQuery } from '../queries/GetAppQuery'
@@ -18,9 +18,7 @@ export class GetAppQueryHandler implements IQueryHandler<GetAppQuery> {
     const getAppResults = await this.service.execute(request)
 
     return fold(
-      (errors) => {
-        throw errors
-      },
+      (errors) => none,
       (results: Result<Option<App>>) => results.value,
     )(getAppResults)
   }

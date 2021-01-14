@@ -6,6 +6,8 @@ type Query {
   getApp(input: GetAppInput!): App!
   getApps: [App!]!
   graph(input: GetGraphInput!): GraphDto!
+  GetPages(input: GetPagesInput!): [PageDto!]!
+  GetPage(input: GetPageInput!): PageDto!
 }
 
 type Mutation {
@@ -179,6 +181,14 @@ input GetAppInput {
 input GetGraphInput {
   graphId: String
   pageId: String
+}
+
+input GetPagesInput {
+  appId: String!
+}
+
+input GetPageInput {
+  pageId: String!
 }
 
 input DeleteUserInput {
