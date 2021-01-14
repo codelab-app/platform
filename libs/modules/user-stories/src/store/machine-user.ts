@@ -1,16 +1,16 @@
 import { Machine, assign, sendParent } from 'xstate'
 import { getMeServices } from '../useCases/getMe'
+import { loginUserState } from '../useCases/loginUser'
+import { loginUserServices } from '../useCases/loginUser/LoginUserServices'
 import {
   registerUserService,
   registerUserState,
 } from '../useCases/registerUser'
-import { userLoginState } from '../useCases/userLogin'
-import { userLoginServices } from '../useCases/userLogin/UserLoginServices'
 import { clearAuthTokenInLocalStorage } from './userLocalStorage'
 
 export const createUserMachine = () => {
   const services = {
-    ...userLoginServices,
+    ...loginUserServices,
     ...registerUserService,
     ...getMeServices,
   }
@@ -62,7 +62,7 @@ export const createUserMachine = () => {
               },
             },
             signingUp: registerUserState,
-            loggingIn: userLoginState,
+            loggingIn: loginUserState,
           },
         },
         authenticated: {

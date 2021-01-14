@@ -7,12 +7,12 @@ import { LoginUserInput } from '../../../../user/src/core/application/useCases/l
 import { LoginUserInputSchema } from '../../../../user/src/core/application/useCases/loginUser/LoginUserInput.generated'
 import { useUserMachine } from '../../store'
 
-export type UserLoginFormProps = Omit<
+export type LoginUserFormProps = Omit<
   GeneratedXStateFormProps<LoginUserInput, any>,
   'schema' | 'rjsfFormProps' | 'send' | 'createSubmitEvent'
 >
 
-export const UserLoginForm = ({ ...props }: UserLoginFormProps) => {
+export const LoginUserForm = ({ ...props }: LoginUserFormProps) => {
   const user = useUserMachine()
 
   return (

@@ -3,7 +3,7 @@ import { ButtonProps } from 'antd/lib/button'
 import React from 'react'
 import { useUserMachine } from '../../store'
 
-export const UserSignOutButton = () => {
+export const SignOutUserButton = () => {
   const user = useUserMachine()
 
   const userSignupButtonProps: ButtonProps = {

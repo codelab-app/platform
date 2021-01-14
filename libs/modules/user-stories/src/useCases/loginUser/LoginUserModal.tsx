@@ -1,9 +1,9 @@
 import React from 'react'
 import { useUserMachine } from '../../store'
-import { UserLoginForm } from './UserLoginForm'
+import { LoginUserForm } from './LoginUserForm'
 import { ModalForm, useRootMachine } from '@codelab/frontend'
 
-export const UserLoginModal = () => {
+export const LoginUserModal = () => {
   const app = useRootMachine()
   const user = useUserMachine()
 
@@ -18,7 +18,7 @@ export const UserLoginModal = () => {
         onCancel: () => app.send('ON_MODAL_CANCEL'),
         onOk: () => app.send('ON_MODAL_OK'),
       }}
-      renderForm={() => <UserLoginForm />}
+      renderForm={() => <LoginUserForm />}
     />
   )
 }
