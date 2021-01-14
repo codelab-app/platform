@@ -1,16 +1,17 @@
 import { plainToClass } from 'class-transformer'
-import { AbstractRepository, EntityRepository } from 'typeorm'
+import { EntityRepository } from 'typeorm'
+import { BaseRepository } from 'typeorm-transactional-cls-hooked'
 import { PageRepositoryPort } from '../../core/adapters/PageRepositoryPort'
 import { Page } from '../../core/domain/page'
 import { TypeOrmPage } from '@codelab/backend'
 
 @EntityRepository(TypeOrmPage)
 export class TypeOrmPageRepositoryAdapter
-  extends AbstractRepository<TypeOrmPage>
+  extends BaseRepository<TypeOrmPage>
   implements PageRepositoryPort {
   async createPage(page: Page): Promise<Page> {
     const typeOrmPage = page.toPersistence()
-    const savedPageTypeOrm = await this.repository.save(typeOrmPage)
+    const savedPageTypeOrm = await this.save(typeOrmPage)
 
     return plainToClass(Page, savedPageTypeOrm)
   }

@@ -10,7 +10,7 @@ export class GetAppService {
   constructor(private readonly appRepository: AppRepositoryPort) {}
 
   async execute({ appId, user }: GetAppRequest): Promise<GetAppResponse> {
-    const app = await this.appRepository.findOne({ appId }, user.id)
+    const app = await this.appRepository.findSingle({ appId }, user.id)
 
     if (isNone(app)) {
       return left(new GetAppErrors.NotFound(appId))

@@ -1,5 +1,8 @@
+import { EntityManager } from 'typeorm'
 import { Page } from '../domain/page'
 
-export interface PageRepositoryPort {
-  createPage(page: Page): Promise<Page>
+export abstract class PageRepositoryPort {
+  abstract manager?: EntityManager
+
+  abstract createPage(page: Page): Promise<Page>
 }

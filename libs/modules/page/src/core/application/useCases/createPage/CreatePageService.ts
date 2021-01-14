@@ -1,6 +1,10 @@
 import { EventPublisher, QueryBus } from '@nestjs/cqrs'
 import { left, right } from 'fp-ts/Either'
 import { Option, isNone } from 'fp-ts/Option'
+import {
+  Transactional,
+  runOnTransactionCommit,
+} from 'typeorm-transactional-cls-hooked'
 import { GetAppQuery } from '../../../../../../app/src/core/application/queries/GetAppQuery'
 import { App } from '../../../../../../app/src/core/domain/app'
 import { PageRepositoryPort } from '../../../adapters/PageRepositoryPort'
@@ -18,6 +22,7 @@ export class CreatePageService implements CreatePageUseCase {
     private readonly queryBus: QueryBus,
   ) {}
 
+  @Transactional()
   async execute(request: CreatePageRequest): Promise<CreatePageResponse> {
     const { appId } = request
     const page = new Page(request)
@@ -32,12 +37,15 @@ export class CreatePageService implements CreatePageUseCase {
       return left(new CreatePageErrors.AppNotFoundError(appId))
     }
 
+    const createPageWithRepo = await this.pageRepository.createPage(page)
     const createdPage: Page = this.publisher.mergeObjectContext(
-      await this.pageRepository.createPage(page),
+      createPageWithRepo,
     )
 
-    createdPage.createPage(app.value)
-    createdPage.commit()
+    runOnTransactionCommit(() => {
+      createdPage.createPage(app.value)
+      createdPage.commit()
+    })
 
     return right(Result.ok(createdPage))
   }

@@ -39,7 +39,7 @@ import { TypeOrmVertex } from './entity/TypeOrmVertex'
       synchronize: DatabaseConfig.TYPEORM_SYNCHRONIZE,
       dropSchema: DatabaseConfig.TYPEORM_DROP_SCHEMA,
       // logging: ['query', 'error', 'schema'],
-      logging: ['error'],
+      logging: ['log', 'query', 'error'],
       namingStrategy: new SnakeNamingStrategy(),
     }),
   ],

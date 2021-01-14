@@ -12,7 +12,7 @@ export class CreateGraphService implements CreateGraphUseCase {
   async execute(request: CreateGraphRequest): Promise<CreateGraphResponse> {
     const graph = new Graph<NOID>(request)
 
-    const newGraph = await this.graphRepository.create(graph)
+    const newGraph = await this.graphRepository.createGraph(graph)
 
     return right(Result.ok(newGraph))
   }

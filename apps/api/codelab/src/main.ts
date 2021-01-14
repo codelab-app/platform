@@ -5,11 +5,14 @@
 
 import { Logger } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
+import { initializeTransactionalContext } from 'typeorm-transactional-cls-hooked'
 import { GeneralExceptionFilter } from './app/GeneralExceptionFilter'
 import { AppModule } from './app/app.module'
 
 async function bootstrap() {
+  initializeTransactionalContext()
   const app = await NestFactory.create(AppModule)
+
   const globalPrefix = ''
 
   app.setGlobalPrefix(globalPrefix)
