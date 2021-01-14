@@ -24,7 +24,7 @@ export class AddChildNodeService implements AddChildNodeUseCase {
   async execute(request: AddChildNodeRequest): Promise<AddChildNodeResponse> {
     const { graphId, parentVertexId, vertex, order } = request
 
-    const graph: Option<Graph> = await this.graphRepository.findOne({
+    const graph: Option<Graph> = await this.graphRepository.findSingle({
       graphId,
     })
 
@@ -57,7 +57,7 @@ export class AddChildNodeService implements AddChildNodeUseCase {
 
     await this.edgeRepository.create(newEdge, graph.value)
 
-    const newGraph = await this.graphRepository.findOne({
+    const newGraph = await this.graphRepository.findSingle({
       graphId,
     })
 

@@ -14,7 +14,9 @@ export class DeleteAppService implements DeleteAppUseCase {
   async execute(request: DeleteAppRequest): Promise<DeleteAppResponse> {
     const { appId } = request
 
-    const deleteAppResult: Option<App> = await this.appRepository.delete(appId)
+    const deleteAppResult: Option<App> = await this.appRepository.deleteApp(
+      appId,
+    )
 
     if (isNone(deleteAppResult)) {
       return left(new DeleteAppErrors.AppNotFoundError(appId))

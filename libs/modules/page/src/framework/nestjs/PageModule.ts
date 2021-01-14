@@ -4,6 +4,7 @@ import { Connection } from 'typeorm'
 import { CreatePageCommandHandler } from '../../core/application/handlers/CreatePageCommandHandler'
 import { GetPageQueryHandler } from '../../core/application/handlers/GetPageQueryHandler'
 import { GetPagesQueryHandler } from '../../core/application/handlers/GetPagesQueryHandler'
+import { PageCreateErrorEventHandler } from '../../core/application/sagas/PageCreateErrorEventHandler'
 import { CreatePageService } from '../../core/application/useCases/createPage/CreatePageService'
 import { GetPageService } from '../../core/application/useCases/getPage/GetPageService'
 import { GetPagesService } from '../../core/application/useCases/getPages/GetPagesService'
@@ -43,6 +44,7 @@ const useCaseProviders: Array<Provider> = [
 export const handlerProviders: Array<Provider> = [
   GetPageQueryHandler,
   GetPagesQueryHandler,
+  PageCreateErrorEventHandler,
   CreatePageCommandHandler,
 ]
 

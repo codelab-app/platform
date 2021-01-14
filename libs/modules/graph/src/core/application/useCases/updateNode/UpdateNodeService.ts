@@ -29,7 +29,7 @@ export class UpdateNodeService implements UpdateNodeUseCase {
       return left(new UpdateNodeErrors.VertexNotFound(type.id))
     }
 
-    const graphOpt: Option<Graph> = await this.graphRepository.findOne({
+    const graphOpt: Option<Graph> = await this.graphRepository.findSingle({
       graphId,
     })
 

@@ -1,26 +1,26 @@
 import { plainToClass } from 'class-transformer'
 import { Option } from 'fp-ts/lib/Option'
-import { AbstractRepository, EntityRepository } from 'typeorm'
+import { EntityRepository } from 'typeorm'
 import { ByPageConditions, ByPageId } from '../../common/QueryConditions'
+import { BaseRepository } from 'typeorm-transactional-cls-hooked'
 import { PageRepositoryPort } from '../../core/adapters/PageRepositoryPort'
 import { Page } from '../../core/domain/page'
-import { PageDto } from '../../presentation/PageDto'
 import { TypeOrmPage } from '@codelab/backend'
 
 @EntityRepository(TypeOrmPage)
 export class TypeOrmPageRepositoryAdapter
-  extends AbstractRepository<TypeOrmPage>
+  extends BaseRepository<TypeOrmPage>
   implements PageRepositoryPort {
-  async delete(pageId: string): Promise<Option<Page>> {
+  async deletePage(pageId: string): Promise<Option<Page>> {
     throw new Error('Method not implemented.')
   }
 
-  async findOne(page: ByPageId): Promise<Option<Page>> {
+  async findSingle(page: ByPageId): Promise<Option<Page>> {
     throw new Error('Method not implemented.')
   }
 
   async findMany({ appId }: ByPageConditions): Promise<Array<Page>> {
-    const foundPages = await this.repository.find({
+    const foundPages = await this.find({
       relations: ['app'],
       where: {
         app: {
@@ -32,8 +32,9 @@ export class TypeOrmPageRepositoryAdapter
     return plainToClass(Page, foundPages)
   }
 
-  async create(page: PageDto): Promise<Page> {
-    const savedPageTypeOrm = await this.repository.save(page)
+  async createPage(page: Page): Promise<Page> {
+    const typeOrmPage = page.toPersistence()
+    const savedPageTypeOrm = await this.save(typeOrmPage)
 
     return plainToClass(Page, savedPageTypeOrm)
   }

@@ -17,7 +17,7 @@ export class GetGraphService implements GetGraphUseCase {
     let graphOpt: Option<Graph> = O.none
 
     if (graphId) {
-      graphOpt = await this.graphRepository.findOne({
+      graphOpt = await this.graphRepository.findSingle({
         graphId,
       })
 
@@ -33,7 +33,7 @@ export class GetGraphService implements GetGraphUseCase {
     }
 
     if (pageId) {
-      graphOpt = await this.graphRepository.findOne({
+      graphOpt = await this.graphRepository.findSingle({
         pageId,
       })
 

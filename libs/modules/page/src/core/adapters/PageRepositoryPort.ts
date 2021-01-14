@@ -1,15 +1,15 @@
-import { Option } from 'fp-ts/lib/Option'
-import { ByPageCondition, ByPageConditions } from '../../common/QueryConditions'
-import { PageDto } from '../../presentation/PageDto'
 import { Page } from '../domain/page'
-import { RepositoryPort } from '@codelab/backend'
+import { Option } from 'fp-ts/Option';
+import { ByPageConditions, ByPageId } from '@codelab/modules/page';
 
-export abstract class PageRepositoryPort implements RepositoryPort<Page> {
-  abstract delete(pageId: string): Promise<Option<Page>>
+export abstract class PageRepositoryPort {
+  abstract deletePage(pageId: string): Promise<Option<Page>>
 
-  abstract findOne(page: ByPageCondition): Promise<Option<Page>>
+  abstract createPage(page: Page): Promise<Page>
 
-  abstract findMany(pages: ByPageConditions): Promise<Array<Page>>
+  abstract findSingle(page: ByPageId): Promise<Option<Page>>
 
-  abstract create(page: PageDto): Promise<Page>
+  abstract findMany({appId}: ByPageConditions): Promise<Array<Page>>
 }
+
+
