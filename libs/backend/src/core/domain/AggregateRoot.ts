@@ -1,10 +1,10 @@
 import { AggregateRoot as NestjsAggregateRoot } from '@nestjs/cqrs'
 import { Type, classToPlain } from 'class-transformer'
+import { TransformBoth } from '../../common/TransformBoth'
 import { BaseTypeOrm } from '../../infrastructure/persistence/typeorm/entity/BaseTypeOrm'
 import { ValueObjectProps } from './ValueObject'
 import { NOID } from './valueObject/NOID'
 import { UUID } from './valueObject/UUID'
-import { TransformBoth } from '@codelab/backend'
 
 export abstract class AggregateRoot<
   P extends ValueObjectProps = ValueObjectProps,
