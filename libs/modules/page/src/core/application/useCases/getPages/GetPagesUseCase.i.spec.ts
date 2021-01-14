@@ -1,9 +1,9 @@
-import {INestApplication} from '@nestjs/common';
-import {TestInfrastructureModule} from '@codelab/backend';
-import {Test} from '@nestjs/testing';
-import {Connection} from 'typeorm';
+import { INestApplication } from '@nestjs/common'
+import { Test } from '@nestjs/testing'
+import { Connection } from 'typeorm'
+import { TestInfrastructureModule } from '@codelab/backend'
 
-describe('<%= useCaseNamePascalCase %>UseCase', () => {
+describe('GetPagesUseCase', () => {
   let app: INestApplication
   let connection: Connection
 
@@ -16,9 +16,6 @@ describe('<%= useCaseNamePascalCase %>UseCase', () => {
     connection = app.get(Connection)
     await connection.synchronize(true)
     await app.init()
-  })
-
-  beforeEach(async () => {
   })
 
   afterAll(async () => {

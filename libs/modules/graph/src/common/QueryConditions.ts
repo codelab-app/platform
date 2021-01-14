@@ -1,13 +1,11 @@
+import { ByPageId } from '@codelab/modules/page'
+
 export type ByGraphCondition = ByGraphId | ByPageId
 
 export type ByGraphConditions = {}
 
 export type ByGraphId = {
   graphId: string
-}
-
-export type ByPageId = {
-  pageId: string
 }
 
 export type ByVertexCondition = ByVertexId

@@ -51,7 +51,7 @@ export const normalizeOptions = (
 
   const commandOrQuery =
     options.resolverType === 'Mutation' ? 'Command' : 'Query'
-  const useCaseCommandOrQuery = useCaseNamePascalCase + commandOrQuery
+  const useCaseCommandOrQuery = `${useCaseNamePascalCase}${commandOrQuery}`
   const handlerType = `${commandOrQuery}Handler`
 
   return {

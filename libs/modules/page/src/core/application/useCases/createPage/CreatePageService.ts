@@ -33,7 +33,7 @@ export class CreatePageService implements CreatePageUseCase {
     }
 
     const createdPage: Page = this.publisher.mergeObjectContext(
-      await this.pageRepository.createPage(page),
+      await this.pageRepository.create(page),
     )
 
     createdPage.createPage(app.value)
