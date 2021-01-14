@@ -18,12 +18,11 @@ export class CreatePageService implements CreatePageUseCase {
     private readonly queryBus: QueryBus,
   ) {}
 
-  async execute(request: CreatePageRequest): Promise<CreatePageResponse> {
-    const { appId } = request
-    const page = new Page(request)
-
-    const user: any = {}
-
+  async execute({
+    title,
+    appId,
+    user,
+  }: CreatePageRequest): Promise<CreatePageResponse> {
     const app: Option<App> = await this.queryBus.execute(
       new GetAppQuery({ appId, user }),
     )
@@ -33,7 +32,7 @@ export class CreatePageService implements CreatePageUseCase {
     }
 
     const createdPage: Page = this.publisher.mergeObjectContext(
-      await this.pageRepository.create(page),
+      await this.pageRepository.create({ title }),
     )
 
     createdPage.createPage(app.value)

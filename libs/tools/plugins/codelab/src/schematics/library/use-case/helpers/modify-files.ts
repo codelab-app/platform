@@ -130,7 +130,7 @@ const insertIntoCommandQueryAdapter = (
     ...addMethod(commandQuerySourceFile, commandQueryAdapterFilePath, {
       className: commandQueryAdapterClassName,
       methodHeader: `
-              @${resolverType}((returns) => ${moduleNamePascalCase}Dto)\nasync ${resolverMethodName}(@Args('input') input: ${useCaseName}Input)`,
+              @${resolverType}(() => ${moduleNamePascalCase}Dto)\nasync ${resolverMethodName}(@Args('input') input: ${useCaseName}Input)`,
       body: `const result = await this.${busType}.execute(new ${useCaseName}${commandOrQuery}(input)) \nreturn result.toPlain()`,
     }),
   ])

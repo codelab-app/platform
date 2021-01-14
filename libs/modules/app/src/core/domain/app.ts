@@ -1,11 +1,11 @@
 import { Type, plainToClass } from 'class-transformer'
 import { TypeOrmApp } from '../../../../../backend/src/infrastructure/persistence/typeorm/entity/TypeOrmApp'
-import { SerializedAppDto } from '../../../../user/src/core/domain/dto/SerializedAppDto'
+import { AppDto } from '../application/useCases/AppDto'
 import { AppTitle } from './app-title'
 import { AggregateRoot, NOID, TransformBoth, UUID } from '@codelab/backend'
 
 export class App<ID extends UUID | NOID = UUID> extends AggregateRoot<
-  SerializedAppDto,
+  AppDto,
   ID
 > {
   @Type(() => AppTitle)

@@ -1,9 +1,9 @@
 import { Field, ObjectType } from '@nestjs/graphql'
 
-@ObjectType()
+@ObjectType('Page')
 export class PageDto {
-  @Field()
-  declare id: string
+  @Field({ nullable: true })
+  declare id?: string
 
   @Field()
   declare title: string

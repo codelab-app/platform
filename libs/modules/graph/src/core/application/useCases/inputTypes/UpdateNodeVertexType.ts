@@ -7,9 +7,9 @@ export class UpdateNodeVertexType {
   @Field()
   declare id: string
 
-  @Field((returns) => NodeType)
+  @Field(() => NodeType)
   declare type: NodeType
 
-  @Field((returns) => GraphQLJSONObject)
+  @Field(() => GraphQLJSONObject)
   declare props: any
 }

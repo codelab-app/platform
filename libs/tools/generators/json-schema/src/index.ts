@@ -22,8 +22,6 @@ const generator = makeGenerator(tsconfigFile, includeFilePatterns)
 
 let savedFiles: Array<string> = []
 
-console.log(includeFilePatterns, generator.getUserSymbols())
-
 for (const symbol of generator.getUserSymbols()) {
   const schema = generator.getSchemaForSymbol(symbol)
 

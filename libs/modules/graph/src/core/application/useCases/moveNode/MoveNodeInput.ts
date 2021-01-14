@@ -6,6 +6,6 @@ export class MoveNodeInput {
   @Field()
   declare graphId: string
 
-  @Field((returns) => EdgeType)
+  @Field(() => EdgeType)
   declare type: EdgeType
 }

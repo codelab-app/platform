@@ -15,6 +15,6 @@ export abstract class IEdge {
   @Field(() => Int)
   declare order: number
 
-  @Field((returns) => GraphQLJSONObject, { nullable: true })
+  @Field(() => GraphQLJSONObject, { nullable: true })
   declare props?: any
 }

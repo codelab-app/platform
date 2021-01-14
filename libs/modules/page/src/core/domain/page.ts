@@ -1,8 +1,8 @@
 import { Exclude, Type, plainToClass } from 'class-transformer'
 import { NOID } from '../../../../../backend/src/core/domain/valueObject/NOID'
 import { App } from '../../../../app/src/core/domain/app'
+import { PageDto } from '../../presentation/PageDto'
 import { PageCreatedEvent } from '../application/useCases/createPage/PageCreatedEvent'
-import { SerializedPageDto } from './dto/SerializedPageDto'
 import { PageTitle } from './page-title'
 import {
   AggregateRoot,
@@ -12,7 +12,7 @@ import {
 } from '@codelab/backend'
 
 export class Page<ID extends UUID | NOID = UUID> extends AggregateRoot<
-  SerializedPageDto,
+  PageDto,
   ID
 > {
   @Type(() => PageTitle)

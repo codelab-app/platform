@@ -5,6 +5,7 @@ import { GraphRepositoryPort } from '../../adapters/GraphRepositoryPort'
 import { Graph } from '../../domain/graph'
 import { Vertex } from '../../domain/vertex'
 import { AddGraphToPageCommand } from '../commands/AddGraphToPageCommand'
+import { NodeType } from '@codelab/backend'
 
 @CommandHandler(AddGraphToPageCommand)
 export class AddGraphToPageCommandHandler
@@ -18,7 +19,7 @@ export class AddGraphToPageCommandHandler
     const graph: Graph = await this.graphRepository.addGraphToPage(page)
 
     const rootVertex = new Vertex({
-      type: 'React_Grid_Layout_Container',
+      type: NodeType.React_Grid_Layout_Container,
       props: {},
     })
 

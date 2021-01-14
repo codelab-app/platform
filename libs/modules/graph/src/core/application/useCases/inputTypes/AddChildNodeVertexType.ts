@@ -4,9 +4,9 @@ import { NodeType } from '@codelab/backend'
 
 @InputType()
 export class AddChildNodeVertexType {
-  @Field((returns) => NodeType)
+  @Field(() => NodeType)
   declare type: NodeType
 
-  @Field((returns) => GraphQLJSONObject)
+  @Field(() => GraphQLJSONObject)
   declare props: object
 }

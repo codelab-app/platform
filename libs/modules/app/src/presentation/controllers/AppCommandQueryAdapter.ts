@@ -28,7 +28,7 @@ export class AppCommandQueryAdapter implements CommandQueryBusPort {
     readonly queryBus: QueryBus<UseCaseRequestPort>,
   ) {}
 
-  @Mutation((returns) => AppDto)
+  @Mutation(() => AppDto)
   @UseGuards(GqlAuthGuard)
   async createApp(
     @Args('input') input: CreateAppInput,
@@ -41,7 +41,7 @@ export class AppCommandQueryAdapter implements CommandQueryBusPort {
     return results.toPlain()
   }
 
-  @Query((returns) => AppDto)
+  @Query(() => AppDto, { nullable: true })
   @UseGuards(GqlAuthGuard)
   async getApp(@Args('input') input: GetAppInput, @CurrentUser() user: User) {
     const results = await this.queryBus.execute(
@@ -49,13 +49,13 @@ export class AppCommandQueryAdapter implements CommandQueryBusPort {
     )
 
     if (isNone(results)) {
-      return {}
+      return null
     }
 
     return classToPlain(results.value)
   }
 
-  @Query((returns) => [AppDto])
+  @Query(() => [AppDto])
   @UseGuards(GqlAuthGuard)
   async getApps(@CurrentUser() user: User) {
     const results = await this.queryBus.execute(new GetAppsQuery({ user }))
@@ -63,7 +63,7 @@ export class AppCommandQueryAdapter implements CommandQueryBusPort {
     return classToPlain(results)
   }
 
-  @Mutation((returns) => AppDto)
+  @Mutation(() => AppDto)
   @UseGuards(GqlAuthGuard)
   async deleteApp(@Args('input') { id }: DeleteAppInput) {
     const result = await this.commandBus.execute(

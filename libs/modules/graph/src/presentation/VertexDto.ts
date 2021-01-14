@@ -5,15 +5,17 @@ import { NodeType } from '@codelab/backend'
 registerEnumType(NodeType, {
   name: 'NodeType',
 })
-@ObjectType()
+@ObjectType('Vertex')
 export class VertexDto {
   // Must be nullable as deleteVertex does not return an id
   @Field({ nullable: true })
-  public declare id?: string
+  declare id?: string
 
-  @Field((returns) => NodeType)
-  public declare type: NodeType
+  @Field(() => NodeType)
+  declare type: NodeType
 
-  @Field((returns) => GraphQLJSONObject)
-  public declare props: any
+  @Field(() => GraphQLJSONObject)
+  declare props?: object
+
+  declare parent?: string
 }

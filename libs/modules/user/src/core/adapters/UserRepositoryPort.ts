@@ -9,7 +9,10 @@ export abstract class UserRepositoryPort implements RepositoryPort<User> {
 
   abstract delete(user: ByUserCondition): Promise<Option<User>>
 
-  abstract update(user: ByUserCondition, data: UserDto): Promise<Option<User>>
+  abstract update(
+    user: ByUserCondition,
+    data: Partial<UserDto>,
+  ): Promise<Option<User>>
 
   abstract exists(by: ByUserCondition): Promise<boolean>
 

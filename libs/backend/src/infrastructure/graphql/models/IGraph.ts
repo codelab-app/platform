@@ -8,12 +8,12 @@ export abstract class IGraph {
   @Field()
   declare id: string
 
-  @Field((returns) => [TypeOrmVertex], { nullable: true })
+  @Field(() => [TypeOrmVertex], { nullable: true })
   declare vertices: Array<TypeOrmVertex>
 
-  @Field((returns) => [TypeOrmEdge], { nullable: true })
+  @Field(() => [TypeOrmEdge], { nullable: true })
   declare edges: Array<TypeOrmEdge>
 
-  @Field((returns) => TypeOrmUser, { nullable: true })
+  @Field(() => TypeOrmUser, { nullable: true })
   declare user: TypeOrmUser
 }

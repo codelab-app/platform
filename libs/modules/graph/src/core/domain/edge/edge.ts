@@ -1,6 +1,6 @@
 import { Type, plainToClass } from 'class-transformer'
 import { IsOptional } from 'class-validator'
-import { SerializedEdgeDto } from './dto/SerializedEdgeDto'
+import { EdgeDto } from '../../../presentation/EdgeDto'
 import { EdgeOrder } from './edge-order'
 import { EdgeSource } from './edge-source'
 import { EdgeTarget } from './edge-target'
@@ -13,7 +13,7 @@ import {
 } from '@codelab/backend'
 
 export class Edge<ID extends UUID | NOID = UUID> extends AggregateRoot<
-  SerializedEdgeDto,
+  EdgeDto,
   ID
 > {
   @Type(() => EdgeSource)

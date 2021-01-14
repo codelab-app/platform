@@ -7,7 +7,7 @@ import { isEdgeId, isEdgeSource, isEdgeTarget } from '../../common/utils'
 import { EdgeRepositoryPort } from '../../core/adapters/EdgeRepositoryPort'
 import { Edge } from '../../core/domain/edge'
 import { Graph } from '../../core/domain/graph'
-import { TypeOrmEdge } from '@codelab/backend'
+import { NOID, TypeOrmEdge } from '@codelab/backend'
 
 @EntityRepository(TypeOrmEdge)
 export class TypeOrmEdgeRepositoryAdapter
@@ -27,7 +27,7 @@ export class TypeOrmEdgeRepositoryAdapter
     return Promise.resolve([])
   }
 
-  async create(edge: Edge, graph: Graph): Promise<Edge> {
+  async create(edge: Edge<NOID>, graph: Graph): Promise<Edge> {
     const typeOrmEdge = edge.toPersistence()
 
     typeOrmEdge.graph = graph.toPersistence()

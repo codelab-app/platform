@@ -4,6 +4,7 @@ import { AbstractRepository, EntityRepository } from 'typeorm'
 import { ByPageConditions, ByPageId } from '../../common/QueryConditions'
 import { PageRepositoryPort } from '../../core/adapters/PageRepositoryPort'
 import { Page } from '../../core/domain/page'
+import { PageDto } from '../../presentation/PageDto'
 import { TypeOrmPage } from '@codelab/backend'
 
 @EntityRepository(TypeOrmPage)
@@ -31,9 +32,8 @@ export class TypeOrmPageRepositoryAdapter
     return plainToClass(Page, foundPages)
   }
 
-  async create(page: Page): Promise<Page> {
-    const typeOrmPage = page.toPersistence()
-    const savedPageTypeOrm = await this.repository.save(typeOrmPage)
+  async create(page: PageDto): Promise<Page> {
+    const savedPageTypeOrm = await this.repository.save(page)
 
     return plainToClass(Page, savedPageTypeOrm)
   }
