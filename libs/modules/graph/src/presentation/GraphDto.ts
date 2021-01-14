@@ -2,17 +2,17 @@ import { Field, ObjectType } from '@nestjs/graphql'
 import { EdgeDto } from './EdgeDto'
 import { VertexDto } from './VertexDto'
 
-@ObjectType()
+@ObjectType('Graph')
 export class GraphDto {
   @Field({ nullable: true })
   public declare id?: string
 
-  @Field({ nullable: true })
-  public declare label?: string
+  @Field()
+  public declare label: string
 
-  @Field((returns) => [VertexDto])
-  declare vertices: Array<VertexDto>
+  @Field(() => [VertexDto])
+  declare vertices?: Array<VertexDto>
 
-  @Field((returns) => [EdgeDto])
-  declare edges: Array<EdgeDto>
+  @Field(() => [EdgeDto])
+  declare edges?: Array<EdgeDto>
 }

@@ -28,17 +28,17 @@ export class GetGraphService implements GetGraphUseCase {
       return right(Result.ok(graphOpt.value))
     }
 
-    if (pageId) {
-      graphOpt = await this.graphRepository.findOne({
-        pageId,
-      })
+    // if (pageId) {
+    //   graphOpt = await this.graphRepository.findOne({
+    //     pageId,
+    //   })
 
-      if (isNone(graphOpt)) {
-        return left(new GetGraphErrors.GraphNotFoundError(pageId))
-      }
+    //   if (isNone(graphOpt)) {
+    //     return left(new GetGraphErrors.GraphNotFoundError(pageId))
+    //   }
 
-      return right(Result.ok(graphOpt.value))
-    }
+    //   return right(Result.ok(graphOpt.value))
+    // }
 
     return left(new GetGraphErrors.GraphNotFoundError(''))
   }

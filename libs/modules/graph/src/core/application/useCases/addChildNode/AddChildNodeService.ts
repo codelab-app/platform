@@ -12,7 +12,7 @@ import { AddChildNodeErrors } from './AddChildNodeErrors'
 import { AddChildNodeRequest } from './AddChildNodeRequest'
 import { AddChildNodeResponse } from './AddChildNodeResponse'
 import { AddChildNodeUseCase } from './AddChildNodeUseCase'
-import { Result } from '@codelab/backend'
+import { NOID, Result } from '@codelab/backend'
 
 export class AddChildNodeService implements AddChildNodeUseCase {
   constructor(
@@ -48,9 +48,9 @@ export class AddChildNodeService implements AddChildNodeUseCase {
       graph.value,
     )
 
-    const newEdge: Edge = new Edge({
+    const newEdge = new Edge<NOID>({
       source: parentVertexId,
-      target: newVertex.toPlain().id as string,
+      target: newVertex.toPlain().id,
       order: order || 0,
       props: {},
     })

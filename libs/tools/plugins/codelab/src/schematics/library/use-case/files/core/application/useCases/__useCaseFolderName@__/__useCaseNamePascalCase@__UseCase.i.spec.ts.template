@@ -14,15 +14,14 @@ describe('<%= useCaseNamePascalCase %>UseCase', () => {
 
     app = testModule.createNestApplication()
     connection = app.get(Connection)
+    await connection.synchronize(true)
     await app.init()
   })
 
   beforeEach(async () => {
-      await connection.query('DELETE FROM graph')
-    })
+  })
 
   afterAll(async () => {
-
     await app.close()
   })
 

@@ -38,14 +38,14 @@ export class UserCommandQueryAdapter implements CommandQueryBusPort {
     readonly queryBus: QueryBus<UseCaseRequestPort>,
   ) {}
 
-  @Mutation((returns) => UserDto)
+  @Mutation(() => UserDto)
   async deleteUser(@Args('input') input: DeleteUserInput) {
     const user = await this.commandBus.execute(new DeleteUserCommand(input))
 
     return user.toPlain()
   }
 
-  @Mutation((returns) => UserDto)
+  @Mutation(() => UserDto)
   async updateUser(@Args('input') input: UpdateUserInput) {
     const user: User = await this.commandBus.execute(
       new UpdateUserCommand(input),
@@ -54,7 +54,7 @@ export class UserCommandQueryAdapter implements CommandQueryBusPort {
     return user.toPlain()
   }
 
-  @Mutation((returns) => UserDto)
+  @Mutation(() => UserDto)
   async registerUser(@Args('input') input: RegisterUserInput) {
     const user: User = await this.commandBus.execute(
       new RegisterUserCommand(input),
@@ -63,14 +63,14 @@ export class UserCommandQueryAdapter implements CommandQueryBusPort {
     return user.toPlain()
   }
 
-  @Mutation((returns) => UserDto)
+  @Mutation(() => UserDto)
   async loginUser(@Args('input') input: LoginUserInput) {
     const result = await this.commandBus.execute(new LoginUserCommand(input))
 
     return result.toPlain()
   }
 
-  @Query((returns) => UserDto)
+  @Query(() => UserDto)
   @UseGuards(GqlAuthGuard)
   async getMe(@CurrentUser() user: User<UUID>) {
     const request: GetMeRequest = { user }

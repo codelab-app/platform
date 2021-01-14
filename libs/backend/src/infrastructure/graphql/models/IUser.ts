@@ -8,6 +8,6 @@ export abstract class IUser {
   @Field({ nullable: false })
   declare email: string
 
-  // @Field((returns) => [TypeOrmGraph])
+  // @Field(() => [TypeOrmGraph])
   // declare graphs: Array<TypeOrmGraph>
 }

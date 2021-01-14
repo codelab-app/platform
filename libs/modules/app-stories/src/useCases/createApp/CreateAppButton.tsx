@@ -1,3 +1,4 @@
+import { PlusOutlined } from '@ant-design/icons'
 import { Button } from 'antd'
 import { ButtonProps } from 'antd/lib/button'
 import React from 'react'
@@ -10,5 +11,9 @@ export const CreateAppButton = () => {
     onClick: () => app.send('ON_CREATE_APP'),
   }
 
-  return <Button {...createAppButtonProps}>Create App</Button>
+  return (
+    <Button type="primary" {...createAppButtonProps} icon={<PlusOutlined />}>
+      Create App
+    </Button>
+  )
 }

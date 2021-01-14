@@ -14,10 +14,11 @@ export const threeGridCol = {
   sm: 12,
   md: 8,
   lg: 8,
-  style: {
-    display: 'inline-flex',
-    alignSelf: 'stretch',
-  },
+}
+
+export const alignFullGridStyle = {
+  display: 'inline-flex',
+  alignSelf: 'stretch',
 }
 
 export const cardStyle = {

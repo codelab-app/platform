@@ -11,12 +11,12 @@ export abstract class IVertex {
   @Field((type) => String)
   declare id: string
 
-  @Field((returns) => GraphQLJSONObject, { nullable: true })
+  @Field(() => GraphQLJSONObject, { nullable: true })
   declare props?: any
 
   @Field({ nullable: true })
   declare parent?: string
 
-  @Field((returns) => NodeType)
+  @Field(() => NodeType)
   declare type: NodeType
 }

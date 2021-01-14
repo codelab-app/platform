@@ -1,13 +1,9 @@
-export type ByGraphCondition = ByGraphId | ByPageId
+export type ByGraphCondition = ByGraphId
 
 export type ByGraphConditions = {}
 
 export type ByGraphId = {
   graphId: string
-}
-
-export type ByPageId = {
-  pageId: string
 }
 
 export type ByVertexCondition = ByVertexId

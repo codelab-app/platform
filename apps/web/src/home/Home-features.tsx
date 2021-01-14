@@ -8,12 +8,24 @@ import {
 } from '@ant-design/icons'
 import { Card, Col, Row } from 'antd'
 import React from 'react'
-import { cardStyle, padding, threeGridCol } from '@codelab/frontend'
+import {
+  alignFullGridStyle,
+  cardStyle,
+  padding,
+  threeGridCol,
+} from '@codelab/frontend'
 
 export const HomeFeatures = () => {
+  const colProps = {
+    ...threeGridCol,
+    style: {
+      ...alignFullGridStyle,
+    },
+  }
+
   return (
     <Row gutter={[padding.sm, padding.sm]} align="middle">
-      <Col {...threeGridCol}>
+      <Col {...colProps}>
         <Card style={cardStyle}>
           <Card.Meta
             avatar={<AppstoreOutlined />}
@@ -22,7 +34,7 @@ export const HomeFeatures = () => {
           />
         </Card>
       </Col>
-      <Col {...threeGridCol}>
+      <Col {...colProps}>
         <Card style={cardStyle}>
           <Card.Meta
             avatar={<ApiOutlined />}
@@ -31,7 +43,7 @@ export const HomeFeatures = () => {
           />
         </Card>
       </Col>
-      <Col {...threeGridCol}>
+      <Col {...colProps}>
         <Card style={cardStyle}>
           <Card.Meta
             avatar={<KeyOutlined />}
@@ -40,7 +52,7 @@ export const HomeFeatures = () => {
           />
         </Card>
       </Col>
-      <Col {...threeGridCol}>
+      <Col {...colProps}>
         <Card style={cardStyle}>
           <Card.Meta
             avatar={<FolderOpenOutlined />}
@@ -49,7 +61,7 @@ export const HomeFeatures = () => {
           />
         </Card>
       </Col>
-      <Col {...threeGridCol}>
+      <Col {...colProps}>
         <Card style={cardStyle}>
           <Card.Meta
             avatar={<SettingOutlined />}

@@ -1,10 +1,10 @@
-import { SerializedVertexDto } from '../vertex/dto/SerializedVertexDto'
+import { VertexDto } from '../../../presentation/VertexDto'
 import { ValueObject } from '@codelab/backend'
 
 export interface IGraphVertices {
-  value: Array<SerializedVertexDto>
+  value: Array<VertexDto>
 }
 
 export class GraphVertices extends ValueObject<IGraphVertices> {
-  declare value: Array<SerializedVertexDto>
+  declare value: Array<VertexDto>
 }

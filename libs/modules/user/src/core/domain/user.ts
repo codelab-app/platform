@@ -1,5 +1,5 @@
 import { Type, plainToClass } from 'class-transformer'
-import { SerializedUserDto } from './dto/SerializedUserDto'
+import { UserDto } from '../../presentation/UserDto'
 import { UserAccessToken } from './user-accessToken'
 import { UserEmail } from './user-email'
 import { UserPassword } from './user-password'
@@ -12,7 +12,7 @@ import {
 } from '@codelab/backend'
 
 export class User<ID extends UUID | NOID = UUID> extends AggregateRoot<
-  SerializedUserDto,
+  UserDto,
   ID
 > {
   @Type(() => UserEmail)

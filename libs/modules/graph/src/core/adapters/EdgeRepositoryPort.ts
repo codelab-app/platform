@@ -2,10 +2,10 @@ import { Option } from 'fp-ts/Option'
 import { ByEdgeCondition } from '../../common/QueryConditions'
 import { Edge } from '../domain/edge'
 import { Graph } from '../domain/graph'
-import { RepositoryPort } from '@codelab/backend'
+import { NOID, RepositoryPort } from '@codelab/backend'
 
 export abstract class EdgeRepositoryPort implements RepositoryPort<Edge> {
-  abstract create(edge: Edge, graph: Graph): Promise<Edge>
+  abstract create(edge: Edge<NOID>, graph: Graph): Promise<Edge>
 
   abstract delete(edge: Edge): Promise<Option<Edge>>
 

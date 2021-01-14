@@ -39,7 +39,6 @@ export class TypeOrmAppRepositoryAdapter
   }
 
   async findOne(app: ByAppCondition, userId?: UUID): Promise<Option<App>> {
-    let foundApp: TypeOrmApp | undefined
     let where: object = {}
 
     if (userId) {
@@ -52,11 +51,16 @@ export class TypeOrmAppRepositoryAdapter
     }
 
     if (isAppId(app)) {
-      foundApp = await this.repository.findOne({
-        relations: ['user'],
-        where,
-      })
+      where = {
+        ...where,
+        id: app.appId,
+      }
     }
+
+    const foundApp = await this.repository.findOne({
+      relations: ['user'],
+      where,
+    })
 
     return foundApp ? O.some(plainToClass(App, foundApp)) : O.none
   }

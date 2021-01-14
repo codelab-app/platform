@@ -2,7 +2,8 @@ import { Button, Col, Empty, Row } from 'antd'
 import React, { useEffect } from 'react'
 import { useAppMachine } from '../../model'
 import { useDeleteApp } from '../deleteApp'
-import GetAppsItem from './GetAppsItem'
+import { GetAppsItem } from './GetAppsItem'
+import { padding, threeGridCol } from '@codelab/frontend'
 
 export const GetAppsList = () => {
   const app = useAppMachine()
@@ -11,7 +12,6 @@ export const GetAppsList = () => {
     app.state.value === 'gettingApps' || app.state.value.gettingApps
   const hasResults = appsList && appsList.length > 0
 
-  // XState event senders
   const refresh = () => app.send('ON_GET_APPS')
   const create = () => app.send('ON_CREATE_APP')
 
@@ -23,29 +23,22 @@ export const GetAppsList = () => {
   }, [])
 
   const appsGrid = (
-    <>
-      <Row gutter={[16, 16]}>
-        {(appsList && appsList.length > 0 ? appsList : [0, 1, 2, 3, 4, 5]).map(
-          (item: any) => (
-            <Col
-              key={typeof item === 'number' ? item : item.id}
-              className="gutter-row"
-              span={6}
-              xs={24}
-              sm={12}
-              md={8}
-              lg={8}
-            >
-              <GetAppsItem
-                app={item}
-                loading={isLoading}
-                handleDeleteClick={handleDeleteClick}
-              />
-            </Col>
-          ),
-        )}
-      </Row>
-    </>
+    <Row gutter={[padding.sm, padding.sm]}>
+      {(appsList && appsList.length > 0 ? appsList : [0, 1, 2, 3, 4, 5]).map(
+        (item: any) => (
+          <Col
+            key={typeof item === 'number' ? item : item.id}
+            {...threeGridCol}
+          >
+            <GetAppsItem
+              app={item}
+              loading={isLoading}
+              handleDeleteClick={handleDeleteClick}
+            />
+          </Col>
+        ),
+      )}
+    </Row>
   )
 
   const empty = (
@@ -61,5 +54,5 @@ export const GetAppsList = () => {
     </Empty>
   )
 
-  return <div>{isLoading || hasResults ? appsGrid : empty}</div>
+  return <>{isLoading || hasResults ? appsGrid : empty}</>
 }

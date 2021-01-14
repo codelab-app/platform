@@ -2,6 +2,7 @@ import { Injectable, UseGuards } from '@nestjs/common'
 import { CommandBus, QueryBus } from '@nestjs/cqrs'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { classToPlain } from 'class-transformer'
+import { isNone } from 'fp-ts/Option'
 import { CreateAppCommand } from '../../core/application/commands/CreateAppCommand'
 import { DeleteAppCommand } from '../../core/application/commands/DeleteAppCommand'
 import { GetAppQuery } from '../../core/application/queries/GetAppQuery'
@@ -27,7 +28,7 @@ export class AppCommandQueryAdapter implements CommandQueryBusPort {
     readonly queryBus: QueryBus<UseCaseRequestPort>,
   ) {}
 
-  @Mutation((returns) => AppDto)
+  @Mutation(() => AppDto)
   @UseGuards(GqlAuthGuard)
   async createApp(
     @Args('input') input: CreateAppInput,
@@ -40,17 +41,21 @@ export class AppCommandQueryAdapter implements CommandQueryBusPort {
     return results.toPlain()
   }
 
-  @Query((returns) => AppDto)
+  @Query(() => AppDto, { nullable: true })
   @UseGuards(GqlAuthGuard)
   async getApp(@Args('input') input: GetAppInput, @CurrentUser() user: User) {
     const results = await this.queryBus.execute(
       new GetAppQuery({ user, appId: input.appId }),
     )
 
-    return classToPlain(results)
+    if (isNone(results)) {
+      return null
+    }
+
+    return classToPlain(results.value)
   }
 
-  @Query((returns) => [AppDto])
+  @Query(() => [AppDto])
   @UseGuards(GqlAuthGuard)
   async getApps(@CurrentUser() user: User) {
     const results = await this.queryBus.execute(new GetAppsQuery({ user }))
@@ -58,7 +63,7 @@ export class AppCommandQueryAdapter implements CommandQueryBusPort {
     return classToPlain(results)
   }
 
-  @Mutation((returns) => AppDto)
+  @Mutation(() => AppDto)
   @UseGuards(GqlAuthGuard)
   async deleteApp(@Args('input') { id }: DeleteAppInput) {
     const result = await this.commandBus.execute(

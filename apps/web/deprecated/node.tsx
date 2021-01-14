@@ -2,9 +2,9 @@
 import { useActor } from '@xstate/react'
 import React, { useContext } from 'react'
 import Highlight from 'react-highlight'
-import { ButtonGroup } from '../src/node/ButtonGroup'
-import { ModalForm } from '../src/node/ModalForm'
-import { Table } from '../src/node/Table'
+import { ButtonGroup } from '../src/deprecated/node/ButtonGroup'
+import { ModalForm } from '../src/deprecated/node/ModalForm'
+import { Table } from '../src/deprecated/node/Table'
 import { BaseNodeType } from '@codelab/alpha/shared/interface/node'
 import { MachineContext, NodeServiceContext } from '@codelab/alpha/ui/component'
 

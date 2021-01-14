@@ -1,10 +1,10 @@
-import { SerializedEdgeDto } from '../edge/dto/SerializedEdgeDto'
+import { EdgeDto } from '../../../presentation/EdgeDto'
 import { ValueObject } from '@codelab/backend'
 
 export interface IGraphEdges {
-  value: Array<SerializedEdgeDto>
+  value: Array<EdgeDto>
 }
 
 export class GraphEdges extends ValueObject<IGraphEdges> {
-  declare value: Array<SerializedEdgeDto>
+  declare value: Array<EdgeDto>
 }

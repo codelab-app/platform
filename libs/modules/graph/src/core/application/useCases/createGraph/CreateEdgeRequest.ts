@@ -15,6 +15,6 @@ export class CreateEdgeRequest {
   @Field({ nullable: true })
   declare graphId?: string
 
-  @Field((returns) => GraphQLJSONObject, { nullable: true })
+  @Field(() => GraphQLJSONObject, { nullable: true })
   declare props?: any
 }

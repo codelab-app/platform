@@ -15,7 +15,7 @@ export class UpdateUserService implements UpdateUserUseCase {
 
   async execute({
     id,
-    ...data
+    ...userData
   }: UpdateUserRequest): Promise<UpdateUserResponse> {
     const existingUser: Option<User> = await this.userRepository.findOne({
       userId: id,
@@ -25,7 +25,7 @@ export class UpdateUserService implements UpdateUserUseCase {
       return left(new EditUserErrors.UserNotFoundError(id))
     }
 
-    const result = await this.userRepository.update({ userId: id }, data)
+    const result = await this.userRepository.update({ userId: id }, userData)
 
     if (option.isNone(result)) {
       return left(new AppError('App error'))

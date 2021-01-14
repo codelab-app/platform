@@ -6,6 +6,6 @@ export class UpdateNodeInput {
   @Field()
   declare graphId: string
 
-  @Field((returns) => UpdateNodeVertexType)
+  @Field(() => UpdateNodeVertexType)
   declare type: UpdateNodeVertexType
 }
