@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import { EventObject, Sender } from 'xstate'
-import GeneratedForm, { FormEvent, FormProps } from './generated-form'
+import GeneratedForm, { FormEvent, FormProps } from './GeneratedForm'
 
-export interface GeneratedXStateFormProps<
+export type GeneratedXStateFormProps<
   T extends object,
   TEvent extends EventObject
-> extends Omit<FormProps<T>, 'onSubmit' | 'onChange' | 'formData'> {
+> = Omit<FormProps<T>, 'onSubmit' | 'onChange' | 'formData'> & {
   send: Sender<TEvent>
-  createEvent: (submitEvent: FormEvent<T>) => TEvent
+  createSubmitEvent: (submitEvent: FormEvent<T>) => TEvent
   initialState?: T
 }
 
@@ -16,14 +16,14 @@ export interface GeneratedXStateFormProps<
  */
 const GeneratedXStateForm = <T extends object, TEvent extends EventObject>({
   send,
-  createEvent,
+  createSubmitEvent,
   initialState,
   ...props
 }: GeneratedXStateFormProps<T, TEvent>) => {
   const onSubmit = (e: FormEvent<T>) => {
-    send(createEvent(e))
+    send(createSubmitEvent(e))
   }
-  // TODO store state in xstate
+  // TODO store state in xstate?
   // The state is needed, because the rjsf doesn't keep any state. Every time this re-renders, the input values get lost
   const [formData, setFormData] = useState<T | undefined>(initialState)
 

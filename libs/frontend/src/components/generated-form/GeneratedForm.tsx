@@ -4,16 +4,32 @@ import { Button } from 'antd'
 import { ButtonProps } from 'antd/lib/button'
 import { JSONSchema7 } from 'json-schema'
 import React, { ReactElement } from 'react'
-import { setSubmitControllerRef } from './set-submit-controller-ref'
 
 const ThemedForm = withTheme(AntDTheme)
 
+/** This object is used to control form submission */
 export interface SubmitController {
   submit: () => void
 }
 
+/** Generic form event containg the current form values as the @property data */
 export interface FormEvent<T> {
   data: T
+}
+
+const setSubmitControllerRef = (
+  submitBtnRef:
+    | React.MutableRefObject<SubmitController | undefined>
+    | undefined,
+) => (sbtn: HTMLButtonElement | null) => {
+  if (!submitBtnRef) return
+
+  // eslint-disable-next-line no-param-reassign
+  submitBtnRef.current = sbtn
+    ? {
+        submit: () => sbtn.click(),
+      }
+    : undefined
 }
 
 export interface FormProps<T extends object> {
@@ -26,9 +42,10 @@ export interface FormProps<T extends object> {
    * It still will be rendered, so you can interact with it using the submitBtnRef (e.g. submit using submitBtnRef.click())
    */
   hideSubmitButton?: boolean
+  /** Use this to be able to hide the submit button and get a controller, which can trigger form submit */
   submitControllerRef?: React.MutableRefObject<SubmitController | undefined>
   submitButtonProps?: ButtonProps
-  formProps?: Omit<RjsfFormProps<T>, keyof FormProps<T>>
+  rjsfFormProps?: Omit<RjsfFormProps<T>, keyof FormProps<T>>
 }
 
 /**
@@ -42,7 +59,7 @@ const GeneratedForm = <T extends object>({
   formData,
   onChange,
   submitButtonProps = {},
-  formProps = {},
+  rjsfFormProps = {},
 }: FormProps<T>): ReactElement => {
   /**
    * TODO infer form title form json schema (we could probably modify generator to give a title), ask for help on generator if needed
@@ -57,7 +74,7 @@ const GeneratedForm = <T extends object>({
         if (onChange) onChange({ data: e.formData })
       }}
       formData={formData}
-      {...formProps}
+      {...rjsfFormProps}
     >
       {/* This button exists because by default the Form from rjsf includes a submit button.
        Since we don't want to use it and we want to submit with the modal button, we need to hide it.
@@ -66,6 +83,7 @@ const GeneratedForm = <T extends object>({
       <Button
         htmlType="submit"
         style={hideSubmitButton ? { display: 'none' } : undefined}
+        // Expose only a submit controller ref, so that we don't have to expose the whole button ref
         ref={setSubmitControllerRef(submitControllerRef)}
         {...submitButtonProps}
       >
