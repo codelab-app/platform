@@ -12,7 +12,7 @@ export type LoginUserFormProps = Omit<
   'schema' | 'rjsfFormProps' | 'send' | 'createSubmitEvent'
 >
 
-export const LoginUserForm = ({ ...props }: LoginUserFormProps) => {
+export const LoginUserForm = (props: LoginUserFormProps) => {
   const user = useUserMachine()
 
   return (
