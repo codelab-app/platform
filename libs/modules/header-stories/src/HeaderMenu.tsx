@@ -1,4 +1,4 @@
-import { HomeOutlined } from '@ant-design/icons'
+import { HomeOutlined, UserOutlined } from '@ant-design/icons'
 import { Menu } from 'antd'
 import Link from 'next/link'
 import React from 'react'
@@ -18,11 +18,48 @@ export const HeaderMenu = () => {
   const user = useUserMachine()
 
   const { userData } = user.state.context
+  const isCheckingAuth = user.state.value === 'initialCheck'
+
+  console.log(isCheckingAuth, userData)
+
+  const authenticatedUserMenu = (data: any) => (
+    <>
+      <Menu.Item key="3" style={{ float: 'right' }}>
+        <UserSignOutButton />
+      </Menu.Item>
+      <Menu.SubMenu key="4" style={{ float: 'right' }} icon={<UserOutlined />}>
+        <Menu.Item>{data.email}</Menu.Item>
+      </Menu.SubMenu>
+    </>
+  )
+
+  const guestUserMenu = (
+    <>
+      <Menu.Item
+        key="3"
+        style={{
+          float: 'right',
+          ...disableMenuHoverEffects,
+        }}
+        icon={<RegisterUserButton />}
+      />
+      <Menu.Item
+        key="4"
+        style={{ float: 'right', ...disableMenuHoverEffects }}
+        icon={<UserLoginButton />}
+      />
+    </>
+  )
 
   return (
     <>
       <div className="logo" />
-      <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
+      <Menu
+        theme="dark"
+        mode="horizontal"
+        defaultSelectedKeys={['2']}
+        triggerSubMenuAction="click"
+      >
         <Menu.Item
           key="1"
           icon={
@@ -36,32 +73,9 @@ export const HeaderMenu = () => {
             <a>Apps</a>
           </Link>
         </Menu.Item>
-        {userData ? (
-          <>
-            <Menu.Item key="3" style={{ float: 'right' }}>
-              <SignOutUserButton />
-            </Menu.Item>
-            <Menu.Item key="4" style={{ float: 'right' }}>
-              Hello, {userData.email}
-            </Menu.Item>
-          </>
-        ) : (
-          <>
-            <Menu.Item
-              key="3"
-              style={{
-                float: 'right',
-                ...disableMenuHoverEffects,
-              }}
-              icon={<RegisterUserButton />}
-            />
-            <Menu.Item
-              key="4"
-              style={{ float: 'right', ...disableMenuHoverEffects }}
-              icon={<LoginUserButton />}
-            />
-          </>
-        )}
+        {isCheckingAuth || (!isCheckingAuth && !userData)
+          ? guestUserMenu
+          : authenticatedUserMenu(userData)}
       </Menu>
     </>
   )

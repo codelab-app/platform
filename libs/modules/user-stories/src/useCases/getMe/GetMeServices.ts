@@ -9,23 +9,13 @@ export const getMeServices: Record<string, ServiceConfig<any, any>> = {
     const token = getAuthTokenFromLocalStorage()
 
     if (!token) {
-      // No point in trying
-      throw new Error('No point')
+      return {}
     }
 
-    const result = await query(getApolloClient(), {
+    const { data } = await query(getApolloClient(), {
       query: GetMeGql,
     })
 
-    return {
-      ...result,
-      data: {
-        ...result.data,
-        getMe: {
-          ...result.data.getMe,
-          accessToken: token,
-        },
-      },
-    }
+    return data
   },
 }
