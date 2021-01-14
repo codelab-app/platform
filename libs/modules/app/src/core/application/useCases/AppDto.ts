@@ -2,9 +2,9 @@ import { Field, ObjectType } from '@nestjs/graphql'
 
 @ObjectType('App')
 export class AppDto {
-  @Field()
+  @Field(() => String, { defaultValue: '' })
   declare id: string
 
-  @Field()
+  @Field(() => String, { defaultValue: '' })
   declare title: string
 }

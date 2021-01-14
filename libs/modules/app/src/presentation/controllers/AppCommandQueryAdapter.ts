@@ -49,9 +49,7 @@ export class AppCommandQueryAdapter implements CommandQueryBusPort {
     )
 
     if (isNone(results)) {
-      console.log(new AppDto())
-
-      return new AppDto()
+      return {}
     }
 
     return classToPlain(results.value)

@@ -1,6 +1,7 @@
 import { INestApplication } from '@nestjs/common'
 import { Test } from '@nestjs/testing'
 import { Connection } from 'typeorm'
+import { PageModule } from '../../../../framework/nestjs/PageModule'
 import { TestInfrastructureModule } from '@codelab/backend'
 
 describe('GetPageUseCase', () => {
@@ -9,7 +10,7 @@ describe('GetPageUseCase', () => {
 
   beforeAll(async () => {
     const testModule = await Test.createTestingModule({
-      imports: [TestInfrastructureModule],
+      imports: [TestInfrastructureModule, PageModule],
     }).compile()
 
     app = testModule.createNestApplication()
