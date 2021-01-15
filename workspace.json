@@ -1891,6 +1891,29 @@
           "outputs": ["{options.outputPath}"]
         }
       }
+    },
+    "modules-demo-grid-form": {
+      "root": "libs/modules/demo-grid-form",
+      "sourceRoot": "libs/modules/demo-grid-form/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/modules/demo-grid-form/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/modules/demo-grid-form"],
+          "options": {
+            "jestConfig": "libs/modules/demo-grid-form/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {

@@ -108,6 +108,9 @@
       ],
       "@codelab/modules/page-stories": [
         "libs/modules/page-stories/src/index.ts"
+      ],
+      "@codelab/modules/demo-grid-form": [
+        "libs/modules/demo-grid-form/src/index.ts"
       ]
     }
   },
