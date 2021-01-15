@@ -1,14 +1,14 @@
 import { ServiceConfig } from 'xstate/lib/types'
-import { UserLoginGql } from './UserLoginRequest.generated'
+import { LoginUserGql } from './LoginUserRequest.generated'
 import { mutate } from '@codelab/alpha/shared/utils'
 import { getApolloClient } from '@codelab/frontend'
 
-export const userLoginServices: Record<string, ServiceConfig<any, any>> = {
-  executeLogIn: async (context, { data }) => {
+export const loginUserServices: Record<string, ServiceConfig<any, any>> = {
+  loginUser: async (context, { data }) => {
     await new Promise((resolve) => setTimeout(resolve, 500))
 
     return mutate(getApolloClient(), {
-      mutation: UserLoginGql,
+      mutation: LoginUserGql,
       variables: {
         input: data,
       },

@@ -3,22 +3,29 @@ import React from 'react'
 import GeneratedXStateForm, {
   GeneratedXStateFormProps,
 } from '../../../../../frontend/src/components/generated-form/GeneratedXStateForm'
-import { CreateAppInputSchema } from '../../../../app/src/core/application/useCases/createApp/CreateAppInput.generated'
 import { LoginUserInput } from '../../../../user/src/core/application/useCases/loginUser/LoginUserInput'
-import { useAppMachine } from '../../model'
+import { LoginUserInputSchema } from '../../../../user/src/core/application/useCases/loginUser/LoginUserInput.generated'
+import { useUserMachine } from '../../store'
 
-export type CreateAppFormProps = Omit<
+export type LoginUserFormProps = Omit<
   GeneratedXStateFormProps<LoginUserInput, any>,
   'schema' | 'rjsfFormProps' | 'send' | 'createSubmitEvent'
 >
 
-export const CreateAppForm = (props: CreateAppFormProps) => {
-  const app = useAppMachine()
+export const LoginUserForm = (props: LoginUserFormProps) => {
+  const user = useUserMachine()
 
   return (
     <GeneratedXStateForm<LoginUserInput, any>
-      schema={CreateAppInputSchema as JSONSchema7}
-      send={app.send}
+      schema={LoginUserInputSchema as JSONSchema7}
+      rjsfFormProps={{
+        uiSchema: {
+          password: {
+            'ui:widget': 'password',
+          },
+        },
+      }}
+      send={user.send}
       createSubmitEvent={({ data }) => {
         return {
           type: 'ON_SUBMIT',

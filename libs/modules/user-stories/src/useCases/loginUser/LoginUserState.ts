@@ -2,7 +2,7 @@ import { assign, sendParent } from 'xstate'
 import { StateNodeConfig } from 'xstate/lib/types'
 import { storeAuthTokenInLocalStorage } from '../../store'
 
-export const userLoginState: StateNodeConfig<any, any, any> = {
+export const loginUserState: StateNodeConfig<any, any, any> = {
   id: 'login',
   on: {
     ON_MODAL_CANCEL: {
@@ -21,7 +21,7 @@ export const userLoginState: StateNodeConfig<any, any, any> = {
     },
     loading: {
       invoke: {
-        src: 'executeLogIn',
+        src: 'loginUser',
         onDone: {
           target: '#authenticated',
           actions: [

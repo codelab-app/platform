@@ -2,12 +2,15 @@ import { HomeOutlined } from '@ant-design/icons'
 import { Menu } from 'antd'
 import Link from 'next/link'
 import React from 'react'
-import { APP_LIST_PAGE } from '../../../frontend/src/config/Router'
-import { HOME_PAGE, disableMenuHoverEffects } from '@codelab/frontend'
 import {
+  APP_LIST_PAGE,
+  HOME_PAGE,
+  disableMenuHoverEffects,
+} from '@codelab/frontend'
+import {
+  LoginUserButton,
   RegisterUserButton,
-  UserLoginButton,
-  UserSignOutButton,
+  SignOutUserButton,
   useUserMachine,
 } from '@codelab/modules/user-stories'
 
@@ -36,7 +39,7 @@ export const HeaderMenu = () => {
         {userData ? (
           <>
             <Menu.Item key="3" style={{ float: 'right' }}>
-              <UserSignOutButton />
+              <SignOutUserButton />
             </Menu.Item>
             <Menu.Item key="4" style={{ float: 'right' }}>
               Hello, {userData.email}
@@ -55,7 +58,7 @@ export const HeaderMenu = () => {
             <Menu.Item
               key="4"
               style={{ float: 'right', ...disableMenuHoverEffects }}
-              icon={<UserLoginButton />}
+              icon={<LoginUserButton />}
             />
           </>
         )}

@@ -1,35 +1,24 @@
-import { Modal } from 'antd'
-import React, { useRef } from 'react'
+import React from 'react'
 import { useAppMachine } from '../../model'
 import { CreateAppForm } from './CreateAppForm'
-import { useRootMachine } from '@codelab/frontend'
-
-const CREATE_APP_FORM = 'createAppForm'
+import { ModalForm, useRootMachine } from '@codelab/frontend'
 
 export const CreateAppModal = () => {
   const root = useRootMachine()
   const app = useAppMachine()
 
-  const submitBtnRef = useRef<HTMLButtonElement>()
-
   return (
-    <Modal
-      visible={typeof app.state.value.creatingApp !== 'undefined'}
-      okText="Create App"
-      okButtonProps={{
-        htmlType: 'submit',
-        form: CREATE_APP_FORM,
-        onClick: () => submitBtnRef.current?.click(),
-        loading: app.state.value?.creatingApp === 'submitting',
+    <ModalForm
+      modalProps={{
+        okText: 'Create App',
+        okButtonProps: {
+          loading: app.state.value?.creatingApp === 'submitting',
+        },
+        visible: typeof app.state.value.creatingApp !== 'undefined',
+        onCancel: () => root.send('ON_MODAL_CANCEL'),
+        onOk: () => root.send('ON_MODAL_OK'),
       }}
-      onCancel={() => root.send('ON_MODAL_CANCEL')}
-      onOk={() => root.send('ON_MODAL_OK')}
-      destroyOnClose
-    >
-      <CreateAppForm
-        formId={CREATE_APP_FORM}
-        submitBtnRef={submitBtnRef as any}
-      />
-    </Modal>
+      renderForm={() => <CreateAppForm />}
+    />
   )
 }

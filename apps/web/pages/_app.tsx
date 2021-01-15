@@ -4,8 +4,8 @@ import { MachineProvider, rootMachine } from '@codelab/frontend'
 import { CreateAppModal } from '@codelab/modules/app-stories'
 import { AppLayoutContainer } from '@codelab/modules/layout-stories'
 import {
+  LoginUserModal,
   RegisterUserModal,
-  UserLoginModal,
 } from '@codelab/modules/user-stories'
 import './App.less'
 import './App.scss'
@@ -18,7 +18,7 @@ const App = ({ children }: PropsWithChildren<any>) => {
   return (
     <>
       <RegisterUserModal />
-      <UserLoginModal />
+      <LoginUserModal />
       <CreateAppModal />
       <AppLayoutContainer>{children}</AppLayoutContainer>
     </>
