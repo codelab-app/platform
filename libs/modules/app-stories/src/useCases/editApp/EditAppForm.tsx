@@ -3,20 +3,20 @@ import React from 'react'
 import GeneratedXStateForm, {
   GeneratedXStateFormProps,
 } from '../../../../../frontend/src/components/generated-form/GeneratedXStateForm'
-import { CreateAppInput } from '../../../../app/src/core/application/useCases/createApp/CreateAppInput'
-import { CreateAppInputSchema } from '../../../../app/src/core/application/useCases/createApp/CreateAppInput.generated'
 import { useAppMachine } from '../../model'
+import { CreateAppInputSchema } from 'libs/modules/app/src/core/application/useCases/createApp/CreateAppInput.generated'
 
-export type CreateAppFormProps = Omit<
-  GeneratedXStateFormProps<CreateAppInput, any>,
+export type EditAppFormProps = Omit<
+  GeneratedXStateFormProps<any, any>,
   'schema' | 'rjsfFormProps' | 'send' | 'createSubmitEvent' | 'xStateOptions'
 >
 
-export const CreateAppForm = (props: CreateAppFormProps) => {
+export const EditAppForm = (props: EditAppFormProps) => {
   const app = useAppMachine()
 
   return (
-    <GeneratedXStateForm<CreateAppInput, any>
+    <GeneratedXStateForm<any, any>
+      // TODO: change this to EditAppInputSchema when it's ready
       schema={CreateAppInputSchema as JSONSchema7}
       send={app.send}
       createSubmitEvent={({ data }) => {

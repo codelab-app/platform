@@ -6,18 +6,21 @@ import React, {
   cloneElement,
   useRef,
 } from 'react'
-import { FormProps, SubmitController } from '../generated-form/GeneratedForm'
+import {
+  GeneratedFormProps,
+  SubmitController,
+} from '../generated-form/GeneratedForm'
 
 export interface ModalFormProps<TData extends object> {
   modalProps?: ModalProps
   renderForm: () => ReactElement<
-    Pick<FormProps<TData>, 'hideSubmitButton' | 'submitControllerRef'>
+    Pick<GeneratedFormProps<TData>, 'hideSubmitButton' | 'submitControllerRef'>
   >
 }
 
 export const ModalForm = <
   TData extends object,
-  TFormProps extends FormProps<TData>
+  TFormProps extends GeneratedFormProps<TData>
 >({
   modalProps: { okButtonProps, onOk, ...modalProps } = {},
   renderForm,

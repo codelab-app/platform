@@ -1,4 +1,8 @@
-import { DeleteOutlined, EllipsisOutlined } from '@ant-design/icons'
+import {
+  DeleteOutlined,
+  EditOutlined,
+  EllipsisOutlined,
+} from '@ant-design/icons'
 import { Button, Card, Dropdown, Menu, Skeleton } from 'antd'
 import Link from 'next/link'
 import React, { CSSProperties, FunctionComponent } from 'react'
@@ -8,6 +12,7 @@ export interface GetAppsItemProps {
   app: { title: string; id: string }
   loading?: boolean
   handleDeleteClick: (app: { id: string; title: string }) => void
+  handleEditClick: (app: { id: string; title: string }) => void
 }
 
 const menuItemStyle: CSSProperties = {
@@ -26,9 +31,18 @@ export const GetAppsItem: FunctionComponent<GetAppsItemProps> = ({
   app,
   loading,
   handleDeleteClick,
+  handleEditClick,
 }) => {
   const actionsMenu = (
     <Menu>
+      <Menu.Item
+        key="0"
+        style={menuItemStyle}
+        onClick={() => handleEditClick(app)}
+      >
+        Edit
+        <EditOutlined style={menuItemIconStyle} />
+      </Menu.Item>
       <Menu.Item
         key="0"
         style={menuItemStyle}
@@ -40,7 +54,7 @@ export const GetAppsItem: FunctionComponent<GetAppsItemProps> = ({
     </Menu>
   )
 
-  const actionsButton = (
+  const ellipsisMenu = (
     <Dropdown overlay={actionsMenu} trigger={['click']}>
       <Button type="text" shape="circle" icon={<EllipsisOutlined />} />
     </Dropdown>
@@ -58,7 +72,7 @@ export const GetAppsItem: FunctionComponent<GetAppsItemProps> = ({
           <a>{app.title}</a>
         </Link>
       }
-      extra={actionsButton}
+      extra={ellipsisMenu}
     >
       <Skeleton loading={loading} active />
     </Card>

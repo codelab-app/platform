@@ -1,6 +1,6 @@
 import { StateNodeConfig, assign, sendParent } from 'xstate'
 
-export const createAppState: StateNodeConfig<any, any, any> = {
+export const editAppState: StateNodeConfig<any, any, any> = {
   initial: 'fillingForm',
   entry: assign({ formData: {} }), // Empty out any form data we could have
   exit: assign({ formData: {} }),
@@ -25,35 +25,34 @@ export const createAppState: StateNodeConfig<any, any, any> = {
     },
     submitting: {
       invoke: {
-        src: 'createApp',
-        onDone: {
-          target: 'success',
-        },
+        src: 'editApp',
         onError: {
           target: 'error',
+          actions: sendParent((context, event: any) => {
+            return {
+              type: 'NOTIFY',
+              title: 'Error while editing app',
+              content: event?.data?.message,
+              notificationType: 'error',
+            }
+          }),
+        },
+        onDone: {
+          target: 'success',
+          actions: sendParent({
+            type: 'NOTIFY',
+            title: 'App edited successfully',
+            notificationType: 'success',
+          }),
         },
       },
     },
-    success: {
-      entry: sendParent((context, event) => {
-        return {
-          type: 'NOTIFY',
-          notificationType: 'success',
-          title: `App '${event.data.data.createApp.title}' created successfully`,
-        }
-      }),
-      always: '#app.gettingApps',
-    },
     error: {
-      entry: sendParent((context, event) => {
-        return {
-          type: 'NOTIFY',
-          notificationType: 'error',
-          title: 'Error while creating app',
-          content: event.data?.message,
-        }
-      }),
       always: 'fillingForm',
     },
+    success: {
+      type: 'final',
+    },
   },
+  onDone: 'gettingApps',
 }
