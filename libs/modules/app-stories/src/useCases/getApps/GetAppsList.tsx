@@ -10,10 +10,16 @@ export const GetAppsList = () => {
   const appsList = app.state.context.apps
   const isLoading =
     app.state.value === 'gettingApps' || app.state.value.gettingApps
+
   const hasResults = appsList && appsList.length > 0
 
   const refresh = () => app.send('ON_GET_APPS')
   const create = () => app.send('ON_CREATE_APP')
+  const handleEditCLick = (data: { id: string; title: string }) =>
+    app.send({
+      type: 'ON_EDIT_APP',
+      data,
+    })
 
   const { handleDeleteClick } = useDeleteApp()
 
@@ -34,6 +40,7 @@ export const GetAppsList = () => {
               app={item}
               loading={isLoading}
               handleDeleteClick={handleDeleteClick}
+              handleEditClick={handleEditCLick}
             />
           </Col>
         ),
