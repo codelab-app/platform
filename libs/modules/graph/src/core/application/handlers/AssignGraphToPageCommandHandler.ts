@@ -5,6 +5,7 @@ import {
   Transactional,
   runOnTransactionRollback,
 } from 'typeorm-transactional-cls-hooked'
+import { AssignGraphToPageSuccessEvent } from '../../../../../page/src/core/application/useCases/createPage/AssignGraphToPageSuccessEvent'
 import { PageCreateErrorEvent } from '../../../../../page/src/core/application/useCases/createPage/PageCreateErrorEvent'
 import { GraphDITokens } from '../../../framework/GraphDITokens'
 import { GraphRepositoryPort } from '../../adapters/GraphRepositoryPort'
@@ -25,26 +26,25 @@ export class AssignGraphToPageCommandHandler
 
   @Transactional({ propagation: Propagation.NESTED })
   async execute({ page }: AssignGraphToPageCommand) {
-    const graph: Graph = await this.graphRepository.addGraphToPage(page)
+    let graph: Graph
 
-    const rootVertex = new Vertex({
-      type: 'React_Grid_Layout_Container',
-      props: {},
-    })
-
-    const transactionActive = this.graphRepository.manager?.queryRunner
-      ?.isTransactionActive
-
-    graph.addVertex(rootVertex)
     try {
+      graph = await this.graphRepository.addGraphToPage(page)
+
+      const rootVertex = new Vertex({
+        type: 'React_Grid_Layout_Container',
+        props: {},
+      })
+
+      graph.addVertex(rootVertex)
       await this.graphRepository.updateGraph(graph)
-      // await this.graphRepository.manager?.queryRunner?.rollbackTransaction()
+      this.eventBus.publish(new AssignGraphToPageSuccessEvent())
     } catch (e) {
       await this.graphRepository.manager?.queryRunner?.rollbackTransaction()
     }
     runOnTransactionRollback(() => {
       this.logger.log('Transaction rollback callback')
-      this.eventBus.publish(new PageCreateErrorEvent(page))
+      this.eventBus.publish(new PageCreateErrorEvent(page, graph))
     })
   }
 }

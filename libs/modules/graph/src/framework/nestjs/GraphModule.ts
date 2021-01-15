@@ -9,6 +9,7 @@ import { GetGraphQueryHandler } from '../../core/application/handlers/GetGraphQu
 import { MoveNodeCommandHandler } from '../../core/application/handlers/MoveNodeCommandHandler'
 import { UpdateNodeCommandHandler } from '../../core/application/handlers/UpdateNodeCommandHandler'
 import { GraphPageSaga } from '../../core/application/sagas/GraphPage.saga'
+import { GraphPageCreateErrorEventHandler } from '../../core/application/sagas/GraphPageCreateErrorEventHandler'
 import { AddChildNodeService } from '../../core/application/useCases/addChildNode/AddChildNodeService'
 import { CreateGraphService } from '../../core/application/useCases/createGraph/CreateGraphService'
 import { DeleteNodeService } from '../../core/application/useCases/deleteNode/DeleteNodeService'
@@ -106,11 +107,15 @@ export const handlerProviders: Array<Provider> = [
   AddChildNodeCommandHandler,
 ]
 
+export const eventHandlersProviders: Array<Provider> = [
+  GraphPageSaga,
+  GraphPageCreateErrorEventHandler,
+]
+
 @Module({
   imports: [CqrsModule, VertexModule, EdgeModule],
   providers: [
-    GraphPageSaga,
-    // GraphPageCreatedEventHandler,
+    ...eventHandlersProviders,
     ...persistenceProviders,
     ...useCaseProviders,
     ...handlerProviders,

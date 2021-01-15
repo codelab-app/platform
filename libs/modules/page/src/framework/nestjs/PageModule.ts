@@ -2,7 +2,9 @@ import { Module, Provider } from '@nestjs/common'
 import { CqrsModule, EventPublisher, QueryBus } from '@nestjs/cqrs'
 import { Connection } from 'typeorm'
 import { CreatePageCommandHandler } from '../../core/application/handlers/CreatePageCommandHandler'
+import { CreatePageSuccessCommandHandler } from '../../core/application/handlers/CreatePageSuccessCommandHandler'
 import { PageCreateErrorEventHandler } from '../../core/application/sagas/PageCreateErrorEventHandler'
+import { PageCreateSuccessSaga } from '../../core/application/sagas/PageCreateSuccess.saga'
 import { CreatePageService } from '../../core/application/useCases/createPage/CreatePageService'
 import { TypeOrmPageRepositoryAdapter } from '../../infrastructure/persistence/TypeOrmPageRepositoryAdapter'
 import { PageCommandQueryAdapter } from '../../presentation/controllers/PageCommandQueryAdapter'
@@ -30,11 +32,13 @@ const useCaseProviders: Array<Provider> = [
 export const handlerProviders: Array<Provider> = [
   PageCreateErrorEventHandler,
   CreatePageCommandHandler,
+  CreatePageSuccessCommandHandler,
 ]
 
 @Module({
   imports: [CqrsModule],
   providers: [
+    PageCreateSuccessSaga,
     ...persistenceProviders,
     ...useCaseProviders,
     ...handlerProviders,

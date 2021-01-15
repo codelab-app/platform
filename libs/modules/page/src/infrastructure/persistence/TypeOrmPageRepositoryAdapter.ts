@@ -1,4 +1,6 @@
 import { plainToClass } from 'class-transformer'
+import { option as O } from 'fp-ts'
+import { Option } from 'fp-ts/Option'
 import { EntityRepository } from 'typeorm'
 import { BaseRepository } from 'typeorm-transactional-cls-hooked'
 import { PageRepositoryPort } from '../../core/adapters/PageRepositoryPort'
@@ -14,5 +16,18 @@ export class TypeOrmPageRepositoryAdapter
     const savedPageTypeOrm = await this.save(typeOrmPage)
 
     return plainToClass(Page, savedPageTypeOrm)
+  }
+
+  async deletePage(page: Page): Promise<Option<Page>> {
+    const typeOrmPage = page.toPersistence()
+    const foundTypeOrmPage = await this.findOne(typeOrmPage.id)
+
+    if (!foundTypeOrmPage) {
+      return O.none
+    }
+
+    await this.remove(foundTypeOrmPage)
+
+    return O.some(page)
   }
 }
