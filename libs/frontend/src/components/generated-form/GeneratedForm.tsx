@@ -61,9 +61,6 @@ const GeneratedForm = <T extends object>({
   submitButtonProps = {},
   rjsfFormProps = {},
 }: FormProps<T>): ReactElement => {
-  /**
-   * TODO infer form title form json schema (we could probably modify generator to give a title), ask for help on generator if needed
-   */
   return (
     <ThemedForm
       schema={schema}

@@ -5,7 +5,7 @@ import GeneratedForm, { FormEvent, FormProps } from './GeneratedForm'
 export type GeneratedXStateFormProps<
   T extends object,
   TEvent extends EventObject
-> = Omit<FormProps<T>, 'onSubmit' | 'onChange' | 'formData'> & {
+> = Omit<FormProps<T>, 'onSubmit'> & {
   send: Sender<TEvent>
   createSubmitEvent: (submitEvent: FormEvent<T>) => TEvent
   initialState?: T
@@ -18,19 +18,26 @@ const GeneratedXStateForm = <T extends object, TEvent extends EventObject>({
   send,
   createSubmitEvent,
   initialState,
+  formData,
+  onChange,
   ...props
 }: GeneratedXStateFormProps<T, TEvent>) => {
   const onSubmit = (e: FormEvent<T>) => {
     send(createSubmitEvent(e))
   }
-  // TODO store state in xstate?
   // The state is needed, because the rjsf doesn't keep any state. Every time this re-renders, the input values get lost
-  const [formData, setFormData] = useState<T | undefined>(initialState)
+  // Use this as a backup state in case we don't provide one in the props
+  const [stateFormData, setStateFormData] = useState<T | undefined>(
+    initialState,
+  )
 
   return (
     <GeneratedForm<T>
-      formData={formData}
-      onChange={({ data }) => setFormData(data)}
+      formData={formData || stateFormData}
+      onChange={(e) => {
+        if (onChange) onChange(e)
+        else setStateFormData(e.data)
+      }}
       onSubmit={onSubmit}
       {...props}
     />
