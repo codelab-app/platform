@@ -13,7 +13,7 @@ export interface SubmitController {
 }
 
 /** Generic form event containing the current form values  */
-export interface FormEvent<T> {
+export interface GeneratedFormEvent<T> {
   data: T
 }
 
@@ -32,13 +32,13 @@ const setSubmitControllerRef = (
     : undefined
 }
 
-export interface FormProps<T extends object> {
+export interface GeneratedFormProps<T extends object> {
   /** Schema used for form generation */
   schema: JSONSchema7
   /** Called when form is submitted */
-  onSubmit: (submitEvent: FormEvent<T>) => any
+  onSubmit: (submitEvent: GeneratedFormEvent<T>) => any
   /** Called when any of the form values have changed */
-  onChange: (changeEvent: FormEvent<T>) => any
+  onChange: (changeEvent: GeneratedFormEvent<T>) => any
   /** Use this to control the form data */
   formData: T
   /** Pass false to hide the submit button inside the form. Use the submitControllerRef to control form submission */
@@ -48,7 +48,7 @@ export interface FormProps<T extends object> {
   /** Props that get passed down to the submit button */
   submitButtonProps?: Omit<ButtonProps, 'htmlType' | 'ref'>
   /** Props that get passed down to the RJSFForm component */
-  rjsfFormProps?: Omit<RjsfFormProps<T>, keyof FormProps<T>>
+  rjsfFormProps?: Omit<RjsfFormProps<T>, keyof GeneratedFormProps<T>>
 }
 
 /**
@@ -64,7 +64,7 @@ const GeneratedForm = <T extends object>({
   onChange,
   submitButtonProps = {},
   rjsfFormProps = {},
-}: FormProps<T>): ReactElement => {
+}: GeneratedFormProps<T>): ReactElement => {
   return (
     <ThemedForm
       schema={schema}

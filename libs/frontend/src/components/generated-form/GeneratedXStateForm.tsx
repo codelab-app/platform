@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import { EventObject, Sender, State } from 'xstate'
-import GeneratedForm, { FormEvent, FormProps } from './GeneratedForm'
+import GeneratedForm, {
+  GeneratedFormEvent,
+  GeneratedFormProps,
+} from './GeneratedForm'
 
 export type GeneratedXStateFormProps<
   T extends object,
   TEvent extends EventObject
-> = Omit<FormProps<T>, 'onSubmit' | 'formData' | 'onChange'> & {
+> = Omit<GeneratedFormProps<T>, 'onSubmit' | 'formData' | 'onChange'> & {
   send: Sender<TEvent>
-  createSubmitEvent: (submitEvent: FormEvent<T>) => TEvent
+  createSubmitEvent: (submitEvent: GeneratedFormEvent<T>) => TEvent
   initialFormData?: T
   xStateOptions?:
     | {
         storeStateInXState: true
-        createChangeEvent: (changeEvent: FormEvent<T>) => TEvent
+        createChangeEvent: (changeEvent: GeneratedFormEvent<T>) => TEvent
         state: State<any>
         contextKey?: string
       }
@@ -39,7 +42,7 @@ const GeneratedXStateForm = <T extends object, TEvent extends EventObject>({
   } = { storeStateInXState: false },
   ...props
 }: GeneratedXStateFormProps<T, TEvent>) => {
-  const onSubmit = (e: FormEvent<T>) => {
+  const onSubmit = (e: GeneratedFormEvent<T>) => {
     send(createSubmitEvent(e))
   }
   // The state is needed, because the rjsf doesn't keep any state. Every time this re-renders, the input values get lost
@@ -49,11 +52,11 @@ const GeneratedXStateForm = <T extends object, TEvent extends EventObject>({
   )
 
   let formData = localStateFormData
-  let setFormData = ({ data }: FormEvent<T>) => setStateFormData(data)
+  let setFormData = ({ data }: GeneratedFormEvent<T>) => setStateFormData(data)
 
   if (storeStateInXState && state && createChangeEvent && contextKey) {
     formData = state.context[contextKey]
-    setFormData = (e: FormEvent<T>) => send(createChangeEvent(e))
+    setFormData = (e: GeneratedFormEvent<T>) => send(createChangeEvent(e))
   }
 
   useEffect(() => {
