@@ -11,6 +11,10 @@ const Loading = R.always('Loading...')
 const withLoading = (Comp: React.FC) =>
   R.ifElse(R.prop('loading'), Loading, Comp)
 
+const isLoadingUser = (user: any) => {
+  return user.state.matches('initialCheck')
+}
+
 const AppsPage = () => {
   const router = useRouter()
   const user = useUserMachine()

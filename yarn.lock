@@ -20985,6 +20985,13 @@ react-cytoscapejs@1.2.1:
     cytoscape "^3.2.19"
     prop-types "^15.6.2"
 
+react-delay@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/react-delay/-/react-delay-0.1.0.tgz#d421613190349a0ff7f73efa5a77502b581446bf"
+  integrity sha512-GGIyrQEsiYqTH8zUEWL2kEueSHcyHJJDeoXVC5y7R1lU1zs/BfiQsG2Lb2/yHjNASAjOBvqUCi/+JTmfLvnIcg==
+  dependencies:
+    prop-types "^15.6.0"
+
 react-dev-utils@^10.0.0:
   version "10.2.1"
   resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-10.2.1.tgz#f6de325ae25fa4d546d09df4bb1befdc6dd19c19"
