@@ -9,5 +9,6 @@ export const antNotificationAction: ActionFunction<
   notification[event.notificationType || 'info']({
     message: event.title,
     description: event.content,
+    placement: 'bottomRight',
   })
 }
