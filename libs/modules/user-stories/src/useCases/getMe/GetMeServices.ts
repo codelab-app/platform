@@ -9,7 +9,7 @@ export const getMeServices: Record<string, ServiceConfig<any, any>> = {
     const token = getAuthTokenFromLocalStorage()
 
     if (!token) {
-      return {}
+      throw new Error('User not authenticated!')
     }
 
     const { data } = await query(getApolloClient(), {

@@ -5,12 +5,8 @@ import { useUserMachine } from '../../store'
 export const RegisterUserButton = () => {
   const user = useUserMachine()
 
-  const registerUserButtonProps = {
-    onClick: () => user.send('REGISTER_USER'),
-  }
-
   return (
-    <Button type="primary" {...registerUserButtonProps}>
+    <Button type="primary" onClick={() => user.send('REGISTER_USER')}>
       Register
     </Button>
   )

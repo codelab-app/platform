@@ -6,5 +6,7 @@ export const useUserMachine = () => {
 
   const [state, send] = useActor<any>(rootMachine.state.context.user)
 
-  return { state, send }
+  const isAuthenticated = !!state.value?.authenticated
+
+  return { state, send, isAuthenticated }
 }

@@ -1,4 +1,4 @@
-import { HomeOutlined, UserOutlined } from '@ant-design/icons'
+import { HomeOutlined } from '@ant-design/icons'
 import { Menu } from 'antd'
 import Link from 'next/link'
 import React from 'react'
@@ -10,28 +10,29 @@ import {
 import {
   LoginUserButton,
   RegisterUserButton,
-  SignOutUserButton,
+  UserLoginButton,
   useUserMachine,
 } from '@codelab/modules/user-stories'
 
+/**
+ * We always show `Login` `Register` even if user is login. We simply redirect them to `/apps` page if they're already logged in.
+ */
 export const HeaderMenu = () => {
   const user = useUserMachine()
 
-  const { userData } = user.state.context
-  const isCheckingAuth = user.state.value === 'initialCheck'
+  // const { userData } = user.state.context
+  // const isCheckingAuth = user.state.value === 'initialCheck'
 
-  console.log(isCheckingAuth, userData)
-
-  const authenticatedUserMenu = (data: any) => (
-    <>
-      <Menu.Item key="3" style={{ float: 'right' }}>
-        <UserSignOutButton />
-      </Menu.Item>
-      <Menu.SubMenu key="4" style={{ float: 'right' }} icon={<UserOutlined />}>
-        <Menu.Item>{data.email}</Menu.Item>
-      </Menu.SubMenu>
-    </>
-  )
+  // const authenticatedUserMenu = (data: any) => (
+  //   <>
+  //     <Menu.Item key="3" style={{ float: 'right' }}>
+  //       <UserSignOutButton />
+  //     </Menu.Item>
+  //     <Menu.SubMenu key="4" style={{ float: 'right' }} icon={<UserOutlined />}>
+  //       <Menu.Item>{data.email}</Menu.Item>
+  //     </Menu.SubMenu>
+  //   </>
+  // )
 
   const guestUserMenu = (
     <>
@@ -73,9 +74,10 @@ export const HeaderMenu = () => {
             <a>Apps</a>
           </Link>
         </Menu.Item>
-        {isCheckingAuth || (!isCheckingAuth && !userData)
+        {guestUserMenu}
+        {/* {isCheckingAuth || (!isCheckingAuth && !userData)
           ? guestUserMenu
-          : authenticatedUserMenu(userData)}
+          : authenticatedUserMenu(userData)} */}
       </Menu>
     </>
   )

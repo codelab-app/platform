@@ -4,7 +4,9 @@ import { HomeFeatures } from '../src/home/Home-features'
 import { HomeJumbo } from '../src/home/Home-jumbo'
 import { withApollo } from '@codelab/frontend'
 
-const HomePage = () => {
+const HomePage = (props: any) => {
+  // const { data } = ssrGetMe.usePage()
+
   return (
     <>
       <HomeJumbo />
@@ -13,5 +15,10 @@ const HomePage = () => {
     </>
   )
 }
+
+// Can't use SSR need browser access
+// export const getServerSideProps = async () => {
+//   return  await ssrGetMe.getServerPage({})
+// }
 
 export default withApollo(HomePage)

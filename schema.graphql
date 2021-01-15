@@ -1,28 +1,26 @@
-"""
-query root
-"""
+"""query root"""
 type Query {
-  getMe: User!
-  getApp(input: GetAppInput!): App!
+  getApp(input: GetAppInput!): App
   getApps: [App!]!
-  graph(input: GetGraphInput!): GraphDto!
-  GetPages(input: GetPagesInput!): [PageDto!]!
-  GetPage(input: GetPageInput!): PageDto!
+  getMe: User!
+  graph(input: GetGraphInput!): Graph!
+  getPages(input: GetPagesInput!): [Page!]!
+  getPage(input: GetPageInput!): Page!
 }
 
 type Mutation {
+  createApp(input: CreateAppInput!): App!
+  deleteApp(input: DeleteAppInput!): App!
   deleteUser(input: DeleteUserInput!): User!
   updateUser(input: UpdateUserInput!): User!
   registerUser(input: RegisterUserInput!): User!
   loginUser(input: LoginUserInput!): User!
-  createApp(input: CreateAppInput!): App!
-  deleteApp(input: DeleteAppInput!): App!
-  createGraph(input: CreateGraphInput!): GraphDto!
-  addChildNode(input: AddChildNodeInput!): GraphDto!
-  updateNode(input: UpdateNodeInput!): GraphDto!
-  deleteNode(input: DeleteNodeInput!): GraphDto!
-  moveNode(input: MoveNodeInput!): GraphDto!
-  createPage(input: CreatePageInput!): PageDto!
+  createGraph(input: CreateGraphInput!): Graph!
+  addChildNode(input: AddChildNodeInput!): Graph!
+  updateNode(input: UpdateNodeInput!): Graph!
+  deleteNode(input: DeleteNodeInput!): Graph!
+  moveNode(input: MoveNodeInput!): Graph!
+  createPage(input: CreatePageInput!): Page!
 }
 
 type App {
@@ -33,11 +31,11 @@ type App {
 type User {
   id: String!
   email: String!
-  accessToken: String
+  accessToken: String!
 }
 
-type EdgeDto {
-  id: String
+type Edge {
+  id: String!
   source: String!
   target: String!
   props: JSONObject!
@@ -49,7 +47,7 @@ The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](
 """
 scalar JSONObject
 
-type VertexDto {
+type Vertex {
   id: String
   type: NodeType!
   props: JSONObject!
@@ -162,15 +160,15 @@ enum NodeType {
   Ref
 }
 
-type GraphDto {
+type Graph {
   id: String
-  label: String
-  vertices: [VertexDto!]!
-  edges: [EdgeDto!]!
+  label: String!
+  vertices: [Vertex!]!
+  edges: [Edge!]!
 }
 
-type PageDto {
-  id: String!
+type Page {
+  id: String
   title: String!
 }
 
@@ -191,6 +189,14 @@ input GetPageInput {
   pageId: String!
 }
 
+input CreateAppInput {
+  title: String!
+}
+
+input DeleteAppInput {
+  id: String!
+}
+
 input DeleteUserInput {
   email: String!
 }
@@ -208,14 +214,6 @@ input RegisterUserInput {
 input LoginUserInput {
   email: String!
   password: String!
-}
-
-input CreateAppInput {
-  title: String!
-}
-
-input DeleteAppInput {
-  id: String!
 }
 
 input CreateGraphInput {
