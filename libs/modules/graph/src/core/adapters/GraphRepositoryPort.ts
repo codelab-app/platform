@@ -17,7 +17,7 @@ export abstract class GraphRepositoryPort {
 
   abstract updateGraph(graph: Graph): Promise<Graph>
 
-  abstract deleteGraph(graphId: string): Promise<Option<Graph>>
+  abstract deleteGraph(graph: Graph): Promise<Option<Graph>>
 
   abstract findSingle(graph: ByGraphCondition): Promise<Option<Graph>>
 

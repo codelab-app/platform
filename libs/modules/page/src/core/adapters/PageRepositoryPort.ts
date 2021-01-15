@@ -1,9 +1,9 @@
+import { Option } from 'fp-ts/Option'
 import { Page } from '../domain/page'
-import { Option } from 'fp-ts/Option';
 import { ByPageConditions, ByPageId } from '@codelab/modules/page';
 
 export abstract class PageRepositoryPort {
-  abstract deletePage(pageId: string): Promise<Option<Page>>
+  abstract deletePage(page: Page): Promise<Option<Page>>
 
   abstract createPage(page: Page): Promise<Page>
 

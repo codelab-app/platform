@@ -29,8 +29,17 @@ export class TypeOrmGraphRepositoryAdapter
     return plainToClass(Graph, newGraph)
   }
 
-  async deleteGraph(): Promise<Option<Graph>> {
-    return Promise.resolve(O.none)
+  async deleteGraph(graph: Graph): Promise<Option<Graph>> {
+    const typeOrmGraph = graph.toPersistence()
+    const foundTypeOrmGraph = await this.findOne(typeOrmGraph.id)
+
+    if (!foundTypeOrmGraph) {
+      return O.none
+    }
+
+    await this.remove(foundTypeOrmGraph)
+
+    return O.some(graph)
   }
 
   async findMany(): Promise<Array<Graph>> {
