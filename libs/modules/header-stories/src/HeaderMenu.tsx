@@ -10,7 +10,6 @@ import {
 import {
   LoginUserButton,
   RegisterUserButton,
-  UserLoginButton,
   useUserMachine,
 } from '@codelab/modules/user-stories'
 
@@ -47,7 +46,7 @@ export const HeaderMenu = () => {
       <Menu.Item
         key="4"
         style={{ float: 'right', ...disableMenuHoverEffects }}
-        icon={<UserLoginButton />}
+        icon={<LoginUserButton />}
       />
     </>
   )

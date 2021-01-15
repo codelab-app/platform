@@ -1,3 +1,4 @@
+import * as R from 'ramda'
 import React from 'react'
 import { HomeClients } from '../src/home/Home-clients'
 import { HomeFeatures } from '../src/home/Home-features'
@@ -21,4 +22,4 @@ const HomePage = (props: any) => {
 //   return  await ssrGetMe.getServerPage({})
 // }
 
-export default withApollo(HomePage)
+export default R.pipe(withApollo, HomePage)
