@@ -1,7 +1,9 @@
-import { StateNodeConfig, sendParent } from 'xstate'
+import { StateNodeConfig, assign, sendParent } from 'xstate'
 
 export const createAppState: StateNodeConfig<any, any, any> = {
   initial: 'fillingForm',
+  entry: assign({ formData: {} }), // Empty out any form data we could have
+  exit: assign({ formData: {} }),
   states: {
     fillingForm: {
       on: {
@@ -10,6 +12,14 @@ export const createAppState: StateNodeConfig<any, any, any> = {
         },
         ON_MODAL_CANCEL: {
           target: '#app.idle',
+        },
+        ON_FORM_DATA_CHANGE: {
+          target: 'fillingForm',
+          actions: assign((c, e) => {
+            return {
+              formData: e.data,
+            }
+          }),
         },
       },
     },

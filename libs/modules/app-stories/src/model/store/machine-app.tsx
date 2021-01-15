@@ -1,4 +1,4 @@
-import { Machine, StateNodeConfig } from 'xstate'
+import { Machine, StateNodeConfig, assign } from 'xstate'
 import { createAppService } from '../../useCases/createApp/CreateAppService'
 import { createAppState } from '../../useCases/createApp/CreateAppState'
 import { deleteAppService } from '../../useCases/deleteApp/DeleteAppService'
@@ -24,9 +24,11 @@ export const createAppMachine = () => {
       initial: 'idle',
       context: {
         apps: undefined,
+        formData: {},
       },
       states: {
         idle: {
+          entry: assign({ formData: {} }), // Empty out any form data we could have
           on: {
             ON_CREATE_APP: {
               target: 'creatingApp',

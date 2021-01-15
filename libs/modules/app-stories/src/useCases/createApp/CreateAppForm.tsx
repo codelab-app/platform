@@ -3,20 +3,20 @@ import React from 'react'
 import GeneratedXStateForm, {
   GeneratedXStateFormProps,
 } from '../../../../../frontend/src/components/generated-form/GeneratedXStateForm'
+import { CreateAppInput } from '../../../../app/src/core/application/useCases/createApp/CreateAppInput'
 import { CreateAppInputSchema } from '../../../../app/src/core/application/useCases/createApp/CreateAppInput.generated'
-import { LoginUserInput } from '../../../../user/src/core/application/useCases/loginUser/LoginUserInput'
 import { useAppMachine } from '../../model'
 
 export type CreateAppFormProps = Omit<
-  GeneratedXStateFormProps<LoginUserInput, any>,
-  'schema' | 'rjsfFormProps' | 'send' | 'createSubmitEvent'
+  GeneratedXStateFormProps<CreateAppInput, any>,
+  'schema' | 'rjsfFormProps' | 'send' | 'createSubmitEvent' | 'xStateOptions'
 >
 
 export const CreateAppForm = (props: CreateAppFormProps) => {
   const app = useAppMachine()
 
   return (
-    <GeneratedXStateForm<LoginUserInput, any>
+    <GeneratedXStateForm<CreateAppInput, any>
       schema={CreateAppInputSchema as JSONSchema7}
       send={app.send}
       createSubmitEvent={({ data }) => {
@@ -24,6 +24,17 @@ export const CreateAppForm = (props: CreateAppFormProps) => {
           type: 'ON_SUBMIT',
           data,
         }
+      }}
+      xStateOptions={{
+        createChangeEvent: ({ data }) => {
+          return {
+            type: 'ON_FORM_DATA_CHANGE',
+            data,
+          }
+        },
+        state: app.state,
+        contextKey: 'formData',
+        storeStateInXState: true,
       }}
       {...props}
     />
