@@ -4,6 +4,7 @@ import { Col, Row } from 'antd'
 import { ColProps } from 'antd/lib/col'
 import { JSONSchema7 } from 'json-schema'
 import React from 'react'
+import { DemoGridFormInputSchema } from '@codelab/modules/demo-grid-form'
 
 const Form = withTheme(AntDTheme)
 
@@ -19,31 +20,7 @@ type ObjectFieldTemplateProperty = ObjectFieldTemplateProps['properties'][number
 }
 
 const GridFormsExamplePage = () => {
-  const schema: JSONSchema7 = {
-    title: 'Create User',
-    type: 'object',
-    properties: {
-      email: {
-        type: 'string',
-        title: 'email_#1',
-        $comment: '{"order":1, "span": 12}',
-      },
-      password: {
-        type: 'string',
-        title: 'password_#0',
-        $comment: '{"order":0, "span": 16}',
-      },
-      name: {
-        type: 'string',
-        title: 'name_#2',
-        $comment: '{"order":2, "span": 8}',
-      },
-      notGroupedField: {
-        type: 'string',
-        title: 'notGroupedField',
-      },
-    },
-  }
+  const schema: JSONSchema7 = DemoGridFormInputSchema as JSONSchema7
 
   const extractGridDetailsFromPropertiesSchema = (
     property: ObjectFieldTemplateProperty,
@@ -51,7 +28,7 @@ const GridFormsExamplePage = () => {
     let gridDetails
 
     try {
-      gridDetails = JSON.parse(property.content.props.schema.$comment)
+      gridDetails = JSON.parse(property.content.props.schema.description)
     } catch (e) {
       gridDetails = {}
     }

@@ -40,5 +40,6 @@ module.exports = {
     '<rootDir>/libs/tools/generators/graphql',
     '<rootDir>/libs/modules/notification-stories',
     '<rootDir>/libs/pages/home-stories',
+    '<rootDir>/libs/modules/demo-grid-form',
   ],
 }
