@@ -39,8 +39,10 @@ export class TypeOrmPageRepositoryAdapter
   }
 
   async deletePage(page: Page): Promise<Option<Page>> {
-    const typeOrmPage = page.toPersistence()
-    const foundTypeOrmPage = await this.findOne(typeOrmPage.id)
+    // const typeOrmPage = page.toPersistence()
+    // const typeOrmPage = plainToClass(TypeOrmPage, page)
+    // const foundTypeOrmPage = await this.findOne(typeOrmPage.id)
+    const foundTypeOrmPage = await this.findOne(page.id.value)
 
     if (!foundTypeOrmPage) {
       return O.none

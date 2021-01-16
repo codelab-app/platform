@@ -1,8 +1,9 @@
 import { Exclude, Type, plainToClass } from 'class-transformer'
 import { NOID } from '../../../../../backend/src/core/domain/valueObject/NOID'
 import { App } from '../../../../app/src/core/domain/app'
-import { PageDto } from '../../presentation/PageDto'
+import { SerializedAppDto } from '../../../../user/src/core/domain/dto/SerializedAppDto'
 import { PageCreatedEvent } from '../application/useCases/createPage/PageCreatedEvent'
+import { SerializedPageDto } from './dto/SerializedPageDto'
 import { PageTitle } from './page-title'
 import {
   AggregateRoot,
@@ -12,7 +13,7 @@ import {
 } from '@codelab/backend'
 
 export class Page<ID extends UUID | NOID = UUID> extends AggregateRoot<
-  PageDto,
+  SerializedPageDto,
   ID
 > {
   @Type(() => PageTitle)
@@ -29,8 +30,16 @@ export class Page<ID extends UUID | NOID = UUID> extends AggregateRoot<
   @Exclude()
   publish: any
 
+  @Exclude()
+  declare appId: string
+
   createPage(app: App) {
-    this.apply(new PageCreatedEvent(app, this as any))
+    this.apply(
+      new PageCreatedEvent(
+        app.toPlain() as SerializedAppDto,
+        this.toPlain() as SerializedPageDto,
+      ),
+    )
   }
 
   toPersistence(): TypeOrmPage {

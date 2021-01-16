@@ -1,6 +1,14 @@
+import {
+  EventStoreModule,
+  EventStoreSubscriptionType,
+} from '@juicycleff/nestjs-event-store'
 import { Module, Provider } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
 import { Connection } from 'typeorm'
+import { AssignGraphToPageSuccessEvent } from '../../../../page/src/core/application/useCases/createPage/AssignGraphToPageSuccessEvent'
+import { AssignPageToAppSuccessEvent } from '../../../../page/src/core/application/useCases/createPage/AssignPageToAppSuccessEvent'
+import { PageCreateErrorEvent } from '../../../../page/src/core/application/useCases/createPage/PageCreateErrorEvent'
+import { PageCreatedEvent } from '../../../../page/src/core/application/useCases/createPage/PageCreatedEvent'
 import { AddChildNodeCommandHandler } from '../../core/application/handlers/AddChildNodeCommandHandler'
 import { AssignGraphToPageCommandHandler } from '../../core/application/handlers/AssignGraphToPageCommandHandler'
 import { CreateGraphCommandHandler } from '../../core/application/handlers/CreateGraphCommandHandler'
@@ -113,7 +121,35 @@ export const eventHandlersProviders: Array<Provider> = [
 ]
 
 @Module({
-  imports: [CqrsModule, VertexModule, EdgeModule],
+  imports: [
+    CqrsModule,
+    VertexModule,
+    EdgeModule,
+    EventStoreModule.registerFeature({
+      type: 'event-store',
+      featureStreamName: '$svc-graph',
+      subscriptions: [
+        {
+          type: EventStoreSubscriptionType.Persistent,
+          stream: '$svc-page',
+          persistentSubscriptionName: 'page',
+        },
+        {
+          type: EventStoreSubscriptionType.Persistent,
+          stream: '$svc-app',
+          persistentSubscriptionName: 'app',
+        },
+      ],
+      eventHandlers: {
+        AssignGraphToPageSuccessEvent: () =>
+          new AssignGraphToPageSuccessEvent(),
+        AssignPageToAppSuccessEvent: () => new AssignPageToAppSuccessEvent(),
+        PageCreatedEvent: (app, page) => new PageCreatedEvent(app, page),
+        PageCreateErrorEvent: (page, graph) =>
+          new PageCreateErrorEvent(page, graph),
+      },
+    }),
+  ],
   providers: [
     ...eventHandlersProviders,
     ...persistenceProviders,

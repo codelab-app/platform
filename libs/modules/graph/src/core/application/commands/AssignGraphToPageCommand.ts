@@ -1,6 +1,5 @@
-import { Page } from '../../../../../page/src/core/domain/page'
-import { UUID } from '@codelab/backend'
+import { SerializedPageDto } from '../../../../../page/src/core/domain/dto/SerializedPageDto'
 
 export class AssignGraphToPageCommand {
-  constructor(public readonly page: Page<UUID>) {}
+  constructor(public readonly page: SerializedPageDto) {}
 }
