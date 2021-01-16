@@ -2,6 +2,7 @@ import { EventPublisher, QueryBus } from '@nestjs/cqrs'
 import { left, right } from 'fp-ts/Either'
 import { Option, isNone } from 'fp-ts/Option'
 import {
+  Propagation,
   Transactional,
   runOnTransactionCommit,
 } from 'typeorm-transactional-cls-hooked'
@@ -22,7 +23,7 @@ export class CreatePageService implements CreatePageUseCase {
     private readonly queryBus: QueryBus,
   ) {}
 
-  @Transactional()
+  @Transactional({ propagation: Propagation.NESTED })
   async execute(request: CreatePageRequest): Promise<CreatePageResponse> {
     const { appId } = request
     const page = new Page(request)

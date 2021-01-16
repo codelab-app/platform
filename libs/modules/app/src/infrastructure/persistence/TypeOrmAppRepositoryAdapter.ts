@@ -76,10 +76,9 @@ export class TypeOrmAppRepositoryAdapter
   }
 
   async addPageToApp(app: App, page: Page): Promise<void> {
-    const typeOrmApp = app.toPersistence()
     const typeOrmPage = page.toPersistence()
 
-    const foundApp = await this.findOneOrFail(typeOrmApp.id)
+    const foundApp = await this.findOneOrFail(app.id.value)
 
     if (foundApp.pages && foundApp.pages.length > 0) {
       foundApp.pages.push(typeOrmPage)

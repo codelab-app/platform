@@ -1,8 +1,10 @@
-import { ArgumentsHost, Catch, ExceptionFilter } from '@nestjs/common'
+import { ArgumentsHost, Catch, ExceptionFilter, Logger } from '@nestjs/common'
 
 @Catch()
 export class GeneralExceptionFilter implements ExceptionFilter {
+  public logger: Logger = new Logger('GeneralExceptionFilter')
+
   catch(exception: any, host: ArgumentsHost): any {
-    console.log(exception)
+    this.logger.error(exception)
   }
 }
