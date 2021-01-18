@@ -4,7 +4,7 @@ import GeneratedXStateForm, {
   GeneratedXStateFormProps,
 } from '../../../../../frontend/src/components/generated-form/GeneratedXStateForm'
 import { useAppMachine } from '../../model'
-import { CreateAppInputSchema } from 'libs/modules/app/src/core/application/useCases/createApp/CreateAppInput.generated'
+import { UpdateAppInputSchema } from 'libs/modules/app/src/core/application/useCases/updateApp'
 
 export type EditAppFormProps = Omit<
   GeneratedXStateFormProps<any, any>,
@@ -16,14 +16,20 @@ export const EditAppForm = (props: EditAppFormProps) => {
 
   return (
     <GeneratedXStateForm<any, any>
-      // TODO: change this to EditAppInputSchema when it's ready
-      schema={CreateAppInputSchema as JSONSchema7}
+      schema={UpdateAppInputSchema as JSONSchema7}
       send={app.send}
       createSubmitEvent={({ data }) => {
         return {
           type: 'ON_SUBMIT',
           data,
         }
+      }}
+      rjsfFormProps={{
+        uiSchema: {
+          id: {
+            'ui:widget': 'hidden',
+          },
+        },
       }}
       xStateOptions={{
         createChangeEvent: ({ data }) => {

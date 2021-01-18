@@ -2,8 +2,10 @@ import { StateNodeConfig, assign, sendParent } from 'xstate'
 
 export const editAppState: StateNodeConfig<any, any, any> = {
   initial: 'fillingForm',
-  entry: assign({ formData: {} }), // Empty out any form data we could have
-  exit: assign({ formData: {} }),
+  entry: assign((c, e) => {
+    return { formData: e.data }
+  }),
+  exit: assign({ formData: {} }), // Empty out any form data we could have
   states: {
     fillingForm: {
       on: {
