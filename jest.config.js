@@ -33,5 +33,6 @@ module.exports = {
     '<rootDir>/libs/modules/notification-stories',
     '<rootDir>/libs/pages/home-stories',
     '<rootDir>/libs/modules/demo-grid-form',
+    '<rootDir>/libs/tools/grid-decorator',
   ],
 }

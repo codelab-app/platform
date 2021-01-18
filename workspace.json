@@ -1914,6 +1914,59 @@
           }
         }
       }
+    },
+    "tools-grid-decorator": {
+      "root": "libs/tools/grid-decorator",
+      "sourceRoot": "libs/tools/grid-decorator/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/tools/grid-decorator/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/tools/grid-decorator"],
+          "options": {
+            "jestConfig": "libs/tools/grid-decorator/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "storybook": {
+          "builder": "@nrwl/storybook:storybook",
+          "options": {
+            "uiFramework": "@storybook/react",
+            "port": 4400,
+            "config": {
+              "configFolder": "libs/tools/grid-decorator/.storybook"
+            }
+          },
+          "configurations": {
+            "ci": {
+              "quiet": true
+            }
+          }
+        },
+        "build-storybook": {
+          "builder": "@nrwl/storybook:build",
+          "options": {
+            "uiFramework": "@storybook/react",
+            "outputPath": "dist/storybook/tools-grid-decorator",
+            "config": {
+              "configFolder": "libs/tools/grid-decorator/.storybook"
+            }
+          },
+          "configurations": {
+            "ci": {
+              "quiet": true
+            }
+          }
+        }
+      }
     }
   },
   "cli": {
