@@ -305,6 +305,7 @@ export class CodelabEventStore
             this.onDropped(
               sub as ExtendedPersistentSubscription,
               reason,
+              // @ts-ignore
               error,
             ),
         )) as ExtendedPersistentSubscription
