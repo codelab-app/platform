@@ -165,6 +165,9 @@
     },
     "modules-demo-grid-form": {
       "tags": []
+    },
+    "tools-grid-decorator": {
+      "tags": []
     }
   }
 }

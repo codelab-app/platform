@@ -112,6 +112,9 @@
       ],
       "@codelab/modules/demo-grid-form": [
         "libs/modules/demo-grid-form/src/index.ts"
+      ],
+      "@codelab/tools/grid-decorator": [
+        "libs/tools/grid-decorator/src/index.ts"
       ]
     }
   },
