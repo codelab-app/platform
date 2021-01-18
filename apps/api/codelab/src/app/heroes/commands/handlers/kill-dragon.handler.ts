@@ -1,5 +1,5 @@
 import { CommandHandler, EventPublisher, ICommandHandler } from '@nestjs/cqrs'
-import * as clc from 'cli-color'
+import clc from 'cli-color'
 import { HeroRepository } from '../../repository/hero.repository'
 import { KillDragonCommand } from '../impl/kill-dragon.command'
 
@@ -19,6 +19,10 @@ export class KillDragonHandler implements ICommandHandler<KillDragonCommand> {
     )
 
     hero.killEnemy(dragonId)
+    /**
+     * Comment this out and you will see `heroes.sagas.ts` don't complete
+     */
+    hero.reviveEnemy()
     hero.commit()
   }
 }
