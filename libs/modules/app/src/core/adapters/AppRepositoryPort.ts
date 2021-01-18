@@ -1,9 +1,9 @@
 import { Option } from 'fp-ts/Option'
-import { RepositoryPort } from '../../../../../backend/src/infrastructure/persistence/RepositoryPort'
 import { Page } from '../../../../page/src/core/domain/page'
-import { ByAppCondition, ByAppConditions } from '../../common/QueryConditions'
+import { AppDto } from '../application/useCases/AppDto'
 import { App } from '../domain/app'
-import { NOID, UUID } from '@codelab/backend'
+import { NOID, RepositoryPort, UUID } from '@codelab/backend'
+import { ByAppCondition, ByAppConditions } from '@codelab/modules/app'
 import { User } from '@codelab/modules/user'
 
 export abstract class AppRepositoryPort implements RepositoryPort<App> {
@@ -12,6 +12,11 @@ export abstract class AppRepositoryPort implements RepositoryPort<App> {
   abstract findOne(app: ByAppCondition, userId: UUID): Promise<Option<App>>
 
   abstract findMany(apps: ByAppConditions, userId: UUID): Promise<Array<App>>
+
+  abstract update(
+    user: ByAppCondition,
+    data: Partial<AppDto>,
+  ): Promise<Option<App>>
 
   abstract delete(appId: string): Promise<Option<App>>
 

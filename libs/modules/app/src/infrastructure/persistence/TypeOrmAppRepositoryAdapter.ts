@@ -3,14 +3,11 @@ import { option as O } from 'fp-ts'
 import { Option, isNone } from 'fp-ts/Option'
 import { AbstractRepository, EntityRepository } from 'typeorm'
 import { Page } from '../../../../page/src/core/domain/page'
-import {
-  ByAppCondition,
-  ByAppConditions,
-  isAppId,
-} from '../../common/QueryConditions'
 import { AppRepositoryPort } from '../../core/adapters/AppRepositoryPort'
+import { AppDto } from '../../core/application/useCases/AppDto'
 import { App } from '../../core/domain/app'
 import { NOID, TypeOrmApp, UUID } from '@codelab/backend'
+import { ByAppCondition, ByAppConditions, isAppId } from '@codelab/modules/app'
 import { User } from '@codelab/modules/user'
 
 @EntityRepository(TypeOrmApp)
@@ -63,6 +60,28 @@ export class TypeOrmAppRepositoryAdapter
     })
 
     return foundApp ? O.some(plainToClass(App, foundApp)) : O.none
+  }
+
+  async update(
+    appCondition: ByAppCondition,
+    data: AppDto,
+  ): Promise<Option<App>> {
+    const foundApp = await this.findOne(appCondition)
+
+    if (isNone(foundApp)) {
+      return O.none
+    }
+
+    const { affected } = await this.repository.update(
+      foundApp.value.id.toString(),
+      data,
+    )
+
+    if (affected) {
+      return this.findOne(appCondition)
+    }
+
+    return O.none
   }
 
   async findMany(apps: ByAppConditions, userId: UUID): Promise<Array<App>> {

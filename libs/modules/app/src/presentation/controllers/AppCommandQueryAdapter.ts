@@ -5,12 +5,15 @@ import { classToPlain } from 'class-transformer'
 import { isNone } from 'fp-ts/Option'
 import { CreateAppCommand } from '../../core/application/commands/CreateAppCommand'
 import { DeleteAppCommand } from '../../core/application/commands/DeleteAppCommand'
+import { UpdateAppCommand } from '../../core/application/commands/UpdateAppCommand'
 import { GetAppQuery } from '../../core/application/queries/GetAppQuery'
 import { GetAppsQuery } from '../../core/application/queries/GetAppsQuery'
 import { AppDto } from '../../core/application/useCases/AppDto'
 import { CreateAppInput } from '../../core/application/useCases/createApp/CreateAppInput'
 import { DeleteAppInput } from '../../core/application/useCases/deleteApp/DeleteAppInput'
 import { GetAppInput } from '../../core/application/useCases/getApp/GetAppInput'
+import { UpdateAppInput } from '../../core/application/useCases/updateApp/UpdateAppInput'
+import { App } from '../../core/domain/app'
 import {
   CommandQueryBusPort,
   CurrentUser,
@@ -61,6 +64,22 @@ export class AppCommandQueryAdapter implements CommandQueryBusPort {
     const results = await this.queryBus.execute(new GetAppsQuery({ user }))
 
     return classToPlain(results)
+  }
+
+  @Mutation(() => AppDto)
+  @UseGuards(GqlAuthGuard)
+  async updateApp(
+    @Args('input') input: UpdateAppInput,
+    @CurrentUser() user: User,
+  ) {
+    const app: App = await this.commandBus.execute(
+      new UpdateAppCommand({
+        user,
+        ...input,
+      }),
+    )
+
+    return app.toPlain()
   }
 
   @Mutation(() => AppDto)
