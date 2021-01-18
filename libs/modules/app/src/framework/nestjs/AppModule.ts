@@ -5,10 +5,12 @@ import { CreateAppCommandHandler } from '../../core/application/handlers/CreateA
 import { DeleteAppCommandHandler } from '../../core/application/handlers/DeleteAppCommandHandler'
 import { GetAppQueryHandler } from '../../core/application/handlers/GetAppQueryHandler'
 import { GetAppsQueryHandler } from '../../core/application/handlers/GetAppsQueryHandler'
+import { UpdateAppCommandHandler } from '../../core/application/handlers/UpdateAppCommandHandler'
 import { CreateAppService } from '../../core/application/useCases/createApp/CreateAppService'
 import { DeleteAppService } from '../../core/application/useCases/deleteApp/DeleteAppService'
 import { GetAppService } from '../../core/application/useCases/getApp/GetAppService'
 import { GetAppsService } from '../../core/application/useCases/getApps/GetAppsService'
+import { UpdateAppService } from '../../core/application/useCases/updateApp/UpdateAppService'
 import { TypeOrmAppRepositoryAdapter } from '../../infrastructure/persistence/TypeOrmAppRepositoryAdapter'
 import { AppCommandQueryAdapter } from '../../presentation/controllers/AppCommandQueryAdapter'
 import { AppDITokens } from '../AppDITokens'
@@ -44,6 +46,11 @@ export const useCaseProviders: Array<Provider> = [
     useFactory: (appRepository) => new CreateAppService(appRepository),
     inject: [AppDITokens.AppRepository],
   },
+  {
+    provide: AppDITokens.UpdateAppUseCase,
+    useFactory: (appRepository) => new UpdateAppService(appRepository),
+    inject: [AppDITokens.AppRepository],
+  },
 ]
 
 export const handlerProviders: Array<Provider> = [
@@ -53,6 +60,7 @@ export const handlerProviders: Array<Provider> = [
   GetAppQueryHandler,
   CreateAppCommandHandler,
   DeleteAppCommandHandler,
+  UpdateAppCommandHandler,
 ]
 
 @Module({

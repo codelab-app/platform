@@ -13,5 +13,9 @@ export class AppDITokens {
     'CreateAppUseCase',
   )
 
+  public static readonly UpdateAppUseCase: unique symbol = Symbol(
+    'UpdateAppUseCase',
+  )
+
   public static readonly AppRepository: unique symbol = Symbol('AppRepository')
 }

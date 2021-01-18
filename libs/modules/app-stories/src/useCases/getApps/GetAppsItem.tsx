@@ -38,15 +38,19 @@ export const GetAppsItem: FunctionComponent<GetAppsItemProps> = ({
       <Menu.Item
         key="0"
         style={menuItemStyle}
-        onClick={() => handleEditClick(app)}
+        onClick={() => {
+          if (app) handleEditClick(app)
+        }}
       >
         Edit
         <EditOutlined style={menuItemIconStyle} />
       </Menu.Item>
       <Menu.Item
-        key="0"
+        key="1"
         style={menuItemStyle}
-        onClick={() => handleDeleteClick(app)}
+        onClick={() => {
+          if (app) handleDeleteClick(app)
+        }}
       >
         Delete
         <DeleteOutlined style={menuItemIconStyle} />
@@ -66,12 +70,25 @@ export const GetAppsItem: FunctionComponent<GetAppsItemProps> = ({
         <Link
           href={{
             pathname: APP_DETAIL_PAGE.url,
-            query: { appId: app.id },
+            query: { appId: app?.id },
           }}
         >
-          <a>{app.title}</a>
+          <a>
+            {loading ? (
+              <Skeleton
+                loading={loading}
+                active
+                title
+                avatar={false}
+                paragraph={false}
+              />
+            ) : (
+              app?.title
+            )}
+          </a>
         </Link>
       }
+      loading={loading}
       extra={ellipsisMenu}
     >
       <Skeleton loading={loading} active />

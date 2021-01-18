@@ -1,0 +1,6 @@
+mutation UpdateApp($input: UpdateAppInput!) {
+  updateApp(input: $input) {
+    id
+    title
+  }
+}
