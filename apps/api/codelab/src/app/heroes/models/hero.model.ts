@@ -1,4 +1,5 @@
 import { AggregateRoot } from '@nestjs/cqrs'
+import { DragonRevivedEvent } from '../events/impl/dragon-revived.event'
 import { HeroFoundItemEvent } from '../events/impl/hero-found-item.event'
 import { HeroKilledDragonEvent } from '../events/impl/hero-killed-dragon.event'
 
@@ -8,12 +9,14 @@ export class Hero extends AggregateRoot {
   }
 
   killEnemy(enemyId: string) {
-    // logic
     this.apply(new HeroKilledDragonEvent(this.id, enemyId))
   }
 
+  reviveEnemy() {
+    this.apply(new DragonRevivedEvent())
+  }
+
   addItem(itemId: string) {
-    // logic
     this.apply(new HeroFoundItemEvent(this.id, itemId))
   }
 }

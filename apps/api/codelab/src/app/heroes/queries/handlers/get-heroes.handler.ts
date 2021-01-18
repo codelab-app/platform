@@ -1,5 +1,5 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs'
-import * as clc from 'cli-color'
+import clc from 'cli-color'
 import { HeroRepository } from '../../repository/hero.repository'
 import { GetHeroesQuery } from '../impl'
 
