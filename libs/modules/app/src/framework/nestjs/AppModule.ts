@@ -1,14 +1,6 @@
-import {
-  EventStoreModule,
-  EventStoreSubscriptionType,
-} from '@juicycleff/nestjs-event-store'
 import { Module, Provider } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
 import { Connection } from 'typeorm'
-import { AssignGraphToPageSuccessEvent } from '../../../../page/src/core/application/useCases/createPage/AssignGraphToPageSuccessEvent'
-import { AssignPageToAppSuccessEvent } from '../../../../page/src/core/application/useCases/createPage/AssignPageToAppSuccessEvent'
-import { PageCreateErrorEvent } from '../../../../page/src/core/application/useCases/createPage/PageCreateErrorEvent'
-import { PageCreatedEvent } from '../../../../page/src/core/application/useCases/createPage/PageCreatedEvent'
 import { AssignPageToAppCommandHandler } from '../../core/application/handlers/AssignPageToAppCommandHandler'
 import { CreateAppCommandHandler } from '../../core/application/handlers/CreateAppCommandHandler'
 import { DeleteAppCommandHandler } from '../../core/application/handlers/DeleteAppCommandHandler'
@@ -78,29 +70,30 @@ export const sagas: Array<Provider> = [AppPageSaga]
 @Module({
   imports: [
     CqrsModule,
-    EventStoreModule.registerFeature({
-      type: 'event-store',
-      featureStreamName: '$svc-app',
-      subscriptions: [
-        {
-          type: EventStoreSubscriptionType.Persistent,
-          stream: '$svc-page',
-          persistentSubscriptionName: 'page',
-        },
-        {
-          type: EventStoreSubscriptionType.Persistent,
-          stream: '$svc-graph',
-          persistentSubscriptionName: 'graph',
-        },
-      ],
-      eventHandlers: {
-        AssignPageToAppSuccessEvent: () => new AssignPageToAppSuccessEvent(),
-        AssignGraphToPageSuccessEvent: () =>
-          new AssignGraphToPageSuccessEvent(),
-        PageCreatedEvent: (app, page) => new PageCreatedEvent(app, page),
-        PageCreateErrorEvent: (page) => new PageCreateErrorEvent(page),
-      },
-    }),
+    // EventStoreModule.registerFeature({
+    // CodelabEventStoreModule.registerFeature({
+    //   type: 'event-store',
+    //   featureStreamName: '$svc-app',
+    //   subscriptions: [
+    //     {
+    //       type: EventStoreSubscriptionType.Persistent,
+    //       stream: '$svc-page',
+    //       persistentSubscriptionName: 'page',
+    //     },
+    //     {
+    //       type: EventStoreSubscriptionType.Persistent,
+    //       stream: '$svc-graph',
+    //       persistentSubscriptionName: 'graph',
+    //     },
+    //   ],
+    //   eventHandlers: {
+    //     AssignPageToAppSuccessEvent: () => new AssignPageToAppSuccessEvent(),
+    //     AssignGraphToPageSuccessEvent: () =>
+    //       new AssignGraphToPageSuccessEvent(),
+    //     PageCreatedEvent: (app, page) => new PageCreatedEvent(app, page),
+    //     PageCreateErrorEvent: (page) => new PageCreateErrorEvent(page),
+    //   },
+    // }),
   ],
   providers: [
     ...sagas,

@@ -1,4 +1,3 @@
-import { EventStoreModule } from '@juicycleff/nestjs-event-store'
 import { Module } from '@nestjs/common'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
@@ -17,14 +16,15 @@ import { UserModule } from '@codelab/modules/user'
     UserModule,
     GraphModule,
     PageModule,
-    EventStoreModule.register({
-      type: 'event-store',
-      options: {},
-      tcpEndpoint: {
-        host: 'localhost',
-        port: 1113,
-      },
-    }),
+    // EventStoreModule.register({
+    // CodelabEventStoreModule.register({
+    //   type: 'event-store',
+    //   options: {},
+    //   tcpEndpoint: {
+    //     host: 'localhost',
+    //     port: 1113,
+    //   },
+    // }),
   ],
   controllers: [AppController],
   providers: [AppService],

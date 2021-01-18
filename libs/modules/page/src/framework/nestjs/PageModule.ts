@@ -1,5 +1,6 @@
 import { Module, Provider } from '@nestjs/common'
 import { CqrsModule, EventPublisher, QueryBus } from '@nestjs/cqrs'
+import { PubSub } from 'graphql-subscriptions'
 import { Connection } from 'typeorm'
 import { CreatePageCommandHandler } from '../../core/application/handlers/CreatePageCommandHandler'
 import { GetPageQueryHandler } from '../../core/application/handlers/GetPageQueryHandler'
@@ -34,6 +35,10 @@ const useCaseProviders: Array<Provider> = [
     inject: [PageDITokens.PageRepository],
   },
   {
+    provide: PageDITokens.GraphQLPubSub,
+    useFactory: () => new PubSub(),
+  },
+  {
     provide: PageDITokens.CreatePageUseCase,
     useFactory: (pageRepository, eventPublisher, queryBus) =>
       new CreatePageService(pageRepository, eventPublisher, queryBus),
@@ -49,8 +54,11 @@ export const handlerProviders: Array<Provider> = [
 ]
 
 @Module({
-  imports: [CqrsModule],
+  imports: [
+    CqrsModule,
+  ],
   providers: [
+    // PageCreateSuccessSaga,
     ...persistenceProviders,
     ...useCaseProviders,
     ...handlerProviders,

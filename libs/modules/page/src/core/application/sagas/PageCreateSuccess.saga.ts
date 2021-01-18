@@ -22,8 +22,6 @@ export class PageCreateSuccessSaga {
         (
           event: AssignPageToAppSuccessEvent | AssignGraphToPageSuccessEvent,
         ) => {
-          const a = ''
-
           this.logger.log('Page created success')
 
           return new CreatePageSuccessCommand()
