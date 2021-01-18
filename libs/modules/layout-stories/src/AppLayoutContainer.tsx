@@ -7,7 +7,7 @@ import {
   AppSidebarProps,
 } from './AppLayout'
 import { useLayoutMachine } from './useLayoutMachine'
-import { HeaderMenu } from '@codelab/modules/header-stories'
+import { HomeHeaderMenu } from '@codelab/modules/header-stories'
 import { SidebarMenu } from '@codelab/modules/sidebar-stories'
 
 export const AppLayoutContainer = ({ children }: any) => {
@@ -23,7 +23,7 @@ export const AppLayoutContainer = ({ children }: any) => {
   }
 
   const header: AppHeaderProps = {
-    Menu: <HeaderMenu />,
+    Menu: <HomeHeaderMenu />,
   }
 
   const footer: AppFooterProps = <span>Codelab.ai ©2020</span>

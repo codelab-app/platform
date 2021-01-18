@@ -16,8 +16,6 @@ type AppSidebarProps = {
 export const SidebarMenu = (props: AppSidebarProps) => {
   const router = useRouter()
 
-  console.log(router.query)
-
   const [openKeys, setOpenKeys] = React.useState(['sub1'])
 
   const onOpenChange = (keys: Array<React.Key>) => {

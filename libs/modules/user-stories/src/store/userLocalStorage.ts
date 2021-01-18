@@ -1,12 +1,21 @@
-export const LOCAL_STORAGE_KEY_AUTH_TOKEN = 'AUTH_TOKEN'
+import { isServer } from '@codelab/frontend'
 
-export const getAuthTokenFromLocalStorage = () =>
-  localStorage.getItem(LOCAL_STORAGE_KEY_AUTH_TOKEN)
+export const LOCAL_STORAGE_JWT_TOKEN_KEY = 'token'
+
+export const getAuthTokenFromLocalStorage = () => {
+  if (isServer) return null
+
+  return localStorage.getItem(LOCAL_STORAGE_JWT_TOKEN_KEY)
+}
 
 export const storeAuthTokenInLocalStorage = (authToken: string) => {
-  localStorage.setItem(LOCAL_STORAGE_KEY_AUTH_TOKEN, authToken)
+  if (isServer) return
+
+  localStorage.setItem(LOCAL_STORAGE_JWT_TOKEN_KEY, authToken)
 }
 
 export const clearAuthTokenInLocalStorage = () => {
-  localStorage.removeItem(LOCAL_STORAGE_KEY_AUTH_TOKEN)
+  if (isServer) return
+
+  localStorage.removeItem(LOCAL_STORAGE_JWT_TOKEN_KEY)
 }

@@ -29,11 +29,9 @@ export const createUserMachine = () => {
             src: 'executeGetMe',
             onDone: {
               target: '#authenticated',
-              actions: assign((context, event) => {
-                return {
-                  userData: event.data?.data?.getMe,
-                }
-              }),
+              actions: assign((context, { data }) => ({
+                userData: data?.getMe,
+              })),
             },
             onError: {
               target: '#guest',

@@ -1,14 +1,17 @@
 import { Button } from 'antd'
-import { ButtonProps } from 'antd/lib/button'
+import { useRouter } from 'next/router'
 import React from 'react'
+import { APP_LIST_PAGE } from '../../../../../frontend/src/config/Router'
 import { useUserMachine } from '../../store'
 
 export const LoginUserButton = () => {
   const user = useUserMachine()
+  const router = useRouter()
 
-  const loginUserButtonProps: ButtonProps = {
-    onClick: () => user.send('LOGIN'),
-  }
+  const isAuthenticated = !!user.state.value?.authenticated
 
-  return <Button {...loginUserButtonProps}>Login</Button>
+  const login = () =>
+    isAuthenticated ? router.push(APP_LIST_PAGE.url) : user.send('LOGIN')
+
+  return <Button onClick={login}>Login</Button>
 }

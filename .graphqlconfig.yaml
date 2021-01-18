@@ -1,46 +1,61 @@
 overwrite: true
-# schema: http://localhost:4004/graphql
 schema: http://localhost:3333/graphql
+# hooks:
+#   afterAllFileWrite:
+#     - prettier --write
+#     # - eslint --fix
 generates:
   schema.graphql:
     plugins:
       - schema-ast
+    hooks:
+      afterAllFileWrite:
+        - prettier --write
   # apps/api/graph/src/assets/hasura-schema.graphql:
   #   plugins:
   #     - schema-ast
-hooks:
-  afterAllFileWrite:
-    - prettier --write
 
   # Generate into lib so we can import
-  libs/state/apollo/src/generated/graphql.tsx:
+  # libs/state/apollo/src/generated/graphql.tsx:
+  #   plugins:
+  #     - typescript
+  #     - typescript-resolvers
+  #     - typescript-operations
+  #     - typescript-react-apollo
+  #     - fragment-matcher
+  #     # - typescript-document-nodes
+  #     # - typescript-graphql-files-modules
+  #     # - graphql-codegen-apollo-next-ssr
+  #   config:
+  #     reactApolloVersion: 3
+  #     withHooks: true
+  #     withHOC: false
+  #     withComponent: false
+  #     exportFragmentSpreadSubTypes: true
+  #     documentMode: graphQLTag
+  #     namingConvention:
+  #       enumValues: keep
+  #   documents: apps/api/graph/src/assets/**/*.graphql
+
+  apps/web/src/apollo/types.generated.ts:
     plugins:
       - typescript
-      - typescript-resolvers
+      # - typescript-resolvers
       - typescript-operations
-      - typescript-react-apollo
-      - fragment-matcher
-      # - typescript-document-nodes
+      - typed-document-node
+      - typescript-document-nodes
       # - typescript-graphql-files-modules
-      # - graphql-codegen-apollo-next-ssr
-      # - typescript-graphql-files-modules
-    config:
-      reactApolloVersion: 3
-      withHooks: true
-      withHOC: false
-      withComponent: false
-      exportFragmentSpreadSubTypes: true
-      documentMode: graphQLTag
-      namingConvention:
-        enumValues: keep
-    documents: apps/api/graph/src/assets/**/*.graphql
+    documents: ./libs/modules/user/src/core/application/useCases/getMe/GetMe.graphql
+    hooks:
+      afterOneFileWrite:
+        - eslint --fix
 
-  libs/state/apollo/src/generated/page.tsx:
+  apps/web/src/apollo/apollo-page.generated.tsx:
     plugins:
       - graphql-codegen-apollo-next-ssr
     config:
       documentMode: external
-      importDocumentNodeExternallyFrom: ./graphql
+      importDocumentNodeExternallyFrom: ./types.generated
       reactApolloVersion: 3
       withHooks: true
       # withHOC: false
@@ -48,11 +63,14 @@ hooks:
       # excludePatternsOptions: 'i'
       # customDataIdFromObjectName: 'test'
       # customDataIdFromObjectImport: 'abc'
-      apolloClientInstanceImport: '@codelab/ui/hoc'
+      apolloClientInstanceImport: '@codelab/frontend'
     preset: import-types
     presetConfig:
-      typesPath: ./graphql
-    documents: apps/api/graph/src/assets/**/*.graphql
+      typesPath: ./types.generated
+    documents: ./libs/modules/user/src/core/application/useCases/getMe/GetMe.graphql
+    hooks:
+      afterOneFileWrite:
+        - eslint --fix
 # libs/state/apollo/src/__generated__/graphql-files-modules.d.ts:
 #   plugins:
 #     - typescript-graphql-files-modules

@@ -116,3 +116,7 @@ overrides:
     rules:
       '@typescript-eslint/no-var-requires': off
       no-param-reassign: off
+  - files: ['*.generated.ts', '*.generated.tsx']
+    rules:
+      func-style: off
+      import/no-duplicates: off
