@@ -1,22 +1,17 @@
-import {
-  EventStoreModule,
-  EventStoreSubscriptionType,
-} from '@juicycleff/nestjs-event-store'
 import { Module, Provider } from '@nestjs/common'
 import { CqrsModule, EventPublisher, QueryBus } from '@nestjs/cqrs'
+import { PubSub } from 'graphql-subscriptions'
 import { Connection } from 'typeorm'
 import { CreatePageCommandHandler } from '../../core/application/handlers/CreatePageCommandHandler'
 import { CreatePageSuccessCommandHandler } from '../../core/application/handlers/CreatePageSuccessCommandHandler'
+import { AssignGraphToPageSuccessEventHandler } from '../../core/application/sagas/AssignGraphToPageSuccessEventHandler'
+import { AssignPageToAppSuccessEventHandler } from '../../core/application/sagas/AssignPageToAppSuccessEventHandler'
 import { PageCreateErrorEventHandler } from '../../core/application/sagas/PageCreateErrorEventHandler'
-import { PageCreateSuccessSaga } from '../../core/application/sagas/PageCreateSuccess.saga'
-import { AssignGraphToPageSuccessEvent } from '../../core/application/useCases/createPage/AssignGraphToPageSuccessEvent'
-import { AssignPageToAppSuccessEvent } from '../../core/application/useCases/createPage/AssignPageToAppSuccessEvent'
 import { CreatePageService } from '../../core/application/useCases/createPage/CreatePageService'
-import { PageCreateErrorEvent } from '../../core/application/useCases/createPage/PageCreateErrorEvent'
-import { PageCreatedEvent } from '../../core/application/useCases/createPage/PageCreatedEvent'
 import { TypeOrmPageRepositoryAdapter } from '../../infrastructure/persistence/TypeOrmPageRepositoryAdapter'
 import { PageCommandQueryAdapter } from '../../presentation/controllers/PageCommandQueryAdapter'
 import { PageDITokens } from '../PageDITokens'
+import { CodelabEventsService } from '@codelab/backend'
 
 export const persistenceProviders: Array<Provider> = [
   {
@@ -30,6 +25,14 @@ export const persistenceProviders: Array<Provider> = [
 
 const useCaseProviders: Array<Provider> = [
   {
+    provide: PageDITokens.GraphQLPubSub,
+    useFactory: () => new PubSub(),
+  },
+  {
+    provide: PageDITokens.CodelabEventsService,
+    useFactory: () => new CodelabEventsService(),
+  },
+  {
     provide: PageDITokens.CreatePageUseCase,
     useFactory: (pageRepository, eventPublisher, queryBus) =>
       new CreatePageService(pageRepository, eventPublisher, queryBus),
@@ -38,6 +41,8 @@ const useCaseProviders: Array<Provider> = [
 ]
 
 export const handlerProviders: Array<Provider> = [
+  AssignGraphToPageSuccessEventHandler,
+  AssignPageToAppSuccessEventHandler,
   PageCreateErrorEventHandler,
   CreatePageCommandHandler,
   CreatePageSuccessCommandHandler,
@@ -46,33 +51,34 @@ export const handlerProviders: Array<Provider> = [
 @Module({
   imports: [
     CqrsModule,
-    EventStoreModule.registerFeature({
-      type: 'event-store',
-      featureStreamName: '$svc-page',
-      subscriptions: [
-        {
-          type: EventStoreSubscriptionType.Persistent,
-          stream: '$svc-graph',
-          persistentSubscriptionName: 'graph',
-        },
-        {
-          type: EventStoreSubscriptionType.Persistent,
-          stream: '$svc-app',
-          persistentSubscriptionName: 'app',
-        },
-      ],
-      eventHandlers: {
-        AssignGraphToPageSuccessEvent: () =>
-          new AssignGraphToPageSuccessEvent(),
-        AssignPageToAppSuccessEvent: () => new AssignPageToAppSuccessEvent(),
-        PageCreatedEvent: (app, page) => new PageCreatedEvent(app, page),
-        PageCreateErrorEvent: (page, graph) =>
-          new PageCreateErrorEvent(page, graph),
-      },
-    }),
+    // EventStoreModule.registerFeature({
+    // CodelabEventStoreModule.registerFeature({
+    //   type: 'event-store',
+    //   featureStreamName: '$svc-page',
+    //   subscriptions: [
+    //     {
+    //       type: EventStoreSubscriptionType.Persistent,
+    //       stream: '$svc-graph',
+    //       persistentSubscriptionName: 'graph',
+    //     },
+    //     {
+    //       type: EventStoreSubscriptionType.Persistent,
+    //       stream: '$svc-app',
+    //       persistentSubscriptionName: 'app',
+    //     },
+    //   ],
+    //   eventHandlers: {
+    //     AssignGraphToPageSuccessEvent: () =>
+    //       new AssignGraphToPageSuccessEvent(),
+    //     AssignPageToAppSuccessEvent: () => new AssignPageToAppSuccessEvent(),
+    //     PageCreatedEvent: (app, page) => new PageCreatedEvent(app, page),
+    //     PageCreateErrorEvent: (page, graph) =>
+    //       new PageCreateErrorEvent(page, graph),
+    //   },
+    // }),
   ],
   providers: [
-    PageCreateSuccessSaga,
+    // PageCreateSuccessSaga,
     ...persistenceProviders,
     ...useCaseProviders,
     ...handlerProviders,

@@ -30,7 +30,7 @@ export class AssignPageToAppCommandHandler
         plainToClass(App, app),
         plainToClass(Page, page),
       )
-      this.eventBus.publish(new AssignPageToAppSuccessEvent())
+      this.eventBus.publish(new AssignPageToAppSuccessEvent(page))
     } catch (e) {
       await this.appRepository.manager?.queryRunner?.rollbackTransaction()
     }

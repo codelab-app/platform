@@ -43,7 +43,7 @@ export class AssignGraphToPageCommandHandler
 
       graph.addVertex(rootVertex)
       await this.graphRepository.updateGraph(graph)
-      this.eventBus.publish(new AssignGraphToPageSuccessEvent())
+      this.eventBus.publish(new AssignGraphToPageSuccessEvent(page))
     } catch (e) {
       await this.graphRepository.manager?.queryRunner?.rollbackTransaction()
     }
