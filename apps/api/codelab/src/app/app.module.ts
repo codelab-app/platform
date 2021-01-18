@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
+import { HeroesGameModule } from './heroes/heroes.module'
 import { InfrastructureModule } from '@codelab/backend'
 import { AppModule as CodelabAppModule } from '@codelab/modules/app'
 import { GraphModule } from '@codelab/modules/graph'
@@ -9,6 +10,7 @@ import { UserModule } from '@codelab/modules/user'
 
 @Module({
   imports: [
+    HeroesGameModule,
     InfrastructureModule,
     CodelabAppModule,
     UserModule,
