@@ -1,3 +1,4 @@
+import { WithRouterProps } from 'next/dist/client/with-router'
 import { useRouter } from 'next/router'
 import React from 'react'
 import {
@@ -10,7 +11,9 @@ import { useLayoutMachine } from './useLayoutMachine'
 import { HomeHeaderMenu } from '@codelab/modules/header-stories'
 import { SidebarMenu } from '@codelab/modules/sidebar-stories'
 
-export const AppLayoutContainer = ({ children }: any) => {
+export const AppLayoutContainer: React.FunctionComponent<WithRouterProps> = ({
+  children,
+}) => {
   const layout = useLayoutMachine()
   const router = useRouter()
 
