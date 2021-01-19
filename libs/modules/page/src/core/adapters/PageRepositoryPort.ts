@@ -5,7 +5,7 @@ import { Page } from '../domain/page'
 import { RepositoryPort } from '@codelab/backend'
 
 export abstract class PageRepositoryPort implements RepositoryPort<Page> {
-  abstract delete(pageId: string): Promise<Option<Page>>
+  abstract delete(pageId?: string): Promise<Option<Page>>
 
   abstract findOne(page: ByPageCondition): Promise<Option<Page>>
 

@@ -1,19 +1,25 @@
 import { plainToClass } from 'class-transformer'
 import { option as O } from 'fp-ts'
 import { Option, isNone } from 'fp-ts/Option'
-import { AbstractRepository, EntityRepository } from 'typeorm'
+import { AbstractRepository, EntityManager, EntityRepository } from 'typeorm'
 import { Page } from '../../../../page/src/core/domain/page'
+import {
+  ByAppCondition,
+  ByAppConditions,
+  isAppId,
+} from '../../common/QueryConditions'
 import { AppRepositoryPort } from '../../core/adapters/AppRepositoryPort'
 import { AppDto } from '../../core/application/useCases/AppDto'
 import { App } from '../../core/domain/app'
 import { NOID, TypeOrmApp, UUID } from '@codelab/backend'
-import { ByAppCondition, ByAppConditions, isAppId } from '@codelab/modules/app'
 import { User } from '@codelab/modules/user'
 
 @EntityRepository(TypeOrmApp)
 export class TypeOrmAppRepositoryAdapter
   extends AbstractRepository<TypeOrmApp>
   implements AppRepositoryPort {
+  manager: EntityManager = this.manager
+
   async create(app: App<NOID>, user: User): Promise<App> {
     const newApp = await this.repository.save({
       ...app.toPersistence(),
@@ -62,6 +68,19 @@ export class TypeOrmAppRepositoryAdapter
     return foundApp ? O.some(plainToClass(App, foundApp)) : O.none
   }
 
+  async findMany(apps: ByAppConditions, userId: UUID): Promise<Array<App>> {
+    const foundApps = await this.repository.find({
+      relations: ['user'],
+      where: {
+        user: {
+          id: userId.value,
+        },
+      },
+    })
+
+    return foundApps.map((app) => plainToClass(App, app))
+  }
+
   async update(
     appCondition: ByAppCondition,
     data: AppDto,
@@ -82,19 +101,6 @@ export class TypeOrmAppRepositoryAdapter
     }
 
     return O.none
-  }
-
-  async findMany(apps: ByAppConditions, userId: UUID): Promise<Array<App>> {
-    const foundApps = await this.repository.find({
-      relations: ['user'],
-      where: {
-        user: {
-          id: userId.value,
-        },
-      },
-    })
-
-    return foundApps.map((app) => plainToClass(App, app))
   }
 
   async addPageToApp(app: App, page: Page): Promise<void> {

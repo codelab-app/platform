@@ -7,7 +7,6 @@ registerEnumType(NodeType, {
 })
 @ObjectType('Vertex')
 export class VertexDto {
-  // Must be nullable as deleteVertex does not return an id
   @Field({ nullable: true })
   declare id?: string
 

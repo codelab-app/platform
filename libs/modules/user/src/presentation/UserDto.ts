@@ -2,7 +2,7 @@ import { Field, ObjectType } from '@nestjs/graphql'
 
 @ObjectType('User')
 export class UserDto {
-  @Field()
+  @Field({ nullable: true })
   declare id?: string
 
   @Field({ defaultValue: '' })

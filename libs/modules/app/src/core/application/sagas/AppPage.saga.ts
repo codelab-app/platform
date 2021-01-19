@@ -3,7 +3,7 @@ import { ICommand, Saga, ofType } from '@nestjs/cqrs'
 import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
 import { PageCreatedEvent } from '../../../../../page/src/core/application/useCases/createPage/PageCreatedEvent'
-import { AddPageToAppCommand } from '../commands/AddPageToAppCommand'
+import { AssignPageToAppCommand } from '../commands/AssignPageToAppCommand'
 
 @Injectable()
 export class AppPageSaga {
@@ -12,7 +12,7 @@ export class AppPageSaga {
     return events$.pipe(
       ofType(PageCreatedEvent),
       map((event: PageCreatedEvent) => {
-        return new AddPageToAppCommand(event.app, event.page)
+        return new AssignPageToAppCommand(event.app, event.page)
       }),
     )
   }

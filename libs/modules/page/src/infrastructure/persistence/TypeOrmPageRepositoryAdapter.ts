@@ -1,4 +1,5 @@
 import { plainToClass } from 'class-transformer'
+import * as O from 'fp-ts/lib/Option'
 import { Option } from 'fp-ts/lib/Option'
 import { AbstractRepository, EntityRepository } from 'typeorm'
 import { ByPageConditions, ByPageId } from '../../common/QueryConditions'
@@ -11,8 +12,20 @@ import { TypeOrmPage } from '@codelab/backend'
 export class TypeOrmPageRepositoryAdapter
   extends AbstractRepository<TypeOrmPage>
   implements PageRepositoryPort {
-  async delete(pageId: string): Promise<Option<Page>> {
-    throw new Error('Method not implemented.')
+  async delete(pageId?: string): Promise<Option<Page>> {
+    if (!pageId) {
+      return O.none
+    }
+
+    const page = await this.findOne({ pageId })
+
+    if (O.isNone(page)) {
+      return O.none
+    }
+
+    await this.repository.remove(page.value.id.toString())
+
+    return page
   }
 
   async findOne(page: ByPageId): Promise<Option<Page>> {

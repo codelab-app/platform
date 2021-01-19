@@ -15,7 +15,7 @@ export class TypeOrmGraph extends BaseTypeOrm {
   declare pageId?: string
 
   @OneToMany((type) => TypeOrmVertex, (vertex) => vertex.graph, {
-    cascade: true,
+    cascade: ['insert', 'update', 'remove'],
   })
   declare vertices: Array<TypeOrmVertex>
 

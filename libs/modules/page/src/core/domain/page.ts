@@ -1,5 +1,6 @@
 import { Exclude, Type, plainToClass } from 'class-transformer'
 import { NOID } from '../../../../../backend/src/core/domain/valueObject/NOID'
+import { AppDto } from '../../../../app/src/core/application/useCases/AppDto'
 import { App } from '../../../../app/src/core/domain/app'
 import { PageDto } from '../../presentation/PageDto'
 import { PageCreatedEvent } from '../application/useCases/createPage/PageCreatedEvent'
@@ -29,8 +30,13 @@ export class Page<ID extends UUID | NOID = UUID> extends AggregateRoot<
   @Exclude()
   publish: any
 
+  @Exclude()
+  declare appId: string
+
   createPage(app: App) {
-    this.apply(new PageCreatedEvent(app, this as any))
+    this.apply(
+      new PageCreatedEvent(app.toPlain() as AppDto, this.toPlain() as PageDto),
+    )
   }
 
   toPersistence(): TypeOrmPage {

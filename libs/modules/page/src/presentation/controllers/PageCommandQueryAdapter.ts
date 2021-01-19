@@ -1,7 +1,8 @@
-import { Injectable, UseGuards } from '@nestjs/common'
+import { Inject, Injectable, UseGuards } from '@nestjs/common'
 import { CommandBus, QueryBus } from '@nestjs/cqrs'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { classToPlain } from 'class-transformer'
+import { PubSub } from 'graphql-subscriptions'
 import { CreatePageCommand } from '../../core/application/commands/CreatePageCommand'
 import { GetPageQuery } from '../../core/application/queries/GetPageQuery'
 import { GetPagesQuery } from '../../core/application/queries/GetPagesQuery'
@@ -9,6 +10,7 @@ import { CreatePageInput } from '../../core/application/useCases/createPage/Crea
 import { GetPageInput } from '../../core/application/useCases/getPage/GetPageInput'
 import { GetPagesInput } from '../../core/application/useCases/getPages/GetPagesInput'
 import { Page } from '../../core/domain/page'
+import { PageDITokens } from '../../framework/PageDITokens'
 import { PageDto } from '../PageDto'
 import {
   CommandQueryBusPort,
@@ -25,6 +27,8 @@ export class PageCommandQueryAdapter implements CommandQueryBusPort {
   constructor(
     readonly commandBus: CommandBus<UseCaseRequestPort>,
     readonly queryBus: QueryBus<UseCaseRequestPort>,
+    @Inject(PageDITokens.GraphQLPubSub)
+    public readonly pubSub: PubSub,
   ) {}
 
   @Mutation(() => PageDto)

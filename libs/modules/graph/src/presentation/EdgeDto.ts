@@ -3,7 +3,7 @@ import { GraphQLJSONObject } from 'graphql-type-json'
 
 @ObjectType('Edge')
 export class EdgeDto {
-  @Field()
+  @Field({ nullable: true })
   declare id?: string
 
   @Field()

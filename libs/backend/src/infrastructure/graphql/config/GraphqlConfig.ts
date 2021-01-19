@@ -23,7 +23,7 @@ export class GraphqlConfig implements GqlOptionsFactory {
 
     return {
       autoSchemaFile: true,
-      installSubscriptionHandlers: false,
+      installSubscriptionHandlers: true,
       transformSchema: async (schema: GraphQLSchema) => {
         return stitchSchemas({
           subschemas: [schema, remoteExecutableSchema],

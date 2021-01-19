@@ -5,7 +5,7 @@ import { VertexDto } from './VertexDto'
 @ObjectType('Graph')
 export class GraphDto {
   @Field({ nullable: true })
-  public declare id?: string
+  declare id?: string
 
   @Field()
   public declare label: string

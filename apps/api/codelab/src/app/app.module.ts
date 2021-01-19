@@ -16,6 +16,15 @@ import { UserModule } from '@codelab/modules/user'
     UserModule,
     GraphModule,
     PageModule,
+    // EventStoreModule.register({
+    // CodelabEventStoreModule.register({
+    //   type: 'event-store',
+    //   options: {},
+    //   tcpEndpoint: {
+    //     host: 'localhost',
+    //     port: 1113,
+    //   },
+    // }),
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -2,7 +2,7 @@ import { Field, ObjectType } from '@nestjs/graphql'
 
 @ObjectType('App')
 export class AppDto {
-  @Field()
+  @Field({ nullable: true })
   declare id?: string
 
   @Field()

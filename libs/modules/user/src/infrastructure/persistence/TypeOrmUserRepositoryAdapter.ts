@@ -1,4 +1,3 @@
-import { plainToClass } from 'class-transformer'
 import { option as O } from 'fp-ts'
 import { Option, isNone } from 'fp-ts/Option'
 import { AbstractRepository, EntityRepository } from 'typeorm'
@@ -19,7 +18,7 @@ export class TypeOrmUserRepositoryAdapter
   async findAll(): Promise<Array<User>> {
     const users: Array<TypeOrmUser> = await this.repository.find()
 
-    return Promise.resolve(plainToClass(User, users))
+    return User.hydrateArray(User, users)
   }
 
   async exists(user: ByUserCondition): Promise<boolean> {
@@ -39,7 +38,7 @@ export class TypeOrmUserRepositoryAdapter
   async create(user: User<NOID>): Promise<User> {
     const newUser: TypeOrmUser = await this.repository.save(user.toPlain())
 
-    return plainToClass(User, newUser)
+    return User.hydrate(User, newUser)
   }
 
   async delete(user: ByUserCondition): Promise<Option<User>> {
@@ -51,7 +50,7 @@ export class TypeOrmUserRepositoryAdapter
 
     await this.repository.remove(foundUser.value.toPersistence())
 
-    return Promise.resolve(foundUser)
+    return foundUser
   }
 
   async update(user: ByUserCondition, data: UserDto): Promise<Option<User>> {
@@ -94,8 +93,6 @@ export class TypeOrmUserRepositoryAdapter
       )
     }
 
-    return typeOrmUser
-      ? Promise.resolve(O.some(plainToClass(User, typeOrmUser)))
-      : O.none
+    return typeOrmUser ? O.some(User.hydrate(User, typeOrmUser)) : O.none
   }
 }

@@ -1,8 +1,7 @@
 import { IEvent } from '@nestjs/cqrs'
-import { App } from '../../../../../../app/src/core/domain/app'
-import { Page } from '../../../domain/page'
-import { UUID } from '@codelab/backend'
+import { AppDto } from '../../../../../../app/src/core/application/useCases/AppDto'
+import { PageDto } from '../../../../presentation/PageDto'
 
 export class PageCreatedEvent implements IEvent {
-  constructor(public readonly app: App, public readonly page: Page<UUID>) {}
+  constructor(public readonly app: AppDto, public readonly page: PageDto) {}
 }
