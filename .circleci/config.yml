@@ -20,8 +20,8 @@ filters-staging: &filters-staging
   filters:
     tags:
       only: /^staging-.*$/
-    branches:
-      ignore: /.*/
+    # branches:
+    #   ignore: /.*/
 
 # Workaround for the lack of logical "AND" for filters
 filters-master-branch-only: &filters-master-branch-only

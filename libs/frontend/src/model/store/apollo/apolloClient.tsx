@@ -25,7 +25,7 @@ export const getApolloClient = (
 
 export const withApollo = (Comp: NextPage) => (props: any) => {
   return (
-    <ApolloProvider client={getApolloClient(null, props.apolloState)}>
+    <ApolloProvider client={getApolloClient(null, props?.apolloState)}>
       <Comp />
     </ApolloProvider>
   )
