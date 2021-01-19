@@ -1,9 +1,6 @@
-import { SerializedPageDto } from '../../../../../page/src/core/domain/dto/SerializedPageDto'
-import { SerializedAppDto } from '../../domain/dto/SerializedAppDto'
+import { PageDto } from '../../../../../page/src/presentation/PageDto'
+import { AppDto } from '../useCases/AppDto'
 
 export class AssignPageToAppCommand {
-  constructor(
-    public readonly app: SerializedAppDto,
-    public readonly page: SerializedPageDto,
-  ) {}
+  constructor(public readonly app: AppDto, public readonly page: PageDto) {}
 }

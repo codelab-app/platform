@@ -1,10 +1,7 @@
 import { IEvent } from '@nestjs/cqrs'
-import { SerializedAppDto } from '../../../../../../app/src/core/domain/dto/SerializedAppDto'
-import { SerializedPageDto } from '../../../domain/dto/SerializedPageDto'
+import { AppDto } from '../../../../../../app/src/core/application/useCases/AppDto'
+import { PageDto } from '../../../../presentation/PageDto'
 
 export class PageCreatedEvent implements IEvent {
-  constructor(
-    public readonly app: SerializedAppDto,
-    public readonly page: SerializedPageDto,
-  ) {}
+  constructor(public readonly app: AppDto, public readonly page: PageDto) {}
 }

@@ -1,10 +1,10 @@
 import { IEvent } from '@nestjs/cqrs'
-import { SerializedGraphDto } from '../../../../../../graph/src/core/domain/graph/dto/SerializedGraphDto'
-import { SerializedPageDto } from '../../../domain/dto/SerializedPageDto'
+import { GraphDto } from '../../../../../../graph/src/presentation/GraphDto'
+import { PageDto } from '../../../../presentation/PageDto'
 
 export class PageCreateErrorEvent implements IEvent {
   constructor(
-    public readonly page: SerializedPageDto,
-    public readonly graph?: SerializedGraphDto,
+    public readonly page: PageDto,
+    public readonly graph?: GraphDto,
   ) {}
 }

@@ -1,5 +1,5 @@
-import { SerializedPageDto } from '../../domain/dto/SerializedPageDto'
+import { PageDto } from '../../../presentation/PageDto'
 
 export class CreatePageSuccessCommand {
-  constructor(public readonly page: SerializedPageDto) {}
+  constructor(public readonly page: PageDto) {}
 }

@@ -1,6 +1,7 @@
 import { AggregateRoot as NestjsAggregateRoot } from '@nestjs/cqrs'
 import { Type, classToPlain, plainToClass } from 'class-transformer'
 import { ClassType } from 'class-transformer/ClassTransformer'
+import { TransformBoth } from '../../common/TransformBoth'
 import { BaseTypeOrm } from '../../infrastructure/persistence/typeorm/entity/BaseTypeOrm'
 import { ValueObjectProps } from './ValueObject'
 import { NOID } from './valueObject/NOID'

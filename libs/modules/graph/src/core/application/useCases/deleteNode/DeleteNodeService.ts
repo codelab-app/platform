@@ -36,7 +36,7 @@ export class DeleteNodeService implements DeleteNodeUseCase {
 
     const { graphId } = vertexToDelete.value
 
-    const graph = await this.graphRepository.findSingle({
+    const graph = await this.graphRepository.findOne({
       graphId: graphId.toString(),
     })
 

@@ -24,12 +24,11 @@ export class CreatePageService implements CreatePageUseCase {
   ) {}
 
   @Transactional({ propagation: Propagation.NESTED })
-  async execute(request: CreatePageRequest): Promise<CreatePageResponse> {
-    const { appId } = request
-    const page = new Page(request)
-
-    const user: any = {}
-
+  async execute({
+    appId,
+    title,
+    user,
+  }: CreatePageRequest): Promise<CreatePageResponse> {
     const app: Option<App> = await this.queryBus.execute(
       new GetAppQuery({ appId, user }),
     )

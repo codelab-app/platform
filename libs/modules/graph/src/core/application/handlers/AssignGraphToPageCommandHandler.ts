@@ -9,9 +9,9 @@ import { AssignGraphToPageSuccessEvent } from '../../../../../page/src/core/appl
 import { PageCreateErrorEvent } from '../../../../../page/src/core/application/useCases/createPage/PageCreateErrorEvent'
 import { Page } from '../../../../../page/src/core/domain/page'
 import { GraphDITokens } from '../../../framework/GraphDITokens'
+import { GraphDto } from '../../../presentation/GraphDto'
 import { GraphRepositoryPort } from '../../adapters/GraphRepositoryPort'
 import { Graph } from '../../domain/graph'
-import { SerializedGraphDto } from '../../domain/graph/dto/SerializedGraphDto'
 import { Vertex } from '../../domain/vertex'
 import { AssignGraphToPageCommand } from '../commands/AssignGraphToPageCommand'
 import { NodeType } from '@codelab/backend'
@@ -40,14 +40,14 @@ export class AssignGraphToPageCommandHandler
       })
 
       graph.addVertex(rootVertex)
-      await this.graphRepository.updateGraph(graph)
+      await this.graphRepository.update(graph)
       this.eventBus.publish(new AssignGraphToPageSuccessEvent(page))
     } catch (e) {
       await this.graphRepository.manager?.queryRunner?.rollbackTransaction()
     }
     runOnTransactionRollback(() => {
       this.eventBus.publish(
-        new PageCreateErrorEvent(page, graph?.toPlain() as SerializedGraphDto),
+        new PageCreateErrorEvent(page, graph?.toPlain() as GraphDto),
       )
     })
   }

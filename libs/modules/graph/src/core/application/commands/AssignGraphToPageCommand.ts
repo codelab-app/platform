@@ -1,5 +1,5 @@
-import { SerializedPageDto } from '../../../../../page/src/core/domain/dto/SerializedPageDto'
+import { PageDto } from '../../../../../page/src/presentation/PageDto'
 
 export class AssignGraphToPageCommand {
-  constructor(public readonly page: SerializedPageDto) {}
+  constructor(public readonly page: PageDto) {}
 }

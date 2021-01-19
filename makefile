@@ -202,6 +202,7 @@ unit-dev:
 	--target=test \
 	--testPathPattern=[^i].spec.ts \
 	--parallel \
+	--silent \
 	--all
 
 unit-ci:

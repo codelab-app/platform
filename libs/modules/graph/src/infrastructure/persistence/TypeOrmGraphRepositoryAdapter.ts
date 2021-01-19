@@ -1,7 +1,6 @@
 import { option as O } from 'fp-ts'
 import { Option } from 'fp-ts/Option'
-import { EntityRepository } from 'typeorm'
-import { BaseRepository } from 'typeorm-transactional-cls-hooked'
+import { AbstractRepository, EntityManager, EntityRepository } from 'typeorm'
 import { Page } from '../../../../page/src/core/domain/page'
 import { ByGraphCondition } from '../../common/QueryConditions'
 import { isGraphId } from '../../common/utils'
@@ -11,45 +10,40 @@ import { NOID, TypeOrmGraph } from '@codelab/backend'
 
 @EntityRepository(TypeOrmGraph)
 export class TypeOrmGraphRepositoryAdapter
-  extends BaseRepository<TypeOrmGraph>
+  extends AbstractRepository<TypeOrmGraph>
   implements GraphRepositoryPort {
-  async findAll(): Promise<Array<Graph>> {
-    const graphsTypeOrm: Array<TypeOrmGraph> = await this.find()
+  manager: EntityManager = this.manager
 
-    return Graph.hydrateArray(Graph, graphsTypeOrm)
-  }
-
-  async createGraph(graph: Graph<NOID>): Promise<Graph> {
-    const newGraph = await this.save({
+  async create(graph: Graph<NOID>): Promise<Graph> {
+    const newGraph = await this.repository.save({
       ...graph.toPersistence(),
     })
 
     return Graph.hydrate(Graph, newGraph)
   }
 
-  async deleteGraph(graph: Graph): Promise<Option<Graph>> {
-    const typeOrmGraph = graph.toPersistence()
-    const foundTypeOrmGraph = await this.findOne(typeOrmGraph.id)
+  async delete({ graphId }: ByGraphCondition): Promise<Option<Graph>> {
+    const graph = await this.findOne({ graphId })
 
-    if (!foundTypeOrmGraph) {
+    if (O.isNone(graph)) {
       return O.none
     }
 
-    await this.remove(foundTypeOrmGraph)
+    await this.repository.remove(graph.value.id.toString())
 
-    return O.some(graph)
+    return graph
   }
 
   async findMany(): Promise<Array<Graph>> {
     return Promise.resolve([])
   }
 
-  async updateGraph(graph: Graph): Promise<Graph> {
+  async update(graph: Graph): Promise<Graph> {
     const typeOrmGraph = graph.toPersistence()
     let typeOrmSavedGraph
 
     try {
-      typeOrmSavedGraph = await this.save(typeOrmGraph)
+      typeOrmSavedGraph = await this.repository.save(typeOrmGraph)
     } catch (e) {
       return Promise.reject()
     }
@@ -57,21 +51,14 @@ export class TypeOrmGraphRepositoryAdapter
     return Graph.hydrate(Graph, typeOrmSavedGraph)
   }
 
-  async findSingle(graph: ByGraphCondition): Promise<Option<Graph>> {
+  async findOne(graph: ByGraphCondition): Promise<Option<Graph>> {
     let typeOrmGraph: TypeOrmGraph | undefined
 
     if (isGraphId(graph)) {
-      typeOrmGraph = await this.findOne(graph.graphId, {
+      typeOrmGraph = await this.repository.findOne(graph.graphId, {
         relations: ['vertices', 'edges'],
       })
     }
-
-    // if (isPageId(graph)) {
-    //   typeOrmGraph = await this.repository.findOne({
-    //     where: { pageId: graph.pageId },
-    //     relations: ['vertices', 'edges'],
-    //   })
-    // }
 
     const foundGraph: Graph = Graph.hydrate(Graph, typeOrmGraph)
 
@@ -83,7 +70,7 @@ export class TypeOrmGraphRepositoryAdapter
     const newGraph = new Graph({
       label: typeOrmPage.title,
     })
-    const typeOrmSavedGraph = await this.save({
+    const typeOrmSavedGraph = await this.repository.save({
       ...newGraph.toPersistence(),
       page: typeOrmPage,
     })

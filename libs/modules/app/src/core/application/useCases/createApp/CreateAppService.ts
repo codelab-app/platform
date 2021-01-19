@@ -14,7 +14,7 @@ export class CreateAppService implements CreateAppUseCase {
   async execute({ user, title }: CreateAppRequest): Promise<CreateAppResponse> {
     const app = plainToClass<App<NOID>, CreateAppInput>(App, { title })
 
-    const createdApp = await this.appRepository.createApp(app, user)
+    const createdApp = await this.appRepository.create(app, user)
 
     return right(Result.ok(createdApp))
   }

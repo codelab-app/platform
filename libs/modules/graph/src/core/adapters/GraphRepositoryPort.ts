@@ -6,20 +6,18 @@ import {
   ByGraphConditions,
 } from '../../common/QueryConditions'
 import { Graph } from '../domain/graph'
-import { NOID } from '@codelab/backend'
+import { NOID, RepositoryPort } from '@codelab/backend'
 
-export abstract class GraphRepositoryPort {
+export abstract class GraphRepositoryPort implements RepositoryPort<Graph> {
   abstract manager?: EntityManager
 
-  abstract findAll(): Promise<Array<Graph>>
+  abstract create(graph: Graph<NOID>): Promise<Graph>
 
-  abstract createGraph(graph: Graph<NOID>): Promise<Graph>
+  abstract update(graph: Graph): Promise<Graph>
 
-  abstract updateGraph(graph: Graph): Promise<Graph>
+  abstract delete(graph: ByGraphCondition): Promise<Option<Graph>>
 
-  abstract deleteGraph(graph: Graph): Promise<Option<Graph>>
-
-  abstract findSingle(graph: ByGraphCondition): Promise<Option<Graph>>
+  abstract findOne(graph: ByGraphCondition): Promise<Option<Graph>>
 
   abstract findMany(graphs: ByGraphConditions): Promise<Array<Graph>>
 

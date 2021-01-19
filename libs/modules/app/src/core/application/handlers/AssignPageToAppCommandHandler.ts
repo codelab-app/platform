@@ -31,7 +31,7 @@ export class AssignPageToAppCommandHandler
       )
       this.eventBus.publish(new AssignPageToAppSuccessEvent(page))
     } catch (e) {
-      await this.appRepository.manager?.queryRunner?.rollbackTransaction()
+      await this.appRepository.manager.queryRunner?.rollbackTransaction()
     }
 
     runOnTransactionRollback(() => {
