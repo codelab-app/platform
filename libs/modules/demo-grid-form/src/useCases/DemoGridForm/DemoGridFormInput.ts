@@ -12,4 +12,14 @@ export interface DemoGridFormInput {
    * */
   name2: string
   notGroupedField: string
+  groupedField: {
+    /**
+     * {"order":1, "span": 4}
+     * */
+    test1: string
+    /**
+     * {"order":0, "span": 12}
+     * */
+    test2: string
+  }
 }
