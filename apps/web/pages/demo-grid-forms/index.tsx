@@ -88,11 +88,7 @@ const GridFormsExamplePage = () => {
     )
   }
 
-  const uiSchema = {
-    'ui:ObjectFieldTemplate': ObjectFieldTemplate,
-  }
-
-  return <Form schema={schema} uiSchema={uiSchema} />
+  return <Form schema={schema} ObjectFieldTemplate={ObjectFieldTemplate} />
 }
 
 export default GridFormsExamplePage

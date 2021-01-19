@@ -16,6 +16,19 @@ export const DemoGridFormInputSchema = {
     notGroupedField: {
       type: 'string',
     },
+    groupedField: {
+      type: 'object',
+      properties: {
+        test1: {
+          description: '{"order":1, "span": 4}',
+          type: 'string',
+        },
+        test2: {
+          description: '{"order":0, "span": 12}',
+          type: 'string',
+        },
+      },
+    },
   },
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
