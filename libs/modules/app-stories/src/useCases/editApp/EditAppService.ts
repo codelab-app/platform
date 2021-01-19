@@ -1,6 +1,6 @@
 import { ServiceConfig } from 'xstate/lib/types'
 import { UpdateAppInput } from '../../../../app/src/core/application/useCases/updateApp/UpdateAppInput'
-import { EditAppGql } from './EditAppInput.generated'
+import { UpdateAppGql } from './EditAppInput.generated'
 import { mutate } from '@codelab/alpha/shared/utils'
 import { getApolloClient } from '@codelab/frontend'
 
@@ -14,7 +14,7 @@ export const editAppService: Record<string, ServiceConfig<any, any>> = {
     }
 
     return mutate(getApolloClient(), {
-      mutation: EditAppGql,
+      mutation: UpdateAppGql,
       variables: { input },
     })
   },
