@@ -1,6 +1,6 @@
 import { Inject, Injectable, UseGuards } from '@nestjs/common'
 import { CommandBus, QueryBus } from '@nestjs/cqrs'
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
+import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql'
 import { classToPlain } from 'class-transformer'
 import { PubSub } from 'graphql-subscriptions'
 import { CreatePageCommand } from '../../core/application/commands/CreatePageCommand'
@@ -31,17 +31,20 @@ export class PageCommandQueryAdapter implements CommandQueryBusPort {
     public readonly pubSub: PubSub,
   ) {}
 
-  @Mutation(() => PageDto)
+  @Mutation(() => String)
   @UseGuards(GqlAuthGuard)
   async createPage(
     @Args('input') input: CreatePageInput,
     @CurrentUser() user: User,
   ) {
-    const page: Page = await this.commandBus.execute(
-      new CreatePageCommand({ ...input, user }),
-    )
+    await this.commandBus.execute(new CreatePageCommand({ ...input, user }))
 
-    return page.toPlain()
+    return ''
+  }
+
+  @Subscription(() => PageDto)
+  async pageCreated() {
+    return this.pubSub.asyncIterator<PageDto>('pageCreated')
   }
 
   @Query(() => [PageDto])
