@@ -19,7 +19,7 @@ filters-staging: &filters-staging
 # https://discuss.circleci.com/t/circle-2-0-workflow-filters-should-be-logical-and-not-or/18231
   filters:
     tags:
-      only: /^staging-.*$/
+      only: /^(staging|prod)-.*$/
     branches:
       ignore: /.*/
 
