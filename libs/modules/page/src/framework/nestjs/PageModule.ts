@@ -1,9 +1,13 @@
 import { Module, Provider } from '@nestjs/common'
 import { CqrsModule, EventPublisher, QueryBus } from '@nestjs/cqrs'
+import { PubSub } from 'graphql-subscriptions'
 import { Connection } from 'typeorm'
 import { CreatePageCommandHandler } from '../../core/application/handlers/CreatePageCommandHandler'
+import { CreatePageSuccessCommandHandler } from '../../core/application/handlers/CreatePageSuccessCommandHandler'
 import { GetPageQueryHandler } from '../../core/application/handlers/GetPageQueryHandler'
 import { GetPagesQueryHandler } from '../../core/application/handlers/GetPagesQueryHandler'
+import { PageCreateErrorEventHandler } from '../../core/application/sagas/PageCreateErrorEventHandler'
+import { PageSaga } from '../../core/application/sagas/PageSaga'
 import { CreatePageService } from '../../core/application/useCases/createPage/CreatePageService'
 import { GetPageService } from '../../core/application/useCases/getPage/GetPageService'
 import { GetPagesService } from '../../core/application/useCases/getPages/GetPagesService'
@@ -33,6 +37,10 @@ const useCaseProviders: Array<Provider> = [
     inject: [PageDITokens.PageRepository],
   },
   {
+    provide: PageDITokens.GraphQLPubSub,
+    useFactory: () => new PubSub(),
+  },
+  {
     provide: PageDITokens.CreatePageUseCase,
     useFactory: (pageRepository, eventPublisher, queryBus) =>
       new CreatePageService(pageRepository, eventPublisher, queryBus),
@@ -43,7 +51,10 @@ const useCaseProviders: Array<Provider> = [
 export const handlerProviders: Array<Provider> = [
   GetPageQueryHandler,
   GetPagesQueryHandler,
+  PageSaga,
+  PageCreateErrorEventHandler,
   CreatePageCommandHandler,
+  CreatePageSuccessCommandHandler,
 ]
 
 @Module({

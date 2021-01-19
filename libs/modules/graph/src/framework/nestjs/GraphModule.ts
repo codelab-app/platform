@@ -2,13 +2,14 @@ import { Module, Provider } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
 import { Connection } from 'typeorm'
 import { AddChildNodeCommandHandler } from '../../core/application/handlers/AddChildNodeCommandHandler'
-import { AddGraphToPageCommandHandler } from '../../core/application/handlers/AddGraphToPageCommandHandler'
+import { AssignGraphToPageCommandHandler } from '../../core/application/handlers/AssignGraphToPageCommandHandler'
 import { CreateGraphCommandHandler } from '../../core/application/handlers/CreateGraphCommandHandler'
 import { DeleteNodeCommandHandler } from '../../core/application/handlers/DeleteNodeCommandHandler'
 import { GetGraphQueryHandler } from '../../core/application/handlers/GetGraphQueryHandler'
 import { MoveNodeCommandHandler } from '../../core/application/handlers/MoveNodeCommandHandler'
 import { UpdateNodeCommandHandler } from '../../core/application/handlers/UpdateNodeCommandHandler'
 import { GraphPageSaga } from '../../core/application/sagas/GraphPage.saga'
+import { GraphPageCreateErrorEventHandler } from '../../core/application/sagas/GraphPageCreateErrorEventHandler'
 import { AddChildNodeService } from '../../core/application/useCases/addChildNode/AddChildNodeService'
 import { CreateGraphService } from '../../core/application/useCases/createGraph/CreateGraphService'
 import { DeleteNodeService } from '../../core/application/useCases/deleteNode/DeleteNodeService'
@@ -97,7 +98,7 @@ const useCaseProviders: Array<Provider> = [
 ]
 
 export const handlerProviders: Array<Provider> = [
-  AddGraphToPageCommandHandler,
+  AssignGraphToPageCommandHandler,
   MoveNodeCommandHandler,
   DeleteNodeCommandHandler,
   GetGraphQueryHandler,
@@ -106,11 +107,15 @@ export const handlerProviders: Array<Provider> = [
   AddChildNodeCommandHandler,
 ]
 
+export const eventHandlersProviders: Array<Provider> = [
+  GraphPageSaga,
+  GraphPageCreateErrorEventHandler,
+]
+
 @Module({
   imports: [CqrsModule, VertexModule, EdgeModule],
   providers: [
-    GraphPageSaga,
-    // GraphPageCreatedEventHandler,
+    ...eventHandlersProviders,
     ...persistenceProviders,
     ...useCaseProviders,
     ...handlerProviders,

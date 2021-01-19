@@ -11,6 +11,12 @@ export class PageDITokens {
     'CreatePageUseCase',
   )
 
+  public static readonly CodelabEventsService: unique symbol = Symbol(
+    'CodelabEventsService',
+  )
+
+  public static readonly GraphQLPubSub: unique symbol = Symbol('GraphQLPubSub')
+
   // Repositories
 
   public static readonly PageRepository: unique symbol = Symbol(

@@ -16,7 +16,7 @@ const createGraphMutation = ({ label }: CreateGraphInput) => `
     }
   }`
 
-describe('CreateGraphUseCase', () => {
+describe.skip('CreateGraphUseCase', () => {
   let app: INestApplication
   let connection: Connection
 

@@ -6,10 +6,12 @@ import { NOID, RepositoryPort, UUID } from '@codelab/backend'
 import { ByAppCondition, ByAppConditions } from '@codelab/modules/app'
 import { User } from '@codelab/modules/user'
 
-export abstract class AppRepositoryPort implements RepositoryPort<App> {
-  abstract create(app: App<NOID>, user: User): Promise<App>
+export abstract class AppRepositoryPort {
+  abstract manager?: EntityManager
 
-  abstract findOne(app: ByAppCondition, userId: UUID): Promise<Option<App>>
+  abstract createApp(app: App<NOID>, user: User): Promise<App>
+
+  abstract findSingle(app: ByAppCondition, userId: UUID): Promise<Option<App>>
 
   abstract findMany(apps: ByAppConditions, userId: UUID): Promise<Array<App>>
 
@@ -19,6 +21,8 @@ export abstract class AppRepositoryPort implements RepositoryPort<App> {
   ): Promise<Option<App>>
 
   abstract delete(appId: string): Promise<Option<App>>
+
+  abstract deleteApp(appId: string): Promise<Option<App>>
 
   abstract addPageToApp(app: App, page: Page): Promise<void>
 }

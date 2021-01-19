@@ -25,6 +25,8 @@ export class PageCommandQueryAdapter implements CommandQueryBusPort {
   constructor(
     readonly commandBus: CommandBus<UseCaseRequestPort>,
     readonly queryBus: QueryBus<UseCaseRequestPort>,
+    @Inject(PageDITokens.GraphQLPubSub)
+    public readonly pubSub: PubSub,
   ) {}
 
   @Mutation(() => PageDto)

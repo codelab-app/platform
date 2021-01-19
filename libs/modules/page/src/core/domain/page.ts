@@ -29,8 +29,16 @@ export class Page<ID extends UUID | NOID = UUID> extends AggregateRoot<
   @Exclude()
   publish: any
 
+  @Exclude()
+  declare appId: string
+
   createPage(app: App) {
-    this.apply(new PageCreatedEvent(app, this as any))
+    this.apply(
+      new PageCreatedEvent(
+        app.toPlain() as SerializedAppDto,
+        this.toPlain() as SerializedPageDto,
+      ),
+    )
   }
 
   toPersistence(): TypeOrmPage {

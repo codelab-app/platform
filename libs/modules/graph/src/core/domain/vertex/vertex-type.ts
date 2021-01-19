@@ -1,7 +1,7 @@
 import { NodeType, ValueObject } from '@codelab/backend'
 
 export interface VertexTypeProps {
-  value: string
+  value: NodeType
 }
 
 export class VertexType extends ValueObject<VertexTypeProps> {

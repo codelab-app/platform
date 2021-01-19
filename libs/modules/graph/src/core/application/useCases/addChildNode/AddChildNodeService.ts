@@ -1,4 +1,3 @@
-import { plainToClass } from 'class-transformer'
 import { left, right } from 'fp-ts/Either'
 import { Option, fold, isNone } from 'fp-ts/Option'
 import { pipe } from 'fp-ts/function'
@@ -24,7 +23,7 @@ export class AddChildNodeService implements AddChildNodeUseCase {
   async execute(request: AddChildNodeRequest): Promise<AddChildNodeResponse> {
     const { graphId, parentVertexId, vertex, order } = request
 
-    const graph: Option<Graph> = await this.graphRepository.findOne({
+    const graph: Option<Graph> = await this.graphRepository.findSingle({
       graphId,
     })
 
@@ -44,7 +43,7 @@ export class AddChildNodeService implements AddChildNodeUseCase {
      * After all invariant checks
      */
     const newVertex = await this.vertexRepository.create(
-      plainToClass(Vertex, vertex),
+      Vertex.hydrate(Vertex, vertex),
       graph.value,
     )
 
@@ -57,7 +56,7 @@ export class AddChildNodeService implements AddChildNodeUseCase {
 
     await this.edgeRepository.create(newEdge, graph.value)
 
-    const newGraph = await this.graphRepository.findOne({
+    const newGraph = await this.graphRepository.findSingle({
       graphId,
     })
 

@@ -19,7 +19,7 @@ export class MoveNodeService implements MoveNodeUseCase {
   async execute(request: MoveNodeRequest): Promise<MoveNodeResponse> {
     const { graphId, type } = request
 
-    const graphOpt: Option<Graph> = await this.graphRepository.findOne({
+    const graphOpt: Option<Graph> = await this.graphRepository.findSingle({
       graphId,
     })
 
