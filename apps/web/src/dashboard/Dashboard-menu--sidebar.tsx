@@ -3,38 +3,18 @@ import { Menu } from 'antd'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
-import {
-  APP_LIST_PAGE,
-  PAGE_LIST_PAGE,
-  disableSidebarMenuHoverEffects,
-} from '@codelab/frontend'
+import { APP_LIST_PAGE, PAGE_LIST_PAGE } from '@codelab/frontend'
 
-type AppSidebarProps = {
-  // onCollapse: any
-}
-
-export const DashboardMenuSidebar = (props: AppSidebarProps) => {
+export const DashboardMenuSidebar = () => {
   const router = useRouter()
-
-  const [openKeys, setOpenKeys] = React.useState(['sub1'])
-
-  const onOpenChange = (keys: Array<React.Key>) => {
-    const latestOpenKey = keys.find(
-      (key) => openKeys.indexOf(key.toString()) === -1,
-    ) as string
-
-    // if (rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
-    //   setOpenKeys(keys as Array<string>)
-    // } else {
-    //   setOpenKeys(latestOpenKey ? [latestOpenKey] : [])
-    // }
-  }
 
   return (
     <Menu
       mode="inline"
-      openKeys={openKeys}
-      onOpenChange={onOpenChange}
+      inlineCollapsed
+      // activeKey="1"
+      // openKeys={openKeys}
+      // onOpenChange={onOpenChange}
       style={{ height: '100%' }}
     >
       <Menu.Item
@@ -44,7 +24,7 @@ export const DashboardMenuSidebar = (props: AppSidebarProps) => {
             <AppstoreOutlined />
           </Link>
         }
-        style={disableSidebarMenuHoverEffects}
+        // style={disableSidebarMenuHoverEffects}
       >
         Apps
       </Menu.Item>
@@ -60,7 +40,7 @@ export const DashboardMenuSidebar = (props: AppSidebarProps) => {
             <CopyOutlined />
           </Link>
         }
-        style={disableSidebarMenuHoverEffects}
+        // style={disableSidebarMenuHoverEffects}
       >
         Pages
       </Menu.Item>

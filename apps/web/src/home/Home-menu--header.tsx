@@ -58,7 +58,7 @@ export const HomeMenuHeader = () => {
       <Menu
         theme="dark"
         mode="horizontal"
-        defaultSelectedKeys={['2']}
+        // defaultSelectedKeys={['2']}
         triggerSubMenuAction="click"
       >
         <Menu.Item
@@ -74,10 +74,10 @@ export const HomeMenuHeader = () => {
             <a>Apps</a>
           </Link>
         </Menu.Item>
-        {/* {guestUserMenu} */}
-        {isCheckingAuth || (!isCheckingAuth && !userData)
+        {guestUserMenu}
+        {/* {isCheckingAuth || (!isCheckingAuth && !userData)
           ? guestUserMenu
-          : authenticatedUserMenu(userData)}
+          : authenticatedUserMenu(userData)} */}
       </Menu>
     </>
   )

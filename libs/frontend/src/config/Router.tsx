@@ -37,12 +37,3 @@ export type IsPage = (page: PageType) => (props: PropsWithRouter) => boolean
 export const isPage: IsPage = R.curry(
   (page: PageType, props: PropsWithRouter) => props.router.pathname === page,
 )
-
-// export const useRouter = (page?: PageType) => {
-//   const route = useNextRouter()
-
-//   return {
-//     ...route,
-//     isPage: (currentPage: PageType) => route.asPath === currentPage,
-//   }
-// }

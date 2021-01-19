@@ -3,6 +3,7 @@ import { WithRouterProps } from 'next/dist/client/with-router'
 import { NextRouter, useRouter } from 'next/router'
 import * as R from 'ramda'
 import React from 'react'
+import { DashboardLayout } from '../src/dashboard/Dashboard-layout'
 import { HomeLayout } from '../src/home/Home-layout'
 import {
   MachineProvider,
@@ -11,7 +12,6 @@ import {
   rootMachine,
 } from '@codelab/frontend'
 import { CreateAppModal, EditAppModal } from '@codelab/modules/app-stories'
-import { AppLayoutContainer } from '@codelab/modules/layout-stories'
 import {
   LoginUserModal,
   RegisterUserModal,
@@ -33,7 +33,7 @@ const LayoutFactory: React.FunctionComponent<WithRouterProps> = R.cond<
   React.ReactElement<WithRouterProps, any> | null
 >([
   [isPage(PageType.Home), HomeLayout],
-  [R.T, AppLayoutContainer],
+  [R.T, DashboardLayout],
 ])
 
 const App: React.FunctionComponent<{}> = ({ children }) => {
@@ -50,7 +50,7 @@ const App: React.FunctionComponent<{}> = ({ children }) => {
   )
 }
 
-const AppContainer: React.FC<AppProps<SharedPageProps>> = (props) => {
+const AppContainer: React.FC<AppProps> = (props) => {
   const { Component, pageProps } = props
 
   return (
