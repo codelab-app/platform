@@ -1,4 +1,3 @@
-import { plainToClass } from 'class-transformer'
 import { option as O } from 'fp-ts'
 import { Option } from 'fp-ts/Option'
 import { AbstractRepository, EntityRepository } from 'typeorm'
@@ -22,14 +21,13 @@ export class TypeOrmVertexRepositoryAdapter
       graph: graph.toPersistence(),
     })
 
-    return plainToClass(Vertex, newVertex)
+    return Vertex.hydrate(Vertex, newVertex)
   }
 
   async findAll(): Promise<Array<Vertex>> {
     const verticesTypeOrm: Array<TypeOrmVertex> = await this.repository.find()
-    const vertices = plainToClass(Vertex, verticesTypeOrm)
 
-    return Promise.resolve(vertices)
+    return Vertex.hydrateArray(Vertex, verticesTypeOrm)
   }
 
   async update(vertex: Vertex): Promise<Option<Vertex>> {
@@ -44,7 +42,7 @@ export class TypeOrmVertexRepositoryAdapter
       ...vertex.toPlain(),
     })
 
-    return O.some(plainToClass(Vertex, updatedVertex))
+    return O.some(Vertex.hydrate(Vertex, updatedVertex))
   }
 
   async findOne(vertex: ByVertexCondition): Promise<Option<Vertex>> {
@@ -54,7 +52,7 @@ export class TypeOrmVertexRepositoryAdapter
       return O.none
     }
 
-    return O.some(plainToClass(Vertex, typeOrmVertex))
+    return O.some(Vertex.hydrate(Vertex, typeOrmVertex))
   }
 
   async delete(vertexId: string): Promise<Option<Vertex>> {
@@ -66,7 +64,7 @@ export class TypeOrmVertexRepositoryAdapter
 
     const vertices = await this.repository.remove([typeOrmVertex])
 
-    return O.some(plainToClass(Vertex, vertices[0]))
+    return O.some(Vertex.hydrate(Vertex, vertices[0]))
   }
 
   findMany(): Promise<Array<Vertex>> {

@@ -1,6 +1,6 @@
-import { Injectable, UseGuards } from '@nestjs/common'
+import { Inject, Injectable, UseGuards } from '@nestjs/common'
 import { CommandBus, QueryBus } from '@nestjs/cqrs'
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
+import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql'
 import { classToPlain } from 'class-transformer'
 import { CreatePageCommand } from '../../core/application/commands/CreatePageCommand'
 import { GetPageQuery } from '../../core/application/queries/GetPageQuery'
@@ -10,13 +10,9 @@ import { GetPageInput } from '../../core/application/useCases/getPage/GetPageInp
 import { GetPagesInput } from '../../core/application/useCases/getPages/GetPagesInput'
 import { Page } from '../../core/domain/page'
 import { PageDto } from '../PageDto'
-import {
-  CommandQueryBusPort,
-  CurrentUser,
-  GqlAuthGuard,
-  TypeOrmPage,
-  UseCaseRequestPort,
-} from '@codelab/backend'
+import { PubSub } from 'graphql-subscriptions'
+import { PageDITokens } from '../../framework/PageDITokens'
+import { CommandQueryBusPort, CurrentUser, GqlAuthGuard, TypeOrmPage, UseCaseRequestPort, } from '@codelab/backend'
 import { User } from '@codelab/modules/user'
 
 @Resolver(() => TypeOrmPage)
@@ -25,20 +21,9 @@ export class PageCommandQueryAdapter implements CommandQueryBusPort {
   constructor(
     readonly commandBus: CommandBus<UseCaseRequestPort>,
     readonly queryBus: QueryBus<UseCaseRequestPort>,
+    @Inject(PageDITokens.GraphQLPubSub)
+    public readonly pubSub: PubSub,
   ) {}
-
-  @Mutation(() => PageDto)
-  @UseGuards(GqlAuthGuard)
-  async createPage(
-    @Args('input') input: CreatePageInput,
-    @CurrentUser() user: User,
-  ) {
-    const page: Page = await this.commandBus.execute(
-      new CreatePageCommand({ ...input, user }),
-    )
-
-    return page.toPlain()
-  }
 
   @Query(() => [PageDto])
   @UseGuards(GqlAuthGuard)
@@ -61,5 +46,18 @@ export class PageCommandQueryAdapter implements CommandQueryBusPort {
     const result = await this.queryBus.execute(new GetPageQuery(input))
 
     return result.toPlain()
+  }
+
+
+  @Mutation(() => String)
+  async createPage(@Args('input') input: CreatePageInput) {
+    await this.commandBus.execute(new CreatePageCommand(input))
+
+    return ''
+  }
+
+  @Subscription(() => PageDto)
+  async pageCreated() {
+    return this.pubSub.asyncIterator<PageDto>('pageCreated')
   }
 }

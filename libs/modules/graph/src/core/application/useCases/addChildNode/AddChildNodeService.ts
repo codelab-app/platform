@@ -1,4 +1,3 @@
-import { plainToClass } from 'class-transformer'
 import { left, right } from 'fp-ts/Either'
 import { Option, fold, isNone } from 'fp-ts/Option'
 import { pipe } from 'fp-ts/function'
@@ -44,7 +43,7 @@ export class AddChildNodeService implements AddChildNodeUseCase {
      * After all invariant checks
      */
     const newVertex = await this.vertexRepository.create(
-      plainToClass(Vertex, vertex),
+      Vertex.hydrate(Vertex, vertex),
       graph.value,
     )
 

@@ -6,6 +6,7 @@ import { CreatePageCommandHandler } from '../../core/application/handlers/Create
 import { GetPageQueryHandler } from '../../core/application/handlers/GetPageQueryHandler'
 import { GetPagesQueryHandler } from '../../core/application/handlers/GetPagesQueryHandler'
 import { PageCreateErrorEventHandler } from '../../core/application/sagas/PageCreateErrorEventHandler'
+import { PageSaga } from '../../core/application/sagas/PageSaga'
 import { CreatePageService } from '../../core/application/useCases/createPage/CreatePageService'
 import { GetPageService } from '../../core/application/useCases/getPage/GetPageService'
 import { GetPagesService } from '../../core/application/useCases/getPages/GetPagesService'
@@ -49,16 +50,14 @@ const useCaseProviders: Array<Provider> = [
 export const handlerProviders: Array<Provider> = [
   GetPageQueryHandler,
   GetPagesQueryHandler,
+  PageSaga,
   PageCreateErrorEventHandler,
   CreatePageCommandHandler,
 ]
 
 @Module({
-  imports: [
-    CqrsModule,
-  ],
+  imports: [CqrsModule],
   providers: [
-    // PageCreateSuccessSaga,
     ...persistenceProviders,
     ...useCaseProviders,
     ...handlerProviders,

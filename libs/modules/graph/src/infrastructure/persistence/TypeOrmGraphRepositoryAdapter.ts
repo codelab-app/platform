@@ -1,4 +1,3 @@
-import { plainToClass } from 'class-transformer'
 import { option as O } from 'fp-ts'
 import { Option } from 'fp-ts/Option'
 import { EntityRepository } from 'typeorm'
@@ -16,9 +15,8 @@ export class TypeOrmGraphRepositoryAdapter
   implements GraphRepositoryPort {
   async findAll(): Promise<Array<Graph>> {
     const graphsTypeOrm: Array<TypeOrmGraph> = await this.find()
-    const graphs = plainToClass(Graph, graphsTypeOrm)
 
-    return Promise.resolve(graphs)
+    return Graph.hydrateArray(Graph, graphsTypeOrm)
   }
 
   async createGraph(graph: Graph<NOID>): Promise<Graph> {
@@ -26,7 +24,7 @@ export class TypeOrmGraphRepositoryAdapter
       ...graph.toPersistence(),
     })
 
-    return plainToClass(Graph, newGraph)
+    return Graph.hydrate(Graph, newGraph)
   }
 
   async deleteGraph(graph: Graph): Promise<Option<Graph>> {
@@ -56,7 +54,7 @@ export class TypeOrmGraphRepositoryAdapter
       return Promise.reject()
     }
 
-    return plainToClass(Graph, typeOrmSavedGraph)
+    return Graph.hydrate(Graph, typeOrmSavedGraph)
   }
 
   async findSingle(graph: ByGraphCondition): Promise<Option<Graph>> {
@@ -75,7 +73,7 @@ export class TypeOrmGraphRepositoryAdapter
       })
     }
 
-    const foundGraph: Graph = plainToClass(Graph, typeOrmGraph)
+    const foundGraph: Graph = Graph.hydrate(Graph, typeOrmGraph)
 
     return typeOrmGraph ? O.some(foundGraph) : O.none
   }
@@ -90,6 +88,6 @@ export class TypeOrmGraphRepositoryAdapter
       page: typeOrmPage,
     })
 
-    return plainToClass(Graph, typeOrmSavedGraph)
+    return Graph.hydrate(Graph, typeOrmSavedGraph)
   }
 }

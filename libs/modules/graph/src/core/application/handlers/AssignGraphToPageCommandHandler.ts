@@ -1,6 +1,5 @@
-import { Inject, Logger } from '@nestjs/common'
+import { Inject } from '@nestjs/common'
 import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs'
-import { plainToClass } from 'class-transformer'
 import {
   Propagation,
   Transactional,
@@ -20,8 +19,6 @@ import { AssignGraphToPageCommand } from '../commands/AssignGraphToPageCommand'
 @CommandHandler(AssignGraphToPageCommand)
 export class AssignGraphToPageCommandHandler
   implements ICommandHandler<AssignGraphToPageCommand> {
-  private logger: Logger = new Logger('AssignGraphToPageCommandHandler')
-
   constructor(
     @Inject(GraphDITokens.GraphRepository)
     private readonly graphRepository: GraphRepositoryPort,
@@ -34,7 +31,7 @@ export class AssignGraphToPageCommandHandler
 
     try {
       graph = await this.graphRepository.addGraphToPage(
-        plainToClass(Page, page),
+        Page.hydrate(Page, page),
       )
 
       const rootVertex = new Vertex({
@@ -49,7 +46,6 @@ export class AssignGraphToPageCommandHandler
       await this.graphRepository.manager?.queryRunner?.rollbackTransaction()
     }
     runOnTransactionRollback(() => {
-      this.logger.log('Transaction rollback callback')
       this.eventBus.publish(
         new PageCreateErrorEvent(page, graph?.toPlain() as SerializedGraphDto),
       )

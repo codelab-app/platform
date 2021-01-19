@@ -38,9 +38,8 @@ export class CreatePageService implements CreatePageUseCase {
       return left(new CreatePageErrors.AppNotFoundError(appId))
     }
 
-    const createPageWithRepo = await this.pageRepository.createPage(page)
     const createdPage: Page = this.publisher.mergeObjectContext(
-      createPageWithRepo,
+      await this.pageRepository.createPage(page),
     )
 
     runOnTransactionCommit(() => {
