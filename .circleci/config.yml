@@ -13,7 +13,7 @@
 filters-dev: &filters-dev
   filters:
     branches:
-      only: /^.*$/
+      only: /never/
 
 filters-staging: &filters-staging
 # https://discuss.circleci.com/t/circle-2-0-workflow-filters-should-be-logical-and-not-or/18231
@@ -27,7 +27,7 @@ filters-staging: &filters-staging
 filters-master-branch-only: &filters-master-branch-only
   when:
     and:
-      - equal: [ master, <<pipeline.git.branch>> ]
+      - equal: [ ci-tag-base, <<pipeline.git.branch>> ]
 
 executor-params: &executor-params
   parameters:
