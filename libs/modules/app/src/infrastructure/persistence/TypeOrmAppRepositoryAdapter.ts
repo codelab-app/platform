@@ -1,4 +1,3 @@
-import { plainToClass } from 'class-transformer'
 import { option as O } from 'fp-ts'
 import { Option, isNone } from 'fp-ts/Option'
 import { EntityRepository } from 'typeorm'
@@ -24,7 +23,7 @@ export class TypeOrmAppRepositoryAdapter
       user: user.toPersistence(),
     })
 
-    return plainToClass(App, newApp)
+    return App.hydrate(App, newApp)
   }
 
   async deleteApp(appId: string): Promise<Option<App>> {
@@ -59,7 +58,7 @@ export class TypeOrmAppRepositoryAdapter
       })
     }
 
-    return foundApp ? O.some(plainToClass(App, foundApp)) : O.none
+    return foundApp ? O.some(App.hydrate(App, foundApp)) : O.none
   }
 
   async findMany(apps: ByAppConditions, userId: UUID): Promise<Array<App>> {
@@ -72,7 +71,7 @@ export class TypeOrmAppRepositoryAdapter
       },
     })
 
-    return foundApps.map((app) => plainToClass(App, app))
+    return foundApps.map((app) => App.hydrate(App, app))
   }
 
   async addPageToApp(app: App, page: Page): Promise<void> {

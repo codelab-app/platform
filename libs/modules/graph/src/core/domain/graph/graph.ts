@@ -36,7 +36,7 @@ export class Graph<ID extends UUID | NOID = UUID> extends AggregateRoot<
 
   public getEdgesDomain(): Array<Edge> {
     const edgesPlain: Array<SerializedEdgeDto> = this.edges.value
-    const edges: Array<Edge> = plainToClass(Edge, edgesPlain)
+    const edges: Array<Edge> = Edge.hydrateArray(Edge, edgesPlain)
 
     return edges
   }

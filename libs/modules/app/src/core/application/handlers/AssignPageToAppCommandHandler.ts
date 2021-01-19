@@ -1,6 +1,5 @@
 import { Inject } from '@nestjs/common'
 import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs'
-import { plainToClass } from 'class-transformer'
 import {
   Propagation,
   Transactional,
@@ -27,8 +26,8 @@ export class AssignPageToAppCommandHandler
   public async execute({ app, page }: AssignPageToAppCommand) {
     try {
       await this.appRepository.addPageToApp(
-        plainToClass(App, app),
-        plainToClass(Page, page),
+        App.hydrate(App, app),
+        Page.hydrate(Page, page),
       )
       this.eventBus.publish(new AssignPageToAppSuccessEvent(page))
     } catch (e) {

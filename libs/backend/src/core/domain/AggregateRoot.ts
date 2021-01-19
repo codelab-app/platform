@@ -1,5 +1,6 @@
 import { AggregateRoot as NestjsAggregateRoot } from '@nestjs/cqrs'
-import { Type, classToPlain } from 'class-transformer'
+import { Type, classToPlain, plainToClass } from 'class-transformer'
+import { ClassType } from 'class-transformer/ClassTransformer'
 import { BaseTypeOrm } from '../../infrastructure/persistence/typeorm/entity/BaseTypeOrm'
 import { ValueObjectProps } from './ValueObject'
 import { NOID } from './valueObject/NOID'
@@ -44,4 +45,15 @@ export abstract class AggregateRoot<
 
   //   return plainToClass(this, props)
   // }
+
+  static hydrate<T extends AggregateRoot, V>(cls: ClassType<T>, obj: V): T {
+    return plainToClass(cls, obj)
+  }
+
+  static hydrateArray<T extends AggregateRoot, V>(
+    cls: ClassType<T>,
+    obj: Array<V>,
+  ): Array<T> {
+    return plainToClass(cls, obj)
+  }
 }

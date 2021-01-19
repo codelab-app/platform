@@ -1,16 +1,10 @@
+import { IEvent } from '@nestjs/cqrs'
 import { SerializedAppDto } from '../../../../../../user/src/core/domain/dto/SerializedAppDto'
 import { SerializedPageDto } from '../../../domain/dto/SerializedPageDto'
-import { ICodelabEvent } from '@codelab/backend'
 
-export class PageCreatedEvent implements ICodelabEvent {
-  metadata: any
-
+export class PageCreatedEvent implements IEvent {
   constructor(
     public readonly app: SerializedAppDto,
     public readonly page: SerializedPageDto,
-  ) {
-    this.metadata = {
-      id: 'some_id',
-    }
-  }
+  ) {}
 }

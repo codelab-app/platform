@@ -60,33 +60,7 @@ export const handlerProviders: Array<Provider> = [
 export const sagas: Array<Provider> = [AppPageSaga]
 
 @Module({
-  imports: [
-    CqrsModule,
-    // EventStoreModule.registerFeature({
-    // CodelabEventStoreModule.registerFeature({
-    //   type: 'event-store',
-    //   featureStreamName: '$svc-app',
-    //   subscriptions: [
-    //     {
-    //       type: EventStoreSubscriptionType.Persistent,
-    //       stream: '$svc-page',
-    //       persistentSubscriptionName: 'page',
-    //     },
-    //     {
-    //       type: EventStoreSubscriptionType.Persistent,
-    //       stream: '$svc-graph',
-    //       persistentSubscriptionName: 'graph',
-    //     },
-    //   ],
-    //   eventHandlers: {
-    //     AssignPageToAppSuccessEvent: () => new AssignPageToAppSuccessEvent(),
-    //     AssignGraphToPageSuccessEvent: () =>
-    //       new AssignGraphToPageSuccessEvent(),
-    //     PageCreatedEvent: (app, page) => new PageCreatedEvent(app, page),
-    //     PageCreateErrorEvent: (page) => new PageCreateErrorEvent(page),
-    //   },
-    // }),
-  ],
+  imports: [CqrsModule],
   providers: [
     ...sagas,
     ...persistenceProviders,

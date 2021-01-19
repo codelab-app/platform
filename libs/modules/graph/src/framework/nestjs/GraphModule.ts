@@ -113,36 +113,7 @@ export const eventHandlersProviders: Array<Provider> = [
 ]
 
 @Module({
-  imports: [
-    CqrsModule,
-    VertexModule,
-    EdgeModule,
-    // EventStoreModule.registerFeature({
-    // CodelabEventStoreModule.registerFeature({
-    //   type: 'event-store',
-    //   featureStreamName: '$svc-graph',
-    //   subscriptions: [
-    //     {
-    //       type: EventStoreSubscriptionType.Persistent,
-    //       stream: '$svc-page',
-    //       persistentSubscriptionName: 'page',
-    //     },
-    //     {
-    //       type: EventStoreSubscriptionType.Persistent,
-    //       stream: '$svc-app',
-    //       persistentSubscriptionName: 'app',
-    //     },
-    //   ],
-    //   eventHandlers: {
-    //     AssignGraphToPageSuccessEvent: () =>
-    //       new AssignGraphToPageSuccessEvent(),
-    //     AssignPageToAppSuccessEvent: () => new AssignPageToAppSuccessEvent(),
-    //     PageCreatedEvent: (app, page) => new PageCreatedEvent(app, page),
-    //     PageCreateErrorEvent: (page, graph) =>
-    //       new PageCreateErrorEvent(page, graph),
-    //   },
-    // }),
-  ],
+  imports: [CqrsModule, VertexModule, EdgeModule],
   providers: [
     ...eventHandlersProviders,
     ...persistenceProviders,

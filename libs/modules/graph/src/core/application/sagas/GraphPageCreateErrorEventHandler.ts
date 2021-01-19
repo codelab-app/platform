@@ -1,6 +1,5 @@
 import { Inject } from '@nestjs/common'
 import { EventsHandler, IEventHandler } from '@nestjs/cqrs'
-import { plainToClass } from 'class-transformer'
 import { PageCreateErrorEvent } from '../../../../../page/src/core/application/useCases/createPage/PageCreateErrorEvent'
 import { GraphDITokens } from '../../../framework/GraphDITokens'
 import { GraphRepositoryPort } from '../../adapters/GraphRepositoryPort'
@@ -16,7 +15,7 @@ export class GraphPageCreateErrorEventHandler
 
   async handle(event: PageCreateErrorEvent) {
     if (event.graph) {
-      await this.graphRepository.deleteGraph(plainToClass(Graph, event.graph))
+      await this.graphRepository.deleteGraph(Graph.hydrate(Graph, event.graph))
     }
   }
 }
