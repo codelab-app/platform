@@ -1,5 +1,5 @@
 import { IEvent } from '@nestjs/cqrs'
-import { SerializedAppDto } from '../../../../../../user/src/core/domain/dto/SerializedAppDto'
+import { SerializedAppDto } from '../../../../../../app/src/core/domain/dto/SerializedAppDto'
 import { SerializedPageDto } from '../../../domain/dto/SerializedPageDto'
 
 export class PageCreatedEvent implements IEvent {

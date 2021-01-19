@@ -17,7 +17,7 @@ export class UpdateAppService implements UpdateAppUseCase {
     id,
     ...appData
   }: UpdateAppRequest): Promise<UpdateAppResponse> {
-    const existingApp: Option<App> = await this.appRepository.findOne(
+    const existingApp: Option<App> = await this.appRepository.findSingle(
       {
         appId: id,
       },
@@ -28,7 +28,7 @@ export class UpdateAppService implements UpdateAppUseCase {
       return left(new UpdateAppErrors.AppNotFoundError(id))
     }
 
-    const result = await this.appRepository.update({ appId: id }, appData)
+    const result = await this.appRepository.updateApp({ appId: id }, appData)
 
     if (option.isNone(result)) {
       return left(new AppError('Error while updating app'))

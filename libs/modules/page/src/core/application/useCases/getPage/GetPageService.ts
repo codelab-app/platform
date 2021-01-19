@@ -11,7 +11,7 @@ export class GetPageService implements GetPageUseCase {
   constructor(private readonly pageRepository: PageRepositoryPort) {}
 
   async execute({ pageId }: GetPageRequest): Promise<GetPageResponse> {
-    const page = await this.pageRepository.findOne({ pageId })
+    const page = await this.pageRepository.findSingle({ pageId })
 
     if (isNone(page)) {
       return left(new GetPageErrors.DemoError(pageId))

@@ -1,5 +1,5 @@
 import { SerializedPageDto } from '../../../../../page/src/core/domain/dto/SerializedPageDto'
-import { SerializedAppDto } from '../../../../../user/src/core/domain/dto/SerializedAppDto'
+import { SerializedAppDto } from '../../domain/dto/SerializedAppDto'
 
 export class AssignPageToAppCommand {
   constructor(

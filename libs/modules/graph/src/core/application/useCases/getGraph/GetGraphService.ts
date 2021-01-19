@@ -32,21 +32,21 @@ export class GetGraphService implements GetGraphUseCase {
       return right(Result.ok(graphOpt.value))
     }
 
-    if (pageId) {
-      graphOpt = await this.graphRepository.findSingle({
-        pageId,
-      })
-
-      if (isNone(graphOpt)) {
-        return left(
-          new GetGraphErrors.GraphNotFoundError(
-            `The graph with page id ${pageId} was not found`,
-          ),
-        )
-      }
-
-      return right(Result.ok(graphOpt.value))
-    }
+    // if (pageId) {
+    //   graphOpt = await this.graphRepository.findSingle({
+    //     pageId,
+    //   })
+    //
+    //   if (isNone(graphOpt)) {
+    //     return left(
+    //       new GetGraphErrors.GraphNotFoundError(
+    //         `The graph with page id ${pageId} was not found`,
+    //       ),
+    //     )
+    //   }
+    //
+    //   return right(Result.ok(graphOpt.value))
+    // }
 
     return left(new GetGraphErrors.GraphNotFoundError(''))
   }

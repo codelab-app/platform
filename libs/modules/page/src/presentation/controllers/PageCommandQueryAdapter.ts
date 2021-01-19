@@ -2,17 +2,24 @@ import { Inject, Injectable, UseGuards } from '@nestjs/common'
 import { CommandBus, QueryBus } from '@nestjs/cqrs'
 import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql'
 import { classToPlain } from 'class-transformer'
+import { PubSub } from 'graphql-subscriptions'
 import { CreatePageCommand } from '../../core/application/commands/CreatePageCommand'
 import { GetPageQuery } from '../../core/application/queries/GetPageQuery'
 import { GetPagesQuery } from '../../core/application/queries/GetPagesQuery'
 import { CreatePageInput } from '../../core/application/useCases/createPage/CreatePageInput'
+import { CreatePageRequest } from '../../core/application/useCases/createPage/CreatePageRequest'
 import { GetPageInput } from '../../core/application/useCases/getPage/GetPageInput'
 import { GetPagesInput } from '../../core/application/useCases/getPages/GetPagesInput'
 import { Page } from '../../core/domain/page'
-import { PageDto } from '../PageDto'
-import { PubSub } from 'graphql-subscriptions'
 import { PageDITokens } from '../../framework/PageDITokens'
-import { CommandQueryBusPort, CurrentUser, GqlAuthGuard, TypeOrmPage, UseCaseRequestPort, } from '@codelab/backend'
+import { PageDto } from '../PageDto'
+import {
+  CommandQueryBusPort,
+  CurrentUser,
+  GqlAuthGuard,
+  TypeOrmPage,
+  UseCaseRequestPort,
+} from '@codelab/backend'
 import { User } from '@codelab/modules/user'
 
 @Resolver(() => TypeOrmPage)
@@ -48,10 +55,13 @@ export class PageCommandQueryAdapter implements CommandQueryBusPort {
     return result.toPlain()
   }
 
-
   @Mutation(() => String)
   async createPage(@Args('input') input: CreatePageInput) {
-    await this.commandBus.execute(new CreatePageCommand(input))
+    const req = new CreatePageRequest()
+
+    req.appId = input.appId
+    req.title = input.title
+    await this.commandBus.execute(new CreatePageCommand(req))
 
     return ''
   }

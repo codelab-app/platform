@@ -4,7 +4,7 @@ import { EntityRepository } from 'typeorm'
 import { BaseRepository } from 'typeorm-transactional-cls-hooked'
 import { Page } from '../../../../page/src/core/domain/page'
 import { ByGraphCondition } from '../../common/QueryConditions'
-import { isGraphId, isPageId } from '../../common/utils'
+import { isGraphId } from '../../common/utils'
 import { GraphRepositoryPort } from '../../core/adapters/GraphRepositoryPort'
 import { Graph } from '../../core/domain/graph'
 import { NOID, TypeOrmGraph } from '@codelab/backend'
@@ -66,12 +66,12 @@ export class TypeOrmGraphRepositoryAdapter
       })
     }
 
-    if (isPageId(graph)) {
-      typeOrmGraph = await this.findOne({
-        where: { pageId: graph.pageId },
-        relations: ['vertices', 'edges'],
-      })
-    }
+    // if (isPageId(graph)) {
+    //   typeOrmGraph = await this.findOne({
+    //     where: { pageId: graph.pageId },
+    //     relations: ['vertices', 'edges'],
+    //   })
+    // }
 
     const foundGraph: Graph = Graph.hydrate(Graph, typeOrmGraph)
 

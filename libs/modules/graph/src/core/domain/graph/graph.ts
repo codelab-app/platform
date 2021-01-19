@@ -1,9 +1,9 @@
 import arrayMove from 'array-move'
 import { Type, plainToClass } from 'class-transformer'
+import { EdgeDto } from '../../../presentation/EdgeDto'
+import { VertexDto } from '../../../presentation/VertexDto'
 import { Edge } from '../edge'
-import { SerializedEdgeDto } from '../edge/dto/SerializedEdgeDto'
 import { Vertex } from '../vertex'
-import { SerializedVertexDto } from '../vertex/dto/SerializedVertexDto'
 import { SerializedGraphDto } from './dto/SerializedGraphDto'
 import { GraphEdges } from './graph-edges'
 import { GraphLabel } from './graph-label'
@@ -35,19 +35,19 @@ export class Graph<ID extends UUID | NOID = UUID> extends AggregateRoot<
   declare edges: GraphEdges
 
   public getEdgesDomain(): Array<Edge> {
-    const edgesPlain: Array<SerializedEdgeDto> = this.edges.value
+    const edgesPlain: Array<EdgeDto> = this.edges.value
     const edges: Array<Edge> = Edge.hydrateArray(Edge, edgesPlain)
 
     return edges
   }
 
   public addVertex(v: Vertex) {
-    const vertex: SerializedVertexDto = v.toPlain()
+    const vertex: VertexDto = v.toPlain() as VertexDto
     let newVertices
 
     if (!this.hasVertex(vertex.id as string)) {
       if (this.vertices) {
-        const vertices: Array<SerializedVertexDto> = this.vertices.value
+        const vertices: Array<VertexDto> = this.vertices.value
 
         vertices.push(vertex)
         newVertices = new GraphVertices({ value: vertices })
@@ -61,9 +61,9 @@ export class Graph<ID extends UUID | NOID = UUID> extends AggregateRoot<
 
   private hasVertex(vertexId: string): boolean {
     if (this.vertices) {
-      const vertices: Array<SerializedVertexDto> = this.vertices.value
+      const vertices: Array<VertexDto> = this.vertices.value
 
-      const index = vertices.findIndex((v: SerializedVertexDto) => {
+      const index = vertices.findIndex((v: VertexDto) => {
         return v.id === vertexId
       })
 
@@ -74,14 +74,10 @@ export class Graph<ID extends UUID | NOID = UUID> extends AggregateRoot<
   }
 
   public moveVertex(source: string, target: string) {
-    const vertices: Array<SerializedVertexDto> = this.vertices.value
+    const vertices: Array<VertexDto> = this.vertices.value
 
-    const vertexSource = vertices?.find(
-      (v: SerializedVertexDto) => v.id === source,
-    )
-    const vertexTarget = vertices?.find(
-      (v: SerializedVertexDto) => v.id === target,
-    )
+    const vertexSource = vertices?.find((v: VertexDto) => v.id === source)
+    const vertexTarget = vertices?.find((v: VertexDto) => v.id === target)
 
     if (!vertexSource) {
       throw new Error(`Vertex source with id: ${source} was not found`)
@@ -112,12 +108,12 @@ export class Graph<ID extends UUID | NOID = UUID> extends AggregateRoot<
   }
 
   private moveWithDifferentParent(
-    vertexSource: SerializedVertexDto,
-    vertexTarget: SerializedVertexDto,
+    vertexSource: VertexDto,
+    vertexTarget: VertexDto,
     source: VertexId,
     target: VertexId,
   ) {
-    const edges: Array<SerializedEdgeDto> = this.edges.value
+    const edges: Array<EdgeDto> = this.edges.value
     const sourceEdgeIndex = this.getEdgeIndexBySourceAndTarget(
       vertexSource.parent,
       source,
@@ -143,10 +139,10 @@ export class Graph<ID extends UUID | NOID = UUID> extends AggregateRoot<
   }
 
   private moveEdgeAndUpdateOrder(sourceIndex: number, targetIndex: number) {
-    let edges: Array<SerializedEdgeDto> = this.edges.value
+    let edges: Array<EdgeDto> = this.edges.value
 
     edges = arrayMove(edges, sourceIndex, targetIndex)
-    edges = edges.map((e: SerializedEdgeDto, index: number) => {
+    edges = edges.map((e: EdgeDto, index: number) => {
       e.order = index
 
       return e
@@ -161,9 +157,9 @@ export class Graph<ID extends UUID | NOID = UUID> extends AggregateRoot<
     target: VertexId,
   ): number {
     if (source) {
-      const edges: Array<SerializedEdgeDto> = this.edges.value
+      const edges: Array<EdgeDto> = this.edges.value
 
-      return edges.findIndex((e: SerializedEdgeDto) => {
+      return edges.findIndex((e: EdgeDto) => {
         return e.source === source && e.target === target
       })
     }
@@ -172,9 +168,9 @@ export class Graph<ID extends UUID | NOID = UUID> extends AggregateRoot<
   }
 
   private getEdgeIndexByTarget(target: VertexId) {
-    const edges: Array<SerializedEdgeDto> = this.edges.value
+    const edges: Array<EdgeDto> = this.edges.value
 
-    return edges.findIndex((e: SerializedEdgeDto) => {
+    return edges.findIndex((e: EdgeDto) => {
       return e.target === target
     })
   }

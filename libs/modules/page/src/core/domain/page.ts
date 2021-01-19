@@ -1,7 +1,7 @@
 import { Exclude, Type, plainToClass } from 'class-transformer'
 import { NOID } from '../../../../../backend/src/core/domain/valueObject/NOID'
 import { App } from '../../../../app/src/core/domain/app'
-import { SerializedAppDto } from '../../../../user/src/core/domain/dto/SerializedAppDto'
+import { SerializedAppDto } from '../../../../app/src/core/domain/dto/SerializedAppDto'
 import { PageCreatedEvent } from '../application/useCases/createPage/PageCreatedEvent'
 import { SerializedPageDto } from './dto/SerializedPageDto'
 import { PageTitle } from './page-title'
