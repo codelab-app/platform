@@ -3,6 +3,7 @@ import { CqrsModule, EventPublisher, QueryBus } from '@nestjs/cqrs'
 import { PubSub } from 'graphql-subscriptions'
 import { Connection } from 'typeorm'
 import { CreatePageCommandHandler } from '../../core/application/handlers/CreatePageCommandHandler'
+import { CreatePageSuccessCommandHandler } from '../../core/application/handlers/CreatePageSuccessCommandHandler'
 import { GetPageQueryHandler } from '../../core/application/handlers/GetPageQueryHandler'
 import { GetPagesQueryHandler } from '../../core/application/handlers/GetPagesQueryHandler'
 import { PageCreateErrorEventHandler } from '../../core/application/sagas/PageCreateErrorEventHandler'
@@ -53,6 +54,7 @@ export const handlerProviders: Array<Provider> = [
   PageSaga,
   PageCreateErrorEventHandler,
   CreatePageCommandHandler,
+  CreatePageSuccessCommandHandler,
 ]
 
 @Module({
