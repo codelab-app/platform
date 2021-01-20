@@ -1,0 +1,57 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id    String @id @default(uuid())
+  email String @unique
+  apps  App[]
+}
+
+model App {
+  id     String  @id @default(uuid())
+  title  String
+  user   User    @relation(fields: [userId], references: [id])
+  userId String
+  pages  Page[]
+  graphs Graph[]
+}
+
+model Page {
+  id     String  @id @default(uuid())
+  title  String
+  app    App     @relation(fields: [appId], references: [id])
+  appId  String
+  graphs Graph[]
+}
+
+model Graph {
+  id       String   @id @default(uuid())
+  label    String
+  vertices Vertex[]
+  edges    Edge[]
+  app      App?     @relation(fields: [appId], references: [id])
+  appId    String?
+  page     Page?    @relation(fields: [pageId], references: [id])
+  pageId   String?
+}
+
+model Vertex {
+  id      String  @id @default(uuid())
+  graph   Graph?  @relation(fields: [graphId], references: [id])
+  graphId String?
+}
+
+model Edge {
+  id      String  @id @default(uuid())
+  graph   Graph?  @relation(fields: [graphId], references: [id])
+  graphId String?
+}

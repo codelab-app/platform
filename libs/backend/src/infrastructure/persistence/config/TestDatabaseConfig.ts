@@ -20,4 +20,6 @@ export class TestDatabaseConfig {
   public static readonly DB_NAME: string = get('TEST_DB_NAME')
     .required()
     .asString()
+
+  public static readonly PRISMA_DATABASE_URL = get('TEST_PRISMA_DATABASE_URL')
 }

@@ -107,6 +107,9 @@
       ],
       "@codelab/modules/notification-stories": [
         "libs/modules/notification-stories/src/index.ts"
+      ],
+      "@codelab/modules/page-stories": [
+        "libs/modules/page-stories/src/index.ts"
       ]
     }
   },

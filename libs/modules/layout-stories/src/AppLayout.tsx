@@ -14,6 +14,7 @@ export interface AppLayoutProps {
 
 export type AppSidebarProps = SiderProps & {
   Menu: ReactElement
+  hide?: boolean
 }
 
 export type AppFooterProps = React.ReactNode
@@ -30,11 +31,14 @@ export const AppLayout = (props: PropsWithChildren<AppLayoutProps>) => {
 
   return (
     <Layout style={{ height: '100%' }}>
-      {SidebarMenu ? (
+      {SidebarMenu && !sidebar?.hide ? (
         <Sider theme="light" {...omit(sidebar, 'Menu')}>
           {SidebarMenu}
         </Sider>
       ) : null}
+      <Sider theme="light" {...omit(sidebar, 'Menu')}>
+        {SidebarMenu}
+      </Sider>
       <Layout>
         {HeaderMenu ? <Header>{HeaderMenu}</Header> : null}
         <Content style={contentStyle}>{children}</Content>

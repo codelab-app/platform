@@ -1,13 +1,19 @@
 {
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
   "eslint.run": "onSave",
-  "eslint.format.enable": true,
   "eslint.packageManager": "yarn",
+  /*
+   * Formatter
+   */
+  "eslint.format.enable": true,
   "[typescript][typescriptreact][javascript][javascriptreact]": {
     "editor.defaultFormatter": "dbaeumer.vscode-eslint"
   },
+  "[prisma]": {
+    "editor.defaultFormatter": "Prisma.prisma"
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "json.format.enable": true
 }
