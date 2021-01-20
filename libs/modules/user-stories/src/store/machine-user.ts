@@ -1,4 +1,5 @@
 import { Machine, assign, sendParent } from 'xstate'
+import { clearAuthToken } from '../../../../frontend/src/infrastructure/auth/authTokenStorage'
 import { getMeServices } from '../useCases/getMe'
 import { loginUserState } from '../useCases/loginUser'
 import { loginUserServices } from '../useCases/loginUser/LoginUserServices'
@@ -6,7 +7,6 @@ import {
   registerUserService,
   registerUserState,
 } from '../useCases/registerUser'
-import { clearAuthTokenInLocalStorage } from './userLocalStorage'
 
 export const createUserMachine = () => {
   const services = {
@@ -39,7 +39,7 @@ export const createUserMachine = () => {
                 assign({
                   userData: undefined,
                 }),
-                () => clearAuthTokenInLocalStorage(),
+                () => clearAuthToken(),
               ],
             },
           },
@@ -75,7 +75,7 @@ export const createUserMachine = () => {
                     assign({
                       userData: undefined,
                     }),
-                    () => clearAuthTokenInLocalStorage(),
+                    () => clearAuthToken(),
                     sendParent({
                       type: 'NOTIFY',
                       title: 'You have been signed out',

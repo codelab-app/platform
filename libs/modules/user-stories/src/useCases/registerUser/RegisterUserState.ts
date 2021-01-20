@@ -1,6 +1,6 @@
 import { assign, sendParent } from 'xstate'
 import { StateNodeConfig } from 'xstate/lib/types'
-import { storeAuthTokenInLocalStorage } from '../../store'
+import { storeAuthToken } from '@codelab/frontend'
 
 export const registerUserState: StateNodeConfig<any, any, any> = {
   on: {
@@ -30,9 +30,7 @@ export const registerUserState: StateNodeConfig<any, any, any> = {
               }
             }),
             (context, event) =>
-              storeAuthTokenInLocalStorage(
-                event.data.data.registerUser.accessToken,
-              ),
+              storeAuthToken(event.data.data.registerUser.accessToken),
             sendParent({
               type: 'NOTIFY',
               title: 'You have registered successfully!',
