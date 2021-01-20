@@ -23,6 +23,8 @@ export class TypeOrmVertex extends BaseTypeOrm {
   })
   declare props?: object
 
-  @ManyToOne((type) => TypeOrmGraph, (graph) => graph.vertices)
+  @ManyToOne((type) => TypeOrmGraph, (graph) => graph.vertices, {
+    onDelete: 'CASCADE',
+  })
   declare graph: TypeOrmGraph
 }

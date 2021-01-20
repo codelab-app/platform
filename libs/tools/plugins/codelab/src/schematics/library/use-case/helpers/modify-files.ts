@@ -1,7 +1,11 @@
 import { Rule, Tree } from '@angular-devkit/schematics'
 import { getTsSourceFile } from '@nrwl/angular/src/utils/ast-utils'
 import { InsertChange, addMethod, insert } from '@nrwl/workspace'
-import { Change, getSourceNodes } from '@nrwl/workspace/src/utils/ast-utils'
+import {
+  Change,
+  getSourceNodes,
+  insertImport,
+} from '@nrwl/workspace/src/utils/ast-utils'
 import * as ts from 'typescript'
 import { NormalizedSchema } from '../schematic'
 
@@ -79,7 +83,14 @@ const addToClass = (
 }
 
 const insertIntoModule = (host: Tree, options: NormalizedSchema): void => {
-  const { useCaseName, moduleNamePascalCase, moduleName, handlerType } = options
+  const {
+    useCaseName,
+    useCaseNamePascalCase,
+    useCaseFolderName,
+    moduleNamePascalCase,
+    moduleName,
+    handlerType,
+  } = options
   const moduleFilePath = `${options.projectRoot}/src/framework/nestjs/${moduleNamePascalCase}Module.ts`
   const moduleSrcFile: ts.SourceFile = getTsSourceFile(host, moduleFilePath)
 
@@ -100,9 +111,25 @@ const insertIntoModule = (host: Tree, options: NormalizedSchema): void => {
     `\n  ${useCaseName}${handlerType},`,
   )
 
+  const insertUseCaseProviderImport: Change = insertImport(
+    moduleSrcFile,
+    moduleFilePath,
+    `${useCaseNamePascalCase}Service`,
+    `../../core/application/useCases/${useCaseFolderName}/${useCaseNamePascalCase}Service`,
+  )
+
+  const insertHandlerProviderImport: Change = insertImport(
+    moduleSrcFile,
+    moduleFilePath,
+    `${useCaseNamePascalCase}${handlerType}`,
+    `../../core/application/handlers/${useCaseNamePascalCase}${handlerType}`,
+  )
+
   insert(host, moduleFilePath, [
     ...useCaseProvidersChanges,
     ...handlerProvidersChanges,
+    insertUseCaseProviderImport,
+    insertHandlerProviderImport,
   ])
 }
 
@@ -114,8 +141,10 @@ const insertIntoCommandQueryAdapter = (
     projectRoot,
     resolverType,
     useCaseName,
+    useCaseNamePascalCase,
     resolverMethodName,
     moduleNamePascalCase,
+    useCaseFolderName,
   } = options
   const commandQueryAdapterClassName = `${moduleNamePascalCase}CommandQueryAdapter`
   const commandQueryAdapterFilePath = `${projectRoot}/src/presentation/controllers/${commandQueryAdapterClassName}.ts`
@@ -126,6 +155,20 @@ const insertIntoCommandQueryAdapter = (
   const busType = resolverType === 'Mutation' ? 'commandBus' : 'queryBus'
   const commandOrQuery = resolverType === 'Mutation' ? 'Command' : 'Query'
 
+  const insertInputImport = insertImport(
+    commandQuerySourceFile,
+    commandQueryAdapterFilePath,
+    `${useCaseNamePascalCase}Input`,
+    `../../core/application/useCases/${useCaseFolderName}/${useCaseNamePascalCase}Input`,
+  )
+
+  const insertCommandOrQueryImport = insertImport(
+    commandQuerySourceFile,
+    commandQueryAdapterFilePath,
+    `${useCaseNamePascalCase}${commandOrQuery}`,
+    `../../core/application/commands/${useCaseNamePascalCase}${commandOrQuery}`,
+  )
+
   insert(host, commandQueryAdapterFilePath, [
     ...addMethod(commandQuerySourceFile, commandQueryAdapterFilePath, {
       className: commandQueryAdapterClassName,
@@ -133,6 +176,8 @@ const insertIntoCommandQueryAdapter = (
               @${resolverType}(() => ${moduleNamePascalCase}Dto)\nasync ${resolverMethodName}(@Args('input') input: ${useCaseName}Input)`,
       body: `const result = await this.${busType}.execute(new ${useCaseName}${commandOrQuery}(input)) \nreturn result.toPlain()`,
     }),
+    insertInputImport,
+    insertCommandOrQueryImport,
   ])
 }
 

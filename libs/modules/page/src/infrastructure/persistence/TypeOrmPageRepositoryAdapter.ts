@@ -28,13 +28,26 @@ export class TypeOrmPageRepositoryAdapter
       return O.none
     }
 
-    await this.repository.remove(page.value.id.toString())
+    const typeOrmPage = page.value.toPersistence()
+
+    await this.repository.remove(typeOrmPage)
 
     return page
   }
 
   async findOne(page: ByPageId): Promise<Option<Page>> {
-    throw new Error('Method not implemented.')
+    let where: object = {}
+
+    where = {
+      ...where,
+      id: page.pageId,
+    }
+
+    const foundPage = await this.repository.findOne({
+      where,
+    })
+
+    return foundPage ? O.some(Page.hydrate(Page, foundPage)) : O.none
   }
 
   async findMany({ appId }: ByPageConditions): Promise<Array<Page>> {

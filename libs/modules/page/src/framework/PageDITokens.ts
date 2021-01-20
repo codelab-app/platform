@@ -1,4 +1,8 @@
 export class PageDITokens {
+  public static readonly DeletePageUseCase: unique symbol = Symbol(
+    'DeletePageUseCase',
+  )
+
   public static readonly GetPageUseCase: unique symbol = Symbol(
     'GetPageUseCase',
   )
