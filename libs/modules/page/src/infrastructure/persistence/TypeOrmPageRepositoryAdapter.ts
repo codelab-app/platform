@@ -2,6 +2,7 @@ import { plainToClass } from 'class-transformer'
 import * as O from 'fp-ts/lib/Option'
 import { Option } from 'fp-ts/lib/Option'
 import { AbstractRepository, EntityRepository } from 'typeorm'
+import { BaseRepository } from 'typeorm-transactional-cls-hooked'
 import { ByPageConditions, ByPageId } from '../../common/QueryConditions'
 import { PageRepositoryPort } from '../../core/adapters/PageRepositoryPort'
 import { Page } from '../../core/domain/page'
@@ -12,6 +13,10 @@ import { TypeOrmPage } from '@codelab/backend'
 export class TypeOrmPageRepositoryAdapter
   extends AbstractRepository<TypeOrmPage>
   implements PageRepositoryPort {
+  constructor(public readonly baseRepository: BaseRepository<TypeOrmPage>) {
+    super()
+  }
+
   async delete(pageId?: string): Promise<Option<Page>> {
     if (!pageId) {
       return O.none
@@ -23,13 +28,26 @@ export class TypeOrmPageRepositoryAdapter
       return O.none
     }
 
-    await this.repository.remove(page.value.id.toString())
+    const typeOrmPage = page.value.toPersistence()
+
+    await this.repository.remove(typeOrmPage)
 
     return page
   }
 
   async findOne(page: ByPageId): Promise<Option<Page>> {
-    throw new Error('Method not implemented.')
+    let where: object = {}
+
+    where = {
+      ...where,
+      id: page.pageId,
+    }
+
+    const foundPage = await this.repository.findOne({
+      where,
+    })
+
+    return foundPage ? O.some(Page.hydrate(Page, foundPage)) : O.none
   }
 
   async findMany({ appId }: ByPageConditions): Promise<Array<Page>> {

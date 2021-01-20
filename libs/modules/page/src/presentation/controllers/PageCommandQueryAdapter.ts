@@ -1,12 +1,14 @@
 import { Inject, Injectable, UseGuards } from '@nestjs/common'
 import { CommandBus, QueryBus } from '@nestjs/cqrs'
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
+import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql'
 import { classToPlain } from 'class-transformer'
 import { PubSub } from 'graphql-subscriptions'
 import { CreatePageCommand } from '../../core/application/commands/CreatePageCommand'
+import { DeletePageCommand } from '../../core/application/commands/DeletePageCommand'
 import { GetPageQuery } from '../../core/application/queries/GetPageQuery'
 import { GetPagesQuery } from '../../core/application/queries/GetPagesQuery'
 import { CreatePageInput } from '../../core/application/useCases/createPage/CreatePageInput'
+import { DeletePageInput } from '../../core/application/useCases/deletePage/DeletePageInput'
 import { GetPageInput } from '../../core/application/useCases/getPage/GetPageInput'
 import { GetPagesInput } from '../../core/application/useCases/getPages/GetPagesInput'
 import { Page } from '../../core/domain/page'
@@ -31,17 +33,20 @@ export class PageCommandQueryAdapter implements CommandQueryBusPort {
     public readonly pubSub: PubSub,
   ) {}
 
-  @Mutation(() => PageDto)
+  @Mutation(() => String)
   @UseGuards(GqlAuthGuard)
   async createPage(
     @Args('input') input: CreatePageInput,
     @CurrentUser() user: User,
   ) {
-    const page: Page = await this.commandBus.execute(
-      new CreatePageCommand({ ...input, user }),
-    )
+    await this.commandBus.execute(new CreatePageCommand({ ...input, user }))
 
-    return page.toPlain()
+    return ''
+  }
+
+  @Subscription(() => PageDto)
+  async pageCreated() {
+    return this.pubSub.asyncIterator<PageDto>('pageCreated')
   }
 
   @Query(() => [PageDto])
@@ -63,6 +68,13 @@ export class PageCommandQueryAdapter implements CommandQueryBusPort {
   @Query(() => PageDto)
   async getPage(@Args('input') input: GetPageInput) {
     const result = await this.queryBus.execute(new GetPageQuery(input))
+
+    return result.toPlain()
+  }
+
+  @Mutation(() => PageDto)
+  async deletePage(@Args('input') input: DeletePageInput) {
+    const result = await this.commandBus.execute(new DeletePageCommand(input))
 
     return result.toPlain()
   }

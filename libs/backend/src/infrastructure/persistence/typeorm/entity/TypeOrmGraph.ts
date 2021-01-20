@@ -25,7 +25,10 @@ export class TypeOrmGraph extends BaseTypeOrm {
   @ManyToOne((type) => TypeOrmApp, (app) => app.graphs)
   declare app: TypeOrmApp
 
-  @ManyToOne((type) => TypeOrmPage, (page) => page.graphs, { nullable: true })
+  @ManyToOne((type) => TypeOrmPage, (page) => page.graphs, {
+    onDelete: 'CASCADE',
+    nullable: true,
+  })
   declare page: TypeOrmPage
 
   // @ManyToOne((type) => TypeOrmUser, (user) => user.graphs)

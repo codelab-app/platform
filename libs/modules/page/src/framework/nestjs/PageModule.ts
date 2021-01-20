@@ -4,11 +4,13 @@ import { PubSub } from 'graphql-subscriptions'
 import { Connection } from 'typeorm'
 import { CreatePageCommandHandler } from '../../core/application/handlers/CreatePageCommandHandler'
 import { CreatePageSuccessCommandHandler } from '../../core/application/handlers/CreatePageSuccessCommandHandler'
+import { DeletePageCommandHandler } from '../../core/application/handlers/DeletePageCommandHandler'
 import { GetPageQueryHandler } from '../../core/application/handlers/GetPageQueryHandler'
 import { GetPagesQueryHandler } from '../../core/application/handlers/GetPagesQueryHandler'
 import { PageCreateErrorEventHandler } from '../../core/application/sagas/PageCreateErrorEventHandler'
 import { PageSaga } from '../../core/application/sagas/PageSaga'
 import { CreatePageService } from '../../core/application/useCases/createPage/CreatePageService'
+import { DeletePageService } from '../../core/application/useCases/deletePage/DeletePageService'
 import { GetPageService } from '../../core/application/useCases/getPage/GetPageService'
 import { GetPagesService } from '../../core/application/useCases/getPages/GetPagesService'
 import { TypeOrmPageRepositoryAdapter } from '../../infrastructure/persistence/TypeOrmPageRepositoryAdapter'
@@ -26,6 +28,11 @@ export const persistenceProviders: Array<Provider> = [
 ]
 
 const useCaseProviders: Array<Provider> = [
+  {
+    provide: PageDITokens.DeletePageUseCase,
+    useFactory: (pageRepository) => new DeletePageService(pageRepository),
+    inject: [PageDITokens.PageRepository],
+  },
   {
     provide: PageDITokens.GetPageUseCase,
     useFactory: (pageRepository) => new GetPageService(pageRepository),
@@ -49,6 +56,7 @@ const useCaseProviders: Array<Provider> = [
 ]
 
 export const handlerProviders: Array<Provider> = [
+  DeletePageCommandHandler,
   GetPageQueryHandler,
   GetPagesQueryHandler,
   PageSaga,

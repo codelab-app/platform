@@ -1,6 +1,7 @@
 import { option as O } from 'fp-ts'
 import { Option } from 'fp-ts/Option'
 import { AbstractRepository, EntityManager, EntityRepository } from 'typeorm'
+import { BaseRepository } from 'typeorm-transactional-cls-hooked'
 import { Page } from '../../../../page/src/core/domain/page'
 import { ByGraphCondition } from '../../common/QueryConditions'
 import { isGraphId } from '../../common/utils'
@@ -12,6 +13,10 @@ import { NOID, TypeOrmGraph } from '@codelab/backend'
 export class TypeOrmGraphRepositoryAdapter
   extends AbstractRepository<TypeOrmGraph>
   implements GraphRepositoryPort {
+  constructor(public readonly baseRepository: BaseRepository<TypeOrmGraph>) {
+    super()
+  }
+
   manager: EntityManager = this.manager
 
   async create(graph: Graph<NOID>): Promise<Graph> {

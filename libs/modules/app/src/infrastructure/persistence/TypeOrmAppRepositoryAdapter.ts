@@ -2,6 +2,7 @@ import { plainToClass } from 'class-transformer'
 import { option as O } from 'fp-ts'
 import { Option, isNone } from 'fp-ts/Option'
 import { AbstractRepository, EntityManager, EntityRepository } from 'typeorm'
+import { BaseRepository } from 'typeorm-transactional-cls-hooked'
 import { Page } from '../../../../page/src/core/domain/page'
 import {
   ByAppCondition,
@@ -18,6 +19,10 @@ import { User } from '@codelab/modules/user'
 export class TypeOrmAppRepositoryAdapter
   extends AbstractRepository<TypeOrmApp>
   implements AppRepositoryPort {
+  constructor(public readonly baseRepository: BaseRepository<TypeOrmApp>) {
+    super()
+  }
+
   manager: EntityManager = this.manager
 
   async create(app: App<NOID>, user: User): Promise<App> {
