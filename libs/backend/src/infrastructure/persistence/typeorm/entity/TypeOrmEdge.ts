@@ -25,6 +25,8 @@ export class TypeOrmEdge extends BaseTypeOrm {
   })
   declare props?: any
 
-  @ManyToOne((type) => TypeOrmGraph, (graph) => graph.edges)
+  @ManyToOne((type) => TypeOrmGraph, (graph) => graph.edges, {
+    onDelete: 'CASCADE',
+  })
   declare graph: TypeOrmGraph
 }
