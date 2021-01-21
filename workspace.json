@@ -1937,34 +1937,13 @@
             "passWithNoTests": true
           }
         },
-        "storybook": {
-          "builder": "@nrwl/storybook:storybook",
+        "build": {
+          "builder": "@nrwl/workspace:run-commands",
           "options": {
-            "uiFramework": "@storybook/react",
-            "port": 4400,
-            "config": {
-              "configFolder": "libs/tools/grid-decorator/.storybook"
-            }
-          },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          }
-        },
-        "build-storybook": {
-          "builder": "@nrwl/storybook:build",
-          "options": {
-            "uiFramework": "@storybook/react",
-            "outputPath": "dist/storybook/tools-grid-decorator",
-            "config": {
-              "configFolder": "libs/tools/grid-decorator/.storybook"
-            }
-          },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
+            "commands": [
+              "npx ts-node libs/tools/grid-decorator/src/generate.ts"
+            ],
+            "parallel": false
           }
         }
       }
