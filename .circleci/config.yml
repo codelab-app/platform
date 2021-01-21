@@ -85,7 +85,11 @@ executors:
     docker:
       - image: joatmon08/circleci-gcp-agent:287.0-1.14.72
     resource_class: small
-
+  argo-cli:
+    <<: *executor-config
+    docker:
+      - image: payfit/argocd-cli:latest
+    resource_class: small
 commands:
   argo-env:
     description: 'import argocd env'
@@ -387,8 +391,12 @@ workflows:
           requires:
             - install-and-build-workspace
 
-      - argocd-sync-prod
+      - argocd-sync-prod:
+          <<: *filters-staging
+          e: argo-cli
+          requires:
+            - install-and-build-workspace
       - notify-success:
           <<: *filters-staging
           requires:
-            - build-and-push-docker-image
+            - argocd-sync-prod
