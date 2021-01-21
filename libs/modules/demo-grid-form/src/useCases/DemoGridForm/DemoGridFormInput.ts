@@ -1,25 +1,23 @@
-export interface DemoGridFormInput {
+import { grid } from '@codelab/tools/grid-decorator'
+
+export class DemoGridFormInput {
   /**
    * {"order":1, "span": 12}
    * */
-  email1: string
+  @grid({ order: 1, span: 12 })
+  email1 = ''
+
   /**
    * {"order":0, "span": 16}
    * */
-  password0: string
+  @grid({ order: 0, span: 16 })
+  password0 = ''
+
   /**
    * {"order":2, "span": 8}
    * */
-  name2: string
-  notGroupedField: string
-  groupedField: {
-    /**
-     * {"order":1, "span": 4}
-     * */
-    test1: string
-    /**
-     * {"order":0, "span": 12}
-     * */
-    test2: string
-  }
+  @grid({ order: 2, span: 8 })
+  name2 = ''
+
+  notGroupedField = ''
 }
