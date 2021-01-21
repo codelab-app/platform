@@ -2,6 +2,7 @@ import { PageHeader, Spin } from 'antd'
 import { useRouter } from 'next/router'
 import * as R from 'ramda'
 import React from 'react'
+import { withAuthGuardServerSideProps } from '../../../../libs/frontend/src/infrastructure/auth/withAuthServerSideProps'
 import { padding, withApollo } from '@codelab/frontend'
 import { CreateAppButton, GetAppsList } from '@codelab/modules/app-stories'
 import { useUserMachine } from '@codelab/modules/user-stories'
@@ -37,5 +38,7 @@ const AppsPage = () => {
     </>
   )
 }
+
+export const getServerSideProps = withAuthGuardServerSideProps('/login')
 
 export default R.pipe(withApollo, AppsPage)

@@ -10,8 +10,9 @@ import { getApolloClient } from '@codelab/frontend'
 export async function getServerPageGetMe(
   options: Omit<Apollo.QueryOptions<Types.GetMeQueryVariables>, 'query'>,
   ctx?: any,
+  token?: string,
 ) {
-  const apolloClient = getApolloClient(ctx)
+  const apolloClient = getApolloClient(ctx, undefined, token)
 
   const data = await apolloClient.query<Types.GetMeQuery>({
     ...options,
