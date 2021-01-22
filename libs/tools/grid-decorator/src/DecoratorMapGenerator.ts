@@ -1,8 +1,11 @@
 import * as ts from 'typescript'
 import { SymbolRef } from 'typescript-json-schema'
 
-export interface IDecoratorMap {
-  [propertyKey: string]: Array<any>
+export interface IDecoratorDetails {
+  [decoratorName: string]: Array<any>
+}
+export interface IDecoratorMap<D = IDecoratorDetails> {
+  [propertyKey: string]: IDecoratorMap<D> | D
 }
 export interface INodeTypes {
   [name: string]: ts.Type
@@ -29,14 +32,14 @@ export class DecoratorMapGenerator {
     return this.userSymbols.map((symbol) => symbol.name)
   }
 
-  public getMapBySymbol(symbolName: string): IDecoratorMap {
+  public getMapBySymbol<T>(symbolName: string): IDecoratorMap<T> {
     const nodeType = this.nodeTypes[symbolName]
 
     if (!nodeType) {
       throw new Error(`type ${symbolName} not found`)
     }
 
-    return this.getDecoratorMap(nodeType)
+    return this.getDecoratorMap<T>(nodeType)
   }
 
   private parseArguments(node: ts.Node): any {
@@ -92,7 +95,7 @@ export class DecoratorMapGenerator {
       : this.decorators.includes(decoratorName)
   }
 
-  private getDecoratorMap(nodeType: ts.Type): IDecoratorMap {
+  private getDecoratorMap<T>(nodeType: ts.Type): IDecoratorMap<T> {
     return nodeType.getProperties().reduce((accProps, currProp) => {
       const declarations = currProp.getDeclarations()
 
