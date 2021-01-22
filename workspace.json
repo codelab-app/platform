@@ -1885,7 +1885,7 @@
           "builder": "@nrwl/workspace:run-commands",
           "options": {
             "commands": [
-              "npx ts-node libs/tools/generators/json-schema/src/index.ts"
+              "npx ts-node --project libs/tools/generators/json-schema/tsconfig.lib.json libs/tools/generators/json-schema/src/index.ts"
             ],
             "parallel": false
           }

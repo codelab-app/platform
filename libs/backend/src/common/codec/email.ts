@@ -1,5 +1,5 @@
 import * as t from 'io-ts'
-import Joi from 'joi'
+import * as Joi from 'joi'
 
 export interface UUIDBrand {
   readonly Email: unique symbol
@@ -9,12 +9,14 @@ export type Email = t.Branded<string, UUIDBrand>
 
 export const Email = t.brand(
   t.string,
-  (value): value is Email => {
+  (data): data is Email => {
     const schema = Joi.string().email()
 
-    const results = schema.validate(value)
+    const { error, value } = schema.validate(data)
 
-    console.log(results)
+    if (error) {
+      return false
+    }
 
     return true
   },

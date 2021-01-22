@@ -20,7 +20,7 @@ import { TypeOrmUserRepositoryAdapter } from '../../infrastructure/persistence/T
 import { UserCommandQueryAdapter } from '../../presentation/controllers/UserCommandQueryAdapter'
 import { UserDITokens } from '../UserDITokens'
 import { AuthModule } from './AuthModule'
-import { GqlAuthGuard } from '@codelab/backend'
+import { GqlAuthGuard, PrismaService } from '@codelab/backend'
 
 export const persistenceProviders: Array<Provider> = [
   {
@@ -50,9 +50,9 @@ export const useCaseProviders: Array<Provider> = [
   },
   {
     provide: UserDITokens.RegisterUserUseCase,
-    useFactory: (usersRepository, moduleRef) =>
-      new RegisterUserService(usersRepository, moduleRef),
-    inject: [UserDITokens.UserRepository, ModuleRef],
+    useFactory: (usersRepository, moduleRef, prismaService) =>
+      new RegisterUserService(usersRepository, moduleRef, prismaService),
+    inject: [UserDITokens.UserRepository, ModuleRef, PrismaService],
   },
   {
     provide: UserDITokens.EditUserUseCase,

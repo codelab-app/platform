@@ -1,12 +1,18 @@
+import { isLeft, isRight } from 'fp-ts/lib/Either'
 import { Email } from './email'
 
 describe('Email codec', () => {
-  it('validates email data', () => {
+  it('is right for valid email', () => {
     const email = 'admin@codelab.ai'
     const result = Email.decode(email)
 
-    console.log(result)
+    expect(isRight(result)).toBeTruthy()
+  })
 
-    expect(true).toBeTruthy()
+  it('is left for invalid email', () => {
+    const email = 'not-an-email'
+    const result = Email.decode(email)
+
+    expect(isLeft(result)).toBeTruthy()
   })
 })
