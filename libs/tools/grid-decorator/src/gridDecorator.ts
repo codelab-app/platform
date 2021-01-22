@@ -1,8 +1,13 @@
 import { ColProps } from 'antd/lib/col'
 
-interface GridDecoratorParams extends ColProps {
+export interface GridDecoratorParams extends ColProps {
   order?: number
 }
+
+export interface GridDecoratorDetails {
+  grid: [GridDecoratorParams]
+}
+
 export const grid = (params: GridDecoratorParams): any => {
   /**
    * empty decorator
