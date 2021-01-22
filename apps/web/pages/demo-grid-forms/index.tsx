@@ -4,7 +4,7 @@ import { Col, Row } from 'antd'
 import { ColProps } from 'antd/lib/col'
 import { JSONSchema7 } from 'json-schema'
 import React from 'react'
-import { DemoGridFormInputSchema } from '@codelab/modules/demo-grid-form'
+import { DemoGridFormInputSchema } from '../../../../libs/modules/demo-grid-form/src/useCases/DemoGridForm/DemoGridFormInput.generated'
 
 const Form = withTheme(AntDTheme)
 
@@ -37,11 +37,6 @@ const GridFormsExamplePage = () => {
   }
 
   const ObjectFieldTemplate = (props: ObjectFieldTemplateProps) => {
-    // split fields into grouped fields and others
-    // sort grouped fields
-    // render grouped fieds as grid
-    // render all others fields
-
     const propertiesWithGridDetails = props.properties.map((p: any) => ({
       ...p,
       _grid: extractGridDetailsFromPropertiesSchema(p),
