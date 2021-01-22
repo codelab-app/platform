@@ -48,8 +48,6 @@ describe('User', () => {
       email: 'admin@codelab.ai',
     }
 
-    const dto = User.dto(data)
-
-    expect(() => User.create(data)).not.toThrowError()
+    expect(() => User.dto(data)).not.toThrowError()
   })
 })
