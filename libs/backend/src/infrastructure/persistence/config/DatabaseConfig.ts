@@ -28,4 +28,6 @@ export class DatabaseConfig {
   )
     .default(0)
     .asBool()
+
+  public static readonly PRISMA_DATABASE_URL = get('PRISMA_DATABASE_URL')
 }

@@ -5,45 +5,57 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import { APP_LIST_PAGE, PAGE_LIST_PAGE } from '@codelab/frontend'
 
-export const DashboardMenuSidebar = () => {
+const MenuItemApps = (props: any) => (
+  <Menu.Item
+    {...props}
+    key="1"
+    icon={
+      <Link href={APP_LIST_PAGE.url}>
+        <AppstoreOutlined />
+      </Link>
+    }
+  >
+    Apps
+  </Menu.Item>
+)
+
+const MenuItemPages = (props: any) => {
   const router = useRouter()
 
   return (
+    <Menu.Item
+      {...props}
+      key="2"
+      icon={
+        <Link
+          href={{
+            pathname: PAGE_LIST_PAGE.url,
+            query: { appId: router.query.appId },
+          }}
+        >
+          <CopyOutlined />
+        </Link>
+      }
+    >
+      Pages
+    </Menu.Item>
+  )
+}
+
+// const MaybeMenuItemApps
+
+export const DashboardMenuSidebar = () => {
+  return (
     <Menu
       mode="inline"
-      inlineCollapsed
+      // inlineCollapsed
       // activeKey="1"
       // openKeys={openKeys}
       // onOpenChange={onOpenChange}
       style={{ height: '100%' }}
     >
-      <Menu.Item
-        key="1"
-        icon={
-          <Link href={APP_LIST_PAGE.url}>
-            <AppstoreOutlined />
-          </Link>
-        }
-        // style={disableSidebarMenuHoverEffects}
-      >
-        Apps
-      </Menu.Item>
-      <Menu.Item
-        key="2"
-        icon={
-          <Link
-            href={{
-              pathname: PAGE_LIST_PAGE.url,
-              query: { appId: router.query.appId },
-            }}
-          >
-            <CopyOutlined />
-          </Link>
-        }
-        // style={disableSidebarMenuHoverEffects}
-      >
-        Pages
-      </Menu.Item>
+      <MenuItemApps />
+      <MenuItemPages />
     </Menu>
   )
 }

@@ -28,11 +28,18 @@ export interface SharedPageProps {
   router: NextRouter
 }
 
-const LayoutFactory: React.FunctionComponent<WithRouterProps> = R.cond<
-  any,
-  React.ReactElement<WithRouterProps, any> | null
->([
+type PropsMapping = (props: any) => any
+
+// TODO: remove any type
+const mapProps: any = R.curry(
+  (mapping: PropsMapping, C: React.FunctionComponent) => R.compose(C, mapping),
+)
+
+const withoutSidebar = (props: any) => ({ ...props, sidebar: { hide: true } })
+
+const LayoutFactory: React.FunctionComponent<WithRouterProps> = R.cond([
   [isPage(PageType.Home), HomeLayout],
+  [isPage(PageType.AppList), mapProps(withoutSidebar)(DashboardLayout)],
   [R.T, DashboardLayout],
 ])
 

@@ -1,6 +1,7 @@
 import { Module, Provider } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { GraphqlModule } from '../../infrastructure/graphql/GraphqlModule'
+import { PrismaGlobalModule } from '../../infrastructure/persistence/prisma/PrismaGlobalModule'
 import { DatabaseModule } from '../../infrastructure/persistence/typeorm/DatabaseModule'
 import { TypeOrmApp } from '../../infrastructure/persistence/typeorm/entity/TypeOrmApp'
 import { TypeOrmEdge } from '../../infrastructure/persistence/typeorm/entity/TypeOrmEdge'
@@ -13,6 +14,7 @@ const providers: Array<Provider> = []
 
 @Module({
   imports: [
+    PrismaGlobalModule,
     DatabaseModule,
     GraphqlModule,
     TypeOrmModule.forFeature([

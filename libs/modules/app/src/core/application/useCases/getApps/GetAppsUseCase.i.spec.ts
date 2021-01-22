@@ -1,37 +1,39 @@
 import { INestApplication } from '@nestjs/common'
 import { Test } from '@nestjs/testing'
+import { print } from 'graphql'
 import request from 'supertest'
 import { Connection } from 'typeorm'
-import { RegisterUserInput } from '../../../../../../user/src/core/application/useCases/registerUser/RegisterUserInput'
-import { CreateAppInput } from '../createApp/CreateAppInput'
+import { GetAppsGql } from '../../../../../../app-stories/src/useCases/getApps/GetAppsInput.generated'
+import { RegisterUserGql } from '../../../../../../user/src/core/application/useCases/registerUser/RegisterUser.generated'
+import { CreateAppGql } from '../createApp/CreateApp.generated'
 import { TestInfrastructureModule } from '@codelab/backend'
 import { AppModule } from '@codelab/modules/app'
 import { UserDto, UserModule } from '@codelab/modules/user'
 
-export const registerUserMutation = (registerUserInput: RegisterUserInput) => `
-  mutation {
-    registerUser(input: {
-      email: "${registerUserInput.email}",
-      password: "${registerUserInput.password}"
-    }) {
-      email
-      accessToken
-    }
-  }`
+// export const registerUserMutation = (registerUserInput: RegisterUserInput) => `
+//   mutation {
+//     registerUser(input: {
+//       email: "${registerUserInput.email}",
+//       password: "${registerUserInput.password}"
+//     }) {
+//       email
+//       accessToken
+//     }
+//   }`
 
-const createAppMutation = (createAppInput: CreateAppInput) => `
-  mutation {
-    createApp(input: {
-      title: "${createAppInput.title}",
-    }) {
-      title
-    }
-  }`
+// const createAppMutation = (createAppInput: CreateAppInput) => `
+//   mutation {
+//     createApp(input: {
+//       title: "${createAppInput.title}",
+//     }) {
+//       title
+//     }
+//   }`
 
 const email = 'test_user@codelab.ai'
 const password = 'password'
 
-describe.skip('GetAppsUseCase', () => {
+describe('GetAppsUseCase', () => {
   let app: INestApplication
   let connection: Connection
   let user: UserDto
@@ -50,7 +52,13 @@ describe.skip('GetAppsUseCase', () => {
     user = await request(app.getHttpServer())
       .post('/graphql')
       .send({
-        query: registerUserMutation({ email, password }),
+        query: print(RegisterUserGql),
+        variables: {
+          input: {
+            email,
+            password,
+          },
+        },
       })
       .then((res) => res.body.data.registerUser)
   })
@@ -67,7 +75,12 @@ describe.skip('GetAppsUseCase', () => {
       .post('/graphql')
       .set('authorization', `Bearer ${user.accessToken}` ?? '')
       .send({
-        query: createAppMutation({ title: app1 }),
+        query: print(CreateAppGql),
+        variables: {
+          input: {
+            title: app1,
+          },
+        },
       })
       .expect(200)
       .expect((res) => {
@@ -78,7 +91,12 @@ describe.skip('GetAppsUseCase', () => {
       .post('/graphql')
       .set('authorization', `Bearer ${user.accessToken}` ?? '')
       .send({
-        query: createAppMutation({ title: app2 }),
+        query: print(CreateAppGql),
+        variables: {
+          input: {
+            title: app2,
+          },
+        },
       })
       .expect(200)
       .expect((res) => {
@@ -93,7 +111,7 @@ describe.skip('GetAppsUseCase', () => {
       .post('/graphql')
       .set('authorization', `Bearer ${user.accessToken}` ?? '')
       .send({
-        query: getAppsQuery,
+        query: print(GetAppsGql),
       })
       .expect(200)
       .expect((res) => {

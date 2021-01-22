@@ -165,6 +165,9 @@
     },
     "tools-generators-graphql": {
       "tags": []
+    },
+    "modules-page-stories": {
+      "tags": []
     }
   }
 }
