@@ -15,8 +15,8 @@ export const getErrors = <A>(v: t.Validation<A>): Array<string> => {
          * Seems to be extra work!
          */
         return errors.map((error) => {
-          console.log(error)
-
+          // console.log(error)
+          //   return error.message as string
           return error.context.map(({ key }) => key).join('.')
         })
       },
