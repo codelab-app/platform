@@ -1,12 +1,13 @@
+import Router from 'next/router'
 import { Machine, assign, sendParent } from 'xstate'
-import { clearAuthToken } from '../../../../frontend/src/infrastructure/auth/authTokenStorage'
-import { getMeServices } from '../useCases/getMe'
+import { getMeServices } from '../useCases/getMe/GetMeServices'
 import { loginUserState } from '../useCases/loginUser'
 import { loginUserServices } from '../useCases/loginUser/LoginUserServices'
 import {
   registerUserService,
   registerUserState,
 } from '../useCases/registerUser'
+import { clearAuthToken } from '@codelab/frontend'
 
 export const createUserMachine = () => {
   const services = {
@@ -66,6 +67,10 @@ export const createUserMachine = () => {
         authenticated: {
           initial: 'idle',
           id: 'authenticated',
+          entry: () => {
+            // Redirect to /apps on login
+            Router.push('/apps')
+          },
           states: {
             idle: {
               on: {
