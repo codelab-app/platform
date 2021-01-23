@@ -9,6 +9,7 @@
     "graphql.vscode-graphql",
     "dbaeumer.vscode-eslint",
     "mikestead.dotenv",
-    "firsttris.vscode-jest-runner"
+    "firsttris.vscode-jest-runner",
+    "prisma.prisma"
   ]
 }
