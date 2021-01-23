@@ -9,10 +9,15 @@ import {
 } from '@apollo/client'
 import { NextPage } from 'next'
 import React from 'react'
+import { isServer } from '../../../config'
 import { combinedLink } from './links/combinedLink'
 
+export interface ApolloContext {
+  authToken?: string
+}
+
 export const getApolloClient = (
-  ctx?: any,
+  ctx?: ApolloContext | null,
   initialState?: NormalizedCacheObject,
 ) => {
   const cache = new InMemoryCache().restore(initialState || {})
@@ -20,13 +25,19 @@ export const getApolloClient = (
   return new ApolloClient({
     link: combinedLink,
     cache,
+    ssrMode: isServer, // Disables forceFetch on the server (so queries are only run once)
   })
 }
 
-export const withApollo = (Comp: NextPage) => (props: any) => {
+export const withApollo = (Comp: NextPage<any, any>) => ({
+  apolloState,
+  ...pageProps
+}: {
+  apolloState?: any
+}) => {
   return (
-    <ApolloProvider client={getApolloClient(null, props?.apolloState)}>
-      <Comp />
+    <ApolloProvider client={getApolloClient(null, apolloState)}>
+      <Comp {...pageProps} />
     </ApolloProvider>
   )
 }

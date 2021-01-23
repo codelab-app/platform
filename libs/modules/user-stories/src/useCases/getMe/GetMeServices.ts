@@ -1,8 +1,10 @@
 import { ServiceConfig } from 'xstate/lib/types'
-import { GetMeGql } from './GetMeRequest'
+import {
+  GetMeDocument,
+  GetMeQuery,
+} from '../../../../../../apps/web/src/apollo/types.generated'
 import { query } from '@codelab/alpha/shared/utils'
-import { getApolloClient } from '@codelab/frontend'
-import { getAuthTokenFromLocalStorage } from '@codelab/modules/user-stories'
+import { getApolloClient, getAuthToken } from '@codelab/frontend'
 
 const delayPromise = (duration: number) =>
   new Promise((resolve, reject) => {
@@ -11,7 +13,7 @@ const delayPromise = (duration: number) =>
 
 export const getMeServices: Record<string, ServiceConfig<any, any>> = {
   executeGetMe: async (context, event) => {
-    const token = getAuthTokenFromLocalStorage()
+    const token = getAuthToken()
 
     await delayPromise(2000)
 
@@ -19,8 +21,8 @@ export const getMeServices: Record<string, ServiceConfig<any, any>> = {
       throw new Error('User not authenticated!')
     }
 
-    const { data } = await query(getApolloClient(), {
-      query: GetMeGql,
+    const { data } = await query<GetMeQuery>(getApolloClient(), {
+      query: GetMeDocument,
     })
 
     return data

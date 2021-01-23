@@ -1,12 +1,13 @@
+import Router from 'next/router'
 import { Machine, assign, sendParent } from 'xstate'
-import { getMeServices } from '../useCases/getMe'
+import { getMeServices } from '../useCases/getMe/GetMeServices'
 import { loginUserState } from '../useCases/loginUser'
 import { loginUserServices } from '../useCases/loginUser/LoginUserServices'
 import {
   registerUserService,
   registerUserState,
 } from '../useCases/registerUser'
-import { clearAuthTokenInLocalStorage } from './userLocalStorage'
+import { clearAuthToken } from '@codelab/frontend'
 
 export const createUserMachine = () => {
   const services = {
@@ -39,7 +40,7 @@ export const createUserMachine = () => {
                 assign({
                   userData: undefined,
                 }),
-                () => clearAuthTokenInLocalStorage(),
+                () => clearAuthToken(),
               ],
             },
           },
@@ -66,6 +67,10 @@ export const createUserMachine = () => {
         authenticated: {
           initial: 'idle',
           id: 'authenticated',
+          entry: () => {
+            // Redirect to /apps on login
+            Router.push('/apps')
+          },
           states: {
             idle: {
               on: {
@@ -75,7 +80,7 @@ export const createUserMachine = () => {
                     assign({
                       userData: undefined,
                     }),
-                    () => clearAuthTokenInLocalStorage(),
+                    () => clearAuthToken(),
                     sendParent({
                       type: 'NOTIFY',
                       title: 'You have been signed out',
