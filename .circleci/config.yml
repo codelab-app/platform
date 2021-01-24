@@ -91,14 +91,6 @@ executors:
       - image: payfit/argocd-cli:latest
     resource_class: small
 commands:
-  argo-env:
-    description: 'import argocd env'
-    steps:
-      - run:
-          command: |
-            export ARGOCD_SERVER=${ARGOCD_SERVER}
-            export ARGOCD_AUTH_TOKEN=${ARGOCD_AUTH_TOKEN}
-
   setup-env:
     description: 'Setup env'
     steps:
@@ -323,7 +315,7 @@ jobs:
   argocd-sync-staging:
     <<: *executor-params
     steps:
-      - argo-env
+      - setup-workspace
       - argo-sync/sync:
           argoApplication: $ARGOCD_STAGING_APP_NAME
           authToken: $ARGOCD_TOKEN
@@ -332,7 +324,7 @@ jobs:
   argocd-sync-prod:
     <<: *executor-params
     steps:
-      - argo-env
+      - setup-workspace
       - argo-sync/sync:
           argoApplication: $ARGOCD_PROD_APP_NAME
           authToken: $ARGOCD_TOKEN
@@ -387,7 +379,6 @@ workflows:
           <<: *filters-staging
       - build-and-push-docker-image:
           <<: *filters-staging
-          context: credentials-docker
           requires:
             - install-and-build-workspace
 
