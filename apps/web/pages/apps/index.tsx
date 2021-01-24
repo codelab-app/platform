@@ -8,7 +8,10 @@ import {
   withAuthGuardServerSideProps,
 } from '@codelab/frontend'
 import { CreateAppButton, GetAppsList } from '@codelab/modules/app-stories'
-import { useUserMachine } from '@codelab/modules/user-stories'
+import {
+  SignOutUserButton,
+  useUserMachine,
+} from '@codelab/modules/user-stories'
 
 const Loading = R.always('Loading...')
 
@@ -27,13 +30,18 @@ const AppsPage = () => {
     return <Spin />
   }
 
+  const pageHeaderButtons = [
+    <CreateAppButton key={1} />,
+    <SignOutUserButton key={2} />,
+  ]
+
   return (
     <>
       <PageHeader
         ghost={false}
         // onBack={() => router.back()}
         title="Apps"
-        extra={[<CreateAppButton key={1} />]}
+        extra={pageHeaderButtons}
       />
       <section style={{ marginTop: padding.sm }}>
         <GetAppsList />
