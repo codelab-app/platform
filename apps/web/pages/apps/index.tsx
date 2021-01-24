@@ -27,7 +27,19 @@ const AppsPage = () => {
   const user = useUserMachine()
 
   if (user.state.matches('initialCheck')) {
-    return <Spin />
+    return (
+      <div
+        style={{
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <Spin />
+      </div>
+    )
   }
 
   const pageHeaderButtons = [
