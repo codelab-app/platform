@@ -327,7 +327,10 @@ jobs:
   argocd-sync-prod:
     <<: *executor-params
     steps:
-      - setup-workspace
+      - checkout
+      - attach_workspace:
+          at: ..
+      - run: source ~/.env
       - argo-sync/sync:
           argoApplication: $ARGOCD_PROD_APP_NAME
           authToken: $ARGOCD_TOKEN
@@ -394,6 +397,7 @@ workflows:
           e: argo-cli
           requires:
             - build-and-push-docker-image
+            - setup-vault-env
       - notify-success:
           <<: *filters-staging
           requires:
