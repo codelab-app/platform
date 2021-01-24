@@ -375,18 +375,22 @@ workflows:
   app-staging:
     <<: *filters-master-branch-only
     jobs:
+      - setup-vault-env:
+          <<: *filters-dev
+          e: vault-img
       - install-and-build-workspace:
           <<: *filters-staging
+          requires:
+            - setup-vault-env
       - build-and-push-docker-image:
           <<: *filters-staging
           requires:
             - install-and-build-workspace
-
       - argocd-sync-prod:
           <<: *filters-staging
           e: argo-cli
           requires:
-            - install-and-build-workspace
+            - build-and-push-docker-image
       - notify-success:
           <<: *filters-staging
           requires:
