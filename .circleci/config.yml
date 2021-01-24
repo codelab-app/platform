@@ -296,9 +296,12 @@ jobs:
       - run:
           name: 'Build Docker image'
           command: yarn docker:build codelab
+
       - run:
           name: 'Docker login'
-          command: echo "${DOCKER_PASS}" | docker login --username "${DOCKER_USER}" --password-stdin
+          command: |
+            source .env
+            echo "${DOCKER_PASS}" | docker login --username "${DOCKER_USER}" --password-stdin
       - run:
           name: 'Push Docker image'
           command: yarn docker-push codelab
