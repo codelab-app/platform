@@ -396,69 +396,6 @@
         }
       }
     },
-    "alpha-core-model": {
-      "root": "libs/alpha/core/model",
-      "sourceRoot": "libs/alpha/core/model/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/alpha/core/model/**/*.js",
-              "libs/alpha/core/model/**/*.jsx",
-              "libs/alpha/core/model/**/*.ts",
-              "libs/alpha/core/model/**/*.tsx",
-              "libs/alpha/core/model/**/*.spec.ts",
-              "libs/alpha/core/model/**/*.spec.tsx",
-              "libs/alpha/core/model/**/*.spec.js",
-              "libs/alpha/core/model/**/*.spec.jsx",
-              "libs/alpha/core/model/**/*.d.ts"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/alpha/core/model/jest.config.js",
-            "passWithNoTests": true
-          },
-          "outputs": ["coverage/libs/alpha/core/model"]
-        },
-        "storybook": {
-          "builder": "@nrwl/storybook:storybook",
-          "options": {
-            "uiFramework": "@storybook/react",
-            "port": 4400,
-            "config": {
-              "configFolder": "libs/alpha/core/model/.storybook"
-            }
-          },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          }
-        },
-        "build-storybook": {
-          "builder": "@nrwl/storybook:build",
-          "options": {
-            "uiFramework": "@storybook/react",
-            "outputPath": "dist/storybook/json-schema-to-mongoose",
-            "config": {
-              "configFolder": "libs/alpha/core/model/.storybook"
-            }
-          },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          },
-          "outputs": ["{options.outputPath}"]
-        }
-      }
-    },
     "alpha-core-node": {
       "root": "libs/alpha/core/node",
       "sourceRoot": "libs/alpha/core/node/src",

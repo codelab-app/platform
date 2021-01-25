@@ -20,7 +20,8 @@ export class PrismaService
    * No way to replace url `schema.prisma`, so we override env here
    */
   resetDb() {
-    const resetDbCmd = 'npx prisma migrate reset --preview-feature -f'
+    const resetDbCmd =
+      'npx prisma migrate reset --preview-feature -f --skip-generate'
 
     process.env.PRISMA_DATABASE_URL = testDatabaseConfig.PRISMA_DATABASE_URL
 

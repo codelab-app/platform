@@ -1,9 +1,7 @@
 import { INestApplication } from '@nestjs/common'
-import { Test } from '@nestjs/testing'
 import request from 'supertest'
-import { Connection } from 'typeorm'
 import { CreateGraphInput } from './CreateGraphInput'
-import { TestInfrastructureModule } from '@codelab/backend'
+import { setupTestModule, teardownTestModule } from '@codelab/backend'
 import { GraphModule } from '@codelab/modules/graph'
 
 const createGraphMutation = ({ label }: CreateGraphInput) => `
@@ -18,21 +16,13 @@ const createGraphMutation = ({ label }: CreateGraphInput) => `
 
 describe.skip('CreateGraphUseCase', () => {
   let app: INestApplication
-  let connection: Connection
 
   beforeAll(async () => {
-    const testModule = await Test.createTestingModule({
-      imports: [TestInfrastructureModule, GraphModule],
-    }).compile()
-
-    app = testModule.createNestApplication()
-    connection = app.get(Connection)
-    await connection.synchronize(true)
-    await app.init()
+    await setupTestModule(app, GraphModule)
   })
 
   afterAll(async () => {
-    await app.close()
+    await teardownTestModule(app)
   })
 
   it('should create graph with a label', async () => {

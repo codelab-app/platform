@@ -1,32 +1,28 @@
 import { INestApplication } from '@nestjs/common'
-import { Test } from '@nestjs/testing'
 import request from 'supertest'
-import { Connection } from 'typeorm'
-import { TestInfrastructureModule } from '@codelab/backend'
+import {
+  PrismaDITokens,
+  PrismaService,
+  setupTestModule,
+  teardownTestModule,
+} from '@codelab/backend'
 import { GraphModule } from '@codelab/modules/graph'
 
 describe.skip('AddChildNodeUseCase', () => {
   let app: INestApplication
-  let connection: Connection
+  let prismaService: PrismaService
 
   beforeAll(async () => {
-    const testModule = await Test.createTestingModule({
-      imports: [TestInfrastructureModule, GraphModule],
-    }).compile()
-
-    app = testModule.createNestApplication()
-    connection = app.get(Connection)
-    await app.init()
+    app = await setupTestModule(app, GraphModule)
+    prismaService = app.get(PrismaDITokens.PrismaService)
   })
 
   afterAll(async () => {
-    await connection.synchronize(true)
-
-    await app.close()
+    await teardownTestModule(app)
   })
 
-  beforeEach(async () => {
-    await connection.synchronize(true)
+  beforeEach(() => {
+    prismaService.resetDb()
   })
 
   it('should create vertex under graph', async () => {
