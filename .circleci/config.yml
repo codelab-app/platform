@@ -56,8 +56,6 @@ executor-config: &executor-config
     COLOR_FAILURE: '#ffccc7'
     NODE_OPTIONS: --max_old_space_size=16384
     NODE_ENV: production
-    ARGOCD_STAGING_APP_NAME: codelab
-    ARGOCD_PROD_APP_NAME: codelab-prod
   working_directory: ~/app
 
 version: 2.1
@@ -66,7 +64,6 @@ orbs:
   slack: circleci/slack@3.4.2
   cypress: cypress-io/cypress@1.26.0
   node: circleci/node@4.1.0
-  argo-sync: payfit/argo-sync@0.15.0
 
 executors:
   machine-ubuntu:
@@ -84,11 +81,6 @@ executors:
     <<: *executor-config
     docker:
       - image: joatmon08/circleci-gcp-agent:287.0-1.14.72
-    resource_class: small
-  argo-cli:
-    <<: *executor-config
-    docker:
-      - image: payfit/argocd-cli:latest
     resource_class: small
 commands:
   setup-env:
@@ -315,27 +307,6 @@ jobs:
           channel: $SLACK_CHANNEL_UPDATE
           mentions: $SLACK_USER
 
-  argocd-sync-staging:
-    <<: *executor-params
-    steps:
-      - setup-workspace
-      - argo-sync/sync:
-          argoApplication: $ARGOCD_STAGING_APP_NAME
-          authToken: $ARGOCD_TOKEN
-          prune: "true"
-
-  argocd-sync-prod:
-    <<: *executor-params
-    steps:
-      - checkout
-      - attach_workspace:
-          at: ..
-      - run: source ~/.env
-      - argo-sync/sync:
-          argoApplication: $ARGOCD_PROD_APP_NAME
-          authToken: $ARGOCD_TOKEN
-          prune: "true"
-
 workflows:
   app-dev:
     jobs:
@@ -392,13 +363,7 @@ workflows:
           <<: *filters-staging
           requires:
             - install-and-build-workspace
-      - argocd-sync-prod:
-          <<: *filters-staging
-          e: argo-cli
-          requires:
-            - build-and-push-docker-image
-            - setup-vault-env
       - notify-success:
           <<: *filters-staging
           requires:
-            - argocd-sync-prod
+            - build-and-push-docker-image
