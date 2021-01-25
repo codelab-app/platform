@@ -1,4 +1,3 @@
-# Javascript Node CircleCI 2.0 configuration file
 #
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 #
@@ -39,7 +38,8 @@ executor-params: &executor-params
 
 executor-config: &executor-config
   environment:
-    DOCKER_TAG_VERSION: << pipeline.git.tag >>
+    # DOCKER_TAG_VERSION: <<pipeline.git.tag>>
+    DOCKER_TAG_VERSION: 0.2
     API_PORT_GRAPH: 4004
     # CircleCI
     GITHUB_LUAN: nutshell113
@@ -297,7 +297,6 @@ jobs:
       - run:
           name: 'Build Docker image'
           command: yarn docker:build codelab
-
       - run:
           name: 'Docker login'
           command: |
