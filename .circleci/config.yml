@@ -93,10 +93,16 @@ commands:
           name: 'Inject vault env to bash env'
           command: "cat ~/.env >> $BASH_ENV"
       - run:
+          name: 'Install NVM'
+          command: |
+            # Set path before install, otherwise paths will be different in the executors
+            echo 'export NODE_OPTIONS=$NODE_OPTIONS' >> $BASH_ENV
+            source $BASH_ENV
+            wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+      - run:
           name: 'Setup env'
           command: |
             # node settings
-            echo 'export NODE_OPTIONS=$NODE_OPTIONS' >> $BASH_ENV
             echo 'export NVM_DIR=$HOME/.nvm' >> $BASH_ENV
             echo 'source $NVM_DIR/nvm.sh' >> $BASH_ENV
 
@@ -115,13 +121,9 @@ commands:
             else
               echo 'export SLACK_USER=${SLACK_WEBBER}' >> $BASH_ENV
             fi
+
             # finally import bash env
             source $BASH_ENV
-      - run:
-          name: 'Install NVM'
-          command: |
-            # Set path before install, otherwise paths will be different in the executors
-            wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
       - run:
           name: 'Set node version'
           command: |
