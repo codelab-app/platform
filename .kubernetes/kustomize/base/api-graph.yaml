@@ -19,7 +19,7 @@ spec:
       containers:
         - name: api-graph
           imagePullPolicy: Always
-          image: codelabai/codelab:0.02
+          image: codelabai/codelab:latest
           ports:
             - name: http
               containerPort: 4004

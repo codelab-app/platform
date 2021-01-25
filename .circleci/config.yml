@@ -297,6 +297,11 @@ jobs:
       - run:
           name: 'Push Docker image'
           command: yarn docker:push codelab
+      - run:
+          name: 'Overwrite latest tag'
+          command: |
+            docker tag codelab:$DOCKER_TAG_VERSION} codelab:latest
+            docker push codelab:latest
 
   notify-failure:
     <<: *executor-params
