@@ -314,6 +314,8 @@ workflows:
       - install-and-build-workspace:
           <<: *filters-dev
           e: docker-node
+          requires:
+            - setup-vault-env
       - lint:
           <<: *filters-dev
           e: docker-node
@@ -350,8 +352,13 @@ workflows:
   app-staging:
     <<: *filters-master-branch-only
     jobs:
+      - setup-vault-env:
+          <<: *filters-dev
+          e: vault-img
       - install-and-build-workspace:
           <<: *filters-staging
+          requires:
+            - setup-vault-env
       - build-and-push-docker-image:
           <<: *filters-staging
           context: credentials-docker
