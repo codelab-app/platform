@@ -28,7 +28,7 @@ filters-staging: &filters-staging
 filters-master-branch-only: &filters-master-branch-only
   when:
     and:
-      - equal: [ staging-ci, <<pipeline.git.branch >> ]
+      - equal: [ staging-ci, <<pipeline.git.branch>> ]
 
 executor-params: &executor-params
   parameters:
