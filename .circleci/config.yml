@@ -87,36 +87,23 @@ commands:
   setup-env:
     description: 'Setup env'
     steps:
+      - attach_workspace:
+          at: ..
       - run:
-          name: 'Setup node options'
+          name: 'Inject vault env to bash env'
+          command: "cat ~/.env >> $BASH_ENV"
+      - run:
+          name: 'Setup env'
           command: |
-            echo $BASH_ENV
+            # node settings
             echo 'export NODE_OPTIONS=$NODE_OPTIONS' >> $BASH_ENV
-            source $BASH_ENV
-            echo $NODE_OPTIONS
-      - run:
-          name: 'Install NVM'
-          command: |
-            # Set path before install, otherwise paths will be different in the executors
             echo 'export NVM_DIR=$HOME/.nvm' >> $BASH_ENV
             echo 'source $NVM_DIR/nvm.sh' >> $BASH_ENV
-            wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
-      - run:
-          name: 'Set node version'
-          command: |
-            nvm install 14.13.0
-            nvm alias default 14.13.0
-            node -v
-      - run:
-          name: 'Setup GIT_COMMIT_MSG'
-          command: |
+
+            # git settings
             echo 'export GIT_COMMIT_MSG=$(git log --format="format:%s" -n 1 ${CIRCLE_SHA1})' >> $BASH_ENV
-            source $BASH_ENV
-            echo $GIT_COMMIT_MSG
-      - run:
-          # Github user who triggered Circle is the slack mention user
-          name: 'Setup SLACK_USER'
-          command: |
+
+            # slack settings
             if [ $CIRCLE_USERNAME == $GITHUB_ANTON ]; then
               echo 'export SLACK_USER=${SLACK_ANTON}' >> $BASH_ENV
             elif [ $CIRCLE_USERNAME == $GITHUB_LUAN ]; then
@@ -128,17 +115,24 @@ commands:
             else
               echo 'export SLACK_USER=${SLACK_WEBBER}' >> $BASH_ENV
             fi
+            # finally import bash env
             source $BASH_ENV
-            echo $SLACK_USER
-
+      - run:
+          name: 'Install NVM'
+          command: |
+            # Set path before install, otherwise paths will be different in the executors
+            wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+      - run:
+          name: 'Set node version'
+          command: |
+            nvm install 14.13.0
+            nvm alias default 14.13.0
+            node -v
   setup-workspace:
     description: 'Setup workspace'
     steps:
       - checkout
       - setup-env
-      - attach_workspace:
-          at: ..
-      - run: cp ~/.env .
 
   yarn-install-dev:
     steps:
@@ -150,9 +144,7 @@ commands:
             - dep-cache-dev-
       - run:
           name: 'Install NPM packages'
-          command: |
-            source .env
-            yarn install --frozen-lockfile --prod=false
+          command: "yarn install --frozen-lockfile --prod=false"
       - run:
           name: 'List Cypress cache'
           command: npx cypress cache path
@@ -223,9 +215,7 @@ jobs:
           command: make build-ci
       - run:
           name: 'Yarn link workspace'
-          command: |
-            source .env
-            yarn install --frozen-lockfile --prod=false
+          command: "yarn install --frozen-lockfile --prod=false"
       - persist_to_workspace:
           root: ..
           paths:
@@ -248,9 +238,7 @@ jobs:
     <<: *executor-params
     steps:
       - setup-workspace
-      - run: |
-          source .env
-          make unit-ci
+      - run: make unit-ci
       - notify-failure
 
   integration:
@@ -356,7 +344,7 @@ workflows:
     <<: *filters-master-branch-only
     jobs:
       - setup-vault-env:
-          <<: *filters-dev
+          <<: *filters-staging
           e: vault-img
       - install-and-build-workspace:
           <<: *filters-staging
