@@ -379,7 +379,7 @@ workflows:
     <<: *filters-master-branch-only
     jobs:
       - setup-vault-env:
-          <<: *filters-dev
+          <<: *filters-staging
           e: vault-img
       - install-and-build-workspace:
           <<: *filters-staging
