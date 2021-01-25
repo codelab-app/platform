@@ -74,17 +74,24 @@ export const createUserMachine = () => {
           states: {
             idle: {
               on: {
+                // We don't need a service, since the server is stateless and is not concerned with logging out
+                // Just clear the authToken, clear the userData context and we're done
                 SIGN_OUT: {
                   target: '#guest',
                   actions: [
+                    // Clear the user data from context
                     assign({
                       userData: undefined,
                     }),
+                    // Clear the auth token, so that we won't send it anymore with requests
                     () => clearAuthToken(),
+                    // Notify the user that the operation was succesfull
                     sendParent({
                       type: 'NOTIFY',
                       title: 'You have been signed out',
                     }),
+                    // Redirect to home page
+                    () => Router.push('/'),
                   ],
                 },
               },

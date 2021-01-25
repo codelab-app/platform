@@ -1,5 +1,5 @@
 import Cookie from 'js-cookie'
-import { isServer } from '@codelab/frontend'
+import { isServer } from '../../config/env'
 
 export const AUTH_TOKEN_COOKIE = 'AUTH_JWT'
 
