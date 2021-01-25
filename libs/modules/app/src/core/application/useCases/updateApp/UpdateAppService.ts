@@ -1,8 +1,6 @@
 import { option } from 'fp-ts'
 import { left, right } from 'fp-ts/Either'
-import { Option } from 'fp-ts/Option'
 import { AppRepositoryPort } from '../../../adapters/AppRepositoryPort'
-import { App } from '../../../domain/app'
 import { UpdateAppErrors } from './UpdateAppErrors'
 import { UpdateAppRequest } from './UpdateAppRequest'
 import { UpdateAppResponse } from './UpdateAppResponse'
@@ -17,18 +15,18 @@ export class UpdateAppService implements UpdateAppUseCase {
     id,
     ...appData
   }: UpdateAppRequest): Promise<UpdateAppResponse> {
-    const existingApp: Option<App> = await this.appRepository.findOne(
+    const existingApps = await this.appRepository.findMany(
       {
-        appId: id,
+        id,
       },
       user.id,
     )
 
-    if (option.isNone(existingApp)) {
+    if (existingApps.length === 0) {
       return left(new UpdateAppErrors.AppNotFoundError(id))
     }
 
-    const result = await this.appRepository.update({ appId: id }, appData)
+    const result = await this.appRepository.update({ id }, appData)
 
     if (option.isNone(result)) {
       return left(new AppError('Error while updating app'))

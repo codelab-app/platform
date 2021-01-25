@@ -2,8 +2,8 @@ import { left, right } from 'fp-ts/Either'
 import { Option, isNone } from 'fp-ts/Option'
 import { GraphRepositoryPort } from '../../../adapters/GraphRepositoryPort'
 import { VertexRepositoryPort } from '../../../adapters/VertexRepositoryPort'
-import { Graph } from '../../../domain/graph'
-import { Vertex } from '../../../domain/vertex'
+import { Graph } from '../../../domain/graph/graph'
+import { Vertex } from '../../../domain/vertex/vertex'
 import { UpdateNodeErrors } from './UpdateNodeErrors'
 import { UpdateNodeRequest } from './UpdateNodeRequest'
 import { UpdateNodeResponse } from './UpdateNodeResponse'
@@ -17,20 +17,23 @@ export class UpdateNodeService implements UpdateNodeUseCase {
   ) {}
 
   async execute(request: UpdateNodeRequest): Promise<UpdateNodeResponse> {
-    const { graphId, type } = request
-
-    const vertex = new Vertex(type)
+    const { vertexId, graphId, type } = request
 
     const updatedVertex: Option<Vertex> = await this.vertexRepository.update(
-      vertex,
+      {
+        id: vertexId,
+      },
+      {
+        type,
+      },
     )
 
     if (isNone(updatedVertex)) {
-      return left(new UpdateNodeErrors.VertexNotFound(type.id))
+      return left(new UpdateNodeErrors.VertexNotFound(vertexId))
     }
 
     const graphOpt: Option<Graph> = await this.graphRepository.findOne({
-      graphId,
+      id: graphId,
     })
 
     if (isNone(graphOpt)) {

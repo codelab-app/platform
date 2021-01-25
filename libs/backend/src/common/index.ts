@@ -1,4 +1,4 @@
 export * from './types'
-export * from './TransformBoth'
+export * from './utils'
 export * from './codec/email'
 export * from './codec/password'

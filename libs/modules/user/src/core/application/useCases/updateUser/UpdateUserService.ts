@@ -18,14 +18,14 @@ export class UpdateUserService implements UpdateUserUseCase {
     ...userData
   }: UpdateUserRequest): Promise<UpdateUserResponse> {
     const existingUser: Option<User> = await this.userRepository.findOne({
-      userId: id,
+      id,
     })
 
     if (option.isNone(existingUser)) {
       return left(new EditUserErrors.UserNotFoundError(id))
     }
 
-    const result = await this.userRepository.update({ userId: id }, userData)
+    const result = await this.userRepository.update({ id }, userData)
 
     if (option.isNone(result)) {
       return left(new AppError('App error'))

@@ -2,8 +2,7 @@ import { left, right } from 'fp-ts/Either'
 import { Option, isNone } from 'fp-ts/Option'
 import { EdgeRepositoryPort } from '../../../adapters/EdgeRepositoryPort'
 import { GraphRepositoryPort } from '../../../adapters/GraphRepositoryPort'
-import { Edge } from '../../../domain/edge'
-import { Graph } from '../../../domain/graph'
+import { Graph } from '../../../domain/graph/graph'
 import { UpdateNodeErrors } from '../updateNode/UpdateNodeErrors'
 import { MoveNodeRequest } from './MoveNodeRequest'
 import { MoveNodeResponse } from './MoveNodeResponse'
@@ -20,7 +19,7 @@ export class MoveNodeService implements MoveNodeUseCase {
     const { graphId, type } = request
 
     const graphOpt: Option<Graph> = await this.graphRepository.findOne({
-      graphId,
+      id: graphId,
     })
 
     if (isNone(graphOpt)) {
@@ -29,10 +28,10 @@ export class MoveNodeService implements MoveNodeUseCase {
 
     const graph: Graph = graphOpt.value
 
-    graph.moveVertex(type.source, type.target)
-    const edges: Array<Edge> = graph.getEdgesDomain()
+    // graph.moveVertex(type.source, type.target)
+    // const edges: Array<Edge> = graph.getEdgesDomain()
 
-    await this.edgeRepository.updateMany(edges)
+    // await this.edgeRepository.updateMany(edges)
 
     return right(Result.ok(graph))
   }

@@ -1,45 +1,47 @@
-import { Exclude, Type, plainToClass } from 'class-transformer'
-import { NOID } from '../../../../../backend/src/core/domain/valueObject/NOID'
-import { AppDto } from '../../../../app/src/core/application/useCases/AppDto'
-import { App } from '../../../../app/src/core/domain/app'
-import { PageDto } from '../../presentation/PageDto'
-import { PageCreatedEvent } from '../application/useCases/createPage/PageCreatedEvent'
-import { PageTitle } from './page-title'
-import {
-  AggregateRoot,
-  TransformBoth,
-  TypeOrmPage,
-  UUID,
-} from '@codelab/backend'
+import { plainToClass } from 'class-transformer'
+import { isLeft } from 'fp-ts/lib/Either'
+import { UUID } from 'io-ts-types'
+import { PathReporter } from 'io-ts/lib/PathReporter'
+import { PageDTO, PageEntity, PageVO } from './page.codec'
 
-export class Page<ID extends UUID | NOID = UUID> extends AggregateRoot<
-  PageDto,
-  ID
-> {
-  @Type(() => PageTitle)
-  @TransformBoth(PageTitle)
-  declare title: PageTitle
+export class Page implements PageEntity {
+  declare id: UUID
 
-  /* Without this crashes the app with TypeError
-   *  const { constructor } = Object.getPrototypeOf(event);
-   *  TypeError: Cannot convert undefined or null to object
-   *  from default-get-event-name.js at cqrs/dist/helpers
-   *  When using EventHandler to listen to an event, this object ends up with
-   *  a publish property which crashes NodeJS during classToPlain conversion
-   */
-  @Exclude()
-  publish: any
+  declare title: string
 
-  @Exclude()
-  declare appId: string
+  static dto(data: PageDTO) {
+    const result = PageDTO.decode(data)
 
-  createPage(app: App) {
-    this.apply(
-      new PageCreatedEvent(app.toPlain() as AppDto, this.toPlain() as PageDto),
-    )
+    if (isLeft(result)) {
+      const errorMessage = PathReporter.report(result).join(', ')
+
+      throw new Error(errorMessage)
+    }
+
+    return result.right
   }
 
-  toPersistence(): TypeOrmPage {
-    return plainToClass(TypeOrmPage, this.toPlain())
+  static create(data: PageDTO) {
+    const result = PageVO.decode(data)
+
+    if (isLeft(result)) {
+      const errorMessage = PathReporter.report(result).join(', ')
+
+      throw new Error(errorMessage)
+    }
+
+    return plainToClass(Page, result.right)
+  }
+
+  static hydrate(data: PageDTO) {
+    const result = PageEntity.decode(data)
+
+    if (isLeft(result)) {
+      const errorMessage = PathReporter.report(result).join(', ')
+
+      throw new Error(errorMessage)
+    }
+
+    return plainToClass(Page, result.right)
   }
 }

@@ -1,49 +1,46 @@
 import { Module, Provider } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
-import { Connection } from 'typeorm'
 import { AddChildNodeCommandHandler } from '../../core/application/handlers/AddChildNodeCommandHandler'
-import { AssignGraphToPageCommandHandler } from '../../core/application/handlers/AssignGraphToPageCommandHandler'
 import { CreateGraphCommandHandler } from '../../core/application/handlers/CreateGraphCommandHandler'
 import { DeleteNodeCommandHandler } from '../../core/application/handlers/DeleteNodeCommandHandler'
 import { GetGraphQueryHandler } from '../../core/application/handlers/GetGraphQueryHandler'
 import { MoveNodeCommandHandler } from '../../core/application/handlers/MoveNodeCommandHandler'
 import { UpdateNodeCommandHandler } from '../../core/application/handlers/UpdateNodeCommandHandler'
-import { GraphPageSaga } from '../../core/application/sagas/GraphPage.saga'
-import { GraphPageCreateErrorEventHandler } from '../../core/application/sagas/GraphPageCreateErrorEventHandler'
 import { AddChildNodeService } from '../../core/application/useCases/addChildNode/AddChildNodeService'
 import { CreateGraphService } from '../../core/application/useCases/createGraph/CreateGraphService'
 import { DeleteNodeService } from '../../core/application/useCases/deleteNode/DeleteNodeService'
 import { GetGraphService } from '../../core/application/useCases/getGraph/GetGraphService'
 import { MoveNodeService } from '../../core/application/useCases/moveNode/MoveNodeService'
 import { UpdateNodeService } from '../../core/application/useCases/updateNode/UpdateNodeService'
-import { TypeOrmEdgeRepositoryAdapter } from '../../infrastructure/persistence/TypeOrmEdgeRepositoryAdapter'
-import { TypeOrmGraphRepositoryAdapter } from '../../infrastructure/persistence/TypeOrmGraphRepositoryAdapter'
-import { TypeOrmVertexRepositoryAdapter } from '../../infrastructure/persistence/TypeOrmVertexRepositoryAdapter'
+import { PrismaEdgeRepositoryAdapter } from '../../infrastructure/persistence/PrismaEdgeRepositoryAdapter'
+import { PrismaGraphRepositoryAdapter } from '../../infrastructure/persistence/PrismaGraphRepositoryAdapter'
+import { PrismaVertexRepositoryAdapter } from '../../infrastructure/persistence/PrismaVertexRepositoryAdapter'
 import { GraphCommandQueryAdapter } from '../../presentation/controllers/GraphCommandQueryAdapter'
 import { EdgeDITokens } from '../EdgeDITokens'
 import { GraphDITokens } from '../GraphDITokens'
 import { VertexDITokens } from '../VertexDITokens'
 import { EdgeModule } from './EdgeModule'
 import { VertexModule } from './VertexModule'
+import { PrismaDITokens } from '@codelab/backend'
 
 export const persistenceProviders: Array<Provider> = [
   {
     provide: GraphDITokens.GraphRepository,
-    useFactory: (connection) =>
-      connection.getCustomRepository(TypeOrmGraphRepositoryAdapter),
-    inject: [Connection],
+    useFactory: (prismaService) =>
+      new PrismaGraphRepositoryAdapter(prismaService),
+    inject: [PrismaDITokens.PrismaService],
   },
   {
     provide: VertexDITokens.VertexRepository,
-    useFactory: (connection) =>
-      connection.getCustomRepository(TypeOrmVertexRepositoryAdapter),
-    inject: [Connection],
+    useFactory: (prismaService) =>
+      new PrismaVertexRepositoryAdapter(prismaService),
+    inject: [PrismaDITokens.PrismaService],
   },
   {
     provide: EdgeDITokens.EdgeRepository,
-    useFactory: (connection) =>
-      connection.getCustomRepository(TypeOrmEdgeRepositoryAdapter),
-    inject: [Connection],
+    useFactory: (prismaService) =>
+      new PrismaEdgeRepositoryAdapter(prismaService),
+    inject: [PrismaDITokens.PrismaService],
   },
   GraphCommandQueryAdapter,
 ]
@@ -98,7 +95,6 @@ const useCaseProviders: Array<Provider> = [
 ]
 
 export const handlerProviders: Array<Provider> = [
-  AssignGraphToPageCommandHandler,
   MoveNodeCommandHandler,
   DeleteNodeCommandHandler,
   GetGraphQueryHandler,
@@ -107,10 +103,7 @@ export const handlerProviders: Array<Provider> = [
   AddChildNodeCommandHandler,
 ]
 
-export const eventHandlersProviders: Array<Provider> = [
-  GraphPageSaga,
-  GraphPageCreateErrorEventHandler,
-]
+export const eventHandlersProviders: Array<Provider> = []
 
 @Module({
   imports: [CqrsModule, VertexModule, EdgeModule],

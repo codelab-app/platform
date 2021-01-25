@@ -3,13 +3,16 @@ import { Option, isNone } from 'fp-ts/Option'
 import { EdgeRepositoryPort } from '../../../adapters/EdgeRepositoryPort'
 import { GraphRepositoryPort } from '../../../adapters/GraphRepositoryPort'
 import { VertexRepositoryPort } from '../../../adapters/VertexRepositoryPort'
-import { Vertex } from '../../../domain/vertex'
+import { Vertex } from '../../../domain/vertex/vertex'
 import { DeleteNodeErrors } from './DeleteNodeErrors'
 import { DeleteNodeRequest } from './DeleteNodeRequest'
 import { DeleteNodeResponse } from './DeleteNodeResponse'
 import { DeleteNodeUseCase } from './DeleteNodeUseCase'
 import { Result } from '@codelab/backend'
 
+/**
+ * Delete all attached edges as well
+ */
 export class DeleteNodeService implements DeleteNodeUseCase {
   constructor(
     private readonly graphRepository: GraphRepositoryPort,
@@ -18,26 +21,28 @@ export class DeleteNodeService implements DeleteNodeUseCase {
   ) {}
 
   async execute({ vertexId }: DeleteNodeRequest): Promise<DeleteNodeResponse> {
-    const vertexToDelete = await this.vertexRepository.findOne({ vertexId })
+    const vertexToDelete = await this.vertexRepository.findOne({ id: vertexId })
 
     if (isNone(vertexToDelete)) {
       return left(new DeleteNodeErrors.VertexNotFound(vertexId))
     }
 
-    const deletedVertex: Option<Vertex> = await this.vertexRepository.delete(
-      vertexId,
-    )
+    const deletedVertex: Option<Vertex> = await this.vertexRepository.delete({
+      id: vertexId,
+    })
 
     if (isNone(deletedVertex)) {
       return left(new DeleteNodeErrors.VertexNotFound(vertexId))
     }
 
-    await this.edgeRepository.deleteEdgesByVertexId(vertexId)
+    const edges = await this.edgeRepository.deleteMany({
+      vertex: { id: vertexId },
+    })
 
-    const { graphId } = vertexToDelete.value
+    const { graphId } = deletedVertex.value
 
     const graph = await this.graphRepository.findOne({
-      graphId: graphId.toString(),
+      id: graphId,
     })
 
     if (isNone(graph)) {

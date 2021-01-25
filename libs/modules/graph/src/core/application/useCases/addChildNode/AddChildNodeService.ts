@@ -11,7 +11,7 @@ import { AddChildNodeErrors } from './AddChildNodeErrors'
 import { AddChildNodeRequest } from './AddChildNodeRequest'
 import { AddChildNodeResponse } from './AddChildNodeResponse'
 import { AddChildNodeUseCase } from './AddChildNodeUseCase'
-import { NOID, Result } from '@codelab/backend'
+import { Result } from '@codelab/backend'
 
 export class AddChildNodeService implements AddChildNodeUseCase {
   constructor(
@@ -24,7 +24,7 @@ export class AddChildNodeService implements AddChildNodeUseCase {
     const { graphId, parentVertexId, vertex, order } = request
 
     const graph: Option<Graph> = await this.graphRepository.findOne({
-      graphId,
+      id: graphId,
     })
 
     if (isNone(graph)) {
@@ -32,7 +32,7 @@ export class AddChildNodeService implements AddChildNodeUseCase {
     }
 
     const parentVertexExists = await this.vertexRepository.exists({
-      vertexId: parentVertexId,
+      id: parentVertexId,
     })
 
     if (!parentVertexExists) {
@@ -43,21 +43,25 @@ export class AddChildNodeService implements AddChildNodeUseCase {
      * After all invariant checks
      */
     const newVertex = await this.vertexRepository.create(
-      Vertex.hydrate(Vertex, vertex),
-      graph.value,
+      Vertex.create(vertex),
+      graph.value.id,
     )
 
-    const newEdge = new Edge<NOID>({
+    if (isNone(newVertex)) {
+      return left(new AddChildNodeErrors.VertexNotFoundError(parentVertexId))
+    }
+
+    const newEdge = Edge.create({
       source: parentVertexId,
-      target: newVertex.toPlain().id,
-      order: order || 0,
+      target: newVertex.value.id,
+      order: order ?? 0,
       props: {},
     })
 
     await this.edgeRepository.create(newEdge, graph.value)
 
     const newGraph = await this.graphRepository.findOne({
-      graphId,
+      id: graphId,
     })
 
     return pipe(

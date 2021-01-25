@@ -6,4 +6,6 @@ export namespace RegisterUserErrors {
       super(`The email ${email} associated for this account already exists`)
     }
   }
+
+  export class CreateUserError extends RequestValidationError {}
 }

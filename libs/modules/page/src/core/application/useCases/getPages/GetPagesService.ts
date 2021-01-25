@@ -1,4 +1,3 @@
-import { plainToClass } from 'class-transformer'
 import { right } from 'fp-ts/lib/Either'
 import { PageRepositoryPort } from '../../../adapters/PageRepositoryPort'
 import { Page } from '../../../domain/page'
@@ -12,25 +11,13 @@ export class GetPagesService implements GetPagesUseCase {
 
   async execute({ appId }: GetPagesRequest): Promise<GetPagesResponse> {
     const pages = await this.pageRepository.findMany({
-      appId,
+      app: {
+        id: appId,
+      },
     })
 
-    return right(Result.ok(plainToClass(Page, pages)))
+    const results = pages.map((page) => Page.hydrate(page))
 
-    // const page = Page.create(request)
-
-    // const pageAlreadyExists = await this.pageRepository.exists({
-    //   email: user.email.toString(),
-    // })
-
-    // if (pageAlreadyExists) {
-    //   return left(
-    //     new GetPagesErrors.DemoError('some error'),
-    //   )
-    // }
-
-    // const persistedPage = await this.pageRepository.GetPages(page)
-
-    // return right(Result.ok(persistedPage))
+    return right(Result.ok(results))
   }
 }

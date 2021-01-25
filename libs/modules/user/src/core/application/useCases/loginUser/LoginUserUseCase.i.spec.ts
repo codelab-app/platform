@@ -1,32 +1,21 @@
 import { INestApplication } from '@nestjs/common'
-import { Test } from '@nestjs/testing'
 import { print } from 'graphql'
 import request from 'supertest'
-import { Connection } from 'typeorm'
 import { UserModule } from '../../../../framework/nestjs/UserModule'
 import { RegisterUserGql } from '../registerUser/RegisterUser.generated'
 import { LoginUserGql } from './LoginUser.generated'
-import { TestInfrastructureModule } from '@codelab/backend'
+import { setupTestModule, teardownTestModule } from '@codelab/backend'
 
 const email = 'test_user@codelab.ai'
 const password = 'password'
 
 describe('LoginUserUseCase', () => {
   let app: INestApplication
-  let connection: Connection
-  let user: any
 
   beforeAll(async () => {
-    const testModule = await Test.createTestingModule({
-      imports: [TestInfrastructureModule, UserModule],
-    }).compile()
+    app = await setupTestModule(app, UserModule)
 
-    app = testModule.createNestApplication()
-    connection = app.get(Connection)
-    await connection.synchronize(true)
-    await app.init()
-
-    user = await request(app.getHttpServer())
+    await request(app.getHttpServer())
       .post('/graphql')
       .send({
         query: print(RegisterUserGql),
@@ -37,11 +26,10 @@ describe('LoginUserUseCase', () => {
           },
         },
       })
-      .then((res) => res.body.data.registerUser)
   })
 
   afterAll(async () => {
-    await app.close()
+    await teardownTestModule(app)
   })
 
   it('should successfully login', async () => {

@@ -1,14 +1,12 @@
 import { INestApplication } from '@nestjs/common'
-import { Test } from '@nestjs/testing'
 import { print } from 'graphql'
 import request from 'supertest'
-import { Connection } from 'typeorm'
 import { RegisterUserGql } from '../../../../../../user/src/core/application/useCases/registerUser/RegisterUser.generated'
 import { AppModule } from '../../../../framework/nestjs/AppModule'
 import { AppDto } from '../AppDto'
 import { CreateAppGql } from '../createApp/CreateApp.generated'
 import { UpdateAppGql } from './UpdateApp.generated'
-import { TestInfrastructureModule } from '@codelab/backend'
+import { setupTestModule, teardownTestModule } from '@codelab/backend'
 import { UserDto, UserModule } from '@codelab/modules/user'
 
 const email = 'test_user@codelab.ai'
@@ -18,19 +16,11 @@ const appTitleOld = 'My first app'
 
 describe('UpdateAppUseCase', () => {
   let nestApp: INestApplication
-  let connection: Connection
   let user: UserDto
   let app: AppDto
 
   beforeAll(async () => {
-    const testModule = await Test.createTestingModule({
-      imports: [TestInfrastructureModule, AppModule, UserModule],
-    }).compile()
-
-    nestApp = testModule.createNestApplication()
-    connection = nestApp.get(Connection)
-    await connection.synchronize(true)
-    await nestApp.init()
+    nestApp = await setupTestModule(nestApp, UserModule, AppModule)
 
     // Register user
     user = await request(nestApp.getHttpServer())
@@ -62,7 +52,7 @@ describe('UpdateAppUseCase', () => {
   })
 
   afterAll(async () => {
-    await nestApp.close()
+    await teardownTestModule(nestApp)
   })
 
   it('should update an app for the authenticated user', async () => {

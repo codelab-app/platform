@@ -14,7 +14,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "postinstall": "yarn prisma generate",
+    "postinstall": "yarn prisma generate && yarn prisma:sync",
     "nx": "nx",
     "build": "make build-dev",
     "start": "make start-dev",
@@ -40,7 +40,7 @@
     "@emotion/server": "11.0.0",
     "@emotion/styled": "11.0.0",
     "@nestjs/common": "7.6.5",
-    "@nestjs/config": "0.6.1",
+    "@nestjs/config": "^0.6.2",
     "@nestjs/core": "7.6.5",
     "@nestjs/cqrs": "7.0.1",
     "@nestjs/graphql": "7.9.5",

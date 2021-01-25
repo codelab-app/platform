@@ -1,8 +1,6 @@
 import { Injectable, UseGuards } from '@nestjs/common'
 import { CommandBus, QueryBus } from '@nestjs/cqrs'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
-import { classToPlain } from 'class-transformer'
-import { isNone } from 'fp-ts/Option'
 import { CreateAppCommand } from '../../core/application/commands/CreateAppCommand'
 import { DeleteAppCommand } from '../../core/application/commands/DeleteAppCommand'
 import { UpdateAppCommand } from '../../core/application/commands/UpdateAppCommand'
@@ -14,16 +12,16 @@ import { DeleteAppInput } from '../../core/application/useCases/deleteApp/Delete
 import { GetAppInput } from '../../core/application/useCases/getApp/GetAppInput'
 import { UpdateAppInput } from '../../core/application/useCases/updateApp/UpdateAppInput'
 import { App } from '../../core/domain/app'
+import { AppEntity } from '../../core/domain/app.codec'
 import {
   CommandQueryBusPort,
   CurrentUser,
   GqlAuthGuard,
-  TypeOrmApp,
   UseCaseRequestPort,
 } from '@codelab/backend'
 import { User } from '@codelab/modules/user'
 
-@Resolver(() => TypeOrmApp)
+@Resolver('App')
 @Injectable()
 export class AppCommandQueryAdapter implements CommandQueryBusPort {
   constructor(
@@ -37,25 +35,21 @@ export class AppCommandQueryAdapter implements CommandQueryBusPort {
     @Args('input') input: CreateAppInput,
     @CurrentUser() user: User,
   ) {
-    const results = await this.commandBus.execute(
+    const results: AppEntity = await this.commandBus.execute(
       new CreateAppCommand({ ...input, user }),
     )
 
-    return results.toPlain()
+    return AppEntity.encode(results)
   }
 
   @Query(() => AppDto, { nullable: true })
   @UseGuards(GqlAuthGuard)
   async getApp(@Args('input') input: GetAppInput, @CurrentUser() user: User) {
-    const results = await this.queryBus.execute(
+    const app = await this.queryBus.execute(
       new GetAppQuery({ user, appId: input.appId }),
     )
 
-    if (isNone(results)) {
-      return null
-    }
-
-    return classToPlain(results.value)
+    return AppEntity.encode(app)
   }
 
   @Query(() => [AppDto])
@@ -63,7 +57,7 @@ export class AppCommandQueryAdapter implements CommandQueryBusPort {
   async getApps(@CurrentUser() user: User) {
     const results = await this.queryBus.execute(new GetAppsQuery({ user }))
 
-    return classToPlain(results)
+    return results
   }
 
   @Mutation(() => AppDto)
@@ -79,16 +73,16 @@ export class AppCommandQueryAdapter implements CommandQueryBusPort {
       }),
     )
 
-    return app.toPlain()
+    return AppEntity.encode(app)
   }
 
   @Mutation(() => AppDto)
   @UseGuards(GqlAuthGuard)
   async deleteApp(@Args('input') { id }: DeleteAppInput) {
-    const result = await this.commandBus.execute(
+    const app = await this.commandBus.execute(
       new DeleteAppCommand({ appId: id }),
     )
 
-    return result.toPlain()
+    return AppEntity.encode(app)
   }
 }

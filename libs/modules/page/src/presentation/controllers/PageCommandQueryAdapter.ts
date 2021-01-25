@@ -1,7 +1,6 @@
 import { Inject, Injectable, UseGuards } from '@nestjs/common'
 import { CommandBus, QueryBus } from '@nestjs/cqrs'
 import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql'
-import { classToPlain } from 'class-transformer'
 import { PubSub } from 'graphql-subscriptions'
 import { CreatePageCommand } from '../../core/application/commands/CreatePageCommand'
 import { DeletePageCommand } from '../../core/application/commands/DeletePageCommand'
@@ -12,18 +11,18 @@ import { DeletePageInput } from '../../core/application/useCases/deletePage/Dele
 import { GetPageInput } from '../../core/application/useCases/getPage/GetPageInput'
 import { GetPagesInput } from '../../core/application/useCases/getPages/GetPagesInput'
 import { Page } from '../../core/domain/page'
+import { PageEntity } from '../../core/domain/page.codec'
 import { PageDITokens } from '../../framework/PageDITokens'
 import { PageDto } from '../PageDto'
 import {
   CommandQueryBusPort,
   CurrentUser,
   GqlAuthGuard,
-  TypeOrmPage,
   UseCaseRequestPort,
 } from '@codelab/backend'
 import { User } from '@codelab/modules/user'
 
-@Resolver(() => TypeOrmPage)
+@Resolver(() => Page)
 @Injectable()
 export class PageCommandQueryAdapter implements CommandQueryBusPort {
   constructor(
@@ -33,15 +32,17 @@ export class PageCommandQueryAdapter implements CommandQueryBusPort {
     public readonly pubSub: PubSub,
   ) {}
 
-  @Mutation(() => String)
+  @Mutation(() => PageDto)
   @UseGuards(GqlAuthGuard)
   async createPage(
     @Args('input') input: CreatePageInput,
     @CurrentUser() user: User,
   ) {
-    await this.commandBus.execute(new CreatePageCommand({ ...input, user }))
+    const result = await this.commandBus.execute(
+      new CreatePageCommand({ ...input, user }),
+    )
 
-    return ''
+    return result
   }
 
   @Subscription(() => PageDto)
@@ -55,27 +56,28 @@ export class PageCommandQueryAdapter implements CommandQueryBusPort {
     @Args('input') { appId }: GetPagesInput,
     @CurrentUser() user: User,
   ) {
-    const results = await this.queryBus.execute<GetPagesQuery, Array<Page>>(
+    const pages = await this.queryBus.execute<GetPagesQuery, Array<Page>>(
       new GetPagesQuery({
         userId: user.id.toString(),
         appId,
       }),
     )
 
-    return classToPlain(results)
+    return pages.map((page) => PageEntity.encode(page))
   }
 
   @Query(() => PageDto)
+  @UseGuards(GqlAuthGuard)
   async getPage(@Args('input') input: GetPageInput) {
-    const result = await this.queryBus.execute(new GetPageQuery(input))
+    const page = await this.queryBus.execute(new GetPageQuery(input))
 
-    return result.toPlain()
+    return PageEntity.encode(page)
   }
 
   @Mutation(() => PageDto)
   async deletePage(@Args('input') input: DeletePageInput) {
-    const result = await this.commandBus.execute(new DeletePageCommand(input))
+    const page = await this.commandBus.execute(new DeletePageCommand(input))
 
-    return result.toPlain()
+    return PageEntity.encode(page)
   }
 }

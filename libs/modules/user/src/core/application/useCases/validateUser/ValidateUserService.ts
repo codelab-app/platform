@@ -7,6 +7,6 @@ export class ValidateUserService {
   constructor(private readonly userRepository: UserRepositoryPort) {}
 
   async execute({ userId }: ValidateUserRequest): Promise<Option<User>> {
-    return this.userRepository.findOne({ userId })
+    return this.userRepository.findOne({ id: userId })
   }
 }

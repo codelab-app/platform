@@ -1752,7 +1752,8 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/modules/page/jest.config.js",
-            "passWithNoTests": true
+            "passWithNoTests": true,
+            "runInBand": true
           },
           "outputs": ["coverage/libs/modules/page"]
         }
@@ -1774,7 +1775,8 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/modules/app/jest.config.js",
-            "passWithNoTests": true
+            "passWithNoTests": true,
+            "runInBand": true
           },
           "outputs": ["coverage/libs/modules/app"]
         }
@@ -1972,7 +1974,8 @@
             "ci": {
               "quiet": true
             }
-          }
+          },
+          "outputs": ["{options.outputPath}"]
         }
       }
     }

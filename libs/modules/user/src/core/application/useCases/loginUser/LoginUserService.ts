@@ -32,13 +32,15 @@ export class LoginUserService implements LoginUserUseCase, OnModuleInit {
     }
 
     const user: User = existingUser.value
-    const passwordMatch = user.password.comparePassword(request.password)
+    const passwordMatch = user.comparePassword(request.password)
 
     if (!passwordMatch) {
       return left(new LoginUserErrors.WrongPasswordError())
     }
 
-    user.setAccessToken = await this.authService.getToken(user)
+    const token = await this.authService.getToken(user)
+
+    user.setAccessToken(token)
 
     return right(Result.ok(user))
   }

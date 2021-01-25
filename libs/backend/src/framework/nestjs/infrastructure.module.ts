@@ -1,31 +1,10 @@
-import { Module, Provider } from '@nestjs/common'
-import { TypeOrmModule } from '@nestjs/typeorm'
+import { Module } from '@nestjs/common'
 import { GraphqlModule } from '../../infrastructure/graphql/GraphqlModule'
-import { PrismaGlobalModule } from '../../infrastructure/persistence/prisma/PrismaGlobalModule'
-import { DatabaseModule } from '../../infrastructure/persistence/typeorm/DatabaseModule'
-import { TypeOrmApp } from '../../infrastructure/persistence/typeorm/entity/TypeOrmApp'
-import { TypeOrmEdge } from '../../infrastructure/persistence/typeorm/entity/TypeOrmEdge'
-import { TypeOrmGraph } from '../../infrastructure/persistence/typeorm/entity/TypeOrmGraph'
-import { TypeOrmPage } from '../../infrastructure/persistence/typeorm/entity/TypeOrmPage'
-import { TypeOrmUser } from '../../infrastructure/persistence/typeorm/entity/TypeOrmUser'
-import { TypeOrmVertex } from '../../infrastructure/persistence/typeorm/entity/TypeOrmVertex'
-
-const providers: Array<Provider> = []
+import { databaseConfig } from '../../infrastructure/persistence/config/DbConfig'
+import { PrismaModule } from '../../infrastructure/persistence/prisma/PrismaModule'
+import { ConfigModule } from './config.module'
 
 @Module({
-  imports: [
-    PrismaGlobalModule,
-    DatabaseModule,
-    GraphqlModule,
-    TypeOrmModule.forFeature([
-      TypeOrmUser,
-      TypeOrmApp,
-      TypeOrmGraph,
-      TypeOrmEdge,
-      TypeOrmVertex,
-      TypeOrmPage,
-    ]),
-  ],
-  providers,
+  imports: [PrismaModule, GraphqlModule, ConfigModule.register(databaseConfig)],
 })
 export class InfrastructureModule {}

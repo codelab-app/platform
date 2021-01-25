@@ -1,25 +1,18 @@
 import { Option } from 'fp-ts/Option'
-import { EntityManager } from 'typeorm'
-import { Page } from '../../../../page/src/core/domain/page'
-import {
-  ByGraphCondition,
-  ByGraphConditions,
-} from '../../common/QueryConditions'
-import { Graph } from '../domain/graph'
-import { NOID, RepositoryPort } from '@codelab/backend'
+import { Graph } from '../domain/graph/graph'
+import { GraphDTO, GraphVO } from '../domain/graph/graph.codec'
+import { RepositoryPort } from '@codelab/backend'
 
 export abstract class GraphRepositoryPort implements RepositoryPort<Graph> {
-  abstract manager?: EntityManager
+  abstract create(graph: GraphVO): Promise<Option<Graph>>
 
-  abstract create(graph: Graph<NOID>): Promise<Graph>
+  abstract update(where: GraphDTO, data: GraphDTO): Promise<Option<Graph>>
 
-  abstract update(graph: Graph): Promise<Graph>
+  abstract delete(graph: GraphDTO): Promise<Option<Graph>>
 
-  abstract delete(graph: ByGraphCondition): Promise<Option<Graph>>
+  abstract findOne(where: GraphDTO): Promise<Option<Graph>>
 
-  abstract findOne(graph: ByGraphCondition): Promise<Option<Graph>>
+  // abstract findMany(where: GraphDTO): Promise<Array<Graph>>
 
-  abstract findMany(graphs: ByGraphConditions): Promise<Array<Graph>>
-
-  abstract addGraphToPage(page: Page): Promise<Graph>
+  // abstract addGraphToPage(page: Page): Promise<Graph>
 }

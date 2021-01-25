@@ -5,6 +5,6 @@ export class GetUserService {
   constructor(private readonly userRepository: UserRepositoryPort) {}
 
   async execute(): Promise<Array<User>> {
-    return this.userRepository.findAll()
+    return []
   }
 }

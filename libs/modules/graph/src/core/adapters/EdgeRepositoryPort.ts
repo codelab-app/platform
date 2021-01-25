@@ -1,23 +1,29 @@
 import { Option } from 'fp-ts/Option'
-import { ByEdgeCondition } from '../../common/QueryConditions'
-import { Edge } from '../domain/edge'
-import { Graph } from '../domain/graph'
-import { NOID, RepositoryPort } from '@codelab/backend'
+import { Edge } from '../domain/edge/edge'
+import { EdgeDTO } from '../domain/edge/edge.codec'
+import { Graph } from '../domain/graph/graph'
+import { VertexDTO } from '../domain/vertex/vertex.codec'
+import { RepositoryPort } from '@codelab/backend'
 
 export abstract class EdgeRepositoryPort implements RepositoryPort<Edge> {
-  abstract create(edge: Edge<NOID>, graph: Graph): Promise<Edge>
+  abstract create(edge: Edge, graph: Graph): Promise<Option<Edge>>
 
-  abstract delete(edge: Edge): Promise<Option<Edge>>
+  abstract delete(where: EdgeDTO): Promise<Option<Edge>>
 
-  abstract deleteEdgesByVertexId(vertexId: string): Promise<Array<Edge>>
+  abstract deleteMany(where: EdgeDTO & { vertex: VertexDTO }): Promise<number>
 
-  abstract update(edge: Edge): Promise<Edge>
+  // abstract deleteEdgesByVertexId(vertexId: string): Promise<Array<Edge>>
 
-  abstract updateMany(edges: Array<Edge>): Promise<Array<Edge>>
+  abstract update(where: EdgeDTO, data: EdgeDTO): Promise<Option<Edge>>
 
-  abstract exists(by: ByEdgeCondition): Promise<boolean>
+  abstract updateMany(
+    where: Array<EdgeDTO>,
+    data: Array<EdgeDTO>,
+  ): Promise<Array<Edge>>
 
-  abstract findOne(edge: ByEdgeCondition): Promise<Option<Edge>>
+  abstract exists(where: EdgeDTO): Promise<boolean>
 
-  abstract findMany(edges: ByEdgeCondition): Promise<Array<Edge>>
+  abstract findOne(where: EdgeDTO): Promise<Option<Edge>>
+
+  // abstract findMany(where: EdgeDTO): Promise<Array<Edge>>
 }

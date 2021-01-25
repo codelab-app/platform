@@ -12,13 +12,12 @@ import { LoginUserInput } from '../../core/application/useCases/loginUser/LoginU
 import { RegisterUserInput } from '../../core/application/useCases/registerUser/RegisterUserInput'
 import { UpdateUserInput } from '../../core/application/useCases/updateUser/UpdateUserInput'
 import { User } from '../../core/domain/user'
+import { UserEntity } from '../../core/domain/user.codec'
 import { UserDto } from '../UserDto'
 import {
   CommandQueryBusPort,
   CurrentUser,
   GqlAuthGuard,
-  TypeOrmUser,
-  UUID,
   UseCaseRequestPort,
 } from '@codelab/backend'
 
@@ -30,7 +29,7 @@ import {
  *
  * @inheritDoc CommandQueryBusPort
  */
-@Resolver(() => TypeOrmUser)
+@Resolver(() => User)
 @Injectable()
 export class UserCommandQueryAdapter implements CommandQueryBusPort {
   constructor(
@@ -42,7 +41,7 @@ export class UserCommandQueryAdapter implements CommandQueryBusPort {
   async deleteUser(@Args('input') input: DeleteUserInput) {
     const user = await this.commandBus.execute(new DeleteUserCommand(input))
 
-    return user.toPlain()
+    return UserEntity.encode(user)
   }
 
   @Mutation(() => UserDto)
@@ -51,31 +50,31 @@ export class UserCommandQueryAdapter implements CommandQueryBusPort {
       new UpdateUserCommand(input),
     )
 
-    return user.toPlain()
+    return UserEntity.encode(user)
   }
 
   @Mutation(() => UserDto)
   async registerUser(@Args('input') input: RegisterUserInput) {
-    const user: User = await this.commandBus.execute(
+    const user: UserEntity = await this.commandBus.execute(
       new RegisterUserCommand(input),
     )
 
-    return user.toPlain()
+    return UserEntity.encode(user)
   }
 
   @Mutation(() => UserDto)
   async loginUser(@Args('input') input: LoginUserInput) {
-    const result = await this.commandBus.execute(new LoginUserCommand(input))
+    const user = await this.commandBus.execute(new LoginUserCommand(input))
 
-    return result.toPlain()
+    return UserEntity.encode(user)
   }
 
   @Query(() => UserDto)
   @UseGuards(GqlAuthGuard)
-  async getMe(@CurrentUser() user: User<UUID>) {
+  async getMe(@CurrentUser() user: User) {
     const request: GetMeRequest = { user }
     const result = await this.queryBus.execute(new GetMeQuery(request))
 
-    return result.toPlain()
+    return UserEntity.encode(result)
   }
 }

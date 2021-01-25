@@ -1,87 +1,69 @@
 import { INestApplication } from '@nestjs/common'
-import { Test } from '@nestjs/testing'
+import { print } from 'graphql'
 import request from 'supertest'
-import { Connection } from 'typeorm'
-import { RegisterUserInput } from '../../../../../../user/src/core/application/useCases/registerUser/RegisterUserInput'
+import { RegisterUserGql } from '../../../../../../user/src/core/application/useCases/registerUser/RegisterUser.generated'
 import { UserModule } from '../../../../../../user/src/framework/nestjs/UserModule'
 import { UserDto } from '../../../../../../user/src/presentation/UserDto'
 import { AppModule } from '../../../../framework/nestjs/AppModule'
-import { DeleteAppInput } from './DeleteAppInput'
-import { TestInfrastructureModule } from '@codelab/backend'
+import { AppDto } from '../AppDto'
+import { CreateAppGql } from '../createApp/CreateApp.generated'
+import { DeleteAppGql } from './DeleteApp.generated'
+import { setupTestModule, teardownTestModule } from '@codelab/backend'
 
 const email = 'test_user@codelab.ai'
 const password = 'password'
 
-const registerUserMutation = (registerUserInput: RegisterUserInput) => `
-  mutation {
-    registerUser(input: {
-      email: "${registerUserInput.email}",
-      password: "${registerUserInput.password}"
-    }) {
-      email
-      accessToken
-    }
-  }`
-
-const deleteAppMutation = (deleteAppInput: DeleteAppInput) => `
-  mutation {
-    deleteApp(input: { id: "${deleteAppInput.id}" }) {
-      title
-    }
-  }
-`
-
-describe.skip('DeleteAppUseCase', () => {
+describe('DeleteAppUseCase', () => {
   let app: INestApplication
-  let connection: Connection
   let user: UserDto
 
   beforeAll(async () => {
-    const testModule = await Test.createTestingModule({
-      imports: [TestInfrastructureModule, AppModule, UserModule],
-    }).compile()
-
-    app = testModule.createNestApplication()
-    connection = app.get(Connection)
-    await connection.synchronize(true)
-    await app.init()
+    app = await setupTestModule(app, UserModule, AppModule)
 
     // Register user
     user = await request(app.getHttpServer())
       .post('/graphql')
       .send({
-        query: registerUserMutation({ email, password }),
+        query: print(RegisterUserGql),
+        variables: {
+          input: {
+            email,
+            password,
+          },
+        },
       })
       .then((res) => res.body.data.registerUser)
   })
 
   afterAll(async () => {
-    await app.close()
+    await teardownTestModule(app)
   })
 
   it('should delete app', async () => {
-    const createAppMutation = `
-      mutation {
-        createApp(input: { title: "Test App" }) { id title }
-      }
-    `
-    const createAppReq = await request(app.getHttpServer())
+    const createApp: AppDto = await request(app.getHttpServer())
       .post('/graphql')
       .set('Authorization', `Bearer ${user.accessToken}`)
       .send({
-        query: createAppMutation,
+        query: print(CreateAppGql),
+        variables: {
+          input: { title: 'Test App' },
+        },
       })
       .expect(200)
       .expect((res) => {
         expect(res.body.data.createApp.title).toEqual('Test App')
       })
-    const { id } = createAppReq.body.data.createApp
+      .then((res) => res.body.data.createApp)
+    const { id } = createApp
 
     await request(app.getHttpServer())
       .post('/graphql')
       .set('Authorization', `Bearer ${user.accessToken}`)
       .send({
-        query: deleteAppMutation({ id }),
+        query: print(DeleteAppGql),
+        variables: {
+          input: { id: id as string },
+        },
       })
       .expect(200)
       .expect((res) => {
@@ -96,7 +78,10 @@ describe.skip('DeleteAppUseCase', () => {
       .post('/graphql')
       .set('Authorization', `Bearer ${user.accessToken}`)
       .send({
-        query: deleteAppMutation({ id: wrongAppId }),
+        query: print(DeleteAppGql),
+        variables: {
+          input: { id: wrongAppId },
+        },
       })
       .expect(200)
       .expect((res) => {
