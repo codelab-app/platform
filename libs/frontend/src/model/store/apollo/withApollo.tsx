@@ -1,0 +1,17 @@
+import { ApolloProvider } from '@apollo/client'
+import { NextPage } from 'next'
+import React from 'react'
+import { getApolloClient } from '@codelab/frontend'
+
+export const withApollo = (Comp: NextPage<any, any>) => ({
+  apolloState,
+  ...pageProps
+}: {
+  apolloState?: any
+}) => {
+  return (
+    <ApolloProvider client={getApolloClient(null, apolloState)}>
+      <Comp {...pageProps} />
+    </ApolloProvider>
+  )
+}
