@@ -150,7 +150,9 @@ commands:
             - dep-cache-dev-
       - run:
           name: 'Install NPM packages'
-          command: yarn install --frozen-lockfile --prod=false
+          command: |
+            source .env
+            yarn install --frozen-lockfile --prod=false
       - run:
           name: 'List Cypress cache'
           command: npx cypress cache path
@@ -214,8 +216,7 @@ jobs:
   install-and-build-workspace:
     <<: *executor-params
     steps:
-      - setup-env
-      - checkout
+      - setup-workspace
       - yarn-install-dev
       - run:
           name: 'Build CI'
