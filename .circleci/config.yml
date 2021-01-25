@@ -328,6 +328,18 @@ jobs:
           authToken: $ARGOCD_TOKEN
           prune: "true"
 
+  argocd-sync-staging:
+    <<: *executor-params
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ..
+      - run: source ~/.env
+      - argo-sync/sync:
+          argoApplication: $ARGOCD_STAGING_APP_NAME
+          authToken: $ARGOCD_TOKEN
+          prune: "true"
+
 workflows:
   app-dev:
     jobs:
@@ -384,7 +396,7 @@ workflows:
           <<: *filters-staging
           requires:
             - install-and-build-workspace
-      - argocd-sync-prod:
+      - argocd-sync-staging:
           <<: *filters-staging
           e: argo-cli
           requires:
@@ -393,4 +405,4 @@ workflows:
       - notify-success:
           <<: *filters-staging
           requires:
-            - argocd-sync-prod
+            - argocd-sync-staging
