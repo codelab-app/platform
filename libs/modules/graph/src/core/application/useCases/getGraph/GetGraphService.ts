@@ -2,7 +2,7 @@ import { option as O } from 'fp-ts'
 import { left, right } from 'fp-ts/Either'
 import { Option, isNone } from 'fp-ts/Option'
 import { GraphRepositoryPort } from '../../../adapters/GraphRepositoryPort'
-import { Graph } from '../../../domain/graph'
+import { Graph } from '../../../domain/graph/graph'
 import { GetGraphErrors } from './GetGraphErrors'
 import { GetGraphRequest } from './GetGraphRequest'
 import { GetGraphResponse } from './GetGraphResponse'
@@ -18,7 +18,7 @@ export class GetGraphService implements GetGraphUseCase {
 
     if (graphId) {
       graphOpt = await this.graphRepository.findOne({
-        graphId,
+        id: graphId,
       })
 
       if (isNone(graphOpt)) {

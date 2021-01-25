@@ -1,7 +1,7 @@
 import { Module, Provider } from '@nestjs/common'
 import { ModuleRef } from '@nestjs/core'
 import { CqrsModule } from '@nestjs/cqrs'
-import { Connection } from 'typeorm'
+import { PrismaDITokens } from '../../../../../backend/src/infrastructure/persistence/prisma/PrismaDITokens'
 import { DeleteUserCommandHandler } from '../../core/application/handlers/DeleteUserCommandHandler'
 import { GetMeQueryHandler } from '../../core/application/handlers/GetMeQueryHandler'
 import { GetUsersQueryHandler } from '../../core/application/handlers/GetUsersQueryHandler'
@@ -16,18 +16,18 @@ import { LoginUserService } from '../../core/application/useCases/loginUser/Logi
 import { RegisterUserService } from '../../core/application/useCases/registerUser/RegisterUserService'
 import { UpdateUserService } from '../../core/application/useCases/updateUser/UpdateUserService'
 import { ValidateUserService } from '../../core/application/useCases/validateUser/ValidateUserService'
-import { TypeOrmUserRepositoryAdapter } from '../../infrastructure/persistence/TypeOrmUserRepositoryAdapter'
+import { PrismaUserRepositoryAdapter } from '../../infrastructure/persistence/PrismaUserRepositoryAdapter'
 import { UserCommandQueryAdapter } from '../../presentation/controllers/UserCommandQueryAdapter'
 import { UserDITokens } from '../UserDITokens'
 import { AuthModule } from './AuthModule'
-import { GqlAuthGuard, PrismaService } from '@codelab/backend'
+import { GqlAuthGuard } from '@codelab/backend'
 
 export const persistenceProviders: Array<Provider> = [
   {
     provide: UserDITokens.UserRepository,
-    useFactory: (connection) =>
-      connection.getCustomRepository(TypeOrmUserRepositoryAdapter),
-    inject: [Connection],
+    useFactory: (prismaService) =>
+      new PrismaUserRepositoryAdapter(prismaService),
+    inject: [PrismaDITokens.PrismaService],
   },
   UserCommandQueryAdapter,
 ]
@@ -50,9 +50,9 @@ export const useCaseProviders: Array<Provider> = [
   },
   {
     provide: UserDITokens.RegisterUserUseCase,
-    useFactory: (usersRepository, moduleRef, prismaService) =>
-      new RegisterUserService(usersRepository, moduleRef, prismaService),
-    inject: [UserDITokens.UserRepository, ModuleRef, PrismaService],
+    useFactory: (usersRepository, moduleRef) =>
+      new RegisterUserService(usersRepository, moduleRef),
+    inject: [UserDITokens.UserRepository, ModuleRef],
   },
   {
     provide: UserDITokens.EditUserUseCase,

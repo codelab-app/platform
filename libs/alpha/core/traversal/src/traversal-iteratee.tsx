@@ -1,21 +1,15 @@
 /**
  * These callbacks are executed when visiting each Node during Tree traversal
  */
-import * as mongoose from 'mongoose'
-import { schemaFactory } from '../../model/src/schema'
 import { NodeEntity } from '@codelab/alpha/core/node'
 import {
   Node,
   NodeA,
   NodeI,
-  assertsModelA,
   assertsNode,
-  isModelI,
-  isSchemaI,
 } from '@codelab/alpha/shared/interface/node'
 import {
   GraphSubTreeAcc,
-  ModelAcc,
   NodeFinderAcc,
   TraversalIteratee,
   TreeSubTreeAcc,
@@ -86,32 +80,4 @@ export const graphAppenderIteratee: TraversalIteratee<
     prev: node,
     graph,
   }
-}
-
-/**
- * A factory that takes an iteratee
- */
-export const modelCreationIteratee: TraversalIteratee<NodeI, ModelAcc> = (
-  { name, schema, model }: ModelAcc,
-  node: NodeI,
-) => {
-  if (isSchemaI(node)) {
-    return { schema: schemaFactory(node) }
-  }
-
-  if (isModelI(node)) {
-    assertsModelA(node)
-
-    if (!schema) {
-      throw new Error('Missing schema as children')
-    }
-
-    return {
-      name: node.props.name,
-      schema,
-      model: mongoose.model(node.props.name, schema),
-    }
-  }
-
-  return { name, schema, model }
 }

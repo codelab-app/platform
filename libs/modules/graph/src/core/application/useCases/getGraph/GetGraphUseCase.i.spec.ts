@@ -1,24 +1,16 @@
 import { INestApplication } from '@nestjs/common'
-import { Test } from '@nestjs/testing'
-import { Connection } from 'typeorm'
-import { TestInfrastructureModule } from '@codelab/backend'
+import { GraphModule } from '../../../../framework/nestjs/GraphModule'
+import { setupTestModule, teardownTestModule } from '@codelab/backend'
 
 describe.skip('GetGraphUseCase', () => {
   let app: INestApplication
 
   beforeAll(async () => {
-    const testModule = await Test.createTestingModule({
-      imports: [TestInfrastructureModule],
-    }).compile()
-
-    app = testModule.createNestApplication()
-    await app.init()
+    app = await setupTestModule(app, GraphModule)
   })
 
   afterAll(async () => {
-    const connection = app.get(Connection)
-
-    await app.close()
+    await teardownTestModule(app)
   })
 
   it('should be truthy', () => {

@@ -3,7 +3,9 @@
 
 datasource db {
   provider = "postgresql"
-  url      = env("PRSIMA_DATABASE_URL")
+  // Override via Client & CLI env
+  url      = env("PRISMA_DATABASE_URL")
+  // url      = env("TEST_PRISMA_DATABASE_URL")
 }
 
 generator client {
@@ -11,9 +13,10 @@ generator client {
 }
 
 model User {
-  id    String @id @default(uuid())
-  email String @unique
-  apps  App[]
+  id       String @id @default(uuid())
+  password String
+  email    String @unique
+  apps     App[]
 }
 
 model App {
@@ -46,6 +49,7 @@ model Graph {
 
 model Vertex {
   id      String  @id @default(uuid())
+  type    String
   graph   Graph?  @relation(fields: [graphId], references: [id])
   graphId String?
 }

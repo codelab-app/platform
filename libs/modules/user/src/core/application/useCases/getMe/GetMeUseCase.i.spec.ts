@@ -1,31 +1,21 @@
 import { INestApplication } from '@nestjs/common'
-import { Test } from '@nestjs/testing'
 import { print } from 'graphql'
 import request from 'supertest'
-import { Connection } from 'typeorm'
 import { UserModule } from '../../../../framework/nestjs/UserModule'
-import { UserDto } from '../../../../presentation/UserDto'
 import { RegisterUserGql } from '../registerUser/RegisterUser.generated'
 import { GetMeGql } from './GetMe.generated'
-import { TestInfrastructureModule } from '@codelab/backend'
+import { setupTestModule, teardownTestModule } from '@codelab/backend'
+import { UserDto } from '@codelab/modules/user'
 
 const email = 'test_user@codelab.ai'
 const password = 'password'
 
 describe('GetMeUseCase', () => {
   let app: INestApplication
-  let connection: Connection
   let user: UserDto
 
   beforeAll(async () => {
-    const testModule = await Test.createTestingModule({
-      imports: [TestInfrastructureModule, UserModule],
-    }).compile()
-
-    app = testModule.createNestApplication()
-    connection = app.get(Connection)
-    await connection.synchronize(true)
-    await app.init()
+    app = await setupTestModule(app, UserModule)
 
     // Create user
     user = await request(app.getHttpServer())
@@ -43,13 +33,15 @@ describe('GetMeUseCase', () => {
   })
 
   afterAll(async () => {
-    await app.close()
+    await teardownTestModule(app)
   })
 
   it('should get user with JWT token passed in header', async () => {
+    const { accessToken } = user
+
     await request(app.getHttpServer())
       .post('/graphql')
-      .set('Authorization', `Bearer ${user.accessToken}`)
+      .set('Authorization', `Bearer ${accessToken}`)
       .send({
         query: print(GetMeGql),
       })

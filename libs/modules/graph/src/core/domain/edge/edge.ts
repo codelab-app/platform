@@ -1,38 +1,68 @@
-import { Type, plainToClass } from 'class-transformer'
-import { IsOptional } from 'class-validator'
-import { EdgeDto } from '../../../presentation/EdgeDto'
-import { EdgeOrder } from './edge-order'
-import { EdgeSource } from './edge-source'
-import { EdgeTarget } from './edge-target'
-import {
-  AggregateRoot,
-  NOID,
-  TransformBoth,
-  TypeOrmEdge,
-  UUID,
-} from '@codelab/backend'
+import { plainToClass } from 'class-transformer'
+import { isLeft } from 'fp-ts/lib/Either'
+import * as t from 'io-ts'
+import { UUID } from 'io-ts-types'
+import { PathReporter } from 'io-ts/lib/PathReporter'
+import { EdgeDTO, EdgeEntity, EdgeVO } from './edge.codec'
 
-export class Edge<ID extends UUID | NOID = UUID> extends AggregateRoot<
-  EdgeDto,
-  ID
-> {
-  @Type(() => EdgeSource)
-  @TransformBoth(EdgeSource)
-  declare source: EdgeSource
+export class Edge implements EdgeEntity {
+  declare id: UUID
 
-  @Type(() => EdgeTarget)
-  @TransformBoth(EdgeTarget)
-  declare target: EdgeTarget
+  declare source: string
 
-  @Type(() => EdgeOrder)
-  @TransformBoth(EdgeOrder)
-  declare order: EdgeOrder
+  declare target: string
 
-  @Type(() => Object)
-  @IsOptional()
-  declare props?: any
+  declare order: t.Int
 
-  toPersistence(): TypeOrmEdge {
-    return plainToClass(TypeOrmEdge, this.toPlain())
+  /**
+   * Used to pass around user data, very loose check. Used to check whether keys are correct & whether values are correct on a primitive type checking level.
+   *
+   * Doesn't validate data at an application level.
+   *
+   * @param data
+   */
+  static dto(data: EdgeDTO) {
+    const result = EdgeDTO.decode(data)
+
+    if (isLeft(result)) {
+      const errorMessage = PathReporter.report(result).join(', ')
+
+      throw new Error(errorMessage)
+    }
+
+    return result.right
+  }
+
+  /**
+   * Used for creating a value object for creating new models. This is a special case where id not not required, but all other fields must be validated.
+   *
+   * @param data
+   */
+  static create(data: EdgeDTO) {
+    const result = EdgeVO.decode(data)
+
+    if (isLeft(result)) {
+      const errorMessage = PathReporter.report(result).join(', ')
+
+      throw new Error(errorMessage)
+    }
+
+    return plainToClass(Edge, result.right)
+  }
+
+  /**
+   * This is used for hydrating an object from query data, id is required here
+   * @param data
+   */
+  static hydrate(data: EdgeDTO) {
+    const result = EdgeEntity.decode(data)
+
+    if (isLeft(result)) {
+      const errorMessage = PathReporter.report(result).join(', ')
+
+      throw new Error(errorMessage)
+    }
+
+    return plainToClass(Edge, result.right)
   }
 }

@@ -1,5 +1,5 @@
 import { Either } from 'fp-ts/Either'
-import { Graph } from '../../../domain/graph'
+import { Graph } from '../../../domain/graph/graph'
 import { UpdateNodeErrors } from './UpdateNodeErrors'
 import { Result } from '@codelab/backend'
 

@@ -13,7 +13,7 @@ export class DeletePageService implements DeletePageUseCase {
   async execute(request: DeletePageRequest): Promise<DeletePageResponse> {
     const { pageId } = request
 
-    const result = await this.pageRepository.delete(pageId)
+    const result = await this.pageRepository.delete({ id: pageId })
 
     if (isNone(result)) {
       return left(new DeletePageErrors.PageNotFoundError(pageId))

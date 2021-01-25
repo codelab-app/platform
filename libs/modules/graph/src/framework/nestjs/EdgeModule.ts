@@ -1,15 +1,15 @@
 import { Module, Provider } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
-import { Connection } from 'typeorm'
-import { TypeOrmEdgeRepositoryAdapter } from '../../infrastructure/persistence/TypeOrmEdgeRepositoryAdapter'
+import { PrismaEdgeRepositoryAdapter } from '../../infrastructure/persistence/PrismaEdgeRepositoryAdapter'
 import { EdgeDITokens } from '../EdgeDITokens'
+import { PrismaDITokens } from '@codelab/backend'
 
 export const persistenceProviders: Array<Provider> = [
   {
     provide: EdgeDITokens.EdgeRepository,
-    useFactory: (connection) =>
-      connection.getCustomRepository(TypeOrmEdgeRepositoryAdapter),
-    inject: [Connection],
+    useFactory: (prismaService) =>
+      new PrismaEdgeRepositoryAdapter(prismaService),
+    inject: [PrismaDITokens.PrismaService],
   },
 ]
 

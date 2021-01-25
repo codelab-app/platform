@@ -35,8 +35,6 @@ export type Password = t.Branded<string, PasswordBrand>
 export const Password = t.brand(
   PasswordC,
   (data): data is Password => {
-    console.log(data)
-
     return true
   },
   'Password',

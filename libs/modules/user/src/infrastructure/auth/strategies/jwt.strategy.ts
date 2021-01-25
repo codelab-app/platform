@@ -2,7 +2,6 @@ import { Injectable, UnauthorizedException } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
 import { JwtService } from '@nestjs/jwt'
 import { PassportStrategy } from '@nestjs/passport'
-import { classToPlain } from 'class-transformer'
 import { Option, fold } from 'fp-ts/Option'
 import { pipe } from 'fp-ts/lib/function'
 import { ExtractJwt, Strategy } from 'passport-jwt'
@@ -69,15 +68,14 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
     })
   }
 
-  async getToken(user: any) {
-    const plainUser = classToPlain(user)
+  async getToken(user: { email: string; id: string }) {
     const payload = {
-      username: plainUser.email,
-      sub: plainUser.id,
+      username: user.email,
+      sub: user.id,
       'https://hasura.io/jwt/claims': {
         'x-hasura-allowed-roles': ['admin'],
         'x-hasura-default-role': 'admin',
-        'x-hasura-user-id': plainUser.id,
+        'x-hasura-user-id': user.id,
       },
     }
 

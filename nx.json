@@ -46,9 +46,6 @@
     "alpha-core-graph": {
       "tags": []
     },
-    "alpha-core-model": {
-      "tags": []
-    },
     "alpha-core-node": {
       "tags": []
     },
@@ -104,7 +101,7 @@
       "tags": []
     },
     "alpha-shared-interface-props": {
-      "tags": ["scope:standalone"]
+      "tags": []
     },
     "alpha-shared-interface-tree": {
       "tags": []

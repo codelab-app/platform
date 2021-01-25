@@ -3,7 +3,6 @@ module.exports = {
     '<rootDir>/apps/api/codelab',
     '<rootDir>/apps/web',
     '<rootDir>/libs/alpha/core/graph',
-    '<rootDir>/libs/alpha/core/model',
     '<rootDir>/libs/alpha/core/node',
     '<rootDir>/libs/alpha/core/props',
     '<rootDir>/libs/alpha/core/renderer',

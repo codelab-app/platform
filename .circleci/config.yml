@@ -18,10 +18,10 @@ filters-dev: &filters-dev
 filters-staging: &filters-staging
 # https://discuss.circleci.com/t/circle-2-0-workflow-filters-should-be-logical-and-not-or/18231
   filters:
-    tags:
-      only: /^staging-.*$/
-    # branches:
-    #   ignore: /.*/
+    # tags:
+    #   only: /^staging-.*$/
+    branches:
+      ignore: /.*/
 
 # Workaround for the lack of logical "AND" for filters
 filters-master-branch-only: &filters-master-branch-only
@@ -150,7 +150,9 @@ commands:
             - dep-cache-dev-
       - run:
           name: 'Install NPM packages'
-          command: yarn install --frozen-lockfile --prod=false
+          command: |
+            source .env
+            yarn install --frozen-lockfile --prod=false
       - run:
           name: 'List Cypress cache'
           command: npx cypress cache path
@@ -214,15 +216,16 @@ jobs:
   install-and-build-workspace:
     <<: *executor-params
     steps:
-      - setup-env
-      - checkout
+      - setup-workspace
       - yarn-install-dev
       - run:
           name: 'Build CI'
           command: make build-ci
       - run:
           name: 'Yarn link workspace'
-          command: yarn install --frozen-lockfile --prod=false
+          command: |
+            source .env
+            yarn install --frozen-lockfile --prod=false
       - persist_to_workspace:
           root: ..
           paths:
@@ -314,6 +317,8 @@ workflows:
       - install-and-build-workspace:
           <<: *filters-dev
           e: docker-node
+          requires:
+            - setup-vault-env
       - lint:
           <<: *filters-dev
           e: docker-node
@@ -350,8 +355,13 @@ workflows:
   app-staging:
     <<: *filters-master-branch-only
     jobs:
+      - setup-vault-env:
+          <<: *filters-dev
+          e: vault-img
       - install-and-build-workspace:
           <<: *filters-staging
+          requires:
+            - setup-vault-env
       - build-and-push-docker-image:
           <<: *filters-staging
           context: credentials-docker

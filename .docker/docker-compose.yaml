@@ -20,46 +20,6 @@ services:
       - NEXT_PUBLIC_API_ORIGIN
       - NEXT_PUBLIC_API_PATHNAME
 
-  eventstore.db:
-    image: eventstore/eventstore:20.10.0-buster-slim
-    environment:
-      - EVENTSTORE_CLUSTER_SIZE=1
-      - EVENTSTORE_RUN_PROJECTIONS=All
-      - EVENTSTORE_START_STANDARD_PROJECTIONS=true
-      - EVENTSTORE_EXT_TCP_PORT=1113
-      - EVENTSTORE_EXT_HTTP_PORT=2113
-      - EVENTSTORE_INSECURE=true
-      - EVENTSTORE_ENABLE_EXTERNAL_TCP=true
-      - EVENTSTORE_ENABLE_ATOM_PUB_OVER_HTTP=true
-    ports:
-      - "1113:1113"
-      - "2113:2113"
-    volumes:
-      - type: volume
-        source: eventstore-volume-data
-        target: /var/lib/eventstore
-      - type: volume
-        source: eventstore-volume-logs
-        target: /var/log/eventstore
-
-  api-graph:
-    container_name: api-graph
-    ports:
-      - ${API_PORT_GRAPH}:${API_PORT_GRAPH}
-    expose:
-      - ${API_PORT_GRAPH}
-    entrypoint: ['yarn', 'pm2-runtime', 'dist/apps/api/graph/pm2.json']
-    depends_on:
-      - hasura
-    image: codelabai/codelab:${DOCKER_TAG_VERSION}
-    env_file:
-      - ../.env
-    environment:
-      - NODE_ENV=production
-      - API_PORT_GRAPH
-      - HASURA_GRAPHQL_URI
-      - POSTGRES_HOST
-
   fluentd:
     ports:
       - 24224:24224
@@ -125,28 +85,6 @@ services:
     volumes:
       - pgadmin-data:/var/lib/pgadmin
 
-  hasura:
-    image: hasura/graphql-engine:v1.3.3
-    container_name: codelab-hasura
-    expose:
-      - 8080
-    ports:
-      - 8080:8080
-    depends_on:
-      - postgres
-    restart: always
-    env_file:
-      - ../.env
-    environment:
-      - HASURA_GRAPHQL_DATABASE_URL
-      - HASURA_GRAPHQL_ADMIN_SECRET
-      - 'HASURA_GRAPHQL_JWT_SECRET={"type": "HS512", "key": "AQang2XTwWG8odE3WiI-0bc0f3O0Gq0h3SDs2rp6Kl00P-MOHzB6_DjKi525E0B5-kvacmu1kjc3bQQp7FQusA"}'
-      - HASURA_GRAPHQL_ENABLE_CONSOLE
-      - HASURA_GRAPHQL_DEV_MODE
-      - HASURA_GRAPHQL_ENABLED_LOG_TYPES
-      - HASURA_GRAPHQL_MIGRATIONS_DIR=../apps/api/graph/.hasura/migrations
-      - HASURA_GRAPHQL_METADATA_DIR=../apps/api/graph/.hasura/metadata
-
 volumes:
   db_data:
     name: codelab-postgres-volume
@@ -154,5 +92,3 @@ volumes:
     name: codelab-postgres-test-volume
   pgadmin-data:
     name: codelab-pgadmin-volume
-  eventstore-volume-data:
-  eventstore-volume-logs:

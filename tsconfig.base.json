@@ -25,7 +25,6 @@
       "@codelab/schematics": ["libs/tools/plugins/codelab/src/index.ts"],
       "@codelab/api/prisma": ["libs/api/prisma/src/index.ts"],
       "@codelab/alpha/core/graph": ["libs/alpha/core/graph/src/index.ts"],
-      "@codelab/alpha/core/model": ["libs/alpha/core/model/src/index.ts"],
       "@codelab/alpha/core/node": ["libs/alpha/core/node/src/index.ts"],
       "@codelab/alpha/core/props": ["libs/alpha/core/props/src/index.ts"],
       "@codelab/alpha/core/renderer": ["libs/alpha/core/renderer/src/index.ts"],

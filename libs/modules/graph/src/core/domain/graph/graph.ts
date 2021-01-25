@@ -1,181 +1,63 @@
-import arrayMove from 'array-move'
-import { Type, classToPlain, plainToClass } from 'class-transformer'
-import { EdgeDto } from '../../../presentation/EdgeDto'
-import { GraphDto } from '../../../presentation/GraphDto'
-import { VertexDto } from '../../../presentation/VertexDto'
-import { Edge } from '../edge'
-import { Vertex } from '../vertex'
-import { GraphEdges } from './graph-edges'
-import { GraphLabel } from './graph-label'
-import { GraphVertices } from './graph-vertices'
-import {
-  AggregateRoot,
-  NOID,
-  TransformBoth,
-  TypeOrmGraph,
-  UUID,
-} from '@codelab/backend'
+import { plainToClass } from 'class-transformer'
+import { isLeft } from 'fp-ts/lib/Either'
+import { UUID } from 'io-ts-types'
+import { PathReporter } from 'io-ts/lib/PathReporter'
+import { GraphDTO, GraphEntity, GraphVO } from './graph.codec'
 
-type VertexId = string
+export class Graph implements GraphEntity {
+  declare id: UUID
 
-export class Graph<ID extends UUID | NOID = UUID> extends AggregateRoot<
-  GraphDto,
-  ID
-> {
-  @Type(() => GraphLabel)
-  @TransformBoth(GraphLabel)
-  declare label: GraphLabel
+  declare label: string
 
-  @Type(() => GraphVertices)
-  @TransformBoth(GraphVertices)
-  declare vertices: GraphVertices
+  /**
+   * Used to pass around user data, very loose check. Used to check whether keys are correct & whether values are correct on a primitive type checking level.
+   *
+   * Doesn't validate data at an application level.
+   *
+   * @param data
+   */
+  static dto(data: GraphDTO) {
+    const result = GraphDTO.decode(data)
 
-  @Type(() => GraphEdges)
-  @TransformBoth(GraphEdges)
-  declare edges: GraphEdges
+    if (isLeft(result)) {
+      const errorMessage = PathReporter.report(result).join(', ')
 
-  public getEdgesDomain(): Array<Edge> {
-    const edgesPlain: Array<EdgeDto> = this.edges.value
-    const edges: Array<Edge> = plainToClass(Edge, edgesPlain)
-
-    return edges
-  }
-
-  public addVertex(v: Vertex) {
-    const vertex = classToPlain(v) as VertexDto
-    let newVertices
-
-    if (!this.hasVertex(vertex?.id)) {
-      if (this.vertices) {
-        const vertices: Array<VertexDto> = this.vertices.value
-
-        vertices.push(vertex)
-        newVertices = new GraphVertices({ value: vertices })
-      } else {
-        newVertices = new GraphVertices({ value: [vertex] })
-      }
-
-      this.vertices = newVertices
-    }
-  }
-
-  private hasVertex(vertexId: string | undefined): boolean {
-    if (this.vertices) {
-      const vertices: Array<VertexDto> = this.vertices.value
-
-      const index = vertices.findIndex((v: VertexDto) => {
-        return v.id === vertexId
-      })
-
-      return index !== -1
+      throw new Error(errorMessage)
     }
 
-    return false
+    return result.right
   }
 
-  public moveVertex(source: string, target: string) {
-    const vertices: Array<VertexDto> = this.vertices.value
+  /**
+   * Used for creating a value object for creating new models. This is a special case where id not not required, but all other fields must be validated.
+   *
+   * @param data
+   */
+  static create(data: GraphDTO) {
+    const result = GraphVO.decode(data)
 
-    const vertexSource = vertices?.find((v: VertexDto) => v.id === source)
-    const vertexTarget = vertices?.find((v: VertexDto) => v.id === target)
+    if (isLeft(result)) {
+      const errorMessage = PathReporter.report(result).join(', ')
 
-    if (!vertexSource) {
-      throw new Error(`Vertex source with id: ${source} was not found`)
+      throw new Error(errorMessage)
     }
 
-    if (!vertexTarget) {
-      throw new Error(`Vertex target with id: ${target} was not found`)
+    return plainToClass(Graph, result.right)
+  }
+
+  /**
+   * This is used for hydrating an object from query data, id is required here
+   * @param data
+   */
+  static hydrate(data: GraphDTO) {
+    const result = GraphEntity.decode(data)
+
+    if (isLeft(result)) {
+      const errorMessage = PathReporter.report(result).join(', ')
+
+      throw new Error(errorMessage)
     }
 
-    // Check for same parent
-    if (vertexSource.parent === vertexTarget.parent) {
-      this.moveWithSameParent(source, target)
-    } else {
-      this.moveWithDifferentParent(vertexSource, vertexTarget, source, target)
-    }
-  }
-
-  private moveWithSameParent(source: VertexId, target: VertexId) {
-    let targetEdgeIndex = this.getEdgeIndexByTarget(target)
-    const sourceEdgeIndex = this.getEdgeIndexByTarget(source)
-
-    // Move to the left
-    if (targetEdgeIndex < sourceEdgeIndex) {
-      targetEdgeIndex += 1
-    }
-
-    this.moveEdgeAndUpdateOrder(sourceEdgeIndex, targetEdgeIndex)
-  }
-
-  private moveWithDifferentParent(
-    vertexSource: VertexDto,
-    vertexTarget: VertexDto,
-    source: VertexId,
-    target: VertexId,
-  ) {
-    const edges: Array<EdgeDto> = this.edges.value
-    const sourceEdgeIndex = this.getEdgeIndexBySourceAndTarget(
-      vertexSource.parent,
-      source,
-    )
-    let targetEdgeIndex = this.getEdgeIndexBySourceAndTarget(
-      vertexTarget.parent,
-      target,
-    )
-
-    if (sourceEdgeIndex !== -1 && targetEdgeIndex !== -1) {
-      const sourceEdge = edges[sourceEdgeIndex]
-      const targetEdge = edges[targetEdgeIndex]
-
-      sourceEdge.source = targetEdge.source
-
-      // Move to the left
-      if (targetEdgeIndex < sourceEdgeIndex) {
-        targetEdgeIndex += 1
-      }
-
-      this.moveEdgeAndUpdateOrder(sourceEdgeIndex, targetEdgeIndex)
-    }
-  }
-
-  private moveEdgeAndUpdateOrder(sourceIndex: number, targetIndex: number) {
-    let edges: Array<EdgeDto> = this.edges.value
-
-    edges = arrayMove(edges, sourceIndex, targetIndex)
-    edges = edges.map((e: EdgeDto, index: number) => {
-      e.order = index
-
-      return e
-    })
-    const newGraphEdges = new GraphEdges({ value: edges })
-
-    this.edges = newGraphEdges
-  }
-
-  private getEdgeIndexBySourceAndTarget(
-    source: VertexId | undefined,
-    target: VertexId,
-  ): number {
-    if (source) {
-      const edges: Array<EdgeDto> = this.edges.value
-
-      return edges.findIndex((e: EdgeDto) => {
-        return e.source === source && e.target === target
-      })
-    }
-
-    return -1
-  }
-
-  private getEdgeIndexByTarget(target: VertexId) {
-    const edges: Array<EdgeDto> = this.edges.value
-
-    return edges.findIndex((e: EdgeDto) => {
-      return e.target === target
-    })
-  }
-
-  toPersistence(): TypeOrmGraph {
-    return plainToClass(TypeOrmGraph, this.toPlain())
+    return plainToClass(Graph, result.right)
   }
 }

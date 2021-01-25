@@ -1,15 +1,15 @@
 import { Module, Provider } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
-import { Connection } from 'typeorm'
-import { TypeOrmVertexRepositoryAdapter } from '../../infrastructure/persistence/TypeOrmVertexRepositoryAdapter'
+import { PrismaVertexRepositoryAdapter } from '../../infrastructure/persistence/PrismaVertexRepositoryAdapter'
 import { VertexDITokens } from '../VertexDITokens'
+import { PrismaDITokens } from '@codelab/backend'
 
 export const persistenceProviders: Array<Provider> = [
   {
     provide: VertexDITokens.VertexRepository,
-    useFactory: (connection) =>
-      connection.getCustomRepository(TypeOrmVertexRepositoryAdapter),
-    inject: [Connection],
+    useFactory: (prismaService) =>
+      new PrismaVertexRepositoryAdapter(prismaService),
+    inject: [PrismaDITokens.PrismaService],
   },
 ]
 

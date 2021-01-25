@@ -122,14 +122,6 @@ export enum NodeType {
   React_RenderContainer = 'React_RenderContainer',
   React_Mapper = 'React_Mapper',
   /**
-   * Mongoose Model
-   */
-  Model = 'Model',
-  /**
-   * Mongoose Schema
-   */
-  Schema = 'Schema',
-  /**
    * Non-react tree, requires ID
    */
   Tree = 'Tree',

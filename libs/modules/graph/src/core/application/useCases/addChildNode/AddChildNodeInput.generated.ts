@@ -13,7 +13,6 @@ export const AddChildNodeInputSchema = {
         type: {
           description: 'Used with Graphql',
           enum: [
-            'Model',
             'React_Affix',
             'React_Alert',
             'React_Anchor',
@@ -115,7 +114,6 @@ export const AddChildNodeInputSchema = {
             'React_Typography_Title',
             'React_Upload',
             'Ref',
-            'Schema',
             'Tree',
           ],
           type: 'string',

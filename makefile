@@ -67,39 +67,6 @@ generate-graphql-watch:
 	npx graphql-codegen --config .graphqlconfig.yaml --watch "apps/api/graph/src/assets/**/*.graphql"
 
 #
-# HASURA
-#
-hasura-metadata-export:
-	npx hasura metadata export \
-    --project apps/api/graph/.hasura \
-		--skip-update-check \
-    --envfile ../../../../.env
-
-hasura-metadata-apply:
-	npx hasura metadata apply \
-    --project apps/api/graph/.hasura \
-		--skip-update-check \
-    --envfile ../../../../.env
-
-hasura-metadata-reload:
-	npx hasura metadata reload \
-    --project apps/api/graph/.hasura \
-		--skip-update-check \
-    --envfile ../../../../.env
-
-hasura-seed:
-	npx hasura seeds apply \
-    --project apps/api/graph/.hasura \
-		--skip-update-check \
-    --envfile ../../../../.env
-
-# Temp command
-hasura:
-	npx hasura seeds create demo \
-    --project apps/api/graph/.hasura \
-		--skip-update-check \
-    --envfile ../../../../.env
-#
 # LINT
 #
 

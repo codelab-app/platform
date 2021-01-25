@@ -14,10 +14,11 @@ import { GetGraphInput } from '../../core/application/useCases/getGraph/GetGraph
 import { MoveNodeInput } from '../../core/application/useCases/moveNode/MoveNodeInput'
 import { UpdateNodeInput } from '../../core/application/useCases/updateNode/UpdateNodeInput'
 import { Graph } from '../../core/domain/graph/graph'
+import { GraphEntity } from '../../core/domain/graph/graph.codec'
 import { GraphDto } from '../GraphDto'
 import { CommandQueryBusPort, UseCaseRequestPort } from '@codelab/backend'
 
-@Resolver(() => GraphDto)
+@Resolver('Graph')
 @Injectable()
 export class GraphCommandQueryAdapter implements CommandQueryBusPort {
   constructor(
@@ -31,43 +32,41 @@ export class GraphCommandQueryAdapter implements CommandQueryBusPort {
       new CreateGraphCommand(input),
     )
 
-    return graph.toPlain()
+    return GraphEntity.encode(graph)
   }
 
   @Mutation(() => GraphDto)
   async addChildNode(@Args('input') input: AddChildNodeInput) {
-    const graph: Graph = await this.commandBus.execute(
-      new AddChildNodeCommand(input),
-    )
+    const graph = await this.commandBus.execute(new AddChildNodeCommand(input))
 
-    return graph.toPlain()
+    return graph
   }
 
   @Mutation(() => GraphDto)
   async updateNode(@Args('input') input: UpdateNodeInput) {
-    const result = await this.commandBus.execute(new UpdateNodeCommand(input))
+    const graph = await this.commandBus.execute(new UpdateNodeCommand(input))
 
-    return result.toPlain()
+    return graph
   }
 
   @Query(() => GraphDto)
   async graph(@Args('input') input: GetGraphInput) {
-    const result = await this.queryBus.execute(new GetGraphQuery(input))
+    const graph = await this.queryBus.execute(new GetGraphQuery(input))
 
-    return result.toPlain()
+    return graph
   }
 
   @Mutation(() => GraphDto)
   async deleteNode(@Args('input') input: DeleteNodeInput) {
     const result = await this.commandBus.execute(new DeleteNodeCommand(input))
 
-    return result.toPlain()
+    return Graph.hydrate(result)
   }
 
   @Mutation(() => GraphDto)
   async moveNode(@Args('input') input: MoveNodeInput) {
-    const result = await this.commandBus.execute(new MoveNodeCommand(input))
+    const graph = await this.commandBus.execute(new MoveNodeCommand(input))
 
-    return result.toPlain()
+    return graph
   }
 }

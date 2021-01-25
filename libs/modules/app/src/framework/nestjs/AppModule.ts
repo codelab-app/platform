@@ -1,28 +1,26 @@
 import { Module, Provider } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
-import { Connection } from 'typeorm'
-import { AssignPageToAppCommandHandler } from '../../core/application/handlers/AssignPageToAppCommandHandler'
 import { CreateAppCommandHandler } from '../../core/application/handlers/CreateAppCommandHandler'
 import { DeleteAppCommandHandler } from '../../core/application/handlers/DeleteAppCommandHandler'
 import { GetAppQueryHandler } from '../../core/application/handlers/GetAppQueryHandler'
 import { GetAppsQueryHandler } from '../../core/application/handlers/GetAppsQueryHandler'
 import { UpdateAppCommandHandler } from '../../core/application/handlers/UpdateAppCommandHandler'
-import { AppPageSaga } from '../../core/application/sagas/AppPage.saga'
 import { CreateAppService } from '../../core/application/useCases/createApp/CreateAppService'
 import { DeleteAppService } from '../../core/application/useCases/deleteApp/DeleteAppService'
 import { GetAppService } from '../../core/application/useCases/getApp/GetAppService'
 import { GetAppsService } from '../../core/application/useCases/getApps/GetAppsService'
 import { UpdateAppService } from '../../core/application/useCases/updateApp/UpdateAppService'
-import { TypeOrmAppRepositoryAdapter } from '../../infrastructure/persistence/TypeOrmAppRepositoryAdapter'
+import { PrismaAppRepositoryAdapter } from '../../infrastructure/persistence/PrismaAppRepositoryAdapter'
 import { AppCommandQueryAdapter } from '../../presentation/controllers/AppCommandQueryAdapter'
 import { AppDITokens } from '../AppDITokens'
+import { PrismaDITokens } from '@codelab/backend'
 
 export const persistenceProviders: Array<Provider> = [
   {
     provide: AppDITokens.AppRepository,
-    useFactory: (connection) =>
-      connection.getCustomRepository(TypeOrmAppRepositoryAdapter),
-    inject: [Connection],
+    useFactory: (prismaService) =>
+      new PrismaAppRepositoryAdapter(prismaService),
+    inject: [PrismaDITokens.PrismaService],
   },
   AppCommandQueryAdapter,
 ]
@@ -56,7 +54,6 @@ export const useCaseProviders: Array<Provider> = [
 ]
 
 export const handlerProviders: Array<Provider> = [
-  AssignPageToAppCommandHandler,
   GetAppQueryHandler,
   GetAppsQueryHandler,
   GetAppQueryHandler,
@@ -65,7 +62,7 @@ export const handlerProviders: Array<Provider> = [
   UpdateAppCommandHandler,
 ]
 
-export const sagas: Array<Provider> = [AppPageSaga]
+export const sagas: Array<Provider> = []
 
 @Module({
   imports: [CqrsModule],
