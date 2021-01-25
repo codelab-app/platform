@@ -32,7 +32,7 @@ export const graphcmsLink = new HttpLink({
   fetch,
 })
 
-export const hasuraLink = new HttpLink({
+export const apiLink = new HttpLink({
   uri: `http://localhost:${process.env.API_PORT_GRAPH}/graphql`,
   credentials: 'same-origin',
   headers: {
@@ -41,11 +41,7 @@ export const hasuraLink = new HttpLink({
   fetch,
 })
 
-export const link = ApolloLink.from([errorLink]).split(
-  (operation) => operation.getContext().clientName === 'hasura',
-  hasuraLink,
-  graphcmsLink,
-)
+export const link = ApolloLink.from([errorLink, apiLink])
 
 const createApolloClient = () => {
   return new ApolloClient({

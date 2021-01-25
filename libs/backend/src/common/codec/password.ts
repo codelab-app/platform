@@ -15,7 +15,7 @@ export const PasswordC = new t.Type<string, string, unknown>(
     const { error, value } = schema.validate(input)
 
     if (error || !isString(input)) {
-      return t.failure(input, context)
+      return t.failure(input, context, error?.message)
     }
 
     return t.success(input)

@@ -1,5 +1,7 @@
 import { isLeft, isRight } from 'fp-ts/Either'
+import * as t from 'io-ts'
 import { Password } from './password'
+import { getErrors } from './reporter'
 
 describe('Password codec', () => {
   it('hashes a  valid password', () => {
@@ -15,9 +17,19 @@ describe('Password codec', () => {
     const password = 'a'
     const result = Password.decode(password)
 
-    // const paths = getPaths(result)
-    // console.log(paths)
-    // console.log(PathReporter.report(result))
+    expect(isLeft(result)).toBeTruthy()
+  })
+
+  it('throws custom error message', () => {
+    const PasswordField = t.type({
+      password: Password,
+    })
+
+    const result = PasswordField.decode({ password: '0' })
+
+    const errors = getErrors(result)
+
+    console.log(errors)
 
     expect(isLeft(result)).toBeTruthy()
   })
