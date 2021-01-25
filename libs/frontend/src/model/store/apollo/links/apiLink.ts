@@ -4,8 +4,8 @@ import { fetch } from 'cross-fetch'
 /**
  * Pass in graphqlUri to context
  */
-export const codelabLink = new HttpLink({
-  uri: (o) => o.getContext()?.graphqlUri,
+export const apiLink = new HttpLink({
+  uri: (operation) => operation.getContext()?.graphqlUri,
   credentials: 'same-origin',
   fetch,
 })

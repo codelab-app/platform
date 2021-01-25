@@ -8,8 +8,9 @@ import {
 } from '@apollo/client'
 import { setContext } from '@apollo/client/link/context'
 import { ApolloLink } from '@apollo/client/link/core'
-import { isServer } from '../../../config'
-import { combinedLink } from './links/combinedLink'
+import { apiLink } from './links/apiLink'
+import { authLink } from './links/authLink'
+import { errorLink } from './links/errorLink'
 
 export interface ApolloContext {
   authToken?: string
@@ -17,23 +18,26 @@ export interface ApolloContext {
 }
 
 const defaultContext: ApolloContext = {
-  authToken: undefined,
   graphqlUri: `${process.env.NEXT_PUBLIC_API_ORIGIN}/graphql`,
 }
 
 export const getApolloClient = (
-  ctx: ApolloContext | undefined = {},
-  initialState: NormalizedCacheObject | undefined = undefined,
+  ctx: ApolloContext = {},
+  initialState?: NormalizedCacheObject,
 ) => {
   const cache = new InMemoryCache().restore(initialState || {})
 
-  // Combine the context we get from the parameter and add it to all requests
-  const ctxLink = setContext(() => ({ ...defaultContext, ...ctx }))
-  const linkWithContext = ApolloLink.from([ctxLink, combinedLink])
+  const link = ApolloLink.from([
+    setContext(() => ({ ...defaultContext, ...ctx })),
+    errorLink,
+    authLink,
+    apiLink,
+  ])
 
   return new ApolloClient({
-    link: linkWithContext,
+    link,
     cache,
-    ssrMode: isServer, // Disables forceFetch on the server (so queries are only run once)
+    // Disables forceFetch on the server (so queries are only run once)
+    ssrMode: typeof window === 'undefined',
   })
 }

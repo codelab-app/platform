@@ -39,7 +39,6 @@ executor-params: &executor-params
 executor-config: &executor-config
   environment:
     DOCKER_TAG_VERSION: 0.02
-    API_PORT_GRAPH: 4004
     # CircleCI
     GITHUB_LUAN: nutshell113
     SLACK_LUAN: U01EH265D5E
