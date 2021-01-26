@@ -1,10 +1,7 @@
 import { Inject, Injectable, UseGuards } from '@nestjs/common'
-import { CommandBus, QueryBus } from '@nestjs/cqrs'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
-import { GetMeQuery } from '../../core/application/commands/GetMeQuery'
 import { DeleteUserInput } from '../../core/application/useCases/deleteUser/DeleteUserInput'
 import { DeleteUserService } from '../../core/application/useCases/deleteUser/DeleteUserService'
-import { GetMeRequest } from '../../core/application/useCases/getMe/GetMeRequest'
 import { LoginUserInput } from '../../core/application/useCases/loginUser/LoginUserInput'
 import { LoginUserService } from '../../core/application/useCases/loginUser/LoginUserService'
 import { RegisterUserInput } from '../../core/application/useCases/registerUser/RegisterUserInput'
@@ -12,15 +9,9 @@ import { RegisterUserService } from '../../core/application/useCases/registerUse
 import { UpdateUserInput } from '../../core/application/useCases/updateUser/UpdateUserInput'
 import { UpdateUserService } from '../../core/application/useCases/updateUser/UpdateUserService'
 import { User } from '../../core/domain/user'
-import { UserEntity } from '../../core/domain/user.codec'
 import { UserDITokens } from '../../framework/UserDITokens'
 import { UserDto } from '../UserDto'
-import {
-  CommandQueryBusPort,
-  CurrentUser,
-  GqlAuthGuard,
-  UseCaseRequestPort,
-} from '@codelab/backend'
+import { CurrentUser, GqlAuthGuard } from '@codelab/backend'
 
 /**
  * An adapter for GraphQL User resolvers.
@@ -32,10 +23,8 @@ import {
  */
 @Resolver(() => User)
 @Injectable()
-export class UserCommandQueryAdapter implements CommandQueryBusPort {
+export class UserGraphqlAdapter {
   constructor(
-    readonly commandBus: CommandBus<UseCaseRequestPort>,
-    readonly queryBus: QueryBus<UseCaseRequestPort>,
     @Inject(UserDITokens.LoginUserUseCase)
     readonly loginUserService: LoginUserService,
     @Inject(UserDITokens.RegisterUserUseCase)
@@ -69,9 +58,6 @@ export class UserCommandQueryAdapter implements CommandQueryBusPort {
   @Query(() => UserDto)
   @UseGuards(GqlAuthGuard)
   async getMe(@CurrentUser() user: User) {
-    const request: GetMeRequest = { user }
-    const result = await this.queryBus.execute(new GetMeQuery(request))
-
-    return UserEntity.encode(result)
+    return user
   }
 }

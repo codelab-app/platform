@@ -17,7 +17,6 @@ describe('GetMeUseCase', () => {
   beforeAll(async () => {
     app = await setupTestModule(app, UserModule)
 
-    // Create user
     user = await request(app.getHttpServer())
       .post('/graphql')
       .send({

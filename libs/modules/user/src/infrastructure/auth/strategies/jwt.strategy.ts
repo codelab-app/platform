@@ -50,13 +50,6 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
       ignoreExpiration: true,
     })
 
-    // if (Date.now() > (user.exp + this.config.get(ApiConfigTypes.JWT_EXPIRY)) * 1000) {
-    //   throw new UnauthorizedException('Token expired');
-    // }
-
-    // delete user.iat
-    // delete user.exp
-
     return this.jwtService.sign({
       username: user.username,
       sub: user.sub,
