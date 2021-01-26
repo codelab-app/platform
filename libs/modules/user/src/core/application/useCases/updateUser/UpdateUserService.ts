@@ -1,21 +1,19 @@
-import { User } from '../../../domain/user'
+import { UserDto } from '../../../../presentation/UserDto'
 import { UpdateUserInput } from './UpdateUserInput'
 import { PrismaService, TransactionalUseCase } from '@codelab/backend'
 
 export class UpdateUserService
-  implements TransactionalUseCase<UpdateUserInput, User> {
+  implements TransactionalUseCase<UpdateUserInput, UserDto> {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async execute({ id, ...data }: UpdateUserInput): Promise<User> {
+  async execute({ id, ...data }: UpdateUserInput): Promise<UserDto> {
     try {
-      const user = await this.prismaService.user.update({
+      return this.prismaService.user.update({
         where: {
           id,
         },
         data,
       })
-
-      return User.hydrate(user)
     } catch (e) {
       throw new Error(
         `Theres no email ${data.email} associated with any account`,

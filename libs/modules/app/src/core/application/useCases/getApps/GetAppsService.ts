@@ -1,16 +1,20 @@
-import { right } from 'fp-ts/Either'
-import { AppRepositoryPort } from '../../../adapters/AppRepositoryPort'
+import { App } from '../../../domain/app'
 import { GetAppsRequest } from './GetAppsRequest'
-import { GetAppsResponse } from './GetAppsResponse'
-import { GetAppsUseCase } from './GetAppsUseCase'
-import { Result } from '@codelab/backend'
+import { PrismaService, TransactionalUseCase } from '@codelab/backend'
 
-export class GetAppsService implements GetAppsUseCase {
-  constructor(private readonly appRepository: AppRepositoryPort) {}
+export class GetAppsService
+  implements TransactionalUseCase<GetAppsRequest, Array<App>> {
+  constructor(private readonly prismaService: PrismaService) {}
 
-  async execute({ user }: GetAppsRequest): Promise<GetAppsResponse> {
-    const apps = await this.appRepository.findMany({}, user.id)
+  async execute({ user }: GetAppsRequest): Promise<Array<App>> {
+    const apps = await this.prismaService.app.findMany({
+      where: {
+        user: {
+          id: user.id,
+        },
+      },
+    })
 
-    return right(Result.ok(apps))
+    return apps.map((app) => App.hydrate(app))
   }
 }

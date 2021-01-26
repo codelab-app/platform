@@ -1,27 +1,18 @@
-import { left, right } from 'fp-ts/Either'
-import { Option, isNone } from 'fp-ts/Option'
-import { AppRepositoryPort } from '../../../adapters/AppRepositoryPort'
 import { App } from '../../../domain/app'
-import { DeleteAppErrors } from './DeleteAppErrors'
-import { DeleteAppRequest } from './DeleteAppRequest'
-import { DeleteAppResponse } from './DeleteAppResponse'
-import { DeleteAppUseCase } from './DeleteAppUseCase'
-import { Result } from '@codelab/backend'
+import { DeleteAppInput } from './DeleteAppInput'
+import { PrismaService, TransactionalUseCase } from '@codelab/backend'
 
-export class DeleteAppService implements DeleteAppUseCase {
-  constructor(private readonly appRepository: AppRepositoryPort) {}
+export class DeleteAppService
+  implements TransactionalUseCase<DeleteAppInput, App> {
+  constructor(private readonly prismaService: PrismaService) {}
 
-  async execute(request: DeleteAppRequest): Promise<DeleteAppResponse> {
-    const { appId } = request
+  async execute({ id }: DeleteAppInput): Promise<App> {
+    try {
+      const app = await this.prismaService.app.delete({ where: { id } })
 
-    const deleteAppResult: Option<App> = await this.appRepository.delete({
-      id: appId,
-    })
-
-    if (isNone(deleteAppResult)) {
-      return left(new DeleteAppErrors.AppNotFoundError(appId))
+      return App.hydrate(app)
+    } catch (e) {
+      throw new Error(`The app with id ${id} was not found`)
     }
-
-    return right(Result.ok(deleteAppResult.value))
   }
 }

@@ -1,5 +1,13 @@
 import { Inject, Injectable, UseGuards } from '@nestjs/common'
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
+import {
+  Args,
+  Mutation,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql'
+import { AppDto } from '../../../../app/src/core/application/useCases/AppDto'
 import { DeleteUserInput } from '../../core/application/useCases/deleteUser/DeleteUserInput'
 import { DeleteUserService } from '../../core/application/useCases/deleteUser/DeleteUserService'
 import { LoginUserInput } from '../../core/application/useCases/loginUser/LoginUserInput'
@@ -21,7 +29,7 @@ import { CurrentUser, GqlAuthGuard } from '@codelab/backend'
  *
  * @inheritDoc CommandQueryBusPort
  */
-@Resolver(() => User)
+@Resolver(() => UserDto)
 @Injectable()
 export class UserGraphqlAdapter {
   constructor(
@@ -59,5 +67,12 @@ export class UserGraphqlAdapter {
   @UseGuards(GqlAuthGuard)
   async getMe(@CurrentUser() user: User) {
     return user
+  }
+
+  @ResolveField(() => [AppDto])
+  async apps(@Parent() user: User) {
+    console.log(user)
+
+    return []
   }
 }

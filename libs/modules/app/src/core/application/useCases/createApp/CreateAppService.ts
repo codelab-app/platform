@@ -1,25 +1,35 @@
-import { left, right } from 'fp-ts/Either'
-import { isNone } from 'fp-ts/Option'
-import { AppRepositoryPort } from '../../../adapters/AppRepositoryPort'
-import { App } from '../../../domain/app'
-import { CreateAppErrors } from './CreateAppErrors'
+import { AppDto } from '../AppDto'
 import { CreateAppRequest } from './CreateAppRequest'
-import { CreateAppResponse } from './CreateAppResponse'
-import { CreateAppUseCase } from './CreateAppUseCase'
-import { Result } from '@codelab/backend'
+import { PrismaService, TransactionalUseCase } from '@codelab/backend'
 
-export class CreateAppService implements CreateAppUseCase {
-  constructor(private readonly appRepository: AppRepositoryPort) {}
+export class CreateAppService
+  implements TransactionalUseCase<CreateAppRequest, AppDto> {
+  constructor(private readonly prismaService: PrismaService) {}
 
-  async execute({ user, title }: CreateAppRequest): Promise<CreateAppResponse> {
-    const app = App.create({ title })
+  async execute({ user, ...request }: CreateAppRequest): Promise<AppDto> {
+    try {
+      const app = await this.prismaService.app.create({
+        // select: {
+        //   user: {
+        //     select: {
+        //       id: true,
+        //       email: true,
+        //     },
+        //   },
+        // },
+        data: {
+          ...request,
+          user: {
+            connect: {
+              id: user.id,
+            },
+          },
+        },
+      })
 
-    const createdApp = await this.appRepository.create(app, user.id)
-
-    if (isNone(createdApp)) {
-      return left(new CreateAppErrors.UserNotFoundError())
+      return app
+    } catch (e) {
+      throw new Error()
     }
-
-    return right(Result.ok(createdApp.value))
   }
 }

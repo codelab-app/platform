@@ -9,5 +9,5 @@ export class UserDto {
   declare email: string
 
   @Field({ defaultValue: '' })
-  declare accessToken: string
+  declare accessToken?: string
 }

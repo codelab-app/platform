@@ -22,7 +22,6 @@ describe('UpdateAppUseCase', () => {
   beforeAll(async () => {
     nestApp = await setupTestModule(nestApp, UserModule, AppModule)
 
-    // Register user
     user = await request(nestApp.getHttpServer())
       .post('/graphql')
       .send({
@@ -36,7 +35,6 @@ describe('UpdateAppUseCase', () => {
       })
       .then((res) => res.body.data.registerUser)
 
-    // Create an app
     app = await request(nestApp.getHttpServer())
       .post('/graphql')
       .set('Authorization', `Bearer ${user.accessToken}` ?? '')
@@ -100,7 +98,6 @@ describe('UpdateAppUseCase', () => {
   it('should not update an app for another user', async () => {
     const newTitle = 'My New App'
 
-    // Register user
     const user2 = await request(nestApp.getHttpServer())
       .post('/graphql')
       .send({
@@ -128,6 +125,7 @@ describe('UpdateAppUseCase', () => {
       })
       .expect(200)
       .then((res) => {
+        console.log(res.body)
         expect(res.body.errors[0].extensions.exception._tag).toBe(
           'REQUEST_VALIDATION_ERROR',
         )

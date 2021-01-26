@@ -26,26 +26,5 @@ export class UserDITokens {
     'ValidateUserUseCase',
   )
 
-  // Handlers
-  public static readonly CreateUserCommandHandler: unique symbol = Symbol(
-    'CreateUserCommandHandler',
-  )
-
-  public static readonly EditUserCommandHandler: unique symbol = Symbol(
-    'CreateUserCommandHandler',
-  )
-
-  public static readonly DeleteUserCommandHandler: unique symbol = Symbol(
-    'CreateUserCommandHandler',
-  )
-
-  // Repositories
-
-  public static readonly UserRepository: unique symbol = Symbol(
-    'UserRepository',
-  )
-
-  public static readonly AppRepository: unique symbol = Symbol('AppRepository')
-
   public static readonly AuthService: unique symbol = Symbol('AuthService')
 }

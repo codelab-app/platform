@@ -7,4 +7,7 @@ export class AppDto {
 
   @Field()
   declare title: string
+
+  // @Field()
+  // declare user: UserDto
 }

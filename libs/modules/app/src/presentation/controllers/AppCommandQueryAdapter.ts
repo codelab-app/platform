@@ -1,32 +1,33 @@
-import { Injectable, UseGuards } from '@nestjs/common'
-import { CommandBus, QueryBus } from '@nestjs/cqrs'
+import { Inject, Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
-import { CreateAppCommand } from '../../core/application/commands/CreateAppCommand'
-import { DeleteAppCommand } from '../../core/application/commands/DeleteAppCommand'
-import { UpdateAppCommand } from '../../core/application/commands/UpdateAppCommand'
-import { GetAppQuery } from '../../core/application/queries/GetAppQuery'
-import { GetAppsQuery } from '../../core/application/queries/GetAppsQuery'
 import { AppDto } from '../../core/application/useCases/AppDto'
 import { CreateAppInput } from '../../core/application/useCases/createApp/CreateAppInput'
+import { CreateAppService } from '../../core/application/useCases/createApp/CreateAppService'
 import { DeleteAppInput } from '../../core/application/useCases/deleteApp/DeleteAppInput'
+import { DeleteAppService } from '../../core/application/useCases/deleteApp/DeleteAppService'
 import { GetAppInput } from '../../core/application/useCases/getApp/GetAppInput'
+import { GetAppService } from '../../core/application/useCases/getApp/GetAppService'
+import { GetAppsService } from '../../core/application/useCases/getApps/GetAppsService'
 import { UpdateAppInput } from '../../core/application/useCases/updateApp/UpdateAppInput'
-import { App } from '../../core/domain/app'
-import { AppEntity } from '../../core/domain/app.codec'
-import {
-  CommandQueryBusPort,
-  CurrentUser,
-  GqlAuthGuard,
-  UseCaseRequestPort,
-} from '@codelab/backend'
+import { UpdateAppService } from '../../core/application/useCases/updateApp/UpdateAppService'
+import { AppDITokens } from '../../framework/AppDITokens'
+import { CurrentUser, GqlAuthGuard } from '@codelab/backend'
 import { User } from '@codelab/modules/user'
 
 @Resolver('App')
 @Injectable()
-export class AppCommandQueryAdapter implements CommandQueryBusPort {
+export class AppCommandQueryAdapter {
   constructor(
-    readonly commandBus: CommandBus<UseCaseRequestPort>,
-    readonly queryBus: QueryBus<UseCaseRequestPort>,
+    @Inject(AppDITokens.CreateAppUseCase)
+    readonly createAppService: CreateAppService,
+    @Inject(AppDITokens.GetAppUseCase)
+    readonly getAppService: GetAppService,
+    @Inject(AppDITokens.GetAppsUseCase)
+    readonly getAppsService: GetAppsService,
+    @Inject(AppDITokens.UpdateAppUseCase)
+    readonly updateAppService: UpdateAppService,
+    @Inject(AppDITokens.DeleteAppUseCase)
+    readonly deleteAppService: DeleteAppService,
   ) {}
 
   @Mutation(() => AppDto)
@@ -35,54 +36,37 @@ export class AppCommandQueryAdapter implements CommandQueryBusPort {
     @Args('input') input: CreateAppInput,
     @CurrentUser() user: User,
   ) {
-    const results: AppEntity = await this.commandBus.execute(
-      new CreateAppCommand({ ...input, user }),
-    )
-
-    return AppEntity.encode(results)
+    return this.createAppService.execute({ ...input, user })
   }
 
   @Query(() => AppDto, { nullable: true })
   @UseGuards(GqlAuthGuard)
-  async getApp(@Args('input') input: GetAppInput, @CurrentUser() user: User) {
-    const app = await this.queryBus.execute(
-      new GetAppQuery({ user, appId: input.appId }),
-    )
-
-    return AppEntity.encode(app)
+  async getApp(@Args('input') input: GetAppInput) {
+    return this.getAppService.execute({ ...input })
   }
 
   @Query(() => [AppDto])
   @UseGuards(GqlAuthGuard)
   async getApps(@CurrentUser() user: User) {
-    const results = await this.queryBus.execute(new GetAppsQuery({ user }))
-
-    return results
+    return this.getAppsService.execute({ user })
   }
 
   @Mutation(() => AppDto)
   @UseGuards(GqlAuthGuard)
   async updateApp(
-    @Args('input') input: UpdateAppInput,
+    @Args('input') { id, ...input }: UpdateAppInput,
     @CurrentUser() user: User,
   ) {
-    const app: App = await this.commandBus.execute(
-      new UpdateAppCommand({
-        user,
-        ...input,
-      }),
-    )
-
-    return AppEntity.encode(app)
+    return this.updateAppService.execute({
+      appId: id,
+      userId: user.id,
+      ...input,
+    })
   }
 
   @Mutation(() => AppDto)
   @UseGuards(GqlAuthGuard)
-  async deleteApp(@Args('input') { id }: DeleteAppInput) {
-    const app = await this.commandBus.execute(
-      new DeleteAppCommand({ appId: id }),
-    )
-
-    return AppEntity.encode(app)
+  async deleteApp(@Args('input') input: DeleteAppInput) {
+    return this.deleteAppService.execute(input)
   }
 }

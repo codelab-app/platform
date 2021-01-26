@@ -1,16 +1,17 @@
+import { UserDto } from '../../../../presentation/UserDto'
 import { User } from '../../../domain/user'
 import { AuthService } from '../../services/AuthService'
 import { RegisterUserInput } from './RegisterUserInput'
 import { PrismaService, TransactionalUseCase } from '@codelab/backend'
 
 export class RegisterUserService
-  implements TransactionalUseCase<RegisterUserInput, User> {
+  implements TransactionalUseCase<RegisterUserInput, UserDto> {
   constructor(
     private readonly prismaService: PrismaService,
     private readonly authService: AuthService,
   ) {}
 
-  async execute(request: RegisterUserInput): Promise<User> {
+  async execute(request: RegisterUserInput): Promise<UserDto> {
     const existingUser = await this.prismaService.user.findUnique({
       where: { email: request.email },
     })
@@ -29,9 +30,9 @@ export class RegisterUserService
 
     const accessToken = await this.authService.getToken(newUser)
 
-    return User.hydrate({
+    return {
       ...newUser,
       accessToken,
-    })
+    }
   }
 }
