@@ -6,99 +6,155 @@ import { JSONSchema7 } from 'json-schema'
 import React from 'react'
 import { IDecoratorMap } from '@codelab/tools/grid-decorator'
 
-const Form = withTheme(AntDTheme)
-
 interface GridCellDetails extends ColProps {
   order?: number
 }
+type ObjectFieldTemplateProperty = ObjectFieldTemplateProps['properties'][number]
+type Path = Array<string>
 
-const parseIdSchema = (idSchema: string): Array<string> => {
-  return idSchema.split('_')
+const getIdSchema = (p: ObjectFieldTemplateProperty): string => {
+  return p.content.props.idSchema.$id
 }
 
-type ObjectFieldTemplateProperty = ObjectFieldTemplateProps['properties'][number] & {
-  props: {
-    schema: JSONSchema7
+const parseIdSchema = (idSchema: string, separator = '_'): Array<string> => {
+  return idSchema.split(separator)
+}
+
+const generatePathToGridDetailsByIdSchema = (
+  idSchema: string,
+): Array<string> => {
+  const gridFieldName = 'grid'
+
+  // we cut the first step (='root') because it is special mark for internal needs of rjsf
+  const pathSteps = parseIdSchema(idSchema).slice(1)
+
+  return [...pathSteps, gridFieldName]
+}
+
+const getFieldByPath = (obj: {}, path: Path): any | null => {
+  if (obj === undefined) {
+    return null
   }
-  _grid: GridCellDetails
+
+  let subtree: any = obj
+
+  for (const fieldName of path) {
+    subtree = subtree[fieldName]
+    if (subtree === undefined) {
+      return null
+    }
+  }
+
+  return Array.isArray(subtree) ? subtree : null
 }
+
+const getGridDetailsFromPropertiesSchema = (
+  p: ObjectFieldTemplateProperty,
+  decoratorSettings: IDecoratorMap | undefined,
+): GridCellDetails | null => {
+  if (decoratorSettings === undefined) {
+    return null
+  }
+
+  const pathStepsToGridDecorator = generatePathToGridDetailsByIdSchema(
+    getIdSchema(p),
+  )
+
+  const gridDecoratorParams = getFieldByPath(
+    decoratorSettings,
+    pathStepsToGridDecorator,
+  )
+
+  // we get first param, because we assume that required params will be passed as first parameter
+  return Array.isArray(gridDecoratorParams) ? gridDecoratorParams[0] : null
+}
+
+interface IIdSchemaToGridDetailsMap {
+  [idSchema: string]: GridCellDetails
+}
+const getIdSchemaToGridDetailsMap = (
+  properties: Array<ObjectFieldTemplateProperty>,
+  decoratorsSettings: IDecoratorMap | undefined,
+): IIdSchemaToGridDetailsMap => {
+  return decoratorsSettings === undefined
+    ? {}
+    : (properties
+        .map(
+          (p) =>
+            [
+              getIdSchema(p),
+              getGridDetailsFromPropertiesSchema(p, decoratorsSettings),
+            ] as [string, GridCellDetails | null],
+        )
+        .filter((gridDetail: [string, GridCellDetails | null]) => {
+          return gridDetail[1] !== null
+        }) as Array<[string, GridCellDetails]>).reduce(
+        (acc, curr) => ({
+          [curr[0]]: curr[1],
+        }),
+        {} as IIdSchemaToGridDetailsMap,
+      )
+}
+
+const ObjectFieldTemplateFactory = (
+  decoratorSettings: IDecoratorMap | undefined = undefined,
+) => (props: ObjectFieldTemplateProps) => {
+  const IdSchemaToGridDetailsMap = getIdSchemaToGridDetailsMap(
+    props.properties,
+    decoratorSettings,
+  )
+
+  const [properties, gridProperties] = props.properties.reduce(
+    (acc: any, curr: ObjectFieldTemplateProperty) => {
+      return IdSchemaToGridDetailsMap[getIdSchema(curr)] === undefined
+        ? [[...acc[0], curr], acc[1]]
+        : [acc[0], [...acc[1], curr]]
+    },
+    [[], []] as [
+      Array<ObjectFieldTemplateProperty>,
+      Array<ObjectFieldTemplateProperty>,
+    ],
+  )
+
+  gridProperties.sort(
+    (a: ObjectFieldTemplateProperty, b: ObjectFieldTemplateProperty) =>
+      (IdSchemaToGridDetailsMap[getIdSchema(a)].order as number) -
+      (IdSchemaToGridDetailsMap[getIdSchema(b)].order as number),
+  )
+
+  return (
+    <div>
+      {props.title}
+      {props.description}
+      <Row>
+        {gridProperties.map((p: any) => {
+          const { order, ...colProps } = IdSchemaToGridDetailsMap[
+            getIdSchema(p)
+          ]
+
+          return (
+            <Col {...colProps} key={p.name}>
+              {p.content}
+            </Col>
+          )
+        })}
+      </Row>
+      {properties.map((p: any) => (
+        <div className="property-wrapper" key={p.name}>
+          {p.content}
+        </div>
+      ))}
+    </div>
+  )
+}
+
+const Form = withTheme(AntDTheme)
 
 export const gridFormFactory = (
   schema: JSONSchema7,
   decoratorSettings: IDecoratorMap | undefined = undefined,
 ) => {
-  const extractGridDetailsFromPropertiesSchema = (
-    p: ObjectFieldTemplateProps['properties'][number],
-  ): GridCellDetails => {
-    const emptyGridDetails = {}
-
-    if (decoratorSettings === undefined) {
-      return emptyGridDetails
-    }
-
-    const propIdSchema = p.content.props.idSchema.$id
-
-    // we cut the first step (='root') because it is special mark for internal needs of rjsf
-    const pathStepsToDecoratoraDetails = parseIdSchema(propIdSchema).slice(1)
-    const pathStepsToGridDecorator = [...pathStepsToDecoratoraDetails, 'grid']
-    let subtree: any = decoratorSettings
-
-    for (const fieldName of pathStepsToGridDecorator) {
-      subtree = subtree[fieldName]
-      if (subtree === undefined) {
-        return emptyGridDetails
-      }
-    }
-
-    return Array.isArray(subtree) ? subtree[0] : emptyGridDetails
-  }
-
-  const ObjectFieldTemplate = (props: ObjectFieldTemplateProps) => {
-    const propertiesWithGridDetails = props.properties.map((p: any) => ({
-      ...p,
-      _grid: extractGridDetailsFromPropertiesSchema(p),
-    }))
-
-    const [properties, groupedProperties] = propertiesWithGridDetails.reduce(
-      (acc: any, curr: ObjectFieldTemplateProperty) => {
-        return curr._grid.order === undefined
-          ? [[...acc[0], curr], acc[1]]
-          : [acc[0], [...acc[1], curr]]
-      },
-      [[], []] as [
-        Array<ObjectFieldTemplateProperty>,
-        Array<ObjectFieldTemplateProperty>,
-      ],
-    )
-
-    groupedProperties.sort(
-      (a: ObjectFieldTemplateProperty, b: ObjectFieldTemplateProperty) =>
-        (a._grid.order as number) - (b._grid.order as number),
-    )
-
-    return (
-      <div>
-        {props.title}
-        {props.description}
-        <Row>
-          {groupedProperties.map((p: any) => {
-            const { order, ...colProps } = p._grid
-
-            return (
-              <Col {...colProps} key={p.name}>
-                {p.content}
-              </Col>
-            )
-          })}
-        </Row>
-        {properties.map((p: any) => (
-          <div className="property-wrapper" key={p.name}>
-            {p.content}
-          </div>
-        ))}
-      </div>
-    )
-  }
+  const ObjectFieldTemplate = ObjectFieldTemplateFactory(decoratorSettings)
 
   return <Form schema={schema} ObjectFieldTemplate={ObjectFieldTemplate} />
 }
