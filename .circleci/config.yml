@@ -97,13 +97,14 @@ commands:
             # Set path before install, otherwise paths will be different in the executors
             echo 'export NODE_OPTIONS=$NODE_OPTIONS' >> $BASH_ENV
             source $BASH_ENV
+
+            echo 'export NVM_DIR=$HOME/.nvm' >> $BASH_ENV
+            echo 'source $NVM_DIR/nvm.sh' >> $BASH_ENV
             wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
       - run:
           name: 'Setup env'
           command: |
             # node settings
-            echo 'export NVM_DIR=$HOME/.nvm' >> $BASH_ENV
-            echo 'source $NVM_DIR/nvm.sh' >> $BASH_ENV
 
             # git settings
             echo 'export GIT_COMMIT_MSG=$(git log --format="format:%s" -n 1 ${CIRCLE_SHA1})' >> $BASH_ENV
@@ -276,13 +277,15 @@ jobs:
       - yarn-install-prod
       - run:
           name: 'Build Docker image'
-          command: yarn docker:build codelab
+          command: |
+            env >> .env
+            yarn docker:build codelab
       - run:
           name: 'Docker login'
           command: echo "${DOCKER_PASS}" | docker login --username "${DOCKER_USER}" --password-stdin
       - run:
           name: 'Push Docker image'
-          command: yarn docker-push codelab
+          command: yarn docker:push codelab
 
   notify-failure:
     <<: *executor-params
@@ -341,14 +344,15 @@ workflows:
           e: vault-img
       - install-and-build-workspace:
           <<: *filters-staging
+          e: docker-node
           requires:
             - setup-vault-env
       - build-and-push-docker-image:
           <<: *filters-staging
-          context: credentials-docker
           requires:
             - install-and-build-workspace
       - notify-success:
           <<: *filters-staging
+          e: docker-node
           requires:
             - build-and-push-docker-image
