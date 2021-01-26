@@ -1,4 +1,4 @@
-import { App } from '../../../domain/app'
+import { App } from '../../../domain/App'
 import { GetAppsRequest } from './GetAppsRequest'
 import { PrismaService, TransactionalUseCase } from '@codelab/backend'
 
@@ -7,14 +7,12 @@ export class GetAppsService
   constructor(private readonly prismaService: PrismaService) {}
 
   async execute({ user }: GetAppsRequest): Promise<Array<App>> {
-    const apps = await this.prismaService.app.findMany({
+    return await this.prismaService.app.findMany({
       where: {
         user: {
           id: user.id,
         },
       },
     })
-
-    return apps.map((app) => App.hydrate(app))
   }
 }

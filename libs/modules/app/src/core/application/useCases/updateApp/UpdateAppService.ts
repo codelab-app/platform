@@ -1,4 +1,4 @@
-import { App } from '../../../domain/app'
+import { App } from '../../../domain/App'
 import { UpdateAppRequest } from './UpdateAppRequest'
 import {
   PrismaService,
@@ -25,14 +25,12 @@ export class UpdateAppService
         throw new RequestValidationError()
       }
 
-      const app = await this.prismaService.app.update({
+      return await this.prismaService.app.update({
         where: {
           id: appId,
         },
         data: { ...appData },
       })
-
-      return App.hydrate(app)
     } catch (e) {
       throw new Error()
     }

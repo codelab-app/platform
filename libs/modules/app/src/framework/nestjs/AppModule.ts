@@ -4,11 +4,11 @@ import { DeleteAppService } from '../../core/application/useCases/deleteApp/Dele
 import { GetAppService } from '../../core/application/useCases/getApp/GetAppService'
 import { GetAppsService } from '../../core/application/useCases/getApps/GetAppsService'
 import { UpdateAppService } from '../../core/application/useCases/updateApp/UpdateAppService'
-import { AppCommandQueryAdapter } from '../../presentation/controllers/AppCommandQueryAdapter'
+import { AppGraphqlAdapter } from '../../presentation/controllers/AppGraphqlAdapter'
 import { AppDITokens } from '../AppDITokens'
 import { PrismaDITokens } from '@codelab/backend'
 
-export const persistenceProviders: Array<Provider> = [AppCommandQueryAdapter]
+export const persistenceProviders: Array<Provider> = [AppGraphqlAdapter]
 
 export const useCaseProviders: Array<Provider> = [
   {

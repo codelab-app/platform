@@ -5,7 +5,7 @@ import { RegisterUserGql } from '../../../../../../user/src/core/application/use
 import { UserModule } from '../../../../../../user/src/framework/nestjs/UserModule'
 import { UserDto } from '../../../../../../user/src/presentation/UserDto'
 import { AppModule } from '../../../../framework/nestjs/AppModule'
-import { AppDto } from '../AppDto'
+import { App } from '../../../domain/App'
 import { CreateAppGql } from '../createApp/CreateApp.generated'
 import { DeleteAppGql } from './DeleteApp.generated'
 import { setupTestModule, teardownTestModule } from '@codelab/backend'
@@ -40,7 +40,7 @@ describe('DeleteAppUseCase', () => {
   })
 
   it('should delete app', async () => {
-    const createApp: AppDto = await request(app.getHttpServer())
+    const createApp: App = await request(app.getHttpServer())
       .post('/graphql')
       .set('Authorization', `Bearer ${user.accessToken}`)
       .send({

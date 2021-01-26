@@ -1,8 +1,8 @@
 import { INestApplication } from '@nestjs/common'
 import { print } from 'graphql'
 import request from 'supertest'
-import { AppDto } from '../../../../../../app/src/core/application/useCases/AppDto'
 import { CreateAppGql } from '../../../../../../app/src/core/application/useCases/createApp/CreateApp.generated'
+import { App } from '../../../../../../app/src/core/domain/App'
 import { RegisterUserGql } from '../../../../../../user/src/core/application/useCases/registerUser/RegisterUser.generated'
 import { PageDto } from '../../../../presentation/PageDto'
 import { CreatePageGql } from '../createPage/CreatePage.generated'
@@ -46,7 +46,7 @@ describe('DeletePageUseCase', () => {
     const title = 'Test App'
     const { accessToken } = user
 
-    const createApp: AppDto = await request(app.getHttpServer())
+    const createApp: App = await request(app.getHttpServer())
       .post('/graphql')
       .set('Authorization', `Bearer ${accessToken}`)
       .send({

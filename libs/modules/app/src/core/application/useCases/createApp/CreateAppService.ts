@@ -1,22 +1,14 @@
-import { AppDto } from '../AppDto'
+import { App } from '../../../domain/App'
 import { CreateAppRequest } from './CreateAppRequest'
 import { PrismaService, TransactionalUseCase } from '@codelab/backend'
 
 export class CreateAppService
-  implements TransactionalUseCase<CreateAppRequest, AppDto> {
+  implements TransactionalUseCase<CreateAppRequest, App> {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async execute({ user, ...request }: CreateAppRequest): Promise<AppDto> {
+  async execute({ user, ...request }: CreateAppRequest): Promise<App> {
     try {
-      const app = await this.prismaService.app.create({
-        // select: {
-        //   user: {
-        //     select: {
-        //       id: true,
-        //       email: true,
-        //     },
-        //   },
-        // },
+      return await this.prismaService.app.create({
         data: {
           ...request,
           user: {
@@ -26,8 +18,6 @@ export class CreateAppService
           },
         },
       })
-
-      return app
     } catch (e) {
       throw new Error()
     }

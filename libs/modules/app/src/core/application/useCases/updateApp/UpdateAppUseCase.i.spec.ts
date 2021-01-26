@@ -3,7 +3,7 @@ import { print } from 'graphql'
 import request from 'supertest'
 import { RegisterUserGql } from '../../../../../../user/src/core/application/useCases/registerUser/RegisterUser.generated'
 import { AppModule } from '../../../../framework/nestjs/AppModule'
-import { AppDto } from '../AppDto'
+import { App } from '../../../domain/App'
 import { CreateAppGql } from '../createApp/CreateApp.generated'
 import { UpdateAppGql } from './UpdateApp.generated'
 import { setupTestModule, teardownTestModule } from '@codelab/backend'
@@ -17,7 +17,7 @@ const appTitleOld = 'My first app'
 describe('UpdateAppUseCase', () => {
   let nestApp: INestApplication
   let user: UserDto
-  let app: AppDto
+  let app: App
 
   beforeAll(async () => {
     nestApp = await setupTestModule(nestApp, UserModule, AppModule)

@@ -7,7 +7,7 @@ import {
   ResolveField,
   Resolver,
 } from '@nestjs/graphql'
-import { AppDto } from '../../../../app/src/core/application/useCases/AppDto'
+import { App } from '../../../../app/src/core/domain/App'
 import { DeleteUserInput } from '../../core/application/useCases/deleteUser/DeleteUserInput'
 import { DeleteUserService } from '../../core/application/useCases/deleteUser/DeleteUserService'
 import { LoginUserInput } from '../../core/application/useCases/loginUser/LoginUserInput'
@@ -68,8 +68,8 @@ export class UserGraphqlAdapter {
     return user
   }
 
-  @ResolveField(() => [AppDto])
-  pps(@Parent() user: UserDto) {
+  @ResolveField(() => [App])
+  apps(@Parent() user: UserDto) {
     console.log(user)
 
     return []

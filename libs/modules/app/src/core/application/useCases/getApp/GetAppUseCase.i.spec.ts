@@ -2,7 +2,7 @@ import { INestApplication } from '@nestjs/common'
 import { print } from 'graphql'
 import request from 'supertest'
 import { RegisterUserGql } from '../../../../../../user/src/core/application/useCases/registerUser/RegisterUser.generated'
-import { AppDto } from '../AppDto'
+import { App } from '../../../domain/App'
 import { CreateAppGql } from '../createApp/CreateApp.generated'
 import { GetAppGql } from './GetApp.generated'
 import { setupTestModule, teardownTestModule } from '@codelab/backend'
@@ -41,7 +41,7 @@ describe('GetAppUseCase', () => {
   it('Should get app for authenticated user', async () => {
     const title = 'My App'
 
-    const createApp: AppDto = await request(app.getHttpServer())
+    const createApp: App = await request(app.getHttpServer())
       .post('/graphql')
       .set('Authorization', `Bearer ${user.accessToken}` ?? '')
       .send({

@@ -1,6 +1,5 @@
 import { Inject, Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
-import { AppDto } from '../../core/application/useCases/AppDto'
 import { CreateAppInput } from '../../core/application/useCases/createApp/CreateAppInput'
 import { CreateAppService } from '../../core/application/useCases/createApp/CreateAppService'
 import { DeleteAppInput } from '../../core/application/useCases/deleteApp/DeleteAppInput'
@@ -10,13 +9,14 @@ import { GetAppService } from '../../core/application/useCases/getApp/GetAppServ
 import { GetAppsService } from '../../core/application/useCases/getApps/GetAppsService'
 import { UpdateAppInput } from '../../core/application/useCases/updateApp/UpdateAppInput'
 import { UpdateAppService } from '../../core/application/useCases/updateApp/UpdateAppService'
+import { App } from '../../core/domain/App'
 import { AppDITokens } from '../../framework/AppDITokens'
 import { CurrentUser, GqlAuthGuard } from '@codelab/backend'
-import { User } from '@codelab/modules/user'
+import { UserDto } from '@codelab/modules/user'
 
 @Resolver('App')
 @Injectable()
-export class AppCommandQueryAdapter {
+export class AppGraphqlAdapter {
   constructor(
     @Inject(AppDITokens.CreateAppUseCase)
     readonly createAppService: CreateAppService,
@@ -30,43 +30,43 @@ export class AppCommandQueryAdapter {
     readonly deleteAppService: DeleteAppService,
   ) {}
 
-  @Mutation(() => AppDto)
+  @Mutation(() => App)
   @UseGuards(GqlAuthGuard)
   async createApp(
     @Args('input') input: CreateAppInput,
-    @CurrentUser() user: User,
+    @CurrentUser() user: UserDto,
   ) {
-    return this.createAppService.execute({ ...input, user })
+    return await this.createAppService.execute({ ...input, user })
   }
 
-  @Query(() => AppDto, { nullable: true })
+  @Query(() => App, { nullable: true })
   @UseGuards(GqlAuthGuard)
   async getApp(@Args('input') input: GetAppInput) {
-    return this.getAppService.execute({ ...input })
+    return await this.getAppService.execute({ ...input })
   }
 
-  @Query(() => [AppDto])
+  @Query(() => [App])
   @UseGuards(GqlAuthGuard)
-  async getApps(@CurrentUser() user: User) {
-    return this.getAppsService.execute({ user })
+  async getApps(@CurrentUser() user: UserDto) {
+    return await this.getAppsService.execute({ user })
   }
 
-  @Mutation(() => AppDto)
+  @Mutation(() => App)
   @UseGuards(GqlAuthGuard)
   async updateApp(
     @Args('input') { id, ...input }: UpdateAppInput,
-    @CurrentUser() user: User,
+    @CurrentUser() user: UserDto,
   ) {
-    return this.updateAppService.execute({
+    return await this.updateAppService.execute({
       appId: id,
       userId: user.id,
       ...input,
     })
   }
 
-  @Mutation(() => AppDto)
+  @Mutation(() => App)
   @UseGuards(GqlAuthGuard)
   async deleteApp(@Args('input') input: DeleteAppInput) {
-    return this.deleteAppService.execute(input)
+    return await this.deleteAppService.execute(input)
   }
 }
