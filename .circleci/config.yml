@@ -321,10 +321,7 @@ jobs:
   argocd-set-prod:
     <<: *executor-params
     steps:
-      - checkout
-      - attach_workspace:
-          at: ..
-      - run: source ~/.env
+      - setup-env
       - argo-set/set:
           argoApplication: $ARGOCD_PROD_APP_NAME
           authToken: $ARGOCD_TOKEN
