@@ -32,7 +32,7 @@ describe('LoginUserUseCase', () => {
     await teardownTestModule(app)
   })
 
-  it('should successfully login', async () => {
+  it.only('should successfully login', async () => {
     await request(app.getHttpServer())
       .post('/graphql')
       .send({
@@ -67,7 +67,7 @@ describe('LoginUserUseCase', () => {
       .expect((res) => {
         const errorMsg = res.body.errors[0].message
 
-        expect(errorMsg).toEqual(`Wrong Password`)
+        expect(errorMsg).toEqual('Incorrect email & password combination')
       })
   })
 
@@ -89,9 +89,7 @@ describe('LoginUserUseCase', () => {
       .expect((res) => {
         const errorMsg = res.body.errors[0].message
 
-        expect(errorMsg).toEqual(
-          `Theres no email ${wrongEmail} associated with any account`,
-        )
+        expect(errorMsg).toEqual('Incorrect email & password combination')
       })
   })
 })

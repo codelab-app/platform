@@ -3,11 +3,11 @@ import { CommandBus, QueryBus } from '@nestjs/cqrs'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { DeleteUserCommand } from '../../core/application/commands/DeleteUserCommand'
 import { GetMeQuery } from '../../core/application/commands/GetMeQuery'
-import { LoginUserCommand } from '../../core/application/commands/LoginUserCommand'
 import { UpdateUserCommand } from '../../core/application/commands/UpdateUserCommand'
 import { DeleteUserInput } from '../../core/application/useCases/deleteUser/DeleteUserInput'
 import { GetMeRequest } from '../../core/application/useCases/getMe/GetMeRequest'
 import { LoginUserInput } from '../../core/application/useCases/loginUser/LoginUserInput'
+import { LoginUserService } from '../../core/application/useCases/loginUser/LoginUserService'
 import { RegisterUserInput } from '../../core/application/useCases/registerUser/RegisterUserInput'
 import { RegisterUserService } from '../../core/application/useCases/registerUser/RegisterUserService'
 import { UpdateUserInput } from '../../core/application/useCases/updateUser/UpdateUserInput'
@@ -36,6 +36,8 @@ export class UserCommandQueryAdapter implements CommandQueryBusPort {
   constructor(
     readonly commandBus: CommandBus<UseCaseRequestPort>,
     readonly queryBus: QueryBus<UseCaseRequestPort>,
+    @Inject(UserDITokens.LoginUserUseCase)
+    readonly loginUserService: LoginUserService,
     @Inject(UserDITokens.RegisterUserUseCase)
     readonly registerUserService: RegisterUserService,
   ) {}
@@ -63,9 +65,7 @@ export class UserCommandQueryAdapter implements CommandQueryBusPort {
 
   @Mutation(() => UserDto)
   async loginUser(@Args('input') input: LoginUserInput) {
-    const user = await this.commandBus.execute(new LoginUserCommand(input))
-
-    return UserEntity.encode(user)
+    return this.loginUserService.execute(input)
   }
 
   @Query(() => UserDto)

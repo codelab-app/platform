@@ -1,4 +1,3 @@
-import * as bcrypt from 'bcrypt'
 import { plainToClass } from 'class-transformer'
 import { isLeft } from 'fp-ts/lib/Either'
 import { UUID } from 'io-ts-types'
@@ -65,17 +64,5 @@ export class User implements UserEntity {
     }
 
     return plainToClass(User, result.right)
-  }
-
-  public hashPassword() {
-    this.password = bcrypt.hashSync(this.password, 10) as Password
-  }
-
-  public comparePassword(attempt: string): boolean {
-    return bcrypt.compareSync(attempt, this.password)
-  }
-
-  public setAccessToken(token: string) {
-    this.accessToken = token
   }
 }

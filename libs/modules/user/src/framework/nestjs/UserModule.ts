@@ -4,7 +4,6 @@ import { PrismaDITokens } from '../../../../../backend/src/infrastructure/persis
 import { DeleteUserCommandHandler } from '../../core/application/handlers/DeleteUserCommandHandler'
 import { GetMeQueryHandler } from '../../core/application/handlers/GetMeQueryHandler'
 import { GetUsersQueryHandler } from '../../core/application/handlers/GetUsersQueryHandler'
-import { LoginUserCommandHandler } from '../../core/application/handlers/LoginUserCommandHandler'
 import { UpdateUserCommandHandler } from '../../core/application/handlers/UpdateUserCommandHandler'
 import { ValidateUserCommandHandler } from '../../core/application/handlers/ValidateUserCommandHandler'
 import { AuthService } from '../../core/application/services/AuthService'
@@ -43,9 +42,9 @@ export const useCaseProviders: Array<Provider> = [
   },
   {
     provide: UserDITokens.LoginUserUseCase,
-    useFactory: (usersRepository, authService) =>
-      new LoginUserService(usersRepository, authService),
-    inject: [UserDITokens.UserRepository, AuthService],
+    useFactory: (prismaService, authService) =>
+      new LoginUserService(prismaService, authService),
+    inject: [PrismaDITokens.PrismaService, AuthService],
   },
   {
     provide: UserDITokens.RegisterUserUseCase,
@@ -73,7 +72,6 @@ export const useCaseProviders: Array<Provider> = [
 export const handlerProviders: Array<Provider> = [
   GetMeQueryHandler,
   ValidateUserCommandHandler,
-  LoginUserCommandHandler,
   DeleteUserCommandHandler,
   UpdateUserCommandHandler,
   GetUsersQueryHandler,
