@@ -1,36 +1,25 @@
-import { option } from 'fp-ts'
-import { left, right } from 'fp-ts/Either'
-import { Option } from 'fp-ts/Option'
-import { AppError } from '../../../../../../../backend/src/core/application/common/errors/AppError'
-import { UserRepositoryPort } from '../../../adapters/UserRepositoryPort'
 import { User } from '../../../domain/user'
-import { EditUserErrors } from './UpdateUserErrors'
-import { UpdateUserRequest } from './UpdateUserRequest'
-import { UpdateUserResponse } from './UpdateUserResponse'
-import { UpdateUserUseCase } from './UpdateUserUseCase'
-import { Result } from '@codelab/backend'
+import { UpdateUserInput } from './UpdateUserInput'
+import { PrismaService, TransactionalUseCase } from '@codelab/backend'
 
-export class UpdateUserService implements UpdateUserUseCase {
-  constructor(private readonly userRepository: UserRepositoryPort) {}
+export class UpdateUserService
+  implements TransactionalUseCase<UpdateUserInput, User> {
+  constructor(private readonly prismaService: PrismaService) {}
 
-  async execute({
-    id,
-    ...userData
-  }: UpdateUserRequest): Promise<UpdateUserResponse> {
-    const existingUser: Option<User> = await this.userRepository.findOne({
-      id,
-    })
+  async execute({ id, ...data }: UpdateUserInput): Promise<User> {
+    try {
+      const user = await this.prismaService.user.update({
+        where: {
+          id,
+        },
+        data,
+      })
 
-    if (option.isNone(existingUser)) {
-      return left(new EditUserErrors.UserNotFoundError(id))
+      return User.hydrate(user)
+    } catch (e) {
+      throw new Error(
+        `Theres no email ${data.email} associated with any account`,
+      )
     }
-
-    const result = await this.userRepository.update({ id }, userData)
-
-    if (option.isNone(result)) {
-      return left(new AppError('App error'))
-    }
-
-    return right(Result.ok(result.value))
   }
 }

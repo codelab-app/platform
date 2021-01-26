@@ -74,7 +74,7 @@ describe('UpdateUserUseCase', () => {
         const errorMsg = res.body?.errors[0].message
 
         expect(errorMsg).toEqual(
-          `Theres no email ${userId} associated with any account`,
+          `Theres no email ${newEmail} associated with any account`,
         )
       })
   })

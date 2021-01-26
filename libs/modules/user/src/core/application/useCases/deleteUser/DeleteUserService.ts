@@ -7,12 +7,16 @@ export class DeleteUserService
   constructor(private readonly prismaService: PrismaService) {}
 
   async execute({ email }: DeleteUserInput): Promise<User> {
-    const user = await this.prismaService.user.delete({
-      where: {
-        email,
-      },
-    })
+    try {
+      const user = await this.prismaService.user.delete({
+        where: {
+          email,
+        },
+      })
 
-    return User.hydrate(user)
+      return User.hydrate(user)
+    } catch (e) {
+      throw new Error(`Theres no email ${email} associated with any account`)
+    }
   }
 }

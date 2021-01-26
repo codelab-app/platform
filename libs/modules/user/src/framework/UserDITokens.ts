@@ -5,14 +5,14 @@ export class UserDITokens {
     'LoginUserUseCase',
   )
 
+  public static readonly UpdateUserUseCase: unique symbol = Symbol(
+    'UpdateUserUseCase',
+  )
+
   public static readonly RegisterUserUseCase: unique symbol = Symbol(
     'RegisterUserUseCase',
   )
   // Use-cases
-
-  public static readonly EditUserUseCase: unique symbol = Symbol(
-    'EditUserUseCase',
-  )
 
   public static readonly DeleteUserUseCase: unique symbol = Symbol(
     'DeleteUserUseCase',

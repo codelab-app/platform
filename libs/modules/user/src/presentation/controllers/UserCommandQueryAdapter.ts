@@ -2,7 +2,6 @@ import { Inject, Injectable, UseGuards } from '@nestjs/common'
 import { CommandBus, QueryBus } from '@nestjs/cqrs'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { GetMeQuery } from '../../core/application/commands/GetMeQuery'
-import { UpdateUserCommand } from '../../core/application/commands/UpdateUserCommand'
 import { DeleteUserInput } from '../../core/application/useCases/deleteUser/DeleteUserInput'
 import { DeleteUserService } from '../../core/application/useCases/deleteUser/DeleteUserService'
 import { GetMeRequest } from '../../core/application/useCases/getMe/GetMeRequest'
@@ -11,6 +10,7 @@ import { LoginUserService } from '../../core/application/useCases/loginUser/Logi
 import { RegisterUserInput } from '../../core/application/useCases/registerUser/RegisterUserInput'
 import { RegisterUserService } from '../../core/application/useCases/registerUser/RegisterUserService'
 import { UpdateUserInput } from '../../core/application/useCases/updateUser/UpdateUserInput'
+import { UpdateUserService } from '../../core/application/useCases/updateUser/UpdateUserService'
 import { User } from '../../core/domain/user'
 import { UserEntity } from '../../core/domain/user.codec'
 import { UserDITokens } from '../../framework/UserDITokens'
@@ -41,21 +41,19 @@ export class UserCommandQueryAdapter implements CommandQueryBusPort {
     @Inject(UserDITokens.RegisterUserUseCase)
     readonly registerUserService: RegisterUserService,
     @Inject(UserDITokens.DeleteUserUseCase)
-    readonly deletteUserService: DeleteUserService,
+    readonly deleteUserService: DeleteUserService,
+    @Inject(UserDITokens.UpdateUserUseCase)
+    readonly updateUserService: UpdateUserService,
   ) {}
 
   @Mutation(() => UserDto)
   async deleteUser(@Args('input') input: DeleteUserInput) {
-    return this.deletteUserService.execute(input)
+    return this.deleteUserService.execute(input)
   }
 
   @Mutation(() => UserDto)
   async updateUser(@Args('input') input: UpdateUserInput) {
-    const user: User = await this.commandBus.execute(
-      new UpdateUserCommand(input),
-    )
-
-    return UserEntity.encode(user)
+    return this.updateUserService.execute(input)
   }
 
   @Mutation(() => UserDto)

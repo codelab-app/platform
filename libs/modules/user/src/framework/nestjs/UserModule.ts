@@ -3,7 +3,6 @@ import { CqrsModule } from '@nestjs/cqrs'
 import { PrismaDITokens } from '../../../../../backend/src/infrastructure/persistence/prisma/PrismaDITokens'
 import { GetMeQueryHandler } from '../../core/application/handlers/GetMeQueryHandler'
 import { GetUsersQueryHandler } from '../../core/application/handlers/GetUsersQueryHandler'
-import { UpdateUserCommandHandler } from '../../core/application/handlers/UpdateUserCommandHandler'
 import { ValidateUserCommandHandler } from '../../core/application/handlers/ValidateUserCommandHandler'
 import { AuthService } from '../../core/application/services/AuthService'
 import { DeleteUserService } from '../../core/application/useCases/deleteUser/DeleteUserService'
@@ -52,14 +51,14 @@ export const useCaseProviders: Array<Provider> = [
     inject: [PrismaDITokens.PrismaService, AuthService],
   },
   {
-    provide: UserDITokens.EditUserUseCase,
-    useFactory: (userRepository) => new UpdateUserService(userRepository),
-    inject: [UserDITokens.UserRepository],
+    provide: UserDITokens.UpdateUserUseCase,
+    useFactory: (prismaService) => new UpdateUserService(prismaService),
+    inject: [PrismaDITokens.PrismaService],
   },
   {
     provide: UserDITokens.DeleteUserUseCase,
-    useFactory: (userRepository) => new DeleteUserService(userRepository),
-    inject: [UserDITokens.UserRepository],
+    useFactory: (prismaService) => new DeleteUserService(prismaService),
+    inject: [PrismaDITokens.PrismaService],
   },
   {
     provide: UserDITokens.GetUserUseCase,
@@ -71,7 +70,6 @@ export const useCaseProviders: Array<Provider> = [
 export const handlerProviders: Array<Provider> = [
   GetMeQueryHandler,
   ValidateUserCommandHandler,
-  UpdateUserCommandHandler,
   GetUsersQueryHandler,
 ]
 
