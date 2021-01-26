@@ -1,18 +1,17 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common'
-import { CommandBus } from '@nestjs/cqrs'
 import { JwtService } from '@nestjs/jwt'
 import { PassportStrategy } from '@nestjs/passport'
 import { ExtractJwt, Strategy } from 'passport-jwt'
-import { ValidateUserCommand } from '../../../core/application/commands/ValidateUserCommand'
 import { User } from '../../../presentation/User'
 import { IToken } from '../IToken'
 import { JwtConfig } from '../config/JwtConfig'
+import { PrismaService } from '@codelab/backend'
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
   constructor(
     private readonly jwtService: JwtService,
-    private readonly commandBus: CommandBus,
+    private readonly prismaService: PrismaService,
   ) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -27,9 +26,11 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
     const token = authorization.replace('Bearer', '').trim()
     const decodedToken = this.jwtService.decode(token) as IToken
 
-    const user: User = await this.commandBus.execute(
-      new ValidateUserCommand({ userId: decodedToken.sub }),
-    )
+    const user = await this.prismaService.user.findUnique({
+      where: {
+        id: decodedToken.sub,
+      },
+    })
 
     if (!user) {
       throw new UnauthorizedException()

@@ -1,10 +1,7 @@
 export const GetGraphInputSchema = {
   type: 'object',
   properties: {
-    graphId: {
-      type: 'string',
-    },
-    pageId: {
+    id: {
       type: 'string',
     },
   },
