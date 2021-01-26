@@ -38,7 +38,6 @@ executor-params: &executor-params
 
 executor-config: &executor-config
   environment:
-    DOCKER_TAG_VERSION_GIT: <<pipeline.git.tag>>
     DOCKER_TAG_VERSION: 0.02
     API_PORT_GRAPH: 4004
     # CircleCI
@@ -98,11 +97,6 @@ commands:
     steps:
       - attach_workspace:
           at: ..
-      - run:
-          name: 'Debug'
-          command: |
-            export DOCKER_TAG_VERSION_GIT=master-<< pipeline.number >>
-            echo $DOCKER_TAG_VERSION_GIT
       - run:
           name: 'Inject vault env to bash env'
           command: "cat ~/.env >> $BASH_ENV"
