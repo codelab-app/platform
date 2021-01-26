@@ -107,13 +107,14 @@ commands:
             # Set path before install, otherwise paths will be different in the executors
             echo 'export NODE_OPTIONS=$NODE_OPTIONS' >> $BASH_ENV
             source $BASH_ENV
+
+            echo 'export NVM_DIR=$HOME/.nvm' >> $BASH_ENV
+            echo 'source $NVM_DIR/nvm.sh' >> $BASH_ENV
             wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
       - run:
           name: 'Setup env'
           command: |
             # node settings
-            echo 'export NVM_DIR=$HOME/.nvm' >> $BASH_ENV
-            echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> $BASH_ENV
 
             # git settings
             echo 'export GIT_COMMIT_MSG=$(git log --format="format:%s" -n 1 ${CIRCLE_SHA1})' >> $BASH_ENV
