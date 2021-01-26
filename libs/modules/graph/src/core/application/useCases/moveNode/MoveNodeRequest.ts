@@ -1,4 +1,4 @@
-import { EdgeType } from '../inputTypes/EdgeType'
+import { EdgeType } from '../../../../presentation/EdgeType'
 
 export class MoveNodeRequest {
   declare graphId: string

@@ -3,8 +3,7 @@ import {
   GetMeDocument,
   GetMeQuery,
 } from '../../../../../../apps/web/src/apollo/types.generated'
-import { query } from '@codelab/alpha/shared/utils'
-import { getApolloClient, getAuthToken } from '@codelab/frontend'
+import { getApolloClient, getAuthToken, query } from '@codelab/frontend'
 
 const delayPromise = (duration: number) =>
   new Promise((resolve, reject) => {

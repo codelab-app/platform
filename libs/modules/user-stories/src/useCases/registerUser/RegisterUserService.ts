@@ -1,7 +1,6 @@
 import { ServiceConfig } from 'xstate/lib/types'
 import { RegisterUserGql } from './RegisterUserInput.generated'
-import { mutate } from '@codelab/alpha/shared/utils'
-import { getApolloClient } from '@codelab/frontend'
+import { getApolloClient, mutate } from '@codelab/frontend'
 
 export const registerUserService: Record<string, ServiceConfig<any, any>> = {
   registerUser: async (context, { data }) => {

@@ -37,15 +37,15 @@ generates:
   #       enumValues: keep
   #   documents: apps/api/graph/src/assets/**/*.graphql
 
-  apps/web/src/apollo/types.generated.ts:
+  libs/frontend/src/model/types.generated.ts:
     plugins:
       - typescript
       # - typescript-resolvers
-      - typescript-operations
-      - typed-document-node
-      - typescript-document-nodes
+      # - typescript-operations
+      # - typed-document-node
+      # - typescript-document-nodes
       # - typescript-graphql-files-modules
-    documents: ./libs/modules/user/src/core/application/useCases/getMe/GetMe.graphql
+    schema: ./schema.graphql
     hooks:
       afterOneFileWrite:
         - eslint --fix

@@ -1,11 +1,11 @@
 import { Field, InputType } from '@nestjs/graphql'
 import { GraphQLJSONObject } from 'graphql-type-json'
-import { NodeType } from '@codelab/backend'
+import { VertexType } from '../core/domain/vertex/vertex-type.codec'
 
 @InputType()
-export class AddChildNodeVertexType {
-  @Field(() => NodeType)
-  declare type: NodeType
+export class AddChildNodeVertexInput {
+  @Field(() => VertexType)
+  declare type: VertexType
 
   @Field(() => GraphQLJSONObject)
   declare props: object
