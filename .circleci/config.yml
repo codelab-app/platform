@@ -321,7 +321,11 @@ jobs:
   argocd-set-prod:
     <<: *executor-params
     steps:
-      - setup-env
+      - attach_workspace:
+          at: ..
+      - run: |
+          cat ~/.env >> $BASH_ENV
+          source $BASH_ENV
       - argo-set/set:
           argoApplication: $ARGOCD_PROD_APP_NAME
           authToken: $ARGOCD_TOKEN
