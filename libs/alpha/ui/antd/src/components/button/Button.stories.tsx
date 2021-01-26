@@ -4,7 +4,7 @@ import React from 'react'
 import { getApolloClient } from '../../../../hoc/src/withApollo'
 import { buttonData, buttonEvalData } from './Button.data'
 import { IGraphData, Renderer } from '@codelab/alpha/core/renderer'
-import { query } from '@codelab/alpha/shared/utils'
+import { query } from '@codelab/frontend'
 
 export default {
   title: 'Button',

@@ -1,0 +1,10 @@
+-- AlterTable
+ALTER TABLE "Edge" ALTER COLUMN "type" DROP NOT NULL,
+ALTER COLUMN "type" SET DEFAULT E'Vertex';
+
+-- AlterTable
+ALTER TABLE "Graph" ALTER COLUMN "type" DROP NOT NULL,
+ALTER COLUMN "type" SET DEFAULT E'Component';
+
+-- AlterTable
+ALTER TABLE "Vertex" ALTER COLUMN "type" DROP NOT NULL;

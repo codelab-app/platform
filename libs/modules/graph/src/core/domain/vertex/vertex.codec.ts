@@ -1,9 +1,10 @@
 import * as t from 'io-ts'
 import { UUID } from 'io-ts-types'
+import { VertexTypeC } from './vertex-type.codec'
 
 export const VertexDTO = t.partial({
   id: t.string,
-  type: t.string,
+  type: VertexTypeC,
 })
 
 export type VertexDTO = t.TypeOf<typeof VertexDTO>
@@ -11,14 +12,10 @@ export type VertexDTO = t.TypeOf<typeof VertexDTO>
 /**
  * Vertex ValeObject Codec
  */
-export const VertexVO = t.intersection([
-  t.type({
-    type: t.string,
-  }),
-  t.partial({
-    props: t.UnknownRecord,
-  }),
-])
+export const VertexVO = t.partial({
+  type: VertexTypeC,
+  props: t.UnknownRecord,
+})
 
 export type VertexVO = t.TypeOf<typeof VertexVO>
 
@@ -28,7 +25,6 @@ export type VertexVO = t.TypeOf<typeof VertexVO>
 export const VertexEntity = t.intersection([
   t.type({
     id: UUID,
-    type: t.string,
   }),
   VertexVO,
 ])

@@ -2,6 +2,7 @@ import { plainToClass } from 'class-transformer'
 import { isLeft } from 'fp-ts/lib/Either'
 import { UUID } from 'io-ts-types'
 import { PathReporter } from 'io-ts/lib/PathReporter'
+import { VertexTypeC } from './vertex-type.codec'
 import { VertexDTO, VertexEntity, VertexVO } from './vertex.codec'
 
 export class Vertex implements VertexEntity {
@@ -9,7 +10,7 @@ export class Vertex implements VertexEntity {
 
   declare title: string
 
-  declare type: string
+  declare type: VertexTypeC
 
   declare graphId: string
 

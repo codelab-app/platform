@@ -1,20 +1,28 @@
+import { Layout } from 'antd'
 import React from 'react'
 import { SharedPageProps } from '../../pages/_app'
 import { HomeMenuHeader } from './Home-menu--header'
-import {
-  AppHeaderProps,
-  AppLayout,
-  AppLayoutProps,
-} from '@codelab/modules/layout-stories'
+import { contentStyle } from '@codelab/frontend'
+import { AppLayoutProps } from '@codelab/modules/layout-stories'
+
+const { Content, Header, Footer } = Layout
 
 export interface HomeLayoutProps extends SharedPageProps, AppLayoutProps {
   //
 }
 
 export const HomeLayout: React.FunctionComponent<any> = ({ children }) => {
-  const header: AppHeaderProps = {
-    Menu: <HomeMenuHeader />,
-  }
-
-  return <AppLayout header={header}>{children}</AppLayout>
+  return (
+    <Layout style={{ height: '100%' }}>
+      <Layout>
+        <Header>
+          <HomeMenuHeader />
+        </Header>
+        <Content style={contentStyle}>{children}</Content>
+        <Footer>
+          <span>Codelab.ai ©2020</span>
+        </Footer>
+      </Layout>
+    </Layout>
+  )
 }

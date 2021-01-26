@@ -1,275 +1,276 @@
-# This file was generated based on ".graphqlconfig". Do not edit manually.
-
-schema {
-    query: Query
-    mutation: Mutation
-}
-
 type App {
-    id: String!
-    title: String!
-}
-
-type Edge {
-    id: String!
-    order: Float!
-    props: JSONObject!
-    source: String!
-    target: String!
-}
-
-type Graph {
-    edges: [Edge!]!
-    id: String
-    label: String!
-    vertices: [Vertex!]!
-}
-
-type Mutation {
-    addChildNode(input: AddChildNodeInput!): Graph!
-    createApp(input: CreateAppInput!): App!
-    createGraph(input: CreateGraphInput!): Graph!
-    createPage(input: CreatePageInput!): Page!
-    deleteApp(input: DeleteAppInput!): App!
-    deleteNode(input: DeleteNodeInput!): Graph!
-    deleteUser(input: DeleteUserInput!): User!
-    loginUser(input: LoginUserInput!): User!
-    moveNode(input: MoveNodeInput!): Graph!
-    registerUser(input: RegisterUserInput!): User!
-    updateApp(input: UpdateAppInput!): App!
-    updateNode(input: UpdateNodeInput!): Graph!
-    updateUser(input: UpdateUserInput!): User!
-}
-
-type Page {
-    id: String
-    title: String!
-}
-
-"query root"
-type Query {
-    getApp(input: GetAppInput!): App
-    getApps: [App!]!
-    getMe: User!
-    getPage(input: GetPageInput!): Page!
-    getPages(input: GetPagesInput!): [Page!]!
-    graph(input: GetGraphInput!): Graph!
+  id: String
+  title: String!
 }
 
 type User {
-    accessToken: String!
-    email: String!
-    id: String!
+  id: String
+  email: String!
+  accessToken: String!
 }
 
+type Edge {
+  id: String
+  source: String!
+  target: String!
+  props: JSONObject!
+  order: Float!
+}
+
+"""
+The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSONObject
+
 type Vertex {
-    id: String
-    props: JSONObject!
-    type: NodeType!
+  id: String
+  type: NodeType!
+  props: JSONObject!
 }
 
 enum NodeType {
-    Model
-    React_Affix
-    React_Alert
-    React_Anchor
-    React_Anchor_Link
-    React_AutoComplete
-    React_Avatar
-    React_BackTop
-    React_Badge
-    React_Breadcrumb
-    React_Breadcrumb_Item
-    React_Button
-    React_Calendar
-    React_Card
-    React_Card_Grid
-    React_Card_Meta
-    React_Carousel
-    React_Cascader
-    React_Checkbox
-    React_Collapse
-    React_Collapse_Panel
-    React_Comment
-    React_ConfigProvider
-    React_DatePicker
-    React_Descriptions
-    React_Descriptions_Item
-    React_Divider
-    React_Drawer
-    React_Dropdown
-    React_Empty
-    React_Form
-    React_Form_Item
-    React_Form_ItemHook
-    React_Form_List
-    React_Fragment
-    React_Grid
-    React_Grid_Layout_Container
-    React_Html_A
-    React_Html_Div
-    React_Html_P
-    React_Html_Span
-    React_Icon
-    React_Input
-    React_InputNumber
-    React_Layout
-    React_Layout_Content
-    React_Layout_Footer
-    React_Layout_Header
-    React_Layout_Sider
-    React_List
-    React_List_Item
-    React_List_Item_Meta
-    React_Mapper
-    React_Mentions
-    React_Mentions_Option
-    React_Menu
-    React_Menu_Item
-    React_Menu_ItemGroup
-    React_Menu_SubMenu
-    React_Modal
-    React_PageHeader
-    React_Pagination
-    React_Popconfirm
-    React_Popover
-    React_Progress
-    React_Provider
-    React_Radio
-    React_Radio_Group
-    React_Rate
-    React_RenderComponent
-    React_RenderContainer
-    React_ResponsiveGrid
-    React_Result
-    React_Select
-    React_Select_Option
-    React_Skeleton
-    React_Slider
-    React_Space
-    React_Spin
-    React_Statistic
-    React_Steps
-    React_Steps_Step
-    React_Switch
-    React_Table
-    React_Tabs
-    React_Tabs_TabPane
-    React_Tag
-    React_Text
-    React_TimePicker
-    React_Timeline
-    React_Timeline_Item
-    React_Tooltip
-    React_Transfer
-    React_Tree
-    React_TreeNode
-    React_TreeSelect
-    React_Typography
-    React_Typography_Paragraph
-    React_Typography_Text
-    React_Typography_Title
-    React_Upload
-    Ref
-    Schema
-    Tree
+  React_Fragment
+  React_Html_Div
+  React_Html_P
+  React_Html_A
+  React_Html_Span
+  React_Text
+  React_Icon
+  React_Menu
+  React_Menu_Item
+  React_Menu_ItemGroup
+  React_Menu_SubMenu
+  React_Card
+  React_Card_Grid
+  React_Card_Meta
+  React_Typography
+  React_Typography_Title
+  React_Typography_Text
+  React_Typography_Paragraph
+  React_Alert
+  React_Affix
+  React_AutoComplete
+  React_Button
+  React_Breadcrumb
+  React_Breadcrumb_Item
+  React_Dropdown
+  React_Form
+  React_Form_Item
+  React_Form_ItemHook
+  React_Form_List
+  React_Checkbox
+  React_Input
+  React_InputNumber
+  React_Select
+  React_Select_Option
+  React_Grid_Layout_Container
+  React_Grid
+  React_ResponsiveGrid
+  React_Provider
+  React_Modal
+  React_Radio_Group
+  React_Radio
+  React_Rate
+  React_Slider
+  React_Switch
+  React_Table
+  React_Space
+  React_DatePicker
+  React_Divider
+  React_Pagination
+  React_PageHeader
+  React_Badge
+  React_Avatar
+  React_Comment
+  React_Calendar
+  React_Descriptions
+  React_Descriptions_Item
+  React_Empty
+  React_Timeline
+  React_Timeline_Item
+  React_Tabs
+  React_Tabs_TabPane
+  React_Statistic
+  React_Tooltip
+  React_Tag
+  React_Tree
+  React_Drawer
+  React_Progress
+  React_Result
+  React_Spin
+  React_Skeleton
+  React_Anchor
+  React_Anchor_Link
+  React_BackTop
+  React_ConfigProvider
+  React_Popconfirm
+  React_Transfer
+  React_TreeSelect
+  React_TreeNode
+  React_TimePicker
+  React_Upload
+  React_Steps
+  React_Steps_Step
+  React_Collapse
+  React_Collapse_Panel
+  React_Carousel
+  React_List
+  React_List_Item
+  React_List_Item_Meta
+  React_Mentions
+  React_Mentions_Option
+  React_Layout
+  React_Layout_Header
+  React_Layout_Sider
+  React_Layout_Content
+  React_Layout_Footer
+  React_Cascader
+  React_Popover
+  React_RenderComponent
+  React_RenderContainer
+  React_Mapper
+  Tree
+  Ref
 }
 
-input AddChildNodeInput {
-    graphId: String!
-    order: Float
-    parentVertexId: String
-    vertex: AddChildNodeVertexType!
+type Graph {
+  id: String
+  label: String!
+  vertices: [Vertex!]!
+  edges: [Edge!]!
 }
 
-input AddChildNodeVertexType {
-    props: JSONObject!
-    type: NodeType!
+type Page {
+  id: String
+  title: String!
 }
 
-input CreateAppInput {
-    title: String!
-}
-
-input CreateGraphInput {
-    label: String!
-}
-
-input CreatePageInput {
-    appId: String!
-    title: String!
-}
-
-input DeleteAppInput {
-    id: String!
-}
-
-input DeleteNodeInput {
-    vertexId: String!
-}
-
-input DeleteUserInput {
-    email: String!
-}
-
-input EdgeType {
-    source: String!
-    target: String!
+type Query {
+  getApp(input: GetAppInput!): App
+  getApps: [App!]!
+  getMe: User!
+  graph(input: GetGraphInput!): Graph!
+  getPages(input: GetPagesInput!): [Page!]!
+  getPage(input: GetPageInput!): Page!
 }
 
 input GetAppInput {
-    appId: String!
+  appId: String!
 }
 
 input GetGraphInput {
-    graphId: String
-    pageId: String
-}
-
-input GetPageInput {
-    pageId: String!
+  graphId: String
+  pageId: String
 }
 
 input GetPagesInput {
-    appId: String!
+  appId: String!
 }
 
-input LoginUserInput {
-    email: String!
-    password: String!
+input GetPageInput {
+  pageId: String!
 }
 
-input MoveNodeInput {
-    graphId: String!
-    type: EdgeType!
+type Mutation {
+  createApp(input: CreateAppInput!): App!
+  updateApp(input: UpdateAppInput!): App!
+  deleteApp(input: DeleteAppInput!): App!
+  deleteUser(input: DeleteUserInput!): User!
+  updateUser(input: UpdateUserInput!): User!
+  registerUser(input: RegisterUserInput!): User!
+  loginUser(input: LoginUserInput!): User!
+  createGraph(input: CreateGraphInput!): Graph!
+  addChildNode(input: AddChildNodeInput!): Graph!
+  updateNode(input: UpdateNodeInput!): Graph!
+  deleteNode(input: DeleteNodeInput!): Graph!
+  moveNode(input: MoveNodeInput!): Graph!
+  createPage(input: CreatePageInput!): Page!
+  deletePage(input: DeletePageInput!): Page!
 }
 
-input RegisterUserInput {
-    email: String!
-    password: String!
+input CreateAppInput {
+  title: String!
 }
 
 input UpdateAppInput {
-    id: String!
-    title: String!
+  id: String!
+  title: String!
 }
 
-input UpdateNodeInput {
-    graphId: String!
-    type: UpdateNodeVertexType!
+input DeleteAppInput {
+  id: String!
 }
 
-input UpdateNodeVertexType {
-    id: String!
-    props: JSONObject!
-    type: NodeType!
+input DeleteUserInput {
+  email: String!
 }
 
 input UpdateUserInput {
-    email: String!
-    id: String!
+  id: String!
+  email: String!
 }
 
+input RegisterUserInput {
+  email: String!
+  password: String!
+}
 
-"The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf)."
-scalar JSONObject
+input LoginUserInput {
+  email: String!
+  password: String!
+}
+
+input CreateGraphInput {
+  label: String!
+}
+
+input AddChildNodeInput {
+  graphId: String!
+  parentVertexId: String
+  vertex: AddChildNodeVertexType!
+  order: Float
+}
+
+input AddChildNodeVertexType {
+  type: NodeType!
+  props: JSONObject!
+}
+
+input UpdateNodeInput {
+  graphId: String!
+  vertexId: String!
+  type: UpdateNodeVertexType!
+}
+
+input UpdateNodeVertexType {
+  id: String!
+  type: NodeType!
+  props: JSONObject!
+}
+
+input DeleteNodeInput {
+  vertexId: String!
+}
+
+input MoveNodeInput {
+  graphId: String!
+  type: EdgeType!
+}
+
+input EdgeType {
+  source: String!
+  target: String!
+}
+
+input CreatePageInput {
+  title: String!
+  appId: String!
+}
+
+input DeletePageInput {
+  pageId: String!
+}
+
+type Subscription {
+  pageCreated: Page!
+}

@@ -1,6 +1,12 @@
 import { Injectable } from '@nestjs/common'
 import { CommandBus, QueryBus } from '@nestjs/cqrs'
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
+import {
+  Args,
+  Mutation,
+  Query,
+  Resolver,
+  registerEnumType,
+} from '@nestjs/graphql'
 import { AddChildNodeCommand } from '../../core/application/commands/AddChildNodeCommand'
 import { CreateGraphCommand } from '../../core/application/commands/CreateGraphCommand'
 import { DeleteNodeCommand } from '../../core/application/commands/DeleteNodeCommand'
@@ -15,9 +21,13 @@ import { MoveNodeInput } from '../../core/application/useCases/moveNode/MoveNode
 import { UpdateNodeInput } from '../../core/application/useCases/updateNode/UpdateNodeInput'
 import { Graph } from '../../core/domain/graph/graph'
 import { GraphEntity } from '../../core/domain/graph/graph.codec'
+import { VertexType } from '../../core/domain/vertex/vertex-type.codec'
 import { GraphDto } from '../GraphDto'
 import { CommandQueryBusPort, UseCaseRequestPort } from '@codelab/backend'
 
+registerEnumType(VertexType, {
+  name: 'VertexType',
+})
 @Resolver('Graph')
 @Injectable()
 export class GraphCommandQueryAdapter implements CommandQueryBusPort {

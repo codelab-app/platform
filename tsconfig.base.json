@@ -71,7 +71,6 @@
       "@codelab/alpha/shared/interface/tree": [
         "libs/alpha/shared/interface/tree/src/index.ts"
       ],
-      "@codelab/alpha/state/apollo": ["libs/alpha/state/apollo/src/index.ts"],
       "@codelab/alpha/ui/antd": ["libs/alpha/ui/antd/src/index.ts"],
       "@codelab/alpha/ui/component": ["libs/alpha/ui/component/src/index.ts"],
       "@codelab/alpha/ui/d3": ["libs/alpha/ui/d3/src/index.ts"],

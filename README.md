@@ -28,6 +28,6 @@ The end product is a highly configurable UI layer that competes with writing cod
 
 [Codegen](documentation/getting-started/9-codegen.md)
 
-<!-- [Data flow](documentation/getting-started/10-data-flow.md) -->
+[Data Types](documentation/getting-started/10-data-types.md)
 
 [Testing](documentation/getting-started/11-testing.md)

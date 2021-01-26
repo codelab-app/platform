@@ -21,6 +21,7 @@
     "test": "make test-dev",
     "commit": "git-cz",
     "docs": "onchange 'libs/ddd/**/*.ts' 'typedoc.json' -- npx typedoc",
+    "prisma:reset": "npx prisma migrate reset --preview-feature -f --skip-generate",
     "prisma:sync": "npx prisma migrate dev --name init --preview-feature",
     "migration:generate": "nx migrate @nrwl/workspace@latest",
     "migration:run": "nx migrate --run-migrations=migrations.json",
@@ -272,6 +273,7 @@
     "glob": "7.1.6",
     "graphql-codegen-apollo-next-ssr": "1.2.1",
     "hasura-cli": "1.3.2",
+    "husky": "4.3.5",
     "jest": "26.6.3",
     "json-schema": "0.2.5",
     "less-vars-to-js": "1.3.0",
@@ -295,8 +297,7 @@
     "url-loader": "3.0.0",
     "utility-types": "3.10.0",
     "wait-on": "5.2.0",
-    "webpack-node-externals": "2.5.2",
-    "husky": "4.3.5"
+    "webpack-node-externals": "2.5.2"
   },
   "resolutions": {
     "graphql": "15.3.0"

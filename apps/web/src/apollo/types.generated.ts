@@ -20,117 +20,22 @@ export type Scalars = {
   JSONObject: any
 }
 
-/** query root */
-export type Query = {
-  __typename?: 'Query'
-  getApp?: Maybe<App>
-  getApps: Array<App>
-  getMe: User
-  graph: Graph
-  getPages: Array<Page>
-  getPage: Page
-}
-
-/** query root */
-export type QueryGetAppArgs = {
-  input: GetAppInput
-}
-
-/** query root */
-export type QueryGraphArgs = {
-  input: GetGraphInput
-}
-
-/** query root */
-export type QueryGetPagesArgs = {
-  input: GetPagesInput
-}
-
-/** query root */
-export type QueryGetPageArgs = {
-  input: GetPageInput
-}
-
-export type Mutation = {
-  __typename?: 'Mutation'
-  createApp: App
-  deleteApp: App
-  deleteUser: User
-  updateUser: User
-  registerUser: User
-  loginUser: User
-  createGraph: Graph
-  addChildNode: Graph
-  updateNode: Graph
-  deleteNode: Graph
-  moveNode: Graph
-  createPage: Page
-}
-
-export type MutationCreateAppArgs = {
-  input: CreateAppInput
-}
-
-export type MutationDeleteAppArgs = {
-  input: DeleteAppInput
-}
-
-export type MutationDeleteUserArgs = {
-  input: DeleteUserInput
-}
-
-export type MutationUpdateUserArgs = {
-  input: UpdateUserInput
-}
-
-export type MutationRegisterUserArgs = {
-  input: RegisterUserInput
-}
-
-export type MutationLoginUserArgs = {
-  input: LoginUserInput
-}
-
-export type MutationCreateGraphArgs = {
-  input: CreateGraphInput
-}
-
-export type MutationAddChildNodeArgs = {
-  input: AddChildNodeInput
-}
-
-export type MutationUpdateNodeArgs = {
-  input: UpdateNodeInput
-}
-
-export type MutationDeleteNodeArgs = {
-  input: DeleteNodeInput
-}
-
-export type MutationMoveNodeArgs = {
-  input: MoveNodeInput
-}
-
-export type MutationCreatePageArgs = {
-  input: CreatePageInput
-}
-
 export type App = {
   __typename?: 'App'
-  id: Scalars['String']
+  id?: Maybe<Scalars['String']>
   title: Scalars['String']
 }
 
 export type User = {
   __typename?: 'User'
-  id: Scalars['String']
+  id?: Maybe<Scalars['String']>
   email: Scalars['String']
   accessToken: Scalars['String']
 }
 
 export type Edge = {
   __typename?: 'Edge'
-  id: Scalars['String']
+  id?: Maybe<Scalars['String']>
   source: Scalars['String']
   target: Scalars['String']
   props: Scalars['JSONObject']
@@ -245,8 +150,6 @@ export enum NodeType {
   ReactRenderComponent = 'React_RenderComponent',
   ReactRenderContainer = 'React_RenderContainer',
   ReactMapper = 'React_Mapper',
-  Model = 'Model',
-  Schema = 'Schema',
   Tree = 'Tree',
   Ref = 'Ref',
 }
@@ -263,6 +166,32 @@ export type Page = {
   __typename?: 'Page'
   id?: Maybe<Scalars['String']>
   title: Scalars['String']
+}
+
+export type Query = {
+  __typename?: 'Query'
+  getApp?: Maybe<App>
+  getApps: Array<App>
+  getMe: User
+  graph: Graph
+  getPages: Array<Page>
+  getPage: Page
+}
+
+export type QueryGetAppArgs = {
+  input: GetAppInput
+}
+
+export type QueryGraphArgs = {
+  input: GetGraphInput
+}
+
+export type QueryGetPagesArgs = {
+  input: GetPagesInput
+}
+
+export type QueryGetPageArgs = {
+  input: GetPageInput
 }
 
 export type GetAppInput = {
@@ -282,7 +211,86 @@ export type GetPageInput = {
   pageId: Scalars['String']
 }
 
+export type Mutation = {
+  __typename?: 'Mutation'
+  createApp: App
+  updateApp: App
+  deleteApp: App
+  deleteUser: User
+  updateUser: User
+  registerUser: User
+  loginUser: User
+  createGraph: Graph
+  addChildNode: Graph
+  updateNode: Graph
+  deleteNode: Graph
+  moveNode: Graph
+  createPage: Page
+  deletePage: Page
+}
+
+export type MutationCreateAppArgs = {
+  input: CreateAppInput
+}
+
+export type MutationUpdateAppArgs = {
+  input: UpdateAppInput
+}
+
+export type MutationDeleteAppArgs = {
+  input: DeleteAppInput
+}
+
+export type MutationDeleteUserArgs = {
+  input: DeleteUserInput
+}
+
+export type MutationUpdateUserArgs = {
+  input: UpdateUserInput
+}
+
+export type MutationRegisterUserArgs = {
+  input: RegisterUserInput
+}
+
+export type MutationLoginUserArgs = {
+  input: LoginUserInput
+}
+
+export type MutationCreateGraphArgs = {
+  input: CreateGraphInput
+}
+
+export type MutationAddChildNodeArgs = {
+  input: AddChildNodeInput
+}
+
+export type MutationUpdateNodeArgs = {
+  input: UpdateNodeInput
+}
+
+export type MutationDeleteNodeArgs = {
+  input: DeleteNodeInput
+}
+
+export type MutationMoveNodeArgs = {
+  input: MoveNodeInput
+}
+
+export type MutationCreatePageArgs = {
+  input: CreatePageInput
+}
+
+export type MutationDeletePageArgs = {
+  input: DeletePageInput
+}
+
 export type CreateAppInput = {
+  title: Scalars['String']
+}
+
+export type UpdateAppInput = {
+  id: Scalars['String']
   title: Scalars['String']
 }
 
@@ -327,6 +335,7 @@ export type AddChildNodeVertexType = {
 
 export type UpdateNodeInput = {
   graphId: Scalars['String']
+  vertexId: Scalars['String']
   type: UpdateNodeVertexType
 }
 
@@ -353,6 +362,15 @@ export type EdgeType = {
 export type CreatePageInput = {
   title: Scalars['String']
   appId: Scalars['String']
+}
+
+export type DeletePageInput = {
+  pageId: Scalars['String']
+}
+
+export type Subscription = {
+  __typename?: 'Subscription'
+  pageCreated: Page
 }
 
 export type GetMeQueryVariables = Exact<{ [key: string]: never }>

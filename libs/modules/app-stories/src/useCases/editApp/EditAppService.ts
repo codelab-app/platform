@@ -1,8 +1,7 @@
 import { ServiceConfig } from 'xstate/lib/types'
 import { UpdateAppInput } from '../../../../app/src/core/application/useCases/updateApp/UpdateAppInput'
 import { UpdateAppGql } from './EditAppInput.generated'
-import { mutate } from '@codelab/alpha/shared/utils'
-import { getApolloClient } from '@codelab/frontend'
+import { getApolloClient, mutate } from '@codelab/frontend'
 
 export const editAppService: Record<string, ServiceConfig<any, any>> = {
   editApp: async (context, { data }) => {

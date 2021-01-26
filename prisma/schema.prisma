@@ -37,25 +37,43 @@ model Page {
 }
 
 model Graph {
-  id       String   @id @default(uuid())
+  id       String     @id @default(uuid())
   label    String
+  type     GraphType? @default(Component)
   vertices Vertex[]
   edges    Edge[]
-  app      App?     @relation(fields: [appId], references: [id])
+  app      App?       @relation(fields: [appId], references: [id])
   appId    String?
-  page     Page?    @relation(fields: [pageId], references: [id])
+  page     Page?      @relation(fields: [pageId], references: [id])
   pageId   String?
 }
 
 model Vertex {
-  id      String  @id @default(uuid())
-  type    String
-  graph   Graph?  @relation(fields: [graphId], references: [id])
+  id      String      @id @default(uuid())
+  type    VertexType?
+  graph   Graph?      @relation(fields: [graphId], references: [id])
   graphId String?
 }
 
 model Edge {
-  id      String  @id @default(uuid())
-  graph   Graph?  @relation(fields: [graphId], references: [id])
+  id      String    @id @default(uuid())
+  type    EdgeType? @default(Vertex)
+  graph   Graph?    @relation(fields: [graphId], references: [id])
   graphId String?
+}
+
+enum VertexType {
+  React_Grid_Layout_Container
+  React_Grid
+  React_ResponsiveGrid
+}
+
+enum EdgeType {
+  Vertex
+  Graph
+}
+
+enum GraphType {
+  Layout
+  Component
 }

@@ -1,14 +1,11 @@
 import objectMapper from 'object-mapper'
 import { GraphA } from '@codelab/alpha/shared/interface/graph-v2'
 import { ApolloQueryMapper } from '@codelab/alpha/shared/interface/mapper'
-import { GraphsQueryResult } from '@codelab/alpha/state/apollo'
 
 /**
  * Maps from apollo query results to EntityA
  */
-export const queryToCollection: ApolloQueryMapper<GraphsQueryResult, GraphA> = (
-  original,
-) => {
+export const queryToCollection: ApolloQueryMapper<any, GraphA> = (original) => {
   const graphMapper = {
     id: 'id',
     label: 'label',

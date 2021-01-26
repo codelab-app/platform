@@ -1,7 +1,6 @@
 import { ServiceConfig } from 'xstate/lib/types'
 import { GetAppsGql } from './GetAppsInput.generated'
-import { query } from '@codelab/alpha/shared/utils'
-import { getApolloClient } from '@codelab/frontend'
+import { getApolloClient, query } from '@codelab/frontend'
 
 export const getAppsService: Record<string, ServiceConfig<any, any>> = {
   getApps: async () => {

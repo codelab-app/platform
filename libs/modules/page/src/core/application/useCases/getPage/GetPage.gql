@@ -1,0 +1,5 @@
+query GetPage($input: GetPageInput!) {
+  getPage(input: $input) {
+    title
+  }
+}

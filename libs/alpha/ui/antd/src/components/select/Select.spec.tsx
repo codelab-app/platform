@@ -3,7 +3,7 @@ import { get } from 'lodash'
 import React from 'react'
 import { CodelabForm } from '../form'
 import { Default } from './Select.stories'
-import { cLog } from '@codelab/alpha/shared/utils'
+import { cLog } from '@codelab/frontend'
 
 describe('Select', () => {
   it('should render with text', async () => {
