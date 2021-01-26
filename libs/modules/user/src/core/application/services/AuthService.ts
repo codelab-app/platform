@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
+import { User } from '@prisma/client'
 import { JwtStrategy } from '../../../infrastructure/auth/strategies/jwt.strategy'
-import { User } from '../../domain/user'
 
 @Injectable()
 export class AuthService {

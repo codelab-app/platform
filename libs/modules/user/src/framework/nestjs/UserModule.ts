@@ -1,14 +1,13 @@
 import { Module, Provider } from '@nestjs/common'
-import { ModuleRef } from '@nestjs/core'
 import { CqrsModule } from '@nestjs/cqrs'
 import { PrismaDITokens } from '../../../../../backend/src/infrastructure/persistence/prisma/PrismaDITokens'
 import { DeleteUserCommandHandler } from '../../core/application/handlers/DeleteUserCommandHandler'
 import { GetMeQueryHandler } from '../../core/application/handlers/GetMeQueryHandler'
 import { GetUsersQueryHandler } from '../../core/application/handlers/GetUsersQueryHandler'
 import { LoginUserCommandHandler } from '../../core/application/handlers/LoginUserCommandHandler'
-import { RegisterUserCommandHandler } from '../../core/application/handlers/RegisterUserCommandHandler'
 import { UpdateUserCommandHandler } from '../../core/application/handlers/UpdateUserCommandHandler'
 import { ValidateUserCommandHandler } from '../../core/application/handlers/ValidateUserCommandHandler'
+import { AuthService } from '../../core/application/services/AuthService'
 import { DeleteUserService } from '../../core/application/useCases/deleteUser/DeleteUserService'
 import { GetMeService } from '../../core/application/useCases/getMe/GetMeService'
 import { GetUserService } from '../../core/application/useCases/getUser/GetUserService'
@@ -44,15 +43,15 @@ export const useCaseProviders: Array<Provider> = [
   },
   {
     provide: UserDITokens.LoginUserUseCase,
-    useFactory: (usersRepository, moduleRef) =>
-      new LoginUserService(usersRepository, moduleRef),
-    inject: [UserDITokens.UserRepository, ModuleRef],
+    useFactory: (usersRepository, authService) =>
+      new LoginUserService(usersRepository, authService),
+    inject: [UserDITokens.UserRepository, AuthService],
   },
   {
     provide: UserDITokens.RegisterUserUseCase,
-    useFactory: (usersRepository, moduleRef) =>
-      new RegisterUserService(usersRepository, moduleRef),
-    inject: [UserDITokens.UserRepository, ModuleRef],
+    useFactory: (prismaService, authService) =>
+      new RegisterUserService(prismaService, authService),
+    inject: [PrismaDITokens.PrismaService, AuthService],
   },
   {
     provide: UserDITokens.EditUserUseCase,
@@ -75,7 +74,6 @@ export const handlerProviders: Array<Provider> = [
   GetMeQueryHandler,
   ValidateUserCommandHandler,
   LoginUserCommandHandler,
-  RegisterUserCommandHandler,
   DeleteUserCommandHandler,
   UpdateUserCommandHandler,
   GetUsersQueryHandler,

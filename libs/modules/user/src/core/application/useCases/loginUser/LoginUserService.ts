@@ -1,5 +1,3 @@
-import { OnModuleInit } from '@nestjs/common'
-import { ModuleRef } from '@nestjs/core'
 import { option as O } from 'fp-ts'
 import { left, right } from 'fp-ts/Either'
 import { Option } from 'fp-ts/Option'
@@ -12,12 +10,10 @@ import { LoginUserResponse } from './LoginUserResponse'
 import { LoginUserUseCase } from './LoginUserUseCase'
 import { Result } from '@codelab/backend'
 
-export class LoginUserService implements LoginUserUseCase, OnModuleInit {
-  declare authService: AuthService
-
+export class LoginUserService implements LoginUserUseCase {
   constructor(
     private readonly userRepository: UserRepositoryPort,
-    private readonly moduleRef: ModuleRef,
+    private readonly authService: AuthService,
   ) {}
 
   async execute(request: LoginUserRequest): Promise<LoginUserResponse> {
@@ -43,9 +39,5 @@ export class LoginUserService implements LoginUserUseCase, OnModuleInit {
     user.setAccessToken(token)
 
     return right(Result.ok(user))
-  }
-
-  onModuleInit(): any {
-    this.authService = this.moduleRef.get(AuthService, { strict: false })
   }
 }
