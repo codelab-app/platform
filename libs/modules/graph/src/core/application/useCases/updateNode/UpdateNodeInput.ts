@@ -1,5 +1,8 @@
 import { Field, InputType } from '@nestjs/graphql'
-import { VertexType } from '../../../domain/vertex/vertex-type.codec'
+import {
+  VertexType,
+  VertexTypeC,
+} from '../../../domain/vertex/vertex-type.codec'
 
 @InputType()
 export class UpdateNodeInput {
@@ -10,5 +13,5 @@ export class UpdateNodeInput {
   declare vertexId: string
 
   @Field(() => VertexType)
-  declare type: VertexType
+  declare type: VertexTypeC
 }
