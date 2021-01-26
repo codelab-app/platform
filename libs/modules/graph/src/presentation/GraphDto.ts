@@ -10,9 +10,9 @@ export class GraphDto {
   @Field()
   public declare label: string
 
-  @Field(() => [VertexDto])
-  declare vertices?: Array<VertexDto>
+  @Field(() => [VertexDto], { defaultValue: [] })
+  declare vertices: Array<VertexDto>
 
-  @Field(() => [EdgeDto])
-  declare edges?: Array<EdgeDto>
+  @Field(() => [EdgeDto], { defaultValue: [] })
+  declare edges: Array<EdgeDto>
 }
