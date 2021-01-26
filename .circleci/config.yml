@@ -67,6 +67,7 @@ orbs:
   cypress: cypress-io/cypress@1.26.0
   node: circleci/node@4.1.0
   argo-sync: payfit/argo-sync@0.15.0
+  argo-set: payfit/argo-set@0.14.0
 
 executors:
   machine-ubuntu:
@@ -317,17 +318,18 @@ jobs:
           authToken: $ARGOCD_TOKEN
           prune: "true"
 
-  argocd-sync-staging:
+  argocd-set-prod:
     <<: *executor-params
     steps:
       - checkout
       - attach_workspace:
           at: ..
       - run: source ~/.env
-      - argo-sync/sync:
-          argoApplication: $ARGOCD_STAGING_APP_NAME
+      - argo-set/set:
+          argoApplication: $ARGOCD_PROD_APP_NAME
           authToken: $ARGOCD_TOKEN
-          prune: "true"
+          argoProject: "default"
+          parameters: "image.tag=$DOCKER_TAG_VERSION"
 
 workflows:
   app-dev:
@@ -384,8 +386,13 @@ workflows:
           <<: *filters-staging
           requires:
             - install-and-build-workspace
+      - argocd-set-prod:
+          <<: *filters-staging
+          e: argo-cli
+          requires:
+            - build-and-push-docker-image
       - notify-success:
           <<: *filters-staging
           e: docker-node
           requires:
-            - build-and-push-docker-image
+            - argocd-set-prod
