@@ -329,7 +329,7 @@ jobs:
           argoApplication: $ARGOCD_PROD_APP_NAME
           authToken: $ARGOCD_TOKEN
           argoProject: "default"
-          parameters: "image.tag=$DOCKER_TAG_VERSION"
+          parameters: "api-graph=image=codelabai/codelab:$DOCKER_TAG_VERSION,web=image=codelabai/codelab:$DOCKER_TAG_VERSION"
 
 workflows:
   app-dev:
