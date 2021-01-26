@@ -8,7 +8,7 @@ export class UpdateUserService
 
   async execute({ id, ...data }: UpdateUserInput): Promise<UserDto> {
     try {
-      return this.prismaService.user.update({
+      return await this.prismaService.user.update({
         where: {
           id,
         },

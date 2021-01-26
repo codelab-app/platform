@@ -16,7 +16,6 @@ import { RegisterUserInput } from '../../core/application/useCases/registerUser/
 import { RegisterUserService } from '../../core/application/useCases/registerUser/RegisterUserService'
 import { UpdateUserInput } from '../../core/application/useCases/updateUser/UpdateUserInput'
 import { UpdateUserService } from '../../core/application/useCases/updateUser/UpdateUserService'
-import { User } from '../../core/domain/user'
 import { UserDITokens } from '../../framework/UserDITokens'
 import { UserDto } from '../UserDto'
 import { CurrentUser, GqlAuthGuard } from '@codelab/backend'
@@ -45,32 +44,32 @@ export class UserGraphqlAdapter {
 
   @Mutation(() => UserDto)
   async deleteUser(@Args('input') input: DeleteUserInput) {
-    return this.deleteUserService.execute(input)
+    return await this.deleteUserService.execute(input)
   }
 
   @Mutation(() => UserDto)
   async updateUser(@Args('input') input: UpdateUserInput) {
-    return this.updateUserService.execute(input)
+    return await this.updateUserService.execute(input)
   }
 
   @Mutation(() => UserDto)
   async registerUser(@Args('input') input: RegisterUserInput) {
-    return this.registerUserService.execute(input)
+    return await this.registerUserService.execute(input)
   }
 
   @Mutation(() => UserDto)
   async loginUser(@Args('input') input: LoginUserInput) {
-    return this.loginUserService.execute(input)
+    return await this.loginUserService.execute(input)
   }
 
   @Query(() => UserDto)
   @UseGuards(GqlAuthGuard)
-  async getMe(@CurrentUser() user: User) {
+  getMe(@CurrentUser() user: UserDto) {
     return user
   }
 
   @ResolveField(() => [AppDto])
-  async apps(@Parent() user: User) {
+  pps(@Parent() user: UserDto) {
     console.log(user)
 
     return []

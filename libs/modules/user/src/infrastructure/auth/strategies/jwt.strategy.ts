@@ -4,9 +4,9 @@ import { JwtService } from '@nestjs/jwt'
 import { PassportStrategy } from '@nestjs/passport'
 import { ExtractJwt, Strategy } from 'passport-jwt'
 import { ValidateUserCommand } from '../../../core/application/commands/ValidateUserCommand'
+import { UserDto } from '../../../presentation/UserDto'
 import { IToken } from '../IToken'
 import { JwtConfig } from '../config/JwtConfig'
-import { User } from '@codelab/modules/user'
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
@@ -22,12 +22,12 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
     })
   }
 
-  async validate(payload: any): Promise<User> {
+  async validate(payload: any): Promise<UserDto> {
     const { authorization } = payload.headers
     const token = authorization.replace('Bearer', '').trim()
     const decodedToken = this.jwtService.decode(token) as IToken
 
-    const user: User = await this.commandBus.execute(
+    const user: UserDto = await this.commandBus.execute(
       new ValidateUserCommand({ userId: decodedToken.sub }),
     )
 
@@ -38,7 +38,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
     return user
   }
 
-  async refreshToken(token: string) {
+  refreshToken(token: string) {
     const user = this.jwtService.verify(token, {
       secret: JwtConfig.JWT_SECRET,
       ignoreExpiration: true,
@@ -55,7 +55,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
     })
   }
 
-  async getToken(user: { email: string; id: string }) {
+  getToken(user: { email: string; id: string }) {
     const payload = {
       username: user.email,
       sub: user.id,

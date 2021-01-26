@@ -8,7 +8,7 @@ export class DeleteUserService
 
   async execute({ email }: DeleteUserInput): Promise<UserDto> {
     try {
-      return this.prismaService.user.delete({
+      return await this.prismaService.user.delete({
         where: {
           email,
         },

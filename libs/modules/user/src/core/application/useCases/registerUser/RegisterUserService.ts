@@ -1,5 +1,4 @@
 import { UserDto } from '../../../../presentation/UserDto'
-import { User } from '../../../domain/user'
 import { AuthService } from '../../services/AuthService'
 import { RegisterUserInput } from './RegisterUserInput'
 import { PrismaService, TransactionalUseCase } from '@codelab/backend'
@@ -24,7 +23,8 @@ export class RegisterUserService
 
     const newUser = await this.prismaService.user.create({
       data: {
-        ...User.create(request),
+        ...request,
+        password: this.authService.hashPassword(request.password),
       },
     })
 

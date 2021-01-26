@@ -7,12 +7,16 @@ import { JwtStrategy } from '../../../infrastructure/auth/strategies/jwt.strateg
 export class AuthService {
   constructor(private readonly jwtStrategy: JwtStrategy) {}
 
-  async refreshToken(token: string) {
+  refreshToken(token: string) {
     return this.jwtStrategy.refreshToken(token)
   }
 
-  async getToken(user: User) {
+  getToken(user: User) {
     return this.jwtStrategy.getToken(user)
+  }
+
+  hashPassword(password: string) {
+    return bcrypt.hashSync(password, 10)
   }
 
   comparePassword(attempt: string, password: string): boolean {
