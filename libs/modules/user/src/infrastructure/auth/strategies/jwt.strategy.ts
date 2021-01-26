@@ -1,20 +1,19 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common'
-import { CommandBus } from '@nestjs/cqrs'
+import { Inject, Injectable, UnauthorizedException } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import { PassportStrategy } from '@nestjs/passport'
-import { Option, fold } from 'fp-ts/Option'
-import { pipe } from 'fp-ts/lib/function'
 import { ExtractJwt, Strategy } from 'passport-jwt'
-import { ValidateUserCommand } from '../../../core/application/commands/ValidateUserCommand'
+import { PrismaDITokens } from '../../../../../../backend/src/infrastructure/persistence/prisma/PrismaDITokens'
+import { User } from '../../../presentation/User'
 import { IToken } from '../IToken'
 import { JwtConfig } from '../config/JwtConfig'
-import { User } from '@codelab/modules/user'
+import { PrismaService } from '@codelab/backend'
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
   constructor(
     private readonly jwtService: JwtService,
-    private readonly commandBus: CommandBus,
+    @Inject(PrismaDITokens.PrismaService)
+    private readonly prismaService: PrismaService,
   ) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -29,33 +28,24 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
     const token = authorization.replace('Bearer', '').trim()
     const decodedToken = this.jwtService.decode(token) as IToken
 
-    const maybeUser: Option<User> = await this.commandBus.execute(
-      new ValidateUserCommand({ userId: decodedToken.sub }),
-    )
+    const user = await this.prismaService.user.findUnique({
+      where: {
+        id: decodedToken.sub,
+      },
+    })
 
-    return pipe(
-      maybeUser,
-      fold(
-        () => {
-          throw new UnauthorizedException()
-        },
-        (user) => user,
-      ),
-    )
+    if (!user) {
+      throw new UnauthorizedException()
+    }
+
+    return user
   }
 
-  async refreshToken(token: string) {
+  refreshToken(token: string) {
     const user = this.jwtService.verify(token, {
       secret: JwtConfig.JWT_SECRET,
       ignoreExpiration: true,
     })
-
-    // if (Date.now() > (user.exp + this.config.get(ApiConfigTypes.JWT_EXPIRY)) * 1000) {
-    //   throw new UnauthorizedException('Token expired');
-    // }
-
-    // delete user.iat
-    // delete user.exp
 
     return this.jwtService.sign({
       username: user.username,
@@ -68,7 +58,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
     })
   }
 
-  async getToken(user: { email: string; id: string }) {
+  getToken(user: { email: string; id: string }) {
     const payload = {
       username: user.email,
       sub: user.id,
@@ -82,17 +72,17 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
     return this.jwtService.sign(payload)
   }
 
-  async login(user: { username: string; userId: number }) {
-    const payload = {
-      username: user.username,
-      sub: user.userId.toString(),
-      'https://hasura.io/jwt/claims': {
-        'x-hasura-allowed-roles': ['admin'],
-        'x-hasura-default-role': 'admin',
-        'x-hasura-user-id': user.userId.toString(),
-      },
-    }
+  // async login(user: { username: string; userId: number }) {
+  //   const payload = {
+  //     username: user.username,
+  //     sub: user.userId.toString(),
+  //     'https://hasura.io/jwt/claims': {
+  //       'x-hasura-allowed-roles': ['admin'],
+  //       'x-hasura-default-role': 'admin',
+  //       'x-hasura-user-id': user.userId.toString(),
+  //     },
+  //   }
 
-    return this.jwtService.sign(payload)
-  }
+  //   return this.jwtService.sign(payload)
+  // }
 }

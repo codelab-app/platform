@@ -1,22 +1,16 @@
-import { left, right } from 'fp-ts/Either'
-import { isNone } from 'fp-ts/Option'
-import { PageRepositoryPort } from '../../../adapters/PageRepositoryPort'
-import { GetPageErrors } from './GetPageErrors'
-import { GetPageRequest } from './GetPageRequest'
-import { GetPageResponse } from './GetPageResponse'
-import { GetPageUseCase } from './GetPageUseCase'
-import { Result } from '@codelab/backend'
+import { Page } from '../../../domain/Page'
+import { GetPageInput } from './GetPageInput'
+import { PrismaService, TransactionalUseCase } from '@codelab/backend'
 
-export class GetPageService implements GetPageUseCase {
-  constructor(private readonly pageRepository: PageRepositoryPort) {}
+export class GetPageService
+  implements TransactionalUseCase<GetPageInput, Page | null> {
+  constructor(private readonly prismaService: PrismaService) {}
 
-  async execute({ pageId }: GetPageRequest): Promise<GetPageResponse> {
-    const page = await this.pageRepository.findOne({ id: pageId })
-
-    if (isNone(page)) {
-      return left(new GetPageErrors.PageNotFoundError(pageId))
-    }
-
-    return right(Result.ok(page.value))
+  async execute({ pageId }: GetPageInput): Promise<Page | null> {
+    return await this.prismaService.page.findUnique({
+      where: {
+        id: pageId,
+      },
+    })
   }
 }

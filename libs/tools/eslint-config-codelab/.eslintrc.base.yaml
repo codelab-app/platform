@@ -90,6 +90,8 @@ rules:
   # --- ES6 ---
   prefer-arrow-callback: error
   func-style: error
+  require-await: error
+  no-return-await: off
   # --- !ES6 ---
 
   # --- TS ---

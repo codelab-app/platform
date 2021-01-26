@@ -2,24 +2,23 @@ import { INestApplication } from '@nestjs/common'
 import { print } from 'graphql'
 import request from 'supertest'
 import { RegisterUserGql } from '../../../../../../user/src/core/application/useCases/registerUser/RegisterUser.generated'
-import { AppDto } from '../AppDto'
+import { App } from '../../../domain/App'
 import { CreateAppGql } from '../createApp/CreateApp.generated'
 import { GetAppGql } from './GetApp.generated'
 import { setupTestModule, teardownTestModule } from '@codelab/backend'
 import { AppModule } from '@codelab/modules/app'
-import { UserDto, UserModule } from '@codelab/modules/user'
+import { User, UserModule } from '@codelab/modules/user'
 
 const email = 'test_user@codelab.ai'
 const password = 'password'
 
 describe('GetAppUseCase', () => {
   let app: INestApplication
-  let user: UserDto
+  let user: User
 
   beforeAll(async () => {
     app = await setupTestModule(app, UserModule, AppModule)
 
-    // Register user
     user = await request(app.getHttpServer())
       .post('/graphql')
       .send({
@@ -41,7 +40,7 @@ describe('GetAppUseCase', () => {
   it('Should get app for authenticated user', async () => {
     const title = 'My App'
 
-    const createApp: AppDto = await request(app.getHttpServer())
+    const createApp: App = await request(app.getHttpServer())
       .post('/graphql')
       .set('Authorization', `Bearer ${user.accessToken}` ?? '')
       .send({
@@ -76,7 +75,8 @@ describe('GetAppUseCase', () => {
         expect(res.body.data.getApp.title).toEqual(title)
       })
   })
-  it('should return error for wrong app id', async () => {
+
+  it.skip('should return error for wrong app id', async () => {
     const wrongAppId = '85e3fd3a-9dde-4c80-bd07-8cf126799698'
 
     await request(app.getHttpServer())

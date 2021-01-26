@@ -1,4 +1,4 @@
-import { User } from '../../../domain/user'
+import { User } from '../../../../presentation/User'
 import { AuthService } from '../../services/AuthService'
 import { RegisterUserInput } from '../registerUser/RegisterUserInput'
 import { LoginUserInput } from './LoginUserInput'
@@ -33,9 +33,9 @@ export class LoginUserService
 
     const accessToken = await this.authService.getToken(user)
 
-    return User.hydrate({
+    return {
       ...user,
       accessToken,
-    })
+    }
   }
 }

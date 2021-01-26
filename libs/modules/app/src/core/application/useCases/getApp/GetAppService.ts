@@ -1,21 +1,24 @@
-import { left, right } from 'fp-ts/Either'
-import { isNone } from 'fp-ts/Option'
-import { AppRepositoryPort } from '../../../adapters/AppRepositoryPort'
-import { GetAppErrors } from './GetAppErrors'
-import { GetAppRequest } from './GetAppRequest'
-import { GetAppResponse } from './GetAppResponse'
-import { Result } from '@codelab/backend'
+import { App } from '../../../domain/App'
+import { GetAppInput } from './GetAppInput'
+import {
+  PrismaService,
+  RequestValidationError,
+  TransactionalUseCase,
+} from '@codelab/backend'
 
-export class GetAppService {
-  constructor(private readonly appRepository: AppRepositoryPort) {}
+export class GetAppService
+  implements TransactionalUseCase<GetAppInput, App | null> {
+  constructor(private readonly prismaService: PrismaService) {}
 
-  async execute({ appId, user }: GetAppRequest): Promise<GetAppResponse> {
-    const app = await this.appRepository.findOne({ id: appId }, user.id)
-
-    if (isNone(app)) {
-      return left(new GetAppErrors.NotFound(appId))
+  async execute({ appId }: GetAppInput): Promise<App | null> {
+    try {
+      return await this.prismaService.app.findUnique({
+        where: {
+          id: appId,
+        },
+      })
+    } catch (e) {
+      throw new RequestValidationError(`The app ${appId} has not been found`)
     }
-
-    return right(Result.ok(app.value))
   }
 }

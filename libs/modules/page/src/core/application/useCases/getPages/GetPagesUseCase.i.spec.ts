@@ -1,26 +1,26 @@
 import { INestApplication } from '@nestjs/common'
 import { print } from 'graphql'
 import request from 'supertest'
-import { AppDto } from '../../../../../../app/src/core/application/useCases/AppDto'
 import { CreateAppGql } from '../../../../../../app/src/core/application/useCases/createApp/CreateApp.generated'
+import { App } from '../../../../../../app/src/core/domain/App'
 import { RegisterUserGql } from '../../../../../../user/src/core/application/useCases/registerUser/RegisterUser.generated'
 import { PageModule } from '../../../../framework/nestjs/PageModule'
-import { PageDto } from '../../../../presentation/PageDto'
+import { Page } from '../../../domain/Page'
 import { CreatePageGql } from '../createPage/CreatePage.generated'
 import { GetPagesGql } from './GetPages.generated'
 import { setupTestModule, teardownTestModule } from '@codelab/backend'
 import { AppModule } from '@codelab/modules/app'
 import { GraphModule } from '@codelab/modules/graph'
-import { UserDto, UserModule } from '@codelab/modules/user'
+import { User, UserModule } from '@codelab/modules/user'
 
 const email = 'test_user@codelab.ai'
 const password = 'password'
 
-describe('GetPagesUseCase', () => {
+describe.skip('GetPagesUseCase', () => {
   let nestApp: INestApplication
-  let user: UserDto
-  let page: PageDto
-  let app: AppDto
+  let user: User
+  let page: Page
+  let app: App
 
   beforeAll(async () => {
     nestApp = await setupTestModule(

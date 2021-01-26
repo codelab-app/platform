@@ -1,4 +1,4 @@
-import { User } from '../../../domain/user'
+import { User } from '../../../../presentation/User'
 import { AuthService } from '../../services/AuthService'
 import { RegisterUserInput } from './RegisterUserInput'
 import { PrismaService, TransactionalUseCase } from '@codelab/backend'
@@ -23,15 +23,16 @@ export class RegisterUserService
 
     const newUser = await this.prismaService.user.create({
       data: {
-        ...User.create(request),
+        ...request,
+        password: this.authService.hashPassword(request.password),
       },
     })
 
     const accessToken = await this.authService.getToken(newUser)
 
-    return User.hydrate({
+    return {
       ...newUser,
       accessToken,
-    })
+    }
   }
 }

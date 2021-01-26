@@ -3,7 +3,7 @@ import { print } from 'graphql'
 import request from 'supertest'
 import { v4 as uuidv4 } from 'uuid'
 import { UserModule } from '../../../../framework/nestjs/UserModule'
-import { UserDto } from '../../../../presentation/UserDto'
+import { User } from '../../../../presentation/User'
 import { RegisterUserGql } from '../registerUser/RegisterUser.generated'
 import { UpdateUserGql } from './UpdateUser.generated'
 import { setupTestModule, teardownTestModule } from '@codelab/backend'
@@ -14,7 +14,7 @@ const password = 'password'
 
 describe('UpdateUserUseCase', () => {
   let app: INestApplication
-  let user: UserDto
+  let user: User
 
   beforeAll(async () => {
     app = await setupTestModule(app, UserModule)
@@ -74,7 +74,7 @@ describe('UpdateUserUseCase', () => {
         const errorMsg = res.body?.errors[0].message
 
         expect(errorMsg).toEqual(
-          `Theres no email ${userId} associated with any account`,
+          `Theres no email ${newEmail} associated with any account`,
         )
       })
   })

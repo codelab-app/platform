@@ -8,19 +8,12 @@ export const UpdateNodeInputSchema = {
       type: 'string',
     },
     type: {
-      anyOf: [
-        {
-          enum: [
-            'React_Grid',
-            'React_Grid_Layout_Container',
-            'React_ResponsiveGrid',
-          ],
-          type: 'string',
-        },
-        {
-          type: 'null',
-        },
+      enum: [
+        'React_Grid',
+        'React_Grid_Layout_Container',
+        'React_ResponsiveGrid',
       ],
+      type: 'string',
     },
   },
   $schema: 'http://json-schema.org/draft-07/schema#',

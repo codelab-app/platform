@@ -6,19 +6,18 @@ import { UserModule } from '../../../../../../user/src/framework/nestjs/UserModu
 import { AppModule } from '../../../../framework/nestjs/AppModule'
 import { CreateAppGql } from './CreateApp.generated'
 import { setupTestModule, teardownTestModule } from '@codelab/backend'
-import { UserDto } from '@codelab/modules/user'
+import { User } from '@codelab/modules/user'
 
 const email = 'test_user@codelab.ai'
 const password = 'password'
 
 describe('CreateAppUseCase', () => {
   let app: INestApplication
-  let user: UserDto
+  let user: User
 
   beforeAll(async () => {
     app = await setupTestModule(app, UserModule, AppModule)
 
-    // Register user
     user = await request(app.getHttpServer())
       .post('/graphql')
       .send({

@@ -1,5 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql'
-import { EdgeType } from '../../../../presentation/EdgeType'
+import { EdgeType } from '../../../domain/edge/EdgeType'
 
 @InputType()
 export class MoveNodeInput {

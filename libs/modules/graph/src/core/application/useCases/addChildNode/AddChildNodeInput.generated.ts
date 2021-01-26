@@ -4,10 +4,6 @@ export const AddChildNodeInputSchema = {
     graphId: {
       type: 'string',
     },
-    type: {
-      enum: [0, 1, 2],
-      type: 'number',
-    },
     parentVertexId: {
       type: 'string',
     },
@@ -15,19 +11,12 @@ export const AddChildNodeInputSchema = {
       type: 'object',
       properties: {
         type: {
-          anyOf: [
-            {
-              enum: [
-                'React_Grid',
-                'React_Grid_Layout_Container',
-                'React_ResponsiveGrid',
-              ],
-              type: 'string',
-            },
-            {
-              type: 'null',
-            },
+          enum: [
+            'React_Grid',
+            'React_Grid_Layout_Container',
+            'React_ResponsiveGrid',
           ],
+          type: 'string',
         },
         props: {
           type: 'object',
@@ -38,6 +27,11 @@ export const AddChildNodeInputSchema = {
     },
     order: {
       type: 'number',
+    },
+    props: {
+      type: 'object',
+      properties: {},
+      additionalProperties: true,
     },
   },
   $schema: 'http://json-schema.org/draft-07/schema#',

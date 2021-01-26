@@ -3,11 +3,11 @@ import { print } from 'graphql'
 import request from 'supertest'
 import { RegisterUserGql } from '../../../../../../user/src/core/application/useCases/registerUser/RegisterUser.generated'
 import { AppModule } from '../../../../framework/nestjs/AppModule'
-import { AppDto } from '../AppDto'
+import { App } from '../../../domain/App'
 import { CreateAppGql } from '../createApp/CreateApp.generated'
 import { UpdateAppGql } from './UpdateApp.generated'
 import { setupTestModule, teardownTestModule } from '@codelab/backend'
-import { UserDto, UserModule } from '@codelab/modules/user'
+import { User, UserModule } from '@codelab/modules/user'
 
 const email = 'test_user@codelab.ai'
 const email2 = 'test_user2@codelab.ai'
@@ -16,13 +16,12 @@ const appTitleOld = 'My first app'
 
 describe('UpdateAppUseCase', () => {
   let nestApp: INestApplication
-  let user: UserDto
-  let app: AppDto
+  let user: User
+  let app: App
 
   beforeAll(async () => {
     nestApp = await setupTestModule(nestApp, UserModule, AppModule)
 
-    // Register user
     user = await request(nestApp.getHttpServer())
       .post('/graphql')
       .send({
@@ -36,7 +35,6 @@ describe('UpdateAppUseCase', () => {
       })
       .then((res) => res.body.data.registerUser)
 
-    // Create an app
     app = await request(nestApp.getHttpServer())
       .post('/graphql')
       .set('Authorization', `Bearer ${user.accessToken}` ?? '')
@@ -100,7 +98,6 @@ describe('UpdateAppUseCase', () => {
   it('should not update an app for another user', async () => {
     const newTitle = 'My New App'
 
-    // Register user
     const user2 = await request(nestApp.getHttpServer())
       .post('/graphql')
       .send({

@@ -13823,14 +13823,6 @@ hastscript@^6.0.0:
     property-information "^5.0.0"
     space-separated-tokens "^1.0.0"
 
-hasura-cli@1.3.2:
-  version "1.3.2"
-  resolved "https://registry.yarnpkg.com/hasura-cli/-/hasura-cli-1.3.2.tgz#e38ae1167976cd588718ce66c1330a7f694a17c7"
-  integrity sha512-x+f/fpjJyI47b0KWvOKQqTNMKLAVXaFEN63EPz4kAjqTSQD/hinmWDW4YSDBWnCUtaQHTyIS5hsLzxw9yWFA5g==
-  dependencies:
-    axios "^0.19.0"
-    chalk "^2.4.2"
-
 he@1.2.0, he@^1.1.0, he@^1.1.1, he@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/he/-/he-1.2.0.tgz#84ae65fa7eafb165fddb61566ae14baf05664f0f"
@@ -16771,16 +16763,6 @@ merge@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/merge/-/merge-1.2.1.tgz#38bebf80c3220a8a487b6fcfb3941bb11720c145"
   integrity sha512-VjFo4P5Whtj4vsLzsYBu5ayHhoHJ0UqNm7ibvShmbmoz7tGi0vXaoJbGdB+GmDMLUdg8DpQXEIeVDAe8MaABvQ==
-
-method-override@3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/method-override/-/method-override-3.0.0.tgz#6ab0d5d574e3208f15b0c9cf45ab52000468d7a2"
-  integrity sha512-IJ2NNN/mSl9w3kzWB92rcdHpz+HjkxhDJWNDBqSlas+zQdP8wBiJzITPg08M/k2uVvMow7Sk41atndNtt/PHSA==
-  dependencies:
-    debug "3.1.0"
-    methods "~1.1.2"
-    parseurl "~1.3.2"
-    vary "~1.1.2"
 
 methods@1.1.2, methods@^1.1.2, methods@~1.1.2:
   version "1.1.2"
@@ -23521,11 +23503,6 @@ tslib@1.9.3:
   version "1.9.3"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.9.3.tgz#d7e4dd79245d85428c4d7e4822a79917954ca286"
   integrity sha512-4krF8scpejhaOgqzBEcGM7yDIEfi0/8+8zDRZhNZZ2kjmHJ4hv3zCbQWxoJGz1iw5U0Jl0nma13xzHXcncMavQ==
-
-tslib@2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.0.0.tgz#18d13fc2dce04051e20f074cc8387fd8089ce4f3"
-  integrity sha512-lTqkx847PI7xEDYJntxZH89L2/aXInsyF2luSafe/+0fHOMjlBNXdH6th7f70qxLDhul7KZK0zC8V5ZIyHl0/g==
 
 tslib@2.0.1:
   version "2.0.1"

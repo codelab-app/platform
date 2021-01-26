@@ -5,19 +5,18 @@ import { UserModule } from '../../../../framework/nestjs/UserModule'
 import { RegisterUserGql } from '../registerUser/RegisterUser.generated'
 import { GetMeGql } from './GetMe.generated'
 import { setupTestModule, teardownTestModule } from '@codelab/backend'
-import { UserDto } from '@codelab/modules/user'
+import { User } from '@codelab/modules/user'
 
 const email = 'test_user@codelab.ai'
 const password = 'password'
 
 describe('GetMeUseCase', () => {
   let app: INestApplication
-  let user: UserDto
+  let user: User
 
   beforeAll(async () => {
     app = await setupTestModule(app, UserModule)
 
-    // Create user
     user = await request(app.getHttpServer())
       .post('/graphql')
       .send({
@@ -29,7 +28,9 @@ describe('GetMeUseCase', () => {
           },
         },
       })
-      .then((res) => res.body.data.registerUser)
+      .then((res) => {
+        return res.body.data.registerUser
+      })
   })
 
   afterAll(async () => {
@@ -47,6 +48,7 @@ describe('GetMeUseCase', () => {
       })
       .expect(200)
       .expect((res) => {
+        console.log(res.body)
         expect(res.body.data.getMe.email).toEqual(email)
       })
   })

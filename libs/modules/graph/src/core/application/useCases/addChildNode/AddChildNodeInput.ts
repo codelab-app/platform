@@ -1,21 +1,21 @@
 import { Field, InputType } from '@nestjs/graphql'
-import { AddChildNodeVertexInput } from '../../../../presentation/AddChildNodeVertexInput'
-import { VertexType } from '../../../domain/vertex/vertex-type.codec'
+import { GraphQLJSONObject } from 'graphql-type-json'
+import { CreateVertexInput } from '../../../domain/vertex/CreateVertexInput'
 
 @InputType()
 export class AddChildNodeInput {
   @Field()
   declare graphId: string
 
-  @Field(() => VertexType)
-  declare type: VertexType
-
   @Field(() => String, { nullable: true })
   declare parentVertexId: string
 
-  @Field(() => AddChildNodeVertexInput)
-  declare vertex: AddChildNodeVertexInput
+  @Field(() => CreateVertexInput)
+  declare vertex: CreateVertexInput
 
   @Field({ nullable: true })
   declare order?: number
+
+  @Field(() => GraphQLJSONObject)
+  declare props?: object
 }

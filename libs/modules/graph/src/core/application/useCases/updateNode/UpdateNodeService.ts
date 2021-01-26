@@ -1,45 +1,27 @@
-import { left, right } from 'fp-ts/Either'
-import { Option, isNone } from 'fp-ts/Option'
-import { GraphRepositoryPort } from '../../../adapters/GraphRepositoryPort'
-import { VertexRepositoryPort } from '../../../adapters/VertexRepositoryPort'
-import { Graph } from '../../../domain/graph/graph'
-import { Vertex } from '../../../domain/vertex/vertex'
-import { UpdateNodeErrors } from './UpdateNodeErrors'
-import { UpdateNodeRequest } from './UpdateNodeRequest'
-import { UpdateNodeResponse } from './UpdateNodeResponse'
-import { UpdateNodeUseCase } from './UpdateNodeUseCase'
-import { Result } from '@codelab/backend'
+import { Vertex } from '../../../domain/vertex/Vertex'
+import { UpdateNodeInput } from './UpdateNodeInput'
+import { PrismaService, TransactionalUseCase } from '@codelab/backend'
 
-export class UpdateNodeService implements UpdateNodeUseCase {
-  constructor(
-    private readonly graphRepository: GraphRepositoryPort,
-    private readonly vertexRepository: VertexRepositoryPort,
-  ) {}
+export class UpdateNodeService
+  implements TransactionalUseCase<UpdateNodeInput, Vertex> {
+  constructor(private readonly prismaService: PrismaService) {}
 
-  async execute(request: UpdateNodeRequest): Promise<UpdateNodeResponse> {
-    const { vertexId, graphId, type } = request
-
-    const updatedVertex: Option<Vertex> = await this.vertexRepository.update(
-      {
-        id: vertexId,
-      },
-      {
-        type,
-      },
-    )
-
-    if (isNone(updatedVertex)) {
-      return left(new UpdateNodeErrors.VertexNotFound(vertexId))
+  async execute({ vertexId, graphId, type }: UpdateNodeInput): Promise<Vertex> {
+    try {
+      // TODO: Remove as Vertex cast
+      return (await this.prismaService.vertex.update({
+        select: {
+          type: true,
+        },
+        where: {
+          id: vertexId,
+        },
+        data: {
+          type,
+        },
+      })) as Vertex
+    } catch (e) {
+      throw new Error()
     }
-
-    const graphOpt: Option<Graph> = await this.graphRepository.findOne({
-      id: graphId,
-    })
-
-    if (isNone(graphOpt)) {
-      return left(new UpdateNodeErrors.GraphNotFoundError(graphId))
-    }
-
-    return right(Result.ok(graphOpt.value))
   }
 }

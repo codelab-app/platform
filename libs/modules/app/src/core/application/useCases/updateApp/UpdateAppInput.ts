@@ -6,5 +6,5 @@ export class UpdateAppInput {
   declare id: string
 
   @Field()
-  declare title?: string
+  declare title: string
 }
