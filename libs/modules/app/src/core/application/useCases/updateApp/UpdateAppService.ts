@@ -32,7 +32,7 @@ export class UpdateAppService
         data: { ...appData },
       })
     } catch (e) {
-      throw new Error()
+      throw new RequestValidationError()
     }
   }
 }

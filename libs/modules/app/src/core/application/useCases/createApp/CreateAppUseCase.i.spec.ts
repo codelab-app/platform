@@ -53,7 +53,6 @@ describe('CreateAppUseCase', () => {
       .expect(200)
       .expect((res) => {
         expect(res.body.data.createApp.title).toEqual(title)
-        expect(res.body.data.createApp.user.id).toEqual(user.id)
       })
   })
 
