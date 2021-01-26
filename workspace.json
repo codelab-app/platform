@@ -1054,30 +1054,6 @@
         }
       }
     },
-    "alpha-state-apollo": {
-      "root": "libs/alpha/state/apollo",
-      "sourceRoot": "libs/alpha/state/apollo/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/alpha/state/apollo/**/*.js",
-              "libs/alpha/state/apollo/**/*.jsx",
-              "libs/alpha/state/apollo/**/*.ts",
-              "libs/alpha/state/apollo/**/*.tsx",
-              "libs/alpha/state/apollo/**/*.spec.ts",
-              "libs/alpha/state/apollo/**/*.spec.tsx",
-              "libs/alpha/state/apollo/**/*.spec.js",
-              "libs/alpha/state/apollo/**/*.spec.jsx",
-              "libs/alpha/state/apollo/**/*.d.ts"
-            ]
-          }
-        }
-      }
-    },
     "alpha-ui-antd": {
       "root": "libs/alpha/ui/antd",
       "sourceRoot": "libs/alpha/ui/antd/src",

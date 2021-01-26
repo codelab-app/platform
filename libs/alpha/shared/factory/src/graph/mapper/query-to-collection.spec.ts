@@ -1,11 +1,10 @@
 import { queryToCollection } from './query-to-collection'
 import { Collection } from '@codelab/alpha/shared/interface/collections'
 import { GraphA } from '@codelab/alpha/shared/interface/graph-v2'
-import { GraphsQueryResult } from '@codelab/alpha/state/apollo'
 
 describe('Graph mapper', () => {
   it('maps from query results to GraphA', () => {
-    const original: Partial<GraphsQueryResult> = {
+    const original: Partial<any> = {
       data: {
         graph: [
           {

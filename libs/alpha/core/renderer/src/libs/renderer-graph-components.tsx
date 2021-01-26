@@ -1,10 +1,9 @@
 import { FunctionComponent } from 'react'
 import { convertGraphToTree } from './convertGraphToTree'
 import { buildComponents } from './renderer-components'
-import { Graph } from '@codelab/alpha/state/apollo'
 
 export interface IGraphData {
-  graph: Array<Graph>
+  graph: Array<any>
 }
 
 export const buildComponentsGraph = <P extends {} = {}>(
