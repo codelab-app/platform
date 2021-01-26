@@ -101,7 +101,7 @@ commands:
       - run:
           name: 'Debug'
           command: |
-            export DOCKER_TAG_VERSION_GIT=<< pipeline.git.tag >>
+            export DOCKER_TAG_VERSION_GIT=master-<< pipeline.number >>
             echo $DOCKER_TAG_VERSION_GIT
       - run:
           name: 'Inject vault env to bash env'
