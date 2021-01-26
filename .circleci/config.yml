@@ -39,7 +39,7 @@ executor-params: &executor-params
 executor-config: &executor-config
   environment:
     # DOCKER_TAG_VERSION: <<pipeline.git.tag>>
-    DOCKER_TAG_VERSION: 0.2
+    DOCKER_TAG_VERSION: 0.02
     API_PORT_GRAPH: 4004
     # CircleCI
     GITHUB_LUAN: nutshell113
@@ -375,6 +375,7 @@ workflows:
           e: vault-img
       - install-and-build-workspace:
           <<: *filters-staging
+          e: docker-node
           requires:
             - setup-vault-env
       - build-and-push-docker-image:
@@ -383,5 +384,6 @@ workflows:
             - install-and-build-workspace
       - notify-success:
           <<: *filters-staging
+          e: docker-node
           requires:
             - build-and-push-docker-image
