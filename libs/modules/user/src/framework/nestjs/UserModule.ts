@@ -1,5 +1,4 @@
 import { Module, Provider } from '@nestjs/common'
-import { CqrsModule } from '@nestjs/cqrs'
 import { PrismaDITokens } from '../../../../../backend/src/infrastructure/persistence/prisma/PrismaDITokens'
 import { ValidateUserCommandHandler } from '../../core/application/handlers/ValidateUserCommandHandler'
 import { AuthService } from '../../core/application/services/AuthService'
@@ -48,7 +47,7 @@ export const useCaseProviders: Array<Provider> = [
 export const handlerProviders: Array<Provider> = [ValidateUserCommandHandler]
 
 @Module({
-  imports: [CqrsModule, AuthModule],
+  imports: [AuthModule],
   providers: [
     GqlAuthGuard,
     ...persistenceProviders,

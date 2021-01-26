@@ -1,12 +1,12 @@
-import { UserDto } from '../../../../presentation/UserDto'
+import { User } from '../../../../presentation/User'
 import { ValidateUserRequest } from './ValidateUserRequest'
 import { PrismaService, TransactionalUseCase } from '@codelab/backend'
 
 export class ValidateUserService
-  implements TransactionalUseCase<ValidateUserRequest, UserDto> {
+  implements TransactionalUseCase<ValidateUserRequest, User> {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async execute({ userId }: ValidateUserRequest): Promise<UserDto> {
+  async execute({ userId }: ValidateUserRequest): Promise<User> {
     const user = await this.prismaService.user.findUnique({
       where: { id: userId },
     })

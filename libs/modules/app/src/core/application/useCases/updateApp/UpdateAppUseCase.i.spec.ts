@@ -7,7 +7,7 @@ import { App } from '../../../domain/App'
 import { CreateAppGql } from '../createApp/CreateApp.generated'
 import { UpdateAppGql } from './UpdateApp.generated'
 import { setupTestModule, teardownTestModule } from '@codelab/backend'
-import { UserDto, UserModule } from '@codelab/modules/user'
+import { User, UserModule } from '@codelab/modules/user'
 
 const email = 'test_user@codelab.ai'
 const email2 = 'test_user2@codelab.ai'
@@ -16,7 +16,7 @@ const appTitleOld = 'My first app'
 
 describe('UpdateAppUseCase', () => {
   let nestApp: INestApplication
-  let user: UserDto
+  let user: User
   let app: App
 
   beforeAll(async () => {

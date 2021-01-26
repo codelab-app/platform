@@ -1,7 +1,7 @@
 import { Inject } from '@nestjs/common'
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs'
 import { UserDITokens } from '../../../framework/UserDITokens'
-import { UserDto } from '../../../presentation/UserDto'
+import { User } from '../../../presentation/User'
 import { ValidateUserCommand } from '../commands/ValidateUserCommand'
 import { ValidateUserService } from '../useCases/validateUser/ValidateUserService'
 
@@ -13,7 +13,7 @@ export class ValidateUserCommandHandler
     public readonly service: ValidateUserService,
   ) {}
 
-  async execute({ request }: ValidateUserCommand): Promise<UserDto> {
+  async execute({ request }: ValidateUserCommand): Promise<User> {
     return await this.service.execute(request)
   }
 }

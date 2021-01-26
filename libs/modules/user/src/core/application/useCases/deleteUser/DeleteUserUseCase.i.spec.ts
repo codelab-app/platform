@@ -6,14 +6,14 @@ import { UserModule } from '../../../../framework/nestjs/UserModule'
 import { RegisterUserGql } from '../registerUser/RegisterUser.generated'
 import { DeleteUserGql } from './DeleteUser.generated'
 import { setupTestModule } from '@codelab/backend'
-import { UserDto } from '@codelab/modules/user'
+import { User } from '@codelab/modules/user'
 
 const email = 'test_user@codelab.ai'
 const password = 'password'
 
 describe('DeleteUserUseCase', () => {
   let app: INestApplication
-  let user: UserDto
+  let user: User
 
   beforeAll(async () => {
     app = await setupTestModule(app, UserModule)

@@ -7,14 +7,14 @@ import { CreateAppGql } from '../createApp/CreateApp.generated'
 import { GetAppGql } from './GetApp.generated'
 import { setupTestModule, teardownTestModule } from '@codelab/backend'
 import { AppModule } from '@codelab/modules/app'
-import { UserDto, UserModule } from '@codelab/modules/user'
+import { User, UserModule } from '@codelab/modules/user'
 
 const email = 'test_user@codelab.ai'
 const password = 'password'
 
 describe('GetAppUseCase', () => {
   let app: INestApplication
-  let user: UserDto
+  let user: User
 
   beforeAll(async () => {
     app = await setupTestModule(app, UserModule, AppModule)

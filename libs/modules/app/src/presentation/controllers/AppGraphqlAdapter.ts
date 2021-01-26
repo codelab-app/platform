@@ -12,7 +12,7 @@ import { UpdateAppService } from '../../core/application/useCases/updateApp/Upda
 import { App } from '../../core/domain/App'
 import { AppDITokens } from '../../framework/AppDITokens'
 import { CurrentUser, GqlAuthGuard } from '@codelab/backend'
-import { UserDto } from '@codelab/modules/user'
+import { User } from '@codelab/modules/user'
 
 @Resolver('App')
 @Injectable()
@@ -34,7 +34,7 @@ export class AppGraphqlAdapter {
   @UseGuards(GqlAuthGuard)
   async createApp(
     @Args('input') input: CreateAppInput,
-    @CurrentUser() user: UserDto,
+    @CurrentUser() user: User,
   ) {
     return await this.createAppService.execute({ ...input, user })
   }
@@ -47,7 +47,7 @@ export class AppGraphqlAdapter {
 
   @Query(() => [App])
   @UseGuards(GqlAuthGuard)
-  async getApps(@CurrentUser() user: UserDto) {
+  async getApps(@CurrentUser() user: User) {
     return await this.getAppsService.execute({ user })
   }
 
@@ -55,7 +55,7 @@ export class AppGraphqlAdapter {
   @UseGuards(GqlAuthGuard)
   async updateApp(
     @Args('input') { id, ...input }: UpdateAppInput,
-    @CurrentUser() user: UserDto,
+    @CurrentUser() user: User,
   ) {
     return await this.updateAppService.execute({
       appId: id,

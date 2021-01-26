@@ -4,21 +4,21 @@ import request from 'supertest'
 import { CreateAppGql } from '../../../../../../app/src/core/application/useCases/createApp/CreateApp.generated'
 import { App } from '../../../../../../app/src/core/domain/App'
 import { RegisterUserGql } from '../../../../../../user/src/core/application/useCases/registerUser/RegisterUser.generated'
-import { PageDto } from '../../../../presentation/PageDto'
+import { Page } from '../../../domain/Page'
 import { CreatePageGql } from '../createPage/CreatePage.generated'
 import { setupTestModule, teardownTestModule } from '@codelab/backend'
 import { AppModule } from '@codelab/modules/app'
 import { GraphModule } from '@codelab/modules/graph'
 import { PageModule } from '@codelab/modules/page'
-import { UserDto, UserModule } from '@codelab/modules/user'
+import { User, UserModule } from '@codelab/modules/user'
 
 const email = 'test_user@codelab.ai'
 const password = 'password'
 
 describe('DeletePageUseCase', () => {
   let app: INestApplication
-  let user: UserDto
-  let page: PageDto
+  let user: User
+  let page: Page
 
   beforeAll(async () => {
     app = await setupTestModule(

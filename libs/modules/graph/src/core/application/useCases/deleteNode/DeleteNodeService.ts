@@ -1,54 +1,60 @@
-import { left, right } from 'fp-ts/Either'
-import { Option, isNone } from 'fp-ts/Option'
-import { EdgeRepositoryPort } from '../../../adapters/EdgeRepositoryPort'
-import { GraphRepositoryPort } from '../../../adapters/GraphRepositoryPort'
-import { VertexRepositoryPort } from '../../../adapters/VertexRepositoryPort'
-import { Vertex } from '../../../domain/vertex/vertex'
-import { DeleteNodeErrors } from './DeleteNodeErrors'
-import { DeleteNodeRequest } from './DeleteNodeRequest'
-import { DeleteNodeResponse } from './DeleteNodeResponse'
-import { DeleteNodeUseCase } from './DeleteNodeUseCase'
-import { Result } from '@codelab/backend'
+import { Graph } from '../../../domain/graph/Graph'
+import { DeleteNodeInput } from './DeleteNodeInput'
+import { PrismaService, TransactionalUseCase } from '@codelab/backend'
 
 /**
  * Delete all attached edges as well
  */
-export class DeleteNodeService implements DeleteNodeUseCase {
-  constructor(
-    private readonly graphRepository: GraphRepositoryPort,
-    private readonly vertexRepository: VertexRepositoryPort,
-    private readonly edgeRepository: EdgeRepositoryPort,
-  ) {}
+export class DeleteNodeService
+  implements TransactionalUseCase<DeleteNodeInput, Graph> {
+  constructor(private readonly prismaService: PrismaService) {}
 
-  async execute({ vertexId }: DeleteNodeRequest): Promise<DeleteNodeResponse> {
-    const vertexToDelete = await this.vertexRepository.findOne({ id: vertexId })
+  async execute({ vertexId }: DeleteNodeInput): Promise<Graph> {
+    try {
+      const graph = await this.prismaService.graph.findFirst({
+        where: {
+          vertices: {
+            every: {
+              id: vertexId,
+            },
+          },
+        },
+      })
 
-    if (isNone(vertexToDelete)) {
-      return left(new DeleteNodeErrors.VertexNotFound(vertexId))
+      if (!graph) {
+        throw new Error()
+      }
+
+      return await this.prismaService.graph.update({
+        where: {
+          id: graph.id,
+        },
+        data: {
+          vertices: {
+            delete: {
+              id: vertexId,
+            },
+          },
+          edges: {
+            deleteMany: {
+              OR: [
+                {
+                  target: {
+                    in: [vertexId],
+                  },
+                },
+                {
+                  source: {
+                    in: [vertexId],
+                  },
+                },
+              ],
+            },
+          },
+        },
+      })
+    } catch (e) {
+      throw new Error()
     }
-
-    const deletedVertex: Option<Vertex> = await this.vertexRepository.delete({
-      id: vertexId,
-    })
-
-    if (isNone(deletedVertex)) {
-      return left(new DeleteNodeErrors.VertexNotFound(vertexId))
-    }
-
-    const edges = await this.edgeRepository.deleteMany({
-      vertex: { id: vertexId },
-    })
-
-    const { graphId } = deletedVertex.value
-
-    const graph = await this.graphRepository.findOne({
-      id: graphId,
-    })
-
-    if (isNone(graph)) {
-      return left(new DeleteNodeErrors.GraphNotFoundError(graphId.toString()))
-    }
-
-    return right(Result.ok(graph.value))
   }
 }

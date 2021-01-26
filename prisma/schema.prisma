@@ -40,6 +40,7 @@ model Graph {
   id       String     @id @default(uuid())
   label    String
   type     GraphType? @default(Component)
+  props    Json?
   vertices Vertex[]
   edges    Edge[]
   app      App?       @relation(fields: [appId], references: [id])
@@ -51,6 +52,7 @@ model Graph {
 model Vertex {
   id      String      @id @default(uuid())
   type    VertexType?
+  props   Json?
   graph   Graph?      @relation(fields: [graphId], references: [id])
   graphId String?
 }
@@ -58,6 +60,10 @@ model Vertex {
 model Edge {
   id      String    @id @default(uuid())
   type    EdgeType? @default(Vertex)
+  order   Int       @default(0)
+  props   Json?
+  source  String
+  target  String
   graph   Graph?    @relation(fields: [graphId], references: [id])
   graphId String?
 }

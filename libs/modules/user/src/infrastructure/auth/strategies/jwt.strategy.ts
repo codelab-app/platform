@@ -4,7 +4,7 @@ import { JwtService } from '@nestjs/jwt'
 import { PassportStrategy } from '@nestjs/passport'
 import { ExtractJwt, Strategy } from 'passport-jwt'
 import { ValidateUserCommand } from '../../../core/application/commands/ValidateUserCommand'
-import { UserDto } from '../../../presentation/UserDto'
+import { User } from '../../../presentation/User'
 import { IToken } from '../IToken'
 import { JwtConfig } from '../config/JwtConfig'
 
@@ -22,12 +22,12 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
     })
   }
 
-  async validate(payload: any): Promise<UserDto> {
+  async validate(payload: any): Promise<User> {
     const { authorization } = payload.headers
     const token = authorization.replace('Bearer', '').trim()
     const decodedToken = this.jwtService.decode(token) as IToken
 
-    const user: UserDto = await this.commandBus.execute(
+    const user: User = await this.commandBus.execute(
       new ValidateUserCommand({ userId: decodedToken.sub }),
     )
 

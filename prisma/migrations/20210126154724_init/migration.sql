@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Edge" ADD COLUMN     "order" INTEGER NOT NULL DEFAULT 0;

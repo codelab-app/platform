@@ -17,7 +17,7 @@ import { RegisterUserService } from '../../core/application/useCases/registerUse
 import { UpdateUserInput } from '../../core/application/useCases/updateUser/UpdateUserInput'
 import { UpdateUserService } from '../../core/application/useCases/updateUser/UpdateUserService'
 import { UserDITokens } from '../../framework/UserDITokens'
-import { UserDto } from '../UserDto'
+import { User } from '../User'
 import { CurrentUser, GqlAuthGuard } from '@codelab/backend'
 
 /**
@@ -28,7 +28,7 @@ import { CurrentUser, GqlAuthGuard } from '@codelab/backend'
  *
  * @inheritDoc CommandQueryBusPort
  */
-@Resolver(() => UserDto)
+@Resolver(() => User)
 @Injectable()
 export class UserGraphqlAdapter {
   constructor(
@@ -42,34 +42,34 @@ export class UserGraphqlAdapter {
     readonly updateUserService: UpdateUserService,
   ) {}
 
-  @Mutation(() => UserDto)
+  @Mutation(() => User)
   async deleteUser(@Args('input') input: DeleteUserInput) {
     return await this.deleteUserService.execute(input)
   }
 
-  @Mutation(() => UserDto)
+  @Mutation(() => User)
   async updateUser(@Args('input') input: UpdateUserInput) {
     return await this.updateUserService.execute(input)
   }
 
-  @Mutation(() => UserDto)
+  @Mutation(() => User)
   async registerUser(@Args('input') input: RegisterUserInput) {
     return await this.registerUserService.execute(input)
   }
 
-  @Mutation(() => UserDto)
+  @Mutation(() => User)
   async loginUser(@Args('input') input: LoginUserInput) {
     return await this.loginUserService.execute(input)
   }
 
-  @Query(() => UserDto)
+  @Query(() => User)
   @UseGuards(GqlAuthGuard)
-  getMe(@CurrentUser() user: UserDto) {
+  getMe(@CurrentUser() user: User) {
     return user
   }
 
   @ResolveField(() => [App])
-  apps(@Parent() user: UserDto) {
+  apps(@Parent() user: User) {
     console.log(user)
 
     return []
