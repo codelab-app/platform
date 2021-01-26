@@ -1,30 +1,18 @@
-import { option as O } from 'fp-ts'
-import { left, right } from 'fp-ts/Either'
-import { UserRepositoryPort } from '../../../adapters/UserRepositoryPort'
-import { DeleteUserErrors } from './DeleteUserErrors'
-import { DeleteUserRequest } from './DeleteUserRequest'
-import { DeleteUserResponse } from './DeleteUserResponse'
-import { DeleteUserUseCase } from './DeleteUserUseCase'
-import { AppError, Result } from '@codelab/backend'
+import { User } from '../../../domain/user'
+import { DeleteUserInput } from './DeleteUserInput'
+import { PrismaService, TransactionalUseCase } from '@codelab/backend'
 
-export class DeleteUserService implements DeleteUserUseCase {
-  constructor(private readonly userRepository: UserRepositoryPort) {}
+export class DeleteUserService
+  implements TransactionalUseCase<DeleteUserInput, User> {
+  constructor(private readonly prismaService: PrismaService) {}
 
-  async execute({ email }: DeleteUserRequest): Promise<DeleteUserResponse> {
-    const foundUser = await this.userRepository.findOne({ email })
-
-    if (O.isNone(foundUser)) {
-      return left(new DeleteUserErrors.UserNotFoundError(email))
-    }
-
-    const deletedUserResult = await this.userRepository.delete({
-      email,
+  async execute({ email }: DeleteUserInput): Promise<User> {
+    const user = await this.prismaService.user.delete({
+      where: {
+        email,
+      },
     })
 
-    if (O.isSome(deletedUserResult)) {
-      return right(Result.ok(deletedUserResult.value))
-    }
-
-    return left(new AppError())
+    return User.hydrate(user)
   }
 }

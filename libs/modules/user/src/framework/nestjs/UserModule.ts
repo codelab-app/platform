@@ -1,7 +1,6 @@
 import { Module, Provider } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
 import { PrismaDITokens } from '../../../../../backend/src/infrastructure/persistence/prisma/PrismaDITokens'
-import { DeleteUserCommandHandler } from '../../core/application/handlers/DeleteUserCommandHandler'
 import { GetMeQueryHandler } from '../../core/application/handlers/GetMeQueryHandler'
 import { GetUsersQueryHandler } from '../../core/application/handlers/GetUsersQueryHandler'
 import { UpdateUserCommandHandler } from '../../core/application/handlers/UpdateUserCommandHandler'
@@ -72,7 +71,6 @@ export const useCaseProviders: Array<Provider> = [
 export const handlerProviders: Array<Provider> = [
   GetMeQueryHandler,
   ValidateUserCommandHandler,
-  DeleteUserCommandHandler,
   UpdateUserCommandHandler,
   GetUsersQueryHandler,
 ]

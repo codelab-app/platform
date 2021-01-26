@@ -1,10 +1,10 @@
 import { Inject, Injectable, UseGuards } from '@nestjs/common'
 import { CommandBus, QueryBus } from '@nestjs/cqrs'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
-import { DeleteUserCommand } from '../../core/application/commands/DeleteUserCommand'
 import { GetMeQuery } from '../../core/application/commands/GetMeQuery'
 import { UpdateUserCommand } from '../../core/application/commands/UpdateUserCommand'
 import { DeleteUserInput } from '../../core/application/useCases/deleteUser/DeleteUserInput'
+import { DeleteUserService } from '../../core/application/useCases/deleteUser/DeleteUserService'
 import { GetMeRequest } from '../../core/application/useCases/getMe/GetMeRequest'
 import { LoginUserInput } from '../../core/application/useCases/loginUser/LoginUserInput'
 import { LoginUserService } from '../../core/application/useCases/loginUser/LoginUserService'
@@ -40,13 +40,13 @@ export class UserCommandQueryAdapter implements CommandQueryBusPort {
     readonly loginUserService: LoginUserService,
     @Inject(UserDITokens.RegisterUserUseCase)
     readonly registerUserService: RegisterUserService,
+    @Inject(UserDITokens.DeleteUserUseCase)
+    readonly deletteUserService: DeleteUserService,
   ) {}
 
   @Mutation(() => UserDto)
   async deleteUser(@Args('input') input: DeleteUserInput) {
-    const user = await this.commandBus.execute(new DeleteUserCommand(input))
-
-    return UserEntity.encode(user)
+    return this.deletteUserService.execute(input)
   }
 
   @Mutation(() => UserDto)
