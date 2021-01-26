@@ -21,7 +21,6 @@ export const useCaseProviders: Array<Provider> = [
     useFactory: (prismaService) => new ValidateUserService(prismaService),
     inject: [PrismaDITokens.PrismaService],
   },
-
   {
     provide: UserDITokens.LoginUserUseCase,
     useFactory: (prismaService, authService) =>

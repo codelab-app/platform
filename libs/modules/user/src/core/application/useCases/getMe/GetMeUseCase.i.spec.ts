@@ -28,7 +28,9 @@ describe('GetMeUseCase', () => {
           },
         },
       })
-      .then((res) => res.body.data.registerUser)
+      .then((res) => {
+        return res.body.data.registerUser
+      })
   })
 
   afterAll(async () => {
@@ -46,6 +48,7 @@ describe('GetMeUseCase', () => {
       })
       .expect(200)
       .expect((res) => {
+        console.log(res.body)
         expect(res.body.data.getMe.email).toEqual(email)
       })
   })
