@@ -101,7 +101,6 @@ commands:
       - run:
           name: 'Debug'
           command: |
-            source $BASH_ENV
             echo $DOCKER_TAG_VERSION_GIT
       - run:
           name: 'Inject vault env to bash env'
