@@ -12,8 +12,7 @@
 filters-dev: &filters-dev
   filters:
     branches:
-      # only: /^.*$/
-      only: /never/
+      only: /^.*$/
 
 filters-staging: &filters-staging
 # https://discuss.circleci.com/t/circle-2-0-workflow-filters-should-be-logical-and-not-or/18231
@@ -27,7 +26,7 @@ filters-staging: &filters-staging
 filters-master-branch-only: &filters-master-branch-only
   when:
     and:
-      - equal: [ staging-ci, <<pipeline.git.branch>> ]
+      - equal: [ master, <<pipeline.git.branch>> ]
 
 executor-params: &executor-params
   parameters:
@@ -56,8 +55,6 @@ executor-config: &executor-config
     COLOR_FAILURE: '#ffccc7'
     NODE_OPTIONS: --max_old_space_size=16384
     NODE_ENV: production
-    ARGOCD_STAGING_APP_NAME: codelab
-    ARGOCD_PROD_APP_NAME: codelab-prod
   working_directory: ~/app
 
 version: 2.1
@@ -306,32 +303,6 @@ jobs:
           channel: $SLACK_CHANNEL_UPDATE
           mentions: $SLACK_USER
 
-  argocd-sync-prod:
-    <<: *executor-params
-    steps:
-      - checkout
-      - attach_workspace:
-          at: ..
-      - run: source ~/.env
-      - argo-sync/sync:
-          argoApplication: $ARGOCD_PROD_APP_NAME
-          authToken: $ARGOCD_TOKEN
-          prune: "true"
-
-  argocd-set-prod:
-    <<: *executor-params
-    steps:
-      - attach_workspace:
-          at: ..
-      - run: |
-          cat ~/.env >> $BASH_ENV
-          source $BASH_ENV
-      - argo-set/set:
-          argoApplication: $ARGOCD_PROD_APP_NAME
-          authToken: $ARGOCD_TOKEN
-          argoProject: "default"
-          parameters: "api-graph=image=codelabai/codelab:$DOCKER_TAG_VERSION,web=image=codelabai/codelab:$DOCKER_TAG_VERSION"
-
 workflows:
   app-dev:
     jobs:
@@ -387,13 +358,8 @@ workflows:
           <<: *filters-staging
           requires:
             - install-and-build-workspace
-      - argocd-set-prod:
-          <<: *filters-staging
-          e: argo-cli
-          requires:
-            - build-and-push-docker-image
       - notify-success:
           <<: *filters-staging
           e: docker-node
           requires:
-            - argocd-set-prod
+            - build-and-push-docker-image
