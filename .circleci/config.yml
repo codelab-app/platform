@@ -287,7 +287,9 @@ jobs:
       - yarn-install-prod
       - run:
           name: 'Build Docker image'
-          command: yarn docker:build codelab
+          command: |
+            env >> .env
+            yarn docker:build codelab
       - run:
           name: 'Docker login'
           command: echo "${DOCKER_PASS}" | docker login --username "${DOCKER_USER}" --password-stdin
