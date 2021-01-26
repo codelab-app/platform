@@ -46,4 +46,6 @@ export class UserDITokens {
   )
 
   public static readonly AppRepository: unique symbol = Symbol('AppRepository')
+
+  public static readonly AuthService: unique symbol = Symbol('AuthService')
 }

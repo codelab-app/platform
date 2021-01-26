@@ -1,3 +1,4 @@
+import * as bcrypt from 'bcrypt'
 import * as t from 'io-ts'
 import * as Joi from 'joi'
 
@@ -18,7 +19,9 @@ export const PasswordC = new t.Type<string, string, unknown>(
       return t.failure(input, context, error?.message)
     }
 
-    return t.success(input)
+    const hash = bcrypt.hashSync(value, 10)
+
+    return t.success(hash)
   },
   t.identity,
 )

@@ -38,7 +38,11 @@ describe('User entity codec', () => {
       throw new Error()
     }
 
-    expect(results.right).toBe(data)
+    expect(results.right).toStrictEqual({
+      ...data,
+      password: results.right.password,
+    })
+    expect(results.right.password).not.toBe('password')
   })
 
   it('transforms user dto', () => {

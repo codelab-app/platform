@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common'
+import { User } from '@prisma/client'
+import * as bcrypt from 'bcrypt'
 import { JwtStrategy } from '../../../infrastructure/auth/strategies/jwt.strategy'
-import { User } from '../../domain/user'
 
 @Injectable()
 export class AuthService {
@@ -12,5 +13,9 @@ export class AuthService {
 
   async getToken(user: User) {
     return this.jwtStrategy.getToken(user)
+  }
+
+  comparePassword(attempt: string, password: string): boolean {
+    return bcrypt.compareSync(attempt, password)
   }
 }
