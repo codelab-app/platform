@@ -295,7 +295,7 @@ jobs:
           command: echo "${DOCKER_PASS}" | docker login --username "${DOCKER_USER}" --password-stdin
       - run:
           name: 'Push Docker image'
-          command: yarn docker-push codelab
+          command: yarn docker:push codelab
 
   notify-failure:
     <<: *executor-params
