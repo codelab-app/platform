@@ -5,6 +5,7 @@ import { DeleteNodeService } from '../../core/application/useCases/deleteNode/De
 import { GetGraphService } from '../../core/application/useCases/getGraph/GetGraphService'
 import { MoveNodeService } from '../../core/application/useCases/moveNode/MoveNodeService'
 import { UpdateNodeService } from '../../core/application/useCases/updateNode/UpdateNodeService'
+import { GraphGraphqlAdapter } from '../../presentation/controllers/GraphGraphqlAdapter'
 import { GraphDITokens } from '../GraphDITokens'
 import { EdgeModule } from './EdgeModule'
 import { VertexModule } from './VertexModule'
@@ -45,6 +46,6 @@ const useCaseProviders: Array<Provider> = [
 
 @Module({
   imports: [VertexModule, EdgeModule],
-  providers: [...useCaseProviders],
+  providers: [GraphGraphqlAdapter, ...useCaseProviders],
 })
 export class GraphModule {}

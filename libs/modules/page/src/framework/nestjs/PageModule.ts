@@ -3,6 +3,7 @@ import { CreatePageService } from '../../core/application/useCases/createPage/Cr
 import { DeletePageService } from '../../core/application/useCases/deletePage/DeletePageService'
 import { GetPageService } from '../../core/application/useCases/getPage/GetPageService'
 import { GetPagesService } from '../../core/application/useCases/getPages/GetPagesService'
+import { PageGraphqlAdapter } from '../../presentation/controllers/PageGraphqlAdapter'
 import { PageDITokens } from '../PageDITokens'
 import { PrismaDITokens } from '@codelab/backend'
 
@@ -30,6 +31,6 @@ const useCaseProviders: Array<Provider> = [
 ]
 
 @Module({
-  providers: [...useCaseProviders],
+  providers: [PageGraphqlAdapter, ...useCaseProviders],
 })
 export class PageModule {}

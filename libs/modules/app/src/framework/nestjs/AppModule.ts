@@ -8,8 +8,6 @@ import { AppGraphqlAdapter } from '../../presentation/controllers/AppGraphqlAdap
 import { AppDITokens } from '../AppDITokens'
 import { PrismaDITokens } from '@codelab/backend'
 
-export const persistenceProviders: Array<Provider> = [AppGraphqlAdapter]
-
 export const useCaseProviders: Array<Provider> = [
   {
     provide: AppDITokens.GetAppUseCase,
@@ -39,6 +37,6 @@ export const useCaseProviders: Array<Provider> = [
 ]
 
 @Module({
-  providers: [...persistenceProviders, ...useCaseProviders],
+  providers: [AppGraphqlAdapter, ...useCaseProviders],
 })
 export class AppModule {}

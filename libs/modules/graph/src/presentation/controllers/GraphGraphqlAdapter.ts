@@ -27,7 +27,7 @@ registerEnumType(VertexType, {
 })
 @Resolver('Graph')
 @Injectable()
-export class GraphCommandQueryAdapter {
+export class GraphGraphqlAdapter {
   constructor(
     @Inject(GraphDITokens.CreateGraphUseCase)
     private readonly createGraphService: CreateGraphService,

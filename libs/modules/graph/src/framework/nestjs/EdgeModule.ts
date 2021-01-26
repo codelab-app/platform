@@ -1,17 +1,6 @@
-import { Module, Provider } from '@nestjs/common'
-
-export const persistenceProviders: Array<Provider> = []
-
-export const handlerProviders: Array<Provider> = []
-
-const useCaseProviders: Array<Provider> = []
+import { Module } from '@nestjs/common'
 
 @Module({
-  imports: [],
-  providers: [
-    ...persistenceProviders,
-    ...useCaseProviders,
-    ...handlerProviders,
-  ],
+  providers: [],
 })
 export class EdgeModule {}
