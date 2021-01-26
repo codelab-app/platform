@@ -1,4 +1,5 @@
 import { Field, ObjectType } from '@nestjs/graphql'
+import { VertexType as PrismaVertexType } from '@prisma/client'
 import { GraphQLJSONObject } from 'graphql-type-json'
 import { VertexType } from './VertexType'
 
@@ -8,7 +9,7 @@ export class Vertex {
   declare id: string
 
   @Field(() => VertexType)
-  declare type: VertexType
+  declare type?: PrismaVertexType
 
   @Field(() => GraphQLJSONObject)
   declare props?: object

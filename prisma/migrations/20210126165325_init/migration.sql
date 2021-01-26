@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Vertex" ALTER COLUMN "type" DROP NOT NULL,
+ALTER COLUMN "type" DROP DEFAULT;

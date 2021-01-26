@@ -11,5 +11,5 @@ export class UpdateNodeInput {
   declare vertexId: string
 
   @Field(() => VertexType)
-  declare type: PrismaVertexType
+  declare type?: PrismaVertexType
 }
