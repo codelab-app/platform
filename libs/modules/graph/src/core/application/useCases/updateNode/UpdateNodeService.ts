@@ -1,10 +1,19 @@
+import { Inject, Injectable } from '@nestjs/common'
 import { Vertex } from '../../../domain/vertex/Vertex'
 import { UpdateNodeInput } from './UpdateNodeInput'
-import { PrismaService, TransactionalUseCase } from '@codelab/backend'
+import {
+  PrismaDITokens,
+  PrismaService,
+  TransactionalUseCase,
+} from '@codelab/backend'
 
+@Injectable()
 export class UpdateNodeService
   implements TransactionalUseCase<UpdateNodeInput, Vertex> {
-  constructor(private readonly prismaService: PrismaService) {}
+  constructor(
+    @Inject(PrismaDITokens.PrismaService)
+    private readonly prismaService: PrismaService,
+  ) {}
 
   async execute({ vertexId, graphId, type }: UpdateNodeInput): Promise<Vertex> {
     try {

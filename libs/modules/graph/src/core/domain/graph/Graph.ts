@@ -4,7 +4,7 @@ import { Vertex } from '../vertex/Vertex'
 
 @ObjectType('Graph')
 export class Graph {
-  @Field({ nullable: true })
+  @Field()
   declare id: string
 
   @Field()

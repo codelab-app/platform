@@ -1,4 +1,4 @@
-import { Inject, Injectable, UseGuards } from '@nestjs/common'
+import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { DeleteUserInput } from '../../core/application/useCases/deleteUser/DeleteUserInput'
 import { DeleteUserService } from '../../core/application/useCases/deleteUser/DeleteUserService'
@@ -8,7 +8,6 @@ import { RegisterUserInput } from '../../core/application/useCases/registerUser/
 import { RegisterUserService } from '../../core/application/useCases/registerUser/RegisterUserService'
 import { UpdateUserInput } from '../../core/application/useCases/updateUser/UpdateUserInput'
 import { UpdateUserService } from '../../core/application/useCases/updateUser/UpdateUserService'
-import { UserDITokens } from '../../framework/UserDITokens'
 import { User } from '../User'
 import { CurrentUser, GqlAuthGuard } from '@codelab/backend'
 
@@ -24,14 +23,10 @@ import { CurrentUser, GqlAuthGuard } from '@codelab/backend'
 @Injectable()
 export class UserGraphqlAdapter {
   constructor(
-    @Inject(UserDITokens.LoginUserUseCase)
-    readonly loginUserService: LoginUserService,
-    @Inject(UserDITokens.RegisterUserUseCase)
-    readonly registerUserService: RegisterUserService,
-    @Inject(UserDITokens.DeleteUserUseCase)
-    readonly deleteUserService: DeleteUserService,
-    @Inject(UserDITokens.UpdateUserUseCase)
-    readonly updateUserService: UpdateUserService,
+    private readonly loginUserService: LoginUserService,
+    private readonly registerUserService: RegisterUserService,
+    private readonly deleteUserService: DeleteUserService,
+    private readonly updateUserService: UpdateUserService,
   ) {}
 
   @Mutation(() => User)

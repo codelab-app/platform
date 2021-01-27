@@ -3,14 +3,14 @@ import { Menu } from 'antd'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
-import { APP_LIST_PAGE, PAGE_LIST_PAGE } from '@codelab/frontend'
+import { Page } from '@codelab/frontend'
 
 const MenuItemApps = (props: any) => (
   <Menu.Item
     {...props}
     key="1"
     icon={
-      <Link href={APP_LIST_PAGE.url}>
+      <Link href={Page.APP_LIST.url}>
         <AppstoreOutlined />
       </Link>
     }
@@ -29,7 +29,7 @@ const MenuItemPages = (props: any) => {
       icon={
         <Link
           href={{
-            pathname: PAGE_LIST_PAGE.url,
+            pathname: Page.PAGE_LIST.url,
             query: { appId: router.query.appId },
           }}
         >

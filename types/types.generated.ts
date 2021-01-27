@@ -64,7 +64,7 @@ export type Graph = {
 
 export type Page = {
   __typename?: 'Page'
-  id?: Maybe<Scalars['String']>
+  id: Scalars['String']
   title: Scalars['String']
 }
 

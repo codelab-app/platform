@@ -5,7 +5,7 @@ import { VertexType } from './VertexType'
 
 @ObjectType('Vertex')
 export class Vertex {
-  @Field({ nullable: true })
+  @Field()
   declare id: string
 
   @Field(() => VertexType)

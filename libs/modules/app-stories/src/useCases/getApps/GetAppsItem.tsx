@@ -6,7 +6,7 @@ import {
 import { Button, Card, Dropdown, Menu, Skeleton } from 'antd'
 import Link from 'next/link'
 import React, { CSSProperties, FunctionComponent } from 'react'
-import { APP_DETAIL_PAGE } from '../../../../../frontend/src/config/Router'
+import { Page } from '@codelab/frontend'
 
 export interface GetAppsItemProps {
   app: { title: string; id: string }
@@ -69,7 +69,7 @@ export const GetAppsItem: FunctionComponent<GetAppsItemProps> = ({
       title={
         <Link
           href={{
-            pathname: APP_DETAIL_PAGE.url,
+            pathname: Page.APP_DETAIL.url,
             query: { appId: app?.id },
           }}
         >

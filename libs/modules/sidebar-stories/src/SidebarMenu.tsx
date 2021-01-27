@@ -3,11 +3,7 @@ import { Menu } from 'antd'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
-import {
-  APP_LIST_PAGE,
-  PAGE_LIST_PAGE,
-  disableSidebarMenuHoverEffects,
-} from '@codelab/frontend'
+import { Page, disableSidebarMenuHoverEffects } from '@codelab/frontend'
 
 type AppSidebarProps = {
   // onCollapse: any
@@ -40,7 +36,7 @@ export const SidebarMenu = (props: AppSidebarProps) => {
       <Menu.Item
         key="1"
         icon={
-          <Link href={APP_LIST_PAGE.url}>
+          <Link href={Page.APP_LIST.url}>
             <AppstoreOutlined />
           </Link>
         }
@@ -53,7 +49,7 @@ export const SidebarMenu = (props: AppSidebarProps) => {
         icon={
           <Link
             href={{
-              pathname: PAGE_LIST_PAGE.url,
+              pathname: Page.PAGE_LIST.url,
               query: { appId: router.query.appId },
             }}
           >

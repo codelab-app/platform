@@ -1,10 +1,19 @@
+import { Inject, Injectable } from '@nestjs/common'
 import { Page } from '../../../domain/Page'
 import { GetPageInput } from './GetPageInput'
-import { PrismaService, TransactionalUseCase } from '@codelab/backend'
+import {
+  PrismaDITokens,
+  PrismaService,
+  TransactionalUseCase,
+} from '@codelab/backend'
 
+@Injectable()
 export class GetPageService
   implements TransactionalUseCase<GetPageInput, Page | null> {
-  constructor(private readonly prismaService: PrismaService) {}
+  constructor(
+    @Inject(PrismaDITokens.PrismaService)
+    private readonly prismaService: PrismaService,
+  ) {}
 
   async execute({ pageId }: GetPageInput): Promise<Page | null> {
     return await this.prismaService.page.findUnique({

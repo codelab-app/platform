@@ -1,4 +1,4 @@
-import { Inject, Injectable, UseGuards } from '@nestjs/common'
+import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { CreateAppInput } from '../../core/application/useCases/createApp/CreateAppInput'
 import { CreateAppService } from '../../core/application/useCases/createApp/CreateAppService'
@@ -10,7 +10,6 @@ import { GetAppsService } from '../../core/application/useCases/getApps/GetAppsS
 import { UpdateAppInput } from '../../core/application/useCases/updateApp/UpdateAppInput'
 import { UpdateAppService } from '../../core/application/useCases/updateApp/UpdateAppService'
 import { App } from '../../core/domain/App'
-import { AppDITokens } from '../../framework/AppDITokens'
 import { CurrentUser, GqlAuthGuard } from '@codelab/backend'
 import { User } from '@codelab/modules/user'
 
@@ -18,16 +17,11 @@ import { User } from '@codelab/modules/user'
 @Injectable()
 export class AppGraphqlAdapter {
   constructor(
-    @Inject(AppDITokens.CreateAppUseCase)
-    readonly createAppService: CreateAppService,
-    @Inject(AppDITokens.GetAppUseCase)
-    readonly getAppService: GetAppService,
-    @Inject(AppDITokens.GetAppsUseCase)
-    readonly getAppsService: GetAppsService,
-    @Inject(AppDITokens.UpdateAppUseCase)
-    readonly updateAppService: UpdateAppService,
-    @Inject(AppDITokens.DeleteAppUseCase)
-    readonly deleteAppService: DeleteAppService,
+    private readonly createAppService: CreateAppService,
+    private readonly getAppService: GetAppService,
+    private readonly getAppsService: GetAppsService,
+    private readonly updateAppService: UpdateAppService,
+    private readonly deleteAppService: DeleteAppService,
   ) {}
 
   @Mutation(() => App)

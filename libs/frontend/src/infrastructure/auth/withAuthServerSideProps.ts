@@ -86,7 +86,10 @@ export const withAuthServerSideProps = (
   getServerSidePropsFunc?: (
     context: GetServerSidePropsContext,
     user: AuthServerSideResult['props']['data']['getMe'],
-  ) => Promise<GetServerSidePropsResult<any> | undefined>,
+  ) =>
+    | Promise<GetServerSidePropsResult<any> | undefined>
+    | GetServerSidePropsResult<any>
+    | undefined,
 ) => async (context: GetServerSidePropsContext<any>) => {
   const result = await getAuthResult(context)
 
@@ -107,7 +110,7 @@ export const withAuthGuardServerSideProps = (redirect: {
   permanent: boolean
   destination: string
 }) => {
-  return withAuthServerSideProps(async (context, user) => {
+  return withAuthServerSideProps((context, user) => {
     if (!user) {
       return {
         redirect,
