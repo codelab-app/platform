@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@nestjs/common'
 import { PrismaDITokens } from '../../../../../../../backend/src/infrastructure/persistence/prisma/PrismaDITokens'
 import { Page } from '../../../domain/Page'
 import { CreatePageInput } from './CreatePageInput'
-import { PrismaService, TransactionalUseCase } from '@codelab/backend'
+import { NodeType, PrismaService, TransactionalUseCase } from '@codelab/backend'
 
 @Injectable()
 export class CreatePageService
@@ -13,22 +13,32 @@ export class CreatePageService
   ) {}
 
   async execute({ appId, ...pageData }: CreatePageInput): Promise<Page> {
-    return await this.prismaService.page.create({
-      data: {
-        ...pageData,
-        app: {
-          connect: {
-            id: appId,
+    try {
+      return await this.prismaService.page.create({
+        data: {
+          ...pageData,
+          app: {
+            connect: {
+              id: appId,
+            },
+          },
+          graphs: {
+            create: {
+              label: 'Layout',
+              type: 'Layout',
+              vertices: {
+                create: [
+                  {
+                    type: NodeType.React_Grid_Layout_Container,
+                  },
+                ],
+              },
+            },
           },
         },
-        // Create a layout graph
-        graphs: {
-          create: {
-            label: 'Layout',
-            type: 'Layout',
-          },
-        },
-      },
-    })
+      })
+    } catch (e) {
+      throw new Error(`The app with id ${appId} has not been found`)
+    }
   }
 }

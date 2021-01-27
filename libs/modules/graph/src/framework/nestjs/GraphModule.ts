@@ -9,19 +9,20 @@ import { UpdateNodeService } from '../../core/application/useCases/updateNode/Up
 import { GraphGraphqlAdapter } from '../../presentation/controllers/GraphGraphqlAdapter'
 import { EdgeModule } from './EdgeModule'
 import { VertexModule } from './VertexModule'
+import { PrismaService } from '@codelab/backend'
 
 @Module({
   imports: [VertexModule, EdgeModule],
   providers: [
     GraphGraphqlAdapter,
     GraphService,
-    // UseCaseProviders
     MoveNodeService,
     DeleteNodeService,
     GetGraphService,
     UpdateNodeService,
     CreateGraphService,
     AddChildNodeService,
+    PrismaService,
   ],
   exports: [GraphService],
 })

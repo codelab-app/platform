@@ -7,7 +7,6 @@ import {
   ResolveField,
   Resolver,
 } from '@nestjs/graphql'
-import { GraphService } from '../../../../graph/src/core/application/services/GraphService'
 import { Graph } from '../../../../graph/src/core/domain/graph/Graph'
 import { CreatePageInput } from '../../core/application/useCases/createPage/CreatePageInput'
 import { CreatePageService } from '../../core/application/useCases/createPage/CreatePageService'
@@ -30,13 +29,12 @@ export class PageGraphqlAdapter {
     private readonly createPageService: CreatePageService,
     private readonly deletePageService: DeletePageService,
     private readonly prismaService: PrismaService,
-    private readonly graphService: GraphService,
   ) {}
 
   @Mutation(() => Page)
   @UseGuards(GqlAuthGuard)
   async createPage(@Args('input') input: CreatePageInput) {
-    return await this.createPageService.execute(input)
+    return this.createPageService.execute(input)
   }
 
   @Query(() => [Page])
@@ -45,18 +43,18 @@ export class PageGraphqlAdapter {
     @Args('input') input: GetPagesInput,
     @CurrentUser() user: User,
   ) {
-    return await this.getPagesService.execute(input)
+    return this.getPagesService.execute(input)
   }
 
   @Query(() => Page)
   @UseGuards(GqlAuthGuard)
   async getPage(@Args('input') input: GetPageInput) {
-    return await this.getPageService.execute(input)
+    return this.getPageService.execute(input)
   }
 
   @Mutation(() => Page)
   async deletePage(@Args('input') input: DeletePageInput) {
-    return await this.deletePageService.execute(input)
+    return this.deletePageService.execute(input)
   }
 
   @ResolveField(() => [Graph])

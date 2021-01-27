@@ -7,7 +7,6 @@ import {
   ResolveField,
   Resolver,
 } from '@nestjs/graphql'
-import { GraphService } from '../../core/application/useCases/GraphService'
 import { AddChildNodeInput } from '../../core/application/useCases/addChildNode/AddChildNodeInput'
 import { AddChildNodeService } from '../../core/application/useCases/addChildNode/AddChildNodeService'
 import { CreateGraphInput } from '../../core/application/useCases/createGraph/CreateGraphInput'
@@ -24,6 +23,7 @@ import { UpdateNodeService } from '../../core/application/useCases/updateNode/Up
 import { Edge } from '../../core/domain/edge/Edge'
 import { Graph } from '../../core/domain/graph/Graph'
 import { Vertex } from '../../core/domain/vertex/Vertex'
+import { PrismaService } from '@codelab/backend'
 
 // Replaced with NodeType, GraphQL was complaining that it cannot represent type with VertexType
 // registerEnumType(VertexType, {
@@ -39,7 +39,7 @@ export class GraphGraphqlAdapter {
     private readonly updateNodeService: UpdateNodeService,
     private readonly moveNodeService: MoveNodeService,
     private readonly getGraphService: GetGraphService,
-    private readonly graphService: GraphService,
+    private readonly prismaService: PrismaService,
   ) {}
 
   @Mutation(() => Graph)
@@ -79,11 +79,19 @@ export class GraphGraphqlAdapter {
 
   @ResolveField('vertices', (returns) => [Vertex])
   async getVertices(@Parent() graph: Graph) {
-    return this.graphService.getVertices(graph.id)
+    return this.prismaService.vertex.findMany({
+      where: {
+        graphId: graph.id,
+      },
+    })
   }
 
   @ResolveField('edges', (returns) => [Edge])
   async edges(@Parent() graph: Graph) {
-    return this.graphService.getEdges(graph.id)
+    return this.prismaService.edge.findMany({
+      where: {
+        graphId: graph.id,
+      },
+    })
   }
 }
