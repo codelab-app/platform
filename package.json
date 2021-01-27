@@ -14,7 +14,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "postinstall": "yarn prisma generate && yarn prisma:sync && nx build tools-generators-graphql --skip-nx-cache",
+    "postinstall": "yarn prisma generate && yarn prisma:sync",
     "nx": "nx",
     "build": "make build-dev",
     "start": "make start-dev",
