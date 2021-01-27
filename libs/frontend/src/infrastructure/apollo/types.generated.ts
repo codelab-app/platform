@@ -34,31 +34,31 @@ export type User = {
 export type Edge = {
   __typename?: 'Edge'
   id?: Maybe<Scalars['String']>
+  order: Scalars['Float']
+  props: Scalars['JSONObject']
   source: Scalars['String']
   target: Scalars['String']
-  props: Scalars['JSONObject']
-  order: Scalars['Float']
 }
 
 export type Vertex = {
   __typename?: 'Vertex'
   id?: Maybe<Scalars['String']>
-  type: VertexType
   props: Scalars['JSONObject']
+  type: VertexType
 }
 
 export enum VertexType {
-  ReactGridLayoutContainer = 'React_Grid_Layout_Container',
   ReactGrid = 'React_Grid',
+  ReactGridLayoutContainer = 'React_Grid_Layout_Container',
   ReactResponsiveGrid = 'React_ResponsiveGrid',
 }
 
 export type Graph = {
   __typename?: 'Graph'
+  edges: Array<Edge>
   id?: Maybe<Scalars['String']>
   label: Scalars['String']
   vertices: Array<Vertex>
-  edges: Array<Edge>
 }
 
 export type Page = {
@@ -221,21 +221,21 @@ export type CreateGraphInput = {
 
 export type AddChildNodeInput = {
   graphId: Scalars['String']
-  parentVertexId?: Maybe<Scalars['String']>
-  vertex: CreateVertexInput
   order?: Maybe<Scalars['Float']>
+  parentVertexId?: Maybe<Scalars['String']>
   props: Scalars['JSONObject']
+  vertex: CreateVertexInput
 }
 
 export type CreateVertexInput = {
-  type: VertexType
   props: Scalars['JSONObject']
+  type: VertexType
 }
 
 export type UpdateNodeInput = {
   graphId: Scalars['String']
-  vertexId: Scalars['String']
   type: VertexType
+  vertexId: Scalars['String']
 }
 
 export type DeleteNodeInput = {
@@ -253,8 +253,8 @@ export type EdgeType = {
 }
 
 export type CreatePageInput = {
-  title: Scalars['String']
   appId: Scalars['String']
+  title: Scalars['String']
 }
 
 export type DeletePageInput = {

@@ -1,5 +1,5 @@
 import { ServiceConfig } from 'xstate/lib/types'
-import { DeleteAppGql } from './DeleteAppInput.generated'
+import { DeleteAppGql } from '../../../../app/src/core/application/useCases/deleteApp/DeleteApp.generated'
 import { getApolloClient, mutate } from '@codelab/frontend'
 
 export const deleteAppService: Record<string, ServiceConfig<any, any>> = {

@@ -1,5 +1,4 @@
 export * from './persistence/prisma'
-export * from './persistence/RepositoryPort'
 export * from './graphql/config/GraphqlConfig'
 export * from './graphql/GraphqlModule'
 export * from './auth'

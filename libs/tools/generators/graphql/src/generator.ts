@@ -1,23 +1,39 @@
 import * as path from 'path'
 import { generate } from '@graphql-codegen/cli'
-import * as glob from 'glob'
+import { Types } from '@graphql-codegen/plugin-helpers'
+import { makeGeneratesConfig, sharedTypesConfig } from './generator-config'
 
 interface GeneratorOptions {
-  sourceGqlPath: string
+  sourceGqlPaths: Array<string>
 }
 
-const makeGenerator = async (option: GeneratorOptions) => {
-  const { sourceGqlPath } = option
+export const makeAsyncGenerator = async ({
+  sourceGqlPaths,
+}: GeneratorOptions) => {
+  const generatesConfig: Types.Config['generates'] = sourceGqlPaths.reduce(
+    (config, sourceGqlPath) => {
+      const useCaseDirectory = path.dirname(sourceGqlPath)
+      const filenameWithoutExtension = path.basename(sourceGqlPath, '.graphql')
 
-  const useCaseDirectory = path.dirname(sourceGqlPath)
-  const filenameWithoutExtension = path.basename(sourceGqlPath, '.graphql')
+      // console.log(useCaseDirectory, filenameWithoutExtension)
 
-  console.log(useCaseDirectory, filenameWithoutExtension)
+      return {
+        ...config,
+        ...makeGeneratesConfig({
+          useCaseDirectory,
+          filenameWithoutExtension,
+          sourceGqlPath,
+        }),
+      }
+    },
+    sharedTypesConfig,
+  )
 
-  return generate(
+  // console.log(generatesConfig)
+
+  return await generate(
     {
       schema: 'http://localhost:4001/graphql',
-      documents: sourceGqlPath,
       // type error, need to stub
       // eslint-ignore next-line
       hooks: {
@@ -30,27 +46,8 @@ const makeGenerator = async (option: GeneratorOptions) => {
         beforeOneFileWrite: [],
         beforeAllFileWrite: [],
       },
-      generates: {
-        [`${useCaseDirectory}/${filenameWithoutExtension}.generated.ts`]: {
-          plugins: [
-            {
-              'typescript-document-nodes': {
-                nameSuffix: 'Gql',
-              },
-            },
-          ],
-        },
-      },
+      generates: generatesConfig,
     },
     true,
   )
 }
-
-const graphqlQueryPaths = glob.sync(
-  `${process.cwd()}/libs/modules/**/useCases/**/*.graphql`,
-)
-
-export const getAsyncGenerators = () =>
-  graphqlQueryPaths.map((queryPath) =>
-    makeGenerator({ sourceGqlPath: queryPath }),
-  )

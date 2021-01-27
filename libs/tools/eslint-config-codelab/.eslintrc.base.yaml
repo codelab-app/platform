@@ -120,5 +120,13 @@ overrides:
       no-param-reassign: off
   - files: ['*.generated.ts', '*.generated.tsx']
     rules:
+      camelcase: off
       func-style: off
       import/no-duplicates: off
+    # '@typescript-eslint/naming-convention': [
+    #   'error',
+    #   {
+    #     selector: ['enumMember'],
+    #     format: ['camelCase'],
+    #   },
+    # ],

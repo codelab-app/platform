@@ -1,46 +1,22 @@
-type App {
-  id: String
-  title: String!
-}
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
 
 type User {
   id: String
   email: String!
   accessToken: String!
-  apps: [App!]!
 }
 
 type Query {
-  getApp(input: GetAppInput!): App
-  getApps: [App!]!
   getMe: User!
 }
 
-input GetAppInput {
-  appId: String!
-}
-
 type Mutation {
-  createApp(input: CreateAppInput!): App!
-  updateApp(input: UpdateAppInput!): App!
-  deleteApp(input: DeleteAppInput!): App!
   deleteUser(input: DeleteUserInput!): User!
   updateUser(input: UpdateUserInput!): User!
   registerUser(input: RegisterUserInput!): User!
   loginUser(input: LoginUserInput!): User!
-}
-
-input CreateAppInput {
-  title: String!
-}
-
-input UpdateAppInput {
-  id: String!
-  title: String!
-}
-
-input DeleteAppInput {
-  id: String!
 }
 
 input DeleteUserInput {
