@@ -18,14 +18,11 @@ export const sharedConfigs: Types.Config['generates'] = {
   [`${typesOutputPathAbsolute}.ts`]: {
     plugins: ['typescript', 'typescript-operations', 'typed-document-node'],
     documents: graphqlQueryPaths,
-    hooks: {
-      afterAllFileWrite: ['npx eslint --fix'],
-    },
   },
   'schema.graphql': {
     plugins: ['schema-ast'],
     hooks: {
-      afterAllFileWrite: ['prettier --write'],
+      afterAllFileWrite: 'prettier --write',
     },
   },
 }
@@ -54,9 +51,6 @@ export const makeGeneratesConfig = ({
           importDocumentNodeExternallyFrom: getPathToTypes(sourceGqlPath),
         },
       ],
-      hooks: {
-        afterAllFileWrite: ['npx eslint --fix'],
-      },
       // This imports from shared types
       preset: 'import-types',
       presetConfig: {

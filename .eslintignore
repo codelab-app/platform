@@ -1,6 +1,8 @@
 node_modules
 dist
 yarn.lock
+*.graphql
+*.gql
 .yarn
 .next
 .cache

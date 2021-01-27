@@ -36,16 +36,16 @@ export const makeAsyncGenerator = async ({
       schema: 'http://localhost:4001/graphql',
       // type error, need to stub
       // eslint-ignore next-line
-      // hooks: {
-      //   afterStart: [],
-      //   beforeDone: [],
-      //   onWatchTriggered: [],
-      //   onError: [],
-      //   afterOneFileWrite: [],
-      //   afterAllFileWrite: ['npx eslint --fix'],
-      //   beforeOneFileWrite: [],
-      //   beforeAllFileWrite: [],
-      // },
+      hooks: {
+        afterStart: [],
+        beforeDone: [],
+        onWatchTriggered: [],
+        onError: [],
+        afterOneFileWrite: [],
+        afterAllFileWrite: ['npx eslint --fix'],
+        beforeOneFileWrite: [],
+        beforeAllFileWrite: [],
+      },
       generates: generatesConfig,
     },
     true,
