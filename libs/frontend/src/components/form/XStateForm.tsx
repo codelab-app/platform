@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { EventObject, Sender, State } from 'xstate'
-import { JsonSchemaForm } from './JsonSchemaForm'
-import { JsonSchemaFormEvent, JsonSchemaFormProps } from './JsonSchemaForm.d'
+import { JsonSchemaForm } from './json-schema/JsonSchemaForm'
+import {
+  JsonSchemaFormEvent,
+  JsonSchemaFormProps,
+} from './json-schema/JsonSchemaForm.d'
 
 export type GeneratedXStateFormProps<
   T extends object,

@@ -1,13 +1,12 @@
 import { JSONSchema7 } from 'json-schema'
 import React, { useState } from 'react'
-import { JsonSchemaForm } from '../../../../../frontend/src/components/form/JsonSchemaForm'
+import { JsonSchemaForm } from '../../../../../frontend/src/components/form/json-schema/JsonSchemaForm'
 import { RegisterUserInputSchema } from '../../../../user/src/core/application/useCases/registerUser'
 import { RegisterUserInput } from '../../../../user/src/core/application/useCases/registerUser/RegisterUserInput'
 import { useUserMachine } from '../../store'
-import { ModalFormProps } from '@codelab/frontend'
-import { JsonSchemaFormEvent } from 'libs/frontend/src/components/form/JsonSchemaForm.d'
+import { JsonSchemaFormEvent } from 'libs/frontend/src/components/form/json-schema/JsonSchemaForm.d'
 
-export const RegisterUserForm = (props: ModalFormProps<RegisterUserInput>) => {
+export const RegisterUserForm = () => {
   const user = useUserMachine()
 
   const [formData, setFormData] = useState<RegisterUserInput>({
@@ -34,7 +33,6 @@ export const RegisterUserForm = (props: ModalFormProps<RegisterUserInput>) => {
       formData={formData}
       onChange={({ data }) => setFormData(data)}
       onSubmit={handleSubmit}
-      {...props}
     />
   )
 }

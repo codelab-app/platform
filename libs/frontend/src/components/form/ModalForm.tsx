@@ -6,24 +6,36 @@ import React, {
   cloneElement,
   useRef,
 } from 'react'
-import { SubmitController } from './JsonSchemaForm-ref'
-import { JsonSchemaFormProps } from './JsonSchemaForm.d'
+import { SubmitController } from './json-schema/JsonSchemaForm-ref'
+import { JsonSchemaFormProps } from './json-schema/JsonSchemaForm.d'
 
-export interface ModalFormProps<TFormData extends object> {
+export interface ModalFormProps<TData extends object> {
   modalProps?: ModalProps
   renderForm: () => ReactElement<
-    Pick<
-      JsonSchemaFormProps<TFormData>,
-      'hideSubmitButton' | 'submitControllerRef'
-    >
+    Pick<JsonSchemaFormProps<TData>, 'hideSubmitButton' | 'submitControllerRef'>
   >
 }
 
-export const ModalForm = <TFormData extends object>({
+/**
+ *
+ * <ModalForm
+      modalProps={{
+        okText: 'Register',
+        okButtonProps: {
+          loading: user.state.value.guest?.signingUp === 'loading',
+        },
+        visible: Boolean(user.state.value.guest?.signingUp),
+        onCancel: () => root.send('ON_MODAL_CANCEL'),
+        onOk: () => root.send('ON_MODAL_OK'),
+      }}
+      renderForm={() => <RegisterUserForm />}
+    />
+ */
+export const ModalForm = <TData extends object>({
   modalProps: { okButtonProps, onOk, ...modalProps } = {},
   renderForm,
   children,
-}: PropsWithChildren<ModalFormProps<TFormData>>): ReactElement => {
+}: PropsWithChildren<ModalFormProps<TData>>): ReactElement => {
   // This is the controller that will do the form submission. Set by the GeneratedForm component
   const submitControllerRef = useRef<SubmitController | undefined>()
 

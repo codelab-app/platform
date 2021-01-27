@@ -300,6 +300,14 @@ export type GetAppQuery = { __typename?: 'Query' } & {
   getApp?: Maybe<{ __typename?: 'App' } & Pick<App, 'title'>>
 }
 
+export type CreatePageMutationVariables = Exact<{
+  input: CreatePageInput
+}>
+
+export type CreatePageMutation = { __typename?: 'Mutation' } & {
+  createPage: { __typename?: 'Page' } & Pick<Page, 'id' | 'title'>
+}
+
 export type DeletePageMutationVariables = Exact<{
   input: DeletePageInput
 }>
@@ -601,6 +609,61 @@ export const GetAppDocument: DocumentNode<GetAppQuery, GetAppQueryVariables> = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+}
+export const CreatePageDocument: DocumentNode<
+  CreatePageMutation,
+  CreatePageMutationVariables
+> = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'CreatePage' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'input' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'CreatePageInput' },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'createPage' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'input' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'input' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'title' } },
               ],
             },
