@@ -1,21 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import { EventObject, Sender, State } from 'xstate'
-import GeneratedForm, {
-  GeneratedFormEvent,
-  GeneratedFormProps,
-} from './GeneratedForm'
+import { JsonSchemaForm } from './JsonSchemaForm'
+import { JsonSchemaFormEvent, JsonSchemaFormProps } from './JsonSchemaForm.d'
 
 export type GeneratedXStateFormProps<
   T extends object,
   TEvent extends EventObject
-> = Omit<GeneratedFormProps<T>, 'onSubmit' | 'formData' | 'onChange'> & {
+> = Omit<JsonSchemaFormProps<T>, 'onSubmit' | 'formData' | 'onChange'> & {
   send: Sender<TEvent>
-  createSubmitEvent: (submitEvent: GeneratedFormEvent<T>) => TEvent
+  createSubmitEvent: (submitEvent: JsonSchemaFormEvent<T>) => TEvent
   initialFormData?: T
   xStateOptions?:
     | {
         storeStateInXState: true
-        createChangeEvent: (changeEvent: GeneratedFormEvent<T>) => TEvent
+        createChangeEvent: (changeEvent: JsonSchemaFormEvent<T>) => TEvent
         state: State<any>
         contextKey?: string
       }
@@ -28,9 +26,9 @@ export type GeneratedXStateFormProps<
 }
 
 /**
- * {@see GeneratedForm} wrapper with XState integration, pass xStateOptions to configure how to store the form data in xState
+ * {@see JsonSchemaForm} wrapper with XState integration, pass xStateOptions to configure how to store the form data in xState
  */
-const GeneratedXStateForm = <T extends object, TEvent extends EventObject>({
+const XStateForm = <T extends object, TEvent extends EventObject>({
   send,
   createSubmitEvent,
   initialFormData,
@@ -42,7 +40,7 @@ const GeneratedXStateForm = <T extends object, TEvent extends EventObject>({
   } = { storeStateInXState: false },
   ...props
 }: GeneratedXStateFormProps<T, TEvent>) => {
-  const onSubmit = (e: GeneratedFormEvent<T>) => {
+  const onSubmit = (e: JsonSchemaFormEvent<T>) => {
     send(createSubmitEvent(e))
   }
   // The state is needed, because the rjsf doesn't keep any state. Every time this re-renders, the input values get lost
@@ -52,11 +50,11 @@ const GeneratedXStateForm = <T extends object, TEvent extends EventObject>({
   )
 
   let formData = localStateFormData
-  let setFormData = ({ data }: GeneratedFormEvent<T>) => setStateFormData(data)
+  let setFormData = ({ data }: JsonSchemaFormEvent<T>) => setStateFormData(data)
 
   if (storeStateInXState && state && createChangeEvent && contextKey) {
     formData = state.context[contextKey]
-    setFormData = (e: GeneratedFormEvent<T>) => send(createChangeEvent(e))
+    setFormData = (e: JsonSchemaFormEvent<T>) => send(createChangeEvent(e))
   }
 
   useEffect(() => {
@@ -66,7 +64,7 @@ const GeneratedXStateForm = <T extends object, TEvent extends EventObject>({
   }, [])
 
   return (
-    <GeneratedForm<T>
+    <JsonSchemaForm<T>
       formData={formData}
       onChange={setFormData}
       onSubmit={onSubmit}
@@ -75,4 +73,4 @@ const GeneratedXStateForm = <T extends object, TEvent extends EventObject>({
   )
 }
 
-export default GeneratedXStateForm
+export default XStateForm

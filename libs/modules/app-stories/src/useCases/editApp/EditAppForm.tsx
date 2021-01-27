@@ -1,8 +1,8 @@
 import { JSONSchema7 } from 'json-schema'
 import React from 'react'
-import GeneratedXStateForm, {
+import XStateForm, {
   GeneratedXStateFormProps,
-} from '../../../../../frontend/src/components/generated-form/GeneratedXStateForm'
+} from '../../../../../frontend/src/components/form/XStateForm'
 import { useAppMachine } from '../../model'
 import { UpdateAppInputSchema } from 'libs/modules/app/src/core/application/useCases/updateApp'
 
@@ -15,7 +15,7 @@ export const EditAppForm = (props: EditAppFormProps) => {
   const app = useAppMachine()
 
   return (
-    <GeneratedXStateForm<any, any>
+    <XStateForm<any, any>
       schema={UpdateAppInputSchema as JSONSchema7}
       send={app.send}
       createSubmitEvent={({ data }) => {

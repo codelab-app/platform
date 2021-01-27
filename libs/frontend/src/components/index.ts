@@ -1,4 +1,4 @@
-export * from './modal-form/ModalForm'
-export * from './generated-form/GeneratedForm'
-export * from './generated-form/GeneratedXStateForm'
+export * from './form/ModalForm'
+export * from './form/JsonSchemaForm'
+export * from './form/XStateForm'
 export * from './loading/Loader'
