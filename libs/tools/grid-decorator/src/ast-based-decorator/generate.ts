@@ -1,13 +1,13 @@
 import * as path from 'path'
 import * as glob from 'glob'
 import { programFromConfig } from 'typescript-json-schema'
-import { buildGenerator } from './buildGenerator'
 import {
   getOutputFile,
   getSymbolDirectory,
+  lintFiles,
   writeFile,
-} from './fileMngmtHelpers'
-import { lintFiles } from './utils'
+} from '../utils'
+import { buildGenerator } from './buildGenerator'
 
 const tsconfigFile = path.resolve(process.cwd(), 'tsconfig.base.json')
 

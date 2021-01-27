@@ -1941,7 +1941,7 @@
           "builder": "@nrwl/workspace:run-commands",
           "options": {
             "commands": [
-              "npx ts-node libs/tools/grid-decorator/src/generate.ts"
+              "npx ts-node --project libs/tools/grid-decorator/tsconfig.json -r tsconfig-paths/register libs/tools/grid-decorator/src/reflect-based-decorator/generate.ts"
             ],
             "parallel": false
           }

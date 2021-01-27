@@ -4,7 +4,7 @@ import { Col, Row } from 'antd'
 import { ColProps } from 'antd/lib/col'
 import { JSONSchema7 } from 'json-schema'
 import React from 'react'
-import { IDecoratorMap } from '@codelab/tools/grid-decorator'
+import { IDecoratorsMap } from '@codelab/tools/grid-decorator'
 
 interface GridCellDetails extends ColProps {
   order?: number
@@ -45,12 +45,12 @@ const getFieldByPath = (obj: {}, path: Path): any | null => {
     }
   }
 
-  return Array.isArray(subtree) ? subtree : null
+  return subtree
 }
 
 const getGridDetailsFromPropertiesSchema = (
   p: ObjectFieldTemplateProperty,
-  decoratorSettings: IDecoratorMap | undefined,
+  decoratorSettings: IDecoratorsMap | undefined,
 ): GridCellDetails | null => {
   if (decoratorSettings === undefined) {
     return null
@@ -65,8 +65,7 @@ const getGridDetailsFromPropertiesSchema = (
     pathStepsToGridDecorator,
   )
 
-  // we get first param, because we assume that required params will be passed as first parameter
-  return Array.isArray(gridDecoratorParams) ? gridDecoratorParams[0] : null
+  return gridDecoratorParams
 }
 
 interface IIdSchemaToGridDetailsMap {
@@ -74,7 +73,7 @@ interface IIdSchemaToGridDetailsMap {
 }
 const getIdSchemaToGridDetailsMap = (
   properties: Array<ObjectFieldTemplateProperty>,
-  decoratorsSettings: IDecoratorMap | undefined,
+  decoratorsSettings: IDecoratorsMap | undefined,
 ): IIdSchemaToGridDetailsMap => {
   return decoratorsSettings === undefined
     ? {}
@@ -90,6 +89,7 @@ const getIdSchemaToGridDetailsMap = (
           return gridDetail[1] !== null
         }) as Array<[string, GridCellDetails]>).reduce(
         (acc, curr) => ({
+          ...acc,
           [curr[0]]: curr[1],
         }),
         {} as IIdSchemaToGridDetailsMap,
@@ -97,7 +97,7 @@ const getIdSchemaToGridDetailsMap = (
 }
 
 const ObjectFieldTemplateFactory = (
-  decoratorSettings: IDecoratorMap | undefined = undefined,
+  decoratorSettings: IDecoratorsMap | undefined = undefined,
 ) => (props: ObjectFieldTemplateProps) => {
   const IdSchemaToGridDetailsMap = getIdSchemaToGridDetailsMap(
     props.properties,
@@ -152,7 +152,7 @@ const Form = withTheme(AntDTheme)
 
 export const gridFormFactory = (
   schema: JSONSchema7,
-  decoratorSettings: IDecoratorMap | undefined = undefined,
+  decoratorSettings: IDecoratorsMap | undefined = undefined,
 ) => {
   const ObjectFieldTemplate = ObjectFieldTemplateFactory(decoratorSettings)
 

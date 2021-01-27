@@ -4,9 +4,11 @@
     "jsx": "react",
     "allowJs": true,
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "module": "commonjs",
+    "lib": ["es2019"]
   },
-  "files": [],
+  "files": ["../../../node_modules/reflect-metadata/index.d.ts"],
   "include": [],
   "references": [
     {
