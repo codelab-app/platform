@@ -1,5 +1,5 @@
 import { ServiceConfig } from 'xstate/lib/types'
-import { LoginUserGql } from './LoginUserRequest.generated'
+import { LoginUserGql } from '../../../../user/src/core/application/useCases/loginUser/LoginUser.generated'
 import { getApolloClient, mutate } from '@codelab/frontend'
 
 export const loginUserServices: Record<string, ServiceConfig<any, any>> = {

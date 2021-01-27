@@ -4788,6 +4788,13 @@
   resolved "https://registry.yarnpkg.com/@types/aria-query/-/aria-query-4.2.0.tgz#14264692a9d6e2fa4db3df5e56e94b5e25647ac0"
   integrity sha512-iIgQNzCm0v7QMhhe4Jjn9uRh+I6GoPmt03CbEtwx3ao8/EfoQcmgtqH4vQ5Db/lxiIGaWDv6nwvunuh0RyX0+A==
 
+"@types/asynciterator@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@types/asynciterator/-/asynciterator-3.0.0.tgz#6944d428495f2e04cec6e97b09b31e2a15f4dbc3"
+  integrity sha512-AIRxhx6VqEk09VM//RktJlIWPm3fXy6Dck/Ndnz7QwztKqmuHWdCGPt+BjNwdsK9Hm6V5K3PZyFHt+Oh1RaCGw==
+  dependencies:
+    asynciterator "*"
+
 "@types/babel__core@^7.0.0", "@types/babel__core@^7.1.7":
   version "7.1.12"
   resolved "https://registry.yarnpkg.com/@types/babel__core/-/babel__core-7.1.12.tgz#4d8e9e51eb265552a7e4f1ff2219ab6133bdfb2d"
@@ -7454,6 +7461,11 @@ async@^3.1.0, async@^3.2.0, async@~3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/async/-/async-3.2.0.tgz#b3a2685c5ebb641d3de02d161002c60fc9f85720"
   integrity sha512-TR2mEZFVOj2pLStYxLht7TyfuRzaydfpxr3k9RpHIzMgw7A64dzsdqCxH1WJyQdoe8T10nDXd9wnEigmiuHIZw==
+
+asynciterator@*:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/asynciterator/-/asynciterator-3.0.3.tgz#9c84d56714960f4807212d7508450bc2ac375c3a"
+  integrity sha512-mNvEwsk6DN7+co9T2be/Eor0kKQGIXCoGg27v7vsCLlFdSXlboH06UGCy9cfEh2qAfDdgsEpmDn6y59f3+ZvgA==
 
 asynckit@^0.4.0:
   version "0.4.0"

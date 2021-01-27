@@ -1,7 +1,0 @@
-mutation LoginUser($input: LoginUserInput!) {
-  loginUser(input: $input) {
-    id
-    email
-    accessToken
-  }
-}
