@@ -1,9 +1,8 @@
 import * as fs from 'fs'
 import * as path from 'path'
-import { IDecoratorMap } from './DecoratorMapGenerator'
 
 export const writeFile = (
-  decorators: IDecoratorMap,
+  decorators: any,
   outputPath: string,
   symbol: string,
 ): string => {

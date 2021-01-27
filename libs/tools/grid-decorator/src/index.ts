@@ -1,2 +1,1 @@
-export * from './gridDecorator'
-export * from './DecoratorMapGenerator'
+export * from './reflect-based-decorator'
