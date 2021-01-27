@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { Graph } from '../../../domain/graph/Graph'
+import { GetGraphByInput } from './GetGraphByInput'
 import { GetGraphInput } from './GetGraphInput'
 import {
   PrismaDITokens,
@@ -16,10 +17,48 @@ export class GetGraphService
   ) {}
 
   async execute({ id }: GetGraphInput): Promise<Graph | null> {
-    return await this.prismaService.graph.findUnique({
+    return this.prismaService.graph.findUnique({
       where: {
         id,
       },
     })
+  }
+
+  async getGraphsByPageId(pageId: string) {
+    return this.prismaService.graph.findMany({
+      where: {
+        pageId,
+      },
+    })
+  }
+
+  async getGraphBy({ appId, pageId }: GetGraphByInput): Promise<Graph> {
+    let graphs: Array<Graph> = []
+
+    if (appId && pageId) {
+      throw new Error('Cannot search by both appId and pageId')
+    }
+
+    if (pageId) {
+      graphs = await this.prismaService.graph.findMany({
+        where: {
+          pageId,
+        },
+      })
+    }
+
+    if (appId) {
+      graphs = await this.prismaService.graph.findMany({
+        where: {
+          appId,
+        },
+      })
+    }
+
+    if (graphs.length > 0) {
+      return graphs[0]
+    }
+
+    throw new Error(`Graph not been found`)
   }
 }

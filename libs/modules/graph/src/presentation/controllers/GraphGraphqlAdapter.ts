@@ -2,29 +2,34 @@ import { Injectable } from '@nestjs/common'
 import {
   Args,
   Mutation,
+  Parent,
   Query,
+  ResolveField,
   Resolver,
-  registerEnumType,
 } from '@nestjs/graphql'
+import { GraphService } from '../../core/application/useCases/GraphService'
 import { AddChildNodeInput } from '../../core/application/useCases/addChildNode/AddChildNodeInput'
 import { AddChildNodeService } from '../../core/application/useCases/addChildNode/AddChildNodeService'
 import { CreateGraphInput } from '../../core/application/useCases/createGraph/CreateGraphInput'
 import { CreateGraphService } from '../../core/application/useCases/createGraph/CreateGraphService'
 import { DeleteNodeInput } from '../../core/application/useCases/deleteNode/DeleteNodeInput'
 import { DeleteNodeService } from '../../core/application/useCases/deleteNode/DeleteNodeService'
+import { GetGraphByInput } from '../../core/application/useCases/getGraph/GetGraphByInput'
 import { GetGraphInput } from '../../core/application/useCases/getGraph/GetGraphInput'
 import { GetGraphService } from '../../core/application/useCases/getGraph/GetGraphService'
 import { MoveNodeInput } from '../../core/application/useCases/moveNode/MoveNodeInput'
 import { MoveNodeService } from '../../core/application/useCases/moveNode/MoveNodeService'
 import { UpdateNodeInput } from '../../core/application/useCases/updateNode/UpdateNodeInput'
 import { UpdateNodeService } from '../../core/application/useCases/updateNode/UpdateNodeService'
+import { Edge } from '../../core/domain/edge/Edge'
 import { Graph } from '../../core/domain/graph/Graph'
-import { VertexType } from '../../core/domain/vertex/VertexType'
+import { Vertex } from '../../core/domain/vertex/Vertex'
 
-registerEnumType(VertexType, {
-  name: 'VertexType',
-})
-@Resolver('Graph')
+// Replaced with NodeType, GraphQL was complaining that it cannot represent type with VertexType
+// registerEnumType(VertexType, {
+//   name: 'VertexType',
+// })
+@Resolver(() => Graph)
 @Injectable()
 export class GraphGraphqlAdapter {
   constructor(
@@ -34,35 +39,51 @@ export class GraphGraphqlAdapter {
     private readonly updateNodeService: UpdateNodeService,
     private readonly moveNodeService: MoveNodeService,
     private readonly getGraphService: GetGraphService,
+    private readonly graphService: GraphService,
   ) {}
 
   @Mutation(() => Graph)
   async createGraph(@Args('input') input: CreateGraphInput) {
-    return await this.createGraphService.execute(input)
+    return this.createGraphService.execute(input)
   }
 
   @Mutation(() => Graph)
   async addChildNode(@Args('input') input: AddChildNodeInput) {
-    return await this.addChildNodeService.execute(input)
+    return this.addChildNodeService.execute(input)
   }
 
   @Mutation(() => Graph)
   async updateNode(@Args('input') input: UpdateNodeInput) {
-    return await this.updateNodeService.execute(input)
+    return this.updateNodeService.execute(input)
   }
 
   @Query(() => Graph)
   async getGraph(@Args('input') input: GetGraphInput) {
-    return await this.getGraphService.execute(input)
+    return this.getGraphService.execute(input)
+  }
+
+  @Query(() => Graph)
+  async getGraphBy(@Args('input') input: GetGraphByInput) {
+    return this.getGraphService.getGraphBy(input)
   }
 
   @Mutation(() => Graph)
   async deleteNode(@Args('input') input: DeleteNodeInput) {
-    return await this.deleteNodeService.execute(input)
+    return this.deleteNodeService.execute(input)
   }
 
   @Mutation(() => Graph)
   async moveNode(@Args('input') input: MoveNodeInput) {
-    return await this.moveNodeService.execute(input)
+    return this.moveNodeService.execute(input)
+  }
+
+  @ResolveField('vertices', (returns) => [Vertex])
+  async getVertices(@Parent() graph: Graph) {
+    return this.graphService.getVertices(graph.id)
+  }
+
+  @ResolveField('edges', (returns) => [Edge])
+  async edges(@Parent() graph: Graph) {
+    return this.graphService.getEdges(graph.id)
   }
 }

@@ -14,7 +14,7 @@ import { User, UserModule } from '@codelab/modules/user'
 const email = 'test_user@codelab.ai'
 const password = 'password'
 
-describe.skip('DeletePageUseCase', () => {
+describe('DeletePageUseCase', () => {
   let app: INestApplication
   let user: User
   let page: Page

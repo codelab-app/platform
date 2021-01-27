@@ -20,7 +20,7 @@ export class DeletePageService
         },
       })
     } catch (e) {
-      throw new Error()
+      throw new Error(`The page with id ${pageId} was not found`)
     }
   }
 }

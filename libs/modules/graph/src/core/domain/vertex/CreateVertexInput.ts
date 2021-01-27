@@ -1,12 +1,11 @@
 import { Field, InputType } from '@nestjs/graphql'
-import { VertexType as PrismaVertexType } from '@prisma/client'
 import { GraphQLJSONObject } from 'graphql-type-json'
-import { VertexType } from './VertexType'
+import { NodeType } from '@codelab/backend'
 
 @InputType()
 export class CreateVertexInput {
-  @Field(() => VertexType)
-  declare type?: PrismaVertexType
+  @Field(() => NodeType)
+  declare type?: NodeType
 
   @Field(() => GraphQLJSONObject)
   declare props?: object

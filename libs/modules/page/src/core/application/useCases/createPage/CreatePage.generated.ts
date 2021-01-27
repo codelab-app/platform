@@ -7,6 +7,14 @@ export const CreatePageGql = gql`
     createPage(input: $input) {
       id
       title
+      graphs {
+        id
+        label
+        vertices {
+          id
+          type
+        }
+      }
     }
   }
 `

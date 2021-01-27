@@ -8,6 +8,7 @@ import { GraphModule } from '../../../../../../graph/src/framework/nestjs/GraphM
 import { RegisterUserGql } from '../../../../../../user/src/core/application/useCases/registerUser/RegisterUser.generated'
 import { UserModule } from '../../../../../../user/src/framework/nestjs/UserModule'
 import { PageModule } from '../../../../framework/nestjs/PageModule'
+import { Page } from '../../../domain/Page'
 import { CreatePageGql } from './CreatePage.generated'
 import { setupTestModule, teardownTestModule } from '@codelab/backend'
 import { User } from '@codelab/modules/user'
@@ -15,7 +16,7 @@ import { User } from '@codelab/modules/user'
 const email = 'test_user@codelab.ai'
 const password = 'password'
 
-describe.skip('CreatePageUseCase', () => {
+describe('CreatePageUseCase', () => {
   let app: INestApplication
   let user: User
 
@@ -109,7 +110,14 @@ describe.skip('CreatePageUseCase', () => {
       })
       .expect(200)
       .expect((res) => {
-        expect(res.body.data.createPage.title).toEqual('Page 1')
+        const page: Page = res.body.data.createPage
+
+        expect(page.title).toEqual('Page 1')
+        expect(page.graphs?.length).toEqual(1)
+        expect(page.graphs![0].vertices?.length).toEqual(1)
+        expect(page.graphs![0].vertices![0].type).toEqual(
+          'React_Grid_Layout_Container',
+        )
       })
   })
 })

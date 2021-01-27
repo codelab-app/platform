@@ -15,11 +15,16 @@ export class GetPageService
     private readonly prismaService: PrismaService,
   ) {}
 
-  async execute({ pageId }: GetPageInput): Promise<Page | null> {
-    return await this.prismaService.page.findUnique({
-      where: {
-        id: pageId,
-      },
-    })
+  async execute({ pageId }: GetPageInput): Promise<Page> {
+    try {
+      return (await this.prismaService.page.findUnique({
+        where: {
+          id: pageId,
+        },
+        rejectOnNotFound: true,
+      })) as Page
+    } catch (e) {
+      throw new Error(`The page with id ${pageId} has not been found`)
+    }
   }
 }
