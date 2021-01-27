@@ -27,6 +27,6 @@ export const DashboardNavigationInner = ({ router }: WithRouterProps) => {
   )
 }
 
-export const DashboardNavigation = withRouterLoader('appId')(
+export const DashboardNavigation: any = withRouterLoader('appId')(
   DashboardNavigationInner,
 )
