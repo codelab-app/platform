@@ -11,13 +11,22 @@ export interface GeneratesInput {
   sourceGqlPath: string
 }
 
-/**
- * Generated types that is shared & imported by other generated graphql files
- */
-export const sharedTypesConfig: Types.Config['generates'] = {
+export const sharedConfigs: Types.Config['generates'] = {
+  /**
+   * Generated types that is shared & imported by other generated graphql files
+   */
   [`${typesOutputPathAbsolute}.ts`]: {
     plugins: ['typescript', 'typescript-operations', 'typed-document-node'],
     documents: graphqlQueryPaths,
+    hooks: {
+      afterAllFileWrite: ['npx eslint --fix'],
+    },
+  },
+  'schema.graphql': {
+    plugins: ['schema-ast'],
+    hooks: {
+      afterAllFileWrite: ['prettier --write'],
+    },
   },
 }
 
@@ -45,6 +54,9 @@ export const makeGeneratesConfig = ({
           importDocumentNodeExternallyFrom: getPathToTypes(sourceGqlPath),
         },
       ],
+      hooks: {
+        afterAllFileWrite: ['npx eslint --fix'],
+      },
       // This imports from shared types
       preset: 'import-types',
       presetConfig: {

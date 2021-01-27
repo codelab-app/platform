@@ -1,7 +1,7 @@
 import * as path from 'path'
 import { generate } from '@graphql-codegen/cli'
 import { Types } from '@graphql-codegen/plugin-helpers'
-import { makeGeneratesConfig, sharedTypesConfig } from './generator-config'
+import { makeGeneratesConfig, sharedConfigs } from './generator-config'
 
 interface GeneratorOptions {
   sourceGqlPaths: Array<string>
@@ -26,7 +26,7 @@ export const makeAsyncGenerator = async ({
         }),
       }
     },
-    sharedTypesConfig,
+    sharedConfigs,
   )
 
   // console.log(generatesConfig)
@@ -36,16 +36,16 @@ export const makeAsyncGenerator = async ({
       schema: 'http://localhost:4001/graphql',
       // type error, need to stub
       // eslint-ignore next-line
-      hooks: {
-        afterStart: [],
-        beforeDone: [],
-        onWatchTriggered: [],
-        onError: [],
-        afterOneFileWrite: [],
-        afterAllFileWrite: ['npx eslint --fix'],
-        beforeOneFileWrite: [],
-        beforeAllFileWrite: [],
-      },
+      // hooks: {
+      //   afterStart: [],
+      //   beforeDone: [],
+      //   onWatchTriggered: [],
+      //   onError: [],
+      //   afterOneFileWrite: [],
+      //   afterAllFileWrite: ['npx eslint --fix'],
+      //   beforeOneFileWrite: [],
+      //   beforeAllFileWrite: [],
+      // },
       generates: generatesConfig,
     },
     true,
