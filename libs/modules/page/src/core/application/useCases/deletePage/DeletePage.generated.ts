@@ -50,3 +50,10 @@ export type DeletePageMutationOptions = Apollo.BaseMutationOptions<
   Types.DeletePageMutation,
   Types.DeletePageMutationVariables
 >
+export type DeletePageMutationVariables = Types.Exact<{
+  input: Types.DeletePageInput
+}>
+
+export type DeletePageMutation = { __typename?: 'Mutation' } & {
+  deletePage: { __typename?: 'Page' } & Pick<Types.Page, 'title'>
+}

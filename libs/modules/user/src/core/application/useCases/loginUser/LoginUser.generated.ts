@@ -51,3 +51,10 @@ export type LoginUserMutationOptions = Apollo.BaseMutationOptions<
   Types.LoginUserMutation,
   Types.LoginUserMutationVariables
 >
+export type LoginUserMutationVariables = Types.Exact<{
+  input: Types.LoginUserInput
+}>
+
+export type LoginUserMutation = { __typename?: 'Mutation' } & {
+  loginUser: { __typename?: 'User' } & Pick<Types.User, 'email' | 'accessToken'>
+}

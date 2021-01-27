@@ -51,3 +51,10 @@ export type DeleteUserMutationOptions = Apollo.BaseMutationOptions<
   Types.DeleteUserMutation,
   Types.DeleteUserMutationVariables
 >
+export type DeleteUserMutationVariables = Types.Exact<{
+  input: Types.DeleteUserInput
+}>
+
+export type DeleteUserMutation = { __typename?: 'Mutation' } & {
+  deleteUser: { __typename?: 'User' } & Pick<Types.User, 'id' | 'email'>
+}

@@ -45,6 +45,7 @@ export const makeGeneratesConfig = ({
             documentVariableSuffix: 'Gql',
           },
         },
+        'typescript-operations',
       ],
       config: [
         {

@@ -42,8 +42,6 @@ const MenuItemPages = (props: any) => {
   )
 }
 
-// const MaybeMenuItemApps
-
 export const DashboardMenuSidebar = () => {
   return (
     <Menu

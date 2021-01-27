@@ -54,3 +54,10 @@ export type GetAppQueryResult = Apollo.QueryResult<
   Types.GetAppQuery,
   Types.GetAppQueryVariables
 >
+export type GetAppQueryVariables = Types.Exact<{
+  input: Types.GetAppInput
+}>
+
+export type GetAppQuery = { __typename?: 'Query' } & {
+  getApp?: Types.Maybe<{ __typename?: 'App' } & Pick<Types.App, 'title'>>
+}

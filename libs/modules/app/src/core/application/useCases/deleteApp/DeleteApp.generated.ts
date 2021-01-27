@@ -51,3 +51,10 @@ export type DeleteAppMutationOptions = Apollo.BaseMutationOptions<
   Types.DeleteAppMutation,
   Types.DeleteAppMutationVariables
 >
+export type DeleteAppMutationVariables = Types.Exact<{
+  input: Types.DeleteAppInput
+}>
+
+export type DeleteAppMutation = { __typename?: 'Mutation' } & {
+  deleteApp: { __typename?: 'App' } & Pick<Types.App, 'id' | 'title'>
+}
