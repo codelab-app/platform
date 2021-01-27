@@ -15,6 +15,7 @@ filters-dev: &filters-dev
     branches:
       only: /^.*$/
 
+
 filters-staging: &filters-staging
 # https://discuss.circleci.com/t/circle-2-0-workflow-filters-should-be-logical-and-not-or/18231
   filters:
@@ -136,6 +137,10 @@ commands:
     steps:
       - checkout
       - setup-env
+      # We need this for `env-cmd -f .env` command
+      - attach_workspace:
+          at: ..
+      - run: cp ~/.env .
 
   yarn-install-dev:
     steps:
