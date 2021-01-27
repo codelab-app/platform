@@ -50,3 +50,10 @@ export type UpdateUserMutationOptions = Apollo.BaseMutationOptions<
   Types.UpdateUserMutation,
   Types.UpdateUserMutationVariables
 >
+export type UpdateUserMutationVariables = Types.Exact<{
+  input: Types.UpdateUserInput
+}>
+
+export type UpdateUserMutation = { __typename?: 'Mutation' } & {
+  updateUser: { __typename?: 'User' } & Pick<Types.User, 'email'>
+}

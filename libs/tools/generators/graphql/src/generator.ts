@@ -1,7 +1,7 @@
 import * as path from 'path'
 import { generate } from '@graphql-codegen/cli'
 import { Types } from '@graphql-codegen/plugin-helpers'
-import { makeGeneratesConfig, sharedTypesConfig } from './generator-config'
+import { makeGeneratesConfig, sharedConfigs } from './generator-config'
 
 interface GeneratorOptions {
   sourceGqlPaths: Array<string>
@@ -26,7 +26,7 @@ export const makeAsyncGenerator = async ({
         }),
       }
     },
-    sharedTypesConfig,
+    sharedConfigs,
   )
 
   // console.log(generatesConfig)

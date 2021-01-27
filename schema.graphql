@@ -1,6 +1,7 @@
-# ------------------------------------------------------
-# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
-# ------------------------------------------------------
+type App {
+  id: String
+  title: String!
+}
 
 type User {
   id: String
@@ -8,15 +9,96 @@ type User {
   accessToken: String!
 }
 
+type Edge {
+  id: String
+  source: String!
+  target: String!
+  props: JSONObject!
+  order: Float!
+}
+
+"""
+The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSONObject
+
+type Vertex {
+  id: String
+  type: VertexType!
+  props: JSONObject!
+}
+
+enum VertexType {
+  React_Grid_Layout_Container
+  React_Grid
+  React_ResponsiveGrid
+}
+
+type Graph {
+  id: String
+  label: String!
+  vertices: [Vertex!]!
+  edges: [Edge!]!
+}
+
+type Page {
+  id: String
+  title: String!
+}
+
 type Query {
+  getApp(input: GetAppInput!): App
+  getApps: [App!]!
   getMe: User!
+  getGraph(input: GetGraphInput!): Graph!
+  getPages(input: GetPagesInput!): [Page!]!
+  getPage(input: GetPageInput!): Page!
+}
+
+input GetAppInput {
+  appId: String!
+}
+
+input GetGraphInput {
+  id: String
+}
+
+input GetPagesInput {
+  appId: String!
+}
+
+input GetPageInput {
+  pageId: String!
 }
 
 type Mutation {
+  createApp(input: CreateAppInput!): App!
+  updateApp(input: UpdateAppInput!): App!
+  deleteApp(input: DeleteAppInput!): App!
   deleteUser(input: DeleteUserInput!): User!
   updateUser(input: UpdateUserInput!): User!
   registerUser(input: RegisterUserInput!): User!
   loginUser(input: LoginUserInput!): User!
+  createGraph(input: CreateGraphInput!): Graph!
+  addChildNode(input: AddChildNodeInput!): Graph!
+  updateNode(input: UpdateNodeInput!): Graph!
+  deleteNode(input: DeleteNodeInput!): Graph!
+  moveNode(input: MoveNodeInput!): Graph!
+  createPage(input: CreatePageInput!): Page!
+  deletePage(input: DeletePageInput!): Page!
+}
+
+input CreateAppInput {
+  title: String!
+}
+
+input UpdateAppInput {
+  id: String!
+  title: String!
+}
+
+input DeleteAppInput {
+  id: String!
 }
 
 input DeleteUserInput {
@@ -36,4 +118,50 @@ input RegisterUserInput {
 input LoginUserInput {
   email: String!
   password: String!
+}
+
+input CreateGraphInput {
+  label: String!
+}
+
+input AddChildNodeInput {
+  graphId: String!
+  parentVertexId: String
+  vertex: CreateVertexInput!
+  order: Float
+  props: JSONObject!
+}
+
+input CreateVertexInput {
+  type: VertexType!
+  props: JSONObject!
+}
+
+input UpdateNodeInput {
+  graphId: String!
+  vertexId: String!
+  type: VertexType!
+}
+
+input DeleteNodeInput {
+  vertexId: String!
+}
+
+input MoveNodeInput {
+  graphId: String!
+  type: EdgeType!
+}
+
+input EdgeType {
+  source: String!
+  target: String!
+}
+
+input CreatePageInput {
+  title: String!
+  appId: String!
+}
+
+input DeletePageInput {
+  pageId: String!
 }

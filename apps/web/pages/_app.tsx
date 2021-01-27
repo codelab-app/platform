@@ -1,3 +1,4 @@
+import { ApolloProvider } from '@apollo/client'
 import { AppProps } from 'next/app'
 import { WithRouterProps } from 'next/dist/client/with-router'
 import { NextRouter, useRouter } from 'next/router'
@@ -8,7 +9,9 @@ import { HomeLayout } from '../src/home/Home-layout'
 import {
   MachineProvider,
   PageType,
+  getApolloClient,
   isPage,
+  mapProps,
   rootMachine,
 } from '@codelab/frontend'
 import { CreateAppModal, EditAppModal } from '@codelab/modules/app-stories'
@@ -27,13 +30,6 @@ require('react-resizable/css/styles.css')
 export interface SharedPageProps {
   router: NextRouter
 }
-
-type PropsMapping = (props: any) => any
-
-// TODO: remove any type
-const mapProps: any = R.curry(
-  (mapping: PropsMapping, C: React.FunctionComponent) => R.compose(C, mapping),
-)
 
 const withoutSidebar = (props: any) => ({ ...props, sidebar: { hide: true } })
 
@@ -61,16 +57,18 @@ const AppContainer: React.FC<AppProps> = (props) => {
   const { Component, pageProps } = props
 
   return (
-    <MachineProvider rootMachine={rootMachine}>
-      <style jsx global>{`
-        #__next {
-          height: 100%;
-        }
-      `}</style>
-      <App>
-        <Component {...pageProps} />
-      </App>
-    </MachineProvider>
+    <ApolloProvider client={getApolloClient()}>
+      <MachineProvider rootMachine={rootMachine}>
+        <style jsx global>{`
+          #__next {
+            height: 100%;
+          }
+        `}</style>
+        <App>
+          <Component {...pageProps} />
+        </App>
+      </MachineProvider>
+    </ApolloProvider>
   )
 }
 

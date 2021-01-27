@@ -30,7 +30,6 @@ export type User = {
   id?: Maybe<Scalars['String']>
   email: Scalars['String']
   accessToken: Scalars['String']
-  apps: Array<App>
 }
 
 export type Edge = {

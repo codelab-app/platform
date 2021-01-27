@@ -54,3 +54,8 @@ export type GetMeQueryResult = Apollo.QueryResult<
   Types.GetMeQuery,
   Types.GetMeQueryVariables
 >
+export type GetMeQueryVariables = Types.Exact<{ [key: string]: never }>
+
+export type GetMeQuery = { __typename?: 'Query' } & {
+  getMe: { __typename?: 'User' } & Pick<Types.User, 'id' | 'email'>
+}

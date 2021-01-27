@@ -51,3 +51,10 @@ export type CreateAppMutationOptions = Apollo.BaseMutationOptions<
   Types.CreateAppMutation,
   Types.CreateAppMutationVariables
 >
+export type CreateAppMutationVariables = Types.Exact<{
+  input: Types.CreateAppInput
+}>
+
+export type CreateAppMutation = { __typename?: 'Mutation' } & {
+  createApp: { __typename?: 'App' } & Pick<Types.App, 'id' | 'title'>
+}

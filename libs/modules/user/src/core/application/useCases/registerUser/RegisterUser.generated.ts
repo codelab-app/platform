@@ -52,3 +52,13 @@ export type RegisterUserMutationOptions = Apollo.BaseMutationOptions<
   Types.RegisterUserMutation,
   Types.RegisterUserMutationVariables
 >
+export type RegisterUserMutationVariables = Types.Exact<{
+  input: Types.RegisterUserInput
+}>
+
+export type RegisterUserMutation = { __typename?: 'Mutation' } & {
+  registerUser: { __typename?: 'User' } & Pick<
+    Types.User,
+    'id' | 'email' | 'accessToken'
+  >
+}

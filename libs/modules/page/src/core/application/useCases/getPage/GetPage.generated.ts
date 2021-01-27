@@ -54,3 +54,10 @@ export type GetPageQueryResult = Apollo.QueryResult<
   Types.GetPageQuery,
   Types.GetPageQueryVariables
 >
+export type GetPageQueryVariables = Types.Exact<{
+  input: Types.GetPageInput
+}>
+
+export type GetPageQuery = { __typename?: 'Query' } & {
+  getPage: { __typename?: 'Page' } & Pick<Types.Page, 'title'>
+}
