@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 import {
   Args,
   Mutation,
@@ -20,7 +20,6 @@ import { UpdateNodeInput } from '../../core/application/useCases/updateNode/Upda
 import { UpdateNodeService } from '../../core/application/useCases/updateNode/UpdateNodeService'
 import { Graph } from '../../core/domain/graph/Graph'
 import { VertexType } from '../../core/domain/vertex/VertexType'
-import { GraphDITokens } from '../../framework/GraphDITokens'
 
 registerEnumType(VertexType, {
   name: 'VertexType',
@@ -29,17 +28,11 @@ registerEnumType(VertexType, {
 @Injectable()
 export class GraphGraphqlAdapter {
   constructor(
-    @Inject(GraphDITokens.CreateGraphUseCase)
     private readonly createGraphService: CreateGraphService,
-    @Inject(GraphDITokens.AddChildNodeUseCase)
     private readonly addChildNodeService: AddChildNodeService,
-    @Inject(GraphDITokens.DeleteNodeUseCase)
     private readonly deleteNodeService: DeleteNodeService,
-    @Inject(GraphDITokens.UpdateNodeUseCase)
     private readonly updateNodeService: UpdateNodeService,
-    @Inject(GraphDITokens.MoveNodeUseCase)
     private readonly moveNodeService: MoveNodeService,
-    @Inject(GraphDITokens.GetGraphUseCase)
     private readonly getGraphService: GetGraphService,
   ) {}
 

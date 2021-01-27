@@ -8,32 +8,30 @@ export const ApolloForm = <
   TData extends object,
   TVariable extends Apollo.OperationVariables
 >({
-  useMutation,
+  mutation,
   formData,
   ...props
 }: ApolloFormProps<TData, any>) => {
   const [localFormData, setLocalFormData] = useState<TData>(formData)
+  const [mutate, { data, loading, error }] = mutation
 
   const onSubmit = ({ data: submitData }: JsonSchemaFormEvent<TData>) => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const [mutate, { data, loading, error }] = useMutation({
+    mutate({
       variables: {
         input: {
           ...submitData,
         },
       },
     })
-
-    mutate()
   }
 
   return (
     <JsonSchemaForm<TData>
-      {...props}
       hideSubmitButton
       formData={localFormData}
       onChange={({ data: onChangeData }) => setLocalFormData(onChangeData)}
       onSubmit={onSubmit}
+      {...props}
     />
   )
 }

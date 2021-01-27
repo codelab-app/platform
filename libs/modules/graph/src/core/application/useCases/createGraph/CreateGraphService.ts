@@ -1,10 +1,19 @@
+import { Inject, Injectable } from '@nestjs/common'
 import { Graph } from '../../../domain/graph/Graph'
 import { CreateGraphInput } from './CreateGraphInput'
-import { PrismaService, TransactionalUseCase } from '@codelab/backend'
+import {
+  PrismaDITokens,
+  PrismaService,
+  TransactionalUseCase,
+} from '@codelab/backend'
 
+@Injectable()
 export class CreateGraphService
   implements TransactionalUseCase<CreateGraphInput, Graph> {
-  constructor(private readonly prismaService: PrismaService) {}
+  constructor(
+    @Inject(PrismaDITokens.PrismaService)
+    private readonly prismaService: PrismaService,
+  ) {}
 
   async execute(request: CreateGraphInput): Promise<Graph> {
     return await this.prismaService.graph.create({

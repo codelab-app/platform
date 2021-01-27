@@ -1,20 +1,44 @@
 import { JSONSchema7 } from 'json-schema'
+import { useRouter } from 'next/router'
 import React from 'react'
 import { ApolloForm } from '../../../../../libs/frontend/src/components/form/ApolloForm'
 import { useCreatePageMutation } from '../../../../../libs/modules/page/src/core/application/useCases/createPage/CreatePage.generated'
+import { GetPagesGql } from '../../../../../libs/modules/page/src/core/application/useCases/getPages/GetPages.generated'
 import { CreatePageMutationVariables } from '../../../../../types/types.generated'
+import { JsonSchemaUseCaseFormProps } from '@codelab/frontend'
 import { CreatePageInput } from 'libs/modules/page/src/core/application/useCases/createPage/CreatePageInput'
 import { CreatePageInputSchema } from 'libs/modules/page/src/core/application/useCases/createPage/CreatePageInput.generated'
 
-export const CreatePageForm = () => {
+export const CreatePageForm = (
+  props: JsonSchemaUseCaseFormProps<CreatePageInput>,
+) => {
+  const { query } = useRouter()
+  const appId = `${query.appId}`
+
   return (
     <ApolloForm<CreatePageInput, CreatePageMutationVariables>
-      useMutation={useCreatePageMutation}
+      mutation={useCreatePageMutation({
+        refetchQueries: [
+          {
+            query: GetPagesGql,
+            variables: {
+              input: {
+                appId,
+              },
+            },
+          },
+        ],
+      })}
       schema={CreatePageInputSchema as JSONSchema7}
       rjsfFormProps={{
-        uiSchema: {},
+        uiSchema: {
+          appId: {
+            'ui:disabled': 'appId',
+          },
+        },
       }}
-      formData={{ title: '', appId: '' }}
+      formData={{ title: '', appId }}
+      {...props}
     />
   )
 }

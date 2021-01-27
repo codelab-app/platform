@@ -1,13 +1,23 @@
+import { Inject, Injectable } from '@nestjs/common'
 import { Graph } from '../../../domain/graph/Graph'
 import { DeleteNodeInput } from './DeleteNodeInput'
-import { PrismaService, TransactionalUseCase } from '@codelab/backend'
+import {
+  PrismaDITokens,
+  PrismaService,
+  TransactionalUseCase,
+} from '@codelab/backend'
 
 /**
  * Delete all attached edges as well
  */
+
+@Injectable()
 export class DeleteNodeService
   implements TransactionalUseCase<DeleteNodeInput, Graph> {
-  constructor(private readonly prismaService: PrismaService) {}
+  constructor(
+    @Inject(PrismaDITokens.PrismaService)
+    private readonly prismaService: PrismaService,
+  ) {}
 
   async execute({ vertexId }: DeleteNodeInput): Promise<Graph> {
     try {

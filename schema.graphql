@@ -42,7 +42,7 @@ type Graph {
 }
 
 type Page {
-  id: String
+  id: String!
   title: String!
 }
 

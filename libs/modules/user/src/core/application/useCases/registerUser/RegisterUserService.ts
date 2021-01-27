@@ -1,11 +1,18 @@
+import { Inject, Injectable } from '@nestjs/common'
 import { User } from '../../../../presentation/User'
 import { AuthService } from '../../services/AuthService'
 import { RegisterUserInput } from './RegisterUserInput'
-import { PrismaService, TransactionalUseCase } from '@codelab/backend'
+import {
+  PrismaDITokens,
+  PrismaService,
+  TransactionalUseCase,
+} from '@codelab/backend'
 
+@Injectable()
 export class RegisterUserService
   implements TransactionalUseCase<RegisterUserInput, User> {
   constructor(
+    @Inject(PrismaDITokens.PrismaService)
     private readonly prismaService: PrismaService,
     private readonly authService: AuthService,
   ) {}

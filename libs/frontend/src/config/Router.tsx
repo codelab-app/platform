@@ -5,20 +5,22 @@ type Router = {
   url: string
 }
 
-export const HOME_PAGE: Router = {
-  url: '/',
-}
-
-export const APP_LIST_PAGE: Router = {
-  url: '/apps',
-}
-
-export const PAGE_LIST_PAGE: Router = {
-  url: '/apps/[appId]/pages',
-}
-
-export const APP_DETAIL_PAGE: Router = {
-  url: '/apps/[appId]',
+export namespace Page {
+  export const HOME: Router = {
+    url: '/',
+  }
+  export const APP_LIST: Router = {
+    url: '/apps',
+  }
+  export const APP_DETAIL: Router = {
+    url: '/apps/[appId]',
+  }
+  export const PAGE_LIST: Router = {
+    url: '/apps/[appId]/pages',
+  }
+  export const PAGE_DETAIL: Router = {
+    url: '/apps/[appId]/pages/[pageId]',
+  }
 }
 
 export enum PageType {

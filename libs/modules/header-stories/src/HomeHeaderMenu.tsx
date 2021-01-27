@@ -2,11 +2,7 @@ import { HomeOutlined, UserOutlined } from '@ant-design/icons'
 import { Menu } from 'antd'
 import Link from 'next/link'
 import React from 'react'
-import {
-  APP_LIST_PAGE,
-  HOME_PAGE,
-  disableMenuHoverEffects,
-} from '@codelab/frontend'
+import { Page, disableMenuHoverEffects } from '@codelab/frontend'
 import {
   LoginUserButton,
   RegisterUserButton,
@@ -64,13 +60,13 @@ export const HomeHeaderMenu = () => {
         <Menu.Item
           key="1"
           icon={
-            <Link href={HOME_PAGE.url}>
+            <Link href={Page.HOME.url}>
               <HomeOutlined />
             </Link>
           }
         />
         <Menu.Item key="2">
-          <Link href={APP_LIST_PAGE.url}>
+          <Link href={Page.APP_LIST.url}>
             <a>Apps</a>
           </Link>
         </Menu.Item>

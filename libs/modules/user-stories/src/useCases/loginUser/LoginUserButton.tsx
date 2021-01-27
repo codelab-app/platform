@@ -1,8 +1,8 @@
 import { Button } from 'antd'
 import { useRouter } from 'next/router'
 import React from 'react'
-import { APP_LIST_PAGE } from '../../../../../frontend/src/config/Router'
 import { useUserMachine } from '../../store'
+import { Page } from '@codelab/frontend'
 
 export const LoginUserButton = () => {
   const user = useUserMachine()
@@ -11,7 +11,7 @@ export const LoginUserButton = () => {
   const isAuthenticated = !!user.state.value?.authenticated
 
   const login = () =>
-    isAuthenticated ? router.push(APP_LIST_PAGE.url) : user.send('LOGIN')
+    isAuthenticated ? router.push(Page.APP_LIST.url) : user.send('LOGIN')
 
   return <Button onClick={login}>Login</Button>
 }

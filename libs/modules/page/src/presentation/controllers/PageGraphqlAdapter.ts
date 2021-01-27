@@ -1,5 +1,14 @@
-import { Inject, Injectable, UseGuards } from '@nestjs/common'
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
+import { Injectable, UseGuards } from '@nestjs/common'
+import {
+  Args,
+  Mutation,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql'
+import { GraphService } from '../../../../graph/src/core/application/services/GraphService'
+import { Graph } from '../../../../graph/src/core/domain/graph/Graph'
 import { CreatePageInput } from '../../core/application/useCases/createPage/CreatePageInput'
 import { CreatePageService } from '../../core/application/useCases/createPage/CreatePageService'
 import { DeletePageInput } from '../../core/application/useCases/deletePage/DeletePageInput'
@@ -9,30 +18,24 @@ import { GetPageService } from '../../core/application/useCases/getPage/GetPageS
 import { GetPagesInput } from '../../core/application/useCases/getPages/GetPagesInput'
 import { GetPagesService } from '../../core/application/useCases/getPages/GetPagesService'
 import { Page } from '../../core/domain/Page'
-import { PageDITokens } from '../../framework/PageDITokens'
-import { CurrentUser, GqlAuthGuard } from '@codelab/backend'
+import { CurrentUser, GqlAuthGuard, PrismaService } from '@codelab/backend'
 import { User } from '@codelab/modules/user'
 
 @Resolver(() => Page)
 @Injectable()
 export class PageGraphqlAdapter {
   constructor(
-    @Inject(PageDITokens.GetPagesUseCase)
     private readonly getPagesService: GetPagesService,
-    @Inject(PageDITokens.GetPageUseCase)
     private getPageService: GetPageService,
-    @Inject(PageDITokens.CreatePageUseCase)
     private readonly createPageService: CreatePageService,
-    @Inject(PageDITokens.DeletePageUseCase)
     private readonly deletePageService: DeletePageService,
+    private readonly prismaService: PrismaService,
+    private readonly graphService: GraphService,
   ) {}
 
   @Mutation(() => Page)
   @UseGuards(GqlAuthGuard)
-  async createPage(
-    @Args('input') input: CreatePageInput,
-    @CurrentUser() user: User,
-  ) {
+  async createPage(@Args('input') input: CreatePageInput) {
     return await this.createPageService.execute(input)
   }
 
@@ -54,5 +57,16 @@ export class PageGraphqlAdapter {
   @Mutation(() => Page)
   async deletePage(@Args('input') input: DeletePageInput) {
     return await this.deletePageService.execute(input)
+  }
+
+  @ResolveField(() => [Graph])
+  graphs(@Parent() page: Page) {
+    return this.prismaService.graph.findMany({
+      where: {
+        page: {
+          id: page.id,
+        },
+      },
+    })
   }
 }

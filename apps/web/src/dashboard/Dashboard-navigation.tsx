@@ -1,21 +1,24 @@
-import { PlusOutlined } from '@ant-design/icons'
+import { DeleteTwoTone, PlusOutlined } from '@ant-design/icons'
 import { Button } from 'antd'
 import { WithRouterProps } from 'next/dist/client/with-router'
+import Link from 'next/link'
 import { withRouter } from 'next/router'
 import * as R from 'ramda'
 import React from 'react'
 import { useRecoilState } from 'recoil'
-import { useGetPagesQuery } from '../../../../libs/modules/page/src/core/application/useCases/getPages/GetPages.generated'
+import { useDeletePageMutation } from '../../../../libs/modules/page/src/core/application/useCases/deletePage/DeletePage.generated'
+import {
+  GetPagesGql,
+  useGetPagesQuery,
+} from '../../../../libs/modules/page/src/core/application/useCases/getPages/GetPages.generated'
 import { CreatePageModal } from '../pages/createPage/CreatePageModal'
 import { pageFormState } from '../pages/createPage/pageFormState'
-import { withRouterLoader } from '@codelab/frontend'
+import { Page, withRouterLoader } from '@codelab/frontend'
 
 export const DashboardNavigationInner = ({ router }: WithRouterProps) => {
-  const appId = `${router.query}`
+  const appId = `${router.query.appId}`
 
   const [pageForm, setPageForm] = useRecoilState(pageFormState)
-
-  console.log(pageForm)
 
   const { data } = useGetPagesQuery({
     variables: {
@@ -23,6 +26,19 @@ export const DashboardNavigationInner = ({ router }: WithRouterProps) => {
         appId,
       },
     },
+  })
+
+  const [deletePage] = useDeletePageMutation({
+    refetchQueries: [
+      {
+        query: GetPagesGql,
+        variables: {
+          input: {
+            appId,
+          },
+        },
+      },
+    ],
   })
 
   return (
@@ -34,6 +50,23 @@ export const DashboardNavigationInner = ({ router }: WithRouterProps) => {
       >
         Add
       </Button>
+      {data?.getPages.map((page) => (
+        <div key={`${page.id}`}>
+          <Link
+            href={{
+              pathname: Page.PAGE_DETAIL.url,
+              query: { appId: router.query.appId, pageId: page.id },
+            }}
+          >
+            <a>{page.title}</a>
+          </Link>
+          <DeleteTwoTone
+            onClick={() =>
+              deletePage({ variables: { input: { pageId: page.id } } })
+            }
+          />
+        </div>
+      ))}
       <CreatePageModal />
     </>
   )

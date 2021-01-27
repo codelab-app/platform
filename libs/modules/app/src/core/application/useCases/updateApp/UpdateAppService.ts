@@ -1,14 +1,20 @@
+import { Inject, Injectable } from '@nestjs/common'
 import { App } from '../../../domain/App'
 import { UpdateAppRequest } from './UpdateAppRequest'
 import {
+  PrismaDITokens,
   PrismaService,
   RequestValidationError,
   TransactionalUseCase,
 } from '@codelab/backend'
 
+@Injectable()
 export class UpdateAppService
   implements TransactionalUseCase<UpdateAppRequest, App> {
-  constructor(private readonly prismaService: PrismaService) {}
+  constructor(
+    @Inject(PrismaDITokens.PrismaService)
+    private readonly prismaService: PrismaService,
+  ) {}
 
   async execute({ appId, userId, ...appData }: UpdateAppRequest): Promise<App> {
     try {
