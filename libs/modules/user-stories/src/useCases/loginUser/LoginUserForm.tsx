@@ -1,19 +1,15 @@
 import { JSONSchema7 } from 'json-schema'
 import React, { useState } from 'react'
-import GeneratedForm, {
-  GeneratedFormEvent,
-  GeneratedFormProps,
-} from '../../../../../frontend/src/components/generated-form/GeneratedForm'
+import { JsonSchemaForm } from '../../../../../frontend/src/components/form/json-schema/JsonSchemaForm'
 import { LoginUserInput } from '../../../../user/src/core/application/useCases/loginUser/LoginUserInput'
 import { LoginUserInputSchema } from '../../../../user/src/core/application/useCases/loginUser/LoginUserInput.generated'
 import { useUserMachine } from '../../store'
+import { JsonSchemaUseCaseFormProps } from '@codelab/frontend'
+import { JsonSchemaFormEvent } from 'libs/frontend/src/components/form/json-schema/JsonSchemaForm.d'
 
-export type LoginUserFormProps = Omit<
-  GeneratedFormProps<LoginUserInput>,
-  'onChange' | 'schema' | 'formData' | 'onSubmit'
->
-
-export const LoginUserForm = (props: LoginUserFormProps) => {
+export const LoginUserForm = (
+  props: JsonSchemaUseCaseFormProps<LoginUserInput>,
+) => {
   const user = useUserMachine()
 
   const [formData, setFormData] = useState<LoginUserInput>({
@@ -21,14 +17,14 @@ export const LoginUserForm = (props: LoginUserFormProps) => {
     password: '',
   })
 
-  const handleSubmit = ({ data }: GeneratedFormEvent<LoginUserInput>) =>
+  const handleSubmit = ({ data }: JsonSchemaFormEvent<LoginUserInput>) =>
     user.send({
       type: 'ON_SUBMIT',
       data,
     })
 
   return (
-    <GeneratedForm<LoginUserInput>
+    <JsonSchemaForm<LoginUserInput>
       schema={LoginUserInputSchema as JSONSchema7}
       rjsfFormProps={{
         uiSchema: {

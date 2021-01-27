@@ -6,22 +6,32 @@ import React, {
   cloneElement,
   useRef,
 } from 'react'
-import {
-  GeneratedFormProps,
-  SubmitController,
-} from '../generated-form/GeneratedForm'
+import { SubmitController } from './json-schema/JsonSchemaForm-ref'
+import { JsonSchemaFormProps } from './json-schema/JsonSchemaForm.d'
 
 export interface ModalFormProps<TData extends object> {
   modalProps?: ModalProps
   renderForm: () => ReactElement<
-    Pick<GeneratedFormProps<TData>, 'hideSubmitButton' | 'submitControllerRef'>
+    Pick<JsonSchemaFormProps<TData>, 'hideSubmitButton' | 'submitControllerRef'>
   >
 }
 
-export const ModalForm = <
-  TData extends object,
-  TFormProps extends GeneratedFormProps<TData>
->({
+/**
+ *
+ * <ModalForm
+      modalProps={{
+        okText: 'Register',
+        okButtonProps: {
+          loading: user.state.value.guest?.signingUp === 'loading',
+        },
+        visible: Boolean(user.state.value.guest?.signingUp),
+        onCancel: () => root.send('ON_MODAL_CANCEL'),
+        onOk: () => root.send('ON_MODAL_OK'),
+      }}
+      renderForm={() => <RegisterUserForm />}
+    />
+ */
+export const ModalForm = <TData extends object>({
   modalProps: { okButtonProps, onOk, ...modalProps } = {},
   renderForm,
   children,

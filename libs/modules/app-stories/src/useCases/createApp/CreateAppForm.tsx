@@ -1,8 +1,8 @@
 import { JSONSchema7 } from 'json-schema'
 import React from 'react'
-import GeneratedXStateForm, {
+import XStateForm, {
   GeneratedXStateFormProps,
-} from '../../../../../frontend/src/components/generated-form/GeneratedXStateForm'
+} from '../../../../../frontend/src/components/form/XStateForm'
 import { CreateAppInput } from '../../../../app/src/core/application/useCases/createApp/CreateAppInput'
 import { CreateAppInputSchema } from '../../../../app/src/core/application/useCases/createApp/CreateAppInput.generated'
 import { useAppMachine } from '../../model'
@@ -16,7 +16,7 @@ export const CreateAppForm = (props: CreateAppFormProps) => {
   const app = useAppMachine()
 
   return (
-    <GeneratedXStateForm<CreateAppInput, any>
+    <XStateForm<CreateAppInput, any>
       schema={CreateAppInputSchema as JSONSchema7}
       send={app.send}
       createSubmitEvent={({ data }) => {

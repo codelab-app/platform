@@ -4,6 +4,7 @@ import { WithRouterProps } from 'next/dist/client/with-router'
 import { NextRouter, useRouter } from 'next/router'
 import * as R from 'ramda'
 import React from 'react'
+import { RecoilRoot } from 'recoil'
 import { DashboardLayout } from '../src/dashboard/Dashboard-layout'
 import { HomeLayout } from '../src/home/Home-layout'
 import {
@@ -57,18 +58,20 @@ const AppContainer: React.FC<AppProps> = (props) => {
   const { Component, pageProps } = props
 
   return (
-    <ApolloProvider client={getApolloClient()}>
-      <MachineProvider rootMachine={rootMachine}>
-        <style jsx global>{`
-          #__next {
-            height: 100%;
-          }
-        `}</style>
-        <App>
-          <Component {...pageProps} />
-        </App>
-      </MachineProvider>
-    </ApolloProvider>
+    <RecoilRoot>
+      <ApolloProvider client={getApolloClient()}>
+        <MachineProvider rootMachine={rootMachine}>
+          <style jsx global>{`
+            #__next {
+              height: 100%;
+            }
+          `}</style>
+          <App>
+            <Component {...pageProps} />
+          </App>
+        </MachineProvider>
+      </ApolloProvider>
+    </RecoilRoot>
   )
 }
 
