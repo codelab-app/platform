@@ -25,6 +25,7 @@ export const getApolloClient = (
   ctx: ApolloContext = {},
   initialState?: NormalizedCacheObject,
 ) => {
+  console.log(ctx)
   const cache = new InMemoryCache().restore(initialState || {})
 
   const link = ApolloLink.from([

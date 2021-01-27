@@ -1,6 +1,6 @@
 import { Field, ObjectType } from '@nestjs/graphql'
 
-@ObjectType('User')
+@ObjectType()
 export class User {
   @Field({ nullable: true })
   declare id: string

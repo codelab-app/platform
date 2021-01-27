@@ -4,17 +4,17 @@ import { GraphQLError } from 'graphql'
 
 @Injectable()
 export class GraphqlConfig implements GqlOptionsFactory {
-  async createGqlOptions(): Promise<GqlModuleOptions> {
+  createGqlOptions(): GqlModuleOptions {
     return {
       autoSchemaFile: true,
       installSubscriptionHandlers: true,
       // transformSchema: async (schema: GraphQLSchema) => {
-      //   return stitchSchemas({
-      //     subschemas: [schema, remoteExecutableSchema],
-      //     mergeTypes: true,
-      //   })
+      //   // return stitchSchemas({
+      //   //   subschemas: [schema, remoteExecutableSchema],
+      //   //   mergeTypes: true,
+      //   // })
       // },
-      transformAutoSchemaFile: true,
+      // transformAutoSchemaFile: true,
       path: '/graphql',
       debug: true,
       tracing: true,

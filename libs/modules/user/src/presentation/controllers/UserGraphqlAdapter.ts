@@ -1,13 +1,5 @@
 import { Inject, Injectable, UseGuards } from '@nestjs/common'
-import {
-  Args,
-  Mutation,
-  Parent,
-  Query,
-  ResolveField,
-  Resolver,
-} from '@nestjs/graphql'
-import { App } from '../../../../app/src/core/domain/App'
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { DeleteUserInput } from '../../core/application/useCases/deleteUser/DeleteUserInput'
 import { DeleteUserService } from '../../core/application/useCases/deleteUser/DeleteUserService'
 import { LoginUserInput } from '../../core/application/useCases/loginUser/LoginUserInput'
@@ -68,10 +60,10 @@ export class UserGraphqlAdapter {
     return user
   }
 
-  @ResolveField(() => [App])
-  apps(@Parent() user: User) {
-    console.log(user)
+  // @ResolveField(() => [App])
+  // apps(@Parent() user: User) {
+  //   console.log(user)
 
-    return []
-  }
+  //   return []
+  // }
 }
