@@ -8,6 +8,11 @@ export interface JsonSchemaFormEvent<TData> {
   data: TData
 }
 
+export type JsonSchemaUseCaseFormProps<TData extends object> = Omit<
+  JsonSchemaFormProps<TData>,
+  'onChange' | 'schema' | 'formData' | 'onSubmit'
+>
+
 export interface JsonSchemaFormProps<TData extends object> {
   /** Schema used for form generation */
   schema: JSONSchema7

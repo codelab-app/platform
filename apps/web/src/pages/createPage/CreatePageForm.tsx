@@ -1,26 +1,20 @@
 import { JSONSchema7 } from 'json-schema'
-import React, { useState } from 'react'
-import { JsonSchemaForm } from '@codelab/frontend'
+import React from 'react'
+import { ApolloForm } from '../../../../../libs/frontend/src/components/form/ApolloForm'
+import { useCreatePageMutation } from '../../../../../libs/modules/page/src/core/application/useCases/createPage/CreatePage.generated'
+import { CreatePageMutationVariables } from '../../../../../types/types.generated'
 import { CreatePageInput } from 'libs/modules/page/src/core/application/useCases/createPage/CreatePageInput'
 import { CreatePageInputSchema } from 'libs/modules/page/src/core/application/useCases/createPage/CreatePageInput.generated'
 
 export const CreatePageForm = () => {
-  const [formData, setFormData] = useState<CreatePageInput>({
-    title: '',
-    appId: '',
-  })
-
   return (
-    <JsonSchemaForm<CreatePageInput>
+    <ApolloForm<CreatePageInput, CreatePageMutationVariables>
+      useMutation={useCreatePageMutation}
       schema={CreatePageInputSchema as JSONSchema7}
       rjsfFormProps={{
         uiSchema: {},
       }}
-      formData={formData}
-      onChange={({ data }) => setFormData(data)}
-      onSubmit={(v) => {
-        console.log(v)
-      }}
+      formData={{ title: '', appId: '' }}
     />
   )
 }

@@ -4,9 +4,12 @@ import { JsonSchemaForm } from '../../../../../frontend/src/components/form/json
 import { LoginUserInput } from '../../../../user/src/core/application/useCases/loginUser/LoginUserInput'
 import { LoginUserInputSchema } from '../../../../user/src/core/application/useCases/loginUser/LoginUserInput.generated'
 import { useUserMachine } from '../../store'
+import { JsonSchemaUseCaseFormProps } from '@codelab/frontend'
 import { JsonSchemaFormEvent } from 'libs/frontend/src/components/form/json-schema/JsonSchemaForm.d'
 
-export const LoginUserForm = () => {
+export const LoginUserForm = (
+  props: JsonSchemaUseCaseFormProps<LoginUserInput>,
+) => {
   const user = useUserMachine()
 
   const [formData, setFormData] = useState<LoginUserInput>({
@@ -33,6 +36,7 @@ export const LoginUserForm = () => {
       formData={formData}
       onChange={({ data }) => setFormData(data)}
       onSubmit={handleSubmit}
+      {...props}
     />
   )
 }

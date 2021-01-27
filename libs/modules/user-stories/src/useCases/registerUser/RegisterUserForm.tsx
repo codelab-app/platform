@@ -4,9 +4,14 @@ import { JsonSchemaForm } from '../../../../../frontend/src/components/form/json
 import { RegisterUserInputSchema } from '../../../../user/src/core/application/useCases/registerUser'
 import { RegisterUserInput } from '../../../../user/src/core/application/useCases/registerUser/RegisterUserInput'
 import { useUserMachine } from '../../store'
-import { JsonSchemaFormEvent } from 'libs/frontend/src/components/form/json-schema/JsonSchemaForm.d'
+import {
+  JsonSchemaFormEvent,
+  JsonSchemaUseCaseFormProps,
+} from '@codelab/frontend'
 
-export const RegisterUserForm = () => {
+export const RegisterUserForm = (
+  props: JsonSchemaUseCaseFormProps<RegisterUserInput>,
+) => {
   const user = useUserMachine()
 
   const [formData, setFormData] = useState<RegisterUserInput>({
@@ -14,6 +19,7 @@ export const RegisterUserForm = () => {
     password: '',
   })
 
+  //
   const handleSubmit = ({ data }: JsonSchemaFormEvent<RegisterUserInput>) =>
     user.send({
       type: 'ON_SUBMIT',
@@ -33,6 +39,7 @@ export const RegisterUserForm = () => {
       formData={formData}
       onChange={({ data }) => setFormData(data)}
       onSubmit={handleSubmit}
+      {...props}
     />
   )
 }

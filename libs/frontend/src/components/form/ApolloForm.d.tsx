@@ -5,16 +5,14 @@ export type UseMutation<
   TData extends object,
   TVariables extends Apollo.OperationVariables
 > = (
-  options?: Apollo.MutationHookOptions<TData, TVariables>,
-) => Apollo.MutationTuple<TData, TVariables>
+  options?: Apollo.MutationHookOptions<any, TVariables>,
+) => Apollo.MutationTuple<any, TVariables>
 
-export interface ApolloFormProps<
+export type ApolloFormProps<
   TData extends object,
   TVariables extends Apollo.OperationVariables
-> extends JsonSchemaFormProps<TData> {
+> = Omit<JsonSchemaFormProps<TData>, 'onChange' | 'onSubmit'> & {
   useMutation: UseMutation<TData, TVariables>
-  variables: TVariables
-  input: object
   // Stub shape of form data
   formData: TData
 }
