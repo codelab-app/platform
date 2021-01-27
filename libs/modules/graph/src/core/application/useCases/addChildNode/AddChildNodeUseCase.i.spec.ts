@@ -122,7 +122,7 @@ describe('AddChildNodeUseCase', () => {
       .expect((res) => {
         const graph = res.body.data.addChildNode
 
-        expect(graph.label).toEqual('Page 1')
+        expect(graph.label).toEqual('Layout')
         expect(graph.vertices.length).toEqual(2)
         expect(graph.edges.length).toEqual(1)
         expect(graph.edges[0].source).toEqual(parentVertexId)
