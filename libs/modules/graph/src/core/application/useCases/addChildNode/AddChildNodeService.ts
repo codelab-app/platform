@@ -24,7 +24,7 @@ export class AddChildNodeService
       },
     })
 
-    return await this.prismaService.graph.update({
+    return this.prismaService.graph.update({
       where: {
         id: graphId,
       },
@@ -39,7 +39,8 @@ export class AddChildNodeService
             source: parentVertexId,
             target: createdVertex.id,
             order,
-            props: {},
+            // props: {},
+            props: vertex.props,
           },
         },
       },

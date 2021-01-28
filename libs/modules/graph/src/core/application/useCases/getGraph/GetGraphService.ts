@@ -17,11 +17,16 @@ export class GetGraphService
   ) {}
 
   async execute({ id }: GetGraphInput): Promise<Graph | null> {
-    return this.prismaService.graph.findUnique({
-      where: {
-        id,
-      },
-    })
+    try {
+      return await this.prismaService.graph.findUnique({
+        where: {
+          id,
+        },
+        rejectOnNotFound: true,
+      })
+    } catch (e) {
+      throw new Error(`Graph with id ${id} was not found`)
+    }
   }
 
   async getGraphsByPageId(pageId: string) {

@@ -21,20 +21,20 @@ export type Scalars = {
 
 export type App = {
   __typename?: 'App'
-  id?: Maybe<Scalars['String']>
+  id: Scalars['String']
   title: Scalars['String']
 }
 
 export type User = {
   __typename?: 'User'
-  id?: Maybe<Scalars['String']>
+  id: Scalars['String']
   email: Scalars['String']
   accessToken: Scalars['String']
 }
 
 export type Edge = {
   __typename?: 'Edge'
-  id?: Maybe<Scalars['String']>
+  id: Scalars['String']
   source: Scalars['String']
   target: Scalars['String']
   props: Scalars['JSONObject']
@@ -43,20 +43,119 @@ export type Edge = {
 
 export type Vertex = {
   __typename?: 'Vertex'
-  id?: Maybe<Scalars['String']>
-  type: VertexType
-  props: Scalars['JSONObject']
+  id: Scalars['String']
+  type: NodeType
+  props?: Maybe<Scalars['JSONObject']>
 }
 
-export enum VertexType {
+export enum NodeType {
+  ReactFragment = 'React_Fragment',
+  ReactHtmlDiv = 'React_Html_Div',
+  ReactHtmlP = 'React_Html_P',
+  ReactHtmlA = 'React_Html_A',
+  ReactHtmlSpan = 'React_Html_Span',
+  ReactText = 'React_Text',
+  ReactIcon = 'React_Icon',
+  ReactMenu = 'React_Menu',
+  ReactMenuItem = 'React_Menu_Item',
+  ReactMenuItemGroup = 'React_Menu_ItemGroup',
+  ReactMenuSubMenu = 'React_Menu_SubMenu',
+  ReactCard = 'React_Card',
+  ReactCardGrid = 'React_Card_Grid',
+  ReactCardMeta = 'React_Card_Meta',
+  ReactTypography = 'React_Typography',
+  ReactTypographyTitle = 'React_Typography_Title',
+  ReactTypographyText = 'React_Typography_Text',
+  ReactTypographyParagraph = 'React_Typography_Paragraph',
+  ReactAlert = 'React_Alert',
+  ReactAffix = 'React_Affix',
+  ReactAutoComplete = 'React_AutoComplete',
+  ReactButton = 'React_Button',
+  ReactBreadcrumb = 'React_Breadcrumb',
+  ReactBreadcrumbItem = 'React_Breadcrumb_Item',
+  ReactDropdown = 'React_Dropdown',
+  ReactForm = 'React_Form',
+  ReactFormItem = 'React_Form_Item',
+  ReactFormItemHook = 'React_Form_ItemHook',
+  ReactFormList = 'React_Form_List',
+  ReactCheckbox = 'React_Checkbox',
+  ReactInput = 'React_Input',
+  ReactInputNumber = 'React_InputNumber',
+  ReactSelect = 'React_Select',
+  ReactSelectOption = 'React_Select_Option',
   ReactGridLayoutContainer = 'React_Grid_Layout_Container',
   ReactGrid = 'React_Grid',
   ReactResponsiveGrid = 'React_ResponsiveGrid',
+  ReactProvider = 'React_Provider',
+  ReactModal = 'React_Modal',
+  ReactRadioGroup = 'React_Radio_Group',
+  ReactRadio = 'React_Radio',
+  ReactRate = 'React_Rate',
+  ReactSlider = 'React_Slider',
+  ReactSwitch = 'React_Switch',
+  ReactTable = 'React_Table',
+  ReactSpace = 'React_Space',
+  ReactDatePicker = 'React_DatePicker',
+  ReactDivider = 'React_Divider',
+  ReactPagination = 'React_Pagination',
+  ReactPageHeader = 'React_PageHeader',
+  ReactBadge = 'React_Badge',
+  ReactAvatar = 'React_Avatar',
+  ReactComment = 'React_Comment',
+  ReactCalendar = 'React_Calendar',
+  ReactDescriptions = 'React_Descriptions',
+  ReactDescriptionsItem = 'React_Descriptions_Item',
+  ReactEmpty = 'React_Empty',
+  ReactTimeline = 'React_Timeline',
+  ReactTimelineItem = 'React_Timeline_Item',
+  ReactTabs = 'React_Tabs',
+  ReactTabsTabPane = 'React_Tabs_TabPane',
+  ReactStatistic = 'React_Statistic',
+  ReactTooltip = 'React_Tooltip',
+  ReactTag = 'React_Tag',
+  ReactTree = 'React_Tree',
+  ReactDrawer = 'React_Drawer',
+  ReactProgress = 'React_Progress',
+  ReactResult = 'React_Result',
+  ReactSpin = 'React_Spin',
+  ReactSkeleton = 'React_Skeleton',
+  ReactAnchor = 'React_Anchor',
+  ReactAnchorLink = 'React_Anchor_Link',
+  ReactBackTop = 'React_BackTop',
+  ReactConfigProvider = 'React_ConfigProvider',
+  ReactPopconfirm = 'React_Popconfirm',
+  ReactTransfer = 'React_Transfer',
+  ReactTreeSelect = 'React_TreeSelect',
+  ReactTreeNode = 'React_TreeNode',
+  ReactTimePicker = 'React_TimePicker',
+  ReactUpload = 'React_Upload',
+  ReactSteps = 'React_Steps',
+  ReactStepsStep = 'React_Steps_Step',
+  ReactCollapse = 'React_Collapse',
+  ReactCollapsePanel = 'React_Collapse_Panel',
+  ReactCarousel = 'React_Carousel',
+  ReactList = 'React_List',
+  ReactListItem = 'React_List_Item',
+  ReactListItemMeta = 'React_List_Item_Meta',
+  ReactMentions = 'React_Mentions',
+  ReactMentionsOption = 'React_Mentions_Option',
+  ReactLayout = 'React_Layout',
+  ReactLayoutHeader = 'React_Layout_Header',
+  ReactLayoutSider = 'React_Layout_Sider',
+  ReactLayoutContent = 'React_Layout_Content',
+  ReactLayoutFooter = 'React_Layout_Footer',
+  ReactCascader = 'React_Cascader',
+  ReactPopover = 'React_Popover',
+  ReactRenderComponent = 'React_RenderComponent',
+  ReactRenderContainer = 'React_RenderContainer',
+  ReactMapper = 'React_Mapper',
+  Tree = 'Tree',
+  Ref = 'Ref',
 }
 
 export type Graph = {
   __typename?: 'Graph'
-  id?: Maybe<Scalars['String']>
+  id: Scalars['String']
   label: Scalars['String']
   vertices: Array<Vertex>
   edges: Array<Edge>
@@ -66,6 +165,7 @@ export type Page = {
   __typename?: 'Page'
   id: Scalars['String']
   title: Scalars['String']
+  graphs?: Maybe<Array<Graph>>
 }
 
 export type Query = {
@@ -74,6 +174,7 @@ export type Query = {
   getApps: Array<App>
   getMe: User
   getGraph: Graph
+  getGraphBy: Graph
   getPages: Array<Page>
   getPage: Page
 }
@@ -84,6 +185,10 @@ export type QueryGetAppArgs = {
 
 export type QueryGetGraphArgs = {
   input: GetGraphInput
+}
+
+export type QueryGetGraphByArgs = {
+  input: GetGraphByInput
 }
 
 export type QueryGetPagesArgs = {
@@ -100,6 +205,11 @@ export type GetAppInput = {
 
 export type GetGraphInput = {
   id?: Maybe<Scalars['String']>
+}
+
+export type GetGraphByInput = {
+  appId?: Maybe<Scalars['String']>
+  pageId?: Maybe<Scalars['String']>
 }
 
 export type GetPagesInput = {
@@ -225,18 +335,18 @@ export type AddChildNodeInput = {
   parentVertexId?: Maybe<Scalars['String']>
   vertex: CreateVertexInput
   order?: Maybe<Scalars['Float']>
-  props: Scalars['JSONObject']
+  props?: Maybe<Scalars['JSONObject']>
 }
 
 export type CreateVertexInput = {
-  type: VertexType
+  type: NodeType
   props: Scalars['JSONObject']
 }
 
 export type UpdateNodeInput = {
   graphId: Scalars['String']
   vertexId: Scalars['String']
-  type: VertexType
+  type: NodeType
 }
 
 export type DeleteNodeInput = {

@@ -4,6 +4,7 @@ import request from 'supertest'
 import { CreateAppGql } from '../../../../../../app/src/core/application/useCases/createApp/CreateApp.generated'
 import { CreatePageGql } from '../../../../../../page/src/core/application/useCases/createPage/CreatePage.generated'
 import { RegisterUserGql } from '../../../../../../user/src/core/application/useCases/registerUser/RegisterUser.generated'
+import { AddChildNodeGql } from './AddChildNode.generated'
 import { setupTestModule, teardownTestModule } from '@codelab/backend'
 import { App, AppModule } from '@codelab/modules/app'
 import { GraphModule } from '@codelab/modules/graph'
@@ -92,31 +93,23 @@ describe('AddChildNodeUseCase', () => {
     const graphId = page.graphs[0].id
     const parentVertexId = page.graphs[0].vertices[0].id
 
-    const addChildNodeWithParentMutation = `
-      mutation {
-        addChildNode(input:
-          {
-            order: 0,
-            graphId: "${graphId}",
-            parentVertexId: "${parentVertexId}",
-            vertex:
-            {
-              type: React_Text,
-              props: {
-                id: "a"
-              }
-            }
-          }) {
-            label
-            vertices { id type props }
-            edges { id order source target props }
-          }
-      }
-    `
     const addChildNodeWithParent = await request(app.getHttpServer())
       .post('/graphql')
       .send({
-        query: addChildNodeWithParentMutation,
+        query: print(AddChildNodeGql),
+        variables: {
+          input: {
+            order: 0,
+            graphId,
+            parentVertexId,
+            vertex: {
+              type: 'React_Text',
+              props: {
+                id: 'a',
+              },
+            },
+          },
+        },
       })
       .expect(200)
       .expect((res) => {
