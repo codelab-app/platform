@@ -3,6 +3,7 @@ import { print } from 'graphql'
 import request from 'supertest'
 import { setupTestModule, teardownTestModule } from '@codelab/backend'
 import {
+  AddChildNodeGql,
   CreateAppGql,
   CreatePageGql,
   RegisterUserGql,
@@ -97,7 +98,7 @@ describe('AddChildNodeUseCase', () => {
     const addChildNodeWithParent = await request(app.getHttpServer())
       .post('/graphql')
       .send({
-        // query: print(AddChildNodeGql),
+        query: print(AddChildNodeGql),
         variables: {
           input: {
             order: 0,
