@@ -1,11 +1,13 @@
 import { INestApplication } from '@nestjs/common'
 import { print } from 'graphql'
 import request from 'supertest'
-import { CreateAppGql } from '../../../../../../app/src/core/application/useCases/createApp/CreateApp.generated'
-import { RegisterUserGql } from '../../../../../../user/src/core/application/useCases/registerUser/RegisterUser.generated'
 import { Page } from '../../../domain/Page'
 import { setupTestModule, teardownTestModule } from '@codelab/backend'
-import { CreatePageGql } from '@codelab/generated'
+import {
+  CreateAppGql,
+  CreatePageGql,
+  RegisterUserGql,
+} from '@codelab/generated'
 import { App, AppModule } from '@codelab/modules/app'
 import { GraphModule } from '@codelab/modules/graph'
 import { PageModule } from '@codelab/modules/page'

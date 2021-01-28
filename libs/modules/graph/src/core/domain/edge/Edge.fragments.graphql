@@ -1,0 +1,3 @@
+fragment edgeFragments on Edge {
+  id
+}

@@ -2,9 +2,8 @@ import { INestApplication } from '@nestjs/common'
 import { print } from 'graphql'
 import request from 'supertest'
 import { UserModule } from '../../../../framework/nestjs/UserModule'
-import { RegisterUserGql } from '../registerUser/RegisterUser.generated'
-import { GetMeGql } from './GetMe.generated'
 import { setupTestModule, teardownTestModule } from '@codelab/backend'
+import { GetMeGql, RegisterUserGql } from '@codelab/generated'
 import { User } from '@codelab/modules/user'
 
 const email = 'test_user@codelab.ai'
@@ -48,7 +47,6 @@ describe('GetMeUseCase', () => {
       })
       .expect(200)
       .expect((res) => {
-        console.log(res.body)
         expect(res.body.data.getMe.email).toEqual(email)
       })
   })

@@ -1,0 +1,5 @@
+mutation CreatePage($input: CreatePageInput!) {
+  createPage(input: $input) {
+    ...pageFragments
+  }
+}

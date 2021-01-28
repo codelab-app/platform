@@ -1,8 +1,8 @@
 import { JSONSchema7 } from 'json-schema'
 import React, { useState } from 'react'
 import { JsonSchemaForm } from '../../../../../frontend/src/components/form/json-schema/JsonSchemaForm'
-import { RegisterUserInputSchema } from '../../../../user/src/core/application/useCases/registerUser'
 import { RegisterUserInput } from '../../../../user/src/core/application/useCases/registerUser/RegisterUserInput'
+import { RegisterUserInputSchema } from '../../../../user/src/core/application/useCases/registerUser/RegisterUserInput.generated'
 import { useUserMachine } from '../../store'
 import {
   JsonSchemaFormEvent,
@@ -19,7 +19,6 @@ export const RegisterUserForm = (
     password: '',
   })
 
-  //
   const handleSubmit = ({ data }: JsonSchemaFormEvent<RegisterUserInput>) =>
     user.send({
       type: 'ON_SUBMIT',

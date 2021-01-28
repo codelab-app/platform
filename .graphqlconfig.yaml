@@ -17,8 +17,8 @@ generates:
     #   baseTypesPath: types/types.generated.ts
     #   importAllFragmentsFrom: types/fragments.generated
     documents:
-      - libs/modules/**/*.gql.ts
-      # - types/fragments.generated.ts
+      # - libs/modules/**/createPage/**/*.graphql
+      - libs/modules/**/*.graphql
     plugins:
       - typescript
       - typescript-operations

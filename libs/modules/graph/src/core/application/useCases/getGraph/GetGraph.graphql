@@ -1,0 +1,6 @@
+query GetGraph($input: GetGraphInput!) {
+  getGraph(input: $input) {
+    id
+    label
+  }
+}

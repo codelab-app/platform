@@ -2,9 +2,8 @@ import { INestApplication } from '@nestjs/common'
 import { print } from 'graphql'
 import request from 'supertest'
 import { GraphModule } from '../../../../framework/nestjs/GraphModule'
-import { CreateGraphGql } from '../createGraph/CreateGraph.generated'
-import { GetGraphGql } from './GetGraph.generated'
 import { setupTestModule, teardownTestModule } from '@codelab/backend'
+import { CreateGraphGql, GetGraphGql } from '@codelab/generated'
 
 describe('GetGraphUseCase', () => {
   let app: INestApplication

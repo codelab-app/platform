@@ -1,0 +1,7 @@
+fragment appFragments on App {
+  id
+  title
+  pages {
+    ...pageFragments
+  }
+}

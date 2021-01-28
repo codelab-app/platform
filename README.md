@@ -14,7 +14,7 @@ The end product is a highly configurable UI layer that competes with writing cod
 
 [Tech Stack](documentation/getting-started/2-tech-stack.md)
 
-[Project Architecture](documentation/getting-started/3-project-architecture.md)
+[Project Architecture](documentation/getting-started/3-project-structure.md)
 
 [Getting Started](documentation/getting-started/4-getting-started.md)
 

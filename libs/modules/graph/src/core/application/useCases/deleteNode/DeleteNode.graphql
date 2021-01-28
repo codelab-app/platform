@@ -1,0 +1,16 @@
+mutation DeleteNode($input: DeleteNodeInput!) {
+  deleteNode(input: $input) {
+    label
+    vertices {
+      id
+      type
+      props
+    }
+    edges {
+      source
+      target
+      order
+      props
+    }
+  }
+}

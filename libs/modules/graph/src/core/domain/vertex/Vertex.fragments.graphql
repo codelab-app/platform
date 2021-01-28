@@ -1,0 +1,4 @@
+fragment vertexFragments on Vertex {
+  id
+  type
+}

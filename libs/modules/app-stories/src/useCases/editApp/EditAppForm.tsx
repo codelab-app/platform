@@ -3,8 +3,8 @@ import React from 'react'
 import XStateForm, {
   GeneratedXStateFormProps,
 } from '../../../../../frontend/src/components/form/XStateForm'
+import { UpdateAppInputSchema } from '../../../../app/src/core/application/useCases/updateApp/UpdateAppInput.generated'
 import { useAppMachine } from '../../model'
-import { UpdateAppInputSchema } from 'libs/modules/app/src/core/application/useCases/updateApp'
 
 export type EditAppFormProps = Omit<
   GeneratedXStateFormProps<any, any>,

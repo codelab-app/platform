@@ -1,0 +1,10 @@
+fragment graphFragments on Graph {
+  id
+  label
+  vertices {
+    ...vertexFragments
+  }
+  edges {
+    ...edgeFragments
+  }
+}

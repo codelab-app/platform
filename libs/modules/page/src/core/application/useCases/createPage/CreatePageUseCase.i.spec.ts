@@ -1,16 +1,18 @@
 import { INestApplication } from '@nestjs/common'
 import { print } from 'graphql'
 import request from 'supertest'
-import { CreateAppGql } from '../../../../../../app/src/core/application/useCases/createApp/CreateApp.generated'
 import { App } from '../../../../../../app/src/core/domain/App'
 import { AppModule } from '../../../../../../app/src/framework/nestjs/AppModule'
 import { GraphModule } from '../../../../../../graph/src/framework/nestjs/GraphModule'
-import { RegisterUserGql } from '../../../../../../user/src/core/application/useCases/registerUser/RegisterUser.generated'
 import { UserModule } from '../../../../../../user/src/framework/nestjs/UserModule'
 import { PageModule } from '../../../../framework/nestjs/PageModule'
 import { Page } from '../../../domain/Page'
 import { setupTestModule, teardownTestModule } from '@codelab/backend'
-import { CreatePageGql } from '@codelab/generated'
+import {
+  CreateAppGql,
+  CreatePageGql,
+  RegisterUserGql,
+} from '@codelab/generated'
 import { User } from '@codelab/modules/user'
 
 const email = 'test_user@codelab.ai'

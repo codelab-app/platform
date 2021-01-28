@@ -1,8 +1,8 @@
 import { INestApplication } from '@nestjs/common'
 import { print } from 'graphql'
 import request from 'supertest'
-import { CreateGraphGql } from './CreateGraph.generated'
 import { setupTestModule, teardownTestModule } from '@codelab/backend'
+import { CreateGraphGql } from '@codelab/generated'
 import { GraphModule } from '@codelab/modules/graph'
 
 describe('CreateGraphUseCase', () => {

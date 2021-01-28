@@ -8,7 +8,7 @@
 4. `yarn` (links the built workspace to our monorepo)
 5. `yarn docker:up [...service]`
 
-- Docker services `hasura` & `postgres-test` are required, so `yarn docker:up hasura postgres-test`
+- Docker services `postgres` & `postgres-test` are required, so `yarn docker:up postgres postgres-test`
 
 ## Frontend
 
@@ -16,7 +16,7 @@
 
 ## Backend
 
-- `nx serve codelab`
+- `nx serve api-codelab`
 
 ## Prisma
 
@@ -28,32 +28,11 @@ Make sure `datasource.db.url` is changed back to production url if you had modif
 
 Prisma doesn't allow us to modify url at runtime, so we default to production url, and inject our own test url during tests.
 
-<!-- ### Dev Ops Mode
+## Generator
 
-If you want to run our api services in Docker (`yarn docker:up [app]`instead of `nx serve [app]`), you'll need to make some modifications to the `.env` file before starting the services.
+- `yarn generate:graphql` after you update `.graphql` files to get generated files inside `@codelab/generated`
 
-```
-HASURA_GRAPHQL_URI=http://hasura:8080/v1/graphql
-POSTGRES_HOST=postgres
-```
-
-Instead of `localhost`, docker-compose will use the service name `postgres` instead. -->
-
-### Seeding
-
-```
-TYPEORM_SEED=true
-TYPEORM_DROP_SCHEMA=true
-TYPEORM_SYNCHRONIZE=true
-```
-
-`TYPEORM_SEED` will run our custom seeder
-`TYPEORM_DROP_SCHEMA` will clear the database schema
-`TYPEORM_SYNCHRONIZE` will auto update our database schema with our models
-
-If you're not modifying the models, set `TYPEORM_SEED=true`, start project, then set to false & restart
-
-If you're working on the models, do the previous, but also set `TYPEORM_SYNCHRONIZE=true`. Use `TYPEORM_DROP_SCHEMA=true` only when some syncing doesn't work anymore
+- `yarn generate:json` after you update `*Input.ts` files to generate Json Schema
 
 ## Running other commands
 

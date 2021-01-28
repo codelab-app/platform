@@ -1,11 +1,10 @@
 import { INestApplication } from '@nestjs/common'
 import { print } from 'graphql'
 import request from 'supertest'
-import { RegisterUserGql } from '../../../../../../user/src/core/application/useCases/registerUser/RegisterUser.generated'
 import { UserModule } from '../../../../../../user/src/framework/nestjs/UserModule'
 import { AppModule } from '../../../../framework/nestjs/AppModule'
-import { CreateAppGql } from './CreateApp.generated'
 import { setupTestModule, teardownTestModule } from '@codelab/backend'
+import { CreateAppGql, RegisterUserGql } from '@codelab/generated'
 import { User } from '@codelab/modules/user'
 
 const email = 'test_user@codelab.ai'

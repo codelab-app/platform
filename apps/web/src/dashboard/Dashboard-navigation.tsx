@@ -6,14 +6,14 @@ import { withRouter } from 'next/router'
 import * as R from 'ramda'
 import React from 'react'
 import { useRecoilState } from 'recoil'
-import { useDeletePageMutation } from '../../../../libs/modules/page/src/core/application/useCases/deletePage/DeletePage.generated'
-import {
-  GetPagesGql,
-  useGetPagesQuery,
-} from '../../../../libs/modules/page/src/core/application/useCases/getPages/GetPages.generated'
 import { CreatePageModal } from '../pages/createPage/CreatePageModal'
 import { pageFormState } from '../pages/createPage/pageFormState'
 import { Page, withRouterLoader } from '@codelab/frontend'
+import {
+  GetPagesGql,
+  useDeletePageMutation,
+  useGetPagesQuery,
+} from '@codelab/generated'
 
 export const DashboardNavigationInner = ({ router }: WithRouterProps) => {
   const appId = `${router.query.appId}`
