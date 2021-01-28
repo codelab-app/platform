@@ -1,7 +1,8 @@
 import * as path from 'path'
 import * as glob from 'glob'
-import { getOutputFile, lintFiles, writeFile } from '../utils'
+import { getOutputFile, writeFile } from './fileMngmtHelpers'
 import { getGridDecoratorDetails } from './gridDecorator'
+import { lintFiles } from './lintFiles'
 
 const includeFilePatterns = glob.sync('libs/modules/**/useCases/**/*Input.ts', {
   cwd: process.cwd(),

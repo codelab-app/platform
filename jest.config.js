@@ -30,9 +30,6 @@ module.exports = {
     '<rootDir>/libs/tools/generators/json-schema',
     '<rootDir>/libs/tools/generators/graphql',
     // '<rootDir>/libs/modules/page-stories',
-    '<rootDir>/libs/modules/notification-stories',
-    '<rootDir>/libs/pages/home-stories',
-    '<rootDir>/libs/modules/demo-grid-form',
     '<rootDir>/libs/tools/grid-decorator',
   ],
 }
