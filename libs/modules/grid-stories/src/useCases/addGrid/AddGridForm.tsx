@@ -1,11 +1,10 @@
 import { Theme as AntDTheme } from '@rjsf/antd'
 import { withTheme } from '@rjsf/core'
 import { Button } from 'antd'
-import { JSONSchema7 } from 'json-schema'
 import React, { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import { AddGridInput } from './AddGridInput'
-import { AddGridInputSchema } from './AddGridInput.generated'
+import { AddGridInputSchema } from '@codelab/generated'
 
 const Form = withTheme(AntDTheme)
 
@@ -20,7 +19,7 @@ export const AddGridForm = () => {
 
   return (
     <Form
-      schema={AddGridInputSchema as JSONSchema7}
+      schema={AddGridInputSchema}
       uiSchema={{
         password: {
           'ui:widget': 'password',

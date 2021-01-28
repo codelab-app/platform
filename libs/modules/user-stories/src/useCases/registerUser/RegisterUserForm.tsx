@@ -1,13 +1,12 @@
-import { JSONSchema7 } from 'json-schema'
 import React, { useState } from 'react'
 import { JsonSchemaForm } from '../../../../../frontend/src/components/form/json-schema/JsonSchemaForm'
 import { RegisterUserInput } from '../../../../user/src/core/application/useCases/registerUser/RegisterUserInput'
-import { RegisterUserInputSchema } from '../../../../user/src/core/application/useCases/registerUser/RegisterUserInput.generated'
 import { useUserMachine } from '../../store'
 import {
   JsonSchemaFormEvent,
   JsonSchemaUseCaseFormProps,
 } from '@codelab/frontend'
+import { RegisterUserInputSchema } from '@codelab/generated'
 
 export const RegisterUserForm = (
   props: JsonSchemaUseCaseFormProps<RegisterUserInput>,
@@ -27,7 +26,7 @@ export const RegisterUserForm = (
 
   return (
     <JsonSchemaForm<RegisterUserInput>
-      schema={RegisterUserInputSchema as JSONSchema7}
+      schema={RegisterUserInputSchema}
       rjsfFormProps={{
         uiSchema: {
           password: {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { EventObject, Sender, State } from 'xstate'
+import { AnyEventObject, EventObject, Sender, State } from 'xstate'
 import { JsonSchemaForm } from './json-schema/JsonSchemaForm'
 import {
   JsonSchemaFormEvent,
@@ -8,7 +8,7 @@ import {
 
 export type GeneratedXStateFormProps<
   T extends object,
-  TEvent extends EventObject
+  TEvent extends AnyEventObject
 > = Omit<JsonSchemaFormProps<T>, 'onSubmit' | 'formData' | 'onChange'> & {
   send: Sender<TEvent>
   createSubmitEvent: (submitEvent: JsonSchemaFormEvent<T>) => TEvent
@@ -17,7 +17,7 @@ export type GeneratedXStateFormProps<
     | {
         storeStateInXState: true
         createChangeEvent: (changeEvent: JsonSchemaFormEvent<T>) => TEvent
-        state: State<any>
+        state: State<any, TEvent, any>
         contextKey?: string
       }
     | {
