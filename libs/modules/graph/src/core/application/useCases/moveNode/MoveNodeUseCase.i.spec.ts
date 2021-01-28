@@ -52,7 +52,7 @@ const addChildNodeToRootRequest = async (
     })
 }
 
-describe('MoveNodeUseCase', () => {
+describe.skip('MoveNodeUseCase', () => {
   let nestApp: INestApplication
   let user: User
   let app: App
