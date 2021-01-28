@@ -1,18 +1,14 @@
-import { Inject, Injectable } from '@nestjs/common'
-import { PrismaDITokens } from '../../../../../../../backend/src/infrastructure/persistence/prisma/PrismaDITokens'
-import { Page } from '../../../domain/Page'
+import { Injectable } from '@nestjs/common'
+import { PageDto } from '../../../domain/PageDto'
 import { DeletePageInput } from './DeletePageInput'
 import { PrismaService, TransactionalUseCase } from '@codelab/backend'
 
 @Injectable()
 export class DeletePageService
-  implements TransactionalUseCase<DeletePageInput, Page> {
-  constructor(
-    @Inject(PrismaDITokens.PrismaService)
-    private readonly prismaService: PrismaService,
-  ) {}
+  implements TransactionalUseCase<DeletePageInput, PageDto> {
+  constructor(private readonly prismaService: PrismaService) {}
 
-  async execute({ pageId }: DeletePageInput): Promise<Page> {
+  async execute({ pageId }: DeletePageInput) {
     try {
       return await this.prismaService.page.delete({
         where: {

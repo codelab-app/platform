@@ -114,8 +114,8 @@ describe('CreatePageUseCase', () => {
 
         expect(page.title).toEqual('Page 1')
         expect(page.graphs?.length).toEqual(1)
-        expect(page.graphs![0].vertices?.length).toEqual(1)
-        expect(page.graphs![0].vertices![0].type).toEqual(
+        expect(page.graphs[0].vertices.length).toEqual(1)
+        expect(page.graphs[0].vertices[0].type).toEqual(
           'React_Grid_Layout_Container',
         )
       })

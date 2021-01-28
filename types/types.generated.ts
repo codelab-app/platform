@@ -19,19 +19,6 @@ export type Scalars = {
   JSONObject: any
 }
 
-export type App = {
-  __typename?: 'App'
-  id: Scalars['String']
-  title: Scalars['String']
-}
-
-export type User = {
-  __typename?: 'User'
-  id: Scalars['String']
-  email: Scalars['String']
-  accessToken: Scalars['String']
-}
-
 export type Edge = {
   __typename?: 'Edge'
   id: Scalars['String']
@@ -165,7 +152,21 @@ export type Page = {
   __typename?: 'Page'
   id: Scalars['String']
   title: Scalars['String']
-  graphs?: Maybe<Array<Graph>>
+  graphs: Array<Graph>
+}
+
+export type App = {
+  __typename?: 'App'
+  id: Scalars['String']
+  title: Scalars['String']
+  pages: Array<Page>
+}
+
+export type User = {
+  __typename?: 'User'
+  id: Scalars['String']
+  email: Scalars['String']
+  accessToken: Scalars['String']
 }
 
 export type Query = {
@@ -415,7 +416,15 @@ export type CreatePageMutationVariables = Exact<{
 }>
 
 export type CreatePageMutation = { __typename?: 'Mutation' } & {
-  createPage: { __typename?: 'Page' } & Pick<Page, 'id' | 'title'>
+  createPage: { __typename?: 'Page' } & Pick<Page, 'id' | 'title'> & {
+      graphs: Array<
+        { __typename?: 'Graph' } & Pick<Graph, 'id' | 'label'> & {
+            vertices: Array<
+              { __typename?: 'Vertex' } & Pick<Vertex, 'id' | 'type'>
+            >
+          }
+      >
+    }
 }
 
 export type DeletePageMutationVariables = Exact<{
@@ -775,6 +784,34 @@ export const CreatePageDocument: DocumentNode<
               selections: [
                 { kind: 'Field', name: { kind: 'Name', value: 'id' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'graphs' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'label' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'vertices' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'id' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'type' },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
               ],
             },
           },

@@ -1,21 +1,14 @@
-import { Inject, Injectable } from '@nestjs/common'
-import { Page } from '../../../domain/Page'
+import { Injectable } from '@nestjs/common'
+import { PageDto } from '../../../domain/PageDto'
 import { GetPagesInput } from './GetPagesInput'
-import {
-  PrismaDITokens,
-  PrismaService,
-  TransactionalUseCase,
-} from '@codelab/backend'
+import { PrismaService, TransactionalUseCase } from '@codelab/backend'
 
 @Injectable()
 export class GetPagesService
-  implements TransactionalUseCase<GetPagesInput, Array<Page>> {
-  constructor(
-    @Inject(PrismaDITokens.PrismaService)
-    private readonly prismaService: PrismaService,
-  ) {}
+  implements TransactionalUseCase<GetPagesInput, Array<PageDto>> {
+  constructor(private readonly prismaService: PrismaService) {}
 
-  async execute({ appId }: GetPagesInput): Promise<Array<Page>> {
+  async execute({ appId }: GetPagesInput) {
     return await this.prismaService.page.findMany({
       where: {
         app: {

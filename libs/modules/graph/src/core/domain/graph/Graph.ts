@@ -11,8 +11,8 @@ export class Graph {
   public declare label: string
 
   @Field(() => [Vertex], { defaultValue: [] })
-  declare vertices?: Array<Vertex>
+  declare vertices: Array<Vertex>
 
   @Field(() => [Edge], { defaultValue: [] })
-  declare edges?: Array<Edge>
+  declare edges: Array<Edge>
 }

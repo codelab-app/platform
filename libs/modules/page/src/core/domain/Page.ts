@@ -9,6 +9,6 @@ export class Page {
   @Field()
   declare title: string
 
-  @Field(() => [Graph], { nullable: true })
-  declare graphs?: Array<Graph>
+  @Field(() => [Graph], { defaultValue: [] })
+  declare graphs: Array<Graph>
 }

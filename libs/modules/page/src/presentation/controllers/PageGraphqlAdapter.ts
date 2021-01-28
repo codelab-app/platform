@@ -25,7 +25,7 @@ import { User } from '@codelab/modules/user'
 export class PageGraphqlAdapter {
   constructor(
     private readonly getPagesService: GetPagesService,
-    private getPageService: GetPageService,
+    private readonly getPageService: GetPageService,
     private readonly createPageService: CreatePageService,
     private readonly deletePageService: DeletePageService,
     private readonly prismaService: PrismaService,
@@ -33,32 +33,31 @@ export class PageGraphqlAdapter {
 
   @Mutation(() => Page)
   @UseGuards(GqlAuthGuard)
-  async createPage(@Args('input') input: CreatePageInput) {
+  createPage(@Args('input') input: CreatePageInput) {
     return this.createPageService.execute(input)
   }
 
   @Query(() => [Page])
   @UseGuards(GqlAuthGuard)
-  async getPages(
-    @Args('input') input: GetPagesInput,
-    @CurrentUser() user: User,
-  ) {
+  getPages(@Args('input') input: GetPagesInput, @CurrentUser() user: User) {
     return this.getPagesService.execute(input)
   }
 
   @Query(() => Page)
   @UseGuards(GqlAuthGuard)
-  async getPage(@Args('input') input: GetPageInput) {
+  getPage(@Args('input') input: GetPageInput) {
     return this.getPageService.execute(input)
   }
 
   @Mutation(() => Page)
-  async deletePage(@Args('input') input: DeletePageInput) {
+  deletePage(@Args('input') input: DeletePageInput) {
     return this.deletePageService.execute(input)
   }
 
   @ResolveField(() => [Graph])
   graphs(@Parent() page: Page) {
+    console.log(page)
+
     return this.prismaService.graph.findMany({
       where: {
         page: {

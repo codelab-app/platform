@@ -12,6 +12,18 @@ generates:
       afterAllFileWrite:
         - prettier --write
 
+  # src/:
+  #   # preset: near-operation-file
+  #   # presetConfig:
+  #   #   baseTypesPath: types.ts
+  #   #   # importAllFragmentsFrom: libs/modules/page/src/core/domain/PageFragments.gql.ts
+  #   #   # importAllFragmentsFrom: libs/modules/page/src/core/domain/PageFragments.gql.ts
+  #   documents: libs/modules/**/domain/**/*.fragments.gql.ts
+  #   plugins:
+  #     - typescript-document-nodes
+  #     # - typescript
+  #     # - typescript-operations
+
   # Generate into lib so we can import
   # libs/frontend/src/infrastructure/apollo/react-apollo.generated.tsx:
   #   plugins:
@@ -34,37 +46,40 @@ generates:
   #       enumValues: keep
   #   documents: libs/modules/user/src/core/application/useCases/**/*.graphql
 
-  # Doesn't required documents
-  libs/frontend/src/infrastructure/apollo/types.generated.ts:
-    plugins:
-      - typescript
-      - typescript-operations
-      - typed-document-node
-      # - typescript-resolvers
-      # - typescript-document-nodes
-      # - typescript-graphql-files-modules
-    schema: ./schema.graphql
-    hooks:
-      afterOneFileWrite:
-        - eslint --fix
+  # # Doesn't required documents
+  # libs/frontend/src/infrastructure/apollo/types.generated.ts:
+  #   plugins:
+  #     - typescript
+  #     - typescript-operations
+  #     - typed-document-node
+  #     # - typescript-resolvers
+  #     # - typescript-document-nodes
+  #     # - typescript-graphql-files-modules
+  #   schema: ./schema.graphql
+  #   hooks:
+  #     afterOneFileWrite:
+  #       - eslint --fix
 
-  libs/frontend/src/infrastructure/apollo/page.generated.tsx:
-    plugins:
-      - graphql-codegen-apollo-next-ssr
-    config:
-      documentMode: external
-      importDocumentNodeExternallyFrom: ./types.generated
-      reactApolloVersion: 3
-      withHooks: true
-      withHOC: false
-      apolloClientInstanceImport: '@codelab/frontend'
-    preset: import-types
-    presetConfig:
-      typesPath: ./types.generated
-    documents: libs/modules/user/src/core/application/useCases/**/*.graphql
-    hooks:
-      afterOneFileWrite:
-        - eslint --fix
+  # libs/frontend/src/infrastructure/apollo/page.generated.tsx:
+  #   plugins:
+  #     - graphql-codegen-apollo-next-ssr
+  #   config:
+  #     documentMode: external
+  #     importDocumentNodeExternallyFrom: ./types.generated
+  #     reactApolloVersion: 3
+  #     withHooks: true
+  #     withHOC: false
+  #     apolloClientInstanceImport: '@codelab/frontend'
+  #   # preset: near-operation-file
+  #   # presetConfig:
+  #   #   baseTypesPath: types.generated.tsx
+  #   preset: import-types
+  #   presetConfig:
+  #     typesPath: ./types.generated
+  #   documents: libs/modules/user/src/core/application/useCases/**/*.graphql
+  #   hooks:
+  #     afterOneFileWrite:
+  #       - eslint --fix
 # libs/state/apollo/src/__generated__/graphql-files-modules.d.ts:
 #   plugins:
 #     - typescript-graphql-files-modules

@@ -1,22 +1,18 @@
-import { Inject, Injectable } from '@nestjs/common'
-import { PrismaDITokens } from '../../../../../../../backend/src/infrastructure/persistence/prisma/PrismaDITokens'
-import { Page } from '../../../domain/Page'
+import { Injectable } from '@nestjs/common'
+import { PageDto } from '../../../domain/PageDto'
 import { CreatePageInput } from './CreatePageInput'
 import { NodeType, PrismaService, TransactionalUseCase } from '@codelab/backend'
 
 @Injectable()
 export class CreatePageService
-  implements TransactionalUseCase<CreatePageInput, Page> {
-  constructor(
-    @Inject(PrismaDITokens.PrismaService)
-    private readonly prismaService: PrismaService,
-  ) {}
+  implements TransactionalUseCase<CreatePageInput, PageDto> {
+  constructor(private readonly prismaService: PrismaService) {}
 
-  async execute({ appId, ...pageData }: CreatePageInput): Promise<Page> {
+  async execute({ appId, title }: CreatePageInput) {
     try {
       return await this.prismaService.page.create({
         data: {
-          ...pageData,
+          title,
           app: {
             connect: {
               id: appId,

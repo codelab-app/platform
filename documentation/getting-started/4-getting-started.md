@@ -18,6 +18,16 @@
 
 - `nx serve codelab`
 
+## Prisma
+
+`yarn` will automatically generate prisma client (which has typings), and sync database.
+
+Sometimes database schema may get out of shape, to reset go to `prisma/schema.prisma` and modify to correct `datasource.db.url` then run `yarn prisma:reset`.
+
+Make sure `datasource.db.url` is changed back to production url if you had modified it.
+
+Prisma doesn't allow us to modify url at runtime, so we default to production url, and inject our own test url during tests.
+
 <!-- ### Dev Ops Mode
 
 If you want to run our api services in Docker (`yarn docker:up [app]`instead of `nx serve [app]`), you'll need to make some modifications to the `.env` file before starting the services.

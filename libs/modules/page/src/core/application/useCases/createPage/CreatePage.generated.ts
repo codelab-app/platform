@@ -64,5 +64,13 @@ export type CreatePageMutationVariables = Types.Exact<{
 }>
 
 export type CreatePageMutation = { __typename?: 'Mutation' } & {
-  createPage: { __typename?: 'Page' } & Pick<Types.Page, 'id' | 'title'>
+  createPage: { __typename?: 'Page' } & Pick<Types.Page, 'id' | 'title'> & {
+      graphs: Array<
+        { __typename?: 'Graph' } & Pick<Types.Graph, 'id' | 'label'> & {
+            vertices: Array<
+              { __typename?: 'Vertex' } & Pick<Types.Vertex, 'id' | 'type'>
+            >
+          }
+      >
+    }
 }

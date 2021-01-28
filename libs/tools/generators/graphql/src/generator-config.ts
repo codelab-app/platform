@@ -1,5 +1,6 @@
 import { Types } from '@graphql-codegen/plugin-helpers'
 import {
+  fragmentQueryPaths,
   getPathToTypes,
   graphqlQueryPaths,
   typesOutputPathAbsolute,
@@ -25,6 +26,9 @@ export const sharedConfigs: Types.Config['generates'] = {
       afterAllFileWrite: 'prettier --write',
     },
   },
+  // 'fragments.ts': {
+  //   plugins: ['fragment-matcher'],
+  // },
 }
 
 /**
@@ -57,7 +61,7 @@ export const makeGeneratesConfig = ({
       presetConfig: {
         typesPath: getPathToTypes(sourceGqlPath),
       },
-      documents: sourceGqlPath,
+      documents: [sourceGqlPath, ...fragmentQueryPaths],
     },
   }
 }

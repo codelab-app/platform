@@ -6,6 +6,7 @@ import {
   Query,
   ResolveField,
   Resolver,
+  registerEnumType,
 } from '@nestjs/graphql'
 import { AddChildNodeInput } from '../../core/application/useCases/addChildNode/AddChildNodeInput'
 import { AddChildNodeService } from '../../core/application/useCases/addChildNode/AddChildNodeService'
@@ -23,12 +24,12 @@ import { UpdateNodeService } from '../../core/application/useCases/updateNode/Up
 import { Edge } from '../../core/domain/edge/Edge'
 import { Graph } from '../../core/domain/graph/Graph'
 import { Vertex } from '../../core/domain/vertex/Vertex'
-import { PrismaService } from '@codelab/backend'
+import { NodeType, PrismaService } from '@codelab/backend'
 
-// Replaced with NodeType, GraphQL was complaining that it cannot represent type with VertexType
-// registerEnumType(VertexType, {
-//   name: 'VertexType',
-// })
+registerEnumType(NodeType, {
+  name: 'NodeType',
+})
+
 @Resolver(() => Graph)
 @Injectable()
 export class GraphGraphqlAdapter {
@@ -43,42 +44,42 @@ export class GraphGraphqlAdapter {
   ) {}
 
   @Mutation(() => Graph)
-  async createGraph(@Args('input') input: CreateGraphInput) {
+  createGraph(@Args('input') input: CreateGraphInput) {
     return this.createGraphService.execute(input)
   }
 
   @Mutation(() => Graph)
-  async addChildNode(@Args('input') input: AddChildNodeInput) {
+  addChildNode(@Args('input') input: AddChildNodeInput) {
     return this.addChildNodeService.execute(input)
   }
 
   @Mutation(() => Graph)
-  async updateNode(@Args('input') input: UpdateNodeInput) {
+  updateNode(@Args('input') input: UpdateNodeInput) {
     return this.updateNodeService.execute(input)
   }
 
   @Query(() => Graph)
-  async getGraph(@Args('input') input: GetGraphInput) {
+  getGraph(@Args('input') input: GetGraphInput) {
     return this.getGraphService.execute(input)
   }
 
   @Query(() => Graph)
-  async getGraphBy(@Args('input') input: GetGraphByInput) {
+  getGraphBy(@Args('input') input: GetGraphByInput) {
     return this.getGraphService.getGraphBy(input)
   }
 
   @Mutation(() => Graph)
-  async deleteNode(@Args('input') input: DeleteNodeInput) {
+  deleteNode(@Args('input') input: DeleteNodeInput) {
     return this.deleteNodeService.execute(input)
   }
 
   @Mutation(() => Graph)
-  async moveNode(@Args('input') input: MoveNodeInput) {
+  moveNode(@Args('input') input: MoveNodeInput) {
     return this.moveNodeService.execute(input)
   }
 
   @ResolveField('vertices', (returns) => [Vertex])
-  async getVertices(@Parent() graph: Graph) {
+  getVertices(@Parent() graph: Graph) {
     return this.prismaService.vertex.findMany({
       where: {
         graphId: graph.id,
@@ -87,7 +88,7 @@ export class GraphGraphqlAdapter {
   }
 
   @ResolveField('edges', (returns) => [Edge])
-  async edges(@Parent() graph: Graph) {
+  edges(@Parent() graph: Graph) {
     return this.prismaService.edge.findMany({
       where: {
         graphId: graph.id,

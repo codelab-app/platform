@@ -1,8 +1,7 @@
-import { Inject, Injectable } from '@nestjs/common'
-import { App } from '../../../domain/App'
+import { Injectable } from '@nestjs/common'
+import { AppDto } from '../../../domain/AppDto'
 import { UpdateAppRequest } from './UpdateAppRequest'
 import {
-  PrismaDITokens,
   PrismaService,
   RequestValidationError,
   TransactionalUseCase,
@@ -10,13 +9,10 @@ import {
 
 @Injectable()
 export class UpdateAppService
-  implements TransactionalUseCase<UpdateAppRequest, App> {
-  constructor(
-    @Inject(PrismaDITokens.PrismaService)
-    private readonly prismaService: PrismaService,
-  ) {}
+  implements TransactionalUseCase<UpdateAppRequest, AppDto> {
+  constructor(private readonly prismaService: PrismaService) {}
 
-  async execute({ appId, userId, ...appData }: UpdateAppRequest): Promise<App> {
+  async execute({ appId, userId, ...appData }: UpdateAppRequest) {
     try {
       const userApp = await this.prismaService.app.findFirst({
         where: {

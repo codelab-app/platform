@@ -1,23 +1,18 @@
-import { Inject, Injectable } from '@nestjs/common'
-import { User } from '../../../../presentation/User'
+import { Injectable } from '@nestjs/common'
+import { UserDto } from '../../../domain/UserDto'
 import { AuthService } from '../../services/AuthService'
 import { RegisterUserInput } from './RegisterUserInput'
-import {
-  PrismaDITokens,
-  PrismaService,
-  TransactionalUseCase,
-} from '@codelab/backend'
+import { PrismaService, TransactionalUseCase } from '@codelab/backend'
 
 @Injectable()
 export class RegisterUserService
-  implements TransactionalUseCase<RegisterUserInput, User> {
+  implements TransactionalUseCase<RegisterUserInput, UserDto> {
   constructor(
-    @Inject(PrismaDITokens.PrismaService)
     private readonly prismaService: PrismaService,
     private readonly authService: AuthService,
   ) {}
 
-  async execute(request: RegisterUserInput): Promise<User> {
+  async execute(request: RegisterUserInput) {
     const existingUser = await this.prismaService.user.findUnique({
       where: { email: request.email },
     })

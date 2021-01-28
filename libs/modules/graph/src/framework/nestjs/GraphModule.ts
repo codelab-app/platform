@@ -14,15 +14,21 @@ import { PrismaService } from '@codelab/backend'
 @Module({
   imports: [VertexModule, EdgeModule],
   providers: [
-    GraphGraphqlAdapter,
+    PrismaService,
     GraphService,
+    /**
+     * Controllers
+     */
+    GraphGraphqlAdapter,
+    /**
+     * UseCaseProviders
+     */
     MoveNodeService,
     DeleteNodeService,
     GetGraphService,
     UpdateNodeService,
     CreateGraphService,
     AddChildNodeService,
-    PrismaService,
   ],
   exports: [GraphService],
 })
