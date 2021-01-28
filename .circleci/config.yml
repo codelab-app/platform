@@ -217,10 +217,10 @@ jobs:
     <<: *executor-params
     steps:
       - setup-workspace
+      - yarn-install-dev
       - run:
           name: 'Reset Prisma'
           command: yarn prisma:reset
-      - yarn-install-dev
       - run:
           name: 'Build CI'
           command: make build-ci
