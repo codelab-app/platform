@@ -25,10 +25,12 @@ const finalFileContents = generator
     return `${fileContents} \n\n ${schemaExport}`
   }, `import { JSONSchema7 } from 'json-schema' \n\n`)
 
-console.log(outputPath)
-console.log(finalFileContents)
+// console.log(outputPath)
+// console.log(finalFileContents)
 
 fs.writeFileSync(outputPath, finalFileContents)
+
+console.log(`Saving generated schema to... ${outputPath}`)
 
 lintFiles([outputPath])
 
