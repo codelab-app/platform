@@ -383,14 +383,6 @@ export type CreateAppMutation = { __typename?: 'Mutation' } & {
   createApp: { __typename?: 'App' } & Pick<App, 'id' | 'title'>
 }
 
-export type UpdateAppMutationVariables = Exact<{
-  input: UpdateAppInput
-}>
-
-export type UpdateAppMutation = { __typename?: 'Mutation' } & {
-  updateApp: { __typename?: 'App' } & Pick<App, 'id' | 'title'>
-}
-
 export type DeleteAppMutationVariables = Exact<{
   input: DeleteAppInput
 }>
@@ -404,13 +396,21 @@ export type GetAppQueryVariables = Exact<{
 }>
 
 export type GetAppQuery = { __typename?: 'Query' } & {
-  getApp?: Maybe<{ __typename?: 'App' } & Pick<App, 'title'>>
+  getApp?: Maybe<{ __typename?: 'App' } & Pick<App, 'id' | 'title'>>
 }
 
 export type GetAppsQueryVariables = Exact<{ [key: string]: never }>
 
 export type GetAppsQuery = { __typename?: 'Query' } & {
   getApps: Array<{ __typename?: 'App' } & Pick<App, 'title'>>
+}
+
+export type UpdateAppMutationVariables = Exact<{
+  input: UpdateAppInput
+}>
+
+export type UpdateAppMutation = { __typename?: 'Mutation' } & {
+  updateApp: { __typename?: 'App' } & Pick<App, 'id' | 'title'>
 }
 
 export type AppFragmentsFragment = { __typename?: 'App' } & Pick<
@@ -549,17 +549,6 @@ export type PageFragmentsFragment = { __typename?: 'Page' } & Pick<
   'id' | 'title'
 > & { graphs: Array<{ __typename?: 'Graph' } & GraphFragmentsFragment> }
 
-export type RegisterUserMutationVariables = Exact<{
-  input: RegisterUserInput
-}>
-
-export type RegisterUserMutation = { __typename?: 'Mutation' } & {
-  registerUser: { __typename?: 'User' } & Pick<
-    User,
-    'id' | 'email' | 'accessToken'
-  >
-}
-
 export type DeleteUserMutationVariables = Exact<{
   input: DeleteUserInput
 }>
@@ -580,6 +569,17 @@ export type LoginUserMutationVariables = Exact<{
 
 export type LoginUserMutation = { __typename?: 'Mutation' } & {
   loginUser: { __typename?: 'User' } & Pick<User, 'email' | 'accessToken'>
+}
+
+export type RegisterUserMutationVariables = Exact<{
+  input: RegisterUserInput
+}>
+
+export type RegisterUserMutation = { __typename?: 'Mutation' } & {
+  registerUser: { __typename?: 'User' } & Pick<
+    User,
+    'id' | 'email' | 'accessToken'
+  >
 }
 
 export type UpdateUserMutationVariables = Exact<{
@@ -658,14 +658,6 @@ export const CreateApp = gql`
     }
   }
 `
-export const UpdateApp = gql`
-  mutation UpdateApp($input: UpdateAppInput!) {
-    updateApp(input: $input) {
-      id
-      title
-    }
-  }
-`
 export const DeleteApp = gql`
   mutation DeleteApp($input: DeleteAppInput!) {
     deleteApp(input: $input) {
@@ -677,6 +669,7 @@ export const DeleteApp = gql`
 export const GetApp = gql`
   query GetApp($input: GetAppInput!) {
     getApp(input: $input) {
+      id
       title
     }
   }
@@ -684,6 +677,14 @@ export const GetApp = gql`
 export const GetApps = gql`
   query GetApps {
     getApps {
+      title
+    }
+  }
+`
+export const UpdateApp = gql`
+  mutation UpdateApp($input: UpdateAppInput!) {
+    updateApp(input: $input) {
+      id
       title
     }
   }
@@ -797,15 +798,6 @@ export const GetPages = gql`
     }
   }
 `
-export const RegisterUser = gql`
-  mutation RegisterUser($input: RegisterUserInput!) {
-    registerUser(input: $input) {
-      id
-      email
-      accessToken
-    }
-  }
-`
 export const DeleteUser = gql`
   mutation DeleteUser($input: DeleteUserInput!) {
     deleteUser(input: $input) {
@@ -825,6 +817,15 @@ export const GetMe = gql`
 export const LoginUser = gql`
   mutation LoginUser($input: LoginUserInput!) {
     loginUser(input: $input) {
+      email
+      accessToken
+    }
+  }
+`
+export const RegisterUser = gql`
+  mutation RegisterUser($input: RegisterUserInput!) {
+    registerUser(input: $input) {
+      id
       email
       accessToken
     }
@@ -941,55 +942,6 @@ export type CreateAppMutationOptions = Apollo.BaseMutationOptions<
   CreateAppMutation,
   CreateAppMutationVariables
 >
-export const UpdateAppGql = gql`
-  mutation UpdateApp($input: UpdateAppInput!) {
-    updateApp(input: $input) {
-      id
-      title
-    }
-  }
-`
-export type UpdateAppMutationFn = Apollo.MutationFunction<
-  UpdateAppMutation,
-  UpdateAppMutationVariables
->
-
-/**
- * __useUpdateAppMutation__
- *
- * To run a mutation, you first call `useUpdateAppMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdateAppMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [updateAppMutation, { data, loading, error }] = useUpdateAppMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useUpdateAppMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    UpdateAppMutation,
-    UpdateAppMutationVariables
-  >,
-) {
-  return Apollo.useMutation<UpdateAppMutation, UpdateAppMutationVariables>(
-    UpdateAppGql,
-    baseOptions,
-  )
-}
-export type UpdateAppMutationHookResult = ReturnType<
-  typeof useUpdateAppMutation
->
-export type UpdateAppMutationResult = Apollo.MutationResult<UpdateAppMutation>
-export type UpdateAppMutationOptions = Apollo.BaseMutationOptions<
-  UpdateAppMutation,
-  UpdateAppMutationVariables
->
 export const DeleteAppGql = gql`
   mutation DeleteApp($input: DeleteAppInput!) {
     deleteApp(input: $input) {
@@ -1042,6 +994,7 @@ export type DeleteAppMutationOptions = Apollo.BaseMutationOptions<
 export const GetAppGql = gql`
   query GetApp($input: GetAppInput!) {
     getApp(input: $input) {
+      id
       title
     }
   }
@@ -1132,6 +1085,55 @@ export type GetAppsLazyQueryHookResult = ReturnType<typeof useGetAppsLazyQuery>
 export type GetAppsQueryResult = Apollo.QueryResult<
   GetAppsQuery,
   GetAppsQueryVariables
+>
+export const UpdateAppGql = gql`
+  mutation UpdateApp($input: UpdateAppInput!) {
+    updateApp(input: $input) {
+      id
+      title
+    }
+  }
+`
+export type UpdateAppMutationFn = Apollo.MutationFunction<
+  UpdateAppMutation,
+  UpdateAppMutationVariables
+>
+
+/**
+ * __useUpdateAppMutation__
+ *
+ * To run a mutation, you first call `useUpdateAppMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateAppMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateAppMutation, { data, loading, error }] = useUpdateAppMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateAppMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateAppMutation,
+    UpdateAppMutationVariables
+  >,
+) {
+  return Apollo.useMutation<UpdateAppMutation, UpdateAppMutationVariables>(
+    UpdateAppGql,
+    baseOptions,
+  )
+}
+export type UpdateAppMutationHookResult = ReturnType<
+  typeof useUpdateAppMutation
+>
+export type UpdateAppMutationResult = Apollo.MutationResult<UpdateAppMutation>
+export type UpdateAppMutationOptions = Apollo.BaseMutationOptions<
+  UpdateAppMutation,
+  UpdateAppMutationVariables
 >
 export const AddChildNodeGql = gql`
   mutation AddChildNode($input: AddChildNodeInput!) {
@@ -1657,56 +1659,6 @@ export type GetPagesQueryResult = Apollo.QueryResult<
   GetPagesQuery,
   GetPagesQueryVariables
 >
-export const RegisterUserGql = gql`
-  mutation RegisterUser($input: RegisterUserInput!) {
-    registerUser(input: $input) {
-      id
-      email
-      accessToken
-    }
-  }
-`
-export type RegisterUserMutationFn = Apollo.MutationFunction<
-  RegisterUserMutation,
-  RegisterUserMutationVariables
->
-
-/**
- * __useRegisterUserMutation__
- *
- * To run a mutation, you first call `useRegisterUserMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useRegisterUserMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [registerUserMutation, { data, loading, error }] = useRegisterUserMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useRegisterUserMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    RegisterUserMutation,
-    RegisterUserMutationVariables
-  >,
-) {
-  return Apollo.useMutation<
-    RegisterUserMutation,
-    RegisterUserMutationVariables
-  >(RegisterUserGql, baseOptions)
-}
-export type RegisterUserMutationHookResult = ReturnType<
-  typeof useRegisterUserMutation
->
-export type RegisterUserMutationResult = Apollo.MutationResult<RegisterUserMutation>
-export type RegisterUserMutationOptions = Apollo.BaseMutationOptions<
-  RegisterUserMutation,
-  RegisterUserMutationVariables
->
 export const DeleteUserGql = gql`
   mutation DeleteUser($input: DeleteUserInput!) {
     deleteUser(input: $input) {
@@ -1847,6 +1799,56 @@ export type LoginUserMutationResult = Apollo.MutationResult<LoginUserMutation>
 export type LoginUserMutationOptions = Apollo.BaseMutationOptions<
   LoginUserMutation,
   LoginUserMutationVariables
+>
+export const RegisterUserGql = gql`
+  mutation RegisterUser($input: RegisterUserInput!) {
+    registerUser(input: $input) {
+      id
+      email
+      accessToken
+    }
+  }
+`
+export type RegisterUserMutationFn = Apollo.MutationFunction<
+  RegisterUserMutation,
+  RegisterUserMutationVariables
+>
+
+/**
+ * __useRegisterUserMutation__
+ *
+ * To run a mutation, you first call `useRegisterUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRegisterUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [registerUserMutation, { data, loading, error }] = useRegisterUserMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useRegisterUserMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    RegisterUserMutation,
+    RegisterUserMutationVariables
+  >,
+) {
+  return Apollo.useMutation<
+    RegisterUserMutation,
+    RegisterUserMutationVariables
+  >(RegisterUserGql, baseOptions)
+}
+export type RegisterUserMutationHookResult = ReturnType<
+  typeof useRegisterUserMutation
+>
+export type RegisterUserMutationResult = Apollo.MutationResult<RegisterUserMutation>
+export type RegisterUserMutationOptions = Apollo.BaseMutationOptions<
+  RegisterUserMutation,
+  RegisterUserMutationVariables
 >
 export const UpdateUserGql = gql`
   mutation UpdateUser($input: UpdateUserInput!) {
