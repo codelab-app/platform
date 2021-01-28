@@ -24,7 +24,7 @@
     "generate:json": "nx build tools-generators-json-schema --skip-nx-cache",
     "commit": "git-cz",
     "docs": "onchange 'libs/ddd/**/*.ts' 'typedoc.json' -- npx typedoc",
-    "prisma:reset": "npx prisma migrate reset --preview-feature -f --skip-generate && yarn",
+    "prisma:reset": "npx prisma migrate reset --preview-feature -f --skip-generate",
     "prisma:sync": "npx prisma migrate dev --name init --preview-feature",
     "migration:generate": "nx migrate @nrwl/workspace@latest",
     "migration:run": "nx migrate --run-migrations=migrations.json",
