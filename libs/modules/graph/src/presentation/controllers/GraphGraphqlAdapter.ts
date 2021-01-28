@@ -6,7 +6,6 @@ import {
   Query,
   ResolveField,
   Resolver,
-  registerEnumType,
 } from '@nestjs/graphql'
 import { AddChildNodeInput } from '../../core/application/useCases/addChildNode/AddChildNodeInput'
 import { AddChildNodeService } from '../../core/application/useCases/addChildNode/AddChildNodeService'
@@ -24,11 +23,7 @@ import { UpdateNodeService } from '../../core/application/useCases/updateNode/Up
 import { Edge } from '../../core/domain/edge/Edge'
 import { Graph } from '../../core/domain/graph/Graph'
 import { Vertex } from '../../core/domain/vertex/Vertex'
-import { NodeType, PrismaService } from '@codelab/backend'
-
-registerEnumType(NodeType, {
-  name: 'NodeType',
-})
+import { PrismaService } from '@codelab/backend'
 
 @Resolver(() => Graph)
 @Injectable()

@@ -2,10 +2,10 @@ import { INestApplication } from '@nestjs/common'
 import { print } from 'graphql'
 import request from 'supertest'
 import { CreateAppGql } from '../../../../../../app/src/core/application/useCases/createApp/CreateApp.generated'
-import { CreatePageGql } from '../../../../../../page/src/core/application/useCases/createPage/CreatePage.generated'
 import { RegisterUserGql } from '../../../../../../user/src/core/application/useCases/registerUser/RegisterUser.generated'
 import { AddChildNodeGql } from '../addChildNode/AddChildNode.generated'
 import { setupTestModule, teardownTestModule } from '@codelab/backend'
+import { CreatePageGql } from '@codelab/generated'
 import { App, AppModule } from '@codelab/modules/app'
 import { GraphModule } from '@codelab/modules/graph'
 import { PageModule } from '@codelab/modules/page'
@@ -43,7 +43,7 @@ const addChildNodeToRootRequest = async (
   query: any,
   graphLabel: string,
 ) => {
-  return request(app.getHttpServer())
+  return await request(app.getHttpServer())
     .post('/graphql')
     .send(query)
     .expect(200)

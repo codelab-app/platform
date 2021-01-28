@@ -8,7 +8,7 @@ export class Graph {
   declare id: string
 
   @Field()
-  public declare label: string
+  declare label: string
 
   @Field(() => [Vertex], { defaultValue: [] })
   declare vertices: Array<Vertex>

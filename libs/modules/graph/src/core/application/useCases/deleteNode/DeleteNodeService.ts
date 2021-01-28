@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common'
-import { Graph } from '../../../domain/graph/Graph'
+import { GraphDto } from '../../../domain/graph/GraphDto'
 import { DeleteNodeInput } from './DeleteNodeInput'
 import {
   PrismaDITokens,
@@ -13,13 +13,13 @@ import {
 
 @Injectable()
 export class DeleteNodeService
-  implements TransactionalUseCase<DeleteNodeInput, Graph> {
+  implements TransactionalUseCase<DeleteNodeInput, GraphDto> {
   constructor(
     @Inject(PrismaDITokens.PrismaService)
     private readonly prismaService: PrismaService,
   ) {}
 
-  async execute({ vertexId }: DeleteNodeInput): Promise<Graph> {
+  async execute({ vertexId }: DeleteNodeInput) {
     try {
       const graph = await this.prismaService.graph.findFirst({
         where: {

@@ -1,6 +1,10 @@
-import { Field, ObjectType } from '@nestjs/graphql'
+import { Field, ObjectType, registerEnumType } from '@nestjs/graphql'
 import { GraphQLJSONObject } from 'graphql-type-json'
 import { NodeType } from '@codelab/backend'
+
+registerEnumType(NodeType, {
+  name: 'NodeType',
+})
 
 @ObjectType('Vertex')
 export class Vertex {

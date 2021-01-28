@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common'
-import { Graph as PrismaGraph } from '@prisma/client'
 import arrayMove from 'array-move'
 import { Edge } from '../../../domain/edge/Edge'
 import { Graph } from '../../../domain/graph/Graph'
+import { GraphDto } from '../../../domain/graph/GraphDto'
 import { Vertex } from '../../../domain/vertex/Vertex'
 import { MoveNodeInput } from './MoveNodeInput'
 import { PrismaService, TransactionalUseCase } from '@codelab/backend'
@@ -11,14 +11,12 @@ export type VertexId = string
 
 @Injectable()
 export class MoveNodeService
-  implements TransactionalUseCase<MoveNodeInput, Graph> {
-  declare graph: Graph
+  implements TransactionalUseCase<MoveNodeInput, GraphDto> {
+  declare graph: GraphDto
 
   constructor(private readonly prismaService: PrismaService) {}
 
-  async execute(input: MoveNodeInput): Promise<Graph> {
-    const { graphId } = input
-
+  async execute({ graphId, type }: MoveNodeInput) {
     try {
       this.graph = ((await this.prismaService.graph.findUnique({
         where: {
@@ -60,11 +58,11 @@ export class MoveNodeService
     }
 
     this.setVertexParent()
-    this.moveVertex(input.type.source, input.type.target)
+    this.moveVertex(type.source, type.target)
     const { edges } = this.graph
 
-    delete this.graph.edges
-    delete this.graph.vertices
+    // delete this.graph.edges
+    // delete this.graph.vertices
 
     const updateEdges = edges.map((e: Edge) => {
       return {
@@ -84,7 +82,7 @@ export class MoveNodeService
         id: graphId,
       },
       data: {
-        ...(this.graph as PrismaGraph),
+        ...(this.graph as Pick<GraphDto, 'id' | 'label'>),
         edges: {
           updateMany: [...updateEdges],
         },

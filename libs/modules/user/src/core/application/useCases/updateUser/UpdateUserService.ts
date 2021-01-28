@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common'
-import { User } from '../../../domain/User'
+import { UserDto } from '../../../domain/UserDto'
 import { UpdateUserInput } from './UpdateUserInput'
 import { PrismaService, TransactionalUseCase } from '@codelab/backend'
 
 @Injectable()
 export class UpdateUserService
-  implements TransactionalUseCase<UpdateUserInput, User> {
+  implements TransactionalUseCase<UpdateUserInput, UserDto> {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async execute({ id, ...data }: UpdateUserInput): Promise<User> {
+  async execute({ id, ...data }: UpdateUserInput) {
     try {
       return await this.prismaService.user.update({
         where: {

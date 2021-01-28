@@ -1,24 +1,36 @@
 overwrite: true
 schema: http://localhost:3333/graphql
-# hooks:
-#   afterAllFileWrite:
-#     - prettier --write
-#     # - eslint --fix
+hooks:
+  afterAllFileWrite:
+    - npx eslint --fix
 generates:
   schema.graphql:
     plugins:
       - schema-ast
     hooks:
       afterAllFileWrite:
-        - prettier --write
+        - npx prettier --write
 
-  # src/:
-  #   # preset: near-operation-file
-  #   # presetConfig:
-  #   #   baseTypesPath: types.ts
+  libs/generated/src/graphql.generated.ts:
+    # preset: near-operation-file
+    # presetConfig:
+    #   baseTypesPath: types/types.generated.ts
+    #   importAllFragmentsFrom: types/fragments.generated
+    documents:
+      - libs/modules/**/*.gql.ts
+      # - types/fragments.generated.ts
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-document-nodes
+      - typescript-react-apollo
+    config:
+      documentVariableSuffix: 'Gql'
+      gqlImport: '@apollo/client#gql'
+
+  # fragments.generated.ts:
   #   #   # importAllFragmentsFrom: libs/modules/page/src/core/domain/PageFragments.gql.ts
-  #   #   # importAllFragmentsFrom: libs/modules/page/src/core/domain/PageFragments.gql.ts
-  #   documents: libs/modules/**/domain/**/*.fragments.gql.ts
+  #   documents: libs/modules/**/*fragments.gql.ts
   #   plugins:
   #     - typescript-document-nodes
   #     # - typescript

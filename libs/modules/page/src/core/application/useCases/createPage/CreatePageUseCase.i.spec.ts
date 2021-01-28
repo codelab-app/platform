@@ -9,8 +9,8 @@ import { RegisterUserGql } from '../../../../../../user/src/core/application/use
 import { UserModule } from '../../../../../../user/src/framework/nestjs/UserModule'
 import { PageModule } from '../../../../framework/nestjs/PageModule'
 import { Page } from '../../../domain/Page'
-import { CreatePageGql } from './CreatePage.generated'
 import { setupTestModule, teardownTestModule } from '@codelab/backend'
+import { CreatePageGql } from '@codelab/generated'
 import { User } from '@codelab/modules/user'
 
 const email = 'test_user@codelab.ai'

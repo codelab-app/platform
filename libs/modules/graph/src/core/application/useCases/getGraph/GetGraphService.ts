@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common'
-import { Graph } from '../../../domain/graph/Graph'
+import { GraphDto } from '../../../domain/graph/GraphDto'
 import { GetGraphByInput } from './GetGraphByInput'
 import { GetGraphInput } from './GetGraphInput'
 import {
@@ -10,13 +10,13 @@ import {
 
 @Injectable()
 export class GetGraphService
-  implements TransactionalUseCase<GetGraphInput, Graph | null> {
+  implements TransactionalUseCase<GetGraphInput, GraphDto | null> {
   constructor(
     @Inject(PrismaDITokens.PrismaService)
     private readonly prismaService: PrismaService,
   ) {}
 
-  async execute({ id }: GetGraphInput): Promise<Graph | null> {
+  async execute({ id }: GetGraphInput) {
     try {
       return await this.prismaService.graph.findUnique({
         where: {
@@ -30,15 +30,15 @@ export class GetGraphService
   }
 
   async getGraphsByPageId(pageId: string) {
-    return this.prismaService.graph.findMany({
+    return await this.prismaService.graph.findMany({
       where: {
         pageId,
       },
     })
   }
 
-  async getGraphBy({ appId, pageId }: GetGraphByInput): Promise<Graph> {
-    let graphs: Array<Graph> = []
+  async getGraphBy({ appId, pageId }: GetGraphByInput): Promise<GraphDto> {
+    let graphs: Array<GraphDto> = []
 
     if (appId && pageId) {
       throw new Error('Cannot search by both appId and pageId')

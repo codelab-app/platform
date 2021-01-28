@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common'
-import { Graph } from '../../../domain/graph/Graph'
+import { GraphDto } from '../../../domain/graph/GraphDto'
 import { AddChildNodeInput } from './AddChildNodeInput'
 import {
   PrismaDITokens,
@@ -9,13 +9,13 @@ import {
 
 @Injectable()
 export class AddChildNodeService
-  implements TransactionalUseCase<AddChildNodeInput, Graph> {
+  implements TransactionalUseCase<AddChildNodeInput, GraphDto> {
   constructor(
     @Inject(PrismaDITokens.PrismaService)
     private readonly prismaService: PrismaService,
   ) {}
 
-  async execute(request: AddChildNodeInput): Promise<Graph> {
+  async execute(request: AddChildNodeInput) {
     const { graphId, parentVertexId, vertex, order } = request
 
     const createdVertex = await this.prismaService.vertex.create({

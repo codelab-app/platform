@@ -6,19 +6,21 @@ import * as glob from 'glob'
  */
 export const typesOutputPathAbsolute = `${process.cwd()}/types/types.generated`
 
+export const fragmentsOutputPathAbsolute = `${process.cwd()}/types/fragments.generated`
+
 /**
  * Location of all our graphql queries/mutations
  */
 export const graphqlQueryPaths = [
-  ...glob.sync(`${process.cwd()}/libs/modules/**/useCases/**/*.graphql`),
-  // ...glob.sync(`${process.cwd()}/libs/modules/**/useCases/**/*.gql.ts`),
+  // ...glob.sync(`${process.cwd()}/libs/modules/**/useCases/**/*.graphql`),
+  ...glob.sync(`${process.cwd()}/libs/modules/**/useCases/**/*.gql.ts`),
 ]
 
 /**
  * These are shared across all graphql queries
  */
 export const fragmentQueryPaths = [
-  // ...glob.sync(`${process.cwd()}/libs/modules/**/domain/**/*.gql.ts`),
+  ...glob.sync(`${process.cwd()}/libs/modules/**/domain/**/*.fragments.gql.ts`),
 ]
 
 /**

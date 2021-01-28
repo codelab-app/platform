@@ -167,6 +167,7 @@ export type User = {
   id: Scalars['String']
   email: Scalars['String']
   accessToken: Scalars['String']
+  apps: Array<App>
 }
 
 export type Query = {

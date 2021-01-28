@@ -3,7 +3,8 @@
   "workspaces": {
     "packages": [
       "dist/libs/tools/plugins/*",
-      "dist/nrwl/*"
+      "dist/nrwl/*",
+      "libs/generated"
     ],
     "nohoist": []
   },
