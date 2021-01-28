@@ -1,8 +1,8 @@
 import { useRouter, withRouter } from 'next/router'
 import * as R from 'ramda'
 import React from 'react'
-import { useGetPageQuery } from '../../../../../../../libs/modules/page/src/core/application/useCases/getPage/GetPage.generated'
 import { withRouterLoader } from '@codelab/frontend'
+import { useGetPageQuery } from '@codelab/generated'
 
 const PageDetail = () => {
   const { query } = useRouter()

@@ -1,6 +1,6 @@
 import { ServiceConfig } from 'xstate/lib/types'
-import { CreateAppGql } from './CreateAppInput.generated'
 import { getApolloClient, mutate } from '@codelab/frontend'
+import { CreateAppGql } from '@codelab/generated'
 
 export const createAppService: Record<string, ServiceConfig<any, any>> = {
   createApp: async (context, { data }) => {

@@ -64,6 +64,7 @@ orbs:
   slack: circleci/slack@3.4.2
   cypress: cypress-io/cypress@1.26.0
   node: circleci/node@4.1.0
+  #
 
 executors:
   machine-ubuntu:
@@ -137,10 +138,10 @@ commands:
     steps:
       - checkout
       - setup-env
-      # We need this for `env-cmd -f .env` command
-      - attach_workspace:
-          at: ..
-      - run: cp ~/.env .
+      # # We need this for `env-cmd -f .env` command
+      # - attach_workspace:
+      #     at: ..
+      # - run: cp ~/.env .
 
   yarn-install-dev:
     steps:
@@ -153,9 +154,9 @@ commands:
       - run:
           name: 'Install NPM packages'
           command: "yarn install --frozen-lockfile --prod=false"
-      - run:
-          name: 'List Cypress cache'
-          command: npx cypress cache path
+      # - run:
+      #     name: 'List Cypress cache'
+      #     command: npx cypress cache path
       - run:
           name: 'Remove NPM .cache'
           command: rm -rf ~/app/node_modules/.cache
@@ -218,6 +219,9 @@ jobs:
     steps:
       - setup-workspace
       - yarn-install-dev
+      - run:
+          name: 'Reset Prisma'
+          command: yarn prisma:reset
       - run:
           name: 'Build CI'
           command: make build-ci

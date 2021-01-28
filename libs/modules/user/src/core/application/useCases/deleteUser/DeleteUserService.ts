@@ -1,21 +1,14 @@
-import { Inject, Injectable } from '@nestjs/common'
-import { User } from '../../../../presentation/User'
+import { Injectable } from '@nestjs/common'
+import { UserDto } from '../../../domain/UserDto'
 import { DeleteUserInput } from './DeleteUserInput'
-import {
-  PrismaDITokens,
-  PrismaService,
-  TransactionalUseCase,
-} from '@codelab/backend'
+import { PrismaService, TransactionalUseCase } from '@codelab/backend'
 
 @Injectable()
 export class DeleteUserService
-  implements TransactionalUseCase<DeleteUserInput, User> {
-  constructor(
-    @Inject(PrismaDITokens.PrismaService)
-    private readonly prismaService: PrismaService,
-  ) {}
+  implements TransactionalUseCase<DeleteUserInput, UserDto> {
+  constructor(private readonly prismaService: PrismaService) {}
 
-  async execute({ email }: DeleteUserInput): Promise<User> {
+  async execute({ email }: DeleteUserInput) {
     try {
       return await this.prismaService.user.delete({
         where: {

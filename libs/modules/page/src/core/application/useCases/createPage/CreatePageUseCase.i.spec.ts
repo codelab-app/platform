@@ -1,21 +1,24 @@
 import { INestApplication } from '@nestjs/common'
 import { print } from 'graphql'
 import request from 'supertest'
-import { CreateAppGql } from '../../../../../../app/src/core/application/useCases/createApp/CreateApp.generated'
 import { App } from '../../../../../../app/src/core/domain/App'
 import { AppModule } from '../../../../../../app/src/framework/nestjs/AppModule'
 import { GraphModule } from '../../../../../../graph/src/framework/nestjs/GraphModule'
-import { RegisterUserGql } from '../../../../../../user/src/core/application/useCases/registerUser/RegisterUser.generated'
 import { UserModule } from '../../../../../../user/src/framework/nestjs/UserModule'
 import { PageModule } from '../../../../framework/nestjs/PageModule'
-import { CreatePageGql } from './CreatePage.generated'
+import { Page } from '../../../domain/Page'
 import { setupTestModule, teardownTestModule } from '@codelab/backend'
+import {
+  CreateAppGql,
+  CreatePageGql,
+  RegisterUserGql,
+} from '@codelab/generated'
 import { User } from '@codelab/modules/user'
 
 const email = 'test_user@codelab.ai'
 const password = 'password'
 
-describe.skip('CreatePageUseCase', () => {
+describe('CreatePageUseCase', () => {
   let app: INestApplication
   let user: User
 
@@ -109,7 +112,14 @@ describe.skip('CreatePageUseCase', () => {
       })
       .expect(200)
       .expect((res) => {
-        expect(res.body.data.createPage.title).toEqual('Page 1')
+        const page: Page = res.body.data.createPage
+
+        expect(page.title).toEqual('Page 1')
+        expect(page.graphs?.length).toEqual(1)
+        expect(page.graphs[0].vertices.length).toEqual(1)
+        expect(page.graphs[0].vertices[0].type).toEqual(
+          'React_Grid_Layout_Container',
+        )
       })
   })
 })

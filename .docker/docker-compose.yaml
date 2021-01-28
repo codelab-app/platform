@@ -20,20 +20,20 @@ services:
       - NEXT_PUBLIC_API_ORIGIN
       - NEXT_PUBLIC_API_PATHNAME
 
-  fluentd:
-    ports:
-      - 24224:24224
-    container_name: fluentd
-    image: fluentd
-    tty: true # colorize output
-    environment:
-      DEBUG_COLORS: 'true'
-      TERM: xterm-256color
-      COLORTERM: truecolor
-    build:
-      context: fluentd
-    volumes:
-      - ./fluentd/configs:/fluentd/etc/
+  # fluentd:
+  #   ports:
+  #     - 24224:24224
+  #   container_name: fluentd
+  #   image: fluentd
+  #   tty: true # colorize output
+  #   environment:
+  #     DEBUG_COLORS: 'true'
+  #     TERM: xterm-256color
+  #     COLORTERM: truecolor
+  #   build:
+  #     context: fluentd
+  #   volumes:
+  #     - ./fluentd/configs:/fluentd/etc/
 
   postgres:
     image: postgres:12

@@ -8,11 +8,11 @@ export class Graph {
   declare id: string
 
   @Field()
-  public declare label: string
+  declare label: string
 
   @Field(() => [Vertex], { defaultValue: [] })
-  declare vertices?: Array<Vertex>
+  declare vertices: Array<Vertex>
 
   @Field(() => [Edge], { defaultValue: [] })
-  declare edges?: Array<Edge>
+  declare edges: Array<Edge>
 }

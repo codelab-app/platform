@@ -2,14 +2,14 @@
   "recommendations": [
     "nrwl.angular-console",
     "esbenp.prettier-vscode",
-    "zxh404.vscode-proto3",
+    // "zxh404.vscode-proto3",
     "redhat.vscode-yaml",
     "q.typescript-mono-repo-import-helper",
     "wayou.vscode-todo-highlight",
     "graphql.vscode-graphql",
     "dbaeumer.vscode-eslint",
     "mikestead.dotenv",
-    "firsttris.vscode-jest-runner",
+    // "firsttris.vscode-jest-runner",
     "prisma.prisma"
   ]
 }

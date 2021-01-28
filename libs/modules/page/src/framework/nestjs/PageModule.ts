@@ -10,9 +10,14 @@ import { PrismaService } from '@codelab/backend'
 @Module({
   imports: [GraphModule],
   providers: [
-    PageGraphqlAdapter,
     PrismaService,
-    // UseCaseProvider
+    /**
+     * Controllers
+     */
+    PageGraphqlAdapter,
+    /**
+     * UseCaseProviders
+     */
     DeletePageService,
     GetPageService,
     GetPagesService,

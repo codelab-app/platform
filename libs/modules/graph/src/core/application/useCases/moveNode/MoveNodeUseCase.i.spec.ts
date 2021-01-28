@@ -1,52 +1,53 @@
 import { INestApplication } from '@nestjs/common'
+import { print } from 'graphql'
 import request from 'supertest'
+import { setupTestModule, teardownTestModule } from '@codelab/backend'
 import {
-  PrismaDITokens,
-  PrismaService,
-  setupTestModule,
-  teardownTestModule,
-} from '@codelab/backend'
+  AddChildNodeGql,
+  CreateAppGql,
+  CreatePageGql,
+  RegisterUserGql,
+} from '@codelab/generated'
+import { App, AppModule } from '@codelab/modules/app'
 import { GraphModule } from '@codelab/modules/graph'
+import { PageModule } from '@codelab/modules/page'
+import { User, UserModule } from '@codelab/modules/user'
+
+const email = 'test_user@codelab.ai'
+const password = 'password'
 
 const addChildNodeToRootMutation = (
   graphId: string,
   rootNodeId: string,
   order: number,
   propsId: string,
-): string => {
-  return `
-      mutation {
-        addChildNode(request:
-          {
-            order: ${order},
-            graphId: "${graphId}",
-            parentVertexId: "${rootNodeId}",
-            vertex:
-            {
-              type: React_Text,
-              props: {
-                id: "${propsId}"
-              }
-            }
-          }) {
-            label
-            vertices { id type props }
-            edges { id order source target props }
-          }
-      }
-    `
+) => {
+  return {
+    query: print(AddChildNodeGql),
+    variables: {
+      input: {
+        order,
+        graphId,
+        parentVertexId: rootNodeId,
+        vertex: {
+          type: 'React_Text',
+          props: {
+            id: propsId,
+          },
+        },
+      },
+    },
+  }
 }
 
 const addChildNodeToRootRequest = async (
   app: INestApplication,
-  query: string,
+  query: any,
   graphLabel: string,
 ) => {
-  return request(app.getHttpServer())
+  return await request(app.getHttpServer())
     .post('/graphql')
-    .send({
-      query,
-    })
+    .send(query)
     .expect(200)
     .expect((res) => {
       expect(res.body.data.addChildNode.label).toEqual(graphLabel)
@@ -54,73 +55,88 @@ const addChildNodeToRootRequest = async (
 }
 
 describe.skip('MoveNodeUseCase', () => {
-  let app: INestApplication
-  let prismaService: PrismaService
+  let nestApp: INestApplication
+  let user: User
+  let app: App
+  let page: any
 
   beforeAll(async () => {
-    app = await setupTestModule(app, GraphModule)
-    prismaService = app.get(PrismaDITokens.PrismaService)
-  })
+    nestApp = await setupTestModule(
+      nestApp,
+      PageModule,
+      GraphModule,
+      UserModule,
+      AppModule,
+    )
 
-  beforeEach(async () => {
-    prismaService.resetDb()
+    // Register user
+    user = await request(nestApp.getHttpServer())
+      .post('/graphql')
+      .send({
+        query: print(RegisterUserGql),
+        variables: {
+          input: {
+            email,
+            password,
+          },
+        },
+      })
+      .then((res) => res.body.data.registerUser)
+
+    // Create App
+    const title = 'Test App'
+
+    app = await request(nestApp.getHttpServer())
+      .post('/graphql')
+      .set('Authorization', `Bearer ${user.accessToken}`)
+      .send({
+        query: print(CreateAppGql),
+        variables: {
+          input: {
+            title,
+          },
+        },
+      })
+      .expect(200)
+      .expect((res) => {
+        expect(res.body.data.createApp.title).toEqual('Test App')
+      })
+      .then((res) => res.body.data.createApp)
+    // Create Page
+    page = await request(nestApp.getHttpServer())
+      .post('/graphql')
+      .set('Authorization', `Bearer ${user.accessToken}`)
+      .send({
+        query: print(CreatePageGql),
+        variables: {
+          input: {
+            title: 'Page 1',
+            appId: app.id,
+          },
+        },
+      })
+      .expect(200)
+      .expect((res) => {
+        const pageRes = res.body.data.createPage
+
+        expect(pageRes.title).toEqual('Page 1')
+        expect(pageRes.graphs.length).toEqual(1)
+        expect(pageRes.graphs[0].vertices.length).toEqual(1)
+        expect(pageRes.graphs[0].vertices[0].type).toEqual(
+          'React_Grid_Layout_Container',
+        )
+      })
+      .then((res) => res.body.data.createPage)
   })
 
   afterAll(async () => {
-    await teardownTestModule(app)
+    await teardownTestModule(nestApp)
   })
 
   it('should move with same parent', async () => {
-    const label = 'Graph 1'
-    const createGraphMutation = `mutation {
-			createGraph(graph: {label: "${label}"}) { id label }
-		}`
-    const createNewGraph: any = await request(app.getHttpServer())
-      .post('/graphql')
-      .send({
-        query: createGraphMutation,
-      })
-      .expect(200)
-      .expect((res) => {
-        expect(res.body.data.createGraph.label).toEqual(label)
-        expect(res.body.data.createGraph.id).toBeDefined()
-      })
-    const graphId = createNewGraph.body.data.createGraph.id
-    const addRootNodeMutation = `
-      mutation {
-        addChildNode(request:
-        {
-          graphId: "${graphId}",
-          vertex:
-          {
-            type: React_Fragment,
-            props: {
-              id: "root"
-            }
-          }
-        }) {
-          label
-          vertices { id type props }
-        }
-      }
-    `
-    const addRootNode: any = await request(app.getHttpServer())
-      .post('/graphql')
-      .send({
-        query: addRootNodeMutation,
-      })
-      .expect(200)
-      .expect((res) => {
-        expect(res.body.data.addChildNode.label).toEqual(label)
-        expect(res.body.data.addChildNode.vertices.length).toEqual(1)
-        expect(res.body.data.addChildNode.vertices[0].type).toEqual(
-          'React_Fragment',
-        )
-        expect(res.body.data.addChildNode.vertices[0].props).toMatchObject({
-          id: 'root',
-        })
-      })
-    const rootNodeId = addRootNode.body.data.addChildNode.vertices[0].id
+    const label = 'Layout'
+    const graphId = page.graphs[0].id
+    const rootNodeId = page.graphs[0].vertices[0].id
     const addChildNodeAMutation = addChildNodeToRootMutation(
       graphId,
       rootNodeId,
@@ -153,27 +169,27 @@ describe.skip('MoveNodeUseCase', () => {
     )
 
     const addA = await addChildNodeToRootRequest(
-      app,
+      nestApp,
       addChildNodeAMutation,
       label,
     )
     const addB = await addChildNodeToRootRequest(
-      app,
+      nestApp,
       addChildNodeBMutation,
       label,
     )
     const addC = await addChildNodeToRootRequest(
-      app,
+      nestApp,
       addChildNodeCMutation,
       label,
     )
     const addD = await addChildNodeToRootRequest(
-      app,
+      nestApp,
       addChildNodeDMutation,
       label,
     )
     const addE: any = await addChildNodeToRootRequest(
-      app,
+      nestApp,
       addChildNodeEMutation,
       label,
     )
@@ -193,15 +209,15 @@ describe.skip('MoveNodeUseCase', () => {
 
     const { vertices } = addE.body.data.addChildNode
     const vertexA = vertices.find((v: any) => {
-      return v.props.id === 'a'
+      return v.props?.id === 'a'
     })
     const vertexE = vertices.find((v: any) => {
-      return v.props.id === 'e'
+      return v.props?.id === 'e'
     })
 
     const moveVertexMutation = `
       mutation {
-        moveNode(request: {
+        moveNode(input: {
           graphId: "${graphId}",
           type: {
             source: "${vertexE.id}",
@@ -210,7 +226,7 @@ describe.skip('MoveNodeUseCase', () => {
         }) { id label edges { order source target props } }
       }
     `
-    const moveNodeReq = await request(app.getHttpServer())
+    const moveNodeReq = await request(nestApp.getHttpServer())
       .post('/graphql')
       .send({
         query: moveVertexMutation,

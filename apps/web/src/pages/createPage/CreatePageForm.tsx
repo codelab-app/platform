@@ -1,13 +1,14 @@
-import { JSONSchema7 } from 'json-schema'
 import { useRouter } from 'next/router'
 import React from 'react'
 import { ApolloForm } from '../../../../../libs/frontend/src/components/form/ApolloForm'
-import { useCreatePageMutation } from '../../../../../libs/modules/page/src/core/application/useCases/createPage/CreatePage.generated'
-import { GetPagesGql } from '../../../../../libs/modules/page/src/core/application/useCases/getPages/GetPages.generated'
-import { CreatePageMutationVariables } from '../../../../../types/types.generated'
+import { useCreatePageMutation } from '../../../../../libs/generated/src/graphql.generated'
 import { JsonSchemaUseCaseFormProps } from '@codelab/frontend'
+import {
+  CreatePageInputSchema,
+  CreatePageMutationVariables,
+  GetPagesGql,
+} from '@codelab/generated'
 import { CreatePageInput } from 'libs/modules/page/src/core/application/useCases/createPage/CreatePageInput'
-import { CreatePageInputSchema } from 'libs/modules/page/src/core/application/useCases/createPage/CreatePageInput.generated'
 
 export const CreatePageForm = (
   props: JsonSchemaUseCaseFormProps<CreatePageInput>,
@@ -29,7 +30,7 @@ export const CreatePageForm = (
           },
         ],
       })}
-      schema={CreatePageInputSchema as JSONSchema7}
+      schema={CreatePageInputSchema}
       rjsfFormProps={{
         uiSchema: {
           appId: {

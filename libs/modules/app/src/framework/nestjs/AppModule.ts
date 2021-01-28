@@ -5,11 +5,18 @@ import { GetAppService } from '../../core/application/useCases/getApp/GetAppServ
 import { GetAppsService } from '../../core/application/useCases/getApps/GetAppsService'
 import { UpdateAppService } from '../../core/application/useCases/updateApp/UpdateAppService'
 import { AppGraphqlAdapter } from '../../presentation/controllers/AppGraphqlAdapter'
+import { PrismaService } from '@codelab/backend'
 
 @Module({
   providers: [
+    PrismaService,
+    /**
+     * Controllers
+     */
     AppGraphqlAdapter,
-    // UseCaseProviders
+    /**
+     * UseCaseProviders
+     */
     GetAppService,
     GetAppsService,
     DeleteAppService,

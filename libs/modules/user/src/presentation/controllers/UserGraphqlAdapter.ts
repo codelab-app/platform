@@ -8,7 +8,7 @@ import { RegisterUserInput } from '../../core/application/useCases/registerUser/
 import { RegisterUserService } from '../../core/application/useCases/registerUser/RegisterUserService'
 import { UpdateUserInput } from '../../core/application/useCases/updateUser/UpdateUserInput'
 import { UpdateUserService } from '../../core/application/useCases/updateUser/UpdateUserService'
-import { User } from '../User'
+import { User } from '../../core/domain/User'
 import { CurrentUser, GqlAuthGuard } from '@codelab/backend'
 
 /**
@@ -30,23 +30,23 @@ export class UserGraphqlAdapter {
   ) {}
 
   @Mutation(() => User)
-  async deleteUser(@Args('input') input: DeleteUserInput) {
-    return await this.deleteUserService.execute(input)
+  deleteUser(@Args('input') input: DeleteUserInput) {
+    return this.deleteUserService.execute(input)
   }
 
   @Mutation(() => User)
-  async updateUser(@Args('input') input: UpdateUserInput) {
-    return await this.updateUserService.execute(input)
+  updateUser(@Args('input') input: UpdateUserInput) {
+    return this.updateUserService.execute(input)
   }
 
   @Mutation(() => User)
-  async registerUser(@Args('input') input: RegisterUserInput) {
-    return await this.registerUserService.execute(input)
+  registerUser(@Args('input') input: RegisterUserInput) {
+    return this.registerUserService.execute(input)
   }
 
   @Mutation(() => User)
-  async loginUser(@Args('input') input: LoginUserInput) {
-    return await this.loginUserService.execute(input)
+  loginUser(@Args('input') input: LoginUserInput) {
+    return this.loginUserService.execute(input)
   }
 
   @Query(() => User)

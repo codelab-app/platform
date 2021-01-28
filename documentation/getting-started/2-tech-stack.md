@@ -16,15 +16,18 @@
   - A React Framework for server-side rendering (SSR) & other performance optimizations
 - [Apollo Client](https://www.apollographql.com/docs/react)
   - A state management library for handling GraphQL
-- [XState](https://xstate.js.org/docs)
-  - A state machine library
+  <!-- - [XState](https://xstate.js.org/docs)
+  - A state machine library -->
 
 ## Backend
 
-- [Hasura](https://hasura.io)
-  - Backend as a service GraphQL gateway
-- [TypeOrm](https://typeorm.io)
-  - Typescript based
+<!-- - [Hasura](https://hasura.io)
+  - Backend as a service GraphQL gateway -->
+<!-- - [TypeOrm](https://typeorm.io)
+  - Typescript based -->
+
+- [Prisma](https://prisma.io)
+- ORM layer
 - [Nest.js](https://nestjs.com)
   - A Node.js framework suitable for micro-services architecture, which heavily uses OOP principles such as dependency injection (DI)
 

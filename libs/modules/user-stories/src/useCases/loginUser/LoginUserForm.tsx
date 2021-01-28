@@ -1,10 +1,9 @@
-import { JSONSchema7 } from 'json-schema'
 import React, { useState } from 'react'
 import { JsonSchemaForm } from '../../../../../frontend/src/components/form/json-schema/JsonSchemaForm'
 import { LoginUserInput } from '../../../../user/src/core/application/useCases/loginUser/LoginUserInput'
-import { LoginUserInputSchema } from '../../../../user/src/core/application/useCases/loginUser/LoginUserInput.generated'
 import { useUserMachine } from '../../store'
 import { JsonSchemaUseCaseFormProps } from '@codelab/frontend'
+import { LoginUserInputSchema } from '@codelab/generated'
 import { JsonSchemaFormEvent } from 'libs/frontend/src/components/form/json-schema/JsonSchemaForm.d'
 
 export const LoginUserForm = (
@@ -25,7 +24,7 @@ export const LoginUserForm = (
 
   return (
     <JsonSchemaForm<LoginUserInput>
-      schema={LoginUserInputSchema as JSONSchema7}
+      schema={LoginUserInputSchema}
       rjsfFormProps={{
         uiSchema: {
           password: {

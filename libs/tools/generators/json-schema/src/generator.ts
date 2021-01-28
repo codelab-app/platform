@@ -1,5 +1,3 @@
-import * as fs from 'fs'
-import * as path from 'path'
 import * as TJS from 'typescript-json-schema'
 
 export const makeGenerator = (
@@ -22,41 +20,50 @@ export const makeGenerator = (
   return generator
 }
 
-export const saveSchema = (
+export const createSchemaExport = (
   schema: TJS.Definition,
-  outputPath: string,
   symbol: string,
 ): string => {
-  const fileContents = `export const ${symbol}Schema = ${JSON.stringify(
+  const fileContents = `export const ${symbol}Schema: JSONSchema7 = ${JSON.stringify(
     schema,
     null,
     2,
   )}`
 
-  console.log(`Saving "${symbol}" to "${outputPath}"...`)
-
-  fs.writeFileSync(outputPath, fileContents)
-
-  return outputPath
+  return fileContents
 }
 
-export const getSymbolDirectory = (
-  symbol: string,
-  includeFilePatterns: Array<string>,
-) => {
-  const includeFilePattern = includeFilePatterns.find((pattern) => {
-    return pattern.includes(symbol)
-  })
+// export const saveSchema = (
+//   schema: TJS.Definition,
+//   outputPath: string,
+//   symbol: string,
+// ): string => {
+//   const fileContents = createSchemaExport(schema, symbol)
 
-  if (!includeFilePattern) {
-    throw new Error(
-      `${symbol} base directory not found! \nSymbol name must follow [useCase]Input.ts format`,
-    )
-  }
+//   console.log(`Saving "${symbol}" to "${outputPath}"...`)
 
-  return path.dirname(includeFilePattern)
-}
+//   fs.writeFileSync(outputPath, fileContents)
 
-export const getOutputFile = (baseDirectory: string, symbol: string) => {
-  return path.resolve(baseDirectory, `${symbol}.generated.ts`)
-}
+//   return outputPath
+// }
+
+// export const getSymbolDirectory = (
+//   symbol: string,
+//   includeFilePatterns: Array<string>,
+// ) => {
+//   const includeFilePattern = includeFilePatterns.find((pattern) => {
+//     return pattern.includes(symbol)
+//   })
+
+//   if (!includeFilePattern) {
+//     throw new Error(
+//       `${symbol} base directory not found! \nSymbol name must follow [useCase]Input.ts format`,
+//     )
+//   }
+
+//   return path.dirname(includeFilePattern)
+// }
+
+// export const getOutputFile = (baseDirectory: string, symbol: string) => {
+//   return path.resolve(baseDirectory, `${symbol}.generated.ts`)
+// }

@@ -1643,7 +1643,8 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/modules/graph/jest.config.js",
-            "passWithNoTests": true
+            "passWithNoTests": true,
+            "runInBand": true
           },
           "outputs": ["coverage/libs/modules/graph"]
         }

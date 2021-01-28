@@ -1,11 +1,10 @@
-import { JSONSchema7 } from 'json-schema'
 import React from 'react'
 import XStateForm, {
   GeneratedXStateFormProps,
 } from '../../../../../frontend/src/components/form/XStateForm'
 import { CreateAppInput } from '../../../../app/src/core/application/useCases/createApp/CreateAppInput'
-import { CreateAppInputSchema } from '../../../../app/src/core/application/useCases/createApp/CreateAppInput.generated'
 import { useAppMachine } from '../../model'
+import { CreateAppInputSchema } from '@codelab/generated'
 
 export type CreateAppFormProps = Omit<
   GeneratedXStateFormProps<CreateAppInput, any>,
@@ -17,7 +16,7 @@ export const CreateAppForm = (props: CreateAppFormProps) => {
 
   return (
     <XStateForm<CreateAppInput, any>
-      schema={CreateAppInputSchema as JSONSchema7}
+      schema={CreateAppInputSchema}
       send={app.send}
       createSubmitEvent={({ data }) => {
         return {

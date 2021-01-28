@@ -34,6 +34,7 @@ export const makeAsyncGenerator = async ({
   return await generate(
     {
       schema: 'http://localhost:4001/graphql',
+      // schema: 'schema.graphql',
       // type error, need to stub
       // eslint-ignore next-line
       hooks: {

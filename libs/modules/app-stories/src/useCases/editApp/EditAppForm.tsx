@@ -4,7 +4,7 @@ import XStateForm, {
   GeneratedXStateFormProps,
 } from '../../../../../frontend/src/components/form/XStateForm'
 import { useAppMachine } from '../../model'
-import { UpdateAppInputSchema } from 'libs/modules/app/src/core/application/useCases/updateApp'
+import { UpdateAppInputSchema } from '@codelab/generated'
 
 export type EditAppFormProps = Omit<
   GeneratedXStateFormProps<any, any>,
@@ -38,7 +38,7 @@ export const EditAppForm = (props: EditAppFormProps) => {
             data,
           }
         },
-        state: app.state,
+        state: app.state as any,
         contextKey: 'formData',
         storeStateInXState: true,
       }}

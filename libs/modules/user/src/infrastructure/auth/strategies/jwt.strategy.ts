@@ -3,7 +3,7 @@ import { JwtService } from '@nestjs/jwt'
 import { PassportStrategy } from '@nestjs/passport'
 import { ExtractJwt, Strategy } from 'passport-jwt'
 import { PrismaDITokens } from '../../../../../../backend/src/infrastructure/persistence/prisma/PrismaDITokens'
-import { User } from '../../../presentation/User'
+import { UserDto } from '../../../core/domain/UserDto'
 import { IToken } from '../IToken'
 import { JwtConfig } from '../config/JwtConfig'
 import { PrismaService } from '@codelab/backend'
@@ -23,7 +23,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
     })
   }
 
-  async validate(payload: any): Promise<User> {
+  async validate(payload: any): Promise<UserDto> {
     const { authorization } = payload.headers
     const token = authorization.replace('Bearer', '').trim()
     const decodedToken = this.jwtService.decode(token) as IToken

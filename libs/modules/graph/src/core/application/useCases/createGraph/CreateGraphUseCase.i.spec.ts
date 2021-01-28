@@ -1,24 +1,15 @@
 import { INestApplication } from '@nestjs/common'
+import { print } from 'graphql'
 import request from 'supertest'
-import { CreateGraphInput } from './CreateGraphInput'
 import { setupTestModule, teardownTestModule } from '@codelab/backend'
+import { CreateGraphGql } from '@codelab/generated'
 import { GraphModule } from '@codelab/modules/graph'
 
-const createGraphMutation = ({ label }: CreateGraphInput) => `
-  mutation {
-		createGraph(input: {
-      label: "${label}"
-    }) {
-      id
-      label
-    }
-  }`
-
-describe.skip('CreateGraphUseCase', () => {
+describe('CreateGraphUseCase', () => {
   let app: INestApplication
 
   beforeAll(async () => {
-    await setupTestModule(app, GraphModule)
+    app = await setupTestModule(app, GraphModule)
   })
 
   afterAll(async () => {
@@ -31,7 +22,12 @@ describe.skip('CreateGraphUseCase', () => {
     await request(app.getHttpServer())
       .post('/graphql')
       .send({
-        query: createGraphMutation({ label }),
+        query: print(CreateGraphGql),
+        variables: {
+          input: {
+            label,
+          },
+        },
       })
       .expect(200)
       .expect((res) => {

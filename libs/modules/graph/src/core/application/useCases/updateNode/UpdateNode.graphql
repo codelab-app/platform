@@ -1,0 +1,10 @@
+mutation UpdateNode($input: UpdateNodeInput!) {
+  updateNode(input: $input) {
+    label
+    vertices {
+      id
+      type
+      props
+    }
+  }
+}

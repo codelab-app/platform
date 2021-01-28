@@ -26,32 +26,29 @@ export class AppGraphqlAdapter {
 
   @Mutation(() => App)
   @UseGuards(GqlAuthGuard)
-  async createApp(
-    @Args('input') input: CreateAppInput,
-    @CurrentUser() user: User,
-  ) {
-    return await this.createAppService.execute({ ...input, user })
+  createApp(@Args('input') input: CreateAppInput, @CurrentUser() user: User) {
+    return this.createAppService.execute({ ...input, user })
   }
 
   @Query(() => App, { nullable: true })
   @UseGuards(GqlAuthGuard)
-  async getApp(@Args('input') input: GetAppInput) {
-    return await this.getAppService.execute({ ...input })
+  getApp(@Args('input') input: GetAppInput) {
+    return this.getAppService.execute({ ...input })
   }
 
   @Query(() => [App])
   @UseGuards(GqlAuthGuard)
-  async getApps(@CurrentUser() user: User) {
-    return await this.getAppsService.execute({ user })
+  getApps(@CurrentUser() user: User) {
+    return this.getAppsService.execute({ user })
   }
 
   @Mutation(() => App)
   @UseGuards(GqlAuthGuard)
-  async updateApp(
+  updateApp(
     @Args('input') { id, ...input }: UpdateAppInput,
     @CurrentUser() user: User,
   ) {
-    return await this.updateAppService.execute({
+    return this.updateAppService.execute({
       appId: id,
       userId: user.id,
       ...input,
@@ -60,7 +57,7 @@ export class AppGraphqlAdapter {
 
   @Mutation(() => App)
   @UseGuards(GqlAuthGuard)
-  async deleteApp(@Args('input') input: DeleteAppInput) {
-    return await this.deleteAppService.execute(input)
+  deleteApp(@Args('input') input: DeleteAppInput) {
+    return this.deleteAppService.execute(input)
   }
 }

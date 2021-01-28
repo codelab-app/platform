@@ -1,179 +1,130 @@
 import { INestApplication } from '@nestjs/common'
+import { print } from 'graphql'
 import request from 'supertest'
+import { setupTestModule, teardownTestModule } from '@codelab/backend'
 import {
-  PrismaDITokens,
-  PrismaService,
-  setupTestModule,
-  teardownTestModule,
-} from '@codelab/backend'
+  AddChildNodeGql,
+  CreateAppGql,
+  CreatePageGql,
+  RegisterUserGql,
+} from '@codelab/generated'
+import { App, AppModule } from '@codelab/modules/app'
 import { GraphModule } from '@codelab/modules/graph'
+import { PageModule } from '@codelab/modules/page'
+import { User, UserModule } from '@codelab/modules/user'
 
-describe.skip('AddChildNodeUseCase', () => {
+const email = 'test_user@codelab.ai'
+const password = 'password'
+
+describe('AddChildNodeUseCase', () => {
   let app: INestApplication
-  let prismaService: PrismaService
+  let user: User
+  let page
 
   beforeAll(async () => {
-    app = await setupTestModule(app, GraphModule)
-    prismaService = app.get(PrismaDITokens.PrismaService)
+    app = await setupTestModule(
+      app,
+      PageModule,
+      GraphModule,
+      UserModule,
+      AppModule,
+    )
+    // Register user
+    user = await request(app.getHttpServer())
+      .post('/graphql')
+      .send({
+        query: print(RegisterUserGql),
+        variables: {
+          input: {
+            email,
+            password,
+          },
+        },
+      })
+      .then((res) => res.body.data.registerUser)
   })
 
   afterAll(async () => {
     await teardownTestModule(app)
   })
 
-  beforeEach(() => {
-    prismaService.resetDb()
-  })
-
-  it('should create vertex under graph', async () => {
-    const label = 'Graph 1'
-    const createGraphMutation = `mutation {
-			createGraph(input: {label: "${label}"}) { id label }
-		}`
-    const createNewGraph: any = await request(app.getHttpServer())
-      .post('/graphql')
-      .send({
-        query: createGraphMutation,
-      })
-      .expect(200)
-      .expect((res) => {
-        expect(res.body.data.createGraph.label).toEqual(label)
-        expect(res.body.data.createGraph.id).toBeDefined()
-      })
-    const graphId = createNewGraph.body.data.createGraph.id
-    const addChildNodeMutation = `
-      mutation {
-        addChildNode(input:
-        {
-          graphId: "${graphId}",
-          vertex:
-          {
-            type: React_Text,
-            props: {
-              id: "root"
-            }
-          }
-        }) {
-          label
-          vertices { id type props }
-        }
-      }
-    `
-    const addChildNode = await request(app.getHttpServer())
-      .post('/graphql')
-      .send({
-        query: addChildNodeMutation,
-      })
-      .expect(200)
-      .expect((res) => {
-        expect(res.body.data.addChildNode.label).toEqual(label)
-        expect(res.body.data.addChildNode.vertices.length).toEqual(1)
-        expect(res.body.data.addChildNode.vertices[0].type).toEqual(
-          'React_Text',
-        )
-        expect(res.body.data.addChildNode.vertices[0].props).toMatchObject({
-          id: 'root',
-        })
-      })
-  })
-
   it('should create 2 vertices and link them using edge', async () => {
-    const label = 'Graph 1'
-    const createGraphMutation = `mutation {
-			createGraph(input: {label: "${label}"}) { id label }
-		}`
-    const createNewGraph: any = await request(app.getHttpServer())
+    const title = 'Test App'
+    const createApp: App = await request(app.getHttpServer())
       .post('/graphql')
+      .set('Authorization', `Bearer ${user.accessToken}`)
       .send({
-        query: createGraphMutation,
+        query: print(CreateAppGql),
+        variables: {
+          input: {
+            title,
+          },
+        },
       })
       .expect(200)
       .expect((res) => {
-        expect(res.body.data.createGraph.label).toEqual(label)
-        expect(res.body.data.createGraph.id).toBeDefined()
+        expect(res.body.data.createApp.title).toEqual('Test App')
       })
-    const graphId = createNewGraph.body.data.createGraph.id
-    const addChildNodeMutation = `
-      mutation {
-        addChildNode(input:
-        {
-          graphId: "${graphId}",
-          vertex:
-          {
-            type: React_Text,
-            props: {
-              id: "root"
-            }
-          }
-        }) {
-          label
-          vertices { id type props }
-        }
-      }
-    `
-    const addChildNode: any = await request(app.getHttpServer())
+      .then((res) => res.body.data.createApp)
+    const { id } = createApp
+
+    page = await request(app.getHttpServer())
       .post('/graphql')
+      .set('Authorization', `Bearer ${user.accessToken}`)
       .send({
-        query: addChildNodeMutation,
+        query: print(CreatePageGql),
+        variables: {
+          input: {
+            title: 'Page 1',
+            appId: id,
+          },
+        },
       })
       .expect(200)
       .expect((res) => {
-        expect(res.body.data.addChildNode.label).toEqual(label)
-        expect(res.body.data.addChildNode.vertices.length).toEqual(1)
-        expect(res.body.data.addChildNode.vertices[0].type).toEqual(
-          'React_Text',
+        const pageRes = res.body.data.createPage
+
+        expect(pageRes.title).toEqual('Page 1')
+        expect(pageRes.graphs.length).toEqual(1)
+        expect(pageRes.graphs[0].vertices.length).toEqual(1)
+        expect(pageRes.graphs[0].vertices[0].type).toEqual(
+          'React_Grid_Layout_Container',
         )
-        expect(res.body.data.addChildNode.vertices[0].props).toMatchObject({
-          id: 'root',
-        })
       })
-    const childNodeId = addChildNode.body.data.addChildNode.vertices[0].id
-    const addChildNodeWithParentMutation = `
-      mutation {
-        addChildNode(input:
-          {
-            order: 0,
-            graphId: "${graphId}",
-            parentVertexId: "${childNodeId}",
-            vertex:
-            {
-              type: React_Text,
-              props: {
-                id: "a"
-              }
-            }
-          }) {
-            label
-            vertices { id type props }
-            edges { id order source target props }
-          }
-      }
-    `
+      .then((res) => res.body.data.createPage)
+    const graphId = page.graphs[0].id
+    const parentVertexId = page.graphs[0].vertices[0].id
+
     const addChildNodeWithParent = await request(app.getHttpServer())
       .post('/graphql')
       .send({
-        query: addChildNodeWithParentMutation,
+        query: print(AddChildNodeGql),
+        variables: {
+          input: {
+            order: 0,
+            graphId,
+            parentVertexId,
+            vertex: {
+              type: 'React_Text',
+              props: {
+                id: 'a',
+              },
+            },
+          },
+        },
       })
       .expect(200)
       .expect((res) => {
-        expect(res.body.data.addChildNode.label).toEqual(label)
-        expect(res.body.data.addChildNode.vertices.length).toEqual(2)
-        expect(res.body.data.addChildNode.edges.length).toEqual(1)
-        expect(res.body.data.addChildNode.edges[0].source).toEqual(childNodeId)
-        expect(res.body.data.addChildNode.edges[0].order).toEqual(0)
-        expect(res.body.data.addChildNode.edges[0].props).toMatchObject({
-          id: 'a',
-        })
-        expect(res.body.data.addChildNode.vertices[0].type).toEqual(
-          'React_Text',
-        )
-        expect(res.body.data.addChildNode.vertices[0].props).toMatchObject({
-          id: 'root',
-        })
-        expect(res.body.data.addChildNode.vertices[1].type).toEqual(
-          'React_Text',
-        )
-        expect(res.body.data.addChildNode.vertices[1].props).toMatchObject({
+        const graph = res.body.data.addChildNode
+
+        expect(graph.label).toEqual('Layout')
+        expect(graph.vertices.length).toEqual(2)
+        expect(graph.edges.length).toEqual(1)
+        expect(graph.edges[0].source).toEqual(parentVertexId)
+        expect(graph.edges[0].order).toEqual(0)
+        expect(graph.vertices[0].type).toEqual('React_Grid_Layout_Container')
+        expect(graph.vertices[1].type).toEqual('React_Text')
+        expect(graph.vertices[1].props).toMatchObject({
           id: 'a',
         })
       })

@@ -1,17 +1,13 @@
+import * as fs from 'fs'
 import * as path from 'path'
 import * as glob from 'glob'
-import {
-  getOutputFile,
-  getSymbolDirectory,
-  makeGenerator,
-  saveSchema,
-} from './generator'
+import { createSchemaExport, makeGenerator } from './generator'
 import { lintFiles } from './utils'
 
+const outputPath = `${process.cwd()}/libs/generated/src/json-schema.generated.ts`
 /**
  * We look in each use case folder for a `[UseCase]Input.ts` file, then we generate a json schema alongside that file named `[UseCase]Input.generated.ts`
  */
-
 const tsconfigFile = path.resolve(process.cwd(), 'tsconfig.base.json')
 
 const includeFilePatterns = glob.sync('libs/modules/**/useCases/**/*Input.ts', {
@@ -20,18 +16,34 @@ const includeFilePatterns = glob.sync('libs/modules/**/useCases/**/*Input.ts', {
 
 const generator = makeGenerator(tsconfigFile, includeFilePatterns)
 
-let savedFiles: Array<string> = []
+const finalFileContents = generator
+  .getUserSymbols()
+  .reduce((fileContents, symbol) => {
+    const schema = generator.getSchemaForSymbol(symbol)
+    const schemaExport = createSchemaExport(schema, symbol)
 
-for (const symbol of generator.getUserSymbols()) {
-  const schema = generator.getSchemaForSymbol(symbol)
+    return `${fileContents} \n\n ${schemaExport}`
+  }, `import { JSONSchema7 } from 'json-schema' \n\n`)
 
-  const symbolBasePath = getSymbolDirectory(symbol, includeFilePatterns)
+// console.log(outputPath)
+// console.log(finalFileContents)
 
-  const outputFile = getOutputFile(symbolBasePath, symbol)
+fs.writeFileSync(outputPath, finalFileContents)
 
-  const savedFile = saveSchema(schema, outputFile, symbol)
+console.log(`Saving generated schema to... ${outputPath}`)
 
-  savedFiles = [...savedFiles, savedFile]
-}
+lintFiles([outputPath])
 
-lintFiles(savedFiles)
+// const savedFiles: Array<string> = []
+// Output per folder
+// for (const symbol of generator.getUserSymbols()) {
+//   const schema = generator.getSchemaForSymbol(symbol)
+
+//   const symbolBasePath = getSymbolDirectory(symbol, includeFilePatterns)
+
+//   const outputFile = getOutputFile(symbolBasePath, symbol)
+
+//   const savedFile = saveSchema(schema, outputFile, symbol)
+
+//   savedFiles = [...savedFiles, savedFile]
+// }

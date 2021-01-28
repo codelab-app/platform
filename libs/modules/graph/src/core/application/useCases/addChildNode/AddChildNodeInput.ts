@@ -16,6 +16,6 @@ export class AddChildNodeInput {
   @Field({ nullable: true })
   declare order?: number
 
-  @Field(() => GraphQLJSONObject)
+  @Field(() => GraphQLJSONObject, { nullable: true })
   declare props?: object
 }

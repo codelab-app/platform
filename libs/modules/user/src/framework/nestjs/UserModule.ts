@@ -5,14 +5,20 @@ import { RegisterUserService } from '../../core/application/useCases/registerUse
 import { UpdateUserService } from '../../core/application/useCases/updateUser/UpdateUserService'
 import { UserGraphqlAdapter } from '../../presentation/controllers/UserGraphqlAdapter'
 import { AuthModule } from './AuthModule'
-import { GqlAuthGuard } from '@codelab/backend'
+import { GqlAuthGuard, PrismaService } from '@codelab/backend'
 
 @Module({
   imports: [AuthModule],
   providers: [
     GqlAuthGuard,
+    PrismaService,
+    /**
+     * Controllers
+     */
     UserGraphqlAdapter,
-    // UseCaseProviders
+    /**
+     * UseCaseProviders
+     */
     LoginUserService,
     RegisterUserService,
     UpdateUserService,

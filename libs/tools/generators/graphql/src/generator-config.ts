@@ -1,5 +1,7 @@
 import { Types } from '@graphql-codegen/plugin-helpers'
 import {
+  fragmentQueryPaths,
+  fragmentsOutputPathAbsolute,
   getPathToTypes,
   graphqlQueryPaths,
   typesOutputPathAbsolute,
@@ -18,6 +20,13 @@ export const sharedConfigs: Types.Config['generates'] = {
   [`${typesOutputPathAbsolute}.ts`]: {
     plugins: ['typescript', 'typescript-operations', 'typed-document-node'],
     documents: graphqlQueryPaths,
+  },
+  /**
+   * Colocate all fragments together, so we can import into other files
+   */
+  [`${fragmentsOutputPathAbsolute}.ts`]: {
+    plugins: ['typescript-document-nodes'],
+    documents: fragmentQueryPaths,
   },
   'schema.graphql': {
     plugins: ['schema-ast'],
@@ -52,12 +61,17 @@ export const makeGeneratesConfig = ({
           importDocumentNodeExternallyFrom: getPathToTypes(sourceGqlPath),
         },
       ],
-      // This imports from shared types
-      preset: 'import-types',
-      presetConfig: {
-        typesPath: getPathToTypes(sourceGqlPath),
-      },
-      documents: sourceGqlPath,
+      // preset: 'near-operation-file',
+      // presetConfig: {
+      //   baseTypesPath: typesOutputPathAbsolute,
+      //   importAllFragmentsFrom: fragmentsOutputPathAbsolute,
+      // },
+      // // This imports from shared types
+      // preset: 'import-types',
+      // presetConfig: {
+      //   typesPath: getPathToTypes(sourceGqlPath),
+      // },
+      documents: [sourceGqlPath],
     },
   }
 }

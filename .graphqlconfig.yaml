@@ -1,16 +1,40 @@
 overwrite: true
 schema: http://localhost:3333/graphql
-# hooks:
-#   afterAllFileWrite:
-#     - prettier --write
-#     # - eslint --fix
+hooks:
+  afterAllFileWrite:
+    - npx eslint --fix
 generates:
   schema.graphql:
     plugins:
       - schema-ast
     hooks:
       afterAllFileWrite:
-        - prettier --write
+        - npx prettier --write
+
+  libs/generated/src/graphql.generated.ts:
+    # preset: near-operation-file
+    # presetConfig:
+    #   baseTypesPath: types/types.generated.ts
+    #   importAllFragmentsFrom: types/fragments.generated
+    documents:
+      # - libs/modules/**/createPage/**/*.graphql
+      - libs/modules/**/*.graphql
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-document-nodes
+      - typescript-react-apollo
+    config:
+      documentVariableSuffix: 'Gql'
+      gqlImport: '@apollo/client#gql'
+
+  # fragments.generated.ts:
+  #   #   # importAllFragmentsFrom: libs/modules/page/src/core/domain/PageFragments.gql.ts
+  #   documents: libs/modules/**/*fragments.gql.ts
+  #   plugins:
+  #     - typescript-document-nodes
+  #     # - typescript
+  #     # - typescript-operations
 
   # Generate into lib so we can import
   # libs/frontend/src/infrastructure/apollo/react-apollo.generated.tsx:
@@ -34,37 +58,40 @@ generates:
   #       enumValues: keep
   #   documents: libs/modules/user/src/core/application/useCases/**/*.graphql
 
-  # Doesn't required documents
-  libs/frontend/src/infrastructure/apollo/types.generated.ts:
-    plugins:
-      - typescript
-      - typescript-operations
-      - typed-document-node
-      # - typescript-resolvers
-      # - typescript-document-nodes
-      # - typescript-graphql-files-modules
-    schema: ./schema.graphql
-    hooks:
-      afterOneFileWrite:
-        - eslint --fix
+  # # Doesn't required documents
+  # libs/frontend/src/infrastructure/apollo/types.generated.ts:
+  #   plugins:
+  #     - typescript
+  #     - typescript-operations
+  #     - typed-document-node
+  #     # - typescript-resolvers
+  #     # - typescript-document-nodes
+  #     # - typescript-graphql-files-modules
+  #   schema: ./schema.graphql
+  #   hooks:
+  #     afterOneFileWrite:
+  #       - eslint --fix
 
-  libs/frontend/src/infrastructure/apollo/page.generated.tsx:
-    plugins:
-      - graphql-codegen-apollo-next-ssr
-    config:
-      documentMode: external
-      importDocumentNodeExternallyFrom: ./types.generated
-      reactApolloVersion: 3
-      withHooks: true
-      withHOC: false
-      apolloClientInstanceImport: '@codelab/frontend'
-    preset: import-types
-    presetConfig:
-      typesPath: ./types.generated
-    documents: libs/modules/user/src/core/application/useCases/**/*.graphql
-    hooks:
-      afterOneFileWrite:
-        - eslint --fix
+  # libs/frontend/src/infrastructure/apollo/page.generated.tsx:
+  #   plugins:
+  #     - graphql-codegen-apollo-next-ssr
+  #   config:
+  #     documentMode: external
+  #     importDocumentNodeExternallyFrom: ./types.generated
+  #     reactApolloVersion: 3
+  #     withHooks: true
+  #     withHOC: false
+  #     apolloClientInstanceImport: '@codelab/frontend'
+  #   # preset: near-operation-file
+  #   # presetConfig:
+  #   #   baseTypesPath: types.generated.tsx
+  #   preset: import-types
+  #   presetConfig:
+  #     typesPath: ./types.generated
+  #   documents: libs/modules/user/src/core/application/useCases/**/*.graphql
+  #   hooks:
+  #     afterOneFileWrite:
+  #       - eslint --fix
 # libs/state/apollo/src/__generated__/graphql-files-modules.d.ts:
 #   plugins:
 #     - typescript-graphql-files-modules

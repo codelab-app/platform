@@ -2,8 +2,8 @@ import { ApolloClient } from '@apollo/client'
 import { INestApplication } from '@nestjs/common'
 import { getApolloClient } from '../../../../../../../frontend/src/model/store/apollo/apolloClient'
 import { UserModule } from '../../../../framework/nestjs/UserModule'
-import { RegisterUserGql } from './RegisterUser.generated'
 import { setupTestModule, teardownTestModule } from '@codelab/backend'
+import { RegisterUserGql } from '@codelab/generated'
 
 const email = 'test_user@codelab.ai'
 const password = 'password'
@@ -45,18 +45,19 @@ describe('RegisterUserUseCase', () => {
   it('is true', () => {
     expect(true).toBeTruthy()
   })
-  // it('should create a user', async () => {
-  //   const r = await mutateCreateUser()
 
-  //   expect(!r.errors || r.errors.length === 0).toBeTruthy()
-  //   expect(r.data && r.data.registerUser).toBeTruthy()
-  //   expect(r.data.registerUser.email).toEqual(email)
-  //   expect(r.data.registerUser.password).toBeFalsy()
-  // })
+  it('should create a user', async () => {
+    const r = await mutateCreateUser()
 
-  // it('should raise an error given an existing email', async () => {
-  //   await expect(() => mutateCreateUser()).rejects.toThrow(
-  //     `The email ${email} associated for this account already exists`,
-  //   )
-  // })
+    expect(!r.errors || r.errors.length === 0).toBeTruthy()
+    expect(r.data && r.data.registerUser).toBeTruthy()
+    expect(r.data.registerUser.email).toEqual(email)
+    expect(r.data.registerUser.password).toBeFalsy()
+  })
+
+  it('should raise an error given an existing email', async () => {
+    await expect(() => mutateCreateUser()).rejects.toThrow(
+      `The email ${email} associated for this account already exists`,
+    )
+  })
 })
