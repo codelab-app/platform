@@ -129,6 +129,8 @@ export enum NodeType {
    * Flat array, uses ref to build tree, requires parentRef, childrenRef
    */
   Ref = 'Ref',
+  Model = 'Model',
+  Schema = 'Schema',
 }
 
 /**

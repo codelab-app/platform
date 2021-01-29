@@ -1,27 +1,28 @@
 import { NodeSingular } from 'cytoscape'
-import { IGraphData } from './renderer-graph-components'
-import { CytoscapeI, makeCytoscape } from '@codelab/alpha/shared/factory'
+import { GraphDto } from '../../../../../modules/graph/src/core/domain/graph/GraphDto'
+import { makeCytoscape } from '@codelab/alpha/shared/factory'
 import { NodeI } from '@codelab/alpha/shared/interface/node'
 
-const mapper = (data: IGraphData): CytoscapeI => {
-  return data.graph.reduce(
-    (acc, curr) => {
-      acc.vertices = curr.vertices
-      acc.edges = curr.edges.map(
-        ({ source: start, target: end, ...other }) => ({
-          start,
-          end,
-          ...other,
-        }),
-      )
-
-      return acc
-    },
-    {
-      edges: [],
-      vertices: [],
-    } as CytoscapeI,
+const mapper = ({ vertices = [], edges = [] }: GraphDto): any => {
+  const cytoEdges = edges?.map(
+    ({ source: start, target: end, ...other }: any) => ({
+      start,
+      end,
+      ...other,
+    }),
   )
+
+  const cytoVertices = vertices?.map((v) => {
+    return {
+      ...v,
+      // parent,
+    }
+  })
+
+  return {
+    vertices: cytoVertices,
+    edges: cytoEdges,
+  }
 }
 
 const bfs = (vertex: NodeSingular): NodeI => {
@@ -40,7 +41,7 @@ const bfs = (vertex: NodeSingular): NodeI => {
   }
 }
 
-export const convertGraphToTree = (data: IGraphData): NodeI => {
+export const convertGraphToTree = (data: GraphDto): NodeI => {
   const cy = makeCytoscape(mapper(data))
 
   const roots = cy.elements().roots()

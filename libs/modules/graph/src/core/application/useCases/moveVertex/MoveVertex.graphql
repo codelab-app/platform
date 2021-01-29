@@ -1,0 +1,12 @@
+mutation MoveVertex($input: MoveVertexInput!) {
+  modeVertex(input: $input) {
+    id
+    label
+    edges {
+      order
+      source
+      target
+      props
+    }
+  }
+}

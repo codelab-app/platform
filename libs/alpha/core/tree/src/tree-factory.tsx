@@ -7,9 +7,7 @@ import { Graph } from '@codelab/alpha/core/graph'
 import { NodeEntity } from '@codelab/alpha/core/node'
 import {
   graphAppenderIteratee,
-  modelCreationIteratee,
   nodeFinderIteratee,
-  traversePostOrderReducer,
   treeAppenderIteratee,
   treeWalker,
 } from '@codelab/alpha/core/traversal'
@@ -21,7 +19,6 @@ import {
 } from '@codelab/alpha/shared/interface/node'
 import {
   GraphSubTreeAcc,
-  ModelAcc,
   NodeFinderAcc,
   TreeSubTreeAcc,
 } from '@codelab/alpha/shared/interface/tree'
@@ -75,28 +72,28 @@ export const makeGraph = (data: NodeI): Graph => {
  *
  * Ideally we can add a traverse
  */
-export const makeModel2 = (input: NodeI) => {
-  const root = makeTree(input)
+// export const makeModel2 = (input: NodeI) => {
+//   const root = makeTree(input)
 
-  return traversePostOrderReducer({})(modelCreationIteratee, root)
-}
+//   return traversePostOrderReducer({})(modelCreationIteratee, root)
+// }
 
 /**
  * Alternative implementation
  */
-export const makeModel = (input: NodeI) => {
-  const root = new NodeEntity(input)
+// export const makeModel = (input: NodeI) => {
+//   const root = new NodeEntity(input)
 
-  const acc = reduce(
-    input.children,
-    treeWalker<NodeI, ModelAcc>(modelCreationIteratee, root),
-    {},
-  )
+//   const acc = reduce(
+//     input.children,
+//     treeWalker<NodeI, ModelAcc>(modelCreationIteratee, root),
+//     {},
+//   )
 
-  /* We need to call iteratee here because treeWalker doesn't apply the iteratee on the root. This way we process the root node as well.
-   */
-  return modelCreationIteratee(acc, root)
-}
+//   /* We need to call iteratee here because treeWalker doesn't apply the iteratee on the root. This way we process the root node as well.
+//    */
+//   return modelCreationIteratee(acc, root)
+// }
 
 /**
  *

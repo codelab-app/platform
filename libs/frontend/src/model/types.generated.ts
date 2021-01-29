@@ -111,7 +111,7 @@ export type GetPageInput = {
 
 export type Mutation = {
   __typename?: 'Mutation'
-  addChildNode: Graph
+  addChildVertex: Graph
   createApp: App
   createGraph: Graph
   createPage: Page
@@ -127,8 +127,8 @@ export type Mutation = {
   updateUser: User
 }
 
-export type MutationAddChildNodeArgs = {
-  input: AddChildNodeInput
+export type MutationAddChildVertexArgs = {
+  input: AddChildVertexInput
 }
 
 export type MutationCreateAppArgs = {
@@ -219,7 +219,7 @@ export type CreateGraphInput = {
   label: Scalars['String']
 }
 
-export type AddChildNodeInput = {
+export type AddChildVertexInput = {
   graphId: Scalars['String']
   parentVertexId?: Maybe<Scalars['String']>
   vertex: CreateVertexInput

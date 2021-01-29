@@ -3,7 +3,7 @@ import { DeleteUserService } from '../../core/application/useCases/deleteUser/De
 import { LoginUserService } from '../../core/application/useCases/loginUser/LoginUserService'
 import { RegisterUserService } from '../../core/application/useCases/registerUser/RegisterUserService'
 import { UpdateUserService } from '../../core/application/useCases/updateUser/UpdateUserService'
-import { UserGraphqlAdapter } from '../../presentation/controllers/UserGraphqlAdapter'
+import { UserResolvers } from '../../presentation/controllers/UserResolvers'
 import { AuthModule } from './AuthModule'
 import { GqlAuthGuard, PrismaService } from '@codelab/backend'
 
@@ -15,7 +15,7 @@ import { GqlAuthGuard, PrismaService } from '@codelab/backend'
     /**
      * Controllers
      */
-    UserGraphqlAdapter,
+    UserResolvers,
     /**
      * UseCaseProviders
      */

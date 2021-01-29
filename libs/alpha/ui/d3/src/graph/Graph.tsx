@@ -25,7 +25,6 @@ export const useD3Hooks = () => {
 export const D3Graph: React.FC<D3GraphProps> = (props) => {
   const [width, height] = [600, 600]
   const { nodes: nodesProps, links: linksProps } = props
-  const d3Hooks = useD3Hooks()
   const d3Container = useRef<SVGSVGElement>(null)
   const ref: any = useRef()
   const simulation = d3.forceSimulation<any>()
@@ -47,9 +46,10 @@ export const D3Graph: React.FC<D3GraphProps> = (props) => {
       .selectAll('g.Node-group')
       .data(nodes, IDMatcher)
       .join(
-        (enter: any) => enter.append('g').call(enterNodes, d3Hooks),
-        (update: any) => update.call(updateNodes),
-        (exit: any) => exit.remove(),
+        (enter) =>
+          enter.append('g').call(enterNodes, { onClick: props.onNodeClick }),
+        (update) => update.call(updateNodes),
+        (exit) => exit.remove(),
       )
 
     const d3Links = svg
@@ -57,10 +57,12 @@ export const D3Graph: React.FC<D3GraphProps> = (props) => {
       .selectAll('g.Link-group')
       .data(links, IDMatcher)
       .join(
-        (enter: any) =>
-          enter.insert('g', 'g.Node-group').call(enterLinks, d3Hooks),
-        (update: any) => update.call(updateLinks),
-        (exit: any) => exit.remove(),
+        (enter) =>
+          enter
+            .insert('g', 'g.Node-group')
+            .call(enterLinks, { onClick: props.onLinkClick }),
+        (update) => update.call(updateLinks),
+        (exit) => exit.remove(),
       )
 
     const d3ArrowDefs = svg
@@ -88,7 +90,7 @@ export const D3Graph: React.FC<D3GraphProps> = (props) => {
       .force('x', d3.forceX(g.width / 2))
       .force('y', d3.forceY(g.height / 2))
       .restart()
-  }, [nodesProps, linksProps, d3Hooks, refCurrent, simulation])
+  }, [nodesProps, linksProps, refCurrent, simulation])
 
   useEffect(() => {
     const svg = d3.select(d3Container.current) as any

@@ -12,7 +12,7 @@ import {
 } from './demo-data'
 import { makeCytoscape } from './factory'
 
-describe('Cytoscape factory', () => {
+describe.skip('Cytoscape factory', () => {
   const cy = makeCytoscape(input)
 
   it('creates a cytoscape object from input', () => {

@@ -1,12 +1,10 @@
 import { Module } from '@nestjs/common'
 import { GraphService } from '../../core/application/services/GraphService'
-import { AddChildNodeService } from '../../core/application/useCases/addChildNode/AddChildNodeService'
+import { AddChildVertexService } from '../../core/application/useCases/addChildVertex/AddChildVertexService'
 import { CreateGraphService } from '../../core/application/useCases/createGraph/CreateGraphService'
-import { DeleteNodeService } from '../../core/application/useCases/deleteNode/DeleteNodeService'
 import { GetGraphService } from '../../core/application/useCases/getGraph/GetGraphService'
-import { MoveNodeService } from '../../core/application/useCases/moveNode/MoveNodeService'
-import { UpdateNodeService } from '../../core/application/useCases/updateNode/UpdateNodeService'
-import { GraphGraphqlAdapter } from '../../presentation/controllers/GraphGraphqlAdapter'
+import { MoveVertexService } from '../../core/application/useCases/moveVertex/MoveVertexService'
+import { GraphResolvers } from '../../presentation/controllers/GraphResolvers'
 import { EdgeModule } from './EdgeModule'
 import { VertexModule } from './VertexModule'
 import { PrismaService } from '@codelab/backend'
@@ -19,16 +17,14 @@ import { PrismaService } from '@codelab/backend'
     /**
      * Controllers
      */
-    GraphGraphqlAdapter,
+    GraphResolvers,
     /**
      * UseCaseProviders
      */
-    MoveNodeService,
-    DeleteNodeService,
+    MoveVertexService,
     GetGraphService,
-    UpdateNodeService,
     CreateGraphService,
-    AddChildNodeService,
+    AddChildVertexService,
   ],
   exports: [GraphService],
 })

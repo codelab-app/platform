@@ -1,20 +1,13 @@
-import { Inject, Injectable } from '@nestjs/common'
-import { GraphDto } from '../../../domain/graph/GraphDto'
+import { Injectable } from '@nestjs/common'
+import { Graph } from '@prisma/client'
 import { GetGraphByInput } from './GetGraphByInput'
 import { GetGraphInput } from './GetGraphInput'
-import {
-  PrismaDITokens,
-  PrismaService,
-  TransactionalUseCase,
-} from '@codelab/backend'
+import { PrismaService, TransactionalUseCase } from '@codelab/backend'
 
 @Injectable()
 export class GetGraphService
-  implements TransactionalUseCase<GetGraphInput, GraphDto | null> {
-  constructor(
-    @Inject(PrismaDITokens.PrismaService)
-    private readonly prismaService: PrismaService,
-  ) {}
+  implements TransactionalUseCase<GetGraphInput, Graph | null> {
+  constructor(private readonly prismaService: PrismaService) {}
 
   async execute({ id }: GetGraphInput) {
     try {
@@ -37,8 +30,8 @@ export class GetGraphService
     })
   }
 
-  async getGraphBy({ appId, pageId }: GetGraphByInput): Promise<GraphDto> {
-    let graphs: Array<GraphDto> = []
+  async getGraphBy({ appId, pageId }: GetGraphByInput): Promise<Graph> {
+    let graphs: Array<Graph> = []
 
     if (appId && pageId) {
       throw new Error('Cannot search by both appId and pageId')
@@ -60,7 +53,7 @@ export class GetGraphService
       })
     }
 
-    if (graphs.length > 0) {
+    if (graphs && graphs.length > 0) {
       return graphs[0]
     }
 

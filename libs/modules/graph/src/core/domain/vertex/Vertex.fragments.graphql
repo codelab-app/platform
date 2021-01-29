@@ -1,4 +1,9 @@
 fragment vertexFragments on Vertex {
   id
   type
+  props
+  parent {
+    id
+    type
+  }
 }

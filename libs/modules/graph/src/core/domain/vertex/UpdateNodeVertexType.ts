@@ -3,7 +3,7 @@ import { GraphQLJSONObject } from 'graphql-type-json'
 import { NodeType } from '@codelab/backend'
 
 @InputType()
-export class UpdateNodeVertexType {
+export class UpdateVertexVertexType {
   @Field()
   declare id: string
 

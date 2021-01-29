@@ -1,7 +1,7 @@
 import { convertGraphToTree } from './convertGraphQueueToTree'
 import { IGraphData } from './renderer-graph-components'
 
-describe('convertGraphToTree', () => {
+describe.skip('convertGraphToTree', () => {
   const data: IGraphData = {
     graph: [
       {

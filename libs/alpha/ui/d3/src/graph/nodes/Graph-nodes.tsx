@@ -1,19 +1,18 @@
-import { drag } from 'd3'
-import {
-  handleClickNode,
-  handleDragEndNode,
-  handleDragNode,
-  handleDragStart,
-  handleMouseoutNode,
-  handleMouseoverNode,
-} from '../Graph-domHandlers'
+import { Selection } from 'd3'
 import { D3Node } from '../Graph.i'
 import { g, nodeAttribute } from '../variables/Graph-variables'
+
+interface NodeHandlers {
+  onClick: Function
+}
 
 /**
  * D3 update methods
  */
-export const enterNodes = (selection: any, d3Hooks: any) => {
+export const enterNodes = (
+  selection: Selection<any, any, any, any>,
+  { onClick }: NodeHandlers,
+) => {
   /**
    * Group
    */
@@ -34,24 +33,25 @@ export const enterNodes = (selection: any, d3Hooks: any) => {
    */
   selection
     .append('text')
-    .text((d: D3Node) => d.label)
+    .text((d: D3Node) => d.label ?? '')
     .attr('class', (d: D3Node) => `Node-text Node-text--${d.id}`)
   /**
    * Add dom handlers
    */
-  selection
-    .on('click', handleClickNode(d3Hooks).bind(selection))
-    .on('mouseover', handleMouseoverNode.bind(selection))
-    .on('mouseout', handleMouseoutNode.bind(selection))
+  selection.on('click', (e, node) => {
+    onClick(e, node)
+  })
+  // .on('mouseover', handleMouseoverNode.bind(selection))
+  // .on('mouseout', handleMouseoutNode.bind(selection))
   /**
    * Drag & Drop
    */
-  selection.call(
-    drag<any, any>()
-      .on('start', handleDragStart.bind(selection))
-      .on('drag', handleDragNode.bind(selection))
-      .on('end', handleDragEndNode(d3Hooks).bind(selection)),
-  )
+  // selection.call(
+  //   drag<any, any>()
+  //     .on('start')(handleDragStart(selection)
+  // .on('drag', handleDragNode.bind(selection))
+  // .on('end', handleDragEndNode(d3Hooks).bind(selection)),
+  // )
 }
 export const updateNodes = (selection: any) => {
   selection

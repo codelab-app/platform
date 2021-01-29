@@ -9,6 +9,7 @@ export class DeleteAppService
   constructor(private readonly prismaService: PrismaService) {}
 
   async execute({ id }: DeleteAppInput) {
+    console.log(id)
     try {
       return await this.prismaService.app.delete({ where: { id } })
     } catch (e) {

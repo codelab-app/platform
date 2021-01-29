@@ -17,5 +17,6 @@ export class Vertex {
   @Field(() => GraphQLJSONObject, { nullable: true })
   declare props?: object
 
+  @Field(() => Vertex, { nullable: true })
   declare parent?: string
 }

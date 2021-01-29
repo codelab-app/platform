@@ -1,11 +1,14 @@
-import {
-  handleClickLink,
-  handleMouseoutLink,
-  handleMouseoverLink,
-} from '../Graph-domHandlers'
+import { Selection } from 'd3'
 import { D3Link } from '../Graph.i'
 
-export const enterLinks = (selection: any, d3Hooks: any, links: any) => {
+interface LinkHandlers {
+  onClick: Function
+}
+
+export const enterLinks = (
+  selection: Selection<any, any, any, any>,
+  { onClick }: LinkHandlers,
+) => {
   /**
    * Group
    */
@@ -50,15 +53,19 @@ export const enterLinks = (selection: any, d3Hooks: any, links: any) => {
     .append('textPath')
     .attr('startOffset', '50%')
     .attr('xlink:href', (d: D3Link) => `#edge_path_${d.id}`)
-    .text((d: D3Link) => d.label)
+    .text((d: D3Link) => d.label ?? '')
 
   /**
    * Add dom handlers
    */
-  selection
-    .on('click', handleClickLink(d3Hooks).bind(selection))
-    .on('mouseover', handleMouseoverLink.bind(selection))
-    .on('mouseout', handleMouseoutLink.bind(selection))
+  selection.on('click', (e, link) => {
+    if (!onClick) return
+
+    onClick(e, link)
+  })
+  // selection.on('click', handleClickLink(d3Hooks).bind(selection))
+  // .on('mouseover', handleMouseoverLink.bind(selection))
+  // .on('mouseout', handleMouseoutLink.bind(selection))
 }
 
 export const updateLinks = (selection: any, links = []) => {
