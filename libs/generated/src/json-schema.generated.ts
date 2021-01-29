@@ -51,9 +51,6 @@ export const UpdateAppInputSchema: JSONSchema7 = {
 export const AddChildNodeInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
-    graphId: {
-      type: 'string',
-    },
     parentVertexId: {
       type: 'string',
     },
@@ -178,11 +175,6 @@ export const AddChildNodeInputSchema: JSONSchema7 = {
     order: {
       type: 'number',
     },
-    props: {
-      type: 'object',
-      properties: {},
-      additionalProperties: true,
-    },
   },
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
@@ -230,6 +222,16 @@ export const GetGraphInputSchema: JSONSchema7 = {
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
 
+export const GetVertexInputSchema: JSONSchema7 = {
+  type: 'object',
+  properties: {
+    id: {
+      type: 'string',
+    },
+  },
+  $schema: 'http://json-schema.org/draft-07/schema#',
+}
+
 export const MoveNodeInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
@@ -237,15 +239,8 @@ export const MoveNodeInputSchema: JSONSchema7 = {
       type: 'string',
     },
     type: {
-      type: 'object',
-      properties: {
-        source: {
-          type: 'string',
-        },
-        target: {
-          type: 'string',
-        },
-      },
+      enum: ['Graph', 'Vertex'],
+      type: 'string',
     },
   },
   $schema: 'http://json-schema.org/draft-07/schema#',
@@ -254,9 +249,6 @@ export const MoveNodeInputSchema: JSONSchema7 = {
 export const UpdateNodeInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
-    graphId: {
-      type: 'string',
-    },
     vertexId: {
       type: 'string',
     },

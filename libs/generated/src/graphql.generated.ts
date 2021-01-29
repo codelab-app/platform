@@ -24,9 +24,15 @@ export type Edge = {
   __typename?: 'Edge'
   id: Scalars['String']
   source: Scalars['String']
+  type: EdgeType
   target: Scalars['String']
   props: Scalars['JSONObject']
   order: Scalars['Float']
+}
+
+export enum EdgeType {
+  Vertex = 'Vertex',
+  Graph = 'Graph',
 }
 
 export type Vertex = {
@@ -34,6 +40,8 @@ export type Vertex = {
   id: Scalars['String']
   type: NodeType
   props?: Maybe<Scalars['JSONObject']>
+  parent?: Maybe<Vertex>
+  children: Array<Vertex>
 }
 
 export enum NodeType {
@@ -144,9 +152,15 @@ export enum NodeType {
 export type Graph = {
   __typename?: 'Graph'
   id: Scalars['String']
+  type: GraphType
   label: Scalars['String']
   vertices: Array<Vertex>
   edges: Array<Edge>
+}
+
+export enum GraphType {
+  Layout = 'Layout',
+  Component = 'Component',
 }
 
 export type Page = {
@@ -178,6 +192,7 @@ export type Query = {
   getMe: User
   getGraph: Graph
   getGraphBy: Graph
+  getVertex?: Maybe<Vertex>
   getPages: Array<Page>
   getPage: Page
 }
@@ -192,6 +207,10 @@ export type QueryGetGraphArgs = {
 
 export type QueryGetGraphByArgs = {
   input: GetGraphByInput
+}
+
+export type QueryGetVertexArgs = {
+  input: GetVertexInput
 }
 
 export type QueryGetPagesArgs = {
@@ -215,6 +234,10 @@ export type GetGraphByInput = {
   pageId?: Maybe<Scalars['String']>
 }
 
+export type GetVertexInput = {
+  id: Scalars['String']
+}
+
 export type GetPagesInput = {
   appId: Scalars['String']
 }
@@ -233,10 +256,10 @@ export type Mutation = {
   registerUser: User
   loginUser: User
   createGraph: Graph
-  addChildNode: Graph
-  updateNode: Graph
+  addChildNode: Vertex
   deleteNode: Graph
   moveNode: Graph
+  updateNode: Vertex
   createPage: Page
   deletePage: Page
 }
@@ -277,16 +300,16 @@ export type MutationAddChildNodeArgs = {
   input: AddChildNodeInput
 }
 
-export type MutationUpdateNodeArgs = {
-  input: UpdateNodeInput
-}
-
 export type MutationDeleteNodeArgs = {
   input: DeleteNodeInput
 }
 
 export type MutationMoveNodeArgs = {
   input: MoveNodeInput
+}
+
+export type MutationUpdateNodeArgs = {
+  input: UpdateNodeInput
 }
 
 export type MutationCreatePageArgs = {
@@ -334,7 +357,6 @@ export type CreateGraphInput = {
 }
 
 export type AddChildNodeInput = {
-  graphId: Scalars['String']
   parentVertexId?: Maybe<Scalars['String']>
   vertex: CreateVertexInput
   order?: Maybe<Scalars['Float']>
@@ -346,12 +368,6 @@ export type CreateVertexInput = {
   props: Scalars['JSONObject']
 }
 
-export type UpdateNodeInput = {
-  graphId: Scalars['String']
-  vertexId: Scalars['String']
-  type: NodeType
-}
-
 export type DeleteNodeInput = {
   vertexId: Scalars['String']
 }
@@ -361,9 +377,9 @@ export type MoveNodeInput = {
   type: EdgeType
 }
 
-export type EdgeType = {
-  source: Scalars['String']
-  target: Scalars['String']
+export type UpdateNodeInput = {
+  vertexId: Scalars['String']
+  type: NodeType
 }
 
 export type CreatePageInput = {
@@ -402,7 +418,7 @@ export type GetAppQuery = { __typename?: 'Query' } & {
 export type GetAppsQueryVariables = Exact<{ [key: string]: never }>
 
 export type GetAppsQuery = { __typename?: 'Query' } & {
-  getApps: Array<{ __typename?: 'App' } & Pick<App, 'title'>>
+  getApps: Array<{ __typename?: 'App' } & Pick<App, 'id' | 'title'>>
 }
 
 export type UpdateAppMutationVariables = Exact<{
@@ -423,17 +439,7 @@ export type AddChildNodeMutationVariables = Exact<{
 }>
 
 export type AddChildNodeMutation = { __typename?: 'Mutation' } & {
-  addChildNode: { __typename?: 'Graph' } & Pick<Graph, 'label'> & {
-      vertices: Array<
-        { __typename?: 'Vertex' } & Pick<Vertex, 'id' | 'type' | 'props'>
-      >
-      edges: Array<
-        { __typename?: 'Edge' } & Pick<
-          Edge,
-          'id' | 'order' | 'source' | 'target' | 'props'
-        >
-      >
-    }
+  addChildNode: { __typename?: 'Vertex' } & VertexFragmentsFragment
 }
 
 export type CreateGraphMutationVariables = Exact<{
@@ -467,7 +473,15 @@ export type GetGraphQueryVariables = Exact<{
 }>
 
 export type GetGraphQuery = { __typename?: 'Query' } & {
-  getGraph: { __typename?: 'Graph' } & Pick<Graph, 'id' | 'label'>
+  getGraph: { __typename?: 'Graph' } & GraphFragmentsFragment
+}
+
+export type GetVertexQueryVariables = Exact<{
+  input: GetVertexInput
+}>
+
+export type GetVertexQuery = { __typename?: 'Query' } & {
+  getVertex?: Maybe<{ __typename?: 'Vertex' } & VertexFragmentsFragment>
 }
 
 export type MoveNodeMutationVariables = Exact<{
@@ -490,18 +504,17 @@ export type UpdateNodeMutationVariables = Exact<{
 }>
 
 export type UpdateNodeMutation = { __typename?: 'Mutation' } & {
-  updateNode: { __typename?: 'Graph' } & Pick<Graph, 'label'> & {
-      vertices: Array<
-        { __typename?: 'Vertex' } & Pick<Vertex, 'id' | 'type' | 'props'>
-      >
-    }
+  updateNode: { __typename?: 'Vertex' } & VertexFragmentsFragment
 }
 
-export type EdgeFragmentsFragment = { __typename?: 'Edge' } & Pick<Edge, 'id'>
+export type EdgeFragmentsFragment = { __typename?: 'Edge' } & Pick<
+  Edge,
+  'id' | 'type' | 'props' | 'source' | 'target'
+>
 
 export type GraphFragmentsFragment = { __typename?: 'Graph' } & Pick<
   Graph,
-  'id' | 'label'
+  'id' | 'type' | 'label'
 > & {
     vertices: Array<{ __typename?: 'Vertex' } & VertexFragmentsFragment>
     edges: Array<{ __typename?: 'Edge' } & EdgeFragmentsFragment>
@@ -509,8 +522,8 @@ export type GraphFragmentsFragment = { __typename?: 'Graph' } & Pick<
 
 export type VertexFragmentsFragment = { __typename?: 'Vertex' } & Pick<
   Vertex,
-  'id' | 'type'
->
+  'id' | 'type' | 'props'
+> & { parent?: Maybe<{ __typename?: 'Vertex' } & Pick<Vertex, 'id' | 'type'>> }
 
 export type CreatePageMutationVariables = Exact<{
   input: CreatePageInput
@@ -533,7 +546,7 @@ export type GetPageQueryVariables = Exact<{
 }>
 
 export type GetPageQuery = { __typename?: 'Query' } & {
-  getPage: { __typename?: 'Page' } & Pick<Page, 'title'>
+  getPage: { __typename?: 'Page' } & PageFragmentsFragment
 }
 
 export type GetPagesQueryVariables = Exact<{
@@ -599,16 +612,26 @@ export const VertexFragments = gql`
   fragment vertexFragments on Vertex {
     id
     type
+    props
+    parent {
+      id
+      type
+    }
   }
 `
 export const EdgeFragments = gql`
   fragment edgeFragments on Edge {
     id
+    type
+    props
+    source
+    target
   }
 `
 export const GraphFragments = gql`
   fragment graphFragments on Graph {
     id
+    type
     label
     vertices {
       ...vertexFragments
@@ -677,6 +700,7 @@ export const GetApp = gql`
 export const GetApps = gql`
   query GetApps {
     getApps {
+      id
       title
     }
   }
@@ -692,21 +716,10 @@ export const UpdateApp = gql`
 export const AddChildNode = gql`
   mutation AddChildNode($input: AddChildNodeInput!) {
     addChildNode(input: $input) {
-      label
-      vertices {
-        id
-        type
-        props
-      }
-      edges {
-        id
-        order
-        source
-        target
-        props
-      }
+      ...vertexFragments
     }
   }
+  ${VertexFragments}
 `
 export const CreateGraph = gql`
   mutation CreateGraph($input: CreateGraphInput!) {
@@ -737,10 +750,18 @@ export const DeleteNode = gql`
 export const GetGraph = gql`
   query GetGraph($input: GetGraphInput!) {
     getGraph(input: $input) {
-      id
-      label
+      ...graphFragments
     }
   }
+  ${GraphFragments}
+`
+export const GetVertex = gql`
+  query GetVertex($input: GetVertexInput!) {
+    getVertex(input: $input) {
+      ...vertexFragments
+    }
+  }
+  ${VertexFragments}
 `
 export const MoveNode = gql`
   mutation MoveNode($input: MoveNodeInput!) {
@@ -759,14 +780,10 @@ export const MoveNode = gql`
 export const UpdateNode = gql`
   mutation UpdateNode($input: UpdateNodeInput!) {
     updateNode(input: $input) {
-      label
-      vertices {
-        id
-        type
-        props
-      }
+      ...vertexFragments
     }
   }
+  ${VertexFragments}
 `
 export const CreatePage = gql`
   mutation CreatePage($input: CreatePageInput!) {
@@ -786,9 +803,10 @@ export const DeletePage = gql`
 export const GetPage = gql`
   query GetPage($input: GetPageInput!) {
     getPage(input: $input) {
-      title
+      ...pageFragments
     }
   }
+  ${PageFragments}
 `
 export const GetPages = gql`
   query GetPages($input: GetPagesInput!) {
@@ -842,16 +860,26 @@ export const VertexFragmentsFragmentDoc = gql`
   fragment vertexFragments on Vertex {
     id
     type
+    props
+    parent {
+      id
+      type
+    }
   }
 `
 export const EdgeFragmentsFragmentDoc = gql`
   fragment edgeFragments on Edge {
     id
+    type
+    props
+    source
+    target
   }
 `
 export const GraphFragmentsFragmentDoc = gql`
   fragment graphFragments on Graph {
     id
+    type
     label
     vertices {
       ...vertexFragments
@@ -1041,6 +1069,7 @@ export type GetAppQueryResult = Apollo.QueryResult<
 export const GetAppsGql = gql`
   query GetApps {
     getApps {
+      id
       title
     }
   }
@@ -1138,21 +1167,10 @@ export type UpdateAppMutationOptions = Apollo.BaseMutationOptions<
 export const AddChildNodeGql = gql`
   mutation AddChildNode($input: AddChildNodeInput!) {
     addChildNode(input: $input) {
-      label
-      vertices {
-        id
-        type
-        props
-      }
-      edges {
-        id
-        order
-        source
-        target
-        props
-      }
+      ...vertexFragments
     }
   }
+  ${VertexFragmentsFragmentDoc}
 `
 export type AddChildNodeMutationFn = Apollo.MutationFunction<
   AddChildNodeMutation,
@@ -1306,10 +1324,10 @@ export type DeleteNodeMutationOptions = Apollo.BaseMutationOptions<
 export const GetGraphGql = gql`
   query GetGraph($input: GetGraphInput!) {
     getGraph(input: $input) {
-      id
-      label
+      ...graphFragments
     }
   }
+  ${GraphFragmentsFragmentDoc}
 `
 
 /**
@@ -1354,6 +1372,58 @@ export type GetGraphLazyQueryHookResult = ReturnType<
 export type GetGraphQueryResult = Apollo.QueryResult<
   GetGraphQuery,
   GetGraphQueryVariables
+>
+export const GetVertexGql = gql`
+  query GetVertex($input: GetVertexInput!) {
+    getVertex(input: $input) {
+      ...vertexFragments
+    }
+  }
+  ${VertexFragmentsFragmentDoc}
+`
+
+/**
+ * __useGetVertexQuery__
+ *
+ * To run a query within a React component, call `useGetVertexQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetVertexQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetVertexQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useGetVertexQuery(
+  baseOptions: Apollo.QueryHookOptions<GetVertexQuery, GetVertexQueryVariables>,
+) {
+  return Apollo.useQuery<GetVertexQuery, GetVertexQueryVariables>(
+    GetVertexGql,
+    baseOptions,
+  )
+}
+export function useGetVertexLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetVertexQuery,
+    GetVertexQueryVariables
+  >,
+) {
+  return Apollo.useLazyQuery<GetVertexQuery, GetVertexQueryVariables>(
+    GetVertexGql,
+    baseOptions,
+  )
+}
+export type GetVertexQueryHookResult = ReturnType<typeof useGetVertexQuery>
+export type GetVertexLazyQueryHookResult = ReturnType<
+  typeof useGetVertexLazyQuery
+>
+export type GetVertexQueryResult = Apollo.QueryResult<
+  GetVertexQuery,
+  GetVertexQueryVariables
 >
 export const MoveNodeGql = gql`
   mutation MoveNode($input: MoveNodeInput!) {
@@ -1411,14 +1481,10 @@ export type MoveNodeMutationOptions = Apollo.BaseMutationOptions<
 export const UpdateNodeGql = gql`
   mutation UpdateNode($input: UpdateNodeInput!) {
     updateNode(input: $input) {
-      label
-      vertices {
-        id
-        type
-        props
-      }
+      ...vertexFragments
     }
   }
+  ${VertexFragmentsFragmentDoc}
 `
 export type UpdateNodeMutationFn = Apollo.MutationFunction<
   UpdateNodeMutation,
@@ -1561,9 +1627,10 @@ export type DeletePageMutationOptions = Apollo.BaseMutationOptions<
 export const GetPageGql = gql`
   query GetPage($input: GetPageInput!) {
     getPage(input: $input) {
-      title
+      ...pageFragments
     }
   }
+  ${PageFragmentsFragmentDoc}
 `
 
 /**

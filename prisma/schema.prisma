@@ -62,7 +62,7 @@ model Edge {
   order   Int       @default(0)
   props   Json?
   source  String
-  target  String
+  target  String    @unique
   graph   Graph?    @relation(fields: [graphId], references: [id])
   graphId String?
 }

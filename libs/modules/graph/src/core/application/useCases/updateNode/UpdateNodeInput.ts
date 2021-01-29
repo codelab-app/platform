@@ -4,9 +4,6 @@ import { NodeType } from '@codelab/backend'
 @InputType()
 export class UpdateNodeInput {
   @Field()
-  declare graphId: string
-
-  @Field()
   declare vertexId: string
 
   @Field(() => NodeType)

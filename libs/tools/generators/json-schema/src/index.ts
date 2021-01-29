@@ -22,6 +22,8 @@ const finalFileContents = generator
     const schema = generator.getSchemaForSymbol(symbol)
     const schemaExport = createSchemaExport(schema, symbol)
 
+    // use getSymbolDirectory to get filepath
+
     return `${fileContents} \n\n ${schemaExport}`
   }, `import { JSONSchema7 } from 'json-schema' \n\n`)
 

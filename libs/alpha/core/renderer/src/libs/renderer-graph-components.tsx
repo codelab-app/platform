@@ -6,6 +6,7 @@ export interface IGraphData {
   graph: Array<any>
 }
 
+//
 export const buildComponentsGraph = <P extends {} = {}>(
   data: IGraphData,
 ): FunctionComponent<P> => {

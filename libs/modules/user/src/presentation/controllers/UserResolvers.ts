@@ -21,7 +21,7 @@ import { CurrentUser, GqlAuthGuard } from '@codelab/backend'
  */
 @Resolver(() => User)
 @Injectable()
-export class UserGraphqlAdapter {
+export class UserResolvers {
   constructor(
     private readonly loginUserService: LoginUserService,
     private readonly registerUserService: RegisterUserService,

@@ -22,7 +22,7 @@ import { User } from '@codelab/modules/user'
 
 @Resolver(() => Page)
 @Injectable()
-export class PageGraphqlAdapter {
+export class PageResolvers {
   constructor(
     private readonly getPagesService: GetPagesService,
     private readonly getPageService: GetPageService,
@@ -56,8 +56,6 @@ export class PageGraphqlAdapter {
 
   @ResolveField(() => [Graph])
   graphs(@Parent() page: Page) {
-    console.log(page)
-
     return this.prismaService.graph.findMany({
       where: {
         page: {

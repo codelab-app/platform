@@ -59,12 +59,7 @@ const deactivateAllLinks = () => {
 /**
  * Node handlers
  */
-export const handleClickNode: DomHandlerHOC<any, any> = ({
-  notifyMediator,
-  setSelectedVertex,
-}) => (node, i, nodes) => {
-  const modelID = node.label === '+' ? '' : node.id
-
+export const handleClickNode = (node, i, nodes) => {
   return Promise.all([
     /**
      * if label === '+', then trigger create event
@@ -93,54 +88,54 @@ export const handleDragStart: DomHandler<any> = (node, i, nodes) => {
   clearTempLink()
 }
 
-export const handleDragNode: DomHandler<any> = (node, i, nodes) => {
-  const {
-    sourceEvent: {
-      srcElement: { __data__: target },
-    },
-    x,
-    y,
-  } = d3.event
+// export const handleDragNode: DomHandler<any> = (node, i, nodes) => {
+//   const {
+//     sourceEvent: {
+//       srcElement: { __data__: target },
+//     },
+//     x,
+//     y,
+//   } = d3.event
 
-  const targetIdx =
-    target && target.id !== g.activeNode.id
-      ? // eslint-disable-next-line no-underscore-dangle
-        Array.from(nodes).findIndex((d) => d.__data__.id === target.id)
-      : -1
+//   const targetIdx =
+//     target && target.id !== g.activeNode.id
+//       ? // eslint-disable-next-line no-underscore-dangle
+//         Array.from(nodes).findIndex((d) => d.__data__.id === target.id)
+//       : -1
 
-  if (targetIdx > -1) {
-    const [targetNode] = d3.select(nodes[targetIdx]).data()
+//   if (targetIdx > -1) {
+//     const [targetNode] = d3.select(nodes[targetIdx]).data()
 
-    drawingTempLink(node, targetNode)
-  } else {
-    drawingTempLink(node, { x, y })
-  }
-}
+//     drawingTempLink(node, targetNode)
+//   } else {
+//     drawingTempLink(node, { x, y })
+//   }
+// }
 
-export const handleDragEndNode: DomHandlerHOC<any, any> = ({
-  setNewEdge,
-  notifyMediator,
-}) => (node, i, nodes) => {
-  const {
-    sourceEvent: {
-      srcElement: { __data__: target },
-    },
-  } = d3.event
-  const targetIdx =
-    target && target.id !== g.activeNode.id
-      ? // eslint-disable-next-line no-underscore-dangle
-        Array.from(nodes).findIndex((d) => d.__data__.id === target.id)
-      : -1
+// export const handleDragEndNode: DomHandlerHOC<any, any> = ({
+//   setNewEdge,
+//   notifyMediator,
+// }) => (node, i, nodes) => {
+//   const {
+//     sourceEvent: {
+//       srcElement: { __data__: target },
+//     },
+//   } = d3.event
+//   const targetIdx =
+//     target && target.id !== g.activeNode.id
+//       ? // eslint-disable-next-line no-underscore-dangle
+//         Array.from(nodes).findIndex((d) => d.__data__.id === target.id)
+//       : -1
 
-  if (targetIdx > -1) {
-    const [targetNode] = d3.select(nodes[targetIdx]).data()
+//   if (targetIdx > -1) {
+//     const [targetNode] = d3.select(nodes[targetIdx]).data()
 
-    drawingTempLink(node, targetNode)
-    setNewEdge(g.activeNode.id, target.id)
-  } else {
-    clearTempLink()
-  }
-}
+//     drawingTempLink(node, targetNode)
+//     setNewEdge(g.activeNode.id, target.id)
+//   } else {
+//     clearTempLink()
+//   }
+// }
 
 /**
  * Link handlers

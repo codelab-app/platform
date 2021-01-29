@@ -4,7 +4,7 @@ import { DeleteAppService } from '../../core/application/useCases/deleteApp/Dele
 import { GetAppService } from '../../core/application/useCases/getApp/GetAppService'
 import { GetAppsService } from '../../core/application/useCases/getApps/GetAppsService'
 import { UpdateAppService } from '../../core/application/useCases/updateApp/UpdateAppService'
-import { AppGraphqlAdapter } from '../../presentation/controllers/AppGraphqlAdapter'
+import { AppResolvers } from '../../presentation/controllers/AppResolvers'
 import { PrismaService } from '@codelab/backend'
 
 @Module({
@@ -13,7 +13,7 @@ import { PrismaService } from '@codelab/backend'
     /**
      * Controllers
      */
-    AppGraphqlAdapter,
+    AppResolvers,
     /**
      * UseCaseProviders
      */

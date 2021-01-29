@@ -10,6 +10,7 @@ export const ApolloForm = <
 >({
   mutation,
   formData,
+  hideSubmitButton,
   ...props
 }: ApolloFormProps<TData, any>) => {
   const [localFormData, setLocalFormData] = useState<TData>(formData)
@@ -27,7 +28,7 @@ export const ApolloForm = <
 
   return (
     <JsonSchemaForm<TData>
-      hideSubmitButton
+      hideSubmitButton={hideSubmitButton}
       formData={localFormData}
       onChange={({ data: onChangeData }) => setLocalFormData(onChangeData)}
       onSubmit={onSubmit}

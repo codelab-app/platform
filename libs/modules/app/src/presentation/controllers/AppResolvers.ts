@@ -15,7 +15,7 @@ import { User } from '@codelab/modules/user'
 
 @Resolver('App')
 @Injectable()
-export class AppGraphqlAdapter {
+export class AppResolvers {
   constructor(
     private readonly createAppService: CreateAppService,
     private readonly getAppService: GetAppService,

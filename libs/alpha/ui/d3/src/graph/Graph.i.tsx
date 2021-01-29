@@ -36,4 +36,6 @@ export interface D3Link extends D3LinkProp, SimulationLinkDatum<D3Node> {
 export type D3GraphProps = {
   nodes: Array<D3Node>
   links: Array<D3Link>
+  onNodeClick?: Function
+  onLinkClick?: Function
 }

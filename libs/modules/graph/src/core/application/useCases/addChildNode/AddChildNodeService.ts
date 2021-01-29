@@ -1,22 +1,27 @@
-import { Inject, Injectable } from '@nestjs/common'
-import { GraphDto } from '../../../domain/graph/GraphDto'
+import { Injectable } from '@nestjs/common'
+import { Vertex } from '@prisma/client'
 import { AddChildNodeInput } from './AddChildNodeInput'
-import {
-  PrismaDITokens,
-  PrismaService,
-  TransactionalUseCase,
-} from '@codelab/backend'
+import { PrismaService, TransactionalUseCase } from '@codelab/backend'
 
 @Injectable()
 export class AddChildNodeService
-  implements TransactionalUseCase<AddChildNodeInput, GraphDto> {
-  constructor(
-    @Inject(PrismaDITokens.PrismaService)
-    private readonly prismaService: PrismaService,
-  ) {}
+  implements TransactionalUseCase<AddChildNodeInput, Vertex> {
+  constructor(private readonly prismaService: PrismaService) {}
 
-  async execute(request: AddChildNodeInput) {
-    const { graphId, parentVertexId, vertex, order } = request
+  async execute({ parentVertexId, vertex, order }: AddChildNodeInput) {
+    const graph = await this.prismaService.graph.findFirst({
+      where: {
+        vertices: {
+          every: {
+            id: parentVertexId,
+          },
+        },
+      },
+    })
+
+    if (!graph) {
+      throw new Error('Graph not found')
+    }
 
     const createdVertex = await this.prismaService.vertex.create({
       data: {
@@ -24,9 +29,9 @@ export class AddChildNodeService
       },
     })
 
-    return this.prismaService.graph.update({
+    await this.prismaService.graph.update({
       where: {
-        id: graphId,
+        id: graph.id,
       },
       data: {
         vertices: {
@@ -39,11 +44,12 @@ export class AddChildNodeService
             source: parentVertexId,
             target: createdVertex.id,
             order,
-            // props: {},
             props: vertex.props,
           },
         },
       },
     })
+
+    return createdVertex
   }
 }

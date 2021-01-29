@@ -1,12 +1,18 @@
 import { EdgeDefinition, NodeDefinition } from 'cytoscape'
 import { merge } from 'lodash'
 import objectMapper from 'object-mapper'
-import { EdgeA, VertexA } from '@codelab/alpha/shared/interface/graph-v2'
+import { EdgeFragmentsFragment } from '../../../../../generated/src/graphql.generated'
+import { VertexFragmentsFragment } from '@codelab/generated'
 
+/**
+ * Map from GraphQL to Cytoscape
+ *
+ * @param vertices GraphQL queried data
+ */
 export const cyMapVertices = (
-  vertices: Array<Partial<VertexA>>,
+  vertices: Array<VertexFragmentsFragment>,
 ): Array<NodeDefinition> => {
-  const mapper = {
+  const mapper: Partial<Record<keyof VertexFragmentsFragment, string>> = {
     id: 'data.id',
     parent: 'data.parent',
   }
@@ -19,11 +25,13 @@ export const cyMapVertices = (
   })
 }
 
-export const cyMapEdges = (edges: Array<EdgeA>): Array<EdgeDefinition> => {
-  const mapper = {
+export const cyMapEdges = (
+  edges: Array<EdgeFragmentsFragment>,
+): Array<EdgeDefinition> => {
+  const mapper: Partial<Record<keyof EdgeFragmentsFragment, string>> = {
     id: 'data.id',
-    start: 'data.source',
-    end: 'data.target',
+    source: 'data.source',
+    target: 'data.target',
   }
 
   return edges.map((edge) => {

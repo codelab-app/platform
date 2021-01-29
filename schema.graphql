@@ -1,9 +1,15 @@
 type Edge {
   id: String!
   source: String!
+  type: EdgeType!
   target: String!
   props: JSONObject!
   order: Float!
+}
+
+enum EdgeType {
+  Vertex
+  Graph
 }
 
 """
@@ -15,6 +21,8 @@ type Vertex {
   id: String!
   type: NodeType!
   props: JSONObject
+  parent: Vertex
+  children: [Vertex!]!
 }
 
 enum NodeType {
@@ -124,9 +132,15 @@ enum NodeType {
 
 type Graph {
   id: String!
+  type: GraphType!
   label: String!
   vertices: [Vertex!]!
   edges: [Edge!]!
+}
+
+enum GraphType {
+  Layout
+  Component
 }
 
 type Page {
@@ -154,6 +168,7 @@ type Query {
   getMe: User!
   getGraph(input: GetGraphInput!): Graph!
   getGraphBy(input: GetGraphByInput!): Graph!
+  getVertex(input: GetVertexInput!): Vertex
   getPages(input: GetPagesInput!): [Page!]!
   getPage(input: GetPageInput!): Page!
 }
@@ -169,6 +184,10 @@ input GetGraphInput {
 input GetGraphByInput {
   appId: String
   pageId: String
+}
+
+input GetVertexInput {
+  id: String!
 }
 
 input GetPagesInput {
@@ -188,10 +207,10 @@ type Mutation {
   registerUser(input: RegisterUserInput!): User!
   loginUser(input: LoginUserInput!): User!
   createGraph(input: CreateGraphInput!): Graph!
-  addChildNode(input: AddChildNodeInput!): Graph!
-  updateNode(input: UpdateNodeInput!): Graph!
+  addChildNode(input: AddChildNodeInput!): Vertex!
   deleteNode(input: DeleteNodeInput!): Graph!
   moveNode(input: MoveNodeInput!): Graph!
+  updateNode(input: UpdateNodeInput!): Vertex!
   createPage(input: CreatePageInput!): Page!
   deletePage(input: DeletePageInput!): Page!
 }
@@ -233,7 +252,6 @@ input CreateGraphInput {
 }
 
 input AddChildNodeInput {
-  graphId: String!
   parentVertexId: String
   vertex: CreateVertexInput!
   order: Float
@@ -245,12 +263,6 @@ input CreateVertexInput {
   props: JSONObject!
 }
 
-input UpdateNodeInput {
-  graphId: String!
-  vertexId: String!
-  type: NodeType!
-}
-
 input DeleteNodeInput {
   vertexId: String!
 }
@@ -260,9 +272,9 @@ input MoveNodeInput {
   type: EdgeType!
 }
 
-input EdgeType {
-  source: String!
-  target: String!
+input UpdateNodeInput {
+  vertexId: String!
+  type: NodeType!
 }
 
 input CreatePageInput {

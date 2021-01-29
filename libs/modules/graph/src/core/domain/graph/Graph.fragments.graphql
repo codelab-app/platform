@@ -1,5 +1,6 @@
 fragment graphFragments on Graph {
   id
+  type
   label
   vertices {
     ...vertexFragments
