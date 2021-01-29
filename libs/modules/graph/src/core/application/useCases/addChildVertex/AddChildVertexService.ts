@@ -12,7 +12,7 @@ export class AddChildVertexService
     const graph = await this.prismaService.graph.findFirst({
       where: {
         vertices: {
-          every: {
+          some: {
             id: parentVertexId,
           },
         },
@@ -26,6 +26,11 @@ export class AddChildVertexService
     const createdVertex = await this.prismaService.vertex.create({
       data: {
         ...vertex,
+        graph: {
+          connect: {
+            id: graph.id,
+          },
+        },
       },
     })
 

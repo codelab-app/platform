@@ -21,8 +21,6 @@ export const DashboardDrawer = () => {
     dashboardDrawerState,
   )
 
-  console.log(vertexId)
-
   return (
     <Drawer
       title="Basic Drawer"

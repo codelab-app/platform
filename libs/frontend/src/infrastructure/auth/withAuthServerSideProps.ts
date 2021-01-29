@@ -111,11 +111,11 @@ export const withAuthGuardServerSideProps = (redirect: {
   destination: string
 }) => {
   return withAuthServerSideProps((context, user) => {
-    if (!user) {
-      return {
-        redirect,
-      }
-    }
+    // if (!user) {
+    //   return {
+    //     redirect,
+    //   }
+    // }
 
     return undefined
   })

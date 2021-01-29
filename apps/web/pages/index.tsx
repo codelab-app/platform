@@ -19,12 +19,13 @@ const HomePage: NextPage = (props) => {
 // Redirect to /apps if the user is logged in
 export const getServerSideProps = withAuthServerSideProps((context, user) => {
   if (user) {
-    return {
-      redirect: {
-        destination: '/apps',
-        permanent: false,
-      },
-    }
+    return undefined
+    // return {
+    //   redirect: {
+    //     destination: '/apps',
+    //     permanent: false,
+    //   },
+    // }
   }
 
   return undefined

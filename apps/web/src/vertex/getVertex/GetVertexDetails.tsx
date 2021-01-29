@@ -43,7 +43,13 @@ export const GetVertexDetails = ({ vertexId }: GetVertexDetailsProps) => {
         <DeleteVertexButton vertexId={vertex.id} pageId={pageId} />
       </Space>
       <Divider />
-      <AddChildVertexModal vertex={vertex} parentVertexId={vertex.id} />
+
+      <Divider />
+      <AddChildVertexModal
+        pageId={pageId}
+        vertex={vertex}
+        parentVertexId={vertex.id}
+      />
       <UpdateVertexForm vertex={vertex} />
     </section>
   )

@@ -1,9 +1,9 @@
 import React from 'react'
+import { GetPageGql } from '../../../../../libs/generated/src/graphql.generated'
 import { AddChildVertexInputSchema } from '../../../../../libs/generated/src/json-schema.generated'
 import { ApolloForm } from '@codelab/frontend'
 import {
   AddChildVertexInput,
-  GetVertexGql,
   NodeType,
   UpdateVertexMutationVariables,
   VertexFragmentsFragment,
@@ -13,9 +13,11 @@ import {
 export interface AddChildVertexFormProps {
   vertex: VertexFragmentsFragment
   parentVertexId: string
+  pageId: string
 }
 
 export const AddChildVertexForm = ({
+  pageId,
   vertex,
   parentVertexId,
   ...props
@@ -23,10 +25,10 @@ export const AddChildVertexForm = ({
   const addChildVertexMutation = useAddChildVertexMutation({
     refetchQueries: [
       {
-        query: GetVertexGql,
+        query: GetPageGql,
         variables: {
           input: {
-            id: vertex.id,
+            pageId,
           },
         },
       },

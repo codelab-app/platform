@@ -17,6 +17,7 @@ export const ApolloForm = <
   const [mutate, { data, loading, error }] = mutation
 
   const onSubmit = ({ data: submitData }: JsonSchemaFormEvent<TData>) => {
+    console.log(submitData)
     mutate({
       variables: {
         input: {

@@ -9,51 +9,39 @@ import { PrismaService, TransactionalUseCase } from '@codelab/backend'
 
 @Injectable()
 export class DeleteVertexService
-  implements TransactionalUseCase<DeleteVertexInput, Vertex> {
+  implements TransactionalUseCase<DeleteVertexInput, Vertex | null> {
   constructor(private readonly prismaService: PrismaService) {}
 
   async execute({ vertexId }: DeleteVertexInput) {
     try {
-      const graph = await this.prismaService.graph.findFirst({
+      const edges = await this.prismaService.edge.findMany({
+        select: {
+          id: true,
+          source: true,
+          target: true,
+        },
         where: {
-          vertices: {
-            every: {
-              id: vertexId,
+          OR: [
+            {
+              target: vertexId,
             },
+            {
+              source: vertexId,
+            },
+          ],
+        },
+      })
+
+      // Delete related edges
+      const deleted = await this.prismaService.edge.deleteMany({
+        where: {
+          id: {
+            in: edges.map((edge) => edge.id),
           },
         },
       })
 
-      if (!graph) {
-        throw new Error()
-      }
-
-      console.log(graph)
-
-      await this.prismaService.graph.update({
-        where: {
-          id: graph.id,
-        },
-        data: {
-          edges: {
-            deleteMany: {
-              OR: [
-                {
-                  target: {
-                    in: [vertexId],
-                  },
-                },
-                {
-                  source: {
-                    in: [vertexId],
-                  },
-                },
-              ],
-            },
-          },
-        },
-      })
-
+      // Delete vertex
       return await this.prismaService.vertex.delete({
         where: {
           id: vertexId,

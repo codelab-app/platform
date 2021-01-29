@@ -260,6 +260,7 @@ export type Mutation = {
   modeVertex: Graph
   updateVertex: Vertex
   deleteVertex: Vertex
+  updateEdge: Edge
   createPage: Page
   deletePage: Page
 }
@@ -310,6 +311,10 @@ export type MutationUpdateVertexArgs = {
 
 export type MutationDeleteVertexArgs = {
   input: DeleteVertexInput
+}
+
+export type MutationUpdateEdgeArgs = {
+  input: UpdateEdgeInput
 }
 
 export type MutationCreatePageArgs = {
@@ -379,6 +384,13 @@ export type UpdateVertexInput = {
 
 export type DeleteVertexInput = {
   vertexId: Scalars['String']
+}
+
+export type UpdateEdgeInput = {
+  id: Scalars['String']
+  type: EdgeType
+  source: Scalars['String']
+  target: Scalars['String']
 }
 
 export type CreatePageInput = {
@@ -486,6 +498,14 @@ export type MoveVertexMutation = { __typename?: 'Mutation' } & {
         >
       >
     }
+}
+
+export type UpdateEdgeMutationVariables = Exact<{
+  input: UpdateEdgeInput
+}>
+
+export type UpdateEdgeMutation = { __typename?: 'Mutation' } & {
+  updateEdge: { __typename?: 'Edge' } & EdgeFragmentsFragment
 }
 
 export type UpdateVertexMutationVariables = Exact<{
@@ -755,6 +775,14 @@ export const MoveVertex = gql`
       }
     }
   }
+`
+export const UpdateEdge = gql`
+  mutation UpdateEdge($input: UpdateEdgeInput!) {
+    updateEdge(input: $input) {
+      ...edgeFragments
+    }
+  }
+  ${EdgeFragments}
 `
 export const UpdateVertex = gql`
   mutation UpdateVertex($input: UpdateVertexInput!) {
@@ -1448,6 +1476,55 @@ export type MoveVertexMutationResult = Apollo.MutationResult<MoveVertexMutation>
 export type MoveVertexMutationOptions = Apollo.BaseMutationOptions<
   MoveVertexMutation,
   MoveVertexMutationVariables
+>
+export const UpdateEdgeGql = gql`
+  mutation UpdateEdge($input: UpdateEdgeInput!) {
+    updateEdge(input: $input) {
+      ...edgeFragments
+    }
+  }
+  ${EdgeFragmentsFragmentDoc}
+`
+export type UpdateEdgeMutationFn = Apollo.MutationFunction<
+  UpdateEdgeMutation,
+  UpdateEdgeMutationVariables
+>
+
+/**
+ * __useUpdateEdgeMutation__
+ *
+ * To run a mutation, you first call `useUpdateEdgeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateEdgeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateEdgeMutation, { data, loading, error }] = useUpdateEdgeMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateEdgeMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateEdgeMutation,
+    UpdateEdgeMutationVariables
+  >,
+) {
+  return Apollo.useMutation<UpdateEdgeMutation, UpdateEdgeMutationVariables>(
+    UpdateEdgeGql,
+    baseOptions,
+  )
+}
+export type UpdateEdgeMutationHookResult = ReturnType<
+  typeof useUpdateEdgeMutation
+>
+export type UpdateEdgeMutationResult = Apollo.MutationResult<UpdateEdgeMutation>
+export type UpdateEdgeMutationOptions = Apollo.BaseMutationOptions<
+  UpdateEdgeMutation,
+  UpdateEdgeMutationVariables
 >
 export const UpdateVertexGql = gql`
   mutation UpdateVertex($input: UpdateVertexInput!) {

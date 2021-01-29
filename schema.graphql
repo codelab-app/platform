@@ -211,6 +211,7 @@ type Mutation {
   modeVertex(input: MoveVertexInput!): Graph!
   updateVertex(input: UpdateVertexInput!): Vertex!
   deleteVertex(input: DeleteVertexInput!): Vertex!
+  updateEdge(input: UpdateEdgeInput!): Edge!
   createPage(input: CreatePageInput!): Page!
   deletePage(input: DeletePageInput!): Page!
 }
@@ -274,6 +275,13 @@ input UpdateVertexInput {
 
 input DeleteVertexInput {
   vertexId: String!
+}
+
+input UpdateEdgeInput {
+  id: String!
+  type: EdgeType!
+  source: String!
+  target: String!
 }
 
 input CreatePageInput {

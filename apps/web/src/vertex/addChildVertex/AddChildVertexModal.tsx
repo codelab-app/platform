@@ -8,6 +8,7 @@ import { addChildVertexState } from './AddChildVertexState'
 import { ModalForm } from '@codelab/frontend'
 
 export const AddChildVertexModal = ({
+  pageId,
   vertex,
   parentVertexId,
 }: AddChildVertexFormProps) => {
@@ -25,7 +26,11 @@ export const AddChildVertexModal = ({
         onOk: () => setAddChildVertex({ visible: false }),
       }}
       renderForm={() => (
-        <AddChildVertexForm vertex={vertex} parentVertexId={parentVertexId} />
+        <AddChildVertexForm
+          pageId={pageId}
+          vertex={vertex}
+          parentVertexId={parentVertexId}
+        />
       )}
     />
   )
