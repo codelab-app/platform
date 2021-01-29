@@ -11,7 +11,7 @@ export type VertexId = string
 
 @Injectable()
 export class MoveVertexService
-  implements TransactionalUseCase<MoveVertexInput, GraphDto> {
+  implements TransactionalUseCase<MoveVertexInput, any> {
   declare graph: GraphDto
 
   constructor(private readonly prismaService: PrismaService) {}
@@ -58,7 +58,7 @@ export class MoveVertexService
     }
 
     this.setVertexParent()
-    this.moveVertex(type.source, type.target)
+    // this.moveVertex(type.source, type.target)
     const { edges } = this.graph
 
     // delete this.graph.edges
