@@ -1,7 +1,7 @@
 import { Field, InputType } from '@nestjs/graphql'
 
 @InputType()
-export class DeleteNodeInput {
+export class DeleteVertexInput {
   @Field()
   declare vertexId: string
 }

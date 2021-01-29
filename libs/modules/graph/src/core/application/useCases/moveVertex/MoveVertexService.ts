@@ -4,19 +4,19 @@ import { Edge } from '../../../domain/edge/Edge'
 import { Graph } from '../../../domain/graph/Graph'
 import { GraphDto } from '../../../domain/graph/GraphDto'
 import { Vertex } from '../../../domain/vertex/Vertex'
-import { MoveNodeInput } from './MoveNodeInput'
+import { MoveVertexInput } from './MoveVertexInput'
 import { PrismaService, TransactionalUseCase } from '@codelab/backend'
 
 export type VertexId = string
 
 @Injectable()
-export class MoveNodeService
-  implements TransactionalUseCase<MoveNodeInput, GraphDto> {
+export class MoveVertexService
+  implements TransactionalUseCase<MoveVertexInput, GraphDto> {
   declare graph: GraphDto
 
   constructor(private readonly prismaService: PrismaService) {}
 
-  async execute({ graphId, type }: MoveNodeInput) {
+  async execute({ graphId, type }: MoveVertexInput) {
     try {
       this.graph = ((await this.prismaService.graph.findUnique({
         where: {

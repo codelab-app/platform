@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common'
 import { Vertex } from '@prisma/client'
-import { AddChildNodeInput } from './AddChildNodeInput'
+import { AddChildVertexInput } from './AddChildVertexInput'
 import { PrismaService, TransactionalUseCase } from '@codelab/backend'
 
 @Injectable()
-export class AddChildNodeService
-  implements TransactionalUseCase<AddChildNodeInput, Vertex> {
+export class AddChildVertexService
+  implements TransactionalUseCase<AddChildVertexInput, Vertex> {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async execute({ parentVertexId, vertex, order }: AddChildNodeInput) {
+  async execute({ parentVertexId, vertex, order }: AddChildVertexInput) {
     const graph = await this.prismaService.graph.findFirst({
       where: {
         vertices: {

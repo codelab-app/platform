@@ -1,5 +1,5 @@
-mutation MoveNode($input: MoveNodeInput!) {
-  moveNode(input: $input) {
+mutation MoveVertex($input: MoveVertexInput!) {
+  modeVertex(input: $input) {
     id
     label
     edges {

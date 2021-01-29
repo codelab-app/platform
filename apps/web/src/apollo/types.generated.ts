@@ -221,7 +221,7 @@ export type Mutation = {
   registerUser: User
   loginUser: User
   createGraph: Graph
-  addChildNode: Graph
+  addChildVertex: Graph
   updateNode: Graph
   deleteNode: Graph
   moveNode: Graph
@@ -261,8 +261,8 @@ export type MutationCreateGraphArgs = {
   input: CreateGraphInput
 }
 
-export type MutationAddChildNodeArgs = {
-  input: AddChildNodeInput
+export type MutationAddChildVertexArgs = {
+  input: AddChildVertexInput
 }
 
 export type MutationUpdateNodeArgs = {
@@ -321,14 +321,14 @@ export type CreateGraphInput = {
   label: Scalars['String']
 }
 
-export type AddChildNodeInput = {
+export type AddChildVertexInput = {
   graphId: Scalars['String']
   parentVertexId?: Maybe<Scalars['String']>
-  vertex: AddChildNodeVertexType
+  vertex: AddChildVertexVertexType
   order?: Maybe<Scalars['Float']>
 }
 
-export type AddChildNodeVertexType = {
+export type AddChildVertexVertexType = {
   type: NodeType
   props: Scalars['JSONObject']
 }

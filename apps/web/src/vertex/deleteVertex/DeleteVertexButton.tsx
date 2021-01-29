@@ -1,6 +1,6 @@
 import { Button } from 'antd'
 import React from 'react'
-import { GetPageGql, useDeleteNodeMutation } from '@codelab/generated'
+import { GetPageGql, useDeleteVertexMutation } from '@codelab/generated'
 
 interface DeleteVertexButtonProps {
   vertexId: string
@@ -11,7 +11,7 @@ export const DeleteVertexButton = ({
   vertexId,
   pageId,
 }: DeleteVertexButtonProps) => {
-  const [deleteVertex] = useDeleteNodeMutation({
+  const [deleteVertex] = useDeleteVertexMutation({
     variables: {
       input: {
         vertexId,

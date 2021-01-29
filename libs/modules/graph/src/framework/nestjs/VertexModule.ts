@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common'
 import { VertexService } from '../../core/application/services/VertexService'
-import { DeleteNodeService } from '../../core/application/useCases/deleteNode/DeleteNodeService'
+import { DeleteVertexService } from '../../core/application/useCases/deleteVertex/DeleteVertexService'
 import { GetVertexService } from '../../core/application/useCases/getVertex/GetVertexService'
-import { UpdateNodeService } from '../../core/application/useCases/updateNode/UpdateNodeService'
+import { UpdateVertexService } from '../../core/application/useCases/updateVertex/UpdateVertexService'
 import { VertexResolvers } from '../../presentation/controllers/VertexResolvers'
 import { PrismaService } from '@codelab/backend'
 
@@ -15,8 +15,8 @@ import { PrismaService } from '@codelab/backend'
      * UseCaseProviders
      */
     GetVertexService,
-    DeleteNodeService,
-    UpdateNodeService,
+    DeleteVertexService,
+    UpdateVertexService,
   ],
   exports: [VertexService],
 })

@@ -1,13 +1,13 @@
 import React from 'react'
-import { AddChildNodeInputSchema } from '../../../../../libs/generated/src/json-schema.generated'
+import { AddChildVertexInputSchema } from '../../../../../libs/generated/src/json-schema.generated'
 import { ApolloForm } from '@codelab/frontend'
 import {
-  AddChildNodeInput,
+  AddChildVertexInput,
   GetVertexGql,
   NodeType,
-  UpdateNodeMutationVariables,
+  UpdateVertexMutationVariables,
   VertexFragmentsFragment,
-  useAddChildNodeMutation,
+  useAddChildVertexMutation,
 } from '@codelab/generated'
 
 export interface AddChildVertexFormProps {
@@ -20,7 +20,7 @@ export const AddChildVertexForm = ({
   parentVertexId,
   ...props
 }: AddChildVertexFormProps) => {
-  const addChildVertexMutation = useAddChildNodeMutation({
+  const addChildVertexMutation = useAddChildVertexMutation({
     refetchQueries: [
       {
         query: GetVertexGql,
@@ -34,10 +34,10 @@ export const AddChildVertexForm = ({
   })
 
   return (
-    <ApolloForm<AddChildNodeInput, UpdateNodeMutationVariables>
+    <ApolloForm<AddChildVertexInput, UpdateVertexMutationVariables>
       hideSubmitButton
       mutation={addChildVertexMutation}
-      schema={AddChildNodeInputSchema}
+      schema={AddChildVertexInputSchema}
       formData={{
         parentVertexId,
         vertex: { type: NodeType.ReactAffix, props: {} },

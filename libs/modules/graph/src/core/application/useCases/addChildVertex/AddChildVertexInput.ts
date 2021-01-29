@@ -2,7 +2,7 @@ import { Field, InputType } from '@nestjs/graphql'
 import { CreateVertexInput } from '../../../domain/vertex/CreateVertexInput'
 
 @InputType()
-export class AddChildNodeInput {
+export class AddChildVertexInput {
   @Field(() => String, { nullable: true })
   declare parentVertexId: string
 

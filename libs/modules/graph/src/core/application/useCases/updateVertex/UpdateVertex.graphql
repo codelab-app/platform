@@ -1,0 +1,5 @@
+mutation UpdateVertex($input: UpdateVertexInput!) {
+  updateVertex(input: $input) {
+    ...vertexFragments
+  }
+}

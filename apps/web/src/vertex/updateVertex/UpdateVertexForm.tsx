@@ -2,11 +2,11 @@ import React from 'react'
 import { ApolloForm } from '@codelab/frontend'
 import {
   GetVertexGql,
-  UpdateNodeInput,
-  UpdateNodeInputSchema,
-  UpdateNodeMutationVariables,
+  UpdateVertexInput,
+  UpdateVertexInputSchema,
+  UpdateVertexMutationVariables,
   VertexFragmentsFragment,
-  useUpdateNodeMutation,
+  useUpdateVertexMutation,
 } from '@codelab/generated'
 
 interface UpdateVertexFormProps {
@@ -14,7 +14,7 @@ interface UpdateVertexFormProps {
 }
 
 export const UpdateVertexForm = ({ vertex }: UpdateVertexFormProps) => {
-  const updateNodeMutation = useUpdateNodeMutation({
+  const updateVertexMutation = useUpdateVertexMutation({
     refetchQueries: [
       {
         query: GetVertexGql,
@@ -28,10 +28,10 @@ export const UpdateVertexForm = ({ vertex }: UpdateVertexFormProps) => {
   })
 
   return (
-    <ApolloForm<UpdateNodeInput, UpdateNodeMutationVariables>
+    <ApolloForm<UpdateVertexInput, UpdateVertexMutationVariables>
       hideSubmitButton={false}
-      mutation={updateNodeMutation}
-      schema={UpdateNodeInputSchema}
+      mutation={updateVertexMutation}
+      schema={UpdateVertexInputSchema}
       formData={{ vertexId: vertex.id, type: vertex.type }}
     />
   )

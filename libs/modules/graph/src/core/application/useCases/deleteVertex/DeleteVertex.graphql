@@ -1,0 +1,5 @@
+mutation DeleteVertex($input: DeleteVertexInput!) {
+  deleteVertex(input: $input) {
+    ...vertexFragments
+  }
+}

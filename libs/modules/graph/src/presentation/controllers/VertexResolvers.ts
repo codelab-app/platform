@@ -8,12 +8,12 @@ import {
   Resolver,
 } from '@nestjs/graphql'
 import { VertexService } from '../../core/application/services/VertexService'
-import { DeleteNodeInput } from '../../core/application/useCases/deleteNode/DeleteNodeInput'
-import { DeleteNodeService } from '../../core/application/useCases/deleteNode/DeleteNodeService'
+import { DeleteVertexInput } from '../../core/application/useCases/deleteVertex/DeleteVertexInput'
+import { DeleteVertexService } from '../../core/application/useCases/deleteVertex/DeleteVertexService'
 import { GetVertexInput } from '../../core/application/useCases/getVertex/GetVertexInput'
 import { GetVertexService } from '../../core/application/useCases/getVertex/GetVertexService'
-import { UpdateNodeInput } from '../../core/application/useCases/updateNode/UpdateNodeInput'
-import { UpdateNodeService } from '../../core/application/useCases/updateNode/UpdateNodeService'
+import { UpdateVertexInput } from '../../core/application/useCases/updateVertex/UpdateVertexInput'
+import { UpdateVertexService } from '../../core/application/useCases/updateVertex/UpdateVertexService'
 import { Vertex } from '../../core/domain/vertex/Vertex'
 import { PrismaService } from '@codelab/backend'
 
@@ -23,9 +23,9 @@ export class VertexResolvers {
   constructor(
     private readonly prismaService: PrismaService,
     private readonly vertexService: VertexService,
-    private readonly deleteNodeService: DeleteNodeService,
+    private readonly deleteVertexService: DeleteVertexService,
     private readonly getVertexService: GetVertexService,
-    private readonly updateNodeService: UpdateNodeService,
+    private readonly updateVertexService: UpdateVertexService,
   ) {}
 
   @ResolveField('parent', (returns) => Vertex, { nullable: true })
@@ -35,13 +35,13 @@ export class VertexResolvers {
   }
 
   @Mutation(() => Vertex)
-  updateNode(@Args('input') input: UpdateNodeInput) {
-    return this.updateNodeService.execute(input)
+  updateVertex(@Args('input') input: UpdateVertexInput) {
+    return this.updateVertexService.execute(input)
   }
 
   @Mutation(() => Vertex)
-  deleteNode(@Args('input') input: DeleteNodeInput) {
-    return this.deleteNodeService.execute(input)
+  deleteVertex(@Args('input') input: DeleteVertexInput) {
+    return this.deleteVertexService.execute(input)
   }
 
   @ResolveField('children', (returns) => [Vertex])

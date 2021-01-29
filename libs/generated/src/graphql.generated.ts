@@ -256,10 +256,10 @@ export type Mutation = {
   registerUser: User
   loginUser: User
   createGraph: Graph
-  addChildNode: Vertex
-  deleteNode: Graph
-  moveNode: Graph
-  updateNode: Vertex
+  addChildVertex: Vertex
+  modeVertex: Graph
+  updateVertex: Vertex
+  deleteVertex: Vertex
   createPage: Page
   deletePage: Page
 }
@@ -296,20 +296,20 @@ export type MutationCreateGraphArgs = {
   input: CreateGraphInput
 }
 
-export type MutationAddChildNodeArgs = {
-  input: AddChildNodeInput
+export type MutationAddChildVertexArgs = {
+  input: AddChildVertexInput
 }
 
-export type MutationDeleteNodeArgs = {
-  input: DeleteNodeInput
+export type MutationModeVertexArgs = {
+  input: MoveVertexInput
 }
 
-export type MutationMoveNodeArgs = {
-  input: MoveNodeInput
+export type MutationUpdateVertexArgs = {
+  input: UpdateVertexInput
 }
 
-export type MutationUpdateNodeArgs = {
-  input: UpdateNodeInput
+export type MutationDeleteVertexArgs = {
+  input: DeleteVertexInput
 }
 
 export type MutationCreatePageArgs = {
@@ -356,11 +356,10 @@ export type CreateGraphInput = {
   label: Scalars['String']
 }
 
-export type AddChildNodeInput = {
+export type AddChildVertexInput = {
   parentVertexId?: Maybe<Scalars['String']>
   vertex: CreateVertexInput
   order?: Maybe<Scalars['Float']>
-  props?: Maybe<Scalars['JSONObject']>
 }
 
 export type CreateVertexInput = {
@@ -368,18 +367,18 @@ export type CreateVertexInput = {
   props: Scalars['JSONObject']
 }
 
-export type DeleteNodeInput = {
-  vertexId: Scalars['String']
-}
-
-export type MoveNodeInput = {
+export type MoveVertexInput = {
   graphId: Scalars['String']
   type: EdgeType
 }
 
-export type UpdateNodeInput = {
+export type UpdateVertexInput = {
   vertexId: Scalars['String']
   type: NodeType
+}
+
+export type DeleteVertexInput = {
+  vertexId: Scalars['String']
 }
 
 export type CreatePageInput = {
@@ -434,12 +433,12 @@ export type AppFragmentsFragment = { __typename?: 'App' } & Pick<
   'id' | 'title'
 > & { pages: Array<{ __typename?: 'Page' } & PageFragmentsFragment> }
 
-export type AddChildNodeMutationVariables = Exact<{
-  input: AddChildNodeInput
+export type AddChildVertexMutationVariables = Exact<{
+  input: AddChildVertexInput
 }>
 
-export type AddChildNodeMutation = { __typename?: 'Mutation' } & {
-  addChildNode: { __typename?: 'Vertex' } & VertexFragmentsFragment
+export type AddChildVertexMutation = { __typename?: 'Mutation' } & {
+  addChildVertex: { __typename?: 'Vertex' } & VertexFragmentsFragment
 }
 
 export type CreateGraphMutationVariables = Exact<{
@@ -450,22 +449,12 @@ export type CreateGraphMutation = { __typename?: 'Mutation' } & {
   createGraph: { __typename?: 'Graph' } & Pick<Graph, 'id' | 'label'>
 }
 
-export type DeleteNodeMutationVariables = Exact<{
-  input: DeleteNodeInput
+export type DeleteVertexMutationVariables = Exact<{
+  input: DeleteVertexInput
 }>
 
-export type DeleteNodeMutation = { __typename?: 'Mutation' } & {
-  deleteNode: { __typename?: 'Graph' } & Pick<Graph, 'label'> & {
-      vertices: Array<
-        { __typename?: 'Vertex' } & Pick<Vertex, 'id' | 'type' | 'props'>
-      >
-      edges: Array<
-        { __typename?: 'Edge' } & Pick<
-          Edge,
-          'source' | 'target' | 'order' | 'props'
-        >
-      >
-    }
+export type DeleteVertexMutation = { __typename?: 'Mutation' } & {
+  deleteVertex: { __typename?: 'Vertex' } & VertexFragmentsFragment
 }
 
 export type GetGraphQueryVariables = Exact<{
@@ -484,12 +473,12 @@ export type GetVertexQuery = { __typename?: 'Query' } & {
   getVertex?: Maybe<{ __typename?: 'Vertex' } & VertexFragmentsFragment>
 }
 
-export type MoveNodeMutationVariables = Exact<{
-  input: MoveNodeInput
+export type MoveVertexMutationVariables = Exact<{
+  input: MoveVertexInput
 }>
 
-export type MoveNodeMutation = { __typename?: 'Mutation' } & {
-  moveNode: { __typename?: 'Graph' } & Pick<Graph, 'id' | 'label'> & {
+export type MoveVertexMutation = { __typename?: 'Mutation' } & {
+  modeVertex: { __typename?: 'Graph' } & Pick<Graph, 'id' | 'label'> & {
       edges: Array<
         { __typename?: 'Edge' } & Pick<
           Edge,
@@ -499,12 +488,12 @@ export type MoveNodeMutation = { __typename?: 'Mutation' } & {
     }
 }
 
-export type UpdateNodeMutationVariables = Exact<{
-  input: UpdateNodeInput
+export type UpdateVertexMutationVariables = Exact<{
+  input: UpdateVertexInput
 }>
 
-export type UpdateNodeMutation = { __typename?: 'Mutation' } & {
-  updateNode: { __typename?: 'Vertex' } & VertexFragmentsFragment
+export type UpdateVertexMutation = { __typename?: 'Mutation' } & {
+  updateVertex: { __typename?: 'Vertex' } & VertexFragmentsFragment
 }
 
 export type EdgeFragmentsFragment = { __typename?: 'Edge' } & Pick<
@@ -713,9 +702,9 @@ export const UpdateApp = gql`
     }
   }
 `
-export const AddChildNode = gql`
-  mutation AddChildNode($input: AddChildNodeInput!) {
-    addChildNode(input: $input) {
+export const AddChildVertex = gql`
+  mutation AddChildVertex($input: AddChildVertexInput!) {
+    addChildVertex(input: $input) {
       ...vertexFragments
     }
   }
@@ -729,23 +718,13 @@ export const CreateGraph = gql`
     }
   }
 `
-export const DeleteNode = gql`
-  mutation DeleteNode($input: DeleteNodeInput!) {
-    deleteNode(input: $input) {
-      label
-      vertices {
-        id
-        type
-        props
-      }
-      edges {
-        source
-        target
-        order
-        props
-      }
+export const DeleteVertex = gql`
+  mutation DeleteVertex($input: DeleteVertexInput!) {
+    deleteVertex(input: $input) {
+      ...vertexFragments
     }
   }
+  ${VertexFragments}
 `
 export const GetGraph = gql`
   query GetGraph($input: GetGraphInput!) {
@@ -763,9 +742,9 @@ export const GetVertex = gql`
   }
   ${VertexFragments}
 `
-export const MoveNode = gql`
-  mutation MoveNode($input: MoveNodeInput!) {
-    moveNode(input: $input) {
+export const MoveVertex = gql`
+  mutation MoveVertex($input: MoveVertexInput!) {
+    modeVertex(input: $input) {
       id
       label
       edges {
@@ -777,9 +756,9 @@ export const MoveNode = gql`
     }
   }
 `
-export const UpdateNode = gql`
-  mutation UpdateNode($input: UpdateNodeInput!) {
-    updateNode(input: $input) {
+export const UpdateVertex = gql`
+  mutation UpdateVertex($input: UpdateVertexInput!) {
+    updateVertex(input: $input) {
       ...vertexFragments
     }
   }
@@ -1164,54 +1143,54 @@ export type UpdateAppMutationOptions = Apollo.BaseMutationOptions<
   UpdateAppMutation,
   UpdateAppMutationVariables
 >
-export const AddChildNodeGql = gql`
-  mutation AddChildNode($input: AddChildNodeInput!) {
-    addChildNode(input: $input) {
+export const AddChildVertexGql = gql`
+  mutation AddChildVertex($input: AddChildVertexInput!) {
+    addChildVertex(input: $input) {
       ...vertexFragments
     }
   }
   ${VertexFragmentsFragmentDoc}
 `
-export type AddChildNodeMutationFn = Apollo.MutationFunction<
-  AddChildNodeMutation,
-  AddChildNodeMutationVariables
+export type AddChildVertexMutationFn = Apollo.MutationFunction<
+  AddChildVertexMutation,
+  AddChildVertexMutationVariables
 >
 
 /**
- * __useAddChildNodeMutation__
+ * __useAddChildVertexMutation__
  *
- * To run a mutation, you first call `useAddChildNodeMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useAddChildNodeMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useAddChildVertexMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddChildVertexMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [addChildNodeMutation, { data, loading, error }] = useAddChildNodeMutation({
+ * const [addChildVertexMutation, { data, loading, error }] = useAddChildVertexMutation({
  *   variables: {
  *      input: // value for 'input'
  *   },
  * });
  */
-export function useAddChildNodeMutation(
+export function useAddChildVertexMutation(
   baseOptions?: Apollo.MutationHookOptions<
-    AddChildNodeMutation,
-    AddChildNodeMutationVariables
+    AddChildVertexMutation,
+    AddChildVertexMutationVariables
   >,
 ) {
   return Apollo.useMutation<
-    AddChildNodeMutation,
-    AddChildNodeMutationVariables
-  >(AddChildNodeGql, baseOptions)
+    AddChildVertexMutation,
+    AddChildVertexMutationVariables
+  >(AddChildVertexGql, baseOptions)
 }
-export type AddChildNodeMutationHookResult = ReturnType<
-  typeof useAddChildNodeMutation
+export type AddChildVertexMutationHookResult = ReturnType<
+  typeof useAddChildVertexMutation
 >
-export type AddChildNodeMutationResult = Apollo.MutationResult<AddChildNodeMutation>
-export type AddChildNodeMutationOptions = Apollo.BaseMutationOptions<
-  AddChildNodeMutation,
-  AddChildNodeMutationVariables
+export type AddChildVertexMutationResult = Apollo.MutationResult<AddChildVertexMutation>
+export type AddChildVertexMutationOptions = Apollo.BaseMutationOptions<
+  AddChildVertexMutation,
+  AddChildVertexMutationVariables
 >
 export const CreateGraphGql = gql`
   mutation CreateGraph($input: CreateGraphInput!) {
@@ -1262,64 +1241,54 @@ export type CreateGraphMutationOptions = Apollo.BaseMutationOptions<
   CreateGraphMutation,
   CreateGraphMutationVariables
 >
-export const DeleteNodeGql = gql`
-  mutation DeleteNode($input: DeleteNodeInput!) {
-    deleteNode(input: $input) {
-      label
-      vertices {
-        id
-        type
-        props
-      }
-      edges {
-        source
-        target
-        order
-        props
-      }
+export const DeleteVertexGql = gql`
+  mutation DeleteVertex($input: DeleteVertexInput!) {
+    deleteVertex(input: $input) {
+      ...vertexFragments
     }
   }
+  ${VertexFragmentsFragmentDoc}
 `
-export type DeleteNodeMutationFn = Apollo.MutationFunction<
-  DeleteNodeMutation,
-  DeleteNodeMutationVariables
+export type DeleteVertexMutationFn = Apollo.MutationFunction<
+  DeleteVertexMutation,
+  DeleteVertexMutationVariables
 >
 
 /**
- * __useDeleteNodeMutation__
+ * __useDeleteVertexMutation__
  *
- * To run a mutation, you first call `useDeleteNodeMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useDeleteNodeMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useDeleteVertexMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteVertexMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [deleteNodeMutation, { data, loading, error }] = useDeleteNodeMutation({
+ * const [deleteVertexMutation, { data, loading, error }] = useDeleteVertexMutation({
  *   variables: {
  *      input: // value for 'input'
  *   },
  * });
  */
-export function useDeleteNodeMutation(
+export function useDeleteVertexMutation(
   baseOptions?: Apollo.MutationHookOptions<
-    DeleteNodeMutation,
-    DeleteNodeMutationVariables
+    DeleteVertexMutation,
+    DeleteVertexMutationVariables
   >,
 ) {
-  return Apollo.useMutation<DeleteNodeMutation, DeleteNodeMutationVariables>(
-    DeleteNodeGql,
-    baseOptions,
-  )
+  return Apollo.useMutation<
+    DeleteVertexMutation,
+    DeleteVertexMutationVariables
+  >(DeleteVertexGql, baseOptions)
 }
-export type DeleteNodeMutationHookResult = ReturnType<
-  typeof useDeleteNodeMutation
+export type DeleteVertexMutationHookResult = ReturnType<
+  typeof useDeleteVertexMutation
 >
-export type DeleteNodeMutationResult = Apollo.MutationResult<DeleteNodeMutation>
-export type DeleteNodeMutationOptions = Apollo.BaseMutationOptions<
-  DeleteNodeMutation,
-  DeleteNodeMutationVariables
+export type DeleteVertexMutationResult = Apollo.MutationResult<DeleteVertexMutation>
+export type DeleteVertexMutationOptions = Apollo.BaseMutationOptions<
+  DeleteVertexMutation,
+  DeleteVertexMutationVariables
 >
 export const GetGraphGql = gql`
   query GetGraph($input: GetGraphInput!) {
@@ -1425,9 +1394,9 @@ export type GetVertexQueryResult = Apollo.QueryResult<
   GetVertexQuery,
   GetVertexQueryVariables
 >
-export const MoveNodeGql = gql`
-  mutation MoveNode($input: MoveNodeInput!) {
-    moveNode(input: $input) {
+export const MoveVertexGql = gql`
+  mutation MoveVertex($input: MoveVertexInput!) {
+    modeVertex(input: $input) {
       id
       label
       edges {
@@ -1439,93 +1408,95 @@ export const MoveNodeGql = gql`
     }
   }
 `
-export type MoveNodeMutationFn = Apollo.MutationFunction<
-  MoveNodeMutation,
-  MoveNodeMutationVariables
+export type MoveVertexMutationFn = Apollo.MutationFunction<
+  MoveVertexMutation,
+  MoveVertexMutationVariables
 >
 
 /**
- * __useMoveNodeMutation__
+ * __useMoveVertexMutation__
  *
- * To run a mutation, you first call `useMoveNodeMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useMoveNodeMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useMoveVertexMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useMoveVertexMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [moveNodeMutation, { data, loading, error }] = useMoveNodeMutation({
+ * const [moveVertexMutation, { data, loading, error }] = useMoveVertexMutation({
  *   variables: {
  *      input: // value for 'input'
  *   },
  * });
  */
-export function useMoveNodeMutation(
+export function useMoveVertexMutation(
   baseOptions?: Apollo.MutationHookOptions<
-    MoveNodeMutation,
-    MoveNodeMutationVariables
+    MoveVertexMutation,
+    MoveVertexMutationVariables
   >,
 ) {
-  return Apollo.useMutation<MoveNodeMutation, MoveNodeMutationVariables>(
-    MoveNodeGql,
+  return Apollo.useMutation<MoveVertexMutation, MoveVertexMutationVariables>(
+    MoveVertexGql,
     baseOptions,
   )
 }
-export type MoveNodeMutationHookResult = ReturnType<typeof useMoveNodeMutation>
-export type MoveNodeMutationResult = Apollo.MutationResult<MoveNodeMutation>
-export type MoveNodeMutationOptions = Apollo.BaseMutationOptions<
-  MoveNodeMutation,
-  MoveNodeMutationVariables
+export type MoveVertexMutationHookResult = ReturnType<
+  typeof useMoveVertexMutation
 >
-export const UpdateNodeGql = gql`
-  mutation UpdateNode($input: UpdateNodeInput!) {
-    updateNode(input: $input) {
+export type MoveVertexMutationResult = Apollo.MutationResult<MoveVertexMutation>
+export type MoveVertexMutationOptions = Apollo.BaseMutationOptions<
+  MoveVertexMutation,
+  MoveVertexMutationVariables
+>
+export const UpdateVertexGql = gql`
+  mutation UpdateVertex($input: UpdateVertexInput!) {
+    updateVertex(input: $input) {
       ...vertexFragments
     }
   }
   ${VertexFragmentsFragmentDoc}
 `
-export type UpdateNodeMutationFn = Apollo.MutationFunction<
-  UpdateNodeMutation,
-  UpdateNodeMutationVariables
+export type UpdateVertexMutationFn = Apollo.MutationFunction<
+  UpdateVertexMutation,
+  UpdateVertexMutationVariables
 >
 
 /**
- * __useUpdateNodeMutation__
+ * __useUpdateVertexMutation__
  *
- * To run a mutation, you first call `useUpdateNodeMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdateNodeMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useUpdateVertexMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateVertexMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [updateNodeMutation, { data, loading, error }] = useUpdateNodeMutation({
+ * const [updateVertexMutation, { data, loading, error }] = useUpdateVertexMutation({
  *   variables: {
  *      input: // value for 'input'
  *   },
  * });
  */
-export function useUpdateNodeMutation(
+export function useUpdateVertexMutation(
   baseOptions?: Apollo.MutationHookOptions<
-    UpdateNodeMutation,
-    UpdateNodeMutationVariables
+    UpdateVertexMutation,
+    UpdateVertexMutationVariables
   >,
 ) {
-  return Apollo.useMutation<UpdateNodeMutation, UpdateNodeMutationVariables>(
-    UpdateNodeGql,
-    baseOptions,
-  )
+  return Apollo.useMutation<
+    UpdateVertexMutation,
+    UpdateVertexMutationVariables
+  >(UpdateVertexGql, baseOptions)
 }
-export type UpdateNodeMutationHookResult = ReturnType<
-  typeof useUpdateNodeMutation
+export type UpdateVertexMutationHookResult = ReturnType<
+  typeof useUpdateVertexMutation
 >
-export type UpdateNodeMutationResult = Apollo.MutationResult<UpdateNodeMutation>
-export type UpdateNodeMutationOptions = Apollo.BaseMutationOptions<
-  UpdateNodeMutation,
-  UpdateNodeMutationVariables
+export type UpdateVertexMutationResult = Apollo.MutationResult<UpdateVertexMutation>
+export type UpdateVertexMutationOptions = Apollo.BaseMutationOptions<
+  UpdateVertexMutation,
+  UpdateVertexMutationVariables
 >
 export const CreatePageGql = gql`
   mutation CreatePage($input: CreatePageInput!) {

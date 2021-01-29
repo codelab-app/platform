@@ -207,10 +207,10 @@ type Mutation {
   registerUser(input: RegisterUserInput!): User!
   loginUser(input: LoginUserInput!): User!
   createGraph(input: CreateGraphInput!): Graph!
-  addChildNode(input: AddChildNodeInput!): Vertex!
-  deleteNode(input: DeleteNodeInput!): Graph!
-  moveNode(input: MoveNodeInput!): Graph!
-  updateNode(input: UpdateNodeInput!): Vertex!
+  addChildVertex(input: AddChildVertexInput!): Vertex!
+  modeVertex(input: MoveVertexInput!): Graph!
+  updateVertex(input: UpdateVertexInput!): Vertex!
+  deleteVertex(input: DeleteVertexInput!): Vertex!
   createPage(input: CreatePageInput!): Page!
   deletePage(input: DeletePageInput!): Page!
 }
@@ -251,11 +251,10 @@ input CreateGraphInput {
   label: String!
 }
 
-input AddChildNodeInput {
+input AddChildVertexInput {
   parentVertexId: String
   vertex: CreateVertexInput!
   order: Float
-  props: JSONObject
 }
 
 input CreateVertexInput {
@@ -263,18 +262,18 @@ input CreateVertexInput {
   props: JSONObject!
 }
 
-input DeleteNodeInput {
-  vertexId: String!
-}
-
-input MoveNodeInput {
+input MoveVertexInput {
   graphId: String!
   type: EdgeType!
 }
 
-input UpdateNodeInput {
+input UpdateVertexInput {
   vertexId: String!
   type: NodeType!
+}
+
+input DeleteVertexInput {
+  vertexId: String!
 }
 
 input CreatePageInput {

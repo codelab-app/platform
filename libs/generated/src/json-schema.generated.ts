@@ -48,7 +48,7 @@ export const UpdateAppInputSchema: JSONSchema7 = {
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
 
-export const AddChildNodeInputSchema: JSONSchema7 = {
+export const AddChildVertexInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
     parentVertexId: {
@@ -189,7 +189,7 @@ export const CreateGraphInputSchema: JSONSchema7 = {
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
 
-export const DeleteNodeInputSchema: JSONSchema7 = {
+export const DeleteVertexInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
     vertexId: {
@@ -232,7 +232,7 @@ export const GetVertexInputSchema: JSONSchema7 = {
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
 
-export const MoveNodeInputSchema: JSONSchema7 = {
+export const MoveVertexInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
     graphId: {
@@ -246,7 +246,7 @@ export const MoveNodeInputSchema: JSONSchema7 = {
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
 
-export const UpdateNodeInputSchema: JSONSchema7 = {
+export const UpdateVertexInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
     vertexId: {

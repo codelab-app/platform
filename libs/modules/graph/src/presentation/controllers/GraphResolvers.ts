@@ -7,15 +7,15 @@ import {
   ResolveField,
   Resolver,
 } from '@nestjs/graphql'
-import { AddChildNodeInput } from '../../core/application/useCases/addChildNode/AddChildNodeInput'
-import { AddChildNodeService } from '../../core/application/useCases/addChildNode/AddChildNodeService'
+import { AddChildVertexInput } from '../../core/application/useCases/addChildVertex/AddChildVertexInput'
+import { AddChildVertexService } from '../../core/application/useCases/addChildVertex/AddChildVertexService'
 import { CreateGraphInput } from '../../core/application/useCases/createGraph/CreateGraphInput'
 import { CreateGraphService } from '../../core/application/useCases/createGraph/CreateGraphService'
 import { GetGraphByInput } from '../../core/application/useCases/getGraph/GetGraphByInput'
 import { GetGraphInput } from '../../core/application/useCases/getGraph/GetGraphInput'
 import { GetGraphService } from '../../core/application/useCases/getGraph/GetGraphService'
-import { MoveNodeInput } from '../../core/application/useCases/moveNode/MoveNodeInput'
-import { MoveNodeService } from '../../core/application/useCases/moveNode/MoveNodeService'
+import { MoveVertexInput } from '../../core/application/useCases/moveVertex/MoveVertexInput'
+import { MoveVertexService } from '../../core/application/useCases/moveVertex/MoveVertexService'
 import { Edge } from '../../core/domain/edge/Edge'
 import { Graph } from '../../core/domain/graph/Graph'
 import { Vertex } from '../../core/domain/vertex/Vertex'
@@ -26,8 +26,8 @@ import { PrismaService } from '@codelab/backend'
 export class GraphResolvers {
   constructor(
     private readonly createGraphService: CreateGraphService,
-    private readonly addChildNodeService: AddChildNodeService,
-    private readonly moveNodeService: MoveNodeService,
+    private readonly addChildVertexService: AddChildVertexService,
+    private readonly modeVertexService: MoveVertexService,
     private readonly getGraphService: GetGraphService,
     private readonly prismaService: PrismaService,
   ) {}
@@ -38,8 +38,8 @@ export class GraphResolvers {
   }
 
   @Mutation(() => Vertex)
-  addChildNode(@Args('input') input: AddChildNodeInput) {
-    return this.addChildNodeService.execute(input)
+  addChildVertex(@Args('input') input: AddChildVertexInput) {
+    return this.addChildVertexService.execute(input)
   }
 
   @Query(() => Graph)
@@ -53,8 +53,8 @@ export class GraphResolvers {
   }
 
   @Mutation(() => Graph)
-  moveNode(@Args('input') input: MoveNodeInput) {
-    return this.moveNodeService.execute(input)
+  modeVertex(@Args('input') input: MoveVertexInput) {
+    return this.modeVertexService.execute(input)
   }
 
   @ResolveField('vertices', (returns) => [Vertex])

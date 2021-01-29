@@ -3,7 +3,7 @@ import { print } from 'graphql'
 import request from 'supertest'
 import { setupTestModule, teardownTestModule } from '@codelab/backend'
 import {
-  AddChildNodeGql,
+  AddChildVertexGql,
   CreateAppGql,
   CreatePageGql,
   RegisterUserGql,
@@ -16,7 +16,7 @@ import { User, UserModule } from '@codelab/modules/user'
 const email = 'test_user@codelab.ai'
 const password = 'password'
 
-describe('AddChildNodeUseCase', () => {
+describe('AddChildVertexUseCase', () => {
   let app: INestApplication
   let user: User
   let page
@@ -95,10 +95,10 @@ describe('AddChildNodeUseCase', () => {
     const graphId = page.graphs[0].id
     const parentVertexId = page.graphs[0].vertices[0].id
 
-    const addChildNodeWithParent = await request(app.getHttpServer())
+    const addChildVertexWithParent = await request(app.getHttpServer())
       .post('/graphql')
       .send({
-        query: print(AddChildNodeGql),
+        query: print(AddChildVertexGql),
         variables: {
           input: {
             order: 0,
@@ -115,7 +115,7 @@ describe('AddChildNodeUseCase', () => {
       })
       .expect(200)
       .expect((res) => {
-        const graph = res.body.data.addChildNode
+        const graph = res.body.data.addChildVertex
 
         expect(graph.label).toEqual('Layout')
         expect(graph.vertices.length).toEqual(2)

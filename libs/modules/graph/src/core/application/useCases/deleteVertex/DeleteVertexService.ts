@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
-import { GraphDto } from '../../../domain/graph/GraphDto'
-import { DeleteNodeInput } from './DeleteNodeInput'
+import { Vertex } from '@prisma/client'
+import { DeleteVertexInput } from './DeleteVertexInput'
 import { PrismaService, TransactionalUseCase } from '@codelab/backend'
 
 /**
@@ -8,11 +8,11 @@ import { PrismaService, TransactionalUseCase } from '@codelab/backend'
  */
 
 @Injectable()
-export class DeleteNodeService
-  implements TransactionalUseCase<DeleteNodeInput, GraphDto> {
+export class DeleteVertexService
+  implements TransactionalUseCase<DeleteVertexInput, Vertex> {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async execute({ vertexId }: DeleteNodeInput) {
+  async execute({ vertexId }: DeleteVertexInput) {
     try {
       const graph = await this.prismaService.graph.findFirst({
         where: {
@@ -28,16 +28,13 @@ export class DeleteNodeService
         throw new Error()
       }
 
-      return await this.prismaService.graph.update({
+      console.log(graph)
+
+      await this.prismaService.graph.update({
         where: {
           id: graph.id,
         },
         data: {
-          vertices: {
-            delete: {
-              id: vertexId,
-            },
-          },
           edges: {
             deleteMany: {
               OR: [
@@ -54,6 +51,12 @@ export class DeleteNodeService
               ],
             },
           },
+        },
+      })
+
+      return await this.prismaService.vertex.delete({
+        where: {
+          id: vertexId,
         },
       })
     } catch (e) {

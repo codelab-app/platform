@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common'
 import { GraphService } from '../../core/application/services/GraphService'
-import { AddChildNodeService } from '../../core/application/useCases/addChildNode/AddChildNodeService'
+import { AddChildVertexService } from '../../core/application/useCases/addChildVertex/AddChildVertexService'
 import { CreateGraphService } from '../../core/application/useCases/createGraph/CreateGraphService'
 import { GetGraphService } from '../../core/application/useCases/getGraph/GetGraphService'
-import { MoveNodeService } from '../../core/application/useCases/moveNode/MoveNodeService'
+import { MoveVertexService } from '../../core/application/useCases/moveVertex/MoveVertexService'
 import { GraphResolvers } from '../../presentation/controllers/GraphResolvers'
 import { EdgeModule } from './EdgeModule'
 import { VertexModule } from './VertexModule'
@@ -21,10 +21,10 @@ import { PrismaService } from '@codelab/backend'
     /**
      * UseCaseProviders
      */
-    MoveNodeService,
+    MoveVertexService,
     GetGraphService,
     CreateGraphService,
-    AddChildNodeService,
+    AddChildVertexService,
   ],
   exports: [GraphService],
 })

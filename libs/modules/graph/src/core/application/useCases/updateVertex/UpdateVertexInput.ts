@@ -2,7 +2,7 @@ import { Field, InputType } from '@nestjs/graphql'
 import { NodeType } from '@codelab/backend'
 
 @InputType()
-export class UpdateNodeInput {
+export class UpdateVertexInput {
   @Field()
   declare vertexId: string
 

@@ -3,11 +3,11 @@ import { print } from 'graphql'
 import request from 'supertest'
 import { setupTestModule, teardownTestModule } from '@codelab/backend'
 import {
-  AddChildNodeGql,
+  AddChildVertexGql,
   CreateAppGql,
   CreatePageGql,
   RegisterUserGql,
-  UpdateNodeGql,
+  UpdateVertexGql,
 } from '@codelab/generated'
 import { App, AppModule } from '@codelab/modules/app'
 import { GraphModule } from '@codelab/modules/graph'
@@ -17,9 +17,9 @@ import { User, UserModule } from '@codelab/modules/user'
 const email = 'test_user@codelab.ai'
 const password = 'password'
 
-const getUpdateNodeMutation = (graphId: string, vertexId: string) => {
+const getUpdateVertexMutation = (graphId: string, vertexId: string) => {
   return {
-    query: print(UpdateNodeGql),
+    query: print(UpdateVertexGql),
     variables: {
       input: {
         graphId,
@@ -30,7 +30,7 @@ const getUpdateNodeMutation = (graphId: string, vertexId: string) => {
   }
 }
 
-describe.skip('UpdateNodeUseCase', () => {
+describe.skip('UpdateVertexUseCase', () => {
   let app: INestApplication
   let user: User
   let page
@@ -111,10 +111,10 @@ describe.skip('UpdateNodeUseCase', () => {
     const graphId = page.graphs[0].id
     const parentVertexId = page.graphs[0].vertices[0].id
 
-    const addChildNode: any = await request(app.getHttpServer())
+    const addChildVertex: any = await request(app.getHttpServer())
       .post('/graphql')
       .send({
-        query: print(AddChildNodeGql),
+        query: print(AddChildVertexGql),
         variables: {
           input: {
             order: 0,
@@ -131,27 +131,29 @@ describe.skip('UpdateNodeUseCase', () => {
       })
       .expect(200)
       .expect((res) => {
-        expect(res.body.data.addChildNode.label).toEqual('Layout')
-        expect(res.body.data.addChildNode.vertices.length).toEqual(2)
-        // expect(res.body.data.addChildNode.vertices[0].type).toEqual(
+        expect(res.body.data.addChildVertex.label).toEqual('Layout')
+        expect(res.body.data.addChildVertex.vertices.length).toEqual(2)
+        // expect(res.body.data.addChildVertex.vertices[0].type).toEqual(
         //   'React_Text',
         // )
-        // expect(res.body.data.addChildNode.vertices[0].props).toMatchObject({
+        // expect(res.body.data.addChildVertex.vertices[0].props).toMatchObject({
         //   id: 'a',
         // })
       })
-    const vertexId = addChildNode.body.data.addChildNode.vertices[1].id
-    const updateNodeMutation = getUpdateNodeMutation(graphId, vertexId)
+    const vertexId = addChildVertex.body.data.addChildVertex.vertices[1].id
+    const updateVertexMutation = getUpdateVertexMutation(graphId, vertexId)
 
     await request(app.getHttpServer())
       .post('/graphql')
-      .send(updateNodeMutation)
+      .send(updateVertexMutation)
       .expect(200)
       .expect((res) => {
-        expect(res.body.data.updateNode.label).toEqual(graphLabel)
-        expect(res.body.data.updateNode.vertices.length).toEqual(1)
-        expect(res.body.data.updateNode.vertices[0].type).toEqual('React_Text')
-        expect(res.body.data.updateNode.vertices[0].props).toMatchObject({
+        expect(res.body.data.updateVertex.label).toEqual(graphLabel)
+        expect(res.body.data.updateVertex.vertices.length).toEqual(1)
+        expect(res.body.data.updateVertex.vertices[0].type).toEqual(
+          'React_Text',
+        )
+        expect(res.body.data.updateVertex.vertices[0].props).toMatchObject({
           id: 'root123',
         })
       })
@@ -159,11 +161,11 @@ describe.skip('UpdateNodeUseCase', () => {
 
   // it('should return error for wrong vertex id', async () => {
   //   const wrongVertexId = '2fa9e75b-1f5d-4dd1-a58c-dbc09d822de9'
-  //   const updateNodeMutation = getUpdateNodeMutation(graphId, wrongVertexId)
+  //   const updateVertexMutation = getUpdateVertexMutation(graphId, wrongVertexId)
   //
   //   await request(app.getHttpServer())
   //     .post('/graphql')
-  //     .send(updateNodeMutation,)
+  //     .send(updateVertexMutation,)
   //     .expect(200)
   //     .expect((res) => {
   //       const errorMsg = res.body?.errors[0].message

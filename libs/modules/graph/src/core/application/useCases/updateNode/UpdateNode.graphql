@@ -1,5 +1,0 @@
-mutation UpdateNode($input: UpdateNodeInput!) {
-  updateNode(input: $input) {
-    ...vertexFragments
-  }
-}

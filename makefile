@@ -55,7 +55,7 @@ generate-ci:
 generate-json-schema:
 	npx typescript-json-schema \
 		libs/modules/graph/tsconfig.lib.json \
-		AddChildNodeRequest && \
+		AddChildVertexRequest && \
 	npx typescript-json-schema \
 		libs/alpha/ui/antd/tsconfig.lib.json \
 		Affix.AntdProps

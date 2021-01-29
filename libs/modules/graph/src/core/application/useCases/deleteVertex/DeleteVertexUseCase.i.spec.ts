@@ -3,7 +3,7 @@ import request from 'supertest'
 import { GraphModule } from '../../../../framework/nestjs/GraphModule'
 import { setupTestModule, teardownTestModule } from '@codelab/backend'
 
-describe.skip('DeleteNodeUseCase', () => {
+describe.skip('DeleteVertexUseCase', () => {
   let app: INestApplication
 
   let graphId = ''
@@ -37,9 +37,9 @@ describe.skip('DeleteNodeUseCase', () => {
   })
 
   it('should delete node', async () => {
-    const addChildNodeMutation = `
+    const addChildVertexMutation = `
       mutation {
-        addChildNode(request:
+        addChildVertex(request:
         {
           graphId: "${graphId}",
           vertex:
@@ -58,23 +58,23 @@ describe.skip('DeleteNodeUseCase', () => {
     const addRootNode: any = await request(app.getHttpServer())
       .post('/graphql')
       .send({
-        query: addChildNodeMutation,
+        query: addChildVertexMutation,
       })
       .expect(200)
       .expect((res) => {
-        expect(res.body.data.addChildNode.label).toEqual(graphLabel)
-        expect(res.body.data.addChildNode.vertices.length).toEqual(1)
-        expect(res.body.data.addChildNode.vertices[0].type).toEqual(
+        expect(res.body.data.addChildVertex.label).toEqual(graphLabel)
+        expect(res.body.data.addChildVertex.vertices.length).toEqual(1)
+        expect(res.body.data.addChildVertex.vertices[0].type).toEqual(
           'React_Text',
         )
-        expect(res.body.data.addChildNode.vertices[0].props).toMatchObject({
+        expect(res.body.data.addChildVertex.vertices[0].props).toMatchObject({
           id: 'root',
         })
       })
-    const rootNodeId = addRootNode.body.data.addChildNode.vertices[0].id
-    const addChildNodeWithParentMutation = `
+    const rootNodeId = addRootNode.body.data.addChildVertex.vertices[0].id
+    const addChildVertexWithParentMutation = `
       mutation {
-        addChildNode(request:
+        addChildVertex(request:
           {
             order: 0,
             graphId: "${graphId}",
@@ -93,62 +93,62 @@ describe.skip('DeleteNodeUseCase', () => {
           }
       }
     `
-    const addChildNode: any = await request(app.getHttpServer())
+    const addChildVertex: any = await request(app.getHttpServer())
       .post('/graphql')
       .send({
-        query: addChildNodeWithParentMutation,
+        query: addChildVertexWithParentMutation,
       })
       .expect(200)
       .expect((res) => {
-        expect(res.body.data.addChildNode.label).toEqual(graphLabel)
-        expect(res.body.data.addChildNode.vertices.length).toEqual(2)
-        expect(res.body.data.addChildNode.edges.length).toEqual(1)
-        expect(res.body.data.addChildNode.edges[0].source).toEqual(rootNodeId)
-        expect(res.body.data.addChildNode.edges[0].order).toEqual(0)
-        expect(res.body.data.addChildNode.edges[0].props).toMatchObject({
+        expect(res.body.data.addChildVertex.label).toEqual(graphLabel)
+        expect(res.body.data.addChildVertex.vertices.length).toEqual(2)
+        expect(res.body.data.addChildVertex.edges.length).toEqual(1)
+        expect(res.body.data.addChildVertex.edges[0].source).toEqual(rootNodeId)
+        expect(res.body.data.addChildVertex.edges[0].order).toEqual(0)
+        expect(res.body.data.addChildVertex.edges[0].props).toMatchObject({
           id: 'a',
         })
-        expect(res.body.data.addChildNode.vertices[0].type).toEqual(
+        expect(res.body.data.addChildVertex.vertices[0].type).toEqual(
           'React_Text',
         )
-        expect(res.body.data.addChildNode.vertices[0].props).toMatchObject({
+        expect(res.body.data.addChildVertex.vertices[0].props).toMatchObject({
           id: 'root',
         })
-        expect(res.body.data.addChildNode.vertices[1].type).toEqual(
+        expect(res.body.data.addChildVertex.vertices[1].type).toEqual(
           'React_Text',
         )
-        expect(res.body.data.addChildNode.vertices[1].props).toMatchObject({
+        expect(res.body.data.addChildVertex.vertices[1].props).toMatchObject({
           id: 'a',
         })
       })
-    const childNodeId = addChildNode.body.data.addChildNode.vertices[1].id
-    const deleteNodeMutation = `
+    const childNodeId = addChildVertex.body.data.addChildVertex.vertices[1].id
+    const deleteVertexMutation = `
       mutation {
-        deleteNode(request: {vertexId: "${childNodeId}"}) {
+        deleteVertex(request: {vertexId: "${childNodeId}"}) {
           label
           vertices { id type props }
           edges { source target order props }
         }
       }
     `
-    const deleteNode = await request(app.getHttpServer())
+    const deleteVertex = await request(app.getHttpServer())
       .post('/graphql')
       .send({
-        query: deleteNodeMutation,
+        query: deleteVertexMutation,
       })
       .expect(200)
       .expect((res) => {
-        expect(res.body.data.deleteNode.label).toEqual(graphLabel)
-        expect(res.body.data.deleteNode.edges.length).toEqual(0)
-        expect(res.body.data.deleteNode.vertices.length).toEqual(1)
+        expect(res.body.data.deleteVertex.label).toEqual(graphLabel)
+        expect(res.body.data.deleteVertex.edges.length).toEqual(0)
+        expect(res.body.data.deleteVertex.vertices.length).toEqual(1)
       })
   })
 
   it('should return error for wrong vertex id', async () => {
     const wrongVertexId = '2fa9e75b-1f5d-4dd1-a58c-dbc09d822de9'
-    const deleteNodeMutation = `
+    const deleteVertexMutation = `
       mutation {
-        deleteNode(request: {vertexId: "${wrongVertexId}"}) {
+        deleteVertex(request: {vertexId: "${wrongVertexId}"}) {
           label
           vertices { id type props }
           edges { source target order props }
@@ -159,7 +159,7 @@ describe.skip('DeleteNodeUseCase', () => {
     await request(app.getHttpServer())
       .post('/graphql')
       .send({
-        query: deleteNodeMutation,
+        query: deleteVertexMutation,
       })
       .expect(200)
       .expect((res) => {
