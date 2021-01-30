@@ -39,6 +39,7 @@ export type Vertex = {
   __typename?: 'Vertex'
   id: Scalars['String']
   type: NodeType
+  graph: Graph
   props?: Maybe<Scalars['JSONObject']>
   parent?: Maybe<Vertex>
   children: Array<Vertex>
@@ -388,6 +389,7 @@ export type DeleteVertexInput = {
 
 export type UpdateEdgeInput = {
   id: Scalars['String']
+  order: Scalars['Float']
   type: EdgeType
   source: Scalars['String']
   target: Scalars['String']
@@ -532,7 +534,10 @@ export type GraphFragmentsFragment = { __typename?: 'Graph' } & Pick<
 export type VertexFragmentsFragment = { __typename?: 'Vertex' } & Pick<
   Vertex,
   'id' | 'type' | 'props'
-> & { parent?: Maybe<{ __typename?: 'Vertex' } & Pick<Vertex, 'id' | 'type'>> }
+> & {
+    parent?: Maybe<{ __typename?: 'Vertex' } & Pick<Vertex, 'id' | 'type'>>
+    graph: { __typename?: 'Graph' } & Pick<Graph, 'id'>
+  }
 
 export type CreatePageMutationVariables = Exact<{
   input: CreatePageInput
@@ -625,6 +630,9 @@ export const VertexFragments = gql`
     parent {
       id
       type
+    }
+    graph {
+      id
     }
   }
 `
@@ -871,6 +879,9 @@ export const VertexFragmentsFragmentDoc = gql`
     parent {
       id
       type
+    }
+    graph {
+      id
     }
   }
 `

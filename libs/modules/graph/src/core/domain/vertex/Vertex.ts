@@ -1,5 +1,6 @@
 import { Field, ObjectType, registerEnumType } from '@nestjs/graphql'
 import { GraphQLJSONObject } from 'graphql-type-json'
+import { Graph } from '../graph/Graph'
 import { NodeType } from '@codelab/backend'
 
 registerEnumType(NodeType, {
@@ -13,6 +14,9 @@ export class Vertex {
 
   @Field(() => NodeType)
   declare type?: NodeType
+
+  @Field(() => Graph)
+  declare graph: Graph
 
   @Field(() => GraphQLJSONObject, { nullable: true })
   declare props?: object

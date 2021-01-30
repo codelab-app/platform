@@ -246,6 +246,29 @@ export const MoveVertexInputSchema: JSONSchema7 = {
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
 
+export const UpdateEdgeInputSchema: JSONSchema7 = {
+  type: 'object',
+  properties: {
+    id: {
+      type: 'string',
+    },
+    order: {
+      type: 'number',
+    },
+    type: {
+      enum: ['Graph', 'Vertex'],
+      type: 'string',
+    },
+    source: {
+      type: 'string',
+    },
+    target: {
+      type: 'string',
+    },
+  },
+  $schema: 'http://json-schema.org/draft-07/schema#',
+}
+
 export const UpdateVertexInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {

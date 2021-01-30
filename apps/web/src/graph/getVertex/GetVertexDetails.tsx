@@ -5,6 +5,7 @@ import { useRecoilState } from 'recoil'
 import { AddChildVertexModal } from '../addChildVertex/AddChildVertexModal'
 import { addChildVertexState } from '../addChildVertex/AddChildVertexState'
 import { DeleteVertexButton } from '../deleteVertex/DeleteVertexButton'
+import { MoveVertexTargets } from '../moveVertex/MoveVertexTargets'
 import { UpdateVertexForm } from '../updateVertex/UpdateVertexForm'
 import { useGetVertexQuery } from '@codelab/generated'
 
@@ -43,7 +44,8 @@ export const GetVertexDetails = ({ vertexId }: GetVertexDetailsProps) => {
         <DeleteVertexButton vertexId={vertex.id} pageId={pageId} />
       </Space>
       <Divider />
-
+      <h3>Move Vertex</h3>
+      <MoveVertexTargets sourceVertex={vertex} />
       <Divider />
       <AddChildVertexModal
         pageId={pageId}

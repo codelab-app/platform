@@ -14,6 +14,7 @@ import { GetVertexInput } from '../../core/application/useCases/getVertex/GetVer
 import { GetVertexService } from '../../core/application/useCases/getVertex/GetVertexService'
 import { UpdateVertexInput } from '../../core/application/useCases/updateVertex/UpdateVertexInput'
 import { UpdateVertexService } from '../../core/application/useCases/updateVertex/UpdateVertexService'
+import { Graph } from '../../core/domain/graph/Graph'
 import { Vertex } from '../../core/domain/vertex/Vertex'
 import { PrismaService } from '@codelab/backend'
 
@@ -30,8 +31,7 @@ export class VertexResolvers {
 
   @ResolveField('parent', (returns) => Vertex, { nullable: true })
   parent(@Parent() vertex: Vertex) {
-    return null
-    // return this.vertexService.parent(vertex.id)
+    return this.vertexService.parent(vertex)
   }
 
   @Mutation(() => Vertex)
@@ -47,6 +47,19 @@ export class VertexResolvers {
   @ResolveField('children', (returns) => [Vertex])
   children(@Parent() vertex: Vertex) {
     return this.vertexService.children(vertex.id)
+  }
+
+  @ResolveField('graph', () => Graph)
+  graph(@Parent() vertex: Vertex) {
+    return this.prismaService.graph.findFirst({
+      where: {
+        vertices: {
+          some: {
+            id: vertex.id,
+          },
+        },
+      },
+    })
   }
 
   @Query(() => Vertex, { nullable: true })

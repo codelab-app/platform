@@ -1,4 +1,6 @@
 import { Injectable } from '@nestjs/common'
+import { Vertex as PrismaVertex } from '@prisma/client'
+import { Vertex } from '../../domain/vertex/Vertex'
 import { PrismaService } from '@codelab/backend'
 
 @Injectable()
@@ -8,17 +10,20 @@ export class VertexService {
   /**
    * The `target` on the edge is the parent
    */
-  async parent(vertexId: string) {
-    return await this.prismaService.graph.findFirst({
-      select: {
-        vertices: true,
-      },
+  async parent(vertex: Vertex): Promise<PrismaVertex | null> {
+    const edge = await this.prismaService.edge.findFirst({
       where: {
-        edges: {
-          every: {
-            source: vertexId,
-          },
-        },
+        target: vertex.id,
+      },
+    })
+
+    if (!edge) {
+      return null
+    }
+
+    return await this.prismaService.vertex.findFirst({
+      where: {
+        id: edge.source,
       },
     })
   }

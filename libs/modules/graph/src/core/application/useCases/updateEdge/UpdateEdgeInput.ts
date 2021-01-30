@@ -6,6 +6,9 @@ export class UpdateEdgeInput {
   @Field()
   declare id: string
 
+  @Field()
+  declare order?: number
+
   @Field(() => EdgeType)
   declare type?: EdgeType
 

@@ -20,6 +20,7 @@ scalar JSONObject
 type Vertex {
   id: String!
   type: NodeType!
+  graph: Graph!
   props: JSONObject
   parent: Vertex
   children: [Vertex!]!
@@ -279,6 +280,7 @@ input DeleteVertexInput {
 
 input UpdateEdgeInput {
   id: String!
+  order: Float!
   type: EdgeType!
   source: String!
   target: String!
