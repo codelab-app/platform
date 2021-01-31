@@ -8,8 +8,8 @@ export class Graph {
   @Field()
   declare id: string
 
-  @Field(() => String)
-  declare type: GraphType
+  @Field(() => String, { nullable: true })
+  declare type?: GraphType
 
   @Field()
   declare label: string

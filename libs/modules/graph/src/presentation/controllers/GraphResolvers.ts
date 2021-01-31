@@ -70,6 +70,11 @@ export class GraphResolvers {
     })
   }
 
+  /**
+   * @todo Add Spec for Tree field on Graph
+   * @body Assert json tree using `matchObject`
+   * @autoAssign artonio
+   */
   @ResolveField('tree', (returns) => GraphQLJSONObject)
   tree(@Parent() graph: Graph) {
     return this.getTreeService.execute({ graphId: graph.id })

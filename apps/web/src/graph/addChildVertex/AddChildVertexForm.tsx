@@ -4,7 +4,6 @@ import { AddChildVertexInputSchema } from '../../../../../libs/generated/src/jso
 import { ApolloForm } from '@codelab/frontend'
 import {
   AddChildVertexInput,
-  NodeType,
   UpdateVertexMutationVariables,
   VertexFragmentsFragment,
   useAddChildVertexMutation,
@@ -42,7 +41,7 @@ export const AddChildVertexForm = ({
       schema={AddChildVertexInputSchema}
       formData={{
         parentVertexId,
-        vertex: { type: NodeType.ReactAffix, props: {} },
+        vertex: { type: 'ReactAffix', props: {} },
       }}
       rjsfFormProps={{
         uiSchema: {

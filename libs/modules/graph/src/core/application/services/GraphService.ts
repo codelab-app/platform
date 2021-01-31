@@ -1,7 +1,14 @@
 import { Injectable } from '@nestjs/common'
+import { Prisma } from '@prisma/client'
 import P from 'bluebird'
-import cytoscape, { EdgeDefinition, NodeDefinition } from 'cytoscape'
-import { Graph } from '../../domain/graph/Graph'
+import cytoscape, {
+  EdgeDefinition,
+  NodeDataDefinition,
+  NodeDefinition,
+  NodeSingular,
+} from 'cytoscape'
+import { Node } from '../../domain/node/Tree'
+import { GetTreeGraphArgs } from '../useCases/getTree/GetTreeService'
 import { VertexService } from './VertexService'
 import { PrismaService } from '@codelab/backend'
 
@@ -12,23 +19,28 @@ export class GraphService {
     private readonly vertexService: VertexService,
   ) {}
 
-  createLayoutGraph() {
-    console.log('createLayoutGraph')
-    //
-  }
+  /**
 
-  async treeFrom(graph: Graph): Promise<Node> {
+   *
+   * @param graph
+   */
+  async treeFrom(
+    graph: Prisma.GraphGetPayload<GetTreeGraphArgs>,
+  ): Promise<Node> {
     const cy = await this.cytoscape(graph)
 
-    console.log(cy.elements())
+    const root = cy.elements().roots().first()
 
-    return {} as any
+    return this.bfs(root)
   }
 
-  private async cytoscape({ vertices, edges }: Graph) {
+  private async cytoscape({
+    vertices,
+    edges,
+  }: Prisma.GraphGetPayload<GetTreeGraphArgs>) {
     const verticesPromises = await P.map<any, NodeDefinition>(
       vertices,
-      async ({ id }) => {
+      async ({ id, type, props }) => {
         const parent = await this.vertexService
           .parent(id)
           .then((v) => v?.id ?? undefined)
@@ -37,6 +49,8 @@ export class GraphService {
           data: {
             id,
             parent,
+            type,
+            props,
           },
         }
       },
@@ -55,5 +69,20 @@ export class GraphService {
         })),
       },
     })
+  }
+
+  private bfs(vertex: NodeSingular): Node {
+    const outgoingVertices = vertex.outgoers().nodes()
+
+    return {
+      ...vertex.data(),
+      children: outgoingVertices.reduce(
+        (nodes: Array<NodeDataDefinition>, outgoingVertex: NodeSingular) => [
+          ...nodes,
+          this.bfs(outgoingVertex),
+        ],
+        [],
+      ),
+    }
   }
 }

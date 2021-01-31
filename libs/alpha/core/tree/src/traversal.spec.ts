@@ -46,7 +46,6 @@ describe('Node traversal', () => {
       'Root',
     ]
 
-    // TODO: Need to move acc immutable
     const cb = (node: NodeA, acc: any) => {
       acc.push(node.id)
       // return [...acc, node.id]

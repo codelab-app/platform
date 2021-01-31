@@ -6,7 +6,6 @@ export const Loader = () => {
   return <Spin />
 }
 
-// TODO: remove any type
 /**
  *
  * @param key query param that we want loaded before loading component

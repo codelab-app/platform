@@ -9,8 +9,8 @@ export class Edge {
   @Field()
   declare source: string
 
-  @Field(() => String)
-  declare type: EdgeType
+  @Field(() => String, { nullable: true })
+  declare type?: EdgeType
 
   @Field()
   declare target: string

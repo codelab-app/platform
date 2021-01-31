@@ -26,7 +26,7 @@ export const nodeFinderIteratee = (
 
 // This needs to be in tree/graph/traversal level, a node doesn't know how to find itself. plus findNode uses treeWalker methods which is just <traversal></traversal>
 
-// TODO: subTree does not change in both tree & graph functions, it stays as the root node and is used to hold reference to tree for findNode lookup
+// subTree does not change in both tree & graph functions, it stays as the root node and is used to hold reference to tree for findNode lookup
 
 /**
  * treeWalker passes in a new parent at each level

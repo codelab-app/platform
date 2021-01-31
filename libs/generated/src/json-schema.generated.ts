@@ -58,7 +58,6 @@ export const AddChildVertexInputSchema: JSONSchema7 = {
       type: 'object',
       properties: {
         type: {
-          description: 'Used with Graphql',
           enum: [
             'React_Affix',
             'React_Alert',
@@ -222,6 +221,16 @@ export const GetGraphInputSchema: JSONSchema7 = {
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
 
+export const GetTreeInputSchema: JSONSchema7 = {
+  type: 'object',
+  properties: {
+    graphId: {
+      type: 'string',
+    },
+  },
+  $schema: 'http://json-schema.org/draft-07/schema#',
+}
+
 export const GetVertexInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
@@ -235,11 +244,10 @@ export const GetVertexInputSchema: JSONSchema7 = {
 export const MoveVertexInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
-    graphId: {
+    currentVertexId: {
       type: 'string',
     },
-    type: {
-      enum: ['Graph', 'Vertex'],
+    parentVertexId: {
       type: 'string',
     },
   },
@@ -276,7 +284,6 @@ export const UpdateVertexInputSchema: JSONSchema7 = {
       type: 'string',
     },
     type: {
-      description: 'Used with Graphql',
       enum: [
         'React_Affix',
         'React_Alert',

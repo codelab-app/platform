@@ -3,6 +3,18 @@ import { GraphService } from '../../services/GraphService'
 import { GetTreeInput } from './GetTreeInput'
 import { PrismaService, TransactionalUseCase } from '@codelab/backend'
 
+export interface GetTreeGraphArgs {
+  select: {
+    id: true
+    type: true
+    label: true
+    vertices: true
+    edges: true
+  }
+  where: {
+    id: string
+  }
+}
 @Injectable()
 export class GetTreeService implements TransactionalUseCase<GetTreeInput, any> {
   constructor(

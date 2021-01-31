@@ -8,11 +8,11 @@ export class Vertex {
   @Field()
   declare id: string
 
-  @Field(() => String)
-  declare type: VertexType
+  @Field(() => String, { nullable: true })
+  declare type?: VertexType
 
-  @Field(() => Graph)
-  declare graph: Graph
+  @Field(() => Graph, { nullable: true })
+  declare graph?: Graph
 
   @Field(() => GraphQLJSONObject, { nullable: true })
   declare props?: object
