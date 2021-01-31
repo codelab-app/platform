@@ -7,6 +7,7 @@ import {
   ResolveField,
   Resolver,
 } from '@nestjs/graphql'
+import { GraphQLJSONObject } from 'graphql-type-json'
 import { AddChildVertexInput } from '../../core/application/useCases/addChildVertex/AddChildVertexInput'
 import { AddChildVertexService } from '../../core/application/useCases/addChildVertex/AddChildVertexService'
 import { CreateGraphInput } from '../../core/application/useCases/createGraph/CreateGraphInput'
@@ -14,8 +15,7 @@ import { CreateGraphService } from '../../core/application/useCases/createGraph/
 import { GetGraphByInput } from '../../core/application/useCases/getGraph/GetGraphByInput'
 import { GetGraphInput } from '../../core/application/useCases/getGraph/GetGraphInput'
 import { GetGraphService } from '../../core/application/useCases/getGraph/GetGraphService'
-import { MoveVertexInput } from '../../core/application/useCases/moveVertex/MoveVertexInput'
-import { MoveVertexService } from '../../core/application/useCases/moveVertex/MoveVertexService'
+import { GetTreeService } from '../../core/application/useCases/getTree/GetTreeService'
 import { Edge } from '../../core/domain/edge/Edge'
 import { Graph } from '../../core/domain/graph/Graph'
 import { Vertex } from '../../core/domain/vertex/Vertex'
@@ -27,8 +27,8 @@ export class GraphResolvers {
   constructor(
     private readonly createGraphService: CreateGraphService,
     private readonly addChildVertexService: AddChildVertexService,
-    private readonly modeVertexService: MoveVertexService,
     private readonly getGraphService: GetGraphService,
+    private readonly getTreeService: GetTreeService,
     private readonly prismaService: PrismaService,
   ) {}
 
@@ -52,11 +52,6 @@ export class GraphResolvers {
     return this.getGraphService.getGraphBy(input)
   }
 
-  @Mutation(() => Graph)
-  modeVertex(@Args('input') input: MoveVertexInput) {
-    return this.modeVertexService.execute(input)
-  }
-
   @ResolveField('vertices', (returns) => [Vertex])
   getVertices(@Parent() graph: Graph) {
     return this.prismaService.vertex.findMany({
@@ -73,5 +68,15 @@ export class GraphResolvers {
         graphId: graph.id,
       },
     })
+  }
+
+  /**
+   * @todo Add Spec for Tree field on Graph
+   * @body Assert json tree using `matchObject`
+   * @autoAssign artonio
+   */
+  @ResolveField('tree', (returns) => GraphQLJSONObject)
+  tree(@Parent() graph: Graph) {
+    return this.getTreeService.execute({ graphId: graph.id })
   }
 }

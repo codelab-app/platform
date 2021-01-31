@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common'
-import { AppDto } from '../../../domain/AppDto'
+import { App } from '@prisma/client'
 import { CreateAppRequest } from './CreateAppRequest'
 import { PrismaService, TransactionalUseCase } from '@codelab/backend'
 
 @Injectable()
 export class CreateAppService
-  implements TransactionalUseCase<CreateAppRequest, AppDto> {
+  implements TransactionalUseCase<CreateAppRequest, App> {
   constructor(private readonly prismaService: PrismaService) {}
 
   async execute({ user, ...request }: CreateAppRequest) {

@@ -22,7 +22,7 @@ export const GetPageLayout = ({ graph }: GetPageLayoutProps) => {
 
   // return Renderer.graphComponents({ graph })
   const onNodeClick = (e: any, node: any) => {
-    console.log(e, node)
+    // console.log(e, node)
     setDashboardDrawer({ visible: true, vertexId: node.id })
   }
 

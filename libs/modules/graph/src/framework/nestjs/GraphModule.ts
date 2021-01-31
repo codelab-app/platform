@@ -3,7 +3,7 @@ import { GraphService } from '../../core/application/services/GraphService'
 import { AddChildVertexService } from '../../core/application/useCases/addChildVertex/AddChildVertexService'
 import { CreateGraphService } from '../../core/application/useCases/createGraph/CreateGraphService'
 import { GetGraphService } from '../../core/application/useCases/getGraph/GetGraphService'
-import { MoveVertexService } from '../../core/application/useCases/moveVertex/MoveVertexService'
+import { GetTreeService } from '../../core/application/useCases/getTree/GetTreeService'
 import { GraphResolvers } from '../../presentation/controllers/GraphResolvers'
 import { EdgeModule } from './EdgeModule'
 import { VertexModule } from './VertexModule'
@@ -21,7 +21,7 @@ import { PrismaService } from '@codelab/backend'
     /**
      * UseCaseProviders
      */
-    MoveVertexService,
+    GetTreeService,
     GetGraphService,
     CreateGraphService,
     AddChildVertexService,

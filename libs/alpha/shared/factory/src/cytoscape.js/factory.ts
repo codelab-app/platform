@@ -19,11 +19,11 @@ export const makeD3 = ({
 }: GraphFragmentsFragment): D3GraphProps => {
   const nodes = vertices.map((vertex) => ({
     id: vertex.id,
-    label: vertex.type,
+    label: vertex.type ?? '',
   }))
   const links = edges.map((edge) => ({
     id: edge.id,
-    label: edge.type,
+    label: edge.type ?? '',
     source: edge.source,
     target: edge.target,
   }))

@@ -6,4 +6,10 @@ fragment vertexFragments on Vertex {
     id
     type
   }
+  graph {
+    id
+  }
+  parent {
+    id
+  }
 }

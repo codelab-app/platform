@@ -1,8 +1,8 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import { PassportStrategy } from '@nestjs/passport'
+import { User } from '@prisma/client'
 import { ExtractJwt, Strategy } from 'passport-jwt'
-import { UserDto } from '../../../core/domain/UserDto'
 import { IToken } from '../IToken'
 import { JwtConfig } from '../config/JwtConfig'
 import { PrismaService } from '@codelab/backend'
@@ -21,7 +21,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
     })
   }
 
-  async validate(payload: any): Promise<UserDto> {
+  async validate(payload: any): Promise<User> {
     const { authorization } = payload.headers
     const token = authorization.replace('Bearer', '').trim()
     const decodedToken = this.jwtService.decode(token) as IToken

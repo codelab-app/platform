@@ -32,7 +32,7 @@ export const UpdateVertexForm = ({ vertex }: UpdateVertexFormProps) => {
       hideSubmitButton={false}
       mutation={updateVertexMutation}
       schema={UpdateVertexInputSchema}
-      formData={{ vertexId: vertex.id, type: vertex.type }}
+      formData={{ vertexId: vertex.id, type: vertex.type ?? '' }}
     />
   )
 }

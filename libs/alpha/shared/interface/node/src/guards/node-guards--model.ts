@@ -1,5 +1,3 @@
-// TODO: type is undefined for some reason
-
 import { ModelA, ModelI, NodeI, SchemaI } from '../dto'
 import { NodeType } from '../enums'
 import { AssertsNodeI } from './node-guards'

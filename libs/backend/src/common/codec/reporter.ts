@@ -8,8 +8,6 @@ export const getErrors = <A>(v: t.Validation<A>): Array<string> => {
     fold(
       (errors) => {
         /**
-         * TODO:
-         *
          * It appears that key in context is missing, do we have to set manually in codec?
          *
          * Seems to be extra work!

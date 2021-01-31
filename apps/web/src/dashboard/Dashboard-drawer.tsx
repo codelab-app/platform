@@ -1,7 +1,7 @@
 import { Drawer } from 'antd'
 import React from 'react'
 import { atom, useRecoilState } from 'recoil'
-import { GetVertexDetails } from '../vertex/getVertex/GetVertexDetails'
+import { GetVertexDetails } from '../graph/getVertex/GetVertexDetails'
 
 interface DashboardDrawerState {
   visible: boolean
