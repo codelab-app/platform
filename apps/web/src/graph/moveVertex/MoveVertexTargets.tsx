@@ -1,20 +1,32 @@
-import { Select } from 'antd'
-import React from 'react'
-import { VertexFragmentsFragment, useGetGraphQuery } from '@codelab/generated'
+import { Button, Select } from 'antd'
+import React, { useState } from 'react'
+import {
+  GetPageGql,
+  VertexFragmentsFragment,
+  useGetGraphQuery,
+  useMoveVertexMutation,
+} from '@codelab/generated'
 
 const { Option } = Select
 
 interface MoveVertexTargetsProps {
+  pageId: string
   sourceVertex: VertexFragmentsFragment
 }
 
 /**
  * Get the potential move targets of a current vertex
  */
-export const MoveVertexTargets = ({ sourceVertex }: MoveVertexTargetsProps) => {
+export const MoveVertexTargets = ({
+  sourceVertex,
+  pageId,
+}: MoveVertexTargetsProps) => {
   const { data, loading } = useGetGraphQuery({
     variables: { input: { id: sourceVertex.graph.id } },
   })
+  const [parentVertexId, setParentVertexId] = useState<string>('')
+
+  const [moveVertexMutation] = useMoveVertexMutation()
 
   if (!data?.getGraph || loading) {
     return null
@@ -22,20 +34,50 @@ export const MoveVertexTargets = ({ sourceVertex }: MoveVertexTargetsProps) => {
 
   // Get all vertices of current graph
   // Remove self & parent from list
-  console.log(sourceVertex)
   const potentialVertexTargets = data.getGraph.vertices.filter(
-    (v) => v.id !== sourceVertex.id,
+    (v) => v.id !== sourceVertex.id && v.id !== sourceVertex?.parent?.id,
   )
 
-  const handleChange = (vertexId: string) => {
-    console.log(`selected ${vertexId}`)
+  const moveVertex = () => {
+    moveVertexMutation({
+      refetchQueries: [
+        {
+          query: GetPageGql,
+          variables: {
+            input: {
+              pageId,
+            },
+          },
+        },
+      ],
+      variables: {
+        input: {
+          currentVertexId: sourceVertex.id,
+          parentVertexId,
+        },
+      },
+    })
   }
 
+  console.log(parentVertexId)
+
   return (
-    <Select style={{ width: 120 }} onChange={handleChange}>
-      {potentialVertexTargets.map((v) => {
-        return <Option value={v.id}>{v.type}</Option>
-      })}
-    </Select>
+    <>
+      <Select
+        style={{ width: 120 }}
+        onChange={(vertexId: string) => setParentVertexId(vertexId)}
+      >
+        {potentialVertexTargets.map((v) => {
+          return (
+            <Option key={v.id} value={v.id}>
+              {v.type}
+            </Option>
+          )
+        })}
+      </Select>
+      <Button type="primary" onClick={() => moveVertex()}>
+        Move Vertex
+      </Button>
+    </>
   )
 }

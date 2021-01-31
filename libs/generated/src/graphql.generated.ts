@@ -258,7 +258,7 @@ export type Mutation = {
   loginUser: User
   createGraph: Graph
   addChildVertex: Vertex
-  modeVertex: Graph
+  modeVertex: Vertex
   updateVertex: Vertex
   deleteVertex: Vertex
   updateEdge: Edge
@@ -374,8 +374,8 @@ export type CreateVertexInput = {
 }
 
 export type MoveVertexInput = {
-  graphId: Scalars['String']
-  type: EdgeType
+  currentVertexId: Scalars['String']
+  parentVertexId: Scalars['String']
 }
 
 export type UpdateVertexInput = {
@@ -492,14 +492,7 @@ export type MoveVertexMutationVariables = Exact<{
 }>
 
 export type MoveVertexMutation = { __typename?: 'Mutation' } & {
-  modeVertex: { __typename?: 'Graph' } & Pick<Graph, 'id' | 'label'> & {
-      edges: Array<
-        { __typename?: 'Edge' } & Pick<
-          Edge,
-          'order' | 'source' | 'target' | 'props'
-        >
-      >
-    }
+  modeVertex: { __typename?: 'Vertex' } & VertexFragmentsFragment
 }
 
 export type UpdateEdgeMutationVariables = Exact<{
@@ -632,6 +625,9 @@ export const VertexFragments = gql`
       type
     }
     graph {
+      id
+    }
+    parent {
       id
     }
   }
@@ -773,16 +769,10 @@ export const GetVertex = gql`
 export const MoveVertex = gql`
   mutation MoveVertex($input: MoveVertexInput!) {
     modeVertex(input: $input) {
-      id
-      label
-      edges {
-        order
-        source
-        target
-        props
-      }
+      ...vertexFragments
     }
   }
+  ${VertexFragments}
 `
 export const UpdateEdge = gql`
   mutation UpdateEdge($input: UpdateEdgeInput!) {
@@ -881,6 +871,9 @@ export const VertexFragmentsFragmentDoc = gql`
       type
     }
     graph {
+      id
+    }
+    parent {
       id
     }
   }
@@ -1436,16 +1429,10 @@ export type GetVertexQueryResult = Apollo.QueryResult<
 export const MoveVertexGql = gql`
   mutation MoveVertex($input: MoveVertexInput!) {
     modeVertex(input: $input) {
-      id
-      label
-      edges {
-        order
-        source
-        target
-        props
-      }
+      ...vertexFragments
     }
   }
+  ${VertexFragmentsFragmentDoc}
 `
 export type MoveVertexMutationFn = Apollo.MutationFunction<
   MoveVertexMutation,

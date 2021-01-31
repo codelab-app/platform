@@ -12,6 +12,8 @@ import { DeleteVertexInput } from '../../core/application/useCases/deleteVertex/
 import { DeleteVertexService } from '../../core/application/useCases/deleteVertex/DeleteVertexService'
 import { GetVertexInput } from '../../core/application/useCases/getVertex/GetVertexInput'
 import { GetVertexService } from '../../core/application/useCases/getVertex/GetVertexService'
+import { MoveVertexInput } from '../../core/application/useCases/moveVertex/MoveVertexInput'
+import { MoveVertexService } from '../../core/application/useCases/moveVertex/MoveVertexService'
 import { UpdateVertexInput } from '../../core/application/useCases/updateVertex/UpdateVertexInput'
 import { UpdateVertexService } from '../../core/application/useCases/updateVertex/UpdateVertexService'
 import { Graph } from '../../core/domain/graph/Graph'
@@ -27,11 +29,17 @@ export class VertexResolvers {
     private readonly deleteVertexService: DeleteVertexService,
     private readonly getVertexService: GetVertexService,
     private readonly updateVertexService: UpdateVertexService,
+    private readonly moveVertexService: MoveVertexService,
   ) {}
 
   @ResolveField('parent', (returns) => Vertex, { nullable: true })
   parent(@Parent() vertex: Vertex) {
     return this.vertexService.parent(vertex)
+  }
+
+  @Mutation(() => Vertex)
+  modeVertex(@Args('input') input: MoveVertexInput) {
+    return this.moveVertexService.execute(input)
   }
 
   @Mutation(() => Vertex)

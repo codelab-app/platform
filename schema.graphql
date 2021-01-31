@@ -209,7 +209,7 @@ type Mutation {
   loginUser(input: LoginUserInput!): User!
   createGraph(input: CreateGraphInput!): Graph!
   addChildVertex(input: AddChildVertexInput!): Vertex!
-  modeVertex(input: MoveVertexInput!): Graph!
+  modeVertex(input: MoveVertexInput!): Vertex!
   updateVertex(input: UpdateVertexInput!): Vertex!
   deleteVertex(input: DeleteVertexInput!): Vertex!
   updateEdge(input: UpdateEdgeInput!): Edge!
@@ -265,8 +265,8 @@ input CreateVertexInput {
 }
 
 input MoveVertexInput {
-  graphId: String!
-  type: EdgeType!
+  currentVertexId: String!
+  parentVertexId: String!
 }
 
 input UpdateVertexInput {

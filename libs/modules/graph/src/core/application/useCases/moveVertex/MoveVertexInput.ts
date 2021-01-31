@@ -1,11 +1,10 @@
 import { Field, InputType } from '@nestjs/graphql'
-import { EdgeType } from '../../../domain/edge/EdgeType'
 
 @InputType()
 export class MoveVertexInput {
   @Field()
-  declare graphId: string
+  declare currentVertexId: string
 
-  @Field(() => EdgeType)
-  declare type: EdgeType
+  @Field()
+  declare parentVertexId: string
 }

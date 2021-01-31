@@ -45,7 +45,7 @@ export const GetVertexDetails = ({ vertexId }: GetVertexDetailsProps) => {
       </Space>
       <Divider />
       <h3>Move Vertex</h3>
-      <MoveVertexTargets sourceVertex={vertex} />
+      <MoveVertexTargets sourceVertex={vertex} pageId={pageId} />
       <Divider />
       <AddChildVertexModal
         pageId={pageId}
