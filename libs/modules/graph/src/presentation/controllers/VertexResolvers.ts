@@ -34,7 +34,7 @@ export class VertexResolvers {
 
   @ResolveField('parent', (returns) => Vertex, { nullable: true })
   parent(@Parent() vertex: Vertex) {
-    return this.vertexService.parent(vertex)
+    return this.vertexService.parent(vertex.id)
   }
 
   @Mutation(() => Vertex)

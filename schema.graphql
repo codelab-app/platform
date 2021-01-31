@@ -137,6 +137,7 @@ type Graph {
   label: String!
   vertices: [Vertex!]!
   edges: [Edge!]!
+  tree: JSONObject!
 }
 
 enum GraphType {

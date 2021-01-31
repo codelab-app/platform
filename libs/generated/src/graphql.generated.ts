@@ -157,6 +157,7 @@ export type Graph = {
   label: Scalars['String']
   vertices: Array<Vertex>
   edges: Array<Edge>
+  tree: Scalars['JSONObject']
 }
 
 export enum GraphType {

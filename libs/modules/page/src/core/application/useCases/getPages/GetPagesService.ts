@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common'
-import { PageDto } from '../../../domain/PageDto'
+import { Page } from '@prisma/client'
 import { GetPagesInput } from './GetPagesInput'
 import { PrismaService, TransactionalUseCase } from '@codelab/backend'
 
 @Injectable()
 export class GetPagesService
-  implements TransactionalUseCase<GetPagesInput, Array<PageDto>> {
+  implements TransactionalUseCase<GetPagesInput, Array<Page>> {
   constructor(private readonly prismaService: PrismaService) {}
 
   async execute({ appId }: GetPagesInput) {

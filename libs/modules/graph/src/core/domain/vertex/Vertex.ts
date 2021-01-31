@@ -1,19 +1,15 @@
-import { Field, ObjectType, registerEnumType } from '@nestjs/graphql'
+import { Field, ObjectType } from '@nestjs/graphql'
+import { VertexType } from '@prisma/client'
 import { GraphQLJSONObject } from 'graphql-type-json'
 import { Graph } from '../graph/Graph'
-import { NodeType } from '@codelab/backend'
-
-registerEnumType(NodeType, {
-  name: 'NodeType',
-})
 
 @ObjectType('Vertex')
 export class Vertex {
   @Field()
   declare id: string
 
-  @Field(() => NodeType)
-  declare type?: NodeType
+  @Field(() => String)
+  declare type: VertexType
 
   @Field(() => Graph)
   declare graph: Graph

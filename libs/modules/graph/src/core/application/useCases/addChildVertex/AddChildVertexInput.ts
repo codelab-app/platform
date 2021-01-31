@@ -1,5 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql'
-import { CreateVertexInput } from '../../../domain/vertex/CreateVertexInput'
+import { CreateVertexInput } from '../createVertex/CreateVertexInput'
 
 @InputType()
 export class AddChildVertexInput {

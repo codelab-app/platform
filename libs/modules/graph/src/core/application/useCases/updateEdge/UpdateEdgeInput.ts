@@ -1,5 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql'
-import { EdgeType } from '../../../domain/edge/EdgeType'
+import { EdgeType } from '@prisma/client'
 
 @InputType()
 export class UpdateEdgeInput {
@@ -9,7 +9,7 @@ export class UpdateEdgeInput {
   @Field()
   declare order?: number
 
-  @Field(() => EdgeType)
+  @Field(() => String)
   declare type?: EdgeType
 
   @Field()

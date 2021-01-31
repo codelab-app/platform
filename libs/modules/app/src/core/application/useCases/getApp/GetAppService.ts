@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { AppDto } from '../../../domain/AppDto'
+import { App } from '@prisma/client'
 import { GetAppInput } from './GetAppInput'
 import {
   PrismaService,
@@ -9,7 +9,7 @@ import {
 
 @Injectable()
 export class GetAppService
-  implements TransactionalUseCase<GetAppInput, AppDto | null> {
+  implements TransactionalUseCase<GetAppInput, App | null> {
   constructor(private readonly prismaService: PrismaService) {}
 
   async execute({ appId }: GetAppInput) {

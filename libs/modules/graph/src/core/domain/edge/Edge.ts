@@ -1,11 +1,6 @@
-import { Field, ObjectType, registerEnumType } from '@nestjs/graphql'
+import { Field, ObjectType } from '@nestjs/graphql'
+import { EdgeType } from '@prisma/client'
 import { GraphQLJSONObject } from 'graphql-type-json'
-import { EdgeType } from './EdgeType'
-
-registerEnumType(EdgeType, {
-  name: 'EdgeType',
-})
-
 @ObjectType('Edge')
 export class Edge {
   @Field()
@@ -14,14 +9,14 @@ export class Edge {
   @Field()
   declare source: string
 
-  @Field(() => EdgeType)
+  @Field(() => String)
   declare type: EdgeType
 
   @Field()
   declare target: string
 
   @Field(() => GraphQLJSONObject)
-  declare props: any
+  declare props: object
 
   @Field()
   declare order: number

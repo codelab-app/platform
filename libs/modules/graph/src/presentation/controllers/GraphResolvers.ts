@@ -7,6 +7,7 @@ import {
   ResolveField,
   Resolver,
 } from '@nestjs/graphql'
+import { GraphQLJSONObject } from 'graphql-type-json'
 import { AddChildVertexInput } from '../../core/application/useCases/addChildVertex/AddChildVertexInput'
 import { AddChildVertexService } from '../../core/application/useCases/addChildVertex/AddChildVertexService'
 import { CreateGraphInput } from '../../core/application/useCases/createGraph/CreateGraphInput'
@@ -14,6 +15,7 @@ import { CreateGraphService } from '../../core/application/useCases/createGraph/
 import { GetGraphByInput } from '../../core/application/useCases/getGraph/GetGraphByInput'
 import { GetGraphInput } from '../../core/application/useCases/getGraph/GetGraphInput'
 import { GetGraphService } from '../../core/application/useCases/getGraph/GetGraphService'
+import { GetTreeService } from '../../core/application/useCases/getTree/GetTreeService'
 import { Edge } from '../../core/domain/edge/Edge'
 import { Graph } from '../../core/domain/graph/Graph'
 import { Vertex } from '../../core/domain/vertex/Vertex'
@@ -26,6 +28,7 @@ export class GraphResolvers {
     private readonly createGraphService: CreateGraphService,
     private readonly addChildVertexService: AddChildVertexService,
     private readonly getGraphService: GetGraphService,
+    private readonly getTreeService: GetTreeService,
     private readonly prismaService: PrismaService,
   ) {}
 
@@ -65,5 +68,10 @@ export class GraphResolvers {
         graphId: graph.id,
       },
     })
+  }
+
+  @ResolveField('tree', (returns) => GraphQLJSONObject)
+  tree(@Parent() graph: Graph) {
+    return this.getTreeService.execute({ graphId: graph.id })
   }
 }
