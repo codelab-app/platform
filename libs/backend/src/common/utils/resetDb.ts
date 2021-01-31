@@ -29,7 +29,9 @@ export const setupTestModule = async (
 
   prismaService.resetDb()
 
-  return await app.init()
+  await app.init()
+
+  return app
 }
 
 export const teardownTestModule = async (app: INestApplication) => {
