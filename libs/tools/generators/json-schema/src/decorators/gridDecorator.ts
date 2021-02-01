@@ -23,7 +23,7 @@ export const grid = (params: GridDecoratorParams) =>
 
 export const getGridDecoratorDetails = (
   classWithGridDecorator: any,
-): GridDecoratorDetails | null => {
+): IDecoratorsMap | null => {
   const decoratorDetails = getReflectPropertyDecorators(
     classWithGridDecorator,
     metaKey,
@@ -33,5 +33,5 @@ export const getGridDecoratorDetails = (
     return null
   }
 
-  return decoratorDetails as GridDecoratorDetails
+  return decoratorDetails as IDecoratorsMap
 }

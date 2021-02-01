@@ -1,4 +1,8 @@
 import { JSONSchema7 } from 'json-schema'
+import {
+  IDecoratorsMap,
+  ObjectFieldTemplateFactory,
+} from '@codelab/tools/generators/json-schema'
 
 export const LayoutSizeSchema: JSONSchema7 = {
   enum: ['lg', 'md', 'sm', 'xs', 'xxs'],
@@ -459,6 +463,54 @@ export const DeleteAppInputSchema: JSONSchema7 = {
     },
   },
   $schema: 'http://json-schema.org/draft-07/schema#',
+}
+
+export const DemoGridFormInputSchema: JSONSchema7 = {
+  type: 'object',
+  properties: {
+    email1: {
+      type: 'string',
+      default: '',
+    },
+    password0: {
+      type: 'string',
+      default: '',
+    },
+    name2: {
+      type: 'string',
+      default: '',
+    },
+    notGroupedField: {
+      type: 'string',
+      default: '',
+    },
+  },
+  $schema: 'http://json-schema.org/draft-07/schema#',
+}
+
+const DemoGridFormInputDecorators: IDecoratorsMap = {
+  email1: {
+    grid: {
+      order: 1,
+      span: 12,
+    },
+  },
+  password0: {
+    grid: {
+      order: 0,
+      span: 16,
+    },
+  },
+  name2: {
+    grid: {
+      order: 2,
+      span: 8,
+    },
+  },
+}
+
+export const DemoGridFormInputFormProps = {
+  ObjectFieldTemplate: ObjectFieldTemplateFactory(DemoGridFormInputDecorators),
 }
 
 export const GetAppInputSchema: JSONSchema7 = {
