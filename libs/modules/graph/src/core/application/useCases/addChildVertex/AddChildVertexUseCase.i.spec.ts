@@ -1,4 +1,5 @@
 import { INestApplication } from '@nestjs/common'
+import { VertexType } from '@prisma/client'
 import { print } from 'graphql'
 import request from 'supertest'
 import { setupTestModule, teardownTestModule } from '@codelab/backend'
@@ -88,7 +89,7 @@ describe('AddChildVertexUseCase', () => {
         expect(pageRes.graphs.length).toEqual(1)
         expect(pageRes.graphs[0].vertices.length).toEqual(1)
         expect(pageRes.graphs[0].vertices[0].type).toEqual(
-          'React_Grid_Layout_Container',
+          VertexType.React_Grid_ResponsiveLayout,
         )
       })
       .then((res) => res.body.data.createPage)
