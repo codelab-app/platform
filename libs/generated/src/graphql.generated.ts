@@ -26,7 +26,7 @@ export type Edge = {
   source: Scalars['String']
   type?: Maybe<Scalars['String']>
   target: Scalars['String']
-  props: Scalars['JSONObject']
+  props?: Maybe<Scalars['JSONObject']>
   order: Scalars['Float']
 }
 
@@ -78,7 +78,6 @@ export type Query = {
   getApps: Array<App>
   getMe: User
   getGraph: Graph
-  getGraphBy: Graph
   getVertex?: Maybe<Vertex>
   getPages: Array<Page>
   getPage: Page
@@ -90,10 +89,6 @@ export type QueryGetAppArgs = {
 
 export type QueryGetGraphArgs = {
   input: GetGraphInput
-}
-
-export type QueryGetGraphByArgs = {
-  input: GetGraphByInput
 }
 
 export type QueryGetVertexArgs = {
@@ -114,11 +109,6 @@ export type GetAppInput = {
 
 export type GetGraphInput = {
   id?: Maybe<Scalars['String']>
-}
-
-export type GetGraphByInput = {
-  appId?: Maybe<Scalars['String']>
-  pageId?: Maybe<Scalars['String']>
 }
 
 export type GetVertexInput = {
@@ -256,7 +246,7 @@ export type AddChildVertexInput = {
 
 export type CreateVertexInput = {
   type: Scalars['String']
-  props: Scalars['JSONObject']
+  props?: Maybe<Scalars['JSONObject']>
 }
 
 export type MoveVertexInput = {

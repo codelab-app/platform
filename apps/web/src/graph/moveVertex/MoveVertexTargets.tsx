@@ -22,7 +22,7 @@ export const MoveVertexTargets = ({
   pageId,
 }: MoveVertexTargetsProps) => {
   const { data, loading } = useGetGraphQuery({
-    variables: { input: { id: sourceVertex.graph.id } },
+    variables: { input: { id: sourceVertex?.graph?.id } },
   })
   const [parentVertexId, setParentVertexId] = useState<string>('')
 

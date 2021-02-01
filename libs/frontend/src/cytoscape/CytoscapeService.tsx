@@ -5,9 +5,6 @@ import cytoscape, {
   NodeDefinition,
   NodeSingular,
 } from 'cytoscape'
-import React from 'react'
-import { NodeA, NodeI } from '../../../modules/graph/src/core/domain/node/Node'
-import { elementParameterFactory } from '../renderer/elementFactory'
 import { GraphFragmentsFragment } from '@codelab/generated'
 
 export class CytoscapeService {
@@ -37,7 +34,7 @@ export class CytoscapeService {
     })
   }
 
-  static bfs(vertex: NodeSingular): NodeA {
+  static bfs(vertex: NodeSingular): NodeDataDefinition {
     // All info on `vertex.data`
     // console.log(vertex.data(), vertex.json())
 

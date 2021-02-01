@@ -10,9 +10,17 @@ const outputPath = `${process.cwd()}/libs/generated/src/json-schema.generated.ts
  */
 const tsconfigFile = path.resolve(process.cwd(), 'tsconfig.base.json')
 
-const includeFilePatterns = glob.sync('libs/modules/**/useCases/**/*Input.ts', {
-  cwd: process.cwd(),
-})
+const includeFilePatterns = [
+  // PropsInput
+  ...glob.sync('libs/alpha/ui/antd/**/components/**/*.input.ts', {
+    cwd: process.cwd(),
+  }),
+
+  // UseCaseInputs
+  ...glob.sync('libs/modules/**/useCases/**/*Input.ts', {
+    cwd: process.cwd(),
+  }),
+]
 
 const generator = makeGenerator(tsconfigFile, includeFilePatterns)
 

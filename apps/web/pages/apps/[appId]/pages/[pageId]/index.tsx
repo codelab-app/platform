@@ -2,7 +2,7 @@ import { useRouter, withRouter } from 'next/router'
 import * as R from 'ramda'
 import React from 'react'
 import { GetPageLayout } from '../../../../../src/pages/getPage/GetPageLayout'
-import { CytoscapeService, withRouterLoader } from '@codelab/frontend'
+import { withRouterLoader } from '@codelab/frontend'
 import { useGetPageQuery } from '@codelab/generated'
 
 const PageDetail = () => {
@@ -24,7 +24,7 @@ const PageDetail = () => {
   return (
     <>
       <h1>{data?.getPage.title}</h1>
-      <GetPageLayout graph={layoutGraph?.[0]} />
+      <GetPageLayout graph={layoutGraph?.[0]} pageId={pageId} />
     </>
   )
 }
