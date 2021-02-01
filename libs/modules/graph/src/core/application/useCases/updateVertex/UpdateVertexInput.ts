@@ -10,6 +10,6 @@ export class UpdateVertexInput {
   @Field(() => String)
   declare type?: VertexType
 
-  @Field(() => GraphQLJSONObject)
+  @Field(() => GraphQLJSONObject, { nullable: true })
   declare props?: object
 }

@@ -60,7 +60,7 @@ import {
   Upload,
 } from 'antd'
 import React, { ReactHTMLElement } from 'react'
-import { DashboardHandlerProps } from '../../../../apps/web/src/dashboard/Dashboard-handlers'
+import { DashboardHandlerProps } from '../../../../apps/web/src/dashboard/drawer/Dashboard-handlers'
 import { propsFilter, withFilters } from '@codelab/alpha/core/props'
 import { mouseEventHandlerKeys } from '@codelab/alpha/shared/event'
 import {

@@ -1,7 +1,7 @@
 import { Drawer } from 'antd'
 import React from 'react'
 import { atom, useRecoilState } from 'recoil'
-import { GetVertexDetails } from '../graph/getVertex/GetVertexDetails'
+import { GetVertexDetails } from '../../graph/getVertex/GetVertexDetails'
 
 export interface DashboardDrawerState {
   visible: boolean
@@ -23,6 +23,7 @@ export const DashboardDrawer = () => {
 
   return (
     <Drawer
+      width={600}
       title="Basic Drawer"
       placement="right"
       closable={false}

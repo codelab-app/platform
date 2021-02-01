@@ -1,7 +1,6 @@
 import { PlusOutlined } from '@ant-design/icons'
 import { Button } from 'antd'
 import { useRouter } from 'next/router'
-import * as R from 'ramda'
 import React from 'react'
 import {
   ItemCallback,
@@ -9,7 +8,6 @@ import {
   Responsive,
   WidthProvider,
 } from 'react-grid-layout'
-import { withApollo } from '@codelab/frontend'
 import { AddGridDrawer, useGrid } from '@codelab/modules/grid-stories'
 import { useLayoutMachine } from '@codelab/modules/layout-stories'
 
@@ -88,4 +86,5 @@ const AppPage = () => {
   )
 }
 
-export default R.pipe(withApollo, AppPage)
+// export default R.pipe(withApollo, AppPage)
+export default () => null

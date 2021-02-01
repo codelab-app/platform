@@ -5,7 +5,7 @@ import { NextRouter, useRouter } from 'next/router'
 import * as R from 'ramda'
 import React from 'react'
 import { RecoilRoot } from 'recoil'
-import { DashboardLayout } from '../src/dashboard/Dashboard-layout'
+import { Dashboard } from '../src/dashboard/Dashboard'
 import { HomeLayout } from '../src/home'
 import { LoginUserModal, RegisterUserModal } from '../src/user'
 import { useCurrentUser } from '../src/user/useCurrentUser'
@@ -33,8 +33,8 @@ const withoutSidebar = (props: any) => ({ ...props, sidebar: { hide: true } })
 
 const LayoutFactory: React.FunctionComponent<WithRouterProps> = R.cond([
   [isPage(PageType.Home), HomeLayout],
-  [isPage(PageType.AppList), mapProps(withoutSidebar)(DashboardLayout)],
-  [R.T, DashboardLayout],
+  [isPage(PageType.AppList), mapProps(withoutSidebar)(Dashboard)],
+  [R.T, Dashboard],
 ])
 
 const App: React.FunctionComponent<{}> = ({ children }) => {

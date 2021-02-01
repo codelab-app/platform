@@ -1,15 +1,61 @@
 import { JSONSchema7 } from 'json-schema'
 
+export const LayoutSizeSchema: JSONSchema7 = {
+  enum: ['lg', 'md', 'sm', 'xs', 'xxs'],
+  type: 'string',
+  $schema: 'http://json-schema.org/draft-07/schema#',
+}
+
 export const ReactGridResponsiveLayoutSchema: JSONSchema7 = {
   type: 'object',
   properties: {
-    layouts: {
-      description:
-        'layouts is an object mapping breakpoints to layouts.\n\ne.g. `{lg: Layout[], md: Layout[], ...}`',
+    breakpoints: {
+      description: 'Construct a type with a set of properties K of type T',
       type: 'object',
-      additionalProperties: {
-        type: 'array',
-        items: {
+      properties: {
+        xxs: {
+          type: 'number',
+        },
+        xs: {
+          type: 'number',
+        },
+        sm: {
+          type: 'number',
+        },
+        md: {
+          type: 'number',
+        },
+        lg: {
+          type: 'number',
+        },
+      },
+    },
+    cols: {
+      description: 'Construct a type with a set of properties K of type T',
+      type: 'object',
+      properties: {
+        xxs: {
+          type: 'number',
+        },
+        xs: {
+          type: 'number',
+        },
+        sm: {
+          type: 'number',
+        },
+        md: {
+          type: 'number',
+        },
+        lg: {
+          type: 'number',
+        },
+      },
+    },
+    layouts: {
+      description: 'Construct a type with a set of properties K of type T',
+      type: 'object',
+      properties: {
+        xxs: {
           type: 'object',
           properties: {
             i: {
@@ -85,22 +131,310 @@ export const ReactGridResponsiveLayoutSchema: JSONSchema7 = {
             },
           },
         },
-      },
-    },
-    breakpoints: {
-      description:
-        '`{name: pxVal}, e.g. {lg: 1200, md: 996, sm: 768, xs: 480}`\n\nBreakpoint names are arbitrary but must match in the cols and layouts objects.',
-      type: 'object',
-      additionalProperties: {
-        type: 'number',
-      },
-    },
-    cols: {
-      description:
-        'Number of cols. This is a breakpoint -> cols map, e.g. `{lg: 12, md: 10, ...}`.',
-      type: 'object',
-      additionalProperties: {
-        type: 'number',
+        xs: {
+          type: 'object',
+          properties: {
+            i: {
+              description:
+                'A string corresponding to the component key.\nUses the index of components instead if not provided.',
+              type: 'string',
+            },
+            x: {
+              description: 'X position in grid units.',
+              type: 'number',
+            },
+            y: {
+              description: 'Y position in grid units.',
+              type: 'number',
+            },
+            w: {
+              description: 'Width in grid units.',
+              type: 'number',
+            },
+            h: {
+              description: 'Height in grid units.',
+              type: 'number',
+            },
+            minW: {
+              description: 'Minimum width in grid units.',
+              type: 'number',
+            },
+            maxW: {
+              description: 'Maximum width in grid units.',
+              type: 'number',
+            },
+            minH: {
+              description: 'Minimum height in grid units.',
+              type: 'number',
+            },
+            maxH: {
+              description: 'Maximum height in grid units.',
+              type: 'number',
+            },
+            moved: {
+              description:
+                'set by DragEvents (onDragStart, onDrag, onDragStop) and ResizeEvents (onResizeStart, onResize, onResizeStop)',
+              type: 'boolean',
+            },
+            static: {
+              description:
+                'If true, equal to `isDraggable: false` and `isResizable: false`.',
+              type: 'boolean',
+            },
+            isDraggable: {
+              description:
+                'If false, will not be draggable. Overrides `static`.',
+              type: 'boolean',
+            },
+            isResizable: {
+              description:
+                'If false, will not be resizable. Overrides `static`.',
+              type: 'boolean',
+            },
+            resizeHandles: {
+              description:
+                'By default, a handle is only shown on the bottom-right (southeast) corner.\nNote that resizing from the top or left is generally not intuitive.',
+              type: 'array',
+              items: {
+                enum: ['e', 'n', 'ne', 'nw', 's', 'se', 'sw', 'w'],
+                type: 'string',
+              },
+            },
+            isBounded: {
+              description:
+                'If true and draggable, item will be moved only within grid.',
+              type: 'boolean',
+            },
+          },
+        },
+        sm: {
+          type: 'object',
+          properties: {
+            i: {
+              description:
+                'A string corresponding to the component key.\nUses the index of components instead if not provided.',
+              type: 'string',
+            },
+            x: {
+              description: 'X position in grid units.',
+              type: 'number',
+            },
+            y: {
+              description: 'Y position in grid units.',
+              type: 'number',
+            },
+            w: {
+              description: 'Width in grid units.',
+              type: 'number',
+            },
+            h: {
+              description: 'Height in grid units.',
+              type: 'number',
+            },
+            minW: {
+              description: 'Minimum width in grid units.',
+              type: 'number',
+            },
+            maxW: {
+              description: 'Maximum width in grid units.',
+              type: 'number',
+            },
+            minH: {
+              description: 'Minimum height in grid units.',
+              type: 'number',
+            },
+            maxH: {
+              description: 'Maximum height in grid units.',
+              type: 'number',
+            },
+            moved: {
+              description:
+                'set by DragEvents (onDragStart, onDrag, onDragStop) and ResizeEvents (onResizeStart, onResize, onResizeStop)',
+              type: 'boolean',
+            },
+            static: {
+              description:
+                'If true, equal to `isDraggable: false` and `isResizable: false`.',
+              type: 'boolean',
+            },
+            isDraggable: {
+              description:
+                'If false, will not be draggable. Overrides `static`.',
+              type: 'boolean',
+            },
+            isResizable: {
+              description:
+                'If false, will not be resizable. Overrides `static`.',
+              type: 'boolean',
+            },
+            resizeHandles: {
+              description:
+                'By default, a handle is only shown on the bottom-right (southeast) corner.\nNote that resizing from the top or left is generally not intuitive.',
+              type: 'array',
+              items: {
+                enum: ['e', 'n', 'ne', 'nw', 's', 'se', 'sw', 'w'],
+                type: 'string',
+              },
+            },
+            isBounded: {
+              description:
+                'If true and draggable, item will be moved only within grid.',
+              type: 'boolean',
+            },
+          },
+        },
+        md: {
+          type: 'object',
+          properties: {
+            i: {
+              description:
+                'A string corresponding to the component key.\nUses the index of components instead if not provided.',
+              type: 'string',
+            },
+            x: {
+              description: 'X position in grid units.',
+              type: 'number',
+            },
+            y: {
+              description: 'Y position in grid units.',
+              type: 'number',
+            },
+            w: {
+              description: 'Width in grid units.',
+              type: 'number',
+            },
+            h: {
+              description: 'Height in grid units.',
+              type: 'number',
+            },
+            minW: {
+              description: 'Minimum width in grid units.',
+              type: 'number',
+            },
+            maxW: {
+              description: 'Maximum width in grid units.',
+              type: 'number',
+            },
+            minH: {
+              description: 'Minimum height in grid units.',
+              type: 'number',
+            },
+            maxH: {
+              description: 'Maximum height in grid units.',
+              type: 'number',
+            },
+            moved: {
+              description:
+                'set by DragEvents (onDragStart, onDrag, onDragStop) and ResizeEvents (onResizeStart, onResize, onResizeStop)',
+              type: 'boolean',
+            },
+            static: {
+              description:
+                'If true, equal to `isDraggable: false` and `isResizable: false`.',
+              type: 'boolean',
+            },
+            isDraggable: {
+              description:
+                'If false, will not be draggable. Overrides `static`.',
+              type: 'boolean',
+            },
+            isResizable: {
+              description:
+                'If false, will not be resizable. Overrides `static`.',
+              type: 'boolean',
+            },
+            resizeHandles: {
+              description:
+                'By default, a handle is only shown on the bottom-right (southeast) corner.\nNote that resizing from the top or left is generally not intuitive.',
+              type: 'array',
+              items: {
+                enum: ['e', 'n', 'ne', 'nw', 's', 'se', 'sw', 'w'],
+                type: 'string',
+              },
+            },
+            isBounded: {
+              description:
+                'If true and draggable, item will be moved only within grid.',
+              type: 'boolean',
+            },
+          },
+        },
+        lg: {
+          type: 'object',
+          properties: {
+            i: {
+              description:
+                'A string corresponding to the component key.\nUses the index of components instead if not provided.',
+              type: 'string',
+            },
+            x: {
+              description: 'X position in grid units.',
+              type: 'number',
+            },
+            y: {
+              description: 'Y position in grid units.',
+              type: 'number',
+            },
+            w: {
+              description: 'Width in grid units.',
+              type: 'number',
+            },
+            h: {
+              description: 'Height in grid units.',
+              type: 'number',
+            },
+            minW: {
+              description: 'Minimum width in grid units.',
+              type: 'number',
+            },
+            maxW: {
+              description: 'Maximum width in grid units.',
+              type: 'number',
+            },
+            minH: {
+              description: 'Minimum height in grid units.',
+              type: 'number',
+            },
+            maxH: {
+              description: 'Maximum height in grid units.',
+              type: 'number',
+            },
+            moved: {
+              description:
+                'set by DragEvents (onDragStart, onDrag, onDragStop) and ResizeEvents (onResizeStart, onResize, onResizeStop)',
+              type: 'boolean',
+            },
+            static: {
+              description:
+                'If true, equal to `isDraggable: false` and `isResizable: false`.',
+              type: 'boolean',
+            },
+            isDraggable: {
+              description:
+                'If false, will not be draggable. Overrides `static`.',
+              type: 'boolean',
+            },
+            isResizable: {
+              description:
+                'If false, will not be resizable. Overrides `static`.',
+              type: 'boolean',
+            },
+            resizeHandles: {
+              description:
+                'By default, a handle is only shown on the bottom-right (southeast) corner.\nNote that resizing from the top or left is generally not intuitive.',
+              type: 'array',
+              items: {
+                enum: ['e', 'n', 'ne', 'nw', 's', 'se', 'sw', 'w'],
+                type: 'string',
+              },
+            },
+            isBounded: {
+              description:
+                'If true and draggable, item will be moved only within grid.',
+              type: 'boolean',
+            },
+          },
+        },
       },
     },
   },

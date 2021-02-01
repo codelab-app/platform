@@ -1,6 +1,5 @@
 query GetApp($input: GetAppInput!) {
   getApp(input: $input) {
-    id
-    title
+    ...appFragments
   }
 }

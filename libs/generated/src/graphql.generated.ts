@@ -257,6 +257,7 @@ export type MoveVertexInput = {
 export type UpdateVertexInput = {
   vertexId: Scalars['String']
   type: Scalars['String']
+  props?: Maybe<Scalars['JSONObject']>
 }
 
 export type DeleteVertexInput = {
@@ -301,13 +302,13 @@ export type GetAppQueryVariables = Exact<{
 }>
 
 export type GetAppQuery = { __typename?: 'Query' } & {
-  getApp?: Maybe<{ __typename?: 'App' } & Pick<App, 'id' | 'title'>>
+  getApp?: Maybe<{ __typename?: 'App' } & AppFragmentsFragment>
 }
 
 export type GetAppsQueryVariables = Exact<{ [key: string]: never }>
 
 export type GetAppsQuery = { __typename?: 'Query' } & {
-  getApps: Array<{ __typename?: 'App' } & Pick<App, 'id' | 'title'>>
+  getApps: Array<{ __typename?: 'App' } & AppFragmentsFragment>
 }
 
 export type UpdateAppMutationVariables = Exact<{
@@ -437,7 +438,7 @@ export type GetPagesQueryVariables = Exact<{
 }>
 
 export type GetPagesQuery = { __typename?: 'Query' } & {
-  getPages: Array<{ __typename?: 'Page' } & Pick<Page, 'id' | 'title'>>
+  getPages: Array<{ __typename?: 'Page' } & PageFragmentsFragment>
 }
 
 export type PageFragmentsFragment = { __typename?: 'Page' } & Pick<
@@ -579,18 +580,18 @@ export const DeleteApp = gql`
 export const GetApp = gql`
   query GetApp($input: GetAppInput!) {
     getApp(input: $input) {
-      id
-      title
+      ...appFragments
     }
   }
+  ${AppFragments}
 `
 export const GetApps = gql`
   query GetApps {
     getApps {
-      id
-      title
+      ...appFragments
     }
   }
+  ${AppFragments}
 `
 export const UpdateApp = gql`
   mutation UpdateApp($input: UpdateAppInput!) {
@@ -690,10 +691,10 @@ export const GetPage = gql`
 export const GetPages = gql`
   query GetPages($input: GetPagesInput!) {
     getPages(input: $input) {
-      id
-      title
+      ...pageFragments
     }
   }
+  ${PageFragments}
 `
 export const DeleteUser = gql`
   mutation DeleteUser($input: DeleteUserInput!) {
@@ -905,10 +906,10 @@ export type DeleteAppMutationOptions = Apollo.BaseMutationOptions<
 export const GetAppGql = gql`
   query GetApp($input: GetAppInput!) {
     getApp(input: $input) {
-      id
-      title
+      ...appFragments
     }
   }
+  ${AppFragmentsFragmentDoc}
 `
 
 /**
@@ -952,10 +953,10 @@ export type GetAppQueryResult = Apollo.QueryResult<
 export const GetAppsGql = gql`
   query GetApps {
     getApps {
-      id
-      title
+      ...appFragments
     }
   }
+  ${AppFragmentsFragmentDoc}
 `
 
 /**
@@ -1595,10 +1596,10 @@ export type GetPageQueryResult = Apollo.QueryResult<
 export const GetPagesGql = gql`
   query GetPages($input: GetPagesInput!) {
     getPages(input: $input) {
-      id
-      title
+      ...pageFragments
     }
   }
+  ${PageFragmentsFragmentDoc}
 `
 
 /**
