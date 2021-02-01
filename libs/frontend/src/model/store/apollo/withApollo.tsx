@@ -1,7 +1,7 @@
 import { ApolloProvider } from '@apollo/client'
 import { NextPage } from 'next'
 import React from 'react'
-import { getApolloClient } from '@codelab/frontend'
+import { getApolloClient } from './apolloClient'
 
 export const withApollo = (Comp: NextPage<any, any>) => ({
   apolloState,

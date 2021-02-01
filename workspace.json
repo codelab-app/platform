@@ -1352,61 +1352,6 @@
         }
       }
     },
-    "modules-app-stories": {
-      "root": "libs/modules/app-stories",
-      "sourceRoot": "libs/modules/app-stories/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/modules/app-stories/**/*.{ts,tsx,js,jsx}"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/modules/app-stories/jest.config.js",
-            "passWithNoTests": true
-          },
-          "outputs": ["coverage/libs/modules/app-stories"]
-        },
-        "storybook": {
-          "builder": "@nrwl/storybook:storybook",
-          "options": {
-            "uiFramework": "@storybook/react",
-            "port": 4400,
-            "config": {
-              "configFolder": "libs/modules/app-stories/.storybook"
-            }
-          },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          }
-        },
-        "build-storybook": {
-          "builder": "@nrwl/storybook:build",
-          "options": {
-            "uiFramework": "@storybook/react",
-            "outputPath": "dist/storybook/ddd-modules-layout-stories",
-            "config": {
-              "configFolder": "libs/modules/app-stories/.storybook"
-            }
-          },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          },
-          "outputs": ["{options.outputPath}"]
-        }
-      }
-    },
     "modules-layout-stories": {
       "root": "libs/modules/layout-stories",
       "sourceRoot": "libs/modules/layout-stories/src",
@@ -1716,61 +1661,6 @@
             "runInBand": true
           },
           "outputs": ["coverage/libs/modules/user"]
-        }
-      }
-    },
-    "modules-user-stories": {
-      "root": "libs/modules/user-stories",
-      "sourceRoot": "libs/modules/user-stories/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/modules/user-stories/**/*.{ts,tsx,js,jsx}"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/modules/user-stories/jest.config.js",
-            "passWithNoTests": true
-          },
-          "outputs": ["coverage/libs/modules/user-stories"]
-        },
-        "storybook": {
-          "builder": "@nrwl/storybook:storybook",
-          "options": {
-            "uiFramework": "@storybook/react",
-            "port": 4400,
-            "config": {
-              "configFolder": "libs/modules/user-stories/.storybook"
-            }
-          },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          }
-        },
-        "build-storybook": {
-          "builder": "@nrwl/storybook:build",
-          "options": {
-            "uiFramework": "@storybook/react",
-            "outputPath": "dist/storybook/ddd-modules-users-stories",
-            "config": {
-              "configFolder": "libs/modules/user-stories/.storybook"
-            }
-          },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          },
-          "outputs": ["{options.outputPath}"]
         }
       }
     },

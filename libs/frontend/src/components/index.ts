@@ -1,5 +1,6 @@
 export * from './form/ModalForm'
 export * from './form/json-schema'
 export * from './form/ApolloForm'
+export * from './form/ApolloForm.d'
 export * from './form/XStateForm'
 export * from './loading/Loader'

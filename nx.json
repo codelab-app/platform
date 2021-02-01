@@ -124,9 +124,6 @@
     "frontend": {
       "tags": []
     },
-    "modules-app-stories": {
-      "tags": []
-    },
     "modules-layout-stories": {
       "tags": []
     },
@@ -149,9 +146,6 @@
       "tags": []
     },
     "modules-user": {
-      "tags": []
-    },
-    "modules-user-stories": {
       "tags": []
     },
     "tools-generators-json-schema": {

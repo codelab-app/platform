@@ -8,7 +8,7 @@ import { ApolloForm } from '@codelab/frontend'
 import { UpdateEdgeInputSchema } from '@codelab/generated'
 
 export const UpdateEdgeForm = () => {
-  const updateEdgeMutation = useUpdateEdgeMutation({
+  const [mutate] = useUpdateEdgeMutation({
     refetchQueries: [
       // {
       //   query: GetPageGql,
@@ -23,9 +23,9 @@ export const UpdateEdgeForm = () => {
 
   return (
     <ApolloForm<UpdateEdgeInput, UpdateEdgeMutationVariables>
-      mutation={updateEdgeMutation}
+      mutate={mutate}
       schema={UpdateEdgeInputSchema}
-      formData={{ id: '' }}
+      initialFormData={{ id: '' }}
       rjsfFormProps={{
         uiSchema: {
           parentVertexId: {

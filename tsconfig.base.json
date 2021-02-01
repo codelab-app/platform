@@ -78,7 +78,6 @@
       "@codelab/alpha/ui/hoc": ["libs/alpha/ui/hoc/src/index.ts"],
       "@codelab/backend": ["libs/backend/src/index"],
       "@codelab/frontend": ["libs/frontend/src/index.ts"],
-      "@codelab/modules/app-stories": ["libs/modules/app-stories/src/index.ts"],
       "@codelab/modules/layout-stories": [
         "libs/modules/layout-stories/src/index.ts"
       ],
@@ -95,9 +94,6 @@
       "@codelab/modules/graph": ["libs/modules/graph/src/index.ts"],
       "@codelab/modules/app": ["libs/modules/app/src/index.ts"],
       "@codelab/modules/user": ["libs/modules/user/src/index.ts"],
-      "@codelab/modules/user-stories": [
-        "libs/modules/user-stories/src/index.ts"
-      ],
       "@codelab/tools/generators/json-schema": [
         "libs/tools/generators/json-schema/src/index.ts"
       ],
