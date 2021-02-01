@@ -59,8 +59,9 @@ import {
   Typography,
   Upload,
 } from 'antd'
-import React from 'react'
-import { Node } from '../../../modules/graph/src/core/domain/node/Tree'
+import React, { ReactElement, ReactHTMLElement } from 'react'
+import { VertexT } from '../../../alpha/shared/interface/graph-v2/src/vertex'
+import { NodeI } from '../../../modules/graph/src/core/domain/node/Node'
 import { propsFilter, withFilters } from '@codelab/alpha/core/props'
 import { mouseEventHandlerKeys } from '@codelab/alpha/shared/event'
 import {
@@ -74,11 +75,14 @@ import {
   RenderComponent,
 } from '@codelab/alpha/ui/antd'
 
-export const elementParameterFactory = (
-  node: Node,
-): [React.FunctionComponent | string, object] => {
-  const { type, props } = node
-
+export const elementParameterFactory = ({
+  type,
+  props = {},
+}: {
+  type: VertexType
+  props?: object
+}): [ReactHTMLElement<any> | React.FunctionComponent<any> | string, object] => {
+  console.log(type)
   switch (type) {
     case VertexType.React_Fragment:
       return [React.Fragment, props]
@@ -154,9 +158,11 @@ export const elementParameterFactory = (
       return [Select as any, props]
     case VertexType.React_Select_Option:
       return [Select.Option as any, props]
-    case VertexType.React_GridLayout:
+    case VertexType.React_Grid_Layout:
       return [Grid.Default, props]
-    case VertexType.React_ResponsiveGridLayout:
+    case VertexType.React_Grid:
+      return ['div', props]
+    case VertexType.React_Grid_ResponsiveLayout:
       return [Grid.Responsive, props]
     case VertexType.React_Provider:
       return [Provider.Default, props]

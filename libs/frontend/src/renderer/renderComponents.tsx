@@ -1,49 +1,54 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable import/no-cycle */
-import React, { FunctionComponent, PropsWithChildren } from 'react'
+import React, { FunctionComponent, PropsWithChildren, ReactNode } from 'react'
 import { propsMapLeaf } from '../../../alpha/core/props/src/mapper/Props-map--leaf'
-import { Node } from '../../../modules/graph/src/core/domain/node/Tree'
+import { NodeA, NodeI } from '../../../modules/graph/src/core/domain/node/Node'
 import { NodeEntity } from './NodeEntity'
 import { elementParameterFactory } from './elementFactory'
-import { traversePostOrder } from '@codelab/alpha/core/traversal'
-import { makeTree } from '@codelab/alpha/core/tree'
-import { NodeFactory, NodeI } from '@codelab/alpha/shared/interface/node'
 
-export const renderComponents = (data: Node): FunctionComponent => {
-  const root = makeTree(data) as NodeEntity
+const hasChildren = (node: NodeI) => {
+  return !!node.children?.length
+}
 
-  /**
-   * Called during traversal for each node.
-   */
-  const componentBuilderIteratee: NodeFactory<void> = (node: any) => {
-    const [Component, props] = elementParameterFactory(node)
+export const renderChildren = (
+  node: NodeA,
+  oldRenderProps: object = {},
+): ReactNode | Array<ReactNode> => {
+  const children = node.children.reduce(
+    (Components: Array<ReactNode>, child: NodeA) => {
+      const [Child, props] = elementParameterFactory(child)
 
-    node.Component = React.createElement(Component, props)
-  }
+      let ChildComponent: ReactNode = React.createElement(Child as any, {
+        key: child.id,
+        // ...child.evalProps(oldRenderProps),
+      })
 
-  traversePostOrder(root, componentBuilderIteratee)
+      if (hasChildren(child)) {
+        ChildComponent = React.createElement(
+          Child as any,
+          {
+            key: child.id,
+            // ...child.evalProps(oldRenderProps)
+          },
+          renderChildren(
+            child,
+            {},
+            // child.nextRenderProps(oldRenderProps)
+          ),
+        )
+      }
 
-  /**
-   * rootChildren & rootProps allow us to programmatically modify components
-   */
-  return ({
-    children: rootChildren,
-    ...outsideProps
-  }: PropsWithChildren<P>) => {
-    root.props = { ...root.props, ...propsMapLeaf(outsideProps) }
+      return [...Components, ChildComponent]
+    },
+    [],
+  )
 
-    /**
-     * We only want to transform rootProps to leaf, since root.props contain antd specific props
-     */
-    const props = root.evalProps(propsMapLeaf(outsideProps))
+  return children
+}
 
-    const componentChildren = root.Children(
-      rootChildren,
-      root.nextRenderProps(propsMapLeaf(outsideProps)),
-    )
+export const RenderComponents = (node: NodeA) => {
+  const { props, type } = node
+  const [RootComponent] = elementParameterFactory({ type })
 
-    return rootChildren || root.hasChildren()
-      ? React.cloneElement(root.Component, props, componentChildren)
-      : React.cloneElement(root.Component, props)
-  }
+  return React.createElement(RootComponent as any, props, renderChildren(node))
 }

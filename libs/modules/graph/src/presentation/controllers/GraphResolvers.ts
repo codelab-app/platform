@@ -12,7 +12,6 @@ import { AddChildVertexInput } from '../../core/application/useCases/addChildVer
 import { AddChildVertexService } from '../../core/application/useCases/addChildVertex/AddChildVertexService'
 import { CreateGraphInput } from '../../core/application/useCases/createGraph/CreateGraphInput'
 import { CreateGraphService } from '../../core/application/useCases/createGraph/CreateGraphService'
-import { GetGraphByInput } from '../../core/application/useCases/getGraph/GetGraphByInput'
 import { GetGraphInput } from '../../core/application/useCases/getGraph/GetGraphInput'
 import { GetGraphService } from '../../core/application/useCases/getGraph/GetGraphService'
 import { GetTreeService } from '../../core/application/useCases/getTree/GetTreeService'
@@ -45,11 +44,6 @@ export class GraphResolvers {
   @Query(() => Graph)
   getGraph(@Args('input') input: GetGraphInput) {
     return this.getGraphService.execute(input)
-  }
-
-  @Query(() => Graph)
-  getGraphBy(@Args('input') input: GetGraphByInput) {
-    return this.getGraphService.getGraphBy(input)
   }
 
   @ResolveField('vertices', (returns) => [Vertex])

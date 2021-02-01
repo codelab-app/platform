@@ -94,7 +94,8 @@ export const AddChildVertexInputSchema: JSONSchema7 = {
             'React_Form_List',
             'React_Fragment',
             'React_Grid',
-            'React_Grid_Layout_Container',
+            'React_Grid_Layout',
+            'React_Grid_ResponsiveLayout',
             'React_Html_A',
             'React_Html_Div',
             'React_Html_P',
@@ -129,7 +130,6 @@ export const AddChildVertexInputSchema: JSONSchema7 = {
             'React_Rate',
             'React_RenderComponent',
             'React_RenderContainer',
-            'React_ResponsiveGrid',
             'React_Result',
             'React_Select',
             'React_Select_Option',
@@ -159,8 +159,6 @@ export const AddChildVertexInputSchema: JSONSchema7 = {
             'React_Typography_Text',
             'React_Typography_Title',
             'React_Upload',
-            'Ref',
-            'Tree',
           ],
           type: 'string',
         },
@@ -192,19 +190,6 @@ export const DeleteVertexInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
     vertexId: {
-      type: 'string',
-    },
-  },
-  $schema: 'http://json-schema.org/draft-07/schema#',
-}
-
-export const GetGraphByInputSchema: JSONSchema7 = {
-  type: 'object',
-  properties: {
-    appId: {
-      type: 'string',
-    },
-    pageId: {
       type: 'string',
     },
   },
@@ -320,7 +305,8 @@ export const UpdateVertexInputSchema: JSONSchema7 = {
         'React_Form_List',
         'React_Fragment',
         'React_Grid',
-        'React_Grid_Layout_Container',
+        'React_Grid_Layout',
+        'React_Grid_ResponsiveLayout',
         'React_Html_A',
         'React_Html_Div',
         'React_Html_P',
@@ -355,7 +341,6 @@ export const UpdateVertexInputSchema: JSONSchema7 = {
         'React_Rate',
         'React_RenderComponent',
         'React_RenderContainer',
-        'React_ResponsiveGrid',
         'React_Result',
         'React_Select',
         'React_Select_Option',
@@ -385,8 +370,6 @@ export const UpdateVertexInputSchema: JSONSchema7 = {
         'React_Typography_Text',
         'React_Typography_Title',
         'React_Upload',
-        'Ref',
-        'Tree',
       ],
       type: 'string',
     },

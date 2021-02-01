@@ -4,7 +4,12 @@ import { dashboardDrawerState } from '../../dashboard/Dashboard-drawer'
 import { Renderer } from '@codelab/alpha/core/renderer'
 import { makeCytoscape, makeD3 } from '@codelab/alpha/shared/factory'
 import { D3Graph } from '@codelab/alpha/ui/d3'
-import { renderComponents } from '@codelab/frontend'
+import {
+  CytoscapeService,
+  renderChildren,
+  RenderComponents,
+  renderComponents,
+} from '@codelab/frontend'
 import { GetGraphQuery } from '@codelab/generated'
 
 interface GetPageLayoutProps {
@@ -18,22 +23,23 @@ export const GetPageLayout = ({ graph }: GetPageLayoutProps) => {
 
   if (!graph) return null
 
-  console.log(graph)
+  // console.log(graph)
 
-  // console.log(cy.elements())
-
-  // return Renderer.graphComponents({ graph })
   const onNodeClick = (e: any, node: any) => {
     // console.log(e, node)
     setDashboardDrawer({ visible: true, vertexId: node.id })
   }
 
-  const RenderedComponent = renderComponents(graph.tree)
+  const cy = CytoscapeService.fromGraph(graph)
+
+  const root = CytoscapeService.bfs(cy.elements().roots().first())
+
+  console.log(root)
 
   return (
     <>
-      <RenderedComponent />
-      <D3Graph {...makeD3(graph)} onNodeClick={onNodeClick} />
+      <RenderComponents {...root} />
+      {/* <D3Graph {...makeD3(graph)} onNodeClick={onNodeClick} /> */}
     </>
   )
 }

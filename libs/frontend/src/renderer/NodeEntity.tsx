@@ -3,7 +3,7 @@ import { reduce } from 'lodash'
 import { pipe } from 'ramda'
 import React, { ReactElement, ReactNode } from 'react'
 import { v4 as uuidv4 } from 'uuid'
-import { Node, NodeA } from '../../../modules/graph/src/core/domain/node/Tree'
+import { NodeA, NodeI } from '../../../modules/graph/src/core/domain/node/Node'
 import {
   propsFactoryEval,
   propsFactoryReact,
@@ -21,7 +21,7 @@ import { Props } from '@codelab/alpha/shared/interface/props'
 /**
  * Node is instantiated during Tree traversal
  */
-export class NodeEntity implements Node {
+export class NodeEntity implements NodeI {
   public Component: ReactElement<any> = React.createElement('')
 
   public id: string
@@ -30,22 +30,20 @@ export class NodeEntity implements Node {
 
   public parent?: NodeEntity
 
-  public children: Array<Node> = []
+  public children: Array<NodeA> = []
 
   public props: Props
 
   /**
    * The class Node & the codec Node should be kept separate. Node is the container for behavior, while codec Node holds the shape of the data
    */
-  public data: Node
+  public data: NodeI
 
   /**
    * Can take just ID, but fills out other fields
    */
-  constructor(node: NodeA) {
+  constructor(node: NodeI) {
     const { props, type, id } = node
-
-    console.log(type)
 
     if (type === undefined || type === null || !(type in VertexType)) {
       throw new Error(`${type} is not a valid Node type`)
@@ -95,7 +93,7 @@ export class NodeEntity implements Node {
     child.addParent(this)
   }
 
-  public removeChild(child: Node) {
+  public removeChild(child: NodeA) {
     const indexOfChild = this.children.indexOf(child)
 
     this.children.splice(indexOfChild, 1)
@@ -108,7 +106,7 @@ export class NodeEntity implements Node {
     }
   }
 
-  public getRoot(node: NodeEntity = this): Node {
+  public getRoot(node: NodeEntity = this): NodeI {
     return node.parent === undefined ? node : this.getRoot(node.parent)
   }
 
