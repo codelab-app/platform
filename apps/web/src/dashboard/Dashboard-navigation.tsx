@@ -42,7 +42,7 @@ export const DashboardNavigationInner = ({ router }: WithRouterProps) => {
     ],
   })
 
-  const treeData = {}
+  const treeData: Array<any> = []
 
   return (
     <>
@@ -72,7 +72,7 @@ export const DashboardNavigationInner = ({ router }: WithRouterProps) => {
       ))}
       <CreatePageModal />
       <Divider />
-      <DashboardTree data={[treeData]} />
+      <DashboardTree data={treeData} />
     </>
   )
 }

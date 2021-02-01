@@ -12,5 +12,5 @@ export interface NodeA {
   type: VertexType
   children: Array<NodeA>
   props: object
-  parent?: NodeA
+  parent?: string
 }
