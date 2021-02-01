@@ -21,7 +21,7 @@ export const AddChildVertexForm = ({
   parentVertexId,
   ...props
 }: AddChildVertexFormProps) => {
-  const addChildVertexMutation = useAddChildVertexMutation({
+  const [mutate] = useAddChildVertexMutation({
     refetchQueries: [
       {
         query: GetPageGql,
@@ -37,9 +37,9 @@ export const AddChildVertexForm = ({
   return (
     <ApolloForm<AddChildVertexInput, UpdateVertexMutationVariables>
       hideSubmitButton
-      mutation={addChildVertexMutation}
+      mutate={mutate}
       schema={AddChildVertexInputSchema}
-      formData={{
+      initialFormData={{
         parentVertexId,
         vertex: { type: 'ReactAffix', props: {} },
       }}

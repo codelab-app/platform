@@ -60,8 +60,10 @@ export const notify = <TEvent extends any>(
  * e.g.:
  *  .catch(getNotificationHandler({...options}))
  */
-export const notifications = <TEvent extends any>(
+export const createNotificationHandler = <TEvent extends any>(
   o: NotificationOptions<TEvent> = defaultOptions,
 ) => {
-  return (e: TEvent | undefined = undefined) => notify(o, e)
+  return (e: TEvent | undefined = undefined) => {
+    notify(o, e)
+  }
 }

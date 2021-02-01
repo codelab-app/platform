@@ -8,7 +8,7 @@ import {
   ApolloFormUseCaseProps,
   ArrayOfCallbacks,
   createCallbackHandler,
-  notifications,
+  createNotificationHandler,
   storeAuthToken,
 } from '@codelab/frontend'
 import {
@@ -18,19 +18,6 @@ import {
   useLoginUserMutation,
 } from '@codelab/generated'
 
-const notifySuccessfulLogin = notifications<FetchResult<LoginUserMutation>>({
-  title: (e) =>
-    e?.data?.loginUser?.email
-      ? `Welcome back, ${e?.data?.loginUser?.email}`
-      : 'Welcome back',
-  type: 'success',
-})
-
-const notifyFailedLogin = notifications({
-  title: 'Error while logging in',
-  type: 'error',
-})
-
 export const LoginUserForm = ({
   onSubmitFailed,
   onSubmitSuccessfully,
@@ -39,6 +26,21 @@ export const LoginUserForm = ({
   const [mutate, { loading }] = useLoginUserMutation()
 
   const [, setState] = useRecoilState(userState)
+
+  const notifySuccessfulLogin = createNotificationHandler<
+    FetchResult<LoginUserMutation>
+  >({
+    title: (e) =>
+      e?.data?.loginUser?.email
+        ? `Welcome back, ${e?.data?.loginUser?.email}`
+        : 'Welcome back',
+    type: 'success',
+  })
+
+  const notifyFailedLogin = createNotificationHandler({
+    title: 'Error while logging in',
+    type: 'error',
+  })
 
   useEffect(() => {
     // Keep the loading state in recoil, so we can use it other components, like loading buttons, etc.

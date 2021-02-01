@@ -8,7 +8,7 @@ import {
   ApolloFormUseCaseProps,
   ArrayOfCallbacks,
   createCallbackHandler,
-  notifications,
+  createNotificationHandler,
   storeAuthToken,
 } from '@codelab/frontend'
 import {
@@ -18,21 +18,6 @@ import {
   useRegisterUserMutation,
 } from '@codelab/generated'
 
-const notifySuccessfulRegister = notifications<
-  FetchResult<RegisterUserMutation>
->({
-  title: (e) =>
-    e?.data?.registerUser?.email
-      ? `Welcome, ${e?.data?.registerUser?.email}`
-      : 'Welcome',
-  type: 'success',
-})
-
-const notifyFailedRegister = notifications({
-  title: 'Error while registering',
-  type: 'error',
-})
-
 export const RegisterUserForm = ({
   onSubmitSuccessfully,
   onSubmitFailed,
@@ -41,6 +26,21 @@ export const RegisterUserForm = ({
   const [mutate, { loading }] = useRegisterUserMutation()
 
   const [, setState] = useRecoilState(userState)
+
+  const notifySuccessfulRegister = createNotificationHandler<
+    FetchResult<RegisterUserMutation>
+  >({
+    title: (e) =>
+      e?.data?.registerUser?.email
+        ? `Welcome, ${e?.data?.registerUser?.email}`
+        : 'Welcome',
+    type: 'success',
+  })
+
+  const notifyFailedRegister = createNotificationHandler({
+    title: 'Error while registering',
+    type: 'error',
+  })
 
   useEffect(() => {
     // Keep the loading state in recoil, so we can use it other components, like loading buttons, etc.

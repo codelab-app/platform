@@ -1,8 +1,11 @@
 import React, { useEffect } from 'react'
 import { useRecoilState } from 'recoil'
-import { notifications } from '../../../../../libs/frontend/src/utils/notifications'
 import { appState } from '../state'
-import { ApolloForm, ApolloFormUseCaseProps } from '@codelab/frontend'
+import {
+  ApolloForm,
+  ApolloFormUseCaseProps,
+  createNotificationHandler,
+} from '@codelab/frontend'
 import {
   GetAppsGql,
   UpdateAppInput,
@@ -44,7 +47,7 @@ export const EditAppForm = (
           },
         },
       }}
-      onSubmitFailed={notifications({
+      onSubmitFailed={createNotificationHandler({
         title: `Error while updating app '${editingApp.title}'`,
       })}
       {...props}
