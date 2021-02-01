@@ -2,12 +2,12 @@ import { PageHeader, Spin } from 'antd'
 import { useRouter } from 'next/router'
 import * as R from 'ramda'
 import React from 'react'
+import { CreateAppButton, GetAppsList } from '../../src/apps'
 import {
   padding,
   withApollo,
   withAuthGuardServerSideProps,
 } from '@codelab/frontend'
-import { CreateAppButton, GetAppsList } from '@codelab/modules/app-stories'
 import {
   SignOutUserButton,
   useUserMachine,

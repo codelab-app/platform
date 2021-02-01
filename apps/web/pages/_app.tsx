@@ -15,7 +15,6 @@ import {
   mapProps,
   rootMachine,
 } from '@codelab/frontend'
-import { CreateAppModal, EditAppModal } from '@codelab/modules/app-stories'
 import {
   LoginUserModal,
   RegisterUserModal,
@@ -47,8 +46,6 @@ const App: React.FunctionComponent<{}> = ({ children }) => {
     <>
       <RegisterUserModal />
       <LoginUserModal />
-      <CreateAppModal />
-      <EditAppModal />
       <LayoutFactory router={router}>{children}</LayoutFactory>
     </>
   )

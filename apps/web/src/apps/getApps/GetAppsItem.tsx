@@ -6,14 +6,22 @@ import {
 import { Button, Card, Dropdown, Menu, Skeleton } from 'antd'
 import Link from 'next/link'
 import React, { CSSProperties, FunctionComponent } from 'react'
+import { AppType } from '../state'
 import { Page } from '@codelab/frontend'
 
-export interface GetAppsItemProps {
-  app: { title: string; id: string }
-  loading?: boolean
-  handleDeleteClick: (app: { id: string; title: string }) => void
-  handleEditClick: (app: { id: string; title: string }) => void
-}
+export type GetAppsItemProps =
+  | {
+      app: AppType
+      loading?: false
+      handleDeleteClick: (app: AppType) => void
+      handleEditClick: (app: AppType) => void
+    }
+  | {
+      app?: never
+      loading: true
+      handleDeleteClick?: never
+      handleEditClick?: never
+    }
 
 const menuItemStyle: CSSProperties = {
   display: 'flex',
@@ -39,7 +47,7 @@ export const GetAppsItem: FunctionComponent<GetAppsItemProps> = ({
         key="0"
         style={menuItemStyle}
         onClick={() => {
-          if (app) handleEditClick(app)
+          if (app && handleEditClick) handleEditClick(app)
         }}
       >
         Edit
@@ -49,7 +57,7 @@ export const GetAppsItem: FunctionComponent<GetAppsItemProps> = ({
         key="1"
         style={menuItemStyle}
         onClick={() => {
-          if (app) handleDeleteClick(app)
+          if (app && handleDeleteClick) handleDeleteClick(app)
         }}
       >
         Delete
