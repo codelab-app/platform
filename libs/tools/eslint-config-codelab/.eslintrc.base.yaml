@@ -23,6 +23,7 @@ rules:
     - warn
     - additionalHooks: useRecoilCallback
 
+  curly: error
   no-new-func: off
   no-undef: error # not included in preset, surprisingly
   no-underscore-dangle: off

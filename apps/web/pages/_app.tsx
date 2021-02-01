@@ -8,16 +8,8 @@ import { RecoilRoot } from 'recoil'
 import { Dashboard } from '../src/dashboard/Dashboard'
 import { HomeLayout } from '../src/home'
 import { LoginUserModal, RegisterUserModal } from '../src/user'
-import { useCurrentUser } from '../src/user/useCurrentUser'
 import { useGetMe } from '../src/user/useGetMe'
-import {
-  MachineProvider,
-  PageType,
-  getApolloClient,
-  isPage,
-  mapProps,
-  rootMachine,
-} from '@codelab/frontend'
+import { PageType, getApolloClient, isPage, mapProps } from '@codelab/frontend'
 import './App.less'
 import './App.scss'
 
@@ -40,17 +32,10 @@ const LayoutFactory: React.FunctionComponent<WithRouterProps> = R.cond([
 const App: React.FunctionComponent<{}> = ({ children }) => {
   const router = useRouter()
 
-  const currentUser = useCurrentUser()
-
   return (
     <>
-      {!currentUser && (
-        // No need to include modals if we are logged in
-        <>
-          <RegisterUserModal />
-          <LoginUserModal />
-        </>
-      )}
+      <RegisterUserModal />
+      <LoginUserModal />
       <LayoutFactory router={router}>{children}</LayoutFactory>
     </>
   )
@@ -72,17 +57,15 @@ const AppContainer: React.FC<AppProps> = (props) => {
   return (
     <RecoilRoot>
       <ApolloProvider client={getApolloClient()}>
-        <MachineProvider rootMachine={rootMachine}>
-          <style jsx global>{`
-            #__next {
-              height: 100%;
-            }
-          `}</style>
-          <App>
-            <AppUserProxy pageProps={pageProps} />
-            <Component {...pageProps} />
-          </App>
-        </MachineProvider>
+        <style jsx global>{`
+          #__next {
+            height: 100%;
+          }
+        `}</style>
+        <App>
+          <AppUserProxy pageProps={pageProps} />
+          <Component {...pageProps} />
+        </App>
       </ApolloProvider>
     </RecoilRoot>
   )

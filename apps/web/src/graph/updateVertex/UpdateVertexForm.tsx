@@ -16,7 +16,7 @@ interface UpdateVertexFormProps {
 }
 
 export const UpdateVertexForm = ({ vertex }: UpdateVertexFormProps) => {
-  const [mutate] = useUpdateVertexMutation({
+  const [mutate, { loading }] = useUpdateVertexMutation({
     refetchQueries: [
       {
         query: GetVertexGql,
@@ -42,9 +42,9 @@ export const UpdateVertexForm = ({ vertex }: UpdateVertexFormProps) => {
   return (
     <ApolloForm<UpdateVertexInput, UpdateVertexMutationVariables>
       hideSubmitButton={false}
-      mutation={mutate}
+      mutate={mutate}
       schema={schema}
-      formData={{ vertexId: vertex.id, type: vertex.type ?? '' }}
+      initialFormData={{ vertexId: vertex.id, type: vertex.type ?? '' }}
     />
   )
 }
