@@ -1,2 +1,2 @@
 export * from './elementFactory'
-export * from './renderComponents'
+export * from './RenderComponents'

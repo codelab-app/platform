@@ -59,9 +59,8 @@ import {
   Typography,
   Upload,
 } from 'antd'
-import React, { ReactElement, ReactHTMLElement } from 'react'
-import { VertexT } from '../../../alpha/shared/interface/graph-v2/src/vertex'
-import { NodeI } from '../../../modules/graph/src/core/domain/node/Node'
+import React, { ReactHTMLElement } from 'react'
+import { DashboardHandlerProps } from '../../../../apps/web/src/dashboard/Dashboard-handlers'
 import { propsFilter, withFilters } from '@codelab/alpha/core/props'
 import { mouseEventHandlerKeys } from '@codelab/alpha/shared/event'
 import {
@@ -73,16 +72,18 @@ import {
   Grid,
   Provider,
   RenderComponent,
+  onDragStart,
 } from '@codelab/alpha/ui/antd'
 
 export const elementParameterFactory = ({
   type,
   props = {},
+  handlers,
 }: {
   type: VertexType
   props?: object
+  handlers?: DashboardHandlerProps // Function hooks injected to pass to handlers
 }): [ReactHTMLElement<any> | React.FunctionComponent<any> | string, object] => {
-  console.log(type)
   switch (type) {
     case VertexType.React_Fragment:
       return [React.Fragment, props]
@@ -163,7 +164,7 @@ export const elementParameterFactory = ({
     case VertexType.React_Grid:
       return ['div', props]
     case VertexType.React_Grid_ResponsiveLayout:
-      return [Grid.Responsive, props]
+      return [Grid.Responsive, { ...props, onDragStart: onDragStart(handlers) }]
     case VertexType.React_Provider:
       return [Provider.Default, props]
     case VertexType.React_Modal:

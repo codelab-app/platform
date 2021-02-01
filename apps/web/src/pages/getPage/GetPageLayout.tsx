@@ -1,15 +1,9 @@
+import { PlusOutlined } from '@ant-design/icons'
+import { Button } from 'antd'
 import React from 'react'
 import { useRecoilState } from 'recoil'
 import { dashboardDrawerState } from '../../dashboard/Dashboard-drawer'
-import { Renderer } from '@codelab/alpha/core/renderer'
-import { makeCytoscape, makeD3 } from '@codelab/alpha/shared/factory'
-import { D3Graph } from '@codelab/alpha/ui/d3'
-import {
-  CytoscapeService,
-  renderChildren,
-  RenderComponents,
-  renderComponents,
-} from '@codelab/frontend'
+import { CytoscapeService, RenderComponents } from '@codelab/frontend'
 import { GetGraphQuery } from '@codelab/generated'
 
 interface GetPageLayoutProps {
@@ -39,6 +33,9 @@ export const GetPageLayout = ({ graph }: GetPageLayoutProps) => {
   return (
     <>
       <RenderComponents {...root} />
+      <Button icon={<PlusOutlined />} type="primary">
+        Add Grid
+      </Button>
       {/* <D3Graph {...makeD3(graph)} onNodeClick={onNodeClick} /> */}
     </>
   )
