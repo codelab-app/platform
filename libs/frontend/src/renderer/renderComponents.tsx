@@ -1,9 +1,5 @@
-/* eslint-disable no-param-reassign */
-/* eslint-disable import/no-cycle */
-import React, { FunctionComponent, PropsWithChildren, ReactNode } from 'react'
-import { propsMapLeaf } from '../../../alpha/core/props/src/mapper/Props-map--leaf'
+import React, { ReactNode } from 'react'
 import { NodeA, NodeI } from '../../../modules/graph/src/core/domain/node/Node'
-import { NodeEntity } from './NodeEntity'
 import { elementParameterFactory } from './elementFactory'
 
 const hasChildren = (node: NodeI) => {
