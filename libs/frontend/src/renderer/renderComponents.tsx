@@ -14,6 +14,7 @@ export const renderChildren = (
     (Components: Array<ReactNode>, child: NodeA) => {
       const [Child, props] = elementParameterFactory(child)
 
+      // TODO: remove any cast
       let ChildComponent: ReactNode = React.createElement(Child as any, {
         key: child.id,
         // ...child.evalProps(oldRenderProps),
