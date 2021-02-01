@@ -1,5 +1,6 @@
 import * as Apollo from '@apollo/client'
 import React, { useState } from 'react'
+import { callCallbackOrArrayOfCallbacks } from '../../utils'
 import { ApolloFormProps } from './ApolloForm.d'
 import {
   JsonSchemaForm,
@@ -7,9 +8,10 @@ import {
   JsonSchemaUseCaseFormProps,
 } from './json-schema'
 
-export type ApolloFormUseCaseProps<
-  TData extends object
-> = JsonSchemaUseCaseFormProps<TData> &
+export type ApolloFormUseCaseProps<TData extends object> = Omit<
+  JsonSchemaUseCaseFormProps<TData>,
+  'rjsfFormProps'
+> &
   Pick<ApolloFormProps<TData, any>, 'onSubmitFailed' | 'onSubmitSuccessfully'>
 
 export const ApolloForm = <
@@ -35,13 +37,15 @@ export const ApolloForm = <
     })
       .then((r) => {
         // Pass up the event
-        if (onSubmitSuccessfully) onSubmitSuccessfully(r)
+        callCallbackOrArrayOfCallbacks(onSubmitSuccessfully, r)
 
         // Reset the form state
         setLocalFormData({ ...initialFormData })
       })
       // Pass up any errors too
-      .catch(onSubmitFailed)
+      .catch((e) => {
+        callCallbackOrArrayOfCallbacks(onSubmitFailed, e)
+      })
   }
 
   return (

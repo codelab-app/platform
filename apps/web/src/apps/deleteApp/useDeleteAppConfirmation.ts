@@ -1,5 +1,5 @@
 import { Modal } from 'antd'
-import { getNotificationHandler } from '../../../../../libs/frontend/src/utils/getNotificationHandler'
+import { notifications } from '../../../../../libs/frontend/src/utils/notifications'
 import { GetAppsGql, useDeleteAppMutation } from '@codelab/generated'
 
 export const useDeleteAppConfirmation = () => {
@@ -19,8 +19,9 @@ export const useDeleteAppConfirmation = () => {
         },
       ],
     }).catch(
-      getNotificationHandler({
+      notifications({
         title: `Error while deleting app '${app.title}'`,
+        type: 'error',
       }),
     )
 

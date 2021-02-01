@@ -2,30 +2,23 @@ import { HomeOutlined, UserOutlined } from '@ant-design/icons'
 import { Menu } from 'antd'
 import Link from 'next/link'
 import React from 'react'
+import { LoginUserButton, RegisterUserButton, SignOutUserButton } from '../user'
+import { useCurrentUser } from '../user/useCurrentUser'
 import { Page, disableMenuHoverEffects } from '@codelab/frontend'
-import {
-  LoginUserButton,
-  RegisterUserButton,
-  SignOutUserButton,
-  useUserMachine,
-} from '@codelab/modules/user-stories'
 
 /**
  * We always show `Login` `Register` even if user is login. We simply redirect them to `/apps` page if they're already logged in.
  */
 export const HomeMenuHeader = () => {
-  const user = useUserMachine()
+  const currentUser = useCurrentUser()
 
-  const { userData } = user.state.context
-  const isCheckingAuth = user.state.value === 'initialCheck'
-
-  const authenticatedUserMenu = (data: any) => (
+  const authenticatedUserMenu = (
     <>
       <Menu.Item key="3" style={{ float: 'right' }}>
         <SignOutUserButton />
       </Menu.Item>
       <Menu.SubMenu key="4" style={{ float: 'right' }} icon={<UserOutlined />}>
-        <Menu.Item>{data.email}</Menu.Item>
+        <Menu.Item>{currentUser?.email}</Menu.Item>
       </Menu.SubMenu>
     </>
   )
@@ -70,10 +63,7 @@ export const HomeMenuHeader = () => {
             <a>Apps</a>
           </Link>
         </Menu.Item>
-        {guestUserMenu}
-        {/* {isCheckingAuth || (!isCheckingAuth && !userData)
-          ? guestUserMenu
-          : authenticatedUserMenu(userData)} */}
+        {currentUser ? authenticatedUserMenu : guestUserMenu}
       </Menu>
     </>
   )

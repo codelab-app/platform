@@ -5,7 +5,6 @@ import { CreateAppForm } from './CreateAppForm'
 import { ModalForm } from '@codelab/frontend'
 
 export const CreateAppModal = () => {
-  // Get the loading state from the form, so we know when it's loading
   const [state, setAppState] = useRecoilState(appState)
 
   const { loading, editingApp, modalVisible } = state

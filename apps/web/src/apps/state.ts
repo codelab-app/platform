@@ -19,6 +19,6 @@ export const initialAppState: AppState = {
 }
 
 export const appState = atom<AppState>({
-  key: 'appModal',
+  key: 'appState',
   default: initialAppState,
 })

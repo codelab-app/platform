@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useRecoilState } from 'recoil'
-import { getNotificationHandler } from '../../../../../libs/frontend/src/utils/getNotificationHandler'
+import { notifications } from '../../../../../libs/frontend/src/utils/notifications'
 import { CreateAppInput } from '../../../../../libs/modules/app/src/core/application/useCases/createApp/CreateAppInput'
 import { appState } from '../state'
 import { ApolloForm, ApolloFormUseCaseProps } from '@codelab/frontend'
@@ -35,8 +35,9 @@ export const CreateAppForm = (
       schema={CreateAppInputSchema}
       initialFormData={{ title: '' }}
       mutate={mutate}
-      onSubmitFailed={getNotificationHandler({
+      onSubmitFailed={notifications({
         title: 'Error while registering',
+        type: 'error',
       })}
       {...props}
     />
