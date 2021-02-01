@@ -15,7 +15,7 @@ scalar JSONObject
 type Vertex {
   id: String!
   type: String
-  graph: Graph!
+  graph: Graph
   props: JSONObject
   parent: Vertex
   children: [Vertex!]!

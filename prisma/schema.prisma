@@ -98,9 +98,8 @@ enum VertexType {
   React_InputNumber
   React_Select
   React_Select_Option
-  React_Grid_Layout_Container
-  React_Grid
-  React_ResponsiveGrid
+  React_ResponsiveGridLayout
+  React_GridLayout
   React_Provider
   React_Modal
   React_Radio_Group
@@ -164,8 +163,6 @@ enum VertexType {
   React_RenderComponent
   React_RenderContainer
   React_Mapper
-  Tree
-  Ref
 }
 
 enum EdgeType {

@@ -34,7 +34,7 @@ export type Vertex = {
   __typename?: 'Vertex'
   id: Scalars['String']
   type?: Maybe<Scalars['String']>
-  graph: Graph
+  graph?: Maybe<Graph>
   props?: Maybe<Scalars['JSONObject']>
   parent?: Maybe<Vertex>
   children: Array<Vertex>
@@ -404,7 +404,7 @@ export type EdgeFragmentsFragment = { __typename?: 'Edge' } & Pick<
 
 export type GraphFragmentsFragment = { __typename?: 'Graph' } & Pick<
   Graph,
-  'id' | 'type' | 'label'
+  'id' | 'type' | 'label' | 'tree'
 > & {
     vertices: Array<{ __typename?: 'Vertex' } & VertexFragmentsFragment>
     edges: Array<{ __typename?: 'Edge' } & EdgeFragmentsFragment>
@@ -415,7 +415,7 @@ export type VertexFragmentsFragment = { __typename?: 'Vertex' } & Pick<
   'id' | 'type' | 'props'
 > & {
     parent?: Maybe<{ __typename?: 'Vertex' } & Pick<Vertex, 'id' | 'type'>>
-    graph: { __typename?: 'Graph' } & Pick<Graph, 'id'>
+    graph?: Maybe<{ __typename?: 'Graph' } & Pick<Graph, 'id'>>
   }
 
 export type CreatePageMutationVariables = Exact<{
@@ -513,9 +513,6 @@ export const VertexFragments = gql`
     graph {
       id
     }
-    parent {
-      id
-    }
   }
 `
 export const EdgeFragments = gql`
@@ -532,6 +529,7 @@ export const GraphFragments = gql`
     id
     type
     label
+    tree
     vertices {
       ...vertexFragments
     }
@@ -759,9 +757,6 @@ export const VertexFragmentsFragmentDoc = gql`
     graph {
       id
     }
-    parent {
-      id
-    }
   }
 `
 export const EdgeFragmentsFragmentDoc = gql`
@@ -778,6 +773,7 @@ export const GraphFragmentsFragmentDoc = gql`
     id
     type
     label
+    tree
     vertices {
       ...vertexFragments
     }
