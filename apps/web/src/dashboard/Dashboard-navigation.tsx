@@ -1,5 +1,5 @@
 import { DeleteTwoTone, PlusOutlined } from '@ant-design/icons'
-import { Button } from 'antd'
+import { Button, Divider } from 'antd'
 import { WithRouterProps } from 'next/dist/client/with-router'
 import Link from 'next/link'
 import { withRouter } from 'next/router'
@@ -8,6 +8,7 @@ import React from 'react'
 import { useRecoilState } from 'recoil'
 import { CreatePageModal } from '../pages/createPage/CreatePageModal'
 import { pageFormState } from '../pages/createPage/pageFormState'
+import { DashboardTree } from './Dashboard-tree'
 import { Page, withRouterLoader } from '@codelab/frontend'
 import {
   GetPagesGql,
@@ -41,6 +42,8 @@ export const DashboardNavigationInner = ({ router }: WithRouterProps) => {
     ],
   })
 
+  const treeData: Array<any> = []
+
   return (
     <>
       <Button
@@ -68,6 +71,8 @@ export const DashboardNavigationInner = ({ router }: WithRouterProps) => {
         </div>
       ))}
       <CreatePageModal />
+      <Divider />
+      <DashboardTree data={treeData} />
     </>
   )
 }

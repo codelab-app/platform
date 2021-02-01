@@ -3,7 +3,7 @@ type Edge {
   source: String!
   type: String
   target: String!
-  props: JSONObject!
+  props: JSONObject
   order: Float!
 }
 
@@ -15,7 +15,7 @@ scalar JSONObject
 type Vertex {
   id: String!
   type: String
-  graph: Graph!
+  graph: Graph
   props: JSONObject
   parent: Vertex
   children: [Vertex!]!
@@ -54,7 +54,6 @@ type Query {
   getApps: [App!]!
   getMe: User!
   getGraph(input: GetGraphInput!): Graph!
-  getGraphBy(input: GetGraphByInput!): Graph!
   getVertex(input: GetVertexInput!): Vertex
   getPages(input: GetPagesInput!): [Page!]!
   getPage(input: GetPageInput!): Page!
@@ -66,11 +65,6 @@ input GetAppInput {
 
 input GetGraphInput {
   id: String
-}
-
-input GetGraphByInput {
-  appId: String
-  pageId: String
 }
 
 input GetVertexInput {
@@ -147,7 +141,7 @@ input AddChildVertexInput {
 
 input CreateVertexInput {
   type: String!
-  props: JSONObject!
+  props: JSONObject
 }
 
 input MoveVertexInput {

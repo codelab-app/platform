@@ -21,12 +21,10 @@ const PageDetail = () => {
     (graph) => graph.type === 'Layout',
   )
 
-  console.log(layoutGraph)
-
   return (
     <>
       <h1>{data?.getPage.title}</h1>
-      <GetPageLayout graph={layoutGraph?.[0]} />
+      <GetPageLayout graph={layoutGraph?.[0]} pageId={pageId} />
     </>
   )
 }

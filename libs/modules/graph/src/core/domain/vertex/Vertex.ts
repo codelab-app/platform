@@ -14,7 +14,7 @@ export class Vertex {
   @Field(() => Graph, { nullable: true })
   declare graph?: Graph
 
-  @Field(() => GraphQLJSONObject, { nullable: true })
+  @Field(() => GraphQLJSONObject, { defaultValue: {}, nullable: true })
   declare props?: object
 
   @Field(() => Vertex, { nullable: true })

@@ -3,7 +3,7 @@ import React from 'react'
 import { atom, useRecoilState } from 'recoil'
 import { GetVertexDetails } from '../graph/getVertex/GetVertexDetails'
 
-interface DashboardDrawerState {
+export interface DashboardDrawerState {
   visible: boolean
   vertexId?: string
 }

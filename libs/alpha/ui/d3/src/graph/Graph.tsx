@@ -23,7 +23,7 @@ export const useD3Hooks = () => {
 }
 
 export const D3Graph: React.FC<D3GraphProps> = (props) => {
-  const [width, height] = [600, 600]
+  const [width, height] = ['100%', 600]
   const { nodes: nodesProps, links: linksProps } = props
   const d3Container = useRef<SVGSVGElement>(null)
   const ref: any = useRef()

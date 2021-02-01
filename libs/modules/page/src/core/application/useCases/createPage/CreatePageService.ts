@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { Page } from '@prisma/client'
+import { GraphType, Page, VertexType } from '@prisma/client'
 import { CreatePageInput } from './CreatePageInput'
 import { NodeType, PrismaService, TransactionalUseCase } from '@codelab/backend'
 
@@ -21,11 +21,11 @@ export class CreatePageService
           graphs: {
             create: {
               label: 'Layout',
-              type: 'Layout',
+              type: GraphType.Layout,
               vertices: {
                 create: [
                   {
-                    type: NodeType.React_Grid_Layout_Container,
+                    type: VertexType.React_Grid_ResponsiveLayout,
                   },
                 ],
               },

@@ -1,30 +1,65 @@
+import { PlusOutlined } from '@ant-design/icons'
+import { VertexType } from '@prisma/client'
+import { Button } from 'antd'
 import React from 'react'
 import { useRecoilState } from 'recoil'
 import { dashboardDrawerState } from '../../dashboard/Dashboard-drawer'
-import { makeCytoscape, makeD3 } from '@codelab/alpha/shared/factory'
-import { D3Graph } from '@codelab/alpha/ui/d3'
-import { GetGraphQuery } from '@codelab/generated'
+import { CytoscapeService, RenderComponents } from '@codelab/frontend'
+import {
+  GetGraphQuery,
+  GetPageGql,
+  useAddChildVertexMutation,
+} from '@codelab/generated'
 
 interface GetPageLayoutProps {
   graph?: GetGraphQuery['getGraph']
+  pageId: string
 }
 
-export const GetPageLayout = ({ graph }: GetPageLayoutProps) => {
+export const GetPageLayout = ({ graph, pageId }: GetPageLayoutProps) => {
   const [dashboardDrawer, setDashboardDrawer] = useRecoilState(
     dashboardDrawerState,
   )
 
+  const [addChildVertex] = useAddChildVertexMutation()
+
   if (!graph) return null
 
-  const cy = makeCytoscape(graph)
+  const cy = CytoscapeService.fromGraph(graph)
 
-  // console.log(cy.elements())
+  const root = CytoscapeService.bfs(cy.elements().roots().first())
 
-  // return Renderer.graphComponents({ graph })
-  const onNodeClick = (e: any, node: any) => {
-    // console.log(e, node)
-    setDashboardDrawer({ visible: true, vertexId: node.id })
-  }
+  const gridContainerId = graph.vertices.find(
+    (v) => v.type === VertexType.React_Grid_ResponsiveLayout,
+  )?.id
 
-  return <D3Graph {...makeD3(graph)} onNodeClick={onNodeClick} />
+  return (
+    <>
+      <RenderComponents {...root} />
+      <Button
+        icon={<PlusOutlined />}
+        type="primary"
+        onClick={() => {
+          if (!gridContainerId) return
+
+          addChildVertex({
+            refetchQueries: [
+              { query: GetPageGql, variables: { input: { pageId } } },
+            ],
+            variables: {
+              input: {
+                parentVertexId: gridContainerId,
+                vertex: {
+                  type: VertexType.React_Grid,
+                },
+              },
+            },
+          })
+        }}
+      >
+        Add Grid
+      </Button>
+      {/* <D3Graph {...makeD3(graph)} onNodeClick={onNodeClick} /> */}
+    </>
+  )
 }
