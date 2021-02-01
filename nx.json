@@ -1,14 +1,9 @@
 {
   "npmScope": "codelab",
-  "affected": {
-    "defaultBase": "master"
-  },
+  "affected": { "defaultBase": "master" },
   "implicitDependencies": {
     "workspace.json": "*",
-    "package.json": {
-      "dependencies": "*",
-      "devDependencies": "*"
-    },
+    "package.json": { "dependencies": "*", "devDependencies": "*" },
     "tslint.json": "*",
     "nx.json": "*",
     "tsconfig.base.json": "*",
@@ -26,136 +21,43 @@
     }
   },
   "projects": {
-    "tools-eslint-config-codelab": {
-      "tags": []
-    },
-    "codelab-schematics": {
-      "tags": []
-    },
-    "web": {
-      "tags": [],
-      "implicitDependencies": ["api-codelab"]
-    },
-    "web-e2e": {
-      "tags": [],
-      "implicitDependencies": ["web"]
-    },
-    "api-codelab": {
-      "tags": []
-    },
-    "alpha-core-graph": {
-      "tags": []
-    },
-    "alpha-core-node": {
-      "tags": []
-    },
-    "alpha-core-props": {
-      "tags": []
-    },
-    "alpha-core-renderer": {
-      "tags": []
-    },
-    "alpha-core-traversal": {
-      "tags": []
-    },
-    "alpha-core-tree": {
-      "tags": []
-    },
-    "alpha-shared-common": {
-      "tags": []
-    },
-    "alpha-shared-event": {
-      "tags": []
-    },
-    "alpha-shared-factory": {
-      "tags": []
-    },
-    "alpha-shared-utils": {
-      "tags": []
-    },
-    "alpha-shared-interface-collections": {
-      "tags": []
-    },
-    "alpha-shared-interface-component": {
-      "tags": []
-    },
-    "alpha-shared-interface-entity": {
-      "tags": []
-    },
-    "alpha-shared-interface-form": {
-      "tags": []
-    },
-    "alpha-shared-interface-graph": {
-      "tags": []
-    },
-    "alpha-shared-interface-graph-v2": {
-      "tags": []
-    },
-    "alpha-shared-interface-machine": {
-      "tags": []
-    },
-    "alpha-shared-interface-mapper": {
-      "tags": []
-    },
-    "alpha-shared-interface-node": {
-      "tags": []
-    },
-    "alpha-shared-interface-props": {
-      "tags": []
-    },
-    "alpha-shared-interface-tree": {
-      "tags": []
-    },
-    "alpha-ui-component": {
-      "tags": []
-    },
-    "alpha-ui-antd": {
-      "tags": []
-    },
-    "alpha-ui-d3": {
-      "tags": []
-    },
-    "alpha-ui-hoc": {
-      "tags": []
-    },
-    "backend": {
-      "tags": []
-    },
-    "frontend": {
-      "tags": []
-    },
-    "modules-layout-stories": {
-      "tags": []
-    },
-    "modules-sidebar-stories": {
-      "tags": []
-    },
-    "modules-header-stories": {
-      "tags": []
-    },
-    "modules-grid-stories": {
-      "tags": []
-    },
-    "modules-graph": {
-      "tags": []
-    },
-    "modules-page": {
-      "tags": []
-    },
-    "modules-app": {
-      "tags": []
-    },
-    "modules-user": {
-      "tags": []
-    },
-    "tools-generators-json-schema": {
-      "tags": []
-    },
-    "tools-generators-graphql": {
-      "tags": []
-    },
-    "modules-page-stories": {
-      "tags": []
-    }
+    "tools-eslint-config-codelab": { "tags": [] },
+    "codelab-schematics": { "tags": [] },
+    "web": { "tags": [], "implicitDependencies": ["api-codelab"] },
+    "web-e2e": { "tags": [], "implicitDependencies": ["web"] },
+    "api-codelab": { "tags": [] },
+    "alpha-core-graph": { "tags": [] },
+    "alpha-core-node": { "tags": [] },
+    "alpha-core-props": { "tags": [] },
+    "alpha-core-renderer": { "tags": [] },
+    "alpha-core-traversal": { "tags": [] },
+    "alpha-core-tree": { "tags": [] },
+    "alpha-shared-common": { "tags": [] },
+    "alpha-shared-event": { "tags": [] },
+    "alpha-shared-factory": { "tags": [] },
+    "alpha-shared-utils": { "tags": [] },
+    "alpha-shared-interface-collections": { "tags": [] },
+    "alpha-shared-interface-component": { "tags": [] },
+    "alpha-shared-interface-entity": { "tags": [] },
+    "alpha-shared-interface-form": { "tags": [] },
+    "alpha-shared-interface-graph": { "tags": [] },
+    "alpha-shared-interface-graph-v2": { "tags": [] },
+    "alpha-shared-interface-machine": { "tags": [] },
+    "alpha-shared-interface-mapper": { "tags": [] },
+    "alpha-shared-interface-node": { "tags": [] },
+    "alpha-shared-interface-props": { "tags": [] },
+    "alpha-shared-interface-tree": { "tags": [] },
+    "alpha-ui-component": { "tags": [] },
+    "alpha-ui-antd": { "tags": [] },
+    "alpha-ui-d3": { "tags": [] },
+    "alpha-ui-hoc": { "tags": [] },
+    "backend": { "tags": [] },
+    "frontend": { "tags": [] },
+    "modules-graph": { "tags": [] },
+    "modules-page": { "tags": [] },
+    "modules-app": { "tags": [] },
+    "modules-user": { "tags": [] },
+    "tools-generators-json-schema": { "tags": [] },
+    "tools-generators-graphql": { "tags": [] }
   }
 }

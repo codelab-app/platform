@@ -5,10 +5,10 @@
       "root": "libs/tools/eslint-config-codelab",
       "sourceRoot": "libs/tools/eslint-config-codelab/src",
       "projectType": "library",
-      "schematics": {},
-      "architect": {
+      "generators": {},
+      "targets": {
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
               "libs/tools/eslint-config-codelab/**/*.ts",
@@ -22,7 +22,7 @@
           }
         },
         "test": {
-          "builder": "@nrwl/jest:jest",
+          "executor": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/tools/eslint-config-codelab/jest.config.js",
             "passWithNoTests": true
@@ -30,7 +30,7 @@
           "outputs": ["coverage/libs/tools/eslint-config-codelab"]
         },
         "build": {
-          "builder": "@nrwl/node:package",
+          "executor": "@nrwl/node:package",
           "options": {
             "outputPath": "dist/libs/tools/eslint-config-codelab",
             "tsConfig": "libs/tools/eslint-config-codelab/tsconfig.lib.json",
@@ -46,10 +46,10 @@
       "root": "libs/tools/plugins/codelab",
       "sourceRoot": "libs/tools/plugins/codelab/src",
       "projectType": "library",
-      "schematics": {},
-      "architect": {
+      "generators": {},
+      "targets": {
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
               "libs/tools/plugins/codelab/**/*.ts",
@@ -62,7 +62,7 @@
           }
         },
         "test": {
-          "builder": "@nrwl/jest:jest",
+          "executor": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/tools/plugins/codelab/jest.config.js",
             "passWithNoTests": true
@@ -70,7 +70,7 @@
           "outputs": ["coverage/libs/tools/plugins/codelab"]
         },
         "build": {
-          "builder": "@nrwl/node:package",
+          "executor": "@nrwl/node:package",
           "options": {
             "outputPath": "dist/libs/tools/plugins/codelab",
             "tsConfig": "libs/tools/plugins/codelab/tsconfig.lib.json",
@@ -133,28 +133,22 @@
       "root": "apps/web",
       "sourceRoot": "apps/web",
       "projectType": "application",
-      "schematics": {},
-      "architect": {
+      "generators": {},
+      "targets": {
         "build-next": {
-          "builder": "@nrwl/next:build",
+          "executor": "@nrwl/next:build",
           "options": {
             "root": "apps/web",
             "outputPath": "dist/apps/web",
             "assets": [
-              {
-                "glob": "pm2.json",
-                "input": "apps/web",
-                "output": "."
-              }
+              { "glob": "pm2.json", "input": "apps/web", "output": "." }
             ]
           },
-          "configurations": {
-            "production": {}
-          },
+          "configurations": { "production": {} },
           "outputs": ["{options.outputPath}"]
         },
         "build": {
-          "builder": "@nrwl/workspace:run-commands",
+          "executor": "@nrwl/workspace:run-commands",
           "options": {
             "commands": [
               "nx build-next web",
@@ -164,7 +158,7 @@
           }
         },
         "serve": {
-          "builder": "@nrwl/next:server",
+          "executor": "@nrwl/next:server",
           "options": {
             "buildTarget": "web:build-next",
             "dev": true,
@@ -173,9 +167,7 @@
             "memoryLimit": 2048
           },
           "configurations": {
-            "ci": {
-              "port": 3001
-            },
+            "ci": { "port": 3001 },
             "production": {
               "buildTarget": "web:build-next:production",
               "dev": false
@@ -183,13 +175,11 @@
           }
         },
         "export": {
-          "builder": "@nrwl/next:export",
-          "options": {
-            "buildTarget": "web:build:production"
-          }
+          "executor": "@nrwl/next:export",
+          "options": { "buildTarget": "web:build:production" }
         },
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
               "apps/web/**/*.ts",
@@ -205,7 +195,7 @@
           }
         },
         "test": {
-          "builder": "@nrwl/jest:jest",
+          "executor": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "apps/web/jest.config.js",
             "passWithNoTests": true
@@ -213,34 +203,22 @@
           "outputs": ["coverage/apps/web"]
         },
         "storybook": {
-          "builder": "@nrwl/storybook:storybook",
+          "executor": "@nrwl/storybook:storybook",
           "options": {
             "uiFramework": "@storybook/react",
             "port": 4400,
-            "config": {
-              "configFolder": "apps/web/.storybook"
-            }
+            "config": { "configFolder": "apps/web/.storybook" }
           },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          }
+          "configurations": { "ci": { "quiet": true } }
         },
         "build-storybook": {
-          "builder": "@nrwl/storybook:build",
+          "executor": "@nrwl/storybook:build",
           "options": {
             "uiFramework": "@storybook/react",
             "outputPath": "dist/storybook/web",
-            "config": {
-              "configFolder": "apps/web/.storybook"
-            }
+            "config": { "configFolder": "apps/web/.storybook" }
           },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          },
+          "configurations": { "ci": { "quiet": true } },
           "outputs": ["{options.outputPath}"]
         }
       }
@@ -249,26 +227,21 @@
       "root": "apps/web-e2e",
       "sourceRoot": "apps/web-e2e/src",
       "projectType": "application",
-      "architect": {
+      "targets": {
         "e2e": {
-          "builder": "@nrwl/cypress:cypress",
+          "executor": "@nrwl/cypress:cypress",
           "options": {
             "cypressConfig": "apps/web-e2e/cypress.json",
             "tsConfig": "apps/web-e2e/tsconfig.e2e.json",
             "baseUrl": "http://localhost:3000"
           },
           "configurations": {
-            "ci": {
-              "baseUrl": "http://localhost:3001",
-              "headless": true
-            }
+            "ci": { "baseUrl": "http://localhost:3001", "headless": true }
           }
         },
         "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["apps/test-e2e/**/*.{js,ts}"]
-          }
+          "executor": "@nrwl/linter:eslint",
+          "options": { "lintFilePatterns": ["apps/test-e2e/**/*.{js,ts}"] }
         }
       }
     },
@@ -277,10 +250,10 @@
       "sourceRoot": "apps/api/codelab/src",
       "projectType": "application",
       "prefix": "api-codelab",
-      "schematics": {},
-      "architect": {
+      "generators": {},
+      "targets": {
         "build": {
-          "builder": "@nrwl/node:build",
+          "executor": "@nrwl/node:build",
           "options": {
             "outputPath": "dist/apps/api/codelab",
             "main": "apps/api/codelab/src/main.ts",
@@ -303,13 +276,11 @@
           "outputs": ["{options.outputPath}"]
         },
         "serve-default": {
-          "builder": "@nrwl/node:execute",
-          "options": {
-            "buildTarget": "api-codelab:build"
-          }
+          "executor": "@nrwl/node:execute",
+          "options": { "buildTarget": "api-codelab:build" }
         },
         "serve": {
-          "builder": "@nrwl/workspace:run-commands",
+          "executor": "@nrwl/workspace:run-commands",
           "options": {
             "envFile": ".env",
             "commands": ["nx serve-default api-codelab"]
@@ -317,13 +288,11 @@
           "configurations": {}
         },
         "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["apps/api/codelab/**/*.ts"]
-          }
+          "executor": "@nrwl/linter:eslint",
+          "options": { "lintFilePatterns": ["apps/api/codelab/**/*.ts"] }
         },
         "test": {
-          "builder": "@nrwl/jest:jest",
+          "executor": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "apps/api/codelab/jest.config.js",
             "passWithNoTests": true
@@ -336,10 +305,10 @@
       "root": "libs/alpha/core/graph",
       "sourceRoot": "libs/alpha/core/graph/src",
       "projectType": "library",
-      "schematics": {},
-      "architect": {
+      "generators": {},
+      "targets": {
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
               "libs/alpha/core/graph/**/*.js",
@@ -356,7 +325,7 @@
           }
         },
         "test": {
-          "builder": "@nrwl/jest:jest",
+          "executor": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/alpha/core/graph/jest.config.js",
             "passWithNoTests": true
@@ -364,34 +333,22 @@
           "outputs": ["coverage/libs/alpha/core/graph"]
         },
         "storybook": {
-          "builder": "@nrwl/storybook:storybook",
+          "executor": "@nrwl/storybook:storybook",
           "options": {
             "uiFramework": "@storybook/react",
             "port": 4400,
-            "config": {
-              "configFolder": "libs/alpha/core/graph/.storybook"
-            }
+            "config": { "configFolder": "libs/alpha/core/graph/.storybook" }
           },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          }
+          "configurations": { "ci": { "quiet": true } }
         },
         "build-storybook": {
-          "builder": "@nrwl/storybook:build",
+          "executor": "@nrwl/storybook:build",
           "options": {
             "uiFramework": "@storybook/react",
             "outputPath": "dist/storybook/graph",
-            "config": {
-              "configFolder": "libs/alpha/core/graph/.storybook"
-            }
+            "config": { "configFolder": "libs/alpha/core/graph/.storybook" }
           },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          },
+          "configurations": { "ci": { "quiet": true } },
           "outputs": ["{options.outputPath}"]
         }
       }
@@ -400,10 +357,10 @@
       "root": "libs/alpha/core/node",
       "sourceRoot": "libs/alpha/core/node/src",
       "projectType": "library",
-      "schematics": {},
-      "architect": {
+      "generators": {},
+      "targets": {
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
               "libs/alpha/core/node/**/*.js",
@@ -419,7 +376,7 @@
           }
         },
         "test": {
-          "builder": "@nrwl/jest:jest",
+          "executor": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/alpha/core/node/jest.config.js",
             "passWithNoTests": true
@@ -427,34 +384,22 @@
           "outputs": ["coverage/libs/alpha/core/node"]
         },
         "storybook": {
-          "builder": "@nrwl/storybook:storybook",
+          "executor": "@nrwl/storybook:storybook",
           "options": {
             "uiFramework": "@storybook/react",
             "port": 4400,
-            "config": {
-              "configFolder": "libs/alpha/core/node/.storybook"
-            }
+            "config": { "configFolder": "libs/alpha/core/node/.storybook" }
           },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          }
+          "configurations": { "ci": { "quiet": true } }
         },
         "build-storybook": {
-          "builder": "@nrwl/storybook:build",
+          "executor": "@nrwl/storybook:build",
           "options": {
             "uiFramework": "@storybook/react",
             "outputPath": "dist/storybook/node",
-            "config": {
-              "configFolder": "libs/alpha/core/node/.storybook"
-            }
+            "config": { "configFolder": "libs/alpha/core/node/.storybook" }
           },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          },
+          "configurations": { "ci": { "quiet": true } },
           "outputs": ["{options.outputPath}"]
         }
       }
@@ -463,10 +408,10 @@
       "root": "libs/alpha/core/props",
       "sourceRoot": "libs/alpha/core/props/src",
       "projectType": "library",
-      "schematics": {},
-      "architect": {
+      "generators": {},
+      "targets": {
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
               "libs/alpha/core/props/**/*.js",
@@ -482,7 +427,7 @@
           }
         },
         "test": {
-          "builder": "@nrwl/jest:jest",
+          "executor": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/alpha/core/props/jest.config.js",
             "passWithNoTests": true
@@ -495,10 +440,10 @@
       "root": "libs/alpha/core/renderer",
       "sourceRoot": "libs/alpha/core/renderer/src",
       "projectType": "library",
-      "schematics": {},
-      "architect": {
+      "generators": {},
+      "targets": {
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
               "libs/alpha/core/renderer/**/*.js",
@@ -514,7 +459,7 @@
           }
         },
         "test": {
-          "builder": "@nrwl/jest:jest",
+          "executor": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/alpha/core/renderer/jest.config.js",
             "passWithNoTests": true
@@ -522,34 +467,22 @@
           "outputs": ["coverage/libs/alpha/core/renderer"]
         },
         "storybook": {
-          "builder": "@nrwl/storybook:storybook",
+          "executor": "@nrwl/storybook:storybook",
           "options": {
             "uiFramework": "@storybook/react",
             "port": 4400,
-            "config": {
-              "configFolder": "libs/alpha/core/renderer/.storybook"
-            }
+            "config": { "configFolder": "libs/alpha/core/renderer/.storybook" }
           },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          }
+          "configurations": { "ci": { "quiet": true } }
         },
         "build-storybook": {
-          "builder": "@nrwl/storybook:build",
+          "executor": "@nrwl/storybook:build",
           "options": {
             "uiFramework": "@storybook/react",
             "outputPath": "dist/storybook/core-renderer",
-            "config": {
-              "configFolder": "libs/alpha/core/renderer/.storybook"
-            }
+            "config": { "configFolder": "libs/alpha/core/renderer/.storybook" }
           },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          },
+          "configurations": { "ci": { "quiet": true } },
           "outputs": ["{options.outputPath}"]
         }
       }
@@ -558,10 +491,10 @@
       "root": "libs/alpha/core/traversal",
       "sourceRoot": "libs/alpha/core/traversal/src",
       "projectType": "library",
-      "schematics": {},
-      "architect": {
+      "generators": {},
+      "targets": {
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
               "libs/alpha/core/traversal/**/*.js",
@@ -577,7 +510,7 @@
           }
         },
         "test": {
-          "builder": "@nrwl/jest:jest",
+          "executor": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/alpha/core/traversal/jest.config.js",
             "passWithNoTests": true
@@ -585,34 +518,22 @@
           "outputs": ["coverage/libs/alpha/core/traversal"]
         },
         "storybook": {
-          "builder": "@nrwl/storybook:storybook",
+          "executor": "@nrwl/storybook:storybook",
           "options": {
             "uiFramework": "@storybook/react",
             "port": 4400,
-            "config": {
-              "configFolder": "libs/alpha/core/traversal/.storybook"
-            }
+            "config": { "configFolder": "libs/alpha/core/traversal/.storybook" }
           },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          }
+          "configurations": { "ci": { "quiet": true } }
         },
         "build-storybook": {
-          "builder": "@nrwl/storybook:build",
+          "executor": "@nrwl/storybook:build",
           "options": {
             "uiFramework": "@storybook/react",
             "outputPath": "dist/storybook/core-traversal",
-            "config": {
-              "configFolder": "libs/alpha/core/traversal/.storybook"
-            }
+            "config": { "configFolder": "libs/alpha/core/traversal/.storybook" }
           },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          },
+          "configurations": { "ci": { "quiet": true } },
           "outputs": ["{options.outputPath}"]
         }
       }
@@ -621,10 +542,10 @@
       "root": "libs/alpha/core/tree",
       "sourceRoot": "libs/alpha/core/tree/src",
       "projectType": "library",
-      "schematics": {},
-      "architect": {
+      "generators": {},
+      "targets": {
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
               "libs/alpha/core/tree/**/*.js",
@@ -640,7 +561,7 @@
           }
         },
         "test": {
-          "builder": "@nrwl/jest:jest",
+          "executor": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/alpha/core/tree/jest.config.js",
             "passWithNoTests": true
@@ -648,34 +569,22 @@
           "outputs": ["coverage/libs/alpha/core/tree"]
         },
         "storybook": {
-          "builder": "@nrwl/storybook:storybook",
+          "executor": "@nrwl/storybook:storybook",
           "options": {
             "uiFramework": "@storybook/react",
             "port": 4400,
-            "config": {
-              "configFolder": "libs/alpha/core/tree/.storybook"
-            }
+            "config": { "configFolder": "libs/alpha/core/tree/.storybook" }
           },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          }
+          "configurations": { "ci": { "quiet": true } }
         },
         "build-storybook": {
-          "builder": "@nrwl/storybook:build",
+          "executor": "@nrwl/storybook:build",
           "options": {
             "uiFramework": "@storybook/react",
             "outputPath": "dist/storybook/core-tree",
-            "config": {
-              "configFolder": "libs/alpha/core/tree/.storybook"
-            }
+            "config": { "configFolder": "libs/alpha/core/tree/.storybook" }
           },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          },
+          "configurations": { "ci": { "quiet": true } },
           "outputs": ["{options.outputPath}"]
         }
       }
@@ -684,10 +593,10 @@
       "root": "libs/alpha/shared/common",
       "sourceRoot": "libs/alpha/shared/common/src",
       "projectType": "library",
-      "schematics": {},
-      "architect": {
+      "generators": {},
+      "targets": {
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
               "libs/alpha/shared/common/**/*.js",
@@ -708,10 +617,10 @@
       "root": "libs/alpha/shared/event",
       "sourceRoot": "libs/alpha/shared/event/src",
       "projectType": "library",
-      "schematics": {},
-      "architect": {
+      "generators": {},
+      "targets": {
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
               "libs/alpha/shared/event/**/*.js",
@@ -732,10 +641,10 @@
       "root": "libs/alpha/shared/factory",
       "sourceRoot": "libs/alpha/shared/factory/src",
       "projectType": "library",
-      "schematics": {},
-      "architect": {
+      "generators": {},
+      "targets": {
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
               "libs/alpha/shared/factory/**/*.{ts,tsx,js,jsx}"
@@ -743,22 +652,16 @@
           }
         },
         "storybook": {
-          "builder": "@nrwl/storybook:storybook",
+          "executor": "@nrwl/storybook:storybook",
           "options": {
             "uiFramework": "@storybook/react",
             "port": 4400,
-            "config": {
-              "configFolder": "libs/alpha/shared/factory/.storybook"
-            }
+            "config": { "configFolder": "libs/alpha/shared/factory/.storybook" }
           },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          }
+          "configurations": { "ci": { "quiet": true } }
         },
         "test": {
-          "builder": "@nrwl/jest:jest",
+          "executor": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/alpha/shared/factory/jest.config.js",
             "passWithNoTests": true
@@ -771,10 +674,10 @@
       "root": "libs/alpha/shared/utils",
       "sourceRoot": "libs/alpha/shared/utils/src",
       "projectType": "library",
-      "schematics": {},
-      "architect": {
+      "generators": {},
+      "targets": {
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
               "libs/alpha/shared/utils/**/*.js",
@@ -790,7 +693,7 @@
           }
         },
         "test": {
-          "builder": "@nrwl/jest:jest",
+          "executor": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/alpha/shared/utils/jest.config.js",
             "passWithNoTests": true
@@ -798,34 +701,22 @@
           "outputs": ["coverage/libs/alpha/shared/utils"]
         },
         "storybook": {
-          "builder": "@nrwl/storybook:storybook",
+          "executor": "@nrwl/storybook:storybook",
           "options": {
             "uiFramework": "@storybook/react",
             "port": 4400,
-            "config": {
-              "configFolder": "libs/alpha/shared/utils/.storybook"
-            }
+            "config": { "configFolder": "libs/alpha/shared/utils/.storybook" }
           },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          }
+          "configurations": { "ci": { "quiet": true } }
         },
         "build-storybook": {
-          "builder": "@nrwl/storybook:build",
+          "executor": "@nrwl/storybook:build",
           "options": {
             "uiFramework": "@storybook/react",
             "outputPath": "dist/storybook/utils",
-            "config": {
-              "configFolder": "libs/alpha/shared/utils/.storybook"
-            }
+            "config": { "configFolder": "libs/alpha/shared/utils/.storybook" }
           },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          },
+          "configurations": { "ci": { "quiet": true } },
           "outputs": ["{options.outputPath}"]
         }
       }
@@ -834,10 +725,10 @@
       "root": "libs/alpha/shared/interface/collections",
       "sourceRoot": "libs/alpha/shared/interface/collections/src",
       "projectType": "library",
-      "schematics": {},
-      "architect": {
+      "generators": {},
+      "targets": {
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
               "libs/alpha/shared/interface/collections/**/*.{ts,tsx,js,jsx}"
@@ -850,10 +741,10 @@
       "root": "libs/alpha/shared/interface/component",
       "sourceRoot": "libs/alpha/shared/interface/component/src",
       "projectType": "library",
-      "schematics": {},
-      "architect": {
+      "generators": {},
+      "targets": {
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
               "libs/alpha/shared/interface/component/**/*.js",
@@ -874,10 +765,10 @@
       "root": "libs/alpha/shared/interface/entity",
       "sourceRoot": "libs/alpha/shared/interface/entity/src",
       "projectType": "library",
-      "schematics": {},
-      "architect": {
+      "generators": {},
+      "targets": {
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
               "libs/alpha/shared/interface/entity/**/*.js",
@@ -898,10 +789,10 @@
       "root": "libs/alpha/shared/interface/form",
       "sourceRoot": "libs/alpha/shared/interface/form/src",
       "projectType": "library",
-      "schematics": {},
-      "architect": {
+      "generators": {},
+      "targets": {
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
               "libs/alpha/shared/interface/form/**/*.{ts,tsx,js,jsx}"
@@ -914,10 +805,10 @@
       "root": "libs/alpha/shared/interface/graph",
       "sourceRoot": "libs/alpha/shared/interface/graph/src",
       "projectType": "library",
-      "schematics": {},
-      "architect": {
+      "generators": {},
+      "targets": {
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
               "libs/alpha/shared/interface/graph/**/*.js",
@@ -938,10 +829,10 @@
       "root": "libs/alpha/shared/interface/graph-v2",
       "sourceRoot": "libs/alpha/shared/interface/graph-v2/src",
       "projectType": "library",
-      "schematics": {},
-      "architect": {
+      "generators": {},
+      "targets": {
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
               "libs/alpha/shared/interface/graph-v2/**/*.{ts,tsx,js,jsx}"
@@ -954,10 +845,10 @@
       "root": "libs/alpha/shared/interface/machine",
       "sourceRoot": "libs/alpha/shared/interface/machine/src",
       "projectType": "library",
-      "schematics": {},
-      "architect": {
+      "generators": {},
+      "targets": {
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
               "libs/alpha/shared/interface/machine/**/*.{ts,tsx,js,jsx}"
@@ -970,10 +861,10 @@
       "root": "libs/alpha/shared/interface/mapper",
       "sourceRoot": "libs/alpha/shared/interface/mapper/src",
       "projectType": "library",
-      "schematics": {},
-      "architect": {
+      "generators": {},
+      "targets": {
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
               "libs/alpha/shared/interface/mapper/**/*.{ts,tsx,js,jsx}"
@@ -986,10 +877,10 @@
       "root": "libs/alpha/shared/interface/node",
       "sourceRoot": "libs/alpha/shared/interface/node/src",
       "projectType": "library",
-      "schematics": {},
-      "architect": {
+      "generators": {},
+      "targets": {
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
               "libs/alpha/shared/interface/node/**/*.js",
@@ -1010,10 +901,10 @@
       "root": "libs/alpha/shared/interface/props",
       "sourceRoot": "libs/alpha/shared/interface/props/src",
       "projectType": "library",
-      "schematics": {},
-      "architect": {
+      "generators": {},
+      "targets": {
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
               "libs/alpha/shared/interface/props/**/*.js",
@@ -1034,10 +925,10 @@
       "root": "libs/alpha/shared/interface/tree",
       "sourceRoot": "libs/alpha/shared/interface/tree/src",
       "projectType": "library",
-      "schematics": {},
-      "architect": {
+      "generators": {},
+      "targets": {
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
               "libs/alpha/shared/interface/tree/**/*.js",
@@ -1058,10 +949,10 @@
       "root": "libs/alpha/ui/antd",
       "sourceRoot": "libs/alpha/ui/antd/src",
       "projectType": "library",
-      "schematics": {},
-      "architect": {
+      "generators": {},
+      "targets": {
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
               "libs/alpha/ui/antd/**/*.js",
@@ -1077,7 +968,7 @@
           }
         },
         "test": {
-          "builder": "@nrwl/jest:jest",
+          "executor": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/alpha/ui/antd/jest.config.js",
             "passWithNoTests": true
@@ -1085,34 +976,22 @@
           "outputs": ["coverage/libs/alpha/ui/antd"]
         },
         "storybook": {
-          "builder": "@nrwl/storybook:storybook",
+          "executor": "@nrwl/storybook:storybook",
           "options": {
             "uiFramework": "@storybook/react",
             "port": 4400,
-            "config": {
-              "configFolder": "libs/alpha/ui/antd/.storybook"
-            }
+            "config": { "configFolder": "libs/alpha/ui/antd/.storybook" }
           },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          }
+          "configurations": { "ci": { "quiet": true } }
         },
         "build-storybook": {
-          "builder": "@nrwl/storybook:build",
+          "executor": "@nrwl/storybook:build",
           "options": {
             "uiFramework": "@storybook/react",
             "outputPath": "dist/storybook/ui",
-            "config": {
-              "configFolder": "libs/alpha/ui/antd/.storybook"
-            }
+            "config": { "configFolder": "libs/alpha/ui/antd/.storybook" }
           },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          },
+          "configurations": { "ci": { "quiet": true } },
           "outputs": ["{options.outputPath}"]
         }
       }
@@ -1121,10 +1000,10 @@
       "root": "libs/alpha/ui/component",
       "sourceRoot": "libs/alpha/ui/component/src",
       "projectType": "library",
-      "schematics": {},
-      "architect": {
+      "generators": {},
+      "targets": {
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
               "libs/alpha/ui/component/**/*.js",
@@ -1141,7 +1020,7 @@
           }
         },
         "test": {
-          "builder": "@nrwl/jest:jest",
+          "executor": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/alpha/ui/component/jest.config.js",
             "passWithNoTests": true
@@ -1149,34 +1028,22 @@
           "outputs": ["coverage/libs/alpha/ui/component"]
         },
         "storybook": {
-          "builder": "@nrwl/storybook:storybook",
+          "executor": "@nrwl/storybook:storybook",
           "options": {
             "uiFramework": "@storybook/react",
             "port": 4400,
-            "config": {
-              "configFolder": "libs/alpha/ui/component/.storybook"
-            }
+            "config": { "configFolder": "libs/alpha/ui/component/.storybook" }
           },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          }
+          "configurations": { "ci": { "quiet": true } }
         },
         "build-storybook": {
-          "builder": "@nrwl/storybook:build",
+          "executor": "@nrwl/storybook:build",
           "options": {
             "uiFramework": "@storybook/react",
             "outputPath": "dist/storybook/ui-component",
-            "config": {
-              "configFolder": "libs/alpha/ui/component/.storybook"
-            }
+            "config": { "configFolder": "libs/alpha/ui/component/.storybook" }
           },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          },
+          "configurations": { "ci": { "quiet": true } },
           "outputs": ["{options.outputPath}"]
         }
       }
@@ -1185,10 +1052,10 @@
       "root": "libs/alpha/ui/d3",
       "sourceRoot": "libs/alpha/ui/d3/src",
       "projectType": "library",
-      "schematics": {},
-      "architect": {
+      "generators": {},
+      "targets": {
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
               "libs/alpha/ui/d3/**/*.js",
@@ -1204,7 +1071,7 @@
           }
         },
         "test": {
-          "builder": "@nrwl/jest:jest",
+          "executor": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/alpha/ui/d3/jest.config.js",
             "passWithNoTests": true
@@ -1212,34 +1079,22 @@
           "outputs": ["coverage/libs/alpha/ui/d3"]
         },
         "storybook": {
-          "builder": "@nrwl/storybook:storybook",
+          "executor": "@nrwl/storybook:storybook",
           "options": {
             "uiFramework": "@storybook/react",
             "port": 4400,
-            "config": {
-              "configFolder": "libs/alpha/ui/d3/.storybook"
-            }
+            "config": { "configFolder": "libs/alpha/ui/d3/.storybook" }
           },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          }
+          "configurations": { "ci": { "quiet": true } }
         },
         "build-storybook": {
-          "builder": "@nrwl/storybook:build",
+          "executor": "@nrwl/storybook:build",
           "options": {
             "uiFramework": "@storybook/react",
             "outputPath": "dist/storybook/d3",
-            "config": {
-              "configFolder": "libs/alpha/ui/d3/.storybook"
-            }
+            "config": { "configFolder": "libs/alpha/ui/d3/.storybook" }
           },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          },
+          "configurations": { "ci": { "quiet": true } },
           "outputs": ["{options.outputPath}"]
         }
       }
@@ -1248,10 +1103,10 @@
       "root": "libs/alpha/ui/hoc",
       "sourceRoot": "libs/alpha/ui/hoc/src",
       "projectType": "library",
-      "schematics": {},
-      "architect": {
+      "generators": {},
+      "targets": {
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
               "libs/alpha/ui/hoc/**/*.js",
@@ -1268,7 +1123,7 @@
           }
         },
         "test": {
-          "builder": "@nrwl/jest:jest",
+          "executor": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/alpha/ui/hoc/jest.config.js",
             "passWithNoTests": true
@@ -1276,34 +1131,22 @@
           "outputs": ["coverage/libs/alpha/ui/hoc"]
         },
         "storybook": {
-          "builder": "@nrwl/storybook:storybook",
+          "executor": "@nrwl/storybook:storybook",
           "options": {
             "uiFramework": "@storybook/react",
             "port": 4400,
-            "config": {
-              "configFolder": "libs/alpha/ui/hoc/.storybook"
-            }
+            "config": { "configFolder": "libs/alpha/ui/hoc/.storybook" }
           },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          }
+          "configurations": { "ci": { "quiet": true } }
         },
         "build-storybook": {
-          "builder": "@nrwl/storybook:build",
+          "executor": "@nrwl/storybook:build",
           "options": {
             "uiFramework": "@storybook/react",
             "outputPath": "dist/storybook/ui-hoc",
-            "config": {
-              "configFolder": "libs/alpha/ui/hoc/.storybook"
-            }
+            "config": { "configFolder": "libs/alpha/ui/hoc/.storybook" }
           },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          },
+          "configurations": { "ci": { "quiet": true } },
           "outputs": ["{options.outputPath}"]
         }
       }
@@ -1312,16 +1155,16 @@
       "root": "libs/backend",
       "sourceRoot": "libs/backend/src",
       "projectType": "library",
-      "schematics": {},
-      "architect": {
+      "generators": {},
+      "targets": {
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["libs/backend/**/*.{ts,tsx,js,jsx}"]
           }
         },
         "test": {
-          "builder": "@nrwl/jest:jest",
+          "executor": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/backend/jest.config.js",
             "passWithNoTests": true
@@ -1334,16 +1177,16 @@
       "root": "libs/frontend",
       "sourceRoot": "libs/frontend/src",
       "projectType": "library",
-      "schematics": {},
-      "architect": {
+      "generators": {},
+      "targets": {
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["libs/frontend/**/*.{ts,tsx,js,jsx}"]
           }
         },
         "test": {
-          "builder": "@nrwl/jest:jest",
+          "executor": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/frontend/jest.config.js",
             "passWithNoTests": true
@@ -1352,240 +1195,18 @@
         }
       }
     },
-    "modules-layout-stories": {
-      "root": "libs/modules/layout-stories",
-      "sourceRoot": "libs/modules/layout-stories/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/modules/layout-stories/**/*.{ts,tsx,js,jsx}"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/modules/layout-stories/jest.config.js",
-            "passWithNoTests": true
-          },
-          "outputs": ["coverage/libs/modules/layout-stories"]
-        },
-        "storybook": {
-          "builder": "@nrwl/storybook:storybook",
-          "options": {
-            "uiFramework": "@storybook/react",
-            "port": 4400,
-            "config": {
-              "configFolder": "libs/modules/layout-stories/.storybook"
-            }
-          },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          }
-        },
-        "build-storybook": {
-          "builder": "@nrwl/storybook:build",
-          "options": {
-            "uiFramework": "@storybook/react",
-            "outputPath": "dist/storybook/ddd-modules-layout-stories",
-            "config": {
-              "configFolder": "libs/modules/layout-stories/.storybook"
-            }
-          },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          },
-          "outputs": ["{options.outputPath}"]
-        }
-      }
-    },
-    "modules-sidebar-stories": {
-      "root": "libs/modules/sidebar-stories",
-      "sourceRoot": "libs/modules/sidebar-stories/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/modules/sidebar-stories/**/*.{ts,tsx,js,jsx}"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/modules/sidebar-stories/jest.config.js",
-            "passWithNoTests": true
-          },
-          "outputs": ["coverage/libs/modules/sidebar-stories"]
-        },
-        "storybook": {
-          "builder": "@nrwl/storybook:storybook",
-          "options": {
-            "uiFramework": "@storybook/react",
-            "port": 4400,
-            "config": {
-              "configFolder": "libs/modules/sidebar-stories/.storybook"
-            }
-          },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          }
-        },
-        "build-storybook": {
-          "builder": "@nrwl/storybook:build",
-          "options": {
-            "uiFramework": "@storybook/react",
-            "outputPath": "dist/storybook/modules-sidebar-stories",
-            "config": {
-              "configFolder": "libs/modules/sidebar-stories/.storybook"
-            }
-          },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          },
-          "outputs": ["{options.outputPath}"]
-        }
-      }
-    },
-    "modules-header-stories": {
-      "root": "libs/modules/header-stories",
-      "sourceRoot": "libs/modules/header-stories/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/modules/header-stories/**/*.{ts,tsx,js,jsx}"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/modules/header-stories/jest.config.js",
-            "passWithNoTests": true
-          },
-          "outputs": ["coverage/libs/modules/header-stories"]
-        },
-        "storybook": {
-          "builder": "@nrwl/storybook:storybook",
-          "options": {
-            "uiFramework": "@storybook/react",
-            "port": 4400,
-            "config": {
-              "configFolder": "libs/modules/header-stories/.storybook"
-            }
-          },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          }
-        },
-        "build-storybook": {
-          "builder": "@nrwl/storybook:build",
-          "options": {
-            "uiFramework": "@storybook/react",
-            "outputPath": "dist/storybook/modules-header-stories",
-            "config": {
-              "configFolder": "libs/modules/header-stories/.storybook"
-            }
-          },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          },
-          "outputs": ["{options.outputPath}"]
-        }
-      }
-    },
-    "modules-grid-stories": {
-      "root": "libs/modules/grid-stories",
-      "sourceRoot": "libs/modules/grid-stories/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/modules/grid-stories/**/*.{ts,tsx,js,jsx}"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/modules/grid-stories/jest.config.js",
-            "passWithNoTests": true
-          },
-          "outputs": ["coverage/libs/modules/grid-stories"]
-        },
-        "storybook": {
-          "builder": "@nrwl/storybook:storybook",
-          "options": {
-            "uiFramework": "@storybook/react",
-            "port": 4400,
-            "config": {
-              "configFolder": "libs/modules/grid-stories/.storybook"
-            }
-          },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          }
-        },
-        "build-storybook": {
-          "builder": "@nrwl/storybook:build",
-          "options": {
-            "uiFramework": "@storybook/react",
-            "outputPath": "dist/storybook/modules-grid-stories",
-            "config": {
-              "configFolder": "libs/modules/grid-stories/.storybook"
-            }
-          },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          },
-          "outputs": ["{options.outputPath}"]
-        }
-      }
-    },
     "modules-graph": {
       "root": "libs/modules/graph",
       "sourceRoot": "libs/modules/graph/src",
       "projectType": "library",
-      "schematics": {},
-      "architect": {
+      "generators": {},
+      "targets": {
         "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/modules/graph/**/*.ts"]
-          }
+          "executor": "@nrwl/linter:eslint",
+          "options": { "lintFilePatterns": ["libs/modules/graph/**/*.ts"] }
         },
         "test": {
-          "builder": "@nrwl/jest:jest",
+          "executor": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/modules/graph/jest.config.js",
             "passWithNoTests": true,
@@ -1599,16 +1220,14 @@
       "root": "libs/modules/page",
       "sourceRoot": "libs/modules/page/src",
       "projectType": "library",
-      "schematics": {},
-      "architect": {
+      "generators": {},
+      "targets": {
         "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/modules/page/**/*.ts"]
-          }
+          "executor": "@nrwl/linter:eslint",
+          "options": { "lintFilePatterns": ["libs/modules/page/**/*.ts"] }
         },
         "test": {
-          "builder": "@nrwl/jest:jest",
+          "executor": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/modules/page/jest.config.js",
             "passWithNoTests": true,
@@ -1622,16 +1241,14 @@
       "root": "libs/modules/app",
       "sourceRoot": "libs/modules/app/src",
       "projectType": "library",
-      "schematics": {},
-      "architect": {
+      "generators": {},
+      "targets": {
         "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/modules/app/**/*.ts"]
-          }
+          "executor": "@nrwl/linter:eslint",
+          "options": { "lintFilePatterns": ["libs/modules/app/**/*.ts"] }
         },
         "test": {
-          "builder": "@nrwl/jest:jest",
+          "executor": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/modules/app/jest.config.js",
             "passWithNoTests": true,
@@ -1645,16 +1262,16 @@
       "root": "libs/modules/user",
       "sourceRoot": "libs/modules/user/src",
       "projectType": "library",
-      "schematics": {},
-      "architect": {
+      "generators": {},
+      "targets": {
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["libs/modules/user/**/*.{ts,tsx,js,jsx}"]
           }
         },
         "test": {
-          "builder": "@nrwl/jest:jest",
+          "executor": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/modules/user/jest.config.js",
             "passWithNoTests": true,
@@ -1668,10 +1285,10 @@
       "root": "libs/tools/generators/json-schema",
       "sourceRoot": "libs/tools/generators/json-schema/src",
       "projectType": "library",
-      "schematics": {},
-      "architect": {
+      "generators": {},
+      "targets": {
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "executor": "@nrwl/linter:eslint",
           "options": {
             "fix": true,
             "lintFilePatterns": [
@@ -1680,7 +1297,7 @@
           }
         },
         "test": {
-          "builder": "@nrwl/jest:jest",
+          "executor": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/tools/generators/json-schema/jest.config.js",
             "passWithNoTests": true
@@ -1688,7 +1305,7 @@
           "outputs": ["coverage/libs/tools/generators/json-schema"]
         },
         "build": {
-          "builder": "@nrwl/workspace:run-commands",
+          "executor": "@nrwl/workspace:run-commands",
           "options": {
             "commands": [
               "npx ts-node --project libs/tools/generators/json-schema/tsconfig.lib.json libs/tools/generators/json-schema/src/index.ts"
@@ -1702,16 +1319,16 @@
       "root": "libs/tools/generators/graphql",
       "sourceRoot": "libs/tools/generators/graphql/src",
       "projectType": "library",
-      "schematics": {},
-      "architect": {
+      "generators": {},
+      "targets": {
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["libs/tools/generators/graphql/**/*.ts"]
           }
         },
         "test": {
-          "builder": "@nrwl/jest:jest",
+          "executor": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/tools/generators/graphql/jest.config.js",
             "passWithNoTests": true
@@ -1719,7 +1336,7 @@
           "outputs": ["coverage/libs/tools/generators/graphql"]
         },
         "build": {
-          "builder": "@nrwl/workspace:run-commands",
+          "executor": "@nrwl/workspace:run-commands",
           "options": {
             "commands": [
               "npx ts-node libs/tools/generators/graphql/src/index.ts"
@@ -1728,128 +1345,32 @@
           }
         }
       }
-    },
-    "modules-page-stories": {
-      "root": "libs/modules/page-stories",
-      "sourceRoot": "libs/modules/page-stories/src",
-      "projectType": "library",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/modules/page-stories/**/*.{ts,tsx,js,jsx}"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/modules/page-stories"],
-          "options": {
-            "jestConfig": "libs/modules/page-stories/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "storybook": {
-          "builder": "@nrwl/storybook:storybook",
-          "options": {
-            "uiFramework": "@storybook/react",
-            "port": 4400,
-            "config": {
-              "configFolder": "libs/modules/page-stories/.storybook"
-            }
-          },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          }
-        },
-        "build-storybook": {
-          "builder": "@nrwl/storybook:build",
-          "options": {
-            "uiFramework": "@storybook/react",
-            "outputPath": "dist/storybook/modules-page-stories",
-            "config": {
-              "configFolder": "libs/modules/page-stories/.storybook"
-            }
-          },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          },
-          "outputs": ["{options.outputPath}"]
-        }
-      }
     }
   },
-  "cli": {
-    "defaultCollection": "@nrwl/next"
-  },
+  "cli": { "defaultCollection": "@nrwl/next" },
   "schematics": {
-    "@nrwl/workspace": {
-      "library": {
-        "linter": "eslint"
-      }
-    },
-    "@nrwl/cypress": {
-      "cypress-project": {
-        "linter": "eslint"
-      }
-    },
+    "@nrwl/workspace": { "library": { "linter": "eslint" } },
+    "@nrwl/cypress": { "cypress-project": { "linter": "eslint" } },
     "@nrwl/react": {
-      "application": {
-        "linter": "eslint",
-        "babel": true
-      },
-      "library": {
-        "linter": "eslint"
-      },
-      "storybook-configuration": {
-        "linter": "eslint"
-      }
+      "application": { "linter": "eslint", "babel": true },
+      "library": { "linter": "eslint" },
+      "storybook-configuration": { "linter": "eslint" }
     },
     "@nrwl/next": {
-      "application": {
-        "style": "@emotion/styled",
-        "linter": "eslint"
-      }
+      "application": { "style": "@emotion/styled", "linter": "eslint" }
     },
-    "@nrwl/web": {
-      "application": {
-        "linter": "eslint"
-      }
-    },
+    "@nrwl/web": { "application": { "linter": "eslint" } },
     "@nrwl/node": {
-      "application": {
-        "linter": "eslint"
-      },
-      "library": {
-        "linter": "eslint"
-      }
+      "application": { "linter": "eslint" },
+      "library": { "linter": "eslint" }
     },
-    "@nrwl/nx-plugin": {
-      "plugin": {
-        "linter": "eslint"
-      }
-    },
-    "@nrwl/nest": {
-      "application": {
-        "linter": "eslint"
-      }
-    },
+    "@nrwl/nx-plugin": { "plugin": { "linter": "eslint" } },
+    "@nrwl/nest": { "application": { "linter": "eslint" } },
     "@nrwl/express": {
-      "application": {
-        "linter": "eslint"
-      },
-      "library": {
-        "linter": "eslint"
-      }
+      "application": { "linter": "eslint" },
+      "library": { "linter": "eslint" }
     },
-    "@nrwl/gatsby": {
-      "application": {}
-    }
+    "@nrwl/gatsby": { "application": {} }
   },
   "defaultProject": "web"
 }

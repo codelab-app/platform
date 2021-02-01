@@ -3,13 +3,10 @@ import React from 'react'
 import { SharedPageProps } from '../../pages/_app'
 import { HomeMenuHeader } from './Home-menu--header'
 import { contentStyle } from '@codelab/frontend'
-import { AppLayoutProps } from '@codelab/modules/layout-stories'
 
 const { Content, Header, Footer } = Layout
 
-export interface HomeLayoutProps extends SharedPageProps, AppLayoutProps {
-  //
-}
+export type HomeLayoutProps = SharedPageProps
 
 export const HomeLayout: React.FunctionComponent<any> = ({ children }) => {
   return (
