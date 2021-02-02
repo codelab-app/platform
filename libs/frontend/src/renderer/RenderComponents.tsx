@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react'
 import { useRecoilState } from 'recoil'
-import { dashboardDrawerState } from '../../../../apps/web/src/dashboard/Dashboard-drawer'
-import { DashboardHandlerProps } from '../../../../apps/web/src/dashboard/Dashboard-handlers'
+import { dashboardDrawerState } from '../../../../apps/web/src/dashboard/drawer/Dashboard-drawer'
+import { DashboardHandlerProps } from '../../../../apps/web/src/dashboard/drawer/Dashboard-handlers'
 import { NodeA, NodeI } from '../../../modules/graph/src/core/domain/node/Node'
 import { elementParameterFactory } from './elementFactory'
 

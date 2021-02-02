@@ -1,7 +1,6 @@
 import { PlusOutlined } from '@ant-design/icons'
 import { Button } from 'antd'
 import { useRouter } from 'next/router'
-import * as R from 'ramda'
 import React from 'react'
 import {
   ItemCallback,
@@ -9,16 +8,11 @@ import {
   Responsive,
   WidthProvider,
 } from 'react-grid-layout'
-import { withApollo } from '@codelab/frontend'
-import { AddGridDrawer, useGrid } from '@codelab/modules/grid-stories'
-import { useLayoutMachine } from '@codelab/modules/layout-stories'
 
 const ResponsiveGridLayout = WidthProvider(Responsive)
 
 const AppPage = () => {
-  const layout = useLayoutMachine()
   const router = useRouter()
-  const grid = useGrid()
 
   // console.log(layout.state.value.drawer)
 
@@ -41,17 +35,13 @@ const AppPage = () => {
     return null
   }
 
-  const onDragStop: ItemCallback = (...args) =>
-    grid.send({ type: 'DRAG_STOP', data: args })
+  const onDragStop: ItemCallback = (...args) => null
 
-  const onDragStart: ItemCallback = (...args) =>
-    grid.send({ type: 'DRAG_START', data: args })
+  const onDragStart: ItemCallback = (...args) => null
 
-  const onResizeStart: ItemCallback = (...args) =>
-    grid.send({ type: 'RESIZE_START', data: args })
+  const onResizeStart: ItemCallback = (...args) => null
 
-  const onResizeStop: ItemCallback = (...args) =>
-    grid.send({ type: 'RESIZE_STOP', data: args })
+  const onResizeStop: ItemCallback = (...args) => null
 
   // const onDrag: ItemCallback = (args) => {
   //   console.log(args)
@@ -76,16 +66,13 @@ const AppPage = () => {
         <div key="b">B</div>
         <div key="c">C</div>
       </ResponsiveGridLayout>
-      <Button
-        type="primary"
-        icon={<PlusOutlined />}
-        onClick={() => layout.send('TOGGLE_DRAWER')}
-      >
+      <Button type="primary" icon={<PlusOutlined />}>
         Grid
       </Button>
-      <AddGridDrawer />
+      {/* <AddGridDrawer /> */}
     </>
   )
 }
 
-export default R.pipe(withApollo, AppPage)
+// export default R.pipe(withApollo, AppPage)
+export default () => null

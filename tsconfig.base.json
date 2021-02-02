@@ -78,18 +78,6 @@
       "@codelab/alpha/ui/hoc": ["libs/alpha/ui/hoc/src/index.ts"],
       "@codelab/backend": ["libs/backend/src/index"],
       "@codelab/frontend": ["libs/frontend/src/index.ts"],
-      "@codelab/modules/layout-stories": [
-        "libs/modules/layout-stories/src/index.ts"
-      ],
-      "@codelab/modules/sidebar-stories": [
-        "libs/modules/sidebar-stories/src/index.ts"
-      ],
-      "@codelab/modules/header-stories": [
-        "libs/modules/header-stories/src/index.ts"
-      ],
-      "@codelab/modules/grid-stories": [
-        "libs/modules/grid-stories/src/index.ts"
-      ],
       "@codelab/modules/page": ["libs/modules/page/src/index.ts"],
       "@codelab/modules/graph": ["libs/modules/graph/src/index.ts"],
       "@codelab/modules/app": ["libs/modules/app/src/index.ts"],
@@ -102,9 +90,6 @@
       ],
       "@codelab/modules/notification-stories": [
         "libs/modules/notification-stories/src/index.ts"
-      ],
-      "@codelab/modules/page-stories": [
-        "libs/modules/page-stories/src/index.ts"
       ]
     }
   },

@@ -65,9 +65,7 @@ export class GraphResolvers {
   }
 
   /**
-   * @todo Add Spec for Tree field on Graph
-   * @body Assert json tree using `matchObject`
-   * @autoAssign artonio
+   * @deprecated Fetch graph then parse on frontend using cy
    */
   @ResolveField('tree', (returns) => GraphQLJSONObject)
   tree(@Parent() graph: Graph) {

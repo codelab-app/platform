@@ -3,7 +3,9 @@ import { VertexType } from '@prisma/client'
 import { Button } from 'antd'
 import React from 'react'
 import { useRecoilState } from 'recoil'
-import { dashboardDrawerState } from '../../dashboard/Dashboard-drawer'
+import { makeD3 } from '../../../../../libs/alpha/shared/factory/src/cytoscape.js/factory'
+import { dashboardDrawerState } from '../../dashboard/drawer/Dashboard-drawer'
+import { D3Graph } from '@codelab/alpha/ui/d3'
 import { CytoscapeService, RenderComponents } from '@codelab/frontend'
 import {
   GetGraphQuery,
@@ -12,7 +14,7 @@ import {
 } from '@codelab/generated'
 
 interface GetPageLayoutProps {
-  graph?: GetGraphQuery['getGraph']
+  graph: GetGraphQuery['getGraph']
   pageId: string
 }
 
@@ -23,15 +25,17 @@ export const GetPageLayout = ({ graph, pageId }: GetPageLayoutProps) => {
 
   const [addChildVertex] = useAddChildVertexMutation()
 
-  if (!graph) return null
-
   const cy = CytoscapeService.fromGraph(graph)
-
-  const root = CytoscapeService.bfs(cy.elements().roots().first())
+  const root = CytoscapeService.componentTree(cy)
 
   const gridContainerId = graph.vertices.find(
     (v) => v.type === VertexType.React_Grid_ResponsiveLayout,
   )?.id
+
+  const onNodeClick = (e: any, node: any) => {
+    // console.log(e, node)
+    setDashboardDrawer({ visible: true, vertexId: node.id })
+  }
 
   return (
     <>
@@ -59,7 +63,7 @@ export const GetPageLayout = ({ graph, pageId }: GetPageLayoutProps) => {
       >
         Add Grid
       </Button>
-      {/* <D3Graph {...makeD3(graph)} onNodeClick={onNodeClick} /> */}
+      <D3Graph {...makeD3(graph)} onNodeClick={onNodeClick} />
     </>
   )
 }

@@ -1,4 +1,5 @@
 export * from './log'
 export * from './mapProps'
+export * from './propsWithRenderChildren'
 export * from './callCallbackOrArrayOfCallbacks'
 export * from './notifications'

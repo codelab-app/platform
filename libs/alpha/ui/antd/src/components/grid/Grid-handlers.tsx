@@ -1,5 +1,5 @@
 import { ItemCallback } from 'react-grid-layout'
-import { DashboardHandlerProps } from '../../../../../../../apps/web/src/dashboard/Dashboard-handlers'
+import { DashboardHandlerProps } from '../../../../../../../apps/web/src/dashboard/drawer/Dashboard-handlers'
 
 export type OnDragStart = (props?: DashboardHandlerProps) => ItemCallback
 

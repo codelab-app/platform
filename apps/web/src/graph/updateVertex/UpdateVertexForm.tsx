@@ -1,7 +1,9 @@
+import { merge } from 'lodash'
 import React from 'react'
 import { ApolloForm } from '@codelab/frontend'
 import {
   GetVertexGql,
+  ReactGridResponsiveLayoutSchema,
   UpdateVertexInput,
   UpdateVertexInputSchema,
   UpdateVertexMutationVariables,
@@ -14,7 +16,7 @@ interface UpdateVertexFormProps {
 }
 
 export const UpdateVertexForm = ({ vertex }: UpdateVertexFormProps) => {
-  const [mutate] = useUpdateVertexMutation({
+  const [mutate, { loading }] = useUpdateVertexMutation({
     refetchQueries: [
       {
         query: GetVertexGql,
@@ -27,11 +29,21 @@ export const UpdateVertexForm = ({ vertex }: UpdateVertexFormProps) => {
     ],
   })
 
+  const schema = {
+    ...merge(UpdateVertexInputSchema, {
+      properties: {
+        ...ReactGridResponsiveLayoutSchema.properties,
+      },
+    }),
+  }
+
+  console.log(schema)
+
   return (
     <ApolloForm<UpdateVertexInput, UpdateVertexMutationVariables>
       hideSubmitButton={false}
       mutate={mutate}
-      schema={UpdateVertexInputSchema}
+      schema={schema}
       initialFormData={{ vertexId: vertex.id, type: vertex.type ?? '' }}
     />
   )

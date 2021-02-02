@@ -1,32 +1,23 @@
-import { useRouter, withRouter } from 'next/router'
-import * as R from 'ramda'
 import React from 'react'
 import { GetPageLayout } from '../../../../../src/pages/getPage/GetPageLayout'
-import { withRouterLoader } from '@codelab/frontend'
-import { useGetPageQuery } from '@codelab/generated'
+import { useGetPageData } from '../../../../../src/pages/getPage/useGetPageData'
+import { withRouterGuard } from '@codelab/frontend'
 
-const PageDetail = () => {
-  const { query } = useRouter()
-  const pageId = `${query.pageId}`
+interface PageDetailProps {
+  pageId: string
+}
 
-  const { data } = useGetPageQuery({
-    variables: {
-      input: {
-        pageId,
-      },
-    },
-  })
+const PageDetail = ({ pageId }: PageDetailProps) => {
+  const { layoutGraph, page } = useGetPageData({ pageId })
 
-  const layoutGraph = data?.getPage.graphs.filter(
-    (graph) => graph.type === 'Layout',
-  )
+  if (!layoutGraph || !page) return null
 
   return (
     <>
-      <h1>{data?.getPage.title}</h1>
-      <GetPageLayout graph={layoutGraph?.[0]} pageId={pageId} />
+      <h1>{page.title}</h1>
+      <GetPageLayout graph={layoutGraph} pageId={pageId} />
     </>
   )
 }
 
-export default R.compose(withRouter, withRouterLoader('pageId'))(PageDetail)
+export default withRouterGuard(['pageId'])(PageDetail)

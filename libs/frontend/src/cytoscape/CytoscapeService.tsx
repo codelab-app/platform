@@ -1,10 +1,6 @@
-import cytoscape, {
-  Core,
-  EdgeDefinition,
-  NodeDataDefinition,
-  NodeDefinition,
-  NodeSingular,
-} from 'cytoscape'
+/* eslint-disable no-param-reassign */
+import { DataNode } from 'antd/lib/tree'
+import cytoscape, { Core, EdgeDefinition, NodeDefinition } from 'cytoscape'
 import { NodeA } from '../../../modules/graph/src/core/domain/node/Node'
 import { GraphFragmentsFragment } from '@codelab/generated'
 
@@ -35,30 +31,67 @@ export class CytoscapeService {
     })
   }
 
-  static bfs(vertex: NodeSingular): NodeA {
-    // All info on `vertex.data`
-    // console.log(vertex.data(), vertex.json())
+  // All info on `vertex.data`
+  // console.log(vertex.data(), vertex.json())
+  static componentTree(cy: Core): NodeA {
+    const root = cy.elements().roots().first()
+    let tree: DataNode | null = null
 
-    const outgoingVertices = vertex.outgoers().nodes()
+    cy.elements().breadthFirstSearch({
+      root,
+      visit: (v: any, e) => {
+        const node = {
+          ...v.data(),
+        }
 
-    // const [Component, props] = elementParameterFactory(vertex.data())
+        v._node = node
 
-    return {
-      ...vertex.data(),
-      // Add component here
-      // Component: React.createElement(Component, props),
-      children: outgoingVertices.reduce(
-        (nodes: Array<NodeDataDefinition>, outgoingVertex: NodeSingular) => [
-          ...nodes.map(({ id, type, props, parent }) => ({
-            id,
-            type,
-            props,
-            parent,
-          })),
-          CytoscapeService.bfs(outgoingVertex),
-        ],
-        [],
-      ),
-    }
+        if (tree === null) {
+          tree = node
+        }
+
+        if (e) {
+          const parent: any = e.source()
+
+          parent._node.children = Array.isArray(parent._node.children)
+            ? [...parent._node.children, node]
+            : [node]
+        }
+      },
+    })
+
+    return (tree as unknown) as NodeA
+  }
+
+  static antdTree(cy: Core): DataNode {
+    const root = cy.elements().roots().first()
+    let tree: DataNode | null = null
+
+    cy.elements().breadthFirstSearch({
+      root,
+      visit: (v: any, e) => {
+        const node = {
+          ...v.data(),
+          key: v.data().id,
+          title: v.data().type,
+        }
+
+        v._node = node
+
+        if (tree === null) {
+          tree = node
+        }
+
+        if (e) {
+          const parent: any = e.source()
+
+          parent._node.children = Array.isArray(parent._node.children)
+            ? [...parent._node.children, node]
+            : [node]
+        }
+      },
+    })
+
+    return (tree as unknown) as DataNode
   }
 }

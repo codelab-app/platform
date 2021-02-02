@@ -1352,226 +1352,6 @@
         }
       }
     },
-    "modules-layout-stories": {
-      "root": "libs/modules/layout-stories",
-      "sourceRoot": "libs/modules/layout-stories/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/modules/layout-stories/**/*.{ts,tsx,js,jsx}"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/modules/layout-stories/jest.config.js",
-            "passWithNoTests": true
-          },
-          "outputs": ["coverage/libs/modules/layout-stories"]
-        },
-        "storybook": {
-          "builder": "@nrwl/storybook:storybook",
-          "options": {
-            "uiFramework": "@storybook/react",
-            "port": 4400,
-            "config": {
-              "configFolder": "libs/modules/layout-stories/.storybook"
-            }
-          },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          }
-        },
-        "build-storybook": {
-          "builder": "@nrwl/storybook:build",
-          "options": {
-            "uiFramework": "@storybook/react",
-            "outputPath": "dist/storybook/ddd-modules-layout-stories",
-            "config": {
-              "configFolder": "libs/modules/layout-stories/.storybook"
-            }
-          },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          },
-          "outputs": ["{options.outputPath}"]
-        }
-      }
-    },
-    "modules-sidebar-stories": {
-      "root": "libs/modules/sidebar-stories",
-      "sourceRoot": "libs/modules/sidebar-stories/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/modules/sidebar-stories/**/*.{ts,tsx,js,jsx}"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/modules/sidebar-stories/jest.config.js",
-            "passWithNoTests": true
-          },
-          "outputs": ["coverage/libs/modules/sidebar-stories"]
-        },
-        "storybook": {
-          "builder": "@nrwl/storybook:storybook",
-          "options": {
-            "uiFramework": "@storybook/react",
-            "port": 4400,
-            "config": {
-              "configFolder": "libs/modules/sidebar-stories/.storybook"
-            }
-          },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          }
-        },
-        "build-storybook": {
-          "builder": "@nrwl/storybook:build",
-          "options": {
-            "uiFramework": "@storybook/react",
-            "outputPath": "dist/storybook/modules-sidebar-stories",
-            "config": {
-              "configFolder": "libs/modules/sidebar-stories/.storybook"
-            }
-          },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          },
-          "outputs": ["{options.outputPath}"]
-        }
-      }
-    },
-    "modules-header-stories": {
-      "root": "libs/modules/header-stories",
-      "sourceRoot": "libs/modules/header-stories/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/modules/header-stories/**/*.{ts,tsx,js,jsx}"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/modules/header-stories/jest.config.js",
-            "passWithNoTests": true
-          },
-          "outputs": ["coverage/libs/modules/header-stories"]
-        },
-        "storybook": {
-          "builder": "@nrwl/storybook:storybook",
-          "options": {
-            "uiFramework": "@storybook/react",
-            "port": 4400,
-            "config": {
-              "configFolder": "libs/modules/header-stories/.storybook"
-            }
-          },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          }
-        },
-        "build-storybook": {
-          "builder": "@nrwl/storybook:build",
-          "options": {
-            "uiFramework": "@storybook/react",
-            "outputPath": "dist/storybook/modules-header-stories",
-            "config": {
-              "configFolder": "libs/modules/header-stories/.storybook"
-            }
-          },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          },
-          "outputs": ["{options.outputPath}"]
-        }
-      }
-    },
-    "modules-grid-stories": {
-      "root": "libs/modules/grid-stories",
-      "sourceRoot": "libs/modules/grid-stories/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/modules/grid-stories/**/*.{ts,tsx,js,jsx}"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/modules/grid-stories/jest.config.js",
-            "passWithNoTests": true
-          },
-          "outputs": ["coverage/libs/modules/grid-stories"]
-        },
-        "storybook": {
-          "builder": "@nrwl/storybook:storybook",
-          "options": {
-            "uiFramework": "@storybook/react",
-            "port": 4400,
-            "config": {
-              "configFolder": "libs/modules/grid-stories/.storybook"
-            }
-          },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          }
-        },
-        "build-storybook": {
-          "builder": "@nrwl/storybook:build",
-          "options": {
-            "uiFramework": "@storybook/react",
-            "outputPath": "dist/storybook/modules-grid-stories",
-            "config": {
-              "configFolder": "libs/modules/grid-stories/.storybook"
-            }
-          },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          },
-          "outputs": ["{options.outputPath}"]
-        }
-      }
-    },
     "modules-graph": {
       "root": "libs/modules/graph",
       "sourceRoot": "libs/modules/graph/src",
@@ -1728,60 +1508,6 @@
           }
         }
       }
-    },
-    "modules-page-stories": {
-      "root": "libs/modules/page-stories",
-      "sourceRoot": "libs/modules/page-stories/src",
-      "projectType": "library",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/modules/page-stories/**/*.{ts,tsx,js,jsx}"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/modules/page-stories"],
-          "options": {
-            "jestConfig": "libs/modules/page-stories/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "storybook": {
-          "builder": "@nrwl/storybook:storybook",
-          "options": {
-            "uiFramework": "@storybook/react",
-            "port": 4400,
-            "config": {
-              "configFolder": "libs/modules/page-stories/.storybook"
-            }
-          },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          }
-        },
-        "build-storybook": {
-          "builder": "@nrwl/storybook:build",
-          "options": {
-            "uiFramework": "@storybook/react",
-            "outputPath": "dist/storybook/modules-page-stories",
-            "config": {
-              "configFolder": "libs/modules/page-stories/.storybook"
-            }
-          },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          },
-          "outputs": ["{options.outputPath}"]
-        }
-      }
     }
   },
   "cli": {
@@ -1800,14 +1526,19 @@
     },
     "@nrwl/react": {
       "application": {
+        "style": "css",
         "linter": "eslint",
         "babel": true
       },
       "library": {
+        "style": "css",
         "linter": "eslint"
       },
       "storybook-configuration": {
         "linter": "eslint"
+      },
+      "component": {
+        "style": "css"
       }
     },
     "@nrwl/next": {

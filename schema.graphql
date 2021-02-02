@@ -152,6 +152,7 @@ input MoveVertexInput {
 input UpdateVertexInput {
   vertexId: String!
   type: String!
+  props: JSONObject
 }
 
 input DeleteVertexInput {
