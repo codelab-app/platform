@@ -16,7 +16,9 @@ const getAuthResult = async (context: GetServerSidePropsContext<any>) => {
   let authToken: string | undefined
 
   // Parse the cookie header into simple key value pairs. Get the value mapped by the auth token key
-  if (cookieHeader) authToken = cookie.parse(cookieHeader)[AUTH_TOKEN_COOKIE]
+  if (cookieHeader) {
+    authToken = cookie.parse(cookieHeader)[AUTH_TOKEN_COOKIE]
+  }
 
   // If we don't have a token in the cookie, no point in querying the server at all. Return an empty response
   if (!cookieHeader) {
@@ -99,7 +101,9 @@ export const withAuthServerSideProps = (
       result?.props?.data?.getMe,
     )
 
-    if (originalData) return mergeDeep(result, originalData)
+    if (originalData) {
+      return mergeDeep(result, originalData)
+    }
   }
 
   return result

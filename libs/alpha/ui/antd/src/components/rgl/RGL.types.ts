@@ -1,6 +1,6 @@
 import { PropsFromKeys } from '@codelab/alpha/shared/interface/props'
 
-export namespace Grid {
+export namespace RGL {
   export const propKeys = [
     'width',
     'autoSize',
