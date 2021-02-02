@@ -41,7 +41,7 @@ export const AddChildVertexForm = ({
       schema={AddChildVertexInputSchema}
       initialFormData={{
         parentVertexId,
-        vertex: { type: 'ReactAffix', props: {} },
+        vertex: { type: '', props: {} },
       }}
       rjsfFormProps={{
         uiSchema: {

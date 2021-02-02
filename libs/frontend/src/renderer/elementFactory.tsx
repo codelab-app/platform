@@ -61,6 +61,7 @@ import {
 } from 'antd'
 import React, { ReactHTMLElement } from 'react'
 import { DashboardHandlerProps } from '../../../../apps/web/src/dashboard/drawer/Dashboard-handlers'
+import { onResizeStop } from '../../../alpha/ui/antd/src/components/rgl/RGL-handlers'
 import { propsFilter, withFilters } from '@codelab/alpha/core/props'
 import { mouseEventHandlerKeys } from '@codelab/alpha/shared/event'
 import {
@@ -166,7 +167,11 @@ export const elementParameterFactory = ({
     case VertexType.React_RGL_ResponsiveContainer:
       return [
         RGL.ResponsiveContainer,
-        { ...props, onDragStart: onDragStart(handlers) },
+        {
+          ...props,
+          onDragStart: onDragStart(handlers),
+          onResizeStop: onResizeStop(handlers),
+        },
       ]
     case VertexType.React_Provider:
       return [Provider.Default, props]

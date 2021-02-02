@@ -11,11 +11,11 @@ export class Vertex {
   @Field(() => String, { nullable: true })
   declare type?: VertexType
 
-  @Field(() => Graph, { nullable: true })
-  declare graph?: Graph
-
   @Field(() => GraphQLJSONObject, { defaultValue: {}, nullable: true })
   declare props?: object
+
+  @Field(() => Graph, { nullable: true })
+  declare graph?: Graph
 
   @Field(() => Vertex, { nullable: true })
   declare parent?: string

@@ -7,7 +7,7 @@ export class UpdateVertexInput {
   @Field()
   declare vertexId: string
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   declare type?: VertexType
 
   @Field(() => GraphQLJSONObject, { nullable: true })

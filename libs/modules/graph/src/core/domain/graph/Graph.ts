@@ -1,5 +1,6 @@
 import { Field, ObjectType } from '@nestjs/graphql'
 import { GraphType } from '@prisma/client'
+import { GraphQLJSONObject } from 'graphql-type-json'
 import { Edge } from '../edge/Edge'
 import { Vertex } from '../vertex/Vertex'
 
@@ -10,6 +11,9 @@ export class Graph {
 
   @Field(() => String, { nullable: true })
   declare type?: GraphType
+
+  @Field(() => GraphQLJSONObject, { nullable: true, defaultValue: {} })
+  declare props: object
 
   @Field()
   declare label: string

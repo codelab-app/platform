@@ -16,7 +16,7 @@ export class Edge {
   declare target: string
 
   @Field(() => GraphQLJSONObject, { defaultValue: {}, nullable: true })
-  declare props?: object
+  declare props: object
 
   @Field()
   declare order: number

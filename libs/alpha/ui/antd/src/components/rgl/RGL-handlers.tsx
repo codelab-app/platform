@@ -1,20 +1,43 @@
 import { ItemCallback } from 'react-grid-layout'
 import { DashboardHandlerProps } from '../../../../../../../apps/web/src/dashboard/drawer/Dashboard-handlers'
 
-export type OnDragStart = (props?: DashboardHandlerProps) => ItemCallback
+export type RGLHandlers = (props: DashboardHandlerProps) => ItemCallback
 
-export const onDragStart: OnDragStart = (props?: DashboardHandlerProps) => (
+export const onDragStart: RGLHandlers = (props) => (
   layout,
-  oldItem,
+  vertex,
   newItem,
   placeholder,
   event,
   element,
 ) => {
   // console.log(layout, oldItem, newItem, placeholder, event, element)
-  const vertexId = oldItem.i
+  const vertexId = vertex.i
 
-  console.log('onDragStart', vertexId)
-  console.log(props)
+  // console.log('onDragStart', vertexId)
+  // console.log(props)
   props?.setDashboardDrawer({ visible: true, vertexId })
+}
+
+export const onResizeStop: RGLHandlers = ({ updateVertexMutation }) => (
+  layout,
+  oldVertex,
+  newVertex,
+) => {
+  const updateVertex = updateVertexMutation[0]
+
+  console.log(newVertex)
+
+  return updateVertex({
+    variables: {
+      input: {
+        vertexId: newVertex.i,
+        props: {
+          'data-grid': {
+            ...newVertex,
+          },
+        },
+      },
+    },
+  })
 }

@@ -59,8 +59,6 @@ export const MoveVertexTargets = ({
     })
   }
 
-  console.log(parentVertexId)
-
   return (
     <>
       <Select
