@@ -2,7 +2,10 @@ import { spawn } from 'child_process'
 import fs from 'fs'
 import * as ts from 'typescript'
 import * as TJS from 'typescript-json-schema'
-import { includeFilePatterns, jsonSchemaGenerator } from './generator-config'
+import {
+  includeFilePatterns,
+  jsonSchemaGenerator,
+} from './generator/generator-config'
 
 export const lintFiles = (files: Array<string>) => {
   spawn(`npx eslint ${files.join(' ')} --fix`, {

@@ -2,7 +2,7 @@ import { ObjectFieldTemplateProps } from '@rjsf/core'
 import { Col, Row } from 'antd'
 import { ColProps } from 'antd/lib/col'
 import React from 'react'
-import { IDecoratorsMap } from './decorators/decorator-grid'
+import { IDecoratorsMap } from '../decorators/decorator-grid'
 
 interface GridCellDetails extends ColProps {
   order?: number

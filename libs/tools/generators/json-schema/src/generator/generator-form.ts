@@ -1,5 +1,5 @@
 import * as path from 'path'
-import { getGridDecoratorDetails } from './decorators/decorator-grid'
+import { getGridDecoratorDetails } from '../decorators/decorator-grid'
 
 export const getFormProps = (
   sourceFilePath: string | undefined = '',

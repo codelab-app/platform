@@ -1,5 +1,5 @@
-import { jsonSchemaGenerator } from './generator-config'
-import { getFormProps } from './generator-form'
+import { jsonSchemaGenerator } from './generator/generator-config'
+import { getFormProps } from './generator/generator-form'
 import {
   createSchemaExport,
   getPathFromSymbol,
@@ -7,26 +7,31 @@ import {
   saveToFile,
 } from './utils'
 
-const generateContentList = (): Array<Promise<[string, string]>> => {
+const generateExportContent = (): Array<Promise<[string, string]>> => {
   return jsonSchemaGenerator.getUserSymbols().map((symbol) => {
     console.log('\n---')
     console.log(`Analyzing symbol: "${symbol}"...`)
     console.log('---')
-    console.log('Generating json schema... ')
 
+    /**
+     * Generate schema
+     */
+    console.log('Generating json schema... ')
     const schema = jsonSchemaGenerator.getSchemaForSymbol(symbol)
     const schemaExport = createSchemaExport(schema, symbol)
 
-    const sourceFilePath = getPathFromSymbol(symbol)
-
+    /**
+     * Generate form template props
+     */
     console.log('Generating form props... ')
+    const sourceFilePath = getPathFromSymbol(symbol)
     const formPropsExport = getFormProps(sourceFilePath, symbol)
 
     return Promise.all([schemaExport, formPropsExport])
   })
 }
 
-const prepareContentToPrint = (
+const formatContentForExport = (
   generatedContentList: Array<[string, string]>,
 ): string => {
   const content = generatedContentList
@@ -41,8 +46,8 @@ const prepareContentToPrint = (
   return `${importsList.join('\n\n')} \n\n \n\n ${content}`
 }
 
-Promise.all(generateContentList())
-  .then(prepareContentToPrint)
+Promise.all(generateExportContent())
+  .then(formatContentForExport)
   .then(
     saveToFile(`${process.cwd()}/libs/generated/src/json-schema.generated.ts`),
   )

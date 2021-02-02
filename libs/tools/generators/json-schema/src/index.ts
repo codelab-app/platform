@@ -1,2 +1,2 @@
 export * from './decorators'
-export * from './ObjectFieldTemplateFactory'
+export * from './templates/ObjectFieldTemplateFactory'
