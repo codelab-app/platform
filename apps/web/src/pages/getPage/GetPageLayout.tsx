@@ -29,13 +29,15 @@ export const GetPageLayout = ({ graph, pageId }: GetPageLayoutProps) => {
   const root = CytoscapeService.componentTree(cy)
 
   const gridContainerId = graph.vertices.find(
-    (v) => v.type === VertexType.React_Grid_ResponsiveLayout,
+    (v) => v.type === VertexType.React_RGL_ResponsiveContainer,
   )?.id
 
   const onNodeClick = (e: any, node: any) => {
     // console.log(e, node)
     setDashboardDrawer({ visible: true, vertexId: node.id })
   }
+
+  console.log(root)
 
   return (
     <>
@@ -44,7 +46,9 @@ export const GetPageLayout = ({ graph, pageId }: GetPageLayoutProps) => {
         icon={<PlusOutlined />}
         type="primary"
         onClick={() => {
-          if (!gridContainerId) return
+          if (!gridContainerId) {
+            return
+          }
 
           addChildVertex({
             refetchQueries: [
@@ -54,7 +58,7 @@ export const GetPageLayout = ({ graph, pageId }: GetPageLayoutProps) => {
               input: {
                 parentVertexId: gridContainerId,
                 vertex: {
-                  type: VertexType.React_Grid,
+                  type: VertexType.React_RGL_Item,
                 },
               },
             },

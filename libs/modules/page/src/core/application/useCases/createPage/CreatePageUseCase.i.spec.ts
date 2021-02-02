@@ -119,7 +119,7 @@ describe('CreatePageUseCase', () => {
         expect(page.graphs?.length).toEqual(1)
         expect(page.graphs[0].vertices.length).toEqual(1)
         expect(page.graphs[0].vertices[0].type).toEqual(
-          VertexType.React_Grid_ResponsiveLayout,
+          VertexType.React_RGL_ResponsiveContainer,
         )
       })
   })

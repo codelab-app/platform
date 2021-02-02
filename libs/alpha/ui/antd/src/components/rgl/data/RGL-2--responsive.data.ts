@@ -1,13 +1,9 @@
 import { Text } from '../../text'
-import { Grid } from '../Grid.types'
+import { RGL } from '../RGL.types'
 import { NodeReactI, NodeType } from '@codelab/alpha/shared/interface/node'
 
 export const responsiveGridData: NodeReactI<
-  | Text.Props
-  | Grid.Props
-  | Grid.ItemProps
-  | Grid.ResponsiveProps
-  | { key: string }
+  Text.Props | RGL.Props | RGL.ItemProps | RGL.ResponsiveProps | { key: string }
 > = {
   type: NodeType.React_ResponsiveGrid,
   props: {

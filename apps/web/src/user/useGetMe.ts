@@ -16,8 +16,9 @@ export const useGetMe = (initialUser?: Partial<User>) => {
   }, [])
 
   useEffect(() => {
-    if (!loading || !initialUser)
+    if (!loading || !initialUser) {
       setState((s) => ({ ...s, currentUser: data?.getMe }))
+    }
   }, [data, setState, loading, initialUser])
 
   return query

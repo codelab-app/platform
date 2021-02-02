@@ -8,10 +8,10 @@ import {
 
 const Form = withTheme(AntDTheme)
 
-const GridDemoPage = () => {
+const GridPage = () => {
   return (
     <Form schema={DemoGridFormInputSchema} {...DemoGridFormInputFormProps} />
   )
 }
 
-export default GridDemoPage
+export default GridPage

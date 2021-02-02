@@ -4,15 +4,7 @@ const withNx = require('@nrwl/next/plugins/with-nx')
 const withCss = require('@zeit/next-css')
 const withLess = require('@zeit/next-less')
 const withSass = require('@zeit/next-sass')
-const lessToJS = require('less-vars-to-js')
 const withPlugins = require('next-compose-plugins')
-
-const themeVariables = lessToJS(
-  fs.readFileSync(
-    path.resolve(process.cwd(), 'apps/web/src/styles/antd-custom.less'),
-    'utf8',
-  ),
-)
 
 /**
  * Decorator fix: https://github.com/vercel/next.js/issues/4707#issuecomment-659231837
@@ -27,7 +19,9 @@ const nextConfiguration = {
 
       config.externals = [
         (context, request, callback) => {
-          if (request.match(antStyles)) return callback()
+          if (request.match(antStyles)) {
+            return callback()
+          }
 
           if (typeof origExternals[0] === 'function') {
             return origExternals[0](context, request, callback)
@@ -67,8 +61,26 @@ module.exports = withPlugins(
       withLess,
       {
         lessLoaderOptions: {
-          javascriptEnabled: true,
-          modifyVars: themeVariables,
+          lessOptions: {
+            javascriptEnabled: true,
+          },
+          additionalData: (content, loaderContext) => {
+            loaderContext.addDependency(
+              path.resolve(
+                process.cwd(),
+                'apps/web/src/styles/antd-custom.less',
+              ),
+            )
+            const themeVariables = fs.readFileSync(
+              path.resolve(
+                process.cwd(),
+                'apps/web/src/styles/antd-custom.less',
+              ),
+              'utf8',
+            )
+
+            return content + themeVariables
+          },
         },
       },
     ],

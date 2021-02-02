@@ -124,7 +124,7 @@ describe.skip('MoveVertexUseCase', () => {
         expect(pageRes.graphs.length).toEqual(1)
         expect(pageRes.graphs[0].vertices.length).toEqual(1)
         expect(pageRes.graphs[0].vertices[0].type).toEqual(
-          VertexType.React_Grid_ResponsiveLayout,
+          VertexType.React_RGL_ResponsiveContainer,
         )
       })
       .then((res) => res.body.data.createPage)

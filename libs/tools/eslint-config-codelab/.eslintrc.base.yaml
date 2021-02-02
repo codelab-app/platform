@@ -22,8 +22,9 @@ rules:
   react-hooks/exhaustive-deps:
     - warn
     - additionalHooks: useRecoilCallback
-
-  curly: error
+  curly:
+    - error
+    - all
   no-new-func: off
   no-undef: error # not included in preset, surprisingly
   no-underscore-dangle: off

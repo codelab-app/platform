@@ -17,11 +17,13 @@ export const callCallbackOrArrayOfCallbacks = <
   param: T,
 ) => {
   if (cbOrArray) {
-    if (Array.isArray(cbOrArray))
+    if (Array.isArray(cbOrArray)) {
       cbOrArray.forEach((c) => {
-        if (c) c(param)
+        if (c) {
+          c(param)
+        }
       })
-    else if (typeof cbOrArray === 'function') {
+    } else if (typeof cbOrArray === 'function') {
       cbOrArray(param)
     }
   }

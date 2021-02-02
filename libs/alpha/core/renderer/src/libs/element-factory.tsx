@@ -75,8 +75,8 @@ import {
   CodelabHtml,
   CodelabMapper,
   CodelabTable,
-  Grid,
   Provider,
+  RGL,
   RenderComponent,
 } from '@codelab/alpha/ui/antd'
 
@@ -161,10 +161,10 @@ export const elementParameterFactory: NodeFactory<
       return [Select as any, props]
     case NodeType.React_Select_Option:
       return [Select.Option as any, props]
-    case NodeType.React_Grid:
-      return [Grid.Default, props]
     case NodeType.React_ResponsiveGrid:
-      return [Grid.Responsive, props]
+      return [RGL.ResponsiveContainer, props]
+    case NodeType.React_Grid:
+      return [RGL.Container, props]
     case NodeType.React_Provider:
       return [Provider.Default, props]
     case NodeType.React_Modal:

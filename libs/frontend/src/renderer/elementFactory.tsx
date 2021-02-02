@@ -69,8 +69,8 @@ import {
   CodelabHtml,
   CodelabMapper,
   CodelabTable,
-  Grid,
   Provider,
+  RGL,
   RenderComponent,
   onDragStart,
 } from '@codelab/alpha/ui/antd'
@@ -159,12 +159,15 @@ export const elementParameterFactory = ({
       return [Select as any, props]
     case VertexType.React_Select_Option:
       return [Select.Option as any, props]
-    case VertexType.React_Grid_Layout:
-      return [Grid.Default, props]
-    case VertexType.React_Grid:
+    case VertexType.React_RGL_Container:
+      return [RGL.Container, props]
+    case VertexType.React_RGL_Item:
       return ['div', props]
-    case VertexType.React_Grid_ResponsiveLayout:
-      return [Grid.Responsive, { ...props, onDragStart: onDragStart(handlers) }]
+    case VertexType.React_RGL_ResponsiveContainer:
+      return [
+        RGL.ResponsiveContainer,
+        { ...props, onDragStart: onDragStart(handlers) },
+      ]
     case VertexType.React_Provider:
       return [Provider.Default, props]
     case VertexType.React_Modal:
