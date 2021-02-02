@@ -2,7 +2,7 @@ import { ObjectFieldTemplateProps } from '@rjsf/core'
 import { Col, Row } from 'antd'
 import { ColProps } from 'antd/lib/col'
 import React from 'react'
-import { IDecoratorsMap } from './decorators/gridDecorator'
+import { IDecoratorsMap } from './decorators/decorator-grid'
 
 interface GridCellDetails extends ColProps {
   order?: number
@@ -69,6 +69,7 @@ const getGridDetailsFromPropertiesSchema = (
 interface IIdSchemaToGridDetailsMap {
   [idSchema: string]: GridCellDetails
 }
+
 const getIdSchemaToGridDetailsMap = (
   properties: Array<ObjectFieldTemplateProperty>,
   decoratorsSettings: IDecoratorsMap | undefined,

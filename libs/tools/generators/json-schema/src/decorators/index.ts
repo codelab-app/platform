@@ -1,1 +1,1 @@
-export * from './gridDecorator'
+export * from './decorator-grid'
