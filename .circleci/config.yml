@@ -216,15 +216,9 @@ jobs:
             - .env
 
   install-and-build-workspace:
-    environment:
-      DEBUG_TAG_NAME: <<pipeline.git.tag>>
-
     <<: *executor-params
     steps:
       - setup-workspace
-      - run:
-          name: "Debug"
-          command: "echo $DEBUG_TAG_NAME"
       - yarn-install-dev
       - run:
           name: 'Reset Prisma'
