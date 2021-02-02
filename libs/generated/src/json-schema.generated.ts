@@ -1,6 +1,6 @@
 import { JSONSchema7 } from 'json-schema'
 import {
-  IDecoratorsMap,
+  DecoratorsMap,
   ObjectFieldTemplateFactory,
 } from '@codelab/tools/generators/json-schema'
 
@@ -31,27 +31,27 @@ export const DemoInputSchema: JSONSchema7 = {
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
 
-const DemoInputDecorators: IDecoratorsMap = {
+const DemoInputDecorators: DecoratorsMap = {
   email: {
-    grid: {
+    __grid: {
       order: 3,
       span: 24,
     },
   },
   password: {
-    grid: {
+    __grid: {
       order: 2,
       span: 24,
     },
   },
   firstname: {
-    grid: {
+    __grid: {
       order: 0,
       span: 12,
     },
   },
   lastname: {
-    grid: {
+    __grid: {
       order: 1,
       span: 12,
     },
@@ -631,6 +631,19 @@ export const DemoGridFormInputSchema: JSONSchema7 = {
       type: 'string',
       default: '',
     },
+    nestedFields: {
+      type: 'object',
+      properties: {
+        secondNested: {
+          type: 'string',
+          default: '',
+        },
+        firstNested: {
+          type: 'string',
+          default: '',
+        },
+      },
+    },
     notGroupedField: {
       type: 'string',
       default: '',
@@ -639,23 +652,41 @@ export const DemoGridFormInputSchema: JSONSchema7 = {
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
 
-const DemoGridFormInputDecorators: IDecoratorsMap = {
+const DemoGridFormInputDecorators: DecoratorsMap = {
   email1: {
-    grid: {
+    __grid: {
       order: 1,
       span: 12,
     },
   },
   password0: {
-    grid: {
-      order: 0,
+    __grid: {
+      order: 1,
       span: 16,
     },
   },
   name2: {
-    grid: {
+    __grid: {
       order: 2,
       span: 8,
+    },
+  },
+  nestedFields: {
+    __grid: {
+      order: 0,
+      span: 12,
+    },
+    firstNested: {
+      __grid: {
+        order: 0,
+        span: 12,
+      },
+    },
+    secondNested: {
+      __grid: {
+        order: 1,
+        span: 12,
+      },
     },
   },
 }
