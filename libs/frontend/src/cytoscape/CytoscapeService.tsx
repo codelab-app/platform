@@ -42,6 +42,7 @@ export class CytoscapeService {
       visit: (v: any, e) => {
         const node = {
           ...v.data(),
+          children: [],
         }
 
         v._node = node

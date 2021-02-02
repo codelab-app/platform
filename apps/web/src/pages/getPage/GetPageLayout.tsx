@@ -37,6 +37,8 @@ export const GetPageLayout = ({ graph, pageId }: GetPageLayoutProps) => {
     setDashboardDrawer({ visible: true, vertexId: node.id })
   }
 
+  console.log(root)
+
   return (
     <>
       <RenderComponents {...root} />
