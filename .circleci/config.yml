@@ -65,7 +65,6 @@ orbs:
   slack: circleci/slack@3.4.2
   cypress: cypress-io/cypress@1.26.0
   node: circleci/node@4.1.0
-  #
 
 executors:
   machine-ubuntu:
@@ -73,12 +72,12 @@ executors:
     machine:
       docker_layer_caching: true
       image: ubuntu-2004:202010-01
-    resource_class: medium
+    resource_class: large
   docker-node:
     <<: *executor-config
     docker:
       - image: cimg/node:14.15.0-browsers
-    resource_class: medium
+    resource_class: large
   vault-img:
     <<: *executor-config
     docker:
