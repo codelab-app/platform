@@ -395,7 +395,7 @@ export type EdgeFragmentsFragment = { __typename?: 'Edge' } & Pick<
 
 export type GraphFragmentsFragment = { __typename?: 'Graph' } & Pick<
   Graph,
-  'id' | 'type' | 'label' | 'tree'
+  'id' | 'type' | 'label'
 > & {
     vertices: Array<{ __typename?: 'Vertex' } & VertexFragmentsFragment>
     edges: Array<{ __typename?: 'Edge' } & EdgeFragmentsFragment>
@@ -520,7 +520,6 @@ export const GraphFragments = gql`
     id
     type
     label
-    tree
     vertices {
       ...vertexFragments
     }
@@ -764,7 +763,6 @@ export const GraphFragmentsFragmentDoc = gql`
     id
     type
     label
-    tree
     vertices {
       ...vertexFragments
     }

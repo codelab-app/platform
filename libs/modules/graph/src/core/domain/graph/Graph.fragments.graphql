@@ -2,7 +2,6 @@ fragment graphFragments on Graph {
   id
   type
   label
-  tree
   vertices {
     ...vertexFragments
   }
