@@ -2,7 +2,7 @@ import { ColProps } from 'antd/lib/col'
 import {
   getReflectPropertyDecorators,
   reflectPropertyDecorator,
-} from './reflectPropertyDecorator'
+} from './decorator-reflect'
 
 export interface GridDecoratorParams extends ColProps {
   order?: number
@@ -18,12 +18,12 @@ export interface IDecoratorsMap {
 
 const metaKey = 'grid'
 
-export const grid = (params: GridDecoratorParams) =>
+export const Grid = (params: GridDecoratorParams) =>
   reflectPropertyDecorator(metaKey, params)
 
 export const getGridDecoratorDetails = (
   classWithGridDecorator: any,
-): GridDecoratorDetails | null => {
+): IDecoratorsMap | null => {
   const decoratorDetails = getReflectPropertyDecorators(
     classWithGridDecorator,
     metaKey,
@@ -33,5 +33,5 @@ export const getGridDecoratorDetails = (
     return null
   }
 
-  return decoratorDetails as GridDecoratorDetails
+  return decoratorDetails as IDecoratorsMap
 }

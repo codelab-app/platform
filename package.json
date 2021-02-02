@@ -131,6 +131,7 @@
     "rxjs": "6.6.3",
     "shelljs": "0.8.4",
     "supertest": "6.0.1",
+    "tsconfig-paths": "^3.9.0",
     "typescript-json-schema": "0.45.1",
     "uuid": "8.3.0",
     "voca": "1.4.0",
