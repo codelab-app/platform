@@ -29,6 +29,7 @@ export const RenderChildren = (
             {
               key: child.id,
               ...props,
+              className: 'Builder-node',
               // ...child.evalProps(oldRenderProps)
             },
             RenderChildren(
@@ -41,6 +42,7 @@ export const RenderChildren = (
         : React.createElement(Child as any, {
             key: child.id,
             ...props,
+            className: 'Builder-node',
             // ...child.evalProps(oldRenderProps),
           })
 
