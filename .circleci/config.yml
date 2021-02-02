@@ -14,15 +14,16 @@ filters-dev: &filters-dev
   filters:
     branches:
       only: /^.*$/
-
+    tags:
+      ignore: /.*/
 
 filters-staging: &filters-staging
 # https://discuss.circleci.com/t/circle-2-0-workflow-filters-should-be-logical-and-not-or/18231
   filters:
     tags:
       only: /^staging-.*$/
-    # branches:
-    #   ignore: /.*/
+    branches:
+      ignore: /.*/
 
 # Workaround for the lack of logical "AND" for filters
 filters-master-branch-only: &filters-master-branch-only
@@ -215,15 +216,9 @@ jobs:
             - .env
 
   install-and-build-workspace:
-    environment:
-      DEBUG_TAG_NAME: <<pipeline.git.tag>>
-
     <<: *executor-params
     steps:
       - setup-workspace
-      - run:
-          name: "Debug"
-          command: "echo $DEBUG_TAG_NAME"
       - yarn-install-dev
       - run:
           name: 'Reset Prisma'
@@ -353,7 +348,6 @@ workflows:
             - e2e
 
   app-staging:
-    <<: *filters-master-branch-only
     jobs:
       - setup-vault-env:
           <<: *filters-staging
