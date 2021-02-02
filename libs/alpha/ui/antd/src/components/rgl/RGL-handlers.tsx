@@ -16,7 +16,7 @@ export const onDragStart: RGLHandlers = (props) => (
 
   // console.log('onDragStart', vertexId)
   // console.log(props)
-  // props?.setDashboardDrawer({ visible: true, vertexId })
+  props?.setDashboardDrawer({ visible: true, vertexId })
 }
 
 export const onResizeStop: RGLHandlers = ({ updateVertexMutation }) => (
