@@ -83,7 +83,7 @@ export const elementParameterFactory = ({
 }: {
   type: VertexType
   props?: object
-  handlers?: DashboardHandlerProps // Function hooks injected to pass to handlers
+  handlers: DashboardHandlerProps // Function hooks injected to pass to handlers
 }): [ReactHTMLElement<any> | React.FunctionComponent<any> | string, object] => {
   switch (type) {
     case VertexType.React_Fragment:

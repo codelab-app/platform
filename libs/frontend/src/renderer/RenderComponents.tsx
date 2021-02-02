@@ -22,8 +22,6 @@ export const RenderChildren = (
         handlers,
       })
 
-      console.log(Child, props)
-
       // TODO: remove any cast
       const ChildComponent: ReactNode = hasChildren(child)
         ? React.createElement(
