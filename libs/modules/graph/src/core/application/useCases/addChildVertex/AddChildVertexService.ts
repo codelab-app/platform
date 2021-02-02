@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { Vertex } from '@prisma/client'
+import { Prisma, Vertex } from '@prisma/client'
 import { AddChildVertexInput } from './AddChildVertexInput'
 import { PrismaService, TransactionalUseCase } from '@codelab/backend'
 
@@ -9,6 +9,7 @@ export class AddChildVertexService
   constructor(private readonly prismaService: PrismaService) {}
 
   async execute({ parentVertexId, vertex, order }: AddChildVertexInput) {
+    console.log(vertex)
     const graph = await this.prismaService.graph.findFirst({
       where: {
         vertices: {
@@ -30,6 +31,19 @@ export class AddChildVertexService
           connect: {
             id: graph.id,
           },
+        },
+      },
+    })
+
+    // Update props with necessary detail
+    await this.prismaService.vertex.update({
+      where: {
+        id: createdVertex.id,
+      },
+      data: {
+        props: {
+          ...(createdVertex.props as Prisma.InputJsonObject),
+          key: createdVertex.id,
         },
       },
     })

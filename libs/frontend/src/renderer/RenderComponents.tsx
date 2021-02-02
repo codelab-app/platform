@@ -4,6 +4,7 @@ import { dashboardDrawerState } from '../../../../apps/web/src/dashboard/drawer/
 import { DashboardHandlerProps } from '../../../../apps/web/src/dashboard/drawer/Dashboard-handlers'
 import { NodeA, NodeI } from '../../../modules/graph/src/core/domain/node/Node'
 import { elementParameterFactory } from './elementFactory'
+import { useUpdateVertexMutation } from '@codelab/generated'
 
 const hasChildren = (node: NodeI) => {
   return !!node.children?.length
@@ -28,6 +29,7 @@ export const RenderChildren = (
             {
               key: child.id,
               ...props,
+              className: 'Builder-node',
               // ...child.evalProps(oldRenderProps)
             },
             RenderChildren(
@@ -40,6 +42,7 @@ export const RenderChildren = (
         : React.createElement(Child as any, {
             key: child.id,
             ...props,
+            className: 'Builder-node',
             // ...child.evalProps(oldRenderProps),
           })
 
@@ -55,9 +58,11 @@ export const RenderComponents = (node: NodeA) => {
   const [dashboardDrawer, setDashboardDrawer] = useRecoilState(
     dashboardDrawerState,
   )
+  const updateVertexMutation = useUpdateVertexMutation()
   const { type } = node
   const handlers: DashboardHandlerProps = {
     setDashboardDrawer,
+    updateVertexMutation,
   }
   const [RootComponent, props] = elementParameterFactory({
     type,
@@ -65,9 +70,13 @@ export const RenderComponents = (node: NodeA) => {
     handlers,
   })
 
-  return React.createElement(
-    RootComponent as any,
-    props,
-    RenderChildren(node, {}, handlers),
+  return (
+    <>
+      {React.createElement(
+        RootComponent as any,
+        props,
+        RenderChildren(node, {}, handlers),
+      )}
+    </>
   )
 }

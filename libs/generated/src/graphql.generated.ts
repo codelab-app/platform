@@ -34,8 +34,8 @@ export type Vertex = {
   __typename?: 'Vertex'
   id: Scalars['String']
   type?: Maybe<Scalars['String']>
-  graph?: Maybe<Graph>
   props?: Maybe<Scalars['JSONObject']>
+  graph?: Maybe<Graph>
   parent?: Maybe<Vertex>
   children: Array<Vertex>
 }
@@ -44,6 +44,7 @@ export type Graph = {
   __typename?: 'Graph'
   id: Scalars['String']
   type?: Maybe<Scalars['String']>
+  props?: Maybe<Scalars['JSONObject']>
   label: Scalars['String']
   vertices: Array<Vertex>
   edges: Array<Edge>
@@ -256,7 +257,7 @@ export type MoveVertexInput = {
 
 export type UpdateVertexInput = {
   vertexId: Scalars['String']
-  type: Scalars['String']
+  type?: Maybe<Scalars['String']>
   props?: Maybe<Scalars['JSONObject']>
 }
 

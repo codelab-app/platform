@@ -29,7 +29,9 @@ export const GetVertexDetails = ({ vertexId }: GetVertexDetailsProps) => {
   const vertex = data?.getVertex
   const pageId = `${query.pageId}`
 
-  if (!pageId || !vertex) return null
+  if (!pageId || !vertex) {
+    return null
+  }
 
   return (
     <section>
@@ -52,7 +54,7 @@ export const GetVertexDetails = ({ vertexId }: GetVertexDetailsProps) => {
         vertex={vertex}
         parentVertexId={vertex.id}
       />
-      <UpdateVertexForm vertex={vertex} />
+      <UpdateVertexForm vertex={vertex} pageId={pageId} />
     </section>
   )
 }

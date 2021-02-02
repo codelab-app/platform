@@ -15,6 +15,10 @@ export class ReactGridResponsiveLayout {
   declare layouts: Record<LayoutSize, Layout>
 }
 
+// @Grid({
+//   'prop.x': {},
+//   'prop.y': {},
+// })
 export class ReactGridItem {
-  declare layout: Layout
+  declare props: { 'data-grid': Omit<Layout, 'i' | 'moved'> } & { key: string }
 }

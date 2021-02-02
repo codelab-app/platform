@@ -15,8 +15,8 @@ scalar JSONObject
 type Vertex {
   id: String!
   type: String
-  graph: Graph
   props: JSONObject
+  graph: Graph
   parent: Vertex
   children: [Vertex!]!
 }
@@ -24,6 +24,7 @@ type Vertex {
 type Graph {
   id: String!
   type: String
+  props: JSONObject
   label: String!
   vertices: [Vertex!]!
   edges: [Edge!]!
@@ -151,7 +152,7 @@ input MoveVertexInput {
 
 input UpdateVertexInput {
   vertexId: String!
-  type: String!
+  type: String
   props: JSONObject
 }
 

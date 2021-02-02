@@ -8,7 +8,7 @@ export class UpdateVertexService
   implements TransactionalUseCase<UpdateVertexInput, Vertex> {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async execute({ vertexId, type }: UpdateVertexInput) {
+  async execute({ vertexId, type, props }: UpdateVertexInput) {
     try {
       return await this.prismaService.vertex.update({
         where: {
@@ -16,6 +16,7 @@ export class UpdateVertexService
         },
         data: {
           type,
+          props,
         },
       })
     } catch (e) {

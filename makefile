@@ -24,7 +24,7 @@ build-ci:
     --target=build \
 		--projects=api-codelab,web,tools-eslint-config-codelab,codelab-schematics \
     --parallel \
-    --maxWorkers=4 \
+    --maxWorkers=8 \
 		--verbose \
 		--skip-nx-cache
 
@@ -48,7 +48,7 @@ generate-ci:
     --target=build \
 		--projects=tools-generators-graphql,tools-generators-json-schema \
     --parallel \
-    --maxWorkers=4 \
+    --maxWorkers=8 \
 		--verbose \
 		--skip-nx-cache
 
@@ -180,7 +180,7 @@ unit-ci:
 	--testPathPattern=[^i].spec.ts \
 	--target=test \
 	--all \
-	--maxWorkers=4 \
+	--maxWorkers=8 \
 	--skip-nx-cache \
 	--verbose
 
