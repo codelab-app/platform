@@ -5,15 +5,16 @@ import { NextRouter, useRouter } from 'next/router'
 import * as R from 'ramda'
 import React from 'react'
 import { RecoilRoot } from 'recoil'
+import { Builder } from '../src/builder/Builder'
 import { Dashboard } from '../src/dashboard/Dashboard'
 import { HomeLayout } from '../src/home'
-import { LoginUserModal, RegisterUserModal } from '../src/user'
-import { useGetMe } from '../src/user/useGetMe'
+import { LoginUserModal, RegisterUserModal } from '../src/useCases/user'
 import { PageType, getApolloClient, isPage, mapProps } from '@codelab/frontend'
-import './App.less'
+// import './App.less'
 import './App.scss'
 
 require('highlight.js/styles/monokai-sublime.css')
+require('antd/dist/antd.css')
 require('react-grid-layout/css/styles.css')
 require('react-resizable/css/styles.css')
 
@@ -26,7 +27,7 @@ const withoutSidebar = (props: any) => ({ ...props, sidebar: { hide: true } })
 const LayoutFactory: React.FunctionComponent<WithRouterProps> = R.cond([
   [isPage(PageType.Home), HomeLayout],
   [isPage(PageType.AppList), mapProps(withoutSidebar)(Dashboard)],
-  [R.T, Dashboard],
+  [R.T, Builder],
 ])
 
 const App: React.FunctionComponent<{}> = ({ children }) => {

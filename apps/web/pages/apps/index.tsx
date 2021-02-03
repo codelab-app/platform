@@ -1,13 +1,8 @@
 import { PageHeader } from 'antd'
-import * as R from 'ramda'
 import React from 'react'
-import { CreateAppButton, GetAppsList } from '../../src/apps'
-import { SignOutUserButton } from '../../src/user'
-import {
-  padding,
-  withApollo,
-  withAuthGuardServerSideProps,
-} from '@codelab/frontend'
+import { CreateAppButton, GetAppsList } from '../../src/useCases/apps'
+import { SignOutUserButton } from '../../src/useCases/user'
+import { padding, withAuthGuardServerSideProps } from '@codelab/frontend'
 
 const AppsPage = () => {
   const pageHeaderButtons = [
@@ -36,4 +31,4 @@ export const getServerSideProps = withAuthGuardServerSideProps({
   permanent: false,
 })
 
-export default R.pipe(withApollo, AppsPage)
+export default AppsPage

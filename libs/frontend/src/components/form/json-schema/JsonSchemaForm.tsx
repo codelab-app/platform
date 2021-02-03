@@ -14,7 +14,7 @@ const ThemedForm = withTheme(AntDTheme)
  * Note: the form doesn't keep any state. If you don't pass formData and onChange and manage the state in another place, it will reset the values on every render
  */
 export const JsonSchemaForm = <TData extends object>({
-  submitControllerRef,
+  submitRef,
   hideSubmitButton,
   schema,
   onSubmit = () => null,
@@ -42,7 +42,7 @@ export const JsonSchemaForm = <TData extends object>({
           ...(hideSubmitButton ? { display: 'none' } : {}),
         }}
         // Expose only a submit controller ref, so that we don't have to expose the whole button ref
-        ref={setSubmitControllerRef(submitControllerRef)}
+        ref={setSubmitControllerRef(submitRef)}
         {...submitButtonProps}
       >
         Submit

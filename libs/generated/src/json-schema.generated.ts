@@ -1069,6 +1069,19 @@ export const GetPagesInputSchema: JSONSchema7 = {
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
 
+export const UpdatePageInputSchema: JSONSchema7 = {
+  type: 'object',
+  properties: {
+    title: {
+      type: 'string',
+    },
+    pageId: {
+      type: 'string',
+    },
+  },
+  $schema: 'http://json-schema.org/draft-07/schema#',
+}
+
 export const DeleteUserInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {

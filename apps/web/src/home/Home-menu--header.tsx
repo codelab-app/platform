@@ -2,8 +2,12 @@ import { HomeOutlined, UserOutlined } from '@ant-design/icons'
 import { Menu } from 'antd'
 import Link from 'next/link'
 import React from 'react'
-import { LoginUserButton, RegisterUserButton, SignOutUserButton } from '../user'
-import { useCurrentUser } from '../user/useCurrentUser'
+import {
+  LoginUserButton,
+  RegisterUserButton,
+  SignOutUserButton,
+} from '../useCases/user'
+import { useCurrentUser } from '../useCases/user/useCurrentUser'
 import { Page, disableMenuHoverEffects } from '@codelab/frontend'
 
 /**

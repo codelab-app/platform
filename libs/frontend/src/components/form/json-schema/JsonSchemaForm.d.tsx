@@ -22,10 +22,10 @@ export interface JsonSchemaFormProps<TData extends object> {
   onChange: (changeEvent: JsonSchemaFormEvent<TData>) => any
   /** Use this to control the form data */
   formData: TData
-  /** Pass false to hide the submit button inside the form. Use the submitControllerRef to control form submission */
+  /** Pass false to hide the submit button inside the form. Use the submitRef to control form submission */
   hideSubmitButton?: boolean
   /** Use this to be able to hide the submit button and get a controller, which can trigger form submit */
-  submitControllerRef?: React.MutableRefObject<SubmitController | undefined>
+  submitRef?: React.MutableRefObject<SubmitController | undefined>
   /** Props that get passed down to the submit button */
   submitButtonProps?: Omit<ButtonProps, 'htmlType' | 'ref'>
   /** Props that get passed down to the RJSFForm component */

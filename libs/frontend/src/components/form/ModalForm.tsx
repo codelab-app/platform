@@ -12,7 +12,7 @@ import { JsonSchemaFormProps } from './json-schema/JsonSchemaForm.d'
 export interface ModalFormProps<TData extends object> {
   modalProps?: ModalProps
   renderForm: () => ReactElement<
-    Pick<JsonSchemaFormProps<TData>, 'hideSubmitButton' | 'submitControllerRef'>
+    Pick<JsonSchemaFormProps<TData>, 'hideSubmitButton' | 'submitRef'>
   >
 }
 
@@ -37,26 +37,34 @@ export const ModalForm = <TData extends object>({
   children,
 }: PropsWithChildren<ModalFormProps<TData>>): ReactElement => {
   // This is the controller that will do the form submission. Set by the GeneratedForm component
-  const submitControllerRef = useRef<SubmitController | undefined>()
+  const submitRef = useRef<SubmitController | undefined>()
 
   const form = cloneElement(renderForm(), {
     hideSubmitButton: true, // No need for it, we use the Modal's button
-    submitControllerRef,
+    submitRef,
   })
 
   return (
     <Modal
-      destroyOnClose // This is needed, because otherwise form values persist even after closing the modal
+      // This is needed, because otherwise form values persist even after closing the modal
+      destroyOnClose
       okButtonProps={{
         htmlType: 'submit',
-        ...okButtonProps, // Pass down any button props we get from the modalProps prop
+        // Pass down any button props we get from the modalProps prop
+        ...okButtonProps,
       }}
       onOk={(e) => {
-        if (!submitControllerRef.current)
+        if (!submitRef.current) {
           throw new Error('Submit controller ref not initialized')
+        }
 
-        submitControllerRef.current.submit() // Submits the form
-        if (onOk) onOk(e) // Call the callback from the modalProps prop, if defined
+        // Submits the form
+        submitRef.current.submit()
+
+        // Call the callback from the modalProps prop, if defined
+        if (onOk) {
+          onOk(e)
+        }
       }}
       {...modalProps}
     >

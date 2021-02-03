@@ -75,4 +75,6 @@ const AppPage = () => {
 }
 
 // export default R.pipe(withApollo, AppPage)
-export default () => null
+const EmptyPage = () => null
+
+export default EmptyPage

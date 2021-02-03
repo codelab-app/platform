@@ -1,16 +1,14 @@
 import React from 'react'
-import { GetPageLayout } from '../../../../../src/pages/getPage/GetPageLayout'
-import { useGetPageData } from '../../../../../src/pages/getPage/useGetPageData'
-import { withRouterGuard } from '@codelab/frontend'
+import { GetPageLayout } from '../../../../../src/useCases/pages/getPage/GetPageLayout'
+import { useGetPageData } from '../../../../../src/useCases/pages/getPage/useGetPageData'
+import { PropsWithIds, withRouterGuard } from '@codelab/frontend'
 
-interface PageDetailProps {
-  pageId: string
-}
-
-const PageDetail = ({ pageId }: PageDetailProps) => {
+const PageDetail = ({ pageId }: PropsWithIds<'pageId'>) => {
   const { layoutGraph, page } = useGetPageData({ pageId })
 
-  if (!layoutGraph || !page) return null
+  if (!layoutGraph || !page) {
+    return null
+  }
 
   return (
     <>
@@ -20,4 +18,6 @@ const PageDetail = ({ pageId }: PageDetailProps) => {
   )
 }
 
-export default withRouterGuard(['pageId'])(PageDetail)
+const _PageDetail = withRouterGuard(['pageId'])(PageDetail)
+
+export default _PageDetail

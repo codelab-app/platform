@@ -31,4 +31,6 @@ export const getServerSideProps = withAuthServerSideProps((context, user) => {
   return undefined
 })
 
-export default R.pipe(withApollo)(HomePage)
+const IndexPage = R.pipe(withApollo)(HomePage)
+
+export default IndexPage
