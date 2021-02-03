@@ -1,4 +1,5 @@
 import { Layout } from 'react-grid-layout'
+import { Grid } from '@codelab/tools/generators/json-schema'
 
 type LayoutSize = 'xxs' | 'xs' | 'sm' | 'md' | 'lg'
 
@@ -15,10 +16,46 @@ export class ReactGridResponsiveLayout {
   declare layouts: Record<LayoutSize, Layout>
 }
 
-// @Grid({
-//   'prop.x': {},
-//   'prop.y': {},
-// })
+type ReactGridItemProps = {
+  'data-grid': Pick<Layout, 'x' | 'y' | 'w' | 'h'>
+} & { key: string }
+
+@Grid<ReactGridItem>({
+  props: {
+    'data-grid': {
+      x: {
+        __grid: {
+          order: 0,
+          span: 6,
+        },
+      },
+      y: {
+        __grid: {
+          order: 1,
+          span: 6,
+        },
+      },
+      w: {
+        __grid: {
+          order: 2,
+          span: 6,
+        },
+      },
+      h: {
+        __grid: {
+          order: 3,
+          span: 6,
+        },
+      },
+    },
+    key: {
+      __grid: {
+        order: 4,
+        span: 6,
+      },
+    },
+  },
+})
 export class ReactGridItem {
-  declare props: { 'data-grid': Omit<Layout, 'i' | 'moved'> } & { key: string }
+  declare props: ReactGridItemProps
 }

@@ -6,7 +6,7 @@ import {
 
 type RecursivePartial<T> = {
   [P in keyof T]?: T[P] extends object
-    ? GridDecoratorParam & RecursivePartial<T[P]>
+    ? Partial<GridDecoratorParam> & RecursivePartial<T[P]>
     : GridDecoratorParam
 }
 

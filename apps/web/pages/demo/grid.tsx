@@ -10,7 +10,10 @@ const Form = withTheme(AntDTheme)
 
 const GridPage = () => {
   return (
-    <Form schema={DemoGridFormInputSchema} {...DemoGridFormInputFormProps} />
+    <>
+      {/* <Form schema={DemoInputSchema} {...DemoInputFormProps} /> */}
+      <Form schema={DemoGridFormInputSchema} {...DemoGridFormInputFormProps} />
+    </>
   )
 }
 
