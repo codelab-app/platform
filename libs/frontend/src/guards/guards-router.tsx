@@ -1,7 +1,8 @@
 import { Spin } from 'antd'
-import { withRouter } from 'next/router'
+import { useRouter, withRouter } from 'next/router'
 import * as R from 'ramda'
-import React from 'react'
+import React, { PropsWithChildren } from 'react'
+import { ModelIds } from '../interfaces'
 import { mapProps } from '@codelab/frontend'
 
 export const Loader = () => {
@@ -21,9 +22,6 @@ const withQueryKeys = (queryKeys: Array<string>) => ({
 }
 
 /**
- * @todo Add Spec for withRouterLoader
- * @body Mock the router according to nextjs router interface
- *
  * @param key query param that we want loaded before loading component
  */
 export const withRouterGuard = (queryKeys: Array<string> = []) => (
@@ -43,3 +41,21 @@ export const withRouterGuard = (queryKeys: Array<string> = []) => (
       Loader,
     ),
   )
+
+type RouterGuardProps = PropsWithChildren<{ guards: Array<ModelIds> }>
+
+/**
+ * Component to guard for router query keys
+ *
+ * @param props
+ */
+export const RouterGuard = ({ guards, children }: RouterGuardProps) => {
+  const router = useRouter()
+
+  const canActivate = guards.reduce(
+    (exists: boolean, modelId: string) => exists && !!router?.query[modelId],
+    true,
+  )
+
+  return <>{canActivate ? <>{children}</> : null}</>
+}

@@ -1,4 +1,8 @@
-import { AppstoreOutlined, CopyOutlined } from '@ant-design/icons'
+import {
+  AppstoreOutlined,
+  CopyOutlined,
+  PlusSquareOutlined,
+} from '@ant-design/icons'
 import { Menu, Popover } from 'antd'
 import Link from 'next/link'
 import React from 'react'
@@ -38,11 +42,27 @@ const MenuItemPages = (props: any) => {
   )
 }
 
+const MenuItemComponents = (props: any) => {
+  const layout = useBuilderLayout()
+
+  return (
+    <Menu.Item
+      {...props}
+      key="3"
+      onClick={() => layout.navigation.toggle()}
+      icon={<PlusSquareOutlined />}
+    >
+      Components
+    </Menu.Item>
+  )
+}
+
 export const BuilderMenuSidebar = () => {
   return (
     <Menu mode="inline" style={{ height: '100%', width: '100%' }}>
       <MenuItemApps />
       <MenuItemPages />
+      <MenuItemComponents />
     </Menu>
   )
 }

@@ -1,30 +1,40 @@
 import { ColProps } from 'antd/lib/col'
 import {
-  getReflectPropertyDecorators,
-  reflectPropertyDecorator,
-} from './decorator-reflect'
+  getReflectClassDecorator,
+  reflectClassDecorator,
+} from './decorator-reflect--class'
 
-export interface GridDecoratorParams extends ColProps {
+type RecursivePartial<T> = {
+  [P in keyof T]?: T[P] extends object
+    ? Partial<GridDecoratorParam> & RecursivePartial<T[P]>
+    : GridDecoratorParam
+}
+
+export const gridDetailsName = '__grid'
+
+export interface GridDecoratorParam {
+  [gridDetailsName]: GridParams
+}
+
+export interface GridParams extends ColProps {
   order?: number
 }
 
 export interface GridDecoratorDetails {
-  grid: GridDecoratorParams
+  [gridDetailsName]: GridParams
 }
 
-export interface IDecoratorsMap {
-  [propertyKey: string]: GridDecoratorDetails
-}
+export type DecoratorsMap<T = any> = RecursivePartial<T>
 
 const metaKey = 'grid'
 
-export const Grid = (params: GridDecoratorParams) =>
-  reflectPropertyDecorator(metaKey, params)
+export const Grid = <T = any>(params?: RecursivePartial<T>) =>
+  reflectClassDecorator(metaKey, params)
 
 export const getGridDecoratorDetails = (
   classWithGridDecorator: any,
-): IDecoratorsMap | null => {
-  const decoratorDetails = getReflectPropertyDecorators(
+): DecoratorsMap | null => {
+  const decoratorDetails = getReflectClassDecorator(
     classWithGridDecorator,
     metaKey,
   )
@@ -33,5 +43,5 @@ export const getGridDecoratorDetails = (
     return null
   }
 
-  return decoratorDetails as IDecoratorsMap
+  return decoratorDetails as DecoratorsMap
 }

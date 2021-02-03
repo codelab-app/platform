@@ -2,7 +2,7 @@ import { ObjectFieldTemplateProps } from '@rjsf/core'
 import { Col, Row } from 'antd'
 import { ColProps } from 'antd/lib/col'
 import React from 'react'
-import { IDecoratorsMap } from '../decorators/decorator-grid'
+import { DecoratorsMap, gridDetailsName } from '../decorators/decorator-grid'
 
 interface GridCellDetails extends ColProps {
   order?: number
@@ -21,12 +21,10 @@ const parseIdSchema = (idSchema: string, separator = '_'): Array<string> => {
 const generatePathToGridDetailsByIdSchema = (
   idSchema: string,
 ): Array<string> => {
-  const gridFieldName = 'grid'
-
   // we cut the first step (='root') because it is special mark for internal needs of rjsf
   const pathSteps = parseIdSchema(idSchema).slice(1)
 
-  return [...pathSteps, gridFieldName]
+  return [...pathSteps, gridDetailsName]
 }
 
 const getFieldByPath = (obj: {}, path: Path): any | null => {
@@ -48,7 +46,7 @@ const getFieldByPath = (obj: {}, path: Path): any | null => {
 
 const getGridDetailsFromPropertiesSchema = (
   p: ObjectFieldTemplateProperty,
-  decoratorSettings: IDecoratorsMap | undefined,
+  decoratorSettings: DecoratorsMap | undefined,
 ): GridCellDetails | null => {
   if (decoratorSettings === undefined) {
     return null
@@ -72,7 +70,7 @@ interface IIdSchemaToGridDetailsMap {
 
 const getIdSchemaToGridDetailsMap = (
   properties: Array<ObjectFieldTemplateProperty>,
-  decoratorsSettings: IDecoratorsMap | undefined,
+  decoratorsSettings: DecoratorsMap | undefined,
 ): IIdSchemaToGridDetailsMap => {
   return decoratorsSettings === undefined
     ? {}
@@ -96,7 +94,7 @@ const getIdSchemaToGridDetailsMap = (
 }
 
 export const ObjectFieldTemplateFactory = (
-  decoratorSettings: IDecoratorsMap | undefined = undefined,
+  decoratorSettings: DecoratorsMap | undefined = undefined,
 ) => (props: ObjectFieldTemplateProps) => {
   const IdSchemaToGridDetailsMap = getIdSchemaToGridDetailsMap(
     props.properties,

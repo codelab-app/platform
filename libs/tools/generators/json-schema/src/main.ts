@@ -40,7 +40,7 @@ const formatContentForExport = (
 
   const importsList = [
     `import { JSONSchema7 } from 'json-schema'`,
-    `import { ObjectFieldTemplateFactory, IDecoratorsMap } from '@codelab/tools/generators/json-schema'`,
+    `import { ObjectFieldTemplateFactory, DecoratorsMap } from '@codelab/tools/generators/json-schema'`,
   ]
 
   return `${importsList.join('\n\n')} \n\n \n\n ${content}`

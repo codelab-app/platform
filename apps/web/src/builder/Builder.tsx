@@ -6,13 +6,9 @@ import { pageState } from '../useCases/pages/usePage'
 import { useBuilderLayout } from './builderPanelState'
 import { BuilderDetails } from './details/Builder-details'
 import { BuilderDrawer } from './drawer/Builder-drawer'
-import {
-  BuilderNavigation,
-  BuilderNavigationProps,
-} from './navigation/Builder-navigation'
-import { BuilderNavigationContainer } from './navigation/Builder-navigation--container'
+import { BuilderNavigation } from './navigation/Builder-navigation'
 import { BuilderMenuSidebar } from './sidebar/Builder-menu--sidebar'
-import { PropsWithIds, contentStyle } from '@codelab/frontend'
+import { PropsWithIds, RouterGuard, contentStyle } from '@codelab/frontend'
 
 const { Sider, Content } = Layout
 
@@ -34,11 +30,9 @@ export const Builder = ({
       </Sider>
       {layout.navigation.visible ? (
         <Sider theme="light" width={200}>
-          <BuilderNavigationContainer>
-            {({ pages }: BuilderNavigationProps) => (
-              <BuilderNavigation appId={appId} pages={pages} />
-            )}
-          </BuilderNavigationContainer>
+          <RouterGuard guards={['appId']}>
+            <BuilderNavigation />
+          </RouterGuard>
           {/* <DashboardTreeContainer>
               {({ data }: DashboardTreeProps) => <DashboardTree data={data} />}
             </DashboardTreeContainer> */}

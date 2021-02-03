@@ -26,7 +26,7 @@ export const getFormProps = (
 
         const DecoratorsDetailsName = `${symbol}Decorators`
 
-        const DecoratorsExport = `const ${DecoratorsDetailsName}: IDecoratorsMap = ${JSON.stringify(
+        const DecoratorsExport = `const ${DecoratorsDetailsName}: DecoratorsMap = ${JSON.stringify(
           decoratorDetails,
           null,
           2,
