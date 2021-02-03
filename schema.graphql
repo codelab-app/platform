@@ -176,7 +176,7 @@ input CreatePageInput {
 
 input UpdatePageInput {
   title: String
-  id: String!
+  pageId: String!
 }
 
 input DeletePageInput {

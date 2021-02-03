@@ -285,7 +285,7 @@ export type CreatePageInput = {
 
 export type UpdatePageInput = {
   title?: Maybe<Scalars['String']>
-  id: Scalars['String']
+  pageId: Scalars['String']
 }
 
 export type DeletePageInput = {
