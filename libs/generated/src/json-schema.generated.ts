@@ -504,6 +504,48 @@ export const ReactGridResponsiveLayoutSchema: JSONSchema7 = {
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
 
+export const ReactGridItemPropsSchema: JSONSchema7 = {
+  allOf: [
+    {
+      type: 'object',
+      properties: {
+        'data-grid': {
+          description:
+            'From T, pick a set of properties whose keys are in the union K',
+          type: 'object',
+          properties: {
+            x: {
+              description: 'X position in grid units.',
+              type: 'number',
+            },
+            y: {
+              description: 'Y position in grid units.',
+              type: 'number',
+            },
+            h: {
+              description: 'Height in grid units.',
+              type: 'number',
+            },
+            w: {
+              description: 'Width in grid units.',
+              type: 'number',
+            },
+          },
+        },
+      },
+    },
+    {
+      type: 'object',
+      properties: {
+        key: {
+          type: 'string',
+        },
+      },
+    },
+  ],
+  $schema: 'http://json-schema.org/draft-07/schema#',
+}
+
 export const ReactGridItemSchema: JSONSchema7 = {
   type: 'object',
   properties: {
@@ -517,11 +559,6 @@ export const ReactGridItemSchema: JSONSchema7 = {
                 'From T, pick a set of properties whose keys are in the union K',
               type: 'object',
               properties: {
-                static: {
-                  description:
-                    'If true, equal to `isDraggable: false` and `isResizable: false`.',
-                  type: 'boolean',
-                },
                 x: {
                   description: 'X position in grid units.',
                   type: 'number',
@@ -537,46 +574,6 @@ export const ReactGridItemSchema: JSONSchema7 = {
                 w: {
                   description: 'Width in grid units.',
                   type: 'number',
-                },
-                minW: {
-                  description: 'Minimum width in grid units.',
-                  type: 'number',
-                },
-                maxW: {
-                  description: 'Maximum width in grid units.',
-                  type: 'number',
-                },
-                minH: {
-                  description: 'Minimum height in grid units.',
-                  type: 'number',
-                },
-                maxH: {
-                  description: 'Maximum height in grid units.',
-                  type: 'number',
-                },
-                isDraggable: {
-                  description:
-                    'If false, will not be draggable. Overrides `static`.',
-                  type: 'boolean',
-                },
-                isResizable: {
-                  description:
-                    'If false, will not be resizable. Overrides `static`.',
-                  type: 'boolean',
-                },
-                resizeHandles: {
-                  description:
-                    'By default, a handle is only shown on the bottom-right (southeast) corner.\nNote that resizing from the top or left is generally not intuitive.',
-                  type: 'array',
-                  items: {
-                    enum: ['e', 'n', 'ne', 'nw', 's', 'se', 'sw', 'w'],
-                    type: 'string',
-                  },
-                },
-                isBounded: {
-                  description:
-                    'If true and draggable, item will be moved only within grid.',
-                  type: 'boolean',
                 },
               },
             },
@@ -594,6 +591,47 @@ export const ReactGridItemSchema: JSONSchema7 = {
     },
   },
   $schema: 'http://json-schema.org/draft-07/schema#',
+}
+
+const ReactGridItemDecorators: DecoratorsMap = {
+  props: {
+    'data-grid': {
+      x: {
+        __grid: {
+          order: 0,
+          span: 6,
+        },
+      },
+      y: {
+        __grid: {
+          order: 1,
+          span: 6,
+        },
+      },
+      w: {
+        __grid: {
+          order: 2,
+          span: 6,
+        },
+      },
+      h: {
+        __grid: {
+          order: 3,
+          span: 6,
+        },
+      },
+    },
+    key: {
+      __grid: {
+        order: 4,
+        span: 6,
+      },
+    },
+  },
+}
+
+export const ReactGridItemFormProps = {
+  ObjectFieldTemplate: ObjectFieldTemplateFactory(ReactGridItemDecorators),
 }
 
 export const CreateAppInputSchema: JSONSchema7 = {
