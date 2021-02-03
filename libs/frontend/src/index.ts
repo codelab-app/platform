@@ -1,6 +1,6 @@
 export * from './model'
 export * from './infrastructure'
-export * from './model/mergeState'
+export * from './guards/guards-router'
 export * from './config'
 export * from './interfaces'
 export * from './cytoscape/CytoscapeService'

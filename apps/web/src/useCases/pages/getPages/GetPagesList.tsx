@@ -1,8 +1,9 @@
 import { FileOutlined, RightOutlined, SettingOutlined } from '@ant-design/icons'
 import { List, Space } from 'antd'
+import Link from 'next/link'
 import React from 'react'
 import { usePage } from '../usePage'
-import { PropsWithIds } from '@codelab/frontend'
+import { Page, PropsWithIds } from '@codelab/frontend'
 import { PageFragmentsFragment } from '@codelab/generated'
 
 type GetPagesListProps = {
@@ -21,7 +22,14 @@ export const GetPagesList = ({ pages, appId }: GetPagesListProps) => {
           <List.Item onMouseOver={() => null} style={{ paddingLeft: 0 }}>
             <Space style={{ width: '100%' }}>
               <FileOutlined />
-              {page.title}
+              <Link
+                href={{
+                  pathname: Page.PAGE_DETAIL.url,
+                  query: { appId, pageId: page.id },
+                }}
+              >
+                <a>{page.title}</a>
+              </Link>
             </Space>
             {pageHook.pageId === page.id ? (
               // Currently opening page specific detail panel
