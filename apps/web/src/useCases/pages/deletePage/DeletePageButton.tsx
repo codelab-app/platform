@@ -13,7 +13,6 @@ export const DeletePageButton = ({
   appId,
   onSuccess,
 }: DeletePageButtonProps) => {
-  console.log(pageId, appId)
   const [deletePage] = useDeletePageMutation({
     refetchQueries: [
       {

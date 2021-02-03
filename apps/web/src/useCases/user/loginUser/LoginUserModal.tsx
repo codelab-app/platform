@@ -19,7 +19,7 @@ export const LoginUserModal = () => {
       }}
       renderForm={() => (
         <LoginUserForm
-          onSubmitSuccessfully={() => {
+          onSubmitSuccess={() => {
             // Close the modal when the execution finishes
             setState((s) => ({ ...s, modalVisible: undefined }))
           }}

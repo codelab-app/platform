@@ -2,7 +2,7 @@ import { Layout } from 'antd'
 import { useRouter } from 'next/router'
 import React, { PropsWithChildren } from 'react'
 import { useRecoilState } from 'recoil'
-import { pageDetailsState } from '../useCases/pages/pageDetailsState'
+import { pageState } from '../useCases/pages/usePage'
 import { useBuilderLayout } from './builderPanelState'
 import { BuilderDetails } from './details/Builder-details'
 import { BuilderDrawer } from './drawer/Builder-drawer'
@@ -19,7 +19,7 @@ const { Sider, Content } = Layout
 export const Builder = ({
   children,
 }: PropsWithChildren<PropsWithIds<'appId'>>) => {
-  const [pageDetails, setPageDetails] = useRecoilState(pageDetailsState)
+  const [pageDetails, setPageDetails] = useRecoilState(pageState)
   const layout = useBuilderLayout()
 
   const { pageId } = pageDetails

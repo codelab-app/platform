@@ -1,9 +1,10 @@
 import React from 'react'
-import { ApolloForm, JsonSchemaUseCaseFormProps } from '@codelab/frontend'
+import { ApolloForm, ApolloFormUseCaseProps } from '@codelab/frontend'
 import {
   CreatePageMutationVariables,
   GetPageGql,
   UpdatePageInputSchema,
+  useGetPageQuery,
   useUpdatePageMutation,
 } from '@codelab/generated'
 import { UpdatePageInput } from 'libs/modules/page/src/core/application/useCases/updatePage/UpdatePageInput'
@@ -11,7 +12,7 @@ import { UpdatePageInput } from 'libs/modules/page/src/core/application/useCases
 export const UpdatePageForm = ({
   pageId,
   ...props
-}: JsonSchemaUseCaseFormProps<UpdatePageInput> & { pageId: string }) => {
+}: ApolloFormUseCaseProps<UpdatePageInput> & { pageId: string }) => {
   const [mutate] = useUpdatePageMutation({
     refetchQueries: [
       {
@@ -24,11 +25,25 @@ export const UpdatePageForm = ({
       },
     ],
   })
+  const { data, loading } = useGetPageQuery({
+    variables: {
+      input: {
+        pageId,
+      },
+    },
+  })
+
+  const page = data?.getPage
+
+  if (loading) {
+    return null
+  }
 
   return (
     <ApolloForm<UpdatePageInput, CreatePageMutationVariables>
       key={pageId}
       mutate={mutate}
+      hideSubmitButton
       schema={UpdatePageInputSchema}
       rjsfFormProps={{
         uiSchema: {
@@ -37,7 +52,7 @@ export const UpdatePageForm = ({
           },
         },
       }}
-      initialFormData={{ title: '', pageId }}
+      initialFormData={{ title: page?.title, pageId }}
       {...props}
     />
   )

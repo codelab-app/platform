@@ -1,17 +1,17 @@
 import { PlusOutlined } from '@ant-design/icons'
 import { Button } from 'antd'
 import React from 'react'
-import { useBuilderLayout } from '../../../builder/builderPanelState'
+import { usePage } from '../usePage'
 
 export const CreatePageButton = () => {
-  const layout = useBuilderLayout()
+  const { createPage } = usePage()
 
   return (
     <Button
       type="primary"
       size="small"
       icon={<PlusOutlined />}
-      onClick={() => layout.details.toggle(true)}
+      onClick={() => createPage()}
     >
       Add
     </Button>

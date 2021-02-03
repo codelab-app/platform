@@ -49,7 +49,7 @@ export const EditAppForm = (
           },
         },
       }}
-      onSubmitFailed={createNotificationHandler({
+      onSubmitError={createNotificationHandler({
         title: `Error while updating app '${editingApp.title}'`,
       })}
       {...props}

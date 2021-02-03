@@ -1,5 +1,10 @@
 import React from 'react'
-import { ApolloForm, JsonSchemaUseCaseFormProps } from '@codelab/frontend'
+import {
+  ApolloForm,
+  ApolloFormProps,
+  JsonSchemaUseCaseFormProps,
+  PropsWithIds,
+} from '@codelab/frontend'
 import {
   CreatePageInputSchema,
   CreatePageMutationVariables,
@@ -8,10 +13,11 @@ import {
 } from '@codelab/generated'
 import { CreatePageInput } from 'libs/modules/page/src/core/application/useCases/createPage/CreatePageInput'
 
-export const CreatePageForm = ({
-  appId,
-  ...props
-}: JsonSchemaUseCaseFormProps<CreatePageInput> & { appId: string }) => {
+type CreatePageFormProps = JsonSchemaUseCaseFormProps<CreatePageInput> &
+  PropsWithIds<'appId'> &
+  Pick<ApolloFormProps<any, any>, 'onSubmitSuccess'>
+
+export const CreatePageForm = ({ appId, ...props }: CreatePageFormProps) => {
   const [mutate] = useCreatePageMutation({
     refetchQueries: [
       {
@@ -28,6 +34,7 @@ export const CreatePageForm = ({
   return (
     <ApolloForm<CreatePageInput, CreatePageMutationVariables>
       mutate={mutate}
+      hideSubmitButton
       schema={CreatePageInputSchema}
       rjsfFormProps={{
         uiSchema: {

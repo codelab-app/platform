@@ -21,7 +21,7 @@ export const CreateAppModal = () => {
       }}
       renderForm={() => (
         <CreateAppForm
-          onSubmitSuccessfully={() => {
+          onSubmitSuccess={() => {
             // Close the modal when the execution finishes
             setAppState({ ...state, modalVisible: false })
           }}

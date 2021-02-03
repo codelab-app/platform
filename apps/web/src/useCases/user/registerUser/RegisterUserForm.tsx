@@ -19,8 +19,8 @@ import {
 } from '@codelab/generated'
 
 export const RegisterUserForm = ({
-  onSubmitSuccessfully,
-  onSubmitFailed,
+  onSubmitSuccess,
+  onSubmitError,
   ...props
 }: ApolloFormUseCaseProps<RegisterUserInput>) => {
   const [mutate, { loading }] = useRegisterUserMutation()
@@ -49,7 +49,7 @@ export const RegisterUserForm = ({
 
   const submitFailedHandlers = [
     notifyFailedRegister,
-    createCallbackHandler(onSubmitFailed), // Pass the event up
+    createCallbackHandler(onSubmitError), // Pass the event up
   ]
 
   const submitSuccessHandlers: ArrayOfCallbacks<
@@ -63,7 +63,7 @@ export const RegisterUserForm = ({
       setState((s) => ({ ...s, currentUser: data?.registerUser }))
     },
     notifySuccessfulRegister,
-    createCallbackHandler(onSubmitSuccessfully), // Pass the event up
+    createCallbackHandler(onSubmitSuccess), // Pass the event up
   ]
 
   return (
@@ -71,7 +71,7 @@ export const RegisterUserForm = ({
       schema={RegisterUserInputSchema}
       initialFormData={{ email: '', password: '' }}
       mutate={mutate}
-      onSubmitFailed={submitFailedHandlers}
+      onSubmitError={submitFailedHandlers}
       rjsfFormProps={{
         uiSchema: {
           password: {
@@ -79,7 +79,7 @@ export const RegisterUserForm = ({
           },
         },
       }}
-      onSubmitSuccessfully={submitSuccessHandlers}
+      onSubmitSuccess={submitSuccessHandlers}
       {...props}
     />
   )
