@@ -121,7 +121,7 @@
     "react": "16.13.1",
     "react-cytoscapejs": "1.2.1",
     "react-dom": "16.13.1",
-    "react-grid-layout": "1.1.1",
+    "react-grid-layout": "^1.2.0",
     "react-highlight": "0.12.0",
     "react-json-view": "1.19.1",
     "react-json-view-ssr": "1.19.1",
