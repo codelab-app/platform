@@ -60,7 +60,7 @@ import {
   Upload,
 } from 'antd'
 import React, { ReactHTMLElement } from 'react'
-import { DashboardHandlerProps } from '../../../../apps/web/src/dashboard/drawer/Dashboard-handlers'
+import { BuilderHandlerProps } from '../../../../apps/web/src/builder/drawer/Builder-handlers'
 import { onResizeStop } from '../../../alpha/ui/antd/src/components/rgl/RGL-handlers'
 import { propsFilter, withFilters } from '@codelab/alpha/core/props'
 import { mouseEventHandlerKeys } from '@codelab/alpha/shared/event'
@@ -83,7 +83,7 @@ export const elementParameterFactory = ({
 }: {
   type: VertexType
   props?: Record<string, any>
-  handlers: DashboardHandlerProps // Function hooks injected to pass to handlers
+  handlers: BuilderHandlerProps // Function hooks injected to pass to handlers
 }): [ReactHTMLElement<any> | React.FunctionComponent<any> | string, object] => {
   switch (type) {
     case VertexType.React_Fragment:

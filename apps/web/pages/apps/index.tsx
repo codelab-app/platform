@@ -1,7 +1,7 @@
 import { PageHeader } from 'antd'
 import React from 'react'
-import { CreateAppButton, GetAppsList } from '../../src/apps'
-import { SignOutUserButton } from '../../src/user'
+import { CreateAppButton, GetAppsList } from '../../src/useCases/apps'
+import { SignOutUserButton } from '../../src/useCases/user'
 import { padding, withAuthGuardServerSideProps } from '@codelab/frontend'
 
 const AppsPage = () => {

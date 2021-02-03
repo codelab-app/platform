@@ -1,6 +1,6 @@
 import React from 'react'
-import { GetPageLayout } from '../../../../../src/pages/getPage/GetPageLayout'
-import { useGetPageData } from '../../../../../src/pages/getPage/useGetPageData'
+import { GetPageLayout } from '../../../../../src/useCases/pages/getPage/GetPageLayout'
+import { useGetPageData } from '../../../../../src/useCases/pages/getPage/useGetPageData'
 import { PropsWithIds, withRouterGuard } from '@codelab/frontend'
 
 const PageDetail = ({ pageId }: PropsWithIds<'pageId'>) => {

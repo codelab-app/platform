@@ -1,7 +1,7 @@
 import { ItemCallback } from 'react-grid-layout'
-import { DashboardHandlerProps } from '../../../../../../../apps/web/src/dashboard/drawer/Dashboard-handlers'
+import { BuilderHandlerProps } from '../../../../../../../apps/web/src/builder/drawer/Builder-handlers'
 
-export type RGLHandlers = (props: DashboardHandlerProps) => ItemCallback
+export type RGLHandlers = (props: BuilderHandlerProps) => ItemCallback
 
 export const onDragStart: RGLHandlers = (props) => (
   layout,
@@ -16,7 +16,7 @@ export const onDragStart: RGLHandlers = (props) => (
 
   // console.log('onDragStart', vertexId)
   // console.log(props)
-  props?.setDashboardDrawer({ visible: true, vertexId })
+  props?.setBuilderDrawer({ visible: true, vertexId })
 }
 
 export const onResizeStop: RGLHandlers = ({ updateVertexMutation }) => (

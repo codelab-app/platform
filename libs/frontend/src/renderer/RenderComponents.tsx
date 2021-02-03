@@ -2,8 +2,8 @@ import { Popover } from 'antd'
 import React, { ReactNode } from 'react'
 import { useRecoilState } from 'recoil'
 import { v4 as uuidv4 } from 'uuid'
-import { dashboardDrawerState } from '../../../../apps/web/src/dashboard/drawer/Dashboard-drawer'
-import { DashboardHandlerProps } from '../../../../apps/web/src/dashboard/drawer/Dashboard-handlers'
+import { builderDrawerState } from '../../../../apps/web/src/builder/drawer/Builder-drawer'
+import { BuilderHandlerProps } from '../../../../apps/web/src/builder/drawer/Builder-handlers'
 import { NodeA, NodeI } from '../../../modules/graph/src/core/domain/node/Node'
 import { elementParameterFactory } from './elementFactory'
 import { useUpdateVertexMutation } from '@codelab/generated'
@@ -32,7 +32,7 @@ const createWithPopover = (children: ReactNode) => {
 export const RenderChildren = (
   node: NodeA,
   renderProps: object = {},
-  handlers: DashboardHandlerProps,
+  handlers: BuilderHandlerProps,
 ): ReactNode | Array<ReactNode> => {
   return node.children.map((child: NodeA) => {
     // TODO: remove any cast
@@ -57,13 +57,11 @@ export const RenderChildren = (
 }
 
 export const RenderComponents = (node: NodeA) => {
-  const [dashboardDrawer, setDashboardDrawer] = useRecoilState(
-    dashboardDrawerState,
-  )
+  const [builderDrawer, setBuilderDrawer] = useRecoilState(builderDrawerState)
   const updateVertexMutation = useUpdateVertexMutation()
   const { type } = node
-  const handlers: DashboardHandlerProps = {
-    setDashboardDrawer,
+  const handlers: BuilderHandlerProps = {
+    setBuilderDrawer,
     updateVertexMutation,
   }
   const [RootComponent, props] = elementParameterFactory({
