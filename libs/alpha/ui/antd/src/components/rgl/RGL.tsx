@@ -26,7 +26,15 @@ export namespace RGL {
     return <ResponsiveGridLayout {...props}>{children}</ResponsiveGridLayout>
   }
 
-  export const Item: React.FC<ReactGridItem> = ({ children, ...props }) => {
-    return <div {...props}>children</div>
+  export const Item: React.FC<ReactGridItem['props']> = ({
+    children,
+    'data-grid': dataGrid,
+    ...props
+  }) => {
+    return (
+      <div {...props} data-grid={JSON.stringify(dataGrid)}>
+        {children}
+      </div>
+    )
   }
 }
