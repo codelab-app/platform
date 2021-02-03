@@ -17,7 +17,8 @@ interface UpdateVertexFormProps {
 }
 
 export const UpdateVertexForm = ({ vertex, pageId }: UpdateVertexFormProps) => {
-  const [mutate, { loading }] = useUpdateVertexMutation({
+  const [mutate] = useUpdateVertexMutation({
+    awaitRefetchQueries: true,
     refetchQueries: [
       {
         query: GetPageGql,

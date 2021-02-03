@@ -82,7 +82,7 @@ export const elementParameterFactory = ({
   handlers,
 }: {
   type: VertexType
-  props?: object
+  props?: Record<string, any>
   handlers: DashboardHandlerProps // Function hooks injected to pass to handlers
 }): [ReactHTMLElement<any> | React.FunctionComponent<any> | string, object] => {
   switch (type) {
@@ -163,7 +163,19 @@ export const elementParameterFactory = ({
     case VertexType.React_RGL_Container:
       return [RGL.Container, props]
     case VertexType.React_RGL_Item:
-      return ['div', props]
+      return [
+        RGL.Item,
+        // Currently the react-grid-layout library, for some reason, re-renders the layout
+        // only if it detects a change in the key of the child, and doesn't care about the data-grid property
+        // So, a workaround is to incorporate the data-grid property into the key to make sure we rerender
+        // There is a fix here https://github.com/STRML/react-grid-layout/issues/718, but for some reason it's not merged into the main repo
+        {
+          ...props,
+          key: props['data-grid']
+            ? props.key + JSON.stringify(props['data-grid'])
+            : props.key,
+        },
+      ]
     case VertexType.React_RGL_ResponsiveContainer:
       return [
         RGL.ResponsiveContainer,

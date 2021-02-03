@@ -15,43 +15,26 @@ export const RenderChildren = (
   renderProps: object = {},
   handlers: DashboardHandlerProps,
 ): ReactNode | Array<ReactNode> => {
-  const children = node.children.reduce(
-    (Components: Array<ReactNode>, child: NodeA) => {
-      const [Child, props] = elementParameterFactory({
-        ...child,
-        handlers,
-      })
+  return node.children.map((child: NodeA) => {
+    // TODO: remove any cast
+    const [Child, props] = elementParameterFactory({
+      ...child,
+      handlers,
+    }) as any
 
-      // TODO: remove any cast
-      const ChildComponent: ReactNode = hasChildren(child)
-        ? React.createElement(
-            Child as any,
-            {
-              key: child.id,
-              ...props,
-              className: 'Builder-node',
-              // ...child.evalProps(oldRenderProps)
-            },
-            RenderChildren(
+    return (
+      <Child key={child.id} {...props} className="Builder-node">
+        {hasChildren(child)
+          ? RenderChildren(
               child,
               props,
               handlers,
               // child.nextRenderProps(oldRenderProps)
-            ),
-          )
-        : React.createElement(Child as any, {
-            key: child.id,
-            ...props,
-            className: 'Builder-node',
-            // ...child.evalProps(oldRenderProps),
-          })
-
-      return [...Components, ChildComponent]
-    },
-    [],
-  )
-
-  return children
+            )
+          : null}
+      </Child>
+    )
+  })
 }
 
 export const RenderComponents = (node: NodeA) => {
@@ -68,15 +51,11 @@ export const RenderComponents = (node: NodeA) => {
     type,
     props: node.props,
     handlers,
-  })
+  }) as any
 
   return (
-    <>
-      {React.createElement(
-        RootComponent as any,
-        props,
-        RenderChildren(node, {}, handlers),
-      )}
-    </>
+    <RootComponent {...props}>
+      {RenderChildren(node, {}, handlers)}
+    </RootComponent>
   )
 }
