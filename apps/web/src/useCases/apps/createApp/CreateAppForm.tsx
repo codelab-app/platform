@@ -38,7 +38,7 @@ export const CreateAppForm = (
       schema={CreateAppInputSchema}
       initialFormData={{ title: '' }}
       mutate={mutate}
-      onSubmitFailed={createNotificationHandler({
+      onSubmitError={createNotificationHandler({
         title: 'Error while registering',
         type: 'error',
       })}

@@ -1,54 +1,21 @@
-import { Button, Space } from 'antd'
-import React, { useRef } from 'react'
-import { SubmitController } from '../../../../../libs/frontend/src/components/form/json-schema/JsonSchemaForm-ref'
-import { CreatePageForm } from '../../useCases/pages/createPage/CreatePageForm'
-import { DeletePageButton } from '../../useCases/pages/deletePage/DeletePageButton'
-import { UpdatePageButton } from '../../useCases/pages/updatePage/UpdatePageButton'
-import { UpdatePageForm } from '../../useCases/pages/updatePage/UpdatePageForm'
-import { useBuilderLayout } from '../builderPanelState'
+import React from 'react'
+import { PageContainerCreate } from '../../useCases/pages/Page-container--create'
+import { PageContainerUpdateDelete } from '../../useCases/pages/Page-container--updateDelete'
+import { usePage } from '../../useCases/pages/usePage'
 import { PropsWithIds } from '@codelab/frontend'
 
 type BuilderDetails = PropsWithIds<'appId'>
 
 export const BuilderDetails = ({ appId }: BuilderDetails) => {
-  const layout = useBuilderLayout()
+  const { pageId } = usePage()
 
-  const submitRef = useRef<SubmitController | undefined>()
-
-  const action: any = ''
-  const pageId = ''
-
-  if (action === 'update') {
-    return (
-      <div style={{ margin: '1rem' }}>
-        <Space
-          align="end"
-          direction="horizontal"
-          style={{
-            width: '100%',
-            justifyContent: 'flex-end',
-          }}
-        >
-          <DeletePageButton
-            pageId={pageId}
-            appId={appId}
-            onSuccess={() => layout.details.toggle()}
-          />
-          <UpdatePageButton submitRef={submitRef} />
-        </Space>
-        <UpdatePageForm pageId={pageId} submitRef={submitRef} />
-      </div>
-    )
-  }
-
-  if (action === 'create') {
-    return (
-      <div style={{ margin: '1rem' }}>
-        <Button onClick={() => layout.details.toggle()}>Close</Button>
-        <CreatePageForm appId={appId} />
-      </div>
-    )
-  }
-
-  return null
+  return (
+    <>
+      {pageId ? (
+        <PageContainerUpdateDelete appId={appId} pageId={pageId} />
+      ) : (
+        <PageContainerCreate appId={appId} />
+      )}
+    </>
+  )
 }

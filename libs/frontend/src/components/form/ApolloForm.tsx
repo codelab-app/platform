@@ -12,7 +12,7 @@ export type ApolloFormUseCaseProps<TData extends object> = Omit<
   JsonSchemaUseCaseFormProps<TData>,
   'rjsfFormProps'
 > &
-  Pick<ApolloFormProps<TData, any>, 'onSubmitFailed' | 'onSubmitSuccessfully'>
+  Pick<ApolloFormProps<TData, any>, 'onSubmitError' | 'onSubmitSuccess'>
 
 export const ApolloForm = <
   TData extends object,
@@ -21,8 +21,8 @@ export const ApolloForm = <
   hideSubmitButton,
   mutate,
   initialFormData,
-  onSubmitSuccessfully,
-  onSubmitFailed,
+  onSubmitSuccess,
+  onSubmitError,
   ...props
 }: ApolloFormProps<TData, any>) => {
   const [localFormData, setLocalFormData] = useState<TData>(initialFormData)
@@ -38,14 +38,14 @@ export const ApolloForm = <
       })
         .then((r) => {
           // Pass up the event
-          callCallbackOrArrayOfCallbacks(onSubmitSuccessfully, r)
+          callCallbackOrArrayOfCallbacks(onSubmitSuccess, r)
 
           // Reset the form state
           setLocalFormData({ ...initialFormData })
         })
         // Pass up any errors too
         .catch((e) => {
-          callCallbackOrArrayOfCallbacks(onSubmitFailed, e)
+          callCallbackOrArrayOfCallbacks(onSubmitError, e)
         })
     )
   }

@@ -19,7 +19,7 @@ export const RegisterUserModal = () => {
       }}
       renderForm={() => (
         <RegisterUserForm
-          onSubmitSuccessfully={() => {
+          onSubmitSuccess={() => {
             // Close the modal when the execution finishes
             setState((s) => ({ ...s, modalVisible: undefined }))
           }}

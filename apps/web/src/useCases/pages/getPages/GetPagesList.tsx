@@ -1,8 +1,7 @@
 import { FileOutlined, RightOutlined, SettingOutlined } from '@ant-design/icons'
 import { List, Space } from 'antd'
 import React from 'react'
-import { useRecoilState } from 'recoil'
-import { pageDetailsState } from '../pageDetailsState'
+import { usePage } from '../usePage'
 import { PropsWithIds } from '@codelab/frontend'
 import { PageFragmentsFragment } from '@codelab/generated'
 
@@ -11,7 +10,7 @@ type GetPagesListProps = {
 } & PropsWithIds<'appId'>
 
 export const GetPagesList = ({ pages, appId }: GetPagesListProps) => {
-  const [pageDetails, setPageDetails] = useRecoilState(pageDetailsState)
+  const pageHook = usePage()
 
   return (
     <>
@@ -24,41 +23,15 @@ export const GetPagesList = ({ pages, appId }: GetPagesListProps) => {
               <FileOutlined />
               {page.title}
             </Space>
-            {pageDetails.pageId === page.id ? (
-              <RightOutlined
-                onClick={() =>
-                  setPageDetails({
-                    action: undefined,
-                    pageId: undefined,
-                  })
-                }
-              />
+            {pageHook.pageId === page.id ? (
+              // Currently opening page specific detail panel
+              <RightOutlined onClick={() => pageHook.resetPage()} />
             ) : (
-              <SettingOutlined
-                onClick={() =>
-                  setPageDetails({
-                    action: 'update',
-                    pageId: page.id,
-                  })
-                }
-              />
+              <SettingOutlined onClick={() => pageHook.updatePage(page.id)} />
             )}
           </List.Item>
         )}
       />
-      {/* {pages.map((page) => (
-        <div key={`${page.id}`}>
-          <Link
-            href={{
-              pathname: Page.PAGE_DETAIL.url,
-              query: { appId, pageId: page.id },
-            }}
-          >
-            <a>{page.title}</a>
-          </Link>
-
-        </div>
-      ))} */}
     </>
   )
 }

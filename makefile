@@ -20,23 +20,18 @@ build-dev:
 
 build-ci:
 	npx nx run-many \
-		--memoryLimit=8192 \
     --target=build \
 		--projects=api-codelab,web,tools-eslint-config-codelab,codelab-schematics \
     --parallel \
-    --maxWorkers=8 \
-		--verbose \
 		--skip-nx-cache
 
 build-prod:
 	npx nx run-many \
-		--memoryLimit=4096 \
     --target=build \
     --projects=web,api-gateway,api-services-props \
     --with-deps \
     --parallel \
-    --skip-nx-cache \
-    --maxWorkers=4
+    --skip-nx-cache
 
 #
 # GENERATE
@@ -44,11 +39,9 @@ build-prod:
 
 generate-ci:
 	npx nx run-many \
-		--memoryLimit=4096 \
     --target=build \
 		--projects=tools-generators-graphql,tools-generators-json-schema \
     --parallel \
-    --maxWorkers=8 \
 		--verbose \
 		--skip-nx-cache
 
@@ -176,11 +169,9 @@ unit-dev:
 
 unit-ci:
 	npx nx run-many \
-	--memoryLimit=8192 \
 	--testPathPattern=[^i].spec.ts \
 	--target=test \
 	--all \
-	--maxWorkers=8 \
 	--skip-nx-cache \
 	--verbose
 

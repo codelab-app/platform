@@ -10,7 +10,7 @@ export type ApolloFormProps<
   mutate: Apollo.MutationTuple<any, TVariables>[0] // Using the full object for fails to rerender the state of the parent component, so just pass in the mutate function
   initialFormData: TData
   /** Called after a successful mutation */
-  onSubmitSuccessfully?: CallbackOrArrayOfCallbacks<FetchResult<any>>
+  onSubmitSuccess?: CallbackOrArrayOfCallbacks<FetchResult<any>>
   /** Called after a failed mutation */
-  onSubmitFailed?: CallbackOrArrayOfCallbacks<any>
+  onSubmitError?: CallbackOrArrayOfCallbacks<any>
 }
