@@ -1,7 +1,7 @@
 import React from 'react'
 import { GetPageGql } from '../../../../../libs/generated/src/graphql.generated'
 import { AddChildVertexInputSchema } from '../../../../../libs/generated/src/json-schema.generated'
-import { ApolloForm } from '@codelab/frontend'
+import { ApolloForm, PropsWithIds } from '@codelab/frontend'
 import {
   AddChildVertexInput,
   UpdateVertexMutationVariables,
@@ -9,11 +9,10 @@ import {
   useAddChildVertexMutation,
 } from '@codelab/generated'
 
-export interface AddChildVertexFormProps {
+export type AddChildVertexFormProps = {
   vertex: VertexFragmentsFragment
   parentVertexId: string
-  pageId: string
-}
+} & PropsWithIds<'pageId'>
 
 export const AddChildVertexForm = ({
   pageId,

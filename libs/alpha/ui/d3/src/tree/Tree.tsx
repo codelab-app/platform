@@ -1,7 +1,7 @@
 import * as d3 from 'd3'
 import React, { useEffect, useRef } from 'react'
 import { updateNode } from './Tree-node'
-import './D3.scss'
+// import './D3.scss'
 
 export type D3TreeData = {
   label: string

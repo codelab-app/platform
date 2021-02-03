@@ -140,6 +140,7 @@ export type Mutation = {
   deleteVertex: Vertex
   updateEdge: Edge
   createPage: Page
+  updatePage: Page
   deletePage: Page
 }
 
@@ -197,6 +198,10 @@ export type MutationUpdateEdgeArgs = {
 
 export type MutationCreatePageArgs = {
   input: CreatePageInput
+}
+
+export type MutationUpdatePageArgs = {
+  input: UpdatePageInput
 }
 
 export type MutationDeletePageArgs = {
@@ -276,6 +281,11 @@ export type UpdateEdgeInput = {
 export type CreatePageInput = {
   title: Scalars['String']
   appId: Scalars['String']
+}
+
+export type UpdatePageInput = {
+  title?: Maybe<Scalars['String']>
+  id: Scalars['String']
 }
 
 export type DeletePageInput = {
@@ -440,6 +450,14 @@ export type GetPagesQueryVariables = Exact<{
 
 export type GetPagesQuery = { __typename?: 'Query' } & {
   getPages: Array<{ __typename?: 'Page' } & PageFragmentsFragment>
+}
+
+export type UpdatePageMutationVariables = Exact<{
+  input: UpdatePageInput
+}>
+
+export type UpdatePageMutation = { __typename?: 'Mutation' } & {
+  updatePage: { __typename?: 'Page' } & PageFragmentsFragment
 }
 
 export type PageFragmentsFragment = { __typename?: 'Page' } & Pick<
@@ -691,6 +709,14 @@ export const GetPage = gql`
 export const GetPages = gql`
   query GetPages($input: GetPagesInput!) {
     getPages(input: $input) {
+      ...pageFragments
+    }
+  }
+  ${PageFragments}
+`
+export const UpdatePage = gql`
+  mutation UpdatePage($input: UpdatePageInput!) {
+    updatePage(input: $input) {
       ...pageFragments
     }
   }
@@ -1643,6 +1669,55 @@ export type GetPagesLazyQueryHookResult = ReturnType<
 export type GetPagesQueryResult = Apollo.QueryResult<
   GetPagesQuery,
   GetPagesQueryVariables
+>
+export const UpdatePageGql = gql`
+  mutation UpdatePage($input: UpdatePageInput!) {
+    updatePage(input: $input) {
+      ...pageFragments
+    }
+  }
+  ${PageFragmentsFragmentDoc}
+`
+export type UpdatePageMutationFn = Apollo.MutationFunction<
+  UpdatePageMutation,
+  UpdatePageMutationVariables
+>
+
+/**
+ * __useUpdatePageMutation__
+ *
+ * To run a mutation, you first call `useUpdatePageMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdatePageMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updatePageMutation, { data, loading, error }] = useUpdatePageMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdatePageMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdatePageMutation,
+    UpdatePageMutationVariables
+  >,
+) {
+  return Apollo.useMutation<UpdatePageMutation, UpdatePageMutationVariables>(
+    UpdatePageGql,
+    baseOptions,
+  )
+}
+export type UpdatePageMutationHookResult = ReturnType<
+  typeof useUpdatePageMutation
+>
+export type UpdatePageMutationResult = Apollo.MutationResult<UpdatePageMutation>
+export type UpdatePageMutationOptions = Apollo.BaseMutationOptions<
+  UpdatePageMutation,
+  UpdatePageMutationVariables
 >
 export const DeleteUserGql = gql`
   mutation DeleteUser($input: DeleteUserInput!) {

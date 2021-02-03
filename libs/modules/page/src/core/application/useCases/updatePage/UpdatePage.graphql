@@ -1,0 +1,5 @@
+mutation UpdatePage($input: UpdatePageInput!) {
+  updatePage(input: $input) {
+    ...pageFragments
+  }
+}

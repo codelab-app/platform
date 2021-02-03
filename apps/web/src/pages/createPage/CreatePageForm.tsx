@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router'
 import React from 'react'
 import { ApolloForm, JsonSchemaUseCaseFormProps } from '@codelab/frontend'
 import {
@@ -9,12 +8,10 @@ import {
 } from '@codelab/generated'
 import { CreatePageInput } from 'libs/modules/page/src/core/application/useCases/createPage/CreatePageInput'
 
-export const CreatePageForm = (
-  props: JsonSchemaUseCaseFormProps<CreatePageInput>,
-) => {
-  const { query } = useRouter()
-  const appId = `${query.appId}`
-
+export const CreatePageForm = ({
+  appId,
+  ...props
+}: JsonSchemaUseCaseFormProps<CreatePageInput> & { appId: string }) => {
   const [mutate] = useCreatePageMutation({
     refetchQueries: [
       {

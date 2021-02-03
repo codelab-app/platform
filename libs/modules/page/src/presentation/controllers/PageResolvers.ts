@@ -16,6 +16,8 @@ import { GetPageInput } from '../../core/application/useCases/getPage/GetPageInp
 import { GetPageService } from '../../core/application/useCases/getPage/GetPageService'
 import { GetPagesInput } from '../../core/application/useCases/getPages/GetPagesInput'
 import { GetPagesService } from '../../core/application/useCases/getPages/GetPagesService'
+import { UpdatePageInput } from '../../core/application/useCases/updatePage/UpdatePageInput'
+import { UpdatePageService } from '../../core/application/useCases/updatePage/UpdatePageService'
 import { Page } from '../../core/domain/Page'
 import { CurrentUser, GqlAuthGuard, PrismaService } from '@codelab/backend'
 import { User } from '@codelab/modules/user'
@@ -27,6 +29,7 @@ export class PageResolvers {
     private readonly getPagesService: GetPagesService,
     private readonly getPageService: GetPageService,
     private readonly createPageService: CreatePageService,
+    private readonly updatePageService: UpdatePageService,
     private readonly deletePageService: DeletePageService,
     private readonly prismaService: PrismaService,
   ) {}
@@ -35,6 +38,12 @@ export class PageResolvers {
   @UseGuards(GqlAuthGuard)
   createPage(@Args('input') input: CreatePageInput) {
     return this.createPageService.execute(input)
+  }
+
+  @Mutation(() => Page)
+  @UseGuards(GqlAuthGuard)
+  updatePage(@Args('input') input: UpdatePageInput) {
+    return this.updatePageService.execute(input)
   }
 
   @Query(() => [Page])

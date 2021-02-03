@@ -7,13 +7,10 @@ import { addChildVertexState } from '../addChildVertex/AddChildVertexState'
 import { DeleteVertexButton } from '../deleteVertex/DeleteVertexButton'
 import { MoveVertexTargets } from '../moveVertex/MoveVertexTargets'
 import { UpdateVertexForm } from '../updateVertex/UpdateVertexForm'
+import { PropsWithIds } from '@codelab/frontend'
 import { useGetVertexQuery } from '@codelab/generated'
 
-interface GetVertexDetailsProps {
-  vertexId: string
-}
-
-export const GetVertexDetails = ({ vertexId }: GetVertexDetailsProps) => {
+export const GetVertexDetails = ({ vertexId }: PropsWithIds<'vertexId'>) => {
   const { query } = useRouter()
   const [addChildVertex, setAddChildVertex] = useRecoilState(
     addChildVertexState,

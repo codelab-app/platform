@@ -8,12 +8,12 @@ import { RecoilRoot } from 'recoil'
 import { Dashboard } from '../src/dashboard/Dashboard'
 import { HomeLayout } from '../src/home'
 import { LoginUserModal, RegisterUserModal } from '../src/user'
-import { useGetMe } from '../src/user/useGetMe'
 import { PageType, getApolloClient, isPage, mapProps } from '@codelab/frontend'
-import './App.less'
+// import './App.less'
 import './App.scss'
 
 require('highlight.js/styles/monokai-sublime.css')
+require('antd/dist/antd.css')
 require('react-grid-layout/css/styles.css')
 require('react-resizable/css/styles.css')
 

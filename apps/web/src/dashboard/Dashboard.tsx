@@ -1,5 +1,8 @@
 import { Layout } from 'antd'
-import React from 'react'
+import React, { PropsWithChildren } from 'react'
+import { useRecoilState } from 'recoil'
+import { DashboardDetails } from './details/Dashboard-details'
+import { dashboardDetailsState } from './details/Dashboard-details--state'
 import { DashboardDrawer } from './drawer/Dashboard-drawer'
 import {
   DashboardNavigation,
@@ -9,49 +12,56 @@ import { DashboardNavigationContainer } from './navigation/Dashboard-navigation-
 import { DashboardTree, DashboardTreeProps } from './navigation/Dashboard-tree'
 import { DashboardTreeContainer } from './navigation/Dashboard-tree--container'
 import { DashboardMenuSidebar } from './sidebar/Dashboard-menu--sidebar'
-import { contentStyle } from '@codelab/frontend'
+import { PropsWithIds, contentStyle, withRouterGuard } from '@codelab/frontend'
 
 const { Sider, Content } = Layout
 
-export interface DashboardLayoutProps {
+export type DashboardLayoutProps = {
   sidebar?: DashboardSidebarProps
-}
+} & PropsWithIds<'appId'>
 
 export type DashboardSidebarProps = {
   hide?: boolean
 }
 
-export const Dashboard: React.FunctionComponent<DashboardLayoutProps> = ({
-  children,
-  sidebar,
-}) => {
-  // const cy = CytoscapeService.fromGraph(graph)
+export const Dashboard = withRouterGuard(['appId'])(
+  ({ children, sidebar, appId }: PropsWithChildren<DashboardLayoutProps>) => {
+    const [dashboardDetails, setDashboardDetails] = useRecoilState(
+      dashboardDetailsState,
+    )
+    const { pageId } = dashboardDetails
 
-  // const treeData = CytoscapeService.antdTree(cy.elements().roots().first())
-
-  return (
-    <Layout style={{ height: '100%' }}>
-      {sidebar?.hide ? null : (
-        <>
-          <DashboardDrawer />
-          <Sider theme="light" collapsed>
-            <DashboardMenuSidebar />
-          </Sider>
-          <Sider theme="light">
-            <DashboardNavigationContainer>
-              {({ appId, pages }: DashboardNavigationProps) => (
-                <DashboardNavigation appId={appId} pages={pages} />
-              )}
-            </DashboardNavigationContainer>
-            <DashboardTreeContainer>
-              {({ data }: DashboardTreeProps) => <DashboardTree data={data} />}
-            </DashboardTreeContainer>
-          </Sider>
-        </>
-      )}
-      <Layout>
-        <Content style={contentStyle}>{children}</Content>
+    return (
+      <Layout style={{ height: '100%' }}>
+        {sidebar?.hide ? null : (
+          <>
+            <DashboardDrawer />
+            <Sider theme="light" collapsed collapsedWidth={40}>
+              <DashboardMenuSidebar />
+            </Sider>
+            <Sider theme="light" width={160}>
+              <DashboardNavigationContainer>
+                {({ pages }: DashboardNavigationProps) => (
+                  <DashboardNavigation appId={appId} pages={pages} />
+                )}
+              </DashboardNavigationContainer>
+              <DashboardTreeContainer>
+                {({ data }: DashboardTreeProps) => (
+                  <DashboardTree data={data} />
+                )}
+              </DashboardTreeContainer>
+            </Sider>
+            {pageId ? (
+              <Sider theme="light" width={320}>
+                <DashboardDetails appId={appId} pageId={pageId} />
+              </Sider>
+            ) : null}
+          </>
+        )}
+        <Layout>
+          <Content style={contentStyle}>{children}</Content>
+        </Layout>
       </Layout>
-    </Layout>
-  )
-}
+    )
+  },
+)

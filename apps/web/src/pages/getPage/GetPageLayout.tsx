@@ -6,17 +6,20 @@ import { useRecoilState } from 'recoil'
 import { makeD3 } from '../../../../../libs/alpha/shared/factory/src/cytoscape.js/factory'
 import { dashboardDrawerState } from '../../dashboard/drawer/Dashboard-drawer'
 import { D3Graph } from '@codelab/alpha/ui/d3'
-import { CytoscapeService, RenderComponents } from '@codelab/frontend'
 import {
-  GetGraphQuery,
+  CytoscapeService,
+  PropsWithIds,
+  RenderComponents,
+} from '@codelab/frontend'
+import {
   GetPageGql,
+  GraphFragmentsFragment,
   useAddChildVertexMutation,
 } from '@codelab/generated'
 
-interface GetPageLayoutProps {
-  graph: GetGraphQuery['getGraph']
-  pageId: string
-}
+type GetPageLayoutProps = {
+  graph: GraphFragmentsFragment
+} & PropsWithIds<'pageId'>
 
 export const GetPageLayout = ({ graph, pageId }: GetPageLayoutProps) => {
   const [dashboardDrawer, setDashboardDrawer] = useRecoilState(

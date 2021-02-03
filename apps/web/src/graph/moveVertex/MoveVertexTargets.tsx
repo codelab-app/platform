@@ -1,5 +1,6 @@
 import { Button, Select } from 'antd'
 import React, { useState } from 'react'
+import { PropsWithIds } from '@codelab/frontend'
 import {
   GetPageGql,
   VertexFragmentsFragment,
@@ -9,10 +10,9 @@ import {
 
 const { Option } = Select
 
-interface MoveVertexTargetsProps {
-  pageId: string
+type MoveVertexTargetsProps = {
   sourceVertex: VertexFragmentsFragment
-}
+} & PropsWithIds<'pageId'>
 
 /**
  * Get the potential move targets of a current vertex

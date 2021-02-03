@@ -1,10 +1,11 @@
 import React from 'react'
 import { useRecoilState } from 'recoil'
+import { PropsWithIds } from '../../../../../libs/frontend/src/interfaces/PropsWithIds'
 import { CreatePageForm } from './CreatePageForm'
 import { pageFormState } from './pageFormState'
 import { ModalForm } from '@codelab/frontend'
 
-export const CreatePageModal = () => {
+export const CreatePageModal = ({ appId }: PropsWithIds<'appId'>) => {
   const [pageForm, setPageForm] = useRecoilState(pageFormState)
 
   return (
@@ -16,7 +17,7 @@ export const CreatePageModal = () => {
         onCancel: () => setPageForm({ visible: false }),
         onOk: () => setPageForm({ visible: false }),
       }}
-      renderForm={() => <CreatePageForm />}
+      renderForm={() => <CreatePageForm appId={appId} />}
     />
   )
 }

@@ -1,6 +1,6 @@
 import { merge } from 'lodash'
 import React from 'react'
-import { ApolloForm } from '@codelab/frontend'
+import { ApolloForm, PropsWithIds } from '@codelab/frontend'
 import {
   GetPageGql,
   ReactGridItemSchema,
@@ -11,10 +11,9 @@ import {
   useUpdateVertexMutation,
 } from '@codelab/generated'
 
-interface UpdateVertexFormProps {
+type UpdateVertexFormProps = {
   vertex: VertexFragmentsFragment
-  pageId: string
-}
+} & PropsWithIds<'pageId'>
 
 export const UpdateVertexForm = ({ vertex, pageId }: UpdateVertexFormProps) => {
   const [mutate] = useUpdateVertexMutation({

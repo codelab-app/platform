@@ -6,16 +6,18 @@ export interface SubmitController {
 }
 
 export const setSubmitControllerRef = (
-  submitBtnRef:
+  submitButtonRef:
     | React.MutableRefObject<SubmitController | undefined>
     | undefined,
-) => (sbtn: HTMLButtonElement | null) => {
-  if (!submitBtnRef) return
+) => (submitButton: HTMLButtonElement | null) => {
+  if (!submitButtonRef) {
+    return
+  }
 
   // eslint-disable-next-line no-param-reassign
-  submitBtnRef.current = sbtn
+  submitButtonRef.current = submitButton
     ? {
-        submit: () => sbtn.click(),
+        submit: () => submitButton.click(),
       }
     : undefined
 }

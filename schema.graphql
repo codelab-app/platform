@@ -95,6 +95,7 @@ type Mutation {
   deleteVertex(input: DeleteVertexInput!): Vertex!
   updateEdge(input: UpdateEdgeInput!): Edge!
   createPage(input: CreatePageInput!): Page!
+  updatePage(input: UpdatePageInput!): Page!
   deletePage(input: DeletePageInput!): Page!
 }
 
@@ -171,6 +172,11 @@ input UpdateEdgeInput {
 input CreatePageInput {
   title: String!
   appId: String!
+}
+
+input UpdatePageInput {
+  title: String
+  id: String!
 }
 
 input DeletePageInput {
