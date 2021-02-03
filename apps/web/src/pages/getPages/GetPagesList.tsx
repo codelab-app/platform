@@ -1,14 +1,10 @@
 import { FileOutlined, RightOutlined, SettingOutlined } from '@ant-design/icons'
 import { List, Space } from 'antd'
-import React, { useState } from 'react'
+import React from 'react'
 import { useRecoilState } from 'recoil'
 import { dashboardDetailsState } from '../../dashboard/details/Dashboard-details--state'
 import { PropsWithIds } from '@codelab/frontend'
-import {
-  GetPagesGql,
-  PageFragmentsFragment,
-  useDeletePageMutation,
-} from '@codelab/generated'
+import { PageFragmentsFragment } from '@codelab/generated'
 
 type GetPagesListProps = {
   pages: Array<PageFragmentsFragment>
@@ -18,22 +14,6 @@ export const GetPagesList = ({ pages, appId }: GetPagesListProps) => {
   const [dashboardDetails, setDashboardDetails] = useRecoilState(
     dashboardDetailsState,
   )
-  const [iconVisibility, toggleIconVisibility] = useState({
-    key: null,
-  })
-
-  const [deletePage] = useDeletePageMutation({
-    refetchQueries: [
-      {
-        query: GetPagesGql,
-        variables: {
-          input: {
-            appId,
-          },
-        },
-      },
-    ],
-  })
 
   return (
     <>

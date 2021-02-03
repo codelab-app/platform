@@ -9,10 +9,8 @@ import {
   DashboardNavigationProps,
 } from './navigation/Dashboard-navigation'
 import { DashboardNavigationContainer } from './navigation/Dashboard-navigation--container'
-import { DashboardTree, DashboardTreeProps } from './navigation/Dashboard-tree'
-import { DashboardTreeContainer } from './navigation/Dashboard-tree--container'
 import { DashboardMenuSidebar } from './sidebar/Dashboard-menu--sidebar'
-import { PropsWithIds, contentStyle, withRouterGuard } from '@codelab/frontend'
+import { PropsWithIds, contentStyle } from '@codelab/frontend'
 
 const { Sider, Content } = Layout
 
@@ -24,44 +22,44 @@ export type DashboardSidebarProps = {
   hide?: boolean
 }
 
-export const Dashboard = withRouterGuard(['appId'])(
-  ({ children, sidebar, appId }: PropsWithChildren<DashboardLayoutProps>) => {
-    const [dashboardDetails, setDashboardDetails] = useRecoilState(
-      dashboardDetailsState,
-    )
-    const { pageId } = dashboardDetails
+export const Dashboard = ({
+  children,
+  sidebar,
+  appId,
+}: PropsWithChildren<DashboardLayoutProps>) => {
+  const [dashboardDetails, setDashboardDetails] = useRecoilState(
+    dashboardDetailsState,
+  )
+  const { pageId } = dashboardDetails
 
-    return (
-      <Layout style={{ height: '100%' }}>
-        {sidebar?.hide ? null : (
-          <>
-            <DashboardDrawer />
-            <Sider theme="light" collapsed collapsedWidth={40}>
-              <DashboardMenuSidebar />
+  return (
+    <Layout style={{ height: '100%' }}>
+      {sidebar?.hide ? null : (
+        <>
+          <DashboardDrawer />
+          <Sider theme="light" collapsed collapsedWidth={40}>
+            <DashboardMenuSidebar />
+          </Sider>
+          <Sider theme="light" width={160}>
+            <DashboardNavigationContainer>
+              {({ pages }: DashboardNavigationProps) => (
+                <DashboardNavigation appId={appId} pages={pages} />
+              )}
+            </DashboardNavigationContainer>
+            {/* <DashboardTreeContainer>
+              {({ data }: DashboardTreeProps) => <DashboardTree data={data} />}
+            </DashboardTreeContainer> */}
+          </Sider>
+          {pageId ? (
+            <Sider theme="light" width={320}>
+              <DashboardDetails appId={appId} pageId={pageId} />
             </Sider>
-            <Sider theme="light" width={160}>
-              <DashboardNavigationContainer>
-                {({ pages }: DashboardNavigationProps) => (
-                  <DashboardNavigation appId={appId} pages={pages} />
-                )}
-              </DashboardNavigationContainer>
-              <DashboardTreeContainer>
-                {({ data }: DashboardTreeProps) => (
-                  <DashboardTree data={data} />
-                )}
-              </DashboardTreeContainer>
-            </Sider>
-            {pageId ? (
-              <Sider theme="light" width={320}>
-                <DashboardDetails appId={appId} pageId={pageId} />
-              </Sider>
-            ) : null}
-          </>
-        )}
-        <Layout>
-          <Content style={contentStyle}>{children}</Content>
-        </Layout>
+          ) : null}
+        </>
+      )}
+      <Layout>
+        <Content style={contentStyle}>{children}</Content>
       </Layout>
-    )
-  },
-)
+    </Layout>
+  )
+}
