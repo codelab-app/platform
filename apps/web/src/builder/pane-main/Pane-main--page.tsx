@@ -15,7 +15,7 @@ export const PaneMainPage = () => {
     <>
       <Space align="baseline">
         <h2>Pages</h2>
-        <CloseOutlined onClick={() => layout.navigation.toggle()} />
+        <CloseOutlined onClick={() => layout.setPane('none')} />
         <CreatePageButton />
       </Space>
       <GetPagesList pages={appHook.pages} appId={appHook.appId} />

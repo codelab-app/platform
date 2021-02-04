@@ -18,6 +18,11 @@ export class CreateAppService
               id: user.id,
             },
           },
+          pages: {
+            create: {
+              title: 'Home',
+            },
+          },
         },
       })
     } catch (e) {

@@ -2999,20 +2999,20 @@
     call-me-maybe "^1.0.1"
     glob-to-regexp "^0.3.0"
 
-"@nestjs/common@7.6.6":
-  version "7.6.6"
-  resolved "https://registry.yarnpkg.com/@nestjs/common/-/common-7.6.6.tgz#e75b207cb41f9b7480e6b5ad805d6b22188e78fd"
-  integrity sha512-aKnNzqHmIhvbHpG2lTBEiJ6gPFWeBGoTl93TOTKyQJtpUPMNZkVERnVIWpAceDitHx2xSVnCiU3Uo1xt5B4y8w==
+"@nestjs/common@7.6.11":
+  version "7.6.11"
+  resolved "https://registry.yarnpkg.com/@nestjs/common/-/common-7.6.11.tgz#56b98265a96217e5adad1f3a39cce198592e86cd"
+  integrity sha512-DPBqoORDJC9xO/c83ZXNdUk9rIOLZ1Joqt8hYVtGROMIt7+s4zdbiUOWbNLPhUwluIVczYt4bFjhoU6HWoePgA==
   dependencies:
     axios "0.21.1"
     iterare "1.2.1"
     tslib "2.1.0"
     uuid "8.3.2"
 
-"@nestjs/config@0.6.2":
-  version "0.6.2"
-  resolved "https://registry.yarnpkg.com/@nestjs/config/-/config-0.6.2.tgz#484c200d2d7177cb9e4a0ef9ec3863e39595bbeb"
-  integrity sha512-vn7MWw7SGYyaSBqdSx6FjVhumFg0XK97gcTnaznKKzm1OZychuEjk2QIEFuehfQvdWtppHXOha0TgVKSGvODQg==
+"@nestjs/config@0.6.3":
+  version "0.6.3"
+  resolved "https://registry.yarnpkg.com/@nestjs/config/-/config-0.6.3.tgz#ab0c0dccf79696509ced463a888567219c2e5b7d"
+  integrity sha512-JxvvUpmH0/WOrTB+zh8dEkxSUQXhB7V3d/qeQXyCnMiEFjaq89+fNFztpWjz4DlOfdS4/eYTzIEy9PH2uGnfzA==
   dependencies:
     dotenv "8.2.0"
     dotenv-expand "5.1.0"
@@ -3021,10 +3021,10 @@
     lodash.set "4.3.2"
     uuid "8.3.2"
 
-"@nestjs/core@7.6.6":
-  version "7.6.6"
-  resolved "https://registry.yarnpkg.com/@nestjs/core/-/core-7.6.6.tgz#84f070375840e3efdefd17a4530f26e52ecbb8d6"
-  integrity sha512-e7dY4HICvhzJmwS7DJ6UHuXkb7oAowzd37nqZIgtW3d0dYv7Fg6AGwwAiQlJInefDTjHeK3Fv3n2gK/KBSVHTw==
+"@nestjs/core@7.6.11":
+  version "7.6.11"
+  resolved "https://registry.yarnpkg.com/@nestjs/core/-/core-7.6.11.tgz#c0e708ea51cd53c270dcba5e836c3ca643aeb52b"
+  integrity sha512-Knjzy755Er2Nainv/kNqnfQVz8JnCFmqOZbMOZ4IYHzUcfM+Qt/w5rAQQRwRjmpqbyCte4FcVVbv0cU2jBOb/Q==
   dependencies:
     "@nuxtjs/opencollective" "0.3.2"
     fast-safe-stringify "2.0.7"
@@ -3080,10 +3080,10 @@
   resolved "https://registry.yarnpkg.com/@nestjs/passport/-/passport-7.1.5.tgz#b32fc0492008d73ebae4327fbc0012a738a83664"
   integrity sha512-Hu9hPxTdBZA0C4GrWTsSflzwsJ99oAk9jqAwpcszdFNqfjMjkPGuCM9QsVZbBP2bE8fxrVrPsNOILS6puY8e/A==
 
-"@nestjs/platform-express@7.6.6":
-  version "7.6.6"
-  resolved "https://registry.yarnpkg.com/@nestjs/platform-express/-/platform-express-7.6.6.tgz#c2e2c7b67dc1d9a9ea086d7c6eb593373703c03e"
-  integrity sha512-5MjPeoMoXbshxdkeCs6vS5yPBeiOAnrb2BBl+nmbEPuFYwGfBgbVqGijOeSNMcjcVM34KwxYTdl/YWeiD1MXNA==
+"@nestjs/platform-express@7.6.11":
+  version "7.6.11"
+  resolved "https://registry.yarnpkg.com/@nestjs/platform-express/-/platform-express-7.6.11.tgz#4e12b179cd683f90d2fc91af1611edbafeab230d"
+  integrity sha512-YNlkhoNfu9QswnIQ0Syzzbxy7CKR3kp4+t8SDX4Pz5ZvJ/5NDQzUHTEg3QUoh8L4IG2/nXHC/gUICQP/fuovJw==
   dependencies:
     body-parser "1.19.0"
     cors "2.8.5"
@@ -3111,10 +3111,10 @@
     fs-extra "9.0.1"
     pluralize "8.0.0"
 
-"@nestjs/testing@7.6.6":
-  version "7.6.6"
-  resolved "https://registry.yarnpkg.com/@nestjs/testing/-/testing-7.6.6.tgz#5b907582a862d2de0cec049cd14d827f6a6a84ff"
-  integrity sha512-RNPv+/f/ANdPkAqTPQ0jXG/WIOOVbbCMyvo4LrYa+l3QXiaX1M+vOJt6YURe3f/JADBmfum9mi44JikEyJw7ug==
+"@nestjs/testing@7.6.11":
+  version "7.6.11"
+  resolved "https://registry.yarnpkg.com/@nestjs/testing/-/testing-7.6.11.tgz#877c4f676be72a8166e95328a995408d5882f37a"
+  integrity sha512-wSJcXo5dO5lf2PTYTw1gfT9C0aZhFJd9VfN4dsZYS8nRqDhwT0V3VF7FP6Rrjk2QCtw0PNprI3gozmNvx+oDfA==
   dependencies:
     optional "0.1.4"
     tslib "2.1.0"
@@ -3781,12 +3781,12 @@
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.6.0.tgz#f022195afdfc942e088ee2101285a1d31c7d727f"
   integrity sha512-cPqjjzuFWNK3BSKLm0abspP0sp/IGOli4p5I5fKFAzdS8fvjdOwDCfZqAaIiXd9lPkOWi3SUUfZof3hEb7J/uw==
 
-"@prisma/cli@2.15.0":
-  version "2.15.0"
-  resolved "https://registry.yarnpkg.com/@prisma/cli/-/cli-2.15.0.tgz#a979a67dbd606a966cf475686170128562590713"
-  integrity sha512-sF2mgn5oH5fL9/CKxS0tqojf0rK2BKODlEUqL+2s3YZqvJRSt4iFpiyjgajyd0wyTyv1k9LDHTV0yOD1mXDBsA==
+"@prisma/cli@2.16.0":
+  version "2.16.0"
+  resolved "https://registry.yarnpkg.com/@prisma/cli/-/cli-2.16.0.tgz#78bc00ac31495a40de27dc4e7822e748d07aef83"
+  integrity sha512-sgZVHyTN8tC8rneJ17+p8XWoS2bzt1BBADAf2rbvl5sQpVQo7YD4cGZHJS01i+tOlGb05jGAyY5NvuHI5251dw==
   dependencies:
-    "@prisma/engines" "2.15.0-25.e51dc3b5a9ee790a07104bec1c9477d51740fe54"
+    "@prisma/engines" "2.16.0-43.a973e24a4e5194f8fe3301bfa7ff982b24f97c05"
 
 "@prisma/client@2.16.0":
   version "2.16.0"
@@ -3800,10 +3800,10 @@
   resolved "https://registry.yarnpkg.com/@prisma/engines-version/-/engines-version-2.16.0-44.854c8ba7f0dce66f115af36af24e66989a8c02a1.tgz#6df1a9a9f4c711e18861be2de4c4f0e363d0aae9"
   integrity sha512-/gcqWJDXoo0vsYi7fhdhdyjfMXxJPjKl8K7oc/k2BH7IQuXUB1A+ZnFgqRcT/rKuyU4xH8+N+l+C4boWlqYvgQ==
 
-"@prisma/engines@2.15.0-25.e51dc3b5a9ee790a07104bec1c9477d51740fe54":
-  version "2.15.0-25.e51dc3b5a9ee790a07104bec1c9477d51740fe54"
-  resolved "https://registry.yarnpkg.com/@prisma/engines/-/engines-2.15.0-25.e51dc3b5a9ee790a07104bec1c9477d51740fe54.tgz#3093ace7c09cf694214727c4e67109f2a2d8855a"
-  integrity sha512-AgPxAWtwYhhTNEEsV4lK63HTe9z0GAGL3ofMr2B0TncACmzi9lhdun9TTNie38Oy/3DLfr71TUHKUpV8QjOKUw==
+"@prisma/engines@2.16.0-43.a973e24a4e5194f8fe3301bfa7ff982b24f97c05":
+  version "2.16.0-43.a973e24a4e5194f8fe3301bfa7ff982b24f97c05"
+  resolved "https://registry.yarnpkg.com/@prisma/engines/-/engines-2.16.0-43.a973e24a4e5194f8fe3301bfa7ff982b24f97c05.tgz#f3cbfe5aed6ec437fe30c5b6a503e925cf86088a"
+  integrity sha512-vwZhfa/w+2mzoKMquCogpegLKuZnu/RmhVMDUYxuSSw8o+tjanYpuvJYImioDZ+FoU1vTawxqMc4kfD1yKYRlA==
 
 "@prisma/engines@2.16.0-44.854c8ba7f0dce66f115af36af24e66989a8c02a1":
   version "2.16.0-44.854c8ba7f0dce66f115af36af24e66989a8c02a1"
@@ -13421,7 +13421,12 @@ graphql-ws@3.1.0:
   resolved "https://registry.yarnpkg.com/graphql-ws/-/graphql-ws-3.1.0.tgz#cd09d385a21ab88af4c226da79c19351df9b27e8"
   integrity sha512-zbex3FSiFz0iRgfkzDNWpOY/sYWoX+iZ5XUhakaDwOh99HSuk8rPt5suuxdXUVzEg5TGQ9rwzNaz/+mTPtS0yg==
 
-graphql@15.3.0, graphql@^15.3.0:
+graphql@15.5.0:
+  version "15.5.0"
+  resolved "https://registry.yarnpkg.com/graphql/-/graphql-15.5.0.tgz#39d19494dbe69d1ea719915b578bf920344a69d5"
+  integrity sha512-OmaM7y0kaK31NKG31q4YbD2beNYa6jBBKtMFT6gLYJljHLJr42IqJ8KX08u3Li/0ifzTU5HjmoOOrwa5BRLeDA==
+
+graphql@^15.3.0:
   version "15.3.0"
   resolved "https://registry.yarnpkg.com/graphql/-/graphql-15.3.0.tgz#3ad2b0caab0d110e3be4a5a9b2aa281e362b5278"
   integrity sha512-GTCJtzJmkFLWRfFJuoo9RWWa/FfamUHgiFosxi/X1Ani4AVWbeyBenZTNX6dM+7WSbbFfTo/25eh0LLkwHMw2w==

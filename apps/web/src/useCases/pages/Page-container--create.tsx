@@ -12,7 +12,7 @@ export const PageContainerCreate = ({ appId }: PropsWithIds<'appId'>) => {
   return (
     <div style={{ margin: '1rem' }}>
       <Space style={{ width: '100%', justifyContent: 'flex-end' }}>
-        <Button onClick={() => layout.details.toggle()}>Close</Button>
+        <Button onClick={() => layout.setPane('detail')}>Close</Button>
         <Button type="primary" onClick={() => submitRef.current?.submit()}>
           Add
         </Button>
@@ -20,7 +20,7 @@ export const PageContainerCreate = ({ appId }: PropsWithIds<'appId'>) => {
       <CreatePageForm
         appId={appId}
         submitRef={submitRef}
-        onSubmitSuccess={() => layout.details.toggle(false)}
+        onSubmitSuccess={() => layout.setPane('detail')}
       />
     </div>
   )

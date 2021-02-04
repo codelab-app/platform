@@ -28,7 +28,7 @@ export const usePage = (): UsePage => {
   const [page, setPage] = useRecoilState(pageState)
 
   const createPage = () => {
-    layout.details.toggle(true)
+    layout.setPane('detail')
 
     return setPage({
       pageId: undefined,
@@ -36,7 +36,7 @@ export const usePage = (): UsePage => {
   }
 
   const updatePage = (pageId: string) => {
-    layout.details.toggle(true)
+    layout.setPane('detail')
 
     return setPage({
       pageId,
@@ -44,7 +44,7 @@ export const usePage = (): UsePage => {
   }
 
   const resetPage = () => {
-    layout.details.toggle(false)
+    layout.setPane('none')
     setPage({ pageId: undefined })
   }
 

@@ -1,74 +1,46 @@
-import { useState } from 'react'
 import { atom, useRecoilState } from 'recoil'
 
-type VisibilityState = {
-  visible: boolean
-}
-
-export const builderPaneMainState = atom<VisibilityState>({
-  key: 'pane-main',
-  default: {
-    visible: false,
-  },
-})
-
-export const builderPaneDetailsState = atom<VisibilityState>({
-  key: 'pain-details',
-  default: {
-    visible: false,
-  },
-})
-
-type BuilderLayout = {
-  tab: 'component' | 'page' | 'tree'
-  pane: 'main' | 'detail'
-}
+type BuilderTabs = 'component' | 'page' | 'tree'
+type BuilderPane = 'main' | 'detail' | 'both' | 'none'
 
 interface UseBuilderLayout {
-  navigation: {
-    visible: boolean
-    toggle(visible?: boolean): void
-  }
-  details: {
-    visible: boolean
-    toggle(visible?: boolean): void
-  }
+  setTab(name: BuilderTabs): void
+  setPane(name: BuilderPane): void
+  tab: BuilderTabs
+  pane: BuilderPane
 }
 
+const builderTabState = atom<BuilderTabs>({
+  key: 'builderTab',
+  default: 'page',
+})
+
+const builderPaneState = atom<BuilderPane>({
+  key: 'builderPane',
+  default: 'none',
+})
+
 export const useBuilderLayout = (): UseBuilderLayout => {
-  const [paneMainState, setPaneMainState] = useRecoilState(builderPaneMainState)
-  const [paneDetailsState, setPaneDetailsState] = useRecoilState(
-    builderPaneDetailsState,
-  )
-  const [tab, setTab] = useState()
+  const [tab, _setTab] = useRecoilState<BuilderTabs>(builderTabState)
+  const [pane, _setPane] = useRecoilState<BuilderPane>(builderPaneState)
+
+  const setTab = (name: BuilderTabs) => {
+    // If same tab
+    if (tab === name) {
+      pane === 'none' ? _setPane('main') : _setPane('none')
+    }
+
+    _setTab(name)
+  }
+
+  const setPane = (name: BuilderPane) => {
+    _setPane(name)
+  }
 
   return {
-    navigation: {
-      visible: paneMainState.visible,
-      /**
-       * When we close the `navigation panel`, we want to close the details as well
-       */
-      toggle: (visible?: boolean) => {
-        setPaneMainState({
-          visible: visible ?? !paneMainState.visible,
-        })
-
-        /**
-         * When we close the `navigation panel`, we want to close the details as well
-         */
-        if (paneMainState.visible) {
-          setPaneDetailsState({
-            visible: false,
-          })
-        }
-      },
-    },
-    details: {
-      visible: paneDetailsState.visible,
-      toggle: (visible?: boolean) =>
-        setPaneDetailsState({
-          visible: visible ?? !paneDetailsState.visible,
-        }),
-    },
+    setTab,
+    setPane,
+    tab,
+    pane,
   }
 }

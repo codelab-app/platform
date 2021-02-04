@@ -35,7 +35,7 @@ const MenuItemPages = (props: any) => {
     <Menu.Item
       {...props}
       key="2"
-      onClick={() => layout.navigation.toggle()}
+      onClick={() => layout.setTab('page')}
       icon={<CopyOutlined />}
     >
       Pages
@@ -50,7 +50,7 @@ const MenuItemComponents = (props: any) => {
     <Menu.Item
       {...props}
       key="3"
-      onClick={() => layout.navigation.toggle()}
+      onClick={() => layout.setTab('component')}
       icon={<PlusSquareOutlined />}
     >
       Components
@@ -65,7 +65,7 @@ const MenuItemTree = (props: any) => {
     <Menu.Item
       {...props}
       key="4"
-      onClick={() => layout.navigation.toggle()}
+      onClick={() => layout.setTab('tree')}
       icon={<ApartmentOutlined />}
     >
       Tree

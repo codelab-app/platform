@@ -63,7 +63,7 @@ export class PageResolvers {
     return this.deletePageService.execute(input)
   }
 
-  @ResolveField(() => [Graph])
+  @ResolveField('graphs', () => [Graph])
   graphs(@Parent() page: Page) {
     return this.prismaService.graph.findMany({
       where: {
