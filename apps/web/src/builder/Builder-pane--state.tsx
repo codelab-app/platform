@@ -28,6 +28,8 @@ export const useBuilderLayout = (): UseBuilderLayout => {
     // If same tab
     if (tab === name) {
       pane === 'none' ? _setPane('main') : _setPane('none')
+    } else {
+      pane === 'none' ? _setPane('main') : _setPane(pane)
     }
 
     _setTab(name)

@@ -24,7 +24,7 @@ export const Builder = ({
         <BuilderTabSidebar />
       </Sider>
       {layout.pane === 'main' ? (
-        <Sider theme="light" width={200}>
+        <Sider theme="light" width={240}>
           <RouterGuard guards={['appId']}>
             <PaneMain />
           </RouterGuard>

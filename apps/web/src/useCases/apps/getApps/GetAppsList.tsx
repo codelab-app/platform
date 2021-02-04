@@ -14,7 +14,6 @@ export const GetAppsList = () => {
     notifyOnNetworkStatusChange: true,
   })
 
-  // We can't use hooks inside rambdas, so just pile up all required hooks here
   const { openDeleteConfirmation } = useDeleteAppConfirmation()
   const { openCreateAppModal } = useCreateAppModal()
   const { openEditAppModal } = useEditAppModal()
