@@ -13,7 +13,7 @@ plugins:
   - unused-imports
   - sort-exports # https://github.com/jrdrg/eslint-plugin-sort-exports#readme
   - react-hooks
-  - @emotion
+  - '@emotion'
 settings:
   import/parser:
     '@typescript-eslint/parser': ['.ts', '.tsx']
