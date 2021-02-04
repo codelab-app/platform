@@ -70,10 +70,14 @@ export const initializeApollo = (
   }
 
   // For SSG and SSR always create a new Apollo Client
-  if (typeof window === 'undefined') return _apolloClient
+  if (typeof window === 'undefined') {
+    return _apolloClient
+  }
 
   // Create the Apollo Client once in the client
-  if (!apolloClient) apolloClient = _apolloClient
+  if (!apolloClient) {
+    apolloClient = _apolloClient
+  }
 
   return _apolloClient
 }
