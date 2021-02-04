@@ -3,25 +3,17 @@ import {
   EditOutlined,
   EllipsisOutlined,
 } from '@ant-design/icons'
-import { Button, Card, Dropdown, Menu, Skeleton } from 'antd'
+import { Button, Card, Dropdown, Menu } from 'antd'
 import Link from 'next/link'
 import React, { CSSProperties, FunctionComponent } from 'react'
 import { AppType } from '../state'
 import { Page } from '@codelab/frontend'
 
-export type GetAppsItemProps =
-  | {
-      app: AppType
-      loading?: false
-      handleDeleteClick: (app: AppType) => void
-      handleEditClick: (app: AppType) => void
-    }
-  | {
-      app?: never
-      loading: true
-      handleDeleteClick?: never
-      handleEditClick?: never
-    }
+export type GetAppsItemProps = {
+  app: AppType
+  handleDeleteClick: (app: AppType) => void
+  handleEditClick: (app: AppType) => void
+}
 
 const menuItemStyle: CSSProperties = {
   display: 'flex',
@@ -37,7 +29,6 @@ const menuItemIconStyle: CSSProperties = {
 
 export const GetAppsItem: FunctionComponent<GetAppsItemProps> = ({
   app,
-  loading,
   handleDeleteClick,
   handleEditClick,
 }) => {
@@ -81,29 +72,14 @@ export const GetAppsItem: FunctionComponent<GetAppsItemProps> = ({
       title={
         <Link
           href={{
-            pathname: Page.APP_DETAIL.url,
-            query: { appId: app?.id },
+            pathname: Page.PAGE_DETAIL.url,
+            query: { appId: app.id, pageId: app.pages[0].id },
           }}
         >
-          <a>
-            {loading ? (
-              <Skeleton
-                loading={loading}
-                active
-                title
-                avatar={false}
-                paragraph={false}
-              />
-            ) : (
-              app?.title
-            )}
-          </a>
+          <a>{app.title}</a>
         </Link>
       }
-      loading={loading}
       extra={ellipsisMenu}
-    >
-      <Skeleton loading={loading} active />
-    </Card>
+    />
   )
 }

@@ -1,4 +1,5 @@
 import {
+  ApartmentOutlined,
   AppstoreOutlined,
   CopyOutlined,
   PlusSquareOutlined,
@@ -6,7 +7,7 @@ import {
 import { Menu, Popover } from 'antd'
 import Link from 'next/link'
 import React from 'react'
-import { useBuilderLayout } from '../builderPanelState'
+import { useBuilderLayout } from '../Builder-pane--state'
 import { Page } from '@codelab/frontend'
 
 const MenuItemApps = (props: any) => {
@@ -34,7 +35,7 @@ const MenuItemPages = (props: any) => {
     <Menu.Item
       {...props}
       key="2"
-      onClick={() => layout.navigation.toggle()}
+      onClick={() => layout.setTab('page')}
       icon={<CopyOutlined />}
     >
       Pages
@@ -49,7 +50,7 @@ const MenuItemComponents = (props: any) => {
     <Menu.Item
       {...props}
       key="3"
-      onClick={() => layout.navigation.toggle()}
+      onClick={() => layout.setTab('component')}
       icon={<PlusSquareOutlined />}
     >
       Components
@@ -57,12 +58,28 @@ const MenuItemComponents = (props: any) => {
   )
 }
 
-export const BuilderMenuSidebar = () => {
+const MenuItemTree = (props: any) => {
+  const layout = useBuilderLayout()
+
+  return (
+    <Menu.Item
+      {...props}
+      key="4"
+      onClick={() => layout.setTab('tree')}
+      icon={<ApartmentOutlined />}
+    >
+      Tree
+    </Menu.Item>
+  )
+}
+
+export const BuilderTabSidebar = () => {
   return (
     <Menu mode="inline" style={{ height: '100%', width: '100%' }}>
       <MenuItemApps />
       <MenuItemPages />
       <MenuItemComponents />
+      <MenuItemTree />
     </Menu>
   )
 }

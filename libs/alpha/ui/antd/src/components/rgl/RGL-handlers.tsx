@@ -1,7 +1,7 @@
 import { ItemCallback } from 'react-grid-layout'
-import { BuilderHandlerProps } from '../../../../../../../apps/web/src/builder/drawer/Builder-handlers'
+import { PaneConfigHandlersProps } from '../../../../../../../apps/web/src/builder/pane-config/Pane-config--handlers'
 
-export type RGLHandlers = (props: BuilderHandlerProps) => ItemCallback
+export type RGLHandlers = (props: PaneConfigHandlersProps) => ItemCallback
 
 export const onDragStart: RGLHandlers = (props) => (
   layout,

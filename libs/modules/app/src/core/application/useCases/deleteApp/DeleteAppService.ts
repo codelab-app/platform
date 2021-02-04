@@ -10,6 +10,13 @@ export class DeleteAppService
 
   async execute({ id }: DeleteAppInput) {
     try {
+      // Delete all pages first, don't have cascade yet
+      await this.prismaService.page.deleteMany({
+        where: {
+          appId: id,
+        },
+      })
+
       return await this.prismaService.app.delete({ where: { id } })
     } catch (e) {
       throw new Error(`The app with id ${id} was not found`)

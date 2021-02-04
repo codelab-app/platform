@@ -4,7 +4,6 @@ import { Button } from 'antd'
 import React from 'react'
 import { useRecoilState } from 'recoil'
 import { makeD3 } from '../../../../../../libs/alpha/shared/factory/src/cytoscape.js/factory'
-import { builderDrawerState } from '../../../builder/drawer/Builder-drawer'
 import { D3Graph } from '@codelab/alpha/ui/d3'
 import {
   CytoscapeService,
@@ -16,13 +15,14 @@ import {
   GraphFragmentsFragment,
   useAddChildVertexMutation,
 } from '@codelab/generated'
+import { paneConfigState } from 'apps/web/src/builder/pane-config/Pane-config'
 
 type GetPageLayoutProps = {
   graph: GraphFragmentsFragment
 } & PropsWithIds<'pageId'>
 
 export const GetPageLayout = ({ graph, pageId }: GetPageLayoutProps) => {
-  const [builderDrawer, setBuilderDrawer] = useRecoilState(builderDrawerState)
+  const [builderDrawer, setBuilderDrawer] = useRecoilState(paneConfigState)
 
   const [addChildVertex] = useAddChildVertexMutation()
 

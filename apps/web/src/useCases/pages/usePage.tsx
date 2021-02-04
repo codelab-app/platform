@@ -1,5 +1,6 @@
+import { useRouter } from 'next/router'
 import { atom, useRecoilState } from 'recoil'
-import { useBuilderLayout } from '../../builder/builderPanelState'
+import { useBuilderLayout } from '../../builder/Builder-pane--state'
 
 type PageDetailsState = {
   pageId?: string
@@ -17,15 +18,17 @@ export const pageState = atom<PageDetailsState>({
 type UsePage = {
   resetPage: Function
   createPage: Function
+  pageId: string
   updatePage(pageId: string): void
 } & PageDetailsState
 
 export const usePage = (): UsePage => {
+  const { query } = useRouter()
   const layout = useBuilderLayout()
   const [page, setPage] = useRecoilState(pageState)
 
   const createPage = () => {
-    layout.details.toggle(true)
+    layout.setPane('detail')
 
     return setPage({
       pageId: undefined,
@@ -33,7 +36,7 @@ export const usePage = (): UsePage => {
   }
 
   const updatePage = (pageId: string) => {
-    layout.details.toggle(true)
+    layout.setPane('detail')
 
     return setPage({
       pageId,
@@ -41,7 +44,7 @@ export const usePage = (): UsePage => {
   }
 
   const resetPage = () => {
-    layout.details.toggle(false)
+    layout.setPane('none')
     setPage({ pageId: undefined })
   }
 
@@ -49,6 +52,7 @@ export const usePage = (): UsePage => {
     createPage,
     resetPage,
     updatePage,
+    pageId: `${query.pageId}`,
     ...page,
   }
 }
