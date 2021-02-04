@@ -68,7 +68,7 @@ describe('DeleteAppUseCase', () => {
       })
   })
 
-  it.skip('should return error for wrong app id', async () => {
+  it('should return error for wrong app id', async () => {
     const wrongAppId = '85e3fd3a-9dde-4c80-bd07-8cf126799698'
 
     await request(app.getHttpServer())

@@ -10,16 +10,25 @@ export class DeletePageService
 
   async execute({ pageId }: DeletePageInput) {
     try {
-      const pages = await this.prismaService.app.findMany({
-        select: {
-          pages: true,
-        },
+      const app = await this.prismaService.app.findFirst({
         where: {
           pages: {
             some: {
               id: pageId,
             },
           },
+        },
+      })
+
+      console.log(app)
+
+      if (!app) {
+        throw new Error('')
+      }
+
+      const pages = await this.prismaService.page.findMany({
+        where: {
+          appId: app.id,
         },
       })
 

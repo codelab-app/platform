@@ -98,7 +98,6 @@ describe('DeletePageUseCase', () => {
       .expect((res) => {
         expect(res.body.data.createPage.title).toEqual('Page 2')
       })
-      .then((res) => res.body.data.createPage)
   })
 
   afterAll(async () => {

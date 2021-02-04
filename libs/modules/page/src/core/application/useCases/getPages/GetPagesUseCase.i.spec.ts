@@ -121,7 +121,7 @@ describe('GetPagesUseCase', () => {
       })
       .expect(200)
       .expect((res) => {
-        expect(res.body.data.getPages.length).toEqual(2)
+        expect(res.body.data.getPages.length).toEqual(3)
       })
   })
 })
