@@ -6,8 +6,8 @@ import {
   LoginUserButton,
   RegisterUserButton,
   SignOutUserButton,
+  useCurrentUser,
 } from '../useCases/user'
-import { useCurrentUser } from '../useCases/user/useCurrentUser'
 import { Page, disableMenuHoverEffects } from '@codelab/frontend'
 
 /**

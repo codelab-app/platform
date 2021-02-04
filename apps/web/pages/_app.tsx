@@ -9,8 +9,7 @@ import { Builder } from '../src/builder/Builder'
 import { Dashboard } from '../src/dashboard/Dashboard'
 import { HomeLayout } from '../src/home'
 import { LoginUserModal, RegisterUserModal } from '../src/useCases/user'
-import { PageType, getApolloClient, isPage, mapProps } from '@codelab/frontend'
-// import './App.less'
+import { PageType, isPage, mapProps, useApollo } from '@codelab/frontend'
 import './App.scss'
 
 require('highlight.js/styles/monokai-sublime.css')
@@ -42,29 +41,20 @@ const App: React.FunctionComponent<{}> = ({ children }) => {
   )
 }
 
-// // Use this component as a proxy to use the RecoilRoot provider, since we can't do that in AppContainer
-// const AppUserProxy: React.FC<{ pageProps: any }> = ({ pageProps }) => {
-//   // Fetch the current user's data. Use any getMe SSR query data if we have one in the pageProps
-//   // That way we can automatically get the current user if we use withAuthGuardServerSideProps or withAuthServerSideProps
-//   // If it's missing, useGetMe will make the getMe query, fetch the current user's data and put it in the userState
-//   useGetMe(pageProps?.data?.getMe)
-
-//   return <></>
-// }
-
 const AppContainer: React.FC<AppProps> = (props) => {
   const { Component, pageProps } = props
 
+  const apolloClient = useApollo(pageProps)
+
   return (
     <RecoilRoot>
-      <ApolloProvider client={getApolloClient()}>
+      <ApolloProvider client={apolloClient}>
         <style jsx global>{`
           #__next {
             height: 100%;
           }
         `}</style>
         <App>
-          {/* <AppUserProxy pageProps={pageProps} /> */}
           <Component {...pageProps} />
         </App>
       </ApolloProvider>

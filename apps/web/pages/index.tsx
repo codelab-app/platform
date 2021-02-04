@@ -1,10 +1,9 @@
 import { NextPage } from 'next'
-import * as R from 'ramda'
 import React from 'react'
 import { HomeClients } from '../src/home/Home-clients'
 import { HomeFeatures } from '../src/home/Home-features'
 import { HomeJumbo } from '../src/home/Home-jumbo'
-import { withApollo, withAuthServerSideProps } from '@codelab/frontend'
+import { withAuthServerSideProps } from '@codelab/frontend'
 
 const HomePage: NextPage = (props) => {
   return (
@@ -31,6 +30,4 @@ export const getServerSideProps = withAuthServerSideProps((context, user) => {
   return undefined
 })
 
-const IndexPage = R.pipe(withApollo)(HomePage)
-
-export default IndexPage
+export default HomePage
