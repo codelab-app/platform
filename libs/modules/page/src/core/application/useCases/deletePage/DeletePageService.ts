@@ -10,6 +10,32 @@ export class DeletePageService
 
   async execute({ pageId }: DeletePageInput) {
     try {
+      const app = await this.prismaService.app.findFirst({
+        where: {
+          pages: {
+            some: {
+              id: pageId,
+            },
+          },
+        },
+      })
+
+      console.log(app)
+
+      if (!app) {
+        throw new Error('')
+      }
+
+      const pages = await this.prismaService.page.findMany({
+        where: {
+          appId: app.id,
+        },
+      })
+
+      if (pages.length <= 1) {
+        throw new Error('Cannot delete last page')
+      }
+
       return await this.prismaService.page.delete({
         where: {
           id: pageId,

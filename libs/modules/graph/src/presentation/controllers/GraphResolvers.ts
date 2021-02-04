@@ -47,7 +47,7 @@ export class GraphResolvers {
   }
 
   @ResolveField('vertices', (returns) => [Vertex])
-  getVertices(@Parent() graph: Graph) {
+  vertices(@Parent() graph: Graph) {
     return this.prismaService.vertex.findMany({
       where: {
         graphId: graph.id,

@@ -1,5 +1,13 @@
 import { Injectable, UseGuards } from '@nestjs/common'
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
+import {
+  Args,
+  Mutation,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql'
+import { Page } from '../../../../page/src/core/domain/Page'
 import { CreateAppInput } from '../../core/application/useCases/createApp/CreateAppInput'
 import { CreateAppService } from '../../core/application/useCases/createApp/CreateAppService'
 import { DeleteAppInput } from '../../core/application/useCases/deleteApp/DeleteAppInput'
@@ -10,13 +18,14 @@ import { GetAppsService } from '../../core/application/useCases/getApps/GetAppsS
 import { UpdateAppInput } from '../../core/application/useCases/updateApp/UpdateAppInput'
 import { UpdateAppService } from '../../core/application/useCases/updateApp/UpdateAppService'
 import { App } from '../../core/domain/App'
-import { CurrentUser, GqlAuthGuard } from '@codelab/backend'
-import { User } from '@codelab/modules/user'
+import { CurrentUser, GqlAuthGuard, PrismaService } from '@codelab/backend'
+import { User } from 'libs/modules/user/src/core/domain/User'
 
-@Resolver('App')
+@Resolver(() => App)
 @Injectable()
 export class AppResolvers {
   constructor(
+    private readonly prismaService: PrismaService,
     private readonly createAppService: CreateAppService,
     private readonly getAppService: GetAppService,
     private readonly getAppsService: GetAppsService,
@@ -59,5 +68,14 @@ export class AppResolvers {
   @UseGuards(GqlAuthGuard)
   deleteApp(@Args('input') input: DeleteAppInput) {
     return this.deleteAppService.execute(input)
+  }
+
+  @ResolveField('pages', () => [Page])
+  pages(@Parent() app: App) {
+    return this.prismaService.page.findMany({
+      where: {
+        appId: app.id,
+      },
+    })
   }
 }

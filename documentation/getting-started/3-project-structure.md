@@ -23,3 +23,30 @@ Our GraphQL Input type are named `[UseCase]Input.ts` and we use this to generate
 Sometimes our GraphQL Input isn't used as the request for our service.
 
 For example, when creating an app, we don't require the userId from the form. We get the id from the backend so we make sure the user is authorized.
+
+## User Interface
+
+A left most `navigation-tab` breaks down project into top level components.
+
+View
+
+- Page
+  - Page List
+    - Page Update
+    - Page Delete
+- Component
+  - Component List
+- Tree
+  - Tree View
+
+Model
+
+- Data
+  - Endpoint List
+    - Endpoint Map/Reduce
+
+Controller
+
+- Data Binding
+  - Bindings List
+    - Bindings Details
