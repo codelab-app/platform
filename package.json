@@ -41,6 +41,7 @@
     "@ant-design/icons": "4.0.0",
     "@apollo/client": "3.2.5",
     "@emotion/react": "11.1.4",
+    "@emotion/styled": "^11.0.0",
     "@nestjs/common": "7.6.11",
     "@nestjs/config": "0.6.3",
     "@nestjs/core": "7.6.11",

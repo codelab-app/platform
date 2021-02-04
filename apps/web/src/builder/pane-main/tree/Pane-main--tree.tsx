@@ -1,9 +1,9 @@
 import { Tree } from 'antd'
 import React from 'react'
 import { useRecoilState } from 'recoil'
-import { useGetPageData } from '../../useCases/pages/getPage/useGetPageData'
-import { usePage } from '../../useCases/pages/usePage'
-import { paneConfigState } from '../pane-config/Pane-config'
+import { useGetPageData } from '../../../useCases/pages/getPage/useGetPageData'
+import { usePage } from '../../../useCases/pages/usePage'
+import { paneConfigState } from '../../pane-config/Pane-config'
 import { CytoscapeService } from '@codelab/frontend'
 
 export const PaneMainTree = () => {

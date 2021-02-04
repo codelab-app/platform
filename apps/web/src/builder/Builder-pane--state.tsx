@@ -1,7 +1,7 @@
 import { atom, useRecoilState } from 'recoil'
 
 type BuilderTabs = 'component' | 'page' | 'tree'
-type BuilderPane = 'main' | 'detail' | 'both' | 'none'
+export type BuilderPane = 'main' | 'detail' | 'both' | 'none'
 
 interface UseBuilderLayout {
   setTab(name: BuilderTabs): void
