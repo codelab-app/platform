@@ -81,6 +81,24 @@ describe('DeletePageUseCase', () => {
         expect(res.body.data.createPage.title).toEqual('Page 1')
       })
       .then((res) => res.body.data.createPage)
+
+    await request(app.getHttpServer())
+      .post('/graphql')
+      .set('Authorization', `Bearer ${accessToken}`)
+      .send({
+        query: print(CreatePageGql),
+        variables: {
+          input: {
+            title: 'Page 2',
+            appId: createApp.id,
+          },
+        },
+      })
+      .expect(200)
+      .expect((res) => {
+        expect(res.body.data.createPage.title).toEqual('Page 2')
+      })
+      .then((res) => res.body.data.createPage)
   })
 
   afterAll(async () => {
