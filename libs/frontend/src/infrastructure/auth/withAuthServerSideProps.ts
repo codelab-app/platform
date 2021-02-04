@@ -1,15 +1,11 @@
 import * as cookie from 'cookie'
-import { mergeDeep } from 'immutable'
 import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
-import { UnwrapPromise } from 'next/dist/lib/coalesced-function'
-import { ssrGetMe } from '../../../../../apps/web/src/apollo/apollo-page.generated'
+import { addApolloState, initializeApollo } from '../../model'
 import { AUTH_TOKEN_COOKIE } from './authTokenStorage'
+import { GetMeGql, GetMeQuery } from '@codelab/generated'
 
 /** Queries the backend (getMe query) and returns the response parsed for returning in a getServerSideProps schema */
-const getAuthResult = async (context: GetServerSidePropsContext<any>) => {
-  // The API server doesn't use cookies for auth. But cookies are the only way to be able to store the auth token so that we can read it in SSR context
-  // Therefore here we must check if we have a cookie with the auth token and transfer it to the Authorization header, which the API server actually reads
-
+const extractAuthToken = (context: GetServerSidePropsContext) => {
   // Extract the auth token from the cookie if we have one.
   // From there the authLink will read it and put it in the authorization header.
   const cookieHeader = context.req?.headers?.cookie
@@ -20,47 +16,8 @@ const getAuthResult = async (context: GetServerSidePropsContext<any>) => {
     authToken = cookie.parse(cookieHeader)[AUTH_TOKEN_COOKIE]
   }
 
-  // If we don't have a token in the cookie, no point in querying the server at all. Return an empty response
-  if (!cookieHeader) {
-    return {
-      props: {
-        apolloState: null,
-        data: {
-          getMe: null,
-        },
-        error: null,
-      },
-    }
-  }
-
-  try {
-    /** Pass the authToken to the request context. The @see {@link authLink} will read the token from context and transfer it to the Authorization header */
-    return await ssrGetMe.getServerPage(
-      {
-        context: {
-          authToken,
-        },
-      },
-      {},
-    )
-  } catch (e) {
-    // If we don't catch here, it all blows in the SSR stage and the page doesn't get rendered.
-    // Just return an empty response with an error if we catch something
-    return {
-      props: {
-        apolloState: null,
-        data: {
-          getMe: null,
-        },
-        error: JSON.stringify(e),
-      },
-    }
-  }
+  return authToken
 }
-
-export type AuthServerSideResult = UnwrapPromise<
-  ReturnType<typeof getAuthResult>
->
 
 /**
  * Wraps the getServerSideProps function and provides it the current logged in user as a parameter (if any, else - null)
@@ -87,26 +44,38 @@ export type AuthServerSideResult = UnwrapPromise<
 export const withAuthServerSideProps = (
   getServerSidePropsFunc?: (
     context: GetServerSidePropsContext,
-    user: AuthServerSideResult['props']['data']['getMe'],
+    user: GetMeQuery['getMe'] | undefined,
   ) =>
     | Promise<GetServerSidePropsResult<any> | undefined>
     | GetServerSidePropsResult<any>
     | undefined,
 ) => async (context: GetServerSidePropsContext<any>) => {
-  const result = await getAuthResult(context)
+  // The API server doesn't use cookies for auth. But cookies are the only way to be able to store the auth token so that we can read it in SSR context
+  // Therefore here we must check if we have a cookie with the auth token and transfer it to the Authorization header, which the API server actually reads
+  const authToken = extractAuthToken(context)
 
-  if (getServerSidePropsFunc) {
-    const originalData = await getServerSidePropsFunc(
-      context,
-      result?.props?.data?.getMe,
-    )
+  /** Pass the authToken to the request context. The @see {@link authLink}
+   will read the token from context and transfer it to the Authorization header */
+  const apolloClient = initializeApollo({ authToken })
 
-    if (originalData) {
-      return mergeDeep(result, originalData)
-    }
+  let result
+
+  // If we don't have a token in the cookie, no point in querying the server at all. Return an empty response
+  if (authToken) {
+    result = await apolloClient.query({
+      query: GetMeGql,
+    })
   }
 
-  return result
+  let props: any = {}
+
+  if (getServerSidePropsFunc) {
+    props = await getServerSidePropsFunc(context, result?.data?.getMe)
+  }
+
+  return addApolloState(apolloClient, {
+    props: props || {},
+  })
 }
 
 /** Shorthand for using @see {@link withAuthServerSideProps} for redirecting if not authenticated */
