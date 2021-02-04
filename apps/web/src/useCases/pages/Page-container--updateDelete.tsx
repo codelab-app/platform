@@ -15,7 +15,7 @@ export const PageContainerUpdateDelete = ({
 }: PageContainerUpdateDeleteProps) => {
   const submitRef = useRef<SubmitController | undefined>()
   const pageHook = usePage()
-  const onSuccess = () => pageHook.resetPage()
+  const onSuccess = () => pageHook.resetPage('main')
 
   return (
     <div style={{ margin: '1rem' }}>

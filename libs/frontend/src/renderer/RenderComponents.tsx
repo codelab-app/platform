@@ -1,7 +1,5 @@
-import { Popover } from 'antd'
 import React, { ReactNode } from 'react'
 import { useRecoilState } from 'recoil'
-import { v4 as uuidv4 } from 'uuid'
 import { paneConfigState } from '../../../../apps/web/src/builder/pane-config/Pane-config'
 import { PaneConfigHandlersProps } from '../../../../apps/web/src/builder/pane-config/Pane-config--handlers'
 import { NodeA, NodeI } from '../../../modules/graph/src/core/domain/node/Node'
@@ -10,23 +8,6 @@ import { useUpdateVertexMutation } from '@codelab/generated'
 
 const hasChildren = (node: NodeI) => {
   return !!node.children?.length
-}
-
-const content = (
-  <div>
-    <p>Content</p>
-    <p>Content</p>
-  </div>
-)
-const createWithPopover = (children: ReactNode) => {
-  return React.createElement(
-    Popover,
-    {
-      key: uuidv4(),
-      content,
-    },
-    children,
-  )
 }
 
 export const RenderChildren = (

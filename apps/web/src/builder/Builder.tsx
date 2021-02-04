@@ -10,6 +10,10 @@ import { PropsWithIds, RouterGuard, contentStyle } from '@codelab/frontend'
 
 const { Sider, Content } = Layout
 
+const tabsWidth = 40
+
+const paneMainWidth = 240
+
 export const Builder = ({
   children,
 }: PropsWithChildren<PropsWithIds<'appId'>>) => {
@@ -20,24 +24,46 @@ export const Builder = ({
   return (
     <Layout style={{ height: '100%' }}>
       <PaneConfig />
-      <Sider theme="light" collapsed collapsedWidth={40}>
+      <Sider theme="light" collapsed collapsedWidth={tabsWidth}>
         <BuilderTabSidebar />
       </Sider>
-      {layout.pane === 'main' ? (
-        <Sider theme="light" width={240}>
-          <RouterGuard guards={['appId']}>
-            <PaneMain />
-          </RouterGuard>
-          {/* <DashboardTreeContainer>
+      {layout.pane === 'none' ? null : (
+        <>
+          {layout.pane === 'main' || layout.pane === 'both' ? (
+            <Sider
+              theme="light"
+              width={paneMainWidth}
+              style={{
+                position: 'absolute',
+                left: tabsWidth,
+                height: '100%',
+                zIndex: 1,
+              }}
+            >
+              <RouterGuard guards={['appId']}>
+                <PaneMain />
+              </RouterGuard>
+              {/* <DashboardTreeContainer>
               {({ data }: DashboardTreeProps) => <DashboardTree data={data} />}
             </DashboardTreeContainer> */}
-        </Sider>
-      ) : null}
-      {layout.pane === 'detail' ? (
-        <Sider theme="light" width={320}>
-          <BuilderDetails appId={appId} />
-        </Sider>
-      ) : null}
+            </Sider>
+          ) : null}
+          {layout.pane === 'detail' || layout.pane === 'both' ? (
+            <Sider
+              theme="light"
+              width={320}
+              style={{
+                position: 'absolute',
+                left: tabsWidth + paneMainWidth + 1,
+                height: '100%',
+                zIndex: 1,
+              }}
+            >
+              <BuilderDetails appId={appId} />
+            </Sider>
+          ) : null}
+        </>
+      )}
       <Layout>
         <Content style={contentStyle}>{children}</Content>
       </Layout>
