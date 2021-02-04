@@ -1,9 +1,9 @@
 import { Button, Space } from 'antd'
 import React, { useRef } from 'react'
 import { SubmitController } from '../../../../../libs/frontend/src/components/form/json-schema/JsonSchemaForm-ref'
+import { useBuilderLayout } from '../../builder/Builder-pane--state'
 import { CreatePageForm } from './createPage/CreatePageForm'
 import { PropsWithIds } from '@codelab/frontend'
-import { useBuilderLayout } from 'apps/web/src/builder/builderPanelState'
 
 export const PageContainerCreate = ({ appId }: PropsWithIds<'appId'>) => {
   const layout = useBuilderLayout()

@@ -2,8 +2,8 @@ import { Popover } from 'antd'
 import React, { ReactNode } from 'react'
 import { useRecoilState } from 'recoil'
 import { v4 as uuidv4 } from 'uuid'
-import { builderDrawerState } from '../../../../apps/web/src/builder/drawer/Builder-drawer'
-import { BuilderHandlerProps } from '../../../../apps/web/src/builder/drawer/Builder-handlers'
+import { paneConfigState } from '../../../../apps/web/src/builder/pane-config/Pane-config'
+import { PaneConfigHandlersProps } from '../../../../apps/web/src/builder/pane-config/Pane-config--handlers'
 import { NodeA, NodeI } from '../../../modules/graph/src/core/domain/node/Node'
 import { elementParameterFactory } from './elementFactory'
 import { useUpdateVertexMutation } from '@codelab/generated'
@@ -32,7 +32,7 @@ const createWithPopover = (children: ReactNode) => {
 export const RenderChildren = (
   node: NodeA,
   renderProps: object = {},
-  handlers: BuilderHandlerProps,
+  handlers: PaneConfigHandlersProps,
 ): ReactNode | Array<ReactNode> => {
   return node.children.map((child: NodeA) => {
     // TODO: remove any cast
@@ -57,10 +57,10 @@ export const RenderChildren = (
 }
 
 export const RenderComponents = (node: NodeA) => {
-  const [builderDrawer, setBuilderDrawer] = useRecoilState(builderDrawerState)
+  const [builderDrawer, setBuilderDrawer] = useRecoilState(paneConfigState)
   const updateVertexMutation = useUpdateVertexMutation()
   const { type } = node
-  const handlers: BuilderHandlerProps = {
+  const handlers: PaneConfigHandlersProps = {
     setBuilderDrawer,
     updateVertexMutation,
   }

@@ -28,5 +28,6 @@ export const useApp = () => {
     loading,
     pages,
     appId,
+    pageId,
   }
 }

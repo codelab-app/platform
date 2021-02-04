@@ -1,6 +1,5 @@
 import { Space } from 'antd'
 import React, { useRef } from 'react'
-import { useBuilderLayout } from '../../builder/builderPanelState'
 import { DeletePageButton } from './deletePage/DeletePageButton'
 import { UpdatePageButton } from './updatePage/UpdatePageButton'
 import { UpdatePageForm } from './updatePage/UpdatePageForm'
@@ -16,7 +15,6 @@ export const PageContainerUpdateDelete = ({
 }: PageContainerUpdateDeleteProps) => {
   const submitRef = useRef<SubmitController | undefined>()
   const pageHook = usePage()
-  const layout = useBuilderLayout()
   const onSuccess = () => pageHook.resetPage()
 
   return (

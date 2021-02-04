@@ -3,12 +3,12 @@ import React from 'react'
 import { atom, useRecoilState } from 'recoil'
 import { GetVertexDetails } from '../../useCases/graph/getVertex/GetVertexDetails'
 
-export interface BuilderDrawerState {
+export interface PaneConfigState {
   visible: boolean
   vertexId?: string
 }
 
-export const builderDrawerState = atom<BuilderDrawerState>({
+export const paneConfigState = atom<PaneConfigState>({
   key: 'builderDrawer',
   default: {
     visible: false,
@@ -16,9 +16,9 @@ export const builderDrawerState = atom<BuilderDrawerState>({
   },
 })
 
-export const BuilderDrawer = () => {
+export const PaneConfig = () => {
   const [{ visible, vertexId }, setBuilderDrawer] = useRecoilState(
-    builderDrawerState,
+    paneConfigState,
   )
 
   return (

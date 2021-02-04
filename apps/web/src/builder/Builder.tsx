@@ -3,11 +3,11 @@ import { useRouter } from 'next/router'
 import React, { PropsWithChildren } from 'react'
 import { useRecoilState } from 'recoil'
 import { pageState } from '../useCases/pages/usePage'
-import { useBuilderLayout } from './builderPanelState'
-import { BuilderDetails } from './details/Builder-details'
-import { BuilderDrawer } from './drawer/Builder-drawer'
-import { BuilderNavigation } from './navigation/Builder-navigation'
-import { BuilderMenuSidebar } from './sidebar/Builder-menu--sidebar'
+import { useBuilderLayout } from './Builder-pane--state'
+import { PaneConfig } from './pane-config/Pane-config'
+import { BuilderDetails } from './pane-details/Pane-details'
+import { PaneMain } from './pane-main/Pane-main'
+import { BuilderTabSidebar } from './tabs-sidebar/Tabs-sidebar'
 import { PropsWithIds, RouterGuard, contentStyle } from '@codelab/frontend'
 
 const { Sider, Content } = Layout
@@ -24,14 +24,14 @@ export const Builder = ({
 
   return (
     <Layout style={{ height: '100%' }}>
-      <BuilderDrawer />
+      <PaneConfig />
       <Sider theme="light" collapsed collapsedWidth={40}>
-        <BuilderMenuSidebar />
+        <BuilderTabSidebar />
       </Sider>
       {layout.navigation.visible ? (
         <Sider theme="light" width={200}>
           <RouterGuard guards={['appId']}>
-            <BuilderNavigation />
+            <PaneMain />
           </RouterGuard>
           {/* <DashboardTreeContainer>
               {({ data }: DashboardTreeProps) => <DashboardTree data={data} />}
