@@ -1,5 +1,5 @@
 import React from 'react'
-import { ApolloForm, ApolloFormUseCaseProps } from '@codelab/frontend'
+import { ApolloForm, FormUseCaseProps } from '@codelab/frontend'
 import {
   CreatePageMutationVariables,
   GetPageGql,
@@ -12,7 +12,7 @@ import { UpdatePageInput } from 'libs/modules/page/src/core/application/useCases
 export const UpdatePageForm = ({
   pageId,
   ...props
-}: ApolloFormUseCaseProps<UpdatePageInput> & { pageId: string }) => {
+}: FormUseCaseProps<UpdatePageInput> & { pageId: string }) => {
   const [mutate] = useUpdatePageMutation({
     refetchQueries: [
       {

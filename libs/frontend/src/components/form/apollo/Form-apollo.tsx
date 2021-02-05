@@ -1,13 +1,17 @@
 import * as Apollo from '@apollo/client'
 import React from 'react'
-import { ApolloFormProps } from './ApolloForm.d'
-import { JsonSchemaForm, JsonSchemaFormEvent } from './json-schema'
+import {
+  JsonSchemaForm,
+  JsonSchemaFormEvent,
+  JsonSchemaFormProps,
+} from '../json-schema'
+import { ApolloFormProps } from './Form-apollo--types'
 
 /**
  * Read to use form, can be used with modal or standalone
  */
-export type ApolloFormUseCaseProps<TData extends object> = Pick<
-  ApolloFormProps<TData, any>,
+export type FormUseCaseProps<TData extends object> = Pick<
+  JsonSchemaFormProps<TData>,
   'onSubmitError' | 'onSubmitSuccess'
 >
 

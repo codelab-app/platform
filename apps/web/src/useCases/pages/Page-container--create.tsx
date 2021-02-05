@@ -1,6 +1,6 @@
 import { Button, Space } from 'antd'
 import React, { useRef } from 'react'
-import { SubmitController } from '../../../../../libs/frontend/src/components/form/json-schema/JsonSchemaForm-ref'
+import { SubmitController } from '../../../../../libs/frontend/src/components/form/json-schema/Form-jsonSchema--ref'
 import { useBuilderLayout } from '../../builder/Builder-pane--state'
 import { CreatePageForm } from './createPage/CreatePageForm'
 import { PropsWithIds } from '@codelab/frontend'

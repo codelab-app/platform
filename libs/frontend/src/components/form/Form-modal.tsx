@@ -6,8 +6,8 @@ import React, {
   cloneElement,
   useRef,
 } from 'react'
-import { SubmitController } from './json-schema/JsonSchemaForm-ref'
-import { JsonSchemaFormProps } from './json-schema/JsonSchemaForm.d'
+import { JsonSchemaFormProps } from './json-schema'
+import { SubmitController } from './json-schema/Form-jsonSchema--ref'
 
 export interface ModalFormProps<TData extends object> {
   modalProps?: ModalProps

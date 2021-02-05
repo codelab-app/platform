@@ -5,8 +5,8 @@ import { RegisterUserInput } from '../../../../../../libs/modules/user/src/core/
 import { userState } from '../state'
 import {
   ApolloForm,
-  ApolloFormUseCaseProps,
   ArrayOfCallbacks,
+  FormUseCaseProps,
   createCallbackHandler,
   createNotificationHandler,
   storeAuthToken,
@@ -22,7 +22,7 @@ export const RegisterUserForm = ({
   onSubmitSuccess,
   onSubmitError,
   ...props
-}: ApolloFormUseCaseProps<RegisterUserInput>) => {
+}: FormUseCaseProps<RegisterUserInput>) => {
   const [mutate, { loading }] = useRegisterUserMutation()
 
   const [, setState] = useRecoilState(userState)

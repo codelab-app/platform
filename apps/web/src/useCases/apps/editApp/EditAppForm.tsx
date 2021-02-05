@@ -3,7 +3,7 @@ import { useRecoilState } from 'recoil'
 import { appState } from '../state'
 import {
   ApolloForm,
-  ApolloFormUseCaseProps,
+  FormUseCaseProps,
   createNotificationHandler,
 } from '@codelab/frontend'
 import {
@@ -14,9 +14,7 @@ import {
   useUpdateAppMutation,
 } from '@codelab/generated'
 
-export const EditAppForm = (
-  props: ApolloFormUseCaseProps<UpdateAppInput> & {},
-) => {
+export const EditAppForm = (props: FormUseCaseProps<UpdateAppInput> & {}) => {
   const [mutate, { loading }] = useUpdateAppMutation({
     awaitRefetchQueries: true,
     refetchQueries: [

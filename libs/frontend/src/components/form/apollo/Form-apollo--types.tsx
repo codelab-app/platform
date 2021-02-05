@@ -1,5 +1,5 @@
 import * as Apollo from '@apollo/client'
-import { JsonSchemaFormProps } from './json-schema/JsonSchemaForm.d'
+import { JsonSchemaFormProps } from '../json-schema/Form-jsonSchema--types'
 
 export type ApolloFormProps<
   TData extends object,

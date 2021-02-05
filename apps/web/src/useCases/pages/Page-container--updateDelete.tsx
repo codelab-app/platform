@@ -5,7 +5,7 @@ import { UpdatePageButton } from './updatePage/UpdatePageButton'
 import { UpdatePageForm } from './updatePage/UpdatePageForm'
 import { usePage } from './usePage'
 import { PropsWithIds } from '@codelab/frontend'
-import { SubmitController } from 'libs/frontend/src/components/form/json-schema/JsonSchemaForm-ref'
+import { SubmitController } from 'libs/frontend/src/components/form/json-schema/Form-jsonSchema--ref'
 
 export type PageContainerUpdateDeleteProps = PropsWithIds<'pageId' | 'appId'>
 
