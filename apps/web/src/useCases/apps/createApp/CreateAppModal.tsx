@@ -6,7 +6,6 @@ import { ModalForm } from '@codelab/frontend'
 
 export const CreateAppModal = () => {
   const [state, setAppState] = useRecoilState(appState)
-
   const { loading, editingApp, modalVisible } = state
 
   return (

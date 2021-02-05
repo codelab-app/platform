@@ -5,5 +5,6 @@ export type ApolloFormProps<
   TData extends object,
   TVariables extends Apollo.OperationVariables
 > = Omit<JsonSchemaFormProps<TData>, 'formData' | 'onChange' | 'onSubmit'> & {
-  mutate: Apollo.MutationTuple<any, TVariables>[0] // Using the full object for fails to re-render the state of the parent component, so just pass in the mutate function
+  // Using the full object for fails to re-render the state of the parent component, so just pass in the mutate function
+  mutate: Apollo.MutationTuple<any, TVariables>[0]
 }

@@ -7,6 +7,10 @@ import {
   UpdateVertexInputSchema,
 } from '@codelab/generated'
 
+export default {
+  title: 'Form',
+}
+
 export const DemoJsonSchemaForm = () => {
   const schema: JSONSchema7 = {
     ...merge(UpdateVertexInputSchema, {
