@@ -1,6 +1,5 @@
 import * as Apollo from '@apollo/client'
-import React, { useState } from 'react'
-import { callCallbackOrArrayOfCallbacks } from '../../utils'
+import React from 'react'
 import { ApolloFormProps } from './ApolloForm.d'
 import {
   JsonSchemaForm,
@@ -20,43 +19,21 @@ export const ApolloForm = <
 >({
   hideSubmitButton,
   mutate,
-  initialFormData,
-  onSubmitSuccess,
-  onSubmitError,
   ...props
 }: ApolloFormProps<TData, any>) => {
-  const [localFormData, setLocalFormData] = useState<TData>(initialFormData)
-
   const onSubmit = ({ data: submitData }: JsonSchemaFormEvent<TData>) => {
-    return (
-      mutate({
-        variables: {
-          input: {
-            ...submitData,
-          },
+    return mutate({
+      variables: {
+        input: {
+          ...submitData,
         },
-      })
-        .then((r) => {
-          // Pass up the event
-          callCallbackOrArrayOfCallbacks(onSubmitSuccess, r)
-
-          // Reset the form state
-          setLocalFormData({ ...initialFormData })
-        })
-        // Pass up any errors too
-        .catch((e) => {
-          callCallbackOrArrayOfCallbacks(onSubmitError, e)
-        })
-    )
+      },
+    })
   }
 
   return (
     <JsonSchemaForm<TData>
       hideSubmitButton={hideSubmitButton}
-      formData={localFormData}
-      onChange={({ data: onChangeData }) => {
-        setLocalFormData(onChangeData)
-      }}
       onSubmit={onSubmit}
       {...props}
     />
