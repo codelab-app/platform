@@ -1,9 +1,9 @@
 import React from 'react'
-import { GetPageGql } from '../../../../../../libs/generated/src/graphql.generated'
-import { AddChildVertexInputSchema } from '../../../../../../libs/generated/src/json-schema.generated'
 import { ApolloForm, PropsWithIds } from '@codelab/frontend'
 import {
   AddChildVertexInput,
+  AddChildVertexInputSchema,
+  GetPageGql,
   UpdateVertexMutationVariables,
   VertexFragmentsFragment,
   useAddChildVertexMutation,

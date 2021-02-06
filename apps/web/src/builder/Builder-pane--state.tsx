@@ -1,48 +1,68 @@
 import { atom, useRecoilState } from 'recoil'
+import { LayoutPane, LayoutPaneVisibility, LayoutTab } from '@codelab/generated'
 
-type BuilderTabs = 'component' | 'page' | 'tree'
-export type BuilderPane = 'main' | 'detail' | 'both' | 'none'
-
-interface UseBuilderLayout {
-  setTab(name: BuilderTabs): void
-  setPane(name: BuilderPane): void
-  tab: BuilderTabs
-  pane: BuilderPane
+export interface UseBuilderLayout {
+  setTab(name: LayoutTab): void
+  setPane(name: LayoutPane): void
+  setPaneVisibility(name: LayoutPaneVisibility): void
+  tab: LayoutTab
+  pane: LayoutPane
+  paneVisibility: LayoutPaneVisibility
 }
 
-const builderTabState = atom<BuilderTabs>({
+const builderTabState = atom<LayoutTab>({
   key: 'builderTab',
-  default: 'page',
+  default: LayoutTab.Page,
 })
 
-const builderPaneState = atom<BuilderPane>({
+const builderPaneState = atom<LayoutPane>({
   key: 'builderPane',
-  default: 'none',
+  default: LayoutPane.None,
+})
+
+const builderPaneVisibilityState = atom<LayoutPaneVisibility>({
+  key: 'builderPaneVisibility',
+  default: LayoutPaneVisibility.Both,
 })
 
 export const useBuilderLayout = (): UseBuilderLayout => {
-  const [tab, _setTab] = useRecoilState<BuilderTabs>(builderTabState)
-  const [pane, _setPane] = useRecoilState<BuilderPane>(builderPaneState)
+  const [tab, _setTab] = useRecoilState<LayoutTab>(builderTabState)
+  const [pane, _setPane] = useRecoilState<LayoutPane>(builderPaneState)
+  const [paneVisibility, _setPaneVisibility] = useRecoilState(
+    builderPaneVisibilityState,
+  )
 
-  const setTab = (name: BuilderTabs) => {
+  const setTab = (name: LayoutTab) => {
+    _setPaneVisibility(LayoutPaneVisibility.Both)
+
     // If same tab
     if (tab === name) {
-      pane === 'none' ? _setPane('main') : _setPane('none')
+      pane === LayoutPane.None
+        ? _setPane(LayoutPane.Main)
+        : _setPane(LayoutPane.None)
     } else {
-      pane === 'none' ? _setPane('main') : _setPane(pane)
+      pane === LayoutPane.None ? _setPane(LayoutPane.Main) : _setPane(pane)
     }
 
     _setTab(name)
   }
 
-  const setPane = (name: BuilderPane) => {
+  const setPane = (name: LayoutPane) => {
+    _setPaneVisibility(LayoutPaneVisibility.Both)
+
     _setPane(name)
+  }
+
+  const setPaneVisibility = (name: LayoutPaneVisibility) => {
+    _setPaneVisibility(name)
   }
 
   return {
     setTab,
     setPane,
+    setPaneVisibility,
     tab,
     pane,
+    paneVisibility,
   }
 }

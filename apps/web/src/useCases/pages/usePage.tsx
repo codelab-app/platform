@@ -1,9 +1,7 @@
 import { useRouter } from 'next/router'
 import { atom, useRecoilState } from 'recoil'
-import {
-  BuilderPane,
-  useBuilderLayout,
-} from '../../builder/Builder-pane--state'
+import { useBuilderLayout } from '../../builder/Builder-pane--state'
+import { LayoutPane } from '@codelab/generated'
 
 type PageDetailsState = {
   pageId?: string
@@ -19,7 +17,7 @@ export const pageState = atom<PageDetailsState>({
 })
 
 type UsePage = {
-  resetPage: (pane?: BuilderPane) => void
+  resetPage: (pane?: LayoutPane) => void
   createPage: Function
   pageId: string
   updatePage(pageId: string): void
@@ -31,7 +29,7 @@ export const usePage = (): UsePage => {
   const [page, setPage] = useRecoilState(pageState)
 
   const createPage = () => {
-    layout.setPane('both')
+    layout.setPane(LayoutPane.Both)
 
     return setPage({
       pageId: undefined,
@@ -39,14 +37,14 @@ export const usePage = (): UsePage => {
   }
 
   const updatePage = (pageId: string) => {
-    layout.setPane('both')
+    layout.setPane(LayoutPane.Both)
 
     return setPage({
       pageId,
     })
   }
 
-  const resetPage = (pane: BuilderPane = 'none') => {
+  const resetPage = (pane: LayoutPane = LayoutPane.None) => {
     layout.setPane(pane)
     setPage({ pageId: undefined })
   }

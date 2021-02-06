@@ -1,0 +1,6 @@
+mutation SetLayout($input: SetLayoutInput!) {
+  setLayout(input: $input) @client {
+    tab
+    pane
+  }
+}

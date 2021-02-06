@@ -5,6 +5,7 @@ import { UpdatePageButton } from './updatePage/UpdatePageButton'
 import { UpdatePageForm } from './updatePage/UpdatePageForm'
 import { usePage } from './usePage'
 import { PropsWithIds } from '@codelab/frontend'
+import { LayoutPane } from '@codelab/generated'
 import { SubmitController } from 'libs/frontend/src/components/form/json-schema/Form-jsonSchema--ref'
 
 export type PageContainerUpdateDeleteProps = PropsWithIds<'pageId' | 'appId'>
@@ -15,7 +16,7 @@ export const PageContainerUpdateDelete = ({
 }: PageContainerUpdateDeleteProps) => {
   const submitRef = useRef<SubmitController | undefined>()
   const pageHook = usePage()
-  const onSuccess = () => pageHook.resetPage('main')
+  const onSuccess = () => pageHook.resetPage(LayoutPane.Main)
 
   return (
     <div style={{ margin: '1rem' }}>

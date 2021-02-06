@@ -7,10 +7,15 @@ import {
 import { Menu, Popover } from 'antd'
 import Link from 'next/link'
 import React from 'react'
-import { useBuilderLayout } from '../Builder-pane--state'
+import { useLayout } from '../useLayout'
 import { Page } from '@codelab/frontend'
+import { LayoutTab, useSetLayoutMutation } from '@codelab/generated'
 
-const MenuItemApps = (props: any) => {
+interface MenuItemProps {
+  setLayout: ReturnType<typeof useSetLayoutMutation>[0]
+}
+
+const MenuItemApps = ({ setLayout, ...props }: MenuItemProps) => {
   const content = <Link href={Page.APP_LIST.url}>Apps</Link>
 
   return (
@@ -28,14 +33,14 @@ const MenuItemApps = (props: any) => {
   )
 }
 
-const MenuItemPages = (props: any) => {
-  const layout = useBuilderLayout()
-
+const MenuItemPages = ({ setLayout, ...props }: MenuItemProps) => {
   return (
     <Menu.Item
       {...props}
       key="2"
-      onClick={() => layout.setTab('page')}
+      onClick={() =>
+        setLayout({ variables: { input: { tab: LayoutTab.Page } } })
+      }
       icon={<CopyOutlined />}
     >
       Pages
@@ -43,14 +48,14 @@ const MenuItemPages = (props: any) => {
   )
 }
 
-const MenuItemComponents = (props: any) => {
-  const layout = useBuilderLayout()
-
+const MenuItemComponents = ({ setLayout, ...props }: MenuItemProps) => {
   return (
     <Menu.Item
       {...props}
       key="3"
-      onClick={() => layout.setTab('component')}
+      onClick={() =>
+        setLayout({ variables: { input: { tab: LayoutTab.Component } } })
+      }
       icon={<PlusSquareOutlined />}
     >
       Components
@@ -58,14 +63,14 @@ const MenuItemComponents = (props: any) => {
   )
 }
 
-const MenuItemTree = (props: any) => {
-  const layout = useBuilderLayout()
-
+const MenuItemTree = ({ setLayout, ...props }: MenuItemProps) => {
   return (
     <Menu.Item
       {...props}
       key="4"
-      onClick={() => layout.setTab('tree')}
+      onClick={() =>
+        setLayout({ variables: { input: { tab: LayoutTab.Tree } } })
+      }
       icon={<ApartmentOutlined />}
     >
       Tree
@@ -74,12 +79,14 @@ const MenuItemTree = (props: any) => {
 }
 
 export const BuilderTabSidebar = () => {
+  const { setLayout } = useLayout()
+
   return (
     <Menu mode="inline" style={{ height: '100%', width: '100%' }}>
-      <MenuItemApps />
-      <MenuItemPages />
-      <MenuItemComponents />
-      <MenuItemTree />
+      <MenuItemApps setLayout={setLayout} />
+      <MenuItemPages setLayout={setLayout} />
+      <MenuItemComponents setLayout={setLayout} />
+      <MenuItemTree setLayout={setLayout} />
     </Menu>
   )
 }

@@ -1,0 +1,39 @@
+extend type Query {
+  getLayout: Layout!
+}
+
+input SetLayoutInput {
+  tab: LayoutTab
+  pane: LayoutPane
+  paneVisibility: LayoutPaneVisibility
+}
+
+extend type Mutation {
+  setLayout(input: SetLayoutInput!): Layout!
+}
+
+type Layout {
+  tab: LayoutTab
+  pane: LayoutPane
+  paneVisibility: LayoutPaneVisibility
+}
+
+enum LayoutTab {
+  Component
+  Page
+  Tree
+}
+
+enum LayoutPane {
+  Main
+  Detail
+  Both
+  None
+}
+
+enum LayoutPaneVisibility {
+  Main
+  Detail
+  Both
+  None
+}

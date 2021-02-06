@@ -53,11 +53,12 @@ type User {
 type Query {
   getApp(input: GetAppInput!): App
   getApps: [App!]!
-  getMe: User!
   getGraph(input: GetGraphInput!): Graph!
-  getVertex(input: GetVertexInput!): Vertex
-  getPages(input: GetPagesInput!): [Page!]!
+  getLayout: Layout!
+  getMe: User!
   getPage(input: GetPageInput!): Page!
+  getPages(input: GetPagesInput!): [Page!]!
+  getVertex(input: GetVertexInput!): Vertex
 }
 
 input GetAppInput {
@@ -81,22 +82,23 @@ input GetPageInput {
 }
 
 type Mutation {
-  createApp(input: CreateAppInput!): App!
-  updateApp(input: UpdateAppInput!): App!
-  deleteApp(input: DeleteAppInput!): App!
-  deleteUser(input: DeleteUserInput!): User!
-  updateUser(input: UpdateUserInput!): User!
-  registerUser(input: RegisterUserInput!): User!
-  loginUser(input: LoginUserInput!): User!
-  createGraph(input: CreateGraphInput!): Graph!
   addChildVertex(input: AddChildVertexInput!): Vertex!
-  modeVertex(input: MoveVertexInput!): Vertex!
-  updateVertex(input: UpdateVertexInput!): Vertex!
-  deleteVertex(input: DeleteVertexInput!): Vertex!
-  updateEdge(input: UpdateEdgeInput!): Edge!
+  createApp(input: CreateAppInput!): App!
+  createGraph(input: CreateGraphInput!): Graph!
   createPage(input: CreatePageInput!): Page!
-  updatePage(input: UpdatePageInput!): Page!
+  deleteApp(input: DeleteAppInput!): App!
   deletePage(input: DeletePageInput!): Page!
+  deleteUser(input: DeleteUserInput!): User!
+  deleteVertex(input: DeleteVertexInput!): Vertex!
+  loginUser(input: LoginUserInput!): User!
+  modeVertex(input: MoveVertexInput!): Vertex!
+  registerUser(input: RegisterUserInput!): User!
+  setLayout(input: SetLayoutInput!): Layout!
+  updateApp(input: UpdateAppInput!): App!
+  updateEdge(input: UpdateEdgeInput!): Edge!
+  updatePage(input: UpdatePageInput!): Page!
+  updateUser(input: UpdateUserInput!): User!
+  updateVertex(input: UpdateVertexInput!): Vertex!
 }
 
 input CreateAppInput {
@@ -181,4 +183,36 @@ input UpdatePageInput {
 
 input DeletePageInput {
   pageId: String!
+}
+
+input SetLayoutInput {
+  tab: LayoutTab
+  pane: LayoutPane
+  paneVisibility: LayoutPaneVisibility
+}
+
+type Layout {
+  tab: LayoutTab
+  pane: LayoutPane
+  paneVisibility: LayoutPaneVisibility
+}
+
+enum LayoutTab {
+  Component
+  Page
+  Tree
+}
+
+enum LayoutPane {
+  Main
+  Detail
+  Both
+  None
+}
+
+enum LayoutPaneVisibility {
+  Main
+  Detail
+  Both
+  None
 }

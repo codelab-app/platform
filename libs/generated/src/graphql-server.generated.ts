@@ -77,11 +77,12 @@ export type Query = {
   __typename?: 'Query'
   getApp?: Maybe<App>
   getApps: Array<App>
-  getMe: User
   getGraph: Graph
-  getVertex?: Maybe<Vertex>
-  getPages: Array<Page>
+  getLayout: Layout
+  getMe: User
   getPage: Page
+  getPages: Array<Page>
+  getVertex?: Maybe<Vertex>
 }
 
 export type QueryGetAppArgs = {
@@ -92,16 +93,16 @@ export type QueryGetGraphArgs = {
   input: GetGraphInput
 }
 
-export type QueryGetVertexArgs = {
-  input: GetVertexInput
+export type QueryGetPageArgs = {
+  input: GetPageInput
 }
 
 export type QueryGetPagesArgs = {
   input: GetPagesInput
 }
 
-export type QueryGetPageArgs = {
-  input: GetPageInput
+export type QueryGetVertexArgs = {
+  input: GetVertexInput
 }
 
 export type GetAppInput = {
@@ -126,86 +127,91 @@ export type GetPageInput = {
 
 export type Mutation = {
   __typename?: 'Mutation'
-  createApp: App
-  updateApp: App
-  deleteApp: App
-  deleteUser: User
-  updateUser: User
-  registerUser: User
-  loginUser: User
-  createGraph: Graph
   addChildVertex: Vertex
-  modeVertex: Vertex
-  updateVertex: Vertex
-  deleteVertex: Vertex
-  updateEdge: Edge
+  createApp: App
+  createGraph: Graph
   createPage: Page
-  updatePage: Page
+  deleteApp: App
   deletePage: Page
-}
-
-export type MutationCreateAppArgs = {
-  input: CreateAppInput
-}
-
-export type MutationUpdateAppArgs = {
-  input: UpdateAppInput
-}
-
-export type MutationDeleteAppArgs = {
-  input: DeleteAppInput
-}
-
-export type MutationDeleteUserArgs = {
-  input: DeleteUserInput
-}
-
-export type MutationUpdateUserArgs = {
-  input: UpdateUserInput
-}
-
-export type MutationRegisterUserArgs = {
-  input: RegisterUserInput
-}
-
-export type MutationLoginUserArgs = {
-  input: LoginUserInput
-}
-
-export type MutationCreateGraphArgs = {
-  input: CreateGraphInput
+  deleteUser: User
+  deleteVertex: Vertex
+  loginUser: User
+  modeVertex: Vertex
+  registerUser: User
+  setLayout: Layout
+  updateApp: App
+  updateEdge: Edge
+  updatePage: Page
+  updateUser: User
+  updateVertex: Vertex
 }
 
 export type MutationAddChildVertexArgs = {
   input: AddChildVertexInput
 }
 
-export type MutationModeVertexArgs = {
-  input: MoveVertexInput
+export type MutationCreateAppArgs = {
+  input: CreateAppInput
 }
 
-export type MutationUpdateVertexArgs = {
-  input: UpdateVertexInput
-}
-
-export type MutationDeleteVertexArgs = {
-  input: DeleteVertexInput
-}
-
-export type MutationUpdateEdgeArgs = {
-  input: UpdateEdgeInput
+export type MutationCreateGraphArgs = {
+  input: CreateGraphInput
 }
 
 export type MutationCreatePageArgs = {
   input: CreatePageInput
 }
 
-export type MutationUpdatePageArgs = {
-  input: UpdatePageInput
+export type MutationDeleteAppArgs = {
+  input: DeleteAppInput
 }
 
 export type MutationDeletePageArgs = {
   input: DeletePageInput
+}
+
+export type MutationDeleteUserArgs = {
+  input: DeleteUserInput
+}
+
+export type MutationDeleteVertexArgs = {
+  input: DeleteVertexInput
+}
+
+export type MutationLoginUserArgs = {
+  input: LoginUserInput
+}
+
+export type MutationModeVertexArgs = {
+  input: MoveVertexInput
+}
+
+export type MutationRegisterUserArgs = {
+  input: RegisterUserInput
+}
+
+export type MutationSetLayoutArgs = {
+  input: SetLayoutInput
+}
+
+export type MutationUpdateAppArgs = {
+  input: UpdateAppInput
+}
+
+export type MutationUpdateEdgeArgs = {
+  input: UpdateEdgeInput
+}
+
+export type MutationUpdatePageArgs = {
+  input: UpdatePageInput
+}
+
+export type MutationUpdateUserArgs = {
+  input: UpdateUserInput
+}
+
+export type MutationUpdateVertexArgs = {
+  input: UpdateVertexInput
 }
 
 export type CreateAppInput = {
@@ -290,6 +296,53 @@ export type UpdatePageInput = {
 
 export type DeletePageInput = {
   pageId: Scalars['String']
+}
+
+export type SetLayoutInput = {
+  tab?: Maybe<LayoutTab>
+  pane?: Maybe<LayoutPane>
+  paneVisibility?: Maybe<LayoutPaneVisibility>
+}
+
+export type Layout = {
+  __typename?: 'Layout'
+  tab?: Maybe<LayoutTab>
+  pane?: Maybe<LayoutPane>
+  paneVisibility?: Maybe<LayoutPaneVisibility>
+}
+
+export enum LayoutTab {
+  Component = 'Component',
+  Page = 'Page',
+  Tree = 'Tree',
+}
+
+export enum LayoutPane {
+  Main = 'Main',
+  Detail = 'Detail',
+  Both = 'Both',
+  None = 'None',
+}
+
+export enum LayoutPaneVisibility {
+  Main = 'Main',
+  Detail = 'Detail',
+  Both = 'Both',
+  None = 'None',
+}
+
+export type GetLayoutQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetLayoutQuery = { __typename?: 'Query' } & {
+  getLayout: { __typename?: 'Layout' } & Pick<Layout, 'tab' | 'pane'>
+}
+
+export type SetLayoutMutationVariables = Exact<{
+  input: SetLayoutInput
+}>
+
+export type SetLayoutMutation = { __typename?: 'Mutation' } & {
+  setLayout: { __typename?: 'Layout' } & Pick<Layout, 'tab' | 'pane'>
 }
 
 export type CreateAppMutationVariables = Exact<{
@@ -579,6 +632,22 @@ export const UserFragments = gql`
   }
   ${AppFragments}
 `
+export const GetLayout = gql`
+  query GetLayout {
+    getLayout @client {
+      tab
+      pane
+    }
+  }
+`
+export const SetLayout = gql`
+  mutation SetLayout($input: SetLayoutInput!) {
+    setLayout(input: $input) @client {
+      tab
+      pane
+    }
+  }
+`
 export const CreateApp = gql`
   mutation CreateApp($input: CreateAppInput!) {
     createApp(input: $input) {
@@ -830,6 +899,109 @@ export const UserFragmentsFragmentDoc = gql`
   }
   ${AppFragmentsFragmentDoc}
 `
+export const GetLayoutGql = gql`
+  query GetLayout {
+    getLayout @client {
+      tab
+      pane
+    }
+  }
+`
+
+/**
+ * __useGetLayoutQuery__
+ *
+ * To run a query within a React component, call `useGetLayoutQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetLayoutQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetLayoutQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetLayoutQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetLayoutQuery,
+    GetLayoutQueryVariables
+  >,
+) {
+  return Apollo.useQuery<GetLayoutQuery, GetLayoutQueryVariables>(
+    GetLayoutGql,
+    baseOptions,
+  )
+}
+export function useGetLayoutLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetLayoutQuery,
+    GetLayoutQueryVariables
+  >,
+) {
+  return Apollo.useLazyQuery<GetLayoutQuery, GetLayoutQueryVariables>(
+    GetLayoutGql,
+    baseOptions,
+  )
+}
+export type GetLayoutQueryHookResult = ReturnType<typeof useGetLayoutQuery>
+export type GetLayoutLazyQueryHookResult = ReturnType<
+  typeof useGetLayoutLazyQuery
+>
+export type GetLayoutQueryResult = Apollo.QueryResult<
+  GetLayoutQuery,
+  GetLayoutQueryVariables
+>
+export const SetLayoutGql = gql`
+  mutation SetLayout($input: SetLayoutInput!) {
+    setLayout(input: $input) @client {
+      tab
+      pane
+    }
+  }
+`
+export type SetLayoutMutationFn = Apollo.MutationFunction<
+  SetLayoutMutation,
+  SetLayoutMutationVariables
+>
+
+/**
+ * __useSetLayoutMutation__
+ *
+ * To run a mutation, you first call `useSetLayoutMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSetLayoutMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [setLayoutMutation, { data, loading, error }] = useSetLayoutMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useSetLayoutMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    SetLayoutMutation,
+    SetLayoutMutationVariables
+  >,
+) {
+  return Apollo.useMutation<SetLayoutMutation, SetLayoutMutationVariables>(
+    SetLayoutGql,
+    baseOptions,
+  )
+}
+export type SetLayoutMutationHookResult = ReturnType<
+  typeof useSetLayoutMutation
+>
+export type SetLayoutMutationResult = Apollo.MutationResult<SetLayoutMutation>
+export type SetLayoutMutationOptions = Apollo.BaseMutationOptions<
+  SetLayoutMutation,
+  SetLayoutMutationVariables
+>
 export const CreateAppGql = gql`
   mutation CreateApp($input: CreateAppInput!) {
     createApp(input: $input) {

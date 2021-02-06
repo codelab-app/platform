@@ -32,6 +32,8 @@ const LayoutFactory: React.FunctionComponent<WithRouterProps> = R.cond([
 const App: React.FunctionComponent<{}> = ({ children }) => {
   const router = useRouter()
 
+  console.log('app')
+
   return (
     <>
       <RegisterUserModal />
@@ -45,6 +47,8 @@ const AppContainer: React.FC<AppProps> = (props) => {
   const { Component, pageProps } = props
 
   const apolloClient = useApollo(pageProps)
+
+  console.log('_app')
 
   return (
     <RecoilRoot>

@@ -1,15 +1,17 @@
 /**
  * Source from https://github.com/correttojs/graphql-codegen-apollo-next-ssr
  */
-import { ApolloClient, InMemoryCache } from '@apollo/client'
+import { ApolloClient } from '@apollo/client'
 import { setContext } from '@apollo/client/link/context'
 import { ApolloLink } from '@apollo/client/link/core'
 import merge from 'deepmerge'
 import isEqual from 'lodash/isEqual'
 import { useMemo } from 'react'
+import { cache, resolvers } from './apollo-cache'
 import { apiLink } from './links/apiLink'
 import { authLink } from './links/authLink'
 import { errorLink } from './links/errorLink'
+import { typeDefs } from '@codelab/generated'
 
 export interface ApolloContext {
   authToken?: string
@@ -26,8 +28,6 @@ let apolloClient: ApolloClient<any> | undefined
 
 /** Creates a new ApolloClient instance */
 export const getApolloClient = (ctx: ApolloContext = {}) => {
-  const cache = new InMemoryCache()
-
   const link = ApolloLink.from([
     setContext(() => ({ ...defaultContext, ...ctx })),
     errorLink,
@@ -35,12 +35,17 @@ export const getApolloClient = (ctx: ApolloContext = {}) => {
     apiLink,
   ])
 
-  return new ApolloClient({
+  const client = new ApolloClient({
     link,
     cache,
     // Disables forceFetch on the server (so queries are only run once)
     ssrMode: typeof window === 'undefined',
+    typeDefs,
   })
+
+  client.addResolvers(resolvers)
+
+  return client
 }
 
 export const initializeApollo = (

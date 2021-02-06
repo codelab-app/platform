@@ -1,18 +1,19 @@
 import { Spin } from 'antd'
+import { WithRouterProps } from 'next/dist/client/with-router'
 import { useRouter, withRouter } from 'next/router'
 import * as R from 'ramda'
 import React, { PropsWithChildren } from 'react'
-import { ModelIds } from '../interfaces'
-import { mapProps } from '@codelab/frontend'
+import { ModelIds, PropsWithIds } from '../interfaces'
+import { PropsWithRenderChildren, mapProps } from '@codelab/frontend'
 
 export const Loader = () => {
   return <Spin />
 }
 
-const withQueryKeys = (queryKeys: Array<string>) => ({
+const withQueryKeys = (queryKeys: Array<ModelIds>) => ({
   router,
   ...props
-}: any) => {
+}: WithRouterProps) => {
   return queryKeys.reduce((mergedProps, queryKey) => {
     return {
       ...mergedProps,
@@ -24,7 +25,7 @@ const withQueryKeys = (queryKeys: Array<string>) => ({
 /**
  * @param key query param that we want loaded before loading component
  */
-export const withRouterGuard = (queryKeys: Array<string> = []) => (
+export const withRouterGuard = (queryKeys: Array<ModelIds> = []) => (
   Component: any,
 ) =>
   R.compose(withRouter)(
@@ -49,7 +50,10 @@ type RouterGuardProps = PropsWithChildren<{ guards: Array<ModelIds> }>
  *
  * @param props
  */
-export const RouterGuard = ({ guards, children }: RouterGuardProps) => {
+export const RouterGuard = <T extends ModelIds = ''>({
+  guards,
+  children,
+}: PropsWithRenderChildren<RouterGuardProps, PropsWithIds<T>>) => {
   const router = useRouter()
 
   const canActivate = guards.reduce(
@@ -57,5 +61,15 @@ export const RouterGuard = ({ guards, children }: RouterGuardProps) => {
     true,
   )
 
-  return <>{canActivate ? <>{children}</> : null}</>
+  const propsWithIds: PropsWithIds<T> = guards.reduce(
+    (mergedProps, queryKey) => {
+      return {
+        ...mergedProps,
+        [queryKey]: router.query[queryKey],
+      }
+    },
+    {} as PropsWithIds<T>,
+  )
+
+  return <>{canActivate ? <>{children(propsWithIds)}</> : null}</>
 }
