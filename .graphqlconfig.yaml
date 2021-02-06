@@ -1,24 +1,25 @@
 overwrite: true
-schema: http://localhost:4001/graphql
 hooks:
   afterAllFileWrite:
-    - npx eslint --fix
+    - npx eslint --ext ts --fix
+    - npx prettier --write
 generates:
+  # API Schema
   schema.graphql:
+    schema:
+      - http://localhost:4001/graphql
+      - schema.client.graphql
     plugins:
       - schema-ast
-    hooks:
-      afterAllFileWrite:
-        - npx prettier --write
 
-  libs/generated/src/graphql.generated.ts:
-    # preset: near-operation-file
-    # presetConfig:
-    #   baseTypesPath: types/types.generated.ts
-    #   importAllFragmentsFrom: types/fragments.generated
+  # Typescript + Apollo
+  libs/generated/src/graphql-server.generated.ts:
+    schema:
+      - http://localhost:4001/graphql
+      - schema.client.graphql
     documents:
-      # - libs/modules/**/createPage/**/*.graphql
       - libs/modules/**/*.graphql
+      - apps/web/**/*.graphql
     plugins:
       - typescript
       - typescript-operations
@@ -28,78 +29,19 @@ generates:
       documentVariableSuffix: 'Gql'
       gqlImport: '@apollo/client#gql'
 
-  # fragments.generated.ts:
-  #   #   # importAllFragmentsFrom: libs/modules/page/src/core/domain/PageFragments.gql.ts
-  #   documents: libs/modules/**/*fragments.gql.ts
-  #   plugins:
-  #     - typescript-document-nodes
-  #     # - typescript
-  #     # - typescript-operations
-
-  # Generate into lib so we can import
-  # libs/frontend/src/infrastructure/apollo/react-apollo.generated.tsx:
-  #   plugins:
-  #     - typescript
-  #     - typescript-resolvers
-  #     - typescript-operations
-  #     - typescript-react-apollo
-  #     - fragment-matcher
-  #     # - typescript-document-nodes
-  #     # - typescript-graphql-files-modules
-  #     # - graphql-codegen-apollo-next-ssr
-  #   config:
-  #     reactApolloVersion: 3
-  #     withHooks: true
-  #     withHOC: false
-  #     withComponent: false
-  #     exportFragmentSpreadSubTypes: true
-  #     documentMode: graphQLTag
-  #     namingConvention:
-  #       enumValues: keep
-  #   documents: libs/modules/user/src/core/application/useCases/**/*.graphql
-
-  # # Doesn't required documents
-  # libs/frontend/src/infrastructure/apollo/types.generated.ts:
-  #   plugins:
-  #     - typescript
-  #     - typescript-operations
-  #     - typed-document-node
-  #     # - typescript-resolvers
-  #     # - typescript-document-nodes
-  #     # - typescript-graphql-files-modules
-  #   schema: ./schema.graphql
-  #   hooks:
-  #     afterOneFileWrite:
-  #       - eslint --fix
-
-  # libs/frontend/src/infrastructure/apollo/page.generated.tsx:
-  #   plugins:
-  #     - graphql-codegen-apollo-next-ssr
-  #   config:
-  #     documentMode: external
-  #     importDocumentNodeExternallyFrom: ./types.generated
-  #     reactApolloVersion: 3
-  #     withHooks: true
-  #     withHOC: false
-  #     apolloClientInstanceImport: '@codelab/frontend'
-  #   # preset: near-operation-file
-  #   # presetConfig:
-  #   #   baseTypesPath: types.generated.tsx
-  #   preset: import-types
-  #   presetConfig:
-  #     typesPath: ./types.generated
-  #   documents: libs/modules/user/src/core/application/useCases/**/*.graphql
-  #   hooks:
-  #     afterOneFileWrite:
-  #       - eslint --fix
-# libs/state/apollo/src/__generated__/graphql-files-modules.d.ts:
-#   plugins:
-#     - typescript-graphql-files-modules
-#   config:
-#     namingConvention: keep
-# libs/state/apollo/src/__generated__/graphql-documents-nodes.ts:
-#   plugins:
-#     - typescript
-#     - typescript-document-nodes
-#     # - typescript-graphql-files-modules
-#     # - fragment-matcher
+  libs/generated/src/graphql-client.generated.ts:
+    schema:
+      - schema.client.graphql
+    plugins:
+      # - typescript
+      # - typescript-operations
+      # - typescript-document-nodes
+      # - typescript-react-apollo
+      # - typescript-apollo-client-helpers
+      - typescript-apollo-client-helpers
+      - 'typescript-typedefs.js'
+    config:
+      requireKeyFields: false
+      requirePoliciesForAllTypes: false
+      documentVariableSuffix: 'Gql'
+      gqlImport: '@apollo/client#gql'

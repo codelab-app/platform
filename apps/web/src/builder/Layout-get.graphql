@@ -1,0 +1,5 @@
+query GetLayout {
+  getLayout @client {
+    ...layoutFragments
+  }
+}

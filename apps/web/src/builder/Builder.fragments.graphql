@@ -1,0 +1,10 @@
+fragment builderFragments on Builder {
+  position {
+    ...positionFragments
+  }
+  windowPosition {
+    ...positionFragments
+  }
+  component
+  isDragging
+}

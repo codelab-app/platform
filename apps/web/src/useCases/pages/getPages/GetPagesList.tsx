@@ -1,23 +1,20 @@
 import { FileOutlined, RightOutlined, SettingOutlined } from '@ant-design/icons'
 import { List, Space } from 'antd'
 import Link from 'next/link'
-import React from 'react'
+import React, { useContext } from 'react'
+import { AppContext } from '../../apps/AppProvider'
 import { usePage } from '../usePage'
-import { Page, PropsWithIds } from '@codelab/frontend'
-import { PageFragmentsFragment } from '@codelab/generated'
+import { Page } from '@codelab/frontend'
 
-type GetPagesListProps = {
-  pages: Array<PageFragmentsFragment>
-} & PropsWithIds<'appId'>
-
-export const GetPagesList = ({ pages, appId }: GetPagesListProps) => {
-  const pageHook = usePage()
+export const GetPagesList = () => {
+  const { app, appId } = useContext(AppContext)
+  const { detailPageId, togglePageDetailPane } = usePage()
 
   return (
     <>
       <List
         size="small"
-        dataSource={pages}
+        dataSource={app.pages}
         renderItem={(page) => (
           <List.Item onMouseOver={() => null} style={{ paddingLeft: 0 }}>
             <Space style={{ width: '100%' }}>
@@ -31,11 +28,11 @@ export const GetPagesList = ({ pages, appId }: GetPagesListProps) => {
                 <a>{page.title}</a>
               </Link>
             </Space>
-            {pageHook.pageId === page.id ? (
-              // Currently opening page specific detail panel
-              <RightOutlined onClick={() => pageHook.resetPage()} />
+            {detailPageId === page.id ? (
+              // Clicking on icon for currently opened page
+              <RightOutlined onClick={() => togglePageDetailPane(page.id)} />
             ) : (
-              <SettingOutlined onClick={() => pageHook.updatePage(page.id)} />
+              <SettingOutlined onClick={() => togglePageDetailPane(page.id)} />
             )}
           </List.Item>
         )}

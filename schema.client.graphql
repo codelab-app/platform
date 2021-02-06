@@ -1,0 +1,64 @@
+extend type Query {
+  getLayout: Layout!
+  getBuilder: Builder!
+}
+
+extend type Mutation {
+  setLayout(input: SetLayoutInput!): Layout!
+  setBuilder(input: SetBuilderInput!): Builder!
+}
+
+input PositionInput {
+  x: Int!
+  y: Int!
+}
+
+input SetBuilderInput {
+  position: PositionInput
+  windowPosition: PositionInput
+  component: String
+}
+
+input SetLayoutInput {
+  tab: LayoutTab
+  pane: LayoutPane
+  paneVisibility: LayoutPaneVisibility
+}
+
+type Layout {
+  tab: LayoutTab!
+  pane: LayoutPane!
+  paneVisibility: LayoutPaneVisibility!
+}
+
+type Builder {
+  position: Position!
+  windowPosition: Position!
+  component: String
+  isDragging: Boolean!
+}
+
+type Position {
+  x: Int!
+  y: Int!
+}
+
+enum LayoutTab {
+  Component
+  Page
+  Tree
+}
+
+enum LayoutPane {
+  Main
+  Detail
+  Both
+  None
+}
+
+enum LayoutPaneVisibility {
+  Main
+  Detail
+  Both
+  None
+}

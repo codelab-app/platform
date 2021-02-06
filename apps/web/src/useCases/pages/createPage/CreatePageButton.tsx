@@ -4,14 +4,14 @@ import React from 'react'
 import { usePage } from '../usePage'
 
 export const CreatePageButton = () => {
-  const { createPage } = usePage()
+  const { openCreatePage } = usePage()
 
   return (
     <Button
       type="primary"
       size="small"
       icon={<PlusOutlined />}
-      onClick={() => createPage()}
+      onClick={() => openCreatePage()}
     >
       Add
     </Button>

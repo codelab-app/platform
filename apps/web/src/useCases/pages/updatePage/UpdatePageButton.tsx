@@ -1,6 +1,6 @@
 import { Button } from 'antd'
 import React, { MutableRefObject } from 'react'
-import { SubmitController } from '../../../../../../libs/frontend/src/components/form/json-schema/JsonSchemaForm-ref'
+import { SubmitController } from '../../../../../../libs/frontend/src/components/form/json-schema/Form-jsonSchema--ref'
 
 interface UpdatePageButtonProps {
   submitRef: MutableRefObject<SubmitController | undefined>

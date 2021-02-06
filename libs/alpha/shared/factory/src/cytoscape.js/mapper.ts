@@ -1,8 +1,10 @@
 import { EdgeDefinition, NodeDefinition } from 'cytoscape'
 import { merge } from 'lodash'
 import objectMapper from 'object-mapper'
-import { EdgeFragmentsFragment } from '../../../../../generated/src/graphql.generated'
-import { VertexFragmentsFragment } from '@codelab/generated'
+import {
+  EdgeFragmentsFragment,
+  VertexFragmentsFragment,
+} from '@codelab/generated'
 
 /**
  * Map from GraphQL to Cytoscape

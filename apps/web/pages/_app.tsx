@@ -1,15 +1,12 @@
+import '../src/wdyr'
 import { ApolloProvider } from '@apollo/client'
 import { AppProps } from 'next/app'
 import { WithRouterProps } from 'next/dist/client/with-router'
-import { NextRouter, useRouter } from 'next/router'
-import * as R from 'ramda'
 import React from 'react'
 import { RecoilRoot } from 'recoil'
-import { Builder } from '../src/builder/Builder'
-import { Dashboard } from '../src/dashboard/Dashboard'
-import { HomeLayout } from '../src/home'
+import { LayoutFactory } from '../src/layout/Layout'
 import { LoginUserModal, RegisterUserModal } from '../src/useCases/user'
-import { PageType, isPage, mapProps, useApollo } from '@codelab/frontend'
+import { useApollo } from '@codelab/frontend'
 import './App.scss'
 
 require('highlight.js/styles/monokai-sublime.css')
@@ -17,21 +14,10 @@ require('antd/dist/antd.css')
 require('react-grid-layout/css/styles.css')
 require('react-resizable/css/styles.css')
 
-export interface SharedPageProps {
-  router: NextRouter
-}
-
-const withoutSidebar = (props: any) => ({ ...props, sidebar: { hide: true } })
-
-const LayoutFactory: React.FunctionComponent<WithRouterProps> = R.cond([
-  [isPage(PageType.Home), HomeLayout],
-  [isPage(PageType.AppList), mapProps(withoutSidebar)(Dashboard)],
-  [R.T, Builder],
-])
-
-const App: React.FunctionComponent<{}> = ({ children }) => {
-  const router = useRouter()
-
+const App: React.FunctionComponent<WithRouterProps> = ({
+  children,
+  router,
+}) => {
   return (
     <>
       <RegisterUserModal />
@@ -41,25 +27,24 @@ const App: React.FunctionComponent<{}> = ({ children }) => {
   )
 }
 
-const AppContainer: React.FC<AppProps> = (props) => {
-  const { Component, pageProps } = props
-
-  const apolloClient = useApollo(pageProps)
-
+const AppContainer: React.FC<AppProps> = ({ pageProps, Component, router }) => {
   return (
     <RecoilRoot>
-      <ApolloProvider client={apolloClient}>
+      <ApolloProvider client={useApollo(pageProps)}>
         <style jsx global>{`
           #__next {
             height: 100%;
           }
         `}</style>
-        <App>
+        <App router={router}>
           <Component {...pageProps} />
         </App>
       </ApolloProvider>
     </RecoilRoot>
   )
 }
+
+;(AppContainer as any).whyDidYouRender = true
+;(App as any).whyDidYouRender = true
 
 export default AppContainer

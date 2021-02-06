@@ -1,7 +1,7 @@
 import { PropsWithIds } from '@codelab/frontend'
 import { useGetPageQuery } from '@codelab/generated'
 
-export const useGetPageData = ({ pageId }: PropsWithIds<'pageId'>) => {
+export const usePage = ({ pageId }: PropsWithIds<'pageId'>) => {
   const { data } = useGetPageQuery({
     variables: {
       input: {

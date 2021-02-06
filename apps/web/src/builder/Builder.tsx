@@ -1,12 +1,13 @@
 import { Layout } from 'antd'
-import { useRouter } from 'next/router'
-import React, { PropsWithChildren } from 'react'
-import { useBuilderLayout } from './Builder-pane--state'
-import { PaneConfig } from './pane-config/Pane-config'
+import React, { PropsWithChildren, useContext } from 'react'
+import { LayoutProvider } from '../layout/LayoutProvider'
+import { AppContext, AppProvider } from '../useCases/apps/AppProvider'
+import { BuilderPaneController } from './Builder-pane-controller'
 import { BuilderDetails } from './pane-details/Pane-details'
 import { PaneMain } from './pane-main/Pane-main'
 import { BuilderTabSidebar } from './tabs-sidebar/Tabs-sidebar'
-import { PropsWithIds, RouterGuard, contentStyle } from '@codelab/frontend'
+import { contentStyle } from '@codelab/frontend'
+import { LayoutPaneVisibility } from '@codelab/generated'
 
 const { Sider, Content } = Layout
 
@@ -14,22 +15,23 @@ const tabsWidth = 40
 
 const paneMainWidth = 240
 
-export const Builder = ({
-  children,
-}: PropsWithChildren<PropsWithIds<'appId'>>) => {
-  const layout = useBuilderLayout()
-  const { query } = useRouter()
-  const appId = `${query.appId}`
+export const Builder = ({ children }: PropsWithChildren<{}>) => {
+  const { appId, pageId } = useContext(AppContext)
 
   return (
-    <Layout style={{ height: '100%' }}>
-      <PaneConfig />
-      <Sider theme="light" collapsed collapsedWidth={tabsWidth}>
-        <BuilderTabSidebar />
-      </Sider>
-      {layout.pane === 'none' ? null : (
-        <>
-          {layout.pane === 'main' || layout.pane === 'both' ? (
+    <AppProvider appId={appId} pageId={pageId}>
+      <LayoutProvider>
+        <Layout style={{ height: '100%' }}>
+          {/* <PaneConfig /> */}
+          <Sider theme="light" collapsed collapsedWidth={tabsWidth}>
+            <BuilderTabSidebar />
+          </Sider>
+          <BuilderPaneController
+            isVisible={({ paneVisibility }) =>
+              paneVisibility === LayoutPaneVisibility.Main ||
+              paneVisibility === LayoutPaneVisibility.Both
+            }
+          >
             <Sider
               theme="light"
               width={paneMainWidth}
@@ -40,15 +42,15 @@ export const Builder = ({
                 zIndex: 1,
               }}
             >
-              <RouterGuard guards={['appId']}>
-                <PaneMain />
-              </RouterGuard>
-              {/* <DashboardTreeContainer>
-              {({ data }: DashboardTreeProps) => <DashboardTree data={data} />}
-            </DashboardTreeContainer> */}
+              <PaneMain />
             </Sider>
-          ) : null}
-          {layout.pane === 'detail' || layout.pane === 'both' ? (
+          </BuilderPaneController>
+          <BuilderPaneController
+            isVisible={({ paneVisibility }) =>
+              paneVisibility === LayoutPaneVisibility.Detail ||
+              paneVisibility === LayoutPaneVisibility.Both
+            }
+          >
             <Sider
               theme="light"
               width={320}
@@ -59,14 +61,15 @@ export const Builder = ({
                 zIndex: 1,
               }}
             >
-              <BuilderDetails appId={appId} />
+              <BuilderDetails />
             </Sider>
-          ) : null}
-        </>
-      )}
-      <Layout>
-        <Content style={contentStyle}>{children}</Content>
-      </Layout>
-    </Layout>
+          </BuilderPaneController>
+          <Layout>
+            <Content style={contentStyle}>{children}</Content>
+          </Layout>
+        </Layout>
+      </LayoutProvider>
+    </AppProvider>
   )
 }
+;(Builder as any).whyDidYouRender = true

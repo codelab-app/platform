@@ -6,11 +6,15 @@ import {
 } from '@ant-design/icons'
 import { Menu, Popover } from 'antd'
 import Link from 'next/link'
-import React from 'react'
-import { useBuilderLayout } from '../Builder-pane--state'
+import React, { useContext } from 'react'
+import { LayoutContext } from '../../layout/LayoutProvider'
+import { UseLayoutMutation, useLayoutMutation } from '../useLayoutMutation'
 import { Page } from '@codelab/frontend'
+import { LayoutTab } from '@codelab/generated'
 
-const MenuItemApps = (props: any) => {
+type MenuItemProps = Pick<ReturnType<UseLayoutMutation>, 'toggleTab'>
+
+const MenuItemApps = ({ toggleTab, ...props }: MenuItemProps) => {
   const content = <Link href={Page.APP_LIST.url}>Apps</Link>
 
   return (
@@ -28,14 +32,12 @@ const MenuItemApps = (props: any) => {
   )
 }
 
-const MenuItemPages = (props: any) => {
-  const layout = useBuilderLayout()
-
+const MenuItemPages = ({ toggleTab, ...props }: MenuItemProps) => {
   return (
     <Menu.Item
       {...props}
       key="2"
-      onClick={() => layout.setTab('page')}
+      onClick={() => toggleTab(LayoutTab.Page)}
       icon={<CopyOutlined />}
     >
       Pages
@@ -43,14 +45,12 @@ const MenuItemPages = (props: any) => {
   )
 }
 
-const MenuItemComponents = (props: any) => {
-  const layout = useBuilderLayout()
-
+const MenuItemComponents = ({ toggleTab, ...props }: MenuItemProps) => {
   return (
     <Menu.Item
       {...props}
       key="3"
-      onClick={() => layout.setTab('component')}
+      onClick={() => toggleTab(LayoutTab.Component)}
       icon={<PlusSquareOutlined />}
     >
       Components
@@ -58,14 +58,12 @@ const MenuItemComponents = (props: any) => {
   )
 }
 
-const MenuItemTree = (props: any) => {
-  const layout = useBuilderLayout()
-
+const MenuItemTree = ({ toggleTab, ...props }: MenuItemProps) => {
   return (
     <Menu.Item
       {...props}
       key="4"
-      onClick={() => layout.setTab('tree')}
+      onClick={() => toggleTab(LayoutTab.Tree)}
       icon={<ApartmentOutlined />}
     >
       Tree
@@ -74,12 +72,15 @@ const MenuItemTree = (props: any) => {
 }
 
 export const BuilderTabSidebar = () => {
+  const layout = useContext(LayoutContext)
+  const { toggleTab } = useLayoutMutation(layout)
+
   return (
     <Menu mode="inline" style={{ height: '100%', width: '100%' }}>
-      <MenuItemApps />
-      <MenuItemPages />
-      <MenuItemComponents />
-      <MenuItemTree />
+      <MenuItemApps toggleTab={toggleTab} />
+      <MenuItemPages toggleTab={toggleTab} />
+      <MenuItemComponents toggleTab={toggleTab} />
+      <MenuItemTree toggleTab={toggleTab} />
     </Menu>
   )
 }

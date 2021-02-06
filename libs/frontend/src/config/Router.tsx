@@ -27,6 +27,7 @@ export enum PageType {
   Home = '/',
   AppList = '/apps',
   PageList = '/apps/[appId]/pages',
+  PageDetail = '/apps/[appId]/pages/[pageId]',
   AppDetail = '/apps/[appId]',
 }
 

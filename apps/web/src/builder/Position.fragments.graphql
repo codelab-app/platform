@@ -1,0 +1,4 @@
+fragment positionFragments on Position {
+  x
+  y
+}

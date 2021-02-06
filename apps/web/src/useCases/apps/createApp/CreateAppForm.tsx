@@ -4,7 +4,7 @@ import { CreateAppInput } from '../../../../../../libs/modules/app/src/core/appl
 import { appState } from '../state'
 import {
   ApolloForm,
-  ApolloFormUseCaseProps,
+  FormUseCaseProps,
   createNotificationHandler,
 } from '@codelab/frontend'
 import {
@@ -14,9 +14,7 @@ import {
   useCreateAppMutation,
 } from '@codelab/generated'
 
-export const CreateAppForm = (
-  props: ApolloFormUseCaseProps<CreateAppInput>,
-) => {
+export const CreateAppForm = (props: FormUseCaseProps<CreateAppInput>) => {
   const [mutate, { loading }] = useCreateAppMutation({
     awaitRefetchQueries: true,
     refetchQueries: [
