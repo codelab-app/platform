@@ -6,7 +6,8 @@ const startServerCmd = `npx env-cmd -f .env cross-env PORT=4001 \
 
 const waitForCmd = 'npx wait-on http://localhost:4001 && exit 0'
 
-const graphqlCodegenCmd = 'npx graphql-codegen --config .graphqlconfig.yaml'
+const graphqlCodegenCmd =
+  'npx --unhandled-rejections=strict graphql-codegen --config .graphqlconfig.yaml'
 /**
  * We're generating frontend graphql queries into gql wrapped functions to be used with apollo client
  */

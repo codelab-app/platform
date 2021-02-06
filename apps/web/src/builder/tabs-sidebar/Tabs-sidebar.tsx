@@ -6,16 +6,15 @@ import {
 } from '@ant-design/icons'
 import { Menu, Popover } from 'antd'
 import Link from 'next/link'
-import React from 'react'
-import { useLayout } from '../useLayout'
+import React, { useContext } from 'react'
+import { LayoutContext } from '../../layout/LayoutProvider'
+import { UseLayoutMutation, useLayoutMutation } from '../useLayoutMutation'
 import { Page } from '@codelab/frontend'
-import { LayoutTab, useSetLayoutMutation } from '@codelab/generated'
+import { LayoutTab } from '@codelab/generated'
 
-interface MenuItemProps {
-  setLayout: ReturnType<typeof useSetLayoutMutation>[0]
-}
+type MenuItemProps = Pick<ReturnType<UseLayoutMutation>, 'toggleTab'>
 
-const MenuItemApps = ({ setLayout, ...props }: MenuItemProps) => {
+const MenuItemApps = ({ toggleTab, ...props }: MenuItemProps) => {
   const content = <Link href={Page.APP_LIST.url}>Apps</Link>
 
   return (
@@ -33,14 +32,12 @@ const MenuItemApps = ({ setLayout, ...props }: MenuItemProps) => {
   )
 }
 
-const MenuItemPages = ({ setLayout, ...props }: MenuItemProps) => {
+const MenuItemPages = ({ toggleTab, ...props }: MenuItemProps) => {
   return (
     <Menu.Item
       {...props}
       key="2"
-      onClick={() =>
-        setLayout({ variables: { input: { tab: LayoutTab.Page } } })
-      }
+      onClick={() => toggleTab(LayoutTab.Page)}
       icon={<CopyOutlined />}
     >
       Pages
@@ -48,14 +45,12 @@ const MenuItemPages = ({ setLayout, ...props }: MenuItemProps) => {
   )
 }
 
-const MenuItemComponents = ({ setLayout, ...props }: MenuItemProps) => {
+const MenuItemComponents = ({ toggleTab, ...props }: MenuItemProps) => {
   return (
     <Menu.Item
       {...props}
       key="3"
-      onClick={() =>
-        setLayout({ variables: { input: { tab: LayoutTab.Component } } })
-      }
+      onClick={() => toggleTab(LayoutTab.Component)}
       icon={<PlusSquareOutlined />}
     >
       Components
@@ -63,14 +58,12 @@ const MenuItemComponents = ({ setLayout, ...props }: MenuItemProps) => {
   )
 }
 
-const MenuItemTree = ({ setLayout, ...props }: MenuItemProps) => {
+const MenuItemTree = ({ toggleTab, ...props }: MenuItemProps) => {
   return (
     <Menu.Item
       {...props}
       key="4"
-      onClick={() =>
-        setLayout({ variables: { input: { tab: LayoutTab.Tree } } })
-      }
+      onClick={() => toggleTab(LayoutTab.Tree)}
       icon={<ApartmentOutlined />}
     >
       Tree
@@ -79,14 +72,15 @@ const MenuItemTree = ({ setLayout, ...props }: MenuItemProps) => {
 }
 
 export const BuilderTabSidebar = () => {
-  const { setLayout } = useLayout()
+  const layout = useContext(LayoutContext)
+  const { toggleTab } = useLayoutMutation(layout)
 
   return (
     <Menu mode="inline" style={{ height: '100%', width: '100%' }}>
-      <MenuItemApps setLayout={setLayout} />
-      <MenuItemPages setLayout={setLayout} />
-      <MenuItemComponents setLayout={setLayout} />
-      <MenuItemTree setLayout={setLayout} />
+      <MenuItemApps toggleTab={toggleTab} />
+      <MenuItemPages toggleTab={toggleTab} />
+      <MenuItemComponents toggleTab={toggleTab} />
+      <MenuItemTree toggleTab={toggleTab} />
     </Menu>
   )
 }

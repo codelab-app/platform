@@ -1,9 +1,10 @@
 import styled from '@emotion/styled'
-import React, { PropsWithChildren } from 'react'
+import React, { PropsWithChildren, useContext } from 'react'
+import { LayoutContext } from '../layout/LayoutProvider'
 import { Layout } from '@codelab/generated'
 
 interface BuilderPaneControllerProps {
-  layout: Layout
+  // layout: LayoutFragmentsFragment
   /**
    * Predicated to determine whether component should be rendered
    */
@@ -15,21 +16,22 @@ interface BuilderPaneControllerProps {
 }
 
 export const PaneStyle = styled.div`
-  visibility: ${({ visible }: { visible: boolean }) =>
-    visible ? 'visible' : 'hidden'};
+  display: ${({ visible }: { visible: boolean }) =>
+    visible ? 'block' : 'none'};
 `
 
 export const BuilderPaneController = ({
-  layout,
   children,
   isRendered = () => true,
   isVisible = () => true,
 }: PropsWithChildren<BuilderPaneControllerProps>) => {
+  const layout = useContext(LayoutContext)
+
   return (
     <>
       {isRendered(layout) ? (
         <PaneStyle visible={isVisible(layout)}>{children}</PaneStyle>
-      ) : null}{' '}
+      ) : null}
     </>
   )
 }

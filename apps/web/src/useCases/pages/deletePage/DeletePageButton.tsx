@@ -1,22 +1,23 @@
 import { DeleteOutlined } from '@ant-design/icons'
 import { Button } from 'antd'
-import React from 'react'
-import { PropsWithIds } from '@codelab/frontend'
-import { GetPagesGql, useDeletePageMutation } from '@codelab/generated'
+import React, { useContext } from 'react'
+import { useRecoilValue } from 'recoil'
+import { AppContext } from '../../apps/AppProvider'
+import { pageState } from '../usePage'
+import { GetAppGql, useDeletePageMutation } from '@codelab/generated'
 
 export type DeletePageButtonProps = {
   onSuccess: Function
-} & PropsWithIds<'pageId' | 'appId'>
+}
 
-export const DeletePageButton = ({
-  pageId,
-  appId,
-  onSuccess,
-}: DeletePageButtonProps) => {
+export const DeletePageButton = ({ onSuccess }: DeletePageButtonProps) => {
+  const { appId } = useContext(AppContext)
+  const detailPageId = useRecoilValue(pageState)
+
   const [deletePage] = useDeletePageMutation({
     refetchQueries: [
       {
-        query: GetPagesGql,
+        query: GetAppGql,
         variables: {
           input: {
             appId,
@@ -32,7 +33,9 @@ export const DeletePageButton = ({
       type="primary"
       icon={<DeleteOutlined />}
       onClick={() =>
-        deletePage({ variables: { input: { pageId } } }).then(() => onSuccess())
+        deletePage({
+          variables: { input: { pageId: detailPageId } },
+        }).then(() => onSuccess())
       }
     >
       Delete

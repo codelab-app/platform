@@ -1,12 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useRecoilState } from 'recoil'
-import { PropsWithIds } from '../../../../../../libs/frontend/src/interfaces/PropsWithIds'
+import { AppContext } from '../../apps/AppProvider'
 import { CreatePageForm } from './CreatePageForm'
 import { pageFormState } from './pageFormState'
 import { ModalForm } from '@codelab/frontend'
 
-export const CreatePageModal = ({ appId }: PropsWithIds<'appId'>) => {
+export const CreatePageModal = () => {
   const [pageForm, setPageForm] = useRecoilState(pageFormState)
+  const { appId } = useContext(AppContext)
 
   return (
     <ModalForm

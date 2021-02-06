@@ -1,28 +1,15 @@
 import { Tree } from 'antd'
-import React from 'react'
-import { useRecoilState } from 'recoil'
-import { useGetPageData } from '../../../useCases/pages/getPage/useGetPageData'
-import { usePage } from '../../../useCases/pages/usePage'
-import { paneConfigState } from '../../pane-config/Pane-config'
+import React, { useContext } from 'react'
 import { CytoscapeService } from '@codelab/frontend'
+import { AppContext } from 'apps/web/src/useCases/apps/AppProvider'
 
 export const PaneMainTree = () => {
-  const [{ visible, vertexId }, setBuilderDrawer] = useRecoilState(
-    paneConfigState,
-  )
-  const pageHook = usePage()
+  const { page } = useContext(AppContext)
+  // const onSelect = (id: React.Key) => {
+  //   setBuilderDrawer({ visible: true, vertexId: `${id}` })
+  // }
 
-  const onSelect = (id: React.Key) => {
-    setBuilderDrawer({ visible: true, vertexId: `${id}` })
-  }
-
-  const { layoutGraph, page } = useGetPageData({ pageId: pageHook.pageId })
-
-  if (!layoutGraph || !page) {
-    return null
-  }
-
-  const cy = CytoscapeService.fromGraph(layoutGraph)
+  const cy = CytoscapeService.fromGraph(page.graphs[0])
   const data = CytoscapeService.antdTree(cy)
 
   return (
@@ -33,7 +20,7 @@ export const PaneMainTree = () => {
         draggable
         blockNode
         onSelect={([id]) => {
-          onSelect(id)
+          // onSelect(id)
         }}
         // onDrop={this.onDrop}
         treeData={[data]}

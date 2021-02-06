@@ -53,6 +53,7 @@ type User {
 type Query {
   getApp(input: GetAppInput!): App
   getApps: [App!]!
+  getBuilder: Builder!
   getGraph(input: GetGraphInput!): Graph!
   getLayout: Layout!
   getMe: User!
@@ -93,6 +94,7 @@ type Mutation {
   loginUser(input: LoginUserInput!): User!
   modeVertex(input: MoveVertexInput!): Vertex!
   registerUser(input: RegisterUserInput!): User!
+  setBuilder(input: SetBuilderInput!): Builder!
   setLayout(input: SetLayoutInput!): Layout!
   updateApp(input: UpdateAppInput!): App!
   updateEdge(input: UpdateEdgeInput!): Edge!
@@ -185,6 +187,17 @@ input DeletePageInput {
   pageId: String!
 }
 
+input PositionInput {
+  x: Int!
+  y: Int!
+}
+
+input SetBuilderInput {
+  position: PositionInput
+  windowPosition: PositionInput
+  component: String
+}
+
 input SetLayoutInput {
   tab: LayoutTab
   pane: LayoutPane
@@ -192,9 +205,21 @@ input SetLayoutInput {
 }
 
 type Layout {
-  tab: LayoutTab
-  pane: LayoutPane
-  paneVisibility: LayoutPaneVisibility
+  tab: LayoutTab!
+  pane: LayoutPane!
+  paneVisibility: LayoutPaneVisibility!
+}
+
+type Builder {
+  position: Position!
+  windowPosition: Position!
+  component: String
+  isDragging: Boolean!
+}
+
+type Position {
+  x: Int!
+  y: Int!
 }
 
 enum LayoutTab {

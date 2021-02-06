@@ -1,6 +1,5 @@
 query GetLayout {
   getLayout @client {
-    tab
-    pane
+    ...layoutFragments
   }
 }

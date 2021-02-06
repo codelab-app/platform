@@ -3,21 +3,9 @@ import { BuilderPaneController } from '../Builder-pane-controller'
 import { PaneMainComponent } from './component/Pane-main--component'
 import { PaneMainPage } from './page/Pane-main--page'
 import { PaneMainTree } from './tree/Pane-main--tree'
-import {
-  LayoutPaneVisibility,
-  LayoutTab,
-  useGetLayoutQuery,
-} from '@codelab/generated'
+import { LayoutTab } from '@codelab/generated'
 
 export const PaneMain = () => {
-  const { data } = useGetLayoutQuery()
-
-  if (!data) {
-    return null
-  }
-
-  const layout = data.getLayout
-
   return (
     <div
       // TODO: overflowY: 'scroll' stops draggable from being dragged outside of container
@@ -28,16 +16,16 @@ export const PaneMain = () => {
       }}
     >
       <BuilderPaneController
-        layout={layout}
-        isVisible={({ paneVisibility }) =>
-          paneVisibility === LayoutPaneVisibility.Main ||
-          paneVisibility === LayoutPaneVisibility.Both
-        }
+        isVisible={({ tab }) => tab === LayoutTab.Component}
       >
         <PaneMainComponent />
       </BuilderPaneController>
-      {layout.tab === LayoutTab.Page ? <PaneMainPage /> : null}
-      {layout.tab === LayoutTab.Tree ? <PaneMainTree /> : null}
+      <BuilderPaneController isVisible={({ tab }) => tab === LayoutTab.Page}>
+        <PaneMainPage />
+      </BuilderPaneController>
+      <BuilderPaneController isVisible={({ tab }) => tab === LayoutTab.Tree}>
+        <PaneMainTree />
+      </BuilderPaneController>
     </div>
   )
 }

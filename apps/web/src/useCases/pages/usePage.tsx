@@ -1,59 +1,91 @@
-import { useRouter } from 'next/router'
+import { useContext } from 'react'
 import { atom, useRecoilState } from 'recoil'
-import { useBuilderLayout } from '../../builder/Builder-pane--state'
-import { LayoutPane } from '@codelab/generated'
-
-type PageDetailsState = {
-  pageId?: string
-}
+import { useLayoutMutation } from '../../builder/useLayoutMutation'
+import { LayoutContext } from '../../layout/LayoutProvider'
+import { LayoutPaneVisibility } from '@codelab/generated'
 
 export type CrudAction = 'create' | 'update'
 
-export const pageState = atom<PageDetailsState>({
+export const pageState = atom<string>({
   key: 'page',
-  default: {
-    pageId: undefined,
-  },
+  default: '',
 })
 
-type UsePage = {
-  resetPage: (pane?: LayoutPane) => void
-  createPage: Function
-  pageId: string
-  updatePage(pageId: string): void
-} & PageDetailsState
+// type UsePage = {
+//   togglePageDetailPane: any
+//   detailPageId: string
+//   resetPage: (pane: LayoutPaneVisibility) => void
+//   startCreatePage: Function
+//   updatePage(pageId: string): void
+// }
 
-export const usePage = (): UsePage => {
-  const { query } = useRouter()
-  const layout = useBuilderLayout()
-  const [page, setPage] = useRecoilState(pageState)
+export const usePage = () => {
+  const layout = useContext(LayoutContext)
+  const { setLayout, setPaneVisibility } = useLayoutMutation(layout)
+  const [detailPageId, setDetailPageId] = useRecoilState(pageState)
 
-  const createPage = () => {
-    layout.setPane(LayoutPane.Both)
+  const openCreatePage = () => {
+    setPaneVisibility(LayoutPaneVisibility.Both)
 
-    return setPage({
-      pageId: undefined,
-    })
+    return setDetailPageId('')
   }
 
-  const updatePage = (pageId: string) => {
-    layout.setPane(LayoutPane.Both)
+  const openUpdatePage = (pageId: string) => {
+    // layout.setPane(LayoutPane.Both)
 
-    return setPage({
-      pageId,
-    })
+    return setDetailPageId(pageId)
   }
 
-  const resetPage = (pane: LayoutPane = LayoutPane.None) => {
-    layout.setPane(pane)
-    setPage({ pageId: undefined })
+  const resetPage = (
+    pane: LayoutPaneVisibility = LayoutPaneVisibility.None,
+  ) => {
+    setLayout({
+      variables: {
+        input: {
+          paneVisibility: pane,
+        },
+      },
+    })
+    // layout.setPane(pane)
+    setDetailPageId('')
+  }
+
+  const togglePageDetailPane = (id: string) => {
+    let newPaneVisibility: LayoutPaneVisibility = LayoutPaneVisibility.Both
+    let newId = id
+
+    // If same id & closing detail pane
+    if (
+      id === detailPageId &&
+      layout.paneVisibility === LayoutPaneVisibility.Both
+    ) {
+      newPaneVisibility = LayoutPaneVisibility.Main
+      newId = ''
+    }
+
+    // If same id & opening detail pane
+    if (
+      id === detailPageId &&
+      layout.paneVisibility === LayoutPaneVisibility.Main
+    ) {
+      newPaneVisibility = LayoutPaneVisibility.Both
+    }
+
+    return setLayout({
+      variables: {
+        input: {
+          paneVisibility: newPaneVisibility,
+        },
+      },
+    }).then(() => setDetailPageId(newId))
   }
 
   return {
-    createPage,
+    togglePageDetailPane,
+    openCreatePage,
+    openUpdatePage,
     resetPage,
-    updatePage,
-    pageId: `${query.pageId}`,
-    ...page,
+    setPaneVisibility,
+    detailPageId,
   }
 }

@@ -1,9 +1,8 @@
 import { css } from '@emotion/react'
 import { VertexType } from '@prisma/client'
 import { List } from 'antd'
-import React, { useCallback, useMemo } from 'react'
+import React, { useMemo } from 'react'
 import { ComponentItem } from './Component-item'
-import { useComponent } from './component-hook'
 
 type ComponentItem = {
   key: string
@@ -12,9 +11,9 @@ type ComponentItem = {
 }
 
 export const PaneMainComponent = () => {
-  const { position, onStart, onDrag, onStop } = useComponent()
+  // const { position, onStart, onDrag, onStop, loading } = useComponent()
 
-  const onStartCb = useCallback(onStart, [])
+  // const onStartCb = useCallback(onStart, [])
   // const onStopCb = useCallback(onStop, [0])
 
   const componentsData: Array<ComponentItem> = useMemo(
@@ -39,6 +38,10 @@ export const PaneMainComponent = () => {
     [],
   )
 
+  // if (loading) {
+  //   return null
+  // }
+
   return (
     <List
       grid={{
@@ -62,7 +65,7 @@ export const PaneMainComponent = () => {
         >
           <ComponentItem
             item={item}
-            onStart={onStartCb}
+            // onStart={onStart}
             // onStop={onStopCb}
             // onDrag={onDrag}
           />

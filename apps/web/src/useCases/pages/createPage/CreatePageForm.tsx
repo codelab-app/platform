@@ -3,7 +3,7 @@ import { ApolloForm, FormUseCaseProps, PropsWithIds } from '@codelab/frontend'
 import {
   CreatePageInputSchema,
   CreatePageMutationVariables,
-  GetPagesGql,
+  GetAppGql,
   useCreatePageMutation,
 } from '@codelab/generated'
 import { CreatePageInput } from 'libs/modules/page/src/core/application/useCases/createPage/CreatePageInput'
@@ -15,7 +15,7 @@ export const CreatePageForm = ({ appId, ...props }: CreatePageFormProps) => {
   const [mutate] = useCreatePageMutation({
     refetchQueries: [
       {
-        query: GetPagesGql,
+        query: GetAppGql,
         variables: {
           input: {
             appId,

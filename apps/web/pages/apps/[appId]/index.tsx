@@ -1,5 +1,6 @@
 import { PlusOutlined } from '@ant-design/icons'
 import { Button } from 'antd'
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import { useRouter } from 'next/router'
 import React from 'react'
 import {
@@ -8,6 +9,7 @@ import {
   Responsive,
   WidthProvider,
 } from 'react-grid-layout'
+import { PropsWithIds } from '@codelab/frontend'
 
 const ResponsiveGridLayout = WidthProvider(Responsive)
 
@@ -75,6 +77,30 @@ const AppPage = () => {
 }
 
 // export default R.pipe(withApollo, AppPage)
-const EmptyPage = () => null
+const EmptyPage = (
+  props: InferGetServerSidePropsType<typeof getServerSideProps>,
+) => {
+  console.log(props)
+
+  return <h1>Hi</h1>
+}
+
+/**
+ * Without this the component would render twice
+ */
+// eslint-disable-next-line require-await
+export const getServerSideProps: GetServerSideProps<
+  PropsWithIds<'appId'>
+> = async (context) => {
+  console.log(context)
+
+  return await {
+    props: {
+      ...(context.query as PropsWithIds<'appId'>),
+    },
+  }
+}
+
+EmptyPage.whyDidYouRender = true
 
 export default EmptyPage

@@ -4,7 +4,7 @@ import { useGetPagesQuery } from '@codelab/generated'
 /**
  * Get `appId` & `pageId` from query
  */
-export const useApp = () => {
+export const useAppQuery = () => {
   const { query } = useRouter()
 
   const appId = `${query.appId}`

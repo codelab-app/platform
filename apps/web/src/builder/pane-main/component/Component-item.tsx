@@ -19,7 +19,7 @@ export const ComponentItem = ({
 }: ComponentItemProps) => {
   // const throttledOnDrag = useCallback(throttle(onDrag, 1000), [0])
 
-  console.log('rerender')
+  // console.log('rerender')
 
   return (
     <Draggable
@@ -58,3 +58,5 @@ export const ComponentItem = ({
     </Draggable>
   )
 }
+
+ComponentItem.whyDidItRender = true

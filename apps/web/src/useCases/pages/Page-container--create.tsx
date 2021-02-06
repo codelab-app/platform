@@ -1,23 +1,21 @@
 import { Button, Space } from 'antd'
-import React, { useRef } from 'react'
+import React, { useContext, useRef } from 'react'
 import { SubmitController } from '../../../../../libs/frontend/src/components/form/json-schema/Form-jsonSchema--ref'
-import { useLayout } from '../../builder/useLayout'
+import { AppContext } from '../apps/AppProvider'
 import { CreatePageForm } from './createPage/CreatePageForm'
-import { PropsWithIds } from '@codelab/frontend'
-import { LayoutPane } from '@codelab/generated'
+import { usePage } from './usePage'
+import { LayoutPaneVisibility, useSetLayoutMutation } from '@codelab/generated'
 
-export const PageContainerCreate = ({ appId }: PropsWithIds<'appId'>) => {
+export const PageContainerCreate = () => {
+  const { appId } = useContext(AppContext)
   const submitRef = useRef<SubmitController | undefined>()
-  const { setLayout } = useLayout()
+  const [setLayout] = useSetLayoutMutation()
+  const { resetPage } = usePage()
 
   return (
     <div style={{ margin: '1rem' }}>
       <Space style={{ width: '100%', justifyContent: 'flex-end' }}>
-        <Button
-          onClick={() =>
-            setLayout({ variables: { input: { pane: LayoutPane.Main } } })
-          }
-        >
+        <Button onClick={() => resetPage(LayoutPaneVisibility.Main)}>
           Close
         </Button>
         <Button type="primary" onClick={() => submitRef.current?.submit()}>
@@ -27,9 +25,7 @@ export const PageContainerCreate = ({ appId }: PropsWithIds<'appId'>) => {
       <CreatePageForm
         appId={appId}
         submitRef={submitRef}
-        onSubmitSuccess={() =>
-          setLayout({ variables: { input: { pane: LayoutPane.Main } } })
-        }
+        onSubmitSuccess={() => resetPage(LayoutPaneVisibility.Main)}
       />
     </div>
   )
