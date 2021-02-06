@@ -62,20 +62,24 @@ export const withAuthServerSideProps = (
 
   // If we don't have a token in the cookie, no point in querying the server at all. Return an empty response
   if (authToken) {
-    result = await apolloClient.query({
-      query: GetMeGql,
-    })
+    result = await apolloClient
+      .query({
+        query: GetMeGql,
+      })
+      .catch(() => {
+        return undefined
+      })
   }
 
-  let props: any = {}
+  let props: any = { props: {} }
 
   if (getServerSidePropsFunc) {
-    props = await getServerSidePropsFunc(context, result?.data?.getMe)
+    props = (await getServerSidePropsFunc(context, result?.data?.getMe)) || {
+      props: {},
+    }
   }
 
-  return addApolloState(apolloClient, {
-    props: props || {},
-  })
+  return addApolloState(apolloClient, props)
 }
 
 /** Shorthand for using @see {@link withAuthServerSideProps} for redirecting if not authenticated */
