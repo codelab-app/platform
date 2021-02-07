@@ -2,15 +2,19 @@ import { Injectable } from '@nestjs/common'
 import { App } from '@prisma/client'
 import { CreateAppRequest } from './CreateAppRequest'
 import { PrismaService, TransactionalUseCase } from '@codelab/backend'
+import { CreatePageService } from 'libs/modules/page/src/core/application/useCases/createPage/CreatePageService'
 
 @Injectable()
 export class CreateAppService
   implements TransactionalUseCase<CreateAppRequest, App> {
-  constructor(private readonly prismaService: PrismaService) {}
+  constructor(
+    private readonly prismaService: PrismaService,
+    private readonly createPageService: CreatePageService,
+  ) {}
 
   async execute({ user, ...request }: CreateAppRequest) {
     try {
-      return await this.prismaService.app.create({
+      const app = this.prismaService.app.create({
         data: {
           ...request,
           user: {
@@ -18,13 +22,17 @@ export class CreateAppService
               id: user.id,
             },
           },
-          pages: {
-            create: {
-              title: 'Home',
-            },
-          },
         },
       })
+
+      this.createPageService.prepare({ appId: (await app).id, title: 'Home' })
+
+      return (
+        await this.prismaService.$transaction([
+          app,
+          this.createPageService.operations,
+        ])
+      )[0]
     } catch (e) {
       throw new Error()
     }
