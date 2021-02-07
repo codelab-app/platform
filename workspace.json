@@ -157,7 +157,7 @@
           "builder": "@nrwl/workspace:run-commands",
           "options": {
             "commands": [
-              "nx build-next web",
+              "npx cross-env NODE_ENV=production nx build-next web",
               "npx copyfiles -f apps/web/pm2.json dist/apps/web"
             ],
             "parallel": false

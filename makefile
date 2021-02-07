@@ -8,6 +8,7 @@
 # BUILD
 #
 
+
 build-dev-affected:
 	npx nx affected:build \
 		--parallel
@@ -23,6 +24,8 @@ build-ci:
     --target=build \
 		--projects=api-codelab,web,tools-eslint-config-codelab,codelab-schematics \
     --parallel \
+		--maxWorkers=8 \
+		--memoryLimit=8192 \
 		--skip-nx-cache
 
 build-prod:
@@ -43,6 +46,8 @@ generate-ci:
 		--projects=tools-generators-graphql,tools-generators-json-schema \
     --parallel \
 		--verbose \
+		--maxWorkers=8 \
+		--memoryLimit=8192 \
 		--skip-nx-cache
 
 generate-json-schema:
@@ -131,6 +136,8 @@ integration-ci:
 	--all \
 	--runInBand \
 	--verbose \
+	--maxWorkers=8 \
+	--memoryLimit=8192 \
 	--skip-nx-cache
 
 #
@@ -173,6 +180,8 @@ unit-ci:
 	--target=test \
 	--all \
 	--skip-nx-cache \
+	--maxWorkers=8 \
+	--memoryLimit=8192 \
 	--verbose
 
 #
