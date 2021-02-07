@@ -136,6 +136,7 @@
     "supertest": "6.0.1",
     "tsconfig-paths": "3.9.0",
     "typescript-json-schema": "0.48.0",
+    "use-resize-observer": "^7.0.0",
     "uuid": "8.3.0",
     "voca": "1.4.0",
     "winston": "3.3.3",

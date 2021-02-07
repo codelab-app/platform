@@ -1,8 +1,9 @@
-import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
+import { InferGetServerSidePropsType } from 'next'
 import React from 'react'
+import { withAuthServerSideProps } from '../../../../../../../libs/frontend/src/infrastructure/auth/withAuthServerSideProps'
 import { GetPageLayout } from '../../../../../src/useCases/pages/getPage/GetPageLayout'
 import { usePage } from '../../../../../src/useCases/pages/getPage/useGetPageData'
-import { PropsWithIds } from '@codelab/frontend'
+import { Page, PropsWithIds } from '@codelab/frontend'
 import { LayoutPane, useSetLayoutMutation } from '@codelab/generated'
 
 const PageDetail = ({
@@ -17,32 +18,42 @@ const PageDetail = ({
   }
 
   return (
-    <div
-      id="Builder"
-      onClick={() =>
-        setLayout({
-          variables: {
-            input: {
-              pane: LayoutPane.None,
+    <div id="Builder" style={{ position: 'relative' }}>
+      <div
+        role="presentation"
+        style={{ position: 'absolute', inset: 0 }}
+        onClick={() =>
+          setLayout({
+            variables: {
+              input: {
+                pane: LayoutPane.None,
+              },
             },
-          },
-        })
-      }
-    >
+          })
+        }
+      />
       <h1>{page.title}</h1>
       <GetPageLayout graph={layoutGraph} pageId={pageId} />
     </div>
   )
 }
 
-export const getServerSideProps: GetServerSideProps<
-  PropsWithIds<'appId' | 'pageId'>
-> = async (context) => {
-  return await {
+// Redirect to home if not authenticated
+export const getServerSideProps = withAuthServerSideProps((context, user) => {
+  if (!user) {
+    return {
+      redirect: {
+        destination: Page.HOME.url,
+        permanent: false,
+      },
+    }
+  }
+
+  return {
     props: {
       ...(context.query as PropsWithIds<'appId' | 'pageId'>),
     },
   }
-}
+})
 
 export default PageDetail

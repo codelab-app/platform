@@ -61,7 +61,6 @@ import {
 } from 'antd'
 import React, { ReactHTMLElement } from 'react'
 import { PaneConfigHandlersProps } from '../../../../apps/web/src/builder/pane-config/Pane-config--handlers'
-import { onResizeStop } from '../../../alpha/ui/antd/src/components/rgl/RGL-handlers'
 import { propsFilter, withFilters } from '@codelab/alpha/core/props'
 import { mouseEventHandlerKeys } from '@codelab/alpha/shared/event'
 import {
@@ -73,18 +72,21 @@ import {
   Provider,
   RGL,
   RenderComponent,
-  onDragStart,
+  onResizeStop,
 } from '@codelab/alpha/ui/antd'
 
-export const elementParameterFactory = ({
-  type,
-  props = {},
+export const elementParameterFactory = <
+  TNode extends { type: VertexType; props: Record<string, any> }
+>({
+  node,
   handlers,
 }: {
-  type: VertexType
+  node: TNode
   props?: Record<string, any>
   handlers: PaneConfigHandlersProps // Function hooks injected to pass to handlers
 }): [ReactHTMLElement<any> | React.FunctionComponent<any> | string, object] => {
+  const { type, props } = node
+
   switch (type) {
     case VertexType.React_Fragment:
       return [React.Fragment, props]
@@ -171,6 +173,12 @@ export const elementParameterFactory = ({
         // There is a fix here https://github.com/STRML/react-grid-layout/issues/718, but for some reason it's not merged into the main repo
         {
           ...props,
+          onMouseOut: () => handlers.resetHoverOverlay(),
+          onMouseOver: (e: MouseEvent) =>
+            handlers.showHoverOverlay(e.target as HTMLElement, node),
+          onClick: (e: MouseEvent) => {
+            handlers.showClickOverlay(e.target as HTMLElement, node)
+          },
           key: props['data-grid']
             ? props.key + JSON.stringify(props['data-grid'])
             : props.key,
@@ -181,7 +189,6 @@ export const elementParameterFactory = ({
         RGL.ResponsiveContainer,
         {
           ...props,
-          onDragStart: onDragStart(handlers),
           onResizeStop: onResizeStop(handlers),
         },
       ]

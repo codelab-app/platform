@@ -40,7 +40,7 @@ export const GetPageLayout = ({ graph, pageId }: GetPageLayoutProps) => {
 
   return (
     <>
-      <RenderComponents {...root} />
+      <RenderComponents node={root} />
       <Button
         icon={<PlusOutlined />}
         type="primary"
