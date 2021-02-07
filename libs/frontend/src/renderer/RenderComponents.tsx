@@ -169,6 +169,7 @@ export const RenderComponents = ({ node }: { node: NodeA }) => {
       </RootComponent>
 
       <HoverOverlay />
+
       <div ref={ref}>
         <ClickOverlay setBuilderDrawer={setBuilderDrawer} />
       </div>
