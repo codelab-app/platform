@@ -3,8 +3,6 @@ import { Vertex } from '@prisma/client'
 import { MoveVertexInput } from './MoveVertexInput'
 import { PrismaService, TransactionalUseCase } from '@codelab/backend'
 
-export type VertexId = string
-
 @Injectable()
 export class MoveVertexService
   implements TransactionalUseCase<MoveVertexInput, Vertex | null> {

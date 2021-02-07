@@ -16,9 +16,9 @@ export const paneConfigState = atom<PaneConfigState>({
 })
 
 export const PaneConfig = () => {
-  const [{ visible, vertexId }, setBuilderDrawer] = useRecoilState(
-    paneConfigState,
-  )
+  const [{ vertexId }, setBuilderDrawer] = useRecoilState(paneConfigState)
+
+  console.log(vertexId)
 
   return <>{vertexId ? <GetVertexDetails vertexId={vertexId} /> : null}</>
   // return (

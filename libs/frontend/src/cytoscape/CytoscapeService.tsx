@@ -1,4 +1,5 @@
 /* eslint-disable no-param-reassign */
+import { VertexType } from '@prisma/client'
 import { DataNode } from 'antd/lib/tree'
 import cytoscape, { Core, EdgeDefinition, NodeDefinition } from 'cytoscape'
 import { NodeA } from '../../../modules/graph/src/core/domain/node/Node'
@@ -71,10 +72,15 @@ export class CytoscapeService {
     cy.elements().breadthFirstSearch({
       root,
       visit: (v: any, e) => {
+        const data = v.data()
+
+        console.log(data.type !== VertexType.React_RGL_Item)
         const node = {
-          ...v.data(),
-          key: v.data().id,
-          title: v.data().type,
+          ...data,
+          draggable: data.type !== VertexType.React_RGL_Item,
+          // disabled: data.type === VertexType.React_RGL_Item,
+          key: data.id,
+          title: `${data.type}-${data.id.substring(0, 3)}`,
         }
 
         v._node = node
