@@ -7,10 +7,10 @@ import { CytoscapeService } from '@codelab/frontend'
 import { AppContext } from 'apps/web/src/useCases/apps/AppProvider'
 
 export const PaneMainTree = () => {
-  const [, setBuilderDrawer] = useRecoilState(paneConfigState)
+  const [, setPaneConfig] = useRecoilState(paneConfigState)
   const { page } = useContext(AppContext)
   const onSelect = (id: React.Key) => {
-    setBuilderDrawer({ visible: true, vertexId: `${id}` })
+    setPaneConfig({ visible: true, vertexId: `${id}` })
   }
 
   if (!page || !page.graphs || !page.graphs.length) {
@@ -31,8 +31,8 @@ export const PaneMainTree = () => {
     <>
       <Tree
         className="draggable-tree"
+        defaultExpandAll
         // defaultExpandedKeys={this.state.expandedKeys}
-        draggable={(e: any) => e.type !== VertexType.React_RGL_Item}
         blockNode
         onSelect={([id]) => {
           onSelect(id)

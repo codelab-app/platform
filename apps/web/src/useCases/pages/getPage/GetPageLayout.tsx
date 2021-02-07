@@ -22,7 +22,7 @@ type GetPageLayoutProps = {
 } & PropsWithIds<'pageId'>
 
 export const GetPageLayout = ({ graph, pageId }: GetPageLayoutProps) => {
-  const [builderDrawer, setBuilderDrawer] = useRecoilState(paneConfigState)
+  const [paneConfig, setPaneConfig] = useRecoilState(paneConfigState)
 
   const [addChildVertex] = useAddChildVertexMutation()
 
@@ -35,7 +35,7 @@ export const GetPageLayout = ({ graph, pageId }: GetPageLayoutProps) => {
 
   const onNodeClick = (e: any, node: any) => {
     // console.log(e, node)
-    setBuilderDrawer({ visible: true, vertexId: node.id })
+    setPaneConfig({ visible: true, vertexId: node.id })
   }
 
   return (

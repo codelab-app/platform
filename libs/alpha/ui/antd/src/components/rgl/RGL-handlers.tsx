@@ -16,20 +16,29 @@ export const onDragStart: RGLHandlers = (props) => (
 
   // console.log('onDragStart', vertexId)
   // console.log(props)
-  props?.setBuilderDrawer({ visible: true, vertexId })
+  props?.setPaneConfig({ visible: true, vertexId })
 }
 
 export const onResizeStop: RGLHandlers = ({ updateVertexMutation }) => (
   layout,
   oldVertex,
   newVertex,
+  placeholder,
+  event,
+  // This is the resize handle, the data-attributes are located on the parent
+  element,
 ) => {
   const updateVertex = updateVertexMutation[0]
+  const vertexId = element.parentElement?.getAttribute('data-id')
+
+  if (!vertexId) {
+    return null
+  }
 
   return updateVertex({
     variables: {
       input: {
-        vertexId: newVertex.i,
+        vertexId,
         props: {
           'data-grid': {
             ...newVertex,

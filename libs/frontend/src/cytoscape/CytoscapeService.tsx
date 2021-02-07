@@ -74,7 +74,6 @@ export class CytoscapeService {
       visit: (v: any, e) => {
         const data = v.data()
 
-        console.log(data.type !== VertexType.React_RGL_Item)
         const node = {
           ...data,
           draggable: data.type !== VertexType.React_RGL_Item,

@@ -22,6 +22,7 @@ export const JsonSchemaForm = <TData extends object>({
   initialFormData,
   submitButtonProps = {},
   rjsfFormProps = {},
+  ...props
 }: JsonSchemaFormProps<TData>): ReactElement => {
   const [localFormData, setLocalFormData] = useState<TData>(initialFormData)
 
@@ -42,6 +43,7 @@ export const JsonSchemaForm = <TData extends object>({
       onChange={(e) => setLocalFormData(e.formData)}
       formData={localFormData}
       {...rjsfFormProps}
+      {...props}
     >
       {/* This button exists because by default the Form from rjsf includes a submit button and you can't configure it, only replace it by a custom one.
        Since we might not want to use it and we want to submit  using the submitController, we need a way to hide it.

@@ -1,4 +1,7 @@
-import { Vertex as IVertex, VertexProps } from '@codelab/alpha/shared/interface/graph'
+import {
+  Vertex as IVertex,
+  VertexProps,
+} from '@codelab/alpha/shared/interface/graph'
 import { NodeA } from '@codelab/alpha/shared/interface/node'
 
 export class Vertex implements IVertex {

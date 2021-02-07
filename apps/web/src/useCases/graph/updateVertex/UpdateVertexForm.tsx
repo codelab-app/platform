@@ -6,6 +6,7 @@ import {
   GetPageGql,
   ReactGridItemSchema,
   UpdateVertexInput,
+  UpdateVertexInputFormProps,
   UpdateVertexInputSchema,
   UpdateVertexMutationVariables,
   VertexFragmentsFragment,
@@ -19,7 +20,6 @@ type UpdateVertexFormProps = {
 export const UpdateVertexForm = ({ vertex }: UpdateVertexFormProps) => {
   const { pageId } = useContext(AppContext)
   const [mutate] = useUpdateVertexMutation({
-    awaitRefetchQueries: true,
     refetchQueries: [
       {
         query: GetPageGql,
@@ -45,6 +45,7 @@ export const UpdateVertexForm = ({ vertex }: UpdateVertexFormProps) => {
       hideSubmitButton={false}
       mutate={mutate}
       schema={schema}
+      {...UpdateVertexInputFormProps}
       initialFormData={{
         vertexId: vertex.id,
         type: vertex.type ?? '',

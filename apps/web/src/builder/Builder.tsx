@@ -14,7 +14,7 @@ import { LayoutPaneVisibility } from '@codelab/generated'
 const { Sider, Content } = Layout
 
 const tabsWidth = 40
-
+const paneConfigWidth = 320
 const paneMainWidth = 240
 
 export const Builder = ({ children }: PropsWithChildren<{}>) => {
@@ -24,8 +24,13 @@ export const Builder = ({ children }: PropsWithChildren<{}>) => {
   return (
     <AppProvider appId={appId} pageId={pageId}>
       <LayoutProvider>
-        <Layout style={{ height: '100%' }}>
-          <Sider theme="light" collapsed collapsedWidth={tabsWidth}>
+        <Layout>
+          <Sider
+            theme="light"
+            collapsed
+            collapsedWidth={tabsWidth}
+            style={{ position: 'fixed', height: '100%', zIndex: 1 }}
+          >
             <BuilderTabSidebar />
           </Sider>
           <BuilderPaneController
@@ -38,7 +43,8 @@ export const Builder = ({ children }: PropsWithChildren<{}>) => {
               theme="light"
               width={paneMainWidth}
               style={{
-                position: 'absolute',
+                position: 'fixed',
+                top: 0,
                 left: tabsWidth,
                 height: '100%',
                 zIndex: 1,
@@ -57,9 +63,9 @@ export const Builder = ({ children }: PropsWithChildren<{}>) => {
               theme="light"
               width={320}
               style={{
-                position: 'absolute',
-                left: tabsWidth + paneMainWidth + 1,
                 height: '100%',
+                position: 'fixed',
+                left: tabsWidth + paneMainWidth + 1,
                 zIndex: 1,
               }}
             >
@@ -69,9 +75,27 @@ export const Builder = ({ children }: PropsWithChildren<{}>) => {
           <Layout
             onMouseDown={() => setPaneVisibility(LayoutPaneVisibility.None)}
           >
-            <Content style={contentStyle}>{children}</Content>
+            <Content
+              style={{
+                ...contentStyle,
+                paddingLeft: tabsWidth,
+                paddingRight: paneConfigWidth,
+              }}
+            >
+              {children}
+            </Content>
           </Layout>
-          <Sider theme="light" width={240}>
+          <Sider
+            theme="light"
+            width={paneConfigWidth}
+            style={{
+              overflowY: 'scroll',
+              position: 'fixed',
+              height: '100%',
+              top: 0,
+              right: 0,
+            }}
+          >
             <PaneConfig />
           </Sider>
         </Layout>

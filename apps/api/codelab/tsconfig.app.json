@@ -3,7 +3,7 @@
   "compilerOptions": {
     "outDir": "../../../dist/out-tsc",
     "types": ["node", "@xstate/react", "object-mapper"],
-    "jsx": "preserve",
+    "jsx": "react",
     "esModuleInterop": true,
     "module": "CommonJS",
     "allowSyntheticDefaultImports": true,

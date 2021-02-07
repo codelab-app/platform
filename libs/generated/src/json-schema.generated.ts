@@ -1095,6 +1095,41 @@ export const UpdateVertexInputSchema: JSONSchema7 = {
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
 
+const UpdateVertexInputDecorators: DecoratorsMap = {
+  props: {
+    'data-grid': {
+      x: {
+        __grid: {
+          order: 1,
+          span: 6,
+        },
+      },
+      y: {
+        __grid: {
+          order: 2,
+          span: 6,
+        },
+      },
+      w: {
+        __grid: {
+          order: 3,
+          span: 6,
+        },
+      },
+      h: {
+        __grid: {
+          order: 4,
+          span: 6,
+        },
+      },
+    },
+  },
+}
+
+export const UpdateVertexInputFormProps = {
+  ObjectFieldTemplate: ObjectFieldTemplateFactory(UpdateVertexInputDecorators),
+}
+
 export const CreatePageInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
