@@ -9,7 +9,9 @@ export const PaneMainTree = () => {
   //   setBuilderDrawer({ visible: true, vertexId: `${id}` })
   // }
 
-  if (!page || !page.graphs || !page.graphs.length) return null
+  if (!page || !page.graphs || !page.graphs.length) {
+    return null
+  }
 
   const cy = CytoscapeService.fromGraph(page.graphs[0])
   const data = CytoscapeService.antdTree(cy)

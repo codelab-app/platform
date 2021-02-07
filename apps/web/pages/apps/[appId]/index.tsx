@@ -81,20 +81,21 @@ const AppPage = () => {
 const EmptyPage = (
   props: InferGetServerSidePropsType<typeof getServerSideProps>,
 ) => {
-  console.log(props)
+  // console.log(props)
 
   return <h1>Hi</h1>
 }
 
 // Redirect to home if not authenticated
 export const getServerSideProps = withAuthServerSideProps((context, user) => {
-  if (!user)
+  if (!user) {
     return {
       redirect: {
         destination: Page.HOME.url,
         permanent: false,
       },
     }
+  }
 
   /**
    * Without this the component would render twice
