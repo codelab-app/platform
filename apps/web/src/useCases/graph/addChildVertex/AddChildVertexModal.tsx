@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useRecoilState } from 'recoil'
+import { AppContext } from '../../apps/AppProvider'
 import {
   AddChildVertexForm,
   AddChildVertexFormProps,
@@ -8,13 +9,13 @@ import { addChildVertexState } from './AddChildVertexState'
 import { ModalForm } from '@codelab/frontend'
 
 export const AddChildVertexModal = ({
-  pageId,
   vertex,
   parentVertexId,
 }: AddChildVertexFormProps) => {
   const [addChildVertex, setAddChildVertex] = useRecoilState(
     addChildVertexState,
   )
+  const { pageId } = useContext(AppContext)
 
   return (
     <ModalForm

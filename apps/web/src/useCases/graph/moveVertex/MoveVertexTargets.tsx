@@ -1,6 +1,6 @@
 import { Button, Select } from 'antd'
-import React, { useState } from 'react'
-import { PropsWithIds } from '@codelab/frontend'
+import React, { useContext, useState } from 'react'
+import { AppContext } from '../../apps/AppProvider'
 import {
   GetPageGql,
   VertexFragmentsFragment,
@@ -12,21 +12,18 @@ const { Option } = Select
 
 type MoveVertexTargetsProps = {
   sourceVertex: VertexFragmentsFragment
-} & PropsWithIds<'pageId'>
+}
 
 /**
  * Get the potential move targets of a current vertex
  */
-export const MoveVertexTargets = ({
-  sourceVertex,
-  pageId,
-}: MoveVertexTargetsProps) => {
+export const MoveVertexTargets = ({ sourceVertex }: MoveVertexTargetsProps) => {
   const { data, loading } = useGetGraphQuery({
     variables: { input: { id: sourceVertex?.graph?.id } },
   })
   const [parentVertexId, setParentVertexId] = useState<string>('')
-
   const [moveVertexMutation] = useMoveVertexMutation()
+  const { pageId } = useContext(AppContext)
 
   if (!data?.getGraph || loading) {
     return null

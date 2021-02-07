@@ -1,4 +1,3 @@
-import { Drawer } from 'antd'
 import React from 'react'
 import { atom, useRecoilState } from 'recoil'
 import { GetVertexDetails } from '../../useCases/graph/getVertex/GetVertexDetails'
@@ -9,7 +8,7 @@ export interface PaneConfigState {
 }
 
 export const paneConfigState = atom<PaneConfigState>({
-  key: 'builderDrawer',
+  key: 'paneConfig',
   default: {
     visible: false,
     // vertexId: null,
@@ -17,20 +16,7 @@ export const paneConfigState = atom<PaneConfigState>({
 })
 
 export const PaneConfig = () => {
-  const [{ visible, vertexId }, setBuilderDrawer] = useRecoilState(
-    paneConfigState,
-  )
+  const [{ vertexId }, setPaneConfig] = useRecoilState(paneConfigState)
 
-  return (
-    <Drawer
-      width={600}
-      title="Basic Drawer"
-      placement="right"
-      closable={false}
-      onClose={() => setBuilderDrawer({ visible: false })}
-      visible={visible}
-    >
-      {vertexId ? <GetVertexDetails vertexId={vertexId} /> : null}
-    </Drawer>
-  )
+  return <>{vertexId ? <GetVertexDetails vertexId={vertexId} /> : null}</>
 }

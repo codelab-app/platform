@@ -1,5 +1,5 @@
 import { Icon } from '@ant-design/compatible'
-import { VertexType } from '@prisma/client'
+import { Prisma, VertexType } from '@prisma/client'
 import {
   Affix,
   Alert,
@@ -59,7 +59,7 @@ import {
   Typography,
   Upload,
 } from 'antd'
-import React, { ReactHTMLElement } from 'react'
+import React from 'react'
 import { PaneConfigHandlersProps } from '../../../../apps/web/src/builder/pane-config/Pane-config--handlers'
 import { propsFilter, withFilters } from '@codelab/alpha/core/props'
 import { mouseEventHandlerKeys } from '@codelab/alpha/shared/event'
@@ -74,30 +74,34 @@ import {
   RenderComponent,
   onResizeStop,
 } from '@codelab/alpha/ui/antd'
+import { NodeA } from 'libs/modules/graph/src/core/domain/node/Node'
 
-export const elementParameterFactory = <
-  TNode extends { type: VertexType; props: Record<string, any> }
->({
+export const elementParameterFactory = <TNode extends NodeA>({
   node,
   handlers,
 }: {
   node: TNode
-  props?: Record<string, any>
-  handlers: PaneConfigHandlersProps // Function hooks injected to pass to handlers
-}): [ReactHTMLElement<any> | React.FunctionComponent<any> | string, object] => {
-  const { type, props } = node
+  // Function hooks injected to pass to handlers
+  handlers: PaneConfigHandlersProps
+}): [
+  // ReactHTMLElement<any> | React.FunctionComponent<any> | string,
+  React.FunctionComponent<any>,
+  Record<string, any>,
+] => {
+  const { type } = node
+  const props = node.props as Record<string, any>
 
   switch (type) {
     case VertexType.React_Fragment:
       return [React.Fragment, props]
     case VertexType.React_Html_Div:
-      return ['div', props]
+      return ['div' as any, props]
     case VertexType.React_Html_P:
-      return ['p', props]
+      return ['p' as any, props]
     case VertexType.React_Html_A:
-      return ['a', props]
+      return ['a' as any, props]
     case VertexType.React_Html_Span:
-      return ['span', props]
+      return ['span' as any, props]
     case VertexType.React_Text:
       return [CodelabHtml.Text as any, props]
     case VertexType.React_Icon:
@@ -172,7 +176,7 @@ export const elementParameterFactory = <
         // So, a workaround is to incorporate the data-grid property into the key to make sure we rerender
         // There is a fix here https://github.com/STRML/react-grid-layout/issues/718, but for some reason it's not merged into the main repo
         {
-          ...props,
+          ...(props as Prisma.JsonObject),
           onMouseOut: () => handlers.resetHoverOverlay(),
           onMouseOver: (e: MouseEvent) =>
             handlers.showHoverOverlay(e.target as HTMLElement, node),
@@ -182,6 +186,7 @@ export const elementParameterFactory = <
           key: props['data-grid']
             ? props.key + JSON.stringify(props['data-grid'])
             : props.key,
+          'data-id': node.id,
         },
       ]
     case VertexType.React_RGL_ResponsiveContainer:

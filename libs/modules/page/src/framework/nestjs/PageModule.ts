@@ -25,5 +25,6 @@ import { PrismaService } from '@codelab/backend'
     CreatePageService,
     UpdatePageService,
   ],
+  exports: [CreatePageService],
 })
 export class PageModule {}

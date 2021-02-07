@@ -12,14 +12,14 @@ import {
 export type AddChildVertexFormProps = {
   vertex: VertexFragmentsFragment
   parentVertexId: string
-} & PropsWithIds<'pageId'>
+}
 
 export const AddChildVertexForm = ({
   pageId,
   vertex,
   parentVertexId,
   ...props
-}: AddChildVertexFormProps) => {
+}: AddChildVertexFormProps & PropsWithIds<'pageId'>) => {
   const [mutate] = useAddChildVertexMutation({
     refetchQueries: [
       {

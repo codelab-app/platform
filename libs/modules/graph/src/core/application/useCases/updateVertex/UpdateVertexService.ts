@@ -9,6 +9,7 @@ export class UpdateVertexService
   constructor(private readonly prismaService: PrismaService) {}
 
   async execute({ vertexId, type, props }: UpdateVertexInput) {
+    console.log(vertexId, type, props)
     try {
       return await this.prismaService.vertex.update({
         where: {
@@ -20,7 +21,8 @@ export class UpdateVertexService
         },
       })
     } catch (e) {
-      throw new Error()
+      console.log(e)
+      throw new Error(e)
     }
   }
 }

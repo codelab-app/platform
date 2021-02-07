@@ -1,12 +1,11 @@
 import { Button } from 'antd'
-import React from 'react'
+import React, { useContext } from 'react'
+import { AppContext } from '../../apps/AppProvider'
 import { PropsWithIds } from '@codelab/frontend'
 import { GetPageGql, useDeleteVertexMutation } from '@codelab/generated'
 
-export const DeleteVertexButton = ({
-  vertexId,
-  pageId,
-}: PropsWithIds<'vertexId' | 'pageId'>) => {
+export const DeleteVertexButton = ({ vertexId }: PropsWithIds<'vertexId'>) => {
+  const { pageId } = useContext(AppContext)
   const [deleteVertex] = useDeleteVertexMutation({
     variables: {
       input: {

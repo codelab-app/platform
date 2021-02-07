@@ -4,8 +4,8 @@ import useResizeObserver from 'use-resize-observer/polyfilled'
 import { useScroll } from '../../utils/useScroll'
 import { overlayToolbarState } from './overlayToolbarState'
 
-interface Props<TMD> {
-  content?: React.ReactNode | ((metadata: TMD) => React.ReactElement)
+interface OverlayToolbarProps<TMetaData> {
+  content?: React.ReactNode | ((metadata: TMetaData) => React.ReactElement)
   overlayId: string
   containerProps?: React.DetailedHTMLProps<
     React.HTMLAttributes<HTMLDivElement>,
@@ -17,7 +17,7 @@ interface Props<TMD> {
   >
 }
 
-export const OverlayToolbar = <TMD extends any>({
+export const OverlayToolbar = <TMetaData extends any>({
   content,
   overlayId,
   containerProps: {
@@ -26,25 +26,24 @@ export const OverlayToolbar = <TMD extends any>({
     ...containerProps
   } = {},
   toolbarProps: { style: toolbarStyle, ...toolbarProps } = {},
-}: Props<TMD>) => {
+}: OverlayToolbarProps<TMetaData>) => {
   const [{ overlayElement, metadata }] = useRecoilState(
     overlayToolbarState(overlayId),
   )
 
   let element: HTMLElement | null | undefined
 
+  console.log(overlayElement)
+
   if (overlayElement) {
-    if (Object.hasOwnProperty.call(overlayElement, 'current')) {
-      element = (overlayElement as RefObject<HTMLElement>).current
-    } else {
-      element = overlayElement as HTMLElement
-    }
+    element = Object.hasOwnProperty.call(overlayElement, 'current')
+      ? (overlayElement as RefObject<HTMLElement>).current
+      : (overlayElement as HTMLElement)
   }
 
   // Make sure we re-render when the element changes its size and when we scroll
-  // But we don't actually care about the values, we take what we nee from getBoundingClientRect
+  // But we don't actually care about the values, we take what we need from getBoundingClientRect
   useResizeObserver({ ref: element })
-
   useScroll()
 
   // This is not very good for performance, if we can find a way to track movement with
@@ -70,11 +69,7 @@ export const OverlayToolbar = <TMD extends any>({
   let contentElement
 
   if (content) {
-    if (typeof content === 'function') {
-      contentElement = content(metadata)
-    } else {
-      contentElement = content
-    }
+    contentElement = typeof content === 'function' ? content(metadata) : content
   }
 
   return (

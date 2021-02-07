@@ -1,5 +1,4 @@
 import { Button, Divider, Space } from 'antd'
-import { useRouter } from 'next/router'
 import React from 'react'
 import { useRecoilState } from 'recoil'
 import { AddChildVertexModal } from '../addChildVertex/AddChildVertexModal'
@@ -11,11 +10,10 @@ import { PropsWithIds } from '@codelab/frontend'
 import { useGetVertexQuery } from '@codelab/generated'
 
 export const GetVertexDetails = ({ vertexId }: PropsWithIds<'vertexId'>) => {
-  const { query } = useRouter()
   const [addChildVertex, setAddChildVertex] = useRecoilState(
     addChildVertexState,
   )
-  const { data, loading } = useGetVertexQuery({
+  const { data } = useGetVertexQuery({
     variables: {
       input: {
         id: vertexId,
@@ -24,9 +22,8 @@ export const GetVertexDetails = ({ vertexId }: PropsWithIds<'vertexId'>) => {
   })
 
   const vertex = data?.getVertex
-  const pageId = `${query.pageId}`
 
-  if (!pageId || !vertex) {
+  if (!vertex) {
     return null
   }
 
@@ -40,18 +37,14 @@ export const GetVertexDetails = ({ vertexId }: PropsWithIds<'vertexId'>) => {
         >
           Add Child Node
         </Button>
-        <DeleteVertexButton vertexId={vertex.id} pageId={pageId} />
+        <DeleteVertexButton vertexId={vertex.id} />
       </Space>
       <Divider />
       <h3>Move Vertex</h3>
-      <MoveVertexTargets sourceVertex={vertex} pageId={pageId} />
+      <MoveVertexTargets sourceVertex={vertex} />
       <Divider />
-      <AddChildVertexModal
-        pageId={pageId}
-        vertex={vertex}
-        parentVertexId={vertex.id}
-      />
-      <UpdateVertexForm vertex={vertex} pageId={pageId} />
+      <AddChildVertexModal vertex={vertex} parentVertexId={vertex.id} />
+      <UpdateVertexForm vertex={vertex} key={vertex.id} />
     </section>
   )
 }

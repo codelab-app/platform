@@ -123,7 +123,7 @@ export const ObjectFieldTemplateFactory = (
     <div>
       {props.title}
       {props.description}
-      <Row>
+      <Row style={{ width: '100%' }}>
         {gridProperties.map((p: any) => {
           const { order, ...colProps } = IdSchemaToGridDetailsMap[
             getIdSchema(p)

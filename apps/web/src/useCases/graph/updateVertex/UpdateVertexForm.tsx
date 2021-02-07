@@ -1,10 +1,12 @@
 import { merge } from 'lodash'
-import React from 'react'
-import { ApolloForm, PropsWithIds } from '@codelab/frontend'
+import React, { useContext } from 'react'
+import { AppContext } from '../../apps/AppProvider'
+import { ApolloForm } from '@codelab/frontend'
 import {
   GetPageGql,
   ReactGridItemSchema,
   UpdateVertexInput,
+  UpdateVertexInputFormProps,
   UpdateVertexInputSchema,
   UpdateVertexMutationVariables,
   VertexFragmentsFragment,
@@ -13,11 +15,11 @@ import {
 
 type UpdateVertexFormProps = {
   vertex: VertexFragmentsFragment
-} & PropsWithIds<'pageId'>
+}
 
-export const UpdateVertexForm = ({ vertex, pageId }: UpdateVertexFormProps) => {
+export const UpdateVertexForm = ({ vertex }: UpdateVertexFormProps) => {
+  const { pageId } = useContext(AppContext)
   const [mutate] = useUpdateVertexMutation({
-    awaitRefetchQueries: true,
     refetchQueries: [
       {
         query: GetPageGql,
@@ -43,6 +45,7 @@ export const UpdateVertexForm = ({ vertex, pageId }: UpdateVertexFormProps) => {
       hideSubmitButton={false}
       mutate={mutate}
       schema={schema}
+      {...UpdateVertexInputFormProps}
       initialFormData={{
         vertexId: vertex.id,
         type: vertex.type ?? '',

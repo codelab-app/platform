@@ -1,10 +1,11 @@
 import { InferGetServerSidePropsType } from 'next'
-import React from 'react'
+import React, { useContext } from 'react'
 import { withAuthServerSideProps } from '../../../../../../../libs/frontend/src/infrastructure/auth/withAuthServerSideProps'
 import { GetPageLayout } from '../../../../../src/useCases/pages/getPage/GetPageLayout'
 import { usePage } from '../../../../../src/useCases/pages/getPage/useGetPageData'
 import { Page, PropsWithIds } from '@codelab/frontend'
-import { LayoutPane, useSetLayoutMutation } from '@codelab/generated'
+import { useSetLayoutMutation } from '@codelab/generated'
+import { LayoutContext } from 'apps/web/src/layout/LayoutProvider'
 
 const PageDetail = ({
   pageId,
@@ -12,6 +13,7 @@ const PageDetail = ({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { layoutGraph, page } = usePage({ pageId })
   const [setLayout] = useSetLayoutMutation()
+  const layout = useContext(LayoutContext)
 
   if (!layoutGraph || !page) {
     return null
@@ -22,15 +24,18 @@ const PageDetail = ({
       <div
         role="presentation"
         style={{ position: 'absolute', inset: 0 }}
-        onClick={() =>
-          setLayout({
-            variables: {
-              input: {
-                pane: LayoutPane.None,
-              },
-            },
-          })
-        }
+        // onClick={() => {
+        //   console.log(layout)
+        //   if (layout.paneVisibility !== LayoutPaneVisibility.None) {
+        //     setLayout({
+        //       variables: {
+        //         input: {
+        //           paneVisibility: LayoutPaneVisibility.None,
+        //         },
+        //       },
+        //     })
+        //   }
+        // }}
       />
       <h1>{page.title}</h1>
       <GetPageLayout graph={layoutGraph} pageId={pageId} />
