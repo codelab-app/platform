@@ -53,16 +53,10 @@ export const RenderComponents = ({ node }: { node: NodeA }) => {
   })
   const ref = useRef<HTMLDivElement>(null)
 
-  useOnClickOutside(ref, () => {
-    resetClickOverlay()
-  })
+  useOnClickOutside(ref, () => resetClickOverlay(), [resetClickOverlay])
 
   return (
-    <div
-      style={{
-        position: 'relative',
-      }}
-    >
+    <div>
       <RootComponent {...props}>
         {RenderChildren(node, {}, handlers)}
       </RootComponent>
