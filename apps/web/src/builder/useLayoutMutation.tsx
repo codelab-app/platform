@@ -7,14 +7,14 @@ import {
 } from '@codelab/generated'
 
 export type UseLayoutMutation = (
-  layout: Layout,
+  layout?: Layout,
 ) => {
   toggleTab: (tab: LayoutTab) => void
   setLayout: ReturnType<typeof useSetLayoutMutation>[0]
   setPaneVisibility: (pane: LayoutPaneVisibility) => void
 }
 
-export const useLayoutMutation: UseLayoutMutation = (layout: Layout) => {
+export const useLayoutMutation: UseLayoutMutation = (layout?: Layout) => {
   const [setLayout] = useSetLayoutMutation({
     refetchQueries: [
       {
@@ -34,6 +34,10 @@ export const useLayoutMutation: UseLayoutMutation = (layout: Layout) => {
     setPaneVisibility,
     setLayout,
     toggleTab: (tab: LayoutTab) => {
+      if (!layout) {
+        throw new Error('Layout is missing')
+      }
+
       console.log('toggleTab to', tab)
       // If same tab we just toggle main pane
       if (layout.tab === tab) {

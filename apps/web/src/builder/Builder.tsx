@@ -3,9 +3,11 @@ import React, { PropsWithChildren, useContext } from 'react'
 import { LayoutProvider } from '../layout/LayoutProvider'
 import { AppContext, AppProvider } from '../useCases/apps/AppProvider'
 import { BuilderPaneController } from './Builder-pane-controller'
+import { PaneConfig } from './pane-config/Pane-config'
 import { BuilderDetails } from './pane-details/Pane-details'
 import { PaneMain } from './pane-main/Pane-main'
 import { BuilderTabSidebar } from './tabs-sidebar/Tabs-sidebar'
+import { useLayoutMutation } from './useLayoutMutation'
 import { contentStyle } from '@codelab/frontend'
 import { LayoutPaneVisibility } from '@codelab/generated'
 
@@ -17,12 +19,12 @@ const paneMainWidth = 240
 
 export const Builder = ({ children }: PropsWithChildren<{}>) => {
   const { appId, pageId } = useContext(AppContext)
+  const { setPaneVisibility } = useLayoutMutation()
 
   return (
     <AppProvider appId={appId} pageId={pageId}>
       <LayoutProvider>
         <Layout style={{ height: '100%' }}>
-          {/* <PaneConfig /> */}
           <Sider theme="light" collapsed collapsedWidth={tabsWidth}>
             <BuilderTabSidebar />
           </Sider>
@@ -64,9 +66,14 @@ export const Builder = ({ children }: PropsWithChildren<{}>) => {
               <BuilderDetails />
             </Sider>
           </BuilderPaneController>
-          <Layout>
+          <Layout
+            onMouseDown={() => setPaneVisibility(LayoutPaneVisibility.None)}
+          >
             <Content style={contentStyle}>{children}</Content>
           </Layout>
+          <Sider theme="light" width={240}>
+            <PaneConfig />
+          </Sider>
         </Layout>
       </LayoutProvider>
     </AppProvider>

@@ -1,4 +1,3 @@
-import { Drawer } from 'antd'
 import React from 'react'
 import { atom, useRecoilState } from 'recoil'
 import { GetVertexDetails } from '../../useCases/graph/getVertex/GetVertexDetails'
@@ -21,16 +20,17 @@ export const PaneConfig = () => {
     paneConfigState,
   )
 
-  return (
-    <Drawer
-      width={600}
-      title="Basic Drawer"
-      placement="right"
-      closable={false}
-      onClose={() => setBuilderDrawer({ visible: false })}
-      visible={visible}
-    >
-      {vertexId ? <GetVertexDetails vertexId={vertexId} /> : null}
-    </Drawer>
-  )
+  return <>{vertexId ? <GetVertexDetails vertexId={vertexId} /> : null}</>
+  // return (
+  //   <Drawer
+  //     width={600}
+  //     title="Basic Drawer"
+  //     placement="right"
+  //     closable={false}
+  //     onClose={() => setBuilderDrawer({ visible: false })}
+  //     visible={visible}
+  //   >
+  //     {vertexId ? <GetVertexDetails vertexId={vertexId} /> : null}
+  //   </Drawer>
+  // )
 }
