@@ -1,5 +1,5 @@
 import { Icon } from '@ant-design/compatible'
-import { Prisma, VertexType } from '@prisma/client'
+import { VertexType } from '@prisma/client'
 import {
   Affix,
   Alert,
@@ -176,10 +176,18 @@ export const elementParameterFactory = <TNode extends NodeA>({
         // So, a workaround is to incorporate the data-grid property into the key to make sure we rerender
         // There is a fix here https://github.com/STRML/react-grid-layout/issues/718, but for some reason it's not merged into the main repo
         {
-          ...(props as Prisma.JsonObject),
-          onMouseOut: () => handlers.resetHoverOverlay(),
-          onMouseOver: (e: MouseEvent) =>
-            handlers.showHoverOverlay(e.target as HTMLElement, node),
+          ...props,
+          // https://stackoverflow.com/questions/41645325/mouseover-and-mouseout-trigger-multiple-times
+          //
+          // Use `onMouseEnter` instead of `onMouseOver`
+          // `onMouseLeave` instead of `onMouseOut`
+          //
+          // Enter is only triggered once when we enter the box
+          // Otherwise `onMouseOver` will fire endless as it toggles between current & children element
+          onMouseEnter: (e: MouseEvent) => {
+            return handlers.showHoverOverlay(e.target as HTMLElement, node)
+          },
+          onMouseLeave: () => handlers.resetHoverOverlay(),
           onClick: (e: MouseEvent) => {
             handlers.showClickOverlay(e.target as HTMLElement, node)
           },

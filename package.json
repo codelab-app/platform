@@ -107,6 +107,7 @@
     "js-cookie": "2.2.1",
     "lodash": "4.17.20",
     "lokijs": "^1.5.11",
+    "memoize-one": "^5.1.1",
     "monocle-ts": "2.3.4",
     "nest-winston": "1.4.0",
     "newtype-ts": "0.3.4",
