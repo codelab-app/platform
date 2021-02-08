@@ -1,16 +1,17 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common'
+import { Inject, Injectable, UnauthorizedException } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import { PassportStrategy } from '@nestjs/passport'
 import { User } from '@prisma/client'
 import { ExtractJwt, Strategy } from 'passport-jwt'
 import { IToken } from '../IToken'
 import { JwtConfig } from '../config/JwtConfig'
-import { PrismaService } from '@codelab/backend'
+import { PrismaDITokens, PrismaService } from '@codelab/backend'
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
   constructor(
     private readonly jwtService: JwtService,
+    @Inject(PrismaDITokens.PrismaService)
     private readonly prismaService: PrismaService,
   ) {
     super({

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { Inject, Injectable } from '@nestjs/common'
 import {
   Args,
   Mutation,
@@ -18,12 +18,13 @@ import { UpdateVertexInput } from '../../core/application/useCases/updateVertex/
 import { UpdateVertexService } from '../../core/application/useCases/updateVertex/UpdateVertexService'
 import { Graph } from '../../core/domain/graph/Graph'
 import { Vertex } from '../../core/domain/vertex/Vertex'
-import { PrismaService } from '@codelab/backend'
+import { PrismaDITokens, PrismaService } from '@codelab/backend'
 
 @Resolver(() => Vertex)
 @Injectable()
 export class VertexResolvers {
   constructor(
+    @Inject(PrismaDITokens.PrismaService)
     private readonly prismaService: PrismaService,
     private readonly vertexService: VertexService,
     private readonly deleteVertexService: DeleteVertexService,

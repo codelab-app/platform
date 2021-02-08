@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { Inject, Injectable } from '@nestjs/common'
 import {
   Args,
   Mutation,
@@ -18,17 +18,18 @@ import { GetTreeService } from '../../core/application/useCases/getTree/GetTreeS
 import { Edge } from '../../core/domain/edge/Edge'
 import { Graph } from '../../core/domain/graph/Graph'
 import { Vertex } from '../../core/domain/vertex/Vertex'
-import { PrismaService } from '@codelab/backend'
+import { PrismaDITokens, PrismaService } from '@codelab/backend'
 
 @Resolver(() => Graph)
 @Injectable()
 export class GraphResolvers {
   constructor(
+    @Inject(PrismaDITokens.PrismaService)
+    private readonly prismaService: PrismaService,
     private readonly createGraphService: CreateGraphService,
     private readonly addChildVertexService: AddChildVertexService,
     private readonly getGraphService: GetGraphService,
     private readonly getTreeService: GetTreeService,
-    private readonly prismaService: PrismaService,
   ) {}
 
   @Mutation(() => Graph)

@@ -5,13 +5,11 @@ import { GetAppService } from '../../core/application/useCases/getApp/GetAppServ
 import { GetAppsService } from '../../core/application/useCases/getApps/GetAppsService'
 import { UpdateAppService } from '../../core/application/useCases/updateApp/UpdateAppService'
 import { AppResolvers } from '../../presentation/controllers/AppResolvers'
-import { PrismaService } from '@codelab/backend'
 import { PageModule } from '@codelab/modules/page'
 
 @Module({
   imports: [PageModule],
   providers: [
-    PrismaService,
     /**
      * Controllers
      */

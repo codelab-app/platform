@@ -66,20 +66,20 @@ input GetAppInput {
   appId: String!
 }
 
-input GetGraphInput {
-  id: String
-}
-
-input GetVertexInput {
-  id: String!
-}
-
 input GetPagesInput {
   appId: String!
 }
 
 input GetPageInput {
   pageId: String!
+}
+
+input GetGraphInput {
+  id: String
+}
+
+input GetVertexInput {
+  id: String!
 }
 
 type Mutation {
@@ -116,23 +116,18 @@ input DeleteAppInput {
   id: String!
 }
 
-input DeleteUserInput {
-  email: String!
+input CreatePageInput {
+  title: String!
+  appId: String!
 }
 
-input UpdateUserInput {
-  id: String!
-  email: String!
+input UpdatePageInput {
+  title: String
+  pageId: String!
 }
 
-input RegisterUserInput {
-  email: String!
-  password: String!
-}
-
-input LoginUserInput {
-  email: String!
-  password: String!
+input DeletePageInput {
+  pageId: String!
 }
 
 input CreateGraphInput {
@@ -173,18 +168,23 @@ input UpdateEdgeInput {
   target: String!
 }
 
-input CreatePageInput {
-  title: String!
-  appId: String!
+input DeleteUserInput {
+  email: String!
 }
 
-input UpdatePageInput {
-  title: String
-  pageId: String!
+input UpdateUserInput {
+  id: String!
+  email: String!
 }
 
-input DeletePageInput {
-  pageId: String!
+input RegisterUserInput {
+  email: String!
+  password: String!
+}
+
+input LoginUserInput {
+  email: String!
+  password: String!
 }
 
 input PositionInput {

@@ -1,7 +1,11 @@
-import { Injectable } from '@nestjs/common'
+import { Inject, Injectable } from '@nestjs/common'
 import { Vertex } from '@prisma/client'
 import { DeleteVertexInput } from './DeleteVertexInput'
-import { PrismaService, TransactionalUseCase } from '@codelab/backend'
+import {
+  PrismaDITokens,
+  PrismaService,
+  TransactionalUseCase,
+} from '@codelab/backend'
 
 /**
  * Delete all attached edges as well
@@ -10,7 +14,10 @@ import { PrismaService, TransactionalUseCase } from '@codelab/backend'
 @Injectable()
 export class DeleteVertexService
   implements TransactionalUseCase<DeleteVertexInput, Vertex | null> {
-  constructor(private readonly prismaService: PrismaService) {}
+  constructor(
+    @Inject(PrismaDITokens.PrismaService)
+    private readonly prismaService: PrismaService,
+  ) {}
 
   async execute({ vertexId }: DeleteVertexInput) {
     try {

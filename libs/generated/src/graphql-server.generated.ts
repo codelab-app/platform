@@ -110,20 +110,20 @@ export type GetAppInput = {
   appId: Scalars['String']
 }
 
-export type GetGraphInput = {
-  id?: Maybe<Scalars['String']>
-}
-
-export type GetVertexInput = {
-  id: Scalars['String']
-}
-
 export type GetPagesInput = {
   appId: Scalars['String']
 }
 
 export type GetPageInput = {
   pageId: Scalars['String']
+}
+
+export type GetGraphInput = {
+  id?: Maybe<Scalars['String']>
+}
+
+export type GetVertexInput = {
+  id: Scalars['String']
 }
 
 export type Mutation = {
@@ -233,23 +233,18 @@ export type DeleteAppInput = {
   id: Scalars['String']
 }
 
-export type DeleteUserInput = {
-  email: Scalars['String']
+export type CreatePageInput = {
+  title: Scalars['String']
+  appId: Scalars['String']
 }
 
-export type UpdateUserInput = {
-  id: Scalars['String']
-  email: Scalars['String']
+export type UpdatePageInput = {
+  title?: Maybe<Scalars['String']>
+  pageId: Scalars['String']
 }
 
-export type RegisterUserInput = {
-  email: Scalars['String']
-  password: Scalars['String']
-}
-
-export type LoginUserInput = {
-  email: Scalars['String']
-  password: Scalars['String']
+export type DeletePageInput = {
+  pageId: Scalars['String']
 }
 
 export type CreateGraphInput = {
@@ -290,18 +285,23 @@ export type UpdateEdgeInput = {
   target: Scalars['String']
 }
 
-export type CreatePageInput = {
-  title: Scalars['String']
-  appId: Scalars['String']
+export type DeleteUserInput = {
+  email: Scalars['String']
 }
 
-export type UpdatePageInput = {
-  title?: Maybe<Scalars['String']>
-  pageId: Scalars['String']
+export type UpdateUserInput = {
+  id: Scalars['String']
+  email: Scalars['String']
 }
 
-export type DeletePageInput = {
-  pageId: Scalars['String']
+export type RegisterUserInput = {
+  email: Scalars['String']
+  password: Scalars['String']
+}
+
+export type LoginUserInput = {
+  email: Scalars['String']
+  password: Scalars['String']
 }
 
 export type PositionInput = {

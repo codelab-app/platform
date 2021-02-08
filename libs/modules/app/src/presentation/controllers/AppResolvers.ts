@@ -1,4 +1,4 @@
-import { Injectable, UseGuards } from '@nestjs/common'
+import { Inject, Injectable, UseGuards } from '@nestjs/common'
 import {
   Args,
   Mutation,
@@ -18,13 +18,19 @@ import { GetAppsService } from '../../core/application/useCases/getApps/GetAppsS
 import { UpdateAppInput } from '../../core/application/useCases/updateApp/UpdateAppInput'
 import { UpdateAppService } from '../../core/application/useCases/updateApp/UpdateAppService'
 import { App } from '../../core/domain/App'
-import { CurrentUser, GqlAuthGuard, PrismaService } from '@codelab/backend'
+import {
+  CurrentUser,
+  GqlAuthGuard,
+  PrismaDITokens,
+  PrismaService,
+} from '@codelab/backend'
 import { User } from 'libs/modules/user/src/core/domain/User'
 
 @Resolver(() => App)
 @Injectable()
 export class AppResolvers {
   constructor(
+    @Inject(PrismaDITokens.PrismaService)
     private readonly prismaService: PrismaService,
     private readonly createAppService: CreateAppService,
     private readonly getAppService: GetAppService,

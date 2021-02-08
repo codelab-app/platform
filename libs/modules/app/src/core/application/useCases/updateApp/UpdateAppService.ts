@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common'
+import { Inject, Injectable } from '@nestjs/common'
 import { App } from '@prisma/client'
 import { UpdateAppRequest } from './UpdateAppRequest'
 import {
+  PrismaDITokens,
   PrismaService,
   RequestValidationError,
   TransactionalUseCase,
@@ -10,7 +11,10 @@ import {
 @Injectable()
 export class UpdateAppService
   implements TransactionalUseCase<UpdateAppRequest, App> {
-  constructor(private readonly prismaService: PrismaService) {}
+  constructor(
+    @Inject(PrismaDITokens.PrismaService)
+    private readonly prismaService: PrismaService,
+  ) {}
 
   async execute({ appId, userId, ...appData }: UpdateAppRequest) {
     try {

@@ -5,11 +5,9 @@ import { GetVertexService } from '../../core/application/useCases/getVertex/GetV
 import { MoveVertexService } from '../../core/application/useCases/moveVertex/MoveVertexService'
 import { UpdateVertexService } from '../../core/application/useCases/updateVertex/UpdateVertexService'
 import { VertexResolvers } from '../../presentation/controllers/VertexResolvers'
-import { PrismaService } from '@codelab/backend'
 
 @Module({
   providers: [
-    PrismaService,
     VertexService,
     VertexResolvers,
     /**

@@ -1,7 +1,11 @@
-import { Injectable } from '@nestjs/common'
+import { Inject, Injectable } from '@nestjs/common'
 import { GraphService } from '../../services/GraphService'
 import { GetTreeInput } from './GetTreeInput'
-import { PrismaService, TransactionalUseCase } from '@codelab/backend'
+import {
+  PrismaDITokens,
+  PrismaService,
+  TransactionalUseCase,
+} from '@codelab/backend'
 
 export interface GetTreeGraphArgs {
   select: {
@@ -18,6 +22,7 @@ export interface GetTreeGraphArgs {
 @Injectable()
 export class GetTreeService implements TransactionalUseCase<GetTreeInput, any> {
   constructor(
+    @Inject(PrismaDITokens.PrismaService)
     private readonly prismaService: PrismaService,
     private readonly graphService: GraphService,
   ) {}
