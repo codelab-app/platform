@@ -1,10 +1,13 @@
-import { Injectable } from '@nestjs/common'
+import { Inject, Injectable } from '@nestjs/common'
 import { Vertex as PrismaVertex } from '@prisma/client'
-import { PrismaService } from '@codelab/backend'
+import { PrismaDITokens, PrismaService } from '@codelab/backend'
 
 @Injectable()
 export class VertexService {
-  constructor(private readonly prismaService: PrismaService) {}
+  constructor(
+    @Inject(PrismaDITokens.PrismaService)
+    private readonly prismaService: PrismaService,
+  ) {}
 
   /**
    * The `target` on the edge is the parent

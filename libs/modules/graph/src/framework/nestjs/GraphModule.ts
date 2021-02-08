@@ -7,12 +7,10 @@ import { GetTreeService } from '../../core/application/useCases/getTree/GetTreeS
 import { GraphResolvers } from '../../presentation/controllers/GraphResolvers'
 import { EdgeModule } from './EdgeModule'
 import { VertexModule } from './VertexModule'
-import { PrismaService } from '@codelab/backend'
 
 @Module({
   imports: [VertexModule, EdgeModule],
   providers: [
-    PrismaService,
     GraphService,
     /**
      * Controllers

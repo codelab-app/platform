@@ -1,4 +1,4 @@
-import { Injectable, UseGuards } from '@nestjs/common'
+import { Inject, Injectable, UseGuards } from '@nestjs/common'
 import {
   Args,
   Mutation,
@@ -19,19 +19,25 @@ import { GetPagesService } from '../../core/application/useCases/getPages/GetPag
 import { UpdatePageInput } from '../../core/application/useCases/updatePage/UpdatePageInput'
 import { UpdatePageService } from '../../core/application/useCases/updatePage/UpdatePageService'
 import { Page } from '../../core/domain/Page'
-import { CurrentUser, GqlAuthGuard, PrismaService } from '@codelab/backend'
+import {
+  CurrentUser,
+  GqlAuthGuard,
+  PrismaDITokens,
+  PrismaService,
+} from '@codelab/backend'
 import { User } from '@codelab/modules/user'
 
 @Resolver(() => Page)
 @Injectable()
 export class PageResolvers {
   constructor(
+    @Inject(PrismaDITokens.PrismaService)
+    private readonly prismaService: PrismaService,
     private readonly getPagesService: GetPagesService,
     private readonly getPageService: GetPageService,
     private readonly createPageService: CreatePageService,
     private readonly updatePageService: UpdatePageService,
     private readonly deletePageService: DeletePageService,
-    private readonly prismaService: PrismaService,
   ) {}
 
   @Mutation(() => Page)

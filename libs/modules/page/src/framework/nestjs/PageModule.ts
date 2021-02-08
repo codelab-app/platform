@@ -6,12 +6,10 @@ import { GetPageService } from '../../core/application/useCases/getPage/GetPageS
 import { GetPagesService } from '../../core/application/useCases/getPages/GetPagesService'
 import { UpdatePageService } from '../../core/application/useCases/updatePage/UpdatePageService'
 import { PageResolvers } from '../../presentation/controllers/PageResolvers'
-import { PrismaService } from '@codelab/backend'
 
 @Module({
   imports: [GraphModule],
   providers: [
-    PrismaService,
     /**
      * Controllers
      */
@@ -19,11 +17,11 @@ import { PrismaService } from '@codelab/backend'
     /**
      * UseCaseProviders
      */
+    CreatePageService,
+    UpdatePageService,
     DeletePageService,
     GetPageService,
     GetPagesService,
-    CreatePageService,
-    UpdatePageService,
   ],
   exports: [CreatePageService],
 })

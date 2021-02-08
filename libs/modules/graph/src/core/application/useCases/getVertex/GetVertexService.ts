@@ -1,12 +1,19 @@
-import { Injectable } from '@nestjs/common'
+import { Inject, Injectable } from '@nestjs/common'
 import { Vertex } from '@prisma/client'
 import { GetVertexInput } from './GetVertexInput'
-import { PrismaService, TransactionalUseCase } from '@codelab/backend'
+import {
+  PrismaDITokens,
+  PrismaService,
+  TransactionalUseCase,
+} from '@codelab/backend'
 
 @Injectable()
 export class GetVertexService
   implements TransactionalUseCase<GetVertexInput, Vertex | null> {
-  constructor(private readonly prismaService: PrismaService) {}
+  constructor(
+    @Inject(PrismaDITokens.PrismaService)
+    private readonly prismaService: PrismaService,
+  ) {}
 
   async execute({ id }: GetVertexInput) {
     try {
