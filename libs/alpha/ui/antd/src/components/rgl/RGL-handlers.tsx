@@ -1,3 +1,4 @@
+import { omit } from 'lodash'
 import { ItemCallback } from 'react-grid-layout'
 import { PaneConfigHandlersProps } from '../../../../../../../apps/web/src/builder/pane-config/Pane-config--handlers'
 
@@ -35,13 +36,16 @@ export const onResizeStop: RGLHandlers = ({ updateVertexMutation }) => (
     return null
   }
 
+  console.log(newVertex)
+
   return updateVertex({
     variables: {
       input: {
         vertexId,
         props: {
           'data-grid': {
-            ...newVertex,
+            // Don't save index
+            ...omit(newVertex, 'i'),
           },
         },
       },

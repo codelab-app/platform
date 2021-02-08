@@ -76,4 +76,4 @@ export const RenderComponents = ({ node }: { node: NodeA }) => {
   )
 }
 
-RenderComponents.whyDidYouRender = true
+// RenderComponents.whyDidYouRender = true

@@ -4,6 +4,7 @@ import {
   OverlayToolbarStateType,
   overlayToolbarState,
 } from './overlayToolbarState'
+import { NodeA } from 'libs/modules/graph/src/core/domain/node/Node'
 
 export const useOverlayToolbar = (overlayId: string) => {
   const [toolbarState, setToolbarState] = useRecoilState(
@@ -13,27 +14,25 @@ export const useOverlayToolbar = (overlayId: string) => {
   const show = useCallback(
     (
       overlayElement: OverlayToolbarStateType['overlayElement'],
-      metadata: any = undefined,
+      metadata?: Pick<NodeA, 'id' | 'type'>,
     ) => {
-      console.log(overlayElement, toolbarState.overlayElement)
-      console.log(overlayElement !== toolbarState.overlayElement)
+      console.log(overlayElement, metadata)
+      // console.log(overlayElement, toolbarState.overlayElement)
+      // console.log(overlayElement !== toolbarState.overlayElement)
 
       /**
        * Only set if element exists, otherwise we will get infinite loop
        *
        * Only setState if the values are different
        */
-      return overlayElement && overlayElement !== toolbarState.overlayElement
-        ? setToolbarState((s) => ({ ...s, overlayElement, metadata }))
-        : null
+      return setToolbarState((s) => ({ ...s, overlayElement, metadata }))
     },
-    [setToolbarState, toolbarState],
-  )
-
-  const reset = useCallback(
-    () => setToolbarState((s) => ({ ...s, overlayElement: undefined })),
     [setToolbarState],
   )
+
+  const reset = useCallback(() => {
+    return setToolbarState((s) => ({ ...s, overlayElement: undefined }))
+  }, [setToolbarState])
 
   return {
     show,
