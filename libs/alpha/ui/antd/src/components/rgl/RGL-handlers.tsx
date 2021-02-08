@@ -36,8 +36,6 @@ export const onResizeStop: RGLHandlers = ({ updateVertexMutation }) => (
     return null
   }
 
-  console.log(newVertex)
-
   return updateVertex({
     variables: {
       input: {

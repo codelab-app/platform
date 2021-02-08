@@ -16,7 +16,7 @@ export class ReactGridResponsiveLayout {
   declare layouts: Record<LayoutSize, Layout>
 }
 
-type ReactGridItemProps = {
+export type RGLItemProps = {
   'data-grid': Pick<Layout, 'x' | 'y' | 'w' | 'h'>
 } & { key: string }
 
@@ -57,5 +57,5 @@ type ReactGridItemProps = {
   },
 })
 export class ReactGridItem {
-  declare props: ReactGridItemProps
+  declare props: RGLItemProps
 }

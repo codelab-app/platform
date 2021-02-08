@@ -125,7 +125,8 @@ export const elementParameterFactory = <TNode extends NodeA>({
       return handlers.resetHoverOverlay()
     },
     onClick: (e: MouseEvent) => {
-      console.log('onClick', e.currentTarget, node)
+      // We want to show overlay for current node
+      e.stopPropagation()
 
       handlers.showClickOverlay(e.target as HTMLElement, node)
     },
