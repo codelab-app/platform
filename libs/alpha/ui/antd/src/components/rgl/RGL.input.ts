@@ -1,24 +1,19 @@
-import { Layout } from 'react-grid-layout'
+import { RGLItemProps } from './RGL-item.input'
 import { Grid } from '@codelab/tools/generators/json-schema'
 
-type LayoutSize = 'xxs' | 'xs' | 'sm' | 'md' | 'lg'
+export type LayoutSize = 'xxs' | 'xs' | 'sm' | 'md' | 'lg'
 
 /**
  * Or we can use LayoutSize as enum if easier
  */
-
 // @Tabs({ keys: LayoutSize })
-export class ReactGridResponsiveLayout {
-  declare breakpoints: Record<LayoutSize, number>
+// export class ReactGridResponsiveLayout {
+//   declare breakpoints: Record<LayoutSize, number>
 
-  declare cols: Record<LayoutSize, number>
+//   declare cols: Record<LayoutSize, number>
 
-  declare layouts: Record<LayoutSize, Layout>
-}
-
-export type RGLItemProps = {
-  'data-grid': Pick<Layout, 'x' | 'y' | 'w' | 'h'>
-} & { key: string }
+//   declare layouts: Record<LayoutSize, Layout>
+// }
 
 @Grid<ReactGridItem>({
   props: {

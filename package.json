@@ -137,6 +137,7 @@
     "rxjs": "6.6.3",
     "shelljs": "0.8.4",
     "supertest": "6.0.1",
+    "ts-json-schema-generator": "^0.84.0",
     "tsconfig-paths": "3.9.0",
     "typescript-json-schema": "0.48.0",
     "use-resize-observer": "^7.0.0",

@@ -1,13 +1,13 @@
 import { Theme as AntDTheme } from '@rjsf/antd'
 import { withTheme } from '@rjsf/core'
 import { Button } from 'antd'
-import { JSONSchema7 } from 'json-schema'
+import { JSONSchema6 } from 'json-schema'
 import React from 'react'
 
 const Form = withTheme(AntDTheme)
 
 export const FormGraph = () => {
-  const schema: JSONSchema7 = {
+  const schema: JSONSchema6 = {
     type: 'object',
     required: ['label'],
     properties: {

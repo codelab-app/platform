@@ -1,6 +1,6 @@
 import { Theme as AntDTheme } from '@rjsf/antd'
 import { withTheme } from '@rjsf/core'
-import { JSONSchema7 } from 'json-schema'
+import { JSONSchema6 } from 'json-schema'
 import React from 'react'
 import { SelectWidget } from './SelectWidget'
 import { VertexType } from '@codelab/alpha/shared/interface/graph'
@@ -14,7 +14,7 @@ const Form = withTheme(AntDTheme)
 // 2. use mutation of formContext to pass already specified props down
 // 3. use custom SelectWidget to filter option
 export const FormVertex = () => {
-  const propsSchema: JSONSchema7 = {
+  const propsSchema: JSONSchema6 = {
     title: 'Props',
     type: 'object',
     properties: {
@@ -22,7 +22,7 @@ export const FormVertex = () => {
     },
   }
 
-  const schema: JSONSchema7 = {
+  const schema: JSONSchema6 = {
     title: 'Vertex',
     type: 'object',
     required: ['type'],

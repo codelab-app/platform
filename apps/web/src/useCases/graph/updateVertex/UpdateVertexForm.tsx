@@ -1,10 +1,8 @@
-import { merge } from 'lodash'
 import React, { useContext } from 'react'
 import { AppContext } from '../../apps/AppProvider'
 import { ApolloForm } from '@codelab/frontend'
 import {
   GetPageGql,
-  ReactGridItemSchema,
   UpdateVertexInput,
   UpdateVertexInputFormProps,
   UpdateVertexInputSchema,
@@ -32,19 +30,11 @@ export const UpdateVertexForm = ({ vertex }: UpdateVertexFormProps) => {
     ],
   })
 
-  const schema = {
-    ...merge(UpdateVertexInputSchema, {
-      properties: {
-        ...ReactGridItemSchema.properties,
-      },
-    }),
-  }
-
   return (
     <ApolloForm<UpdateVertexInput, UpdateVertexMutationVariables>
       hideSubmitButton={false}
       mutate={mutate}
-      schema={schema}
+      schema={UpdateVertexInputSchema}
       {...UpdateVertexInputFormProps}
       initialFormData={{
         vertexId: vertex.id,

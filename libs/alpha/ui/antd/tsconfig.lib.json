@@ -2,7 +2,10 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../../../dist/out-tsc",
-    "types": ["node", "@rjsf/antd", "@xstate/react"]
+    "types": ["node", "@rjsf/antd", "@xstate/react"],
+    "allowJs": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
   },
   "exclude": [
     "**/*.spec.ts",

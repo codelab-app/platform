@@ -5,7 +5,7 @@ import GridLayout, {
   ResponsiveProps,
   WidthProvider,
 } from 'react-grid-layout'
-import { ReactGridItem } from './RGL.input'
+import { RGLItemProps } from './RGL-item.input'
 
 const ResponsiveGridLayout = WidthProvider(ResponsiveGrid)
 
@@ -26,7 +26,7 @@ export namespace RGL {
     return <ResponsiveGridLayout {...props}>{children}</ResponsiveGridLayout>
   }
 
-  export const Item: React.FC<ReactGridItem['props']> = ({
+  export const Item: React.FC<RGLItemProps> = ({
     children,
     'data-grid': dataGrid,
     ...props

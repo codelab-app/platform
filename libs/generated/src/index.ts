@@ -1,3 +1,6 @@
 export * from './graphql-server.generated'
-export * from './json-schema.generated'
+// export * from './jsonSchema-antd.generated'
+// export * from './jsonSchema-props.generated'
+export * from './jsonSchema-useCases.generated'
+export * from './jsonSchema.generated'
 export * from './graphql-client.generated'
