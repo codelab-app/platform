@@ -1,17 +1,19 @@
-import { spawn } from 'child_process'
 import fs from 'fs'
+import * as shell from 'shelljs'
 import * as ts from 'typescript'
 import * as TJS from 'typescript-json-schema'
-import {
-  includeFilePatterns,
-  jsonSchemaGenerator,
-} from './generator/generator-config'
 
 export const lintFiles = (files: Array<string>) => {
-  spawn(`npx eslint ${files.join(' ')} --fix`, {
-    stdio: 'inherit',
-    shell: true,
-  })
+  // const cmd = `eslint ${files.join(' ')} --fix`
+  const cmd = `npx prettier ${files.join(' ')} --write`
+
+  console.log(cmd)
+
+  return shell.exec(cmd, { async: true })
+  // spawn(cmd, {
+  //   stdio: 'inherit',
+  //   shell: true,
+  // })
 }
 
 export const getSourceFileFromTSNode = (tsNode: ts.Node): string => {
@@ -28,11 +30,15 @@ export const getSourceFileFromTSNode = (tsNode: ts.Node): string => {
   return ''
 }
 
-export const getPathFromSymbol = (symbol: string): string | undefined =>
-  jsonSchemaGenerator
+export const getPathFromSymbol = (
+  symbol: string,
+  generator: TJS.JsonSchemaGenerator,
+  includeFilePatterns: Array<string>,
+): string | undefined =>
+  generator
     .getSymbols(symbol)
-    .map((sRef) => getSourceFileFromTSNode(sRef.symbol.declarations[0]))
-    .find((filePath) => includeFilePatterns.includes(filePath))
+    .map((sRef: any) => getSourceFileFromTSNode(sRef.symbol.declarations[0]))
+    .find((filePath: string) => includeFilePatterns.includes(filePath))
 
 export const saveToFile = (outputPath: string) => (content: string) => {
   fs.writeFileSync(outputPath, content)
@@ -40,10 +46,7 @@ export const saveToFile = (outputPath: string) => (content: string) => {
   return outputPath
 }
 
-export const createSchemaExport = (
-  schema: TJS.Definition,
-  symbol: string,
-): string => {
+export const createSchemaExport = (schema: string, symbol: string): string => {
   const fileContents = `export const ${symbol}Schema: JSONSchema7 = ${JSON.stringify(
     schema,
     null,
@@ -51,4 +54,13 @@ export const createSchemaExport = (
   )}`
 
   return fileContents
+}
+
+export const formatContentForExport = (content: string): string => {
+  const importsList = [
+    `import { JSONSchema7 } from 'json-schema'`,
+    `import { ObjectFieldTemplateFactory, DecoratorsMap } from '@codelab/tools/generators/json-schema'`,
+  ]
+
+  return `${importsList.join('\n\n')} \n\n ${content}`
 }

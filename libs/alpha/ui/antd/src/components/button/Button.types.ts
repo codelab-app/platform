@@ -22,14 +22,18 @@ export namespace Button {
 
   export type AntdProps = Pick<
     ButtonProps,
-    | 'type'
+    | 'disabled'
+    | 'ghost'
+    | 'href'
+    | 'htmlType'
+    | 'icon'
+    | 'loading'
     | 'shape'
     | 'size'
-    | 'loading'
-    | 'prefixCls'
-    | 'className'
-    | 'ghost'
-    | 'danger'
+    | 'target'
+    | 'type'
+    | 'onClick'
     | 'block'
+    | 'danger'
   >
 }

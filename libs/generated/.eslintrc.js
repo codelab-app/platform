@@ -8,9 +8,6 @@ module.exports = {
       },
     },
   },
-  rules: {
-    'import/no-extraneous-dependencies': 'off',
-  },
   parserOptions: {
     tsconfigRootDir: __dirname,
     project: ['tsconfig.eslint.json'],

@@ -1,58 +1,46 @@
-import { jsonSchemaGenerator } from './generator/generator-config'
-import { getFormProps } from './generator/generator-form'
-import {
-  createSchemaExport,
-  getPathFromSymbol,
-  lintFiles,
-  saveToFile,
-} from './utils'
+import { getJsonSchema } from '@tsed/schema'
+import P from 'bluebird'
+import glob from 'glob'
+import { createSchemaExport, lintFiles, saveToFile } from './utils'
 
-const generateExportContent = (): Array<Promise<[string, string]>> => {
-  return jsonSchemaGenerator.getUserSymbols().map((symbol) => {
-    console.log('\n---')
-    console.log(`Analyzing symbol: "${symbol}"...`)
-    console.log('---')
+export const inputFiles = glob.sync(
+  'libs/alpha/ui/antd/src/components/**/*.input.ts',
+  {
+    cwd: process.cwd(),
+  },
+)
 
-    /**
-     * Generate schema
-     */
-    console.log('Generating json schema... ')
-    const schema = jsonSchemaGenerator.getSchemaForSymbol(symbol)
-    const schemaExport = createSchemaExport(schema, symbol)
+const outputFile = `${process.cwd()}/libs/generated/src/jsonSchema.generated.ts`
 
-    /**
-     * Generate form template props
-     */
-    console.log('Generating form props... ')
-    const sourceFilePath = getPathFromSymbol(symbol)
-    const formPropsExport = getFormProps(sourceFilePath, symbol)
+const main = async () => {
+  const jsonSchemaContents = await P.reduce(
+    inputFiles,
+    async (multipleFileExports, file) => {
+      const module = await import(file)
 
-    return Promise.all([schemaExport, formPropsExport])
-  })
-}
+      const exportedSymbols = Object.keys(module).filter((name) =>
+        // Get only types with *Props in the export name
+        /Props/.test(name),
+      )
 
-const formatContentForExport = (
-  generatedContentList: Array<[string, string]>,
-): string => {
-  const content = generatedContentList
-    .map(([schema, gridDetails]) => `${schema} \n\n ${gridDetails}`)
-    .join('\n\n')
+      console.log(`Exporing symbols "${exportedSymbols.join(' ')}"...`)
 
-  const importsList = [
-    `import { JSONSchema7 } from 'json-schema'`,
-    `import { ObjectFieldTemplateFactory, DecoratorsMap } from '@codelab/tools/generators/json-schema'`,
-  ]
+      // Reduce to a single string
+      const fileExports = exportedSymbols.reduce((combinedExports, symbol) => {
+        const jsonSchema = getJsonSchema(module[symbol])
+        const jsonSchemaExport = createSchemaExport(jsonSchema, symbol)
 
-  return `${importsList.join('\n\n')} \n\n \n\n ${content}`
-}
+        return `${combinedExports} \n ${jsonSchemaExport}`
+      }, '')
 
-Promise.all(generateExportContent())
-  .then(formatContentForExport)
-  .then(
-    saveToFile(`${process.cwd()}/libs/generated/src/json-schema.generated.ts`),
+      return `${multipleFileExports} \n ${fileExports}`
+    },
+    `import { JSONSchema7 } from 'json-schema'\n`,
   )
-  .then((outputPath: string) => {
-    lintFiles([outputPath])
-    console.log(`Saving generated schema to... ${outputPath}`)
-  })
-  .catch((err) => console.log(err))
+
+  saveToFile(outputFile)(jsonSchemaContents)
+
+  lintFiles([outputFile])
+}
+
+main()

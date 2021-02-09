@@ -1,6 +1,7 @@
 import { Theme as AntDTheme } from '@rjsf/antd'
 import { withTheme } from '@rjsf/core'
 import { Button } from 'antd'
+import { JSONSchema7 } from 'json-schema'
 import React, { ReactElement, useState } from 'react'
 import { setSubmitControllerRef } from './Form-jsonSchema--ref'
 import { JsonSchemaFormProps } from './Form-jsonSchema--types'
@@ -28,7 +29,7 @@ export const JsonSchemaForm = <TData extends object>({
 
   return (
     <ThemedForm
-      schema={schema}
+      schema={schema as JSONSchema7}
       onSubmit={(err) =>
         onSubmit({ data: err.formData })
           .then((r: any) => {
@@ -64,5 +65,3 @@ export const JsonSchemaForm = <TData extends object>({
     </ThemedForm>
   )
 }
-
-export default JsonSchemaForm

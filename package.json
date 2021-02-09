@@ -4,7 +4,8 @@
     "packages": [
       "dist/libs/tools/plugins/*",
       "dist/nrwl/*",
-      "libs/generated"
+      "libs/generated",
+      "libs/alpha/ui/antd"
     ],
     "nohoist": []
   },
@@ -56,6 +57,7 @@
     "@rjsf/antd": "2.4.2",
     "@rjsf/core": "2.4.1",
     "@storybook/client-api": "6.1.11",
+    "@tsed/schema": "^6.25.1",
     "@types/supertest": "2.0.10",
     "@welldone-software/why-did-you-render": "^6.0.5",
     "@xstate/react": "1.2.2",
@@ -107,6 +109,7 @@
     "js-cookie": "2.2.1",
     "lodash": "4.17.20",
     "lokijs": "^1.5.11",
+    "memoize-one": "^5.1.1",
     "monocle-ts": "2.3.4",
     "nest-winston": "1.4.0",
     "newtype-ts": "0.3.4",
@@ -135,6 +138,7 @@
     "rxjs": "6.6.3",
     "shelljs": "0.8.4",
     "supertest": "6.0.1",
+    "ts-json-schema-generator": "^0.84.0",
     "tsconfig-paths": "3.9.0",
     "typescript-json-schema": "0.48.0",
     "use-resize-observer": "^7.0.0",

@@ -154,6 +154,12 @@ commands:
       - run:
           name: 'Install NPM packages'
           command: "yarn install --frozen-lockfile --prod=false"
+      - run:
+          name: 'Prisma Reset'
+          command: |
+            yarn prisma:reset
+            yarn prisma:sync
+            yarn prisma generate
       # - run:
       #     name: 'List Cypress cache'
       #     command: npx cypress cache path

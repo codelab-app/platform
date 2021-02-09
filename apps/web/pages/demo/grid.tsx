@@ -1,5 +1,6 @@
 import { Theme as AntDTheme } from '@rjsf/antd'
 import { withTheme } from '@rjsf/core'
+import { JSONSchema7 } from 'json-schema'
 import React from 'react'
 import {
   DemoGridFormInputFormProps,
@@ -12,7 +13,10 @@ const GridPage = () => {
   return (
     <>
       {/* <Form schema={DemoInputSchema} {...DemoInputFormProps} /> */}
-      <Form schema={DemoGridFormInputSchema} {...DemoGridFormInputFormProps} />
+      <Form
+        schema={DemoGridFormInputSchema as JSONSchema7}
+        {...DemoGridFormInputFormProps}
+      />
     </>
   )
 }

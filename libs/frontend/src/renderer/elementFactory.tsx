@@ -1,5 +1,5 @@
 import { Icon } from '@ant-design/compatible'
-import { Prisma, VertexType } from '@prisma/client'
+import { VertexType } from '@prisma/client'
 import {
   Affix,
   Alert,
@@ -60,11 +60,9 @@ import {
   Upload,
 } from 'antd'
 import React from 'react'
+import ReactTestUtils from 'react-dom/test-utils'
 import { PaneConfigHandlersProps } from '../../../../apps/web/src/builder/pane-config/Pane-config--handlers'
-import { propsFilter, withFilters } from '@codelab/alpha/core/props'
-import { mouseEventHandlerKeys } from '@codelab/alpha/shared/event'
 import {
-  Button as ButtonTypes,
   CodelabForm,
   CodelabHtml,
   CodelabMapper,
@@ -89,7 +87,50 @@ export const elementParameterFactory = <TNode extends NodeA>({
   Record<string, any>,
 ] => {
   const { type } = node
-  const props = node.props as Record<string, any>
+  const props = {
+    ...node.props,
+    // Add vertexType to attribute
+    'data-vertex-type': node.type,
+    'data-id': node.id,
+    // https://stackoverflow.com/questions/41645325/mouseover-and-mouseout-trigger-multiple-times
+    //
+    // Use `onMouseEnter` instead of `onMouseOver`
+    // `onMouseLeave` instead of `onMouseOut`
+    //
+    // Enter is only triggered once when we enter the box
+    // Otherwise `onMouseOver` will fire endless as it toggles between current & children element
+    onMouseEnter: (e: MouseEvent) => {
+      // console.log('mouseEnter', e)
+
+      return handlers.showHoverOverlay(e.target as HTMLElement, node)
+    },
+    // We want to manually re-trigger the `onMouseEnter` of the parent
+    onMouseLeave: (e: MouseEvent) => {
+      // console.log('mouseLeave', e)
+      // https://stackoverflow.com/questions/28900077/why-is-event-target-not-element-in-typescript
+      const currentTarget = e.currentTarget as HTMLElement
+      const parentNode = currentTarget.parentNode as HTMLElement
+
+      // https://stackoverflow.com/questions/39065010/why-react-event-handler-is-not-called-on-dispatchevent
+
+      // console.log(parentNode, parentNode.dataset['vertex-type'])
+
+      /**
+       * This checks that we're hovering over a builder component
+       */
+      if (parentNode && parentNode.dataset.vertexType) {
+        return ReactTestUtils.Simulate.mouseEnter(parentNode as Element)
+      }
+
+      return handlers.resetHoverOverlay()
+    },
+    onClick: (e: MouseEvent) => {
+      // We want to show overlay for current node
+      e.stopPropagation()
+
+      handlers.showClickOverlay(e.target as HTMLElement, node)
+    },
+  } as Record<string, any>
 
   switch (type) {
     case VertexType.React_Fragment:
@@ -136,10 +177,11 @@ export const elementParameterFactory = <TNode extends NodeA>({
       return [AutoComplete as any, props]
     case VertexType.React_Button:
       return [
-        withFilters(
-          propsFilter([...mouseEventHandlerKeys, ...ButtonTypes.propKeys]),
-          Button,
-        ),
+        Button,
+        // withFilters(
+        //   propsFilter([...mouseEventHandlerKeys, ...ButtonTypes.propKeys]),
+        //   Button,
+        // ),
         props,
       ]
     case VertexType.React_Breadcrumb:
@@ -169,6 +211,8 @@ export const elementParameterFactory = <TNode extends NodeA>({
     case VertexType.React_RGL_Container:
       return [RGL.Container, props]
     case VertexType.React_RGL_Item:
+      const dataGrid = props['data-grid']
+
       return [
         RGL.Item,
         // Currently the react-grid-layout library, for some reason, re-renders the layout
@@ -176,16 +220,8 @@ export const elementParameterFactory = <TNode extends NodeA>({
         // So, a workaround is to incorporate the data-grid property into the key to make sure we rerender
         // There is a fix here https://github.com/STRML/react-grid-layout/issues/718, but for some reason it's not merged into the main repo
         {
-          ...(props as Prisma.JsonObject),
-          onMouseOut: () => handlers.resetHoverOverlay(),
-          onMouseOver: (e: MouseEvent) =>
-            handlers.showHoverOverlay(e.target as HTMLElement, node),
-          onClick: (e: MouseEvent) => {
-            handlers.showClickOverlay(e.target as HTMLElement, node)
-          },
-          key: props['data-grid']
-            ? props.key + JSON.stringify(props['data-grid'])
-            : props.key,
+          ...props,
+          key: dataGrid ? JSON.stringify(dataGrid) : node.id,
           'data-id': node.id,
         },
       ]

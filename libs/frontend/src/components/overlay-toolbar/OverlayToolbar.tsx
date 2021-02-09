@@ -33,8 +33,6 @@ export const OverlayToolbar = <TMetaData extends any>({
 
   let element: HTMLElement | null | undefined
 
-  console.log(overlayElement)
-
   if (overlayElement) {
     element = Object.hasOwnProperty.call(overlayElement, 'current')
       ? (overlayElement as RefObject<HTMLElement>).current
