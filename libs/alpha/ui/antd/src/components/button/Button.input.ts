@@ -1,8 +1,8 @@
-import { Enum, Optional, Title } from '@tsed/schema'
+import { Enum, Optional } from '@tsed/schema'
 import { ButtonProps as AntButtonProps, ButtonSize } from 'antd/lib/button'
 import { ButtonHTMLType, ButtonShape, ButtonType } from 'antd/lib/button/button'
+import { ReactNode } from 'react'
 
-@Title('Button')
 export class ButtonProps implements AntButtonProps {
   @Optional()
   declare block?: boolean
@@ -22,14 +22,14 @@ export class ButtonProps implements AntButtonProps {
   @Optional()
   declare htmlType?: ButtonHTMLType
 
-  // @Optional()
-  // declare icon?: ReactNode
-
-  // @Optional()
-  // declare loading?: boolean | { delay: number }
+  @Optional()
+  declare icon?: ReactNode
 
   @Optional()
-  @Enum('circle', 'round', 'default')
+  declare loading?: boolean | { delay: number }
+
+  @Optional()
+  @Enum('circle', 'round')
   declare shape?: ButtonShape
 
   @Optional()
