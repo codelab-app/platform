@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { Graph } from '@prisma/client'
+import { CodelabPrismaError } from '../../../../../../../../apps/api/codelab/src/app/CodelabPrismaError'
 import { GetGraphInput } from './GetGraphInput'
 import {
   PrismaDITokens,
@@ -24,7 +25,7 @@ export class GetGraphService
         rejectOnNotFound: true,
       })
     } catch (e) {
-      throw new Error(`Graph with id ${id} was not found`)
+      throw new CodelabPrismaError(`Graph with id ${id} was not found`, e)
     }
   }
 }

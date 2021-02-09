@@ -10,7 +10,6 @@ import cytoscape, {
 import { NodeI } from '../../domain/node/Node'
 import { GetTreeGraphArgs } from '../useCases/getTree/GetTreeService'
 import { VertexService } from './VertexService'
-import { PrismaService } from '@codelab/backend'
 
 @Injectable()
 export class GraphService {

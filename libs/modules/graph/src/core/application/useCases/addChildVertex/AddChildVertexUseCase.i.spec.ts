@@ -85,12 +85,12 @@ describe('AddChildVertexUseCase', () => {
       .expect((res) => {
         const pageRes = res.body.data.createPage
 
-        expect(pageRes.title).toEqual('Page 1')
-        expect(pageRes.graphs.length).toEqual(1)
-        expect(pageRes.graphs[0].vertices.length).toEqual(1)
-        expect(pageRes.graphs[0].vertices[0].type).toEqual(
-          VertexType.React_RGL_ResponsiveContainer,
-        )
+        expect(pageRes).toMatchObject({
+          title: 'Page 1',
+          graphs: [
+            { vertices: [{ type: VertexType.React_RGL_ResponsiveContainer }] },
+          ],
+        })
       })
       .then((res) => res.body.data.createPage)
     const parentVertexId = page.graphs[0].vertices[0].id

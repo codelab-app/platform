@@ -54,11 +54,4 @@ export class UserResolvers {
   getMe(@CurrentUser() user: User) {
     return user
   }
-
-  // @ResolveField(() => [App])
-  // apps(@Parent() user: User) {
-  //   console.log(user)
-
-  //   return []
-  // }
 }

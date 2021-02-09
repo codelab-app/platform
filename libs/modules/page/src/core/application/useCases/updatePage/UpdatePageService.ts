@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { Page } from '@prisma/client'
+import { CodelabPrismaError } from '../../../../../../../../apps/api/codelab/src/app/CodelabPrismaError'
 import { UpdatePageInput } from './UpdatePageInput'
 import {
   PrismaDITokens,
@@ -26,7 +27,7 @@ export class UpdatePageService
         },
       })
     } catch (e) {
-      throw new Error('Update page failed')
+      throw new CodelabPrismaError('Update page failed', e)
     }
   }
 }

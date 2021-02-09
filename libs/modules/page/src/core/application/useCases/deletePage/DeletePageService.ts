@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { Page } from '@prisma/client'
+import { CodelabError } from '../../../../../../../../apps/api/codelab/src/app/CodelabError'
 import { DeletePageInput } from './DeletePageInput'
 import {
   PrismaDITokens,
@@ -16,40 +17,37 @@ export class DeletePageService
   ) {}
 
   async execute({ pageId }: DeletePageInput) {
-    try {
-      const app = await this.prismaService.app.findFirst({
-        where: {
-          pages: {
-            some: {
-              id: pageId,
-            },
+    const app = await this.prismaService.app.findFirst({
+      where: {
+        pages: {
+          some: {
+            id: pageId,
           },
         },
-      })
+      },
+      include: {
+        pages: true,
+      },
+    })
 
-      console.log(app)
+    console.log(app)
 
-      if (!app) {
-        throw new Error('')
-      }
-
-      const pages = await this.prismaService.page.findMany({
-        where: {
-          appId: app.id,
-        },
-      })
-
-      if (pages.length <= 1) {
-        throw new Error('Cannot delete last page')
-      }
-
-      return await this.prismaService.page.delete({
-        where: {
-          id: pageId,
-        },
-      })
-    } catch (e) {
-      throw new Error(`The page with id ${pageId} was not found`)
+    if (!app) {
+      throw new CodelabError('Cannot delete page')
     }
+
+    if (app.pages.length <= 1) {
+      throw new CodelabError('Cannot delete last page')
+    }
+
+    const where = {
+      id: pageId,
+    }
+
+    await this.prismaService.cascadeDelete.onDelete({ model: 'Page', where })
+
+    return await this.prismaService.page.delete({
+      where,
+    })
   }
 }

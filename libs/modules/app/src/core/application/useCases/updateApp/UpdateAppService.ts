@@ -1,10 +1,11 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { App } from '@prisma/client'
+import { CodelabError } from '../../../../../../../../apps/api/codelab/src/app/CodelabError'
+import { CodelabPrismaError } from '../../../../../../../../apps/api/codelab/src/app/CodelabPrismaError'
 import { UpdateAppRequest } from './UpdateAppRequest'
 import {
   PrismaDITokens,
   PrismaService,
-  RequestValidationError,
   TransactionalUseCase,
 } from '@codelab/backend'
 
@@ -16,19 +17,19 @@ export class UpdateAppService
     private readonly prismaService: PrismaService,
   ) {}
 
-  async execute({ appId, userId, ...appData }: UpdateAppRequest) {
+  async execute({ appId, user, ...appData }: UpdateAppRequest) {
     try {
       const userApp = await this.prismaService.app.findFirst({
         where: {
           id: appId,
           user: {
-            id: userId,
+            id: user.id,
           },
         },
       })
 
       if (!userApp) {
-        throw new RequestValidationError()
+        throw new CodelabError(`App for user ${user.email} was not found`)
       }
 
       return await this.prismaService.app.update({
@@ -38,7 +39,10 @@ export class UpdateAppService
         data: { ...appData },
       })
     } catch (e) {
-      throw new RequestValidationError()
+      throw new CodelabPrismaError(
+        `Unable to create app for user ${user.email}`,
+        e,
+      )
     }
   }
 }

@@ -1,172 +1,239 @@
 import { INestApplication } from '@nestjs/common'
+import { VertexType } from '@prisma/client'
+import { print } from 'graphql'
 import request from 'supertest'
 import { GraphModule } from '../../../../framework/nestjs/GraphModule'
 import { setupTestModule, teardownTestModule } from '@codelab/backend'
+import {
+  AddChildVertexGql,
+  CreateAppGql,
+  CreatePageGql,
+  DeleteVertexGql,
+  GetGraphGql,
+  RegisterUserGql,
+} from '@codelab/generated'
+import { App, AppModule } from '@codelab/modules/app'
+import { Vertex } from '@codelab/modules/graph'
+import { PageModule } from '@codelab/modules/page'
+import { User, UserModule } from '@codelab/modules/user'
 
-describe.skip('DeleteVertexUseCase', () => {
+const email = 'test_user@codelab.ai'
+const password = 'password'
+
+describe('DeleteVertexUseCase', () => {
   let app: INestApplication
-
-  let graphId = ''
-  const graphLabel = 'Graph 1'
+  let user: User
+  let page
 
   beforeAll(async () => {
-    app = await setupTestModule(app, GraphModule)
-  })
+    app = await setupTestModule(
+      app,
+      PageModule,
+      GraphModule,
+      UserModule,
+      AppModule,
+    )
 
-  beforeEach(async () => {
-    const createGraphMutation = `mutation {
-			createGraph(graph: {label: "${graphLabel}"}) { id label }
-    }`
-
-    const createNewGraph: any = await request(app.getHttpServer())
+    // Register user
+    user = await request(app.getHttpServer())
       .post('/graphql')
       .send({
-        query: createGraphMutation,
+        query: print(RegisterUserGql),
+        variables: {
+          input: {
+            email,
+            password,
+          },
+        },
       })
-      .expect(200)
-      .expect((res) => {
-        expect(res.body.data.createGraph.label).toEqual(graphLabel)
-        expect(res.body.data.createGraph.id).toBeDefined()
-      })
-
-    graphId = createNewGraph.body.data.createGraph.id
+      .then((res) => res.body.data.registerUser)
   })
 
   afterAll(async () => {
     await teardownTestModule(app)
   })
 
-  it('should delete node', async () => {
-    const addChildVertexMutation = `
-      mutation {
-        addChildVertex(request:
-        {
-          graphId: "${graphId}",
-          vertex:
-          {
-            type: React_Text,
-            props: {
-              id: "root"
-            }
-          }
-        }) {
-          label
-          vertices { id type props }
-        }
-      }
-    `
-    const addRootNode: any = await request(app.getHttpServer())
+  it('should delete vertex', async () => {
+    const title = 'Test App'
+    const createApp: App = await request(app.getHttpServer())
       .post('/graphql')
+      .set('Authorization', `Bearer ${user.accessToken}`)
       .send({
-        query: addChildVertexMutation,
+        query: print(CreateAppGql),
+        variables: {
+          input: {
+            title,
+          },
+        },
       })
       .expect(200)
       .expect((res) => {
-        expect(res.body.data.addChildVertex.label).toEqual(graphLabel)
-        expect(res.body.data.addChildVertex.vertices.length).toEqual(1)
-        expect(res.body.data.addChildVertex.vertices[0].type).toEqual(
-          'React_Text',
-        )
-        expect(res.body.data.addChildVertex.vertices[0].props).toMatchObject({
-          id: 'root',
-        })
+        expect(res.body.data.createApp.title).toEqual('Test App')
       })
-    const rootNodeId = addRootNode.body.data.addChildVertex.vertices[0].id
-    const addChildVertexWithParentMutation = `
-      mutation {
-        addChildVertex(request:
-          {
-            order: 0,
-            graphId: "${graphId}",
-            parentVertexId: "${rootNodeId}",
-            vertex:
-            {
-              type: React_Text,
-              props: {
-                id: "a"
-              }
-            }
-          }) {
-            label
-            vertices { id type props }
-            edges { id order source target props }
-          }
-      }
-    `
-    const addChildVertex: any = await request(app.getHttpServer())
-      .post('/graphql')
-      .send({
-        query: addChildVertexWithParentMutation,
-      })
-      .expect(200)
-      .expect((res) => {
-        expect(res.body.data.addChildVertex.label).toEqual(graphLabel)
-        expect(res.body.data.addChildVertex.vertices.length).toEqual(2)
-        expect(res.body.data.addChildVertex.edges.length).toEqual(1)
-        expect(res.body.data.addChildVertex.edges[0].source).toEqual(rootNodeId)
-        expect(res.body.data.addChildVertex.edges[0].order).toEqual(0)
-        expect(res.body.data.addChildVertex.edges[0].props).toMatchObject({
-          id: 'a',
-        })
-        expect(res.body.data.addChildVertex.vertices[0].type).toEqual(
-          'React_Text',
-        )
-        expect(res.body.data.addChildVertex.vertices[0].props).toMatchObject({
-          id: 'root',
-        })
-        expect(res.body.data.addChildVertex.vertices[1].type).toEqual(
-          'React_Text',
-        )
-        expect(res.body.data.addChildVertex.vertices[1].props).toMatchObject({
-          id: 'a',
-        })
-      })
-    const childNodeId = addChildVertex.body.data.addChildVertex.vertices[1].id
-    const deleteVertexMutation = `
-      mutation {
-        deleteVertex(request: {vertexId: "${childNodeId}"}) {
-          label
-          vertices { id type props }
-          edges { source target order props }
-        }
-      }
-    `
-    const deleteVertex = await request(app.getHttpServer())
-      .post('/graphql')
-      .send({
-        query: deleteVertexMutation,
-      })
-      .expect(200)
-      .expect((res) => {
-        expect(res.body.data.deleteVertex.label).toEqual(graphLabel)
-        expect(res.body.data.deleteVertex.edges.length).toEqual(0)
-        expect(res.body.data.deleteVertex.vertices.length).toEqual(1)
-      })
-  })
+      .then((res) => res.body.data.createApp)
+    const { id } = createApp
 
-  it('should return error for wrong vertex id', async () => {
-    const wrongVertexId = '2fa9e75b-1f5d-4dd1-a58c-dbc09d822de9'
-    const deleteVertexMutation = `
-      mutation {
-        deleteVertex(request: {vertexId: "${wrongVertexId}"}) {
-          label
-          vertices { id type props }
-          edges { source target order props }
-        }
-      }
-    `
+    page = await request(app.getHttpServer())
+      .post('/graphql')
+      .set('Authorization', `Bearer ${user.accessToken}`)
+      .send({
+        query: print(CreatePageGql),
+        variables: {
+          input: {
+            title: 'Page 1',
+            appId: id,
+          },
+        },
+      })
+      .expect(200)
+      .expect((res) => {
+        const pageRes = res.body.data.createPage
+
+        expect(pageRes).toMatchObject({
+          title: 'Page 1',
+          graphs: [
+            { vertices: [{ type: VertexType.React_RGL_ResponsiveContainer }] },
+          ],
+        })
+      })
+      .then((res) => res.body.data.createPage)
+    const graphId = page.graphs[0].id
+    const parentVertexId = page.graphs[0].vertices[0].id
+
+    const addChildVertex: Vertex = await request(app.getHttpServer())
+      .post('/graphql')
+      .send({
+        query: print(AddChildVertexGql),
+        variables: {
+          input: {
+            order: 0,
+            parentVertexId,
+            vertex: {
+              type: VertexType.React_Text,
+              props: {
+                id: 'a',
+              },
+            },
+          },
+        },
+      })
+      .expect(200)
+      .expect((res) => {
+        const vertexRes = res.body.data.addChildVertex
+
+        expect(vertexRes.id).toBeDefined()
+        expect(vertexRes).toMatchObject({
+          type: VertexType.React_Text,
+          props: {
+            id: 'a',
+          },
+        })
+      })
+      .then((res) => res.body.data.addChildVertex)
 
     await request(app.getHttpServer())
       .post('/graphql')
       .send({
-        query: deleteVertexMutation,
+        query: print(GetGraphGql),
+        variables: {
+          input: {
+            id: graphId,
+          },
+        },
+      })
+      .expect(200)
+      .expect((res) => {
+        const graphRes = res.body.data.getGraph
+
+        expect(graphRes).toMatchObject({
+          vertices: [
+            {
+              id: parentVertexId,
+              type: VertexType.React_RGL_ResponsiveContainer,
+            },
+            {
+              type: VertexType.React_Text,
+            },
+          ],
+          edges: [
+            {
+              source: parentVertexId,
+              target: addChildVertex.id,
+            },
+          ],
+        })
+      })
+      .then((res) => res.body.data.getGraph)
+
+    await request(app.getHttpServer())
+      .post('/graphql')
+      .send({
+        query: print(DeleteVertexGql),
+        variables: {
+          input: {
+            vertexId: addChildVertex.id,
+          },
+        },
+      })
+      .expect(200)
+      .expect((res) => {
+        const vertexRes = res.body.data.deleteVertex
+
+        expect(vertexRes).toMatchObject({
+          type: VertexType.React_Text,
+          props: {
+            id: 'a',
+          },
+        })
+      })
+
+    await request(app.getHttpServer())
+      .post('/graphql')
+      .send({
+        query: print(GetGraphGql),
+        variables: {
+          input: {
+            id: graphId,
+          },
+        },
+      })
+      .expect(200)
+      .expect((res) => {
+        const graphRes = res.body.data.getGraph
+
+        expect(graphRes).toMatchObject({
+          vertices: [
+            {
+              id: parentVertexId,
+              type: VertexType.React_RGL_ResponsiveContainer,
+            },
+          ],
+          edges: [],
+        })
+      })
+      .then((res) => res.body.data.getGraph)
+  })
+
+  it('should return error for wrong vertex id', async () => {
+    print(DeleteVertexGql)
+    const wrongVertexId = '2fa9e75b-1f5d-4dd1-a58c-dbc09d822de9'
+
+    await request(app.getHttpServer())
+      .post('/graphql')
+      .send({
+        query: print(DeleteVertexGql),
+        variables: {
+          input: {
+            vertexId: wrongVertexId,
+          },
+        },
       })
       .expect(200)
       .expect((res) => {
         const errorMsg = res.body?.errors[0].message
 
         expect(errorMsg).toEqual(
-          `Vertex with id: ${wrongVertexId} was not found`,
+          `Unable to delete vertex with id: ${wrongVertexId}`,
         )
       })
   })

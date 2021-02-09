@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { Vertex } from '@prisma/client'
+import { CodelabPrismaError } from '../../../../../../../../apps/api/codelab/src/app/CodelabPrismaError'
 import { GetVertexInput } from './GetVertexInput'
 import {
   PrismaDITokens,
@@ -21,9 +22,10 @@ export class GetVertexService
         where: {
           id,
         },
+        rejectOnNotFound: true,
       })
     } catch (e) {
-      throw new Error()
+      throw new CodelabPrismaError(`Vertex with id: ${id} was not found`, e)
     }
   }
 }

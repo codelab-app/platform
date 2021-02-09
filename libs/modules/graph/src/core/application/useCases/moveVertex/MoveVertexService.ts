@@ -1,11 +1,15 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { Vertex } from '@prisma/client'
+import { CodelabError } from '../../../../../../../../apps/api/codelab/src/app/CodelabError'
+import { CodelabPrismaError } from '../../../../../../../../apps/api/codelab/src/app/CodelabPrismaError'
 import { MoveVertexInput } from './MoveVertexInput'
 import {
   PrismaDITokens,
   PrismaService,
   TransactionalUseCase,
 } from '@codelab/backend'
+
+export type VertexId = string
 
 @Injectable()
 export class MoveVertexService
@@ -25,31 +29,44 @@ export class MoveVertexService
    * @param targetVertexId The parent Vertex we want to move to
    */
   async execute({ currentVertexId, parentVertexId }: MoveVertexInput) {
-    const graph = await this.prismaService.graph.findFirst({
-      select: {
-        edges: {
-          where: {
-            target: currentVertexId,
-          },
-        },
+    // No longer works after adding create page under create app
+    // const graph = await this.prismaService.graph.findFirst({
+    //   select: {
+    //     edges: {
+    //       where: {
+    //         target: currentVertexId,
+    //       },
+    //     },
+    //   },
+    // })
+
+    const edge = await this.prismaService.edge.findFirst({
+      where: {
+        target: currentVertexId,
       },
     })
 
-    if (!graph || graph.edges.length !== 1) {
-      throw new Error('Edge to update not found')
+    // if (!graph || graph.edges.length !== 1) {
+    if (!edge) {
+      throw new CodelabError('Edge to update not found')
     }
 
-    await this.prismaService.edge.update({
-      where: {
-        id: graph.edges[0].id,
-      },
-      data: {
-        source: parentVertexId,
-      },
-    })
+    try {
+      await this.prismaService.edge.update({
+        where: {
+          id: edge.id,
+        },
+        data: {
+          source: parentVertexId,
+        },
+      })
 
-    return await this.prismaService.vertex.findUnique({
-      where: { id: currentVertexId },
-    })
+      return await this.prismaService.vertex.findUnique({
+        where: { id: currentVertexId },
+        rejectOnNotFound: true,
+      })
+    } catch (e) {
+      throw new CodelabPrismaError('Unable to move element', e)
+    }
   }
 }

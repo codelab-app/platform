@@ -1,10 +1,10 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { App } from '@prisma/client'
+import { CodelabPrismaError } from '../../../../../../../../apps/api/codelab/src/app/CodelabPrismaError'
 import { GetAppInput } from './GetAppInput'
 import {
   PrismaDITokens,
   PrismaService,
-  RequestValidationError,
   TransactionalUseCase,
 } from '@codelab/backend'
 
@@ -22,9 +22,13 @@ export class GetAppService
         where: {
           id: appId,
         },
+        rejectOnNotFound: true,
       })
     } catch (e) {
-      throw new RequestValidationError(`The app ${appId} has not been found`)
+      throw new CodelabPrismaError(
+        `The app with id ${appId} has not been found`,
+        e,
+      )
     }
   }
 }

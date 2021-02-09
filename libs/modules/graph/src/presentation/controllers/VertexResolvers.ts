@@ -39,7 +39,7 @@ export class VertexResolvers {
   }
 
   @Mutation(() => Vertex)
-  modeVertex(@Args('input') input: MoveVertexInput) {
+  moveVertex(@Args('input') input: MoveVertexInput) {
     return this.moveVertexService.execute(input)
   }
 

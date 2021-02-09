@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { User } from '@prisma/client'
+import { CodelabError } from '../../../../../../../../apps/api/codelab/src/app/CodelabError'
 import { AuthService } from '../../services/AuthService'
 import { RegisterUserInput } from './RegisterUserInput'
 import {
@@ -23,7 +24,7 @@ export class RegisterUserService
     })
 
     if (existingUser) {
-      throw new Error(
+      throw new CodelabError(
         `The email ${request.email} associated for this account already exists`,
       )
     }

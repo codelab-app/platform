@@ -65,7 +65,7 @@ export class AppResolvers {
   ) {
     return this.updateAppService.execute({
       appId: id,
-      userId: user.id,
+      user,
       ...input,
     })
   }

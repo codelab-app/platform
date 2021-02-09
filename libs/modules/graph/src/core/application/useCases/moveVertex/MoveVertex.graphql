@@ -1,5 +1,5 @@
 mutation MoveVertex($input: MoveVertexInput!) {
-  modeVertex(input: $input) {
+  moveVertex(input: $input) {
     ...vertexFragments
   }
 }

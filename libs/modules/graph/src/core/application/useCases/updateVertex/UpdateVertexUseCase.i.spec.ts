@@ -7,31 +7,34 @@ import {
   AddChildVertexGql,
   CreateAppGql,
   CreatePageGql,
+  GetGraphGql,
   RegisterUserGql,
   UpdateVertexGql,
 } from '@codelab/generated'
 import { App, AppModule } from '@codelab/modules/app'
-import { GraphModule } from '@codelab/modules/graph'
+import { Graph, GraphModule, Vertex } from '@codelab/modules/graph'
 import { PageModule } from '@codelab/modules/page'
 import { User, UserModule } from '@codelab/modules/user'
 
 const email = 'test_user@codelab.ai'
 const password = 'password'
 
-const getUpdateVertexMutation = (graphId: string, vertexId: string) => {
+const getUpdateVertexMutation = (vertexId: string) => {
   return {
     query: print(UpdateVertexGql),
     variables: {
       input: {
-        graphId,
         vertexId,
-        type: 'React_Icon',
+        type: VertexType.React_Icon,
+        props: {
+          id: 'b',
+        },
       },
     },
   }
 }
 
-describe.skip('UpdateVertexUseCase', () => {
+describe('UpdateVertexUseCase', () => {
   let app: INestApplication
   let user: User
   let page
@@ -101,28 +104,27 @@ describe.skip('UpdateVertexUseCase', () => {
       .expect((res) => {
         const pageRes = res.body.data.createPage
 
-        expect(pageRes.title).toEqual('Page 1')
-        expect(pageRes.graphs.length).toEqual(1)
-        expect(pageRes.graphs[0].vertices.length).toEqual(1)
-        expect(pageRes.graphs[0].vertices[0].type).toEqual(
-          VertexType.React_RGL_ResponsiveContainer,
-        )
+        expect(pageRes).toMatchObject({
+          title: 'Page 1',
+          graphs: [
+            { vertices: [{ type: VertexType.React_RGL_ResponsiveContainer }] },
+          ],
+        })
       })
       .then((res) => res.body.data.createPage)
     const graphId = page.graphs[0].id
     const parentVertexId = page.graphs[0].vertices[0].id
 
-    const addChildVertex: any = await request(app.getHttpServer())
+    const addChildVertex: Vertex = await request(app.getHttpServer())
       .post('/graphql')
       .send({
         query: print(AddChildVertexGql),
         variables: {
           input: {
             order: 0,
-            graphId,
             parentVertexId,
             vertex: {
-              type: 'React_Text',
+              type: VertexType.React_Text,
               props: {
                 id: 'a',
               },
@@ -132,48 +134,81 @@ describe.skip('UpdateVertexUseCase', () => {
       })
       .expect(200)
       .expect((res) => {
-        expect(res.body.data.addChildVertex.label).toEqual('Layout')
-        expect(res.body.data.addChildVertex.vertices.length).toEqual(2)
-        // expect(res.body.data.addChildVertex.vertices[0].type).toEqual(
-        //   'React_Text',
-        // )
-        // expect(res.body.data.addChildVertex.vertices[0].props).toMatchObject({
-        //   id: 'a',
-        // })
+        const vertexRes = res.body.data.addChildVertex
+
+        expect(vertexRes).toMatchObject({
+          type: VertexType.React_Text,
+          props: { id: 'a' },
+        })
+
+        expect(vertexRes.id).toBeDefined()
       })
-    const vertexId = addChildVertex.body.data.addChildVertex.vertices[1].id
-    const updateVertexMutation = getUpdateVertexMutation(graphId, vertexId)
+      .then((res) => res.body.data.addChildVertex)
+
+    const verifyGraph: Graph = await request(app.getHttpServer())
+      .post('/graphql')
+      .send({
+        query: print(GetGraphGql),
+        variables: {
+          input: {
+            id: graphId,
+          },
+        },
+      })
+      .expect(200)
+      .expect((res) => {
+        const graphRes = res.body.data.getGraph
+
+        expect(graphRes).toMatchObject({
+          vertices: [
+            {
+              id: parentVertexId,
+              type: VertexType.React_RGL_ResponsiveContainer,
+            },
+            {
+              type: VertexType.React_Text,
+            },
+          ],
+          edges: [
+            {
+              source: parentVertexId,
+              target: addChildVertex.id,
+            },
+          ],
+        })
+      })
+      .then((res) => res.body.data.getGraph)
+
+    const updateVertexMutation = getUpdateVertexMutation(addChildVertex.id)
 
     await request(app.getHttpServer())
       .post('/graphql')
       .send(updateVertexMutation)
       .expect(200)
       .expect((res) => {
-        expect(res.body.data.updateVertex.label).toEqual(graphLabel)
-        expect(res.body.data.updateVertex.vertices.length).toEqual(1)
-        expect(res.body.data.updateVertex.vertices[0].type).toEqual(
-          'React_Text',
-        )
-        expect(res.body.data.updateVertex.vertices[0].props).toMatchObject({
-          id: 'root123',
+        const vertexRes = res.body.data.updateVertex
+
+        expect(vertexRes).toMatchObject({
+          type: VertexType.React_Icon,
+          props: { id: 'b' },
         })
       })
   })
 
-  // it('should return error for wrong vertex id', async () => {
-  //   const wrongVertexId = '2fa9e75b-1f5d-4dd1-a58c-dbc09d822de9'
-  //   const updateVertexMutation = getUpdateVertexMutation(graphId, wrongVertexId)
-  //
-  //   await request(app.getHttpServer())
-  //     .post('/graphql')
-  //     .send(updateVertexMutation,)
-  //     .expect(200)
-  //     .expect((res) => {
-  //       const errorMsg = res.body?.errors[0].message
-  //
-  //       expect(errorMsg).toEqual(
-  //         `Vertex with id: ${wrongVertexId} was not found`,
-  //       )
-  //     })
-  // })
+  it('should return error for wrong vertex id', async () => {
+    const wrongVertexId = '2fa9e75b-1f5d-4dd1-a58c-dbc09d822de9'
+    const updateVertexMutation = getUpdateVertexMutation(wrongVertexId)
+
+    await request(app.getHttpServer())
+      .post('/graphql')
+      .send(updateVertexMutation)
+      .expect(200)
+      .expect((res) => {
+        const errorMsg = res.body?.errors[0].message
+
+        expect(errorMsg).toEqual(
+          `Could not update vertex with id: ${wrongVertexId}`,
+        )
+      })
+  })
 })

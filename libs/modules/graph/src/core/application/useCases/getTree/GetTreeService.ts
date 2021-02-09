@@ -1,4 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common'
+import { CodelabPrismaError } from '../../../../../../../../apps/api/codelab/src/app/CodelabPrismaError'
 import { GraphService } from '../../services/GraphService'
 import { GetTreeInput } from './GetTreeInput'
 import {
@@ -40,15 +41,12 @@ export class GetTreeService implements TransactionalUseCase<GetTreeInput, any> {
         where: {
           id: graphId,
         },
+        rejectOnNotFound: true,
       })
-
-      if (!graph) {
-        throw new Error('Graph not found')
-      }
 
       return await this.graphService.treeFrom(graph)
     } catch (e) {
-      throw new Error('Graph not found')
+      throw new CodelabPrismaError('Graph not found', e)
     }
   }
 }

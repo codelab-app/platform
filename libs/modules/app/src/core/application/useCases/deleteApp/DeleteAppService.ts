@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { App } from '@prisma/client'
+import { CodelabPrismaError } from '../../../../../../../../apps/api/codelab/src/app/CodelabPrismaError'
 import { DeleteAppInput } from './DeleteAppInput'
 import {
   PrismaDITokens,
@@ -16,17 +17,14 @@ export class DeleteAppService
   ) {}
 
   async execute({ id }: DeleteAppInput) {
-    try {
-      // Delete all pages first, don't have cascade yet
-      await this.prismaService.page.deleteMany({
-        where: {
-          appId: id,
-        },
-      })
+    const where = { id }
 
-      return await this.prismaService.app.delete({ where: { id } })
+    try {
+      await this.prismaService.cascadeDelete.onDelete({ model: 'App', where })
+
+      return await this.prismaService.app.delete({ where })
     } catch (e) {
-      throw new Error(`The app with id ${id} was not found`)
+      throw new CodelabPrismaError(`The app with id ${id} was not found`, e)
     }
   }
 }

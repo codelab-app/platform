@@ -1,5 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { User } from '@prisma/client'
+import { CodelabError } from '../../../../../../../../apps/api/codelab/src/app/CodelabError'
+import { CodelabPrismaError } from '../../../../../../../../apps/api/codelab/src/app/CodelabPrismaError'
 import { AuthService } from '../../services/AuthService'
 import { RegisterUserInput } from '../registerUser/RegisterUserInput'
 import { LoginUserInput } from './LoginUserInput'
@@ -19,30 +21,34 @@ export class LoginUserService
   ) {}
 
   async execute({ email, password }: LoginUserInput) {
-    const user = await this.prismaService.user.findUnique({
-      where: {
-        email,
-      },
-    })
+    try {
+      const user = await this.prismaService.user.findUnique({
+        where: {
+          email,
+        },
+      })
 
-    if (!user) {
-      throw new Error('Incorrect email & password combination')
-    }
+      if (!user) {
+        throw new CodelabError('Incorrect email & password combination')
+      }
 
-    const passwordMatch = this.authService.comparePassword(
-      password,
-      user.password,
-    )
+      const passwordMatch = this.authService.comparePassword(
+        password,
+        user.password,
+      )
 
-    if (!passwordMatch) {
-      throw new Error('Incorrect email & password combination')
-    }
+      if (!passwordMatch) {
+        throw new CodelabError('Incorrect email & password combination')
+      }
 
-    const accessToken = await this.authService.getToken(user)
+      const accessToken = await this.authService.getToken(user)
 
-    return {
-      ...user,
-      accessToken,
+      return {
+        ...user,
+        accessToken,
+      }
+    } catch (e) {
+      throw new CodelabPrismaError(`Incorrect email & password combination`, e)
     }
   }
 }
