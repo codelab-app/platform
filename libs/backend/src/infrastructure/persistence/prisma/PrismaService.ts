@@ -41,7 +41,7 @@ export class PrismaService
   }
 
   async onModuleDestroy() {
-    console.log('PrismaService $disconnect')
+    this.logger.log('Prisma disconnect')
     await this.$disconnect()
   }
 
