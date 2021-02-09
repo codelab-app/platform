@@ -1,4 +1,5 @@
-import { RGLItemProps } from './RGL-item.input'
+import { Property } from '@tsed/schema'
+import { RGLLayoutProps } from './RGL-item.input'
 import { Grid } from '@codelab/tools/generators/json-schema'
 
 export type LayoutSize = 'xxs' | 'xs' | 'sm' | 'md' | 'lg'
@@ -15,42 +16,44 @@ export type LayoutSize = 'xxs' | 'xs' | 'sm' | 'md' | 'lg'
 //   declare layouts: Record<LayoutSize, Layout>
 // }
 
-@Grid<ReactGridItem>({
-  props: {
-    'data-grid': {
-      x: {
-        __grid: {
-          order: 0,
-          span: 6,
-        },
-      },
-      y: {
-        __grid: {
-          order: 1,
-          span: 6,
-        },
-      },
-      w: {
-        __grid: {
-          order: 2,
-          span: 6,
-        },
-      },
-      h: {
-        __grid: {
-          order: 3,
-          span: 6,
-        },
+@Grid<RGLItemProps>({
+  'data-grid': {
+    x: {
+      __grid: {
+        order: 0,
+        span: 6,
       },
     },
-    key: {
+    y: {
       __grid: {
-        order: 4,
+        order: 1,
+        span: 6,
+      },
+    },
+    w: {
+      __grid: {
+        order: 2,
+        span: 6,
+      },
+    },
+    h: {
+      __grid: {
+        order: 3,
         span: 6,
       },
     },
   },
+  key: {
+    __grid: {
+      order: 4,
+      span: 6,
+    },
+  },
 })
-export class ReactGridItem {
-  declare props: RGLItemProps
+export class RGLItemProps {
+  @Property()
+  declare 'data-grid': RGLLayoutProps
+
+  @Property()
+  declare key: string
 }

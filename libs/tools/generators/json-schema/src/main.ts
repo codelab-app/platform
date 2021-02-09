@@ -4,7 +4,7 @@ import glob from 'glob'
 import { createSchemaExport, lintFiles, saveToFile } from './utils'
 
 export const inputFiles = glob.sync(
-  'libs/alpha/ui/antd/src/components/**/RGL-item.input.ts',
+  'libs/alpha/ui/antd/src/components/**/*.input.ts',
   {
     cwd: process.cwd(),
   },
@@ -22,6 +22,8 @@ const main = async () => {
         // Get only types with *Props in the export name
         /Props/.test(name),
       )
+
+      console.log(`Exporing symbols "${exportedSymbols.join(' ')}"...`)
 
       // Reduce to a single string
       const fileExports = exportedSymbols.reduce((combinedExports, symbol) => {

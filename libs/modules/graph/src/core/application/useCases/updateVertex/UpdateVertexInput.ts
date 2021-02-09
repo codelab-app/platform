@@ -1,8 +1,10 @@
 import { Field, InputType } from '@nestjs/graphql'
 import { VertexType } from '@prisma/client'
-import { MinLength, Required } from '@tsed/schema'
+import { MinLength, OneOf, Required, getJsonSchema } from '@tsed/schema'
 import { GraphQLJSONObject } from 'graphql-type-json'
 // import { PropsSchema } from '@codelab/generated'
+import { ButtonProps } from '@codelab/alpha/ui/antd'
+import { RGLItemProps } from '@codelab/antd'
 import { Grid } from '@codelab/tools/generators/json-schema'
 
 @Grid<any>({
@@ -47,6 +49,7 @@ export class UpdateVertexInput {
 
   // @OneOf(RGLItemProps)
   // @Schema(PropsSchema)
+  @OneOf(getJsonSchema(ButtonProps), getJsonSchema(RGLItemProps))
   @Field(() => GraphQLJSONObject, { nullable: true })
   declare props?: object
 }

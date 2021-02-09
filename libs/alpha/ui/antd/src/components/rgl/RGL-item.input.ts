@@ -49,9 +49,3 @@ export class RGLLayoutProps implements Layout {
   @Optional()
   declare isBounded?: boolean
 }
-
-export class RGLItemProps {
-  declare 'data-grid': Pick<Layout, 'x' | 'y' | 'w' | 'h'>
-
-  declare key: string
-}

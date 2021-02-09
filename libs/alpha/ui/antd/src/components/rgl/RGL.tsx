@@ -5,7 +5,7 @@ import GridLayout, {
   ResponsiveProps,
   WidthProvider,
 } from 'react-grid-layout'
-import { RGLItemProps } from './RGL-item.input'
+import { RGLItemProps } from './RGL.input'
 
 const ResponsiveGridLayout = WidthProvider(ResponsiveGrid)
 

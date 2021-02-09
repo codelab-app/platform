@@ -65,5 +65,3 @@ export const JsonSchemaForm = <TData extends object>({
     </ThemedForm>
   )
 }
-
-export default JsonSchemaForm
