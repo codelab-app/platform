@@ -1,6 +1,6 @@
-import { JSONSchema6 } from 'json-schema'
+import { JSONSchema7, JSONSchema7 } from 'json-schema'
 
-export const ButtonPropsSchema: JSONSchema6 = {
+export const ButtonPropsSchema: JSONSchema7 = {
   type: 'object',
   properties: {
     block: {
@@ -53,7 +53,7 @@ export const ButtonPropsSchema: JSONSchema6 = {
   },
 }
 
-export const RGLLayoutPropsSchema: JSONSchema6 = {
+export const RGLLayoutPropsSchema: JSONSchema7 = {
   type: 'object',
   properties: {
     i: {
@@ -104,7 +104,7 @@ export const RGLLayoutPropsSchema: JSONSchema6 = {
   },
 }
 
-export const RGLItemPropsSchema: JSONSchema6 = {
+export const RGLItemPropsSchema: JSONSchema7 = {
   type: 'object',
   properties: {
     'data-grid': {

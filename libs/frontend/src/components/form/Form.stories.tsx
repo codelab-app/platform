@@ -11,7 +11,7 @@ export default {
 }
 
 export const DemoJsonSchemaForm = () => {
-  // const schema: JSONSchema6 = {
+  // const schema: JSONSchema7 = {
   //   ...merge(UpdateVertexInputSchema, {
   //     properties: {
   //       ...ReactGridItemSchema.properties,

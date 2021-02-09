@@ -1,7 +1,7 @@
 import { FetchResult } from '@apollo/client'
 import { FormProps as RjsfFormProps } from '@rjsf/core'
 import { ButtonProps } from 'antd/lib/button'
-import { JSONSchema6 } from 'json-schema'
+import { JSONSchema7 } from 'json-schema'
 import React from 'react'
 import { SubmitController } from './Form-jsonSchema--ref'
 import { CallbackOrArrayOfCallbacks } from 'libs/frontend/src/utils'
@@ -19,7 +19,7 @@ export interface JsonSchemaFormProps<TData extends object> {
   initialFormData: TData
 
   /** Schema used for form generation */
-  schema: JSONSchema6
+  schema: JSONSchema7
 
   /** Called when form is submitted */
   onSubmit: (submitEvent: JsonSchemaFormEvent<TData>) => any

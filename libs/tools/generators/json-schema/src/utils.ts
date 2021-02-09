@@ -47,7 +47,7 @@ export const saveToFile = (outputPath: string) => (content: string) => {
 }
 
 export const createSchemaExport = (schema: string, symbol: string): string => {
-  const fileContents = `export const ${symbol}Schema: JSONSchema6 = ${JSON.stringify(
+  const fileContents = `export const ${symbol}Schema: JSONSchema7 = ${JSON.stringify(
     schema,
     null,
     2,
@@ -58,7 +58,7 @@ export const createSchemaExport = (schema: string, symbol: string): string => {
 
 export const formatContentForExport = (content: string): string => {
   const importsList = [
-    `import { JSONSchema6 } from 'json-schema'`,
+    `import { JSONSchema7 } from 'json-schema'`,
     `import { ObjectFieldTemplateFactory, DecoratorsMap } from '@codelab/tools/generators/json-schema'`,
   ]
 

@@ -1,10 +1,10 @@
-import { JSONSchema6 } from 'json-schema'
+import { JSONSchema7 } from 'json-schema'
 import {
   DecoratorsMap,
   ObjectFieldTemplateFactory,
 } from '@codelab/tools/generators/json-schema'
 
-export const CreateAppInputSchema: JSONSchema6 = {
+export const CreateAppInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
     title: {
@@ -14,7 +14,7 @@ export const CreateAppInputSchema: JSONSchema6 = {
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
 
-export const DeleteAppInputSchema: JSONSchema6 = {
+export const DeleteAppInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
     id: {
@@ -24,7 +24,7 @@ export const DeleteAppInputSchema: JSONSchema6 = {
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
 
-export const DemoGridFormInputSchema: JSONSchema6 = {
+export const DemoGridFormInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
     email1: {
@@ -103,7 +103,7 @@ export const DemoGridFormInputFormProps = {
   ObjectFieldTemplate: ObjectFieldTemplateFactory(DemoGridFormInputDecorators),
 }
 
-export const GetAppInputSchema: JSONSchema6 = {
+export const GetAppInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
     appId: {
@@ -113,12 +113,12 @@ export const GetAppInputSchema: JSONSchema6 = {
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
 
-export const GetAppsInputSchema: JSONSchema6 = {
+export const GetAppsInputSchema: JSONSchema7 = {
   type: 'object',
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
 
-export const UpdateAppInputSchema: JSONSchema6 = {
+export const UpdateAppInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
     id: {
@@ -131,7 +131,7 @@ export const UpdateAppInputSchema: JSONSchema6 = {
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
 
-export const AddChildVertexInputSchema: JSONSchema6 = {
+export const AddChildVertexInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
     parentVertexId: {
@@ -267,7 +267,7 @@ export const AddChildVertexInputSchema: JSONSchema6 = {
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
 
-export const CreateGraphInputSchema: JSONSchema6 = {
+export const CreateGraphInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
     label: {
@@ -397,7 +397,7 @@ export const CreateGraphInputSchema: JSONSchema6 = {
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
 
-export const DeleteVertexInputSchema: JSONSchema6 = {
+export const DeleteVertexInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
     vertexId: {
@@ -527,7 +527,7 @@ export const DeleteVertexInputSchema: JSONSchema6 = {
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
 
-export const GetGraphInputSchema: JSONSchema6 = {
+export const GetGraphInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
     id: {
@@ -657,7 +657,7 @@ export const GetGraphInputSchema: JSONSchema6 = {
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
 
-export const GetTreeInputSchema: JSONSchema6 = {
+export const GetTreeInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
     graphId: {
@@ -787,7 +787,7 @@ export const GetTreeInputSchema: JSONSchema6 = {
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
 
-export const GetVertexInputSchema: JSONSchema6 = {
+export const GetVertexInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
     id: {
@@ -917,7 +917,7 @@ export const GetVertexInputSchema: JSONSchema6 = {
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
 
-export const MoveVertexInputSchema: JSONSchema6 = {
+export const MoveVertexInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
     currentVertexId: {
@@ -1050,7 +1050,7 @@ export const MoveVertexInputSchema: JSONSchema6 = {
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
 
-export const UpdateEdgeInputSchema: JSONSchema6 = {
+export const UpdateEdgeInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
     id: {
@@ -1193,7 +1193,7 @@ export const UpdateEdgeInputSchema: JSONSchema6 = {
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
 
-export const UpdateVertexInputSchema: JSONSchema6 = {
+export const UpdateVertexInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
     vertexId: {
@@ -1243,7 +1243,7 @@ export const UpdateVertexInputFormProps = {
   ObjectFieldTemplate: ObjectFieldTemplateFactory(UpdateVertexInputDecorators),
 }
 
-export const CreatePageInputSchema: JSONSchema6 = {
+export const CreatePageInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
     title: {
@@ -1376,7 +1376,7 @@ export const CreatePageInputSchema: JSONSchema6 = {
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
 
-export const DeletePageInputSchema: JSONSchema6 = {
+export const DeletePageInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
     pageId: {
@@ -1506,7 +1506,7 @@ export const DeletePageInputSchema: JSONSchema6 = {
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
 
-export const GetPageInputSchema: JSONSchema6 = {
+export const GetPageInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
     pageId: {
@@ -1636,7 +1636,7 @@ export const GetPageInputSchema: JSONSchema6 = {
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
 
-export const GetPagesInputSchema: JSONSchema6 = {
+export const GetPagesInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
     appId: {
@@ -1766,7 +1766,7 @@ export const GetPagesInputSchema: JSONSchema6 = {
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
 
-export const UpdatePageInputSchema: JSONSchema6 = {
+export const UpdatePageInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
     title: {
@@ -1899,7 +1899,7 @@ export const UpdatePageInputSchema: JSONSchema6 = {
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
 
-export const DeleteUserInputSchema: JSONSchema6 = {
+export const DeleteUserInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
     email: {
@@ -2029,140 +2029,7 @@ export const DeleteUserInputSchema: JSONSchema6 = {
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
 
-export const LoginUserInputSchema: JSONSchema6 = {
-  type: 'object',
-  properties: {
-    email: {
-      type: 'string',
-    },
-    password: {
-      type: 'string',
-    },
-  },
-  definitions: {
-    CreateVertexInput: {
-      type: 'object',
-      properties: {
-        type: {
-          $ref: '#/definitions/VertexType',
-        },
-        props: {
-          type: 'object',
-          properties: {},
-          additionalProperties: true,
-        },
-      },
-    },
-    VertexType: {
-      enum: [
-        'React_Affix',
-        'React_Alert',
-        'React_Anchor',
-        'React_Anchor_Link',
-        'React_AutoComplete',
-        'React_Avatar',
-        'React_BackTop',
-        'React_Badge',
-        'React_Breadcrumb',
-        'React_Breadcrumb_Item',
-        'React_Button',
-        'React_Calendar',
-        'React_Card',
-        'React_Card_Grid',
-        'React_Card_Meta',
-        'React_Carousel',
-        'React_Cascader',
-        'React_Checkbox',
-        'React_Collapse',
-        'React_Collapse_Panel',
-        'React_Comment',
-        'React_ConfigProvider',
-        'React_DatePicker',
-        'React_Descriptions',
-        'React_Descriptions_Item',
-        'React_Divider',
-        'React_Drawer',
-        'React_Dropdown',
-        'React_Empty',
-        'React_Form',
-        'React_Form_Item',
-        'React_Form_ItemHook',
-        'React_Form_List',
-        'React_Fragment',
-        'React_Html_A',
-        'React_Html_Div',
-        'React_Html_P',
-        'React_Html_Span',
-        'React_Icon',
-        'React_Input',
-        'React_InputNumber',
-        'React_Layout',
-        'React_Layout_Content',
-        'React_Layout_Footer',
-        'React_Layout_Header',
-        'React_Layout_Sider',
-        'React_List',
-        'React_List_Item',
-        'React_List_Item_Meta',
-        'React_Mapper',
-        'React_Mentions',
-        'React_Mentions_Option',
-        'React_Menu',
-        'React_Menu_Item',
-        'React_Menu_ItemGroup',
-        'React_Menu_SubMenu',
-        'React_Modal',
-        'React_PageHeader',
-        'React_Pagination',
-        'React_Popconfirm',
-        'React_Popover',
-        'React_Progress',
-        'React_Provider',
-        'React_RGL_Container',
-        'React_RGL_Item',
-        'React_RGL_ResponsiveContainer',
-        'React_Radio',
-        'React_Radio_Group',
-        'React_Rate',
-        'React_RenderComponent',
-        'React_RenderContainer',
-        'React_Result',
-        'React_Select',
-        'React_Select_Option',
-        'React_Skeleton',
-        'React_Slider',
-        'React_Space',
-        'React_Spin',
-        'React_Statistic',
-        'React_Steps',
-        'React_Steps_Step',
-        'React_Switch',
-        'React_Table',
-        'React_Tabs',
-        'React_Tabs_TabPane',
-        'React_Tag',
-        'React_Text',
-        'React_TimePicker',
-        'React_Timeline',
-        'React_Timeline_Item',
-        'React_Tooltip',
-        'React_Transfer',
-        'React_Tree',
-        'React_TreeNode',
-        'React_TreeSelect',
-        'React_Typography',
-        'React_Typography_Paragraph',
-        'React_Typography_Text',
-        'React_Typography_Title',
-        'React_Upload',
-      ],
-      type: 'string',
-    },
-  },
-  $schema: 'http://json-schema.org/draft-07/schema#',
-}
-
-export const RegisterUserInputSchema: JSONSchema6 = {
+export const LoginUserInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
     email: {
@@ -2295,7 +2162,140 @@ export const RegisterUserInputSchema: JSONSchema6 = {
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
 
-export const UpdateUserInputSchema: JSONSchema6 = {
+export const RegisterUserInputSchema: JSONSchema7 = {
+  type: 'object',
+  properties: {
+    email: {
+      type: 'string',
+    },
+    password: {
+      type: 'string',
+    },
+  },
+  definitions: {
+    CreateVertexInput: {
+      type: 'object',
+      properties: {
+        type: {
+          $ref: '#/definitions/VertexType',
+        },
+        props: {
+          type: 'object',
+          properties: {},
+          additionalProperties: true,
+        },
+      },
+    },
+    VertexType: {
+      enum: [
+        'React_Affix',
+        'React_Alert',
+        'React_Anchor',
+        'React_Anchor_Link',
+        'React_AutoComplete',
+        'React_Avatar',
+        'React_BackTop',
+        'React_Badge',
+        'React_Breadcrumb',
+        'React_Breadcrumb_Item',
+        'React_Button',
+        'React_Calendar',
+        'React_Card',
+        'React_Card_Grid',
+        'React_Card_Meta',
+        'React_Carousel',
+        'React_Cascader',
+        'React_Checkbox',
+        'React_Collapse',
+        'React_Collapse_Panel',
+        'React_Comment',
+        'React_ConfigProvider',
+        'React_DatePicker',
+        'React_Descriptions',
+        'React_Descriptions_Item',
+        'React_Divider',
+        'React_Drawer',
+        'React_Dropdown',
+        'React_Empty',
+        'React_Form',
+        'React_Form_Item',
+        'React_Form_ItemHook',
+        'React_Form_List',
+        'React_Fragment',
+        'React_Html_A',
+        'React_Html_Div',
+        'React_Html_P',
+        'React_Html_Span',
+        'React_Icon',
+        'React_Input',
+        'React_InputNumber',
+        'React_Layout',
+        'React_Layout_Content',
+        'React_Layout_Footer',
+        'React_Layout_Header',
+        'React_Layout_Sider',
+        'React_List',
+        'React_List_Item',
+        'React_List_Item_Meta',
+        'React_Mapper',
+        'React_Mentions',
+        'React_Mentions_Option',
+        'React_Menu',
+        'React_Menu_Item',
+        'React_Menu_ItemGroup',
+        'React_Menu_SubMenu',
+        'React_Modal',
+        'React_PageHeader',
+        'React_Pagination',
+        'React_Popconfirm',
+        'React_Popover',
+        'React_Progress',
+        'React_Provider',
+        'React_RGL_Container',
+        'React_RGL_Item',
+        'React_RGL_ResponsiveContainer',
+        'React_Radio',
+        'React_Radio_Group',
+        'React_Rate',
+        'React_RenderComponent',
+        'React_RenderContainer',
+        'React_Result',
+        'React_Select',
+        'React_Select_Option',
+        'React_Skeleton',
+        'React_Slider',
+        'React_Space',
+        'React_Spin',
+        'React_Statistic',
+        'React_Steps',
+        'React_Steps_Step',
+        'React_Switch',
+        'React_Table',
+        'React_Tabs',
+        'React_Tabs_TabPane',
+        'React_Tag',
+        'React_Text',
+        'React_TimePicker',
+        'React_Timeline',
+        'React_Timeline_Item',
+        'React_Tooltip',
+        'React_Transfer',
+        'React_Tree',
+        'React_TreeNode',
+        'React_TreeSelect',
+        'React_Typography',
+        'React_Typography_Paragraph',
+        'React_Typography_Text',
+        'React_Typography_Title',
+        'React_Upload',
+      ],
+      type: 'string',
+    },
+  },
+  $schema: 'http://json-schema.org/draft-07/schema#',
+}
+
+export const UpdateUserInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
     id: {

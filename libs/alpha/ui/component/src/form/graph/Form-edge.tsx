@@ -1,13 +1,13 @@
 import { Theme as AntDTheme } from '@rjsf/antd'
 import { withTheme } from '@rjsf/core'
 import { Button } from 'antd'
-import { JSONSchema6 } from 'json-schema'
+import { JSONSchema7 } from 'json-schema'
 import React from 'react'
 
 const Form = withTheme(AntDTheme)
 
 export const FormEdge = () => {
-  const propsSchema: JSONSchema6 = {
+  const propsSchema: JSONSchema7 = {
     title: 'Props',
     type: 'object',
     properties: {
@@ -15,7 +15,7 @@ export const FormEdge = () => {
     },
   }
 
-  const schema: JSONSchema6 = {
+  const schema: JSONSchema7 = {
     title: 'Edge',
     type: 'object',
     required: ['source', 'target'],

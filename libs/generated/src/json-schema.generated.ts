@@ -1,10 +1,10 @@
-import { JSONSchema6 } from 'json-schema'
+import { JSONSchema7 } from 'json-schema'
 import {
   DecoratorsMap,
   ObjectFieldTemplateFactory,
 } from '@codelab/tools/generators/json-schema'
 
-export const ButtonPropsSchema: JSONSchema6 = {
+export const ButtonPropsSchema: JSONSchema7 = {
   description: 'From T, pick a set of properties whose keys are in the union K',
   type: 'object',
   properties: {
@@ -67,7 +67,7 @@ export const ButtonPropsSchema: JSONSchema6 = {
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
 
-export const DemoInputSchema: JSONSchema6 = {
+export const DemoInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
     email: {
@@ -125,7 +125,7 @@ export const DemoInputFormProps = {
   ObjectFieldTemplate: ObjectFieldTemplateFactory(DemoInputDecorators),
 }
 
-export const PropsSchema: JSONSchema6 = {
+export const PropsSchema: JSONSchema7 = {
   oneOf: [
     {
       allOf: [
@@ -7835,7 +7835,7 @@ export const PropsSchema: JSONSchema6 = {
   ],
 }
 
-export const CreateAppInputSchema: JSONSchema6 = {
+export const CreateAppInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
     title: {
@@ -7845,7 +7845,7 @@ export const CreateAppInputSchema: JSONSchema6 = {
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
 
-export const DeleteAppInputSchema: JSONSchema6 = {
+export const DeleteAppInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
     id: {
@@ -7855,7 +7855,7 @@ export const DeleteAppInputSchema: JSONSchema6 = {
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
 
-export const DemoGridFormInputSchema: JSONSchema6 = {
+export const DemoGridFormInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
     email1: {
@@ -7934,7 +7934,7 @@ export const DemoGridFormInputFormProps = {
   ObjectFieldTemplate: ObjectFieldTemplateFactory(DemoGridFormInputDecorators),
 }
 
-export const GetAppInputSchema: JSONSchema6 = {
+export const GetAppInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
     appId: {
@@ -7944,12 +7944,12 @@ export const GetAppInputSchema: JSONSchema6 = {
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
 
-export const GetAppsInputSchema: JSONSchema6 = {
+export const GetAppsInputSchema: JSONSchema7 = {
   type: 'object',
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
 
-export const UpdateAppInputSchema: JSONSchema6 = {
+export const UpdateAppInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
     id: {
@@ -7962,7 +7962,7 @@ export const UpdateAppInputSchema: JSONSchema6 = {
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
 
-export const AddChildVertexInputSchema: JSONSchema6 = {
+export const AddChildVertexInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
     parentVertexId: {
@@ -8090,7 +8090,7 @@ export const AddChildVertexInputSchema: JSONSchema6 = {
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
 
-export const CreateGraphInputSchema: JSONSchema6 = {
+export const CreateGraphInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
     label: {
@@ -8100,7 +8100,7 @@ export const CreateGraphInputSchema: JSONSchema6 = {
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
 
-export const DeleteVertexInputSchema: JSONSchema6 = {
+export const DeleteVertexInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
     vertexId: {
@@ -8110,7 +8110,7 @@ export const DeleteVertexInputSchema: JSONSchema6 = {
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
 
-export const GetGraphInputSchema: JSONSchema6 = {
+export const GetGraphInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
     id: {
@@ -8120,7 +8120,7 @@ export const GetGraphInputSchema: JSONSchema6 = {
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
 
-export const GetTreeInputSchema: JSONSchema6 = {
+export const GetTreeInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
     graphId: {
@@ -8130,7 +8130,7 @@ export const GetTreeInputSchema: JSONSchema6 = {
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
 
-export const GetVertexInputSchema: JSONSchema6 = {
+export const GetVertexInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
     id: {
@@ -8140,7 +8140,7 @@ export const GetVertexInputSchema: JSONSchema6 = {
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
 
-export const MoveVertexInputSchema: JSONSchema6 = {
+export const MoveVertexInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
     currentVertexId: {
@@ -8153,7 +8153,7 @@ export const MoveVertexInputSchema: JSONSchema6 = {
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
 
-export const UpdateEdgeInputSchema: JSONSchema6 = {
+export const UpdateEdgeInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
     id: {
@@ -8176,7 +8176,7 @@ export const UpdateEdgeInputSchema: JSONSchema6 = {
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
 
-export const UpdateVertexInputSchema: JSONSchema6 = {
+export const UpdateVertexInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
     vertexId: {
@@ -15940,7 +15940,7 @@ export const UpdateVertexInputFormProps = {
   ObjectFieldTemplate: ObjectFieldTemplateFactory(UpdateVertexInputDecorators),
 }
 
-export const CreatePageInputSchema: JSONSchema6 = {
+export const CreatePageInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
     title: {
@@ -15953,7 +15953,7 @@ export const CreatePageInputSchema: JSONSchema6 = {
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
 
-export const DeletePageInputSchema: JSONSchema6 = {
+export const DeletePageInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
     pageId: {
@@ -15963,7 +15963,7 @@ export const DeletePageInputSchema: JSONSchema6 = {
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
 
-export const GetPageInputSchema: JSONSchema6 = {
+export const GetPageInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
     pageId: {
@@ -15973,7 +15973,7 @@ export const GetPageInputSchema: JSONSchema6 = {
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
 
-export const GetPagesInputSchema: JSONSchema6 = {
+export const GetPagesInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
     appId: {
@@ -15983,7 +15983,7 @@ export const GetPagesInputSchema: JSONSchema6 = {
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
 
-export const UpdatePageInputSchema: JSONSchema6 = {
+export const UpdatePageInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
     title: {
@@ -15996,7 +15996,7 @@ export const UpdatePageInputSchema: JSONSchema6 = {
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
 
-export const DeleteUserInputSchema: JSONSchema6 = {
+export const DeleteUserInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
     email: {
@@ -16006,20 +16006,7 @@ export const DeleteUserInputSchema: JSONSchema6 = {
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
 
-export const LoginUserInputSchema: JSONSchema6 = {
-  type: 'object',
-  properties: {
-    email: {
-      type: 'string',
-    },
-    password: {
-      type: 'string',
-    },
-  },
-  $schema: 'http://json-schema.org/draft-07/schema#',
-}
-
-export const RegisterUserInputSchema: JSONSchema6 = {
+export const LoginUserInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
     email: {
@@ -16032,7 +16019,20 @@ export const RegisterUserInputSchema: JSONSchema6 = {
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
 
-export const UpdateUserInputSchema: JSONSchema6 = {
+export const RegisterUserInputSchema: JSONSchema7 = {
+  type: 'object',
+  properties: {
+    email: {
+      type: 'string',
+    },
+    password: {
+      type: 'string',
+    },
+  },
+  $schema: 'http://json-schema.org/draft-07/schema#',
+}
+
+export const UpdateUserInputSchema: JSONSchema7 = {
   type: 'object',
   properties: {
     id: {

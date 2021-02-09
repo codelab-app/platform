@@ -1,7 +1,7 @@
 import { Theme as AntDTheme } from '@rjsf/antd'
 import { withTheme } from '@rjsf/core'
 import { Button, Select } from 'antd'
-import { JSONSchema6 } from 'json-schema'
+import { JSONSchema7 } from 'json-schema'
 import React, { useState } from 'react'
 import { VertexType } from '@codelab/alpha/shared/interface/graph'
 import * as schemas from '@codelab/tools/generators/json-schema'
@@ -28,7 +28,7 @@ export const FormVertex = () => {
   /* It's important to place the definition in the root.
    * Otherwise, we'll need to change dependencies everywhere (it'll be a solution if we meet Symbol conflicts) */
 
-  const schema: JSONSchema6 = {
+  const schema: JSONSchema7 = {
     title: 'Vertex',
     type: 'object',
     required: ['type'],

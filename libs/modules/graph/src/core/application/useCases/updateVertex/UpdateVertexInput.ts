@@ -3,8 +3,7 @@ import { VertexType } from '@prisma/client'
 import { MinLength, OneOf, Required, getJsonSchema } from '@tsed/schema'
 import { GraphQLJSONObject } from 'graphql-type-json'
 // import { PropsSchema } from '@codelab/generated'
-import { ButtonProps } from '@codelab/alpha/ui/antd'
-import { RGLItemProps } from '@codelab/antd'
+import { ButtonProps, RGLItemProps } from '@codelab/antd'
 import { Grid } from '@codelab/tools/generators/json-schema'
 
 @Grid<any>({
