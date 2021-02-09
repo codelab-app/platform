@@ -35,7 +35,7 @@ const main = async () => {
 
       return `${multipleFileExports} \n ${fileExports}`
     },
-    `import { JSONSchema7, JSONSchema7 } from 'json-schema'\n`,
+    `import { JSONSchema7 } from 'json-schema'\n`,
   )
 
   saveToFile(outputFile)(jsonSchemaContents)

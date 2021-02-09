@@ -1,4 +1,4 @@
-import { JSONSchema7, JSONSchema7 } from 'json-schema'
+import { JSONSchema7 } from 'json-schema'
 
 export const ButtonPropsSchema: JSONSchema7 = {
   type: 'object',
