@@ -20,6 +20,7 @@ model App {
   userId String
   user   User    @relation(fields: [userId], references: [id])
   graphs Graph[]
+  /// @onDelete(CASCADE)
   pages  Page[]
 }
 
@@ -28,6 +29,7 @@ model Page {
   title  String
   appId  String
   app    App     @relation(fields: [appId], references: [id])
+  /// @onDelete(CASCADE)
   graphs Graph[]
 }
 
@@ -40,7 +42,9 @@ model Graph {
   pageId   String?
   app      App?       @relation(fields: [appId], references: [id])
   page     Page?      @relation(fields: [pageId], references: [id])
+  /// @onDelete(CASCADE)
   edges    Edge[]
+  /// @onDelete(CASCADE)
   vertices Vertex[]
 }
 

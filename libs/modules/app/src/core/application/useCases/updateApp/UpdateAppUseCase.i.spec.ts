@@ -123,8 +123,8 @@ describe('UpdateAppUseCase', () => {
       })
       .expect(200)
       .then((res) => {
-        expect(res.body.errors[0].extensions.exception._tag).toBe(
-          'REQUEST_VALIDATION_ERROR',
+        expect(res.body.errors[0].message).toBe(
+          `Unable to create app for user ${user2.email}`,
         )
       })
   })

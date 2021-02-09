@@ -1,4 +1,5 @@
 import { INestApplication } from '@nestjs/common'
+import { VertexType } from '@prisma/client'
 import { print } from 'graphql'
 import request from 'supertest'
 import { Page } from '../../../domain/Page'
@@ -6,8 +7,8 @@ import { setupTestModule, teardownTestModule } from '@codelab/backend'
 import {
   CreateAppGql,
   CreatePageGql,
-  DeletePageGql,
   RegisterUserGql,
+  UpdatePageGql,
 } from '@codelab/generated'
 import { App, AppModule } from '@codelab/modules/app'
 import { GraphModule } from '@codelab/modules/graph'
@@ -17,10 +18,9 @@ import { User, UserModule } from '@codelab/modules/user'
 const email = 'test_user@codelab.ai'
 const password = 'password'
 
-describe('DeletePageUseCase', () => {
+describe('UpdatePageUseCase', () => {
   let nestApp: INestApplication
   let user: User
-  let page: Page
   let app: App
 
   beforeAll(async () => {
@@ -45,7 +45,13 @@ describe('DeletePageUseCase', () => {
         },
       })
       .then((res) => res.body.data.registerUser)
+  })
 
+  afterAll(async () => {
+    await teardownTestModule(nestApp)
+  })
+
+  it('should update page for authenticated user', async () => {
     const title = 'Test App'
     const { accessToken } = user
 
@@ -65,14 +71,60 @@ describe('DeletePageUseCase', () => {
         expect(res.body.data.createApp.title).toEqual('Test App')
       })
       .then((res) => res.body.data.createApp)
+    const { id } = app
+
+    const page = await request(nestApp.getHttpServer())
+      .post('/graphql')
+      .set('Authorization', `Bearer ${accessToken}`)
+      .send({
+        query: print(CreatePageGql),
+        variables: {
+          input: {
+            title: 'Page 1',
+            appId: id,
+          },
+        },
+      })
+      .expect(200)
+      .expect((res) => {
+        const pageRes: Page = res.body.data.createPage
+
+        expect(pageRes).toMatchObject({
+          title: 'Page 1',
+          graphs: [
+            { vertices: [{ type: VertexType.React_RGL_ResponsiveContainer }] },
+          ],
+        })
+      })
+      .then((res) => res.body.data.createPage)
+
+    await request(nestApp.getHttpServer())
+      .post('/graphql')
+      .set('Authorization', `Bearer ${accessToken}`)
+      .send({
+        query: print(UpdatePageGql),
+        variables: {
+          input: {
+            title: 'Page 2',
+            pageId: page.id,
+          },
+        },
+      })
+      .expect(200)
+      .expect((res) => {
+        const pageRes: Page = res.body.data.updatePage
+
+        expect(pageRes).toMatchObject({
+          title: 'Page 2',
+          graphs: [
+            { vertices: [{ type: VertexType.React_RGL_ResponsiveContainer }] },
+          ],
+        })
+      })
   })
 
-  afterAll(async () => {
-    await teardownTestModule(nestApp)
-  })
-
-  it('should delete existing page', async () => {
-    page = await request(nestApp.getHttpServer())
+  it('should not update page for guest user', async () => {
+    const page = await request(nestApp.getHttpServer())
       .post('/graphql')
       .set('Authorization', `Bearer ${user.accessToken}`)
       .send({
@@ -86,72 +138,32 @@ describe('DeletePageUseCase', () => {
       })
       .expect(200)
       .expect((res) => {
-        expect(res.body.data.createPage.title).toEqual('Page 1')
+        const pageRes: Page = res.body.data.createPage
+
+        expect(pageRes).toMatchObject({
+          title: 'Page 1',
+          graphs: [
+            { vertices: [{ type: VertexType.React_RGL_ResponsiveContainer }] },
+          ],
+        })
       })
       .then((res) => res.body.data.createPage)
 
     await request(nestApp.getHttpServer())
       .post('/graphql')
-      .set('Authorization', `Bearer ${user.accessToken}`)
+      .set('Authorization', '')
       .send({
-        query: print(DeletePageGql),
-        variables: {
-          input: { pageId: page.id },
-        },
-      })
-      .expect(200)
-      .expect((res) => {
-        expect(res.body.data.deletePage.title).toEqual('Page 1')
-      })
-  })
-
-  it('should not delete last page', async () => {
-    page = await request(nestApp.getHttpServer())
-      .post('/graphql')
-      .set('Authorization', `Bearer ${user.accessToken}`)
-      .send({
-        query: print(CreatePageGql),
+        query: print(UpdatePageGql),
         variables: {
           input: {
-            title: 'Page 1',
-            appId: app.id,
+            pageId: page.id,
+            title: 'Page 2',
           },
         },
       })
       .expect(200)
-      .expect((res) => {
-        expect(res.body.data.createPage.title).toEqual('Page 1')
-      })
-      .then((res) => res.body.data.createPage)
-
-    await request(nestApp.getHttpServer())
-      .post('/graphql')
-      .set('Authorization', `Bearer ${user.accessToken}`)
-      .send({
-        query: print(DeletePageGql),
-        variables: {
-          input: { pageId: page.id },
-        },
-      })
-      .expect(200)
-      .expect((res) => {
-        expect(res.body.data.deletePage.title).toEqual('Page 1')
-      })
-
-    await request(nestApp.getHttpServer())
-      .post('/graphql')
-      .set('Authorization', `Bearer ${user.accessToken}`)
-      .send({
-        query: print(DeletePageGql),
-        variables: {
-          input: { pageId: app.pages[0].id },
-        },
-      })
-      .expect(200)
-      .expect((res) => {
-        const errorMsg = res.body.errors[0].message
-
-        expect(errorMsg).toEqual(`Cannot delete last page`)
+      .then((res) => {
+        expect(res.body.errors[0].extensions.code).toBe('UNAUTHENTICATED')
       })
   })
 
@@ -162,16 +174,19 @@ describe('DeletePageUseCase', () => {
       .post('/graphql')
       .set('Authorization', `Bearer ${user.accessToken}`)
       .send({
-        query: print(DeletePageGql),
+        query: print(UpdatePageGql),
         variables: {
-          input: { pageId: wrongPageId },
+          input: {
+            title: 'Page 2',
+            pageId: wrongPageId,
+          },
         },
       })
       .expect(200)
       .expect((res) => {
         const errorMsg = res.body.errors[0].message
 
-        expect(errorMsg).toEqual(`Cannot delete page`)
+        expect(errorMsg).toEqual(`Update page failed`)
       })
   })
 })

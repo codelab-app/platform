@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { Vertex } from '@prisma/client'
+import { CodelabPrismaError } from '../../../../../../../../apps/api/codelab/src/app/CodelabPrismaError'
 import { UpdateVertexInput } from './UpdateVertexInput'
 import {
   PrismaDITokens,
@@ -27,7 +28,10 @@ export class UpdateVertexService
         },
       })
     } catch (e) {
-      throw new Error(e)
+      throw new CodelabPrismaError(
+        `Could not update vertex with id: ${vertexId}`,
+        e,
+      )
     }
   }
 }

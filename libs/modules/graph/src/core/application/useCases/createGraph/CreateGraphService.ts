@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { Graph } from '@prisma/client'
+import { CodelabPrismaError } from '../../../../../../../../apps/api/codelab/src/app/CodelabPrismaError'
 import { CreateGraphInput } from './CreateGraphInput'
 import {
   PrismaDITokens,
@@ -16,10 +17,14 @@ export class CreateGraphService
   ) {}
 
   async execute(request: CreateGraphInput) {
-    return await this.prismaService.graph.create({
-      data: {
-        ...request,
-      },
-    })
+    try {
+      return await this.prismaService.graph.create({
+        data: {
+          ...request,
+        },
+      })
+    } catch (e) {
+      throw new CodelabPrismaError('Could not create graph', e)
+    }
   }
 }

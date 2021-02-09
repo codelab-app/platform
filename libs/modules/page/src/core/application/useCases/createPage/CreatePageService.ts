@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { GraphType, Page, VertexType } from '@prisma/client'
+import { CodelabPrismaError } from '../../../../../../../../apps/api/codelab/src/app/CodelabPrismaError'
 import { CreatePageInput } from './CreatePageInput'
 import {
   PrismaDITokens,
@@ -41,7 +42,10 @@ export class CreatePageService
         },
       })
     } catch (e) {
-      throw new Error(`The app with id ${appId} has not been found`)
+      throw new CodelabPrismaError(
+        `The app with id ${appId} has not been found`,
+        e,
+      )
     }
   }
 }

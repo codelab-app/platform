@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { Edge } from '@prisma/client'
+import { CodelabPrismaError } from '../../../../../../../../apps/api/codelab/src/app/CodelabPrismaError'
 import { UpdateEdgeInput } from './UpdateEdgeInput'
 import {
   PrismaDITokens,
@@ -16,15 +17,19 @@ export class UpdateEdgeService
   ) {}
 
   async execute({ id, type, source, target }: UpdateEdgeInput) {
-    return await this.prismaService.edge.update({
-      where: {
-        id,
-      },
-      data: {
-        type,
-        source,
-        target,
-      },
-    })
+    try {
+      return await this.prismaService.edge.update({
+        where: {
+          id,
+        },
+        data: {
+          type,
+          source,
+          target,
+        },
+      })
+    } catch (e) {
+      throw new CodelabPrismaError(`Could not update the edge with id ${id}`, e)
+    }
   }
 }

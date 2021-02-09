@@ -31,13 +31,13 @@ import { User } from '@codelab/modules/user'
 @Injectable()
 export class PageResolvers {
   constructor(
-    @Inject(PrismaDITokens.PrismaService)
-    private readonly prismaService: PrismaService,
     private readonly getPagesService: GetPagesService,
     private readonly getPageService: GetPageService,
     private readonly createPageService: CreatePageService,
     private readonly updatePageService: UpdatePageService,
     private readonly deletePageService: DeletePageService,
+    @Inject(PrismaDITokens.PrismaService)
+    private readonly prismaService: PrismaService,
   ) {}
 
   @Mutation(() => Page)

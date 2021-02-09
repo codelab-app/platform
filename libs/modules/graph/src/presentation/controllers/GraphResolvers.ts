@@ -24,12 +24,12 @@ import { PrismaDITokens, PrismaService } from '@codelab/backend'
 @Injectable()
 export class GraphResolvers {
   constructor(
-    @Inject(PrismaDITokens.PrismaService)
-    private readonly prismaService: PrismaService,
     private readonly createGraphService: CreateGraphService,
     private readonly addChildVertexService: AddChildVertexService,
     private readonly getGraphService: GetGraphService,
     private readonly getTreeService: GetTreeService,
+    @Inject(PrismaDITokens.PrismaService)
+    private readonly prismaService: PrismaService,
   ) {}
 
   @Mutation(() => Graph)

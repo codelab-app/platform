@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { User } from '@prisma/client'
+import { CodelabPrismaError } from '../../../../../../../../apps/api/codelab/src/app/CodelabPrismaError'
 import { DeleteUserInput } from './DeleteUserInput'
 import {
   PrismaDITokens,
@@ -23,7 +24,10 @@ export class DeleteUserService
         },
       })
     } catch (e) {
-      throw new Error(`Theres no email ${email} associated with any account`)
+      throw new CodelabPrismaError(
+        `Theres no email ${email} associated with any account`,
+        e,
+      )
     }
   }
 }

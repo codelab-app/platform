@@ -7,10 +7,12 @@ import {
   AddChildVertexGql,
   CreateAppGql,
   CreatePageGql,
+  GetGraphGql,
+  MoveVertexGql,
   RegisterUserGql,
 } from '@codelab/generated'
 import { App, AppModule } from '@codelab/modules/app'
-import { GraphModule } from '@codelab/modules/graph'
+import { Edge, GraphModule } from '@codelab/modules/graph'
 import { PageModule } from '@codelab/modules/page'
 import { User, UserModule } from '@codelab/modules/user'
 
@@ -28,10 +30,9 @@ const addChildVertexToRootMutation = (
     variables: {
       input: {
         order,
-        graphId,
         parentVertexId: rootNodeId,
         vertex: {
-          type: 'React_Text',
+          type: VertexType.React_Text,
           props: {
             id: propsId,
           },
@@ -44,18 +45,18 @@ const addChildVertexToRootMutation = (
 const addChildVertexToRootRequest = async (
   app: INestApplication,
   query: any,
-  graphLabel: string,
 ) => {
   return await request(app.getHttpServer())
     .post('/graphql')
     .send(query)
     .expect(200)
     .expect((res) => {
-      expect(res.body.data.addChildVertex.label).toEqual(graphLabel)
+      expect(res.body.data.addChildVertex.type).toEqual(VertexType.React_Text)
     })
+    .then((res) => res.body.data.addChildVertex)
 }
 
-describe.skip('MoveVertexUseCase', () => {
+describe('MoveVertexUseCase', () => {
   let nestApp: INestApplication
   let user: User
   let app: App
@@ -120,12 +121,19 @@ describe.skip('MoveVertexUseCase', () => {
       .expect((res) => {
         const pageRes = res.body.data.createPage
 
-        expect(pageRes.title).toEqual('Page 1')
-        expect(pageRes.graphs.length).toEqual(1)
-        expect(pageRes.graphs[0].vertices.length).toEqual(1)
-        expect(pageRes.graphs[0].vertices[0].type).toEqual(
-          VertexType.React_RGL_ResponsiveContainer,
-        )
+        expect(pageRes).toMatchObject({
+          title: 'Page 1',
+          graphs: [
+            { vertices: [{ type: VertexType.React_RGL_ResponsiveContainer }] },
+          ],
+        })
+
+        // expect(pageRes.title).toEqual('Page 1')
+        // expect(pageRes.graphs.length).toEqual(1)
+        // expect(pageRes.graphs[0].vertices.length).toEqual(1)
+        // expect(pageRes.graphs[0].vertices[0].type).toEqual(
+        //   VertexType.React_RGL_ResponsiveContainer,
+        // )
       })
       .then((res) => res.body.data.createPage)
   })
@@ -134,8 +142,7 @@ describe.skip('MoveVertexUseCase', () => {
     await teardownTestModule(nestApp)
   })
 
-  it('should move with same parent', async () => {
-    const label = 'Layout'
+  it('should move vertex', async () => {
     const graphId = page.graphs[0].id
     const rootNodeId = page.graphs[0].vertices[0].id
     const addChildVertexAMutation = addChildVertexToRootMutation(
@@ -156,105 +163,107 @@ describe.skip('MoveVertexUseCase', () => {
       2,
       'c',
     )
-    const addChildVertexDMutation = addChildVertexToRootMutation(
-      graphId,
-      rootNodeId,
-      3,
-      'd',
-    )
-    const addChildVertexEMutation = addChildVertexToRootMutation(
-      graphId,
-      rootNodeId,
-      4,
-      'e',
-    )
 
     const addA = await addChildVertexToRootRequest(
       nestApp,
       addChildVertexAMutation,
-      label,
     )
     const addB = await addChildVertexToRootRequest(
       nestApp,
       addChildVertexBMutation,
-      label,
     )
     const addC = await addChildVertexToRootRequest(
       nestApp,
       addChildVertexCMutation,
-      label,
-    )
-    const addD = await addChildVertexToRootRequest(
-      nestApp,
-      addChildVertexDMutation,
-      label,
-    )
-    const addE: any = await addChildVertexToRootRequest(
-      nestApp,
-      addChildVertexEMutation,
-      label,
     )
 
-    const { edges } = addE.body.data.addChildVertex
+    const verifyGraph = await request(nestApp.getHttpServer())
+      .post('/graphql')
+      .send({
+        query: print(GetGraphGql),
+        variables: {
+          input: {
+            id: graphId,
+          },
+        },
+      })
+      .expect(200)
+      .expect((res) => {
+        const graphRes = res.body.data.getGraph
 
-    expect(edges[0].order).toEqual(0)
-    expect(edges[0].props).toMatchObject({ id: 'a' })
-    expect(edges[1].order).toEqual(1)
-    expect(edges[1].props).toMatchObject({ id: 'b' })
-    expect(edges[2].order).toEqual(2)
-    expect(edges[2].props).toMatchObject({ id: 'c' })
-    expect(edges[3].order).toEqual(3)
-    expect(edges[3].props).toMatchObject({ id: 'd' })
-    expect(edges[4].order).toEqual(4)
-    expect(edges[4].props).toMatchObject({ id: 'e' })
+        const { edges } = res.body.data.getGraph
+        const { vertices } = res.body.data.getGraph
 
-    const { vertices } = addE.body.data.addChildVertex
-    const vertexA = vertices.find((v: any) => {
-      return v.props?.id === 'a'
-    })
-    const vertexE = vertices.find((v: any) => {
-      return v.props?.id === 'e'
-    })
+        expect(graphRes).toMatchObject({
+          vertices: [
+            { id: rootNodeId },
+            { id: addA.id },
+            { id: addB.id },
+            { id: addC.id },
+          ],
+          edges: [
+            { source: rootNodeId, target: addA.id },
+            { source: rootNodeId, target: addB.id },
+            { source: rootNodeId, target: addC.id },
+          ],
+        })
+      })
+
+    await request(nestApp.getHttpServer())
+      .post('/graphql')
+      .send({
+        query: print(MoveVertexGql),
+        variables: {
+          input: {
+            currentVertexId: addC.id,
+            parentVertexId: addA.id,
+          },
+        },
+      })
+      .expect(200)
+
+    await request(nestApp.getHttpServer())
+      .post('/graphql')
+      .send({
+        query: print(GetGraphGql),
+        variables: {
+          input: {
+            id: graphId,
+          },
+        },
+      })
+      .expect(200)
+      .expect((res) => {
+        const { edges } = res.body.data.getGraph
+        // TODO: change this after we return edges by order
+        const updatedEdge = edges.find((e: Edge) => {
+          return e.source === addA.id && e.target === addC.id
+        })
+
+        expect(updatedEdge).toBeDefined()
+      })
+  })
+
+  it('Should throw error if edges not found', async () => {
+    const wrongVertexId = '85e3fd3a-9dde-4c80-bd07-8cf126799698'
 
     const moveVertexMutation = `
       mutation {
-        modeVertex(input: {
-          graphId: "${graphId}",
-          type: {
-            source: "${vertexE.id}",
-            target: "${vertexA.id}"
-          }
-        }) { id label edges { order source target props } }
+        moveVertex(input: {currentVertexId: "${wrongVertexId}", parentVertexId: "${wrongVertexId}"}) 
+        { id type }
       }
     `
-    const modeVertexReq = await request(nestApp.getHttpServer())
+
+    await request(nestApp.getHttpServer())
       .post('/graphql')
       .send({
         query: moveVertexMutation,
       })
       .expect(200)
       .expect((res) => {
-        expect(res.body.data.modeVertex.label).toEqual(label)
-        expect(res.body.data.modeVertex.edges[0].order).toEqual(0)
-        expect(res.body.data.modeVertex.edges[0].props).toMatchObject({
-          id: 'a',
-        })
-        expect(res.body.data.modeVertex.edges[1].order).toEqual(1)
-        expect(res.body.data.modeVertex.edges[1].props).toMatchObject({
-          id: 'e',
-        })
-        expect(res.body.data.modeVertex.edges[2].order).toEqual(2)
-        expect(res.body.data.modeVertex.edges[2].props).toMatchObject({
-          id: 'b',
-        })
-        expect(res.body.data.modeVertex.edges[3].order).toEqual(3)
-        expect(res.body.data.modeVertex.edges[3].props).toMatchObject({
-          id: 'c',
-        })
-        expect(res.body.data.modeVertex.edges[4].order).toEqual(4)
-        expect(res.body.data.modeVertex.edges[4].props).toMatchObject({
-          id: 'd',
-        })
+        const errorMsg = res.body.errors[0].message
+
+        expect(errorMsg).toEqual('Edge to update not found')
       })
   })
 })

@@ -1,12 +1,13 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { App } from '@prisma/client'
+import { CodelabPrismaError } from '../../../../../../../../apps/api/codelab/src/app/CodelabPrismaError'
+import { CreatePageService } from '../../../../../../page/src/core/application/useCases/createPage/CreatePageService'
 import { CreateAppRequest } from './CreateAppRequest'
 import {
   PrismaDITokens,
   PrismaService,
   TransactionalUseCase,
 } from '@codelab/backend'
-import { CreatePageService } from 'libs/modules/page/src/core/application/useCases/createPage/CreatePageService'
 
 @Injectable()
 export class CreateAppService
@@ -34,7 +35,10 @@ export class CreateAppService
 
       return app
     } catch (e) {
-      throw new Error()
+      throw new CodelabPrismaError(
+        `Unable to create app for user ${user.email}`,
+        e,
+      )
     }
   }
 }

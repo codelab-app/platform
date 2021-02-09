@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { Page } from '@prisma/client'
+import { CodelabPrismaError } from '../../../../../../../../apps/api/codelab/src/app/CodelabPrismaError'
 import { GetPageInput } from './GetPageInput'
 import {
   PrismaDITokens,
@@ -24,7 +25,10 @@ export class GetPageService
         rejectOnNotFound: true,
       })
     } catch (e) {
-      throw new Error(`The page with id ${pageId} has not been found`)
+      throw new CodelabPrismaError(
+        `The page with id ${pageId} has not been found`,
+        e,
+      )
     }
   }
 }

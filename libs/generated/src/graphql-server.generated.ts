@@ -137,7 +137,7 @@ export type Mutation = {
   deleteUser: User
   deleteVertex: Vertex
   loginUser: User
-  modeVertex: Vertex
+  moveVertex: Vertex
   registerUser: User
   setBuilder: Builder
   setLayout: Layout
@@ -184,7 +184,7 @@ export type MutationLoginUserArgs = {
   input: LoginUserInput
 }
 
-export type MutationModeVertexArgs = {
+export type MutationMoveVertexArgs = {
   input: MoveVertexInput
 }
 
@@ -413,7 +413,7 @@ export type CreateAppMutationVariables = Exact<{
 }>
 
 export type CreateAppMutation = { __typename?: 'Mutation' } & {
-  createApp: { __typename?: 'App' } & Pick<App, 'id' | 'title'>
+  createApp: { __typename?: 'App' } & AppFragmentsFragment
 }
 
 export type DeleteAppMutationVariables = Exact<{
@@ -496,7 +496,7 @@ export type MoveVertexMutationVariables = Exact<{
 }>
 
 export type MoveVertexMutation = { __typename?: 'Mutation' } & {
-  modeVertex: { __typename?: 'Vertex' } & VertexFragmentsFragment
+  moveVertex: { __typename?: 'Vertex' } & VertexFragmentsFragment
 }
 
 export type UpdateEdgeMutationVariables = Exact<{
@@ -756,10 +756,10 @@ export const SetLayout = gql`
 export const CreateApp = gql`
   mutation CreateApp($input: CreateAppInput!) {
     createApp(input: $input) {
-      id
-      title
+      ...appFragments
     }
   }
+  ${AppFragments}
 `
 export const DeleteApp = gql`
   mutation DeleteApp($input: DeleteAppInput!) {
@@ -835,7 +835,7 @@ export const GetVertex = gql`
 `
 export const MoveVertex = gql`
   mutation MoveVertex($input: MoveVertexInput!) {
-    modeVertex(input: $input) {
+    moveVertex(input: $input) {
       ...vertexFragments
     }
   }
@@ -1239,10 +1239,10 @@ export type SetLayoutMutationOptions = Apollo.BaseMutationOptions<
 export const CreateAppGql = gql`
   mutation CreateApp($input: CreateAppInput!) {
     createApp(input: $input) {
-      id
-      title
+      ...appFragments
     }
   }
+  ${AppFragmentsFragmentDoc}
 `
 export type CreateAppMutationFn = Apollo.MutationFunction<
   CreateAppMutation,
@@ -1732,7 +1732,7 @@ export type GetVertexQueryResult = Apollo.QueryResult<
 >
 export const MoveVertexGql = gql`
   mutation MoveVertex($input: MoveVertexInput!) {
-    modeVertex(input: $input) {
+    moveVertex(input: $input) {
       ...vertexFragments
     }
   }

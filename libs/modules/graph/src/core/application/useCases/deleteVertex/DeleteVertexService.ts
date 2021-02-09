@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { Vertex } from '@prisma/client'
+import { CodelabPrismaError } from '../../../../../../../../apps/api/codelab/src/app/CodelabPrismaError'
 import { DeleteVertexInput } from './DeleteVertexInput'
 import {
   PrismaDITokens,
@@ -55,7 +56,10 @@ export class DeleteVertexService
         },
       })
     } catch (e) {
-      throw new Error()
+      throw new CodelabPrismaError(
+        `Unable to delete vertex with id: ${vertexId}`,
+        e,
+      )
     }
   }
 }

@@ -42,10 +42,6 @@ describe('RegisterUserUseCase', () => {
     await apolloClient.stop()
   })
 
-  it('is true', () => {
-    expect(true).toBeTruthy()
-  })
-
   it('should create a user', async () => {
     const r = await mutateCreateUser()
 

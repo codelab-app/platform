@@ -92,7 +92,7 @@ type Mutation {
   deleteUser(input: DeleteUserInput!): User!
   deleteVertex(input: DeleteVertexInput!): Vertex!
   loginUser(input: LoginUserInput!): User!
-  modeVertex(input: MoveVertexInput!): Vertex!
+  moveVertex(input: MoveVertexInput!): Vertex!
   registerUser(input: RegisterUserInput!): User!
   setBuilder(input: SetBuilderInput!): Builder!
   setLayout(input: SetLayoutInput!): Layout!

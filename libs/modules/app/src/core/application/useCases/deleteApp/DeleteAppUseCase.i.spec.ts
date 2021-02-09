@@ -1,12 +1,20 @@
 import { INestApplication } from '@nestjs/common'
-import { App } from '@prisma/client'
 import { print } from 'graphql'
 import request from 'supertest'
 import { User } from '../../../../../../user/src/core/domain/User'
 import { UserModule } from '../../../../../../user/src/framework/nestjs/UserModule'
 import { AppModule } from '../../../../framework/nestjs/AppModule'
 import { setupTestModule, teardownTestModule } from '@codelab/backend'
-import { CreateAppGql, DeleteAppGql, RegisterUserGql } from '@codelab/generated'
+import {
+  CreateAppGql,
+  CreatePageGql,
+  DeleteAppGql,
+  GetAppGql,
+  GetPageGql,
+  RegisterUserGql,
+} from '@codelab/generated'
+import { App } from '@codelab/modules/app'
+import { PageModule } from '@codelab/modules/page'
 
 const email = 'test_user@codelab.ai'
 const password = 'password'
@@ -16,7 +24,7 @@ describe('DeleteAppUseCase', () => {
   let user: User
 
   beforeAll(async () => {
-    app = await setupTestModule(app, UserModule, AppModule)
+    app = await setupTestModule(app, UserModule, AppModule, PageModule)
 
     // Register user
     user = await request(app.getHttpServer())
@@ -53,6 +61,50 @@ describe('DeleteAppUseCase', () => {
       })
       .then((res) => res.body.data.createApp)
 
+    const createdApp = await request(app.getHttpServer())
+      .post('/graphql')
+      .set('Authorization', `Bearer ${user.accessToken}`)
+      .send({
+        query: print(GetAppGql),
+        variables: {
+          input: { appId: id },
+        },
+      })
+      .expect(200)
+      .expect((res) => {
+        const appResult = res.body.data.getApp
+
+        expect(appResult).toMatchObject({
+          title: 'Test App',
+          pages: [
+            {
+              title: 'Home',
+            },
+          ],
+        })
+      })
+      .then((res) => res.body.data.getApp)
+
+    const page1Id = createdApp.pages[0].id
+
+    const page2 = await request(app.getHttpServer())
+      .post('/graphql')
+      .set('Authorization', `Bearer ${user.accessToken}`)
+      .send({
+        query: print(CreatePageGql),
+        variables: {
+          input: {
+            title: 'Page 2',
+            appId: createdApp.id,
+          },
+        },
+      })
+      .expect(200)
+      .expect((res) => {
+        expect(res.body.data.createPage.title).toEqual('Page 2')
+      })
+      .then((res) => res.body.data.createPage)
+
     await request(app.getHttpServer())
       .post('/graphql')
       .set('Authorization', `Bearer ${user.accessToken}`)
@@ -65,6 +117,58 @@ describe('DeleteAppUseCase', () => {
       .expect(200)
       .expect((res) => {
         expect(res.body.data.deleteApp.title).toEqual('Test App')
+      })
+
+    const deletedApp = await request(app.getHttpServer())
+      .post('/graphql')
+      .set('Authorization', `Bearer ${user.accessToken}`)
+      .send({
+        query: print(GetAppGql),
+        variables: {
+          input: { appId: id },
+        },
+      })
+      .expect(200)
+      .expect((res) => {
+        const errorMsg = res.body.errors[0].message
+
+        expect(errorMsg).toEqual(`The app with id ${id} has not been found`)
+      })
+
+    const deletedPage1 = await request(app.getHttpServer())
+      .post('/graphql')
+      .set('Authorization', `Bearer ${user.accessToken}`)
+      .send({
+        query: print(GetPageGql),
+        variables: {
+          input: { pageId: page1Id },
+        },
+      })
+      .expect(200)
+      .expect((res) => {
+        const errorMsg = res.body.errors[0].message
+
+        expect(errorMsg).toEqual(
+          `The page with id ${page1Id} has not been found`,
+        )
+      })
+
+    const deletedPage2 = await request(app.getHttpServer())
+      .post('/graphql')
+      .set('Authorization', `Bearer ${user.accessToken}`)
+      .send({
+        query: print(GetPageGql),
+        variables: {
+          input: { pageId: page2.id },
+        },
+      })
+      .expect(200)
+      .expect((res) => {
+        const errorMsg = res.body.errors[0].message
+
+        expect(errorMsg).toEqual(
+          `The page with id ${page2.id} has not been found`,
+        )
       })
   })
 

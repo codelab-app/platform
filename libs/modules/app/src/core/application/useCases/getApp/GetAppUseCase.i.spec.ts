@@ -74,7 +74,7 @@ describe('GetAppUseCase', () => {
       })
   })
 
-  it.skip('should return error for wrong app id', async () => {
+  it('should return error for wrong app id', async () => {
     const wrongAppId = '85e3fd3a-9dde-4c80-bd07-8cf126799698'
 
     await request(app.getHttpServer())
@@ -92,7 +92,9 @@ describe('GetAppUseCase', () => {
       .expect((res) => {
         const errorMsg = res.body.errors[0].message
 
-        expect(errorMsg).toEqual(`The app ${wrongAppId} has not been found`)
+        expect(errorMsg).toEqual(
+          `The app with id ${wrongAppId} has not been found`,
+        )
       })
   })
 })

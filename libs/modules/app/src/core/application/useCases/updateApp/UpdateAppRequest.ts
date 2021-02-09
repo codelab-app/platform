@@ -1,7 +1,9 @@
+import { User } from '@codelab/modules/user'
+
 export class UpdateAppRequest {
   declare title: string
 
   declare appId: string
 
-  declare userId: string
+  declare user: User
 }

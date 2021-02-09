@@ -115,12 +115,12 @@ describe('CreatePageUseCase', () => {
       .expect((res) => {
         const page: Page = res.body.data.createPage
 
-        expect(page.title).toEqual('Page 1')
-        expect(page.graphs?.length).toEqual(1)
-        expect(page.graphs[0].vertices.length).toEqual(1)
-        expect(page.graphs[0].vertices[0].type).toEqual(
-          VertexType.React_RGL_ResponsiveContainer,
-        )
+        expect(page).toMatchObject({
+          title: 'Page 1',
+          graphs: [
+            { vertices: [{ type: VertexType.React_RGL_ResponsiveContainer }] },
+          ],
+        })
       })
   })
 })

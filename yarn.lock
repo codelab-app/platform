@@ -3689,6 +3689,20 @@
   resolved "https://registry.yarnpkg.com/@opentelemetry/context-base/-/context-base-0.14.0.tgz#c67fc20a4d891447ca1a855d7d70fa79a3533001"
   integrity sha512-sDOAZcYwynHFTbLo6n8kIbLiVF3a3BLkrmehJUyEbT9F+Smbi47kLGS2gG2g0fjBLR/Lr1InPD7kXL7FaTqEkw==
 
+"@paljs/plugins@^2.12.1":
+  version "2.12.1"
+  resolved "https://registry.yarnpkg.com/@paljs/plugins/-/plugins-2.12.1.tgz#8a6e3101b217f31a179ab4e0b0e220f18fb0c327"
+  integrity sha512-6KqC+obnNfbytkUY9vgHIz2Z3uNKj9ucKlj8/o9SoQUnLj3t/XHbD74WSWKshWWAh/t7g5aPRsoQ/Fv+ExpORg==
+  dependencies:
+    "@paljs/types" "^2.12.0"
+    graphql-fields "2.0.3"
+    graphql-tag "2.11.0"
+
+"@paljs/types@^2.12.0":
+  version "2.12.0"
+  resolved "https://registry.yarnpkg.com/@paljs/types/-/types-2.12.0.tgz#798ab8857f9f4f092ca773a959c05aafa0a57ec8"
+  integrity sha512-G7TIrUVrZVHa1AGQK0XQjvl30MejYG9d28BuM+ic8o/K10vIhVa2tEgIh1g4Sivj53hpXWJ60owzHLyuZTQ+Eg==
+
 "@pm2/agent-node@^1.1.10":
   version "1.1.10"
   resolved "https://registry.yarnpkg.com/@pm2/agent-node/-/agent-node-1.1.10.tgz#29fafc9d1b75288dec87b6af1216ddfab8ea9b06"
@@ -13318,6 +13332,11 @@ graphql-extensions@^0.12.7:
     "@apollographql/apollo-tools" "^0.4.3"
     apollo-server-env "^2.4.5"
     apollo-server-types "^0.6.2"
+
+graphql-fields@2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/graphql-fields/-/graphql-fields-2.0.3.tgz#5e68dff7afbb202be4f4f40623e983b22c96ab8f"
+  integrity sha512-x3VE5lUcR4XCOxPIqaO4CE+bTK8u6gVouOdpQX9+EKHr+scqtK5Pp/l8nIGqIpN1TUlkKE6jDCCycm/WtLRAwA==
 
 graphql-request@^3.3.0:
   version "3.4.0"
