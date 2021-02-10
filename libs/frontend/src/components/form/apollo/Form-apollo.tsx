@@ -12,7 +12,7 @@ import { ApolloFormProps } from './Form-apollo--types'
  */
 export type FormUseCaseProps<TData extends object> = Pick<
   JsonSchemaFormProps<TData>,
-  'onSubmitError' | 'onSubmitSuccess' | 'submitRef'
+  'onSubmitError' | 'onSubmitSuccess' | 'submitRef' | 'saveOnChange'
 >
 
 export const ApolloForm = <
@@ -21,6 +21,7 @@ export const ApolloForm = <
 >({
   hideSubmitButton,
   mutate,
+  saveOnChange,
   ...props
 }: ApolloFormProps<TData, any>) => {
   const onSubmit = ({ data: submitData }: JsonSchemaFormEvent<TData>) => {
@@ -37,6 +38,7 @@ export const ApolloForm = <
     <JsonSchemaForm<TData>
       hideSubmitButton={hideSubmitButton}
       onSubmit={onSubmit}
+      saveOnChange={saveOnChange}
       {...props}
     />
   )

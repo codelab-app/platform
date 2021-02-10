@@ -1,5 +1,6 @@
-import { useCallback } from 'react'
+import { useCallback, useRef } from 'react'
 import { useRecoilState } from 'recoil'
+import { CLICK_OVERLAY_ID } from '../../renderer/Overlay-click'
 import {
   OverlayToolbarStateType,
   overlayToolbarState,
@@ -10,21 +11,24 @@ export const useOverlayToolbar = (overlayId: string) => {
   const [toolbarState, setToolbarState] = useRecoilState(
     overlayToolbarState(overlayId),
   )
+  const idRef = useRef('')
 
   const show = useCallback(
     (
       overlayElement: OverlayToolbarStateType['overlayElement'],
       metadata?: Pick<NodeA, 'id' | 'type'>,
     ) => {
-      // console.log(overlayElement, metadata)
-      // console.log(overlayElement, toolbarState.overlayElement)
-      // console.log(overlayElement !== toolbarState.overlayElement)
-
       /**
-       * Only set if element exists, otherwise we will get infinite loop
+       * Don't set toolbar if we're clicking on same item
        *
-       * Only setState if the values are different
+       * Hover is okay because impossible to hover same id twice, must exist container to re-trigger
        */
+      if (overlayId === CLICK_OVERLAY_ID && idRef.current !== metadata?.id) {
+        idRef.current = metadata?.id ?? ''
+
+        return setToolbarState((s) => ({ ...s, overlayElement, metadata }))
+      }
+
       return setToolbarState((s) => ({ ...s, overlayElement, metadata }))
     },
     [setToolbarState],

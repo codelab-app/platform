@@ -1,8 +1,7 @@
-import React, { useContext } from 'react'
-import { AppContext } from '../../apps/AppProvider'
+import React from 'react'
 import { ApolloForm } from '@codelab/frontend'
 import {
-  GetPageGql,
+  GetVertexGql,
   UpdateVertexInput,
   UpdateVertexInputFormProps,
   UpdateVertexInputSchema,
@@ -16,26 +15,46 @@ type UpdateVertexFormProps = {
 }
 
 export const UpdateVertexForm = ({ vertex }: UpdateVertexFormProps) => {
-  const { pageId } = useContext(AppContext)
+  console.log(vertex)
+
+  // const { pageId } = useContext(AppContext)
   const [mutate] = useUpdateVertexMutation({
+    // awaitRefetchQueries: true,
     refetchQueries: [
       {
-        query: GetPageGql,
+        query: GetVertexGql,
         variables: {
           input: {
-            pageId,
+            id: vertex.id,
           },
         },
       },
+      // {
+      //   query: GetPageGql,
+      //   variables: {
+      //     input: {
+      //       pageId,
+      //     },
+      //   },
+      // },
     ],
   })
 
   return (
     <ApolloForm<UpdateVertexInput, UpdateVertexMutationVariables>
-      hideSubmitButton={false}
+      key={vertex.id}
       mutate={mutate}
       schema={UpdateVertexInputSchema}
       {...UpdateVertexInputFormProps}
+      rjsfFormProps={{
+        uiSchema: {
+          type: {
+            'ui:disabled': 'type',
+          },
+        },
+      }}
+      hideSubmitButton
+      saveOnChange
       initialFormData={{
         vertexId: vertex.id,
         type: vertex.type ?? '',
@@ -44,3 +63,5 @@ export const UpdateVertexForm = ({ vertex }: UpdateVertexFormProps) => {
     />
   )
 }
+
+UpdateVertexForm.whyDidYouRender = true

@@ -31,5 +31,5 @@ export const LayoutFactory = ({
     )
   }
 
-  return <div>No Layout Found!</div>
+  return <>{children}</>
 }

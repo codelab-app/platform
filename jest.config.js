@@ -23,5 +23,6 @@ module.exports = {
     '<rootDir>/libs/modules/page',
     '<rootDir>/libs/tools/generators/json-schema',
     '<rootDir>/libs/tools/generators/graphql',
+    '<rootDir>/libs/modules/style',
   ],
 }

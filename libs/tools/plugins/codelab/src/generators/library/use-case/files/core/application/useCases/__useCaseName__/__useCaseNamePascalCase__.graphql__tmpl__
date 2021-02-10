@@ -1,0 +1,5 @@
+<%= resolverType => <%= useCaseNamePascalCase %>($input: <%= useCaseNamePascalCase %>Input!) {
+  <%= useCaseName %>(input: $input) {
+    ...<%= moduleName %>Fragments
+  }
+}

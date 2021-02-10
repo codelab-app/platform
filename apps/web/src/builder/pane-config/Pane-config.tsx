@@ -1,45 +1,41 @@
-import React, { useRef } from 'react'
+import { Tabs } from 'antd'
+import React from 'react'
 import { atom, useRecoilState } from 'recoil'
-import useOnClickOutside from '../../../../../libs/frontend/src/utils/useOnClickOutside'
-import { GetVertexDetails } from '../../useCases/graph/getVertex/GetVertexDetails'
+import { VertexProvider } from '../../useCases/vertex/VertexProvider'
+import { PaneConfigProps } from './props/Pane-config--props'
+
+const { TabPane } = Tabs
 
 export interface PaneConfigState {
-  visible: boolean
   vertexId?: string
 }
 
 export const paneConfigState = atom<PaneConfigState>({
   key: 'paneConfig',
   default: {
-    visible: false,
     // vertexId: null,
   },
 })
 
-export const PaneConfig = () => {
-  const [{ vertexId }, setPaneConfig] = useRecoilState(paneConfigState)
+export const PaneConfig = React.memo(() => {
+  const [{ vertexId }] = useRecoilState(paneConfigState)
 
-  const ref = useRef<HTMLDivElement>(null)
-
-  // "Deselect" the current vertex when we click outside the pane
-  useOnClickOutside(
-    ref,
-    () => {
-      setPaneConfig({
-        vertexId: undefined,
-        visible: false,
-      })
-    },
-    [setPaneConfig],
-  )
+  if (!vertexId) {
+    return null
+  }
 
   return (
-    <>
-      {vertexId ? (
-        <div ref={ref}>
-          <GetVertexDetails vertexId={vertexId} />
-        </div>
-      ) : null}
-    </>
+    <Tabs defaultActiveKey="1" onChange={() => null}>
+      <TabPane tab="Props" key="1">
+        <VertexProvider vertexId={vertexId}>
+          <PaneConfigProps />
+        </VertexProvider>
+      </TabPane>
+      <TabPane tab="Style" key="2">
+        Content of Tab Pane 2
+      </TabPane>
+    </Tabs>
   )
-}
+})
+
+// PaneConfig.whyDidYouRender = true

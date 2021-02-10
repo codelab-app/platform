@@ -10,7 +10,7 @@ export const PaneMainTree = () => {
   const [, setPaneConfig] = useRecoilState(paneConfigState)
   const { page } = useContext(AppContext)
   const onSelect = (id: React.Key) => {
-    setPaneConfig({ visible: true, vertexId: `${id}` })
+    setPaneConfig({ vertexId: `${id}` })
   }
 
   if (!page || !page.graphs || !page.graphs.length) {

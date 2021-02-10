@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "cli": "nx",
+  "id": "CodelabReactLibrary",
+  "title": "Create a React Library for Codelab",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "What name would you like to use?"
+    },
+    "directory": {
+      "type": "string",
+      "description": "A directory where the project is placed"
+    },
+    "storybook": {
+      "type": "boolean",
+      "description": "Should we add Storybook configurations",
+      "default": "false"
+    }
+  },
+  "required": ["name"]
+}

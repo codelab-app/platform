@@ -1193,21 +1193,6 @@ export const UpdateEdgeInputSchema: JSONSchema7 = {
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
 
-export const UpdateVertexInputSchema: JSONSchema7 = {
-  type: 'object',
-  properties: {
-    vertexId: {
-      type: 'string',
-      minLength: 3,
-    },
-    props: {
-      type: 'object',
-      $schema: 'http://json-schema.org/draft-07/schema#',
-    },
-  },
-  required: ['vertexId'],
-}
-
 const UpdateVertexInputDecorators: DecoratorsMap = {
   props: {
     'data-grid': {

@@ -14,7 +14,7 @@ type IAppContext = PropsWithIds<'appId' | 'pageId'> & {
 
 export const AppContext = React.createContext<IAppContext>(undefined!)
 
-export const AppProvider = ({
+export const _AppProvider = ({
   appId,
   pageId,
   children,
@@ -46,3 +46,7 @@ export const AppProvider = ({
     </AppContext.Provider>
   )
 }
+
+export const AppProvider = React.memo(_AppProvider, (prev, next) => {
+  return prev.appId !== next.appId || prev.pageId !== next.pageId
+})

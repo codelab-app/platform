@@ -128,6 +128,7 @@ export const elementParameterFactory = <TNode extends NodeA>({
       // We want to show overlay for current node
       e.stopPropagation()
 
+      // Don't trigger if same vertexId
       handlers.showClickOverlay(e.target as HTMLElement, node)
 
       // Open the inspector for this node

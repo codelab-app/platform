@@ -17,7 +17,7 @@ export const onDragStart: RGLHandlers = (props) => (
 
   // console.log('onDragStart', vertexId)
   // console.log(props)
-  props?.setPaneConfig({ visible: true, vertexId })
+  props?.setPaneConfig({ vertexId })
 }
 
 export const onResizeStop: RGLHandlers = ({ updateVertexMutation }) => (

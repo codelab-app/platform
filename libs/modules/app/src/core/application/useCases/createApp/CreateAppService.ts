@@ -31,9 +31,12 @@ export class CreateAppService
         },
       })
 
-      await this.createPageService.execute({ appId: app.id, title: 'Home' })
+      const createdPage = await this.createPageService.execute({
+        appId: app.id,
+        title: 'Home',
+      })
 
-      return app
+      return { ...app, pages: [createdPage] }
     } catch (e) {
       throw new CodelabPrismaError(
         `Unable to create app for user ${user.email}`,

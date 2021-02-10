@@ -36,9 +36,8 @@ const getReflectPropertyDecorator = (
 const getReflectDecoratorPropertyKeys = (
   ctor: { prototype: any },
   metadataKey: string,
-) => {
-  return (Reflect.getMetadata(`keys:${metadataKey}`, ctor.prototype) ||
-    []) as Array<string>
+): Array<string> => {
+  return Reflect.getMetadata(`keys:${metadataKey}`, ctor.prototype) || []
 }
 
 export const getReflectPropertyDecorators = (

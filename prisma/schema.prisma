@@ -19,6 +19,7 @@ model App {
   title  String
   userId String
   user   User    @relation(fields: [userId], references: [id])
+  styles Style[]
   graphs Graph[]
   /// @onDelete(CASCADE)
   pages  Page[]
@@ -65,6 +66,13 @@ model Edge {
   target  String    @unique
   graphId String?
   graph   Graph?    @relation(fields: [graphId], references: [id])
+}
+
+model Style {
+  id    String @id @default(uuid())
+  props Json   @default("{}")
+  app   App    @relation(fields: [appId], references: [id])
+  appId String
 }
 
 enum VertexType {

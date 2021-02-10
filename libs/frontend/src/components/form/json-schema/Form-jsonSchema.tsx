@@ -5,7 +5,7 @@ import { JSONSchema7 } from 'json-schema'
 import React, { ReactElement, useState } from 'react'
 import { setSubmitControllerRef } from './Form-jsonSchema--ref'
 import { JsonSchemaFormProps } from './Form-jsonSchema--types'
-import { callCallbackOrArrayOfCallbacks } from 'libs/frontend/src/utils'
+import { callbackWithParams } from 'libs/frontend/src/utils'
 
 const ThemedForm = withTheme(AntDTheme)
 
@@ -23,6 +23,7 @@ export const JsonSchemaForm = <TData extends object>({
   initialFormData,
   submitButtonProps = {},
   rjsfFormProps = {},
+  saveOnChange = false,
   ...props
 }: JsonSchemaFormProps<TData>): ReactElement => {
   const [localFormData, setLocalFormData] = useState<TData>(initialFormData)
@@ -30,18 +31,27 @@ export const JsonSchemaForm = <TData extends object>({
   return (
     <ThemedForm
       schema={schema as JSONSchema7}
-      onSubmit={(err) =>
-        onSubmit({ data: err.formData })
-          .then((r: any) => {
-            callCallbackOrArrayOfCallbacks(onSubmitSuccess, r)
+      onSubmit={(e) => {
+        console.log(e.formData.props)
 
-            setLocalFormData({ ...initialFormData })
+        return onSubmit({ data: e.formData })
+          .then((r: any) => {
+            callbackWithParams(onSubmitSuccess, r)
+
+            // setLocalFormData({ ...initialFormData })
           })
-          .catch((e: any) => {
-            callCallbackOrArrayOfCallbacks(onSubmitError, e)
+          .catch((err: any) => {
+            callbackWithParams(onSubmitError, err)
           })
-      }
-      onChange={(e) => setLocalFormData(e.formData)}
+      }}
+      onChange={(e) => {
+        console.log(e.formData.props)
+        setLocalFormData(e.formData)
+
+        if (saveOnChange) {
+          onSubmit({ data: e.formData })
+        }
+      }}
       formData={localFormData}
       {...rjsfFormProps}
       {...props}

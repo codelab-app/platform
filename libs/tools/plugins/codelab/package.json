@@ -1,11 +1,7 @@
 {
   "name": "@codelab/schematics",
-  "version": "10.3.1",
+  "version": "0.0.1",
   "main": "src/index.js",
-  "schematics": "./collection.json",
-  "builders": "./builders.json",
-  "ng-update": {
-    "requirements": {},
-    "migrations": "./migrations.json"
-  }
+  "generators": "./generators.json",
+  "executors": "./executors.json"
 }

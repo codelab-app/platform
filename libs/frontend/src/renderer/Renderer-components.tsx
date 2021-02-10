@@ -18,7 +18,11 @@ import {
 } from '@codelab/generated'
 import { AppContext } from 'apps/web/src/useCases/apps/AppProvider'
 
-export const RenderComponents = ({ node }: { node: NodeA }) => {
+type RenderComponentsProps = {
+  node: NodeA
+}
+
+export const RenderComponents = ({ node }: RenderComponentsProps) => {
   const { pageId } = useContext(AppContext)
   const [, setPaneConfig] = useRecoilState(paneConfigState)
   const [addChildVertexMutation] = useAddChildVertexMutation()
@@ -54,7 +58,7 @@ export const RenderComponents = ({ node }: { node: NodeA }) => {
   } = useOverlayToolbar(CLICK_OVERLAY_ID)
 
   const handlers: PaneConfigHandlersProps = {
-    setPaneConfig,
+    setPaneConfig: () => null,
     updateVertexMutation,
     showHoverOverlay,
     resetHoverOverlay,

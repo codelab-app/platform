@@ -2,6 +2,7 @@ import React from 'react'
 import { ApolloForm, PropsWithIds } from '@codelab/frontend'
 import {
   AddChildVertexInput,
+  AddChildVertexInputSchema,
   // AddChildVertexInputSchema,
   GetPageGql,
   UpdateVertexMutationVariables,
@@ -37,7 +38,7 @@ export const AddChildVertexForm = ({
     <ApolloForm<AddChildVertexInput, UpdateVertexMutationVariables>
       hideSubmitButton
       mutate={mutate}
-      schema={{}}
+      schema={AddChildVertexInputSchema}
       initialFormData={{
         parentVertexId,
         vertex: { type: '', props: {} },

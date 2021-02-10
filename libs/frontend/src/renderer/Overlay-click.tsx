@@ -8,7 +8,11 @@ import { NodeA } from 'libs/modules/graph/src/core/domain/node/Node'
 
 export const CLICK_OVERLAY_ID = 'clickOverlay'
 
-export const ClickOverlay = () => {
+type ClickOverlayProps = {
+  setPaneConfig: SetterOrUpdater<PaneConfigState>
+}
+
+export const ClickOverlay = ({ setPaneConfig }: ClickOverlayProps) => {
   const { pageId } = useContext(AppContext)
 
   const [deleteVertex, { loading }] = useDeleteVertexMutation({
@@ -27,19 +31,19 @@ export const ClickOverlay = () => {
   return (
     <OverlayToolbar<NodeA>
       overlayId={CLICK_OVERLAY_ID}
-      content={(n) => {
+      content={(vertex) => {
         return (
           <div className="click-overlay-toolbar">
-            <span>{n?.type}</span>
+            <span>{vertex?.type}</span>
             <div className="click-overlay-toolbar--button-group">
-              {/* <Button */}
-              {/*  size="small" */}
-              {/*  icon={<EditOutlined />} */}
-              {/*  onClick={(e) => { */}
-              {/*    e.stopPropagation() */}
-              {/*    setPaneConfig({ visible: true, vertexId: n.id }) */}
-              {/*  }} */}
-              {/* /> */}
+              <Button
+                size="small"
+                icon={<EditOutlined />}
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setPaneConfig({ vertexId: vertex.id })
+                }}
+              />
 
               <Button
                 size="small"
@@ -51,7 +55,7 @@ export const ClickOverlay = () => {
                   return deleteVertex({
                     variables: {
                       input: {
-                        vertexId: n?.id,
+                        vertexId: vertex?.id,
                       },
                     },
                   })

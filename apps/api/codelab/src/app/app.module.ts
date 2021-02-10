@@ -3,21 +3,23 @@ import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { HeroesGameModule } from './heroes/heroes.module'
 import { InfrastructureModule } from '@codelab/backend'
-import { AppModule as CodelabAppModule } from '@codelab/modules/app'
+import { AppModule } from '@codelab/modules/app'
 import { GraphModule } from '@codelab/modules/graph'
 import { PageModule } from '@codelab/modules/page'
+import { StyleModule } from '@codelab/modules/style'
 import { UserModule } from '@codelab/modules/user'
 
 @Module({
   imports: [
     HeroesGameModule,
     InfrastructureModule,
-    CodelabAppModule,
+    AppModule,
     UserModule,
     GraphModule,
     PageModule,
+    StyleModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class CodelabAppModule {}

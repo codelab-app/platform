@@ -16,5 +16,6 @@ module.exports = {
     'import/no-extraneous-dependencies': 'off',
     'no-param-reassign': 'off',
     'consistent-return': 'off',
+    'func-style': 'off',
   },
 }

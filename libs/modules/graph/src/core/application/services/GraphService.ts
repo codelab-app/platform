@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { Prisma } from '@prisma/client'
-import P from 'bluebird'
+import * as P from 'bluebird'
 import cytoscape, {
   EdgeDefinition,
   NodeDataDefinition,
@@ -35,7 +35,7 @@ export class GraphService {
     vertices,
     edges,
   }: Prisma.GraphGetPayload<GetTreeGraphArgs>) {
-    const verticesPromises = await P.map<any, NodeDefinition>(
+    const verticesPromises = await P.Promise.map<any, NodeDefinition>(
       vertices,
       async ({ id, type, props }) => {
         const parent = await this.vertexService

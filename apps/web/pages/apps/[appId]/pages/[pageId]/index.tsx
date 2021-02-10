@@ -21,7 +21,7 @@ const PageDetail = ({
 
   return (
     <div id="Builder" style={{ position: 'relative' }}>
-      <div
+      {/* <div
         role="presentation"
         style={{ position: 'absolute', inset: 0 }}
         // onClick={() => {
@@ -36,7 +36,7 @@ const PageDetail = ({
         //     })
         //   }
         // }}
-      />
+      /> */}
       <h1>{page.title}</h1>
       <GetPageLayout graph={layoutGraph} pageId={pageId} />
     </div>

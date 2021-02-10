@@ -6,7 +6,6 @@ import { App } from '../../../../../../app/src/core/domain/App'
 import { AppModule } from '../../../../../../app/src/framework/nestjs/AppModule'
 import { GraphModule } from '../../../../../../graph/src/framework/nestjs/GraphModule'
 import { UserModule } from '../../../../../../user/src/framework/nestjs/UserModule'
-import { PageModule } from '../../../../framework/nestjs/PageModule'
 import { Page } from '../../../domain/Page'
 import { setupTestModule, teardownTestModule } from '@codelab/backend'
 import {
@@ -24,13 +23,7 @@ describe('CreatePageUseCase', () => {
   let user: User
 
   beforeAll(async () => {
-    app = await setupTestModule(
-      app,
-      PageModule,
-      GraphModule,
-      UserModule,
-      AppModule,
-    )
+    app = await setupTestModule(app, GraphModule, UserModule, AppModule)
 
     // Register user
     user = await request(app.getHttpServer())
