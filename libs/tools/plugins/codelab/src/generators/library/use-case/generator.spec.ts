@@ -16,7 +16,6 @@ describe.skip('@codelab/schematics:use-case', () => {
   const options: UseCaseSchematicSchema = {
     moduleName: 'userss',
     resolverType: 'Mutation',
-    resolverMethodName: 'createUser',
     useCaseName: 'createUser',
   }
 
