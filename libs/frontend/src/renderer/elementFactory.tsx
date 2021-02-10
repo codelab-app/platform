@@ -129,6 +129,12 @@ export const elementParameterFactory = <TNode extends NodeA>({
       e.stopPropagation()
 
       handlers.showClickOverlay(e.target as HTMLElement, node)
+
+      // Open the inspector for this node
+      handlers.setPaneConfig({
+        visible: true,
+        vertexId: node.id,
+      })
     },
   } as Record<string, any>
 

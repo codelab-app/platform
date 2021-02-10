@@ -16,7 +16,7 @@ export const useOverlayToolbar = (overlayId: string) => {
       overlayElement: OverlayToolbarStateType['overlayElement'],
       metadata?: Pick<NodeA, 'id' | 'type'>,
     ) => {
-      console.log(overlayElement, metadata)
+      // console.log(overlayElement, metadata)
       // console.log(overlayElement, toolbarState.overlayElement)
       // console.log(overlayElement !== toolbarState.overlayElement)
 
@@ -31,12 +31,17 @@ export const useOverlayToolbar = (overlayId: string) => {
   )
 
   const reset = useCallback(() => {
-    return setToolbarState((s) => ({ ...s, overlayElement: undefined }))
+    return setToolbarState((s) => ({
+      ...s,
+      overlayElement: undefined,
+      metadata: undefined,
+    }))
   }, [setToolbarState])
 
   return {
     show,
     reset,
+    toolbarState,
   }
 }
 
