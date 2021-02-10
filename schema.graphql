@@ -66,6 +66,7 @@ type Query {
   getMe: User!
   getPage(input: GetPageInput!): Page!
   getPages(input: GetPagesInput!): [Page!]!
+  getStyle: Style!
   getVertex(input: GetVertexInput!): Vertex
 }
 

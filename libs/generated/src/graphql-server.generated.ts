@@ -91,6 +91,7 @@ export type Query = {
   getMe: User
   getPage: Page
   getPages: Array<Page>
+  getStyle: Style
   getVertex?: Maybe<Vertex>
 }
 
