@@ -6,6 +6,7 @@ import { addChildVertexState } from '../../../useCases/graph/addChildVertex/AddC
 import { DeleteVertexButton } from '../../../useCases/graph/deleteVertex/DeleteVertexButton'
 import { UpdateVertexForm } from '../../../useCases/graph/updateVertex/UpdateVertexForm'
 import { VertexContext } from '../../../useCases/vertex/VertexProvider'
+import { MoveVertexTargets } from 'apps/web/src/useCases/graph/moveVertex/MoveVertexTargets'
 
 export const PaneConfigProps = () => {
   const vertex = useContext(VertexContext)
@@ -26,9 +27,9 @@ export const PaneConfigProps = () => {
         <DeleteVertexButton vertexId={vertex.id} />
       </Space>
       <Divider />
-      {/* <h3>Move Vertex</h3>
+      <h3>Move Vertex</h3>
       <MoveVertexTargets sourceVertex={vertex} />
-      <Divider /> */}
+      <Divider />
       <AddChildVertexModal vertex={vertex} parentVertexId={vertex.id} />
       <UpdateVertexForm vertex={vertex} />
     </section>

@@ -8,11 +8,9 @@ import { LayoutTab } from '@codelab/generated'
 export const PaneMain = () => {
   return (
     <div
-      // TODO: overflowY: 'scroll' stops draggable from being dragged outside of container
       style={{
         height: '100%',
-        // overflowY: 'scroll',
-        // overflowX: 'visible',
+        overflowY: 'scroll',
       }}
     >
       <BuilderPaneController
