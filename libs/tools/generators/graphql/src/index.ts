@@ -1,8 +1,10 @@
 import { spawn } from 'child_process'
 import * as shell from 'shelljs'
 
+const projectRoot = 'apps/api/codelab'
+
 const startServerCmd = `npx env-cmd -f .env cross-env PORT=4001 \
-    node dist/apps/api/codelab/main.js`
+npx ts-node --project ${projectRoot}/tsconfig.app.json -r tsconfig-paths/register ${projectRoot}/src/main.ts`
 
 const waitForCmd = 'npx wait-on http://localhost:4001 && exit 0'
 

@@ -3,12 +3,14 @@ import P from 'bluebird'
 import glob from 'glob'
 import { createSchemaExport, lintFiles, saveToFile } from './utils'
 
-export const inputFiles = glob.sync(
-  'libs/alpha/ui/antd/src/components/**/*.input.ts',
-  {
+export const inputFiles = [
+  ...glob.sync('libs/alpha/ui/antd/src/**/*.input.ts', {
     cwd: process.cwd(),
-  },
-)
+  }),
+  ...glob.sync('libs/modules/**/useCases/**/*Input.ts', {
+    cwd: process.cwd(),
+  }),
+]
 
 const outputFile = `${process.cwd()}/libs/generated/src/jsonSchema.generated.ts`
 
@@ -18,9 +20,10 @@ const main = async () => {
     async (multipleFileExports, file) => {
       const module = await import(file)
 
-      const exportedSymbols = Object.keys(module).filter((name) =>
-        // Get only types with *Props in the export name
-        /Props/.test(name),
+      const exportedSymbols = Object.keys(module).filter(
+        (name) =>
+          // Get only types with *Props or *Input in the export name
+          /Props/.test(name) || /Input/.test(name),
       )
 
       console.log(`Exporing symbols "${exportedSymbols.join(' ')}"...`)
@@ -28,7 +31,10 @@ const main = async () => {
       // Reduce to a single string
       const fileExports = exportedSymbols.reduce((combinedExports, symbol) => {
         const jsonSchema = getJsonSchema(module[symbol])
-        const jsonSchemaExport = createSchemaExport(jsonSchema, symbol)
+        const jsonSchemaExport =
+          JSON.stringify(jsonSchema) === `{"type":"object"}`
+            ? ''
+            : createSchemaExport(jsonSchema, symbol)
 
         return `${combinedExports} \n ${jsonSchemaExport}`
       }, '')

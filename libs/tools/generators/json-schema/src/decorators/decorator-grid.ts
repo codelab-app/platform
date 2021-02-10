@@ -39,9 +39,7 @@ export const getGridDecoratorDetails = (
     metaKey,
   )
 
-  if (Object.entries(decoratorDetails).length === 0) {
-    return null
-  }
-
-  return decoratorDetails as DecoratorsMap
+  return Object.entries(decoratorDetails).length === 0
+    ? null
+    : (decoratorDetails as DecoratorsMap)
 }

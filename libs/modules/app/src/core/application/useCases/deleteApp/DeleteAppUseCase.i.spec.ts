@@ -46,7 +46,7 @@ describe('DeleteAppUseCase', () => {
   })
 
   it('should delete app', async () => {
-    const { id }: App = await request(app.getHttpServer())
+    const createdApp: App = await request(app.getHttpServer())
       .post('/graphql')
       .set('Authorization', `Bearer ${user.accessToken}`)
       .send({
@@ -60,30 +60,6 @@ describe('DeleteAppUseCase', () => {
         expect(res.body.data.createApp.title).toEqual('Test App')
       })
       .then((res) => res.body.data.createApp)
-
-    const createdApp = await request(app.getHttpServer())
-      .post('/graphql')
-      .set('Authorization', `Bearer ${user.accessToken}`)
-      .send({
-        query: print(GetAppGql),
-        variables: {
-          input: { appId: id },
-        },
-      })
-      .expect(200)
-      .expect((res) => {
-        const appResult = res.body.data.getApp
-
-        expect(appResult).toMatchObject({
-          title: 'Test App',
-          pages: [
-            {
-              title: 'Home',
-            },
-          ],
-        })
-      })
-      .then((res) => res.body.data.getApp)
 
     const page1Id = createdApp.pages[0].id
 
@@ -111,7 +87,7 @@ describe('DeleteAppUseCase', () => {
       .send({
         query: print(DeleteAppGql),
         variables: {
-          input: { id },
+          input: { id: createdApp.id },
         },
       })
       .expect(200)
@@ -125,14 +101,16 @@ describe('DeleteAppUseCase', () => {
       .send({
         query: print(GetAppGql),
         variables: {
-          input: { appId: id },
+          input: { appId: createdApp.id },
         },
       })
       .expect(200)
       .expect((res) => {
         const errorMsg = res.body.errors[0].message
 
-        expect(errorMsg).toEqual(`The app with id ${id} has not been found`)
+        expect(errorMsg).toEqual(
+          `The app with id ${createdApp.id} has not been found`,
+        )
       })
 
     const deletedPage1 = await request(app.getHttpServer())

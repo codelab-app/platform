@@ -46,7 +46,6 @@
       "root": "libs/tools/plugins/codelab",
       "sourceRoot": "libs/tools/plugins/codelab/src",
       "projectType": "library",
-      "schematics": {},
       "architect": {
         "lint": {
           "builder": "@nrwl/linter:eslint",
@@ -71,6 +70,7 @@
         },
         "build": {
           "builder": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/libs/tools/plugins/codelab",
             "tsConfig": "libs/tools/plugins/codelab/tsconfig.lib.json",
@@ -79,29 +79,29 @@
             "assets": [
               "libs/tools/plugins/codelab/*.md",
               {
-                "input": "./libs/tools/plugins/codelab/src/schematics/library/nest/files",
+                "input": "./libs/tools/plugins/codelab/src/generators/library/nest/files",
                 "glob": "**/.*",
-                "output": "./src/schematics/library/nest/files"
+                "output": "./src/generators/library/nest/files"
               },
               {
-                "input": "./libs/tools/plugins/codelab/src/schematics/library/domain-module/files",
+                "input": "./libs/tools/plugins/codelab/src/generators/library/domain-module/files",
                 "glob": "**/.*",
-                "output": "./src/schematics/library/domain-module/files"
+                "output": "./src/generators/library/domain-module/files"
               },
               {
-                "input": "./libs/tools/plugins/codelab/src/schematics/library/use-case/files",
-                "glob": "**/.*",
-                "output": "./src/schematics/library/use-case/files"
+                "input": "./libs/tools/plugins/codelab/src/generators/library/use-case/files",
+                "glob": "**/*",
+                "output": "./src/generators/library/use-case/files"
               },
               {
-                "input": "./libs/tools/plugins/codelab/src/schematics/library/react/files",
+                "input": "./libs/tools/plugins/codelab/src/generators/library/react/files",
                 "glob": "**/.*",
-                "output": "./src/schematics/library/react/files"
+                "output": "./src/generators/library/react/files"
               },
               {
-                "input": "./libs/tools/plugins/codelab/src/schematics/library/react/files/.storybook",
+                "input": "./libs/tools/plugins/codelab/src/generators/library/react/files/.storybook",
                 "glob": "*",
-                "output": "./src/schematics/library/react/files/.storybook"
+                "output": "./src/generators/library/react/files/.storybook"
               },
               {
                 "input": "./libs/tools/plugins/codelab/src",
@@ -110,12 +110,12 @@
               },
               {
                 "input": "./libs/tools/plugins/codelab",
-                "glob": "collection.json",
+                "glob": "generators.json",
                 "output": "."
               },
               {
                 "input": "./libs/tools/plugins/codelab",
-                "glob": "builders.json",
+                "glob": "executors.json",
                 "output": "."
               },
               {
@@ -124,8 +124,7 @@
                 "output": "."
               }
             ]
-          },
-          "outputs": ["{options.outputPath}"]
+          }
         }
       }
     },
@@ -157,7 +156,7 @@
           "builder": "@nrwl/workspace:run-commands",
           "options": {
             "commands": [
-              "npx cross-env NODE_ENV=production nx build-next web",
+              "cross-env NODE_ENV=production nx build-next web",
               "npx copyfiles -f apps/web/pm2.json dist/apps/web"
             ],
             "parallel": false
@@ -1535,6 +1534,27 @@
               "npx ts-node libs/tools/generators/graphql/src/index.ts"
             ],
             "parallel": false
+          }
+        }
+      }
+    },
+    "modules-style": {
+      "root": "libs/modules/style",
+      "sourceRoot": "libs/modules/style/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/modules/style/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/modules/style"],
+          "options": {
+            "jestConfig": "libs/modules/style/jest.config.js",
+            "passWithNoTests": true
           }
         }
       }

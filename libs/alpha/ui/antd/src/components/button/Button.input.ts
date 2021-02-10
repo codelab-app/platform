@@ -1,8 +1,8 @@
-import { Enum, Optional } from '@tsed/schema'
+import { Enum, Optional, Title } from '@tsed/schema'
 import { ButtonProps as AntButtonProps, ButtonSize } from 'antd/lib/button'
 import { ButtonHTMLType, ButtonShape, ButtonType } from 'antd/lib/button/button'
-import { MouseEventHandler, ReactNode } from 'react'
 
+@Title('Button')
 export class ButtonProps implements AntButtonProps {
   @Optional()
   declare block?: boolean
@@ -22,14 +22,14 @@ export class ButtonProps implements AntButtonProps {
   @Optional()
   declare htmlType?: ButtonHTMLType
 
-  @Optional()
-  declare icon?: ReactNode
+  // @Optional()
+  // declare icon?: ReactNode
+
+  // @Optional()
+  // declare loading?: boolean | { delay: number }
 
   @Optional()
-  declare loading?: boolean | { delay: number }
-
-  @Optional()
-  @Enum('circle', 'round')
+  @Enum('circle', 'round', 'default')
   declare shape?: ButtonShape
 
   @Optional()
@@ -43,6 +43,6 @@ export class ButtonProps implements AntButtonProps {
   @Enum('default', 'primary', 'ghost', 'dashed', 'link', 'text')
   declare type?: ButtonType
 
-  @Optional()
-  declare onClick?: MouseEventHandler<HTMLElement>
+  // @Optional()
+  // declare onClick?: MouseEventHandler<HTMLElement>
 }

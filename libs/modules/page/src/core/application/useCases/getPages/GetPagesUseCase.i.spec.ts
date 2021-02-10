@@ -2,7 +2,6 @@ import { INestApplication } from '@nestjs/common'
 import { print } from 'graphql'
 import request from 'supertest'
 import { App } from '../../../../../../app/src/core/domain/App'
-import { PageModule } from '../../../../framework/nestjs/PageModule'
 import { Page } from '../../../domain/Page'
 import { setupTestModule, teardownTestModule } from '@codelab/backend'
 import {
@@ -25,13 +24,7 @@ describe('GetPagesUseCase', () => {
   let app: App
 
   beforeAll(async () => {
-    nestApp = await setupTestModule(
-      nestApp,
-      PageModule,
-      GraphModule,
-      UserModule,
-      AppModule,
-    )
+    nestApp = await setupTestModule(nestApp, GraphModule, UserModule, AppModule)
 
     user = await request(nestApp.getHttpServer())
       .post('/graphql')

@@ -1,6 +1,6 @@
 export * from './log'
 export * from './mapProps'
 export * from './propsWithRenderChildren'
-export * from './callCallbackOrArrayOfCallbacks'
+export * from './callbackWithParams'
 export * from './notifications'
 export * from './magnitutde'

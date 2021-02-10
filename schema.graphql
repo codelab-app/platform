@@ -37,10 +37,17 @@ type Page {
   graphs: [Graph!]!
 }
 
+type Style {
+  id: String!
+  props: JSONObject
+  app: App!
+}
+
 type App {
   id: String!
   title: String!
   pages: [Page!]!
+  styles: [Style!]!
 }
 
 type User {
@@ -59,6 +66,7 @@ type Query {
   getMe: User!
   getPage(input: GetPageInput!): Page!
   getPages(input: GetPagesInput!): [Page!]!
+  getStyle: Style!
   getVertex(input: GetVertexInput!): Vertex
 }
 
@@ -84,11 +92,14 @@ input GetVertexInput {
 
 type Mutation {
   addChildVertex(input: AddChildVertexInput!): Vertex!
+  assignStyle(input: AssignStyleInput!): Style!
   createApp(input: CreateAppInput!): App!
   createGraph(input: CreateGraphInput!): Graph!
   createPage(input: CreatePageInput!): Page!
+  createStyle(input: CreateStyleInput!): Style!
   deleteApp(input: DeleteAppInput!): App!
   deletePage(input: DeletePageInput!): Page!
+  deleteStyle(input: DeleteStyleInput!): Style!
   deleteUser(input: DeleteUserInput!): User!
   deleteVertex(input: DeleteVertexInput!): Vertex!
   loginUser(input: LoginUserInput!): User!
@@ -99,6 +110,7 @@ type Mutation {
   updateApp(input: UpdateAppInput!): App!
   updateEdge(input: UpdateEdgeInput!): Edge!
   updatePage(input: UpdatePageInput!): Page!
+  updateStyle(input: UpdateStyleInput!): Style!
   updateUser(input: UpdateUserInput!): User!
   updateVertex(input: UpdateVertexInput!): Vertex!
 }
@@ -185,6 +197,23 @@ input RegisterUserInput {
 input LoginUserInput {
   email: String!
   password: String!
+}
+
+input CreateStyleInput {
+  props: JSONObject
+}
+
+input AssignStyleInput {
+  styleId: String!
+}
+
+input DeleteStyleInput {
+  styleId: String!
+}
+
+input UpdateStyleInput {
+  styleId: String!
+  props: JSONObject
 }
 
 input PositionInput {

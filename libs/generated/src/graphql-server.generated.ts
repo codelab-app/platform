@@ -58,11 +58,19 @@ export type Page = {
   graphs: Array<Graph>
 }
 
+export type Style = {
+  __typename?: 'Style'
+  id: Scalars['String']
+  props?: Maybe<Scalars['JSONObject']>
+  app: App
+}
+
 export type App = {
   __typename?: 'App'
   id: Scalars['String']
   title: Scalars['String']
   pages: Array<Page>
+  styles: Array<Style>
 }
 
 export type User = {
@@ -83,6 +91,7 @@ export type Query = {
   getMe: User
   getPage: Page
   getPages: Array<Page>
+  getStyle: Style
   getVertex?: Maybe<Vertex>
 }
 
@@ -129,11 +138,14 @@ export type GetVertexInput = {
 export type Mutation = {
   __typename?: 'Mutation'
   addChildVertex: Vertex
+  assignStyle: Style
   createApp: App
   createGraph: Graph
   createPage: Page
+  createStyle: Style
   deleteApp: App
   deletePage: Page
+  deleteStyle: Style
   deleteUser: User
   deleteVertex: Vertex
   loginUser: User
@@ -144,12 +156,17 @@ export type Mutation = {
   updateApp: App
   updateEdge: Edge
   updatePage: Page
+  updateStyle: Style
   updateUser: User
   updateVertex: Vertex
 }
 
 export type MutationAddChildVertexArgs = {
   input: AddChildVertexInput
+}
+
+export type MutationAssignStyleArgs = {
+  input: AssignStyleInput
 }
 
 export type MutationCreateAppArgs = {
@@ -164,12 +181,20 @@ export type MutationCreatePageArgs = {
   input: CreatePageInput
 }
 
+export type MutationCreateStyleArgs = {
+  input: CreateStyleInput
+}
+
 export type MutationDeleteAppArgs = {
   input: DeleteAppInput
 }
 
 export type MutationDeletePageArgs = {
   input: DeletePageInput
+}
+
+export type MutationDeleteStyleArgs = {
+  input: DeleteStyleInput
 }
 
 export type MutationDeleteUserArgs = {
@@ -210,6 +235,10 @@ export type MutationUpdateEdgeArgs = {
 
 export type MutationUpdatePageArgs = {
   input: UpdatePageInput
+}
+
+export type MutationUpdateStyleArgs = {
+  input: UpdateStyleInput
 }
 
 export type MutationUpdateUserArgs = {
@@ -302,6 +331,23 @@ export type RegisterUserInput = {
 export type LoginUserInput = {
   email: Scalars['String']
   password: Scalars['String']
+}
+
+export type CreateStyleInput = {
+  props?: Maybe<Scalars['JSONObject']>
+}
+
+export type AssignStyleInput = {
+  styleId: Scalars['String']
+}
+
+export type DeleteStyleInput = {
+  styleId: Scalars['String']
+}
+
+export type UpdateStyleInput = {
+  styleId: Scalars['String']
+  props?: Maybe<Scalars['JSONObject']>
 }
 
 export type PositionInput = {
@@ -581,6 +627,43 @@ export type PageFragmentsFragment = { __typename?: 'Page' } & Pick<
   'id' | 'title'
 > & { graphs: Array<{ __typename?: 'Graph' } & GraphFragmentsFragment> }
 
+export type AssignStyleMutationVariables = Exact<{
+  input: AssignStyleInput
+}>
+
+export type AssignStyleMutation = { __typename?: 'Mutation' } & {
+  assignStyle: { __typename?: 'Style' } & StyleFragmentsFragment
+}
+
+export type CreateStyleMutationVariables = Exact<{
+  input: CreateStyleInput
+}>
+
+export type CreateStyleMutation = { __typename?: 'Mutation' } & {
+  createStyle: { __typename?: 'Style' } & StyleFragmentsFragment
+}
+
+export type DeleteStyleMutationVariables = Exact<{
+  input: DeleteStyleInput
+}>
+
+export type DeleteStyleMutation = { __typename?: 'Mutation' } & {
+  deleteStyle: { __typename?: 'Style' } & StyleFragmentsFragment
+}
+
+export type UpdateStyleMutationVariables = Exact<{
+  input: UpdateStyleInput
+}>
+
+export type UpdateStyleMutation = { __typename?: 'Mutation' } & {
+  updateStyle: { __typename?: 'Style' } & StyleFragmentsFragment
+}
+
+export type StyleFragmentsFragment = { __typename?: 'Style' } & Pick<
+  Style,
+  'id' | 'props'
+>
+
 export type DeleteUserMutationVariables = Exact<{
   input: DeleteUserInput
 }>
@@ -651,6 +734,12 @@ export const LayoutFragments = gql`
     tab
     pane
     paneVisibility
+  }
+`
+export const StyleFragments = gql`
+  fragment styleFragments on Style {
+    id
+    props
   }
 `
 export const VertexFragments = gql`
@@ -896,6 +985,38 @@ export const UpdatePage = gql`
   }
   ${PageFragments}
 `
+export const AssignStyle = gql`
+  mutation AssignStyle($input: AssignStyleInput!) {
+    assignStyle(input: $input) {
+      ...styleFragments
+    }
+  }
+  ${StyleFragments}
+`
+export const CreateStyle = gql`
+  mutation CreateStyle($input: CreateStyleInput!) {
+    createStyle(input: $input) {
+      ...styleFragments
+    }
+  }
+  ${StyleFragments}
+`
+export const DeleteStyle = gql`
+  mutation DeleteStyle($input: DeleteStyleInput!) {
+    deleteStyle(input: $input) {
+      ...styleFragments
+    }
+  }
+  ${StyleFragments}
+`
+export const UpdateStyle = gql`
+  mutation UpdateStyle($input: UpdateStyleInput!) {
+    updateStyle(input: $input) {
+      ...styleFragments
+    }
+  }
+  ${StyleFragments}
+`
 export const DeleteUser = gql`
   mutation DeleteUser($input: DeleteUserInput!) {
     deleteUser(input: $input) {
@@ -960,6 +1081,12 @@ export const LayoutFragmentsFragmentDoc = gql`
     tab
     pane
     paneVisibility
+  }
+`
+export const StyleFragmentsFragmentDoc = gql`
+  fragment styleFragments on Style {
+    id
+    props
   }
 `
 export const VertexFragmentsFragmentDoc = gql`
@@ -2124,6 +2251,202 @@ export type UpdatePageMutationResult = Apollo.MutationResult<UpdatePageMutation>
 export type UpdatePageMutationOptions = Apollo.BaseMutationOptions<
   UpdatePageMutation,
   UpdatePageMutationVariables
+>
+export const AssignStyleGql = gql`
+  mutation AssignStyle($input: AssignStyleInput!) {
+    assignStyle(input: $input) {
+      ...styleFragments
+    }
+  }
+  ${StyleFragmentsFragmentDoc}
+`
+export type AssignStyleMutationFn = Apollo.MutationFunction<
+  AssignStyleMutation,
+  AssignStyleMutationVariables
+>
+
+/**
+ * __useAssignStyleMutation__
+ *
+ * To run a mutation, you first call `useAssignStyleMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAssignStyleMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [assignStyleMutation, { data, loading, error }] = useAssignStyleMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useAssignStyleMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    AssignStyleMutation,
+    AssignStyleMutationVariables
+  >,
+) {
+  return Apollo.useMutation<AssignStyleMutation, AssignStyleMutationVariables>(
+    AssignStyleGql,
+    baseOptions,
+  )
+}
+export type AssignStyleMutationHookResult = ReturnType<
+  typeof useAssignStyleMutation
+>
+export type AssignStyleMutationResult = Apollo.MutationResult<AssignStyleMutation>
+export type AssignStyleMutationOptions = Apollo.BaseMutationOptions<
+  AssignStyleMutation,
+  AssignStyleMutationVariables
+>
+export const CreateStyleGql = gql`
+  mutation CreateStyle($input: CreateStyleInput!) {
+    createStyle(input: $input) {
+      ...styleFragments
+    }
+  }
+  ${StyleFragmentsFragmentDoc}
+`
+export type CreateStyleMutationFn = Apollo.MutationFunction<
+  CreateStyleMutation,
+  CreateStyleMutationVariables
+>
+
+/**
+ * __useCreateStyleMutation__
+ *
+ * To run a mutation, you first call `useCreateStyleMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateStyleMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createStyleMutation, { data, loading, error }] = useCreateStyleMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateStyleMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateStyleMutation,
+    CreateStyleMutationVariables
+  >,
+) {
+  return Apollo.useMutation<CreateStyleMutation, CreateStyleMutationVariables>(
+    CreateStyleGql,
+    baseOptions,
+  )
+}
+export type CreateStyleMutationHookResult = ReturnType<
+  typeof useCreateStyleMutation
+>
+export type CreateStyleMutationResult = Apollo.MutationResult<CreateStyleMutation>
+export type CreateStyleMutationOptions = Apollo.BaseMutationOptions<
+  CreateStyleMutation,
+  CreateStyleMutationVariables
+>
+export const DeleteStyleGql = gql`
+  mutation DeleteStyle($input: DeleteStyleInput!) {
+    deleteStyle(input: $input) {
+      ...styleFragments
+    }
+  }
+  ${StyleFragmentsFragmentDoc}
+`
+export type DeleteStyleMutationFn = Apollo.MutationFunction<
+  DeleteStyleMutation,
+  DeleteStyleMutationVariables
+>
+
+/**
+ * __useDeleteStyleMutation__
+ *
+ * To run a mutation, you first call `useDeleteStyleMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteStyleMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteStyleMutation, { data, loading, error }] = useDeleteStyleMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useDeleteStyleMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeleteStyleMutation,
+    DeleteStyleMutationVariables
+  >,
+) {
+  return Apollo.useMutation<DeleteStyleMutation, DeleteStyleMutationVariables>(
+    DeleteStyleGql,
+    baseOptions,
+  )
+}
+export type DeleteStyleMutationHookResult = ReturnType<
+  typeof useDeleteStyleMutation
+>
+export type DeleteStyleMutationResult = Apollo.MutationResult<DeleteStyleMutation>
+export type DeleteStyleMutationOptions = Apollo.BaseMutationOptions<
+  DeleteStyleMutation,
+  DeleteStyleMutationVariables
+>
+export const UpdateStyleGql = gql`
+  mutation UpdateStyle($input: UpdateStyleInput!) {
+    updateStyle(input: $input) {
+      ...styleFragments
+    }
+  }
+  ${StyleFragmentsFragmentDoc}
+`
+export type UpdateStyleMutationFn = Apollo.MutationFunction<
+  UpdateStyleMutation,
+  UpdateStyleMutationVariables
+>
+
+/**
+ * __useUpdateStyleMutation__
+ *
+ * To run a mutation, you first call `useUpdateStyleMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateStyleMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateStyleMutation, { data, loading, error }] = useUpdateStyleMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateStyleMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateStyleMutation,
+    UpdateStyleMutationVariables
+  >,
+) {
+  return Apollo.useMutation<UpdateStyleMutation, UpdateStyleMutationVariables>(
+    UpdateStyleGql,
+    baseOptions,
+  )
+}
+export type UpdateStyleMutationHookResult = ReturnType<
+  typeof useUpdateStyleMutation
+>
+export type UpdateStyleMutationResult = Apollo.MutationResult<UpdateStyleMutation>
+export type UpdateStyleMutationOptions = Apollo.BaseMutationOptions<
+  UpdateStyleMutation,
+  UpdateStyleMutationVariables
 >
 export const DeleteUserGql = gql`
   mutation DeleteUser($input: DeleteUserInput!) {

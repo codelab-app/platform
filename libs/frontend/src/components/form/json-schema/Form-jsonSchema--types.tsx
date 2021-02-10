@@ -45,4 +45,7 @@ export interface JsonSchemaFormProps<TData extends object> {
 
   /** Called after a failed mutation */
   onSubmitError?: CallbackOrArrayOfCallbacks<any>
+
+  /** Auto save form on change */
+  saveOnChange?: boolean
 }

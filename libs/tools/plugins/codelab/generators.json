@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "name": "codelab-schematics",
+  "version": "0.0.1",
+  "generators": {
+    "react-lib": {
+      "factory": "./src/generators/library/react/generator",
+      "schema": "./src/generators/library/react/schema.json",
+      "description": "Create a React library"
+    },
+    "nest-lib": {
+      "factory": "./src/generators/library/nest/generator",
+      "schema": "./src/generators/library/nest/schema.json",
+      "description": "Create a Nest.js library"
+    },
+    "domain-module": {
+      "factory": "./src/generators/library/domain-module/generator",
+      "schema": "./src/generators/library/domain-module/schema.json",
+      "description": "Create a Nest.js Domain Module"
+    },
+    "use-case": {
+      "factory": "./src/generators/library/use-case/generator",
+      "schema": "./src/generators/library/use-case/schema.json",
+      "description": "Create Use Case Files for Domain Module"
+    }
+  }
+}

@@ -7,8 +7,8 @@ import {
   noop,
 } from '@angular-devkit/schematics'
 import { formatFiles, getWorkspacePath, readJsonInTree } from '@nrwl/workspace'
-import { createStorybookProjectFiles } from '../../schematics/library/react/schematic'
-import { removeFiles } from '../../schematics/library/utils'
+import { createStorybookProjectFiles } from '../../generators/library/react/generator'
+import { removeFiles } from '../../generators/library/utils'
 
 export interface ProjectDefinition {
   root: string

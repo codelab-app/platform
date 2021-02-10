@@ -1,6 +1,13 @@
+import { AnyOf, getJsonSchema } from '@tsed/schema'
+import { ButtonProps } from '../components/button/Button.input'
 import { RGLItemProps } from '../components/rgl/RGL.input'
+import { TextProps } from '../components/text/Text.input'
+import { TypographyTitleProps } from '../components/typography/Typography.input'
 
-export class Props {
-  // @OneOf([RGLItemProps])
-  declare props: RGLItemProps
-}
+@AnyOf(
+  getJsonSchema(ButtonProps),
+  getJsonSchema(RGLItemProps),
+  getJsonSchema(TypographyTitleProps),
+  getJsonSchema(TextProps),
+)
+export class Props {}

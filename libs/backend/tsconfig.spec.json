@@ -1,11 +1,12 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../dist/out-tsc",
+    "outDir": "../../../dist/out-tsc",
     "module": "commonjs",
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "types": ["jest", "node"]
+    "declaration": true,
+    "types": ["jest", "node"],
+    "allowSyntheticDefaultImports": true
   },
   "include": [
     "**/*.spec.ts",

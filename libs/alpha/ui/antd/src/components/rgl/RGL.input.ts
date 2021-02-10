@@ -1,4 +1,5 @@
-import { Property } from '@tsed/schema'
+import { Property, Schema, Title, getJsonSchema } from '@tsed/schema'
+import { Layout } from 'react-grid-layout'
 import { RGLLayoutProps } from './RGL-item.input'
 import { Grid } from '@codelab/tools/generators/json-schema'
 
@@ -16,7 +17,7 @@ export type LayoutSize = 'xxs' | 'xs' | 'sm' | 'md' | 'lg'
 //   declare layouts: Record<LayoutSize, Layout>
 // }
 
-@Grid<RGLItemProps>({
+@Grid<any>({
   'data-grid': {
     x: {
       __grid: {
@@ -50,9 +51,12 @@ export type LayoutSize = 'xxs' | 'xs' | 'sm' | 'md' | 'lg'
     },
   },
 })
+@Title('RGL Item')
 export class RGLItemProps {
-  @Property()
-  declare 'data-grid': RGLLayoutProps
+  // Can't use RGLLayoutProps as type, otherwise we'll get a $ref generated
+  @Schema(getJsonSchema(RGLLayoutProps))
+  // declare 'data-grid': RGLLayoutProps
+  declare 'data-grid': Layout
 
   @Property()
   declare key: string

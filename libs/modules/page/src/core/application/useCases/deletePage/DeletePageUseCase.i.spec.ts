@@ -11,7 +11,6 @@ import {
 } from '@codelab/generated'
 import { App, AppModule } from '@codelab/modules/app'
 import { GraphModule } from '@codelab/modules/graph'
-import { PageModule } from '@codelab/modules/page'
 import { User, UserModule } from '@codelab/modules/user'
 
 const email = 'test_user@codelab.ai'
@@ -24,13 +23,7 @@ describe('DeletePageUseCase', () => {
   let app: App
 
   beforeAll(async () => {
-    nestApp = await setupTestModule(
-      nestApp,
-      PageModule,
-      GraphModule,
-      UserModule,
-      AppModule,
-    )
+    nestApp = await setupTestModule(nestApp, GraphModule, UserModule, AppModule)
 
     // Register user
     user = await request(nestApp.getHttpServer())

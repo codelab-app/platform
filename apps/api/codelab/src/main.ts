@@ -6,10 +6,10 @@
 import { Logger } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
 import { GeneralExceptionFilter } from './app/GeneralExceptionFilter'
-import { AppModule } from './app/app.module'
+import { CodelabAppModule } from './app/app.module'
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule)
+  const app = await NestFactory.create(CodelabAppModule)
 
   const globalPrefix = ''
 

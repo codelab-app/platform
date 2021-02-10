@@ -7,7 +7,12 @@ import { LayoutTab } from '@codelab/generated'
 
 export const PaneMain = () => {
   return (
-    <div>
+    <div
+      style={{
+        height: '100%',
+        overflowY: 'scroll',
+      }}
+    >
       <BuilderPaneController
         isVisible={({ tab }) => tab === LayoutTab.Component}
       >
