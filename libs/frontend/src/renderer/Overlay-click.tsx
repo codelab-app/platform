@@ -1,8 +1,10 @@
-import { DeleteOutlined } from '@ant-design/icons'
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
 import { Button } from 'antd'
 import React, { useContext } from 'react'
+import { SetterOrUpdater } from 'recoil'
 import { OverlayToolbar } from '../components/overlay-toolbar/OverlayToolbar'
 import { GetPageGql, useDeleteVertexMutation } from '@codelab/generated'
+import { PaneConfigState } from 'apps/web/src/builder/pane-config/Pane-config'
 import { AppContext } from 'apps/web/src/useCases/apps/AppProvider'
 import { NodeA } from 'libs/modules/graph/src/core/domain/node/Node'
 

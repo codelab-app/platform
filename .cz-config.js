@@ -55,8 +55,8 @@ module.exports = {
         '5) refactor: A code change that neither fixes a bug nor adds a feature	',
     },
     {
-      value: 'perf',
-      name: '6) perf:     A code change that improves performance',
+      value: 'lint',
+      name: '6) lint:     A code change that resolves lint errors',
     },
     {
       value: 'test',
