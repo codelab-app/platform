@@ -6,15 +6,22 @@ import { NodeA } from '../../../modules/graph/src/core/domain/node/Node'
 import { useOverlayToolbar } from '../components'
 import useOnClickOutside from '../utils/useOnClickOutside'
 import { CLICK_OVERLAY_ID, ClickOverlay } from './Overlay-click'
+import { DropOverlay } from './Overlay-drop'
 import { HOVER_OVERLAY_ID, HoverOverlay } from './Overlay-hover'
 import { RenderChildren } from './Renderer-children'
 import { elementParameterFactory } from './elementFactory'
-import { GetPageGql, useUpdateVertexMutation } from '@codelab/generated'
+import {
+  AddChildVertexInput,
+  GetPageGql,
+  useAddChildVertexMutation,
+  useUpdateVertexMutation,
+} from '@codelab/generated'
 import { AppContext } from 'apps/web/src/useCases/apps/AppProvider'
 
 export const RenderComponents = ({ node }: { node: NodeA }) => {
   const { pageId } = useContext(AppContext)
   const [, setPaneConfig] = useRecoilState(paneConfigState)
+  const [addChildVertexMutation] = useAddChildVertexMutation()
   const updateVertexMutation = useUpdateVertexMutation({
     refetchQueries: [
       {
@@ -27,6 +34,14 @@ export const RenderComponents = ({ node }: { node: NodeA }) => {
       },
     ],
   })
+
+  const addChildVertex = (input: AddChildVertexInput) =>
+    addChildVertexMutation({
+      refetchQueries: [{ query: GetPageGql, variables: { input: { pageId } } }],
+      variables: {
+        input,
+      },
+    })
 
   const {
     show: showHoverOverlay,
@@ -45,6 +60,7 @@ export const RenderComponents = ({ node }: { node: NodeA }) => {
     resetHoverOverlay,
     showClickOverlay,
     resetClickOverlay,
+    addChildVertex,
   }
 
   const [RootComponent, props] = elementParameterFactory({
@@ -62,9 +78,10 @@ export const RenderComponents = ({ node }: { node: NodeA }) => {
       </RootComponent>
 
       <HoverOverlay />
+      <DropOverlay />
 
       <div ref={ref}>
-        <ClickOverlay setPaneConfig={setPaneConfig} />
+        <ClickOverlay />
       </div>
     </div>
   )

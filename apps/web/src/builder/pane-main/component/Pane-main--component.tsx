@@ -4,23 +4,18 @@ import { List } from 'antd'
 import React, { useMemo } from 'react'
 import { ComponentItem } from './Component-item'
 
-type ComponentItem = {
+type ComponentItemType = {
   key: string
   type: VertexType
   label: string
 }
 
 export const PaneMainComponent = () => {
-  // const { position, onStart, onDrag, onStop, loading } = useComponent()
-
-  // const onStartCb = useCallback(onStart, [])
-  // const onStopCb = useCallback(onStop, [0])
-
-  const componentsData: Array<ComponentItem> = useMemo(
+  const componentsData: Array<ComponentItemType> = useMemo(
     () =>
       Object.entries(VertexType)
         // Get only top level components, use naming convention of `_` to differentiate
-        .filter(([key, value]) => {
+        .filter(([, value]) => {
           const matchCount = (value.match(/_/g) ?? []).length
 
           return matchCount <= 1
@@ -63,12 +58,7 @@ export const PaneMainComponent = () => {
             margin: 0,
           }}
         >
-          <ComponentItem
-            item={item}
-            // onStart={onStart}
-            // onStop={onStopCb}
-            // onDrag={onDrag}
-          />
+          <ComponentItem item={item} />
         </List.Item>
       )}
     />

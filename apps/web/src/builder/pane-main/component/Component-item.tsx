@@ -1,50 +1,40 @@
 import { PictureOutlined } from '@ant-design/icons'
 import { css } from '@emotion/react'
 import { Card, Space } from 'antd'
+import { CardProps } from 'antd/lib/card'
 import React from 'react'
-import Draggable from 'react-draggable'
+import { useDrag } from 'react-dnd'
+import { DragAndDropTypes } from '@codelab/frontend'
 
-interface ComponentItemProps {
+interface ComponentItemProps extends CardProps {
   item: any
-  onStart?: any
-  onDrag?: any
-  onStop?: any
 }
 
 export const ComponentItem = ({
   item,
-  onStart = () => null,
-  onDrag = () => null,
-  onStop = () => null,
+  style,
+  className,
+  ...props
 }: ComponentItemProps) => {
-  // const throttledOnDrag = useCallback(throttle(onDrag, 1000), [0])
-
-  // console.log('rerender')
+  const [, dragRef] = useDrag({
+    item: { type: DragAndDropTypes.Component, node: item },
+  })
 
   return (
-    <Draggable
-      axis="both"
-      bounds="#Builder"
-      handle=".handle"
-      defaultPosition={{ x: 0, y: 0 }}
-      // position={position}
-      grid={[1, 1]}
-      scale={1}
-      onStart={onStart}
-      onDrag={onDrag}
-      onStop={onStop}
-    >
+    <div ref={dragRef}>
       <Card
         style={{
           borderRadius: 0,
           minHeight: '120px',
+          ...(style || {}),
         }}
-        className="handle"
+        className={`handle${className || ''}`}
         css={css({
           ':hover': {
             cursor: 'move',
           },
         })}
+        {...props}
       >
         <Space
           direction="vertical"
@@ -55,7 +45,7 @@ export const ComponentItem = ({
           <span style={{ fontSize: '12px' }}>{item.label}</span>
         </Space>
       </Card>
-    </Draggable>
+    </div>
   )
 }
 

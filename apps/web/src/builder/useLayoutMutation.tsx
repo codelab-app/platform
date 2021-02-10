@@ -1,3 +1,4 @@
+import { useCallback } from 'react'
 import {
   GetLayoutGql,
   Layout,
@@ -23,17 +24,18 @@ export const useLayoutMutation: UseLayoutMutation = (layout?: Layout) => {
     ],
   })
 
-  const setPaneVisibility = (pane: LayoutPaneVisibility) =>
-    setLayout({
-      variables: {
-        input: { paneVisibility: pane },
-      },
-    })
+  const setPaneVisibility = useCallback(
+    (pane: LayoutPaneVisibility) =>
+      setLayout({
+        variables: {
+          input: { paneVisibility: pane },
+        },
+      }),
+    [setLayout],
+  )
 
-  return {
-    setPaneVisibility,
-    setLayout,
-    toggleTab: (tab: LayoutTab) => {
+  const toggleTab = useCallback(
+    (tab: LayoutTab) => {
       if (!layout) {
         throw new Error('Layout is missing')
       }
@@ -58,5 +60,12 @@ export const useLayoutMutation: UseLayoutMutation = (layout?: Layout) => {
         },
       })
     },
+    [layout, setLayout, setPaneVisibility],
+  )
+
+  return {
+    setPaneVisibility,
+    setLayout,
+    toggleTab,
   }
 }

@@ -1,6 +1,9 @@
 import { PaneConfigState } from './Pane-config'
 import { UseOverlayToolbarFunctions } from '@codelab/frontend'
-import { useUpdateVertexMutation } from '@codelab/generated'
+import {
+  AddChildVertexInput,
+  useUpdateVertexMutation,
+} from '@codelab/generated'
 
 export interface PaneConfigHandlersProps {
   setPaneConfig: (props: PaneConfigState) => void
@@ -9,4 +12,5 @@ export interface PaneConfigHandlersProps {
   showClickOverlay: UseOverlayToolbarFunctions['show']
   resetHoverOverlay: UseOverlayToolbarFunctions['reset']
   resetClickOverlay: UseOverlayToolbarFunctions['reset']
+  addChildVertex: (input: AddChildVertexInput) => any
 }
