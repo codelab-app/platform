@@ -423,12 +423,6 @@ export const UpdateVertexInputSchema: JSONSchema7 = {
       ],
     },
     props: {
-      $ref: '#/definitions/Props',
-    },
-  },
-  required: ['vertexId'],
-  definitions: {
-    Props: {
       anyOf: [
         {
           type: 'object',
@@ -554,4 +548,5 @@ export const UpdateVertexInputSchema: JSONSchema7 = {
       ],
     },
   },
+  required: ['vertexId'],
 }
