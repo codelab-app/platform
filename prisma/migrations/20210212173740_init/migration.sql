@@ -69,6 +69,15 @@ CREATE TABLE "Edge" (
     PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "Style" (
+    "id" TEXT NOT NULL,
+    "props" JSONB NOT NULL DEFAULT '{}',
+    "appId" TEXT NOT NULL,
+
+    PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "User.email_unique" ON "User"("email");
 
@@ -92,3 +101,6 @@ ALTER TABLE "Vertex" ADD FOREIGN KEY ("graphId") REFERENCES "Graph"("id") ON DEL
 
 -- AddForeignKey
 ALTER TABLE "Edge" ADD FOREIGN KEY ("graphId") REFERENCES "Graph"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Style" ADD FOREIGN KEY ("appId") REFERENCES "App"("id") ON DELETE CASCADE ON UPDATE CASCADE;

@@ -1,4 +1,5 @@
 export * from './types'
 export * from './utils'
+export * from './decorators'
 export * from './codec/email'
 export * from './codec/password'

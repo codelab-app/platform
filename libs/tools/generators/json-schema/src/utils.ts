@@ -1,4 +1,6 @@
 import fs from 'fs'
+import P from 'bluebird'
+import { JSONSchema7 } from 'json-schema'
 import * as shell from 'shelljs'
 import * as ts from 'typescript'
 import * as TJS from 'typescript-json-schema'
@@ -46,7 +48,10 @@ export const saveToFile = (outputPath: string) => (content: string) => {
   return outputPath
 }
 
-export const createSchemaExport = (schema: string, symbol: string): string => {
+export const createSchemaExport = (
+  schema: JSONSchema7,
+  symbol: string,
+): string => {
   const fileContents = `export const ${symbol}Schema: JSONSchema7 = ${JSON.stringify(
     schema,
     null,
@@ -56,11 +61,52 @@ export const createSchemaExport = (schema: string, symbol: string): string => {
   return fileContents
 }
 
-export const formatContentForExport = (content: string): string => {
+export const appendImports = (content: Array<string>): string => {
   const importsList = [
     `import { JSONSchema7 } from 'json-schema'`,
     `import { ObjectFieldTemplateFactory, DecoratorsMap } from '@codelab/tools/generators/json-schema'`,
   ]
 
-  return `${importsList.join('\n\n')} \n\n ${content}`
+  return content.reduce(
+    (acc, cur) => `${acc} \n\n\n ${cur}`,
+    `${importsList.join('\n')}`,
+  )
+}
+
+// Take a list of files
+// Filter out the symbols
+// Pass export into function
+// Reduce to single string
+
+export type SymbolMap = [symbol: string, module: any]
+
+export type SymbolMapCb = (filteredSymbols: SymbolMap) => string
+
+export const mapFilesWithSymbolPattern = (
+  files: Array<string>,
+  symbolPatterns: Array<RegExp>,
+  cb: SymbolMapCb,
+): Promise<string> => {
+  return P.reduce(
+    files,
+    async (content, file) => {
+      const module = await import(file)
+
+      // Map each symbol to the module
+      const moreContent = Object.keys(module)
+        .filter((name) =>
+          // Get only types with *Props or *Input in the export name
+          // /Props/.test(name) || /Input/.test(name),
+          symbolPatterns.reduce<boolean>((acc, regExp) => {
+            return acc || regExp.test(name)
+          }, false),
+        )
+        .reduce<string>((acc, symbol: string) => {
+          return `${acc} \n\n ${cb([symbol, module])}`
+        }, '')
+
+      return `${content} \n\n ${moreContent}`
+    },
+    '',
+  )
 }

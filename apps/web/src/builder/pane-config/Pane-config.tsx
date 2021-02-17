@@ -3,6 +3,7 @@ import React from 'react'
 import { atom, useRecoilState } from 'recoil'
 import { VertexProvider } from '../../useCases/vertex/VertexProvider'
 import { PaneConfigProps } from './props/Pane-config--props'
+import { PaneConfigStyle } from './style/Pane-config--style'
 
 const { TabPane } = Tabs
 
@@ -32,7 +33,7 @@ export const PaneConfig = React.memo(() => {
         </VertexProvider>
       </TabPane>
       <TabPane tab="Style" key="2">
-        Content of Tab Pane 2
+        <PaneConfigStyle />
       </TabPane>
     </Tabs>
   )
