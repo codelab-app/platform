@@ -68,7 +68,7 @@ describe('UpdateVertexUseCase', () => {
     await teardownTestModule(app)
   })
 
-  it('should update vertex', async () => {
+  it.skip('should update vertex', async () => {
     const title = 'Test App'
     const createApp: App = await request(app.getHttpServer())
       .post('/graphql')
@@ -195,7 +195,7 @@ describe('UpdateVertexUseCase', () => {
       })
   })
 
-  it('should return error for wrong vertex id', async () => {
+  it.skip('should return error for wrong vertex id', async () => {
     const wrongVertexId = '2fa9e75b-1f5d-4dd1-a58c-dbc09d822de9'
     const updateVertexMutation = getUpdateVertexMutation(wrongVertexId)
 

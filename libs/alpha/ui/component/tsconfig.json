@@ -5,6 +5,8 @@
     "allowJs": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+    "noImplicitAny": false,
+    "downlevelIteration": true,
     "types": ["node", "jest", "@rjsf/antd"]
   },
   "files": [],
