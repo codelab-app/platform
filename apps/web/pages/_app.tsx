@@ -1,6 +1,6 @@
 import '../src/wdyr'
 import { ApolloProvider } from '@apollo/client'
-import { css } from '@emotion/react'
+import { Global, css } from '@emotion/react'
 import { AppProps } from 'next/app'
 import { WithRouterProps } from 'next/dist/client/with-router'
 import React from 'react'
@@ -45,19 +45,19 @@ const RootProviders = ({
 const AppContainer: React.FC<AppProps> = ({ pageProps, Component, router }) => {
   return (
     <RootProviders pageProps={pageProps}>
+      <Global
+        styles={css({
+          '#__next': {
+            height: '100%',
+          },
+          body: {
+            overflow:
+              router.pathname === Page.PAGE_DETAIL.url ? 'hidden' : 'auto',
+          },
+        })}
+      />
       <App router={router}>
-        <Component
-          {...pageProps}
-          css={css({
-            '#__next': {
-              height: '100%',
-            },
-            body: {
-              overflow:
-                router.pathname === Page.PAGE_DETAIL.url ? 'hidden' : 'auto',
-            },
-          })}
-        />
+        <Component {...pageProps} />
       </App>
     </RootProviders>
   )
