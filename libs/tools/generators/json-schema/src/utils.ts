@@ -110,3 +110,35 @@ export const mapFilesWithSymbolPattern = (
     '',
   )
 }
+
+export type ImportDetails = {
+  source: string
+  entities: Array<string>
+}
+
+export const generateImports = (
+  importsDetails: Array<ImportDetails>,
+): string => {
+  return importsDetails
+    .reduce((acc, curr) => {
+      const existed = acc.find(
+        (accDetails) => accDetails.source === curr.source,
+      )
+
+      if (existed) {
+        existed.entities = [...new Set([...existed.entities, ...curr.entities])]
+
+        return acc
+      }
+
+      return [...acc, { ...curr, entities: [...new Set([...curr.entities])] }]
+    }, [] as Array<ImportDetails>)
+    .map(
+      (details) =>
+        `import { ${details.entities.join(', ')} } from '${details.source}'`,
+    )
+    .join('\n')
+}
+
+export const convertFileToModule = (filePath: string): string =>
+  filePath.replace(/.tsx?$/, '')

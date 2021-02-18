@@ -1,6 +1,7 @@
-import { Grid } from '@codelab/tools/generators/json-schema'
+import { Property } from '@tsed/schema'
+import { Grid, Tabs } from '@codelab/tools/generators/json-schema'
 
-@Grid<DemoInput>({
+@Grid<DemoGridProps>({
   email: {
     __grid: {
       order: 3,
@@ -26,14 +27,46 @@ import { Grid } from '@codelab/tools/generators/json-schema'
     },
   },
 })
-export class DemoInput {
-  email = ''
+export class DemoGridProps {
+  @Property()
+  declare email: string
 
-  password = ''
+  @Property()
+  declare password: string
 
-  firstname = ''
+  @Property()
+  declare firstname: string
 
-  lastname = ''
+  @Property()
+  declare lastname: string
 
-  notGroupedField = ''
+  @Property()
+  declare notGroupedField: string
+}
+
+@Tabs<DemoTabsProps>({
+  'ui:groups': [
+    'firstname',
+    'lastname',
+    {
+      groups: { password: ['password'], contacts: ['email'] },
+      'ui:template': 'tabs',
+    },
+  ],
+})
+export class DemoTabsProps {
+  @Property()
+  declare email: string
+
+  @Property()
+  declare password: string
+
+  @Property()
+  declare firstname: string
+
+  @Property()
+  declare lastname: string
+
+  @Property()
+  declare notGroupedField: string
 }

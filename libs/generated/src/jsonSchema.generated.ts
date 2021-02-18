@@ -1,4 +1,11 @@
 import { JSONSchema7 } from 'json-schema'
+import {
+  DecoratorsMap,
+  GroupsUiSchema,
+  ObjectFieldGridTemplateFactory,
+  ObjectFieldTabsTemplate,
+} from '@codelab/tools/generators/json-schema'
+import { DemoTabsProps } from 'libs/alpha/ui/antd/src/components/demo/Demo.input'
 
 export const AffixPropsSchema: JSONSchema7 = {
   type: 'object',
@@ -2077,117 +2084,101 @@ export const PageHeaderPropsSchema: JSONSchema7 = {
   },
 }
 
-export const PaginationPropsSchema: JSONSchema7 = {
+export const DemoGridPropsSchema: JSONSchema7 = {
   type: 'object',
   properties: {
-    type: {
+    email: {
       type: 'string',
-      enum: ['React_Pagination'],
     },
-    props: {
-      type: 'object',
-      properties: {
-        current: {
-          type: 'number',
-          description: 'Current page number',
-        },
-        defaultCurrent: {
-          type: 'number',
-          description: 'Default initial page number',
-          default: 1,
-        },
-        defaultPageSize: {
-          type: 'number',
-          description: 'Default number of data items per page',
-          default: 10,
-        },
-        disabled: {
-          type: 'boolean',
-          description: 'Disable pagination',
-        },
-        hideOnSinglePage: {
-          type: 'boolean',
-          description: 'Whether to hide pager on single page',
-        },
-        pageSize: {
-          type: 'number',
-          description: 'Number of data items per page',
-        },
-        pageSizeOptions: {
-          type: 'array',
-          items: {
-            default: ['10', '20', '50', '100'],
-            type: 'string',
-          },
-          description: 'Specify the sizeChanger options',
-        },
-        responsive: {
-          type: 'boolean',
-          description:
-            'If size is not specified, Pagination would resize according to the width of the window',
-        },
-        showLessItems: {
-          type: 'boolean',
-          description: 'Show less page items',
-        },
-        showQuickJumper: {
-          type: 'boolean',
-          description: 'Determine whether you can jump to pages directly',
-        },
-        showSizeChanger: {
-          type: 'boolean',
-          description:
-            'Determine whether to show pageSize select, it will be true when total > 50',
-        },
-        showTitle: {
-          type: 'boolean',
-          description: "Show page item's title",
-        },
-        simple: {
-          type: 'boolean',
-          description: 'Whether to use simple mode',
-        },
-        size: {
-          type: 'string',
-          description: 'Specify the size of Pagination, can be set to small',
-          enum: ['default', 'small'],
-          default: 'default',
-        },
-        total: {
-          type: 'number',
-          description: 'Total number of data items',
-          default: 0,
-        },
-      },
-      title: '',
-      dependencies: {
-        showQuickJumper: {
-          oneOf: [
-            {
-              type: 'object',
-              properties: {
-                showQuickJumper: {
-                  enum: [false],
-                },
-              },
-            },
-            {
-              type: 'object',
-              properties: {
-                showQuickJumper: {
-                  enum: [true],
-                },
-                goButton: {
-                  type: 'string',
-                },
-              },
-            },
-          ],
-        },
-      },
+    password: {
+      type: 'string',
+    },
+    firstname: {
+      type: 'string',
+    },
+    lastname: {
+      type: 'string',
+    },
+    notGroupedField: {
+      type: 'string',
     },
   },
 }
+
+const DemoGridPropsDecorators: DecoratorsMap = {
+  email: {
+    __grid: {
+      order: 3,
+      span: 24,
+    },
+  },
+  password: {
+    __grid: {
+      order: 2,
+      span: 24,
+    },
+  },
+  firstname: {
+    __grid: {
+      order: 0,
+      span: 12,
+    },
+  },
+  lastname: {
+    __grid: {
+      order: 1,
+      span: 12,
+    },
+  },
+}
+
+export const DemoGridPropsGridFormProps = {
+  ObjectFieldTemplate: ObjectFieldGridTemplateFactory(DemoGridPropsDecorators),
+}
+
+export const DemoGridPropsFormProps = { ...DemoGridPropsGridFormProps }
+
+export const DemoTabsPropsSchema: JSONSchema7 = {
+  type: 'object',
+  properties: {
+    email: {
+      type: 'string',
+    },
+    password: {
+      type: 'string',
+    },
+    firstname: {
+      type: 'string',
+    },
+    lastname: {
+      type: 'string',
+    },
+    notGroupedField: {
+      type: 'string',
+    },
+  },
+}
+
+const DemoTabsPropsUISchema: GroupsUiSchema<DemoTabsProps> = {
+  'ui:groups': [
+    'firstname',
+    'lastname',
+    {
+      groups: {
+        password: ['password'],
+        contacts: ['email'],
+      },
+      'ui:template': 'tabs',
+    },
+  ],
+}
+
+export const DemoTabsPropsTabsFormProps = {
+  ObjectFieldTemplate: ObjectFieldTabsTemplate,
+  uiSchema: DemoTabsPropsUISchema,
+}
+
+export const DemoTabsPropsFormProps = { ...DemoTabsPropsTabsFormProps }
 
 export const RGLLayoutPropsSchema: JSONSchema7 = {
   type: 'object',
@@ -2302,7 +2293,48 @@ export const RGLItemPropsSchema: JSONSchema7 = {
   title: 'RGL Item',
 }
 
-export const SpacePropsSchema: JSONSchema7 = {
+const RGLItemPropsDecorators: DecoratorsMap = {
+  'data-grid': {
+    x: {
+      __grid: {
+        order: 0,
+        span: 6,
+      },
+    },
+    y: {
+      __grid: {
+        order: 1,
+        span: 6,
+      },
+    },
+    w: {
+      __grid: {
+        order: 2,
+        span: 6,
+      },
+    },
+    h: {
+      __grid: {
+        order: 3,
+        span: 6,
+      },
+    },
+  },
+  key: {
+    __grid: {
+      order: 4,
+      span: 6,
+    },
+  },
+}
+
+export const RGLItemPropsGridFormProps = {
+  ObjectFieldTemplate: ObjectFieldGridTemplateFactory(RGLItemPropsDecorators),
+}
+
+export const RGLItemPropsFormProps = { ...RGLItemPropsGridFormProps }
+
+export const TextPropsSchema: JSONSchema7 = {
   type: 'object',
   properties: {
     type: {
@@ -2348,7 +2380,22 @@ export const StepsPropsSchema: JSONSchema7 = {
       type: 'string',
       enum: ['React_Steps'],
     },
-    props: {
+  },
+  title: 'Typography Title',
+}
+
+export const TypographyTextPropsSchema: JSONSchema7 = {
+  type: 'object',
+  properties: {
+    mark: {
+      type: 'boolean',
+    },
+  },
+}
+
+export const PropsSchema: JSONSchema7 = {
+  anyOf: [
+    {
       type: 'object',
       properties: {
         className: {
@@ -26772,3 +26819,42 @@ export const CreateStyleInputSchema: JSONSchema7 = {
     },
   },
 }
+
+const UpdateVertexInputDecorators: DecoratorsMap = {
+  props: {
+    'data-grid': {
+      x: {
+        __grid: {
+          order: 1,
+          span: 6,
+        },
+      },
+      y: {
+        __grid: {
+          order: 2,
+          span: 6,
+        },
+      },
+      w: {
+        __grid: {
+          order: 3,
+          span: 6,
+        },
+      },
+      h: {
+        __grid: {
+          order: 4,
+          span: 6,
+        },
+      },
+    },
+  },
+}
+
+export const UpdateVertexInputGridFormProps = {
+  ObjectFieldTemplate: ObjectFieldGridTemplateFactory(
+    UpdateVertexInputDecorators,
+  ),
+}
+
+export const UpdateVertexInputFormProps = { ...UpdateVertexInputGridFormProps }

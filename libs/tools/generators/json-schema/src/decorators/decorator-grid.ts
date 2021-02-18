@@ -26,17 +26,17 @@ export interface GridDecoratorDetails {
 
 export type DecoratorsMap<T = any> = RecursivePartial<T>
 
-const metaKey = 'grid'
+export const gridDecoratorMetaKey = 'grid'
 
 export const Grid = <T = any>(params?: RecursivePartial<T>) =>
-  reflectClassDecorator(metaKey, params)
+  reflectClassDecorator(gridDecoratorMetaKey, params)
 
 export const getGridDecoratorDetails = (
   classWithGridDecorator: any,
 ): DecoratorsMap | null => {
   const decoratorDetails = getReflectClassDecorator(
     classWithGridDecorator,
-    metaKey,
+    gridDecoratorMetaKey,
   )
 
   return Object.entries(decoratorDetails).length === 0

@@ -93,7 +93,7 @@ const getIdSchemaToGridDetailsMap = (
       )
 }
 
-export const ObjectFieldTemplateFactory = (
+export const ObjectFieldGridTemplateFactory = (
   decoratorSettings: DecoratorsMap | undefined = undefined,
 ) => (props: ObjectFieldTemplateProps) => {
   const IdSchemaToGridDetailsMap = getIdSchemaToGridDetailsMap(

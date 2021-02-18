@@ -5,7 +5,9 @@
     "jsx": "react",
     "allowJs": true,
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "lib": ["es2019"],
+    "types": ["@rjsf/antd"]
   },
   "files": [],
   "include": [],

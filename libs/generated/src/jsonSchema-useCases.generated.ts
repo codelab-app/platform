@@ -1,7 +1,7 @@
 import { JSONSchema7 } from 'json-schema'
 import {
   DecoratorsMap,
-  ObjectFieldTemplateFactory,
+  ObjectFieldGridTemplateFactory,
 } from '@codelab/tools/generators/json-schema'
 
 export const CreateAppInputSchema: JSONSchema7 = {
@@ -100,7 +100,9 @@ const DemoGridFormInputDecorators: DecoratorsMap = {
 }
 
 export const DemoGridFormInputFormProps = {
-  ObjectFieldTemplate: ObjectFieldTemplateFactory(DemoGridFormInputDecorators),
+  ObjectFieldTemplate: ObjectFieldGridTemplateFactory(
+    DemoGridFormInputDecorators,
+  ),
 }
 
 export const GetAppInputSchema: JSONSchema7 = {
@@ -1191,41 +1193,6 @@ export const UpdateEdgeInputSchema: JSONSchema7 = {
     },
   },
   $schema: 'http://json-schema.org/draft-07/schema#',
-}
-
-const UpdateVertexInputDecorators: DecoratorsMap = {
-  props: {
-    'data-grid': {
-      x: {
-        __grid: {
-          order: 1,
-          span: 6,
-        },
-      },
-      y: {
-        __grid: {
-          order: 2,
-          span: 6,
-        },
-      },
-      w: {
-        __grid: {
-          order: 3,
-          span: 6,
-        },
-      },
-      h: {
-        __grid: {
-          order: 4,
-          span: 6,
-        },
-      },
-    },
-  },
-}
-
-export const UpdateVertexInputFormProps = {
-  ObjectFieldTemplate: ObjectFieldTemplateFactory(UpdateVertexInputDecorators),
 }
 
 export const CreatePageInputSchema: JSONSchema7 = {

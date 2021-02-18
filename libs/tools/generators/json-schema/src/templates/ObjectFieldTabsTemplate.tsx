@@ -1,24 +1,53 @@
+/* Add 'ui:group' for uiSchema.
+ * 'ui:group' is a custom option in uiSchema(https://react-jsonschema-form.readthedocs.io/en/latest/api-reference/uiSchema/) to specify rendering schema in groups.
+ * Like all other options, it follows the form field hierarchy.
+ * 1. 'ui:group' can be applied only to the 'object'-type
+ * 2. 'ui:group' is an array. Items can be:
+ * - string. Use to specify the order of fields
+ * - group description. It's a map 'group' -> Array<fields in group> and special pair 'ui:temlate': <type of group visualization>. (currently implemented only 'tabs')
+ * 3. All other fields will be placed on top
+ *
+ * Additional notes:
+ * 1. 'field' can be specified in multiple groups (the input value will be in sync)
+ * 2. To specify nested groups you can specify 'ui:groups' for sub-object
+ */
+
 import { Theme } from '@rjsf/antd'
 import { ObjectFieldTemplateProps } from '@rjsf/core'
+import { Tabs } from 'antd'
 import React from 'react'
-import { GroupTemplates, GroupTypes } from './GroupedTemplates'
 
-interface UiTemplateKey {
-  'ui:template': GroupTypes
+type GroupedField<T> = T extends object ? keyof T : string
+
+type GroupDefinition<T = any> = {
+  'ui:template': keyof typeof GroupTemplates
+  groups: {
+    [groupName: string]: Array<GroupedField<T>>
+  }
 }
-interface GroupsItems {
-  [groupName: string]: Array<string>
-}
-type SingleItemGroup = string
-type GroupDefinition = UiTemplateKey & GroupsItems
 
-export type Groups = Array<SingleItemGroup | GroupDefinition>
+export type GroupsDetails<T = any> = Array<GroupedField<T> | GroupDefinition<T>>
 
-export type TemplateProperties = {
+type TemplateProperties = {
   properties: Array<{
     name: string
     children: Array<React.ReactElement>
   }>
+}
+
+const GroupTemplates = {
+  tabs: (props: TemplateProperties) => (
+    <Tabs defaultActiveKey="0" key="tabs">
+      {props.properties.map((p: any, idx: any) => (
+        <Tabs.TabPane tab={p.name} key={p.name}>
+          {p.children.map((c: React.ReactElement) => ({
+            ...c,
+            key: c.props.idSchema.$id,
+          }))}
+        </Tabs.TabPane>
+      ))}
+    </Tabs>
+  ),
 }
 
 const DefaultTemplate = (props: TemplateProperties) => (
@@ -30,11 +59,11 @@ const renderNonGroupedProperties = ({
   groups,
 }: {
   props: ObjectFieldTemplateProps
-  groups: Groups
+  groups: GroupsDetails
 }) => {
   const { properties } = props
   const groupedProperties = groups.reduce(
-    (acc: Array<string>, currGroup: Groups[number]) => {
+    (acc: Array<string>, currGroup: GroupsDetails[number]) => {
       if (typeof currGroup === 'string') {
         return [...acc, currGroup]
       }
@@ -42,11 +71,10 @@ const renderNonGroupedProperties = ({
       if (typeof currGroup === 'object') {
         return [
           ...acc,
-          ...Object.keys(currGroup)
-            .filter((groupKey) => !groupKey.startsWith('ui:'))
-            .map((groupKey) => currGroup[groupKey])
+          ...Object.keys(currGroup.groups)
+            .map((groupKey) => currGroup.groups[groupKey])
             .flat(),
-        ]
+        ] as Array<string>
       }
 
       return acc
@@ -64,7 +92,7 @@ const renderGroupedProperties = ({
   groups,
 }: {
   props: ObjectFieldTemplateProps
-  groups: Groups
+  groups: GroupsDetails
 }) => {
   const { properties } = props
 
@@ -89,16 +117,14 @@ const renderGroupedProperties = ({
           ? GroupTemplates[g['ui:template']]
           : DefaultTemplate
 
-        const _properties = Object.keys(g as GroupDefinition)
-          .filter((groupKey) => !groupKey.startsWith('ui:'))
-          .map((groupKey) => ({
-            name: groupKey,
-            children: g[groupKey].reduce((acc, propertyName) => {
-              const found = properties.find((p) => p.name === propertyName)
+        const _properties = Object.keys(g.groups).map((groupKey) => ({
+          name: groupKey,
+          children: g.groups[groupKey].reduce((acc, propertyName) => {
+            const found = properties.find((p) => p.name === propertyName)
 
-              return found ? [...acc, found.content] : acc
-            }, [] as Array<React.ReactElement>),
-          }))
+            return found ? [...acc, found.content] : acc
+          }, [] as Array<React.ReactElement>),
+        }))
 
         return <GroupComponent properties={_properties} key="GroupComponent" />
       }
@@ -140,7 +166,7 @@ const GroupedTemplate = (props: ObjectFieldTemplateProps) => {
   )
 }
 
-export const ObjectFieldTemplate = (props: ObjectFieldTemplateProps) => {
+export const ObjectFieldTabsTemplate = (props: ObjectFieldTemplateProps) => {
   const isGrouped = props.uiSchema['ui:groups'] !== undefined
 
   if (isGrouped) {
