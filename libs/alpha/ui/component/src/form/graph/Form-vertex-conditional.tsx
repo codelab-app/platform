@@ -11,11 +11,6 @@ const Form = withTheme(AntDTheme)
 export const FormVertexConditional = () => {
   const schema = UpdateVertexInputSchema
 
-  // const schema: JSONSchema7 = {
-  //   type: 'string',
-  //   description: 'Hello'
-  // }
-
   console.log(schema)
 
   const formCtx = {

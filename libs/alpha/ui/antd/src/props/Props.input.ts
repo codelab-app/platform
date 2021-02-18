@@ -1,5 +1,6 @@
 import { VertexType } from '@prisma/client'
-import { Enum, Title } from '@tsed/schema'
+import { Enum, Schema, Title } from '@tsed/schema'
+import { JSONSchema6 } from 'json-schema'
 import { JsonSchemaTypeDependencies } from '../../../../../backend/src/common/decorators/JsonSchemaTypeDependencies'
 import { AffixProps } from '../components/affix/Affix.input'
 import { AutoCompleteProps } from '../components/autocomplete/AutoComplete.input'
@@ -25,6 +26,7 @@ import { SpaceProps } from '../components/space/Space.input'
 import { StepsProps } from '../components/steps/Steps.input'
 import { StepsStepProps } from '../components/steps/StepsStep.input'
 import { TagSelectedProps } from '../components/tag/Tag.input'
+import { VegaSchema } from '@codelab/generated'
 
 @JsonSchemaTypeDependencies([
   ButtonProps,
