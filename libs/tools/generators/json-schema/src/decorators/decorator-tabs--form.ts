@@ -1,4 +1,4 @@
-import { ImportDetails, convertFileToModule } from '../utils'
+import { ImportDetails, convertFileToModule } from '../utils/utils'
 import { getTabsDecoratorDetails } from './decorator-tabs'
 
 export const getTabsFormProps = (

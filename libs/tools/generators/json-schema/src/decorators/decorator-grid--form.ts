@@ -1,4 +1,4 @@
-import { ImportDetails } from '../utils'
+import { ImportDetails } from '../utils/utils'
 import { getGridDecoratorDetails } from './decorator-grid'
 
 export const getGridFormProps = (

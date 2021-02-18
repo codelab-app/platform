@@ -1,5 +1,4 @@
 import { JSONSchema7 } from 'json-schema'
-import { DecoratorsMap } from '@codelab/tools/generators/json-schema'
 
 export const VegaSchema: JSONSchema7 = {
   $schema: 'http://json-schema.org/draft-07/schema#',

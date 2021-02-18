@@ -1,7 +1,8 @@
 import { getJsonSchema } from '@tsed/schema'
 import glob from 'glob'
-import { getFormProps } from '../generator/generator-json--form'
-import { SymbolMap, SymbolMapCb, createSchemaExport } from '../utils'
+import { createSchemaExport } from '../utils/create-export'
+import { SymbolMap, SymbolMapCb } from '../utils/utils'
+import { getFormProps } from './generator-json--form'
 
 export const tsedInputFiles = [
   ...glob.sync('libs/alpha/ui/antd/src/**/*.input.ts', {
@@ -24,11 +25,9 @@ export const tsedJsonSchemaCb: SymbolMapCb = ({
       ? ''
       : createSchemaExport(jsonSchema, symbol)
 
-  const { content: formContent, imports } = getFormProps(
-    symbol,
-    module[symbol],
-    file,
-  )
+  const exportData = getFormProps(symbol, module[symbol], file)
 
-  return { content: [content, formContent], imports }
+  exportData.content = [...exportData.content, content]
+
+  return exportData
 }

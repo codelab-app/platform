@@ -2,7 +2,8 @@ import * as path from 'path'
 import glob from 'glob'
 import * as tsj from 'ts-json-schema-generator'
 import { Config } from 'ts-json-schema-generator'
-import { ExportData, createSchemaExport } from '../utils'
+import { createSchemaExport } from '../utils/create-export'
+import { ExportData } from '../utils/utils'
 
 export const vegaInputFiles = [
   ...glob.sync('libs/tools/generators/json-schema/src/types/*.ts', {
@@ -25,7 +26,14 @@ const config: Config = {
   // type: '*',
 }
 
-export const vegaJsonSchema = (symbols?: Array<string>): ExportData => {
+export const npmLibraryTypesOutputFile = `${process.cwd()}/libs/generated/src/jsonSchema-npmLibrary.generated.ts`
+
+/**
+ * Vega is used to generate JSON schema from external NPM library interfaces or types.
+ *
+ * Not as flexible but saves us time from having to re-declare types
+ */
+export const npmLibraryJsonSchema = (symbols?: Array<string>): ExportData => {
   const generator = tsj.createGenerator(config)
 
   const schema = generator.createSchema()
@@ -33,6 +41,10 @@ export const vegaJsonSchema = (symbols?: Array<string>): ExportData => {
   return {
     content: [createSchemaExport(schema, 'Vega')],
     imports: [
+      {
+        source: 'json-schema',
+        entities: ['JSONSchema7'],
+      },
       {
         source: '@codelab/tools/generators/json-schema',
         entities: ['DecoratorsMap'],

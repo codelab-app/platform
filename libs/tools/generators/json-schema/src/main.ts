@@ -1,19 +1,34 @@
-import { tsedInputFiles, tsedJsonSchemaCb } from './tsed/generator-tsed'
-import { mapFilesWithSymbolPattern } from './utils'
+import { generateExportData } from './generator/generator-symbols'
+import { tsedInputFiles, tsedJsonSchemaCb } from './generator/generator-tsed'
+import {
+  npmLibraryJsonSchema,
+  npmLibraryTypesOutputFile,
+} from './generator/generator-vega'
+import { generateStringFromExportData } from './utils/export-from-data'
+import { lintFiles, saveToFile } from './utils/utils'
 
-const outputFile = `${process.cwd()}/libs/generated/src/jsonSchema.generated.ts`
-
-// only generate these once
-const externalTypesOutputFile = `${process.cwd()}/libs/generated/src/jsonSchema-external.generated.ts`
+const tsedOutputFile = `${process.cwd()}/libs/generated/src/jsonSchema-tsed.generated.ts`
 
 const main = async () => {
-  const tsedJsonSchemaContents = await mapFilesWithSymbolPattern(
+  const tsedJsonSchemaContents = await generateExportData(
     tsedInputFiles,
     [/Props/, /Input/],
     tsedJsonSchemaCb,
+    {
+      header: ['/* eslint-disable import/order, sort-imports */'],
+      content: [],
+      imports: [
+        {
+          source: '@codelab/tools/generators/json-schema',
+          entities: ['DecoratorsMap'],
+        },
+        {
+          source: 'json-schema',
+          entities: ['JSONSchema7'],
+        },
+      ],
+    },
   )
-
-  console.log('done')
 
   /**
    * We save to separate file since these are generated less often
@@ -23,13 +38,15 @@ const main = async () => {
    * This way we can keep the promise then function style for piping content to the file
    */
 
-  // saveToFile(externalTypesOutputFile)(
-  //   generateStringFromExportData(vegaJsonSchema()),
-  // )
-  // lintFiles([externalTypesOutputFile])
+  saveToFile(npmLibraryTypesOutputFile)(
+    generateStringFromExportData(npmLibraryJsonSchema()),
+  )
+  lintFiles([npmLibraryTypesOutputFile])
 
-  // saveToFile(outputFile)(generateStringFromExportData(tsedJsonSchemaContents))
-  // lintFiles([outputFile])
+  saveToFile(tsedOutputFile)(
+    generateStringFromExportData(tsedJsonSchemaContents),
+  )
+  lintFiles([tsedOutputFile])
 }
 
 main()

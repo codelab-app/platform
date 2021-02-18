@@ -3,7 +3,7 @@ import { getGridFormProps } from '../decorators/decorator-grid--form'
 import { getMetadataKey } from '../decorators/decorator-reflect--class'
 import { tabsDecoratorMetaKey } from '../decorators/decorator-tabs'
 import { getTabsFormProps } from '../decorators/decorator-tabs--form'
-import { ImportDetails } from '../utils'
+import { ExportData, ImportDetails } from '../utils/utils'
 
 const listOfSupportedDecoratorsKeys = [
   getMetadataKey(gridDecoratorMetaKey),
@@ -52,10 +52,7 @@ export const getFormProps = (
   symbol: string,
   cls: any,
   sourceFile: string,
-): {
-  content: string
-  imports: Array<ImportDetails>
-} => {
+): ExportData => {
   const listDecorators = getListOfDecoratorsKeys(cls)
 
   const conflictedDecorators = getConflictedDecorators(listDecorators)
@@ -68,7 +65,7 @@ export const getFormProps = (
     console.log('------------------------------')
   }
 
-  let content = ''
+  let content: Array<string> = []
   let imports: Array<ImportDetails> = []
   const formPropsToCombine = []
 
@@ -77,7 +74,7 @@ export const getFormProps = (
 
     if (formsProps !== null) {
       formPropsToCombine.push(formsProps.formPropsName)
-      content = `${content}\n ${formsProps.content}`
+      content = [...content, formsProps.content]
       imports = [...imports, ...formsProps.imports]
     }
   }
@@ -87,13 +84,13 @@ export const getFormProps = (
 
     if (formsProps !== null) {
       formPropsToCombine.push(formsProps.formPropsName)
-      content = `${content}\n ${formsProps.content}`
+      content = [...content, formsProps.content]
       imports = [...imports, ...formsProps.imports]
     }
   }
 
   return {
-    content: `${content} \n\n ${combineFormProps(symbol, formPropsToCombine)}`,
+    content: [...content, combineFormProps(symbol, formPropsToCombine)],
     imports,
   }
 }

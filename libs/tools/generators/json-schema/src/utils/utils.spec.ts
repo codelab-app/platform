@@ -1,4 +1,5 @@
-import { ImportDetails, generateImports } from './utils'
+import { generateImports } from './export-from-data'
+import { ImportDetails } from './utils'
 
 describe('Util generate imports', () => {
   it('should convert importDetails to string', () => {
