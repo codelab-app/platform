@@ -4,8 +4,6 @@ import { Global, css } from '@emotion/react'
 import { AppProps } from 'next/app'
 import { WithRouterProps } from 'next/dist/client/with-router'
 import React from 'react'
-import { DndProvider as DndMultiProvider } from 'react-dnd-multi-backend'
-import HTML5toTouch from 'react-dnd-multi-backend/dist/cjs/HTML5toTouch'
 import { RecoilRoot } from 'recoil'
 import { LayoutFactory } from '../src/layout/Layout'
 import { LoginUserModal, RegisterUserModal } from '../src/useCases/user'
@@ -37,7 +35,9 @@ const RootProviders = ({
   <RecoilRoot>
     <ApolloProvider client={useApollo(pageProps)}>
       {/* The Provider from react-dnd-multi-backend allows us to use both click and touch for drag and dropping */}
-      <DndMultiProvider options={HTML5toTouch}>{children}</DndMultiProvider>
+      {/* TODO remove react-dnd if we don't use it */}
+      {/* <DndMultiProvider options={HTML5toTouch}>{children}</DndMultiProvider> */}
+      {children}
     </ApolloProvider>
   </RecoilRoot>
 )

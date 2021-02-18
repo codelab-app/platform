@@ -33,7 +33,7 @@ export const _VertexProvider = ({
   )
 }
 
-_VertexProvider.whyDidYouRender = true
+// _VertexProvider.whyDidYouRender = true
 
 export const VertexProvider = React.memo(
   _VertexProvider,
