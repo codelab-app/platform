@@ -5,19 +5,29 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Debug Jest Tests",
+      "name": "Generator",
       "type": "node",
-      "request": "launch",
-      "runtimeArgs": [
-        "--inspect-brk",
-        "${workspaceRoot}/node_modules/.bin/jest",
-        "--config=libs/graph/jest.config.js",
-        "--runInBand",
-        "--verbose"
-      ],
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
-      "port": 9229
+      "request": "launch",
+      "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/ts-node",
+      "protocol": "inspector",
+      "runtimeArgs": [
+        "--project",
+        "${workspaceRoot}/libs/tools/generators/json-schema/tsconfig.lib.json",
+        "-r",
+        "tsconfig-paths/register"
+      ],
+      "env": {
+        "NODE_PATH": "${workspaceRoot}",
+        "TS_NODE_PROJECT": "${workspaceRoot}/libs/tools/generators/json-schema/tsconfig.lib.json"
+      },
+      "args": ["libs/tools/generators/json-schema/src/main.ts"],
+      "cwd": "${workspaceRoot}",
+      // "internalConsoleOptions": "openOnSessionStart",
+      // "skipFiles": ["<node_internals>/**", "node_modules/**"],
+      "restart": true
     }
-  ]
+  ],
+  "resolveSourceMapLocations": ["${workspaceFolder}/**", "!**/node_modules/**"]
 }

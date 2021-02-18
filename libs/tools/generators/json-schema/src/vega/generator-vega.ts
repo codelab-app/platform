@@ -2,7 +2,7 @@ import * as path from 'path'
 import glob from 'glob'
 import * as tsj from 'ts-json-schema-generator'
 import { Config } from 'ts-json-schema-generator'
-import { createSchemaExport } from '../utils'
+import { ExportData, createSchemaExport } from '../utils'
 
 export const vegaInputFiles = [
   ...glob.sync('libs/tools/generators/json-schema/src/types/*.ts', {
@@ -25,10 +25,18 @@ const config: Config = {
   // type: '*',
 }
 
-export const vegaJsonSchemaCb = (symbols?: Array<string>) => {
+export const vegaJsonSchema = (symbols?: Array<string>): ExportData => {
   const generator = tsj.createGenerator(config)
 
   const schema = generator.createSchema()
 
-  return createSchemaExport(schema, 'Vega')
+  return {
+    content: [createSchemaExport(schema, 'Vega')],
+    imports: [
+      {
+        source: '@codelab/tools/generators/json-schema',
+        entities: ['DecoratorsMap'],
+      },
+    ],
+  }
 }

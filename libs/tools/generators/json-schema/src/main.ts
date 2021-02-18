@@ -1,17 +1,5 @@
-import path from 'path'
 import { tsedInputFiles, tsedJsonSchemaCb } from './tsed/generator-tsed'
-import {
-  appendImports,
-  lintFiles,
-  mapFilesWithSymbolPattern,
-  saveToFile,
-} from './utils'
-import { vegaJsonSchemaCb } from './vega/generator-vega'
-
-const file = path.resolve(
-  process.cwd(),
-  'libs/tools/generators/json-schema/src/types/css.ts',
-)
+import { mapFilesWithSymbolPattern } from './utils'
 
 const outputFile = `${process.cwd()}/libs/generated/src/jsonSchema.generated.ts`
 
@@ -25,11 +13,23 @@ const main = async () => {
     tsedJsonSchemaCb,
   )
 
-  saveToFile(outputFile)(appendImports([tsedJsonSchemaContents]))
-  lintFiles([outputFile])
+  console.log('done')
 
-  saveToFile(externalTypesOutputFile)(appendImports([vegaJsonSchemaCb()]))
-  lintFiles([externalTypesOutputFile])
+  /**
+   * We save to separate file since these are generated less often
+   *
+   * After switching to Prettier instead of ESLint, we save about 4x - 5x the time, so we could considering exporting to single file.
+   *
+   * This way we can keep the promise then function style for piping content to the file
+   */
+
+  // saveToFile(externalTypesOutputFile)(
+  //   generateStringFromExportData(vegaJsonSchema()),
+  // )
+  // lintFiles([externalTypesOutputFile])
+
+  // saveToFile(outputFile)(generateStringFromExportData(tsedJsonSchemaContents))
+  // lintFiles([outputFile])
 }
 
 main()

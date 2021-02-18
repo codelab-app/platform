@@ -33,6 +33,7 @@ const getConflictedDecorators = (
 
   return conflicts
 }
+
 const getDecoratorsConflictErrorMsg = (
   conflicts: Array<Array<string>>,
 ): string =>

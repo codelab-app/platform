@@ -1,6 +1,7 @@
 import fs from 'fs'
 import P from 'bluebird'
 import { JSONSchema7 } from 'json-schema'
+import { merge } from 'lodash'
 import * as shell from 'shelljs'
 import * as ts from 'typescript'
 import * as TJS from 'typescript-json-schema'
@@ -64,7 +65,7 @@ export const createSchemaExport = (
 export const appendImports = (content: Array<string>): string => {
   const importsList = [
     `import { JSONSchema7 } from 'json-schema'`,
-    `import { ObjectFieldTemplateFactory, DecoratorsMap } from '@codelab/tools/generators/json-schema'`,
+    `import { ObjectFieldGridTemplateFactory, ObjectFieldTabsTemplate, DecoratorsMap } from '@codelab/tools/generators/json-schema'`,
   ]
 
   return content.reduce(
@@ -78,22 +79,34 @@ export const appendImports = (content: Array<string>): string => {
 // Pass export into function
 // Reduce to single string
 
-export type SymbolMap = [symbol: string, module: any]
+export type SymbolMap = {
+  symbol: string
+  module: any
+  file: string
+}
 
-export type SymbolMapCb = (filteredSymbols: SymbolMap) => string
+/**
+ * We append each export accordingly
+ */
+export type ExportData = {
+  content: Array<string>
+  imports?: Array<ImportDetails>
+}
+
+export type SymbolMapCb = (filteredSymbols: SymbolMap) => ExportData
 
 export const mapFilesWithSymbolPattern = (
   files: Array<string>,
   symbolPatterns: Array<RegExp>,
   cb: SymbolMapCb,
-): Promise<string> => {
+): Promise<ExportData> => {
   return P.reduce(
     files,
-    async (content, file) => {
+    async (_exportData, file) => {
       const module = await import(file)
 
       // Map each symbol to the module
-      const moreContent = Object.keys(module)
+      const moreExportData = Object.keys(module)
         .filter((name) =>
           // Get only types with *Props or *Input in the export name
           // /Props/.test(name) || /Input/.test(name),
@@ -101,13 +114,21 @@ export const mapFilesWithSymbolPattern = (
             return acc || regExp.test(name)
           }, false),
         )
-        .reduce<string>((acc, symbol: string) => {
-          return `${acc} \n\n ${cb([symbol, module])}`
-        }, '')
+        .reduce<ExportData>((_moreExportData, symbol: string) => {
+          return merge(_moreExportData, cb({ symbol, module, file }))
+        }, _exportData)
 
-      return `${content} \n\n ${moreContent}`
+      return merge(_exportData, moreExportData)
     },
-    '',
+    {
+      content: [],
+      imports: [
+        {
+          entities: ['DecoratorsMap'],
+          source: '@codelab/tools/generators/json-schema',
+        },
+      ],
+    } as ExportData,
   )
 }
 
@@ -142,3 +163,10 @@ export const generateImports = (
 
 export const convertFileToModule = (filePath: string): string =>
   filePath.replace(/.tsx?$/, '')
+
+export const generateStringFromExportData = ({
+  content,
+  imports = [],
+}: ExportData) => {
+  return `${generateImports(imports)} \n\n ${content.join('\n')}`
+}

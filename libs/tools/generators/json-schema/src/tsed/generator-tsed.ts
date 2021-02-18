@@ -1,5 +1,6 @@
 import { getJsonSchema } from '@tsed/schema'
 import glob from 'glob'
+import { getFormProps } from '../generator/generator-json--form'
 import { SymbolMap, SymbolMapCb, createSchemaExport } from '../utils'
 
 export const tsedInputFiles = [
@@ -11,10 +12,23 @@ export const tsedInputFiles = [
   }),
 ]
 
-export const tsedJsonSchemaCb: SymbolMapCb = ([symbol, module]: SymbolMap) => {
+export const tsedJsonSchemaCb: SymbolMapCb = ({
+  symbol,
+  module,
+  file,
+}: SymbolMap) => {
   const jsonSchema = getJsonSchema(module[symbol])
 
-  return JSON.stringify(jsonSchema) === `{"type":"object"}`
-    ? ''
-    : createSchemaExport(jsonSchema, symbol)
+  const content =
+    JSON.stringify(jsonSchema) === `{"type":"object"}`
+      ? ''
+      : createSchemaExport(jsonSchema, symbol)
+
+  const { content: formContent, imports } = getFormProps(
+    symbol,
+    module[symbol],
+    file,
+  )
+
+  return { content: [content, formContent], imports }
 }
