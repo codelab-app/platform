@@ -1,4 +1,4 @@
-import { Optional, Property } from '@tsed/schema'
+import { Optional, Property, Schema } from '@tsed/schema'
 import { Layout } from 'react-grid-layout'
 
 export class RGLLayoutProps implements Layout {
@@ -42,6 +42,10 @@ export class RGLLayoutProps implements Layout {
   declare isResizable?: boolean
 
   @Optional()
+  @Schema({
+    type: 'string',
+    enum: ['s', 'w', 'e', 'n', 'sw', 'nw', 'se', 'ne'],
+  })
   declare resizeHandles?: Array<
     's' | 'w' | 'e' | 'n' | 'sw' | 'nw' | 'se' | 'ne'
   >
