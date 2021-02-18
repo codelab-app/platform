@@ -1,4 +1,12 @@
+/* eslint-disable import/order, sort-imports */
+import {
+  DecoratorsMap,
+  ObjectFieldGridTemplateFactory,
+  ObjectFieldTabsTemplate,
+  GroupsUiSchema,
+} from '@codelab/tools/generators/json-schema'
 import { JSONSchema7 } from 'json-schema'
+import { DemoTabsProps } from 'libs/alpha/ui/antd/src/components/demo/Demo.input'
 
 export const AffixPropsSchema: JSONSchema7 = {
   type: 'object',
@@ -958,6 +966,102 @@ export const CascaderPropsSchema: JSONSchema7 = {
     props: {
       type: 'object',
       title: '',
+    },
+  },
+}
+
+const DemoGridPropsDecorators: DecoratorsMap = {
+  firstname: {
+    __grid: {
+      order: 0,
+      span: 12,
+    },
+  },
+  lastname: {
+    __grid: {
+      order: 1,
+      span: 12,
+    },
+  },
+  email: {
+    __grid: {
+      order: 2,
+      span: 16,
+    },
+  },
+  password: {
+    __grid: {
+      order: 3,
+      span: 8,
+    },
+  },
+}
+
+export const DemoGridPropsGridFormProps = {
+  ObjectFieldTemplate: ObjectFieldGridTemplateFactory(DemoGridPropsDecorators),
+}
+
+export const DemoGridPropsFormProps = { ...DemoGridPropsGridFormProps }
+
+export const DemoGridPropsSchema: JSONSchema7 = {
+  type: 'object',
+  properties: {
+    email: {
+      type: 'string',
+    },
+    password: {
+      type: 'string',
+    },
+    firstname: {
+      type: 'string',
+    },
+    lastname: {
+      type: 'string',
+    },
+    notGroupedField: {
+      type: 'string',
+    },
+  },
+}
+
+const DemoTabsPropsUISchema: GroupsUiSchema<DemoTabsProps> = {
+  'ui:groups': [
+    'firstname',
+    'lastname',
+    {
+      groups: {
+        password: ['password'],
+        contacts: ['email'],
+      },
+      'ui:template': 'tabs',
+    },
+  ],
+}
+
+export const DemoTabsPropsTabsFormProps = {
+  ObjectFieldTemplate: ObjectFieldTabsTemplate,
+  uiSchema: DemoTabsPropsUISchema,
+}
+
+export const DemoTabsPropsFormProps = { ...DemoTabsPropsTabsFormProps }
+
+export const DemoTabsPropsSchema: JSONSchema7 = {
+  type: 'object',
+  properties: {
+    email: {
+      type: 'string',
+    },
+    password: {
+      type: 'string',
+    },
+    firstname: {
+      type: 'string',
+    },
+    lastname: {
+      type: 'string',
+    },
+    notGroupedField: {
+      type: 'string',
     },
   },
 }
@@ -2240,6 +2344,47 @@ export const RGLLayoutPropsSchema: JSONSchema7 = {
     },
   },
 }
+
+const RGLItemPropsDecorators: DecoratorsMap = {
+  'data-grid': {
+    x: {
+      __grid: {
+        order: 0,
+        span: 6,
+      },
+    },
+    y: {
+      __grid: {
+        order: 1,
+        span: 6,
+      },
+    },
+    w: {
+      __grid: {
+        order: 2,
+        span: 6,
+      },
+    },
+    h: {
+      __grid: {
+        order: 3,
+        span: 6,
+      },
+    },
+  },
+  key: {
+    __grid: {
+      order: 4,
+      span: 6,
+    },
+  },
+}
+
+export const RGLItemPropsGridFormProps = {
+  ObjectFieldTemplate: ObjectFieldGridTemplateFactory(RGLItemPropsDecorators),
+}
+
+export const RGLItemPropsFormProps = { ...RGLItemPropsGridFormProps }
 
 export const RGLItemPropsSchema: JSONSchema7 = {
   type: 'object',
@@ -13645,6 +13790,45 @@ export const CssPropsSchema: JSONSchema7 = {
   additionalProperties: false,
   definitions: {},
 }
+
+const UpdateVertexInputDecorators: DecoratorsMap = {
+  props: {
+    'data-grid': {
+      x: {
+        __grid: {
+          order: 1,
+          span: 6,
+        },
+      },
+      y: {
+        __grid: {
+          order: 2,
+          span: 6,
+        },
+      },
+      w: {
+        __grid: {
+          order: 3,
+          span: 6,
+        },
+      },
+      h: {
+        __grid: {
+          order: 4,
+          span: 6,
+        },
+      },
+    },
+  },
+}
+
+export const UpdateVertexInputGridFormProps = {
+  ObjectFieldTemplate: ObjectFieldGridTemplateFactory(
+    UpdateVertexInputDecorators,
+  ),
+}
+
+export const UpdateVertexInputFormProps = { ...UpdateVertexInputGridFormProps }
 
 export const UpdateVertexInputSchema: JSONSchema7 = {
   type: 'object',

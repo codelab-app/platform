@@ -5,6 +5,7 @@
     "types": ["node", "@rjsf/antd", "@xstate/react"],
     "allowJs": true,
     "esModuleInterop": true,
+    "lib": ["es2019"],
     "allowSyntheticDefaultImports": true
   },
   "exclude": [

@@ -51,7 +51,7 @@ export const VegaSchema: JSONSchema7 = {
     color: {
       type: 'string',
       description:
-        "The **`color`** CSS property sets the foreground color value of an element's text and text decorations, and sets the `currentcolor` value. `currentcolor` may be used as an indirect value on _other_ properties and is the default for other color properties, such as `border-color`.\n\n**Syntax**: `<color>`\n\n**Initial value**: Varies from one browser to another\n\n| Chrome | Firefox | Safari |  Edge  |  IE   | | :----: | :-----: | :----: | :----: | :---: | | **1**  |  **1**  | **1**  | **12** | **3** |",
+        "The **`color`** CSS property sets the foreground color value of an element's text and text decorations, and sets the `<currentcolor>` value. `currentcolor` may be used as an indirect value on _other_ properties and is the default for other color properties, such as `border-color`.\n\n**Syntax**: `<color>`\n\n**Initial value**: Varies from one browser to another\n\n| Chrome | Firefox | Safari |  Edge  |  IE   | | :----: | :-----: | :----: | :----: | :---: | | **1**  |  **1**  | **1**  | **12** | **3** |",
     },
     colorInterpolation: {
       type: 'string',
@@ -72,7 +72,7 @@ export const VegaSchema: JSONSchema7 = {
     display: {
       type: 'string',
       description:
-        'The **`display`** CSS property sets whether an element is treated as a block or inline element and the layout used for its children, such as flow layout, grid or flex.\n\n**Syntax**: `[ <display-outside> || <display-inside> ] | <display-listitem> | <display-internal> | <display-box> | <display-legacy>`\n\n**Initial value**: `inline`\n\n| Chrome | Firefox | Safari |  Edge  |  IE   | | :----: | :-----: | :----: | :----: | :---: | | **1**  |  **1**  | **1**  | **12** | **4** |',
+        'The **`display`** CSS property sets whether an element is treated as a block or inline element and the layout used for its children, such as flow layout, grid or flex.\n\n**Syntax**: `[ <display-outside> || <display-inside> ] | <display-listitem> | <display-internal> | <display-box> | <display-legacy>`\n\n**Initial value**: `inline`\n\n| Chrome | Firefox | Safari |  Edge  |  IE   | | :----: | :-----: | :----: | :----: | :---: | | **1**  |  **1**  | **1**  | **12** | **4** |',
     },
     dominantBaseline: {
       type: 'string',
@@ -191,7 +191,7 @@ export const VegaSchema: JSONSchema7 = {
     fontVariant: {
       type: 'string',
       description:
-        'The **font-variant** CSS shorthand property allows you to set all the font variants for a font.\n\n**Syntax**: `normal | none | [ <common-lig-values> || <discretionary-lig-values> || <historical-lig-values> || <contextual-alt-values> || stylistic( <feature-value-name> ) || historical-forms || styleset( <feature-value-name># ) || character-variant( <feature-value-name># ) || swash( <feature-value-name> ) || ornaments( <feature-value-name> ) || annotation( <feature-value-name> ) || [ small-caps | all-small-caps | petite-caps | all-petite-caps | unicase | titling-caps ] || <numeric-figure-values> || <numeric-spacing-values> || <numeric-fraction-values> || ordinal || slashed-zero || <east-asian-variant-values> || <east-asian-width-values> || ruby ]`\n\n**Initial value**: `normal`\n\n| Chrome | Firefox | Safari |  Edge  |  IE   | | :----: | :-----: | :----: | :----: | :---: | | **1**  |  **1**  | **1**  | **12** | **4** |',
+        'The **`font-variant`** CSS shorthand property allows you to set all the font variants for a font.\n\n**Syntax**: `normal | none | [ <common-lig-values> || <discretionary-lig-values> || <historical-lig-values> || <contextual-alt-values> || stylistic( <feature-value-name> ) || historical-forms || styleset( <feature-value-name># ) || character-variant( <feature-value-name># ) || swash( <feature-value-name> ) || ornaments( <feature-value-name> ) || annotation( <feature-value-name> ) || [ small-caps | all-small-caps | petite-caps | all-petite-caps | unicase | titling-caps ] || <numeric-figure-values> || <numeric-spacing-values> || <numeric-fraction-values> || ordinal || slashed-zero || <east-asian-variant-values> || <east-asian-width-values> || ruby ]`\n\n**Initial value**: `normal`\n\n| Chrome | Firefox | Safari |  Edge  |  IE   | | :----: | :-----: | :----: | :----: | :---: | | **1**  |  **1**  | **1**  | **12** | **4** |',
     },
     fontWeight: {
       anyOf: [
@@ -268,7 +268,7 @@ export const VegaSchema: JSONSchema7 = {
         },
       ],
       description:
-        'The **`letter-spacing`** CSS property sets the horizontal spacing behavior between text characters. This value is added to the natural spacing between characters while rendering the text. Positive values of `letter-spacing` causes characters to spread farther apart, while negative values of `letter-spacing` bring characters closer together.\n\n**Syntax**: `normal | <length>`\n\n**Initial value**: `normal`\n\n| Chrome | Firefox | Safari |  Edge  |  IE   | | :----: | :-----: | :----: | :----: | :---: | | **1**  |  **1**  | **1**  | **12** | **4** |',
+        'The **`letter-spacing`** CSS property sets the horizontal spacing behavior between text characters. This value is added to the natural spacing between characters while rendering the text. Positive values of `letter-spacing` causes characters to spread farther apart, while negative values of `letter-spacing` bring characters closer together.\n\n**Syntax**: `normal | <length>`\n\n**Initial value**: `normal`\n\n| Chrome | Firefox | Safari |  Edge  |  IE   | | :----: | :-----: | :----: | :----: | :---: | | **1**  |  **1**  | **1**  | **12** | **4** |',
     },
     lightingColor: {
       type: 'string',
@@ -707,7 +707,7 @@ export const VegaSchema: JSONSchema7 = {
     boxOrient: {
       type: 'string',
       description:
-        'The **`box-orient`** CSS property sets whether an element lays out its contents horizontally or vertically.\n\n**Syntax**: `horizontal | vertical | inline-axis | block-axis | inherit`\n\n**Initial value**: `inline-axis` (`horizontal` in XUL)',
+        'This is a property of the original CSS Flexible Box Layout Module draft, and has been replaced by a newer standard. See flexbox for information about the current standard.\n\n**Syntax**: `horizontal | vertical | inline-axis | block-axis | inherit`\n\n**Initial value**: `inline-axis` (`horizontal` in XUL)',
     },
     boxPack: {
       type: 'string',
@@ -794,7 +794,7 @@ export const VegaSchema: JSONSchema7 = {
         },
       ],
       description:
-        "The **`inset-block`** CSS property defines the logical block start and end offsets of an element, which maps to physical offsets depending on the element's writing mode, directionality, and text orientation. It corresponds to the `top` and `bottom`, or `right` and `left` properties depending on the values defined for `writing-mode`, `direction`, and `text-orientation`.\n\n**Syntax**: `<'top'>{1,2}`\n\n**Initial value**: `auto`",
+        "The **`inset-inline`** CSS property defines the logical start and end offsets of an element in the inline direction, which maps to physical offsets depending on the element's writing mode, directionality, and text orientation. It corresponds to the `top` and `bottom`, or `right` and `left` properties depending on the values defined for `writing-mode`, `direction`, and `text-orientation`.\n\n**Syntax**: `<'top'>{1,2}`\n\n**Initial value**: `auto`",
     },
     offsetBlockEnd: {
       anyOf: [
@@ -878,7 +878,7 @@ export const VegaSchema: JSONSchema7 = {
         },
       ],
       description:
-        "The **`inset-inline-end`** CSS property defines the logical inline end inset of an element, which maps to a physical inset depending on the element's writing mode, directionality, and text orientation. It corresponds to the `top`, `right`, `bottom`, or `left` property depending on the values defined for `writing-mode`, `direction`, and `text-orientation`.\n\n**Syntax**: `<'top'>`\n\n**Initial value**: `auto`",
+        "The **`inset-inline-end`** CSS property defines the logical inline end inset of an element, which maps to a physical offset depending on the element's writing mode, directionality, and text orientation. It corresponds to the `top`, `right`, `bottom`, or `left` property depending on the values defined for `writing-mode`, `direction`, and `text-orientation`.\n\n**Syntax**: `<'top'>`\n\n**Initial value**: `auto`",
     },
     offsetInlineStart: {
       anyOf: [
@@ -1077,7 +1077,7 @@ export const VegaSchema: JSONSchema7 = {
     KhtmlBoxOrient: {
       type: 'string',
       description:
-        'The **`box-orient`** CSS property sets whether an element lays out its contents horizontally or vertically.\n\n**Syntax**: `horizontal | vertical | inline-axis | block-axis | inherit`\n\n**Initial value**: `inline-axis` (`horizontal` in XUL)',
+        'This is a property of the original CSS Flexible Box Layout Module draft, and has been replaced by a newer standard. See flexbox for information about the current standard.\n\n**Syntax**: `horizontal | vertical | inline-axis | block-axis | inherit`\n\n**Initial value**: `inline-axis` (`horizontal` in XUL)',
     },
     KhtmlBoxPack: {
       type: 'string',
@@ -1215,7 +1215,7 @@ export const VegaSchema: JSONSchema7 = {
         },
       ],
       description:
-        'The **`border-bottom-right-radius`** CSS property rounds the top-left corner of an element by specifying the radius (or the radius of the semi-major and semi-minor axes) of the ellipse defining the curvature of the corner.\n\n**Syntax**: `<length-percentage>{1,2}`\n\n**Initial value**: `0`',
+        'The **`border-bottom-right-radius`** CSS property rounds the bottom-right corner of an element by specifying the radius (or the radius of the semi-major and semi-minor axes) of the ellipse defining the curvature of the corner.\n\n**Syntax**: `<length-percentage>{1,2}`\n\n**Initial value**: `0`',
     },
     MozBorderRadiusTopleft: {
       anyOf: [
@@ -1290,7 +1290,7 @@ export const VegaSchema: JSONSchema7 = {
     MozBoxOrient: {
       type: 'string',
       description:
-        'The **`box-orient`** CSS property sets whether an element lays out its contents horizontally or vertically.\n\n**Syntax**: `horizontal | vertical | inline-axis | block-axis | inherit`\n\n**Initial value**: `inline-axis` (`horizontal` in XUL)',
+        'This is a property of the original CSS Flexible Box Layout Module draft, and has been replaced by a newer standard. See flexbox for information about the current standard.\n\n**Syntax**: `horizontal | vertical | inline-axis | block-axis | inherit`\n\n**Initial value**: `inline-axis` (`horizontal` in XUL)',
     },
     MozBoxPack: {
       type: 'string',
@@ -1664,7 +1664,7 @@ export const VegaSchema: JSONSchema7 = {
     OAnimationTimingFunction: {
       type: 'string',
       description:
-        'The **`animation-timing-function`** CSS property sets how an animation progresses through the duration of each cycle.\n\n**Syntax**: `<timing-function>#`\n\n**Initial value**: `ease`',
+        'The **`animation-timing-function`** CSS property sets how an animation progresses through the duration of each cycle.\n\n**Syntax**: `<easing-function>#`\n\n**Initial value**: `ease`',
     },
     OBackgroundSize: {
       anyOf: [
@@ -1766,7 +1766,7 @@ export const VegaSchema: JSONSchema7 = {
     OTransitionTimingFunction: {
       type: 'string',
       description:
-        'The **`transition-timing-function`** CSS property sets how intermediate values are calculated for CSS properties being affected by a transition effect.\n\n**Syntax**: `<timing-function>#`\n\n**Initial value**: `ease`',
+        'The **`transition-timing-function`** CSS property sets how intermediate values are calculated for CSS properties being affected by a transition effect.\n\n**Syntax**: `<easing-function>#`\n\n**Initial value**: `ease`',
     },
     WebkitBoxAlign: {
       type: 'string',
@@ -1825,7 +1825,7 @@ export const VegaSchema: JSONSchema7 = {
     WebkitBoxOrient: {
       type: 'string',
       description:
-        'The **`box-orient`** CSS property sets whether an element lays out its contents horizontally or vertically.\n\n**Syntax**: `horizontal | vertical | inline-axis | block-axis | inherit`\n\n**Initial value**: `inline-axis` (`horizontal` in XUL)',
+        'This is a property of the original CSS Flexible Box Layout Module draft, and has been replaced by a newer standard. See flexbox for information about the current standard.\n\n**Syntax**: `horizontal | vertical | inline-axis | block-axis | inherit`\n\n**Initial value**: `inline-axis` (`horizontal` in XUL)',
     },
     WebkitBoxPack: {
       type: 'string',
@@ -2183,7 +2183,7 @@ export const VegaSchema: JSONSchema7 = {
         },
       ],
       description:
-        "The **`-webkit-border-before`** CSS property is a shorthand property for setting the individual logical block start border property values in a single place in the style sheet.\n\n**Syntax**: `<'border-width'> || <'border-style'> || <'color'>`",
+        "The **`-webkit-border-before`** CSS property is a shorthand property for setting the individual logical block start border property values in a single place in the style sheet.\n\n**Syntax**: `<'border-width'> || <'border-style'> || <color>`",
     },
     WebkitBorderImage: {
       anyOf: [
@@ -2515,12 +2515,12 @@ export const VegaSchema: JSONSchema7 = {
     MozAnimationTimingFunction: {
       type: 'string',
       description:
-        'The **`animation-timing-function`** CSS property sets how an animation progresses through the duration of each cycle.\n\n**Syntax**: `<timing-function>#`\n\n**Initial value**: `ease`',
+        'The **`animation-timing-function`** CSS property sets how an animation progresses through the duration of each cycle.\n\n**Syntax**: `<easing-function>#`\n\n**Initial value**: `ease`',
     },
     MozAppearance: {
       type: 'string',
       description:
-        "The `**appearance**` CSS property is used to display an element using platform-native styling, based on the operating system's theme. The **`-moz-appearance`** and **`-webkit-appearance`** properties are non-standard versions of this propery, used (respectively) by Gecko (Firefox) and by WebKit-based (e.g., Safari) and Blink-based (e.g., Chrome, Opera) browsers to achieve the same thing. Note that Firefox and Edge also support `-webkit-appearance`, for compatibility reasons.\n\n**Syntax**: `none | button | button-arrow-down | button-arrow-next | button-arrow-previous | button-arrow-up | button-bevel | button-focus | caret | checkbox | checkbox-container | checkbox-label | checkmenuitem | dualbutton | groupbox | listbox | listitem | menuarrow | menubar | menucheckbox | menuimage | menuitem | menuitemtext | menulist | menulist-button | menulist-text | menulist-textfield | menupopup | menuradio | menuseparator | meterbar | meterchunk | progressbar | progressbar-vertical | progresschunk | progresschunk-vertical | radio | radio-container | radio-label | radiomenuitem | range | range-thumb | resizer | resizerpanel | scale-horizontal | scalethumbend | scalethumb-horizontal | scalethumbstart | scalethumbtick | scalethumb-vertical | scale-vertical | scrollbarbutton-down | scrollbarbutton-left | scrollbarbutton-right | scrollbarbutton-up | scrollbarthumb-horizontal | scrollbarthumb-vertical | scrollbartrack-horizontal | scrollbartrack-vertical | searchfield | separator | sheet | spinner | spinner-downbutton | spinner-textfield | spinner-upbutton | splitter | statusbar | statusbarpanel | tab | tabpanel | tabpanels | tab-scroll-arrow-back | tab-scroll-arrow-forward | textfield | textfield-multiline | toolbar | toolbarbutton | toolbarbutton-dropdown | toolbargripper | toolbox | tooltip | treeheader | treeheadercell | treeheadersortarrow | treeitem | treeline | treetwisty | treetwistyopen | treeview | -moz-mac-unified-toolbar | -moz-win-borderless-glass | -moz-win-browsertabbar-toolbox | -moz-win-communicationstext | -moz-win-communications-toolbox | -moz-win-exclude-glass | -moz-win-glass | -moz-win-mediatext | -moz-win-media-toolbox | -moz-window-button-box | -moz-window-button-box-maximized | -moz-window-button-close | -moz-window-button-maximize | -moz-window-button-minimize | -moz-window-button-restore | -moz-window-frame-bottom | -moz-window-frame-left | -moz-window-frame-right | -moz-window-titlebar | -moz-window-titlebar-maximized`\n\n**Initial value**: `none` (but this value is overridden in the user agent CSS)",
+        "The `**appearance**` CSS property is used to display an element using platform-native styling, based on the operating system's theme. The **`-moz-appearance`** and **`-webkit-appearance`** properties are non-standard versions of this property, used (respectively) by Gecko (Firefox) and by WebKit-based (e.g., Safari) and Blink-based (e.g., Chrome, Opera) browsers to achieve the same thing. Note that Firefox and Edge also support **`-webkit-appearance`**, for compatibility reasons.\n\n**Syntax**: `none | button | button-arrow-down | button-arrow-next | button-arrow-previous | button-arrow-up | button-bevel | button-focus | caret | checkbox | checkbox-container | checkbox-label | checkmenuitem | dualbutton | groupbox | listbox | listitem | menuarrow | menubar | menucheckbox | menuimage | menuitem | menuitemtext | menulist | menulist-button | menulist-text | menulist-textfield | menupopup | menuradio | menuseparator | meterbar | meterchunk | progressbar | progressbar-vertical | progresschunk | progresschunk-vertical | radio | radio-container | radio-label | radiomenuitem | range | range-thumb | resizer | resizerpanel | scale-horizontal | scalethumbend | scalethumb-horizontal | scalethumbstart | scalethumbtick | scalethumb-vertical | scale-vertical | scrollbarbutton-down | scrollbarbutton-left | scrollbarbutton-right | scrollbarbutton-up | scrollbarthumb-horizontal | scrollbarthumb-vertical | scrollbartrack-horizontal | scrollbartrack-vertical | searchfield | separator | sheet | spinner | spinner-downbutton | spinner-textfield | spinner-upbutton | splitter | statusbar | statusbarpanel | tab | tabpanel | tabpanels | tab-scroll-arrow-back | tab-scroll-arrow-forward | textfield | textfield-multiline | toolbar | toolbarbutton | toolbarbutton-dropdown | toolbargripper | toolbox | tooltip | treeheader | treeheadercell | treeheadersortarrow | treeitem | treeline | treetwisty | treetwistyopen | treeview | -moz-mac-unified-toolbar | -moz-win-borderless-glass | -moz-win-browsertabbar-toolbox | -moz-win-communicationstext | -moz-win-communications-toolbox | -moz-win-exclude-glass | -moz-win-glass | -moz-win-mediatext | -moz-win-media-toolbox | -moz-window-button-box | -moz-window-button-box-maximized | -moz-window-button-close | -moz-window-button-maximize | -moz-window-button-minimize | -moz-window-button-restore | -moz-window-frame-bottom | -moz-window-frame-left | -moz-window-frame-right | -moz-window-titlebar | -moz-window-titlebar-maximized`\n\n**Initial value**: `none` (but this value is overridden in the user agent CSS)",
     },
     MozBackfaceVisibility: {
       type: 'string',
@@ -3060,7 +3060,7 @@ export const VegaSchema: JSONSchema7 = {
     MozTransitionTimingFunction: {
       type: 'string',
       description:
-        'The **`transition-timing-function`** CSS property sets how intermediate values are calculated for CSS properties being affected by a transition effect.\n\n**Syntax**: `<timing-function>#`\n\n**Initial value**: `ease`',
+        'The **`transition-timing-function`** CSS property sets how intermediate values are calculated for CSS properties being affected by a transition effect.\n\n**Syntax**: `<easing-function>#`\n\n**Initial value**: `ease`',
     },
     MozUserFocus: {
       type: 'string',
@@ -3578,7 +3578,7 @@ export const VegaSchema: JSONSchema7 = {
     msTransitionTimingFunction: {
       type: 'string',
       description:
-        'The **`transition-timing-function`** CSS property sets how intermediate values are calculated for CSS properties being affected by a transition effect.\n\n**Syntax**: `<timing-function>#`\n\n**Initial value**: `ease`',
+        'The **`transition-timing-function`** CSS property sets how intermediate values are calculated for CSS properties being affected by a transition effect.\n\n**Syntax**: `<easing-function>#`\n\n**Initial value**: `ease`',
     },
     msUserSelect: {
       type: 'string',
@@ -3798,12 +3798,12 @@ export const VegaSchema: JSONSchema7 = {
     WebkitAnimationTimingFunction: {
       type: 'string',
       description:
-        'The **`animation-timing-function`** CSS property sets how an animation progresses through the duration of each cycle.\n\n**Syntax**: `<timing-function>#`\n\n**Initial value**: `ease`',
+        'The **`animation-timing-function`** CSS property sets how an animation progresses through the duration of each cycle.\n\n**Syntax**: `<easing-function>#`\n\n**Initial value**: `ease`',
     },
     WebkitAppearance: {
       type: 'string',
       description:
-        "The `**appearance**` CSS property is used to display an element using platform-native styling, based on the operating system's theme. The **`-moz-appearance`** and **`-webkit-appearance`** properties are non-standard versions of this propery, used (respectively) by Gecko (Firefox) and by WebKit-based (e.g., Safari) and Blink-based (e.g., Chrome, Opera) browsers to achieve the same thing. Note that Firefox and Edge also support `-webkit-appearance`, for compatibility reasons.\n\n**Syntax**: `none | button | button-bevel | caret | checkbox | default-button | inner-spin-button | listbox | listitem | media-controls-background | media-controls-fullscreen-background | media-current-time-display | media-enter-fullscreen-button | media-exit-fullscreen-button | media-fullscreen-button | media-mute-button | media-overlay-play-button | media-play-button | media-seek-back-button | media-seek-forward-button | media-slider | media-sliderthumb | media-time-remaining-display | media-toggle-closed-captions-button | media-volume-slider | media-volume-slider-container | media-volume-sliderthumb | menulist | menulist-button | menulist-text | menulist-textfield | meter | progress-bar | progress-bar-value | push-button | radio | searchfield | searchfield-cancel-button | searchfield-decoration | searchfield-results-button | searchfield-results-decoration | slider-horizontal | slider-vertical | sliderthumb-horizontal | sliderthumb-vertical | square-button | textarea | textfield | -apple-pay-button`\n\n**Initial value**: `none` (but this value is overridden in the user agent CSS)",
+        "The `**appearance**` CSS property is used to display an element using platform-native styling, based on the operating system's theme. The **`-moz-appearance`** and **`-webkit-appearance`** properties are non-standard versions of this property, used (respectively) by Gecko (Firefox) and by WebKit-based (e.g., Safari) and Blink-based (e.g., Chrome, Opera) browsers to achieve the same thing. Note that Firefox and Edge also support **`-webkit-appearance`**, for compatibility reasons.\n\n**Syntax**: `none | button | button-bevel | caret | checkbox | default-button | inner-spin-button | listbox | listitem | media-controls-background | media-controls-fullscreen-background | media-current-time-display | media-enter-fullscreen-button | media-exit-fullscreen-button | media-fullscreen-button | media-mute-button | media-overlay-play-button | media-play-button | media-seek-back-button | media-seek-forward-button | media-slider | media-sliderthumb | media-time-remaining-display | media-toggle-closed-captions-button | media-volume-slider | media-volume-slider-container | media-volume-sliderthumb | menulist | menulist-button | menulist-text | menulist-textfield | meter | progress-bar | progress-bar-value | push-button | radio | searchfield | searchfield-cancel-button | searchfield-decoration | searchfield-results-button | searchfield-results-decoration | slider-horizontal | slider-vertical | sliderthumb-horizontal | sliderthumb-vertical | square-button | textarea | textfield | -apple-pay-button`\n\n**Initial value**: `none` (but this value is overridden in the user agent CSS)",
     },
     WebkitBackdropFilter: {
       type: 'string',
@@ -3863,8 +3863,7 @@ export const VegaSchema: JSONSchema7 = {
     },
     WebkitBorderBeforeColor: {
       type: 'string',
-      description:
-        "**Syntax**: `<'color'>`\n\n**Initial value**: `currentcolor`",
+      description: '**Syntax**: `<color>`\n\n**Initial value**: `currentcolor`',
     },
     WebkitBorderBeforeStyle: {
       type: 'string',
@@ -3939,7 +3938,7 @@ export const VegaSchema: JSONSchema7 = {
         },
       ],
       description:
-        'The **`border-bottom-right-radius`** CSS property rounds the top-left corner of an element by specifying the radius (or the radius of the semi-major and semi-minor axes) of the ellipse defining the curvature of the corner.\n\n**Syntax**: `<length-percentage>{1,2}`\n\n**Initial value**: `0`',
+        'The **`border-bottom-right-radius`** CSS property rounds the bottom-right corner of an element by specifying the radius (or the radius of the semi-major and semi-minor axes) of the ellipse defining the curvature of the corner.\n\n**Syntax**: `<length-percentage>{1,2}`\n\n**Initial value**: `0`',
     },
     WebkitBorderImageSlice: {
       anyOf: [
@@ -4589,7 +4588,7 @@ export const VegaSchema: JSONSchema7 = {
         },
       ],
       description:
-        "The **`max-inline-size`** CSS property defines the horizontal or vertical maximum size of an element's block depending on its writing mode. It corresponds to the `max-width` or the `max-height` property depending on the value defined for `writing-mode`. If the writing mode is vertically oriented, the value of `max-inline-size` relates to the maximal height of the element, otherwise it relates to the maximal width of the element. It relates to `max-block-size`, which defines the other dimension of the element.\n\n**Syntax**: `<'max-width'>`\n\n**Initial value**: `0`",
+        "The **`max-inline-size`** CSS property defines the horizontal or vertical maximum size of an element's block, depending on its writing mode. It corresponds to either the `max-width` or the `max-height` property, depending on the value of `writing-mode`.\n\n**Syntax**: `<'max-width'>`\n\n**Initial value**: `0`",
     },
     WebkitOrder: {
       anyOf: [
@@ -4894,7 +4893,7 @@ export const VegaSchema: JSONSchema7 = {
     WebkitTransitionTimingFunction: {
       type: 'string',
       description:
-        'The **`transition-timing-function`** CSS property sets how intermediate values are calculated for CSS properties being affected by a transition effect.\n\n**Syntax**: `<timing-function>#`\n\n**Initial value**: `ease`',
+        'The **`transition-timing-function`** CSS property sets how intermediate values are calculated for CSS properties being affected by a transition effect.\n\n**Syntax**: `<easing-function>#`\n\n**Initial value**: `ease`',
     },
     WebkitUserModify: {
       type: 'string',
@@ -5142,7 +5141,7 @@ export const VegaSchema: JSONSchema7 = {
         },
       ],
       description:
-        "The **`border-block`** CSS property is a shorthand property for setting the individual logical block border property values in a single place in the style sheet.\n\n**Syntax**: `<'border-top-width'> || <'border-top-style'> || <'color'>`\n\n| Chrome | Firefox | Safari |  Edge  | IE  | | :----: | :-----: | :----: | :----: | :-: | | **69** | **66**  |   No   | **79** | No  |",
+        "The **`border-block`** CSS property is a shorthand property for setting the individual logical block border property values in a single place in the style sheet.\n\n**Syntax**: `<'border-top-width'> || <'border-top-style'> || <color>`\n\n| Chrome | Firefox | Safari | Edge | IE  | | :----: | :-----: | :----: | :--: | :-: | | **87** | **66**  |   No   | n/a  | No  |",
     },
     borderBlockEnd: {
       anyOf: [
@@ -5196,7 +5195,7 @@ export const VegaSchema: JSONSchema7 = {
         },
       ],
       description:
-        "The **`border-block-end`** CSS property is a shorthand property for setting the individual logical block-end border property values in a single place in the style sheet.\n\n**Syntax**: `<'border-top-width'> || <'border-top-style'> || <'color'>`\n\n| Chrome | Firefox |  Safari  |  Edge  | IE  | | :----: | :-----: | :------: | :----: | :-: | | **69** | **41**  | **12.1** | **79** | No  |",
+        "The **`border-block-end`** CSS property is a shorthand property for setting the individual logical block-end border property values in a single place in the style sheet.\n\n**Syntax**: `<'border-top-width'> || <'border-top-style'> || <color>`\n\n| Chrome | Firefox |  Safari  |  Edge  | IE  | | :----: | :-----: | :------: | :----: | :-: | | **69** | **41**  | **12.1** | **79** | No  |",
     },
     borderBlockStart: {
       anyOf: [
@@ -5250,7 +5249,7 @@ export const VegaSchema: JSONSchema7 = {
         },
       ],
       description:
-        "The **`border-block-start`** CSS property is a shorthand property for setting the individual logical block-start border property values in a single place in the style sheet.\n\n**Syntax**: `<'border-top-width'> || <'border-top-style'> || <'color'>`\n\n| Chrome | Firefox |  Safari  |  Edge  | IE  | | :----: | :-----: | :------: | :----: | :-: | | **69** | **41**  | **12.1** | **79** | No  |",
+        "The **`border-block-start`** CSS property is a shorthand property for setting the individual logical block-start border property values in a single place in the style sheet.\n\n**Syntax**: `<'border-top-width'> || <'border-top-style'> || <color>`\n\n| Chrome | Firefox |  Safari  |  Edge  | IE  | | :----: | :-----: | :------: | :----: | :-: | | **69** | **41**  | **12.1** | **79** | No  |",
     },
     borderBottom: {
       anyOf: [
@@ -5399,7 +5398,7 @@ export const VegaSchema: JSONSchema7 = {
         },
       ],
       description:
-        "The **`border-inline`** CSS property is a shorthand property for setting the individual logical inline border property values in a single place in the style sheet.\n\n**Syntax**: `<'border-top-width'> || <'border-top-style'> || <'color'>`\n\n| Chrome | Firefox | Safari |  Edge  | IE  | | :----: | :-----: | :----: | :----: | :-: | | **69** | **66**  |   No   | **79** | No  |",
+        "The **`border-inline`** CSS property is a shorthand property for setting the individual logical inline border property values in a single place in the style sheet.\n\n**Syntax**: `<'border-top-width'> || <'border-top-style'> || <color>`\n\n| Chrome | Firefox | Safari | Edge | IE  | | :----: | :-----: | :----: | :--: | :-: | | **87** | **66**  |   No   | n/a  | No  |",
     },
     borderInlineEnd: {
       anyOf: [
@@ -5453,7 +5452,7 @@ export const VegaSchema: JSONSchema7 = {
         },
       ],
       description:
-        "The **`border-inline-end`** CSS property is a shorthand property for setting the individual logical inline-end border property values in a single place in the style sheet.\n\n**Syntax**: `<'border-top-width'> || <'border-top-style'> || <'color'>`\n\n| Chrome | Firefox |  Safari  |  Edge  | IE  | | :----: | :-----: | :------: | :----: | :-: | | **69** | **41**  | **12.1** | **79** | No  |",
+        "The **`border-inline-end`** CSS property is a shorthand property for setting the individual logical inline-end border property values in a single place in the style sheet.\n\n**Syntax**: `<'border-top-width'> || <'border-top-style'> || <color>`\n\n| Chrome | Firefox |  Safari  |  Edge  | IE  | | :----: | :-----: | :------: | :----: | :-: | | **69** | **41**  | **12.1** | **79** | No  |",
     },
     borderInlineStart: {
       anyOf: [
@@ -5507,7 +5506,7 @@ export const VegaSchema: JSONSchema7 = {
         },
       ],
       description:
-        "The **`border-inline-start`** CSS property is a shorthand property for setting the individual logical inline-start border property values in a single place in the style sheet.\n\n**Syntax**: `<'border-top-width'> || <'border-top-style'> || <'color'>`\n\n| Chrome | Firefox |  Safari  |  Edge  | IE  | | :----: | :-----: | :------: | :----: | :-: | | **69** | **41**  | **12.1** | **79** | No  |",
+        "The **`border-inline-start`** CSS property is a shorthand property for setting the individual logical inline-start border property values in a single place in the style sheet.\n\n**Syntax**: `<'border-top-width'> || <'border-top-style'> || <color>`\n\n| Chrome | Firefox |  Safari  |  Edge  | IE  | | :----: | :-----: | :------: | :----: | :-: | | **69** | **41**  | **12.1** | **79** | No  |",
     },
     borderLeft: {
       anyOf: [
@@ -5561,7 +5560,7 @@ export const VegaSchema: JSONSchema7 = {
         },
       ],
       description:
-        "The **`border-left`** shorthand CSS property set an element's left border.\n\n**Syntax**: `<line-width> || <line-style> || <color>`\n\n| Chrome | Firefox | Safari |  Edge  |  IE   | | :----: | :-----: | :----: | :----: | :---: | | **1**  |  **1**  | **1**  | **12** | **4** |",
+        "The **`border-left`** shorthand CSS property sets all the properties of an element's left border.\n\n**Syntax**: `<line-width> || <line-style> || <color>`\n\n| Chrome | Firefox | Safari |  Edge  |  IE   | | :----: | :-----: | :----: | :----: | :---: | | **1**  |  **1**  | **1**  | **12** | **4** |",
     },
     borderRadius: {
       anyOf: [
@@ -5632,7 +5631,7 @@ export const VegaSchema: JSONSchema7 = {
         },
       ],
       description:
-        "The **`border-right`** shorthand CSS property sets the properties of an element's right border.\n\n**Syntax**: `<line-width> || <line-style> || <color>`\n\n| Chrome | Firefox | Safari |  Edge  |   IE    | | :----: | :-----: | :----: | :----: | :-----: | | **1**  |  **1**  | **1**  | **12** | **5.5** |",
+        "The **`border-right`** shorthand CSS property sets all the properties of an element's right border.\n\n**Syntax**: `<line-width> || <line-style> || <color>`\n\n| Chrome | Firefox | Safari |  Edge  |   IE    | | :----: | :-----: | :----: | :----: | :-----: | | **1**  |  **1**  | **1**  | **12** | **5.5** |",
     },
     borderStyle: {
       type: 'string',
@@ -6278,7 +6277,7 @@ export const VegaSchema: JSONSchema7 = {
     alignTracks: {
       type: 'string',
       description:
-        'The **`align-tracks`** CSS property sets the alignment in the masonry axis for grid containers that have masonry in their block axis.\n\n**Syntax**: `[ normal | <baseline-position> | <content-distribution> | <overflow-position>? <content-position> ]#`\n\n**Initial value**: `normal`',
+        'The **`align-tracks`** CSS property sets the alignment in the masonry axis for grid containers that have masonry in their block axis.\n\n**Syntax**: `[ normal | <baseline-position> | <content-distribution> | <overflow-position>? <content-position> ]#`\n\n**Initial value**: `normal`\n\n| Chrome | Firefox | Safari | Edge | IE  | | :----: | :-----: | :----: | :--: | :-: | |   No   |   n/a   |   No   |  No  | No  |',
     },
     animationDelay: {
       type: 'string',
@@ -6333,17 +6332,17 @@ export const VegaSchema: JSONSchema7 = {
     animationTimingFunction: {
       type: 'string',
       description:
-        'The **`animation-timing-function`** CSS property sets how an animation progresses through the duration of each cycle.\n\n**Syntax**: `<timing-function>#`\n\n**Initial value**: `ease`\n\n| Chrome  | Firefox | Safari  |  Edge  |   IE   | | :-----: | :-----: | :-----: | :----: | :----: | | **43**  | **16**  |  **9**  | **12** | **10** | | 3 _-x-_ | 5 _-x-_ | 4 _-x-_ |        |        |',
+        'The **`animation-timing-function`** CSS property sets how an animation progresses through the duration of each cycle.\n\n**Syntax**: `<easing-function>#`\n\n**Initial value**: `ease`\n\n| Chrome  | Firefox | Safari  |  Edge  |   IE   | | :-----: | :-----: | :-----: | :----: | :----: | | **43**  | **16**  |  **9**  | **12** | **10** | | 3 _-x-_ | 5 _-x-_ | 4 _-x-_ |        |        |',
     },
     appearance: {
       type: 'string',
       description:
-        "The `**appearance**` CSS property is used to display an element using platform-native styling, based on the operating system's theme. The **`-moz-appearance`** and **`-webkit-appearance`** properties are non-standard versions of this propery, used (respectively) by Gecko (Firefox) and by WebKit-based (e.g., Safari) and Blink-based (e.g., Chrome, Opera) browsers to achieve the same thing. Note that Firefox and Edge also support `-webkit-appearance`, for compatibility reasons.\n\n**Syntax**: `none | auto | textfield | menulist-button | <compat-auto>`\n\n**Initial value**: `auto`\n\n| Chrome  | Firefox |   Safari    |   Edge   | IE  | | :-----: | :-----: | :---------: | :------: | :-: | | **84**  | **80**  | **3** _-x-_ |  **84**  | No  | | 1 _-x-_ | 1 _-x-_ |             | 12 _-x-_ |     |",
+        "The `**appearance**` CSS property is used to display an element using platform-native styling, based on the operating system's theme. The **`-moz-appearance`** and **`-webkit-appearance`** properties are non-standard versions of this property, used (respectively) by Gecko (Firefox) and by WebKit-based (e.g., Safari) and Blink-based (e.g., Chrome, Opera) browsers to achieve the same thing. Note that Firefox and Edge also support **`-webkit-appearance`**, for compatibility reasons.\n\n**Syntax**: `none | auto | textfield | menulist-button | <compat-auto>`\n\n**Initial value**: `auto`\n\n| Chrome  | Firefox |   Safari    |   Edge   | IE  | | :-----: | :-----: | :---------: | :------: | :-: | | **84**  | **80**  | **3** _-x-_ |  **84**  | No  | | 1 _-x-_ | 1 _-x-_ |             | 12 _-x-_ |     |",
     },
     aspectRatio: {
       type: 'string',
       description:
-        'The **`aspect-ratio`**   CSS property sets a **preferred aspect ratio** for the box, which will be used in the calculation of auto sizes and some other layout functions.\n\n**Syntax**: `auto | <ratio>`\n\n**Initial value**: `auto`\n\n| Chrome | Firefox | Safari | Edge | IE  | | :----: | :-----: | :----: | :--: | :-: | |  n/a   |   n/a   |   No   |  No  | No  |',
+        'The **`aspect-ratio`**  CSS property sets a **preferred aspect ratio** for the box, which will be used in the calculation of auto sizes and some other layout functions.\n\n**Syntax**: `auto | <ratio>`\n\n**Initial value**: `auto`\n\n| Chrome | Firefox | Safari | Edge | IE  | | :----: | :-----: | :----: | :--: | :-: | |  n/a   |   n/a   |   No   |  No  | No  |',
     },
     backdropFilter: {
       type: 'string',
@@ -6589,7 +6588,7 @@ export const VegaSchema: JSONSchema7 = {
     borderBlockColor: {
       type: 'string',
       description:
-        "The **`border-block-color`** CSS property defines the color of the logical block borders of an element, which maps to a physical border color depending on the element's writing mode, directionality, and text orientation. It corresponds to the `border-top-color` and `border-bottom-color`, or `border-right-color` and `border-left-color` property depending on the values defined for `writing-mode`, `direction`, and `text-orientation`.\n\n**Syntax**: `<'border-top-color'>{1,2}`\n\n**Initial value**: `currentcolor`\n\n| Chrome | Firefox | Safari | Edge | IE  | | :----: | :-----: | :----: | :--: | :-: | |  n/a   | **66**  |   No   | n/a  | No  |",
+        "The **`border-block-color`** CSS property defines the color of the logical block borders of an element, which maps to a physical border color depending on the element's writing mode, directionality, and text orientation. It corresponds to the `border-top-color` and `border-bottom-color`, or `border-right-color` and `border-left-color` property depending on the values defined for `writing-mode`, `direction`, and `text-orientation`.\n\n**Syntax**: `<'border-top-color'>{1,2}`\n\n**Initial value**: `currentcolor`\n\n| Chrome | Firefox | Safari | Edge | IE  | | :----: | :-----: | :----: | :--: | :-: | | **87** | **66**  |   No   | n/a  | No  |",
     },
     borderBlockEndColor: {
       type: 'string',
@@ -6740,7 +6739,7 @@ export const VegaSchema: JSONSchema7 = {
         },
       ],
       description:
-        "The **`border-block-style`** CSS property defines the style of the logical block borders of an element, which maps to a physical border style depending on the element's writing mode, directionality, and text orientation. It corresponds to the `border-top-style` and `border-bottom-style`, or `border-left-style` and `border-right-style` properties depending on the values defined for `writing-mode`, `direction`, and `text-orientation`.\n\n**Syntax**: `<'border-top-style'>`\n\n**Initial value**: `none`\n\n| Chrome | Firefox | Safari |  Edge  | IE  | | :----: | :-----: | :----: | :----: | :-: | | **69** | **66**  |   No   | **79** | No  |",
+        "The **`border-block-style`** CSS property defines the style of the logical block borders of an element, which maps to a physical border style depending on the element's writing mode, directionality, and text orientation. It corresponds to the `border-top-style` and `border-bottom-style`, or `border-left-style` and `border-right-style` properties depending on the values defined for `writing-mode`, `direction`, and `text-orientation`.\n\n**Syntax**: `<'border-top-style'>`\n\n**Initial value**: `none`\n\n| Chrome | Firefox | Safari | Edge | IE  | | :----: | :-----: | :----: | :--: | :-: | | **87** | **66**  |   No   | n/a  | No  |",
     },
     borderBlockWidth: {
       anyOf: [
@@ -6773,7 +6772,7 @@ export const VegaSchema: JSONSchema7 = {
         },
       ],
       description:
-        "The **`border-block-width`** CSS property defines the width of the logical block borders of an element, which maps to a physical border width depending on the element's writing mode, directionality, and text orientation. It corresponds to the `border-top-width` and `border-bottom-width`, or `border-left-width`, and `border-right-width` property depending on the values defined for `writing-mode`, `direction`, and `text-orientation`.\n\n**Syntax**: `<'border-top-width'>`\n\n**Initial value**: `medium`\n\n| Chrome | Firefox | Safari |  Edge  | IE  | | :----: | :-----: | :----: | :----: | :-: | | **69** | **66**  |   No   | **79** | No  |",
+        "The **`border-block-width`** CSS property defines the width of the logical block borders of an element, which maps to a physical border width depending on the element's writing mode, directionality, and text orientation. It corresponds to the `border-top-width` and `border-bottom-width`, or `border-left-width`, and `border-right-width` property depending on the values defined for `writing-mode`, `direction`, and `text-orientation`.\n\n**Syntax**: `<'border-top-width'>`\n\n**Initial value**: `medium`\n\n| Chrome | Firefox | Safari | Edge | IE  | | :----: | :-----: | :----: | :--: | :-: | | **87** | **66**  |   No   | n/a  | No  |",
     },
     borderBottomColor: {
       type: 'string',
@@ -6812,7 +6811,7 @@ export const VegaSchema: JSONSchema7 = {
         },
       ],
       description:
-        'The **`border-bottom-right-radius`** CSS property rounds the top-left corner of an element by specifying the radius (or the radius of the semi-major and semi-minor axes) of the ellipse defining the curvature of the corner.\n\n**Syntax**: `<length-percentage>{1,2}`\n\n**Initial value**: `0`\n\n| Chrome  | Firefox | Safari  |  Edge  |  IE   | | :-----: | :-----: | :-----: | :----: | :---: | |  **4**  |  **4**  |  **5**  | **12** | **9** | | 1 _-x-_ |         | 3 _-x-_ |        |       |',
+        'The **`border-bottom-right-radius`** CSS property rounds the bottom-right corner of an element by specifying the radius (or the radius of the semi-major and semi-minor axes) of the ellipse defining the curvature of the corner.\n\n**Syntax**: `<length-percentage>{1,2}`\n\n**Initial value**: `0`\n\n| Chrome  | Firefox | Safari  |  Edge  |  IE   | | :-----: | :-----: | :-----: | :----: | :---: | |  **4**  |  **4**  |  **5**  | **12** | **9** | | 1 _-x-_ |         | 3 _-x-_ |        |       |',
     },
     borderBottomStyle: {
       anyOf: [
@@ -6892,7 +6891,7 @@ export const VegaSchema: JSONSchema7 = {
         },
       ],
       description:
-        "The **`border-end-end-radius`** CSS property defines a logical border radius on an element, which maps to a physical border radius that depends on on the element's `writing-mode`, `direction`, and `text-orientation`. This is useful when building styles to work regardless of the text orientation and writing mode.\n\n**Syntax**: `<length-percentage>{1,2}`\n\n**Initial value**: `0`\n\n| Chrome | Firefox | Safari | Edge | IE  | | :----: | :-----: | :----: | :--: | :-: | |   No   | **66**  |   No   |  No  | No  |",
+        "The **`border-end-end-radius`** CSS property defines a logical border radius on an element, which maps to a physical border radius that depends on the element's `writing-mode`, `direction`, and `text-orientation`. This is useful when building styles to work regardless of the text orientation and writing mode.\n\n**Syntax**: `<length-percentage>{1,2}`\n\n**Initial value**: `0`\n\n| Chrome | Firefox | Safari | Edge | IE  | | :----: | :-----: | :----: | :--: | :-: | | **89** | **66**  |   No   |  No  | No  |",
     },
     borderEndStartRadius: {
       anyOf: [
@@ -6909,7 +6908,7 @@ export const VegaSchema: JSONSchema7 = {
         },
       ],
       description:
-        "The **`border-end-start-radius`** CSS property defines a logical border radius on an element, which maps to a physical border radius depending on the element's `writing-mode`, `direction`, and `text-orientation`. This is useful when building styles to work regardless of the text orientation and writing mode.\n\n**Syntax**: `<length-percentage>{1,2}`\n\n**Initial value**: `0`\n\n| Chrome | Firefox | Safari | Edge | IE  | | :----: | :-----: | :----: | :--: | :-: | |   No   | **66**  |   No   |  No  | No  |",
+        "The **`border-end-start-radius`** CSS property defines a logical border radius on an element, which maps to a physical border radius depending on the element's `writing-mode`, `direction`, and `text-orientation`. This is useful when building styles to work regardless of the text orientation and writing mode.\n\n**Syntax**: `<length-percentage>{1,2}`\n\n**Initial value**: `0`\n\n| Chrome | Firefox | Safari | Edge | IE  | | :----: | :-----: | :----: | :--: | :-: | | **89** | **66**  |   No   |  No  | No  |",
     },
     borderImageOutset: {
       anyOf: [
@@ -6984,7 +6983,7 @@ export const VegaSchema: JSONSchema7 = {
     borderInlineColor: {
       type: 'string',
       description:
-        "The **`border-inline-color`** CSS property defines the color of the logical inline borders of an element, which maps to a physical border color depending on the element's writing mode, directionality, and text orientation. It corresponds to the `border-top-color` and `border-bottom-color`, or `border-right-color` and `border-left-color` property depending on the values defined for `writing-mode`, `direction`, and `text-orientation`.\n\n**Syntax**: `<'border-top-color'>{1,2}`\n\n**Initial value**: `currentcolor`\n\n| Chrome | Firefox | Safari |  Edge  | IE  | | :----: | :-----: | :----: | :----: | :-: | | **69** | **66**  |   No   | **79** | No  |",
+        "The **`border-inline-color`** CSS property defines the color of the logical inline borders of an element, which maps to a physical border color depending on the element's writing mode, directionality, and text orientation. It corresponds to the `border-top-color` and `border-bottom-color`, or `border-right-color` and `border-left-color` property depending on the values defined for `writing-mode`, `direction`, and `text-orientation`.\n\n**Syntax**: `<'border-top-color'>{1,2}`\n\n**Initial value**: `currentcolor`\n\n| Chrome | Firefox | Safari | Edge | IE  | | :----: | :-----: | :----: | :--: | :-: | | **87** | **66**  |   No   | n/a  | No  |",
     },
     borderInlineEndColor: {
       type: 'string',
@@ -7135,7 +7134,7 @@ export const VegaSchema: JSONSchema7 = {
         },
       ],
       description:
-        "The **`border-inline-style`** CSS property defines the style of the logical inline borders of an element, which maps to a physical border style depending on the element's writing mode, directionality, and text orientation. It corresponds to the `border-top-style` and `border-bottom-style`, or `border-left-style` and `border-right-style` properties depending on the values defined for `writing-mode`, `direction`, and `text-orientation`.\n\n**Syntax**: `<'border-top-style'>`\n\n**Initial value**: `none`\n\n| Chrome | Firefox | Safari |  Edge  | IE  | | :----: | :-----: | :----: | :----: | :-: | | **69** | **66**  |   No   | **79** | No  |",
+        "The **`border-inline-style`** CSS property defines the style of the logical inline borders of an element, which maps to a physical border style depending on the element's writing mode, directionality, and text orientation. It corresponds to the `border-top-style` and `border-bottom-style`, or `border-left-style` and `border-right-style` properties depending on the values defined for `writing-mode`, `direction`, and `text-orientation`.\n\n**Syntax**: `<'border-top-style'>`\n\n**Initial value**: `none`\n\n| Chrome | Firefox | Safari | Edge | IE  | | :----: | :-----: | :----: | :--: | :-: | | **87** | **66**  |   No   | n/a  | No  |",
     },
     borderInlineWidth: {
       anyOf: [
@@ -7168,7 +7167,7 @@ export const VegaSchema: JSONSchema7 = {
         },
       ],
       description:
-        "The **`border-inline-width`** CSS property defines the width of the logical inline borders of an element, which maps to a physical border width depending on the element's writing mode, directionality, and text orientation. It corresponds to the `border-top-width` and `border-bottom-width`, or `border-left-width`, and `border-right-width` property depending on the values defined for `writing-mode`, `direction`, and `text-orientation`.\n\n**Syntax**: `<'border-top-width'>`\n\n**Initial value**: `medium`\n\n| Chrome | Firefox | Safari |  Edge  | IE  | | :----: | :-----: | :----: | :----: | :-: | | **69** | **66**  |   No   | **79** | No  |",
+        "The **`border-inline-width`** CSS property defines the width of the logical inline borders of an element, which maps to a physical border width depending on the element's writing mode, directionality, and text orientation. It corresponds to the `border-top-width` and `border-bottom-width`, or `border-left-width`, and `border-right-width` property depending on the values defined for `writing-mode`, `direction`, and `text-orientation`.\n\n**Syntax**: `<'border-top-width'>`\n\n**Initial value**: `medium`\n\n| Chrome | Firefox | Safari | Edge | IE  | | :----: | :-----: | :----: | :--: | :-: | | **87** | **66**  |   No   | n/a  | No  |",
     },
     borderLeftColor: {
       type: 'string',
@@ -7328,7 +7327,7 @@ export const VegaSchema: JSONSchema7 = {
         },
       ],
       description:
-        "The **`border-start-end-radius`** CSS property defines a logical border radius on an element, which maps to a physical border radius depending on the element's `writing-mode`, `direction`, and `text-orientation`. This is useful when building styles to work regardless of the text orientation and writing mode.\n\n**Syntax**: `<length-percentage>{1,2}`\n\n**Initial value**: `0`\n\n| Chrome | Firefox | Safari | Edge | IE  | | :----: | :-----: | :----: | :--: | :-: | |   No   | **66**  |   No   |  No  | No  |",
+        "The **`border-start-end-radius`** CSS property defines a logical border radius on an element, which maps to a physical border radius depending on the element's `writing-mode`, `direction`, and `text-orientation`. This is useful when building styles to work regardless of the text orientation and writing mode.\n\n**Syntax**: `<length-percentage>{1,2}`\n\n**Initial value**: `0`\n\n| Chrome | Firefox | Safari | Edge | IE  | | :----: | :-----: | :----: | :--: | :-: | | **89** | **66**  |   No   |  No  | No  |",
     },
     borderStartStartRadius: {
       anyOf: [
@@ -7345,7 +7344,7 @@ export const VegaSchema: JSONSchema7 = {
         },
       ],
       description:
-        "The **`border-start-start-radius`** CSS property defines a logical border radius on an element, which maps to a physical border radius that depends on the element's `writing-mode`, `direction`, and `text-orientation`. This is useful when building styles to work regardless of the text orientation and writing mode.\n\n**Syntax**: `<length-percentage>{1,2}`\n\n**Initial value**: `0`\n\n| Chrome | Firefox | Safari | Edge | IE  | | :----: | :-----: | :----: | :--: | :-: | |   No   | **66**  |   No   |  No  | No  |",
+        "The **`border-start-start-radius`** CSS property defines a logical border radius on an element, which maps to a physical border radius that depends on the element's `writing-mode`, `direction`, and `text-orientation`. This is useful when building styles to work regardless of the text orientation and writing mode.\n\n**Syntax**: `<length-percentage>{1,2}`\n\n**Initial value**: `0`\n\n| Chrome | Firefox | Safari | Edge | IE  | | :----: | :-----: | :----: | :--: | :-: | | **89** | **66**  |   No   |  No  | No  |",
     },
     borderTopColor: {
       type: 'string',
@@ -7640,6 +7639,11 @@ export const VegaSchema: JSONSchema7 = {
       description:
         'The **`content`** CSS property replaces an element with a generated value. Objects inserted using the `content` property are **anonymous replaced elements**_._\n\n**Syntax**: `normal | none | [ <content-replacement> | <content-list> ] [/ <string> ]?`\n\n**Initial value**: `normal`\n\n| Chrome | Firefox | Safari |  Edge  |  IE   | | :----: | :-----: | :----: | :----: | :---: | | **1**  |  **1**  | **1**  | **12** | **8** |',
     },
+    contentVisibility: {
+      type: 'string',
+      description:
+        "The **`content-visibility`** CSS property controls whether or not an element renders its contents at all, along with forcing a strong set of containments, allowing user agents to potentially omit large swathes of layout and rendering work until it becomes needed. Basically it enables the user agent to skip an element's rendering work, including layout and painting, until it is needed, makes the initial page load much faster.\n\n**Syntax**: `visible | auto | hidden`\n\n**Initial value**: `visible`\n\n| Chrome | Firefox | Safari |  Edge  | IE  | | :----: | :-----: | :----: | :----: | :-: | | **85** |   No    |   No   | **85** | No  |",
+    },
     counterIncrement: {
       type: 'string',
       description:
@@ -7842,6 +7846,11 @@ export const VegaSchema: JSONSchema7 = {
       type: 'string',
       description:
         'The **`font-variation-settings`** CSS property provides low-level control over variable font characteristics, by specifying the four letter axis names of the characteristics you want to vary, along with their values.\n\n**Syntax**: `normal | [ <string> <number> ]#`\n\n**Initial value**: `normal`\n\n| Chrome | Firefox | Safari |  Edge  | IE  | | :----: | :-----: | :----: | :----: | :-: | | **62** | **62**  | **11** | **17** | No  |',
+    },
+    forcedColorAdjust: {
+      type: 'string',
+      description:
+        'The **`forced-color-adjust`** CSS property allows authors to opt certain elements out of forced colors mode. This then restores the control of those values to CSS.\n\n**Syntax**: `auto | none`\n\n**Initial value**: `auto`\n\n| Chrome | Firefox | Safari |                Edge                 |                 IE                  | | :----: | :-----: | :----: | :---------------------------------: | :---------------------------------: | |  n/a   |   No    |   No   | **79** _(-ms-high-contrast-adjust)_ | **10** _(-ms-high-contrast-adjust)_ |',
     },
     gridAutoColumns: {
       anyOf: [
@@ -8242,7 +8251,7 @@ export const VegaSchema: JSONSchema7 = {
         },
       ],
       description:
-        "The **`inset`** CSS property, though part of the logical specification, doesn't define logical block or inline offsets, and instead defines physical offsets, regardless of the element's writing mode, directionality, and text orientation. It has the same multi-value syntax of the `margin` shorthand. It is a shorthand that corresponds to the `top`, `right`, `bottom`, and/or `left` properties.\n\n**Syntax**: `<'top'>{1,4}`\n\n**Initial value**: `auto`\n\n| Chrome | Firefox | Safari | Edge | IE  | | :----: | :-----: | :----: | :--: | :-: | |   No   | **66**  |   No   |  No  | No  |",
+        "The **`inset`** CSS property is a shorthand that corresponds to the `top`, `right`, `bottom`, and/or `left` properties. It has the same multi-value syntax of the `margin` shorthand.\n\n**Syntax**: `<'top'>{1,4}`\n\n**Initial value**: `auto`\n\n| Chrome | Firefox | Safari | Edge | IE  | | :----: | :-----: | :----: | :--: | :-: | | **87** | **66**  |   No   | n/a  | No  |",
     },
     insetBlock: {
       anyOf: [
@@ -8263,7 +8272,7 @@ export const VegaSchema: JSONSchema7 = {
         },
       ],
       description:
-        "The **`inset-block`** CSS property defines the logical block start and end offsets of an element, which maps to physical offsets depending on the element's writing mode, directionality, and text orientation. It corresponds to the `top` and `bottom`, or `right` and `left` properties depending on the values defined for `writing-mode`, `direction`, and `text-orientation`.\n\n**Syntax**: `<'top'>{1,2}`\n\n**Initial value**: `auto`\n\n| Chrome | Firefox | Safari | Edge | IE  | | :----: | :-----: | :----: | :--: | :-: | |  n/a   | **63**  |   No   | n/a  | No  |",
+        "The **`inset-inline`** CSS property defines the logical start and end offsets of an element in the inline direction, which maps to physical offsets depending on the element's writing mode, directionality, and text orientation. It corresponds to the `top` and `bottom`, or `right` and `left` properties depending on the values defined for `writing-mode`, `direction`, and `text-orientation`.\n\n**Syntax**: `<'top'>{1,2}`\n\n**Initial value**: `auto`\n\n| Chrome | Firefox | Safari | Edge | IE  | | :----: | :-----: | :----: | :--: | :-: | | **87** | **63**  |   No   | n/a  | No  |",
     },
     insetBlockEnd: {
       anyOf: [
@@ -8284,7 +8293,7 @@ export const VegaSchema: JSONSchema7 = {
         },
       ],
       description:
-        "The **`inset-block-end`** CSS property defines the logical block end offset of an element, which maps to a physical inset depending on the element's writing mode, directionality, and text orientation. It corresponds to the `top`, `right`, `bottom`, or `left` property depending on the values defined for `writing-mode`, `direction`, and `text-orientation`.\n\n**Syntax**: `<'top'>`\n\n**Initial value**: `auto`\n\n| Chrome | Firefox | Safari | Edge | IE  | | :----: | :-----: | :----: | :--: | :-: | |  n/a   | **63**  |   No   | n/a  | No  |",
+        "The **`inset-block-end`** CSS property defines the logical block end offset of an element, which maps to a physical inset depending on the element's writing mode, directionality, and text orientation. It corresponds to the `top`, `right`, `bottom`, or `left` property depending on the values defined for `writing-mode`, `direction`, and `text-orientation`.\n\n**Syntax**: `<'top'>`\n\n**Initial value**: `auto`\n\n| Chrome | Firefox | Safari | Edge | IE  | | :----: | :-----: | :----: | :--: | :-: | | **87** | **63**  |   No   | n/a  | No  |",
     },
     insetBlockStart: {
       anyOf: [
@@ -8305,7 +8314,7 @@ export const VegaSchema: JSONSchema7 = {
         },
       ],
       description:
-        "The **`inset-block-start`** CSS property defines the logical block start offset of an element, which maps to a physical inset depending on the element's writing mode, directionality, and text orientation. It corresponds to the `top`, `right`, `bottom`, or `left` property depending on the values defined for `writing-mode`, `direction`, and `text-orientation`.\n\n**Syntax**: `<'top'>`\n\n**Initial value**: `auto`\n\n| Chrome | Firefox | Safari | Edge | IE  | | :----: | :-----: | :----: | :--: | :-: | |  n/a   | **63**  |   No   | n/a  | No  |",
+        "The **`inset-block-start`** CSS property defines the logical block start offset of an element, which maps to a physical inset depending on the element's writing mode, directionality, and text orientation. It corresponds to the `top`, `right`, `bottom`, or `left` property depending on the values defined for `writing-mode`, `direction`, and `text-orientation`.\n\n**Syntax**: `<'top'>`\n\n**Initial value**: `auto`\n\n| Chrome | Firefox | Safari | Edge | IE  | | :----: | :-----: | :----: | :--: | :-: | | **87** | **63**  |   No   | n/a  | No  |",
     },
     insetInline: {
       anyOf: [
@@ -8326,7 +8335,7 @@ export const VegaSchema: JSONSchema7 = {
         },
       ],
       description:
-        "The **`inset-inline`** CSS property defines the logical start and end offsets of an element in the inline direction, which maps to physical offsets depending on the element's writing mode, directionality, and text orientation. It corresponds to the `top` and `bottom`, or `right` and `left` properties depending on the values defined for `writing-mode`, `direction`, and `text-orientation`.\n\n**Syntax**: `<'top'>{1,2}`\n\n**Initial value**: `auto`\n\n| Chrome | Firefox | Safari | Edge | IE  | | :----: | :-----: | :----: | :--: | :-: | |  n/a   | **63**  |   No   | n/a  | No  |",
+        "The **`inset-inline`** CSS property defines the logical start and end offsets of an element in the inline direction, which maps to physical offsets depending on the element's writing mode, directionality, and text orientation. It corresponds to the `top` and `bottom`, or `right` and `left` properties depending on the values defined for `writing-mode`, `direction`, and `text-orientation`.\n\n**Syntax**: `<'top'>{1,2}`\n\n**Initial value**: `auto`\n\n| Chrome | Firefox | Safari | Edge | IE  | | :----: | :-----: | :----: | :--: | :-: | | **87** | **63**  |   No   | n/a  | No  |",
     },
     insetInlineEnd: {
       anyOf: [
@@ -8347,7 +8356,7 @@ export const VegaSchema: JSONSchema7 = {
         },
       ],
       description:
-        "The **`inset-inline-end`** CSS property defines the logical inline end inset of an element, which maps to a physical inset depending on the element's writing mode, directionality, and text orientation. It corresponds to the `top`, `right`, `bottom`, or `left` property depending on the values defined for `writing-mode`, `direction`, and `text-orientation`.\n\n**Syntax**: `<'top'>`\n\n**Initial value**: `auto`\n\n| Chrome | Firefox | Safari | Edge | IE  | | :----: | :-----: | :----: | :--: | :-: | |  n/a   | **63**  |   No   | n/a  | No  |",
+        "The **`inset-inline-end`** CSS property defines the logical inline end inset of an element, which maps to a physical offset depending on the element's writing mode, directionality, and text orientation. It corresponds to the `top`, `right`, `bottom`, or `left` property depending on the values defined for `writing-mode`, `direction`, and `text-orientation`.\n\n**Syntax**: `<'top'>`\n\n**Initial value**: `auto`\n\n| Chrome | Firefox | Safari | Edge | IE  | | :----: | :-----: | :----: | :--: | :-: | | **87** | **63**  |   No   | n/a  | No  |",
     },
     insetInlineStart: {
       anyOf: [
@@ -8368,7 +8377,7 @@ export const VegaSchema: JSONSchema7 = {
         },
       ],
       description:
-        "The **`inset-inline-start`** CSS property defines the logical inline start inset of an element, which maps to a physical offset depending on the element's writing mode, directionality, and text orientation. It corresponds to the `top`, `right`, `bottom`, or `left` property depending on the values defined for `writing-mode`, `direction`, and `text-orientation`.\n\n**Syntax**: `<'top'>`\n\n**Initial value**: `auto`\n\n| Chrome | Firefox | Safari | Edge | IE  | | :----: | :-----: | :----: | :--: | :-: | |  n/a   | **63**  |   No   | n/a  | No  |",
+        "The **`inset-inline-start`** CSS property defines the logical inline start inset of an element, which maps to a physical offset depending on the element's writing mode, directionality, and text orientation. It corresponds to the `top`, `right`, `bottom`, or `left` property depending on the values defined for `writing-mode`, `direction`, and `text-orientation`.\n\n**Syntax**: `<'top'>`\n\n**Initial value**: `auto`\n\n| Chrome | Firefox | Safari | Edge | IE  | | :----: | :-----: | :----: | :--: | :-: | | **87** | **63**  |   No   | n/a  | No  |",
     },
     isolation: {
       type: 'string',
@@ -8393,7 +8402,7 @@ export const VegaSchema: JSONSchema7 = {
     justifyTracks: {
       type: 'string',
       description:
-        'The **`justify-tracks`** CSS property sets the alignment in the masonry axis for grid containers that have masonry in their inline axis.\n\n**Syntax**: `[ normal | <content-distribution> | <overflow-position>? [ <content-position> | left | right ] ]#`\n\n**Initial value**: `normal`',
+        'The **`justify-tracks`** CSS property sets the alignment in the masonry axis for grid containers that have masonry in their inline axis.\n\n**Syntax**: `[ normal | <content-distribution> | <overflow-position>? [ <content-position> | left | right ] ]#`\n\n**Initial value**: `normal`\n\n| Chrome | Firefox | Safari | Edge | IE  | | :----: | :-----: | :----: | :--: | :-: | |   No   |   n/a   |   No   |  No  | No  |',
     },
     left: {
       anyOf: [
@@ -8472,7 +8481,7 @@ export const VegaSchema: JSONSchema7 = {
         },
       ],
       description:
-        "The **`margin-block`** CSS shorthand property defines the logical block start and end margins of an element, which maps to physical margins depending on the element's writing mode, directionality, and text orientation.\n\n**Syntax**: `<'margin-left'>{1,2}`\n\n**Initial value**: `0`\n\n| Chrome | Firefox | Safari | Edge | IE  | | :----: | :-----: | :----: | :--: | :-: | |  n/a   | **66**  |   No   | n/a  | No  |",
+        "The **`margin-block`** CSS shorthand property defines the logical block start and end margins of an element, which maps to physical margins depending on the element's writing mode, directionality, and text orientation.\n\n**Syntax**: `<'margin-left'>{1,2}`\n\n**Initial value**: `0`\n\n| Chrome | Firefox | Safari | Edge | IE  | | :----: | :-----: | :----: | :--: | :-: | | **87** | **66**  |   No   | n/a  | No  |",
     },
     marginBlockEnd: {
       anyOf: [
@@ -8556,7 +8565,7 @@ export const VegaSchema: JSONSchema7 = {
         },
       ],
       description:
-        "The **`margin-inline`** CSS shorthand property is a shorthand property that defines both the logical inline start and end margins of an element, which maps to physical margins depending on the element's writing mode, directionality, and text orientation.\n\n**Syntax**: `<'margin-left'>{1,2}`\n\n**Initial value**: `0`\n\n| Chrome | Firefox | Safari | Edge | IE  | | :----: | :-----: | :----: | :--: | :-: | |  n/a   | **66**  |   No   | n/a  | No  |",
+        "The **`margin-inline`** CSS shorthand property is a shorthand property that defines both the logical inline start and end margins of an element, which maps to physical margins depending on the element's writing mode, directionality, and text orientation.\n\n**Syntax**: `<'margin-left'>{1,2}`\n\n**Initial value**: `0`\n\n| Chrome | Firefox | Safari | Edge | IE  | | :----: | :-----: | :----: | :--: | :-: | | **87** | **66**  |   No   | n/a  | No  |",
     },
     marginInlineEnd: {
       anyOf: [
@@ -8853,15 +8862,10 @@ export const VegaSchema: JSONSchema7 = {
       description:
         'The **`mask-type`** CSS property sets whether an SVG `<mask>` element is used as a _luminance_ or an _alpha_ mask. It applies to the `<mask>` element itself.\n\n**Syntax**: `luminance | alpha`\n\n**Initial value**: `luminance`\n\n| Chrome | Firefox | Safari  |  Edge  | IE  | | :----: | :-----: | :-----: | :----: | :-: | | **24** | **35**  | **6.1** | **79** | No  |',
     },
-    masonryAutoFlow: {
-      type: 'string',
-      description:
-        'The **`masonry-auto-flow`** CSS property modifies how items are placed when using masonry in CSS Grid Layout.\n\n**Syntax**: `[ pack | next ] || [ definite-first | ordered ]`\n\n**Initial value**: `pack`',
-    },
     mathStyle: {
       type: 'string',
       description:
-        'The `math-style` property indicates whether MathML equations should render with normal or compact height.\n\n**Syntax**: `normal | compact`\n\n**Initial value**: `normal`',
+        'The `math-style` property indicates whether MathML equations should render with normal or compact height.\n\n**Syntax**: `normal | compact`\n\n**Initial value**: `normal`\n\n| Chrome | Firefox | Safari | Edge | IE  | | :----: | :-----: | :----: | :--: | :-: | |  n/a   |   n/a   |   No   |  No  | No  |',
     },
     maxBlockSize: {
       anyOf: [
@@ -8980,7 +8984,7 @@ export const VegaSchema: JSONSchema7 = {
         },
       ],
       description:
-        "The **`max-inline-size`** CSS property defines the horizontal or vertical maximum size of an element's block depending on its writing mode. It corresponds to the `max-width` or the `max-height` property depending on the value defined for `writing-mode`. If the writing mode is vertically oriented, the value of `max-inline-size` relates to the maximal height of the element, otherwise it relates to the maximal width of the element. It relates to `max-block-size`, which defines the other dimension of the element.\n\n**Syntax**: `<'max-width'>`\n\n**Initial value**: `0`\n\n| Chrome | Firefox |   Safari   |  Edge  | IE  | | :----: | :-----: | :--------: | :----: | :-: | | **57** | **41**  |  **12.1**  | **79** | No  | |        |         | 10.1 _-x-_ |        |     |",
+        "The **`max-inline-size`** CSS property defines the horizontal or vertical maximum size of an element's block, depending on its writing mode. It corresponds to either the `max-width` or the `max-height` property, depending on the value of `writing-mode`.\n\n**Syntax**: `<'max-width'>`\n\n**Initial value**: `0`\n\n| Chrome | Firefox |   Safari   |  Edge  | IE  | | :----: | :-----: | :--------: | :----: | :-: | | **57** | **41**  |  **12.1**  | **79** | No  | |        |         | 10.1 _-x-_ |        |     |",
     },
     maxLines: {
       anyOf: [
@@ -9562,7 +9566,7 @@ export const VegaSchema: JSONSchema7 = {
         },
       ],
       description:
-        "The **`padding-block`** CSS shorthand property defines the logical block start and end padding of an element, which maps to physical padding properties depending on the element's writing mode, directionality, and text orientation.\n\n**Syntax**: `<'padding-left'>{1,2}`\n\n**Initial value**: `0`\n\n| Chrome | Firefox | Safari | Edge | IE  | | :----: | :-----: | :----: | :--: | :-: | |  n/a   | **66**  |   No   | n/a  | No  |",
+        "The **`padding-block`** CSS shorthand property defines the logical block start and end padding of an element, which maps to physical padding properties depending on the element's writing mode, directionality, and text orientation.\n\n**Syntax**: `<'padding-left'>{1,2}`\n\n**Initial value**: `0`\n\n| Chrome | Firefox | Safari | Edge | IE  | | :----: | :-----: | :----: | :--: | :-: | | **87** | **66**  |   No   | n/a  | No  |",
     },
     paddingBlockEnd: {
       anyOf: [
@@ -9613,7 +9617,7 @@ export const VegaSchema: JSONSchema7 = {
         },
       ],
       description:
-        'The **`padding-bottom`** CSS property sets the height of the padding area on the bottom of an element.\n\n**Syntax**: `<length> | <percentage>`\n\n**Initial value**: `0`\n\n| Chrome | Firefox | Safari |  Edge  |  IE   | | :----: | :-----: | :----: | :----: | :---: | | **1**  |  **1**  | **1**  | **12** | **4** |',
+        'The **`padding-bottom`** CSS property sets the height of the padding area on the bottom of an element.\n\n**Syntax**: `<length> | <percentage>`\n\n**Initial value**: `0`\n\n| Chrome | Firefox | Safari |  Edge  |  IE   | | :----: | :-----: | :----: | :----: | :---: | | **1**  |  **1**  | **1**  | **12** | **4** |',
     },
     paddingInline: {
       anyOf: [
@@ -9630,7 +9634,7 @@ export const VegaSchema: JSONSchema7 = {
         },
       ],
       description:
-        "The **`padding-inline`** CSS shorthand property defines the logical inline start and end padding of an element, which maps to physical padding properties depending on the element's writing mode, directionality, and text orientation.\n\n**Syntax**: `<'padding-left'>{1,2}`\n\n**Initial value**: `0`\n\n| Chrome | Firefox | Safari | Edge | IE  | | :----: | :-----: | :----: | :--: | :-: | |  n/a   | **66**  |   No   | n/a  | No  |",
+        "The **`padding-inline`** CSS shorthand property defines the logical inline start and end padding of an element, which maps to physical padding properties depending on the element's writing mode, directionality, and text orientation.\n\n**Syntax**: `<'padding-left'>{1,2}`\n\n**Initial value**: `0`\n\n| Chrome | Firefox | Safari | Edge | IE  | | :----: | :-----: | :----: | :--: | :-: | | **87** | **66**  |   No   | n/a  | No  |",
     },
     paddingInlineEnd: {
       anyOf: [
@@ -9681,7 +9685,7 @@ export const VegaSchema: JSONSchema7 = {
         },
       ],
       description:
-        'The **`padding-left`** CSS property sets the width of the padding area to the left of an element.\n\n**Syntax**: `<length> | <percentage>`\n\n**Initial value**: `0`\n\n| Chrome | Firefox | Safari |  Edge  |  IE   | | :----: | :-----: | :----: | :----: | :---: | | **1**  |  **1**  | **1**  | **12** | **4** |',
+        'The **`padding-left`** CSS property sets the width of the padding area to the left of an element.\n\n**Syntax**: `<length> | <percentage>`\n\n**Initial value**: `0`\n\n| Chrome | Firefox | Safari |  Edge  |  IE   | | :----: | :-----: | :----: | :----: | :---: | | **1**  |  **1**  | **1**  | **12** | **4** |',
     },
     paddingRight: {
       anyOf: [
@@ -9698,7 +9702,7 @@ export const VegaSchema: JSONSchema7 = {
         },
       ],
       description:
-        'The **`padding-right`** CSS property sets the width of the padding area on the right of an element.\n\n**Syntax**: `<length> | <percentage>`\n\n**Initial value**: `0`\n\n| Chrome | Firefox | Safari |  Edge  |  IE   | | :----: | :-----: | :----: | :----: | :---: | | **1**  |  **1**  | **1**  | **12** | **4** |',
+        'The **`padding-right`** CSS property sets the width of the padding area on the right of an element.\n\n**Syntax**: `<length> | <percentage>`\n\n**Initial value**: `0`\n\n| Chrome | Firefox | Safari |  Edge  |  IE   | | :----: | :-----: | :----: | :----: | :---: | | **1**  |  **1**  | **1**  | **12** | **4** |',
     },
     paddingTop: {
       anyOf: [
@@ -9899,7 +9903,7 @@ export const VegaSchema: JSONSchema7 = {
     scrollBehavior: {
       type: 'string',
       description:
-        'The **`scroll-behavior`** CSS property sets the behavior for a scrolling box when scrolling is triggered by the navigation or CSSOM scrolling APIs.\n\n**Syntax**: `auto | smooth`\n\n**Initial value**: `auto`\n\n| Chrome | Firefox | Safari |  Edge  | IE  | | :----: | :-----: | :----: | :----: | :-: | | **61** | **36**  | **14** | **79** | No  |',
+        'The **`scroll-behavior`** CSS property sets the behavior for a scrolling box when scrolling is triggered by the navigation or CSSOM scrolling APIs.\n\n**Syntax**: `auto | smooth`\n\n**Initial value**: `auto`\n\n| Chrome | Firefox | Safari |  Edge  | IE  | | :----: | :-----: | :----: | :----: | :-: | | **61** | **36**  |  n/a   | **79** | No  |',
     },
     scrollMargin: {
       anyOf: [
@@ -10427,7 +10431,7 @@ export const VegaSchema: JSONSchema7 = {
     scrollbarGutter: {
       type: 'string',
       description:
-        "The **`scrollbar-gutter`** CSS property allows authors to reserve space for the scrollbar, preventing unwanted layout changes as the content grows while also avoiding unnecessary visuals when scrolling isn't needed.\n\n**Syntax**: `auto | [ stable | always ] && both? && force?`\n\n**Initial value**: `auto`",
+        "The **`scrollbar-gutter`** CSS property allows authors to reserve space for the scrollbar, preventing unwanted layout changes as the content grows while also avoiding unnecessary visuals when scrolling isn't needed.\n\n**Syntax**: `auto | [ stable | always ] && both? && force?`\n\n**Initial value**: `auto`\n\n| Chrome | Firefox | Safari | Edge | IE  | | :----: | :-----: | :----: | :--: | :-: | |  n/a   |   No    |   No   |  No  | No  |",
     },
     scrollbarWidth: {
       type: 'string',
@@ -10510,7 +10514,7 @@ export const VegaSchema: JSONSchema7 = {
     textCombineUpright: {
       type: 'string',
       description:
-        'The **`text-combine-upright`** CSS property sets the combination of characters into the space of a single character. If the combined text is wider than 1em, the user agent must fit the contents within 1em. The resulting composition is treated as a single upright glyph for layout and decoration. This property only has an effect in vertical writing modes.\n\n**Syntax**: `none | all | [ digits <integer>? ]`\n\n**Initial value**: `none`\n\n|           Chrome           | Firefox |              Safari              |                  Edge                  |                   IE                   | | :------------------------: | :-----: | :------------------------------: | :------------------------------------: | :------------------------------------: | |           **48**           | **48**  | **5.1** _(-webkit-text-combine)_ | **12** _(-ms-text-combine-horizontal)_ | **11** _(-ms-text-combine-horizontal)_ | | 9 _(-webkit-text-combine)_ |         |                                  |                                        |                                        |',
+        'The **`text-combine-upright`** CSS property sets the combination of characters into the space of a single character. If the combined text is wider than 1em, the user agent must fit the contents within 1em. The resulting composition is treated as a single upright glyph for layout and decoration. This property only has an effect in vertical writing modes.\n\n**Syntax**: `none | all | [ digits <integer>? ]`\n\n**Initial value**: `none`\n\n|           Chrome           | Firefox |              Safari              |                Edge                |                   IE                   | | :------------------------: | :-----: | :------------------------------: | :--------------------------------: | :------------------------------------: | |           **48**           | **48**  | **5.1** _(-webkit-text-combine)_ |               15-79                | **11** _(-ms-text-combine-horizontal)_ | | 9 _(-webkit-text-combine)_ |         |                                  | 12 _(-ms-text-combine-horizontal)_ |                                        |',
     },
     textDecorationColor: {
       type: 'string',
@@ -10560,7 +10564,7 @@ export const VegaSchema: JSONSchema7 = {
         },
       ],
       description:
-        'The **`text-decoration-thickness`** CSS property sets the stroke thickness of the decoration line that is used on text in an element, such as a line-through, underline, or overline.\n\n**Syntax**: `auto | from-font | <length> | <percentage> `\n\n**Initial value**: `auto`\n\n| Chrome | Firefox |  Safari  | Edge | IE  | | :----: | :-----: | :------: | :--: | :-: | |   No   | **70**  | **12.1** |  No  | No  |',
+        'The **`text-decoration-thickness`** CSS property sets the stroke thickness of the decoration line that is used on text in an element, such as a line-through, underline, or overline.\n\n**Syntax**: `auto | from-font | <length> | <percentage> `\n\n**Initial value**: `auto`\n\n| Chrome | Firefox |  Safari  |  Edge  | IE  | | :----: | :-----: | :------: | :----: | :-: | | **87** | **70**  | **12.1** | **87** | No  |',
     },
     textDecorationWidth: {
       anyOf: [
@@ -10585,7 +10589,7 @@ export const VegaSchema: JSONSchema7 = {
         },
       ],
       description:
-        'The **`text-decoration-thickness`** CSS property sets the stroke thickness of the decoration line that is used on text in an element, such as a line-through, underline, or overline.\n\n**Syntax**: `auto | from-font | <length> | <percentage> `\n\n**Initial value**: `auto`\n\n| Chrome | Firefox |  Safari  | Edge | IE  | | :----: | :-----: | :------: | :--: | :-: | |   No   | **70**  | **12.1** |  No  | No  |',
+        'The **`text-decoration-thickness`** CSS property sets the stroke thickness of the decoration line that is used on text in an element, such as a line-through, underline, or overline.\n\n**Syntax**: `auto | from-font | <length> | <percentage> `\n\n**Initial value**: `auto`\n\n| Chrome | Firefox |  Safari  |  Edge  | IE  | | :----: | :-----: | :------: | :----: | :-: | | **87** | **70**  | **12.1** | **87** | No  |',
     },
     textEmphasisColor: {
       type: 'string',
@@ -10668,7 +10672,7 @@ export const VegaSchema: JSONSchema7 = {
         },
       ],
       description:
-        'The **`text-underline-offset`** CSS property sets the offset distance of an underline text decoration line (applied using `text-decoration`) from its original position.\n\n**Syntax**: `auto | <length> | <percentage> `\n\n**Initial value**: `auto`\n\n| Chrome | Firefox |  Safari  | Edge | IE  | | :----: | :-----: | :------: | :--: | :-: | |   No   | **70**  | **12.1** |  No  | No  |',
+        'The **`text-underline-offset`** CSS property sets the offset distance of an underline text decoration line (applied using `text-decoration`) from its original position.\n\n**Syntax**: `auto | <length> | <percentage> `\n\n**Initial value**: `auto`\n\n| Chrome | Firefox |  Safari  |  Edge  | IE  | | :----: | :-----: | :------: | :----: | :-: | | **87** | **70**  | **12.1** | **87** | No  |',
     },
     textUnderlinePosition: {
       type: 'string',
@@ -10771,7 +10775,7 @@ export const VegaSchema: JSONSchema7 = {
     transitionTimingFunction: {
       type: 'string',
       description:
-        'The **`transition-timing-function`** CSS property sets how intermediate values are calculated for CSS properties being affected by a transition effect.\n\n**Syntax**: `<timing-function>#`\n\n**Initial value**: `ease`\n\n| Chrome  | Firefox |  Safari   |  Edge  |   IE   | | :-----: | :-----: | :-------: | :----: | :----: | | **26**  | **16**  |   **9**   | **12** | **10** | | 1 _-x-_ | 4 _-x-_ | 3.1 _-x-_ |        |        |',
+        'The **`transition-timing-function`** CSS property sets how intermediate values are calculated for CSS properties being affected by a transition effect.\n\n**Syntax**: `<easing-function>#`\n\n**Initial value**: `ease`\n\n| Chrome  | Firefox |  Safari   |  Edge  |   IE   | | :-----: | :-----: | :-------: | :----: | :----: | | **26**  | **16**  |   **9**   | **12** | **10** | | 1 _-x-_ | 4 _-x-_ | 3.1 _-x-_ |        |        |',
     },
     translate: {
       anyOf: [
@@ -10923,7 +10927,7 @@ export const VegaSchema: JSONSchema7 = {
     wordWrap: {
       type: 'string',
       description:
-        'The `**overflow-wrap**` CSS property applies to inline elements, setting whether the browser should insert line breaks within an otherwise unbreakable string to prevent text from overflowing its line box.\n\n**Syntax**: `normal | break-word`\n\n**Initial value**: `normal`\n\n| Chrome | Firefox | Safari |  Edge  |   IE    | | :----: | :-----: | :----: | :----: | :-----: | | **1**  | **3.5** | **2**  | **12** | **5.5** |',
+        'The `**overflow-wrap**` CSS property applies to inline elements, setting whether the browser should insert line breaks within an otherwise unbreakable string to prevent text from overflowing its line box.\n\n**Syntax**: `normal | break-word`\n\n**Initial value**: `normal`',
     },
     zIndex: {
       anyOf: [
