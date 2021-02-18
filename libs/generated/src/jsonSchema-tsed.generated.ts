@@ -971,18 +971,6 @@ export const CascaderPropsSchema: JSONSchema7 = {
 }
 
 const DemoGridPropsDecorators: DecoratorsMap = {
-  email: {
-    __grid: {
-      order: 3,
-      span: 24,
-    },
-  },
-  password: {
-    __grid: {
-      order: 2,
-      span: 24,
-    },
-  },
   firstname: {
     __grid: {
       order: 0,
@@ -993,6 +981,18 @@ const DemoGridPropsDecorators: DecoratorsMap = {
     __grid: {
       order: 1,
       span: 12,
+    },
+  },
+  email: {
+    __grid: {
+      order: 2,
+      span: 16,
+    },
+  },
+  password: {
+    __grid: {
+      order: 3,
+      span: 8,
     },
   },
 }

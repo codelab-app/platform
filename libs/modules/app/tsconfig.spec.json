@@ -5,7 +5,7 @@
     "module": "commonjs",
     "esModuleInterop": true,
     "declaration": true,
-    "types": ["jest", "node"]
+    "types": ["jest", "node", "@rjsf/antd"]
   },
   "include": [
     "**/*.spec.ts",

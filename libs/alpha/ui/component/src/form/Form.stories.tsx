@@ -3,6 +3,8 @@ import { FormVertexConditional } from './graph/Form-vertex-conditional'
 import { JsonSchemaForm } from '@codelab/frontend'
 import {
   CreateStyleInputSchema,
+  DemoGridPropsGridFormProps,
+  DemoGridPropsSchema,
   DemoTabsPropsFormProps,
   DemoTabsPropsSchema,
   UpdateVertexInputSchema,
@@ -34,6 +36,22 @@ export const ConditionalVertexForm = () => {
 
 export const TabsForm = () => {
   return (
-    <JsonSchemaForm schema={DemoTabsPropsSchema} {...DemoTabsPropsFormProps} />
+    <JsonSchemaForm
+      initialFormData={{}}
+      onSubmit={() => null}
+      schema={DemoTabsPropsSchema}
+      {...DemoTabsPropsFormProps}
+    />
+  )
+}
+
+export const GridsForm = () => {
+  return (
+    <JsonSchemaForm
+      initialFormData={{}}
+      onSubmit={() => null}
+      schema={DemoGridPropsSchema}
+      {...DemoGridPropsGridFormProps}
+    />
   )
 }

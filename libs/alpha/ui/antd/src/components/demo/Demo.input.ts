@@ -2,18 +2,24 @@ import { Property } from '@tsed/schema'
 import { Grid, Tabs } from '@codelab/tools/generators/json-schema'
 
 @Grid<DemoGridProps>({
-  email: {
-    __grid: {
-      order: 3,
-      span: 24,
-    },
-  },
-  password: {
-    __grid: {
-      order: 2,
-      span: 24,
-    },
-  },
+  // name: {
+  //   __grid: {
+  //     order: 0,
+  //     span: 12,
+  //   },
+  //   firstname: {
+  //     __grid: {
+  //       order: 0,
+  //       span: 12,
+  //     },
+  //   },
+  //   lastname: {
+  //     __grid: {
+  //       order: 1,
+  //       span: 12,
+  //     },
+  //   },
+  // },
   firstname: {
     __grid: {
       order: 0,
@@ -24,6 +30,18 @@ import { Grid, Tabs } from '@codelab/tools/generators/json-schema'
     __grid: {
       order: 1,
       span: 12,
+    },
+  },
+  email: {
+    __grid: {
+      order: 2,
+      span: 16,
+    },
+  },
+  password: {
+    __grid: {
+      order: 3,
+      span: 8,
     },
   },
 })
@@ -39,6 +57,12 @@ export class DemoGridProps {
 
   @Property()
   declare lastname: string
+
+  // @Property()
+  // declare name: {
+  //   firstname: string
+  //   lastname: string
+  // }
 
   @Property()
   declare notGroupedField: string
