@@ -1,13 +1,14 @@
 import React from 'react'
+import { CodelabSelectWidget } from './customWidgets/CodelabSelectWidget'
 import { FormVertexConditional } from './graph/Form-vertex-conditional'
 import { JsonSchemaForm } from '@codelab/frontend'
 import {
-  CreateStyleInputSchema,
-  DemoGridPropsGridFormProps,
-  DemoGridPropsSchema,
-  DemoTabsPropsFormProps,
-  DemoTabsPropsSchema,
-  UpdateVertexInputSchema,
+	DemoGridPropsGridFormProps,
+	DemoGridPropsSchema,
+	DemoTabsPropsFormProps,
+	DemoTabsPropsSchema,
+	UpdateVertexInputSchema,
+	VegaSchema,
 } from '@codelab/generated'
 import { CreateStyleInput } from 'libs/modules/style/src/core/application/useCases/createStyle/CreateStyleInput'
 
@@ -21,10 +22,16 @@ export default {
 }
 
 export const SelectableSearchArrayForm = () => {
+  const widgets = {
+    SelectWidget: CodelabSelectWidget,
+  }
+
   return (
     <JsonSchemaForm<CreateStyleInput>
       initialFormData={{}}
-      schema={CreateStyleInputSchema}
+      widgets={widgets}
+      // schema={CreateStyleInputSchema}
+      schema={VegaSchema}
       onSubmit={() => null}
     />
   )
