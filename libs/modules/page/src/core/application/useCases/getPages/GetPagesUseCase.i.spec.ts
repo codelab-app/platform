@@ -1,9 +1,8 @@
 import { INestApplication } from '@nestjs/common'
 import { print } from 'graphql'
-import request from 'supertest'
 import { App } from '../../../../../../app/src/core/domain/App'
 import { Page } from '../../../domain/Page'
-import { setupTestModule, teardownTestModule } from '@codelab/backend'
+import { request, setupTestModule, teardownTestModule } from '@codelab/backend'
 import {
   CreateAppGql,
   CreatePageGql,
@@ -27,7 +26,6 @@ describe('GetPagesUseCase', () => {
     nestApp = await setupTestModule(nestApp, GraphModule, UserModule, AppModule)
 
     user = await request(nestApp.getHttpServer())
-      .post('/graphql')
       .send({
         query: print(RegisterUserGql),
         variables: {
@@ -43,7 +41,6 @@ describe('GetPagesUseCase', () => {
     const { accessToken } = user
 
     app = await request(nestApp.getHttpServer())
-      .post('/graphql')
       .set('Authorization', `Bearer ${accessToken}`)
       .send({
         query: print(CreateAppGql),
@@ -68,7 +65,6 @@ describe('GetPagesUseCase', () => {
     expect(true).toBeTruthy()
 
     await request(nestApp.getHttpServer())
-      .post('/graphql')
       .set('Authorization', `Bearer ${user.accessToken}`)
       .send({
         query: print(CreatePageGql),
@@ -85,7 +81,6 @@ describe('GetPagesUseCase', () => {
       })
 
     await request(nestApp.getHttpServer())
-      .post('/graphql')
       .set('Authorization', `Bearer ${user.accessToken}`)
       .send({
         query: print(CreatePageGql),
@@ -102,7 +97,6 @@ describe('GetPagesUseCase', () => {
       })
 
     await request(nestApp.getHttpServer())
-      .post('/graphql')
       .set('Authorization', `Bearer ${user.accessToken}`)
       .send({
         query: print(GetPagesGql),

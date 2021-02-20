@@ -1,9 +1,13 @@
 /* eslint-disable no-param-reassign */
+import { NodeId, SerializedNode, SerializedNodes } from '@craftjs/core'
 import { VertexType } from '@prisma/client'
 import { DataNode } from 'antd/lib/tree'
 import cytoscape, { Core, EdgeDefinition, NodeDefinition } from 'cytoscape'
 import { NodeA } from '../../../modules/graph/src/core/domain/node/Node'
-import { GraphFragmentsFragment } from '@codelab/generated'
+import {
+  GraphFragmentsFragment,
+  VertexFragmentsFragment,
+} from '@codelab/generated'
 
 export class CytoscapeService {
   /**
@@ -63,6 +67,68 @@ export class CytoscapeService {
     })
 
     return (tree as unknown) as NodeA
+  }
+
+  static craftTree({
+    vertices = [],
+    edges = [],
+  }: GraphFragmentsFragment): SerializedNodes {
+    let rglRootVertexId = ''
+
+    const tree = vertices.reduce(
+      (_tree: SerializedNodes, vertex: VertexFragmentsFragment) => {
+        if (vertex.type === VertexType.React_RGL_ResponsiveContainer) {
+          rglRootVertexId = vertex.id
+        }
+
+        const node: Record<NodeId, SerializedNode> = {
+          [vertex.id]: {
+            type: { resolvedName: vertex.type ?? '' },
+            props: vertex.props,
+            hidden: false,
+            displayName: vertex.type ?? '',
+            parent:
+              edges.find(({ target }) => target === vertex.id)?.source ?? '',
+            isCanvas: false,
+            nodes: edges
+              .filter(({ source }) => source === vertex.id)
+              .map(({ target }) => target),
+            linkedNodes: {},
+            custom: {
+              children: edges
+                .filter(({ source }) => source === vertex.id)
+                .map(({ target }) => target),
+            },
+          },
+        }
+
+        return {
+          ..._tree,
+          ...node,
+        }
+      },
+      {},
+    )
+
+    // Replace all rootVertexId with 'ROOT'
+    return Object.entries(tree).reduce(
+      (_tree, [key, value]: [string, SerializedNode]) => {
+        let newKey = key
+
+        if (key === rglRootVertexId) {
+          newKey = 'ROOT'
+        }
+
+        return {
+          ..._tree,
+          [newKey]: {
+            ...value,
+            parent: value.parent === rglRootVertexId ? 'ROOT' : value.parent,
+          },
+        }
+      },
+      {},
+    )
   }
 
   static antdTree(cy: Core): DataNode {

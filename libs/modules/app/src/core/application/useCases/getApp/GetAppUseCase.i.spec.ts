@@ -1,8 +1,7 @@
 import { INestApplication } from '@nestjs/common'
 import { print } from 'graphql'
-import request from 'supertest'
 import { App } from '../../../domain/App'
-import { setupTestModule, teardownTestModule } from '@codelab/backend'
+import { request, setupTestModule, teardownTestModule } from '@codelab/backend'
 import { CreateAppGql, GetAppGql, RegisterUserGql } from '@codelab/generated'
 import { AppModule } from '@codelab/modules/app'
 import { User, UserModule } from '@codelab/modules/user'
@@ -18,7 +17,6 @@ describe('GetAppUseCase', () => {
     app = await setupTestModule(app, UserModule, AppModule)
 
     user = await request(app.getHttpServer())
-      .post('/graphql')
       .send({
         query: print(RegisterUserGql),
         variables: {
@@ -39,7 +37,6 @@ describe('GetAppUseCase', () => {
     const title = 'My App'
 
     const createApp: App = await request(app.getHttpServer())
-      .post('/graphql')
       .set('Authorization', `Bearer ${user.accessToken}` ?? '')
       .send({
         query: print(CreateAppGql),
@@ -58,7 +55,6 @@ describe('GetAppUseCase', () => {
     const { id } = createApp
 
     await request(app.getHttpServer())
-      .post('/graphql')
       .set('Authorization', `Bearer ${user.accessToken}` ?? '')
       .send({
         query: print(GetAppGql),
@@ -78,7 +74,6 @@ describe('GetAppUseCase', () => {
     const wrongAppId = '85e3fd3a-9dde-4c80-bd07-8cf126799698'
 
     await request(app.getHttpServer())
-      .post('/graphql')
       .set('Authorization', `Bearer ${user.accessToken}` ?? '')
       .send({
         query: print(GetAppGql),

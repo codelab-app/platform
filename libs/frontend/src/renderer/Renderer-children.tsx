@@ -1,8 +1,6 @@
-import React, { useEffect, useRef } from 'react'
-import { useDrop } from 'react-dnd'
-import { DROP_OVERLAY_ID } from './Overlay-drop'
+import { useNode } from '@craftjs/core'
+import React from 'react'
 import { elementParameterFactory } from './elementFactory'
-import { DragAndDropTypes, useOverlayToolbar } from '@codelab/frontend'
 import { PaneConfigHandlersProps } from 'apps/web/src/builder/pane-config/Pane-config--handlers'
 import { NodeA } from 'libs/modules/graph/src/core/domain/node/Node'
 
@@ -16,46 +14,17 @@ const DropHandler = ({
   node: NodeA
   handlers: PaneConfigHandlersProps
 }) => {
-  const [{ isOver }, dropRef] = useDrop<any, any, any>({
-    accept: DragAndDropTypes.Component,
-    collect: (m) => ({
-      isOver: m.isOver(),
-    }),
-    drop: (d) => {
-      if (d?.node?.type) {
-        handlers.addChildVertex({
-          parentVertexId: node.id,
-          vertex: {
-            type: d.node.type,
-          },
-        })
-      }
-    },
-  })
-
-  const overlayElementRef = useRef<any>()
-
-  const { show, reset, toolbarState } = useOverlayToolbar(DROP_OVERLAY_ID)
-
-  useEffect(() => {
-    if (
-      isOver &&
-      (!toolbarState?.metadata?.id || toolbarState?.metadata?.id !== node.id)
-    ) {
-      show(overlayElementRef.current, { id: node.id, type: node.type })
-    } else if (
-      !isOver &&
-      toolbarState?.metadata?.id &&
-      toolbarState.metadata.id === node.id
-    ) {
-      reset()
-    }
-  })
+  const {
+    connectors: { connect, drag },
+  } = useNode()
 
   return (
     <>
-      <div ref={overlayElementRef} style={{ position: 'absolute', inset: 0 }} />
-      <div ref={dropRef} style={{ position: 'absolute', inset: 0 }} />
+      <div
+        ref={(ref) => connect(drag(ref))}
+        style={{ position: 'absolute', inset: 0 }}
+      />
+      {/* <div ref={dropRef} style={{ position: 'absolute', inset: 0 }} /> */}
     </>
   )
 }
@@ -64,8 +33,10 @@ export const RenderChildren = (
   node: NodeA,
   renderProps: object,
   handlers: PaneConfigHandlersProps,
-) =>
-  node.children.map((child: NodeA) => {
+) => {
+  // console.log(node.children)
+
+  return node.children.map((child: NodeA) => {
     const [Child, props] = elementParameterFactory({
       node: child,
       handlers,
@@ -73,8 +44,9 @@ export const RenderChildren = (
 
     return (
       <Child key={child.id} {...props} className="Builder-node">
-        <DropHandler node={child} handlers={handlers} />
+        {/* <DropHandler node={child} handlers={handlers} /> */}
         {RenderChildren(child, props, handlers)}
       </Child>
     )
   })
+}

@@ -1,9 +1,7 @@
 import { INestApplication } from '@nestjs/common'
-import { VertexType } from '@prisma/client'
 import { print } from 'graphql'
-import request from 'supertest'
 import { Page } from '../../../domain/Page'
-import { setupTestModule, teardownTestModule } from '@codelab/backend'
+import { request, setupTestModule, teardownTestModule } from '@codelab/backend'
 import {
   CreateAppGql,
   CreatePageGql,
@@ -27,7 +25,6 @@ describe('UpdatePageUseCase', () => {
 
     // Register user
     user = await request(nestApp.getHttpServer())
-      .post('/graphql')
       .send({
         query: print(RegisterUserGql),
         variables: {
@@ -49,7 +46,6 @@ describe('UpdatePageUseCase', () => {
     const { accessToken } = user
 
     app = await request(nestApp.getHttpServer())
-      .post('/graphql')
       .set('Authorization', `Bearer ${accessToken}`)
       .send({
         query: print(CreateAppGql),
@@ -67,7 +63,6 @@ describe('UpdatePageUseCase', () => {
     const { id } = app
 
     const page = await request(nestApp.getHttpServer())
-      .post('/graphql')
       .set('Authorization', `Bearer ${accessToken}`)
       .send({
         query: print(CreatePageGql),
@@ -84,21 +79,17 @@ describe('UpdatePageUseCase', () => {
 
         expect(pageRes).toMatchObject({
           title: 'Page 1',
-          graphs: [
-            { vertices: [{ type: VertexType.React_RGL_ResponsiveContainer }] },
-          ],
         })
       })
       .then((res) => res.body.data.createPage)
 
     await request(nestApp.getHttpServer())
-      .post('/graphql')
       .set('Authorization', `Bearer ${accessToken}`)
       .send({
         query: print(UpdatePageGql),
         variables: {
           input: {
-            title: 'Page 2',
+            title: 'Page 1 Updated',
             pageId: page.id,
           },
         },
@@ -108,17 +99,13 @@ describe('UpdatePageUseCase', () => {
         const pageRes: Page = res.body.data.updatePage
 
         expect(pageRes).toMatchObject({
-          title: 'Page 2',
-          graphs: [
-            { vertices: [{ type: VertexType.React_RGL_ResponsiveContainer }] },
-          ],
+          title: 'Page 1 Updated',
         })
       })
   })
 
   it('should not update page for guest user', async () => {
     const page = await request(nestApp.getHttpServer())
-      .post('/graphql')
       .set('Authorization', `Bearer ${user.accessToken}`)
       .send({
         query: print(CreatePageGql),
@@ -135,15 +122,11 @@ describe('UpdatePageUseCase', () => {
 
         expect(pageRes).toMatchObject({
           title: 'Page 1',
-          graphs: [
-            { vertices: [{ type: VertexType.React_RGL_ResponsiveContainer }] },
-          ],
         })
       })
       .then((res) => res.body.data.createPage)
 
     await request(nestApp.getHttpServer())
-      .post('/graphql')
       .set('Authorization', '')
       .send({
         query: print(UpdatePageGql),
@@ -164,7 +147,6 @@ describe('UpdatePageUseCase', () => {
     const wrongPageId = '8cd9c870-03f8-4031-8d7f-a6a6978f14b5'
 
     await request(nestApp.getHttpServer())
-      .post('/graphql')
       .set('Authorization', `Bearer ${user.accessToken}`)
       .send({
         query: print(UpdatePageGql),

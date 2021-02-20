@@ -1,7 +1,6 @@
 import { INestApplication } from '@nestjs/common'
 import { print } from 'graphql'
-import request from 'supertest'
-import { setupTestModule, teardownTestModule } from '@codelab/backend'
+import { request, setupTestModule, teardownTestModule } from '@codelab/backend'
 import { CreateAppGql, GetAppsGql, RegisterUserGql } from '@codelab/generated'
 import { AppModule } from '@codelab/modules/app'
 import { User, UserModule } from '@codelab/modules/user'
@@ -18,7 +17,6 @@ describe('GetAppsUseCase', () => {
 
     // Register user
     user = await request(app.getHttpServer())
-      .post('/graphql')
       .send({
         query: print(RegisterUserGql),
         variables: {
@@ -40,7 +38,6 @@ describe('GetAppsUseCase', () => {
     const app2 = 'My App 2'
 
     const app1Req = await request(app.getHttpServer())
-      .post('/graphql')
       .set('authorization', `Bearer ${user.accessToken}` ?? '')
       .send({
         query: print(CreateAppGql),
@@ -56,7 +53,6 @@ describe('GetAppsUseCase', () => {
       })
 
     const app2Req = await request(app.getHttpServer())
-      .post('/graphql')
       .set('authorization', `Bearer ${user.accessToken}` ?? '')
       .send({
         query: print(CreateAppGql),
@@ -71,7 +67,6 @@ describe('GetAppsUseCase', () => {
         expect(res.body.data.createApp.title).toEqual(app2)
       })
     const getAppsReq = await request(app.getHttpServer())
-      .post('/graphql')
       .set('authorization', `Bearer ${user.accessToken}` ?? '')
       .send({
         query: print(GetAppsGql),

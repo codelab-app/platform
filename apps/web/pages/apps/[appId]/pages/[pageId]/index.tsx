@@ -21,22 +21,6 @@ const PageDetail = ({
 
   return (
     <div id="Builder" style={{ position: 'relative' }}>
-      {/* <div
-        role="presentation"
-        style={{ position: 'absolute', inset: 0 }}
-        // onClick={() => {
-        //   console.log(layout)
-        //   if (layout.paneVisibility !== LayoutPaneVisibility.None) {
-        //     setLayout({
-        //       variables: {
-        //         input: {
-        //           paneVisibility: LayoutPaneVisibility.None,
-        //         },
-        //       },
-        //     })
-        //   }
-        // }}
-      /> */}
       <h1>{page.title}</h1>
       <GetPageLayout graph={layoutGraph} pageId={pageId} />
     </div>

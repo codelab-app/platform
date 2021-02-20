@@ -38,5 +38,3 @@ export const PaneConfig = React.memo(() => {
     </Tabs>
   )
 })
-
-// PaneConfig.whyDidYouRender = true

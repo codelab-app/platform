@@ -1,8 +1,7 @@
 import { INestApplication } from '@nestjs/common'
 import { VertexType } from '@prisma/client'
 import { print } from 'graphql'
-import request from 'supertest'
-import { setupTestModule, teardownTestModule } from '@codelab/backend'
+import { request, setupTestModule, teardownTestModule } from '@codelab/backend'
 import {
   AddChildVertexGql,
   CreateAppGql,
@@ -47,7 +46,6 @@ const addChildVertexToRootRequest = async (
   query: any,
 ) => {
   return await request(app.getHttpServer())
-    .post('/graphql')
     .send(query)
     .expect(200)
     .expect((res) => {
@@ -73,7 +71,6 @@ describe('MoveVertexUseCase', () => {
 
     // Register user
     user = await request(nestApp.getHttpServer())
-      .post('/graphql')
       .send({
         query: print(RegisterUserGql),
         variables: {
@@ -89,7 +86,6 @@ describe('MoveVertexUseCase', () => {
     const title = 'Test App'
 
     app = await request(nestApp.getHttpServer())
-      .post('/graphql')
       .set('Authorization', `Bearer ${user.accessToken}`)
       .send({
         query: print(CreateAppGql),
@@ -104,9 +100,9 @@ describe('MoveVertexUseCase', () => {
         expect(res.body.data.createApp.title).toEqual('Test App')
       })
       .then((res) => res.body.data.createApp)
+
     // Create Page
     page = await request(nestApp.getHttpServer())
-      .post('/graphql')
       .set('Authorization', `Bearer ${user.accessToken}`)
       .send({
         query: print(CreatePageGql),
@@ -123,17 +119,8 @@ describe('MoveVertexUseCase', () => {
 
         expect(pageRes).toMatchObject({
           title: 'Page 1',
-          graphs: [
-            { vertices: [{ type: VertexType.React_RGL_ResponsiveContainer }] },
-          ],
+          graphs: [{ vertices: [{ type: VertexType.React_Page_Container }] }],
         })
-
-        // expect(pageRes.title).toEqual('Page 1')
-        // expect(pageRes.graphs.length).toEqual(1)
-        // expect(pageRes.graphs[0].vertices.length).toEqual(1)
-        // expect(pageRes.graphs[0].vertices[0].type).toEqual(
-        //   VertexType.React_RGL_ResponsiveContainer,
-        // )
       })
       .then((res) => res.body.data.createPage)
   })
@@ -178,7 +165,6 @@ describe('MoveVertexUseCase', () => {
     )
 
     const verifyGraph = await request(nestApp.getHttpServer())
-      .post('/graphql')
       .send({
         query: print(GetGraphGql),
         variables: {
@@ -210,7 +196,6 @@ describe('MoveVertexUseCase', () => {
       })
 
     await request(nestApp.getHttpServer())
-      .post('/graphql')
       .send({
         query: print(MoveVertexGql),
         variables: {
@@ -223,7 +208,6 @@ describe('MoveVertexUseCase', () => {
       .expect(200)
 
     await request(nestApp.getHttpServer())
-      .post('/graphql')
       .send({
         query: print(GetGraphGql),
         variables: {
@@ -245,19 +229,15 @@ describe('MoveVertexUseCase', () => {
   })
 
   it('Should throw error if edges not found', async () => {
-    const wrongVertexId = '85e3fd3a-9dde-4c80-bd07-8cf126799698'
-
-    const moveVertexMutation = `
-      mutation {
-        moveVertex(input: {currentVertexId: "${wrongVertexId}", parentVertexId: "${wrongVertexId}"}) 
-        { id type }
-      }
-    `
-
     await request(nestApp.getHttpServer())
-      .post('/graphql')
       .send({
-        query: moveVertexMutation,
+        query: print(MoveVertexGql),
+        variables: {
+          input: {
+            currentVertexId: '',
+            parentVertexId: '',
+          },
+        },
       })
       .expect(200)
       .expect((res) => {

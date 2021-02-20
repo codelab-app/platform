@@ -1,8 +1,7 @@
 import { INestApplication } from '@nestjs/common'
 import { VertexType } from '@prisma/client'
 import { print } from 'graphql'
-import request from 'supertest'
-import { setupTestModule, teardownTestModule } from '@codelab/backend'
+import { request, setupTestModule, teardownTestModule } from '@codelab/backend'
 import {
   AddChildVertexGql,
   CreateAppGql,
@@ -32,7 +31,6 @@ describe('AddChildVertexUseCase', () => {
     )
     // Register user
     user = await request(app.getHttpServer())
-      .post('/graphql')
       .send({
         query: print(RegisterUserGql),
         variables: {
@@ -52,7 +50,6 @@ describe('AddChildVertexUseCase', () => {
   it('should create 2 vertices and link them using edge', async () => {
     const title = 'Test App'
     const createApp: App = await request(app.getHttpServer())
-      .post('/graphql')
       .set('Authorization', `Bearer ${user.accessToken}`)
       .send({
         query: print(CreateAppGql),
@@ -70,7 +67,6 @@ describe('AddChildVertexUseCase', () => {
     const { id } = createApp
 
     page = await request(app.getHttpServer())
-      .post('/graphql')
       .set('Authorization', `Bearer ${user.accessToken}`)
       .send({
         query: print(CreatePageGql),
@@ -82,21 +78,11 @@ describe('AddChildVertexUseCase', () => {
         },
       })
       .expect(200)
-      .expect((res) => {
-        const pageRes = res.body.data.createPage
-
-        expect(pageRes).toMatchObject({
-          title: 'Page 1',
-          graphs: [
-            { vertices: [{ type: VertexType.React_RGL_ResponsiveContainer }] },
-          ],
-        })
-      })
       .then((res) => res.body.data.createPage)
+
     const parentVertexId = page.graphs[0].vertices[0].id
 
     const addChildVertexWithParent = await request(app.getHttpServer())
-      .post('/graphql')
       .send({
         query: print(AddChildVertexGql),
         variables: {
@@ -118,7 +104,7 @@ describe('AddChildVertexUseCase', () => {
 
         expect(vertex).toMatchObject({
           id: vertex.id,
-          type: 'React_Text',
+          type: VertexType.React_Text,
           props: {
             id: 'a',
           },

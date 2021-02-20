@@ -107,6 +107,4 @@ export const getServerSideProps = withAuthServerSideProps((context, user) => {
   }
 })
 
-EmptyPage.whyDidYouRender = true
-
 export default EmptyPage

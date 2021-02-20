@@ -1,15 +1,16 @@
 import { Layout } from 'antd'
 import React, { PropsWithChildren, useContext } from 'react'
-import { useDrop } from 'react-dnd'
+import { useRecoilState } from 'recoil'
 import { LayoutProvider } from '../layout/LayoutProvider'
 import { AppContext, AppProvider } from '../useCases/apps/AppProvider'
 import { BuilderPaneController } from './Builder-pane-controller'
 import { PaneConfig } from './pane-config/Pane-config'
 import { BuilderDetails } from './pane-details/Pane-details'
 import { PaneMain } from './pane-main/Pane-main'
+import { componentItemState } from './pane-main/component/Component-item--state'
 import { BuilderTabSidebar } from './tabs-sidebar/Tabs-sidebar'
 import { useLayoutMutation } from './useLayoutMutation'
-import { DragAndDropTypes, contentStyle, magnitude } from '@codelab/frontend'
+import { contentStyle } from '@codelab/frontend'
 import { LayoutPaneVisibility } from '@codelab/generated'
 
 const { Sider, Content } = Layout
@@ -27,24 +28,26 @@ export const Builder = ({ children }: PropsWithChildren<{}>) => {
   // This probably isn't the best place for it, but I didn't want to mess with the layout state
   // because we might refactor it to use recoil? If not - we can add a "Hidden" state, where we just hide the pane visually
 
-  const [{ isOver, isDragging, delta }, dropRef] = useDrop({
-    accept: DragAndDropTypes.Component,
-    collect: (m) => ({
-      delta: m.getDifferenceFromInitialOffset(),
-      isOver: m.isOver(),
-      isDragging: !!m.getItemType(),
-    }),
-  })
+  // const [{ isOver, isDragging, delta }, dropRef] = useDrop({
+  //   accept: DragAndDropTypes.Component,
+  //   collect: (m) => ({
+  //     delta: m.getDifferenceFromInitialOffset(),
+  //     isOver: m.isOver(),
+  //     isDragging: !!m.getItemType(),
+  //   }),
+  // })
 
-  const shouldHide = !isOver && isDragging && magnitude(delta) > 5
+  const [componentState] = useRecoilState(componentItemState)
 
-  const paneMainWidth = shouldHide ? 0 : defaultPaneMainWidth
+  const paneMainWidth = componentState.isDraggingComponent
+    ? 0
+    : defaultPaneMainWidth
 
   return (
     <AppProvider appId={appId} pageId={pageId}>
       <LayoutProvider>
-        <Layout>
-          <div ref={dropRef}>
+        <Layout style={{ height: '100%' }}>
+          <div>
             <Sider
               theme="light"
               collapsed
@@ -125,4 +128,3 @@ export const Builder = ({ children }: PropsWithChildren<{}>) => {
     </AppProvider>
   )
 }
-// ;(Builder as any).whyDidYouRender = true

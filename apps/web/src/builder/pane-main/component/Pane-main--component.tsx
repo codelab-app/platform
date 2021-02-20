@@ -4,7 +4,7 @@ import { List } from 'antd'
 import React, { useMemo } from 'react'
 import { ComponentItem } from './Component-item'
 
-type ComponentItemType = {
+export type ComponentItemType = {
   key: string
   type: VertexType
   label: string

@@ -63,5 +63,3 @@ export const UpdateVertexForm = ({ vertex }: UpdateVertexFormProps) => {
     />
   )
 }
-
-UpdateVertexForm.whyDidYouRender = true
