@@ -18,6 +18,7 @@ export const JsonSchemaForm = <TData extends object>({
   hideSubmitButton,
   onSubmitSuccess,
   onSubmitError,
+  widgets,
   schema,
   onSubmit = () => null,
   initialFormData,
@@ -30,6 +31,7 @@ export const JsonSchemaForm = <TData extends object>({
 
   return (
     <ThemedForm
+      widgets={widgets}
       schema={schema as JSONSchema7}
       onSubmit={(e) => {
         console.log(e.formData.props)

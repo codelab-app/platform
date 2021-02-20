@@ -12,4 +12,7 @@ module.exports = {
     tsconfigRootDir: __dirname,
     project: ['tsconfig.eslint.json'],
   },
+  rules: {
+    'no-param-reassign': 'off',
+  },
 }

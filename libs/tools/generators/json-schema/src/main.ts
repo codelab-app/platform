@@ -1,9 +1,9 @@
-import { generateExportData } from './generator/generator-symbols'
-import { tsedInputFiles, tsedJsonSchemaCb } from './generator/generator-tsed'
 import {
   npmLibraryJsonSchema,
   npmLibraryTypesOutputFile,
-} from './generator/generator-vega'
+} from './generator/generator-css-props'
+import { generateExportData } from './generator/generator-symbols'
+import { tsedInputFiles, tsedJsonSchemaCb } from './generator/generator-tsed'
 import { generateStringFromExportData } from './utils/export-from-data'
 import { lintFiles, saveToFile } from './utils/utils'
 

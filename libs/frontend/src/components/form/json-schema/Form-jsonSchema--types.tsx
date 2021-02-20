@@ -21,6 +21,8 @@ export interface JsonSchemaFormProps<TData extends object> {
   /** Schema used for form generation */
   schema: JSONSchema7
 
+  widgets?: any
+
   /** Called when form is submitted */
   onSubmit: (submitEvent: JsonSchemaFormEvent<TData>) => any
 
