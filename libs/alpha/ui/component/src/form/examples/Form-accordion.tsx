@@ -3,7 +3,7 @@ import React from 'react'
 import {
   AccordionDetails,
   ObjectFieldAccordionTemplate,
-} from '../../../../../../tools/generators/json-schema/src/templates/ObjectFieldAccordionTemplate'
+} from '../rjsf-templates/ObjectFieldAccordionTemplate'
 import { JsonSchemaForm } from '@codelab/frontend'
 
 type RecursivePartial<T> = {
@@ -11,6 +11,7 @@ type RecursivePartial<T> = {
     ? UiGroup<T[P]> & RecursivePartial<T[P]>
     : never
 }
+
 type UiGroup<T> = {
   'ui:accordion': AccordionDetails<T>
 }

@@ -1,11 +1,13 @@
 /* eslint-disable import/order, sort-imports */
 import {
   DecoratorsMap,
-  ObjectFieldGridTemplateFactory,
-  ObjectFieldTabsTemplate,
   GroupsUiSchema,
 } from '@codelab/tools/generators/json-schema'
 import { JSONSchema7 } from 'json-schema'
+import {
+  ObjectFieldGridTemplateFactory,
+  ObjectFieldTabsTemplate,
+} from '@codelab/alpha/ui/component'
 import { DemoTabsProps } from 'libs/alpha/ui/antd/src/components/demo/Demo.input'
 
 export const AffixPropsSchema: JSONSchema7 = {

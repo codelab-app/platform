@@ -21,7 +21,7 @@ export const CodelabCheckboxWidget = (props: any) => {
 
   const { readonlyAsDisabled = true } = formContext
 
-  const handleChange = ({ target }) => onChange(target.checked)
+  const handleChange = ({ target }: any) => onChange(target.checked)
 
   return (
     <div>

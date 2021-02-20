@@ -23,7 +23,11 @@ export const getTabsFormProps = (
     imports: [
       {
         source: '@codelab/tools/generators/json-schema',
-        entities: ['ObjectFieldTabsTemplate', 'GroupsUiSchema'],
+        entities: ['GroupsUiSchema'],
+      },
+      {
+        source: '@codelab/alpha/ui/components',
+        entities: ['ObjectFieldTabsTemplate'],
       },
       {
         source: convertFileToModule(sourceFile),

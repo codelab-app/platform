@@ -48,7 +48,7 @@ export const WrapIfAdditional = (props: any) => {
     return <div className={classNames}>{children}</div>
   }
 
-  const handleBlur = ({ target }) => onKeyChange(target.value)
+  const handleBlur = ({ target }: any) => onKeyChange(target.value)
 
   return (
     <div className={classNames}>
