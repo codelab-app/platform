@@ -1,7 +1,7 @@
 import React from 'react'
-import { CodelabSelectWidget } from './customWidgets/CodelabSelectWidget'
-import { FormAccordion } from './graph/Form-accordion'
-import { FormVertexConditional } from './graph/Form-vertex-conditional'
+import { FormAccordion } from './examples/Form-accordion'
+import { FormVertexConditional } from './examples/Form-vertex-conditional'
+import { CodelabSelectWidget } from './rjsf-widgets/CodelabSelectWidget'
 import { JsonSchemaForm } from '@codelab/frontend'
 import {
   DemoGridPropsGridFormProps,
@@ -31,7 +31,6 @@ export const SelectableSearchArrayForm = () => {
     <JsonSchemaForm<CreateStyleInput>
       initialFormData={{}}
       widgets={widgets}
-      // schema={CreateStyleInputSchema}
       schema={VegaSchema}
       onSubmit={() => null}
     />

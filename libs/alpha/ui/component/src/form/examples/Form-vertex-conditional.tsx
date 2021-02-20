@@ -1,9 +1,9 @@
 import { Theme as AntDTheme } from '@rjsf/antd'
 import { ISubmitEvent, withTheme } from '@rjsf/core'
 import React from 'react'
-import { CodelabFieldTemplate } from './customTemplates/CodelabFieldTemplate'
-import { CodelabCheckboxWidget } from './customWidgets/CodelabCheckboxWidget'
-import { CodelabTextWidget } from './customWidgets/CodelabTextWidget'
+import { CodelabFieldTemplate } from '../rjsf-templates/CodelabFieldTemplate'
+import { CodelabCheckboxWidget } from '../rjsf-widgets/CodelabCheckboxWidget'
+import { CodelabTextWidget } from '../rjsf-widgets/CodelabTextWidget'
 import { UpdateVertexInput, UpdateVertexInputSchema } from '@codelab/generated'
 
 const Form = withTheme(AntDTheme)

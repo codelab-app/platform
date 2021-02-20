@@ -1,8 +1,6 @@
 import { JSONSchema7 } from 'json-schema'
-import {
-  DecoratorsMap,
-  ObjectFieldGridTemplateFactory,
-} from '@codelab/tools/generators/json-schema'
+import { ObjectFieldGridTemplateFactory } from '@codelab/alpha/ui/component'
+import { DecoratorsMap } from '@codelab/tools/generators/json-schema'
 
 export const CreateAppInputSchema: JSONSchema7 = {
   type: 'object',

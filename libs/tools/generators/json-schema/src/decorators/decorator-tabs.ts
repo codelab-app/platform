@@ -1,8 +1,8 @@
-import { GroupsDetails } from '../templates/ObjectFieldTabsTemplate'
 import {
   getReflectClassDecorator,
   reflectClassDecorator,
 } from './decorator-reflect--class'
+import { GroupsDetails } from '@codelab/alpha/ui/component'
 
 type RecursivePartial<T> = {
   [P in keyof T]?: T[P] extends object

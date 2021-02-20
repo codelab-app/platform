@@ -74,7 +74,7 @@ export const getFormProps = (
 
     if (formsProps !== null) {
       formPropsToCombine.push(formsProps.formPropsName)
-      content = [...content, formsProps.content]
+      content = [...content, ...formsProps.content]
       imports = [...imports, ...formsProps.imports]
     }
   }

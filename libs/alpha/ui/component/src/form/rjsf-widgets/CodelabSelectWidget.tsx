@@ -103,7 +103,7 @@ export const CodelabSelectWidget = (props: any) => {
       style={SELECT_STYLE}
       value={typeof value !== 'undefined' ? stringify(value) : undefined}
     >
-      {enumOptions.map(({ value: optionValue, label: optionLabel }) => (
+      {enumOptions.map(({ value: optionValue, label: optionLabel }: any) => (
         <Select.Option
           disabled={enumDisabled && enumDisabled.indexOf(optionValue) !== -1}
           key={String(optionValue)}

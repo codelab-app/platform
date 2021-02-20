@@ -27,16 +27,16 @@ export const CodelabTextWidget = (props: any) => {
   console.log(props)
   const { readonlyAsDisabled = true } = formContext
 
-  const handleNumberChange = (nextValue) => {
+  const handleNumberChange = (nextValue: any) => {
     onChange(nextValue)
   }
 
-  const handleTextChange = ({ target }) =>
+  const handleTextChange = ({ target }: any) =>
     onChange(target.value === '' ? options.emptyValue : target.value)
 
-  const handleBlur = ({ target }) => onBlur(id, target.value)
+  const handleBlur = ({ target }: any) => onBlur(id, target.value)
 
-  const handleFocus = ({ target }) => onFocus(id, target.value)
+  const handleFocus = ({ target }: any) => onFocus(id, target.value)
 
   return schema.type === 'number' || schema.type === 'integer' ? (
     <div>
