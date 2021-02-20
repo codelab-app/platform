@@ -123,9 +123,7 @@ describe('MoveVertexUseCase', () => {
 
         expect(pageRes).toMatchObject({
           title: 'Page 1',
-          graphs: [
-            { vertices: [{ type: VertexType.React_RGL_ResponsiveContainer }] },
-          ],
+          graphs: [{ vertices: [{ type: VertexType.React_Page_Container }] }],
         })
 
         // expect(pageRes.title).toEqual('Page 1')
@@ -249,7 +247,7 @@ describe('MoveVertexUseCase', () => {
 
     const moveVertexMutation = `
       mutation {
-        moveVertex(input: {currentVertexId: "${wrongVertexId}", parentVertexId: "${wrongVertexId}"}) 
+        moveVertex(input: {currentVertexId: "${wrongVertexId}", parentVertexId: "${wrongVertexId}"})
         { id type }
       }
     `

@@ -110,9 +110,7 @@ describe('CreatePageUseCase', () => {
 
         expect(page).toMatchObject({
           title: 'Page 1',
-          graphs: [
-            { vertices: [{ type: VertexType.React_RGL_ResponsiveContainer }] },
-          ],
+          graphs: [{ vertices: [{ type: VertexType.React_Page_Container }] }],
         })
       })
   })
