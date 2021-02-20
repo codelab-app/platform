@@ -12,7 +12,7 @@ const tsedOutputFile = `${process.cwd()}/libs/generated/src/jsonSchema-tsed.gene
 const main = async () => {
   const tsedJsonSchemaContents = await generateExportData(
     tsedInputFiles,
-    [/Props/, /Input/],
+    [/Props$/, /Input$/],
     tsedJsonSchemaCb,
     {
       header: ['/* eslint-disable import/order, sort-imports */'],

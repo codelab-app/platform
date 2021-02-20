@@ -1,4 +1,4 @@
-import '../src/wdyr'
+// import '../src/wdyr'
 import { ApolloProvider } from '@apollo/client'
 import { Global, css } from '@emotion/react'
 import { AppProps } from 'next/app'
@@ -63,7 +63,7 @@ const AppContainer: React.FC<AppProps> = ({ pageProps, Component, router }) => {
   )
 }
 
-;(AppContainer as any).whyDidYouRender = true
-;(App as any).whyDidYouRender = true
+// ;(AppContainer as any).whyDidYouRender = true
+// ;(App as any).whyDidYouRender = true
 
 export default AppContainer

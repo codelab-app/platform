@@ -1,14 +1,14 @@
-import { Frame, SerializedNodes, useEditor } from '@craftjs/core'
+import { SerializedNodes, useEditor } from '@craftjs/core'
 import React, { useContext, useRef } from 'react'
 import { useRecoilState } from 'recoil'
 import { paneConfigState } from '../../../../apps/web/src/builder/pane-config/Pane-config'
 import { PaneConfigHandlersProps } from '../../../../apps/web/src/builder/pane-config/Pane-config--handlers'
 import { NodeA } from '../../../modules/graph/src/core/domain/node/Node'
 import { useOverlayToolbar } from '../components'
-import useOnClickOutside from '../utils/useOnClickOutside'
-import { CLICK_OVERLAY_ID, ClickOverlay } from './Overlay-click'
-import { DropOverlay } from './Overlay-drop'
-import { HOVER_OVERLAY_ID, HoverOverlay } from './Overlay-hover'
+import { CLICK_OVERLAY_ID } from './Overlay-click'
+import { HOVER_OVERLAY_ID } from './Overlay-hover'
+import { RenderChildren } from './Renderer-children'
+import { elementParameterFactory } from './elementFactory'
 import {
   AddChildVertexInput,
   GetPageGql,
@@ -28,7 +28,7 @@ const convertNodeToCraftData = (
     newTree[id] = {
       displayName: node.type,
       hidden: false,
-      isCanvas: true, // node.isContainer?, lookup table?
+      isCanvas: false, // node.isContainer?, lookup table?
       nodes: node.children.map((c) => {
         traverseNode(c, id)
 
@@ -96,47 +96,64 @@ export const useComponentHandlers = () => {
   return handlers
 }
 
-export const RenderComponents = ({ node }: { node: NodeA }) => {
+export const RenderComponents = ({
+  node,
+  data,
+}: {
+  node: NodeA
+  data: SerializedNodes
+}) => {
   const handlers = useComponentHandlers()
 
   const { resetClickOverlay } = handlers
 
-  // const [RootComponent, props] = elementParameterFactory({
-  //   node,
-  //   handlers,
-  // })
+  const [RootComponent, props] = elementParameterFactory({
+    node,
+    handlers,
+  })
 
   const ref = useRef<HTMLDivElement>(null)
 
-  useOnClickOutside(ref, () => resetClickOverlay(), [resetClickOverlay])
+  // useOnClickOutside(ref, () => resetClickOverlay(), [resetClickOverlay])
 
   useEditor((s, q) => {
     // TODO convert it back to our format and save it
-    console.log(q.getSerializedNodes())
+    // console.log(q.getSerializedNodes())
   })
+
+  // console.log(node.type)
+
+  const DomTree = (
+    <RootComponent {...props}>
+      {RenderChildren(node, {}, handlers)}
+    </RootComponent>
+  )
 
   return (
     <div style={{ width: '100%', height: 'auto' }}>
-      {/* <RootComponent {...props}>
-            {RenderChildren(node, {}, handlers)}
-          </RootComponent> */}
-
+      {DomTree}
       {/* <Frame>
-        <RootComponent {...props}>
-          {RenderChildren(node, {}, handlers)}
-        </RootComponent>
+        <Element canvas is="div">
+          <RootComponent {...props}>
+            {RenderChildren(node, {}, handlers)}
+          </RootComponent>
+        </Element>
       </Frame> */}
 
-      <Frame data={convertNodeToCraftData(node)} />
+      {/* <Editor
+        resolver={elementTypeMap}
+        // enabled
+        // onRender={RenderNode}
+      >
+        <Frame data={data} />
+      </Editor> */}
 
-      <HoverOverlay />
+      {/* <HoverOverlay />
       <DropOverlay />
 
       <div ref={ref}>
         <ClickOverlay />
-      </div>
+      </div> */}
     </div>
   )
 }
-
-// RenderComponents.whyDidYouRender = true

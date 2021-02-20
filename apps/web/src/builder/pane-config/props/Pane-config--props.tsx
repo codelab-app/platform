@@ -35,5 +35,3 @@ export const PaneConfigProps = () => {
     </section>
   )
 }
-
-PaneConfigProps.whyDidYouRender = true

@@ -88,6 +88,8 @@ enum VertexType {
   React_Menu_ItemGroup
   React_Menu_SubMenu
   React_Card
+  React_Grid_Row
+  React_Grid_Col
   React_Card_Grid
   React_Card_Meta
   React_Typography
@@ -110,6 +112,7 @@ enum VertexType {
   React_InputNumber
   React_Select
   React_Select_Option
+  React_Page_Container
   React_RGL_ResponsiveContainer
   React_RGL_Container
   React_RGL_Item

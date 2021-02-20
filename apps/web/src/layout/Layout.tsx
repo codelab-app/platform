@@ -1,12 +1,15 @@
 import { Editor } from '@craftjs/core'
 import { WithRouterProps } from 'next/dist/client/with-router'
 import React, { PropsWithChildren } from 'react'
-import { RenderNode } from '../../../../libs/frontend/src/renderer/Render-node'
 import { Builder } from '../builder/Builder'
 import { HomeLayout } from '../home'
 import { AppProvider } from '../useCases/apps/AppProvider'
 import { Dashboard } from './Dashboard'
 import { PageType, elementTypeMap } from '@codelab/frontend'
+
+// const RenderNode = ({ element }: any) => {
+//   return <div style={{ background: '#000', padding: '5px' }}>{element}</div>
+// }
 
 export const LayoutFactory = ({
   children,
@@ -28,7 +31,11 @@ export const LayoutFactory = ({
 
     return (
       <AppProvider appId={appId} pageId={pageId}>
-        <Editor resolver={elementTypeMap} enabled onRender={RenderNode}>
+        <Editor
+          resolver={elementTypeMap}
+          enabled
+          // onRender={RenderNode}
+        >
           <Builder>{children}</Builder>
         </Editor>
       </AppProvider>

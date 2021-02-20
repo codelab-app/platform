@@ -3,8 +3,6 @@ import { VertexType } from '@prisma/client'
 import { Button } from 'antd'
 import React from 'react'
 import { useRecoilState } from 'recoil'
-import { makeD3 } from '../../../../../../libs/alpha/shared/factory/src/cytoscape.js/factory'
-import { D3Graph } from '@codelab/alpha/ui/d3'
 import {
   CytoscapeService,
   PropsWithIds,
@@ -28,6 +26,10 @@ export const GetPageLayout = ({ graph, pageId }: GetPageLayoutProps) => {
 
   const cy = CytoscapeService.fromGraph(graph)
   const root = CytoscapeService.componentTree(cy)
+  const craftData = CytoscapeService.craftTree(graph)
+
+  console.log(root)
+  // console.log(craftData)
 
   const gridContainerId = graph.vertices.find(
     (v) => v.type === VertexType.React_RGL_ResponsiveContainer,
@@ -40,7 +42,7 @@ export const GetPageLayout = ({ graph, pageId }: GetPageLayoutProps) => {
 
   return (
     <>
-      <RenderComponents node={root} />
+      <RenderComponents node={root} data={craftData} />
       <Button
         icon={<PlusOutlined />}
         type="primary"
@@ -66,7 +68,7 @@ export const GetPageLayout = ({ graph, pageId }: GetPageLayoutProps) => {
       >
         Add Grid
       </Button>
-      <D3Graph {...makeD3(graph)} onNodeClick={onNodeClick} />
+      {/* <D3Graph {...makeD3(graph)} onNodeClick={onNodeClick} /> */}
     </>
   )
 }

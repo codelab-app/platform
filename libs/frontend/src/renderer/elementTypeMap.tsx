@@ -65,10 +65,17 @@ import {
   CodelabHtml,
   CodelabMapper,
   CodelabTable,
+  Grid,
   Provider,
   RGL,
   RenderComponent,
 } from '@codelab/alpha/ui/antd'
+
+const PageContainer = ({ children }: any) => {
+  console.log('PageContainer', children)
+
+  return children ? <></> : <>{children}</>
+}
 
 /**
  * A map of VertexTypes to their corresponding React components.
@@ -89,6 +96,8 @@ export const elementTypeMap: Record<
   [VertexType.React_Menu_Item]: Menu.Item,
   [VertexType.React_Menu_ItemGroup]: Menu.ItemGroup,
   [VertexType.React_Menu_SubMenu]: Menu.SubMenu,
+  [VertexType.React_Grid_Col]: Grid.Col,
+  [VertexType.React_Grid_Row]: Grid.Row,
   [VertexType.React_Card]: Card,
   [VertexType.React_Card_Grid]: Card.Grid,
   [VertexType.React_Card_Meta]: Card.Meta,
@@ -103,6 +112,7 @@ export const elementTypeMap: Record<
   [VertexType.React_Breadcrumb]: Breadcrumb,
   [VertexType.React_Breadcrumb_Item]: Breadcrumb.Item,
   [VertexType.React_Dropdown]: Dropdown,
+  [VertexType.React_Page_Container]: PageContainer,
   [VertexType.React_Form]: Form,
   [VertexType.React_Form_Item]: Form.Item,
   [VertexType.React_Form_List]: CodelabForm.List,

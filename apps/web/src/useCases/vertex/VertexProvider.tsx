@@ -33,8 +33,6 @@ export const _VertexProvider = ({
   )
 }
 
-// _VertexProvider.whyDidYouRender = true
-
 export const VertexProvider = React.memo(
   _VertexProvider,
   (prev, next) => prev.vertexId === next.vertexId,

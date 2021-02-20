@@ -33,8 +33,10 @@ export const RenderChildren = (
   node: NodeA,
   renderProps: object,
   handlers: PaneConfigHandlersProps,
-) =>
-  node.children.map((child: NodeA) => {
+) => {
+  // console.log(node.children)
+
+  return node.children.map((child: NodeA) => {
     const [Child, props] = elementParameterFactory({
       node: child,
       handlers,
@@ -42,8 +44,9 @@ export const RenderChildren = (
 
     return (
       <Child key={child.id} {...props} className="Builder-node">
-        <DropHandler node={child} handlers={handlers} />
+        {/* <DropHandler node={child} handlers={handlers} /> */}
         {RenderChildren(child, props, handlers)}
       </Child>
     )
   })
+}

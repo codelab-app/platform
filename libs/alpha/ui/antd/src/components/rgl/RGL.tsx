@@ -1,4 +1,6 @@
-import React, { PropsWithChildren } from 'react'
+import { UserComponent } from '@craftjs/core'
+import { VertexType } from '@prisma/client'
+import React from 'react'
 import GridLayout, {
   ReactGridLayoutProps,
   Responsive as ResponsiveGrid,
@@ -12,44 +14,64 @@ const ResponsiveGridLayout = WidthProvider(ResponsiveGrid)
 type RGLProps = ReactGridLayoutProps
 type RGLResponsiveProps = ResponsiveProps
 
-const isReactFragment = (children: any) => {
-  if (children.type) {
-    return children.type === React.Fragment
-  }
+// const isReactFragment = (children: any) => {
+//   if (children.type) {
+//     return children.type === React.Fragment
+//   }
 
-  return children === React.Fragment
-}
+//   return children === React.Fragment
+// }
 
 export namespace RGL {
-  export const Container: React.FC<PropsWithChildren<RGLProps>> = ({
+  export const Container: UserComponent<RGLProps> = ({
     children,
     ...props
   }) => {
+    console.log(props, children)
+
     return <GridLayout {...props}>{children}</GridLayout>
   }
 
-  Container.displayName = 'RGLContainer'
+  Container.craft = {
+    name: VertexType.React_RGL_Container,
+  }
 
-  export const ResponsiveContainer: React.FC<
-    PropsWithChildren<RGLResponsiveProps>
-  > = ({ children, ...props }) => {
+  const isReactFragment = (children: any) => {
+    if (children?.type) {
+      return children?.type === React.Fragment
+    }
+
+    return children === React.Fragment
+  }
+
+  export const ResponsiveContainer: UserComponent<RGLResponsiveProps> = ({
+    children,
+    ...props
+  }) => {
+    console.log(props, children)
+
     return (
       <ResponsiveGridLayout {...props}>
+        {children}
         {/* Rendering the children and not the fragment, if it is one, will at least give us the children inside the grid if we use craft.js */}
-        {isReactFragment(children) && (children as any)?.props?.children
+        {/* {isReactFragment(children) && (children as any)?.props?.children
           ? (children as any).props.children
-          : children}
+          : children} */}
       </ResponsiveGridLayout>
     )
   }
 
-  ResponsiveContainer.displayName = 'RGLResponsiveContainer'
+  ResponsiveContainer.craft = {
+    name: VertexType.React_RGL_ResponsiveContainer,
+  }
 
-  export const Item: React.FC<RGLItemProps> = ({
+  export const Item: UserComponent<RGLItemProps> = ({
     children,
     'data-grid': dataGrid,
     ...props
   }) => {
+    console.log(props, children)
+
     return (
       <div {...props} data-grid={JSON.stringify(dataGrid)}>
         {children}
@@ -57,5 +79,5 @@ export namespace RGL {
     )
   }
 
-  Item.displayName = 'RGLItem'
+  Item.craft = { name: VertexType.React_RGL_Item }
 }

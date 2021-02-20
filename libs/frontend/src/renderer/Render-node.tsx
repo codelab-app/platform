@@ -8,8 +8,10 @@ import { Button } from 'antd'
 import React, { useCallback, useEffect, useRef } from 'react'
 import ReactDOM from 'react-dom'
 
-export const RenderNode = ({ render }: { render: any }) => {
+export const RenderNode = ({ render, ...props }: { render: any }) => {
+  console.log(render, props)
   const { actions, query, connectors } = useEditor()
+
   const {
     id,
     isActive,
@@ -20,16 +22,22 @@ export const RenderNode = ({ render }: { render: any }) => {
     deletable,
     connectors: { drag },
     parent,
-  } = useNode((node) => ({
-    isActive: node.events.selected,
-    isHover: node.events.hovered,
-    dom: node.dom,
-    name: node.data.custom.displayName || node.data.displayName,
-    moveable: query.node(node.id).isDraggable(),
-    deletable: query.node(node.id).isDeletable(),
-    parent: node.data.parent,
-    props: node.data.props,
-  }))
+  } = useNode((node) => {
+    console.log(node)
+
+    return {
+      isActive: node.events.selected,
+      isHover: node.events.hovered,
+      dom: node.dom,
+      name: node.data.custom.displayName || node.data.displayName,
+      moveable: query.node(node.id).isDraggable(),
+      deletable: query.node(node.id).isDeletable(),
+      parent: node.data.parent,
+      props: node.data.props,
+    }
+  })
+
+  // console.log(render, props, parent)
 
   const currentRef = useRef<HTMLDivElement>()
 

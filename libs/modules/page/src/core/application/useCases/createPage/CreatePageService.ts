@@ -33,7 +33,7 @@ export class CreatePageService
               vertices: {
                 create: [
                   {
-                    type: VertexType.React_RGL_ResponsiveContainer,
+                    type: VertexType.React_Page_Container,
                   },
                 ],
               },

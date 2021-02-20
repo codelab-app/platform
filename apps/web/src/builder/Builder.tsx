@@ -46,7 +46,7 @@ export const Builder = ({ children }: PropsWithChildren<{}>) => {
   return (
     <AppProvider appId={appId} pageId={pageId}>
       <LayoutProvider>
-        <Layout>
+        <Layout style={{ height: '100%' }}>
           <div>
             <Sider
               theme="light"
@@ -128,4 +128,3 @@ export const Builder = ({ children }: PropsWithChildren<{}>) => {
     </AppProvider>
   )
 }
-// ;(Builder as any).whyDidYouRender = true
