@@ -1,8 +1,7 @@
 import { INestApplication } from '@nestjs/common'
 import { print } from 'graphql'
-import request from 'supertest'
 import { UserModule } from '../../../../framework/nestjs/UserModule'
-import { setupTestModule, teardownTestModule } from '@codelab/backend'
+import { request, setupTestModule, teardownTestModule } from '@codelab/backend'
 import { LoginUserGql, RegisterUserGql } from '@codelab/generated'
 
 const email = 'test_user@codelab.ai'
@@ -14,17 +13,15 @@ describe('LoginUserUseCase', () => {
   beforeAll(async () => {
     app = await setupTestModule(app, UserModule)
 
-    await request(app.getHttpServer())
-      .post('/graphql')
-      .send({
-        query: print(RegisterUserGql),
-        variables: {
-          input: {
-            email,
-            password,
-          },
+    await request(app.getHttpServer()).send({
+      query: print(RegisterUserGql),
+      variables: {
+        input: {
+          email,
+          password,
         },
-      })
+      },
+    })
   })
 
   afterAll(async () => {
@@ -33,7 +30,6 @@ describe('LoginUserUseCase', () => {
 
   it.only('should successfully login', async () => {
     await request(app.getHttpServer())
-      .post('/graphql')
       .send({
         query: print(LoginUserGql),
         variables: {
@@ -52,7 +48,6 @@ describe('LoginUserUseCase', () => {
 
   it('should return error message for wrong password', async () => {
     await request(app.getHttpServer())
-      .post('/graphql')
       .send({
         query: print(LoginUserGql),
         variables: {
@@ -74,7 +69,6 @@ describe('LoginUserUseCase', () => {
     const wrongEmail = 'wrong-email@codelab.ai'
 
     await request(app.getHttpServer())
-      .post('/graphql')
       .send({
         query: print(LoginUserGql),
         variables: {

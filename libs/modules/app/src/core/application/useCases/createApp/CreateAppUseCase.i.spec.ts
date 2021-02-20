@@ -1,11 +1,10 @@
 import { INestApplication } from '@nestjs/common'
 import { VertexType } from '@prisma/client'
 import { print } from 'graphql'
-import request from 'supertest'
 import { UserModule } from '../../../../../../user/src/framework/nestjs/UserModule'
 import { AppModule } from '../../../../framework/nestjs/AppModule'
-import { setupTestModule, teardownTestModule } from '@codelab/backend'
-import { CreateAppGql, RegisterUserGql } from '@codelab/generated'
+import { request, setupTestModule, teardownTestModule } from '@codelab/backend'
+import { CreateAppGql } from '@codelab/generated'
 import { App } from '@codelab/modules/app'
 import { User } from '@codelab/modules/user'
 
@@ -18,19 +17,6 @@ describe('CreateAppUseCase', () => {
 
   beforeAll(async () => {
     app = await setupTestModule(app, UserModule, AppModule)
-
-    // user = await request(app.getHttpServer())
-    //   .post('/graphql')
-    //   .send({
-    //     query: print(RegisterUserGql),
-    //     variables: {
-    //       input: {
-    //         email,
-    //         password,
-    //       },
-    //     },
-    //   })
-    //   .then((res) => res.body.data.registerUser)
   })
 
   afterAll(async () => {
@@ -45,7 +31,6 @@ describe('CreateAppUseCase', () => {
     const title = 'My App'
 
     await request(app.getHttpServer())
-      .post('/graphql')
       .set('Authorization', `Bearer ${user.accessToken}` ?? '')
       .send({
         query: print(CreateAppGql),
@@ -83,7 +68,6 @@ describe('CreateAppUseCase', () => {
     const title = 'My App'
 
     await request(app.getHttpServer())
-      .post('/graphql')
       .set('Authorization', '')
       .send({
         query: print(CreateAppGql),

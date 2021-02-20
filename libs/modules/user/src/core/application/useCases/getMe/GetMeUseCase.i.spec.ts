@@ -1,8 +1,7 @@
 import { INestApplication } from '@nestjs/common'
 import { print } from 'graphql'
-import request from 'supertest'
 import { UserModule } from '../../../../framework/nestjs/UserModule'
-import { setupTestModule, teardownTestModule } from '@codelab/backend'
+import { request, setupTestModule, teardownTestModule } from '@codelab/backend'
 import { GetMeGql, RegisterUserGql } from '@codelab/generated'
 import { User } from '@codelab/modules/user'
 
@@ -17,7 +16,6 @@ describe('GetMeUseCase', () => {
     app = await setupTestModule(app, UserModule)
 
     user = await request(app.getHttpServer())
-      .post('/graphql')
       .send({
         query: print(RegisterUserGql),
         variables: {
@@ -40,7 +38,6 @@ describe('GetMeUseCase', () => {
     const { accessToken } = user
 
     await request(app.getHttpServer())
-      .post('/graphql')
       .set('Authorization', `Bearer ${accessToken}`)
       .send({
         query: print(GetMeGql),

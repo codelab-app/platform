@@ -1,7 +1,6 @@
 import { INestApplication } from '@nestjs/common'
 import { print } from 'graphql'
-import request from 'supertest'
-import { setupTestModule, teardownTestModule } from '@codelab/backend'
+import { request, setupTestModule, teardownTestModule } from '@codelab/backend'
 import { CreateGraphGql } from '@codelab/generated'
 import { GraphModule } from '@codelab/modules/graph'
 
@@ -20,7 +19,6 @@ describe('CreateGraphUseCase', () => {
     const label = 'Graph 1'
 
     await request(app.getHttpServer())
-      .post('/graphql')
       .send({
         query: print(CreateGraphGql),
         variables: {

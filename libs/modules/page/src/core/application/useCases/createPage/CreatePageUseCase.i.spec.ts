@@ -1,13 +1,12 @@
 import { INestApplication } from '@nestjs/common'
 import { VertexType } from '@prisma/client'
 import { print } from 'graphql'
-import request from 'supertest'
 import { App } from '../../../../../../app/src/core/domain/App'
 import { AppModule } from '../../../../../../app/src/framework/nestjs/AppModule'
 import { GraphModule } from '../../../../../../graph/src/framework/nestjs/GraphModule'
 import { UserModule } from '../../../../../../user/src/framework/nestjs/UserModule'
 import { Page } from '../../../domain/Page'
-import { setupTestModule, teardownTestModule } from '@codelab/backend'
+import { request, setupTestModule, teardownTestModule } from '@codelab/backend'
 import {
   CreateAppGql,
   CreatePageGql,
@@ -27,7 +26,6 @@ describe('CreatePageUseCase', () => {
 
     // Register user
     user = await request(app.getHttpServer())
-      .post('/graphql')
       .send({
         query: print(RegisterUserGql),
         variables: {
@@ -49,7 +47,6 @@ describe('CreatePageUseCase', () => {
     const { accessToken } = user
 
     await request(app.getHttpServer())
-      .post('/graphql')
       .set('Authorization', `Bearer ${accessToken}`)
       .send({
         query: print(CreatePageGql),
@@ -75,7 +72,6 @@ describe('CreatePageUseCase', () => {
     const { accessToken } = user
 
     const createApp: App = await request(app.getHttpServer())
-      .post('/graphql')
       .set('Authorization', `Bearer ${accessToken}`)
       .send({
         query: print(CreateAppGql),
@@ -93,7 +89,6 @@ describe('CreatePageUseCase', () => {
     const { id } = createApp
 
     await request(app.getHttpServer())
-      .post('/graphql')
       .set('Authorization', `Bearer ${accessToken}`)
       .send({
         query: print(CreatePageGql),

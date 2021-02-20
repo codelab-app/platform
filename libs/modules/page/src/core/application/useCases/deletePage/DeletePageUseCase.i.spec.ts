@@ -1,8 +1,7 @@
 import { INestApplication } from '@nestjs/common'
 import { print } from 'graphql'
-import request from 'supertest'
 import { Page } from '../../../domain/Page'
-import { setupTestModule, teardownTestModule } from '@codelab/backend'
+import { request, setupTestModule, teardownTestModule } from '@codelab/backend'
 import {
   CreateAppGql,
   CreatePageGql,
@@ -27,7 +26,6 @@ describe('DeletePageUseCase', () => {
 
     // Register user
     user = await request(nestApp.getHttpServer())
-      .post('/graphql')
       .send({
         query: print(RegisterUserGql),
         variables: {
@@ -43,7 +41,6 @@ describe('DeletePageUseCase', () => {
     const { accessToken } = user
 
     app = await request(nestApp.getHttpServer())
-      .post('/graphql')
       .set('Authorization', `Bearer ${accessToken}`)
       .send({
         query: print(CreateAppGql),
@@ -66,7 +63,6 @@ describe('DeletePageUseCase', () => {
 
   it('should delete existing page', async () => {
     page = await request(nestApp.getHttpServer())
-      .post('/graphql')
       .set('Authorization', `Bearer ${user.accessToken}`)
       .send({
         query: print(CreatePageGql),
@@ -84,7 +80,6 @@ describe('DeletePageUseCase', () => {
       .then((res) => res.body.data.createPage)
 
     await request(nestApp.getHttpServer())
-      .post('/graphql')
       .set('Authorization', `Bearer ${user.accessToken}`)
       .send({
         query: print(DeletePageGql),
@@ -100,7 +95,6 @@ describe('DeletePageUseCase', () => {
 
   it('should not delete last page', async () => {
     page = await request(nestApp.getHttpServer())
-      .post('/graphql')
       .set('Authorization', `Bearer ${user.accessToken}`)
       .send({
         query: print(CreatePageGql),
@@ -118,7 +112,6 @@ describe('DeletePageUseCase', () => {
       .then((res) => res.body.data.createPage)
 
     await request(nestApp.getHttpServer())
-      .post('/graphql')
       .set('Authorization', `Bearer ${user.accessToken}`)
       .send({
         query: print(DeletePageGql),
@@ -132,7 +125,6 @@ describe('DeletePageUseCase', () => {
       })
 
     await request(nestApp.getHttpServer())
-      .post('/graphql')
       .set('Authorization', `Bearer ${user.accessToken}`)
       .send({
         query: print(DeletePageGql),
@@ -152,7 +144,6 @@ describe('DeletePageUseCase', () => {
     const wrongPageId = '8cd9c870-03f8-4031-8d7f-a6a6978f14b5'
 
     await request(nestApp.getHttpServer())
-      .post('/graphql')
       .set('Authorization', `Bearer ${user.accessToken}`)
       .send({
         query: print(DeletePageGql),

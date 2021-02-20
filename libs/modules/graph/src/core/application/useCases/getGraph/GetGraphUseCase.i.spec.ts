@@ -1,8 +1,7 @@
 import { INestApplication } from '@nestjs/common'
 import { print } from 'graphql'
-import request from 'supertest'
 import { GraphModule } from '../../../../framework/nestjs/GraphModule'
-import { setupTestModule, teardownTestModule } from '@codelab/backend'
+import { request, setupTestModule, teardownTestModule } from '@codelab/backend'
 import { CreateGraphGql, GetGraphGql } from '@codelab/generated'
 
 describe('GetGraphUseCase', () => {
@@ -20,7 +19,6 @@ describe('GetGraphUseCase', () => {
     const label = 'Graph 1'
 
     const createdGraph = await request(app.getHttpServer())
-      .post('/graphql')
       .send({
         query: print(CreateGraphGql),
         variables: {
@@ -37,7 +35,6 @@ describe('GetGraphUseCase', () => {
       .then((res) => res.body.data.createGraph)
 
     await request(app.getHttpServer())
-      .post('/graphql')
       .send({
         query: print(GetGraphGql),
         variables: {
@@ -57,7 +54,6 @@ describe('GetGraphUseCase', () => {
     const wrongGraphId = '85e3fd3a-9dde-4c80-bd07-8cf126799698'
 
     await request(app.getHttpServer())
-      .post('/graphql')
       .send({
         query: print(GetGraphGql),
         variables: {

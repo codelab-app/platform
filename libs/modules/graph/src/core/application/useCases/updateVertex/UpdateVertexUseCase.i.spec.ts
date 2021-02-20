@@ -1,8 +1,7 @@
 import { INestApplication } from '@nestjs/common'
 import { VertexType } from '@prisma/client'
 import { print } from 'graphql'
-import request from 'supertest'
-import { setupTestModule, teardownTestModule } from '@codelab/backend'
+import { request, setupTestModule, teardownTestModule } from '@codelab/backend'
 import {
   AddChildVertexGql,
   CreateAppGql,
@@ -51,7 +50,6 @@ describe('UpdateVertexUseCase', () => {
     )
     // Register user
     user = await request(app.getHttpServer())
-      .post('/graphql')
       .send({
         query: print(RegisterUserGql),
         variables: {
@@ -71,7 +69,6 @@ describe('UpdateVertexUseCase', () => {
   it.skip('should update vertex', async () => {
     const title = 'Test App'
     const createApp: App = await request(app.getHttpServer())
-      .post('/graphql')
       .set('Authorization', `Bearer ${user.accessToken}`)
       .send({
         query: print(CreateAppGql),
@@ -89,7 +86,6 @@ describe('UpdateVertexUseCase', () => {
     const { id } = createApp
 
     page = await request(app.getHttpServer())
-      .post('/graphql')
       .set('Authorization', `Bearer ${user.accessToken}`)
       .send({
         query: print(CreatePageGql),
@@ -116,7 +112,6 @@ describe('UpdateVertexUseCase', () => {
     const parentVertexId = page.graphs[0].vertices[0].id
 
     const addChildVertex: Vertex = await request(app.getHttpServer())
-      .post('/graphql')
       .send({
         query: print(AddChildVertexGql),
         variables: {
@@ -146,7 +141,6 @@ describe('UpdateVertexUseCase', () => {
       .then((res) => res.body.data.addChildVertex)
 
     const verifyGraph: Graph = await request(app.getHttpServer())
-      .post('/graphql')
       .send({
         query: print(GetGraphGql),
         variables: {
@@ -182,7 +176,6 @@ describe('UpdateVertexUseCase', () => {
     const updateVertexMutation = getUpdateVertexMutation(addChildVertex.id)
 
     await request(app.getHttpServer())
-      .post('/graphql')
       .send(updateVertexMutation)
       .expect(200)
       .expect((res) => {
@@ -200,7 +193,6 @@ describe('UpdateVertexUseCase', () => {
     const updateVertexMutation = getUpdateVertexMutation(wrongVertexId)
 
     await request(app.getHttpServer())
-      .post('/graphql')
       .send(updateVertexMutation)
       .expect(200)
       .expect((res) => {

@@ -1,9 +1,8 @@
 import { INestApplication } from '@nestjs/common'
 import { print } from 'graphql'
-import request from 'supertest'
 import { teardownTestModule } from '../../../../../../../backend/src/common/utils/resetDb'
 import { UserModule } from '../../../../framework/nestjs/UserModule'
-import { setupTestModule } from '@codelab/backend'
+import { request, setupTestModule } from '@codelab/backend'
 import { DeleteUserGql, RegisterUserGql } from '@codelab/generated'
 import { User } from '@codelab/modules/user'
 
@@ -19,7 +18,6 @@ describe('DeleteUserUseCase', () => {
 
     // Create user
     user = await request(app.getHttpServer())
-      .post('/graphql')
       .send({
         query: print(RegisterUserGql),
         variables: {
@@ -38,7 +36,6 @@ describe('DeleteUserUseCase', () => {
 
   it('should delete an existing user', async () => {
     await request(app.getHttpServer())
-      .post('/graphql')
       .send({
         query: print(DeleteUserGql),
         variables: {
@@ -57,7 +54,6 @@ describe('DeleteUserUseCase', () => {
     const incorrectEmail = 'incorrect_email@codelab.ai'
 
     await request(app.getHttpServer())
-      .post('/graphql')
       .send({
         query: print(DeleteUserGql),
         variables: {

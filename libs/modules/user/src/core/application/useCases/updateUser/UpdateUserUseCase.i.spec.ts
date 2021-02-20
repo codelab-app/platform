@@ -1,10 +1,9 @@
 import { INestApplication } from '@nestjs/common'
 import { print } from 'graphql'
-import request from 'supertest'
 import { v4 as uuidv4 } from 'uuid'
 import { UserModule } from '../../../../framework/nestjs/UserModule'
 import { User } from '../../../domain/User'
-import { setupTestModule, teardownTestModule } from '@codelab/backend'
+import { request, setupTestModule, teardownTestModule } from '@codelab/backend'
 import { RegisterUserGql, UpdateUserGql } from '@codelab/generated'
 
 const email = 'test_user@codelab.ai'
@@ -19,7 +18,6 @@ describe('UpdateUserUseCase', () => {
     app = await setupTestModule(app, UserModule)
 
     user = await request(app.getHttpServer())
-      .post('/graphql')
       .send({
         query: print(RegisterUserGql),
         variables: {
@@ -38,7 +36,6 @@ describe('UpdateUserUseCase', () => {
 
   it('should update user', async () => {
     await request(app.getHttpServer())
-      .post('/graphql')
       .send({
         query: print(UpdateUserGql),
         variables: {
@@ -58,7 +55,6 @@ describe('UpdateUserUseCase', () => {
     const userId = uuidv4()
 
     await request(app.getHttpServer())
-      .post('/graphql')
       .send({
         query: print(UpdateUserGql),
         variables: {

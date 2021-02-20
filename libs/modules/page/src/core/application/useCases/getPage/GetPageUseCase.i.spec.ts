@@ -1,9 +1,8 @@
 import { INestApplication } from '@nestjs/common'
 import { print } from 'graphql'
-import request from 'supertest'
 import { App } from '../../../../../../app/src/core/domain/App'
 import { Page } from '../../../domain/Page'
-import { setupTestModule, teardownTestModule } from '@codelab/backend'
+import { request, setupTestModule, teardownTestModule } from '@codelab/backend'
 import {
   CreateAppGql,
   CreatePageGql,
@@ -27,7 +26,6 @@ describe('GetPageUseCase', () => {
 
     // Register user
     user = await request(app.getHttpServer())
-      .post('/graphql')
       .send({
         query: print(RegisterUserGql),
         variables: {
@@ -43,7 +41,6 @@ describe('GetPageUseCase', () => {
     const { accessToken } = user
 
     const createApp: App = await request(app.getHttpServer())
-      .post('/graphql')
       .set('Authorization', `Bearer ${accessToken}`)
       .send({
         query: print(CreateAppGql),
@@ -60,7 +57,6 @@ describe('GetPageUseCase', () => {
       .then((res) => res.body.data.createApp)
 
     page = await request(app.getHttpServer())
-      .post('/graphql')
       .set('Authorization', `Bearer ${accessToken}`)
       .send({
         query: print(CreatePageGql),
@@ -84,7 +80,6 @@ describe('GetPageUseCase', () => {
 
   it('should get page for authenticated user', async () => {
     await request(app.getHttpServer())
-      .post('/graphql')
       .set('Authorization', `Bearer ${user.accessToken}`)
       .send({
         query: print(GetPageGql),
@@ -104,7 +99,6 @@ describe('GetPageUseCase', () => {
     const wrongPageId = '85e3fd3a-9dde-4c80-bd07-8cf126799698'
 
     await request(app.getHttpServer())
-      .post('/graphql')
       .set('Authorization', `Bearer ${user.accessToken}`)
       .send({
         query: print(GetPageGql),

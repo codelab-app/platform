@@ -1,9 +1,8 @@
 import { INestApplication } from '@nestjs/common'
 import { print } from 'graphql'
-import request from 'supertest'
 import { AppModule } from '../../../../framework/nestjs/AppModule'
 import { App } from '../../../domain/App'
-import { setupTestModule, teardownTestModule } from '@codelab/backend'
+import { request, setupTestModule, teardownTestModule } from '@codelab/backend'
 import { CreateAppGql, RegisterUserGql, UpdateAppGql } from '@codelab/generated'
 import { User, UserModule } from '@codelab/modules/user'
 
@@ -21,7 +20,6 @@ describe('UpdateAppUseCase', () => {
     nestApp = await setupTestModule(nestApp, UserModule, AppModule)
 
     user = await request(nestApp.getHttpServer())
-      .post('/graphql')
       .send({
         query: print(RegisterUserGql),
         variables: {
@@ -34,7 +32,6 @@ describe('UpdateAppUseCase', () => {
       .then((res) => res.body.data.registerUser)
 
     app = await request(nestApp.getHttpServer())
-      .post('/graphql')
       .set('Authorization', `Bearer ${user.accessToken}` ?? '')
       .send({
         query: print(CreateAppGql),
@@ -55,7 +52,6 @@ describe('UpdateAppUseCase', () => {
     const newTitle = 'My New App'
 
     await request(nestApp.getHttpServer())
-      .post('/graphql')
       .set('Authorization', `Bearer ${user.accessToken}` ?? '')
       .send({
         query: print(UpdateAppGql),
@@ -76,7 +72,6 @@ describe('UpdateAppUseCase', () => {
     const newTitle = 'My New App'
 
     await request(nestApp.getHttpServer())
-      .post('/graphql')
       .set('Authorization', '')
       .send({
         query: print(UpdateAppGql),
@@ -97,7 +92,6 @@ describe('UpdateAppUseCase', () => {
     const newTitle = 'My New App'
 
     const user2 = await request(nestApp.getHttpServer())
-      .post('/graphql')
       .send({
         query: print(RegisterUserGql),
         variables: {
@@ -110,7 +104,6 @@ describe('UpdateAppUseCase', () => {
       .then((res) => res.body.data.registerUser)
 
     await request(nestApp.getHttpServer())
-      .post('/graphql')
       .set('Authorization', `Bearer ${user2.accessToken}` ?? '')
       .send({
         query: print(UpdateAppGql),

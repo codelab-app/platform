@@ -1,9 +1,8 @@
 import { INestApplication } from '@nestjs/common'
 import { VertexType } from '@prisma/client'
 import { print } from 'graphql'
-import request from 'supertest'
 import { GraphModule } from '../../../../framework/nestjs/GraphModule'
-import { setupTestModule, teardownTestModule } from '@codelab/backend'
+import { request, setupTestModule, teardownTestModule } from '@codelab/backend'
 import {
   AddChildVertexGql,
   CreateAppGql,
@@ -36,7 +35,6 @@ describe('DeleteVertexUseCase', () => {
 
     // Register user
     user = await request(app.getHttpServer())
-      .post('/graphql')
       .send({
         query: print(RegisterUserGql),
         variables: {
@@ -56,7 +54,6 @@ describe('DeleteVertexUseCase', () => {
   it('should delete vertex', async () => {
     const title = 'Test App'
     const createApp: App = await request(app.getHttpServer())
-      .post('/graphql')
       .set('Authorization', `Bearer ${user.accessToken}`)
       .send({
         query: print(CreateAppGql),
@@ -74,7 +71,6 @@ describe('DeleteVertexUseCase', () => {
     const { id } = createApp
 
     page = await request(app.getHttpServer())
-      .post('/graphql')
       .set('Authorization', `Bearer ${user.accessToken}`)
       .send({
         query: print(CreatePageGql),
@@ -91,9 +87,6 @@ describe('DeleteVertexUseCase', () => {
 
         expect(pageRes).toMatchObject({
           title: 'Page 1',
-          graphs: [
-            { vertices: [{ type: VertexType.React_RGL_ResponsiveContainer }] },
-          ],
         })
       })
       .then((res) => res.body.data.createPage)
@@ -101,7 +94,6 @@ describe('DeleteVertexUseCase', () => {
     const parentVertexId = page.graphs[0].vertices[0].id
 
     const addChildVertex: Vertex = await request(app.getHttpServer())
-      .post('/graphql')
       .send({
         query: print(AddChildVertexGql),
         variables: {
@@ -132,7 +124,6 @@ describe('DeleteVertexUseCase', () => {
       .then((res) => res.body.data.addChildVertex)
 
     await request(app.getHttpServer())
-      .post('/graphql')
       .send({
         query: print(GetGraphGql),
         variables: {
@@ -149,7 +140,7 @@ describe('DeleteVertexUseCase', () => {
           vertices: [
             {
               id: parentVertexId,
-              type: VertexType.React_RGL_ResponsiveContainer,
+              type: VertexType.React_Page_Container,
             },
             {
               type: VertexType.React_Text,
@@ -166,7 +157,6 @@ describe('DeleteVertexUseCase', () => {
       .then((res) => res.body.data.getGraph)
 
     await request(app.getHttpServer())
-      .post('/graphql')
       .send({
         query: print(DeleteVertexGql),
         variables: {
@@ -188,7 +178,6 @@ describe('DeleteVertexUseCase', () => {
       })
 
     await request(app.getHttpServer())
-      .post('/graphql')
       .send({
         query: print(GetGraphGql),
         variables: {
@@ -205,7 +194,7 @@ describe('DeleteVertexUseCase', () => {
           vertices: [
             {
               id: parentVertexId,
-              type: VertexType.React_RGL_ResponsiveContainer,
+              type: VertexType.React_Page_Container,
             },
           ],
           edges: [],
@@ -219,7 +208,6 @@ describe('DeleteVertexUseCase', () => {
     const wrongVertexId = '2fa9e75b-1f5d-4dd1-a58c-dbc09d822de9'
 
     await request(app.getHttpServer())
-      .post('/graphql')
       .send({
         query: print(DeleteVertexGql),
         variables: {
