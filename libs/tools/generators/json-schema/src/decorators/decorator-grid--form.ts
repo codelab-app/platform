@@ -29,7 +29,7 @@ export const getGridFormProps = (
     content: [DecoratorsExport, Props],
     imports: [
       {
-        source: '@codelab/alpha/ui/components',
+        source: '@codelab/alpha/ui/component',
         entities: ['ObjectFieldGridTemplateFactory'],
       },
       {

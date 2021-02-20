@@ -26,7 +26,7 @@ export const getTabsFormProps = (
         entities: ['GroupsUiSchema'],
       },
       {
-        source: '@codelab/alpha/ui/components',
+        source: '@codelab/alpha/ui/component',
         entities: ['ObjectFieldTabsTemplate'],
       },
       {
