@@ -1,3 +1,9 @@
+/*
+ * Factory takes grid definition and generates ObjectFieldGridTemplate
+ * Grid definition follows fields hierarchy(nested grid definitions are supported).
+ * Definition suppors all antd ColProps + 1 extra-prop called 'order'
+ */
+
 import { ObjectFieldTemplateProps } from '@rjsf/core'
 import { Col, Row } from 'antd'
 import { ColProps } from 'antd/lib/col'
