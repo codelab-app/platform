@@ -973,27 +973,39 @@ export const CascaderPropsSchema: JSONSchema7 = {
 }
 
 const DemoGridPropsDecorators: DecoratorsMap = {
-  firstname: {
+  nestedGrid: {
     __grid: {
       order: 0,
       span: 12,
     },
+    subInfo: {
+      __grid: {
+        order: 0,
+        span: 12,
+      },
+    },
   },
-  lastname: {
+  firstname: {
     __grid: {
       order: 1,
       span: 12,
     },
   },
-  email: {
+  lastname: {
     __grid: {
       order: 2,
+      span: 12,
+    },
+  },
+  email: {
+    __grid: {
+      order: 3,
       span: 16,
     },
   },
   password: {
     __grid: {
-      order: 3,
+      order: 4,
       span: 8,
     },
   },
@@ -1020,8 +1032,24 @@ export const DemoGridPropsSchema: JSONSchema7 = {
     lastname: {
       type: 'string',
     },
+    nestedGrid: {
+      $ref: '#/definitions/DemoSubGridProps',
+    },
     notGroupedField: {
       type: 'string',
+    },
+  },
+  definitions: {
+    DemoSubGridProps: {
+      type: 'object',
+      properties: {
+        subInfo: {
+          type: 'string',
+        },
+        lastname: {
+          type: 'string',
+        },
+      },
     },
   },
 }

@@ -1,46 +1,48 @@
 import { Property } from '@tsed/schema'
 import { Grid, Tabs } from '@codelab/tools/generators/json-schema'
 
+class DemoSubGridProps {
+  @Property()
+  declare subInfo: string
+
+  @Property()
+  declare lastname: string
+}
+
 @Grid<DemoGridProps>({
-  // name: {
-  //   __grid: {
-  //     order: 0,
-  //     span: 12,
-  //   },
-  //   firstname: {
-  //     __grid: {
-  //       order: 0,
-  //       span: 12,
-  //     },
-  //   },
-  //   lastname: {
-  //     __grid: {
-  //       order: 1,
-  //       span: 12,
-  //     },
-  //   },
-  // },
-  firstname: {
+  nestedGrid: {
     __grid: {
       order: 0,
       span: 12,
     },
+    subInfo: {
+      __grid: {
+        order: 0,
+        span: 12,
+      },
+    },
   },
-  lastname: {
+  firstname: {
     __grid: {
       order: 1,
       span: 12,
     },
   },
-  email: {
+  lastname: {
     __grid: {
       order: 2,
+      span: 12,
+    },
+  },
+  email: {
+    __grid: {
+      order: 3,
       span: 16,
     },
   },
   password: {
     __grid: {
-      order: 3,
+      order: 4,
       span: 8,
     },
   },
@@ -58,11 +60,8 @@ export class DemoGridProps {
   @Property()
   declare lastname: string
 
-  // @Property()
-  // declare name: {
-  //   firstname: string
-  //   lastname: string
-  // }
+  @Property()
+  declare nestedGrid: DemoSubGridProps
 
   @Property()
   declare notGroupedField: string
