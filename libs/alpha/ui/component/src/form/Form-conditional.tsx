@@ -1,18 +1,26 @@
-import { Theme as AntDTheme } from '@rjsf/antd'
-import { ISubmitEvent, withTheme } from '@rjsf/core'
 import React from 'react'
-import { CodelabFieldTemplate } from '../rjsf-templates/CodelabFieldTemplate'
-import { CodelabCheckboxWidget } from '../rjsf-widgets/CodelabCheckboxWidget'
-import { CodelabTextWidget } from '../rjsf-widgets/CodelabTextWidget'
+import { CodelabFieldTemplate } from './rjsf-templates/CodelabFieldTemplate'
+import { CodelabCheckboxWidget } from './rjsf-widgets/CodelabCheckboxWidget'
+import { CodelabTextWidget } from './rjsf-widgets/CodelabTextWidget'
+import { JsonSchemaForm, OnSubmitEvent } from '@codelab/frontend'
 import { UpdateVertexInput, UpdateVertexInputSchema } from '@codelab/generated'
 
-const Form = withTheme(AntDTheme)
+const uiSchema = {
+  props: {
+    props: {
+      loading: {
+        'ui:widget': CodelabTextWidget,
+      },
+    },
+  },
+}
 
-export const FormVertexConditional = () => {
-  const schema = UpdateVertexInputSchema
+export const conditionalFormProps = {
+  schema: UpdateVertexInputSchema,
+  uiSchema,
+}
 
-  console.log(schema)
-
+export const ConditionalForm = () => {
   const formCtx = {
     specifiedPropsKeys: [],
   }
@@ -39,9 +47,8 @@ export const FormVertexConditional = () => {
     } as UpdateVertexInput
   }
 
-  const onSubmitClicked = ({ formData }: ISubmitEvent<any>) =>
+  const onSubmitClicked = ({ formData }: OnSubmitEvent) =>
     console.log('Transformed: ', transformFromData(formData))
-  // console.log('Data submitted: ', formData)
 
   const widgets = {
     TextWidget: CodelabTextWidget,
@@ -49,27 +56,14 @@ export const FormVertexConditional = () => {
     // SelectWidget: CodelabSelectWidget
   }
 
-  const uiSchema = {
-    props: {
-      props: {
-        loading: {
-          'ui:widget': CodelabTextWidget,
-        },
-      },
-    },
-  }
-
   return (
-    <Form
-      schema={schema}
+    <JsonSchemaForm
       widgets={widgets}
-      uiSchema={uiSchema}
       FieldTemplate={CodelabFieldTemplate}
-      // validate={validate}
-      // formContext={formCtx}
       onChange={filterOptions}
       onSubmit={onSubmitClicked}
       onError={log('errors')}
+      {...conditionalFormProps}
     />
   )
 }
