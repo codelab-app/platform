@@ -3,7 +3,10 @@ import { ISubmitEvent, withTheme } from '@rjsf/core'
 import { JSONSchema7 } from 'json-schema'
 import React from 'react'
 import { ObjectGridTemplate } from '../rjsf-templates/ObjectGridTemplate'
-import { CodelabFieldTemplate } from '@codelab/alpha/ui/component'
+import {
+  CodelabFieldTemplate,
+  CodelabSelectWidget,
+} from '@codelab/alpha/ui/component'
 
 const Form = withTheme(AntDTheme)
 
@@ -34,6 +37,16 @@ export const FormNewGrid = () => {
         type: 'integer',
         title: 'Age',
       },
+      searchSelect: {
+        type: 'object',
+        title: 'Search Select widget test',
+        properties: {
+          selectWidget: {
+            type: 'string',
+            enum: ['Option 1', 'Option 2', 'Option 3'],
+          },
+        },
+      },
       address: {
         type: 'object',
         title: 'Address - Object Test',
@@ -60,6 +73,15 @@ export const FormNewGrid = () => {
 
   const uiSchema = {
     'ui:ObjectFieldTemplate': ObjectGridTemplate,
+    searchSelect: {
+      'ui:ObjectFieldTemplate': ObjectGridTemplate,
+      'ui:spacing': 16,
+      span: 20,
+      'ui:layout': [{ selectWidget: { span: 24 } }],
+      selectWidget: {
+        'ui:widget': CodelabSelectWidget,
+      },
+    },
     address: {
       'ui:ObjectFieldTemplate': ObjectGridTemplate,
       'ui:spacing': 16,

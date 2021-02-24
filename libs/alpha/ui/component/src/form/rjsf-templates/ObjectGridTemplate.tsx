@@ -113,7 +113,7 @@ export const ObjectGridTemplate = (props: any) => {
         return rendered.includes(prop.name) ? null : (
           <div className="row" key={index}>
             <Row gutter={gutter}>
-              <Col span={uiSchema[prop.name].span}>{prop.content}</Col>
+              <Col span={uiSchema[prop.name]?.span}>{prop.content}</Col>
             </Row>
           </div>
         )
