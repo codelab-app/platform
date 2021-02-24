@@ -1,5 +1,6 @@
 import React from 'react'
 import { FormAccordion } from './examples/Form-accordion'
+import { FormNewGrid } from './examples/Form-new-grid'
 import { FormVertexConditional } from './examples/Form-vertex-conditional'
 import { CodelabSelectWidget } from './rjsf-widgets/CodelabSelectWidget'
 import { JsonSchemaForm } from '@codelab/frontend'
@@ -43,6 +44,10 @@ export const ConditionalVertexForm = () => {
 
 export const AccordionForm = () => {
   return <FormAccordion />
+}
+
+export const NewGridForm = () => {
+  return <FormNewGrid />
 }
 
 export const TabsForm = () => {
