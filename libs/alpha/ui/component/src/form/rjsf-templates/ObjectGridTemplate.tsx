@@ -37,8 +37,18 @@ export const ObjectGridTemplate = (props: any) => {
 
   const rendered: Array<string> = []
 
+  const fieldsetStyle = {
+    border: '1px solid black',
+    'border-radius': '5px',
+    margin: '10px',
+  }
+
+  const rowStyle = {
+    margin: '15px',
+  }
+
   return (
-    <fieldset id={props.idSchema.$id}>
+    <fieldset style={fieldsetStyle} id={props.idSchema.$id}>
       {(props.uiSchema['ui:title'] || props.title) && (
         <TitleField
           id={`${props.idSchema.$id}__title`}
@@ -62,7 +72,7 @@ export const ObjectGridTemplate = (props: any) => {
           const orderedKeys = row['ui:order']
 
           return (
-            <div className="row" key={index}>
+            <div style={rowStyle} key={index}>
               <Row gutter={gutter}>
                 {orderedKeys.map((name: string) => {
                   if (schema.properties[name]) {
@@ -81,12 +91,11 @@ export const ObjectGridTemplate = (props: any) => {
         }
 
         return (
-          <div className="row" key={index}>
+          <div style={rowStyle} key={index}>
             <Row gutter={gutter}>
               {rowKeys.map((name) => {
                 if (schema.properties[name]) {
                   const element = findContent(name)
-                  // rendered.push(name)
 
                   addIfNotExist(rendered, name)
 
@@ -99,8 +108,15 @@ export const ObjectGridTemplate = (props: any) => {
           </div>
         )
       })}
-      {properties.map((element: any) => {
-        return rendered.includes(element.name) ? <div /> : element.content
+      {properties.map((prop: any, index: number) => {
+        // console.log('rendered: ', rendered)
+        return rendered.includes(prop.name) ? null : (
+          <div className="row" key={index}>
+            <Row gutter={gutter}>
+              <Col span={uiSchema[prop.name].span}>{prop.content}</Col>
+            </Row>
+          </div>
+        )
       })}
     </fieldset>
   )

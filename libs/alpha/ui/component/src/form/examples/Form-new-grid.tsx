@@ -63,6 +63,7 @@ export const FormNewGrid = () => {
     address: {
       'ui:ObjectFieldTemplate': ObjectGridTemplate,
       'ui:spacing': 16,
+      span: 20,
       'ui:layout': [
         {
           streetName: { span: 10 },
@@ -73,6 +74,7 @@ export const FormNewGrid = () => {
       ],
     },
     arrTest: {
+      span: 20,
       items: {
         'ui:ObjectFieldTemplate': ObjectGridTemplate,
         'ui:spacing': 16,
