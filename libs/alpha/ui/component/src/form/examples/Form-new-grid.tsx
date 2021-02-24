@@ -7,8 +7,31 @@ import {
   CodelabFieldTemplate,
   CodelabSelectWidget,
 } from '@codelab/alpha/ui/component'
+import { CodelabTabsTemplate } from '../rjsf-templates/CodelabTabsTemplate';
+import { CodelabAccordionTemplate } from '../rjsf-templates/CodelabAccordionTemplate';
 
 const Form = withTheme(AntDTheme)
+
+const firstName = {
+      type: 'string',
+      title: 'First name',
+    }
+
+const lastName = {
+  type: 'string',
+  title: 'Last name',
+}
+
+const address = {
+  type: 'object',
+  title: 'Address - Object Test',
+  properties: {
+    streetName: { type: 'string', title: 'Street Name' },
+    houseNumber: { type: 'string', title: 'House Number' },
+    postalCode: { type: 'string', title: 'Postal Code' },
+    phoneNumber: { type: 'string', title: 'Phone Number' },
+  },
+}
 
 export const FormNewGrid = () => {
   const schema: JSONSchema7 = {
@@ -16,26 +39,43 @@ export const FormNewGrid = () => {
     type: 'object',
     // required: ['password'],
     properties: {
+      info: {
+        type: 'object',
+        title: 'Information',
+        properties: {
+          firstName: firstName as JSONSchema7,
+          lastName: lastName as JSONSchema7,
+          bio: {
+            type: 'string',
+            title: 'Bio',
+          },
+        }
+      },
       password: {
         type: 'string',
         title: 'Password',
       },
-      firstName: {
-        type: 'string',
-        title: 'First name',
-      },
-      lastName: {
-        type: 'string',
-        title: 'Last name',
-      },
-      bio: {
-        type: 'string',
-        title: 'Bio',
-      },
-
       age: {
         type: 'integer',
         title: 'Age',
+      },
+      tabsSample: {
+        type: 'object',
+        title: 'Tabs Example Within Grid',
+        properties: {
+          firstName: firstName as JSONSchema7,
+          lastName: lastName as JSONSchema7,
+          address: address as JSONSchema7,
+        }
+      },
+      accordionSample: {
+        type: 'object',
+        title: 'Accordion Example Within Grid',
+        properties: {
+          firstName: firstName as JSONSchema7,
+          lastName: lastName as JSONSchema7,
+          address: address as JSONSchema7,
+        }
       },
       searchSelect: {
         type: 'object',
@@ -47,16 +87,7 @@ export const FormNewGrid = () => {
           },
         },
       },
-      address: {
-        type: 'object',
-        title: 'Address - Object Test',
-        properties: {
-          streetName: { type: 'string', title: 'Street Name' },
-          houseNumber: { type: 'string', title: 'House Number' },
-          postalCode: { type: 'string', title: 'Postal Code' },
-          phoneNumber: { type: 'string', title: 'Phone Number' },
-        },
-      },
+      address: address as JSONSchema7,
       arrTest: {
         type: 'array',
         title: 'Array Test With Grid',
@@ -73,14 +104,6 @@ export const FormNewGrid = () => {
 
   const uiSchema = {
     'ui:ObjectFieldTemplate': ObjectGridTemplate,
-    searchSelect: {
-      'ui:ObjectFieldTemplate': ObjectGridTemplate,
-      'ui:spacing': 16,
-      'ui:layout': [{ selectWidget: { span: 24 } }],
-      selectWidget: {
-        'ui:widget': CodelabSelectWidget,
-      },
-    },
     address: {
       'ui:ObjectFieldTemplate': ObjectGridTemplate,
       'ui:spacing': 16,
@@ -92,6 +115,28 @@ export const FormNewGrid = () => {
           phoneNumber: { span: 12 },
         },
       ],
+    },
+    info: {
+      'ui:ObjectFieldTemplate': ObjectGridTemplate,
+      'ui:spacing': 16,
+      'ui:layout': [
+        {
+          'ui:order': ['lastName', 'firstName'],
+          firstName: { span: 12 },
+          lastName: { span: 12 },
+        },
+        {
+          bio: { span: 24 }
+        }
+      ]
+    },
+    searchSelect: {
+      'ui:ObjectFieldTemplate': ObjectGridTemplate,
+      'ui:spacing': 16,
+      'ui:layout': [{ selectWidget: { span: 24 } }],
+      selectWidget: {
+        'ui:widget': CodelabSelectWidget,
+      },
     },
     arrTest: {
       items: {
@@ -105,20 +150,33 @@ export const FormNewGrid = () => {
         ],
       },
     },
+    tabsSample: {
+      'ui:ObjectFieldTemplate': CodelabTabsTemplate,
+      'ui:groups': [
+        { title: 'Info', fields: ['firstName', 'lastName'] },
+        { title: 'Address', fields: ['address'] },
+      ]
+    },
+    accordionSample: {
+      'ui:ObjectFieldTemplate': CodelabAccordionTemplate,
+      'ui:groups': [
+        { title: 'Info', fields: ['firstName', 'lastName'] },
+        { title: 'Address', fields: ['address'] },
+      ]
+    },
     'ui:spacing': 16,
     'ui:layout': [
       {
-        'ui:order': ['lastName', 'firstName', 'address'],
-        firstName: { span: 6 },
-        lastName: { span: 6 },
-        address: { span: 10 },
+        info: { span: 12 },
+        address: { span: 12 }
       },
       {
-        bio: { span: 12 },
+        age: { span: 12 },
+        password: { span: 12 },
       },
       {
-        age: { span: 6 },
-        password: { span: 6 },
+        tabsSample: { span: 12 },
+        accordionSample: { span: 12 }
       },
       {
         arrTest: { span: 24 },
