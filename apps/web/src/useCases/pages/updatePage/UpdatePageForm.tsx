@@ -45,11 +45,9 @@ export const UpdatePageForm = ({
       mutate={mutate}
       hideSubmitButton
       schema={UpdatePageInputSchema}
-      rjsfFormProps={{
-        uiSchema: {
-          appId: {
-            'ui:disabled': 'appId',
-          },
+      uiSchema={{
+        appId: {
+          'ui:disabled': 'appId',
         },
       }}
       initialFormData={{ title: page?.title, pageId }}

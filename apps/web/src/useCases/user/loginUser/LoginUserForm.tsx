@@ -72,11 +72,9 @@ export const LoginUserForm = ({
       initialFormData={{ email: '', password: '' }}
       mutate={mutate}
       onSubmitError={submitFailedHandlers}
-      rjsfFormProps={{
-        uiSchema: {
-          password: {
-            'ui:widget': 'password',
-          },
+      uiSchema={{
+        password: {
+          'ui:widget': 'password',
         },
       }}
       onSubmitSuccess={submitSuccessHandlers}
