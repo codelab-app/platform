@@ -1,18 +1,17 @@
 import styled from '@emotion/styled'
-import React, { PropsWithChildren, useContext } from 'react'
-import { LayoutContext } from '../layout/LayoutProvider'
-import { Layout } from '@codelab/generated'
+import React, { PropsWithChildren } from 'react'
+import { useRecoilState } from 'recoil'
+import { LayoutStateType, layoutState } from '../layout/layout-state'
 
 interface BuilderPaneControllerProps {
-  // layout: LayoutFragmentsFragment
   /**
    * Predicated to determine whether component should be rendered
    */
-  isRendered?: (layout: Layout) => boolean
+  isRendered?: (layout: LayoutStateType) => boolean
   /**
    * Predicated to determine whether component should be visible
    */
-  isVisible?: (layout: Layout) => boolean
+  isVisible?: (layout: LayoutStateType) => boolean
 }
 
 export const PaneStyle = styled.div`
@@ -25,7 +24,7 @@ export const BuilderPaneController = ({
   isRendered = () => true,
   isVisible = () => true,
 }: PropsWithChildren<BuilderPaneControllerProps>) => {
-  const layout = useContext(LayoutContext)
+  const [layout] = useRecoilState(layoutState)
 
   return (
     <>

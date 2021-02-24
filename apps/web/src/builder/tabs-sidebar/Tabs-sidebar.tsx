@@ -6,13 +6,13 @@ import {
 } from '@ant-design/icons'
 import { Menu, Popover } from 'antd'
 import Link from 'next/link'
-import React, { useContext } from 'react'
-import { LayoutContext } from '../../layout/LayoutProvider'
-import { UseLayoutMutation, useLayoutMutation } from '../useLayoutMutation'
+import React from 'react'
+import { LayoutTab, useLayout } from '../../layout/layout-state'
 import { Page } from '@codelab/frontend'
-import { LayoutTab } from '@codelab/generated'
 
-type MenuItemProps = Pick<ReturnType<UseLayoutMutation>, 'toggleTab'>
+type MenuItemProps = {
+  toggleTab: (tab: LayoutTab) => any
+}
 
 const MenuItemApps = ({ toggleTab, ...props }: MenuItemProps) => {
   const content = <Link href={Page.APP_LIST.url}>Apps</Link>
@@ -72,8 +72,7 @@ const MenuItemTree = ({ toggleTab, ...props }: MenuItemProps) => {
 }
 
 export const BuilderTabSidebar = () => {
-  const layout = useContext(LayoutContext)
-  const { toggleTab } = useLayoutMutation(layout)
+  const { toggleTab } = useLayout()
 
   return (
     <Menu mode="inline" style={{ height: '100%', width: '100%' }}>

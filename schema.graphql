@@ -62,7 +62,6 @@ type Query {
   getApps: [App!]!
   getBuilder: Builder!
   getGraph(input: GetGraphInput!): Graph!
-  getLayout: Layout!
   getMe: User!
   getPage(input: GetPageInput!): Page!
   getPages(input: GetPagesInput!): [Page!]!
@@ -106,7 +105,6 @@ type Mutation {
   moveVertex(input: MoveVertexInput!): Vertex!
   registerUser(input: RegisterUserInput!): User!
   setBuilder(input: SetBuilderInput!): Builder!
-  setLayout(input: SetLayoutInput!): Layout!
   updateApp(input: UpdateAppInput!): App!
   updateEdge(input: UpdateEdgeInput!): Edge!
   updatePage(input: UpdatePageInput!): Page!
@@ -227,18 +225,6 @@ input SetBuilderInput {
   component: String
 }
 
-input SetLayoutInput {
-  tab: LayoutTab
-  pane: LayoutPane
-  paneVisibility: LayoutPaneVisibility
-}
-
-type Layout {
-  tab: LayoutTab!
-  pane: LayoutPane!
-  paneVisibility: LayoutPaneVisibility!
-}
-
 type Builder {
   position: Position!
   windowPosition: Position!
@@ -249,24 +235,4 @@ type Builder {
 type Position {
   x: Int!
   y: Int!
-}
-
-enum LayoutTab {
-  Component
-  Page
-  Tree
-}
-
-enum LayoutPane {
-  Main
-  Detail
-  Both
-  None
-}
-
-enum LayoutPaneVisibility {
-  Main
-  Detail
-  Both
-  None
 }

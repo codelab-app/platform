@@ -1,5 +1,0 @@
-fragment layoutFragments on Layout {
-  tab
-  pane
-  paneVisibility
-}

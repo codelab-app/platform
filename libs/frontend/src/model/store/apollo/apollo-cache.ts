@@ -1,19 +1,5 @@
 import { InMemoryCache, Resolvers, makeVar } from '@apollo/client'
-import {
-  Builder,
-  Layout,
-  LayoutPane,
-  LayoutPaneVisibility,
-  LayoutTab,
-  TypedTypePolicies,
-} from '@codelab/generated'
-
-const layoutVar = makeVar<Layout>({
-  __typename: 'Layout',
-  tab: LayoutTab.Component,
-  pane: LayoutPane.None,
-  paneVisibility: LayoutPaneVisibility.Both,
-})
+import { Builder, TypedTypePolicies } from '@codelab/generated'
 
 const builderVar = makeVar<Builder>({
   __typename: 'Builder',
@@ -26,11 +12,6 @@ const builderVar = makeVar<Builder>({
 const typePolicies: TypedTypePolicies = {
   Query: {
     fields: {
-      getLayout: {
-        read() {
-          return layoutVar()
-        },
-      },
       getBuilder: {
         read() {
           return builderVar()
@@ -42,9 +23,6 @@ const typePolicies: TypedTypePolicies = {
 
 export const resolvers: Resolvers = {
   Mutation: {
-    setLayout(_root, args, context, info) {
-      return layoutVar({ ...layoutVar(), ...args.input })
-    },
     setBuilder(_root, args, context, info) {
       return builderVar({ ...builderVar(), ...args.input })
     },
