@@ -21,9 +21,8 @@ export const JsonSchemaForm = <TData extends object>({
   widgets,
   schema,
   onSubmit = () => null,
-  initialFormData,
+  initialFormData = {} as TData,
   submitButtonProps = {},
-  rjsfFormProps = {},
   saveOnChange = false,
   ...props
 }: JsonSchemaFormProps<TData>): ReactElement => {
@@ -33,10 +32,8 @@ export const JsonSchemaForm = <TData extends object>({
     <ThemedForm
       widgets={widgets}
       schema={schema as JSONSchema7}
-      onSubmit={(e) => {
-        console.log(e.formData.props)
-
-        return onSubmit({ data: e.formData })
+      onSubmit={({ formData }) => {
+        return onSubmit({ formData })
           .then((r: any) => {
             callbackWithParams(onSubmitSuccess, r)
 
@@ -46,16 +43,14 @@ export const JsonSchemaForm = <TData extends object>({
             callbackWithParams(onSubmitError, err)
           })
       }}
-      onChange={(e) => {
-        console.log(e.formData.props)
-        setLocalFormData(e.formData)
+      onChange={({ formData }) => {
+        setLocalFormData(formData)
 
         if (saveOnChange) {
-          onSubmit({ data: e.formData })
+          onSubmit({ formData })
         }
       }}
       formData={localFormData}
-      {...rjsfFormProps}
       {...props}
     >
       {/* This button exists because by default the Form from rjsf includes a submit button and you can't configure it, only replace it by a custom one.
