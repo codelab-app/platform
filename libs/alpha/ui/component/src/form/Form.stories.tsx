@@ -9,6 +9,10 @@ import {
 } from './Form-conditional'
 import { GridsForm as GridsFormStory, gridsFormProps } from './Form-grid'
 import {
+  GridsFormV2 as GridsFormV2Story,
+  gridsFormV2Props,
+} from './Form-grid-v2'
+import {
   SelectableSearchArrayForm,
   selectableSearchArrayFormProps,
 } from './Form-selectable'
@@ -26,6 +30,7 @@ export default {
       AccordionForm: accordionFormProps,
       ConditionalForm: conditionalFormProps,
       GridsForm: gridsFormProps,
+      GridsFormV2: gridsFormV2Props,
       SelectableForm: selectableSearchArrayFormProps,
       TabsForm: tabsFormProps,
       TabsFormV2: tabsFormPropsV2,
@@ -37,6 +42,7 @@ export const AccordionForm = AccordionFormStory
 export const AccordionFormV2 = AccordionFormV2Story
 export const ConditionalForm = ConditionalFormStory
 export const GridsForm = GridsFormStory
+export const GridsFormV2 = GridsFormV2Story
 export const SelectableForm = SelectableSearchArrayForm
 export const TabsForm = TabsFormStory
 export const TabsFormV2 = TabsFormV2Story
