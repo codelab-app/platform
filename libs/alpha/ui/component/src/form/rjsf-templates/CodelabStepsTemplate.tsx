@@ -4,7 +4,6 @@ import { Steps, Button } from 'antd';
 export interface ISteps {
 	title: string
 	description: string
-	stepContent: string
 	fields: string[]
 }
 

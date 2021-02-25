@@ -177,8 +177,8 @@ export const FormNewGrid = () => {
     stepsSample: {
       'ui:ObjectFieldTemplate': CodelabStepsTemplate,
       'ui:groups': [
-        { title: 'Info', stepContent: 'Test Content Info', fields: ['firstName', 'lastName'] },
-        { title: 'Address', stepContent: 'Test Content Address', fields: ['address'] },
+        { title: 'Info', fields: ['firstName', 'lastName'] },
+        { title: 'Address', fields: ['address'] },
       ]
     },
     'ui:spacing': 16,
