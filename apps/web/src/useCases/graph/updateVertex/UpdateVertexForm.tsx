@@ -46,11 +46,9 @@ export const UpdateVertexForm = ({ vertex }: UpdateVertexFormProps) => {
       mutate={mutate}
       schema={UpdateVertexInputSchema}
       {...UpdateVertexInputFormProps}
-      rjsfFormProps={{
-        uiSchema: {
-          type: {
-            'ui:disabled': 'type',
-          },
+      uiSchema={{
+        type: {
+          'ui:disabled': 'type',
         },
       }}
       hideSubmitButton

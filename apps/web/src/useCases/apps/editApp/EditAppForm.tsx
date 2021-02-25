@@ -40,11 +40,9 @@ export const EditAppForm = (props: FormUseCaseProps<UpdateAppInput> & {}) => {
       schema={UpdateAppInputSchema}
       initialFormData={{ title: editingApp.title, id: editingApp.id }}
       mutate={mutate}
-      rjsfFormProps={{
-        uiSchema: {
-          id: {
-            'ui:widget': 'hidden',
-          },
+      uiSchema={{
+        id: {
+          'ui:widget': 'hidden',
         },
       }}
       onSubmitError={createNotificationHandler({

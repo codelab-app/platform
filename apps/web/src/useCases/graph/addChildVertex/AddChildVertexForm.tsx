@@ -43,11 +43,9 @@ export const AddChildVertexForm = ({
         parentVertexId,
         vertex: { type: '', props: {} },
       }}
-      rjsfFormProps={{
-        uiSchema: {
-          parentVertexId: {
-            'ui:disabled': 'parentVertexId',
-          },
+      uiSchema={{
+        parentVertexId: {
+          'ui:disabled': 'parentVertexId',
         },
       }}
       {...props}

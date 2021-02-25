@@ -53,6 +53,7 @@ export const npmLibraryJsonSchema = (symbols?: Array<string>): ExportData => {
   const convertedSchema = schemaConverter.processSchema(schema)
 
   return {
+    header: ['/* eslint-disable import/order, sort-imports, no-unused-vars */'],
     content: [createSchemaExport(convertedSchema as JSONSchema7, 'Vega')],
     imports: [
       {

@@ -137,9 +137,11 @@ const renderGroupedProperties = ({
 const GroupedTemplate = (props: ObjectFieldTemplateProps) => {
   const { TitleField, DescriptionField } = props
 
+  console.log(props)
+
   return (
     <fieldset>
-      {(props.uiSchema['ui:title'] || props.title) && (
+      {/* {(props.uiSchema['ui:title'] || props.title) && (
         <TitleField
           id={`${props.idSchema.$id}__title`}
           title={props.title || props.uiSchema['ui:title']}
@@ -153,7 +155,7 @@ const GroupedTemplate = (props: ObjectFieldTemplateProps) => {
           description={props.description}
           key={2}
         />
-      )}
+      )} */}
       {renderNonGroupedProperties({
         props,
         groups: props.uiSchema['ui:groups'],
