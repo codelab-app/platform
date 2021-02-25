@@ -1,10 +1,7 @@
 import * as Apollo from '@apollo/client'
+import { ISubmitEvent } from '@rjsf/core'
 import React from 'react'
-import {
-  JsonSchemaForm,
-  JsonSchemaFormEvent,
-  JsonSchemaFormProps,
-} from '../json-schema'
+import { JsonSchemaForm, JsonSchemaFormProps } from '../json-schema'
 import { ApolloFormProps } from './Form-apollo--types'
 
 /**
@@ -24,7 +21,7 @@ export const ApolloForm = <
   saveOnChange,
   ...props
 }: ApolloFormProps<TData, any>) => {
-  const onSubmit = ({ data: submitData }: JsonSchemaFormEvent<TData>) => {
+  const onSubmit = ({ formData: submitData }: Partial<ISubmitEvent<TData>>) => {
     return mutate({
       variables: {
         input: {

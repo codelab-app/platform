@@ -31,11 +31,9 @@ export const CreatePageForm = ({ appId, ...props }: CreatePageFormProps) => {
       mutate={mutate}
       hideSubmitButton
       schema={CreatePageInputSchema}
-      rjsfFormProps={{
-        uiSchema: {
-          appId: {
-            'ui:disabled': 'appId',
-          },
+      uiSchema={{
+        appId: {
+          'ui:disabled': 'appId',
         },
       }}
       initialFormData={{ title: '', appId }}

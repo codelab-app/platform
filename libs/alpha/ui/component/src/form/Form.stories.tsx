@@ -1,73 +1,48 @@
-import React from 'react'
-import { FormAccordion } from './examples/Form-accordion'
-import { FormNewGrid } from './examples/Form-new-grid'
-import { FormVertexConditional } from './examples/Form-vertex-conditional'
-import { CodelabSelectWidget } from './rjsf-widgets/CodelabSelectWidget'
-import { JsonSchemaForm } from '@codelab/frontend'
 import {
-  DemoGridPropsGridFormProps,
-  DemoGridPropsSchema,
-  DemoTabsPropsFormProps,
-  DemoTabsPropsSchema,
-  UpdateVertexInputSchema,
-  VegaSchema,
-} from '@codelab/generated'
-import { CreateStyleInput } from 'libs/modules/style/src/core/application/useCases/createStyle/CreateStyleInput'
+  AccordionForm as AccordionFormStory,
+  AccordionFormV2 as AccordionFormV2Story,
+  accordionFormProps,
+} from './Form-accordion'
+import {
+  ConditionalForm as ConditionalFormStory,
+  conditionalFormProps,
+} from './Form-conditional'
+import { GridsForm as GridsFormStory, gridsFormProps } from './Form-grid'
+import {
+  GridsFormV2 as GridsFormV2Story,
+  gridsFormV2Props,
+} from './Form-grid-v2'
+import {
+  SelectableSearchArrayForm,
+  selectableSearchArrayFormProps,
+} from './Form-selectable'
+import {
+  TabsForm as TabsFormStory,
+  TabsFormV2 as TabsFormV2Story,
+  tabsFormProps,
+  tabsFormPropsV2,
+} from './Form-tabs'
 
 export default {
-  title: 'FormJson',
+  title: 'Json Schema Forms',
   parameters: {
     data: {
-      VertexFormConditional: UpdateVertexInputSchema,
+      AccordionForm: accordionFormProps,
+      ConditionalForm: conditionalFormProps,
+      GridsForm: gridsFormProps,
+      GridsFormV2: gridsFormV2Props,
+      SelectableForm: selectableSearchArrayFormProps,
+      TabsForm: tabsFormProps,
+      TabsFormV2: tabsFormPropsV2,
     },
   },
 }
 
-export const SelectableSearchArrayForm = () => {
-  const widgets = {
-    SelectWidget: CodelabSelectWidget,
-  }
-
-  return (
-    <JsonSchemaForm<CreateStyleInput>
-      initialFormData={{}}
-      widgets={widgets}
-      schema={VegaSchema}
-      onSubmit={() => null}
-    />
-  )
-}
-
-export const ConditionalVertexForm = () => {
-  return <FormVertexConditional />
-}
-
-export const AccordionForm = () => {
-  return <FormAccordion />
-}
-
-export const NewGridForm = () => {
-  return <FormNewGrid />
-}
-
-export const TabsForm = () => {
-  return (
-    <JsonSchemaForm
-      initialFormData={{}}
-      onSubmit={() => null}
-      schema={DemoTabsPropsSchema}
-      {...DemoTabsPropsFormProps}
-    />
-  )
-}
-
-export const GridsForm = () => {
-  return (
-    <JsonSchemaForm
-      initialFormData={{}}
-      onSubmit={() => null}
-      schema={DemoGridPropsSchema}
-      {...DemoGridPropsGridFormProps}
-    />
-  )
-}
+export const AccordionForm = AccordionFormStory
+export const AccordionFormV2 = AccordionFormV2Story
+export const ConditionalForm = ConditionalFormStory
+export const GridsForm = GridsFormStory
+export const GridsFormV2 = GridsFormV2Story
+export const SelectableForm = SelectableSearchArrayForm
+export const TabsForm = TabsFormStory
+export const TabsFormV2 = TabsFormV2Story

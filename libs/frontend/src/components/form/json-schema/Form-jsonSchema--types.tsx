@@ -1,22 +1,21 @@
 import { FetchResult } from '@apollo/client'
-import { FormProps as RjsfFormProps } from '@rjsf/core'
+import { ISubmitEvent, FormProps as RjsfFormProps } from '@rjsf/core'
 import { ButtonProps } from 'antd/lib/button'
 import { JSONSchema7 } from 'json-schema'
 import React from 'react'
 import { SubmitController } from './Form-jsonSchema--ref'
 import { CallbackOrArrayOfCallbacks } from 'libs/frontend/src/utils'
 
-export interface JsonSchemaFormEvent<TData> {
-  data: TData
-}
+export type OnSubmitEvent<TData = any> = Pick<ISubmitEvent<TData>, 'formData'> &
+  Partial<Omit<ISubmitEvent<TData>, 'formData'>>
 
-export interface JsonSchemaFormProps<TData extends object> {
+export type JsonSchemaFormProps<TData extends object> = {
   //
   // REQUIRED
   //
 
   /** Use this to control the form data */
-  initialFormData: TData
+  initialFormData?: TData
 
   /** Schema used for form generation */
   schema: JSONSchema7
@@ -24,7 +23,7 @@ export interface JsonSchemaFormProps<TData extends object> {
   widgets?: any
 
   /** Called when form is submitted */
-  onSubmit: (submitEvent: JsonSchemaFormEvent<TData>) => any
+  onSubmit?: (submitEvent: OnSubmitEvent<TData>) => any
 
   //
   // OPTIONAL
@@ -39,9 +38,6 @@ export interface JsonSchemaFormProps<TData extends object> {
   /** Props that get passed down to the submit button */
   submitButtonProps?: Omit<ButtonProps, 'htmlType' | 'ref'>
 
-  /** Props that get passed down to the RJSFForm component */
-  rjsfFormProps?: Omit<RjsfFormProps<TData>, keyof JsonSchemaFormProps<TData>>
-
   /** Called after a successful mutation */
   onSubmitSuccess?: CallbackOrArrayOfCallbacks<FetchResult<any>>
 
@@ -50,4 +46,13 @@ export interface JsonSchemaFormProps<TData extends object> {
 
   /** Auto save form on change */
   saveOnChange?: boolean
-}
+} & /** Props that get passed down to the RJSFForm component */ Omit<
+  RjsfFormProps<TData>,
+  | 'initialFormData'
+  | 'schema'
+  | 'widgets'
+  | 'onSubmit'
+  | 'hideSubmitButton'
+  | 'submitRef'
+  | 'submitButtonProps'
+>

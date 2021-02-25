@@ -26,11 +26,9 @@ export const UpdateEdgeForm = () => {
       mutate={mutate}
       schema={UpdateEdgeInputSchema}
       initialFormData={{ id: '' }}
-      rjsfFormProps={{
-        uiSchema: {
-          parentVertexId: {
-            'ui:disabled': 'parentVertexId',
-          },
+      uiSchema={{
+        parentVertexId: {
+          'ui:disabled': 'parentVertexId',
         },
       }}
     />
