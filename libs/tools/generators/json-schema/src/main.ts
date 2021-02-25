@@ -15,7 +15,9 @@ const main = async () => {
     [/Props$/, /Input$/],
     tsedJsonSchemaCb,
     {
-      header: ['/* eslint-disable import/order, sort-imports */'],
+      header: [
+        '/* eslint-disable import/order, sort-imports, no-unused-vars */',
+      ],
       content: [],
       imports: [
         {
