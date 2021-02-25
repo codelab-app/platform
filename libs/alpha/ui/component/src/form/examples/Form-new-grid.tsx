@@ -9,6 +9,7 @@ import {
 } from '@codelab/alpha/ui/component'
 import { CodelabTabsTemplate } from '../rjsf-templates/CodelabTabsTemplate';
 import { CodelabAccordionTemplate } from '../rjsf-templates/CodelabAccordionTemplate';
+import { CodelabStepsTemplate } from '../rjsf-templates/CodelabStepsTemplate';
 
 const Form = withTheme(AntDTheme)
 
@@ -71,6 +72,15 @@ export const FormNewGrid = () => {
       accordionSample: {
         type: 'object',
         title: 'Accordion Example Within Grid',
+        properties: {
+          firstName: firstName as JSONSchema7,
+          lastName: lastName as JSONSchema7,
+          address: address as JSONSchema7,
+        }
+      },
+      stepsSample: {
+        type: 'object',
+        title: 'Steps Example Within Grid',
         properties: {
           firstName: firstName as JSONSchema7,
           lastName: lastName as JSONSchema7,
@@ -164,6 +174,13 @@ export const FormNewGrid = () => {
         { title: 'Address', fields: ['address'] },
       ]
     },
+    stepsSample: {
+      'ui:ObjectFieldTemplate': CodelabStepsTemplate,
+      'ui:groups': [
+        { title: 'Info', stepContent: 'Test Content Info', fields: ['firstName', 'lastName'] },
+        { title: 'Address', stepContent: 'Test Content Address', fields: ['address'] },
+      ]
+    },
     'ui:spacing': 16,
     'ui:layout': [
       {
@@ -177,6 +194,9 @@ export const FormNewGrid = () => {
       {
         tabsSample: { span: 12 },
         accordionSample: { span: 12 }
+      },
+      {
+        stepsSample: { span: 24 }
       },
       {
         arrTest: { span: 24 },
