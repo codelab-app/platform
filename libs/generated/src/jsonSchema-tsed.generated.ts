@@ -1,4 +1,4 @@
-/* eslint-disable import/order, sort-imports */
+/* eslint-disable import/order, sort-imports, no-unused-vars */
 import {
   DecoratorsMap,
   GroupsUiSchema,
