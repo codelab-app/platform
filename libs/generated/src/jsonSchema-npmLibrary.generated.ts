@@ -1,3 +1,4 @@
+/* eslint-disable import/order, sort-imports, no-unused-vars */
 import { JSONSchema7 } from 'json-schema'
 
 export const VegaSchema: JSONSchema7 = {
