@@ -59,6 +59,7 @@
     "modules-user": { "tags": [] },
     "tools-generators-json-schema": { "tags": [] },
     "tools-generators-graphql": { "tags": [] },
-    "modules-style": { "tags": [] }
+    "modules-style": { "tags": [] },
+    "modules-lambda": { "tags": [] }
   }
 }

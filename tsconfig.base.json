@@ -92,7 +92,8 @@
       "@codelab/modules/notification-stories": [
         "libs/modules/notification-stories/src/index.ts"
       ],
-      "@codelab/modules/style": ["libs/modules/style/src/index.ts"]
+      "@codelab/modules/style": ["libs/modules/style/src/index.ts"],
+      "@codelab/modules/lambda": ["libs/modules/lambda/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"]
