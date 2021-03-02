@@ -1,11 +1,11 @@
 import { Space } from 'antd'
 import React, { useRef } from 'react'
 import { useRecoilState } from 'recoil'
+import { LayoutPaneVisibility } from '../../layout/layout-state'
 import { DeletePageButton } from './deletePage/DeletePageButton'
 import { UpdatePageButton } from './updatePage/UpdatePageButton'
 import { UpdatePageForm } from './updatePage/UpdatePageForm'
 import { pageState, usePage } from './usePage'
-import { LayoutPaneVisibility } from '@codelab/generated'
 import { SubmitController } from 'libs/frontend/src/components/form/json-schema/Form-jsonSchema--ref'
 
 export const PageContainerUpdateDelete = () => {

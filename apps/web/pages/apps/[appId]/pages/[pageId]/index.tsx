@@ -1,19 +1,14 @@
 import { InferGetServerSidePropsType } from 'next'
-import React, { useContext } from 'react'
-import { withAuthServerSideProps } from '../../../../../../../libs/frontend/src/infrastructure/auth/withAuthServerSideProps'
+import React from 'react'
 import { GetPageLayout } from '../../../../../src/useCases/pages/getPage/GetPageLayout'
 import { usePage } from '../../../../../src/useCases/pages/getPage/useGetPageData'
-import { Page, PropsWithIds } from '@codelab/frontend'
-import { useSetLayoutMutation } from '@codelab/generated'
-import { LayoutContext } from 'apps/web/src/layout/LayoutProvider'
+import { Page, PropsWithIds, withAuthServerSideProps } from '@codelab/frontend'
 
 const PageDetail = ({
   pageId,
   appId,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { layoutGraph, page } = usePage({ pageId })
-  const [setLayout] = useSetLayoutMutation()
-  const layout = useContext(LayoutContext)
 
   if (!layoutGraph || !page) {
     return null

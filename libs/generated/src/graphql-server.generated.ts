@@ -87,7 +87,6 @@ export type Query = {
   getApps: Array<App>
   getBuilder: Builder
   getGraph: Graph
-  getLayout: Layout
   getMe: User
   getPage: Page
   getPages: Array<Page>
@@ -152,7 +151,6 @@ export type Mutation = {
   moveVertex: Vertex
   registerUser: User
   setBuilder: Builder
-  setLayout: Layout
   updateApp: App
   updateEdge: Edge
   updatePage: Page
@@ -219,10 +217,6 @@ export type MutationRegisterUserArgs = {
 
 export type MutationSetBuilderArgs = {
   input: SetBuilderInput
-}
-
-export type MutationSetLayoutArgs = {
-  input: SetLayoutInput
 }
 
 export type MutationUpdateAppArgs = {
@@ -361,19 +355,6 @@ export type SetBuilderInput = {
   component?: Maybe<Scalars['String']>
 }
 
-export type SetLayoutInput = {
-  tab?: Maybe<LayoutTab>
-  pane?: Maybe<LayoutPane>
-  paneVisibility?: Maybe<LayoutPaneVisibility>
-}
-
-export type Layout = {
-  __typename?: 'Layout'
-  tab: LayoutTab
-  pane: LayoutPane
-  paneVisibility: LayoutPaneVisibility
-}
-
 export type Builder = {
   __typename?: 'Builder'
   position: Position
@@ -386,26 +367,6 @@ export type Position = {
   __typename?: 'Position'
   x: Scalars['Int']
   y: Scalars['Int']
-}
-
-export enum LayoutTab {
-  Component = 'Component',
-  Page = 'Page',
-  Tree = 'Tree',
-}
-
-export enum LayoutPane {
-  Main = 'Main',
-  Detail = 'Detail',
-  Both = 'Both',
-  None = 'None',
-}
-
-export enum LayoutPaneVisibility {
-  Main = 'Main',
-  Detail = 'Detail',
-  Both = 'Both',
-  None = 'None',
 }
 
 export type GetBuilderQueryVariables = Exact<{ [key: string]: never }>
@@ -429,25 +390,6 @@ export type BuilderFragmentsFragment = { __typename?: 'Builder' } & Pick<
     position: { __typename?: 'Position' } & PositionFragmentsFragment
     windowPosition: { __typename?: 'Position' } & PositionFragmentsFragment
   }
-
-export type GetLayoutQueryVariables = Exact<{ [key: string]: never }>
-
-export type GetLayoutQuery = { __typename?: 'Query' } & {
-  getLayout: { __typename?: 'Layout' } & LayoutFragmentsFragment
-}
-
-export type SetLayoutMutationVariables = Exact<{
-  input: SetLayoutInput
-}>
-
-export type SetLayoutMutation = { __typename?: 'Mutation' } & {
-  setLayout: { __typename?: 'Layout' } & LayoutFragmentsFragment
-}
-
-export type LayoutFragmentsFragment = { __typename?: 'Layout' } & Pick<
-  Layout,
-  'tab' | 'pane' | 'paneVisibility'
->
 
 export type PositionFragmentsFragment = { __typename?: 'Position' } & Pick<
   Position,
@@ -729,13 +671,6 @@ export const BuilderFragments = gql`
   }
   ${PositionFragments}
 `
-export const LayoutFragments = gql`
-  fragment layoutFragments on Layout {
-    tab
-    pane
-    paneVisibility
-  }
-`
 export const StyleFragments = gql`
   fragment styleFragments on Style {
     id
@@ -825,22 +760,6 @@ export const SetBuilder = gql`
     }
   }
   ${BuilderFragments}
-`
-export const GetLayout = gql`
-  query GetLayout {
-    getLayout @client {
-      ...layoutFragments
-    }
-  }
-  ${LayoutFragments}
-`
-export const SetLayout = gql`
-  mutation SetLayout($input: SetLayoutInput!) {
-    setLayout(input: $input) @client {
-      ...layoutFragments
-    }
-  }
-  ${LayoutFragments}
 `
 export const CreateApp = gql`
   mutation CreateApp($input: CreateAppInput!) {
@@ -1076,13 +995,6 @@ export const BuilderFragmentsFragmentDoc = gql`
   }
   ${PositionFragmentsFragmentDoc}
 `
-export const LayoutFragmentsFragmentDoc = gql`
-  fragment layoutFragments on Layout {
-    tab
-    pane
-    paneVisibility
-  }
-`
 export const StyleFragmentsFragmentDoc = gql`
   fragment styleFragments on Style {
     id
@@ -1259,109 +1171,6 @@ export type SetBuilderMutationResult = Apollo.MutationResult<SetBuilderMutation>
 export type SetBuilderMutationOptions = Apollo.BaseMutationOptions<
   SetBuilderMutation,
   SetBuilderMutationVariables
->
-export const GetLayoutGql = gql`
-  query GetLayout {
-    getLayout @client {
-      ...layoutFragments
-    }
-  }
-  ${LayoutFragmentsFragmentDoc}
-`
-
-/**
- * __useGetLayoutQuery__
- *
- * To run a query within a React component, call `useGetLayoutQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetLayoutQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetLayoutQuery({
- *   variables: {
- *   },
- * });
- */
-export function useGetLayoutQuery(
-  baseOptions?: Apollo.QueryHookOptions<
-    GetLayoutQuery,
-    GetLayoutQueryVariables
-  >,
-) {
-  return Apollo.useQuery<GetLayoutQuery, GetLayoutQueryVariables>(
-    GetLayoutGql,
-    baseOptions,
-  )
-}
-export function useGetLayoutLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetLayoutQuery,
-    GetLayoutQueryVariables
-  >,
-) {
-  return Apollo.useLazyQuery<GetLayoutQuery, GetLayoutQueryVariables>(
-    GetLayoutGql,
-    baseOptions,
-  )
-}
-export type GetLayoutQueryHookResult = ReturnType<typeof useGetLayoutQuery>
-export type GetLayoutLazyQueryHookResult = ReturnType<
-  typeof useGetLayoutLazyQuery
->
-export type GetLayoutQueryResult = Apollo.QueryResult<
-  GetLayoutQuery,
-  GetLayoutQueryVariables
->
-export const SetLayoutGql = gql`
-  mutation SetLayout($input: SetLayoutInput!) {
-    setLayout(input: $input) @client {
-      ...layoutFragments
-    }
-  }
-  ${LayoutFragmentsFragmentDoc}
-`
-export type SetLayoutMutationFn = Apollo.MutationFunction<
-  SetLayoutMutation,
-  SetLayoutMutationVariables
->
-
-/**
- * __useSetLayoutMutation__
- *
- * To run a mutation, you first call `useSetLayoutMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useSetLayoutMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [setLayoutMutation, { data, loading, error }] = useSetLayoutMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useSetLayoutMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    SetLayoutMutation,
-    SetLayoutMutationVariables
-  >,
-) {
-  return Apollo.useMutation<SetLayoutMutation, SetLayoutMutationVariables>(
-    SetLayoutGql,
-    baseOptions,
-  )
-}
-export type SetLayoutMutationHookResult = ReturnType<
-  typeof useSetLayoutMutation
->
-export type SetLayoutMutationResult = Apollo.MutationResult<SetLayoutMutation>
-export type SetLayoutMutationOptions = Apollo.BaseMutationOptions<
-  SetLayoutMutation,
-  SetLayoutMutationVariables
 >
 export const CreateAppGql = gql`
   mutation CreateApp($input: CreateAppInput!) {

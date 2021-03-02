@@ -1,8 +1,5 @@
-import { useContext } from 'react'
 import { atom, useRecoilState } from 'recoil'
-import { useLayoutMutation } from '../../builder/useLayoutMutation'
-import { LayoutContext } from '../../layout/LayoutProvider'
-import { LayoutPaneVisibility } from '@codelab/generated'
+import { LayoutPaneVisibility, useLayout } from '../../layout/layout-state'
 
 export type CrudAction = 'create' | 'update'
 
@@ -20,9 +17,9 @@ export const pageState = atom<string>({
 // }
 
 export const usePage = () => {
-  const layout = useContext(LayoutContext)
-  const { setLayout, setPaneVisibility } = useLayoutMutation(layout)
   const [detailPageId, setDetailPageId] = useRecoilState(pageState)
+
+  const { setPaneVisibility, layout } = useLayout()
 
   const openCreatePage = () => {
     setPaneVisibility(LayoutPaneVisibility.Both)
@@ -39,14 +36,7 @@ export const usePage = () => {
   const resetPage = (
     pane: LayoutPaneVisibility = LayoutPaneVisibility.None,
   ) => {
-    setLayout({
-      variables: {
-        input: {
-          paneVisibility: pane,
-        },
-      },
-    })
-    // layout.setPane(pane)
+    setPaneVisibility(pane)
     setDetailPageId('')
   }
 
@@ -71,13 +61,8 @@ export const usePage = () => {
       newPaneVisibility = LayoutPaneVisibility.Both
     }
 
-    return setLayout({
-      variables: {
-        input: {
-          paneVisibility: newPaneVisibility,
-        },
-      },
-    }).then(() => setDetailPageId(newId))
+    setPaneVisibility(newPaneVisibility)
+    setDetailPageId(newId)
   }
 
   return {
