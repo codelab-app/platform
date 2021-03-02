@@ -5,19 +5,18 @@ export enum LayoutTab {
   Component = 'Component',
   Page = 'Page',
   Tree = 'Tree',
+  Function = 'Function',
 }
 
 export enum LayoutPane {
   Main = 'Main',
   Detail = 'Detail',
-  Both = 'Both',
   None = 'None',
 }
 
 export enum LayoutPaneVisibility {
   Main = 'Main',
   Detail = 'Detail',
-  Both = 'Both',
   None = 'None',
 }
 

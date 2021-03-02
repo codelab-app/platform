@@ -57,7 +57,7 @@ export const Builder = ({ children }: PropsWithChildren<{}>) => {
           <BuilderPaneController
             isVisible={({ paneVisibility }) =>
               paneVisibility === LayoutPaneVisibility.Main ||
-              paneVisibility === LayoutPaneVisibility.Both
+              paneVisibility === LayoutPaneVisibility.Detail
             }
           >
             <Sider
@@ -78,8 +78,7 @@ export const Builder = ({ children }: PropsWithChildren<{}>) => {
         </div>
         <BuilderPaneController
           isVisible={({ paneVisibility }) =>
-            paneVisibility === LayoutPaneVisibility.Detail ||
-            paneVisibility === LayoutPaneVisibility.Both
+            paneVisibility === LayoutPaneVisibility.Detail
           }
         >
           <Sider

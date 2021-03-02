@@ -1567,7 +1567,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/modules/lambda/**/*.{ts,tsx,js,jsx}"]
+            "lintFilePatterns": ["libs/modules/lambda/**/*.ts"]
           }
         },
         "test": {

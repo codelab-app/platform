@@ -15,14 +15,23 @@ model User {
 }
 
 model App {
-  id     String  @id @default(uuid())
-  title  String
-  userId String
-  user   User    @relation(fields: [userId], references: [id])
-  styles Style[]
-  graphs Graph[]
+  id      String   @id @default(uuid())
+  title   String
+  userId  String
+  user    User     @relation(fields: [userId], references: [id])
+  styles  Style[]
+  graphs  Graph[]
   /// @onDelete(CASCADE)
-  pages  Page[]
+  lambdas Lambda[]
+  /// @onDelete(CASCADE)
+  pages   Page[]
+}
+
+model Lambda {
+  id    String  @id @default(uuid())
+  name  String
+  app   App?    @relation(fields: [appId], references: [id])
+  appId String?
 }
 
 model Page {

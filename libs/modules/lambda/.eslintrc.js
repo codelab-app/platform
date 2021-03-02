@@ -12,7 +12,4 @@ module.exports = {
     tsconfigRootDir: __dirname,
     project: ['tsconfig.eslint.json'],
   },
-  rules: {
-    'react/static-property-placement': 'off',
-  },
 }
