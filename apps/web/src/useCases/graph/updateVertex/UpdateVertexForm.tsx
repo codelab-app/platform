@@ -15,7 +15,7 @@ type UpdateVertexFormProps = {
 }
 
 export const UpdateVertexForm = ({ vertex }: UpdateVertexFormProps) => {
-  console.log(vertex, vertex.type)
+  console.log(vertex)
 
   // const { pageId } = useContext(AppContext)
   const [mutate] = useUpdateVertexMutation({
@@ -40,36 +40,11 @@ export const UpdateVertexForm = ({ vertex }: UpdateVertexFormProps) => {
     ],
   })
 
-  // const transformFromData = (formData: any) => {
-  //   const { type } = formData.props
-  //   const { props } = formData.props
-
-  //   return {
-  //     vertexId: formData.vertexId,
-  //     type,
-  //     props: {
-  //       ...props,
-  //     },
-  //   } as UpdateVertexInput
-  // }
-
-  const formCtx = {
-    specifiedPropsKeys: [],
-  }
-
-  const filterOptions = ({ formData }: any, e: any) => {
-    if (Array.isArray(formData.props)) {
-      formCtx.specifiedPropsKeys = formData?.props.map((p: any) => p.key)
-      console.log(formData, e)
-    }
-  }
-
   return (
     <ApolloForm<UpdateVertexInput, UpdateVertexMutationVariables>
       key={vertex.id}
       mutate={mutate}
       schema={UpdateVertexInputSchema}
-      onChange={filterOptions}
       {...UpdateVertexInputFormProps}
       uiSchema={{
         type: {
