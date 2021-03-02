@@ -1,5 +1,6 @@
 /* eslint-disable import/order, sort-imports, no-unused-vars */
 import { JSONSchema7 } from 'json-schema'
+import { DecoratorsMap } from '@codelab/tools/generators/json-schema'
 
 export const VegaSchema: JSONSchema7 = {
   type: 'object',
