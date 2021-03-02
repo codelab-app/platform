@@ -1,9 +1,13 @@
 import { Inject, Injectable, UseGuards } from '@nestjs/common'
-import { Args, Mutation, Resolver } from '@nestjs/graphql'
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { CreateLambdaInput } from '../../core/application/useCases/createLambda/CreateLambdaInput'
 import { CreateLambdaService } from '../../core/application/useCases/createLambda/CreateLambdaService'
 import { DeleteLambdaInput } from '../../core/application/useCases/deleteLambda/DeleteLambdaInput'
 import { DeleteLambdaService } from '../../core/application/useCases/deleteLambda/DeleteLambdaService'
+import { GetLambdaInput } from '../../core/application/useCases/getLambda/GetLambdaInput'
+import { GetLambdaService } from '../../core/application/useCases/getLambda/GetLambdaService'
+import { GetLambdasInput } from '../../core/application/useCases/getLambdas/GetLambdasInput'
+import { GetLambdasService } from '../../core/application/useCases/getLambdas/GetLambdasService'
 import { UpdateLambdaInput } from '../../core/application/useCases/updateLambda/UpdateLambdaInput'
 import { UpdateLambdaService } from '../../core/application/useCases/updateLambda/UpdateLambdaService'
 import { Lambda } from '../../core/domain/Lambda'
@@ -18,6 +22,8 @@ export class LambdaResolvers {
     private readonly createLambdaService: CreateLambdaService,
     private readonly updateLambdaService: UpdateLambdaService,
     private readonly deleteLambdaService: DeleteLambdaService,
+    private readonly getLambdaService: GetLambdaService,
+    private readonly getLambdasService: GetLambdasService,
   ) {}
 
   @Mutation(() => Lambda)
@@ -36,5 +42,17 @@ export class LambdaResolvers {
   @UseGuards(GqlAuthGuard)
   deleteLambda(@Args('input') input: DeleteLambdaInput) {
     return this.deleteLambdaService.execute(input)
+  }
+
+  @Query(() => Lambda)
+  @UseGuards(GqlAuthGuard)
+  getLambda(@Args('input') input: GetLambdaInput) {
+    return this.getLambdaService.execute(input)
+  }
+
+  @Query(() => [Lambda])
+  @UseGuards(GqlAuthGuard)
+  getLambdas(@Args('input') input: GetLambdasInput) {
+    return this.getLambdasService.execute(input)
   }
 }
