@@ -22,7 +22,7 @@ export const usePage = () => {
   const { setPaneVisibility, layout } = useLayout()
 
   const openCreatePage = () => {
-    setPaneVisibility(LayoutPaneVisibility.Both)
+    setPaneVisibility(LayoutPaneVisibility.Detail)
 
     return setDetailPageId('')
   }
@@ -41,13 +41,13 @@ export const usePage = () => {
   }
 
   const togglePageDetailPane = (id: string) => {
-    let newPaneVisibility: LayoutPaneVisibility = LayoutPaneVisibility.Both
+    let newPaneVisibility: LayoutPaneVisibility = LayoutPaneVisibility.Detail
     let newId = id
 
     // If same id & closing detail pane
     if (
       id === detailPageId &&
-      layout.paneVisibility === LayoutPaneVisibility.Both
+      layout.paneVisibility === LayoutPaneVisibility.Detail
     ) {
       newPaneVisibility = LayoutPaneVisibility.Main
       newId = ''
@@ -58,7 +58,7 @@ export const usePage = () => {
       id === detailPageId &&
       layout.paneVisibility === LayoutPaneVisibility.Main
     ) {
-      newPaneVisibility = LayoutPaneVisibility.Both
+      newPaneVisibility = LayoutPaneVisibility.Detail
     }
 
     setPaneVisibility(newPaneVisibility)

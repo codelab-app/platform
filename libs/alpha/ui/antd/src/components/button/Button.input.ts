@@ -78,6 +78,7 @@ class Props implements AntButtonProps {
 export class ButtonProps {
   @Property()
   @Enum(VertexType.React_Button)
+  // @Property(VertexType.React_Button)
   declare type: string
 
   @Schema(getJsonSchema(Props, { customKeys: true }))

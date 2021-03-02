@@ -2,6 +2,7 @@ import {
   ApartmentOutlined,
   AppstoreOutlined,
   CopyOutlined,
+  FunctionOutlined,
   PlusSquareOutlined,
 } from '@ant-design/icons'
 import { Menu, Popover } from 'antd'
@@ -71,6 +72,19 @@ const MenuItemTree = ({ toggleTab, ...props }: MenuItemProps) => {
   )
 }
 
+const MenuItemFunction = ({ toggleTab, ...props }: MenuItemProps) => {
+  return (
+    <Menu.Item
+      {...props}
+      key="4"
+      onClick={() => toggleTab(LayoutTab.Function)}
+      icon={<FunctionOutlined />}
+    >
+      Function
+    </Menu.Item>
+  )
+}
+
 export const BuilderTabSidebar = () => {
   const { toggleTab } = useLayout()
 
@@ -80,6 +94,7 @@ export const BuilderTabSidebar = () => {
       <MenuItemPages toggleTab={toggleTab} />
       <MenuItemComponents toggleTab={toggleTab} />
       <MenuItemTree toggleTab={toggleTab} />
+      <MenuItemFunction toggleTab={toggleTab} />
     </Menu>
   )
 }

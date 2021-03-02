@@ -7,6 +7,7 @@ import {
   ConditionalForm as ConditionalFormStory,
   conditionalFormProps,
 } from './Form-conditional'
+import { FormConditional2 } from './Form-conditional-2'
 import { GridsForm as GridsFormStory, gridsFormProps } from './Form-grid'
 import {
   GridsFormV2 as GridsFormV2Story,
@@ -46,3 +47,4 @@ export const GridsFormV2 = GridsFormV2Story
 export const SelectableForm = SelectableSearchArrayForm
 export const TabsForm = TabsFormStory
 export const TabsFormV2 = TabsFormV2Story
+export const ConditionalForm2 = FormConditional2

@@ -1,3 +1,4 @@
+import { VertexType } from '@prisma/client'
 import React from 'react'
 import { CodelabFieldTemplate } from './rjsf-templates/CodelabFieldTemplate'
 import { CodelabCheckboxWidget } from './rjsf-widgets/CodelabCheckboxWidget'
@@ -5,19 +6,19 @@ import { CodelabTextWidget } from './rjsf-widgets/CodelabTextWidget'
 import { JsonSchemaForm, OnSubmitEvent } from '@codelab/frontend'
 import { UpdateVertexInput, UpdateVertexInputSchema } from '@codelab/generated'
 
-const uiSchema = {
-  props: {
-    props: {
-      loading: {
-        'ui:widget': CodelabTextWidget,
-      },
-    },
-  },
-}
+// const uiSchema = {
+//   props: {
+//     props: {
+//       loading: {
+//         'ui:widget': CodelabTextWidget,
+//       },
+//     },
+//   },
+// }
 
 export const conditionalFormProps = {
   schema: UpdateVertexInputSchema,
-  uiSchema,
+  // uiSchema,
 }
 
 export const ConditionalForm = () => {
@@ -47,8 +48,11 @@ export const ConditionalForm = () => {
     } as UpdateVertexInput
   }
 
-  const onSubmitClicked = ({ formData }: OnSubmitEvent) =>
+  const onSubmitClicked = ({ formData }: OnSubmitEvent) => {
+    console.log(formData)
+
     console.log('Transformed: ', transformFromData(formData))
+  }
 
   const widgets = {
     TextWidget: CodelabTextWidget,
@@ -58,9 +62,12 @@ export const ConditionalForm = () => {
 
   return (
     <JsonSchemaForm
+      initialFormData={{
+        type: VertexType.React_Button,
+      }}
       widgets={widgets}
       FieldTemplate={CodelabFieldTemplate}
-      onChange={filterOptions}
+      // onChange={filterOptions}
       onSubmit={onSubmitClicked}
       onError={log('errors')}
       {...conditionalFormProps}

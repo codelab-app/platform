@@ -55,8 +55,10 @@ export const UpdateVertexForm = ({ vertex }: UpdateVertexFormProps) => {
       saveOnChange
       initialFormData={{
         vertexId: vertex.id,
-        type: vertex.type ?? '',
-        props: vertex.props,
+        props: {
+          ...vertex.props,
+          type: vertex.type ?? '',
+        },
       }}
     />
   )

@@ -1558,6 +1558,27 @@
           }
         }
       }
+    },
+    "modules-lambda": {
+      "root": "libs/modules/lambda",
+      "sourceRoot": "libs/modules/lambda/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/modules/lambda/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/modules/lambda"],
+          "options": {
+            "jestConfig": "libs/modules/lambda/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {
