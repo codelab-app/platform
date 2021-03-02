@@ -1,7 +1,7 @@
 import { Space } from 'antd'
 import React, { useRef } from 'react'
 import { useRecoilState } from 'recoil'
-import { LayoutPaneVisibility } from '../../layout/layout-state'
+import { LayoutPaneVisibility } from '../../templates/layout-state'
 import { DeletePageButton } from './deletePage/DeletePageButton'
 import { UpdatePageButton } from './updatePage/UpdatePageButton'
 import { UpdatePageForm } from './updatePage/UpdatePageForm'

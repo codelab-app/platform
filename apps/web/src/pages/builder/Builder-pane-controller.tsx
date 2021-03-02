@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 import React, { PropsWithChildren } from 'react'
 import { useRecoilState } from 'recoil'
-import { LayoutStateType, layoutState } from '../layout/layout-state'
+import { LayoutStateType, layoutState } from '../../templates/layout-state'
 
 interface BuilderPaneControllerProps {
   /**

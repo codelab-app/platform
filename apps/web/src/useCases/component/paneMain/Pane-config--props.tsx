@@ -1,11 +1,11 @@
 import { Button, Divider, Space } from 'antd'
 import React, { useContext } from 'react'
 import { useRecoilState } from 'recoil'
-import { AddChildVertexModal } from '../../../useCases/graph/addChildVertex/AddChildVertexModal'
-import { addChildVertexState } from '../../../useCases/graph/addChildVertex/AddChildVertexState'
-import { DeleteVertexButton } from '../../../useCases/graph/deleteVertex/DeleteVertexButton'
-import { UpdateVertexForm } from '../../../useCases/graph/updateVertex/UpdateVertexForm'
-import { VertexContext } from '../../../useCases/vertex/VertexProvider'
+import { AddChildVertexModal } from '../../graph/addChildVertex/AddChildVertexModal'
+import { addChildVertexState } from '../../graph/addChildVertex/AddChildVertexState'
+import { DeleteVertexButton } from '../../graph/deleteVertex/DeleteVertexButton'
+import { UpdateVertexForm } from '../../graph/updateVertex/UpdateVertexForm'
+import { VertexContext } from '../../vertex/VertexProvider'
 import { MoveVertexTargets } from 'apps/web/src/useCases/graph/moveVertex/MoveVertexTargets'
 
 export const PaneConfigProps = () => {

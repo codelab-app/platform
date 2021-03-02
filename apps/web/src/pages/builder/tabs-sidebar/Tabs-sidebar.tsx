@@ -8,7 +8,7 @@ import {
 import { Menu, Popover } from 'antd'
 import Link from 'next/link'
 import React from 'react'
-import { LayoutTab, useLayout } from '../../layout/layout-state'
+import { LayoutTab, useLayout } from '../../../templates/layout-state'
 import { Page } from '@codelab/frontend'
 
 type MenuItemProps = {

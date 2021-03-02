@@ -1,10 +1,10 @@
 import React from 'react'
-import { LayoutTab } from '../../layout/layout-state'
+import { LayoutTab } from '../../../templates/layout-state'
+import { PaneMainComponent } from '../../../useCases/component/paneMain/Pane-main--component'
+import { PaneMainLambda } from '../../../useCases/lambda/paneMain/Pane-main--lambda'
+import { PaneMainPage } from '../../../useCases/pages/paneMain/Pane-main--page'
+import { PaneMainTree } from '../../../useCases/tree/paneMain/Pane-main--tree'
 import { BuilderPaneController } from '../Builder-pane-controller'
-import { PaneMainComponent } from './component/Pane-main--component'
-import { PaneMainFunction } from './function/Pane-main--function'
-import { PaneMainPage } from './page/Pane-main--page'
-import { PaneMainTree } from './tree/Pane-main--tree'
 
 export const PaneMain = () => {
   return (
@@ -28,7 +28,7 @@ export const PaneMain = () => {
       <BuilderPaneController
         isVisible={({ tab }) => tab === LayoutTab.Function}
       >
-        <PaneMainFunction />
+        <PaneMainLambda />
       </BuilderPaneController>
     </div>
   )

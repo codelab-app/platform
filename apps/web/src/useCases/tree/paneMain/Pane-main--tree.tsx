@@ -2,7 +2,7 @@ import { VertexType } from '@prisma/client'
 import { Tree } from 'antd'
 import React, { useContext } from 'react'
 import { useRecoilState } from 'recoil'
-import { paneConfigState } from '../../pane-config/Pane-config'
+import { paneConfigState } from '../../../pages/builder/pane-config/Pane-config'
 import { CytoscapeService } from '@codelab/frontend'
 import { AppContext } from 'apps/web/src/useCases/apps/AppProvider'
 

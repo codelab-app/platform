@@ -1,9 +1,9 @@
 import { Tabs } from 'antd'
 import React from 'react'
 import { atom, useRecoilState } from 'recoil'
-import { VertexProvider } from '../../useCases/vertex/VertexProvider'
-import { PaneConfigProps } from './props/Pane-config--props'
-import { PaneConfigStyle } from './style/Pane-config--style'
+import { PaneConfigProps } from '../../../useCases/component/paneMain/Pane-config--props'
+import { PaneConfigStyle } from '../../../useCases/style/paneConfig/Pane-config--style'
+import { VertexProvider } from '../../../useCases/vertex/VertexProvider'
 
 const { TabPane } = Tabs
 

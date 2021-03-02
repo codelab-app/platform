@@ -1,7 +1,7 @@
 import { useNode } from '@craftjs/core'
 import React from 'react'
 import { elementParameterFactory } from './elementFactory'
-import { PaneConfigHandlersProps } from 'apps/web/src/builder/pane-config/Pane-config--handlers'
+import { PaneConfigHandlersProps } from 'apps/web/src/pages/builder/pane-config/Pane-config--handlers'
 import { NodeA } from 'libs/modules/graph/src/core/domain/node/Node'
 
 // The drop handler is a separate component, because

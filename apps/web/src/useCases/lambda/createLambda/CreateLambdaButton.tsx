@@ -4,9 +4,9 @@ import React from 'react'
 import {
   LayoutPaneVisibility,
   useLayout,
-} from 'apps/web/src/layout/layout-state'
+} from 'apps/web/src/templates/layout-state'
 
-export const CreateFunctionButton = () => {
+export const CreateLambdaButton = () => {
   const { setPaneVisibility } = useLayout()
 
   return (
