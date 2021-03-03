@@ -4,4 +4,7 @@ fragment appFragments on App {
   pages {
     ...pageFragments
   }
+  lambdas {
+    ...lambdaFragments
+  }
 }

@@ -15,7 +15,7 @@ const { Sider, Content } = Layout
 
 const tabsWidth = 40
 const paneConfigWidth = 320
-const defaultPaneMainWidth = 240
+const defaultPaneMainWidth = 480
 
 export const Builder = ({ children }: PropsWithChildren<{}>) => {
   const { appId, pageId } = useContext(AppContext)

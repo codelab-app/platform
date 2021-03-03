@@ -24,6 +24,7 @@ import {
   PrismaDITokens,
   PrismaService,
 } from '@codelab/backend'
+import { Lambda } from '@codelab/modules/lambda'
 import { User } from 'libs/modules/user/src/core/domain/User'
 
 @Resolver(() => App)
@@ -79,6 +80,15 @@ export class AppResolvers {
   @ResolveField('pages', () => [Page])
   pages(@Parent() app: App) {
     return this.prismaService.page.findMany({
+      where: {
+        appId: app.id,
+      },
+    })
+  }
+
+  @ResolveField('lambdas', () => [Lambda])
+  lambdas(@Parent() app: App) {
+    return this.prismaService.lambda.findMany({
       where: {
         appId: app.id,
       },

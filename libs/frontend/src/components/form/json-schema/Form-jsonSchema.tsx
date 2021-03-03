@@ -33,6 +33,8 @@ export const JsonSchemaForm = <TData extends object>({
       widgets={widgets}
       schema={schema as JSONSchema7}
       onSubmit={({ formData }) => {
+        console.log(formData)
+
         return onSubmit({ formData })
           .then((r: any) => {
             callbackWithParams(onSubmitSuccess, r)

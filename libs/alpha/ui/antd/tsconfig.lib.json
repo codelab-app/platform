@@ -2,7 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../../../dist/out-tsc",
-    "types": ["node", "@rjsf/antd", "@xstate/react"],
+    "types": ["node", "@rjsf/antd"],
     "allowJs": true,
     "esModuleInterop": true,
     "lib": ["es2019"],

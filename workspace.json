@@ -845,30 +845,6 @@
         }
       }
     },
-    "alpha-shared-interface-component": {
-      "root": "libs/alpha/shared/interface/component",
-      "sourceRoot": "libs/alpha/shared/interface/component/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/alpha/shared/interface/component/**/*.js",
-              "libs/alpha/shared/interface/component/**/*.jsx",
-              "libs/alpha/shared/interface/component/**/*.ts",
-              "libs/alpha/shared/interface/component/**/*.tsx",
-              "libs/alpha/shared/interface/component/**/*.spec.ts",
-              "libs/alpha/shared/interface/component/**/*.spec.tsx",
-              "libs/alpha/shared/interface/component/**/*.spec.js",
-              "libs/alpha/shared/interface/component/**/*.spec.jsx",
-              "libs/alpha/shared/interface/component/**/*.d.ts"
-            ]
-          }
-        }
-      }
-    },
     "alpha-shared-interface-entity": {
       "root": "libs/alpha/shared/interface/entity",
       "sourceRoot": "libs/alpha/shared/interface/entity/src",
@@ -944,22 +920,6 @@
           "options": {
             "lintFilePatterns": [
               "libs/alpha/shared/interface/graph-v2/**/*.{ts,tsx,js,jsx}"
-            ]
-          }
-        }
-      }
-    },
-    "alpha-shared-interface-machine": {
-      "root": "libs/alpha/shared/interface/machine",
-      "sourceRoot": "libs/alpha/shared/interface/machine/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/alpha/shared/interface/machine/**/*.{ts,tsx,js,jsx}"
             ]
           }
         }

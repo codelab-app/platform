@@ -1,10 +1,10 @@
 import * as path from 'path'
-import glob from 'glob'
 import { JSONSchema7 } from 'json-schema'
 import * as TJS from 'typescript-json-schema'
 import { createSchemaExport } from '../utils/create-export'
 import { ExportData } from '../utils/utils'
 import { CssPropsSchemaConverter } from './CssPropsSchemaConverter'
+import { cssProps } from './generator-inputFiles'
 
 export const makeGenerator = (
   tsconfigFile: string,
@@ -26,11 +26,7 @@ export const makeGenerator = (
   return generator
 }
 
-export const vegaInputFiles = [
-  ...glob.sync('libs/tools/generators/json-schema/src/types/*.ts', {
-    cwd: process.cwd(),
-  }),
-]
+export const vegaInputFiles = [...cssProps]
 
 const tsconfigFile = path.resolve(
   process.cwd(),

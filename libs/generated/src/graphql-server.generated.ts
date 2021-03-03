@@ -65,14 +65,6 @@ export type Style = {
   app: App
 }
 
-export type App = {
-  __typename?: 'App'
-  id: Scalars['String']
-  title: Scalars['String']
-  pages: Array<Page>
-  styles: Array<Style>
-}
-
 export type User = {
   __typename?: 'User'
   id: Scalars['String']
@@ -87,6 +79,15 @@ export type Lambda = {
   name: Scalars['String']
   body: Scalars['String']
   user: User
+}
+
+export type App = {
+  __typename?: 'App'
+  id: Scalars['String']
+  title: Scalars['String']
+  pages: Array<Page>
+  styles: Array<Style>
+  lambdas: Array<Lambda>
 }
 
 export type Query = {
@@ -392,10 +393,9 @@ export type CreateLambdaInput = {
 }
 
 export type UpdateLambdaInput = {
+  lambdaId: Scalars['String']
   name: Scalars['String']
   body: Scalars['String']
-  appId: Scalars['String']
-  lambdaId: Scalars['String']
 }
 
 export type DeleteLambdaInput = {
@@ -495,7 +495,10 @@ export type UpdateAppMutation = { __typename?: 'Mutation' } & {
 export type AppFragmentsFragment = { __typename?: 'App' } & Pick<
   App,
   'id' | 'title'
-> & { pages: Array<{ __typename?: 'Page' } & PageFragmentsFragment> }
+> & {
+    pages: Array<{ __typename?: 'Page' } & PageFragmentsFragment>
+    lambdas: Array<{ __typename?: 'Lambda' } & LambdaFragmentsFragment>
+  }
 
 export type AddChildVertexMutationVariables = Exact<{
   input: AddChildVertexInput
@@ -774,13 +777,6 @@ export const BuilderFragments = gql`
   }
   ${PositionFragments}
 `
-export const LambdaFragments = gql`
-  fragment lambdaFragments on Lambda {
-    id
-    name
-    body
-  }
-`
 export const StyleFragments = gql`
   fragment styleFragments on Style {
     id
@@ -835,6 +831,13 @@ export const PageFragments = gql`
   }
   ${GraphFragments}
 `
+export const LambdaFragments = gql`
+  fragment lambdaFragments on Lambda {
+    id
+    name
+    body
+  }
+`
 export const AppFragments = gql`
   fragment appFragments on App {
     id
@@ -842,8 +845,12 @@ export const AppFragments = gql`
     pages {
       ...pageFragments
     }
+    lambdas {
+      ...lambdaFragments
+    }
   }
   ${PageFragments}
+  ${LambdaFragments}
 `
 export const UserFragments = gql`
   fragment userFragments on User {
@@ -1145,13 +1152,6 @@ export const BuilderFragmentsFragmentDoc = gql`
   }
   ${PositionFragmentsFragmentDoc}
 `
-export const LambdaFragmentsFragmentDoc = gql`
-  fragment lambdaFragments on Lambda {
-    id
-    name
-    body
-  }
-`
 export const StyleFragmentsFragmentDoc = gql`
   fragment styleFragments on Style {
     id
@@ -1206,6 +1206,13 @@ export const PageFragmentsFragmentDoc = gql`
   }
   ${GraphFragmentsFragmentDoc}
 `
+export const LambdaFragmentsFragmentDoc = gql`
+  fragment lambdaFragments on Lambda {
+    id
+    name
+    body
+  }
+`
 export const AppFragmentsFragmentDoc = gql`
   fragment appFragments on App {
     id
@@ -1213,8 +1220,12 @@ export const AppFragmentsFragmentDoc = gql`
     pages {
       ...pageFragments
     }
+    lambdas {
+      ...lambdaFragments
+    }
   }
   ${PageFragmentsFragmentDoc}
+  ${LambdaFragmentsFragmentDoc}
 `
 export const UserFragmentsFragmentDoc = gql`
   fragment userFragments on User {

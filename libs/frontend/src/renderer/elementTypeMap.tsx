@@ -72,8 +72,6 @@ import {
 } from '@codelab/alpha/ui/antd'
 
 const PageContainer = ({ children }: any) => {
-  console.log('PageContainer', children)
-
   return children ? <></> : <>{children}</>
 }
 

@@ -1,16 +1,23 @@
-import { Space } from 'antd'
 import React from 'react'
-import { PageMainClose } from '../../pages/paneMain/Page-main--close'
+import { CreateLambdaModal } from '../createLambda/CreateLambdaModal'
+import { GetLambdasTable } from '../getLambdas/GetLambdasTable'
+import { UpdateLambdaModal } from '../updateLambda/UpdateLambdaModal'
+import { PaneMainTemplate } from 'apps/web/src/templates/Pane-main--template'
 import { CreateLambdaButton } from 'apps/web/src/useCases/lambda/createLambda/CreateLambdaButton'
 
 export const PaneMainLambda = () => {
   return (
-    <>
-      <Space align="baseline">
-        <h2>Functions</h2>
-        <PageMainClose />
-        <CreateLambdaButton />
-      </Space>
-    </>
+    <PaneMainTemplate
+      title="Lambda"
+      header={
+        <>
+          <CreateLambdaButton />
+        </>
+      }
+    >
+      <GetLambdasTable />
+      <CreateLambdaModal />
+      <UpdateLambdaModal />
+    </PaneMainTemplate>
   )
 }

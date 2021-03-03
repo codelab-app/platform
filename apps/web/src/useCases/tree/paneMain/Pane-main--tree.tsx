@@ -4,6 +4,7 @@ import React, { useContext } from 'react'
 import { useRecoilState } from 'recoil'
 import { paneConfigState } from '../../../pages/builder/pane-config/Pane-config'
 import { CytoscapeService } from '@codelab/frontend'
+import { PaneMainTemplate } from 'apps/web/src/templates/Pane-main--template'
 import { AppContext } from 'apps/web/src/useCases/apps/AppProvider'
 
 export const PaneMainTree = () => {
@@ -28,7 +29,7 @@ export const PaneMainTree = () => {
   }
 
   return (
-    <>
+    <PaneMainTemplate title="Tree" header={<></>}>
       <Tree
         className="draggable-tree"
         defaultExpandAll
@@ -40,6 +41,6 @@ export const PaneMainTree = () => {
         onDrop={onDrop}
         treeData={[data]}
       />
-    </>
+    </PaneMainTemplate>
   )
 }

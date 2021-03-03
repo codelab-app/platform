@@ -43,13 +43,6 @@ type Style {
   app: App!
 }
 
-type App {
-  id: String!
-  title: String!
-  pages: [Page!]!
-  styles: [Style!]!
-}
-
 type User {
   id: String!
   email: String!
@@ -62,6 +55,14 @@ type Lambda {
   name: String!
   body: String!
   user: User!
+}
+
+type App {
+  id: String!
+  title: String!
+  pages: [Page!]!
+  styles: [Style!]!
+  lambdas: [Lambda!]!
 }
 
 type Query {
@@ -241,10 +242,9 @@ input CreateLambdaInput {
 }
 
 input UpdateLambdaInput {
+  lambdaId: String!
   name: String!
   body: String!
-  appId: String!
-  lambdaId: String!
 }
 
 input DeleteLambdaInput {
