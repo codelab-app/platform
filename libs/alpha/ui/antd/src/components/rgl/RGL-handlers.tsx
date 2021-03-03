@@ -1,6 +1,6 @@
 import { omit } from 'lodash'
 import { ItemCallback } from 'react-grid-layout'
-import { PaneConfigHandlersProps } from '../../../../../../../apps/web/src/builder/pane-config/Pane-config--handlers'
+import { PaneConfigHandlersProps } from '../../../../../../../apps/web/src/pages/builder/pane-config/Pane-config--handlers'
 
 export type RGLHandlers = (props: PaneConfigHandlersProps) => ItemCallback
 

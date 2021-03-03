@@ -1,7 +1,7 @@
 import { Button, Space } from 'antd'
 import React, { useContext, useRef } from 'react'
 import { SubmitController } from '../../../../../libs/frontend/src/components/form/json-schema/Form-jsonSchema--ref'
-import { LayoutPaneVisibility } from '../../layout/layout-state'
+import { LayoutPaneVisibility } from '../../templates/layout-state'
 import { AppContext } from '../apps/AppProvider'
 import { CreatePageForm } from './createPage/CreatePageForm'
 import { usePage } from './usePage'

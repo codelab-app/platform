@@ -1,7 +1,7 @@
 import { VertexType } from '@prisma/client'
 import React from 'react'
 import ReactTestUtils from 'react-dom/test-utils'
-import { PaneConfigHandlersProps } from '../../../../apps/web/src/builder/pane-config/Pane-config--handlers'
+import { PaneConfigHandlersProps } from '../../../../apps/web/src/pages/builder/pane-config/Pane-config--handlers'
 import { elementTypeMap } from './elementTypeMap'
 import { onResizeStop } from '@codelab/alpha/ui/antd'
 import { NodeA } from 'libs/modules/graph/src/core/domain/node/Node'

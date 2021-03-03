@@ -13,7 +13,7 @@ import {
   GraphFragmentsFragment,
   useAddChildVertexMutation,
 } from '@codelab/generated'
-import { paneConfigState } from 'apps/web/src/builder/pane-config/Pane-config'
+import { paneConfigState } from 'apps/web/src/pages/builder/pane-config/Pane-config'
 
 type GetPageLayoutProps = {
   graph: GraphFragmentsFragment

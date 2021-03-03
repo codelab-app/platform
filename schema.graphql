@@ -57,11 +57,20 @@ type User {
   apps: [App!]!
 }
 
+type Lambda {
+  id: String!
+  name: String!
+  body: String!
+  user: User!
+}
+
 type Query {
   getApp(input: GetAppInput!): App
   getApps: [App!]!
   getBuilder: Builder!
   getGraph(input: GetGraphInput!): Graph!
+  getLambda(input: GetLambdaInput!): Lambda!
+  getLambdas(input: GetLambdasInput!): [Lambda!]!
   getMe: User!
   getPage(input: GetPageInput!): Page!
   getPages(input: GetPagesInput!): [Page!]!
@@ -89,14 +98,24 @@ input GetVertexInput {
   id: String!
 }
 
+input GetLambdaInput {
+  lambdaId: String!
+}
+
+input GetLambdasInput {
+  appId: String!
+}
+
 type Mutation {
   addChildVertex(input: AddChildVertexInput!): Vertex!
   assignStyle(input: AssignStyleInput!): Style!
   createApp(input: CreateAppInput!): App!
   createGraph(input: CreateGraphInput!): Graph!
+  createLambda(input: CreateLambdaInput!): Lambda!
   createPage(input: CreatePageInput!): Page!
   createStyle(input: CreateStyleInput!): Style!
   deleteApp(input: DeleteAppInput!): App!
+  deleteLambda(input: DeleteLambdaInput!): Lambda!
   deletePage(input: DeletePageInput!): Page!
   deleteStyle(input: DeleteStyleInput!): Style!
   deleteUser(input: DeleteUserInput!): User!
@@ -107,6 +126,7 @@ type Mutation {
   setBuilder(input: SetBuilderInput!): Builder!
   updateApp(input: UpdateAppInput!): App!
   updateEdge(input: UpdateEdgeInput!): Edge!
+  updateLambda(input: UpdateLambdaInput!): Lambda!
   updatePage(input: UpdatePageInput!): Page!
   updateStyle(input: UpdateStyleInput!): Style!
   updateUser(input: UpdateUserInput!): User!
@@ -212,6 +232,23 @@ input DeleteStyleInput {
 input UpdateStyleInput {
   styleId: String!
   props: JSONObject
+}
+
+input CreateLambdaInput {
+  name: String!
+  body: String!
+  appId: String!
+}
+
+input UpdateLambdaInput {
+  name: String!
+  body: String!
+  appId: String!
+  lambdaId: String!
+}
+
+input DeleteLambdaInput {
+  lambdaId: String!
 }
 
 input PositionInput {

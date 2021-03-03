@@ -1,5 +1,5 @@
 import { atom, useRecoilState } from 'recoil'
-import { LayoutPaneVisibility, useLayout } from '../../layout/layout-state'
+import { LayoutPaneVisibility, useLayout } from '../../templates/layout-state'
 
 export type CrudAction = 'create' | 'update'
 

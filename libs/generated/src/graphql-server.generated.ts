@@ -81,12 +81,22 @@ export type User = {
   apps: Array<App>
 }
 
+export type Lambda = {
+  __typename?: 'Lambda'
+  id: Scalars['String']
+  name: Scalars['String']
+  body: Scalars['String']
+  user: User
+}
+
 export type Query = {
   __typename?: 'Query'
   getApp?: Maybe<App>
   getApps: Array<App>
   getBuilder: Builder
   getGraph: Graph
+  getLambda: Lambda
+  getLambdas: Array<Lambda>
   getMe: User
   getPage: Page
   getPages: Array<Page>
@@ -100,6 +110,14 @@ export type QueryGetAppArgs = {
 
 export type QueryGetGraphArgs = {
   input: GetGraphInput
+}
+
+export type QueryGetLambdaArgs = {
+  input: GetLambdaInput
+}
+
+export type QueryGetLambdasArgs = {
+  input: GetLambdasInput
 }
 
 export type QueryGetPageArgs = {
@@ -134,15 +152,25 @@ export type GetVertexInput = {
   id: Scalars['String']
 }
 
+export type GetLambdaInput = {
+  lambdaId: Scalars['String']
+}
+
+export type GetLambdasInput = {
+  appId: Scalars['String']
+}
+
 export type Mutation = {
   __typename?: 'Mutation'
   addChildVertex: Vertex
   assignStyle: Style
   createApp: App
   createGraph: Graph
+  createLambda: Lambda
   createPage: Page
   createStyle: Style
   deleteApp: App
+  deleteLambda: Lambda
   deletePage: Page
   deleteStyle: Style
   deleteUser: User
@@ -153,6 +181,7 @@ export type Mutation = {
   setBuilder: Builder
   updateApp: App
   updateEdge: Edge
+  updateLambda: Lambda
   updatePage: Page
   updateStyle: Style
   updateUser: User
@@ -175,6 +204,10 @@ export type MutationCreateGraphArgs = {
   input: CreateGraphInput
 }
 
+export type MutationCreateLambdaArgs = {
+  input: CreateLambdaInput
+}
+
 export type MutationCreatePageArgs = {
   input: CreatePageInput
 }
@@ -185,6 +218,10 @@ export type MutationCreateStyleArgs = {
 
 export type MutationDeleteAppArgs = {
   input: DeleteAppInput
+}
+
+export type MutationDeleteLambdaArgs = {
+  input: DeleteLambdaInput
 }
 
 export type MutationDeletePageArgs = {
@@ -225,6 +262,10 @@ export type MutationUpdateAppArgs = {
 
 export type MutationUpdateEdgeArgs = {
   input: UpdateEdgeInput
+}
+
+export type MutationUpdateLambdaArgs = {
+  input: UpdateLambdaInput
 }
 
 export type MutationUpdatePageArgs = {
@@ -342,6 +383,23 @@ export type DeleteStyleInput = {
 export type UpdateStyleInput = {
   styleId: Scalars['String']
   props?: Maybe<Scalars['JSONObject']>
+}
+
+export type CreateLambdaInput = {
+  name: Scalars['String']
+  body: Scalars['String']
+  appId: Scalars['String']
+}
+
+export type UpdateLambdaInput = {
+  name: Scalars['String']
+  body: Scalars['String']
+  appId: Scalars['String']
+  lambdaId: Scalars['String']
+}
+
+export type DeleteLambdaInput = {
+  lambdaId: Scalars['String']
 }
 
 export type PositionInput = {
@@ -524,6 +582,51 @@ export type VertexFragmentsFragment = { __typename?: 'Vertex' } & Pick<
     graph?: Maybe<{ __typename?: 'Graph' } & Pick<Graph, 'id'>>
   }
 
+export type CreateLambdaMutationVariables = Exact<{
+  input: CreateLambdaInput
+}>
+
+export type CreateLambdaMutation = { __typename?: 'Mutation' } & {
+  createLambda: { __typename?: 'Lambda' } & LambdaFragmentsFragment
+}
+
+export type DeleteLambdaMutationVariables = Exact<{
+  input: DeleteLambdaInput
+}>
+
+export type DeleteLambdaMutation = { __typename?: 'Mutation' } & {
+  deleteLambda: { __typename?: 'Lambda' } & LambdaFragmentsFragment
+}
+
+export type GetLambdaQueryVariables = Exact<{
+  input: GetLambdaInput
+}>
+
+export type GetLambdaQuery = { __typename?: 'Query' } & {
+  getLambda: { __typename?: 'Lambda' } & LambdaFragmentsFragment
+}
+
+export type GetLambdasQueryVariables = Exact<{
+  input: GetLambdasInput
+}>
+
+export type GetLambdasQuery = { __typename?: 'Query' } & {
+  getLambdas: Array<{ __typename?: 'Lambda' } & LambdaFragmentsFragment>
+}
+
+export type UpdateLambdaMutationVariables = Exact<{
+  input: UpdateLambdaInput
+}>
+
+export type UpdateLambdaMutation = { __typename?: 'Mutation' } & {
+  updateLambda: { __typename?: 'Lambda' } & LambdaFragmentsFragment
+}
+
+export type LambdaFragmentsFragment = { __typename?: 'Lambda' } & Pick<
+  Lambda,
+  'id' | 'name' | 'body'
+>
+
 export type CreatePageMutationVariables = Exact<{
   input: CreatePageInput
 }>
@@ -670,6 +773,13 @@ export const BuilderFragments = gql`
     isDragging
   }
   ${PositionFragments}
+`
+export const LambdaFragments = gql`
+  fragment lambdaFragments on Lambda {
+    id
+    name
+    body
+  }
 `
 export const StyleFragments = gql`
   fragment styleFragments on Style {
@@ -865,6 +975,46 @@ export const UpdateVertex = gql`
   }
   ${VertexFragments}
 `
+export const CreateLambda = gql`
+  mutation CreateLambda($input: CreateLambdaInput!) {
+    createLambda(input: $input) {
+      ...lambdaFragments
+    }
+  }
+  ${LambdaFragments}
+`
+export const DeleteLambda = gql`
+  mutation DeleteLambda($input: DeleteLambdaInput!) {
+    deleteLambda(input: $input) {
+      ...lambdaFragments
+    }
+  }
+  ${LambdaFragments}
+`
+export const GetLambda = gql`
+  query GetLambda($input: GetLambdaInput!) {
+    getLambda(input: $input) {
+      ...lambdaFragments
+    }
+  }
+  ${LambdaFragments}
+`
+export const GetLambdas = gql`
+  query GetLambdas($input: GetLambdasInput!) {
+    getLambdas(input: $input) {
+      ...lambdaFragments
+    }
+  }
+  ${LambdaFragments}
+`
+export const UpdateLambda = gql`
+  mutation UpdateLambda($input: UpdateLambdaInput!) {
+    updateLambda(input: $input) {
+      ...lambdaFragments
+    }
+  }
+  ${LambdaFragments}
+`
 export const CreatePage = gql`
   mutation CreatePage($input: CreatePageInput!) {
     createPage(input: $input) {
@@ -994,6 +1144,13 @@ export const BuilderFragmentsFragmentDoc = gql`
     isDragging
   }
   ${PositionFragmentsFragmentDoc}
+`
+export const LambdaFragmentsFragmentDoc = gql`
+  fragment lambdaFragments on Lambda {
+    id
+    name
+    body
+  }
 `
 export const StyleFragmentsFragmentDoc = gql`
   fragment styleFragments on Style {
@@ -1812,6 +1969,260 @@ export type UpdateVertexMutationResult = Apollo.MutationResult<UpdateVertexMutat
 export type UpdateVertexMutationOptions = Apollo.BaseMutationOptions<
   UpdateVertexMutation,
   UpdateVertexMutationVariables
+>
+export const CreateLambdaGql = gql`
+  mutation CreateLambda($input: CreateLambdaInput!) {
+    createLambda(input: $input) {
+      ...lambdaFragments
+    }
+  }
+  ${LambdaFragmentsFragmentDoc}
+`
+export type CreateLambdaMutationFn = Apollo.MutationFunction<
+  CreateLambdaMutation,
+  CreateLambdaMutationVariables
+>
+
+/**
+ * __useCreateLambdaMutation__
+ *
+ * To run a mutation, you first call `useCreateLambdaMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateLambdaMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createLambdaMutation, { data, loading, error }] = useCreateLambdaMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateLambdaMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateLambdaMutation,
+    CreateLambdaMutationVariables
+  >,
+) {
+  return Apollo.useMutation<
+    CreateLambdaMutation,
+    CreateLambdaMutationVariables
+  >(CreateLambdaGql, baseOptions)
+}
+export type CreateLambdaMutationHookResult = ReturnType<
+  typeof useCreateLambdaMutation
+>
+export type CreateLambdaMutationResult = Apollo.MutationResult<CreateLambdaMutation>
+export type CreateLambdaMutationOptions = Apollo.BaseMutationOptions<
+  CreateLambdaMutation,
+  CreateLambdaMutationVariables
+>
+export const DeleteLambdaGql = gql`
+  mutation DeleteLambda($input: DeleteLambdaInput!) {
+    deleteLambda(input: $input) {
+      ...lambdaFragments
+    }
+  }
+  ${LambdaFragmentsFragmentDoc}
+`
+export type DeleteLambdaMutationFn = Apollo.MutationFunction<
+  DeleteLambdaMutation,
+  DeleteLambdaMutationVariables
+>
+
+/**
+ * __useDeleteLambdaMutation__
+ *
+ * To run a mutation, you first call `useDeleteLambdaMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteLambdaMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteLambdaMutation, { data, loading, error }] = useDeleteLambdaMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useDeleteLambdaMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeleteLambdaMutation,
+    DeleteLambdaMutationVariables
+  >,
+) {
+  return Apollo.useMutation<
+    DeleteLambdaMutation,
+    DeleteLambdaMutationVariables
+  >(DeleteLambdaGql, baseOptions)
+}
+export type DeleteLambdaMutationHookResult = ReturnType<
+  typeof useDeleteLambdaMutation
+>
+export type DeleteLambdaMutationResult = Apollo.MutationResult<DeleteLambdaMutation>
+export type DeleteLambdaMutationOptions = Apollo.BaseMutationOptions<
+  DeleteLambdaMutation,
+  DeleteLambdaMutationVariables
+>
+export const GetLambdaGql = gql`
+  query GetLambda($input: GetLambdaInput!) {
+    getLambda(input: $input) {
+      ...lambdaFragments
+    }
+  }
+  ${LambdaFragmentsFragmentDoc}
+`
+
+/**
+ * __useGetLambdaQuery__
+ *
+ * To run a query within a React component, call `useGetLambdaQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetLambdaQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetLambdaQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useGetLambdaQuery(
+  baseOptions: Apollo.QueryHookOptions<GetLambdaQuery, GetLambdaQueryVariables>,
+) {
+  return Apollo.useQuery<GetLambdaQuery, GetLambdaQueryVariables>(
+    GetLambdaGql,
+    baseOptions,
+  )
+}
+export function useGetLambdaLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetLambdaQuery,
+    GetLambdaQueryVariables
+  >,
+) {
+  return Apollo.useLazyQuery<GetLambdaQuery, GetLambdaQueryVariables>(
+    GetLambdaGql,
+    baseOptions,
+  )
+}
+export type GetLambdaQueryHookResult = ReturnType<typeof useGetLambdaQuery>
+export type GetLambdaLazyQueryHookResult = ReturnType<
+  typeof useGetLambdaLazyQuery
+>
+export type GetLambdaQueryResult = Apollo.QueryResult<
+  GetLambdaQuery,
+  GetLambdaQueryVariables
+>
+export const GetLambdasGql = gql`
+  query GetLambdas($input: GetLambdasInput!) {
+    getLambdas(input: $input) {
+      ...lambdaFragments
+    }
+  }
+  ${LambdaFragmentsFragmentDoc}
+`
+
+/**
+ * __useGetLambdasQuery__
+ *
+ * To run a query within a React component, call `useGetLambdasQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetLambdasQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetLambdasQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useGetLambdasQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetLambdasQuery,
+    GetLambdasQueryVariables
+  >,
+) {
+  return Apollo.useQuery<GetLambdasQuery, GetLambdasQueryVariables>(
+    GetLambdasGql,
+    baseOptions,
+  )
+}
+export function useGetLambdasLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetLambdasQuery,
+    GetLambdasQueryVariables
+  >,
+) {
+  return Apollo.useLazyQuery<GetLambdasQuery, GetLambdasQueryVariables>(
+    GetLambdasGql,
+    baseOptions,
+  )
+}
+export type GetLambdasQueryHookResult = ReturnType<typeof useGetLambdasQuery>
+export type GetLambdasLazyQueryHookResult = ReturnType<
+  typeof useGetLambdasLazyQuery
+>
+export type GetLambdasQueryResult = Apollo.QueryResult<
+  GetLambdasQuery,
+  GetLambdasQueryVariables
+>
+export const UpdateLambdaGql = gql`
+  mutation UpdateLambda($input: UpdateLambdaInput!) {
+    updateLambda(input: $input) {
+      ...lambdaFragments
+    }
+  }
+  ${LambdaFragmentsFragmentDoc}
+`
+export type UpdateLambdaMutationFn = Apollo.MutationFunction<
+  UpdateLambdaMutation,
+  UpdateLambdaMutationVariables
+>
+
+/**
+ * __useUpdateLambdaMutation__
+ *
+ * To run a mutation, you first call `useUpdateLambdaMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateLambdaMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateLambdaMutation, { data, loading, error }] = useUpdateLambdaMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateLambdaMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateLambdaMutation,
+    UpdateLambdaMutationVariables
+  >,
+) {
+  return Apollo.useMutation<
+    UpdateLambdaMutation,
+    UpdateLambdaMutationVariables
+  >(UpdateLambdaGql, baseOptions)
+}
+export type UpdateLambdaMutationHookResult = ReturnType<
+  typeof useUpdateLambdaMutation
+>
+export type UpdateLambdaMutationResult = Apollo.MutationResult<UpdateLambdaMutation>
+export type UpdateLambdaMutationOptions = Apollo.BaseMutationOptions<
+  UpdateLambdaMutation,
+  UpdateLambdaMutationVariables
 >
 export const CreatePageGql = gql`
   mutation CreatePage($input: CreatePageInput!) {

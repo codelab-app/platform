@@ -7,7 +7,7 @@ export class Lambda {
   declare id: string
 
   @Field()
-  declare title: string
+  declare name: string
 
   @Field()
   declare body: string
