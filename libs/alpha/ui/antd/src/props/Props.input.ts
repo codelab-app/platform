@@ -1,7 +1,5 @@
-import { VertexType } from '@prisma/client'
-import { Enum, Schema, Title } from '@tsed/schema'
+import { Schema } from '@tsed/schema'
 import { JSONSchema6 } from 'json-schema'
-import { JsonSchemaTypeDependencies } from '../../../../../backend/src/common/decorators/JsonSchemaTypeDependencies'
 import { AffixProps } from '../components/affix/Affix.input'
 import { AutoCompleteProps } from '../components/autocomplete/AutoComplete.input'
 import { AvatarSelectedProps } from '../components/avatar/Avatar.input'
@@ -28,7 +26,7 @@ import { StepsStepProps } from '../components/steps/StepsStep.input'
 import { TagSelectedProps } from '../components/tag/Tag.input'
 import { VegaSchema } from '@codelab/generated'
 
-@JsonSchemaTypeDependencies([
+export const PropsList = [
   ButtonProps,
   CardProps,
   CardGridProps,
@@ -53,13 +51,7 @@ import { VegaSchema } from '@codelab/generated'
   StepsProps,
   StepsStepProps,
   AutoCompleteProps,
-  // ReactRGLContainerSelected,
-])
-@Title('')
-export class Props {
-  @Enum(VertexType)
-  declare type?: VertexType
-}
+]
 
 @Schema(VegaSchema as JSONSchema6)
 export class CssProps {}
