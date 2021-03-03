@@ -60,10 +60,10 @@ export const npmLibraryJsonSchema = (symbols?: Array<string>): ExportData => {
         source: 'json-schema',
         entities: ['JSONSchema7'],
       },
-      {
-        source: '@codelab/tools/generators/json-schema',
-        entities: ['DecoratorsMap'],
-      },
+      // {
+      //   source: '@codelab/tools/generators/json-schema',
+      //   entities: ['DecoratorsMap'],
+      // },
     ],
   }
 }
