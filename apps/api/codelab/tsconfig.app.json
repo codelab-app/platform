@@ -2,7 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../../dist/out-tsc",
-    "types": ["node", "@xstate/react", "object-mapper", "@rjsf/antd"],
+    "types": ["node", "object-mapper", "@rjsf/antd"],
     "jsx": "react",
     "esModuleInterop": true,
     "module": "CommonJS",

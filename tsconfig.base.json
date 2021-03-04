@@ -12,7 +12,7 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "types": ["@rjsf/antd", "@xstate/react", "node", "jest", "object-mapper"],
+    "types": ["@rjsf/antd", "node", "jest", "object-mapper"],
     "typeRoots": ["node_modules/@types", "types"],
     "lib": ["es2017", "dom"],
     "skipLibCheck": true,
@@ -43,9 +43,6 @@
       "@codelab/alpha/shared/interface/collections": [
         "libs/alpha/shared/interface/collections/src/index.ts"
       ],
-      "@codelab/alpha/shared/interface/component": [
-        "libs/alpha/shared/interface/component/src/index.ts"
-      ],
       "@codelab/alpha/shared/interface/entity": [
         "libs/alpha/shared/interface/entity/src/index.ts"
       ],
@@ -57,9 +54,6 @@
       ],
       "@codelab/alpha/shared/interface/graph-v2": [
         "libs/alpha/shared/interface/graph-v2/src/index.ts"
-      ],
-      "@codelab/alpha/shared/interface/machine": [
-        "libs/alpha/shared/interface/machine/src/index.ts"
       ],
       "@codelab/alpha/shared/interface/mapper": [
         "libs/alpha/shared/interface/mapper/src/index.ts"

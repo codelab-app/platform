@@ -1,6 +1,6 @@
-import { Space } from 'antd'
 import React, { useRef } from 'react'
 import { useRecoilState } from 'recoil'
+import { PaneDetailTemplate } from '../../templates/Pane-detail--template'
 import { LayoutPaneVisibility } from '../../templates/layout-state'
 import { DeletePageButton } from './deletePage/DeletePageButton'
 import { UpdatePageButton } from './updatePage/UpdatePageButton'
@@ -15,23 +15,19 @@ export const PageContainerUpdateDelete = () => {
   const [detailPageId] = useRecoilState(pageState)
 
   return (
-    <div style={{ margin: '1rem' }}>
-      <Space
-        align="end"
-        direction="horizontal"
-        style={{
-          width: '100%',
-          justifyContent: 'flex-end',
-        }}
-      >
-        <DeletePageButton onSuccess={onSuccess} />
-        <UpdatePageButton submitRef={submitRef} />
-      </Space>
+    <PaneDetailTemplate
+      header={
+        <>
+          <DeletePageButton onSuccess={onSuccess} />
+          <UpdatePageButton submitRef={submitRef} />
+        </>
+      }
+    >
       <UpdatePageForm
         pageId={detailPageId}
         submitRef={submitRef}
         onSubmitSuccess={onSuccess}
       />
-    </div>
+    </PaneDetailTemplate>
   )
 }

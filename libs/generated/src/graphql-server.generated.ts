@@ -65,14 +65,6 @@ export type Style = {
   app: App
 }
 
-export type App = {
-  __typename?: 'App'
-  id: Scalars['String']
-  title: Scalars['String']
-  pages: Array<Page>
-  styles: Array<Style>
-}
-
 export type User = {
   __typename?: 'User'
   id: Scalars['String']
@@ -87,6 +79,15 @@ export type Lambda = {
   name: Scalars['String']
   body: Scalars['String']
   user: User
+}
+
+export type App = {
+  __typename?: 'App'
+  id: Scalars['String']
+  title: Scalars['String']
+  pages: Array<Page>
+  styles: Array<Style>
+  lambdas: Array<Lambda>
 }
 
 export type Query = {
@@ -175,6 +176,7 @@ export type Mutation = {
   deleteStyle: Style
   deleteUser: User
   deleteVertex: Vertex
+  executeLambda: Lambda
   loginUser: User
   moveVertex: Vertex
   registerUser: User
@@ -238,6 +240,10 @@ export type MutationDeleteUserArgs = {
 
 export type MutationDeleteVertexArgs = {
   input: DeleteVertexInput
+}
+
+export type MutationExecuteLambdaArgs = {
+  input: ExecuteLambdaInput
 }
 
 export type MutationLoginUserArgs = {
@@ -392,9 +398,12 @@ export type CreateLambdaInput = {
 }
 
 export type UpdateLambdaInput = {
+  lambdaId: Scalars['String']
   name: Scalars['String']
   body: Scalars['String']
-  appId: Scalars['String']
+}
+
+export type ExecuteLambdaInput = {
   lambdaId: Scalars['String']
 }
 
@@ -495,7 +504,10 @@ export type UpdateAppMutation = { __typename?: 'Mutation' } & {
 export type AppFragmentsFragment = { __typename?: 'App' } & Pick<
   App,
   'id' | 'title'
-> & { pages: Array<{ __typename?: 'Page' } & PageFragmentsFragment> }
+> & {
+    pages: Array<{ __typename?: 'Page' } & PageFragmentsFragment>
+    lambdas: Array<{ __typename?: 'Lambda' } & LambdaFragmentsFragment>
+  }
 
 export type AddChildVertexMutationVariables = Exact<{
   input: AddChildVertexInput
@@ -596,6 +608,14 @@ export type DeleteLambdaMutationVariables = Exact<{
 
 export type DeleteLambdaMutation = { __typename?: 'Mutation' } & {
   deleteLambda: { __typename?: 'Lambda' } & LambdaFragmentsFragment
+}
+
+export type ExecuteLambdaMutationVariables = Exact<{
+  input: ExecuteLambdaInput
+}>
+
+export type ExecuteLambdaMutation = { __typename?: 'Mutation' } & {
+  executeLambda: { __typename?: 'Lambda' } & LambdaFragmentsFragment
 }
 
 export type GetLambdaQueryVariables = Exact<{
@@ -774,13 +794,6 @@ export const BuilderFragments = gql`
   }
   ${PositionFragments}
 `
-export const LambdaFragments = gql`
-  fragment lambdaFragments on Lambda {
-    id
-    name
-    body
-  }
-`
 export const StyleFragments = gql`
   fragment styleFragments on Style {
     id
@@ -835,6 +848,13 @@ export const PageFragments = gql`
   }
   ${GraphFragments}
 `
+export const LambdaFragments = gql`
+  fragment lambdaFragments on Lambda {
+    id
+    name
+    body
+  }
+`
 export const AppFragments = gql`
   fragment appFragments on App {
     id
@@ -842,8 +862,12 @@ export const AppFragments = gql`
     pages {
       ...pageFragments
     }
+    lambdas {
+      ...lambdaFragments
+    }
   }
   ${PageFragments}
+  ${LambdaFragments}
 `
 export const UserFragments = gql`
   fragment userFragments on User {
@@ -986,6 +1010,14 @@ export const CreateLambda = gql`
 export const DeleteLambda = gql`
   mutation DeleteLambda($input: DeleteLambdaInput!) {
     deleteLambda(input: $input) {
+      ...lambdaFragments
+    }
+  }
+  ${LambdaFragments}
+`
+export const ExecuteLambda = gql`
+  mutation ExecuteLambda($input: ExecuteLambdaInput!) {
+    executeLambda(input: $input) {
       ...lambdaFragments
     }
   }
@@ -1145,13 +1177,6 @@ export const BuilderFragmentsFragmentDoc = gql`
   }
   ${PositionFragmentsFragmentDoc}
 `
-export const LambdaFragmentsFragmentDoc = gql`
-  fragment lambdaFragments on Lambda {
-    id
-    name
-    body
-  }
-`
 export const StyleFragmentsFragmentDoc = gql`
   fragment styleFragments on Style {
     id
@@ -1206,6 +1231,13 @@ export const PageFragmentsFragmentDoc = gql`
   }
   ${GraphFragmentsFragmentDoc}
 `
+export const LambdaFragmentsFragmentDoc = gql`
+  fragment lambdaFragments on Lambda {
+    id
+    name
+    body
+  }
+`
 export const AppFragmentsFragmentDoc = gql`
   fragment appFragments on App {
     id
@@ -1213,8 +1245,12 @@ export const AppFragmentsFragmentDoc = gql`
     pages {
       ...pageFragments
     }
+    lambdas {
+      ...lambdaFragments
+    }
   }
   ${PageFragmentsFragmentDoc}
+  ${LambdaFragmentsFragmentDoc}
 `
 export const UserFragmentsFragmentDoc = gql`
   fragment userFragments on User {
@@ -2067,6 +2103,55 @@ export type DeleteLambdaMutationResult = Apollo.MutationResult<DeleteLambdaMutat
 export type DeleteLambdaMutationOptions = Apollo.BaseMutationOptions<
   DeleteLambdaMutation,
   DeleteLambdaMutationVariables
+>
+export const ExecuteLambdaGql = gql`
+  mutation ExecuteLambda($input: ExecuteLambdaInput!) {
+    executeLambda(input: $input) {
+      ...lambdaFragments
+    }
+  }
+  ${LambdaFragmentsFragmentDoc}
+`
+export type ExecuteLambdaMutationFn = Apollo.MutationFunction<
+  ExecuteLambdaMutation,
+  ExecuteLambdaMutationVariables
+>
+
+/**
+ * __useExecuteLambdaMutation__
+ *
+ * To run a mutation, you first call `useExecuteLambdaMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useExecuteLambdaMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [executeLambdaMutation, { data, loading, error }] = useExecuteLambdaMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useExecuteLambdaMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    ExecuteLambdaMutation,
+    ExecuteLambdaMutationVariables
+  >,
+) {
+  return Apollo.useMutation<
+    ExecuteLambdaMutation,
+    ExecuteLambdaMutationVariables
+  >(ExecuteLambdaGql, baseOptions)
+}
+export type ExecuteLambdaMutationHookResult = ReturnType<
+  typeof useExecuteLambdaMutation
+>
+export type ExecuteLambdaMutationResult = Apollo.MutationResult<ExecuteLambdaMutation>
+export type ExecuteLambdaMutationOptions = Apollo.BaseMutationOptions<
+  ExecuteLambdaMutation,
+  ExecuteLambdaMutationVariables
 >
 export const GetLambdaGql = gql`
   query GetLambda($input: GetLambdaInput!) {

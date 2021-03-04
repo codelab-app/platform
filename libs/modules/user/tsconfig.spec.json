@@ -3,6 +3,7 @@
   "compilerOptions": {
     "outDir": "../../../dist/out-tsc",
     "module": "commonjs",
+    "lib": ["es2019"],
     "types": ["jest", "node"]
   },
   "include": [

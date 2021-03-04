@@ -1,6 +1,6 @@
 import { Field, InputType } from '@nestjs/graphql'
 import { VertexType } from '@prisma/client'
-import { MinLength, Required } from '@tsed/schema'
+import { Enum, MinLength, Required } from '@tsed/schema'
 import { GraphQLJSONObject } from 'graphql-type-json'
 import { PropsList } from '@codelab/antd'
 import { Grid } from '@codelab/tools/generators/json-schema'
@@ -44,6 +44,7 @@ export class UpdateVertexInput {
   declare vertexId: string
 
   @Field(() => String, { nullable: true })
+  @Enum(VertexType)
   declare type?: VertexType
 
   @Field(() => GraphQLJSONObject, { nullable: true })

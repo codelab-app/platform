@@ -1,22 +1,19 @@
 import React from 'react'
 import { LayoutTab } from '../../../templates/layout-state'
-import { PageContainerCreate } from '../../../useCases/pages/Page-container--create'
-import { PageContainerUpdateDelete } from '../../../useCases/pages/Page-container--updateDelete'
-import { usePage } from '../../../useCases/pages/usePage'
 import { BuilderPaneController } from '../Builder-pane-controller'
+import { LambdaPaneDetail } from 'apps/web/src/useCases/lambda/paneDetail/Pane-detail--lambda'
+import { PageDetailPane } from 'apps/web/src/useCases/pages/paneDetail/Pane-detail--page'
 
 export const BuilderDetails = () => {
-  const { detailPageId } = usePage()
-
   return (
     <>
       <BuilderPaneController isVisible={({ tab }) => tab === LayoutTab.Page}>
-        {detailPageId ? <PageContainerUpdateDelete /> : <PageContainerCreate />}
+        <PageDetailPane />
       </BuilderPaneController>
       <BuilderPaneController
         isVisible={({ tab }) => tab === LayoutTab.Function}
       >
-        <h1>Function</h1>
+        <LambdaPaneDetail />
       </BuilderPaneController>
     </>
   )

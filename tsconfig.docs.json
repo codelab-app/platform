@@ -3,7 +3,7 @@
   "compilerOptions": {
     "jsx": "react",
     "allowJs": true,
-    "types": ["node", "@xstate/react"],
+    "types": ["node"],
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true
   },

@@ -16,8 +16,6 @@
   - A React Framework for server-side rendering (SSR) & other performance optimizations
 - [Apollo Client](https://www.apollographql.com/docs/react)
   - A state management library for handling GraphQL
-  <!-- - [XState](https://xstate.js.org/docs)
-  - A state machine library -->
 
 ## Backend
 

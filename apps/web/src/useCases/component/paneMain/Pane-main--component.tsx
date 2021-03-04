@@ -3,6 +3,7 @@ import { VertexType } from '@prisma/client'
 import { List } from 'antd'
 import React, { useMemo } from 'react'
 import { ComponentItem } from './Component-item'
+import { PaneMainTemplate } from 'apps/web/src/templates/Pane-main--template'
 
 export type ComponentItemType = {
   key: string
@@ -38,29 +39,31 @@ export const PaneMainComponent = () => {
   // }
 
   return (
-    <List
-      grid={{
-        gutter: 0,
-        column: 2,
-      }}
-      dataSource={componentsData}
-      bordered
-      renderItem={(item) => (
-        <List.Item
-          css={css({
-            '.react-draggable-dragging': {
-              visibility: 'visible',
-              backgroundColor: 'pink',
-            },
-          })}
-          style={{
-            padding: 0,
-            margin: 0,
-          }}
-        >
-          <ComponentItem item={item} />
-        </List.Item>
-      )}
-    />
+    <PaneMainTemplate title="Component" header={<></>}>
+      <List
+        grid={{
+          gutter: 0,
+          column: 2,
+        }}
+        dataSource={componentsData}
+        bordered
+        renderItem={(item) => (
+          <List.Item
+            css={css({
+              '.react-draggable-dragging': {
+                visibility: 'visible',
+                backgroundColor: 'pink',
+              },
+            })}
+            style={{
+              padding: 0,
+              margin: 0,
+            }}
+          >
+            <ComponentItem item={item} />
+          </List.Item>
+        )}
+      />
+    </PaneMainTemplate>
   )
 }

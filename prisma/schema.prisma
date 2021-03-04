@@ -28,10 +28,11 @@ model App {
 }
 
 model Lambda {
-  id    String  @id @default(uuid())
+  id    String @id @default(uuid())
   name  String
-  app   App?    @relation(fields: [appId], references: [id])
-  appId String?
+  body  String
+  app   App    @relation(fields: [appId], references: [id])
+  appId String
 }
 
 model Page {

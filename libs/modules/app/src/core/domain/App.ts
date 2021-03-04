@@ -1,6 +1,7 @@
 import { Field, ObjectType } from '@nestjs/graphql'
 import { Page } from '../../../../page/src/core/domain/Page'
 import { Style } from '../../../../style/src/core/domain/Style'
+import { Lambda } from '@codelab/modules/lambda'
 
 @ObjectType('App')
 export class App {
@@ -13,6 +14,9 @@ export class App {
   @Field(() => [Page], { defaultValue: [] })
   declare pages: Array<Page>
 
-  @Field(() => [Style])
+  @Field(() => [Style], { defaultValue: [] })
   declare styles: Array<Style>
+
+  @Field(() => [Lambda], { defaultValue: [] })
+  declare lambdas: Array<Lambda>
 }

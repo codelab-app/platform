@@ -7,6 +7,17 @@
 #
 # BUILD
 #
+lambda:
+	aws lambda create-function \
+		--region ap-east-1 \
+		--function-name HelloWorld \
+		--zip-file fileb://~/Sites/Codelab/codelab/function.zip \
+		--role arn:aws:iam::810113963961:role/codelab-aws-lambda \
+		--handler index.handler \
+		--runtime nodejs14.x
+		# --profile adminuser \
+		# --timeout 10 \
+		# --memory-size 1024
 
 build-dev-affected:
 	npx nx affected:build \

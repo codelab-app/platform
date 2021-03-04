@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common'
 import { CreateLambdaService } from '../../core/application/useCases/createLambda/CreateLambdaService'
 import { DeleteLambdaService } from '../../core/application/useCases/deleteLambda/DeleteLambdaService'
+import { ExecuteLambdaService } from '../../core/application/useCases/executeLambda/ExecuteLambdaService'
 import { GetLambdaService } from '../../core/application/useCases/getLambda/GetLambdaService'
 import { GetLambdasService } from '../../core/application/useCases/getLambdas/GetLambdasService'
 import { UpdateLambdaService } from '../../core/application/useCases/updateLambda/UpdateLambdaService'
@@ -20,6 +21,7 @@ import { LambdaResolvers } from '../../presentation/controllers/LambdaResolvers'
     GetLambdaService,
     GetLambdasService,
     UpdateLambdaService,
+    ExecuteLambdaService,
   ],
 })
 export class LambdaModule {}
