@@ -60,6 +60,7 @@
     "modules-style": { "tags": [] },
     "modules-lambda": { "tags": [] },
     "tools-generators-form-decorator": { "tags": [] },
-    "tools-generators-form-templates": { "tags": [] }
+    "tools-generators-form-templates": { "tags": [] },
+    "tools-generators-crawler": { "tags": [] }
   }
 }

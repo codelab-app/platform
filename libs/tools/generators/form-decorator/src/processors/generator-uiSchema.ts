@@ -40,7 +40,9 @@ const buildImportString = (matches: Array<string>) => {
     })
     .filter((v, i, a) => a.indexOf(v) === i && v !== undefined)
 
-  return `import { ${[...matchesWithoutQuotes]} } from './lib'`
+  return `import { ${[
+    ...matchesWithoutQuotes,
+  ]} } from '@codelab/tools/generators/form-templates'`
 }
 
 export const writeSchemasToFile = (

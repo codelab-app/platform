@@ -93,6 +93,9 @@
       ],
       "@codelab/tools/generators/form-templates": [
         "libs/tools/generators/form-templates/src/index.ts"
+      ],
+      "@codelab/tools/generators/crawler": [
+        "libs/tools/generators/crawler/src/index.ts"
       ]
     }
   },
