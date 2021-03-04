@@ -11,7 +11,7 @@ export const tsedJsonSchemaCb: SymbolMapCb = ({
   module,
   file,
 }: SymbolMap) => {
-  const jsonSchema = getJsonSchema(module[symbol])
+  const jsonSchema = getJsonSchema(module[symbol], { customKeys: true })
 
   const content =
     JSON.stringify(jsonSchema) === `{"type":"object"}`

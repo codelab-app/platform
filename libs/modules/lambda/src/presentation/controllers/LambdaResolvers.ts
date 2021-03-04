@@ -4,6 +4,8 @@ import { CreateLambdaInput } from '../../core/application/useCases/createLambda/
 import { CreateLambdaService } from '../../core/application/useCases/createLambda/CreateLambdaService'
 import { DeleteLambdaInput } from '../../core/application/useCases/deleteLambda/DeleteLambdaInput'
 import { DeleteLambdaService } from '../../core/application/useCases/deleteLambda/DeleteLambdaService'
+import { ExecuteLambdaInput } from '../../core/application/useCases/executeLambda/ExecuteLambdaInput'
+import { ExecuteLambdaService } from '../../core/application/useCases/executeLambda/ExecuteLambdaService'
 import { GetLambdaInput } from '../../core/application/useCases/getLambda/GetLambdaInput'
 import { GetLambdaService } from '../../core/application/useCases/getLambda/GetLambdaService'
 import { GetLambdasInput } from '../../core/application/useCases/getLambdas/GetLambdasInput'
@@ -24,6 +26,7 @@ export class LambdaResolvers {
     private readonly deleteLambdaService: DeleteLambdaService,
     private readonly getLambdaService: GetLambdaService,
     private readonly getLambdasService: GetLambdasService,
+    private readonly executeLambdaService: ExecuteLambdaService,
   ) {}
 
   @Mutation(() => Lambda)
@@ -36,6 +39,11 @@ export class LambdaResolvers {
   @UseGuards(GqlAuthGuard)
   updateLambda(@Args('input') input: UpdateLambdaInput) {
     return this.updateLambdaService.execute(input)
+  }
+
+  @Mutation(() => Lambda)
+  executeLambda(@Args('input') input: ExecuteLambdaInput) {
+    return this.executeLambdaService.execute(input)
   }
 
   @Mutation(() => Lambda)

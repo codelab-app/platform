@@ -15,11 +15,7 @@ type UpdateVertexFormProps = {
 }
 
 export const UpdateVertexForm = ({ vertex }: UpdateVertexFormProps) => {
-  console.log(vertex)
-
-  // const { pageId } = useContext(AppContext)
   const [mutate] = useUpdateVertexMutation({
-    // awaitRefetchQueries: true,
     refetchQueries: [
       {
         query: GetVertexGql,
@@ -29,14 +25,6 @@ export const UpdateVertexForm = ({ vertex }: UpdateVertexFormProps) => {
           },
         },
       },
-      // {
-      //   query: GetPageGql,
-      //   variables: {
-      //     input: {
-      //       pageId,
-      //     },
-      //   },
-      // },
     ],
   })
 
@@ -55,10 +43,8 @@ export const UpdateVertexForm = ({ vertex }: UpdateVertexFormProps) => {
       saveOnChange
       initialFormData={{
         vertexId: vertex.id,
-        props: {
-          ...vertex.props,
-          type: vertex.type ?? '',
-        },
+        type: vertex.type ?? '',
+        props: vertex.props,
       }}
     />
   )

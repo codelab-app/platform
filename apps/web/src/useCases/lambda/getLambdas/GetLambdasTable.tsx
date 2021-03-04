@@ -2,6 +2,7 @@ import { Space, Table } from 'antd'
 import React, { useContext } from 'react'
 import { AppContext } from '../../apps/AppProvider'
 import { DeleteLambdaButton } from '../deleteLambda/DeleteLambdaButton'
+import { ExecuteLambdaButton } from '../executeLambda/ExecuteLambdaButton'
 import { UpdateLambdaButton } from '../updateLambda/UpdateLambdaButton'
 import { LambdaRecord } from './LambdaRecord'
 import { LambdaFragmentsFragment } from '@codelab/generated'
@@ -34,6 +35,7 @@ export const GetLambdasTable = () => {
       key: 'action',
       render: (text: string, record: LambdaRecord) => (
         <Space size="middle">
+          <ExecuteLambdaButton {...record} />
           <UpdateLambdaButton {...record} />
           <DeleteLambdaButton {...record} />
         </Space>

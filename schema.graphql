@@ -121,6 +121,7 @@ type Mutation {
   deleteStyle(input: DeleteStyleInput!): Style!
   deleteUser(input: DeleteUserInput!): User!
   deleteVertex(input: DeleteVertexInput!): Vertex!
+  executeLambda(input: ExecuteLambdaInput!): Lambda!
   loginUser(input: LoginUserInput!): User!
   moveVertex(input: MoveVertexInput!): Vertex!
   registerUser(input: RegisterUserInput!): User!
@@ -245,6 +246,10 @@ input UpdateLambdaInput {
   lambdaId: String!
   name: String!
   body: String!
+}
+
+input ExecuteLambdaInput {
+  lambdaId: String!
 }
 
 input DeleteLambdaInput {
