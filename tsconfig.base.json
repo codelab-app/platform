@@ -87,7 +87,13 @@
         "libs/modules/notification-stories/src/index.ts"
       ],
       "@codelab/modules/style": ["libs/modules/style/src/index.ts"],
-      "@codelab/modules/lambda": ["libs/modules/lambda/src/index.ts"]
+      "@codelab/modules/lambda": ["libs/modules/lambda/src/index.ts"],
+      "@codelab/tools/generators/form-decorator": [
+        "libs/tools/generators/form-decorator/src/index.ts"
+      ],
+      "@codelab/tools/generators/form-templates": [
+        "libs/tools/generators/form-templates/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"]

@@ -58,6 +58,8 @@
     "tools-generators-json-schema": { "tags": [] },
     "tools-generators-graphql": { "tags": [] },
     "modules-style": { "tags": [] },
-    "modules-lambda": { "tags": [] }
+    "modules-lambda": { "tags": [] },
+    "tools-generators-form-decorator": { "tags": [] },
+    "tools-generators-form-templates": { "tags": [] }
   }
 }

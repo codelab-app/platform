@@ -64,6 +64,7 @@
     "@rjsf/core": "2.4.2",
     "@storybook/client-api": "6.1.11",
     "@tsed/ajv": "6.25.2",
+    "@tsed/core": "^6.26.4",
     "@tsed/di": "6.25.2",
     "@tsed/exceptions": "6.25.2",
     "@tsed/logger": "5.5.5",
