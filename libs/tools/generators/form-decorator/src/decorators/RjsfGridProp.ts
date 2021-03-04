@@ -13,7 +13,6 @@ export interface IProps {
   title?: string
   enum?: Array<any>
   required?: boolean
-  [prop: string]: any
 }
 
 export interface AnyI {
@@ -22,11 +21,11 @@ export interface AnyI {
 
 export interface IMetadata {
   key: string
-  propMetadata: IProps
+  propMetadata: IProps | AnyI
 }
 
-export const RjsfGridProp = (props: IProps) => {
-  return (target: Object, propertyKey: string) => {
+export function RjsfGridProp(props: IProps) {
+  return function (target: Object, propertyKey: string) {
     let metadata: IMetadata
 
     if (props.clazz) {
@@ -49,6 +48,6 @@ export const RjsfGridProp = (props: IProps) => {
   }
 }
 
-export const getRjsfGridProp = (target: any): Array<IMetadata> => {
+export function getRjsfGridProp(target: any): Array<IMetadata> {
   return Reflect.getOwnMetadata(formatMetadataKey, target)
 }

@@ -45,48 +45,51 @@ const findObjProps = (props: Array<IMetadata>) => {
   throw new Error('not found')
 }
 
-const processObjectProps = (
-  objectProps: Array<IMetadata>,
-  uiLayoutObj: any,
-) => {
-  const findObjectProps: Array<IMetadata> = findObjProps(objectProps)
+const processObjectProps = (props: Array<IMetadata>, uiLayoutObj: any) => {
+  try {
+    const findObjectProps: Array<IMetadata> = findObjProps(props)
 
-  findObjectProps.forEach((item: IMetadata) => {
-    if (item.propMetadata.uiSchema) {
-      if (item.propMetadata.type === 'array') {
-        uiLayoutObj[item.key] = {}
-        uiLayoutObj[item.key].items = item.propMetadata.uiSchema
+    findObjectProps.forEach((item: IMetadata) => {
+      if (item.propMetadata.uiSchema) {
+        if (item.propMetadata.type === 'array') {
+          uiLayoutObj[item.key] = {}
+          uiLayoutObj[item.key].items = item.propMetadata.uiSchema
+        } else {
+          uiLayoutObj[item.key] = item.propMetadata.uiSchema
+        }
       } else {
-        uiLayoutObj[item.key] = item.propMetadata.uiSchema
-      }
-    } else {
-      const props: any = item.propMetadata[item.key]
-      const classDecorator = getUiSchemaGroup(item.propMetadata.clazz)
+        // @ts-ignore
+        const props: any = item.propMetadata[item.key]
+        const classDecorator = getUiSchemaGroup(item.propMetadata.clazz)
 
-      if (item.propMetadata.type === 'array') {
-        uiLayoutObj[item.key] = {
-          items: {
+        if (item.propMetadata.type === 'array') {
+          uiLayoutObj[item.key] = {
+            items: {
+              'ui:ObjectFieldTemplate': classDecorator.ObjectFieldTemplate,
+              'ui:layout': [],
+            },
+          }
+          processBasicProps(props, uiLayoutObj[item.key].items['ui:layout'])
+          processObjectProps(props, uiLayoutObj[item.key].items)
+        } else {
+          uiLayoutObj[item.key] = {
             'ui:ObjectFieldTemplate': classDecorator.ObjectFieldTemplate,
             'ui:layout': [],
-          },
+          }
+          processBasicProps(props, uiLayoutObj[item.key]['ui:layout'])
+          processObjectProps(props, uiLayoutObj[item.key])
         }
-        processBasicProps(props, uiLayoutObj[item.key].items['ui:layout'])
-        processObjectProps(props, uiLayoutObj[item.key].items)
-      } else {
-        uiLayoutObj[item.key] = {
-          'ui:ObjectFieldTemplate': classDecorator.ObjectFieldTemplate,
-          'ui:layout': [],
-        }
-        processBasicProps(props, uiLayoutObj[item.key]['ui:layout'])
-        processObjectProps(props, uiLayoutObj[item.key])
-      }
 
-      uiLayoutObj[item.key]['ui:spacing'] = item.propMetadata['ui:spacing']
-    }
-  })
+        // @ts-ignore
+        uiLayoutObj[item.key]['ui:spacing'] = item.propMetadata['ui:spacing']
+      }
+    })
+  } catch (e) {
+    throw e
+  }
 }
 
-export const generatorUiSchemaGrid = (target: any) => {
+export const generateGridUiSchema = (target: any) => {
   const props: Array<IMetadata> = getRjsfGridProp(target)
   const classDecorator: IUiSchemaGrid = getUiSchemaGrid(target)
 
@@ -97,7 +100,11 @@ export const generatorUiSchemaGrid = (target: any) => {
   }
 
   processBasicProps(props, uiSchema['ui:layout'])
-  processObjectProps(props, uiSchema)
-
-  return uiSchema
+  try {
+    processObjectProps(props, uiSchema)
+  } catch (e) {
+    // console.log(e.message)
+  } finally {
+    return uiSchema
+  }
 }

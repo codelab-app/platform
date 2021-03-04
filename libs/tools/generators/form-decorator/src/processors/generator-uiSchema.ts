@@ -2,18 +2,18 @@ import 'reflect-metadata'
 import { writeFile } from 'fs'
 import { Type } from '@tsed/core'
 import { getJsonSchemaCustom } from './custom-tsed/getJsonSchemaCustom'
-import { generatorUiSchemaGrid } from './generator-uiSchema--grid'
-import { generatorUiSchemaGroups } from './generator-uiSchema--groups'
+import { generateGridUiSchema } from './generator-uiSchema--grid'
+import { generateGroupsUiSchema } from './generator-uiSchema--groups'
 
 export const generatorUiSchema = (target: Function) => {
   const classDecorators = Reflect.getMetadataKeys(target)
 
   if (classDecorators.includes('RjsfGrid')) {
-    return generatorUiSchemaGrid(target)
+    return generateGridUiSchema(target)
   }
 
   if (classDecorators.includes('RjsfGroup')) {
-    return generatorUiSchemaGroups(target)
+    return generateGroupsUiSchema(target)
   }
 
   throw new Error(
@@ -40,16 +40,14 @@ const buildImportString = (matches: Array<string>) => {
     })
     .filter((v, i, a) => a.indexOf(v) === i && v !== undefined)
 
-  return `import { ${[
-    ...matchesWithoutQuotes,
-  ]} } from '@codelab/tools/generators/form-templates'`
+  return `import { ${[...matchesWithoutQuotes]} } from './lib'`
 }
 
 export const writeSchemasToFile = (
   obj: { schema: any; uiSchema: any },
   path: string,
 ) => {
-  const superRegex = /(?<="ui:ObjectFieldTemplate"\s*:\s*)(".{0,}?(?=")")/g
+  const superRegex = /(?<="ui:ObjectFieldTemplate"\s*\:\s*)(".{0,}?(?=")")/g
 
   let stringUISchema = JSON.stringify(obj.uiSchema, null, 2)
 

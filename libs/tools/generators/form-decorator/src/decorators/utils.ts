@@ -1,6 +1,6 @@
 import { Type } from '@tsed/core'
 import { Enum, Property, Required, Schema, Title } from '@tsed/schema'
-import { generatorUiSchemaGrid, generatorUiSchemaGroups } from '../processors'
+import { generateGridUiSchema, generateGroupsUiSchema } from '../processors'
 import { getJsonSchemaCustom } from '../processors/custom-tsed/getJsonSchemaCustom'
 import { getUiSchemaGrid } from './RjsfGrid'
 import { AnyI, IMetadata, getRjsfGridProp } from './RjsfGridProp'
@@ -53,7 +53,7 @@ export const getMetadataForClassType = (
       key: propertyKey,
       propMetadata: {
         ...props,
-        uiSchema: generatorUiSchemaGroups(props.clazz),
+        uiSchema: generateGroupsUiSchema(props.clazz),
       },
     }
     const propMetadata = metadata.propMetadata as AnyI
@@ -69,7 +69,7 @@ export const getMetadataForClassType = (
       key: propertyKey,
       propMetadata: {
         ...props,
-        uiSchema: generatorUiSchemaGrid(props.clazz),
+        uiSchema: generateGridUiSchema(props.clazz),
         'ui:spacing': classDecorator['ui:spacing'],
       },
     }

@@ -13,6 +13,6 @@ export const RjsfGrid = (props: IUiSchemaGrid) => {
   }
 }
 
-export const getUiSchemaGrid = (target: any): IUiSchemaGrid => {
+export function getUiSchemaGrid(target: any): IUiSchemaGrid {
   return Reflect.getOwnMetadata(metadataKey, target)
 }

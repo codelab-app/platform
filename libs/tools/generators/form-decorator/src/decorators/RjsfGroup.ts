@@ -12,12 +12,6 @@ export const RjsfGroup = (props: IUiSchemaGroup) => {
   }
 }
 
-export const getUiSchemaGroup = (
-  target: Function | undefined,
-): IUiSchemaGroup => {
-  if (!target) {
-    throw new Error('Target is undefined')
-  }
-
+export const getUiSchemaGroup = (target: Function): IUiSchemaGroup => {
   return Reflect.getOwnMetadata(metadataKey, target)
 }

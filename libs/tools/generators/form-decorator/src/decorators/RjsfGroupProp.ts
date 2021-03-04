@@ -13,12 +13,11 @@ export interface IRjsfGroupProp {
   type?: 'string' | 'number' | 'integer' | 'boolean'
   enum?: Array<any>
   required?: boolean
-  [prop: string]: any
 }
 
 export interface IRjsfGroupPropMetadata {
   key: string
-  propMetadata: IRjsfGroupProp
+  propMetadata: IRjsfGroupProp | AnyI
 }
 
 export const RjsfGroupProp = (props: IRjsfGroupProp) => {
