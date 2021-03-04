@@ -26,5 +26,8 @@ module.exports = {
     '<rootDir>/libs/modules/style',
     '<rootDir>/libs/modules/lambda',
     '<rootDir>/libs/modules/function',
+    '<rootDir>/libs/tools/generators/form-decorator',
+    '<rootDir>/libs/tools/generators/form-templates',
+    '<rootDir>/libs/tools/generators/crawler',
   ],
 }
