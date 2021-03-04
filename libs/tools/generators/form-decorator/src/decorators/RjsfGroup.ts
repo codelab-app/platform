@@ -12,6 +12,10 @@ export const RjsfGroup = (props: IUiSchemaGroup) => {
   }
 }
 
-export const getUiSchemaGroup = (target: Function): IUiSchemaGroup => {
+export const getUiSchemaGroup = (target?: Function): IUiSchemaGroup => {
+  if (!target) {
+    throw new Error('Missing target')
+  }
+
   return Reflect.getOwnMetadata(metadataKey, target)
 }

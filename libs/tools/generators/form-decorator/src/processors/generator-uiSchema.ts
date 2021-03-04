@@ -47,7 +47,7 @@ export const writeSchemasToFile = (
   obj: { schema: any; uiSchema: any },
   path: string,
 ) => {
-  const superRegex = /(?<="ui:ObjectFieldTemplate"\s*\:\s*)(".{0,}?(?=")")/g
+  const superRegex = /(?<="ui:ObjectFieldTemplate"\s*:\s*)(".{0,}?(?=")")/g
 
   let stringUISchema = JSON.stringify(obj.uiSchema, null, 2)
 

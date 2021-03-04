@@ -5,7 +5,7 @@ import { Human } from './models/Human'
 import { Manager } from './models/Manager'
 import { Tabs } from './models/Tabs'
 
-describe('Main', () => {
+describe.skip('Main', () => {
   it('should serialize tabs with accordion', () => {
     const schema = generatorUiSchema(Tabs)
 

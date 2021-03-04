@@ -13,6 +13,7 @@ export interface IProps {
   title?: string
   enum?: Array<any>
   required?: boolean
+  [prop: string]: any
 }
 
 export interface AnyI {
@@ -21,7 +22,7 @@ export interface AnyI {
 
 export interface IMetadata {
   key: string
-  propMetadata: IProps | AnyI
+  propMetadata: IProps
 }
 
 export const RjsfGridProp = (props: IProps) => {
