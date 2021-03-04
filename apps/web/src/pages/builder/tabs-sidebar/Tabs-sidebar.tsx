@@ -2,6 +2,7 @@ import {
   ApartmentOutlined,
   AppstoreOutlined,
   CopyOutlined,
+  FormatPainterOutlined,
   FunctionOutlined,
   PlusSquareOutlined,
 } from '@ant-design/icons'
@@ -85,6 +86,19 @@ const MenuItemFunction = ({ toggleTab, ...props }: MenuItemProps) => {
   )
 }
 
+const MenuItemStyle = ({ toggleTab, ...props }: MenuItemProps) => {
+  return (
+    <Menu.Item
+      {...props}
+      key="5"
+      onClick={() => toggleTab(LayoutTab.Styles)}
+      icon={<FormatPainterOutlined />}
+    >
+      Styles
+    </Menu.Item>
+  )
+}
+
 export const BuilderTabSidebar = () => {
   const { toggleTab } = useLayout()
 
@@ -94,6 +108,7 @@ export const BuilderTabSidebar = () => {
       <MenuItemPages toggleTab={toggleTab} />
       <MenuItemComponents toggleTab={toggleTab} />
       <MenuItemTree toggleTab={toggleTab} />
+      <MenuItemStyle toggleTab={toggleTab} />
       <MenuItemFunction toggleTab={toggleTab} />
     </Menu>
   )

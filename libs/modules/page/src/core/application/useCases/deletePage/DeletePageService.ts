@@ -30,8 +30,6 @@ export class DeletePageService
       },
     })
 
-    console.log(app)
-
     if (!app) {
       throw new CodelabError('Cannot delete page')
     }

@@ -2,7 +2,7 @@ import { Tabs } from 'antd'
 import React from 'react'
 import { atom, useRecoilState } from 'recoil'
 import { PaneConfigProps } from '../../../useCases/component/paneMain/Pane-config--props'
-import { PaneConfigStyle } from '../../../useCases/style/paneConfig/Pane-config--style'
+import { PaneConfigStyle } from '../../../useCases/styles/paneConfig/Pane-config--style'
 import { VertexProvider } from '../../../useCases/vertex/VertexProvider'
 
 const { TabPane } = Tabs
@@ -33,7 +33,7 @@ export const PaneConfig = React.memo(() => {
         </VertexProvider>
       </TabPane>
       <TabPane tab="Style" key="2">
-        <PaneConfigStyle />
+        <PaneConfigStyle vertexId={vertexId} />
       </TabPane>
     </Tabs>
   )

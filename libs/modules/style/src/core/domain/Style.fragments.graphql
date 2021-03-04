@@ -1,4 +1,7 @@
 fragment styleFragments on Style {
   id
-  props
+  name
+  vertices {
+    id
+  }
 }

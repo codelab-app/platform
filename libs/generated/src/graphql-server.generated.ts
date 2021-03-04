@@ -30,41 +30,6 @@ export type Edge = {
   order: Scalars['Float']
 }
 
-export type Vertex = {
-  __typename?: 'Vertex'
-  id: Scalars['String']
-  type?: Maybe<Scalars['String']>
-  props?: Maybe<Scalars['JSONObject']>
-  graph?: Maybe<Graph>
-  parent?: Maybe<Vertex>
-  children: Array<Vertex>
-}
-
-export type Graph = {
-  __typename?: 'Graph'
-  id: Scalars['String']
-  type?: Maybe<Scalars['String']>
-  props?: Maybe<Scalars['JSONObject']>
-  label: Scalars['String']
-  vertices: Array<Vertex>
-  edges: Array<Edge>
-  tree: Scalars['JSONObject']
-}
-
-export type Page = {
-  __typename?: 'Page'
-  id: Scalars['String']
-  title: Scalars['String']
-  graphs: Array<Graph>
-}
-
-export type Style = {
-  __typename?: 'Style'
-  id: Scalars['String']
-  props?: Maybe<Scalars['JSONObject']>
-  app: App
-}
-
 export type User = {
   __typename?: 'User'
   id: Scalars['String']
@@ -90,6 +55,44 @@ export type App = {
   lambdas: Array<Lambda>
 }
 
+export type Style = {
+  __typename?: 'Style'
+  id: Scalars['String']
+  name: Scalars['String']
+  props?: Maybe<Scalars['JSONObject']>
+  app: App
+  vertices?: Maybe<Array<Vertex>>
+}
+
+export type Vertex = {
+  __typename?: 'Vertex'
+  id: Scalars['String']
+  type?: Maybe<Scalars['String']>
+  props?: Maybe<Scalars['JSONObject']>
+  graph?: Maybe<Graph>
+  parent?: Maybe<Vertex>
+  styles?: Maybe<Array<Style>>
+  children: Array<Vertex>
+}
+
+export type Graph = {
+  __typename?: 'Graph'
+  id: Scalars['String']
+  type?: Maybe<Scalars['String']>
+  props?: Maybe<Scalars['JSONObject']>
+  label: Scalars['String']
+  vertices: Array<Vertex>
+  edges: Array<Edge>
+  tree: Scalars['JSONObject']
+}
+
+export type Page = {
+  __typename?: 'Page'
+  id: Scalars['String']
+  title: Scalars['String']
+  graphs: Array<Graph>
+}
+
 export type Query = {
   __typename?: 'Query'
   getApp?: Maybe<App>
@@ -102,6 +105,7 @@ export type Query = {
   getPage: Page
   getPages: Array<Page>
   getStyle: Style
+  getStyles: Array<Style>
   getVertex?: Maybe<Vertex>
 }
 
@@ -129,6 +133,14 @@ export type QueryGetPagesArgs = {
   input: GetPagesInput
 }
 
+export type QueryGetStyleArgs = {
+  input: GetStyleInput
+}
+
+export type QueryGetStylesArgs = {
+  input: GetStylesInput
+}
+
 export type QueryGetVertexArgs = {
   input: GetVertexInput
 }
@@ -151,6 +163,14 @@ export type GetGraphInput = {
 
 export type GetVertexInput = {
   id: Scalars['String']
+}
+
+export type GetStylesInput = {
+  appId: Scalars['String']
+}
+
+export type GetStyleInput = {
+  styleId: Scalars['String']
 }
 
 export type GetLambdaInput = {
@@ -181,6 +201,7 @@ export type Mutation = {
   moveVertex: Vertex
   registerUser: User
   setBuilder: Builder
+  unAssignStyle: Style
   updateApp: App
   updateEdge: Edge
   updateLambda: Lambda
@@ -260,6 +281,10 @@ export type MutationRegisterUserArgs = {
 
 export type MutationSetBuilderArgs = {
   input: SetBuilderInput
+}
+
+export type MutationUnAssignStyleArgs = {
+  input: UnAssignStyleInput
 }
 
 export type MutationUpdateAppArgs = {
@@ -375,11 +400,19 @@ export type LoginUserInput = {
 }
 
 export type CreateStyleInput = {
+  appId: Scalars['String']
+  name: Scalars['String']
   props?: Maybe<Scalars['JSONObject']>
 }
 
 export type AssignStyleInput = {
   styleId: Scalars['String']
+  vertexId: Scalars['String']
+}
+
+export type UnAssignStyleInput = {
+  styleId: Scalars['String']
+  vertexId: Scalars['String']
 }
 
 export type DeleteStyleInput = {
@@ -388,6 +421,7 @@ export type DeleteStyleInput = {
 
 export type UpdateStyleInput = {
   styleId: Scalars['String']
+  name: Scalars['String']
   props?: Maybe<Scalars['JSONObject']>
 }
 
@@ -592,6 +626,7 @@ export type VertexFragmentsFragment = { __typename?: 'Vertex' } & Pick<
 > & {
     parent?: Maybe<{ __typename?: 'Vertex' } & Pick<Vertex, 'id' | 'type'>>
     graph?: Maybe<{ __typename?: 'Graph' } & Pick<Graph, 'id'>>
+    styles?: Maybe<Array<{ __typename?: 'Style' } & Pick<Style, 'id'>>>
   }
 
 export type CreateLambdaMutationVariables = Exact<{
@@ -716,6 +751,30 @@ export type DeleteStyleMutation = { __typename?: 'Mutation' } & {
   deleteStyle: { __typename?: 'Style' } & StyleFragmentsFragment
 }
 
+export type GetStyleQueryVariables = Exact<{
+  input: GetStyleInput
+}>
+
+export type GetStyleQuery = { __typename?: 'Query' } & {
+  getStyle: { __typename?: 'Style' } & FullStyleFragmentsFragment
+}
+
+export type GetStylesQueryVariables = Exact<{
+  input: GetStylesInput
+}>
+
+export type GetStylesQuery = { __typename?: 'Query' } & {
+  getStyles: Array<{ __typename?: 'Style' } & StyleFragmentsFragment>
+}
+
+export type UnAssignStyleMutationVariables = Exact<{
+  input: UnAssignStyleInput
+}>
+
+export type UnAssignStyleMutation = { __typename?: 'Mutation' } & {
+  unAssignStyle: { __typename?: 'Style' } & StyleFragmentsFragment
+}
+
 export type UpdateStyleMutationVariables = Exact<{
   input: UpdateStyleInput
 }>
@@ -724,10 +783,15 @@ export type UpdateStyleMutation = { __typename?: 'Mutation' } & {
   updateStyle: { __typename?: 'Style' } & StyleFragmentsFragment
 }
 
+export type FullStyleFragmentsFragment = { __typename?: 'Style' } & Pick<
+  Style,
+  'id' | 'props' | 'name'
+> & { vertices?: Maybe<Array<{ __typename?: 'Vertex' } & Pick<Vertex, 'id'>>> }
+
 export type StyleFragmentsFragment = { __typename?: 'Style' } & Pick<
   Style,
-  'id' | 'props'
->
+  'id' | 'name'
+> & { vertices?: Maybe<Array<{ __typename?: 'Vertex' } & Pick<Vertex, 'id'>>> }
 
 export type DeleteUserMutationVariables = Exact<{
   input: DeleteUserInput
@@ -794,10 +858,23 @@ export const BuilderFragments = gql`
   }
   ${PositionFragments}
 `
+export const FullStyleFragments = gql`
+  fragment fullStyleFragments on Style {
+    id
+    props
+    name
+    vertices {
+      id
+    }
+  }
+`
 export const StyleFragments = gql`
   fragment styleFragments on Style {
     id
-    props
+    name
+    vertices {
+      id
+    }
   }
 `
 export const VertexFragments = gql`
@@ -810,6 +887,9 @@ export const VertexFragments = gql`
       type
     }
     graph {
+      id
+    }
+    styles {
       id
     }
   }
@@ -1110,6 +1190,30 @@ export const DeleteStyle = gql`
   }
   ${StyleFragments}
 `
+export const GetStyle = gql`
+  query GetStyle($input: GetStyleInput!) {
+    getStyle(input: $input) {
+      ...fullStyleFragments
+    }
+  }
+  ${FullStyleFragments}
+`
+export const GetStyles = gql`
+  query GetStyles($input: GetStylesInput!) {
+    getStyles(input: $input) {
+      ...styleFragments
+    }
+  }
+  ${StyleFragments}
+`
+export const UnAssignStyle = gql`
+  mutation UnAssignStyle($input: UnAssignStyleInput!) {
+    unAssignStyle(input: $input) {
+      ...styleFragments
+    }
+  }
+  ${StyleFragments}
+`
 export const UpdateStyle = gql`
   mutation UpdateStyle($input: UpdateStyleInput!) {
     updateStyle(input: $input) {
@@ -1177,10 +1281,23 @@ export const BuilderFragmentsFragmentDoc = gql`
   }
   ${PositionFragmentsFragmentDoc}
 `
+export const FullStyleFragmentsFragmentDoc = gql`
+  fragment fullStyleFragments on Style {
+    id
+    props
+    name
+    vertices {
+      id
+    }
+  }
+`
 export const StyleFragmentsFragmentDoc = gql`
   fragment styleFragments on Style {
     id
-    props
+    name
+    vertices {
+      id
+    }
   }
 `
 export const VertexFragmentsFragmentDoc = gql`
@@ -1193,6 +1310,9 @@ export const VertexFragmentsFragmentDoc = gql`
       type
     }
     graph {
+      id
+    }
+    styles {
       id
     }
   }
@@ -2703,6 +2823,159 @@ export type DeleteStyleMutationResult = Apollo.MutationResult<DeleteStyleMutatio
 export type DeleteStyleMutationOptions = Apollo.BaseMutationOptions<
   DeleteStyleMutation,
   DeleteStyleMutationVariables
+>
+export const GetStyleGql = gql`
+  query GetStyle($input: GetStyleInput!) {
+    getStyle(input: $input) {
+      ...fullStyleFragments
+    }
+  }
+  ${FullStyleFragmentsFragmentDoc}
+`
+
+/**
+ * __useGetStyleQuery__
+ *
+ * To run a query within a React component, call `useGetStyleQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStyleQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStyleQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useGetStyleQuery(
+  baseOptions: Apollo.QueryHookOptions<GetStyleQuery, GetStyleQueryVariables>,
+) {
+  return Apollo.useQuery<GetStyleQuery, GetStyleQueryVariables>(
+    GetStyleGql,
+    baseOptions,
+  )
+}
+export function useGetStyleLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetStyleQuery,
+    GetStyleQueryVariables
+  >,
+) {
+  return Apollo.useLazyQuery<GetStyleQuery, GetStyleQueryVariables>(
+    GetStyleGql,
+    baseOptions,
+  )
+}
+export type GetStyleQueryHookResult = ReturnType<typeof useGetStyleQuery>
+export type GetStyleLazyQueryHookResult = ReturnType<
+  typeof useGetStyleLazyQuery
+>
+export type GetStyleQueryResult = Apollo.QueryResult<
+  GetStyleQuery,
+  GetStyleQueryVariables
+>
+export const GetStylesGql = gql`
+  query GetStyles($input: GetStylesInput!) {
+    getStyles(input: $input) {
+      ...styleFragments
+    }
+  }
+  ${StyleFragmentsFragmentDoc}
+`
+
+/**
+ * __useGetStylesQuery__
+ *
+ * To run a query within a React component, call `useGetStylesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStylesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStylesQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useGetStylesQuery(
+  baseOptions: Apollo.QueryHookOptions<GetStylesQuery, GetStylesQueryVariables>,
+) {
+  return Apollo.useQuery<GetStylesQuery, GetStylesQueryVariables>(
+    GetStylesGql,
+    baseOptions,
+  )
+}
+export function useGetStylesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetStylesQuery,
+    GetStylesQueryVariables
+  >,
+) {
+  return Apollo.useLazyQuery<GetStylesQuery, GetStylesQueryVariables>(
+    GetStylesGql,
+    baseOptions,
+  )
+}
+export type GetStylesQueryHookResult = ReturnType<typeof useGetStylesQuery>
+export type GetStylesLazyQueryHookResult = ReturnType<
+  typeof useGetStylesLazyQuery
+>
+export type GetStylesQueryResult = Apollo.QueryResult<
+  GetStylesQuery,
+  GetStylesQueryVariables
+>
+export const UnAssignStyleGql = gql`
+  mutation UnAssignStyle($input: UnAssignStyleInput!) {
+    unAssignStyle(input: $input) {
+      ...styleFragments
+    }
+  }
+  ${StyleFragmentsFragmentDoc}
+`
+export type UnAssignStyleMutationFn = Apollo.MutationFunction<
+  UnAssignStyleMutation,
+  UnAssignStyleMutationVariables
+>
+
+/**
+ * __useUnAssignStyleMutation__
+ *
+ * To run a mutation, you first call `useUnAssignStyleMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUnAssignStyleMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [unAssignStyleMutation, { data, loading, error }] = useUnAssignStyleMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUnAssignStyleMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UnAssignStyleMutation,
+    UnAssignStyleMutationVariables
+  >,
+) {
+  return Apollo.useMutation<
+    UnAssignStyleMutation,
+    UnAssignStyleMutationVariables
+  >(UnAssignStyleGql, baseOptions)
+}
+export type UnAssignStyleMutationHookResult = ReturnType<
+  typeof useUnAssignStyleMutation
+>
+export type UnAssignStyleMutationResult = Apollo.MutationResult<UnAssignStyleMutation>
+export type UnAssignStyleMutationOptions = Apollo.BaseMutationOptions<
+  UnAssignStyleMutation,
+  UnAssignStyleMutationVariables
 >
 export const UpdateStyleGql = gql`
   mutation UpdateStyle($input: UpdateStyleInput!) {

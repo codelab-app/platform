@@ -1,0 +1,5 @@
+query GetStyle($input: GetStyleInput!) {
+  getStyle(input: $input) {
+    ...fullStyleFragments
+  }
+}

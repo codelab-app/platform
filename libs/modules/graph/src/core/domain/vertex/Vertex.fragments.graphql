@@ -9,4 +9,7 @@ fragment vertexFragments on Vertex {
   graph {
     id
   }
+  styles {
+    id
+  }
 }

@@ -1,0 +1,5 @@
+mutation UnAssignStyle($input: UnAssignStyleInput!) {
+  unAssignStyle(input: $input) {
+    ...styleFragments
+  }
+}
