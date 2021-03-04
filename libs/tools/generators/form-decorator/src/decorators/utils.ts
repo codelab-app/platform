@@ -97,8 +97,6 @@ export const getMetadataForBasicType = (
   target: Object,
   propertyKey: string,
 ) => {
-  let metadata: any
-
   const dataType = Reflect.getMetadata('design:type', target, propertyKey)
   const type = props.type ? props.type : dataType.name.toLowerCase()
   const tsedPropDecorator = Property(type)
@@ -139,7 +137,7 @@ export const getMetadataForBasicType = (
     tsedSchemaDecorator(target, propertyKey)
   }
 
-  metadata = {
+  const metadata = {
     key: propertyKey,
     propMetadata: props,
   }

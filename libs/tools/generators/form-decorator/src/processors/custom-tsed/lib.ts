@@ -26,7 +26,7 @@ const IGNORES = [
   SpecTypes.JSON,
 ]
 const IGNORES_OPENSPEC = ['const']
-const IGNORES_OS2 = [, 'writeOnly', 'readOnly']
+const IGNORES_OS2 = ['', 'writeOnly', 'readOnly']
 
 const shouldSkipKey = (
   key: string,
@@ -60,12 +60,12 @@ const shouldMapAlias = (key: string, value: any, useAlias: boolean) => {
 const transformTypes = (obj: any) => {
   const nullable = obj.type.includes('null') ? true : undefined
 
-  const types = obj.type.reduce((types: Array<string>, type: string) => {
+  const types = obj.type.reduce((_types: Array<string>, type: string) => {
     if (type !== 'null') {
-      return [...types, cleanObject({ type, nullable })]
+      return [..._types, cleanObject({ type, nullable })]
     }
 
-    return types
+    return _types
   }, [])
 
   if (types.length > 1) {
@@ -78,15 +78,16 @@ const transformTypes = (obj: any) => {
   return obj
 }
 
-export function serializeItem(value: any, options: JsonSchemaOptions) {
+export const serializeItem = (value: any, options: JsonSchemaOptions) => {
   // return value && value.isClass ? serializeClass(value, options) : serializeAny(value, options);
+  // eslint-disable-next-line @typescript-eslint/no-use-before-define
   return serializeAny(value, options)
 }
 
-export function serializeMap(
+export const serializeMap = (
   input: Map<string, any>,
   options: JsonSchemaOptions = {},
-): any {
+): any => {
   options = mapGenericsOptions(options)
 
   return Array.from(input.entries()).reduce((obj: any, [key, value]) => {
@@ -96,7 +97,7 @@ export function serializeMap(
   }, {})
 }
 
-export function serializeObject(input: any, options: JsonSchemaOptions) {
+export const serializeObject = (input: any, options: JsonSchemaOptions) => {
   const {
     specType,
     operationIdFormatter,
@@ -143,7 +144,10 @@ const serializeAny = (input: any, options: JsonSchemaOptions = {}) => {
 
 const serializeClass = (value: any, options: JsonSchemaOptions = {}) => {
   const store = getJsonEntityStore(value.class)
-  const name = createRefName(store.schema.getName() || value.getName(), options)
+  const refName = createRefName(
+    store.schema.getName() || value.getName(),
+    options,
+  )
 
   if (value.hasGenerics) {
     // Inline generic
@@ -175,9 +179,9 @@ const serializeClass = (value: any, options: JsonSchemaOptions = {}) => {
     return schema
   }
 
-  if (options.schemas && !options.schemas[name]) {
-    options.schemas[name] = {} // avoid infinite calls
-    options.schemas[name] = serializeAny(
+  if (options.schemas && !options.schemas[refName]) {
+    options.schemas[refName] = {} // avoid infinite calls
+    options.schemas[refName] = serializeAny(
       store.schema,
       mapGenericsOptions({
         ...options,
@@ -186,7 +190,7 @@ const serializeClass = (value: any, options: JsonSchemaOptions = {}) => {
     )
   }
 
-  return createRef(name, options)
+  return createRef(refName, options)
 }
 
 export const serializeJsonSchema = (
@@ -212,7 +216,7 @@ export const serializeJsonSchema = (
       [SpecTypes.OPENAPI, SpecTypes.SWAGGER].includes(options.specType!)
     ) {
       key = 'example'
-      value = Object.values(value)[0]
+      ;[value] = Object.values(value)
     }
 
     if (value) {

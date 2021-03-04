@@ -62,30 +62,25 @@ const processObjectProps = (
   props: Array<IRjsfGroupPropMetadata>,
   uiLayoutObj: any,
 ) => {
-  try {
-    const findObjectProps: Array<IRjsfGroupPropMetadata> = findObjProps(props)
+  const findObjectProps: Array<IRjsfGroupPropMetadata> = findObjProps(props)
 
-    findObjectProps.forEach((item: IRjsfGroupPropMetadata) => {
-      if (item.propMetadata.uiSchema) {
-        uiLayoutObj[item.key] = item.propMetadata.uiSchema
-      } else {
-        // @ts-ignore
-        const itemProps: any = item.propMetadata[item.key]
-        const classDecorator: IUiSchemaGroup = getUiSchemaGroup(
-          item.propMetadata.clazz,
-        )
+  findObjectProps.forEach((item: IRjsfGroupPropMetadata) => {
+    if (item.propMetadata.uiSchema) {
+      uiLayoutObj[item.key] = item.propMetadata.uiSchema
+    } else {
+      const itemProps: any = item.propMetadata[item.key]
+      const classDecorator: IUiSchemaGroup = getUiSchemaGroup(
+        item.propMetadata.clazz,
+      )
 
-        uiLayoutObj[item.key] = {
-          'ui:ObjectFieldTemplate': classDecorator.ObjectFieldTemplate,
-          'ui:groups': [],
-        }
-        processBasicProps(itemProps, uiLayoutObj[item.key]['ui:groups'])
-        processObjectProps(itemProps, uiLayoutObj[item.key])
+      uiLayoutObj[item.key] = {
+        'ui:ObjectFieldTemplate': classDecorator.ObjectFieldTemplate,
+        'ui:groups': [],
       }
-    })
-  } catch (e) {
-    throw e
-  }
+      processBasicProps(itemProps, uiLayoutObj[item.key]['ui:groups'])
+      processObjectProps(itemProps, uiLayoutObj[item.key])
+    }
+  })
 }
 
 export const generateGroupsUiSchema = (target: Function) => {
@@ -101,7 +96,8 @@ export const generateGroupsUiSchema = (target: Function) => {
   try {
     processObjectProps(props, uiSchema)
   } catch (e) {
-  } finally {
-    return uiSchema
+    //
   }
+
+  return uiSchema
 }

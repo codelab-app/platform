@@ -24,7 +24,7 @@ export interface IMetadata {
   propMetadata: IProps | AnyI
 }
 
-export function RjsfGridProp(props: IProps) {
+export const RjsfGridProp = (props: IProps) => {
   return function (target: Object, propertyKey: string) {
     let metadata: IMetadata
 
@@ -48,6 +48,6 @@ export function RjsfGridProp(props: IProps) {
   }
 }
 
-export function getRjsfGridProp(target: any): Array<IMetadata> {
+export const getRjsfGridProp = (target: any): Array<IMetadata> => {
   return Reflect.getOwnMetadata(formatMetadataKey, target)
 }
