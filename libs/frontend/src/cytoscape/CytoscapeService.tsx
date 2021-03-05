@@ -1,13 +1,10 @@
 /* eslint-disable no-param-reassign */
-import { NodeId, SerializedNode, SerializedNodes } from '@craftjs/core'
+import { ROOT_NODE, SerializedNodes } from '@craftjs/core'
 import { VertexType } from '@prisma/client'
 import { DataNode } from 'antd/lib/tree'
 import cytoscape, { Core, EdgeDefinition, NodeDefinition } from 'cytoscape'
 import { NodeA } from '../../../modules/graph/src/core/domain/node/Node'
-import {
-  GraphFragmentsFragment,
-  VertexFragmentsFragment,
-} from '@codelab/generated'
+import { GraphFragmentsFragment } from '@codelab/generated'
 
 export class CytoscapeService {
   /**
@@ -36,8 +33,6 @@ export class CytoscapeService {
     })
   }
 
-  // All info on `vertex.data`
-  // console.log(vertex.data(), vertex.json())
   static componentTree(cy: Core): NodeA {
     const root = cy.elements().roots().first()
     let tree: DataNode | null = null
@@ -69,66 +64,42 @@ export class CytoscapeService {
     return (tree as unknown) as NodeA
   }
 
-  static craftTree({
-    vertices = [],
-    edges = [],
-  }: GraphFragmentsFragment): SerializedNodes {
-    let rglRootVertexId = ''
+  static craftTree(cy: Core): SerializedNodes {
+    const root = cy.elements().roots().first()
 
-    const tree = vertices.reduce(
-      (_tree: SerializedNodes, vertex: VertexFragmentsFragment) => {
-        if (vertex.type === VertexType.React_RGL_ResponsiveContainer) {
-          rglRootVertexId = vertex.id
-        }
+    let seriazlizedNodes: SerializedNodes = {}
 
-        const node: Record<NodeId, SerializedNode> = {
-          [vertex.id]: {
-            type: { resolvedName: vertex.type ?? '' },
-            props: vertex.props,
+    cy.elements().breadthFirstSearch({
+      root,
+      visit: (v: any) => {
+        const { id, parent, type, props } = v.data()
+
+        const rootNodeId = root.data().id
+        const craftjsId = id === rootNodeId ? ROOT_NODE : id
+        const craftjsParentId = parent === rootNodeId ? ROOT_NODE : parent
+        const { props: componentProps = {}, ...rest } = props
+
+        seriazlizedNodes = {
+          ...seriazlizedNodes,
+          [craftjsId]: {
+            type: { resolvedName: type ?? '' },
+            props: componentProps,
             hidden: false,
-            displayName: vertex.type ?? '',
-            parent:
-              edges.find(({ target }) => target === vertex.id)?.source ?? '',
-            isCanvas: false,
-            nodes: edges
-              .filter(({ source }) => source === vertex.id)
-              .map(({ target }) => target),
+            displayName: type ?? '',
+            parent: craftjsParentId ?? '',
+            isCanvas: true, // here we can specify which Components should be craftjs-canvas
+            nodes: v
+              .outgoers()
+              .nodes()
+              .map((n: any) => n.data().id),
             linkedNodes: {},
-            custom: {
-              children: edges
-                .filter(({ source }) => source === vertex.id)
-                .map(({ target }) => target),
-            },
-          },
-        }
-
-        return {
-          ..._tree,
-          ...node,
-        }
-      },
-      {},
-    )
-
-    // Replace all rootVertexId with 'ROOT'
-    return Object.entries(tree).reduce(
-      (_tree, [key, value]: [string, SerializedNode]) => {
-        let newKey = key
-
-        if (key === rglRootVertexId) {
-          newKey = 'ROOT'
-        }
-
-        return {
-          ..._tree,
-          [newKey]: {
-            ...value,
-            parent: value.parent === rglRootVertexId ? 'ROOT' : value.parent,
+            custom: { ...rest },
           },
         }
       },
-      {},
-    )
+    })
+
+    return seriazlizedNodes
   }
 
   static antdTree(cy: Core): DataNode {

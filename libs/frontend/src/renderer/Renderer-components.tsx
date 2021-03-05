@@ -1,5 +1,5 @@
-import { SerializedNodes, useEditor } from '@craftjs/core'
-import React, { useContext, useRef } from 'react'
+import { Frame, SerializedNodes, useEditor } from '@craftjs/core'
+import React, { useContext, useEffect } from 'react'
 import { useRecoilState } from 'recoil'
 import { paneConfigState } from '../../../../apps/web/src/pages/builder/pane-config/Pane-config'
 import { PaneConfigHandlersProps } from '../../../../apps/web/src/pages/builder/pane-config/Pane-config--handlers'
@@ -7,8 +7,6 @@ import { NodeA } from '../../../modules/graph/src/core/domain/node/Node'
 import { useOverlayToolbar } from '../components'
 import { CLICK_OVERLAY_ID } from './Overlay-click'
 import { HOVER_OVERLAY_ID } from './Overlay-hover'
-import { RenderChildren } from './Renderer-children'
-import { elementParameterFactory } from './elementFactory'
 import {
   AddChildVertexInput,
   GetPageGql,
@@ -16,37 +14,6 @@ import {
   useUpdateVertexMutation,
 } from '@codelab/generated'
 import { AppContext } from 'apps/web/src/useCases/apps/AppProvider'
-
-const convertNodeToCraftData = (
-  root: NodeA,
-): string | SerializedNodes | undefined => {
-  const newTree: SerializedNodes = {}
-
-  const traverseNode = (node: NodeA, parent: string | undefined) => {
-    const id = parent ? node.id : 'ROOT'
-
-    newTree[id] = {
-      displayName: node.type,
-      hidden: false,
-      isCanvas: false, // node.isContainer?, lookup table?
-      nodes: node.children.map((c) => {
-        traverseNode(c, id)
-
-        return c.id
-      }),
-      linkedNodes: {},
-      parent: parent as any,
-      props: node.props,
-      type: {
-        resolvedName: node.type,
-      },
-    }
-  }
-
-  traverseNode(root, undefined)
-
-  return newTree
-}
 
 export const useComponentHandlers = () => {
   const { pageId } = useContext(AppContext)
@@ -105,28 +72,47 @@ export const RenderComponents = ({
 }) => {
   const handlers = useComponentHandlers()
 
-  const { resetClickOverlay } = handlers
+  /* const { resetClickOverlay } = handlers
 
-  const [RootComponent, props] = elementParameterFactory({
-    node,
-    handlers,
-  })
+     * const [RootComponent, props] = elementParameterFactory({
+     *   node,
+     *   handlers,
+     * })
 
-  const ref = useRef<HTMLDivElement>(null)
+     * const ref = useRef<HTMLDivElement>(null) */
 
   // useOnClickOutside(ref, () => resetClickOverlay(), [resetClickOverlay])
 
+  // console.log(node.type)
+
+  /* const DomTree = (
+   *     <RootComponent {...props}>
+   *         {RenderChildren(node, {}, handlers)}
+   *     </RootComponent>
+   * ) */
+
+  const {
+    actions: { deserialize },
+  } = useEditor()
+
+  useEffect(() => {
+    deserialize(data)
+  }, [data, deserialize])
+
   useEditor((s, q) => {
-    // TODO convert it back to our format and save it
-    // console.log(q.getSerializedNodes())
+    const selectedVertexId = s.events.selected
+
+    if (selectedVertexId !== null) {
+      handlers.setPaneConfig({ vertexId: `${s.events.selected}` })
+    }
   })
 
-  // console.log(node.type)
+  /* after async load data and deserialize the data with actions.deserialize method the indicator bar is missing but you can still dropping and dragging elements
+     https://github.com/prevwong/craft.js/issues/97 */
   return (
     <div style={{ width: '100%', height: 'auto' }}>
-      <RootComponent {...props}>
-        {RenderChildren(node, {}, handlers)}
-      </RootComponent>
+      <Frame data={data} />
+      {/* {DomTree} */}
 
       {/* <HoverOverlay />
       <DropOverlay />

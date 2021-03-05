@@ -26,7 +26,7 @@ export const GetPageLayout = ({ graph, pageId }: GetPageLayoutProps) => {
 
   const cy = CytoscapeService.fromGraph(graph)
   const root = CytoscapeService.componentTree(cy)
-  const craftData = CytoscapeService.craftTree(graph)
+  const craftData = CytoscapeService.craftTree(cy)
 
   // console.log(root)
   // console.log(craftData)
