@@ -1,9 +1,0 @@
-import {Either} from 'fp-ts/Either';
-import {<%= useCaseNamePascalCase %>Errors} from './<%= useCaseNamePascalCase %>Errors';
-import {Result} from '@codelab/backend';
-import {<%= moduleNamePascalCase %>} from '../../../domain/<%= moduleName %>';
-
-export type <%= useCaseNamePascalCase %>Response = Either<
-  <%= useCaseNamePascalCase %>Errors.DemoError,
-  Result<<%= moduleNamePascalCase %>>
->

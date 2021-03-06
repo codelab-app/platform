@@ -18,7 +18,8 @@ export interface UseCaseGeneratorSchema {
   directory?: string
 }
 
-interface NormalizedSchema extends UseCaseGeneratorSchema {
+export interface NormalizedUseCaseGeneratorSchema
+  extends UseCaseGeneratorSchema {
   projectName: string
   projectRoot: string
   projectDirectory: string
@@ -33,7 +34,7 @@ interface NormalizedSchema extends UseCaseGeneratorSchema {
 export function normalizeOptions(
   host: Tree,
   options: UseCaseGeneratorSchema,
-): NormalizedSchema {
+): NormalizedUseCaseGeneratorSchema {
   const name = names(options.name).fileName
   const projectDirectory = options.directory
     ? `${names(options.directory).fileName}/${name}`
@@ -76,7 +77,7 @@ export function normalizeOptions(
   }
 }
 
-function addFiles(host: Tree, options: NormalizedSchema) {
+function addFiles(host: Tree, options: NormalizedUseCaseGeneratorSchema) {
   const templateOptions = {
     ...options,
     ...names(options.name),
@@ -94,7 +95,6 @@ function addFiles(host: Tree, options: NormalizedSchema) {
 }
 
 export default async function (host: Tree, options: UseCaseGeneratorSchema) {
-  console.log(options)
   const normalizedOptions = normalizeOptions(host, options)
 
   addFiles(host, normalizedOptions)

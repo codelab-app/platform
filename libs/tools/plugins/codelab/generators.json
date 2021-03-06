@@ -22,6 +22,11 @@
       "factory": "./src/generators/library/use-case/generator",
       "schema": "./src/generators/library/use-case/schema.json",
       "description": "Create Use Case Files for Domain Module"
+    },
+    "test": {
+      "factory": "./src/generators/test/generator",
+      "schema": "./src/generators/test/schema.json",
+      "description": "test generator"
     }
   }
 }
