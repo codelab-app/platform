@@ -29,5 +29,7 @@ module.exports = {
     '<rootDir>/libs/tools/generators/form-decorator',
     '<rootDir>/libs/tools/generators/form-templates',
     '<rootDir>/libs/tools/generators/crawler',
+    '<rootDir>/libs/tools/plugins/test',
+    '<rootDir>/apps/tools/plugins/test-e2e',
   ],
 }

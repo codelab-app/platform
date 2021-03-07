@@ -1,45 +1,40 @@
-import * as fs from 'fs'
+import * as path from 'path'
 import {
-  MergeStrategy,
-  Rule,
-  SchematicContext,
   Tree,
-  apply,
-  applyTemplates,
-  chain,
-  externalSchematic,
-  mergeWith,
-  move,
-  url,
-} from '@angular-devkit/schematics'
-import {
-  ProjectType,
+  formatFiles,
+  generateFiles,
+  getWorkspaceLayout,
+  names,
   offsetFromRoot,
-  projectRootDir,
-  toFileName,
-} from '@nrwl/workspace'
+} from '@nrwl/devkit'
+import { toFileName } from '@nrwl/workspace'
 import { capitalize } from 'voca'
-import { removeFiles } from '../utils'
+import libraryGenerator, { CodelabNestSchema } from '../nest/generator'
+import { removeFiles } from '../utils-new'
 import { DomainModuleSchematicSchema } from './schema'
-
-const projectType = ProjectType.Library
 
 interface NormalizedSchema extends DomainModuleSchematicSchema {
   projectName: string
   moduleNamePascalCase: string
   moduleName: string
   projectRoot: string
+  projectSourceRoot: string
   projectDirectory: string
   // parsedTags: Array<string>
 }
 
 export const normalizeOptions = (
+  host: Tree,
   options: DomainModuleSchematicSchema,
 ): NormalizedSchema => {
   const name = toFileName(options.name)
-  const projectDirectory = `modules/${name}`
+  const projectDirectory = name
   const projectName = projectDirectory.replace(new RegExp('/', 'g'), '-')
-  const projectRoot = `${projectRootDir(projectType)}/${projectDirectory}`
+  const projectRoot = `${
+    getWorkspaceLayout(host).libsDir
+  }/modules/${projectDirectory}`
+  const projectSourceRoot = `${projectRoot}/src`
+
   const moduleNamePascalCase = capitalize(name)
   // const parsedTags = options.tags
   //   ? options.tags.split(',').map((s) => s.trim())
@@ -52,47 +47,43 @@ export const normalizeOptions = (
     projectRoot,
     projectDirectory,
     moduleNamePascalCase,
+    projectSourceRoot,
     // parsedTags,
   }
 }
 
-const createFiles = (options: NormalizedSchema): Rule => {
-  return mergeWith(
-    apply(url(`./files`), [
-      applyTemplates({
-        ...options,
-        // ...names(options.name),
-        offsetFromRoot: offsetFromRoot(options.projectRoot),
-      }),
-      move(`${options.projectRoot}/src`),
-    ]),
-    MergeStrategy.Overwrite,
+function addFiles(host: Tree, options: NormalizedSchema) {
+  const templateOptions = {
+    ...options,
+    ...names(options.name),
+    offsetFromRoot: offsetFromRoot(options.projectSourceRoot),
+    tmpl: '',
+  }
+
+  generateFiles(
+    host,
+    path.join(__dirname, 'files'),
+    options.projectSourceRoot,
+    templateOptions,
   )
 }
 
-export const createCodelabNestjsLibrary = (options: NormalizedSchema): Rule => {
-  return externalSchematic('@codelab/schematics', 'nest-lib', {
-    name: options.name,
+export default async function (
+  host: Tree,
+  options: DomainModuleSchematicSchema,
+) {
+  const normalizedOptions = normalizeOptions(host, options)
+
+  // We put all domain module under `modules` directory
+  const nestjsLibOptions: CodelabNestSchema = {
+    name: normalizedOptions.projectName,
     directory: 'modules',
-  })
-}
-
-export default (options: NormalizedSchema): Rule => {
-  const normalizedOptions = normalizeOptions(options)
-
-  return (host: Tree, context: SchematicContext) => {
-    if (fs.existsSync(normalizedOptions.projectRoot)) {
-      console.log(`module ${normalizedOptions.name} already exists`)
-
-      return
-    }
-
-    return chain([
-      createCodelabNestjsLibrary(normalizedOptions),
-      removeFiles([
-        `${options.projectRoot}/src/lib/modules-${options.name}.module.ts`,
-      ]),
-      createFiles(normalizedOptions),
-    ])
   }
+
+  await libraryGenerator(host, nestjsLibOptions)
+  addFiles(host, normalizedOptions)
+  removeFiles(host, [
+    `${normalizedOptions.projectSourceRoot}/lib/modules-${options.name}.module.ts`,
+  ])
+  await formatFiles(host)
 }
