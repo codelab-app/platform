@@ -18,7 +18,6 @@ export class AddChildVertexService
   ) {}
 
   async execute({ parentVertexId, vertex, order }: AddChildVertexInput) {
-    console.log(vertex)
     let createdVertex
 
     const graph = await this.prismaService.graph.findFirst({

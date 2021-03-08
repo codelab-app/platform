@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common'
-import { Style } from '../../../domain/Style'
+import { Style } from '@prisma/client'
+import { CodelabPrismaError } from '../../../../../../../../apps/api/codelab/src/app/CodelabPrismaError'
 import { CreateStyleInput } from './CreateStyleInput'
 import {
   PrismaDITokens,
@@ -15,7 +16,24 @@ export class CreateStyleService
     private readonly prismaService: PrismaService,
   ) {}
 
-  async execute(input: CreateStyleInput) {
-    return (await Promise.resolve({})) as Promise<any>
+  async execute({ props, appId, name }: CreateStyleInput) {
+    try {
+      return await this.prismaService.style.create({
+        data: {
+          app: {
+            connect: {
+              id: appId,
+            },
+          },
+          props,
+          name,
+        },
+      })
+    } catch (e) {
+      throw new CodelabPrismaError(
+        `The app with id ${appId} has not been found`,
+        e,
+      )
+    }
   }
 }

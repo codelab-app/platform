@@ -3,6 +3,7 @@ import { LayoutTab } from '../../../templates/layout-state'
 import { PaneMainComponent } from '../../../useCases/component/paneMain/Pane-main--component'
 import { PaneMainLambda } from '../../../useCases/lambda/paneMain/Pane-main--lambda'
 import { PaneMainPage } from '../../../useCases/pages/paneMain/Pane-main--page'
+import { PaneMainStyle } from '../../../useCases/styles/paneMain/Pane-main--style'
 import { PaneMainTree } from '../../../useCases/tree/paneMain/Pane-main--tree'
 import { BuilderPaneController } from '../Builder-pane-controller'
 
@@ -24,6 +25,9 @@ export const PaneMain = () => {
       </BuilderPaneController>
       <BuilderPaneController isVisible={({ tab }) => tab === LayoutTab.Tree}>
         <PaneMainTree />
+      </BuilderPaneController>
+      <BuilderPaneController isVisible={({ tab }) => tab === LayoutTab.Styles}>
+        <PaneMainStyle />
       </BuilderPaneController>
       <BuilderPaneController
         isVisible={({ tab }) => tab === LayoutTab.Function}

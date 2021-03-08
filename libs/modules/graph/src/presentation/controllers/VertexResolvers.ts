@@ -7,6 +7,7 @@ import {
   ResolveField,
   Resolver,
 } from '@nestjs/graphql'
+import { Style } from '../../../../style/src/core/domain/Style'
 import { VertexService } from '../../core/application/services/VertexService'
 import { DeleteVertexInput } from '../../core/application/useCases/deleteVertex/DeleteVertexInput'
 import { DeleteVertexService } from '../../core/application/useCases/deleteVertex/DeleteVertexService'
@@ -69,6 +70,13 @@ export class VertexResolvers {
         },
       },
     })
+  }
+
+  @ResolveField('styles', () => [Style])
+  styles(@Parent() vertex: Vertex) {
+    return this.prismaService.vertex
+      .findFirst({ where: { id: vertex.id } })
+      .styles()
   }
 
   @Query(() => Vertex, { nullable: true })

@@ -28,7 +28,7 @@ export const GetPageLayout = ({ graph, pageId }: GetPageLayoutProps) => {
   const root = CytoscapeService.componentTree(cy)
   const craftData = CytoscapeService.craftTree(graph)
 
-  console.log(root)
+  // console.log(root)
   // console.log(craftData)
 
   const gridContainerId = graph.vertices.find(

@@ -6,6 +6,7 @@ export enum LayoutTab {
   Page = 'Page',
   Tree = 'Tree',
   Function = 'Function',
+  Styles = 'Styles',
 }
 
 export enum LayoutPane {

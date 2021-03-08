@@ -17,6 +17,7 @@ interface BuilderPaneControllerProps {
 export const PaneStyle = styled.div`
   display: ${({ visible }: { visible: boolean }) =>
     visible ? 'block' : 'none'};
+  height: 100%;
 `
 
 export const BuilderPaneController = ({

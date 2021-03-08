@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common'
-import { Style } from '../../../domain/Style'
+import { Style } from '@prisma/client'
 import { AssignStyleInput } from './AssignStyleInput'
 import {
   PrismaDITokens,
@@ -15,7 +15,12 @@ export class AssignStyleService
     private readonly prismaService: PrismaService,
   ) {}
 
-  async execute(input: AssignStyleInput) {
-    return (await Promise.resolve({})) as Promise<any>
+  async execute({ styleId, vertexId }: AssignStyleInput) {
+    return await this.prismaService.style.update({
+      where: { id: styleId },
+      data: {
+        vertices: { connect: [{ id: vertexId }] },
+      },
+    })
   }
 }

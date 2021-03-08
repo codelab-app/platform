@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common'
-import { Style } from '../../../domain/Style'
+import { Style } from '@prisma/client'
+import { CodelabPrismaError } from '../../../../../../../../apps/api/codelab/src/app/CodelabPrismaError'
 import { UpdateStyleInput } from './UpdateStyleInput'
 import {
   PrismaDITokens,
@@ -15,7 +16,19 @@ export class UpdateStyleService
     private readonly prismaService: PrismaService,
   ) {}
 
-  async execute(input: UpdateStyleInput) {
-    return (await Promise.resolve({})) as Promise<any>
+  async execute({ styleId, props, name }: UpdateStyleInput) {
+    try {
+      return await this.prismaService.style.update({
+        where: {
+          id: styleId,
+        },
+        data: {
+          props,
+          name,
+        },
+      })
+    } catch (e) {
+      throw new CodelabPrismaError('Update style failed', e)
+    }
   }
 }

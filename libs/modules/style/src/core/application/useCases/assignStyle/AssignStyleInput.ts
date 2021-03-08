@@ -4,4 +4,7 @@ import { Field, InputType } from '@nestjs/graphql'
 export class AssignStyleInput {
   @Field()
   declare styleId: string
+
+  @Field()
+  declare vertexId: string
 }

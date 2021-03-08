@@ -3,13 +3,16 @@ import { PropsWithIds } from '@codelab/frontend'
 import {
   AppFragmentsFragment,
   PageFragmentsFragment,
+  StyleFragmentsFragment,
   useGetAppQuery,
   useGetPageQuery,
+  useGetStylesQuery,
 } from '@codelab/generated'
 
 type IAppContext = PropsWithIds<'appId' | 'pageId'> & {
   app: AppFragmentsFragment
   page: PageFragmentsFragment
+  styles: Array<StyleFragmentsFragment>
 }
 
 export const AppContext = React.createContext<IAppContext>(undefined!)
@@ -25,11 +28,15 @@ export const _AppProvider = ({
   const { data: pageData, loading: pageLoading } = useGetPageQuery({
     variables: { input: { pageId } },
   })
+  const { data: stylesData, loading: stylesLoading } = useGetStylesQuery({
+    variables: { input: { appId } },
+  })
 
   const app = appData?.getApp
   const page = pageData?.getPage
+  const styles = stylesData?.getStyles
 
-  if (appLoading || pageLoading || !app || !page) {
+  if (appLoading || pageLoading || stylesLoading || !app || !page || !styles) {
     return null
   }
 
@@ -40,6 +47,7 @@ export const _AppProvider = ({
         pageId,
         app,
         page,
+        styles,
       }}
     >
       {children}

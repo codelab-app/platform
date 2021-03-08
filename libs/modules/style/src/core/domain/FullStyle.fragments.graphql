@@ -1,0 +1,8 @@
+fragment fullStyleFragments on Style {
+  id
+  props
+  name
+  vertices {
+    id
+  }
+}
