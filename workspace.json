@@ -1613,6 +1613,71 @@
           }
         }
       }
+    },
+    "tools-plugins-test": {
+      "root": "libs/tools/plugins/test",
+      "sourceRoot": "libs/tools/plugins/test/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/tools/plugins/test/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/tools/plugins/test"],
+          "options": {
+            "jestConfig": "libs/tools/plugins/test/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "builder": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/tools/plugins/test",
+            "tsConfig": "libs/tools/plugins/test/tsconfig.lib.json",
+            "packageJson": "libs/tools/plugins/test/package.json",
+            "main": "libs/tools/plugins/test/src/index.ts",
+            "assets": [
+              "libs/tools/plugins/test/*.md",
+              {
+                "input": "./libs/tools/plugins/test/src",
+                "glob": "**/*.!(ts)",
+                "output": "./src"
+              },
+              {
+                "input": "./libs/tools/plugins/test",
+                "glob": "generators.json",
+                "output": "."
+              },
+              {
+                "input": "./libs/tools/plugins/test",
+                "glob": "executors.json",
+                "output": "."
+              }
+            ]
+          }
+        }
+      }
+    },
+    "tools-plugins-test-e2e": {
+      "projectType": "application",
+      "root": "apps/tools/plugins/test-e2e",
+      "sourceRoot": "apps/tools/plugins/test-e2e/src",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/nx-plugin:e2e",
+          "options": {
+            "target": "tools-plugins-test:build",
+            "npmPackageName": "@codelab/test",
+            "pluginOutputPath": "dist/libs/tools/plugins/test",
+            "jestConfig": "apps/tools/plugins/test-e2e/jest.config.js"
+          }
+        }
+      }
     }
   },
   "cli": {

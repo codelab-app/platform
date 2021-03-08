@@ -61,6 +61,11 @@
     "modules-lambda": { "tags": [] },
     "tools-generators-form-decorator": { "tags": [] },
     "tools-generators-form-templates": { "tags": [] },
-    "tools-generators-crawler": { "tags": [] }
+    "tools-generators-crawler": { "tags": [] },
+    "tools-plugins-test": { "tags": [] },
+    "tools-plugins-test-e2e": {
+      "tags": [],
+      "implicitDependencies": ["tools-plugins-test"]
+    }
   }
 }

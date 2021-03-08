@@ -1,22 +1,16 @@
 import * as path from 'path'
 import {
   Tree,
+  addProjectConfiguration,
   formatFiles,
   generateFiles,
   getWorkspaceLayout,
   names,
   offsetFromRoot,
 } from '@nrwl/devkit'
-import { libraryGenerator } from '@nrwl/nest'
-import { removeFiles } from '../utils-new'
+import { ToolsPluginsTestGeneratorSchema } from './schema'
 
-export interface CodelabNestSchema {
-  name: string
-  tags?: string
-  directory?: string
-}
-
-interface NormalizedSchema extends CodelabNestSchema {
+interface NormalizedSchema extends ToolsPluginsTestGeneratorSchema {
   projectName: string
   projectRoot: string
   projectDirectory: string
@@ -25,7 +19,7 @@ interface NormalizedSchema extends CodelabNestSchema {
 
 function normalizeOptions(
   host: Tree,
-  options: CodelabNestSchema,
+  options: ToolsPluginsTestGeneratorSchema,
 ): NormalizedSchema {
   const name = names(options.name).fileName
   const projectDirectory = options.directory
@@ -62,16 +56,23 @@ function addFiles(host: Tree, options: NormalizedSchema) {
   )
 }
 
-export default async function (host: Tree, options: CodelabNestSchema) {
+export default async function (
+  host: Tree,
+  options: ToolsPluginsTestGeneratorSchema,
+) {
   const normalizedOptions = normalizeOptions(host, options)
 
-  await libraryGenerator(host, {
-    name: options.name,
-    directory: options.directory,
+  addProjectConfiguration(host, normalizedOptions.projectName, {
+    root: normalizedOptions.projectRoot,
+    projectType: 'library',
+    sourceRoot: `${normalizedOptions.projectRoot}/src`,
+    targets: {
+      build: {
+        executor: '@codelab/tools-plugins-test:build',
+      },
+    },
+    tags: normalizedOptions.parsedTags,
   })
-
   addFiles(host, normalizedOptions)
-  removeFiles(host, [`${normalizedOptions.projectRoot}/.eslintrc.json`])
-
   await formatFiles(host)
 }

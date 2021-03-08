@@ -1,3 +1,0 @@
-export class <%= useCaseNamePascalCase %>Request {
-  declare demo: string
-}
