@@ -14,8 +14,6 @@ export const PaneConfigProps = () => {
     addChildVertexState,
   )
 
-  console.log(vertex)
-
   return (
     <section>
       {/* <h3>Vertex details</h3> */}
