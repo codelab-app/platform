@@ -71,8 +71,8 @@ import {
   RenderComponent,
 } from '@codelab/alpha/ui/antd'
 
-const PageContainer = ({ children }: any) => {
-  return children ? <></> : <>{children}</>
+const PageContainer = ({ children, ...props }: any) => {
+  return children ? <>{children}</> : <></>
 }
 
 /**

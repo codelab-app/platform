@@ -11,16 +11,16 @@
         "$source": "argv",
         "index": 0
       },
-      "description": "E.g. \"modules-app\"",
+      "description": "E.g. \"modules-app\", this is the name of the module, is prepended by \"modules-\"",
       "x-prompt": "What library is this for?"
     },
     "useCaseName": {
-      "description": "E.g. \"createApp\"",
+      "description": "E.g. \"createApp\", use lower camel case",
       "x-prompt": "What name would you like to use for the use case?"
     },
     "moduleName": {
       "type": "string",
-      "description": "E.g. \"app\"",
+      "description": "E.g. \"app\", use lower case",
       "x-prompt": "What module is this for?"
     },
     "resolverType": {

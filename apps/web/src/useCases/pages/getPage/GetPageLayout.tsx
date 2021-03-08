@@ -47,7 +47,6 @@ export const GetPageLayout = ({ graph, pageId }: GetPageLayoutProps) => {
         icon={<PlusOutlined />}
         type="primary"
         onClick={() => {
-          console.log(gridContainerId)
           if (!gridContainerId) {
             return
           }

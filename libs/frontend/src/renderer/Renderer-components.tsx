@@ -122,31 +122,11 @@ export const RenderComponents = ({
   })
 
   // console.log(node.type)
-
-  const DomTree = (
-    <RootComponent {...props}>
-      {RenderChildren(node, {}, handlers)}
-    </RootComponent>
-  )
-
   return (
     <div style={{ width: '100%', height: 'auto' }}>
-      {DomTree}
-      {/* <Frame>
-        <Element canvas is="div">
-          <RootComponent {...props}>
-            {RenderChildren(node, {}, handlers)}
-          </RootComponent>
-        </Element>
-      </Frame> */}
-
-      {/* <Editor
-        resolver={elementTypeMap}
-        // enabled
-        // onRender={RenderNode}
-      >
-        <Frame data={data} />
-      </Editor> */}
+      <RootComponent {...props}>
+        {RenderChildren(node, {}, handlers)}
+      </RootComponent>
 
       {/* <HoverOverlay />
       <DropOverlay />

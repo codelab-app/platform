@@ -65,7 +65,7 @@ model Vertex {
   props   Json        @default("{}")
   graphId String?
   graph   Graph?      @relation(fields: [graphId], references: [id])
-  styles Style[]
+  styles  Style[]
 }
 
 model Edge {
@@ -80,11 +80,11 @@ model Edge {
 }
 
 model Style {
-  id    String @id @default(uuid())
-  name String @default("")
-  props Json   @default("{}")
-  app   App    @relation(fields: [appId], references: [id])
-  appId String
+  id       String   @id @default(uuid())
+  name     String   @default("")
+  props    Json     @default("{}")
+  app      App      @relation(fields: [appId], references: [id])
+  appId    String
   vertices Vertex[]
 }
 

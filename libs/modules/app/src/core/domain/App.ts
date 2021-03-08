@@ -17,6 +17,6 @@ export class App {
   @Field(() => [Style], { defaultValue: [] })
   declare styles: Array<Style>
 
-  @Field(() => [Lambda], { defaultValue: [] })
+  @Field(() => [Lambda], { defaultValue: [], nullable: true })
   declare lambdas: Array<Lambda>
 }

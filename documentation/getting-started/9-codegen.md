@@ -17,3 +17,27 @@ If you think about it, the form is the ui that generate the request, so it makes
 In our backend `useCase` folders, we also create `*.graphql` query files, which are either `mutation` or `query`.
 
 Our client graphql query can also help us generate frontend code for us to use. A mutation query can be generated into a javascript function that accepts parameters.
+
+## Nrwl VSCode Codegen
+
+### Create Module
+
+This creates a top level module that holds multiple use cases. A module is essentially a model
+
+**Select the generator**
+
+<img src="https://www.evernote.com/l/APdek2_kvPZD5bPD9MXjN5YbrxNq4BBEpIkB/image.png" width="320">
+
+**Enter info**
+
+<img src="https://www.evernote.com/l/APdfDVGM_HBLYqCKBdOgjUMsFtegwzUl2UkB/image.png" width="320">
+
+### Create Use Case
+
+Think of use case as a feature, that fits under each module
+
+**Select the generator**
+<img src="https://www.evernote.com/l/APeBLc-qZVlAIbr-BUJrOP-SsJgc2od4bDcB/image.png" width="320">
+
+**Enter info**
+<img src="https://www.evernote.com/l/APdQBlsfwChJ9LOHSCpLlr3wxtA9aPzaUccB/image.png" width="320">

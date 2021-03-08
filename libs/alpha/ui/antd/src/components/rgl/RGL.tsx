@@ -27,8 +27,6 @@ export namespace RGL {
     children,
     ...props
   }) => {
-    console.log(props, children)
-
     return <GridLayout {...props}>{children}</GridLayout>
   }
 
@@ -48,8 +46,6 @@ export namespace RGL {
     children,
     ...props
   }) => {
-    console.log(props, children)
-
     return (
       <ResponsiveGridLayout {...props}>
         {children}
@@ -70,8 +66,6 @@ export namespace RGL {
     'data-grid': dataGrid,
     ...props
   }) => {
-    console.log(props, children)
-
     return (
       <div {...props} data-grid={JSON.stringify(dataGrid)}>
         {children}
