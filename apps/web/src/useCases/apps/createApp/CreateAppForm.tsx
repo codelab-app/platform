@@ -40,6 +40,7 @@ export const CreateAppForm = (props: FormUseCaseProps<CreateAppInput>) => {
         title: 'Error while registering',
         type: 'error',
       })}
+      idPrefix="create_app"
       {...props}
     />
   )

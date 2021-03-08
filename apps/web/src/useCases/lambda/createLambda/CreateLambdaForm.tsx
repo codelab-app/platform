@@ -38,6 +38,7 @@ export const CreateLambdaForm = (
       }}
       initialFormData={{ appId, name: '', body: '' }}
       {...props}
+      idPrefix="create_lambda"
     />
   )
 }

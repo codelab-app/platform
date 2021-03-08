@@ -54,6 +54,7 @@ export const CreateStyleForm = (props: FormUseCaseProps<CreateStyleInput>) => {
       }}
       mutate={transformedMutate}
       hideSubmitButton
+      idPrefix="create_style"
       {...props}
     />
   )

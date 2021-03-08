@@ -88,6 +88,7 @@ export const UpdateStyleForm = ({
         name: style?.name || '',
         styleId,
       }}
+      idPrefix="update_style"
       {...props}
     />
   )

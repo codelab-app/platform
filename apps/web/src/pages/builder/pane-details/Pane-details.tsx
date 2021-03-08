@@ -12,10 +12,10 @@ export const BuilderDetails = () => {
 
   return (
     <>
-      <BuilderPaneController isVisible={({ tab }) => tab === LayoutTab.Page}>
+      <BuilderPaneController isRendered={({ tab }) => tab === LayoutTab.Page}>
         <PageDetailPane />
       </BuilderPaneController>
-      <BuilderPaneController isVisible={({ tab }) => tab === LayoutTab.Styles}>
+      <BuilderPaneController isRendered={({ tab }) => tab === LayoutTab.Styles}>
         {detailStyleId ? (
           <StyleContainerUpdateDelete />
         ) : (
@@ -23,7 +23,7 @@ export const BuilderDetails = () => {
         )}
       </BuilderPaneController>
       <BuilderPaneController
-        isVisible={({ tab }) => tab === LayoutTab.Function}
+        isRendered={({ tab }) => tab === LayoutTab.Function}
       >
         <LambdaPaneDetail />
       </BuilderPaneController>

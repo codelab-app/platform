@@ -46,6 +46,7 @@ export const UpdateVertexForm = ({ vertex }: UpdateVertexFormProps) => {
         type: vertex.type ?? '',
         props: vertex.props,
       }}
+      idPrefix="update_vertex"
     />
   )
 }

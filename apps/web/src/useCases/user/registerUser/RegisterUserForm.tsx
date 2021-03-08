@@ -77,6 +77,7 @@ export const RegisterUserForm = ({
           'ui:widget': 'password',
         },
       }}
+      idPrefix="register"
       onSubmitSuccess={submitSuccessHandlers}
       {...props}
     />

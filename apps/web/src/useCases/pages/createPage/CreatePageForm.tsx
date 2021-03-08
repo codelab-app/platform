@@ -37,6 +37,7 @@ export const CreatePageForm = ({ appId, ...props }: CreatePageFormProps) => {
         },
       }}
       initialFormData={{ title: '', appId }}
+      idPrefix="create_page"
     />
   )
 }

@@ -37,6 +37,7 @@ export const UpdateLambdaForm = ({
         name: lambda.name,
         body: lambda.body,
       }}
+      idPrefix="update_lambda"
       {...props}
     />
   )
