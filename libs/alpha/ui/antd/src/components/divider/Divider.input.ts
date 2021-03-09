@@ -1,54 +1,75 @@
-import { VertexType } from '@prisma/client'
-import {
-  Default,
-  Description,
-  Enum,
-  Optional,
-  Property,
-  Schema,
-  Title,
-  getJsonSchema,
-} from '@tsed/schema'
 import { DividerProps as AntDividerProps } from 'antd/lib/divider'
 import * as React from 'react'
+import { RjsfGrid, RjsfGridProp } from '@codelab/tools/generators/form-decorator';
 
-class Props implements AntDividerProps {
-  @Optional()
-  @Description('The className of container')
+@RjsfGrid({
+  'ui:spacing': 16,
+  ObjectFieldTemplate: 'RjsfGridFieldTemplate'
+})
+export class DividerProps implements AntDividerProps {
+
+  @RjsfGridProp({
+    title: 'Class Name',
+    description: 'The className of container',
+    row: 0,
+    span: 24,
+  })
   className?: string
 
-  @Optional()
-  @Description('Whether line is dashed')
+  @RjsfGridProp({
+    title: 'Dashed',
+    description: 'Whether line is dashed',
+    row: 1,
+    span: 24,
+  })
   dashed?: boolean
 
-  @Optional()
-  @Default('center')
-  @Enum('left', 'right', 'center')
-  @Description('The position of title inside divider')
+  @RjsfGridProp({
+    title: 'Orientation',
+    description: 'The position of title inside divider',
+    type: 'string',
+    enum: ['left', 'right', 'center'],
+    default: 'center',
+    row: 2,
+    span: 24,
+  })
   orientation?: 'left' | 'right' | 'center'
 
-  @Optional()
-  @Description('Divider text show as plain style')
+  @RjsfGridProp({
+    title: 'Plain',
+    description: 'Divider text show as plain style',
+    row: 3,
+    span: 24,
+  })
   plain?: boolean
 
-  @Optional()
-  @Property('string')
-  @Description('The style object of container')
+  @RjsfGridProp({
+    title: 'Style',
+    description: 'The style object of container',
+    type: 'string',
+    row: 4,
+    span: 24,
+  })
   style?: React.CSSProperties
 
-  @Optional()
-  @Default('horizontal')
-  @Enum('horizontal', 'vertical')
-  @Description('The direction type of divider')
+  @RjsfGridProp({
+    title: 'Type',
+    description: 'The direction type of divider',
+    enum: ['horizontal', 'vertical'],
+    type: 'string',
+    default: 'horizontal',
+    row: 5,
+    span: 24,
+  })
   type?: 'horizontal' | 'vertical'
 }
 
-export class DividerProps {
-  @Property()
-  @Enum(VertexType.React_Divider)
-  declare type: string
-
-  @Schema(getJsonSchema(Props))
-  @Title('')
-  declare props: object
-}
+// export class DividerProps {
+//   @Property()
+//   @Enum(VertexType.React_Divider)
+//   declare type: string
+//
+//   @Schema(getJsonSchema(Props))
+//   @Title('')
+//   declare props: object
+// }

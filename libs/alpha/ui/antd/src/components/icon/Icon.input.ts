@@ -1,45 +1,63 @@
-import { VertexType } from '@prisma/client'
-import {
-  Description,
-  Enum,
-  Optional,
-  Property,
-  Schema,
-  Title,
-  getJsonSchema,
-} from '@tsed/schema'
+import { Description, Optional, } from '@tsed/schema'
 import * as React from 'react'
+import { RjsfGrid, RjsfGridProp } from '@codelab/tools/generators/form-decorator';
 
-class Props {
-  @Optional()
-  @Description('The className of Icon')
+@RjsfGrid({
+  'ui:spacing': 16,
+  ObjectFieldTemplate: 'RjsfGridFieldTemplate'
+})
+export class IconProps {
+
+  @RjsfGridProp({
+    title: 'Class Name',
+    description: 'The className of Icon',
+    row: 0,
+    span: 24,
+  })
   className?: string
 
-  @Optional()
-  @Property('string')
-  @Description('Rotate by n degrees (not working in IE9)')
+  @RjsfGridProp({
+    title: 'Rotate',
+    description: 'Rotate by n degrees (not working in IE9)',
+    row: 1,
+    span: 24,
+  })
   rotate?: number
 
-  @Optional()
-  @Description('Rotate icon with animation')
+  @RjsfGridProp({
+    title: 'Spin',
+    description: 'Rotate icon with animation',
+    row: 2,
+    span: 24,
+  })
   spin?: boolean
 
-  @Optional()
-  @Property('string')
-  @Description('The style properties of icon, like fontSize and color')
+  @RjsfGridProp({
+    title: 'Style',
+    description: 'The style properties of icon, like fontSize and color',
+    type: 'string',
+    row: 3,
+    span: 24,
+  })
   style?: React.CSSProperties
 
   @Optional()
   @Description('Only supports the two-tone icon. Specify the primary color')
+  @RjsfGridProp({
+    title: 'Two Tone Color',
+    description: 'Only supports the two-tone icon. Specify the primary color',
+    row: 4,
+    span: 24,
+  })
   twoToneColor?: string
 }
 
-export class IconProps {
-  @Property()
-  @Enum(VertexType.React_Icon)
-  declare type: string
-
-  @Schema(getJsonSchema(Props))
-  @Title('')
-  declare props: object
-}
+// export class IconProps {
+//   @Property()
+//   @Enum(VertexType.React_Icon)
+//   declare type: string
+//
+//   @Schema(getJsonSchema(Props))
+//   @Title('')
+//   declare props: object
+// }

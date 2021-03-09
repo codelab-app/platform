@@ -1,38 +1,41 @@
-import { VertexType } from '@prisma/client'
-import {
-  Default,
-  Description,
-  Enum,
-  Optional,
-  Property,
-  Schema,
-  Title,
-  getJsonSchema,
-} from '@tsed/schema'
+import { Description, } from '@tsed/schema'
 import { AffixProps as AntAffixProps } from 'antd/lib/affix'
+import { RjsfGrid, RjsfGridProp } from '@codelab/tools/generators/form-decorator';
 
-class Props implements Omit<AntAffixProps, 'children'> {
-  @Optional()
-  @Property('string')
-  @Description('Offset from the bottom of the viewport (in pixels)')
+@RjsfGrid({
+  'ui:spacing': 16,
+  ObjectFieldTemplate: 'RjsfGridFieldTemplate'
+})
+export class AffixProps implements Omit<AntAffixProps, 'children'> {
+
+  @RjsfGridProp({
+    title: 'Offset Bottom',
+    description: 'Offset from the bottom of the viewport (in pixels)',
+    row: 0,
+    span: 12,
+  })
   offsetBottom?: number
 
-  @Optional()
-  @Default(0)
-  @Property('string')
   @Description('Offset from the top of the viewport (in pixels)')
+  @RjsfGridProp({
+    title: 'Offset Top',
+    description: 'Offset from the top of the viewport (in pixels)',
+    default: 0,
+    row: 0,
+    span: 12,
+  })
   offsetTop?: number
 
   // onChange?: (affixed?: boolean) => void;
   // target?: () => Window | HTMLElement | null;
 }
 
-export class AffixProps {
-  @Property()
-  @Enum(VertexType.React_Affix)
-  declare type: string
-
-  @Schema(getJsonSchema(Props, { customKeys: true }))
-  @Title('')
-  declare props: object
-}
+// export class AffixProps {
+//   @Property()
+//   @Enum(VertexType.React_Affix)
+//   declare type: string
+//
+//   @Schema(getJsonSchema(Props, { customKeys: true }))
+//   @Title('')
+//   declare props: object
+// }

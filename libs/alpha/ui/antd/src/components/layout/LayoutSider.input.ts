@@ -1,92 +1,128 @@
-import { VertexType } from '@prisma/client'
-import {
-  Default,
-  Description,
-  Enum,
-  Optional,
-  Property,
-  Schema,
-  Title,
-  getJsonSchema,
-} from '@tsed/schema'
 import * as React from 'react'
+import { RjsfGrid, RjsfGridProp } from '@codelab/tools/generators/form-decorator';
 
-class Props {
-  @Optional()
-  @Enum('xs', 'sm', 'md', 'lg', 'xl', 'xxl')
-  @Description('Breakpoints of the responsive layout')
+@RjsfGrid({
+  'ui:spacing': 16,
+  ObjectFieldTemplate: 'RjsfGridFieldTemplate'
+})
+export class LayoutSiderProps {
+
+  @RjsfGridProp({
+    title: 'Breakpoint',
+    description: 'Breakpoints of the responsive layout',
+    type: 'string',
+    enum: ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'],
+    row: 0,
+    span: 24,
+  })
   breakpoint?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl'
 
-  @Optional()
-  @Description('Container className')
+  @RjsfGridProp({
+    title: 'Class Name',
+    description: 'The className of container',
+    row: 1,
+    span: 24,
+  })
   className?: string
 
-  @Optional()
-  @Description('To set the current status')
+  @RjsfGridProp({
+    title: 'Collapsed',
+    description: 'To set the current status',
+    row: 2,
+    span: 24,
+  })
   collapsed?: boolean
 
-  @Optional()
-  @Default(80)
-  @Property('number')
-  @Description(
-    'Width of the collapsed sidebar, by setting to 0 a special trigger will appear',
-  )
+  @RjsfGridProp({
+    title: 'Collapsed Width',
+    description: 'Width of the collapsed sidebar, by setting to 0 a special trigger will appear',
+    default: 80,
+    row: 3,
+    span: 24,
+  })
   collapsedWidth?: number
 
-  @Optional()
-  @Description('Whether can be collapsed')
+  @RjsfGridProp({
+    title: 'Collapsible',
+    description: 'Whether can be collapsed',
+    row: 4,
+    span: 24,
+  })
   collapsible?: boolean
 
-  @Optional()
-  @Description('To set the initial status')
+  @RjsfGridProp({
+    title: 'Default Collapsed',
+    description: 'To set the initial status',
+    row: 5,
+    span: 24,
+  })
   defaultCollapsed?: boolean
 
-  @Optional()
-  @Description(
-    'Reverse direction of arrow, for a sider that expands from the right',
-  )
+  @RjsfGridProp({
+    title: 'Reverse Arrow',
+    description: 'Reverse direction of arrow, for a sider that expands from the right',
+    row: 6,
+    span: 24,
+  })
   reverseArrow?: boolean
 
-  @Optional()
-  @Property('string')
-  @Description('To customize the styles')
+  @RjsfGridProp({
+    title: 'Style',
+    description: 'To customize the styles',
+    type: 'string',
+    row: 7,
+    span: 24,
+  })
   style?: React.CSSProperties
 
-  @Optional()
-  @Default('dark')
-  @Enum('light', 'dark')
-  @Description('Color theme of the sidebar')
+  @RjsfGridProp({
+    title: 'Theme',
+    description: 'Color theme of the sidebar',
+    enum: ['light', 'dark'],
+    default: 'dark',
+    type: 'string',
+    row: 8,
+    span: 24,
+  })
   theme?: 'light' | 'dark'
 
-  @Optional()
-  @Property('string')
-  @Description(
-    'Specify the customized trigger, set to null to hide the trigger',
-  )
+  @RjsfGridProp({
+    title: 'Trigger',
+    description: 'Specify the customized trigger, set to null to hide the trigger',
+    type: 'string',
+    row: 9,
+    span: 24,
+  })
   trigger?: React.ReactNode
 
-  @Optional()
-  @Default(200)
-  @Description('Width of the sidebar')
+  @RjsfGridProp({
+    title: 'Width',
+    description: 'Width of the sidebar',
+    default: '200',
+    row: 10,
+    span: 24,
+  })
   width?: string
 
-  @Optional()
-  @Property('string')
-  @Description(
-    'To customize the styles of the special trigger that appears when collapsedWidth is 0',
-  )
+  @RjsfGridProp({
+    title: 'Zero Width Trigger Style',
+    description: 'To customize the styles of the special trigger that appears when collapsedWidth is 0',
+    type: 'string',
+    row: 11,
+    span: 24,
+  })
   zeroWidthTriggerStyle?: object
   //
   // onBreakpoint?: any
   //
   // onCollapse?: any
 }
-export class LayoutSiderProps {
-  @Property()
-  @Enum(VertexType.React_Layout_Sider)
-  declare type: string
-
-  @Schema(getJsonSchema(Props))
-  @Title('')
-  declare props: object
-}
+// export class LayoutSiderProps {
+//   @Property()
+//   @Enum(VertexType.React_Layout_Sider)
+//   declare type: string
+//
+//   @Schema(getJsonSchema(Props))
+//   @Title('')
+//   declare props: object
+// }

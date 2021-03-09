@@ -28,7 +28,6 @@ export const generateSchemas = (target: Function): {schema: any, uiSchema: any} 
 	}
 }
 
-// const buildImportString = (matches: string[]) => {
 export const buildImportString = (stringUISchema: string) => {
 	const superRegex = /(?<="ui:ObjectFieldTemplate"\s*\:\s*)(.[^,]{0,})/g
 	const matches = stringUISchema.match(superRegex)
@@ -46,9 +45,6 @@ export const getSchemaString = (obj: {schema: any, uiSchema: any}, className: st
 
 	let stringUISchema = JSON.stringify(obj.uiSchema, null, 2)
 
-	// const matches = stringUISchema.match(superRegex)
-	// const importString = matches ? buildImportString(matches) : ''
-
 	stringUISchema = stringUISchema.replace(superRegex, (substring: string) => {
 		return substring.replace(/"/g, '')
 	})
@@ -58,7 +54,6 @@ export const getSchemaString = (obj: {schema: any, uiSchema: any}, className: st
 	let stringSchema = JSON.stringify(obj.schema, null, 2)
 	stringSchema = `export const ${className}Schema = ${stringSchema}`
 
-	// const finalString = `${importString}\n${stringSchema}\n${stringUISchema}\n`
 	const finalString = `${stringSchema}\n${stringUISchema}\n`
 
 	return finalString
@@ -67,7 +62,6 @@ export const getSchemaString = (obj: {schema: any, uiSchema: any}, className: st
 export const writeSchemasToFile = (obj: {schema: any, uiSchema: any}, path: string) => {
 	const finalString = getSchemaString(obj)
 
-	// require('fs').writeFile(`${path}/generatedSchema.ts`, finalString, (err: any) => {
 	require('fs').writeFile(`${path}`, finalString, (err: any) => {
 		if (err) throw err;
 	});

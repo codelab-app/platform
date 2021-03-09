@@ -2,8 +2,6 @@ import { getUiSchemaGrid, IRjsfGrid } from '../decorators/RjsfGrid';
 import { getRjsfGridProp, IMetadata } from '../decorators/RjsfGridProp';
 import { getUiSchemaGroup } from '../decorators/RjsfGroup';
 
-
-
 const processBasicProps = (props: IMetadata[], uiLayoutObj: any) => {
 	const uniqueRows: number[] = props.map(p => {
 		return p.propMetadata.row
@@ -27,7 +25,11 @@ const processBasicProps = (props: IMetadata[], uiLayoutObj: any) => {
 			}
 		})
 
-		uiLayoutObj[rowNum] = result
+		if (rowNum > uiLayoutObj.length) {
+			uiLayoutObj.push(result)
+		} else {
+			uiLayoutObj[rowNum] = result
+		}
 	})
 }
 
@@ -47,7 +49,7 @@ const processObjectProps = (props: IMetadata[], uiLayoutObj: any) => {
 		const findObjectProps: IMetadata[] = findObjProps(props)
 		findObjectProps.forEach((item: IMetadata) => {
 			if (item.propMetadata.uiSchema) {
-				if (item.propMetadata.type === 'array') {
+				if (item.propMetadata.isArray) {
 					uiLayoutObj[item.key] = {}
 					uiLayoutObj[item.key].items = item.propMetadata.uiSchema
 				} else {
@@ -57,7 +59,7 @@ const processObjectProps = (props: IMetadata[], uiLayoutObj: any) => {
 				const props: any = item.propMetadata[item.key]
 				const classDecorator = getUiSchemaGroup(item.propMetadata.clazz as Function)
 
-				if (item.propMetadata.type === 'array') {
+				if (item.propMetadata.isArray) {
 					uiLayoutObj[item.key] = {
 						items: {
 							'ui:ObjectFieldTemplate': classDecorator.ObjectFieldTemplate,

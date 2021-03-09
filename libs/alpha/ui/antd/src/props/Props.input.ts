@@ -27,15 +27,15 @@ import { TagSelectedProps } from '../components/tag/Tag.input'
 import { VegaSchema } from '@codelab/generated'
 
 export const PropsList = [
-  ButtonProps,
-  CardProps,
-  CardGridProps,
-  CardMetaProps,
-  IconProps,
-  DividerProps,
-  LayoutProps,
-  LayoutSiderProps,
-  SpaceProps,
+  ButtonProps, // done
+  CardProps, // done
+  CardGridProps, // done
+  CardMetaProps, // done
+  IconProps, // done
+  DividerProps, // done
+  LayoutProps, // done
+  LayoutSiderProps, // done
+  SpaceProps, // done
   AffixProps,
   BreadcrumbSelectedProps,
   BreadcrumbItemProps,

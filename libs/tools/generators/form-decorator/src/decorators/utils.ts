@@ -13,7 +13,7 @@ const generateSchemaForClassType = (props: any, target: Object, propertyKey: str
 		processConditional(props, target, propertyKey, 'object')
 	} else {
 		let tsedSchemaDecorator
-		if(props.type && props.type === 'array') {
+		if(props.isArray) {
 			const obj: any = {
 				type: 'array',
 				items: {
@@ -71,18 +71,23 @@ const generateSchemaForBasicType = (props: any, target: Object, propertyKey: str
 			tsedDescriptionDecorator(target, propertyKey)
 		}
 
-		if (props.default) {
+		if (props.default || props.default === 0) {
 			const tsedDefaultDecorator = Default(props.default)
 			tsedDefaultDecorator(target, propertyKey)
 		}
 
-		if (props.type && props.type === 'array') {
+		if (props.isArray) {
 			const obj: any = {
 				type: 'array',
 				items: {
-					type: dataType.name.toLowerCase()
+					type: 'string'
 				}
 			}
+
+			if (props.type) {
+				obj.items.type = props.type
+			}
+
 			if (props.title) {
 				obj['title'] = props.title
 			}

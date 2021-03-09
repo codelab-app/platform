@@ -35,7 +35,7 @@ export const ConditionalForm = () => {
   const onSubmitClicked = ({ formData }: OnSubmitEvent) => {
     console.log(formData)
 
-    console.log('Transformed: ', transformFromData(formData))
+    // console.log('Transformed: ', transformFromData(formData))
   }
 
   const widgets = {

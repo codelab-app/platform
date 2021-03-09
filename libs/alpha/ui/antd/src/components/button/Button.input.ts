@@ -62,6 +62,7 @@ export class ButtonProps implements AntButtonProps {
     row: 3,
     span: 24,
     type: 'string',
+    title: 'Icon',
     description: 'Set the icon component of button'
   })
   declare icon?: ReactNode

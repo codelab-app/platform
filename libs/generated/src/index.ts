@@ -1,6 +1,6 @@
 export * from './graphql-server.generated'
 export * from './jsonSchema-useCases.generated'
-export * from './jsonSchema-tsed.generated'
+// export * from './jsonSchema-tsed.generated'
 export * from './jsonSchema-npmLibrary.generated'
 export * from './jsonSchema-artonio-grid.generated'
 export * from './graphql-client.generated'

@@ -1,27 +1,61 @@
-// import P from 'bluebird'
 import { reduce } from 'bluebird'
+import * as TJS from 'typescript-json-schema'
 import * as glob from 'glob'
-import * as path from 'path'
-
 import { buildImportString, generateSchemas, getSchemaString } from '@codelab/tools/generators/form-decorator'
-import { RjsfGridFieldTemplate } from '@codelab/tools/generators/form-templates'
-import { UpdateVertexInput } from '../../../../modules/graph/src/core/application/useCases/updateVertex/UpdateVertexInput';
+import path from 'path';
+import { CssPropsSchemaConverter } from './CssPropsSchemaConverter';
 
+const npmLibraryTypesOutputFile = `${process.cwd()}/libs/generated/src/jsonSchema-artonio-grid.generated.ts`
+
+const makeGenerator = (
+    tsconfigFile: string,
+    includeFilePatterns: Array<string>,
+): TJS.JsonSchemaGenerator => {
+    const program = TJS.programFromConfig(tsconfigFile, includeFilePatterns)
+
+    const settings: TJS.PartialArgs = {
+        ref: false,
+        strictNullChecks: true,
+    }
+
+    const generator = TJS.buildGenerator(program, settings, includeFilePatterns)
+
+    if (!generator) {
+        throw new Error('missing generator')
+    }
+
+    return generator
+}
+
+const getCssSchemaString = (): string => {
+
+    const tsconfigFile = path.resolve(
+        process.cwd(),
+        'libs/tools/generators/crawler/tsconfig.css.lib.json',
+    )
+
+    const cssProps = glob.sync(
+        'libs/tools/generators/json-schema/src/types/*.ts',
+        {
+            cwd: process.cwd(),
+        },
+    )
+    const cssPropsInputFiles = [...cssProps]
+    const generator = makeGenerator(tsconfigFile, cssPropsInputFiles)
+    const schema = generator.getSchemaForSymbols(['CSSProperties'], true)
+
+    const schemaConverter = new CssPropsSchemaConverter()
+    const convertedSchema = schemaConverter.processSchema(schema)
+    const convertedSchemaString = JSON.stringify(convertedSchema, null, 2)
+    return `export const CssPropsSchema = ${convertedSchemaString}`
+}
 
 const bootstrap = async () => {
-  const files = glob.sync('libs/modules/**/useCases/**/*Input.ts', {
-  // const files = glob.sync('libs/modules/**/useCases/**/UpdateVertexInput.ts', {
+    const files = glob.sync('libs/modules/**/useCases/**/*Input.ts', {
     cwd: process.cwd(),
-  })
+    })
 
-    const npmLibraryTypesOutputFile = `${process.cwd()}/libs/generated/src/jsonSchema-artonio-grid.generated.ts`
-
-
-
-  // 1) Reduce exports to single file
-  // 2) Should work for normal tsed decorators as well
-  // 3) form-decorator should only generate schema, creating exports & merging into single file we'll do here
-  const res: {schema: any, uiSchema: any, name: string}[] = await reduce(
+    const res: {schema: any, uiSchema: any, name: string}[] = await reduce(
     files,
     async (acc: {schema: any, uiSchema: any, name: string}[] = [], file) => {
         const module = await import(file)
@@ -42,18 +76,14 @@ const bootstrap = async () => {
                     const result =  {name: symbol}
                     const schemas = generateSchemas(module[symbol])
                     _moreExportData.push({...result, ...schemas})
-                    return [...acc, ..._moreExportData]
-                    // console.log(schema)
                 } catch (e) {}
                 return [...acc, ..._moreExportData]
             }, acc)
-        const aa = ''
 
-    acc.length > 0 ? console.log('acc: ', acc): ''
-    return acc
+        return acc
     },
     [],
-  )
+    )
 
     let schemasString = res.reduce((accu: string, val: {schema: any, uiSchema: any, name: string}) => {
 
@@ -62,13 +92,12 @@ const bootstrap = async () => {
         return accu += schemaString
     }, '')
 
+    schemasString += getCssSchemaString()
     schemasString = buildImportString(schemasString) + schemasString
 
     require('fs').writeFile(npmLibraryTypesOutputFile, schemasString, (err: any) => {
         if (err) throw err;
     });
 
-    const aaa = ''
 }
-
 bootstrap()
