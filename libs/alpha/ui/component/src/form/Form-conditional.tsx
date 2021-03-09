@@ -4,10 +4,16 @@ import { CodelabFieldTemplate } from './rjsf-templates/CodelabFieldTemplate'
 import { CodelabCheckboxWidget } from './rjsf-widgets/CodelabCheckboxWidget'
 import { CodelabTextWidget } from './rjsf-widgets/CodelabTextWidget'
 import { JsonSchemaForm, OnSubmitEvent } from '@codelab/frontend'
-import { UpdateVertexInput, UpdateVertexInputSchema } from '@codelab/generated'
+import { UpdateVertexInput, UpdateVertexInputSchema, UpdateVertexInputUiSchema } from '@codelab/generated'
+import { withTheme } from '@rjsf/core'
+import { Theme as AntDTheme } from '@rjsf/antd'
+import { JSONSchema7 } from 'json-schema';
+
+const Form = withTheme(AntDTheme)
 
 export const conditionalFormProps = {
   schema: UpdateVertexInputSchema,
+  uiSchema: UpdateVertexInputUiSchema
 }
 
 export const ConditionalForm = () => {
@@ -39,16 +45,23 @@ export const ConditionalForm = () => {
   }
 
   return (
-    <JsonSchemaForm
-      initialFormData={{
-        type: VertexType.React_Button,
-      }}
-      // widgets={widgets}
-      FieldTemplate={CodelabFieldTemplate}
-      // onChange={filterOptions}
-      onSubmit={onSubmitClicked}
-      onError={log('errors')}
-      {...conditionalFormProps}
-    />
-  )
+      <Form schema={conditionalFormProps.schema as JSONSchema7}
+            uiSchema={conditionalFormProps.uiSchema}
+            FieldTemplate={CodelabFieldTemplate}
+            onSubmit={onSubmitClicked}/>
+  );
+
+  // return (
+  //   <JsonSchemaForm
+  //     initialFormData={{
+  //       type: VertexType.React_Button,
+  //     }}
+  //     // widgets={widgets}
+  //     FieldTemplate={CodelabFieldTemplate}
+  //     // onChange={filterOptions}
+  //     onSubmit={onSubmitClicked}
+  //     onError={log('errors')}
+  //     {...conditionalFormProps}
+  //   />
+  // )
 }

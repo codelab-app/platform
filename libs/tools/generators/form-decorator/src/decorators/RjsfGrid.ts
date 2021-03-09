@@ -1,18 +1,18 @@
-import 'reflect-metadata'
+import "reflect-metadata";
 
 const metadataKey = 'RjsfGrid'
 
-export interface IUiSchemaGrid {
-  'ui:spacing': number
-  ObjectFieldTemplate: 'RjsfGridFieldTemplate'
+export interface IRjsfGrid {
+	'ui:spacing': number
+	'ObjectFieldTemplate': 'RjsfGridFieldTemplate'
 }
 
-export const RjsfGrid = (props: IUiSchemaGrid) => {
-  return (target: Function) => {
-    Reflect.defineMetadata(metadataKey, props, target)
-  }
+export const RjsfGrid = (props: IRjsfGrid) => {
+	return (target: Function) => {
+		Reflect.defineMetadata(metadataKey, props, target);
+	}
 }
 
-export const getUiSchemaGrid = (target: any): IUiSchemaGrid => {
-  return Reflect.getOwnMetadata(metadataKey, target)
+export function getUiSchemaGrid(target: any): IRjsfGrid {
+	return Reflect.getOwnMetadata(metadataKey, target);
 }

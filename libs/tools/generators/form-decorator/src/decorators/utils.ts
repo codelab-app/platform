@@ -1,146 +1,205 @@
-import { Type } from '@tsed/core'
-import { Enum, Property, Required, Schema, Title } from '@tsed/schema'
-import { generateGridUiSchema, generateGroupsUiSchema } from '../processors'
-import { getJsonSchemaCustom } from '../processors/custom-tsed/getJsonSchemaCustom'
-import { getUiSchemaGrid } from './RjsfGrid'
-import { AnyI, IMetadata, getRjsfGridProp } from './RjsfGridProp'
-import { IRjsfGroupPropMetadata, getRjsfGroupProp } from './RjsfGroupProp'
+import { CustomKey, Default, Description, Enum, Property, Required, Schema, Title } from '@tsed/schema';
+import { getJsonSchemaCustom } from '../processors/custom-tsed/getJsonSchemaCustom';
+import { Type } from '@tsed/core';
+import { getRjsfGroupProp, IRjsfGroupPropMetadata } from './RjsfGroupProp';
+import { generateGridUiSchema, generateGroupsUiSchema } from '../processors';
+import { getRjsfGridProp, IMetadata } from './RjsfGridProp';
+import { getUiSchemaGrid } from './RjsfGrid';
 
-export const getMetadataForClassType = (
-  props: any,
-  target: Object,
-  propertyKey: string,
-) => {
-  let metadata: any
-  const { clazz } = props
-
-  let tsedSchemaDecorator
-
-  if (props.type && props.type === 'array') {
-    const obj: any = {
-      type: 'array',
-      items: {
-        ...getJsonSchemaCustom(clazz as Type<any>),
-      },
-    }
-
-    if (props.title) {
-      obj.title = props.title
-    }
-
-    tsedSchemaDecorator = Schema(obj)
-  } else {
-    const obj = { ...getJsonSchemaCustom(clazz as Type<any>) }
-
-    if (props.title) {
-      obj.title = props.title
-    }
-
-    tsedSchemaDecorator = Schema(obj)
-  }
-
-  tsedSchemaDecorator(target, propertyKey)
-
-  // We will check what kind of decorators the Function has and take appropriate action
-  const classDecorators = Reflect.getMetadataKeys(clazz)
-
-  if (classDecorators.includes('RjsfGroup')) {
-    const groupProps: Array<IRjsfGroupPropMetadata> = getRjsfGroupProp(
-      props.clazz,
-    )
-
-    metadata = {
-      key: propertyKey,
-      propMetadata: {
-        ...props,
-        uiSchema: generateGroupsUiSchema(props.clazz),
-      },
-    }
-    const propMetadata = metadata.propMetadata as AnyI
-
-    propMetadata[propertyKey] = groupProps
-  }
-
-  if (classDecorators.includes('RjsfGrid')) {
-    const classDecorator = getUiSchemaGrid(props.clazz)
-    const gridProps: Array<IMetadata> = getRjsfGridProp(props.clazz)
-
-    metadata = {
-      key: propertyKey,
-      propMetadata: {
-        ...props,
-        uiSchema: generateGridUiSchema(props.clazz),
-        'ui:spacing': classDecorator['ui:spacing'],
-      },
-    }
-    const propMetadata = metadata.propMetadata as AnyI
-
-    propMetadata[propertyKey] = gridProps
-  }
-
-  // if (!classDecorators.includes('RjsfGrid') || !classDecorators.includes('RjsfGroup')) {
-  // 	throw new Error('The class must include RjsfGrid or RjsfGroup decorator')
-  // }
-
-  if (
-    classDecorators.includes('RjsfGrid') &&
-    classDecorators.includes('RjsfGroup')
-  ) {
-    throw new Error('Class cannot have both RjsfGrid and RjsfGroup decorators')
-  }
-
-  return metadata
+// This will generate schema for a property decorated with clazz
+const generateSchemaForClassType = (props: any, target: Object, propertyKey: string) => {
+	const clazz = props.clazz
+	if (props.condition) {
+		processConditional(props, target, propertyKey, 'object')
+	} else {
+		let tsedSchemaDecorator
+		if(props.type && props.type === 'array') {
+			const obj: any = {
+				type: 'array',
+				items: {
+					...getJsonSchemaCustom(clazz as Type<any>)
+				}
+			}
+			if (props.title) {
+				obj['title'] = props.title
+			}
+			tsedSchemaDecorator = Schema(obj)
+		} else {
+			const obj = {...getJsonSchemaCustom(clazz as Type<any>)}
+			if (props.title) {
+				obj['title'] = props.title
+			}
+			if (props.description) {
+				obj['description'] = props.description
+			}
+			tsedSchemaDecorator = Schema(obj)
+		}
+		tsedSchemaDecorator(target, propertyKey)
+	}
 }
 
-export const getMetadataForBasicType = (
-  props: any,
-  target: Object,
-  propertyKey: string,
+const generateSchemaForBasicType = (props: any, target: Object, propertyKey: string) => {
+
+	const dataType = Reflect.getMetadata("design:type", target, propertyKey)
+	let type = props.type ? props.type : dataType.name.toLowerCase()
+
+	if (props.condition) {
+		processConditional(props, target, propertyKey, type)
+	} else {
+		const tsedPropDecorator = Property(type)
+		tsedPropDecorator(target, propertyKey)
+		if (props.enum) {
+			let tsedEnumDecorator
+			if (props.enum.length > 0) {
+				tsedEnumDecorator = Enum(...props.enum)
+			} else {
+				tsedEnumDecorator = Enum(props.enum)
+			}
+			tsedEnumDecorator(target, propertyKey)
+		}
+		if (props.required) {
+			const tsedRequiredDecorator = Required()
+			tsedRequiredDecorator(target, propertyKey)
+		}
+		if (props.title) {
+			const tsedTitleDecorator = Title(props.title)
+			tsedTitleDecorator(target, propertyKey)
+		}
+
+		if (props.description) {
+			const tsedDescriptionDecorator = Description(props.description)
+			tsedDescriptionDecorator(target, propertyKey)
+		}
+
+		if (props.default) {
+			const tsedDefaultDecorator = Default(props.default)
+			tsedDefaultDecorator(target, propertyKey)
+		}
+
+		if (props.type && props.type === 'array') {
+			const obj: any = {
+				type: 'array',
+				items: {
+					type: dataType.name.toLowerCase()
+				}
+			}
+			if (props.title) {
+				obj['title'] = props.title
+			}
+			const tsedSchemaDecorator = Schema(obj)
+			tsedSchemaDecorator(target, propertyKey)
+		}
+
+	}
+}
+
+export const getMetadataForClassType = (props: any, target: Object, propertyKey: string) => {
+	let metadata: any
+	const clazz = props.clazz
+
+	generateSchemaForClassType(props, target, propertyKey)
+
+	// We will check what kind of decorators the Function has and take appropriate action
+	const classDecorators = Reflect.getMetadataKeys(clazz)
+
+	if (classDecorators.includes('RjsfGroup')) {
+		const groupProps: IRjsfGroupPropMetadata[] = getRjsfGroupProp(props.clazz)
+		metadata = {
+			key: propertyKey,
+			propMetadata: {
+				...props,
+				uiSchema: generateGroupsUiSchema(props.clazz)
+			}
+		}
+		const propMetadata = metadata.propMetadata
+		propMetadata[propertyKey] = groupProps
+	}
+
+	if (classDecorators.includes('RjsfGrid')) {
+		const classDecorator = getUiSchemaGrid(props.clazz)
+		const gridProps: IMetadata[] = getRjsfGridProp(props.clazz);
+		metadata = {
+			key: propertyKey,
+			propMetadata: {
+				...props,
+				uiSchema: generateGridUiSchema(props.clazz),
+				'ui:spacing': classDecorator['ui:spacing']
+			}
+		}
+		const propMetadata = metadata.propMetadata
+		propMetadata[propertyKey] = gridProps
+	}
+
+	if (classDecorators.includes('RjsfGrid') && classDecorators.includes('RjsfGroup')) {
+		throw new Error('Class cannot have both RjsfGrid and RjsfGroup decorators')
+	}
+
+	return metadata
+}
+
+export const processConditional = (
+	props: any,
+	target: Object,
+	propertyKey: string,
+	dataType: string
 ) => {
-  const dataType = Reflect.getMetadata('design:type', target, propertyKey)
-  const type = props.type ? props.type : dataType.name.toLowerCase()
-  const tsedPropDecorator = Property(type)
+	const condition = props.condition
+	const existingObj = Reflect.getOwnMetadata('depKey', target.constructor);
+	const oneOf: any = {
+		type: 'object',
+		properties: {}
+	}
 
-  tsedPropDecorator(target, propertyKey)
-  if (props.enum) {
-    const tsedEnumDecorator = Enum(...props.enum)
+	oneOf.properties[condition.key] = {
+		type: 'string',
+		enum: [condition.value]
+	}
 
-    tsedEnumDecorator(target, propertyKey)
-  }
+	if (props.clazz) {
+		oneOf.properties[propertyKey] = {...getJsonSchemaCustom(props.clazz as Type<any>)}
+	} else {
+		oneOf.properties[propertyKey] = {
+			type: dataType
+		}
+	}
 
-  if (props.required) {
-    const tsedRequiredDecorator = Required()
 
-    tsedRequiredDecorator(target, propertyKey)
-  }
+	if (props.title) {
+		oneOf.properties[propertyKey]['title'] = props.title
+	}
 
-  if (props.title) {
-    const tsedTitleDecorator = Title(props.title)
+	if (existingObj) {
+		if (!existingObj[condition.key]) {
+			existingObj[condition.key] = {
+				oneOf: []
+			}
+		}
+		existingObj[condition.key].oneOf.push(oneOf)
+		Reflect.defineMetadata('depKey', existingObj, target.constructor)
+		const tsedCustomKeyDecorator = CustomKey('dependencies', existingObj)
+		tsedCustomKeyDecorator(target)
 
-    tsedTitleDecorator(target, propertyKey)
-  }
+	} else {
+		const obj: any = {}
+		obj[condition.key] = {
+			oneOf: []
+		}
+		obj[condition.key].oneOf.push(oneOf)
+		Reflect.defineMetadata('depKey', obj, target.constructor)
+		const tsedCustomKeyDecorator = CustomKey('dependencies', obj)
+		tsedCustomKeyDecorator(target)
+	}
+}
 
-  if (props.type && props.type === 'array') {
-    const obj: any = {
-      type: 'array',
-      items: {
-        type: dataType.name.toLowerCase(),
-      },
-    }
+export const getMetadataForBasicType = (props: any, target: Object, propertyKey: string) => {
+	let metadata: any
 
-    if (props.title) {
-      obj.title = props.title
-    }
+	generateSchemaForBasicType(props, target, propertyKey)
 
-    const tsedSchemaDecorator = Schema(obj)
+	metadata = {
+		key: propertyKey,
+		propMetadata: props
+	}
+	return metadata
 
-    tsedSchemaDecorator(target, propertyKey)
-  }
-
-  const metadata = {
-    key: propertyKey,
-    propMetadata: props,
-  }
-
-  return metadata
 }

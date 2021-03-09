@@ -2,20 +2,17 @@
 
 const metadataKey = 'RjsfGroup'
 
-export interface IUiSchemaGroup {
-  ObjectFieldTemplate: string
+
+export interface IRjsfGroup {
+	'ObjectFieldTemplate': string
 }
 
-export const RjsfGroup = (props: IUiSchemaGroup) => {
-  return (target: Function) => {
-    Reflect.defineMetadata(metadataKey, props, target)
-  }
+export const RjsfGroup = (props: IRjsfGroup) => {
+	return (target: Function) => {
+		Reflect.defineMetadata(metadataKey, props, target);
+	}
 }
 
-export const getUiSchemaGroup = (target?: Function): IUiSchemaGroup => {
-  if (!target) {
-    throw new Error('Missing target')
-  }
-
-  return Reflect.getOwnMetadata(metadataKey, target)
+export const getUiSchemaGroup = (target: Function): IRjsfGroup => {
+	return Reflect.getOwnMetadata(metadataKey, target);
 }

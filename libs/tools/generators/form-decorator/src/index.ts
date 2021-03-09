@@ -5,6 +5,8 @@ export const generateSchema = (target: Function, filePath: string) => {
 }
 
 export { generateSchemas }
+export * from './decorators'
+export * from './processors'
 
 // writeSchemasToFile(generateSchemas(User), filePath)
 // writeSchemasToFile(generateSchemas(Shipping), filePath)

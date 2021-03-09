@@ -1,51 +1,35 @@
 import { Field, InputType } from '@nestjs/graphql'
 import { VertexType } from '@prisma/client'
-import { Enum, MinLength, Required } from '@tsed/schema'
+import { MinLength } from '@tsed/schema'
 import { GraphQLJSONObject } from 'graphql-type-json'
-import { PropsList } from '@codelab/antd'
-import { Grid } from '@codelab/tools/generators/json-schema'
-import { JsonSchemaTypeDependencies } from 'libs/backend/src/common/decorators/JsonSchemaTypeDependencies'
-@Grid<any>({
-  props: {
-    'data-grid': {
-      x: {
-        __grid: {
-          order: 1,
-          span: 6,
-        },
-      },
-      y: {
-        __grid: {
-          order: 2,
-          span: 6,
-        },
-      },
-      w: {
-        __grid: {
-          order: 3,
-          span: 6,
-        },
-      },
-      h: {
-        __grid: {
-          order: 4,
-          span: 6,
-        },
-      },
-    },
-  },
-})
+import { ButtonProps } from '@codelab/antd'
+import { RjsfGrid, RjsfGridProp } from '@codelab/tools/generators/form-decorator';
+
+
 @InputType()
-@JsonSchemaTypeDependencies(PropsList)
+// @JsonSchemaTypeDependencies(PropsList)
+@RjsfGrid({
+  'ui:spacing': 16,
+  ObjectFieldTemplate: 'RjsfGridFieldTemplate'
+})
 export class UpdateVertexInput {
   @Field()
   @MinLength(3)
-  @Required()
+  @RjsfGridProp({ row: 0, span: 24, required: true })
   declare vertexId: string
 
   @Field(() => String, { nullable: true })
-  @Enum(VertexType)
+  @RjsfGridProp({ row: 1, span: 24, required: true, enum: VertexType })
   declare type?: VertexType
+
+  @RjsfGridProp({
+    row: 2,
+    span: 24,
+    title: 'Button props: ',
+    condition: {key: 'type', value: VertexType.React_Button},
+    clazz: ButtonProps
+  })
+  declare buttonProps: ButtonProps
 
   @Field(() => GraphQLJSONObject, { nullable: true })
   declare props?: object
