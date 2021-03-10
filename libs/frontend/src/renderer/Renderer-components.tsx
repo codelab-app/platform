@@ -1,5 +1,5 @@
 import { Frame, SerializedNodes, useEditor } from '@craftjs/core'
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { useRecoilState } from 'recoil'
 import { paneConfigState } from '../../../../apps/web/src/pages/builder/pane-config/Pane-config'
 import { PaneConfigHandlersProps } from '../../../../apps/web/src/pages/builder/pane-config/Pane-config--handlers'
@@ -91,14 +91,6 @@ export const RenderComponents = ({
    *     </RootComponent>
    * ) */
 
-  const {
-    actions: { deserialize },
-  } = useEditor()
-
-  useEffect(() => {
-    deserialize(data)
-  }, [data, deserialize])
-
   useEditor((s, q) => {
     const selectedVertexId = s.events.selected
 
@@ -107,8 +99,6 @@ export const RenderComponents = ({
     }
   })
 
-  /* after async load data and deserialize the data with actions.deserialize method the indicator bar is missing but you can still dropping and dragging elements
-     https://github.com/prevwong/craft.js/issues/97 */
   return (
     <div style={{ width: '100%', height: 'auto' }}>
       <Frame data={data} />
