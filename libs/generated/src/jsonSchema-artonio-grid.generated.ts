@@ -1826,7 +1826,13 @@ export const UpdateVertexInputSchema = {
                     "type": "string"
                   },
                   "title": "Page Size Options",
-                  "description": "Specify the sizeChanger options"
+                  "description": "Specify the sizeChanger options",
+                  "default": [
+                    "10",
+                    "20",
+                    "50",
+                    "100"
+                  ]
                 },
                 "responsive": {
                   "type": "boolean",

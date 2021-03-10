@@ -88,6 +88,10 @@ const generateSchemaForBasicType = (props: any, target: Object, propertyKey: str
 				}
 			}
 
+			if (props.default || props.default === 0 || props.default === false) {
+				obj.default = props.default
+			}
+
 			if (props.type) {
 				obj.items.type = props.type
 			}
