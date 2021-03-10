@@ -36,17 +36,17 @@ export const PropsList = [
   LayoutProps, // done
   LayoutSiderProps, // done
   SpaceProps, // done
-  AffixProps,
-  BreadcrumbSelectedProps,
-  BreadcrumbItemProps,
-  DropdownSelectedProps,
-  MenuSelectedProps,
-  MenuItemSelectedProps,
-  MenuSubMenuProps,
-  MenuItemGroupProps,
+  AffixProps, // done
+  BreadcrumbSelectedProps, // done
+  BreadcrumbItemProps, // done
+  DropdownSelectedProps, // done
+  MenuSelectedProps, // done
+  MenuItemSelectedProps, // done
+  MenuSubMenuProps, // done
+  MenuItemGroupProps, // done
   PageHeaderProps,
   AvatarSelectedProps,
-  TagSelectedProps,
+  TagSelectedProps, // done
   PaginationProps,
   StepsProps,
   StepsStepProps,

@@ -10,27 +10,53 @@ import {
 } from '@tsed/schema'
 import { MenuItemProps as AntMenuItemProps } from 'antd/lib/menu'
 import * as React from 'react'
+import { RjsfGrid, RjsfGridProp } from '@codelab/tools/generators/form-decorator';
 
+@RjsfGrid({
+  'ui:spacing': 16,
+  ObjectFieldTemplate: 'RjsfGridFieldTemplate'
+})
 export class MenuItemProps implements AntMenuItemProps {
-  @Optional()
-  @Description('Display the danger style')
+
+  @RjsfGridProp({
+    title: 'Danger',
+    description: 'Display the danger style',
+    row: 0,
+    span: 24,
+  })
   danger?: boolean
 
-  @Optional()
-  @Description('Whether menu item is disabled')
+  @RjsfGridProp({
+    title: 'Disabled',
+    description: 'Whether menu item is disabled',
+    row: 1,
+    span: 24,
+  })
   disabled?: boolean
 
-  @Optional()
-  @Property('string')
-  @Description('The icon of the menu item')
+  @RjsfGridProp({
+    title: 'Icon',
+    description: 'The icon of the menu item',
+    type: 'string',
+    row: 2,
+    span: 24,
+  })
   icon?: React.ReactNode
 
-  @Optional()
-  @Description('Unique ID of the menu item')
+  @RjsfGridProp({
+    title: 'Key',
+    description: 'Unique ID of the menu item',
+    row: 3,
+    span: 24,
+  })
   key?: string
 
-  @Optional()
-  @Description('Set display title for collapsed item')
+  @RjsfGridProp({
+    title: 'Title',
+    description: 'Set display title for collapsed item',
+    row: 4,
+    span: 24,
+  })
   title?: string
 }
 

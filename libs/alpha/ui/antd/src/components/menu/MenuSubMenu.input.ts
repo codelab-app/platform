@@ -1,39 +1,56 @@
-import { VertexType } from '@prisma/client'
-import {
-  Description,
-  Enum,
-  Optional,
-  Property,
-  Schema,
-  Title,
-  getJsonSchema,
-} from '@tsed/schema'
+import { Optional, Schema, } from '@tsed/schema'
 import { SubMenuProps } from 'antd/lib/menu'
 import { ReactNode } from 'react'
-import { JsonSchemaArray } from '../../../../../../backend/src/common/decorators/JsonSchemaArray'
 import { MenuItemProps } from './MenuItem.input'
+import { RjsfGrid, RjsfGridProp } from '@codelab/tools/generators/form-decorator';
 
-class Props implements SubMenuProps {
-  @JsonSchemaArray(MenuItemProps)
-  @Title('Children of type MenuItem')
-  @Description('Sub-menus or sub-menu items')
+@RjsfGrid({
+  'ui:spacing': 16,
+  ObjectFieldTemplate: 'RjsfGridFieldTemplate'
+})
+export class MenuSubMenuProps implements SubMenuProps {
+
+  @RjsfGridProp({
+    title: 'Children of type MenuItem',
+    description: 'Sub-menus or sub-menu items',
+    isArray: true,
+    clazz: MenuItemProps,
+    row: 0,
+    span: 24,
+  })
   children?: any
 
-  @Optional()
-  @Description('Whether sub-menu is disabled')
+  @RjsfGridProp({
+    title: 'Disabled',
+    description: 'Whether sub-menu is disabled',
+    row: 1,
+    span: 24,
+  })
   disabled?: boolean
 
-  @Optional()
-  @Property('string')
-  @Description('Icon of sub menu')
+  @RjsfGridProp({
+    title: 'Icon',
+    description: 'Icon of sub menu',
+    type: 'string',
+    row: 2,
+    span: 24,
+  })
   icon?: ReactNode
 
-  @Optional()
-  @Description('Unique ID of the sub-menu')
+  @RjsfGridProp({
+    title: 'Key',
+    description: 'Unique ID of the sub-menu',
+    row: 3,
+    span: 24,
+  })
   key?: string
 
-  @Optional()
-  @Description('Sub-menu class name, not working when mode="inline"')
+  @RjsfGridProp({
+    title: 'popupClassName',
+    description: 'Sub-menu class name, not working when mode="inline"',
+    row: 4,
+    span: 24,
+  })
   popupClassName?: string
 
   @Optional()
@@ -53,22 +70,30 @@ class Props implements SubMenuProps {
       },
     ],
   })
+  @RjsfGridProp({
+    row: 5,
+    span: 24,
+  })
   popupOffset?: any
 
-  @Optional()
-  @Property('string')
-  @Description('Title of sub menu')
+  @RjsfGridProp({
+    title: 'Title',
+    description: 'Title of sub menu',
+    type: 'string',
+    row: 6,
+    span: 24,
+  })
   title?: ReactNode
 
   // onTitleClick?: (e: TitleEventEntity) => void;
 }
 
-export class MenuSubMenuProps {
-  @Property()
-  @Enum(VertexType.React_Menu_SubMenu)
-  declare type: string
-
-  @Schema(getJsonSchema(Props, { customKeys: true }))
-  @Title('')
-  declare props: object
-}
+// export class MenuSubMenuProps {
+//   @Property()
+//   @Enum(VertexType.React_Menu_SubMenu)
+//   declare type: string
+//
+//   @Schema(getJsonSchema(Props, { customKeys: true }))
+//   @Title('')
+//   declare props: object
+// }

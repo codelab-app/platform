@@ -123,7 +123,6 @@ export const UpdateVertexInputSchema = {
           "type": "object",
           "properties": {
             "type": {
-              "type": "string",
               "enum": [
                 "React_Button"
               ]
@@ -214,7 +213,7 @@ export const UpdateVertexInputSchema = {
                   "description": "Can be set to primary ghost dashed link text default"
                 }
               },
-              "title": "Button props: "
+              "title": "Button props"
             }
           }
         },
@@ -222,7 +221,6 @@ export const UpdateVertexInputSchema = {
           "type": "object",
           "properties": {
             "type": {
-              "type": "string",
               "enum": [
                 "React_Card"
               ]
@@ -339,7 +337,7 @@ export const UpdateVertexInputSchema = {
                   "description": "Card style type, can be set to inner or not set"
                 }
               },
-              "title": "Card props: "
+              "title": "Card props"
             }
           }
         },
@@ -347,7 +345,6 @@ export const UpdateVertexInputSchema = {
           "type": "object",
           "properties": {
             "type": {
-              "type": "string",
               "enum": [
                 "React_Card_Grid"
               ]
@@ -371,7 +368,7 @@ export const UpdateVertexInputSchema = {
                   "description": "The style object of container"
                 }
               },
-              "title": "Card Grid Props: "
+              "title": "Card Grid Props"
             }
           }
         },
@@ -379,7 +376,6 @@ export const UpdateVertexInputSchema = {
           "type": "object",
           "properties": {
             "type": {
-              "type": "string",
               "enum": [
                 "React_Card_Meta"
               ]
@@ -413,7 +409,7 @@ export const UpdateVertexInputSchema = {
                   "description": "Title content"
                 }
               },
-              "title": "Card Meta Props: "
+              "title": "Card Meta Props"
             }
           }
         },
@@ -421,7 +417,6 @@ export const UpdateVertexInputSchema = {
           "type": "object",
           "properties": {
             "type": {
-              "type": "string",
               "enum": [
                 "React_Icon"
               ]
@@ -455,7 +450,7 @@ export const UpdateVertexInputSchema = {
                   "description": "Only supports the two-tone icon. Specify the primary color"
                 }
               },
-              "title": "Icon Props: "
+              "title": "Icon Props"
             }
           }
         },
@@ -463,7 +458,6 @@ export const UpdateVertexInputSchema = {
           "type": "object",
           "properties": {
             "type": {
-              "type": "string",
               "enum": [
                 "React_Divider"
               ]
@@ -513,7 +507,7 @@ export const UpdateVertexInputSchema = {
                   "default": "horizontal"
                 }
               },
-              "title": "Divider Props: "
+              "title": "Divider Props"
             }
           }
         },
@@ -521,7 +515,6 @@ export const UpdateVertexInputSchema = {
           "type": "object",
           "properties": {
             "type": {
-              "type": "string",
               "enum": [
                 "React_Layout"
               ]
@@ -545,7 +538,7 @@ export const UpdateVertexInputSchema = {
                   "description": "To customize the styles"
                 }
               },
-              "title": "Layout Props: "
+              "title": "Layout Props"
             }
           }
         },
@@ -553,7 +546,6 @@ export const UpdateVertexInputSchema = {
           "type": "object",
           "properties": {
             "type": {
-              "type": "string",
               "enum": [
                 "React_Layout_Header"
               ]
@@ -577,7 +569,7 @@ export const UpdateVertexInputSchema = {
                   "description": "To customize the styles"
                 }
               },
-              "title": "Layout Header Props: "
+              "title": "Layout Header Props"
             }
           }
         },
@@ -585,7 +577,6 @@ export const UpdateVertexInputSchema = {
           "type": "object",
           "properties": {
             "type": {
-              "type": "string",
               "enum": [
                 "React_Layout_Footer"
               ]
@@ -609,7 +600,7 @@ export const UpdateVertexInputSchema = {
                   "description": "To customize the styles"
                 }
               },
-              "title": "Layout Footer Props: "
+              "title": "Layout Footer Props"
             }
           }
         },
@@ -617,7 +608,6 @@ export const UpdateVertexInputSchema = {
           "type": "object",
           "properties": {
             "type": {
-              "type": "string",
               "enum": [
                 "React_Layout_Content"
               ]
@@ -641,7 +631,7 @@ export const UpdateVertexInputSchema = {
                   "description": "To customize the styles"
                 }
               },
-              "title": "Layout Content Props: "
+              "title": "Layout Content Props"
             }
           }
         },
@@ -649,7 +639,6 @@ export const UpdateVertexInputSchema = {
           "type": "object",
           "properties": {
             "type": {
-              "type": "string",
               "enum": [
                 "React_Layout_Sider"
               ]
@@ -733,7 +722,7 @@ export const UpdateVertexInputSchema = {
                   "description": "To customize the styles of the special trigger that appears when collapsedWidth is 0"
                 }
               },
-              "title": "Layout Sider Props: "
+              "title": "Layout Sider Props"
             }
           }
         },
@@ -741,7 +730,6 @@ export const UpdateVertexInputSchema = {
           "type": "object",
           "properties": {
             "type": {
-              "type": "string",
               "enum": [
                 "React_Space"
               ]
@@ -786,7 +774,7 @@ export const UpdateVertexInputSchema = {
                   "description": "Auto wrap line, when horizontal effective"
                 }
               },
-              "title": "Space Props: "
+              "title": "Space Props"
             }
           }
         },
@@ -794,7 +782,6 @@ export const UpdateVertexInputSchema = {
           "type": "object",
           "properties": {
             "type": {
-              "type": "string",
               "enum": [
                 "React_Affix"
               ]
@@ -814,7 +801,1111 @@ export const UpdateVertexInputSchema = {
                   "default": 0
                 }
               },
-              "title": "Affix Props: "
+              "title": "Affix Props"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "React_Breadcrumb"
+              ]
+            },
+            "breadcrumbProps": {
+              "type": "object",
+              "properties": {
+                "params": {
+                  "type": "string",
+                  "title": "Params",
+                  "description": "Routing parameters"
+                },
+                "routes": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "path": {
+                        "type": "string",
+                        "minLength": 1,
+                        "title": "Path"
+                      },
+                      "breadcrumbName": {
+                        "type": "string",
+                        "minLength": 1,
+                        "title": "Breadcrumb Name"
+                      },
+                      "children": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string",
+                              "minLength": 1,
+                              "title": "Path"
+                            },
+                            "breadcrumbName": {
+                              "type": "string",
+                              "minLength": 1,
+                              "title": "Breadcrumb Name"
+                            }
+                          },
+                          "required": [
+                            "path",
+                            "breadcrumbName"
+                          ]
+                        },
+                        "title": "Children"
+                      }
+                    },
+                    "required": [
+                      "path",
+                      "breadcrumbName"
+                    ]
+                  },
+                  "title": "Routes"
+                },
+                "separator": {
+                  "type": "string",
+                  "title": "Separator",
+                  "description": "Custom separator"
+                }
+              },
+              "title": "Bread Crumb Props"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "React_Breadcrumb_Item"
+              ]
+            },
+            "breadcrumbItemProps": {
+              "type": "object",
+              "properties": {
+                "className": {
+                  "type": "string",
+                  "title": "Class Name",
+                  "description": "The additional css class"
+                },
+                "dropdownProps": {
+                  "type": "object",
+                  "properties": {
+                    "arrow": {
+                      "type": "boolean",
+                      "title": "Arrow",
+                      "description": "Whether the dropdown arrow should be visible"
+                    },
+                    "disabled": {
+                      "type": "boolean",
+                      "title": "Disabled",
+                      "description": "Whether the dropdown menu is disabled"
+                    },
+                    "overlay": {
+                      "type": "object",
+                      "properties": {
+                        "defaultOpenKeys": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          },
+                          "title": "Default Open Keys",
+                          "description": "Array with the keys of default opened sub menus"
+                        },
+                        "defaultSelectedKeys": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          },
+                          "title": "Default Selected Keys",
+                          "description": "Array with the keys of default selected menu items"
+                        },
+                        "expandIcon": {
+                          "type": "string",
+                          "title": "Expand Icon",
+                          "description": "Custom expand icon of submenu"
+                        },
+                        "forceSubMenuRender": {
+                          "type": "boolean",
+                          "title": "Force SubMenu Render",
+                          "description": "Render submenu into DOM before it becomes visible"
+                        },
+                        "inlineCollapsed": {
+                          "type": "boolean",
+                          "title": "Inline Collapsed",
+                          "description": "Specifies the collapsed status when menu is inline mode"
+                        },
+                        "inlineIndent": {
+                          "type": "number",
+                          "title": "Inline Indent",
+                          "description": "Indent (in pixels) of inline menu items on each level",
+                          "default": 24
+                        },
+                        "mode": {
+                          "type": "string",
+                          "enum": [
+                            "horizontal",
+                            "vertical",
+                            "vertical-left",
+                            "vertical-right",
+                            "inline"
+                          ],
+                          "title": "Menu Mode",
+                          "description": "Type of menu",
+                          "default": "vertical"
+                        },
+                        "multiple": {
+                          "type": "boolean",
+                          "title": "Multiple",
+                          "description": "Allows selection of multiple items"
+                        },
+                        "openKeys": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          },
+                          "title": "Open Keys",
+                          "description": "Array with the keys of currently opened sub-menus"
+                        },
+                        "overflowedIndicator": {
+                          "type": "string",
+                          "title": "Overflowed Indicator",
+                          "description": "Customized icon when menu is collapsed"
+                        },
+                        "selectable": {
+                          "type": "boolean",
+                          "title": "Selectable",
+                          "description": "Allows selecting menu items"
+                        },
+                        "selectedKeys": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          },
+                          "title": "Selected Keys",
+                          "description": "Array with the keys of currently selected menu items"
+                        },
+                        "style": {
+                          "type": "string",
+                          "title": "Style",
+                          "description": "Style of the root node"
+                        },
+                        "subMenuCloseDelay": {
+                          "type": "number",
+                          "title": "SubMenu Close Delay",
+                          "description": "Delay time to hide submenu when mouse leaves (in seconds)",
+                          "default": 0.1
+                        },
+                        "subMenuOpenDelay": {
+                          "type": "number",
+                          "title": "SubMenu Open Delay",
+                          "description": "Delay time to show submenu when mouse enters, (in seconds)",
+                          "default": 0
+                        },
+                        "theme": {
+                          "type": "string",
+                          "enum": [
+                            "light",
+                            "dark"
+                          ],
+                          "title": "Theme",
+                          "description": "Color theme of the menu",
+                          "default": "light"
+                        },
+                        "triggerSubMenuAction": {
+                          "type": "string",
+                          "enum": [
+                            "hover",
+                            "click"
+                          ],
+                          "title": "Trigger SubMenu Action",
+                          "description": "Which action can trigger submenu open/close",
+                          "default": "hover"
+                        }
+                      },
+                      "title": "Overlay",
+                      "description": "The dropdown menu"
+                    },
+                    "overlayClassName": {
+                      "type": "string",
+                      "title": "Overlay Class Name",
+                      "description": "The class name of the dropdown root element"
+                    },
+                    "overlayStyle": {
+                      "type": "string",
+                      "title": "Overlay Style",
+                      "description": "The style of the dropdown root element"
+                    },
+                    "placement": {
+                      "type": "string",
+                      "enum": [
+                        "topLeft",
+                        "topCenter",
+                        "topRight",
+                        "bottomLeft",
+                        "bottomCenter",
+                        "bottomRight"
+                      ],
+                      "title": "Placement",
+                      "description": "Placement of popup menu",
+                      "default": "bottomLeft"
+                    },
+                    "trigger": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "click",
+                          "hover",
+                          "contextMenu"
+                        ]
+                      },
+                      "description": "The trigger mode which executes the dropdown action. Note that hover can't be used on touchscreens",
+                      "title": "Trigger",
+                      "uniqueItems": true,
+                      "maxItems": 3,
+                      "default": [
+                        "hover"
+                      ]
+                    },
+                    "visible": {
+                      "type": "boolean",
+                      "title": "Visible",
+                      "description": "Whether the dropdown menu is currently visible"
+                    }
+                  },
+                  "title": "Dropdown Props",
+                  "description": "The dropdown props"
+                },
+                "href": {
+                  "type": "string",
+                  "title": "Href",
+                  "description": "Target of hyperlink"
+                },
+                "overlay": {
+                  "type": "object",
+                  "properties": {
+                    "defaultOpenKeys": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "title": "Default Open Keys",
+                      "description": "Array with the keys of default opened sub menus"
+                    },
+                    "defaultSelectedKeys": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "title": "Default Selected Keys",
+                      "description": "Array with the keys of default selected menu items"
+                    },
+                    "expandIcon": {
+                      "type": "string",
+                      "title": "Expand Icon",
+                      "description": "Custom expand icon of submenu"
+                    },
+                    "forceSubMenuRender": {
+                      "type": "boolean",
+                      "title": "Force SubMenu Render",
+                      "description": "Render submenu into DOM before it becomes visible"
+                    },
+                    "inlineCollapsed": {
+                      "type": "boolean",
+                      "title": "Inline Collapsed",
+                      "description": "Specifies the collapsed status when menu is inline mode"
+                    },
+                    "inlineIndent": {
+                      "type": "number",
+                      "title": "Inline Indent",
+                      "description": "Indent (in pixels) of inline menu items on each level",
+                      "default": 24
+                    },
+                    "mode": {
+                      "type": "string",
+                      "enum": [
+                        "horizontal",
+                        "vertical",
+                        "vertical-left",
+                        "vertical-right",
+                        "inline"
+                      ],
+                      "title": "Menu Mode",
+                      "description": "Type of menu",
+                      "default": "vertical"
+                    },
+                    "multiple": {
+                      "type": "boolean",
+                      "title": "Multiple",
+                      "description": "Allows selection of multiple items"
+                    },
+                    "openKeys": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "title": "Open Keys",
+                      "description": "Array with the keys of currently opened sub-menus"
+                    },
+                    "overflowedIndicator": {
+                      "type": "string",
+                      "title": "Overflowed Indicator",
+                      "description": "Customized icon when menu is collapsed"
+                    },
+                    "selectable": {
+                      "type": "boolean",
+                      "title": "Selectable",
+                      "description": "Allows selecting menu items"
+                    },
+                    "selectedKeys": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "title": "Selected Keys",
+                      "description": "Array with the keys of currently selected menu items"
+                    },
+                    "style": {
+                      "type": "string",
+                      "title": "Style",
+                      "description": "Style of the root node"
+                    },
+                    "subMenuCloseDelay": {
+                      "type": "number",
+                      "title": "SubMenu Close Delay",
+                      "description": "Delay time to hide submenu when mouse leaves (in seconds)",
+                      "default": 0.1
+                    },
+                    "subMenuOpenDelay": {
+                      "type": "number",
+                      "title": "SubMenu Open Delay",
+                      "description": "Delay time to show submenu when mouse enters, (in seconds)",
+                      "default": 0
+                    },
+                    "theme": {
+                      "type": "string",
+                      "enum": [
+                        "light",
+                        "dark"
+                      ],
+                      "title": "Theme",
+                      "description": "Color theme of the menu",
+                      "default": "light"
+                    },
+                    "triggerSubMenuAction": {
+                      "type": "string",
+                      "enum": [
+                        "hover",
+                        "click"
+                      ],
+                      "title": "Trigger SubMenu Action",
+                      "description": "Which action can trigger submenu open/close",
+                      "default": "hover"
+                    }
+                  },
+                  "title": "Menu Props",
+                  "description": "The dropdown menu"
+                }
+              },
+              "title": "Bread Crumb Props"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "React_Dropdown"
+              ]
+            },
+            "dropdownProps": {
+              "type": "object",
+              "properties": {
+                "arrow": {
+                  "type": "boolean",
+                  "title": "Arrow",
+                  "description": "Whether the dropdown arrow should be visible"
+                },
+                "disabled": {
+                  "type": "boolean",
+                  "title": "Disabled",
+                  "description": "Whether the dropdown menu is disabled"
+                },
+                "overlay": {
+                  "type": "object",
+                  "properties": {
+                    "defaultOpenKeys": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "title": "Default Open Keys",
+                      "description": "Array with the keys of default opened sub menus"
+                    },
+                    "defaultSelectedKeys": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "title": "Default Selected Keys",
+                      "description": "Array with the keys of default selected menu items"
+                    },
+                    "expandIcon": {
+                      "type": "string",
+                      "title": "Expand Icon",
+                      "description": "Custom expand icon of submenu"
+                    },
+                    "forceSubMenuRender": {
+                      "type": "boolean",
+                      "title": "Force SubMenu Render",
+                      "description": "Render submenu into DOM before it becomes visible"
+                    },
+                    "inlineCollapsed": {
+                      "type": "boolean",
+                      "title": "Inline Collapsed",
+                      "description": "Specifies the collapsed status when menu is inline mode"
+                    },
+                    "inlineIndent": {
+                      "type": "number",
+                      "title": "Inline Indent",
+                      "description": "Indent (in pixels) of inline menu items on each level",
+                      "default": 24
+                    },
+                    "mode": {
+                      "type": "string",
+                      "enum": [
+                        "horizontal",
+                        "vertical",
+                        "vertical-left",
+                        "vertical-right",
+                        "inline"
+                      ],
+                      "title": "Menu Mode",
+                      "description": "Type of menu",
+                      "default": "vertical"
+                    },
+                    "multiple": {
+                      "type": "boolean",
+                      "title": "Multiple",
+                      "description": "Allows selection of multiple items"
+                    },
+                    "openKeys": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "title": "Open Keys",
+                      "description": "Array with the keys of currently opened sub-menus"
+                    },
+                    "overflowedIndicator": {
+                      "type": "string",
+                      "title": "Overflowed Indicator",
+                      "description": "Customized icon when menu is collapsed"
+                    },
+                    "selectable": {
+                      "type": "boolean",
+                      "title": "Selectable",
+                      "description": "Allows selecting menu items"
+                    },
+                    "selectedKeys": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "title": "Selected Keys",
+                      "description": "Array with the keys of currently selected menu items"
+                    },
+                    "style": {
+                      "type": "string",
+                      "title": "Style",
+                      "description": "Style of the root node"
+                    },
+                    "subMenuCloseDelay": {
+                      "type": "number",
+                      "title": "SubMenu Close Delay",
+                      "description": "Delay time to hide submenu when mouse leaves (in seconds)",
+                      "default": 0.1
+                    },
+                    "subMenuOpenDelay": {
+                      "type": "number",
+                      "title": "SubMenu Open Delay",
+                      "description": "Delay time to show submenu when mouse enters, (in seconds)",
+                      "default": 0
+                    },
+                    "theme": {
+                      "type": "string",
+                      "enum": [
+                        "light",
+                        "dark"
+                      ],
+                      "title": "Theme",
+                      "description": "Color theme of the menu",
+                      "default": "light"
+                    },
+                    "triggerSubMenuAction": {
+                      "type": "string",
+                      "enum": [
+                        "hover",
+                        "click"
+                      ],
+                      "title": "Trigger SubMenu Action",
+                      "description": "Which action can trigger submenu open/close",
+                      "default": "hover"
+                    }
+                  },
+                  "title": "Overlay",
+                  "description": "The dropdown menu"
+                },
+                "overlayClassName": {
+                  "type": "string",
+                  "title": "Overlay Class Name",
+                  "description": "The class name of the dropdown root element"
+                },
+                "overlayStyle": {
+                  "type": "string",
+                  "title": "Overlay Style",
+                  "description": "The style of the dropdown root element"
+                },
+                "placement": {
+                  "type": "string",
+                  "enum": [
+                    "topLeft",
+                    "topCenter",
+                    "topRight",
+                    "bottomLeft",
+                    "bottomCenter",
+                    "bottomRight"
+                  ],
+                  "title": "Placement",
+                  "description": "Placement of popup menu",
+                  "default": "bottomLeft"
+                },
+                "trigger": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "click",
+                      "hover",
+                      "contextMenu"
+                    ]
+                  },
+                  "description": "The trigger mode which executes the dropdown action. Note that hover can't be used on touchscreens",
+                  "title": "Trigger",
+                  "uniqueItems": true,
+                  "maxItems": 3,
+                  "default": [
+                    "hover"
+                  ]
+                },
+                "visible": {
+                  "type": "boolean",
+                  "title": "Visible",
+                  "description": "Whether the dropdown menu is currently visible"
+                }
+              },
+              "title": "Drop Down Props"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "React_Menu"
+              ]
+            },
+            "menuProps": {
+              "type": "object",
+              "properties": {
+                "defaultOpenKeys": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "title": "Default Open Keys",
+                  "description": "Array with the keys of default opened sub menus"
+                },
+                "defaultSelectedKeys": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "title": "Default Selected Keys",
+                  "description": "Array with the keys of default selected menu items"
+                },
+                "expandIcon": {
+                  "type": "string",
+                  "title": "Expand Icon",
+                  "description": "Custom expand icon of submenu"
+                },
+                "forceSubMenuRender": {
+                  "type": "boolean",
+                  "title": "Force SubMenu Render",
+                  "description": "Render submenu into DOM before it becomes visible"
+                },
+                "inlineCollapsed": {
+                  "type": "boolean",
+                  "title": "Inline Collapsed",
+                  "description": "Specifies the collapsed status when menu is inline mode"
+                },
+                "inlineIndent": {
+                  "type": "number",
+                  "title": "Inline Indent",
+                  "description": "Indent (in pixels) of inline menu items on each level",
+                  "default": 24
+                },
+                "mode": {
+                  "type": "string",
+                  "enum": [
+                    "horizontal",
+                    "vertical",
+                    "vertical-left",
+                    "vertical-right",
+                    "inline"
+                  ],
+                  "title": "Menu Mode",
+                  "description": "Type of menu",
+                  "default": "vertical"
+                },
+                "multiple": {
+                  "type": "boolean",
+                  "title": "Multiple",
+                  "description": "Allows selection of multiple items"
+                },
+                "openKeys": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "title": "Open Keys",
+                  "description": "Array with the keys of currently opened sub-menus"
+                },
+                "overflowedIndicator": {
+                  "type": "string",
+                  "title": "Overflowed Indicator",
+                  "description": "Customized icon when menu is collapsed"
+                },
+                "selectable": {
+                  "type": "boolean",
+                  "title": "Selectable",
+                  "description": "Allows selecting menu items"
+                },
+                "selectedKeys": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "title": "Selected Keys",
+                  "description": "Array with the keys of currently selected menu items"
+                },
+                "style": {
+                  "type": "string",
+                  "title": "Style",
+                  "description": "Style of the root node"
+                },
+                "subMenuCloseDelay": {
+                  "type": "number",
+                  "title": "SubMenu Close Delay",
+                  "description": "Delay time to hide submenu when mouse leaves (in seconds)",
+                  "default": 0.1
+                },
+                "subMenuOpenDelay": {
+                  "type": "number",
+                  "title": "SubMenu Open Delay",
+                  "description": "Delay time to show submenu when mouse enters, (in seconds)",
+                  "default": 0
+                },
+                "theme": {
+                  "type": "string",
+                  "enum": [
+                    "light",
+                    "dark"
+                  ],
+                  "title": "Theme",
+                  "description": "Color theme of the menu",
+                  "default": "light"
+                },
+                "triggerSubMenuAction": {
+                  "type": "string",
+                  "enum": [
+                    "hover",
+                    "click"
+                  ],
+                  "title": "Trigger SubMenu Action",
+                  "description": "Which action can trigger submenu open/close",
+                  "default": "hover"
+                }
+              },
+              "title": "Menu Props"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "React_Menu_Item"
+              ]
+            },
+            "menuItemProps": {
+              "type": "object",
+              "properties": {
+                "danger": {
+                  "type": "boolean",
+                  "title": "Danger",
+                  "description": "Display the danger style"
+                },
+                "disabled": {
+                  "type": "boolean",
+                  "title": "Disabled",
+                  "description": "Whether menu item is disabled"
+                },
+                "icon": {
+                  "type": "string",
+                  "title": "Icon",
+                  "description": "The icon of the menu item"
+                },
+                "key": {
+                  "type": "string",
+                  "title": "Key",
+                  "description": "Unique ID of the menu item"
+                },
+                "title": {
+                  "type": "string",
+                  "title": "Title",
+                  "description": "Set display title for collapsed item"
+                }
+              },
+              "title": "Menu Item Props"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "React_Menu_SubMenu"
+              ]
+            },
+            "menuSubMenuProps": {
+              "type": "object",
+              "properties": {
+                "children": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "danger": {
+                        "type": "boolean",
+                        "title": "Danger",
+                        "description": "Display the danger style"
+                      },
+                      "disabled": {
+                        "type": "boolean",
+                        "title": "Disabled",
+                        "description": "Whether menu item is disabled"
+                      },
+                      "icon": {
+                        "type": "string",
+                        "title": "Icon",
+                        "description": "The icon of the menu item"
+                      },
+                      "key": {
+                        "type": "string",
+                        "title": "Key",
+                        "description": "Unique ID of the menu item"
+                      },
+                      "title": {
+                        "type": "string",
+                        "title": "Title",
+                        "description": "Set display title for collapsed item"
+                      }
+                    }
+                  },
+                  "title": "Children of type MenuItem"
+                },
+                "disabled": {
+                  "type": "boolean",
+                  "title": "Disabled",
+                  "description": "Whether sub-menu is disabled"
+                },
+                "icon": {
+                  "type": "string",
+                  "title": "Icon",
+                  "description": "Icon of sub menu"
+                },
+                "key": {
+                  "type": "string",
+                  "title": "Key",
+                  "description": "Unique ID of the sub-menu"
+                },
+                "popupClassName": {
+                  "type": "string",
+                  "title": "popupClassName",
+                  "description": "Sub-menu class name, not working when mode=\"inline\""
+                },
+                "popupOffset": {
+                  "type": "array",
+                  "title": "Popup offset in the format of number, number",
+                  "items": [
+                    {
+                      "title": "A number",
+                      "type": "number",
+                      "default": 0
+                    },
+                    {
+                      "title": "A number",
+                      "type": "number",
+                      "default": 0
+                    }
+                  ]
+                },
+                "title": {
+                  "type": "string",
+                  "title": "Title",
+                  "description": "Title of sub menu"
+                }
+              },
+              "title": "Menu Item Props"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "React_Menu_ItemGroup"
+              ]
+            },
+            "menuItemGroupProps": {
+              "type": "object",
+              "properties": {
+                "children": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "danger": {
+                        "type": "boolean",
+                        "title": "Danger",
+                        "description": "Display the danger style"
+                      },
+                      "disabled": {
+                        "type": "boolean",
+                        "title": "Disabled",
+                        "description": "Whether menu item is disabled"
+                      },
+                      "icon": {
+                        "type": "string",
+                        "title": "Icon",
+                        "description": "The icon of the menu item"
+                      },
+                      "key": {
+                        "type": "string",
+                        "title": "Key",
+                        "description": "Unique ID of the menu item"
+                      },
+                      "title": {
+                        "type": "string",
+                        "title": "Title",
+                        "description": "Set display title for collapsed item"
+                      }
+                    }
+                  },
+                  "title": "Children of type MenuItem"
+                },
+                "title": {
+                  "type": "string",
+                  "title": "Title",
+                  "description": "The title of the group"
+                }
+              },
+              "title": "Menu Item Group Props"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "React_Tag"
+              ]
+            },
+            "tagProps": {
+              "type": "object",
+              "properties": {
+                "closable": {
+                  "type": "boolean",
+                  "title": "Closable",
+                  "description": "Whether the Tag can be closed"
+                },
+                "closeIcon": {
+                  "type": "string",
+                  "title": "Close Icon",
+                  "description": "Custom close icon"
+                },
+                "color": {
+                  "type": "string",
+                  "title": "Color",
+                  "description": "Color of the Tag"
+                },
+                "icon": {
+                  "type": "string",
+                  "title": "Icon",
+                  "description": "Set the icon of tag"
+                },
+                "visible": {
+                  "type": "boolean",
+                  "title": "Visible",
+                  "description": "Whether the Tag is closed or not"
+                }
+              },
+              "title": "Tag Props"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "React_Pagination"
+              ]
+            },
+            "paginationProps": {
+              "type": "object",
+              "properties": {
+                "current": {
+                  "type": "number",
+                  "title": "Current",
+                  "description": "Current page number"
+                },
+                "defaultCurrent": {
+                  "type": "number",
+                  "title": "Default Current",
+                  "description": "Default initial page number",
+                  "default": 1
+                },
+                "defaultPageSize": {
+                  "type": "number",
+                  "title": "Default Page Size",
+                  "description": "Default number of data items per page",
+                  "default": 10
+                },
+                "disabled": {
+                  "type": "boolean",
+                  "title": "disabled",
+                  "description": "Disable pagination"
+                },
+                "hideOnSinglePage": {
+                  "type": "boolean",
+                  "title": "Hide On Single Page",
+                  "description": "Whether to hide pager on single page"
+                },
+                "pageSize": {
+                  "type": "number",
+                  "title": "Page Size",
+                  "description": "Number of data items per page"
+                },
+                "pageSizeOptions": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "title": "Page Size Options",
+                  "description": "Specify the sizeChanger options"
+                },
+                "responsive": {
+                  "type": "boolean",
+                  "title": "Responsive",
+                  "description": "If size is not specified, Pagination would resize according to the width of the window"
+                },
+                "showLessItems": {
+                  "type": "boolean",
+                  "title": "Show Less Items",
+                  "description": "Show less page items"
+                },
+                "showQuickJumper": {
+                  "type": "boolean",
+                  "title": "Show Quick Jumper",
+                  "description": "Determine whether you can jump to pages directly"
+                },
+                "showSizeChanger": {
+                  "type": "boolean",
+                  "title": "Show Size Changer",
+                  "description": "Determine whether to show pageSize select, it will be true when total > 50"
+                },
+                "showTitle": {
+                  "type": "boolean",
+                  "title": "Show Title",
+                  "description": "Show page item's title"
+                },
+                "simple": {
+                  "type": "boolean",
+                  "title": "Simple",
+                  "description": "Whether to use simple mode"
+                },
+                "size": {
+                  "type": "string",
+                  "enum": [
+                    "default",
+                    "small"
+                  ],
+                  "title": "Size",
+                  "description": "Specify the size of Pagination, can be set to small",
+                  "default": "default"
+                },
+                "total": {
+                  "type": "number",
+                  "title": "Total",
+                  "description": "Total number of data items",
+                  "default": 0
+                }
+              },
+              "dependencies": {
+                "showQuickJumper": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "showQuickJumper": {
+                          "enum": [
+                            true
+                          ]
+                        },
+                        "goButton": {
+                          "type": "string",
+                          "title": "Go Button"
+                        }
+                      }
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "showQuickJumper": {
+                          "enum": [
+                            false
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "title": "Pagination Props"
             }
           }
         }
@@ -878,6 +1969,33 @@ export const UpdateVertexInputUiSchema = {
         "span": 24
       },
       "affixProps": {
+        "span": 24
+      },
+      "breadcrumbProps": {
+        "span": 24
+      },
+      "breadcrumbItemProps": {
+        "span": 24
+      },
+      "dropdownProps": {
+        "span": 24
+      },
+      "menuProps": {
+        "span": 24
+      },
+      "menuItemProps": {
+        "span": 24
+      },
+      "menuSubMenuProps": {
+        "span": 24
+      },
+      "menuItemGroupProps": {
+        "span": 24
+      },
+      "tagProps": {
+        "span": 24
+      },
+      "paginationProps": {
         "span": 24
       }
     }
@@ -1354,6 +2472,813 @@ export const UpdateVertexInputUiSchema = {
         },
         "offsetTop": {
           "span": 12
+        }
+      }
+    ]
+  },
+  "breadcrumbProps": {
+    "ui:ObjectFieldTemplate": RjsfGridFieldTemplate,
+    "ui:spacing": 16,
+    "ui:layout": [
+      {
+        "params": {
+          "span": 24
+        }
+      },
+      {
+        "routes": {
+          "span": 24
+        }
+      },
+      {
+        "separator": {
+          "span": 24
+        }
+      }
+    ],
+    "routes": {
+      "items": {
+        "ui:ObjectFieldTemplate": RjsfGridFieldTemplate,
+        "ui:spacing": 16,
+        "ui:layout": [
+          {
+            "path": {
+              "span": 24
+            }
+          },
+          {
+            "breadcrumbName": {
+              "span": 24
+            }
+          },
+          {
+            "children": {
+              "span": 24
+            }
+          }
+        ],
+        "children": {
+          "items": {
+            "ui:ObjectFieldTemplate": RjsfGridFieldTemplate,
+            "ui:spacing": 16,
+            "ui:layout": [
+              {
+                "path": {
+                  "span": 24
+                }
+              },
+              {
+                "breadcrumbName": {
+                  "span": 24
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "breadcrumbItemProps": {
+    "ui:ObjectFieldTemplate": RjsfGridFieldTemplate,
+    "ui:spacing": 16,
+    "ui:layout": [
+      {
+        "className": {
+          "span": 24
+        }
+      },
+      {
+        "dropdownProps": {
+          "span": 24
+        }
+      },
+      {
+        "href": {
+          "span": 24
+        }
+      },
+      {
+        "overlay": {
+          "span": 24
+        }
+      }
+    ],
+    "dropdownProps": {
+      "ui:ObjectFieldTemplate": RjsfGridFieldTemplate,
+      "ui:spacing": 16,
+      "ui:layout": [
+        {
+          "arrow": {
+            "span": 24
+          }
+        },
+        {
+          "disabled": {
+            "span": 24
+          }
+        },
+        {
+          "overlay": {
+            "span": 24
+          }
+        },
+        {
+          "overlayClassName": {
+            "span": 24
+          }
+        },
+        {
+          "overlayStyle": {
+            "span": 24
+          }
+        },
+        {
+          "placement": {
+            "span": 24
+          }
+        },
+        {
+          "trigger": {
+            "span": 24
+          },
+          "visible": {
+            "span": 24
+          }
+        }
+      ],
+      "overlay": {
+        "ui:ObjectFieldTemplate": RjsfGridFieldTemplate,
+        "ui:spacing": 16,
+        "ui:layout": [
+          {
+            "defaultOpenKeys": {
+              "span": 24
+            }
+          },
+          {
+            "defaultSelectedKeys": {
+              "span": 24
+            }
+          },
+          {
+            "expandIcon": {
+              "span": 24
+            }
+          },
+          {
+            "forceSubMenuRender": {
+              "span": 24
+            }
+          },
+          {
+            "inlineCollapsed": {
+              "span": 24
+            }
+          },
+          {
+            "inlineIndent": {
+              "span": 24
+            }
+          },
+          {
+            "mode": {
+              "span": 24
+            }
+          },
+          {
+            "multiple": {
+              "span": 24
+            }
+          },
+          {
+            "openKeys": {
+              "span": 24
+            }
+          },
+          {
+            "overflowedIndicator": {
+              "span": 24
+            }
+          },
+          {
+            "selectable": {
+              "span": 24
+            }
+          },
+          {
+            "selectedKeys": {
+              "span": 24
+            }
+          },
+          {
+            "style": {
+              "span": 24
+            }
+          },
+          {
+            "subMenuCloseDelay": {
+              "span": 24
+            }
+          },
+          {
+            "subMenuOpenDelay": {
+              "span": 24
+            }
+          },
+          {
+            "theme": {
+              "span": 24
+            }
+          },
+          {
+            "triggerSubMenuAction": {
+              "span": 24
+            }
+          }
+        ]
+      }
+    },
+    "overlay": {
+      "ui:ObjectFieldTemplate": RjsfGridFieldTemplate,
+      "ui:spacing": 16,
+      "ui:layout": [
+        {
+          "defaultOpenKeys": {
+            "span": 24
+          }
+        },
+        {
+          "defaultSelectedKeys": {
+            "span": 24
+          }
+        },
+        {
+          "expandIcon": {
+            "span": 24
+          }
+        },
+        {
+          "forceSubMenuRender": {
+            "span": 24
+          }
+        },
+        {
+          "inlineCollapsed": {
+            "span": 24
+          }
+        },
+        {
+          "inlineIndent": {
+            "span": 24
+          }
+        },
+        {
+          "mode": {
+            "span": 24
+          }
+        },
+        {
+          "multiple": {
+            "span": 24
+          }
+        },
+        {
+          "openKeys": {
+            "span": 24
+          }
+        },
+        {
+          "overflowedIndicator": {
+            "span": 24
+          }
+        },
+        {
+          "selectable": {
+            "span": 24
+          }
+        },
+        {
+          "selectedKeys": {
+            "span": 24
+          }
+        },
+        {
+          "style": {
+            "span": 24
+          }
+        },
+        {
+          "subMenuCloseDelay": {
+            "span": 24
+          }
+        },
+        {
+          "subMenuOpenDelay": {
+            "span": 24
+          }
+        },
+        {
+          "theme": {
+            "span": 24
+          }
+        },
+        {
+          "triggerSubMenuAction": {
+            "span": 24
+          }
+        }
+      ]
+    }
+  },
+  "dropdownProps": {
+    "ui:ObjectFieldTemplate": RjsfGridFieldTemplate,
+    "ui:spacing": 16,
+    "ui:layout": [
+      {
+        "arrow": {
+          "span": 24
+        }
+      },
+      {
+        "disabled": {
+          "span": 24
+        }
+      },
+      {
+        "overlay": {
+          "span": 24
+        }
+      },
+      {
+        "overlayClassName": {
+          "span": 24
+        }
+      },
+      {
+        "overlayStyle": {
+          "span": 24
+        }
+      },
+      {
+        "placement": {
+          "span": 24
+        }
+      },
+      {
+        "trigger": {
+          "span": 24
+        },
+        "visible": {
+          "span": 24
+        }
+      }
+    ],
+    "overlay": {
+      "ui:ObjectFieldTemplate": RjsfGridFieldTemplate,
+      "ui:spacing": 16,
+      "ui:layout": [
+        {
+          "defaultOpenKeys": {
+            "span": 24
+          }
+        },
+        {
+          "defaultSelectedKeys": {
+            "span": 24
+          }
+        },
+        {
+          "expandIcon": {
+            "span": 24
+          }
+        },
+        {
+          "forceSubMenuRender": {
+            "span": 24
+          }
+        },
+        {
+          "inlineCollapsed": {
+            "span": 24
+          }
+        },
+        {
+          "inlineIndent": {
+            "span": 24
+          }
+        },
+        {
+          "mode": {
+            "span": 24
+          }
+        },
+        {
+          "multiple": {
+            "span": 24
+          }
+        },
+        {
+          "openKeys": {
+            "span": 24
+          }
+        },
+        {
+          "overflowedIndicator": {
+            "span": 24
+          }
+        },
+        {
+          "selectable": {
+            "span": 24
+          }
+        },
+        {
+          "selectedKeys": {
+            "span": 24
+          }
+        },
+        {
+          "style": {
+            "span": 24
+          }
+        },
+        {
+          "subMenuCloseDelay": {
+            "span": 24
+          }
+        },
+        {
+          "subMenuOpenDelay": {
+            "span": 24
+          }
+        },
+        {
+          "theme": {
+            "span": 24
+          }
+        },
+        {
+          "triggerSubMenuAction": {
+            "span": 24
+          }
+        }
+      ]
+    }
+  },
+  "menuProps": {
+    "ui:ObjectFieldTemplate": RjsfGridFieldTemplate,
+    "ui:spacing": 16,
+    "ui:layout": [
+      {
+        "defaultOpenKeys": {
+          "span": 24
+        }
+      },
+      {
+        "defaultSelectedKeys": {
+          "span": 24
+        }
+      },
+      {
+        "expandIcon": {
+          "span": 24
+        }
+      },
+      {
+        "forceSubMenuRender": {
+          "span": 24
+        }
+      },
+      {
+        "inlineCollapsed": {
+          "span": 24
+        }
+      },
+      {
+        "inlineIndent": {
+          "span": 24
+        }
+      },
+      {
+        "mode": {
+          "span": 24
+        }
+      },
+      {
+        "multiple": {
+          "span": 24
+        }
+      },
+      {
+        "openKeys": {
+          "span": 24
+        }
+      },
+      {
+        "overflowedIndicator": {
+          "span": 24
+        }
+      },
+      {
+        "selectable": {
+          "span": 24
+        }
+      },
+      {
+        "selectedKeys": {
+          "span": 24
+        }
+      },
+      {
+        "style": {
+          "span": 24
+        }
+      },
+      {
+        "subMenuCloseDelay": {
+          "span": 24
+        }
+      },
+      {
+        "subMenuOpenDelay": {
+          "span": 24
+        }
+      },
+      {
+        "theme": {
+          "span": 24
+        }
+      },
+      {
+        "triggerSubMenuAction": {
+          "span": 24
+        }
+      }
+    ]
+  },
+  "menuItemProps": {
+    "ui:ObjectFieldTemplate": RjsfGridFieldTemplate,
+    "ui:spacing": 16,
+    "ui:layout": [
+      {
+        "danger": {
+          "span": 24
+        }
+      },
+      {
+        "disabled": {
+          "span": 24
+        }
+      },
+      {
+        "icon": {
+          "span": 24
+        }
+      },
+      {
+        "key": {
+          "span": 24
+        }
+      },
+      {
+        "title": {
+          "span": 24
+        }
+      }
+    ]
+  },
+  "menuSubMenuProps": {
+    "ui:ObjectFieldTemplate": RjsfGridFieldTemplate,
+    "ui:spacing": 16,
+    "ui:layout": [
+      {
+        "children": {
+          "span": 24
+        }
+      },
+      {
+        "disabled": {
+          "span": 24
+        }
+      },
+      {
+        "icon": {
+          "span": 24
+        }
+      },
+      {
+        "key": {
+          "span": 24
+        }
+      },
+      {
+        "popupClassName": {
+          "span": 24
+        }
+      },
+      {
+        "popupOffset": {
+          "span": 24
+        }
+      },
+      {
+        "title": {
+          "span": 24
+        }
+      }
+    ],
+    "children": {
+      "items": {
+        "ui:ObjectFieldTemplate": RjsfGridFieldTemplate,
+        "ui:spacing": 16,
+        "ui:layout": [
+          {
+            "danger": {
+              "span": 24
+            }
+          },
+          {
+            "disabled": {
+              "span": 24
+            }
+          },
+          {
+            "icon": {
+              "span": 24
+            }
+          },
+          {
+            "key": {
+              "span": 24
+            }
+          },
+          {
+            "title": {
+              "span": 24
+            }
+          }
+        ]
+      }
+    }
+  },
+  "menuItemGroupProps": {
+    "ui:ObjectFieldTemplate": RjsfGridFieldTemplate,
+    "ui:spacing": 16,
+    "ui:layout": [
+      {
+        "children": {
+          "span": 24
+        }
+      },
+      {
+        "title": {
+          "span": 24
+        }
+      }
+    ],
+    "children": {
+      "items": {
+        "ui:ObjectFieldTemplate": RjsfGridFieldTemplate,
+        "ui:spacing": 16,
+        "ui:layout": [
+          {
+            "danger": {
+              "span": 24
+            }
+          },
+          {
+            "disabled": {
+              "span": 24
+            }
+          },
+          {
+            "icon": {
+              "span": 24
+            }
+          },
+          {
+            "key": {
+              "span": 24
+            }
+          },
+          {
+            "title": {
+              "span": 24
+            }
+          }
+        ]
+      }
+    }
+  },
+  "tagProps": {
+    "ui:ObjectFieldTemplate": RjsfGridFieldTemplate,
+    "ui:spacing": 16,
+    "ui:layout": [
+      {
+        "closable": {
+          "span": 24
+        }
+      },
+      {
+        "closeIcon": {
+          "span": 24
+        }
+      },
+      {
+        "color": {
+          "span": 24
+        }
+      },
+      {
+        "icon": {
+          "span": 24
+        },
+        "visible": {
+          "span": 24
+        }
+      }
+    ]
+  },
+  "paginationProps": {
+    "ui:ObjectFieldTemplate": RjsfGridFieldTemplate,
+    "ui:spacing": 16,
+    "ui:layout": [
+      {
+        "current": {
+          "span": 24
+        }
+      },
+      {
+        "defaultCurrent": {
+          "span": 24
+        }
+      },
+      {
+        "defaultPageSize": {
+          "span": 24
+        }
+      },
+      {
+        "disabled": {
+          "span": 24
+        }
+      },
+      {
+        "hideOnSinglePage": {
+          "span": 24
+        }
+      },
+      {
+        "pageSize": {
+          "span": 24
+        }
+      },
+      {
+        "pageSizeOptions": {
+          "span": 24
+        }
+      },
+      {
+        "responsive": {
+          "span": 24
+        }
+      },
+      {
+        "showLessItems": {
+          "span": 24
+        }
+      },
+      {
+        "showQuickJumper": {
+          "span": 12
+        },
+        "goButton": {
+          "span": 12
+        }
+      },
+      {
+        "showSizeChanger": {
+          "span": 24
+        }
+      },
+      {
+        "showTitle": {
+          "span": 24
+        }
+      },
+      {
+        "simple": {
+          "span": 24
+        }
+      },
+      {
+        "size": {
+          "span": 24
+        }
+      },
+      {
+        "total": {
+          "span": 24
         }
       }
     ]

@@ -1,17 +1,9 @@
 import { VertexType } from '@prisma/client'
-import {
-  Default,
-  Description,
-  Enum,
-  Optional,
-  Property,
-  Schema,
-  Title,
-  getJsonSchema,
-} from '@tsed/schema'
+import { Description, Enum, getJsonSchema, Optional, Property, Schema, Title, } from '@tsed/schema'
 import { DropDownProps as AntDropdownProps } from 'antd/lib/dropdown'
 import * as React from 'react'
 import { MenuProps } from '../menu/Menu.input'
+import { RjsfGrid, RjsfGridProp } from '@codelab/tools/generators/form-decorator';
 
 declare const Placements: [
   'topLeft',
@@ -24,43 +16,75 @@ declare const Placements: [
 
 declare type Placement = typeof Placements[number]
 
+@RjsfGrid({
+  'ui:spacing': 16,
+  ObjectFieldTemplate: 'RjsfGridFieldTemplate'
+})
 export class DropDownProps implements AntDropdownProps {
-  @Optional()
-  @Default(false)
-  @Description('Whether the dropdown arrow should be visible')
+
+  @RjsfGridProp({
+    title: 'Arrow',
+    description: 'Whether the dropdown arrow should be visible',
+    row: 0,
+    span: 24,
+  })
   declare arrow?: boolean
 
-  @Optional()
-  @Description('Whether the dropdown menu is disabled')
+  @RjsfGridProp({
+    title: 'Disabled',
+    description: 'Whether the dropdown menu is disabled',
+    row: 1,
+    span: 24,
+  })
   declare disabled?: boolean
 
   // declare getPopupContainer?: (triggerNode: HTMLElement) => HTMLElement;
 
-  @Optional()
-  @Schema(getJsonSchema(MenuProps, { customKeys: true }))
-  @Description('The dropdown menu')
+  // @Optional()
+  // @Schema(getJsonSchema(MenuProps, { customKeys: true }))
+  // @Description('The dropdown menu')
+  @RjsfGridProp({
+    title: 'Overlay',
+    description: 'The dropdown menu',
+    clazz: MenuProps,
+    row: 2,
+    span: 24,
+  })
   declare overlay: any
 
-  @Optional()
-  @Description('The class name of the dropdown root element')
+  @RjsfGridProp({
+    title: 'Overlay Class Name',
+    description: 'The class name of the dropdown root element',
+    row: 3,
+    span: 24,
+  })
   declare overlayClassName?: string
 
-  @Optional()
-  @Property('string')
-  @Description('The style of the dropdown root element')
+  @RjsfGridProp({
+    title: 'Overlay Style',
+    description: 'The style of the dropdown root element',
+    type: 'string',
+    row: 4,
+    span: 24,
+  })
   declare overlayStyle?: React.CSSProperties
 
-  @Optional()
-  @Default('bottomLeft')
-  @Enum(
-    'topLeft',
-    'topCenter',
-    'topRight',
-    'bottomLeft',
-    'bottomCenter',
-    'bottomRight',
-  )
-  @Description('Placement of popup menu')
+  @RjsfGridProp({
+    title: 'Placement',
+    description: 'Placement of popup menu',
+    type: 'string',
+    enum: [
+      'topLeft',
+      'topCenter',
+      'topRight',
+      'bottomLeft',
+      'bottomCenter',
+      'bottomRight'
+    ],
+    default: 'bottomLeft',
+    row: 5,
+    span: 24,
+  })
   declare placement?: Placement
 
   @Optional()
@@ -78,12 +102,20 @@ export class DropDownProps implements AntDropdownProps {
   @Description(
     "The trigger mode which executes the dropdown action. Note that hover can't be used on touchscreens",
   )
+  @RjsfGridProp({
+    row: 6,
+    span: 24,
+  })
   declare trigger?: Array<'click' | 'hover' | 'contextMenu'>
 
   // declare onVisibleChange?: (visible: boolean) => void;
 
-  @Optional()
-  @Description('Whether the dropdown menu is currently visible')
+  @RjsfGridProp({
+    title: 'Visible',
+    description: 'Whether the dropdown menu is currently visible',
+    row: 6,
+    span: 24,
+  })
   declare visible?: boolean
 }
 

@@ -13,93 +13,175 @@ import {
 import { MenuProps as AntMenuProps, MenuMode } from 'antd/lib/menu'
 import { MenuTheme } from 'antd/lib/menu/MenuContext'
 import { CSSProperties, ReactNode } from 'react'
+import { RjsfGrid, RjsfGridProp } from '@codelab/tools/generators/form-decorator';
 
+@RjsfGrid({
+  'ui:spacing': 16,
+  ObjectFieldTemplate: 'RjsfGridFieldTemplate'
+})
 export class MenuProps implements AntMenuProps {
-  @Optional()
-  @CollectionOf(String)
-  @Description('Array with the keys of default opened sub menus')
+
+  @RjsfGridProp({
+    title: 'Default Open Keys',
+    description: 'Array with the keys of default opened sub menus',
+    type: 'string',
+    isArray: true,
+    row: 0,
+    span: 24,
+  })
   defaultOpenKeys?: Array<string>
 
-  @Optional()
-  @CollectionOf(String)
-  @Description('Array with the keys of default selected menu items')
+  @RjsfGridProp({
+    title: 'Default Selected Keys',
+    description: 'Array with the keys of default selected menu items',
+    type: 'string',
+    isArray: true,
+    row: 1,
+    span: 24,
+  })
   defaultSelectedKeys?: Array<string>
 
-  @Optional()
-  @Property('string')
-  @Description('custom expand icon of submenu')
+  @RjsfGridProp({
+    title: 'Expand Icon',
+    description: 'Custom expand icon of submenu',
+    type: 'string',
+    row: 2,
+    span: 24,
+  })
   expandIcon?: ReactNode | ((props: any) => ReactNode)
 
-  @Optional()
-  @Description('Render submenu into DOM before it becomes visible')
+  @RjsfGridProp({
+    title: 'Force SubMenu Render',
+    description: 'Render submenu into DOM before it becomes visible',
+    row: 3,
+    span: 24,
+  })
   forceSubMenuRender?: boolean
 
-  @Optional()
-  @Description('Specifies the collapsed status when menu is inline mode')
+  @RjsfGridProp({
+    title: 'Inline Collapsed',
+    description: 'Specifies the collapsed status when menu is inline mode',
+    row: 4,
+    span: 24,
+  })
   inlineCollapsed?: boolean
 
-  @Optional()
-  @Default(24)
-  @Property('number')
-  @Description('Indent (in pixels) of inline menu items on each level')
+  @RjsfGridProp({
+    title: 'Inline Indent',
+    description: 'Indent (in pixels) of inline menu items on each level',
+    default: 24,
+    row: 5,
+    span: 24,
+  })
   inlineIndent?: number
 
-  @Optional()
-  @Default('vertical')
-  @Enum('horizontal', 'vertical', 'vertical-left', 'vertical-right', 'inline')
-  @Description('Type of menu')
+  @RjsfGridProp({
+    title: 'Menu Mode',
+    description: 'Type of menu',
+    type: 'string',
+    enum: ['horizontal', 'vertical', 'vertical-left', 'vertical-right', 'inline'],
+    default: 'vertical',
+    row: 6,
+    span: 24,
+  })
   mode?: MenuMode
 
-  @Optional()
-  @Description('Allows selection of multiple items')
+  @RjsfGridProp({
+    title: 'Multiple',
+    description: 'Allows selection of multiple items',
+    row: 7,
+    span: 24,
+  })
   multiple?: boolean
 
-  @Optional()
-  @CollectionOf(String)
-  @Description('Array with the keys of currently opened sub-menus')
+  @RjsfGridProp({
+    title: 'Open Keys',
+    description: 'Array with the keys of currently opened sub-menus',
+    type: 'string',
+    isArray: true,
+    row: 8,
+    span: 24,
+  })
   openKeys?: Array<string>
 
-  @Optional()
-  @Property('string')
-  @Description('Customized icon when menu is collapsed')
+  @RjsfGridProp({
+    title: 'Overflowed Indicator',
+    description: 'Customized icon when menu is collapsed',
+    type: 'string',
+    row: 9,
+    span: 24,
+  })
   overflowedIndicator?: ReactNode
 
-  @Optional()
-  @Description('Allows selecting menu items')
+  @RjsfGridProp({
+    title: 'Selectable',
+    description: 'Allows selecting menu items',
+    row: 10,
+    span: 24,
+  })
   selectable?: boolean
 
-  @Optional()
-  @CollectionOf(String)
-  @Description('Array with the keys of currently selected menu items')
+  @RjsfGridProp({
+    title: 'Selected Keys',
+    description: 'Array with the keys of currently selected menu items',
+    type: 'string',
+    isArray: true,
+    row: 11,
+    span: 24,
+  })
   selectedKeys?: Array<string>
 
-  @Optional()
-  @Property('string')
-  @Description('Style of the root node')
+  @RjsfGridProp({
+    title: 'Style',
+    description: 'Style of the root node',
+    type: 'string',
+    row: 12,
+    span: 24,
+  })
   style?: CSSProperties
 
-  @Optional()
-  @Property('number')
-  @Default(0.1)
-  @Description('Delay time to hide submenu when mouse leaves (in seconds)')
+  @RjsfGridProp({
+    title: 'SubMenu Close Delay',
+    description: 'Delay time to hide submenu when mouse leaves (in seconds)',
+    default: 0.1,
+    row: 13,
+    span: 24,
+  })
   subMenuCloseDelay?: number
 
-  @Optional()
-  @Property('number')
-  @Default(0)
-  @Description('Delay time to show submenu when mouse enters, (in seconds)')
+  @RjsfGridProp({
+    title: 'SubMenu Open Delay',
+    description: 'Delay time to show submenu when mouse enters, (in seconds)',
+    default: 0,
+    row: 14,
+    span: 24,
+  })
   subMenuOpenDelay?: number
 
-  @Optional()
-  @Default('light')
-  @Enum('light', 'dark')
-  @Description('Color theme of the menu')
+  @RjsfGridProp({
+    title: 'Theme',
+    description: 'Color theme of the menu',
+    type: 'string',
+    enum: ['light', 'dark'],
+    default: 'light',
+    row: 15,
+    span: 24,
+  })
   theme?: MenuTheme
 
   @Optional()
   @Default('hover')
   @Enum('hover', 'click')
   @Description('Which action can trigger submenu open/close')
+  @RjsfGridProp({
+    title: 'Trigger SubMenu Action',
+    description: 'Which action can trigger submenu open/close',
+    type: 'string',
+    enum: ['hover', 'click'],
+    default: 'hover',
+    row: 16,
+    span: 24,
+  })
   triggerSubMenuAction?: 'click' | 'hover'
 
   // onClick?: MenuClickEventHandler;

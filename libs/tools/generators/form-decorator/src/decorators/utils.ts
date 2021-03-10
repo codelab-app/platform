@@ -6,6 +6,10 @@ import { generateGridUiSchema, generateGroupsUiSchema } from '../processors';
 import { getRjsfGridProp, IMetadata } from './RjsfGridProp';
 import { getUiSchemaGrid } from './RjsfGrid';
 
+const isBoolean = (val: any) => {
+	return val === false || val === true
+}
+
 // This will generate schema for a property decorated with clazz
 const generateSchemaForClassType = (props: any, target: Object, propertyKey: string) => {
 	const clazz = props.clazz
@@ -156,12 +160,11 @@ export const processConditional = (
 	}
 
 	oneOf.properties[condition.key] = {
-		type: 'string',
 		enum: [condition.value]
 	}
 
 	if (props.clazz) {
-		oneOf.properties[propertyKey] = {...getJsonSchemaCustom(props.clazz as Type<any>)}
+		oneOf.properties[propertyKey] = {...getJsonSchemaCustom(props.clazz as Type<any>, {customKeys: true})}
 	} else {
 		oneOf.properties[propertyKey] = {
 			type: dataType
@@ -179,7 +182,19 @@ export const processConditional = (
 				oneOf: []
 			}
 		}
+
 		existingObj[condition.key].oneOf.push(oneOf)
+		if (isBoolean(condition.value) && existingObj[condition.key].oneOf < 2) {
+			const oneOfObj: any = {
+				type: 'object',
+				properties: {
+				}
+			}
+			oneOfObj.properties[condition.key] = {
+				enum: [!condition.value]
+			}
+			existingObj[condition.key].oneOf.push(oneOfObj)
+		}
 		Reflect.defineMetadata('depKey', existingObj, target.constructor)
 		const tsedCustomKeyDecorator = CustomKey('dependencies', existingObj)
 		tsedCustomKeyDecorator(target)
@@ -190,6 +205,17 @@ export const processConditional = (
 			oneOf: []
 		}
 		obj[condition.key].oneOf.push(oneOf)
+		if (isBoolean(condition.value) && obj[condition.key].oneOf.length < 2) {
+			const oneOfObj: any = {
+				type: 'object',
+				properties: {
+				}
+			}
+			oneOfObj.properties[condition.key] = {
+				enum: [!condition.value]
+			}
+			obj[condition.key].oneOf.push(oneOfObj)
+		}
 		Reflect.defineMetadata('depKey', obj, target.constructor)
 		const tsedCustomKeyDecorator = CustomKey('dependencies', obj)
 		tsedCustomKeyDecorator(target)

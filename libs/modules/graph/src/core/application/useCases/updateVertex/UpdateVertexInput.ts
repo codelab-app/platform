@@ -13,6 +13,15 @@ import { LayoutProps } from '../../../../../../../alpha/ui/antd/src/components/l
 import { LayoutSiderProps } from '../../../../../../../alpha/ui/antd/src/components/layout/LayoutSider.input';
 import { SpaceProps } from '../../../../../../../alpha/ui/antd/src/components/space/Space.input';
 import { AffixProps } from '../../../../../../../alpha/ui/antd/src/components/affix/Affix.input';
+import { BreadCrumbProps } from '../../../../../../../alpha/ui/antd/src/components/breadcrumb/Breadcrumb.input';
+import { BreadcrumbItemProps } from '../../../../../../../alpha/ui/antd/src/components/breadcrumb/BreadcrumbItem.input';
+import { DropDownProps } from '../../../../../../../alpha/ui/antd/src/components/dropdown/Dropdown.input';
+import { MenuProps } from '../../../../../../../alpha/ui/antd/src/components/menu/Menu.input';
+import { MenuItemProps } from '../../../../../../../alpha/ui/antd/src/components/menu/MenuItem.input';
+import { MenuSubMenuProps } from '../../../../../../../alpha/ui/antd/src/components/menu/MenuSubMenu.input';
+import { MenuItemGroupProps } from '../../../../../../../alpha/ui/antd/src/components/menu/MenuItemGroup.input';
+import { TagProps } from '../../../../../../../alpha/ui/antd/src/components/tag/Tag.input';
+import { PaginationProps } from '../../../../../../../alpha/ui/antd/src/components/pagination/Pagination.input';
 
 
 @InputType()
@@ -34,7 +43,7 @@ export class UpdateVertexInput {
   @RjsfGridProp({
     row: 2,
     span: 24,
-    title: 'Button props: ',
+    title: 'Button props',
     condition: {key: 'type', value: VertexType.React_Button},
     clazz: ButtonProps
   })
@@ -43,7 +52,7 @@ export class UpdateVertexInput {
   @RjsfGridProp({
     row: 2,
     span: 24,
-    title: 'Card props: ',
+    title: 'Card props',
     condition: {key: 'type', value: VertexType.React_Card},
     clazz: CardProps
   })
@@ -52,7 +61,7 @@ export class UpdateVertexInput {
   @RjsfGridProp({
     row: 2,
     span: 24,
-    title: 'Card Grid Props: ',
+    title: 'Card Grid Props',
     condition: {key: 'type', value: VertexType.React_Card_Grid},
     clazz: CardGridProps
   })
@@ -61,7 +70,7 @@ export class UpdateVertexInput {
   @RjsfGridProp({
     row: 2,
     span: 24,
-    title: 'Card Meta Props: ',
+    title: 'Card Meta Props',
     condition: {key: 'type', value: VertexType.React_Card_Meta},
     clazz: CardMetaProps
   })
@@ -70,7 +79,7 @@ export class UpdateVertexInput {
   @RjsfGridProp({
     row: 2,
     span: 24,
-    title: 'Icon Props: ',
+    title: 'Icon Props',
     condition: {key: 'type', value: VertexType.React_Icon},
     clazz: IconProps
   })
@@ -79,7 +88,7 @@ export class UpdateVertexInput {
   @RjsfGridProp({
     row: 2,
     span: 24,
-    title: 'Divider Props: ',
+    title: 'Divider Props',
     condition: {key: 'type', value: VertexType.React_Divider},
     clazz: DividerProps
   })
@@ -88,7 +97,7 @@ export class UpdateVertexInput {
   @RjsfGridProp({
     row: 2,
     span: 24,
-    title: 'Layout Props: ',
+    title: 'Layout Props',
     condition: {key: 'type', value: VertexType.React_Layout},
     clazz: LayoutProps
   })
@@ -97,7 +106,7 @@ export class UpdateVertexInput {
   @RjsfGridProp({
     row: 2,
     span: 24,
-    title: 'Layout Header Props: ',
+    title: 'Layout Header Props',
     condition: {key: 'type', value: VertexType.React_Layout_Header},
     clazz: LayoutProps
   })
@@ -106,7 +115,7 @@ export class UpdateVertexInput {
   @RjsfGridProp({
     row: 2,
     span: 24,
-    title: 'Layout Footer Props: ',
+    title: 'Layout Footer Props',
     condition: {key: 'type', value: VertexType.React_Layout_Footer},
     clazz: LayoutProps
   })
@@ -115,7 +124,7 @@ export class UpdateVertexInput {
   @RjsfGridProp({
     row: 2,
     span: 24,
-    title: 'Layout Content Props: ',
+    title: 'Layout Content Props',
     condition: {key: 'type', value: VertexType.React_Layout_Content},
     clazz: LayoutProps
   })
@@ -124,7 +133,7 @@ export class UpdateVertexInput {
   @RjsfGridProp({
     row: 2,
     span: 24,
-    title: 'Layout Sider Props: ',
+    title: 'Layout Sider Props',
     condition: {key: 'type', value: VertexType.React_Layout_Sider},
     clazz: LayoutSiderProps
   })
@@ -133,7 +142,7 @@ export class UpdateVertexInput {
   @RjsfGridProp({
     row: 2,
     span: 24,
-    title: 'Space Props: ',
+    title: 'Space Props',
     condition: {key: 'type', value: VertexType.React_Space},
     clazz: SpaceProps
   })
@@ -142,11 +151,92 @@ export class UpdateVertexInput {
   @RjsfGridProp({
     row: 2,
     span: 24,
-    title: 'Affix Props: ',
+    title: 'Affix Props',
     condition: {key: 'type', value: VertexType.React_Affix},
     clazz: AffixProps
   })
   declare affixProps: AffixProps
+
+  @RjsfGridProp({
+    row: 2,
+    span: 24,
+    title: 'Bread Crumb Props',
+    condition: {key: 'type', value: VertexType.React_Breadcrumb},
+    clazz: BreadCrumbProps
+  })
+  declare breadcrumbProps: BreadCrumbProps
+
+  @RjsfGridProp({
+    row: 2,
+    span: 24,
+    title: 'Bread Crumb Props',
+    condition: {key: 'type', value: VertexType.React_Breadcrumb_Item},
+    clazz: BreadcrumbItemProps
+  })
+  declare breadcrumbItemProps: BreadcrumbItemProps
+
+  @RjsfGridProp({
+    row: 2,
+    span: 24,
+    title: 'Drop Down Props',
+    condition: {key: 'type', value: VertexType.React_Dropdown},
+    clazz: DropDownProps
+  })
+  declare dropdownProps: DropDownProps
+
+  @RjsfGridProp({
+    row: 2,
+    span: 24,
+    title: 'Menu Props',
+    condition: {key: 'type', value: VertexType.React_Menu},
+    clazz: MenuProps
+  })
+  declare menuProps: MenuProps
+
+  @RjsfGridProp({
+    row: 2,
+    span: 24,
+    title: 'Menu Item Props',
+    condition: {key: 'type', value: VertexType.React_Menu_Item},
+    clazz: MenuItemProps
+  })
+  declare menuItemProps: MenuItemProps
+
+  @RjsfGridProp({
+    row: 2,
+    span: 24,
+    title: 'Menu Item Props',
+    condition: {key: 'type', value: VertexType.React_Menu_SubMenu},
+    clazz: MenuSubMenuProps
+  })
+  declare menuSubMenuProps: MenuSubMenuProps
+
+  @RjsfGridProp({
+    row: 2,
+    span: 24,
+    title: 'Menu Item Group Props',
+    condition: {key: 'type', value: VertexType.React_Menu_ItemGroup},
+    clazz: MenuItemGroupProps
+  })
+  declare menuItemGroupProps: MenuItemGroupProps
+
+  @RjsfGridProp({
+    row: 2,
+    span: 24,
+    title: 'Tag Props',
+    condition: {key: 'type', value: VertexType.React_Tag},
+    clazz: TagProps
+  })
+  declare tagProps: TagProps
+
+  @RjsfGridProp({
+    row: 2,
+    span: 24,
+    title: 'Pagination Props',
+    condition: {key: 'type', value: VertexType.React_Pagination},
+    clazz: PaginationProps
+  })
+  declare paginationProps: PaginationProps
 
   @Field(() => GraphQLJSONObject, { nullable: true })
   declare props?: object

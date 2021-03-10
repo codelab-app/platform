@@ -10,28 +10,54 @@ import {
 } from '@tsed/schema'
 import { TagProps as AntTagProps } from 'antd/lib/tag'
 import * as React from 'react'
+import { RjsfGrid, RjsfGridProp } from '@codelab/tools/generators/form-decorator';
 
+@RjsfGrid({
+  'ui:spacing': 16,
+  ObjectFieldTemplate: 'RjsfGridFieldTemplate'
+})
 export class TagProps implements AntTagProps {
-  @Optional()
-  @Description('Whether the Tag can be closed')
+
+  @RjsfGridProp({
+    title: 'Closable',
+    description: 'Whether the Tag can be closed',
+    row: 0,
+    span: 24,
+  })
   closable?: boolean
 
-  @Optional()
-  @Property('string')
-  @Description('Custom close icon')
+  @RjsfGridProp({
+    title: 'Close Icon',
+    description: 'Custom close icon',
+    type: 'string',
+    row: 1,
+    span: 24,
+  })
   closeIcon?: React.ReactNode
 
-  @Optional()
-  @Description('Color of the Tag')
+  @RjsfGridProp({
+    title: 'Color',
+    description: 'Color of the Tag',
+    row: 2,
+    span: 24,
+  })
   color?: string
 
-  @Optional()
-  @Property('string')
-  @Description('Set the icon of tag')
+  @RjsfGridProp({
+    title: 'Icon',
+    description: 'Set the icon of tag',
+    type: 'string',
+    row: 3,
+    span: 24,
+  })
   icon?: React.ReactNode
 
-  @Optional()
-  @Description('Whether the Tag is closed or not')
+  @RjsfGridProp({
+    title: 'Visible',
+    description: 'Whether the Tag is closed or not',
+    row: 3,
+    span: 24,
+  })
   visible?: boolean
 
   // onClose?: (e: React.MouseEvent<HTMLElement>) => void;

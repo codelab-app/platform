@@ -17,7 +17,7 @@ export interface IProps {
 	enum?: any
 	required?: boolean,
 	ignore?: boolean
-	condition?: { key: string, value: string }
+	condition?: { key: string, value: any }
 	[prop: string]: any
 }
 

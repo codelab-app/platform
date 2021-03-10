@@ -1,34 +1,39 @@
-import { VertexType } from '@prisma/client'
-import {
-  Description,
-  Enum,
-  Optional,
-  Property,
-  Schema,
-  Title,
-  getJsonSchema,
-} from '@tsed/schema'
 import { ReactNode } from 'react'
-import { JsonSchemaArray } from '../../../../../../backend/src/common/decorators/JsonSchemaArray'
 import { MenuItemProps } from './MenuItem.input'
+import { RjsfGrid, RjsfGridProp } from '@codelab/tools/generators/form-decorator';
 
-class Props {
-  @JsonSchemaArray(MenuItemProps)
-  @Title('Children of type MenuItem')
+@RjsfGrid({
+  'ui:spacing': 16,
+  ObjectFieldTemplate: 'RjsfGridFieldTemplate'
+})
+export class MenuItemGroupProps {
+
+  @RjsfGridProp({
+    title: 'Children of type MenuItem',
+    description: 'Sub-menus or sub-menu items',
+    isArray: true,
+    clazz: MenuItemProps,
+    row: 0,
+    span: 24,
+  })
   children?: any
 
-  @Optional()
-  @Property('string')
-  @Description('The title of the group')
+  @RjsfGridProp({
+    title: 'Title',
+    description: 'The title of the group',
+    type: 'string',
+    row: 1,
+    span: 24,
+  })
   title?: ReactNode
 }
 
-export class MenuItemGroupProps {
-  @Property()
-  @Enum(VertexType.React_Menu_ItemGroup)
-  declare type: string
-
-  @Schema(getJsonSchema(Props, { customKeys: true }))
-  @Title('')
-  declare props: object
-}
+// export class MenuItemGroupProps {
+//   @Property()
+//   @Enum(VertexType.React_Menu_ItemGroup)
+//   declare type: string
+//
+//   @Schema(getJsonSchema(Props, { customKeys: true }))
+//   @Title('')
+//   declare props: object
+// }

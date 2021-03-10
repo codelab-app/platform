@@ -1,47 +1,57 @@
-import { VertexType } from '@prisma/client'
-import {
-  Description,
-  Enum,
-  Optional,
-  Property,
-  Schema,
-  Title,
-  getJsonSchema,
-} from '@tsed/schema'
 import { BreadcrumbItemProps as AntBreadcrumbItemProps } from 'antd/lib/breadcrumb'
 import { DropDownProps } from '../dropdown/Dropdown.input'
 import { MenuProps } from '../menu/Menu.input'
+import { RjsfGrid, RjsfGridProp } from '@codelab/tools/generators/form-decorator';
 
-class Props implements Omit<AntBreadcrumbItemProps, 'dropdownProps'> {
-  @Optional()
-  @Description('The additional css class')
+@RjsfGrid({
+  'ui:spacing': 16,
+  ObjectFieldTemplate: 'RjsfGridFieldTemplate'
+})
+export class BreadcrumbItemProps implements Omit<AntBreadcrumbItemProps, 'dropdownProps'> {
+
+  @RjsfGridProp({
+    title: 'Class Name',
+    description: 'The additional css class',
+    row: 0,
+    span: 24,
+  })
   className?: string
 
-  @Optional()
-  @Schema(getJsonSchema(DropDownProps, { customKeys: true }))
-  @Title('Dropdown Props')
-  @Description('The dropdown props')
+  @RjsfGridProp({
+    title: 'Dropdown Props',
+    description: 'The dropdown props',
+    clazz: DropDownProps,
+    row: 1,
+    span: 24,
+  })
   declare dropdownProps?: any
 
-  @Optional()
-  @Description('Target of hyperlink')
+  @RjsfGridProp({
+    title: 'Href',
+    description: 'Target of hyperlink',
+    row: 2,
+    span: 24,
+  })
   href?: string
 
-  @Optional()
-  @Schema(getJsonSchema(MenuProps, { customKeys: true }))
-  @Title('Menu Props')
-  @Description('The dropdown menu')
+  @RjsfGridProp({
+    title: 'Menu Props',
+    description: 'The dropdown menu',
+    clazz: MenuProps,
+    row: 3,
+    span: 24,
+  })
   overlay?: any
 
   // onClick?: React.MouseEventHandler<HTMLAnchorElement | HTMLSpanElement>;
 }
 
-export class BreadcrumbItemProps {
-  @Property()
-  @Enum(VertexType.React_Breadcrumb_Item)
-  declare type: string
-
-  @Schema(getJsonSchema(Props, { customKeys: true }))
-  @Title('')
-  declare props: object
-}
+// export class BreadcrumbItemProps {
+//   @Property()
+//   @Enum(VertexType.React_Breadcrumb_Item)
+//   declare type: string
+//
+//   @Schema(getJsonSchema(Props, { customKeys: true }))
+//   @Title('')
+//   declare props: object
+// }
