@@ -48,6 +48,7 @@ export const AddChildVertexForm = ({
           'ui:disabled': 'parentVertexId',
         },
       }}
+      idPrefix="add_child_vertex"
       {...props}
     />
   )

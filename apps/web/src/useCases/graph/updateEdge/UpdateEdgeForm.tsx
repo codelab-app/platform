@@ -31,6 +31,7 @@ export const UpdateEdgeForm = () => {
           'ui:disabled': 'parentVertexId',
         },
       }}
+      idPrefix="update_edge"
     />
   )
 }

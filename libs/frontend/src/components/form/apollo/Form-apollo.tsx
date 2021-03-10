@@ -31,6 +31,8 @@ export const ApolloForm = <
     })
   }
 
+  console.log('hello', props.idPrefix)
+
   return (
     <JsonSchemaForm<TData>
       hideSubmitButton={hideSubmitButton}

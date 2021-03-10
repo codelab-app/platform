@@ -51,6 +51,7 @@ export const UpdatePageForm = ({
         },
       }}
       initialFormData={{ title: page?.title, pageId }}
+      idPrefix="update_page"
       {...props}
     />
   )

@@ -2,7 +2,7 @@ import { Theme as AntDTheme } from '@rjsf/antd'
 import { withTheme } from '@rjsf/core'
 import { Button } from 'antd'
 import { JSONSchema7 } from 'json-schema'
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, useRef, useState } from 'react'
 import { setSubmitControllerRef } from './Form-jsonSchema--ref'
 import { JsonSchemaFormProps } from './Form-jsonSchema--types'
 import { callbackWithParams } from 'libs/frontend/src/utils'
@@ -24,17 +24,21 @@ export const JsonSchemaForm = <TData extends object>({
   initialFormData = {} as TData,
   submitButtonProps = {},
   saveOnChange = false,
+  idPrefix,
   ...props
 }: JsonSchemaFormProps<TData>): ReactElement => {
   const [localFormData, setLocalFormData] = useState<TData>(initialFormData)
+
+  // Assign a random ID prefix that we can use if a custom one is not defined, so we don't get ID collisions
+  const randomIdPrefix = useRef(
+    `form${Math.random().toString(36).substring(7)}`,
+  )
 
   return (
     <ThemedForm
       widgets={widgets}
       schema={schema as JSONSchema7}
       onSubmit={({ formData }) => {
-        console.log(formData)
-
         return onSubmit({ formData })
           .then((r: any) => {
             callbackWithParams(onSubmitSuccess, r)
@@ -53,6 +57,7 @@ export const JsonSchemaForm = <TData extends object>({
         }
       }}
       formData={localFormData}
+      idPrefix={idPrefix || randomIdPrefix.current}
       {...props}
     >
       {/* This button exists because by default the Form from rjsf includes a submit button and you can't configure it, only replace it by a custom one.

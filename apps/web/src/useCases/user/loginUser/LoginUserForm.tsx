@@ -77,6 +77,7 @@ export const LoginUserForm = ({
           'ui:widget': 'password',
         },
       }}
+      idPrefix="login"
       onSubmitSuccess={submitSuccessHandlers}
       {...props}
     />

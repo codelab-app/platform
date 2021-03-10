@@ -48,6 +48,7 @@ export const EditAppForm = (props: FormUseCaseProps<UpdateAppInput> & {}) => {
       onSubmitError={createNotificationHandler({
         title: `Error while updating app '${editingApp.title}'`,
       })}
+      idPrefix="edit_app"
       {...props}
     />
   )
