@@ -48,3 +48,11 @@ Thumbs.db
 
 /apps/docs/public
 /apps/docs/.cache
+
+# compiled output
+.build
+/dist
+/tmp
+/out-tsc
+.serverless
+.webpack

@@ -8,8 +8,8 @@ export interface AwsConfig {
 }
 
 export const awsConfig: AwsConfig = {
-  AWS_ACCESS_KEY_ID: get('AWS_ACCESS_KEY_ID').required().asString(),
-  AWS_SECRET_ACCESS_KEY: get('AWS_SECRET_ACCESS_KEY').required().asString(),
-  AWS_REGION: get('AWS_REGION').required().asString(),
-  AWS_BUCKET_NAME: get('AWS_BUCKET_NAME').required().asString(),
+  AWS_ACCESS_KEY_ID: get('AWS_ACCESS_KEY_ID').required(false).asString(),
+  AWS_SECRET_ACCESS_KEY: get('AWS_SECRET_ACCESS_KEY').required(false).asString(),
+  AWS_REGION: get('AWS_REGION').required(false).asString(),
+  AWS_BUCKET_NAME: get('AWS_BUCKET_NAME').required(false).asString(),
 }

@@ -1,0 +1,47 @@
+service: api-codelab
+
+plugins:
+  - serverless-webpack
+  - serverless-offline
+  # - serverless-plugin-warmup
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: ${opt:stage, 'dev'}
+  apiGateway:
+    shouldStartNameWithService: true
+
+custom:
+  webpack:
+    webpackConfig: 'webpack.config.js' # Name of webpack configuration file
+    includeModules:
+      forceExclude:
+        - aws-sdk
+        - typescript
+    packager: 'npm' # Reserved for future use. Any other values will not work right now.
+    packExternalModulesMaxBuffer: 204800 # Size of stdio buffers for spawned child processes
+  warmup:
+    default:
+      enabled: ${self:custom.isProd.${self:provider.stage}, false}
+      cleanFolder: false
+      folderName: '_warmup'
+      memorySize: 256
+      vpc: false
+      events:
+        - schedule: 'cron(0/5 0-19 ? * MON-SAT *)' # Run WarmUp every 10 minutes, every day, between 0:00 and 18:00 (UTC)
+      prewarm: true
+      concurrency: 1
+  isProd:
+    dev: false
+    prod: true
+
+
+functions:
+  main:
+    handler: apps/api/codelab/src/lambda.handler
+    events:
+      - http:
+          method: ANY
+          path: /{proxy+}
+          cors: true
