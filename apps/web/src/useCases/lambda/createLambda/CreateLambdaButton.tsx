@@ -3,7 +3,10 @@ import { Button } from 'antd'
 import React from 'react'
 import { useRecoilState } from 'recoil'
 import { createLambdaState } from './CreateLambdaState'
-import { useLayout } from 'apps/web/src/templates/layout-state'
+import {
+  LayoutPaneVisibility,
+  useLayout,
+} from 'apps/web/src/templates/layout-state'
 
 export const CreateLambdaButton = () => {
   const { setPaneVisibility } = useLayout()
@@ -14,8 +17,8 @@ export const CreateLambdaButton = () => {
       type="primary"
       size="small"
       icon={<PlusOutlined />}
-      // onClick={() => setPaneVisibility(LayoutPaneVisibility.Detail)}
-      onClick={() => setCreateLambda({ visible: true })}
+      onClick={() => setPaneVisibility(LayoutPaneVisibility.Detail)}
+      // onClick={() => setCreateLambda({ visible: true })}
     >
       Add
     </Button>

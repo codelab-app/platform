@@ -1,10 +1,11 @@
-import fs from 'fs'
-import * as path from 'path'
 import {
   CreateBucketCommand,
+  DeleteObjectCommand,
   PutObjectCommand,
   S3Client,
 } from '@aws-sdk/client-s3'
+import { Lambda } from '@prisma/client'
+import AdmZip from 'adm-zip'
 
 export class AwsS3Service extends S3Client {
   bucketPrefix = 'codelab-lambda'
@@ -26,17 +27,36 @@ export class AwsS3Service extends S3Client {
     }
   }
 
-  public async uploadObject(appId: string, filename: string) {
-    const fileContent = fs.readFileSync(filename)
-
+  public async removeObject(lambda: Lambda) {
     try {
-      const createBucketCommand = new PutObjectCommand({
-        Bucket: `${this.bucketPrefix}-${appId}`,
-        Key: path.basename(filename),
-        Body: fileContent,
+      const deleteBucketCommand = new DeleteObjectCommand({
+        Bucket: `${this.bucketPrefix}-${lambda.appId}`,
+        Key: lambda.id,
       })
 
-      await this.send(createBucketCommand)
+      const results = await this.send(deleteBucketCommand)
+
+      console.log(results)
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  public async uploadObject(lambda: Lambda) {
+    const zip = new AdmZip()
+
+    zip.addFile(
+      `${lambda.name}.js`,
+      Buffer.alloc(lambda.body.length, lambda.body),
+    )
+
+    try {
+      const putObjectCommand = new PutObjectCommand({
+        Bucket: `${this.bucketPrefix}-${lambda.appId}`,
+        Key: lambda.id,
+        Body: zip.toBuffer(),
+      })
+      const results = await this.send(putObjectCommand)
     } catch (e) {
       console.log(e)
     }

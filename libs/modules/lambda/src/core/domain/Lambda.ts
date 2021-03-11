@@ -6,9 +6,15 @@ export class Lambda {
   @Field()
   declare id: string
 
+  /**
+   * Filename
+   */
   @Field()
   declare name: string
 
+  /**
+   * Content
+   */
   @Field()
   declare body: string
 

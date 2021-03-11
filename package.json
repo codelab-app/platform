@@ -57,6 +57,7 @@
     "@nestjs/jwt": "7.2.0",
     "@nestjs/passport": "7.1.5",
     "@nestjs/platform-express": "7.6.11",
+    "@ngrx/component-store": "11.0.0",
     "@paljs/plugins": "2.12.1",
     "@prisma/cli": "2.18.0",
     "@prisma/client": "2.18.0",
@@ -71,6 +72,7 @@
     "@tsed/schema": "6.25.1",
     "@types/supertest": "2.0.10",
     "@welldone-software/why-did-you-render": "6.0.5",
+    "adm-zip": "^0.5.4",
     "antd": "4.12.2",
     "apollo-link": "1.2.14",
     "apollo-link-context": "1.0.20",
@@ -156,8 +158,7 @@
     "use-resize-observer": "7.0.0",
     "uuid": "^8.3.2",
     "voca": "1.4.0",
-    "winston": "3.3.3",
-    "@ngrx/component-store": "11.0.0"
+    "winston": "3.3.3"
   },
   "devDependencies": {
     "@angular-devkit/core": "11.0.1",
@@ -228,6 +229,7 @@
     "@testing-library/jest-dom": "5.11.6",
     "@testing-library/react": "11.2.2",
     "@testing-library/user-event": "12.5.0",
+    "@types/adm-zip": "^0.4.33",
     "@types/asynciterator": "3.0.0",
     "@types/bcrypt": "3.0.0",
     "@types/bluebird": "3.5.33",
