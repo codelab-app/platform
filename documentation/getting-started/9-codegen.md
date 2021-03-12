@@ -37,7 +37,9 @@ This creates a top level module that holds multiple use cases. A module is essen
 Think of use case as a feature, that fits under each module
 
 **Select the generator**
+
 <img src="https://www.evernote.com/l/APeBLc-qZVlAIbr-BUJrOP-SsJgc2od4bDcB/image.png" width="320">
 
 **Enter info**
+
 <img src="https://www.evernote.com/l/APdQBlsfwChJ9LOHSCpLlr3wxtA9aPzaUccB/image.png" width="320">

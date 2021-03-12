@@ -31,6 +31,12 @@ export const UpdateLambdaForm = ({
         appId: {
           'ui:disabled': 'appId',
         },
+        body: {
+          'ui:widget': 'textarea',
+          'ui:options': {
+            rows: 5,
+          },
+        },
       }}
       initialFormData={{
         lambdaId: lambda.id,

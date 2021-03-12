@@ -28,12 +28,18 @@ export const CreateLambdaForm = (
 
   return (
     <ApolloForm<CreateLambdaInput, CreateLambdaMutationVariables>
-      hideSubmitButton
+      // hideSubmitButton
       schema={CreateLambdaInputSchema}
       mutate={mutate}
       uiSchema={{
         appId: {
           'ui:disabled': 'appId',
+        },
+        body: {
+          'ui:widget': 'textarea',
+          'ui:options': {
+            rows: 5,
+          },
         },
       }}
       initialFormData={{ appId, name: '', body: '' }}

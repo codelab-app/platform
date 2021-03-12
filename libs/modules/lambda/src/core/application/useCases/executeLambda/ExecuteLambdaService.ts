@@ -27,12 +27,7 @@ export class ExecuteLambdaService
       rejectOnNotFound: true,
     })
 
-    const results = await this.awsLambdaService.executeFunction(
-      lambda.appId,
-      'function.zip',
-    )
-
-    console.log(results)
+    const results = await this.awsLambdaService.executeFunction(lambda)
 
     return lambda
   }
