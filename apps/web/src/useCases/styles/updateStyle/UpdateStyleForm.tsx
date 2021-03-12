@@ -5,8 +5,7 @@ import { ApolloForm, FormUseCaseProps, PropsWithIds } from '@codelab/frontend'
 import {
   GetStyleGql,
   GetStylesGql,
-  UpdateStyleInput,
-  UpdateStyleInputSchema,
+  UpdateStyleInput, UpdateStyleInputSchema, UpdateStyleInputUiSchema,
   UpdateStyleMutationVariables,
   useGetStyleQuery,
   useUpdateStyleMutation,
@@ -75,14 +74,7 @@ export const UpdateStyleForm = ({
       mutate={transformedMutate}
       hideSubmitButton
       schema={UpdateStyleInputSchema}
-      uiSchema={{
-        appId: {
-          'ui:widget': 'hidden',
-        },
-        styleId: {
-          'ui:widget': 'hidden',
-        },
-      }}
+      uiSchema={UpdateStyleInputUiSchema}
       initialFormData={{
         props: reverseReduceStyleProps(style?.props),
         name: style?.name || '',

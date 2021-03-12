@@ -2,12 +2,12 @@ import React from 'react'
 import { ApolloForm, PropsWithIds } from '@codelab/frontend'
 import {
   AddChildVertexInput,
+  AddChildVertexInputSchema,
   GetPageGql,
   UpdateVertexMutationVariables,
+  useAddChildVertexMutation,
   VertexFragmentsFragment,
-  useAddChildVertexMutation, AddChildVertexInputSchema,
 } from '@codelab/generated'
-import { JSONSchema7 } from 'json-schema';
 
 export type AddChildVertexFormProps = {
   vertex: VertexFragmentsFragment
@@ -37,7 +37,7 @@ export const AddChildVertexForm = ({
     <ApolloForm<AddChildVertexInput, UpdateVertexMutationVariables>
       hideSubmitButton
       mutate={mutate}
-      schema={AddChildVertexInputSchema as unknown as JSONSchema7}
+      schema={AddChildVertexInputSchema}
       initialFormData={{
         parentVertexId,
         vertex: { type: '', props: {} },

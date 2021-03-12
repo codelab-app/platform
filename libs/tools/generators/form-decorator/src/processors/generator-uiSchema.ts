@@ -35,12 +35,12 @@ export const buildImportString = (stringUISchema: string) => {
 		const matchesWithoutQuotes = matches.map((match: string) => {
 			return match.replace(/"/g, '')
 		}).filter((v, i, a) => a.indexOf(v) === i && v !== undefined);
-		return `import { ${[...matchesWithoutQuotes]} } from '@codelab/tools/generators/form-templates'\n`
+		return `import { ${[...matchesWithoutQuotes]} } from '@codelab/tools/generators/form-templates'\n\n`
 	}
 	return ''
 }
 
-export const getSchemaString = (obj: {schema: any, uiSchema: any}, className: string = ''): string => {
+export const getSchemaString = (obj: {schema: any, uiSchema: any, name: string}): string => {
 	const superRegex = /(?<="ui:ObjectFieldTemplate"\s*\:\s*)(".{0,}?(?=")")/g
 
 	let stringUISchema = JSON.stringify(obj.uiSchema, null, 2)
@@ -49,20 +49,12 @@ export const getSchemaString = (obj: {schema: any, uiSchema: any}, className: st
 		return substring.replace(/"/g, '')
 	})
 
-	stringUISchema = `export const ${className}UiSchema = ${stringUISchema}`
+	stringUISchema = `export const ${obj.name}UiSchema = ${stringUISchema}`
 
 	let stringSchema = JSON.stringify(obj.schema, null, 2)
-	stringSchema = `export const ${className}Schema = ${stringSchema}`
+	stringSchema = `export const ${obj.name}Schema: JSONSchema7 = ${stringSchema}`
 
 	const finalString = `${stringSchema}\n${stringUISchema}\n`
 
 	return finalString
-}
-
-export const writeSchemasToFile = (obj: {schema: any, uiSchema: any}, path: string) => {
-	const finalString = getSchemaString(obj)
-
-	require('fs').writeFile(`${path}`, finalString, (err: any) => {
-		if (err) throw err;
-	});
 }

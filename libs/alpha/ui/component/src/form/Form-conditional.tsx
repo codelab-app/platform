@@ -45,7 +45,7 @@ export const ConditionalForm = () => {
   }
 
   return (
-      <Form schema={conditionalFormProps.schema as unknown as JSONSchema7}
+      <Form schema={conditionalFormProps.schema}
             uiSchema={conditionalFormProps.uiSchema}
             FieldTemplate={CodelabFieldTemplate}
             onSubmit={onSubmitClicked}/>

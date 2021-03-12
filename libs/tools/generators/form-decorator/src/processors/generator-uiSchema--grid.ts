@@ -2,7 +2,8 @@ import { getUiSchemaGrid, IRjsfGrid } from '../decorators/RjsfGrid';
 import { getRjsfGridProp, IMetadata } from '../decorators/RjsfGridProp';
 import { getUiSchemaGroup } from '../decorators/RjsfGroup';
 
-const processBasicProps = (props: IMetadata[], uiLayoutObj: any) => {
+const processBasicProps = (props: IMetadata[], uiSchema: any) => {
+	const uiLayout = uiSchema['ui:layout']
 	const uniqueRows: number[] = props.map(p => {
 		return p.propMetadata.row
 	}).filter((v, i, a) => a.indexOf(v) === i && v !== undefined);
@@ -14,6 +15,9 @@ const processBasicProps = (props: IMetadata[], uiLayoutObj: any) => {
 
 		const result: any = {}
 		rows.forEach((row: IMetadata) => {
+			if (row.propMetadata.uiSchema) {
+				uiSchema[row.key] = row.propMetadata.uiSchema
+			}
 			result[row.key] = {
 				span: row.propMetadata.span
 			}
@@ -25,10 +29,10 @@ const processBasicProps = (props: IMetadata[], uiLayoutObj: any) => {
 			}
 		})
 
-		if (rowNum > uiLayoutObj.length) {
-			uiLayoutObj.push(result)
+		if (rowNum > uiLayout.length) {
+			uiLayout.push(result)
 		} else {
-			uiLayoutObj[rowNum] = result
+			uiLayout[rowNum] = result
 		}
 	})
 }
@@ -66,14 +70,14 @@ const processObjectProps = (props: IMetadata[], uiLayoutObj: any) => {
 							'ui:layout': []
 						}
 					}
-					processBasicProps(props, uiLayoutObj[item.key].items['ui:layout'])
+					processBasicProps(props, uiLayoutObj[item.key].items)
 					processObjectProps(props, uiLayoutObj[item.key].items)
 				} else {
 					uiLayoutObj[item.key] = {
 						'ui:ObjectFieldTemplate': classDecorator.ObjectFieldTemplate,
 						'ui:layout': []
 					}
-					processBasicProps(props, uiLayoutObj[item.key]['ui:layout'])
+					processBasicProps(props, uiLayoutObj[item.key])
 					processObjectProps(props, uiLayoutObj[item.key])
 				}
 				uiLayoutObj[item.key]['ui:spacing'] = item.propMetadata['ui:spacing']
@@ -96,7 +100,7 @@ export const generateGridUiSchema = (target: any) => {
 		'ui:layout': []
 	}
 
-	processBasicProps(props, uiSchema['ui:layout'])
+	processBasicProps(props, uiSchema)
 	try {
 		processObjectProps(props, uiSchema)
 	} catch (e) {}

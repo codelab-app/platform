@@ -3,15 +3,19 @@ import { ApolloForm } from '@codelab/frontend'
 import {
   GetVertexGql,
   UpdateVertexInput,
-  UpdateVertexInputFormProps,
+  // UpdateVertexInputFormProps,
   UpdateVertexInputSchema,
   UpdateVertexMutationVariables,
   VertexFragmentsFragment,
-  useUpdateVertexMutation,
+  useUpdateVertexMutation, UpdateVertexInputUiSchema,
 } from '@codelab/generated'
 
 type UpdateVertexFormProps = {
   vertex: VertexFragmentsFragment
+}
+
+const UpdateVertexInputFormProps = {
+  uiSchema: UpdateVertexInputUiSchema
 }
 
 export const UpdateVertexForm = ({ vertex }: UpdateVertexFormProps) => {

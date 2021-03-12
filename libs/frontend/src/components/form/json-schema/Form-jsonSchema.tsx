@@ -20,7 +20,7 @@ export const JsonSchemaForm = <TData extends object>({
   onSubmitError,
   widgets,
   schema,
-uiSchema,
+  uiSchema,
   onSubmit = () => null,
   initialFormData = {} as TData,
   submitButtonProps = {},

@@ -87,13 +87,14 @@ const bootstrap = async () => {
 
     let schemasString = res.reduce((accu: string, val: {schema: any, uiSchema: any, name: string}) => {
 
-        const schemaString = getSchemaString({schema: val.schema, uiSchema: val.uiSchema}, val.name)
+        const schemaString = getSchemaString(val)
 
         return accu += schemaString
     }, '')
 
     schemasString += getCssSchemaString()
-    schemasString = buildImportString(schemasString) + schemasString
+    const importJsonSchema7 = `import { JSONSchema7 } from 'json-schema';\n`
+    schemasString = importJsonSchema7 + buildImportString(schemasString) + schemasString
 
     require('fs').writeFile(npmLibraryTypesOutputFile, schemasString, (err: any) => {
         if (err) throw err;

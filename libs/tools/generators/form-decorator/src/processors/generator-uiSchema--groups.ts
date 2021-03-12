@@ -19,7 +19,8 @@ const findObjProps = (props: IRjsfGroupPropMetadata[]) => {
 	}
 }
 
-const processBasicProps = (props: IRjsfGroupPropMetadata[], uiLayoutObj: IUiGroups[]) => {
+const processBasicProps = (props: IRjsfGroupPropMetadata[], uiSchema: any) => {
+	const uiGroups: IUiGroups[] = uiSchema['ui:groups']
 	const uniqueTitles: string[] = props.map(p => {
 		return p.propMetadata.panelTitle
 	}).filter((v, i, a) => a.indexOf(v) === i && v !== undefined);
@@ -40,7 +41,7 @@ const processBasicProps = (props: IRjsfGroupPropMetadata[], uiLayoutObj: IUiGrou
 				result.fields.push(field.key)
 			}
 		})
-		uiLayoutObj.push(result)
+		uiGroups.push(result)
 	})
 }
 
@@ -57,7 +58,7 @@ const processObjectProps = (props: IRjsfGroupPropMetadata[], uiLayoutObj: any) =
 					'ui:ObjectFieldTemplate': classDecorator.ObjectFieldTemplate,
 					'ui:groups': []
 				}
-				processBasicProps(itemProps, uiLayoutObj[item.key]['ui:groups'])
+				processBasicProps(itemProps, uiLayoutObj[item.key])
 				processObjectProps(itemProps, uiLayoutObj[item.key])
 			}
 
@@ -76,7 +77,7 @@ export const generateGroupsUiSchema = (target: Function) => {
 		'ui:groups': []
 	}
 
-	processBasicProps(props, uiSchema['ui:groups'])
+	processBasicProps(props, uiSchema)
 	try {
 		processObjectProps(props, uiSchema)
 	} catch (e) {}

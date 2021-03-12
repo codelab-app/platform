@@ -4,6 +4,7 @@ import { reduceStyleProps } from '../reduceStyleProps'
 import { ApolloForm } from '@codelab/frontend'
 import {
   CreateStyleInputSchema,
+  CreateStyleInputUiSchema,
   CreateStyleMutationVariables,
   GetStylesGql,
   useCreateStyleMutation,
@@ -47,11 +48,7 @@ export const CreateStyleForm = (props: FormUseCaseProps<CreateStyleInput>) => {
     <ApolloForm<CreateStyleInput, CreateStyleMutationVariables>
       initialFormData={{ appId, name: '' }}
       schema={CreateStyleInputSchema}
-      uiSchema={{
-        appId: {
-          'ui:widget': 'hidden',
-        },
-      }}
+      uiSchema={CreateStyleInputUiSchema}
       mutate={transformedMutate}
       hideSubmitButton
       idPrefix="create_style"

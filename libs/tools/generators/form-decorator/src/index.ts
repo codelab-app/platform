@@ -1,8 +1,4 @@
-import { generateSchemas, writeSchemasToFile } from './processors'
-
-export const generateSchema = (target: Function, filePath: string) => {
-  writeSchemasToFile(generateSchemas(target), filePath)
-}
+import { generateSchemas } from './processors'
 
 export { generateSchemas }
 export * from './decorators'
