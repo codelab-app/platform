@@ -426,9 +426,9 @@ export type UpdateStyleInput = {
 }
 
 export type CreateLambdaInput = {
+  appId: Scalars['String']
   name: Scalars['String']
   body: Scalars['String']
-  appId: Scalars['String']
 }
 
 export type UpdateLambdaInput = {

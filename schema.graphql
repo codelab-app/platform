@@ -259,9 +259,9 @@ input UpdateStyleInput {
 }
 
 input CreateLambdaInput {
+  appId: String!
   name: String!
   body: String!
-  appId: String!
 }
 
 input UpdateLambdaInput {
