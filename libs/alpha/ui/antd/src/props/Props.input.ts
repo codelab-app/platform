@@ -1,5 +1,4 @@
-import { Schema } from '@tsed/schema'
-import { JSONSchema6 } from 'json-schema'
+import { JsonSchema, Schema } from '@tsed/schema'
 import { AffixProps } from '../components/affix/Affix.input'
 import { AutoCompleteProps } from '../components/autocomplete/AutoComplete.input'
 import { AvatarSelectedProps } from '../components/avatar/Avatar.input'
@@ -24,7 +23,7 @@ import { SpaceProps } from '../components/space/Space.input'
 import { StepsProps } from '../components/steps/Steps.input'
 import { StepsStepProps } from '../components/steps/StepsStep.input'
 import { TagSelectedProps } from '../components/tag/Tag.input'
-import { VegaSchema } from '@codelab/generated'
+import { CssPropsSchema } from '@codelab/generated'
 
 export const PropsList = [
   ButtonProps, // done
@@ -53,5 +52,5 @@ export const PropsList = [
   AutoCompleteProps,
 ]
 
-@Schema(VegaSchema as JSONSchema6)
+@Schema((CssPropsSchema as unknown) as JsonSchema)
 export class CssProps {}
