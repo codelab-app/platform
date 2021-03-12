@@ -158,27 +158,27 @@ const uiSchema = {
   tabsSample: {
     'ui:ObjectFieldTemplate': CodelabTabsTemplate,
     'ui:groups': [
-      { title: 'Info', fields: ['firstName', 'lastName'] },
-      { title: 'Address', fields: ['address'] },
+      { panelTitle: 'Info', fields: ['firstName', 'lastName'] },
+      { panelTitle: 'Address', fields: ['address'] },
     ],
   },
   accordionSample: {
     'ui:ObjectFieldTemplate': CodelabAccordionTemplate,
     'ui:groups': [
-      { title: 'Info', fields: ['firstName', 'lastName'] },
-      { title: 'Address', fields: ['address'] },
+      { panelTitle: 'Info', fields: ['firstName', 'lastName'] },
+      { panelTitle: 'Address', fields: ['address'] },
     ],
   },
   stepsSample: {
     'ui:ObjectFieldTemplate': CodelabTabsTemplate,
     'ui:groups': [
       {
-        title: 'Info',
+        panelTitle: 'Info',
         stepContent: 'Test Content Info',
         fields: ['firstName', 'lastName'],
       },
       {
-        title: 'Address',
+        panelTitle: 'Address',
         stepContent: 'Test Content Address',
         fields: ['address'],
       },

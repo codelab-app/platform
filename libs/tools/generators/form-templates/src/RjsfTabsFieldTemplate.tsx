@@ -2,7 +2,7 @@ import { Tabs } from 'antd'
 import React, { Fragment } from 'react'
 
 export interface ITabs {
-  title: string
+  panelTitle: string
   fields: Array<string>
 }
 
@@ -49,7 +49,7 @@ export const RjsfTabsFieldTemplate = (props: any) => {
       <Tabs defaultActiveKey="0" key="tabs">
         {layout?.map((row, index) => {
           return (
-            <Tabs.TabPane tab={row.title} key={index}>
+            <Tabs.TabPane tab={row.panelTitle} key={index}>
               {row.fields.map((field: string) => {
                 if (schema.properties[field]) {
                   const element = findContent(field)

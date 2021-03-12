@@ -1,14 +1,16 @@
 import { PaginationProps as AntPaginationProps } from 'antd/lib/pagination'
 import * as React from 'react'
-import { RjsfGrid, RjsfGridProp } from '@codelab/tools/generators/form-decorator';
+import {
+  RjsfGrid,
+  RjsfGridProp,
+} from '@codelab/tools/generators/form-decorator'
 
 // @JsonSchemaQuickJumperDependencies()
 @RjsfGrid({
   'ui:spacing': 16,
-  ObjectFieldTemplate: 'RjsfGridFieldTemplate'
+  ObjectFieldTemplate: 'RjsfGridFieldTemplate',
 })
 export class PaginationProps implements AntPaginationProps {
-
   @RjsfGridProp({
     title: 'Current',
     description: 'Current page number',
@@ -61,9 +63,6 @@ export class PaginationProps implements AntPaginationProps {
   })
   pageSize?: number
 
-  // @CollectionOf(String)
-  // @Default(['10', '20', '50', '100'])
-  // @Description('Specify the sizeChanger options')
   @RjsfGridProp({
     title: 'Page Size Options',
     description: 'Specify the sizeChanger options',
@@ -77,7 +76,8 @@ export class PaginationProps implements AntPaginationProps {
 
   @RjsfGridProp({
     title: 'Responsive',
-    description: 'If size is not specified, Pagination would resize according to the width of the window',
+    description:
+      'If size is not specified, Pagination would resize according to the width of the window',
     row: 7,
     span: 24,
   })
@@ -109,13 +109,14 @@ export class PaginationProps implements AntPaginationProps {
     span: 12,
     title: 'Go Button',
     type: 'string',
-    condition: {key: 'showQuickJumper', value: true}
+    condition: { key: 'showQuickJumper', value: true },
   })
   declare goButton: string
 
   @RjsfGridProp({
     title: 'Show Size Changer',
-    description: 'Determine whether to show pageSize select, it will be true when total > 50',
+    description:
+      'Determine whether to show pageSize select, it will be true when total > 50',
     row: 10,
     span: 24,
   })
@@ -123,7 +124,7 @@ export class PaginationProps implements AntPaginationProps {
 
   @RjsfGridProp({
     title: 'Show Title',
-    description: 'Show page item\'s title',
+    description: "Show page item's title",
     row: 11,
     span: 24,
   })

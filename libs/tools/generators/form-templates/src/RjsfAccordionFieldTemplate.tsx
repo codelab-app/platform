@@ -2,7 +2,7 @@ import { Collapse } from 'antd'
 import React, { Fragment } from 'react'
 
 export interface IAccordion {
-  title: string
+  panelTitle: string
   fields: Array<string>
 }
 
@@ -49,7 +49,7 @@ export const RjsfAccordionFieldTemplate = (props: any) => {
       <Collapse defaultActiveKey="0" key="accordion">
         {layout?.map((row, index) => {
           return (
-            <Collapse.Panel header={row.title} key={index}>
+            <Collapse.Panel header={row.panelTitle} key={index}>
               {row.fields.map((field: string) => {
                 if (schema.properties[field]) {
                   const element = findContent(field)

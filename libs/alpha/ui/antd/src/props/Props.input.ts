@@ -47,7 +47,7 @@ export const PropsList = [
   PageHeaderProps,
   AvatarSelectedProps,
   TagSelectedProps, // done
-  PaginationProps,
+  PaginationProps, // done
   StepsProps,
   StepsStepProps,
   AutoCompleteProps,

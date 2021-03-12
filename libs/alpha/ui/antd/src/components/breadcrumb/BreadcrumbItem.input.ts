@@ -1,29 +1,53 @@
 import { BreadcrumbItemProps as AntBreadcrumbItemProps } from 'antd/lib/breadcrumb'
 import { DropDownProps } from '../dropdown/Dropdown.input'
 import { MenuProps } from '../menu/Menu.input'
-import { RjsfGrid, RjsfGridProp } from '@codelab/tools/generators/form-decorator';
+import {
+  RjsfGrid,
+  RjsfGridProp,
+  RjsfGroup,
+  RjsfGroupProp,
+} from '@codelab/tools/generators/form-decorator'
+
+@RjsfGroup({
+  ObjectFieldTemplate: 'RjsfAccordionFieldTemplate',
+})
+class BreadCrumbsItemTabs {
+  @RjsfGroupProp({ panelTitle: 'Dropdown Props', clazz: DropDownProps })
+  declare dropdownProps: any
+
+  @RjsfGroupProp({ panelTitle: 'Menu Props', clazz: MenuProps })
+  declare menuProps: any
+}
 
 @RjsfGrid({
   'ui:spacing': 16,
-  ObjectFieldTemplate: 'RjsfGridFieldTemplate'
+  ObjectFieldTemplate: 'RjsfGridFieldTemplate',
 })
-export class BreadcrumbItemProps implements Omit<AntBreadcrumbItemProps, 'dropdownProps'> {
+export class BreadcrumbItemProps
+  implements Omit<AntBreadcrumbItemProps, 'dropdownProps'> {
+  @RjsfGridProp({
+    clazz: BreadCrumbsItemTabs,
+    title: 'Dropdown and Menu Props',
+    row: 0,
+    span: 24,
+  })
+  declare tabs: BreadCrumbsItemTabs
 
   @RjsfGridProp({
     title: 'Class Name',
     description: 'The additional css class',
-    row: 0,
+    row: 1,
     span: 24,
   })
   className?: string
 
-  @RjsfGridProp({
-    title: 'Dropdown Props',
-    description: 'The dropdown props',
-    clazz: DropDownProps,
-    row: 1,
-    span: 24,
-  })
+  // @RjsfGridProp({
+  //   title: 'Dropdown Props',
+  //   description: 'The dropdown props',
+  //   clazz: DropDownProps,
+  //   row: 1,
+  //   span: 24,
+  // })
   declare dropdownProps?: any
 
   @RjsfGridProp({
@@ -34,13 +58,13 @@ export class BreadcrumbItemProps implements Omit<AntBreadcrumbItemProps, 'dropdo
   })
   href?: string
 
-  @RjsfGridProp({
-    title: 'Menu Props',
-    description: 'The dropdown menu',
-    clazz: MenuProps,
-    row: 3,
-    span: 24,
-  })
+  // @RjsfGridProp({
+  //   title: 'Menu Props',
+  //   description: 'The dropdown menu',
+  //   clazz: MenuProps,
+  //   row: 3,
+  //   span: 24,
+  // })
   overlay?: any
 
   // onClick?: React.MouseEventHandler<HTMLAnchorElement | HTMLSpanElement>;
