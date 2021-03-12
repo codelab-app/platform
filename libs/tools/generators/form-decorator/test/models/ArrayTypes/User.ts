@@ -18,6 +18,6 @@ class Role {
 	ObjectFieldTemplate: 'RjsfGridFieldTemplate'
 })
 export class User {
-	@RjsfGridProp({ row: 0, span: 12, order: 0, clazz: Role, type: 'array', title: 'Roles' })
+	@RjsfGridProp({ row: 0, span: 12, order: 0, clazz: Role, isArray: true, title: 'Roles' })
 	declare roles: Role[]
 }

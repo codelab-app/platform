@@ -35,6 +35,9 @@ const processBasicProps = (props: IRjsfGroupPropMetadata[], uiSchema: any) => {
 			fields: []
 		}
 		fields.forEach((field: IRjsfGroupPropMetadata) => {
+			if (field.propMetadata.uiSchema) {
+				uiSchema[field.key] = field.propMetadata.uiSchema
+			}
 			if (field.propMetadata.order || field.propMetadata.order === 0) {
 				result.fields[field.propMetadata.order] = field.key
 			} else {

@@ -1,4 +1,4 @@
-import { CustomKey, Default, Description, Enum, Property, Required, Schema, Title } from '@tsed/schema';
+import { CustomKey, Default, Description, Enum, JsonSchema, Property, Required, Schema, Title } from '@tsed/schema';
 import { getJsonSchemaCustom } from '../processors/custom-tsed/getJsonSchemaCustom';
 import { Type } from '@tsed/core';
 import { getRjsfGroupProp, IRjsfGroupPropMetadata } from './RjsfGroupProp';
@@ -53,13 +53,48 @@ const generateSchemaForBasicType = (props: any, target: Object, propertyKey: str
 		const tsedPropDecorator = Property(type)
 		tsedPropDecorator(target, propertyKey)
 		if (props.enum) {
-			let tsedEnumDecorator
-			if (props.enum.length > 0) {
-				tsedEnumDecorator = Enum(...props.enum)
+			if (props.isMultipleChoice) {
+				const obj: any = {
+					type: 'array',
+					items: {
+						type: 'string',
+						enum: props.enum
+					},
+					uniqueItems: true
+				}
+				if (props.type) {
+					obj.items.type = props.type
+				}
+
+				if (props.title || props.title === '') {
+					obj.title = props.title
+				}
+
+				if (props.description || props.description === '') {
+					obj.description = props.description
+				}
+
+				if (props.default) {
+					obj.default = props.default
+				}
+				const tsedSchemaDecorator = Schema(obj)
+				tsedSchemaDecorator(target, propertyKey)
 			} else {
-				tsedEnumDecorator = Enum(props.enum)
+				let tsedEnumDecorator
+				if (props.enum.length > 0) {
+					tsedEnumDecorator = Enum(...props.enum)
+				} else {
+					tsedEnumDecorator = Enum(props.enum)
+				}
+				tsedEnumDecorator(target, propertyKey)
+				if (props.enumNames) {
+					const tsedSchemaDecorator = Schema({
+						enumNames: props.enumNames
+					} as unknown as JsonSchema)
+					tsedSchemaDecorator(target, propertyKey)
+				}
 			}
-			tsedEnumDecorator(target, propertyKey)
+
 		}
 		if (props.required) {
 			const tsedRequiredDecorator = Required()
