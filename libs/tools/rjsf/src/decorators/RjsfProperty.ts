@@ -1,8 +1,18 @@
 interface IRjsfProperty {
-  type: string
-  title: string
+  type: 'string' | 'number' | 'integer' | 'boolean' | 'object' | 'array'
+  title?: string
+  description?: string
   default?: any
   minLength?: number
+  maxLength?: number
+  maxItems?: number
+  minItems?: number
+  required?: boolean
+  examples?: any[]
+  isFixedItem?: boolean
+  format?: any
+  readOnly?: boolean
+  pattern?: any // for regex validation
   // [key: string]: any
 }
 

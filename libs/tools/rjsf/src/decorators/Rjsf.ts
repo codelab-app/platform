@@ -1,6 +1,6 @@
 interface IRjsf {
   title: string
-  description: string
+  description?: string
 }
 
 export const Rjsf = (props: IRjsf) => {
