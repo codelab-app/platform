@@ -1,6 +1,4 @@
 {
-  "npmScope": "codelab",
-  "affected": { "defaultBase": "master" },
   "implicitDependencies": {
     "workspace.json": "*",
     "package.json": { "dependencies": "*", "devDependencies": "*" },
@@ -10,6 +8,8 @@
     ".eslintrc.js": "*",
     ".eslintrc.json": "*"
   },
+  "affected": { "defaultBase": "master" },
+  "npmScope": "codelab",
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/nx-cloud",
@@ -66,6 +66,7 @@
     "tools-plugins-test-e2e": {
       "tags": [],
       "implicitDependencies": ["tools-plugins-test"]
-    }
+    },
+    "tools-rjsf": { "tags": [] }
   }
 }
