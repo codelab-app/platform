@@ -31,5 +31,6 @@ module.exports = {
     '<rootDir>/libs/tools/generators/crawler',
     '<rootDir>/libs/tools/plugins/test',
     '<rootDir>/apps/tools/plugins/test-e2e',
+    '<rootDir>/libs/tools/rjsf',
   ],
 }

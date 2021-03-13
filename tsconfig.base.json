@@ -97,7 +97,8 @@
       "@codelab/tools/generators/crawler": [
         "libs/tools/generators/crawler/src/index.ts"
       ],
-      "tools-plugins-test": ["libs/tools/plugins/test/src/index.ts"]
+      "tools-plugins-test": ["libs/tools/plugins/test/src/index.ts"],
+      "@codelab/tools/rjsf": ["libs/tools/rjsf/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"]
