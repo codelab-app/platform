@@ -8,7 +8,7 @@ interface IRjsfProperty {
   maxItems?: number
   minItems?: number
   required?: boolean
-  examples?: any[]
+  examples?: Array<any>
   isFixedItem?: boolean
   format?: any
   readOnly?: boolean

@@ -1,11 +1,11 @@
 interface IRjsfMultipleChoice {
-	type: 'string' | 'number' | 'integer' | 'boolean'
-	choices: any[]
+  type: 'string' | 'number' | 'integer' | 'boolean'
+  choices: Array<any>
 }
 
 export const RjsfMultipleChoice = (props: IRjsfMultipleChoice) => (
-	target: {} | any,
-	name?: PropertyKey,
+  target: {} | any,
+  name?: PropertyKey,
 ): any => {
-	//
+  //
 }

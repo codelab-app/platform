@@ -1,12 +1,12 @@
 interface IRjsfEnum {
-	enum: any[]
-	enumNames?: string[]
-	noChoiceValue?: any
+  enum: Array<any>
+  enumNames?: Array<string>
+  noChoiceValue?: any
 }
 
 export const RjsfEnum = (props: IRjsfEnum) => (
-	target: {} | any,
-	name?: PropertyKey,
+  target: {} | any,
+  name?: PropertyKey,
 ): any => {
-	//
+  //
 }

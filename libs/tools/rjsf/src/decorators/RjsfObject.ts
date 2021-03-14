@@ -1,6 +1,6 @@
 export const RjsfObject = (props: Function) => (
-	target: {} | any,
-	name?: PropertyKey,
+  target: {} | any,
+  name?: PropertyKey,
 ): any => {
-	//
+  //
 }
