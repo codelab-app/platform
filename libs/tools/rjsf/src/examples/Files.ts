@@ -1,28 +1,27 @@
-import { Rjsf } from '../decorators/Rjsf'
-import { RjsfArray } from '../decorators/RjsfArray'
-import { RjsfProperty } from '../decorators/RjsfProperty'
+import { Jsf } from '../decorators/Jsf'
+import { JsfProperty } from '../decorators/JsfProperty'
 import { RjsfUiSchema } from '../decorators/RjsfUiSchema'
 
-@Rjsf({
+@Jsf({
   title: 'Files',
 })
 export class Files {
-  @RjsfProperty({
+  @JsfProperty({
     type: 'string',
     format: 'data-url',
   })
   declare file: string
 
-  @RjsfProperty({
+  @JsfProperty({
     type: 'array',
-  })
-  @RjsfArray({
-    type: 'string',
-    format: 'data-url',
+    items: {
+      type: 'string',
+      format: 'data-url',
+    }
   })
   declare files: any
 
-  @RjsfProperty({
+  @JsfProperty({
     type: 'string',
     format: 'data-url',
     title: 'Single File with Accept attribute',

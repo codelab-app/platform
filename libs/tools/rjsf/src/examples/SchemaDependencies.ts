@@ -1,63 +1,94 @@
-import { Rjsf } from '../decorators/Rjsf'
-import { RjsfArrayObject } from '../decorators/RjsfArrayObject'
-import { RjsfConditional } from '../decorators/RjsfConditional'
-import { RjsfEnum } from '../decorators/RjsfEnum'
-import { RjsfObject } from '../decorators/RjsfObject'
-import { RjsfProperty } from '../decorators/RjsfProperty'
+import { Jsf } from '../decorators/Jsf'
+import { JsfProperty } from '../decorators/JsfProperty'
 import { RjsfUiSchema } from '../decorators/RjsfUiSchema'
+import { JsfDefinition } from '../decorators/JsfDefinition';
 
-@Rjsf({
+@Jsf({
   title: 'Person',
+  dependencies: {
+    doYouHaveAnyPets: {
+      oneOf: [
+        {
+          properties: {
+            doYouHaveAnyPets: {
+              enum: [
+                "No"
+              ]
+            }
+          }
+        },
+        {
+          properties: {
+            doYouHaveAnyPets: {
+              enum: [
+                "Yes: One"
+              ]
+            },
+            "How old is your pet?": {
+              type: "number"
+            }
+          },
+          required: [
+            "How old is your pet?"
+          ]
+        },
+        {
+          properties: {
+            doYouHaveAnyPets: {
+              enum: [
+                "Yes: More than one"
+              ]
+            },
+            "Do you want to get rid of any?": {
+              type: "boolean"
+            }
+          },
+          required: [
+            "Do you want to get rid of any?"
+          ]
+        }
+      ]
+    }
+  }
 })
+@JsfDefinition({name: 'person'})
 class Person {
-  @RjsfProperty({
+  @JsfProperty({
     type: 'string',
-    default: 'No',
     required: true,
-  })
-  @RjsfEnum({
-    enum: ['No', 'Yes: One', 'Yes: More than one'],
-    noChoiceValue: 'No',
+    enum: [
+      'No',
+      'Yes: One',
+      'Yes: More than one'
+    ],
+  'default': 'No'
   })
   declare doYouHaveAnyPets: string
-
-  @RjsfProperty({
-    type: 'number',
-    title: 'How old is your pet?',
-    required: true,
-  })
-  @RjsfConditional({
-    key: 'doYouHaveAnyPets',
-    value: 'Yes: One',
-  })
-  declare howOldIsYourPet: number
-
-  @RjsfProperty({
-    type: 'boolean',
-    title: 'Do you want to get rid of any?',
-    required: true,
-  })
-  @RjsfConditional({
-    key: 'doYouHaveAnyPets',
-    value: 'Yes: More than one',
-  })
-  @RjsfUiSchema({
-    'ui:widget': 'radio',
-  })
-  declare doYouWantToGetRidOfAny: string
 }
 
-@Rjsf({
+@Jsf({
   title: 'Simple',
+  dependencies: {
+    credit_card: {
+      properties: {
+        billing_address: {
+          type: 'string'
+        }
+      },
+      required: [
+        'billing_address'
+      ]
+    }
+  }
 })
 class Simple {
-  @RjsfProperty({
+  @JsfProperty({
     type: 'string',
     required: true,
   })
   declare name: string
 
-  @RjsfProperty({
+  @JsfProperty({
     type: 'number',
   })
   @RjsfUiSchema({
@@ -65,50 +96,43 @@ class Simple {
       'If you enter anything here then billing_address will be dynamically added to the form.',
   })
   declare creditCard: number
-
-  @RjsfProperty({
-    type: 'string',
-    required: true,
-  })
-  @RjsfConditional({
-    key: 'creditCard',
-  })
-  declare billing_address: string
 }
 
-@Rjsf({
+@Jsf({
   title: 'Schema dependencies',
   description: 'These samples are best viewed without live validation.',
 })
 export class SchemaDependencies {
-  @RjsfProperty({
+  @JsfProperty({
     type: 'object',
+    properties: Simple,
   })
-  @RjsfObject(Simple)
   @RjsfUiSchema()
   declare simple: Simple
 
-  @RjsfProperty({
+  @JsfProperty({
     type: 'object',
+    properties: Person
   })
-  @RjsfObject(Person)
   @RjsfUiSchema()
   declare conditional: Person
 
-  @RjsfProperty({
+  @JsfProperty({
     type: 'array',
-  })
-  @RjsfArrayObject({
-    clazz: Person,
+    items: Person
   })
   declare arrayOfConditionals: Array<Person>
 
-  // 	@RjsfProperty({
-  // 		type: 'array',
-  // 	})
-  // 	@RjsfArrayObject({
-  // 		clazz: Person,
-  // 		isFixedItem: true
-  // 	})
-  // 	declare fixedArrayOfConditionals: any
+  	@JsfProperty({
+  		type: 'array',
+        items: [{
+          "title": "Primary person",
+          "$ref": Person
+        }],
+        additionalItems: {
+          "title": "Additional person",
+          "$ref": Person
+        }
+  	})
+  	declare fixedArrayOfConditionals: any
 }

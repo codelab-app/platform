@@ -1,12 +1,12 @@
-import { Rjsf } from '../decorators/Rjsf'
-import { RjsfProperty } from '../decorators/RjsfProperty'
+import { Jsf } from '../decorators/Jsf'
+import { JsfProperty } from '../decorators/JsfProperty'
 
-@Rjsf({
+@Jsf({
   title: 'Examples',
   description: 'A text field with example values.',
 })
 export class Examples {
-  @RjsfProperty({
+  @JsfProperty({
     type: 'string',
     title: 'Browser',
     examples: ['Firefox', 'Chrome', 'Opera', 'Vivaldi', 'Safari'],

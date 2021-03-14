@@ -1,16 +1,14 @@
-import { RjsfEnum } from '../decorators/RjsfEnum'
-import { RjsfNumber } from '../decorators/RjsfNumber'
-import { RjsfProperty } from '../decorators/RjsfProperty'
+import { JsfProperty } from '../decorators/JsfProperty'
 import { RjsfUiSchema } from '../decorators/RjsfUiSchema'
 
 export class Numbers {
-  @RjsfProperty({
+  @JsfProperty({
     type: 'number',
     title: 'Number',
   })
   declare numberField: number
 
-  @RjsfProperty({
+  @JsfProperty({
     type: 'integer',
     title: 'Integer',
   })
@@ -19,20 +17,16 @@ export class Numbers {
   })
   declare integerField: number
 
-  @RjsfProperty({
+  @JsfProperty({
     type: 'number',
     title: 'Number enum',
-  })
-  @RjsfEnum({
     enum: [1, 2, 3],
   })
   declare numberEnum: Array<number>
 
-  @RjsfProperty({
+  @JsfProperty({
     type: 'number',
     title: 'Number enum',
-  })
-  @RjsfEnum({
     enum: [1, 2, 3],
   })
   @RjsfUiSchema({
@@ -43,11 +37,9 @@ export class Numbers {
   })
   declare numberEnumRadio: Array<number>
 
-  @RjsfProperty({
+  @JsfProperty({
     type: 'integer',
     title: 'Integer range',
-  })
-  @RjsfNumber({
     minimum: 42,
     maximum: 100,
   })
@@ -56,11 +48,9 @@ export class Numbers {
   })
   declare integerRange: any
 
-  @RjsfProperty({
+  @JsfProperty({
     type: 'integer',
     title: 'Integer range (by 10)',
-  })
-  @RjsfNumber({
     minimum: 50,
     maximum: 100,
     multipleOf: 10,

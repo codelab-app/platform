@@ -1,15 +1,14 @@
-import { Rjsf } from '../decorators/Rjsf'
-import { RjsfNumber } from '../decorators/RjsfNumber'
-import { RjsfProperty } from '../decorators/RjsfProperty'
+import { Jsf } from '../decorators/Jsf'
+import { JsfProperty } from '../decorators/JsfProperty'
 import { RjsfUiSchema } from '../decorators/RjsfUiSchema'
 
-@Rjsf({
+@Jsf({
   title: 'Custom validation',
   description:
     'This form defines custom validation rules checking that the two passwords match.',
 })
 export class Validation {
-  @RjsfProperty({
+  @JsfProperty({
     type: 'string',
     minLength: 3,
     title: 'Password',
@@ -19,7 +18,7 @@ export class Validation {
   })
   declare pass1: string
 
-  @RjsfProperty({
+  @JsfProperty({
     type: 'string',
     minLength: 3,
     title: 'Repeat Password',
@@ -29,11 +28,9 @@ export class Validation {
   })
   declare pass2: string
 
-  @RjsfProperty({
+  @JsfProperty({
     type: 'number',
     title: 'Age',
-  })
-  @RjsfNumber({
     minimum: 18,
   })
   declare age: number

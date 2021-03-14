@@ -4,7 +4,7 @@ export interface IRjsfDefinition {
   name: string
 }
 
-export const RjsfDefinition = (props: IRjsfDefinition) => (
+export const JsfDefinition = (props: IRjsfDefinition) => (
   target: {} | any,
   name?: PropertyKey,
 ): any => {

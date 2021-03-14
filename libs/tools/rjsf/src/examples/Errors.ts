@@ -1,13 +1,11 @@
-import { Rjsf } from '../decorators/Rjsf'
-import { RjsfArray } from '../decorators/RjsfArray'
-import { RjsfMultipleChoice } from '../decorators/RjsfMultipleChoice'
-import { RjsfProperty } from '../decorators/RjsfProperty'
+import { Jsf } from '../decorators/Jsf'
+import { JsfProperty } from '../decorators/JsfProperty'
 
-@Rjsf({
+@Jsf({
   title: 'Contextualized errors',
 })
 export class Errors {
-  @RjsfProperty({
+  @JsfProperty({
     type: 'string',
     title: 'First name',
     minLength: 8,
@@ -15,29 +13,34 @@ export class Errors {
   })
   declare firstName: string
 
-  @RjsfProperty({
+  @JsfProperty({
     type: 'boolean',
     title: 'Active',
   })
   declare active: boolean
 
-  @RjsfProperty({
+  @JsfProperty({
     type: 'array',
-  })
-  @RjsfArray({
-    type: 'string',
-    minLength: 5,
+    items: {
+      type: 'string',
+      minLength: 5,
+    }
   })
   declare skills: any
 
-  @RjsfProperty({
+  @JsfProperty({
     type: 'array',
     title: 'Pick max two items',
     maxItems: 2,
-  })
-  @RjsfMultipleChoice({
-    type: 'string',
-    choices: ['foo', 'bar', 'fuzz'],
+    uniqueItems: true,
+    items: {
+      type: 'string',
+      enum: [
+        'foo',
+        'bar',
+        'fuzz'
+      ]
+    }
   })
   declare multipleChoicesList: any
 }

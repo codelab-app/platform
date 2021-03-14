@@ -1,7 +1,7 @@
 /**
  * This is basically the `json-schema`
  */
-interface IRjsfProperty {
+interface IJsfProperty {
   type: 'string' | 'number' | 'integer' | 'boolean' | 'object' | 'array'
   /**
    * We get from reflection using property name
@@ -20,10 +20,11 @@ interface IRjsfProperty {
   readOnly?: boolean
   pattern?: any // for regex validation
   items?: any
-  // [key: string]: any
+  properties?: any
+  [key: string]: any
 }
 
-export const RjsfProperty = (props: IRjsfProperty) => (
+export const JsfProperty = (props: IJsfProperty) => (
   target: {} | any,
   name?: PropertyKey,
 ): any => {

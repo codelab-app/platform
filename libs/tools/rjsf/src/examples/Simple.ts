@@ -1,24 +1,24 @@
-import { Rjsf } from '../decorators/Rjsf'
-import { RjsfProperty } from '../decorators/RjsfProperty'
+import { Jsf } from '../decorators/Jsf'
+import { JsfProperty } from '../decorators/JsfProperty'
 
-@Rjsf({
+@Jsf({
   title: 'A registration form',
   description: 'A simple form example.',
 })
 export class Simple {
-  @RjsfProperty({
+  @JsfProperty({
     type: 'string',
     title: 'First name',
   })
   declare firstName: string
 
-  @RjsfProperty({
+  @JsfProperty({
     type: 'string',
     title: 'Last name',
   })
   declare lastName: string
 
-  @RjsfProperty({
+  @JsfProperty({
     type: 'string',
     title: 'Telephone',
     minLength: 10,

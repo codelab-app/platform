@@ -1,20 +1,18 @@
-import { Rjsf } from '../decorators/Rjsf'
-import { RjsfEnum } from '../decorators/RjsfEnum'
-import { RjsfObject } from '../decorators/RjsfObject'
-import { RjsfProperty } from '../decorators/RjsfProperty'
+import { Jsf } from '../decorators/Jsf'
+import { JsfProperty } from '../decorators/JsfProperty'
 import { RjsfUiSchema } from '../decorators/RjsfUiSchema'
 
-@Rjsf({
+@Jsf({
   title: 'String field',
 })
 class StringField {
-  @RjsfProperty({
+  @JsfProperty({
     type: 'string',
     title: 'text input (default)',
   })
   declare default: string
 
-  @RjsfProperty({
+  @JsfProperty({
     type: 'string',
     title: 'textarea',
   })
@@ -26,7 +24,7 @@ class StringField {
   })
   declare textarea: string
 
-  @RjsfProperty({
+  @JsfProperty({
     type: 'string',
   })
   @RjsfUiSchema({
@@ -34,7 +32,7 @@ class StringField {
   })
   declare placeholder: string
 
-  @RjsfProperty({
+  @JsfProperty({
     type: 'string',
     title: 'color picker',
     default: '#151ce6',
@@ -45,18 +43,18 @@ class StringField {
   declare color: string
 }
 
-@Rjsf({
+@Jsf({
   title: 'Boolean field',
 })
 class BooleanField {
-  @RjsfProperty({
+  @JsfProperty({
     type: 'boolean',
     title: 'checkbox (default)',
     description: 'This is the checkbox-description',
   })
   declare default: string
 
-  @RjsfProperty({
+  @JsfProperty({
     type: 'boolean',
     title: 'radio buttons',
     description: 'This is the radio-description',
@@ -66,7 +64,7 @@ class BooleanField {
   })
   declare radio: string
 
-  @RjsfProperty({
+  @JsfProperty({
     type: 'boolean',
     title: 'select box',
     description: 'This is the select-description',
@@ -77,48 +75,48 @@ class BooleanField {
   declare select: string
 }
 
-@Rjsf({
+@Jsf({
   title: 'String formats',
 })
 class StringFormats {
-  @RjsfProperty({
+  @JsfProperty({
     type: 'string',
     format: 'email',
   })
   declare email: string
 
-  @RjsfProperty({
+  @JsfProperty({
     type: 'string',
     format: 'uri',
   })
   declare uri: string
 }
 
-@Rjsf({
+@Jsf({
   title: 'Widgets',
 })
 export class Widgets {
-  @RjsfProperty({
+  @JsfProperty({
     type: 'object',
+    properties: StringFormats
   })
-  @RjsfObject(StringFormats)
   declare stringFormats: StringFormats
 
-  @RjsfProperty({
+  @JsfProperty({
     type: 'object',
+    properties: BooleanField
   })
-  @RjsfObject(BooleanField)
   @RjsfUiSchema()
   declare booleanField: BooleanField
 
-  @RjsfProperty({
+  @JsfProperty({
     type: 'object',
+    properties: StringField
   })
-  @RjsfObject(StringField)
   @RjsfUiSchema()
   declare stringField: StringField
 
-  @RjsfProperty({
+  @JsfProperty({
     type: 'string',
     default: "I'm a hidden string.",
   })
@@ -127,7 +125,7 @@ export class Widgets {
   })
   declare secret: string
 
-  @RjsfProperty({
+  @JsfProperty({
     type: 'string',
     title: 'A disabled field',
     default: "I'm disabled",
@@ -137,7 +135,7 @@ export class Widgets {
   })
   declare disabled: string
 
-  @RjsfProperty({
+  @JsfProperty({
     type: 'string',
     title: 'A readonly field',
     default: 'I am read-only.',
@@ -147,7 +145,7 @@ export class Widgets {
   })
   declare readonly: string
 
-  @RjsfProperty({
+  @JsfProperty({
     type: 'string',
     title: 'Another readonly field',
     default: 'I am also read-only.',
@@ -155,7 +153,7 @@ export class Widgets {
   })
   declare readonly2: string
 
-  @RjsfProperty({
+  @JsfProperty({
     type: 'string',
     title: 'Custom widget with options',
     default: 'I am yellow',
@@ -167,10 +165,8 @@ export class Widgets {
   })
   declare widgetOptions: string
 
-  @RjsfProperty({
+  @JsfProperty({
     type: 'string',
-  })
-  @RjsfEnum({
     enum: ['foo', 'bar'],
     enumNames: ['Foo', 'Bar'],
   })

@@ -1,15 +1,15 @@
-import { Rjsf } from '../decorators/Rjsf'
-import { RjsfProperty } from '../decorators/RjsfProperty'
+import { Jsf } from '../decorators/Jsf'
+import { JsfProperty } from '../decorators/JsfProperty'
 import { RjsfUiSchema } from '../decorators/RjsfUiSchema'
 
-@Rjsf({
+@Jsf({
   title: 'A registration form',
 })
 @RjsfUiSchema({
   'ui:order': ['firstName', 'lastName', '*', 'password'],
 })
 export class Ordering {
-  @RjsfProperty({
+  @JsfProperty({
     type: 'string',
     title: 'Password',
   })
@@ -18,7 +18,7 @@ export class Ordering {
   })
   declare password: string
 
-  @RjsfProperty({
+  @JsfProperty({
     type: 'string',
     title: 'Last Name',
   })
@@ -27,19 +27,19 @@ export class Ordering {
   })
   declare lastName: string
 
-  @RjsfProperty({
+  @JsfProperty({
     type: 'string',
     title: 'Bio',
   })
   declare bio: string
 
-  @RjsfProperty({
+  @JsfProperty({
     type: 'string',
     title: 'First Name',
   })
   declare firstName: string
 
-  @RjsfProperty({
+  @JsfProperty({
     type: 'integer',
     title: 'Age',
   })

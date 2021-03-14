@@ -5,7 +5,7 @@ Can be used on individual property or class
 ### Simple
 
 
-@Rjsf({
+@Jsf({
   title: 'A registration form',
   description: 'A simple form example.",
 })

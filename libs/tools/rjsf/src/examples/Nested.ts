@@ -1,8 +1,11 @@
-import { RjsfArrayObject } from '../decorators/RjsfArrayObject'
-import { RjsfProperty } from '../decorators/RjsfProperty'
+import { JsfProperty } from '../decorators/JsfProperty'
+import { Jsf } from '../decorators/Jsf';
 
+@Jsf({
+  title: 'Tasks'
+})
 class Task {
-  @RjsfProperty({
+  @JsfProperty({
     type: 'string',
     title: 'Title',
     description: 'A sample title',
@@ -10,14 +13,14 @@ class Task {
   })
   declare title: string
 
-  @RjsfProperty({
+  @JsfProperty({
     type: 'string',
     title: 'Task details',
     description: 'Enter the task details',
   })
   declare details: string
 
-  @RjsfProperty({
+  @JsfProperty({
     type: 'boolean',
     title: 'Done?',
     default: false,
@@ -26,16 +29,16 @@ class Task {
 }
 
 export class Nested {
-  @RjsfProperty({
+  @JsfProperty({
     type: 'string',
     title: 'Task list title',
   })
   declare title: string
 
-  @RjsfProperty({
+  @JsfProperty({
     type: 'object',
     title: 'Tasks',
+    items: [Task]
   })
-  @RjsfArrayObject({ clazz: Task })
   declare tasks: Task
 }

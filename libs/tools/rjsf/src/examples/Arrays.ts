@@ -1,68 +1,27 @@
-import { RjsfArray } from '../decorators/RjsfArray'
-import { RjsfArrayObject } from '../decorators/RjsfArrayObject'
-import { RjsfDefinition } from '../decorators/RjsfDefinition'
-import { RjsfItems } from '../decorators/RjsfItems'
-import { RjsfMultipleChoice } from '../decorators/RjsfMultipleChoice'
-import { RjsfProperty } from '../decorators/RjsfProperty'
+import { JsfDefinition } from '../decorators/JsfDefinition'
+import { JsfProperty } from '../decorators/JsfProperty'
 import { RjsfUiSchema } from '../decorators/RjsfUiSchema'
 import { NestedListInnerList } from './Arrays-nestedList'
 
-class InnerList {
-  @RjsfProperty({
-    type: 'array',
-  })
-  @RjsfItems({
-    type: 'string',
-    default: 'lorem ipsum',
-  })
-  declare field: string
-}
-
-@RjsfDefinition({
+@JsfDefinition({
   name: 'Thing',
 })
 class Thing {
-  @RjsfProperty({
+  @JsfProperty({
     type: 'string',
     default: 'Default Name',
   })
   declare name: string
 }
 
-class FixedItemsList {
-  // in JsonSchema items is usually an object, however in fixed items list it is an array
-  // we could introduce isFixedItem to group the fields into an array of items
-  @RjsfProperty({
-    type: 'string',
-    title: 'A string value',
-    default: 'lorem ipsum',
-    isFixedItem: true,
-  })
-  declare stringValue: string
-
-  @RjsfProperty({
-    type: 'string',
-    title: 'a boolean value',
-    isFixedItem: true,
-  })
-  declare booleanValue: boolean
-
-  // additionalItems is not fixed and goes outside items array
-  @RjsfProperty({
-    type: 'number',
-    title: 'Additional item',
-  })
-  declare additionalItems: number
-}
-
 export class Arrays {
-  @RjsfProperty({
+  @JsfProperty({
     type: 'array',
     title: 'A list of strings',
-  })
-  @RjsfItems({
-    type: 'string',
-    default: 'bazinga',
+    items: {
+      type: 'string',
+      default: 'bazinga'
+    }
   })
   @RjsfUiSchema({
     items: {
@@ -71,24 +30,44 @@ export class Arrays {
   })
   declare listOfStrings: Array<string>
 
-  @RjsfProperty({
+  @JsfProperty({
     type: 'array',
     title: 'A multiple choices list',
-  })
-  @RjsfMultipleChoice({
-    type: 'string',
-    choices: ['foo', 'bar', 'fuzz', 'qux'],
+    items: {
+      type: 'string',
+      enum: [
+        'foo',
+        'bar',
+        'fuzz',
+        'qux'
+      ]
+    },
+    uniqueItems: true
   })
   @RjsfUiSchema({
     'ui:widget': 'checkboxes',
   })
   declare multipleChoicesList: Array<string>
 
-  @RjsfProperty({
+  @JsfProperty({
     type: 'array',
     title: 'A list of fixed items',
+    items: [
+      {
+        title: 'A string value',
+        type: 'string',
+        default: 'lorem ipsum'
+      },
+      {
+        title: 'a boolean value',
+        type: 'boolean'
+      }
+    ],
+    additionalItems: {
+      title: 'Additional item',
+      type: 'number'
+    }
   })
-  @RjsfArrayObject({ clazz: FixedItemsList, hasFixedItems: true })
   @RjsfUiSchema({
     items: [
       {
@@ -102,9 +81,9 @@ export class Arrays {
       'ui:widget': 'updown',
     },
   })
-  declare fixedItemsList: FixedItemsList
+  declare fixedItemsList: any
 
-  @RjsfProperty({
+  @JsfProperty({
     type: 'array',
     title: 'A list with a minimal number of items',
     minItems: 3,
@@ -112,13 +91,11 @@ export class Arrays {
   })
   declare minItemsList: Array<Thing>
 
-  @RjsfProperty({
+  @JsfProperty({
     type: 'array',
     title: 'List and item level defaults',
     minItems: 5,
     default: ['carp', 'trout', 'bream'],
-  })
-  @RjsfArray({
     items: {
       type: 'string',
       default: 'unidentified',
@@ -126,20 +103,20 @@ export class Arrays {
   })
   declare defaultsAndMinItems: string
 
-  @RjsfProperty({
+  @JsfProperty({
     type: 'array',
     title: 'Nested List',
-    items: [NestedListInnerList],
+    items: NestedListInnerList,
   })
   declare nestedList: Array<NestedListInnerList>
 
-  @RjsfProperty({
+  @JsfProperty({
     type: 'array',
     title: 'Unorderable items',
-  })
-  @RjsfItems({
-    type: 'string',
-    default: 'lorem ipsum',
+    items: {
+      type: 'string',
+      default: 'lorem ipsum',
+    }
   })
   @RjsfUiSchema({
     'ui:options': {
@@ -148,13 +125,13 @@ export class Arrays {
   })
   declare unorderable: string
 
-  @RjsfProperty({
+  @JsfProperty({
     type: 'array',
     title: 'Unremovable items',
-  })
-  @RjsfItems({
-    type: 'string',
-    default: 'lorem ipsum',
+    items: {
+      type: 'string',
+      default: 'lorem ipsum',
+    }
   })
   @RjsfUiSchema({
     'ui:options': {
@@ -163,13 +140,13 @@ export class Arrays {
   })
   declare unremovable: string
 
-  @RjsfProperty({
+  @JsfProperty({
     type: 'array',
     title: 'No add, remove and order buttons',
-  })
-  @RjsfItems({
-    type: 'string',
-    default: 'lorem ipsum',
+    items: {
+      type: 'string',
+      default: 'lorem ipsum',
+    }
   })
   @RjsfUiSchema({
     'ui:options': {
@@ -180,11 +157,25 @@ export class Arrays {
   })
   declare noToolbar: string
 
-  @RjsfProperty({
+  @JsfProperty({
     type: 'array',
     title: 'Fixed array without buttons',
+    items: [
+      {
+        title: 'A string value',
+        type: 'string',
+        default: 'lorem ipsum'
+      },
+      {
+        title: 'a boolean value',
+        type: 'boolean'
+      }
+    ],
+    additionalItems: {
+      title: 'Additional item',
+      type: 'number'
+    }
   })
-  @RjsfArrayObject({ clazz: FixedItemsList })
   @RjsfUiSchema({
     'ui:options': {
       addable: false,
@@ -192,5 +183,5 @@ export class Arrays {
       removable: false,
     },
   })
-  declare fixedNoToolbar: FixedItemsList
+  declare fixedNoToolbar: any
 }

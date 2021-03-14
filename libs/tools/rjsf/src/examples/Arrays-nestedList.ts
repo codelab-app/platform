@@ -1,12 +1,12 @@
-import { RjsfProperty } from '../decorators/RjsfProperty'
+import { JsfProperty } from '../decorators/JsfProperty'
 
-@RjsfProperty({
+@JsfProperty({
   type: 'string',
   default: 'lorem ipsum',
 })
 export class NestedListInnerItem {}
 
-@RjsfProperty({
+@JsfProperty({
   type: 'array',
   title: 'Inner list',
   items: [NestedListInnerItem],

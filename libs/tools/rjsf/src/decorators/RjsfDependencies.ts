@@ -1,10 +1,10 @@
-interface IRjsfConditional {
+interface IRjsfDependencies {
   key: string
   value?: any
   clazz?: Function
 }
 
-export const RjsfConditional = (props: IRjsfConditional) => (
+export const RjsfDependencies = (props: IRjsfDependencies) => (
   target: {} | any,
   name?: PropertyKey,
 ): any => {

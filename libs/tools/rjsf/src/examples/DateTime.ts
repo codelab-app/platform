@@ -1,14 +1,13 @@
-import { Rjsf } from '../decorators/Rjsf'
-import { RjsfObject } from '../decorators/RjsfObject'
-import { RjsfProperty } from '../decorators/RjsfProperty'
+import { Jsf } from '../decorators/Jsf'
+import { JsfProperty } from '../decorators/JsfProperty'
 import { RjsfUiSchema } from '../decorators/RjsfUiSchema'
 
-@Rjsf({
+@Jsf({
   title: 'Alternative',
   description: 'These work on most platforms.',
 })
 class Alternative {
-  @RjsfProperty({
+  @JsfProperty({
     type: 'string',
     format: 'date-time',
   })
@@ -20,7 +19,7 @@ class Alternative {
   })
   declare altDatetime: string
 
-  @RjsfProperty({
+  @JsfProperty({
     type: 'string',
     format: 'date',
   })
@@ -33,36 +32,37 @@ class Alternative {
   declare altDate: string
 }
 
-@Rjsf({
+@Jsf({
   title: 'Native',
   description: 'May not work on some browsers, notably Firefox Desktop and IE.',
 })
 class Native {
-  @RjsfProperty({
+  @JsfProperty({
     type: 'string',
     format: 'date-time',
   })
   declare dateTime: string
 
-  @RjsfProperty({
+  @JsfProperty({
     type: 'string',
     format: 'date',
   })
   declare date: string
 }
 
-@Rjsf({
+@Jsf({
   title: 'Date and time widgets',
 })
 export class DateTime {
-  @RjsfProperty({
+  @JsfProperty({
     type: 'object',
+    properties: Native
   })
-  @RjsfObject(Native)
   declare native: Native
 
-  @RjsfProperty({
+  @JsfProperty({
     type: 'object',
+    properties: Alternative
   })
-  declare alternative: any
+  declare alternative: Alternative
 }
