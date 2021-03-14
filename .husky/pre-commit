@@ -1,0 +1,6 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+yarn cross-env TIMING=1 lint-staged --verbose
+
+./scripts/lint/git.sh
