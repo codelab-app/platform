@@ -1,6 +1,4 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-# make lint-commit-dev
 npx --no-install commitlint --edit $1
-# npx commitlint -E HUSKY_GIT_PARAMS
