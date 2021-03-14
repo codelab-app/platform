@@ -1,5 +1,11 @@
+/**
+ * This is basically the `json-schema`
+ */
 interface IRjsfProperty {
   type: 'string' | 'number' | 'integer' | 'boolean' | 'object' | 'array'
+  /**
+   * We get from reflection using property name
+   */
   title?: string
   description?: string
   default?: any
@@ -13,6 +19,7 @@ interface IRjsfProperty {
   format?: any
   readOnly?: boolean
   pattern?: any // for regex validation
+  items?: any
   // [key: string]: any
 }
 

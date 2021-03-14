@@ -1,20 +1,26 @@
 import { RjsfArray } from '../decorators/RjsfArray'
 import { RjsfArrayObject } from '../decorators/RjsfArrayObject'
+import { RjsfDefinition } from '../decorators/RjsfDefinition'
+import { RjsfItems } from '../decorators/RjsfItems'
 import { RjsfMultipleChoice } from '../decorators/RjsfMultipleChoice'
 import { RjsfProperty } from '../decorators/RjsfProperty'
 import { RjsfUiSchema } from '../decorators/RjsfUiSchema'
+import { NestedListInnerList } from './Arrays-nestedList'
 
 class InnerList {
   @RjsfProperty({
     type: 'array',
   })
-  @RjsfArray({
+  @RjsfItems({
     type: 'string',
-    defaultValue: 'lorem ipsum',
+    default: 'lorem ipsum',
   })
   declare field: string
 }
 
+@RjsfDefinition({
+  name: 'Thing',
+})
 class Thing {
   @RjsfProperty({
     type: 'string',
@@ -54,9 +60,9 @@ export class Arrays {
     type: 'array',
     title: 'A list of strings',
   })
-  @RjsfArray({
+  @RjsfItems({
     type: 'string',
-    defaultValue: 'bazinga',
+    default: 'bazinga',
   })
   @RjsfUiSchema({
     items: {
@@ -102,9 +108,9 @@ export class Arrays {
     type: 'array',
     title: 'A list with a minimal number of items',
     minItems: 3,
+    items: [Thing],
   })
-  @RjsfArrayObject({ clazz: Thing })
-  declare minItemsList: Thing
+  declare minItemsList: Array<Thing>
 
   @RjsfProperty({
     type: 'array',
@@ -113,25 +119,27 @@ export class Arrays {
     default: ['carp', 'trout', 'bream'],
   })
   @RjsfArray({
-    type: 'string',
-    defaultValue: 'unidentified',
+    items: {
+      type: 'string',
+      default: 'unidentified',
+    },
   })
   declare defaultsAndMinItems: string
 
   @RjsfProperty({
     type: 'array',
-    title: 'Nested list',
+    title: 'Nested List',
+    items: [NestedListInnerList],
   })
-  @RjsfArrayObject({ clazz: InnerList })
-  declare nestedList: any
+  declare nestedList: Array<NestedListInnerList>
 
   @RjsfProperty({
     type: 'array',
     title: 'Unorderable items',
   })
-  @RjsfArray({
+  @RjsfItems({
     type: 'string',
-    defaultValue: 'lorem ipsum',
+    default: 'lorem ipsum',
   })
   @RjsfUiSchema({
     'ui:options': {
@@ -144,9 +152,9 @@ export class Arrays {
     type: 'array',
     title: 'Unremovable items',
   })
-  @RjsfArray({
+  @RjsfItems({
     type: 'string',
-    defaultValue: 'lorem ipsum',
+    default: 'lorem ipsum',
   })
   @RjsfUiSchema({
     'ui:options': {
@@ -159,9 +167,9 @@ export class Arrays {
     type: 'array',
     title: 'No add, remove and order buttons',
   })
-  @RjsfArray({
+  @RjsfItems({
     type: 'string',
-    defaultValue: 'lorem ipsum',
+    default: 'lorem ipsum',
   })
   @RjsfUiSchema({
     'ui:options': {
