@@ -89,8 +89,9 @@ lint-commit-ci:
 	@echo "${CIRCLE_BASE_REVISION}"
 	npx commitlint --from="${CIRCLE_BASE_REVISION}" "$@"
 
-lint-commit-dev:
-	npx commitlint -E HUSKY_GIT_PARAMS
+# Moved to commit-msg
+# lint-commit-dev:
+# 	npx commitlint -E HUSKY_GIT_PARAMS
 
 lint-eslint:
 	node scripts/lint/eslint.js
