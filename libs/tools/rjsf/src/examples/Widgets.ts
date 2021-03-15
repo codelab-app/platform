@@ -2,9 +2,6 @@ import { Jsf } from '../decorators/Jsf'
 import { JsfProperty } from '../decorators/JsfProperty'
 import { RjsfUiSchema } from '../decorators/RjsfUiSchema'
 
-@Jsf({
-  title: 'String field',
-})
 class StringField {
   @JsfProperty({
     type: 'string',
@@ -43,9 +40,6 @@ class StringField {
   declare color: string
 }
 
-@Jsf({
-  title: 'Boolean field',
-})
 class BooleanField {
   @JsfProperty({
     type: 'boolean',
@@ -75,9 +69,6 @@ class BooleanField {
   declare select: string
 }
 
-@Jsf({
-  title: 'String formats',
-})
 class StringFormats {
   @JsfProperty({
     type: 'string',
@@ -93,32 +84,36 @@ class StringFormats {
 }
 
 @Jsf({
+  type: 'object',
   title: 'Widgets',
 })
 export class Widgets {
   @JsfProperty({
     type: 'object',
+    title: 'String formats',
     properties: StringFormats
   })
   declare stringFormats: StringFormats
 
   @JsfProperty({
     type: 'object',
+    title: 'Boolean field',
     properties: BooleanField
   })
   @RjsfUiSchema()
-  declare booleanField: BooleanField
+  declare 'boolean': BooleanField
 
   @JsfProperty({
     type: 'object',
-    properties: StringField
+    properties: StringField,
+    title: 'String field'
   })
   @RjsfUiSchema()
-  declare stringField: StringField
+  declare 'string': StringField
 
   @JsfProperty({
     type: 'string',
-    default: "I'm a hidden string.",
+    default: 'I\'m a hidden string.',
   })
   @RjsfUiSchema({
     'ui:widget': 'hidden',
@@ -128,7 +123,7 @@ export class Widgets {
   @JsfProperty({
     type: 'string',
     title: 'A disabled field',
-    default: "I'm disabled",
+    default: 'I am disabled.',
   })
   @RjsfUiSchema({
     'ui:disabled': true,
@@ -167,6 +162,7 @@ export class Widgets {
 
   @JsfProperty({
     type: 'string',
+    title: 'Custom select widget with options',
     enum: ['foo', 'bar'],
     enumNames: ['Foo', 'Bar'],
   })

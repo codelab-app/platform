@@ -1,0 +1,4 @@
+{
+  "presets": ["@nrwl/react/babel"],
+  "plugins": ["@babel/plugin-proposal-decorators", { "decoratorsBeforeExport": true }]
+}

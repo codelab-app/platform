@@ -2,9 +2,13 @@ import { JsfDefinition } from '../decorators/JsfDefinition'
 import { JsfProperty } from '../decorators/JsfProperty'
 import { RjsfUiSchema } from '../decorators/RjsfUiSchema'
 import { NestedListInnerList } from './Arrays-nestedList'
+import { Jsf } from '../decorators/Jsf';
 
 @JsfDefinition({
   name: 'Thing',
+})
+@Jsf({
+  type: 'object'
 })
 class Thing {
   @JsfProperty({
@@ -14,6 +18,9 @@ class Thing {
   declare name: string
 }
 
+@Jsf({
+  type: 'object'
+})
 export class Arrays {
   @JsfProperty({
     type: 'array',
@@ -102,86 +109,86 @@ export class Arrays {
     },
   })
   declare defaultsAndMinItems: string
-
-  @JsfProperty({
-    type: 'array',
-    title: 'Nested List',
-    items: NestedListInnerList,
-  })
-  declare nestedList: Array<NestedListInnerList>
-
-  @JsfProperty({
-    type: 'array',
-    title: 'Unorderable items',
-    items: {
-      type: 'string',
-      default: 'lorem ipsum',
-    }
-  })
-  @RjsfUiSchema({
-    'ui:options': {
-      orderable: false,
-    },
-  })
-  declare unorderable: string
-
-  @JsfProperty({
-    type: 'array',
-    title: 'Unremovable items',
-    items: {
-      type: 'string',
-      default: 'lorem ipsum',
-    }
-  })
-  @RjsfUiSchema({
-    'ui:options': {
-      removable: false,
-    },
-  })
-  declare unremovable: string
-
-  @JsfProperty({
-    type: 'array',
-    title: 'No add, remove and order buttons',
-    items: {
-      type: 'string',
-      default: 'lorem ipsum',
-    }
-  })
-  @RjsfUiSchema({
-    'ui:options': {
-      addable: false,
-      orderable: false,
-      removable: false,
-    },
-  })
-  declare noToolbar: string
-
-  @JsfProperty({
-    type: 'array',
-    title: 'Fixed array without buttons',
-    items: [
-      {
-        title: 'A string value',
-        type: 'string',
-        default: 'lorem ipsum'
-      },
-      {
-        title: 'a boolean value',
-        type: 'boolean'
-      }
-    ],
-    additionalItems: {
-      title: 'Additional item',
-      type: 'number'
-    }
-  })
-  @RjsfUiSchema({
-    'ui:options': {
-      addable: false,
-      orderable: false,
-      removable: false,
-    },
-  })
-  declare fixedNoToolbar: any
+  //
+  // @JsfProperty({
+  //   type: 'array',
+  //   title: 'Nested List',
+  //   items: NestedListInnerList,
+  // })
+  // declare nestedList: Array<NestedListInnerList>
+  //
+  // @JsfProperty({
+  //   type: 'array',
+  //   title: 'Unorderable items',
+  //   items: {
+  //     type: 'string',
+  //     default: 'lorem ipsum',
+  //   }
+  // })
+  // @RjsfUiSchema({
+  //   'ui:options': {
+  //     orderable: false,
+  //   },
+  // })
+  // declare unorderable: string
+  //
+  // @JsfProperty({
+  //   type: 'array',
+  //   title: 'Unremovable items',
+  //   items: {
+  //     type: 'string',
+  //     default: 'lorem ipsum',
+  //   }
+  // })
+  // @RjsfUiSchema({
+  //   'ui:options': {
+  //     removable: false,
+  //   },
+  // })
+  // declare unremovable: string
+  //
+  // @JsfProperty({
+  //   type: 'array',
+  //   title: 'No add, remove and order buttons',
+  //   items: {
+  //     type: 'string',
+  //     default: 'lorem ipsum',
+  //   }
+  // })
+  // @RjsfUiSchema({
+  //   'ui:options': {
+  //     addable: false,
+  //     orderable: false,
+  //     removable: false,
+  //   },
+  // })
+  // declare noToolbar: string
+  //
+  // @JsfProperty({
+  //   type: 'array',
+  //   title: 'Fixed array without buttons',
+  //   items: [
+  //     {
+  //       title: 'A string value',
+  //       type: 'string',
+  //       default: 'lorem ipsum'
+  //     },
+  //     {
+  //       title: 'a boolean value',
+  //       type: 'boolean'
+  //     }
+  //   ],
+  //   additionalItems: {
+  //     title: 'Additional item',
+  //     type: 'number'
+  //   }
+  // })
+  // @RjsfUiSchema({
+  //   'ui:options': {
+  //     addable: false,
+  //     orderable: false,
+  //     removable: false,
+  //   },
+  // })
+  // declare fixedNoToolbar: any
 }

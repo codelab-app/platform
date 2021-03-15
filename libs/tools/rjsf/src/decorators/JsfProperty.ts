@@ -1,3 +1,7 @@
+import 'reflect-metadata';
+import { getJsfProps } from './Jsf';
+import { Arrays } from '../examples/Arrays';
+
 /**
  * This is basically the `json-schema`
  */
@@ -24,9 +28,42 @@ interface IJsfProperty {
   [key: string]: any
 }
 
+const formatMetadataKey = 'JsfProperty'
+
 export const JsfProperty = (props: IJsfProperty) => (
   target: {} | any,
-  name?: PropertyKey,
+  name: PropertyKey,
 ): any => {
-  //
+
+  if (props.properties) {
+    if (typeof props.properties === 'function') {
+      props.properties = getJsfPropertyProps(props.properties)
+    }
+
+  }
+
+  if (props.items) {
+    if (Array.isArray(props.items) && props.items.length === 1) {
+      if (typeof props.items[0] === 'function') {
+        // const classDecoratorProps = getJsfProps(Arrays)
+        const a = ''
+        const b = ''
+      }
+    }
+  }
+
+  const existingMetadata = Reflect.getOwnMetadata(formatMetadataKey, target.constructor)
+  if (existingMetadata) {
+    existingMetadata[name] = props
+    Reflect.defineMetadata(formatMetadataKey, existingMetadata, target.constructor)
+  } else {
+    const metadata: any = {}
+    metadata[name] = props
+    Reflect.defineMetadata(formatMetadataKey, metadata, target.constructor)
+  }
+
+}
+
+export const getJsfPropertyProps = (target: Function) => {
+  return Reflect.getOwnMetadata(formatMetadataKey, target)
 }
