@@ -28,6 +28,7 @@ node_modules_prod/
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+.history
 
 # LSP
 .log/*
