@@ -1,8 +1,8 @@
+import { Jsf } from '../decorators/Jsf'
 import { JsfProperty } from '../decorators/JsfProperty'
-import { Jsf } from '../decorators/Jsf';
 
 @Jsf({
-  title: 'Tasks'
+  title: 'Tasks',
 })
 class Task {
   @JsfProperty({
@@ -38,7 +38,7 @@ export class Nested {
   @JsfProperty({
     type: 'object',
     title: 'Tasks',
-    items: [Task]
+    items: [Task],
   })
   declare tasks: Task
 }

@@ -56,13 +56,13 @@ class Native {
 export class DateTime {
   @JsfProperty({
     type: 'object',
-    properties: Native
+    properties: Native,
   })
   declare native: Native
 
   @JsfProperty({
     type: 'object',
-    properties: Alternative
+    properties: Alternative,
   })
   declare alternative: Alternative
 }

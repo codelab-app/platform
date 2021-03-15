@@ -1,14 +1,13 @@
+import { Jsf } from '../decorators/Jsf'
 import { JsfDefinition } from '../decorators/JsfDefinition'
 import { JsfProperty } from '../decorators/JsfProperty'
 import { RjsfUiSchema } from '../decorators/RjsfUiSchema'
-import { NestedListInnerList } from './Arrays-nestedList'
-import { Jsf } from '../decorators/Jsf';
 
 @JsfDefinition({
   name: 'Thing',
 })
 @Jsf({
-  type: 'object'
+  type: 'object',
 })
 class Thing {
   @JsfProperty({
@@ -19,7 +18,7 @@ class Thing {
 }
 
 @Jsf({
-  type: 'object'
+  type: 'object',
 })
 export class Arrays {
   @JsfProperty({
@@ -27,8 +26,8 @@ export class Arrays {
     title: 'A list of strings',
     items: {
       type: 'string',
-      default: 'bazinga'
-    }
+      default: 'bazinga',
+    },
   })
   @RjsfUiSchema({
     items: {
@@ -42,14 +41,9 @@ export class Arrays {
     title: 'A multiple choices list',
     items: {
       type: 'string',
-      enum: [
-        'foo',
-        'bar',
-        'fuzz',
-        'qux'
-      ]
+      enum: ['foo', 'bar', 'fuzz', 'qux'],
     },
-    uniqueItems: true
+    uniqueItems: true,
   })
   @RjsfUiSchema({
     'ui:widget': 'checkboxes',
@@ -63,17 +57,17 @@ export class Arrays {
       {
         title: 'A string value',
         type: 'string',
-        default: 'lorem ipsum'
+        default: 'lorem ipsum',
       },
       {
         title: 'a boolean value',
-        type: 'boolean'
-      }
+        type: 'boolean',
+      },
     ],
     additionalItems: {
       title: 'Additional item',
-      type: 'number'
-    }
+      type: 'number',
+    },
   })
   @RjsfUiSchema({
     items: [

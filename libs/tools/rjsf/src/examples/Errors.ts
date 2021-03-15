@@ -24,7 +24,7 @@ export class Errors {
     items: {
       type: 'string',
       minLength: 5,
-    }
+    },
   })
   declare skills: any
 
@@ -35,12 +35,8 @@ export class Errors {
     uniqueItems: true,
     items: {
       type: 'string',
-      enum: [
-        'foo',
-        'bar',
-        'fuzz'
-      ]
-    }
+      enum: ['foo', 'bar', 'fuzz'],
+    },
   })
   declare multipleChoicesList: any
 }

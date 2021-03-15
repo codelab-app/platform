@@ -1,7 +1,7 @@
 import { Jsf } from '../decorators/Jsf'
+import { JsfDefinition } from '../decorators/JsfDefinition'
 import { JsfProperty } from '../decorators/JsfProperty'
 import { RjsfUiSchema } from '../decorators/RjsfUiSchema'
-import { JsfDefinition } from '../decorators/JsfDefinition';
 
 @Jsf({
   title: 'Person',
@@ -11,57 +11,43 @@ import { JsfDefinition } from '../decorators/JsfDefinition';
         {
           properties: {
             doYouHaveAnyPets: {
-              enum: [
-                "No"
-              ]
-            }
-          }
+              enum: ['No'],
+            },
+          },
         },
         {
           properties: {
             doYouHaveAnyPets: {
-              enum: [
-                "Yes: One"
-              ]
+              enum: ['Yes: One'],
             },
-            "How old is your pet?": {
-              type: "number"
-            }
+            'How old is your pet?': {
+              type: 'number',
+            },
           },
-          required: [
-            "How old is your pet?"
-          ]
+          required: ['How old is your pet?'],
         },
         {
           properties: {
             doYouHaveAnyPets: {
-              enum: [
-                "Yes: More than one"
-              ]
+              enum: ['Yes: More than one'],
             },
-            "Do you want to get rid of any?": {
-              type: "boolean"
-            }
+            'Do you want to get rid of any?': {
+              type: 'boolean',
+            },
           },
-          required: [
-            "Do you want to get rid of any?"
-          ]
-        }
-      ]
-    }
-  }
+          required: ['Do you want to get rid of any?'],
+        },
+      ],
+    },
+  },
 })
-@JsfDefinition({name: 'person'})
+@JsfDefinition({ name: 'person' })
 class Person {
   @JsfProperty({
     type: 'string',
     required: true,
-    enum: [
-      'No',
-      'Yes: One',
-      'Yes: More than one'
-    ],
-  'default': 'No'
+    enum: ['No', 'Yes: One', 'Yes: More than one'],
+    default: 'No',
   })
   declare doYouHaveAnyPets: string
 }
@@ -72,14 +58,12 @@ class Person {
     credit_card: {
       properties: {
         billing_address: {
-          type: 'string'
-        }
+          type: 'string',
+        },
       },
-      required: [
-        'billing_address'
-      ]
-    }
-  }
+      required: ['billing_address'],
+    },
+  },
 })
 class Simple {
   @JsfProperty({
@@ -112,27 +96,29 @@ export class SchemaDependencies {
 
   @JsfProperty({
     type: 'object',
-    properties: Person
+    properties: Person,
   })
   @RjsfUiSchema()
   declare conditional: Person
 
   @JsfProperty({
     type: 'array',
-    items: Person
+    items: Person,
   })
   declare arrayOfConditionals: Array<Person>
 
-  	@JsfProperty({
-  		type: 'array',
-        items: [{
-          "title": "Primary person",
-          "$ref": Person
-        }],
-        additionalItems: {
-          "title": "Additional person",
-          "$ref": Person
-        }
-  	})
-  	declare fixedArrayOfConditionals: any
+  @JsfProperty({
+    type: 'array',
+    items: [
+      {
+        title: 'Primary person',
+        $ref: Person,
+      },
+    ],
+    additionalItems: {
+      title: 'Additional person',
+      $ref: Person,
+    },
+  })
+  declare fixedArrayOfConditionals: any
 }

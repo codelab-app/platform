@@ -17,7 +17,7 @@ export class Files {
     items: {
       type: 'string',
       format: 'data-url',
-    }
+    },
   })
   declare files: any
 

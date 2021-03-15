@@ -1,10 +1,5 @@
-import 'reflect-metadata';
-import { getJsfProps } from './Jsf';
-import { Arrays } from '../examples/Arrays';
+import 'reflect-metadata'
 
-/**
- * This is basically the `json-schema`
- */
 interface IJsfProperty {
   type: 'string' | 'number' | 'integer' | 'boolean' | 'object' | 'array'
   /**
@@ -34,12 +29,10 @@ export const JsfProperty = (props: IJsfProperty) => (
   target: {} | any,
   name: PropertyKey,
 ): any => {
-
   if (props.properties) {
     if (typeof props.properties === 'function') {
       props.properties = getJsfPropertyProps(props.properties)
     }
-
   }
 
   if (props.items) {
@@ -52,16 +45,24 @@ export const JsfProperty = (props: IJsfProperty) => (
     }
   }
 
-  const existingMetadata = Reflect.getOwnMetadata(formatMetadataKey, target.constructor)
+  const existingMetadata = Reflect.getOwnMetadata(
+    formatMetadataKey,
+    target.constructor,
+  )
+
   if (existingMetadata) {
     existingMetadata[name] = props
-    Reflect.defineMetadata(formatMetadataKey, existingMetadata, target.constructor)
+    Reflect.defineMetadata(
+      formatMetadataKey,
+      existingMetadata,
+      target.constructor,
+    )
   } else {
     const metadata: any = {}
+
     metadata[name] = props
     Reflect.defineMetadata(formatMetadataKey, metadata, target.constructor)
   }
-
 }
 
 export const getJsfPropertyProps = (target: Function) => {

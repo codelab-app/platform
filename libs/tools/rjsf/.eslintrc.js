@@ -13,6 +13,9 @@ module.exports = {
     project: ['tsconfig.eslint.json'],
   },
   rules: {
+    'no-param-reassign': 'off',
+    'no-use-before-define': 'off',
+    '@typescript-eslint/no-use-before-define': 'off',
     camelcase: 'off',
   },
 }

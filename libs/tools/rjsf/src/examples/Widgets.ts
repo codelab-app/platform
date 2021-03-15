@@ -91,14 +91,14 @@ export class Widgets {
   @JsfProperty({
     type: 'object',
     title: 'String formats',
-    properties: StringFormats
+    properties: StringFormats,
   })
   declare stringFormats: StringFormats
 
   @JsfProperty({
     type: 'object',
     title: 'Boolean field',
-    properties: BooleanField
+    properties: BooleanField,
   })
   @RjsfUiSchema()
   declare 'boolean': BooleanField
@@ -106,14 +106,14 @@ export class Widgets {
   @JsfProperty({
     type: 'object',
     properties: StringField,
-    title: 'String field'
+    title: 'String field',
   })
   @RjsfUiSchema()
   declare 'string': StringField
 
   @JsfProperty({
     type: 'string',
-    default: 'I\'m a hidden string.',
+    default: "I'm a hidden string.",
   })
   @RjsfUiSchema({
     'ui:widget': 'hidden',
