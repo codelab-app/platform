@@ -1,9 +1,12 @@
-import { Frame, SerializedNodes, useEditor } from '@craftjs/core'
-import React, { useContext } from 'react'
+/*
+ * This is a backup of the previously used renderer
+ */
+import React, { useContext, useRef } from 'react'
 import { useRecoilState } from 'recoil'
 import { paneConfigState } from '../../../../apps/web/src/pages/builder/pane-config/Pane-config'
 import { PaneConfigHandlersProps } from '../../../../apps/web/src/pages/builder/pane-config/Pane-config--handlers'
-import { useOverlayToolbar } from '@codelab/frontend/builder'
+import { NodeA } from '../../../modules/graph/src/core/domain/node/Node'
+import { useOverlayToolbar } from '../components'
 import { CLICK_OVERLAY_ID } from './Overlay-click'
 import { HOVER_OVERLAY_ID } from './Overlay-hover'
 import {
@@ -12,13 +15,10 @@ import {
   useAddChildVertexMutation,
   useUpdateVertexMutation,
 } from '@codelab/generated'
-import {
-  AppContext,
-  CLICK_OVERLAY_ID,
-  NodeA,
-  PaneConfigHandlersProps,
-  paneConfigState,
-} from '@codelab/frontend/shared'
+import { AppContext } from 'apps/web/src/useCases/apps/AppProvider'
+import { elementParameterFactory } from './elementFactory'
+import useOnClickOutside from '../utils/useOnClickOutside'
+import { RenderChildren } from './Renderer-children'
 
 export const useComponentHandlers = () => {
   const { pageId } = useContext(AppContext)
@@ -68,20 +68,32 @@ export const useComponentHandlers = () => {
   return handlers
 }
 
-export const RenderComponents = ({ data }: { data: SerializedNodes }) => {
+export const RenderComponents = ({ node }: { node: NodeA }) => {
   const handlers = useComponentHandlers()
 
-  useEditor((s) => {
-    const selectedVertexId = s.events.selected
+  const { resetClickOverlay } = handlers
 
-    if (selectedVertexId !== null) {
-      handlers.setPaneConfig({ pageElementId: `${s.events.selected}` })
-    }
+  const [RootComponent, props] = elementParameterFactory({
+    node,
+    handlers,
   })
+
+  const ref = useRef<HTMLDivElement>(null)
+
+  useOnClickOutside(ref, () => resetClickOverlay(), [resetClickOverlay])
 
   return (
     <div style={{ width: '100%', height: 'auto' }}>
-      <Frame data={data} />
+      <RootComponent {...props}>
+        {RenderChildren(node, {}, handlers)}
+      </RootComponent>
+
+      {/* <HoverOverlay />
+      <DropOverlay />
+
+      <div ref={ref}>
+        <ClickOverlay />
+      </div> */}
     </div>
   )
 }
