@@ -1,5 +1,8 @@
 import React from 'react'
 import {
+  filterAddChildVertexInputSchema,
+} from '@codelab/frontend'
+import {
   AddChildVertexInput,
   AddChildVertexInputSchema,
   // AddChildVertexInputSchema,
@@ -38,7 +41,10 @@ export const AddChildVertexForm = ({
     <ApolloForm<AddChildVertexInput, UpdateVertexMutationVariables>
       hideSubmitButton
       mutate={mutate}
-      schema={AddChildVertexInputSchema}
+      schema={filterAddChildVertexInputSchema(
+        vertex.type,
+        AddChildVertexInputSchema,
+      )}
       initialFormData={{
         parentVertexId,
         vertex: { type: '', props: {} },
