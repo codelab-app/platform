@@ -124,13 +124,12 @@ export class CytoscapeService {
         const rootNodeId = root.data().id
         const craftjsId = id === rootNodeId ? ROOT_NODE : id
         const craftjsParentId = parent === rootNodeId ? ROOT_NODE : parent
-        const { props: componentProps = {}, ...rest } = props
 
         seriazlizedNodes = {
           ...seriazlizedNodes,
           [craftjsId]: {
             type: { resolvedName: type ?? '' },
-            props: componentProps,
+            props,
             hidden: false,
             displayName: type ?? '',
             parent: craftjsParentId ?? '',
@@ -140,7 +139,9 @@ export class CytoscapeService {
               .nodes()
               .map((n: any) => n.data().id),
             linkedNodes: {},
-            custom: { ...rest },
+            custom: {
+              id, // preserve vertexId due to we change craftjs root ID
+            },
           },
         }
       },
