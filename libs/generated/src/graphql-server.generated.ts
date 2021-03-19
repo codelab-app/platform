@@ -626,7 +626,9 @@ export type VertexFragmentsFragment = { __typename?: 'Vertex' } & Pick<
 > & {
     parent?: Maybe<{ __typename?: 'Vertex' } & Pick<Vertex, 'id' | 'type'>>
     graph?: Maybe<{ __typename?: 'Graph' } & Pick<Graph, 'id'>>
-    styles?: Maybe<Array<{ __typename?: 'Style' } & Pick<Style, 'id'>>>
+    styles?: Maybe<
+      Array<{ __typename?: 'Style' } & Pick<Style, 'id' | 'props' | 'name'>>
+    >
   }
 
 export type CreateLambdaMutationVariables = Exact<{
@@ -891,6 +893,8 @@ export const VertexFragments = gql`
     }
     styles {
       id
+      props
+      name
     }
   }
 `
@@ -1314,6 +1318,8 @@ export const VertexFragmentsFragmentDoc = gql`
     }
     styles {
       id
+      props
+      name
     }
   }
 `
