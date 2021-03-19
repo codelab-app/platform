@@ -1,4 +1,5 @@
 import { HomeOutlined, UserOutlined } from '@ant-design/icons'
+import { useUser } from '@auth0/nextjs-auth0'
 import { Menu } from 'antd'
 import Link from 'next/link'
 import React from 'react'
@@ -14,7 +15,7 @@ import { Page, disableMenuHoverEffects } from '@codelab/frontend'
  * We always show `Login` `Register` even if user is login. We simply redirect them to `/apps` page if they're already logged in.
  */
 export const HomeMenuHeader = () => {
-  const currentUser = useCurrentUser()
+  const { user: currentUser } = useUser()
 
   const authenticatedUserMenu = (
     <>

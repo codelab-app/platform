@@ -4,10 +4,11 @@ import React from 'react'
 import { useSignOutUser } from './useSignOutUser'
 
 export const SignOutUserButton = () => {
-  const { signOut } = useSignOutUser()
+  // const { signOut } = useSignOutUser()
 
   const userSignupButtonProps: ButtonProps = {
-    onClick: () => signOut(),
+    href: '/api/auth/logout',
+    type: 'ghost',
   }
 
   return <Button {...userSignupButtonProps}>Sign Out</Button>

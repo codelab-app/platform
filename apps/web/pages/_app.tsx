@@ -1,12 +1,12 @@
 // import '../src/wdyr'
 import { ApolloProvider } from '@apollo/client'
+import { UserProvider } from '@auth0/nextjs-auth0'
 import { Global, css } from '@emotion/react'
 import { AppProps } from 'next/app'
 import { WithRouterProps } from 'next/dist/client/with-router'
 import React from 'react'
 import { RecoilRoot } from 'recoil'
 import { LayoutFactory } from '../src/templates/Layout'
-import { LoginUserModal, RegisterUserModal } from '../src/useCases/user'
 import { Page, useApollo } from '@codelab/frontend'
 import './App.scss'
 
@@ -21,8 +21,8 @@ const App: React.FunctionComponent<WithRouterProps> = ({
 }) => {
   return (
     <>
-      <RegisterUserModal />
-      <LoginUserModal />
+      {/* <RegisterUserModal /> */}
+      {/* <LoginUserModal /> */}
       <LayoutFactory router={router}>{children}</LayoutFactory>
     </>
   )
@@ -37,7 +37,7 @@ const RootProviders = ({
       {/* The Provider from react-dnd-multi-backend allows us to use both click and touch for drag and dropping */}
       {/* TODO remove react-dnd if we don't use it */}
       {/* <DndMultiProvider options={HTML5toTouch}>{children}</DndMultiProvider> */}
-      {children}
+      <UserProvider>{children}</UserProvider>
     </ApolloProvider>
   </RecoilRoot>
 )
