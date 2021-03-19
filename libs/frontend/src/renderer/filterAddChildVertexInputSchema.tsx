@@ -1,8 +1,8 @@
 import { VertexType } from '@prisma/client'
+import { List, fromJS } from 'immutable'
 import { JSONSchema7 } from 'json-schema'
-const { fromJS, List } = require('immutable')
 
-const vertexCompatibilityMap: Record<VertexType, Array<VertexType>> = {
+const vertexCompatibilityMap: Record<string, Array<VertexType>> = {
   [VertexType.React_Grid_Row]: [VertexType.React_Grid_Col],
 }
 
