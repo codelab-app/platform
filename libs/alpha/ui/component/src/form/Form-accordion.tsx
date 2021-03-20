@@ -47,16 +47,14 @@ const accordionSchema: JSONSchema7 = {
   },
 }
 
-// TODO change accordion form to work with Uniforms
-
 export const accordionFormProps = {
   schema: accordionSchema,
-  // uiSchema,
-  // ObjectFieldTemplate: ObjectFieldAccordionTemplate,
+  uiSchema,
+  ObjectFieldTemplate: ObjectFieldAccordionTemplate,
 }
 
 export const AccordionForm = () => {
-  return <JsonSchemaForm onSubmit={console.log} {...accordionFormProps} />
+  return <JsonSchemaForm {...accordionFormProps} />
 }
 
 export const accordionFormPropsV2 = {
@@ -90,5 +88,5 @@ export const accordionFormPropsV2 = {
 }
 
 export const AccordionFormV2 = () => {
-  return <JsonSchemaForm onSubmit={console.log} {...accordionFormPropsV2} />
+  return <JsonSchemaForm {...accordionFormPropsV2} />
 }
