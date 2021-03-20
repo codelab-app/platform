@@ -1,8 +1,9 @@
 import React from 'react'
 import { useRecoilState } from 'recoil'
+import { AutoFields } from 'uniforms-antd'
 import { appState } from '../state'
 import { EditAppForm } from './EditAppForm'
-import { ModalForm } from '@codelab/frontend'
+import { ModalUniForm } from '@codelab/frontend'
 
 export const EditAppModal = () => {
   const [state, setAppState] = useRecoilState(appState)
@@ -10,7 +11,7 @@ export const EditAppModal = () => {
   const { loading, editingApp, modalVisible } = state
 
   return (
-    <ModalForm
+    <ModalUniForm
       modalProps={{
         okText: 'Save',
         okButtonProps: {
@@ -25,7 +26,9 @@ export const EditAppModal = () => {
             // Close the modal when the execution finishes
             setAppState({ ...state, modalVisible: false })
           }}
-        />
+        >
+          <AutoFields />
+        </EditAppForm>
       )}
     />
   )

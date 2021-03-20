@@ -7,6 +7,9 @@ generates:
   # API Schema
   schema.graphql:
     schema:
+      - https://codelab-ai.hasura.app/v1/graphql:
+          headers:
+            - 'x-hasura-admin-secret': '${HASURA_ADMIN_SECRET}'
       - http://localhost:4001/graphql
       - schema.client.graphql
     plugins:
@@ -18,8 +21,8 @@ generates:
       - http://localhost:4001/graphql
       - schema.client.graphql
     documents:
-      - libs/modules/**/*.graphql
-      - apps/web/**/*.graphql
+      - libs/modules/**/!(*.hasura).graphql
+      - apps/web/**/!(*.hasura).graphql
     plugins:
       - typescript
       - typescript-operations
@@ -43,5 +46,24 @@ generates:
     config:
       requireKeyFields: false
       requirePoliciesForAllTypes: false
+      documentVariableSuffix: 'Gql'
+      gqlImport: '@apollo/client#gql'
+
+
+  # Typescript + Apollo
+  libs/generated/src/graphql-client-hasura.generated.ts:
+    schema:
+      - https://codelab-ai.hasura.app/v1/graphql:
+          headers:
+            - 'x-hasura-admin-secret': '${HASURA_ADMIN_SECRET}'
+    documents:
+      - libs/modules/**/*.hasura.graphql
+      - apps/web/**/*.hasura.graphql
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-document-nodes
+      - typescript-react-apollo
+    config:
       documentVariableSuffix: 'Gql'
       gqlImport: '@apollo/client#gql'

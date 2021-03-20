@@ -1,4 +1,5 @@
 import { PlusOutlined } from '@ant-design/icons'
+import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { Button } from 'antd'
 import { InferGetServerSidePropsType } from 'next'
 import { useRouter } from 'next/router'
@@ -9,8 +10,6 @@ import {
   Responsive,
   WidthProvider,
 } from 'react-grid-layout'
-import { withAuthServerSideProps } from '../../../../../libs/frontend/src/infrastructure/auth/withAuthServerSideProps'
-import { Page, PropsWithIds } from '@codelab/frontend'
 
 const ResponsiveGridLayout = WidthProvider(Responsive)
 
@@ -87,24 +86,6 @@ const EmptyPage = (
 }
 
 // Redirect to home if not authenticated
-export const getServerSideProps = withAuthServerSideProps((context, user) => {
-  if (!user) {
-    return {
-      redirect: {
-        destination: Page.HOME.url,
-        permanent: false,
-      },
-    }
-  }
-
-  /**
-   * Without this the component would render twice
-   */
-  return {
-    props: {
-      ...(context.query as PropsWithIds<'appId'>),
-    },
-  }
-})
+export const getServerSideProps = withPageAuthRequired()
 
 export default EmptyPage

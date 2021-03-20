@@ -10,6 +10,7 @@ const schema: JSONSchema7 = {
     conditional: {
       title: 'Conditional',
       $ref: '#/definitions/__type',
+      default: 'A',
     },
   },
   definitions: {
@@ -57,14 +58,5 @@ const schema: JSONSchema7 = {
 }
 
 export const FormConditional2 = () => {
-  return (
-    <JsonSchemaForm
-      initialFormData={{
-        conditional: {
-          __type: 'A',
-        },
-      }}
-      schema={schema}
-    />
-  )
+  return <JsonSchemaForm onSubmit={console.log} schema={schema} />
 }

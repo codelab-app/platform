@@ -9,6 +9,14 @@
           "user-agent": "JS GraphQL"
         },
         "introspect": true
+      },
+      "Hasura GraphQL Endpoint": {
+        "url": "https://codelab-ai.hasura.app/v1/graphql",
+        "headers": {
+          "user-agent": "JS GraphQL",
+          "x-hasura-admin-secret": "${env:HASURA_ADMIN_SECRET}"
+        },
+        "introspect": true
       }
     }
   }

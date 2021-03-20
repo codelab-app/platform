@@ -1,7 +1,7 @@
 import { atom } from 'recoil'
-import { GetAppsQuery } from '@codelab/generated'
+import { GetAppsListQuery } from '../../../../../libs/generated/src/graphql-client-hasura.generated'
 
-export type AppType = GetAppsQuery['getApps'] extends Array<infer T>
+export type AppType = GetAppsListQuery['apps'] extends Array<infer T>
   ? T
   : unknown
 

@@ -26,7 +26,7 @@ export const ConditionalForm = () => {
     } as UpdateVertexInput
   }
 
-  const onSubmitClicked = ({ formData }: OnSubmitEvent) => {
+  const onSubmitClicked = (formData: OnSubmitEvent) => {
     console.log(formData)
 
     console.log('Transformed: ', transformFromData(formData))

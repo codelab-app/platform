@@ -76,7 +76,7 @@ export const GetAppsItem: FunctionComponent<GetAppsItemProps> = ({
             query: { appId: app.id, pageId: app.pages[0].id },
           }}
         >
-          <a>{app.title}</a>
+          <a>{app.name}</a>
         </Link>
       }
       extra={ellipsisMenu}

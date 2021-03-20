@@ -1,15 +1,16 @@
 import React from 'react'
 import { useRecoilState } from 'recoil'
+import { AutoFields } from 'uniforms-antd'
 import { appState } from '../state'
 import { CreateAppForm } from './CreateAppForm'
-import { ModalForm } from '@codelab/frontend'
+import { ModalUniForm } from '@codelab/frontend'
 
 export const CreateAppModal = () => {
   const [state, setAppState] = useRecoilState(appState)
   const { loading, editingApp, modalVisible } = state
 
   return (
-    <ModalForm
+    <ModalUniForm
       modalProps={{
         okText: 'Create App',
         okButtonProps: {
@@ -24,7 +25,10 @@ export const CreateAppModal = () => {
             // Close the modal when the execution finishes
             setAppState({ ...state, modalVisible: false })
           }}
-        />
+        >
+          {/* Providing just the AutoFields hides the Submit button */}
+          <AutoFields />
+        </CreateAppForm>
       )}
     />
   )

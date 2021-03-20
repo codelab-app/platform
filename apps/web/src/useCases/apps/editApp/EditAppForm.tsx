@@ -1,27 +1,35 @@
 import React, { useEffect } from 'react'
 import { useRecoilState } from 'recoil'
-import { appState } from '../state'
+import { DeepPartial } from 'uniforms'
 import {
-  ApolloForm,
-  FormUseCaseProps,
+  GetAppsListGql,
+  useEditAppMutation,
+} from '../../../../../../libs/generated/src/graphql-client-hasura.generated'
+import { appState } from '../state'
+import { EditAppInput, editAppSchema } from './editAppSchema'
+import {
+  JsonSchemaUniForm,
+  UniFormUseCaseProps,
   createNotificationHandler,
 } from '@codelab/frontend'
-import {
-  GetAppsGql,
-  UpdateAppInput,
-  UpdateAppInputSchema,
-  UpdateAppMutationVariables,
-  useUpdateAppMutation,
-} from '@codelab/generated'
+import { UpdateAppInput } from '@codelab/generated'
 
-export const EditAppForm = (props: FormUseCaseProps<UpdateAppInput> & {}) => {
-  const [mutate, { loading }] = useUpdateAppMutation({
+export const EditAppForm = (
+  props: UniFormUseCaseProps<UpdateAppInput> & {},
+) => {
+  const [mutate, { loading }] = useEditAppMutation({
     awaitRefetchQueries: true,
     refetchQueries: [
       {
-        query: GetAppsGql,
+        query: GetAppsListGql,
+        context: {
+          hasura: true,
+        },
       },
     ],
+    context: {
+      hasura: true,
+    },
   })
 
   const [{ editingApp }, setAppState] = useRecoilState(appState)
@@ -35,20 +43,25 @@ export const EditAppForm = (props: FormUseCaseProps<UpdateAppInput> & {}) => {
     return null
   }
 
-  return (
-    <ApolloForm<UpdateAppInput, UpdateAppMutationVariables>
-      schema={UpdateAppInputSchema}
-      initialFormData={{ title: editingApp.title, id: editingApp.id }}
-      mutate={mutate}
-      uiSchema={{
-        id: {
-          'ui:widget': 'hidden',
+  const onSubmit = (submitData: DeepPartial<EditAppInput>) => {
+    return mutate({
+      variables: {
+        input: {
+          ...(submitData as any),
         },
-      }}
+        id: editingApp.id,
+      },
+    })
+  }
+
+  return (
+    <JsonSchemaUniForm<EditAppInput>
+      onSubmit={onSubmit}
+      schema={editAppSchema}
+      model={{ name: editingApp.name }}
       onSubmitError={createNotificationHandler({
-        title: `Error while updating app '${editingApp.title}'`,
+        title: `Error while updating app '${editingApp.name}'`,
       })}
-      idPrefix="edit_app"
       {...props}
     />
   )
