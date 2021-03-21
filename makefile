@@ -36,14 +36,15 @@ build-ci:
     --parallel \
 		--maxWorkers=8 \
 		--memoryLimit=8192 \
-		--skip-nx-cache && \
-	npx nx run-many \
-		--target=build-storybook \
-		--projects=alpha-ui-component \
-    --parallel \
-		--maxWorkers=8 \
-		--memoryLimit=8192 \
 		--skip-nx-cache
+
+	# npx nx run-many \
+	# 	--target=build-storybook \
+	# 	--projects=alpha-ui-component \
+  #   --parallel \
+	# 	--maxWorkers=8 \
+	# 	--memoryLimit=8192 \
+	# 	--skip-nx-cache
 
 build-prod:
 	npx nx run-many \
