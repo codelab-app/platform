@@ -1,6 +1,6 @@
 import React, { ReactElement, useRef } from 'react'
-import { Bridge } from 'uniforms'
-import { AutoForm } from 'uniforms-antd'
+import { AutoForm } from 'uniforms-antd/es5'
+import { Bridge } from 'uniforms/es5'
 import { JsonSchemaUniFormProps } from './Form-jsonSchema--types'
 import { connectUniformSubmitRef, createBridge } from './uniformUtils'
 import { callbackWithParams } from 'libs/frontend/src/utils'

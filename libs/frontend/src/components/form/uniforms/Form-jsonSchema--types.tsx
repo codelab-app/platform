@@ -1,7 +1,7 @@
 import { FetchResult } from '@apollo/client'
 import React from 'react'
-import { Bridge } from 'uniforms'
-import { AutoFormProps } from 'uniforms/src/AutoForm'
+import { Bridge } from 'uniforms/es5'
+import { AutoFormProps } from 'uniforms/es5/AutoForm'
 import { SubmitController } from '../json-schema'
 import { CallbackOrArrayOfCallbacks } from 'libs/frontend/src/utils'
 

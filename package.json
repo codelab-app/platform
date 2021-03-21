@@ -71,6 +71,7 @@
     "@tsed/exceptions": "6.25.2",
     "@tsed/logger": "5.5.5",
     "@tsed/schema": "6.25.1",
+    "@types/invariant": "^2.2.34",
     "@types/supertest": "2.0.10",
     "@welldone-software/why-did-you-render": "6.0.5",
     "adm-zip": "^0.5.4",
