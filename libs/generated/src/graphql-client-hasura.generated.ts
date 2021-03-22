@@ -9,7 +9,9 @@ export type MakeOptional<T, K extends keyof T> = Omit<T, K> &
   { [SubKey in K]?: Maybe<T[SubKey]> }
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> &
   { [SubKey in K]: Maybe<T[SubKey]> }
+const defaultOptions = {}
 /** All built-in and custom scalars, mapped to their actual values */
+
 export type Scalars = {
   ID: string
   String: string
@@ -6514,40 +6516,6 @@ export type GetAppsListQuery = { __typename?: 'query_root' } & {
   >
 }
 
-export const CreateApp = gql`
-  mutation CreateApp($input: apps_insert_input!) {
-    insert_apps_one(object: $input) {
-      id
-    }
-  }
-`
-export const DeleteApp = gql`
-  mutation DeleteApp($id: uuid!) {
-    delete_apps_by_pk(id: $id) {
-      id
-    }
-  }
-`
-export const EditApp = gql`
-  mutation EditApp($input: apps_set_input!, $id: uuid!) {
-    update_apps_by_pk(_set: $input, pk_columns: { id: $id }) {
-      id
-      name
-    }
-  }
-`
-export const GetAppsList = gql`
-  query GetAppsList {
-    apps {
-      id
-      name
-      pages {
-        id
-      }
-    }
-  }
-`
-
 export const CreateAppGql = gql`
   mutation CreateApp($input: apps_insert_input!) {
     insert_apps_one(object: $input) {
@@ -6583,9 +6551,11 @@ export function useCreateAppMutation(
     CreateAppMutationVariables
   >,
 ) {
+  const options = { ...defaultOptions, ...baseOptions }
+
   return Apollo.useMutation<CreateAppMutation, CreateAppMutationVariables>(
     CreateAppGql,
-    baseOptions,
+    options,
   )
 }
 export type CreateAppMutationHookResult = ReturnType<
@@ -6631,9 +6601,11 @@ export function useDeleteAppMutation(
     DeleteAppMutationVariables
   >,
 ) {
+  const options = { ...defaultOptions, ...baseOptions }
+
   return Apollo.useMutation<DeleteAppMutation, DeleteAppMutationVariables>(
     DeleteAppGql,
-    baseOptions,
+    options,
   )
 }
 export type DeleteAppMutationHookResult = ReturnType<
@@ -6681,9 +6653,11 @@ export function useEditAppMutation(
     EditAppMutationVariables
   >,
 ) {
+  const options = { ...defaultOptions, ...baseOptions }
+
   return Apollo.useMutation<EditAppMutation, EditAppMutationVariables>(
     EditAppGql,
-    baseOptions,
+    options,
   )
 }
 export type EditAppMutationHookResult = ReturnType<typeof useEditAppMutation>
@@ -6725,9 +6699,11 @@ export function useGetAppsListQuery(
     GetAppsListQueryVariables
   >,
 ) {
+  const options = { ...defaultOptions, ...baseOptions }
+
   return Apollo.useQuery<GetAppsListQuery, GetAppsListQueryVariables>(
     GetAppsListGql,
-    baseOptions,
+    options,
   )
 }
 export function useGetAppsListLazyQuery(
@@ -6736,9 +6712,11 @@ export function useGetAppsListLazyQuery(
     GetAppsListQueryVariables
   >,
 ) {
+  const options = { ...defaultOptions, ...baseOptions }
+
   return Apollo.useLazyQuery<GetAppsListQuery, GetAppsListQueryVariables>(
     GetAppsListGql,
-    baseOptions,
+    options,
   )
 }
 export type GetAppsListQueryHookResult = ReturnType<typeof useGetAppsListQuery>
@@ -6749,3 +6727,37 @@ export type GetAppsListQueryResult = Apollo.QueryResult<
   GetAppsListQuery,
   GetAppsListQueryVariables
 >
+
+export const CreateApp = gql`
+  mutation CreateApp($input: apps_insert_input!) {
+    insert_apps_one(object: $input) {
+      id
+    }
+  }
+`
+export const DeleteApp = gql`
+  mutation DeleteApp($id: uuid!) {
+    delete_apps_by_pk(id: $id) {
+      id
+    }
+  }
+`
+export const EditApp = gql`
+  mutation EditApp($input: apps_set_input!, $id: uuid!) {
+    update_apps_by_pk(_set: $input, pk_columns: { id: $id }) {
+      id
+      name
+    }
+  }
+`
+export const GetAppsList = gql`
+  query GetAppsList {
+    apps {
+      id
+      name
+      pages {
+        id
+      }
+    }
+  }
+`

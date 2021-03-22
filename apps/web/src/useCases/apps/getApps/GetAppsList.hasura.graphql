@@ -1,9 +1,9 @@
 query GetAppsList {
-    apps {
-        id
-        name
-        pages {
-            id
-        }
+  apps {
+    id
+    name
+    pages {
+      id
     }
+  }
 }

@@ -1,10 +1,10 @@
+import { gql } from '@apollo/client'
 import {
   FieldPolicy,
   FieldReadFunction,
   TypePolicies,
   TypePolicy,
 } from '@apollo/client/cache'
-import gql from 'graphql-tag'
 
 export type QueryKeySpecifier = Array<'getBuilder' | QueryKeySpecifier>
 export type QueryFieldPolicy = {

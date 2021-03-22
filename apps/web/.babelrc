@@ -1,3 +1,31 @@
 {
-  "presets": ["@nrwl/next/babel"]
+  "presets": [
+    [
+      "@nrwl/next/babel",
+      {
+        "preset-react": {
+          "runtime": "automatic",
+          "importSource": "@emotion/react"
+        }
+      }
+    ]
+  ],
+  "plugins": [
+    "@emotion",
+    [
+      "import",
+      {
+        "libraryName": "antd",
+        "style": false
+      }
+    ],
+    [
+      "@babel/plugin-transform-typescript",
+      {
+        "allowNamespaces": true
+      }
+    ],
+    ["@babel/plugin-proposal-decorators", { "legacy": true }],
+    ["@babel/plugin-proposal-class-properties", { "loose": true }]
+  ]
 }
