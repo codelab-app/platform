@@ -1,1 +1,4 @@
-mutation CreatePage (){}
+mutation CreatePage ($data: pages_insert_input!){
+  insert_pages_one(object: $data){
+  }
+}
