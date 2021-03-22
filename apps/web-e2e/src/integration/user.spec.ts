@@ -3,7 +3,7 @@ describe('UserUseCase', () => {
     cy.visit('/')
   })
 
-  it('shows the signup form after clicking on a signup button', () => {
-    cy.findByButtonText('Register').should('exist')
+  it('shows a signup button', () => {
+    cy.findElementByText('Register', 'a').should('exist')
   })
 })

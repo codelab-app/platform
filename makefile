@@ -36,14 +36,15 @@ build-ci:
     --parallel \
 		--maxWorkers=8 \
 		--memoryLimit=8192 \
-		--skip-nx-cache && \
-	npx nx run-many \
-		--target=build-storybook \
-		--projects=alpha-ui-component \
-    --parallel \
-		--maxWorkers=8 \
-		--memoryLimit=8192 \
 		--skip-nx-cache
+
+	# npx nx run-many \
+	# 	--target=build-storybook \
+	# 	--projects=alpha-ui-component \
+  #   --parallel \
+	# 	--maxWorkers=8 \
+	# 	--memoryLimit=8192 \
+	# 	--skip-nx-cache
 
 build-prod:
 	npx nx run-many \
@@ -66,14 +67,6 @@ generate-ci:
 		--maxWorkers=8 \
 		--memoryLimit=8192 \
 		--skip-nx-cache
-
-generate-json-schema:
-	npx typescript-json-schema \
-		libs/modules/graph/tsconfig.lib.json \
-		AddChildVertexRequest && \
-	npx typescript-json-schema \
-		libs/alpha/ui/antd/tsconfig.lib.json \
-		Affix.AntdProps
 
 generate-graphql:
 	npx graphql-codegen --config .graphqlconfig.yaml

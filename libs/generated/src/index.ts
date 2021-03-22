@@ -1,4 +1,5 @@
 export * from './graphql-server.generated'
+// export * from './graphql-client-hasura.generated'
 export * from './jsonSchema-useCases.generated'
 export * from './jsonSchema-tsed.generated'
 export * from './jsonSchema-npmLibrary.generated'

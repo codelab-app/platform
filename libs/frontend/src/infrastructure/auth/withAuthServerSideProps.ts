@@ -1,3 +1,4 @@
+import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import * as cookie from 'cookie'
 import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
 import { addApolloState, initializeApollo } from '../../model'
@@ -20,6 +21,9 @@ const extractAuthToken = (context: GetServerSidePropsContext) => {
 }
 
 /**
+ * Deprecated, use {@link withPageAuthRequired}
+ *
+ *
  * Wraps the getServerSideProps function and provides it the current logged in user as a parameter (if any, else - null)
  * Use it like this:
  * ```
@@ -39,6 +43,8 @@ const extractAuthToken = (context: GetServerSidePropsContext) => {
  *  You can return some some props yourself in the callback, like a normal getServerSideProps function.
  *  They will get merged with the getMe data from the auth query.
  *  Or just return undefined, only the getMe result will be returned then
+ *
+ *  @deprecated use {@link withPageAuthRequired}
  * @param getServerSidePropsFunc
  */
 export const withAuthServerSideProps = (
@@ -82,7 +88,12 @@ export const withAuthServerSideProps = (
   return addApolloState(apolloClient, props)
 }
 
-/** Shorthand for using @see {@link withAuthServerSideProps} for redirecting if not authenticated */
+/**
+ * Deprecated, use {@link withPageAuthRequired}
+ *
+ * Shorthand for using @see {@link withAuthServerSideProps} for redirecting if not authenticated
+ * @deprecated use {@link withPageAuthRequired}
+ */
 export const withAuthGuardServerSideProps = (redirect: {
   permanent: boolean
   destination: string

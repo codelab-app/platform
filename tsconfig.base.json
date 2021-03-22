@@ -19,8 +19,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@codelab/antd": ["libs/alpha/ui/antd/src/types"],
-      "@codelab/generated": ["libs/generated/src/index"],
+      "@codelab/antd": ["libs/alpha/ui/antd/src/types.ts"],
+      "@codelab/generated": ["libs/generated/src/index.ts"],
       "@codelab/tools-eslint-config-codelab": [
         "libs/tools/eslint-config-codelab/src/index.ts"
       ],

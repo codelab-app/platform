@@ -1,33 +1,39 @@
 import { Modal } from 'antd'
+import {
+  GetAppsListGql,
+  useDeleteAppMutation,
+} from '../../../../../../libs/generated/src/graphql-client-hasura.generated'
 import { createNotificationHandler } from '@codelab/frontend'
-import { GetAppsGql, useDeleteAppMutation } from '@codelab/generated'
 
 export const useDeleteAppConfirmation = () => {
   const [deleteApp, { loading }] = useDeleteAppMutation()
 
-  const onDeleteConfirmed = (app: { id: string; title: string }) =>
+  const onDeleteConfirmed = (app: { id: string; name: string }) =>
     deleteApp({
       variables: {
-        input: {
-          id: app.id,
-        },
+        id: app.id,
       },
-      awaitRefetchQueries: true,
       refetchQueries: [
         {
-          query: GetAppsGql,
+          query: GetAppsListGql,
+          context: {
+            hasura: true,
+          },
         },
       ],
+      context: {
+        hasura: true,
+      },
     }).catch(
       createNotificationHandler({
-        title: `Error while deleting app '${app.title}'`,
+        title: `Error while deleting app '${app.name}'`,
         type: 'error',
       }),
     )
 
-  const openDeleteConfirmation = (app: { id: string; title: string }) => {
+  const openDeleteConfirmation = (app: { id: string; name: string }) => {
     Modal.confirm({
-      title: `Are you sure you want to delete the app "${app.title}"`,
+      title: `Are you sure you want to delete the app "${app.name}"`,
       content: 'This action is not reversible',
       okType: 'danger',
       okText: 'Delete app',

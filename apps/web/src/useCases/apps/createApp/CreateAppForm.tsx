@@ -1,27 +1,32 @@
 import React, { useEffect } from 'react'
 import { useRecoilState } from 'recoil'
-import { CreateAppInput } from '../../../../../../libs/modules/app/src/core/application/useCases/createApp/CreateAppInput'
-import { appState } from '../state'
+import { DeepPartial } from 'uniforms'
 import {
-  ApolloForm,
-  FormUseCaseProps,
+  GetAppsListGql,
+  useCreateAppMutation,
+} from '../../../../../../libs/generated/src/graphql-client-hasura.generated'
+import { appState } from '../state'
+import { CreateAppInput, createAppSchema } from './createAppSchema'
+import {
+  JsonSchemaUniForm,
+  UniFormUseCaseProps,
   createNotificationHandler,
 } from '@codelab/frontend'
-import {
-  CreateAppInputSchema,
-  CreateAppMutationVariables,
-  GetAppsGql,
-  useCreateAppMutation,
-} from '@codelab/generated'
 
-export const CreateAppForm = (props: FormUseCaseProps<CreateAppInput>) => {
+export const CreateAppForm = (props: UniFormUseCaseProps<CreateAppInput>) => {
   const [mutate, { loading }] = useCreateAppMutation({
     awaitRefetchQueries: true,
     refetchQueries: [
       {
-        query: GetAppsGql,
+        query: GetAppsListGql,
+        context: {
+          hasura: true,
+        },
       },
     ],
+    context: {
+      hasura: true,
+    },
   })
 
   const [, setAppState] = useRecoilState(appState)
@@ -31,16 +36,30 @@ export const CreateAppForm = (props: FormUseCaseProps<CreateAppInput>) => {
     setAppState((current) => ({ ...current, loading }))
   }, [loading, setAppState])
 
+  const onSubmit = (submitData: DeepPartial<CreateAppInput>) => {
+    return mutate({
+      variables: {
+        input: {
+          ...(submitData as any),
+          pages: {
+            data: [
+              {
+                name: 'Default page',
+              },
+            ],
+          },
+        },
+      },
+    })
+  }
+
   return (
-    <ApolloForm<CreateAppInput, CreateAppMutationVariables>
-      schema={CreateAppInputSchema}
-      initialFormData={{ title: '' }}
-      mutate={mutate}
+    <JsonSchemaUniForm<CreateAppInput>
+      onSubmit={onSubmit}
+      schema={createAppSchema}
       onSubmitError={createNotificationHandler({
-        title: 'Error while registering',
-        type: 'error',
+        title: 'Error while creating app',
       })}
-      idPrefix="create_app"
       {...props}
     />
   )

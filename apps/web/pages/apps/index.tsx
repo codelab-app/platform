@@ -1,8 +1,9 @@
+import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { PageHeader } from 'antd'
 import React from 'react'
 import { CreateAppButton, GetAppsList } from '../../src/useCases/apps'
 import { SignOutUserButton } from '../../src/useCases/user'
-import { Page, padding, withAuthGuardServerSideProps } from '@codelab/frontend'
+import { padding } from '@codelab/frontend'
 
 const AppsPage = () => {
   const pageHeaderButtons = [
@@ -26,9 +27,6 @@ const AppsPage = () => {
 }
 
 // Redirect to home if not authenticated
-export const getServerSideProps = withAuthGuardServerSideProps({
-  destination: Page.HOME.url,
-  permanent: false,
-})
+export const getServerSideProps = withPageAuthRequired()
 
 export default AppsPage

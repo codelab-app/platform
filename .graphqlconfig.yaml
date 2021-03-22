@@ -1,47 +1,67 @@
 overwrite: true
 hooks:
   afterAllFileWrite:
-    - npx eslint --ext ts --fix
-    - npx prettier --write
+    - yarn prettier --write
+    - yarn eslint --ext ts --fix
+schema:
+  - https://codelab-ai.hasura.app/v1/graphql:
+      headers:
+        - 'x-hasura-admin-secret': '${HASURA_GRAPHQL_ADMIN_SECRET}'
 generates:
   # API Schema
   schema.graphql:
-    schema:
-      - http://localhost:4001/graphql
-      - schema.client.graphql
+    # schema:
+    #   - https://codelab-ai.hasura.app/v1/graphql:
+    #       headers:
+    #         'x-hasura-admin-secret': '${HASURA_GRAPHQL_ADMIN_SECRET}'
+    # - http://localhost:4001/graphql
+    # - schema.client.graphql
     plugins:
       - schema-ast
 
   # Typescript + Apollo
-  libs/generated/src/graphql-server.generated.ts:
-    schema:
-      - http://localhost:4001/graphql
-      - schema.client.graphql
+  # libs/generated/src/graphql-server.generated.ts:
+  #   schema:
+  #     - http://localhost:4001/graphql
+  #     - schema.client.graphql
+  #   documents:
+  #     - libs/modules/**/!(*.hasura).graphql
+  #     - apps/web/**/!(*.hasura).graphql
+  #   plugins:
+  #     - typescript
+  #     - typescript-operations
+  #     - typescript-document-nodes
+  #     - typescript-react-apollo
+  #   config:
+  #     documentVariableSuffix: 'Gql'
+  #     gqlImport: '@apollo/client#gql'
+
+  # libs/generated/src/graphql-client.generated.ts:
+  #   schema:
+  #     - schema.client.graphql
+  #   plugins:
+  #     # - typescript
+  #     # - typescript-operations
+  #     # - typescript-document-nodes
+  #     # - typescript-react-apollo
+  #     # - typescript-apollo-client-helpers
+  #     - typescript-apollo-client-helpers
+  #   config:
+  #     requireKeyFields: false
+  #     requirePoliciesForAllTypes: false
+  #     documentVariableSuffix: 'Gql'
+  #     gqlImport: '@apollo/client#gql'
+
+  # Typescript + Apollo
+  libs/generated/src/graphql-client-hasura.generated.ts:
     documents:
-      - libs/modules/**/*.graphql
-      - apps/web/**/*.graphql
+      - libs/modules/**/*.hasura.graphql
+      - apps/web/**/*.hasura.graphql
     plugins:
       - typescript
       - typescript-operations
-      - typescript-document-nodes
       - typescript-react-apollo
+      - typescript-document-nodes
     config:
-      documentVariableSuffix: 'Gql'
-      gqlImport: '@apollo/client#gql'
-
-  libs/generated/src/graphql-client.generated.ts:
-    schema:
-      - schema.client.graphql
-    plugins:
-      # - typescript
-      # - typescript-operations
-      # - typescript-document-nodes
-      # - typescript-react-apollo
-      # - typescript-apollo-client-helpers
-      - typescript-apollo-client-helpers
-      - 'typescript-typedefs.js'
-    config:
-      requireKeyFields: false
-      requirePoliciesForAllTypes: false
       documentVariableSuffix: 'Gql'
       gqlImport: '@apollo/client#gql'
