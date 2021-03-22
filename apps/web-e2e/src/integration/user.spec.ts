@@ -4,6 +4,6 @@ describe('UserUseCase', () => {
   })
 
   it('shows a signup button', () => {
-    cy.findByButtonText('Register').should('exist')
+    cy.findElementByText('Register', 'a').should('exist')
   })
 })

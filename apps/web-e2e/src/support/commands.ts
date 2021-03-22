@@ -21,6 +21,7 @@ declare global {
     interface Chainable<Subject> {
       login(email: string, password: string): void
       findByButtonText: typeof findByButtonText
+      findElementByText: typeof findElementByText
       findByModalTitle: typeof findByModalTitle
       openSelectByLabel: typeof openSelectByLabel
       getSelectedOptionByLabel: typeof getSelectedOptionByLabel
@@ -45,6 +46,16 @@ export const findByButtonText = (
   return cy
     .findByText(text, { exact: true, timeout: 5000, ...options })
     .closest('button')
+}
+
+export const findElementByText = <K extends keyof HTMLElementTagNameMap>(
+  text: Matcher,
+  element: K,
+  options?: SelectorMatcherOptions,
+): Cypress.Chainable<JQuery<HTMLElementTagNameMap[K]>> => {
+  return cy
+    .findByText(text, { exact: true, timeout: 5000, ...options })
+    .closest<K>(element)
 }
 
 Cypress.Commands.add('findByButtonText', findByButtonText)
