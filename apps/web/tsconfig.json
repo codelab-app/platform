@@ -16,5 +16,5 @@
     "isolatedModules": true
   },
   "include": ["**/*.ts", "**/*.tsx", "**/*.graphql", "next-env.d.ts"],
-  "exclude": ["node_modules", "**/deprecated/**/*"]
+  "exclude": ["node_modules"]
 }

@@ -38,7 +38,7 @@ export const GetAppsItem: FunctionComponent<GetAppsItemProps> = ({
         key="0"
         style={menuItemStyle}
         onClick={() => {
-          if (app && handleEditClick) {
+          if (app) {
             handleEditClick(app)
           }
         }}
@@ -50,7 +50,7 @@ export const GetAppsItem: FunctionComponent<GetAppsItemProps> = ({
         key="1"
         style={menuItemStyle}
         onClick={() => {
-          if (app && handleDeleteClick) {
+          if (app) {
             handleDeleteClick(app)
           }
         }}

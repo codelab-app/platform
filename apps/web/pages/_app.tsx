@@ -8,12 +8,14 @@ import React from 'react'
 import { RecoilRoot } from 'recoil'
 import { LayoutFactory } from '../src/templates/Layout'
 import { Page, useApollo } from '@codelab/frontend'
-import './App.scss'
 
-require('highlight.js/styles/monokai-sublime.css')
-require('antd/dist/antd.css')
-require('react-grid-layout/css/styles.css')
-require('react-resizable/css/styles.css')
+import '../src/styles/App.less'
+
+// import './App.scss'
+// require('highlight.js/styles/monokai-sublime.css')
+// require('antd/dist/antd.css')
+// require('react-grid-layout/css/styles.css')
+// require('react-resizable/css/styles.css')
 
 const App: React.FunctionComponent<WithRouterProps> = ({
   children,

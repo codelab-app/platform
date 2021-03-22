@@ -16,9 +16,11 @@ export const generatorUiSchema = (target: Function) => {
     return generateGroupsUiSchema(target)
   }
 
-  throw new Error(
-    'target must include one of the following decorators: UiSchemaGrid or UiSchemaGroup',
-  )
+  // throw new Error(
+  //   'target must include one of the following decorators: UiSchemaGrid or UiSchemaGroup',
+  // )
+
+  return null
 }
 
 export const generateSchemas = (

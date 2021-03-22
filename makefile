@@ -68,14 +68,6 @@ generate-ci:
 		--memoryLimit=8192 \
 		--skip-nx-cache
 
-generate-json-schema:
-	npx typescript-json-schema \
-		libs/modules/graph/tsconfig.lib.json \
-		AddChildVertexRequest && \
-	npx typescript-json-schema \
-		libs/alpha/ui/antd/tsconfig.lib.json \
-		Affix.AntdProps
-
 generate-graphql:
 	npx graphql-codegen --config .graphqlconfig.yaml
 
