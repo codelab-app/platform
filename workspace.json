@@ -247,6 +247,13 @@
           }
         },
         "serve": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": ["yarn vercel dev apps/web"],
+            "parallel": false
+          }
+        },
+        "dev": {
           "builder": "@nrwl/next:server",
           "options": {
             "buildTarget": "web:build-next",
