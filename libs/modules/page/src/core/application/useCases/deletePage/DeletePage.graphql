@@ -1,5 +1,0 @@
-mutation DeletePage($input: DeletePageInput!) {
-  deletePage(input: $input) {
-    title
-  }
-}

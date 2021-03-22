@@ -1,5 +1,0 @@
-query GetStyles($input: GetStylesInput!) {
-  getStyles(input: $input) {
-    ...styleFragments
-  }
-}

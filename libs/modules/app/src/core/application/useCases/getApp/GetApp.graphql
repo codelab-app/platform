@@ -1,5 +1,0 @@
-query GetApp($input: GetAppInput!) {
-  getApp(input: $input) {
-    ...appFragments
-  }
-}

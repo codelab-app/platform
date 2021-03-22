@@ -1,13 +1,13 @@
 import { Button, Col, Empty, Row, Spin } from 'antd'
 import React from 'react'
 import { useGetAppsListQuery } from '../../../../../../libs/generated/src/graphql-client-hasura.generated'
+import { padding, threeGridCol } from '../../../styles/sectionStyle'
 import { CreateAppModal } from '../createApp/CreateAppModal'
 import { useCreateAppModal } from '../createApp/useCreateAppModal'
 import { EditAppModal } from '../editApp/EditAppModal'
 import { useEditAppModal } from '../editApp/useEditAppModal'
 import { useDeleteAppConfirmation } from '../index'
 import { GetAppsItem } from './GetAppsItem'
-import { padding, threeGridCol } from '@codelab/frontend'
 
 export const GetAppsList = () => {
   const { loading, data } = useGetAppsListQuery({

@@ -4,8 +4,8 @@ import {
   PutObjectCommand,
   S3Client,
 } from '@aws-sdk/client-s3'
-import { Lambda } from '@prisma/client'
 import AdmZip from 'adm-zip'
+import { Lambda } from '@codelab/frontend'
 
 export class AwsS3Service extends S3Client {
   bucketPrefix = 'codelab-lambda'
@@ -30,7 +30,7 @@ export class AwsS3Service extends S3Client {
   public async removeObject(lambda: Lambda) {
     try {
       const deleteBucketCommand = new DeleteObjectCommand({
-        Bucket: `${this.bucketPrefix}-${lambda.appId}`,
+        Bucket: `${this.bucketPrefix}-${lambda.libraryId}`,
         Key: lambda.id,
       })
 

@@ -1,7 +1,0 @@
-fragment edgeFragments on Edge {
-  id
-  type
-  props
-  source
-  target
-}

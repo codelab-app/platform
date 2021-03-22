@@ -1,9 +1,8 @@
-import { VertexType } from '@prisma/client'
 import React from 'react'
 import { CodelabFieldTemplate } from './rjsf-templates/CodelabFieldTemplate'
 import { CodelabCheckboxWidget } from './rjsf-widgets/CodelabCheckboxWidget'
 import { CodelabTextWidget } from './rjsf-widgets/CodelabTextWidget'
-import { JsonSchemaForm, OnSubmitEvent } from '@codelab/frontend'
+import { AtomType, JsonSchemaForm, OnSubmitEvent } from '@codelab/frontend'
 import { UpdateVertexInput, UpdateVertexInputSchema } from '@codelab/generated'
 
 export const conditionalFormProps = {
@@ -41,7 +40,7 @@ export const ConditionalForm = () => {
   return (
     <JsonSchemaForm
       initialFormData={{
-        type: VertexType.React_Button,
+        type: AtomType.ReactButton,
       }}
       // widgets={widgets}
       FieldTemplate={CodelabFieldTemplate}

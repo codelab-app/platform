@@ -1,5 +1,0 @@
-query GetPages($input: GetPagesInput!) {
-  getPages(input: $input) {
-    ...pageFragments
-  }
-}

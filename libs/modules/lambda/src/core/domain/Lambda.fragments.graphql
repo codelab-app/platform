@@ -1,5 +1,0 @@
-fragment lambdaFragments on Lambda {
-  id
-  name
-  body
-}

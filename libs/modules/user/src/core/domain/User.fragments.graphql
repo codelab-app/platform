@@ -1,7 +1,0 @@
-fragment userFragments on User {
-  id
-  email
-  apps {
-    ...appFragments
-  }
-}

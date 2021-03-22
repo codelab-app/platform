@@ -416,6 +416,123 @@ enum atom_types_constraint {
   vertexType_pkey
 }
 
+enum atom_types_enum {
+  React_Affix
+  React_Alert
+  React_Anchor
+  React_Anchor_Link
+  React_AutoComplete
+  React_Avatar
+  React_BackTop
+  React_Badge
+  React_Breadcrumb
+  React_Breadcrumb_Item
+  React_Button
+  React_Calendar
+  React_Card
+  React_Card_Grid
+  React_Card_Meta
+  React_Carousel
+  React_Cascader
+  React_Checkbox
+  React_Collapse
+  React_Collapse_Panel
+  React_Comment
+  React_ConfigProvider
+  React_DatePicker
+  React_Descriptions
+  React_Descriptions_Item
+  React_Divider
+  React_Drawer
+  React_Dropdown
+  React_Empty
+  React_Form
+  React_Form_Item
+  React_Form_ItemHook
+  React_Form_List
+  React_Fragment
+  React_Grid_Col
+  React_Grid_Row
+  React_Html_A
+  React_Html_Div
+  React_Html_P
+  React_Html_Span
+  React_Icon
+  React_Input
+  React_InputNumber
+  React_Layout
+  React_Layout_Content
+  React_Layout_Footer
+  React_Layout_Header
+  React_Layout_Sider
+  React_List
+  React_List_Item
+  React_List_Item_Meta
+  React_Mapper
+  React_Mentions
+  React_Mentions_Option
+  React_Menu
+  React_Menu_Item
+  React_Menu_ItemGroup
+  React_Menu_SubMenu
+  React_Modal
+  React_PageHeader
+  React_Page_Container
+  React_Pagination
+  React_Popconfirm
+  React_Popover
+  React_Progress
+  React_Provider
+  React_RGL_Container
+  React_RGL_Item
+  React_RGL_ResponsiveContainer
+  React_Radio
+  React_Radio_Group
+  React_Rate
+  React_RenderComponent
+  React_RenderContainer
+  React_Result
+  React_Select
+  React_Select_Option
+  React_Skeleton
+  React_Slider
+  React_Space
+  React_Spin
+  React_Statistic
+  React_Steps
+  React_Steps_Step
+  React_Switch
+  React_Table
+  React_Tabs
+  React_Tabs_TabPane
+  React_Tag
+  React_Text
+  React_TimePicker
+  React_Timeline
+  React_Timeline_Item
+  React_Tooltip
+  React_Transfer
+  React_Tree
+  React_TreeNode
+  React_TreeSelect
+  React_Typography
+  React_Typography_Paragraph
+  React_Typography_Text
+  React_Typography_Title
+  React_Upload
+}
+
+"""
+Boolean expression to compare columns of type "atom_types_enum". All fields are combined with logical 'AND'.
+"""
+input atom_types_enum_comparison_exp {
+  _eq: atom_types_enum
+  _in: [atom_types_enum!]
+  _is_null: Boolean
+  _neq: atom_types_enum
+  _nin: [atom_types_enum!]
+}
+
 """
 input type for inserting data into table "atom_types"
 """
@@ -544,7 +661,7 @@ type atoms {
   component: components!
   component_id: uuid!
   id: uuid!
-  type: String!
+  type: atom_types_enum!
 }
 
 """
@@ -596,7 +713,7 @@ input atoms_bool_exp {
   component: components_bool_exp
   component_id: uuid_comparison_exp
   id: uuid_comparison_exp
-  type: String_comparison_exp
+  type: atom_types_enum_comparison_exp
 }
 
 """
@@ -617,7 +734,7 @@ input atoms_insert_input {
   component: components_obj_rel_insert_input
   component_id: uuid
   id: uuid
-  type: String
+  type: atom_types_enum
 }
 
 """
@@ -626,7 +743,6 @@ aggregate max on columns
 type atoms_max_fields {
   component_id: uuid
   id: uuid
-  type: String
 }
 
 """
@@ -635,7 +751,6 @@ order by max() on columns of table "atoms"
 input atoms_max_order_by {
   component_id: order_by
   id: order_by
-  type: order_by
 }
 
 """
@@ -644,7 +759,6 @@ aggregate min on columns
 type atoms_min_fields {
   component_id: uuid
   id: uuid
-  type: String
 }
 
 """
@@ -653,7 +767,6 @@ order by min() on columns of table "atoms"
 input atoms_min_order_by {
   component_id: order_by
   id: order_by
-  type: order_by
 }
 
 """
@@ -736,7 +849,7 @@ input type for updating data in table "atoms"
 input atoms_set_input {
   component_id: uuid
   id: uuid
-  type: String
+  type: atom_types_enum
 }
 
 """
@@ -769,7 +882,7 @@ type attributes {
   atom_type: atom_types!
   id: uuid!
   key: String!
-  type: String!
+  type: atom_types_enum!
 }
 
 """
@@ -799,7 +912,7 @@ input attributes_bool_exp {
   atom_type: atom_types_bool_exp
   id: uuid_comparison_exp
   key: String_comparison_exp
-  type: String_comparison_exp
+  type: atom_types_enum_comparison_exp
 }
 
 """
@@ -819,7 +932,7 @@ input attributes_insert_input {
   atom_type: atom_types_obj_rel_insert_input
   id: uuid
   key: String
-  type: String
+  type: atom_types_enum
 }
 
 """
@@ -828,7 +941,6 @@ aggregate max on columns
 type attributes_max_fields {
   id: uuid
   key: String
-  type: String
 }
 
 """
@@ -837,7 +949,6 @@ aggregate min on columns
 type attributes_min_fields {
   id: uuid
   key: String
-  type: String
 }
 
 """
@@ -907,7 +1018,7 @@ input type for updating data in table "attributes"
 input attributes_set_input {
   id: uuid
   key: String
-  type: String
+  type: atom_types_enum
 }
 
 """

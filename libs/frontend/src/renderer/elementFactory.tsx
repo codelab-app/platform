@@ -1,10 +1,10 @@
-import { VertexType } from '@prisma/client'
 import React from 'react'
 import ReactTestUtils from 'react-dom/test-utils'
 import { PaneConfigHandlersProps } from '../../../../apps/web/src/pages/builder/pane-config/Pane-config--handlers'
+import { AtomType } from '../interfaces'
+import { NodeA } from '../interfaces/NodeA'
 import { elementTypeMap } from './elementTypeMap'
 import { onResizeStop } from '@codelab/alpha/ui/antd'
-import { NodeA } from 'libs/modules/graph/src/core/domain/node/Node'
 
 interface ElementParameterFactoryInput<TNode extends NodeA = NodeA> {
   node: TNode
@@ -17,11 +17,11 @@ interface ElementParameterFactoryInput<TNode extends NodeA = NodeA> {
  * Add a transformer here if you want to modify or add props to a specific element type
  */
 export const elementsPropTransformers: {
-  [K in VertexType]?: (
+  [K in AtomType]?: (
     input: ElementParameterFactoryInput & { props: Record<string, any> },
   ) => object
 } = {
-  [VertexType.React_RGL_Item]: ({ node, props }) => {
+  [AtomType.ReactRglItem]: ({ node, props }) => {
     // Currently the react-grid-layout library, for some reason, re-renders the layout
     // only if it detects a change in the key of the child, and doesn't care about the data-grid property
     // So, a workaround is to incorporate the data-grid property into the key to make sure we rerender
@@ -33,7 +33,7 @@ export const elementsPropTransformers: {
       'data-id': node.id,
     }
   },
-  [VertexType.React_RGL_ResponsiveContainer]: ({ handlers, props }) => ({
+  [AtomType.ReactRglResponsiveContainer]: ({ handlers, props }) => ({
     ...props,
     onResizeStop: onResizeStop(handlers),
     style: {

@@ -1,7 +1,7 @@
 import { ArrowRightOutlined } from '@ant-design/icons'
 import { Button, Card, Col, Image, Row, Typography } from 'antd'
 import React from 'react'
-import { padding, twoGridCol } from '@codelab/frontend'
+import { padding, twoGridCol } from '../../styles/sectionStyle'
 
 const { Title } = Typography
 

@@ -1,7 +1,0 @@
-fragment pageFragments on Page {
-  id
-  title
-  graphs {
-    ...graphFragments
-  }
-}

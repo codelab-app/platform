@@ -22,18 +22,14 @@
   },
   "projects": {
     "tools-eslint-config-codelab": { "tags": [] },
-    "codelab-schematics": { "tags": [] },
-    "web": { "tags": [], "implicitDependencies": ["api-codelab"] },
+    "web": { "tags": [], "implicitDependencies": ["api"] },
     "web-e2e": { "tags": [], "implicitDependencies": ["web"] },
-    "api-codelab": { "tags": [] },
     "alpha-core-graph": { "tags": [] },
     "alpha-core-node": { "tags": [] },
     "alpha-core-props": { "tags": [] },
     "alpha-core-renderer": { "tags": [] },
     "alpha-core-traversal": { "tags": [] },
     "alpha-core-tree": { "tags": [] },
-    "alpha-shared-common": { "tags": [] },
-    "alpha-shared-event": { "tags": [] },
     "alpha-shared-factory": { "tags": [] },
     "alpha-shared-utils": { "tags": [] },
     "alpha-shared-interface-collections": { "tags": [] },
@@ -51,22 +47,6 @@
     "alpha-ui-hoc": { "tags": [] },
     "backend": { "tags": [] },
     "frontend": { "tags": [] },
-    "modules-graph": { "tags": [] },
-    "modules-page": { "tags": [] },
-    "modules-app": { "tags": [] },
-    "modules-user": { "tags": [] },
-    "tools-generators-json-schema": { "tags": [] },
-    "tools-generators-graphql": { "tags": [] },
-    "modules-style": { "tags": [] },
-    "modules-lambda": { "tags": [] },
-    "tools-generators-form-decorator": { "tags": [] },
-    "tools-generators-form-templates": { "tags": [] },
-    "tools-generators-crawler": { "tags": [] },
-    "tools-plugins-test": { "tags": [] },
-    "tools-plugins-test-e2e": {
-      "tags": [],
-      "implicitDependencies": ["tools-plugins-test"]
-    },
-    "tools-rjsf": { "tags": [] }
+    "api": { "tags": [] }
   }
 }

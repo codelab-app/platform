@@ -1,5 +1,0 @@
-mutation UpdateEdge($input: UpdateEdgeInput!) {
-  updateEdge(input: $input) {
-    ...edgeFragments
-  }
-}

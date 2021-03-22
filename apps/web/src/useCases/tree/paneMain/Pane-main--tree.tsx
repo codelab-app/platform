@@ -1,9 +1,8 @@
-import { VertexType } from '@prisma/client'
 import { Tree } from 'antd'
 import React, { useContext } from 'react'
 import { useRecoilState } from 'recoil'
 import { paneConfigState } from '../../../pages/builder/pane-config/Pane-config'
-import { CytoscapeService } from '@codelab/frontend'
+import { AtomType, CytoscapeService } from '@codelab/frontend'
 import { PaneMainTemplate } from 'apps/web/src/templates/Pane-main--template'
 import { AppContext } from 'apps/web/src/useCases/apps/AppProvider'
 
@@ -23,7 +22,7 @@ export const PaneMainTree = () => {
 
   const onDrop = ({ dragNode, node: targetNode }: any) => {
     // Disable drag
-    if (dragNode.type !== VertexType.React_RGL_Item) {
+    if (dragNode.type !== AtomType.ReactRglItem) {
       console.log(dragNode.id, targetNode.id)
     }
   }

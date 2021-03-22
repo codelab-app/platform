@@ -1,10 +1,10 @@
-import { VertexType } from '@prisma/client'
-import { NodeA } from 'libs/modules/graph/src/core/domain/node/Node'
+import { AtomType } from '../interfaces/Hasura'
+import { NodeA } from '../interfaces/NodeA'
 
 export class TreeNode implements NodeA {
   public id: string
 
-  public type: VertexType
+  public type: AtomType
 
   public props: object
 

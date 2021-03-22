@@ -1,4 +1,3 @@
-import { VertexType } from '@prisma/client'
 import {
   Default,
   Description,
@@ -10,6 +9,7 @@ import {
   getJsonSchema,
 } from '@tsed/schema'
 import * as React from 'react'
+import { AtomType } from '@codelab/frontend'
 
 class Props {
   @Optional()
@@ -83,7 +83,7 @@ class Props {
 }
 export class LayoutSiderProps {
   @Property()
-  @Enum(VertexType.React_Layout_Sider)
+  @Enum(AtomType.ReactLayoutSider)
   declare type: string
 
   @Schema(getJsonSchema(Props))

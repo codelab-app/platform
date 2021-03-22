@@ -1,5 +1,0 @@
-query GetVertex($input: GetVertexInput!) {
-  getVertex(input: $input) {
-    ...vertexFragments
-  }
-}

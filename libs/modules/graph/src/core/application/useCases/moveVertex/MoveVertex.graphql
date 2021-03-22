@@ -1,5 +1,0 @@
-mutation MoveVertex($input: MoveVertexInput!) {
-  moveVertex(input: $input) {
-    ...vertexFragments
-  }
-}

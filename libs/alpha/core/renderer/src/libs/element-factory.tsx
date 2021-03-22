@@ -61,7 +61,6 @@ import {
 } from 'antd'
 import React from 'react'
 import { propsFilter, withFilters } from '@codelab/alpha/core/props'
-import { mouseEventHandlerKeys } from '@codelab/alpha/shared/event'
 import {
   ElementParameters,
   NodeA,
@@ -131,10 +130,7 @@ export const elementParameterFactory: NodeFactory<
       return [AutoComplete as any, props]
     case NodeType.React_Button:
       return [
-        withFilters(
-          propsFilter([...mouseEventHandlerKeys, ...ButtonTypes.propKeys]),
-          Button,
-        ),
+        withFilters(propsFilter([...ButtonTypes.propKeys]), Button),
         props,
       ]
     case NodeType.React_Breadcrumb:

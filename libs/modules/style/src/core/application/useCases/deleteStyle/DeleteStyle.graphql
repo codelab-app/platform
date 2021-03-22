@@ -1,5 +1,0 @@
-mutation DeleteStyle($input: DeleteStyleInput!) {
-  deleteStyle(input: $input) {
-    ...styleFragments
-  }
-}

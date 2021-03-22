@@ -1,5 +1,0 @@
-mutation AddChildVertex($input: AddChildVertexInput!) {
-  addChildVertex(input: $input) {
-    ...vertexFragments
-  }
-}
