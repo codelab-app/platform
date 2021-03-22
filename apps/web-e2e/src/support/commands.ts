@@ -48,6 +48,8 @@ export const findByButtonText = (
     .closest('button')
 }
 
+Cypress.Commands.add('findByButtonText', findByButtonText)
+
 export const findElementByText = <K extends keyof HTMLElementTagNameMap>(
   text: Matcher,
   element: K,
@@ -58,7 +60,7 @@ export const findElementByText = <K extends keyof HTMLElementTagNameMap>(
     .closest<K>(element)
 }
 
-Cypress.Commands.add('findByButtonText', findByButtonText)
+Cypress.Commands.add('findElementByText', findElementByText)
 
 export const findByModalTitle = (
   text: Matcher,
