@@ -41,7 +41,7 @@ describe('@codelab/schematics:domain-module', () => {
     `presentation/controllers/UserResolvers.ts`,
   ].map((file) => `libs/modules/user/src/${file}`)
 
-  // test.each(expectedFiles)('%p should exist', (file) => {
-  //   expect(appTree.exists(file)).toBeTruthy()
-  // })
+  test.each(expectedFiles)('%p should exist', (file) => {
+    expect(appTree.exists(file)).toBeTruthy()
+  })
 })

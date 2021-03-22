@@ -4,286 +4,6 @@ schema {
   subscription: subscription_root
 }
 
-type Edge {
-  id: String!
-  source: String!
-  type: String
-  target: String!
-  props: JSONObject
-  order: Float!
-}
-
-"""
-The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
-"""
-scalar JSONObject
-
-type User {
-  id: String!
-  email: String!
-  accessToken: String!
-  apps: [App!]!
-}
-
-type Lambda {
-  id: String!
-  name: String!
-  body: String!
-  user: User!
-}
-
-type App {
-  id: String!
-  title: String!
-  pages: [Page!]!
-  styles: [Style!]!
-  lambdas: [Lambda!]!
-}
-
-type Style {
-  id: String!
-  name: String!
-  props: JSONObject
-  app: App!
-  vertices: [Vertex!]
-}
-
-type Vertex {
-  id: String!
-  type: String
-  props: JSONObject
-  graph: Graph
-  parent: Vertex
-  styles: [Style!]
-  children: [Vertex!]!
-}
-
-type Graph {
-  id: String!
-  type: String
-  props: JSONObject
-  label: String!
-  vertices: [Vertex!]!
-  edges: [Edge!]!
-  tree: JSONObject!
-}
-
-type Page {
-  id: String!
-  title: String!
-  graphs: [Graph!]!
-}
-
-type Query {
-  getApp(input: GetAppInput!): App
-  getApps: [App!]!
-  getBuilder: Builder!
-  getGraph(input: GetGraphInput!): Graph!
-  getLambda(input: GetLambdaInput!): Lambda!
-  getLambdas(input: GetLambdasInput!): [Lambda!]!
-  getMe: User!
-  getPage(input: GetPageInput!): Page!
-  getPages(input: GetPagesInput!): [Page!]!
-  getStyle(input: GetStyleInput!): Style!
-  getStyles(input: GetStylesInput!): [Style!]!
-  getVertex(input: GetVertexInput!): Vertex
-}
-
-input GetAppInput {
-  appId: String!
-}
-
-input GetPagesInput {
-  appId: String!
-}
-
-input GetPageInput {
-  pageId: String!
-}
-
-input GetGraphInput {
-  id: String
-}
-
-input GetVertexInput {
-  id: String!
-}
-
-input GetStylesInput {
-  appId: String!
-}
-
-input GetStyleInput {
-  styleId: String!
-}
-
-input GetLambdaInput {
-  lambdaId: String!
-}
-
-input GetLambdasInput {
-  appId: String!
-}
-
-type Mutation {
-  addChildVertex(input: AddChildVertexInput!): Vertex!
-  assignStyle(input: AssignStyleInput!): Style!
-  createApp(input: CreateAppInput!): App!
-  createGraph(input: CreateGraphInput!): Graph!
-  createLambda(input: CreateLambdaInput!): Lambda!
-  createPage(input: CreatePageInput!): Page!
-  createStyle(input: CreateStyleInput!): Style!
-  deleteApp(input: DeleteAppInput!): App!
-  deleteLambda(input: DeleteLambdaInput!): Lambda!
-  deletePage(input: DeletePageInput!): Page!
-  deleteStyle(input: DeleteStyleInput!): Style!
-  deleteUser(input: DeleteUserInput!): User!
-  deleteVertex(input: DeleteVertexInput!): Vertex!
-  executeLambda(input: ExecuteLambdaInput!): Lambda!
-  loginUser(input: LoginUserInput!): User!
-  moveVertex(input: MoveVertexInput!): Vertex!
-  registerUser(input: RegisterUserInput!): User!
-  setBuilder(input: SetBuilderInput!): Builder!
-  unAssignStyle(input: UnAssignStyleInput!): Style!
-  updateApp(input: UpdateAppInput!): App!
-  updateEdge(input: UpdateEdgeInput!): Edge!
-  updateLambda(input: UpdateLambdaInput!): Lambda!
-  updatePage(input: UpdatePageInput!): Page!
-  updateStyle(input: UpdateStyleInput!): Style!
-  updateUser(input: UpdateUserInput!): User!
-  updateVertex(input: UpdateVertexInput!): Vertex!
-}
-
-input CreateAppInput {
-  title: String!
-}
-
-input UpdateAppInput {
-  id: String!
-  title: String!
-}
-
-input DeleteAppInput {
-  id: String!
-}
-
-input CreatePageInput {
-  title: String!
-  appId: String!
-}
-
-input UpdatePageInput {
-  title: String
-  pageId: String!
-}
-
-input DeletePageInput {
-  pageId: String!
-}
-
-input CreateGraphInput {
-  label: String!
-}
-
-input AddChildVertexInput {
-  parentVertexId: String
-  vertex: CreateVertexInput!
-  order: Float
-}
-
-input CreateVertexInput {
-  type: String!
-  props: JSONObject
-}
-
-input MoveVertexInput {
-  currentVertexId: String!
-  parentVertexId: String!
-}
-
-input UpdateVertexInput {
-  vertexId: String!
-  type: String
-  props: JSONObject
-}
-
-input DeleteVertexInput {
-  vertexId: String!
-}
-
-input UpdateEdgeInput {
-  id: String!
-  order: Float!
-  type: String!
-  source: String!
-  target: String!
-}
-
-input DeleteUserInput {
-  email: String!
-}
-
-input UpdateUserInput {
-  id: String!
-  email: String!
-}
-
-input RegisterUserInput {
-  email: String!
-  password: String!
-}
-
-input LoginUserInput {
-  email: String!
-  password: String!
-}
-
-input CreateStyleInput {
-  appId: String!
-  name: String!
-  props: JSONObject
-}
-
-input AssignStyleInput {
-  styleId: String!
-  vertexId: String!
-}
-
-input UnAssignStyleInput {
-  styleId: String!
-  vertexId: String!
-}
-
-input DeleteStyleInput {
-  styleId: String!
-}
-
-input UpdateStyleInput {
-  styleId: String!
-  name: String!
-  props: JSONObject
-}
-
-input CreateLambdaInput {
-  name: String!
-  body: String!
-  appId: String!
-}
-
-input UpdateLambdaInput {
-  lambdaId: String!
-  name: String!
-  body: String!
-}
-
-input ExecuteLambdaInput {
-  lambdaId: String!
-}
-
-input DeleteLambdaInput {
-  lambdaId: String!
-}
-
 """
 Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'.
 """
@@ -1797,7 +1517,7 @@ type component_links {
   """
   An object relationship
   """
-  category: categories!
+  category: categories
   category_id: uuid
 
   """
@@ -1823,7 +1543,7 @@ type component_links {
   """
   An object relationship
   """
-  targetElement: component_elements!
+  targetElement: component_elements
   targetElementId: uuid
 }
 
@@ -6929,7 +6649,7 @@ type prop_values {
   """
   An object relationship
   """
-  lambda: lambdas!
+  lambda: lambdas
 
   """
   This is used as a value
@@ -6950,7 +6670,7 @@ type prop_values {
   """
   An object relationship
   """
-  propByValuePropId: props!
+  propByValuePropId: props
 
   """
   An array relationship
@@ -10735,7 +10455,7 @@ type tags {
   """
   An object relationship
   """
-  category: categories!
+  category: categories
   category_id: uuid
   id: uuid!
   label: String!
@@ -11312,27 +11032,4 @@ input uuid_comparison_exp {
   _lte: uuid
   _neq: uuid
   _nin: [uuid!]
-}
-
-input PositionInput {
-  x: Int!
-  y: Int!
-}
-
-input SetBuilderInput {
-  position: PositionInput
-  windowPosition: PositionInput
-  component: String
-}
-
-type Builder {
-  position: Position!
-  windowPosition: Position!
-  component: String
-  isDragging: Boolean!
-}
-
-type Position {
-  x: Int!
-  y: Int!
 }

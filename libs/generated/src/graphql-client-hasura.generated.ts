@@ -1037,7 +1037,7 @@ export enum Component_Elements_Update_Column {
 export type Component_Links = {
   __typename?: 'component_links'
   /** An object relationship */
-  category: Categories
+  category?: Maybe<Categories>
   category_id?: Maybe<Scalars['uuid']>
   /** An object relationship */
   component: Components
@@ -1049,7 +1049,7 @@ export type Component_Links = {
   sourceElement: Component_Elements
   sourceElementId: Scalars['uuid']
   /** An object relationship */
-  targetElement: Component_Elements
+  targetElement?: Maybe<Component_Elements>
   targetElementId?: Maybe<Scalars['uuid']>
 }
 
@@ -4353,7 +4353,7 @@ export type Prop_Values = {
   __typename?: 'prop_values'
   id: Scalars['uuid']
   /** An object relationship */
-  lambda: Lambdas
+  lambda?: Maybe<Lambdas>
   /** This is used as a value */
   lambdaId?: Maybe<Scalars['uuid']>
   name: Scalars['String']
@@ -4362,7 +4362,7 @@ export type Prop_Values = {
   /** An object relationship */
   prop: Props
   /** An object relationship */
-  propByValuePropId: Props
+  propByValuePropId?: Maybe<Props>
   /** An array relationship */
   prop_value_tags: Array<Prop_Value_Tag>
   /** An aggregate relationship */
@@ -6113,7 +6113,7 @@ export type Subscription_RootUsers_By_PkArgs = {
 export type Tags = {
   __typename?: 'tags'
   /** An object relationship */
-  category: Categories
+  category?: Maybe<Categories>
   category_id?: Maybe<Scalars['uuid']>
   id: Scalars['uuid']
   label: Scalars['String']

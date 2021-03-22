@@ -3,18 +3,11 @@
   "schemaPath": "schema.graphql",
   "extensions": {
     "endpoints": {
-      "Default GraphQL Endpoint": {
-        "url": "http://localhost:3333/graphql",
-        "headers": {
-          "user-agent": "JS GraphQL"
-        },
-        "introspect": true
-      },
       "Hasura GraphQL Endpoint": {
         "url": "https://codelab-ai.hasura.app/v1/graphql",
         "headers": {
           "user-agent": "JS GraphQL",
-          "x-hasura-admin-secret": "${env:HASURA_ADMIN_SECRET}"
+          "x-hasura-admin-secret": "${env:HASURA_GRAPHQL_ADMIN_SECRET}"
         },
         "introspect": true
       }
