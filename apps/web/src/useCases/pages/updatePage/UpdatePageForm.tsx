@@ -1,3 +1,4 @@
+import { UpdatePageInput } from 'libs/modules/page/src/core/application/useCases/updatePage/UpdatePageInput'
 import React from 'react'
 import { ApolloForm, FormUseCaseProps, PropsWithIds } from '@codelab/frontend'
 import {
@@ -7,7 +8,6 @@ import {
   useGetPageQuery,
   useUpdatePageMutation,
 } from '@codelab/generated'
-import { UpdatePageInput } from 'libs/modules/page/src/core/application/useCases/updatePage/UpdatePageInput'
 
 export const UpdatePageForm = ({
   pageId,
