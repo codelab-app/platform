@@ -1,8 +1,8 @@
 overwrite: true
 hooks:
   afterAllFileWrite:
-    - npx prettier --write
-    - npx eslint --ext ts --fix
+    - yarn prettier --write
+    - yarn eslint --ext ts --fix
 schema:
   - https://codelab-ai.hasura.app/v1/graphql:
       headers:

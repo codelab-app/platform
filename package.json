@@ -281,6 +281,7 @@
     "@zeit/next-sass": "1.0.1",
     "apollo-graphql": "0.6.1",
     "babel-jest": "26.6.3",
+    "babel-plugin-import": "^1.13.3",
     "commitizen": "4.2.1",
     "concurrently": "5.3.0",
     "copyfiles": "2.4.0",
