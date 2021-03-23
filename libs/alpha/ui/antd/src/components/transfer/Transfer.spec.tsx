@@ -9,8 +9,12 @@ describe('Transfer', () => {
     expect(getByText('Source')).toBeTruthy()
     expect(getByText('Target')).toBeTruthy()
 
-    const source = getByText('Source').parentElement.parentElement
-    const target = getByText('Target').parentElement.parentElement
+    const source = getByText('Source').parentElement?.parentElement
+    const target = getByText('Target').parentElement?.parentElement
+
+    if (!source || !target) {
+      throw new Error('missing source or target')
+    }
 
     expect(getByTitle(source, 'content1')).toBeTruthy()
     expect(getByTitle(source, 'content2')).toBeTruthy()
@@ -30,7 +34,7 @@ describe('Transfer', () => {
   it('Source to Target transfer should work', async () => {
     const { getByText, getByLabelText } = render(<Default />)
 
-    const source = getByText('Source').parentElement.parentElement
+    const source = getByText('Source').parentElement?.parentElement as any
     const content1 = getByTitle(source, 'content1')
     const rightBtn = getByLabelText('right')
 
@@ -45,7 +49,10 @@ describe('Transfer', () => {
 
     await waitFor(() => {
       expect(
-        getByTitle(getByText('Target').parentElement.parentElement, 'content1'),
+        getByTitle(
+          getByText('Target').parentElement?.parentElement as any,
+          'content1',
+        ),
       ).toBeTruthy()
     })
   })
@@ -53,8 +60,8 @@ describe('Transfer', () => {
   it('Target to Source transfer should work', async () => {
     const { getByText, getByLabelText } = render(<Default />)
 
-    const target = getByText('Target').parentElement.parentElement
-    const content4 = getByTitle(target, 'content4')
+    const target = getByText('Target').parentElement?.parentElement
+    const content4 = getByTitle(target!, 'content4')
     const leftBtn = getByLabelText('left')
 
     fireEvent.click(content4)
@@ -68,7 +75,10 @@ describe('Transfer', () => {
 
     await waitFor(() => {
       expect(
-        getByTitle(getByText('Source').parentElement.parentElement, 'content4'),
+        getByTitle(
+          getByText('Source').parentElement?.parentElement as any,
+          'content4',
+        ),
       ).toBeTruthy()
     })
   })
@@ -77,9 +87,9 @@ describe('Transfer', () => {
     const { getByText, getByLabelText } = render(<Default />)
 
     const allSource = document.querySelectorAll('.ant-checkbox-wrapper')[0]
-    const source = getByText('Source').parentElement.parentElement
-    const content1 = getByTitle(source, 'content1')
-    const content3 = getByTitle(source, 'content3')
+    const source = getByText('Source').parentElement?.parentElement
+    const content1 = getByTitle(source!, 'content1')
+    const content3 = getByTitle(source!, 'content3')
     const rightBtn = getByLabelText('right')
 
     fireEvent.click(allSource)
@@ -94,10 +104,16 @@ describe('Transfer', () => {
 
     await waitFor(() => {
       expect(
-        getByTitle(getByText('Target').parentElement.parentElement, 'content1'),
+        getByTitle(
+          getByText('Target').parentElement?.parentElement as any,
+          'content1',
+        ),
       ).toBeTruthy()
       expect(
-        getByTitle(getByText('Target').parentElement.parentElement, 'content3'),
+        getByTitle(
+          getByText('Target').parentElement?.parentElement as any,
+          'content3',
+        ),
       ).toBeTruthy()
     })
   })

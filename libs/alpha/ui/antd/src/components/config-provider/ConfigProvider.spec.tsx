@@ -9,11 +9,11 @@ describe('ConfigProvider', () => {
     )
 
     expect(getByPlaceholderText('Input')).toHaveClass('ant-input-lg')
-    expect(getByTitle('Demo').parentElement.parentElement).toHaveClass(
+    expect(getByTitle('Demo').parentElement?.parentElement).toHaveClass(
       'ant-select-lg',
     )
     expect(
-      getByPlaceholderText('Select date').parentElement.parentElement,
+      getByPlaceholderText('Select date').parentElement?.parentElement,
     ).toHaveClass('ant-picker-large')
     expect(getByText('Button')).toHaveClass('ant-btn-lg')
   })

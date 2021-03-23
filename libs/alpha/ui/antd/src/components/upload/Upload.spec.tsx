@@ -16,6 +16,6 @@ describe('Upload', () => {
     userEvent.upload(input, file)
 
     expect(input.files).toHaveLength(1)
-    expect(input.files[0]).toStrictEqual(file)
+    expect(input.files?.[0]).toStrictEqual(file)
   })
 })

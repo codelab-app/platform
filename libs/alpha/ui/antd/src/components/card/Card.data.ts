@@ -1,23 +1,19 @@
-import { Text } from '../text'
-import { Card } from './Card.types'
-import { NodeReactI, NodeType } from '@codelab/alpha/shared/interface/node'
+import { AtomType, NodeI } from '@codelab/frontend'
 
-export const cardData: NodeReactI<
-  Card.Props | Card.GridProps | Card.MetaProps | Text.Props
-> = {
-  type: NodeType.React_Card,
+export const cardData: NodeI = {
+  type: AtomType.ReactCard,
   props: {
     title: 'Card Title',
   },
   children: [
     {
-      type: NodeType.React_Card_Grid,
+      type: AtomType.ReactCardGrid,
       props: {
         hoverable: true,
       },
       children: [
         {
-          type: NodeType.React_Text,
+          type: AtomType.ReactText,
           props: {
             value: 'Content',
           },
@@ -25,13 +21,13 @@ export const cardData: NodeReactI<
       ],
     },
     {
-      type: NodeType.React_Card_Grid,
+      type: AtomType.ReactCardGrid,
       props: {
         hoverable: true,
       },
       children: [
         {
-          type: NodeType.React_Text,
+          type: AtomType.ReactText,
           props: {
             value: 'Content',
           },
@@ -39,13 +35,13 @@ export const cardData: NodeReactI<
       ],
     },
     {
-      type: NodeType.React_Card_Grid,
+      type: AtomType.ReactCardGrid,
       props: {
         hoverable: true,
       },
       children: [
         {
-          type: NodeType.React_Card_Meta,
+          type: AtomType.ReactCardMeta,
           props: {
             title: 'Euro Street beat',
             description: 'www.instagram.com',

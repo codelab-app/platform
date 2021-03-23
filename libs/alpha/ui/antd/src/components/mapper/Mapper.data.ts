@@ -1,16 +1,16 @@
-import { NodeReactI, NodeType } from '@codelab/alpha/shared/interface/node'
-import { PropType } from '@codelab/alpha/shared/interface/props'
+import { PropType } from '../../props/PropType'
+import { AtomType, NodeI } from '@codelab/frontend'
 
-export const mapperData: NodeReactI = {
-  type: NodeType.React_Mapper,
+export const mapperData: NodeI = {
+  type: AtomType.ReactMapper,
   props: {
     dataSource: ['Webber', 'Alex', 'Vien'],
     render: {
-      type: NodeType.React_Tag,
+      type: AtomType.ReactTag,
 
       children: [
         {
-          type: NodeType.React_Text,
+          type: AtomType.ReactText,
           props: {
             value: { __type: [PropType.Eval], value: 'return this.item' },
           },

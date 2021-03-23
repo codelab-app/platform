@@ -1,12 +1,8 @@
-import { Text } from '../../text'
-import { Form } from '../Form.types'
-import { NodeReactI, NodeType } from '@codelab/alpha/shared/interface/node'
-import { PropType, PropTypeValue } from '@codelab/alpha/shared/interface/props'
+import { PropType } from '../../../props/PropType'
+import { AtomType, NodeI } from '@codelab/frontend'
 
-export const formConditionData: NodeReactI<
-  Form.Props | Form.ItemProps | Text.Props | { shouldRender: PropTypeValue }
-> = {
-  type: NodeType.React_Form,
+export const formConditionData: NodeI = {
+  type: AtomType.ReactForm,
   props: {
     // name: 'form',
     initialValues: {},
@@ -14,14 +10,14 @@ export const formConditionData: NodeReactI<
   },
   children: [
     {
-      type: NodeType.React_Form_Item,
+      type: AtomType.ReactFormItem,
       props: {
         label: 'Select Type',
         name: 'select_type',
       },
       children: [
         {
-          type: NodeType.React_Select,
+          type: AtomType.ReactSelect,
           props: {
             style: {
               width: 120,
@@ -29,13 +25,13 @@ export const formConditionData: NodeReactI<
           },
           children: [
             {
-              type: NodeType.React_Select_Option,
+              type: AtomType.ReactSelectOption,
               props: {
                 value: 'a',
               },
               children: [
                 {
-                  type: NodeType.React_Text,
+                  type: AtomType.ReactText,
                   props: {
                     value: 'A',
                   },
@@ -43,13 +39,13 @@ export const formConditionData: NodeReactI<
               ],
             },
             {
-              type: NodeType.React_Select_Option,
+              type: AtomType.ReactSelectOption,
               props: {
                 value: 'b',
               },
               children: [
                 {
-                  type: NodeType.React_Text,
+                  type: AtomType.ReactText,
                   props: {
                     value: 'B',
                   },
@@ -57,13 +53,13 @@ export const formConditionData: NodeReactI<
               ],
             },
             {
-              type: NodeType.React_Select_Option,
+              type: AtomType.ReactSelectOption,
               props: {
                 value: 'c',
               },
               children: [
                 {
-                  type: NodeType.React_Text,
+                  type: AtomType.ReactText,
                   props: {
                     value: 'C',
                   },
@@ -75,7 +71,7 @@ export const formConditionData: NodeReactI<
       ],
     },
     {
-      type: NodeType.React_Form_ItemHook,
+      type: AtomType.ReactFormItemHook,
       props: {
         shouldUpdate: true,
         shouldRender: {
@@ -85,17 +81,17 @@ export const formConditionData: NodeReactI<
       },
       children: [
         {
-          type: NodeType.React_Form_Item,
+          type: AtomType.ReactFormItem,
           props: {
             label: 'Field A',
             name: 'a',
           },
-          children: [{ type: NodeType.React_Input, props: {} }],
+          children: [{ type: AtomType.ReactInput, props: {} }],
         },
       ],
     },
     {
-      type: NodeType.React_Form_ItemHook,
+      type: AtomType.ReactFormItemHook,
       props: {
         shouldUpdate: true,
         shouldRender: {
@@ -105,17 +101,17 @@ export const formConditionData: NodeReactI<
       },
       children: [
         {
-          type: NodeType.React_Form_Item,
+          type: AtomType.ReactFormItem,
           props: {
             label: 'Field B',
             name: 'b',
           },
-          children: [{ type: NodeType.React_Input, props: {} }],
+          children: [{ type: AtomType.ReactInput, props: {} }],
         },
       ],
     },
     {
-      type: NodeType.React_Form_ItemHook,
+      type: AtomType.ReactFormItemHook,
       props: {
         shouldUpdate: true,
         shouldRender: {
@@ -125,12 +121,12 @@ export const formConditionData: NodeReactI<
       },
       children: [
         {
-          type: NodeType.React_Form_Item,
+          type: AtomType.ReactFormItem,
           props: {
             label: 'Field C',
             name: 'c',
           },
-          children: [{ type: NodeType.React_Input, props: {} }],
+          children: [{ type: AtomType.ReactInput, props: {} }],
         },
       ],
     },

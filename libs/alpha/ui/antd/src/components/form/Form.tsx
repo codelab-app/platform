@@ -2,17 +2,24 @@ import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
 import { Form as AntForm, Button, Space } from 'antd'
 import { FormProps } from 'antd/lib/form'
 import { StoreValue } from 'rc-field-form/lib/interface'
-import React, { ReactElement } from 'react'
-import { Select } from '../..'
-import { Form } from './Form.types'
-import { NodeReactI, NodeType } from '@codelab/alpha/shared/interface/node'
-import { PropJsonValue, PropType } from '@codelab/alpha/shared/interface/props'
+import React from 'react'
+import { PropType } from '../../props/PropType'
+import { AtomType, NodeI } from '@codelab/frontend'
 
 // Copy because not exported from antd
 export interface FieldData {
   name: number
   key: number
   fieldKey: number
+}
+
+export type OptionConfig = [string, object]
+export interface CreateSelect {
+  label: string
+  name: string
+  options: Array<OptionConfig>
+  showSearch?: boolean
+  filterOption?: object
 }
 
 export interface Operation {
@@ -141,16 +148,16 @@ export class CodelabForm {
     options,
     showSearch,
     filterOption,
-  }: Form.CreateSelect): NodeReactI<Select.Props | Form.ItemProps> => {
+  }: CreateSelect): NodeI => {
     return {
-      type: NodeType.React_Form_Item,
+      type: AtomType.ReactFormItem,
       props: {
         label,
         name,
       },
       children: [
         {
-          type: NodeType.React_Select,
+          type: AtomType.ReactSelect,
           props: {
             style: {
               width: '100%',
@@ -164,17 +171,15 @@ export class CodelabForm {
     }
   }
 
-  static createOptions = (
-    options: Array<Form.OptionConfig>,
-  ): Array<NodeReactI<Select.OptionProps>> => {
-    return options.map(([key, value]: [string, PropJsonValue]) => ({
-      type: NodeType.React_Select_Option,
+  static createOptions = (options: Array<OptionConfig>): Array<NodeI> => {
+    return options.map(([key, value]: [string, any]) => ({
+      type: AtomType.ReactSelectOption,
       props: {
         value,
       },
       children: [
         {
-          type: NodeType.React_Text,
+          type: AtomType.ReactText,
           props: {
             value: key,
           },

@@ -1,13 +1,8 @@
-import { Button } from '../button'
-import { Text } from '../text'
-import { Notification } from './Notification.types'
-import { NodeReactI, NodeType } from '@codelab/alpha/shared/interface/node'
-import { PropType } from '@codelab/alpha/shared/interface/props'
+import { PropType } from '../../props/PropType'
+import { AtomType, NodeI } from '@codelab/frontend'
 
-export const notificationData: NodeReactI<
-  Text.Props | Notification.Props | Button.Props | { config: object }
-> = {
-  type: NodeType.React_Fragment,
+export const notificationData: NodeI = {
+  type: AtomType.ReactFragment,
   props: {
     config: {
       __type: [PropType.Eval, PropType.Leaf],
@@ -22,7 +17,7 @@ export const notificationData: NodeReactI<
   },
   children: [
     {
-      type: NodeType.React_Button,
+      type: AtomType.ReactButton,
       props: {
         onClick: {
           __type: [PropType.Eval],
@@ -35,7 +30,7 @@ export const notificationData: NodeReactI<
       },
       children: [
         {
-          type: NodeType.React_Text,
+          type: AtomType.ReactText,
           props: {
             value: 'Display notification',
           },

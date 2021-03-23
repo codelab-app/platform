@@ -1,28 +1,25 @@
-import { Button } from '../button'
-import { Text } from '../text'
-import { Space } from './Space.types'
-import { NodeReactI, NodeType } from '@codelab/alpha/shared/interface/node'
+import { AtomType, NodeI } from '@codelab/frontend'
 
-export const spaceData: NodeReactI<Space.Props | Button.Props | Text.Props> = {
-  type: NodeType.React_Space,
+export const spaceData: NodeI = {
+  type: AtomType.ReactSpace,
   props: {
     size: 'middle',
   },
   children: [
     {
-      type: NodeType.React_Button,
+      type: AtomType.ReactButton,
       props: { type: 'primary' },
-      children: [{ type: NodeType.React_Text, props: { value: 'Primary' } }],
+      children: [{ type: AtomType.ReactText, props: { value: 'Primary' } }],
     },
     {
-      type: NodeType.React_Button,
+      type: AtomType.ReactButton,
       props: { type: 'default' },
-      children: [{ type: NodeType.React_Text, props: { value: 'Default' } }],
+      children: [{ type: AtomType.ReactText, props: { value: 'Default' } }],
     },
     {
-      type: NodeType.React_Button,
+      type: AtomType.ReactButton,
       props: { type: 'dashed' },
-      children: [{ type: NodeType.React_Text, props: { value: 'Dashed' } }],
+      children: [{ type: AtomType.ReactText, props: { value: 'Dashed' } }],
     },
   ],
 }

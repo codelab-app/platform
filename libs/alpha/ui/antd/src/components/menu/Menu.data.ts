@@ -1,15 +1,7 @@
-import { Text } from '../text'
-import { Menu } from './Menu.types'
-import { NodeReactI, NodeType } from '@codelab/alpha/shared/interface/node'
+import { AtomType, NodeI } from '@codelab/frontend'
 
-export const menuData: NodeReactI<
-  | Menu.Props
-  | Menu.ItemProps
-  | Menu.SubmenuProps
-  | Menu.ItemGroupProps
-  | Text.Props
-> = {
-  type: NodeType.React_Menu,
+export const menuData: NodeI = {
+  type: AtomType.ReactMenu,
   props: {
     mode: 'inline',
     theme: 'dark',
@@ -20,12 +12,12 @@ export const menuData: NodeReactI<
   },
   children: [
     {
-      type: NodeType.React_Menu_SubMenu,
+      type: AtomType.ReactMenuSubMenu,
       props: {
         key: 'sub1',
         title: 'Navigation One',
         icon: {
-          type: NodeType.React_Icon,
+          type: AtomType.ReactIcon,
           props: {
             type: 'mail',
             theme: 'outlined',
@@ -34,20 +26,20 @@ export const menuData: NodeReactI<
       },
       children: [
         {
-          type: NodeType.React_Menu_ItemGroup,
+          type: AtomType.ReactMenuItemGroup,
           props: {
             key: 'g1',
             title: 'Item 1',
           },
           children: [
             {
-              type: NodeType.React_Menu_Item,
+              type: AtomType.ReactMenuItem,
               props: {
                 key: '1',
               },
               children: [
                 {
-                  type: NodeType.React_Text,
+                  type: AtomType.ReactText,
                   props: {
                     value: 'Option 1',
                   },
@@ -55,13 +47,13 @@ export const menuData: NodeReactI<
               ],
             },
             {
-              type: NodeType.React_Menu_Item,
+              type: AtomType.ReactMenuItem,
               props: {
                 key: '2',
               },
               children: [
                 {
-                  type: NodeType.React_Text,
+                  type: AtomType.ReactText,
                   props: {
                     value: 'Option 2',
                   },
@@ -71,20 +63,20 @@ export const menuData: NodeReactI<
           ],
         },
         {
-          type: NodeType.React_Menu_ItemGroup,
+          type: AtomType.ReactMenuItemGroup,
           props: {
             key: 'g2',
             title: 'Item 2',
           },
           children: [
             {
-              type: NodeType.React_Menu_Item,
+              type: AtomType.ReactMenuItem,
               props: {
                 key: '3',
               },
               children: [
                 {
-                  type: NodeType.React_Text,
+                  type: AtomType.ReactText,
                   props: {
                     value: 'Option 3',
                   },
@@ -92,13 +84,13 @@ export const menuData: NodeReactI<
               ],
             },
             {
-              type: NodeType.React_Menu_Item,
+              type: AtomType.ReactMenuItem,
               props: {
                 key: '4',
               },
               children: [
                 {
-                  type: NodeType.React_Text,
+                  type: AtomType.ReactText,
                   props: {
                     value: 'Option 4',
                   },
@@ -110,12 +102,12 @@ export const menuData: NodeReactI<
       ],
     },
     {
-      type: NodeType.React_Menu_SubMenu,
+      type: AtomType.ReactMenuSubMenu,
       props: {
         key: 'sub2',
         title: 'Navigation Two',
         icon: {
-          type: NodeType.React_Icon,
+          type: AtomType.ReactIcon,
           props: {
             type: 'appstore',
             theme: 'outlined',
@@ -124,13 +116,13 @@ export const menuData: NodeReactI<
       },
       children: [
         {
-          type: NodeType.React_Menu_Item,
+          type: AtomType.ReactMenuItem,
           props: {
             key: '5',
           },
           children: [
             {
-              type: NodeType.React_Text,
+              type: AtomType.ReactText,
               props: {
                 value: 'Option 5',
               },
@@ -138,13 +130,13 @@ export const menuData: NodeReactI<
           ],
         },
         {
-          type: NodeType.React_Menu_Item,
+          type: AtomType.ReactMenuItem,
           props: {
             key: '6',
           },
           children: [
             {
-              type: NodeType.React_Text,
+              type: AtomType.ReactText,
               props: {
                 value: 'Option 6',
               },
@@ -152,20 +144,20 @@ export const menuData: NodeReactI<
           ],
         },
         {
-          type: NodeType.React_Menu_SubMenu,
+          type: AtomType.ReactMenuSubMenu,
           props: {
             key: 'sub3',
             title: 'Submenu',
           },
           children: [
             {
-              type: NodeType.React_Menu_Item,
+              type: AtomType.ReactMenuItem,
               props: {
                 key: '7',
               },
               children: [
                 {
-                  type: NodeType.React_Text,
+                  type: AtomType.ReactText,
                   props: {
                     value: 'Option 7',
                   },
@@ -173,13 +165,13 @@ export const menuData: NodeReactI<
               ],
             },
             {
-              type: NodeType.React_Menu_Item,
+              type: AtomType.ReactMenuItem,
               props: {
                 key: '8',
               },
               children: [
                 {
-                  type: NodeType.React_Text,
+                  type: AtomType.ReactText,
                   props: {
                     value: 'Option 8',
                   },

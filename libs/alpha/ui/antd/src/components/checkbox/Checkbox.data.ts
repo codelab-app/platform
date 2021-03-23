@@ -1,17 +1,13 @@
-import { Text } from '../text'
-import { Checkbox } from './Checkbox.types'
-import { NodeReactI, NodeType } from '@codelab/alpha/shared/interface/node'
+import { AtomType, NodeI } from '@codelab/frontend'
 
-export const checkboxData: NodeReactI<
-  Checkbox.Props | Checkbox.GroupProps | Text.Props
-> = {
-  type: NodeType.React_Checkbox,
+export const checkboxData: NodeI = {
+  type: AtomType.ReactCheckbox,
   props: {
     autoFocus: false,
   },
   children: [
     {
-      type: NodeType.React_Text,
+      type: AtomType.ReactText,
       props: {
         value: 'Checkbox',
       },

@@ -8,7 +8,7 @@ describe('Notification', () => {
 
     expect(queryByText('Display notification')).toBeTruthy()
 
-    fireEvent.click(queryByText('Display notification'))
+    fireEvent.click(queryByText('Display notification')!)
 
     await waitFor(() => {
       expect(queryByText('Notification Title')).toBeTruthy()
@@ -18,7 +18,7 @@ describe('Notification', () => {
       expect(queryByLabelText('close')).toBeTruthy()
     })
 
-    fireEvent.click(queryByLabelText('close'))
+    fireEvent.click(queryByLabelText('close')!)
 
     await waitFor(() => {
       expect(queryByText('Notification Title')).not.toBeTruthy()

@@ -1,8 +1,7 @@
-import { Tree } from './Tree.types'
-import { NodeReactI, NodeType } from '@codelab/alpha/shared/interface/node'
+import { AtomType, NodeI } from '@codelab/frontend'
 
-export const treeData: NodeReactI<Tree.Props | Tree.TreeNodeProps> = {
-  type: NodeType.React_Tree,
+export const treeData: NodeI = {
+  type: AtomType.ReactTree,
   props: {
     checkable: true,
     treeData: [

@@ -1,22 +1,19 @@
-import { Button } from '../button'
-import { Text } from '../text'
-import { Affix } from './Affix.types'
-import { NodeReactI, NodeType } from '@codelab/alpha/shared/interface/node'
+import { AtomType, NodeI } from '@codelab/frontend'
 
-export const affixData: NodeReactI<Affix.Props | Text.Props | Button.Props> = {
-  type: NodeType.React_Affix,
+export const affixData: NodeI = {
+  type: AtomType.ReactAffix,
   props: {
     offsetTop: 120,
   },
   children: [
     {
-      type: NodeType.React_Button,
+      type: AtomType.ReactButton,
       props: {
         type: 'primary',
       },
       children: [
         {
-          type: NodeType.React_Text,
+          type: AtomType.ReactText,
           props: {
             value: '120px to affix top',
           },

@@ -1,8 +1,8 @@
-import { NodeI, NodeType } from '@codelab/alpha/shared/interface/node'
-import { PropType } from '@codelab/alpha/shared/interface/props'
+import { PropType } from './PropType'
+import { AtomType, NodeI } from '@codelab/frontend'
 
 export const renderPropsData: NodeI = {
-  type: NodeType.React_Html_Div,
+  type: AtomType.ReactHtmlDiv,
   props: {
     visibility: '',
     singleprops: {
@@ -12,7 +12,7 @@ export const renderPropsData: NodeI = {
   },
   children: [
     {
-      type: NodeType.React_Html_Div,
+      type: AtomType.ReactHtmlDiv,
       props: {
         childprops: {
           __type: [PropType.Eval],
@@ -21,7 +21,7 @@ export const renderPropsData: NodeI = {
       },
       children: [
         {
-          type: NodeType.React_Html_Div,
+          type: AtomType.ReactHtmlDiv,
           props: {
             grandchildprops: {
               __type: [PropType.Eval],
@@ -35,7 +35,7 @@ export const renderPropsData: NodeI = {
 }
 
 export const leafRenderPropsData: NodeI = {
-  type: NodeType.React_Html_Div,
+  type: AtomType.ReactHtmlDiv,
   props: {
     visibility: '',
     leafprops: {
@@ -45,7 +45,7 @@ export const leafRenderPropsData: NodeI = {
   },
   children: [
     {
-      type: NodeType.React_Html_Div,
+      type: AtomType.ReactHtmlDiv,
       props: {
         childprops: {
           __type: [PropType.Eval],
@@ -55,7 +55,7 @@ export const leafRenderPropsData: NodeI = {
       },
       children: [
         {
-          type: NodeType.React_Html_Div,
+          type: AtomType.ReactHtmlDiv,
           props: {
             grandchildprops: {
               __type: [PropType.Eval],

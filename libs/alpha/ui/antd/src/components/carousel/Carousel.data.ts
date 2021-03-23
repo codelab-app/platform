@@ -1,9 +1,7 @@
-import { Text } from '../text'
-import { Carousel } from './Carousel.types'
-import { NodeReactI, NodeType } from '@codelab/alpha/shared/interface/node'
+import { AtomType, NodeI } from '@codelab/frontend'
 
-export const carouselData: NodeReactI<Carousel.Props | Text.Props> = {
-  type: NodeType.React_Carousel,
+export const carouselData: NodeI = {
+  type: AtomType.ReactCarousel,
   props: {
     dotPosition: 'bottom',
     dots: 'true',
@@ -19,28 +17,28 @@ export const carouselData: NodeReactI<Carousel.Props | Text.Props> = {
   },
   children: [
     {
-      type: NodeType.React_Html_Div,
+      type: AtomType.ReactHtmlDiv,
       children: [
         {
-          type: NodeType.React_Text,
+          type: AtomType.ReactText,
           props: { value: 'Slide 1' },
         },
       ],
     },
     {
-      type: NodeType.React_Html_Div,
+      type: AtomType.ReactHtmlDiv,
       children: [
         {
-          type: NodeType.React_Text,
+          type: AtomType.ReactText,
           props: { value: 'Slide 2' },
         },
       ],
     },
     {
-      type: NodeType.React_Html_Div,
+      type: AtomType.ReactHtmlDiv,
       children: [
         {
-          type: NodeType.React_Text,
+          type: AtomType.ReactText,
           props: { value: 'Slide 3' },
         },
       ],

@@ -1,16 +1,14 @@
-import { Text } from '../text'
-import { Button } from './Button.types'
-import { NodeReactI, NodeType } from '@codelab/alpha/shared/interface/node'
-import { PropType } from '@codelab/alpha/shared/interface/props'
+import { PropType } from '../../props/PropType'
+import { AtomType, NodeI } from '@codelab/frontend'
 
-export const buttonData: NodeReactI<Button.Props | Text.Props> = {
-  type: NodeType.React_Button,
+export const buttonData: NodeI = {
+  type: AtomType.ReactButton,
   props: {
     type: 'primary',
   },
   children: [
     {
-      type: NodeType.React_Text,
+      type: AtomType.ReactText,
       props: {
         value: 'Click me',
       },
@@ -18,8 +16,8 @@ export const buttonData: NodeReactI<Button.Props | Text.Props> = {
   ],
 }
 
-export const buttonEvalData: NodeReactI<Button.Props | Text.Props> = {
-  type: NodeType.React_Button,
+export const buttonEvalData: NodeI = {
+  type: AtomType.ReactButton,
   props: {
     onClick: {
       __type: [PropType.Eval],
@@ -29,7 +27,7 @@ export const buttonEvalData: NodeReactI<Button.Props | Text.Props> = {
   },
   children: [
     {
-      type: NodeType.React_Text,
+      type: AtomType.ReactText,
       props: {
         value: 'Click me',
       },

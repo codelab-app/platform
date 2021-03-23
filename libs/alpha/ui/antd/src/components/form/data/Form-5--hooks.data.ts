@@ -1,13 +1,8 @@
-import { Button } from '../../button'
-import { Text } from '../../text'
-import { Form } from '../Form.types'
-import { NodeReactI, NodeType } from '@codelab/alpha/shared/interface/node'
-import { PropType } from '@codelab/alpha/shared/interface/props'
+import { PropType } from '../../../props/PropType'
+import { AtomType, NodeI } from '@codelab/frontend'
 
-export const hooksData: NodeReactI<
-  Form.Props | Form.ItemProps | Text.Props | Button.Props
-> = {
-  type: NodeType.React_Fragment,
+export const hooksData: NodeI = {
+  type: AtomType.ReactFragment,
   props: {
     form: {
       __type: [PropType.Eval, PropType.Single],
@@ -19,7 +14,7 @@ export const hooksData: NodeReactI<
   },
   children: [
     {
-      type: NodeType.React_Form,
+      type: AtomType.ReactForm,
       props: {
         name: 'form-hooks',
         initialValues: {
@@ -36,25 +31,25 @@ export const hooksData: NodeReactI<
       },
       children: [
         {
-          type: NodeType.React_Form_Item,
+          type: AtomType.ReactFormItem,
           props: {
             label: 'Name',
             name: ['name'],
           },
           children: [
             {
-              type: NodeType.React_Input,
+              type: AtomType.ReactInput,
             },
           ],
         },
         {
-          type: NodeType.React_Form_Item,
+          type: AtomType.ReactFormItem,
           props: {
             name: 'reset_button',
           },
           children: [
             {
-              type: NodeType.React_Button,
+              type: AtomType.ReactButton,
               props: {
                 type: 'primary',
                 onClick: {
@@ -64,7 +59,7 @@ export const hooksData: NodeReactI<
               },
               children: [
                 {
-                  type: NodeType.React_Text,
+                  type: AtomType.ReactText,
                   props: {
                     value: 'Reset',
                   },

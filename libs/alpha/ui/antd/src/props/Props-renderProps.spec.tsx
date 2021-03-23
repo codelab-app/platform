@@ -1,8 +1,8 @@
 import { mount } from 'enzyme'
 import React from 'react'
+import { PropType } from './PropType'
 import { leafRenderPropsData, renderPropsData } from './Props-renderProps.data'
 import { Renderer } from '@codelab/alpha/core/renderer'
-import { PropType } from '@codelab/alpha/shared/interface/props'
 
 describe('RenderProps', () => {
   it('can pass props from parent to child', () => {

@@ -1,21 +1,15 @@
-import { Avatar } from '../avatar'
-import { Icon } from '../icon'
-import { Text } from '../text'
-import { Comment } from './Comment.types'
-import { NodeReactI, NodeType } from '@codelab/alpha/shared/interface/node'
-import { PropType } from '@codelab/alpha/shared/interface/props'
+import { PropType } from '../../props/PropType'
+import { AtomType, NodeI } from '@codelab/frontend'
 
-export const commentData: NodeReactI<
-  Comment.Props | Text.Props | Icon.Props | Avatar.Props
-> = {
-  type: NodeType.React_Comment,
+export const commentData: NodeI = {
+  type: AtomType.ReactComment,
   props: {
     author: 'Han Solo',
     content:
       'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
     datetime: '1 July 2020',
     avatar: {
-      type: NodeType.React_Avatar,
+      type: AtomType.ReactAvatar,
       props: {
         src: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
         alt: 'Han Solo',
@@ -23,22 +17,22 @@ export const commentData: NodeReactI<
     },
     actions: [
       {
-        type: NodeType.React_Fragment,
+        type: AtomType.ReactFragment,
         props: {
           ctx: {
             __type: [PropType.Eval, PropType.Single],
             value: `
-              const [likes, setLikes] = this.React.useState(0); 
-              const [dislikes, setDislikes] = this.React.useState(0); 
-              const [action, setAction] = this.React.useState(null); 
-              
+              const [likes, setLikes] = this.React.useState(0);
+              const [dislikes, setDislikes] = this.React.useState(0);
+              const [action, setAction] = this.React.useState(null);
+
               return { likes, setLikes, dislikes, setDislikes, action, setAction }
             `,
           },
         },
         children: [
           {
-            type: NodeType.React_Icon,
+            type: AtomType.ReactIcon,
             props: {
               type: 'like',
               theme: {
@@ -50,9 +44,9 @@ export const commentData: NodeReactI<
               onClick: {
                 __type: [PropType.Eval],
                 value: `
-                  return () => { 
-                    this.ctx.setLikes(1); 
-                    this.ctx.setDislikes(0); 
+                  return () => {
+                    this.ctx.setLikes(1);
+                    this.ctx.setDislikes(0);
                     this.ctx.setAction("like");
                   }
                 `,
@@ -60,7 +54,7 @@ export const commentData: NodeReactI<
             },
           },
           {
-            type: NodeType.React_Text,
+            type: AtomType.ReactText,
             props: {
               value: {
                 __type: [PropType.Eval],
@@ -69,7 +63,7 @@ export const commentData: NodeReactI<
             },
           },
           {
-            type: NodeType.React_Icon,
+            type: AtomType.ReactIcon,
             props: {
               type: 'dislike',
               theme: {
@@ -81,9 +75,9 @@ export const commentData: NodeReactI<
               onClick: {
                 __type: [PropType.Eval],
                 value: `
-                  return () => { 
-                    this.ctx.setLikes(0); 
-                    this.ctx.setDislikes(1); 
+                  return () => {
+                    this.ctx.setLikes(0);
+                    this.ctx.setDislikes(1);
                     this.ctx.setAction("dislike");
                   }
                 `,
@@ -91,7 +85,7 @@ export const commentData: NodeReactI<
             },
           },
           {
-            type: NodeType.React_Text,
+            type: AtomType.ReactText,
             props: {
               value: {
                 __type: [PropType.Eval],
@@ -100,11 +94,11 @@ export const commentData: NodeReactI<
             },
           },
           {
-            type: NodeType.React_Html_Span,
+            type: AtomType.ReactHtmlSpan,
             props: { style: { paddingLeft: '8px' } },
             children: [
               {
-                type: NodeType.React_Text,
+                type: AtomType.ReactText,
                 props: { value: 'Reply to' },
               },
             ],

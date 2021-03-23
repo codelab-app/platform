@@ -8,7 +8,7 @@ describe('TreeSelect', () => {
 
     expect(getByText('Please select')).toBeTruthy()
 
-    fireEvent.mouseDown(getByText('Please select').parentElement)
+    fireEvent.mouseDown(getByText('Please select').parentElement!)
 
     await waitFor(() => {
       expect(getByText('parent 1')).toBeInTheDocument()

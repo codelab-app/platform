@@ -1,13 +1,8 @@
-import { Button } from '../../button'
-import { Text } from '../../text'
-import { Form } from '../Form.types'
-import { NodeReactI, NodeType } from '@codelab/alpha/shared/interface/node'
-import { PropType } from '@codelab/alpha/shared/interface/props'
+import { PropType } from '../../../props/PropType'
+import { AtomType, NodeI } from '@codelab/frontend'
 
-export const formDefaultData: NodeReactI<
-  Form.Props | Form.ItemProps | Text.Props | Button.Props
-> = {
-  type: NodeType.React_Form,
+export const formDefaultData: NodeI = {
+  type: AtomType.ReactForm,
   props: {
     name: 'basic',
     initialValues: { select: 'a' },
@@ -21,20 +16,20 @@ export const formDefaultData: NodeReactI<
   },
   children: [
     {
-      type: NodeType.React_Form_Item,
+      type: AtomType.ReactFormItem,
       props: {
         label: 'ID',
         name: 'id',
       },
       children: [
         {
-          type: NodeType.React_Input,
+          type: AtomType.ReactInput,
           props: {},
         },
       ],
     },
     {
-      type: NodeType.React_Form_Item,
+      type: AtomType.ReactFormItem,
       props: {
         label: 'Checkbox',
         name: 'checkbox',
@@ -42,19 +37,19 @@ export const formDefaultData: NodeReactI<
       },
       children: [
         {
-          type: NodeType.React_Checkbox,
+          type: AtomType.ReactCheckbox,
         },
       ],
     },
     {
-      type: NodeType.React_Form_Item,
+      type: AtomType.ReactFormItem,
       props: {
         label: 'Select',
         name: 'select',
       },
       children: [
         {
-          type: NodeType.React_Select,
+          type: AtomType.ReactSelect,
           props: {
             style: {
               width: 120,
@@ -62,13 +57,13 @@ export const formDefaultData: NodeReactI<
           },
           children: [
             {
-              type: NodeType.React_Select_Option,
+              type: AtomType.ReactSelectOption,
               props: {
                 value: 'a',
               },
               children: [
                 {
-                  type: NodeType.React_Text,
+                  type: AtomType.ReactText,
                   props: {
                     value: 'A',
                   },
@@ -76,13 +71,13 @@ export const formDefaultData: NodeReactI<
               ],
             },
             {
-              type: NodeType.React_Select_Option,
+              type: AtomType.ReactSelectOption,
               props: {
                 value: 'b',
               },
               children: [
                 {
-                  type: NodeType.React_Text,
+                  type: AtomType.ReactText,
                   props: {
                     value: 'B',
                   },
@@ -90,13 +85,13 @@ export const formDefaultData: NodeReactI<
               ],
             },
             {
-              type: NodeType.React_Select_Option,
+              type: AtomType.ReactSelectOption,
               props: {
                 value: 'c',
               },
               children: [
                 {
-                  type: NodeType.React_Text,
+                  type: AtomType.ReactText,
                   props: {
                     value: 'C',
                   },
@@ -108,74 +103,74 @@ export const formDefaultData: NodeReactI<
       ],
     },
     {
-      type: NodeType.React_Form_Item,
+      type: AtomType.ReactFormItem,
       props: {
         label: 'Username',
         name: ['user', 'username'],
       },
       children: [
         {
-          type: NodeType.React_Input,
+          type: AtomType.ReactInput,
         },
       ],
     },
     {
-      type: NodeType.React_Form_Item,
+      type: AtomType.ReactFormItem,
       props: {
         label: 'Email',
         name: ['user', 'email'],
       },
       children: [
         {
-          type: NodeType.React_Input,
+          type: AtomType.ReactInput,
         },
       ],
     },
     {
-      type: NodeType.React_Form_List,
+      type: AtomType.ReactFormList,
       props: {
         name: 'fields',
         label: 'Fields',
       },
       children: [
         {
-          type: NodeType.React_Form_Item,
+          type: AtomType.ReactFormItem,
           props: {
             name: 'name',
             label: 'Name',
           },
           children: [
             {
-              type: NodeType.React_Input,
+              type: AtomType.ReactInput,
             },
           ],
         },
         {
-          type: NodeType.React_Form_Item,
+          type: AtomType.ReactFormItem,
           props: {
             name: 'type',
             label: 'Type',
           },
           children: [
             {
-              type: NodeType.React_Input,
+              type: AtomType.ReactInput,
             },
           ],
         },
       ],
     },
     {
-      type: NodeType.React_Form_Item,
+      type: AtomType.ReactFormItem,
       children: [
         {
-          type: NodeType.React_Button,
+          type: AtomType.ReactButton,
           props: {
             type: 'primary',
             htmlType: 'submit',
           },
           children: [
             {
-              type: NodeType.React_Text,
+              type: AtomType.ReactText,
               props: {
                 value: 'Submit',
               },

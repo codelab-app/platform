@@ -1,12 +1,12 @@
 import { mount } from 'enzyme'
 import React from 'react'
+import { PropType } from './PropType'
 import { Renderer } from '@codelab/alpha/core/renderer'
-import { NodeI, NodeType } from '@codelab/alpha/shared/interface/node'
-import { PropType } from '@codelab/alpha/shared/interface/props'
+import { AtomType, NodeI } from '@codelab/frontend'
 
 describe('RootRenderProps', () => {
   const data: NodeI = {
-    type: NodeType.React_Html_Div,
+    type: AtomType.ReactHtmlDiv,
     props: {
       parentprops: {
         __type: [PropType.Eval],
@@ -15,7 +15,7 @@ describe('RootRenderProps', () => {
     },
     children: [
       {
-        type: NodeType.React_Html_Div,
+        type: AtomType.ReactHtmlDiv,
         props: {
           childprops: {
             __type: [PropType.Eval],
@@ -24,7 +24,7 @@ describe('RootRenderProps', () => {
         },
         children: [
           {
-            type: NodeType.React_Html_Div,
+            type: AtomType.ReactHtmlDiv,
             props: {
               grandchildprops: {
                 __type: [PropType.Eval],

@@ -1,8 +1,7 @@
-import { Pagination } from './Pagination.types'
-import { NodeReactI, NodeType } from '@codelab/alpha/shared/interface/node'
+import { AtomType, NodeI } from '@codelab/frontend'
 
-export const paginationData: NodeReactI<Pagination.Props> = {
-  type: NodeType.React_Pagination,
+export const paginationData: NodeI = {
+  type: AtomType.ReactPagination,
   props: {
     defaultCurrent: 1,
     showSizeChanger: false,

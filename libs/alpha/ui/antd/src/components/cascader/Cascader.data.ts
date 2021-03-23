@@ -1,8 +1,7 @@
-import { Cascader } from './Cascader.types'
-import { NodeReactI, NodeType } from '@codelab/alpha/shared/interface/node'
+import { AtomType, NodeI } from '@codelab/frontend'
 
-export const cascaderData: NodeReactI<Cascader.Props> = {
-  type: NodeType.React_Cascader,
+export const cascaderData: NodeI = {
+  type: AtomType.ReactCascader,
   props: {
     options: [
       {

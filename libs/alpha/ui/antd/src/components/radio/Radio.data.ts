@@ -1,25 +1,21 @@
-import { Text } from '../text'
-import { Radio } from './Radio.types'
-import { NodeReactI, NodeType } from '@codelab/alpha/shared/interface/node'
-import { PropType } from '@codelab/alpha/shared/interface/props'
+import { PropType } from '../../props/PropType'
+import { AtomType, NodeI } from '@codelab/frontend'
 
-export const radioData: NodeReactI<
-  Radio.Props | Radio.GroupProps | Text.Props
-> = {
-  type: NodeType.React_Fragment,
+export const radioData: NodeI = {
+  type: AtomType.ReactFragment,
   props: {
     ctx: {
       __type: [PropType.Eval, PropType.Leaf],
       value: `
-        const [value, setValue] = this.React.useState("a"); 
-        
+        const [value, setValue] = this.React.useState("a");
+
         return { value, setValue }
       `,
     },
   },
   children: [
     {
-      type: NodeType.React_Radio_Group,
+      type: AtomType.ReactRadioGroup,
       props: {
         onChange: {
           __type: [PropType.Eval],
@@ -32,24 +28,24 @@ export const radioData: NodeReactI<
       },
       children: [
         {
-          type: NodeType.React_Radio,
+          type: AtomType.ReactRadio,
           props: { value: 'a' },
-          children: [{ type: NodeType.React_Text, props: { value: 'A' } }],
+          children: [{ type: AtomType.ReactText, props: { value: 'A' } }],
         },
         {
-          type: NodeType.React_Radio,
+          type: AtomType.ReactRadio,
           props: { value: 'b' },
-          children: [{ type: NodeType.React_Text, props: { value: 'B' } }],
+          children: [{ type: AtomType.ReactText, props: { value: 'B' } }],
         },
         {
-          type: NodeType.React_Radio,
+          type: AtomType.ReactRadio,
           props: { value: 'c' },
-          children: [{ type: NodeType.React_Text, props: { value: 'C' } }],
+          children: [{ type: AtomType.ReactText, props: { value: 'C' } }],
         },
         {
-          type: NodeType.React_Radio,
+          type: AtomType.ReactRadio,
           props: { value: 'd' },
-          children: [{ type: NodeType.React_Text, props: { value: 'D' } }],
+          children: [{ type: AtomType.ReactText, props: { value: 'D' } }],
         },
       ],
     },

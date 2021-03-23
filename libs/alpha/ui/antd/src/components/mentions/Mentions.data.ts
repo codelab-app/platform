@@ -1,12 +1,8 @@
-import { Text } from '../text'
-import { Mentions } from './Mentions.types'
-import { NodeReactI, NodeType } from '@codelab/alpha/shared/interface/node'
-import { PropType } from '@codelab/alpha/shared/interface/props'
+import { PropType } from '../../props/PropType'
+import { AtomType, NodeI } from '@codelab/frontend'
 
-export const mentionsData: NodeReactI<
-  Mentions.Props | Mentions.OptionProps | Text.Props
-> = {
-  type: NodeType.React_Mentions,
+export const mentionsData: NodeI = {
+  type: AtomType.ReactMentions,
   props: {
     defaultValue: '@afc163',
     placeholder: 'You can use @ to ref user here',
@@ -17,11 +13,11 @@ export const mentionsData: NodeReactI<
   },
   children: [
     {
-      type: NodeType.React_Mentions_Option,
+      type: AtomType.ReactMentionsOption,
       props: { value: 'afc163' },
       children: [
         {
-          type: NodeType.React_Text,
+          type: AtomType.ReactText,
           props: {
             value: 'afc163',
           },
@@ -29,11 +25,11 @@ export const mentionsData: NodeReactI<
       ],
     },
     {
-      type: NodeType.React_Mentions_Option,
+      type: AtomType.ReactMentionsOption,
       props: { value: 'zombieJ' },
       children: [
         {
-          type: NodeType.React_Text,
+          type: AtomType.ReactText,
           props: {
             value: 'zombieJ',
           },
@@ -41,11 +37,11 @@ export const mentionsData: NodeReactI<
       ],
     },
     {
-      type: NodeType.React_Mentions_Option,
+      type: AtomType.ReactMentionsOption,
       props: { value: 'yesmeck' },
       children: [
         {
-          type: NodeType.React_Text,
+          type: AtomType.ReactText,
           props: {
             value: 'yesmeck',
           },

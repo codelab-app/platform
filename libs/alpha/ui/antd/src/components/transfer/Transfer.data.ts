@@ -1,22 +1,21 @@
-import { Transfer } from './Transfer.types'
-import { NodeReactI, NodeType } from '@codelab/alpha/shared/interface/node'
-import { PropType } from '@codelab/alpha/shared/interface/props'
+import { PropType } from '../../props/PropType'
+import { AtomType, NodeI } from '@codelab/frontend'
 
-export const transferData: NodeReactI<Transfer.Props | Transfer.RenderProps> = {
-  type: NodeType.React_Fragment,
+export const transferData: NodeI = {
+  type: AtomType.ReactFragment,
   props: {
     ctx: {
       __type: [PropType.Eval, PropType.Leaf],
       value: `
-        const [targetKeys, setTargetKeys] = this.React.useState(["4", "5"]); 
-        
+        const [targetKeys, setTargetKeys] = this.React.useState(["4", "5"]);
+
         return { targetKeys, setTargetKeys }
       `,
     },
   },
   children: [
     {
-      type: NodeType.React_Transfer,
+      type: AtomType.ReactTransfer,
       props: {
         titles: ['Source', 'Target'],
         dataSource: [

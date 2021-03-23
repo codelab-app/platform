@@ -1,11 +1,8 @@
-import { Button } from '../button'
-import { Text } from '../text'
-import { DrawerProps } from './Drawer.types'
-import { NodeReactI, NodeType } from '@codelab/alpha/shared/interface/node'
-import { PropType } from '@codelab/alpha/shared/interface/props'
+import { PropType } from '../../props/PropType'
+import { AtomType, NodeI } from '@codelab/frontend'
 
-export const drawerData: NodeReactI<DrawerProps | Button.Props | Text.Props> = {
-  type: NodeType.React_Fragment,
+export const drawerData: NodeI = {
+  type: AtomType.ReactFragment,
   props: {
     ctx: {
       __type: [PropType.Eval, PropType.Single],
@@ -18,7 +15,7 @@ export const drawerData: NodeReactI<DrawerProps | Button.Props | Text.Props> = {
   },
   children: [
     {
-      type: NodeType.React_Button,
+      type: AtomType.ReactButton,
       props: {
         type: 'primary',
         onClick: {
@@ -28,7 +25,7 @@ export const drawerData: NodeReactI<DrawerProps | Button.Props | Text.Props> = {
       },
       children: [
         {
-          type: NodeType.React_Text,
+          type: AtomType.ReactText,
           props: {
             value: 'Open',
           },
@@ -36,7 +33,7 @@ export const drawerData: NodeReactI<DrawerProps | Button.Props | Text.Props> = {
       ],
     },
     {
-      type: NodeType.React_Drawer,
+      type: AtomType.ReactDrawer,
       props: {
         title: 'Basic Drawer',
         onClose: {
@@ -50,10 +47,10 @@ export const drawerData: NodeReactI<DrawerProps | Button.Props | Text.Props> = {
       },
       children: [
         {
-          type: NodeType.React_Html_P,
+          type: AtomType.ReactHtmlP,
           children: [
             {
-              type: NodeType.React_Text,
+              type: AtomType.ReactText,
 
               props: {
                 value: 'Some contents...',
@@ -62,10 +59,10 @@ export const drawerData: NodeReactI<DrawerProps | Button.Props | Text.Props> = {
           ],
         },
         {
-          type: NodeType.React_Html_P,
+          type: AtomType.ReactHtmlP,
           children: [
             {
-              type: NodeType.React_Text,
+              type: AtomType.ReactText,
               props: {
                 value: 'Some contents...',
               },
@@ -73,10 +70,10 @@ export const drawerData: NodeReactI<DrawerProps | Button.Props | Text.Props> = {
           ],
         },
         {
-          type: NodeType.React_Html_P,
+          type: AtomType.ReactHtmlP,
           children: [
             {
-              type: NodeType.React_Text,
+              type: AtomType.ReactText,
               props: {
                 value: 'Some contents...',
               },
