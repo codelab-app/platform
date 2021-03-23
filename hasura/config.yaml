@@ -1,0 +1,7 @@
+version: 2
+endpoint: https://codelab-ai.hasura.app
+metadata_directory: metadata
+admin_secret: AwuuG9U2VyJHYqSY@ipt!$Uo
+actions:
+  kind: synchronous
+  handler_webhook_baseurl: http://localhost:3000
