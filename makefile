@@ -38,14 +38,6 @@ build-ci:
 		--memoryLimit=8192 \
 		--skip-nx-cache
 
-	# npx nx run-many \
-	# 	--target=build-storybook \
-	# 	--projects=alpha-ui-component \
-  #   --parallel \
-	# 	--maxWorkers=8 \
-	# 	--memoryLimit=8192 \
-	# 	--skip-nx-cache
-
 build-prod:
 	npx nx run-many \
     --target=build \
@@ -92,11 +84,6 @@ lint-eslint:
 #
 # E2E
 #
-
-# e2e-dev-affected:
-# 	npx nx affected:e2e \
-# 	--parallel \
-# 	--silent
 
 e2e-dev:
 	npx concurrently \
@@ -205,9 +192,3 @@ unit-ci:
 
 start-prod:
 	pm2 startOrReload config/pm2.json
-
-#
-# Other
-#
-docs:
-	typedoc --out libs/core/tree/docs libs/core/tree

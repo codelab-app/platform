@@ -1,13 +1,7 @@
 {
   "name": "codelab",
   "workspaces": {
-    "packages": [
-      "dist/libs/tools/plugins/*",
-      "dist/nrwl/*",
-      "dist/libs/test",
-      "libs/generated",
-      "libs/alpha/ui/antd"
-    ],
+    "packages": [],
     "nohoist": []
   },
   "engines": {
@@ -47,12 +41,6 @@
     "docs": "onchange 'libs/ddd/**/*.ts' 'typedoc.json' -- npx typedoc",
     "migration:generate": "nx migrate @nrwl/workspace@latest",
     "migration:run": "nx migrate --run-migrations=migrations.json",
-    "docker:build": "./scripts/docker/build.sh",
-    "docker:up": "./scripts/docker/up.sh",
-    "docker:push": "./scripts/docker/push.sh",
-    "start:prod:web": "pm2-runtime dist/apps/web/pm2.json",
-    "start:prod:api-graph": "pm2-runtime dist/apps/api/graph/pm2.json",
-    "generate-antd-json-schema": "ts-node ./json-schema-generator/json-schema-generator.ts",
     "codegen": "yarn cross-env DOTENV_CONFIG_PATH=.env graphql-codegen --require dotenv/config --config .graphqlconfig.yaml"
   },
   "private": true,
