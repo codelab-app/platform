@@ -3,7 +3,7 @@ import React from 'react'
 import { Default } from './Breadcrumb.stories'
 
 describe('Breadcrumb', () => {
-  it('should render with text', async () => {
+  it('should render with text', () => {
     const { getByText, getByRole } = render(<Default />)
 
     expect(getByText('Home')).toBeTruthy()

@@ -1,19 +1,8 @@
-import { Icon } from '../../icon'
-import { Menu } from '../../menu'
-import { Text } from '../../text'
-import { Layout } from '../Layout.types'
-import { NodeReactI, NodeType } from '@codelab/alpha/shared/interface/node'
-import { PropType } from '@codelab/alpha/shared/interface/props'
+import { PropType } from '../../../props/PropType'
+import { AtomType, NodeI } from '@codelab/frontend'
 
-export const layoutData: NodeReactI<
-  | Layout.Props
-  | Layout.SiderProps
-  | Text.Props
-  | Menu.Props
-  | Menu.ItemProps
-  | Icon.Props
-> = {
-  type: NodeType.React_Layout,
+export const layoutData: NodeI = {
+  type: AtomType.ReactLayout,
   props: {
     style: { minHeight: '100vh' },
     ctx: {
@@ -24,7 +13,7 @@ export const layoutData: NodeReactI<
   },
   children: [
     {
-      type: NodeType.React_Layout_Sider,
+      type: AtomType.ReactLayoutSider,
       props: {
         collapsible: true,
         onCollapse: {
@@ -38,7 +27,7 @@ export const layoutData: NodeReactI<
       },
       children: [
         {
-          type: NodeType.React_Menu,
+          type: AtomType.ReactMenu,
           props: {
             theme: 'dark',
             mode: 'inline',
@@ -46,20 +35,20 @@ export const layoutData: NodeReactI<
           },
           children: [
             {
-              type: NodeType.React_Menu_Item,
+              type: AtomType.ReactMenuItem,
               props: {
                 key: '1',
               },
               children: [
                 {
-                  type: NodeType.React_Icon,
+                  type: AtomType.ReactIcon,
                   props: { type: 'user', theme: 'outlined' },
                 },
                 {
-                  type: NodeType.React_Html_Span,
+                  type: AtomType.ReactHtmlSpan,
                   children: [
                     {
-                      type: NodeType.React_Text,
+                      type: AtomType.ReactText,
 
                       props: {
                         value: 'Option 1',
@@ -70,20 +59,20 @@ export const layoutData: NodeReactI<
               ],
             },
             {
-              type: NodeType.React_Menu_Item,
+              type: AtomType.ReactMenuItem,
               props: {
                 key: '2',
               },
               children: [
                 {
-                  type: NodeType.React_Icon,
+                  type: AtomType.ReactIcon,
                   props: { type: 'videoCamera', theme: 'outlined' },
                 },
                 {
-                  type: NodeType.React_Html_Span,
+                  type: AtomType.ReactHtmlSpan,
                   children: [
                     {
-                      type: NodeType.React_Text,
+                      type: AtomType.ReactText,
                       props: {
                         value: 'Option 2',
                       },
@@ -97,13 +86,13 @@ export const layoutData: NodeReactI<
       ],
     },
     {
-      type: NodeType.React_Layout,
+      type: AtomType.ReactLayout,
       children: [
         {
-          type: NodeType.React_Layout_Header,
+          type: AtomType.ReactLayoutHeader,
           children: [
             {
-              type: NodeType.React_Menu,
+              type: AtomType.ReactMenu,
               props: {
                 theme: 'dark',
                 mode: 'horizontal',
@@ -111,13 +100,13 @@ export const layoutData: NodeReactI<
               },
               children: [
                 {
-                  type: NodeType.React_Menu_Item,
+                  type: AtomType.ReactMenuItem,
                   props: {
                     key: '1',
                   },
                   children: [
                     {
-                      type: NodeType.React_Text,
+                      type: AtomType.ReactText,
                       props: {
                         value: 'nav 1',
                       },
@@ -125,13 +114,13 @@ export const layoutData: NodeReactI<
                   ],
                 },
                 {
-                  type: NodeType.React_Menu_Item,
+                  type: AtomType.ReactMenuItem,
                   props: {
                     key: '2',
                   },
                   children: [
                     {
-                      type: NodeType.React_Text,
+                      type: AtomType.ReactText,
                       props: {
                         value: 'nav 2',
                       },
@@ -139,13 +128,13 @@ export const layoutData: NodeReactI<
                   ],
                 },
                 {
-                  type: NodeType.React_Menu_Item,
+                  type: AtomType.ReactMenuItem,
                   props: {
                     key: '3',
                   },
                   children: [
                     {
-                      type: NodeType.React_Text,
+                      type: AtomType.ReactText,
                       props: {
                         value: 'nav 3',
                       },
@@ -157,7 +146,7 @@ export const layoutData: NodeReactI<
           ],
         },
         {
-          type: NodeType.React_Layout_Content,
+          type: AtomType.ReactLayoutContent,
           props: {
             style: {
               margin: '24px 16px 0',
@@ -165,11 +154,11 @@ export const layoutData: NodeReactI<
           },
           children: [
             {
-              type: NodeType.React_Html_Div,
+              type: AtomType.ReactHtmlDiv,
               props: { style: { padding: 24 } },
               children: [
                 {
-                  type: NodeType.React_Text,
+                  type: AtomType.ReactText,
                   props: { value: 'Content' },
                 },
               ],
@@ -177,13 +166,13 @@ export const layoutData: NodeReactI<
           ],
         },
         {
-          type: NodeType.React_Layout_Footer,
+          type: AtomType.ReactLayoutFooter,
           children: [
             {
-              type: NodeType.React_Html_P,
+              type: AtomType.ReactHtmlP,
               children: [
                 {
-                  type: NodeType.React_Text,
+                  type: AtomType.ReactText,
                   props: { value: 'Footer' },
                 },
               ],

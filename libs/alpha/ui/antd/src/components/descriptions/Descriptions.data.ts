@@ -1,23 +1,19 @@
-import { Text } from '../text'
-import { Descriptions } from './Descriptions.types'
-import { NodeReactI, NodeType } from '@codelab/alpha/shared/interface/node'
+import { AtomType, NodeI } from '@codelab/frontend'
 
-export const descriptionsData: NodeReactI<
-  Descriptions.Props | Descriptions.ItemProps | Text.Props
-> = {
-  type: NodeType.React_Descriptions,
+export const descriptionsData: NodeI = {
+  type: AtomType.ReactDescriptions,
   props: {
     title: 'User Info',
   },
   children: [
     {
-      type: NodeType.React_Descriptions_Item,
+      type: AtomType.ReactDescriptionsItem,
       props: {
         label: 'UserName',
       },
       children: [
         {
-          type: NodeType.React_Text,
+          type: AtomType.ReactText,
           props: {
             value: 'Zhou Maomao',
           },
@@ -25,13 +21,13 @@ export const descriptionsData: NodeReactI<
       ],
     },
     {
-      type: NodeType.React_Descriptions_Item,
+      type: AtomType.ReactDescriptionsItem,
       props: {
         label: 'Telephone',
       },
       children: [
         {
-          type: NodeType.React_Text,
+          type: AtomType.ReactText,
           props: {
             value: '1810000000',
           },
@@ -39,13 +35,13 @@ export const descriptionsData: NodeReactI<
       ],
     },
     {
-      type: NodeType.React_Descriptions_Item,
+      type: AtomType.ReactDescriptionsItem,
       props: {
         label: 'Live',
       },
       children: [
         {
-          type: NodeType.React_Text,
+          type: AtomType.ReactText,
           props: {
             value: 'Hangzhou, Zhejiang',
           },
@@ -53,13 +49,13 @@ export const descriptionsData: NodeReactI<
       ],
     },
     {
-      type: NodeType.React_Descriptions_Item,
+      type: AtomType.ReactDescriptionsItem,
       props: {
         label: 'Address',
       },
       children: [
         {
-          type: NodeType.React_Text,
+          type: AtomType.ReactText,
           props: {
             value:
               'No. 18, Wantang Road, Xihu District, Hangzhou, Zhejiang, China',

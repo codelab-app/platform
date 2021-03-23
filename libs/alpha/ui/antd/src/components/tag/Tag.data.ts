@@ -1,13 +1,11 @@
-import { Text } from '../text'
-import { Tag } from './Tag.types'
-import { NodeReactI, NodeType } from '@codelab/alpha/shared/interface/node'
+import { AtomType, NodeI } from '@codelab/frontend'
 
-export const tagData: NodeReactI<Tag.Props | Text.Props> = {
-  type: NodeType.React_Tag,
+export const tagData: NodeI = {
+  type: AtomType.ReactTag,
   props: { closable: true },
   children: [
     {
-      type: NodeType.React_Text,
+      type: AtomType.ReactText,
       props: {
         value: 'Tag 1',
       },

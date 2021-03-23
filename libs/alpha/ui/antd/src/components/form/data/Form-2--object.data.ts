@@ -1,17 +1,11 @@
-import { Button } from '../../button'
-import { Divider } from '../../divider'
-import { Text } from '../../text'
-import { Form } from '../Form.types'
-import { NodeReactI, NodeType } from '@codelab/alpha/shared/interface/node'
-import { PropType } from '@codelab/alpha/shared/interface/props'
+import { PropType } from '../../../props/PropType'
+import { AtomType, AtomType, NodeI } from '@codelab/frontend'
 
 /**
  * We create a user object, which is keyed by 'user'
  */
-export const formObjectData: NodeReactI<
-  Form.Props | Form.ItemProps | Text.Props | Button.Props | Divider.Props
-> = {
-  type: NodeType.React_Form,
+export const formObjectData: NodeI = {
+  type: AtomType.ReactForm,
   props: {
     // name: 'app',
     initialValues: {
@@ -31,25 +25,25 @@ export const formObjectData: NodeReactI<
   },
   children: [
     {
-      type: NodeType.React_Form_Item,
+      type: AtomType.ReactFormItem,
       props: {
         label: 'Name',
         name: ['company', 'name'],
       },
       children: [
         {
-          type: NodeType.React_Input,
+          type: AtomType.ReactInput,
         },
       ],
     },
     {
-      type: NodeType.React_Divider,
+      type: AtomType.ReactDivider,
       props: {
         orientation: 'left',
       },
       children: [
         {
-          type: NodeType.React_Text,
+          type: AtomType.ReactText,
           props: {
             value: 'Address',
           },
@@ -57,62 +51,62 @@ export const formObjectData: NodeReactI<
       ],
     },
     {
-      type: NodeType.React_Form_Item,
+      type: AtomType.ReactFormItem,
       props: {
         label: 'Country',
         name: ['company', 'address', 'country'],
       },
       children: [
         {
-          type: NodeType.React_Input,
+          type: AtomType.ReactInput,
         },
       ],
     },
     {
-      type: NodeType.React_Form_Item,
+      type: AtomType.ReactFormItem,
       props: {
         label: 'City',
         name: ['company', 'address', 'city'],
       },
       children: [
         {
-          type: NodeType.React_Input,
+          type: AtomType.ReactInput,
         },
       ],
     },
     {
-      type: NodeType.React_Form_List,
+      type: AtomType.ReactFormList,
       props: {
         label: 'Devs',
         name: ['company', 'devs'],
       },
       children: [
         {
-          type: NodeType.React_Form_Item,
+          type: AtomType.ReactFormItem,
           props: {
             name: 'name',
             label: 'Name',
           },
           children: [
             {
-              type: NodeType.React_Input,
+              type: AtomType.ReactInput,
             },
           ],
         },
       ],
     },
     {
-      type: NodeType.React_Form_Item,
+      type: AtomType.ReactFormItem,
       children: [
         {
-          type: NodeType.React_Button,
+          type: AtomType.ReactButton,
           props: {
             type: 'primary',
             htmlType: 'submit',
           },
           children: [
             {
-              type: NodeType.React_Text,
+              type: AtomType.ReactText,
               props: {
                 value: 'Submit',
               },

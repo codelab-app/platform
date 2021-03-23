@@ -1,14 +1,7 @@
-import { List } from './List.types'
-import { NodeReactI, NodeType } from '@codelab/alpha/shared/interface/node'
+import { AtomType, NodeI } from '@codelab/frontend'
 
-export const listData: NodeReactI<
-  | List.Props
-  | List.PaginationProps
-  | List.GridProps
-  | List.ItemMetaProps
-  | List.ItemProps
-> = {
-  type: NodeType.React_List,
+export const listData: NodeI = {
+  type: AtomType.ReactList,
   props: {
     header: 'Header',
     split: 'true',
@@ -17,10 +10,10 @@ export const listData: NodeReactI<
   },
   children: [
     {
-      type: NodeType.React_List_Item,
+      type: AtomType.ReactListItem,
       children: [
         {
-          type: NodeType.React_List_Item_Meta,
+          type: AtomType.ReactListItemMeta,
           props: {
             title: 'Racing car sprays burning fuel into crowd.',
           },
@@ -28,10 +21,10 @@ export const listData: NodeReactI<
       ],
     },
     {
-      type: NodeType.React_List_Item,
+      type: AtomType.ReactListItem,
       children: [
         {
-          type: NodeType.React_List_Item_Meta,
+          type: AtomType.ReactListItemMeta,
           props: {
             title: 'Japanese princess to wed commoner.',
           },
@@ -39,10 +32,10 @@ export const listData: NodeReactI<
       ],
     },
     {
-      type: NodeType.React_List_Item,
+      type: AtomType.ReactListItem,
       children: [
         {
-          type: NodeType.React_List_Item_Meta,
+          type: AtomType.ReactListItemMeta,
           props: {
             title: 'Australian walks 100km after outback crash.',
           },
@@ -50,10 +43,10 @@ export const listData: NodeReactI<
       ],
     },
     {
-      type: NodeType.React_List_Item,
+      type: AtomType.ReactListItem,
       children: [
         {
-          type: NodeType.React_List_Item_Meta,
+          type: AtomType.ReactListItemMeta,
           props: {
             title: 'Man charged over missing wedding girl.',
           },
@@ -61,10 +54,10 @@ export const listData: NodeReactI<
       ],
     },
     {
-      type: NodeType.React_List_Item,
+      type: AtomType.ReactListItem,
       children: [
         {
-          type: NodeType.React_List_Item_Meta,
+          type: AtomType.ReactListItemMeta,
           props: {
             title: 'Los Angeles battles huge wildfires.',
           },

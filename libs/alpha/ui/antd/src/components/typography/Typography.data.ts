@@ -1,21 +1,14 @@
-import { Text } from '../text'
-import { Typography } from './Typography.types'
-import { NodeReactI, NodeType } from '@codelab/alpha/shared/interface/node'
+import { AtomType, NodeI } from '@codelab/frontend'
 
-export const typographyData: NodeReactI<
-  | Typography.TextProps
-  | Typography.TitleProps
-  | Typography.ParagraphProps
-  | Text.Props
-> = {
-  type: NodeType.React_Typography,
+export const typographyData: NodeI = {
+  type: AtomType.ReactTypography,
   children: [
     {
-      type: NodeType.React_Typography_Title,
+      type: AtomType.ReactTypographyTitle,
       props: {},
       children: [
         {
-          type: NodeType.React_Text,
+          type: AtomType.ReactText,
           props: {
             value: 'Introduction',
           },
@@ -23,11 +16,11 @@ export const typographyData: NodeReactI<
       ],
     },
     {
-      type: NodeType.React_Typography_Paragraph,
+      type: AtomType.ReactTypographyParagraph,
       props: {},
       children: [
         {
-          type: NodeType.React_Text,
+          type: AtomType.ReactText,
           props: {
             value:
               'In the process of internal desktop applications development, many different design specs and implementations would be involved, which might cause designers and developers difficulties and duplication and reduce the efficiency of development.',
@@ -36,24 +29,24 @@ export const typographyData: NodeReactI<
       ],
     },
     {
-      type: NodeType.React_Typography_Paragraph,
+      type: AtomType.ReactTypographyParagraph,
       props: {},
       children: [
         {
-          type: NodeType.React_Text,
+          type: AtomType.ReactText,
           props: {
             value:
               'After massive project practice and summaries, Ant Design, a design language for background applications, is refined by Ant UED Team, which aims to ',
           },
         },
         {
-          type: NodeType.React_Typography_Text,
+          type: AtomType.ReactTypographyText,
           props: {
             strong: true,
           },
           children: [
             {
-              type: NodeType.React_Text,
+              type: AtomType.ReactText,
               props: {
                 value:
                   'uniform the user interface specs for internal background projects, lower the unnecessary cost of design differences and implementation and liberate the resources of design and front-end development.',

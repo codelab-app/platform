@@ -1,48 +1,41 @@
-import { Button } from '../button'
-import { Input } from '../input'
-import { Select } from '../select'
-import { Text } from '../text'
-import { ConfigProvider } from './ConfigProvider.types'
-import { NodeReactI, NodeType } from '@codelab/alpha/shared/interface/node'
+import { AtomType, NodeI } from '@codelab/frontend'
 
-export const configProviderData: NodeReactI<
-  ConfigProvider.Props | Text.Props | Button.Props | Select.Props | Input.Props
-> = {
-  type: NodeType.React_ConfigProvider,
+export const configProviderData: NodeI = {
+  type: AtomType.ReactConfigProvider,
   props: {
     componentSize: 'large',
   },
   children: [
     {
-      type: NodeType.React_Html_Div,
+      type: AtomType.ReactHtmlDiv,
       children: [
         {
-          type: NodeType.React_Input,
+          type: AtomType.ReactInput,
           props: { placeholder: 'Input' },
         },
       ],
     },
     {
-      type: NodeType.React_Html_Div,
+      type: AtomType.ReactHtmlDiv,
       children: [
         {
-          type: NodeType.React_Select,
+          type: AtomType.ReactSelect,
           props: { defaultValue: 'Demo', options: [{ value: 'Demo' }] },
         },
       ],
     },
     {
-      type: NodeType.React_Html_Div,
-      children: [{ type: NodeType.React_DatePicker }],
+      type: AtomType.ReactHtmlDiv,
+      children: [{ type: AtomType.ReactDatePicker }],
     },
     {
-      type: NodeType.React_Html_Div,
+      type: AtomType.ReactHtmlDiv,
       children: [
         {
-          type: NodeType.React_Button,
+          type: AtomType.ReactButton,
           children: [
             {
-              type: NodeType.React_Text,
+              type: AtomType.ReactText,
               props: { value: 'Button' },
             },
           ],

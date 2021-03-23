@@ -1,28 +1,26 @@
-import { Text } from '../text'
-import { Popover } from './Popover.types'
-import { NodeReactI, NodeType } from '@codelab/alpha/shared/interface/node'
+import { AtomType, NodeI } from '@codelab/frontend'
 
-export const popoverData: NodeReactI<Popover.Props | Text.Props> = {
-  type: NodeType.React_Popover,
+export const popoverData: NodeI = {
+  type: AtomType.ReactPopover,
   props: {
     title: 'Title',
     content: {
-      type: NodeType.React_Html_Div,
+      type: AtomType.ReactHtmlDiv,
       children: [
         {
-          type: NodeType.React_Html_P,
+          type: AtomType.ReactHtmlP,
           children: [
             {
-              type: NodeType.React_Text,
+              type: AtomType.ReactText,
               props: { value: 'Content' },
             },
           ],
         },
         {
-          type: NodeType.React_Html_P,
+          type: AtomType.ReactHtmlP,
           children: [
             {
-              type: NodeType.React_Text,
+              type: AtomType.ReactText,
               props: { value: 'Content' },
             },
           ],
@@ -32,11 +30,11 @@ export const popoverData: NodeReactI<Popover.Props | Text.Props> = {
   },
   children: [
     {
-      type: NodeType.React_Button,
+      type: AtomType.ReactButton,
       props: {},
       children: [
         {
-          type: NodeType.React_Text,
+          type: AtomType.ReactText,
           props: {
             value: 'Hover me',
           },

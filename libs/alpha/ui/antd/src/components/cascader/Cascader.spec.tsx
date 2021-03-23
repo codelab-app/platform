@@ -9,7 +9,11 @@ describe('Cascader', () => {
 
     expect(input).toBeTruthy()
 
-    fireEvent.click(input.parentElement)
+    if (!input?.parentElement) {
+      throw new Error('Missing parent element')
+    }
+
+    fireEvent.click(input?.parentElement)
 
     expect(getByText('Zhejiang')).toBeTruthy()
     expect(getByText('Jiangsu')).toBeTruthy()

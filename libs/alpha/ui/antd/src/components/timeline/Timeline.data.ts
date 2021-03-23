@@ -1,18 +1,14 @@
-import { Text } from '../text'
-import { Timeline } from './Timeline.types'
-import { NodeReactI, NodeType } from '@codelab/alpha/shared/interface/node'
+import { AtomType, NodeI } from '@codelab/frontend'
 
-export const timelineData: NodeReactI<
-  Timeline.Props | Timeline.ItemProps | Text.Props
-> = {
-  type: NodeType.React_Timeline,
+export const timelineData: NodeI = {
+  type: AtomType.ReactTimeline,
   children: [
     {
-      type: NodeType.React_Timeline_Item,
+      type: AtomType.ReactTimelineItem,
       props: {},
       children: [
         {
-          type: NodeType.React_Text,
+          type: AtomType.ReactText,
           props: {
             value: 'Create a services site 2015-09-01',
           },
@@ -20,11 +16,11 @@ export const timelineData: NodeReactI<
       ],
     },
     {
-      type: NodeType.React_Timeline_Item,
+      type: AtomType.ReactTimelineItem,
       props: {},
       children: [
         {
-          type: NodeType.React_Text,
+          type: AtomType.ReactText,
           props: {
             value: 'Solve initial network problems 2015-09-01',
           },
@@ -32,11 +28,11 @@ export const timelineData: NodeReactI<
       ],
     },
     {
-      type: NodeType.React_Timeline_Item,
+      type: AtomType.ReactTimelineItem,
       props: {},
       children: [
         {
-          type: NodeType.React_Text,
+          type: AtomType.ReactText,
           props: {
             value: 'Technical testing 2015-09-01',
           },
@@ -44,11 +40,11 @@ export const timelineData: NodeReactI<
       ],
     },
     {
-      type: NodeType.React_Timeline_Item,
+      type: AtomType.ReactTimelineItem,
       props: {},
       children: [
         {
-          type: NodeType.React_Text,
+          type: AtomType.ReactText,
           props: {
             value: 'Network problems being solved 2015-09-01',
           },

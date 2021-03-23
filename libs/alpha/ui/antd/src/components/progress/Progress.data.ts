@@ -1,8 +1,7 @@
-import { Progress } from './Progress.types'
-import { NodeReactI, NodeType } from '@codelab/alpha/shared/interface/node'
+import { AtomType, NodeI } from '@codelab/frontend'
 
-export const progressData: NodeReactI<Progress.Props> = {
-  type: NodeType.React_Progress,
+export const progressData: NodeI = {
+  type: AtomType.ReactProgress,
   props: {
     type: 'line',
     percent: 30,

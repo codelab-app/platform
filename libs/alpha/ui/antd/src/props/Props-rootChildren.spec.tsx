@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react'
 import React from 'react'
 import { Renderer } from '@codelab/alpha/core/renderer'
-import { NodeI, NodeType } from '@codelab/alpha/shared/interface/node'
+import { AtomType, NodeI } from '@codelab/frontend'
 
 describe('RootChildren', () => {
   // const data = {
@@ -55,13 +55,13 @@ describe('RootChildren', () => {
    */
   it('renders root children', () => {
     const dataA: NodeI = {
-      type: NodeType.React_Html_Div,
+      type: AtomType.ReactHtmlDiv,
       props: {
         'data-testid': 'a',
       },
     }
     const dataB: NodeI = {
-      type: NodeType.React_Html_Div,
+      type: AtomType.ReactHtmlDiv,
       props: {
         'data-testid': 'b',
       },
@@ -76,8 +76,8 @@ describe('RootChildren', () => {
       </A>,
     )
 
-    const a = component.getByTestId(dataA?.props?.['data-testid'] as string)
-    const b = component.getByTestId(dataB?.props?.['data-testid'] as string)
+    const a = component.getByTestId((dataA?.props as any)['data-testid'])
+    const b = component.getByTestId((dataB?.props as any)['data-testid'])
 
     expect(a.children[0]).toBe(b)
   })
@@ -93,19 +93,19 @@ describe('RootChildren', () => {
    */
   it('renders nested children', () => {
     const dataA: NodeI = {
-      type: NodeType.React_Html_Div,
+      type: AtomType.ReactHtmlDiv,
       props: {
         'data-testid': 'a',
       },
       children: [
         {
-          type: NodeType.React_Html_Div,
+          type: AtomType.ReactHtmlDiv,
           props: {
             'data-testid': 'a0',
           },
           children: [
             {
-              type: NodeType.React_Html_Div,
+              type: AtomType.ReactHtmlDiv,
               props: {
                 'data-testid': 'a0-0',
               },
@@ -113,13 +113,13 @@ describe('RootChildren', () => {
           ],
         },
         {
-          type: NodeType.React_Html_Div,
+          type: AtomType.ReactHtmlDiv,
           props: {
             'data-testid': 'a1',
           },
         },
         {
-          type: NodeType.React_Html_Div,
+          type: AtomType.ReactHtmlDiv,
           props: {
             'data-testid': 'a2',
           },
@@ -127,19 +127,19 @@ describe('RootChildren', () => {
       ],
     }
     const dataB: NodeI = {
-      type: NodeType.React_Html_Div,
+      type: AtomType.ReactHtmlDiv,
       props: {
         'data-testid': 'b',
       },
       children: [
         {
-          type: NodeType.React_Html_Div,
+          type: AtomType.ReactHtmlDiv,
           props: {
             'data-testid': 'b0',
           },
         },
         {
-          type: NodeType.React_Html_Div,
+          type: AtomType.ReactHtmlDiv,
           props: {
             'data-testid': 'b1',
           },
@@ -147,7 +147,7 @@ describe('RootChildren', () => {
       ],
     }
     const dataC: NodeI = {
-      type: NodeType.React_Html_Div,
+      type: AtomType.ReactHtmlDiv,
       props: {
         'data-testid': 'c',
       },
@@ -165,9 +165,9 @@ describe('RootChildren', () => {
       </A>,
     )
 
-    const a = component.getByTestId(dataA?.props?.['data-testid'] as string)
-    const b = component.getAllByTestId(dataB?.props?.['data-testid'] as string)
-    const c = component.getAllByTestId(dataC?.props?.['data-testid'] as string)
+    const a = component.getByTestId((dataA?.props as any)['data-testid'])
+    const b = component.getAllByTestId((dataB?.props as any)['data-testid'])
+    const c = component.getAllByTestId((dataC?.props as any)['data-testid'])
 
     expect(a.children[0].children[0].children[0]).toBe(b[0])
     expect(a.children[1].children[0]).toBe(b[1])

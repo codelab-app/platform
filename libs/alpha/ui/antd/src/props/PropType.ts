@@ -7,5 +7,3 @@ export enum PropType {
   Ctx = 'Ctx',
   Eval = 'Eval',
 }
-
-export type PropTypeLiteral = keyof typeof PropType

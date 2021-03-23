@@ -1,8 +1,8 @@
-import { NodeReactI, NodeType } from '@codelab/alpha/shared/interface/node'
-import { PropType } from '@codelab/alpha/shared/interface/props'
+import { PropType } from '../../props/PropType'
+import { AtomType, NodeI } from '@codelab/frontend'
 
-export const providerData: NodeReactI = {
-  type: NodeType.React_Provider,
+export const providerData: NodeI = {
+  type: AtomType.ReactProvider,
   props: {
     onClick: {
       __type: [PropType.Eval],
@@ -11,13 +11,13 @@ export const providerData: NodeReactI = {
   },
   children: [
     {
-      type: NodeType.React_Html_Div,
+      type: AtomType.ReactHtmlDiv,
       children: [
         {
-          type: NodeType.React_Button,
+          type: AtomType.ReactButton,
           children: [
             {
-              type: NodeType.React_Text,
+              type: AtomType.ReactText,
               props: {
                 value: 'Click me',
               },

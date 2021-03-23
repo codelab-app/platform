@@ -1,11 +1,7 @@
-import { Text } from '../../text'
-import { RGL } from '../RGL.types'
-import { NodeReactI, NodeType } from '@codelab/alpha/shared/interface/node'
+import { AtomType, NodeI } from '@codelab/frontend'
 
-export const responsiveGridData: NodeReactI<
-  Text.Props | RGL.Props | RGL.ItemProps | RGL.ResponsiveProps | { key: string }
-> = {
-  type: NodeType.React_ResponsiveGrid,
+export const responsiveGridData: NodeI = {
+  type: AtomType.ReactRglResponsiveContainer,
   props: {
     layouts: {
       lg: [
@@ -30,14 +26,14 @@ export const responsiveGridData: NodeReactI<
   },
   children: [
     {
-      type: NodeType.React_Html_Div,
+      type: AtomType.ReactHtmlDiv,
       props: {
         key: 'a',
         style: { border: '1px solid #000', padding: 10 },
       },
       children: [
         {
-          type: NodeType.React_Text,
+          type: AtomType.ReactText,
           props: {
             value: 'A',
           },
@@ -45,14 +41,14 @@ export const responsiveGridData: NodeReactI<
       ],
     },
     {
-      type: NodeType.React_Html_Div,
+      type: AtomType.ReactHtmlDiv,
       props: {
         key: 'b',
         style: { border: '1px solid #000', padding: 10 },
       },
       children: [
         {
-          type: NodeType.React_Text,
+          type: AtomType.ReactText,
           props: {
             value: 'B',
           },
@@ -60,14 +56,14 @@ export const responsiveGridData: NodeReactI<
       ],
     },
     {
-      type: NodeType.React_Html_Div,
+      type: AtomType.ReactHtmlDiv,
       props: {
         key: 'c',
         style: { border: '1px solid #000', padding: 10 },
       },
       children: [
         {
-          type: NodeType.React_Text,
+          type: AtomType.ReactText,
           props: {
             value: 'C',
           },

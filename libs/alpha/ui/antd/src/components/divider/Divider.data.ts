@@ -1,15 +1,13 @@
-import { Text } from '../text'
-import { Divider } from './Divider.types'
-import { NodeReactI, NodeType } from '@codelab/alpha/shared/interface/node'
+import { AtomType, NodeI } from '@codelab/frontend'
 
-export const dividerData: NodeReactI<Divider.Props | Text.Props> = {
-  type: NodeType.React_Fragment,
+export const dividerData: NodeI = {
+  type: AtomType.ReactFragment,
   children: [
     {
-      type: NodeType.React_Html_P,
+      type: AtomType.ReactHtmlP,
       children: [
         {
-          type: NodeType.React_Text,
+          type: AtomType.ReactText,
           props: {
             value:
               'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi ista probare, quae sunt a te dicta? Refert tamen, quo modo',
@@ -18,17 +16,17 @@ export const dividerData: NodeReactI<Divider.Props | Text.Props> = {
       ],
     },
     {
-      type: NodeType.React_Divider,
+      type: AtomType.ReactDivider,
       props: {
         orientation: 'center',
         type: 'horizontal',
       },
     },
     {
-      type: NodeType.React_Html_P,
+      type: AtomType.ReactHtmlP,
       children: [
         {
-          type: NodeType.React_Text,
+          type: AtomType.ReactText,
           props: {
             value:
               'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi ista probare, quae sunt a te dicta? Refert tamen, quo modo',

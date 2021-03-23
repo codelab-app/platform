@@ -1,15 +1,7 @@
-import { Skeleton } from './Skeleton.types'
-import { NodeReactI, NodeType } from '@codelab/alpha/shared/interface/node'
+import { AtomType, NodeI } from '@codelab/frontend'
 
-export const skeletonData: NodeReactI<
-  | Skeleton.Props
-  | Skeleton.AvatarProps
-  | Skeleton.TitleProps
-  | Skeleton.ParagraphProps
-  | Skeleton.ButtonProps
-  | Skeleton.InputProps
-> = {
-  type: NodeType.React_Skeleton,
+export const skeletonData: NodeI = {
+  type: AtomType.ReactSkeleton,
   props: {
     active: true,
     paragraph: true,

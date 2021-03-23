@@ -34,41 +34,8 @@
         "libs/alpha/core/traversal/src/index.ts"
       ],
       "@codelab/alpha/core/tree": ["libs/alpha/core/tree/src/index.ts"],
-      "@codelab/alpha/shared/factory": [
-        "libs/alpha/shared/factory/src/index.ts"
-      ],
-      "@codelab/alpha/shared/utils": ["libs/alpha/shared/utils/src/index.ts"],
-      "@codelab/alpha/shared/interface/collections": [
-        "libs/alpha/shared/interface/collections/src/index.ts"
-      ],
-      "@codelab/alpha/shared/interface/entity": [
-        "libs/alpha/shared/interface/entity/src/index.ts"
-      ],
-      "@codelab/alpha/shared/interface/form": [
-        "libs/alpha/shared/interface/form/src/index.ts"
-      ],
-      "@codelab/alpha/shared/interface/graph": [
-        "libs/alpha/shared/interface/graph/src/index.ts"
-      ],
-      "@codelab/alpha/shared/interface/graph-v2": [
-        "libs/alpha/shared/interface/graph-v2/src/index.ts"
-      ],
-      "@codelab/alpha/shared/interface/mapper": [
-        "libs/alpha/shared/interface/mapper/src/index.ts"
-      ],
-      "@codelab/alpha/shared/interface/node": [
-        "libs/alpha/shared/interface/node/src/index.ts"
-      ],
-      "@codelab/alpha/shared/interface/props": [
-        "libs/alpha/shared/interface/props/src/index.ts"
-      ],
-      "@codelab/alpha/shared/interface/tree": [
-        "libs/alpha/shared/interface/tree/src/index.ts"
-      ],
       "@codelab/alpha/ui/antd": ["libs/alpha/ui/antd/src/index.ts"],
-      "@codelab/alpha/ui/component": ["libs/alpha/ui/component/src/index.ts"],
       "@codelab/alpha/ui/d3": ["libs/alpha/ui/d3/src/index.ts"],
-      "@codelab/alpha/ui/hoc": ["libs/alpha/ui/hoc/src/index.ts"],
       "@codelab/backend": ["libs/backend/src/index"],
       "@codelab/frontend": ["libs/frontend/src/index.ts"],
       "@codelab/modules/notification-stories": [

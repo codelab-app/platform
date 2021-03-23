@@ -1,11 +1,11 @@
-import { NodeReactI, NodeType } from '@codelab/alpha/shared/interface/node'
-import { PropType } from '@codelab/alpha/shared/interface/props'
+import { PropType } from '../../props/PropType'
+import { AtomType, NodeI } from '@codelab/frontend'
 
-export const renderComponentData: NodeReactI<any> = {
-  type: NodeType.React_RenderComponent,
+export const renderComponentData: NodeI = {
+  type: AtomType.ReactRenderComponent,
   children: [
     {
-      type: NodeType.React_Button,
+      type: AtomType.ReactButton,
       props: {
         onClick: {
           __type: [PropType.Eval],
@@ -14,7 +14,7 @@ export const renderComponentData: NodeReactI<any> = {
       },
       children: [
         {
-          type: NodeType.React_Text,
+          type: AtomType.ReactText,
           props: {
             value: {
               __type: [PropType.Eval],
@@ -27,7 +27,7 @@ export const renderComponentData: NodeReactI<any> = {
   ],
 }
 
-export const renderContainerData: NodeReactI<any> = {
-  type: NodeType.React_RenderContainer,
+export const renderContainerData: NodeI = {
+  type: AtomType.ReactRenderContainer,
   props: { data: 'Data' },
 }

@@ -1,18 +1,13 @@
-import { Button } from '../button'
-import { Text } from '../text'
-import { Message } from './Message.types'
-import { NodeReactI, NodeType } from '@codelab/alpha/shared/interface/node'
-import { PropType } from '@codelab/alpha/shared/interface/props'
+import { PropType } from '../../props/PropType'
+import { AtomType, NodeI } from '@codelab/frontend'
 
-export const messageData: NodeReactI<
-  Text.Props | Button.Props | Message.Props | { config: object }
-> = {
-  type: NodeType.React_Fragment,
+export const messageData: NodeI = {
+  type: AtomType.ReactFragment,
   props: {
     config: {
       __type: [PropType.Eval, PropType.Leaf],
       value: `
-        return { 
+        return {
           content: 'This is a normal message',
           onClose: () => console.log("Message Closed!")
         }
@@ -21,7 +16,7 @@ export const messageData: NodeReactI<
   },
   children: [
     {
-      type: NodeType.React_Button,
+      type: AtomType.ReactButton,
       props: {
         onClick: {
           __type: [PropType.Eval],
@@ -32,7 +27,7 @@ export const messageData: NodeReactI<
       },
       children: [
         {
-          type: NodeType.React_Text,
+          type: AtomType.ReactText,
           props: {
             value: 'Display message',
           },

@@ -54,7 +54,6 @@ export * from './spin'
 export * from './statistic'
 export * from './steps'
 export * from './switch'
-// eslint-disable-next-line import/no-cycle
 export * from './table'
 export * from './tabs'
 export * from './tag'

@@ -1,18 +1,9 @@
-import { Button } from '../../button'
-import { Text } from '../../text'
+import { PropType } from '../../../props/PropType'
 import { CodelabForm } from '../Form'
-import { Form } from '../Form.types'
-import {
-  NodeReactI,
-  NodeType,
-  nodeTypeEntries,
-} from '@codelab/alpha/shared/interface/node'
-import { PropType } from '@codelab/alpha/shared/interface/props'
+import { AtomType, NodeI } from '@codelab/frontend'
 
-export const nodeFormData: NodeReactI<
-  Form.Props | Form.ItemProps | Text.Props | Button.Props
-> = {
-  type: NodeType.React_Form,
+export const nodeFormData: NodeI = {
+  type: AtomType.ReactForm,
   props: {
     ctx: { __type: [PropType.Eval], value: '' },
     name: 'basic',
@@ -23,7 +14,7 @@ export const nodeFormData: NodeReactI<
     CodelabForm.createSelect({
       label: 'Node Type',
       name: 'node_type',
-      options: nodeTypeEntries,
+      options: [],
       showSearch: true,
       filterOption: {
         __type: [PropType.Eval],
@@ -32,17 +23,17 @@ export const nodeFormData: NodeReactI<
       },
     }),
     {
-      type: NodeType.React_Form_Item,
+      type: AtomType.ReactFormItem,
       children: [
         {
-          type: NodeType.React_Button,
+          type: AtomType.ReactButton,
           props: {
             type: 'primary',
             htmlType: 'submit',
           },
           children: [
             {
-              type: NodeType.React_Text,
+              type: AtomType.ReactText,
               props: {
                 value: 'Submit',
               },

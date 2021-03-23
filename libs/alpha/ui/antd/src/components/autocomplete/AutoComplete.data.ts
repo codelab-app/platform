@@ -1,23 +1,22 @@
-import { AutoComplete } from './AutoComplete.types'
-import { NodeReactI, NodeType } from '@codelab/alpha/shared/interface/node'
-import { PropType } from '@codelab/alpha/shared/interface/props'
+import { PropType } from '../../props/PropType'
+import { AtomType, NodeI } from '@codelab/frontend'
 
-export const autocompleteData: NodeReactI<AutoComplete.Props> = {
-  type: NodeType.React_Fragment,
+export const autocompleteData: NodeI = {
+  type: AtomType.ReactFragment,
   props: {
     ctx: {
       __type: [PropType.Eval, PropType.Leaf],
       value: `\
         const [options, setOptions] = this.React.useState([]);\
         const mockVal = (str, repeat = 1) => ({ value: str.repeat(repeat)});\
-        
+
         return { options, setOptions, mockVal }
       `,
     },
   },
   children: [
     {
-      type: NodeType.React_AutoComplete,
+      type: AtomType.ReactAutoComplete,
       props: {
         onSearch: {
           __type: [PropType.Eval],

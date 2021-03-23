@@ -1,14 +1,12 @@
-import { Icon } from '../icon'
-import { Avatar } from './Avatar.types'
-import { NodeReactI, NodeType } from '@codelab/alpha/shared/interface/node'
+import { AtomType, NodeI } from '@codelab/frontend'
 
-export const avatarData: NodeReactI<Avatar.Props | Icon.Props> = {
-  type: NodeType.React_Avatar,
+export const avatarData: NodeI = {
+  type: AtomType.ReactAvatar,
   props: {
     shape: 'circle',
     size: 'default',
     icon: {
-      type: NodeType.React_Icon,
+      type: AtomType.ReactIcon,
       props: {
         type: 'user',
         theme: 'outlined',

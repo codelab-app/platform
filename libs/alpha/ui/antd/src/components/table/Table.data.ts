@@ -1,17 +1,8 @@
-import { Button } from '../button'
-import { Text } from '../text'
-import { Table } from './Table.types'
-import { NodeReactI, NodeType } from '@codelab/alpha/shared/interface/node'
-import { PropType } from '@codelab/alpha/shared/interface/props'
+import { PropType } from '../../props/PropType'
+import { AtomType, NodeI } from '@codelab/frontend'
 
-const deleteButton: NodeReactI<
-  | Table.Props
-  | Table.ColumnProps
-  | Table.ColumnGroupProps
-  | Text.Props
-  | Button.Props
-> = {
-  type: NodeType.React_Button,
+const deleteButton: NodeI = {
+  type: AtomType.ReactButton,
   props: {
     type: 'danger',
     onClick: {
@@ -21,7 +12,7 @@ const deleteButton: NodeReactI<
   },
   children: [
     {
-      type: NodeType.React_Text,
+      type: AtomType.ReactText,
       props: {
         value: 'Delete',
       },
@@ -29,14 +20,14 @@ const deleteButton: NodeReactI<
   ],
 }
 
-const editButton: NodeReactI = {
-  type: NodeType.React_Button,
+const editButton: NodeI = {
+  type: AtomType.ReactButton,
   props: {
     type: 'default',
   },
   children: [
     {
-      type: NodeType.React_Text,
+      type: AtomType.ReactText,
       props: {
         value: 'Edit',
       },
@@ -44,8 +35,8 @@ const editButton: NodeReactI = {
   ],
 }
 
-export const tableData: NodeReactI = {
-  type: NodeType.React_Table,
+export const tableData: NodeI = {
+  type: AtomType.ReactTable,
   props: {
     dataSource: [
       {
@@ -82,7 +73,7 @@ export const tableData: NodeReactI = {
         dataIndex: 'action',
         key: 'action',
         render: {
-          type: NodeType.React_Space,
+          type: AtomType.ReactSpace,
           children: [editButton, deleteButton],
         },
       },

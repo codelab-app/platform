@@ -1,27 +1,23 @@
-import { Text } from '../../text'
-import { Layout } from '../Layout.types'
-import { NodeReactI, NodeType } from '@codelab/alpha/shared/interface/node'
-import { PropType } from '@codelab/alpha/shared/interface/props'
+import { PropType } from '../../../props/PropType'
+import { AtomType, NodeI } from '@codelab/frontend'
 
-export const propLayoutData: NodeReactI<
-  Layout.Props | Layout.SiderProps | Text.Props
-> = {
-  type: NodeType.React_Layout,
+export const propLayoutData: NodeI = {
+  type: AtomType.ReactLayout,
   props: {
     style: { minHeight: '100vh' },
     hasSider: true,
     ctx: {
       __type: [PropType.Eval, PropType.Leaf],
       value: `
-        const [collapsed, setCollapsed] = this.React.useState(false); 
-          
+        const [collapsed, setCollapsed] = this.React.useState(false);
+
         return { collapsed, setCollapsed }
       `,
     },
   },
   children: [
     {
-      type: NodeType.React_Layout_Sider,
+      type: AtomType.ReactLayoutSider,
       props: {
         collapsible: true,
         onCollapse: {
@@ -35,7 +31,7 @@ export const propLayoutData: NodeReactI<
       },
       children: [
         {
-          type: NodeType.React_Text,
+          type: AtomType.ReactText,
           props: {
             value: { __type: [PropType.Eval], value: 'return this.sidebar' },
           },
@@ -43,13 +39,13 @@ export const propLayoutData: NodeReactI<
       ],
     },
     {
-      type: NodeType.React_Layout,
+      type: AtomType.ReactLayout,
       children: [
         {
-          type: NodeType.React_Layout_Header,
+          type: AtomType.ReactLayoutHeader,
           children: [
             {
-              type: NodeType.React_Text,
+              type: AtomType.ReactText,
               props: {
                 value: {
                   __type: [PropType.Eval],
@@ -60,7 +56,7 @@ export const propLayoutData: NodeReactI<
           ],
         },
         {
-          type: NodeType.React_Layout_Content,
+          type: AtomType.ReactLayoutContent,
           props: {
             style: {
               margin: '24px 16px 0',
@@ -68,11 +64,11 @@ export const propLayoutData: NodeReactI<
           },
           children: [
             {
-              type: NodeType.React_Html_Div,
+              type: AtomType.ReactHtmlDiv,
               props: { style: { padding: 24 } },
               children: [
                 {
-                  type: NodeType.React_Text,
+                  type: AtomType.ReactText,
                   props: {
                     value: {
                       __type: [PropType.Eval],
@@ -85,14 +81,14 @@ export const propLayoutData: NodeReactI<
           ],
         },
         {
-          type: NodeType.React_Layout_Footer,
+          type: AtomType.ReactLayoutFooter,
           children: [
             {
-              type: NodeType.React_Html_P,
+              type: AtomType.ReactHtmlP,
 
               children: [
                 {
-                  type: NodeType.React_Text,
+                  type: AtomType.ReactText,
                   props: {
                     value: {
                       __type: [PropType.Eval],

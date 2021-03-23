@@ -1,7 +1,7 @@
-import { NodeReactI, NodeType } from '@codelab/alpha/shared/interface/node'
+import { AtomType, NodeI } from '@codelab/frontend'
 
-export const divData: NodeReactI = {
-  type: NodeType.React_Html_Div,
+export const divData: NodeI = {
+  type: AtomType.ReactHtmlDiv,
   props: {
     visibility: '',
     parentprops: {
@@ -10,7 +10,7 @@ export const divData: NodeReactI = {
   },
   children: [
     {
-      type: NodeType.React_Html_Div,
+      type: AtomType.ReactHtmlDiv,
       props: {
         childprops: {},
       },

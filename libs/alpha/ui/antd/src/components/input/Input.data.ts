@@ -1,8 +1,7 @@
-import { Input } from './Input.types'
-import { NodeReactI, NodeType } from '@codelab/alpha/shared/interface/node'
+import { AtomType, NodeI } from '@codelab/frontend'
 
-export const inputData: NodeReactI<Input.Props> = {
-  type: NodeType.React_Input,
+export const inputData: NodeI = {
+  type: AtomType.ReactInput,
   props: {
     placeholder: 'Input here',
     style: { width: 300 },
