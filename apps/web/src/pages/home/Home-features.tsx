@@ -13,7 +13,7 @@ import {
   cardStyle,
   padding,
   threeGridCol,
-} from '@codelab/frontend'
+} from '../../styles/sectionStyle'
 
 export const HomeFeatures = () => {
   const colProps = {

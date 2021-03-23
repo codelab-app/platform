@@ -1,6 +1,0 @@
-mutation CreateGraph($input: CreateGraphInput!) {
-  createGraph(input: $input) {
-    id
-    label
-  }
-}

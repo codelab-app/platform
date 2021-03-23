@@ -1,6 +1,6 @@
 import { Layout } from 'antd'
 import React, { PropsWithChildren } from 'react'
-import { contentStyle } from '@codelab/frontend'
+import { contentStyle } from '../styles/sectionStyle'
 
 const { Sider, Content } = Layout
 

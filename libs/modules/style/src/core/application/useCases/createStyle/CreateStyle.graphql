@@ -1,5 +1,0 @@
-mutation CreateStyle($input: CreateStyleInput!) {
-  createStyle(input: $input) {
-    ...styleFragments
-  }
-}

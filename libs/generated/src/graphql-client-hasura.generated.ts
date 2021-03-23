@@ -299,6 +299,121 @@ export enum Atom_Types_Constraint {
   VertexTypePkey = 'vertexType_pkey',
 }
 
+export enum Atom_Types_Enum {
+  ReactAffix = 'React_Affix',
+  ReactAlert = 'React_Alert',
+  ReactAnchor = 'React_Anchor',
+  ReactAnchorLink = 'React_Anchor_Link',
+  ReactAutoComplete = 'React_AutoComplete',
+  ReactAvatar = 'React_Avatar',
+  ReactBackTop = 'React_BackTop',
+  ReactBadge = 'React_Badge',
+  ReactBreadcrumb = 'React_Breadcrumb',
+  ReactBreadcrumbItem = 'React_Breadcrumb_Item',
+  ReactButton = 'React_Button',
+  ReactCalendar = 'React_Calendar',
+  ReactCard = 'React_Card',
+  ReactCardGrid = 'React_Card_Grid',
+  ReactCardMeta = 'React_Card_Meta',
+  ReactCarousel = 'React_Carousel',
+  ReactCascader = 'React_Cascader',
+  ReactCheckbox = 'React_Checkbox',
+  ReactCollapse = 'React_Collapse',
+  ReactCollapsePanel = 'React_Collapse_Panel',
+  ReactComment = 'React_Comment',
+  ReactConfigProvider = 'React_ConfigProvider',
+  ReactDatePicker = 'React_DatePicker',
+  ReactDescriptions = 'React_Descriptions',
+  ReactDescriptionsItem = 'React_Descriptions_Item',
+  ReactDivider = 'React_Divider',
+  ReactDrawer = 'React_Drawer',
+  ReactDropdown = 'React_Dropdown',
+  ReactEmpty = 'React_Empty',
+  ReactForm = 'React_Form',
+  ReactFormItem = 'React_Form_Item',
+  ReactFormItemHook = 'React_Form_ItemHook',
+  ReactFormList = 'React_Form_List',
+  ReactFragment = 'React_Fragment',
+  ReactGridCol = 'React_Grid_Col',
+  ReactGridRow = 'React_Grid_Row',
+  ReactHtmlA = 'React_Html_A',
+  ReactHtmlDiv = 'React_Html_Div',
+  ReactHtmlP = 'React_Html_P',
+  ReactHtmlSpan = 'React_Html_Span',
+  ReactIcon = 'React_Icon',
+  ReactInput = 'React_Input',
+  ReactInputNumber = 'React_InputNumber',
+  ReactLayout = 'React_Layout',
+  ReactLayoutContent = 'React_Layout_Content',
+  ReactLayoutFooter = 'React_Layout_Footer',
+  ReactLayoutHeader = 'React_Layout_Header',
+  ReactLayoutSider = 'React_Layout_Sider',
+  ReactList = 'React_List',
+  ReactListItem = 'React_List_Item',
+  ReactListItemMeta = 'React_List_Item_Meta',
+  ReactMapper = 'React_Mapper',
+  ReactMentions = 'React_Mentions',
+  ReactMentionsOption = 'React_Mentions_Option',
+  ReactMenu = 'React_Menu',
+  ReactMenuItem = 'React_Menu_Item',
+  ReactMenuItemGroup = 'React_Menu_ItemGroup',
+  ReactMenuSubMenu = 'React_Menu_SubMenu',
+  ReactModal = 'React_Modal',
+  ReactPageHeader = 'React_PageHeader',
+  ReactPageContainer = 'React_Page_Container',
+  ReactPagination = 'React_Pagination',
+  ReactPopconfirm = 'React_Popconfirm',
+  ReactPopover = 'React_Popover',
+  ReactProgress = 'React_Progress',
+  ReactProvider = 'React_Provider',
+  ReactRglContainer = 'React_RGL_Container',
+  ReactRglItem = 'React_RGL_Item',
+  ReactRglResponsiveContainer = 'React_RGL_ResponsiveContainer',
+  ReactRadio = 'React_Radio',
+  ReactRadioGroup = 'React_Radio_Group',
+  ReactRate = 'React_Rate',
+  ReactRenderComponent = 'React_RenderComponent',
+  ReactRenderContainer = 'React_RenderContainer',
+  ReactResult = 'React_Result',
+  ReactSelect = 'React_Select',
+  ReactSelectOption = 'React_Select_Option',
+  ReactSkeleton = 'React_Skeleton',
+  ReactSlider = 'React_Slider',
+  ReactSpace = 'React_Space',
+  ReactSpin = 'React_Spin',
+  ReactStatistic = 'React_Statistic',
+  ReactSteps = 'React_Steps',
+  ReactStepsStep = 'React_Steps_Step',
+  ReactSwitch = 'React_Switch',
+  ReactTable = 'React_Table',
+  ReactTabs = 'React_Tabs',
+  ReactTabsTabPane = 'React_Tabs_TabPane',
+  ReactTag = 'React_Tag',
+  ReactText = 'React_Text',
+  ReactTimePicker = 'React_TimePicker',
+  ReactTimeline = 'React_Timeline',
+  ReactTimelineItem = 'React_Timeline_Item',
+  ReactTooltip = 'React_Tooltip',
+  ReactTransfer = 'React_Transfer',
+  ReactTree = 'React_Tree',
+  ReactTreeNode = 'React_TreeNode',
+  ReactTreeSelect = 'React_TreeSelect',
+  ReactTypography = 'React_Typography',
+  ReactTypographyParagraph = 'React_Typography_Paragraph',
+  ReactTypographyText = 'React_Typography_Text',
+  ReactTypographyTitle = 'React_Typography_Title',
+  ReactUpload = 'React_Upload',
+}
+
+/** Boolean expression to compare columns of type "atom_types_enum". All fields are combined with logical 'AND'. */
+export type Atom_Types_Enum_Comparison_Exp = {
+  _eq?: Maybe<Atom_Types_Enum>
+  _in?: Maybe<Array<Atom_Types_Enum>>
+  _is_null?: Maybe<Scalars['Boolean']>
+  _neq?: Maybe<Atom_Types_Enum>
+  _nin?: Maybe<Array<Atom_Types_Enum>>
+}
+
 /** input type for inserting data into table "atom_types" */
 export type Atom_Types_Insert_Input = {
   description?: Maybe<Scalars['String']>
@@ -384,7 +499,7 @@ export type Atoms = {
   component: Components
   component_id: Scalars['uuid']
   id: Scalars['uuid']
-  type: Scalars['String']
+  type: Atom_Types_Enum
 }
 
 /** aggregated selection of "atoms" */
@@ -431,7 +546,7 @@ export type Atoms_Bool_Exp = {
   component?: Maybe<Components_Bool_Exp>
   component_id?: Maybe<Uuid_Comparison_Exp>
   id?: Maybe<Uuid_Comparison_Exp>
-  type?: Maybe<String_Comparison_Exp>
+  type?: Maybe<Atom_Types_Enum_Comparison_Exp>
 }
 
 /** unique or primary key constraints on table "atoms" */
@@ -446,7 +561,7 @@ export type Atoms_Insert_Input = {
   component?: Maybe<Components_Obj_Rel_Insert_Input>
   component_id?: Maybe<Scalars['uuid']>
   id?: Maybe<Scalars['uuid']>
-  type?: Maybe<Scalars['String']>
+  type?: Maybe<Atom_Types_Enum>
 }
 
 /** aggregate max on columns */
@@ -454,14 +569,12 @@ export type Atoms_Max_Fields = {
   __typename?: 'atoms_max_fields'
   component_id?: Maybe<Scalars['uuid']>
   id?: Maybe<Scalars['uuid']>
-  type?: Maybe<Scalars['String']>
 }
 
 /** order by max() on columns of table "atoms" */
 export type Atoms_Max_Order_By = {
   component_id?: Maybe<Order_By>
   id?: Maybe<Order_By>
-  type?: Maybe<Order_By>
 }
 
 /** aggregate min on columns */
@@ -469,14 +582,12 @@ export type Atoms_Min_Fields = {
   __typename?: 'atoms_min_fields'
   component_id?: Maybe<Scalars['uuid']>
   id?: Maybe<Scalars['uuid']>
-  type?: Maybe<Scalars['String']>
 }
 
 /** order by min() on columns of table "atoms" */
 export type Atoms_Min_Order_By = {
   component_id?: Maybe<Order_By>
   id?: Maybe<Order_By>
-  type?: Maybe<Order_By>
 }
 
 /** response of any mutation on the table "atoms" */
@@ -530,7 +641,7 @@ export enum Atoms_Select_Column {
 export type Atoms_Set_Input = {
   component_id?: Maybe<Scalars['uuid']>
   id?: Maybe<Scalars['uuid']>
-  type?: Maybe<Scalars['String']>
+  type?: Maybe<Atom_Types_Enum>
 }
 
 /** update columns of table "atoms" */
@@ -550,7 +661,7 @@ export type Attributes = {
   atom_type: Atom_Types
   id: Scalars['uuid']
   key: Scalars['String']
-  type: Scalars['String']
+  type: Atom_Types_Enum
 }
 
 /** aggregated selection of "attributes" */
@@ -582,7 +693,7 @@ export type Attributes_Bool_Exp = {
   atom_type?: Maybe<Atom_Types_Bool_Exp>
   id?: Maybe<Uuid_Comparison_Exp>
   key?: Maybe<String_Comparison_Exp>
-  type?: Maybe<String_Comparison_Exp>
+  type?: Maybe<Atom_Types_Enum_Comparison_Exp>
 }
 
 /** unique or primary key constraints on table "attributes" */
@@ -596,7 +707,7 @@ export type Attributes_Insert_Input = {
   atom_type?: Maybe<Atom_Types_Obj_Rel_Insert_Input>
   id?: Maybe<Scalars['uuid']>
   key?: Maybe<Scalars['String']>
-  type?: Maybe<Scalars['String']>
+  type?: Maybe<Atom_Types_Enum>
 }
 
 /** aggregate max on columns */
@@ -604,7 +715,6 @@ export type Attributes_Max_Fields = {
   __typename?: 'attributes_max_fields'
   id?: Maybe<Scalars['uuid']>
   key?: Maybe<Scalars['String']>
-  type?: Maybe<Scalars['String']>
 }
 
 /** aggregate min on columns */
@@ -612,7 +722,6 @@ export type Attributes_Min_Fields = {
   __typename?: 'attributes_min_fields'
   id?: Maybe<Scalars['uuid']>
   key?: Maybe<Scalars['String']>
-  type?: Maybe<Scalars['String']>
 }
 
 /** response of any mutation on the table "attributes" */
@@ -658,7 +767,7 @@ export enum Attributes_Select_Column {
 export type Attributes_Set_Input = {
   id?: Maybe<Scalars['uuid']>
   key?: Maybe<Scalars['String']>
-  type?: Maybe<Scalars['String']>
+  type?: Maybe<Atom_Types_Enum>
 }
 
 /** update columns of table "attributes" */

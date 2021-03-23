@@ -1,7 +1,0 @@
-import { Field, ObjectType } from '@nestjs/graphql'
-
-@ObjectType('<%= moduleNamePascalCase %>')
-export class <%= moduleNamePascalCase %> {
-  @Field()
-  declare id: string
-}

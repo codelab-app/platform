@@ -1,20 +1,20 @@
 import { css } from '@emotion/react'
-import { VertexType } from '@prisma/client'
 import { List } from 'antd'
 import React, { useMemo } from 'react'
 import { ComponentItem } from './Component-item'
+import { AtomType } from '@codelab/frontend'
 import { PaneMainTemplate } from 'apps/web/src/templates/Pane-main--template'
 
 export type ComponentItemType = {
   key: string
-  type: VertexType
+  type: AtomType
   label: string
 }
 
 export const PaneMainComponent = () => {
   const componentsData: Array<ComponentItemType> = useMemo(
     () =>
-      Object.entries(VertexType)
+      Object.entries(AtomType)
         // Get only top level components, use naming convention of `_` to differentiate
         .filter(([, value]) => {
           const matchCount = (value.match(/_/g) ?? []).length

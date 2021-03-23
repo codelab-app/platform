@@ -1,6 +1,6 @@
 import { UserComponent, useNode } from '@craftjs/core'
-import { VertexType } from '@prisma/client'
 import React from 'react'
+import { AtomType } from '../interfaces'
 import { elementTypeMap } from './elementTypeMap'
 
 type ResolverComponentType = React.ComponentType | string | UserComponent
@@ -51,12 +51,12 @@ export const connectCraftJs = (
   return ConnectedCmt
 }
 
-export const craftjsResolver: Record<VertexType, ResolverComponentType> = {
+export const craftjsResolver: Record<AtomType, ResolverComponentType> = {
   ...elementTypeMap,
-  [VertexType.React_Grid_Row]: connectCraftJs(
-    elementTypeMap[VertexType.React_Grid_Row],
+  [AtomType.ReactGridRow]: connectCraftJs(
+    elementTypeMap[AtomType.ReactGridRow],
   ),
-  [VertexType.React_Grid_Col]: connectCraftJs(
-    elementTypeMap[VertexType.React_Grid_Col],
+  [AtomType.ReactGridCol]: connectCraftJs(
+    elementTypeMap[AtomType.ReactGridCol],
   ),
 }

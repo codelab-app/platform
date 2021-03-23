@@ -1,0 +1,16 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../dist/out-tsc",
+    "types": ["node", "object-mapper", "@rjsf/antd"],
+    "jsx": "react",
+    "esModuleInterop": true,
+    "module": "CommonJS",
+    "allowSyntheticDefaultImports": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "ES2018"
+  },
+  "exclude": ["**/*.spec.ts", "**/*.tsx"],
+  "include": ["**/*.ts"]
+}

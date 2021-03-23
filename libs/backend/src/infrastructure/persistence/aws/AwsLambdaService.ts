@@ -9,7 +9,7 @@ import {
   UpdateFunctionCodeCommand,
   UpdateFunctionCodeRequest,
 } from '@aws-sdk/client-lambda'
-import { Lambda } from '@prisma/client'
+import { Lambda } from '@codelab/frontend'
 
 export class AwsLambdaService extends LambdaClient {
   bucketPrefix = 'codelab-lambda'
@@ -17,7 +17,7 @@ export class AwsLambdaService extends LambdaClient {
   async createFunction(lambda: Lambda) {
     const params: CreateFunctionRequest = {
       Code: {
-        S3Bucket: `${this.bucketPrefix}-${lambda.appId}`, // BUCKET_NAME
+        S3Bucket: `${this.bucketPrefix}-${lambda.libraryId}`, // BUCKET_NAME
         S3Key: lambda.id, // ZIP_FILE_NAME
         // ZipFile: ''
       },

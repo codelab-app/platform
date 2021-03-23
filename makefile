@@ -32,7 +32,7 @@ build-dev:
 build-ci:
 	npx nx run-many \
     --target=build \
-		--projects=api-codelab,web,tools-eslint-config-codelab,codelab-schematics \
+		--projects=api,web,tools-eslint-config-codelab \
     --parallel \
 		--maxWorkers=8 \
 		--memoryLimit=8192 \
@@ -202,44 +202,6 @@ unit-ci:
 	--maxWorkers=8 \
 	--memoryLimit=8192 \
 	--verbose
-
-#
-# START
-#
-
-start-dev:
-	@npx concurrently \
-		--names="start,codegen" \
-		"make start-dev-projects" \
-		"make generate-graphql-watch"
-
-start-dev-projects:
-	@npx nx run-many \
-		--target=serve \
-		--with-deps \
-		--projects=api-gateway,web \
-		--parallel \
-		--maxParallel=10
-
-start-api:
-	npx nx serve api-gateway \
-		--maxParallel=6 \
-		--with-deps \
-		--parallel
-
-#	@npx concurrently \
-#	--names="start" \
-#		'nx run-many \
-#		--target=serve \
-#		--projects=web,api-gateway,api-services-props,api-graph \
-#		--parallel \
-#		"$@"' \
-#		'nodemon \
-#			--ext graphql \
-#			--watch "apps/api/gateway/src/assets/**/*.graphql" \
-#			--verbose \
-#			--exec "wait-on http://localhost:4000 && make generate-graphql"'
-		# Need to wait for graphql server to finish reloading
 
 start-prod:
 	pm2 startOrReload config/pm2.json

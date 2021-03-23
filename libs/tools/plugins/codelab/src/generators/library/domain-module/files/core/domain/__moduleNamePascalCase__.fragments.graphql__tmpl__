@@ -1,3 +1,0 @@
-fragment <%= moduleName %>Fragments on <%= moduleNamePascalCase %> {
-  id
-}

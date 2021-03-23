@@ -34,8 +34,6 @@
         "libs/alpha/core/traversal/src/index.ts"
       ],
       "@codelab/alpha/core/tree": ["libs/alpha/core/tree/src/index.ts"],
-      "@codelab/alpha/shared/common": ["libs/alpha/shared/common/src/index.ts"],
-      "@codelab/alpha/shared/event": ["libs/alpha/shared/event/src/index.ts"],
       "@codelab/alpha/shared/factory": [
         "libs/alpha/shared/factory/src/index.ts"
       ],
@@ -73,32 +71,10 @@
       "@codelab/alpha/ui/hoc": ["libs/alpha/ui/hoc/src/index.ts"],
       "@codelab/backend": ["libs/backend/src/index"],
       "@codelab/frontend": ["libs/frontend/src/index.ts"],
-      "@codelab/modules/page": ["libs/modules/page/src/index.ts"],
-      "@codelab/modules/graph": ["libs/modules/graph/src/index.ts"],
-      "@codelab/modules/app": ["libs/modules/app/src/index.ts"],
-      "@codelab/modules/user": ["libs/modules/user/src/index.ts"],
-      "@codelab/tools/generators/json-schema": [
-        "libs/tools/generators/json-schema/src/index.ts"
-      ],
-      "@codelab/tools/generators/graphql": [
-        "libs/tools/generators/graphql/src/index.ts"
-      ],
       "@codelab/modules/notification-stories": [
         "libs/modules/notification-stories/src/index.ts"
       ],
-      "@codelab/modules/style": ["libs/modules/style/src/index.ts"],
-      "@codelab/modules/lambda": ["libs/modules/lambda/src/index.ts"],
-      "@codelab/tools/generators/form-decorator": [
-        "libs/tools/generators/form-decorator/src/index.ts"
-      ],
-      "@codelab/tools/generators/form-templates": [
-        "libs/tools/generators/form-templates/src/index.ts"
-      ],
-      "@codelab/tools/generators/crawler": [
-        "libs/tools/generators/crawler/src/index.ts"
-      ],
-      "tools-plugins-test": ["libs/tools/plugins/test/src/index.ts"],
-      "@codelab/tools/rjsf": ["libs/tools/rjsf/src/index.ts"]
+      "tools-plugins-test": ["libs/tools/plugins/test/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"]

@@ -1,7 +1,7 @@
 import { Col, Image, Row, Space, Typography } from 'antd'
 import { range } from 'lodash'
 import React from 'react'
-import { padding } from '@codelab/frontend'
+import { padding } from '../../styles/sectionStyle'
 
 export const HomeClients = () => {
   const imageUrl = 'http://via.placeholder.com/80x30'

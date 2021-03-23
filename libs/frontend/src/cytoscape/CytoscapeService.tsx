@@ -1,9 +1,9 @@
 /* eslint-disable no-param-reassign */
 import { ROOT_NODE, SerializedNodes } from '@craftjs/core'
-import { VertexType } from '@prisma/client'
 import { DataNode } from 'antd/lib/tree'
 import cytoscape, { Core, EdgeDefinition, NodeDefinition } from 'cytoscape'
-import { NodeA } from '../../../modules/graph/src/core/domain/node/Node'
+import { AtomType } from '../interfaces'
+import { NodeA } from '../interfaces/NodeA'
 import { GraphFragmentsFragment } from '@codelab/generated'
 
 export class CytoscapeService {
@@ -113,7 +113,7 @@ export class CytoscapeService {
 
         const node = {
           ...data,
-          draggable: data.type !== VertexType.React_RGL_Item,
+          draggable: data.type !== AtomType.ReactRglItem,
           // disabled: data.type === VertexType.React_RGL_Item,
           key: data.id,
           title: `${data.type}-${data.id.substring(0, 3)}`,

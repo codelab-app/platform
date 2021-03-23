@@ -1,5 +1,0 @@
-query GetLambdas($input: GetLambdasInput!) {
-  getLambdas(input: $input) {
-    ...lambdaFragments
-  }
-}

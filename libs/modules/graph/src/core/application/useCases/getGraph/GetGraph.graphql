@@ -1,5 +1,0 @@
-query GetGraph($input: GetGraphInput!) {
-  getGraph(input: $input) {
-    ...graphFragments
-  }
-}

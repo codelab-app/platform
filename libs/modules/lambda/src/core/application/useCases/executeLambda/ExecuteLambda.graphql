@@ -1,5 +1,0 @@
-mutation ExecuteLambda($input: ExecuteLambdaInput!) {
-  executeLambda(input: $input) {
-    ...lambdaFragments
-  }
-}

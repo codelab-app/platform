@@ -1,6 +1,7 @@
 import { Layout } from 'antd'
 import React, { PropsWithChildren, useContext } from 'react'
 import { useRecoilState } from 'recoil'
+import { contentStyle } from '../../styles/sectionStyle'
 import { LayoutPaneVisibility, useLayout } from '../../templates/layout-state'
 import { AppContext, AppProvider } from '../../useCases/apps/AppProvider'
 import { componentItemState } from '../../useCases/component/paneMain/Component-item--state'
@@ -9,7 +10,6 @@ import { PaneConfig } from './pane-config/Pane-config'
 import { BuilderDetails } from './pane-details/Pane-details'
 import { PaneMain } from './pane-main/Pane-main'
 import { BuilderTabSidebar } from './tabs-sidebar/Tabs-sidebar'
-import { contentStyle } from '@codelab/frontend'
 
 const { Sider, Content } = Layout
 

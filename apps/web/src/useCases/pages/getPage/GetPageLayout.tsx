@@ -1,9 +1,9 @@
 import { PlusOutlined } from '@ant-design/icons'
-import { VertexType } from '@prisma/client'
 import { Button } from 'antd'
 import React from 'react'
 import { useRecoilState } from 'recoil'
 import {
+  AtomType,
   CytoscapeService,
   PropsWithIds,
   RenderComponents,
@@ -32,7 +32,7 @@ export const GetPageLayout = ({ graph, pageId }: GetPageLayoutProps) => {
   // console.log(craftData)
 
   const gridContainerId = graph.vertices.find(
-    (v) => v.type === VertexType.React_RGL_ResponsiveContainer,
+    (v) => v.type === AtomType.ReactRglResponsiveContainer,
   )?.id
 
   const onNodeClick = (e: any, node: any) => {
@@ -59,7 +59,7 @@ export const GetPageLayout = ({ graph, pageId }: GetPageLayoutProps) => {
               input: {
                 parentVertexId: gridContainerId,
                 vertex: {
-                  type: VertexType.React_RGL_Item,
+                  type: AtomType.ReactRglItem,
                 },
               },
             },

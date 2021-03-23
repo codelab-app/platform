@@ -1,7 +1,0 @@
-fragment styleFragments on Style {
-  id
-  name
-  vertices {
-    id
-  }
-}

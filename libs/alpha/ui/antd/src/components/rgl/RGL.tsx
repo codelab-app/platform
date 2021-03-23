@@ -1,5 +1,4 @@
 import { UserComponent } from '@craftjs/core'
-import { VertexType } from '@prisma/client'
 import React from 'react'
 import GridLayout, {
   ReactGridLayoutProps,
@@ -7,7 +6,7 @@ import GridLayout, {
   ResponsiveProps,
   WidthProvider,
 } from 'react-grid-layout'
-import { RGLItemProps } from './RGL.input'
+import { AtomType } from '@codelab/frontend'
 
 const ResponsiveGridLayout = WidthProvider(ResponsiveGrid)
 
@@ -31,7 +30,7 @@ export namespace RGL {
   }
 
   Container.craft = {
-    name: VertexType.React_RGL_Container,
+    name: AtomType.ReactRglContainer,
   }
 
   const isReactFragment = (children: any) => {
@@ -58,10 +57,10 @@ export namespace RGL {
   }
 
   ResponsiveContainer.craft = {
-    name: VertexType.React_RGL_ResponsiveContainer,
+    name: AtomType.ReactRglResponsiveContainer,
   }
 
-  export const Item: UserComponent<RGLItemProps> = ({
+  export const Item: UserComponent<any> = ({
     children,
     'data-grid': dataGrid,
     ...props
@@ -73,5 +72,5 @@ export namespace RGL {
     )
   }
 
-  Item.craft = { name: VertexType.React_RGL_Item }
+  Item.craft = { name: AtomType.ReactRglItem }
 }
