@@ -1,5 +1,5 @@
 import { PropType } from '../../../props/PropType'
-import { AtomType, AtomType, NodeI } from '@codelab/frontend'
+import { AtomType, NodeI } from '@codelab/frontend'
 
 /**
  * We create a user object, which is keyed by 'user'

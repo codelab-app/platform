@@ -6,11 +6,10 @@ import {
   UpdateLambdaMutationVariables,
   useUpdateLambdaMutation,
 } from '@codelab/generated'
-import { UpdateLambdaInput } from 'libs/modules/lambda/src/core/application/useCases/updateLambda/UpdateLambdaInput'
 
 type UpdateLambdaFormProps = {
   lambda: LambdaFragmentsFragment | undefined
-} & FormUseCaseProps<UpdateLambdaInput>
+} & FormUseCaseProps<any>
 
 export const UpdateLambdaForm = ({
   lambda,
@@ -23,7 +22,7 @@ export const UpdateLambdaForm = ({
   }
 
   return (
-    <ApolloForm<UpdateLambdaInput, UpdateLambdaMutationVariables>
+    <ApolloForm<any, UpdateLambdaMutationVariables>
       hideSubmitButton
       schema={UpdateLambdaInputSchema}
       mutate={mutate}

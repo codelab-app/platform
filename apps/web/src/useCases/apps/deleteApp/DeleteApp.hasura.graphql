@@ -1,5 +1,5 @@
 mutation DeleteApp($id: uuid!) {
-  delete_apps_by_pk(id: $id) {
+  delete_app_by_pk(id: $id) {
     id
   }
 }

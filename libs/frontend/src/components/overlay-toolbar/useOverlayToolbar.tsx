@@ -1,11 +1,11 @@
 import { useCallback, useRef } from 'react'
 import { useRecoilState } from 'recoil'
+import { NodeA } from '../../interfaces'
 import { CLICK_OVERLAY_ID } from '../../renderer/Overlay-click'
 import {
   OverlayToolbarStateType,
   overlayToolbarState,
 } from './overlayToolbarState'
-import { NodeA } from 'libs/modules/graph/src/core/domain/node/Node'
 
 export const useOverlayToolbar = (overlayId: string) => {
   const [toolbarState, setToolbarState] = useRecoilState(

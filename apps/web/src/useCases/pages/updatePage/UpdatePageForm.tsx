@@ -1,4 +1,3 @@
-import { UpdatePageInput } from 'libs/modules/page/src/core/application/useCases/updatePage/UpdatePageInput'
 import React from 'react'
 import { ApolloForm, FormUseCaseProps, PropsWithIds } from '@codelab/frontend'
 import {
@@ -12,7 +11,7 @@ import {
 export const UpdatePageForm = ({
   pageId,
   ...props
-}: FormUseCaseProps<UpdatePageInput> & PropsWithIds<'pageId'>) => {
+}: FormUseCaseProps<any> & PropsWithIds<'pageId'>) => {
   const [mutate] = useUpdatePageMutation({
     refetchQueries: [
       {
@@ -40,7 +39,7 @@ export const UpdatePageForm = ({
   }
 
   return (
-    <ApolloForm<UpdatePageInput, CreatePageMutationVariables>
+    <ApolloForm<any, CreatePageMutationVariables>
       key={pageId}
       mutate={mutate}
       hideSubmitButton

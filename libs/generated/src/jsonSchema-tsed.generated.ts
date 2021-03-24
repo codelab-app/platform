@@ -1,14 +1,5 @@
 /* eslint-disable import/order, sort-imports, no-unused-vars */
-import {
-  DecoratorsMap,
-  GroupsUiSchema,
-} from '@codelab/tools/generators/json-schema'
 import { JSONSchema7 } from 'json-schema'
-import {
-  ObjectFieldGridTemplateFactory,
-  ObjectFieldTabsTemplate,
-} from '@codelab/alpha/ui/component'
-import { DemoTabsProps } from 'libs/alpha/ui/antd/src/components/demo/Demo.input'
 
 export const AffixPropsSchema: JSONSchema7 = {
   type: 'object',
@@ -972,7 +963,7 @@ export const CascaderPropsSchema: JSONSchema7 = {
   },
 }
 
-const DemoGridPropsDecorators: DecoratorsMap = {
+const DemoGridPropsDecorators = {
   firstname: {
     __grid: {
       order: 0,
@@ -1000,7 +991,7 @@ const DemoGridPropsDecorators: DecoratorsMap = {
 }
 
 export const DemoGridPropsGridFormProps = {
-  ObjectFieldTemplate: ObjectFieldGridTemplateFactory(DemoGridPropsDecorators),
+  ObjectFieldTemplate: {},
 }
 
 export const DemoGridPropsFormProps = { ...DemoGridPropsGridFormProps }
@@ -1026,7 +1017,7 @@ export const DemoGridPropsSchema: JSONSchema7 = {
   },
 }
 
-const DemoTabsPropsUISchema: GroupsUiSchema<DemoTabsProps> = {
+const DemoTabsPropsUISchema = {
   'ui:groups': [
     'firstname',
     'lastname',
@@ -1041,7 +1032,7 @@ const DemoTabsPropsUISchema: GroupsUiSchema<DemoTabsProps> = {
 }
 
 export const DemoTabsPropsTabsFormProps = {
-  ObjectFieldTemplate: ObjectFieldTabsTemplate,
+  ObjectFieldTemplate: {},
   uiSchema: DemoTabsPropsUISchema,
 }
 
@@ -2347,7 +2338,7 @@ export const RGLLayoutPropsSchema: JSONSchema7 = {
   },
 }
 
-const RGLItemPropsDecorators: DecoratorsMap = {
+const RGLItemPropsDecorators = {
   'data-grid': {
     x: {
       __grid: {
@@ -2383,7 +2374,7 @@ const RGLItemPropsDecorators: DecoratorsMap = {
 }
 
 export const RGLItemPropsGridFormProps = {
-  ObjectFieldTemplate: ObjectFieldGridTemplateFactory(RGLItemPropsDecorators),
+  ObjectFieldTemplate: {},
 }
 
 export const RGLItemPropsFormProps = { ...RGLItemPropsGridFormProps }
@@ -40869,7 +40860,7 @@ export const CreateVertexInputSchema: JSONSchema7 = {
   },
 }
 
-const UpdateVertexInputDecorators: DecoratorsMap = {
+const UpdateVertexInputDecorators = {
   props: {
     'data-grid': {
       x: {
@@ -40901,9 +40892,7 @@ const UpdateVertexInputDecorators: DecoratorsMap = {
 }
 
 export const UpdateVertexInputGridFormProps = {
-  ObjectFieldTemplate: ObjectFieldGridTemplateFactory(
-    UpdateVertexInputDecorators,
-  ),
+  ObjectFieldTemplate: {},
 }
 
 export const UpdateVertexInputFormProps = { ...UpdateVertexInputGridFormProps }

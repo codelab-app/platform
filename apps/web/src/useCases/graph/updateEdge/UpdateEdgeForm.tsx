@@ -1,5 +1,4 @@
 import React from 'react'
-import { UpdateEdgeInput } from '../../../../../../libs/modules/graph/src/core/application/useCases/updateEdge/UpdateEdgeInput'
 import { ApolloForm } from '@codelab/frontend'
 import {
   UpdateEdgeInputSchema,
@@ -22,7 +21,7 @@ export const UpdateEdgeForm = () => {
   })
 
   return (
-    <ApolloForm<UpdateEdgeInput, UpdateEdgeMutationVariables>
+    <ApolloForm<any, UpdateEdgeMutationVariables>
       mutate={mutate}
       schema={UpdateEdgeInputSchema}
       initialFormData={{ id: '' }}

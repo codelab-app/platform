@@ -6,10 +6,8 @@ import {
   GetAppGql,
   useCreatePageMutation,
 } from '@codelab/generated'
-import { CreatePageInput } from 'libs/modules/page/src/core/application/useCases/createPage/CreatePageInput'
 
-type CreatePageFormProps = FormUseCaseProps<CreatePageInput> &
-  PropsWithIds<'appId'>
+type CreatePageFormProps = FormUseCaseProps<any> & PropsWithIds<'appId'>
 
 export const CreatePageForm = ({ appId, ...props }: CreatePageFormProps) => {
   const [mutate] = useCreatePageMutation({
@@ -26,7 +24,7 @@ export const CreatePageForm = ({ appId, ...props }: CreatePageFormProps) => {
   })
 
   return (
-    <ApolloForm<CreatePageInput, CreatePageMutationVariables>
+    <ApolloForm<any, CreatePageMutationVariables>
       {...props}
       mutate={mutate}
       hideSubmitButton
