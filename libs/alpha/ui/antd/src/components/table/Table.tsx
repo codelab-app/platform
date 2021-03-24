@@ -1,7 +1,6 @@
 import { Table as AntTable } from 'antd'
 import { TableProps as AntTableProps } from 'antd/lib/table'
 import React from 'react'
-import { Renderer } from '@codelab/alpha/core/renderer'
 import { NodeI } from '@codelab/frontend'
 
 export const isReactNode = (node: NodeI): node is NodeI => {
@@ -53,9 +52,14 @@ export namespace CodelabTable {
         return {
           ...column,
           render: (text: string, record: any, index: number) => {
-            const Cell = Renderer.components<CellProps>(render)
-
-            return <Cell {...restProps} record={record} index={index} />
+            // The Renderer introduces all sorts of messy and broken code from @codelab/alpha
+            // Need to make this work with frontend renderer
+            // const Cell = Renderer.components<CellProps>(render)
+            //
+            // return <Cell {...restProps} record={record} index={index} />
+            throw new Error(
+              'Custom node inside table cell is not implemented yet',
+            )
           },
         }
       }

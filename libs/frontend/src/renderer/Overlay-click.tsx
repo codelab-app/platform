@@ -2,9 +2,9 @@ import { DeleteOutlined } from '@ant-design/icons'
 import { Button } from 'antd'
 import React, { useContext } from 'react'
 import { OverlayToolbar } from '../components/overlay-toolbar/OverlayToolbar'
+import { NodeA } from '../interfaces'
 import { GetPageGql, useDeleteVertexMutation } from '@codelab/generated'
 import { AppContext } from 'apps/web/src/useCases/apps/AppProvider'
-import { NodeA } from 'libs/modules/graph/src/core/domain/node/Node'
 
 export const CLICK_OVERLAY_ID = 'clickOverlay'
 
@@ -51,7 +51,7 @@ export const ClickOverlay = () => {
                   return deleteVertex({
                     variables: {
                       input: {
-                        vertexId: n?.id,
+                        vertexId: n.id as string,
                       },
                     },
                   })

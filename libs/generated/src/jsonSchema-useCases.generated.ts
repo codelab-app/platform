@@ -1,6 +1,4 @@
 import { JSONSchema7 } from 'json-schema'
-import { ObjectFieldGridTemplateFactory } from '@codelab/alpha/ui/component'
-import { DecoratorsMap } from '@codelab/tools/generators/json-schema'
 
 export const CreateAppInputSchema: JSONSchema7 = {
   type: 'object',
@@ -58,7 +56,7 @@ export const DemoGridFormInputSchema: JSONSchema7 = {
   $schema: 'http://json-schema.org/draft-07/schema#',
 }
 
-const DemoGridFormInputDecorators: DecoratorsMap = {
+const DemoGridFormInputDecorators = {
   email1: {
     __grid: {
       order: 1,
@@ -98,9 +96,7 @@ const DemoGridFormInputDecorators: DecoratorsMap = {
 }
 
 export const DemoGridFormInputFormProps = {
-  ObjectFieldTemplate: ObjectFieldGridTemplateFactory(
-    DemoGridFormInputDecorators,
-  ),
+  ObjectFieldTemplate: {},
 }
 
 export const GetAppInputSchema: JSONSchema7 = {

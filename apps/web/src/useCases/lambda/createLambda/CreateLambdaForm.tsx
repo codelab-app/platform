@@ -7,11 +7,8 @@ import {
   GetAppGql,
   useCreateLambdaMutation,
 } from '@codelab/generated'
-import { CreateLambdaInput } from 'libs/modules/lambda/src/core/application/useCases/createLambda/CreateLambdaInput'
 
-export const CreateLambdaForm = (
-  props: FormUseCaseProps<CreateLambdaInput>,
-) => {
+export const CreateLambdaForm = (props: FormUseCaseProps<any>) => {
   const { appId } = useContext(AppContext)
   const [mutate] = useCreateLambdaMutation({
     refetchQueries: [
@@ -27,7 +24,7 @@ export const CreateLambdaForm = (
   })
 
   return (
-    <ApolloForm<CreateLambdaInput, CreateLambdaMutationVariables>
+    <ApolloForm<any, CreateLambdaMutationVariables>
       // hideSubmitButton
       schema={CreateLambdaInputSchema}
       mutate={mutate}

@@ -1,7 +1,6 @@
 import { FetchResult } from 'apollo-link'
 import React, { useEffect } from 'react'
 import { useRecoilState } from 'recoil'
-import { LoginUserInput } from '../../../../../../libs/modules/user/src/core/application/useCases/loginUser/LoginUserInput'
 import { userState } from '../state'
 import {
   ApolloForm,
@@ -22,7 +21,7 @@ export const LoginUserForm = ({
   onSubmitError,
   onSubmitSuccess,
   ...props
-}: FormUseCaseProps<LoginUserInput>) => {
+}: FormUseCaseProps<any>) => {
   const [mutate, { loading }] = useLoginUserMutation()
 
   const [, setState] = useRecoilState(userState)
@@ -67,7 +66,7 @@ export const LoginUserForm = ({
   ]
 
   return (
-    <ApolloForm<LoginUserInput, LoginUserMutationVariables>
+    <ApolloForm<any, LoginUserMutationVariables>
       schema={LoginUserInputSchema}
       initialFormData={{ email: '', password: '' }}
       mutate={mutate}

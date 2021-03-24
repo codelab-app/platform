@@ -9,9 +9,8 @@ import {
   useCreateStyleMutation,
 } from '@codelab/generated'
 import { FormUseCaseProps } from 'libs/frontend/src/components'
-import { CreateStyleInput } from 'libs/modules/style/src/core/application/useCases/createStyle/CreateStyleInput'
 
-export const CreateStyleForm = (props: FormUseCaseProps<CreateStyleInput>) => {
+export const CreateStyleForm = (props: FormUseCaseProps<any>) => {
   const { appId } = useContext(AppContext)
 
   const [mutate] = useCreateStyleMutation({
@@ -44,7 +43,7 @@ export const CreateStyleForm = (props: FormUseCaseProps<CreateStyleInput>) => {
   }
 
   return (
-    <ApolloForm<CreateStyleInput, CreateStyleMutationVariables>
+    <ApolloForm<any, CreateStyleMutationVariables>
       initialFormData={{ appId, name: '' }}
       schema={CreateStyleInputSchema}
       uiSchema={{

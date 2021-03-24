@@ -3,7 +3,6 @@ import { ApolloForm } from '@codelab/frontend'
 import {
   GetVertexGql,
   UpdateVertexInput,
-  UpdateVertexInputFormProps,
   UpdateVertexInputSchema,
   UpdateVertexMutationVariables,
   VertexFragmentsFragment,
@@ -33,7 +32,6 @@ export const UpdateVertexForm = ({ vertex }: UpdateVertexFormProps) => {
       key={vertex.id}
       mutate={mutate}
       schema={UpdateVertexInputSchema}
-      {...UpdateVertexInputFormProps}
       uiSchema={{
         type: {
           'ui:disabled': 'type',

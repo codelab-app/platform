@@ -1,8 +1,7 @@
 import React from 'react'
 import ReactTestUtils from 'react-dom/test-utils'
 import { PaneConfigHandlersProps } from '../../../../apps/web/src/pages/builder/pane-config/Pane-config--handlers'
-import { AtomType } from '../interfaces'
-import { NodeA } from '../interfaces/NodeA'
+import { AtomType, NodeA } from '../interfaces'
 import { elementTypeMap } from './elementTypeMap'
 import { onResizeStop } from '@codelab/alpha/ui/antd'
 

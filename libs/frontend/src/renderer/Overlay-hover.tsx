@@ -1,6 +1,6 @@
 import React from 'react'
 import { OverlayToolbar } from '../components/overlay-toolbar/OverlayToolbar'
-import { NodeA } from 'libs/modules/graph/src/core/domain/node/Node'
+import { NodeA } from '../interfaces'
 
 export const HOVER_OVERLAY_ID = 'hoverOverlay'
 

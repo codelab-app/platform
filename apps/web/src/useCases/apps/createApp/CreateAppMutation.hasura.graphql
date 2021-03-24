@@ -1,5 +1,5 @@
-mutation CreateApp($input: apps_insert_input!) {
-    insert_apps_one(object: $input){
+mutation CreateApp($input: app_insert_input!) {
+    insert_app_one(object: $input){
         id
     }
 }

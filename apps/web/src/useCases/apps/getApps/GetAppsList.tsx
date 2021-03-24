@@ -20,10 +20,12 @@ export const GetAppsList = () => {
   const { openCreateAppModal } = useCreateAppModal()
   const { openEditAppModal } = useEditAppModal()
 
+  const appList = data?.app
+
   return (
     <>
       {loading && <Spin />}
-      {!loading && (!data?.apps || !data?.apps.length) ? (
+      {!loading && (!appList || !appList.length) ? (
         <Empty
           imageStyle={{
             height: 60,
@@ -36,7 +38,7 @@ export const GetAppsList = () => {
         </Empty>
       ) : null}
       <Row gutter={[padding.sm, padding.sm]}>
-        {data?.apps?.map((app) => (
+        {appList?.map((app) => (
           <Col key={app.id} {...threeGridCol}>
             <GetAppsItem
               app={app}
