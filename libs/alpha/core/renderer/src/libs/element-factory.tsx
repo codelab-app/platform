@@ -60,16 +60,8 @@ import {
   Upload,
 } from 'antd'
 import React from 'react'
-import { propsFilter, withFilters } from '@codelab/alpha/core/props'
-import {
-  ElementParameters,
-  NodeA,
-  NodeFactory,
-  NodeType,
-} from '@codelab/alpha/shared/interface/node'
 import { Props } from '@codelab/alpha/shared/interface/props'
 import {
-  Button as ButtonTypes,
   CodelabForm,
   CodelabHtml,
   CodelabMapper,
@@ -78,214 +70,209 @@ import {
   RGL,
   RenderComponent,
 } from '@codelab/alpha/ui/antd'
+import { AtomType, NodeA } from '@codelab/frontend'
 
-export const elementParameterFactory: NodeFactory<
-  ElementParameters<Props>,
-  NodeA
-> = <P extends Props>(node: NodeA) => {
+export const elementParameterFactory = <P extends Props>(node: NodeA) => {
   const { type, props } = node
 
   switch (type) {
-    case NodeType.React_Fragment:
+    case AtomType.ReactFragment:
       return [React.Fragment, props]
-    case NodeType.React_Html_Div:
+    case AtomType.ReactHtmlDiv:
       return ['div', props]
-    case NodeType.React_Html_P:
+    case AtomType.ReactHtmlP:
       return ['p', props]
-    case NodeType.React_Html_A:
+    case AtomType.ReactHtmlA:
       return ['a', props]
-    case NodeType.React_Html_Span:
+    case AtomType.ReactHtmlSpan:
       return ['span', props]
-    case NodeType.React_Text:
+    case AtomType.ReactText:
       return [CodelabHtml.Text as any, props]
-    case NodeType.React_Icon:
+    case AtomType.ReactIcon:
       return [Icon as any, props]
-    case NodeType.React_Menu:
+    case AtomType.ReactMenu:
       return [Menu as any, props]
-    case NodeType.React_Menu_Item:
+    case AtomType.ReactMenuItem:
       return [Menu.Item as any, props]
-    case NodeType.React_Menu_ItemGroup:
+    case AtomType.ReactMenuItemGroup:
       return [Menu.ItemGroup as any, props]
-    case NodeType.React_Menu_SubMenu:
+    case AtomType.ReactMenuSubMenu:
       return [Menu.SubMenu as any, props]
-    case NodeType.React_Card:
+    case AtomType.ReactCard:
       return [Card, props]
-    case NodeType.React_Card_Grid:
+    case AtomType.ReactCardGrid:
       return [Card.Grid, props]
-    case NodeType.React_Card_Meta:
+    case AtomType.ReactCardMeta:
       return [Card.Meta, props]
-    case NodeType.React_Typography:
+    case AtomType.ReactTypography:
       return [Typography as any, props]
-    case NodeType.React_Typography_Title:
+    case AtomType.ReactTypographyTitle:
       return [Typography.Title as any, props]
-    case NodeType.React_Typography_Text:
+    case AtomType.ReactTypographyText:
       return [Typography.Text as any, props]
-    case NodeType.React_Typography_Paragraph:
+    case AtomType.ReactTypographyParagraph:
       return [Typography.Paragraph as any, props]
-    case NodeType.React_Alert:
+    case AtomType.ReactAlert:
       return [Alert as any, props]
-    case NodeType.React_Affix:
+    case AtomType.ReactAffix:
       return [Affix as any, props]
-    case NodeType.React_AutoComplete:
+    case AtomType.ReactAutoComplete:
       return [AutoComplete as any, props]
-    case NodeType.React_Button:
-      return [
-        withFilters(propsFilter([...ButtonTypes.propKeys]), Button),
-        props,
-      ]
-    case NodeType.React_Breadcrumb:
+    case AtomType.ReactButton:
+      return [Button, props]
+    case AtomType.ReactBreadcrumb:
       return [Breadcrumb as any, props]
-    case NodeType.React_Breadcrumb_Item:
+    case AtomType.ReactBreadcrumbItem:
       return [Breadcrumb.Item as any, props]
-    case NodeType.React_Dropdown:
+    case AtomType.ReactDropdown:
       return [Dropdown as any, props]
-    case NodeType.React_Form:
+    case AtomType.ReactForm:
       return [Form, props]
-    case NodeType.React_Form_Item:
+    case AtomType.ReactFormItem:
       return [Form.Item as any, props]
-    case NodeType.React_Form_List:
+    case AtomType.ReactFormList:
       return [CodelabForm.List as any, props]
-    case NodeType.React_Form_ItemHook:
+    case AtomType.ReactFormItemHook:
       return [CodelabForm.ItemHook as any, props]
-    case NodeType.React_Checkbox:
+    case AtomType.ReactCheckbox:
       return [Checkbox as any, props]
-    case NodeType.React_Input: // can't have children
+    case AtomType.ReactInput: // can't have children
       return [Input as any, props]
-    case NodeType.React_InputNumber:
+    case AtomType.ReactInputNumber:
       return [InputNumber as any, props]
-    case NodeType.React_Select:
+    case AtomType.ReactSelect:
       return [Select as any, props]
-    case NodeType.React_Select_Option:
+    case AtomType.ReactSelectOption:
       return [Select.Option as any, props]
-    case NodeType.React_ResponsiveGrid:
+    case AtomType.ReactRglResponsiveContainer:
       return [RGL.ResponsiveContainer, props]
-    case NodeType.React_Grid:
+    case AtomType.ReactRglContainer:
       return [RGL.Container, props]
-    case NodeType.React_Provider:
+    case AtomType.ReactProvider:
       return [Provider.Default, props]
-    case NodeType.React_Modal:
+    case AtomType.ReactModal:
       return [Modal as any, props]
-    case NodeType.React_Radio_Group:
+    case AtomType.ReactRadioGroup:
       return [Radio.Group as any, props]
-    case NodeType.React_Radio:
+    case AtomType.ReactRadio:
       return [Radio as any, props]
-    case NodeType.React_Rate:
+    case AtomType.ReactRate:
       return [Rate as any, props]
-    case NodeType.React_Slider:
+    case AtomType.ReactSlider:
       return [Slider as any, props]
-    case NodeType.React_Switch:
+    case AtomType.ReactSwitch:
       return [Switch as any, props]
-    case NodeType.React_Space:
+    case AtomType.ReactSpace:
       return [Space as any, props]
-    case NodeType.React_DatePicker:
+    case AtomType.ReactDatePicker:
       return [DatePicker as any, props]
-    case NodeType.React_Divider:
+    case AtomType.ReactDivider:
       return [Divider as any, props]
-    case NodeType.React_Pagination:
+    case AtomType.ReactPagination:
       return [Pagination as any, props]
-    case NodeType.React_PageHeader:
+    case AtomType.ReactPageHeader:
       return [PageHeader as any, props]
-    case NodeType.React_Badge:
+    case AtomType.ReactBadge:
       return [Badge as any, props]
-    case NodeType.React_Avatar:
+    case AtomType.ReactAvatar:
       return [Avatar as any, props]
-    case NodeType.React_Comment:
+    case AtomType.ReactComment:
       return [Comment as any, props]
-    case NodeType.React_Calendar:
+    case AtomType.ReactCalendar:
       return [Calendar as any, props]
-    case NodeType.React_Descriptions:
+    case AtomType.ReactDescriptions:
       return [Descriptions as any, props]
-    case NodeType.React_Descriptions_Item:
+    case AtomType.ReactDescriptionsItem:
       return [Descriptions.Item as any, props]
-    case NodeType.React_Empty:
+    case AtomType.ReactEmpty:
       return [Empty as any, props]
-    case NodeType.React_Timeline:
+    case AtomType.ReactTimeline:
       return [Timeline as any, props]
-    case NodeType.React_Timeline_Item:
+    case AtomType.ReactTimelineItem:
       return [Timeline.Item as any, props]
-    case NodeType.React_Tabs:
+    case AtomType.ReactTabs:
       return [Tabs as any, props]
-    case NodeType.React_Tabs_TabPane:
+    case AtomType.ReactTabsTabPane:
       return [Tabs.TabPane as any, props]
-    case NodeType.React_Statistic:
+    case AtomType.ReactStatistic:
       return [Statistic as any, props]
-    case NodeType.React_Tooltip:
+    case AtomType.ReactTooltip:
       return [Tooltip as any, props]
-    case NodeType.React_Tag:
+    case AtomType.ReactTag:
       return [Tag as any, props]
-    case NodeType.React_Tree:
+    case AtomType.ReactTree:
       return [Tree as any, props]
-    case NodeType.React_Drawer:
+    case AtomType.ReactDrawer:
       return [Drawer as any, props]
-    case NodeType.React_Progress:
+    case AtomType.ReactProgress:
       return [Progress as any, props]
-    case NodeType.React_Result:
+    case AtomType.ReactResult:
       return [Result as any, props]
-    case NodeType.React_Spin:
+    case AtomType.ReactSpin:
       return [Spin as any, props]
-    case NodeType.React_Skeleton:
+    case AtomType.ReactSkeleton:
       return [Skeleton as any, props]
-    case NodeType.React_Anchor:
+    case AtomType.ReactAnchor:
       return [Anchor as any, props]
-    case NodeType.React_Anchor_Link:
+    case AtomType.ReactAnchorLink:
       return [Anchor.Link as any, props]
-    case NodeType.React_BackTop:
+    case AtomType.ReactBackTop:
       return [BackTop as any, props]
-    case NodeType.React_ConfigProvider:
+    case AtomType.ReactConfigProvider:
       return [ConfigProvider as any, props]
-    case NodeType.React_Popconfirm:
+    case AtomType.ReactPopconfirm:
       return [Popconfirm as any, props]
-    case NodeType.React_Transfer:
+    case AtomType.ReactTransfer:
       return [Transfer as any, props]
-    case NodeType.React_TreeSelect:
+    case AtomType.ReactTreeSelect:
       return [TreeSelect as any, props]
-    case NodeType.React_TreeNode:
+    case AtomType.ReactTreeNode:
       return [TreeSelect.TreeNode as any, props]
-    case NodeType.React_TimePicker:
+    case AtomType.ReactTimePicker:
       return [TimePicker as any, props]
-    case NodeType.React_Upload:
+    case AtomType.ReactUpload:
       return [Upload as any, props]
-    case NodeType.React_Steps:
+    case AtomType.ReactSteps:
       return [Steps as any, props]
-    case NodeType.React_Steps_Step:
+    case AtomType.ReactStepsStep:
       return [Steps.Step as any, props]
-    case NodeType.React_Collapse:
+    case AtomType.ReactCollapse:
       return [Collapse as any, props]
-    case NodeType.React_Collapse_Panel:
+    case AtomType.ReactCollapsePanel:
       return [Collapse.Panel as any, props]
-    case NodeType.React_Carousel:
+    case AtomType.ReactCarousel:
       return [Carousel as any, props]
-    case NodeType.React_List:
+    case AtomType.ReactList:
       return [List as any, props]
-    case NodeType.React_List_Item:
+    case AtomType.ReactListItem:
       return [List.Item as any, props]
-    case NodeType.React_List_Item_Meta:
+    case AtomType.ReactListItemMeta:
       return [List.Item.Meta as any, props]
-    case NodeType.React_Mentions:
+    case AtomType.ReactMentions:
       return [Mentions as any, props]
-    case NodeType.React_Mentions_Option:
+    case AtomType.ReactMentionsOption:
       return [Mentions.Option as any, props]
-    case NodeType.React_Layout:
+    case AtomType.ReactLayout:
       return [Layout as any, props]
-    case NodeType.React_Layout_Header:
+    case AtomType.ReactLayoutHeader:
       return [Layout.Header as any, props]
-    case NodeType.React_Layout_Sider:
+    case AtomType.ReactLayoutSider:
       return [Layout.Sider as any, props]
-    case NodeType.React_Layout_Content:
+    case AtomType.ReactLayoutContent:
       return [Layout.Content as any, props]
-    case NodeType.React_Layout_Footer:
+    case AtomType.ReactLayoutFooter:
       return [Layout.Footer as any, props]
-    case NodeType.React_Cascader:
+    case AtomType.ReactCascader:
       return [Cascader as any, props]
-    case NodeType.React_Popover:
+    case AtomType.ReactPopover:
       return [Popover as any, props]
-    case NodeType.React_Table:
+    case AtomType.ReactTable:
       return [CodelabTable.Default as any, props]
-    case NodeType.React_RenderComponent:
+    case AtomType.ReactRenderComponent:
       return [RenderComponent.Default as any, props]
-    case NodeType.React_RenderContainer:
+    case AtomType.ReactRenderContainer:
       return [RenderComponent.Container as any, props]
-    case NodeType.React_Mapper:
+    case AtomType.ReactMapper:
       return [CodelabMapper.Default as any, props]
     default:
       throw new Error('Missing element in ElementFactory')

@@ -1,6 +1,6 @@
 module.exports = {
   projects: [
-    '<rootDir>/apps/api/codelab',
+    '<rootDir>/apps/api',
     '<rootDir>/apps/web',
     '<rootDir>/libs/alpha/core/graph',
     '<rootDir>/libs/alpha/core/node',
@@ -13,6 +13,9 @@ module.exports = {
     '<rootDir>/libs/backend',
     '<rootDir>/libs/frontend',
     '<rootDir>/libs/tools/eslint-config-codelab',
-    '<rootDir>/libs/modules/function',
+    '<rootDir>/libs/alpha/shared/interface/props',
+    '<rootDir>/libs/alpha/shared/interface/graph',
+    '<rootDir>/libs/alpha/shared/interface/node',
+    '<rootDir>/libs/alpha/shared/interface/tree',
   ],
 }

@@ -4,8 +4,8 @@ import {
   Graph as GraphInterface,
   GraphProps,
 } from '@codelab/alpha/shared/interface/graph'
-import { NodeA } from '@codelab/alpha/shared/interface/node'
 import { D3GraphProps } from '@codelab/alpha/ui/d3'
+import { NodeA } from '@codelab/frontend'
 
 export class Graph implements GraphInterface {
   vertices: Array<Vertex> = []

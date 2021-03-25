@@ -9,24 +9,20 @@ import {
   propsMapGetter,
   propsRemoveSingle,
 } from '@codelab/alpha/core/props'
-import {
-  HasChildren,
-  Node,
-  NodeCreate,
-  NodeType,
-} from '@codelab/alpha/shared/interface/node'
+import { HasChildren, Node } from '@codelab/alpha/shared/interface/node'
 import { Props } from '@codelab/alpha/shared/interface/props'
+import { AtomType, NodeI } from '@codelab/frontend'
 
 /**
  * Node is instantiated during Tree traversal
  */
-export class NodeEntity<T extends NodeType = NodeType, P extends Props = any>
+export class NodeEntity<T extends AtomType = AtomType, P extends Props = any>
   implements Node<T, P> {
   public Component: ReactElement<any> = React.createElement('')
 
   public id: string
 
-  public type: T
+  public type: AtomType
 
   public parent?: Node<T, P>
 
@@ -36,21 +32,15 @@ export class NodeEntity<T extends NodeType = NodeType, P extends Props = any>
   public props: P
 
   /**
-   * The class Node & the codec Node should be kept separate. Node is the container for behavior, while codec Node holds the shape of the data
-   */
-  public data: NodeCreate<T, P>
-
-  /**
    * Can take just ID, but fills out other fields
    */
-  constructor(node: NodeCreate<T, P>) {
+  constructor(node: NodeI) {
     const { props, id, type } = node
 
-    if (type === undefined || type === null || !(type in NodeType)) {
+    if (type === undefined || type === null || !(type in AtomType)) {
       throw new Error(`${type} is not a valid Node type`)
     }
 
-    this.data = node
     this.type = type
     this.props = (props ?? {}) as P
     this.id = id ?? uuidv4()

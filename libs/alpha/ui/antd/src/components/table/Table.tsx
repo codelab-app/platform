@@ -1,15 +1,7 @@
 import { Table as AntTable } from 'antd'
 import { TableProps as AntTableProps } from 'antd/lib/table'
 import React from 'react'
-import { NodeI } from '@codelab/frontend'
-
-export const isReactNode = (node: NodeI): node is NodeI => {
-  if (typeof node?.type !== 'string') {
-    return false
-  }
-
-  return node?.type.includes('React_')
-}
+import { isReactNode } from '@codelab/alpha/core/node'
 
 export type TableProps<RecordType = any> = AntTableProps<RecordType>
 

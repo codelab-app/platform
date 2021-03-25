@@ -1,11 +1,14 @@
 import { findNode } from './tree-factory'
 import { NodeEntity } from '@codelab/alpha/core/node'
-import { NodeType } from '@codelab/alpha/shared/interface/node'
+import { AtomType } from '@codelab/frontend'
 
 describe('Node', () => {
   it('can add a child', () => {
-    const parent = new NodeEntity({ id: 'parent', type: NodeType.Tree })
-    const child = new NodeEntity({ id: 'child', type: NodeType.Tree })
+    const parent = new NodeEntity({
+      id: 'parent',
+      type: AtomType.ReactFragment,
+    })
+    const child = new NodeEntity({ id: 'child', type: AtomType.ReactFragment })
 
     expect(parent.hasChildren()).toBeFalsy()
 
@@ -19,11 +22,14 @@ describe('Node', () => {
   })
 
   it('can add a second child', () => {
-    const parent = new NodeEntity({ id: 'parent', type: NodeType.Tree })
-    const child = new NodeEntity({ id: 'child', type: NodeType.Tree })
+    const parent = new NodeEntity({
+      id: 'parent',
+      type: AtomType.ReactFragment,
+    })
+    const child = new NodeEntity({ id: 'child', type: AtomType.ReactFragment })
     const secondChild = new NodeEntity({
       id: 'secondChild',
-      type: NodeType.Tree,
+      type: AtomType.ReactFragment,
     })
 
     parent.addChild(child)
@@ -35,13 +41,19 @@ describe('Node', () => {
   })
 
   it('can find a node', () => {
-    const parent = new NodeEntity({ id: 'parent', type: NodeType.Tree })
-    const child = new NodeEntity({ id: 'child', type: NodeType.Tree })
+    const parent = new NodeEntity({
+      id: 'parent',
+      type: AtomType.ReactFragment,
+    })
+    const child = new NodeEntity({ id: 'child', type: AtomType.ReactFragment })
     const secondChild = new NodeEntity({
       id: 'secondChild',
-      type: NodeType.Tree,
+      type: AtomType.ReactFragment,
     })
-    const grandChild = new NodeEntity({ id: 'grandChild', type: NodeType.Tree })
+    const grandChild = new NodeEntity({
+      id: 'grandChild',
+      type: AtomType.ReactFragment,
+    })
 
     parent.addChild(child)
     parent.addChild(secondChild)

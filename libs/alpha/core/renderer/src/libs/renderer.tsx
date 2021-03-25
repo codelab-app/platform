@@ -1,5 +1,5 @@
 import { buildComponents } from './renderer-components'
-import { NodeI } from '@codelab/alpha/shared/interface/node'
+import { NodeI } from '@codelab/frontend'
 
 export class Renderer {
   static components<P>(data: NodeI) {

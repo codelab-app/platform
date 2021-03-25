@@ -1,6 +1,6 @@
-import { Edge as EdgeInterface, Vertex } from '@codelab/alpha/shared/interface/graph'
+import { Vertex } from '@codelab/alpha/shared/interface/graph'
 
-export class Edge implements EdgeInterface {
+export class Edge {
   id: string
 
   start: Vertex

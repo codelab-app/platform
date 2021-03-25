@@ -6,7 +6,8 @@ import { elementParameterFactory } from './element-factory'
 import { NodeEntity } from '@codelab/alpha/core/node'
 import { traversePostOrder } from '@codelab/alpha/core/traversal'
 import { makeTree } from '@codelab/alpha/core/tree'
-import { NodeFactory, NodeI } from '@codelab/alpha/shared/interface/node'
+import { NodeFactory } from '@codelab/alpha/shared/interface/node'
+import { NodeI } from '@codelab/frontend'
 
 export const buildComponents = <P extends {} = {}>(
   data: NodeI,

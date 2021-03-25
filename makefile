@@ -130,8 +130,6 @@ integration-dev-affected:
 	--runInBand
 
 integration-ci:
-	npx cross-env PRISMA_DATABASE_URL=TEST_PRISMA_DATABASE_URL && \
-	yarn prisma:reset && \
 	npx nx run-many \
 	--target=test \
 	--testPathPattern=i.spec.ts \

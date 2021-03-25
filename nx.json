@@ -34,6 +34,10 @@
     "alpha-ui-d3": { "tags": [] },
     "backend": { "tags": [] },
     "frontend": { "tags": [] },
-    "api": { "tags": [] }
+    "api": { "tags": [] },
+    "alpha-shared-interface-props": { "tags": [] },
+    "alpha-shared-interface-graph": { "tags": [] },
+    "alpha-shared-interface-node": { "tags": [] },
+    "alpha-shared-interface-tree": { "tags": [] }
   }
 }

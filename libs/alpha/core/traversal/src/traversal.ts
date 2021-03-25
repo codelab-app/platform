@@ -11,12 +11,12 @@
 import { reduce } from 'lodash'
 // eslint-disable-next-line import/no-cycle
 import { NodeEntity } from '@codelab/alpha/core/node'
-import { NodeA, NodeI } from '@codelab/alpha/shared/interface/node'
 import {
   NodeIteratee,
   TraversalIteratee,
   TreeSubTreeAcc,
 } from '@codelab/alpha/shared/interface/tree'
+import { NodeA, NodeI } from '@codelab/frontend'
 
 /**
  * Function should traverse each node, then apply a callback function with arguments passed from the reducer

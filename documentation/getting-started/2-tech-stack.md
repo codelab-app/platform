@@ -2,6 +2,13 @@
 
 [Back](../../README.md)
 
+## Cloud
+
+- [Hasura](https://cloud.hasura.io/project/0eca083b-e795-4117-840f-23879a100cc0/console)
+- [Auth0](https://manage.auth0.com/dashboard/us/codelab-ai)
+  - https://hasura.io/docs/latest/graphql/core/guides/integrations/auth0-jwt.html
+- [Lucid Chart](https://lucid.app/folder/invitations/accept/e364108a-7230-493e-ae75-01aca319b47a)
+
 ## Build
 
 - [NX](https://nx.dev/react)
@@ -24,8 +31,6 @@
 <!-- - [TypeOrm](https://typeorm.io)
   - Typescript based -->
 
-- [Prisma](https://prisma.io)
-- ORM layer
 - [Nest.js](https://nestjs.com)
   - A Node.js framework suitable for micro-services architecture, which heavily uses OOP principles such as dependency injection (DI)
 
@@ -43,8 +48,8 @@
 - [Cypress](https://www.cypress.io)
   - E2e testing framework
 
-## Logging
+<!-- ## Logging
 
 - [Winston]()
 - [Fluentd]()
-- [Kibana]()
+- [Kibana]() -->

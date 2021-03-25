@@ -4,4 +4,3 @@ dist
 .next
 yarn-error.log
 yarn.lock
-**/*.prisma

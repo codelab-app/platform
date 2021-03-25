@@ -4,7 +4,7 @@ exit_after_auth = true
 auto_auth {
   method "approle" {
     config = {
-      role_id_file_path = "/tmp//role-id"
+      role_id_file_path = "/tmp/role-id"
       secret_id_file_path = "/tmp/secret-id"
     }
   }

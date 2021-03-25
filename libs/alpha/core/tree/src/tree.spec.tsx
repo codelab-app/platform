@@ -4,7 +4,8 @@ import { findNode, makeGraph, makeTree } from './tree-factory'
 import { treeMap } from './tree-map'
 import { Edge, Vertex } from '@codelab/alpha/core/graph'
 import { NodeEntity } from '@codelab/alpha/core/node'
-import { Mapper, NodeI, NodeType } from '@codelab/alpha/shared/interface/node'
+import { Mapper } from '@codelab/alpha/shared/interface/node'
+import { NodeI } from '@codelab/frontend'
 
 describe('Tree', () => {
   it('can build a tree from json', () => {
@@ -86,22 +87,21 @@ describe('Tree', () => {
   })
 
   it('returns the root node with properties set', () => {
-    const data: NodeI = {
+    const data: any = {
       id: 'A',
-      type: NodeType.Tree,
+      type: 'Tree',
       children: [
         {
           id: 'B',
-          type: NodeType.Tree,
+          type: 'Tree',
         },
-        { id: 'C', type: NodeType.Tree },
+        { id: 'C', type: 'Tree' },
       ],
     }
     const node = makeTree(data)
 
     expect(node.id).toBe('A')
     expect(node.props).toStrictEqual({})
-    expect(NodeType[node.type]).toBe('Tree')
   })
 
   // it('sets unique id by default', () => {

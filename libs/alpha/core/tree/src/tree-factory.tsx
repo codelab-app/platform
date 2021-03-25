@@ -11,17 +11,13 @@ import {
   treeAppenderIteratee,
   treeWalker,
 } from '@codelab/alpha/core/traversal'
-import {
-  NodeA,
-  NodeI,
-  assertsID,
-  assertsNodeA,
-} from '@codelab/alpha/shared/interface/node'
+import { assertsID, assertsNodeA } from '@codelab/alpha/shared/interface/node'
 import {
   GraphSubTreeAcc,
   NodeFinderAcc,
   TreeSubTreeAcc,
 } from '@codelab/alpha/shared/interface/tree'
+import { NodeA, NodeI } from '@codelab/frontend'
 
 /**
  * This method generates a non-binary tree given JSON input. Each input node is
@@ -62,38 +58,8 @@ export const makeGraph = (data: NodeI): Graph => {
       graph: new Graph(),
     },
     data,
-  ).graph
+  ).graph as any
 }
-
-/**
- * traversePostOrder doesn't allow us to use acc, so we reduce and build from bottom up. Since we won't need to worry about branching order for Models, we can do this.
- *
- * In this case we need to build from bottom up, so calling reduce here works by building the children first.
- *
- * Ideally we can add a traverse
- */
-// export const makeModel2 = (input: NodeI) => {
-//   const root = makeTree(input)
-
-//   return traversePostOrderReducer({})(modelCreationIteratee, root)
-// }
-
-/**
- * Alternative implementation
- */
-// export const makeModel = (input: NodeI) => {
-//   const root = new NodeEntity(input)
-
-//   const acc = reduce(
-//     input.children,
-//     treeWalker<NodeI, ModelAcc>(modelCreationIteratee, root),
-//     {},
-//   )
-
-//   /* We need to call iteratee here because treeWalker doesn't apply the iteratee on the root. This way we process the root node as well.
-//    */
-//   return modelCreationIteratee(acc, root)
-// }
 
 /**
  *
@@ -126,21 +92,32 @@ export const findNode = (
   ).found
 }
 
-// export const fromNodes = <P extends Props = any>(
-//   inputNodes: Array<Node>,
-// ): Node => {
-//   const nodes = inputNodes.map((inputNode) => new Node(inputNode))
+/**
+ * traversePostOrder doesn't allow us to use acc, so we reduce and build from bottom up. Since we won't need to worry about branching order for Models, we can do this.
+ *
+ * In this case we need to build from bottom up, so calling reduce here works by building the children first.
+ *
+ * Ideally we can add a traverse
+ */
+// export const makeModel2 = (input: NodeI) => {
+//   const root = makeTree(input)
 
-//   return new Node()
-//   // const root = new Node(input)
-//   // const subTreeAcc = {
-//   //   subTree: root,
-//   //   prev: root,
-//   //   parent: root,
-//   // }
-//   // return reduce<DTONode, TreeAcc>(
-//   //   root.dto.children,
-//   //   treeWalker<TreeAcc, DTONode>(root.dto, treeAppenderIteratee),
-//   //   subTreeAcc,
-//   // ).subTree
+//   return traversePostOrderReducer({})(modelCreationIteratee, root)
+// }
+
+/**
+ * Alternative implementation
+ */
+// export const makeModel = (input: NodeI) => {
+//   const root = new NodeEntity(input)
+
+//   const acc = reduce(
+//     input.children,
+//     treeWalker<NodeI, ModelAcc>(modelCreationIteratee, root),
+//     {},
+//   )
+
+//   /* We need to call iteratee here because treeWalker doesn't apply the iteratee on the root. This way we process the root node as well.
+//    */
+//   return modelCreationIteratee(acc, root)
 // }

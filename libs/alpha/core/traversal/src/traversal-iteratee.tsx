@@ -2,18 +2,14 @@
  * These callbacks are executed when visiting each Node during Tree traversal
  */
 import { NodeEntity } from '@codelab/alpha/core/node'
-import {
-  Node,
-  NodeA,
-  NodeI,
-  assertsNode,
-} from '@codelab/alpha/shared/interface/node'
+import { Node, assertsNode } from '@codelab/alpha/shared/interface/node'
 import {
   GraphSubTreeAcc,
   NodeFinderAcc,
   TraversalIteratee,
   TreeSubTreeAcc,
 } from '@codelab/alpha/shared/interface/tree'
+import { NodeA, NodeI } from '@codelab/frontend'
 
 export const nodeFinderIteratee = (
   { id, parent, found }: NodeFinderAcc<NodeA>,

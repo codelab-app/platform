@@ -4,7 +4,7 @@ import {
   traversePostOrder,
   traversePostOrderReducer,
 } from '@codelab/alpha/core/traversal'
-import { NodeA } from '@codelab/alpha/shared/interface/node'
+import { NodeA } from '@codelab/frontend'
 
 describe('Node traversal', () => {
   it('can traverse post order', () => {

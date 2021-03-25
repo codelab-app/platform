@@ -1,6 +1,6 @@
 import { NodeEntity } from '../entity/node-entity'
 import { NodeFactory } from './node-factory'
-import { NodeCreate, NodeType } from '@codelab/alpha/shared/interface/node'
+import { AtomType } from '@codelab/frontend'
 
 describe('Node Factory:', () => {
   describe('Node Entity from a create DTO', () => {
@@ -8,16 +8,16 @@ describe('Node Factory:', () => {
     const factory = new NodeFactory()
 
     describe('with given values', () => {
-      const nodeDto: NodeCreate = {
+      const nodeDto = {
         id: 'node-id',
-        type: NodeType.React_Button,
+        type: AtomType.ReactButton,
         props: {
           a: 'A',
           b: 'B',
         },
         children: [
           {
-            type: NodeType.React_Text,
+            type: AtomType.ReactText,
           },
         ],
       }

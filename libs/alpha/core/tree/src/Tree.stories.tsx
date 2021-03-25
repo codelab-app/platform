@@ -10,7 +10,7 @@ export default {
 }
 
 export const Tree = () => {
-  const nodeTree = makeTree(componentData)
+  const nodeTree = makeTree(componentData as any)
 
   console.log(nodeTree)
 
@@ -30,7 +30,7 @@ export const Tree = () => {
 }
 
 export const Graph = () => {
-  const nodeGraph = makeGraph(componentData)
+  const nodeGraph = makeGraph(componentData as any)
   const { nodes, links } = nodeGraph.D3Graph
 
   return <D3Graph nodes={nodes} links={links} />

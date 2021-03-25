@@ -1,13 +1,10 @@
-import {
-  Vertex as IVertex,
-  VertexProps,
-} from '@codelab/alpha/shared/interface/graph'
-import { NodeA } from '@codelab/alpha/shared/interface/node'
+import { Vertex as IVertex } from '@codelab/alpha/shared/interface/graph'
+import { NodeA } from '@codelab/frontend'
 
 export class Vertex implements IVertex {
   id: string
 
-  constructor(props: VertexProps) {
+  constructor(props: Vertex) {
     const { id } = props
 
     this.id = id

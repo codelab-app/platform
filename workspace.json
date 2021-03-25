@@ -875,6 +875,98 @@
           "outputs": ["coverage/apps/api"]
         }
       }
+    },
+    "alpha-shared-interface-props": {
+      "root": "libs/alpha/shared/interface/props",
+      "sourceRoot": "libs/alpha/shared/interface/props/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/alpha/shared/interface/props/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/alpha/shared/interface/props"],
+          "options": {
+            "jestConfig": "libs/alpha/shared/interface/props/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "alpha-shared-interface-graph": {
+      "root": "libs/alpha/shared/interface/graph",
+      "sourceRoot": "libs/alpha/shared/interface/graph/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/alpha/shared/interface/graph/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/alpha/shared/interface/graph"],
+          "options": {
+            "jestConfig": "libs/alpha/shared/interface/graph/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "alpha-shared-interface-node": {
+      "root": "libs/alpha/shared/interface/node",
+      "sourceRoot": "libs/alpha/shared/interface/node/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/alpha/shared/interface/node/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/alpha/shared/interface/node"],
+          "options": {
+            "jestConfig": "libs/alpha/shared/interface/node/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "alpha-shared-interface-tree": {
+      "root": "libs/alpha/shared/interface/tree",
+      "sourceRoot": "libs/alpha/shared/interface/tree/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/alpha/shared/interface/tree/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/alpha/shared/interface/tree"],
+          "options": {
+            "jestConfig": "libs/alpha/shared/interface/tree/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   }
 }

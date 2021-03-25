@@ -1,38 +1,37 @@
-import { NodeI, NodeType } from '@codelab/alpha/shared/interface/node'
 /**
  * No type because type doesn't exist on build tree
  */
-export const treeDataWithLabel: NodeI = {
+export const treeDataWithLabel = {
   id: 'Root',
-  type: NodeType.Tree,
+  type: 'Tree',
   props: {
     label: 'Root',
   },
   children: [
     {
       id: 'A',
-      type: NodeType.Tree,
+      type: 'Tree',
       props: {
         label: 'A',
       },
       children: [
         {
           id: 'B',
-          type: NodeType.Tree,
+          type: 'Tree',
           props: {
             label: 'B',
           },
           children: [
             {
               id: 'C',
-              type: NodeType.Tree,
+              type: 'Tree',
               props: {
                 label: 'C',
               },
             },
             {
               id: 'D',
-              type: NodeType.Tree,
+              type: 'Tree',
               props: {
                 label: 'D',
               },
@@ -43,28 +42,28 @@ export const treeDataWithLabel: NodeI = {
     },
     {
       id: 'E',
-      type: NodeType.Tree,
+      type: 'Tree',
       props: {
         label: 'E',
       },
       children: [
         {
           id: 'F',
-          type: NodeType.Tree,
+          type: 'Tree',
           props: {
             label: 'F',
           },
         },
         {
           id: 'G',
-          type: NodeType.Tree,
+          type: 'Tree',
           props: {
             label: 'G',
           },
         },
         {
           id: 'H',
-          type: NodeType.Tree,
+          type: 'Tree',
           props: {
             label: 'H',
           },
