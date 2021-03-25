@@ -52,7 +52,7 @@ export class AwsS3Service extends S3Client {
 
     try {
       const putObjectCommand = new PutObjectCommand({
-        Bucket: `${this.bucketPrefix}-${lambda.appId}`,
+        Bucket: `${this.bucketPrefix}-${lambda.libraryId}`,
         Key: lambda.id,
         Body: zip.toBuffer(),
       })
