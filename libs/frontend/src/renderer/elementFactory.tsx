@@ -1,9 +1,10 @@
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+import { PaneConfigHandlersProps } from 'apps/web/src/pages/builder/pane-config/Pane-config--handlers'
 import React from 'react'
 import ReactTestUtils from 'react-dom/test-utils'
-import { PaneConfigHandlersProps } from '../../../../apps/web/src/pages/builder/pane-config/Pane-config--handlers'
 import { AtomType, NodeA } from '../interfaces'
 import { elementTypeMap } from './elementTypeMap'
-import { onResizeStop } from '@codelab/alpha/ui/antd'
+// import { onResizeStop } from '@codelab/alpha/ui/antd'
 
 interface ElementParameterFactoryInput<TNode extends NodeA = NodeA> {
   node: TNode
@@ -18,7 +19,7 @@ interface ElementParameterFactoryInput<TNode extends NodeA = NodeA> {
 export const elementsPropTransformers: {
   [K in AtomType]?: (
     input: ElementParameterFactoryInput & { props: Record<string, any> },
-  ) => object
+  ) => any
 } = {
   [AtomType.ReactRglItem]: ({ node, props }) => {
     // Currently the react-grid-layout library, for some reason, re-renders the layout
@@ -34,7 +35,7 @@ export const elementsPropTransformers: {
   },
   [AtomType.ReactRglResponsiveContainer]: ({ handlers, props }) => ({
     ...props,
-    onResizeStop: onResizeStop(handlers),
+    // onResizeStop: onResizeStop(handlers),
     style: {
       width: '200px',
       height: '200px',

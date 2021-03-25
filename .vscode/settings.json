@@ -11,9 +11,6 @@
   "[typescript][typescriptreact][javascript][javascriptreact]": {
     "editor.defaultFormatter": "dbaeumer.vscode-eslint"
   },
-  "[prisma]": {
-    "editor.defaultFormatter": "Prisma.prisma"
-  },
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "json.format.enable": true
 }

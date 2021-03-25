@@ -21,17 +21,8 @@
     }
   },
   "projects": {
-    "tools-eslint-config-codelab": { "tags": [] },
     "web": { "tags": [], "implicitDependencies": ["api"] },
     "web-e2e": { "tags": [], "implicitDependencies": ["web"] },
-    "alpha-core-graph": { "tags": [] },
-    "alpha-core-node": { "tags": [] },
-    "alpha-core-props": { "tags": [] },
-    "alpha-core-renderer": { "tags": [] },
-    "alpha-core-traversal": { "tags": [] },
-    "alpha-core-tree": { "tags": [] },
-    "alpha-ui-antd": { "tags": [] },
-    "alpha-ui-d3": { "tags": [] },
     "backend": { "tags": [] },
     "frontend": { "tags": [] },
     "api": { "tags": [] }

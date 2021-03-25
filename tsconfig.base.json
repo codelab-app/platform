@@ -12,36 +12,19 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "types": ["@rjsf/antd", "node", "jest", "object-mapper"],
+    "types": ["@rjsf/antd", "node", "jest"],
     "typeRoots": ["node_modules/@types", "types"],
     "lib": ["es2017", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@codelab/antd": ["libs/alpha/ui/antd/src/types.ts"],
       "@codelab/generated": ["libs/generated/src/index.ts"],
       "@codelab/tools-eslint-config-codelab": [
         "libs/tools/eslint-config-codelab/src/index.ts"
       ],
-      "@codelab/schematics": ["libs/tools/plugins/codelab/src/index.ts"],
-      "@codelab/api/prisma": ["libs/api/prisma/src/index.ts"],
-      "@codelab/alpha/core/graph": ["libs/alpha/core/graph/src/index.ts"],
-      "@codelab/alpha/core/node": ["libs/alpha/core/node/src/index.ts"],
-      "@codelab/alpha/core/props": ["libs/alpha/core/props/src/index.ts"],
-      "@codelab/alpha/core/renderer": ["libs/alpha/core/renderer/src/index.ts"],
-      "@codelab/alpha/core/traversal": [
-        "libs/alpha/core/traversal/src/index.ts"
-      ],
-      "@codelab/alpha/core/tree": ["libs/alpha/core/tree/src/index.ts"],
-      "@codelab/alpha/ui/antd": ["libs/alpha/ui/antd/src/index.ts"],
-      "@codelab/alpha/ui/d3": ["libs/alpha/ui/d3/src/index.ts"],
       "@codelab/backend": ["libs/backend/src/index"],
-      "@codelab/frontend": ["libs/frontend/src/index.ts"],
-      "@codelab/modules/notification-stories": [
-        "libs/modules/notification-stories/src/index.ts"
-      ],
-      "tools-plugins-test": ["libs/tools/plugins/test/src/index.ts"]
+      "@codelab/frontend": ["libs/frontend/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"]

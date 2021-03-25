@@ -5,8 +5,6 @@ const { get } = require('env-var')
 config({ path: './.env' })
 
 // Set env vars here
-process.env.PRISMA_DATABASE_URL = get('TEST_PRSIMA_DATABASE_URL')
-
 const { configure } = require('enzyme')
 const Adapter = require('enzyme-adapter-react-16')
 

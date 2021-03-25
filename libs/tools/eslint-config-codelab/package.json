@@ -1,8 +1,0 @@
-{
-  "name": "@codelab/eslint-config-codelab",
-  "version": "0.0.1",
-  "main": "src/index.js",
-  "dependencies": {
-    "js-yaml": "3.14.0"
-  }
-}
