@@ -58,7 +58,7 @@ export class AwsLambdaService extends LambdaClient {
 
   async updateFunction(lambda: Lambda) {
     const params: UpdateFunctionCodeRequest = {
-      S3Bucket: `${this.bucketPrefix}-${lambda.appId}`,
+      S3Bucket: `${this.bucketPrefix}-${lambda.libraryId}`,
       S3Key: lambda.id,
       FunctionName: lambda.id,
     }
