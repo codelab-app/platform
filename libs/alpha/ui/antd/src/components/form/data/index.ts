@@ -1,5 +1,0 @@
-export * from './Form-1--default.data'
-export * from './Form-2--object.data'
-export * from './Form-3--condition.data'
-export * from './Form-4--node.data'
-export * from './Form-5--hooks.data'

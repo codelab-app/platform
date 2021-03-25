@@ -12,7 +12,7 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "types": ["@rjsf/antd", "node", "jest", "object-mapper"],
+    "types": ["@rjsf/antd", "node", "jest"],
     "typeRoots": ["node_modules/@types", "types"],
     "lib": ["es2017", "dom"],
     "skipLibCheck": true,
@@ -23,30 +23,8 @@
       "@codelab/tools-eslint-config-codelab": [
         "libs/tools/eslint-config-codelab/src/index.ts"
       ],
-      "@codelab/alpha/core/graph": ["libs/alpha/core/graph/src/index.ts"],
-      "@codelab/alpha/core/node": ["libs/alpha/core/node/src/index.ts"],
-      "@codelab/alpha/core/props": ["libs/alpha/core/props/src/index.ts"],
-      "@codelab/alpha/core/renderer": ["libs/alpha/core/renderer/src/index.ts"],
-      "@codelab/alpha/core/traversal": [
-        "libs/alpha/core/traversal/src/index.ts"
-      ],
-      "@codelab/alpha/core/tree": ["libs/alpha/core/tree/src/index.ts"],
-      "@codelab/alpha/ui/antd": ["libs/alpha/ui/antd/src/index.ts"],
-      "@codelab/alpha/ui/d3": ["libs/alpha/ui/d3/src/index.ts"],
       "@codelab/backend": ["libs/backend/src/index"],
-      "@codelab/frontend": ["libs/frontend/src/index.ts"],
-      "@codelab/alpha/shared/interface/props": [
-        "libs/alpha/shared/interface/props/src/index.ts"
-      ],
-      "@codelab/alpha/shared/interface/graph": [
-        "libs/alpha/shared/interface/graph/src/index.ts"
-      ],
-      "@codelab/alpha/shared/interface/node": [
-        "libs/alpha/shared/interface/node/src/index.ts"
-      ],
-      "@codelab/alpha/shared/interface/tree": [
-        "libs/alpha/shared/interface/tree/src/index.ts"
-      ]
+      "@codelab/frontend": ["libs/frontend/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"]
