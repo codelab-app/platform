@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common'
-import { GraphqlModule } from '../../infrastructure'
 import { LoggerModule } from '../../infrastructure/logger/logger.module'
 import { testDatabaseConfig } from '../../infrastructure/persistence/config/DbConfig'
 import { ConfigModule } from './config.module'
@@ -7,7 +6,7 @@ import { ConfigModule } from './config.module'
 @Module({
   imports: [
     LoggerModule.forRoot(),
-    GraphqlModule,
+    // GraphqlModule,
     ConfigModule.register(testDatabaseConfig),
   ],
 })

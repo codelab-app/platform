@@ -89,7 +89,7 @@ e2e-dev:
 	npx concurrently \
   	--kill-others \
   	--success=first \
-		--names=web-e2e,api-codelab,web \
+		--names=web-e2e,api,web \
     	"npx wait-on \
 				http://localhost:3001 \
 				http://localhost:4001 && \
@@ -102,7 +102,7 @@ e2e-ci:
 	npx concurrently \
   	--kill-others \
   	--success=first \
-		--names=web-e2e,api-codelab,web \
+		--names=web-e2e,api,web \
     	"npx wait-on \
 				http://localhost:3001 \
 				http://localhost:4001 && \

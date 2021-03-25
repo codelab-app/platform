@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# nx serve api-codelab
+# nx serve api
 # nx run web:serve:ci
 
 npx concurrently \

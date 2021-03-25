@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common'
-import { GraphqlModule } from '../../infrastructure/graphql/GraphqlModule'
 import { LoggerModule } from '../../infrastructure/logger/logger.module'
 import { AwsModule } from '../../infrastructure/persistence/aws/AwsModule'
 import { databaseConfig } from '../../infrastructure/persistence/config/DbConfig'
@@ -9,7 +8,7 @@ import { ConfigModule } from './config.module'
   imports: [
     LoggerModule.forRoot(),
     AwsModule,
-    GraphqlModule,
+    // GraphqlModule,
     ConfigModule.register(databaseConfig),
   ],
 })
