@@ -16,7 +16,7 @@
 
 ## Backend
 
-- `nx serve api-codelab`
+- `nx serve api`
 
 ## Prisma
 

@@ -821,7 +821,6 @@
       "root": "apps/api",
       "sourceRoot": "apps/api/src",
       "projectType": "application",
-      "prefix": "api-codelab",
       "schematics": {},
       "architect": {
         "build": {
@@ -857,7 +856,7 @@
           "builder": "@nrwl/workspace:run-commands",
           "options": {
             "envFile": ".env",
-            "commands": ["nx serve-default api-codelab"]
+            "commands": ["nx serve-default api"]
           },
           "configurations": {}
         },
