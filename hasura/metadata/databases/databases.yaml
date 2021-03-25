@@ -1,0 +1,9 @@
+- name: default
+  kind: postgres
+  configuration:
+    connection_info:
+      database_url:
+        from_env: DB_URL
+      pool_settings: {}
+  tables: "!include default/tables/tables.yaml"
+  functions: "!include default/functions/functions.yaml"
