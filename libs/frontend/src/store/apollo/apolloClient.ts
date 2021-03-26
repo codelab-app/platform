@@ -21,7 +21,6 @@ export interface ApolloContext {
 
 const defaultContext: ApolloContext = {
   graphqlUri: `${process.env.NEXT_PUBLIC_API_ORIGIN}/graphql`,
-  hasura: true
 }
 
 export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__'
