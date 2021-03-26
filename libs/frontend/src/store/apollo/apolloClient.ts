@@ -16,10 +16,12 @@ import { typeDefs } from '@codelab/generated'
 export interface ApolloContext {
   authToken?: string
   graphqlUri?: string
+  hasura?: boolean
 }
 
 const defaultContext: ApolloContext = {
   graphqlUri: `${process.env.NEXT_PUBLIC_API_ORIGIN}/graphql`,
+  hasura: true
 }
 
 export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__'
