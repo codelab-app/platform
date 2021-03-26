@@ -1,7 +1,6 @@
 {
   "name": "codelab",
   "engines": {
-    "node": ">=13",
     "yarn": ">=1.20.0"
   },
   "version": "0.0.0",
@@ -38,7 +37,8 @@
     "docs": "onchange 'libs/ddd/**/*.ts' 'typedoc.json' -- npx typedoc",
     "migration:generate": "nx migrate @nrwl/workspace@latest",
     "migration:run": "nx migrate --run-migrations=migrations.json",
-    "codegen": "yarn cross-env DOTENV_CONFIG_PATH=.env graphql-codegen --require dotenv/config --config .graphqlconfig.yaml"
+    "codegen": "yarn cross-env DOTENV_CONFIG_PATH=.env graphql-codegen --require dotenv/config --config .graphqlconfig.yaml",
+    "start:prod:api": "pm2-runtime dist/apps/api/pm2.json"
   },
   "private": true,
   "dependencies": {

@@ -1,0 +1,8 @@
+{
+  "apps": [
+    {
+      "name": "API",
+      "script": "dist/apps/api/main.js"
+    }
+  ]
+}
