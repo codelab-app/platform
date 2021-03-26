@@ -48,3 +48,8 @@ Thumbs.db
 
 /apps/docs/public
 /apps/docs/.cache
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml

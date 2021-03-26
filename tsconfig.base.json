@@ -23,7 +23,7 @@
       "@codelab/tools-eslint-config-codelab": [
         "libs/tools/eslint-config-codelab/src/index.ts"
       ],
-      "@codelab/backend": ["libs/backend/src/index"],
+      "@codelab/backend": ["libs/backend/src/index.ts"],
       "@codelab/frontend": ["libs/frontend/src/index.ts"]
     }
   },
