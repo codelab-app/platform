@@ -1,6 +1,6 @@
 # https://github.com/jasonetco/todo
 #
 todo:
-  keyword: ['@todo']
-  reopenClosed: false
+  # keyword: ['@todo']
+  # reopenClosed: false
   caseSensitive: true
