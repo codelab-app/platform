@@ -1,9 +1,9 @@
-import { callbackWithParams } from '@codelab/frontend'
 import React, { ReactElement, useRef } from 'react'
 import { AutoForm } from 'uniforms-antd'
 import { Bridge } from 'uniforms'
 import { JsonSchemaUniFormProps } from './Form-jsonSchema--types'
 import { connectUniformSubmitRef, createBridge } from './uniformUtils'
+import { callbackWithParams } from '../../../utils'
 
 export const JsonSchemaUniForm = <TData extends object>({
   submitRef,

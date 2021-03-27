@@ -1,9 +1,9 @@
 import { FetchResult } from '@apollo/client'
 import React from 'react'
-import { Bridge } from 'uniforms/es5'
-import { AutoFormProps } from 'uniforms/es5/AutoForm'
+import { AutoFormProps, Bridge } from 'uniforms'
 import { SubmitController } from '../json-schema'
-import { CallbackOrArrayOfCallbacks } from 'libs/frontend/src/utils'
+import { CallbackOrArrayOfCallbacks } from '../../../utils'
+
 
 export type JsonSchemaUniFormProps<TData extends object> = {
   /** Use this to be able to hide the submit button and get a controller, which can trigger form submit */
