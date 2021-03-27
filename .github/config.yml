@@ -2,5 +2,5 @@
 #
 todo:
   # keyword: '@todo'
-  reopenClosed: false
+  # reopenClosed: false
   caseSensitive: false
