@@ -1,0 +1,10 @@
+query RootApp($appId: uuid!, $pageId: uuid!) {
+    app_by_pk(id: $appId) {
+        id
+        name
+        pages {
+            id
+            name
+        }
+    }
+}

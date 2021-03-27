@@ -5276,6 +5276,19 @@ export type Uuid_Comparison_Exp = {
   _nin?: Maybe<Array<Scalars['uuid']>>
 }
 
+export type RootAppQueryVariables = Exact<{
+  appId: Scalars['uuid']
+  pageId: Scalars['uuid']
+}>
+
+export type RootAppQuery = { __typename?: 'query_root' } & {
+  app_by_pk?: Maybe<
+    { __typename?: 'app' } & Pick<App, 'id' | 'name'> & {
+        pages: Array<{ __typename?: 'page' } & Pick<Page, 'id' | 'name'>>
+      }
+  >
+}
+
 export type CreateAppMutationVariables = Exact<{
   input: App_Insert_Input
 }>
@@ -5311,6 +5324,63 @@ export type GetAppsListQuery = { __typename?: 'query_root' } & {
   >
 }
 
+export const RootAppGql = gql`
+  query RootApp($appId: uuid!, $pageId: uuid!) {
+    app_by_pk(id: $appId) {
+      id
+      name
+      pages {
+        id
+        name
+      }
+    }
+  }
+`
+
+/**
+ * __useRootAppQuery__
+ *
+ * To run a query within a React component, call `useRootAppQuery` and pass it any options that fit your needs.
+ * When your component renders, `useRootAppQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useRootAppQuery({
+ *   variables: {
+ *      appId: // value for 'appId'
+ *      pageId: // value for 'pageId'
+ *   },
+ * });
+ */
+export function useRootAppQuery(
+  baseOptions: Apollo.QueryHookOptions<RootAppQuery, RootAppQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<RootAppQuery, RootAppQueryVariables>(
+    RootAppGql,
+    options,
+  )
+}
+export function useRootAppLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    RootAppQuery,
+    RootAppQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<RootAppQuery, RootAppQueryVariables>(
+    RootAppGql,
+    options,
+  )
+}
+export type RootAppQueryHookResult = ReturnType<typeof useRootAppQuery>
+export type RootAppLazyQueryHookResult = ReturnType<typeof useRootAppLazyQuery>
+export type RootAppQueryResult = Apollo.QueryResult<
+  RootAppQuery,
+  RootAppQueryVariables
+>
 export const CreateAppGql = gql`
   mutation CreateApp($input: app_insert_input!) {
     insert_app_one(object: $input) {
@@ -5518,6 +5588,18 @@ export type GetAppsListQueryResult = Apollo.QueryResult<
   GetAppsListQueryVariables
 >
 
+export const RootApp = gql`
+  query RootApp($appId: uuid!, $pageId: uuid!) {
+    app_by_pk(id: $appId) {
+      id
+      name
+      pages {
+        id
+        name
+      }
+    }
+  }
+`
 export const CreateApp = gql`
   mutation CreateApp($input: app_insert_input!) {
     insert_app_one(object: $input) {
