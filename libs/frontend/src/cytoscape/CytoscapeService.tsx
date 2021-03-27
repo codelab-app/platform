@@ -1,34 +1,79 @@
 /* eslint-disable no-param-reassign */
 import { ROOT_NODE, SerializedNodes } from '@craftjs/core'
 import { DataNode } from 'antd/lib/tree'
-import cytoscape, { Core, EdgeDefinition, NodeDefinition } from 'cytoscape'
-import { AtomType } from '../interfaces'
-import { NodeA } from '../interfaces/NodeA'
-import { GraphFragmentsFragment } from '@codelab/generated'
+import cytoscape, { Core } from 'cytoscape'
+import { AtomType, NodeA } from '../interfaces'
+import {
+  RootAppPageElementFragment,
+  RootAppPageLinkFragment,
+} from '../../../generated/src/graphql-client-hasura.generated'
+
+export enum CytoscapeNodeType {
+  PageElement = 'PageElement',
+  ComponentElement = 'ComponentElement',
+}
 
 export class CytoscapeService {
   /**
    * Hydrate to cytoscape from graph data
    */
-  static fromGraph({ vertices, edges }: GraphFragmentsFragment): Core {
+  static fromGraph(elements: RootAppPageElementFragment[], links: RootAppPageLinkFragment[]): Core {
+    const nodes: cytoscape.NodeDefinition[] = []
+    const edges: cytoscape.EdgeDefinition[] = []
+
+    elements.forEach(pageElement => {
+      nodes.push({
+        //Push the page element definition
+        data: {
+          id: pageElement.id,
+          props: pageElement.props,
+          label: pageElement.name,
+          nodeType: CytoscapeNodeType.PageElement,
+        },
+      })
+
+      pageElement.component?.elements.forEach(componentElement => {
+        //Push the component elements definitions
+        nodes.push({
+          data: {
+            id: componentElement.id,
+            parent: pageElement.id,
+            nodeType: CytoscapeNodeType.ComponentElement,
+            type: componentElement.atom?.type,
+            label: componentElement.label,
+            //TODO add props
+          },
+        })
+      })
+
+      pageElement.component?.links.forEach(link => {
+        edges.push({
+          data: {
+            id: link.id,
+            source: link.source_element_id,
+            target: link.target_element_id,
+            props: link.props,
+          },
+        })
+      })
+    })
+
+
+    links.forEach(link => {
+      edges.push({
+        data: {
+          id: link.id,
+          source: link.source_element_id,
+          target: link.target_element_id,
+        },
+      })
+    })
+
     return cytoscape({
       headless: true,
       elements: {
-        nodes: vertices.map<NodeDefinition>(({ id, type, props, parent }) => ({
-          data: {
-            id,
-            parent: parent?.id,
-            type,
-            props,
-          },
-        })),
-        edges: edges.map<EdgeDefinition>(({ id, source, target }) => ({
-          data: {
-            id,
-            source,
-            target,
-          },
-        })),
+        nodes,
+        edges,
       },
     })
   }
@@ -116,7 +161,7 @@ export class CytoscapeService {
           draggable: data.type !== AtomType.ReactRglItem,
           // disabled: data.type === VertexType.React_RGL_Item,
           key: data.id,
-          title: `${data.type}-${data.id.substring(0, 3)}`,
+          title: data.label
         }
 
         v._node = node

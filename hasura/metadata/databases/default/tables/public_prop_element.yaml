@@ -1,3 +1,10 @@
+object_relationships:
+- name: element
+  using:
+    foreign_key_constraint_on: element_id
+- name: prop
+  using:
+    foreign_key_constraint_on: prop_id
 table:
   name: prop_element
   schema: public

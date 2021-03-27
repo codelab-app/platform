@@ -7,14 +7,14 @@ import { usePage } from '../usePage'
 import { Page } from '@codelab/frontend'
 
 export const GetPagesList = () => {
-  const { rootAppData, appId } = useContext(AppContext)
+  const { app, appId } = useContext(AppContext)
   const { detailPageId, togglePageDetailPane } = usePage()
 
   return (
     <>
       <List
         size="small"
-        dataSource={rootAppData?.pages}
+        dataSource={app?.pages}
         renderItem={(page) => (
           <List.Item onMouseOver={() => null} style={{ paddingLeft: 0 }}>
             <Space style={{ width: '100%' }}>

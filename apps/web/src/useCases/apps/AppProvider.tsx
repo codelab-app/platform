@@ -4,7 +4,8 @@ import { RootAppQuery, useRootAppQuery } from '../../../../../libs/generated/src
 
 
 type IAppContext = PropsWithIds<'appId' | 'pageId'> & {
-  rootAppData?: RootAppQuery["app_by_pk"];
+  app?: RootAppQuery["app_by_pk"];
+  page?: RootAppQuery["page_by_pk"];
   loading: boolean;
 }
 
@@ -27,7 +28,8 @@ export const _AppProvider = ({
       value={{
         appId,
         pageId,
-        rootAppData: data?.app_by_pk,
+        app: data?.app_by_pk,
+        page: data?.page_by_pk,
         loading
       }}
     >

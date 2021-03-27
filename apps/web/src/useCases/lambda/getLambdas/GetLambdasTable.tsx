@@ -17,7 +17,7 @@ const mapDataSource = (lambdas: Array<LambdaFragmentsFragment>) => {
 }
 
 export const GetLambdasTable = () => {
-  const { rootAppData, appId } = useContext(AppContext)
+  const { app, appId } = useContext(AppContext)
 
   const columns = [
     {

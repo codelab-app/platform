@@ -99,6 +99,7 @@ const MenuItemStyle = ({ toggleTab, ...props }: MenuItemProps) => {
   )
 }
 
+
 export const BuilderTabSidebar = () => {
   const { toggleTab } = useLayout()
 
