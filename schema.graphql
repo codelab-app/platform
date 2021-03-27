@@ -92,6 +92,11 @@ type app {
   name: String!
 
   """
+  An object relationship
+  """
+  owner: user!
+
+  """
   An array relationship
   """
   pages(
@@ -150,12 +155,7 @@ type app {
     """
     where: page_bool_exp
   ): page_aggregate!
-
-  """
-  An object relationship
-  """
-  user: user!
-  userId: String!
+  user_id: String!
 }
 
 """
@@ -176,27 +176,6 @@ type app_aggregate_fields {
 }
 
 """
-order by aggregate values of table "app"
-"""
-input app_aggregate_order_by {
-  count: order_by
-  max: app_max_order_by
-  min: app_min_order_by
-}
-
-"""
-input type for inserting array relation for remote table "app"
-"""
-input app_arr_rel_insert_input {
-  data: [app_insert_input!]!
-
-  """
-  on conflict condition
-  """
-  on_conflict: app_on_conflict
-}
-
-"""
 Boolean expression to filter rows from the table "app". All fields are combined with a logical 'AND'.
 """
 input app_bool_exp {
@@ -205,9 +184,9 @@ input app_bool_exp {
   _or: [app_bool_exp!]
   id: uuid_comparison_exp
   name: String_comparison_exp
+  owner: user_bool_exp
   pages: page_bool_exp
-  user: user_bool_exp
-  userId: String_comparison_exp
+  user_id: String_comparison_exp
 }
 
 """
@@ -226,9 +205,9 @@ input type for inserting data into table "app"
 input app_insert_input {
   id: uuid
   name: String
+  owner: user_obj_rel_insert_input
   pages: page_arr_rel_insert_input
-  user: user_obj_rel_insert_input
-  userId: String
+  user_id: String
 }
 
 """
@@ -237,16 +216,7 @@ aggregate max on columns
 type app_max_fields {
   id: uuid
   name: String
-  userId: String
-}
-
-"""
-order by max() on columns of table "app"
-"""
-input app_max_order_by {
-  id: order_by
-  name: order_by
-  userId: order_by
+  user_id: String
 }
 
 """
@@ -255,16 +225,7 @@ aggregate min on columns
 type app_min_fields {
   id: uuid
   name: String
-  userId: String
-}
-
-"""
-order by min() on columns of table "app"
-"""
-input app_min_order_by {
-  id: order_by
-  name: order_by
-  userId: order_by
+  user_id: String
 }
 
 """
@@ -309,9 +270,9 @@ Ordering options when selecting data from "app".
 input app_order_by {
   id: order_by
   name: order_by
+  owner: user_order_by
   pages_aggregate: page_aggregate_order_by
-  user: user_order_by
-  userId: order_by
+  user_id: order_by
 }
 
 """
@@ -338,7 +299,7 @@ enum app_select_column {
   """
   column name
   """
-  userId
+  user_id
 }
 
 """
@@ -347,7 +308,7 @@ input type for updating data in table "app"
 input app_set_input {
   id: uuid
   name: String
-  userId: String
+  user_id: String
 }
 
 """
@@ -367,17 +328,13 @@ enum app_update_column {
   """
   column name
   """
-  userId
+  user_id
 }
 
 """
 columns and relationships of "atom"
 """
 type atom {
-  """
-  An object relationship
-  """
-  atomType: atom_types!
   component_id: uuid!
   id: uuid!
   type: atom_types_enum!
@@ -407,7 +364,6 @@ input atom_bool_exp {
   _and: [atom_bool_exp!]
   _not: atom_bool_exp
   _or: [atom_bool_exp!]
-  atomType: atom_types_bool_exp
   component_id: uuid_comparison_exp
   id: uuid_comparison_exp
   type: atom_types_enum_comparison_exp
@@ -427,7 +383,6 @@ enum atom_constraint {
 input type for inserting data into table "atom"
 """
 input atom_insert_input {
-  atomType: atom_types_obj_rel_insert_input
   component_id: uuid
   id: uuid
   type: atom_types_enum
@@ -477,7 +432,6 @@ input atom_on_conflict {
 Ordering options when selecting data from "atom".
 """
 input atom_order_by {
-  atomType: atom_types_order_by
   component_id: order_by
   id: order_by
   type: order_by
@@ -722,18 +676,6 @@ type atom_types_mutation_response {
 }
 
 """
-input type for inserting object relation for remote table "atom_types"
-"""
-input atom_types_obj_rel_insert_input {
-  data: atom_types_insert_input!
-
-  """
-  on conflict condition
-  """
-  on_conflict: atom_types_on_conflict
-}
-
-"""
 on conflict condition type for table "atom_types"
 """
 input atom_types_on_conflict {
@@ -819,10 +761,6 @@ enum atom_update_column {
 columns and relationships of "attribute"
 """
 type attribute {
-  """
-  An object relationship
-  """
-  atom_type: atom_types!
   id: uuid!
   key: String!
   type: atom_types_enum!
@@ -852,7 +790,6 @@ input attribute_bool_exp {
   _and: [attribute_bool_exp!]
   _not: attribute_bool_exp
   _or: [attribute_bool_exp!]
-  atom_type: atom_types_bool_exp
   id: uuid_comparison_exp
   key: String_comparison_exp
   type: atom_types_enum_comparison_exp
@@ -872,7 +809,6 @@ enum attribute_constraint {
 input type for inserting data into table "attribute"
 """
 input attribute_insert_input {
-  atom_type: atom_types_obj_rel_insert_input
   id: uuid
   key: String
   type: atom_types_enum
@@ -922,7 +858,6 @@ input attribute_on_conflict {
 Ordering options when selecting data from "attribute".
 """
 input attribute_order_by {
-  atom_type: atom_types_order_by
   id: order_by
   key: order_by
   type: order_by
@@ -989,66 +924,6 @@ columns and relationships of "category"
 """
 type category {
   id: uuid!
-
-  """
-  An array relationship
-  """
-  tags(
-    """
-    distinct select on columns
-    """
-    distinct_on: [tag_select_column!]
-
-    """
-    limit the number of rows returned
-    """
-    limit: Int
-
-    """
-    skip the first n rows. Use only with order_by
-    """
-    offset: Int
-
-    """
-    sort the rows by one or more columns
-    """
-    order_by: [tag_order_by!]
-
-    """
-    filter the rows returned
-    """
-    where: tag_bool_exp
-  ): [tag!]!
-
-  """
-  An aggregate relationship
-  """
-  tags_aggregate(
-    """
-    distinct select on columns
-    """
-    distinct_on: [tag_select_column!]
-
-    """
-    limit the number of rows returned
-    """
-    limit: Int
-
-    """
-    skip the first n rows. Use only with order_by
-    """
-    offset: Int
-
-    """
-    sort the rows by one or more columns
-    """
-    order_by: [tag_order_by!]
-
-    """
-    filter the rows returned
-    """
-    where: tag_bool_exp
-  ): tag_aggregate!
 }
 
 """
@@ -1076,7 +951,6 @@ input category_bool_exp {
   _not: category_bool_exp
   _or: [category_bool_exp!]
   id: uuid_comparison_exp
-  tags: tag_bool_exp
 }
 
 """
@@ -1094,7 +968,6 @@ input type for inserting data into table "category"
 """
 input category_insert_input {
   id: uuid
-  tags: tag_arr_rel_insert_input
 }
 
 """
@@ -1127,18 +1000,6 @@ type category_mutation_response {
 }
 
 """
-input type for inserting object relation for remote table "category"
-"""
-input category_obj_rel_insert_input {
-  data: category_insert_input!
-
-  """
-  on conflict condition
-  """
-  on_conflict: category_on_conflict
-}
-
-"""
 on conflict condition type for table "category"
 """
 input category_on_conflict {
@@ -1152,7 +1013,6 @@ Ordering options when selecting data from "category".
 """
 input category_order_by {
   id: order_by
-  tags_aggregate: tag_aggregate_order_by
 }
 
 """
@@ -1922,73 +1782,8 @@ columns and relationships of "lambda"
 type lambda {
   body: String!
   id: uuid!
-
-  """
-  An object relationship
-  """
-  library: library!
   libraryId: uuid!
   name: String!
-
-  """
-  An array relationship
-  """
-  prop_values(
-    """
-    distinct select on columns
-    """
-    distinct_on: [prop_values_select_column!]
-
-    """
-    limit the number of rows returned
-    """
-    limit: Int
-
-    """
-    skip the first n rows. Use only with order_by
-    """
-    offset: Int
-
-    """
-    sort the rows by one or more columns
-    """
-    order_by: [prop_values_order_by!]
-
-    """
-    filter the rows returned
-    """
-    where: prop_values_bool_exp
-  ): [prop_values!]!
-
-  """
-  An aggregate relationship
-  """
-  prop_values_aggregate(
-    """
-    distinct select on columns
-    """
-    distinct_on: [prop_values_select_column!]
-
-    """
-    limit the number of rows returned
-    """
-    limit: Int
-
-    """
-    skip the first n rows. Use only with order_by
-    """
-    offset: Int
-
-    """
-    sort the rows by one or more columns
-    """
-    order_by: [prop_values_order_by!]
-
-    """
-    filter the rows returned
-    """
-    where: prop_values_bool_exp
-  ): prop_values_aggregate!
 }
 
 """
@@ -2009,27 +1804,6 @@ type lambda_aggregate_fields {
 }
 
 """
-order by aggregate values of table "lambda"
-"""
-input lambda_aggregate_order_by {
-  count: order_by
-  max: lambda_max_order_by
-  min: lambda_min_order_by
-}
-
-"""
-input type for inserting array relation for remote table "lambda"
-"""
-input lambda_arr_rel_insert_input {
-  data: [lambda_insert_input!]!
-
-  """
-  on conflict condition
-  """
-  on_conflict: lambda_on_conflict
-}
-
-"""
 Boolean expression to filter rows from the table "lambda". All fields are combined with a logical 'AND'.
 """
 input lambda_bool_exp {
@@ -2038,10 +1812,8 @@ input lambda_bool_exp {
   _or: [lambda_bool_exp!]
   body: String_comparison_exp
   id: uuid_comparison_exp
-  library: library_bool_exp
   libraryId: uuid_comparison_exp
   name: String_comparison_exp
-  prop_values: prop_values_bool_exp
 }
 
 """
@@ -2060,10 +1832,8 @@ input type for inserting data into table "lambda"
 input lambda_insert_input {
   body: String
   id: uuid
-  library: library_obj_rel_insert_input
   libraryId: uuid
   name: String
-  prop_values: prop_values_arr_rel_insert_input
 }
 
 """
@@ -2077,16 +1847,6 @@ type lambda_max_fields {
 }
 
 """
-order by max() on columns of table "lambda"
-"""
-input lambda_max_order_by {
-  body: order_by
-  id: order_by
-  libraryId: order_by
-  name: order_by
-}
-
-"""
 aggregate min on columns
 """
 type lambda_min_fields {
@@ -2094,16 +1854,6 @@ type lambda_min_fields {
   id: uuid
   libraryId: uuid
   name: String
-}
-
-"""
-order by min() on columns of table "lambda"
-"""
-input lambda_min_order_by {
-  body: order_by
-  id: order_by
-  libraryId: order_by
-  name: order_by
 }
 
 """
@@ -2122,18 +1872,6 @@ type lambda_mutation_response {
 }
 
 """
-input type for inserting object relation for remote table "lambda"
-"""
-input lambda_obj_rel_insert_input {
-  data: lambda_insert_input!
-
-  """
-  on conflict condition
-  """
-  on_conflict: lambda_on_conflict
-}
-
-"""
 on conflict condition type for table "lambda"
 """
 input lambda_on_conflict {
@@ -2148,10 +1886,8 @@ Ordering options when selecting data from "lambda".
 input lambda_order_by {
   body: order_by
   id: order_by
-  library: library_order_by
   libraryId: order_by
   name: order_by
-  prop_values_aggregate: prop_values_aggregate_order_by
 }
 
 """
@@ -2226,193 +1962,8 @@ columns and relationships of "library"
 """
 type library {
   id: uuid!
-
-  """
-  An array relationship
-  """
-  lambdas(
-    """
-    distinct select on columns
-    """
-    distinct_on: [lambda_select_column!]
-
-    """
-    limit the number of rows returned
-    """
-    limit: Int
-
-    """
-    skip the first n rows. Use only with order_by
-    """
-    offset: Int
-
-    """
-    sort the rows by one or more columns
-    """
-    order_by: [lambda_order_by!]
-
-    """
-    filter the rows returned
-    """
-    where: lambda_bool_exp
-  ): [lambda!]!
-
-  """
-  An aggregate relationship
-  """
-  lambdas_aggregate(
-    """
-    distinct select on columns
-    """
-    distinct_on: [lambda_select_column!]
-
-    """
-    limit the number of rows returned
-    """
-    limit: Int
-
-    """
-    skip the first n rows. Use only with order_by
-    """
-    offset: Int
-
-    """
-    sort the rows by one or more columns
-    """
-    order_by: [lambda_order_by!]
-
-    """
-    filter the rows returned
-    """
-    where: lambda_bool_exp
-  ): lambda_aggregate!
   name: String
-
-  """
-  An array relationship
-  """
-  props(
-    """
-    distinct select on columns
-    """
-    distinct_on: [prop_select_column!]
-
-    """
-    limit the number of rows returned
-    """
-    limit: Int
-
-    """
-    skip the first n rows. Use only with order_by
-    """
-    offset: Int
-
-    """
-    sort the rows by one or more columns
-    """
-    order_by: [prop_order_by!]
-
-    """
-    filter the rows returned
-    """
-    where: prop_bool_exp
-  ): [prop!]!
-
-  """
-  An aggregate relationship
-  """
-  props_aggregate(
-    """
-    distinct select on columns
-    """
-    distinct_on: [prop_select_column!]
-
-    """
-    limit the number of rows returned
-    """
-    limit: Int
-
-    """
-    skip the first n rows. Use only with order_by
-    """
-    offset: Int
-
-    """
-    sort the rows by one or more columns
-    """
-    order_by: [prop_order_by!]
-
-    """
-    filter the rows returned
-    """
-    where: prop_bool_exp
-  ): prop_aggregate!
-
-  """
-  An array relationship
-  """
-  styles(
-    """
-    distinct select on columns
-    """
-    distinct_on: [style_select_column!]
-
-    """
-    limit the number of rows returned
-    """
-    limit: Int
-
-    """
-    skip the first n rows. Use only with order_by
-    """
-    offset: Int
-
-    """
-    sort the rows by one or more columns
-    """
-    order_by: [style_order_by!]
-
-    """
-    filter the rows returned
-    """
-    where: style_bool_exp
-  ): [style!]!
-
-  """
-  An aggregate relationship
-  """
-  styles_aggregate(
-    """
-    distinct select on columns
-    """
-    distinct_on: [style_select_column!]
-
-    """
-    limit the number of rows returned
-    """
-    limit: Int
-
-    """
-    skip the first n rows. Use only with order_by
-    """
-    offset: Int
-
-    """
-    sort the rows by one or more columns
-    """
-    order_by: [style_order_by!]
-
-    """
-    filter the rows returned
-    """
-    where: style_bool_exp
-  ): style_aggregate!
-
-  """
-  An object relationship
-  """
-  user: user!
-  userId: String!
+  user_id: String!
 }
 
 """
@@ -2433,27 +1984,6 @@ type library_aggregate_fields {
 }
 
 """
-order by aggregate values of table "library"
-"""
-input library_aggregate_order_by {
-  count: order_by
-  max: library_max_order_by
-  min: library_min_order_by
-}
-
-"""
-input type for inserting array relation for remote table "library"
-"""
-input library_arr_rel_insert_input {
-  data: [library_insert_input!]!
-
-  """
-  on conflict condition
-  """
-  on_conflict: library_on_conflict
-}
-
-"""
 Boolean expression to filter rows from the table "library". All fields are combined with a logical 'AND'.
 """
 input library_bool_exp {
@@ -2461,12 +1991,8 @@ input library_bool_exp {
   _not: library_bool_exp
   _or: [library_bool_exp!]
   id: uuid_comparison_exp
-  lambdas: lambda_bool_exp
   name: String_comparison_exp
-  props: prop_bool_exp
-  styles: style_bool_exp
-  user: user_bool_exp
-  userId: String_comparison_exp
+  user_id: String_comparison_exp
 }
 
 """
@@ -2484,12 +2010,8 @@ input type for inserting data into table "library"
 """
 input library_insert_input {
   id: uuid
-  lambdas: lambda_arr_rel_insert_input
   name: String
-  props: prop_arr_rel_insert_input
-  styles: style_arr_rel_insert_input
-  user: user_obj_rel_insert_input
-  userId: String
+  user_id: String
 }
 
 """
@@ -2498,16 +2020,7 @@ aggregate max on columns
 type library_max_fields {
   id: uuid
   name: String
-  userId: String
-}
-
-"""
-order by max() on columns of table "library"
-"""
-input library_max_order_by {
-  id: order_by
-  name: order_by
-  userId: order_by
+  user_id: String
 }
 
 """
@@ -2516,16 +2029,7 @@ aggregate min on columns
 type library_min_fields {
   id: uuid
   name: String
-  userId: String
-}
-
-"""
-order by min() on columns of table "library"
-"""
-input library_min_order_by {
-  id: order_by
-  name: order_by
-  userId: order_by
+  user_id: String
 }
 
 """
@@ -2569,12 +2073,8 @@ Ordering options when selecting data from "library".
 """
 input library_order_by {
   id: order_by
-  lambdas_aggregate: lambda_aggregate_order_by
   name: order_by
-  props_aggregate: prop_aggregate_order_by
-  styles_aggregate: style_aggregate_order_by
-  user: user_order_by
-  userId: order_by
+  user_id: order_by
 }
 
 """
@@ -2601,7 +2101,7 @@ enum library_select_column {
   """
   column name
   """
-  userId
+  user_id
 }
 
 """
@@ -2610,7 +2110,7 @@ input type for updating data in table "library"
 input library_set_input {
   id: uuid
   name: String
-  userId: String
+  user_id: String
 }
 
 """
@@ -2630,7 +2130,7 @@ enum library_update_column {
   """
   column name
   """
-  userId
+  user_id
 }
 
 """
@@ -4295,135 +3795,10 @@ type page {
   An object relationship
   """
   app: app!
-  appId: uuid!
-
-  """
-  An array relationship
-  """
-  elements(
-    """
-    distinct select on columns
-    """
-    distinct_on: [page_element_select_column!]
-
-    """
-    limit the number of rows returned
-    """
-    limit: Int
-
-    """
-    skip the first n rows. Use only with order_by
-    """
-    offset: Int
-
-    """
-    sort the rows by one or more columns
-    """
-    order_by: [page_element_order_by!]
-
-    """
-    filter the rows returned
-    """
-    where: page_element_bool_exp
-  ): [page_element!]!
-
-  """
-  An aggregate relationship
-  """
-  elements_aggregate(
-    """
-    distinct select on columns
-    """
-    distinct_on: [page_element_select_column!]
-
-    """
-    limit the number of rows returned
-    """
-    limit: Int
-
-    """
-    skip the first n rows. Use only with order_by
-    """
-    offset: Int
-
-    """
-    sort the rows by one or more columns
-    """
-    order_by: [page_element_order_by!]
-
-    """
-    filter the rows returned
-    """
-    where: page_element_bool_exp
-  ): page_element_aggregate!
+  app_id: uuid!
   id: uuid!
   name: String!
-
-  """
-  An object relationship
-  """
-  owner: user!
-  ownerId: String!
-
-  """
-  An array relationship
-  """
-  page_links(
-    """
-    distinct select on columns
-    """
-    distinct_on: [page_links_select_column!]
-
-    """
-    limit the number of rows returned
-    """
-    limit: Int
-
-    """
-    skip the first n rows. Use only with order_by
-    """
-    offset: Int
-
-    """
-    sort the rows by one or more columns
-    """
-    order_by: [page_links_order_by!]
-
-    """
-    filter the rows returned
-    """
-    where: page_links_bool_exp
-  ): [page_links!]!
-
-  """
-  An aggregate relationship
-  """
-  page_links_aggregate(
-    """
-    distinct select on columns
-    """
-    distinct_on: [page_links_select_column!]
-
-    """
-    limit the number of rows returned
-    """
-    limit: Int
-
-    """
-    skip the first n rows. Use only with order_by
-    """
-    offset: Int
-
-    """
-    sort the rows by one or more columns
-    """
-    order_by: [page_links_order_by!]
-
-    """
-    filter the rows returned
-    """
-    where: page_links_bool_exp
-  ): page_links_aggregate!
+  owner_id: String!
 }
 
 """
@@ -4472,13 +3847,10 @@ input page_bool_exp {
   _not: page_bool_exp
   _or: [page_bool_exp!]
   app: app_bool_exp
-  appId: uuid_comparison_exp
-  elements: page_element_bool_exp
+  app_id: uuid_comparison_exp
   id: uuid_comparison_exp
   name: String_comparison_exp
-  owner: user_bool_exp
-  ownerId: String_comparison_exp
-  page_links: page_links_bool_exp
+  owner_id: String_comparison_exp
 }
 
 """
@@ -4495,75 +3867,10 @@ enum page_constraint {
 columns and relationships of "page_element"
 """
 type page_element {
-  componentId: uuid!
+  component_id: uuid!
   id: uuid!
   name: String
-
-  """
-  An object relationship
-  """
-  page: page!
-  pageId: uuid!
-
-  """
-  An array relationship
-  """
-  props(
-    """
-    distinct select on columns
-    """
-    distinct_on: [prop_element_select_column!]
-
-    """
-    limit the number of rows returned
-    """
-    limit: Int
-
-    """
-    skip the first n rows. Use only with order_by
-    """
-    offset: Int
-
-    """
-    sort the rows by one or more columns
-    """
-    order_by: [prop_element_order_by!]
-
-    """
-    filter the rows returned
-    """
-    where: prop_element_bool_exp
-  ): [prop_element!]!
-
-  """
-  An aggregate relationship
-  """
-  props_aggregate(
-    """
-    distinct select on columns
-    """
-    distinct_on: [prop_element_select_column!]
-
-    """
-    limit the number of rows returned
-    """
-    limit: Int
-
-    """
-    skip the first n rows. Use only with order_by
-    """
-    offset: Int
-
-    """
-    sort the rows by one or more columns
-    """
-    order_by: [prop_element_order_by!]
-
-    """
-    filter the rows returned
-    """
-    where: prop_element_bool_exp
-  ): prop_element_aggregate!
+  page_id: uuid!
 }
 
 """
@@ -4584,39 +3891,16 @@ type page_element_aggregate_fields {
 }
 
 """
-order by aggregate values of table "page_element"
-"""
-input page_element_aggregate_order_by {
-  count: order_by
-  max: page_element_max_order_by
-  min: page_element_min_order_by
-}
-
-"""
-input type for inserting array relation for remote table "page_element"
-"""
-input page_element_arr_rel_insert_input {
-  data: [page_element_insert_input!]!
-
-  """
-  on conflict condition
-  """
-  on_conflict: page_element_on_conflict
-}
-
-"""
 Boolean expression to filter rows from the table "page_element". All fields are combined with a logical 'AND'.
 """
 input page_element_bool_exp {
   _and: [page_element_bool_exp!]
   _not: page_element_bool_exp
   _or: [page_element_bool_exp!]
-  componentId: uuid_comparison_exp
+  component_id: uuid_comparison_exp
   id: uuid_comparison_exp
   name: String_comparison_exp
-  page: page_bool_exp
-  pageId: uuid_comparison_exp
-  props: prop_element_bool_exp
+  page_id: uuid_comparison_exp
 }
 
 """
@@ -4633,52 +3917,30 @@ enum page_element_constraint {
 input type for inserting data into table "page_element"
 """
 input page_element_insert_input {
-  componentId: uuid
+  component_id: uuid
   id: uuid
   name: String
-  page: page_obj_rel_insert_input
-  pageId: uuid
-  props: prop_element_arr_rel_insert_input
+  page_id: uuid
 }
 
 """
 aggregate max on columns
 """
 type page_element_max_fields {
-  componentId: uuid
+  component_id: uuid
   id: uuid
   name: String
-  pageId: uuid
-}
-
-"""
-order by max() on columns of table "page_element"
-"""
-input page_element_max_order_by {
-  componentId: order_by
-  id: order_by
-  name: order_by
-  pageId: order_by
+  page_id: uuid
 }
 
 """
 aggregate min on columns
 """
 type page_element_min_fields {
-  componentId: uuid
+  component_id: uuid
   id: uuid
   name: String
-  pageId: uuid
-}
-
-"""
-order by min() on columns of table "page_element"
-"""
-input page_element_min_order_by {
-  componentId: order_by
-  id: order_by
-  name: order_by
-  pageId: order_by
+  page_id: uuid
 }
 
 """
@@ -4697,18 +3959,6 @@ type page_element_mutation_response {
 }
 
 """
-input type for inserting object relation for remote table "page_element"
-"""
-input page_element_obj_rel_insert_input {
-  data: page_element_insert_input!
-
-  """
-  on conflict condition
-  """
-  on_conflict: page_element_on_conflict
-}
-
-"""
 on conflict condition type for table "page_element"
 """
 input page_element_on_conflict {
@@ -4721,12 +3971,10 @@ input page_element_on_conflict {
 Ordering options when selecting data from "page_element".
 """
 input page_element_order_by {
-  componentId: order_by
+  component_id: order_by
   id: order_by
   name: order_by
-  page: page_order_by
-  pageId: order_by
-  props_aggregate: prop_element_aggregate_order_by
+  page_id: order_by
 }
 
 """
@@ -4743,7 +3991,7 @@ enum page_element_select_column {
   """
   column name
   """
-  componentId
+  component_id
 
   """
   column name
@@ -4758,17 +4006,17 @@ enum page_element_select_column {
   """
   column name
   """
-  pageId
+  page_id
 }
 
 """
 input type for updating data in table "page_element"
 """
 input page_element_set_input {
-  componentId: uuid
+  component_id: uuid
   id: uuid
   name: String
-  pageId: uuid
+  page_id: uuid
 }
 
 """
@@ -4778,7 +4026,7 @@ enum page_element_update_column {
   """
   column name
   """
-  componentId
+  component_id
 
   """
   column name
@@ -4793,7 +4041,7 @@ enum page_element_update_column {
   """
   column name
   """
-  pageId
+  page_id
 }
 
 """
@@ -4801,13 +4049,10 @@ input type for inserting data into table "page"
 """
 input page_insert_input {
   app: app_obj_rel_insert_input
-  appId: uuid
-  elements: page_element_arr_rel_insert_input
+  app_id: uuid
   id: uuid
   name: String
-  owner: user_obj_rel_insert_input
-  ownerId: String
-  page_links: page_links_arr_rel_insert_input
+  owner_id: String
 }
 
 """
@@ -4816,29 +4061,14 @@ columns and relationships of "page_links"
 type page_links {
   id: uuid!
   order: Int
-
-  """
-  An object relationship
-  """
-  page: page!
-  pageId: uuid!
+  page_id: uuid!
   props(
     """
     JSON select path
     """
     path: String
   ): jsonb
-
-  """
-  An object relationship
-  """
-  sourceElement: page_element!
   source_element_id: uuid!
-
-  """
-  An object relationship
-  """
-  targetElement: page_element!
   target_element_id: uuid!
 }
 
@@ -4868,23 +4098,6 @@ type page_links_aggregate_fields {
 }
 
 """
-order by aggregate values of table "page_links"
-"""
-input page_links_aggregate_order_by {
-  avg: page_links_avg_order_by
-  count: order_by
-  max: page_links_max_order_by
-  min: page_links_min_order_by
-  stddev: page_links_stddev_order_by
-  stddev_pop: page_links_stddev_pop_order_by
-  stddev_samp: page_links_stddev_samp_order_by
-  sum: page_links_sum_order_by
-  var_pop: page_links_var_pop_order_by
-  var_samp: page_links_var_samp_order_by
-  variance: page_links_variance_order_by
-}
-
-"""
 append existing jsonb value of filtered columns with new jsonb value
 """
 input page_links_append_input {
@@ -4892,29 +4105,10 @@ input page_links_append_input {
 }
 
 """
-input type for inserting array relation for remote table "page_links"
-"""
-input page_links_arr_rel_insert_input {
-  data: [page_links_insert_input!]!
-
-  """
-  on conflict condition
-  """
-  on_conflict: page_links_on_conflict
-}
-
-"""
 aggregate avg on columns
 """
 type page_links_avg_fields {
   order: Float
-}
-
-"""
-order by avg() on columns of table "page_links"
-"""
-input page_links_avg_order_by {
-  order: order_by
 }
 
 """
@@ -4926,12 +4120,9 @@ input page_links_bool_exp {
   _or: [page_links_bool_exp!]
   id: uuid_comparison_exp
   order: Int_comparison_exp
-  page: page_bool_exp
-  pageId: uuid_comparison_exp
+  page_id: uuid_comparison_exp
   props: jsonb_comparison_exp
-  sourceElement: page_element_bool_exp
   source_element_id: uuid_comparison_exp
-  targetElement: page_element_bool_exp
   target_element_id: uuid_comparison_exp
 }
 
@@ -4979,12 +4170,9 @@ input type for inserting data into table "page_links"
 input page_links_insert_input {
   id: uuid
   order: Int
-  page: page_obj_rel_insert_input
-  pageId: uuid
+  page_id: uuid
   props: jsonb
-  sourceElement: page_element_obj_rel_insert_input
   source_element_id: uuid
-  targetElement: page_element_obj_rel_insert_input
   target_element_id: uuid
 }
 
@@ -4994,20 +4182,9 @@ aggregate max on columns
 type page_links_max_fields {
   id: uuid
   order: Int
-  pageId: uuid
+  page_id: uuid
   source_element_id: uuid
   target_element_id: uuid
-}
-
-"""
-order by max() on columns of table "page_links"
-"""
-input page_links_max_order_by {
-  id: order_by
-  order: order_by
-  pageId: order_by
-  source_element_id: order_by
-  target_element_id: order_by
 }
 
 """
@@ -5016,20 +4193,9 @@ aggregate min on columns
 type page_links_min_fields {
   id: uuid
   order: Int
-  pageId: uuid
+  page_id: uuid
   source_element_id: uuid
   target_element_id: uuid
-}
-
-"""
-order by min() on columns of table "page_links"
-"""
-input page_links_min_order_by {
-  id: order_by
-  order: order_by
-  pageId: order_by
-  source_element_id: order_by
-  target_element_id: order_by
 }
 
 """
@@ -5062,12 +4228,9 @@ Ordering options when selecting data from "page_links".
 input page_links_order_by {
   id: order_by
   order: order_by
-  page: page_order_by
-  pageId: order_by
+  page_id: order_by
   props: order_by
-  sourceElement: page_element_order_by
   source_element_id: order_by
-  targetElement: page_element_order_by
   target_element_id: order_by
 }
 
@@ -5102,7 +4265,7 @@ enum page_links_select_column {
   """
   column name
   """
-  pageId
+  page_id
 
   """
   column name
@@ -5126,7 +4289,7 @@ input type for updating data in table "page_links"
 input page_links_set_input {
   id: uuid
   order: Int
-  pageId: uuid
+  page_id: uuid
   props: jsonb
   source_element_id: uuid
   target_element_id: uuid
@@ -5140,24 +4303,10 @@ type page_links_stddev_fields {
 }
 
 """
-order by stddev() on columns of table "page_links"
-"""
-input page_links_stddev_order_by {
-  order: order_by
-}
-
-"""
 aggregate stddev_pop on columns
 """
 type page_links_stddev_pop_fields {
   order: Float
-}
-
-"""
-order by stddev_pop() on columns of table "page_links"
-"""
-input page_links_stddev_pop_order_by {
-  order: order_by
 }
 
 """
@@ -5168,24 +4317,10 @@ type page_links_stddev_samp_fields {
 }
 
 """
-order by stddev_samp() on columns of table "page_links"
-"""
-input page_links_stddev_samp_order_by {
-  order: order_by
-}
-
-"""
 aggregate sum on columns
 """
 type page_links_sum_fields {
   order: Int
-}
-
-"""
-order by sum() on columns of table "page_links"
-"""
-input page_links_sum_order_by {
-  order: order_by
 }
 
 """
@@ -5205,7 +4340,7 @@ enum page_links_update_column {
   """
   column name
   """
-  pageId
+  page_id
 
   """
   column name
@@ -5231,24 +4366,10 @@ type page_links_var_pop_fields {
 }
 
 """
-order by var_pop() on columns of table "page_links"
-"""
-input page_links_var_pop_order_by {
-  order: order_by
-}
-
-"""
 aggregate var_samp on columns
 """
 type page_links_var_samp_fields {
   order: Float
-}
-
-"""
-order by var_samp() on columns of table "page_links"
-"""
-input page_links_var_samp_order_by {
-  order: order_by
 }
 
 """
@@ -5259,50 +4380,43 @@ type page_links_variance_fields {
 }
 
 """
-order by variance() on columns of table "page_links"
-"""
-input page_links_variance_order_by {
-  order: order_by
-}
-
-"""
 aggregate max on columns
 """
 type page_max_fields {
-  appId: uuid
+  app_id: uuid
   id: uuid
   name: String
-  ownerId: String
+  owner_id: String
 }
 
 """
 order by max() on columns of table "page"
 """
 input page_max_order_by {
-  appId: order_by
+  app_id: order_by
   id: order_by
   name: order_by
-  ownerId: order_by
+  owner_id: order_by
 }
 
 """
 aggregate min on columns
 """
 type page_min_fields {
-  appId: uuid
+  app_id: uuid
   id: uuid
   name: String
-  ownerId: String
+  owner_id: String
 }
 
 """
 order by min() on columns of table "page"
 """
 input page_min_order_by {
-  appId: order_by
+  app_id: order_by
   id: order_by
   name: order_by
-  ownerId: order_by
+  owner_id: order_by
 }
 
 """
@@ -5321,18 +4435,6 @@ type page_mutation_response {
 }
 
 """
-input type for inserting object relation for remote table "page"
-"""
-input page_obj_rel_insert_input {
-  data: page_insert_input!
-
-  """
-  on conflict condition
-  """
-  on_conflict: page_on_conflict
-}
-
-"""
 on conflict condition type for table "page"
 """
 input page_on_conflict {
@@ -5346,13 +4448,10 @@ Ordering options when selecting data from "page".
 """
 input page_order_by {
   app: app_order_by
-  appId: order_by
-  elements_aggregate: page_element_aggregate_order_by
+  app_id: order_by
   id: order_by
   name: order_by
-  owner: user_order_by
-  ownerId: order_by
-  page_links_aggregate: page_links_aggregate_order_by
+  owner_id: order_by
 }
 
 """
@@ -5369,7 +4468,7 @@ enum page_select_column {
   """
   column name
   """
-  appId
+  app_id
 
   """
   column name
@@ -5384,17 +4483,17 @@ enum page_select_column {
   """
   column name
   """
-  ownerId
+  owner_id
 }
 
 """
 input type for updating data in table "page"
 """
 input page_set_input {
-  appId: uuid
+  app_id: uuid
   id: uuid
   name: String
-  ownerId: String
+  owner_id: String
 }
 
 """
@@ -5404,7 +4503,7 @@ enum page_update_column {
   """
   column name
   """
-  appId
+  app_id
 
   """
   column name
@@ -5419,7 +4518,7 @@ enum page_update_column {
   """
   column name
   """
-  ownerId
+  owner_id
 }
 
 """
@@ -5432,187 +4531,7 @@ type prop {
   An object relationship
   """
   library: library!
-  libraryId: uuid!
-
-  """
-  An array relationship
-  """
-  propValuesByValuePropId(
-    """
-    distinct select on columns
-    """
-    distinct_on: [prop_values_select_column!]
-
-    """
-    limit the number of rows returned
-    """
-    limit: Int
-
-    """
-    skip the first n rows. Use only with order_by
-    """
-    offset: Int
-
-    """
-    sort the rows by one or more columns
-    """
-    order_by: [prop_values_order_by!]
-
-    """
-    filter the rows returned
-    """
-    where: prop_values_bool_exp
-  ): [prop_values!]!
-
-  """
-  An aggregate relationship
-  """
-  propValuesByValuePropId_aggregate(
-    """
-    distinct select on columns
-    """
-    distinct_on: [prop_values_select_column!]
-
-    """
-    limit the number of rows returned
-    """
-    limit: Int
-
-    """
-    skip the first n rows. Use only with order_by
-    """
-    offset: Int
-
-    """
-    sort the rows by one or more columns
-    """
-    order_by: [prop_values_order_by!]
-
-    """
-    filter the rows returned
-    """
-    where: prop_values_bool_exp
-  ): prop_values_aggregate!
-
-  """
-  An array relationship
-  """
-  prop_elements(
-    """
-    distinct select on columns
-    """
-    distinct_on: [prop_element_select_column!]
-
-    """
-    limit the number of rows returned
-    """
-    limit: Int
-
-    """
-    skip the first n rows. Use only with order_by
-    """
-    offset: Int
-
-    """
-    sort the rows by one or more columns
-    """
-    order_by: [prop_element_order_by!]
-
-    """
-    filter the rows returned
-    """
-    where: prop_element_bool_exp
-  ): [prop_element!]!
-
-  """
-  An aggregate relationship
-  """
-  prop_elements_aggregate(
-    """
-    distinct select on columns
-    """
-    distinct_on: [prop_element_select_column!]
-
-    """
-    limit the number of rows returned
-    """
-    limit: Int
-
-    """
-    skip the first n rows. Use only with order_by
-    """
-    offset: Int
-
-    """
-    sort the rows by one or more columns
-    """
-    order_by: [prop_element_order_by!]
-
-    """
-    filter the rows returned
-    """
-    where: prop_element_bool_exp
-  ): prop_element_aggregate!
-
-  """
-  An array relationship
-  """
-  prop_values(
-    """
-    distinct select on columns
-    """
-    distinct_on: [prop_values_select_column!]
-
-    """
-    limit the number of rows returned
-    """
-    limit: Int
-
-    """
-    skip the first n rows. Use only with order_by
-    """
-    offset: Int
-
-    """
-    sort the rows by one or more columns
-    """
-    order_by: [prop_values_order_by!]
-
-    """
-    filter the rows returned
-    """
-    where: prop_values_bool_exp
-  ): [prop_values!]!
-
-  """
-  An aggregate relationship
-  """
-  prop_values_aggregate(
-    """
-    distinct select on columns
-    """
-    distinct_on: [prop_values_select_column!]
-
-    """
-    limit the number of rows returned
-    """
-    limit: Int
-
-    """
-    skip the first n rows. Use only with order_by
-    """
-    offset: Int
-
-    """
-    sort the rows by one or more columns
-    """
-    order_by: [prop_values_order_by!]
-
-    """
-    filter the rows returned
-    """
-    where: prop_values_bool_exp
-  ): prop_values_aggregate!
+  library_id: uuid!
 }
 
 """
@@ -5633,27 +4552,6 @@ type prop_aggregate_fields {
 }
 
 """
-order by aggregate values of table "prop"
-"""
-input prop_aggregate_order_by {
-  count: order_by
-  max: prop_max_order_by
-  min: prop_min_order_by
-}
-
-"""
-input type for inserting array relation for remote table "prop"
-"""
-input prop_arr_rel_insert_input {
-  data: [prop_insert_input!]!
-
-  """
-  on conflict condition
-  """
-  on_conflict: prop_on_conflict
-}
-
-"""
 Boolean expression to filter rows from the table "prop". All fields are combined with a logical 'AND'.
 """
 input prop_bool_exp {
@@ -5662,10 +4560,7 @@ input prop_bool_exp {
   _or: [prop_bool_exp!]
   id: uuid_comparison_exp
   library: library_bool_exp
-  libraryId: uuid_comparison_exp
-  propValuesByValuePropId: prop_values_bool_exp
-  prop_elements: prop_element_bool_exp
-  prop_values: prop_values_bool_exp
+  library_id: uuid_comparison_exp
 }
 
 """
@@ -5682,16 +4577,7 @@ enum prop_constraint {
 columns and relationships of "prop_element"
 """
 type prop_element {
-  """
-  An object relationship
-  """
-  element: page_element!
   element_id: uuid!
-
-  """
-  An object relationship
-  """
-  prop: prop!
   prop_id: uuid!
 }
 
@@ -5713,36 +4599,13 @@ type prop_element_aggregate_fields {
 }
 
 """
-order by aggregate values of table "prop_element"
-"""
-input prop_element_aggregate_order_by {
-  count: order_by
-  max: prop_element_max_order_by
-  min: prop_element_min_order_by
-}
-
-"""
-input type for inserting array relation for remote table "prop_element"
-"""
-input prop_element_arr_rel_insert_input {
-  data: [prop_element_insert_input!]!
-
-  """
-  on conflict condition
-  """
-  on_conflict: prop_element_on_conflict
-}
-
-"""
 Boolean expression to filter rows from the table "prop_element". All fields are combined with a logical 'AND'.
 """
 input prop_element_bool_exp {
   _and: [prop_element_bool_exp!]
   _not: prop_element_bool_exp
   _or: [prop_element_bool_exp!]
-  element: page_element_bool_exp
   element_id: uuid_comparison_exp
-  prop: prop_bool_exp
   prop_id: uuid_comparison_exp
 }
 
@@ -5760,9 +4623,7 @@ enum prop_element_constraint {
 input type for inserting data into table "prop_element"
 """
 input prop_element_insert_input {
-  element: page_element_obj_rel_insert_input
   element_id: uuid
-  prop: prop_obj_rel_insert_input
   prop_id: uuid
 }
 
@@ -5775,27 +4636,11 @@ type prop_element_max_fields {
 }
 
 """
-order by max() on columns of table "prop_element"
-"""
-input prop_element_max_order_by {
-  element_id: order_by
-  prop_id: order_by
-}
-
-"""
 aggregate min on columns
 """
 type prop_element_min_fields {
   element_id: uuid
   prop_id: uuid
-}
-
-"""
-order by min() on columns of table "prop_element"
-"""
-input prop_element_min_order_by {
-  element_id: order_by
-  prop_id: order_by
 }
 
 """
@@ -5826,9 +4671,7 @@ input prop_element_on_conflict {
 Ordering options when selecting data from "prop_element".
 """
 input prop_element_order_by {
-  element: page_element_order_by
   element_id: order_by
-  prop: prop_order_by
   prop_id: order_by
 }
 
@@ -5884,10 +4727,7 @@ input type for inserting data into table "prop"
 input prop_insert_input {
   id: uuid
   library: library_obj_rel_insert_input
-  libraryId: uuid
-  propValuesByValuePropId: prop_values_arr_rel_insert_input
-  prop_elements: prop_element_arr_rel_insert_input
-  prop_values: prop_values_arr_rel_insert_input
+  library_id: uuid
 }
 
 """
@@ -5895,15 +4735,7 @@ aggregate max on columns
 """
 type prop_max_fields {
   id: uuid
-  libraryId: uuid
-}
-
-"""
-order by max() on columns of table "prop"
-"""
-input prop_max_order_by {
-  id: order_by
-  libraryId: order_by
+  library_id: uuid
 }
 
 """
@@ -5911,15 +4743,7 @@ aggregate min on columns
 """
 type prop_min_fields {
   id: uuid
-  libraryId: uuid
-}
-
-"""
-order by min() on columns of table "prop"
-"""
-input prop_min_order_by {
-  id: order_by
-  libraryId: order_by
+  library_id: uuid
 }
 
 """
@@ -5938,18 +4762,6 @@ type prop_mutation_response {
 }
 
 """
-input type for inserting object relation for remote table "prop"
-"""
-input prop_obj_rel_insert_input {
-  data: prop_insert_input!
-
-  """
-  on conflict condition
-  """
-  on_conflict: prop_on_conflict
-}
-
-"""
 on conflict condition type for table "prop"
 """
 input prop_on_conflict {
@@ -5964,10 +4776,7 @@ Ordering options when selecting data from "prop".
 input prop_order_by {
   id: order_by
   library: library_order_by
-  libraryId: order_by
-  propValuesByValuePropId_aggregate: prop_values_aggregate_order_by
-  prop_elements_aggregate: prop_element_aggregate_order_by
-  prop_values_aggregate: prop_values_aggregate_order_by
+  library_id: order_by
 }
 
 """
@@ -5989,7 +4798,7 @@ enum prop_select_column {
   """
   column name
   """
-  libraryId
+  library_id
 }
 
 """
@@ -5997,7 +4806,7 @@ input type for updating data in table "prop"
 """
 input prop_set_input {
   id: uuid
-  libraryId: uuid
+  library_id: uuid
 }
 
 """
@@ -6012,23 +4821,14 @@ enum prop_update_column {
   """
   column name
   """
-  libraryId
+  library_id
 }
 
 """
 columns and relationships of "prop_value_tag"
 """
 type prop_value_tag {
-  """
-  An object relationship
-  """
-  prop_value: prop_values!
   prop_value_id: uuid!
-
-  """
-  An object relationship
-  """
-  tag: tag!
   tag_id: uuid!
 }
 
@@ -6050,36 +4850,13 @@ type prop_value_tag_aggregate_fields {
 }
 
 """
-order by aggregate values of table "prop_value_tag"
-"""
-input prop_value_tag_aggregate_order_by {
-  count: order_by
-  max: prop_value_tag_max_order_by
-  min: prop_value_tag_min_order_by
-}
-
-"""
-input type for inserting array relation for remote table "prop_value_tag"
-"""
-input prop_value_tag_arr_rel_insert_input {
-  data: [prop_value_tag_insert_input!]!
-
-  """
-  on conflict condition
-  """
-  on_conflict: prop_value_tag_on_conflict
-}
-
-"""
 Boolean expression to filter rows from the table "prop_value_tag". All fields are combined with a logical 'AND'.
 """
 input prop_value_tag_bool_exp {
   _and: [prop_value_tag_bool_exp!]
   _not: prop_value_tag_bool_exp
   _or: [prop_value_tag_bool_exp!]
-  prop_value: prop_values_bool_exp
   prop_value_id: uuid_comparison_exp
-  tag: tag_bool_exp
   tag_id: uuid_comparison_exp
 }
 
@@ -6097,9 +4874,7 @@ enum prop_value_tag_constraint {
 input type for inserting data into table "prop_value_tag"
 """
 input prop_value_tag_insert_input {
-  prop_value: prop_values_obj_rel_insert_input
   prop_value_id: uuid
-  tag: tag_obj_rel_insert_input
   tag_id: uuid
 }
 
@@ -6112,27 +4887,11 @@ type prop_value_tag_max_fields {
 }
 
 """
-order by max() on columns of table "prop_value_tag"
-"""
-input prop_value_tag_max_order_by {
-  prop_value_id: order_by
-  tag_id: order_by
-}
-
-"""
 aggregate min on columns
 """
 type prop_value_tag_min_fields {
   prop_value_id: uuid
   tag_id: uuid
-}
-
-"""
-order by min() on columns of table "prop_value_tag"
-"""
-input prop_value_tag_min_order_by {
-  prop_value_id: order_by
-  tag_id: order_by
 }
 
 """
@@ -6163,9 +4922,7 @@ input prop_value_tag_on_conflict {
 Ordering options when selecting data from "prop_value_tag".
 """
 input prop_value_tag_order_by {
-  prop_value: prop_values_order_by
   prop_value_id: order_by
-  tag: tag_order_by
   tag_id: order_by
 }
 
@@ -6369,97 +5126,22 @@ type prop_values {
   id: uuid!
 
   """
-  An object relationship
-  """
-  lambda: lambda
-
-  """
   This is used as a value
   """
-  lambdaId: uuid
+  lambda_id: uuid
   name: String!
 
   """
   This is the prop that owns this value
   """
-  parentPropId: uuid!
-
-  """
-  An object relationship
-  """
-  prop: prop!
-
-  """
-  An object relationship
-  """
-  propByValuePropId: prop
-
-  """
-  An array relationship
-  """
-  prop_value_tags(
-    """
-    distinct select on columns
-    """
-    distinct_on: [prop_value_tag_select_column!]
-
-    """
-    limit the number of rows returned
-    """
-    limit: Int
-
-    """
-    skip the first n rows. Use only with order_by
-    """
-    offset: Int
-
-    """
-    sort the rows by one or more columns
-    """
-    order_by: [prop_value_tag_order_by!]
-
-    """
-    filter the rows returned
-    """
-    where: prop_value_tag_bool_exp
-  ): [prop_value_tag!]!
-
-  """
-  An aggregate relationship
-  """
-  prop_value_tags_aggregate(
-    """
-    distinct select on columns
-    """
-    distinct_on: [prop_value_tag_select_column!]
-
-    """
-    limit the number of rows returned
-    """
-    limit: Int
-
-    """
-    skip the first n rows. Use only with order_by
-    """
-    offset: Int
-
-    """
-    sort the rows by one or more columns
-    """
-    order_by: [prop_value_tag_order_by!]
-
-    """
-    filter the rows returned
-    """
-    where: prop_value_tag_bool_exp
-  ): prop_value_tag_aggregate!
+  parent_prop_id: uuid!
   type: String!
   value: String
 
   """
   This is the prop that is used as a value
   """
-  valuePropId: uuid
+  value_prop_id: uuid
 }
 
 """
@@ -6480,27 +5162,6 @@ type prop_values_aggregate_fields {
 }
 
 """
-order by aggregate values of table "prop_values"
-"""
-input prop_values_aggregate_order_by {
-  count: order_by
-  max: prop_values_max_order_by
-  min: prop_values_min_order_by
-}
-
-"""
-input type for inserting array relation for remote table "prop_values"
-"""
-input prop_values_arr_rel_insert_input {
-  data: [prop_values_insert_input!]!
-
-  """
-  on conflict condition
-  """
-  on_conflict: prop_values_on_conflict
-}
-
-"""
 Boolean expression to filter rows from the table "prop_values". All fields are combined with a logical 'AND'.
 """
 input prop_values_bool_exp {
@@ -6508,16 +5169,12 @@ input prop_values_bool_exp {
   _not: prop_values_bool_exp
   _or: [prop_values_bool_exp!]
   id: uuid_comparison_exp
-  lambda: lambda_bool_exp
-  lambdaId: uuid_comparison_exp
+  lambda_id: uuid_comparison_exp
   name: String_comparison_exp
-  parentPropId: uuid_comparison_exp
-  prop: prop_bool_exp
-  propByValuePropId: prop_bool_exp
-  prop_value_tags: prop_value_tag_bool_exp
+  parent_prop_id: uuid_comparison_exp
   type: String_comparison_exp
   value: String_comparison_exp
-  valuePropId: uuid_comparison_exp
+  value_prop_id: uuid_comparison_exp
 }
 
 """
@@ -6535,28 +5192,24 @@ input type for inserting data into table "prop_values"
 """
 input prop_values_insert_input {
   id: uuid
-  lambda: lambda_obj_rel_insert_input
 
   """
   This is used as a value
   """
-  lambdaId: uuid
+  lambda_id: uuid
   name: String
 
   """
   This is the prop that owns this value
   """
-  parentPropId: uuid
-  prop: prop_obj_rel_insert_input
-  propByValuePropId: prop_obj_rel_insert_input
-  prop_value_tags: prop_value_tag_arr_rel_insert_input
+  parent_prop_id: uuid
   type: String
   value: String
 
   """
   This is the prop that is used as a value
   """
-  valuePropId: uuid
+  value_prop_id: uuid
 }
 
 """
@@ -6568,45 +5221,20 @@ type prop_values_max_fields {
   """
   This is used as a value
   """
-  lambdaId: uuid
+  lambda_id: uuid
   name: String
 
   """
   This is the prop that owns this value
   """
-  parentPropId: uuid
+  parent_prop_id: uuid
   type: String
   value: String
 
   """
   This is the prop that is used as a value
   """
-  valuePropId: uuid
-}
-
-"""
-order by max() on columns of table "prop_values"
-"""
-input prop_values_max_order_by {
-  id: order_by
-
-  """
-  This is used as a value
-  """
-  lambdaId: order_by
-  name: order_by
-
-  """
-  This is the prop that owns this value
-  """
-  parentPropId: order_by
-  type: order_by
-  value: order_by
-
-  """
-  This is the prop that is used as a value
-  """
-  valuePropId: order_by
+  value_prop_id: uuid
 }
 
 """
@@ -6618,45 +5246,20 @@ type prop_values_min_fields {
   """
   This is used as a value
   """
-  lambdaId: uuid
+  lambda_id: uuid
   name: String
 
   """
   This is the prop that owns this value
   """
-  parentPropId: uuid
+  parent_prop_id: uuid
   type: String
   value: String
 
   """
   This is the prop that is used as a value
   """
-  valuePropId: uuid
-}
-
-"""
-order by min() on columns of table "prop_values"
-"""
-input prop_values_min_order_by {
-  id: order_by
-
-  """
-  This is used as a value
-  """
-  lambdaId: order_by
-  name: order_by
-
-  """
-  This is the prop that owns this value
-  """
-  parentPropId: order_by
-  type: order_by
-  value: order_by
-
-  """
-  This is the prop that is used as a value
-  """
-  valuePropId: order_by
+  value_prop_id: uuid
 }
 
 """
@@ -6675,18 +5278,6 @@ type prop_values_mutation_response {
 }
 
 """
-input type for inserting object relation for remote table "prop_values"
-"""
-input prop_values_obj_rel_insert_input {
-  data: prop_values_insert_input!
-
-  """
-  on conflict condition
-  """
-  on_conflict: prop_values_on_conflict
-}
-
-"""
 on conflict condition type for table "prop_values"
 """
 input prop_values_on_conflict {
@@ -6700,16 +5291,12 @@ Ordering options when selecting data from "prop_values".
 """
 input prop_values_order_by {
   id: order_by
-  lambda: lambda_order_by
-  lambdaId: order_by
+  lambda_id: order_by
   name: order_by
-  parentPropId: order_by
-  prop: prop_order_by
-  propByValuePropId: prop_order_by
-  prop_value_tags_aggregate: prop_value_tag_aggregate_order_by
+  parent_prop_id: order_by
   type: order_by
   value: order_by
-  valuePropId: order_by
+  value_prop_id: order_by
 }
 
 """
@@ -6731,7 +5318,7 @@ enum prop_values_select_column {
   """
   column name
   """
-  lambdaId
+  lambda_id
 
   """
   column name
@@ -6741,7 +5328,7 @@ enum prop_values_select_column {
   """
   column name
   """
-  parentPropId
+  parent_prop_id
 
   """
   column name
@@ -6756,7 +5343,7 @@ enum prop_values_select_column {
   """
   column name
   """
-  valuePropId
+  value_prop_id
 }
 
 """
@@ -6768,20 +5355,20 @@ input prop_values_set_input {
   """
   This is used as a value
   """
-  lambdaId: uuid
+  lambda_id: uuid
   name: String
 
   """
   This is the prop that owns this value
   """
-  parentPropId: uuid
+  parent_prop_id: uuid
   type: String
   value: String
 
   """
   This is the prop that is used as a value
   """
-  valuePropId: uuid
+  value_prop_id: uuid
 }
 
 """
@@ -6796,7 +5383,7 @@ enum prop_values_update_column {
   """
   column name
   """
-  lambdaId
+  lambda_id
 
   """
   column name
@@ -6806,7 +5393,7 @@ enum prop_values_update_column {
   """
   column name
   """
-  parentPropId
+  parent_prop_id
 
   """
   column name
@@ -6821,7 +5408,7 @@ enum prop_values_update_column {
   """
   column name
   """
-  valuePropId
+  value_prop_id
 }
 
 type query_root {
@@ -7606,7 +6193,7 @@ type query_root {
   page_element_by_pk(id: uuid!): page_element
 
   """
-  An array relationship
+  fetch data from the table: "page_links"
   """
   page_links(
     """
@@ -7636,7 +6223,7 @@ type query_root {
   ): [page_links!]!
 
   """
-  An aggregate relationship
+  fetch aggregated fields from the table: "page_links"
   """
   page_links_aggregate(
     """
@@ -7931,7 +6518,7 @@ type query_root {
   prop_value_type_by_pk(value: String!): prop_value_type
 
   """
-  An array relationship
+  fetch data from the table: "prop_values"
   """
   prop_values(
     """
@@ -7961,7 +6548,7 @@ type query_root {
   ): [prop_values!]!
 
   """
-  An aggregate relationship
+  fetch aggregated fields from the table: "prop_values"
   """
   prop_values_aggregate(
     """
@@ -8196,12 +6783,7 @@ columns and relationships of "style"
 """
 type style {
   id: uuid!
-
-  """
-  An object relationship
-  """
-  library: library!
-  libraryId: uuid!
+  library_id: uuid!
   name: String!
 }
 
@@ -8223,27 +6805,6 @@ type style_aggregate_fields {
 }
 
 """
-order by aggregate values of table "style"
-"""
-input style_aggregate_order_by {
-  count: order_by
-  max: style_max_order_by
-  min: style_min_order_by
-}
-
-"""
-input type for inserting array relation for remote table "style"
-"""
-input style_arr_rel_insert_input {
-  data: [style_insert_input!]!
-
-  """
-  on conflict condition
-  """
-  on_conflict: style_on_conflict
-}
-
-"""
 Boolean expression to filter rows from the table "style". All fields are combined with a logical 'AND'.
 """
 input style_bool_exp {
@@ -8251,8 +6812,7 @@ input style_bool_exp {
   _not: style_bool_exp
   _or: [style_bool_exp!]
   id: uuid_comparison_exp
-  library: library_bool_exp
-  libraryId: uuid_comparison_exp
+  library_id: uuid_comparison_exp
   name: String_comparison_exp
 }
 
@@ -8271,8 +6831,7 @@ input type for inserting data into table "style"
 """
 input style_insert_input {
   id: uuid
-  library: library_obj_rel_insert_input
-  libraryId: uuid
+  library_id: uuid
   name: String
 }
 
@@ -8281,17 +6840,8 @@ aggregate max on columns
 """
 type style_max_fields {
   id: uuid
-  libraryId: uuid
+  library_id: uuid
   name: String
-}
-
-"""
-order by max() on columns of table "style"
-"""
-input style_max_order_by {
-  id: order_by
-  libraryId: order_by
-  name: order_by
 }
 
 """
@@ -8299,17 +6849,8 @@ aggregate min on columns
 """
 type style_min_fields {
   id: uuid
-  libraryId: uuid
+  library_id: uuid
   name: String
-}
-
-"""
-order by min() on columns of table "style"
-"""
-input style_min_order_by {
-  id: order_by
-  libraryId: order_by
-  name: order_by
 }
 
 """
@@ -8341,8 +6882,7 @@ Ordering options when selecting data from "style".
 """
 input style_order_by {
   id: order_by
-  library: library_order_by
-  libraryId: order_by
+  library_id: order_by
   name: order_by
 }
 
@@ -8365,7 +6905,7 @@ enum style_select_column {
   """
   column name
   """
-  libraryId
+  library_id
 
   """
   column name
@@ -8378,7 +6918,7 @@ input type for updating data in table "style"
 """
 input style_set_input {
   id: uuid
-  libraryId: uuid
+  library_id: uuid
   name: String
 }
 
@@ -8394,7 +6934,7 @@ enum style_update_column {
   """
   column name
   """
-  libraryId
+  library_id
 
   """
   column name
@@ -9184,7 +7724,7 @@ type subscription_root {
   page_element_by_pk(id: uuid!): page_element
 
   """
-  An array relationship
+  fetch data from the table: "page_links"
   """
   page_links(
     """
@@ -9214,7 +7754,7 @@ type subscription_root {
   ): [page_links!]!
 
   """
-  An aggregate relationship
+  fetch aggregated fields from the table: "page_links"
   """
   page_links_aggregate(
     """
@@ -9509,7 +8049,7 @@ type subscription_root {
   prop_value_type_by_pk(value: String!): prop_value_type
 
   """
-  An array relationship
+  fetch data from the table: "prop_values"
   """
   prop_values(
     """
@@ -9539,7 +8079,7 @@ type subscription_root {
   ): [prop_values!]!
 
   """
-  An aggregate relationship
+  fetch aggregated fields from the table: "prop_values"
   """
   prop_values_aggregate(
     """
@@ -9773,73 +8313,9 @@ type subscription_root {
 columns and relationships of "tag"
 """
 type tag {
-  """
-  An object relationship
-  """
-  category: category
   category_id: uuid
   id: uuid!
   label: String!
-
-  """
-  An array relationship
-  """
-  prop_value_tags(
-    """
-    distinct select on columns
-    """
-    distinct_on: [prop_value_tag_select_column!]
-
-    """
-    limit the number of rows returned
-    """
-    limit: Int
-
-    """
-    skip the first n rows. Use only with order_by
-    """
-    offset: Int
-
-    """
-    sort the rows by one or more columns
-    """
-    order_by: [prop_value_tag_order_by!]
-
-    """
-    filter the rows returned
-    """
-    where: prop_value_tag_bool_exp
-  ): [prop_value_tag!]!
-
-  """
-  An aggregate relationship
-  """
-  prop_value_tags_aggregate(
-    """
-    distinct select on columns
-    """
-    distinct_on: [prop_value_tag_select_column!]
-
-    """
-    limit the number of rows returned
-    """
-    limit: Int
-
-    """
-    skip the first n rows. Use only with order_by
-    """
-    offset: Int
-
-    """
-    sort the rows by one or more columns
-    """
-    order_by: [prop_value_tag_order_by!]
-
-    """
-    filter the rows returned
-    """
-    where: prop_value_tag_bool_exp
-  ): prop_value_tag_aggregate!
 }
 
 """
@@ -9860,38 +8336,15 @@ type tag_aggregate_fields {
 }
 
 """
-order by aggregate values of table "tag"
-"""
-input tag_aggregate_order_by {
-  count: order_by
-  max: tag_max_order_by
-  min: tag_min_order_by
-}
-
-"""
-input type for inserting array relation for remote table "tag"
-"""
-input tag_arr_rel_insert_input {
-  data: [tag_insert_input!]!
-
-  """
-  on conflict condition
-  """
-  on_conflict: tag_on_conflict
-}
-
-"""
 Boolean expression to filter rows from the table "tag". All fields are combined with a logical 'AND'.
 """
 input tag_bool_exp {
   _and: [tag_bool_exp!]
   _not: tag_bool_exp
   _or: [tag_bool_exp!]
-  category: category_bool_exp
   category_id: uuid_comparison_exp
   id: uuid_comparison_exp
   label: String_comparison_exp
-  prop_value_tags: prop_value_tag_bool_exp
 }
 
 """
@@ -9908,11 +8361,9 @@ enum tag_constraint {
 input type for inserting data into table "tag"
 """
 input tag_insert_input {
-  category: category_obj_rel_insert_input
   category_id: uuid
   id: uuid
   label: String
-  prop_value_tags: prop_value_tag_arr_rel_insert_input
 }
 
 """
@@ -9925,30 +8376,12 @@ type tag_max_fields {
 }
 
 """
-order by max() on columns of table "tag"
-"""
-input tag_max_order_by {
-  category_id: order_by
-  id: order_by
-  label: order_by
-}
-
-"""
 aggregate min on columns
 """
 type tag_min_fields {
   category_id: uuid
   id: uuid
   label: String
-}
-
-"""
-order by min() on columns of table "tag"
-"""
-input tag_min_order_by {
-  category_id: order_by
-  id: order_by
-  label: order_by
 }
 
 """
@@ -9967,18 +8400,6 @@ type tag_mutation_response {
 }
 
 """
-input type for inserting object relation for remote table "tag"
-"""
-input tag_obj_rel_insert_input {
-  data: tag_insert_input!
-
-  """
-  on conflict condition
-  """
-  on_conflict: tag_on_conflict
-}
-
-"""
 on conflict condition type for table "tag"
 """
 input tag_on_conflict {
@@ -9991,11 +8412,9 @@ input tag_on_conflict {
 Ordering options when selecting data from "tag".
 """
 input tag_order_by {
-  category: category_order_by
   category_id: order_by
   id: order_by
   label: order_by
-  prop_value_tags_aggregate: prop_value_tag_aggregate_order_by
 }
 
 """
@@ -10058,126 +8477,7 @@ enum tag_update_column {
 columns and relationships of "user"
 """
 type user {
-  """
-  An array relationship
-  """
-  apps(
-    """
-    distinct select on columns
-    """
-    distinct_on: [app_select_column!]
-
-    """
-    limit the number of rows returned
-    """
-    limit: Int
-
-    """
-    skip the first n rows. Use only with order_by
-    """
-    offset: Int
-
-    """
-    sort the rows by one or more columns
-    """
-    order_by: [app_order_by!]
-
-    """
-    filter the rows returned
-    """
-    where: app_bool_exp
-  ): [app!]!
-
-  """
-  An aggregate relationship
-  """
-  apps_aggregate(
-    """
-    distinct select on columns
-    """
-    distinct_on: [app_select_column!]
-
-    """
-    limit the number of rows returned
-    """
-    limit: Int
-
-    """
-    skip the first n rows. Use only with order_by
-    """
-    offset: Int
-
-    """
-    sort the rows by one or more columns
-    """
-    order_by: [app_order_by!]
-
-    """
-    filter the rows returned
-    """
-    where: app_bool_exp
-  ): app_aggregate!
   id: String!
-
-  """
-  An array relationship
-  """
-  libraries(
-    """
-    distinct select on columns
-    """
-    distinct_on: [library_select_column!]
-
-    """
-    limit the number of rows returned
-    """
-    limit: Int
-
-    """
-    skip the first n rows. Use only with order_by
-    """
-    offset: Int
-
-    """
-    sort the rows by one or more columns
-    """
-    order_by: [library_order_by!]
-
-    """
-    filter the rows returned
-    """
-    where: library_bool_exp
-  ): [library!]!
-
-  """
-  An aggregate relationship
-  """
-  libraries_aggregate(
-    """
-    distinct select on columns
-    """
-    distinct_on: [library_select_column!]
-
-    """
-    limit the number of rows returned
-    """
-    limit: Int
-
-    """
-    skip the first n rows. Use only with order_by
-    """
-    offset: Int
-
-    """
-    sort the rows by one or more columns
-    """
-    order_by: [library_order_by!]
-
-    """
-    filter the rows returned
-    """
-    where: library_bool_exp
-  ): library_aggregate!
   name: String
 }
 
@@ -10205,9 +8505,7 @@ input user_bool_exp {
   _and: [user_bool_exp!]
   _not: user_bool_exp
   _or: [user_bool_exp!]
-  apps: app_bool_exp
   id: String_comparison_exp
-  libraries: library_bool_exp
   name: String_comparison_exp
 }
 
@@ -10225,9 +8523,7 @@ enum user_constraint {
 input type for inserting data into table "user"
 """
 input user_insert_input {
-  apps: app_arr_rel_insert_input
   id: String
-  libraries: library_arr_rel_insert_input
   name: String
 }
 
@@ -10287,9 +8583,7 @@ input user_on_conflict {
 Ordering options when selecting data from "user".
 """
 input user_order_by {
-  apps_aggregate: app_aggregate_order_by
   id: order_by
-  libraries_aggregate: library_aggregate_order_by
   name: order_by
 }
 

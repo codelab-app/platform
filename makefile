@@ -32,7 +32,7 @@ build-dev:
 build-ci:
 	npx nx run-many \
     --target=build \
-		--projects=api,web,tools-eslint-config-codelab \
+		--projects=api,web \
     --parallel \
 		--maxWorkers=8 \
 		--memoryLimit=8192 \
