@@ -1,6 +1,7 @@
 version: 3
 endpoint: https://codelab-ai.hasura.app/
 admin_secret: AwuuG9U2VyJHYqSY@ipt!$Uo
+
 # @todo: Hasura env is not working
 # @body: According to this https://github.com/hasura/graphql-engine/issues/4129, it should pick up the env when we run `yarn hasura:console`. I've also tried `--envfile=../.env` in case the `--project` makes CWD to `hasura`
 # @autoAssign: artonio
