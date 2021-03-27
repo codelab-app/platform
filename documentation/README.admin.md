@@ -26,30 +26,6 @@ Docker executor can't mount volumes, or use local files on remote docker environ
 - `nx build [repo]` in `nx` repo
 - Yarn link to this repo for usage
 
-# Atomic Design
-
-Similar to this https://bradfrost.com/blog/post/atomic-web-design/#molecules, we use our own hierarchy.
-
-## Page
-
-An instance of a template
-
-## Template
-
-A re-useable context for data binding, has all UI in place.
-
-## Section
-
-A distinct building block like sidebar, header, footer etc.
-
-## Snippet
-
-Collection of components like a search bar (composed of button + input)
-
-## Component
-
-Smallest UI part, button etc.
-
 # Linter
 
 Using tsconfig paths require https://www.npmjs.com/package/eslint-import-resolver-typescript
@@ -57,18 +33,3 @@ Using tsconfig paths require https://www.npmjs.com/package/eslint-import-resolve
 Using package resolution requires https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/parser
 
 We add `tsconfig.eslint.json` that includes all files for linting only. `eslintrc.js` has 2 config that each package needs to create, 1 for `import/no-resolved`, the other for resolving tsconfig project location.
-
-
-# Patterns
-
-## CQS
-- Query: immutable data fetch
-- Command: change state, no return value
-
-## Query Object
-- like wrapper around sql
-
-
-# Build
-
-`api-gateway` depends on `api-federation-node` & `api-federation-props`, while `api-federation-node` depends on `api-federation-props`
