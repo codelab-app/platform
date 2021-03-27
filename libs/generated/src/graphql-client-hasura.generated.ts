@@ -231,7 +231,7 @@ export type Atom = {
   __typename?: 'atom'
   component_id: Scalars['uuid']
   id: Scalars['uuid']
-  type: Scalars['String']
+  type: Atom_Types_Enum
 }
 
 /** aggregated selection of "atom" */
@@ -262,7 +262,7 @@ export type Atom_Bool_Exp = {
   _or?: Maybe<Array<Atom_Bool_Exp>>
   component_id?: Maybe<Uuid_Comparison_Exp>
   id?: Maybe<Uuid_Comparison_Exp>
-  type?: Maybe<String_Comparison_Exp>
+  type?: Maybe<Atom_Types_Enum_Comparison_Exp>
 }
 
 /** unique or primary key constraints on table "atom" */
@@ -275,7 +275,7 @@ export enum Atom_Constraint {
 export type Atom_Insert_Input = {
   component_id?: Maybe<Scalars['uuid']>
   id?: Maybe<Scalars['uuid']>
-  type?: Maybe<Scalars['String']>
+  type?: Maybe<Atom_Types_Enum>
 }
 
 /** aggregate max on columns */
@@ -283,7 +283,6 @@ export type Atom_Max_Fields = {
   __typename?: 'atom_max_fields'
   component_id?: Maybe<Scalars['uuid']>
   id?: Maybe<Scalars['uuid']>
-  type?: Maybe<Scalars['String']>
 }
 
 /** aggregate min on columns */
@@ -291,7 +290,6 @@ export type Atom_Min_Fields = {
   __typename?: 'atom_min_fields'
   component_id?: Maybe<Scalars['uuid']>
   id?: Maybe<Scalars['uuid']>
-  type?: Maybe<Scalars['String']>
 }
 
 /** response of any mutation on the table "atom" */
@@ -336,7 +334,7 @@ export enum Atom_Select_Column {
 export type Atom_Set_Input = {
   component_id?: Maybe<Scalars['uuid']>
   id?: Maybe<Scalars['uuid']>
-  type?: Maybe<Scalars['String']>
+  type?: Maybe<Atom_Types_Enum>
 }
 
 /** columns and relationships of "atom_types" */
@@ -380,6 +378,121 @@ export type Atom_Types_Bool_Exp = {
 export enum Atom_Types_Constraint {
   /** unique or primary key constraint */
   VertexTypePkey = 'vertexType_pkey',
+}
+
+export enum Atom_Types_Enum {
+  ReactAffix = 'React_Affix',
+  ReactAlert = 'React_Alert',
+  ReactAnchor = 'React_Anchor',
+  ReactAnchorLink = 'React_Anchor_Link',
+  ReactAutoComplete = 'React_AutoComplete',
+  ReactAvatar = 'React_Avatar',
+  ReactBackTop = 'React_BackTop',
+  ReactBadge = 'React_Badge',
+  ReactBreadcrumb = 'React_Breadcrumb',
+  ReactBreadcrumbItem = 'React_Breadcrumb_Item',
+  ReactButton = 'React_Button',
+  ReactCalendar = 'React_Calendar',
+  ReactCard = 'React_Card',
+  ReactCardGrid = 'React_Card_Grid',
+  ReactCardMeta = 'React_Card_Meta',
+  ReactCarousel = 'React_Carousel',
+  ReactCascader = 'React_Cascader',
+  ReactCheckbox = 'React_Checkbox',
+  ReactCollapse = 'React_Collapse',
+  ReactCollapsePanel = 'React_Collapse_Panel',
+  ReactComment = 'React_Comment',
+  ReactConfigProvider = 'React_ConfigProvider',
+  ReactDatePicker = 'React_DatePicker',
+  ReactDescriptions = 'React_Descriptions',
+  ReactDescriptionsItem = 'React_Descriptions_Item',
+  ReactDivider = 'React_Divider',
+  ReactDrawer = 'React_Drawer',
+  ReactDropdown = 'React_Dropdown',
+  ReactEmpty = 'React_Empty',
+  ReactForm = 'React_Form',
+  ReactFormItem = 'React_Form_Item',
+  ReactFormItemHook = 'React_Form_ItemHook',
+  ReactFormList = 'React_Form_List',
+  ReactFragment = 'React_Fragment',
+  ReactGridCol = 'React_Grid_Col',
+  ReactGridRow = 'React_Grid_Row',
+  ReactHtmlA = 'React_Html_A',
+  ReactHtmlDiv = 'React_Html_Div',
+  ReactHtmlP = 'React_Html_P',
+  ReactHtmlSpan = 'React_Html_Span',
+  ReactIcon = 'React_Icon',
+  ReactInput = 'React_Input',
+  ReactInputNumber = 'React_InputNumber',
+  ReactLayout = 'React_Layout',
+  ReactLayoutContent = 'React_Layout_Content',
+  ReactLayoutFooter = 'React_Layout_Footer',
+  ReactLayoutHeader = 'React_Layout_Header',
+  ReactLayoutSider = 'React_Layout_Sider',
+  ReactList = 'React_List',
+  ReactListItem = 'React_List_Item',
+  ReactListItemMeta = 'React_List_Item_Meta',
+  ReactMapper = 'React_Mapper',
+  ReactMentions = 'React_Mentions',
+  ReactMentionsOption = 'React_Mentions_Option',
+  ReactMenu = 'React_Menu',
+  ReactMenuItem = 'React_Menu_Item',
+  ReactMenuItemGroup = 'React_Menu_ItemGroup',
+  ReactMenuSubMenu = 'React_Menu_SubMenu',
+  ReactModal = 'React_Modal',
+  ReactPageHeader = 'React_PageHeader',
+  ReactPageContainer = 'React_Page_Container',
+  ReactPagination = 'React_Pagination',
+  ReactPopconfirm = 'React_Popconfirm',
+  ReactPopover = 'React_Popover',
+  ReactProgress = 'React_Progress',
+  ReactProvider = 'React_Provider',
+  ReactRglContainer = 'React_RGL_Container',
+  ReactRglItem = 'React_RGL_Item',
+  ReactRglResponsiveContainer = 'React_RGL_ResponsiveContainer',
+  ReactRadio = 'React_Radio',
+  ReactRadioGroup = 'React_Radio_Group',
+  ReactRate = 'React_Rate',
+  ReactRenderComponent = 'React_RenderComponent',
+  ReactRenderContainer = 'React_RenderContainer',
+  ReactResult = 'React_Result',
+  ReactSelect = 'React_Select',
+  ReactSelectOption = 'React_Select_Option',
+  ReactSkeleton = 'React_Skeleton',
+  ReactSlider = 'React_Slider',
+  ReactSpace = 'React_Space',
+  ReactSpin = 'React_Spin',
+  ReactStatistic = 'React_Statistic',
+  ReactSteps = 'React_Steps',
+  ReactStepsStep = 'React_Steps_Step',
+  ReactSwitch = 'React_Switch',
+  ReactTable = 'React_Table',
+  ReactTabs = 'React_Tabs',
+  ReactTabsTabPane = 'React_Tabs_TabPane',
+  ReactTag = 'React_Tag',
+  ReactText = 'React_Text',
+  ReactTimePicker = 'React_TimePicker',
+  ReactTimeline = 'React_Timeline',
+  ReactTimelineItem = 'React_Timeline_Item',
+  ReactTooltip = 'React_Tooltip',
+  ReactTransfer = 'React_Transfer',
+  ReactTree = 'React_Tree',
+  ReactTreeNode = 'React_TreeNode',
+  ReactTreeSelect = 'React_TreeSelect',
+  ReactTypography = 'React_Typography',
+  ReactTypographyParagraph = 'React_Typography_Paragraph',
+  ReactTypographyText = 'React_Typography_Text',
+  ReactTypographyTitle = 'React_Typography_Title',
+  ReactUpload = 'React_Upload',
+}
+
+/** Boolean expression to compare columns of type "atom_types_enum". All fields are combined with logical 'AND'. */
+export type Atom_Types_Enum_Comparison_Exp = {
+  _eq?: Maybe<Atom_Types_Enum>
+  _in?: Maybe<Array<Atom_Types_Enum>>
+  _is_null?: Maybe<Scalars['Boolean']>
+  _neq?: Maybe<Atom_Types_Enum>
+  _nin?: Maybe<Array<Atom_Types_Enum>>
 }
 
 /** input type for inserting data into table "atom_types" */
@@ -466,7 +579,7 @@ export type Attribute = {
   __typename?: 'attribute'
   id: Scalars['uuid']
   key: Scalars['String']
-  type: Scalars['String']
+  type: Atom_Types_Enum
 }
 
 /** aggregated selection of "attribute" */
@@ -497,7 +610,7 @@ export type Attribute_Bool_Exp = {
   _or?: Maybe<Array<Attribute_Bool_Exp>>
   id?: Maybe<Uuid_Comparison_Exp>
   key?: Maybe<String_Comparison_Exp>
-  type?: Maybe<String_Comparison_Exp>
+  type?: Maybe<Atom_Types_Enum_Comparison_Exp>
 }
 
 /** unique or primary key constraints on table "attribute" */
@@ -510,7 +623,7 @@ export enum Attribute_Constraint {
 export type Attribute_Insert_Input = {
   id?: Maybe<Scalars['uuid']>
   key?: Maybe<Scalars['String']>
-  type?: Maybe<Scalars['String']>
+  type?: Maybe<Atom_Types_Enum>
 }
 
 /** aggregate max on columns */
@@ -518,7 +631,6 @@ export type Attribute_Max_Fields = {
   __typename?: 'attribute_max_fields'
   id?: Maybe<Scalars['uuid']>
   key?: Maybe<Scalars['String']>
-  type?: Maybe<Scalars['String']>
 }
 
 /** aggregate min on columns */
@@ -526,7 +638,6 @@ export type Attribute_Min_Fields = {
   __typename?: 'attribute_min_fields'
   id?: Maybe<Scalars['uuid']>
   key?: Maybe<Scalars['String']>
-  type?: Maybe<Scalars['String']>
 }
 
 /** response of any mutation on the table "attribute" */
@@ -571,7 +682,7 @@ export enum Attribute_Select_Column {
 export type Attribute_Set_Input = {
   id?: Maybe<Scalars['uuid']>
   key?: Maybe<Scalars['String']>
-  type?: Maybe<Scalars['String']>
+  type?: Maybe<Atom_Types_Enum>
 }
 
 /** update columns of table "attribute" */
@@ -1226,7 +1337,7 @@ export type Lambda = {
   __typename?: 'lambda'
   body: Scalars['String']
   id: Scalars['uuid']
-  library_id: Scalars['uuid']
+  libraryId: Scalars['uuid']
   name: Scalars['String']
 }
 
@@ -1258,7 +1369,7 @@ export type Lambda_Bool_Exp = {
   _or?: Maybe<Array<Lambda_Bool_Exp>>
   body?: Maybe<String_Comparison_Exp>
   id?: Maybe<Uuid_Comparison_Exp>
-  library_id?: Maybe<Uuid_Comparison_Exp>
+  libraryId?: Maybe<Uuid_Comparison_Exp>
   name?: Maybe<String_Comparison_Exp>
 }
 
@@ -1272,7 +1383,7 @@ export enum Lambda_Constraint {
 export type Lambda_Insert_Input = {
   body?: Maybe<Scalars['String']>
   id?: Maybe<Scalars['uuid']>
-  library_id?: Maybe<Scalars['uuid']>
+  libraryId?: Maybe<Scalars['uuid']>
   name?: Maybe<Scalars['String']>
 }
 
@@ -1281,7 +1392,7 @@ export type Lambda_Max_Fields = {
   __typename?: 'lambda_max_fields'
   body?: Maybe<Scalars['String']>
   id?: Maybe<Scalars['uuid']>
-  library_id?: Maybe<Scalars['uuid']>
+  libraryId?: Maybe<Scalars['uuid']>
   name?: Maybe<Scalars['String']>
 }
 
@@ -1290,7 +1401,7 @@ export type Lambda_Min_Fields = {
   __typename?: 'lambda_min_fields'
   body?: Maybe<Scalars['String']>
   id?: Maybe<Scalars['uuid']>
-  library_id?: Maybe<Scalars['uuid']>
+  libraryId?: Maybe<Scalars['uuid']>
   name?: Maybe<Scalars['String']>
 }
 
@@ -1314,7 +1425,7 @@ export type Lambda_On_Conflict = {
 export type Lambda_Order_By = {
   body?: Maybe<Order_By>
   id?: Maybe<Order_By>
-  library_id?: Maybe<Order_By>
+  libraryId?: Maybe<Order_By>
   name?: Maybe<Order_By>
 }
 
@@ -1330,7 +1441,7 @@ export enum Lambda_Select_Column {
   /** column name */
   Id = 'id',
   /** column name */
-  LibraryId = 'library_id',
+  LibraryId = 'libraryId',
   /** column name */
   Name = 'name',
 }
@@ -1339,7 +1450,7 @@ export enum Lambda_Select_Column {
 export type Lambda_Set_Input = {
   body?: Maybe<Scalars['String']>
   id?: Maybe<Scalars['uuid']>
-  library_id?: Maybe<Scalars['uuid']>
+  libraryId?: Maybe<Scalars['uuid']>
   name?: Maybe<Scalars['String']>
 }
 
@@ -1350,7 +1461,7 @@ export enum Lambda_Update_Column {
   /** column name */
   Id = 'id',
   /** column name */
-  LibraryId = 'library_id',
+  LibraryId = 'libraryId',
   /** column name */
   Name = 'name',
 }

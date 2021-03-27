@@ -337,7 +337,7 @@ columns and relationships of "atom"
 type atom {
   component_id: uuid!
   id: uuid!
-  type: String!
+  type: atom_types_enum!
 }
 
 """
@@ -366,7 +366,7 @@ input atom_bool_exp {
   _or: [atom_bool_exp!]
   component_id: uuid_comparison_exp
   id: uuid_comparison_exp
-  type: String_comparison_exp
+  type: atom_types_enum_comparison_exp
 }
 
 """
@@ -385,7 +385,7 @@ input type for inserting data into table "atom"
 input atom_insert_input {
   component_id: uuid
   id: uuid
-  type: String
+  type: atom_types_enum
 }
 
 """
@@ -394,7 +394,6 @@ aggregate max on columns
 type atom_max_fields {
   component_id: uuid
   id: uuid
-  type: String
 }
 
 """
@@ -403,7 +402,6 @@ aggregate min on columns
 type atom_min_fields {
   component_id: uuid
   id: uuid
-  type: String
 }
 
 """
@@ -472,7 +470,7 @@ input type for updating data in table "atom"
 input atom_set_input {
   component_id: uuid
   id: uuid
-  type: String
+  type: atom_types_enum
 }
 
 """
@@ -519,6 +517,123 @@ enum atom_types_constraint {
   unique or primary key constraint
   """
   vertexType_pkey
+}
+
+enum atom_types_enum {
+  React_Affix
+  React_Alert
+  React_Anchor
+  React_Anchor_Link
+  React_AutoComplete
+  React_Avatar
+  React_BackTop
+  React_Badge
+  React_Breadcrumb
+  React_Breadcrumb_Item
+  React_Button
+  React_Calendar
+  React_Card
+  React_Card_Grid
+  React_Card_Meta
+  React_Carousel
+  React_Cascader
+  React_Checkbox
+  React_Collapse
+  React_Collapse_Panel
+  React_Comment
+  React_ConfigProvider
+  React_DatePicker
+  React_Descriptions
+  React_Descriptions_Item
+  React_Divider
+  React_Drawer
+  React_Dropdown
+  React_Empty
+  React_Form
+  React_Form_Item
+  React_Form_ItemHook
+  React_Form_List
+  React_Fragment
+  React_Grid_Col
+  React_Grid_Row
+  React_Html_A
+  React_Html_Div
+  React_Html_P
+  React_Html_Span
+  React_Icon
+  React_Input
+  React_InputNumber
+  React_Layout
+  React_Layout_Content
+  React_Layout_Footer
+  React_Layout_Header
+  React_Layout_Sider
+  React_List
+  React_List_Item
+  React_List_Item_Meta
+  React_Mapper
+  React_Mentions
+  React_Mentions_Option
+  React_Menu
+  React_Menu_Item
+  React_Menu_ItemGroup
+  React_Menu_SubMenu
+  React_Modal
+  React_PageHeader
+  React_Page_Container
+  React_Pagination
+  React_Popconfirm
+  React_Popover
+  React_Progress
+  React_Provider
+  React_RGL_Container
+  React_RGL_Item
+  React_RGL_ResponsiveContainer
+  React_Radio
+  React_Radio_Group
+  React_Rate
+  React_RenderComponent
+  React_RenderContainer
+  React_Result
+  React_Select
+  React_Select_Option
+  React_Skeleton
+  React_Slider
+  React_Space
+  React_Spin
+  React_Statistic
+  React_Steps
+  React_Steps_Step
+  React_Switch
+  React_Table
+  React_Tabs
+  React_Tabs_TabPane
+  React_Tag
+  React_Text
+  React_TimePicker
+  React_Timeline
+  React_Timeline_Item
+  React_Tooltip
+  React_Transfer
+  React_Tree
+  React_TreeNode
+  React_TreeSelect
+  React_Typography
+  React_Typography_Paragraph
+  React_Typography_Text
+  React_Typography_Title
+  React_Upload
+}
+
+"""
+Boolean expression to compare columns of type "atom_types_enum". All fields are combined with logical 'AND'.
+"""
+input atom_types_enum_comparison_exp {
+  _eq: atom_types_enum
+  _in: [atom_types_enum!]
+  _is_null: Boolean
+  _neq: atom_types_enum
+  _nin: [atom_types_enum!]
 }
 
 """
@@ -648,7 +763,7 @@ columns and relationships of "attribute"
 type attribute {
   id: uuid!
   key: String!
-  type: String!
+  type: atom_types_enum!
 }
 
 """
@@ -677,7 +792,7 @@ input attribute_bool_exp {
   _or: [attribute_bool_exp!]
   id: uuid_comparison_exp
   key: String_comparison_exp
-  type: String_comparison_exp
+  type: atom_types_enum_comparison_exp
 }
 
 """
@@ -696,7 +811,7 @@ input type for inserting data into table "attribute"
 input attribute_insert_input {
   id: uuid
   key: String
-  type: String
+  type: atom_types_enum
 }
 
 """
@@ -705,7 +820,6 @@ aggregate max on columns
 type attribute_max_fields {
   id: uuid
   key: String
-  type: String
 }
 
 """
@@ -714,7 +828,6 @@ aggregate min on columns
 type attribute_min_fields {
   id: uuid
   key: String
-  type: String
 }
 
 """
@@ -783,7 +896,7 @@ input type for updating data in table "attribute"
 input attribute_set_input {
   id: uuid
   key: String
-  type: String
+  type: atom_types_enum
 }
 
 """
@@ -1669,7 +1782,7 @@ columns and relationships of "lambda"
 type lambda {
   body: String!
   id: uuid!
-  library_id: uuid!
+  libraryId: uuid!
   name: String!
 }
 
@@ -1699,7 +1812,7 @@ input lambda_bool_exp {
   _or: [lambda_bool_exp!]
   body: String_comparison_exp
   id: uuid_comparison_exp
-  library_id: uuid_comparison_exp
+  libraryId: uuid_comparison_exp
   name: String_comparison_exp
 }
 
@@ -1719,7 +1832,7 @@ input type for inserting data into table "lambda"
 input lambda_insert_input {
   body: String
   id: uuid
-  library_id: uuid
+  libraryId: uuid
   name: String
 }
 
@@ -1729,7 +1842,7 @@ aggregate max on columns
 type lambda_max_fields {
   body: String
   id: uuid
-  library_id: uuid
+  libraryId: uuid
   name: String
 }
 
@@ -1739,7 +1852,7 @@ aggregate min on columns
 type lambda_min_fields {
   body: String
   id: uuid
-  library_id: uuid
+  libraryId: uuid
   name: String
 }
 
@@ -1773,7 +1886,7 @@ Ordering options when selecting data from "lambda".
 input lambda_order_by {
   body: order_by
   id: order_by
-  library_id: order_by
+  libraryId: order_by
   name: order_by
 }
 
@@ -1801,7 +1914,7 @@ enum lambda_select_column {
   """
   column name
   """
-  library_id
+  libraryId
 
   """
   column name
@@ -1815,7 +1928,7 @@ input type for updating data in table "lambda"
 input lambda_set_input {
   body: String
   id: uuid
-  library_id: uuid
+  libraryId: uuid
   name: String
 }
 
@@ -1836,7 +1949,7 @@ enum lambda_update_column {
   """
   column name
   """
-  library_id
+  libraryId
 
   """
   column name
