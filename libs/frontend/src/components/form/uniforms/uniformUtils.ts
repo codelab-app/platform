@@ -1,6 +1,6 @@
 import Ajv from 'ajv'
 import { MutableRefObject } from 'react'
-import JSONSchemaBridge from 'uniforms-bridge-json-schema/es5'
+import JSONSchemaBridge from 'uniforms-bridge-json-schema'
 import { SubmitController } from '../json-schema'
 
 export const connectUniformSubmitRef = (

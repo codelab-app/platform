@@ -16,6 +16,7 @@ import { typeDefs } from '@codelab/generated'
 export interface ApolloContext {
   authToken?: string
   graphqlUri?: string
+  hasura?: boolean
 }
 
 const defaultContext: ApolloContext = {
