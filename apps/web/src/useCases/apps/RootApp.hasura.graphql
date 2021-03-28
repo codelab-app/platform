@@ -27,7 +27,7 @@ fragment RootAppPageElement on page_element {
     }
 }
 
-fragment RootAppPageLink on page_links {
+fragment RootAppPageLink on page_link {
     id
     order
     props

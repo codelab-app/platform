@@ -230,7 +230,7 @@ export enum App_Update_Column {
 export type Atom = {
   __typename?: 'atom'
   id: Scalars['uuid']
-  type: Atom_Types_Enum
+  type: Atom_Type_Enum
 }
 
 /** aggregated selection of "atom" */
@@ -260,7 +260,7 @@ export type Atom_Bool_Exp = {
   _not?: Maybe<Atom_Bool_Exp>
   _or?: Maybe<Array<Atom_Bool_Exp>>
   id?: Maybe<Uuid_Comparison_Exp>
-  type?: Maybe<Atom_Types_Enum_Comparison_Exp>
+  type?: Maybe<Atom_Type_Enum_Comparison_Exp>
 }
 
 /** unique or primary key constraints on table "atom" */
@@ -272,7 +272,7 @@ export enum Atom_Constraint {
 /** input type for inserting data into table "atom" */
 export type Atom_Insert_Input = {
   id?: Maybe<Scalars['uuid']>
-  type?: Maybe<Atom_Types_Enum>
+  type?: Maybe<Atom_Type_Enum>
 }
 
 /** aggregate max on columns */
@@ -332,53 +332,53 @@ export enum Atom_Select_Column {
 /** input type for updating data in table "atom" */
 export type Atom_Set_Input = {
   id?: Maybe<Scalars['uuid']>
-  type?: Maybe<Atom_Types_Enum>
+  type?: Maybe<Atom_Type_Enum>
 }
 
-/** columns and relationships of "atom_types" */
-export type Atom_Types = {
-  __typename?: 'atom_types'
+/** columns and relationships of "atom_type" */
+export type Atom_Type = {
+  __typename?: 'atom_type'
   description?: Maybe<Scalars['String']>
   value: Scalars['String']
 }
 
-/** aggregated selection of "atom_types" */
-export type Atom_Types_Aggregate = {
-  __typename?: 'atom_types_aggregate'
-  aggregate?: Maybe<Atom_Types_Aggregate_Fields>
-  nodes: Array<Atom_Types>
+/** aggregated selection of "atom_type" */
+export type Atom_Type_Aggregate = {
+  __typename?: 'atom_type_aggregate'
+  aggregate?: Maybe<Atom_Type_Aggregate_Fields>
+  nodes: Array<Atom_Type>
 }
 
-/** aggregate fields of "atom_types" */
-export type Atom_Types_Aggregate_Fields = {
-  __typename?: 'atom_types_aggregate_fields'
+/** aggregate fields of "atom_type" */
+export type Atom_Type_Aggregate_Fields = {
+  __typename?: 'atom_type_aggregate_fields'
   count: Scalars['Int']
-  max?: Maybe<Atom_Types_Max_Fields>
-  min?: Maybe<Atom_Types_Min_Fields>
+  max?: Maybe<Atom_Type_Max_Fields>
+  min?: Maybe<Atom_Type_Min_Fields>
 }
 
-/** aggregate fields of "atom_types" */
-export type Atom_Types_Aggregate_FieldsCountArgs = {
-  columns?: Maybe<Array<Atom_Types_Select_Column>>
+/** aggregate fields of "atom_type" */
+export type Atom_Type_Aggregate_FieldsCountArgs = {
+  columns?: Maybe<Array<Atom_Type_Select_Column>>
   distinct?: Maybe<Scalars['Boolean']>
 }
 
-/** Boolean expression to filter rows from the table "atom_types". All fields are combined with a logical 'AND'. */
-export type Atom_Types_Bool_Exp = {
-  _and?: Maybe<Array<Atom_Types_Bool_Exp>>
-  _not?: Maybe<Atom_Types_Bool_Exp>
-  _or?: Maybe<Array<Atom_Types_Bool_Exp>>
+/** Boolean expression to filter rows from the table "atom_type". All fields are combined with a logical 'AND'. */
+export type Atom_Type_Bool_Exp = {
+  _and?: Maybe<Array<Atom_Type_Bool_Exp>>
+  _not?: Maybe<Atom_Type_Bool_Exp>
+  _or?: Maybe<Array<Atom_Type_Bool_Exp>>
   description?: Maybe<String_Comparison_Exp>
   value?: Maybe<String_Comparison_Exp>
 }
 
-/** unique or primary key constraints on table "atom_types" */
-export enum Atom_Types_Constraint {
+/** unique or primary key constraints on table "atom_type" */
+export enum Atom_Type_Constraint {
   /** unique or primary key constraint */
   VertexTypePkey = 'vertexType_pkey',
 }
 
-export enum Atom_Types_Enum {
+export enum Atom_Type_Enum {
   ReactAffix = 'React_Affix',
   ReactAlert = 'React_Alert',
   ReactAnchor = 'React_Anchor',
@@ -484,78 +484,78 @@ export enum Atom_Types_Enum {
   ReactUpload = 'React_Upload',
 }
 
-/** Boolean expression to compare columns of type "atom_types_enum". All fields are combined with logical 'AND'. */
-export type Atom_Types_Enum_Comparison_Exp = {
-  _eq?: Maybe<Atom_Types_Enum>
-  _in?: Maybe<Array<Atom_Types_Enum>>
+/** Boolean expression to compare columns of type "atom_type_enum". All fields are combined with logical 'AND'. */
+export type Atom_Type_Enum_Comparison_Exp = {
+  _eq?: Maybe<Atom_Type_Enum>
+  _in?: Maybe<Array<Atom_Type_Enum>>
   _is_null?: Maybe<Scalars['Boolean']>
-  _neq?: Maybe<Atom_Types_Enum>
-  _nin?: Maybe<Array<Atom_Types_Enum>>
+  _neq?: Maybe<Atom_Type_Enum>
+  _nin?: Maybe<Array<Atom_Type_Enum>>
 }
 
-/** input type for inserting data into table "atom_types" */
-export type Atom_Types_Insert_Input = {
+/** input type for inserting data into table "atom_type" */
+export type Atom_Type_Insert_Input = {
   description?: Maybe<Scalars['String']>
   value?: Maybe<Scalars['String']>
 }
 
 /** aggregate max on columns */
-export type Atom_Types_Max_Fields = {
-  __typename?: 'atom_types_max_fields'
+export type Atom_Type_Max_Fields = {
+  __typename?: 'atom_type_max_fields'
   description?: Maybe<Scalars['String']>
   value?: Maybe<Scalars['String']>
 }
 
 /** aggregate min on columns */
-export type Atom_Types_Min_Fields = {
-  __typename?: 'atom_types_min_fields'
+export type Atom_Type_Min_Fields = {
+  __typename?: 'atom_type_min_fields'
   description?: Maybe<Scalars['String']>
   value?: Maybe<Scalars['String']>
 }
 
-/** response of any mutation on the table "atom_types" */
-export type Atom_Types_Mutation_Response = {
-  __typename?: 'atom_types_mutation_response'
+/** response of any mutation on the table "atom_type" */
+export type Atom_Type_Mutation_Response = {
+  __typename?: 'atom_type_mutation_response'
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']
   /** data from the rows affected by the mutation */
-  returning: Array<Atom_Types>
+  returning: Array<Atom_Type>
 }
 
-/** on conflict condition type for table "atom_types" */
-export type Atom_Types_On_Conflict = {
-  constraint: Atom_Types_Constraint
-  update_columns: Array<Atom_Types_Update_Column>
-  where?: Maybe<Atom_Types_Bool_Exp>
+/** on conflict condition type for table "atom_type" */
+export type Atom_Type_On_Conflict = {
+  constraint: Atom_Type_Constraint
+  update_columns: Array<Atom_Type_Update_Column>
+  where?: Maybe<Atom_Type_Bool_Exp>
 }
 
-/** Ordering options when selecting data from "atom_types". */
-export type Atom_Types_Order_By = {
+/** Ordering options when selecting data from "atom_type". */
+export type Atom_Type_Order_By = {
   description?: Maybe<Order_By>
   value?: Maybe<Order_By>
 }
 
-/** primary key columns input for table: atom_types */
-export type Atom_Types_Pk_Columns_Input = {
+/** primary key columns input for table: atom_type */
+export type Atom_Type_Pk_Columns_Input = {
   value: Scalars['String']
 }
 
-/** select columns of table "atom_types" */
-export enum Atom_Types_Select_Column {
+/** select columns of table "atom_type" */
+export enum Atom_Type_Select_Column {
   /** column name */
   Description = 'description',
   /** column name */
   Value = 'value',
 }
 
-/** input type for updating data in table "atom_types" */
-export type Atom_Types_Set_Input = {
+/** input type for updating data in table "atom_type" */
+export type Atom_Type_Set_Input = {
   description?: Maybe<Scalars['String']>
   value?: Maybe<Scalars['String']>
 }
 
-/** update columns of table "atom_types" */
-export enum Atom_Types_Update_Column {
+/** update columns of table "atom_type" */
+export enum Atom_Type_Update_Column {
   /** column name */
   Description = 'description',
   /** column name */
@@ -575,7 +575,7 @@ export type Attribute = {
   __typename?: 'attribute'
   id: Scalars['uuid']
   key: Scalars['String']
-  type: Atom_Types_Enum
+  type: Atom_Type_Enum
 }
 
 /** aggregated selection of "attribute" */
@@ -606,7 +606,7 @@ export type Attribute_Bool_Exp = {
   _or?: Maybe<Array<Attribute_Bool_Exp>>
   id?: Maybe<Uuid_Comparison_Exp>
   key?: Maybe<String_Comparison_Exp>
-  type?: Maybe<Atom_Types_Enum_Comparison_Exp>
+  type?: Maybe<Atom_Type_Enum_Comparison_Exp>
 }
 
 /** unique or primary key constraints on table "attribute" */
@@ -619,7 +619,7 @@ export enum Attribute_Constraint {
 export type Attribute_Insert_Input = {
   id?: Maybe<Scalars['uuid']>
   key?: Maybe<Scalars['String']>
-  type?: Maybe<Atom_Types_Enum>
+  type?: Maybe<Atom_Type_Enum>
 }
 
 /** aggregate max on columns */
@@ -678,7 +678,7 @@ export enum Attribute_Select_Column {
 export type Attribute_Set_Input = {
   id?: Maybe<Scalars['uuid']>
   key?: Maybe<Scalars['String']>
-  type?: Maybe<Atom_Types_Enum>
+  type?: Maybe<Atom_Type_Enum>
 }
 
 /** update columns of table "attribute" */
@@ -1787,10 +1787,10 @@ export type Mutation_Root = {
   delete_atom?: Maybe<Atom_Mutation_Response>
   /** delete single row from the table: "atom" */
   delete_atom_by_pk?: Maybe<Atom>
-  /** delete data from the table: "atom_types" */
-  delete_atom_types?: Maybe<Atom_Types_Mutation_Response>
-  /** delete single row from the table: "atom_types" */
-  delete_atom_types_by_pk?: Maybe<Atom_Types>
+  /** delete data from the table: "atom_type" */
+  delete_atom_type?: Maybe<Atom_Type_Mutation_Response>
+  /** delete single row from the table: "atom_type" */
+  delete_atom_type_by_pk?: Maybe<Atom_Type>
   /** delete data from the table: "attribute" */
   delete_attribute?: Maybe<Attribute_Mutation_Response>
   /** delete single row from the table: "attribute" */
@@ -1827,10 +1827,10 @@ export type Mutation_Root = {
   delete_page_element?: Maybe<Page_Element_Mutation_Response>
   /** delete single row from the table: "page_element" */
   delete_page_element_by_pk?: Maybe<Page_Element>
-  /** delete data from the table: "page_links" */
-  delete_page_links?: Maybe<Page_Links_Mutation_Response>
-  /** delete single row from the table: "page_links" */
-  delete_page_links_by_pk?: Maybe<Page_Links>
+  /** delete data from the table: "page_link" */
+  delete_page_link?: Maybe<Page_Link_Mutation_Response>
+  /** delete single row from the table: "page_link" */
+  delete_page_link_by_pk?: Maybe<Page_Link>
   /** delete data from the table: "prop" */
   delete_prop?: Maybe<Prop_Mutation_Response>
   /** delete single row from the table: "prop" */
@@ -1839,6 +1839,10 @@ export type Mutation_Root = {
   delete_prop_element?: Maybe<Prop_Element_Mutation_Response>
   /** delete single row from the table: "prop_element" */
   delete_prop_element_by_pk?: Maybe<Prop_Element>
+  /** delete data from the table: "prop_value" */
+  delete_prop_value?: Maybe<Prop_Value_Mutation_Response>
+  /** delete single row from the table: "prop_value" */
+  delete_prop_value_by_pk?: Maybe<Prop_Value>
   /** delete data from the table: "prop_value_tag" */
   delete_prop_value_tag?: Maybe<Prop_Value_Tag_Mutation_Response>
   /** delete single row from the table: "prop_value_tag" */
@@ -1847,10 +1851,6 @@ export type Mutation_Root = {
   delete_prop_value_type?: Maybe<Prop_Value_Type_Mutation_Response>
   /** delete single row from the table: "prop_value_type" */
   delete_prop_value_type_by_pk?: Maybe<Prop_Value_Type>
-  /** delete data from the table: "prop_values" */
-  delete_prop_values?: Maybe<Prop_Values_Mutation_Response>
-  /** delete single row from the table: "prop_values" */
-  delete_prop_values_by_pk?: Maybe<Prop_Values>
   /** delete data from the table: "style" */
   delete_style?: Maybe<Style_Mutation_Response>
   /** delete single row from the table: "style" */
@@ -1871,10 +1871,10 @@ export type Mutation_Root = {
   insert_atom?: Maybe<Atom_Mutation_Response>
   /** insert a single row into the table: "atom" */
   insert_atom_one?: Maybe<Atom>
-  /** insert data into the table: "atom_types" */
-  insert_atom_types?: Maybe<Atom_Types_Mutation_Response>
-  /** insert a single row into the table: "atom_types" */
-  insert_atom_types_one?: Maybe<Atom_Types>
+  /** insert data into the table: "atom_type" */
+  insert_atom_type?: Maybe<Atom_Type_Mutation_Response>
+  /** insert a single row into the table: "atom_type" */
+  insert_atom_type_one?: Maybe<Atom_Type>
   /** insert data into the table: "attribute" */
   insert_attribute?: Maybe<Attribute_Mutation_Response>
   /** insert a single row into the table: "attribute" */
@@ -1909,10 +1909,10 @@ export type Mutation_Root = {
   insert_page_element?: Maybe<Page_Element_Mutation_Response>
   /** insert a single row into the table: "page_element" */
   insert_page_element_one?: Maybe<Page_Element>
-  /** insert data into the table: "page_links" */
-  insert_page_links?: Maybe<Page_Links_Mutation_Response>
-  /** insert a single row into the table: "page_links" */
-  insert_page_links_one?: Maybe<Page_Links>
+  /** insert data into the table: "page_link" */
+  insert_page_link?: Maybe<Page_Link_Mutation_Response>
+  /** insert a single row into the table: "page_link" */
+  insert_page_link_one?: Maybe<Page_Link>
   /** insert a single row into the table: "page" */
   insert_page_one?: Maybe<Page>
   /** insert data into the table: "prop" */
@@ -1923,6 +1923,10 @@ export type Mutation_Root = {
   insert_prop_element_one?: Maybe<Prop_Element>
   /** insert a single row into the table: "prop" */
   insert_prop_one?: Maybe<Prop>
+  /** insert data into the table: "prop_value" */
+  insert_prop_value?: Maybe<Prop_Value_Mutation_Response>
+  /** insert a single row into the table: "prop_value" */
+  insert_prop_value_one?: Maybe<Prop_Value>
   /** insert data into the table: "prop_value_tag" */
   insert_prop_value_tag?: Maybe<Prop_Value_Tag_Mutation_Response>
   /** insert a single row into the table: "prop_value_tag" */
@@ -1931,10 +1935,6 @@ export type Mutation_Root = {
   insert_prop_value_type?: Maybe<Prop_Value_Type_Mutation_Response>
   /** insert a single row into the table: "prop_value_type" */
   insert_prop_value_type_one?: Maybe<Prop_Value_Type>
-  /** insert data into the table: "prop_values" */
-  insert_prop_values?: Maybe<Prop_Values_Mutation_Response>
-  /** insert a single row into the table: "prop_values" */
-  insert_prop_values_one?: Maybe<Prop_Values>
   /** insert data into the table: "style" */
   insert_style?: Maybe<Style_Mutation_Response>
   /** insert a single row into the table: "style" */
@@ -1955,10 +1955,10 @@ export type Mutation_Root = {
   update_atom?: Maybe<Atom_Mutation_Response>
   /** update single row of the table: "atom" */
   update_atom_by_pk?: Maybe<Atom>
-  /** update data of the table: "atom_types" */
-  update_atom_types?: Maybe<Atom_Types_Mutation_Response>
-  /** update single row of the table: "atom_types" */
-  update_atom_types_by_pk?: Maybe<Atom_Types>
+  /** update data of the table: "atom_type" */
+  update_atom_type?: Maybe<Atom_Type_Mutation_Response>
+  /** update single row of the table: "atom_type" */
+  update_atom_type_by_pk?: Maybe<Atom_Type>
   /** update data of the table: "attribute" */
   update_attribute?: Maybe<Attribute_Mutation_Response>
   /** update single row of the table: "attribute" */
@@ -1995,10 +1995,10 @@ export type Mutation_Root = {
   update_page_element?: Maybe<Page_Element_Mutation_Response>
   /** update single row of the table: "page_element" */
   update_page_element_by_pk?: Maybe<Page_Element>
-  /** update data of the table: "page_links" */
-  update_page_links?: Maybe<Page_Links_Mutation_Response>
-  /** update single row of the table: "page_links" */
-  update_page_links_by_pk?: Maybe<Page_Links>
+  /** update data of the table: "page_link" */
+  update_page_link?: Maybe<Page_Link_Mutation_Response>
+  /** update single row of the table: "page_link" */
+  update_page_link_by_pk?: Maybe<Page_Link>
   /** update data of the table: "prop" */
   update_prop?: Maybe<Prop_Mutation_Response>
   /** update single row of the table: "prop" */
@@ -2007,6 +2007,10 @@ export type Mutation_Root = {
   update_prop_element?: Maybe<Prop_Element_Mutation_Response>
   /** update single row of the table: "prop_element" */
   update_prop_element_by_pk?: Maybe<Prop_Element>
+  /** update data of the table: "prop_value" */
+  update_prop_value?: Maybe<Prop_Value_Mutation_Response>
+  /** update single row of the table: "prop_value" */
+  update_prop_value_by_pk?: Maybe<Prop_Value>
   /** update data of the table: "prop_value_tag" */
   update_prop_value_tag?: Maybe<Prop_Value_Tag_Mutation_Response>
   /** update single row of the table: "prop_value_tag" */
@@ -2015,10 +2019,6 @@ export type Mutation_Root = {
   update_prop_value_type?: Maybe<Prop_Value_Type_Mutation_Response>
   /** update single row of the table: "prop_value_type" */
   update_prop_value_type_by_pk?: Maybe<Prop_Value_Type>
-  /** update data of the table: "prop_values" */
-  update_prop_values?: Maybe<Prop_Values_Mutation_Response>
-  /** update single row of the table: "prop_values" */
-  update_prop_values_by_pk?: Maybe<Prop_Values>
   /** update data of the table: "style" */
   update_style?: Maybe<Style_Mutation_Response>
   /** update single row of the table: "style" */
@@ -2054,12 +2054,12 @@ export type Mutation_RootDelete_Atom_By_PkArgs = {
 }
 
 /** mutation root */
-export type Mutation_RootDelete_Atom_TypesArgs = {
-  where: Atom_Types_Bool_Exp
+export type Mutation_RootDelete_Atom_TypeArgs = {
+  where: Atom_Type_Bool_Exp
 }
 
 /** mutation root */
-export type Mutation_RootDelete_Atom_Types_By_PkArgs = {
+export type Mutation_RootDelete_Atom_Type_By_PkArgs = {
   value: Scalars['String']
 }
 
@@ -2154,12 +2154,12 @@ export type Mutation_RootDelete_Page_Element_By_PkArgs = {
 }
 
 /** mutation root */
-export type Mutation_RootDelete_Page_LinksArgs = {
-  where: Page_Links_Bool_Exp
+export type Mutation_RootDelete_Page_LinkArgs = {
+  where: Page_Link_Bool_Exp
 }
 
 /** mutation root */
-export type Mutation_RootDelete_Page_Links_By_PkArgs = {
+export type Mutation_RootDelete_Page_Link_By_PkArgs = {
   id: Scalars['uuid']
 }
 
@@ -2185,6 +2185,16 @@ export type Mutation_RootDelete_Prop_Element_By_PkArgs = {
 }
 
 /** mutation root */
+export type Mutation_RootDelete_Prop_ValueArgs = {
+  where: Prop_Value_Bool_Exp
+}
+
+/** mutation root */
+export type Mutation_RootDelete_Prop_Value_By_PkArgs = {
+  id: Scalars['uuid']
+}
+
+/** mutation root */
 export type Mutation_RootDelete_Prop_Value_TagArgs = {
   where: Prop_Value_Tag_Bool_Exp
 }
@@ -2203,16 +2213,6 @@ export type Mutation_RootDelete_Prop_Value_TypeArgs = {
 /** mutation root */
 export type Mutation_RootDelete_Prop_Value_Type_By_PkArgs = {
   value: Scalars['String']
-}
-
-/** mutation root */
-export type Mutation_RootDelete_Prop_ValuesArgs = {
-  where: Prop_Values_Bool_Exp
-}
-
-/** mutation root */
-export type Mutation_RootDelete_Prop_Values_By_PkArgs = {
-  id: Scalars['uuid']
 }
 
 /** mutation root */
@@ -2270,15 +2270,15 @@ export type Mutation_RootInsert_Atom_OneArgs = {
 }
 
 /** mutation root */
-export type Mutation_RootInsert_Atom_TypesArgs = {
-  objects: Array<Atom_Types_Insert_Input>
-  on_conflict?: Maybe<Atom_Types_On_Conflict>
+export type Mutation_RootInsert_Atom_TypeArgs = {
+  objects: Array<Atom_Type_Insert_Input>
+  on_conflict?: Maybe<Atom_Type_On_Conflict>
 }
 
 /** mutation root */
-export type Mutation_RootInsert_Atom_Types_OneArgs = {
-  object: Atom_Types_Insert_Input
-  on_conflict?: Maybe<Atom_Types_On_Conflict>
+export type Mutation_RootInsert_Atom_Type_OneArgs = {
+  object: Atom_Type_Insert_Input
+  on_conflict?: Maybe<Atom_Type_On_Conflict>
 }
 
 /** mutation root */
@@ -2384,15 +2384,15 @@ export type Mutation_RootInsert_Page_Element_OneArgs = {
 }
 
 /** mutation root */
-export type Mutation_RootInsert_Page_LinksArgs = {
-  objects: Array<Page_Links_Insert_Input>
-  on_conflict?: Maybe<Page_Links_On_Conflict>
+export type Mutation_RootInsert_Page_LinkArgs = {
+  objects: Array<Page_Link_Insert_Input>
+  on_conflict?: Maybe<Page_Link_On_Conflict>
 }
 
 /** mutation root */
-export type Mutation_RootInsert_Page_Links_OneArgs = {
-  object: Page_Links_Insert_Input
-  on_conflict?: Maybe<Page_Links_On_Conflict>
+export type Mutation_RootInsert_Page_Link_OneArgs = {
+  object: Page_Link_Insert_Input
+  on_conflict?: Maybe<Page_Link_On_Conflict>
 }
 
 /** mutation root */
@@ -2426,6 +2426,18 @@ export type Mutation_RootInsert_Prop_OneArgs = {
 }
 
 /** mutation root */
+export type Mutation_RootInsert_Prop_ValueArgs = {
+  objects: Array<Prop_Value_Insert_Input>
+  on_conflict?: Maybe<Prop_Value_On_Conflict>
+}
+
+/** mutation root */
+export type Mutation_RootInsert_Prop_Value_OneArgs = {
+  object: Prop_Value_Insert_Input
+  on_conflict?: Maybe<Prop_Value_On_Conflict>
+}
+
+/** mutation root */
 export type Mutation_RootInsert_Prop_Value_TagArgs = {
   objects: Array<Prop_Value_Tag_Insert_Input>
   on_conflict?: Maybe<Prop_Value_Tag_On_Conflict>
@@ -2447,18 +2459,6 @@ export type Mutation_RootInsert_Prop_Value_TypeArgs = {
 export type Mutation_RootInsert_Prop_Value_Type_OneArgs = {
   object: Prop_Value_Type_Insert_Input
   on_conflict?: Maybe<Prop_Value_Type_On_Conflict>
-}
-
-/** mutation root */
-export type Mutation_RootInsert_Prop_ValuesArgs = {
-  objects: Array<Prop_Values_Insert_Input>
-  on_conflict?: Maybe<Prop_Values_On_Conflict>
-}
-
-/** mutation root */
-export type Mutation_RootInsert_Prop_Values_OneArgs = {
-  object: Prop_Values_Insert_Input
-  on_conflict?: Maybe<Prop_Values_On_Conflict>
 }
 
 /** mutation root */
@@ -2522,15 +2522,15 @@ export type Mutation_RootUpdate_Atom_By_PkArgs = {
 }
 
 /** mutation root */
-export type Mutation_RootUpdate_Atom_TypesArgs = {
-  _set?: Maybe<Atom_Types_Set_Input>
-  where: Atom_Types_Bool_Exp
+export type Mutation_RootUpdate_Atom_TypeArgs = {
+  _set?: Maybe<Atom_Type_Set_Input>
+  where: Atom_Type_Bool_Exp
 }
 
 /** mutation root */
-export type Mutation_RootUpdate_Atom_Types_By_PkArgs = {
-  _set?: Maybe<Atom_Types_Set_Input>
-  pk_columns: Atom_Types_Pk_Columns_Input
+export type Mutation_RootUpdate_Atom_Type_By_PkArgs = {
+  _set?: Maybe<Atom_Type_Set_Input>
+  pk_columns: Atom_Type_Pk_Columns_Input
 }
 
 /** mutation root */
@@ -2654,27 +2654,27 @@ export type Mutation_RootUpdate_Page_Element_By_PkArgs = {
 }
 
 /** mutation root */
-export type Mutation_RootUpdate_Page_LinksArgs = {
-  _append?: Maybe<Page_Links_Append_Input>
-  _delete_at_path?: Maybe<Page_Links_Delete_At_Path_Input>
-  _delete_elem?: Maybe<Page_Links_Delete_Elem_Input>
-  _delete_key?: Maybe<Page_Links_Delete_Key_Input>
-  _inc?: Maybe<Page_Links_Inc_Input>
-  _prepend?: Maybe<Page_Links_Prepend_Input>
-  _set?: Maybe<Page_Links_Set_Input>
-  where: Page_Links_Bool_Exp
+export type Mutation_RootUpdate_Page_LinkArgs = {
+  _append?: Maybe<Page_Link_Append_Input>
+  _delete_at_path?: Maybe<Page_Link_Delete_At_Path_Input>
+  _delete_elem?: Maybe<Page_Link_Delete_Elem_Input>
+  _delete_key?: Maybe<Page_Link_Delete_Key_Input>
+  _inc?: Maybe<Page_Link_Inc_Input>
+  _prepend?: Maybe<Page_Link_Prepend_Input>
+  _set?: Maybe<Page_Link_Set_Input>
+  where: Page_Link_Bool_Exp
 }
 
 /** mutation root */
-export type Mutation_RootUpdate_Page_Links_By_PkArgs = {
-  _append?: Maybe<Page_Links_Append_Input>
-  _delete_at_path?: Maybe<Page_Links_Delete_At_Path_Input>
-  _delete_elem?: Maybe<Page_Links_Delete_Elem_Input>
-  _delete_key?: Maybe<Page_Links_Delete_Key_Input>
-  _inc?: Maybe<Page_Links_Inc_Input>
-  _prepend?: Maybe<Page_Links_Prepend_Input>
-  _set?: Maybe<Page_Links_Set_Input>
-  pk_columns: Page_Links_Pk_Columns_Input
+export type Mutation_RootUpdate_Page_Link_By_PkArgs = {
+  _append?: Maybe<Page_Link_Append_Input>
+  _delete_at_path?: Maybe<Page_Link_Delete_At_Path_Input>
+  _delete_elem?: Maybe<Page_Link_Delete_Elem_Input>
+  _delete_key?: Maybe<Page_Link_Delete_Key_Input>
+  _inc?: Maybe<Page_Link_Inc_Input>
+  _prepend?: Maybe<Page_Link_Prepend_Input>
+  _set?: Maybe<Page_Link_Set_Input>
+  pk_columns: Page_Link_Pk_Columns_Input
 }
 
 /** mutation root */
@@ -2702,6 +2702,18 @@ export type Mutation_RootUpdate_Prop_Element_By_PkArgs = {
 }
 
 /** mutation root */
+export type Mutation_RootUpdate_Prop_ValueArgs = {
+  _set?: Maybe<Prop_Value_Set_Input>
+  where: Prop_Value_Bool_Exp
+}
+
+/** mutation root */
+export type Mutation_RootUpdate_Prop_Value_By_PkArgs = {
+  _set?: Maybe<Prop_Value_Set_Input>
+  pk_columns: Prop_Value_Pk_Columns_Input
+}
+
+/** mutation root */
 export type Mutation_RootUpdate_Prop_Value_TagArgs = {
   _set?: Maybe<Prop_Value_Tag_Set_Input>
   where: Prop_Value_Tag_Bool_Exp
@@ -2723,18 +2735,6 @@ export type Mutation_RootUpdate_Prop_Value_TypeArgs = {
 export type Mutation_RootUpdate_Prop_Value_Type_By_PkArgs = {
   _set?: Maybe<Prop_Value_Type_Set_Input>
   pk_columns: Prop_Value_Type_Pk_Columns_Input
-}
-
-/** mutation root */
-export type Mutation_RootUpdate_Prop_ValuesArgs = {
-  _set?: Maybe<Prop_Values_Set_Input>
-  where: Prop_Values_Bool_Exp
-}
-
-/** mutation root */
-export type Mutation_RootUpdate_Prop_Values_By_PkArgs = {
-  _set?: Maybe<Prop_Values_Set_Input>
-  pk_columns: Prop_Values_Pk_Columns_Input
 }
 
 /** mutation root */
@@ -2801,9 +2801,9 @@ export type Page = {
   elements_aggregate: Page_Element_Aggregate
   id: Scalars['uuid']
   /** An array relationship */
-  links: Array<Page_Links>
+  links: Array<Page_Link>
   /** An aggregate relationship */
-  links_aggregate: Page_Links_Aggregate
+  links_aggregate: Page_Link_Aggregate
   name: Scalars['String']
   /** An object relationship */
   owner: User
@@ -2830,20 +2830,20 @@ export type PageElements_AggregateArgs = {
 
 /** columns and relationships of "page" */
 export type PageLinksArgs = {
-  distinct_on?: Maybe<Array<Page_Links_Select_Column>>
+  distinct_on?: Maybe<Array<Page_Link_Select_Column>>
   limit?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
-  order_by?: Maybe<Array<Page_Links_Order_By>>
-  where?: Maybe<Page_Links_Bool_Exp>
+  order_by?: Maybe<Array<Page_Link_Order_By>>
+  where?: Maybe<Page_Link_Bool_Exp>
 }
 
 /** columns and relationships of "page" */
 export type PageLinks_AggregateArgs = {
-  distinct_on?: Maybe<Array<Page_Links_Select_Column>>
+  distinct_on?: Maybe<Array<Page_Link_Select_Column>>
   limit?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
-  order_by?: Maybe<Array<Page_Links_Order_By>>
-  where?: Maybe<Page_Links_Bool_Exp>
+  order_by?: Maybe<Array<Page_Link_Order_By>>
+  where?: Maybe<Page_Link_Bool_Exp>
 }
 
 /** aggregated selection of "page" */
@@ -2890,7 +2890,7 @@ export type Page_Bool_Exp = {
   app_id?: Maybe<Uuid_Comparison_Exp>
   elements?: Maybe<Page_Element_Bool_Exp>
   id?: Maybe<Uuid_Comparison_Exp>
-  links?: Maybe<Page_Links_Bool_Exp>
+  links?: Maybe<Page_Link_Bool_Exp>
   name?: Maybe<String_Comparison_Exp>
   owner?: Maybe<User_Bool_Exp>
   owner_id?: Maybe<String_Comparison_Exp>
@@ -3114,15 +3114,15 @@ export type Page_Insert_Input = {
   app_id?: Maybe<Scalars['uuid']>
   elements?: Maybe<Page_Element_Arr_Rel_Insert_Input>
   id?: Maybe<Scalars['uuid']>
-  links?: Maybe<Page_Links_Arr_Rel_Insert_Input>
+  links?: Maybe<Page_Link_Arr_Rel_Insert_Input>
   name?: Maybe<Scalars['String']>
   owner?: Maybe<User_Obj_Rel_Insert_Input>
   owner_id?: Maybe<Scalars['String']>
 }
 
-/** columns and relationships of "page_links" */
-export type Page_Links = {
-  __typename?: 'page_links'
+/** columns and relationships of "page_link" */
+export type Page_Link = {
+  __typename?: 'page_link'
   id: Scalars['uuid']
   order?: Maybe<Scalars['Int']>
   page_id: Scalars['uuid']
@@ -3131,83 +3131,83 @@ export type Page_Links = {
   target_element_id: Scalars['uuid']
 }
 
-/** columns and relationships of "page_links" */
-export type Page_LinksPropsArgs = {
+/** columns and relationships of "page_link" */
+export type Page_LinkPropsArgs = {
   path?: Maybe<Scalars['String']>
 }
 
-/** aggregated selection of "page_links" */
-export type Page_Links_Aggregate = {
-  __typename?: 'page_links_aggregate'
-  aggregate?: Maybe<Page_Links_Aggregate_Fields>
-  nodes: Array<Page_Links>
+/** aggregated selection of "page_link" */
+export type Page_Link_Aggregate = {
+  __typename?: 'page_link_aggregate'
+  aggregate?: Maybe<Page_Link_Aggregate_Fields>
+  nodes: Array<Page_Link>
 }
 
-/** aggregate fields of "page_links" */
-export type Page_Links_Aggregate_Fields = {
-  __typename?: 'page_links_aggregate_fields'
-  avg?: Maybe<Page_Links_Avg_Fields>
+/** aggregate fields of "page_link" */
+export type Page_Link_Aggregate_Fields = {
+  __typename?: 'page_link_aggregate_fields'
+  avg?: Maybe<Page_Link_Avg_Fields>
   count: Scalars['Int']
-  max?: Maybe<Page_Links_Max_Fields>
-  min?: Maybe<Page_Links_Min_Fields>
-  stddev?: Maybe<Page_Links_Stddev_Fields>
-  stddev_pop?: Maybe<Page_Links_Stddev_Pop_Fields>
-  stddev_samp?: Maybe<Page_Links_Stddev_Samp_Fields>
-  sum?: Maybe<Page_Links_Sum_Fields>
-  var_pop?: Maybe<Page_Links_Var_Pop_Fields>
-  var_samp?: Maybe<Page_Links_Var_Samp_Fields>
-  variance?: Maybe<Page_Links_Variance_Fields>
+  max?: Maybe<Page_Link_Max_Fields>
+  min?: Maybe<Page_Link_Min_Fields>
+  stddev?: Maybe<Page_Link_Stddev_Fields>
+  stddev_pop?: Maybe<Page_Link_Stddev_Pop_Fields>
+  stddev_samp?: Maybe<Page_Link_Stddev_Samp_Fields>
+  sum?: Maybe<Page_Link_Sum_Fields>
+  var_pop?: Maybe<Page_Link_Var_Pop_Fields>
+  var_samp?: Maybe<Page_Link_Var_Samp_Fields>
+  variance?: Maybe<Page_Link_Variance_Fields>
 }
 
-/** aggregate fields of "page_links" */
-export type Page_Links_Aggregate_FieldsCountArgs = {
-  columns?: Maybe<Array<Page_Links_Select_Column>>
+/** aggregate fields of "page_link" */
+export type Page_Link_Aggregate_FieldsCountArgs = {
+  columns?: Maybe<Array<Page_Link_Select_Column>>
   distinct?: Maybe<Scalars['Boolean']>
 }
 
-/** order by aggregate values of table "page_links" */
-export type Page_Links_Aggregate_Order_By = {
-  avg?: Maybe<Page_Links_Avg_Order_By>
+/** order by aggregate values of table "page_link" */
+export type Page_Link_Aggregate_Order_By = {
+  avg?: Maybe<Page_Link_Avg_Order_By>
   count?: Maybe<Order_By>
-  max?: Maybe<Page_Links_Max_Order_By>
-  min?: Maybe<Page_Links_Min_Order_By>
-  stddev?: Maybe<Page_Links_Stddev_Order_By>
-  stddev_pop?: Maybe<Page_Links_Stddev_Pop_Order_By>
-  stddev_samp?: Maybe<Page_Links_Stddev_Samp_Order_By>
-  sum?: Maybe<Page_Links_Sum_Order_By>
-  var_pop?: Maybe<Page_Links_Var_Pop_Order_By>
-  var_samp?: Maybe<Page_Links_Var_Samp_Order_By>
-  variance?: Maybe<Page_Links_Variance_Order_By>
+  max?: Maybe<Page_Link_Max_Order_By>
+  min?: Maybe<Page_Link_Min_Order_By>
+  stddev?: Maybe<Page_Link_Stddev_Order_By>
+  stddev_pop?: Maybe<Page_Link_Stddev_Pop_Order_By>
+  stddev_samp?: Maybe<Page_Link_Stddev_Samp_Order_By>
+  sum?: Maybe<Page_Link_Sum_Order_By>
+  var_pop?: Maybe<Page_Link_Var_Pop_Order_By>
+  var_samp?: Maybe<Page_Link_Var_Samp_Order_By>
+  variance?: Maybe<Page_Link_Variance_Order_By>
 }
 
 /** append existing jsonb value of filtered columns with new jsonb value */
-export type Page_Links_Append_Input = {
+export type Page_Link_Append_Input = {
   props?: Maybe<Scalars['jsonb']>
 }
 
-/** input type for inserting array relation for remote table "page_links" */
-export type Page_Links_Arr_Rel_Insert_Input = {
-  data: Array<Page_Links_Insert_Input>
+/** input type for inserting array relation for remote table "page_link" */
+export type Page_Link_Arr_Rel_Insert_Input = {
+  data: Array<Page_Link_Insert_Input>
   /** on conflict condition */
-  on_conflict?: Maybe<Page_Links_On_Conflict>
+  on_conflict?: Maybe<Page_Link_On_Conflict>
 }
 
 /** aggregate avg on columns */
-export type Page_Links_Avg_Fields = {
-  __typename?: 'page_links_avg_fields'
+export type Page_Link_Avg_Fields = {
+  __typename?: 'page_link_avg_fields'
   order?: Maybe<Scalars['Float']>
 }
 
-/** order by avg() on columns of table "page_links" */
-export type Page_Links_Avg_Order_By = {
+/** order by avg() on columns of table "page_link" */
+export type Page_Link_Avg_Order_By = {
   order?: Maybe<Order_By>
 }
 
-/** Boolean expression to filter rows from the table "page_links". All fields are combined with a logical 'AND'. */
-export type Page_Links_Bool_Exp = {
-  _and?: Maybe<Array<Page_Links_Bool_Exp>>
-  _not?: Maybe<Page_Links_Bool_Exp>
-  _or?: Maybe<Array<Page_Links_Bool_Exp>>
+/** Boolean expression to filter rows from the table "page_link". All fields are combined with a logical 'AND'. */
+export type Page_Link_Bool_Exp = {
+  _and?: Maybe<Array<Page_Link_Bool_Exp>>
+  _not?: Maybe<Page_Link_Bool_Exp>
+  _or?: Maybe<Array<Page_Link_Bool_Exp>>
   id?: Maybe<Uuid_Comparison_Exp>
   order?: Maybe<Int_Comparison_Exp>
   page_id?: Maybe<Uuid_Comparison_Exp>
@@ -3216,34 +3216,34 @@ export type Page_Links_Bool_Exp = {
   target_element_id?: Maybe<Uuid_Comparison_Exp>
 }
 
-/** unique or primary key constraints on table "page_links" */
-export enum Page_Links_Constraint {
+/** unique or primary key constraints on table "page_link" */
+export enum Page_Link_Constraint {
   /** unique or primary key constraint */
   PageLinksPkey = 'page_links_pkey',
 }
 
 /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
-export type Page_Links_Delete_At_Path_Input = {
+export type Page_Link_Delete_At_Path_Input = {
   props?: Maybe<Array<Scalars['String']>>
 }
 
 /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
-export type Page_Links_Delete_Elem_Input = {
+export type Page_Link_Delete_Elem_Input = {
   props?: Maybe<Scalars['Int']>
 }
 
 /** delete key/value pair or string element. key/value pairs are matched based on their key value */
-export type Page_Links_Delete_Key_Input = {
+export type Page_Link_Delete_Key_Input = {
   props?: Maybe<Scalars['String']>
 }
 
-/** input type for incrementing numeric columns in table "page_links" */
-export type Page_Links_Inc_Input = {
+/** input type for incrementing numeric columns in table "page_link" */
+export type Page_Link_Inc_Input = {
   order?: Maybe<Scalars['Int']>
 }
 
-/** input type for inserting data into table "page_links" */
-export type Page_Links_Insert_Input = {
+/** input type for inserting data into table "page_link" */
+export type Page_Link_Insert_Input = {
   id?: Maybe<Scalars['uuid']>
   order?: Maybe<Scalars['Int']>
   page_id?: Maybe<Scalars['uuid']>
@@ -3253,8 +3253,8 @@ export type Page_Links_Insert_Input = {
 }
 
 /** aggregate max on columns */
-export type Page_Links_Max_Fields = {
-  __typename?: 'page_links_max_fields'
+export type Page_Link_Max_Fields = {
+  __typename?: 'page_link_max_fields'
   id?: Maybe<Scalars['uuid']>
   order?: Maybe<Scalars['Int']>
   page_id?: Maybe<Scalars['uuid']>
@@ -3262,8 +3262,8 @@ export type Page_Links_Max_Fields = {
   target_element_id?: Maybe<Scalars['uuid']>
 }
 
-/** order by max() on columns of table "page_links" */
-export type Page_Links_Max_Order_By = {
+/** order by max() on columns of table "page_link" */
+export type Page_Link_Max_Order_By = {
   id?: Maybe<Order_By>
   order?: Maybe<Order_By>
   page_id?: Maybe<Order_By>
@@ -3272,8 +3272,8 @@ export type Page_Links_Max_Order_By = {
 }
 
 /** aggregate min on columns */
-export type Page_Links_Min_Fields = {
-  __typename?: 'page_links_min_fields'
+export type Page_Link_Min_Fields = {
+  __typename?: 'page_link_min_fields'
   id?: Maybe<Scalars['uuid']>
   order?: Maybe<Scalars['Int']>
   page_id?: Maybe<Scalars['uuid']>
@@ -3281,8 +3281,8 @@ export type Page_Links_Min_Fields = {
   target_element_id?: Maybe<Scalars['uuid']>
 }
 
-/** order by min() on columns of table "page_links" */
-export type Page_Links_Min_Order_By = {
+/** order by min() on columns of table "page_link" */
+export type Page_Link_Min_Order_By = {
   id?: Maybe<Order_By>
   order?: Maybe<Order_By>
   page_id?: Maybe<Order_By>
@@ -3290,24 +3290,24 @@ export type Page_Links_Min_Order_By = {
   target_element_id?: Maybe<Order_By>
 }
 
-/** response of any mutation on the table "page_links" */
-export type Page_Links_Mutation_Response = {
-  __typename?: 'page_links_mutation_response'
+/** response of any mutation on the table "page_link" */
+export type Page_Link_Mutation_Response = {
+  __typename?: 'page_link_mutation_response'
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']
   /** data from the rows affected by the mutation */
-  returning: Array<Page_Links>
+  returning: Array<Page_Link>
 }
 
-/** on conflict condition type for table "page_links" */
-export type Page_Links_On_Conflict = {
-  constraint: Page_Links_Constraint
-  update_columns: Array<Page_Links_Update_Column>
-  where?: Maybe<Page_Links_Bool_Exp>
+/** on conflict condition type for table "page_link" */
+export type Page_Link_On_Conflict = {
+  constraint: Page_Link_Constraint
+  update_columns: Array<Page_Link_Update_Column>
+  where?: Maybe<Page_Link_Bool_Exp>
 }
 
-/** Ordering options when selecting data from "page_links". */
-export type Page_Links_Order_By = {
+/** Ordering options when selecting data from "page_link". */
+export type Page_Link_Order_By = {
   id?: Maybe<Order_By>
   order?: Maybe<Order_By>
   page_id?: Maybe<Order_By>
@@ -3316,18 +3316,18 @@ export type Page_Links_Order_By = {
   target_element_id?: Maybe<Order_By>
 }
 
-/** primary key columns input for table: page_links */
-export type Page_Links_Pk_Columns_Input = {
+/** primary key columns input for table: page_link */
+export type Page_Link_Pk_Columns_Input = {
   id: Scalars['uuid']
 }
 
 /** prepend existing jsonb value of filtered columns with new jsonb value */
-export type Page_Links_Prepend_Input = {
+export type Page_Link_Prepend_Input = {
   props?: Maybe<Scalars['jsonb']>
 }
 
-/** select columns of table "page_links" */
-export enum Page_Links_Select_Column {
+/** select columns of table "page_link" */
+export enum Page_Link_Select_Column {
   /** column name */
   Id = 'id',
   /** column name */
@@ -3342,8 +3342,8 @@ export enum Page_Links_Select_Column {
   TargetElementId = 'target_element_id',
 }
 
-/** input type for updating data in table "page_links" */
-export type Page_Links_Set_Input = {
+/** input type for updating data in table "page_link" */
+export type Page_Link_Set_Input = {
   id?: Maybe<Scalars['uuid']>
   order?: Maybe<Scalars['Int']>
   page_id?: Maybe<Scalars['uuid']>
@@ -3353,51 +3353,51 @@ export type Page_Links_Set_Input = {
 }
 
 /** aggregate stddev on columns */
-export type Page_Links_Stddev_Fields = {
-  __typename?: 'page_links_stddev_fields'
+export type Page_Link_Stddev_Fields = {
+  __typename?: 'page_link_stddev_fields'
   order?: Maybe<Scalars['Float']>
 }
 
-/** order by stddev() on columns of table "page_links" */
-export type Page_Links_Stddev_Order_By = {
+/** order by stddev() on columns of table "page_link" */
+export type Page_Link_Stddev_Order_By = {
   order?: Maybe<Order_By>
 }
 
 /** aggregate stddev_pop on columns */
-export type Page_Links_Stddev_Pop_Fields = {
-  __typename?: 'page_links_stddev_pop_fields'
+export type Page_Link_Stddev_Pop_Fields = {
+  __typename?: 'page_link_stddev_pop_fields'
   order?: Maybe<Scalars['Float']>
 }
 
-/** order by stddev_pop() on columns of table "page_links" */
-export type Page_Links_Stddev_Pop_Order_By = {
+/** order by stddev_pop() on columns of table "page_link" */
+export type Page_Link_Stddev_Pop_Order_By = {
   order?: Maybe<Order_By>
 }
 
 /** aggregate stddev_samp on columns */
-export type Page_Links_Stddev_Samp_Fields = {
-  __typename?: 'page_links_stddev_samp_fields'
+export type Page_Link_Stddev_Samp_Fields = {
+  __typename?: 'page_link_stddev_samp_fields'
   order?: Maybe<Scalars['Float']>
 }
 
-/** order by stddev_samp() on columns of table "page_links" */
-export type Page_Links_Stddev_Samp_Order_By = {
+/** order by stddev_samp() on columns of table "page_link" */
+export type Page_Link_Stddev_Samp_Order_By = {
   order?: Maybe<Order_By>
 }
 
 /** aggregate sum on columns */
-export type Page_Links_Sum_Fields = {
-  __typename?: 'page_links_sum_fields'
+export type Page_Link_Sum_Fields = {
+  __typename?: 'page_link_sum_fields'
   order?: Maybe<Scalars['Int']>
 }
 
-/** order by sum() on columns of table "page_links" */
-export type Page_Links_Sum_Order_By = {
+/** order by sum() on columns of table "page_link" */
+export type Page_Link_Sum_Order_By = {
   order?: Maybe<Order_By>
 }
 
-/** update columns of table "page_links" */
-export enum Page_Links_Update_Column {
+/** update columns of table "page_link" */
+export enum Page_Link_Update_Column {
   /** column name */
   Id = 'id',
   /** column name */
@@ -3413,35 +3413,35 @@ export enum Page_Links_Update_Column {
 }
 
 /** aggregate var_pop on columns */
-export type Page_Links_Var_Pop_Fields = {
-  __typename?: 'page_links_var_pop_fields'
+export type Page_Link_Var_Pop_Fields = {
+  __typename?: 'page_link_var_pop_fields'
   order?: Maybe<Scalars['Float']>
 }
 
-/** order by var_pop() on columns of table "page_links" */
-export type Page_Links_Var_Pop_Order_By = {
+/** order by var_pop() on columns of table "page_link" */
+export type Page_Link_Var_Pop_Order_By = {
   order?: Maybe<Order_By>
 }
 
 /** aggregate var_samp on columns */
-export type Page_Links_Var_Samp_Fields = {
-  __typename?: 'page_links_var_samp_fields'
+export type Page_Link_Var_Samp_Fields = {
+  __typename?: 'page_link_var_samp_fields'
   order?: Maybe<Scalars['Float']>
 }
 
-/** order by var_samp() on columns of table "page_links" */
-export type Page_Links_Var_Samp_Order_By = {
+/** order by var_samp() on columns of table "page_link" */
+export type Page_Link_Var_Samp_Order_By = {
   order?: Maybe<Order_By>
 }
 
 /** aggregate variance on columns */
-export type Page_Links_Variance_Fields = {
-  __typename?: 'page_links_variance_fields'
+export type Page_Link_Variance_Fields = {
+  __typename?: 'page_link_variance_fields'
   order?: Maybe<Scalars['Float']>
 }
 
-/** order by variance() on columns of table "page_links" */
-export type Page_Links_Variance_Order_By = {
+/** order by variance() on columns of table "page_link" */
+export type Page_Link_Variance_Order_By = {
   order?: Maybe<Order_By>
 }
 
@@ -3508,7 +3508,7 @@ export type Page_Order_By = {
   app_id?: Maybe<Order_By>
   elements_aggregate?: Maybe<Page_Element_Aggregate_Order_By>
   id?: Maybe<Order_By>
-  links_aggregate?: Maybe<Page_Links_Aggregate_Order_By>
+  links_aggregate?: Maybe<Page_Link_Aggregate_Order_By>
   name?: Maybe<Order_By>
   owner?: Maybe<User_Order_By>
   owner_id?: Maybe<Order_By>
@@ -3824,6 +3824,170 @@ export enum Prop_Update_Column {
   LibraryId = 'library_id',
 }
 
+/** columns and relationships of "prop_value" */
+export type Prop_Value = {
+  __typename?: 'prop_value'
+  id: Scalars['uuid']
+  /** This is used as a value */
+  lambda_id?: Maybe<Scalars['uuid']>
+  name: Scalars['String']
+  /** This is the prop that owns this value */
+  parent_prop_id: Scalars['uuid']
+  type: Scalars['String']
+  value?: Maybe<Scalars['String']>
+  /** This is the prop that is used as a value */
+  value_prop_id?: Maybe<Scalars['uuid']>
+}
+
+/** aggregated selection of "prop_value" */
+export type Prop_Value_Aggregate = {
+  __typename?: 'prop_value_aggregate'
+  aggregate?: Maybe<Prop_Value_Aggregate_Fields>
+  nodes: Array<Prop_Value>
+}
+
+/** aggregate fields of "prop_value" */
+export type Prop_Value_Aggregate_Fields = {
+  __typename?: 'prop_value_aggregate_fields'
+  count: Scalars['Int']
+  max?: Maybe<Prop_Value_Max_Fields>
+  min?: Maybe<Prop_Value_Min_Fields>
+}
+
+/** aggregate fields of "prop_value" */
+export type Prop_Value_Aggregate_FieldsCountArgs = {
+  columns?: Maybe<Array<Prop_Value_Select_Column>>
+  distinct?: Maybe<Scalars['Boolean']>
+}
+
+/** Boolean expression to filter rows from the table "prop_value". All fields are combined with a logical 'AND'. */
+export type Prop_Value_Bool_Exp = {
+  _and?: Maybe<Array<Prop_Value_Bool_Exp>>
+  _not?: Maybe<Prop_Value_Bool_Exp>
+  _or?: Maybe<Array<Prop_Value_Bool_Exp>>
+  id?: Maybe<Uuid_Comparison_Exp>
+  lambda_id?: Maybe<Uuid_Comparison_Exp>
+  name?: Maybe<String_Comparison_Exp>
+  parent_prop_id?: Maybe<Uuid_Comparison_Exp>
+  type?: Maybe<String_Comparison_Exp>
+  value?: Maybe<String_Comparison_Exp>
+  value_prop_id?: Maybe<Uuid_Comparison_Exp>
+}
+
+/** unique or primary key constraints on table "prop_value" */
+export enum Prop_Value_Constraint {
+  /** unique or primary key constraint */
+  PropValuesPkey = 'prop_values_pkey',
+}
+
+/** input type for inserting data into table "prop_value" */
+export type Prop_Value_Insert_Input = {
+  id?: Maybe<Scalars['uuid']>
+  /** This is used as a value */
+  lambda_id?: Maybe<Scalars['uuid']>
+  name?: Maybe<Scalars['String']>
+  /** This is the prop that owns this value */
+  parent_prop_id?: Maybe<Scalars['uuid']>
+  type?: Maybe<Scalars['String']>
+  value?: Maybe<Scalars['String']>
+  /** This is the prop that is used as a value */
+  value_prop_id?: Maybe<Scalars['uuid']>
+}
+
+/** aggregate max on columns */
+export type Prop_Value_Max_Fields = {
+  __typename?: 'prop_value_max_fields'
+  id?: Maybe<Scalars['uuid']>
+  /** This is used as a value */
+  lambda_id?: Maybe<Scalars['uuid']>
+  name?: Maybe<Scalars['String']>
+  /** This is the prop that owns this value */
+  parent_prop_id?: Maybe<Scalars['uuid']>
+  type?: Maybe<Scalars['String']>
+  value?: Maybe<Scalars['String']>
+  /** This is the prop that is used as a value */
+  value_prop_id?: Maybe<Scalars['uuid']>
+}
+
+/** aggregate min on columns */
+export type Prop_Value_Min_Fields = {
+  __typename?: 'prop_value_min_fields'
+  id?: Maybe<Scalars['uuid']>
+  /** This is used as a value */
+  lambda_id?: Maybe<Scalars['uuid']>
+  name?: Maybe<Scalars['String']>
+  /** This is the prop that owns this value */
+  parent_prop_id?: Maybe<Scalars['uuid']>
+  type?: Maybe<Scalars['String']>
+  value?: Maybe<Scalars['String']>
+  /** This is the prop that is used as a value */
+  value_prop_id?: Maybe<Scalars['uuid']>
+}
+
+/** response of any mutation on the table "prop_value" */
+export type Prop_Value_Mutation_Response = {
+  __typename?: 'prop_value_mutation_response'
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']
+  /** data from the rows affected by the mutation */
+  returning: Array<Prop_Value>
+}
+
+/** on conflict condition type for table "prop_value" */
+export type Prop_Value_On_Conflict = {
+  constraint: Prop_Value_Constraint
+  update_columns: Array<Prop_Value_Update_Column>
+  where?: Maybe<Prop_Value_Bool_Exp>
+}
+
+/** Ordering options when selecting data from "prop_value". */
+export type Prop_Value_Order_By = {
+  id?: Maybe<Order_By>
+  lambda_id?: Maybe<Order_By>
+  name?: Maybe<Order_By>
+  parent_prop_id?: Maybe<Order_By>
+  type?: Maybe<Order_By>
+  value?: Maybe<Order_By>
+  value_prop_id?: Maybe<Order_By>
+}
+
+/** primary key columns input for table: prop_value */
+export type Prop_Value_Pk_Columns_Input = {
+  id: Scalars['uuid']
+}
+
+/** select columns of table "prop_value" */
+export enum Prop_Value_Select_Column {
+  /** column name */
+  Id = 'id',
+  /** column name */
+  LambdaId = 'lambda_id',
+  /** column name */
+  Name = 'name',
+  /** column name */
+  ParentPropId = 'parent_prop_id',
+  /** column name */
+  Type = 'type',
+  /** column name */
+  Value = 'value',
+  /** column name */
+  ValuePropId = 'value_prop_id',
+}
+
+/** input type for updating data in table "prop_value" */
+export type Prop_Value_Set_Input = {
+  id?: Maybe<Scalars['uuid']>
+  /** This is used as a value */
+  lambda_id?: Maybe<Scalars['uuid']>
+  name?: Maybe<Scalars['String']>
+  /** This is the prop that owns this value */
+  parent_prop_id?: Maybe<Scalars['uuid']>
+  type?: Maybe<Scalars['String']>
+  value?: Maybe<Scalars['String']>
+  /** This is the prop that is used as a value */
+  value_prop_id?: Maybe<Scalars['uuid']>
+}
+
 /** columns and relationships of "prop_value_tag" */
 export type Prop_Value_Tag = {
   __typename?: 'prop_value_tag'
@@ -4049,172 +4213,8 @@ export enum Prop_Value_Type_Update_Column {
   Value = 'value',
 }
 
-/** columns and relationships of "prop_values" */
-export type Prop_Values = {
-  __typename?: 'prop_values'
-  id: Scalars['uuid']
-  /** This is used as a value */
-  lambda_id?: Maybe<Scalars['uuid']>
-  name: Scalars['String']
-  /** This is the prop that owns this value */
-  parent_prop_id: Scalars['uuid']
-  type: Scalars['String']
-  value?: Maybe<Scalars['String']>
-  /** This is the prop that is used as a value */
-  value_prop_id?: Maybe<Scalars['uuid']>
-}
-
-/** aggregated selection of "prop_values" */
-export type Prop_Values_Aggregate = {
-  __typename?: 'prop_values_aggregate'
-  aggregate?: Maybe<Prop_Values_Aggregate_Fields>
-  nodes: Array<Prop_Values>
-}
-
-/** aggregate fields of "prop_values" */
-export type Prop_Values_Aggregate_Fields = {
-  __typename?: 'prop_values_aggregate_fields'
-  count: Scalars['Int']
-  max?: Maybe<Prop_Values_Max_Fields>
-  min?: Maybe<Prop_Values_Min_Fields>
-}
-
-/** aggregate fields of "prop_values" */
-export type Prop_Values_Aggregate_FieldsCountArgs = {
-  columns?: Maybe<Array<Prop_Values_Select_Column>>
-  distinct?: Maybe<Scalars['Boolean']>
-}
-
-/** Boolean expression to filter rows from the table "prop_values". All fields are combined with a logical 'AND'. */
-export type Prop_Values_Bool_Exp = {
-  _and?: Maybe<Array<Prop_Values_Bool_Exp>>
-  _not?: Maybe<Prop_Values_Bool_Exp>
-  _or?: Maybe<Array<Prop_Values_Bool_Exp>>
-  id?: Maybe<Uuid_Comparison_Exp>
-  lambda_id?: Maybe<Uuid_Comparison_Exp>
-  name?: Maybe<String_Comparison_Exp>
-  parent_prop_id?: Maybe<Uuid_Comparison_Exp>
-  type?: Maybe<String_Comparison_Exp>
-  value?: Maybe<String_Comparison_Exp>
-  value_prop_id?: Maybe<Uuid_Comparison_Exp>
-}
-
-/** unique or primary key constraints on table "prop_values" */
-export enum Prop_Values_Constraint {
-  /** unique or primary key constraint */
-  PropValuesPkey = 'prop_values_pkey',
-}
-
-/** input type for inserting data into table "prop_values" */
-export type Prop_Values_Insert_Input = {
-  id?: Maybe<Scalars['uuid']>
-  /** This is used as a value */
-  lambda_id?: Maybe<Scalars['uuid']>
-  name?: Maybe<Scalars['String']>
-  /** This is the prop that owns this value */
-  parent_prop_id?: Maybe<Scalars['uuid']>
-  type?: Maybe<Scalars['String']>
-  value?: Maybe<Scalars['String']>
-  /** This is the prop that is used as a value */
-  value_prop_id?: Maybe<Scalars['uuid']>
-}
-
-/** aggregate max on columns */
-export type Prop_Values_Max_Fields = {
-  __typename?: 'prop_values_max_fields'
-  id?: Maybe<Scalars['uuid']>
-  /** This is used as a value */
-  lambda_id?: Maybe<Scalars['uuid']>
-  name?: Maybe<Scalars['String']>
-  /** This is the prop that owns this value */
-  parent_prop_id?: Maybe<Scalars['uuid']>
-  type?: Maybe<Scalars['String']>
-  value?: Maybe<Scalars['String']>
-  /** This is the prop that is used as a value */
-  value_prop_id?: Maybe<Scalars['uuid']>
-}
-
-/** aggregate min on columns */
-export type Prop_Values_Min_Fields = {
-  __typename?: 'prop_values_min_fields'
-  id?: Maybe<Scalars['uuid']>
-  /** This is used as a value */
-  lambda_id?: Maybe<Scalars['uuid']>
-  name?: Maybe<Scalars['String']>
-  /** This is the prop that owns this value */
-  parent_prop_id?: Maybe<Scalars['uuid']>
-  type?: Maybe<Scalars['String']>
-  value?: Maybe<Scalars['String']>
-  /** This is the prop that is used as a value */
-  value_prop_id?: Maybe<Scalars['uuid']>
-}
-
-/** response of any mutation on the table "prop_values" */
-export type Prop_Values_Mutation_Response = {
-  __typename?: 'prop_values_mutation_response'
-  /** number of rows affected by the mutation */
-  affected_rows: Scalars['Int']
-  /** data from the rows affected by the mutation */
-  returning: Array<Prop_Values>
-}
-
-/** on conflict condition type for table "prop_values" */
-export type Prop_Values_On_Conflict = {
-  constraint: Prop_Values_Constraint
-  update_columns: Array<Prop_Values_Update_Column>
-  where?: Maybe<Prop_Values_Bool_Exp>
-}
-
-/** Ordering options when selecting data from "prop_values". */
-export type Prop_Values_Order_By = {
-  id?: Maybe<Order_By>
-  lambda_id?: Maybe<Order_By>
-  name?: Maybe<Order_By>
-  parent_prop_id?: Maybe<Order_By>
-  type?: Maybe<Order_By>
-  value?: Maybe<Order_By>
-  value_prop_id?: Maybe<Order_By>
-}
-
-/** primary key columns input for table: prop_values */
-export type Prop_Values_Pk_Columns_Input = {
-  id: Scalars['uuid']
-}
-
-/** select columns of table "prop_values" */
-export enum Prop_Values_Select_Column {
-  /** column name */
-  Id = 'id',
-  /** column name */
-  LambdaId = 'lambda_id',
-  /** column name */
-  Name = 'name',
-  /** column name */
-  ParentPropId = 'parent_prop_id',
-  /** column name */
-  Type = 'type',
-  /** column name */
-  Value = 'value',
-  /** column name */
-  ValuePropId = 'value_prop_id',
-}
-
-/** input type for updating data in table "prop_values" */
-export type Prop_Values_Set_Input = {
-  id?: Maybe<Scalars['uuid']>
-  /** This is used as a value */
-  lambda_id?: Maybe<Scalars['uuid']>
-  name?: Maybe<Scalars['String']>
-  /** This is the prop that owns this value */
-  parent_prop_id?: Maybe<Scalars['uuid']>
-  type?: Maybe<Scalars['String']>
-  value?: Maybe<Scalars['String']>
-  /** This is the prop that is used as a value */
-  value_prop_id?: Maybe<Scalars['uuid']>
-}
-
-/** update columns of table "prop_values" */
-export enum Prop_Values_Update_Column {
+/** update columns of table "prop_value" */
+export enum Prop_Value_Update_Column {
   /** column name */
   Id = 'id',
   /** column name */
@@ -4245,12 +4245,12 @@ export type Query_Root = {
   atom_aggregate: Atom_Aggregate
   /** fetch data from the table: "atom" using primary key columns */
   atom_by_pk?: Maybe<Atom>
-  /** fetch data from the table: "atom_types" */
-  atom_types: Array<Atom_Types>
-  /** fetch aggregated fields from the table: "atom_types" */
-  atom_types_aggregate: Atom_Types_Aggregate
-  /** fetch data from the table: "atom_types" using primary key columns */
-  atom_types_by_pk?: Maybe<Atom_Types>
+  /** fetch data from the table: "atom_type" */
+  atom_type: Array<Atom_Type>
+  /** fetch aggregated fields from the table: "atom_type" */
+  atom_type_aggregate: Atom_Type_Aggregate
+  /** fetch data from the table: "atom_type" using primary key columns */
+  atom_type_by_pk?: Maybe<Atom_Type>
   /** fetch data from the table: "attribute" */
   attribute: Array<Attribute>
   /** fetch aggregated fields from the table: "attribute" */
@@ -4305,12 +4305,12 @@ export type Query_Root = {
   page_element_aggregate: Page_Element_Aggregate
   /** fetch data from the table: "page_element" using primary key columns */
   page_element_by_pk?: Maybe<Page_Element>
-  /** fetch data from the table: "page_links" */
-  page_links: Array<Page_Links>
-  /** fetch aggregated fields from the table: "page_links" */
-  page_links_aggregate: Page_Links_Aggregate
-  /** fetch data from the table: "page_links" using primary key columns */
-  page_links_by_pk?: Maybe<Page_Links>
+  /** fetch data from the table: "page_link" */
+  page_link: Array<Page_Link>
+  /** fetch aggregated fields from the table: "page_link" */
+  page_link_aggregate: Page_Link_Aggregate
+  /** fetch data from the table: "page_link" using primary key columns */
+  page_link_by_pk?: Maybe<Page_Link>
   /** fetch data from the table: "prop" */
   prop: Array<Prop>
   /** fetch aggregated fields from the table: "prop" */
@@ -4323,6 +4323,12 @@ export type Query_Root = {
   prop_element_aggregate: Prop_Element_Aggregate
   /** fetch data from the table: "prop_element" using primary key columns */
   prop_element_by_pk?: Maybe<Prop_Element>
+  /** fetch data from the table: "prop_value" */
+  prop_value: Array<Prop_Value>
+  /** fetch aggregated fields from the table: "prop_value" */
+  prop_value_aggregate: Prop_Value_Aggregate
+  /** fetch data from the table: "prop_value" using primary key columns */
+  prop_value_by_pk?: Maybe<Prop_Value>
   /** fetch data from the table: "prop_value_tag" */
   prop_value_tag: Array<Prop_Value_Tag>
   /** fetch aggregated fields from the table: "prop_value_tag" */
@@ -4335,12 +4341,6 @@ export type Query_Root = {
   prop_value_type_aggregate: Prop_Value_Type_Aggregate
   /** fetch data from the table: "prop_value_type" using primary key columns */
   prop_value_type_by_pk?: Maybe<Prop_Value_Type>
-  /** fetch data from the table: "prop_values" */
-  prop_values: Array<Prop_Values>
-  /** fetch aggregated fields from the table: "prop_values" */
-  prop_values_aggregate: Prop_Values_Aggregate
-  /** fetch data from the table: "prop_values" using primary key columns */
-  prop_values_by_pk?: Maybe<Prop_Values>
   /** fetch data from the table: "style" */
   style: Array<Style>
   /** fetch aggregated fields from the table: "style" */
@@ -4401,23 +4401,23 @@ export type Query_RootAtom_By_PkArgs = {
   id: Scalars['uuid']
 }
 
-export type Query_RootAtom_TypesArgs = {
-  distinct_on?: Maybe<Array<Atom_Types_Select_Column>>
+export type Query_RootAtom_TypeArgs = {
+  distinct_on?: Maybe<Array<Atom_Type_Select_Column>>
   limit?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
-  order_by?: Maybe<Array<Atom_Types_Order_By>>
-  where?: Maybe<Atom_Types_Bool_Exp>
+  order_by?: Maybe<Array<Atom_Type_Order_By>>
+  where?: Maybe<Atom_Type_Bool_Exp>
 }
 
-export type Query_RootAtom_Types_AggregateArgs = {
-  distinct_on?: Maybe<Array<Atom_Types_Select_Column>>
+export type Query_RootAtom_Type_AggregateArgs = {
+  distinct_on?: Maybe<Array<Atom_Type_Select_Column>>
   limit?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
-  order_by?: Maybe<Array<Atom_Types_Order_By>>
-  where?: Maybe<Atom_Types_Bool_Exp>
+  order_by?: Maybe<Array<Atom_Type_Order_By>>
+  where?: Maybe<Atom_Type_Bool_Exp>
 }
 
-export type Query_RootAtom_Types_By_PkArgs = {
+export type Query_RootAtom_Type_By_PkArgs = {
   value: Scalars['String']
 }
 
@@ -4601,23 +4601,23 @@ export type Query_RootPage_Element_By_PkArgs = {
   id: Scalars['uuid']
 }
 
-export type Query_RootPage_LinksArgs = {
-  distinct_on?: Maybe<Array<Page_Links_Select_Column>>
+export type Query_RootPage_LinkArgs = {
+  distinct_on?: Maybe<Array<Page_Link_Select_Column>>
   limit?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
-  order_by?: Maybe<Array<Page_Links_Order_By>>
-  where?: Maybe<Page_Links_Bool_Exp>
+  order_by?: Maybe<Array<Page_Link_Order_By>>
+  where?: Maybe<Page_Link_Bool_Exp>
 }
 
-export type Query_RootPage_Links_AggregateArgs = {
-  distinct_on?: Maybe<Array<Page_Links_Select_Column>>
+export type Query_RootPage_Link_AggregateArgs = {
+  distinct_on?: Maybe<Array<Page_Link_Select_Column>>
   limit?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
-  order_by?: Maybe<Array<Page_Links_Order_By>>
-  where?: Maybe<Page_Links_Bool_Exp>
+  order_by?: Maybe<Array<Page_Link_Order_By>>
+  where?: Maybe<Page_Link_Bool_Exp>
 }
 
-export type Query_RootPage_Links_By_PkArgs = {
+export type Query_RootPage_Link_By_PkArgs = {
   id: Scalars['uuid']
 }
 
@@ -4662,6 +4662,26 @@ export type Query_RootProp_Element_By_PkArgs = {
   prop_id: Scalars['uuid']
 }
 
+export type Query_RootProp_ValueArgs = {
+  distinct_on?: Maybe<Array<Prop_Value_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<Prop_Value_Order_By>>
+  where?: Maybe<Prop_Value_Bool_Exp>
+}
+
+export type Query_RootProp_Value_AggregateArgs = {
+  distinct_on?: Maybe<Array<Prop_Value_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<Prop_Value_Order_By>>
+  where?: Maybe<Prop_Value_Bool_Exp>
+}
+
+export type Query_RootProp_Value_By_PkArgs = {
+  id: Scalars['uuid']
+}
+
 export type Query_RootProp_Value_TagArgs = {
   distinct_on?: Maybe<Array<Prop_Value_Tag_Select_Column>>
   limit?: Maybe<Scalars['Int']>
@@ -4701,26 +4721,6 @@ export type Query_RootProp_Value_Type_AggregateArgs = {
 
 export type Query_RootProp_Value_Type_By_PkArgs = {
   value: Scalars['String']
-}
-
-export type Query_RootProp_ValuesArgs = {
-  distinct_on?: Maybe<Array<Prop_Values_Select_Column>>
-  limit?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
-  order_by?: Maybe<Array<Prop_Values_Order_By>>
-  where?: Maybe<Prop_Values_Bool_Exp>
-}
-
-export type Query_RootProp_Values_AggregateArgs = {
-  distinct_on?: Maybe<Array<Prop_Values_Select_Column>>
-  limit?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
-  order_by?: Maybe<Array<Prop_Values_Order_By>>
-  where?: Maybe<Prop_Values_Bool_Exp>
-}
-
-export type Query_RootProp_Values_By_PkArgs = {
-  id: Scalars['uuid']
 }
 
 export type Query_RootStyleArgs = {
@@ -4920,12 +4920,12 @@ export type Subscription_Root = {
   atom_aggregate: Atom_Aggregate
   /** fetch data from the table: "atom" using primary key columns */
   atom_by_pk?: Maybe<Atom>
-  /** fetch data from the table: "atom_types" */
-  atom_types: Array<Atom_Types>
-  /** fetch aggregated fields from the table: "atom_types" */
-  atom_types_aggregate: Atom_Types_Aggregate
-  /** fetch data from the table: "atom_types" using primary key columns */
-  atom_types_by_pk?: Maybe<Atom_Types>
+  /** fetch data from the table: "atom_type" */
+  atom_type: Array<Atom_Type>
+  /** fetch aggregated fields from the table: "atom_type" */
+  atom_type_aggregate: Atom_Type_Aggregate
+  /** fetch data from the table: "atom_type" using primary key columns */
+  atom_type_by_pk?: Maybe<Atom_Type>
   /** fetch data from the table: "attribute" */
   attribute: Array<Attribute>
   /** fetch aggregated fields from the table: "attribute" */
@@ -4980,12 +4980,12 @@ export type Subscription_Root = {
   page_element_aggregate: Page_Element_Aggregate
   /** fetch data from the table: "page_element" using primary key columns */
   page_element_by_pk?: Maybe<Page_Element>
-  /** fetch data from the table: "page_links" */
-  page_links: Array<Page_Links>
-  /** fetch aggregated fields from the table: "page_links" */
-  page_links_aggregate: Page_Links_Aggregate
-  /** fetch data from the table: "page_links" using primary key columns */
-  page_links_by_pk?: Maybe<Page_Links>
+  /** fetch data from the table: "page_link" */
+  page_link: Array<Page_Link>
+  /** fetch aggregated fields from the table: "page_link" */
+  page_link_aggregate: Page_Link_Aggregate
+  /** fetch data from the table: "page_link" using primary key columns */
+  page_link_by_pk?: Maybe<Page_Link>
   /** fetch data from the table: "prop" */
   prop: Array<Prop>
   /** fetch aggregated fields from the table: "prop" */
@@ -4998,6 +4998,12 @@ export type Subscription_Root = {
   prop_element_aggregate: Prop_Element_Aggregate
   /** fetch data from the table: "prop_element" using primary key columns */
   prop_element_by_pk?: Maybe<Prop_Element>
+  /** fetch data from the table: "prop_value" */
+  prop_value: Array<Prop_Value>
+  /** fetch aggregated fields from the table: "prop_value" */
+  prop_value_aggregate: Prop_Value_Aggregate
+  /** fetch data from the table: "prop_value" using primary key columns */
+  prop_value_by_pk?: Maybe<Prop_Value>
   /** fetch data from the table: "prop_value_tag" */
   prop_value_tag: Array<Prop_Value_Tag>
   /** fetch aggregated fields from the table: "prop_value_tag" */
@@ -5010,12 +5016,6 @@ export type Subscription_Root = {
   prop_value_type_aggregate: Prop_Value_Type_Aggregate
   /** fetch data from the table: "prop_value_type" using primary key columns */
   prop_value_type_by_pk?: Maybe<Prop_Value_Type>
-  /** fetch data from the table: "prop_values" */
-  prop_values: Array<Prop_Values>
-  /** fetch aggregated fields from the table: "prop_values" */
-  prop_values_aggregate: Prop_Values_Aggregate
-  /** fetch data from the table: "prop_values" using primary key columns */
-  prop_values_by_pk?: Maybe<Prop_Values>
   /** fetch data from the table: "style" */
   style: Array<Style>
   /** fetch aggregated fields from the table: "style" */
@@ -5076,23 +5076,23 @@ export type Subscription_RootAtom_By_PkArgs = {
   id: Scalars['uuid']
 }
 
-export type Subscription_RootAtom_TypesArgs = {
-  distinct_on?: Maybe<Array<Atom_Types_Select_Column>>
+export type Subscription_RootAtom_TypeArgs = {
+  distinct_on?: Maybe<Array<Atom_Type_Select_Column>>
   limit?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
-  order_by?: Maybe<Array<Atom_Types_Order_By>>
-  where?: Maybe<Atom_Types_Bool_Exp>
+  order_by?: Maybe<Array<Atom_Type_Order_By>>
+  where?: Maybe<Atom_Type_Bool_Exp>
 }
 
-export type Subscription_RootAtom_Types_AggregateArgs = {
-  distinct_on?: Maybe<Array<Atom_Types_Select_Column>>
+export type Subscription_RootAtom_Type_AggregateArgs = {
+  distinct_on?: Maybe<Array<Atom_Type_Select_Column>>
   limit?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
-  order_by?: Maybe<Array<Atom_Types_Order_By>>
-  where?: Maybe<Atom_Types_Bool_Exp>
+  order_by?: Maybe<Array<Atom_Type_Order_By>>
+  where?: Maybe<Atom_Type_Bool_Exp>
 }
 
-export type Subscription_RootAtom_Types_By_PkArgs = {
+export type Subscription_RootAtom_Type_By_PkArgs = {
   value: Scalars['String']
 }
 
@@ -5276,23 +5276,23 @@ export type Subscription_RootPage_Element_By_PkArgs = {
   id: Scalars['uuid']
 }
 
-export type Subscription_RootPage_LinksArgs = {
-  distinct_on?: Maybe<Array<Page_Links_Select_Column>>
+export type Subscription_RootPage_LinkArgs = {
+  distinct_on?: Maybe<Array<Page_Link_Select_Column>>
   limit?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
-  order_by?: Maybe<Array<Page_Links_Order_By>>
-  where?: Maybe<Page_Links_Bool_Exp>
+  order_by?: Maybe<Array<Page_Link_Order_By>>
+  where?: Maybe<Page_Link_Bool_Exp>
 }
 
-export type Subscription_RootPage_Links_AggregateArgs = {
-  distinct_on?: Maybe<Array<Page_Links_Select_Column>>
+export type Subscription_RootPage_Link_AggregateArgs = {
+  distinct_on?: Maybe<Array<Page_Link_Select_Column>>
   limit?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
-  order_by?: Maybe<Array<Page_Links_Order_By>>
-  where?: Maybe<Page_Links_Bool_Exp>
+  order_by?: Maybe<Array<Page_Link_Order_By>>
+  where?: Maybe<Page_Link_Bool_Exp>
 }
 
-export type Subscription_RootPage_Links_By_PkArgs = {
+export type Subscription_RootPage_Link_By_PkArgs = {
   id: Scalars['uuid']
 }
 
@@ -5337,6 +5337,26 @@ export type Subscription_RootProp_Element_By_PkArgs = {
   prop_id: Scalars['uuid']
 }
 
+export type Subscription_RootProp_ValueArgs = {
+  distinct_on?: Maybe<Array<Prop_Value_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<Prop_Value_Order_By>>
+  where?: Maybe<Prop_Value_Bool_Exp>
+}
+
+export type Subscription_RootProp_Value_AggregateArgs = {
+  distinct_on?: Maybe<Array<Prop_Value_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<Prop_Value_Order_By>>
+  where?: Maybe<Prop_Value_Bool_Exp>
+}
+
+export type Subscription_RootProp_Value_By_PkArgs = {
+  id: Scalars['uuid']
+}
+
 export type Subscription_RootProp_Value_TagArgs = {
   distinct_on?: Maybe<Array<Prop_Value_Tag_Select_Column>>
   limit?: Maybe<Scalars['Int']>
@@ -5376,26 +5396,6 @@ export type Subscription_RootProp_Value_Type_AggregateArgs = {
 
 export type Subscription_RootProp_Value_Type_By_PkArgs = {
   value: Scalars['String']
-}
-
-export type Subscription_RootProp_ValuesArgs = {
-  distinct_on?: Maybe<Array<Prop_Values_Select_Column>>
-  limit?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
-  order_by?: Maybe<Array<Prop_Values_Order_By>>
-  where?: Maybe<Prop_Values_Bool_Exp>
-}
-
-export type Subscription_RootProp_Values_AggregateArgs = {
-  distinct_on?: Maybe<Array<Prop_Values_Select_Column>>
-  limit?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
-  order_by?: Maybe<Array<Prop_Values_Order_By>>
-  where?: Maybe<Prop_Values_Bool_Exp>
-}
-
-export type Subscription_RootProp_Values_By_PkArgs = {
-  id: Scalars['uuid']
 }
 
 export type Subscription_RootStyleArgs = {
@@ -5743,8 +5743,8 @@ export type RootAppPageElementFragment = { __typename?: 'page_element' } & Pick<
     >
   }
 
-export type RootAppPageLinkFragment = { __typename?: 'page_links' } & Pick<
-  Page_Links,
+export type RootAppPageLinkFragment = { __typename?: 'page_link' } & Pick<
+  Page_Link,
   'id' | 'order' | 'props' | 'source_element_id' | 'target_element_id'
 >
 
@@ -5764,7 +5764,7 @@ export type RootAppQuery = { __typename?: 'query_root' } & {
         elements: Array<
           { __typename?: 'page_element' } & RootAppPageElementFragment
         >
-        links: Array<{ __typename?: 'page_links' } & RootAppPageLinkFragment>
+        links: Array<{ __typename?: 'page_link' } & RootAppPageLinkFragment>
       }
   >
 }
@@ -5835,7 +5835,7 @@ export const RootAppPageElementFragmentDoc = gql`
   }
 `
 export const RootAppPageLinkFragmentDoc = gql`
-  fragment RootAppPageLink on page_links {
+  fragment RootAppPageLink on page_link {
     id
     order
     props
@@ -6149,7 +6149,7 @@ export const RootAppPageElement = gql`
   }
 `
 export const RootAppPageLink = gql`
-  fragment RootAppPageLink on page_links {
+  fragment RootAppPageLink on page_link {
     id
     order
     props

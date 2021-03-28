@@ -336,7 +336,7 @@ columns and relationships of "atom"
 """
 type atom {
   id: uuid!
-  type: atom_types_enum!
+  type: atom_type_enum!
 }
 
 """
@@ -364,7 +364,7 @@ input atom_bool_exp {
   _not: atom_bool_exp
   _or: [atom_bool_exp!]
   id: uuid_comparison_exp
-  type: atom_types_enum_comparison_exp
+  type: atom_type_enum_comparison_exp
 }
 
 """
@@ -382,7 +382,7 @@ input type for inserting data into table "atom"
 """
 input atom_insert_input {
   id: uuid
-  type: atom_types_enum
+  type: atom_type_enum
 }
 
 """
@@ -470,56 +470,56 @@ input type for updating data in table "atom"
 """
 input atom_set_input {
   id: uuid
-  type: atom_types_enum
+  type: atom_type_enum
 }
 
 """
-columns and relationships of "atom_types"
+columns and relationships of "atom_type"
 """
-type atom_types {
+type atom_type {
   description: String
   value: String!
 }
 
 """
-aggregated selection of "atom_types"
+aggregated selection of "atom_type"
 """
-type atom_types_aggregate {
-  aggregate: atom_types_aggregate_fields
-  nodes: [atom_types!]!
+type atom_type_aggregate {
+  aggregate: atom_type_aggregate_fields
+  nodes: [atom_type!]!
 }
 
 """
-aggregate fields of "atom_types"
+aggregate fields of "atom_type"
 """
-type atom_types_aggregate_fields {
-  count(columns: [atom_types_select_column!], distinct: Boolean): Int!
-  max: atom_types_max_fields
-  min: atom_types_min_fields
+type atom_type_aggregate_fields {
+  count(columns: [atom_type_select_column!], distinct: Boolean): Int!
+  max: atom_type_max_fields
+  min: atom_type_min_fields
 }
 
 """
-Boolean expression to filter rows from the table "atom_types". All fields are combined with a logical 'AND'.
+Boolean expression to filter rows from the table "atom_type". All fields are combined with a logical 'AND'.
 """
-input atom_types_bool_exp {
-  _and: [atom_types_bool_exp!]
-  _not: atom_types_bool_exp
-  _or: [atom_types_bool_exp!]
+input atom_type_bool_exp {
+  _and: [atom_type_bool_exp!]
+  _not: atom_type_bool_exp
+  _or: [atom_type_bool_exp!]
   description: String_comparison_exp
   value: String_comparison_exp
 }
 
 """
-unique or primary key constraints on table "atom_types"
+unique or primary key constraints on table "atom_type"
 """
-enum atom_types_constraint {
+enum atom_type_constraint {
   """
   unique or primary key constraint
   """
   vertexType_pkey
 }
 
-enum atom_types_enum {
+enum atom_type_enum {
   React_Affix
   React_Alert
   React_Anchor
@@ -626,20 +626,20 @@ enum atom_types_enum {
 }
 
 """
-Boolean expression to compare columns of type "atom_types_enum". All fields are combined with logical 'AND'.
+Boolean expression to compare columns of type "atom_type_enum". All fields are combined with logical 'AND'.
 """
-input atom_types_enum_comparison_exp {
-  _eq: atom_types_enum
-  _in: [atom_types_enum!]
+input atom_type_enum_comparison_exp {
+  _eq: atom_type_enum
+  _in: [atom_type_enum!]
   _is_null: Boolean
-  _neq: atom_types_enum
-  _nin: [atom_types_enum!]
+  _neq: atom_type_enum
+  _nin: [atom_type_enum!]
 }
 
 """
-input type for inserting data into table "atom_types"
+input type for inserting data into table "atom_type"
 """
-input atom_types_insert_input {
+input atom_type_insert_input {
   description: String
   value: String
 }
@@ -647,7 +647,7 @@ input atom_types_insert_input {
 """
 aggregate max on columns
 """
-type atom_types_max_fields {
+type atom_type_max_fields {
   description: String
   value: String
 }
@@ -655,15 +655,15 @@ type atom_types_max_fields {
 """
 aggregate min on columns
 """
-type atom_types_min_fields {
+type atom_type_min_fields {
   description: String
   value: String
 }
 
 """
-response of any mutation on the table "atom_types"
+response of any mutation on the table "atom_type"
 """
-type atom_types_mutation_response {
+type atom_type_mutation_response {
   """
   number of rows affected by the mutation
   """
@@ -672,37 +672,37 @@ type atom_types_mutation_response {
   """
   data from the rows affected by the mutation
   """
-  returning: [atom_types!]!
+  returning: [atom_type!]!
 }
 
 """
-on conflict condition type for table "atom_types"
+on conflict condition type for table "atom_type"
 """
-input atom_types_on_conflict {
-  constraint: atom_types_constraint!
-  update_columns: [atom_types_update_column!]!
-  where: atom_types_bool_exp
+input atom_type_on_conflict {
+  constraint: atom_type_constraint!
+  update_columns: [atom_type_update_column!]!
+  where: atom_type_bool_exp
 }
 
 """
-Ordering options when selecting data from "atom_types".
+Ordering options when selecting data from "atom_type".
 """
-input atom_types_order_by {
+input atom_type_order_by {
   description: order_by
   value: order_by
 }
 
 """
-primary key columns input for table: atom_types
+primary key columns input for table: atom_type
 """
-input atom_types_pk_columns_input {
+input atom_type_pk_columns_input {
   value: String!
 }
 
 """
-select columns of table "atom_types"
+select columns of table "atom_type"
 """
-enum atom_types_select_column {
+enum atom_type_select_column {
   """
   column name
   """
@@ -715,17 +715,17 @@ enum atom_types_select_column {
 }
 
 """
-input type for updating data in table "atom_types"
+input type for updating data in table "atom_type"
 """
-input atom_types_set_input {
+input atom_type_set_input {
   description: String
   value: String
 }
 
 """
-update columns of table "atom_types"
+update columns of table "atom_type"
 """
-enum atom_types_update_column {
+enum atom_type_update_column {
   """
   column name
   """
@@ -758,7 +758,7 @@ columns and relationships of "attribute"
 type attribute {
   id: uuid!
   key: String!
-  type: atom_types_enum!
+  type: atom_type_enum!
 }
 
 """
@@ -787,7 +787,7 @@ input attribute_bool_exp {
   _or: [attribute_bool_exp!]
   id: uuid_comparison_exp
   key: String_comparison_exp
-  type: atom_types_enum_comparison_exp
+  type: atom_type_enum_comparison_exp
 }
 
 """
@@ -806,7 +806,7 @@ input type for inserting data into table "attribute"
 input attribute_insert_input {
   id: uuid
   key: String
-  type: atom_types_enum
+  type: atom_type_enum
 }
 
 """
@@ -891,7 +891,7 @@ input type for updating data in table "attribute"
 input attribute_set_input {
   id: uuid
   key: String
-  type: atom_types_enum
+  type: atom_type_enum
 }
 
 """
@@ -2473,19 +2473,19 @@ type mutation_root {
   delete_atom_by_pk(id: uuid!): atom
 
   """
-  delete data from the table: "atom_types"
+  delete data from the table: "atom_type"
   """
-  delete_atom_types(
+  delete_atom_type(
     """
     filter the rows which have to be deleted
     """
-    where: atom_types_bool_exp!
-  ): atom_types_mutation_response
+    where: atom_type_bool_exp!
+  ): atom_type_mutation_response
 
   """
-  delete single row from the table: "atom_types"
+  delete single row from the table: "atom_type"
   """
-  delete_atom_types_by_pk(value: String!): atom_types
+  delete_atom_type_by_pk(value: String!): atom_type
 
   """
   delete data from the table: "attribute"
@@ -2623,19 +2623,19 @@ type mutation_root {
   delete_page_element_by_pk(id: uuid!): page_element
 
   """
-  delete data from the table: "page_links"
+  delete data from the table: "page_link"
   """
-  delete_page_links(
+  delete_page_link(
     """
     filter the rows which have to be deleted
     """
-    where: page_links_bool_exp!
-  ): page_links_mutation_response
+    where: page_link_bool_exp!
+  ): page_link_mutation_response
 
   """
-  delete single row from the table: "page_links"
+  delete single row from the table: "page_link"
   """
-  delete_page_links_by_pk(id: uuid!): page_links
+  delete_page_link_by_pk(id: uuid!): page_link
 
   """
   delete data from the table: "prop"
@@ -2666,6 +2666,21 @@ type mutation_root {
   delete single row from the table: "prop_element"
   """
   delete_prop_element_by_pk(element_id: uuid!, prop_id: uuid!): prop_element
+
+  """
+  delete data from the table: "prop_value"
+  """
+  delete_prop_value(
+    """
+    filter the rows which have to be deleted
+    """
+    where: prop_value_bool_exp!
+  ): prop_value_mutation_response
+
+  """
+  delete single row from the table: "prop_value"
+  """
+  delete_prop_value_by_pk(id: uuid!): prop_value
 
   """
   delete data from the table: "prop_value_tag"
@@ -2699,21 +2714,6 @@ type mutation_root {
   delete single row from the table: "prop_value_type"
   """
   delete_prop_value_type_by_pk(value: String!): prop_value_type
-
-  """
-  delete data from the table: "prop_values"
-  """
-  delete_prop_values(
-    """
-    filter the rows which have to be deleted
-    """
-    where: prop_values_bool_exp!
-  ): prop_values_mutation_response
-
-  """
-  delete single row from the table: "prop_values"
-  """
-  delete_prop_values_by_pk(id: uuid!): prop_values
 
   """
   delete data from the table: "style"
@@ -2821,34 +2821,34 @@ type mutation_root {
   ): atom
 
   """
-  insert data into the table: "atom_types"
+  insert data into the table: "atom_type"
   """
-  insert_atom_types(
+  insert_atom_type(
     """
     the rows to be inserted
     """
-    objects: [atom_types_insert_input!]!
+    objects: [atom_type_insert_input!]!
 
     """
     on conflict condition
     """
-    on_conflict: atom_types_on_conflict
-  ): atom_types_mutation_response
+    on_conflict: atom_type_on_conflict
+  ): atom_type_mutation_response
 
   """
-  insert a single row into the table: "atom_types"
+  insert a single row into the table: "atom_type"
   """
-  insert_atom_types_one(
+  insert_atom_type_one(
     """
     the row to be inserted
     """
-    object: atom_types_insert_input!
+    object: atom_type_insert_input!
 
     """
     on conflict condition
     """
-    on_conflict: atom_types_on_conflict
-  ): atom_types
+    on_conflict: atom_type_on_conflict
+  ): atom_type
 
   """
   insert data into the table: "attribute"
@@ -3106,34 +3106,34 @@ type mutation_root {
   ): page_element
 
   """
-  insert data into the table: "page_links"
+  insert data into the table: "page_link"
   """
-  insert_page_links(
+  insert_page_link(
     """
     the rows to be inserted
     """
-    objects: [page_links_insert_input!]!
+    objects: [page_link_insert_input!]!
 
     """
     on conflict condition
     """
-    on_conflict: page_links_on_conflict
-  ): page_links_mutation_response
+    on_conflict: page_link_on_conflict
+  ): page_link_mutation_response
 
   """
-  insert a single row into the table: "page_links"
+  insert a single row into the table: "page_link"
   """
-  insert_page_links_one(
+  insert_page_link_one(
     """
     the row to be inserted
     """
-    object: page_links_insert_input!
+    object: page_link_insert_input!
 
     """
     on conflict condition
     """
-    on_conflict: page_links_on_conflict
-  ): page_links
+    on_conflict: page_link_on_conflict
+  ): page_link
 
   """
   insert a single row into the table: "page"
@@ -3211,6 +3211,36 @@ type mutation_root {
   ): prop
 
   """
+  insert data into the table: "prop_value"
+  """
+  insert_prop_value(
+    """
+    the rows to be inserted
+    """
+    objects: [prop_value_insert_input!]!
+
+    """
+    on conflict condition
+    """
+    on_conflict: prop_value_on_conflict
+  ): prop_value_mutation_response
+
+  """
+  insert a single row into the table: "prop_value"
+  """
+  insert_prop_value_one(
+    """
+    the row to be inserted
+    """
+    object: prop_value_insert_input!
+
+    """
+    on conflict condition
+    """
+    on_conflict: prop_value_on_conflict
+  ): prop_value
+
+  """
   insert data into the table: "prop_value_tag"
   """
   insert_prop_value_tag(
@@ -3269,36 +3299,6 @@ type mutation_root {
     """
     on_conflict: prop_value_type_on_conflict
   ): prop_value_type
-
-  """
-  insert data into the table: "prop_values"
-  """
-  insert_prop_values(
-    """
-    the rows to be inserted
-    """
-    objects: [prop_values_insert_input!]!
-
-    """
-    on conflict condition
-    """
-    on_conflict: prop_values_on_conflict
-  ): prop_values_mutation_response
-
-  """
-  insert a single row into the table: "prop_values"
-  """
-  insert_prop_values_one(
-    """
-    the row to be inserted
-    """
-    object: prop_values_insert_input!
-
-    """
-    on conflict condition
-    """
-    on_conflict: prop_values_on_conflict
-  ): prop_values
 
   """
   insert data into the table: "style"
@@ -3443,30 +3443,30 @@ type mutation_root {
   ): atom
 
   """
-  update data of the table: "atom_types"
+  update data of the table: "atom_type"
   """
-  update_atom_types(
+  update_atom_type(
     """
     sets the columns of the filtered rows to the given values
     """
-    _set: atom_types_set_input
+    _set: atom_type_set_input
 
     """
     filter the rows which have to be updated
     """
-    where: atom_types_bool_exp!
-  ): atom_types_mutation_response
+    where: atom_type_bool_exp!
+  ): atom_type_mutation_response
 
   """
-  update single row of the table: "atom_types"
+  update single row of the table: "atom_type"
   """
-  update_atom_types_by_pk(
+  update_atom_type_by_pk(
     """
     sets the columns of the filtered rows to the given values
     """
-    _set: atom_types_set_input
-    pk_columns: atom_types_pk_columns_input!
-  ): atom_types
+    _set: atom_type_set_input
+    pk_columns: atom_type_pk_columns_input!
+  ): atom_type
 
   """
   update data of the table: "attribute"
@@ -3763,90 +3763,90 @@ type mutation_root {
   ): page_element
 
   """
-  update data of the table: "page_links"
+  update data of the table: "page_link"
   """
-  update_page_links(
+  update_page_link(
     """
     append existing jsonb value of filtered columns with new jsonb value
     """
-    _append: page_links_append_input
+    _append: page_link_append_input
 
     """
     delete the field or element with specified path (for JSON arrays, negative integers count from the end)
     """
-    _delete_at_path: page_links_delete_at_path_input
+    _delete_at_path: page_link_delete_at_path_input
 
     """
     delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
     """
-    _delete_elem: page_links_delete_elem_input
+    _delete_elem: page_link_delete_elem_input
 
     """
     delete key/value pair or string element. key/value pairs are matched based on their key value
     """
-    _delete_key: page_links_delete_key_input
+    _delete_key: page_link_delete_key_input
 
     """
     increments the numeric columns with given value of the filtered values
     """
-    _inc: page_links_inc_input
+    _inc: page_link_inc_input
 
     """
     prepend existing jsonb value of filtered columns with new jsonb value
     """
-    _prepend: page_links_prepend_input
+    _prepend: page_link_prepend_input
 
     """
     sets the columns of the filtered rows to the given values
     """
-    _set: page_links_set_input
+    _set: page_link_set_input
 
     """
     filter the rows which have to be updated
     """
-    where: page_links_bool_exp!
-  ): page_links_mutation_response
+    where: page_link_bool_exp!
+  ): page_link_mutation_response
 
   """
-  update single row of the table: "page_links"
+  update single row of the table: "page_link"
   """
-  update_page_links_by_pk(
+  update_page_link_by_pk(
     """
     append existing jsonb value of filtered columns with new jsonb value
     """
-    _append: page_links_append_input
+    _append: page_link_append_input
 
     """
     delete the field or element with specified path (for JSON arrays, negative integers count from the end)
     """
-    _delete_at_path: page_links_delete_at_path_input
+    _delete_at_path: page_link_delete_at_path_input
 
     """
     delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
     """
-    _delete_elem: page_links_delete_elem_input
+    _delete_elem: page_link_delete_elem_input
 
     """
     delete key/value pair or string element. key/value pairs are matched based on their key value
     """
-    _delete_key: page_links_delete_key_input
+    _delete_key: page_link_delete_key_input
 
     """
     increments the numeric columns with given value of the filtered values
     """
-    _inc: page_links_inc_input
+    _inc: page_link_inc_input
 
     """
     prepend existing jsonb value of filtered columns with new jsonb value
     """
-    _prepend: page_links_prepend_input
+    _prepend: page_link_prepend_input
 
     """
     sets the columns of the filtered rows to the given values
     """
-    _set: page_links_set_input
-    pk_columns: page_links_pk_columns_input!
-  ): page_links
+    _set: page_link_set_input
+    pk_columns: page_link_pk_columns_input!
+  ): page_link
 
   """
   update data of the table: "prop"
@@ -3901,6 +3901,32 @@ type mutation_root {
   ): prop_element
 
   """
+  update data of the table: "prop_value"
+  """
+  update_prop_value(
+    """
+    sets the columns of the filtered rows to the given values
+    """
+    _set: prop_value_set_input
+
+    """
+    filter the rows which have to be updated
+    """
+    where: prop_value_bool_exp!
+  ): prop_value_mutation_response
+
+  """
+  update single row of the table: "prop_value"
+  """
+  update_prop_value_by_pk(
+    """
+    sets the columns of the filtered rows to the given values
+    """
+    _set: prop_value_set_input
+    pk_columns: prop_value_pk_columns_input!
+  ): prop_value
+
+  """
   update data of the table: "prop_value_tag"
   """
   update_prop_value_tag(
@@ -3951,32 +3977,6 @@ type mutation_root {
     _set: prop_value_type_set_input
     pk_columns: prop_value_type_pk_columns_input!
   ): prop_value_type
-
-  """
-  update data of the table: "prop_values"
-  """
-  update_prop_values(
-    """
-    sets the columns of the filtered rows to the given values
-    """
-    _set: prop_values_set_input
-
-    """
-    filter the rows which have to be updated
-    """
-    where: prop_values_bool_exp!
-  ): prop_values_mutation_response
-
-  """
-  update single row of the table: "prop_values"
-  """
-  update_prop_values_by_pk(
-    """
-    sets the columns of the filtered rows to the given values
-    """
-    _set: prop_values_set_input
-    pk_columns: prop_values_pk_columns_input!
-  ): prop_values
 
   """
   update data of the table: "style"
@@ -4170,7 +4170,7 @@ type page {
     """
     distinct select on columns
     """
-    distinct_on: [page_links_select_column!]
+    distinct_on: [page_link_select_column!]
 
     """
     limit the number of rows returned
@@ -4185,13 +4185,13 @@ type page {
     """
     sort the rows by one or more columns
     """
-    order_by: [page_links_order_by!]
+    order_by: [page_link_order_by!]
 
     """
     filter the rows returned
     """
-    where: page_links_bool_exp
-  ): [page_links!]!
+    where: page_link_bool_exp
+  ): [page_link!]!
 
   """
   An aggregate relationship
@@ -4200,7 +4200,7 @@ type page {
     """
     distinct select on columns
     """
-    distinct_on: [page_links_select_column!]
+    distinct_on: [page_link_select_column!]
 
     """
     limit the number of rows returned
@@ -4215,13 +4215,13 @@ type page {
     """
     sort the rows by one or more columns
     """
-    order_by: [page_links_order_by!]
+    order_by: [page_link_order_by!]
 
     """
     filter the rows returned
     """
-    where: page_links_bool_exp
-  ): page_links_aggregate!
+    where: page_link_bool_exp
+  ): page_link_aggregate!
   name: String!
 
   """
@@ -4280,7 +4280,7 @@ input page_bool_exp {
   app_id: uuid_comparison_exp
   elements: page_element_bool_exp
   id: uuid_comparison_exp
-  links: page_links_bool_exp
+  links: page_link_bool_exp
   name: String_comparison_exp
   owner: user_bool_exp
   owner_id: String_comparison_exp
@@ -4616,16 +4616,16 @@ input page_insert_input {
   app_id: uuid
   elements: page_element_arr_rel_insert_input
   id: uuid
-  links: page_links_arr_rel_insert_input
+  links: page_link_arr_rel_insert_input
   name: String
   owner: user_obj_rel_insert_input
   owner_id: String
 }
 
 """
-columns and relationships of "page_links"
+columns and relationships of "page_link"
 """
-type page_links {
+type page_link {
   id: uuid!
   order: Int
   page_id: uuid!
@@ -4640,87 +4640,87 @@ type page_links {
 }
 
 """
-aggregated selection of "page_links"
+aggregated selection of "page_link"
 """
-type page_links_aggregate {
-  aggregate: page_links_aggregate_fields
-  nodes: [page_links!]!
+type page_link_aggregate {
+  aggregate: page_link_aggregate_fields
+  nodes: [page_link!]!
 }
 
 """
-aggregate fields of "page_links"
+aggregate fields of "page_link"
 """
-type page_links_aggregate_fields {
-  avg: page_links_avg_fields
-  count(columns: [page_links_select_column!], distinct: Boolean): Int!
-  max: page_links_max_fields
-  min: page_links_min_fields
-  stddev: page_links_stddev_fields
-  stddev_pop: page_links_stddev_pop_fields
-  stddev_samp: page_links_stddev_samp_fields
-  sum: page_links_sum_fields
-  var_pop: page_links_var_pop_fields
-  var_samp: page_links_var_samp_fields
-  variance: page_links_variance_fields
+type page_link_aggregate_fields {
+  avg: page_link_avg_fields
+  count(columns: [page_link_select_column!], distinct: Boolean): Int!
+  max: page_link_max_fields
+  min: page_link_min_fields
+  stddev: page_link_stddev_fields
+  stddev_pop: page_link_stddev_pop_fields
+  stddev_samp: page_link_stddev_samp_fields
+  sum: page_link_sum_fields
+  var_pop: page_link_var_pop_fields
+  var_samp: page_link_var_samp_fields
+  variance: page_link_variance_fields
 }
 
 """
-order by aggregate values of table "page_links"
+order by aggregate values of table "page_link"
 """
-input page_links_aggregate_order_by {
-  avg: page_links_avg_order_by
+input page_link_aggregate_order_by {
+  avg: page_link_avg_order_by
   count: order_by
-  max: page_links_max_order_by
-  min: page_links_min_order_by
-  stddev: page_links_stddev_order_by
-  stddev_pop: page_links_stddev_pop_order_by
-  stddev_samp: page_links_stddev_samp_order_by
-  sum: page_links_sum_order_by
-  var_pop: page_links_var_pop_order_by
-  var_samp: page_links_var_samp_order_by
-  variance: page_links_variance_order_by
+  max: page_link_max_order_by
+  min: page_link_min_order_by
+  stddev: page_link_stddev_order_by
+  stddev_pop: page_link_stddev_pop_order_by
+  stddev_samp: page_link_stddev_samp_order_by
+  sum: page_link_sum_order_by
+  var_pop: page_link_var_pop_order_by
+  var_samp: page_link_var_samp_order_by
+  variance: page_link_variance_order_by
 }
 
 """
 append existing jsonb value of filtered columns with new jsonb value
 """
-input page_links_append_input {
+input page_link_append_input {
   props: jsonb
 }
 
 """
-input type for inserting array relation for remote table "page_links"
+input type for inserting array relation for remote table "page_link"
 """
-input page_links_arr_rel_insert_input {
-  data: [page_links_insert_input!]!
+input page_link_arr_rel_insert_input {
+  data: [page_link_insert_input!]!
 
   """
   on conflict condition
   """
-  on_conflict: page_links_on_conflict
+  on_conflict: page_link_on_conflict
 }
 
 """
 aggregate avg on columns
 """
-type page_links_avg_fields {
+type page_link_avg_fields {
   order: Float
 }
 
 """
-order by avg() on columns of table "page_links"
+order by avg() on columns of table "page_link"
 """
-input page_links_avg_order_by {
+input page_link_avg_order_by {
   order: order_by
 }
 
 """
-Boolean expression to filter rows from the table "page_links". All fields are combined with a logical 'AND'.
+Boolean expression to filter rows from the table "page_link". All fields are combined with a logical 'AND'.
 """
-input page_links_bool_exp {
-  _and: [page_links_bool_exp!]
-  _not: page_links_bool_exp
-  _or: [page_links_bool_exp!]
+input page_link_bool_exp {
+  _and: [page_link_bool_exp!]
+  _not: page_link_bool_exp
+  _or: [page_link_bool_exp!]
   id: uuid_comparison_exp
   order: Int_comparison_exp
   page_id: uuid_comparison_exp
@@ -4730,9 +4730,9 @@ input page_links_bool_exp {
 }
 
 """
-unique or primary key constraints on table "page_links"
+unique or primary key constraints on table "page_link"
 """
-enum page_links_constraint {
+enum page_link_constraint {
   """
   unique or primary key constraint
   """
@@ -4742,35 +4742,35 @@ enum page_links_constraint {
 """
 delete the field or element with specified path (for JSON arrays, negative integers count from the end)
 """
-input page_links_delete_at_path_input {
+input page_link_delete_at_path_input {
   props: [String!]
 }
 
 """
 delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
 """
-input page_links_delete_elem_input {
+input page_link_delete_elem_input {
   props: Int
 }
 
 """
 delete key/value pair or string element. key/value pairs are matched based on their key value
 """
-input page_links_delete_key_input {
+input page_link_delete_key_input {
   props: String
 }
 
 """
-input type for incrementing numeric columns in table "page_links"
+input type for incrementing numeric columns in table "page_link"
 """
-input page_links_inc_input {
+input page_link_inc_input {
   order: Int
 }
 
 """
-input type for inserting data into table "page_links"
+input type for inserting data into table "page_link"
 """
-input page_links_insert_input {
+input page_link_insert_input {
   id: uuid
   order: Int
   page_id: uuid
@@ -4782,7 +4782,7 @@ input page_links_insert_input {
 """
 aggregate max on columns
 """
-type page_links_max_fields {
+type page_link_max_fields {
   id: uuid
   order: Int
   page_id: uuid
@@ -4791,9 +4791,9 @@ type page_links_max_fields {
 }
 
 """
-order by max() on columns of table "page_links"
+order by max() on columns of table "page_link"
 """
-input page_links_max_order_by {
+input page_link_max_order_by {
   id: order_by
   order: order_by
   page_id: order_by
@@ -4804,7 +4804,7 @@ input page_links_max_order_by {
 """
 aggregate min on columns
 """
-type page_links_min_fields {
+type page_link_min_fields {
   id: uuid
   order: Int
   page_id: uuid
@@ -4813,9 +4813,9 @@ type page_links_min_fields {
 }
 
 """
-order by min() on columns of table "page_links"
+order by min() on columns of table "page_link"
 """
-input page_links_min_order_by {
+input page_link_min_order_by {
   id: order_by
   order: order_by
   page_id: order_by
@@ -4824,9 +4824,9 @@ input page_links_min_order_by {
 }
 
 """
-response of any mutation on the table "page_links"
+response of any mutation on the table "page_link"
 """
-type page_links_mutation_response {
+type page_link_mutation_response {
   """
   number of rows affected by the mutation
   """
@@ -4835,22 +4835,22 @@ type page_links_mutation_response {
   """
   data from the rows affected by the mutation
   """
-  returning: [page_links!]!
+  returning: [page_link!]!
 }
 
 """
-on conflict condition type for table "page_links"
+on conflict condition type for table "page_link"
 """
-input page_links_on_conflict {
-  constraint: page_links_constraint!
-  update_columns: [page_links_update_column!]!
-  where: page_links_bool_exp
+input page_link_on_conflict {
+  constraint: page_link_constraint!
+  update_columns: [page_link_update_column!]!
+  where: page_link_bool_exp
 }
 
 """
-Ordering options when selecting data from "page_links".
+Ordering options when selecting data from "page_link".
 """
-input page_links_order_by {
+input page_link_order_by {
   id: order_by
   order: order_by
   page_id: order_by
@@ -4860,23 +4860,23 @@ input page_links_order_by {
 }
 
 """
-primary key columns input for table: page_links
+primary key columns input for table: page_link
 """
-input page_links_pk_columns_input {
+input page_link_pk_columns_input {
   id: uuid!
 }
 
 """
 prepend existing jsonb value of filtered columns with new jsonb value
 """
-input page_links_prepend_input {
+input page_link_prepend_input {
   props: jsonb
 }
 
 """
-select columns of table "page_links"
+select columns of table "page_link"
 """
-enum page_links_select_column {
+enum page_link_select_column {
   """
   column name
   """
@@ -4909,9 +4909,9 @@ enum page_links_select_column {
 }
 
 """
-input type for updating data in table "page_links"
+input type for updating data in table "page_link"
 """
-input page_links_set_input {
+input page_link_set_input {
   id: uuid
   order: Int
   page_id: uuid
@@ -4923,63 +4923,63 @@ input page_links_set_input {
 """
 aggregate stddev on columns
 """
-type page_links_stddev_fields {
+type page_link_stddev_fields {
   order: Float
 }
 
 """
-order by stddev() on columns of table "page_links"
+order by stddev() on columns of table "page_link"
 """
-input page_links_stddev_order_by {
+input page_link_stddev_order_by {
   order: order_by
 }
 
 """
 aggregate stddev_pop on columns
 """
-type page_links_stddev_pop_fields {
+type page_link_stddev_pop_fields {
   order: Float
 }
 
 """
-order by stddev_pop() on columns of table "page_links"
+order by stddev_pop() on columns of table "page_link"
 """
-input page_links_stddev_pop_order_by {
+input page_link_stddev_pop_order_by {
   order: order_by
 }
 
 """
 aggregate stddev_samp on columns
 """
-type page_links_stddev_samp_fields {
+type page_link_stddev_samp_fields {
   order: Float
 }
 
 """
-order by stddev_samp() on columns of table "page_links"
+order by stddev_samp() on columns of table "page_link"
 """
-input page_links_stddev_samp_order_by {
+input page_link_stddev_samp_order_by {
   order: order_by
 }
 
 """
 aggregate sum on columns
 """
-type page_links_sum_fields {
+type page_link_sum_fields {
   order: Int
 }
 
 """
-order by sum() on columns of table "page_links"
+order by sum() on columns of table "page_link"
 """
-input page_links_sum_order_by {
+input page_link_sum_order_by {
   order: order_by
 }
 
 """
-update columns of table "page_links"
+update columns of table "page_link"
 """
-enum page_links_update_column {
+enum page_link_update_column {
   """
   column name
   """
@@ -5014,42 +5014,42 @@ enum page_links_update_column {
 """
 aggregate var_pop on columns
 """
-type page_links_var_pop_fields {
+type page_link_var_pop_fields {
   order: Float
 }
 
 """
-order by var_pop() on columns of table "page_links"
+order by var_pop() on columns of table "page_link"
 """
-input page_links_var_pop_order_by {
+input page_link_var_pop_order_by {
   order: order_by
 }
 
 """
 aggregate var_samp on columns
 """
-type page_links_var_samp_fields {
+type page_link_var_samp_fields {
   order: Float
 }
 
 """
-order by var_samp() on columns of table "page_links"
+order by var_samp() on columns of table "page_link"
 """
-input page_links_var_samp_order_by {
+input page_link_var_samp_order_by {
   order: order_by
 }
 
 """
 aggregate variance on columns
 """
-type page_links_variance_fields {
+type page_link_variance_fields {
   order: Float
 }
 
 """
-order by variance() on columns of table "page_links"
+order by variance() on columns of table "page_link"
 """
-input page_links_variance_order_by {
+input page_link_variance_order_by {
   order: order_by
 }
 
@@ -5137,7 +5137,7 @@ input page_order_by {
   app_id: order_by
   elements_aggregate: page_element_aggregate_order_by
   id: order_by
-  links_aggregate: page_links_aggregate_order_by
+  links_aggregate: page_link_aggregate_order_by
   name: order_by
   owner: user_order_by
   owner_id: order_by
@@ -5578,6 +5578,258 @@ enum prop_update_column {
 }
 
 """
+columns and relationships of "prop_value"
+"""
+type prop_value {
+  id: uuid!
+
+  """
+  This is used as a value
+  """
+  lambda_id: uuid
+  name: String!
+
+  """
+  This is the prop that owns this value
+  """
+  parent_prop_id: uuid!
+  type: String!
+  value: String
+
+  """
+  This is the prop that is used as a value
+  """
+  value_prop_id: uuid
+}
+
+"""
+aggregated selection of "prop_value"
+"""
+type prop_value_aggregate {
+  aggregate: prop_value_aggregate_fields
+  nodes: [prop_value!]!
+}
+
+"""
+aggregate fields of "prop_value"
+"""
+type prop_value_aggregate_fields {
+  count(columns: [prop_value_select_column!], distinct: Boolean): Int!
+  max: prop_value_max_fields
+  min: prop_value_min_fields
+}
+
+"""
+Boolean expression to filter rows from the table "prop_value". All fields are combined with a logical 'AND'.
+"""
+input prop_value_bool_exp {
+  _and: [prop_value_bool_exp!]
+  _not: prop_value_bool_exp
+  _or: [prop_value_bool_exp!]
+  id: uuid_comparison_exp
+  lambda_id: uuid_comparison_exp
+  name: String_comparison_exp
+  parent_prop_id: uuid_comparison_exp
+  type: String_comparison_exp
+  value: String_comparison_exp
+  value_prop_id: uuid_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "prop_value"
+"""
+enum prop_value_constraint {
+  """
+  unique or primary key constraint
+  """
+  prop_values_pkey
+}
+
+"""
+input type for inserting data into table "prop_value"
+"""
+input prop_value_insert_input {
+  id: uuid
+
+  """
+  This is used as a value
+  """
+  lambda_id: uuid
+  name: String
+
+  """
+  This is the prop that owns this value
+  """
+  parent_prop_id: uuid
+  type: String
+  value: String
+
+  """
+  This is the prop that is used as a value
+  """
+  value_prop_id: uuid
+}
+
+"""
+aggregate max on columns
+"""
+type prop_value_max_fields {
+  id: uuid
+
+  """
+  This is used as a value
+  """
+  lambda_id: uuid
+  name: String
+
+  """
+  This is the prop that owns this value
+  """
+  parent_prop_id: uuid
+  type: String
+  value: String
+
+  """
+  This is the prop that is used as a value
+  """
+  value_prop_id: uuid
+}
+
+"""
+aggregate min on columns
+"""
+type prop_value_min_fields {
+  id: uuid
+
+  """
+  This is used as a value
+  """
+  lambda_id: uuid
+  name: String
+
+  """
+  This is the prop that owns this value
+  """
+  parent_prop_id: uuid
+  type: String
+  value: String
+
+  """
+  This is the prop that is used as a value
+  """
+  value_prop_id: uuid
+}
+
+"""
+response of any mutation on the table "prop_value"
+"""
+type prop_value_mutation_response {
+  """
+  number of rows affected by the mutation
+  """
+  affected_rows: Int!
+
+  """
+  data from the rows affected by the mutation
+  """
+  returning: [prop_value!]!
+}
+
+"""
+on conflict condition type for table "prop_value"
+"""
+input prop_value_on_conflict {
+  constraint: prop_value_constraint!
+  update_columns: [prop_value_update_column!]!
+  where: prop_value_bool_exp
+}
+
+"""
+Ordering options when selecting data from "prop_value".
+"""
+input prop_value_order_by {
+  id: order_by
+  lambda_id: order_by
+  name: order_by
+  parent_prop_id: order_by
+  type: order_by
+  value: order_by
+  value_prop_id: order_by
+}
+
+"""
+primary key columns input for table: prop_value
+"""
+input prop_value_pk_columns_input {
+  id: uuid!
+}
+
+"""
+select columns of table "prop_value"
+"""
+enum prop_value_select_column {
+  """
+  column name
+  """
+  id
+
+  """
+  column name
+  """
+  lambda_id
+
+  """
+  column name
+  """
+  name
+
+  """
+  column name
+  """
+  parent_prop_id
+
+  """
+  column name
+  """
+  type
+
+  """
+  column name
+  """
+  value
+
+  """
+  column name
+  """
+  value_prop_id
+}
+
+"""
+input type for updating data in table "prop_value"
+"""
+input prop_value_set_input {
+  id: uuid
+
+  """
+  This is used as a value
+  """
+  lambda_id: uuid
+  name: String
+
+  """
+  This is the prop that owns this value
+  """
+  parent_prop_id: uuid
+  type: String
+  value: String
+
+  """
+  This is the prop that is used as a value
+  """
+  value_prop_id: uuid
+}
+
+"""
 columns and relationships of "prop_value_tag"
 """
 type prop_value_tag {
@@ -5873,261 +6125,9 @@ enum prop_value_type_update_column {
 }
 
 """
-columns and relationships of "prop_values"
+update columns of table "prop_value"
 """
-type prop_values {
-  id: uuid!
-
-  """
-  This is used as a value
-  """
-  lambda_id: uuid
-  name: String!
-
-  """
-  This is the prop that owns this value
-  """
-  parent_prop_id: uuid!
-  type: String!
-  value: String
-
-  """
-  This is the prop that is used as a value
-  """
-  value_prop_id: uuid
-}
-
-"""
-aggregated selection of "prop_values"
-"""
-type prop_values_aggregate {
-  aggregate: prop_values_aggregate_fields
-  nodes: [prop_values!]!
-}
-
-"""
-aggregate fields of "prop_values"
-"""
-type prop_values_aggregate_fields {
-  count(columns: [prop_values_select_column!], distinct: Boolean): Int!
-  max: prop_values_max_fields
-  min: prop_values_min_fields
-}
-
-"""
-Boolean expression to filter rows from the table "prop_values". All fields are combined with a logical 'AND'.
-"""
-input prop_values_bool_exp {
-  _and: [prop_values_bool_exp!]
-  _not: prop_values_bool_exp
-  _or: [prop_values_bool_exp!]
-  id: uuid_comparison_exp
-  lambda_id: uuid_comparison_exp
-  name: String_comparison_exp
-  parent_prop_id: uuid_comparison_exp
-  type: String_comparison_exp
-  value: String_comparison_exp
-  value_prop_id: uuid_comparison_exp
-}
-
-"""
-unique or primary key constraints on table "prop_values"
-"""
-enum prop_values_constraint {
-  """
-  unique or primary key constraint
-  """
-  prop_values_pkey
-}
-
-"""
-input type for inserting data into table "prop_values"
-"""
-input prop_values_insert_input {
-  id: uuid
-
-  """
-  This is used as a value
-  """
-  lambda_id: uuid
-  name: String
-
-  """
-  This is the prop that owns this value
-  """
-  parent_prop_id: uuid
-  type: String
-  value: String
-
-  """
-  This is the prop that is used as a value
-  """
-  value_prop_id: uuid
-}
-
-"""
-aggregate max on columns
-"""
-type prop_values_max_fields {
-  id: uuid
-
-  """
-  This is used as a value
-  """
-  lambda_id: uuid
-  name: String
-
-  """
-  This is the prop that owns this value
-  """
-  parent_prop_id: uuid
-  type: String
-  value: String
-
-  """
-  This is the prop that is used as a value
-  """
-  value_prop_id: uuid
-}
-
-"""
-aggregate min on columns
-"""
-type prop_values_min_fields {
-  id: uuid
-
-  """
-  This is used as a value
-  """
-  lambda_id: uuid
-  name: String
-
-  """
-  This is the prop that owns this value
-  """
-  parent_prop_id: uuid
-  type: String
-  value: String
-
-  """
-  This is the prop that is used as a value
-  """
-  value_prop_id: uuid
-}
-
-"""
-response of any mutation on the table "prop_values"
-"""
-type prop_values_mutation_response {
-  """
-  number of rows affected by the mutation
-  """
-  affected_rows: Int!
-
-  """
-  data from the rows affected by the mutation
-  """
-  returning: [prop_values!]!
-}
-
-"""
-on conflict condition type for table "prop_values"
-"""
-input prop_values_on_conflict {
-  constraint: prop_values_constraint!
-  update_columns: [prop_values_update_column!]!
-  where: prop_values_bool_exp
-}
-
-"""
-Ordering options when selecting data from "prop_values".
-"""
-input prop_values_order_by {
-  id: order_by
-  lambda_id: order_by
-  name: order_by
-  parent_prop_id: order_by
-  type: order_by
-  value: order_by
-  value_prop_id: order_by
-}
-
-"""
-primary key columns input for table: prop_values
-"""
-input prop_values_pk_columns_input {
-  id: uuid!
-}
-
-"""
-select columns of table "prop_values"
-"""
-enum prop_values_select_column {
-  """
-  column name
-  """
-  id
-
-  """
-  column name
-  """
-  lambda_id
-
-  """
-  column name
-  """
-  name
-
-  """
-  column name
-  """
-  parent_prop_id
-
-  """
-  column name
-  """
-  type
-
-  """
-  column name
-  """
-  value
-
-  """
-  column name
-  """
-  value_prop_id
-}
-
-"""
-input type for updating data in table "prop_values"
-"""
-input prop_values_set_input {
-  id: uuid
-
-  """
-  This is used as a value
-  """
-  lambda_id: uuid
-  name: String
-
-  """
-  This is the prop that owns this value
-  """
-  parent_prop_id: uuid
-  type: String
-  value: String
-
-  """
-  This is the prop that is used as a value
-  """
-  value_prop_id: uuid
-}
-
-"""
-update columns of table "prop_values"
-"""
-enum prop_values_update_column {
+enum prop_value_update_column {
   """
   column name
   """
@@ -6296,13 +6296,13 @@ type query_root {
   atom_by_pk(id: uuid!): atom
 
   """
-  fetch data from the table: "atom_types"
+  fetch data from the table: "atom_type"
   """
-  atom_types(
+  atom_type(
     """
     distinct select on columns
     """
-    distinct_on: [atom_types_select_column!]
+    distinct_on: [atom_type_select_column!]
 
     """
     limit the number of rows returned
@@ -6317,22 +6317,22 @@ type query_root {
     """
     sort the rows by one or more columns
     """
-    order_by: [atom_types_order_by!]
+    order_by: [atom_type_order_by!]
 
     """
     filter the rows returned
     """
-    where: atom_types_bool_exp
-  ): [atom_types!]!
+    where: atom_type_bool_exp
+  ): [atom_type!]!
 
   """
-  fetch aggregated fields from the table: "atom_types"
+  fetch aggregated fields from the table: "atom_type"
   """
-  atom_types_aggregate(
+  atom_type_aggregate(
     """
     distinct select on columns
     """
-    distinct_on: [atom_types_select_column!]
+    distinct_on: [atom_type_select_column!]
 
     """
     limit the number of rows returned
@@ -6347,18 +6347,18 @@ type query_root {
     """
     sort the rows by one or more columns
     """
-    order_by: [atom_types_order_by!]
+    order_by: [atom_type_order_by!]
 
     """
     filter the rows returned
     """
-    where: atom_types_bool_exp
-  ): atom_types_aggregate!
+    where: atom_type_bool_exp
+  ): atom_type_aggregate!
 
   """
-  fetch data from the table: "atom_types" using primary key columns
+  fetch data from the table: "atom_type" using primary key columns
   """
-  atom_types_by_pk(value: String!): atom_types
+  atom_type_by_pk(value: String!): atom_type
 
   """
   fetch data from the table: "attribute"
@@ -6946,13 +6946,13 @@ type query_root {
   page_element_by_pk(id: uuid!): page_element
 
   """
-  fetch data from the table: "page_links"
+  fetch data from the table: "page_link"
   """
-  page_links(
+  page_link(
     """
     distinct select on columns
     """
-    distinct_on: [page_links_select_column!]
+    distinct_on: [page_link_select_column!]
 
     """
     limit the number of rows returned
@@ -6967,22 +6967,22 @@ type query_root {
     """
     sort the rows by one or more columns
     """
-    order_by: [page_links_order_by!]
+    order_by: [page_link_order_by!]
 
     """
     filter the rows returned
     """
-    where: page_links_bool_exp
-  ): [page_links!]!
+    where: page_link_bool_exp
+  ): [page_link!]!
 
   """
-  fetch aggregated fields from the table: "page_links"
+  fetch aggregated fields from the table: "page_link"
   """
-  page_links_aggregate(
+  page_link_aggregate(
     """
     distinct select on columns
     """
-    distinct_on: [page_links_select_column!]
+    distinct_on: [page_link_select_column!]
 
     """
     limit the number of rows returned
@@ -6997,18 +6997,18 @@ type query_root {
     """
     sort the rows by one or more columns
     """
-    order_by: [page_links_order_by!]
+    order_by: [page_link_order_by!]
 
     """
     filter the rows returned
     """
-    where: page_links_bool_exp
-  ): page_links_aggregate!
+    where: page_link_bool_exp
+  ): page_link_aggregate!
 
   """
-  fetch data from the table: "page_links" using primary key columns
+  fetch data from the table: "page_link" using primary key columns
   """
-  page_links_by_pk(id: uuid!): page_links
+  page_link_by_pk(id: uuid!): page_link
 
   """
   fetch data from the table: "prop"
@@ -7141,6 +7141,71 @@ type query_root {
   prop_element_by_pk(element_id: uuid!, prop_id: uuid!): prop_element
 
   """
+  fetch data from the table: "prop_value"
+  """
+  prop_value(
+    """
+    distinct select on columns
+    """
+    distinct_on: [prop_value_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [prop_value_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: prop_value_bool_exp
+  ): [prop_value!]!
+
+  """
+  fetch aggregated fields from the table: "prop_value"
+  """
+  prop_value_aggregate(
+    """
+    distinct select on columns
+    """
+    distinct_on: [prop_value_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [prop_value_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: prop_value_bool_exp
+  ): prop_value_aggregate!
+
+  """
+  fetch data from the table: "prop_value" using primary key columns
+  """
+  prop_value_by_pk(id: uuid!): prop_value
+
+  """
   fetch data from the table: "prop_value_tag"
   """
   prop_value_tag(
@@ -7269,71 +7334,6 @@ type query_root {
   fetch data from the table: "prop_value_type" using primary key columns
   """
   prop_value_type_by_pk(value: String!): prop_value_type
-
-  """
-  fetch data from the table: "prop_values"
-  """
-  prop_values(
-    """
-    distinct select on columns
-    """
-    distinct_on: [prop_values_select_column!]
-
-    """
-    limit the number of rows returned
-    """
-    limit: Int
-
-    """
-    skip the first n rows. Use only with order_by
-    """
-    offset: Int
-
-    """
-    sort the rows by one or more columns
-    """
-    order_by: [prop_values_order_by!]
-
-    """
-    filter the rows returned
-    """
-    where: prop_values_bool_exp
-  ): [prop_values!]!
-
-  """
-  fetch aggregated fields from the table: "prop_values"
-  """
-  prop_values_aggregate(
-    """
-    distinct select on columns
-    """
-    distinct_on: [prop_values_select_column!]
-
-    """
-    limit the number of rows returned
-    """
-    limit: Int
-
-    """
-    skip the first n rows. Use only with order_by
-    """
-    offset: Int
-
-    """
-    sort the rows by one or more columns
-    """
-    order_by: [prop_values_order_by!]
-
-    """
-    filter the rows returned
-    """
-    where: prop_values_bool_exp
-  ): prop_values_aggregate!
-
-  """
-  fetch data from the table: "prop_values" using primary key columns
-  """
-  prop_values_by_pk(id: uuid!): prop_values
 
   """
   fetch data from the table: "style"
@@ -7827,13 +7827,13 @@ type subscription_root {
   atom_by_pk(id: uuid!): atom
 
   """
-  fetch data from the table: "atom_types"
+  fetch data from the table: "atom_type"
   """
-  atom_types(
+  atom_type(
     """
     distinct select on columns
     """
-    distinct_on: [atom_types_select_column!]
+    distinct_on: [atom_type_select_column!]
 
     """
     limit the number of rows returned
@@ -7848,22 +7848,22 @@ type subscription_root {
     """
     sort the rows by one or more columns
     """
-    order_by: [atom_types_order_by!]
+    order_by: [atom_type_order_by!]
 
     """
     filter the rows returned
     """
-    where: atom_types_bool_exp
-  ): [atom_types!]!
+    where: atom_type_bool_exp
+  ): [atom_type!]!
 
   """
-  fetch aggregated fields from the table: "atom_types"
+  fetch aggregated fields from the table: "atom_type"
   """
-  atom_types_aggregate(
+  atom_type_aggregate(
     """
     distinct select on columns
     """
-    distinct_on: [atom_types_select_column!]
+    distinct_on: [atom_type_select_column!]
 
     """
     limit the number of rows returned
@@ -7878,18 +7878,18 @@ type subscription_root {
     """
     sort the rows by one or more columns
     """
-    order_by: [atom_types_order_by!]
+    order_by: [atom_type_order_by!]
 
     """
     filter the rows returned
     """
-    where: atom_types_bool_exp
-  ): atom_types_aggregate!
+    where: atom_type_bool_exp
+  ): atom_type_aggregate!
 
   """
-  fetch data from the table: "atom_types" using primary key columns
+  fetch data from the table: "atom_type" using primary key columns
   """
-  atom_types_by_pk(value: String!): atom_types
+  atom_type_by_pk(value: String!): atom_type
 
   """
   fetch data from the table: "attribute"
@@ -8477,13 +8477,13 @@ type subscription_root {
   page_element_by_pk(id: uuid!): page_element
 
   """
-  fetch data from the table: "page_links"
+  fetch data from the table: "page_link"
   """
-  page_links(
+  page_link(
     """
     distinct select on columns
     """
-    distinct_on: [page_links_select_column!]
+    distinct_on: [page_link_select_column!]
 
     """
     limit the number of rows returned
@@ -8498,22 +8498,22 @@ type subscription_root {
     """
     sort the rows by one or more columns
     """
-    order_by: [page_links_order_by!]
+    order_by: [page_link_order_by!]
 
     """
     filter the rows returned
     """
-    where: page_links_bool_exp
-  ): [page_links!]!
+    where: page_link_bool_exp
+  ): [page_link!]!
 
   """
-  fetch aggregated fields from the table: "page_links"
+  fetch aggregated fields from the table: "page_link"
   """
-  page_links_aggregate(
+  page_link_aggregate(
     """
     distinct select on columns
     """
-    distinct_on: [page_links_select_column!]
+    distinct_on: [page_link_select_column!]
 
     """
     limit the number of rows returned
@@ -8528,18 +8528,18 @@ type subscription_root {
     """
     sort the rows by one or more columns
     """
-    order_by: [page_links_order_by!]
+    order_by: [page_link_order_by!]
 
     """
     filter the rows returned
     """
-    where: page_links_bool_exp
-  ): page_links_aggregate!
+    where: page_link_bool_exp
+  ): page_link_aggregate!
 
   """
-  fetch data from the table: "page_links" using primary key columns
+  fetch data from the table: "page_link" using primary key columns
   """
-  page_links_by_pk(id: uuid!): page_links
+  page_link_by_pk(id: uuid!): page_link
 
   """
   fetch data from the table: "prop"
@@ -8672,6 +8672,71 @@ type subscription_root {
   prop_element_by_pk(element_id: uuid!, prop_id: uuid!): prop_element
 
   """
+  fetch data from the table: "prop_value"
+  """
+  prop_value(
+    """
+    distinct select on columns
+    """
+    distinct_on: [prop_value_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [prop_value_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: prop_value_bool_exp
+  ): [prop_value!]!
+
+  """
+  fetch aggregated fields from the table: "prop_value"
+  """
+  prop_value_aggregate(
+    """
+    distinct select on columns
+    """
+    distinct_on: [prop_value_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [prop_value_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: prop_value_bool_exp
+  ): prop_value_aggregate!
+
+  """
+  fetch data from the table: "prop_value" using primary key columns
+  """
+  prop_value_by_pk(id: uuid!): prop_value
+
+  """
   fetch data from the table: "prop_value_tag"
   """
   prop_value_tag(
@@ -8800,71 +8865,6 @@ type subscription_root {
   fetch data from the table: "prop_value_type" using primary key columns
   """
   prop_value_type_by_pk(value: String!): prop_value_type
-
-  """
-  fetch data from the table: "prop_values"
-  """
-  prop_values(
-    """
-    distinct select on columns
-    """
-    distinct_on: [prop_values_select_column!]
-
-    """
-    limit the number of rows returned
-    """
-    limit: Int
-
-    """
-    skip the first n rows. Use only with order_by
-    """
-    offset: Int
-
-    """
-    sort the rows by one or more columns
-    """
-    order_by: [prop_values_order_by!]
-
-    """
-    filter the rows returned
-    """
-    where: prop_values_bool_exp
-  ): [prop_values!]!
-
-  """
-  fetch aggregated fields from the table: "prop_values"
-  """
-  prop_values_aggregate(
-    """
-    distinct select on columns
-    """
-    distinct_on: [prop_values_select_column!]
-
-    """
-    limit the number of rows returned
-    """
-    limit: Int
-
-    """
-    skip the first n rows. Use only with order_by
-    """
-    offset: Int
-
-    """
-    sort the rows by one or more columns
-    """
-    order_by: [prop_values_order_by!]
-
-    """
-    filter the rows returned
-    """
-    where: prop_values_bool_exp
-  ): prop_values_aggregate!
-
-  """
-  fetch data from the table: "prop_values" using primary key columns
-  """
-  prop_values_by_pk(id: uuid!): prop_values
 
   """
   fetch data from the table: "style"
