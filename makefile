@@ -32,7 +32,7 @@ build-dev:
 build-ci:
 	npx nx run-many \
     --target=build \
-		--projects=api,web,tools-eslint-config-codelab \
+		--projects=api,web \
     --parallel \
 		--maxWorkers=8 \
 		--memoryLimit=8192 \
@@ -108,7 +108,7 @@ e2e-ci:
 				http://localhost:4001 && \
 				nx run web-e2e:e2e:ci" \
 			"npx cross-env PORT=4001 \
-				node dist/apps/api/codelab/main.js" \
+				node dist/apps/api/main.js" \
 			"npx next start -p 3001 dist/apps/web"
 #
 # INTEGRATION TESTS

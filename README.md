@@ -18,16 +18,16 @@ The end product is a highly configurable UI layer that competes with writing cod
 
 [Getting Started](documentation/getting-started/4-getting-started.md)
 
-[Dev Tools](documentation/getting-started/5-devtools.md)
+<!-- [Dev Tools](documentation/getting-started/5-devtools.md) -->
 
 [CI/CD Pipeline](documentation/getting-started/6-pipeline.md)
 
-[Demo](documentation/getting-started/7-demo.md)
+<!-- [Demo](documentation/getting-started/7-demo.md) -->
 
-[Concepts](documentation/getting-started/8-concepts.md)
+<!-- [Concepts](documentation/getting-started/8-concepts.md) -->
 
-[Codegen](documentation/getting-started/9-codegen.md)
+<!-- [Codegen](documentation/getting-started/9-codegen.md) -->
 
-[Data Types](documentation/getting-started/10-data-types.md)
+<!-- [Data Types](documentation/getting-started/10-data-types.md) -->
 
-[Testing](documentation/getting-started/11-testing.md)
+<!-- [Testing](documentation/getting-started/11-testing.md) -->
