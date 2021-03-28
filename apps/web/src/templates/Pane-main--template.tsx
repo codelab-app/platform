@@ -1,10 +1,9 @@
 import { CloseOutlined } from '@ant-design/icons'
-import { Space, Typography } from 'antd'
+import { Button, List, PageHeader, Space, Typography } from 'antd'
 import React from 'react'
 import { usePage } from '../useCases/pages/usePage'
 import { LayoutPaneVisibility } from './layout-state'
-
-const { Title } = Typography
+import CreateStyleButton from '../useCases/styles/createStyle/CreateStyleButton'
 
 type PaneMainTemplateProps = {
   title: string
@@ -14,21 +13,23 @@ type PaneMainTemplateProps = {
   children: React.ReactElement | Array<React.ReactElement>
 }
 
-export const PaneMainTemplate = (props: PaneMainTemplateProps) => {
+export const PaneMainTemplate = ({ children, header, title }: PaneMainTemplateProps) => {
   const { setPaneVisibility } = usePage()
 
+  const extra = header && Array.isArray(header) ? header : [header];
+
   return (
-    <div style={{ padding: '1rem' }}>
-      <Space align="end" style={{ width: '100%' }}>
-        <Title level={2} style={{ marginBottom: 0, lineHeight: 0.8 }}>
-          {props.title}
-        </Title>
-        <CloseOutlined
+    <div>
+      <PageHeader
+        className='site-page-header-responsive'
+        title={title}
+        extra={[...extra, <CloseOutlined
+          key="close-btn"
           onClick={() => setPaneVisibility(LayoutPaneVisibility.None)}
-        />
-        <div>{props.header}</div>
-      </Space>
-      <div>{props.children}</div>
+        />]}
+      >
+        {children}
+      </PageHeader>
     </div>
   )
 }

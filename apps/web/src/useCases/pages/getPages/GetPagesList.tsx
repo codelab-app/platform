@@ -14,7 +14,7 @@ export const GetPagesList = () => {
     <>
       <List
         size="small"
-        dataSource={app.pages}
+        dataSource={app?.pages}
         renderItem={(page) => (
           <List.Item onMouseOver={() => null} style={{ paddingLeft: 0 }}>
             <Space style={{ width: '100%' }}>
@@ -25,7 +25,7 @@ export const GetPagesList = () => {
                   query: { appId, pageId: page.id },
                 }}
               >
-                <a>{page.title}</a>
+                <a>{page.name}</a>
               </Link>
             </Space>
             {detailPageId === page.id ? (

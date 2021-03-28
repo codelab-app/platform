@@ -4,7 +4,7 @@ hooks:
     - yarn prettier --write
     - yarn eslint --ext ts --fix
 schema:
-  - https://codelab-ai.hasura.app/v1/graphql:
+  - ${HASURA_GRAPHQL_URL}:
       headers:
         - 'x-hasura-admin-secret': '${HASURA_GRAPHQL_ADMIN_SECRET}'
 generates:

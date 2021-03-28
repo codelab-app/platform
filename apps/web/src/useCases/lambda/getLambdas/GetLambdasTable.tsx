@@ -43,5 +43,7 @@ export const GetLambdasTable = () => {
     },
   ]
 
-  return <Table dataSource={mapDataSource(app.lambdas)} columns={columns} />
+  //TODO fix lambdas UI
+  return "TODO: get lambdas from library"
+  // return <Table dataSource={mapDataSource(rootAppData.lambdas)} columns={columns} />
 }

@@ -1,53 +1,36 @@
 import React, { PropsWithChildren } from 'react'
 import { PropsWithIds } from '@codelab/frontend'
-import {
-  AppFragmentsFragment,
-  PageFragmentsFragment,
-  StyleFragmentsFragment,
-  useGetAppQuery,
-  useGetPageQuery,
-  useGetStylesQuery,
-} from '@codelab/generated'
+import { RootAppQuery, useRootAppQuery } from '../../../../../libs/generated/src/graphql-client-hasura.generated'
+
 
 type IAppContext = PropsWithIds<'appId' | 'pageId'> & {
-  app: AppFragmentsFragment
-  page: PageFragmentsFragment
-  styles: Array<StyleFragmentsFragment>
+  app?: RootAppQuery["app_by_pk"];
+  page?: RootAppQuery["page_by_pk"];
+  loading: boolean;
 }
 
 export const AppContext = React.createContext<IAppContext>(undefined!)
 
 export const _AppProvider = ({
-  appId,
-  pageId,
-  children,
-}: PropsWithChildren<Pick<IAppContext, 'appId' | 'pageId'>>) => {
-  const { data: appData, loading: appLoading } = useGetAppQuery({
-    variables: { input: { appId } },
+                               appId,
+                               pageId,
+                               children,
+                             }: PropsWithChildren<Pick<IAppContext, 'appId' | 'pageId'>>) => {
+  const { data, loading } = useRootAppQuery({
+    variables: {
+      appId,
+      pageId,
+    },
   })
-  const { data: pageData, loading: pageLoading } = useGetPageQuery({
-    variables: { input: { pageId } },
-  })
-  const { data: stylesData, loading: stylesLoading } = useGetStylesQuery({
-    variables: { input: { appId } },
-  })
-
-  const app = appData?.getApp
-  const page = pageData?.getPage
-  const styles = stylesData?.getStyles
-
-  if (appLoading || pageLoading || stylesLoading || !app || !page || !styles) {
-    return null
-  }
 
   return (
     <AppContext.Provider
       value={{
         appId,
         pageId,
-        app,
-        page,
-        styles,
+        app: data?.app_by_pk,
+        page: data?.page_by_pk,
+        loading
       }}
     >
       {children}

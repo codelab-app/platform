@@ -12,6 +12,7 @@ import {
   UniFormUseCaseProps,
   createNotificationHandler,
 } from '@codelab/frontend'
+import { useCurrentUser } from '../../user'
 
 export const CreateAppForm = (props: UniFormUseCaseProps<CreateAppInput>) => {
   const [mutate, { loading }] = useCreateAppMutation({
@@ -36,14 +37,18 @@ export const CreateAppForm = (props: UniFormUseCaseProps<CreateAppInput>) => {
     setAppState((current) => ({ ...current, loading }))
   }, [loading, setAppState])
 
+  const { userId } = useCurrentUser()
+
   const onSubmit = (submitData: DeepPartial<CreateAppInput>) => {
     return mutate({
       variables: {
         input: {
           ...(submitData as any),
+          user_id: userId,
           pages: {
             data: [
               {
+                owner_id: userId,
                 name: 'Default page',
               },
             ],

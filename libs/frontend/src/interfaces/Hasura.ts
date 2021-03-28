@@ -6,10 +6,10 @@
 
 /* eslint-disable camelcase */
 import {
-  Atom_Types_Enum,
+  Atom_Type_Enum,
   Lambda,
 } from '../../../generated/src/graphql-client-hasura.generated'
 
-export { Atom_Types_Enum as AtomType }
+export { Atom_Type_Enum as AtomType }
 
 export type { Lambda }

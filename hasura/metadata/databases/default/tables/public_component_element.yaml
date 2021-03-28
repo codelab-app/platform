@@ -1,3 +1,10 @@
+object_relationships:
+- name: atom
+  using:
+    foreign_key_constraint_on: atom_id
+- name: component
+  using:
+    foreign_key_constraint_on: component_id
 table:
   name: component_element
   schema: public

@@ -1,4 +1,4 @@
-import { Tree } from 'antd'
+import { Empty, Tree } from 'antd'
 import React, { useContext } from 'react'
 import { useRecoilState } from 'recoil'
 import { paneConfigState } from '../../../pages/builder/pane-config/Pane-config'
@@ -13,11 +13,7 @@ export const PaneMainTree = () => {
     setPaneConfig({ vertexId: `${id}` })
   }
 
-  if (!page || !page.graphs || !page.graphs.length) {
-    return null
-  }
-
-  const cy = CytoscapeService.fromGraph(page.graphs[0])
+  const cy = CytoscapeService.fromGraph(page?.elements || [], page?.links || [])
   const data = CytoscapeService.antdTree(cy)
 
   const onDrop = ({ dragNode, node: targetNode }: any) => {
@@ -28,18 +24,22 @@ export const PaneMainTree = () => {
   }
 
   return (
-    <PaneMainTemplate title="Tree" header={<></>}>
-      <Tree
-        className="draggable-tree"
-        defaultExpandAll
-        // defaultExpandedKeys={this.state.expandedKeys}
-        blockNode
-        onSelect={([id]) => {
-          onSelect(id)
-        }}
-        onDrop={onDrop}
-        treeData={[data]}
-      />
+    <PaneMainTemplate title='Tree' header={<></>}>
+      {
+        page && page.elements && page.elements.length ? (
+          <Tree
+            className='draggable-tree'
+            defaultExpandAll
+            // defaultExpandedKeys={this.state.expandedKeys}
+            blockNode
+            onSelect={([id]) => {
+              onSelect(id)
+            }}
+            onDrop={onDrop}
+            treeData={[data]}
+          />
+        ) : <Empty />
+      }
     </PaneMainTemplate>
   )
 }

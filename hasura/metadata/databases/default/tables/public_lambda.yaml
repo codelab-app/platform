@@ -1,3 +1,7 @@
+configuration:
+  custom_column_names:
+    library_id: libraryId
+  custom_root_fields: {}
 table:
   name: lambda
   schema: public
