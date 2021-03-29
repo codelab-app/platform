@@ -35,7 +35,7 @@ export const PaneMainComponent = () => {
   )
 
   return (
-    <PaneMainTemplate title="Component" header={<></>}>
+    <PaneMainTemplate title="Component">
       <List
         grid={{
           gutter: 0,

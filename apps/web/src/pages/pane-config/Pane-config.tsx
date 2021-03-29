@@ -1,28 +1,30 @@
 import { Tabs } from 'antd'
 import React from 'react'
 import { useRecoilState } from 'recoil'
-import { PaneConfigProps, VertexProvider } from '@codelab/modules/component'
+import { PaneConfigProps } from '@codelab/modules/component'
 import { PaneConfigStyle } from '@codelab/modules/style'
 import { paneConfigState } from '@codelab/frontend/shared'
 
 const { TabPane } = Tabs
 
 export const PaneConfig = React.memo(() => {
-  const [{ vertexId }] = useRecoilState(paneConfigState)
+  const [{ pageElementId }] = useRecoilState(paneConfigState)
 
-  if (!vertexId) {
+  if (!pageElementId) {
     return null
   }
 
   return (
-    <Tabs defaultActiveKey="1" onChange={() => null}>
+    <Tabs
+      defaultActiveKey="1"
+      style={{ padding: '1rem' }}
+      onChange={() => null}
+    >
       <TabPane tab="Props" key="1">
-        <VertexProvider vertexId={vertexId}>
-          <PaneConfigProps />
-        </VertexProvider>
+        <PaneConfigProps pageElementId={pageElementId} />
       </TabPane>
       <TabPane tab="Style" key="2">
-        <PaneConfigStyle vertexId={vertexId} />
+        <PaneConfigStyle vertexId={pageElementId} />
       </TabPane>
     </Tabs>
   )

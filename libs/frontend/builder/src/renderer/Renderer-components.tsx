@@ -97,7 +97,7 @@ export const RenderComponents = ({
     const selectedVertexId = s.events.selected
 
     if (selectedVertexId !== null) {
-      handlers.setPaneConfig({ vertexId: `${s.events.selected}` })
+      handlers.setPaneConfig({ pageElementId: `${s.events.selected}` })
     }
   })
 

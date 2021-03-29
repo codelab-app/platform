@@ -1,12 +1,12 @@
 import { atom } from 'recoil'
 
 export interface PaneConfigState {
-  vertexId?: string
+  pageElementId?: string
 }
 
 export const paneConfigState = atom<PaneConfigState>({
   key: 'paneConfig',
   default: {
-    // vertexId: null,
+    pageElementId: undefined,
   },
 })

@@ -16,7 +16,7 @@ export const connectUniformSubmitRef = (
   }
 }
 
-const ajv = new Ajv({ allErrors: true, useDefaults: true })
+const ajv = new Ajv({ allErrors: true, useDefaults: true, strict: false })
 
 export const createValidator = (schema: object) => {
   const validator = ajv.compile(schema)

@@ -1,12 +1,12 @@
 import { CloseOutlined } from '@ant-design/icons'
 import { PageHeader } from 'antd'
 import React from 'react'
-import { LayoutPaneVisibility, useLayout } from '../templates/layoutState'
+import { LayoutPaneVisibility, useLayout } from '../templates'
 
 type PaneMainTemplateProps = {
   title: string
   // For buttons
-  header: React.ReactElement | Array<React.ReactElement>
+  header?: React.ReactElement | Array<React.ReactElement>
   // For content
   children: React.ReactElement | Array<React.ReactElement>
 }
