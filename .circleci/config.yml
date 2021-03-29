@@ -65,6 +65,7 @@ orbs:
   slack: circleci/slack@3.4.2
   cypress: cypress-io/cypress@1.26.0
   node: circleci/node@4.1.0
+  eb: circleci/aws-elastic-beanstalk@1.0.2
 
 executors:
   machine-ubuntu:
@@ -305,6 +306,15 @@ jobs:
           channel: $SLACK_CHANNEL_UPDATE
           mentions: $SLACK_USER
 
+  deploy-to-ebs:
+    <<: *executor-params
+    steps:
+      - setup-workspace
+      - eb/deploy:
+          context: aws-creds
+          environment-name: app-staging
+          label: version-<<pipeline.number>>
+
 workflows:
   app-dev:
     jobs:
@@ -355,7 +365,7 @@ workflows:
           e: docker-node
           requires:
             - setup-vault-env
-      - build-and-push-docker-image:
+      - deploy-to-ebs:
           <<: *filters-staging
           requires:
             - install-and-build-workspace
