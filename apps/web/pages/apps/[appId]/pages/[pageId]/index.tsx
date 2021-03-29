@@ -1,14 +1,13 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
+import { GetPageLayout, useGetPageData } from '@codelab/modules/page'
 import { InferGetServerSidePropsType } from 'next'
 import React from 'react'
-import { GetPageLayout } from '../../../../../src/useCases/pages/getPage/GetPageLayout'
-import { usePage } from '../../../../../src/useCases/pages/getPage/useGetPageData'
 
 const PageDetail = ({
   pageId,
   appId,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  const { layoutGraph, page } = usePage({ pageId })
+  const { layoutGraph, page } = useGetPageData({ pageId })
 
   if (!layoutGraph || !page) {
     return null
