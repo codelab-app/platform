@@ -322,10 +322,10 @@ jobs:
           name: Installing dependencies
           command: |
             sudo pip install awsebcli --upgrade
+            echo $AWS_ACCESS_KEY_ID
       - run:
           name: Deploying to eb
           command: |
-            echo $AWS_ACCESS_KEY_ID
             eb use app-staging --region ap-east-1
             eb deploy app-staging --region ap-east-1
         
