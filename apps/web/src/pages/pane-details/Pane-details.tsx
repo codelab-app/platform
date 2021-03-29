@@ -4,10 +4,9 @@ import {
   StyleContainerUpdateDelete,
   useStylesPane,
 } from '@codelab/modules/style'
-import { BuilderPaneController } from '../Builder-pane-controller'
 import { LambdaPaneDetail } from '@codelab/modules/lambda'
 import { PageDetailPane } from '@codelab/modules/page'
-import { LayoutTab } from '@codelab/frontend/layout'
+import { BuilderPaneController, LayoutTab } from '@codelab/frontend/layout'
 
 export const BuilderDetails = () => {
   const { detailStyleId } = useStylesPane()

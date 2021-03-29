@@ -1,19 +1,18 @@
 import { Layout } from 'antd'
 import React, { PropsWithChildren, useContext } from 'react'
 import { useRecoilState } from 'recoil'
-
-import { BuilderTabSidebar } from './tabs-sidebar/Tabs-sidebar'
+import { BuilderTabSidebar } from '../../../../libs/frontend/builder/src/tabs-sidebar/Tabs-sidebar'
 import { contentStyle } from '@codelab/frontend/style'
 import { AppContext, AppProvider } from '@codelab/frontend/shared'
 import {
-  BuilderDetails,
   BuilderPaneController,
   LayoutPaneVisibility,
-  PaneConfig,
-  PaneMain,
   useLayout,
 } from '@codelab/frontend/layout'
 import { componentItemState } from '@codelab/modules/component'
+import { PaneMain } from './pane-main/Pane-main'
+import { BuilderDetails } from './pane-details/Pane-details'
+import { PaneConfig } from './pane-config/Pane-config'
 
 const { Sider, Content } = Layout
 

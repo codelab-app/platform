@@ -1,6 +1,9 @@
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { PaneConfigHandlersProps } from '@codelab/frontend/builder'
-import { AtomType, NodeA } from '@codelab/frontend/shared'
+import {
+  AtomType,
+  NodeA,
+  PaneConfigHandlersProps,
+} from '@codelab/frontend/shared'
 import React from 'react'
 import ReactTestUtils from 'react-dom/test-utils'
 import { elementTypeMap } from './elementTypeMap'

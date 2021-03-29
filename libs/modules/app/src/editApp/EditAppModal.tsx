@@ -1,9 +1,9 @@
+import { ModalUniForm } from '@codelab/frontend/shared'
 import React from 'react'
 import { useRecoilState } from 'recoil'
 import { AutoFields } from 'uniforms-antd'
 import { appState } from '../state'
 import { EditAppForm } from './EditAppForm'
-import { ModalUniForm } from '@codelab/frontend'
 
 export const EditAppModal = () => {
   const [state, setAppState] = useRecoilState(appState)

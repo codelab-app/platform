@@ -5,9 +5,9 @@ import {
   AppContext,
   AtomType,
   CytoscapeService,
+  paneConfigState,
 } from '@codelab/frontend/shared'
 import { PaneMainTemplate } from '@codelab/frontend/layout'
-import { paneConfigState } from '@codelab/frontend/builder'
 
 export const PaneMainTree = () => {
   const [, setPaneConfig] = useRecoilState(paneConfigState)

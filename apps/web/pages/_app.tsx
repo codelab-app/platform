@@ -59,7 +59,4 @@ const AppContainer: React.FC<AppProps> = ({ pageProps, Component, router }) => {
   )
 }
 
-// ;(AppContainer as any).whyDidYouRender = true
-// ;(App as any).whyDidYouRender = true
-
 export default AppContainer

@@ -5,6 +5,7 @@ import { useRecoilState } from 'recoil'
 import {
   AtomType,
   CytoscapeService,
+  paneConfigState,
   PropsWithIds,
 } from '@codelab/frontend/shared'
 import {
@@ -12,7 +13,7 @@ import {
   GraphFragmentsFragment,
   useAddChildVertexMutation,
 } from '@codelab/generated'
-import { RenderComponents, paneConfigState } from '@codelab/frontend/builder'
+import { RenderComponents } from '@codelab/frontend/builder'
 
 type GetPageLayoutProps = {
   graph: GraphFragmentsFragment

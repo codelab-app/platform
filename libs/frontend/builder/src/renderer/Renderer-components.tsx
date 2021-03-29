@@ -1,12 +1,7 @@
 import { Frame, SerializedNodes, useEditor } from '@craftjs/core'
 import React, { useContext } from 'react'
 import { useRecoilState } from 'recoil'
-import {
-  CLICK_OVERLAY_ID,
-  PaneConfigHandlersProps,
-  paneConfigState,
-  useOverlayToolbar,
-} from '@codelab/frontend/builder'
+import { useOverlayToolbar } from '@codelab/frontend/builder'
 import { HOVER_OVERLAY_ID } from './Overlay-hover'
 import {
   AddChildVertexInput,
@@ -14,7 +9,13 @@ import {
   useAddChildVertexMutation,
   useUpdateVertexMutation,
 } from '@codelab/generated'
-import { AppContext, NodeA } from '@codelab/frontend/shared'
+import {
+  AppContext,
+  CLICK_OVERLAY_ID,
+  NodeA,
+  PaneConfigHandlersProps,
+  paneConfigState,
+} from '@codelab/frontend/shared'
 
 export const useComponentHandlers = () => {
   const { pageId } = useContext(AppContext)

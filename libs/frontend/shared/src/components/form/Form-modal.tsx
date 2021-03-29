@@ -8,7 +8,7 @@ import React, {
 } from 'react'
 import { JsonSchemaFormProps, SubmitController } from './json-schema'
 
-export interface ModalFormProps<TData extends object> {
+export interface ModalFormProps<TData extends Record<string, unknown>> {
   modalProps?: ModalProps
   renderForm: () => ReactElement<
     Pick<JsonSchemaFormProps<TData>, 'hideSubmitButton' | 'submitRef'>
@@ -30,7 +30,7 @@ export interface ModalFormProps<TData extends object> {
       renderForm={() => <RegisterUserForm />}
     />
  */
-export const ModalForm = <TData extends object>({
+export const ModalForm = <TData extends Record<string, unknown>>({
   modalProps: { okButtonProps, onOk, ...modalProps } = {},
   renderForm,
   children,

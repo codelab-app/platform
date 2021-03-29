@@ -5,8 +5,8 @@ import {
   AppContext,
   AtomType,
   CytoscapeService,
+  paneConfigState,
 } from '@codelab/frontend/shared'
-import { paneConfigState } from '../pane-config/Pane-config'
 import { PaneMainTemplate } from '@codelab/frontend/layout'
 
 export const PaneMainTree = () => {

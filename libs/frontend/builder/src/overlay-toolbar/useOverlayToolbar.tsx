@@ -1,11 +1,10 @@
 import { useCallback, useRef } from 'react'
 import { useRecoilState } from 'recoil'
-import { CLICK_OVERLAY_ID } from '@codelab/frontend/builder'
 import {
   OverlayToolbarStateType,
   overlayToolbarState,
 } from './overlayToolbarState'
-import { NodeA } from '@codelab/frontend/shared'
+import { CLICK_OVERLAY_ID, NodeA } from '@codelab/frontend/shared'
 
 export const useOverlayToolbar = (overlayId: string) => {
   const [toolbarState, setToolbarState] = useRecoilState(
