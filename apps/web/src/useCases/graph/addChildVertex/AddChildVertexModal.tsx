@@ -6,7 +6,7 @@ import {
   AddChildVertexFormProps,
 } from './AddChildVertexForm'
 import { addChildVertexState } from './AddChildVertexState'
-import { ModalForm } from '@codelab/frontend'
+import { ModalForm } from '@codelab/frontend/shared'
 
 export const AddChildVertexModal = ({
   vertex,

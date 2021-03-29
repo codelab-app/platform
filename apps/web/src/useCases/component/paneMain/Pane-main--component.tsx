@@ -2,7 +2,7 @@ import { css } from '@emotion/react'
 import { List } from 'antd'
 import React, { useMemo } from 'react'
 import { ComponentItem } from './Component-item'
-import { AtomType } from '@codelab/frontend'
+import { AtomType } from '@codelab/frontend/shared'
 import { PaneMainTemplate } from 'apps/web/src/templates/Pane-main--template'
 
 export type ComponentItemType = {

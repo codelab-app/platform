@@ -24,7 +24,14 @@
         "libs/tools/eslint-config-codelab/src/index.ts"
       ],
       "@codelab/backend": ["libs/backend/src/index"],
-      "@codelab/frontend": ["libs/frontend/src/index.ts"]
+      "@codelab/frontend/shared": ["libs/frontend/shared/src/index.ts"],
+      "@codelab/frontend/user": ["libs/frontend/user/src/index.ts"],
+      "@codelab/frontend/app": ["libs/frontend/app/src/index.ts"],
+      "@codelab/frontend/prop": ["libs/frontend/prop/src/index.ts"],
+      "@codelab/frontend/page": ["libs/frontend/page/src/index.ts"],
+      "@codelab/frontend/library": ["libs/frontend/library/src/index.ts"],
+      "@codelab/frontend/lambda": ["libs/frontend/lambda/src/index.ts"],
+      "@codelab/frontend/category": ["libs/frontend/category/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"]

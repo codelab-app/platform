@@ -3,7 +3,7 @@ import { useRecoilState } from 'recoil'
 import { AppContext } from '../../apps/AppProvider'
 import { CreatePageForm } from './CreatePageForm'
 import { pageFormState } from './pageFormState'
-import { ModalForm } from '@codelab/frontend'
+import { ModalForm } from '@codelab/frontend/shared'
 
 export const CreatePageModal = () => {
   const [pageForm, setPageForm] = useRecoilState(pageFormState)

@@ -7,7 +7,7 @@ import { UpdatePageButton } from '../pages/updatePage/UpdatePageButton'
 import { DeleteStyleButton } from './deleteStyle/DeleteStyleButton'
 import { UpdateStyleForm } from './updateStyle/UpdateStyleForm'
 import { stylePaneState, useStylesPane } from './useStylesPane'
-import { createNotificationHandler } from '@codelab/frontend'
+import { createNotificationHandler } from '@codelab/frontend/shared'
 import { SubmitController } from 'libs/frontend/src/components/form/json-schema/Form-jsonSchema--ref'
 
 export const StyleContainerUpdateDelete = () => {

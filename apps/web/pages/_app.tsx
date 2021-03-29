@@ -4,18 +4,12 @@ import { UserProvider } from '@auth0/nextjs-auth0'
 import { Global, css } from '@emotion/react'
 import { AppProps } from 'next/app'
 import { WithRouterProps } from 'next/dist/client/with-router'
-import React from 'react'
+import React, { PropsWithChildren } from 'react'
 import { RecoilRoot } from 'recoil'
 import { LayoutFactory } from '../src/templates/Layout'
-import { Page, useApollo } from '@codelab/frontend'
+import { Page, useApollo } from '@codelab/frontend/shared'
 
 import '../src/styles/App.less'
-
-// import './App.scss'
-// require('highlight.js/styles/monokai-sublime.css')
-// require('antd/dist/antd.css')
-// require('react-grid-layout/css/styles.css')
-// require('react-resizable/css/styles.css')
 
 const App: React.FunctionComponent<WithRouterProps> = ({
   children,
@@ -33,7 +27,7 @@ const App: React.FunctionComponent<WithRouterProps> = ({
 const RootProviders = ({
   pageProps,
   children,
-}: React.PropsWithChildren<{ pageProps: any }>) => (
+}: PropsWithChildren<{ pageProps: any }>) => (
   <RecoilRoot>
     <ApolloProvider client={useApollo(pageProps)}>
       {/* The Provider from react-dnd-multi-backend allows us to use both click and touch for drag and dropping */}

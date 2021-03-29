@@ -7,7 +7,7 @@ import {
   CytoscapeService,
   PropsWithIds,
   RenderComponents,
-} from '@codelab/frontend'
+} from '@codelab/frontend/shared'
 import {
   GetPageGql,
   GraphFragmentsFragment,

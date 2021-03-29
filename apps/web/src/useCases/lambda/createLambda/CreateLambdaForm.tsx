@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { AppContext } from '../../apps/AppProvider'
-import { ApolloForm, FormUseCaseProps } from '@codelab/frontend'
+import { ApolloForm, FormUseCaseProps } from '@codelab/frontend/shared'
 import {
   CreateLambdaInputSchema,
   CreateLambdaMutationVariables,

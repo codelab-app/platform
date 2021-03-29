@@ -5,7 +5,7 @@ import { Editor } from '../pages/builder/Editor'
 import { HomeLayout } from '../pages/home'
 import { AppProvider } from '../useCases/apps/AppProvider'
 import { Dashboard } from './Dashboard'
-import { PageType } from '@codelab/frontend'
+import { PageType } from '@codelab/frontend/shared'
 
 // const RenderNode = ({ element }: any) => {
 //   return <div style={{ background: '#000', padding: '5px' }}>{element}</div>

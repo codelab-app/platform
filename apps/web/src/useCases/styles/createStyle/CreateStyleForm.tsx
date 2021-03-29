@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { AppContext } from '../../apps/AppProvider'
 import { reduceStyleProps } from '../reduceStyleProps'
-import { ApolloForm } from '@codelab/frontend'
+import { ApolloForm } from '@codelab/frontend/shared'
 import {
   CreateStyleInputSchema,
   CreateStyleMutationVariables,

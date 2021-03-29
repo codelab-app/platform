@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { useRecoilState } from 'recoil'
 import { userState } from '../state'
-import { Page, clearAuthToken, notify } from '@codelab/frontend'
+import { Page, clearAuthToken, notify } from '@codelab/frontend/shared'
 
 export const useSignOutUser = () => {
   const [, setState] = useRecoilState(userState)

@@ -1,6 +1,6 @@
 import { Button } from 'antd'
 import React, { MutableRefObject } from 'react'
-import { SubmitController } from '@codelab/frontend'
+import { SubmitController } from '@codelab/frontend/shared'
 
 interface UpdateStyleButtonProps {
   submitRef: MutableRefObject<SubmitController | undefined>

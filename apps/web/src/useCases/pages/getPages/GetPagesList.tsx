@@ -4,7 +4,7 @@ import Link from 'next/link'
 import React, { useContext } from 'react'
 import { AppContext } from '../../apps/AppProvider'
 import { usePage } from '../usePage'
-import { Page } from '@codelab/frontend'
+import { Page } from '@codelab/frontend/shared'
 
 export const GetPagesList = () => {
   const { app, appId } = useContext(AppContext)

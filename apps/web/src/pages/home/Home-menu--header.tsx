@@ -9,7 +9,7 @@ import {
   RegisterUserButton,
   SignOutUserButton,
 } from '../../useCases/user'
-import { Page } from '@codelab/frontend'
+import { Page } from '@codelab/frontend/shared'
 
 /**
  * We always show `Login` `Register` even if user is login. We simply redirect them to `/apps` page if they're already logged in.

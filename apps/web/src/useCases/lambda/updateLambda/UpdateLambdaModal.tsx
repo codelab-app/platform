@@ -2,7 +2,7 @@ import React from 'react'
 import { useRecoilState } from 'recoil'
 import { UpdateLambdaForm } from './UpdateLambdaForm'
 import { updateLambdaState } from './UpdateLambdaState'
-import { ModalForm } from '@codelab/frontend'
+import { ModalForm } from '@codelab/frontend/shared'
 import { useGetLambdaQuery } from '@codelab/generated'
 
 export const UpdateLambdaModal = () => {

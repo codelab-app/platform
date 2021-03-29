@@ -10,7 +10,7 @@ import { Menu, Popover } from 'antd'
 import Link from 'next/link'
 import React from 'react'
 import { LayoutTab, useLayout } from '../../../templates/layout-state'
-import { Page } from '@codelab/frontend'
+import { Page } from '@codelab/frontend/shared'
 
 type MenuItemProps = {
   toggleTab: (tab: LayoutTab) => any
@@ -98,7 +98,6 @@ const MenuItemStyle = ({ toggleTab, ...props }: MenuItemProps) => {
     </Menu.Item>
   )
 }
-
 
 export const BuilderTabSidebar = () => {
   const { toggleTab } = useLayout()

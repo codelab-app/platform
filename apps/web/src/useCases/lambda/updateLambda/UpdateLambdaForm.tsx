@@ -1,5 +1,5 @@
 import React from 'react'
-import { ApolloForm, FormUseCaseProps } from '@codelab/frontend'
+import { ApolloForm, FormUseCaseProps } from '@codelab/frontend/shared'
 import {
   LambdaFragmentsFragment,
   UpdateLambdaInputSchema,

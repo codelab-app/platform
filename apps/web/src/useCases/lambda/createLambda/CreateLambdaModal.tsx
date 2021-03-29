@@ -2,7 +2,7 @@ import React from 'react'
 import { useRecoilState } from 'recoil'
 import { CreateLambdaForm } from './CreateLambdaForm'
 import { createLambdaState } from './CreateLambdaState'
-import { ModalForm } from '@codelab/frontend'
+import { ModalForm } from '@codelab/frontend/shared'
 
 export const CreateLambdaModal = () => {
   const [createLambda, setCreateLambda] = useRecoilState(createLambdaState)

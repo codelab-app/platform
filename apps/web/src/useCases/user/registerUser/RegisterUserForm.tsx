@@ -9,7 +9,7 @@ import {
   createCallbackHandler,
   createNotificationHandler,
   storeAuthToken,
-} from '@codelab/frontend'
+} from '@codelab/frontend/shared'
 import {
   RegisterUserInputSchema,
   RegisterUserMutation,

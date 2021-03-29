@@ -1,5 +1,5 @@
 import { PaneConfigState } from './Pane-config'
-import { UseOverlayToolbarFunctions } from '@codelab/frontend'
+import { UseOverlayToolbarFunctions } from '@codelab/frontend/shared'
 import {
   AddChildVertexInput,
   useUpdateVertexMutation,

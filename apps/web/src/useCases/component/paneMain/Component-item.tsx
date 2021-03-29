@@ -9,7 +9,7 @@ import { useComponentHandlers } from '../../../../../../libs/frontend/src/render
 import { elementsPropTransformers } from '../../../../../../libs/frontend/src/renderer/elementFactory'
 import { componentItemState } from './Component-item--state'
 import { ComponentItemType } from './Pane-main--component'
-import { elementTypeMap } from '@codelab/frontend'
+import { elementTypeMap } from '@codelab/frontend/shared'
 
 interface ComponentItemProps extends CardProps {
   item: ComponentItemType

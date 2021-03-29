@@ -250,58 +250,6 @@
         }
       }
     },
-    "frontend": {
-      "root": "libs/frontend",
-      "sourceRoot": "libs/frontend/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/frontend/**/*.{ts,tsx,js,jsx}"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/frontend/jest.config.js",
-            "passWithNoTests": true
-          },
-          "outputs": ["coverage/libs/frontend"]
-        },
-        "storybook": {
-          "builder": "@nrwl/storybook:storybook",
-          "options": {
-            "uiFramework": "@storybook/react",
-            "port": 4400,
-            "config": {
-              "configFolder": "libs/frontend/.storybook"
-            }
-          },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          }
-        },
-        "build-storybook": {
-          "builder": "@nrwl/storybook:build",
-          "options": {
-            "uiFramework": "@storybook/react",
-            "outputPath": "dist/storybook/frontend",
-            "config": {
-              "configFolder": "libs/frontend/.storybook"
-            }
-          },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          }
-        }
-      }
-    },
     "api": {
       "root": "apps/api",
       "sourceRoot": "apps/api/src",
@@ -358,6 +306,149 @@
             "passWithNoTests": true
           },
           "outputs": ["coverage/apps/api"]
+        }
+      }
+    },
+    "frontend-shared": {
+      "root": "libs/frontend/shared",
+      "sourceRoot": "libs/frontend/shared/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/frontend/shared/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/frontend/shared/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": ["coverage/libs/frontend/shared"]
+        },
+        "storybook": {
+          "builder": "@nrwl/storybook:storybook",
+          "options": {
+            "uiFramework": "@storybook/react",
+            "port": 4400,
+            "config": {
+              "configFolder": "libs/frontend/shared/.storybook"
+            }
+          },
+          "configurations": {
+            "ci": {
+              "quiet": true
+            }
+          }
+        },
+        "build-storybook": {
+          "builder": "@nrwl/storybook:build",
+          "options": {
+            "uiFramework": "@storybook/react",
+            "outputPath": "dist/storybook/frontend",
+            "config": {
+              "configFolder": "libs/frontend/shared/.storybook"
+            }
+          },
+          "configurations": {
+            "ci": {
+              "quiet": true
+            }
+          }
+        }
+      }
+    },
+    "frontend-user": {
+      "root": "libs/frontend/user",
+      "sourceRoot": "libs/frontend/user/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/frontend/user/**/*.{ts,tsx,js,jsx}"]
+          }
+        }
+      }
+    },
+    "frontend-app": {
+      "root": "libs/frontend/app",
+      "sourceRoot": "libs/frontend/app/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/frontend/app/**/*.{ts,tsx,js,jsx}"]
+          }
+        }
+      }
+    },
+    "frontend-prop": {
+      "root": "libs/frontend/prop",
+      "sourceRoot": "libs/frontend/prop/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/frontend/prop/**/*.{ts,tsx,js,jsx}"]
+          }
+        }
+      }
+    },
+    "frontend-page": {
+      "root": "libs/frontend/page",
+      "sourceRoot": "libs/frontend/page/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/frontend/page/**/*.{ts,tsx,js,jsx}"]
+          }
+        }
+      }
+    },
+    "frontend-library": {
+      "root": "libs/frontend/library",
+      "sourceRoot": "libs/frontend/library/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/frontend/library/**/*.{ts,tsx,js,jsx}"]
+          }
+        }
+      }
+    },
+    "frontend-lambda": {
+      "root": "libs/frontend/lambda",
+      "sourceRoot": "libs/frontend/lambda/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/frontend/lambda/**/*.{ts,tsx,js,jsx}"]
+          }
+        }
+      }
+    },
+    "frontend-category": {
+      "root": "libs/frontend/category",
+      "sourceRoot": "libs/frontend/category/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/frontend/category/**/*.{ts,tsx,js,jsx}"]
+          }
         }
       }
     }

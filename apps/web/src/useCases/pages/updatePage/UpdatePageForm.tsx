@@ -1,5 +1,9 @@
 import React from 'react'
-import { ApolloForm, FormUseCaseProps, PropsWithIds } from '@codelab/frontend'
+import {
+  ApolloForm,
+  FormUseCaseProps,
+  PropsWithIds,
+} from '@codelab/frontend/shared'
 import {
   CreatePageMutationVariables,
   GetPageGql,

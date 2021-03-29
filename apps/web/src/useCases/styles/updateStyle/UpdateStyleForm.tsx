@@ -1,7 +1,11 @@
 import React, { useContext } from 'react'
 import { AppContext } from '../../apps/AppProvider'
 import { reduceStyleProps, reverseReduceStyleProps } from '../reduceStyleProps'
-import { ApolloForm, FormUseCaseProps, PropsWithIds } from '@codelab/frontend'
+import {
+  ApolloForm,
+  FormUseCaseProps,
+  PropsWithIds,
+} from '@codelab/frontend/shared'
 import {
   GetStyleGql,
   GetStylesGql,

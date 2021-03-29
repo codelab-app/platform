@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from 'react'
-import { PropsWithIds } from '@codelab/frontend'
+import { PropsWithIds } from '@codelab/frontend/shared'
 import { VertexFragmentsFragment, useGetVertexQuery } from '@codelab/generated'
 
 export const VertexContext = React.createContext<VertexFragmentsFragment>(

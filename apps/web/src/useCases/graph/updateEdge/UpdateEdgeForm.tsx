@@ -1,5 +1,5 @@
 import React from 'react'
-import { ApolloForm } from '@codelab/frontend'
+import { ApolloForm } from '@codelab/frontend/shared'
 import {
   UpdateEdgeInputSchema,
   UpdateEdgeMutationVariables,

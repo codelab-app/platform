@@ -4,7 +4,10 @@ import React, { useRef } from 'react'
 import { LayoutPaneVisibility } from '../../templates/layout-state'
 import { CreateStyleForm } from './createStyle/CreateStyleForm'
 import { useStylesPane } from './useStylesPane'
-import { SubmitController, createNotificationHandler } from '@codelab/frontend'
+import {
+  SubmitController,
+  createNotificationHandler,
+} from '@codelab/frontend/shared'
 
 export const StyleContainerCreate = () => {
   const submitRef = useRef<SubmitController | undefined>()
