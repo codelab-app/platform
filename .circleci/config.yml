@@ -13,7 +13,7 @@
 filters-dev: &filters-dev
   filters:
     branches:
-      only: /^.*$/
+      ignore: /cicd-.*/
     tags:
       ignore: /.*/
 
@@ -23,7 +23,7 @@ filters-staging: &filters-staging
     tags:
       only: /^staging-.*$/
     branches:
-      only: cicd/staging
+      only: /cicd-.*/
 
 # Workaround for the lack of logical "AND" for filters
 filters-master-branch-only: &filters-master-branch-only
