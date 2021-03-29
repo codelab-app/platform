@@ -13,9 +13,7 @@
 filters-dev: &filters-dev
   filters:
     branches:
-      # only: /^.*$/
-      ignore:
-        - cicd/staging
+      only: /^.*$/
     tags:
       ignore: /.*/
 
@@ -25,9 +23,7 @@ filters-staging: &filters-staging
     tags:
       only: /^staging-.*$/
     branches:
-      only: 
-        - cicd/staging
-      # ignore: /.*/
+      only: cicd/staging
 
 # Workaround for the lack of logical "AND" for filters
 filters-master-branch-only: &filters-master-branch-only
@@ -328,7 +324,6 @@ jobs:
             mkdir ~/.aws
             touch ~/.aws/config
             chmod 600 ~/.aws/config
-            echo "aws_key=$AWS_ACCESS_KEY"
             echo "[profile eb-cli]" > ~/.aws/config
             echo "aws_access_key_id=$AWS_ACCESS_KEY" >> ~/.aws/config
             echo "aws_secret_access_key=$AWS_SECRET_KEY" >> ~/.aws/config
@@ -384,17 +379,16 @@ workflows:
       - setup-vault-env:
           <<: *filters-staging
           e: vault-img
-      # - install-and-build-workspace:
-      #     <<: *filters-staging
-      #     e: docker-node
-      #     requires:
-      #       - setup-vault-env
+      - install-and-build-workspace:
+          <<: *filters-staging
+          e: docker-node
+          requires:
+            - setup-vault-env
       - deploy-to-ebs:
           <<: *filters-staging
           e: python
           requires:
-            - setup-vault-env
-            # - install-and-build-workspace
+            - install-and-build-workspace
       - notify-success:
           <<: *filters-staging
           e: docker-node
