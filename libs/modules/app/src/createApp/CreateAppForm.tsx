@@ -18,14 +18,8 @@ export const CreateAppForm = (props: UniFormUseCaseProps<CreateAppInput>) => {
     refetchQueries: [
       {
         query: GetAppsListGql,
-        context: {
-          hasura: true,
-        },
       },
-    ],
-    context: {
-      hasura: true,
-    },
+   ],
   })
 
   const [, setAppState] = useRecoilState(appState)
