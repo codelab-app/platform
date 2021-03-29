@@ -323,6 +323,7 @@ jobs:
           command: |
             sudo pip install awsebcli --upgrade
             echo "aws_access_key_id=$AWS_ACCESS_KEY_ID"
+            printenv
       - run:
           name: Deploying to eb
           command: |
