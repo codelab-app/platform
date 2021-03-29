@@ -3,13 +3,13 @@ import { useUser } from '@auth0/nextjs-auth0'
 import { Menu } from 'antd'
 import Link from 'next/link'
 import React from 'react'
-import { disableMenuHoverEffects } from '../../styles/sectionStyle'
 import {
   LoginUserButton,
   RegisterUserButton,
   SignOutUserButton,
-} from '../../useCases/user'
+} from '@codelab/modules/user'
 import { Page } from '@codelab/frontend/shared'
+import { disableMenuHoverEffects } from '@codelab/frontend/style'
 
 /**
  * We always show `Login` `Register` even if user is login. We simply redirect them to `/apps` page if they're already logged in.

@@ -28,7 +28,7 @@
     "format:check": "nx format:check",
     "update": "nx migrate latest",
     "workspace-schematic": "nx workspace-schematic",
-    "dep-graph": "nx dep-graph",
+    "dep-graph": "nx dep-graph --watch",
     "help": "nx help",
     "storybook:components": "nx storybook alpha-ui-component",
     "storybook:antd": "nx storybook alpha-ui-antd",

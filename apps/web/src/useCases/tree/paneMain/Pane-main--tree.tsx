@@ -1,10 +1,13 @@
 import { Empty, Tree } from 'antd'
 import React, { useContext } from 'react'
 import { useRecoilState } from 'recoil'
-import { paneConfigState } from '../../../pages/builder/pane-config/Pane-config'
-import { AtomType, CytoscapeService } from '@codelab/frontend/shared'
-import { PaneMainTemplate } from 'apps/web/src/templates/Pane-main--template'
-import { AppContext } from 'apps/web/src/useCases/apps/AppProvider'
+import {
+  AppContext,
+  AtomType,
+  CytoscapeService,
+} from '@codelab/frontend/shared'
+import { PaneMainTemplate } from '@codelab/frontend/layout'
+import { paneConfigState } from '@codelab/frontend/builder'
 
 export const PaneMainTree = () => {
   const [, setPaneConfig] = useRecoilState(paneConfigState)

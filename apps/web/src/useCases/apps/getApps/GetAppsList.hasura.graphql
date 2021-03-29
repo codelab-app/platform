@@ -1,9 +1,0 @@
-query GetAppsList {
-  app {
-    id
-    name
-    pages {
-      id
-    }
-  }
-}

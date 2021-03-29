@@ -6,8 +6,8 @@ import { AppProps } from 'next/app'
 import { WithRouterProps } from 'next/dist/client/with-router'
 import React, { PropsWithChildren } from 'react'
 import { RecoilRoot } from 'recoil'
-import { LayoutFactory } from '../src/templates/Layout'
 import { Page, useApollo } from '@codelab/frontend/shared'
+import { LayoutFactory } from '@codelab/frontend/layout'
 
 import '../src/styles/App.less'
 

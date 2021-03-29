@@ -1,0 +1,8 @@
+export * from './createPage'
+export * from './deletePage'
+export * from './getPage'
+export * from './getPages'
+export * from './paneMain'
+export * from './updatePage'
+export { usePage } from './usePage'
+export * from './paneDetail/Pane-detail--page'
