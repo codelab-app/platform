@@ -13,7 +13,7 @@
 filters-dev: &filters-dev
   filters:
     branches:
-      only: /^.*$/
+      # only: /^.*$/
       ignore:
         - cicd/staging
     tags:
