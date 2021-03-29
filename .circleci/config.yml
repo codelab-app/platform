@@ -322,13 +322,20 @@ jobs:
           name: Installing dependencies
           command: |
             sudo pip install awsebcli --upgrade
-            echo "aws_access_key_id=$AWS_ACCESS_KEY_ID"
-            printenv
+      - run:
+          name: Create AWS credentials manually
+          command: |
+            mkdir ~/.aws
+            touch ~/.aws/config
+            chmod 600 ~/.aws/config
+            echo "[profile eb-cli]" > ~/.aws/config
+            echo "aws_access_key_id=AKIA3ZHUOC64V66O4XHJ" >> ~/.aws/config
+            echo "aws_secret_access_key=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" >> ~/.aws/config
       - run:
           name: Deploying to eb
           command: |
-            eb use app-staging --region ap-east-1
-            eb deploy app-staging --region ap-east-1
+            eb use app-staging --region ap-east-1 --profile eb-cli
+            eb deploy app-staging --region ap-east-1 --profile eb-cli
         
 
 workflows:

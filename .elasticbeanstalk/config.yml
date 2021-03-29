@@ -1,4 +1,6 @@
 branch-defaults:
+  cicd/staging:
+    environment: app-staging
   master:
     environment: app-staging
 environment-defaults:
