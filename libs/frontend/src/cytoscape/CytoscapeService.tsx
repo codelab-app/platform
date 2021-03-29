@@ -17,11 +17,14 @@ export class CytoscapeService {
   /**
    * Hydrate to cytoscape from graph data
    */
-  static fromGraph(elements: RootAppPageElementFragment[], links: RootAppPageLinkFragment[]): Core {
+  static fromGraph(
+    elements: RootAppPageElementFragment[],
+    links: RootAppPageLinkFragment[] = [],
+  ): Core {
     const nodes: cytoscape.NodeDefinition[] = []
     const edges: cytoscape.EdgeDefinition[] = []
 
-    elements.forEach(pageElement => {
+    elements.forEach((pageElement) => {
       nodes.push({
         //Push the page element definition
         data: {
@@ -32,7 +35,7 @@ export class CytoscapeService {
         },
       })
 
-      pageElement.component?.elements.forEach(componentElement => {
+      pageElement.component?.elements.forEach((componentElement) => {
         //Push the component elements definitions
         nodes.push({
           data: {
@@ -46,7 +49,7 @@ export class CytoscapeService {
         })
       })
 
-      pageElement.component?.links.forEach(link => {
+      pageElement.component?.links.forEach((link) => {
         edges.push({
           data: {
             id: link.id,
@@ -58,8 +61,7 @@ export class CytoscapeService {
       })
     })
 
-
-    links.forEach(link => {
+    links.forEach((link) => {
       edges.push({
         data: {
           id: link.id,
@@ -161,7 +163,7 @@ export class CytoscapeService {
           draggable: data.type !== AtomType.ReactRglItem,
           // disabled: data.type === VertexType.React_RGL_Item,
           key: data.id,
-          title: data.label
+          title: data.label,
         }
 
         v._node = node

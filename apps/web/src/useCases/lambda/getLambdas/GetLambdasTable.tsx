@@ -1,4 +1,4 @@
-import { Space, Table } from 'antd'
+import { Space } from 'antd'
 import React, { useContext } from 'react'
 import { AppContext } from '../../apps/AppProvider'
 import { DeleteLambdaButton } from '../deleteLambda/DeleteLambdaButton'
@@ -43,7 +43,8 @@ export const GetLambdasTable = () => {
     },
   ]
 
-  //TODO fix lambdas UI
-  return "TODO: get lambdas from library"
+  //TODO: fix lambdas UI
+  // return "TODO: get lambdas from library"
+  return null
   // return <Table dataSource={mapDataSource(rootAppData.lambdas)} columns={columns} />
 }
