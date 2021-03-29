@@ -7,13 +7,13 @@ import { ApolloFormProps } from './Form-apollo--types'
 /**
  * Read to use form, can be used with modal or standalone
  */
-export type FormUseCaseProps<TData extends object> = Pick<
+export type FormUseCaseProps<TData extends Record<string, unknown>> = Pick<
   JsonSchemaFormProps<TData>,
   'onSubmitError' | 'onSubmitSuccess' | 'submitRef' | 'saveOnChange'
 >
 
 export const ApolloForm = <
-  TData extends object,
+  TData extends Record<string, unknown>,
   TVariable extends Apollo.OperationVariables
 >({
   hideSubmitButton,

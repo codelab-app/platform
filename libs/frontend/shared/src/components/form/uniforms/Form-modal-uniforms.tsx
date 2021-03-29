@@ -9,7 +9,7 @@ import React, {
 import { SubmitController } from '../json-schema'
 import { JsonSchemaUniFormProps } from './Form-jsonSchema--types'
 
-export interface ModalUniFormProps<TData extends object> {
+export interface ModalUniFormProps<TData extends Record<string, unknown>> {
   modalProps?: ModalProps
   renderForm: () => ReactElement<
     Pick<JsonSchemaUniFormProps<TData>, 'submitRef'>
@@ -31,7 +31,7 @@ export interface ModalUniFormProps<TData extends object> {
       renderForm={() => <RegisterUserForm />}
     />
  */
-export const ModalUniForm = <TData extends object>({
+export const ModalUniForm = <TData extends Record<string, unknown>>({
   modalProps: { okButtonProps, onOk, ...modalProps } = {},
   renderForm,
   children,

@@ -1,15 +1,15 @@
 import { FetchResult } from '@apollo/client'
+import { CallbackOrArrayOfCallbacks } from '@codelab/frontend/shared'
 import { ISubmitEvent, FormProps as RjsfFormProps } from '@rjsf/core'
 import { ButtonProps } from 'antd/lib/button'
 import { JSONSchema7 } from 'json-schema'
 import React from 'react'
 import { SubmitController } from './Form-jsonSchema--ref'
-import { CallbackOrArrayOfCallbacks } from 'libs/frontend/src/utils'
 
 export type OnSubmitEvent<TData = any> = Pick<ISubmitEvent<TData>, 'formData'> &
   Partial<Omit<ISubmitEvent<TData>, 'formData'>>
 
-export type JsonSchemaFormProps<TData extends object> = {
+export type JsonSchemaFormProps<TData extends Record<string, unknown>> = {
   //
   // REQUIRED
   //

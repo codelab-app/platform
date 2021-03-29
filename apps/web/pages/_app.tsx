@@ -7,9 +7,9 @@ import { WithRouterProps } from 'next/dist/client/with-router'
 import React, { PropsWithChildren } from 'react'
 import { RecoilRoot } from 'recoil'
 import { Page, useApollo } from '@codelab/frontend/shared'
-import { LayoutFactory } from '@codelab/frontend/layout'
 
 import '../src/styles/App.less'
+import { LayoutFactory } from '../src/pages/LayoutFactory'
 
 const App: React.FunctionComponent<WithRouterProps> = ({
   children,

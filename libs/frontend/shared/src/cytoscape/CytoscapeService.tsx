@@ -6,7 +6,7 @@ import { AtomType, NodeA } from '../interfaces'
 import {
   RootAppPageElementFragment,
   RootAppPageLinkFragment,
-} from '../../../generated/src/graphql-client-hasura.generated'
+} from '@codelab/hasura'
 
 export enum CytoscapeNodeType {
   PageElement = 'PageElement',
@@ -18,11 +18,11 @@ export class CytoscapeService {
    * Hydrate to cytoscape from graph data
    */
   static fromGraph(
-    elements: RootAppPageElementFragment[],
-    links: RootAppPageLinkFragment[] = [],
+    elements: Array<RootAppPageElementFragment>,
+    links: Array<RootAppPageLinkFragment> = [],
   ): Core {
-    const nodes: cytoscape.NodeDefinition[] = []
-    const edges: cytoscape.EdgeDefinition[] = []
+    const nodes: Array<cytoscape.NodeDefinition> = []
+    const edges: Array<cytoscape.EdgeDefinition> = []
 
     elements.forEach((pageElement) => {
       nodes.push({

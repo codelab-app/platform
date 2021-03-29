@@ -5,7 +5,7 @@ import { JsonSchemaUniFormProps } from './Form-jsonSchema--types'
 import { connectUniformSubmitRef, createBridge } from './uniformUtils'
 import { callbackWithParams } from '../../../utils'
 
-export const JsonSchemaUniForm = <TData extends object>({
+export const JsonSchemaUniForm = <TData extends Record<string, unknown>>({
   submitRef,
   onSubmitSuccess,
   onSubmitError,
@@ -23,7 +23,8 @@ export const JsonSchemaUniForm = <TData extends object>({
       ref={connectUniformSubmitRef(submitRef)}
       schema={bridgeRef.current}
       onSubmit={(formData: TData) => {
-        const result = onSubmit(formData)
+        // @todo: Remove any from formData
+        const result = onSubmit(formData as any)
 
         if (typeof result === 'object') {
           return result
