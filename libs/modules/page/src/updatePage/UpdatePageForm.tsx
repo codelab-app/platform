@@ -1,60 +1,63 @@
 import React from 'react'
 import {
-  ApolloForm,
-  FormUseCaseProps,
+  createNotificationHandler,
+  JsonSchemaUniForm,
   PropsWithIds,
+  UniFormUseCaseProps,
 } from '@codelab/frontend/shared'
+import { UpdatePageInput, UpdatePageSchema } from './updateFromSchema'
 import {
-  CreatePageMutationVariables,
   GetPageGql,
-  UpdatePageInputSchema,
-  useGetPageQuery,
   useUpdatePageMutation,
-} from '@codelab/generated'
+  useGetPageQuery,
+} from '@codelab/hasura'
+import { DeepPartial } from 'uniforms'
 
 export const UpdatePageForm = ({
   pageId,
   ...props
-}: FormUseCaseProps<any> & PropsWithIds<'pageId'>) => {
+}: UniFormUseCaseProps<UpdatePageInput> & PropsWithIds<'pageId'>) => {
   const [mutate] = useUpdatePageMutation({
     refetchQueries: [
       {
         query: GetPageGql,
         variables: {
-          input: {
-            pageId,
-          },
+          pageId,
         },
       },
     ],
   })
   const { data, loading } = useGetPageQuery({
     variables: {
-      input: {
-        pageId,
-      },
+      pageId,
     },
   })
 
-  const page = data?.getPage
+  const page = data?.page_by_pk
 
   if (loading) {
     return null
   }
 
-  return (
-    <ApolloForm<any, CreatePageMutationVariables>
-      key={pageId}
-      mutate={mutate}
-      hideSubmitButton
-      schema={UpdatePageInputSchema}
-      uiSchema={{
-        appId: {
-          'ui:disabled': 'appId',
+  const onSubmit = (submitData: DeepPartial<UpdatePageInput>) => {
+    return mutate({
+      variables: {
+        input: {
+          ...(submitData as any),
         },
-      }}
-      initialFormData={{ title: page?.title, pageId }}
-      idPrefix="update_page"
+        pageId,
+      },
+    })
+  }
+
+  return (
+    <JsonSchemaUniForm<UpdatePageInput>
+      onSubmit={onSubmit}
+      schema={UpdatePageSchema}
+      model={{ name: page?.name }}
+      onSubmitError={createNotificationHandler({
+        title: 'Error while updating page',
+      })}
       {...props}
     />
   )

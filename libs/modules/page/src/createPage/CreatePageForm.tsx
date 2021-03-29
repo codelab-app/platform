@@ -1,45 +1,56 @@
 import React from 'react'
 import {
-  ApolloForm,
-  FormUseCaseProps,
+  createNotificationHandler,
+  JsonSchemaUniForm,
   PropsWithIds,
-} from '@codelab/frontend/shared'
-import {
-  CreatePageInputSchema,
-  CreatePageMutationVariables,
-  GetAppGql,
-  useCreatePageMutation,
-} from '@codelab/generated'
+  UniFormUseCaseProps,
 
-type CreatePageFormProps = FormUseCaseProps<any> & PropsWithIds<'appId'>
+} from '@codelab/frontend/shared'
+
+import {
+  GetPagesListGql,
+  useCreatePageMutation,
+} from '@codelab/hasura'
+import { createPageSchema, CreatePageInput } from './createPageSchema'
+import { DeepPartial } from 'uniforms'
+import { useCurrentUser } from '@codelab/modules/user'
+
+type CreatePageFormProps = UniFormUseCaseProps<CreatePageInput> &
+  PropsWithIds<'appId'>
 
 export const CreatePageForm = ({ appId, ...props }: CreatePageFormProps) => {
   const [mutate] = useCreatePageMutation({
+    awaitRefetchQueries: true,
     refetchQueries: [
       {
-        query: GetAppGql,
+        query: GetPagesListGql,
         variables: {
-          input: {
-            appId,
-          },
+          appId,
         },
       },
     ],
   })
 
-  return (
-    <ApolloForm<any, CreatePageMutationVariables>
-      {...props}
-      mutate={mutate}
-      hideSubmitButton
-      schema={CreatePageInputSchema}
-      uiSchema={{
-        appId: {
-          'ui:disabled': 'appId',
+  const { userId } = useCurrentUser()
+  const onSubmit = (submitData: DeepPartial<CreatePageInput>) => {
+    return mutate({
+      variables: {
+        data: {
+          ...(submitData as any),
+          app_id: appId,
+          owner_id: userId,
         },
-      }}
-      initialFormData={{ title: '', appId }}
-      idPrefix="create_page"
+      },
+    })
+  }
+  return (
+    <JsonSchemaUniForm<CreatePageInput>
+      onSubmit={onSubmit}
+      schema={createPageSchema}
+      onSubmitError={createNotificationHandler({
+        title: 'Error while creating page',
+      })}
+      {...props}
     />
   )
 }
