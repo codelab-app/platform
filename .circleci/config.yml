@@ -23,7 +23,9 @@ filters-staging: &filters-staging
     tags:
       only: /^staging-.*$/
     branches:
-      ignore: /.*/
+      only: 
+        - cicd/staging
+      # ignore: /.*/
 
 # Workaround for the lack of logical "AND" for filters
 filters-master-branch-only: &filters-master-branch-only
@@ -84,6 +86,10 @@ executors:
     docker:
       - image: joatmon08/circleci-gcp-agent:287.0-1.14.72
     resource_class: small
+  python:
+    <<: *executor-config
+    docker:
+      - image: circleci/python:3.7
 
 commands:
   setup-env:
@@ -310,10 +316,24 @@ jobs:
     <<: *executor-params
     steps:
       - setup-workspace
-      - eb/deploy:
-          context: aws-creds
-          environment-name: app-staging
-          label: version-<<pipeline.number>>
+      - run:
+          name: Install awscli
+          command: |
+            sudo pip install awsebcli --upgrade
+      - run:
+          name: Create AWS credentials manually
+          command: |
+            mkdir ~/.aws
+            touch ~/.aws/config
+            chmod 600 ~/.aws/config
+            echo "[profile eb-cli]" > ~/.aws/config
+            echo "aws_access_key_id=$AWS_ACCESS_KEY_ID" >> ~/.aws/config
+            echo "aws_secret_access_key=$AWS_SECRET_ACCESS_KEY" >> ~/.aws/config
+      - run:
+          name: Deploy to EB
+          command: |
+            eb use app-staging --profile eb-cli
+            eb deploy -v --staged --profile eb-cli
 
 workflows:
   app-dev:
@@ -367,10 +387,11 @@ workflows:
             - setup-vault-env
       - deploy-to-ebs:
           <<: *filters-staging
+          e: python
           requires:
             - install-and-build-workspace
       - notify-success:
           <<: *filters-staging
           e: docker-node
           requires:
-            - build-and-push-docker-image
+            - deploy-to-ebs
