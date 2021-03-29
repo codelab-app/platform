@@ -322,7 +322,7 @@ jobs:
           name: Installing dependencies
           command: |
             sudo pip install awsebcli --upgrade
-            echo $AWS_ACCESS_KEY_ID
+            echo "aws_access_key_id=$AWS_ACCESS_KEY_ID"
       - run:
           name: Deploying to eb
           command: |
