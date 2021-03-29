@@ -375,16 +375,17 @@ workflows:
       - setup-vault-env:
           <<: *filters-staging
           e: vault-img
-      - install-and-build-workspace:
-          <<: *filters-staging
-          e: docker-node
-          requires:
-            - setup-vault-env
+      # - install-and-build-workspace:
+      #     <<: *filters-staging
+      #     e: docker-node
+      #     requires:
+      #       - setup-vault-env
       - deploy-to-ebs:
           <<: *filters-staging
           e: python
           requires:
-            - install-and-build-workspace
+            - setup-vault-env
+            # - install-and-build-workspace
       - notify-success:
           <<: *filters-staging
           e: docker-node
