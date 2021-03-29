@@ -319,10 +319,6 @@ jobs:
     steps:
       - setup-workspace
       - run:
-          name: Install awscli
-          command: |
-            sudo pip install awsebcli --upgrade
-      - run:
           name: Create AWS credentials manually
           command: |
             mkdir ~/.aws
@@ -332,11 +328,17 @@ jobs:
             echo "aws_access_key_id=$AWS_ACCESS_KEY_ID" >> ~/.aws/credentials
             echo "aws_secret_access_key=$AWS_SECRET_ACCESS_KEY" >> ~/.aws/credentials
       - run:
-          name: Deploy to EB
+          name: EB cli setup
           command: |
-            echo $AWS_ACCESS_KEY_ID
-            eb use app-staging --profile eb-cli --region ap-east-1
-            eb deploy --profile eb-cli --region ap-east-1
+            git clone https://github.com/aws/aws-elastic-beanstalk-cli-setup.git
+            ./aws-elastic-beanstalk-cli-setup/scripts/bundled_installer
+            echo 'export PATH="/home/circleci/.ebcli-virtual-env/executables:$PATH"' >> ~/.bash_profile && source ~/.bash_profile
+      - run:
+          name: Deploy to eb
+          command: |
+            eb use app-staging --region ap-east-1
+            eb deploy app-staging --region ap-east-1
+        
 
 workflows:
   app-dev:
