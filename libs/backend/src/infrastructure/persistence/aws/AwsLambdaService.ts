@@ -9,7 +9,7 @@ import {
   UpdateFunctionCodeCommand,
   UpdateFunctionCodeRequest,
 } from '@aws-sdk/client-lambda'
-import { Lambda } from '@codelab/frontend'
+import { Lambda } from '@codelab/frontend/shared'
 
 export class AwsLambdaService extends LambdaClient {
   bucketPrefix = 'codelab-lambda'

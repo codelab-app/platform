@@ -5,7 +5,7 @@ import {
   S3Client,
 } from '@aws-sdk/client-s3'
 import AdmZip from 'adm-zip'
-import { Lambda } from '@codelab/frontend'
+import { Lambda } from '@codelab/frontend/shared'
 
 export class AwsS3Service extends S3Client {
   bucketPrefix = 'codelab-lambda'

@@ -13,6 +13,8 @@
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/array-type": ["error", { "default": "generic" }],
         "@nrwl/nx/enforce-module-boundaries": [
           "error",
           {

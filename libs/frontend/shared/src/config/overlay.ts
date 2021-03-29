@@ -1,0 +1,1 @@
+export const CLICK_OVERLAY_ID = 'CLICK_OVERLAY'
