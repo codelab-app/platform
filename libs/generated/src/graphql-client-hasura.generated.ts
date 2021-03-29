@@ -573,9 +573,12 @@ export enum Atom_Update_Column {
 /** columns and relationships of "attribute" */
 export type Attribute = {
   __typename?: 'attribute'
+  atom_type: Atom_Type_Enum
   id: Scalars['uuid']
   key: Scalars['String']
-  type: Atom_Type_Enum
+  /** An object relationship */
+  valueType?: Maybe<Prop_Value_Type>
+  value_type?: Maybe<Prop_Value_Type_Enum>
 }
 
 /** aggregated selection of "attribute" */
@@ -604,9 +607,11 @@ export type Attribute_Bool_Exp = {
   _and?: Maybe<Array<Attribute_Bool_Exp>>
   _not?: Maybe<Attribute_Bool_Exp>
   _or?: Maybe<Array<Attribute_Bool_Exp>>
+  atom_type?: Maybe<Atom_Type_Enum_Comparison_Exp>
   id?: Maybe<Uuid_Comparison_Exp>
   key?: Maybe<String_Comparison_Exp>
-  type?: Maybe<Atom_Type_Enum_Comparison_Exp>
+  valueType?: Maybe<Prop_Value_Type_Bool_Exp>
+  value_type?: Maybe<Prop_Value_Type_Enum_Comparison_Exp>
 }
 
 /** unique or primary key constraints on table "attribute" */
@@ -617,9 +622,11 @@ export enum Attribute_Constraint {
 
 /** input type for inserting data into table "attribute" */
 export type Attribute_Insert_Input = {
+  atom_type?: Maybe<Atom_Type_Enum>
   id?: Maybe<Scalars['uuid']>
   key?: Maybe<Scalars['String']>
-  type?: Maybe<Atom_Type_Enum>
+  valueType?: Maybe<Prop_Value_Type_Obj_Rel_Insert_Input>
+  value_type?: Maybe<Prop_Value_Type_Enum>
 }
 
 /** aggregate max on columns */
@@ -645,6 +652,13 @@ export type Attribute_Mutation_Response = {
   returning: Array<Attribute>
 }
 
+/** input type for inserting object relation for remote table "attribute" */
+export type Attribute_Obj_Rel_Insert_Input = {
+  data: Attribute_Insert_Input
+  /** on conflict condition */
+  on_conflict?: Maybe<Attribute_On_Conflict>
+}
+
 /** on conflict condition type for table "attribute" */
 export type Attribute_On_Conflict = {
   constraint: Attribute_Constraint
@@ -654,9 +668,11 @@ export type Attribute_On_Conflict = {
 
 /** Ordering options when selecting data from "attribute". */
 export type Attribute_Order_By = {
+  atom_type?: Maybe<Order_By>
   id?: Maybe<Order_By>
   key?: Maybe<Order_By>
-  type?: Maybe<Order_By>
+  valueType?: Maybe<Prop_Value_Type_Order_By>
+  value_type?: Maybe<Order_By>
 }
 
 /** primary key columns input for table: attribute */
@@ -667,28 +683,33 @@ export type Attribute_Pk_Columns_Input = {
 /** select columns of table "attribute" */
 export enum Attribute_Select_Column {
   /** column name */
+  AtomType = 'atom_type',
+  /** column name */
   Id = 'id',
   /** column name */
   Key = 'key',
   /** column name */
-  Type = 'type',
+  ValueType = 'value_type',
 }
 
 /** input type for updating data in table "attribute" */
 export type Attribute_Set_Input = {
+  atom_type?: Maybe<Atom_Type_Enum>
   id?: Maybe<Scalars['uuid']>
   key?: Maybe<Scalars['String']>
-  type?: Maybe<Atom_Type_Enum>
+  value_type?: Maybe<Prop_Value_Type_Enum>
 }
 
 /** update columns of table "attribute" */
 export enum Attribute_Update_Column {
   /** column name */
+  AtomType = 'atom_type',
+  /** column name */
   Id = 'id',
   /** column name */
   Key = 'key',
   /** column name */
-  Type = 'type',
+  ValueType = 'value_type',
 }
 
 /** columns and relationships of "category" */
@@ -3554,10 +3575,35 @@ export enum Page_Update_Column {
 /** columns and relationships of "prop" */
 export type Prop = {
   __typename?: 'prop'
+  /** An object relationship */
+  attribute: Attribute
+  attribute_id: Scalars['uuid']
   id: Scalars['uuid']
   /** An object relationship */
   library: Library
   library_id: Scalars['uuid']
+  /** An array relationship */
+  values: Array<Prop_Value>
+  /** An aggregate relationship */
+  values_aggregate: Prop_Value_Aggregate
+}
+
+/** columns and relationships of "prop" */
+export type PropValuesArgs = {
+  distinct_on?: Maybe<Array<Prop_Value_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<Prop_Value_Order_By>>
+  where?: Maybe<Prop_Value_Bool_Exp>
+}
+
+/** columns and relationships of "prop" */
+export type PropValues_AggregateArgs = {
+  distinct_on?: Maybe<Array<Prop_Value_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<Prop_Value_Order_By>>
+  where?: Maybe<Prop_Value_Bool_Exp>
 }
 
 /** aggregated selection of "prop" */
@@ -3586,9 +3632,12 @@ export type Prop_Bool_Exp = {
   _and?: Maybe<Array<Prop_Bool_Exp>>
   _not?: Maybe<Prop_Bool_Exp>
   _or?: Maybe<Array<Prop_Bool_Exp>>
+  attribute?: Maybe<Attribute_Bool_Exp>
+  attribute_id?: Maybe<Uuid_Comparison_Exp>
   id?: Maybe<Uuid_Comparison_Exp>
   library?: Maybe<Library_Bool_Exp>
   library_id?: Maybe<Uuid_Comparison_Exp>
+  values?: Maybe<Prop_Value_Bool_Exp>
 }
 
 /** unique or primary key constraints on table "prop" */
@@ -3748,14 +3797,18 @@ export enum Prop_Element_Update_Column {
 
 /** input type for inserting data into table "prop" */
 export type Prop_Insert_Input = {
+  attribute?: Maybe<Attribute_Obj_Rel_Insert_Input>
+  attribute_id?: Maybe<Scalars['uuid']>
   id?: Maybe<Scalars['uuid']>
   library?: Maybe<Library_Obj_Rel_Insert_Input>
   library_id?: Maybe<Scalars['uuid']>
+  values?: Maybe<Prop_Value_Arr_Rel_Insert_Input>
 }
 
 /** aggregate max on columns */
 export type Prop_Max_Fields = {
   __typename?: 'prop_max_fields'
+  attribute_id?: Maybe<Scalars['uuid']>
   id?: Maybe<Scalars['uuid']>
   library_id?: Maybe<Scalars['uuid']>
 }
@@ -3763,6 +3816,7 @@ export type Prop_Max_Fields = {
 /** aggregate min on columns */
 export type Prop_Min_Fields = {
   __typename?: 'prop_min_fields'
+  attribute_id?: Maybe<Scalars['uuid']>
   id?: Maybe<Scalars['uuid']>
   library_id?: Maybe<Scalars['uuid']>
 }
@@ -3792,9 +3846,12 @@ export type Prop_On_Conflict = {
 
 /** Ordering options when selecting data from "prop". */
 export type Prop_Order_By = {
+  attribute?: Maybe<Attribute_Order_By>
+  attribute_id?: Maybe<Order_By>
   id?: Maybe<Order_By>
   library?: Maybe<Library_Order_By>
   library_id?: Maybe<Order_By>
+  values_aggregate?: Maybe<Prop_Value_Aggregate_Order_By>
 }
 
 /** primary key columns input for table: prop */
@@ -3805,6 +3862,8 @@ export type Prop_Pk_Columns_Input = {
 /** select columns of table "prop" */
 export enum Prop_Select_Column {
   /** column name */
+  AttributeId = 'attribute_id',
+  /** column name */
   Id = 'id',
   /** column name */
   LibraryId = 'library_id',
@@ -3812,12 +3871,15 @@ export enum Prop_Select_Column {
 
 /** input type for updating data in table "prop" */
 export type Prop_Set_Input = {
+  attribute_id?: Maybe<Scalars['uuid']>
   id?: Maybe<Scalars['uuid']>
   library_id?: Maybe<Scalars['uuid']>
 }
 
 /** update columns of table "prop" */
 export enum Prop_Update_Column {
+  /** column name */
+  AttributeId = 'attribute_id',
   /** column name */
   Id = 'id',
   /** column name */
@@ -3833,7 +3895,7 @@ export type Prop_Value = {
   name: Scalars['String']
   /** This is the prop that owns this value */
   parent_prop_id: Scalars['uuid']
-  type: Scalars['String']
+  type: Prop_Value_Type_Enum
   value?: Maybe<Scalars['String']>
   /** This is the prop that is used as a value */
   value_prop_id?: Maybe<Scalars['uuid']>
@@ -3860,6 +3922,20 @@ export type Prop_Value_Aggregate_FieldsCountArgs = {
   distinct?: Maybe<Scalars['Boolean']>
 }
 
+/** order by aggregate values of table "prop_value" */
+export type Prop_Value_Aggregate_Order_By = {
+  count?: Maybe<Order_By>
+  max?: Maybe<Prop_Value_Max_Order_By>
+  min?: Maybe<Prop_Value_Min_Order_By>
+}
+
+/** input type for inserting array relation for remote table "prop_value" */
+export type Prop_Value_Arr_Rel_Insert_Input = {
+  data: Array<Prop_Value_Insert_Input>
+  /** on conflict condition */
+  on_conflict?: Maybe<Prop_Value_On_Conflict>
+}
+
 /** Boolean expression to filter rows from the table "prop_value". All fields are combined with a logical 'AND'. */
 export type Prop_Value_Bool_Exp = {
   _and?: Maybe<Array<Prop_Value_Bool_Exp>>
@@ -3869,7 +3945,7 @@ export type Prop_Value_Bool_Exp = {
   lambda_id?: Maybe<Uuid_Comparison_Exp>
   name?: Maybe<String_Comparison_Exp>
   parent_prop_id?: Maybe<Uuid_Comparison_Exp>
-  type?: Maybe<String_Comparison_Exp>
+  type?: Maybe<Prop_Value_Type_Enum_Comparison_Exp>
   value?: Maybe<String_Comparison_Exp>
   value_prop_id?: Maybe<Uuid_Comparison_Exp>
 }
@@ -3888,7 +3964,7 @@ export type Prop_Value_Insert_Input = {
   name?: Maybe<Scalars['String']>
   /** This is the prop that owns this value */
   parent_prop_id?: Maybe<Scalars['uuid']>
-  type?: Maybe<Scalars['String']>
+  type?: Maybe<Prop_Value_Type_Enum>
   value?: Maybe<Scalars['String']>
   /** This is the prop that is used as a value */
   value_prop_id?: Maybe<Scalars['uuid']>
@@ -3903,10 +3979,22 @@ export type Prop_Value_Max_Fields = {
   name?: Maybe<Scalars['String']>
   /** This is the prop that owns this value */
   parent_prop_id?: Maybe<Scalars['uuid']>
-  type?: Maybe<Scalars['String']>
   value?: Maybe<Scalars['String']>
   /** This is the prop that is used as a value */
   value_prop_id?: Maybe<Scalars['uuid']>
+}
+
+/** order by max() on columns of table "prop_value" */
+export type Prop_Value_Max_Order_By = {
+  id?: Maybe<Order_By>
+  /** This is used as a value */
+  lambda_id?: Maybe<Order_By>
+  name?: Maybe<Order_By>
+  /** This is the prop that owns this value */
+  parent_prop_id?: Maybe<Order_By>
+  value?: Maybe<Order_By>
+  /** This is the prop that is used as a value */
+  value_prop_id?: Maybe<Order_By>
 }
 
 /** aggregate min on columns */
@@ -3918,10 +4006,22 @@ export type Prop_Value_Min_Fields = {
   name?: Maybe<Scalars['String']>
   /** This is the prop that owns this value */
   parent_prop_id?: Maybe<Scalars['uuid']>
-  type?: Maybe<Scalars['String']>
   value?: Maybe<Scalars['String']>
   /** This is the prop that is used as a value */
   value_prop_id?: Maybe<Scalars['uuid']>
+}
+
+/** order by min() on columns of table "prop_value" */
+export type Prop_Value_Min_Order_By = {
+  id?: Maybe<Order_By>
+  /** This is used as a value */
+  lambda_id?: Maybe<Order_By>
+  name?: Maybe<Order_By>
+  /** This is the prop that owns this value */
+  parent_prop_id?: Maybe<Order_By>
+  value?: Maybe<Order_By>
+  /** This is the prop that is used as a value */
+  value_prop_id?: Maybe<Order_By>
 }
 
 /** response of any mutation on the table "prop_value" */
@@ -3982,7 +4082,7 @@ export type Prop_Value_Set_Input = {
   name?: Maybe<Scalars['String']>
   /** This is the prop that owns this value */
   parent_prop_id?: Maybe<Scalars['uuid']>
-  type?: Maybe<Scalars['String']>
+  type?: Maybe<Prop_Value_Type_Enum>
   value?: Maybe<Scalars['String']>
   /** This is the prop that is used as a value */
   value_prop_id?: Maybe<Scalars['uuid']>
@@ -4144,6 +4244,23 @@ export enum Prop_Value_Type_Constraint {
   PropValueTypesPkey = 'prop_value_types_pkey',
 }
 
+export enum Prop_Value_Type_Enum {
+  Boolean = 'Boolean',
+  Lambda = 'Lambda',
+  Number = 'Number',
+  Prop = 'Prop',
+  String = 'String',
+}
+
+/** Boolean expression to compare columns of type "prop_value_type_enum". All fields are combined with logical 'AND'. */
+export type Prop_Value_Type_Enum_Comparison_Exp = {
+  _eq?: Maybe<Prop_Value_Type_Enum>
+  _in?: Maybe<Array<Prop_Value_Type_Enum>>
+  _is_null?: Maybe<Scalars['Boolean']>
+  _neq?: Maybe<Prop_Value_Type_Enum>
+  _nin?: Maybe<Array<Prop_Value_Type_Enum>>
+}
+
 /** input type for inserting data into table "prop_value_type" */
 export type Prop_Value_Type_Insert_Input = {
   description?: Maybe<Scalars['String']>
@@ -4171,6 +4288,13 @@ export type Prop_Value_Type_Mutation_Response = {
   affected_rows: Scalars['Int']
   /** data from the rows affected by the mutation */
   returning: Array<Prop_Value_Type>
+}
+
+/** input type for inserting object relation for remote table "prop_value_type" */
+export type Prop_Value_Type_Obj_Rel_Insert_Input = {
+  data: Prop_Value_Type_Insert_Input
+  /** on conflict condition */
+  on_conflict?: Maybe<Prop_Value_Type_On_Conflict>
 }
 
 /** on conflict condition type for table "prop_value_type" */

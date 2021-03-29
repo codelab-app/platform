@@ -1,21 +1,25 @@
 import React, { PropsWithChildren } from 'react'
 import { PropsWithIds } from '@codelab/frontend'
-import { RootAppQuery, useRootAppQuery } from '../../../../../libs/generated/src/graphql-client-hasura.generated'
-
+import {
+  Query_Root,
+  RootAppQuery,
+  useRootAppQuery,
+} from '../../../../../libs/generated/src/graphql-client-hasura.generated'
 
 type IAppContext = PropsWithIds<'appId' | 'pageId'> & {
-  app?: RootAppQuery["app_by_pk"];
-  page?: RootAppQuery["page_by_pk"];
-  loading: boolean;
+  app?: RootAppQuery['app_by_pk']
+  page?: RootAppQuery['page_by_pk']
+  styles?: Query_Root['style']
+  loading: boolean
 }
 
 export const AppContext = React.createContext<IAppContext>(undefined!)
 
 export const _AppProvider = ({
-                               appId,
-                               pageId,
-                               children,
-                             }: PropsWithChildren<Pick<IAppContext, 'appId' | 'pageId'>>) => {
+  appId,
+  pageId,
+  children,
+}: PropsWithChildren<Pick<IAppContext, 'appId' | 'pageId'>>) => {
   const { data, loading } = useRootAppQuery({
     variables: {
       appId,
@@ -30,7 +34,7 @@ export const _AppProvider = ({
         pageId,
         app: data?.app_by_pk,
         page: data?.page_by_pk,
-        loading
+        loading,
       }}
     >
       {children}

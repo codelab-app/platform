@@ -1,5 +1,4 @@
-import { CloseOutlined } from '@ant-design/icons'
-import { Button, List, PageHeader } from 'antd'
+import { PageHeader } from 'antd'
 import React, { useContext } from 'react'
 import { AppContext } from '../../apps/AppProvider'
 import { AssignStyleForm } from '../assignStyle/AssignStyleForm'
@@ -41,8 +40,8 @@ export const PaneConfigStyle = ({ vertexId }: { vertexId: string }) => {
         className="site-page-header-responsive"
         title="Assigned Styles"
       >
-        <List
-          dataSource={styles.filter((s) =>
+        {/* <List
+          dataSource={styles?.filter((s) =>
             s?.vertices?.find((v) => v.id === vertexId),
           )}
           renderItem={(i) => (
@@ -73,7 +72,7 @@ export const PaneConfigStyle = ({ vertexId }: { vertexId: string }) => {
               </Button>
             </List.Item>
           )}
-        />
+        /> */}
       </PageHeader>
       <AssignStyleForm vertexId={vertexId} />
     </>

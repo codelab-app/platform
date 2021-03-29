@@ -756,9 +756,15 @@ enum atom_update_column {
 columns and relationships of "attribute"
 """
 type attribute {
+  atom_type: atom_type_enum!
   id: uuid!
   key: String!
-  type: atom_type_enum!
+
+  """
+  An object relationship
+  """
+  valueType: prop_value_type
+  value_type: prop_value_type_enum
 }
 
 """
@@ -785,9 +791,11 @@ input attribute_bool_exp {
   _and: [attribute_bool_exp!]
   _not: attribute_bool_exp
   _or: [attribute_bool_exp!]
+  atom_type: atom_type_enum_comparison_exp
   id: uuid_comparison_exp
   key: String_comparison_exp
-  type: atom_type_enum_comparison_exp
+  valueType: prop_value_type_bool_exp
+  value_type: prop_value_type_enum_comparison_exp
 }
 
 """
@@ -804,9 +812,11 @@ enum attribute_constraint {
 input type for inserting data into table "attribute"
 """
 input attribute_insert_input {
+  atom_type: atom_type_enum
   id: uuid
   key: String
-  type: atom_type_enum
+  valueType: prop_value_type_obj_rel_insert_input
+  value_type: prop_value_type_enum
 }
 
 """
@@ -841,6 +851,18 @@ type attribute_mutation_response {
 }
 
 """
+input type for inserting object relation for remote table "attribute"
+"""
+input attribute_obj_rel_insert_input {
+  data: attribute_insert_input!
+
+  """
+  on conflict condition
+  """
+  on_conflict: attribute_on_conflict
+}
+
+"""
 on conflict condition type for table "attribute"
 """
 input attribute_on_conflict {
@@ -853,9 +875,11 @@ input attribute_on_conflict {
 Ordering options when selecting data from "attribute".
 """
 input attribute_order_by {
+  atom_type: order_by
   id: order_by
   key: order_by
-  type: order_by
+  valueType: prop_value_type_order_by
+  value_type: order_by
 }
 
 """
@@ -872,6 +896,11 @@ enum attribute_select_column {
   """
   column name
   """
+  atom_type
+
+  """
+  column name
+  """
   id
 
   """
@@ -882,16 +911,17 @@ enum attribute_select_column {
   """
   column name
   """
-  type
+  value_type
 }
 
 """
 input type for updating data in table "attribute"
 """
 input attribute_set_input {
+  atom_type: atom_type_enum
   id: uuid
   key: String
-  type: atom_type_enum
+  value_type: prop_value_type_enum
 }
 
 """
@@ -901,6 +931,11 @@ enum attribute_update_column {
   """
   column name
   """
+  atom_type
+
+  """
+  column name
+  """
   id
 
   """
@@ -911,7 +946,7 @@ enum attribute_update_column {
   """
   column name
   """
-  type
+  value_type
 }
 
 """
@@ -5214,6 +5249,11 @@ enum page_update_column {
 columns and relationships of "prop"
 """
 type prop {
+  """
+  An object relationship
+  """
+  attribute: attribute!
+  attribute_id: uuid!
   id: uuid!
 
   """
@@ -5221,6 +5261,66 @@ type prop {
   """
   library: library!
   library_id: uuid!
+
+  """
+  An array relationship
+  """
+  values(
+    """
+    distinct select on columns
+    """
+    distinct_on: [prop_value_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [prop_value_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: prop_value_bool_exp
+  ): [prop_value!]!
+
+  """
+  An aggregate relationship
+  """
+  values_aggregate(
+    """
+    distinct select on columns
+    """
+    distinct_on: [prop_value_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [prop_value_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: prop_value_bool_exp
+  ): prop_value_aggregate!
 }
 
 """
@@ -5247,9 +5347,12 @@ input prop_bool_exp {
   _and: [prop_bool_exp!]
   _not: prop_bool_exp
   _or: [prop_bool_exp!]
+  attribute: attribute_bool_exp
+  attribute_id: uuid_comparison_exp
   id: uuid_comparison_exp
   library: library_bool_exp
   library_id: uuid_comparison_exp
+  values: prop_value_bool_exp
 }
 
 """
@@ -5466,15 +5569,19 @@ enum prop_element_update_column {
 input type for inserting data into table "prop"
 """
 input prop_insert_input {
+  attribute: attribute_obj_rel_insert_input
+  attribute_id: uuid
   id: uuid
   library: library_obj_rel_insert_input
   library_id: uuid
+  values: prop_value_arr_rel_insert_input
 }
 
 """
 aggregate max on columns
 """
 type prop_max_fields {
+  attribute_id: uuid
   id: uuid
   library_id: uuid
 }
@@ -5483,6 +5590,7 @@ type prop_max_fields {
 aggregate min on columns
 """
 type prop_min_fields {
+  attribute_id: uuid
   id: uuid
   library_id: uuid
 }
@@ -5527,9 +5635,12 @@ input prop_on_conflict {
 Ordering options when selecting data from "prop".
 """
 input prop_order_by {
+  attribute: attribute_order_by
+  attribute_id: order_by
   id: order_by
   library: library_order_by
   library_id: order_by
+  values_aggregate: prop_value_aggregate_order_by
 }
 
 """
@@ -5546,6 +5657,11 @@ enum prop_select_column {
   """
   column name
   """
+  attribute_id
+
+  """
+  column name
+  """
   id
 
   """
@@ -5558,6 +5674,7 @@ enum prop_select_column {
 input type for updating data in table "prop"
 """
 input prop_set_input {
+  attribute_id: uuid
   id: uuid
   library_id: uuid
 }
@@ -5566,6 +5683,11 @@ input prop_set_input {
 update columns of table "prop"
 """
 enum prop_update_column {
+  """
+  column name
+  """
+  attribute_id
+
   """
   column name
   """
@@ -5593,7 +5715,7 @@ type prop_value {
   This is the prop that owns this value
   """
   parent_prop_id: uuid!
-  type: String!
+  type: prop_value_type_enum!
   value: String
 
   """
@@ -5620,6 +5742,27 @@ type prop_value_aggregate_fields {
 }
 
 """
+order by aggregate values of table "prop_value"
+"""
+input prop_value_aggregate_order_by {
+  count: order_by
+  max: prop_value_max_order_by
+  min: prop_value_min_order_by
+}
+
+"""
+input type for inserting array relation for remote table "prop_value"
+"""
+input prop_value_arr_rel_insert_input {
+  data: [prop_value_insert_input!]!
+
+  """
+  on conflict condition
+  """
+  on_conflict: prop_value_on_conflict
+}
+
+"""
 Boolean expression to filter rows from the table "prop_value". All fields are combined with a logical 'AND'.
 """
 input prop_value_bool_exp {
@@ -5630,7 +5773,7 @@ input prop_value_bool_exp {
   lambda_id: uuid_comparison_exp
   name: String_comparison_exp
   parent_prop_id: uuid_comparison_exp
-  type: String_comparison_exp
+  type: prop_value_type_enum_comparison_exp
   value: String_comparison_exp
   value_prop_id: uuid_comparison_exp
 }
@@ -5661,7 +5804,7 @@ input prop_value_insert_input {
   This is the prop that owns this value
   """
   parent_prop_id: uuid
-  type: String
+  type: prop_value_type_enum
   value: String
 
   """
@@ -5686,13 +5829,36 @@ type prop_value_max_fields {
   This is the prop that owns this value
   """
   parent_prop_id: uuid
-  type: String
   value: String
 
   """
   This is the prop that is used as a value
   """
   value_prop_id: uuid
+}
+
+"""
+order by max() on columns of table "prop_value"
+"""
+input prop_value_max_order_by {
+  id: order_by
+
+  """
+  This is used as a value
+  """
+  lambda_id: order_by
+  name: order_by
+
+  """
+  This is the prop that owns this value
+  """
+  parent_prop_id: order_by
+  value: order_by
+
+  """
+  This is the prop that is used as a value
+  """
+  value_prop_id: order_by
 }
 
 """
@@ -5711,13 +5877,36 @@ type prop_value_min_fields {
   This is the prop that owns this value
   """
   parent_prop_id: uuid
-  type: String
   value: String
 
   """
   This is the prop that is used as a value
   """
   value_prop_id: uuid
+}
+
+"""
+order by min() on columns of table "prop_value"
+"""
+input prop_value_min_order_by {
+  id: order_by
+
+  """
+  This is used as a value
+  """
+  lambda_id: order_by
+  name: order_by
+
+  """
+  This is the prop that owns this value
+  """
+  parent_prop_id: order_by
+  value: order_by
+
+  """
+  This is the prop that is used as a value
+  """
+  value_prop_id: order_by
 }
 
 """
@@ -5820,7 +6009,7 @@ input prop_value_set_input {
   This is the prop that owns this value
   """
   parent_prop_id: uuid
-  type: String
+  type: prop_value_type_enum
   value: String
 
   """
@@ -6023,6 +6212,25 @@ enum prop_value_type_constraint {
   prop_value_types_pkey
 }
 
+enum prop_value_type_enum {
+  Boolean
+  Lambda
+  Number
+  Prop
+  String
+}
+
+"""
+Boolean expression to compare columns of type "prop_value_type_enum". All fields are combined with logical 'AND'.
+"""
+input prop_value_type_enum_comparison_exp {
+  _eq: prop_value_type_enum
+  _in: [prop_value_type_enum!]
+  _is_null: Boolean
+  _neq: prop_value_type_enum
+  _nin: [prop_value_type_enum!]
+}
+
 """
 input type for inserting data into table "prop_value_type"
 """
@@ -6060,6 +6268,18 @@ type prop_value_type_mutation_response {
   data from the rows affected by the mutation
   """
   returning: [prop_value_type!]!
+}
+
+"""
+input type for inserting object relation for remote table "prop_value_type"
+"""
+input prop_value_type_obj_rel_insert_input {
+  data: prop_value_type_insert_input!
+
+  """
+  on conflict condition
+  """
+  on_conflict: prop_value_type_on_conflict
 }
 
 """

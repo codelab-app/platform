@@ -24,7 +24,7 @@ export const GetPageLayout = ({ graph, pageId }: GetPageLayoutProps) => {
 
   const [addChildVertex] = useAddChildVertexMutation()
 
-  const cy = CytoscapeService.fromGraph(graph)
+  const cy = CytoscapeService.fromGraph(graph as any)
   const root = CytoscapeService.componentTree(cy)
   const craftData = CytoscapeService.craftTree(cy)
 
