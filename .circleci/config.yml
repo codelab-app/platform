@@ -334,8 +334,9 @@ jobs:
       - run:
           name: Deploy to EB
           command: |
+            echo $AWS_ACCESS_KEY_ID
             eb use app-staging --profile eb-cli --region ap-east-1
-            eb deploy -v --staged --profile eb-cli --region ap-east-1
+            eb deploy --profile eb-cli --region ap-east-1
 
 workflows:
   app-dev:
