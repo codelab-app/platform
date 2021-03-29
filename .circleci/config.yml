@@ -328,9 +328,10 @@ jobs:
             mkdir ~/.aws
             touch ~/.aws/config
             chmod 600 ~/.aws/config
+            echo "aws_key=$AWS_ACCESS_KEY"
             echo "[profile eb-cli]" > ~/.aws/config
-            echo "aws_access_key_id=AKIA3ZHUOC64V66O4XHJ" >> ~/.aws/config
-            echo "aws_secret_access_key=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" >> ~/.aws/config
+            echo "aws_access_key_id=$AWS_ACCESS_KEY" >> ~/.aws/config
+            echo "aws_secret_access_key=$AWS_SECRET_KEY" >> ~/.aws/config
       - run:
           name: Deploying to eb
           command: |
