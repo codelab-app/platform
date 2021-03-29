@@ -76,7 +76,7 @@ executors:
   docker-node:
     <<: *executor-config
     docker:
-      - image: cimg/node:14.15.0-browsers
+      - image: cimg/node:14.16.0-browsers
     resource_class: large
   vault-img:
     <<: *executor-config
@@ -130,8 +130,8 @@ commands:
       - run:
           name: 'Set node version'
           command: |
-            nvm install 14.13.0
-            nvm alias default 14.13.0
+            nvm install 14.16.0
+            nvm alias default 14.16.0
             node -v
 
   setup-workspace:
@@ -306,6 +306,35 @@ jobs:
           channel: $SLACK_CHANNEL_UPDATE
           mentions: $SLACK_USER
 
+  deploy-to-ebs:
+    <<: *executor-params
+    steps:
+      - setup-workspace
+      - run:
+          name: Installing dependencies
+          command: |
+            sudo apt-get -y -qq update
+            sudo apt-get install python3-pip awscli build-essential
+            pip3 install awsebcli --upgrade --user
+      - run:
+          name: Create AWS credentials manually
+          command: |
+            mkdir ~/.aws
+            touch ~/.aws/config
+            chmod 600 ~/.aws/config
+            echo "[profile eb-cli]" > ~/.aws/config
+            echo "aws_access_key_id=$AWS_ACCESS_KEY" >> ~/.aws/config
+            echo "aws_secret_access_key=$AWS_SECRET_KEY" >> ~/.aws/config
+      - run:
+          name: Install NPM packages
+          command: yarn install --frozen-lockfile --prod=true
+      - run:
+          name: Deploying to eb
+          command: |
+            eb use app-staging --region ap-east-1 --profile eb-cli
+            eb deploy app-staging --region ap-east-1 --profile eb-cli
+        
+
 workflows:
   app-dev:
     jobs:
@@ -364,13 +393,36 @@ workflows:
           context: CI
           # requires:
           #   - setup-vault-env
-      - build-and-push-docker-image:
+      - lint:
           <<: *filters-staging
-          context: CI
+          e: docker-node
           requires:
             - install-and-build-workspace
+      - unit:
+          <<: *filters-staging
+          e: docker-node
+          requires:
+            - install-and-build-workspace
+      - integration:
+          <<: *filters-staging
+          e: docker-node
+          requires:
+            - install-and-build-workspace
+      - e2e:
+          <<: *filters-staging
+          e: docker-node
+          requires:
+            - install-and-build-workspace
+      - deploy-to-ebs:
+          <<: *filters-staging
+          e: docker-node
+          requires:
+            - lint
+            - unit
+            - integration
+            - e2e
       - notify-success:
           <<: *filters-staging
           e: docker-node
           requires:
-            - build-and-push-docker-image
+            - deploy-to-ebs

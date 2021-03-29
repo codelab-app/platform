@@ -1,0 +1,12 @@
+/*
+/*/
+!/dist/
+!/scripts/
+!/.platform/
+!/.ebextensions/
+!/yarn.lock
+!.ebignore
+!/babel.config.json
+!/nx.json
+!/package.json
+!/Procfile
