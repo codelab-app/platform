@@ -516,6 +516,19 @@
           }
         }
       }
+    },
+    "frontend-relay": {
+      "root": "libs/frontend/relay",
+      "sourceRoot": "libs/frontend/relay/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/frontend/relay/**/*.{ts,tsx,js,jsx}"]
+          }
+        }
+      }
     }
   }
 }

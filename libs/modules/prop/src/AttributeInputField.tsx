@@ -2,10 +2,7 @@ import { Select, SelectProps, Spin } from 'antd'
 import React from 'react'
 import { connectField, FieldProps } from 'uniforms'
 import { useDebouncedState } from '@codelab/frontend/shared'
-import {
-  Attribute_Bool_Exp,
-  useGetAttributesQuery,
-} from '../../../generated/src/graphql-client-hasura.generated'
+import { Attribute_Bool_Exp, useGetAttributesQuery } from '@codelab/hasura'
 
 export type AttributeInputFieldProps<T> = FieldProps<
   T,

@@ -4,7 +4,7 @@ import { Attribute_Bool_Exp } from '@codelab/hasura'
 import {
   useGetAttributesQuery,
   usePageElementConfigQuery,
-} from '../../../../../generated/src/graphql-client-hasura.generated'
+} from '@codelab/hasura'
 import { createPropsFormSchema } from '@codelab/modules/prop'
 import { JsonSchemaUniForm } from '@codelab/frontend/shared'
 
@@ -34,7 +34,7 @@ export const PaneConfigProps = ({
     },
   })
 
-  const propsFormSchema = createPropsFormSchema(attributes?.attribute)
+  const propsFormSchema = createPropsFormSchema(attributes?.attribute as any)
 
   return (
     <section>

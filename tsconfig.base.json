@@ -37,7 +37,8 @@
       "@codelab/frontend/shared": ["libs/frontend/shared/src/index.ts"],
       "@codelab/frontend/layout": ["libs/frontend/layout/src/index.ts"],
       "@codelab/frontend/builder": ["libs/frontend/builder/src/index.ts"],
-      "@codelab/frontend/style": ["libs/frontend/style/src/index.ts"]
+      "@codelab/frontend/style": ["libs/frontend/style/src/index.ts"],
+      "@codelab/frontend/relay": ["libs/frontend/relay/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"]
