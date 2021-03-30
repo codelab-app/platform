@@ -13,6 +13,10 @@ object_relationships:
 - name: library
   using:
     foreign_key_constraint_on: library_id
+object_relationships:
+- name: library
+  using:
+    foreign_key_constraint_on: library_id
 table:
   name: prop
   schema: public

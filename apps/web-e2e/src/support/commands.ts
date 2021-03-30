@@ -17,6 +17,7 @@ import '@testing-library/cypress/add-commands'
  * Merges with @testing-library/cypress, need to follow their global declare
  */
 declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace Cypress {
     interface Chainable<Subject> {
       login(email: string, password: string): void
