@@ -4331,7 +4331,7 @@
     lodash "^4.17.20"
     lodash-es "^4.17.20"
 
-"@rjsf/antd@^2.5.1":
+"@rjsf/antd@2.5.1":
   version "2.5.1"
   resolved "https://registry.yarnpkg.com/@rjsf/antd/-/antd-2.5.1.tgz#8d10a062cf6ffb6bcbabd81ec9e01a89e79fb0d4"
   integrity sha512-xBzsQF2XIlePPIDBva353YXByuTXTVt8zL1DNUIMCPJ81w4Ai2W0KO9rSaJDrtWaOUTdn8PZEhs1ElYrLb+dQQ==
@@ -5997,7 +5997,7 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react-relay@^11.0.0":
+"@types/react-relay@11.0.0":
   version "11.0.0"
   resolved "https://registry.yarnpkg.com/@types/react-relay/-/react-relay-11.0.0.tgz#23730d0c7216df4462634624c5dcb6dc061647cb"
   integrity sha512-kLzDqhb+w0caxWt9nf2UyVvSiAwjs6mzoxswh8PqXaHgKG20YrpGTWYfs2JDX1QNQ032MkuRwqLfzucTif/y+Q==
@@ -6045,7 +6045,7 @@
   dependencies:
     "@types/react" "*"
 
-"@types/relay-runtime@*", "@types/relay-runtime@^10.1.10":
+"@types/relay-runtime@*", "@types/relay-runtime@10.1.10":
   version "10.1.10"
   resolved "https://registry.yarnpkg.com/@types/relay-runtime/-/relay-runtime-10.1.10.tgz#6d4da929129d7ad39c4932ca36bb5281bf301729"
   integrity sha512-IyEqvYzMdNcsvhjIVsCvbwQsYT2KMpZrZcw4hQu+2k2MsQNmFSwN0ycWi1Q861qNKMv2rmcMn39O7xtoNhZ8Eg==
@@ -7954,7 +7954,7 @@ babel-plugin-react-docgen@^4.2.1:
     lodash "^4.17.15"
     react-docgen "^5.0.0"
 
-babel-plugin-relay@^11.0.1:
+babel-plugin-relay@11.0.1:
   version "11.0.1"
   resolved "https://registry.yarnpkg.com/babel-plugin-relay/-/babel-plugin-relay-11.0.1.tgz#946425bc7c8b76aecc1990c8a19926aecc8659fe"
   integrity sha512-93cqLn9httSBTMS2fZFUiVBukTbbZd5mGJUSdpz8fz2iG/K7h1wEBXjjGpwVlrm1Y7P6XGdG9Frp44YhMfhsjw==
@@ -13635,7 +13635,7 @@ graphlib@^2.1.8:
   dependencies:
     lodash "^4.17.15"
 
-graphql-cli@^4.1.0:
+graphql-cli@4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/graphql-cli/-/graphql-cli-4.1.0.tgz#a99cb3e84636ff562e873c1eb3f0c22319bc823d"
   integrity sha512-VmA5VrjEJZdHsG8JcIdofFtSWspdYlDtJobn6F+gWgRf6cXRbJwuzszcnx4yvhhwc7EcfRP29NLA2652SNhpgQ==
@@ -20960,12 +20960,12 @@ react-refresh@0.8.3, react-refresh@^0.8.3:
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.8.3.tgz#721d4657672d400c5e3c75d063c4a85fb2d5d68f"
   integrity sha512-X8jZHc7nCMjaCqoU+V2I0cOhNW+QMBwSUkeXnTi8IPe6zaRWfn60ZzvFDZqWPfmSJfjub7dDW1SP0jaHWLu/hg==
 
-react-relay-network-modern-ssr@^1.4.0:
+react-relay-network-modern-ssr@1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/react-relay-network-modern-ssr/-/react-relay-network-modern-ssr-1.4.0.tgz#a5e4b60e69e14769c7266a1a0f5002430c815fe1"
   integrity sha512-sCIiwjzDPV9eBPOb7VcT/dmZkwrqcNpAK5eHkwjvC3Xw+RShtgB/uCSVgCUzMZpOR8iUSkzaceC/HMZdnKxF3w==
 
-react-relay-network-modern@^6.0.0:
+react-relay-network-modern@6.0.0:
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/react-relay-network-modern/-/react-relay-network-modern-6.0.0.tgz#faa2b6499f3f1d9fdac5af9851b7a851fc36c67b"
   integrity sha512-Glg9iGK9pV+KXC9Oa3X7H2cjd/6Kg4v6fMBkjMdoQRgV/ct5tAtbOs0xB5k1PHJs6cK+mmidTgVhT8VEfa2NFA==
@@ -20973,7 +20973,7 @@ react-relay-network-modern@^6.0.0:
     core-js "^3.0.0"
     extract-files "^9.0.0"
 
-react-relay@^11.0.1:
+react-relay@11.0.1:
   version "11.0.1"
   resolved "https://registry.yarnpkg.com/react-relay/-/react-relay-11.0.1.tgz#a8c68d79d1ab1393ea30206d84dcb159c67624ed"
   integrity sha512-LpGaKAgCOZtRWkCTdHXzYYzcC0Ab0Qc2Lnw8OuNsarXc8e0M/vapM+8CDB0oZvSliYRYUGbjWqX6V4VChwXDOQ==
@@ -21402,7 +21402,7 @@ relateurl@^0.2.7:
   resolved "https://registry.yarnpkg.com/relateurl/-/relateurl-0.2.7.tgz#54dbf377e51440aca90a4cd274600d3ff2d888a9"
   integrity sha1-VNvzd+UUQKypCkzSdGANP/LYiKk=
 
-relay-compiler-language-typescript@^13.0.6:
+relay-compiler-language-typescript@13.0.6:
   version "13.0.6"
   resolved "https://registry.yarnpkg.com/relay-compiler-language-typescript/-/relay-compiler-language-typescript-13.0.6.tgz#9ecdced7e5a036754cb8554abf73adcf3676935a"
   integrity sha512-oASBz2tPWu+11oBPPjIDHlsEFBeIsd4Y0pfsn5TEYs6rW0F9ZvNIV1pdBXbVFjOPH1c16bgx03tkknClQuKUfQ==
@@ -21432,7 +21432,7 @@ relay-compiler@10.1.0:
     signedsource "^1.0.0"
     yargs "^15.3.1"
 
-relay-compiler@^11.0.1:
+relay-compiler@11.0.1:
   version "11.0.1"
   resolved "https://registry.yarnpkg.com/relay-compiler/-/relay-compiler-11.0.1.tgz#157849f2ee0f54447acfe718a629301d5f44124e"
   integrity sha512-oFtnkbF2pzRISlfnNE87sy+vv+nqwLTZO/coF3SotOPFqPVgMJFT/lR9pIDeGzMuNrLn33eVbOBP//LDV31DFQ==
@@ -21454,14 +21454,14 @@ relay-compiler@^11.0.1:
     signedsource "^1.0.0"
     yargs "^15.3.1"
 
-relay-config@^11.0.1:
+relay-config@11.0.1:
   version "11.0.1"
   resolved "https://registry.yarnpkg.com/relay-config/-/relay-config-11.0.1.tgz#3c009245e70d34639ff2dff7c15f6e7f686b6ba8"
   integrity sha512-QWnDOrQOA1QgMwJbBDMMvY0YWe1uj30CyYVlpcvonMsL4okmUUXTm0VzzucfXHayO4waGU9PC4OWAwxcqLj+pQ==
   dependencies:
     cosmiconfig "^5.0.5"
 
-relay-hooks@^4.2.0:
+relay-hooks@4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/relay-hooks/-/relay-hooks-4.2.0.tgz#a36ab620276e6af8a3c76d4a2c6d1e266ec1625f"
   integrity sha512-TqBLysdah2300IRYETyBbgLVM/bXHqG7KP00JqQQDy9DBmJ3XCeZoDxHGlkFOv8MBqBpXXApRarjMH0T63y2aw==
@@ -24689,7 +24689,7 @@ vendors@^1.0.0:
   resolved "https://registry.yarnpkg.com/vendors/-/vendors-1.0.4.tgz#e2b800a53e7a29b93506c3cf41100d16c4c4ad8e"
   integrity sha512-/juG65kTL4Cy2su4P8HjtkTxk6VmJDiOPBufWniqQ6wknac6jNiXS9vU+hO3wgusiyqWlzTbVHi0dyJqRONg3w==
 
-vercel@^21.3.3:
+vercel@21.3.3:
   version "21.3.3"
   resolved "https://registry.yarnpkg.com/vercel/-/vercel-21.3.3.tgz#22af77308cf612699c652ad49ecedc60eaa0b38f"
   integrity sha512-NhxhAmpUoymKQp2WT0PR+NgFPcoVRuhYJ7HSSPKP+S0UCQtZNhy9YCeMkbBzooAw9rrb8gEH+ODEbhK0u5YlFg==
@@ -24726,11 +24726,6 @@ voca@1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/voca/-/voca-1.4.0.tgz#e15ac58b38290b72acc0c330366b6cc7984924d7"
   integrity sha512-8Xz4H3vhYRGbFupLtl6dHwMx0ojUcjt0HYkqZ9oBCfipd/5mD7Md58m2/dq7uPuZU/0T3Gb1m66KS9jn+I+14Q==
-
-vscode-apollo-relay@^1.5.1:
-  version "1.5.1"
-  resolved "https://registry.yarnpkg.com/vscode-apollo-relay/-/vscode-apollo-relay-1.5.1.tgz#6c98bef9a127c5bb80d10f6de35dd60ab851415e"
-  integrity sha512-+tEyseQVbjEqFR7wda9taij5bayVxE1x9XkgCAtBK2qqCq+V/5ohbEsrOdFRL0Ir3o9U+i+I2gz7y7Jn4dDiPA==
 
 vscode-textmate@^5.2.0:
   version "5.2.0"
