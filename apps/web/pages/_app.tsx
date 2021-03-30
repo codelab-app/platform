@@ -6,10 +6,11 @@ import { AppProps } from 'next/app'
 import { WithRouterProps } from 'next/dist/client/with-router'
 import React, { PropsWithChildren } from 'react'
 import { RecoilRoot } from 'recoil'
-import { Page, useApollo } from '@codelab/frontend/shared'
+import { Page } from '@codelab/frontend/shared'
 import { RelayEnvironmentProvider } from 'relay-hooks'
 import { createEnvironment } from '@codelab/frontend/relay'
 import { LayoutFactory } from '../src/pages/LayoutFactory'
+import { useApollo } from '@codelab/frontend/apollo'
 
 import '../src/styles/App.less'
 

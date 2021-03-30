@@ -529,6 +529,19 @@
           }
         }
       }
+    },
+    "frontend-apollo": {
+      "root": "libs/frontend/apollo",
+      "sourceRoot": "libs/frontend/apollo/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/frontend/apollo/**/*.{ts,tsx,js,jsx}"]
+          }
+        }
+      }
     }
   }
 }

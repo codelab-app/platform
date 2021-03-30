@@ -1,6 +1,6 @@
 import { ApolloLink } from '@apollo/client'
 import { setContext } from '@apollo/client/link/context'
-import { getAuthToken } from '../../../infrastructure'
+import { getAuthToken } from '@codelab/frontend/shared'
 
 /**
  * Manages the ```Authorization``` header.
