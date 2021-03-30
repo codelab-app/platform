@@ -96,7 +96,7 @@ e2e-dev:
 				nx run web-e2e:e2e:ci" \
 			"npx env-cmd -f .env cross-env PORT=4001 \
 				node dist/apps/api/main.js" \
-			"npx cross-env next start -p 3001 dist/apps/web"
+			"npx next start -p 3001 dist/apps/web"
 
 e2e-ci:
 	npx concurrently \
