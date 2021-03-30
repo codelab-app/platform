@@ -4,15 +4,16 @@ import React from 'react'
 import { useRecoilState } from 'recoil'
 import {
   AtomType,
-  CytoscapeService,
   paneConfigState,
   PropsWithIds,
 } from '@codelab/frontend/shared'
+import { CytoscapeService } from '@codelab/frontend/cytoscape'
 import {
   GetPageGql,
   GraphFragmentsFragment,
   useAddChildVertexMutation,
 } from '@codelab/generated'
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { RenderComponents } from '@codelab/frontend/builder'
 
 type GetPageLayoutProps = {

@@ -2,7 +2,7 @@
 import { ROOT_NODE, SerializedNodes } from '@craftjs/core'
 import { DataNode } from 'antd/lib/tree'
 import cytoscape, { Core } from 'cytoscape'
-import { AtomType, NodeA } from '../interfaces'
+import { AtomType, NodeA } from '@codelab/frontend/shared'
 import {
   RootAppPageElementFragment,
   RootAppPageLinkFragment,

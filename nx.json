@@ -39,6 +39,7 @@
     "frontend-builder": { "tags": [] },
     "frontend-style": { "tags": [] },
     "frontend-relay": { "tags": [] },
-    "frontend-apollo": { "tags": [] }
+    "frontend-apollo": { "tags": [] },
+    "frontend-cytoscape": { "tags": [] }
   }
 }

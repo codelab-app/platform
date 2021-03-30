@@ -542,6 +542,19 @@
           }
         }
       }
+    },
+    "frontend-cytoscape": {
+      "root": "libs/frontend/cytoscape",
+      "sourceRoot": "libs/frontend/cytoscape/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/frontend/cytoscape/**/*.{ts,tsx,js,jsx}"]
+          }
+        }
+      }
     }
   }
 }
