@@ -7,10 +7,12 @@ module.exports = {
   include: ['./apps/web/**/*'],
   schema: './schema.relay.graphql',
   extensions: ['ts', 'tsx'],
+  /**
+   * Careful when installing watchman, it won't compile grpahql files
+   */
+  watchman: false,
   language: 'typescript',
   exclude: [
-    '**/node_modules/**',
-    '**/__mocks__/**',
     '**/__generated__/**',
     '**/.next/**',
     '**/.storybook/**',

@@ -132,11 +132,11 @@
     "react-relay": "11.0.1",
     "react-relay-network-modern": "6.0.0",
     "react-relay-network-modern-ssr": "1.4.0",
-    "relay-config": "11.0.1",
-    "reflect-metadata": "0.1.13",
-    "-hooks": "4.2.0",
     "react-resizable": "1.11.0",
     "recoil": "0.1.2",
+    "reflect-metadata": "0.1.13",
+    "relay-config": "11.0.1",
+    "relay-hooks": "4.2.0",
     "rxjs": "6.6.3",
     "shelljs": "0.8.4",
     "supertest": "6.1.3",
@@ -147,7 +147,8 @@
     "uniforms-bridge-json-schema": "3.2.1",
     "use-resize-observer": "7.0.0",
     "uuid": "8.3.2",
-    "voca": "1.4.0"
+    "voca": "1.4.0",
+    "vscode-apollo-relay": "^1.5.1"
   },
   "devDependencies": {
     "@angular-devkit/core": "11.0.1",

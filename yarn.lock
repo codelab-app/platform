@@ -24727,6 +24727,11 @@ voca@1.4.0:
   resolved "https://registry.yarnpkg.com/voca/-/voca-1.4.0.tgz#e15ac58b38290b72acc0c330366b6cc7984924d7"
   integrity sha512-8Xz4H3vhYRGbFupLtl6dHwMx0ojUcjt0HYkqZ9oBCfipd/5mD7Md58m2/dq7uPuZU/0T3Gb1m66KS9jn+I+14Q==
 
+vscode-apollo-relay@^1.5.1:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/vscode-apollo-relay/-/vscode-apollo-relay-1.5.1.tgz#6c98bef9a127c5bb80d10f6de35dd60ab851415e"
+  integrity sha512-+tEyseQVbjEqFR7wda9taij5bayVxE1x9XkgCAtBK2qqCq+V/5ohbEsrOdFRL0Ir3o9U+i+I2gz7y7Jn4dDiPA==
+
 vscode-textmate@^5.2.0:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/vscode-textmate/-/vscode-textmate-5.2.0.tgz#01f01760a391e8222fe4f33fbccbd1ad71aed74e"
