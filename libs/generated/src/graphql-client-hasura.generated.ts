@@ -6354,6 +6354,7 @@ export const PageElementConfigGql = gql`
  *
  * @example
  * const { data, loading, error } = usePageElementConfigQuery({
+
  *   variables: {
  *      pageElementId: // value for 'pageElementId'
  *   },

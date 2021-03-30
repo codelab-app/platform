@@ -17,14 +17,8 @@ export const EditAppForm = (props: UniFormUseCaseProps<UpdateAppInput>) => {
     refetchQueries: [
       {
         query: GetAppsListGql,
-        context: {
-          hasura: true,
-        },
       },
     ],
-    context: {
-      hasura: true,
-    },
   })
 
   const [{ editingApp }, setAppState] = useRecoilState(appState)

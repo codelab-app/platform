@@ -13,14 +13,8 @@ export const useDeleteAppConfirmation = () => {
       refetchQueries: [
         {
           query: GetAppsListGql,
-          context: {
-            hasura: true,
-          },
         },
       ],
-      context: {
-        hasura: true,
-      },
     }).catch(
       createNotificationHandler({
         title: `Error while deleting app '${app.name}'`,

@@ -10,11 +10,7 @@ import { useDeleteAppConfirmation } from '../index'
 import { GetAppsItem } from './GetAppsItem'
 
 export const GetAppsList = () => {
-  const { loading, data } = useGetAppsListQuery({
-    context: {
-      hasura: true,
-    },
-  })
+  const { loading, data } = useGetAppsListQuery({})
 
   const { openDeleteConfirmation } = useDeleteAppConfirmation()
   const { openCreateAppModal } = useCreateAppModal()

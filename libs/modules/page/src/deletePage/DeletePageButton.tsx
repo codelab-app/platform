@@ -3,8 +3,11 @@ import { Button } from 'antd'
 import React, { useContext } from 'react'
 import { useRecoilValue } from 'recoil'
 import { pageState } from '../usePage'
-import { GetAppGql, useDeletePageMutation } from '@codelab/generated'
 import { AppContext } from '@codelab/frontend/shared'
+import {
+  useDeletePageMutation,
+  GetPagesListGql,
+} from '@codelab/hasura'
 
 export type DeletePageButtonProps = {
   onSuccess: () => void
@@ -17,11 +20,9 @@ export const DeletePageButton = ({ onSuccess }: DeletePageButtonProps) => {
   const [deletePage] = useDeletePageMutation({
     refetchQueries: [
       {
-        query: GetAppGql,
+        query: GetPagesListGql,
         variables: {
-          input: {
-            appId,
-          },
+          appId,
         },
       },
     ],
@@ -34,7 +35,7 @@ export const DeletePageButton = ({ onSuccess }: DeletePageButtonProps) => {
       icon={<DeleteOutlined />}
       onClick={() =>
         deletePage({
-          variables: { input: { pageId: detailPageId } },
+          variables: { pageId: detailPageId },
         }).then(() => onSuccess())
       }
     >
