@@ -5988,6 +5988,51 @@ export type UpdatePageElementMutation = { __typename?: 'mutation_root' } & {
   >
 }
 
+export type CreatePageMutationVariables = Exact<{
+  data: Page_Insert_Input
+}>
+
+export type CreatePageMutation = { __typename?: 'mutation_root' } & {
+  insert_page_one?: Maybe<{ __typename?: 'page' } & Pick<Page, 'id'>>
+}
+
+export type DeletePageMutationVariables = Exact<{
+  pageId: Scalars['uuid']
+}>
+
+export type DeletePageMutation = { __typename?: 'mutation_root' } & {
+  delete_page_by_pk?: Maybe<{ __typename?: 'page' } & Pick<Page, 'id'>>
+}
+
+export type GetPageQueryVariables = Exact<{
+  pageId: Scalars['uuid']
+}>
+
+export type GetPageQuery = { __typename?: 'query_root' } & {
+  page_by_pk?: Maybe<{ __typename?: 'page' } & Pick<Page, 'id' | 'name'>>
+}
+
+export type GetPagesListQueryVariables = Exact<{
+  appId: Scalars['uuid']
+}>
+
+export type GetPagesListQuery = { __typename?: 'query_root' } & {
+  app_by_pk?: Maybe<
+    { __typename?: 'app' } & {
+      pages: Array<{ __typename?: 'page' } & Pick<Page, 'id' | 'name'>>
+    }
+  >
+}
+
+export type UpdatePageMutationVariables = Exact<{
+  input: Page_Set_Input
+  pageId: Scalars['uuid']
+}>
+
+export type UpdatePageMutation = { __typename?: 'mutation_root' } & {
+  update_page_by_pk?: Maybe<{ __typename?: 'page' } & Pick<Page, 'id' | 'name'>>
+}
+
 export type GetAttributesQueryVariables = Exact<{
   where: Attribute_Bool_Exp
 }>
@@ -6455,6 +6500,268 @@ export type UpdatePageElementMutationOptions = Apollo.BaseMutationOptions<
   UpdatePageElementMutation,
   UpdatePageElementMutationVariables
 >
+export const CreatePageGql = gql`
+  mutation CreatePage($data: page_insert_input!) {
+    insert_page_one(object: $data) {
+      id
+    }
+  }
+`
+export type CreatePageMutationFn = Apollo.MutationFunction<
+  CreatePageMutation,
+  CreatePageMutationVariables
+>
+
+/**
+ * __useCreatePageMutation__
+ *
+ * To run a mutation, you first call `useCreatePageMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreatePageMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createPageMutation, { data, loading, error }] = useCreatePageMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useCreatePageMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreatePageMutation,
+    CreatePageMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<CreatePageMutation, CreatePageMutationVariables>(
+    CreatePageGql,
+    options,
+  )
+}
+export type CreatePageMutationHookResult = ReturnType<
+  typeof useCreatePageMutation
+>
+export type CreatePageMutationResult = Apollo.MutationResult<CreatePageMutation>
+export type CreatePageMutationOptions = Apollo.BaseMutationOptions<
+  CreatePageMutation,
+  CreatePageMutationVariables
+>
+export const DeletePageGql = gql`
+  mutation DeletePage($pageId: uuid!) {
+    delete_page_by_pk(id: $pageId) {
+      id
+    }
+  }
+`
+export type DeletePageMutationFn = Apollo.MutationFunction<
+  DeletePageMutation,
+  DeletePageMutationVariables
+>
+
+/**
+ * __useDeletePageMutation__
+ *
+ * To run a mutation, you first call `useDeletePageMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeletePageMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deletePageMutation, { data, loading, error }] = useDeletePageMutation({
+ *   variables: {
+ *      pageId: // value for 'pageId'
+ *   },
+ * });
+ */
+export function useDeletePageMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeletePageMutation,
+    DeletePageMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<DeletePageMutation, DeletePageMutationVariables>(
+    DeletePageGql,
+    options,
+  )
+}
+export type DeletePageMutationHookResult = ReturnType<
+  typeof useDeletePageMutation
+>
+export type DeletePageMutationResult = Apollo.MutationResult<DeletePageMutation>
+export type DeletePageMutationOptions = Apollo.BaseMutationOptions<
+  DeletePageMutation,
+  DeletePageMutationVariables
+>
+export const GetPageGql = gql`
+  query GetPage($pageId: uuid!) {
+    page_by_pk(id: $pageId) {
+      id
+      name
+    }
+  }
+`
+
+/**
+ * __useGetPageQuery__
+ *
+ * To run a query within a React component, call `useGetPageQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPageQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPageQuery({
+ *   variables: {
+ *      pageId: // value for 'pageId'
+ *   },
+ * });
+ */
+export function useGetPageQuery(
+  baseOptions: Apollo.QueryHookOptions<GetPageQuery, GetPageQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetPageQuery, GetPageQueryVariables>(
+    GetPageGql,
+    options,
+  )
+}
+export function useGetPageLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetPageQuery,
+    GetPageQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetPageQuery, GetPageQueryVariables>(
+    GetPageGql,
+    options,
+  )
+}
+export type GetPageQueryHookResult = ReturnType<typeof useGetPageQuery>
+export type GetPageLazyQueryHookResult = ReturnType<typeof useGetPageLazyQuery>
+export type GetPageQueryResult = Apollo.QueryResult<
+  GetPageQuery,
+  GetPageQueryVariables
+>
+export const GetPagesListGql = gql`
+  query GetPagesList($appId: uuid!) {
+    app_by_pk(id: $appId) {
+      pages {
+        id
+        name
+      }
+    }
+  }
+`
+
+/**
+ * __useGetPagesListQuery__
+ *
+ * To run a query within a React component, call `useGetPagesListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPagesListQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPagesListQuery({
+ *   variables: {
+ *      appId: // value for 'appId'
+ *   },
+ * });
+ */
+export function useGetPagesListQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetPagesListQuery,
+    GetPagesListQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetPagesListQuery, GetPagesListQueryVariables>(
+    GetPagesListGql,
+    options,
+  )
+}
+export function useGetPagesListLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetPagesListQuery,
+    GetPagesListQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetPagesListQuery, GetPagesListQueryVariables>(
+    GetPagesListGql,
+    options,
+  )
+}
+export type GetPagesListQueryHookResult = ReturnType<
+  typeof useGetPagesListQuery
+>
+export type GetPagesListLazyQueryHookResult = ReturnType<
+  typeof useGetPagesListLazyQuery
+>
+export type GetPagesListQueryResult = Apollo.QueryResult<
+  GetPagesListQuery,
+  GetPagesListQueryVariables
+>
+export const UpdatePageGql = gql`
+  mutation UpdatePage($input: page_set_input!, $pageId: uuid!) {
+    update_page_by_pk(_set: $input, pk_columns: { id: $pageId }) {
+      id
+      name
+    }
+  }
+`
+export type UpdatePageMutationFn = Apollo.MutationFunction<
+  UpdatePageMutation,
+  UpdatePageMutationVariables
+>
+
+/**
+ * __useUpdatePageMutation__
+ *
+ * To run a mutation, you first call `useUpdatePageMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdatePageMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updatePageMutation, { data, loading, error }] = useUpdatePageMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *      pageId: // value for 'pageId'
+ *   },
+ * });
+ */
+export function useUpdatePageMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdatePageMutation,
+    UpdatePageMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<UpdatePageMutation, UpdatePageMutationVariables>(
+    UpdatePageGql,
+    options,
+  )
+}
+export type UpdatePageMutationHookResult = ReturnType<
+  typeof useUpdatePageMutation
+>
+export type UpdatePageMutationResult = Apollo.MutationResult<UpdatePageMutation>
+export type UpdatePageMutationOptions = Apollo.BaseMutationOptions<
+  UpdatePageMutation,
+  UpdatePageMutationVariables
+>
 export const GetAttributesGql = gql`
   query GetAttributes($where: attribute_bool_exp!) {
     attribute(where: $where) {
@@ -6655,6 +6962,46 @@ export const UpdatePageElement = gql`
   mutation UpdatePageElement($id: uuid!, $input: page_element_set_input) {
     update_page_element_by_pk(pk_columns: { id: $id }, _set: $input) {
       id
+    }
+  }
+`
+export const CreatePage = gql`
+  mutation CreatePage($data: page_insert_input!) {
+    insert_page_one(object: $data) {
+      id
+    }
+  }
+`
+export const DeletePage = gql`
+  mutation DeletePage($pageId: uuid!) {
+    delete_page_by_pk(id: $pageId) {
+      id
+    }
+  }
+`
+export const GetPage = gql`
+  query GetPage($pageId: uuid!) {
+    page_by_pk(id: $pageId) {
+      id
+      name
+    }
+  }
+`
+export const GetPagesList = gql`
+  query GetPagesList($appId: uuid!) {
+    app_by_pk(id: $appId) {
+      pages {
+        id
+        name
+      }
+    }
+  }
+`
+export const UpdatePage = gql`
+  mutation UpdatePage($input: page_set_input!, $pageId: uuid!) {
+    update_page_by_pk(_set: $input, pk_columns: { id: $pageId }) {
+      id
+      name
     }
   }
 `
