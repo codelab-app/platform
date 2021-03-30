@@ -676,6 +676,18 @@ type atom_type_mutation_response {
 }
 
 """
+input type for inserting object relation for remote table "atom_type"
+"""
+input atom_type_obj_rel_insert_input {
+  data: atom_type_insert_input!
+
+  """
+  on conflict condition
+  """
+  on_conflict: atom_type_on_conflict
+}
+
+"""
 on conflict condition type for table "atom_type"
 """
 input atom_type_on_conflict {
@@ -756,6 +768,10 @@ enum atom_update_column {
 columns and relationships of "attribute"
 """
 type attribute {
+  """
+  An object relationship
+  """
+  atomType: atom_type!
   atom_type: atom_type_enum!
   id: uuid!
   key: String!
@@ -791,6 +807,7 @@ input attribute_bool_exp {
   _and: [attribute_bool_exp!]
   _not: attribute_bool_exp
   _or: [attribute_bool_exp!]
+  atomType: atom_type_bool_exp
   atom_type: atom_type_enum_comparison_exp
   id: uuid_comparison_exp
   key: String_comparison_exp
@@ -812,6 +829,7 @@ enum attribute_constraint {
 input type for inserting data into table "attribute"
 """
 input attribute_insert_input {
+  atomType: atom_type_obj_rel_insert_input
   atom_type: atom_type_enum
   id: uuid
   key: String
@@ -875,6 +893,7 @@ input attribute_on_conflict {
 Ordering options when selecting data from "attribute".
 """
 input attribute_order_by {
+  atomType: atom_type_order_by
   atom_type: order_by
   id: order_by
   key: order_by
