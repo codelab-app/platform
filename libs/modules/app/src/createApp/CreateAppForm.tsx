@@ -42,7 +42,6 @@ export const CreateAppForm = (props: UniFormUseCaseProps<CreateAppInput>) => {
       variables: {
         input: {
           ...(submitData as any),
-          user_id: userId,
           pages: {
             data: [
               {

@@ -11,8 +11,22 @@ array_relationships:
     foreign_key_constraint_on:
       column: page_id
       table:
-        name: page_links
+        name: page_link
         schema: public
+delete_permissions:
+- permission:
+    filter: {}
+  role: user
+insert_permissions:
+- permission:
+    backend_only: false
+    check: {}
+    columns:
+    - id
+    - name
+    - app_id
+    - owner_id
+  role: user
 object_relationships:
 - name: app
   using:
@@ -20,6 +34,25 @@ object_relationships:
 - name: owner
   using:
     foreign_key_constraint_on: owner_id
+select_permissions:
+- permission:
+    columns:
+    - id
+    - name
+    - app_id
+    - owner_id
+    filter: {}
+  role: user
 table:
   name: page
   schema: public
+update_permissions:
+- permission:
+    check: {}
+    columns:
+    - name
+    - owner_id
+    - app_id
+    - id
+    filter: {}
+  role: user
