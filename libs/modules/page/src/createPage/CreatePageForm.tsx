@@ -4,13 +4,9 @@ import {
   JsonSchemaUniForm,
   PropsWithIds,
   UniFormUseCaseProps,
-
 } from '@codelab/frontend/shared'
 
-import {
-  GetPagesListGql,
-  useCreatePageMutation,
-} from '@codelab/hasura'
+import { GetPagesListGql, useCreatePageMutation } from '@codelab/hasura'
 import { createPageSchema, CreatePageInput } from './createPageSchema'
 import { DeepPartial } from 'uniforms'
 import { useCurrentUser } from '@codelab/modules/user'

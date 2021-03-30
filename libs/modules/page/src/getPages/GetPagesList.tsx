@@ -4,16 +4,23 @@ import Link from 'next/link'
 import React, { useContext } from 'react'
 import { usePage } from '../usePage'
 import { AppContext, Page } from '@codelab/frontend/shared'
+import { useGetPagesListQuery } from '@codelab/hasura'
 
 export const GetPagesList = () => {
-  const { app, appId } = useContext(AppContext)
+  const { appId } = useContext(AppContext)
   const { detailPageId, togglePageDetailPane } = usePage()
+
+  const { data } = useGetPagesListQuery({
+    variables: {
+      appId,
+    },
+  })
 
   return (
     <>
       <List
         size="small"
-        dataSource={app?.pages}
+        dataSource={data?.app_by_pk?.pages}
         renderItem={(page) => (
           <List.Item onMouseOver={() => null} style={{ paddingLeft: 0 }}>
             <Space style={{ width: '100%' }}>
