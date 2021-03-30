@@ -107,7 +107,7 @@ export const elementParameterFactory = <TNode extends NodeA>({
 
       // Open the inspector for this node
       handlers?.setPaneConfig({
-        vertexId: node.id,
+        pageElementId: node.id,
       })
     },
   } as Record<string, any>

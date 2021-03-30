@@ -1,6 +1,6 @@
 import { PageHeader } from 'antd'
 import React, { useContext } from 'react'
-import { AssignStyleForm } from '../assignStyle/AssignStyleForm'
+import { AssignStyleForm } from '../assignStyle'
 import { useStylesPane } from '../useStylesPane'
 import {
   GetStylesGql,
@@ -10,7 +10,7 @@ import {
 import { AppContext } from '@codelab/frontend/shared'
 
 export const PaneConfigStyle = ({ vertexId }: { vertexId: string }) => {
-  const { styles, appId } = useContext(AppContext)
+  const { appId } = useContext(AppContext)
   const { openUpdateStyle } = useStylesPane()
 
   const [unassign] = useUnAssignStyleMutation({

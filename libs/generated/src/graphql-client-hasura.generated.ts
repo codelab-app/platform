@@ -5928,6 +5928,67 @@ export type GetAppsListQuery = { __typename?: 'query_root' } & {
   >
 }
 
+export type PropValueFragmentFragment = { __typename?: 'prop_value' } & Pick<
+  Prop_Value,
+  'id' | 'name' | 'type' | 'value' | 'value_prop_id' | 'lambda_id'
+>
+
+export type PageElementConfigFragmentFragment = {
+  __typename?: 'page_element'
+} & Pick<Page_Element, 'id' | 'name' | 'page_id'> & {
+    props: Array<
+      { __typename?: 'prop_element' } & {
+        prop: { __typename?: 'prop' } & Pick<Prop, 'id'> & {
+            values_aggregate: { __typename?: 'prop_value_aggregate' } & {
+              aggregate?: Maybe<
+                { __typename?: 'prop_value_aggregate_fields' } & Pick<
+                  Prop_Value_Aggregate_Fields,
+                  'count'
+                >
+              >
+            }
+            values: Array<
+              { __typename?: 'prop_value' } & PropValueFragmentFragment
+            >
+          }
+      }
+    >
+  }
+
+export type PageElementConfigQueryVariables = Exact<{
+  pageElementId: Scalars['uuid']
+}>
+
+export type PageElementConfigQuery = { __typename?: 'query_root' } & {
+  page_element_by_pk?: Maybe<
+    { __typename?: 'page_element' } & PageElementConfigFragmentFragment
+  >
+}
+
+export type UpdatePageElementMutationVariables = Exact<{
+  id: Scalars['uuid']
+  input?: Maybe<Page_Element_Set_Input>
+}>
+
+export type UpdatePageElementMutation = { __typename?: 'mutation_root' } & {
+  update_page_element_by_pk?: Maybe<
+    { __typename?: 'page_element' } & Pick<Page_Element, 'id'>
+  >
+}
+
+export type GetAttributesQueryVariables = Exact<{
+  where: Attribute_Bool_Exp
+}>
+
+export type GetAttributesQuery = { __typename?: 'query_root' } & {
+  attribute: Array<
+    { __typename?: 'attribute' } & Pick<
+      Attribute,
+      'id' | 'key' | 'atom_type' | 'value_type'
+    >
+  >
+}
+
 export const RootAppPageElementFragmentDoc = gql`
   fragment RootAppPageElement on page_element {
     id
@@ -5966,6 +6027,37 @@ export const RootAppPageLinkFragmentDoc = gql`
     source_element_id
     target_element_id
   }
+`
+export const PropValueFragmentFragmentDoc = gql`
+  fragment PropValueFragment on prop_value {
+    id
+    name
+    type
+    value
+    value_prop_id
+    lambda_id
+  }
+`
+export const PageElementConfigFragmentFragmentDoc = gql`
+  fragment PageElementConfigFragment on page_element {
+    id
+    name
+    page_id
+    props {
+      prop {
+        id
+        values_aggregate {
+          aggregate {
+            count
+          }
+        }
+        values {
+          ...PropValueFragment
+        }
+      }
+    }
+  }
+  ${PropValueFragmentFragmentDoc}
 `
 export const RootAppGql = gql`
   query RootApp($appId: uuid!, $pageId: uuid!) {
@@ -6242,6 +6334,176 @@ export type GetAppsListQueryResult = Apollo.QueryResult<
   GetAppsListQuery,
   GetAppsListQueryVariables
 >
+export const PageElementConfigGql = gql`
+  query PageElementConfig($pageElementId: uuid!) {
+    page_element_by_pk(id: $pageElementId) {
+      ...PageElementConfigFragment
+    }
+  }
+  ${PageElementConfigFragmentFragmentDoc}
+`
+
+/**
+ * __usePageElementConfigQuery__
+ *
+ * To run a query within a React component, call `usePageElementConfigQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePageElementConfigQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePageElementConfigQuery({
+ *   variables: {
+ *      pageElementId: // value for 'pageElementId'
+ *   },
+ * });
+ */
+export function usePageElementConfigQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    PageElementConfigQuery,
+    PageElementConfigQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<
+    PageElementConfigQuery,
+    PageElementConfigQueryVariables
+  >(PageElementConfigGql, options)
+}
+export function usePageElementConfigLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    PageElementConfigQuery,
+    PageElementConfigQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    PageElementConfigQuery,
+    PageElementConfigQueryVariables
+  >(PageElementConfigGql, options)
+}
+export type PageElementConfigQueryHookResult = ReturnType<
+  typeof usePageElementConfigQuery
+>
+export type PageElementConfigLazyQueryHookResult = ReturnType<
+  typeof usePageElementConfigLazyQuery
+>
+export type PageElementConfigQueryResult = Apollo.QueryResult<
+  PageElementConfigQuery,
+  PageElementConfigQueryVariables
+>
+export const UpdatePageElementGql = gql`
+  mutation UpdatePageElement($id: uuid!, $input: page_element_set_input) {
+    update_page_element_by_pk(pk_columns: { id: $id }, _set: $input) {
+      id
+    }
+  }
+`
+export type UpdatePageElementMutationFn = Apollo.MutationFunction<
+  UpdatePageElementMutation,
+  UpdatePageElementMutationVariables
+>
+
+/**
+ * __useUpdatePageElementMutation__
+ *
+ * To run a mutation, you first call `useUpdatePageElementMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdatePageElementMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updatePageElementMutation, { data, loading, error }] = useUpdatePageElementMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdatePageElementMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdatePageElementMutation,
+    UpdatePageElementMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    UpdatePageElementMutation,
+    UpdatePageElementMutationVariables
+  >(UpdatePageElementGql, options)
+}
+export type UpdatePageElementMutationHookResult = ReturnType<
+  typeof useUpdatePageElementMutation
+>
+export type UpdatePageElementMutationResult = Apollo.MutationResult<UpdatePageElementMutation>
+export type UpdatePageElementMutationOptions = Apollo.BaseMutationOptions<
+  UpdatePageElementMutation,
+  UpdatePageElementMutationVariables
+>
+export const GetAttributesGql = gql`
+  query GetAttributes($where: attribute_bool_exp!) {
+    attribute(where: $where) {
+      id
+      key
+      atom_type
+      value_type
+    }
+  }
+`
+
+/**
+ * __useGetAttributesQuery__
+ *
+ * To run a query within a React component, call `useGetAttributesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAttributesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAttributesQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useGetAttributesQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetAttributesQuery,
+    GetAttributesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetAttributesQuery, GetAttributesQueryVariables>(
+    GetAttributesGql,
+    options,
+  )
+}
+export function useGetAttributesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetAttributesQuery,
+    GetAttributesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetAttributesQuery, GetAttributesQueryVariables>(
+    GetAttributesGql,
+    options,
+  )
+}
+export type GetAttributesQueryHookResult = ReturnType<
+  typeof useGetAttributesQuery
+>
+export type GetAttributesLazyQueryHookResult = ReturnType<
+  typeof useGetAttributesLazyQuery
+>
+export type GetAttributesQueryResult = Apollo.QueryResult<
+  GetAttributesQuery,
+  GetAttributesQueryVariables
+>
 export const RootAppPageElement = gql`
   fragment RootAppPageElement on page_element {
     id
@@ -6280,6 +6542,37 @@ export const RootAppPageLink = gql`
     source_element_id
     target_element_id
   }
+`
+export const PropValueFragment = gql`
+  fragment PropValueFragment on prop_value {
+    id
+    name
+    type
+    value
+    value_prop_id
+    lambda_id
+  }
+`
+export const PageElementConfigFragment = gql`
+  fragment PageElementConfigFragment on page_element {
+    id
+    name
+    page_id
+    props {
+      prop {
+        id
+        values_aggregate {
+          aggregate {
+            count
+          }
+        }
+        values {
+          ...PropValueFragment
+        }
+      }
+    }
+  }
+  ${PropValueFragment}
 `
 export const RootApp = gql`
   query RootApp($appId: uuid!, $pageId: uuid!) {
@@ -6335,6 +6628,31 @@ export const GetAppsList = gql`
       pages {
         id
       }
+    }
+  }
+`
+export const PageElementConfig = gql`
+  query PageElementConfig($pageElementId: uuid!) {
+    page_element_by_pk(id: $pageElementId) {
+      ...PageElementConfigFragment
+    }
+  }
+  ${PageElementConfigFragment}
+`
+export const UpdatePageElement = gql`
+  mutation UpdatePageElement($id: uuid!, $input: page_element_set_input) {
+    update_page_element_by_pk(pk_columns: { id: $id }, _set: $input) {
+      id
+    }
+  }
+`
+export const GetAttributes = gql`
+  query GetAttributes($where: attribute_bool_exp!) {
+    attribute(where: $where) {
+      id
+      key
+      atom_type
+      value_type
     }
   }
 `

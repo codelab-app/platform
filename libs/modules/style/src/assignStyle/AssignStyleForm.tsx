@@ -8,7 +8,7 @@ import {
 import { AppContext, notify } from '@codelab/frontend/shared'
 
 export const AssignStyleForm = ({ vertexId }: { vertexId: string }) => {
-  const { styles, appId } = useContext(AppContext)
+  const { appId } = useContext(AppContext)
 
   const [selection, setSelection] = useState<string | undefined>(undefined)
 
@@ -59,13 +59,14 @@ export const AssignStyleForm = ({ vertexId }: { vertexId: string }) => {
         style={{ width: 120 }}
         onChange={(styleId: string) => setSelection(styleId)}
       >
-        {styles?.map((s) => {
-          return (
-            <Select.Option key={s.id} value={s.id}>
-              {s.name}
-            </Select.Option>
-          )
-        })}
+        TODO: assign styles form
+        {/*{styles.map((s) => {*/}
+        {/*  return (*/}
+        {/*    <Select.Option key={s.id} value={s.id}>*/}
+        {/*      {s.name}*/}
+        {/*    </Select.Option>*/}
+        {/*  )*/}
+        {/*})}*/}
       </Select>
       <Button type="primary" onClick={() => assign()}>
         Assign style

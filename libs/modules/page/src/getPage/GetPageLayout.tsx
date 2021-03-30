@@ -37,7 +37,7 @@ export const GetPageLayout = ({ graph, pageId }: GetPageLayoutProps) => {
 
   const onNodeClick = (e: any, node: any) => {
     // console.log(e, node)
-    setPaneConfig({ vertexId: node.id })
+    setPaneConfig({ pageElementId: node.id })
   }
 
   return (

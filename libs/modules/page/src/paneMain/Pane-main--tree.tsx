@@ -13,7 +13,7 @@ export const PaneMainTree = () => {
   const [, setPaneConfig] = useRecoilState(paneConfigState)
   const { page } = useContext(AppContext)
   const onSelect = (id: React.Key) => {
-    setPaneConfig({ vertexId: `${id}` })
+    setPaneConfig({ pageElementId: `${id}` })
   }
 
   const cy = CytoscapeService.fromGraph(page?.elements || [], page?.links || [])
@@ -27,7 +27,7 @@ export const PaneMainTree = () => {
   }
 
   return (
-    <PaneMainTemplate title="Tree" header={<></>}>
+    <PaneMainTemplate title="Tree">
       {page && page.elements && page.elements.length ? (
         <Tree
           className="draggable-tree"

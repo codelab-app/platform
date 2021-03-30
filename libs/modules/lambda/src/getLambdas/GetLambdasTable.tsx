@@ -1,7 +1,7 @@
 import { Space } from 'antd'
 import React, { useContext } from 'react'
-import { DeleteLambdaButton } from '../deleteLambda/DeleteLambdaButton'
-import { ExecuteLambdaButton } from '../executeLambda/ExecuteLambdaButton'
+import { DeleteLambdaButton } from '../deleteLambda'
+import { ExecuteLambdaButton } from '../executeLambda'
 import { UpdateLambdaButton } from '../updateLambda/UpdateLambdaButton'
 import { LambdaRecord } from './LambdaRecord'
 import { LambdaFragmentsFragment } from '@codelab/generated'
@@ -44,7 +44,6 @@ export const GetLambdasTable = () => {
   ]
 
   //TODO: fix lambdas UI
-  // return "TODO: get lambdas from library"
   return null
   // return <Table dataSource={mapDataSource(rootAppData.lambdas)} columns={columns} />
 }

@@ -4,7 +4,7 @@ import { PaneMainPage } from '@codelab/modules/page'
 import { BuilderPaneController, LayoutTab } from '@codelab/frontend/layout'
 import { PaneMainComponent } from '@codelab/modules/component'
 import { PaneMainLambda } from '@codelab/modules/lambda'
-import { PaneMainTree } from './Pane-main--tree'
+import { PaneMainTree } from '@codelab/modules/page'
 
 export const PaneMain = () => {
   return (
