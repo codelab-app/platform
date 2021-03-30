@@ -1,4 +1,15 @@
+array_relationships:
+- name: values
+  using:
+    foreign_key_constraint_on:
+      column: parent_prop_id
+      table:
+        name: prop_value
+        schema: public
 object_relationships:
+- name: attribute
+  using:
+    foreign_key_constraint_on: attribute_id
 - name: library
   using:
     foreign_key_constraint_on: library_id

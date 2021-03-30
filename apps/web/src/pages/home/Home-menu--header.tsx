@@ -1,5 +1,5 @@
 import { HomeOutlined, UserOutlined } from '@ant-design/icons'
-import { useUser } from '@auth0/nextjs-auth0'
+import { useUser, getAccessToken } from '@auth0/nextjs-auth0'
 import { Menu } from 'antd'
 import Link from 'next/link'
 import React from 'react'
@@ -17,6 +17,9 @@ import { disableMenuHoverEffects } from '@codelab/frontend/style'
 export const HomeMenuHeader = () => {
   const { user: currentUser } = useUser()
 
+
+    const a = ''
+
   const authenticatedUserMenu = (
     <>
       <Menu.Item key="3" style={{ float: 'right' }}>
@@ -24,6 +27,7 @@ export const HomeMenuHeader = () => {
       </Menu.Item>
       <Menu.SubMenu key="4" style={{ float: 'right' }} icon={<UserOutlined />}>
         <Menu.Item>{currentUser?.email}</Menu.Item>
+        {/*<Menu.Item>{user?.email}</Menu.Item>*/}
       </Menu.SubMenu>
     </>
   )
@@ -69,6 +73,7 @@ export const HomeMenuHeader = () => {
           </Link>
         </Menu.Item>
         {currentUser ? authenticatedUserMenu : guestUserMenu}
+        {/*{user ? authenticatedUserMenu : guestUserMenu}*/}
       </Menu>
     </>
   )
