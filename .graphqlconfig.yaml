@@ -3,17 +3,29 @@ hooks:
   afterAllFileWrite:
     - yarn prettier --write
     - yarn eslint --ext ts --fix
-schema:
-  - ${HASURA_GRAPHQL_URL}:
-      headers:
-        - 'x-hasura-admin-secret': '${HASURA_GRAPHQL_ADMIN_SECRET}'
 generates:
   schema.graphql:
+    schema:
+      - ${HASURA_URL_GRAPHQL}:
+          headers:
+            - 'x-hasura-admin-secret': '${HASURA_GRAPHQL_ADMIN_SECRET}'
+    plugins:
+      - schema-ast
+
+  schema.relay.graphql:
+    schema:
+      - ${HASURA_URL_RELAY}:
+          headers:
+            - 'x-hasura-admin-secret': '${HASURA_GRAPHQL_ADMIN_SECRET}'
     plugins:
       - schema-ast
 
   # Typescript + Apollo
   libs/hasura/src/graphql-client-hasura.generated.ts:
+    schema:
+      - ${HASURA_URL_GRAPHQL}:
+          headers:
+            - 'x-hasura-admin-secret': '${HASURA_GRAPHQL_ADMIN_SECRET}'
     documents:
       - libs/modules/**/*.hasura.graphql
       - apps/web/**/*.hasura.graphql

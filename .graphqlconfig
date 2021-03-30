@@ -4,7 +4,15 @@
   "extensions": {
     "endpoints": {
       "Hasura GraphQL Endpoint": {
-        "url": "https://codelab-ai.hasura.app/v1/graphql",
+        "url": "${env:HASURA_URL_GRAPHQL}",
+        "headers": {
+          "user-agent": "JS GraphQL",
+          "x-hasura-admin-secret": "${env:HASURA_GRAPHQL_ADMIN_SECRET}"
+        },
+        "introspect": true
+      },
+      "Relay GraphQL Endpoint": {
+        "url": "${env:HASURA_URL_RELAY}",
         "headers": {
           "user-agent": "JS GraphQL",
           "x-hasura-admin-secret": "${env:HASURA_GRAPHQL_ADMIN_SECRET}"

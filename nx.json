@@ -37,6 +37,9 @@
     "frontend-shared": { "tags": [] },
     "frontend-layout": { "tags": [] },
     "frontend-builder": { "tags": [] },
-    "frontend-style": { "tags": [] }
+    "frontend-style": { "tags": [] },
+    "frontend-relay": { "tags": [] },
+    "frontend-apollo": { "tags": [] },
+    "frontend-cytoscape": { "tags": [] }
   }
 }

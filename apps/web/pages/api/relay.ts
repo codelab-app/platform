@@ -10,10 +10,11 @@ import { createProxyMiddleware } from 'http-proxy-middleware'
 const app = express()
 
 app.use('*', async (baseReq, baseRes, next) => {
+  console.log('relay')
   const session = await getSession(baseReq, baseRes)
 
   return createProxyMiddleware({
-    target: process.env.HASURA_URL_GRAPHQL,
+    target: process.env.HASURA_URL_RELAY,
     changeOrigin: true,
     proxyTimeout: 5000,
     secure: false,
@@ -21,7 +22,7 @@ app.use('*', async (baseReq, baseRes, next) => {
       Connection: 'keep-alive',
     },
     pathRewrite: {
-      '^/api/graphql': '',
+      '^/api/relay': '',
     },
     onError: (err, req, res) => {
       console.log('err', err, res.statusCode)

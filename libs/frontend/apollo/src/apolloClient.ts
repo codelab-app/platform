@@ -19,7 +19,7 @@ export interface ApolloContext {
 }
 
 const defaultContext: ApolloContext = {
-  graphqlUri: `${process.env.NEXT_PUBLIC_API_ORIGIN}/api/graphql`,
+  graphqlUri: `${process.env.NEXT_PUBLIC_URL_PROXY_GRAPHQL}`,
 }
 
 export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__'

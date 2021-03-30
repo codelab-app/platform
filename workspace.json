@@ -516,6 +516,45 @@
           }
         }
       }
+    },
+    "frontend-relay": {
+      "root": "libs/frontend/relay",
+      "sourceRoot": "libs/frontend/relay/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/frontend/relay/**/*.{ts,tsx,js,jsx}"]
+          }
+        }
+      }
+    },
+    "frontend-apollo": {
+      "root": "libs/frontend/apollo",
+      "sourceRoot": "libs/frontend/apollo/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/frontend/apollo/**/*.{ts,tsx,js,jsx}"]
+          }
+        }
+      }
+    },
+    "frontend-cytoscape": {
+      "root": "libs/frontend/cytoscape",
+      "sourceRoot": "libs/frontend/cytoscape/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/frontend/cytoscape/**/*.{ts,tsx,js,jsx}"]
+          }
+        }
+      }
     }
   }
 }

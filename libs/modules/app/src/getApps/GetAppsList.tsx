@@ -9,7 +9,11 @@ import { useEditAppModal } from '../editApp/useEditAppModal'
 import { useDeleteAppConfirmation } from '../index'
 import { GetAppsItem } from './GetAppsItem'
 
+
+
+
 export const GetAppsList = () => {
+
   const { loading, data } = useGetAppsListQuery({})
 
   const { openDeleteConfirmation } = useDeleteAppConfirmation()

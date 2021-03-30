@@ -1,5 +1,5 @@
 import { PropValueType } from '@codelab/frontend/shared'
-import { Attribute } from '../../../generated/src/graphql-client-hasura.generated'
+import { Attribute } from '@codelab/hasura'
 
 export const getJsonSchemaTypeFromAttributeType = (
   type: PropValueType | undefined | null,

@@ -1,6 +1,6 @@
 import { Editor as CraftjsEditor } from '@craftjs/core'
 import React from 'react'
-import { GetPageGql, useMoveVertexMutation } from '@codelab/generated'
+import { useMoveVertexMutation, GetPageGql } from '@codelab/generated'
 import { craftjsResolver } from './renderer/craftjsResolver'
 
 export const Editor: React.FC<{ pageId: string }> = ({ children, pageId }) => {
