@@ -73,16 +73,22 @@ executors:
       docker_layer_caching: true
       image: ubuntu-2004:202010-01
     resource_class: large
+    context:
+      - ci
   docker-node:
     <<: *executor-config
     docker:
       - image: cimg/node:14.15.0-browsers
     resource_class: large
+    context:
+      - ci
   vault-img:
     <<: *executor-config
     docker:
       - image: joatmon08/circleci-gcp-agent:287.0-1.14.72
     resource_class: small
+    context:
+      - ci
 
 commands:
   setup-env:
