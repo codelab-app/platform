@@ -84,15 +84,16 @@ executors:
       - image: joatmon08/circleci-gcp-agent:287.0-1.14.72
     resource_class: small
 
+
 commands:
   setup-env:
     description: 'Setup env'
     steps:
       - attach_workspace:
           at: ..
-      - run:
-          name: 'Inject vault env to bash env'
-          command: "cat ~/.env >> $BASH_ENV"
+      # - run:
+      #     name: 'Inject vault env to bash env'
+      #     command: "cat ~/.env >> $BASH_ENV"
       - run:
           name: 'Install NVM'
           command: |
@@ -167,7 +168,7 @@ commands:
             - ~/.cache/yarn
             - ~/.cache/Cypress
             - ~/app/node_modules
-            - ~/app/dist/apps/web/.next/cache
+            - ~/app/apps/web/.next/cache
 
   yarn-install-prod:
     description: 'Install prod dependencies'
@@ -190,7 +191,7 @@ commands:
             - ~/.cache/yarn
             - ~/.cache/Cypress
             - ~/app/node_modules
-            - ~/app/dist/apps/web/.next/cache
+            - ~/app/apps/web/.next/cache
 
   notify-failure:
     steps:
@@ -308,32 +309,38 @@ jobs:
 workflows:
   app-dev:
     jobs:
-      - setup-vault-env:
-          <<: *filters-dev
-          e: vault-img
+      # - setup-vault-env:
+      #     <<: *filters-dev
+      #     e: vault-img
+      #     context: CI
       - install-and-build-workspace:
           <<: *filters-dev
           e: docker-node
-          requires:
-            - setup-vault-env
+          context: CI
+          # requires:
+          #   - setup-vault-env
       - lint:
           <<: *filters-dev
           e: docker-node
+          context: CI
           requires:
             - install-and-build-workspace
       - unit:
           <<: *filters-dev
           e: docker-node
+          context: CI
           requires:
             - install-and-build-workspace
       - integration:
           <<: *filters-dev
           e: docker-node
+          context: CI
           requires:
             - install-and-build-workspace
       - e2e:
           <<: *filters-dev
           e: docker-node
+          context: CI
           requires:
             - install-and-build-workspace
       - notify-success:
@@ -347,16 +354,19 @@ workflows:
 
   app-staging:
     jobs:
-      - setup-vault-env:
-          <<: *filters-staging
-          e: vault-img
+      # - setup-vault-env:
+      #     <<: *filters-staging
+      #     e: vault-img
+      #     context: CI
       - install-and-build-workspace:
           <<: *filters-staging
           e: docker-node
-          requires:
-            - setup-vault-env
+          context: CI
+          # requires:
+          #   - setup-vault-env
       - build-and-push-docker-image:
           <<: *filters-staging
+          context: CI
           requires:
             - install-and-build-workspace
       - notify-success:
