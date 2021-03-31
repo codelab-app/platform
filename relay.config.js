@@ -4,11 +4,11 @@ module.exports = {
   // Configuration options accepted by the `relay-compiler` command-line tool and `babel-plugin-relay`.
   src: './',
   artifactDirectory: './libs/hasura/src/__relay__',
-  include: ['./apps/web/**/*'],
+  include: ['./apps/web/**/*', './libs/modules/**'],
   schema: './schema.relay.graphql',
   extensions: ['ts', 'tsx'],
   /**
-   * Careful when installing watchman, it won't compile grpahql files
+   * Careful when installing watchman, it won't compile graphql files
    */
   watchman: false,
   language: 'typescript',

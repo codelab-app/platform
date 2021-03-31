@@ -1,37 +1,17 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { PageHeader } from 'antd'
 import React from 'react'
-import { CreateAppButton, GetAppsList } from '@codelab/modules/app'
+import {
+  CreateAppButton,
+  GetAppsList,
+  // appsPageQuery,
+} from '@codelab/modules/app'
 import { SignOutUserButton } from '@codelab/modules/user'
 import { padding } from '@codelab/frontend/style'
-import { initEnvironment } from '@codelab/frontend/relay'
-import {
-  fetchQuery,
-  graphql,
-} from 'react-relay'
-import { useQuery } from 'relay-hooks'
 import { ssrPipe } from '@codelab/frontend/shared'
 
-const AppsQuery = graphql`
-  query appsQuery {
-    app_connection {
-      edges {
-        node {
-          id
-        }
-      }
-    }
-  }
-`
-
-const AppsPage = () => {
-  const { error, data } = useQuery(AppsQuery)
-
-  console.log(data)
-
-  if (error) return <div>{error.message}</div>
-
-  if (!data) return <div>Loading</div>
+const AppsPage = (props: any) => {
+  console.log(props)
 
   const pageHeaderButtons = [
     <CreateAppButton key={1} />,
@@ -54,19 +34,17 @@ const AppsPage = () => {
 }
 
 export const getServerSideProps = ssrPipe(withPageAuthRequired, async () => {
-  const { environment, relaySSR } = initEnvironment()
+  // const environment = initEnvironment()
+  // const queryProps = await fetchQuery(environment, appsPageQuery, {})
+  // const initialRecords = environment.getStore().getSource().toJSON()
 
-  await fetchQuery(environment, AppsQuery, {})
-
-  const relayData = (await relaySSR.getCache())?.[0]
-
-  console.log(relayData)
-
-  return {
-    props: {
-      relayData: !relayData ? null : [[relayData[0], relayData[1].json]],
-    },
-  }
+  return {}
+  // return {
+  //   props: {
+  //     ...queryProps,
+  //     initialRecords,
+  //   },
+  // }
 })
 
 export default AppsPage
