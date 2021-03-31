@@ -73,22 +73,17 @@ executors:
       docker_layer_caching: true
       image: ubuntu-2004:202010-01
     resource_class: large
-    context:
-      - ci
   docker-node:
     <<: *executor-config
     docker:
       - image: cimg/node:14.15.0-browsers
     resource_class: large
-    context:
-      - ci
   vault-img:
     <<: *executor-config
     docker:
       - image: joatmon08/circleci-gcp-agent:287.0-1.14.72
     resource_class: small
-    context:
-      - ci
+
 
 commands:
   setup-env:
@@ -96,9 +91,9 @@ commands:
     steps:
       - attach_workspace:
           at: ..
-      - run:
-          name: 'Inject vault env to bash env'
-          command: "cat ~/.env >> $BASH_ENV"
+      # - run:
+      #     name: 'Inject vault env to bash env'
+      #     command: "cat ~/.env >> $BASH_ENV"
       - run:
           name: 'Install NVM'
           command: |
@@ -317,29 +312,35 @@ workflows:
       - setup-vault-env:
           <<: *filters-dev
           e: vault-img
+          context: ci
       - install-and-build-workspace:
           <<: *filters-dev
           e: docker-node
+          context: ci
           requires:
             - setup-vault-env
       - lint:
           <<: *filters-dev
           e: docker-node
+          context: ci
           requires:
             - install-and-build-workspace
       - unit:
           <<: *filters-dev
           e: docker-node
+          context: ci
           requires:
             - install-and-build-workspace
       - integration:
           <<: *filters-dev
           e: docker-node
+          context: ci
           requires:
             - install-and-build-workspace
       - e2e:
           <<: *filters-dev
           e: docker-node
+          context: ci
           requires:
             - install-and-build-workspace
       - notify-success:
@@ -356,13 +357,16 @@ workflows:
       - setup-vault-env:
           <<: *filters-staging
           e: vault-img
+          context: ci
       - install-and-build-workspace:
           <<: *filters-staging
           e: docker-node
+          context: ci
           requires:
             - setup-vault-env
       - build-and-push-docker-image:
           <<: *filters-staging
+          context: ci
           requires:
             - install-and-build-workspace
       - notify-success:
