@@ -191,7 +191,7 @@ commands:
             - ~/.cache/yarn
             - ~/.cache/Cypress
             - ~/app/node_modules
-            - ~/app/dist/apps/web/.next/cache
+            - ~/app/apps/web/.next/cache
 
   notify-failure:
     steps:
