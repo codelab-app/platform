@@ -312,35 +312,35 @@ workflows:
       - setup-vault-env:
           <<: *filters-dev
           e: vault-img
-          context: ci
+          context: CI
       - install-and-build-workspace:
           <<: *filters-dev
           e: docker-node
-          context: ci
+          context: CI
           requires:
             - setup-vault-env
       - lint:
           <<: *filters-dev
           e: docker-node
-          context: ci
+          context: CI
           requires:
             - install-and-build-workspace
       - unit:
           <<: *filters-dev
           e: docker-node
-          context: ci
+          context: CI
           requires:
             - install-and-build-workspace
       - integration:
           <<: *filters-dev
           e: docker-node
-          context: ci
+          context: CI
           requires:
             - install-and-build-workspace
       - e2e:
           <<: *filters-dev
           e: docker-node
-          context: ci
+          context: CI
           requires:
             - install-and-build-workspace
       - notify-success:
@@ -357,16 +357,16 @@ workflows:
       - setup-vault-env:
           <<: *filters-staging
           e: vault-img
-          context: ci
+          context: CI
       - install-and-build-workspace:
           <<: *filters-staging
           e: docker-node
-          context: ci
+          context: CI
           requires:
             - setup-vault-env
       - build-and-push-docker-image:
           <<: *filters-staging
-          context: ci
+          context: CI
           requires:
             - install-and-build-workspace
       - notify-success:
