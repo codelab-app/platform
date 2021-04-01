@@ -311,7 +311,7 @@ jobs:
     steps:
       - setup-workspace
       - run:
-          name: Installing dependencies
+          name: Install dependencies
           command: |
             sudo apt-get -y -qq update
             sudo apt-get install python3-pip awscli build-essential
@@ -325,9 +325,6 @@ jobs:
             echo "[profile eb-cli]" > ~/.aws/config
             echo "aws_access_key_id=$AWS_ACCESS_KEY" >> ~/.aws/config
             echo "aws_secret_access_key=$AWS_SECRET_KEY" >> ~/.aws/config
-      - run:
-          name: Install NPM packages
-          command: yarn install --frozen-lockfile --prod=true
       - run:
           name: Deploying to eb
           command: |
@@ -396,26 +393,31 @@ workflows:
       - lint:
           <<: *filters-staging
           e: docker-node
+          context: CI
           requires:
             - install-and-build-workspace
       - unit:
           <<: *filters-staging
           e: docker-node
+          context: CI
           requires:
             - install-and-build-workspace
       - integration:
           <<: *filters-staging
           e: docker-node
+          context: CI
           requires:
             - install-and-build-workspace
       - e2e:
           <<: *filters-staging
           e: docker-node
+          context: CI
           requires:
             - install-and-build-workspace
       - deploy-to-ebs:
           <<: *filters-staging
           e: docker-node
+          context: CI
           requires:
             - lint
             - unit
