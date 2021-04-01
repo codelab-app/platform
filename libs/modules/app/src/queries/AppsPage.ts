@@ -1,3 +1,4 @@
+// import { graphql } from 'babel-plugin-relay/macro'
 import { graphql } from 'react-relay'
 
 export const AppsPageQuery = graphql`
