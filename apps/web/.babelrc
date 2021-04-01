@@ -10,7 +10,7 @@
        *
        * https://github.com/Yuvaleros/material-ui-dropzone/issues/77#issuecomment-547909458
        */
-      // { "useBuiltIns": "usage", "corejs": 3 }
+      { "useBuiltIns": "usage", "corejs": 3 }
     ],
     // [
     //   "@babel/preset-env",
