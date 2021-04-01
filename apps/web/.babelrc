@@ -3,10 +3,23 @@
     /**
      * https://github.com/facebook/relay/issues/3272
      */
-    "@nrwl/next/babel"
-    /**
-     * https://stackoverflow.com/questions/53558916/babel-7-referenceerror-regeneratorruntime-is-not-defined
-     */
+    [
+      "@nrwl/next/babel",
+      /**
+       * https://stackoverflow.com/questions/53558916/babel-7-referenceerror-regeneratorruntime-is-not-defined
+       *
+       * https://github.com/Yuvaleros/material-ui-dropzone/issues/77#issuecomment-547909458
+       */
+      // { "useBuiltIns": "usage", "corejs": 3 }
+    ],
+    // [
+    //   "@babel/preset-env",
+    //   {
+    //     "useBuiltIns": "usage", // alternative mode: "entry"
+    //     "corejs": 3 // default would be 2
+    //     // set your own target environment here (see Browserslist)
+    //   }
+    // ],
   ],
   "plugins": [
     /*
@@ -18,6 +31,6 @@
       {
         // "artifactDirectory": "../../__relay"
       }
-    ]
+    ],
   ]
 }

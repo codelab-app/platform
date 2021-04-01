@@ -59,11 +59,11 @@ export const getServerSideProps = ssrPipe(withPageAuthRequired, async () => {
   console.log('queryProps', queryProps)
 
   return {
-    props: {
-      // Commented out because https://github.com/vercel/next.js/issues/11993
-      ...queryProps,
-      initialRecords,
-    },
+    // props: {
+    //   // Commented out because https://github.com/vercel/next.js/issues/11993
+    //   ...queryProps,
+    //   initialRecords,
+    // },
   }
 })
 
