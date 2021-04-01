@@ -2,7 +2,7 @@ import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { PageHeader } from 'antd'
 import React from 'react'
 import {
-  AppsPageQuery,
+  // AppsPageQuery,
   CreateAppButton,
   GetAppsList,
 } from '@codelab/modules/app'
@@ -11,6 +11,7 @@ import { padding } from '@codelab/frontend/style'
 import { ssrPipe } from '@codelab/frontend/shared'
 import { initEnvironment } from '@codelab/frontend/relay'
 import { fetchQuery } from 'react-relay'
+import { AppsPageQuery } from '../../src/queries/AppsPage'
 
 const AppsPage = (props: any) => {
   console.log(props)

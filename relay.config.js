@@ -3,7 +3,10 @@ module.exports = {
   // ...
   // Configuration options accepted by the `relay-compiler` command-line tool and `babel-plugin-relay`.
   src: './',
-  include: ['./apps/web/**/*', './libs/modules/**'],
+  include: [
+    './apps/web/**/*',
+    // './libs/modules/**'
+  ],
   artifactDirectory: './libs/modules/hasura/src/__relay__',
   schema: './schema.relay.graphql',
   extensions: ['ts', 'tsx'],

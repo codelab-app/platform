@@ -1,4 +1,4 @@
 {
   "presets": ["@nrwl/next/babel"],
-  "plugins": [["relay", { "artifactDirectory": "./libs/hasura/src/__relay__" }]]
+  "plugins": [["relay", { "artifactDirectory": "libs/hasura/src/__relay__" }]]
 }
