@@ -2,9 +2,9 @@
  * treeWalker passes in a new parent at each level
  */
 
+import { NodeA } from '../interfaces/NodeA'
 import { TreeNode } from './tree-node'
 import { TraversalIteratee, TreeSubTreeAcc } from './tree-walker'
-import { NodeA } from 'libs/modules/graph/src/core/domain/node/Node'
 
 export const treeAppenderIteratee: TraversalIteratee<
   TreeNode,

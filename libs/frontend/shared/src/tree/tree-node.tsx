@@ -6,7 +6,7 @@ export class TreeNode implements NodeA {
 
   public type: AtomType
 
-  public props: object
+  public props: Record<string, unknown>
 
   public children: Array<TreeNode> = []
 
