@@ -1,4 +1,5 @@
 import React from 'react'
+// import { graphql } from 'react-relay'
 
 const AppItem = ({ app }: any) => <div>{app.title}</div>
 
@@ -9,5 +10,3 @@ const AppItem = ({ app }: any) => <div>{app.title}</div>
 //     }
 //   `,
 // })
-
-export default null

@@ -1,4 +1,6 @@
-// import 'regenerator-runtime/runtime';
+// https://stackoverflow.com/questions/53558916/babel-7-referenceerror-regeneratorruntime-is-not-defined
+import 'core-js/stable'
+import 'regenerator-runtime/runtime'
 
 /*
 In production the stylesheet is compiled to .next/static/style.css and served from /_next/static/style.css

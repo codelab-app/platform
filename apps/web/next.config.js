@@ -3,6 +3,7 @@ const withCSS = require('@zeit/next-css')
 const withLess = require('@zeit/next-less')
 const withSass = require('@zeit/next-sass')
 const withPlugins = require('next-compose-plugins')
+const { getThemeVariables } = require('antd/dist/theme')
 
 const isProd = process.env.NODE_ENV === 'production'
 
@@ -27,7 +28,19 @@ const nextConfig = withPlugins([
       },
     },
   ],
-  [withLess, {}],
+  [
+    withLess,
+    {
+      // lessOptions: {
+      //   // If you are using less-loader@5 please spread the lessOptions to options directly
+      //   modifyVars: getThemeVariables({
+      //     dark: true, // Enable dark mode
+      //     compact: true, // Enable compact mode
+      //   }),
+      //   javascriptEnabled: true,
+      // },
+    },
+  ],
   [
     withCSS,
     {

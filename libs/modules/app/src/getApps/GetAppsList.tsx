@@ -16,7 +16,7 @@ export const GetAppsList = () => {
   const { openCreateAppModal } = useCreateAppModal()
   const { openEditAppModal } = useEditAppModal()
 
-  const appList = data?.app
+  const appList = data?.app ?? []
 
   return (
     <>
