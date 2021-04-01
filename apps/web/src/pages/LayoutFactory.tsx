@@ -1,9 +1,10 @@
 import { WithRouterProps } from 'next/dist/client/with-router'
 import React, { PropsWithChildren } from 'react'
-import { Builder, Editor } from '@codelab/frontend/builder'
+import { Editor } from '@codelab/frontend/builder'
 import { AppProvider, PageType } from '@codelab/frontend/shared'
 import { HomeLayout } from './home/Home-layout'
 import { Dashboard } from './Layout-dashboard'
+import { Builder } from './Builder'
 
 // const RenderNode = ({ element }: any) => {
 //   return <div style={{ background: '#000', padding: '5px' }}>{element}</div>
@@ -29,9 +30,9 @@ export const LayoutFactory = ({
 
     return (
       <AppProvider appId={appId} pageId={pageId}>
-          <Editor pageId={pageId}>
-              <Builder>{children}</Builder>
-          </Editor>
+        <Editor pageId={pageId}>
+          <Builder>{children}</Builder>
+        </Editor>
       </AppProvider>
     )
   }

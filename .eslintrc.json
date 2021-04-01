@@ -7,12 +7,14 @@
     "unused-imports",
     "sort-exports",
     "react-hooks",
-    "@emotion"
+    "@emotion",
+    "prettier"
   ],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
+        "prettier/prettier": "error",
         "func-style": "error",
         "@typescript-eslint/array-type": ["error", { "default": "generic" }],
         "@nrwl/nx/enforce-module-boundaries": [
