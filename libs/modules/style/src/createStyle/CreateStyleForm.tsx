@@ -1,5 +1,4 @@
 import React, { useContext } from 'react'
-import { SelectWidget } from '../../../widgets/SelectWidget'
 import { reduceStyleProps } from '../reduceStyleProps'
 import {
   ApolloForm,
@@ -45,15 +44,11 @@ export const CreateStyleForm = (props: FormUseCaseProps<any>) => {
     })
   }
 
-  const widgets = {
-    SelectWidget: SelectWidget,
-  }
 
   return (
     <ApolloForm<any, CreateStyleMutationVariables>
       initialFormData={{ appId, name: '' }}
       schema={CreateStyleInputSchema}
-      widgets={widgets}
       uiSchema={{
         appId: {
           'ui:widget': 'hidden',

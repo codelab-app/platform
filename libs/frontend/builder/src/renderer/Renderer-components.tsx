@@ -1,10 +1,7 @@
 import { Frame, SerializedNodes, useEditor } from '@craftjs/core'
 import React, { useContext, useEffect } from 'react'
 import { useRecoilState } from 'recoil'
-import { paneConfigState } from '../../../../apps/web/src/pages/builder/pane-config/Pane-config'
-import { PaneConfigHandlersProps } from '../../../../apps/web/src/pages/builder/pane-config/Pane-config--handlers'
 import { useOverlayToolbar } from '@codelab/frontend/builder'
-import { CLICK_OVERLAY_ID } from './Overlay-click'
 import { HOVER_OVERLAY_ID } from './Overlay-hover'
 import {
   AddChildVertexInput,
