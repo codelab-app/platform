@@ -9,18 +9,14 @@ import { useEditAppModal } from '../editApp/useEditAppModal'
 import { useDeleteAppConfirmation } from '../index'
 import { GetAppsItem } from './GetAppsItem'
 
-
-
-
 export const GetAppsList = () => {
-
   const { loading, data } = useGetAppsListQuery({})
 
   const { openDeleteConfirmation } = useDeleteAppConfirmation()
   const { openCreateAppModal } = useCreateAppModal()
   const { openEditAppModal } = useEditAppModal()
 
-  const appList = data?.app
+  const appList = data?.app ?? []
 
   return (
     <>

@@ -4,7 +4,7 @@ import { HomeClients } from '../src/pages/home/Home-clients'
 import { HomeFeatures } from '../src/pages/home/Home-features'
 import { HomeJumbo } from '../src/pages/home/Home-jumbo'
 
-const HomePage: NextPage = (props) => {
+const HomePage: NextPage = () => {
   return (
     <>
       <HomeJumbo />

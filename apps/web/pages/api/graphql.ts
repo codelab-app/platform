@@ -43,6 +43,7 @@ app.use('*', async (baseReq, baseRes, next) => {
 
         proxyReq.setHeader('Content-Type', 'application/json')
         proxyReq.setHeader('Content-Length', Buffer.byteLength(bodyData))
+
         // stream the content
         proxyReq.write(bodyData)
       }

@@ -8,13 +8,21 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "allowSyntheticDefaultImports": true,
-    "types": ["node", "jest", "@rjsf/antd"],
+    "types": ["node", "jest", "@rjsf/antd", "babel-plugin-relay/macro"],
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "resolveJsonModule": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "module": "esnext"
   },
-  "include": ["**/*.ts", "**/*.tsx", "**/*.graphql", "next-env.d.ts"],
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.graphql",
+    "next-env.d.ts",
+    "**/*.js",
+    "**/*.jsx"
+  ],
   "exclude": ["node_modules"]
 }

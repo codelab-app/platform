@@ -1,1 +1,1 @@
-export * from './createEnvironment'
+export * from './relay'

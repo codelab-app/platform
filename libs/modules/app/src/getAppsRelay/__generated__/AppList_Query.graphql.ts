@@ -3,8 +3,8 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
-export type appsQueryVariables = {};
-export type appsQueryResponse = {
+export type AppList_QueryVariables = {};
+export type AppList_QueryResponse = {
     readonly app_connection: {
         readonly edges: ReadonlyArray<{
             readonly node: {
@@ -13,15 +13,15 @@ export type appsQueryResponse = {
         }>;
     };
 };
-export type appsQuery = {
-    readonly response: appsQueryResponse;
-    readonly variables: appsQueryVariables;
+export type AppList_Query = {
+    readonly response: AppList_QueryResponse;
+    readonly variables: AppList_QueryVariables;
 };
 
 
 
 /*
-query appsQuery {
+query AppList_Query {
   app_connection {
     edges {
       node {
@@ -80,7 +80,7 @@ return {
     "argumentDefinitions": [],
     "kind": "Fragment",
     "metadata": null,
-    "name": "appsQuery",
+    "name": "AppList_Query",
     "selections": (v0/*: any*/),
     "type": "query_root",
     "abstractKey": null
@@ -89,18 +89,18 @@ return {
   "operation": {
     "argumentDefinitions": [],
     "kind": "Operation",
-    "name": "appsQuery",
+    "name": "AppList_Query",
     "selections": (v0/*: any*/)
   },
   "params": {
-    "cacheID": "efa5837a3df12a76139be23c21fa6aca",
+    "cacheID": "02423c7f703e45a520cae74c4c412413",
     "id": null,
     "metadata": {},
-    "name": "appsQuery",
+    "name": "AppList_Query",
     "operationKind": "query",
-    "text": "query appsQuery {\n  app_connection {\n    edges {\n      node {\n        id\n      }\n    }\n  }\n}\n"
+    "text": "query AppList_Query {\n  app_connection {\n    edges {\n      node {\n        id\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '438d8052718d043dcc8635eb2d60857a';
+(node as any).hash = 'b3a527287f8bbd8116bb8f55bf128d51';
 export default node;

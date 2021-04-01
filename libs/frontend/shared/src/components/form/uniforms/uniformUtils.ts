@@ -18,17 +18,17 @@ export const connectUniformSubmitRef = (
 
 const ajv = new Ajv({ allErrors: true, useDefaults: true, strict: false })
 
-export const createValidator = (schema: object) => {
+export const createValidator = (schema: Record<string, unknown>) => {
   const validator = ajv.compile(schema)
 
-  return (model: object) => {
+  return (model: Record<string, unknown>) => {
     validator(model)
 
     return validator.errors?.length ? { details: validator.errors } : null
   }
 }
 
-export const createBridge = (schema: object) => {
+export const createBridge = (schema: Record<string, unknown>) => {
   const schemaValidator = createValidator(schema)
 
   return new JSONSchemaBridge(schema, schemaValidator)

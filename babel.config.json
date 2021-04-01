@@ -1,4 +1,14 @@
 {
   "presets": [],
+  "plugins": [
+    // https://stackoverflow.com/questions/53558916/babel-7-referenceerror-regeneratorruntime-is-not-defined
+    [
+      "@babel/plugin-transform-runtime",
+      {
+        "regenerator": true,
+        "corejs": 3
+      }
+    ]
+  ],
   "babelrcRoots": ["*"]
 }

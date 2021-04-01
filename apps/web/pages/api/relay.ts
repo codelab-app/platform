@@ -10,7 +10,6 @@ import { createProxyMiddleware } from 'http-proxy-middleware'
 const app = express()
 
 app.use('*', async (baseReq, baseRes, next) => {
-  console.log('relay')
   const session = await getSession(baseReq, baseRes)
 
   return createProxyMiddleware({

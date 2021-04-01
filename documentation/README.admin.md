@@ -12,6 +12,14 @@ So we need to specify path using `__dirname` for `tsconfigRootDir`
 
 # CircleCI
 
+# Babel
+
+We have separate babel settings for application & libraries, use babel.config.json to set default library babel configs
+
+https://stackoverflow.com/questions/53558916/babel-7-referenceerror-regeneratorruntime-is-not-defined
+
+---
+
 Docker executor can't mount volumes, or use local files on remote docker environment. We use machine executor to access local files.
 
 # NX Developemnt flow
@@ -25,6 +33,10 @@ Docker executor can't mount volumes, or use local files on remote docker environ
 
 - `nx build [repo]` in `nx` repo
 - Yarn link to this repo for usage
+
+## Relay
+
+Nextjs uses babelrc from each lib, the artifact path is relative to cwd. Has some issues with project reference import though.
 
 # Linter
 

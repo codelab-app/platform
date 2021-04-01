@@ -1,37 +1,33 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { PageHeader } from 'antd'
 import React from 'react'
-import { CreateAppButton, GetAppsList } from '@codelab/modules/app'
+import {
+  AppsPageQuery,
+  CreateAppButton,
+  GetAppsList,
+  AppList,
+  AppListQuery,
+} from '@codelab/modules/app'
 import { SignOutUserButton } from '@codelab/modules/user'
 import { padding } from '@codelab/frontend/style'
-import { initEnvironment } from '@codelab/frontend/relay'
-import {
-  fetchQuery,
-  graphql,
-} from 'react-relay'
-import { useQuery } from 'relay-hooks'
 import { ssrPipe } from '@codelab/frontend/shared'
+import { initEnvironment } from '@codelab/frontend/relay'
+import { fetchQuery, PreloadedQuery, useQueryLoader } from 'react-relay'
+import { AppList_Query } from 'libs/modules/app/src/getAppsRelay/__generated__/AppList_Query.graphql'
 
-const AppsQuery = graphql`
-  query appsQuery {
-    app_connection {
-      edges {
-        node {
-          id
-        }
-      }
-    }
-  }
-`
+interface AppsPageProps {
+  initialQueryRef: PreloadedQuery<AppList_Query>
+}
 
-const AppsPage = () => {
-  const { error, data } = useQuery(AppsQuery)
+const AppsPage = ({ initialQueryRef, ...props }: AppsPageProps) => {
+  console.log(initialQueryRef, props)
 
-  console.log(data)
+  const [queryRef, loadQuery] = useQueryLoader<AppList_Query>(
+    AppListQuery,
+    initialQueryRef,
+  )
 
-  if (error) return <div>{error.message}</div>
-
-  if (!data) return <div>Loading</div>
+  console.log(queryRef)
 
   const pageHeaderButtons = [
     <CreateAppButton key={1} />,
@@ -47,6 +43,7 @@ const AppsPage = () => {
         extra={pageHeaderButtons}
       />
       <section style={{ marginTop: padding.sm }}>
+        <>{queryRef ? <AppList queryRef={queryRef} /> : null}</>
         <GetAppsList />
       </section>
     </>
@@ -54,18 +51,19 @@ const AppsPage = () => {
 }
 
 export const getServerSideProps = ssrPipe(withPageAuthRequired, async () => {
-  const { environment, relaySSR } = initEnvironment()
+  const environment = initEnvironment()
+  const queryProps = await fetchQuery(environment, AppsPageQuery, {})
+  // const queryProps = await loadQuery(environment, AppsPageQuery, {})
+  const initialRecords = environment.getStore().getSource().toJSON()
 
-  await fetchQuery(environment, AppsQuery, {})
-
-  const relayData = (await relaySSR.getCache())?.[0]
-
-  console.log(relayData)
+  console.log('queryProps', queryProps)
 
   return {
-    props: {
-      relayData: !relayData ? null : [[relayData[0], relayData[1].json]],
-    },
+    // props: {
+    //   // Commented out because https://github.com/vercel/next.js/issues/11993
+    //   ...queryProps,
+    //   initialRecords,
+    // },
   }
 })
 
