@@ -1,7 +1,25 @@
 {
-  "presets": ["@nrwl/next/babel"],
+  "presets": [
+    /**
+     * https://stackoverflow.com/questions/53558916/babel-7-referenceerror-regeneratorruntime-is-not-defined
+     */
+    [
+      "@babel/preset-env",
+      {
+        "useBuiltIns": "usage", // alternative mode: "entry"
+        "corejs": 3, // default would be 2
+        "targets": {
+          "esmodules": true
+        }
+        // "targets": "> 0.25%, not dead"
+        // set your own target environment here (see Browserslist)
+      }
+    ],
+    "@babel/preset-typescript",
+    "@babel/preset-react"
+  ],
   /*
-  * Need this for Next.js to compile, even with macros for some reason.
-  */
-  "plugins": ["relay"]
+   * Need this for Next.js to compile, even with macros for some reason.
+   */
+  "plugins": ["relay", "@babel/transform-runtime"]
 }

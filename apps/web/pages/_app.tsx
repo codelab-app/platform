@@ -11,7 +11,7 @@ import { useEnvironment } from '@codelab/frontend/relay'
 import { LayoutFactory } from '../src/pages/LayoutFactory'
 import { useApollo } from '@codelab/frontend/apollo'
 
-import '../src/styles/App.less'
+// import '../src/styles/App.less'
 
 const AppContainer: React.FC<AppProps> = ({ pageProps, Component, router }) => {
   const environment = useEnvironment(pageProps.initialRecords)

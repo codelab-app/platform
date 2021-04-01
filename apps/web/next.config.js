@@ -40,4 +40,4 @@ const nextConfig = withPlugins([
   ],
 ])
 
-module.exports = nextConfig
+module.exports = {}
