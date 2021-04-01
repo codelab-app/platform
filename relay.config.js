@@ -5,9 +5,9 @@ module.exports = {
   src: './',
   include: [
     './apps/web/**/*',
-    // './libs/modules/**'
+    './libs/modules/**'
   ],
-  artifactDirectory: './libs/modules/hasura/src/__relay__',
+  // artifactDirectory: './libs/modules/hasura/src/__relay__',
   schema: './schema.relay.graphql',
   extensions: ['ts', 'tsx'],
   /**

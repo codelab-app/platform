@@ -10,8 +10,7 @@ import { SignOutUserButton } from '@codelab/modules/user'
 import { padding } from '@codelab/frontend/style'
 import { ssrPipe } from '@codelab/frontend/shared'
 import { initEnvironment } from '@codelab/frontend/relay'
-import { fetchQuery } from 'react-relay'
-import { AppsPageQuery } from '../../src/queries/AppsPage'
+
 
 const AppsPage = (props: any) => {
   console.log(props)
@@ -38,10 +37,10 @@ const AppsPage = (props: any) => {
 
 export const getServerSideProps = ssrPipe(withPageAuthRequired, async () => {
   const environment = initEnvironment()
-  const queryProps = await fetchQuery(environment, AppsPageQuery, {})
+  // const queryProps = await fetchQuery(environment, AppsPageQuery, {})
   const initialRecords = environment.getStore().getSource().toJSON()
 
-  console.log('queryProps', queryProps)
+  // console.log('queryProps', queryProps)
 
   return {
     props: {
