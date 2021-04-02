@@ -5940,6 +5940,53 @@ export type GetAppsListQuery = { __typename?: 'query_root' } & {
   >
 }
 
+export type GetAtomQueryVariables = Exact<{
+  atomId: Scalars['uuid']
+}>
+
+export type GetAtomQuery = { __typename?: 'query_root' } & {
+  atom_by_pk?: Maybe<{ __typename?: 'atom' } & Pick<Atom, 'id' | 'type'>>
+}
+
+export type CreateAtomMutationVariables = Exact<{
+  data: Atom_Insert_Input
+}>
+
+export type CreateAtomMutation = { __typename?: 'mutation_root' } & {
+  insert_atom_one?: Maybe<{ __typename?: 'atom' } & Pick<Atom, 'id'>>
+}
+
+export type DeleteAtomMutationVariables = Exact<{
+  atomId: Scalars['uuid']
+}>
+
+export type DeleteAtomMutation = { __typename?: 'mutation_root' } & {
+  delete_atom_by_pk?: Maybe<{ __typename?: 'atom' } & Pick<Atom, 'id'>>
+}
+
+export type GetAtomsListQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetAtomsListQuery = { __typename?: 'query_root' } & {
+  atom: Array<{ __typename?: 'atom' } & Pick<Atom, 'id' | 'type'>>
+}
+
+export type GetAtomsTypesQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetAtomsTypesQuery = { __typename?: 'query_root' } & {
+  atom_type: Array<
+    { __typename?: 'atom_type' } & Pick<Atom_Type, 'description' | 'value'>
+  >
+}
+
+export type UpdateAtomMutationVariables = Exact<{
+  input: Atom_Set_Input
+  atomId: Scalars['uuid']
+}>
+
+export type UpdateAtomMutation = { __typename?: 'mutation_root' } & {
+  update_atom_by_pk?: Maybe<{ __typename?: 'atom' } & Pick<Atom, 'id' | 'type'>>
+}
+
 export type PropValueFragmentFragment = { __typename?: 'prop_value' } & Pick<
   Prop_Value,
   'id' | 'name' | 'type' | 'value' | 'value_prop_id' | 'lambda_id'
@@ -6009,7 +6056,14 @@ export type GetPageQueryVariables = Exact<{
 }>
 
 export type GetPageQuery = { __typename?: 'query_root' } & {
-  page_by_pk?: Maybe<{ __typename?: 'page' } & Pick<Page, 'id' | 'name'>>
+  page_by_pk?: Maybe<
+    { __typename?: 'page' } & Pick<Page, 'id' | 'name'> & {
+        elements: Array<
+          { __typename?: 'page_element' } & RootAppPageElementFragment
+        >
+        links: Array<{ __typename?: 'page_link' } & RootAppPageLinkFragment>
+      }
+  >
 }
 
 export type GetPagesListQueryVariables = Exact<{
@@ -6391,6 +6445,323 @@ export type GetAppsListQueryResult = Apollo.QueryResult<
   GetAppsListQuery,
   GetAppsListQueryVariables
 >
+export const GetAtomGql = gql`
+  query GetAtom($atomId: uuid!) {
+    atom_by_pk(id: $atomId) {
+      id
+      type
+    }
+  }
+`
+
+/**
+ * __useGetAtomQuery__
+ *
+ * To run a query within a React component, call `useGetAtomQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAtomQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAtomQuery({
+ *   variables: {
+ *      atomId: // value for 'atomId'
+ *   },
+ * });
+ */
+export function useGetAtomQuery(
+  baseOptions: Apollo.QueryHookOptions<GetAtomQuery, GetAtomQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetAtomQuery, GetAtomQueryVariables>(
+    GetAtomGql,
+    options,
+  )
+}
+export function useGetAtomLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetAtomQuery,
+    GetAtomQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetAtomQuery, GetAtomQueryVariables>(
+    GetAtomGql,
+    options,
+  )
+}
+export type GetAtomQueryHookResult = ReturnType<typeof useGetAtomQuery>
+export type GetAtomLazyQueryHookResult = ReturnType<typeof useGetAtomLazyQuery>
+export type GetAtomQueryResult = Apollo.QueryResult<
+  GetAtomQuery,
+  GetAtomQueryVariables
+>
+export const CreateAtomGql = gql`
+  mutation CreateAtom($data: atom_insert_input!) {
+    insert_atom_one(object: $data) {
+      id
+    }
+  }
+`
+export type CreateAtomMutationFn = Apollo.MutationFunction<
+  CreateAtomMutation,
+  CreateAtomMutationVariables
+>
+
+/**
+ * __useCreateAtomMutation__
+ *
+ * To run a mutation, you first call `useCreateAtomMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateAtomMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createAtomMutation, { data, loading, error }] = useCreateAtomMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useCreateAtomMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateAtomMutation,
+    CreateAtomMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<CreateAtomMutation, CreateAtomMutationVariables>(
+    CreateAtomGql,
+    options,
+  )
+}
+export type CreateAtomMutationHookResult = ReturnType<
+  typeof useCreateAtomMutation
+>
+export type CreateAtomMutationResult = Apollo.MutationResult<CreateAtomMutation>
+export type CreateAtomMutationOptions = Apollo.BaseMutationOptions<
+  CreateAtomMutation,
+  CreateAtomMutationVariables
+>
+export const DeleteAtomGql = gql`
+  mutation DeleteAtom($atomId: uuid!) {
+    delete_atom_by_pk(id: $atomId) {
+      id
+    }
+  }
+`
+export type DeleteAtomMutationFn = Apollo.MutationFunction<
+  DeleteAtomMutation,
+  DeleteAtomMutationVariables
+>
+
+/**
+ * __useDeleteAtomMutation__
+ *
+ * To run a mutation, you first call `useDeleteAtomMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteAtomMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteAtomMutation, { data, loading, error }] = useDeleteAtomMutation({
+ *   variables: {
+ *      atomId: // value for 'atomId'
+ *   },
+ * });
+ */
+export function useDeleteAtomMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeleteAtomMutation,
+    DeleteAtomMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<DeleteAtomMutation, DeleteAtomMutationVariables>(
+    DeleteAtomGql,
+    options,
+  )
+}
+export type DeleteAtomMutationHookResult = ReturnType<
+  typeof useDeleteAtomMutation
+>
+export type DeleteAtomMutationResult = Apollo.MutationResult<DeleteAtomMutation>
+export type DeleteAtomMutationOptions = Apollo.BaseMutationOptions<
+  DeleteAtomMutation,
+  DeleteAtomMutationVariables
+>
+export const GetAtomsListGql = gql`
+  query GetAtomsList {
+    atom {
+      id
+      type
+    }
+  }
+`
+
+/**
+ * __useGetAtomsListQuery__
+ *
+ * To run a query within a React component, call `useGetAtomsListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAtomsListQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAtomsListQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAtomsListQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetAtomsListQuery,
+    GetAtomsListQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetAtomsListQuery, GetAtomsListQueryVariables>(
+    GetAtomsListGql,
+    options,
+  )
+}
+export function useGetAtomsListLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetAtomsListQuery,
+    GetAtomsListQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetAtomsListQuery, GetAtomsListQueryVariables>(
+    GetAtomsListGql,
+    options,
+  )
+}
+export type GetAtomsListQueryHookResult = ReturnType<
+  typeof useGetAtomsListQuery
+>
+export type GetAtomsListLazyQueryHookResult = ReturnType<
+  typeof useGetAtomsListLazyQuery
+>
+export type GetAtomsListQueryResult = Apollo.QueryResult<
+  GetAtomsListQuery,
+  GetAtomsListQueryVariables
+>
+export const GetAtomsTypesGql = gql`
+  query GetAtomsTypes {
+    atom_type {
+      description
+      value
+    }
+  }
+`
+
+/**
+ * __useGetAtomsTypesQuery__
+ *
+ * To run a query within a React component, call `useGetAtomsTypesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAtomsTypesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAtomsTypesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAtomsTypesQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetAtomsTypesQuery,
+    GetAtomsTypesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetAtomsTypesQuery, GetAtomsTypesQueryVariables>(
+    GetAtomsTypesGql,
+    options,
+  )
+}
+export function useGetAtomsTypesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetAtomsTypesQuery,
+    GetAtomsTypesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetAtomsTypesQuery, GetAtomsTypesQueryVariables>(
+    GetAtomsTypesGql,
+    options,
+  )
+}
+export type GetAtomsTypesQueryHookResult = ReturnType<
+  typeof useGetAtomsTypesQuery
+>
+export type GetAtomsTypesLazyQueryHookResult = ReturnType<
+  typeof useGetAtomsTypesLazyQuery
+>
+export type GetAtomsTypesQueryResult = Apollo.QueryResult<
+  GetAtomsTypesQuery,
+  GetAtomsTypesQueryVariables
+>
+export const UpdateAtomGql = gql`
+  mutation UpdateAtom($input: atom_set_input!, $atomId: uuid!) {
+    update_atom_by_pk(_set: $input, pk_columns: { id: $atomId }) {
+      id
+      type
+    }
+  }
+`
+export type UpdateAtomMutationFn = Apollo.MutationFunction<
+  UpdateAtomMutation,
+  UpdateAtomMutationVariables
+>
+
+/**
+ * __useUpdateAtomMutation__
+ *
+ * To run a mutation, you first call `useUpdateAtomMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateAtomMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateAtomMutation, { data, loading, error }] = useUpdateAtomMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *      atomId: // value for 'atomId'
+ *   },
+ * });
+ */
+export function useUpdateAtomMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateAtomMutation,
+    UpdateAtomMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<UpdateAtomMutation, UpdateAtomMutationVariables>(
+    UpdateAtomGql,
+    options,
+  )
+}
+export type UpdateAtomMutationHookResult = ReturnType<
+  typeof useUpdateAtomMutation
+>
+export type UpdateAtomMutationResult = Apollo.MutationResult<UpdateAtomMutation>
+export type UpdateAtomMutationOptions = Apollo.BaseMutationOptions<
+  UpdateAtomMutation,
+  UpdateAtomMutationVariables
+>
 export const PageElementConfigGql = gql`
   query PageElementConfig($pageElementId: uuid!) {
     page_element_by_pk(id: $pageElementId) {
@@ -6603,8 +6974,16 @@ export const GetPageGql = gql`
     page_by_pk(id: $pageId) {
       id
       name
+      elements {
+        ...RootAppPageElement
+      }
+      links {
+        ...RootAppPageLink
+      }
     }
   }
+  ${RootAppPageElementFragmentDoc}
+  ${RootAppPageLinkFragmentDoc}
 `
 
 /**
@@ -6950,6 +7329,52 @@ export const GetAppsList = gql`
     }
   }
 `
+export const GetAtom = gql`
+  query GetAtom($atomId: uuid!) {
+    atom_by_pk(id: $atomId) {
+      id
+      type
+    }
+  }
+`
+export const CreateAtom = gql`
+  mutation CreateAtom($data: atom_insert_input!) {
+    insert_atom_one(object: $data) {
+      id
+    }
+  }
+`
+export const DeleteAtom = gql`
+  mutation DeleteAtom($atomId: uuid!) {
+    delete_atom_by_pk(id: $atomId) {
+      id
+    }
+  }
+`
+export const GetAtomsList = gql`
+  query GetAtomsList {
+    atom {
+      id
+      type
+    }
+  }
+`
+export const GetAtomsTypes = gql`
+  query GetAtomsTypes {
+    atom_type {
+      description
+      value
+    }
+  }
+`
+export const UpdateAtom = gql`
+  mutation UpdateAtom($input: atom_set_input!, $atomId: uuid!) {
+    update_atom_by_pk(_set: $input, pk_columns: { id: $atomId }) {
+      id
+      type
+    }
+  }
+`
 export const PageElementConfig = gql`
   query PageElementConfig($pageElementId: uuid!) {
     page_element_by_pk(id: $pageElementId) {
@@ -6984,8 +7409,16 @@ export const GetPage = gql`
     page_by_pk(id: $pageId) {
       id
       name
+      elements {
+        ...RootAppPageElement
+      }
+      links {
+        ...RootAppPageLink
+      }
     }
   }
+  ${RootAppPageElement}
+  ${RootAppPageLink}
 `
 export const GetPagesList = gql`
   query GetPagesList($appId: uuid!) {

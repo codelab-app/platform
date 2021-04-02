@@ -5,6 +5,7 @@ export type ModelIds =
   | 'vertexId'
   | 'edgeId'
   | 'styleId'
+  | 'atomId'
   | ''
 
 export type PropsWithIds<T extends ModelIds = ModelIds> = {

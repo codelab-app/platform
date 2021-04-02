@@ -1,0 +1,5 @@
+mutation CreateAtom ($data: atom_insert_input!){
+  insert_atom_one(object: $data){
+    id
+  }
+}

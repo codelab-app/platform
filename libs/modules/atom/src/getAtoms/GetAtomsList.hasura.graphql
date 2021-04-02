@@ -1,0 +1,6 @@
+query GetAtomsList {
+  atom {
+    id
+    type
+  }
+}
