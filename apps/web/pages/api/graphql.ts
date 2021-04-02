@@ -35,6 +35,10 @@ app.use('*', async (baseReq, baseRes, next) => {
     onProxyReq: (proxyReq, req) => {
       if (session) {
         proxyReq.setHeader('Authorization', `Bearer ${session.idToken}`)
+        proxyReq.setHeader(
+          'x-hasura-admin-secret',
+          `${process.env.HASURA_GRAPHQL_ADMIN_SECRET}`,
+        )
       }
 
       if (req.body) {
@@ -54,6 +58,7 @@ app.use('*', async (baseReq, baseRes, next) => {
 export const config = {
   api: {
     bodyParser: false,
+    externalResolver: true,
   },
 }
 
