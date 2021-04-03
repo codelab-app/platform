@@ -3,10 +3,7 @@ import { Button } from 'antd'
 import React from 'react'
 import { useRecoilValue } from 'recoil'
 import { atomState } from '../useAtom'
-import {
-  useDeleteAtomMutation,
-  GetAtomsListGql,
-} from '@codelab/hasura'
+import { useDeleteAtomMutation, GetAtomsListGql } from '@codelab/hasura'
 
 export type DeleteAtomButtonProps = {
   onSuccess: () => void

@@ -44,7 +44,6 @@ export const CreateStyleForm = (props: FormUseCaseProps<any>) => {
     })
   }
 
-
   return (
     <ApolloForm<any, CreateStyleMutationVariables>
       initialFormData={{ appId, name: '' }}

@@ -14,6 +14,7 @@ describe('convertStyles', () => {
         parent: null,
         graph: {
           __typename: 'Graph',
+
           id: '524d2934-3fb1-42fa-9afa-233ff174f5b1',
         },
         styles: [],

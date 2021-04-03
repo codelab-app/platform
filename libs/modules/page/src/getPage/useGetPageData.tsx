@@ -1,6 +1,6 @@
 import { PropsWithIds } from '@codelab/frontend/shared'
 import { useGetPageQuery } from '@codelab/generated'
-import { convertStyles } from './convertStyles'
+import { convertStyles } from '@codelab/modules/style'
 
 export const useGetPageData = ({ pageId }: PropsWithIds<'pageId'>) => {
   const { data } = useGetPageQuery({

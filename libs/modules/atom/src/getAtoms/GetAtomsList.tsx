@@ -1,7 +1,7 @@
 import { List, Space } from 'antd'
 import React from 'react'
 import { useGetAtomsListQuery } from '@codelab/hasura'
-import {useAtom} from '../useAtom'
+import { useAtom } from '../useAtom'
 import { RightOutlined, SettingOutlined } from '@ant-design/icons'
 
 export const GetAtomsList = () => {

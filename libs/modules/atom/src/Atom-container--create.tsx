@@ -1,5 +1,5 @@
 import { Button } from 'antd'
-import React, {  useRef } from 'react'
+import React, { useRef } from 'react'
 import { CreateAtomForm } from './createAtom/CreateAtomForm'
 import { useAtom } from './useAtom'
 import { SubmitController } from '@codelab/frontend/shared'
