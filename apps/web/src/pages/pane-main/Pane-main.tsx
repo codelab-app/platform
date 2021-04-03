@@ -5,6 +5,7 @@ import { BuilderPaneController, LayoutTab } from '@codelab/frontend/layout'
 import { PaneMainComponent } from '@codelab/modules/component'
 import { PaneMainLambda } from '@codelab/modules/lambda'
 import { PaneMainTree } from '@codelab/modules/page'
+import { PaneMainAtom } from '@codelab/modules/atom'
 
 export const PaneMain = () => {
   return (
@@ -32,6 +33,9 @@ export const PaneMain = () => {
         isVisible={({ tab }) => tab === LayoutTab.Function}
       >
         <PaneMainLambda />
+      </BuilderPaneController>
+      <BuilderPaneController isVisible={({ tab }) => tab === LayoutTab.Atoms}>
+        <PaneMainAtom />
       </BuilderPaneController>
     </div>
   )

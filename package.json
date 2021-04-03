@@ -85,6 +85,7 @@
     "class-validator": "0.12.2",
     "cli-color": "2.0.0",
     "cookie": "0.4.1",
+    "core-js": "^3.6.5",
     "cors": "2.8.5",
     "cross-fetch": "3.0.6",
     "cytoscape": "3.16.3",

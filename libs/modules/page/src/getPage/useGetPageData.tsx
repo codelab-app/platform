@@ -1,5 +1,6 @@
 import { PropsWithIds } from '@codelab/frontend/shared'
 import { useGetPageQuery } from '@codelab/generated'
+import { convertStyles } from '@codelab/modules/style'
 
 export const useGetPageData = ({ pageId }: PropsWithIds<'pageId'>) => {
   const { data } = useGetPageQuery({
@@ -15,7 +16,7 @@ export const useGetPageData = ({ pageId }: PropsWithIds<'pageId'>) => {
   )?.[0]
 
   return {
-    layoutGraph,
+    layoutGraph: convertStyles(layoutGraph),
     page: data?.getPage,
   }
 }

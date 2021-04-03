@@ -43,7 +43,7 @@ export const GetPageLayout = ({ graph, pageId }: GetPageLayoutProps) => {
 
   return (
     <>
-      <RenderComponents node={root} data={craftData} />
+      <RenderComponents data={craftData} />
       <Button
         icon={<PlusOutlined />}
         type="primary"

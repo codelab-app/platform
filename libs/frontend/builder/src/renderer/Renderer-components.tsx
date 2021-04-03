@@ -1,5 +1,5 @@
 import { Frame, SerializedNodes, useEditor } from '@craftjs/core'
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useRecoilState } from 'recoil'
 import { useOverlayToolbar } from '@codelab/frontend/builder'
 import { HOVER_OVERLAY_ID } from './Overlay-hover'
@@ -65,35 +65,12 @@ export const useComponentHandlers = () => {
   return handlers
 }
 
-export const RenderComponents = ({
-  node,
-  data,
-}: {
-  node: NodeA
-  data: SerializedNodes
-}) => {
+export const RenderComponents = ({ data }: { data: SerializedNodes }) => {
   const handlers = useComponentHandlers()
 
-  /* const { resetClickOverlay } = handlers
-
-     * const [RootComponent, props] = elementParameterFactory({
-     *   node,
-     *   handlers,
-     * })
-
-     * const ref = useRef<HTMLDivElement>(null) */
-
-  // useOnClickOutside(ref, () => resetClickOverlay(), [resetClickOverlay])
-
-  // console.log(node.type)
-
-  /* const DomTree = (
-   *     <RootComponent {...props}>
-   *         {RenderChildren(node, {}, handlers)}
-   *     </RootComponent>
-   * ) */
-
-  useEditor((s, q) => {
+  const {
+    actions: { deserialize },
+  } = useEditor((s) => {
     const selectedVertexId = s.events.selected
 
     if (selectedVertexId !== null) {
@@ -101,17 +78,13 @@ export const RenderComponents = ({
     }
   })
 
+  useEffect(() => {
+    deserialize(data)
+  }, [data, deserialize])
+
   return (
     <div style={{ width: '100%', height: 'auto' }}>
       <Frame data={data} />
-      {/* {DomTree} */}
-
-      {/* <HoverOverlay />
-      <DropOverlay />
-
-      <div ref={ref}>
-        <ClickOverlay />
-      </div> */}
     </div>
   )
 }

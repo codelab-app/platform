@@ -2,6 +2,7 @@ import {
   ApartmentOutlined,
   AppstoreOutlined,
   CopyOutlined,
+  DeploymentUnitOutlined,
   FormatPainterOutlined,
   FunctionOutlined,
   PlusSquareOutlined,
@@ -99,6 +100,19 @@ const MenuItemStyle = ({ toggleTab, ...props }: MenuItemProps) => {
   )
 }
 
+const MenuItemAtoms = ({ toggleTab, ...props }: MenuItemProps) => {
+  return (
+    <Menu.Item
+      {...props}
+      key="6"
+      onClick={() => toggleTab(LayoutTab.Atoms)}
+      icon={<DeploymentUnitOutlined />}
+    >
+      Atoms
+    </Menu.Item>
+  )
+}
+
 export const BuilderTabSidebar = () => {
   const { toggleTab } = useLayout()
 
@@ -110,6 +124,7 @@ export const BuilderTabSidebar = () => {
       <MenuItemTree toggleTab={toggleTab} />
       <MenuItemStyle toggleTab={toggleTab} />
       <MenuItemFunction toggleTab={toggleTab} />
+      <MenuItemAtoms toggleTab={toggleTab} />
     </Menu>
   )
 }
