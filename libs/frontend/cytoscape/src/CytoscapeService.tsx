@@ -51,22 +51,22 @@ export class CytoscapeService {
 
       pageElement.component?.links.forEach((link) => {
         edges.push({
-    /* static fromGraph({ vertices, edges }: GraphFragmentsFragment): Core {
-     *   return cytoscape({
-     *     headless: true,
-     *     elements: {
-     *       nodes: vertices.map<NodeDefinition>(
-     *         ({ id, type, props, parent, styles }) => ({
-     *           data: {
-     *             id,
-     *             parent: parent?.id,
-     *             type,
-     *             props,
-     *             styles,
-     *           },
-     *         }),
-     *       ),
-     *       edges: edges.map<EdgeDefinition>(({ id, source, target }) => ({ */
+          /* static fromGraph({ vertices, edges }: GraphFragmentsFragment): Core {
+           *   return cytoscape({
+           *     headless: true,
+           *     elements: {
+           *       nodes: vertices.map<NodeDefinition>(
+           *         ({ id, type, props, parent, styles }) => ({
+           *           data: {
+           *             id,
+           *             parent: parent?.id,
+           *             type,
+           *             props,
+           *             styles,
+           *           },
+           *         }),
+           *       ),
+           *       edges: edges.map<EdgeDefinition>(({ id, source, target }) => ({ */
           data: {
             id: link.id,
             source: link.source_element_id,
