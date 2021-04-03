@@ -427,6 +427,14 @@
           "options": {
             "lintFilePatterns": ["libs/modules/style/**/*.{ts,tsx,js,jsx}"]
           }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/modules/style"],
+          "options": {
+            "jestConfig": "libs/modules/style/jest.config.js",
+            "passWithNoTests": true
+          }
         }
       }
     },
