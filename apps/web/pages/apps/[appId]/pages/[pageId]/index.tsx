@@ -24,11 +24,11 @@ const PageDetail = ({
 // Redirect to home if not authenticated
 export const getServerSideProps = withPageAuthRequired({
   getServerSideProps: (context) => {
-    return {
+    return Promise.resolve({
       props: {
         ...(context.query as PropsWithIds<'appId'>),
       },
-    }
+    })
   },
 })
 

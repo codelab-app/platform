@@ -1,12 +1,11 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { useRecoilState } from 'recoil'
 import { CreateAtomForm } from './CreateAtomForm'
 import { atomFormState } from './atomFormState'
-import { AppContext, ModalForm } from '@codelab/frontend/shared'
+import { ModalForm } from '@codelab/frontend/shared'
 
 export const CreateAtomModal = () => {
   const [atomForm, setAtomForm] = useRecoilState(atomFormState)
-  const { appId } = useContext(AppContext)
 
   return (
     <ModalForm
@@ -17,7 +16,7 @@ export const CreateAtomModal = () => {
         onCancel: () => setAtomForm({ visible: false }),
         onOk: () => setAtomForm({ visible: false }),
       }}
-      renderForm={() => <CreateAtomForm appId={appId} />}
+      renderForm={() => <CreateAtomForm />}
     />
   )
 }
