@@ -18,10 +18,16 @@ filters-dev: &filters-dev
       ignore: /.*/
 
 filters-staging: &filters-staging
-# https://discuss.circleci.com/t/circle-2-0-workflow-filters-should-be-logical-and-not-or/18231
   filters:
     tags:
       only: /^staging-.*$/
+    branches:
+      ignore: /.*/
+
+filters-prod: &filters-prod
+  filters:
+    tags:
+      only: /^prod-.*$/
     branches:
       ignore: /.*/
 
@@ -78,6 +84,10 @@ executors:
     docker:
       - image: cimg/node:14.16.0-browsers
     resource_class: large
+  docker-python:
+    <<: *executor-config
+    docker:
+      - image: circleci/python:3.7
   vault-img:
     <<: *executor-config
     docker:
@@ -173,6 +183,9 @@ commands:
   yarn-install-prod:
     description: 'Install prod dependencies'
     steps:
+      - run:
+          name: 'Install Yarn'
+          command: npm install --global yarn
       - restore_cache:
           name: 'Restore Yarn cache'
           keys:
@@ -180,7 +193,7 @@ commands:
             - dep-cache-prod-
       - run:
           name: 'Install NPM packages'
-          command: yarn install --frozen-lockfile --prod=true
+          command: yarn install --frozen-lockfile --prod=true --ignore-scripts
       - run:
           name: 'Remove NPM .cache'
           command: rm -rf ~/app/node_modules/.cache
@@ -199,6 +212,25 @@ commands:
           fail_only: true
           channel: $SLACK_CHANNEL_UPDATE
           mentions: $SLACK_USER
+
+  setup-deploy: 
+    description: 'Setup deploy'
+    steps:
+      - setup-workspace
+      - yarn-install-prod
+      - run:
+          name: Install dependencies
+          command: |
+            pip3 install awsebcli --upgrade --user
+      - run:
+          name: Create AWS credentials manually
+          command: |
+            mkdir ~/.aws
+            touch ~/.aws/config
+            chmod 600 ~/.aws/config
+            echo "[profile eb-cli]" > ~/.aws/config
+            echo "aws_access_key_id=$AWS_ACCESS_KEY" >> ~/.aws/config
+            echo "aws_secret_access_key=$AWS_SECRET_KEY" >> ~/.aws/config
 
 jobs:
   setup-vault-env:
@@ -306,30 +338,25 @@ jobs:
           channel: $SLACK_CHANNEL_UPDATE
           mentions: $SLACK_USER
 
-  deploy-to-ebs:
+  deploy-to-ebs-staging:
     <<: *executor-params
     steps:
-      - setup-workspace
-      - run:
-          name: Install dependencies
-          command: |
-            sudo apt-get -y -qq update
-            sudo apt-get install python3-pip awscli build-essential
-            pip3 install awsebcli --upgrade --user
-      - run:
-          name: Create AWS credentials manually
-          command: |
-            mkdir ~/.aws
-            touch ~/.aws/config
-            chmod 600 ~/.aws/config
-            echo "[profile eb-cli]" > ~/.aws/config
-            echo "aws_access_key_id=$AWS_ACCESS_KEY" >> ~/.aws/config
-            echo "aws_secret_access_key=$AWS_SECRET_KEY" >> ~/.aws/config
+      - setup-deploy
       - run:
           name: Deploying to eb
           command: |
             eb use app-staging --region ap-east-1 --profile eb-cli
             eb deploy app-staging --region ap-east-1 --profile eb-cli
+
+  deploy-to-ebs-prod:
+    <<: *executor-params
+    steps:
+      - setup-deploy
+      - run:
+          name: Deploying to eb
+          command: |
+            eb use app-prod --region ap-east-1 --profile eb-cli
+            eb deploy app-prod --region ap-east-1 --profile eb-cli
         
 
 workflows:
@@ -414,9 +441,9 @@ workflows:
           context: CI
           requires:
             - install-and-build-workspace
-      - deploy-to-ebs:
+      - deploy-to-ebs-staging:
           <<: *filters-staging
-          e: docker-node
+          e: docker-python
           context: CI
           requires:
             - lint
@@ -427,4 +454,49 @@ workflows:
           <<: *filters-staging
           e: docker-node
           requires:
-            - deploy-to-ebs
+            - deploy-to-ebs-staging
+
+  app-prod:
+    jobs:
+      - install-and-build-workspace:
+          <<: *filters-prod
+          e: docker-node
+          context: CI
+      - lint:
+          <<: *filters-prod
+          e: docker-node
+          context: CI
+          requires:
+            - install-and-build-workspace
+      - unit:
+          <<: *filters-prod
+          e: docker-node
+          context: CI
+          requires:
+            - install-and-build-workspace
+      - integration:
+          <<: *filters-prod
+          e: docker-node
+          context: CI
+          requires:
+            - install-and-build-workspace
+      - e2e:
+          <<: *filters-prod
+          e: docker-node
+          context: CI
+          requires:
+            - install-and-build-workspace
+      - deploy-to-ebs-prod:
+          <<: *filters-prod
+          e: docker-python
+          context: CI
+          requires:
+            - lint
+            - unit
+            - integration
+            - e2e
+      - notify-success:
+          <<: *filters-prod
+          e: docker-node
+          requires:
+            - deploy-to-ebs-prod
