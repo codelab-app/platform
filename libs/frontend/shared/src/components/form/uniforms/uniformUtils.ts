@@ -2,6 +2,8 @@ import Ajv from 'ajv'
 import { MutableRefObject } from 'react'
 import JSONSchemaBridge from 'uniforms-bridge-json-schema'
 import { SubmitController } from '../json-schema'
+import { Schema } from 'ajv/lib/types/index'
+import { JSONSchemaType } from 'ajv/lib/types/json-schema'
 
 export const connectUniformSubmitRef = (
   submitRef: MutableRefObject<SubmitController | undefined> | undefined,
@@ -18,7 +20,9 @@ export const connectUniformSubmitRef = (
 
 const ajv = new Ajv({ allErrors: true, useDefaults: true, strict: false })
 
-export const createValidator = (schema: Record<string, unknown>) => {
+export const createValidator = <T = unknown>(
+  schema: Schema | JSONSchemaType<T>,
+) => {
   const validator = ajv.compile(schema)
 
   return (model: Record<string, unknown>) => {
@@ -28,8 +32,10 @@ export const createValidator = (schema: Record<string, unknown>) => {
   }
 }
 
-export const createBridge = (schema: Record<string, unknown>) => {
+export const createBridge = <T = unknown>(
+  schema: Schema | JSONSchemaType<T>,
+) => {
   const schemaValidator = createValidator(schema)
 
-  return new JSONSchemaBridge(schema, schemaValidator)
+  return new JSONSchemaBridge(schema as any, schemaValidator)
 }
