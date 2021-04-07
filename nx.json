@@ -41,6 +41,8 @@
     "frontend-relay": { "tags": [] },
     "frontend-apollo": { "tags": [] },
     "frontend-cytoscape": { "tags": [] },
-    "modules-atom": { "tags": [] }
+    "modules-atom": { "tags": [] },
+    "generated": { "tags": [] },
+    "hasura": { "tags": [] }
   }
 }

@@ -1,5 +1,5 @@
 import { HomeOutlined, UserOutlined } from '@ant-design/icons'
-import { useUser, getAccessToken } from '@auth0/nextjs-auth0'
+import { useUser } from '@auth0/nextjs-auth0'
 import { Menu } from 'antd'
 import Link from 'next/link'
 import React from 'react'
@@ -17,8 +17,7 @@ import { disableMenuHoverEffects } from '@codelab/frontend/style'
 export const HomeMenuHeader = () => {
   const { user: currentUser } = useUser()
 
-
-    const a = ''
+  const a = ''
 
   const authenticatedUserMenu = (
     <>

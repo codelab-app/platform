@@ -79,7 +79,8 @@ lint-commit-ci:
 # 	npx commitlint -E HUSKY_GIT_PARAMS
 
 lint-eslint:
-	node scripts/lint/eslint.js
+	yarn affected:lint
+# node scripts/lint/eslint.js
 
 #
 # E2E
