@@ -8,7 +8,7 @@
         "project": ["libs/generated/tsconfig.*?.json"]
       },
       "rules": {
-        "func-style": 1
+        "func-style": "off"
       }
     },
     {

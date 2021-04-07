@@ -7,6 +7,10 @@
     "allowSyntheticDefaultImports": true
   },
   "files": [],
-  "include": ["**/*.ts", "**/*.tsx"],
-  "references": []
+  "include": [],
+  "references": [
+    {
+      "path": "./tsconfig.lib.json"
+    }
+  ]
 }

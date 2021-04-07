@@ -19,8 +19,6 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@codelab/generated": ["libs/generated/src/index.ts"],
-      "@codelab/hasura": ["libs/hasura/src/index.ts"],
       "@codelab/tools-eslint-config-codelab": [
         "libs/tools/eslint-config-codelab/src/index.ts"
       ],
@@ -41,7 +39,9 @@
       "@codelab/frontend/relay": ["libs/frontend/relay/src/index.ts"],
       "@codelab/frontend/apollo": ["libs/frontend/apollo/src/index.ts"],
       "@codelab/frontend/cytoscape": ["libs/frontend/cytoscape/src/index.ts"],
-      "@codelab/modules/atom": ["libs/modules/atom/src/index.ts"]
+      "@codelab/modules/atom": ["libs/modules/atom/src/index.ts"],
+      "@codelab/generated": ["libs/generated/src/index.ts"],
+      "@codelab/hasura": ["libs/hasura/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"]

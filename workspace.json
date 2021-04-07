@@ -601,6 +601,32 @@
           }
         }
       }
+    },
+    "generated": {
+      "root": "libs/generated",
+      "sourceRoot": "libs/generated/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/generated/**/*.{ts,tsx,js,jsx}"]
+          }
+        }
+      }
+    },
+    "hasura": {
+      "root": "libs/hasura",
+      "sourceRoot": "libs/hasura/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/hasura/**/*.{ts,tsx,js,jsx}"]
+          }
+        }
+      }
     }
   }
 }
