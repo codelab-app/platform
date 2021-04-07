@@ -19,7 +19,7 @@ export const CreateAppForm = (props: UniFormUseCaseProps<CreateAppInput>) => {
       {
         query: GetAppsListGql,
       },
-   ],
+    ],
   })
 
   const [, setAppState] = useRecoilState(appState)
@@ -35,6 +35,7 @@ export const CreateAppForm = (props: UniFormUseCaseProps<CreateAppInput>) => {
     return mutate({
       variables: {
         input: {
+          user_id: userId,
           ...(submitData as any),
           pages: {
             data: [

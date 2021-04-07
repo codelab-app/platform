@@ -1,48 +1,14 @@
 import React from 'react'
-import { Spin } from 'antd'
-import { Attribute_Bool_Exp } from '@codelab/hasura'
-import {
-  useGetAttributesQuery,
-  usePageElementConfigQuery,
-} from '@codelab/hasura'
-import { createPropsFormSchema } from '@codelab/modules/prop'
-import { JsonSchemaUniForm } from '@codelab/frontend/shared'
+import { PageElementPropsForm } from '@codelab/modules/prop'
 
 export const PaneConfigProps = ({
   pageElementId,
 }: {
   pageElementId: string
 }) => {
-  const { data } = usePageElementConfigQuery({
-    variables: {
-      pageElementId,
-    },
-  })
-
-  //We can just plug in here an attribute filtering system in the future
-  const attributeSearchValue = ''
-
-  const where: Attribute_Bool_Exp = {}
-
-  if (attributeSearchValue) {
-    where.key = { _ilike: `%${attributeSearchValue}%` }
-  }
-
-  const { data: attributes, loading } = useGetAttributesQuery({
-    variables: {
-      where,
-    },
-  })
-
-  const propsFormSchema = createPropsFormSchema(attributes?.attribute as any)
-
   return (
-    <section>
-      {loading ? (
-        <Spin />
-      ) : (
-        <JsonSchemaUniForm schema={propsFormSchema} onSubmit={console.log} />
-      )}
+    <section style={{ height: '100%' }}>
+      <PageElementPropsForm pageElementId={pageElementId} />
 
       {/* <h3>Vertex details</h3> */}
       {/*<Space>*/}

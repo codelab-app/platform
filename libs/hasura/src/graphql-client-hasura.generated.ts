@@ -3904,7 +3904,7 @@ export type Prop_Value = {
   id: Scalars['uuid']
   /** This is used as a value */
   lambda_id?: Maybe<Scalars['uuid']>
-  name: Scalars['String']
+  name?: Maybe<Scalars['String']>
   /** This is the prop that owns this value */
   parent_prop_id: Scalars['uuid']
   type: Prop_Value_Type_Enum
@@ -5987,43 +5987,6 @@ export type UpdateAtomMutation = { __typename?: 'mutation_root' } & {
   update_atom_by_pk?: Maybe<{ __typename?: 'atom' } & Pick<Atom, 'id' | 'type'>>
 }
 
-export type PropValueFragmentFragment = { __typename?: 'prop_value' } & Pick<
-  Prop_Value,
-  'id' | 'name' | 'type' | 'value' | 'value_prop_id' | 'lambda_id'
->
-
-export type PageElementConfigFragmentFragment = {
-  __typename?: 'page_element'
-} & Pick<Page_Element, 'id' | 'name' | 'page_id'> & {
-    props: Array<
-      { __typename?: 'prop_element' } & {
-        prop: { __typename?: 'prop' } & Pick<Prop, 'id'> & {
-            values_aggregate: { __typename?: 'prop_value_aggregate' } & {
-              aggregate?: Maybe<
-                { __typename?: 'prop_value_aggregate_fields' } & Pick<
-                  Prop_Value_Aggregate_Fields,
-                  'count'
-                >
-              >
-            }
-            values: Array<
-              { __typename?: 'prop_value' } & PropValueFragmentFragment
-            >
-          }
-      }
-    >
-  }
-
-export type PageElementConfigQueryVariables = Exact<{
-  pageElementId: Scalars['uuid']
-}>
-
-export type PageElementConfigQuery = { __typename?: 'query_root' } & {
-  page_element_by_pk?: Maybe<
-    { __typename?: 'page_element' } & PageElementConfigFragmentFragment
-  >
-}
-
 export type UpdatePageElementMutationVariables = Exact<{
   id: Scalars['uuid']
   input?: Maybe<Page_Element_Set_Input>
@@ -6056,14 +6019,7 @@ export type GetPageQueryVariables = Exact<{
 }>
 
 export type GetPageQuery = { __typename?: 'query_root' } & {
-  page_by_pk?: Maybe<
-    { __typename?: 'page' } & Pick<Page, 'id' | 'name'> & {
-        elements: Array<
-          { __typename?: 'page_element' } & RootAppPageElementFragment
-        >
-        links: Array<{ __typename?: 'page_link' } & RootAppPageLinkFragment>
-      }
-  >
+  page_by_pk?: Maybe<{ __typename?: 'page' } & Pick<Page, 'id' | 'name'>>
 }
 
 export type GetPagesListQueryVariables = Exact<{
@@ -6087,6 +6043,14 @@ export type UpdatePageMutation = { __typename?: 'mutation_root' } & {
   update_page_by_pk?: Maybe<{ __typename?: 'page' } & Pick<Page, 'id' | 'name'>>
 }
 
+export type CreatePropMutationVariables = Exact<{
+  input: Prop_Insert_Input
+}>
+
+export type CreatePropMutation = { __typename?: 'mutation_root' } & {
+  insert_prop_one?: Maybe<{ __typename?: 'prop' } & Pick<Prop, 'id'>>
+}
+
 export type GetAttributesQueryVariables = Exact<{
   where: Attribute_Bool_Exp
 }>
@@ -6097,6 +6061,61 @@ export type GetAttributesQuery = { __typename?: 'query_root' } & {
       Attribute,
       'id' | 'key' | 'atom_type' | 'value_type'
     >
+  >
+}
+
+export type PageElementProps__PropValueFragment = {
+  __typename?: 'prop_value'
+} & Pick<
+  Prop_Value,
+  'id' | 'name' | 'type' | 'value' | 'value_prop_id' | 'lambda_id'
+>
+
+export type PageElementProps__AttributeFragment = {
+  __typename?: 'attribute'
+} & Pick<Attribute, 'id' | 'key'> & {
+    valueType?: Maybe<
+      { __typename?: 'prop_value_type' } & Pick<Prop_Value_Type, 'value'>
+    >
+  }
+
+export type PageElementProps__PropFragment = { __typename?: 'prop' } & Pick<
+  Prop,
+  'id'
+> & {
+    attribute: {
+      __typename?: 'attribute'
+    } & PageElementProps__AttributeFragment
+    values_aggregate: { __typename?: 'prop_value_aggregate' } & {
+      aggregate?: Maybe<
+        { __typename?: 'prop_value_aggregate_fields' } & Pick<
+          Prop_Value_Aggregate_Fields,
+          'count'
+        >
+      >
+    }
+    values: Array<
+      { __typename?: 'prop_value' } & PageElementProps__PropValueFragment
+    >
+  }
+
+export type PageElementProps__PageElementFragment = {
+  __typename?: 'page_element'
+} & Pick<Page_Element, 'id' | 'name' | 'page_id'> & {
+    props: Array<
+      { __typename?: 'prop_element' } & {
+        prop: { __typename?: 'prop' } & PageElementProps__PropFragment
+      }
+    >
+  }
+
+export type PageElementPropsQueryVariables = Exact<{
+  pageElementId: Scalars['uuid']
+}>
+
+export type PageElementPropsQuery = { __typename?: 'query_root' } & {
+  page_element_by_pk?: Maybe<
+    { __typename?: 'page_element' } & PageElementProps__PageElementFragment
   >
 }
 
@@ -6139,8 +6158,17 @@ export const RootAppPageLinkFragmentDoc = gql`
     target_element_id
   }
 `
-export const PropValueFragmentFragmentDoc = gql`
-  fragment PropValueFragment on prop_value {
+export const PageElementProps__AttributeFragmentDoc = gql`
+  fragment PageElementProps__Attribute on attribute {
+    id
+    key
+    valueType {
+      value
+    }
+  }
+`
+export const PageElementProps__PropValueFragmentDoc = gql`
+  fragment PageElementProps__PropValue on prop_value {
     id
     name
     type
@@ -6149,26 +6177,36 @@ export const PropValueFragmentFragmentDoc = gql`
     lambda_id
   }
 `
-export const PageElementConfigFragmentFragmentDoc = gql`
-  fragment PageElementConfigFragment on page_element {
+export const PageElementProps__PropFragmentDoc = gql`
+  fragment PageElementProps__Prop on prop {
+    id
+    attribute {
+      ...PageElementProps__Attribute
+    }
+    values_aggregate {
+      aggregate {
+        count
+      }
+    }
+    values {
+      ...PageElementProps__PropValue
+    }
+  }
+  ${PageElementProps__AttributeFragmentDoc}
+  ${PageElementProps__PropValueFragmentDoc}
+`
+export const PageElementProps__PageElementFragmentDoc = gql`
+  fragment PageElementProps__PageElement on page_element {
     id
     name
     page_id
     props {
       prop {
-        id
-        values_aggregate {
-          aggregate {
-            count
-          }
-        }
-        values {
-          ...PropValueFragment
-        }
+        ...PageElementProps__Prop
       }
     }
   }
-  ${PropValueFragmentFragmentDoc}
+  ${PageElementProps__PropFragmentDoc}
 `
 export const RootAppGql = gql`
   query RootApp($appId: uuid!, $pageId: uuid!) {
@@ -6762,65 +6800,6 @@ export type UpdateAtomMutationOptions = Apollo.BaseMutationOptions<
   UpdateAtomMutation,
   UpdateAtomMutationVariables
 >
-export const PageElementConfigGql = gql`
-  query PageElementConfig($pageElementId: uuid!) {
-    page_element_by_pk(id: $pageElementId) {
-      ...PageElementConfigFragment
-    }
-  }
-  ${PageElementConfigFragmentFragmentDoc}
-`
-
-/**
- * __usePageElementConfigQuery__
- *
- * To run a query within a React component, call `usePageElementConfigQuery` and pass it any options that fit your needs.
- * When your component renders, `usePageElementConfigQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = usePageElementConfigQuery({
- *   variables: {
- *      pageElementId: // value for 'pageElementId'
- *   },
- * });
- */
-export function usePageElementConfigQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    PageElementConfigQuery,
-    PageElementConfigQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<
-    PageElementConfigQuery,
-    PageElementConfigQueryVariables
-  >(PageElementConfigGql, options)
-}
-export function usePageElementConfigLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    PageElementConfigQuery,
-    PageElementConfigQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<
-    PageElementConfigQuery,
-    PageElementConfigQueryVariables
-  >(PageElementConfigGql, options)
-}
-export type PageElementConfigQueryHookResult = ReturnType<
-  typeof usePageElementConfigQuery
->
-export type PageElementConfigLazyQueryHookResult = ReturnType<
-  typeof usePageElementConfigLazyQuery
->
-export type PageElementConfigQueryResult = Apollo.QueryResult<
-  PageElementConfigQuery,
-  PageElementConfigQueryVariables
->
 export const UpdatePageElementGql = gql`
   mutation UpdatePageElement($id: uuid!, $input: page_element_set_input) {
     update_page_element_by_pk(pk_columns: { id: $id }, _set: $input) {
@@ -6974,16 +6953,8 @@ export const GetPageGql = gql`
     page_by_pk(id: $pageId) {
       id
       name
-      elements {
-        ...RootAppPageElement
-      }
-      links {
-        ...RootAppPageLink
-      }
     }
   }
-  ${RootAppPageElementFragmentDoc}
-  ${RootAppPageLinkFragmentDoc}
 `
 
 /**
@@ -7141,6 +7112,55 @@ export type UpdatePageMutationOptions = Apollo.BaseMutationOptions<
   UpdatePageMutation,
   UpdatePageMutationVariables
 >
+export const CreatePropGql = gql`
+  mutation CreateProp($input: prop_insert_input!) {
+    insert_prop_one(object: $input) {
+      id
+    }
+  }
+`
+export type CreatePropMutationFn = Apollo.MutationFunction<
+  CreatePropMutation,
+  CreatePropMutationVariables
+>
+
+/**
+ * __useCreatePropMutation__
+ *
+ * To run a mutation, you first call `useCreatePropMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreatePropMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createPropMutation, { data, loading, error }] = useCreatePropMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreatePropMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreatePropMutation,
+    CreatePropMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<CreatePropMutation, CreatePropMutationVariables>(
+    CreatePropGql,
+    options,
+  )
+}
+export type CreatePropMutationHookResult = ReturnType<
+  typeof useCreatePropMutation
+>
+export type CreatePropMutationResult = Apollo.MutationResult<CreatePropMutation>
+export type CreatePropMutationOptions = Apollo.BaseMutationOptions<
+  CreatePropMutation,
+  CreatePropMutationVariables
+>
 export const GetAttributesGql = gql`
   query GetAttributes($where: attribute_bool_exp!) {
     attribute(where: $where) {
@@ -7202,6 +7222,65 @@ export type GetAttributesQueryResult = Apollo.QueryResult<
   GetAttributesQuery,
   GetAttributesQueryVariables
 >
+export const PageElementPropsGql = gql`
+  query PageElementProps($pageElementId: uuid!) {
+    page_element_by_pk(id: $pageElementId) {
+      ...PageElementProps__PageElement
+    }
+  }
+  ${PageElementProps__PageElementFragmentDoc}
+`
+
+/**
+ * __usePageElementPropsQuery__
+ *
+ * To run a query within a React component, call `usePageElementPropsQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePageElementPropsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePageElementPropsQuery({
+ *   variables: {
+ *      pageElementId: // value for 'pageElementId'
+ *   },
+ * });
+ */
+export function usePageElementPropsQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    PageElementPropsQuery,
+    PageElementPropsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<PageElementPropsQuery, PageElementPropsQueryVariables>(
+    PageElementPropsGql,
+    options,
+  )
+}
+export function usePageElementPropsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    PageElementPropsQuery,
+    PageElementPropsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    PageElementPropsQuery,
+    PageElementPropsQueryVariables
+  >(PageElementPropsGql, options)
+}
+export type PageElementPropsQueryHookResult = ReturnType<
+  typeof usePageElementPropsQuery
+>
+export type PageElementPropsLazyQueryHookResult = ReturnType<
+  typeof usePageElementPropsLazyQuery
+>
+export type PageElementPropsQueryResult = Apollo.QueryResult<
+  PageElementPropsQuery,
+  PageElementPropsQueryVariables
+>
 export const RootAppPageElement = gql`
   fragment RootAppPageElement on page_element {
     id
@@ -7241,8 +7320,17 @@ export const RootAppPageLink = gql`
     target_element_id
   }
 `
-export const PropValueFragment = gql`
-  fragment PropValueFragment on prop_value {
+export const PageElementProps__Attribute = gql`
+  fragment PageElementProps__Attribute on attribute {
+    id
+    key
+    valueType {
+      value
+    }
+  }
+`
+export const PageElementProps__PropValue = gql`
+  fragment PageElementProps__PropValue on prop_value {
     id
     name
     type
@@ -7251,26 +7339,36 @@ export const PropValueFragment = gql`
     lambda_id
   }
 `
-export const PageElementConfigFragment = gql`
-  fragment PageElementConfigFragment on page_element {
+export const PageElementProps__Prop = gql`
+  fragment PageElementProps__Prop on prop {
+    id
+    attribute {
+      ...PageElementProps__Attribute
+    }
+    values_aggregate {
+      aggregate {
+        count
+      }
+    }
+    values {
+      ...PageElementProps__PropValue
+    }
+  }
+  ${PageElementProps__Attribute}
+  ${PageElementProps__PropValue}
+`
+export const PageElementProps__PageElement = gql`
+  fragment PageElementProps__PageElement on page_element {
     id
     name
     page_id
     props {
       prop {
-        id
-        values_aggregate {
-          aggregate {
-            count
-          }
-        }
-        values {
-          ...PropValueFragment
-        }
+        ...PageElementProps__Prop
       }
     }
   }
-  ${PropValueFragment}
+  ${PageElementProps__Prop}
 `
 export const RootApp = gql`
   query RootApp($appId: uuid!, $pageId: uuid!) {
@@ -7375,14 +7473,6 @@ export const UpdateAtom = gql`
     }
   }
 `
-export const PageElementConfig = gql`
-  query PageElementConfig($pageElementId: uuid!) {
-    page_element_by_pk(id: $pageElementId) {
-      ...PageElementConfigFragment
-    }
-  }
-  ${PageElementConfigFragment}
-`
 export const UpdatePageElement = gql`
   mutation UpdatePageElement($id: uuid!, $input: page_element_set_input) {
     update_page_element_by_pk(pk_columns: { id: $id }, _set: $input) {
@@ -7409,16 +7499,8 @@ export const GetPage = gql`
     page_by_pk(id: $pageId) {
       id
       name
-      elements {
-        ...RootAppPageElement
-      }
-      links {
-        ...RootAppPageLink
-      }
     }
   }
-  ${RootAppPageElement}
-  ${RootAppPageLink}
 `
 export const GetPagesList = gql`
   query GetPagesList($appId: uuid!) {
@@ -7438,6 +7520,13 @@ export const UpdatePage = gql`
     }
   }
 `
+export const CreateProp = gql`
+  mutation CreateProp($input: prop_insert_input!) {
+    insert_prop_one(object: $input) {
+      id
+    }
+  }
+`
 export const GetAttributes = gql`
   query GetAttributes($where: attribute_bool_exp!) {
     attribute(where: $where) {
@@ -7447,4 +7536,12 @@ export const GetAttributes = gql`
       value_type
     }
   }
+`
+export const PageElementProps = gql`
+  query PageElementProps($pageElementId: uuid!) {
+    page_element_by_pk(id: $pageElementId) {
+      ...PageElementProps__PageElement
+    }
+  }
+  ${PageElementProps__PageElement}
 `

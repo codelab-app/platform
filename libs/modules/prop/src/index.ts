@@ -1,2 +1,5 @@
 export * from './AttributeInputField'
 export * from './createPropsFormSchema'
+export * from './PropForm'
+export * from './pageElementProps/PageElementPropsForm'
+export { getJsonSchemaTypeFromAttributeType } from './getJsonSchemaTypeFromAttributeType'
