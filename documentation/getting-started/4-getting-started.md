@@ -5,8 +5,6 @@
 1. `cp .env.example .env` & get env from Slack
 2. `yarn`
 
-- Docker services `postgres` & `postgres-test` are required, so `yarn docker:up postgres postgres-test`
-
 ## Services
 
 ### Frontend
