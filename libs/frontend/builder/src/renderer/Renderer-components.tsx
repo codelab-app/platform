@@ -1,4 +1,3 @@
-import { Frame, SerializedNodes, useEditor } from '@craftjs/core'
 import React, { useContext, useEffect } from 'react'
 import { useRecoilState } from 'recoil'
 import { useOverlayToolbar } from '@codelab/frontend/builder'
@@ -65,26 +64,8 @@ export const useComponentHandlers = () => {
   return handlers
 }
 
-export const RenderComponents = ({ data }: { data: SerializedNodes }) => {
+export const RenderComponents = () => {
   const handlers = useComponentHandlers()
 
-  const {
-    actions: { deserialize },
-  } = useEditor((s) => {
-    const selectedVertexId = s.events.selected
-
-    if (selectedVertexId !== null) {
-      handlers.setPaneConfig({ pageElementId: `${s.events.selected}` })
-    }
-  })
-
-  useEffect(() => {
-    deserialize(data)
-  }, [data, deserialize])
-
-  return (
-    <div style={{ width: '100%', height: 'auto' }}>
-      <Frame data={data} />
-    </div>
-  )
+  return <div style={{ width: '100%', height: 'auto' }}>{/*  TODO */}</div>
 }

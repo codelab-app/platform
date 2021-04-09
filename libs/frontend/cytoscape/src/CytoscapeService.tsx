@@ -1,5 +1,4 @@
 /* eslint-disable no-param-reassign */
-import { ROOT_NODE, SerializedNodes } from '@craftjs/core'
 import { DataNode } from 'antd/lib/tree'
 import cytoscape, { Core } from 'cytoscape'
 import { AtomType, NodeA } from '@codelab/frontend/shared'
@@ -125,55 +124,6 @@ export class CytoscapeService {
     })
 
     return (tree as unknown) as NodeA
-  }
-
-  static craftTree(cy: Core): SerializedNodes {
-    const root = cy.elements().roots().first()
-
-    let seriazlizedNodes: SerializedNodes = {}
-
-    cy.elements().breadthFirstSearch({
-      root,
-      visit: (v: any) => {
-        const { id, parent, type, props, styles = [] } = v.data()
-
-        const rootNodeId = root.data().id
-        const craftjsId = id === rootNodeId ? ROOT_NODE : id
-        const craftjsParentId = parent === rootNodeId ? ROOT_NODE : parent
-        const mergedStyles = {
-          ...props.style,
-          ...styles.reduce(
-            (acc: any, curr: any) => ({ ...acc, ...curr.props }),
-            {},
-          ),
-        }
-
-        seriazlizedNodes = {
-          ...seriazlizedNodes,
-          [craftjsId]: {
-            type: { resolvedName: type ?? '' },
-            props: {
-              ...props,
-              style: mergedStyles,
-            },
-            hidden: false,
-            displayName: type ?? '',
-            parent: craftjsParentId ?? '',
-            isCanvas: true, // here we can specify which Components should be craftjs-canvas
-            nodes: v
-              .outgoers()
-              .nodes()
-              .map((n: any) => n.data().id),
-            linkedNodes: {},
-            custom: {
-              id, // preserve vertexId due to we change craftjs root ID
-            },
-          },
-        }
-      },
-    })
-
-    return seriazlizedNodes
   }
 
   static antdTree(cy: Core): DataNode {

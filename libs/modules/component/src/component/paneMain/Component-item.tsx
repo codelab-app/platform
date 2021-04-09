@@ -1,5 +1,4 @@
 import { PictureOutlined } from '@ant-design/icons'
-import { useEditor } from '@craftjs/core'
 import { css } from '@emotion/react'
 import { Card, Space } from 'antd'
 import { CardProps } from 'antd/lib/card'
@@ -23,10 +22,6 @@ export const ComponentItem = ({
   className,
   ...props
 }: ComponentItemProps) => {
-  const {
-    connectors: { create },
-  } = useEditor()
-
   const [, setState] = useRecoilState(componentItemState)
   // const handlers = useComponentHandlers()
 

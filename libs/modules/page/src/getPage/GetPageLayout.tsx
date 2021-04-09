@@ -27,7 +27,6 @@ export const GetPageLayout = ({ graph, pageId }: GetPageLayoutProps) => {
 
   const cy = CytoscapeService.fromGraph(graph as any)
   const root = CytoscapeService.componentTree(cy)
-  const craftData = CytoscapeService.craftTree(cy)
 
   // console.log(root)
   // console.log(craftData)
@@ -43,7 +42,7 @@ export const GetPageLayout = ({ graph, pageId }: GetPageLayoutProps) => {
 
   return (
     <>
-      <RenderComponents data={craftData} />
+      <RenderComponents />
       <Button
         icon={<PlusOutlined />}
         type="primary"

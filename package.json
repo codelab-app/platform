@@ -51,7 +51,6 @@
     "@aws-sdk/client-lambda": "3.7.0",
     "@aws-sdk/client-s3": "3.7.0",
     "@babel/runtime": "^7.13.10",
-    "@craftjs/core": "0.1.0-beta.16",
     "@ctrl/tinycolor": "3.4.0",
     "@emotion/react": "11.1.4",
     "@emotion/server": "11.0.0",

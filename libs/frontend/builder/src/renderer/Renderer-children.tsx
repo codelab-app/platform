@@ -1,4 +1,3 @@
-import { useNode } from '@craftjs/core'
 import React from 'react'
 import { elementParameterFactory } from './elementFactory'
 import { NodeA, PaneConfigHandlersProps } from '@codelab/frontend/shared'
@@ -13,14 +12,14 @@ const DropHandler = ({
   node: NodeA
   handlers: PaneConfigHandlersProps
 }) => {
-  const {
-    connectors: { connect, drag },
-  } = useNode()
+  // const {
+  //   connectors: { connect, drag },
+  // } = useNode()
 
   return (
     <>
       <div
-        ref={(ref) => connect(drag(ref))}
+        // ref={(ref) => connect(drag(ref))}
         style={{ position: 'absolute', inset: 0 }}
       />
       {/* <div ref={dropRef} style={{ position: 'absolute', inset: 0 }} /> */}
