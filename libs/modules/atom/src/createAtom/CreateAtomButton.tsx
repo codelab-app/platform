@@ -6,14 +6,5 @@ import React from 'react'
 export const CreateAtomButton = () => {
   const { openCreateModal } = useCRUDModalForm(EntityType.Atom)
 
-  return (
-    <Button
-      type="primary"
-      size="small"
-      icon={<PlusOutlined />}
-      onClick={() => openCreateModal()}
-    >
-      Add
-    </Button>
-  )
+  return <Button icon={<PlusOutlined />} onClick={() => openCreateModal()} />
 }
