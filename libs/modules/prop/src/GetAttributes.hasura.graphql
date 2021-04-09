@@ -1,8 +1,0 @@
-query GetAttributes($where: attribute_bool_exp!) {
-    attribute(where: $where) {
-        id
-        key
-        atom_type
-        value_type
-    }
-}

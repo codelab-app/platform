@@ -5812,7 +5812,7 @@ type prop_value implements Node {
   This is used as a value
   """
   lambda_id: uuid
-  name: String!
+  name: String
 
   """
   This is the prop that owns this value

@@ -3,6 +3,7 @@ import React from 'react'
 import { AutoFormProps, Bridge } from 'uniforms'
 import { SubmitController } from '../json-schema'
 import { CallbackOrArrayOfCallbacks } from '../../../utils'
+import { JSONSchemaType } from 'ajv'
 
 export type JsonSchemaUniFormProps<TData extends Record<string, unknown>> = {
   /** Use this to be able to hide the submit button and get a controller, which can trigger form submit */
@@ -19,9 +20,9 @@ export type JsonSchemaUniFormProps<TData extends Record<string, unknown>> = {
    * Pass a Bridge to to customize the process of creating a bridge from a schema (custom validations, dynamic schema, etc)
    *  Pass either schema or bridge
    */
-  schema: Record<string, unknown> | Bridge
-} & /** Props that get passed down to the AutoForm component */ Omit<
-  Partial<AutoFormProps<TData>>,
-  'schema'
+
+  schema: JSONSchemaType<TData> | Bridge
+} & /** Props that get passed down to the AutoForm component */ Partial<
+  Omit<AutoFormProps<TData>, 'schema'>
 > &
   Pick<AutoFormProps<TData>, 'onSubmit'>

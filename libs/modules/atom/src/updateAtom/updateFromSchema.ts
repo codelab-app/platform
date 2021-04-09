@@ -1,6 +1,10 @@
-import { JTDDataType } from 'ajv/dist/jtd'
+import { JSONSchemaType } from 'ajv'
 
-export const UpdateAtomSchema = {
+export type UpdateAtomInput = {
+  type: string
+}
+
+export const UpdateAtomSchema: JSONSchemaType<UpdateAtomInput> = {
   title: 'Update Atom',
   type: 'object',
   properties: {
@@ -10,5 +14,3 @@ export const UpdateAtomSchema = {
   },
   required: ['type'],
 }
-
-export type UpdateAtomInput = JTDDataType<typeof UpdateAtomSchema>

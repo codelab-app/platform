@@ -1,0 +1,12 @@
+fragment GetAttributes__Attribute on attribute{
+    id
+    key
+    atom_type
+    value_type
+}
+
+query GetAttributes($where: attribute_bool_exp!) {
+    attribute(where: $where) {
+        ...GetAttributes__Attribute
+    }
+}

@@ -1,6 +1,10 @@
-import { JTDDataType } from 'ajv/dist/jtd'
+import { JSONSchemaType } from 'ajv'
 
-export const editAppSchema = {
+export type EditAppInput = {
+  name: string
+}
+
+export const editAppSchema: JSONSchemaType<EditAppInput> = {
   title: 'Edit App Input',
   type: 'object',
   properties: {
@@ -10,5 +14,3 @@ export const editAppSchema = {
   },
   required: ['name'],
 }
-
-export type EditAppInput = JTDDataType<typeof editAppSchema>

@@ -43,28 +43,6 @@ select_permissions:
     - owner_id
     filter: {}
   role: user
-array_relationships:
-- name: elements
-  using:
-    foreign_key_constraint_on:
-      column: page_id
-      table:
-        name: page_element
-        schema: public
-- name: links
-  using:
-    foreign_key_constraint_on:
-      column: page_id
-      table:
-        name: page_link
-        schema: public
-object_relationships:
-- name: app
-  using:
-    foreign_key_constraint_on: app_id
-- name: owner
-  using:
-    foreign_key_constraint_on: owner_id
 table:
   name: page
   schema: public

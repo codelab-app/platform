@@ -29,7 +29,7 @@ export type AttributeInputFieldValue = {
 
 //Created this to be able to dynamically select a attribute key, but
 //left it for automatically getting the attributes and displaying them as fields
-//This might still be usefull sometime though, so I'm keeping it
+//This might still be useful sometime though, (e.g, in a attributes search bar) so I'm keeping it
 const _AttributeInputField = <T extends AttributeInputFieldValue>({
   onChange,
   value,
