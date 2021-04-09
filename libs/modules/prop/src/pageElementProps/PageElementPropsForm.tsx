@@ -33,15 +33,20 @@ export const PageElementPropsForm = ({
   const { trackPromise } = usePromisesLoadingIndicator(PROPS_FORM_INDICATOR_KEY)
 
   //Get the props for this page element
-  const { data } = usePageElementPropsQuery({ variables: { pageElementId } })
+  const { data, loading: loadingPageElement } = usePageElementPropsQuery({
+    variables: { pageElementId },
+  })
 
   //Get all attributes. We can just plug in here an attribute filtering system in the future
   const where = createAttributesFilter()
-  const { data: attributes, loading } = useGetAttributesQuery({
+  const {
+    data: attributes,
+    loading: loadingGetAttributes,
+  } = useGetAttributesQuery({
     variables: { where },
   })
 
-  if (loading) return <Spin />
+  if (loadingPageElement || loadingGetAttributes) return <Spin />
 
   if (!attributes) return <Empty />
 
