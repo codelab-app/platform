@@ -1,62 +1,72 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
+import { DeepPartial } from 'uniforms'
 import { reduceStyleProps } from '../reduceStyleProps'
 import {
-  ApolloForm,
-  AppContext,
-  FormUseCaseProps,
+  createNotificationHandler,
+  EntityType,
+  JsonSchemaUniForm,
+  UniFormUseCaseProps,
+  useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import {
-  CreateStyleInputSchema,
-  CreateStyleMutationVariables,
-  GetStylesGql,
-  useCreateStyleMutation,
-} from '@codelab/generated'
+import { GetStylesListGql, useCreateStyleMutation } from '@codelab/hasura'
+import { createStyleSchema, CreateStyleInput } from './createStyleSchema'
+import { AutoFields } from 'uniforms-antd'
 
-export const CreateStyleForm = (props: FormUseCaseProps<any>) => {
-  const { appId } = useContext(AppContext)
+type CreateStyleFormProps = UniFormUseCaseProps<CreateStyleInput>
 
-  const [mutate] = useCreateStyleMutation({
+export const CreateStyleForm = (props: CreateStyleFormProps) => {
+  const { reset, setLoading } = useCRUDModalForm(EntityType.Style)
+
+  const [mutate, { loading: creating }] = useCreateStyleMutation({
     refetchQueries: [
       {
-        query: GetStylesGql,
-        variables: {
-          input: {
-            appId,
-          },
-        },
+        query: GetStylesListGql,
       },
     ],
   })
 
-  // Reduce the array of key value css props to a simple object
-  const transformedMutate: typeof mutate = (options) => {
-    const reduced = reduceStyleProps(options?.variables?.input?.props)
+  useEffect(() => {
+    setLoading(creating)
+  }, [creating])
 
+  // Reduce the array of key value css props to a simple object
+  /* const transformedMutate: typeof mutate = (options) => {
+     *   const reduced = reduceStyleProps(options?.variables?.input?.props)
+
+     *   return mutate({
+     *     ...options,
+     *     variables: {
+     *       ...options?.variables,
+     *       input: {
+     *         ...(options?.variables?.input as any),
+     *         props: reduced,
+     *       },
+     *     },
+     *   })
+     * }
+     */
+
+  const onSubmit = (submitData: DeepPartial<CreateStyleInput>) => {
     return mutate({
-      ...options,
       variables: {
-        ...options?.variables,
-        input: {
-          ...(options?.variables?.input as any),
-          props: reduced,
+        data: {
+          ...(submitData as any),
         },
       },
     })
   }
 
   return (
-    <ApolloForm<any, CreateStyleMutationVariables>
-      initialFormData={{ appId, name: '' }}
-      schema={CreateStyleInputSchema}
-      uiSchema={{
-        appId: {
-          'ui:widget': 'hidden',
-        },
-      }}
-      mutate={transformedMutate}
-      hideSubmitButton
-      idPrefix="create_style"
+    <JsonSchemaUniForm<CreateStyleInput>
+      onSubmit={onSubmit}
+      schema={createStyleSchema}
+      onSubmitError={createNotificationHandler({
+        title: 'Error while creating atom',
+      })}
+      onSubmitSuccess={() => reset()}
       {...props}
-    />
+    >
+      <AutoFields />
+    </JsonSchemaUniForm>
   )
 }

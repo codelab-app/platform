@@ -1,0 +1,6 @@
+mutation UpdateStyle($input: style_set_input!, $styleId: uuid!){
+    update_style_by_pk(_set: $input, pk_columns: {id: $styleId}) {
+        id
+        name
+    }
+}

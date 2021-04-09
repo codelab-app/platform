@@ -109,11 +109,6 @@ type app implements Node {
   name: String!
 
   """
-  An object relationship
-  """
-  owner: user!
-
-  """
   An array relationship
   """
   pages(
@@ -197,6 +192,11 @@ type app implements Node {
     """
     where: page_bool_exp
   ): pageConnection!
+
+  """
+  An object relationship
+  """
+  user: user!
   user_id: String!
 }
 
@@ -214,6 +214,44 @@ type appEdge {
 }
 
 """
+aggregated selection of "app"
+"""
+type app_aggregate {
+  aggregate: app_aggregate_fields
+  nodes: [app!]!
+}
+
+"""
+aggregate fields of "app"
+"""
+type app_aggregate_fields {
+  count(columns: [app_select_column!], distinct: Boolean): Int!
+  max: app_max_fields
+  min: app_min_fields
+}
+
+"""
+order by aggregate values of table "app"
+"""
+input app_aggregate_order_by {
+  count: order_by
+  max: app_max_order_by
+  min: app_min_order_by
+}
+
+"""
+input type for inserting array relation for remote table "app"
+"""
+input app_arr_rel_insert_input {
+  data: [app_insert_input!]!
+
+  """
+  on conflict condition
+  """
+  on_conflict: app_on_conflict
+}
+
+"""
 Boolean expression to filter rows from the table "app". All fields are combined with a logical 'AND'.
 """
 input app_bool_exp {
@@ -222,8 +260,8 @@ input app_bool_exp {
   _or: [app_bool_exp!]
   id: uuid_comparison_exp
   name: String_comparison_exp
-  owner: user_bool_exp
   pages: page_bool_exp
+  user: user_bool_exp
   user_id: String_comparison_exp
 }
 
@@ -243,9 +281,45 @@ input type for inserting data into table "app"
 input app_insert_input {
   id: uuid
   name: String
-  owner: user_obj_rel_insert_input
   pages: page_arr_rel_insert_input
+  user: user_obj_rel_insert_input
   user_id: String
+}
+
+"""
+aggregate max on columns
+"""
+type app_max_fields {
+  id: uuid
+  name: String
+  user_id: String
+}
+
+"""
+order by max() on columns of table "app"
+"""
+input app_max_order_by {
+  id: order_by
+  name: order_by
+  user_id: order_by
+}
+
+"""
+aggregate min on columns
+"""
+type app_min_fields {
+  id: uuid
+  name: String
+  user_id: String
+}
+
+"""
+order by min() on columns of table "app"
+"""
+input app_min_order_by {
+  id: order_by
+  name: order_by
+  user_id: order_by
 }
 
 """
@@ -290,8 +364,8 @@ Ordering options when selecting data from "app".
 input app_order_by {
   id: order_by
   name: order_by
-  owner: user_order_by
   pages_aggregate: page_aggregate_order_by
+  user: user_order_by
   user_id: order_by
 }
 
@@ -4284,8 +4358,8 @@ type page implements Node {
   """
   An object relationship
   """
-  owner: user!
-  owner_id: String!
+  user: user!
+  user_id: String!
 }
 
 """
@@ -4352,8 +4426,8 @@ input page_bool_exp {
   id: uuid_comparison_exp
   links: page_link_bool_exp
   name: String_comparison_exp
-  owner: user_bool_exp
-  owner_id: String_comparison_exp
+  user: user_bool_exp
+  user_id: String_comparison_exp
 }
 
 """
@@ -4726,8 +4800,8 @@ input page_insert_input {
   id: uuid
   links: page_link_arr_rel_insert_input
   name: String
-  owner: user_obj_rel_insert_input
-  owner_id: String
+  user: user_obj_rel_insert_input
+  user_id: String
 }
 
 """
@@ -5181,7 +5255,7 @@ type page_max_fields {
   app_id: uuid
   id: uuid
   name: String
-  owner_id: String
+  user_id: String
 }
 
 """
@@ -5191,7 +5265,7 @@ input page_max_order_by {
   app_id: order_by
   id: order_by
   name: order_by
-  owner_id: order_by
+  user_id: order_by
 }
 
 """
@@ -5201,7 +5275,7 @@ type page_min_fields {
   app_id: uuid
   id: uuid
   name: String
-  owner_id: String
+  user_id: String
 }
 
 """
@@ -5211,7 +5285,7 @@ input page_min_order_by {
   app_id: order_by
   id: order_by
   name: order_by
-  owner_id: order_by
+  user_id: order_by
 }
 
 """
@@ -5260,8 +5334,8 @@ input page_order_by {
   id: order_by
   links_aggregate: page_link_aggregate_order_by
   name: order_by
-  owner: user_order_by
-  owner_id: order_by
+  user: user_order_by
+  user_id: order_by
 }
 
 """
@@ -5293,7 +5367,7 @@ enum page_select_column {
   """
   column name
   """
-  owner_id
+  user_id
 }
 
 """
@@ -5303,7 +5377,7 @@ input page_set_input {
   app_id: uuid
   id: uuid
   name: String
-  owner_id: String
+  user_id: String
 }
 
 """
@@ -5328,7 +5402,7 @@ enum page_update_column {
   """
   column name
   """
-  owner_id
+  user_id
 }
 
 """
@@ -7816,6 +7890,90 @@ enum tag_update_column {
 columns and relationships of "user"
 """
 type user implements Node {
+  """
+  An array relationship
+  """
+  apps(
+    """
+    distinct select on columns
+    """
+    distinct_on: [app_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [app_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: app_bool_exp
+  ): [app!]!
+
+  """
+  An aggregate relationship
+  """
+  apps_aggregate(
+    """
+    distinct select on columns
+    """
+    distinct_on: [app_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [app_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: app_bool_exp
+  ): app_aggregate!
+
+  """
+  An array relationship connection
+  """
+  apps_connection(
+    after: String
+    before: String
+
+    """
+    distinct select on columns
+    """
+    distinct_on: [app_select_column!]
+    first: Int
+    last: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [app_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: app_bool_exp
+  ): appConnection!
   id: ID!
   name: String
 }
@@ -7840,6 +7998,7 @@ input user_bool_exp {
   _and: [user_bool_exp!]
   _not: user_bool_exp
   _or: [user_bool_exp!]
+  apps: app_bool_exp
   id: String_comparison_exp
   name: String_comparison_exp
 }
@@ -7858,6 +8017,7 @@ enum user_constraint {
 input type for inserting data into table "user"
 """
 input user_insert_input {
+  apps: app_arr_rel_insert_input
   id: String
   name: String
 }
@@ -7902,6 +8062,7 @@ input user_on_conflict {
 Ordering options when selecting data from "user".
 """
 input user_order_by {
+  apps_aggregate: app_aggregate_order_by
   id: order_by
   name: order_by
 }

@@ -1,1 +1,1 @@
-export * from './Pane-main--style'
+export * from './Pane-style'

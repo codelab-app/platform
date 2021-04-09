@@ -1,7 +1,6 @@
 import { PageHeader } from 'antd'
 import React, { useContext } from 'react'
-import { AssignStyleForm } from '../assignStyle'
-import { useStylesPane } from '../useStylesPane'
+/* import { AssignStyleForm } from '../assignStyle' */
 import {
   GetStylesGql,
   GetVertexGql,
@@ -11,7 +10,6 @@ import { AppContext } from '@codelab/frontend/shared'
 
 export const PaneConfigStyle = ({ vertexId }: { vertexId: string }) => {
   const { appId } = useContext(AppContext)
-  const { openUpdateStyle } = useStylesPane()
 
   const [unassign] = useUnAssignStyleMutation({
     refetchQueries: [
@@ -74,7 +72,7 @@ export const PaneConfigStyle = ({ vertexId }: { vertexId: string }) => {
           )}
         /> */}
       </PageHeader>
-      <AssignStyleForm vertexId={vertexId} />
+      {/* <AssignStyleForm vertexId={vertexId} /> */}
     </>
   )
 }
