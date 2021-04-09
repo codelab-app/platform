@@ -10,6 +10,7 @@ export enum FormType {
 export enum EntityType {
   None = 'None',
   Page = 'Page',
+  Atom = 'Atom'
 }
 
 interface CRUDModalState {

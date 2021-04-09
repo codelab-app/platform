@@ -1,1 +1,1 @@
-export * from './DeleteAtomButton'
+export * from './DeleteAtomForm'
