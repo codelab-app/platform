@@ -1,22 +1,12 @@
 import { PlusOutlined } from '@ant-design/icons'
+import { EntityType, useCRUDModalForm } from '@codelab/frontend/shared'
 import { Button } from 'antd'
-import { ButtonProps } from 'antd/lib/button'
-import React, { FunctionComponent } from 'react'
-import { useStylesPane } from '../useStylesPane'
+import React from 'react'
 
-type Props = ButtonProps
-
-const CreateStyleButton: FunctionComponent<Props> = (props) => {
-  const { openCreateStyle } = useStylesPane()
+export const CreateStyleButton = () => {
+  const { openCreateModal } = useCRUDModalForm(EntityType.Style)
 
   return (
-    <Button
-      key="1"
-      icon={<PlusOutlined />}
-      onClick={() => openCreateStyle()}
-      {...props}
-    />
+    <Button key="1" icon={<PlusOutlined />} onClick={() => openCreateModal()} />
   )
 }
-
-export default CreateStyleButton

@@ -1,14 +1,18 @@
-import { FileOutlined, RightOutlined, SettingOutlined } from '@ant-design/icons'
+import {
+  DeleteOutlined,
+  FileOutlined,
+  SettingOutlined,
+} from '@ant-design/icons'
 import { List, Space } from 'antd'
 import Link from 'next/link'
 import React, { useContext } from 'react'
-import { usePage } from '../usePage'
+import { EntityType, useCRUDModalForm } from '@codelab/frontend/shared'
 import { AppContext, Page } from '@codelab/frontend/shared'
 import { useGetPagesListQuery } from '@codelab/hasura'
 
 export const GetPagesList = () => {
   const { appId } = useContext(AppContext)
-  const { detailPageId, togglePageDetailPane } = usePage()
+  const { openDeleteModal, openUpdateModal } = useCRUDModalForm(EntityType.Page)
 
   const { data } = useGetPagesListQuery({
     variables: {
@@ -34,12 +38,10 @@ export const GetPagesList = () => {
                 <a>{page.name}</a>
               </Link>
             </Space>
-            {detailPageId === page.id ? (
-              // Clicking on icon for currently opened page
-              <RightOutlined onClick={() => togglePageDetailPane(page.id)} />
-            ) : (
-              <SettingOutlined onClick={() => togglePageDetailPane(page.id)} />
-            )}
+            <Space>
+              <SettingOutlined onClick={() => openUpdateModal(page.id)} />
+              <DeleteOutlined onClick={() => openDeleteModal(page.id)} />
+            </Space>
           </List.Item>
         )}
       />

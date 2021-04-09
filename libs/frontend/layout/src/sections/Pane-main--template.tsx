@@ -1,7 +1,5 @@
-import { CloseOutlined } from '@ant-design/icons'
 import { PageHeader } from 'antd'
 import React from 'react'
-import { LayoutPaneVisibility, useLayout } from '../templates'
 
 type PaneMainTemplateProps = {
   title: string
@@ -16,8 +14,6 @@ export const PaneMainTemplate = ({
   header,
   title,
 }: PaneMainTemplateProps) => {
-  const { setPaneVisibility } = useLayout()
-
   const extra = header && Array.isArray(header) ? header : [header]
 
   return (
@@ -25,13 +21,7 @@ export const PaneMainTemplate = ({
       <PageHeader
         className="site-page-header-responsive"
         title={title}
-        extra={[
-          ...extra,
-          <CloseOutlined
-            key="close-btn"
-            onClick={() => setPaneVisibility(LayoutPaneVisibility.None)}
-          />,
-        ]}
+        extra={[...extra]}
       >
         {children}
       </PageHeader>

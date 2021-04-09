@@ -71,12 +71,12 @@ export type App = {
   __typename?: 'app'
   id: Scalars['uuid']
   name: Scalars['String']
-  /** An object relationship */
-  owner: User
   /** An array relationship */
   pages: Array<Page>
   /** An aggregate relationship */
   pages_aggregate: Page_Aggregate
+  /** An object relationship */
+  user: User
   user_id: Scalars['String']
 }
 
@@ -119,6 +119,20 @@ export type App_Aggregate_FieldsCountArgs = {
   distinct?: Maybe<Scalars['Boolean']>
 }
 
+/** order by aggregate values of table "app" */
+export type App_Aggregate_Order_By = {
+  count?: Maybe<Order_By>
+  max?: Maybe<App_Max_Order_By>
+  min?: Maybe<App_Min_Order_By>
+}
+
+/** input type for inserting array relation for remote table "app" */
+export type App_Arr_Rel_Insert_Input = {
+  data: Array<App_Insert_Input>
+  /** on conflict condition */
+  on_conflict?: Maybe<App_On_Conflict>
+}
+
 /** Boolean expression to filter rows from the table "app". All fields are combined with a logical 'AND'. */
 export type App_Bool_Exp = {
   _and?: Maybe<Array<App_Bool_Exp>>
@@ -126,8 +140,8 @@ export type App_Bool_Exp = {
   _or?: Maybe<Array<App_Bool_Exp>>
   id?: Maybe<Uuid_Comparison_Exp>
   name?: Maybe<String_Comparison_Exp>
-  owner?: Maybe<User_Bool_Exp>
   pages?: Maybe<Page_Bool_Exp>
+  user?: Maybe<User_Bool_Exp>
   user_id?: Maybe<String_Comparison_Exp>
 }
 
@@ -141,8 +155,8 @@ export enum App_Constraint {
 export type App_Insert_Input = {
   id?: Maybe<Scalars['uuid']>
   name?: Maybe<Scalars['String']>
-  owner?: Maybe<User_Obj_Rel_Insert_Input>
   pages?: Maybe<Page_Arr_Rel_Insert_Input>
+  user?: Maybe<User_Obj_Rel_Insert_Input>
   user_id?: Maybe<Scalars['String']>
 }
 
@@ -154,12 +168,26 @@ export type App_Max_Fields = {
   user_id?: Maybe<Scalars['String']>
 }
 
+/** order by max() on columns of table "app" */
+export type App_Max_Order_By = {
+  id?: Maybe<Order_By>
+  name?: Maybe<Order_By>
+  user_id?: Maybe<Order_By>
+}
+
 /** aggregate min on columns */
 export type App_Min_Fields = {
   __typename?: 'app_min_fields'
   id?: Maybe<Scalars['uuid']>
   name?: Maybe<Scalars['String']>
   user_id?: Maybe<Scalars['String']>
+}
+
+/** order by min() on columns of table "app" */
+export type App_Min_Order_By = {
+  id?: Maybe<Order_By>
+  name?: Maybe<Order_By>
+  user_id?: Maybe<Order_By>
 }
 
 /** response of any mutation on the table "app" */
@@ -189,8 +217,8 @@ export type App_On_Conflict = {
 export type App_Order_By = {
   id?: Maybe<Order_By>
   name?: Maybe<Order_By>
-  owner?: Maybe<User_Order_By>
   pages_aggregate?: Maybe<Page_Aggregate_Order_By>
+  user?: Maybe<User_Order_By>
   user_id?: Maybe<Order_By>
 }
 
@@ -2839,8 +2867,8 @@ export type Page = {
   links_aggregate: Page_Link_Aggregate
   name: Scalars['String']
   /** An object relationship */
-  owner: User
-  owner_id: Scalars['String']
+  user: User
+  user_id: Scalars['String']
 }
 
 /** columns and relationships of "page" */
@@ -2925,8 +2953,8 @@ export type Page_Bool_Exp = {
   id?: Maybe<Uuid_Comparison_Exp>
   links?: Maybe<Page_Link_Bool_Exp>
   name?: Maybe<String_Comparison_Exp>
-  owner?: Maybe<User_Bool_Exp>
-  owner_id?: Maybe<String_Comparison_Exp>
+  user?: Maybe<User_Bool_Exp>
+  user_id?: Maybe<String_Comparison_Exp>
 }
 
 /** unique or primary key constraints on table "page" */
@@ -3149,8 +3177,8 @@ export type Page_Insert_Input = {
   id?: Maybe<Scalars['uuid']>
   links?: Maybe<Page_Link_Arr_Rel_Insert_Input>
   name?: Maybe<Scalars['String']>
-  owner?: Maybe<User_Obj_Rel_Insert_Input>
-  owner_id?: Maybe<Scalars['String']>
+  user?: Maybe<User_Obj_Rel_Insert_Input>
+  user_id?: Maybe<Scalars['String']>
 }
 
 /** columns and relationships of "page_link" */
@@ -3484,7 +3512,7 @@ export type Page_Max_Fields = {
   app_id?: Maybe<Scalars['uuid']>
   id?: Maybe<Scalars['uuid']>
   name?: Maybe<Scalars['String']>
-  owner_id?: Maybe<Scalars['String']>
+  user_id?: Maybe<Scalars['String']>
 }
 
 /** order by max() on columns of table "page" */
@@ -3492,7 +3520,7 @@ export type Page_Max_Order_By = {
   app_id?: Maybe<Order_By>
   id?: Maybe<Order_By>
   name?: Maybe<Order_By>
-  owner_id?: Maybe<Order_By>
+  user_id?: Maybe<Order_By>
 }
 
 /** aggregate min on columns */
@@ -3501,7 +3529,7 @@ export type Page_Min_Fields = {
   app_id?: Maybe<Scalars['uuid']>
   id?: Maybe<Scalars['uuid']>
   name?: Maybe<Scalars['String']>
-  owner_id?: Maybe<Scalars['String']>
+  user_id?: Maybe<Scalars['String']>
 }
 
 /** order by min() on columns of table "page" */
@@ -3509,7 +3537,7 @@ export type Page_Min_Order_By = {
   app_id?: Maybe<Order_By>
   id?: Maybe<Order_By>
   name?: Maybe<Order_By>
-  owner_id?: Maybe<Order_By>
+  user_id?: Maybe<Order_By>
 }
 
 /** response of any mutation on the table "page" */
@@ -3543,8 +3571,8 @@ export type Page_Order_By = {
   id?: Maybe<Order_By>
   links_aggregate?: Maybe<Page_Link_Aggregate_Order_By>
   name?: Maybe<Order_By>
-  owner?: Maybe<User_Order_By>
-  owner_id?: Maybe<Order_By>
+  user?: Maybe<User_Order_By>
+  user_id?: Maybe<Order_By>
 }
 
 /** primary key columns input for table: page */
@@ -3561,7 +3589,7 @@ export enum Page_Select_Column {
   /** column name */
   Name = 'name',
   /** column name */
-  OwnerId = 'owner_id',
+  UserId = 'user_id',
 }
 
 /** input type for updating data in table "page" */
@@ -3569,7 +3597,7 @@ export type Page_Set_Input = {
   app_id?: Maybe<Scalars['uuid']>
   id?: Maybe<Scalars['uuid']>
   name?: Maybe<Scalars['String']>
-  owner_id?: Maybe<Scalars['String']>
+  user_id?: Maybe<Scalars['String']>
 }
 
 /** update columns of table "page" */
@@ -3581,7 +3609,7 @@ export enum Page_Update_Column {
   /** column name */
   Name = 'name',
   /** column name */
-  OwnerId = 'owner_id',
+  UserId = 'user_id',
 }
 
 /** columns and relationships of "prop" */
@@ -5720,8 +5748,30 @@ export enum Tag_Update_Column {
 /** columns and relationships of "user" */
 export type User = {
   __typename?: 'user'
+  /** An array relationship */
+  apps: Array<App>
+  /** An aggregate relationship */
+  apps_aggregate: App_Aggregate
   id: Scalars['String']
   name?: Maybe<Scalars['String']>
+}
+
+/** columns and relationships of "user" */
+export type UserAppsArgs = {
+  distinct_on?: Maybe<Array<App_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<App_Order_By>>
+  where?: Maybe<App_Bool_Exp>
+}
+
+/** columns and relationships of "user" */
+export type UserApps_AggregateArgs = {
+  distinct_on?: Maybe<Array<App_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<App_Order_By>>
+  where?: Maybe<App_Bool_Exp>
 }
 
 /** aggregated selection of "user" */
@@ -5750,6 +5800,7 @@ export type User_Bool_Exp = {
   _and?: Maybe<Array<User_Bool_Exp>>
   _not?: Maybe<User_Bool_Exp>
   _or?: Maybe<Array<User_Bool_Exp>>
+  apps?: Maybe<App_Bool_Exp>
   id?: Maybe<String_Comparison_Exp>
   name?: Maybe<String_Comparison_Exp>
 }
@@ -5762,6 +5813,7 @@ export enum User_Constraint {
 
 /** input type for inserting data into table "user" */
 export type User_Insert_Input = {
+  apps?: Maybe<App_Arr_Rel_Insert_Input>
   id?: Maybe<Scalars['String']>
   name?: Maybe<Scalars['String']>
 }
@@ -5805,6 +5857,7 @@ export type User_On_Conflict = {
 
 /** Ordering options when selecting data from "user". */
 export type User_Order_By = {
+  apps_aggregate?: Maybe<App_Aggregate_Order_By>
   id?: Maybe<Order_By>
   name?: Maybe<Order_By>
 }
@@ -6153,6 +6206,51 @@ export type PageElementPropsQueryVariables = Exact<{
 export type PageElementPropsQuery = { __typename?: 'query_root' } & {
   page_element_by_pk?: Maybe<
     { __typename?: 'page_element' } & PageElementProps__PageElementFragment
+  >
+}
+
+export type GetStyleQueryVariables = Exact<{
+  styleId: Scalars['uuid']
+}>
+
+export type GetStyleQuery = { __typename?: 'query_root' } & {
+  style_by_pk?: Maybe<
+    { __typename?: 'style' } & Pick<Style, 'id' | 'name' | 'library_id'>
+  >
+}
+
+export type CreateStyleMutationVariables = Exact<{
+  data: Style_Insert_Input
+}>
+
+export type CreateStyleMutation = { __typename?: 'mutation_root' } & {
+  insert_style_one?: Maybe<{ __typename?: 'style' } & Pick<Style, 'id'>>
+}
+
+export type DeleteStyleMutationVariables = Exact<{
+  styleId: Scalars['uuid']
+}>
+
+export type DeleteStyleMutation = { __typename?: 'mutation_root' } & {
+  delete_style_by_pk?: Maybe<{ __typename?: 'style' } & Pick<Style, 'id'>>
+}
+
+export type GetStylesListQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetStylesListQuery = { __typename?: 'query_root' } & {
+  style: Array<
+    { __typename?: 'style' } & Pick<Style, 'id' | 'library_id' | 'name'>
+  >
+}
+
+export type UpdateStyleMutationVariables = Exact<{
+  input: Style_Set_Input
+  styleId: Scalars['uuid']
+}>
+
+export type UpdateStyleMutation = { __typename?: 'mutation_root' } & {
+  update_style_by_pk?: Maybe<
+    { __typename?: 'style' } & Pick<Style, 'id' | 'name'>
   >
 }
 
@@ -7487,6 +7585,269 @@ export type PageElementPropsQueryResult = Apollo.QueryResult<
   PageElementPropsQuery,
   PageElementPropsQueryVariables
 >
+export const GetStyleGql = gql`
+  query GetStyle($styleId: uuid!) {
+    style_by_pk(id: $styleId) {
+      id
+      name
+      library_id
+    }
+  }
+`
+
+/**
+ * __useGetStyleQuery__
+ *
+ * To run a query within a React component, call `useGetStyleQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStyleQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStyleQuery({
+ *   variables: {
+ *      styleId: // value for 'styleId'
+ *   },
+ * });
+ */
+export function useGetStyleQuery(
+  baseOptions: Apollo.QueryHookOptions<GetStyleQuery, GetStyleQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetStyleQuery, GetStyleQueryVariables>(
+    GetStyleGql,
+    options,
+  )
+}
+export function useGetStyleLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetStyleQuery,
+    GetStyleQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetStyleQuery, GetStyleQueryVariables>(
+    GetStyleGql,
+    options,
+  )
+}
+export type GetStyleQueryHookResult = ReturnType<typeof useGetStyleQuery>
+export type GetStyleLazyQueryHookResult = ReturnType<
+  typeof useGetStyleLazyQuery
+>
+export type GetStyleQueryResult = Apollo.QueryResult<
+  GetStyleQuery,
+  GetStyleQueryVariables
+>
+export const CreateStyleGql = gql`
+  mutation CreateStyle($data: style_insert_input!) {
+    insert_style_one(object: $data) {
+      id
+    }
+  }
+`
+export type CreateStyleMutationFn = Apollo.MutationFunction<
+  CreateStyleMutation,
+  CreateStyleMutationVariables
+>
+
+/**
+ * __useCreateStyleMutation__
+ *
+ * To run a mutation, you first call `useCreateStyleMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateStyleMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createStyleMutation, { data, loading, error }] = useCreateStyleMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useCreateStyleMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateStyleMutation,
+    CreateStyleMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<CreateStyleMutation, CreateStyleMutationVariables>(
+    CreateStyleGql,
+    options,
+  )
+}
+export type CreateStyleMutationHookResult = ReturnType<
+  typeof useCreateStyleMutation
+>
+export type CreateStyleMutationResult = Apollo.MutationResult<CreateStyleMutation>
+export type CreateStyleMutationOptions = Apollo.BaseMutationOptions<
+  CreateStyleMutation,
+  CreateStyleMutationVariables
+>
+export const DeleteStyleGql = gql`
+  mutation DeleteStyle($styleId: uuid!) {
+    delete_style_by_pk(id: $styleId) {
+      id
+    }
+  }
+`
+export type DeleteStyleMutationFn = Apollo.MutationFunction<
+  DeleteStyleMutation,
+  DeleteStyleMutationVariables
+>
+
+/**
+ * __useDeleteStyleMutation__
+ *
+ * To run a mutation, you first call `useDeleteStyleMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteStyleMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteStyleMutation, { data, loading, error }] = useDeleteStyleMutation({
+ *   variables: {
+ *      styleId: // value for 'styleId'
+ *   },
+ * });
+ */
+export function useDeleteStyleMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeleteStyleMutation,
+    DeleteStyleMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<DeleteStyleMutation, DeleteStyleMutationVariables>(
+    DeleteStyleGql,
+    options,
+  )
+}
+export type DeleteStyleMutationHookResult = ReturnType<
+  typeof useDeleteStyleMutation
+>
+export type DeleteStyleMutationResult = Apollo.MutationResult<DeleteStyleMutation>
+export type DeleteStyleMutationOptions = Apollo.BaseMutationOptions<
+  DeleteStyleMutation,
+  DeleteStyleMutationVariables
+>
+export const GetStylesListGql = gql`
+  query GetStylesList {
+    style {
+      id
+      library_id
+      name
+    }
+  }
+`
+
+/**
+ * __useGetStylesListQuery__
+ *
+ * To run a query within a React component, call `useGetStylesListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStylesListQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStylesListQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetStylesListQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetStylesListQuery,
+    GetStylesListQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetStylesListQuery, GetStylesListQueryVariables>(
+    GetStylesListGql,
+    options,
+  )
+}
+export function useGetStylesListLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetStylesListQuery,
+    GetStylesListQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetStylesListQuery, GetStylesListQueryVariables>(
+    GetStylesListGql,
+    options,
+  )
+}
+export type GetStylesListQueryHookResult = ReturnType<
+  typeof useGetStylesListQuery
+>
+export type GetStylesListLazyQueryHookResult = ReturnType<
+  typeof useGetStylesListLazyQuery
+>
+export type GetStylesListQueryResult = Apollo.QueryResult<
+  GetStylesListQuery,
+  GetStylesListQueryVariables
+>
+export const UpdateStyleGql = gql`
+  mutation UpdateStyle($input: style_set_input!, $styleId: uuid!) {
+    update_style_by_pk(_set: $input, pk_columns: { id: $styleId }) {
+      id
+      name
+    }
+  }
+`
+export type UpdateStyleMutationFn = Apollo.MutationFunction<
+  UpdateStyleMutation,
+  UpdateStyleMutationVariables
+>
+
+/**
+ * __useUpdateStyleMutation__
+ *
+ * To run a mutation, you first call `useUpdateStyleMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateStyleMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateStyleMutation, { data, loading, error }] = useUpdateStyleMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *      styleId: // value for 'styleId'
+ *   },
+ * });
+ */
+export function useUpdateStyleMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateStyleMutation,
+    UpdateStyleMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<UpdateStyleMutation, UpdateStyleMutationVariables>(
+    UpdateStyleGql,
+    options,
+  )
+}
+export type UpdateStyleMutationHookResult = ReturnType<
+  typeof useUpdateStyleMutation
+>
+export type UpdateStyleMutationResult = Apollo.MutationResult<UpdateStyleMutation>
+export type UpdateStyleMutationOptions = Apollo.BaseMutationOptions<
+  UpdateStyleMutation,
+  UpdateStyleMutationVariables
+>
 export const RootAppPageElement = gql`
   fragment RootAppPageElement on page_element {
     id
@@ -7790,4 +8151,44 @@ export const PageElementProps = gql`
     }
   }
   ${PageElementProps__PageElement}
+`
+export const GetStyle = gql`
+  query GetStyle($styleId: uuid!) {
+    style_by_pk(id: $styleId) {
+      id
+      name
+      library_id
+    }
+  }
+`
+export const CreateStyle = gql`
+  mutation CreateStyle($data: style_insert_input!) {
+    insert_style_one(object: $data) {
+      id
+    }
+  }
+`
+export const DeleteStyle = gql`
+  mutation DeleteStyle($styleId: uuid!) {
+    delete_style_by_pk(id: $styleId) {
+      id
+    }
+  }
+`
+export const GetStylesList = gql`
+  query GetStylesList {
+    style {
+      id
+      library_id
+      name
+    }
+  }
+`
+export const UpdateStyle = gql`
+  mutation UpdateStyle($input: style_set_input!, $styleId: uuid!) {
+    update_style_by_pk(_set: $input, pk_columns: { id: $styleId }) {
+      id
+      name
+    }
+  }
 `

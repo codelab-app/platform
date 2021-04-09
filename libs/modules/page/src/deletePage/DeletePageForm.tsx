@@ -1,39 +1,40 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import {
+  AppContext,
   createNotificationHandler,
   EntityType,
   JsonSchemaUniForm,
   UniFormUseCaseProps,
-  useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import { UpdatePageInput, UpdatePageSchema } from './updateFromSchema'
+import { DeletePageInput, DeletePageSchema } from './deletePageSchema'
 import {
-  GetPageGql,
-  useUpdatePageMutation,
+  useDeletePageMutation,
+  GetPagesListGql,
   useGetPageQuery,
 } from '@codelab/hasura'
-import { DeepPartial } from 'uniforms'
+import { useCRUDModalForm } from '@codelab/frontend/shared'
 import { Spin } from 'antd'
 import { AutoFields } from 'uniforms-antd'
-type UpdatePageFormProps = UniFormUseCaseProps<UpdatePageInput>
+type DeletePageFormProps = UniFormUseCaseProps<DeletePageInput>
 
-export const UpdatePageForm = (props: UpdatePageFormProps) => {
+export const DeletePageForm = (props: DeletePageFormProps) => {
   const { reset, setLoading, state } = useCRUDModalForm(EntityType.Page)
   const { id: pageId } = state
+  const { appId } = useContext(AppContext)
 
-  const [mutate, { loading: updating }] = useUpdatePageMutation({
+  const [mutate, { loading: deleting }] = useDeletePageMutation({
     refetchQueries: [
       {
-        query: GetPageGql,
+        query: GetPagesListGql,
         variables: {
-          pageId,
+          appId,
         },
       },
     ],
   })
   useEffect(() => {
-    setLoading(updating)
-  }, [updating])
+    setLoading(deleting)
+  }, [deleting])
 
   const { data, loading } = useGetPageQuery({
     variables: {
@@ -47,28 +48,25 @@ export const UpdatePageForm = (props: UpdatePageFormProps) => {
     return <Spin />
   }
 
-  const onSubmit = (submitData: DeepPartial<UpdatePageInput>) => {
+  const onSubmit = () => {
     return mutate({
       variables: {
-        input: {
-          ...(submitData as any),
-        },
         pageId,
       },
     })
   }
 
   return (
-    <JsonSchemaUniForm<UpdatePageInput>
+    <JsonSchemaUniForm<DeletePageInput>
       onSubmit={onSubmit}
-      schema={UpdatePageSchema}
-      model={{ name: page?.name }}
+      schema={DeletePageSchema}
       onSubmitError={createNotificationHandler({
-        title: 'Error while updating page',
+        title: 'Error while deleting page',
       })}
       onSubmitSuccess={() => reset()}
       {...props}
     >
+      <h4>Are you sure you want to delete page "{page?.name}"?</h4>
       <AutoFields />
     </JsonSchemaUniForm>
   )

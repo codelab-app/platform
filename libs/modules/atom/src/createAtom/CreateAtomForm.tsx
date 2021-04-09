@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
   createNotificationHandler,
+  EntityType,
   JsonSchemaUniForm,
   UniFormUseCaseProps,
+  useCRUDModalForm,
 } from '@codelab/frontend/shared'
 
 import {
@@ -17,7 +19,9 @@ import { SelectField } from 'uniforms-antd'
 type CreateAtomFormProps = UniFormUseCaseProps<CreateAtomInput>
 
 export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
-  const [mutate] = useCreateAtomMutation({
+  const { reset, setLoading } = useCRUDModalForm(EntityType.Atom)
+
+  const [mutate, { loading: creating }] = useCreateAtomMutation({
     awaitRefetchQueries: true,
     refetchQueries: [
       {
@@ -25,6 +29,10 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
       },
     ],
   })
+
+  useEffect(() => {
+    setLoading(creating)
+  }, [creating])
 
   const onSubmit = (submitData: DeepPartial<CreateAtomInput>) => {
     return mutate({
@@ -48,6 +56,7 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
       onSubmitError={createNotificationHandler({
         title: 'Error while creating atom',
       })}
+      onSubmitSuccess={() => reset()}
       {...props}
     >
       <SelectField name="type" options={atomTypesOptions} />

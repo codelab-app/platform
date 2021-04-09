@@ -1,0 +1,7 @@
+query GetStyle($styleId: uuid!) {
+  style_by_pk(id: $styleId) {
+    id
+    name
+    library_id
+  }
+}

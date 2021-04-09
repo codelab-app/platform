@@ -1,0 +1,5 @@
+mutation CreateStyle ($data: style_insert_input!){
+  insert_style_one(object: $data){
+    id
+  }
+}

@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
   createNotificationHandler,
+  EntityType,
   JsonSchemaUniForm,
   PropsWithIds,
   UniFormUseCaseProps,
+  useCRUDModalForm,
 } from '@codelab/frontend/shared'
 import { UpdateAtomInput, UpdateAtomSchema } from './updateFromSchema'
 import {
@@ -14,17 +16,20 @@ import {
 } from '@codelab/hasura'
 import { DeepPartial } from 'uniforms'
 import { SelectField } from 'uniforms-antd'
+import { Spin } from 'antd'
 
 export const UpdateAtomForm = ({
-  atomId,
   ...props
-}: UniFormUseCaseProps<UpdateAtomInput> & PropsWithIds<'atomId'>) => {
+}: UniFormUseCaseProps<UpdateAtomInput>) => {
+  const { reset, setLoading, state } = useCRUDModalForm(EntityType.Atom)
+  const { id: atomId } = state
+
   const { data: atomsTypes } = useGetAtomsTypesQuery()
   const atomTypesOptions = atomsTypes?.atom_type?.map((t) => ({
     ...t,
     label: t.value,
   }))
-  const [mutate] = useUpdateAtomMutation({
+  const [mutate, { loading: updating }] = useUpdateAtomMutation({
     refetchQueries: [
       {
         query: GetAtomGql,
@@ -34,6 +39,10 @@ export const UpdateAtomForm = ({
       },
     ],
   })
+  useEffect(() => {
+    setLoading(updating)
+  }, [updating])
+
   const { data, loading } = useGetAtomQuery({
     variables: {
       atomId,
@@ -43,7 +52,7 @@ export const UpdateAtomForm = ({
   const atom = data?.atom_by_pk
 
   if (loading) {
-    return null
+    return <Spin />
   }
 
   const onSubmit = (submitData: DeepPartial<UpdateAtomInput>) => {
@@ -66,6 +75,7 @@ export const UpdateAtomForm = ({
       onSubmitError={createNotificationHandler({
         title: 'Error while updating atom',
       })}
+      onSubmitSuccess={() => reset()}
       {...props}
     >
       <SelectField name="type" options={atomTypesOptions} />

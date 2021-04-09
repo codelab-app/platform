@@ -1,1 +1,1 @@
-export * from './DeleteStyleButton'
+export * from './DeleteStyleForm'

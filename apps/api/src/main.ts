@@ -7,7 +7,7 @@ import { Logger } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
 import { CodelabAppModule } from './app/app.module'
 
-async function bootstrap() {
+const bootstrap = async () => {
   const app = await NestFactory.create(CodelabAppModule)
 
   const globalPrefix = ''

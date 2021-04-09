@@ -1,1 +1,1 @@
-export * from './DeletePageButton'
+export * from './DeletePageForm'

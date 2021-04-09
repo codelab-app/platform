@@ -1,19 +1,10 @@
 import { PlusOutlined } from '@ant-design/icons'
+import { EntityType, useCRUDModalForm } from '@codelab/frontend/shared'
 import { Button } from 'antd'
 import React from 'react'
-import { useAtom } from '../useAtom'
 
 export const CreateAtomButton = () => {
-  const { openCreateAtom } = useAtom()
+  const { openCreateModal } = useCRUDModalForm(EntityType.Atom)
 
-  return (
-    <Button
-      type="primary"
-      size="small"
-      icon={<PlusOutlined />}
-      onClick={() => openCreateAtom()}
-    >
-      Add
-    </Button>
-  )
+  return <Button icon={<PlusOutlined />} onClick={() => openCreateModal()} />
 }

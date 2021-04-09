@@ -1,1 +1,1 @@
-export * from './Pane-main--atom'
+export * from './Pane-atom'

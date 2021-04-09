@@ -1,12 +1,13 @@
 import { List, Space } from 'antd'
 import React from 'react'
 import { useGetAtomsListQuery } from '@codelab/hasura'
-import { useAtom } from '../useAtom'
-import { RightOutlined, SettingOutlined } from '@ant-design/icons'
+import { DeleteOutlined, SettingOutlined } from '@ant-design/icons'
+import { EntityType, useCRUDModalForm } from '@codelab/frontend/shared'
 
 export const GetAtomsList = () => {
   const { data } = useGetAtomsListQuery({})
-  const { detailAtomId, toggleAtomDetailPane } = useAtom()
+
+  const { openDeleteModal, openUpdateModal } = useCRUDModalForm(EntityType.Atom)
 
   return (
     <>
@@ -16,12 +17,10 @@ export const GetAtomsList = () => {
         renderItem={(atom: any) => (
           <List.Item onMouseOver={() => null} style={{ paddingLeft: 0 }}>
             <Space style={{ width: '100%' }}>{atom.type}</Space>
-            {detailAtomId === atom.id ? (
-              // Clicking on icon for currently opened page
-              <RightOutlined onClick={() => toggleAtomDetailPane(atom.id)} />
-            ) : (
-              <SettingOutlined onClick={() => toggleAtomDetailPane(atom.id)} />
-            )}
+            <Space>
+              <SettingOutlined onClick={() => openUpdateModal(atom.id)} />
+              <DeleteOutlined onClick={() => openDeleteModal(atom.id)} />
+            </Space>
           </List.Item>
         )}
       />
