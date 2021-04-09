@@ -49,6 +49,14 @@ export const notify = <TEvent extends any>(
     description: contentString,
     placement: 'bottomRight',
   })
+
+  if (type === 'warning') {
+    console.warn(titleString, contentString)
+  } else if (type === 'error') {
+    console.error(titleString, contentString)
+  } else {
+    console.log(titleString, contentString)
+  }
 }
 
 /**

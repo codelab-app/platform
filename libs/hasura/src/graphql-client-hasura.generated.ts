@@ -6051,16 +6051,53 @@ export type CreatePropMutation = { __typename?: 'mutation_root' } & {
   insert_prop_one?: Maybe<{ __typename?: 'prop' } & Pick<Prop, 'id'>>
 }
 
+export type GetAttributes__AttributeFragment = {
+  __typename?: 'attribute'
+} & Pick<Attribute, 'id' | 'key' | 'atom_type' | 'value_type'>
+
 export type GetAttributesQueryVariables = Exact<{
   where: Attribute_Bool_Exp
 }>
 
 export type GetAttributesQuery = { __typename?: 'query_root' } & {
   attribute: Array<
-    { __typename?: 'attribute' } & Pick<
-      Attribute,
-      'id' | 'key' | 'atom_type' | 'value_type'
-    >
+    { __typename?: 'attribute' } & GetAttributes__AttributeFragment
+  >
+}
+
+export type UpdatePropMutationVariables = Exact<{
+  input: Prop_Set_Input
+  propId: Scalars['uuid']
+}>
+
+export type UpdatePropMutation = { __typename?: 'mutation_root' } & {
+  update_prop_by_pk?: Maybe<
+    { __typename?: 'prop' } & Pick<Prop, 'id'> & PageElementProps__PropFragment
+  >
+}
+
+export type UpdatePropValueMutationVariables = Exact<{
+  propValueId: Scalars['uuid']
+  input: Prop_Value_Set_Input
+}>
+
+export type UpdatePropValueMutation = { __typename?: 'mutation_root' } & {
+  update_prop_value_by_pk?: Maybe<
+    { __typename?: 'prop_value' } & PageElementProps__PropValueFragment
+  >
+}
+
+export type CreatePageElementPropMutationVariables = Exact<{
+  pageElementId: Scalars['uuid']
+  propInput: Prop_Insert_Input
+}>
+
+export type CreatePageElementPropMutation = { __typename?: 'mutation_root' } & {
+  insert_prop_element_one?: Maybe<
+    { __typename?: 'prop_element' } & Pick<
+      Prop_Element,
+      'element_id' | 'prop_id'
+    > & { prop: { __typename?: 'prop' } & PageElementProps__PropFragment }
   >
 }
 
@@ -6156,6 +6193,14 @@ export const RootAppPageLinkFragmentDoc = gql`
     props
     source_element_id
     target_element_id
+  }
+`
+export const GetAttributes__AttributeFragmentDoc = gql`
+  fragment GetAttributes__Attribute on attribute {
+    id
+    key
+    atom_type
+    value_type
   }
 `
 export const PageElementProps__AttributeFragmentDoc = gql`
@@ -7164,12 +7209,10 @@ export type CreatePropMutationOptions = Apollo.BaseMutationOptions<
 export const GetAttributesGql = gql`
   query GetAttributes($where: attribute_bool_exp!) {
     attribute(where: $where) {
-      id
-      key
-      atom_type
-      value_type
+      ...GetAttributes__Attribute
     }
   }
+  ${GetAttributes__AttributeFragmentDoc}
 `
 
 /**
@@ -7221,6 +7264,169 @@ export type GetAttributesLazyQueryHookResult = ReturnType<
 export type GetAttributesQueryResult = Apollo.QueryResult<
   GetAttributesQuery,
   GetAttributesQueryVariables
+>
+export const UpdatePropGql = gql`
+  mutation UpdateProp($input: prop_set_input!, $propId: uuid!) {
+    update_prop_by_pk(pk_columns: { id: $propId }, _set: $input) {
+      id
+      ...PageElementProps__Prop
+    }
+  }
+  ${PageElementProps__PropFragmentDoc}
+`
+export type UpdatePropMutationFn = Apollo.MutationFunction<
+  UpdatePropMutation,
+  UpdatePropMutationVariables
+>
+
+/**
+ * __useUpdatePropMutation__
+ *
+ * To run a mutation, you first call `useUpdatePropMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdatePropMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updatePropMutation, { data, loading, error }] = useUpdatePropMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *      propId: // value for 'propId'
+ *   },
+ * });
+ */
+export function useUpdatePropMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdatePropMutation,
+    UpdatePropMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<UpdatePropMutation, UpdatePropMutationVariables>(
+    UpdatePropGql,
+    options,
+  )
+}
+export type UpdatePropMutationHookResult = ReturnType<
+  typeof useUpdatePropMutation
+>
+export type UpdatePropMutationResult = Apollo.MutationResult<UpdatePropMutation>
+export type UpdatePropMutationOptions = Apollo.BaseMutationOptions<
+  UpdatePropMutation,
+  UpdatePropMutationVariables
+>
+export const UpdatePropValueGql = gql`
+  mutation UpdatePropValue($propValueId: uuid!, $input: prop_value_set_input!) {
+    update_prop_value_by_pk(pk_columns: { id: $propValueId }, _set: $input) {
+      ...PageElementProps__PropValue
+    }
+  }
+  ${PageElementProps__PropValueFragmentDoc}
+`
+export type UpdatePropValueMutationFn = Apollo.MutationFunction<
+  UpdatePropValueMutation,
+  UpdatePropValueMutationVariables
+>
+
+/**
+ * __useUpdatePropValueMutation__
+ *
+ * To run a mutation, you first call `useUpdatePropValueMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdatePropValueMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updatePropValueMutation, { data, loading, error }] = useUpdatePropValueMutation({
+ *   variables: {
+ *      propValueId: // value for 'propValueId'
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdatePropValueMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdatePropValueMutation,
+    UpdatePropValueMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    UpdatePropValueMutation,
+    UpdatePropValueMutationVariables
+  >(UpdatePropValueGql, options)
+}
+export type UpdatePropValueMutationHookResult = ReturnType<
+  typeof useUpdatePropValueMutation
+>
+export type UpdatePropValueMutationResult = Apollo.MutationResult<UpdatePropValueMutation>
+export type UpdatePropValueMutationOptions = Apollo.BaseMutationOptions<
+  UpdatePropValueMutation,
+  UpdatePropValueMutationVariables
+>
+export const CreatePageElementPropGql = gql`
+  mutation CreatePageElementProp(
+    $pageElementId: uuid!
+    $propInput: prop_insert_input!
+  ) {
+    insert_prop_element_one(
+      object: { element_id: $pageElementId, prop: { data: $propInput } }
+    ) {
+      element_id
+      prop_id
+      prop {
+        ...PageElementProps__Prop
+      }
+    }
+  }
+  ${PageElementProps__PropFragmentDoc}
+`
+export type CreatePageElementPropMutationFn = Apollo.MutationFunction<
+  CreatePageElementPropMutation,
+  CreatePageElementPropMutationVariables
+>
+
+/**
+ * __useCreatePageElementPropMutation__
+ *
+ * To run a mutation, you first call `useCreatePageElementPropMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreatePageElementPropMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createPageElementPropMutation, { data, loading, error }] = useCreatePageElementPropMutation({
+ *   variables: {
+ *      pageElementId: // value for 'pageElementId'
+ *      propInput: // value for 'propInput'
+ *   },
+ * });
+ */
+export function useCreatePageElementPropMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreatePageElementPropMutation,
+    CreatePageElementPropMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    CreatePageElementPropMutation,
+    CreatePageElementPropMutationVariables
+  >(CreatePageElementPropGql, options)
+}
+export type CreatePageElementPropMutationHookResult = ReturnType<
+  typeof useCreatePageElementPropMutation
+>
+export type CreatePageElementPropMutationResult = Apollo.MutationResult<CreatePageElementPropMutation>
+export type CreatePageElementPropMutationOptions = Apollo.BaseMutationOptions<
+  CreatePageElementPropMutation,
+  CreatePageElementPropMutationVariables
 >
 export const PageElementPropsGql = gql`
   query PageElementProps($pageElementId: uuid!) {
@@ -7318,6 +7524,14 @@ export const RootAppPageLink = gql`
     props
     source_element_id
     target_element_id
+  }
+`
+export const GetAttributes__Attribute = gql`
+  fragment GetAttributes__Attribute on attribute {
+    id
+    key
+    atom_type
+    value_type
   }
 `
 export const PageElementProps__Attribute = gql`
@@ -7530,12 +7744,44 @@ export const CreateProp = gql`
 export const GetAttributes = gql`
   query GetAttributes($where: attribute_bool_exp!) {
     attribute(where: $where) {
-      id
-      key
-      atom_type
-      value_type
+      ...GetAttributes__Attribute
     }
   }
+  ${GetAttributes__Attribute}
+`
+export const UpdateProp = gql`
+  mutation UpdateProp($input: prop_set_input!, $propId: uuid!) {
+    update_prop_by_pk(pk_columns: { id: $propId }, _set: $input) {
+      id
+      ...PageElementProps__Prop
+    }
+  }
+  ${PageElementProps__Prop}
+`
+export const UpdatePropValue = gql`
+  mutation UpdatePropValue($propValueId: uuid!, $input: prop_value_set_input!) {
+    update_prop_value_by_pk(pk_columns: { id: $propValueId }, _set: $input) {
+      ...PageElementProps__PropValue
+    }
+  }
+  ${PageElementProps__PropValue}
+`
+export const CreatePageElementProp = gql`
+  mutation CreatePageElementProp(
+    $pageElementId: uuid!
+    $propInput: prop_insert_input!
+  ) {
+    insert_prop_element_one(
+      object: { element_id: $pageElementId, prop: { data: $propInput } }
+    ) {
+      element_id
+      prop_id
+      prop {
+        ...PageElementProps__Prop
+      }
+    }
+  }
+  ${PageElementProps__Prop}
 `
 export const PageElementProps = gql`
   query PageElementProps($pageElementId: uuid!) {
