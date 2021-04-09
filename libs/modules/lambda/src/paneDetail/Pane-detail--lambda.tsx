@@ -8,23 +8,23 @@ import { CreateLambdaForm } from '../createLambda/CreateLambdaForm'
  * } from '@codelab/frontend/layout'
  *  */
 export const LambdaPaneDetail = () => {
-    /* const { setPaneVisibility } = useLayout()
-     */
-    return null
-    /* return (
-     *   <PaneDetailTemplate
-     *     header={
-     *       <>
-     *         <Button
-     *           type="primary"
-     *           onClick={() => setPaneVisibility(LayoutPaneVisibility.Main)}
-     *         >
-     *           Close
-     *         </Button>
-     *       </>
-     *     }
-     *   >
-     *     <CreateLambdaForm />
-     *   </PaneDetailTemplate>
-     * ) */
+  /* const { setPaneVisibility } = useLayout()
+   */
+  return null
+  /* return (
+   *   <PaneDetailTemplate
+   *     header={
+   *       <>
+   *         <Button
+   *           type="primary"
+   *           onClick={() => setPaneVisibility(LayoutPaneVisibility.Main)}
+   *         >
+   *           Close
+   *         </Button>
+   *       </>
+   *     }
+   *   >
+   *     <CreateLambdaForm />
+   *   </PaneDetailTemplate>
+   * ) */
 }

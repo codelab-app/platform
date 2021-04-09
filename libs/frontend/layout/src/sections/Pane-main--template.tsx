@@ -14,7 +14,6 @@ export const PaneMainTemplate = ({
   header,
   title,
 }: PaneMainTemplateProps) => {
-
   const extra = header && Array.isArray(header) ? header : [header]
 
   return (

@@ -1,6 +1,6 @@
 import { JSONSchemaType } from 'ajv'
 
-export type DeletePageInput = {}
+export type DeletePageInput = Record<string, unknown>
 
 export const DeletePageSchema: JSONSchemaType<DeletePageInput> = {
   title: 'Delete Page',

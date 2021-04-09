@@ -6,7 +6,7 @@ import { createLambdaState } from './CreateLambdaState'
 /* import { LayoutPaneVisibility, useLayout } from '@codelab/frontend/layout'
  *  */
 export const CreateLambdaButton = () => {
-    /* const { setPaneVisibility } = useLayout() */
+  /* const { setPaneVisibility } = useLayout() */
   const [createLambda, setCreateLambda] = useRecoilState(createLambdaState)
 
   return (

@@ -1,6 +1,6 @@
 import { JSONSchemaType } from 'ajv'
 
-export type DeleteStyleInput = {}
+export type DeleteStyleInput = Record<string, unknown>
 
 export const DeleteStyleSchema: JSONSchemaType<DeleteStyleInput> = {
   title: 'Delete Style',

@@ -14,23 +14,23 @@ export type ComponentItemType = {
 export const PaneMainComponent = () => {
   const componentsData: Array<ComponentItemType> = useMemo(
     () => [],
-      // Object.entries(AtomType)
-      //   // Get only top level components, use naming convention of `_` to differentiate
-      //   .filter(([, value]) => {
-      //     const matchCount = (value.match(/_/g) ?? []).length
+    // Object.entries(AtomType)
+    //   // Get only top level components, use naming convention of `_` to differentiate
+    //   .filter(([, value]) => {
+    //     const matchCount = (value.match(/_/g) ?? []).length
 
-      //     return matchCount <= 1
-      //   })
-      //   // Produce readable label
-      //   .map(([key, value]) => {
-      //     const label = value.replace('React_', '').replace('_', ' ')
+    //     return matchCount <= 1
+    //   })
+    //   // Produce readable label
+    //   .map(([key, value]) => {
+    //     const label = value.replace('React_', '').replace('_', ' ')
 
-      //     return {
-      //       key,
-      //       type: value,
-      //       label,
-      //     }
-      //   }),
+    //     return {
+    //       key,
+    //       type: value,
+    //       label,
+    //     }
+    //   }),
     [],
   )
 

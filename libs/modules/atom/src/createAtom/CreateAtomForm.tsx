@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import {
   createNotificationHandler,
-    EntityType,
+  EntityType,
   JsonSchemaUniForm,
   UniFormUseCaseProps,
   useCRUDModalForm,
