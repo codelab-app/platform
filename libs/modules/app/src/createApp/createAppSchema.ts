@@ -1,6 +1,10 @@
-import { JTDDataType } from 'ajv/dist/jtd'
+import { JSONSchemaType } from 'ajv'
 
-export const createAppSchema = {
+export type CreateAppInput = {
+  name: string
+}
+
+export const createAppSchema: JSONSchemaType<CreateAppInput> = {
   title: 'Create App Input',
   type: 'object',
   properties: {
@@ -10,5 +14,3 @@ export const createAppSchema = {
   },
   required: ['name'],
 }
-
-export type CreateAppInput = JTDDataType<typeof createAppSchema>

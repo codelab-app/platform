@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import { useRecoilState } from 'recoil'
 import { DeepPartial } from 'uniforms'
 import { GetAppsListGql, useCreateAppMutation } from '@codelab/hasura'
-// import { GetAppsListGql, useCreateAppMutation } from '@codelab/generated'
 import { appState } from '../state'
 import { CreateAppInput, createAppSchema } from './createAppSchema'
 import {
@@ -11,6 +10,7 @@ import {
   createNotificationHandler,
 } from '@codelab/frontend/shared'
 import { useCurrentUser } from '@codelab/modules/user'
+import { JSONSchemaType } from 'ajv'
 
 export const CreateAppForm = (props: UniFormUseCaseProps<CreateAppInput>) => {
   const [mutate, { loading }] = useCreateAppMutation({

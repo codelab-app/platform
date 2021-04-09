@@ -129,7 +129,7 @@ export const PageElementPropForm = ({
   }
 
   return (
-    <JsonSchemaUniForm<PageElementProps__PropFragment>
+    <JsonSchemaUniForm<Record<string, string | number | boolean | null>>
       schema={schema}
       autosave={true}
       autosaveDelay={500}

@@ -1,7 +1,7 @@
 import React from 'react'
-import { JSONSchemaType } from 'ajv/lib/types/json-schema'
 import { getJsonSchemaTypeFromAttributeType } from './getJsonSchemaTypeFromAttributeType'
 import { PageElementProps__AttributeFragment } from '@codelab/hasura'
+import { JSONSchemaType } from 'ajv'
 
 /** Creates a JSON schema for a prop form dynamically, based on the attribute passed */
 export const createPropSchema = (

@@ -1,6 +1,10 @@
-import { JTDDataType } from 'ajv/dist/jtd'
+import { JSONSchemaType } from 'ajv'
 
-export const UpdatePageSchema = {
+export type UpdatePageInput = {
+  name: string
+}
+
+export const UpdatePageSchema: JSONSchemaType<UpdatePageInput> = {
   title: 'Update Page',
   type: 'object',
   properties: {
@@ -10,5 +14,3 @@ export const UpdatePageSchema = {
   },
   required: ['name'],
 }
-
-export type UpdatePageInput = JTDDataType<typeof UpdatePageSchema>
