@@ -12,7 +12,7 @@ import { useGetPagesListQuery } from '@codelab/hasura'
 
 export const GetPagesList = () => {
   const { appId } = useContext(AppContext)
-  const { openDeletePage, openUpdatePage } = useCRUDModalForm(EntityType.Page)
+  const { openDeleteModal, openUpdateModal } = useCRUDModalForm(EntityType.Page)
 
   const { data } = useGetPagesListQuery({
     variables: {
@@ -39,8 +39,8 @@ export const GetPagesList = () => {
               </Link>
             </Space>
             <Space>
-              <SettingOutlined onClick={() => openUpdatePage(page.id)} />
-              <DeleteOutlined onClick={() => openDeletePage(page.id)} />
+              <SettingOutlined onClick={() => openUpdateModal(page.id)} />
+              <DeleteOutlined onClick={() => openDeleteModal(page.id)} />
             </Space>
           </List.Item>
         )}

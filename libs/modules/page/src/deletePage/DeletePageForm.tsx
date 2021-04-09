@@ -6,7 +6,7 @@ import {
   JsonSchemaUniForm,
   UniFormUseCaseProps,
 } from '@codelab/frontend/shared'
-import { DeletePageInput, DeletePageSchema } from './deleteFromSchema'
+import { DeletePageInput, DeletePageSchema } from './deletePageSchema'
 import {
   useDeletePageMutation,
   GetPagesListGql,

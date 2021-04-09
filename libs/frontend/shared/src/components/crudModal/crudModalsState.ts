@@ -1,4 +1,3 @@
-import { useMemo } from 'react'
 import { atom, useRecoilState } from 'recoil'
 
 export enum FormType {
@@ -37,7 +36,7 @@ export const crudModalAtom = atom<CRUDModalState>({
 export const useCRUDModalForm = (type: EntityType) => {
   const [state, setState] = useRecoilState(crudModalAtom)
 
-  const openCreatePage = () => {
+  const openCreateModal = () => {
     setState((current) => ({
       ...current,
       type,
@@ -46,7 +45,7 @@ export const useCRUDModalForm = (type: EntityType) => {
     }))
   }
 
-  const openUpdatePage = (id: string) => {
+  const openUpdateModal = (id: string) => {
     setState((current) => ({
       ...current,
       type,
@@ -55,7 +54,7 @@ export const useCRUDModalForm = (type: EntityType) => {
     }))
   }
 
-  const openDeletePage = (id: string) => {
+  const openDeleteModal = (id: string) => {
     setState((current) => ({
       ...current,
       type,
@@ -77,9 +76,9 @@ export const useCRUDModalForm = (type: EntityType) => {
   }
 
   return {
-    openCreatePage,
-    openUpdatePage,
-    openDeletePage,
+    openCreateModal,
+    openUpdateModal,
+    openDeleteModal,
     reset,
     state,
     setLoading,

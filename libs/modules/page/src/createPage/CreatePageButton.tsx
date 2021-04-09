@@ -4,14 +4,14 @@ import { Button } from 'antd'
 import React from 'react'
 
 export const CreatePageButton = () => {
-  const { openCreatePage } = useCRUDModalForm(EntityType.Page)
+  const { openCreateModal } = useCRUDModalForm(EntityType.Page)
 
   return (
     <Button
       type="primary"
       size="small"
       icon={<PlusOutlined />}
-      onClick={() => openCreatePage()}
+      onClick={() => openCreateModal()}
     >
       Add
     </Button>
