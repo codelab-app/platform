@@ -1,21 +1,26 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import {
+  AppContext,
   createNotificationHandler,
+  EntityType,
   JsonSchemaUniForm,
-  PropsWithIds,
   UniFormUseCaseProps,
+  useCRUDModalForm,
 } from '@codelab/frontend/shared'
 
 import { GetPagesListGql, useCreatePageMutation } from '@codelab/hasura'
 import { createPageSchema, CreatePageInput } from './createPageSchema'
 import { DeepPartial } from 'uniforms'
 import { useCurrentUser } from '@codelab/modules/user'
+import { AutoFields } from 'uniforms-antd'
+type CreatePageFormProps = UniFormUseCaseProps<CreatePageInput>
 
-type CreatePageFormProps = UniFormUseCaseProps<CreatePageInput> &
-  PropsWithIds<'appId'>
+export const CreatePageForm = (props: CreatePageFormProps) => {
+  const { reset, setLoading } = useCRUDModalForm(EntityType.Page)
 
-export const CreatePageForm = ({ appId, ...props }: CreatePageFormProps) => {
-  const [mutate] = useCreatePageMutation({
+  const { appId } = useContext(AppContext)
+
+  const [mutate, { loading: creating }] = useCreatePageMutation({
     awaitRefetchQueries: true,
     refetchQueries: [
       {
@@ -27,7 +32,12 @@ export const CreatePageForm = ({ appId, ...props }: CreatePageFormProps) => {
     ],
   })
 
+  useEffect(() => {
+    setLoading(creating)
+  }, [creating])
+
   const { userId } = useCurrentUser()
+
   const onSubmit = (submitData: DeepPartial<CreatePageInput>) => {
     return mutate({
       variables: {
@@ -46,7 +56,12 @@ export const CreatePageForm = ({ appId, ...props }: CreatePageFormProps) => {
       onSubmitError={createNotificationHandler({
         title: 'Error while creating page',
       })}
+      onSubmitSuccess={() => {
+        reset()
+      }}
       {...props}
-    />
+    >
+      <AutoFields />
+    </JsonSchemaUniForm>
   )
 }

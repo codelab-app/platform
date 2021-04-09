@@ -1,17 +1,8 @@
 import { Layout } from 'antd'
 import React, { PropsWithChildren, useContext } from 'react'
-import { useRecoilState } from 'recoil'
-import { BuilderTabSidebar } from '../../../../libs/frontend/builder/src/tabs-sidebar/Tabs-sidebar'
 import { contentStyle } from '@codelab/frontend/style'
 import { AppContext, AppProvider } from '@codelab/frontend/shared'
-import {
-  BuilderPaneController,
-  LayoutPaneVisibility,
-  useLayout,
-} from '@codelab/frontend/layout'
-import { componentItemState } from '@codelab/modules/component'
 import { PaneMain } from './pane-main/Pane-main'
-import { BuilderDetails } from './pane-details/Pane-details'
 import { PaneConfig } from './pane-config/Pane-config'
 
 const { Sider, Content } = Layout
@@ -39,69 +30,19 @@ export const Builder = ({
   //   }),
   // })
 
-  const { setPaneVisibility } = useLayout()
-
-  const [componentState] = useRecoilState(componentItemState)
-
-  const paneMainWidth = componentState.isDraggingComponent
-    ? 0
-    : defaultPaneMainWidth
-
   return (
     <AppProvider appId={appId} pageId={pageId}>
       <Layout style={{ height: '100%' }}>
         <div>
           <Sider
             theme="light"
-            collapsed
-            collapsedWidth={tabsWidth}
-            style={{ position: 'fixed', height: '100%', zIndex: 1 }}
+            style={{ height: '100%' }}
+            width={defaultPaneMainWidth}
           >
-            <BuilderTabSidebar />
+            <PaneMain />
           </Sider>
-          <BuilderPaneController
-            isVisible={({ paneVisibility }) =>
-              paneVisibility === LayoutPaneVisibility.Main ||
-              paneVisibility === LayoutPaneVisibility.Detail
-            }
-          >
-            <Sider
-              theme="light"
-              width={paneMainWidth}
-              style={{
-                position: 'fixed',
-                top: 0,
-                left: tabsWidth,
-                height: '100%',
-                zIndex: 1,
-                transition: 'width 100ms ease-in-out',
-              }}
-            >
-              <PaneMain />
-            </Sider>
-          </BuilderPaneController>
         </div>
-        <BuilderPaneController
-          isVisible={({ paneVisibility }) =>
-            paneVisibility === LayoutPaneVisibility.Detail
-          }
-        >
-          <Sider
-            theme="light"
-            width={320}
-            style={{
-              height: '100%',
-              position: 'fixed',
-              left: tabsWidth + paneMainWidth + 1,
-              zIndex: 1,
-            }}
-          >
-            <BuilderDetails />
-          </Sider>
-        </BuilderPaneController>
-        <Layout
-          onMouseDown={() => setPaneVisibility(LayoutPaneVisibility.None)}
-        >
+        <Layout>
           <Content
             style={{
               ...contentStyle,

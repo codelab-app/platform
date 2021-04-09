@@ -1,10 +1,10 @@
 import { PlusOutlined } from '@ant-design/icons'
+import { EntityType, useCRUDModalForm } from '@codelab/frontend/shared'
 import { Button } from 'antd'
 import React from 'react'
-import { usePage } from '../usePage'
 
 export const CreatePageButton = () => {
-  const { openCreatePage } = usePage()
+  const { openCreatePage } = useCRUDModalForm(EntityType.Page)
 
   return (
     <Button
