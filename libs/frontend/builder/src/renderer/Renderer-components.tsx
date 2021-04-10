@@ -1,7 +1,11 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useRef } from 'react'
 import { useRecoilState } from 'recoil'
-import { useOverlayToolbar } from '@codelab/frontend/builder'
-import { HOVER_OVERLAY_ID } from './Overlay-hover'
+import {
+  elementParameterFactory,
+  useOverlayToolbar,
+} from '@codelab/frontend/builder'
+import { ClickOverlay } from './Overlay-click'
+import { HoverOverlay, HOVER_OVERLAY_ID } from './Overlay-hover'
 import {
   AddChildVertexInput,
   GetPageGql,
@@ -14,7 +18,10 @@ import {
   NodeA,
   PaneConfigHandlersProps,
   paneConfigState,
+  useOnClickOutside,
 } from '@codelab/frontend/shared'
+import { DropOverlay } from './Overlay-drop'
+import { RenderChildren } from './Renderer-children'
 
 export const useComponentHandlers = () => {
   const { pageId } = useContext(AppContext)
@@ -64,8 +71,32 @@ export const useComponentHandlers = () => {
   return handlers
 }
 
-export const RenderComponents = () => {
+export const RenderComponents = ({ node }: { node: NodeA }) => {
   const handlers = useComponentHandlers()
 
-  return <div style={{ width: '100%', height: 'auto' }}>{/*  TODO */}</div>
+  const ref = useRef<HTMLDivElement>(null)
+
+  useOnClickOutside(ref, () => handlers.resetClickOverlay(), [
+    handlers.resetClickOverlay,
+  ])
+
+  const [RootComponent, props] = elementParameterFactory({
+    node,
+    handlers,
+  })
+
+  return (
+    <div style={{ width: '100%', height: 'auto' }}>
+      <RootComponent {...props}>
+        {RenderChildren(node, {}, handlers)}
+      </RootComponent>
+
+      <HoverOverlay />
+      <DropOverlay />
+
+      <div ref={ref}>
+        <ClickOverlay />
+      </div>
+    </div>
+  )
 }

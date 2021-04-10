@@ -16,6 +16,7 @@ export type Scalars = {
   Boolean: boolean
   Int: number
   Float: number
+  json: any
   jsonb: any
   uuid: any
 }
@@ -1548,6 +1549,10 @@ export enum Component_Update_Column {
   Label = 'label',
   /** column name */
   LibraryId = 'library_id',
+}
+
+export type Get_Current_User_Args = {
+  hasura_session?: Maybe<Scalars['json']>
 }
 
 /** Boolean expression to compare columns of type "jsonb". All fields are combined with logical 'AND'. */
@@ -4445,6 +4450,10 @@ export type Query_Root = {
   component_link_aggregate: Component_Link_Aggregate
   /** fetch data from the table: "component_link" using primary key columns */
   component_link_by_pk?: Maybe<Component_Link>
+  /** execute function "get_current_user" which returns "user" */
+  get_current_user: Array<User>
+  /** execute function "get_current_user" and query aggregates on result of table type "user" */
+  get_current_user_aggregate: User_Aggregate
   /** fetch data from the table: "lambda" */
   lambda: Array<Lambda>
   /** fetch aggregated fields from the table: "lambda" */
@@ -4683,6 +4692,24 @@ export type Query_RootComponent_Link_AggregateArgs = {
 
 export type Query_RootComponent_Link_By_PkArgs = {
   id: Scalars['uuid']
+}
+
+export type Query_RootGet_Current_UserArgs = {
+  args: Get_Current_User_Args
+  distinct_on?: Maybe<Array<User_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<User_Order_By>>
+  where?: Maybe<User_Bool_Exp>
+}
+
+export type Query_RootGet_Current_User_AggregateArgs = {
+  args: Get_Current_User_Args
+  distinct_on?: Maybe<Array<User_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<User_Order_By>>
+  where?: Maybe<User_Bool_Exp>
 }
 
 export type Query_RootLambdaArgs = {
@@ -5120,6 +5147,10 @@ export type Subscription_Root = {
   component_link_aggregate: Component_Link_Aggregate
   /** fetch data from the table: "component_link" using primary key columns */
   component_link_by_pk?: Maybe<Component_Link>
+  /** execute function "get_current_user" which returns "user" */
+  get_current_user: Array<User>
+  /** execute function "get_current_user" and query aggregates on result of table type "user" */
+  get_current_user_aggregate: User_Aggregate
   /** fetch data from the table: "lambda" */
   lambda: Array<Lambda>
   /** fetch aggregated fields from the table: "lambda" */
@@ -5358,6 +5389,24 @@ export type Subscription_RootComponent_Link_AggregateArgs = {
 
 export type Subscription_RootComponent_Link_By_PkArgs = {
   id: Scalars['uuid']
+}
+
+export type Subscription_RootGet_Current_UserArgs = {
+  args: Get_Current_User_Args
+  distinct_on?: Maybe<Array<User_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<User_Order_By>>
+  where?: Maybe<User_Bool_Exp>
+}
+
+export type Subscription_RootGet_Current_User_AggregateArgs = {
+  args: Get_Current_User_Args
+  distinct_on?: Maybe<Array<User_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<User_Order_By>>
+  where?: Maybe<User_Bool_Exp>
 }
 
 export type Subscription_RootLambdaArgs = {

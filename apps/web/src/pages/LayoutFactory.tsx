@@ -2,7 +2,7 @@ import { WithRouterProps } from 'next/dist/client/with-router'
 import React, { PropsWithChildren } from 'react'
 import { Editor } from '@codelab/frontend/builder'
 import { AppProvider, PageType } from '@codelab/frontend/shared'
-import { HomeLayout } from './home/Home-layout'
+import { HomeLayout } from './home'
 import { Dashboard } from './Layout-dashboard'
 import { Builder } from './Builder'
 

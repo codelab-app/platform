@@ -13,7 +13,6 @@ import {
   GraphFragmentsFragment,
   useAddChildVertexMutation,
 } from '@codelab/generated'
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { RenderComponents } from '@codelab/frontend/builder'
 
 type GetPageLayoutProps = {
@@ -42,7 +41,7 @@ export const GetPageLayout = ({ graph, pageId }: GetPageLayoutProps) => {
 
   return (
     <>
-      <RenderComponents />
+      <RenderComponents node={root} />
       <Button
         icon={<PlusOutlined />}
         type="primary"

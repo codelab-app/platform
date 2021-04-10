@@ -2,8 +2,7 @@ import {
   AddChildVertexInput,
   useUpdateVertexMutation,
 } from '@codelab/generated'
-// import { UseOverlayToolbarFunctions } from '@codelab/frontend/builder'
-import { PaneConfigState } from '../state/paneConfig'
+import { PaneConfigState } from '../state'
 
 type UseOverlayToolbarFunctions = any
 
