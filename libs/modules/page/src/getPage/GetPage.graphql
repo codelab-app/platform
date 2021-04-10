@@ -1,6 +1,10 @@
-query GetPage($pageId: uuid!) {
-  page_by_pk(id: $pageId) {
+fragment GetPage__Page on page {
     id
     name
-  }
+}
+
+query GetPage($pageId: uuid!) {
+    page_by_pk(id: $pageId) {
+        ...GetPage__Page
+    }
 }

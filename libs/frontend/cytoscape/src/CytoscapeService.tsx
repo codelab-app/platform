@@ -2,10 +2,7 @@
 import { DataNode } from 'antd/lib/tree'
 import cytoscape, { Core } from 'cytoscape'
 import { AtomType, NodeA } from '@codelab/frontend/shared'
-import {
-  RootAppPageElementFragment,
-  RootAppPageLinkFragment,
-} from '@codelab/hasura'
+import { RootApp__PageFragment } from '@codelab/hasura'
 
 export enum CytoscapeNodeType {
   PageElement = 'PageElement',
@@ -13,13 +10,7 @@ export enum CytoscapeNodeType {
 }
 
 export class CytoscapeService {
-  /**
-   * Hydrate to cytoscape from graph data
-   */
-  static fromGraph(
-    elements: Array<RootAppPageElementFragment>,
-    links: Array<RootAppPageLinkFragment> = [],
-  ): Core {
+  static fromPage({ elements, links }: RootApp__PageFragment): Core {
     const nodes: Array<cytoscape.NodeDefinition> = []
     const edges: Array<cytoscape.EdgeDefinition> = []
 
@@ -28,12 +19,12 @@ export class CytoscapeService {
         //Push the page element definition
         data: {
           id: pageElement.id,
-          props: pageElement.props,
+          // props: pageElement.props // Don't pass props to pageElement. Instead use the pageElement props to make up the component props. See bellow \/
           label: pageElement.name,
           nodeType: CytoscapeNodeType.PageElement,
+          type: AtomType.ReactHtmlDiv, //Type page elements as divs, so we can render them as such
         },
       })
-
       pageElement.component?.elements.forEach((componentElement) => {
         //Push the component elements definitions
         nodes.push({

@@ -1,35 +1,23 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import { PropsWithIds } from '@codelab/frontend/shared'
-import { GetPageLayout, useGetPageData } from '@codelab/modules/page'
-import { InferGetServerSidePropsType } from 'next'
-import React from 'react'
+import { AppContext } from '@codelab/frontend/shared'
+import React, { useContext } from 'react'
+import { GetPageLayout } from '@codelab/modules/page'
+import { Empty } from 'antd'
 
-const PageDetail = ({
-  pageId,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  const { layoutGraph, page } = useGetPageData({ pageId })
+const PageDetail = () => {
+  const { page } = useContext(AppContext)
 
-  if (!layoutGraph || !page) {
-    return null
-  }
+  if (!page) return <Empty />
 
   return (
     <div id="Builder" style={{ position: 'relative' }}>
-      <h1>{page.title}</h1>
-      <GetPageLayout graph={layoutGraph} pageId={pageId} />
+      <h1>{page?.name}</h1>
+      <GetPageLayout page={page} />
     </div>
   )
 }
 
 // Redirect to home if not authenticated
-export const getServerSideProps = withPageAuthRequired({
-  getServerSideProps: (context) => {
-    return Promise.resolve({
-      props: {
-        ...(context.query as PropsWithIds<'appId'>),
-      },
-    })
-  },
-})
+export const getServerSideProps = withPageAuthRequired()
 
 export default PageDetail
