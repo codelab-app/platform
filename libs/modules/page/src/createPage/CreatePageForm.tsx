@@ -42,9 +42,9 @@ export const CreatePageForm = (props: CreatePageFormProps) => {
     return mutate({
       variables: {
         data: {
-          ...(submitData as any),
+          ...submitData,
           app_id: appId,
-          owner_id: userId,
+          user_id: userId,
         },
       },
     })

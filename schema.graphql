@@ -2133,6 +2133,12 @@ enum component_update_column {
   library_id
 }
 
+input get_current_user_args {
+  hasura_session: json
+}
+
+scalar json
+
 scalar jsonb
 
 """
@@ -6964,6 +6970,76 @@ type query_root {
   component_link_by_pk(id: uuid!): component_link
 
   """
+  execute function "get_current_user" which returns "user"
+  """
+  get_current_user(
+    """
+    input parameters for function "get_current_user"
+    """
+    args: get_current_user_args!
+
+    """
+    distinct select on columns
+    """
+    distinct_on: [user_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [user_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: user_bool_exp
+  ): [user!]!
+
+  """
+  execute function "get_current_user" and query aggregates on result of table type "user"
+  """
+  get_current_user_aggregate(
+    """
+    input parameters for function "get_current_user"
+    """
+    args: get_current_user_args!
+
+    """
+    distinct select on columns
+    """
+    distinct_on: [user_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [user_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: user_bool_exp
+  ): user_aggregate!
+
+  """
   fetch data from the table: "lambda"
   """
   lambda(
@@ -8493,6 +8569,76 @@ type subscription_root {
   fetch data from the table: "component_link" using primary key columns
   """
   component_link_by_pk(id: uuid!): component_link
+
+  """
+  execute function "get_current_user" which returns "user"
+  """
+  get_current_user(
+    """
+    input parameters for function "get_current_user"
+    """
+    args: get_current_user_args!
+
+    """
+    distinct select on columns
+    """
+    distinct_on: [user_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [user_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: user_bool_exp
+  ): [user!]!
+
+  """
+  execute function "get_current_user" and query aggregates on result of table type "user"
+  """
+  get_current_user_aggregate(
+    """
+    input parameters for function "get_current_user"
+    """
+    args: get_current_user_args!
+
+    """
+    distinct select on columns
+    """
+    distinct_on: [user_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [user_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: user_bool_exp
+  ): user_aggregate!
 
   """
   fetch data from the table: "lambda"

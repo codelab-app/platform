@@ -1,8 +1,11 @@
-import { Frame, SerializedNodes, useEditor } from '@craftjs/core'
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useRef } from 'react'
 import { useRecoilState } from 'recoil'
-import { useOverlayToolbar } from '@codelab/frontend/builder'
-import { HOVER_OVERLAY_ID } from './Overlay-hover'
+import {
+  elementParameterFactory,
+  useOverlayToolbar,
+} from '@codelab/frontend/builder'
+import { ClickOverlay } from './Overlay-click'
+import { HoverOverlay, HOVER_OVERLAY_ID } from './Overlay-hover'
 import {
   AddChildVertexInput,
   GetPageGql,
@@ -15,7 +18,10 @@ import {
   NodeA,
   PaneConfigHandlersProps,
   paneConfigState,
+  useOnClickOutside,
 } from '@codelab/frontend/shared'
+import { DropOverlay } from './Overlay-drop'
+import { RenderChildren } from './Renderer-children'
 
 export const useComponentHandlers = () => {
   const { pageId } = useContext(AppContext)
@@ -65,26 +71,34 @@ export const useComponentHandlers = () => {
   return handlers
 }
 
-export const RenderComponents = ({ data }: { data: SerializedNodes }) => {
+export const RenderComponents = ({ node }: { node: NodeA }) => {
   const handlers = useComponentHandlers()
 
-  const {
-    actions: { deserialize },
-  } = useEditor((s) => {
-    const selectedVertexId = s.events.selected
+  const ref = useRef<HTMLDivElement>(null)
 
-    if (selectedVertexId !== null) {
-      handlers.setPaneConfig({ pageElementId: `${s.events.selected}` })
-    }
+  useOnClickOutside(ref, () => handlers.resetClickOverlay(), [
+    handlers.resetClickOverlay,
+  ])
+
+  const [RootComponent, props] = elementParameterFactory({
+    node,
+    handlers,
   })
 
-  useEffect(() => {
-    deserialize(data)
-  }, [data, deserialize])
+  if (!RootComponent) return null
 
   return (
     <div style={{ width: '100%', height: 'auto' }}>
-      <Frame data={data} />
+      <RootComponent {...props}>
+        {RenderChildren(node, {}, handlers)}
+      </RootComponent>
+
+      <HoverOverlay />
+      <DropOverlay />
+
+      <div ref={ref}>
+        <ClickOverlay />
+      </div>
     </div>
   )
 }

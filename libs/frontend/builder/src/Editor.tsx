@@ -1,45 +1,7 @@
-import { Editor as CraftjsEditor } from '@craftjs/core'
 import React from 'react'
-import { useMoveVertexMutation, GetPageGql } from '@codelab/generated'
-import { craftjsResolver } from './renderer/craftjsResolver'
+import { DndProvider } from 'react-dnd-multi-backend'
+import { HTML5toTouch } from 'rdndmb-html5-to-touch'
 
 export const Editor: React.FC<{ pageId: string }> = ({ children, pageId }) => {
-  const [moveVertexMutation] = useMoveVertexMutation()
-
-  return (
-    <CraftjsEditor
-      resolver={craftjsResolver}
-      onNodesChange={(craftjsQuery) => {
-        const {
-          events: { dragged: draggedItemId },
-          nodes,
-        } = craftjsQuery.getState()
-
-        if (draggedItemId !== null) {
-          const newParentId = nodes[draggedItemId].data.parent
-
-          moveVertexMutation({
-            refetchQueries: [
-              {
-                query: GetPageGql,
-                variables: {
-                  input: {
-                    pageId,
-                  },
-                },
-              },
-            ],
-            variables: {
-              input: {
-                currentVertexId: draggedItemId,
-                parentVertexId: newParentId,
-              },
-            },
-          })
-        }
-      }}
-    >
-      {children}
-    </CraftjsEditor>
-  )
+  return <DndProvider options={HTML5toTouch}>{children}</DndProvider>
 }

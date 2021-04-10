@@ -1,0 +1,77 @@
+fragment RootApp__ComponentElement on component_element {
+    id
+    label
+    atom {
+        id
+        type
+    }
+}
+
+fragment RootApp__ComponentLink on component_link {
+    id
+    order
+    props
+    source_element_id
+    target_element_id
+}
+
+fragment RootApp__Component on component {
+    id
+    label
+    elements {
+        ...RootApp__ComponentElement
+    }
+    links {
+        ...RootApp__ComponentLink
+    }
+}
+
+fragment RootApp__PageElement on page_element {
+    id
+    name
+    component {
+        ...RootApp__Component
+    }
+    props {
+        prop {
+            id
+        }
+    }
+}
+
+fragment RootApp__PageLink on page_link {
+    id
+    order
+    props
+    source_element_id
+    target_element_id
+}
+
+fragment RootApp__Page on page {
+    id
+    name
+    elements {
+        ...RootApp__PageElement
+    }
+    links {
+        ...RootApp__PageLink
+    }
+}
+
+fragment RootApp__App on app {
+    id
+    name
+    pages {
+        id
+        name
+    }
+}
+
+query RootApp($appId: uuid!, $pageId: uuid!) {
+    app_by_pk(id: $appId) {
+        ...RootApp__App
+    }
+    page_by_pk(id: $pageId) {
+        ...RootApp__Page
+    }
+}

@@ -73,7 +73,7 @@ export const GetAppsItem: FunctionComponent<GetAppsItemProps> = ({
         <Link
           href={{
             pathname: Page.PAGE_DETAIL.url,
-            query: { appId: app.id, pageId: app.pages[0].id },
+            query: { appId: app.id, pageId: app.pages[0]?.id },
           }}
         >
           <a>{app.name}</a>

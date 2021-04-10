@@ -60,6 +60,12 @@ import {
   Upload,
 } from 'antd'
 import React from 'react'
+import GridLayout, {
+  Responsive as ResponsiveGrid,
+  WidthProvider,
+} from 'react-grid-layout'
+const ResponsiveGridLayout = WidthProvider(ResponsiveGrid)
+
 // import {
 //   CodelabForm,
 //   CodelabHtml,
@@ -67,7 +73,7 @@ import React from 'react'
 //   CodelabTable,
 //   Grid,
 //   Provider,
-//   RGL,
+//   RGL, // imported above --^
 //   RenderComponent,
 // } from '@codelab/alpha/ui/antd'
 
@@ -123,9 +129,9 @@ export const elementTypeMap: Record<
   [AtomType.ReactInputNumber]: InputNumber,
   [AtomType.ReactSelect]: Select,
   [AtomType.ReactSelectOption]: Select.Option,
-  [AtomType.ReactRglContainer]: '',
-  [AtomType.ReactRglItem]: '',
-  [AtomType.ReactRglResponsiveContainer]: '',
+  [AtomType.ReactRglContainer]: GridLayout,
+  [AtomType.ReactRglItem]: 'div',
+  [AtomType.ReactRglResponsiveContainer]: ResponsiveGridLayout,
   [AtomType.ReactProvider]: '',
   [AtomType.ReactModal]: Modal,
   [AtomType.ReactRadioGroup]: Radio.Group,

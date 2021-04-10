@@ -1,13 +1,12 @@
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import {
   AtomType,
   NodeA,
+  notify,
   PaneConfigHandlersProps,
 } from '@codelab/frontend/shared'
 import React from 'react'
 import ReactTestUtils from 'react-dom/test-utils'
 import { elementTypeMap } from './elementTypeMap'
-// import { onResizeStop } from '@codelab/alpha/ui/antd'
 
 interface ElementParameterFactoryInput<TNode extends NodeA = NodeA> {
   node: TNode
@@ -50,15 +49,21 @@ export const elementParameterFactory = <TNode extends NodeA>({
   node,
   handlers,
 }: ElementParameterFactoryInput<TNode>): [
-  React.ComponentType<any> | string,
+  React.ComponentType<any> | string | null,
   Record<string, any>,
 ] => {
+  if (!node) return [null, {}]
+
   const { type } = node
 
   const component = elementTypeMap[type]
 
   if (!component) {
-    throw new Error(`Missing element of type ${type} in ElementFactory`)
+    notify({
+      type: 'error',
+      title: `Missing element of type ${type} in ElementFactory`,
+    })
+    return [null, {}]
   }
 
   let props = {

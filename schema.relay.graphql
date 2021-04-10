@@ -2167,6 +2167,12 @@ enum component_update_column {
   library_id
 }
 
+input get_current_user_args {
+  hasura_session: json
+}
+
+scalar json
+
 scalar jsonb
 
 """
@@ -6738,6 +6744,36 @@ type query_root {
   ): component_linkConnection!
 
   """
+  execute function "get_current_user" which returns "user"
+  """
+  get_current_user_connection(
+    after: String
+
+    """
+    input parameters for function "get_current_user"
+    """
+    args: get_current_user_args!
+    before: String
+
+    """
+    distinct select on columns
+    """
+    distinct_on: [user_select_column!]
+    first: Int
+    last: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [user_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: user_bool_exp
+  ): userConnection!
+
+  """
   fetch data from the table: "lambda"
   """
   lambda_connection(
@@ -7411,6 +7447,36 @@ type subscription_root {
     """
     where: component_link_bool_exp
   ): component_linkConnection!
+
+  """
+  execute function "get_current_user" which returns "user"
+  """
+  get_current_user_connection(
+    after: String
+
+    """
+    input parameters for function "get_current_user"
+    """
+    args: get_current_user_args!
+    before: String
+
+    """
+    distinct select on columns
+    """
+    distinct_on: [user_select_column!]
+    first: Int
+    last: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [user_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: user_bool_exp
+  ): userConnection!
 
   """
   fetch data from the table: "lambda"

@@ -1,5 +1,4 @@
 import { PictureOutlined } from '@ant-design/icons'
-import { useEditor } from '@craftjs/core'
 import { css } from '@emotion/react'
 import { Card, Space } from 'antd'
 import { CardProps } from 'antd/lib/card'
@@ -7,6 +6,7 @@ import React from 'react'
 import { useRecoilState } from 'recoil'
 import { componentItemState } from './Component-item--state'
 import { ComponentItemType } from './Pane-main--component'
+import { useDrag } from 'react-dnd'
 // import {
 //   elementsPropTransformers,
 //   elementTypeMap,
@@ -23,12 +23,9 @@ export const ComponentItem = ({
   className,
   ...props
 }: ComponentItemProps) => {
-  const {
-    connectors: { create },
-  } = useEditor()
-
   const [, setState] = useRecoilState(componentItemState)
   // const handlers = useComponentHandlers()
+  const [, drag] = useDrag({ item, type: item.key })
 
   return (
     <div>
@@ -57,25 +54,7 @@ export const ComponentItem = ({
               isDraggingComponent: false,
             })
           }}
-          ref={(ref) => {
-            // const Component = elementTypeMap[item.type]
-            // if (!Component) {
-            //   return null
-            // }
-            // const pt = elementsPropTransformers[item.type]
-            // let p = {}
-            // if (pt) {
-            //   p = pt({
-            //     handlers,
-            //     node: {
-            //       type: item.type,
-            //     } as any,
-            //     props: {},
-            //   })
-            // }
-            // return create(ref, <Component {...p} />)
-            return null
-          }}
+          ref={drag}
         >
           <Space
             direction="vertical"

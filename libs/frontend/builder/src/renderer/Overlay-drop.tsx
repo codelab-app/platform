@@ -1,6 +1,6 @@
+import { NodeA } from '@codelab/frontend/shared'
 import React from 'react'
-import { OverlayToolbar } from '../components/overlay-toolbar/OverlayToolbar'
-import { NodeA } from '../interfaces'
+import { OverlayToolbar } from '..'
 
 export const DROP_OVERLAY_ID = 'dropOverlay'
 

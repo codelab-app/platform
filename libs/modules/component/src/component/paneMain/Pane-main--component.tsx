@@ -2,36 +2,24 @@ import { css } from '@emotion/react'
 import { List } from 'antd'
 import React, { useMemo } from 'react'
 import { ComponentItem } from './Component-item'
-import { AtomType } from '@codelab/frontend/shared'
 import { PaneMainTemplate } from '@codelab/frontend/layout'
+import { useGetComponentsQuery } from '@codelab/hasura'
 
 export type ComponentItemType = {
   key: string
-  type: AtomType
   label: string
 }
 
 export const PaneMainComponent = () => {
-  const componentsData: Array<ComponentItemType> = useMemo(
-    () => [],
-    // Object.entries(AtomType)
-    //   // Get only top level components, use naming convention of `_` to differentiate
-    //   .filter(([, value]) => {
-    //     const matchCount = (value.match(/_/g) ?? []).length
+  const { data: components } = useGetComponentsQuery()
 
-    //     return matchCount <= 1
-    //   })
-    //   // Produce readable label
-    //   .map(([key, value]) => {
-    //     const label = value.replace('React_', '').replace('_', ' ')
-
-    //     return {
-    //       key,
-    //       type: value,
-    //       label,
-    //     }
-    //   }),
-    [],
+  const componentsData: Array<ComponentItemType> | undefined = useMemo(
+    () =>
+      components?.component.map((component) => ({
+        key: component.id,
+        label: component.label,
+      })),
+    [components, components?.component],
   )
 
   return (

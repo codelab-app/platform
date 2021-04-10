@@ -2,11 +2,11 @@ import { DependencyList, RefObject, useCallback, useEffect } from 'react'
 
 type OnClickHandler = (event: MouseEvent | TouchEvent) => void
 
-export default function useOnClickOutside(
+export const useOnClickOutside = (
   ref: RefObject<HTMLElement>,
   handler: OnClickHandler,
   deps: DependencyList,
-) {
+) => {
   // Ensure that the handler won't change each render
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const handlerCb = useCallback(handler, deps)

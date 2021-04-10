@@ -27,8 +27,8 @@ generates:
           headers:
             - 'x-hasura-admin-secret': '${HASURA_GRAPHQL_ADMIN_SECRET}'
     documents:
-      - libs/modules/**/*.hasura.graphql
-      - apps/web/**/*.hasura.graphql
+      - libs/modules/**/*.graphql
+      - apps/web/**/*.graphql
     plugins:
       - typescript
       - typescript-operations

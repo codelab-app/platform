@@ -4,6 +4,7 @@ import { useRecoilState } from 'recoil'
 import { AppContext, AtomType, paneConfigState } from '@codelab/frontend/shared'
 import { PaneMainTemplate } from '@codelab/frontend/layout'
 import { CytoscapeService } from '@codelab/frontend/cytoscape'
+import { DataNode } from 'antd/lib/tree'
 
 export const PaneMainTree = () => {
   const [, setPaneConfig] = useRecoilState(paneConfigState)
@@ -12,8 +13,12 @@ export const PaneMainTree = () => {
     setPaneConfig({ pageElementId: `${id}` })
   }
 
-  const cy = CytoscapeService.fromGraph(page?.elements || [], page?.links || [])
-  const data = CytoscapeService.antdTree(cy)
+  let data: DataNode | undefined
+
+  if (page && page.elements && page.elements.length) {
+    const cy = CytoscapeService.fromPage(page)
+    data = CytoscapeService.antdTree(cy)
+  }
 
   const onDrop = ({ dragNode, node: targetNode }: any) => {
     // Disable drag
@@ -24,7 +29,7 @@ export const PaneMainTree = () => {
 
   return (
     <PaneMainTemplate title="Tree">
-      {page && page.elements && page.elements.length ? (
+      {data ? (
         <Tree
           className="draggable-tree"
           defaultExpandAll
