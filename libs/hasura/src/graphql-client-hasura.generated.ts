@@ -6099,6 +6099,18 @@ export type UpdateAtomMutation = { __typename?: 'mutation_root' } & {
   update_atom_by_pk?: Maybe<{ __typename?: 'atom' } & Pick<Atom, 'id' | 'type'>>
 }
 
+export type GetComponents__ComponentFragment = {
+  __typename?: 'component'
+} & Pick<Component, 'id' | 'label'>
+
+export type GetComponentsQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetComponentsQuery = { __typename?: 'query_root' } & {
+  component: Array<
+    { __typename?: 'component' } & GetComponents__ComponentFragment
+  >
+}
+
 export type UpdatePageElementMutationVariables = Exact<{
   id: Scalars['uuid']
   input?: Maybe<Page_Element_Set_Input>
@@ -6397,6 +6409,12 @@ export const RootApp__AppFragmentDoc = gql`
       id
       name
     }
+  }
+`
+export const GetComponents__ComponentFragmentDoc = gql`
+  fragment GetComponents__Component on component {
+    id
+    label
   }
 `
 export const GetPage__PageFragmentDoc = gql`
@@ -7042,6 +7060,64 @@ export type UpdateAtomMutationResult = Apollo.MutationResult<UpdateAtomMutation>
 export type UpdateAtomMutationOptions = Apollo.BaseMutationOptions<
   UpdateAtomMutation,
   UpdateAtomMutationVariables
+>
+export const GetComponentsGql = gql`
+  query GetComponents {
+    component {
+      ...GetComponents__Component
+    }
+  }
+  ${GetComponents__ComponentFragmentDoc}
+`
+
+/**
+ * __useGetComponentsQuery__
+ *
+ * To run a query within a React component, call `useGetComponentsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetComponentsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetComponentsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetComponentsQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetComponentsQuery,
+    GetComponentsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetComponentsQuery, GetComponentsQueryVariables>(
+    GetComponentsGql,
+    options,
+  )
+}
+export function useGetComponentsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetComponentsQuery,
+    GetComponentsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetComponentsQuery, GetComponentsQueryVariables>(
+    GetComponentsGql,
+    options,
+  )
+}
+export type GetComponentsQueryHookResult = ReturnType<
+  typeof useGetComponentsQuery
+>
+export type GetComponentsLazyQueryHookResult = ReturnType<
+  typeof useGetComponentsLazyQuery
+>
+export type GetComponentsQueryResult = Apollo.QueryResult<
+  GetComponentsQuery,
+  GetComponentsQueryVariables
 >
 export const UpdatePageElementGql = gql`
   mutation UpdatePageElement($id: uuid!, $input: page_element_set_input) {
@@ -8029,6 +8105,12 @@ export const RootApp__App = gql`
     }
   }
 `
+export const GetComponents__Component = gql`
+  fragment GetComponents__Component on component {
+    id
+    label
+  }
+`
 export const GetPage__Page = gql`
   fragment GetPage__Page on page {
     id
@@ -8183,6 +8265,14 @@ export const UpdateAtom = gql`
       type
     }
   }
+`
+export const GetComponents = gql`
+  query GetComponents {
+    component {
+      ...GetComponents__Component
+    }
+  }
+  ${GetComponents__Component}
 `
 export const UpdatePageElement = gql`
   mutation UpdatePageElement($id: uuid!, $input: page_element_set_input) {
