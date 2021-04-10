@@ -6,6 +6,7 @@ import React from 'react'
 import { useRecoilState } from 'recoil'
 import { componentItemState } from './Component-item--state'
 import { ComponentItemType } from './Pane-main--component'
+import { useDrag } from 'react-dnd'
 // import {
 //   elementsPropTransformers,
 //   elementTypeMap,
@@ -24,6 +25,7 @@ export const ComponentItem = ({
 }: ComponentItemProps) => {
   const [, setState] = useRecoilState(componentItemState)
   // const handlers = useComponentHandlers()
+  const [, drag] = useDrag({ item, type: item.key })
 
   return (
     <div>
@@ -52,25 +54,7 @@ export const ComponentItem = ({
               isDraggingComponent: false,
             })
           }}
-          ref={(ref) => {
-            // const Component = elementTypeMap[item.type]
-            // if (!Component) {
-            //   return null
-            // }
-            // const pt = elementsPropTransformers[item.type]
-            // let p = {}
-            // if (pt) {
-            //   p = pt({
-            //     handlers,
-            //     node: {
-            //       type: item.type,
-            //     } as any,
-            //     props: {},
-            //   })
-            // }
-            // return create(ref, <Component {...p} />)
-            return null
-          }}
+          ref={drag}
         >
           <Space
             direction="vertical"
