@@ -1,84 +1,12 @@
-import React, { useContext, useRef } from 'react'
-import { useRecoilState } from 'recoil'
-import {
-  elementParameterFactory,
-  useOverlayToolbar,
-} from '@codelab/frontend/builder'
-import { ClickOverlay } from './Overlay-click'
-import { HoverOverlay, HOVER_OVERLAY_ID } from './Overlay-hover'
-import {
-  AddChildVertexInput,
-  GetPageGql,
-  useAddChildVertexMutation,
-  useUpdateVertexMutation,
-} from '@codelab/generated'
-import {
-  AppContext,
-  CLICK_OVERLAY_ID,
-  NodeA,
-  PaneConfigHandlersProps,
-  paneConfigState,
-  useOnClickOutside,
-} from '@codelab/frontend/shared'
-import { DropOverlay } from './Overlay-drop'
+import React from 'react'
+import { elementParameterFactory } from '@codelab/frontend/builder'
+import { ClickOverlay, HoverOverlay } from '../overlay-toolbar'
+import { NodeA } from '@codelab/frontend/shared'
 import { RenderChildren } from './Renderer-children'
-
-export const useComponentHandlers = () => {
-  const { pageId } = useContext(AppContext)
-  const [, setPaneConfig] = useRecoilState(paneConfigState)
-  const [addChildVertexMutation] = useAddChildVertexMutation()
-  const updateVertexMutation = useUpdateVertexMutation({
-    refetchQueries: [
-      {
-        query: GetPageGql,
-        variables: {
-          input: {
-            pageId,
-          },
-        },
-      },
-    ],
-  })
-
-  const addChildVertex = (input: AddChildVertexInput) =>
-    addChildVertexMutation({
-      refetchQueries: [{ query: GetPageGql, variables: { input: { pageId } } }],
-      variables: {
-        input,
-      },
-    })
-
-  const {
-    show: showHoverOverlay,
-    reset: resetHoverOverlay,
-  } = useOverlayToolbar(HOVER_OVERLAY_ID)
-
-  const {
-    show: showClickOverlay,
-    reset: resetClickOverlay,
-  } = useOverlayToolbar(CLICK_OVERLAY_ID)
-
-  const handlers: PaneConfigHandlersProps = {
-    setPaneConfig,
-    updateVertexMutation,
-    showHoverOverlay,
-    resetHoverOverlay,
-    showClickOverlay,
-    resetClickOverlay,
-    addChildVertex,
-  }
-
-  return handlers
-}
+import { useComponentHandlers } from './useComponentHandlers'
 
 export const RenderComponents = ({ node }: { node: NodeA }) => {
   const handlers = useComponentHandlers()
-
-  const ref = useRef<HTMLDivElement>(null)
-
-  useOnClickOutside(ref, () => handlers.resetClickOverlay(), [
-    handlers.resetClickOverlay,
-  ])
 
   const [RootComponent, props] = elementParameterFactory({
     node,
@@ -94,11 +22,7 @@ export const RenderComponents = ({ node }: { node: NodeA }) => {
       </RootComponent>
 
       <HoverOverlay />
-      <DropOverlay />
-
-      <div ref={ref}>
-        <ClickOverlay />
-      </div>
+      <ClickOverlay />
     </div>
   )
 }

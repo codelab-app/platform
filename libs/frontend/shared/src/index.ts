@@ -1,4 +1,3 @@
-export * from './state'
 export * from './config'
 export * from './interfaces'
 export * from './providers'

@@ -48,6 +48,8 @@ export const PageElementPropsForm = ({
 
   if (loadingPageElement || loadingGetAttributes) return <Spin />
 
+  if (!data) return null
+
   if (!attributes) return <Empty />
 
   const propsByAttributeIdMap =
@@ -62,6 +64,8 @@ export const PageElementPropsForm = ({
   return (
     <StyledPropsForm>
       <div style={{ overflowY: 'auto' }}>
+        <h4>{data?.page_element_by_pk?.name || ''}</h4>
+
         {/* Map all matching attributes and render a form for each one */}
         {attributes.attribute.map((a) => {
           //Passing the existing prop will make the form update its value instead of creating a new prop
