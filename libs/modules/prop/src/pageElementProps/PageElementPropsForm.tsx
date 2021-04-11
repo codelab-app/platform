@@ -47,6 +47,7 @@ export const PageElementPropsForm = ({
   })
 
   if (loadingPageElement || loadingGetAttributes) return <Spin />
+
   if (!data) return null
 
   if (!attributes) return <Empty />

@@ -131,6 +131,7 @@ export class CytoscapeService {
   static componentTree(cy: Core): NodeA {
     const root = cy.elements().roots().first()
     console.log('root', root)
+
     let tree: DataNode | null = null
 
     cy.elements().breadthFirstSearch({

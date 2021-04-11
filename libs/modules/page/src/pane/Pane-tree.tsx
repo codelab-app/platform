@@ -55,6 +55,7 @@ export const PaneMainTree = () => {
           titleRender={(node) => {
             const label = (node as any).label
             const type = (node as any).nodeType
+
             return (
               <>
                 {label}{' '}
