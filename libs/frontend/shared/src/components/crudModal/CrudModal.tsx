@@ -12,6 +12,7 @@ export type CrudModalProps = {
   okText: string
   renderForm: () => ReactElement
 }
+
 export const CrudModal: React.FC<CrudModalProps> = ({
   entityType,
   actionType,

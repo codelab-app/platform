@@ -89,6 +89,7 @@ export const PageElementPropForm = ({
 
         if (!propValueId) {
           notify({ title: 'Error. No prop value id found' })
+
           return
         }
 

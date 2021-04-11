@@ -64,6 +64,7 @@ import GridLayout, {
   Responsive as ResponsiveGrid,
   WidthProvider,
 } from 'react-grid-layout'
+
 const ResponsiveGridLayout = WidthProvider(ResponsiveGrid)
 
 // import {

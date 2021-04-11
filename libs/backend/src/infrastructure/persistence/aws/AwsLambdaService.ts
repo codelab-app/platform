@@ -56,6 +56,7 @@ export class AwsLambdaService extends LambdaClient {
 
     try {
       const data = await this.send(new DeleteFunctionCommand(params))
+
       return data
       // console.log('Success', data)
     } catch (err) {
@@ -70,6 +71,7 @@ export class AwsLambdaService extends LambdaClient {
 
     try {
       const data = await this.send(new GetFunctionCommand(params))
+
       return data
       // console.log('Success', data)
     } catch (err) {
@@ -86,6 +88,7 @@ export class AwsLambdaService extends LambdaClient {
 
     try {
       const data = await this.send(new UpdateFunctionCodeCommand(params))
+
       return data
       console.log('Success', data)
     } catch (err) {
@@ -107,6 +110,7 @@ export class AwsLambdaService extends LambdaClient {
       )
 
       console.log('Success', result, responseObject)
+
       return responseObject
     } catch (err) {
       console.log('Error', err)

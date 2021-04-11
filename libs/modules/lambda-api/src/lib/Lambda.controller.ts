@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common'
+import { Body, Controller, Post } from '@nestjs/common'
 import { LambdaService } from './LambdaService'
 import { IEventTrigger, ILambda } from './interfaces/IEventTrigger'
 
@@ -9,18 +9,21 @@ export class LambdaController {
   @Post()
   async createLambda(@Body() body: IEventTrigger) {
     const lambda: ILambda = body.event.data.new
+
     return await this.lambdaService.createLambda(lambda)
   }
 
   @Post('delete')
   async deleteLambda(@Body() body: IEventTrigger) {
     const lambda: ILambda = body.event.data.old
+
     return await this.lambdaService.deleteLambda(lambda)
   }
 
   @Post('update')
   async updateLambda(@Body() body: IEventTrigger) {
     const lambda: ILambda = body.event.data.new
+
     return await this.lambdaService.updateLambda(lambda)
   }
 
@@ -32,6 +35,7 @@ export class LambdaController {
       body.input.lambda,
       payload,
     )
+
     return { payload: result }
   }
 }

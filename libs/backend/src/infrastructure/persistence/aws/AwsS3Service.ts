@@ -49,6 +49,7 @@ export class AwsS3Service extends S3Client {
       })
 
       const results = await this.send(deleteBucketCommand)
+
       return results
     } catch (e) {
       console.log(e)

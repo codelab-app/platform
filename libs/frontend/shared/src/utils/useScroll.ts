@@ -16,6 +16,7 @@ type SSRRect = {
   x: number
   y: number
 }
+
 const EmptySSRRect: SSRRect = {
   bottom: 0,
   height: 0,

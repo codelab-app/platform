@@ -3,6 +3,7 @@ dist
 yarn.lock
 *.graphql
 .graphql
+*.generated.ts
 *.gql
 .yarn
 .next

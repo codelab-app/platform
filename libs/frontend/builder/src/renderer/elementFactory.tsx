@@ -63,6 +63,7 @@ export const elementParameterFactory = <TNode extends NodeA>({
       type: 'error',
       title: `Missing element of type ${type} in ElementFactory`,
     })
+
     return [null, {}]
   }
 

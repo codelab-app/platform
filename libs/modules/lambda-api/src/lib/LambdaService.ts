@@ -10,9 +10,11 @@ export class LambdaService {
     @Inject(AwsDITokens.Lambda)
     private readonly awsLambdaService: AwsLambdaService,
   ) {}
+
   async createLambda(lambda: ILambda) {
     await this.awsS3Service.createBucket(lambda.library_id)
     await this.awsS3Service.uploadObject(lambda)
+
     const createFunctionResults = await this.awsLambdaService.createFunction(
       lambda,
     )
@@ -26,11 +28,13 @@ export class LambdaService {
 
   async deleteLambda(lambda: ILambda) {
     await this.awsS3Service.removeObject(lambda)
+
     return await this.awsLambdaService.removeFunction(lambda)
   }
 
   async updateLambda(lambda: ILambda) {
     await this.awsS3Service.uploadObject(lambda)
+
     return await this.awsLambdaService.updateFunction(lambda)
   }
 

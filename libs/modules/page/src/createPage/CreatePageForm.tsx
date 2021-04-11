@@ -49,6 +49,7 @@ export const CreatePageForm = (props: CreatePageFormProps) => {
       },
     })
   }
+
   return (
     <JsonSchemaUniForm<CreatePageInput>
       onSubmit={onSubmit}

@@ -55,6 +55,7 @@ export const PageElementPropsForm = ({
       Record<string, PageElementProps__PropFragment>
     >((map, prop) => {
       map[prop.prop.attribute.id] = prop.prop
+
       return map
     }, {}) || {}
 
