@@ -6240,9 +6240,6 @@ export type UpdateLambdaMutation = { __typename?: 'mutation_root' } & {
   >
 }
 
-export type UpdatePageElementMutationVariables = Exact<{
-  id: Scalars['uuid']
-  input?: Maybe<Page_Element_Set_Input>
 export type AddPageElementMutationVariables = Exact<{
   input: Page_Element_Insert_Input
 }>
@@ -7730,10 +7727,6 @@ export type UpdateLambdaMutationOptions = Apollo.BaseMutationOptions<
   UpdateLambdaMutation,
   UpdateLambdaMutationVariables
 >
-export const UpdatePageElementGql = gql`
-  mutation UpdatePageElement($id: uuid!, $input: page_element_set_input) {
-    update_page_element_by_pk(pk_columns: { id: $id }, _set: $input) {
-      id
 export const AddPageElementGql = gql`
   mutation AddPageElement($input: page_element_insert_input!) {
     insert_page_element_one(object: $input) {
@@ -9075,10 +9068,6 @@ export const UpdateLambda = gql`
     }
   }
 `
-export const UpdatePageElement = gql`
-  mutation UpdatePageElement($id: uuid!, $input: page_element_set_input) {
-    update_page_element_by_pk(pk_columns: { id: $id }, _set: $input) {
-      id
 export const AddPageElement = gql`
   mutation AddPageElement($input: page_element_insert_input!) {
     insert_page_element_one(object: $input) {
