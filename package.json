@@ -32,8 +32,6 @@
     "help": "nx help",
     "storybook:components": "nx storybook alpha-ui-component",
     "storybook:antd": "nx storybook alpha-ui-antd",
-    "generate:graphql": "nx build tools-generators-graphql --skip-nx-cache",
-    "generate:json": "nx build tools-generators-json-schema --skip-nx-cache",
     "commit": "git-cz",
     "docs": "onchange 'libs/ddd/**/*.ts' 'typedoc.json' -- npx typedoc",
     "migration:generate": "nx migrate @nrwl/workspace@latest",

@@ -19,6 +19,17 @@ input Int_comparison_exp {
   _nin: [Int!]
 }
 
+input LambdaInput {
+  body: String
+  id: String!
+  library_id: String
+  name: String
+}
+
+type LambdaOutput {
+  payload: String!
+}
+
 """
 An object with globally unique ID
 """
@@ -2846,6 +2857,7 @@ type mutation_root {
   delete single row from the table: "user"
   """
   delete_user_by_pk(id: String!): user
+  executeLambda(lambda: LambdaInput!, payload: String!): LambdaOutput
 
   """
   insert data into the table: "app"

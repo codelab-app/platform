@@ -43018,9 +43018,6 @@ export const CreateLambdaInputSchema: JSONSchema7 = {
     body: {
       type: 'string',
     },
-    appId: {
-      type: 'string',
-    },
   },
 }
 

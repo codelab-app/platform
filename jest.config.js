@@ -5,5 +5,7 @@ module.exports = {
     '<rootDir>/libs/backend',
     '<rootDir>/libs/frontend',
     '<rootDir>/libs/modules/atom',
+    '<rootDir>/libs/modules/lambda-api',
+    '<rootDir>/apps/api',
   ],
 }

@@ -10,7 +10,12 @@ export const UpdateLambdaButton = (props: LambdaRecord) => {
   return (
     <Button
       onClick={() => {
-        setUpdateLambda({ visible: true, lambdaId: props.id })
+        setUpdateLambda({
+          visible: true,
+          lambdaId: props.id,
+          body: props.body,
+          name: props.name,
+        })
       }}
     >
       Edit

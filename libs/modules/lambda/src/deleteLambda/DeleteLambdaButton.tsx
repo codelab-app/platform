@@ -1,17 +1,22 @@
 import { Button } from 'antd'
 import React, { useContext } from 'react'
 import { LambdaRecord } from '../getLambdas/LambdaRecord'
-import { GetAppGql, useDeleteLambdaMutation } from '@codelab/generated'
+import { GetLambdasByLibraryId, useDeleteLambdaMutation } from '@codelab/hasura'
 import { AppContext } from '@codelab/frontend/shared'
 
 export const DeleteLambdaButton = (props: LambdaRecord) => {
   const { appId } = useContext(AppContext)
   const [mutate] = useDeleteLambdaMutation({
-    refetchQueries: [{ query: GetAppGql, variables: { input: { appId } } }],
-    variables: {
-      input: {
-        lambdaId: props.id,
+    refetchQueries: [
+      {
+        query: GetLambdasByLibraryId,
+        variables: {
+          libraryId: 'f70c9584-4b68-4999-a42e-1755d539b714',
+        },
       },
+    ],
+    variables: {
+      id: props.id,
     },
   })
 

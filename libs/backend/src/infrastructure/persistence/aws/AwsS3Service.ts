@@ -1,11 +1,13 @@
 import {
   CreateBucketCommand,
+  DeleteBucketCommand,
   DeleteObjectCommand,
   PutObjectCommand,
   S3Client,
 } from '@aws-sdk/client-s3'
 import AdmZip from 'adm-zip'
-import { Lambda } from '@codelab/frontend/shared'
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+import { ILambda } from '@codelab/modules/lambda-api'
 
 export class AwsS3Service extends S3Client {
   bucketPrefix = 'codelab-lambda'
@@ -15,10 +17,10 @@ export class AwsS3Service extends S3Client {
    *
    * @param appId
    */
-  public async createBucket(appId: string): Promise<void> {
+  public async createBucket(libraryId: string): Promise<void> {
     try {
       const createBucketCommand = new CreateBucketCommand({
-        Bucket: `${this.bucketPrefix}-${appId}`,
+        Bucket: `${this.bucketPrefix}-${libraryId}`,
       })
 
       await this.send(createBucketCommand)
@@ -27,22 +29,33 @@ export class AwsS3Service extends S3Client {
     }
   }
 
-  public async removeObject(lambda: Lambda) {
+  public async deleteBucket(libraryId: string) {
     try {
-      const deleteBucketCommand = new DeleteObjectCommand({
-        Bucket: `${this.bucketPrefix}-${lambda.libraryId}`,
-        Key: lambda.id,
+      const createBucketCommand = new DeleteBucketCommand({
+        Bucket: `${this.bucketPrefix}-${libraryId}`,
       })
 
-      const results = await this.send(deleteBucketCommand)
-
-      console.log(results)
+      return await this.send(createBucketCommand)
     } catch (e) {
       console.log(e)
     }
   }
 
-  public async uploadObject(lambda: Lambda) {
+  public async removeObject(lambda: ILambda) {
+    try {
+      const deleteBucketCommand = new DeleteObjectCommand({
+        Bucket: `${this.bucketPrefix}-${lambda.library_id}`,
+        Key: lambda.id,
+      })
+
+      const results = await this.send(deleteBucketCommand)
+      return results
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  public async uploadObject(lambda: ILambda) {
     const zip = new AdmZip()
 
     zip.addFile(
@@ -52,7 +65,7 @@ export class AwsS3Service extends S3Client {
 
     try {
       const putObjectCommand = new PutObjectCommand({
-        Bucket: `${this.bucketPrefix}-${lambda.libraryId}`,
+        Bucket: `${this.bucketPrefix}-${lambda.library_id}`,
         Key: lambda.id,
         Body: zip.toBuffer(),
       })

@@ -15,7 +15,7 @@ export const CreateLambdaButton = () => {
       size="small"
       icon={<PlusOutlined />}
       // onClick={() => setPaneVisibility(LayoutPaneVisibility.Detail)}
-      // onClick={() => setCreateLambda({ visible: true })}
+      onClick={() => setCreateLambda({ visible: true })}
     >
       Add
     </Button>

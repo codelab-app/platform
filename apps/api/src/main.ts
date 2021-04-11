@@ -9,7 +9,6 @@ import { CodelabAppModule } from './app/app.module'
 
 const bootstrap = async () => {
   const app = await NestFactory.create(CodelabAppModule)
-
   const globalPrefix = ''
 
   app.setGlobalPrefix(globalPrefix)

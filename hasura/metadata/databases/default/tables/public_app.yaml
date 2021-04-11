@@ -8,7 +8,9 @@ array_relationships:
         schema: public
 delete_permissions:
 - permission:
-    filter: {}
+    filter:
+      user_id:
+        _eq: X-Hasura-User-Id
   role: user
 insert_permissions:
 - permission:
@@ -18,10 +20,10 @@ insert_permissions:
     - id
     - name
     set:
-      user_id: x-hasura-user-id
+      user_id: x-hasura-User-Id
   role: user
 object_relationships:
-- name: owner
+- name: user
   using:
     foreign_key_constraint_on: user_id
 select_permissions:
@@ -30,17 +32,23 @@ select_permissions:
     - name
     - user_id
     - id
-    filter: {}
+    filter:
+      user_id:
+        _eq: X-Hasura-User-Id
   role: user
 table:
   name: app
   schema: public
 update_permissions:
 - permission:
-    check: {}
+    check:
+      user_id:
+        _eq: X-Hasura-User-Id
     columns:
     - name
     - user_id
     - id
-    filter: {}
+    filter:
+      user_id:
+        _eq: X-Hasura-User-Id
   role: user

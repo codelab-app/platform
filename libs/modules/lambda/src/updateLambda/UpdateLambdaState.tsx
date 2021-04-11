@@ -5,5 +5,7 @@ export const updateLambdaState = atom({
   default: {
     visible: false,
     lambdaId: '',
+    body: '',
+    name: '',
   },
 })

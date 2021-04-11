@@ -3,6 +3,7 @@ import { useRecoilState } from 'recoil'
 import { CreateLambdaForm } from './CreateLambdaForm'
 import { createLambdaState } from './CreateLambdaState'
 import { ModalForm } from '@codelab/frontend/shared'
+import { AutoFields } from 'uniforms-antd'
 
 export const CreateLambdaModal = () => {
   const [createLambda, setCreateLambda] = useRecoilState(createLambdaState)
@@ -16,7 +17,9 @@ export const CreateLambdaModal = () => {
       renderForm={() => (
         <CreateLambdaForm
           onSubmitSuccess={() => setCreateLambda({ visible: false })}
-        />
+        >
+          <AutoFields />
+        </CreateLambdaForm>
       )}
     />
   )

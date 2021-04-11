@@ -3,16 +3,16 @@ import { useRecoilState } from 'recoil'
 import { UpdateLambdaForm } from './UpdateLambdaForm'
 import { updateLambdaState } from './UpdateLambdaState'
 import { ModalForm } from '@codelab/frontend/shared'
-import { useGetLambdaQuery } from '@codelab/generated'
+import { useGetLambdaByIdQuery } from '@codelab/hasura'
+import { AutoFields } from 'uniforms-antd'
+import { Lambda } from '@codelab/hasura'
 
 export const UpdateLambdaModal = () => {
   const [updateLambda, setUpdateLambda] = useRecoilState(updateLambdaState)
 
-  const { data, loading } = useGetLambdaQuery({
+  const { data, loading } = useGetLambdaByIdQuery({
     variables: {
-      input: {
-        lambdaId: updateLambda.lambdaId,
-      },
+      id: updateLambda.lambdaId,
     },
   })
 
@@ -20,15 +20,28 @@ export const UpdateLambdaModal = () => {
     <ModalForm
       modalProps={{
         visible: updateLambda.visible,
-        onCancel: () => setUpdateLambda({ visible: false, lambdaId: '' }),
+        onCancel: () =>
+          setUpdateLambda({
+            visible: false,
+            lambdaId: updateLambda.lambdaId,
+            name: updateLambda.name,
+            body: updateLambda.body,
+          }),
       }}
       renderForm={() => (
         <UpdateLambdaForm
-          lambda={data?.getLambda}
+          lambda={data?.lambda[0] as Lambda}
           onSubmitSuccess={() =>
-            setUpdateLambda({ visible: false, lambdaId: '' })
+            setUpdateLambda({
+              visible: false,
+              lambdaId: updateLambda.lambdaId,
+              name: updateLambda.name,
+              body: updateLambda.body,
+            })
           }
-        />
+        >
+          <AutoFields />
+        </UpdateLambdaForm>
       )}
     />
   )

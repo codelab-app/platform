@@ -1,48 +1,58 @@
 import React from 'react'
-import { ApolloForm, FormUseCaseProps } from '@codelab/frontend/shared'
 import {
-  LambdaFragmentsFragment,
-  UpdateLambdaInputSchema,
-  UpdateLambdaMutationVariables,
-  useUpdateLambdaMutation,
-} from '@codelab/generated'
+  createNotificationHandler,
+  FormUseCaseProps,
+  JsonSchemaUniForm,
+} from '@codelab/frontend/shared'
+import { Lambda } from '@codelab/hasura'
+import { UpdateLambdaInput, updateLambdaSchema } from './updateLambdaSchema'
+import { DeepPartial } from 'uniforms'
+import { useRecoilState } from 'recoil'
+import { updateLambdaState } from './UpdateLambdaState'
+import { GetLambdasByLibraryId, useUpdateLambdaMutation } from '@codelab/hasura'
 
 type UpdateLambdaFormProps = {
-  lambda: LambdaFragmentsFragment | undefined
+  lambda: Lambda
 } & FormUseCaseProps<any>
 
 export const UpdateLambdaForm = ({
   lambda,
   ...props
 }: UpdateLambdaFormProps) => {
-  const [mutate] = useUpdateLambdaMutation()
+  const [mutate] = useUpdateLambdaMutation({
+    refetchQueries: [
+      {
+        query: GetLambdasByLibraryId,
+        variables: {
+          libraryId: 'f70c9584-4b68-4999-a42e-1755d539b714',
+        },
+      },
+    ],
+  })
+  const [updateLambda, setUpdateLambda] = useRecoilState(updateLambdaState)
 
   if (!lambda) {
     return null
   }
 
+  const onSubmit = (submitData: DeepPartial<UpdateLambdaInput>) => {
+    return mutate({
+      variables: {
+        name: submitData.name as string,
+        body: submitData.body as string,
+        id: updateLambda.lambdaId,
+      },
+    })
+  }
+
   return (
-    <ApolloForm<any, UpdateLambdaMutationVariables>
-      hideSubmitButton
-      schema={UpdateLambdaInputSchema}
-      mutate={mutate}
-      uiSchema={{
-        appId: {
-          'ui:disabled': 'appId',
-        },
-        body: {
-          'ui:widget': 'textarea',
-          'ui:options': {
-            rows: 5,
-          },
-        },
-      }}
-      initialFormData={{
-        lambdaId: lambda.id,
-        name: lambda.name,
-        body: lambda.body,
-      }}
-      idPrefix="update_lambda"
+    <JsonSchemaUniForm<UpdateLambdaInput>
+      onSubmit={onSubmit}
+      schema={updateLambdaSchema}
+      onSubmitError={createNotificationHandler({
+        title: 'Error while updating lambda',
+      })}
+      model={{ name: updateLambda.name, body: updateLambda.body }}
       {...props}
     />
   )
