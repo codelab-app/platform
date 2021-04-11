@@ -82,6 +82,9 @@ const PageContainer = ({ children, ...props }: any) => {
   return children ? <>{children}</> : <></>
 }
 
+//This is for testing, need to move it somewhere else
+const ReactText = ({ text }: { text: string }) => <p>{text}</p>
+
 /**
  * A map of VertexTypes to their corresponding React components.
  * When adding a new vertex type, add the corresponding mapping here
@@ -95,7 +98,7 @@ export const elementTypeMap: Record<
   [AtomType.ReactHtmlP]: 'p',
   [AtomType.ReactHtmlA]: 'a',
   [AtomType.ReactHtmlSpan]: 'span',
-  [AtomType.ReactText]: '',
+  [AtomType.ReactText]: ReactText,
   // [AtomType.ReactText]: CodelabHtml.Text,
   [AtomType.ReactIcon]: Icon,
   [AtomType.ReactMenu]: Menu,

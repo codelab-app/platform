@@ -1,32 +1,54 @@
-import React from 'react'
-import { useRecoilState } from 'recoil'
-import { paneConfigState } from '@codelab/frontend/shared'
+import React, { useContext } from 'react'
+import { AppContext } from '@codelab/frontend/shared'
 import { CytoscapeService } from '@codelab/frontend/cytoscape'
 import { RenderComponents } from '@codelab/frontend/builder'
-import { RootApp__PageFragment } from '@codelab/hasura'
+import {
+  RootApp__PageFragment,
+  RootAppGql,
+  useAddPageElementMutation,
+} from '@codelab/hasura'
+import { ComponentDropHandler } from '@codelab/frontend/builder'
+import { ComponentItemType } from '@codelab/modules/component'
 
 type GetPageLayoutProps = {
   page: RootApp__PageFragment
 }
 
 export const GetPageLayout = ({ page }: GetPageLayoutProps) => {
-  const [paneConfig, setPaneConfig] = useRecoilState(paneConfigState)
+  const { pageId, appId } = useContext(AppContext)
 
-  // const [addChildVertex] = useAddChildVertexMutation()
+  const [addPageElement] = useAddPageElementMutation({
+    refetchQueries: [
+      {
+        query: RootAppGql,
+        variables: {
+          appId,
+          pageId,
+        },
+      },
+    ],
+  })
 
   const cy = CytoscapeService.fromPage(page)
   const root = CytoscapeService.componentTree(cy)
 
-  const onNodeClick = (e: any, node: any) => {
-    // console.log(e, node)
-    setPaneConfig({ pageElementId: node.id })
+  const handleDroppedComponent = ({ key, label }: ComponentItemType) => {
+    addPageElement({
+      variables: {
+        input: {
+          page_id: page.id,
+          component_id: key,
+          name: `${label}`,
+        },
+      },
+    })
   }
-
-  console.log(root)
 
   return (
     <>
-      <RenderComponents node={root} />
+      <ComponentDropHandler onDropped={handleDroppedComponent} root={root}>
+        <RenderComponents node={root} />
+      </ComponentDropHandler>
 
       {/*<Button*/}
       {/*  icon={<PlusOutlined />}*/}

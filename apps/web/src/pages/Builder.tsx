@@ -1,9 +1,10 @@
+import { useBuilderSelectionState } from '@codelab/frontend/builder'
 import { Layout } from 'antd'
 import React, { PropsWithChildren, useContext } from 'react'
 import { contentStyle } from '@codelab/frontend/style'
 import { AppContext, AppProvider } from '@codelab/frontend/shared'
-import { PaneMain } from './pane-main/Pane-main'
-import { PaneConfig } from './pane-config/Pane-config'
+import { PaneMain } from './pane-main'
+import { PaneConfig } from './pane-config'
 
 const { Sider, Content } = Layout
 
@@ -30,6 +31,8 @@ export const Builder = ({
   //   }),
   // })
 
+  const { reset: resetSelection } = useBuilderSelectionState()
+
   return (
     <AppProvider appId={appId} pageId={pageId}>
       <Layout style={{ height: '100%' }}>
@@ -44,6 +47,9 @@ export const Builder = ({
         </div>
         <Layout>
           <Content
+            onClick={() => {
+              resetSelection()
+            }}
             style={{
               ...contentStyle,
               paddingLeft: tabsWidth,

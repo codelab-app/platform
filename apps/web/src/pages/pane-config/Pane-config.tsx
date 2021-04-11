@@ -1,9 +1,8 @@
+import { useBuilderSelectionState } from '@codelab/frontend/builder'
 import { Tabs } from 'antd'
 import React from 'react'
-import { useRecoilState } from 'recoil'
 import { PaneConfigProps } from '@codelab/modules/component'
 import { PaneConfigStyle } from '@codelab/modules/style'
-import { paneConfigState } from '@codelab/frontend/shared'
 import styled from '@emotion/styled'
 
 const { TabPane } = Tabs
@@ -19,9 +18,11 @@ const StyledTabs = styled(Tabs)`
 `
 
 export const PaneConfig = React.memo(() => {
-  const [{ pageElementId }] = useRecoilState(paneConfigState)
+  const {
+    selectionState: { selectedElementId },
+  } = useBuilderSelectionState()
 
-  if (!pageElementId) {
+  if (!selectedElementId) {
     return null
   }
 
@@ -32,10 +33,10 @@ export const PaneConfig = React.memo(() => {
       onChange={() => null}
     >
       <TabPane tab="Props" key="1" style={{ height: '100%' }}>
-        <PaneConfigProps pageElementId={pageElementId} />
+        <PaneConfigProps pageElementId={selectedElementId} />
       </TabPane>
       <TabPane tab="Style" key="2">
-        <PaneConfigStyle vertexId={pageElementId} />
+        <PaneConfigStyle vertexId={selectedElementId} />
       </TabPane>
     </StyledTabs>
   )

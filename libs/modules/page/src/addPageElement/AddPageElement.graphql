@@ -1,0 +1,5 @@
+mutation AddPageElement($input: page_element_insert_input!) {
+    insert_page_element_one(object: $input){
+        ...RootApp__PageElement
+    }
+}

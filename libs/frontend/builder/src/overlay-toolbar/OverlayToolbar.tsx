@@ -1,12 +1,9 @@
 import { useScroll } from '@codelab/frontend/shared'
 import React, { CSSProperties, RefObject } from 'react'
-import { useRecoilState } from 'recoil'
 import useResizeObserver from 'use-resize-observer/polyfilled'
-import { overlayToolbarState } from './overlayToolbarState'
 
 interface OverlayToolbarProps<TMetaData> {
-  content?: React.ReactNode | ((metadata: TMetaData) => React.ReactElement)
-  overlayId: string
+  content?: React.ReactNode
   containerProps?: React.DetailedHTMLProps<
     React.HTMLAttributes<HTMLDivElement>,
     HTMLDivElement
@@ -15,11 +12,12 @@ interface OverlayToolbarProps<TMetaData> {
     React.HTMLAttributes<HTMLDivElement>,
     HTMLDivElement
   >
+  overlayElement: HTMLElement | React.RefObject<HTMLElement>
 }
 
 export const OverlayToolbar = <TMetaData extends any>({
   content,
-  overlayId,
+  overlayElement,
   containerProps: {
     className: containerClassName,
     style: containerStyle,
@@ -27,10 +25,6 @@ export const OverlayToolbar = <TMetaData extends any>({
   } = {},
   toolbarProps: { style: toolbarStyle, ...toolbarProps } = {},
 }: OverlayToolbarProps<TMetaData>) => {
-  const [{ overlayElement, metadata }] = useRecoilState(
-    overlayToolbarState(overlayId),
-  )
-
   let element: HTMLElement | null | undefined
 
   if (overlayElement) {
@@ -64,19 +58,13 @@ export const OverlayToolbar = <TMetaData extends any>({
         }
       : {}
 
-  let contentElement
-
-  if (content) {
-    contentElement = typeof content === 'function' ? content(metadata) : content
-  }
-
   return (
     <div
       className={`overlay-toolbar ${containerClassName || ''}`}
       style={style}
       {...containerProps}
     >
-      {element && contentElement && (
+      {element && content && (
         <div
           style={{
             pointerEvents: 'auto',
@@ -91,7 +79,7 @@ export const OverlayToolbar = <TMetaData extends any>({
           }}
           {...toolbarProps}
         >
-          {contentElement}
+          {content}
         </div>
       )}
     </div>

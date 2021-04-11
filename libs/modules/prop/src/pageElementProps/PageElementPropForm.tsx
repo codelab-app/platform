@@ -1,13 +1,14 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import {
   CreatePageElementPropMutation,
   PageElementProps__PropFragment,
   Prop_Value_Type_Enum,
+  RootAppGql,
   UpdatePropValueMutation,
   useCreatePageElementPropMutation,
   useUpdatePropValueMutation,
 } from '@codelab/hasura'
-import { JsonSchemaUniForm, notify } from '@codelab/frontend/shared'
+import { AppContext, JsonSchemaUniForm, notify } from '@codelab/frontend/shared'
 import { AutoFields } from 'uniforms-antd'
 import { createPropSchema } from '../createPropSchema'
 import { FetchResult } from 'apollo-link'
@@ -30,7 +31,9 @@ export interface PropFormProps {
  * Maps a graphql prop fragment to a prop model that  the form understands
  * Currently maps only a single value, need to update it when we support multiple values
  */
-const propDataEntityToModel = (propData: PageElementProps__PropFragment) => ({
+export const propDataEntityToModel = (
+  propData: PageElementProps__PropFragment,
+) => ({
   [propData.attribute.key]: propData.values[0].value,
 })
 
@@ -48,9 +51,25 @@ export const PageElementPropForm = ({
   const attribute = propData?.attribute
   const isInCreationMode = !propData?.id
 
+  const { pageId, appId } = useContext(AppContext)
+
   //Mutations:
-  const [createPageElementProp] = useCreatePageElementPropMutation()
-  const [updatePropValue] = useUpdatePropValueMutation()
+  const [createPageElementProp] = useCreatePageElementPropMutation({
+    refetchQueries: [
+      {
+        query: RootAppGql,
+        variables: { pageId, appId },
+      },
+    ],
+  })
+  const [updatePropValue] = useUpdatePropValueMutation({
+    refetchQueries: [
+      {
+        query: RootAppGql,
+        variables: { pageId, appId },
+      },
+    ],
+  })
 
   const schema = createPropSchema(attribute)
 

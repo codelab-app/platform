@@ -6001,7 +6001,7 @@ export type RootApp__PageElementFragment = {
     component: { __typename?: 'component' } & RootApp__ComponentFragment
     props: Array<
       { __typename?: 'prop_element' } & {
-        prop: { __typename?: 'prop' } & Pick<Prop, 'id'>
+        prop: { __typename?: 'prop' } & PageElementProps__PropFragment
       }
     >
   }
@@ -6243,11 +6243,13 @@ export type UpdateLambdaMutation = { __typename?: 'mutation_root' } & {
 export type UpdatePageElementMutationVariables = Exact<{
   id: Scalars['uuid']
   input?: Maybe<Page_Element_Set_Input>
+export type AddPageElementMutationVariables = Exact<{
+  input: Page_Element_Insert_Input
 }>
 
-export type UpdatePageElementMutation = { __typename?: 'mutation_root' } & {
-  update_page_element_by_pk?: Maybe<
-    { __typename?: 'page_element' } & Pick<Page_Element, 'id'>
+export type AddPageElementMutation = { __typename?: 'mutation_root' } & {
+  insert_page_element_one?: Maybe<
+    { __typename?: 'page_element' } & RootApp__PageElementFragment
   >
 }
 
@@ -6265,6 +6267,16 @@ export type DeletePageMutationVariables = Exact<{
 
 export type DeletePageMutation = { __typename?: 'mutation_root' } & {
   delete_page_by_pk?: Maybe<{ __typename?: 'page' } & Pick<Page, 'id'>>
+}
+
+export type DeletePageElementMutationVariables = Exact<{
+  pageElementId: Scalars['uuid']
+}>
+
+export type DeletePageElementMutation = { __typename?: 'mutation_root' } & {
+  delete_page_element_by_pk?: Maybe<
+    { __typename?: 'page_element' } & Pick<Page_Element, 'id'>
+  >
 }
 
 export type GetPage__PageFragment = { __typename?: 'page' } & Pick<
@@ -6299,6 +6311,17 @@ export type UpdatePageMutationVariables = Exact<{
 
 export type UpdatePageMutation = { __typename?: 'mutation_root' } & {
   update_page_by_pk?: Maybe<{ __typename?: 'page' } & Pick<Page, 'id' | 'name'>>
+}
+
+export type UpdatePageElementMutationVariables = Exact<{
+  id: Scalars['uuid']
+  input?: Maybe<Page_Element_Set_Input>
+}>
+
+export type UpdatePageElementMutation = { __typename?: 'mutation_root' } & {
+  update_page_element_by_pk?: Maybe<
+    { __typename?: 'page_element' } & Pick<Page_Element, 'id'>
+  >
 }
 
 export type CreatePropMutationVariables = Exact<{
@@ -6492,6 +6515,43 @@ export const RootApp__ComponentFragmentDoc = gql`
   ${RootApp__ComponentElementFragmentDoc}
   ${RootApp__ComponentLinkFragmentDoc}
 `
+export const PageElementProps__AttributeFragmentDoc = gql`
+  fragment PageElementProps__Attribute on attribute {
+    id
+    key
+    valueType {
+      value
+    }
+  }
+`
+export const PageElementProps__PropValueFragmentDoc = gql`
+  fragment PageElementProps__PropValue on prop_value {
+    id
+    name
+    type
+    value
+    value_prop_id
+    lambda_id
+  }
+`
+export const PageElementProps__PropFragmentDoc = gql`
+  fragment PageElementProps__Prop on prop {
+    id
+    attribute {
+      ...PageElementProps__Attribute
+    }
+    values_aggregate {
+      aggregate {
+        count
+      }
+    }
+    values {
+      ...PageElementProps__PropValue
+    }
+  }
+  ${PageElementProps__AttributeFragmentDoc}
+  ${PageElementProps__PropValueFragmentDoc}
+`
 export const RootApp__PageElementFragmentDoc = gql`
   fragment RootApp__PageElement on page_element {
     id
@@ -6501,11 +6561,12 @@ export const RootApp__PageElementFragmentDoc = gql`
     }
     props {
       prop {
-        id
+        ...PageElementProps__Prop
       }
     }
   }
   ${RootApp__ComponentFragmentDoc}
+  ${PageElementProps__PropFragmentDoc}
 `
 export const RootApp__PageLinkFragmentDoc = gql`
   fragment RootApp__PageLink on page_link {
@@ -6559,43 +6620,6 @@ export const GetAttributes__AttributeFragmentDoc = gql`
     atom_type
     value_type
   }
-`
-export const PageElementProps__AttributeFragmentDoc = gql`
-  fragment PageElementProps__Attribute on attribute {
-    id
-    key
-    valueType {
-      value
-    }
-  }
-`
-export const PageElementProps__PropValueFragmentDoc = gql`
-  fragment PageElementProps__PropValue on prop_value {
-    id
-    name
-    type
-    value
-    value_prop_id
-    lambda_id
-  }
-`
-export const PageElementProps__PropFragmentDoc = gql`
-  fragment PageElementProps__Prop on prop {
-    id
-    attribute {
-      ...PageElementProps__Attribute
-    }
-    values_aggregate {
-      aggregate {
-        count
-      }
-    }
-    values {
-      ...PageElementProps__PropValue
-    }
-  }
-  ${PageElementProps__AttributeFragmentDoc}
-  ${PageElementProps__PropValueFragmentDoc}
 `
 export const PageElementProps__PageElementFragmentDoc = gql`
   fragment PageElementProps__PageElement on page_element {
@@ -7710,51 +7734,55 @@ export const UpdatePageElementGql = gql`
   mutation UpdatePageElement($id: uuid!, $input: page_element_set_input) {
     update_page_element_by_pk(pk_columns: { id: $id }, _set: $input) {
       id
+export const AddPageElementGql = gql`
+  mutation AddPageElement($input: page_element_insert_input!) {
+    insert_page_element_one(object: $input) {
+      ...RootApp__PageElement
     }
   }
+  ${RootApp__PageElementFragmentDoc}
 `
-export type UpdatePageElementMutationFn = Apollo.MutationFunction<
-  UpdatePageElementMutation,
-  UpdatePageElementMutationVariables
+export type AddPageElementMutationFn = Apollo.MutationFunction<
+  AddPageElementMutation,
+  AddPageElementMutationVariables
 >
 
 /**
- * __useUpdatePageElementMutation__
+ * __useAddPageElementMutation__
  *
- * To run a mutation, you first call `useUpdatePageElementMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdatePageElementMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useAddPageElementMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddPageElementMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [updatePageElementMutation, { data, loading, error }] = useUpdatePageElementMutation({
+ * const [addPageElementMutation, { data, loading, error }] = useAddPageElementMutation({
  *   variables: {
- *      id: // value for 'id'
  *      input: // value for 'input'
  *   },
  * });
  */
-export function useUpdatePageElementMutation(
+export function useAddPageElementMutation(
   baseOptions?: Apollo.MutationHookOptions<
-    UpdatePageElementMutation,
-    UpdatePageElementMutationVariables
+    AddPageElementMutation,
+    AddPageElementMutationVariables
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
   return Apollo.useMutation<
-    UpdatePageElementMutation,
-    UpdatePageElementMutationVariables
-  >(UpdatePageElementGql, options)
+    AddPageElementMutation,
+    AddPageElementMutationVariables
+  >(AddPageElementGql, options)
 }
-export type UpdatePageElementMutationHookResult = ReturnType<
-  typeof useUpdatePageElementMutation
+export type AddPageElementMutationHookResult = ReturnType<
+  typeof useAddPageElementMutation
 >
-export type UpdatePageElementMutationResult = Apollo.MutationResult<UpdatePageElementMutation>
-export type UpdatePageElementMutationOptions = Apollo.BaseMutationOptions<
-  UpdatePageElementMutation,
-  UpdatePageElementMutationVariables
+export type AddPageElementMutationResult = Apollo.MutationResult<AddPageElementMutation>
+export type AddPageElementMutationOptions = Apollo.BaseMutationOptions<
+  AddPageElementMutation,
+  AddPageElementMutationVariables
 >
 export const CreatePageGql = gql`
   mutation CreatePage($data: page_insert_input!) {
@@ -7853,6 +7881,55 @@ export type DeletePageMutationResult = Apollo.MutationResult<DeletePageMutation>
 export type DeletePageMutationOptions = Apollo.BaseMutationOptions<
   DeletePageMutation,
   DeletePageMutationVariables
+>
+export const DeletePageElementGql = gql`
+  mutation DeletePageElement($pageElementId: uuid!) {
+    delete_page_element_by_pk(id: $pageElementId) {
+      id
+    }
+  }
+`
+export type DeletePageElementMutationFn = Apollo.MutationFunction<
+  DeletePageElementMutation,
+  DeletePageElementMutationVariables
+>
+
+/**
+ * __useDeletePageElementMutation__
+ *
+ * To run a mutation, you first call `useDeletePageElementMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeletePageElementMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deletePageElementMutation, { data, loading, error }] = useDeletePageElementMutation({
+ *   variables: {
+ *      pageElementId: // value for 'pageElementId'
+ *   },
+ * });
+ */
+export function useDeletePageElementMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeletePageElementMutation,
+    DeletePageElementMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    DeletePageElementMutation,
+    DeletePageElementMutationVariables
+  >(DeletePageElementGql, options)
+}
+export type DeletePageElementMutationHookResult = ReturnType<
+  typeof useDeletePageElementMutation
+>
+export type DeletePageElementMutationResult = Apollo.MutationResult<DeletePageElementMutation>
+export type DeletePageElementMutationOptions = Apollo.BaseMutationOptions<
+  DeletePageElementMutation,
+  DeletePageElementMutationVariables
 >
 export const GetPageGql = gql`
   query GetPage($pageId: uuid!) {
@@ -8017,6 +8094,56 @@ export type UpdatePageMutationResult = Apollo.MutationResult<UpdatePageMutation>
 export type UpdatePageMutationOptions = Apollo.BaseMutationOptions<
   UpdatePageMutation,
   UpdatePageMutationVariables
+>
+export const UpdatePageElementGql = gql`
+  mutation UpdatePageElement($id: uuid!, $input: page_element_set_input) {
+    update_page_element_by_pk(pk_columns: { id: $id }, _set: $input) {
+      id
+    }
+  }
+`
+export type UpdatePageElementMutationFn = Apollo.MutationFunction<
+  UpdatePageElementMutation,
+  UpdatePageElementMutationVariables
+>
+
+/**
+ * __useUpdatePageElementMutation__
+ *
+ * To run a mutation, you first call `useUpdatePageElementMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdatePageElementMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updatePageElementMutation, { data, loading, error }] = useUpdatePageElementMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdatePageElementMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdatePageElementMutation,
+    UpdatePageElementMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    UpdatePageElementMutation,
+    UpdatePageElementMutationVariables
+  >(UpdatePageElementGql, options)
+}
+export type UpdatePageElementMutationHookResult = ReturnType<
+  typeof useUpdatePageElementMutation
+>
+export type UpdatePageElementMutationResult = Apollo.MutationResult<UpdatePageElementMutation>
+export type UpdatePageElementMutationOptions = Apollo.BaseMutationOptions<
+  UpdatePageElementMutation,
+  UpdatePageElementMutationVariables
 >
 export const CreatePropGql = gql`
   mutation CreateProp($input: prop_insert_input!) {
@@ -8644,6 +8771,43 @@ export const RootApp__Component = gql`
   ${RootApp__ComponentElement}
   ${RootApp__ComponentLink}
 `
+export const PageElementProps__Attribute = gql`
+  fragment PageElementProps__Attribute on attribute {
+    id
+    key
+    valueType {
+      value
+    }
+  }
+`
+export const PageElementProps__PropValue = gql`
+  fragment PageElementProps__PropValue on prop_value {
+    id
+    name
+    type
+    value
+    value_prop_id
+    lambda_id
+  }
+`
+export const PageElementProps__Prop = gql`
+  fragment PageElementProps__Prop on prop {
+    id
+    attribute {
+      ...PageElementProps__Attribute
+    }
+    values_aggregate {
+      aggregate {
+        count
+      }
+    }
+    values {
+      ...PageElementProps__PropValue
+    }
+  }
+  ${PageElementProps__Attribute}
+  ${PageElementProps__PropValue}
+`
 export const RootApp__PageElement = gql`
   fragment RootApp__PageElement on page_element {
     id
@@ -8653,11 +8817,12 @@ export const RootApp__PageElement = gql`
     }
     props {
       prop {
-        id
+        ...PageElementProps__Prop
       }
     }
   }
   ${RootApp__Component}
+  ${PageElementProps__Prop}
 `
 export const RootApp__PageLink = gql`
   fragment RootApp__PageLink on page_link {
@@ -8711,43 +8876,6 @@ export const GetAttributes__Attribute = gql`
     atom_type
     value_type
   }
-`
-export const PageElementProps__Attribute = gql`
-  fragment PageElementProps__Attribute on attribute {
-    id
-    key
-    valueType {
-      value
-    }
-  }
-`
-export const PageElementProps__PropValue = gql`
-  fragment PageElementProps__PropValue on prop_value {
-    id
-    name
-    type
-    value
-    value_prop_id
-    lambda_id
-  }
-`
-export const PageElementProps__Prop = gql`
-  fragment PageElementProps__Prop on prop {
-    id
-    attribute {
-      ...PageElementProps__Attribute
-    }
-    values_aggregate {
-      aggregate {
-        count
-      }
-    }
-    values {
-      ...PageElementProps__PropValue
-    }
-  }
-  ${PageElementProps__Attribute}
-  ${PageElementProps__PropValue}
 `
 export const PageElementProps__PageElement = gql`
   fragment PageElementProps__PageElement on page_element {
@@ -8951,8 +9079,13 @@ export const UpdatePageElement = gql`
   mutation UpdatePageElement($id: uuid!, $input: page_element_set_input) {
     update_page_element_by_pk(pk_columns: { id: $id }, _set: $input) {
       id
+export const AddPageElement = gql`
+  mutation AddPageElement($input: page_element_insert_input!) {
+    insert_page_element_one(object: $input) {
+      ...RootApp__PageElement
     }
   }
+  ${RootApp__PageElement}
 `
 export const CreatePage = gql`
   mutation CreatePage($data: page_insert_input!) {
@@ -8964,6 +9097,13 @@ export const CreatePage = gql`
 export const DeletePage = gql`
   mutation DeletePage($pageId: uuid!) {
     delete_page_by_pk(id: $pageId) {
+      id
+    }
+  }
+`
+export const DeletePageElement = gql`
+  mutation DeletePageElement($pageElementId: uuid!) {
+    delete_page_element_by_pk(id: $pageElementId) {
       id
     }
   }
@@ -8991,6 +9131,13 @@ export const UpdatePage = gql`
     update_page_by_pk(_set: $input, pk_columns: { id: $pageId }) {
       id
       name
+    }
+  }
+`
+export const UpdatePageElement = gql`
+  mutation UpdatePageElement($id: uuid!, $input: page_element_set_input) {
+    update_page_element_by_pk(pk_columns: { id: $id }, _set: $input) {
+      id
     }
   }
 `

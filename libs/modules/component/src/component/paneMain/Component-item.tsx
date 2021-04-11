@@ -17,6 +17,8 @@ interface ComponentItemProps extends CardProps {
   item: ComponentItemType
 }
 
+export const COMPONENT_ITEM_DRAG_TYPE = 'ComponentItem'
+
 export const ComponentItem = ({
   item,
   style,
@@ -25,7 +27,7 @@ export const ComponentItem = ({
 }: ComponentItemProps) => {
   const [, setState] = useRecoilState(componentItemState)
   // const handlers = useComponentHandlers()
-  const [, drag] = useDrag({ item, type: item.key })
+  const [, drag] = useDrag({ item, type: COMPONENT_ITEM_DRAG_TYPE }, [item])
 
   return (
     <div>

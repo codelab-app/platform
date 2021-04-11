@@ -1,17 +1,13 @@
-import {
-  AtomType,
-  NodeA,
-  notify,
-  PaneConfigHandlersProps,
-} from '@codelab/frontend/shared'
+import { AtomType, NodeA, notify } from '@codelab/frontend/shared'
 import React from 'react'
 import ReactTestUtils from 'react-dom/test-utils'
 import { elementTypeMap } from './elementTypeMap'
+import { ComponentHandlers } from './useComponentHandlers'
 
 interface ElementParameterFactoryInput<TNode extends NodeA = NodeA> {
   node: TNode
   // Function hooks injected to pass to handlers
-  handlers: PaneConfigHandlersProps
+  handlers: ComponentHandlers
 }
 
 /**
@@ -61,7 +57,7 @@ export const elementParameterFactory = <TNode extends NodeA>({
   if (!component) {
     notify({
       type: 'error',
-      title: `Missing element of type ${type} in ElementFactory`,
+      title: `Missing element of type ${type} in element type map`,
     })
 
     return [null, {}]
@@ -82,7 +78,7 @@ export const elementParameterFactory = <TNode extends NodeA>({
     onMouseEnter: (e: MouseEvent) => {
       // console.log('mouseEnter', e)
 
-      return handlers?.showHoverOverlay(e.target as HTMLElement, node)
+      return handlers?.showHoverOverlay(node.id)
     },
     // We want to manually re-trigger the `onMouseEnter` of the parent
     onMouseLeave: (e: MouseEvent) => {
@@ -108,13 +104,8 @@ export const elementParameterFactory = <TNode extends NodeA>({
       // We want to show overlay for current node
       e.stopPropagation()
 
-      // Don't trigger if same vertexId
-      handlers?.showClickOverlay(e.target as HTMLElement, node)
-
-      // Open the inspector for this node
-      handlers?.setPaneConfig({
-        pageElementId: node.id,
-      })
+      //Open inspector and the click overview
+      handlers?.selectPageElement(node.id)
     },
   } as Record<string, any>
 

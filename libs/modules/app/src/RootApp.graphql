@@ -34,7 +34,7 @@ fragment RootApp__PageElement on page_element {
     }
     props {
         prop {
-            id
+           ...PageElementProps__Prop
         }
     }
 }
