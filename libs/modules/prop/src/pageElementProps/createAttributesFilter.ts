@@ -8,5 +8,6 @@ export const createAttributesFilter = (
   if (attributeSearchValue) {
     where.key = { _ilike: `%${attributeSearchValue}%` }
   }
+
   return where
 }

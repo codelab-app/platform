@@ -18,7 +18,9 @@ import {
 } from '@ant-design/icons'
 
 import Link from 'next/link'
+
 const { TabPane } = Tabs
+
 // TODO click on apps (wide of icon)
 export const PaneMain = () => {
   return (
@@ -47,7 +49,11 @@ export const PaneMain = () => {
       <TabPane tab={<FormatPainterOutlined title="Styles" />} key="5">
         <PaneMainStyle />
       </TabPane>
-      <TabPane tab={<FunctionOutlined title="Function" />} key="6">
+      <TabPane
+        style={{ overflowX: 'auto' }}
+        tab={<FunctionOutlined title="Function" />}
+        key="6"
+      >
         <PaneMainLambda />
       </TabPane>
       <TabPane tab={<DeploymentUnitOutlined title="Atom" />} key="7">

@@ -34,6 +34,18 @@ export type Int_Comparison_Exp = {
   _nin?: Maybe<Array<Scalars['Int']>>
 }
 
+export type LambdaInput = {
+  body?: Maybe<Scalars['String']>
+  id: Scalars['String']
+  library_id?: Maybe<Scalars['String']>
+  name?: Maybe<Scalars['String']>
+}
+
+export type LambdaOutput = {
+  __typename?: 'LambdaOutput'
+  payload: Scalars['String']
+}
+
 /** Boolean expression to compare columns of type "String". All fields are combined with logical 'AND'. */
 export type String_Comparison_Exp = {
   _eq?: Maybe<Scalars['String']>
@@ -1929,6 +1941,7 @@ export type Mutation_Root = {
   delete_user?: Maybe<User_Mutation_Response>
   /** delete single row from the table: "user" */
   delete_user_by_pk?: Maybe<User>
+  executeLambda?: Maybe<LambdaOutput>
   /** insert data into the table: "app" */
   insert_app?: Maybe<App_Mutation_Response>
   /** insert a single row into the table: "app" */
@@ -2309,6 +2322,12 @@ export type Mutation_RootDelete_UserArgs = {
 /** mutation root */
 export type Mutation_RootDelete_User_By_PkArgs = {
   id: Scalars['String']
+}
+
+/** mutation root */
+export type Mutation_RootExecuteLambdaArgs = {
+  lambda: LambdaInput
+  payload: Scalars['String']
 }
 
 /** mutation root */
@@ -6052,6 +6071,18 @@ export type GetAppsListQuery = { __typename?: 'query_root' } & {
   >
 }
 
+export type GetAppsListForUserQueryVariables = Exact<{
+  userId: Scalars['String']
+}>
+
+export type GetAppsListForUserQuery = { __typename?: 'query_root' } & {
+  app: Array<
+    { __typename?: 'app' } & Pick<App, 'id' | 'name'> & {
+        pages: Array<{ __typename?: 'page' } & Pick<Page, 'id'>>
+      }
+  >
+}
+
 export type GetAtomQueryVariables = Exact<{
   atomId: Scalars['uuid']
 }>
@@ -6108,6 +6139,104 @@ export type GetComponentsQueryVariables = Exact<{ [key: string]: never }>
 export type GetComponentsQuery = { __typename?: 'query_root' } & {
   component: Array<
     { __typename?: 'component' } & GetComponents__ComponentFragment
+  >
+}
+
+export type CreateLambdaMutationVariables = Exact<{
+  input: Array<Lambda_Insert_Input> | Lambda_Insert_Input
+}>
+
+export type CreateLambdaMutation = { __typename?: 'mutation_root' } & {
+  insert_lambda?: Maybe<
+    { __typename?: 'lambda_mutation_response' } & {
+      returning: Array<
+        { __typename?: 'lambda' } & Pick<
+          Lambda,
+          'id' | 'libraryId' | 'name' | 'body'
+        >
+      >
+    }
+  >
+}
+
+export type DeleteLambdaMutationVariables = Exact<{
+  id: Scalars['uuid']
+}>
+
+export type DeleteLambdaMutation = { __typename?: 'mutation_root' } & {
+  delete_lambda?: Maybe<
+    { __typename?: 'lambda_mutation_response' } & {
+      returning: Array<
+        { __typename?: 'lambda' } & Pick<Lambda, 'id' | 'name' | 'body'>
+      >
+    }
+  >
+}
+
+export type ExecuteLambdaMutationVariables = Exact<{
+  lambda: LambdaInput
+  payload: Scalars['String']
+}>
+
+export type ExecuteLambdaMutation = { __typename?: 'mutation_root' } & {
+  executeLambda?: Maybe<
+    { __typename?: 'LambdaOutput' } & Pick<LambdaOutput, 'payload'>
+  >
+}
+
+export type GetLambdaByIdQueryVariables = Exact<{
+  id: Scalars['uuid']
+}>
+
+export type GetLambdaByIdQuery = { __typename?: 'query_root' } & {
+  lambda: Array<
+    { __typename?: 'lambda' } & Pick<
+      Lambda,
+      'body' | 'id' | 'libraryId' | 'name'
+    >
+  >
+}
+
+export type GetLambdasQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetLambdasQuery = { __typename?: 'query_root' } & {
+  lambda: Array<
+    { __typename?: 'lambda' } & Pick<
+      Lambda,
+      'body' | 'id' | 'libraryId' | 'name'
+    >
+  >
+}
+
+export type GetLambdasByLibraryIdQueryVariables = Exact<{
+  libraryId: Scalars['uuid']
+}>
+
+export type GetLambdasByLibraryIdQuery = { __typename?: 'query_root' } & {
+  lambda: Array<
+    { __typename?: 'lambda' } & Pick<
+      Lambda,
+      'body' | 'id' | 'libraryId' | 'name'
+    >
+  >
+}
+
+export type UpdateLambdaMutationVariables = Exact<{
+  id: Scalars['uuid']
+  body?: Maybe<Scalars['String']>
+  name?: Maybe<Scalars['String']>
+}>
+
+export type UpdateLambdaMutation = { __typename?: 'mutation_root' } & {
+  update_lambda?: Maybe<
+    { __typename?: 'lambda_mutation_response' } & {
+      returning: Array<
+        { __typename?: 'lambda' } & Pick<
+          Lambda,
+          'id' | 'libraryId' | 'name' | 'body'
+        >
+      >
+    }
   >
 }
 
@@ -6744,6 +6873,68 @@ export type GetAppsListQueryResult = Apollo.QueryResult<
   GetAppsListQuery,
   GetAppsListQueryVariables
 >
+export const GetAppsListForUserGql = gql`
+  query GetAppsListForUser($userId: String!) {
+    app(where: { user_id: { _eq: $userId } }) {
+      id
+      name
+      pages {
+        id
+      }
+    }
+  }
+`
+
+/**
+ * __useGetAppsListForUserQuery__
+ *
+ * To run a query within a React component, call `useGetAppsListForUserQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAppsListForUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAppsListForUserQuery({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useGetAppsListForUserQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetAppsListForUserQuery,
+    GetAppsListForUserQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<
+    GetAppsListForUserQuery,
+    GetAppsListForUserQueryVariables
+  >(GetAppsListForUserGql, options)
+}
+export function useGetAppsListForUserLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetAppsListForUserQuery,
+    GetAppsListForUserQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    GetAppsListForUserQuery,
+    GetAppsListForUserQueryVariables
+  >(GetAppsListForUserGql, options)
+}
+export type GetAppsListForUserQueryHookResult = ReturnType<
+  typeof useGetAppsListForUserQuery
+>
+export type GetAppsListForUserLazyQueryHookResult = ReturnType<
+  typeof useGetAppsListForUserLazyQuery
+>
+export type GetAppsListForUserQueryResult = Apollo.QueryResult<
+  GetAppsListForUserQuery,
+  GetAppsListForUserQueryVariables
+>
 export const GetAtomGql = gql`
   query GetAtom($atomId: uuid!) {
     atom_by_pk(id: $atomId) {
@@ -7118,6 +7309,402 @@ export type GetComponentsLazyQueryHookResult = ReturnType<
 export type GetComponentsQueryResult = Apollo.QueryResult<
   GetComponentsQuery,
   GetComponentsQueryVariables
+>
+export const CreateLambdaGql = gql`
+  mutation CreateLambda($input: [lambda_insert_input!]!) {
+    insert_lambda(objects: $input) {
+      returning {
+        id
+        libraryId
+        name
+        body
+      }
+    }
+  }
+`
+export type CreateLambdaMutationFn = Apollo.MutationFunction<
+  CreateLambdaMutation,
+  CreateLambdaMutationVariables
+>
+
+/**
+ * __useCreateLambdaMutation__
+ *
+ * To run a mutation, you first call `useCreateLambdaMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateLambdaMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createLambdaMutation, { data, loading, error }] = useCreateLambdaMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateLambdaMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateLambdaMutation,
+    CreateLambdaMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    CreateLambdaMutation,
+    CreateLambdaMutationVariables
+  >(CreateLambdaGql, options)
+}
+export type CreateLambdaMutationHookResult = ReturnType<
+  typeof useCreateLambdaMutation
+>
+export type CreateLambdaMutationResult = Apollo.MutationResult<CreateLambdaMutation>
+export type CreateLambdaMutationOptions = Apollo.BaseMutationOptions<
+  CreateLambdaMutation,
+  CreateLambdaMutationVariables
+>
+export const DeleteLambdaGql = gql`
+  mutation DeleteLambda($id: uuid!) {
+    delete_lambda(where: { id: { _eq: $id } }) {
+      returning {
+        id
+        name
+        body
+      }
+    }
+  }
+`
+export type DeleteLambdaMutationFn = Apollo.MutationFunction<
+  DeleteLambdaMutation,
+  DeleteLambdaMutationVariables
+>
+
+/**
+ * __useDeleteLambdaMutation__
+ *
+ * To run a mutation, you first call `useDeleteLambdaMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteLambdaMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteLambdaMutation, { data, loading, error }] = useDeleteLambdaMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteLambdaMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeleteLambdaMutation,
+    DeleteLambdaMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    DeleteLambdaMutation,
+    DeleteLambdaMutationVariables
+  >(DeleteLambdaGql, options)
+}
+export type DeleteLambdaMutationHookResult = ReturnType<
+  typeof useDeleteLambdaMutation
+>
+export type DeleteLambdaMutationResult = Apollo.MutationResult<DeleteLambdaMutation>
+export type DeleteLambdaMutationOptions = Apollo.BaseMutationOptions<
+  DeleteLambdaMutation,
+  DeleteLambdaMutationVariables
+>
+export const ExecuteLambdaGql = gql`
+  mutation ExecuteLambda($lambda: LambdaInput!, $payload: String!) {
+    executeLambda(lambda: $lambda, payload: $payload) {
+      payload
+    }
+  }
+`
+export type ExecuteLambdaMutationFn = Apollo.MutationFunction<
+  ExecuteLambdaMutation,
+  ExecuteLambdaMutationVariables
+>
+
+/**
+ * __useExecuteLambdaMutation__
+ *
+ * To run a mutation, you first call `useExecuteLambdaMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useExecuteLambdaMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [executeLambdaMutation, { data, loading, error }] = useExecuteLambdaMutation({
+ *   variables: {
+ *      lambda: // value for 'lambda'
+ *      payload: // value for 'payload'
+ *   },
+ * });
+ */
+export function useExecuteLambdaMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    ExecuteLambdaMutation,
+    ExecuteLambdaMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    ExecuteLambdaMutation,
+    ExecuteLambdaMutationVariables
+  >(ExecuteLambdaGql, options)
+}
+export type ExecuteLambdaMutationHookResult = ReturnType<
+  typeof useExecuteLambdaMutation
+>
+export type ExecuteLambdaMutationResult = Apollo.MutationResult<ExecuteLambdaMutation>
+export type ExecuteLambdaMutationOptions = Apollo.BaseMutationOptions<
+  ExecuteLambdaMutation,
+  ExecuteLambdaMutationVariables
+>
+export const GetLambdaByIdGql = gql`
+  query GetLambdaById($id: uuid!) {
+    lambda(where: { id: { _eq: $id } }) {
+      body
+      id
+      libraryId
+      name
+    }
+  }
+`
+
+/**
+ * __useGetLambdaByIdQuery__
+ *
+ * To run a query within a React component, call `useGetLambdaByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetLambdaByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetLambdaByIdQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetLambdaByIdQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetLambdaByIdQuery,
+    GetLambdaByIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetLambdaByIdQuery, GetLambdaByIdQueryVariables>(
+    GetLambdaByIdGql,
+    options,
+  )
+}
+export function useGetLambdaByIdLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetLambdaByIdQuery,
+    GetLambdaByIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetLambdaByIdQuery, GetLambdaByIdQueryVariables>(
+    GetLambdaByIdGql,
+    options,
+  )
+}
+export type GetLambdaByIdQueryHookResult = ReturnType<
+  typeof useGetLambdaByIdQuery
+>
+export type GetLambdaByIdLazyQueryHookResult = ReturnType<
+  typeof useGetLambdaByIdLazyQuery
+>
+export type GetLambdaByIdQueryResult = Apollo.QueryResult<
+  GetLambdaByIdQuery,
+  GetLambdaByIdQueryVariables
+>
+export const GetLambdasGql = gql`
+  query GetLambdas {
+    lambda {
+      body
+      id
+      libraryId
+      name
+    }
+  }
+`
+
+/**
+ * __useGetLambdasQuery__
+ *
+ * To run a query within a React component, call `useGetLambdasQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetLambdasQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetLambdasQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetLambdasQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetLambdasQuery,
+    GetLambdasQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetLambdasQuery, GetLambdasQueryVariables>(
+    GetLambdasGql,
+    options,
+  )
+}
+export function useGetLambdasLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetLambdasQuery,
+    GetLambdasQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetLambdasQuery, GetLambdasQueryVariables>(
+    GetLambdasGql,
+    options,
+  )
+}
+export type GetLambdasQueryHookResult = ReturnType<typeof useGetLambdasQuery>
+export type GetLambdasLazyQueryHookResult = ReturnType<
+  typeof useGetLambdasLazyQuery
+>
+export type GetLambdasQueryResult = Apollo.QueryResult<
+  GetLambdasQuery,
+  GetLambdasQueryVariables
+>
+export const GetLambdasByLibraryIdGql = gql`
+  query GetLambdasByLibraryId($libraryId: uuid!) {
+    lambda(where: { libraryId: { _eq: $libraryId } }) {
+      body
+      id
+      libraryId
+      name
+    }
+  }
+`
+
+/**
+ * __useGetLambdasByLibraryIdQuery__
+ *
+ * To run a query within a React component, call `useGetLambdasByLibraryIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetLambdasByLibraryIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetLambdasByLibraryIdQuery({
+ *   variables: {
+ *      libraryId: // value for 'libraryId'
+ *   },
+ * });
+ */
+export function useGetLambdasByLibraryIdQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetLambdasByLibraryIdQuery,
+    GetLambdasByLibraryIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<
+    GetLambdasByLibraryIdQuery,
+    GetLambdasByLibraryIdQueryVariables
+  >(GetLambdasByLibraryIdGql, options)
+}
+export function useGetLambdasByLibraryIdLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetLambdasByLibraryIdQuery,
+    GetLambdasByLibraryIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    GetLambdasByLibraryIdQuery,
+    GetLambdasByLibraryIdQueryVariables
+  >(GetLambdasByLibraryIdGql, options)
+}
+export type GetLambdasByLibraryIdQueryHookResult = ReturnType<
+  typeof useGetLambdasByLibraryIdQuery
+>
+export type GetLambdasByLibraryIdLazyQueryHookResult = ReturnType<
+  typeof useGetLambdasByLibraryIdLazyQuery
+>
+export type GetLambdasByLibraryIdQueryResult = Apollo.QueryResult<
+  GetLambdasByLibraryIdQuery,
+  GetLambdasByLibraryIdQueryVariables
+>
+export const UpdateLambdaGql = gql`
+  mutation UpdateLambda($id: uuid!, $body: String, $name: String) {
+    update_lambda(
+      where: { id: { _eq: $id } }
+      _set: { body: $body, name: $name }
+    ) {
+      returning {
+        id
+        libraryId
+        name
+        body
+      }
+    }
+  }
+`
+export type UpdateLambdaMutationFn = Apollo.MutationFunction<
+  UpdateLambdaMutation,
+  UpdateLambdaMutationVariables
+>
+
+/**
+ * __useUpdateLambdaMutation__
+ *
+ * To run a mutation, you first call `useUpdateLambdaMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateLambdaMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateLambdaMutation, { data, loading, error }] = useUpdateLambdaMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      body: // value for 'body'
+ *      name: // value for 'name'
+ *   },
+ * });
+ */
+export function useUpdateLambdaMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateLambdaMutation,
+    UpdateLambdaMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    UpdateLambdaMutation,
+    UpdateLambdaMutationVariables
+  >(UpdateLambdaGql, options)
+}
+export type UpdateLambdaMutationHookResult = ReturnType<
+  typeof useUpdateLambdaMutation
+>
+export type UpdateLambdaMutationResult = Apollo.MutationResult<UpdateLambdaMutation>
+export type UpdateLambdaMutationOptions = Apollo.BaseMutationOptions<
+  UpdateLambdaMutation,
+  UpdateLambdaMutationVariables
 >
 export const UpdatePageElementGql = gql`
   mutation UpdatePageElement($id: uuid!, $input: page_element_set_input) {
@@ -8220,6 +8807,17 @@ export const GetAppsList = gql`
     }
   }
 `
+export const GetAppsListForUser = gql`
+  query GetAppsListForUser($userId: String!) {
+    app(where: { user_id: { _eq: $userId } }) {
+      id
+      name
+      pages {
+        id
+      }
+    }
+  }
+`
 export const GetAtom = gql`
   query GetAtom($atomId: uuid!) {
     atom_by_pk(id: $atomId) {
@@ -8273,6 +8871,81 @@ export const GetComponents = gql`
     }
   }
   ${GetComponents__Component}
+`
+export const CreateLambda = gql`
+  mutation CreateLambda($input: [lambda_insert_input!]!) {
+    insert_lambda(objects: $input) {
+      returning {
+        id
+        libraryId
+        name
+        body
+      }
+    }
+  }
+`
+export const DeleteLambda = gql`
+  mutation DeleteLambda($id: uuid!) {
+    delete_lambda(where: { id: { _eq: $id } }) {
+      returning {
+        id
+        name
+        body
+      }
+    }
+  }
+`
+export const ExecuteLambda = gql`
+  mutation ExecuteLambda($lambda: LambdaInput!, $payload: String!) {
+    executeLambda(lambda: $lambda, payload: $payload) {
+      payload
+    }
+  }
+`
+export const GetLambdaById = gql`
+  query GetLambdaById($id: uuid!) {
+    lambda(where: { id: { _eq: $id } }) {
+      body
+      id
+      libraryId
+      name
+    }
+  }
+`
+export const GetLambdas = gql`
+  query GetLambdas {
+    lambda {
+      body
+      id
+      libraryId
+      name
+    }
+  }
+`
+export const GetLambdasByLibraryId = gql`
+  query GetLambdasByLibraryId($libraryId: uuid!) {
+    lambda(where: { libraryId: { _eq: $libraryId } }) {
+      body
+      id
+      libraryId
+      name
+    }
+  }
+`
+export const UpdateLambda = gql`
+  mutation UpdateLambda($id: uuid!, $body: String, $name: String) {
+    update_lambda(
+      where: { id: { _eq: $id } }
+      _set: { body: $body, name: $name }
+    ) {
+      returning {
+        id
+        libraryId
+        name
+        body
+      }
+    }
+  }
 `
 export const UpdatePageElement = gql`
   mutation UpdatePageElement($id: uuid!, $input: page_element_set_input) {

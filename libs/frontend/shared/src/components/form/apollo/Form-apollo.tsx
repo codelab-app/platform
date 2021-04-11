@@ -9,7 +9,11 @@ import { ApolloFormProps } from './Form-apollo--types'
  */
 export type FormUseCaseProps<TData extends Record<string, unknown>> = Pick<
   JsonSchemaFormProps<TData>,
-  'onSubmitError' | 'onSubmitSuccess' | 'submitRef' | 'saveOnChange'
+  | 'onSubmitError'
+  | 'onSubmitSuccess'
+  | 'submitRef'
+  | 'saveOnChange'
+  | 'children'
 >
 
 export const ApolloForm = <

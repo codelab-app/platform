@@ -3,14 +3,11 @@
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
     "types": ["node", "@rjsf/antd"],
-    "jsx": "react",
-    "esModuleInterop": true,
-    "module": "CommonJS",
-    "allowSyntheticDefaultImports": true,
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "target": "ES2018"
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react",
+    "target": "es2015"
   },
-  "exclude": ["**/*.spec.ts", "**/*.tsx"],
+  "exclude": ["**/*.spec.ts"],
   "include": ["**/*.ts"]
 }

@@ -1,14 +1,17 @@
 import { Button } from 'antd'
 import React from 'react'
 import { LambdaRecord } from '../getLambdas/LambdaRecord'
-import { useExecuteLambdaMutation } from '@codelab/generated'
+import { useExecuteLambdaMutation } from '@codelab/hasura'
 
 export const ExecuteLambdaButton = (props: LambdaRecord) => {
   const [mutate] = useExecuteLambdaMutation({
     variables: {
-      input: {
-        lambdaId: props.id,
-      },
+      lambda: props,
+      payload: JSON.stringify({
+        key1: 'value1',
+        key2: 'value2',
+        key3: 'value3',
+      }),
     },
   })
 
@@ -18,7 +21,7 @@ export const ExecuteLambdaButton = (props: LambdaRecord) => {
       onClick={() => {
         mutate().then(({ data }) => {
           if (data) {
-            console.log(data.executeLambda)
+            console.log(data.executeLambda?.payload)
           }
         })
       }}

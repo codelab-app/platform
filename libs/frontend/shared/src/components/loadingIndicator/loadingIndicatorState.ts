@@ -35,11 +35,13 @@ export const usePromisesLoadingIndicator = (key: string) => {
         .then((r) => {
           setPromises((prs) => prs.filter((p) => p !== promise))
           setState((s) => ({ ...s, isErrored: false }))
+
           return r
         })
         .catch((e) => {
           setPromises((prs) => prs.filter((p) => p !== promise))
           setState((s) => ({ ...s, isErrored: true }))
+
           return e
         })
     },

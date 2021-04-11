@@ -9,7 +9,7 @@ import { ConfigModule } from './config.module'
     LoggerModule.forRoot(),
     AwsModule,
     // GraphqlModule,
-    ConfigModule.register(databaseConfig),
+    // ConfigModule.register(databaseConfig),
   ],
 })
 export class InfrastructureModule {}

@@ -1,0 +1,10 @@
+mutation UpdateLambda($id: uuid!, $body: String, $name: String) {
+    update_lambda(where: {id: {_eq: $id}}, _set: {body: $body, name: $name}) {
+        returning {
+            id
+            libraryId
+            name
+            body
+        }
+    }
+}

@@ -1,14 +1,14 @@
-import { Space } from 'antd'
+import { Space, Table } from 'antd'
 import React, { useContext } from 'react'
 import { DeleteLambdaButton } from '../deleteLambda'
 import { ExecuteLambdaButton } from '../executeLambda'
 import { UpdateLambdaButton } from '../updateLambda/UpdateLambdaButton'
 import { LambdaRecord } from './LambdaRecord'
-import { LambdaFragmentsFragment } from '@codelab/generated'
+import { useGetLambdasByLibraryIdQuery } from '@codelab/hasura'
 import { AppContext } from '@codelab/frontend/shared'
 
-const mapDataSource = (lambdas: Array<LambdaFragmentsFragment>) => {
-  return lambdas.map((lambda) => ({
+const mapDataSource = (lambdas: Array<LambdaRecord>) => {
+  return lambdas?.map((lambda: LambdaRecord) => ({
     id: lambda.id,
     key: lambda.id,
     name: lambda.name,
@@ -18,6 +18,12 @@ const mapDataSource = (lambdas: Array<LambdaFragmentsFragment>) => {
 
 export const GetLambdasTable = () => {
   const { app, appId } = useContext(AppContext)
+
+  const { loading, data } = useGetLambdasByLibraryIdQuery({
+    variables: {
+      libraryId: 'f70c9584-4b68-4999-a42e-1755d539b714',
+    },
+  })
 
   const columns = [
     {
@@ -43,7 +49,12 @@ export const GetLambdasTable = () => {
     },
   ]
 
-  //TODO: fix lambdas UI
-  return null
-  // return <Table dataSource={mapDataSource(rootAppData.lambdas)} columns={columns} />
+  return loading ? (
+    <></>
+  ) : (
+    <Table
+      dataSource={mapDataSource(data?.lambda as Array<LambdaRecord>)}
+      columns={columns}
+    />
+  )
 }

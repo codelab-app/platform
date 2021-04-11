@@ -39,7 +39,7 @@ export const ModalForm = <TData extends Record<string, unknown>>({
   const submitRef = useRef<SubmitController | undefined>()
 
   const form = cloneElement(renderForm(), {
-    hideSubmitButton: true, // No need for it, we use the Modal's button
+    // hideSubmitButton: true, // No need for it, we use the Modal's button
     submitRef,
   })
 
