@@ -213,7 +213,7 @@ commands:
           channel: $SLACK_CHANNEL_UPDATE
           mentions: $SLACK_USER
 
-  setup-deploy: 
+  setup-deploy:
     description: 'Setup deploy'
     steps:
       - setup-workspace
@@ -257,9 +257,9 @@ jobs:
       - run:
           name: 'Build CI'
           command: make build-ci
-      - run:
-          name: 'Yarn link workspace'
-          command: "yarn install --frozen-lockfile --prod=false"
+      # - run:
+      #     name: 'Yarn link workspace'
+      #     command: "yarn install --frozen-lockfile --prod=false"
       - persist_to_workspace:
           root: ..
           paths:
@@ -357,7 +357,7 @@ jobs:
           command: |
             eb use app-prod --region ap-east-1 --profile eb-cli
             eb deploy app-prod --region ap-east-1 --profile eb-cli
-        
+
 
 workflows:
   app-dev:
