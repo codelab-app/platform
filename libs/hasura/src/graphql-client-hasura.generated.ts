@@ -6264,6 +6264,31 @@ export type UpdateLibraryMutation = { __typename?: 'mutation_root' } & {
   update_library_by_pk?: Maybe<{ __typename?: 'library' } & __LibraryFragment>
 }
 
+export type App__PageFragment = { __typename?: 'page' } & Pick<
+  Page,
+  'id' | 'name'
+> & {
+    elements: Array<{ __typename?: 'page_element' } & Page__PageElementFragment>
+    links: Array<{ __typename?: 'page_link' } & Page__PageLinkFragment>
+  }
+
+export type Page__PageElementFragment = { __typename?: 'page_element' } & Pick<
+  Page_Element,
+  'id' | 'name' | 'page_id'
+> & {
+    component: { __typename?: 'component' } & PageElement__ComponentFragment
+    props: Array<
+      { __typename?: 'prop_element' } & {
+        prop: { __typename?: 'prop' } & PageElement__PropFragment
+      }
+    >
+  }
+
+export type Page__PageLinkFragment = { __typename?: 'page_link' } & Pick<
+  Page_Link,
+  'id' | 'order' | 'props' | 'source_element_id' | 'target_element_id'
+>
+
 export type AddPageElementMutationVariables = Exact<{
   input: Page_Element_Insert_Input
 }>
@@ -6500,6 +6525,12 @@ export const GetComponents__ComponentFragmentDoc = gql`
     label
   }
 `
+export const __LibraryFragmentDoc = gql`
+  fragment __Library on library {
+    id
+    name
+  }
+`
 export const GetAttributes__AttributeFragmentDoc = gql`
   fragment GetAttributes__Attribute on attribute {
     id
@@ -6631,18 +6662,6 @@ export const User__AppFragmentDoc = gql`
 `
 export const __UserFragmentDoc = gql`
   fragment __User on user {
-    id
-    label
-  }
-`
-export const __LibraryFragmentDoc = gql`
-  fragment __Library on library {
-    id
-    name
-  }
-`
-export const GetPage__PageFragmentDoc = gql`
-  fragment GetPage__Page on page {
     id
     name
     apps {
@@ -9076,6 +9095,12 @@ export const GetComponents__Component = gql`
     label
   }
 `
+export const __Library = gql`
+  fragment __Library on library {
+    id
+    name
+  }
+`
 export const GetAttributes__Attribute = gql`
   fragment GetAttributes__Attribute on attribute {
     id
@@ -9207,18 +9232,6 @@ export const User__App = gql`
 `
 export const __User = gql`
   fragment __User on user {
-    id
-    label
-  }
-`
-export const __Library = gql`
-  fragment __Library on library {
-    id
-    name
-  }
-`
-export const GetPage__Page = gql`
-  fragment GetPage__Page on page {
     id
     name
     apps {
