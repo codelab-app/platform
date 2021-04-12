@@ -1,0 +1,4 @@
+fragment __Library on library {
+    id
+    name
+}

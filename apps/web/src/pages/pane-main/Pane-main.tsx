@@ -7,10 +7,12 @@ import { PaneMainComponent } from '@codelab/modules/component'
 import { PaneMainLambda } from '@codelab/modules/lambda'
 import { PaneMainTree } from '@codelab/modules/page'
 import { PaneMainAtom } from '@codelab/modules/atom'
+import { PaneMainLibrary } from '@codelab/modules/library'
 import {
   ApartmentOutlined,
   AppstoreOutlined,
   CopyOutlined,
+  DatabaseOutlined,
   DeploymentUnitOutlined,
   FormatPainterOutlined,
   FunctionOutlined,
@@ -63,6 +65,9 @@ export const PaneMain = () => {
       </TabPane>
       <TabPane tab={<DeploymentUnitOutlined title="Atom" />} key="6">
         <PaneMainAtom />
+      </TabPane>
+      <TabPane tab={<DatabaseOutlined title="Library" />} key="7">
+        <PaneMainLibrary />
       </TabPane>
     </Tabs>
   )

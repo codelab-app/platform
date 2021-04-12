@@ -6240,6 +6240,50 @@ export type UpdateLambdaMutation = { __typename?: 'mutation_root' } & {
   >
 }
 
+export type GetLibraryQueryVariables = Exact<{
+  libraryId: Scalars['uuid']
+}>
+
+export type GetLibraryQuery = { __typename?: 'query_root' } & {
+  library_by_pk?: Maybe<{ __typename?: 'library' } & __LibraryFragment>
+}
+
+export type __LibraryFragment = { __typename?: 'library' } & Pick<
+  Library,
+  'id' | 'name'
+>
+
+export type CreateLibraryMutationVariables = Exact<{
+  data: Library_Insert_Input
+}>
+
+export type CreateLibraryMutation = { __typename?: 'mutation_root' } & {
+  insert_library_one?: Maybe<{ __typename?: 'library' } & __LibraryFragment>
+}
+
+export type DeleteLibraryMutationVariables = Exact<{
+  libraryId: Scalars['uuid']
+}>
+
+export type DeleteLibraryMutation = { __typename?: 'mutation_root' } & {
+  delete_library_by_pk?: Maybe<{ __typename?: 'library' } & Pick<Library, 'id'>>
+}
+
+export type GetLibrariesListQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetLibrariesListQuery = { __typename?: 'query_root' } & {
+  library: Array<{ __typename?: 'library' } & __LibraryFragment>
+}
+
+export type UpdateLibraryMutationVariables = Exact<{
+  input: Library_Set_Input
+  libraryId: Scalars['uuid']
+}>
+
+export type UpdateLibraryMutation = { __typename?: 'mutation_root' } & {
+  update_library_by_pk?: Maybe<{ __typename?: 'library' } & __LibraryFragment>
+}
+
 export type AddPageElementMutationVariables = Exact<{
   input: Page_Element_Insert_Input
 }>
@@ -6602,6 +6646,12 @@ export const GetComponents__ComponentFragmentDoc = gql`
   fragment GetComponents__Component on component {
     id
     label
+  }
+`
+export const __LibraryFragmentDoc = gql`
+  fragment __Library on library {
+    id
+    name
   }
 `
 export const GetPage__PageFragmentDoc = gql`
@@ -7726,6 +7776,271 @@ export type UpdateLambdaMutationResult = Apollo.MutationResult<UpdateLambdaMutat
 export type UpdateLambdaMutationOptions = Apollo.BaseMutationOptions<
   UpdateLambdaMutation,
   UpdateLambdaMutationVariables
+>
+export const GetLibraryGql = gql`
+  query GetLibrary($libraryId: uuid!) {
+    library_by_pk(id: $libraryId) {
+      ...__Library
+    }
+  }
+  ${__LibraryFragmentDoc}
+`
+
+/**
+ * __useGetLibraryQuery__
+ *
+ * To run a query within a React component, call `useGetLibraryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetLibraryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetLibraryQuery({
+ *   variables: {
+ *      libraryId: // value for 'libraryId'
+ *   },
+ * });
+ */
+export function useGetLibraryQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetLibraryQuery,
+    GetLibraryQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetLibraryQuery, GetLibraryQueryVariables>(
+    GetLibraryGql,
+    options,
+  )
+}
+export function useGetLibraryLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetLibraryQuery,
+    GetLibraryQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetLibraryQuery, GetLibraryQueryVariables>(
+    GetLibraryGql,
+    options,
+  )
+}
+export type GetLibraryQueryHookResult = ReturnType<typeof useGetLibraryQuery>
+export type GetLibraryLazyQueryHookResult = ReturnType<
+  typeof useGetLibraryLazyQuery
+>
+export type GetLibraryQueryResult = Apollo.QueryResult<
+  GetLibraryQuery,
+  GetLibraryQueryVariables
+>
+export const CreateLibraryGql = gql`
+  mutation CreateLibrary($data: library_insert_input!) {
+    insert_library_one(object: $data) {
+      ...__Library
+    }
+  }
+  ${__LibraryFragmentDoc}
+`
+export type CreateLibraryMutationFn = Apollo.MutationFunction<
+  CreateLibraryMutation,
+  CreateLibraryMutationVariables
+>
+
+/**
+ * __useCreateLibraryMutation__
+ *
+ * To run a mutation, you first call `useCreateLibraryMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateLibraryMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createLibraryMutation, { data, loading, error }] = useCreateLibraryMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useCreateLibraryMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateLibraryMutation,
+    CreateLibraryMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    CreateLibraryMutation,
+    CreateLibraryMutationVariables
+  >(CreateLibraryGql, options)
+}
+export type CreateLibraryMutationHookResult = ReturnType<
+  typeof useCreateLibraryMutation
+>
+export type CreateLibraryMutationResult = Apollo.MutationResult<CreateLibraryMutation>
+export type CreateLibraryMutationOptions = Apollo.BaseMutationOptions<
+  CreateLibraryMutation,
+  CreateLibraryMutationVariables
+>
+export const DeleteLibraryGql = gql`
+  mutation DeleteLibrary($libraryId: uuid!) {
+    delete_library_by_pk(id: $libraryId) {
+      id
+    }
+  }
+`
+export type DeleteLibraryMutationFn = Apollo.MutationFunction<
+  DeleteLibraryMutation,
+  DeleteLibraryMutationVariables
+>
+
+/**
+ * __useDeleteLibraryMutation__
+ *
+ * To run a mutation, you first call `useDeleteLibraryMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteLibraryMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteLibraryMutation, { data, loading, error }] = useDeleteLibraryMutation({
+ *   variables: {
+ *      libraryId: // value for 'libraryId'
+ *   },
+ * });
+ */
+export function useDeleteLibraryMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeleteLibraryMutation,
+    DeleteLibraryMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    DeleteLibraryMutation,
+    DeleteLibraryMutationVariables
+  >(DeleteLibraryGql, options)
+}
+export type DeleteLibraryMutationHookResult = ReturnType<
+  typeof useDeleteLibraryMutation
+>
+export type DeleteLibraryMutationResult = Apollo.MutationResult<DeleteLibraryMutation>
+export type DeleteLibraryMutationOptions = Apollo.BaseMutationOptions<
+  DeleteLibraryMutation,
+  DeleteLibraryMutationVariables
+>
+export const GetLibrariesListGql = gql`
+  query GetLibrariesList {
+    library {
+      ...__Library
+    }
+  }
+  ${__LibraryFragmentDoc}
+`
+
+/**
+ * __useGetLibrariesListQuery__
+ *
+ * To run a query within a React component, call `useGetLibrariesListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetLibrariesListQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetLibrariesListQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetLibrariesListQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetLibrariesListQuery,
+    GetLibrariesListQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetLibrariesListQuery, GetLibrariesListQueryVariables>(
+    GetLibrariesListGql,
+    options,
+  )
+}
+export function useGetLibrariesListLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetLibrariesListQuery,
+    GetLibrariesListQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    GetLibrariesListQuery,
+    GetLibrariesListQueryVariables
+  >(GetLibrariesListGql, options)
+}
+export type GetLibrariesListQueryHookResult = ReturnType<
+  typeof useGetLibrariesListQuery
+>
+export type GetLibrariesListLazyQueryHookResult = ReturnType<
+  typeof useGetLibrariesListLazyQuery
+>
+export type GetLibrariesListQueryResult = Apollo.QueryResult<
+  GetLibrariesListQuery,
+  GetLibrariesListQueryVariables
+>
+export const UpdateLibraryGql = gql`
+  mutation UpdateLibrary($input: library_set_input!, $libraryId: uuid!) {
+    update_library_by_pk(_set: $input, pk_columns: { id: $libraryId }) {
+      ...__Library
+    }
+  }
+  ${__LibraryFragmentDoc}
+`
+export type UpdateLibraryMutationFn = Apollo.MutationFunction<
+  UpdateLibraryMutation,
+  UpdateLibraryMutationVariables
+>
+
+/**
+ * __useUpdateLibraryMutation__
+ *
+ * To run a mutation, you first call `useUpdateLibraryMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateLibraryMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateLibraryMutation, { data, loading, error }] = useUpdateLibraryMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *      libraryId: // value for 'libraryId'
+ *   },
+ * });
+ */
+export function useUpdateLibraryMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateLibraryMutation,
+    UpdateLibraryMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    UpdateLibraryMutation,
+    UpdateLibraryMutationVariables
+  >(UpdateLibraryGql, options)
+}
+export type UpdateLibraryMutationHookResult = ReturnType<
+  typeof useUpdateLibraryMutation
+>
+export type UpdateLibraryMutationResult = Apollo.MutationResult<UpdateLibraryMutation>
+export type UpdateLibraryMutationOptions = Apollo.BaseMutationOptions<
+  UpdateLibraryMutation,
+  UpdateLibraryMutationVariables
 >
 export const AddPageElementGql = gql`
   mutation AddPageElement($input: page_element_insert_input!) {
@@ -8856,6 +9171,12 @@ export const GetComponents__Component = gql`
     label
   }
 `
+export const __Library = gql`
+  fragment __Library on library {
+    id
+    name
+  }
+`
 export const GetPage__Page = gql`
   fragment GetPage__Page on page {
     id
@@ -9067,6 +9388,45 @@ export const UpdateLambda = gql`
       }
     }
   }
+`
+export const GetLibrary = gql`
+  query GetLibrary($libraryId: uuid!) {
+    library_by_pk(id: $libraryId) {
+      ...__Library
+    }
+  }
+  ${__Library}
+`
+export const CreateLibrary = gql`
+  mutation CreateLibrary($data: library_insert_input!) {
+    insert_library_one(object: $data) {
+      ...__Library
+    }
+  }
+  ${__Library}
+`
+export const DeleteLibrary = gql`
+  mutation DeleteLibrary($libraryId: uuid!) {
+    delete_library_by_pk(id: $libraryId) {
+      id
+    }
+  }
+`
+export const GetLibrariesList = gql`
+  query GetLibrariesList {
+    library {
+      ...__Library
+    }
+  }
+  ${__Library}
+`
+export const UpdateLibrary = gql`
+  mutation UpdateLibrary($input: library_set_input!, $libraryId: uuid!) {
+    update_library_by_pk(_set: $input, pk_columns: { id: $libraryId }) {
+      ...__Library
+    }
+  }
+  ${__Library}
 `
 export const AddPageElement = gql`
   mutation AddPageElement($input: page_element_insert_input!) {
