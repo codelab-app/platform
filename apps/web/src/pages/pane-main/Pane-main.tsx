@@ -21,42 +21,47 @@ import Link from 'next/link'
 
 const { TabPane } = Tabs
 
-// TODO click on apps (wide of icon)
 export const PaneMain = () => {
   return (
-    <Tabs tabPosition="left" style={{ height: '100%' }} defaultActiveKey="2">
-      <TabPane
-        tab={
-          <Link href={Page.APP_LIST.url}>
-            <div>
-              <AppstoreOutlined title="Apps" />
-            </div>
-          </Link>
-        }
-        key="1"
-      >
-        Apps
-      </TabPane>
-      <TabPane tab={<CopyOutlined title="Pages" />} key="2">
+    <Tabs
+      tabPosition="left"
+      style={{ height: '100%' }}
+      defaultActiveKey="1"
+      tabBarExtraContent={{
+        left: (
+          <div
+            style={{
+              margin: '0 0 16px 0',
+              padding: '8px 24px',
+            }}
+          >
+            <Link href={Page.APP_LIST.url}>
+              <AppstoreOutlined title="Apps" style={{ marginRight: '12px' }} />
+            </Link>
+          </div>
+        ),
+      }}
+    >
+      <TabPane tab={<CopyOutlined title="Pages" />} key="1">
         <PanePage />
       </TabPane>
-      <TabPane tab={<PlusSquareOutlined title="Components" />} key="3">
+      <TabPane tab={<PlusSquareOutlined title="Components" />} key="2">
         <PaneMainComponent />
       </TabPane>
-      <TabPane tab={<ApartmentOutlined title="Tree" />} key="4">
+      <TabPane tab={<ApartmentOutlined title="Tree" />} key="3">
         <PaneMainTree />
       </TabPane>
-      <TabPane tab={<FormatPainterOutlined title="Styles" />} key="5">
+      <TabPane tab={<FormatPainterOutlined title="Styles" />} key="4">
         <PaneMainStyle />
       </TabPane>
       <TabPane
         style={{ overflowX: 'auto' }}
         tab={<FunctionOutlined title="Function" />}
-        key="6"
+        key="5"
       >
         <PaneMainLambda />
       </TabPane>
-      <TabPane tab={<DeploymentUnitOutlined title="Atom" />} key="7">
+      <TabPane tab={<DeploymentUnitOutlined title="Atom" />} key="6">
         <PaneMainAtom />
       </TabPane>
     </Tabs>
