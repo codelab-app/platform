@@ -1,5 +1,4 @@
 import { InMemoryCache, Resolvers, makeVar } from '@apollo/client'
-import { TypedTypePolicies } from '@codelab/generated'
 
 const builderVar = makeVar({
   __typename: 'Builder',
@@ -9,7 +8,7 @@ const builderVar = makeVar({
   isDragging: false,
 })
 
-const typePolicies: TypedTypePolicies = {
+const typePolicies = {
   Query: {
     fields: {
       getBuilder: {
