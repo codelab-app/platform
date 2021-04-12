@@ -1,10 +1,6 @@
-import { GraphFragmentsFragment } from '@codelab/generated'
-
 // Current JSON-Schema for Styles is too general and produce formData in inconvenient format (probably it's temporary)
 // convertStyles convert styles to React compatible format
-export const convertStyles = (
-  graph: GraphFragmentsFragment | undefined,
-): any => {
+export const convertStyles = (graph: any | undefined): any => {
   return graph
     ? {
         ...graph,

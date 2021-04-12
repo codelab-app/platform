@@ -1,64 +1,64 @@
-import { Button, Select } from 'antd'
-import React, { useContext, useState } from 'react'
-import {
-  GetPageGql,
-  VertexFragmentsFragment,
-  useGetGraphQuery,
-  useMoveVertexMutation,
-} from '@codelab/generated'
-import { AppContext } from '@codelab/frontend/shared'
+import { Select } from 'antd'
+import React from 'react'
+// import {
+//   GetPageGql,
+//   VertexFragmentsFragment,
+//   useGetGraphQuery,
+//   useMoveVertexMutation,
+// } from '@codelab/generated'
 
 const { Option } = Select
 
 type MoveVertexTargetsProps = {
-  sourceVertex: VertexFragmentsFragment
+  // sourceVertex: VertexFragmentsFragment
+  sourceVertex: any
 }
 
 /**
  * Get the potential move targets of a current vertex
  */
 export const MoveVertexTargets = ({ sourceVertex }: MoveVertexTargetsProps) => {
-  const { data, loading } = useGetGraphQuery({
-    variables: { input: { id: sourceVertex?.graph?.id } },
-  })
-  const [parentVertexId, setParentVertexId] = useState<string>('')
-  const [moveVertexMutation] = useMoveVertexMutation()
-  const { pageId } = useContext(AppContext)
+  // const { data, loading } = useGetGraphQuery({
+  //   variables: { input: { id: sourceVertex?.graph?.id } },
+  // })
+  // const [parentVertexId, setParentVertexId] = useState<string>('')
+  // const [moveVertexMutation] = useMoveVertexMutation()
+  // const { pageId } = useContext(AppContext)
 
-  if (!data?.getGraph || loading) {
-    return null
-  }
+  // if (!data?.getGraph || loading) {
+  //   return null
+  // }
 
   // Get all vertices of current graph
   // Remove self & parent from list
-  const potentialVertexTargets = data.getGraph.vertices.filter(
-    (v) => v.id !== sourceVertex.id && v.id !== sourceVertex?.parent?.id,
-  )
+  // const potentialVertexTargets = data.getGraph.vertices.filter(
+  //   (v) => v.id !== sourceVertex.id && v.id !== sourceVertex?.parent?.id,
+  // )
 
-  const moveVertex = () => {
-    moveVertexMutation({
-      refetchQueries: [
-        {
-          query: GetPageGql,
-          variables: {
-            input: {
-              pageId,
-            },
-          },
-        },
-      ],
-      variables: {
-        input: {
-          currentVertexId: sourceVertex.id,
-          parentVertexId,
-        },
-      },
-    })
-  }
+  // const moveVertex = () => {
+  //   moveVertexMutation({
+  //     refetchQueries: [
+  //       {
+  //         query: GetPageGql,
+  //         variables: {
+  //           input: {
+  //             pageId,
+  //           },
+  //         },
+  //       },
+  //     ],
+  //     variables: {
+  //       input: {
+  //         currentVertexId: sourceVertex.id,
+  //         parentVertexId,
+  //       },
+  //     },
+  //   })
+  // }
 
   return (
     <>
-      <Select
+      {/* <Select
         style={{ width: 120 }}
         onChange={(vertexId: string) => setParentVertexId(vertexId)}
       >
@@ -72,7 +72,7 @@ export const MoveVertexTargets = ({ sourceVertex }: MoveVertexTargetsProps) => {
       </Select>
       <Button type="primary" onClick={() => moveVertex()}>
         Move Vertex
-      </Button>
+      </Button> */}
     </>
   )
 }

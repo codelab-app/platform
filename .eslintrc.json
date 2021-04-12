@@ -58,7 +58,31 @@
       "files": ["*.ts", "*.tsx"],
       "extends": ["plugin:@nrwl/nx/typescript"],
       "rules": {
-        "@typescript-eslint/no-explicit-any": "off"
+        "curly": "error",
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/ban-types": [
+          "error",
+          {
+            "types": {
+              "React.FC": {
+                "message": "Please read 'Why is `React.FC` discouraged? What about `React.FunctionComponent`/`React.VoidFunctionComponent`?' https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/function_components",
+                "fixWith": ""
+              },
+              "FC": {
+                "message": "Please read 'Why is `React.FC` discouraged? What about `React.FunctionComponent`/`React.VoidFunctionComponent`?' https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/function_components",
+                "fixWith": ""
+              },
+              "React.FunctionComponent": {
+                "message": "Please read 'Why is `React.FC` discouraged? What about `React.FunctionComponent`/`React.VoidFunctionComponent`?' https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/function_components",
+                "fixWith": ""
+              },
+              "FunctionComponent": {
+                "message": "Please read 'Why is `React.FC` discouraged? What about `React.FunctionComponent`/`React.VoidFunctionComponent`?' https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/function_components",
+                "fixWith": ""
+              }
+            }
+          }
+        ]
       }
     },
     {

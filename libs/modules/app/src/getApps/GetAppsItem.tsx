@@ -5,14 +5,14 @@ import {
 } from '@ant-design/icons'
 import { Button, Card, Dropdown, Menu } from 'antd'
 import Link from 'next/link'
-import React, { CSSProperties, FunctionComponent } from 'react'
+import React, { CSSProperties } from 'react'
 import { AppType } from '../state'
 import { Page } from '@codelab/frontend/shared'
 
 export type GetAppsItemProps = {
   app: AppType
-  handleDeleteClick: (app: AppType) => void
-  handleEditClick: (app: AppType) => void
+  handleDeleteClick: (app: any) => void
+  handleEditClick: (app: any) => void
 }
 
 const menuItemStyle: CSSProperties = {
@@ -27,11 +27,11 @@ const menuItemIconStyle: CSSProperties = {
   marginLeft: '1rem',
 }
 
-export const GetAppsItem: FunctionComponent<GetAppsItemProps> = ({
+export const GetAppsItem = ({
   app,
   handleDeleteClick,
   handleEditClick,
-}) => {
+}: GetAppsItemProps) => {
   const actionsMenu = (
     <Menu>
       <Menu.Item
@@ -39,7 +39,7 @@ export const GetAppsItem: FunctionComponent<GetAppsItemProps> = ({
         style={menuItemStyle}
         onClick={() => {
           if (app) {
-            handleEditClick(app)
+            handleEditClick(app.id)
           }
         }}
       >
@@ -51,7 +51,7 @@ export const GetAppsItem: FunctionComponent<GetAppsItemProps> = ({
         style={menuItemStyle}
         onClick={() => {
           if (app) {
-            handleDeleteClick(app)
+            handleDeleteClick(app.id)
           }
         }}
       >

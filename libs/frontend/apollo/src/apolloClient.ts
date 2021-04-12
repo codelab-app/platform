@@ -1,7 +1,7 @@
 /**
  * Source from https://github.com/correttojs/graphql-codegen-apollo-next-ssr
  */
-import { ApolloClient } from '@apollo/client'
+import { ApolloClient, gql } from '@apollo/client'
 import { setContext } from '@apollo/client/link/context'
 import { ApolloLink } from '@apollo/client/link/core'
 import merge from 'deepmerge'
@@ -11,7 +11,40 @@ import { cache, resolvers } from './apollo-cache'
 import { apiLink } from './links/apiLink'
 import { authLink } from './links/authLink'
 import { errorLink } from './links/errorLink'
-import { typeDefs } from '@codelab/generated'
+
+// Copy from @codelab/generated, not sure if needed
+export const typeDefs = gql`
+  type Query {
+    getBuilder: Builder!
+  }
+
+  type Mutation {
+    setBuilder(input: SetBuilderInput!): Builder!
+  }
+
+  input PositionInput {
+    x: Int!
+    y: Int!
+  }
+
+  input SetBuilderInput {
+    position: PositionInput
+    windowPosition: PositionInput
+    component: String
+  }
+
+  type Builder {
+    position: Position!
+    windowPosition: Position!
+    component: String
+    isDragging: Boolean!
+  }
+
+  type Position {
+    x: Int!
+    y: Int!
+  }
+`
 
 export interface ApolloContext {
   authToken?: string

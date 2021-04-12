@@ -1,10 +1,10 @@
 fragment GetComponents__Component on component {
-    id
-    label
+  id
+  label
 }
 
 query GetComponents {
-    component {
-        ...GetComponents__Component
-    }
+  component {
+    ...GetComponents__Component
+  }
 }

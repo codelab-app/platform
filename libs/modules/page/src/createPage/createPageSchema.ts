@@ -13,4 +13,4 @@ export const createPageSchema: JSONSchemaType<CreatePageInput> = {
     },
   },
   required: ['name'],
-}
+} as const

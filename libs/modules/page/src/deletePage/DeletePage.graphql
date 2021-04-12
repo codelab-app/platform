@@ -1,5 +1,5 @@
 mutation DeletePage($pageId: uuid!) {
   delete_page_by_pk(id: $pageId) {
-    id
+    ...App__Page
   }
 }

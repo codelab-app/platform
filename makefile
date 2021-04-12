@@ -147,9 +147,9 @@ integration-ci:
 test-dev-affected:
 	npx concurrently \
 		--names=unit,int,e2e \
- 		"make unit-dev-affected" \
-  	"make integration-dev-affected" \
-  	"make e2e-dev"
+ 		"make unit-dev-affected"
+  	# "make e2e-dev"
+  	# "make integration-dev-affected" \
 
 test-dev:
 	npx concurrently \

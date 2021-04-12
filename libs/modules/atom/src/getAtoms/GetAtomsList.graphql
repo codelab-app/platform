@@ -1,6 +1,5 @@
 query GetAtomsList {
   atom {
-    id
-    type
+    ...atomFragments
   }
 }

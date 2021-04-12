@@ -15,9 +15,7 @@ export default class MyDocument extends Document {
   render() {
     return (
       <Html>
-        <Head>
-          {/* <link rel="stylesheet" href="/_next/static/style.css" /> */}
-        </Head>
+        <Head></Head>
         <body>
           <Main />
           <NextScript />

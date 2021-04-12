@@ -1,5 +1,0 @@
-mutation CreateProp($input: prop_insert_input!) {
-    insert_prop_one(object: $input) {
-        id
-    }
-}

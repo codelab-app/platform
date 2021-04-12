@@ -56,10 +56,14 @@ export const initEnvironment = (initialRecords?: RecordMap) => {
   }
 
   // For SSG and SSR always create a new Relay environment
-  if (typeof window === 'undefined') return environment
+  if (typeof window === 'undefined') {
+    return environment
+  }
 
   // Create the Relay environment once in the client
-  if (!relayEnvironment) relayEnvironment = environment
+  if (!relayEnvironment) {
+    relayEnvironment = environment
+  }
 
   return relayEnvironment
 }

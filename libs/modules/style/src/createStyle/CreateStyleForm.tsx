@@ -1,10 +1,9 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { DeepPartial } from 'uniforms'
-import { reduceStyleProps } from '../reduceStyleProps'
 import {
   createNotificationHandler,
   EntityType,
-  JsonSchemaUniForm,
+  FormUniforms,
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
@@ -57,7 +56,7 @@ export const CreateStyleForm = (props: CreateStyleFormProps) => {
   }
 
   return (
-    <JsonSchemaUniForm<CreateStyleInput>
+    <FormUniforms<CreateStyleInput>
       onSubmit={onSubmit}
       schema={createStyleSchema}
       onSubmitError={createNotificationHandler({
@@ -67,6 +66,6 @@ export const CreateStyleForm = (props: CreateStyleFormProps) => {
       {...props}
     >
       <AutoFields />
-    </JsonSchemaUniForm>
+    </FormUniforms>
   )
 }

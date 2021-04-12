@@ -1,11 +1,13 @@
 import { Layout } from 'antd'
-import React from 'react'
+import React, { PropsWithChildren } from 'react'
 import { contentStyle } from '@codelab/frontend/style'
 import { HomeMenuHeader } from './Home-menu--header'
 
 const { Content, Header, Footer } = Layout
 
-export const HomeLayout: React.FunctionComponent<any> = ({ children }) => {
+export const HomeLayout = ({
+  children,
+}: PropsWithChildren<Record<string, any>>) => {
   return (
     <Layout style={{ height: '100%' }}>
       <Layout>

@@ -1,4 +1,4 @@
-is_enum: true
 table:
   name: prop_value_type
   schema: public
+is_enum: true

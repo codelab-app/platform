@@ -48,7 +48,9 @@ export const elementParameterFactory = <TNode extends NodeA>({
   React.ComponentType<any> | string | null,
   Record<string, any>,
 ] => {
-  if (!node) return [null, {}]
+  if (!node) {
+    return [null, {}]
+  }
 
   const { type } = node
 

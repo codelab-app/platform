@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import {
   createNotificationHandler,
   EntityType,
-  JsonSchemaUniForm,
+  FormUniforms,
   UniFormUseCaseProps,
 } from '@codelab/frontend/shared'
 import { DeleteLibraryInput, DeleteLibrarySchema } from './deleteLibrarySchema'
@@ -52,7 +52,7 @@ export const DeleteLibraryForm = (props: DeleteLibraryFormProps) => {
   }
 
   return (
-    <JsonSchemaUniForm<DeleteLibraryInput>
+    <FormUniforms<DeleteLibraryInput>
       onSubmit={onSubmit}
       schema={DeleteLibrarySchema}
       onSubmitError={createNotificationHandler({
@@ -63,6 +63,6 @@ export const DeleteLibraryForm = (props: DeleteLibraryFormProps) => {
     >
       <h4>Are you sure you want to delete library "{library?.name}"?</h4>
       <AutoFields />
-    </JsonSchemaUniForm>
+    </FormUniforms>
   )
 }

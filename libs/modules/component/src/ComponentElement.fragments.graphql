@@ -1,0 +1,8 @@
+fragment PageElement__ComponentElement on component_element {
+  id
+  label
+  atom {
+    id
+    type
+  }
+}

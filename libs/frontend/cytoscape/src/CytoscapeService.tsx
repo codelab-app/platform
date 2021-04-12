@@ -2,8 +2,8 @@
 import { DataNode } from 'antd/lib/tree'
 import cytoscape, { Core } from 'cytoscape'
 import { AtomType, NodeA } from '@codelab/frontend/shared'
-import { RootApp__PageFragment } from '@codelab/hasura'
 import { propDataEntityToModel } from '@codelab/modules/prop'
+import { App__PageFragment } from '@codelab/hasura'
 
 export enum CytoscapeNodeType {
   PageElement = 'PageElement',
@@ -12,7 +12,7 @@ export enum CytoscapeNodeType {
 }
 
 export class CytoscapeService {
-  static fromPage({ elements, links }: RootApp__PageFragment): Core {
+  static fromPage({ elements, links }: App__PageFragment): Core {
     const nodes: Array<cytoscape.NodeDefinition> = []
     const edges: Array<cytoscape.EdgeDefinition> = []
 

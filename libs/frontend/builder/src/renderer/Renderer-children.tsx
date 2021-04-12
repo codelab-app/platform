@@ -53,7 +53,9 @@ export const RenderChildren = (
       handlers,
     })
 
-    if (!Child) return null
+    if (!Child) {
+      return null
+    }
 
     return (
       <Child key={child.id} {...props} className="Builder-node">

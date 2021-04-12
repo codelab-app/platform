@@ -2,15 +2,14 @@ import React, { useEffect } from 'react'
 import {
   createNotificationHandler,
   EntityType,
-  JsonSchemaUniForm,
+  FormUniforms,
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
+import { useUser } from '@auth0/nextjs-auth0'
 import { GetLibrariesListGql, useCreateLibraryMutation } from '@codelab/hasura'
 import { createLibrarySchema, CreateLibraryInput } from './createLibrarySchema'
 import { DeepPartial } from 'uniforms'
-import { AutoFields } from 'uniforms-antd'
-import { useCurrentUser } from '@codelab/modules/user'
 
 type CreateLibraryFormProps = UniFormUseCaseProps<CreateLibraryInput>
 
@@ -30,7 +29,7 @@ export const CreateLibraryForm = ({ ...props }: CreateLibraryFormProps) => {
     setLoading(creating)
   }, [creating])
 
-  const { userId } = useCurrentUser()
+  const userId = useUser().user?.sub
   const onSubmit = (submitData: DeepPartial<CreateLibraryInput>) => {
     return mutate({
       variables: {
@@ -43,7 +42,7 @@ export const CreateLibraryForm = ({ ...props }: CreateLibraryFormProps) => {
   }
 
   return (
-    <JsonSchemaUniForm<CreateLibraryInput>
+    <FormUniforms<CreateLibraryInput>
       onSubmit={onSubmit}
       schema={createLibrarySchema}
       onSubmitError={createNotificationHandler({
@@ -51,8 +50,6 @@ export const CreateLibraryForm = ({ ...props }: CreateLibraryFormProps) => {
       })}
       onSubmitSuccess={() => reset()}
       {...props}
-    >
-      <AutoFields />
-    </JsonSchemaUniForm>
+    />
   )
 }

@@ -2,13 +2,9 @@ import { Button, Col, Empty, Row, Spin } from 'antd'
 import React from 'react'
 import { useGetAppsListForUserQuery } from '@codelab/hasura'
 import { padding, threeGridCol } from '@codelab/frontend/style'
-import { CreateAppModal } from '../createApp/CreateAppModal'
-import { useCreateAppModal } from '../createApp/useCreateAppModal'
-import { EditAppModal } from '../editApp/EditAppModal'
-import { useEditAppModal } from '../editApp/useEditAppModal'
-import { useDeleteAppConfirmation } from '../index'
 import { GetAppsItem } from './GetAppsItem'
 import { useUser } from '@auth0/nextjs-auth0'
+import { EntityType, useCRUDModalForm } from '@codelab/frontend/shared'
 
 export const GetAppsList = () => {
   const { user: currentUser } = useUser()
@@ -17,10 +13,11 @@ export const GetAppsList = () => {
       userId: currentUser?.sub as string,
     },
   })
-
-  const { openDeleteConfirmation } = useDeleteAppConfirmation()
-  const { openCreateAppModal } = useCreateAppModal()
-  const { openEditAppModal } = useEditAppModal()
+  const {
+    openDeleteModal,
+    openUpdateModal,
+    openCreateModal,
+  } = useCRUDModalForm(EntityType.App)
 
   const appList = data?.app ?? []
 
@@ -34,7 +31,7 @@ export const GetAppsList = () => {
           }}
           description={<span>No apps found</span>}
         >
-          <Button onClick={openCreateAppModal} type="primary">
+          <Button onClick={() => openCreateModal()} type="primary">
             Create Now
           </Button>
         </Empty>
@@ -44,14 +41,12 @@ export const GetAppsList = () => {
           <Col key={app.id} {...threeGridCol}>
             <GetAppsItem
               app={app}
-              handleDeleteClick={openDeleteConfirmation}
-              handleEditClick={openEditAppModal}
+              handleDeleteClick={(e) => openDeleteModal(e)}
+              handleEditClick={(e) => openUpdateModal(e)}
             />
           </Col>
         ))}
       </Row>
-      <CreateAppModal />
-      <EditAppModal />
     </>
   )
 }

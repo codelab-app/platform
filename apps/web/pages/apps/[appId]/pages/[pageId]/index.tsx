@@ -7,7 +7,9 @@ import { Empty } from 'antd'
 const PageDetail = () => {
   const { page } = useContext(AppContext)
 
-  if (!page) return <Empty />
+  if (!page) {
+    return <Empty />
+  }
 
   return (
     <div id="Builder" style={{ position: 'relative' }}>

@@ -3,4 +3,6 @@
 
 yarn cross-env TIMING=1 lint-staged --verbose
 
+# yarn lint:graphql
+
 ./scripts/lint/git.sh

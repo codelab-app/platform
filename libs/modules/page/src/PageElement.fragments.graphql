@@ -1,0 +1,13 @@
+fragment Page__PageElement on page_element {
+  id
+  name
+  page_id
+  component {
+    ...PageElement__Component
+  }
+  props {
+    prop {
+      ...PageElement__Prop
+    }
+  }
+}

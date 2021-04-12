@@ -1,0 +1,8 @@
+fragment Prop__PropValue on prop_value {
+  id
+  name
+  type
+  value
+  value_prop_id
+  lambda_id
+}

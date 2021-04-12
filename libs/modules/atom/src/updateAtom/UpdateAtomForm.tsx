@@ -2,8 +2,7 @@ import React, { useEffect } from 'react'
 import {
   createNotificationHandler,
   EntityType,
-  JsonSchemaUniForm,
-  PropsWithIds,
+  FormUniforms,
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
@@ -39,6 +38,7 @@ export const UpdateAtomForm = ({
       },
     ],
   })
+
   useEffect(() => {
     setLoading(updating)
   }, [updating])
@@ -68,7 +68,7 @@ export const UpdateAtomForm = ({
   }
 
   return (
-    <JsonSchemaUniForm<UpdateAtomInput>
+    <FormUniforms<UpdateAtomInput>
       onSubmit={onSubmit}
       schema={UpdateAtomSchema}
       model={{ type: atom?.type }}
@@ -79,6 +79,6 @@ export const UpdateAtomForm = ({
       {...props}
     >
       <SelectField name="type" options={atomTypesOptions} />
-    </JsonSchemaUniForm>
+    </FormUniforms>
   )
 }

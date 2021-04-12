@@ -1,8 +1,7 @@
 query GetPagesList($appId: uuid!) {
   app_by_pk(id: $appId) {
     pages {
-      id
-      name
+      ...App__Page
     }
   }
 }

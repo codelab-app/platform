@@ -1,9 +1,9 @@
 mutation DeleteLambda($id: uuid!) {
-    delete_lambda(where: {id: {_eq: $id}}) {
-        returning {
-            id
-            name
-            body
-        }
+  delete_lambda(where: { id: { _eq: $id } }) {
+    returning {
+      id
+      name
+      body
     }
+  }
 }

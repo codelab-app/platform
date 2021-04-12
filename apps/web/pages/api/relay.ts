@@ -9,22 +9,29 @@ import { createProxyMiddleware } from 'http-proxy-middleware'
 
 const app = express()
 
+const adminSecret = process.env.HASURA_GRAPHQL_ADMIN_SECRET
+
+if (!adminSecret) {
+  throw new Error('Missing HASURA_GRAPHQL_ADMIN_SECRET')
+}
+
 app.use('*', async (baseReq, baseRes, next) => {
   const session = await getSession(baseReq, baseRes)
 
   return createProxyMiddleware({
+    preserveHeaderKeyCase: true,
     target: process.env.HASURA_URL_RELAY,
     changeOrigin: true,
     proxyTimeout: 5000,
     secure: false,
     headers: {
       Connection: 'keep-alive',
+      // 'x-hasura-admin-secret': adminSecret,
     },
     pathRewrite: {
       '^/api/relay': '',
     },
     onError: (err, req, res) => {
-      console.log('err', err, res.statusCode)
       res.writeHead(500, {
         'Content-Type': 'text/plain',
       })
@@ -34,6 +41,10 @@ app.use('*', async (baseReq, baseRes, next) => {
     },
     onProxyReq: (proxyReq, req) => {
       if (session) {
+        const xHasuraUserId =
+          session.user['https://hasura.io/jwt/claims']['x-hasura-user-id']
+
+        proxyReq.setHeader('X-Hasura-User-Id', xHasuraUserId)
         proxyReq.setHeader('Authorization', `Bearer ${session.idToken}`)
       }
 
@@ -53,6 +64,7 @@ app.use('*', async (baseReq, baseRes, next) => {
 export const config = {
   api: {
     bodyParser: false,
+    externalResolver: true,
   },
 }
 

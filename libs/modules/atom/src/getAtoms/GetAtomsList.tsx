@@ -6,7 +6,6 @@ import { EntityType, useCRUDModalForm } from '@codelab/frontend/shared'
 
 export const GetAtomsList = () => {
   const { data } = useGetAtomsListQuery({})
-
   const { openDeleteModal, openUpdateModal } = useCRUDModalForm(EntityType.Atom)
 
   return (

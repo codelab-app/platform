@@ -3,7 +3,7 @@ import {
   AppContext,
   createNotificationHandler,
   EntityType,
-  JsonSchemaUniForm,
+  FormUniforms,
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
@@ -11,8 +11,8 @@ import {
 import { GetPagesListGql, useCreatePageMutation } from '@codelab/hasura'
 import { createPageSchema, CreatePageInput } from './createPageSchema'
 import { DeepPartial } from 'uniforms'
-import { useCurrentUser } from '@codelab/modules/user'
 import { AutoFields } from 'uniforms-antd'
+import { useUser } from '@auth0/nextjs-auth0'
 type CreatePageFormProps = UniFormUseCaseProps<CreatePageInput>
 
 export const CreatePageForm = (props: CreatePageFormProps) => {
@@ -36,7 +36,7 @@ export const CreatePageForm = (props: CreatePageFormProps) => {
     setLoading(creating)
   }, [creating])
 
-  const { userId } = useCurrentUser()
+  const userId = useUser().user?.sub
 
   const onSubmit = (submitData: DeepPartial<CreatePageInput>) => {
     return mutate({
@@ -51,7 +51,7 @@ export const CreatePageForm = (props: CreatePageFormProps) => {
   }
 
   return (
-    <JsonSchemaUniForm<CreatePageInput>
+    <FormUniforms<CreatePageInput>
       onSubmit={onSubmit}
       schema={createPageSchema}
       onSubmitError={createNotificationHandler({
@@ -63,6 +63,6 @@ export const CreatePageForm = (props: CreatePageFormProps) => {
       {...props}
     >
       <AutoFields />
-    </JsonSchemaUniForm>
+    </FormUniforms>
   )
 }

@@ -1,36 +1,36 @@
 import { PageHeader } from 'antd'
 import React, { useContext } from 'react'
 /* import { AssignStyleForm } from '../assignStyle' */
-import {
-  GetStylesGql,
-  GetVertexGql,
-  useUnAssignStyleMutation,
-} from '@codelab/generated'
+// import {
+//   GetStylesGql,
+//   GetVertexGql,
+//   useUnAssignStyleMutation,
+// } from '@codelab/generated'
 import { AppContext } from '@codelab/frontend/shared'
 
 export const PaneConfigStyle = ({ vertexId }: { vertexId: string }) => {
   const { appId } = useContext(AppContext)
 
-  const [unassign] = useUnAssignStyleMutation({
-    refetchQueries: [
-      {
-        query: GetVertexGql,
-        variables: {
-          input: {
-            id: vertexId,
-          },
-        },
-      },
-      {
-        query: GetStylesGql,
-        variables: {
-          input: {
-            appId,
-          },
-        },
-      },
-    ],
-  })
+  // const [unassign] = useUnAssignStyleMutation({
+  //   refetchQueries: [
+  //     {
+  //       query: GetVertexGql,
+  //       variables: {
+  //         input: {
+  //           id: vertexId,
+  //         },
+  //       },
+  //     },
+  //     {
+  //       query: GetStylesGql,
+  //       variables: {
+  //         input: {
+  //           appId,
+  //         },
+  //       },
+  //     },
+  //   ],
+  // })
 
   return (
     <>

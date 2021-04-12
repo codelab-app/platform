@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import {
   createNotificationHandler,
   EntityType,
-  JsonSchemaUniForm,
+  FormUniforms,
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
@@ -65,7 +65,7 @@ export const UpdateLibraryForm = (props: UpdateLibraryFormProps) => {
   }
 
   return (
-    <JsonSchemaUniForm<UpdateLibraryInput>
+    <FormUniforms<UpdateLibraryInput>
       onSubmit={onSubmit}
       schema={UpdateLibrarySchema}
       model={{ name: library?.name ?? '' }}
@@ -76,6 +76,6 @@ export const UpdateLibraryForm = (props: UpdateLibraryFormProps) => {
       {...props}
     >
       <AutoFields />
-    </JsonSchemaUniForm>
+    </FormUniforms>
   )
 }

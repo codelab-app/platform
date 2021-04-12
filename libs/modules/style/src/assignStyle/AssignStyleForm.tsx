@@ -1,10 +1,6 @@
 import { Button, Select } from 'antd'
 import React, { useContext, useState } from 'react'
-import {
-  GetStylesGql,
-  GetVertexGql,
-  useAssignStyleMutation,
-} from '@codelab/generated'
+
 import { AppContext, notify } from '@codelab/frontend/shared'
 
 export const AssignStyleForm = ({ vertexId }: { vertexId: string }) => {
@@ -12,26 +8,26 @@ export const AssignStyleForm = ({ vertexId }: { vertexId: string }) => {
 
   const [selection, setSelection] = useState<string | undefined>(undefined)
 
-  const [mutate] = useAssignStyleMutation({
-    refetchQueries: [
-      {
-        query: GetVertexGql,
-        variables: {
-          input: {
-            id: vertexId,
-          },
-        },
-      },
-      {
-        query: GetStylesGql,
-        variables: {
-          input: {
-            appId,
-          },
-        },
-      },
-    ],
-  })
+  // const [mutate] = useAssignStyleMutation({
+  //   refetchQueries: [
+  //     {
+  //       query: GetVertexGql,
+  //       variables: {
+  //         input: {
+  //           id: vertexId,
+  //         },
+  //       },
+  //     },
+  //     {
+  //       query: GetStylesGql,
+  //       variables: {
+  //         input: {
+  //           appId,
+  //         },
+  //       },
+  //     },
+  //   ],
+  // })
 
   const assign = async () => {
     if (!selection) {
@@ -43,14 +39,14 @@ export const AssignStyleForm = ({ vertexId }: { vertexId: string }) => {
       return
     }
 
-    await mutate({
-      variables: {
-        input: {
-          vertexId,
-          styleId: selection,
-        },
-      },
-    })
+    // await mutate({
+    //   variables: {
+    //     input: {
+    //       vertexId,
+    //       styleId: selection,
+    //     },
+    //   },
+    // })
   }
 
   return (

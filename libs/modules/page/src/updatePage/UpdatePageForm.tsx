@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import {
   createNotificationHandler,
   EntityType,
-  JsonSchemaUniForm,
+  FormUniforms,
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
@@ -59,7 +59,7 @@ export const UpdatePageForm = (props: UpdatePageFormProps) => {
   }
 
   return (
-    <JsonSchemaUniForm<UpdatePageInput>
+    <FormUniforms<UpdatePageInput>
       onSubmit={onSubmit}
       schema={UpdatePageSchema}
       model={{ name: page?.name }}
@@ -70,6 +70,6 @@ export const UpdatePageForm = (props: UpdatePageFormProps) => {
       {...props}
     >
       <AutoFields />
-    </JsonSchemaUniForm>
+    </FormUniforms>
   )
 }

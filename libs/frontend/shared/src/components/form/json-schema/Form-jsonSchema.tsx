@@ -4,7 +4,7 @@ import { Button } from 'antd'
 import { JSONSchema7 } from 'json-schema'
 import React, { ReactElement, useRef, useState } from 'react'
 import { callbackWithParams } from '../../../utils/callbackWithParams'
-import { JsonSchemaUniFormProps } from '../uniforms/Form-jsonSchema--types'
+import { FormUniformsProps } from '../uniforms/Form-uniforms--types'
 import { setSubmitControllerRef } from './Form-jsonSchema--ref'
 import { JsonSchemaFormProps } from './Form-jsonSchema--types'
 
@@ -18,7 +18,7 @@ export type UniFormUseCaseProps<
 > = React.PropsWithChildren<
   Partial<
     Pick<
-      JsonSchemaUniFormProps<TData>,
+      FormUniformsProps<TData>,
       'onSubmitError' | 'onSubmitSuccess' | 'submitRef' | 'autosave'
     >
   >

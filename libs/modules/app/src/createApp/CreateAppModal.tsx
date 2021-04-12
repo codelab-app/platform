@@ -1,4 +1,4 @@
-import { ModalUniForm } from '@codelab/frontend/shared'
+import { FormUniformsModal } from '@codelab/frontend/shared'
 import React from 'react'
 import { useRecoilState } from 'recoil'
 import { AutoFields } from 'uniforms-antd'
@@ -10,7 +10,7 @@ export const CreateAppModal = () => {
   const { loading, editingApp, modalVisible } = state
 
   return (
-    <ModalUniForm
+    <FormUniformsModal
       modalProps={{
         okText: 'Create App',
         okButtonProps: {

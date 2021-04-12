@@ -82,6 +82,7 @@
       "architect": {
         "build-next": {
           "builder": "@nrwl/next:build",
+          "outputs": ["{options.outputPath}"],
           "options": {
             "root": "apps/web",
             "outputPath": "dist/apps/web",
@@ -95,8 +96,7 @@
           },
           "configurations": {
             "production": {}
-          },
-          "outputs": ["{options.outputPath}"]
+          }
         },
         "build": {
           "builder": "@nrwl/next:build",
@@ -543,19 +543,6 @@
           "options": {
             "jestConfig": "libs/modules/atom/jest.config.js",
             "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "generated": {
-      "root": "libs/generated",
-      "sourceRoot": "libs/generated/src",
-      "projectType": "library",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/generated/**/*.{ts,tsx,js,jsx}"]
           }
         }
       }

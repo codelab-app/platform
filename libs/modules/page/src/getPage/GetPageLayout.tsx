@@ -2,16 +2,13 @@ import React, { useContext } from 'react'
 import { AppContext } from '@codelab/frontend/shared'
 import { CytoscapeService } from '@codelab/frontend/cytoscape'
 import { RenderComponents } from '@codelab/frontend/builder'
-import {
-  RootApp__PageFragment,
-  RootAppGql,
-  useAddPageElementMutation,
-} from '@codelab/hasura'
+import { RootAppGql, useAddPageElementMutation } from '@codelab/hasura'
 import { ComponentDropHandler } from '@codelab/frontend/builder'
 import { ComponentItemType } from '@codelab/modules/component'
+import { App__PageFragment } from '@codelab/hasura'
 
 type GetPageLayoutProps = {
-  page: RootApp__PageFragment
+  page: App__PageFragment
 }
 
 export const GetPageLayout = ({ page }: GetPageLayoutProps) => {

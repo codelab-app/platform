@@ -42,7 +42,6 @@
     "frontend-apollo": { "tags": [] },
     "frontend-cytoscape": { "tags": [] },
     "modules-atom": { "tags": [] },
-    "generated": { "tags": [] },
     "hasura": { "tags": [] },
     "modules-lambda-api": { "tags": [] }
   }

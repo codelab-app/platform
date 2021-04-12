@@ -1,0 +1,10 @@
+fragment PageElement__Component on component {
+  id
+  label
+  elements {
+    ...PageElement__ComponentElement
+  }
+  links {
+    ...PageElement__ComponentLink
+  }
+}

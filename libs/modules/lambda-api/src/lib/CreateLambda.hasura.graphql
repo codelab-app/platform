@@ -1,10 +1,10 @@
 mutation CreateLambda($input: [lambda_insert_input!]!) {
-    insert_lambda(objects: $input) {
-        returning {
-            id
-            libraryId
-            name
-            body
-        }
+  insert_lambda(objects: $input) {
+    returning {
+      id
+      libraryId
+      name
+      body
     }
+  }
 }

@@ -1,4 +1,4 @@
 export * from './signoutUser'
 export * from './loginUser'
 export * from './registerUser'
-export * from './useCurrentUser'
+export * from './useUser'
