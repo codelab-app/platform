@@ -34,12 +34,16 @@ app.use('*', async (baseReq, baseRes, next) => {
     },
     onProxyReq: (proxyReq, req) => {
       if (session) {
+        const xHasuraUserId =
+          session.user['https://hasura.io/jwt/claims']['x-hasura-user-id']
+
+        proxyReq.setHeader('X-Hasura-User-Id', xHasuraUserId)
         proxyReq.setHeader('Authorization', `Bearer ${session.idToken}`)
       }
 
       if (req.body) {
         const bodyData = JSON.stringify(req.body)
-        // incase if content-type is application/x-www-form-urlencoded -> we need to change to application/json
+        // in case if content-type is application/x-www-form-urlencoded -> we need to change to application/json
 
         proxyReq.setHeader('Content-Type', 'application/json')
         proxyReq.setHeader('Content-Length', Buffer.byteLength(bodyData))

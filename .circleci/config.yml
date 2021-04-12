@@ -178,7 +178,8 @@ commands:
             - ~/.cache/yarn
             - ~/.cache/Cypress
             - ~/app/node_modules
-            - ~/app/apps/web/.next/cache
+            # - ~/app/apps/web/.next/cache
+            - ~/app/dist/apps/web/.next/cache
 
   yarn-install-prod:
     description: 'Install prod dependencies'
@@ -204,7 +205,7 @@ commands:
             - ~/.cache/yarn
             - ~/.cache/Cypress
             - ~/app/node_modules
-            - ~/app/apps/web/.next/cache
+            # - ~/app/apps/web/.next/cache
 
   notify-failure:
     steps:

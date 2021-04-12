@@ -1,5 +1,5 @@
 query GetStylesList {
-  style{
+  style {
     id
     library_id
     name

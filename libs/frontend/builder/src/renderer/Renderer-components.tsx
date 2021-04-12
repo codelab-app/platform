@@ -13,7 +13,9 @@ export const RenderComponents = ({ node }: { node: NodeA }) => {
     handlers,
   })
 
-  if (!RootComponent) return null
+  if (!RootComponent) {
+    return null
+  }
 
   return (
     <div style={{ width: '100%', height: 'auto' }}>

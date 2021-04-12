@@ -1,3 +1,6 @@
+table:
+  name: lambda
+  schema: public
 configuration:
   custom_column_names:
     library_id: libraryId

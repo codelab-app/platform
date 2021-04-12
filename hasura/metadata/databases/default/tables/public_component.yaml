@@ -1,3 +1,10 @@
+table:
+  name: component
+  schema: public
+object_relationships:
+- name: library
+  using:
+    foreign_key_constraint_on: library_id
 array_relationships:
 - name: elements
   using:
@@ -13,10 +20,3 @@ array_relationships:
       table:
         name: component_link
         schema: public
-object_relationships:
-- name: library
-  using:
-    foreign_key_constraint_on: library_id
-table:
-  name: component
-  schema: public

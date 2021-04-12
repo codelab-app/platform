@@ -1,0 +1,4 @@
+fragment atomFragments on atom {
+  id
+  type
+}

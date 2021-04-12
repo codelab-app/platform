@@ -3,7 +3,7 @@ import {
   AppContext,
   createNotificationHandler,
   FormUseCaseProps,
-  JsonSchemaUniForm,
+  FormUniforms,
 } from '@codelab/frontend/shared'
 import { GetLambdasByLibraryId, useCreateLambdaMutation } from '@codelab/hasura'
 import { CreateLambdaInput, createLambdaSchema } from './createLambdaSchema'
@@ -35,7 +35,7 @@ export const CreateLambdaForm = (props: FormUseCaseProps<any>) => {
   }
 
   return (
-    <JsonSchemaUniForm<CreateLambdaInput>
+    <FormUniforms<CreateLambdaInput>
       onSubmit={onSubmit}
       schema={createLambdaSchema}
       onSubmitError={createNotificationHandler({

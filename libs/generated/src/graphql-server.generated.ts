@@ -502,7 +502,7 @@ export type CreateAppMutationVariables = Exact<{
 }>
 
 export type CreateAppMutation = { __typename?: 'Mutation' } & {
-  createApp: { __typename?: 'App' } & AppFragmentsFragment
+  createApp: { __typename?: 'App' } & User__AppFragment
 }
 
 export type DeleteAppMutationVariables = Exact<{
@@ -518,13 +518,13 @@ export type GetAppQueryVariables = Exact<{
 }>
 
 export type GetAppQuery = { __typename?: 'Query' } & {
-  getApp?: Maybe<{ __typename?: 'App' } & AppFragmentsFragment>
+  getApp?: Maybe<{ __typename?: 'App' } & User__AppFragment>
 }
 
 export type GetAppsQueryVariables = Exact<{ [key: string]: never }>
 
 export type GetAppsQuery = { __typename?: 'Query' } & {
-  getApps: Array<{ __typename?: 'App' } & AppFragmentsFragment>
+  getApps: Array<{ __typename?: 'App' } & User__AppFragment>
 }
 
 export type UpdateAppMutationVariables = Exact<{
@@ -535,11 +535,11 @@ export type UpdateAppMutation = { __typename?: 'Mutation' } & {
   updateApp: { __typename?: 'App' } & Pick<App, 'id' | 'title'>
 }
 
-export type AppFragmentsFragment = { __typename?: 'App' } & Pick<
+export type User__AppFragment = { __typename?: 'App' } & Pick<
   App,
   'id' | 'title'
 > & {
-    pages: Array<{ __typename?: 'Page' } & PageFragmentsFragment>
+    pages: Array<{ __typename?: 'Page' } & App__PageFragment>
     lambdas: Array<{ __typename?: 'Lambda' } & LambdaFragmentsFragment>
   }
 
@@ -689,7 +689,7 @@ export type CreatePageMutationVariables = Exact<{
 }>
 
 export type CreatePageMutation = { __typename?: 'Mutation' } & {
-  createPage: { __typename?: 'Page' } & PageFragmentsFragment
+  createPage: { __typename?: 'Page' } & App__PageFragment
 }
 
 export type DeletePageMutationVariables = Exact<{
@@ -705,7 +705,7 @@ export type GetPageQueryVariables = Exact<{
 }>
 
 export type GetPageQuery = { __typename?: 'Query' } & {
-  getPage: { __typename?: 'Page' } & PageFragmentsFragment
+  getPage: { __typename?: 'Page' } & App__PageFragment
 }
 
 export type GetPagesQueryVariables = Exact<{
@@ -713,7 +713,7 @@ export type GetPagesQueryVariables = Exact<{
 }>
 
 export type GetPagesQuery = { __typename?: 'Query' } & {
-  getPages: Array<{ __typename?: 'Page' } & PageFragmentsFragment>
+  getPages: Array<{ __typename?: 'Page' } & App__PageFragment>
 }
 
 export type UpdatePageMutationVariables = Exact<{
@@ -721,10 +721,10 @@ export type UpdatePageMutationVariables = Exact<{
 }>
 
 export type UpdatePageMutation = { __typename?: 'Mutation' } & {
-  updatePage: { __typename?: 'Page' } & PageFragmentsFragment
+  updatePage: { __typename?: 'Page' } & App__PageFragment
 }
 
-export type PageFragmentsFragment = { __typename?: 'Page' } & Pick<
+export type App__PageFragment = { __typename?: 'Page' } & Pick<
   Page,
   'id' | 'title'
 > & { graphs: Array<{ __typename?: 'Graph' } & GraphFragmentsFragment> }
@@ -839,7 +839,7 @@ export type UpdateUserMutation = { __typename?: 'Mutation' } & {
 export type UserFragmentsFragment = { __typename?: 'User' } & Pick<
   User,
   'id' | 'email'
-> & { apps: Array<{ __typename?: 'App' } & AppFragmentsFragment> }
+> & { apps: Array<{ __typename?: 'App' } & User__AppFragment> }
 
 export const PositionFragments = gql`
   fragment positionFragments on Position {
@@ -922,16 +922,7 @@ export const GraphFragments = gql`
   ${VertexFragments}
   ${EdgeFragments}
 `
-export const PageFragments = gql`
-  fragment pageFragments on Page {
-    id
-    title
-    graphs {
-      ...graphFragments
-    }
-  }
-  ${GraphFragments}
-`
+
 export const LambdaFragments = gql`
   fragment lambdaFragments on Lambda {
     id
@@ -939,30 +930,8 @@ export const LambdaFragments = gql`
     body
   }
 `
-export const AppFragments = gql`
-  fragment appFragments on App {
-    id
-    title
-    pages {
-      ...pageFragments
-    }
-    lambdas {
-      ...lambdaFragments
-    }
-  }
-  ${PageFragments}
-  ${LambdaFragments}
-`
-export const UserFragments = gql`
-  fragment userFragments on User {
-    id
-    email
-    apps {
-      ...appFragments
-    }
-  }
-  ${AppFragments}
-`
+
+
 export const GetBuilder = gql`
   query GetBuilder {
     getBuilder @client {
@@ -978,46 +947,6 @@ export const SetBuilder = gql`
     }
   }
   ${BuilderFragments}
-`
-export const CreateApp = gql`
-  mutation CreateApp($input: CreateAppInput!) {
-    createApp(input: $input) {
-      ...appFragments
-    }
-  }
-  ${AppFragments}
-`
-export const DeleteApp = gql`
-  mutation DeleteApp($input: DeleteAppInput!) {
-    deleteApp(input: $input) {
-      id
-      title
-    }
-  }
-`
-export const GetApp = gql`
-  query GetApp($input: GetAppInput!) {
-    getApp(input: $input) {
-      ...appFragments
-    }
-  }
-  ${AppFragments}
-`
-export const GetApps = gql`
-  query GetApps {
-    getApps {
-      ...appFragments
-    }
-  }
-  ${AppFragments}
-`
-export const UpdateApp = gql`
-  mutation UpdateApp($input: UpdateAppInput!) {
-    updateApp(input: $input) {
-      id
-      title
-    }
-  }
 `
 export const AddChildVertex = gql`
   mutation AddChildVertex($input: AddChildVertexInput!) {
@@ -1131,14 +1060,7 @@ export const UpdateLambda = gql`
   }
   ${LambdaFragments}
 `
-export const CreatePage = gql`
-  mutation CreatePage($input: CreatePageInput!) {
-    createPage(input: $input) {
-      ...pageFragments
-    }
-  }
-  ${PageFragments}
-`
+
 export const DeletePage = gql`
   mutation DeletePage($input: DeletePageInput!) {
     deletePage(input: $input) {
@@ -1146,30 +1068,7 @@ export const DeletePage = gql`
     }
   }
 `
-export const GetPage = gql`
-  query GetPage($input: GetPageInput!) {
-    getPage(input: $input) {
-      ...pageFragments
-    }
-  }
-  ${PageFragments}
-`
-export const GetPages = gql`
-  query GetPages($input: GetPagesInput!) {
-    getPages(input: $input) {
-      ...pageFragments
-    }
-  }
-  ${PageFragments}
-`
-export const UpdatePage = gql`
-  mutation UpdatePage($input: UpdatePageInput!) {
-    updatePage(input: $input) {
-      ...pageFragments
-    }
-  }
-  ${PageFragments}
-`
+
 export const AssignStyle = gql`
   mutation AssignStyle($input: AssignStyleInput!) {
     assignStyle(input: $input) {
@@ -1347,16 +1246,6 @@ export const GraphFragmentsFragmentDoc = gql`
   ${VertexFragmentsFragmentDoc}
   ${EdgeFragmentsFragmentDoc}
 `
-export const PageFragmentsFragmentDoc = gql`
-  fragment pageFragments on Page {
-    id
-    title
-    graphs {
-      ...graphFragments
-    }
-  }
-  ${GraphFragmentsFragmentDoc}
-`
 export const LambdaFragmentsFragmentDoc = gql`
   fragment lambdaFragments on Lambda {
     id
@@ -1364,30 +1253,8 @@ export const LambdaFragmentsFragmentDoc = gql`
     body
   }
 `
-export const AppFragmentsFragmentDoc = gql`
-  fragment appFragments on App {
-    id
-    title
-    pages {
-      ...pageFragments
-    }
-    lambdas {
-      ...lambdaFragments
-    }
-  }
-  ${PageFragmentsFragmentDoc}
-  ${LambdaFragmentsFragmentDoc}
-`
-export const UserFragmentsFragmentDoc = gql`
-  fragment userFragments on User {
-    id
-    email
-    apps {
-      ...appFragments
-    }
-  }
-  ${AppFragmentsFragmentDoc}
-`
+
+
 export const GetBuilderGql = gql`
   query GetBuilder {
     getBuilder @client {
@@ -1491,14 +1358,7 @@ export type SetBuilderMutationOptions = Apollo.BaseMutationOptions<
   SetBuilderMutation,
   SetBuilderMutationVariables
 >
-export const CreateAppGql = gql`
-  mutation CreateApp($input: CreateAppInput!) {
-    createApp(input: $input) {
-      ...appFragments
-    }
-  }
-  ${AppFragmentsFragmentDoc}
-`
+
 export type CreateAppMutationFn = Apollo.MutationFunction<
   CreateAppMutation,
   CreateAppMutationVariables
@@ -1592,10 +1452,10 @@ export type DeleteAppMutationOptions = Apollo.BaseMutationOptions<
 export const GetAppGql = gql`
   query GetApp($input: GetAppInput!) {
     getApp(input: $input) {
-      ...appFragments
+      ...User__App
     }
   }
-  ${AppFragmentsFragmentDoc}
+  ${User__AppFragmentDoc}
 `
 
 /**
@@ -1639,10 +1499,10 @@ export type GetAppQueryResult = Apollo.QueryResult<
 export const GetAppsGql = gql`
   query GetApps {
     getApps {
-      ...appFragments
+      ...User__App
     }
   }
-  ${AppFragmentsFragmentDoc}
+  ${User__AppFragmentDoc}
 `
 
 /**
@@ -2435,14 +2295,7 @@ export type UpdateLambdaMutationOptions = Apollo.BaseMutationOptions<
   UpdateLambdaMutation,
   UpdateLambdaMutationVariables
 >
-export const CreatePageGql = gql`
-  mutation CreatePage($input: CreatePageInput!) {
-    createPage(input: $input) {
-      ...pageFragments
-    }
-  }
-  ${PageFragmentsFragmentDoc}
-`
+
 export type CreatePageMutationFn = Apollo.MutationFunction<
   CreatePageMutation,
   CreatePageMutationVariables
@@ -2532,14 +2385,6 @@ export type DeletePageMutationOptions = Apollo.BaseMutationOptions<
   DeletePageMutation,
   DeletePageMutationVariables
 >
-export const GetPageGql = gql`
-  query GetPage($input: GetPageInput!) {
-    getPage(input: $input) {
-      ...pageFragments
-    }
-  }
-  ${PageFragmentsFragmentDoc}
-`
 
 /**
  * __useGetPageQuery__
@@ -2582,14 +2427,6 @@ export type GetPageQueryResult = Apollo.QueryResult<
   GetPageQuery,
   GetPageQueryVariables
 >
-export const GetPagesGql = gql`
-  query GetPages($input: GetPagesInput!) {
-    getPages(input: $input) {
-      ...pageFragments
-    }
-  }
-  ${PageFragmentsFragmentDoc}
-`
 
 /**
  * __useGetPagesQuery__
@@ -2634,14 +2471,6 @@ export type GetPagesQueryResult = Apollo.QueryResult<
   GetPagesQuery,
   GetPagesQueryVariables
 >
-export const UpdatePageGql = gql`
-  mutation UpdatePage($input: UpdatePageInput!) {
-    updatePage(input: $input) {
-      ...pageFragments
-    }
-  }
-  ${PageFragmentsFragmentDoc}
-`
 export type UpdatePageMutationFn = Apollo.MutationFunction<
   UpdatePageMutation,
   UpdatePageMutationVariables

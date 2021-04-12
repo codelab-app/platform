@@ -13,4 +13,4 @@ export const createAtomSchema: JSONSchemaType<CreateAtomInput> = {
     },
   },
   required: ['type'],
-}
+} as const

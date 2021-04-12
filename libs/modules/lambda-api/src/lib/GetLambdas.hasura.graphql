@@ -1,8 +1,8 @@
 query GetLambdas {
-    lambda {
-        body
-        id
-        libraryId
-        name
-    }
+  lambda {
+    body
+    id
+    libraryId
+    name
+  }
 }

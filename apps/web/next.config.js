@@ -17,40 +17,46 @@ const nextConfig = withPlugins([
   [
     withNx,
     {
-      // target: 'serverless',
-    },
-  ],
-  [
-    withSass,
-    {
+      // https://github.com/facebook/relay/issues/2972
+      // reactStrictMode: false,
+      // useSuspense: false,
+      // experimental: {
+      //   reactMode: 'concurrent',
+      // },
+      // lessOptions: {
+      //   javascriptEnabled: true,
+      // },
       lessLoaderOptions: {
         javascriptEnabled: true,
       },
     },
   ],
+  // [
+  //   withSass,
+  //   {
+  //     lessLoaderOptions: {
+  //       javascriptEnabled: true,
+  //     },
+  //   },
+  // ],
   [
     withLess,
     {
-      // lessOptions: {
-      //   // If you are using less-loader@5 please spread the lessOptions to options directly
-      //   modifyVars: getThemeVariables({
-      //     dark: true, // Enable dark mode
-      //     compact: true, // Enable compact mode
-      //   }),
-      //   javascriptEnabled: true,
-      // },
-    },
-  ],
-  [
-    withCSS,
-    {
-      cssModules: true,
-      cssLoaderOptions: {
-        importLoaders: 1,
-        localIdentName: '[local]___[hash:base64:5]',
+      lessOptions: {
+        javascriptEnabled: true,
       },
     },
   ],
+  // [
+  //   withCSS,
+  //   {
+  //     cssModules: true,
+  //     cssLoaderOptions: {
+  //       importLoaders: 1,
+  //       localIdentName: '[local]___[hash:base64:5]',
+  //     },
+  //   },
+  // ],
 ])
 
 module.exports = nextConfig

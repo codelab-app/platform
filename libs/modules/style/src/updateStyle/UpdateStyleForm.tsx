@@ -1,9 +1,8 @@
-import React, { useContext, useEffect } from 'react'
-import { reduceStyleProps, reverseReduceStyleProps } from '../reduceStyleProps'
+import React, { useEffect } from 'react'
 import {
   createNotificationHandler,
   EntityType,
-  JsonSchemaUniForm,
+  FormUniforms,
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
@@ -104,7 +103,7 @@ export const UpdateStyleForm = ({
   }
 
   return (
-    <JsonSchemaUniForm<UpdateStyleInput>
+    <FormUniforms<UpdateStyleInput>
       onSubmit={onSubmit}
       schema={UpdateStyleSchema}
       model={{ name: style?.name }}
@@ -115,6 +114,6 @@ export const UpdateStyleForm = ({
       {...props}
     >
       <AutoFields />
-    </JsonSchemaUniForm>
+    </FormUniforms>
   )
 }

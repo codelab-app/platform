@@ -1,3 +1,13 @@
+table:
+  name: page_element
+  schema: public
+object_relationships:
+- name: component
+  using:
+    foreign_key_constraint_on: component_id
+- name: page
+  using:
+    foreign_key_constraint_on: page_id
 array_relationships:
 - name: props
   using:
@@ -6,13 +16,3 @@ array_relationships:
       table:
         name: prop_element
         schema: public
-object_relationships:
-- name: component
-  using:
-    foreign_key_constraint_on: component_id
-- name: page
-  using:
-    foreign_key_constraint_on: page_id
-table:
-  name: page_element
-  schema: public

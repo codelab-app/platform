@@ -18,3 +18,20 @@ select_permissions:
 table:
   name: user
   schema: public
+array_relationships:
+- name: apps
+  using:
+    foreign_key_constraint_on:
+      column: user_id
+      table:
+        name: app
+        schema: public
+select_permissions:
+- permission:
+    columns:
+    - id
+    - name
+    filter:
+      id:
+        _eq: X-Hasura-User-Id
+  role: user

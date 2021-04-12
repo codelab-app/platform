@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react'
+import React, { PropsWithChildren } from 'react'
 import { useDrop } from 'react-dnd'
 import {
   COMPONENT_ITEM_DRAG_TYPE,
@@ -34,11 +34,11 @@ const CenteredMessage = styled.div<{ isOver: boolean }>`
   pointer-events: none;
 `
 
-export const ComponentDropHandler: FunctionComponent<ComponentDropHandlerProps> = ({
+export const ComponentDropHandler = ({
   children,
   root,
   onDropped,
-}) => {
+}: PropsWithChildren<ComponentDropHandlerProps>) => {
   const [{ isOver }, drop] = useDrop<ComponentItemType, any, any>({
     accept: COMPONENT_ITEM_DRAG_TYPE,
     drop: (component) => {

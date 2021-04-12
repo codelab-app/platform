@@ -16,7 +16,9 @@ export const HoverOverlay = () => {
       ? nodeToElementMap[hoveringElementId]
       : { node: undefined, element: undefined }
 
-  if (!element) return null
+  if (!element) {
+    return null
+  }
 
   return (
     <OverlayToolbar<NodeA>

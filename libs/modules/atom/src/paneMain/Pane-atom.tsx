@@ -1,7 +1,7 @@
 import React from 'react'
 import { PaneMainTemplate } from '@codelab/frontend/layout'
 import { GetAtomsList } from '../getAtoms'
-import { CrudModal, EntityType, FormType } from '@codelab/frontend/shared'
+import { CrudModal, EntityType, ActionType } from '@codelab/frontend/shared'
 import { CreateAtomButton, CreateAtomForm } from '../createAtom'
 import { UpdateAtomForm } from '../updateAtom'
 import { DeleteAtomForm } from '../deleteAtom'
@@ -12,19 +12,19 @@ export const PaneMainAtom = () => {
       <GetAtomsList />
       <CrudModal
         entityType={EntityType.Atom}
-        actionType={FormType.Create}
+        actionType={ActionType.Create}
         okText="Create atom"
         renderForm={() => <CreateAtomForm />}
       />
       <CrudModal
         entityType={EntityType.Atom}
-        actionType={FormType.Update}
+        actionType={ActionType.Update}
         okText="Update atom"
         renderForm={() => <UpdateAtomForm />}
       />
       <CrudModal
         entityType={EntityType.Atom}
-        actionType={FormType.Delete}
+        actionType={ActionType.Delete}
         okText="Delete atom"
         renderForm={() => <DeleteAtomForm />}
       />

@@ -1,4 +1,4 @@
-is_enum: true
 table:
   name: atom_type
   schema: public
+is_enum: true

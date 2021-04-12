@@ -1,0 +1,8 @@
+fragment User__App on app {
+  id
+  user_id
+  name
+  pages {
+    ...App__Page
+  }
+}

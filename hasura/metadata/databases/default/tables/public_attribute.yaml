@@ -1,3 +1,6 @@
+table:
+  name: attribute
+  schema: public
 object_relationships:
 - name: atomType
   using:
@@ -5,6 +8,3 @@ object_relationships:
 - name: valueType
   using:
     foreign_key_constraint_on: value_type
-table:
-  name: attribute
-  schema: public

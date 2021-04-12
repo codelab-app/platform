@@ -2,7 +2,7 @@ import React from 'react'
 import { CreateStyleButton, CreateStyleForm } from '../createStyle'
 import { PaneMainTemplate } from '@codelab/frontend/layout'
 import { GetStylesList } from '../getStyles'
-import { CrudModal, EntityType, FormType } from '@codelab/frontend/shared'
+import { CrudModal, EntityType, ActionType } from '@codelab/frontend/shared'
 import { UpdateStyleForm } from '../updateStyle'
 import { DeleteStyleForm } from '../deleteStyle'
 
@@ -12,19 +12,19 @@ export const PaneMainStyle = (): JSX.Element => {
       <GetStylesList />
       <CrudModal
         entityType={EntityType.Style}
-        actionType={FormType.Create}
+        actionType={ActionType.Create}
         okText="Create style"
         renderForm={() => <CreateStyleForm />}
       />
       <CrudModal
         entityType={EntityType.Style}
-        actionType={FormType.Update}
+        actionType={ActionType.Update}
         okText="Update style"
         renderForm={() => <UpdateStyleForm />}
       />
       <CrudModal
         entityType={EntityType.Style}
-        actionType={FormType.Delete}
+        actionType={ActionType.Delete}
         okText="Delete style"
         renderForm={() => <DeleteStyleForm />}
       />

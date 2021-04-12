@@ -1,12 +1,15 @@
 import React from 'react'
-// import { graphql } from 'react-relay'
+import { useFragment } from 'react-relay'
+import { appFragment } from '../AppFragment'
+import { AppFragment_app$key } from '../__generated__/AppFragment_app.graphql'
 
-const AppItem = ({ app }: any) => <div>{app.title}</div>
+interface AppItemProps {
+  app: AppFragment_app$key
+}
 
-// export default createFragmentContainer(AppItem, {
-//   app: graphql`
-//     fragment AppItem_app on app {
-//       id
-//     }
-//   `,
-// })
+export const AppItem = (props: AppItemProps) => {
+  const { app } = props
+  const appData = useFragment(appFragment, app)
+
+  return <div>{appData.id}</div>
+}

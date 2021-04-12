@@ -2,7 +2,7 @@ import React from 'react'
 import {
   createNotificationHandler,
   FormUseCaseProps,
-  JsonSchemaUniForm,
+  FormUniforms,
 } from '@codelab/frontend/shared'
 import { Lambda } from '@codelab/hasura'
 import { UpdateLambdaInput, updateLambdaSchema } from './updateLambdaSchema'
@@ -46,7 +46,7 @@ export const UpdateLambdaForm = ({
   }
 
   return (
-    <JsonSchemaUniForm<UpdateLambdaInput>
+    <FormUniforms<UpdateLambdaInput>
       onSubmit={onSubmit}
       schema={updateLambdaSchema}
       onSubmitError={createNotificationHandler({

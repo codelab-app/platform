@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import {
   createNotificationHandler,
   EntityType,
-  JsonSchemaUniForm,
+  FormUniforms,
   UniFormUseCaseProps,
 } from '@codelab/frontend/shared'
 import { DeleteStyleInput, DeleteStyleSchema } from './deleteStyleSchema'
@@ -52,7 +52,7 @@ export const DeleteStyleForm = (props: DeleteStyleFormProps) => {
   }
 
   return (
-    <JsonSchemaUniForm<DeleteStyleInput>
+    <FormUniforms<DeleteStyleInput>
       onSubmit={onSubmit}
       schema={DeleteStyleSchema}
       onSubmitError={createNotificationHandler({
@@ -63,6 +63,6 @@ export const DeleteStyleForm = (props: DeleteStyleFormProps) => {
     >
       <h4>Are you sure you want to delete style "{style?.name}"?</h4>
       <AutoFields />
-    </JsonSchemaUniForm>
+    </FormUniforms>
   )
 }

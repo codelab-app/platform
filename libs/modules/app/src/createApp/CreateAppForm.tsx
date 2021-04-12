@@ -5,12 +5,11 @@ import { GetAppsListGql, useCreateAppMutation } from '@codelab/hasura'
 import { appState } from '../state'
 import { CreateAppInput, createAppSchema } from './createAppSchema'
 import {
-  JsonSchemaUniForm,
+  FormUniforms,
   UniFormUseCaseProps,
   createNotificationHandler,
 } from '@codelab/frontend/shared'
-import { useCurrentUser } from '@codelab/modules/user'
-import { JSONSchemaType } from 'ajv'
+import { useUser } from '@auth0/nextjs-auth0'
 
 export const CreateAppForm = (props: UniFormUseCaseProps<CreateAppInput>) => {
   const [mutate, { loading }] = useCreateAppMutation({
@@ -29,7 +28,7 @@ export const CreateAppForm = (props: UniFormUseCaseProps<CreateAppInput>) => {
     setAppState((current) => ({ ...current, loading }))
   }, [loading, setAppState])
 
-  const { userId } = useCurrentUser()
+  const userId = useUser().user?.sub
 
   const onSubmit = (submitData: DeepPartial<CreateAppInput>) => {
     return mutate({
@@ -51,7 +50,7 @@ export const CreateAppForm = (props: UniFormUseCaseProps<CreateAppInput>) => {
   }
 
   return (
-    <JsonSchemaUniForm<CreateAppInput>
+    <FormUniforms<CreateAppInput>
       onSubmit={onSubmit}
       schema={createAppSchema}
       onSubmitError={createNotificationHandler({

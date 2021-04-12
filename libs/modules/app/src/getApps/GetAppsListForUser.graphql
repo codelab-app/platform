@@ -1,0 +1,5 @@
+query GetAppsListForUser($userId: String!) {
+  app(where: { user_id: { _eq: $userId } }) {
+    ...User__App
+  }
+}

@@ -3,7 +3,7 @@ import {
   AppContext,
   createNotificationHandler,
   EntityType,
-  JsonSchemaUniForm,
+  FormUniforms,
   UniFormUseCaseProps,
 } from '@codelab/frontend/shared'
 import { DeletePageInput, DeletePageSchema } from './deletePageSchema'
@@ -57,7 +57,7 @@ export const DeletePageForm = (props: DeletePageFormProps) => {
   }
 
   return (
-    <JsonSchemaUniForm<DeletePageInput>
+    <FormUniforms<DeletePageInput>
       onSubmit={onSubmit}
       schema={DeletePageSchema}
       onSubmitError={createNotificationHandler({
@@ -68,6 +68,6 @@ export const DeletePageForm = (props: DeletePageFormProps) => {
     >
       <h4>Are you sure you want to delete page "{page?.name}"?</h4>
       <AutoFields />
-    </JsonSchemaUniForm>
+    </FormUniforms>
   )
 }

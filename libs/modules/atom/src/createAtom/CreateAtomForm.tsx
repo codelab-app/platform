@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import {
   createNotificationHandler,
   EntityType,
-  JsonSchemaUniForm,
+  FormUniforms,
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
@@ -50,7 +50,7 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
   }))
 
   return (
-    <JsonSchemaUniForm<CreateAtomInput>
+    <FormUniforms<CreateAtomInput>
       onSubmit={onSubmit}
       schema={createAtomSchema}
       onSubmitError={createNotificationHandler({
@@ -60,6 +60,6 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
       {...props}
     >
       <SelectField name="type" options={atomTypesOptions} />
-    </JsonSchemaUniForm>
+    </FormUniforms>
   )
 }

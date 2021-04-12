@@ -7,7 +7,14 @@ export const CreateAppButton = () => {
   const { openCreateAppModal } = useCreateAppModal()
 
   return (
-    <Button type="primary" onClick={openCreateAppModal} icon={<PlusOutlined />}>
+    <Button
+      type="primary"
+      onClick={() => {
+        console.log('open')
+        openCreateAppModal()
+      }}
+      icon={<PlusOutlined />}
+    >
       Create App
     </Button>
   )

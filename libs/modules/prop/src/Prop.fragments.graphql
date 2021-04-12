@@ -1,0 +1,14 @@
+fragment PageElement__Prop on prop {
+  id
+  attribute {
+    ...Prop__Attribute
+  }
+  values_aggregate {
+    aggregate {
+      count
+    }
+  }
+  values {
+    ...Prop__PropValue
+  }
+}

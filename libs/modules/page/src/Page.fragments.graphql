@@ -1,0 +1,10 @@
+fragment App__Page on page {
+  id
+  name
+  elements {
+    ...Page__PageElement
+  }
+  links {
+    ...Page__PageLink
+  }
+}

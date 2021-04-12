@@ -1,6 +1,6 @@
 export * from './createApp'
 export * from './deleteApp'
-export * from './editApp'
+export * from './updateApp'
 export * from './getApps'
 export * from './getAppsRelay'
 export * from './queries/AppsPage'

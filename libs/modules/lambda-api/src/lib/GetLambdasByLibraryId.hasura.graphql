@@ -1,8 +1,8 @@
 query GetLambdasByLibraryId($libraryId: uuid!) {
-    lambda(where: {libraryId: {_eq: $libraryId}}) {
-        body
-        id
-        libraryId
-        name
-    }
+  lambda(where: { libraryId: { _eq: $libraryId } }) {
+    body
+    id
+    libraryId
+    name
+  }
 }

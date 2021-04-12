@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import {
   createNotificationHandler,
   EntityType,
-  JsonSchemaUniForm,
+  FormUniforms,
   UniFormUseCaseProps,
 } from '@codelab/frontend/shared'
 import { DeleteAtomInput, DeleteAtomSchema } from './deleteAtomSchema'
@@ -52,7 +52,7 @@ export const DeleteAtomForm = (props: DeleteAtomFormProps) => {
   }
 
   return (
-    <JsonSchemaUniForm<DeleteAtomInput>
+    <FormUniforms<DeleteAtomInput>
       onSubmit={onSubmit}
       schema={DeleteAtomSchema}
       onSubmitError={createNotificationHandler({
@@ -63,6 +63,6 @@ export const DeleteAtomForm = (props: DeleteAtomFormProps) => {
     >
       <h4>Are you sure you want to delete atom "{atom?.type}"?</h4>
       <AutoFields />
-    </JsonSchemaUniForm>
+    </FormUniforms>
   )
 }

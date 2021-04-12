@@ -1,7 +1,7 @@
 import { InMemoryCache, Resolvers, makeVar } from '@apollo/client'
-import { Builder, TypedTypePolicies } from '@codelab/generated'
+import { TypedTypePolicies } from '@codelab/generated'
 
-const builderVar = makeVar<Builder>({
+const builderVar = makeVar({
   __typename: 'Builder',
   position: { __typename: 'Position', x: 0, y: 0 },
   windowPosition: { __typename: 'Position', x: 0, y: 0 },

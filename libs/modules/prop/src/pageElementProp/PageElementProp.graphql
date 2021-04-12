@@ -1,0 +1,5 @@
+query PageElementProp($pageElementId: uuid!) {
+  page_element_by_pk(id: $pageElementId) {
+    ...Page__PageElement
+  }
+}
