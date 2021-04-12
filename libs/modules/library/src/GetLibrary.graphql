@@ -1,0 +1,5 @@
+query GetLibrary($libraryId: uuid!) {
+  library_by_pk(id: $libraryId) {
+    ...__Library
+  }
+}

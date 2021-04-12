@@ -12,6 +12,7 @@ export enum EntityType {
   Page = 'Page',
   Atom = 'Atom',
   Style = 'Style',
+  Library = 'Library',
 }
 
 interface CRUDModalState {

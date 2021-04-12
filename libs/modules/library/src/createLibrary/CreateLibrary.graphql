@@ -1,0 +1,5 @@
+mutation CreateLibrary ($data: library_insert_input!){
+  insert_library_one(object: $data){
+    ...__Library
+  }
+}
