@@ -391,12 +391,12 @@ workflows:
           context: CI
           requires:
             - install-and-build-workspace
-      # - e2e:
-      #     <<: *filters-dev
-      #     e: docker-node
-      #     context: CI
-      #     requires:
-      #       - install-and-build-workspace
+      - e2e:
+          <<: *filters-dev
+          e: docker-node
+          context: CI
+          requires:
+            - install-and-build-workspace
       - notify-success:
           <<: *filters-dev
           e: docker-node
@@ -404,7 +404,7 @@ workflows:
             - lint
             - unit
             - integration
-            # - e2e
+            - e2e
 
   app-staging:
     jobs:
