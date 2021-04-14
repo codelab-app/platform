@@ -1,5 +1,0 @@
-mutation SetBuilder($input: SetBuilderInput!) {
-  setBuilder(input: $input) @client {
-    ...builderFragments
-  }
-}
