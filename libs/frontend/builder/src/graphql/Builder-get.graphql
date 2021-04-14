@@ -1,5 +1,0 @@
-query GetBuilder {
-  getBuilder @client {
-    ...builderFragments
-  }
-}

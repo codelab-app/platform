@@ -1,50 +1,15 @@
 /**
  * Source from https://github.com/correttojs/graphql-codegen-apollo-next-ssr
  */
-import { ApolloClient, gql } from '@apollo/client'
+import { ApolloClient, InMemoryCache } from '@apollo/client'
 import { setContext } from '@apollo/client/link/context'
 import { ApolloLink } from '@apollo/client/link/core'
 import merge from 'deepmerge'
 import isEqual from 'lodash/isEqual'
 import { useMemo } from 'react'
-import { cache, resolvers } from './apollo-cache'
 import { apiLink } from './links/apiLink'
 import { authLink } from './links/authLink'
 import { errorLink } from './links/errorLink'
-
-// Copy from @codelab/generated, not sure if needed
-export const typeDefs = gql`
-  type Query {
-    getBuilder: Builder!
-  }
-
-  type Mutation {
-    setBuilder(input: SetBuilderInput!): Builder!
-  }
-
-  input PositionInput {
-    x: Int!
-    y: Int!
-  }
-
-  input SetBuilderInput {
-    position: PositionInput
-    windowPosition: PositionInput
-    component: String
-  }
-
-  type Builder {
-    position: Position!
-    windowPosition: Position!
-    component: String
-    isDragging: Boolean!
-  }
-
-  type Position {
-    x: Int!
-    y: Int!
-  }
-`
 
 export interface ApolloContext {
   authToken?: string
@@ -70,13 +35,10 @@ export const getApolloClient = (ctx: ApolloContext = {}) => {
 
   const client = new ApolloClient({
     link,
-    cache,
+    cache: new InMemoryCache(),
     // Disables forceFetch on the server (so queries are only run once)
     ssrMode: typeof window === 'undefined',
-    typeDefs,
   })
-
-  client.addResolvers(resolvers)
 
   return client
 }
