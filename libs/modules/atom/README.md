@@ -1,7 +1,7 @@
-# modules-atom
+---
+slug: '/modules/atom'
+order: 1
+title: 'Atom'
+---
 
-This library was generated with [Nx](https://nx.dev).
-
-## Running unit tests
-
-Run `nx test modules-atom` to execute the unit tests via [Jest](https://jestjs.io).
+# Atom Module
