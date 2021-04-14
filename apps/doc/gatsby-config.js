@@ -22,11 +22,22 @@ module.exports = {
         gatsbyRemarkPlugins: [
           {
             resolve: `gatsby-remark-highlight-code`,
+            options: {
+              // 'carbon' - macLike
+              // 'ubuntu'
+              // 'none'
+              language: 'ts',
+              terminal: 'carbon',
+              theme: 'dracula',
+            },
           },
+          // {
+          //   resolve: `gatsby-transformer-remark`,
+          // },
         ],
       },
     },
-    `gatsby-transformer-remark`,
+    // `gatsby-transformer-remark`,
     {
       resolve: `gatsby-plugin-less`,
       options: {

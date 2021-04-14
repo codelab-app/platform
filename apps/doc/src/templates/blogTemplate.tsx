@@ -1,11 +1,16 @@
 import React from 'react'
 import { Layout } from 'antd'
 import { graphql } from 'gatsby'
-
-import 'antd/dist/antd.less'
+import { MDXRenderer } from 'gatsby-plugin-mdx'
 import { css, Global } from '@emotion/react'
 import { SidebarMenu } from '../components/SidebarMenu'
 import { RecoilRoot } from 'recoil'
+import { defineCustomElements as deckDeckGoHighlightElement } from '@deckdeckgo/highlight-code/dist/loader'
+
+import '../styles/global.css'
+import 'antd/dist/antd.less'
+
+deckDeckGoHighlightElement()
 
 const { Content, Header, Footer, Sider } = Layout
 
@@ -14,10 +19,13 @@ export interface Frontmatter {
   title: string
 }
 
+// https://www.gatsbyjs.com/blog/2019-11-21-how-to-convert-an-existing-gatsby-blog-to-use-mdx/
 export default function Template(props) {
+  console.log(props)
+
   const { data, pageContext } = props
-  const { markdownRemark } = data // data.markdownRemark holds your post data
-  const { frontmatter, html } = markdownRemark
+  const { mdx } = data // data.markdownRemark holds your post data
+  const { frontmatter, body } = mdx
 
   const pages: Array<Frontmatter> = pageContext.edges.map((edge) => {
     const {
@@ -41,6 +49,9 @@ export default function Template(props) {
             #gatsby-focus-wrapper {
               height: 100%;
             }
+            .carbon {
+              display: none !important;
+            }
           `}
         />
         <Sider theme="light">
@@ -52,7 +63,8 @@ export default function Template(props) {
         <Layout>
           {/* <Header>Header</Header> */}
           <Content>
-            <div dangerouslySetInnerHTML={{ __html: html }} />
+            <MDXRenderer>{body}</MDXRenderer>
+            {/* <div dangerouslySetInnerHTML={{ __html: html }} /> */}
           </Content>
           {/* <Footer>Footer</Footer> */}
         </Layout>
@@ -63,8 +75,8 @@ export default function Template(props) {
 
 export const pageQuery = graphql`
   query($slug: String!) {
-    markdownRemark(frontmatter: { slug: { eq: $slug } }) {
-      html
+    mdx(frontmatter: { slug: { eq: $slug } }) {
+      body
       frontmatter {
         # date(formatString: "MMMM DD, YYYY")
         slug

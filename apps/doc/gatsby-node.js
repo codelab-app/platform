@@ -11,7 +11,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   const blogPostTemplate = require.resolve(`./src/templates/blogTemplate.tsx`)
   const result = await graphql(`
     {
-      allMarkdownRemark(
+      allMdx(
         sort: { order: DESC, fields: [frontmatter___order] }
         limit: 1000
       ) {
@@ -34,7 +34,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     return
   }
 
-  result.data.allMarkdownRemark.edges.forEach(({ node }) => {
+  result.data.allMdx.edges.forEach(({ node }) => {
     createPage({
       path: node.frontmatter.slug,
       component: blogPostTemplate,
@@ -42,7 +42,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
         // additional data can be passed via context
         slug: node.frontmatter.slug,
         // Pass edges data to each page, so we can create the menu
-        edges: result.data.allMarkdownRemark.edges,
+        edges: result.data.allMdx.edges,
       },
     })
   })
