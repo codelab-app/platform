@@ -29,11 +29,13 @@ export const ClickOverlay = () => {
   })
 
   const { map: nodeToElementMap } = useRecoilValue(nodeToElementMapState)
-  const { selectedElementId } = useRecoilValue(builderElementSelectionState)
+  const { selectedElement } = useRecoilValue(builderElementSelectionState)
 
   const { node, element } =
-    nodeToElementMap && selectedElementId
-      ? nodeToElementMap[selectedElementId]
+    nodeToElementMap &&
+    selectedElement &&
+    nodeToElementMap[selectedElement.nodeId]
+      ? nodeToElementMap[selectedElement.nodeId]
       : { node: undefined, element: undefined }
 
   if (!element) {
@@ -56,7 +58,7 @@ export const ClickOverlay = () => {
 
                 return deletePageElement({
                   variables: {
-                    pageElementId: node?.id as string,
+                    pageElementId: (node as any)?.pageElementId as string,
                   },
                 })
               }}

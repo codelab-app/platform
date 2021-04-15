@@ -40,11 +40,13 @@ const DropHandler = React.forwardRef<
   )
 })
 
-export const RenderChildren = (
-  node: NodeA,
-  renderProps: Record<string, unknown>,
-  handlers: ComponentHandlers,
-) => {
+export const RenderChildren = ({
+  node,
+  handlers,
+}: {
+  node: NodeA
+  handlers: ComponentHandlers
+}) => {
   const { createMappingRef } = useAddNodeToElementMapping()
 
   const renderedChildren = node.children.map((child: NodeA) => {
@@ -58,16 +60,20 @@ export const RenderChildren = (
     }
 
     return (
-      <Child key={child.id} {...props} className="Builder-node">
+      <Child {...props}>
         <DropHandler
           ref={createMappingRef(child)}
           node={child}
           handlers={handlers}
         />
-        {RenderChildren(child, {}, handlers)}
+        <RenderChildren node={child} handlers={handlers} />
       </Child>
     )
   })
 
-  return renderedChildren.length === 1 ? renderedChildren[0] : renderedChildren
+  //Reason for any cast:
+  //https://github.com/DefinitelyTyped/DefinitelyTyped/issues/20356#issuecomment-336384210
+  return renderedChildren.length === 1
+    ? renderedChildren[0]
+    : (renderedChildren as any)
 }

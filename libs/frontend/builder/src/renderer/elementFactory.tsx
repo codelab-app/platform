@@ -39,6 +39,7 @@ export const elementsPropTransformers: {
       height: '200px',
     },
   }),
+  [AtomType.ReactFragment]: ({ props: { key } }) => ({ key }), //Do not pass in any props for fragments, except key, because it creates an error
 }
 
 export const elementParameterFactory = <TNode extends NodeA>({
@@ -80,7 +81,11 @@ export const elementParameterFactory = <TNode extends NodeA>({
     onMouseEnter: (e: MouseEvent) => {
       // console.log('mouseEnter', e)
 
-      return handlers?.showHoverOverlay(node.id)
+      return handlers?.showHoverOverlay({
+        pageElementId: node.pageElementId,
+        componentElementId: node.componentElementId,
+        nodeId: node.id,
+      })
     },
     // We want to manually re-trigger the `onMouseEnter` of the parent
     onMouseLeave: (e: MouseEvent) => {
@@ -107,8 +112,14 @@ export const elementParameterFactory = <TNode extends NodeA>({
       e.stopPropagation()
 
       //Open inspector and the click overview
-      handlers?.selectPageElement(node.id)
+      handlers?.selectPageElement({
+        pageElementId: node.pageElementId,
+        componentElementId: node.componentElementId,
+        nodeId: node.id,
+      })
     },
+    className: 'Builder-none',
+    key: node.id,
   } as Record<string, any>
 
   const propsTransformer = elementsPropTransformers[type]

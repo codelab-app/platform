@@ -5,62 +5,107 @@ import { AtomType, NodeA } from '@codelab/frontend/shared'
 import { propDataEntityToModel } from '@codelab/modules/prop'
 import { App__PageFragment } from '@codelab/hasura'
 
-export enum CytoscapeNodeType {
-  PageElement = 'PageElement',
-  ComponentElement = 'ComponentElement',
-  Root = 'Root',
-}
+export const pageComponentElementNodeId = (
+  pageElementId: string,
+  componentElementId: string,
+) => `${pageElementId}--${componentElementId}`
+
+export const PAGE_ROOT_ID = 'page_root'
 
 export class CytoscapeService {
-  static fromPage({ elements, links }: App__PageFragment): Core {
+  static fromPage({
+    elements: pageElements,
+    links: pageLinks,
+  }: App__PageFragment): Core {
+    const nodesById: Record<string, cytoscape.NodeDefinition> = {}
+    const nodesByPageElementId: Record<
+      string,
+      Array<cytoscape.NodeDefinition>
+    > = {}
     const nodes: Array<cytoscape.NodeDefinition> = []
     const edges: Array<cytoscape.EdgeDefinition> = []
+    const nodeIsTargetToALinkMap: Record<string, boolean> = {}
+
+    const addNode = (node: cytoscape.NodeDefinition) => {
+      nodesById[node.data.id as string] = node
+
+      if (nodesByPageElementId[node.data.pageElementId as string]) {
+        nodesByPageElementId[node.data.pageElementId as string].push(node)
+      } else {
+        nodesByPageElementId[node.data.pageElementId as string] = [node]
+      }
+
+      nodes.push(node)
+    }
 
     //Add all elements as children to a single div root node
     //That way we convert the multiple roots that are stored in the db into a single tree
     const rootNode: cytoscape.NodeDefinition = {
       data: {
-        id: 'page_root',
+        id: PAGE_ROOT_ID,
         parent: undefined,
         label: 'Page Root',
-        nodeType: CytoscapeNodeType.Root,
-        type: AtomType.ReactHtmlDiv,
+        type: AtomType.ReactHtmlDiv, //or fragment?
       },
     }
 
-    nodes.push(rootNode)
+    addNode(rootNode)
 
-    elements.forEach((pageElement) => {
-      nodes.push({
-        //Push the page element definition
-        data: {
-          id: pageElement.id,
-          // props: pageElement.props // Don't pass props to pageElement. Instead use the pageElement props to make up the component props. See bellow \/
-          label: pageElement.name,
-          nodeType: CytoscapeNodeType.PageElement,
-          type: AtomType.ReactHtmlDiv, //Type page elements as divs, so we can render them as such
-          parent: rootNode.data.id, //Make all root page elements children to the root node
-        },
-      })
+    //Add all page links. Since we don't render the page elements, go through all nodes that we created from this pageElement and add them as targets
+    //     PE = PageElement    CE = ComponentElement
+    //
+    //        PE                                        ROOT
+    //     /      \                                   /      \
+    //    CE1     CE2      REMOVE PEs               CE1      CE2
+    //   / \       |          --->                 /   \    /   \
+    //  PE PE      PE                            CE3   CE4 CE5   CE6
+    // /    \    /    \
+    //CE3  CE4  CE5   CE6
 
-      //Add links from the root node to the page elements
-      edges.push({
-        data: {
-          id: `root_node_edge_${rootNode.data.id}_${pageElement.id}`,
-          source: rootNode.data.id as string,
-          target: pageElement.id,
-        },
-      })
+    pageLinks.forEach((pageLink) => {
+      if (nodesByPageElementId[pageLink.target_page_element_id]) {
+        nodesByPageElementId[pageLink.target_page_element_id].forEach(
+          (node) => {
+            const targetElementId = pageComponentElementNodeId(
+              pageLink.target_page_element_id,
+              node.data.componentElementId as string,
+            )
+
+            edges.push({
+              data: {
+                id: `pl_${pageLink.source_page_element_id}_${pageLink.source_component_element_id}_${node.data.componentElementId}`,
+                source: pageComponentElementNodeId(
+                  pageLink.source_page_element_id,
+                  pageLink.source_component_element_id,
+                ),
+                target: targetElementId,
+              },
+            })
+
+            nodeIsTargetToALinkMap[targetElementId] = true
+          },
+        )
+      }
+    })
+
+    //Go through each pageElement, then through each of it's component elements and add them as nodes + add their links
+    pageElements.forEach((pageElement) => {
+      //We don't push the actual pageElement, since we don't need it. We would get unnecessary fragments otherwise
+      //It just acts at metadata for the node (props, etc)
+      //Instead combine the id of  the pageElement and the componentElements it has, so we get a unique node id for each of them
+      //And combine the metadata to form a single PageElement - ComponentElement - Atom node
 
       pageElement.component?.elements.forEach((componentElement) => {
-        //Push the component elements definitions
-        nodes.push({
+        addNode({
           data: {
-            id: componentElement.id,
-            parent: pageElement.id,
-            nodeType: CytoscapeNodeType.ComponentElement,
+            id: pageComponentElementNodeId(pageElement.id, componentElement.id),
+            parent: pageElement.id, //Set the default to root, we set the actual parent later  after we process the links (if it has one)
             type: componentElement.atom?.type,
             label: componentElement.label,
+            pageElementId: pageElement.id,
+            componentElementId: componentElement.id,
+            pageElementName: pageElement.name,
+            componentElementName: componentElement.label,
             props: {
               //Normalize the props fragments into a react-readable key value map
               ...pageElement.props.reduce((props, newProp) => {
@@ -71,52 +116,45 @@ export class CytoscapeService {
           },
         })
 
-        //Add an edge from the page element (parent) to the componentElement (child)
-        edges.push({
-          data: {
-            id: `pageel_compel_${pageElement.id}_${componentElement.id}`,
-            source: pageElement.id,
-            target: componentElement.id,
-          },
-        })
-      })
+        //Add all component links
+        pageElement.component?.links.forEach((componentLink) => {
+          const sourceElementId = pageComponentElementNodeId(
+            pageElement.id,
+            componentLink.source_element_id,
+          )
 
-      pageElement.component?.links.forEach((link) => {
-        edges.push({
-          /* static fromGraph({ vertices, edges }: GraphFragmentsFragment): Core {
-           *   return cytoscape({
-           *     headless: true,
-           *     elements: {
-           *       nodes: vertices.map<NodeDefinition>(
-           *         ({ id, type, props, parent, styles }) => ({
-           *           data: {
-           *             id,
-           *             parent: parent?.id,
-           *             type,
-           *             props,
-           *             styles,
-           *           },
-           *         }),
-           *       ),
-           *       edges: edges.map<EdgeDefinition>(({ id, source, target }) => ({ */
-          data: {
-            id: link.id,
-            source: link.source_element_id,
-            target: link.target_element_id,
-            props: link.props,
-          },
+          const targetElementId = pageComponentElementNodeId(
+            pageElement.id,
+            componentLink.target_element_id,
+          )
+
+          edges.push({
+            data: {
+              id: `cl_${componentLink.source_element_id}_${componentLink.target_element_id}`,
+              source: sourceElementId,
+              target: targetElementId,
+            },
+          })
+
+          nodeIsTargetToALinkMap[targetElementId] = true
+
+          //Assign the parent of the target node to be the source element
+          nodesById[targetElementId].data.parent = sourceElementId
         })
       })
     })
 
-    links.forEach((link) => {
-      edges.push({
-        data: {
-          id: link.id,
-          source: link.source_element_id,
-          target: link.target_element_id,
-        },
-      })
+    //Find nodes without links and attach them to the root. Maybe there's a better way to do this?
+    nodes.forEach((node) => {
+      if (!nodeIsTargetToALinkMap[node.data.id as string]) {
+        edges.push({
+          data: {
+            id: `root_edge_${node.data.id}`,
+            source: rootNode.data.id as string,
+            target: node.data.id as string,
+          },
+        })
+      }
     })
 
     return cytoscape({

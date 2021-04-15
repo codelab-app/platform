@@ -19,10 +19,10 @@ const StyledTabs = styled(Tabs)`
 
 export const PaneConfig = React.memo(() => {
   const {
-    selectionState: { selectedElementId },
+    selectionState: { selectedElement },
   } = useBuilderSelectionState()
 
-  if (!selectedElementId) {
+  if (!selectedElement || !selectedElement.pageElementId) {
     return null
   }
 
@@ -33,10 +33,10 @@ export const PaneConfig = React.memo(() => {
       onChange={() => null}
     >
       <TabPane tab="Props" key="1" style={{ height: '100%' }}>
-        <PaneConfigProps pageElementId={selectedElementId} />
+        <PaneConfigProps pageElementId={selectedElement.pageElementId} />
       </TabPane>
       <TabPane tab="Style" key="2">
-        <PaneConfigStyle vertexId={selectedElementId} />
+        <PaneConfigStyle vertexId={selectedElement.pageElementId} />
       </TabPane>
     </StyledTabs>
   )

@@ -1,14 +1,20 @@
 import { useCallback } from 'react'
 import { atom, useRecoilState } from 'recoil'
 
+export interface SelectedElementType {
+  nodeId: string
+  pageElementId: string
+  componentElementId: string
+}
+
 export interface BuilderSelectionStateType {
-  selectedElementId: string | undefined
-  hoveringElementId: string | undefined
+  selectedElement: SelectedElementType | undefined
+  hoveringElement: SelectedElementType | undefined
 }
 
 export const initialBuilderElementSelectionState: BuilderSelectionStateType = {
-  hoveringElementId: undefined,
-  selectedElementId: undefined,
+  hoveringElement: undefined,
+  selectedElement: undefined,
 }
 
 export const builderElementSelectionState = atom<BuilderSelectionStateType>({
@@ -22,20 +28,20 @@ export const useBuilderSelectionState = () => {
   )
 
   const setSelected = useCallback(
-    (id: string | undefined) => {
-      setSelectionState((s) => ({
+    (selectedElement: SelectedElementType) => {
+      return setSelectionState((s) => ({
         ...s,
-        selectedElementId: id,
+        selectedElement,
       }))
     },
     [setSelectionState],
   )
 
   const setHovering = useCallback(
-    (id: string | undefined) => {
-      setSelectionState((s) => ({
+    (hoveringElement: SelectedElementType) => {
+      return setSelectionState((s) => ({
         ...s,
-        hoveringElementId: id,
+        hoveringElement,
       }))
     },
     [setSelectionState],
@@ -44,22 +50,22 @@ export const useBuilderSelectionState = () => {
   const resetHovering = useCallback(() => {
     setSelectionState((s) => ({
       ...s,
-      hoveringElementId: undefined,
+      hoveringElement: undefined,
     }))
   }, [setSelectionState])
 
   const resetSelected = useCallback(() => {
     setSelectionState((s) => ({
       ...s,
-      selectedElementId: undefined,
+      selectedElement: undefined,
     }))
   }, [setSelectionState])
 
   const reset = useCallback(() => {
     setSelectionState((s) => ({
       ...s,
-      hoveringElementId: undefined,
-      selectedElementId: undefined,
+      hoveringElement: undefined,
+      selectedElement: undefined,
     }))
   }, [setSelectionState])
 

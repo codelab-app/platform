@@ -5,6 +5,8 @@ export interface NodeA {
   type: AtomType
   props?: Record<string, unknown>
   children: Array<NodeA>
+  pageElementId: string
+  componentElementId: string
 }
 
 export interface NodeI {

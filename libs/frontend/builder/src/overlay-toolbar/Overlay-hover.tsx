@@ -9,11 +9,13 @@ import { nodeToElementMapState } from '../renderer/nodeToElementMapState'
 
 export const HoverOverlay = () => {
   const { map: nodeToElementMap } = useRecoilValue(nodeToElementMapState)
-  const { hoveringElementId } = useRecoilValue(builderElementSelectionState)
+  const { hoveringElement } = useRecoilValue(builderElementSelectionState)
 
   const { node, element } =
-    nodeToElementMap && hoveringElementId && nodeToElementMap[hoveringElementId]
-      ? nodeToElementMap[hoveringElementId]
+    nodeToElementMap &&
+    hoveringElement &&
+    nodeToElementMap[hoveringElement.nodeId]
+      ? nodeToElementMap[hoveringElement.nodeId]
       : { node: undefined, element: undefined }
 
   if (!element) {

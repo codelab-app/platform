@@ -20,7 +20,7 @@ export const RenderComponents = ({ node }: { node: NodeA }) => {
   return (
     <div style={{ width: '100%', height: 'auto' }}>
       <RootComponent {...props}>
-        {RenderChildren(node, {}, handlers)}
+        <RenderChildren node={node} handlers={handlers} />
       </RootComponent>
 
       <HoverOverlay />
