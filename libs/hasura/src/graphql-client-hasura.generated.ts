@@ -3290,8 +3290,15 @@ export type Page_Link = {
   order?: Maybe<Scalars['Int']>
   page_id: Scalars['uuid']
   props?: Maybe<Scalars['jsonb']>
-  source_element_id: Scalars['uuid']
-  target_element_id: Scalars['uuid']
+  /** An object relationship */
+  sourcePageElement: Page_Element
+  source_component_element_id: Scalars['uuid']
+  source_page_element_id: Scalars['uuid']
+  /** An object relationship */
+  targetComponentElement: Component_Element
+  /** An object relationship */
+  targetPageElement: Page_Element
+  target_page_element_id: Scalars['uuid']
 }
 
 /** columns and relationships of "page_link" */
@@ -3375,8 +3382,12 @@ export type Page_Link_Bool_Exp = {
   order?: Maybe<Int_Comparison_Exp>
   page_id?: Maybe<Uuid_Comparison_Exp>
   props?: Maybe<Jsonb_Comparison_Exp>
-  source_element_id?: Maybe<Uuid_Comparison_Exp>
-  target_element_id?: Maybe<Uuid_Comparison_Exp>
+  sourcePageElement?: Maybe<Page_Element_Bool_Exp>
+  source_component_element_id?: Maybe<Uuid_Comparison_Exp>
+  source_page_element_id?: Maybe<Uuid_Comparison_Exp>
+  targetComponentElement?: Maybe<Component_Element_Bool_Exp>
+  targetPageElement?: Maybe<Page_Element_Bool_Exp>
+  target_page_element_id?: Maybe<Uuid_Comparison_Exp>
 }
 
 /** unique or primary key constraints on table "page_link" */
@@ -3411,8 +3422,12 @@ export type Page_Link_Insert_Input = {
   order?: Maybe<Scalars['Int']>
   page_id?: Maybe<Scalars['uuid']>
   props?: Maybe<Scalars['jsonb']>
-  source_element_id?: Maybe<Scalars['uuid']>
-  target_element_id?: Maybe<Scalars['uuid']>
+  sourcePageElement?: Maybe<Page_Element_Obj_Rel_Insert_Input>
+  source_component_element_id?: Maybe<Scalars['uuid']>
+  source_page_element_id?: Maybe<Scalars['uuid']>
+  targetComponentElement?: Maybe<Component_Element_Obj_Rel_Insert_Input>
+  targetPageElement?: Maybe<Page_Element_Obj_Rel_Insert_Input>
+  target_page_element_id?: Maybe<Scalars['uuid']>
 }
 
 /** aggregate max on columns */
@@ -3421,8 +3436,9 @@ export type Page_Link_Max_Fields = {
   id?: Maybe<Scalars['uuid']>
   order?: Maybe<Scalars['Int']>
   page_id?: Maybe<Scalars['uuid']>
-  source_element_id?: Maybe<Scalars['uuid']>
-  target_element_id?: Maybe<Scalars['uuid']>
+  source_component_element_id?: Maybe<Scalars['uuid']>
+  source_page_element_id?: Maybe<Scalars['uuid']>
+  target_page_element_id?: Maybe<Scalars['uuid']>
 }
 
 /** order by max() on columns of table "page_link" */
@@ -3430,8 +3446,9 @@ export type Page_Link_Max_Order_By = {
   id?: Maybe<Order_By>
   order?: Maybe<Order_By>
   page_id?: Maybe<Order_By>
-  source_element_id?: Maybe<Order_By>
-  target_element_id?: Maybe<Order_By>
+  source_component_element_id?: Maybe<Order_By>
+  source_page_element_id?: Maybe<Order_By>
+  target_page_element_id?: Maybe<Order_By>
 }
 
 /** aggregate min on columns */
@@ -3440,8 +3457,9 @@ export type Page_Link_Min_Fields = {
   id?: Maybe<Scalars['uuid']>
   order?: Maybe<Scalars['Int']>
   page_id?: Maybe<Scalars['uuid']>
-  source_element_id?: Maybe<Scalars['uuid']>
-  target_element_id?: Maybe<Scalars['uuid']>
+  source_component_element_id?: Maybe<Scalars['uuid']>
+  source_page_element_id?: Maybe<Scalars['uuid']>
+  target_page_element_id?: Maybe<Scalars['uuid']>
 }
 
 /** order by min() on columns of table "page_link" */
@@ -3449,8 +3467,9 @@ export type Page_Link_Min_Order_By = {
   id?: Maybe<Order_By>
   order?: Maybe<Order_By>
   page_id?: Maybe<Order_By>
-  source_element_id?: Maybe<Order_By>
-  target_element_id?: Maybe<Order_By>
+  source_component_element_id?: Maybe<Order_By>
+  source_page_element_id?: Maybe<Order_By>
+  target_page_element_id?: Maybe<Order_By>
 }
 
 /** response of any mutation on the table "page_link" */
@@ -3475,8 +3494,12 @@ export type Page_Link_Order_By = {
   order?: Maybe<Order_By>
   page_id?: Maybe<Order_By>
   props?: Maybe<Order_By>
-  source_element_id?: Maybe<Order_By>
-  target_element_id?: Maybe<Order_By>
+  sourcePageElement?: Maybe<Page_Element_Order_By>
+  source_component_element_id?: Maybe<Order_By>
+  source_page_element_id?: Maybe<Order_By>
+  targetComponentElement?: Maybe<Component_Element_Order_By>
+  targetPageElement?: Maybe<Page_Element_Order_By>
+  target_page_element_id?: Maybe<Order_By>
 }
 
 /** primary key columns input for table: page_link */
@@ -3500,9 +3523,11 @@ export enum Page_Link_Select_Column {
   /** column name */
   Props = 'props',
   /** column name */
-  SourceElementId = 'source_element_id',
+  SourceComponentElementId = 'source_component_element_id',
   /** column name */
-  TargetElementId = 'target_element_id',
+  SourcePageElementId = 'source_page_element_id',
+  /** column name */
+  TargetPageElementId = 'target_page_element_id',
 }
 
 /** input type for updating data in table "page_link" */
@@ -3511,8 +3536,9 @@ export type Page_Link_Set_Input = {
   order?: Maybe<Scalars['Int']>
   page_id?: Maybe<Scalars['uuid']>
   props?: Maybe<Scalars['jsonb']>
-  source_element_id?: Maybe<Scalars['uuid']>
-  target_element_id?: Maybe<Scalars['uuid']>
+  source_component_element_id?: Maybe<Scalars['uuid']>
+  source_page_element_id?: Maybe<Scalars['uuid']>
+  target_page_element_id?: Maybe<Scalars['uuid']>
 }
 
 /** aggregate stddev on columns */
@@ -3570,9 +3596,11 @@ export enum Page_Link_Update_Column {
   /** column name */
   Props = 'props',
   /** column name */
-  SourceElementId = 'source_element_id',
+  SourceComponentElementId = 'source_component_element_id',
   /** column name */
-  TargetElementId = 'target_element_id',
+  SourcePageElementId = 'source_page_element_id',
+  /** column name */
+  TargetPageElementId = 'target_page_element_id',
 }
 
 /** aggregate var_pop on columns */
@@ -6603,7 +6631,12 @@ export type Page__PageElementFragment = { __typename?: 'page_element' } & Pick<
 
 export type Page__PageLinkFragment = { __typename?: 'page_link' } & Pick<
   Page_Link,
-  'id' | 'order' | 'props' | 'source_element_id' | 'target_element_id'
+  | 'id'
+  | 'order'
+  | 'props'
+  | 'source_page_element_id'
+  | 'source_component_element_id'
+  | 'target_page_element_id'
 >
 
 export type AddPageElementMutationVariables = Exact<{
@@ -6948,8 +6981,9 @@ export const Page__PageLinkFragmentDoc = gql`
     id
     order
     props
-    source_element_id
-    target_element_id
+    source_page_element_id
+    source_component_element_id
+    target_page_element_id
   }
 `
 export const App__PageFragmentDoc = gql`
@@ -9518,8 +9552,9 @@ export const Page__PageLink = gql`
     id
     order
     props
-    source_element_id
-    target_element_id
+    source_page_element_id
+    source_component_element_id
+    target_page_element_id
   }
 `
 export const App__Page = gql`

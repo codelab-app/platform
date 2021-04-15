@@ -4892,8 +4892,24 @@ type page_link {
     """
     path: String
   ): jsonb
-  source_element_id: uuid!
-  target_element_id: uuid!
+
+  """
+  An object relationship
+  """
+  sourcePageElement: page_element!
+  source_component_element_id: uuid!
+  source_page_element_id: uuid!
+
+  """
+  An object relationship
+  """
+  targetComponentElement: component_element!
+
+  """
+  An object relationship
+  """
+  targetPageElement: page_element!
+  target_page_element_id: uuid!
 }
 
 """
@@ -4982,8 +4998,12 @@ input page_link_bool_exp {
   order: Int_comparison_exp
   page_id: uuid_comparison_exp
   props: jsonb_comparison_exp
-  source_element_id: uuid_comparison_exp
-  target_element_id: uuid_comparison_exp
+  sourcePageElement: page_element_bool_exp
+  source_component_element_id: uuid_comparison_exp
+  source_page_element_id: uuid_comparison_exp
+  targetComponentElement: component_element_bool_exp
+  targetPageElement: page_element_bool_exp
+  target_page_element_id: uuid_comparison_exp
 }
 
 """
@@ -5032,8 +5052,12 @@ input page_link_insert_input {
   order: Int
   page_id: uuid
   props: jsonb
-  source_element_id: uuid
-  target_element_id: uuid
+  sourcePageElement: page_element_obj_rel_insert_input
+  source_component_element_id: uuid
+  source_page_element_id: uuid
+  targetComponentElement: component_element_obj_rel_insert_input
+  targetPageElement: page_element_obj_rel_insert_input
+  target_page_element_id: uuid
 }
 
 """
@@ -5043,8 +5067,9 @@ type page_link_max_fields {
   id: uuid
   order: Int
   page_id: uuid
-  source_element_id: uuid
-  target_element_id: uuid
+  source_component_element_id: uuid
+  source_page_element_id: uuid
+  target_page_element_id: uuid
 }
 
 """
@@ -5054,8 +5079,9 @@ input page_link_max_order_by {
   id: order_by
   order: order_by
   page_id: order_by
-  source_element_id: order_by
-  target_element_id: order_by
+  source_component_element_id: order_by
+  source_page_element_id: order_by
+  target_page_element_id: order_by
 }
 
 """
@@ -5065,8 +5091,9 @@ type page_link_min_fields {
   id: uuid
   order: Int
   page_id: uuid
-  source_element_id: uuid
-  target_element_id: uuid
+  source_component_element_id: uuid
+  source_page_element_id: uuid
+  target_page_element_id: uuid
 }
 
 """
@@ -5076,8 +5103,9 @@ input page_link_min_order_by {
   id: order_by
   order: order_by
   page_id: order_by
-  source_element_id: order_by
-  target_element_id: order_by
+  source_component_element_id: order_by
+  source_page_element_id: order_by
+  target_page_element_id: order_by
 }
 
 """
@@ -5112,8 +5140,12 @@ input page_link_order_by {
   order: order_by
   page_id: order_by
   props: order_by
-  source_element_id: order_by
-  target_element_id: order_by
+  sourcePageElement: page_element_order_by
+  source_component_element_id: order_by
+  source_page_element_id: order_by
+  targetComponentElement: component_element_order_by
+  targetPageElement: page_element_order_by
+  target_page_element_id: order_by
 }
 
 """
@@ -5157,12 +5189,17 @@ enum page_link_select_column {
   """
   column name
   """
-  source_element_id
+  source_component_element_id
 
   """
   column name
   """
-  target_element_id
+  source_page_element_id
+
+  """
+  column name
+  """
+  target_page_element_id
 }
 
 """
@@ -5173,8 +5210,9 @@ input page_link_set_input {
   order: Int
   page_id: uuid
   props: jsonb
-  source_element_id: uuid
-  target_element_id: uuid
+  source_component_element_id: uuid
+  source_page_element_id: uuid
+  target_page_element_id: uuid
 }
 
 """
@@ -5260,12 +5298,17 @@ enum page_link_update_column {
   """
   column name
   """
-  source_element_id
+  source_component_element_id
 
   """
   column name
   """
-  target_element_id
+  source_page_element_id
+
+  """
+  column name
+  """
+  target_page_element_id
 }
 
 """

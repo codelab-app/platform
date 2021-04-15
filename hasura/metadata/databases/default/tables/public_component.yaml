@@ -13,13 +13,6 @@ array_relationships:
       table:
         name: component_link
         schema: public
-- name: slots
-  using:
-    foreign_key_constraint_on:
-      column: component_id
-      table:
-        name: slot
-        schema: public
 delete_permissions:
 - permission:
     filter: {}

@@ -2,15 +2,12 @@ import { Empty, Tree } from 'antd'
 import React, { useContext } from 'react'
 import { AppContext, AtomType } from '@codelab/frontend/shared'
 import { PaneMainTemplate } from '@codelab/frontend/layout'
-import {
-  CytoscapeNodeType,
-  CytoscapeService,
-} from '@codelab/frontend/cytoscape'
+import { CytoscapeService } from '@codelab/frontend/cytoscape'
 import { DataNode } from 'antd/lib/tree'
 import { useBuilderSelectionState } from '@codelab/frontend/builder'
 
 export const PaneMainTree = () => {
-  const { setSelected, setHovering } = useBuilderSelectionState()
+  const { setSelected, setHovering, resetHovering } = useBuilderSelectionState()
 
   const { page } = useContext(AppContext)
 
@@ -36,25 +33,25 @@ export const PaneMainTree = () => {
           // defaultExpandedKeys={this.state.expandedKeys}
           blockNode
           onMouseEnter={({ node }) => {
-            if ((node as any).nodeType === CytoscapeNodeType.PageElement) {
-              setHovering((node as any).id)
-            }
+            setHovering({
+              pageElementId: (node as any).pageElementId,
+              componentElementId: (node as any).componentElementId,
+              nodeId: (node as any).id,
+            })
           }}
           onMouseLeave={({ node }) => {
-            if ((node as any).nodeType === CytoscapeNodeType.PageElement) {
-              setHovering(undefined)
-            }
+            resetHovering()
           }}
           onSelect={([id], { node }) => {
-            if ((node as any).nodeType === CytoscapeNodeType.PageElement) {
-              setSelected(id as string)
-            } else {
-              setSelected(undefined)
-            }
+            setSelected({
+              pageElementId: (node as any).pageElementId,
+              componentElementId: (node as any).componentElementId,
+              nodeId: (node as any).id,
+            })
           }}
           titleRender={(node) => {
             const label = (node as any).label
-            const type = (node as any).nodeType
+            const type = (node as any).type
 
             return (
               <>
