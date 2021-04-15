@@ -42,19 +42,19 @@ const nextConfig = withPlugins([
   [
     withLess,
     {
-      lessOptions: {
-        javascriptEnabled: true,
-      },
+      // lessOptions: {
+      //   javascriptEnabled: true,
+      // },
     },
   ],
   // [
   //   withCSS,
   //   {
-  //     cssModules: true,
-  //     cssLoaderOptions: {
-  //       importLoaders: 1,
-  //       localIdentName: '[local]___[hash:base64:5]',
-  //     },
+  //     // cssModules: true,
+  //     // cssLoaderOptions: {
+  //     //   importLoaders: 1,
+  //     //   localIdentName: '[local]___[hash:base64:5]',
+  //     // },
   //   },
   // ],
 ])

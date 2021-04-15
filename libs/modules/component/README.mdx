@@ -1,0 +1,42 @@
+---
+slug: '/modules/component'
+order: 1
+title: 'Component'
+---
+
+# Component Module
+
+![Component Module](/uploads/modules-component.png){width=400}
+
+## Atom
+
+The `Atom` is the fundamental building block of the web page.
+
+```typescript
+interface Atom {
+  type: AtomType
+}
+```
+
+It could be an HTML element,
+
+```typescript
+type AtomType = 'div' | 'p' | 'a' | 'h1'
+```
+
+or an Antd Design component.
+
+```typescript
+type AtomType = 'AntdButton' | 'AntdMenu'
+```
+
+The `admin` creates atoms for `users` to user, and the implementation of `atoms`.
+
+An `Atom` could have a predefined `Style`
+
+```typescript
+interface Atom {
+  // type: AtomType
+  styles: Array<Style>
+}
+```

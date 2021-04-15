@@ -1,7 +1,7 @@
-# frontend-user
+---
+slug: '/modules/user'
+order: 1
+title: 'User'
+---
 
-This library was generated with [Nx](https://nx.dev).
-
-## Running unit tests
-
-Run `nx test frontend-user` to execute the unit tests via [Jest](https://jestjs.io).
+# User Module

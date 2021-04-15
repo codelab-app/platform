@@ -1,11 +1,12 @@
 {
   "presets": [
-    "@babel/preset-react",
-    "@babel/preset-typescript",
-    "@babel/preset-env",
+    // "@babel/preset-react",
+    // "@babel/preset-typescript",
+    // "@babel/preset-env",
     // Don't use `@nrwl/next/babel`, has preset merging issues
-    "next/babel"
-    // "@nrwl/next/babel"
+    // "next/babel"
+    "@nrwl/next/babel",
+    "@emotion/babel-preset-css-prop"
     // [
     //   "@nrwl/next/babel",
     //   {
@@ -15,7 +16,7 @@
     // ]
   ],
   "plugins": [
-    ["relay", {}],
+    "@emotion",
     [
       "import",
       {
