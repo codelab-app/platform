@@ -1,13 +1,3 @@
-table:
-  name: page_element
-  schema: public
-object_relationships:
-- name: component
-  using:
-    foreign_key_constraint_on: component_id
-- name: page
-  using:
-    foreign_key_constraint_on: page_id
 array_relationships:
 - name: props
   using:
@@ -16,3 +6,46 @@ array_relationships:
       table:
         name: prop_element
         schema: public
+delete_permissions:
+- permission:
+    filter: {}
+  role: user
+insert_permissions:
+- permission:
+    check: {}
+    columns:
+    - name
+    - component_id
+    - id
+    - page_id
+  role: user
+object_relationships:
+- name: component
+  using:
+    foreign_key_constraint_on: component_id
+- name: page
+  using:
+    foreign_key_constraint_on: page_id
+select_permissions:
+- permission:
+    allow_aggregations: true
+    columns:
+    - id
+    - component_id
+    - page_id
+    - name
+    filter: {}
+  role: user
+table:
+  name: page_element
+  schema: public
+update_permissions:
+- permission:
+    check: null
+    columns:
+    - name
+    - component_id
+    - id
+    - page_id
+    filter: {}
+  role: user

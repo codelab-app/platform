@@ -1,4 +1,31 @@
+delete_permissions:
+- permission:
+    filter: {}
+  role: user
+insert_permissions:
+- permission:
+    backend_only: false
+    check: {}
+    columns:
+    - value
+    - description
+  role: user
+is_enum: true
+select_permissions:
+- permission:
+    columns:
+    - value
+    - description
+    filter: {}
+  role: user
 table:
   name: atom_type
   schema: public
-is_enum: true
+update_permissions:
+- permission:
+    check: {}
+    columns:
+    - value
+    - description
+    filter: {}
+  role: user

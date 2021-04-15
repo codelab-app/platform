@@ -39,6 +39,7 @@ app.use('*', async (baseReq, baseRes, next) => {
 
         proxyReq.setHeader('X-Hasura-User-Id', xHasuraUserId)
         proxyReq.setHeader('Authorization', `Bearer ${session.idToken}`)
+        // proxyReq.setHeader('x-hasura-admin-secret', process.env.HASURA_GRAPHQL_ADMIN_SECRET as string)
       }
 
       if (req.body) {

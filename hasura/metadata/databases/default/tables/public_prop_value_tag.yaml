@@ -1,3 +1,30 @@
+delete_permissions:
+- permission:
+    filter: {}
+  role: user
+insert_permissions:
+- permission:
+    backend_only: false
+    check: {}
+    columns:
+    - prop_value_id
+    - tag_id
+  role: user
+select_permissions:
+- permission:
+    columns:
+    - prop_value_id
+    - tag_id
+    filter: {}
+  role: user
 table:
   name: prop_value_tag
   schema: public
+update_permissions:
+- permission:
+    check: null
+    columns:
+    - prop_value_id
+    - tag_id
+    filter: {}
+  role: user
