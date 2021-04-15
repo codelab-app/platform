@@ -4,6 +4,7 @@
     "jsx": "preserve",
     "allowJs": true,
     "esModuleInterop": true,
+    "jsxImportSource": "@emotion/react",
     "allowSyntheticDefaultImports": true,
     "strict": false,
     "forceConsistentCasingInFileNames": true,

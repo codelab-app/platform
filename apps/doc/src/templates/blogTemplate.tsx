@@ -2,15 +2,14 @@ import React from 'react'
 import { Layout } from 'antd'
 import { graphql } from 'gatsby'
 import { MDXRenderer } from 'gatsby-plugin-mdx'
+import xw from 'xwind'
 import { css, Global } from '@emotion/react'
 import { SidebarMenu } from '../components/SidebarMenu'
 import { RecoilRoot } from 'recoil'
-import { defineCustomElements as deckDeckGoHighlightElement } from '@deckdeckgo/highlight-code/dist/loader'
 
-import '../styles/global.css'
+// import '../styles/global.css'
 import 'antd/dist/antd.less'
-
-deckDeckGoHighlightElement()
+// import 'prism-material-themes/themes/material-palenight.css'
 
 const { Content, Header, Footer, Sider } = Layout
 
@@ -24,6 +23,7 @@ export default function Template(props) {
   console.log(props)
 
   const { data, pageContext } = props
+
   const { mdx } = data // data.markdownRemark holds your post data
   const { frontmatter, body } = mdx
 
@@ -43,16 +43,19 @@ export default function Template(props) {
   return (
     <RecoilRoot>
       <Layout style={{ height: '100%' }}>
+        {/* <Helmet>
+          <link href="themes/material-default.css" rel="stylesheet" />
+        </Helmet> */}
         <Global
-          styles={css`
-            #___gatsby,
-            #gatsby-focus-wrapper {
-              height: 100%;
-            }
-            .carbon {
-              display: none !important;
-            }
-          `}
+          styles={{
+            ...xw`XWIND_BASE XWIND_GLOBAL`,
+            ...css`
+              #___gatsby,
+              #gatsby-focus-wrapper {
+                min-height: 100%;
+              }
+            `,
+          }}
         />
         <Sider theme="light">
           <SidebarMenu
@@ -60,9 +63,9 @@ export default function Template(props) {
             currentPathname={props.location.pathname}
           />
         </Sider>
-        <Layout>
+        <Layout css={xw`h-full`}>
           {/* <Header>Header</Header> */}
-          <Content>
+          <Content css={xw`p-4`}>
             <MDXRenderer>{body}</MDXRenderer>
             {/* <div dangerouslySetInnerHTML={{ __html: html }} /> */}
           </Content>

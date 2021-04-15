@@ -1,4 +1,12 @@
 const path = require('path')
+const lessToJS = require('less-vars-to-js')
+const fs = require('fs')
+
+const themeVariables = lessToJS(
+  fs.readFileSync(path.resolve(__dirname, './src/styles/antd.less'), 'utf8'),
+)
+
+console.log(themeVariables)
 
 module.exports = {
   siteMetadata: {
@@ -6,7 +14,70 @@ module.exports = {
     description: `This is a gatsby application created by Nx.`,
   },
   plugins: [
-    // User
+    // Add static assets before markdown files
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: 'uploads',
+        path: `${__dirname}/static/uploads`,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `images`,
+        path: `${__dirname}/src/images`,
+      },
+    },
+    // `gatsby-transformer-sharp`,
+    `gatsby-plugin-sharp`,
+    `gatsby-remark-images`,
+    {
+      resolve: `gatsby-plugin-mdx`,
+      options: {
+        extensions: ['.mdx', '.md'],
+        remarkPlugins: [
+          // require('remark-images'),
+        ],
+        gatsbyRemarkPlugins: [
+          // Relative to `static`
+          'gatsby-remark-normalize-paths',
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              // It's important to specify the maxWidth (in pixels) of
+              // the content container as this plugin uses this as the
+              // base for generating different widths of each image.
+              maxWidth: 480,
+            },
+          },
+          // Adds syntax highlighting to code blocks in markdown files using PrismJS
+          {
+            resolve: `gatsby-remark-prismjs`,
+            options: {
+              classPrefix: 'language-',
+              inlineCodeMarker: '`',
+              aliases: {},
+            },
+          },
+          // {
+          //   resolve: `gatsby-remark-highlight-code`,
+          //   options: {
+          //     // 'carbon' - macLike
+          //     // 'ubuntu'
+          //     // 'none'
+          //     // language: 'ts',
+          //     terminal: 'carbon',
+          //     theme: 'dracula',
+          //   },
+          // },
+          `gatsby-remark-attr`,
+          // {
+          //   resolve: `gatsby-transformer-remark`,
+          // },
+        ],
+      },
+    },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -15,29 +86,8 @@ module.exports = {
         ignore: ['**/*.ts{x}'],
       },
     },
-    {
-      resolve: `gatsby-plugin-mdx`,
-      options: {
-        extensions: ['.mdx', '.md'],
-        gatsbyRemarkPlugins: [
-          {
-            resolve: `gatsby-remark-highlight-code`,
-            options: {
-              // 'carbon' - macLike
-              // 'ubuntu'
-              // 'none'
-              language: 'ts',
-              terminal: 'carbon',
-              theme: 'dracula',
-            },
-          },
-          // {
-          //   resolve: `gatsby-transformer-remark`,
-          // },
-        ],
-      },
-    },
-    // `gatsby-transformer-remark`,
+
+    // https://github.com/bskimball/gatsby-plugin-antd/issues/2
     {
       resolve: `gatsby-plugin-less`,
       options: {
@@ -45,11 +95,11 @@ module.exports = {
         //   appendData: `@env: ${process.env.NODE_ENV};`,
         // },
         lessOptions: {
+          modifyVars: themeVariables,
           javascriptEnabled: true,
         },
       },
     },
-    // System
     'gatsby-plugin-emotion',
     {
       resolve: 'gatsby-plugin-svgr',
@@ -59,21 +109,12 @@ module.exports = {
       },
     },
     `gatsby-plugin-react-helmet`,
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `images`,
-        path: `${__dirname}/src/images`,
-      },
-    },
-    `gatsby-transformer-sharp`,
-    {
-      resolve: require.resolve(`@nrwl/gatsby/plugins/nx-gatsby-ext-plugin`),
-      options: {
-        path: __dirname,
-      },
-    },
-    `gatsby-plugin-sharp`,
+    // {
+    //   resolve: require.resolve(`@nrwl/gatsby/plugins/nx-gatsby-ext-plugin`),
+    //   options: {
+    //     path: __dirname,
+    //   },
+    // },
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
