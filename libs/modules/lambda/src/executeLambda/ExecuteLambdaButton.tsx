@@ -2,7 +2,7 @@ import { Button } from 'antd'
 import React from 'react'
 import { LambdaRecord } from '../getLambdas/LambdaRecord'
 import { useExecuteLambdaMutation } from '@codelab/hasura'
-import { createNotificationHandler } from '@codelab/frontend/shared';
+import { createNotificationHandler } from '@codelab/frontend/shared'
 
 export const ExecuteLambdaButton = (props: LambdaRecord) => {
   const [mutate] = useExecuteLambdaMutation({
@@ -22,10 +22,10 @@ export const ExecuteLambdaButton = (props: LambdaRecord) => {
       onClick={() => {
         mutate().then(({ data }) => {
           if (data) {
-             createNotificationHandler({
+            createNotificationHandler({
               type: 'info',
               title: 'Execute result',
-              content: JSON.stringify(data.executeLambda?.payload)
+              content: JSON.stringify(data.executeLambda?.payload),
             })()
             console.log(data.executeLambda?.payload)
           }

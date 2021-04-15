@@ -11,16 +11,16 @@ import {
 } from '@codelab/frontend/shared'
 import { useGetAppQuery } from '@codelab/hasura'
 import { Spin } from 'antd'
-import { AutoFields } from 'uniforms-antd';
-import { useRecoilState } from 'recoil';
-import { appState } from '../state';
+import { AutoFields } from 'uniforms-antd'
+import { useRecoilState } from 'recoil'
+import { appState } from '../state'
 
 export const UpdateAppForm = (props: UniFormUseCaseProps<UpdateAppInput>) => {
   const { reset, setLoading, state } = useCRUDModalForm(EntityType.App)
   const { id: appId } = state
   const [, setAppState] = useRecoilState(appState)
 
-  const [mutate, {loading: updateAppLoading}] = useEditAppMutation({
+  const [mutate, { loading: updateAppLoading }] = useEditAppMutation({
     awaitRefetchQueries: true,
     refetchQueries: [
       {
@@ -48,10 +48,11 @@ export const UpdateAppForm = (props: UniFormUseCaseProps<UpdateAppInput>) => {
 
   const onSubmit = (submitData: DeepPartial<UpdateAppInput>) => {
     // Because fragments are used, useGetAppQuery returns some fields which cannot be passed to the update app mutation
-    const editedData = {...submitData} as any
+    const editedData = { ...submitData } as any
     delete editedData['pages']
     delete editedData['__typename']
     delete editedData['user_id']
+
     return mutate({
       variables: {
         input: {

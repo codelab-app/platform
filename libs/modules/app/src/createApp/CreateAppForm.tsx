@@ -7,10 +7,12 @@ import { CreateAppInput, createAppSchema } from './createAppSchema'
 import {
   FormUniforms,
   UniFormUseCaseProps,
-  createNotificationHandler, useCRUDModalForm, EntityType,
+  createNotificationHandler,
+  useCRUDModalForm,
+  EntityType,
 } from '@codelab/frontend/shared'
 import { useUser } from '@auth0/nextjs-auth0'
-import { AutoFields } from 'uniforms-antd';
+import { AutoFields } from 'uniforms-antd'
 
 export const CreateAppForm = (props: UniFormUseCaseProps<CreateAppInput>) => {
   const { reset, setLoading } = useCRUDModalForm(EntityType.App)

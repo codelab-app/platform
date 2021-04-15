@@ -9,7 +9,7 @@ import {
 import { GetLibrariesListGql, useCreateLibraryMutation } from '@codelab/hasura'
 import { createLibrarySchema, CreateLibraryInput } from './createLibrarySchema'
 import { DeepPartial } from 'uniforms'
-import { AutoFields } from 'uniforms-antd';
+import { AutoFields } from 'uniforms-antd'
 
 type CreateLibraryFormProps = UniFormUseCaseProps<CreateLibraryInput>
 
