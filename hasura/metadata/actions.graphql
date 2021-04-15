@@ -1,14 +1,21 @@
 type Mutation {
-  executeLambda(lambda: LambdaInput!, payload: String!): LambdaOutput
+  executeLambda (
+    lambda: LambdaInput!
+    payload: String!
+  ): LambdaOutput
 }
 
+
+
+
 input LambdaInput {
-  id: String!
-  library_id: String
-  name: String
-  body: String
+  id : String!
+  library_id : String
+  name : String
+  body : String
 }
 
 type LambdaOutput {
-  payload: String!
+  payload : String!
 }
+

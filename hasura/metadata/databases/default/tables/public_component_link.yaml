@@ -1,3 +1,45 @@
+delete_permissions:
+- permission:
+    filter: {}
+  role: user
+insert_permissions:
+- permission:
+    backend_only: false
+    check: {}
+    columns:
+    - id
+    - props
+    - order
+    - component_id
+    - source_element_id
+    - target_element_id
+    - category_id
+  role: user
+select_permissions:
+- permission:
+    columns:
+    - id
+    - props
+    - order
+    - component_id
+    - source_element_id
+    - target_element_id
+    - category_id
+    filter: {}
+  role: user
 table:
   name: component_link
   schema: public
+update_permissions:
+- permission:
+    check: {}
+    columns:
+    - id
+    - props
+    - order
+    - component_id
+    - source_element_id
+    - target_element_id
+    - category_id
+    filter: {}
+  role: user

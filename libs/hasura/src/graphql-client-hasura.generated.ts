@@ -882,6 +882,10 @@ export type Component = {
   links: Array<Component_Link>
   /** An aggregate relationship */
   links_aggregate: Component_Link_Aggregate
+  /** An array relationship */
+  slots: Array<Slot>
+  /** An aggregate relationship */
+  slots_aggregate: Slot_Aggregate
 }
 
 /** columns and relationships of "component" */
@@ -920,6 +924,24 @@ export type ComponentLinks_AggregateArgs = {
   where?: Maybe<Component_Link_Bool_Exp>
 }
 
+/** columns and relationships of "component" */
+export type ComponentSlotsArgs = {
+  distinct_on?: Maybe<Array<Slot_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<Slot_Order_By>>
+  where?: Maybe<Slot_Bool_Exp>
+}
+
+/** columns and relationships of "component" */
+export type ComponentSlots_AggregateArgs = {
+  distinct_on?: Maybe<Array<Slot_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<Slot_Order_By>>
+  where?: Maybe<Slot_Bool_Exp>
+}
+
 /** aggregated selection of "component" */
 export type Component_Aggregate = {
   __typename?: 'component_aggregate'
@@ -952,6 +974,7 @@ export type Component_Bool_Exp = {
   library?: Maybe<Library_Bool_Exp>
   library_id?: Maybe<Uuid_Comparison_Exp>
   links?: Maybe<Component_Link_Bool_Exp>
+  slots?: Maybe<Slot_Bool_Exp>
 }
 
 /** unique or primary key constraints on table "component" */
@@ -1080,6 +1103,13 @@ export type Component_Element_Mutation_Response = {
   returning: Array<Component_Element>
 }
 
+/** input type for inserting object relation for remote table "component_element" */
+export type Component_Element_Obj_Rel_Insert_Input = {
+  data: Component_Element_Insert_Input
+  /** on conflict condition */
+  on_conflict?: Maybe<Component_Element_On_Conflict>
+}
+
 /** on conflict condition type for table "component_element" */
 export type Component_Element_On_Conflict = {
   constraint: Component_Element_Constraint
@@ -1142,6 +1172,7 @@ export type Component_Insert_Input = {
   library?: Maybe<Library_Obj_Rel_Insert_Input>
   library_id?: Maybe<Scalars['uuid']>
   links?: Maybe<Component_Link_Arr_Rel_Insert_Input>
+  slots?: Maybe<Slot_Arr_Rel_Insert_Input>
 }
 
 /** columns and relationships of "component_link" */
@@ -1529,6 +1560,7 @@ export type Component_Order_By = {
   library?: Maybe<Library_Order_By>
   library_id?: Maybe<Order_By>
   links_aggregate?: Maybe<Component_Link_Aggregate_Order_By>
+  slots_aggregate?: Maybe<Slot_Aggregate_Order_By>
 }
 
 /** primary key columns input for table: component */
@@ -1929,6 +1961,10 @@ export type Mutation_Root = {
   delete_prop_value_type?: Maybe<Prop_Value_Type_Mutation_Response>
   /** delete single row from the table: "prop_value_type" */
   delete_prop_value_type_by_pk?: Maybe<Prop_Value_Type>
+  /** delete data from the table: "slot" */
+  delete_slot?: Maybe<Slot_Mutation_Response>
+  /** delete single row from the table: "slot" */
+  delete_slot_by_pk?: Maybe<Slot>
   /** delete data from the table: "style" */
   delete_style?: Maybe<Style_Mutation_Response>
   /** delete single row from the table: "style" */
@@ -2014,6 +2050,10 @@ export type Mutation_Root = {
   insert_prop_value_type?: Maybe<Prop_Value_Type_Mutation_Response>
   /** insert a single row into the table: "prop_value_type" */
   insert_prop_value_type_one?: Maybe<Prop_Value_Type>
+  /** insert data into the table: "slot" */
+  insert_slot?: Maybe<Slot_Mutation_Response>
+  /** insert a single row into the table: "slot" */
+  insert_slot_one?: Maybe<Slot>
   /** insert data into the table: "style" */
   insert_style?: Maybe<Style_Mutation_Response>
   /** insert a single row into the table: "style" */
@@ -2098,6 +2138,10 @@ export type Mutation_Root = {
   update_prop_value_type?: Maybe<Prop_Value_Type_Mutation_Response>
   /** update single row of the table: "prop_value_type" */
   update_prop_value_type_by_pk?: Maybe<Prop_Value_Type>
+  /** update data of the table: "slot" */
+  update_slot?: Maybe<Slot_Mutation_Response>
+  /** update single row of the table: "slot" */
+  update_slot_by_pk?: Maybe<Slot>
   /** update data of the table: "style" */
   update_style?: Maybe<Style_Mutation_Response>
   /** update single row of the table: "style" */
@@ -2292,6 +2336,16 @@ export type Mutation_RootDelete_Prop_Value_TypeArgs = {
 /** mutation root */
 export type Mutation_RootDelete_Prop_Value_Type_By_PkArgs = {
   value: Scalars['String']
+}
+
+/** mutation root */
+export type Mutation_RootDelete_SlotArgs = {
+  where: Slot_Bool_Exp
+}
+
+/** mutation root */
+export type Mutation_RootDelete_Slot_By_PkArgs = {
+  id: Scalars['uuid']
 }
 
 /** mutation root */
@@ -2544,6 +2598,18 @@ export type Mutation_RootInsert_Prop_Value_TypeArgs = {
 export type Mutation_RootInsert_Prop_Value_Type_OneArgs = {
   object: Prop_Value_Type_Insert_Input
   on_conflict?: Maybe<Prop_Value_Type_On_Conflict>
+}
+
+/** mutation root */
+export type Mutation_RootInsert_SlotArgs = {
+  objects: Array<Slot_Insert_Input>
+  on_conflict?: Maybe<Slot_On_Conflict>
+}
+
+/** mutation root */
+export type Mutation_RootInsert_Slot_OneArgs = {
+  object: Slot_Insert_Input
+  on_conflict?: Maybe<Slot_On_Conflict>
 }
 
 /** mutation root */
@@ -2820,6 +2886,18 @@ export type Mutation_RootUpdate_Prop_Value_TypeArgs = {
 export type Mutation_RootUpdate_Prop_Value_Type_By_PkArgs = {
   _set?: Maybe<Prop_Value_Type_Set_Input>
   pk_columns: Prop_Value_Type_Pk_Columns_Input
+}
+
+/** mutation root */
+export type Mutation_RootUpdate_SlotArgs = {
+  _set?: Maybe<Slot_Set_Input>
+  where: Slot_Bool_Exp
+}
+
+/** mutation root */
+export type Mutation_RootUpdate_Slot_By_PkArgs = {
+  _set?: Maybe<Slot_Set_Input>
+  pk_columns: Slot_Pk_Columns_Input
 }
 
 /** mutation root */
@@ -4533,6 +4611,12 @@ export type Query_Root = {
   prop_value_type_aggregate: Prop_Value_Type_Aggregate
   /** fetch data from the table: "prop_value_type" using primary key columns */
   prop_value_type_by_pk?: Maybe<Prop_Value_Type>
+  /** fetch data from the table: "slot" */
+  slot: Array<Slot>
+  /** fetch aggregated fields from the table: "slot" */
+  slot_aggregate: Slot_Aggregate
+  /** fetch data from the table: "slot" using primary key columns */
+  slot_by_pk?: Maybe<Slot>
   /** fetch data from the table: "style" */
   style: Array<Style>
   /** fetch aggregated fields from the table: "style" */
@@ -4933,6 +5017,26 @@ export type Query_RootProp_Value_Type_By_PkArgs = {
   value: Scalars['String']
 }
 
+export type Query_RootSlotArgs = {
+  distinct_on?: Maybe<Array<Slot_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<Slot_Order_By>>
+  where?: Maybe<Slot_Bool_Exp>
+}
+
+export type Query_RootSlot_AggregateArgs = {
+  distinct_on?: Maybe<Array<Slot_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<Slot_Order_By>>
+  where?: Maybe<Slot_Bool_Exp>
+}
+
+export type Query_RootSlot_By_PkArgs = {
+  id: Scalars['uuid']
+}
+
 export type Query_RootStyleArgs = {
   distinct_on?: Maybe<Array<Style_Select_Column>>
   limit?: Maybe<Scalars['Int']>
@@ -4991,6 +5095,193 @@ export type Query_RootUser_AggregateArgs = {
 
 export type Query_RootUser_By_PkArgs = {
   id: Scalars['String']
+}
+
+/** columns and relationships of "slot" */
+export type Slot = {
+  __typename?: 'slot'
+  /** An object relationship */
+  component: Component
+  component_id: Scalars['uuid']
+  id: Scalars['uuid']
+  key: Scalars['String']
+  /** An object relationship */
+  target_element: Component_Element
+  target_element_id: Scalars['uuid']
+  user_id: Scalars['String']
+}
+
+/** aggregated selection of "slot" */
+export type Slot_Aggregate = {
+  __typename?: 'slot_aggregate'
+  aggregate?: Maybe<Slot_Aggregate_Fields>
+  nodes: Array<Slot>
+}
+
+/** aggregate fields of "slot" */
+export type Slot_Aggregate_Fields = {
+  __typename?: 'slot_aggregate_fields'
+  count: Scalars['Int']
+  max?: Maybe<Slot_Max_Fields>
+  min?: Maybe<Slot_Min_Fields>
+}
+
+/** aggregate fields of "slot" */
+export type Slot_Aggregate_FieldsCountArgs = {
+  columns?: Maybe<Array<Slot_Select_Column>>
+  distinct?: Maybe<Scalars['Boolean']>
+}
+
+/** order by aggregate values of table "slot" */
+export type Slot_Aggregate_Order_By = {
+  count?: Maybe<Order_By>
+  max?: Maybe<Slot_Max_Order_By>
+  min?: Maybe<Slot_Min_Order_By>
+}
+
+/** input type for inserting array relation for remote table "slot" */
+export type Slot_Arr_Rel_Insert_Input = {
+  data: Array<Slot_Insert_Input>
+  /** on conflict condition */
+  on_conflict?: Maybe<Slot_On_Conflict>
+}
+
+/** Boolean expression to filter rows from the table "slot". All fields are combined with a logical 'AND'. */
+export type Slot_Bool_Exp = {
+  _and?: Maybe<Array<Slot_Bool_Exp>>
+  _not?: Maybe<Slot_Bool_Exp>
+  _or?: Maybe<Array<Slot_Bool_Exp>>
+  component?: Maybe<Component_Bool_Exp>
+  component_id?: Maybe<Uuid_Comparison_Exp>
+  id?: Maybe<Uuid_Comparison_Exp>
+  key?: Maybe<String_Comparison_Exp>
+  target_element?: Maybe<Component_Element_Bool_Exp>
+  target_element_id?: Maybe<Uuid_Comparison_Exp>
+  user_id?: Maybe<String_Comparison_Exp>
+}
+
+/** unique or primary key constraints on table "slot" */
+export enum Slot_Constraint {
+  /** unique or primary key constraint */
+  SlotPkey = 'slot_pkey',
+}
+
+/** input type for inserting data into table "slot" */
+export type Slot_Insert_Input = {
+  component?: Maybe<Component_Obj_Rel_Insert_Input>
+  component_id?: Maybe<Scalars['uuid']>
+  id?: Maybe<Scalars['uuid']>
+  key?: Maybe<Scalars['String']>
+  target_element?: Maybe<Component_Element_Obj_Rel_Insert_Input>
+  target_element_id?: Maybe<Scalars['uuid']>
+  user_id?: Maybe<Scalars['String']>
+}
+
+/** aggregate max on columns */
+export type Slot_Max_Fields = {
+  __typename?: 'slot_max_fields'
+  component_id?: Maybe<Scalars['uuid']>
+  id?: Maybe<Scalars['uuid']>
+  key?: Maybe<Scalars['String']>
+  target_element_id?: Maybe<Scalars['uuid']>
+  user_id?: Maybe<Scalars['String']>
+}
+
+/** order by max() on columns of table "slot" */
+export type Slot_Max_Order_By = {
+  component_id?: Maybe<Order_By>
+  id?: Maybe<Order_By>
+  key?: Maybe<Order_By>
+  target_element_id?: Maybe<Order_By>
+  user_id?: Maybe<Order_By>
+}
+
+/** aggregate min on columns */
+export type Slot_Min_Fields = {
+  __typename?: 'slot_min_fields'
+  component_id?: Maybe<Scalars['uuid']>
+  id?: Maybe<Scalars['uuid']>
+  key?: Maybe<Scalars['String']>
+  target_element_id?: Maybe<Scalars['uuid']>
+  user_id?: Maybe<Scalars['String']>
+}
+
+/** order by min() on columns of table "slot" */
+export type Slot_Min_Order_By = {
+  component_id?: Maybe<Order_By>
+  id?: Maybe<Order_By>
+  key?: Maybe<Order_By>
+  target_element_id?: Maybe<Order_By>
+  user_id?: Maybe<Order_By>
+}
+
+/** response of any mutation on the table "slot" */
+export type Slot_Mutation_Response = {
+  __typename?: 'slot_mutation_response'
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']
+  /** data from the rows affected by the mutation */
+  returning: Array<Slot>
+}
+
+/** on conflict condition type for table "slot" */
+export type Slot_On_Conflict = {
+  constraint: Slot_Constraint
+  update_columns: Array<Slot_Update_Column>
+  where?: Maybe<Slot_Bool_Exp>
+}
+
+/** Ordering options when selecting data from "slot". */
+export type Slot_Order_By = {
+  component?: Maybe<Component_Order_By>
+  component_id?: Maybe<Order_By>
+  id?: Maybe<Order_By>
+  key?: Maybe<Order_By>
+  target_element?: Maybe<Component_Element_Order_By>
+  target_element_id?: Maybe<Order_By>
+  user_id?: Maybe<Order_By>
+}
+
+/** primary key columns input for table: slot */
+export type Slot_Pk_Columns_Input = {
+  id: Scalars['uuid']
+}
+
+/** select columns of table "slot" */
+export enum Slot_Select_Column {
+  /** column name */
+  ComponentId = 'component_id',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Key = 'key',
+  /** column name */
+  TargetElementId = 'target_element_id',
+  /** column name */
+  UserId = 'user_id',
+}
+
+/** input type for updating data in table "slot" */
+export type Slot_Set_Input = {
+  component_id?: Maybe<Scalars['uuid']>
+  id?: Maybe<Scalars['uuid']>
+  key?: Maybe<Scalars['String']>
+  target_element_id?: Maybe<Scalars['uuid']>
+  user_id?: Maybe<Scalars['String']>
+}
+
+/** update columns of table "slot" */
+export enum Slot_Update_Column {
+  /** column name */
+  ComponentId = 'component_id',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Key = 'key',
+  /** column name */
+  TargetElementId = 'target_element_id',
+  /** column name */
+  UserId = 'user_id',
 }
 
 /** columns and relationships of "style" */
@@ -5230,6 +5521,12 @@ export type Subscription_Root = {
   prop_value_type_aggregate: Prop_Value_Type_Aggregate
   /** fetch data from the table: "prop_value_type" using primary key columns */
   prop_value_type_by_pk?: Maybe<Prop_Value_Type>
+  /** fetch data from the table: "slot" */
+  slot: Array<Slot>
+  /** fetch aggregated fields from the table: "slot" */
+  slot_aggregate: Slot_Aggregate
+  /** fetch data from the table: "slot" using primary key columns */
+  slot_by_pk?: Maybe<Slot>
   /** fetch data from the table: "style" */
   style: Array<Style>
   /** fetch aggregated fields from the table: "style" */
@@ -5628,6 +5925,26 @@ export type Subscription_RootProp_Value_Type_AggregateArgs = {
 
 export type Subscription_RootProp_Value_Type_By_PkArgs = {
   value: Scalars['String']
+}
+
+export type Subscription_RootSlotArgs = {
+  distinct_on?: Maybe<Array<Slot_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<Slot_Order_By>>
+  where?: Maybe<Slot_Bool_Exp>
+}
+
+export type Subscription_RootSlot_AggregateArgs = {
+  distinct_on?: Maybe<Array<Slot_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<Slot_Order_By>>
+  where?: Maybe<Slot_Bool_Exp>
+}
+
+export type Subscription_RootSlot_By_PkArgs = {
+  id: Scalars['uuid']
 }
 
 export type Subscription_RootStyleArgs = {

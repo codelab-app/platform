@@ -1309,6 +1309,91 @@ type component implements Node {
     """
     where: component_link_bool_exp
   ): component_linkConnection!
+
+  """
+  An array relationship
+  """
+  slots(
+    """
+    distinct select on columns
+    """
+    distinct_on: [slot_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [slot_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: slot_bool_exp
+  ): [slot!]!
+
+  """
+  An aggregate relationship
+  """
+  slots_aggregate(
+    """
+    distinct select on columns
+    """
+    distinct_on: [slot_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [slot_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: slot_bool_exp
+  ): slot_aggregate!
+
+  """
+  An array relationship connection
+  """
+  slots_connection(
+    after: String
+    before: String
+
+    """
+    distinct select on columns
+    """
+    distinct_on: [slot_select_column!]
+    first: Int
+    last: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [slot_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: slot_bool_exp
+  ): slotConnection!
 }
 
 """
@@ -1337,6 +1422,7 @@ input component_bool_exp {
   library: library_bool_exp
   library_id: uuid_comparison_exp
   links: component_link_bool_exp
+  slots: slot_bool_exp
 }
 
 """
@@ -1512,6 +1598,18 @@ type component_element_mutation_response {
 }
 
 """
+input type for inserting object relation for remote table "component_element"
+"""
+input component_element_obj_rel_insert_input {
+  data: component_element_insert_input!
+
+  """
+  on conflict condition
+  """
+  on_conflict: component_element_on_conflict
+}
+
+"""
 on conflict condition type for table "component_element"
 """
 input component_element_on_conflict {
@@ -1609,6 +1707,7 @@ input component_insert_input {
   library: library_obj_rel_insert_input
   library_id: uuid
   links: component_link_arr_rel_insert_input
+  slots: slot_arr_rel_insert_input
 }
 
 """
@@ -2120,6 +2219,7 @@ input component_order_by {
   library: library_order_by
   library_id: order_by
   links_aggregate: component_link_aggregate_order_by
+  slots_aggregate: slot_aggregate_order_by
 }
 
 """
@@ -2814,6 +2914,21 @@ type mutation_root {
   delete_prop_value_type_by_pk(value: String!): prop_value_type
 
   """
+  delete data from the table: "slot"
+  """
+  delete_slot(
+    """
+    filter the rows which have to be deleted
+    """
+    where: slot_bool_exp!
+  ): slot_mutation_response
+
+  """
+  delete single row from the table: "slot"
+  """
+  delete_slot_by_pk(id: uuid!): slot
+
+  """
   delete data from the table: "style"
   """
   delete_style(
@@ -3398,6 +3513,36 @@ type mutation_root {
     """
     on_conflict: prop_value_type_on_conflict
   ): prop_value_type
+
+  """
+  insert data into the table: "slot"
+  """
+  insert_slot(
+    """
+    the rows to be inserted
+    """
+    objects: [slot_insert_input!]!
+
+    """
+    on conflict condition
+    """
+    on_conflict: slot_on_conflict
+  ): slot_mutation_response
+
+  """
+  insert a single row into the table: "slot"
+  """
+  insert_slot_one(
+    """
+    the row to be inserted
+    """
+    object: slot_insert_input!
+
+    """
+    on conflict condition
+    """
+    on_conflict: slot_on_conflict
+  ): slot
 
   """
   insert data into the table: "style"
@@ -4076,6 +4221,32 @@ type mutation_root {
     _set: prop_value_type_set_input
     pk_columns: prop_value_type_pk_columns_input!
   ): prop_value_type
+
+  """
+  update data of the table: "slot"
+  """
+  update_slot(
+    """
+    sets the columns of the filtered rows to the given values
+    """
+    _set: slot_set_input
+
+    """
+    filter the rows which have to be updated
+    """
+    where: slot_bool_exp!
+  ): slot_mutation_response
+
+  """
+  update single row of the table: "slot"
+  """
+  update_slot_by_pk(
+    """
+    sets the columns of the filtered rows to the given values
+    """
+    _set: slot_set_input
+    pk_columns: slot_pk_columns_input!
+  ): slot
 
   """
   update data of the table: "style"
@@ -7042,6 +7213,31 @@ type query_root {
   ): prop_value_typeConnection!
 
   """
+  fetch data from the table: "slot"
+  """
+  slot_connection(
+    after: String
+    before: String
+
+    """
+    distinct select on columns
+    """
+    distinct_on: [slot_select_column!]
+    first: Int
+    last: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [slot_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: slot_bool_exp
+  ): slotConnection!
+
+  """
   fetch data from the table: "style"
   """
   style_connection(
@@ -7115,6 +7311,275 @@ type query_root {
     """
     where: user_bool_exp
   ): userConnection!
+}
+
+"""
+columns and relationships of "slot"
+"""
+type slot implements Node {
+  """
+  An object relationship
+  """
+  component: component!
+  component_id: uuid!
+  id: ID!
+  key: String!
+
+  """
+  An object relationship
+  """
+  target_element: component_element!
+  target_element_id: uuid!
+  user_id: String!
+}
+
+"""
+A Relay connection object on "slot"
+"""
+type slotConnection {
+  edges: [slotEdge!]!
+  pageInfo: PageInfo!
+}
+
+type slotEdge {
+  cursor: String!
+  node: slot!
+}
+
+"""
+aggregated selection of "slot"
+"""
+type slot_aggregate {
+  aggregate: slot_aggregate_fields
+  nodes: [slot!]!
+}
+
+"""
+aggregate fields of "slot"
+"""
+type slot_aggregate_fields {
+  count(columns: [slot_select_column!], distinct: Boolean): Int!
+  max: slot_max_fields
+  min: slot_min_fields
+}
+
+"""
+order by aggregate values of table "slot"
+"""
+input slot_aggregate_order_by {
+  count: order_by
+  max: slot_max_order_by
+  min: slot_min_order_by
+}
+
+"""
+input type for inserting array relation for remote table "slot"
+"""
+input slot_arr_rel_insert_input {
+  data: [slot_insert_input!]!
+
+  """
+  on conflict condition
+  """
+  on_conflict: slot_on_conflict
+}
+
+"""
+Boolean expression to filter rows from the table "slot". All fields are combined with a logical 'AND'.
+"""
+input slot_bool_exp {
+  _and: [slot_bool_exp!]
+  _not: slot_bool_exp
+  _or: [slot_bool_exp!]
+  component: component_bool_exp
+  component_id: uuid_comparison_exp
+  id: uuid_comparison_exp
+  key: String_comparison_exp
+  target_element: component_element_bool_exp
+  target_element_id: uuid_comparison_exp
+  user_id: String_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "slot"
+"""
+enum slot_constraint {
+  """
+  unique or primary key constraint
+  """
+  slot_pkey
+}
+
+"""
+input type for inserting data into table "slot"
+"""
+input slot_insert_input {
+  component: component_obj_rel_insert_input
+  component_id: uuid
+  id: uuid
+  key: String
+  target_element: component_element_obj_rel_insert_input
+  target_element_id: uuid
+  user_id: String
+}
+
+"""
+aggregate max on columns
+"""
+type slot_max_fields {
+  component_id: uuid
+  id: uuid
+  key: String
+  target_element_id: uuid
+  user_id: String
+}
+
+"""
+order by max() on columns of table "slot"
+"""
+input slot_max_order_by {
+  component_id: order_by
+  id: order_by
+  key: order_by
+  target_element_id: order_by
+  user_id: order_by
+}
+
+"""
+aggregate min on columns
+"""
+type slot_min_fields {
+  component_id: uuid
+  id: uuid
+  key: String
+  target_element_id: uuid
+  user_id: String
+}
+
+"""
+order by min() on columns of table "slot"
+"""
+input slot_min_order_by {
+  component_id: order_by
+  id: order_by
+  key: order_by
+  target_element_id: order_by
+  user_id: order_by
+}
+
+"""
+response of any mutation on the table "slot"
+"""
+type slot_mutation_response {
+  """
+  number of rows affected by the mutation
+  """
+  affected_rows: Int!
+
+  """
+  data from the rows affected by the mutation
+  """
+  returning: [slot!]!
+}
+
+"""
+on conflict condition type for table "slot"
+"""
+input slot_on_conflict {
+  constraint: slot_constraint!
+  update_columns: [slot_update_column!]!
+  where: slot_bool_exp
+}
+
+"""
+Ordering options when selecting data from "slot".
+"""
+input slot_order_by {
+  component: component_order_by
+  component_id: order_by
+  id: order_by
+  key: order_by
+  target_element: component_element_order_by
+  target_element_id: order_by
+  user_id: order_by
+}
+
+"""
+primary key columns input for table: slot
+"""
+input slot_pk_columns_input {
+  id: uuid!
+}
+
+"""
+select columns of table "slot"
+"""
+enum slot_select_column {
+  """
+  column name
+  """
+  component_id
+
+  """
+  column name
+  """
+  id
+
+  """
+  column name
+  """
+  key
+
+  """
+  column name
+  """
+  target_element_id
+
+  """
+  column name
+  """
+  user_id
+}
+
+"""
+input type for updating data in table "slot"
+"""
+input slot_set_input {
+  component_id: uuid
+  id: uuid
+  key: String
+  target_element_id: uuid
+  user_id: String
+}
+
+"""
+update columns of table "slot"
+"""
+enum slot_update_column {
+  """
+  column name
+  """
+  component_id
+
+  """
+  column name
+  """
+  id
+
+  """
+  column name
+  """
+  key
+
+  """
+  column name
+  """
+  target_element_id
+
+  """
+  column name
+  """
+  user_id
 }
 
 """
@@ -7745,6 +8210,31 @@ type subscription_root {
     """
     where: prop_value_type_bool_exp
   ): prop_value_typeConnection!
+
+  """
+  fetch data from the table: "slot"
+  """
+  slot_connection(
+    after: String
+    before: String
+
+    """
+    distinct select on columns
+    """
+    distinct_on: [slot_select_column!]
+    first: Int
+    last: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [slot_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: slot_bool_exp
+  ): slotConnection!
 
   """
   fetch data from the table: "style"

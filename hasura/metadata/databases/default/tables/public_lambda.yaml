@@ -1,10 +1,11 @@
-table:
-  name: lambda
-  schema: public
 configuration:
   custom_column_names:
     library_id: libraryId
   custom_root_fields: {}
+delete_permissions:
+- permission:
+    filter: {}
+  role: user
 event_triggers:
 - definition:
     enable_manual: false
@@ -40,6 +41,35 @@ event_triggers:
     num_retries: 0
     timeout_sec: 60
   webhook: http://0ee210e5d0a4.ngrok.io/lambda/update
+insert_permissions:
+- permission:
+    backend_only: false
+    check: {}
+    columns:
+    - id
+    - name
+    - body
+    - library_id
+  role: user
+select_permissions:
+- permission:
+    columns:
+    - body
+    - name
+    - id
+    - library_id
+    filter: {}
+  role: user
 table:
   name: lambda
   schema: public
+update_permissions:
+- permission:
+    check: {}
+    columns:
+    - body
+    - name
+    - id
+    - library_id
+    filter: {}
+  role: user

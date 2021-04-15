@@ -59,7 +59,7 @@ export const DeleteAppForm = (props: DeleteAppFormProps) => {
       onSubmitSuccess={() => reset()}
       {...props}
     >
-      <h4>Are you sure you want to delete atom "{app?.name}"?</h4>
+      <h4>Are you sure you want to delete app "{app?.name}"?</h4>
       <AutoFields />
     </FormUniforms>
   )

@@ -1,18 +1,13 @@
-import { Button, Col, Empty, Row, Spin } from 'antd'
 import React from 'react'
-import { useGetAppsListForUserQuery } from '@codelab/hasura'
+import { Button, Col, Empty, Row, Spin } from 'antd'
+import { useGetAppsListQuery } from '@codelab/hasura'
 import { padding, threeGridCol } from '@codelab/frontend/style'
 import { GetAppsItem } from './GetAppsItem'
-import { useUser } from '@auth0/nextjs-auth0'
 import { EntityType, useCRUDModalForm } from '@codelab/frontend/shared'
 
 export const GetAppsList = () => {
-  const { user: currentUser } = useUser()
-  const { loading, data } = useGetAppsListForUserQuery({
-    variables: {
-      userId: currentUser?.sub as string,
-    },
-  })
+  const { loading, data } = useGetAppsListQuery()
+
   const {
     openDeleteModal,
     openUpdateModal,

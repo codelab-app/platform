@@ -6,10 +6,10 @@ import {
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import { useUser } from '@auth0/nextjs-auth0'
 import { GetLibrariesListGql, useCreateLibraryMutation } from '@codelab/hasura'
 import { createLibrarySchema, CreateLibraryInput } from './createLibrarySchema'
 import { DeepPartial } from 'uniforms'
+import { AutoFields } from 'uniforms-antd'
 
 type CreateLibraryFormProps = UniFormUseCaseProps<CreateLibraryInput>
 
@@ -29,13 +29,11 @@ export const CreateLibraryForm = ({ ...props }: CreateLibraryFormProps) => {
     setLoading(creating)
   }, [creating])
 
-  const userId = useUser().user?.sub
   const onSubmit = (submitData: DeepPartial<CreateLibraryInput>) => {
     return mutate({
       variables: {
         data: {
           ...(submitData as any),
-          user_id: userId,
         },
       },
     })
@@ -50,6 +48,8 @@ export const CreateLibraryForm = ({ ...props }: CreateLibraryFormProps) => {
       })}
       onSubmitSuccess={() => reset()}
       {...props}
-    />
+    >
+      <AutoFields />
+    </FormUniforms>
   )
 }
