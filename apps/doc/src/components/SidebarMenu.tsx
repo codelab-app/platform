@@ -24,12 +24,20 @@ export const SidebarMenu = (props: SidebarMenuProps) => {
   /**
    * Group by top-level menu item
    */
-  const groupedMenu = groupBy(props.pages, (args) => {
-    const { title, slug } = args
-    const component = slug.split('/')[2]
+  const groupedMenu = groupBy(
+    /**
+     * Only show pages with either `order` or `suborder`, to hide a page, comment out those values in README.md
+     */
+    props.pages.filter((page) => {
+      return typeof page.order === 'number' || typeof page.suborder === 'number'
+    }),
+    (args) => {
+      const { title, slug } = args
+      const component = slug.split('/')[2]
 
-    return component
-  })
+      return component
+    },
+  )
 
   return (
     <Menu
@@ -43,8 +51,6 @@ export const SidebarMenu = (props: SidebarMenuProps) => {
            * Top level menu is determined by slug size, number of `/` separators
            */
           const topLevel = vals.filter((val) => {
-            console.log(val.slug.split('/'))
-
             return val.slug.split('/').length <= 4
           })[0]
 
