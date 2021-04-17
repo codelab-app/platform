@@ -19,8 +19,6 @@
 
 - `yarn codegen` after you update `.graphql` files to get generate Apollo hooks
 
-- `yarn relay` to generate Relay related files
-
 ### Hasura
 
 We shouldn't access Hasura dashboard from `https://cloud.hasura.io/`, but instead through a localhost console using

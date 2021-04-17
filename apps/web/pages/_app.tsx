@@ -11,12 +11,8 @@ import { useApollo } from '@codelab/frontend/apollo'
 import '../src/styles/App.less'
 
 const AppContainer = ({ pageProps, Component, router }: AppProps) => {
-  // const environment = useEnvironment({})
-  // const preloadedQuery = loadQuery(environment, GetUserQuery, {})
-
   return (
     <RecoilRoot>
-      {/* <RelayEnvironmentProvider environment={environment}> */}
       <ApolloProvider client={useApollo(pageProps)}>
         <UserProvider>
           <Global
@@ -31,13 +27,10 @@ const AppContainer = ({ pageProps, Component, router }: AppProps) => {
             })}
           />
           <LayoutFactory router={router}>
-            {/* <Suspense fallback={<Spin />}> */}
             <Component {...pageProps} />
-            {/* </Suspense> */}
           </LayoutFactory>
         </UserProvider>
       </ApolloProvider>
-      {/* </RelayEnvironmentProvider> */}
     </RecoilRoot>
   )
 }
