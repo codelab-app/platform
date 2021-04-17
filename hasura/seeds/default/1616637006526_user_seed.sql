@@ -1,0 +1,10 @@
+SET check_function_bodies = false;
+INSERT INTO public."user" (id, name) VALUES ('55eb41b8-b2d6-4155-a68b-f0906abe4bf6', 'test user');
+INSERT INTO public."user" (id, name) VALUES ('auth0|6055152a3ad57a00691f7171', NULL);
+INSERT INTO public."user" (id, name) VALUES ('auth0|6058cc3baa7803006a20c1cd', NULL);
+INSERT INTO public."user" (id, name) VALUES ('auth0|6058d07eaa7803006a20c2b1', NULL);
+INSERT INTO public."user" (id, name) VALUES ('auth0|605c6337ed3e28006f6d2236', NULL);
+INSERT INTO public."user" (id, name) VALUES ('auth0|605dbdd0ed3e28006f6d474c', NULL);
+INSERT INTO public."user" (id, name) VALUES ('google-oauth2|116956556863062538891', NULL);
+INSERT INTO public."user" (id, name) VALUES ('google-oauth2|108647658970432241276', NULL);
+INSERT INTO public."user" (id, name) VALUES ('auth0|606ea09318b047007033e3af', NULL);
