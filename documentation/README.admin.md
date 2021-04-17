@@ -34,10 +34,6 @@ Docker executor can't mount volumes, or use local files on remote docker environ
 - `nx build [repo]` in `nx` repo
 - Yarn link to this repo for usage
 
-## Relay
-
-Nextjs uses babelrc from each lib, the artifact path is relative to cwd. Has some issues with project reference import though.
-
 # Linter
 
 Using tsconfig paths require https://www.npmjs.com/package/eslint-import-resolver-typescript

@@ -11,14 +11,6 @@
         },
         "introspect": true
       },
-      "Relay GraphQL Endpoint": {
-        "url": "${env:HASURA_URL_RELAY}",
-        "headers": {
-          "user-agent": "JS GraphQL",
-          "x-hasura-admin-secret": "${env:HASURA_GRAPHQL_ADMIN_SECRET}"
-        },
-        "introspect": true
-      }
     }
   }
 }
