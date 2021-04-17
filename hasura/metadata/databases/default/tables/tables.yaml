@@ -16,7 +16,6 @@
 - "!include public_prop_value.yaml"
 - "!include public_prop_value_tag.yaml"
 - "!include public_prop_value_type.yaml"
-- "!include public_slot.yaml"
 - "!include public_style.yaml"
 - "!include public_tag.yaml"
 - "!include public_user.yaml"
