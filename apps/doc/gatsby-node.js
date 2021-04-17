@@ -7,7 +7,7 @@ const { createFilePath } = require(`gatsby-source-filesystem`)
  */
 
 exports.createPages = async ({ actions, graphql, reporter }) => {
-  const { createPage } = actions
+  const { createPage, createRedirect } = actions
   const blogPostTemplate = require.resolve(`./src/templates/blogTemplate.tsx`)
   const result = await graphql(`
     {
@@ -32,6 +32,13 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
 
     return
   }
+
+  createRedirect({
+    fromPath: '/',
+    toPath: '/modules/component/atom',
+    redirectInBrowser: true,
+    isPermanent: true,
+  })
 
   result.data.allMdx.edges.forEach(({ node }) => {
     createPage({
