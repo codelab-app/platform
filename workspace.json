@@ -648,6 +648,21 @@
           }
         }
       }
+    },
+    "modules-component-element": {
+      "root": "libs/modules/component-element",
+      "sourceRoot": "libs/modules/component-element/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/modules/component-element/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        }
+      }
     }
   }
 }

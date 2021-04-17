@@ -11,15 +11,14 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   const blogPostTemplate = require.resolve(`./src/templates/blogTemplate.tsx`)
   const result = await graphql(`
     {
-      allMdx(
-        sort: { order: DESC, fields: [frontmatter___order] }
-        limit: 1000
-      ) {
+      allMdx(sort: { order: ASC, fields: [frontmatter___order] }, limit: 1000) {
         edges {
           node {
             frontmatter {
               slug
               title
+              order
+              suborder
             }
           }
         }

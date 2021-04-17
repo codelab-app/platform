@@ -1,0 +1,28 @@
+---
+slug: '/modules/library/'
+order: 3
+title: 'Library'
+---
+
+# Library
+
+A `Library` is the abstraction for which all that we need to build a UI.
+
+![Library Module](/uploads/modules-library.png){width=400}
+
+Just as Ant Design is a library that consists of re-useable components, we use that same concept.
+
+```typescript
+interface Library {
+  components: Component[]
+}
+```
+
+Antd Design contain interfaces for props, which are represented as propTypes. Along with default props that we attach to `ComponentElement`
+
+```typescript
+interface Library {
+  propTypes: PropTypeC
+  props: PropC
+}
+```

@@ -1,0 +1,50 @@
+---
+slug: '/modules/component/component-element/'
+suborder: 1
+title: 'Component Element'
+---
+
+# ComponentElement
+
+A `ComponentElement` gives an identity to an `Atom`.
+
+![Component Element Module](/uploads/modules-component.png){width=400}
+
+We wrap `Atom` with a `ComponentElement`, this means we are creating a new `Atom`, but with some preset values.
+
+```typescript
+interface ComponentElement {
+  atom: Atom
+}
+```
+
+We can style it differently, or configure some default behavior using props. Tags can be used to allow better search.
+
+```typescript
+interface ComponentElement {
+  // atom: Atom
+  styles: Style[]
+  props: PropC
+  tags: Tag[]
+}
+```
+
+We can create variants by adding tags. A `danger` variant of a `button` would be like so.
+
+```typescript
+const componentElement = {
+  type: 'AntdButton',
+  props: {
+    type: 'danger',
+  },
+  tags: ['danger'],
+}
+```
+
+A `ComponentElement` is just a container to configure some variant of an atom so it can be re-used.
+
+## What's next
+
+But what if we want a group of `atoms` to be re-used? We can't do that with `ComponentElement` alone.
+
+We'll need some system to construct a tree like data structure of `atoms`. This is where [Component](/modules/component/component) comes in.

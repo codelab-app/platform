@@ -16,12 +16,12 @@ const { Content, Header, Footer, Sider } = Layout
 export interface Frontmatter {
   slug: string
   title: string
+  order?: number
+  suborder: number
 }
 
 // https://www.gatsbyjs.com/blog/2019-11-21-how-to-convert-an-existing-gatsby-blog-to-use-mdx/
 export default function Template(props) {
-  console.log(props)
-
   const { data, pageContext } = props
 
   const { mdx } = data // data.markdownRemark holds your post data
@@ -30,13 +30,15 @@ export default function Template(props) {
   const pages: Array<Frontmatter> = pageContext.edges.map((edge) => {
     const {
       node: {
-        frontmatter: { slug, title },
+        frontmatter: { slug, title, order, suborder },
       },
     } = edge
 
     return {
       title,
       slug,
+      order,
+      suborder,
     }
   })
 
@@ -53,6 +55,7 @@ export default function Template(props) {
               #___gatsby,
               #gatsby-focus-wrapper {
                 min-height: 100%;
+                height: 100%;
               }
             `,
           }}
@@ -83,6 +86,8 @@ export const pageQuery = graphql`
       frontmatter {
         # date(formatString: "MMMM DD, YYYY")
         slug
+        order
+        suborder
         title
       }
     }

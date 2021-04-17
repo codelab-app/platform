@@ -1,7 +1,7 @@
----
-slug: '/modules/user'
-order: 1
+<!-- ---
+slug: '/modules/user/'
+order: 4
 title: 'User'
----
+--- -->
 
 # User Module
