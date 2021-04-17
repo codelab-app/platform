@@ -1,0 +1,27 @@
+---
+slug: '/modules/page/'
+order: 1
+suborder: 1
+title: 'Page'
+---
+
+# Page
+
+A `Page` is what holds our components together.
+
+![Page Module](/uploads/modules-page.png){width=400}
+
+A `Page` is a graph like `Component`.
+
+```typescript
+interface Page {
+  elements: PageElement[]
+  links: PageLink[]
+}
+```
+
+It constructs the proper tree structure of our `PageElement`, but what is a PageElement?
+
+Just as we needed `ComponentElement` to give identity to `Atom` in order to create variants. We need `PageElement` to give identity to `Component` in order to instantiate the UI.
+
+We can attach props & styles to `PageElement`, and some merge algorithm will resolve conflicts with respect to props & styles on our `Component`
