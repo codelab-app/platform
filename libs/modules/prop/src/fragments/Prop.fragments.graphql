@@ -1,7 +1,8 @@
-fragment PageElement__Prop on prop {
+fragment PropCollection__Prop on prop {
   id
-  attribute {
-    ...Prop__Attribute
+  prop_c_id
+  type {
+    ...PropTypeCollection__PropType
   }
   values_aggregate {
     aggregate {
@@ -12,3 +13,4 @@ fragment PageElement__Prop on prop {
     ...Prop__PropValue
   }
 }
+

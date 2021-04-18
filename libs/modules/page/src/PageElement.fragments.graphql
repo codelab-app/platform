@@ -6,8 +6,6 @@ fragment Page__PageElement on page_element {
     ...PageElement__Component
   }
   props {
-    prop {
-      ...PageElement__Prop
-    }
+    ...PropCollection
   }
 }

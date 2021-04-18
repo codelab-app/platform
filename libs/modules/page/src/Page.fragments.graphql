@@ -1,6 +1,7 @@
 fragment App__Page on page {
   id
   name
+  app_id
   elements {
     ...Page__PageElement
   }

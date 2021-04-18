@@ -1,6 +1,6 @@
 mutation UpdateProp($input: prop_set_input!, $propId: uuid!) {
   update_prop_by_pk(pk_columns: { id: $propId }, _set: $input) {
     id
-    ...PageElement__Prop
+    ...PropCollection__Prop
   }
 }

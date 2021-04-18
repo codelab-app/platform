@@ -1,9 +1,5 @@
 import React from 'react'
-import {
-  PageElement__PropFragment,
-  useGetAttributesQuery,
-  usePageElementPropQuery,
-} from '@codelab/hasura'
+import { usePageElementPropQuery } from '@codelab/hasura'
 import { Empty, Spin } from 'antd'
 import {
   loadIndicatorState,
@@ -11,7 +7,6 @@ import {
   usePromisesLoadingIndicator,
 } from '@codelab/frontend/shared'
 import { PageElementPropForm } from './PageElementPropForm'
-import { createAttributesFilter } from './createAttributesFilter'
 import { StyledLoadingIndicator, StyledPropsForm } from './Styled'
 
 const PROPS_FORM_INDICATOR_KEY = 'page-element-props'
@@ -38,58 +33,57 @@ export const PageElementPropsForm = ({
   })
 
   //Get all attributes. We can just plug in here an attribute filtering system in the future
-  const where = createAttributesFilter()
-  const {
-    data: attributes,
-    loading: loadingGetAttributes,
-  } = useGetAttributesQuery({
-    variables: { where },
-  })
-
-  if (loadingPageElement || loadingGetAttributes) {
-    return <Spin />
-  }
+  // const {
+  //   data: attributes,
+  //   loading: loadingGetAttributes,
+  // } = useGetAttributesQuery({
+  //   variables: { where },
+  // })
+  //
+  // if (loadingPageElement || loadingGetAttributes) {
+  //   return <Spin />
+  // }
 
   if (!data) {
     return null
   }
+  //
+  // if (!attributes) {
+  //   return <Empty />
+  // }
 
-  if (!attributes) {
-    return <Empty />
-  }
-
-  const propsByAttributeIdMap =
-    data?.page_element_by_pk?.props.reduce<
-      Record<string, PageElement__PropFragment>
-    >((map, prop) => {
-      map[prop.prop.attribute.id] = prop.prop
-
-      return map
-    }, {}) || {}
+  // const propsByAttributeIdMap =
+  //   data?.page_element_by_pk?.props.reduce<
+  //     Record<string, PageElement__PropFragment>
+  //   >((map, prop) => {
+  //     map[prop.prop.attribute.id] = prop.prop
+  //
+  //     return map
+  //   }, {}) || {}
 
   return (
     <StyledPropsForm>
       <div style={{ overflowY: 'auto' }}>
         <h4>{data?.page_element_by_pk?.name || ''}</h4>
 
-        {/* Map all matching attributes and render a form for each one */}
-        {attributes.attribute.map((a) => {
-          //Passing the existing prop will make the form update its value instead of creating a new prop
-          const propWithThatAttribute = propsByAttributeIdMap[a.id]
+        {/*/!* Map all matching attributes and render a form for each one *!/*/}
+        {/*{attributes.attribute.map((a) => {*/}
+        {/*  //Passing the existing prop will make the form update its value instead of creating a new prop*/}
+        {/*  const propWithThatAttribute = propsByAttributeIdMap[a.id]*/}
 
-          return (
-            <PageElementPropForm
-              key={a.id}
-              pageElementId={pageElementId}
-              onMutationStarted={trackPromise}
-              initialData={
-                propWithThatAttribute || {
-                  attribute: a,
-                }
-              }
-            />
-          )
-        })}
+        {/*  return (*/}
+        {/*    <PageElementPropForm*/}
+        {/*      key={a.id}*/}
+        {/*      pageElementId={pageElementId}*/}
+        {/*      onMutationStarted={trackPromise}*/}
+        {/*      initialData={*/}
+        {/*        propWithThatAttribute || {*/}
+        {/*          attribute: a,*/}
+        {/*        }*/}
+        {/*      }*/}
+        {/*    />*/}
+        {/*  )*/}
+        {/*})}*/}
       </div>
 
       <StyledLoadingIndicator>

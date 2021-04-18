@@ -1,23 +1,31 @@
 array_relationships:
-- name: props
+- name: styles
   using:
     foreign_key_constraint_on:
-      column: element_id
+      column: page_element_id
       table:
-        name: prop_element
+        name: style_page_element
         schema: public
 delete_permissions:
 - permission:
-    filter: {}
+    filter:
+      page:
+        app:
+          user_id:
+            _eq: X-Hasura-User-Id
   role: user
 insert_permissions:
 - permission:
-    check: {}
+    check:
+      page:
+        app:
+          user_id:
+            _eq: X-Hasura-User-Id
     columns:
-    - name
     - component_id
-    - id
+    - name
     - page_id
+    - prop_c_id
   role: user
 object_relationships:
 - name: component
@@ -26,26 +34,41 @@ object_relationships:
 - name: page
   using:
     foreign_key_constraint_on: page_id
+- name: props
+  using:
+    foreign_key_constraint_on: prop_c_id
 select_permissions:
 - permission:
-    allow_aggregations: true
     columns:
-    - id
     - component_id
-    - page_id
+    - id
     - name
-    filter: {}
+    - page_id
+    - prop_c_id
+    filter:
+      page:
+        app:
+          user_id:
+            _eq: X-Hasura-User-Id
   role: user
 table:
   name: page_element
   schema: public
 update_permissions:
 - permission:
-    check: null
+    check:
+      page:
+        app:
+          user_id:
+            _eq: X-Hasura-User-Id
     columns:
-    - name
     - component_id
-    - id
+    - name
     - page_id
-    filter: {}
+    - prop_c_id
+    filter:
+      page:
+        app:
+          user_id:
+            _eq: X-Hasura-User-Id
   role: user

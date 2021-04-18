@@ -1,0 +1,14 @@
+fragment PropCollection on prop_c {
+    id
+    label
+    libary_id
+    props {
+        ...PropCollection__Prop
+    }
+    tags {
+        tag {
+            ...Tag
+        }
+    }
+}
+

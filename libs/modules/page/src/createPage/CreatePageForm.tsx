@@ -12,7 +12,6 @@ import { GetPagesListGql, useCreatePageMutation } from '@codelab/hasura'
 import { createPageSchema, CreatePageInput } from './createPageSchema'
 import { DeepPartial } from 'uniforms'
 import { AutoFields } from 'uniforms-antd'
-import { useUser } from '@auth0/nextjs-auth0'
 type CreatePageFormProps = UniFormUseCaseProps<CreatePageInput>
 
 export const CreatePageForm = (props: CreatePageFormProps) => {
@@ -36,15 +35,12 @@ export const CreatePageForm = (props: CreatePageFormProps) => {
     setLoading(creating)
   }, [creating])
 
-  const userId = useUser().user?.sub
-
   const onSubmit = (submitData: DeepPartial<CreatePageInput>) => {
     return mutate({
       variables: {
         data: {
           ...submitData,
           app_id: appId,
-          user_id: userId,
         },
       },
     })

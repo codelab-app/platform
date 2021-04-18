@@ -54,7 +54,7 @@ export const DeleteAppForm = (props: DeleteAppFormProps) => {
       onSubmit={onSubmit}
       schema={DeleteAppSchema}
       onSubmitError={createNotificationHandler({
-        title: 'Error while deleting atom',
+        title: 'Error while deleting app',
       })}
       onSubmitSuccess={() => reset()}
       {...props}

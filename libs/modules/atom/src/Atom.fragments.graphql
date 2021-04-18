@@ -1,4 +1,17 @@
-fragment atomFragments on atom {
+fragment Atom on atom {
   id
   type
+  propTypes {
+    ...PropTypeCollection
+  }
+  styles {
+    style {
+      ...Library__Style
+    }
+  }
+  tags {
+    tag {
+      ...Tag
+    }
+  }
 }

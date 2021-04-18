@@ -1,0 +1,4 @@
+fragment ValueType on value_type {
+    description
+    value
+}

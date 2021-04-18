@@ -15,9 +15,10 @@ delete_permissions:
 insert_permissions:
 - permission:
     backend_only: false
-    check: {}
+    check:
+      user_id:
+        _eq: X-Hasura-User-Id
     columns:
-    - id
     - name
     set:
       user_id: x-hasura-User-Id
@@ -45,7 +46,6 @@ update_permissions:
       user_id:
         _eq: X-Hasura-User-Id
     columns:
-    - id
     - name
     filter:
       user_id:

@@ -1,0 +1,14 @@
+fragment Prop__PropValue on prop_value {
+  id
+  prop_id
+  tags {
+    tag {
+      ...Tag
+    }
+  }
+  type
+  typeEntity {
+    ...ValueType
+  }
+  value
+}
