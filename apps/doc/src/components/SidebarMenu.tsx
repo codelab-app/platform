@@ -2,7 +2,7 @@ import { Menu } from 'antd'
 import React from 'react'
 import { Frontmatter } from '../templates/blogTemplate'
 import { Link } from 'gatsby'
-import { groupBy, sortBy } from 'lodash'
+import { css } from '@emotion/react'
 
 interface SidebarMenuProps {
   pages: Array<Frontmatter>
@@ -15,60 +15,58 @@ const { SubMenu } = Menu
  * Gatsby uses trailing slashes by default
  */
 const convertToOpenKeys = (slug) => {
-  const split = slug.split('/')
+  const paths = slug.split('/').filter((x) => x !== '')
 
-  return `/${split[1]}/${split[2]}/`
+  return paths
+    .reduce((acc, cur) => {
+      // Any subpath should be open
+      return [...acc, `${acc.reverse()[0] ?? ''}/${cur}`]
+    }, [])
+    .map((x) => `${x}/`)
 }
 
 export const SidebarMenu = (props: SidebarMenuProps) => {
-  /**
-   * Group by top-level menu item
-   */
-  const groupedMenu = groupBy(
-    /**
-     * Only show pages with either `order` or `suborder`, to hide a page, comment out those values in README.md
-     */
-    props.pages.filter((page) => {
-      return typeof page.order === 'number' || typeof page.suborder === 'number'
-    }),
-    (args) => {
-      const { title, slug } = args
-      const component = slug.split('/')[2]
-
-      return component
-    },
-  )
+  const defaultOpenKeys = convertToOpenKeys(props.currentPathname)
 
   return (
     <Menu
+      css={css`
+        height: 100%;
+      `}
+      collapsedWidth={420}
       defaultSelectedKeys={[props.currentPathname]}
-      defaultOpenKeys={[convertToOpenKeys(props.currentPathname)]}
+      defaultOpenKeys={defaultOpenKeys}
       mode="inline"
     >
-      <>
-        {Object.entries(groupedMenu).map(([component, vals]) => {
-          /**
-           * Top level menu is determined by slug size, number of `/` separators
-           */
-          const topLevel = vals.filter((val) => {
-            return val.slug.split('/').length <= 4
-          })[0]
-
-          return (
-            <SubMenu key={topLevel.slug} title={topLevel.title}>
-              {sortBy(vals, ({ suborder }) => {
-                return suborder
-              }).map(({ title, slug }) => {
-                return (
-                  <Menu.Item key={slug}>
-                    <Link to={slug}>{title}</Link>
-                  </Menu.Item>
-                )
-              })}
-            </SubMenu>
-          )
-        })}
-      </>
+      <SubMenu key="/getting-started/" title="Getting Started">
+        <Menu.Item key="/getting-started/">
+          <Link to="/getting-started/what-is-codelab/">What is Codelab?</Link>
+        </Menu.Item>
+      </SubMenu>
+      <SubMenu key="/modules/" title="Modules">
+        <SubMenu key="/modules/component/" title="Component">
+          <Menu.Item key="/modules/component/atom/">
+            <Link to="/modules/component/atom/">Atom</Link>
+          </Menu.Item>
+          <Menu.Item key="/modules/component/component/">
+            <Link to="/modules/component/component/">Component</Link>
+          </Menu.Item>
+          <Menu.Item key="/modules/component/component-element/">
+            <Link to="/modules/component/component-element/">
+              Component Element
+            </Link>
+          </Menu.Item>
+        </SubMenu>
+        <Menu.Item key="/modules/page/">
+          <Link to="/modules/page/">Page</Link>
+        </Menu.Item>
+        <Menu.Item key="/modules/prop/">
+          <Link to="/modules/prop/">Prop</Link>
+        </Menu.Item>
+        <Menu.Item key="/modules/library/">
+          <Link to="/modules/library/">Library</Link>
+        </Menu.Item>
+      </SubMenu>
     </Menu>
   )
 }

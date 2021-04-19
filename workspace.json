@@ -620,7 +620,8 @@
         "serve": {
           "builder": "@nrwl/gatsby:server",
           "options": {
-            "buildTarget": "doc:build"
+            "buildTarget": "doc:build",
+            "port": 4000
           },
           "configurations": {
             "production": {

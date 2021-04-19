@@ -60,21 +60,7 @@ module.exports = {
               aliases: {},
             },
           },
-          // {
-          //   resolve: `gatsby-remark-highlight-code`,
-          //   options: {
-          //     // 'carbon' - macLike
-          //     // 'ubuntu'
-          //     // 'none'
-          //     // language: 'ts',
-          //     terminal: 'carbon',
-          //     theme: 'dracula',
-          //   },
-          // },
           `gatsby-remark-attr`,
-          // {
-          //   resolve: `gatsby-transformer-remark`,
-          // },
         ],
       },
     },
@@ -82,11 +68,18 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `markdown-pages`,
-        path: path.resolve(__dirname, '../../libs/modules'),
-        ignore: ['**/*.ts{x}'],
+        path: path.resolve(__dirname, '../../documentation'),
+        ignore: ['**/*.ts{x}', '**/*.md'],
       },
     },
-
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `markdown-pages`,
+        path: path.resolve(__dirname, '../../libs/modules'),
+        ignore: ['**/*.ts{x}', '**/*.md'],
+      },
+    },
     // https://github.com/bskimball/gatsby-plugin-antd/issues/2
     {
       resolve: `gatsby-plugin-less`,

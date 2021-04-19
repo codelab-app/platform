@@ -6,6 +6,22 @@ const { createFilePath } = require(`gatsby-source-filesystem`)
  * See: https://www.gatsbyjs.org/docs/node-apis/
  */
 
+exports.onCreateNode = ({ node, actions, getNode }) => {
+  const { createNodeField } = actions
+
+  console.log(node.internal.type)
+
+  if (node.internal.type === `Mdx`) {
+    const value = createFilePath({ node, getNode })
+    console.log(value)
+    createNodeField({
+      name: `slug`,
+      node,
+      value,
+    })
+  }
+}
+
 exports.createPages = async ({ actions, graphql, reporter }) => {
   const { createPage, createRedirect } = actions
   const blogPostTemplate = require.resolve(`./src/templates/blogTemplate.tsx`)
@@ -16,9 +32,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
           node {
             frontmatter {
               slug
-              title
               order
-              suborder
             }
           }
         }
@@ -35,18 +49,21 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
 
   createRedirect({
     fromPath: '/',
-    toPath: '/modules/component/atom',
+    toPath: '/modules/component/atom/',
     redirectInBrowser: true,
     isPermanent: true,
   })
 
   result.data.allMdx.edges.forEach(({ node }) => {
+    console.log(node)
+
     createPage({
       path: node.frontmatter.slug,
       component: blogPostTemplate,
       context: {
         // additional data can be passed via context
         slug: node.frontmatter.slug,
+        // order: node.frontmatter.order,
         // Pass edges data to each page, so we can create the menu
         edges: result.data.allMdx.edges,
       },
