@@ -1,5 +1,5 @@
 import Cookie from 'js-cookie'
-import { isServer } from '../../config/env'
+import { isServer } from '../../config'
 
 export const AUTH_TOKEN_COOKIE = 'AUTH_JWT'
 

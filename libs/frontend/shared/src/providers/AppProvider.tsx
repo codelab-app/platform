@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from 'react'
 import { Query_Root, RootAppQuery, useRootAppQuery } from '@codelab/hasura'
-import { PropsWithIds } from '../interfaces/PropsWithIds'
+import { PropsWithIds } from '../interfaces'
 
 type IAppContext = PropsWithIds<'appId' | 'pageId'> & {
   app?: RootAppQuery['app_by_pk']

@@ -11,8 +11,8 @@ import {
   useCRUDModalForm,
   EntityType,
 } from '@codelab/frontend/shared'
-import { useUser } from '@auth0/nextjs-auth0'
 import { AutoFields } from 'uniforms-antd'
+import { useCurrentUser } from '@codelab/modules/user'
 
 export const CreateAppForm = (props: UniFormUseCaseProps<CreateAppInput>) => {
   const { reset, setLoading } = useCRUDModalForm(EntityType.App)
@@ -33,11 +33,14 @@ export const CreateAppForm = (props: UniFormUseCaseProps<CreateAppInput>) => {
     setAppState((current) => ({ ...current, loading }))
   }, [loading, setAppState])
 
+  const { userId } = useCurrentUser()
+
   const onSubmit = (submitData: DeepPartial<CreateAppInput>) => {
     return mutate({
       variables: {
         input: {
           ...(submitData as any),
+          user_id: userId,
           pages: {
             data: [
               {

@@ -1,14 +1,7 @@
 mutation CreatePageElementProp(
-  $pageElementId: uuid!
   $propInput: prop_insert_input!
 ) {
-  insert_prop_element_one(
-    object: { element_id: $pageElementId, prop: { data: $propInput } }
-  ) {
-    element_id
-    prop_id
-    prop {
-      ...PageElement__Prop
-    }
+  insert_prop_one(object: $propInput) {
+    ...PropCollection__Prop
   }
 }

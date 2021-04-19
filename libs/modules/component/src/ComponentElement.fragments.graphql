@@ -1,8 +1,20 @@
 fragment PageElement__ComponentElement on component_element {
-  id
-  label
-  atom {
     id
-    type
-  }
+    label
+    hocs {
+        hoc {
+            ...ComponentElement__Hoc
+        }
+    }
+    props {
+        ...PropCollection
+    }
+    styles {
+        style {
+            ...Library__Style
+        }
+    }
+    atom {
+      ...Atom
+    }
 }

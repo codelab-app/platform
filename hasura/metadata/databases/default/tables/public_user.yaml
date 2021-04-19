@@ -6,6 +6,19 @@ array_relationships:
       table:
         name: app
         schema: public
+- name: libraries
+  using:
+    foreign_key_constraint_on:
+      column: user_id
+      table:
+        name: library
+        schema: public
+delete_permissions:
+- permission:
+    filter:
+      id:
+        _eq: X-Hasura-User-Id
+  role: user
 select_permissions:
 - permission:
     columns:
@@ -18,3 +31,14 @@ select_permissions:
 table:
   name: user
   schema: public
+update_permissions:
+- permission:
+    check:
+      id:
+        _eq: X-Hasura-User-Id
+    columns:
+    - name
+    filter:
+      id:
+        _eq: X-Hasura-User-Id
+  role: user

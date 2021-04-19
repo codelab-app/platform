@@ -10,6 +10,7 @@ import {
 import { GetStylesListGql, useCreateStyleMutation } from '@codelab/hasura'
 import { createStyleSchema, CreateStyleInput } from './createStyleSchema'
 import { AutoFields } from 'uniforms-antd'
+import { useSelectedLibrary } from '@codelab/modules/library'
 
 type CreateStyleFormProps = UniFormUseCaseProps<CreateStyleInput>
 
@@ -45,10 +46,13 @@ export const CreateStyleForm = (props: CreateStyleFormProps) => {
      * }
      */
 
+  const { library } = useSelectedLibrary()
+
   const onSubmit = (submitData: DeepPartial<CreateStyleInput>) => {
     return mutate({
       variables: {
         data: {
+          library_id: library?.id,
           ...(submitData as any),
         },
       },

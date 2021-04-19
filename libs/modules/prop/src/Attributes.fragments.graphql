@@ -1,7 +1,0 @@
-fragment Prop__Attribute on attribute {
-  id
-  key
-  valueType {
-    value
-  }
-}

@@ -8,15 +8,17 @@ import {
 import { GetLambdasByLibraryId, useCreateLambdaMutation } from '@codelab/hasura'
 import { CreateLambdaInput, createLambdaSchema } from './createLambdaSchema'
 import { DeepPartial } from 'uniforms'
+import { useSelectedLibrary } from '@codelab/modules/library'
 
 export const CreateLambdaForm = (props: FormUseCaseProps<any>) => {
-  const { appId } = useContext(AppContext)
+  const { library } = useSelectedLibrary()
+
   const [mutate] = useCreateLambdaMutation({
     refetchQueries: [
       {
         query: GetLambdasByLibraryId,
         variables: {
-          libraryId: 'f70c9584-4b68-4999-a42e-1755d539b714',
+          libraryId: library?.id,
         },
       },
     ],
@@ -28,7 +30,7 @@ export const CreateLambdaForm = (props: FormUseCaseProps<any>) => {
         input: {
           name: submitData.name as string,
           body: submitData.body as string,
-          libraryId: 'f70c9584-4b68-4999-a42e-1755d539b714',
+          libraryId: library?.id,
         },
       },
     })

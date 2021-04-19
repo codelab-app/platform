@@ -108,8 +108,8 @@ export class CytoscapeService {
             componentElementName: componentElement.label,
             props: {
               //Normalize the props fragments into a react-readable key value map
-              ...pageElement.props.reduce((props, newProp) => {
-                return { ...props, ...propDataEntityToModel(newProp.prop) }
+              ...pageElement.props?.props.reduce((props, newProp) => {
+                return { ...props, ...propDataEntityToModel(newProp) }
               }, {}),
             },
             //TODO add props from component element

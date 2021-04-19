@@ -1,8 +1,7 @@
 import React, { useContext, useState } from 'react'
 import {
   CreatePageElementPropMutation,
-  PageElement__PropFragment,
-  Prop_Value_Type_Enum,
+  PropCollection__PropFragment,
   RootAppGql,
   UpdatePropValueMutation,
   useCreatePageElementPropMutation,
@@ -18,7 +17,7 @@ export interface PropFormProps {
   onMutationStarted?: (promise: Promise<any>) => Promise<void> | void
 
   /** Pass an existing prop to update it. Or pass just the attribute in order to create a prop with this attribute */
-  initialData: PageElement__PropFragment
+  initialData: PropCollection__PropFragment
   // | (Pick<PageElement__PropFragment, 'attribute'> &
   //     Partial<PageElement__PropFragment>)
 
@@ -30,8 +29,10 @@ export interface PropFormProps {
  * Maps a graphql prop fragment to a prop model that  the form understands
  * Currently maps only a single value, need to update it when we support multiple values
  */
-export const propDataEntityToModel = (propData: PageElement__PropFragment) => ({
-  [propData.attribute.key]: propData.values[0].value,
+export const propDataEntityToModel = (
+  propData: PropCollection__PropFragment,
+) => ({
+  [propData.type.key]: propData.values[0].value,
 })
 
 /** A form for a single prop that contains the input field for the attribute and it's value */
@@ -45,7 +46,6 @@ export const PageElementPropForm = ({
     ...initialData,
     values: initialData.values ?? [{ value: '', id: undefined }], //This is needed to avoid missing value when creating a new prop
   })
-  const attribute = propData?.attribute
   const isInCreationMode = !propData?.id
 
   const { pageId, appId } = useContext(AppContext)
@@ -68,11 +68,11 @@ export const PageElementPropForm = ({
     ],
   })
 
-  const schema = createPropSchema(attribute)
+  const schema = createPropSchema(propData.type)
 
   const handleSubmit = async (data: Record<string, any>) => {
     //Extract the value from the data
-    const key = attribute.key
+    const key = propData.type.key
     const value = data[key]
 
     try {
@@ -82,24 +82,24 @@ export const PageElementPropForm = ({
       >
 
       if (isInCreationMode) {
-        promise = createPageElementProp({
-          variables: {
-            pageElementId,
-            propInput: {
-              attribute_id: attribute.id,
-              library_id: 'f70c9584-4b68-4999-a42e-1755d539b714', //TODO remove the fixed library id and make a library module
-              values: {
-                data: [
-                  {
-                    //TODO support other types as well
-                    type: Prop_Value_Type_Enum.String,
-                    value,
-                  },
-                ],
-              },
-            },
-          },
-        })
+        throw new Error('Not implemented')
+        //TODO fix prop creation
+        // promise = createPageElementProp({
+        //   variables: {
+        //     pageElementId,
+        //     propInput: {
+        //       values: {
+        //         data: [
+        //           {
+        //             //TODO support other types as well
+        //             type: ValueType.String,
+        //             value,
+        //           },
+        //         ],
+        //       },
+        //     },
+        //   },
+        // })
       } else {
         const propValueId = propData.values ? propData.values[0]?.id : undefined
 
@@ -129,17 +129,17 @@ export const PageElementPropForm = ({
       //If we just created a new prop, update the state data with the ids for the prop and the first value
       //That way we switch to edit mode
       const newProp = (response?.data as CreatePageElementPropMutation)
-        ?.insert_prop_element_one
+        ?.insert_prop_one
 
-      if (newProp?.prop_id) {
-        setPropData((originalPropData) => ({
-          ...(originalPropData as any),
-          id: newProp.prop_id,
-          values: originalPropData.values.map((value: any, i: number) =>
-            i === 0 ? { ...value, id: newProp.prop.values[0].id } : value,
-          ),
-        }))
-      }
+      // if (newProp?.prop_id) {
+      //   setPropData((originalPropData) => ({
+      //     ...(originalPropData as any),
+      //     id: newProp.prop_id,
+      //     values: originalPropData.values.map((value: any, i: number) =>
+      //       i === 0 ? { ...value, id: newProp.prop.values[0].id } : value,
+      //     ),
+      //   }))
+      // }
     } catch (e) {
       notify({ title: 'Error while saving prop' }, e)
     }
