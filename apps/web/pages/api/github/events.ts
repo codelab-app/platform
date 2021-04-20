@@ -4,8 +4,9 @@ import { WebClient } from '@slack/web-api'
 
 const SLACK_SIGNIN_SECRET = get('SLACK_TOKEN').required().asString()
 const TEAM_ID = 'T0J3YAY3E'
-const SLACK_DEVELOPMENT_CHANNEL = 'C01TALGNKMZ'
-const SLACK_TEST_CHANNEL = 'C01UFCHM4KZ'
+// const SLACK_DEVELOPMENT_CHANNEL = 'C01TALGNKMZ'
+// const SLACK_TEST_CHANNEL = 'C01UFCHM4KZ'
+const SLACK_CHANNEL = get('SLACK_CHANNEL').required().asString()
 
 const web = new WebClient(SLACK_SIGNIN_SECRET, { teamId: TEAM_ID })
 
@@ -47,7 +48,7 @@ const handler: NextApiHandler = async ({ body }, res) => {
         },
       },
     ],
-    channel: SLACK_TEST_CHANNEL,
+    channel: SLACK_CHANNEL,
   })
 
   return res.json({})
