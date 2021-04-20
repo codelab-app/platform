@@ -15,7 +15,7 @@ app.use('*', async (baseReq, baseRes, next) => {
   return createProxyMiddleware({
     target: process.env.HASURA_URL_GRAPHQL,
     changeOrigin: true,
-    proxyTimeout: 5000,
+    proxyTimeout: 30000,
     secure: false,
     headers: {
       Connection: 'keep-alive',
