@@ -10410,22 +10410,6 @@ export type GetLibraryQuery = { __typename?: 'query_root' } & {
   library_by_pk?: Maybe<{ __typename?: 'library' } & __LibraryFragment>
 }
 
-export type CreateLibraryMutationVariables = Exact<{
-  data: Library_Insert_Input
-}>
-
-export type CreateLibraryMutation = { __typename?: 'mutation_root' } & {
-  insert_library_one?: Maybe<{ __typename?: 'library' } & __LibraryFragment>
-}
-
-export type DeleteLibraryMutationVariables = Exact<{
-  libraryId: Scalars['uuid']
-}>
-
-export type DeleteLibraryMutation = { __typename?: 'mutation_root' } & {
-  delete_library_by_pk?: Maybe<{ __typename?: 'library' } & Pick<Library, 'id'>>
-}
-
 export type __LibraryFragment = { __typename?: 'library' } & Pick<
   Library,
   'id' | 'name' | 'user_id'
@@ -10450,6 +10434,22 @@ export type __LibraryFragment = { __typename?: 'library' } & Pick<
     styles: Array<{ __typename?: 'style' } & Library__StyleFragment>
     tags: Array<{ __typename?: 'tag' } & TagFragment>
   }
+
+export type CreateLibraryMutationVariables = Exact<{
+  data: Library_Insert_Input
+}>
+
+export type CreateLibraryMutation = { __typename?: 'mutation_root' } & {
+  insert_library_one?: Maybe<{ __typename?: 'library' } & __LibraryFragment>
+}
+
+export type DeleteLibraryMutationVariables = Exact<{
+  libraryId: Scalars['uuid']
+}>
+
+export type DeleteLibraryMutation = { __typename?: 'mutation_root' } & {
+  delete_library_by_pk?: Maybe<{ __typename?: 'library' } & Pick<Library, 'id'>>
+}
 
 export type GetLibrariesListQueryVariables = Exact<{ [key: string]: never }>
 
@@ -10591,14 +10591,6 @@ export type PropCollection__PropFragment = { __typename?: 'prop' } & Pick<
   'id' | 'prop_c_id'
 > & {
     type: { __typename?: 'prop_type' } & PropTypeCollection__PropTypeFragment
-    values_aggregate: { __typename?: 'prop_value_aggregate' } & {
-      aggregate?: Maybe<
-        { __typename?: 'prop_value_aggregate_fields' } & Pick<
-          Prop_Value_Aggregate_Fields,
-          'count'
-        >
-      >
-    }
     values: Array<{ __typename?: 'prop_value' } & Prop__PropValueFragment>
   }
 
@@ -10813,11 +10805,6 @@ export const PropCollection__PropFragmentDoc = gql`
     prop_c_id
     type {
       ...PropTypeCollection__PropType
-    }
-    values_aggregate {
-      aggregate {
-        count
-      }
     }
     values {
       ...Prop__PropValue
@@ -13527,11 +13514,6 @@ export const PropCollection__Prop = gql`
     prop_c_id
     type {
       ...PropTypeCollection__PropType
-    }
-    values_aggregate {
-      aggregate {
-        count
-      }
     }
     values {
       ...Prop__PropValue
