@@ -4,11 +4,11 @@ fragment PropCollection__Prop on prop {
   type {
     ...PropTypeCollection__PropType
   }
-  values_aggregate {
-    aggregate {
-      count
-    }
-  }
+  # values_aggregate {
+  #   aggregate {
+  #     count
+  #   }
+  # }
   values {
     ...Prop__PropValue
   }
