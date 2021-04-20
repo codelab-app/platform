@@ -11,6 +11,7 @@ const web = new WebClient(SLACK_SIGNIN_SECRET, { teamId: TEAM_ID })
 
 const handler: NextApiHandler = async ({ body }, res) => {
   const {
+    action,
     discussion: {
       user: { login: discussion_user },
       title: discussion_title,
@@ -18,6 +19,10 @@ const handler: NextApiHandler = async ({ body }, res) => {
       body: discussion_body,
     },
   } = body
+
+  if (action === 'deleted') {
+    return res.json({})
+  }
 
   const comment_user = body?.comment?.user?.login
   const comment_body = body?.comment?.body
