@@ -1,0 +1,87 @@
+#
+# `--env-file`, a flag for docker-compose, is used for variable substitution
+#
+# `env_file` is used to find env to inject into container at runtime
+#
+version: '3.8'
+services:
+  hasura:
+    image: hasura/graphql-engine:v2.0.0-alpha.8.cli-migrations-v3
+    ports:
+      - '8080:8080'
+    depends_on:
+      - 'postgres'
+    restart: always
+    volumes:
+      - ../hasura/metadata:/hasura-metadata
+      - ../hasura/migrations:/hasura-migrations
+    env_file:
+      - ../.env
+    environment:
+      # These are injected by `env_file`
+      # - HASURA_GRAPHQL_DATABASE_URL
+      ## enable the console served by server
+      - HASURA_GRAPHQL_ENABLE_CONSOLE=true # set to "false" to disable console
+      ## enable debugging mode. It is recommended to disable this in production
+      - HASURA_GRAPHQL_DEV_MODE=true
+      - HASURA_GRAPHQL_ENABLED_LOG_TYPES=startup,http-log,webhook-log, websocket-log,query-log
+      ## uncomment next line to set an admin secret
+      # - HASURA_GRAPHQL_ADMIN_SECRET
+      # - HASURA_GRAPHQL_MIGRATIONS_DIR=./hasura/migrations
+      # - HASURA_GRAPHQL_METADATA_DIR=./hasura/metadata
+
+  postgres:
+    image: postgres:12
+    container_name: codelab-postgres
+    restart: always
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    expose:
+      - 5432
+    ports:
+      # - HOST:CONTAINER
+      # Allow local machine access
+      - '5432:5432'
+    env_file:
+      - ../.env
+    environment:
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
+
+  # postgres-test:
+  #   image: postgres:12
+  #   container_name: codelab-postgres-test
+  #   restart: always
+  #   volumes:
+  #     - db_e2e_data:/var/lib/postgresql/data
+  #   expose:
+  #     - 5432
+  #   ports:
+  #     # - HOST:CONTAINER
+  #     # Allow local machine access
+  #     - ${POSTGRES_PORT_E2E}:5432
+  #   env_file:
+  #     - ../.env
+  #   environment:
+  #     - POSTGRES_USER
+  #     - POSTGRES_PASSWORD
+  #     - POSTGRES_DB=postgres # Override with default table
+
+  # pgadmin:
+  #   image: dpage/pgadmin4:4.28
+  #   restart: always
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: pgadmin@codelab.ai
+  #     PGADMIN_DEFAULT_PASSWORD: password
+  #     PGADMIN_LISTEN_PORT: 80
+  #   ports:
+  #     - 5050:80
+  #   volumes:
+  #     - pgadmin-data:/var/lib/pgadmin
+
+volumes:
+  db_data:
+    name: codelab-postgres-volume
+  # db_e2e_data:
+  #   name: codelab-postgres-test-volume

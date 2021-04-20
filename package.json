@@ -10,6 +10,7 @@
     "tunnel": "ngrok http -region=us -hostname=a8069b052300.ngrok.io 3000",
     "hasura:console": "hasura console --project=hasura --envfile=./../.env",
     "postinstall": "./scripts/postinstall.sh",
+    "docker:up": "./scripts/docker/up.sh",
     "nx": "nx",
     "start": "nx serve",
     "build": "nx run-many --all --target=build",
