@@ -5,6 +5,11 @@
 # NODE_OPTIONS_DEV=NODE_OPTIONS=--max-old-space-size=2048
 
 #
+# HASURA
+#
+hasura-metadata-export:
+
+#
 # BUILD
 #
 lambda:

@@ -1,1 +1,0 @@
-CREATE TABLE "public"."component_element_atom" ("component_element_id" uuid NOT NULL, "atom_id" uuid NOT NULL, PRIMARY KEY ("atom_id","component_element_id") , FOREIGN KEY ("component_element_id") REFERENCES "public"."component_element"("id") ON UPDATE restrict ON DELETE cascade, FOREIGN KEY ("atom_id") REFERENCES "public"."atom"("id") ON UPDATE restrict ON DELETE cascade);

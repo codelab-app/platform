@@ -9,6 +9,8 @@
   "scripts": {
     "tunnel": "ngrok http -region=us -hostname=a8069b052300.ngrok.io 3000",
     "hasura:console": "hasura console --project=hasura --envfile=./../.env",
+    "hasura:metadata:export": "hasura metadata export --project=hasura --envfile=./../.env",
+    "hasura:migrations:backup": "hasura migrate --project=hasura --envfile=./../.env create \"init\" --from-server --database-name default",
     "postinstall": "./scripts/postinstall.sh",
     "docker:up": "./scripts/docker/up.sh",
     "nx": "nx",

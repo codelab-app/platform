@@ -1,3 +1,6 @@
+table:
+  name: user
+  schema: public
 array_relationships:
 - name: apps
   using:
@@ -13,12 +16,6 @@ array_relationships:
       table:
         name: library
         schema: public
-delete_permissions:
-- permission:
-    filter:
-      id:
-        _eq: X-Hasura-User-Id
-  role: user
 select_permissions:
 - permission:
     columns:
@@ -28,9 +25,6 @@ select_permissions:
       id:
         _eq: X-Hasura-User-Id
   role: user
-table:
-  name: user
-  schema: public
 update_permissions:
 - permission:
     check:
@@ -38,6 +32,12 @@ update_permissions:
         _eq: X-Hasura-User-Id
     columns:
     - name
+    filter:
+      id:
+        _eq: X-Hasura-User-Id
+  role: user
+delete_permissions:
+- permission:
     filter:
       id:
         _eq: X-Hasura-User-Id

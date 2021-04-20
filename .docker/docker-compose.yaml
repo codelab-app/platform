@@ -13,7 +13,7 @@ services:
       - 'postgres'
     restart: always
     volumes:
-      - ../hasura/metadata:/hasura-metadata
+      # - ../hasura/metadata:/hasura-metadata
       - ../hasura/migrations:/hasura-migrations
     env_file:
       - ../.env

@@ -3,6 +3,9 @@
 
 yarn cross-env TIMING=1 lint-staged --verbose
 
-# yarn lint:graphql
+yarn lint:graphql
+
+# Always sync metadata
+npx hasura metadata export --project=hasura --envfile=./../.env
 
 ./scripts/lint/git.sh
