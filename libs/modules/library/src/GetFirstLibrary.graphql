@@ -1,5 +1,5 @@
-query GetFirstLibrary{
-    library(limit: 1){
-        ...__Library
-    }
+query GetFirstLibrary {
+  library(limit: 1) {
+    ...__Library
+  }
 }

@@ -1,0 +1,95 @@
+#
+# `--env-file`, a flag for docker-compose, is used for variable substitution
+#
+# `env_file` is used to find env to inject into docker container at runtime
+#
+version: '3.8'
+services:
+  hasura:
+    image: hasura/graphql-engine:v2.0.0-alpha.8.cli-migrations-v3
+    container_name: codelab-hasura
+    ports:
+      - '8080:8080'
+    depends_on:
+      - 'postgres'
+    restart: always
+    env_file:
+      - ../.env
+    environment:
+      - HASURA_GRAPHQL_ENABLE_CONSOLE=false
+      - HASURA_GRAPHQL_DEV_MODE=true
+      - HASURA_GRAPHQL_ENABLED_LOG_TYPES=startup,http-log,webhook-log, websocket-log,query-log
+      - HASURA_GRAPHQL_MIGRATIONS_DIR=../hasura/migrations
+      # - HASURA_GRAPHQL_METADATA_DIR=../hasura/metadata
+  # - HASURA_GRAPHQL_DATABASE_URL=postgres://postgres:postgrespassword@postgres:5432/postgres
+
+  hasura-e2e:
+    image: hasura/graphql-engine:v2.0.0-alpha.8.cli-migrations-v3
+    container_name: codelab-hasura-e2e
+    ports:
+      - '8081:8080'
+    depends_on:
+      - 'postgres-e2e'
+    restart: always
+    env_file:
+      - ../.env
+    environment:
+      - HASURA_GRAPHQL_ENABLE_CONSOLE=true
+      - HASURA_GRAPHQL_DEV_MODE=true
+      - HASURA_GRAPHQL_ENABLED_LOG_TYPES=startup,http-log,webhook-log, websocket-log,query-log
+      - HASURA_GRAPHQL_MIGRATIONS_DIR=../hasura/migrations
+      - HASURA_GRAPHQL_METADATA_DIR=../hasura/metadata
+      - HASURA_GRAPHQL_DATABASE_URL=postgres://postgres:postgrespassword@postgres:5433/postgress
+
+  postgres:
+    image: postgres:13.2
+    container_name: codelab-postgres
+    restart: always
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    expose:
+      - 5432
+    ports:
+      # - HOST:CONTAINER
+      # Allow local machine access
+      - '5432:5432'
+    env_file:
+      - ../.env
+    # This is the incorrect way to inject, this passes to container as variables.
+    #
+    # We
+    # environment:
+    #   - POSTGRES_USER:
+    #   - POSTGRES_PASSWORD:
+    #   - POSTGRES_DB: ${POSTGRES_DB}
+
+  postgres-e2e:
+    image: postgres:13.2
+    container_name: codelab-postgres-e2e
+    restart: always
+    volumes:
+      - db_data_e2e:/var/lib/postgresql/data
+    expose:
+      - 5432
+    ports:
+      - '5433:5432'
+    env_file:
+      - ../.env
+
+  # pgadmin:
+  #   image: dpage/pgadmin4:4.28
+  #   restart: always
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: pgadmin@codelab.ai
+  #     PGADMIN_DEFAULT_PASSWORD: password
+  #     PGADMIN_LISTEN_PORT: 80
+  #   ports:
+  #     - 5050:80
+  #   volumes:
+  #     - pgadmin-data:/var/lib/pgadmin
+
+volumes:
+  db_data:
+    name: codelab-postgres-volume
+  db_data_e2e:
+    name: codelab-postgres-e2e-volume

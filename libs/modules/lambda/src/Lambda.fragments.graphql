@@ -1,5 +1,5 @@
 fragment Library__Lambda on lambda {
-    id
-    body
-    name
+  id
+  body
+  name
 }

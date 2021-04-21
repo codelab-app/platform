@@ -6,8 +6,6 @@ const themeVariables = lessToJS(
   fs.readFileSync(path.resolve(__dirname, './src/styles/antd.less'), 'utf8'),
 )
 
-console.log(themeVariables)
-
 module.exports = {
   siteMetadata: {
     title: `doc`,
@@ -31,14 +29,11 @@ module.exports = {
     },
     // `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
-    `gatsby-remark-images`,
     {
       resolve: `gatsby-plugin-mdx`,
       options: {
         extensions: ['.mdx', '.md'],
-        remarkPlugins: [
-          // require('remark-images'),
-        ],
+        remarkPlugins: [require('remark-images')],
         gatsbyRemarkPlugins: [
           // Relative to `static`
           'gatsby-remark-normalize-paths',
@@ -60,21 +55,7 @@ module.exports = {
               aliases: {},
             },
           },
-          // {
-          //   resolve: `gatsby-remark-highlight-code`,
-          //   options: {
-          //     // 'carbon' - macLike
-          //     // 'ubuntu'
-          //     // 'none'
-          //     // language: 'ts',
-          //     terminal: 'carbon',
-          //     theme: 'dracula',
-          //   },
-          // },
           `gatsby-remark-attr`,
-          // {
-          //   resolve: `gatsby-transformer-remark`,
-          // },
         ],
       },
     },
@@ -82,11 +63,18 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `markdown-pages`,
-        path: path.resolve(__dirname, '../../libs/modules'),
-        ignore: ['**/*.ts{x}'],
+        path: path.resolve(__dirname, '../../documentation'),
+        ignore: ['**/*.ts{x}', '**/*.md'],
       },
     },
-
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `markdown-pages`,
+        path: path.resolve(__dirname, '../../libs/modules'),
+        ignore: ['**/*.ts{x}', '**/*.md'],
+      },
+    },
     // https://github.com/bskimball/gatsby-plugin-antd/issues/2
     {
       resolve: `gatsby-plugin-less`,

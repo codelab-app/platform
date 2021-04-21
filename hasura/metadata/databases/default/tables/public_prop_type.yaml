@@ -1,11 +1,13 @@
-delete_permissions:
-- permission:
-    filter:
-      propTypeCollection:
-        library:
-          user_id:
-            _eq: X-Hasura-User-Id
-  role: user
+table:
+  name: prop_type
+  schema: public
+object_relationships:
+- name: propTypeCollection
+  using:
+    foreign_key_constraint_on: prop_type_c_id
+- name: type
+  using:
+    foreign_key_constraint_on: value_type
 insert_permissions:
 - permission:
     backend_only: false
@@ -19,13 +21,6 @@ insert_permissions:
     - prop_type_c_id
     - value_type
   role: user
-object_relationships:
-- name: propTypeCollection
-  using:
-    foreign_key_constraint_on: prop_type_c_id
-- name: type
-  using:
-    foreign_key_constraint_on: value_type
 select_permissions:
 - permission:
     columns:
@@ -39,9 +34,6 @@ select_permissions:
           user_id:
             _eq: X-Hasura-User-Id
   role: user
-table:
-  name: prop_type
-  schema: public
 update_permissions:
 - permission:
     check:
@@ -53,6 +45,14 @@ update_permissions:
     - key
     - prop_type_c_id
     - value_type
+    filter:
+      propTypeCollection:
+        library:
+          user_id:
+            _eq: X-Hasura-User-Id
+  role: user
+delete_permissions:
+- permission:
     filter:
       propTypeCollection:
         library:

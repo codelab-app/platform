@@ -21,7 +21,8 @@ const handler: NextApiHandler = async ({ body }, res) => {
     },
   } = body
 
-  if (action === 'deleted') {
+  // `deleted`
+  if (action !== 'created') {
     return res.json({})
   }
 
@@ -35,7 +36,7 @@ const handler: NextApiHandler = async ({ body }, res) => {
     : 'New Discussion Created'
 
   const result = await web.chat.postMessage({
-    text: '',
+    text: discussion_title,
     blocks: [
       {
         type: 'divider',

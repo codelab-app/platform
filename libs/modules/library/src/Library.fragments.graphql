@@ -1,30 +1,30 @@
 fragment __Library on library {
-    id
-    name
-    categories {
-        ...Library__Category
-    }
-    components {
-        ...GetComponents__Component
-    }
-    lambdas {
-        ...Library__Lambda
-    }
+  id
+  name
+  categories {
+    ...Library__Category
+  }
+  components {
+    ...GetComponents__Component
+  }
+  lambdas {
+    ...Library__Lambda
+  }
+  propTypes {
     propTypes {
-        propTypes {
-            ...PropTypeCollection__PropType
-        }
+      ...PropTypeCollection__PropType
     }
+  }
+  props {
     props {
-        props {
-            ...PropCollection__Prop
-        }
+      ...PropCollection__Prop
     }
-    styles {
-        ...Library__Style
-    }
-    tags {
-        ...Tag
-    }
-    user_id
+  }
+  styles {
+    ...Library__Style
+  }
+  tags {
+    ...Tag
+  }
+  user_id
 }

@@ -1,4 +1,0 @@
-is_enum: true
-table:
-  name: atom_types
-  schema: public

@@ -13,4 +13,3 @@ fragment PropCollection__Prop on prop {
     ...Prop__PropValue
   }
 }
-

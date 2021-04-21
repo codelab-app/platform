@@ -1,20 +1,20 @@
 fragment PageElement__ComponentElement on component_element {
-    id
-    label
-    hocs {
-        hoc {
-            ...ComponentElement__Hoc
-        }
+  id
+  label
+  hocs {
+    hoc {
+      ...ComponentElement__Hoc
     }
-    props {
-        ...PropCollection
+  }
+  props {
+    ...PropCollection
+  }
+  styles {
+    style {
+      ...Library__Style
     }
-    styles {
-        style {
-            ...Library__Style
-        }
-    }
-    atom {
-      ...Atom
-    }
+  }
+  atom {
+    ...Atom
+  }
 }

@@ -1,13 +1,13 @@
 fragment PropTypeCollection on prop_type_c {
-    id
-    label
-    library_id
-    propTypes {
-        ...PropTypeCollection__PropType
+  id
+  label
+  library_id
+  propTypes {
+    ...PropTypeCollection__PropType
+  }
+  tags {
+    tag {
+      ...Tag
     }
-    tags {
-        tag {
-            ...Tag
-        }
-    }
+  }
 }

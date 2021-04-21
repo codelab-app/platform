@@ -1,3 +1,6 @@
+table:
+  name: value_type
+  schema: public
 is_enum: true
 select_permissions:
 - permission:
@@ -6,6 +9,3 @@ select_permissions:
     - value
     filter: {}
   role: user
-table:
-  name: value_type
-  schema: public

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Layout } from 'antd'
 import { graphql } from 'gatsby'
 import { MDXRenderer } from 'gatsby-plugin-mdx'
@@ -8,7 +8,7 @@ import { SidebarMenu } from '../components/SidebarMenu'
 import { RecoilRoot } from 'recoil'
 
 // import '../styles/global.css'
-import 'antd/dist/antd.less'
+import '../styles/antd.less'
 // import 'prism-material-themes/themes/material-palenight.css'
 
 const { Content, Header, Footer, Sider } = Layout
@@ -27,6 +27,8 @@ export default function Template(props) {
   const { mdx } = data // data.markdownRemark holds your post data
   const { frontmatter, body } = mdx
 
+  console.log(body)
+
   const pages: Array<Frontmatter> = pageContext.edges.map((edge) => {
     const {
       node: {
@@ -41,6 +43,8 @@ export default function Template(props) {
       suborder,
     }
   })
+
+  const [collapsed, setCollapsed] = useState(false)
 
   return (
     <RecoilRoot>
@@ -60,7 +64,17 @@ export default function Template(props) {
             `,
           }}
         />
-        <Sider theme="light">
+        <Sider
+          theme="light"
+          collapsible
+          collapsedWidth={78}
+          // width={200}
+          breakpoint="md"
+          collapsed={collapsed}
+          onCollapse={(isCollapsed) => {
+            setCollapsed(isCollapsed)
+          }}
+        >
           <SidebarMenu
             pages={pages}
             currentPathname={props.location.pathname}
@@ -87,8 +101,8 @@ export const pageQuery = graphql`
         # date(formatString: "MMMM DD, YYYY")
         slug
         order
-        suborder
-        title
+        # suborder
+        # title
       }
     }
   }

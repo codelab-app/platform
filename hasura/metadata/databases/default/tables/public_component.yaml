@@ -1,3 +1,10 @@
+table:
+  name: component
+  schema: public
+object_relationships:
+- name: library
+  using:
+    foreign_key_constraint_on: library_id
 array_relationships:
 - name: elements
   using:
@@ -20,13 +27,6 @@ array_relationships:
       table:
         name: tag_component
         schema: public
-delete_permissions:
-- permission:
-    filter:
-      library:
-        user_id:
-          _eq: X-Hasura-User-Id
-  role: user
 insert_permissions:
 - permission:
     backend_only: false
@@ -38,10 +38,6 @@ insert_permissions:
     - label
     - library_id
   role: user
-object_relationships:
-- name: library
-  using:
-    foreign_key_constraint_on: library_id
 select_permissions:
 - permission:
     columns:
@@ -53,9 +49,6 @@ select_permissions:
         user_id:
           _eq: X-Hasura-User-Id
   role: user
-table:
-  name: component
-  schema: public
 update_permissions:
 - permission:
     check:
@@ -65,6 +58,13 @@ update_permissions:
     columns:
     - label
     - library_id
+    filter:
+      library:
+        user_id:
+          _eq: X-Hasura-User-Id
+  role: user
+delete_permissions:
+- permission:
     filter:
       library:
         user_id:

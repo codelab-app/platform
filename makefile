@@ -5,6 +5,26 @@
 # NODE_OPTIONS_DEV=NODE_OPTIONS=--max-old-space-size=2048
 
 #
+# HASURA
+#
+hasura-metadata-export:
+	npx hasura metadata export --project=hasura --envfile=../.env
+
+hasura-metadata-apply:
+	npx hasura metadata apply --project=hasura --envfile=../.env
+
+hasura-console:
+	npx hasura console --project=hasura --envfile=../.env
+
+hasura-inconsistency:
+	npx hasura metadata inconsistency list --project=hasura --envfile=../.env
+
+hasura-migrations-init:
+	npx hasura migrate --project=hasura --envfile=../.env create \"init\" --from-server --database-name default
+
+#	npx hasura migrate apply --version 1618946065806 --skip-execution --database-name default --project=hasura --envfile=../.env
+
+#
 # BUILD
 #
 lambda:

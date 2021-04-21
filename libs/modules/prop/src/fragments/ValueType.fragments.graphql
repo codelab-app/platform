@@ -1,4 +1,4 @@
 fragment ValueType on value_type {
-    description
-    value
+  description
+  value
 }
