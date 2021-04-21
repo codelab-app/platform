@@ -8,4 +8,12 @@ slug: '/getting-started/getting-started/'
 2. `yarn`
 3. `yarn docker:up hasura`
 
-This will call `hausra` service in `.docker/docker-compose.yaml`, which calls `postgres` as a dependency
+This will call `hasura` service in `.docker/docker-compose.yaml`, which calls `postgres` as a dependency
+
+If postgres service env vars have been modified, you'll need to delete the postgres docker volume using `docker volume ls` then `docker volume rm [volume-name]`
+
+We have disabled Hasura console access, because migrations aren't tracked there. We want to access Hasura using a CLI command
+
+4. `make hasura-console`
+
+- Visit `hasura/config.yaml` & look at `endpoint` property, make sure it matches the endpoint of your hasura

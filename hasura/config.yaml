@@ -1,7 +1,8 @@
 version: 3
+# https://stackoverflow.com/questions/59791091/hasura-endpoint-as-environment-variable
 # endpoint: ${HASURA_ENDPOINT}
-# endpoint: http://localhost:8080/
-endpoint: https://codelab-ai.hasura.app/
+endpoint: http://localhost:8080/
+# endpoint: https://codelab-ai.hasura.app/
 admin_secret: ${HASURA_GRAPHQL_ADMIN_SECRET}
 api_paths:
   v1_query: v1/query

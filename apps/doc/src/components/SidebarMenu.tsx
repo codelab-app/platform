@@ -28,8 +28,6 @@ const convertToOpenKeys = (slug) => {
 export const SidebarMenu = (props: SidebarMenuProps) => {
   const defaultOpenKeys = convertToOpenKeys(props.currentPathname)
 
-  console.log(props.currentPathname, defaultOpenKeys)
-
   return (
     <Menu
       css={css`
@@ -43,6 +41,9 @@ export const SidebarMenu = (props: SidebarMenuProps) => {
       <SubMenu key="/getting-started/" title="Getting Started">
         <Menu.Item key="/getting-started/what-is-codelab/">
           <Link to="/getting-started/what-is-codelab/">What is Codelab?</Link>
+        </Menu.Item>
+        <Menu.Item key="/getting-started/getting-started/">
+          <Link to="/getting-started/getting-started/">Getting Started</Link>
         </Menu.Item>
       </SubMenu>
       <SubMenu key="/modules/" title="Modules">
