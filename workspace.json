@@ -219,6 +219,10 @@
             "ci": {
               "baseUrl": "http://localhost:3001",
               "headless": true
+            },
+            "dev": {
+              "watch": true,
+              "exit": false
             }
           }
         },

@@ -8,6 +8,7 @@ import { getAuthToken } from '@codelab/frontend/shared'
  *  - authToken property in the request context
  *  - If authToken context is not set -> from the cookie stored in the client side (```document.cookie```), if we're on the client
  */
+//Do we even need this? Doesn't nextjs-auth0 handle our authentication?
 export const authLink: ApolloLink = setContext(
   (req, { authToken: authTokenFromContext, headers }) => {
     // get the authentication token from local cookie if it exists

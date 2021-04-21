@@ -14,7 +14,7 @@ export const LoginUserButton = () => {
   //     : setState({ ...state, modalVisible: 'login' })
 
   return (
-    <Button type="link" href="/api/auth/login">
+    <Button className="login-button" type="link" href="/api/auth/login">
       Login
     </Button>
   )
