@@ -1,14 +1,6 @@
-actions:
-- name: executeLambda
-  definition:
-    kind: synchronous
-    handler: http://0ee210e5d0a4.ngrok.io/lambda/execute
-  permissions:
-  - role: user
+actions: []
 custom_types:
   enums: []
-  input_objects:
-  - name: LambdaInput
-  objects:
-  - name: LambdaOutput
+  input_objects: []
+  objects: []
   scalars: []

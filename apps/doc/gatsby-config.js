@@ -6,8 +6,6 @@ const themeVariables = lessToJS(
   fs.readFileSync(path.resolve(__dirname, './src/styles/antd.less'), 'utf8'),
 )
 
-console.log(themeVariables)
-
 module.exports = {
   siteMetadata: {
     title: `doc`,

@@ -9,11 +9,8 @@ const { createFilePath } = require(`gatsby-source-filesystem`)
 exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions
 
-  console.log(node.internal.type)
-
   if (node.internal.type === `Mdx`) {
     const value = createFilePath({ node, getNode })
-    console.log(value)
     createNodeField({
       name: `slug`,
       node,
@@ -55,8 +52,6 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   })
 
   result.data.allMdx.edges.forEach(({ node }) => {
-    console.log(node)
-
     createPage({
       path: node.frontmatter.slug,
       component: blogPostTemplate,
