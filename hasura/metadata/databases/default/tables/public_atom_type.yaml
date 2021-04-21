@@ -1,3 +1,6 @@
+table:
+  name: atom_type
+  schema: public
 is_enum: true
 select_permissions:
 - permission:
@@ -6,6 +9,3 @@ select_permissions:
     - description
     filter: {}
   role: user
-table:
-  name: atom_type
-  schema: public
