@@ -1,5 +1,5 @@
-mutation UpdateLibrary($input: library_set_input!, $libraryId: uuid!){
-  update_library_by_pk(_set: $input, pk_columns: {id: $libraryId}) {
+mutation UpdateLibrary($input: library_set_input!, $libraryId: uuid!) {
+  update_library_by_pk(_set: $input, pk_columns: { id: $libraryId }) {
     ...__Library
   }
 }

@@ -1,7 +1,7 @@
 fragment Library__Category on category {
-    id
-    name
-    tags {
-        ...Tag
-    }
+  id
+  name
+  tags {
+    ...Tag
+  }
 }
