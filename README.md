@@ -1,4 +1,4 @@
-# What is Codelab.ai
+# **What is Codelab**.ai
 
 Codelab.ai is a cloud-based SaaS product designed for developers to build frontend web applications.
 

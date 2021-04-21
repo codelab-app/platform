@@ -1,4 +1,6 @@
 version: 3
+# endpoint: ${HASURA_ENDPOINT}
+# endpoint: http://localhost:8080/
 endpoint: https://codelab-ai.hasura.app/
 admin_secret: ${HASURA_GRAPHQL_ADMIN_SECRET}
 api_paths:

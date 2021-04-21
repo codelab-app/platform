@@ -27,6 +27,8 @@ export default function Template(props) {
   const { mdx } = data // data.markdownRemark holds your post data
   const { frontmatter, body } = mdx
 
+  console.log(body)
+
   const pages: Array<Frontmatter> = pageContext.edges.map((edge) => {
     const {
       node: {
@@ -70,7 +72,6 @@ export default function Template(props) {
           breakpoint="md"
           collapsed={collapsed}
           onCollapse={(isCollapsed) => {
-            console.log(isCollapsed)
             setCollapsed(isCollapsed)
           }}
         >

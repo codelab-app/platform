@@ -31,14 +31,11 @@ module.exports = {
     },
     // `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
-    `gatsby-remark-images`,
     {
       resolve: `gatsby-plugin-mdx`,
       options: {
         extensions: ['.mdx', '.md'],
-        remarkPlugins: [
-          // require('remark-images'),
-        ],
+        remarkPlugins: [require('remark-images')],
         gatsbyRemarkPlugins: [
           // Relative to `static`
           'gatsby-remark-normalize-paths',
