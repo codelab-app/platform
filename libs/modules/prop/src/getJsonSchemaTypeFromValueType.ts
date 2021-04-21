@@ -10,8 +10,6 @@ export const getJsonSchemaTypeFromValueType = (
       return 'string'
     case ValueType.Number:
       return 'number'
-    case ValueType.Prop:
-      return 'string'
     case ValueType.String:
       return 'string'
     default:
