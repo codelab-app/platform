@@ -4,4 +4,4 @@ set -x
 
 CMD="$*"
 
-npx hasura $CMD --project=hasura --envfile=../.env --database-name default --endpoint=http://localhost:8080
+npx hasura $CMD --project=hasura --envfile=../.env

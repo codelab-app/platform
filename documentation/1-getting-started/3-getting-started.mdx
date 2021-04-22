@@ -14,10 +14,14 @@ If postgres service env vars have been modified, you'll need to delete the postg
 
 We have disabled Hasura console access, because migrations aren't tracked there. We want to access Hasura using a CLI command
 
-> We are using a special hasura image which will use the mounted volumes to perform metadata initialization, & migration/seeding
+> The `hasura/graphql-engine:v2.0.0-alpha.8.cli-migrations-v3` image doesn't work for seeding. Since order must be migration -> seeder -> metadata, we must do it manually for now.
 
-![Component Module](/uploads/getting-started-hasura-seed.png){width=400}
+4. `make hasura-migrations-apply`
+5. `make hasura-seed-apply`
+6. `make hasura-metadata-apply`
+
+<!-- ![Component Module](/uploads/getting-started-hasura-seed.png){width=400} -->
 
 4. `make hasura-console`
 
-- Visit `hasura/config.yaml` & look at `endpoint` property, make sure it matches the endpoint of your hasura
+<!-- - Visit `hasura/config.yaml` & look at `endpoint` property, make sure it matches the endpoint of your hasura -->

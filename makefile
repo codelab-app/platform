@@ -26,13 +26,14 @@ hasura-migrations-init:
 	npx hasura migrate --project=hasura --envfile=../.env create \"init\" --from-server --database-name default
 
 hasura-seed-apply:
-	./scripts/hasura.sh seed apply
+	./scripts/hasura.sh seed apply --database-name=default
 
 hasura-seed-export:
 	./scripts/hasura.sh seed create value_type_seed --from-table value_type
 
 
 #	npx hasura migrate apply --version 1618946065806 --skip-execution --database-name default --project=hasura --envfile=../.env
+
 hasura-migrations-apply:
 	npx hasura migrate apply --database-name default --project=hasura --envfile=../.env
 
