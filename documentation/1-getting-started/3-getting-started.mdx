@@ -14,6 +14,8 @@ If postgres service env vars have been modified, you'll need to delete the postg
 
 We have disabled Hasura console access, because migrations aren't tracked there. We want to access Hasura using a CLI command
 
+> We are using a special hasura image which will use the mounted volumes to perform migration & metadata initialization
+
 4. `make hasura-console`
 
 - Visit `hasura/config.yaml` & look at `endpoint` property, make sure it matches the endpoint of your hasura
