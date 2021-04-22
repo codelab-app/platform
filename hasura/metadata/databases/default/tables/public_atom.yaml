@@ -1,13 +1,3 @@
-table:
-  name: atom
-  schema: public
-object_relationships:
-- name: atomType
-  using:
-    foreign_key_constraint_on: type
-- name: propTypes
-  using:
-    foreign_key_constraint_on: prop_type_c_id
 array_relationships:
 - name: styles
   using:
@@ -23,6 +13,10 @@ array_relationships:
       table:
         name: tag_atom
         schema: public
+delete_permissions:
+- permission:
+    filter: {}
+  role: user
 insert_permissions:
 - permission:
     backend_only: false
@@ -31,6 +25,13 @@ insert_permissions:
     - prop_type_c_id
     - type
   role: user
+object_relationships:
+- name: atomType
+  using:
+    foreign_key_constraint_on: type
+- name: propTypes
+  using:
+    foreign_key_constraint_on: prop_type_c_id
 select_permissions:
 - permission:
     columns:
@@ -39,15 +40,14 @@ select_permissions:
     - type
     filter: {}
   role: user
+table:
+  name: atom
+  schema: public
 update_permissions:
 - permission:
     check: null
     columns:
     - prop_type_c_id
     - type
-    filter: {}
-  role: user
-delete_permissions:
-- permission:
     filter: {}
   role: user
