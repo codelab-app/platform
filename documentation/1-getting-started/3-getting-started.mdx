@@ -6,7 +6,7 @@ slug: '/getting-started/getting-started/'
 
 1. `cp .env.example .env` & get env from Slack
 2. `yarn`
-3. `yarn docker:up hasura`
+3. `yarn docker:up hasura hasura-e2e`
 
 This will call `hasura` service in `.docker/docker-compose.yaml`, which calls `postgres` as a dependency
 
@@ -14,7 +14,9 @@ If postgres service env vars have been modified, you'll need to delete the postg
 
 We have disabled Hasura console access, because migrations aren't tracked there. We want to access Hasura using a CLI command
 
-> We are using a special hasura image which will use the mounted volumes to perform migration & metadata initialization
+> We are using a special hasura image which will use the mounted volumes to perform metadata initialization, & migration/seeding
+
+![Component Module](/uploads/getting-started-hasura-seed.png){width=400}
 
 4. `make hasura-console`
 

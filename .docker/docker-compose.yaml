@@ -13,11 +13,12 @@ services:
     depends_on:
       - 'postgres'
     restart: always
-    env_file:
-      - ../.env
     volumes:
       - ../hasura/migrations:/hasura-migrations
       - ../hasura/metadata:/hasura-metadata
+      - ../hasura/seeds:/hasura-seeds
+    env_file:
+      - ../.env
     environment:
       - HASURA_GRAPHQL_ENABLE_CONSOLE=false
       - HASURA_GRAPHQL_DEV_MODE=true
@@ -31,15 +32,17 @@ services:
     depends_on:
       - 'postgres-e2e'
     restart: always
+    volumes:
+      - ../hasura/migrations:/hasura-migrations
+      - ../hasura/metadata:/hasura-metadata
+      - ../hasura/seeds:/hasura-seeds
     env_file:
       - ../.env
     environment:
       - HASURA_GRAPHQL_ENABLE_CONSOLE=true
       - HASURA_GRAPHQL_DEV_MODE=true
       - HASURA_GRAPHQL_ENABLED_LOG_TYPES=startup,http-log,webhook-log, websocket-log,query-log
-      - HASURA_GRAPHQL_MIGRATIONS_DIR=../hasura/migrations
-      - HASURA_GRAPHQL_METADATA_DIR=../hasura/metadata
-      - HASURA_GRAPHQL_DATABASE_URL=postgres://postgres:postgrespassword@postgres:5433/postgress
+      - HASURA_GRAPHQL_DATABASE_URL=postgres://postgres:postgrespassword@postgres-e2e:5432/default
 
   postgres:
     image: postgres:13.2
@@ -70,6 +73,7 @@ services:
     restart: always
     volumes:
       - db_data_e2e:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     expose:
       - 5432
     ports:

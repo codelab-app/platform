@@ -45,6 +45,9 @@ export const SidebarMenu = (props: SidebarMenuProps) => {
         <Menu.Item key="/getting-started/getting-started/">
           <Link to="/getting-started/getting-started/">Getting Started</Link>
         </Menu.Item>
+        <Menu.Item key="/getting-started/workflow/">
+          <Link to="/getting-started/workflow/">Workflow</Link>
+        </Menu.Item>
       </SubMenu>
       <SubMenu key="/modules/" title="Modules">
         <SubMenu key="/modules/component/" title="Component">
