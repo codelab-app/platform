@@ -20,7 +20,8 @@ declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace Cypress {
     interface Chainable<Subject> {
-      login(email: string, password: string): void
+      login(): Chainable<void>
+      impersonateUser(): void
       findByButtonText: typeof findByButtonText
       findElementByText: typeof findElementByText
       findByModalTitle: typeof findByModalTitle
@@ -33,13 +34,38 @@ declare global {
   }
 }
 
-const login = (email: string, password: string) => {
-  console.log('Custom command example: Login', email, password)
-}
-//
-// -- This is a parent command --
+Cypress.Commands.add('login', () => {
+  Cypress.log({
+    name: 'loginViaAuth0',
+  })
 
-Cypress.Commands.add('login', login)
+  //Ideally, we would login using the Password grant, with an API call, like this:
+  //https://auth0.com/blog/end-to-end-testing-with-cypress-and-auth0/
+  //But we use nextjs-auth0 to manage our authentication process.
+  //And it encrypts the cookies and doesn't expose the encryption process
+  //Meaning that even if we did make the login request and got the token, we can't easily store it in our cookie
+  //since we don't have access to how it stores it
+  //See this for context https://github.com/auth0/nextjs-auth0/issues/335
+  //So just login using the UI
+  //We can maybe use this https://github.com/sir-dunxalot/cypress-nextjs-auth0 but after this gets merged https://github.com/sir-dunxalot/cypress-nextjs-auth0/pull/14
+
+  const email = Cypress.env('AUTH0_USER') //Username and password are from .env
+  const password = Cypress.env('AUTH0_PASSWORD') //Username and password are from .env
+
+  cy.visit('/')
+  cy.get('.login-button').click()
+
+  cy.get('body').then((body) => {
+    if (body.find('input[name=username]').length) {
+      cy.get('input[name=username]').type(email)
+      cy.get('input[name=password]').type(password)
+      cy.get('button[type=submit][value=default]').click()
+    } else {
+      //Already logged in
+      cy.url().should('be.equal', `${Cypress.config('baseUrl')}/`)
+    }
+  })
+})
 
 export const findByButtonText = (
   text: Matcher,
