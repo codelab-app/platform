@@ -22,6 +22,9 @@ hasura-inconsistency:
 hasura-migrations-init:
 	npx hasura migrate --project=hasura --envfile=../.env create \"init\" --from-server --database-name default
 
+hasura-seed-apply:
+	npx hasura seed apply --project=hasura --envfile=../.env --database-name default
+
 #	npx hasura migrate apply --version 1618946065806 --skip-execution --database-name default --project=hasura --envfile=../.env
 
 #

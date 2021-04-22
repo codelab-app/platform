@@ -301,14 +301,14 @@ ALTER TABLE ONLY public.prop_type
     ADD CONSTRAINT prop_type_prop_type_c_id_fkey FOREIGN KEY (prop_type_c_id) REFERENCES public.prop_type_c(id) ON UPDATE RESTRICT ON DELETE CASCADE;
 ALTER TABLE ONLY public.prop_type
     ADD CONSTRAINT prop_type_value_type_fkey FOREIGN KEY (value_type) REFERENCES public.value_type(value) ON UPDATE RESTRICT ON DELETE SET NULL;
+ALTER TABLE ONLY public.prop_value
+    ADD CONSTRAINT prop_value_prop_id_fkey FOREIGN KEY (prop_id) REFERENCES public.prop(id) ON UPDATE RESTRICT ON DELETE CASCADE;
 ALTER TABLE ONLY public.tag_prop_value
     ADD CONSTRAINT prop_value_tag_prop_value_id_fkey FOREIGN KEY (prop_value_id) REFERENCES public.prop_value(id) ON UPDATE RESTRICT ON DELETE CASCADE;
 ALTER TABLE ONLY public.tag_prop_value
     ADD CONSTRAINT prop_value_tag_tag_id_fkey FOREIGN KEY (tag_id) REFERENCES public.tag(id) ON UPDATE RESTRICT ON DELETE CASCADE;
 ALTER TABLE ONLY public.prop_value
-    ADD CONSTRAINT prop_values_parent_prop_id_fkey FOREIGN KEY (prop_id) REFERENCES public.prop(id) ON UPDATE RESTRICT ON DELETE CASCADE;
-ALTER TABLE ONLY public.prop_value
-    ADD CONSTRAINT prop_values_type_fkey FOREIGN KEY (type) REFERENCES public.value_type(value) ON UPDATE RESTRICT ON DELETE RESTRICT;
+    ADD CONSTRAINT prop_value_type_fkey FOREIGN KEY (type) REFERENCES public.value_type(value) ON UPDATE RESTRICT ON DELETE RESTRICT;
 ALTER TABLE ONLY public.style_atom
     ADD CONSTRAINT style_atom_atom_id_fkey FOREIGN KEY (atom_id) REFERENCES public.atom(id) ON UPDATE RESTRICT ON DELETE CASCADE;
 ALTER TABLE ONLY public.style_atom

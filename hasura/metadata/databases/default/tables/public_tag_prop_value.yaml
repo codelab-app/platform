@@ -1,13 +1,13 @@
-table:
-  name: tag_prop_value
-  schema: public
-object_relationships:
-- name: propValue
-  using:
-    foreign_key_constraint_on: prop_value_id
-- name: tag
-  using:
-    foreign_key_constraint_on: tag_id
+delete_permissions:
+- permission:
+    filter:
+      propValue:
+        prop:
+          propCollection:
+            library:
+              user_id:
+                _eq: X-Hasura-User-Id
+  role: user
 insert_permissions:
 - permission:
     backend_only: false
@@ -22,6 +22,13 @@ insert_permissions:
     - prop_value_id
     - tag_id
   role: user
+object_relationships:
+- name: propValue
+  using:
+    foreign_key_constraint_on: prop_value_id
+- name: tag
+  using:
+    foreign_key_constraint_on: tag_id
 select_permissions:
 - permission:
     columns:
@@ -35,6 +42,9 @@ select_permissions:
               user_id:
                 _eq: X-Hasura-User-Id
   role: user
+table:
+  name: tag_prop_value
+  schema: public
 update_permissions:
 - permission:
     check:
@@ -47,16 +57,6 @@ update_permissions:
     columns:
     - prop_value_id
     - tag_id
-    filter:
-      propValue:
-        prop:
-          propCollection:
-            library:
-              user_id:
-                _eq: X-Hasura-User-Id
-  role: user
-delete_permissions:
-- permission:
     filter:
       propValue:
         prop:
