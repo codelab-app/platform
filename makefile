@@ -14,7 +14,7 @@ hasura-cli-update:
 	npx hasura update-cli --project=hasura --envfile=../.env
 
 hasura-metadata-apply:
-	npx hasura metadata apply --project=hasura --envfile=../.env
+	npx hasura metadata apply --project=hasura --envfile=../.env --endpoint=http://localhost:8080
 
 hasura-console:
 	npx hasura console --project=hasura --envfile=../.env
