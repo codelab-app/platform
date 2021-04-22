@@ -16,7 +16,7 @@ services:
     volumes:
       - ../hasura/migrations:/hasura-migrations
       - ../hasura/metadata:/hasura-metadata
-      - ../hasura/seeds:/hasura-seeds
+      # - ../hasura/seeds:/hasura-seeds
     env_file:
       - ../.env
     environment:

@@ -6,7 +6,7 @@ hooks:
 generates:
   schema.graphql:
     schema:
-      - ${CODELAB_HASURA_GRAPHQL_ENDPOINT}/v1/graphql:
+      - ${CODELAB_HASURA_GRAPHQL_ENDPOINT}:
           headers:
             - 'x-hasura-admin-secret': '${HASURA_GRAPHQL_ADMIN_SECRET}'
     plugins:
@@ -15,7 +15,7 @@ generates:
   # Typescript + Apollo
   libs/hasura/src/graphql-client-hasura.generated.ts:
     schema:
-      - ${CODELAB_HASURA_GRAPHQL_ENDPOINT}/v1/graphql:
+      - ${CODELAB_HASURA_GRAPHQL_ENDPOINT}:
           headers:
             - 'x-hasura-admin-secret': '${HASURA_GRAPHQL_ADMIN_SECRET}'
     documents:

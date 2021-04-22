@@ -1,3 +1,16 @@
+table:
+  name: component_element
+  schema: public
+object_relationships:
+- name: atom
+  using:
+    foreign_key_constraint_on: atom_id
+- name: component
+  using:
+    foreign_key_constraint_on: component_id
+- name: props
+  using:
+    foreign_key_constraint_on: props_c_id
 array_relationships:
 - name: hocs
   using:
@@ -13,14 +26,6 @@ array_relationships:
       table:
         name: style_component_element
         schema: public
-delete_permissions:
-- permission:
-    filter:
-      component:
-        library:
-          user_id:
-            _eq: X-Hasura-User-Id
-  role: user
 insert_permissions:
 - permission:
     backend_only: false
@@ -35,16 +40,6 @@ insert_permissions:
     - label
     - props_c_id
   role: user
-object_relationships:
-- name: atom
-  using:
-    foreign_key_constraint_on: atom_id
-- name: component
-  using:
-    foreign_key_constraint_on: component_id
-- name: props
-  using:
-    foreign_key_constraint_on: props_c_id
 select_permissions:
 - permission:
     columns:
@@ -59,9 +54,6 @@ select_permissions:
           user_id:
             _eq: X-Hasura-User-Id
   role: user
-table:
-  name: component_element
-  schema: public
 update_permissions:
 - permission:
     check:
@@ -74,6 +66,14 @@ update_permissions:
     - component_id
     - label
     - props_c_id
+    filter:
+      component:
+        library:
+          user_id:
+            _eq: X-Hasura-User-Id
+  role: user
+delete_permissions:
+- permission:
     filter:
       component:
         library:

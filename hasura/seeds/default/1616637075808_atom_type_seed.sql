@@ -1,3 +1,4 @@
+SET check_function_bodies = false;
 INSERT INTO public.atom_type (value, description) VALUES ('React_Fragment', NULL);
 INSERT INTO public.atom_type (value, description) VALUES ('React_Html_Div', NULL);
 INSERT INTO public.atom_type (value, description) VALUES ('React_Html_P', NULL);

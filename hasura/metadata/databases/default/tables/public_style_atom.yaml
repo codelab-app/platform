@@ -1,3 +1,6 @@
+table:
+  name: style_atom
+  schema: public
 object_relationships:
 - name: atom
   using:
@@ -12,6 +15,3 @@ select_permissions:
     - style_id
     filter: {}
   role: user
-table:
-  name: style_atom
-  schema: public

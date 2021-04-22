@@ -1,7 +1,53 @@
+table:
+  name: lambda
+  schema: public
 configuration:
   custom_column_names:
     library_id: libraryId
   custom_root_fields: {}
+object_relationships:
+- name: library
+  using:
+    foreign_key_constraint_on: library_id
+insert_permissions:
+- permission:
+    backend_only: false
+    check:
+      library:
+        user_id:
+          _eq: X-Hasura-User-Id
+    columns:
+    - body
+    - library_id
+    - name
+  role: user
+select_permissions:
+- permission:
+    columns:
+    - body
+    - id
+    - library_id
+    - name
+    filter:
+      library:
+        user_id:
+          _eq: X-Hasura-User-Id
+  role: user
+update_permissions:
+- permission:
+    check:
+      library:
+        user_id:
+          _eq: X-Hasura-User-Id
+    columns:
+    - body
+    - library_id
+    - name
+    filter:
+      library:
+        user_id:
+          _eq: X-Hasura-User-Id
+  role: user
 delete_permissions:
 - permission:
     filter:
@@ -44,49 +90,3 @@ event_triggers:
     num_retries: 0
     timeout_sec: 60
   webhook: http://0ee210e5d0a4.ngrok.io/lambda/update
-insert_permissions:
-- permission:
-    backend_only: false
-    check:
-      library:
-        user_id:
-          _eq: X-Hasura-User-Id
-    columns:
-    - body
-    - library_id
-    - name
-  role: user
-object_relationships:
-- name: library
-  using:
-    foreign_key_constraint_on: library_id
-select_permissions:
-- permission:
-    columns:
-    - body
-    - id
-    - library_id
-    - name
-    filter:
-      library:
-        user_id:
-          _eq: X-Hasura-User-Id
-  role: user
-table:
-  name: lambda
-  schema: public
-update_permissions:
-- permission:
-    check:
-      library:
-        user_id:
-          _eq: X-Hasura-User-Id
-    columns:
-    - body
-    - library_id
-    - name
-    filter:
-      library:
-        user_id:
-          _eq: X-Hasura-User-Id
-  role: user

@@ -8,25 +8,29 @@
 # HASURA
 #
 hasura-metadata-export:
-	npx hasura metadata export --project=hasura --envfile=../.env
+	./scripts/hasura.sh metadata export
 
 hasura-cli-update:
-	npx hasura update-cli --project=hasura --envfile=../.env
+	./scripts/hasura.sh update-cli
 
 hasura-metadata-apply:
-	npx hasura metadata apply --project=hasura --envfile=../.env --endpoint=http://localhost:8080
+	./scripts/hasura.sh metadata apply
 
 hasura-console:
-	npx hasura console --project=hasura --envfile=../.env
+	./scripts/hasura.sh console
 
 hasura-inconsistency:
-	npx hasura metadata inconsistency list --project=hasura --envfile=../.env
+	./scripts/hasura.sh metadata inconsistency list
 
 hasura-migrations-init:
 	npx hasura migrate --project=hasura --envfile=../.env create \"init\" --from-server --database-name default
 
 hasura-seed-apply:
-	npx hasura seed apply --project=hasura --envfile=../.env --database-name default
+	./scripts/hasura.sh seed apply
+
+hasura-seed-export:
+	./scripts/hasura.sh seed create value_type_seed --from-table value_type
+
 
 #	npx hasura migrate apply --version 1618946065806 --skip-execution --database-name default --project=hasura --envfile=../.env
 hasura-migrations-apply:

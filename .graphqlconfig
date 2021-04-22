@@ -4,7 +4,7 @@
   "extensions": {
     "endpoints": {
       "Hasura GraphQL Endpoint": {
-        "url": "${env:CODELAB_HASURA_GRAPHQL_ENDPOINT}/v1/graphql",
+        "url": "${env:CODELAB_HASURA_GRAPHQL_ENDPOINT}",
         "headers": {
           "user-agent": "JS GraphQL",
           "x-hasura-admin-secret": "${env:HASURA_GRAPHQL_ADMIN_SECRET}"
