@@ -13,7 +13,7 @@ app.use('*', async (baseReq, baseRes, next) => {
   const session = await getSession(baseReq, baseRes)
 
   return createProxyMiddleware({
-    target: process.env.HASURA_URL_GRAPHQL,
+    target: process.env.CODELAB_HASURA_GRAPHQL_ENDPOINT,
     changeOrigin: true,
     proxyTimeout: 30000,
     secure: false,

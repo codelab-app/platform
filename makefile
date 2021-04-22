@@ -10,6 +10,9 @@
 hasura-metadata-export:
 	npx hasura metadata export --project=hasura --envfile=../.env
 
+hasura-cli-update:
+	npx hasura update-cli --project=hasura --envfile=../.env
+
 hasura-metadata-apply:
 	npx hasura metadata apply --project=hasura --envfile=../.env
 
@@ -26,6 +29,11 @@ hasura-seed-apply:
 	npx hasura seed apply --project=hasura --envfile=../.env --database-name default
 
 #	npx hasura migrate apply --version 1618946065806 --skip-execution --database-name default --project=hasura --envfile=../.env
+hasura-migrations-apply:
+	npx hasura migrate apply --database-name default --project=hasura --envfile=../.env
+
+# npx hasura migrate apply --version 1618946065806 --skip-execution --database-name default --project=hasura --envfile=../.env
+
 
 #
 # BUILD
