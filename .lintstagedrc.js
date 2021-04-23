@@ -11,7 +11,7 @@ module.exports = {
 
     return cmd
   },
-  '**/*.{json,graphql}': (files) => {
+  '**/*.{json,graphql,yml,yaml}': (files) => {
     const stagedFiles = files.join(' ')
 
     const cmd = `prettier --write ${stagedFiles}`

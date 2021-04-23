@@ -1,44 +1,44 @@
+array_relationships:
+  - name: apps
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table:
+          name: app
+          schema: public
+  - name: libraries
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table:
+          name: library
+          schema: public
+delete_permissions:
+  - permission:
+      filter:
+        id:
+          _eq: X-Hasura-User-Id
+    role: user
+select_permissions:
+  - permission:
+      columns:
+        - id
+        - name
+      filter:
+        id:
+          _eq: X-Hasura-User-Id
+    role: user
 table:
   name: user
   schema: public
-array_relationships:
-- name: apps
-  using:
-    foreign_key_constraint_on:
-      column: user_id
-      table:
-        name: app
-        schema: public
-- name: libraries
-  using:
-    foreign_key_constraint_on:
-      column: user_id
-      table:
-        name: library
-        schema: public
-select_permissions:
-- permission:
-    columns:
-    - id
-    - name
-    filter:
-      id:
-        _eq: X-Hasura-User-Id
-  role: user
 update_permissions:
-- permission:
-    check:
-      id:
-        _eq: X-Hasura-User-Id
-    columns:
-    - name
-    filter:
-      id:
-        _eq: X-Hasura-User-Id
-  role: user
-delete_permissions:
-- permission:
-    filter:
-      id:
-        _eq: X-Hasura-User-Id
-  role: user
+  - permission:
+      check:
+        id:
+          _eq: X-Hasura-User-Id
+      columns:
+        - name
+      filter:
+        id:
+          _eq: X-Hasura-User-Id
+    role: user

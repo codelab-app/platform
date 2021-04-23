@@ -35,7 +35,7 @@ filters-prod: &filters-prod
 filters-master-branch-only: &filters-master-branch-only
   when:
     and:
-      - equal: [ master, <<pipeline.git.branch>> ]
+      - equal: [master, <<pipeline.git.branch>>]
 
 executor-params: &executor-params
   parameters:
@@ -93,7 +93,6 @@ executors:
     docker:
       - image: joatmon08/circleci-gcp-agent:287.0-1.14.72
     resource_class: small
-
 
 commands:
   setup-env:
@@ -164,7 +163,7 @@ commands:
             - dep-cache-dev-
       - run:
           name: 'Install NPM packages'
-          command: "yarn install --frozen-lockfile --prod=false"
+          command: 'yarn install --frozen-lockfile --prod=false'
       # - run:
       #     name: 'List Cypress cache'
       #     command: npx cypress cache path
@@ -240,7 +239,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Fetch .env"
+          name: 'Fetch .env'
           command: |
             echo $CI_VAULT_ROLE_ID > /tmp/role-id
             echo $CI_VAULT_SECRET_ID > /tmp/secret-id
@@ -359,14 +358,9 @@ jobs:
             eb use app-prod --region ap-east-1 --profile eb-cli
             eb deploy app-prod --region ap-east-1 --profile eb-cli
 
-
 workflows:
   app-dev:
     jobs:
-      # - setup-vault-env:
-      #     <<: *filters-dev
-      #     e: vault-img
-      #     context: CI
       - install-and-build-workspace:
           <<: *filters-dev
           e: docker-node
@@ -408,10 +402,6 @@ workflows:
 
   app-staging:
     jobs:
-      # - setup-vault-env:
-      #     <<: *filters-staging
-      #     e: vault-img
-      #     context: CI
       - install-and-build-workspace:
           <<: *filters-staging
           e: docker-node

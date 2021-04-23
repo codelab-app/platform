@@ -16,6 +16,9 @@ hasura-cli-update:
 hasura-metadata-apply:
 	./scripts/hasura.sh metadata apply
 
+hasura-metadata-apply-e2e:
+	./scripts/hasura-e2e.sh metadata apply
+
 hasura-console:
 	./scripts/hasura.sh console
 
@@ -28,6 +31,9 @@ hasura-migrations-init:
 hasura-seed-apply:
 	./scripts/hasura.sh seed apply --database-name=default
 
+hasura-seed-apply-e2e:
+	./scripts/hasura-e2e.sh seed apply --database-name=default
+
 hasura-seed-export:
 	./scripts/hasura.sh seed create value_type_seed --from-table value_type
 
@@ -36,6 +42,9 @@ hasura-seed-export:
 
 hasura-migrations-apply:
 	npx hasura migrate apply --database-name default --project=hasura --envfile=../.env
+
+hasura-migrations-apply-e2e:
+	npx hasura migrate apply --database-name default --project=hasura --envfile=../.env --endpoint=http://localhost:8081
 
 # npx hasura migrate apply --version 1618946065806 --skip-execution --database-name default --project=hasura --envfile=../.env
 

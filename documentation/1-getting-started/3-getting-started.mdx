@@ -6,7 +6,7 @@ slug: '/getting-started/getting-started/'
 
 1. `cp .env.example .env` & get env from Slack
 2. `yarn`
-3. `yarn docker:up hasura hasura-e2e`
+3. `yarn docker:up hasura` or `hasura-e2e`
 
 This will call `hasura` service in `.docker/docker-compose.yaml`, which calls `postgres` as a dependency
 
@@ -16,10 +16,10 @@ We have disabled Hasura console access, because migrations aren't tracked there.
 
 > The `hasura/graphql-engine:v2.0.0-alpha.8.cli-migrations-v3` image doesn't work for seeding. Since order must be migration -> seeder -> metadata, we must do it manually for now.
 
-4. `make hasura-migrations-apply`
-5. `make hasura-seed-apply`
-6. `make hasura-metadata-apply`
+4. `make hasura-migrations-apply` or `make hasura-migrations-apply-e2e`
+5. `make hasura-seed-apply` or `make hasura-seed-apply-e2e`
+6. `make hasura-metadata-apply` or `make hasura-metadata-apply-e2e`
 <!-- ![Component Module](/uploads/getting-started-hasura-seed.png){width=400} -->
-7. `make hasura-console`
+7. `make hasura-console`, for e2e visit `http://localhost:8081` directly
 
 <!-- - Visit `hasura/config.yaml` & look at `endpoint` property, make sure it matches the endpoint of your hasura -->

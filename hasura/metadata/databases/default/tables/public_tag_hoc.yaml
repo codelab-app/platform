@@ -1,57 +1,57 @@
+delete_permissions:
+  - permission:
+      filter:
+        hoc:
+          library:
+            user_id:
+              _eq: X-Hasura-User-Id
+    role: user
+insert_permissions:
+  - permission:
+      backend_only: false
+      check:
+        hoc:
+          library:
+            user_id:
+              _eq: X-Hasura-User-Id
+      columns:
+        - hoc_id
+        - tag_id
+    role: user
+object_relationships:
+  - name: hoc
+    using:
+      foreign_key_constraint_on: hoc_id
+  - name: tag
+    using:
+      foreign_key_constraint_on: tag_id
+select_permissions:
+  - permission:
+      columns:
+        - hoc_id
+        - tag_id
+      filter:
+        hoc:
+          library:
+            user_id:
+              _eq: X-Hasura-User-Id
+    role: user
 table:
   name: tag_hoc
   schema: public
-object_relationships:
-- name: hoc
-  using:
-    foreign_key_constraint_on: hoc_id
-- name: tag
-  using:
-    foreign_key_constraint_on: tag_id
-insert_permissions:
-- permission:
-    backend_only: false
-    check:
-      hoc:
-        library:
-          user_id:
-            _eq: X-Hasura-User-Id
-    columns:
-    - hoc_id
-    - tag_id
-  role: user
-select_permissions:
-- permission:
-    columns:
-    - hoc_id
-    - tag_id
-    filter:
-      hoc:
-        library:
-          user_id:
-            _eq: X-Hasura-User-Id
-  role: user
 update_permissions:
-- permission:
-    check:
-      hoc:
-        library:
-          user_id:
-            _eq: X-Hasura-User-Id
-    columns:
-    - hoc_id
-    - tag_id
-    filter:
-      hoc:
-        library:
-          user_id:
-            _eq: X-Hasura-User-Id
-  role: user
-delete_permissions:
-- permission:
-    filter:
-      hoc:
-        library:
-          user_id:
-            _eq: X-Hasura-User-Id
-  role: user
+  - permission:
+      check:
+        hoc:
+          library:
+            user_id:
+              _eq: X-Hasura-User-Id
+      columns:
+        - hoc_id
+        - tag_id
+      filter:
+        hoc:
+          library:
+            user_id:
+              _eq: X-Hasura-User-Id
+    role: user
