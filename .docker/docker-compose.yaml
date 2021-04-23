@@ -14,10 +14,10 @@ services:
     depends_on:
       - 'postgres'
     restart: always
-    volumes:
-      - ../hasura/migrations:/hasura-migrations
-      - ../hasura/metadata:/hasura-metadata
-      # - ../hasura/seeds:/hasura-seeds
+    # volumes:
+    #   - ../hasura/migrations:/hasura-migrations
+    #   - ../hasura/metadata:/hasura-metadata
+    #   # - ../hasura/seeds:/hasura-seeds
     env_file:
       - ../.env
     environment:
@@ -33,10 +33,10 @@ services:
     depends_on:
       - 'postgres-e2e'
     restart: always
-    volumes:
-      - ../hasura/migrations:/hasura-migrations
-      - ../hasura/metadata:/hasura-metadata
-      # - ../hasura/seeds:/hasura-seeds
+    # volumes:
+    #   - ../hasura/migrations:/hasura-migrations
+    #   - ../hasura/metadata:/hasura-metadata
+    #   # - ../hasura/seeds:/hasura-seeds
     env_file:
       - ../.env
     environment:
