@@ -4,6 +4,4 @@ if [ "$CI" == true ]; then
   yarn codegen
   make hasura-migrations-apply
   make hasura-metadata-apply
-else
-  #
 fi
