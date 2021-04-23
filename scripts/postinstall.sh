@@ -5,4 +5,5 @@ if [ "$CI" == true ]; then
   make hasura-migrations-apply
   make hasura-metadata-apply
 else
+  #
 fi
