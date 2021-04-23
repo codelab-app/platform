@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
-yarn codegen
-
-make hasura-migrations-apply
-
-make hasura-metadata-apply
+if [ "$CI" == true ]; then
+  yarn codegen
+  make hasura-migrations-apply
+  make hasura-metadata-apply
+else
+fi
