@@ -10008,6 +10008,7 @@ export enum Value_Type_Enum {
   Boolean = 'Boolean',
   Lambda = 'Lambda',
   Number = 'Number',
+  Prop = 'Prop',
   String = 'String',
 }
 

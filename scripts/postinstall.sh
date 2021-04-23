@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
 
-# yarn codegen
-# yarn relay
+yarn codegen
+
+make hasura-migrations-apply
+
+make hasura-metadata-apply
