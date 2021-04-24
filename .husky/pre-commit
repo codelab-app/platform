@@ -1,9 +1,11 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-yarn lint:graphql
+# yarn lint:graphql
 
 make hasura-metadata-export
+
+# terraform fmt -recursive .terraform
 
 yarn cross-env TIMING=1 lint-staged --verbose
 

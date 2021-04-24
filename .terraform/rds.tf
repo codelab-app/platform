@@ -4,7 +4,7 @@ resource "aws_db_subnet_group" "postgres-subnet" {
   subnet_ids  = [aws_subnet.main-public-1.id, aws_subnet.main-public-2.id]
 }
 
-# DB params 
+# DB params
 resource "aws_db_parameter_group" "postgres-parameters" {
   name        = "postgres-parameters"
   family      = "postgres12"
@@ -13,26 +13,26 @@ resource "aws_db_parameter_group" "postgres-parameters" {
 
 # Create DB
 resource "aws_db_instance" "postgres" {
-  allocated_storage       = 10 
-  engine                  = "postgres"
-  engine_version          = "12"
-  instance_class          = "db.t3.micro"
-  identifier              = "postgres"
-  name                    = "postgres"
-  username                = "postgres"          
-  password                = var.RDS_PASSWORD 
-  db_subnet_group_name    = aws_db_subnet_group.postgres-subnet.name
-  parameter_group_name    = aws_db_parameter_group.postgres-parameters.name
-  multi_az                = "false" # set to true to have high availability: 2 instances synchronized with each other
-  vpc_security_group_ids  = [aws_security_group.allow-postgres.id]
-  storage_type            = "gp2"
-  backup_retention_period = 30                                          
-  availability_zone       = aws_subnet.main-private-1.availability_zone
-  skip_final_snapshot     = true                                     
+  allocated_storage         = 10
+  engine                    = "postgres"
+  engine_version            = "12"
+  instance_class            = "db.t3.micro"
+  identifier                = "postgres"
+  name                      = "postgres"
+  username                  = "postgres"
+  password                  = var.RDS_PASSWORD
+  db_subnet_group_name      = aws_db_subnet_group.postgres-subnet.name
+  parameter_group_name      = aws_db_parameter_group.postgres-parameters.name
+  multi_az                  = "false" # set to true to have high availability: 2 instances synchronized with each other
+  vpc_security_group_ids    = [aws_security_group.allow-postgres.id]
+  storage_type              = "gp2"
+  backup_retention_period   = 30
+  availability_zone         = aws_subnet.main-private-1.availability_zone
+  skip_final_snapshot       = true
   final_snapshot_identifier = "postgres-snapshot"
   tags = {
     Name = "postgres-instance"
   }
-  publicly_accessible     = true
+  publicly_accessible = true
 }
 

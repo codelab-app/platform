@@ -2,6 +2,7 @@ resource "aws_security_group" "app-prod" {
   vpc_id      = aws_vpc.main.id
   name        = "application - production"
   description = "security group for my app"
+
   egress {
     from_port   = 0
     to_port     = 0
@@ -54,6 +55,7 @@ resource "aws_security_group" "allow-postgres" {
       self    = false
       to_port = 5432
   }]
+
   egress {
     from_port   = 0
     to_port     = 0
@@ -61,6 +63,7 @@ resource "aws_security_group" "allow-postgres" {
     cidr_blocks = ["0.0.0.0/0"]
     self        = true
   }
+
   tags = {
     Name = "allow-postgres"
   }
