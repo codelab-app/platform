@@ -45,9 +45,9 @@ resource "aws_subnet" "main-private-1" {
 //   }
 // }
 
-output "aws_subnet"  {
+output "aws_subnet" {
   value = {
-    main-public-1 = aws_subnet.main-public-1,
+    main-public-1  = aws_subnet.main-public-1,
     main-private-1 = aws_subnet.main-private-1
   }
 }

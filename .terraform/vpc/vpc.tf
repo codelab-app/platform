@@ -11,7 +11,7 @@ resource "aws_vpc" "main" {
   }
 }
 
-output "aws_vpc"  {
+output "aws_vpc" {
   value = {
     main = aws_vpc.main
   }

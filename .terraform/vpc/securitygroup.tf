@@ -73,7 +73,7 @@ resource "aws_security_group" "allow-postgres" {
 
 output "aws_security_group" {
   value = {
-    app-prod = aws_security_group.app-prod,
+    app-prod       = aws_security_group.app-prod,
     allow-postgres = aws_security_group.allow-postgres
   }
 }

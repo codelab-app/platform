@@ -30,7 +30,7 @@ resource "aws_db_instance" "postgres" {
   availability_zone         = module.codelab-vpc.aws_subnet.main-private-1.availability_zone
   skip_final_snapshot       = true
   final_snapshot_identifier = "postgres-snapshot"
-  publicly_accessible = true
+  publicly_accessible       = true
 
   tags = {
     Name = "postgres-instance"
