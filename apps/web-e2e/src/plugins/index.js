@@ -22,4 +22,12 @@ module.exports = (on, config) => {
 
   // Preprocess Typescript file using Nx helper
   on('file:preprocessor', preprocessTypescript(config))
+
+  //Make available some of the env variables that we need, because only ones prefixed with Cypress_ get included
+  config.env.HASURA_GRAPHQL_ADMIN_SECRET =
+    process.env.HASURA_GRAPHQL_ADMIN_SECRET
+  config.env.CODELAB_HASURA_GRAPHQL_ENDPOINT =
+    process.env.CODELAB_HASURA_GRAPHQL_ENDPOINT
+
+  return config
 }

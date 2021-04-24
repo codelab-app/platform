@@ -27,7 +27,9 @@ export const UpdateAtomForm = ({
   const atomTypesOptions = atomsTypes?.atom_type?.map((t) => ({
     ...t,
     label: t.value,
+    type: t.value,
   }))
+
   const [mutate, { loading: updating }] = useUpdateAtomMutation({
     refetchQueries: [
       {
@@ -60,7 +62,6 @@ export const UpdateAtomForm = ({
       variables: {
         input: {
           ...(submitData as any),
-          id: atomId,
         },
         atomId,
       },
@@ -69,6 +70,8 @@ export const UpdateAtomForm = ({
 
   return (
     <FormUniforms<UpdateAtomInput>
+      data-test-id="update-atom-form"
+      id="update-atom-form"
       onSubmit={onSubmit}
       schema={UpdateAtomSchema}
       model={{ type: atom?.type }}

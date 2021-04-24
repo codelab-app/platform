@@ -47,10 +47,13 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
   const atomTypesOptions = data?.atom_type?.map((t) => ({
     ...t,
     label: t.value,
+    type: t.value,
   }))
 
   return (
     <FormUniforms<CreateAtomInput>
+      data-test-id="create-atom-form"
+      id="create-atom-form"
       onSubmit={onSubmit}
       schema={createAtomSchema}
       onSubmitError={createNotificationHandler({

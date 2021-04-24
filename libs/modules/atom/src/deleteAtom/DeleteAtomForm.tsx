@@ -53,6 +53,8 @@ export const DeleteAtomForm = (props: DeleteAtomFormProps) => {
 
   return (
     <FormUniforms<DeleteAtomInput>
+      data-test-id="delete-atom-form"
+      id="delete-atom-form"
       onSubmit={onSubmit}
       schema={DeleteAtomSchema}
       onSubmitError={createNotificationHandler({
