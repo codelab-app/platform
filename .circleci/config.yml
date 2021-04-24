@@ -10,19 +10,22 @@
 
 # Success notification is added to end of workflow, while failure notification is added to end of each job.
 
-filters-dev: &filters-dev
-  filters:
-    branches:
-      only: /^.*$/
-    tags:
-      ignore: /.*/
+# filters-dev: &filters-dev
+#   filters:
+#     branches:
+#       only: /^.*$/
+#     tags:
+#       ignore: /.*/
 
-filters-staging: &filters-staging
+filters-staging-pr: &filters-staging-pr
   filters:
-    tags:
-      only: /^staging-.*$/
     branches:
-      ignore: /.*/
+      ignore: master
+
+filters-staging-master: &filters-staging-master
+  filters:
+    branches:
+      only: master
 
 filters-prod: &filters-prod
   filters:
@@ -360,40 +363,88 @@ jobs:
             eb deploy app-prod --region ap-east-1 --profile eb-cli
 
 workflows:
-  app-dev:
+  # app-dev:
+  #   jobs:
+  #     - install-and-build-workspace:
+  #         <<: *filters-dev
+  #         e: docker-node
+  #         context: CI
+  #         # requires:
+  #         #   - setup-vault-env
+  #     - lint:
+  #         <<: *filters-dev
+  #         e: docker-node
+  #         context: CI
+  #         requires:
+  #           - install-and-build-workspace
+  #     - unit:
+  #         <<: *filters-dev
+  #         e: docker-node
+  #         context: CI
+  #         requires:
+  #           - install-and-build-workspace
+  #     - integration:
+  #         <<: *filters-dev
+  #         e: docker-node
+  #         context: CI
+  #         requires:
+  #           - install-and-build-workspace
+  #     - e2e:
+  #         <<: *filters-dev
+  #         e: docker-node
+  #         context: CI
+  #         requires:
+  #           - install-and-build-workspace
+  #     - notify-success:
+  #         <<: *filters-dev
+  #         e: docker-node
+  #         requires:
+  #           - lint
+  #           - unit
+  #           - integration
+  #           - e2e
+
+  app-staging-pr:
     jobs:
       - install-and-build-workspace:
-          <<: *filters-dev
+          <<: *filters-staging-pr
           e: docker-node
           context: CI
-          # requires:
-          #   - setup-vault-env
       - lint:
-          <<: *filters-dev
+          <<: *filters-staging-pr
           e: docker-node
           context: CI
           requires:
             - install-and-build-workspace
       - unit:
-          <<: *filters-dev
+          <<: *filters-staging-pr
           e: docker-node
           context: CI
           requires:
             - install-and-build-workspace
       - integration:
-          <<: *filters-dev
+          <<: *filters-staging-pr
           e: docker-node
           context: CI
           requires:
             - install-and-build-workspace
       - e2e:
-          <<: *filters-dev
+          <<: *filters-staging-pr
           e: docker-node
           context: CI
           requires:
             - install-and-build-workspace
+      # - deploy-to-ebs-staging:
+      #     <<: *filters-staging
+      #     e: docker-python
+      #     context: CI
+      #     requires:
+      #       - lint
+      #       - unit
+      #       - integration
+      #       - e2e
       - notify-success:
-          <<: *filters-dev
+          <<: *filters-staging-pr
           e: docker-node
           requires:
             - lint
@@ -401,52 +452,26 @@ workflows:
             - integration
             - e2e
 
-  app-staging:
+  app-staging-master:
     jobs:
       - install-and-build-workspace:
-          <<: *filters-staging
+          <<: *filters-staging-pr
           e: docker-node
           context: CI
-          # requires:
-          #   - setup-vault-env
-      - lint:
-          <<: *filters-staging
-          e: docker-node
-          context: CI
-          requires:
-            - install-and-build-workspace
-      - unit:
-          <<: *filters-staging
-          e: docker-node
-          context: CI
-          requires:
-            - install-and-build-workspace
-      - integration:
-          <<: *filters-staging
-          e: docker-node
-          context: CI
-          requires:
-            - install-and-build-workspace
-      - e2e:
-          <<: *filters-staging
-          e: docker-node
-          context: CI
-          requires:
-            - install-and-build-workspace
       - deploy-to-ebs-staging:
-          <<: *filters-staging
+          <<: *filters-staging-pr
           e: docker-python
           context: CI
+          requires:
+            - install-and-build-workspace
+      - notify-success:
+          <<: *filters-staging-pr
+          e: docker-node
           requires:
             - lint
             - unit
             - integration
             - e2e
-      - notify-success:
-          <<: *filters-staging
-          e: docker-node
-          requires:
-            - deploy-to-ebs-staging
 
   app-prod:
     jobs:

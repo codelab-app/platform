@@ -8,6 +8,8 @@
     "graphql.vscode-graphql",
     "dbaeumer.vscode-eslint",
     "mikestead.dotenv",
-    "firsttris.vscode-jest-runner"
+    "firsttris.vscode-jest-runner",
+    "wholroyd.hcl",
+    "hashicorp.terraform"
   ]
 }

@@ -20,4 +20,13 @@ module.exports = {
 
     return cmd
   },
+  // '**/*.{.tf}': (files) => {
+  //   const stagedFiles = files.join(' ')
+
+  //   const cmd = `tflint --write ${stagedFiles}`
+
+  //   // console.log(`Running: ${cmd}`)
+
+  //   return `terraform fmt -recursive .terraform && tflint .terraform`
+  // },
 }

@@ -1,17 +1,17 @@
 object_relationships:
-  - name: atom
-    using:
-      foreign_key_constraint_on: atom_id
-  - name: style
-    using:
-      foreign_key_constraint_on: style_id
+- name: atom
+  using:
+    foreign_key_constraint_on: atom_id
+- name: style
+  using:
+    foreign_key_constraint_on: style_id
 select_permissions:
-  - permission:
-      columns:
-        - atom_id
-        - style_id
-      filter: {}
-    role: user
+- permission:
+    columns:
+    - atom_id
+    - style_id
+    filter: {}
+  role: user
 table:
   name: style_atom
   schema: public

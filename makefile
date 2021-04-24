@@ -5,6 +5,14 @@
 # NODE_OPTIONS_DEV=NODE_OPTIONS=--max-old-space-size=2048
 
 #
+# TERRAFORM
+#
+
+terraform-lint:
+	terraform fmt -recursive .terraform && tflint .terraform
+
+
+#
 # HASURA
 #
 hasura-metadata-export:

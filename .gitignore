@@ -9,6 +9,8 @@ dist/
 tmp/
 out-tsc/
 
+ecs-cli.asc
+
 # dependencies
 node_modules/
 node_modules_prod/
