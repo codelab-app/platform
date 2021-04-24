@@ -33,6 +33,7 @@ export const FormUniformsModal = <TData extends Record<string, unknown>>({
   modalProps: { okButtonProps, onOk, ...modalProps } = {},
   renderForm,
   children,
+  ...props
 }: PropsWithChildren<FormUniformsModalProps<TData>>): ReactElement => {
   // This is the controller that will do the form submission. Set by the GeneratedForm component
   const submitRef = useRef<SubmitController | undefined>()
@@ -63,6 +64,7 @@ export const FormUniformsModal = <TData extends Record<string, unknown>>({
           onOk(e)
         }
       }}
+      {...props}
       {...modalProps}
     >
       {form}

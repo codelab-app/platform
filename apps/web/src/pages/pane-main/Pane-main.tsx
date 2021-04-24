@@ -63,7 +63,12 @@ export const PaneMain = () => {
       >
         <PaneMainLambda />
       </TabPane>
-      <TabPane tab={<DeploymentUnitOutlined title="Atom" />} key="6">
+      <TabPane
+        tab={
+          <DeploymentUnitOutlined data-testid="atom-tab-trigger" title="Atom" />
+        }
+        key="6"
+      >
         <PaneMainAtom />
       </TabPane>
       <TabPane tab={<DatabaseOutlined title="Library" />} key="7">

@@ -21,7 +21,14 @@ declare global {
   namespace Cypress {
     interface Chainable<Subject> {
       login(): Chainable<void>
+      getByTestId(
+        testId: string,
+        selectorAddon?: string | undefined,
+      ): Chainable<JQuery<any>>
       impersonateUser(): void
+      hasuraAdminRequest(
+        body: string | Record<string, any>,
+      ): Chainable<Response>
       findByButtonText: typeof findByButtonText
       findElementByText: typeof findElementByText
       findByModalTitle: typeof findByModalTitle
@@ -65,6 +72,22 @@ Cypress.Commands.add('login', () => {
       cy.url().should('be.equal', `${Cypress.config('baseUrl')}/`)
     }
   })
+})
+
+//Makes an post request to the hasura graphql api endpoint with admin secret
+Cypress.Commands.add('hasuraAdminRequest', (body) => {
+  return cy.request({
+    body,
+    url: Cypress.env('CODELAB_HASURA_GRAPHQL_ENDPOINT'),
+    method: 'POST',
+    headers: {
+      'x-hasura-admin-secret': Cypress.env('HASURA_GRAPHQL_ADMIN_SECRET'),
+    },
+  })
+})
+
+Cypress.Commands.add('getByTestId', (testId, selectorAddon) => {
+  return cy.get(`[data-testid=${testId}]${selectorAddon || ''}`)
 })
 
 export const findByButtonText = (

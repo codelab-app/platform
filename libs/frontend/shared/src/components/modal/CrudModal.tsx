@@ -5,12 +5,17 @@ import {
   EntityType,
   FormUniformsModal,
 } from '@codelab/frontend/shared'
+import { ModalProps } from 'antd/lib/modal'
 
 export type CrudModalProps = {
   entityType: EntityType
   actionType: ActionType
   okText: string
   renderForm: () => ReactElement
+  modalProps?: Omit<
+    ModalProps,
+    'okText' | 'okButtonProps' | 'visible' | 'onCancel'
+  >
 }
 
 export const CrudModal = ({
@@ -18,6 +23,7 @@ export const CrudModal = ({
   actionType,
   okText = '',
   renderForm,
+  modalProps,
 }: CrudModalProps) => {
   const { reset, state } = useCRUDModalForm(entityType)
   const { loading, visibleForm, type } = state
@@ -31,6 +37,7 @@ export const CrudModal = ({
         },
         visible: type === entityType && actionType === visibleForm,
         onCancel: () => reset(),
+        ...(modalProps || {}),
       }}
       renderForm={renderForm}
     />
