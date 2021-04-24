@@ -10186,6 +10186,17 @@ export type CreateAtomMutation = { __typename?: 'mutation_root' } & {
   insert_atom_one?: Maybe<{ __typename?: 'atom' } & AtomFragment>
 }
 
+export type DeleteAllAtomsMutationVariables = Exact<{ [key: string]: never }>
+
+export type DeleteAllAtomsMutation = { __typename?: 'mutation_root' } & {
+  delete_atom?: Maybe<
+    { __typename?: 'atom_mutation_response' } & Pick<
+      Atom_Mutation_Response,
+      'affected_rows'
+    >
+  >
+}
+
 export type DeleteAtomMutationVariables = Exact<{
   atomId: Scalars['uuid']
 }>
@@ -11455,6 +11466,54 @@ export type CreateAtomMutationResult = Apollo.MutationResult<CreateAtomMutation>
 export type CreateAtomMutationOptions = Apollo.BaseMutationOptions<
   CreateAtomMutation,
   CreateAtomMutationVariables
+>
+export const DeleteAllAtomsGql = gql`
+  mutation DeleteAllAtoms {
+    delete_atom(where: {}) {
+      affected_rows
+    }
+  }
+`
+export type DeleteAllAtomsMutationFn = Apollo.MutationFunction<
+  DeleteAllAtomsMutation,
+  DeleteAllAtomsMutationVariables
+>
+
+/**
+ * __useDeleteAllAtomsMutation__
+ *
+ * To run a mutation, you first call `useDeleteAllAtomsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteAllAtomsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteAllAtomsMutation, { data, loading, error }] = useDeleteAllAtomsMutation({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useDeleteAllAtomsMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeleteAllAtomsMutation,
+    DeleteAllAtomsMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    DeleteAllAtomsMutation,
+    DeleteAllAtomsMutationVariables
+  >(DeleteAllAtomsGql, options)
+}
+export type DeleteAllAtomsMutationHookResult = ReturnType<
+  typeof useDeleteAllAtomsMutation
+>
+export type DeleteAllAtomsMutationResult = Apollo.MutationResult<DeleteAllAtomsMutation>
+export type DeleteAllAtomsMutationOptions = Apollo.BaseMutationOptions<
+  DeleteAllAtomsMutation,
+  DeleteAllAtomsMutationVariables
 >
 export const DeleteAtomGql = gql`
   mutation DeleteAtom($atomId: uuid!) {
@@ -13815,6 +13874,13 @@ export const CreateAtom = gql`
     }
   }
   ${Atom}
+`
+export const DeleteAllAtoms = gql`
+  mutation DeleteAllAtoms {
+    delete_atom(where: {}) {
+      affected_rows
+    }
+  }
 `
 export const DeleteAtom = gql`
   mutation DeleteAtom($atomId: uuid!) {

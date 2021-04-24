@@ -70,7 +70,7 @@ export const UpdateAtomForm = ({
 
   return (
     <FormUniforms<UpdateAtomInput>
-      data-test-id="update-atom-form"
+      data-testid="update-atom-form"
       id="update-atom-form"
       onSubmit={onSubmit}
       schema={UpdateAtomSchema}

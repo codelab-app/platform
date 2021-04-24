@@ -21,7 +21,10 @@ declare global {
   namespace Cypress {
     interface Chainable<Subject> {
       login(): Chainable<void>
-      getByTestId(testId: string): Chainable<JQuery<any>>
+      getByTestId(
+        testId: string,
+        selectorAddon?: string | undefined,
+      ): Chainable<JQuery<any>>
       impersonateUser(): void
       hasuraAdminRequest(
         body: string | Record<string, any>,
@@ -83,8 +86,8 @@ Cypress.Commands.add('hasuraAdminRequest', (body) => {
   })
 })
 
-Cypress.Commands.add('getByTestId', (testId) => {
-  return cy.get(`[data-test-id=${testId}]`)
+Cypress.Commands.add('getByTestId', (testId, selectorAddon) => {
+  return cy.get(`[data-testid=${testId}]${selectorAddon || ''}`)
 })
 
 export const findByButtonText = (

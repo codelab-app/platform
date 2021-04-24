@@ -1,4 +1,8 @@
-import { Atom_Type_Enum, CreateAtomGql } from '@codelab/hasura'
+import {
+  Atom_Type_Enum,
+  CreateAtomGql,
+  DeleteAllAtomsGql,
+} from '@codelab/hasura'
 import { print } from 'graphql'
 import { sample } from 'lodash'
 
@@ -10,19 +14,13 @@ const pageId = '4ccde878-25d3-4b36-a9b8-67fcec986e7b'
 
 const deleteAllAtoms = () => {
   return cy.hasuraAdminRequest({
-    query: `
-        mutation DeleteAllAtoms {
-          delete_atom(where:{}) {
-            affected_rows
-          }
-        }
-      `,
+    query: print(DeleteAllAtomsGql),
   })
 }
 
 const openAtomsTab = () => {
   cy.visit(`/apps/${appId}/pages/${pageId}`)
-  cy.get('[data-test-id=atom-tab-trigger]').click()
+  cy.getByTestId('atom-tab-trigger').click()
 }
 
 const randomAtomType = () =>
@@ -39,6 +37,12 @@ const insertOneAtom = (atomType: Atom_Type_Enum) => {
   })
 }
 
+const getAtomListItem = (atomType?: string) =>
+  cy.getByTestId(
+    'get-atoms-list-item',
+    atomType ? `[data-test-atom-type=${atomType}]` : '',
+  )
+
 describe('Atom', () => {
   before(() => {
     cy.login()
@@ -50,19 +54,17 @@ describe('Atom', () => {
     openAtomsTab()
 
     //We should have no items in the list
-    cy.getByTestId(`get-atoms-list-item`).should('not.exist')
+    getAtomListItem().should('not.exist')
 
     cy.getByTestId(`create-atom-button`).click()
     cy.getByTestId(`create-atom-form`).find('div[name=type] input').click()
 
     cy.get('div#create-atom-form-0000_list + div div[__typename=atom_type]')
       .first()
-      .then((el) => {
-        cy.log(el.attr('type') as any)
+      .then((typeSelectInput) => {
+        const selectedAtomType = typeSelectInput.attr('type')
 
-        const selectedAtomType = el.attr('type')
-
-        el.trigger('click')
+        typeSelectInput.trigger('click')
 
         cy.get('.create-atom-modal button[type=submit]').click()
 
@@ -73,9 +75,7 @@ describe('Atom', () => {
         cy.get('.create-atom-modal').should('not.exist')
 
         //We should have the new item in the list
-        cy.get(
-          `[data-test-id=get-atoms-list-item][data-test-atom-type=${selectedAtomType}]`,
-        )
+        getAtomListItem(selectedAtomType)
       })
   })
 
@@ -90,10 +90,9 @@ describe('Atom', () => {
         openAtomsTab()
 
         //We should have the new atom in the list, click its update button
-        cy.get(
-          `[data-test-id=get-atoms-list-item][data-test-atom-type=${atomType}]`,
-        )
-          .find('[data-test-id=atom-update-button]')
+        getAtomListItem(atomType)
+          .getByTestId('atom-update-button')
+          .first()
           .click()
 
         //We should have an existing type select input with the atom type we defined
@@ -103,12 +102,10 @@ describe('Atom', () => {
 
         cy.get('div#update-atom-form-0000_list + div div[__typename=atom_type]')
           .first()
-          .then((el) => {
-            cy.log(el.attr('type') as any)
+          .then((typeSelectInput) => {
+            const selectedAtomType = typeSelectInput.attr('type')
 
-            const selectedAtomType = el.attr('type')
-
-            el.trigger('click')
+            typeSelectInput.trigger('click')
 
             cy.get('.update-atom-modal button[type=submit]').click()
 
@@ -119,9 +116,7 @@ describe('Atom', () => {
             cy.get('.update-atom-modal').should('not.exist')
 
             //We should have the new item in the list
-            cy.get(
-              `[data-test-id=get-atoms-list-item][data-test-atom-type=${selectedAtomType}]`,
-            )
+            getAtomListItem(selectedAtomType)
           })
       })
     })
@@ -137,10 +132,9 @@ describe('Atom', () => {
         openAtomsTab()
 
         //We should have the new atom in the list, click its delete button
-        cy.get(
-          `[data-test-id=get-atoms-list-item][data-test-atom-type=${atomType}]`,
-        )
-          .find('[data-test-id=atom-delete-button]')
+        getAtomListItem(atomType)
+          .getByTestId('atom-delete-button')
+          .first()
           .click()
 
         cy.get('.delete-atom-modal button[type=submit]').click()
@@ -151,7 +145,7 @@ describe('Atom', () => {
         cy.get('.delete-atom-modal').should('not.exist')
 
         //We should not have any items in the list
-        cy.getByTestId(`get-atoms-list-item`).should('not.exist')
+        getAtomListItem().should('not.exist')
       })
     })
   })

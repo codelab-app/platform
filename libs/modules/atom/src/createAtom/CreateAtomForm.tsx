@@ -52,7 +52,7 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
 
   return (
     <FormUniforms<CreateAtomInput>
-      data-test-id="create-atom-form"
+      data-testid="create-atom-form"
       id="create-atom-form"
       onSubmit={onSubmit}
       schema={createAtomSchema}

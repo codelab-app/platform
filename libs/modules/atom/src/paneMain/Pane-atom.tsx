@@ -15,6 +15,7 @@ export const PaneMainAtom = () => {
   return (
     <PaneMainTemplate title="Atoms" header={<CreateAtomButton key={0} />}>
       <GetAtomsList />
+
       <CrudModal
         modalProps={{
           className: 'create-atom-modal',

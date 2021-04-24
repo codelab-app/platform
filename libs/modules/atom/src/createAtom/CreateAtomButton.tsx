@@ -8,7 +8,7 @@ export const CreateAtomButton = () => {
 
   return (
     <Button
-      icon={<PlusOutlined data-test-id="create-atom-button" />}
+      icon={<PlusOutlined data-testid="create-atom-button" />}
       onClick={() => openCreateModal()}
     />
   )

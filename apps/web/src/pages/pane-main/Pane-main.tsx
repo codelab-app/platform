@@ -65,10 +65,7 @@ export const PaneMain = () => {
       </TabPane>
       <TabPane
         tab={
-          <DeploymentUnitOutlined
-            data-test-id="atom-tab-trigger"
-            title="Atom"
-          />
+          <DeploymentUnitOutlined data-testid="atom-tab-trigger" title="Atom" />
         }
         key="6"
       >

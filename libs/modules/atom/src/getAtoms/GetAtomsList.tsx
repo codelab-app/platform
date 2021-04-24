@@ -15,17 +15,17 @@ export const GetAtomsList = () => {
       renderItem={(atom: any) => (
         <List.Item onMouseOver={() => null} style={{ paddingLeft: 0 }}>
           <div
-            data-test-id="get-atoms-list-item"
+            data-testid="get-atoms-list-item"
             data-test-atom-type={atom.type}
           >
             <Space style={{ width: '100%' }}>{atom.type}</Space>
             <Space>
               <SettingOutlined
-                data-test-id="atom-update-button"
+                data-testid="atom-update-button"
                 onClick={() => openUpdateModal(atom.id)}
               />
               <DeleteOutlined
-                data-test-id="atom-delete-button"
+                data-testid="atom-delete-button"
                 onClick={() => openDeleteModal(atom.id)}
               />
             </Space>
