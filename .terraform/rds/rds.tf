@@ -24,7 +24,7 @@ resource "aws_db_instance" "postgres" {
   db_subnet_group_name      = aws_db_subnet_group.postgres-subnet.name
   parameter_group_name      = aws_db_parameter_group.postgres-parameters.name
   multi_az                  = "false" # set to true to have high availability: 2 instances synchronized with each other
-  vpc_security_group_ids    = [aws_security_group.allow-postgres.id]
+  vpc_security_group_ids    = [module.codelab-vpc.aws_security_group.allow-postgres.id]
   storage_type              = "gp2"
   backup_retention_period   = 30
   availability_zone         = module.codelab-vpc.aws_subnet.main-private-1.availability_zone
