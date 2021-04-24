@@ -8,8 +8,8 @@ config {
     "terraform-aws-modules/security-group/aws" = true
   }
 
-  varfile = ["example1.tfvars", "example2.tfvars"]
-  variables = ["foo=bar", "bar=[\"baz\"]"]
+  // varfile = ["example1.tfvars", "example2.tfvars"]
+  // variables = ["foo=bar", "bar=[\"baz\"]"]
 }
 
 rule "aws_instance_invalid_type" {
