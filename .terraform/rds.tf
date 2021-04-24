@@ -1,7 +1,7 @@
 resource "aws_db_subnet_group" "postgres-subnet" {
   name        = "postgres-subnet"
   description = "RDS subnet group"
-  subnet_ids  = [aws_subnet.main-public-1.id, aws_subnet.main-public-2.id]
+  subnet_ids  = [module.codelab-vpc.aws_subnet.main-public-1.id]
 }
 
 # DB params
@@ -27,12 +27,13 @@ resource "aws_db_instance" "postgres" {
   vpc_security_group_ids    = [aws_security_group.allow-postgres.id]
   storage_type              = "gp2"
   backup_retention_period   = 30
-  availability_zone         = aws_subnet.main-private-1.availability_zone
+  availability_zone         = module.codelab-vpc.aws_subnet.main-private-1.availability_zone
   skip_final_snapshot       = true
   final_snapshot_identifier = "postgres-snapshot"
+  publicly_accessible = true
+
   tags = {
     Name = "postgres-instance"
   }
-  publicly_accessible = true
 }
 

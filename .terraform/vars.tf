@@ -26,7 +26,6 @@ variable "AWS_ACCESS_KEY_ID" {
   description = "Your AWS access key"
 }
 
-
 variable "AWS_SECRET_ACCESS_KEY" {
   type        = string
   description = "Your AWS secret"

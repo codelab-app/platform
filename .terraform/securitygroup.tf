@@ -1,5 +1,5 @@
 resource "aws_security_group" "app-prod" {
-  vpc_id      = aws_vpc.main.id
+  vpc_id      = module.codelab-vpc.aws_vpc.main.id
   name        = "application - production"
   description = "security group for my app"
 
@@ -23,7 +23,7 @@ resource "aws_security_group" "app-prod" {
 }
 
 resource "aws_security_group" "allow-postgres" {
-  vpc_id      = aws_vpc.main.id
+  vpc_id      = module.codelab-vpc.aws_vpc.main.id
   name        = "allow-postgres"
   description = "allow-postgres"
   ingress = [
@@ -54,7 +54,8 @@ resource "aws_security_group" "allow-postgres" {
       ]
       self    = false
       to_port = 5432
-  }]
+    }
+  ]
 
   egress {
     from_port   = 0
