@@ -10302,6 +10302,19 @@ export type CreateComponentMutation = { __typename?: 'mutation_root' } & {
   >
 }
 
+export type DeleteAllComponentsMutationVariables = Exact<{
+  [key: string]: never
+}>
+
+export type DeleteAllComponentsMutation = { __typename?: 'mutation_root' } & {
+  delete_component?: Maybe<
+    { __typename?: 'component_mutation_response' } & Pick<
+      Component_Mutation_Response,
+      'affected_rows'
+    >
+  >
+}
+
 export type DeleteComponentMutationVariables = Exact<{
   componentId: Scalars['uuid']
 }>
@@ -10768,11 +10781,6 @@ export type UpdateStyleMutation = { __typename?: 'mutation_root' } & {
   >
 }
 
-export type __UserFragment = { __typename?: 'user' } & Pick<
-  User,
-  'id' | 'name'
-> & { apps: Array<{ __typename?: 'app' } & User__AppFragment> }
-
 export type UpsertUserMutationVariables = Exact<{
   userId: Scalars['String']
 }>
@@ -10785,6 +10793,11 @@ export type UpsertUserMutation = { __typename?: 'mutation_root' } & {
     >
   >
 }
+
+export type __UserFragment = { __typename?: 'user' } & Pick<
+  User,
+  'id' | 'name'
+> & { apps: Array<{ __typename?: 'app' } & User__AppFragment> }
 
 export const TagFragmentDoc = gql`
   fragment Tag on tag {
@@ -11876,6 +11889,54 @@ export type CreateComponentMutationResult = Apollo.MutationResult<CreateComponen
 export type CreateComponentMutationOptions = Apollo.BaseMutationOptions<
   CreateComponentMutation,
   CreateComponentMutationVariables
+>
+export const DeleteAllComponentsGql = gql`
+  mutation DeleteAllComponents {
+    delete_component(where: {}) {
+      affected_rows
+    }
+  }
+`
+export type DeleteAllComponentsMutationFn = Apollo.MutationFunction<
+  DeleteAllComponentsMutation,
+  DeleteAllComponentsMutationVariables
+>
+
+/**
+ * __useDeleteAllComponentsMutation__
+ *
+ * To run a mutation, you first call `useDeleteAllComponentsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteAllComponentsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteAllComponentsMutation, { data, loading, error }] = useDeleteAllComponentsMutation({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useDeleteAllComponentsMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeleteAllComponentsMutation,
+    DeleteAllComponentsMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    DeleteAllComponentsMutation,
+    DeleteAllComponentsMutationVariables
+  >(DeleteAllComponentsGql, options)
+}
+export type DeleteAllComponentsMutationHookResult = ReturnType<
+  typeof useDeleteAllComponentsMutation
+>
+export type DeleteAllComponentsMutationResult = Apollo.MutationResult<DeleteAllComponentsMutation>
+export type DeleteAllComponentsMutationOptions = Apollo.BaseMutationOptions<
+  DeleteAllComponentsMutation,
+  DeleteAllComponentsMutationVariables
 >
 export const DeleteComponentGql = gql`
   mutation DeleteComponent($componentId: uuid!) {
@@ -14182,6 +14243,13 @@ export const CreateComponent = gql`
     }
   }
   ${GetComponents__Component}
+`
+export const DeleteAllComponents = gql`
+  mutation DeleteAllComponents {
+    delete_component(where: {}) {
+      affected_rows
+    }
+  }
 `
 export const DeleteComponent = gql`
   mutation DeleteComponent($componentId: uuid!) {

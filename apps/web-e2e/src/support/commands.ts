@@ -7,6 +7,9 @@ import {
   App_Insert_Input,
   UpsertUserGql,
   User__AppFragment,
+  Library_Insert_Input,
+  CreateLibraryGql,
+  __LibraryFragment,
 } from '@codelab/hasura'
 import { print } from 'graphql'
 
@@ -42,6 +45,8 @@ declare global {
       hasuraUserRequest(body: string | Record<string, any>): Chainable<Response>
       /** Creates an app for the current logged in user */
       createApp(): Chainable<User__AppFragment>
+      /** Creates an app for the current logged in user */
+      createLibrary(): Chainable<__LibraryFragment>
       findByButtonText: typeof findByButtonText
       findElementByText: typeof findElementByText
       findByModalTitle: typeof findByModalTitle
@@ -141,6 +146,21 @@ Cypress.Commands.add('createApp', () => {
     })
     .then((r) => {
       return r.body.data?.insert_app_one
+    })
+})
+
+Cypress.Commands.add('createLibrary', () => {
+  const data: Library_Insert_Input = {
+    name: 'Test library',
+  }
+
+  return cy
+    .hasuraUserRequest({
+      query: print(CreateLibraryGql),
+      variables: { data },
+    })
+    .then((r) => {
+      return r.body.data?.insert_library_one
     })
 })
 

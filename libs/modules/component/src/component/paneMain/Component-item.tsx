@@ -62,7 +62,7 @@ export const ComponentItem = ({
         onClick={() => openDeleteModal(item.id)}
       >
         Delete
-        <DeleteOutlined data-testid="component-delete-button" />
+        <DeleteOutlined data-testid="delete-component-button" />
       </Menu.Item>
     </StyledMenu>
   )
@@ -85,6 +85,8 @@ export const ComponentItem = ({
           {...props}
         >
           <div
+            data-testid="component-grid-item"
+            data-component-id={item.id}
             onDragStart={() => {
               setState({
                 isDraggingComponent: true,

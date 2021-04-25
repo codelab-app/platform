@@ -44,21 +44,45 @@ export const PaneMain = () => {
         ),
       }}
     >
-      <TabPane tab={<CopyOutlined title="Pages" />} key="1">
+      <TabPane
+        tab={<CopyOutlined data-testid="page-tab-trigger" title="Pages" />}
+        key="1"
+      >
         <PanePage />
       </TabPane>
-      <TabPane tab={<PlusSquareOutlined title="Components" />} key="2">
+      <TabPane
+        tab={
+          <PlusSquareOutlined
+            data-testid="component-tab-trigger"
+            title="Components"
+          />
+        }
+        key="2"
+      >
         <PaneMainComponent />
       </TabPane>
-      <TabPane tab={<ApartmentOutlined title="Tree" />} key="3">
+      <TabPane
+        tab={<ApartmentOutlined data-testid="tree-tab-trigger" title="Tree" />}
+        key="3"
+      >
         <PaneMainTree />
       </TabPane>
-      <TabPane tab={<FormatPainterOutlined title="Styles" />} key="4">
+      <TabPane
+        tab={
+          <FormatPainterOutlined
+            data-testid="styles-tab-trigger"
+            title="Styles"
+          />
+        }
+        key="4"
+      >
         <PaneMainStyle />
       </TabPane>
       <TabPane
         style={{ overflowX: 'auto' }}
-        tab={<FunctionOutlined title="Function" />}
+        tab={
+          <FunctionOutlined data-testid="lambda-tab-trigger" title="Function" />
+        }
         key="5"
       >
         <PaneMainLambda />
@@ -71,7 +95,12 @@ export const PaneMain = () => {
       >
         <PaneMainAtom />
       </TabPane>
-      <TabPane tab={<DatabaseOutlined title="Library" />} key="7">
+      <TabPane
+        tab={
+          <DatabaseOutlined data-testid="library-tab-trigger" title="Library" />
+        }
+        key="7"
+      >
         <PaneMainLibrary />
       </TabPane>
     </Tabs>
