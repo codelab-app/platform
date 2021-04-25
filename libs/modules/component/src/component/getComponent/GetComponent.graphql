@@ -1,0 +1,5 @@
+query GetComponent($componentId: uuid!) {
+    component_by_pk(id: $componentId){
+        ...GetComponents__Component
+    }
+}
