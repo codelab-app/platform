@@ -10156,7 +10156,7 @@ export type EditAppMutationVariables = Exact<{
 }>
 
 export type EditAppMutation = { __typename?: 'mutation_root' } & {
-  update_app_by_pk?: Maybe<{ __typename?: 'app' } & Pick<App, 'id' | 'name'>>
+  update_app_by_pk?: Maybe<{ __typename?: 'app' } & Pick<App, 'name'>>
 }
 
 export type AtomFragment = { __typename?: 'atom' } & Pick<
@@ -11427,7 +11427,6 @@ export type GetAppsListForUserQueryResult = Apollo.QueryResult<
 export const EditAppGql = gql`
   mutation EditApp($input: app_set_input!, $id: uuid!) {
     update_app_by_pk(_set: $input, pk_columns: { id: $id }) {
-      id
       name
     }
   }
@@ -14176,7 +14175,6 @@ export const GetAppsListForUser = gql`
 export const EditApp = gql`
   mutation EditApp($input: app_set_input!, $id: uuid!) {
     update_app_by_pk(_set: $input, pk_columns: { id: $id }) {
-      id
       name
     }
   }

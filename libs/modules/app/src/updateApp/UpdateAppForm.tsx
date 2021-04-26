@@ -52,6 +52,7 @@ export const UpdateAppForm = (props: UniFormUseCaseProps<UpdateAppInput>) => {
     delete editedData['pages']
     delete editedData['__typename']
     delete editedData['user_id']
+    delete editedData['id']
 
     return mutate({
       variables: {
