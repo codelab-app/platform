@@ -1,5 +1,9 @@
 import { atom, useRecoilState } from 'recoil'
-import { GetFirstLibraryGql, useGetLibraryQuery } from '@codelab/hasura'
+import {
+  GetFirstLibraryGql,
+  GetLibraryGql,
+  useGetLibraryQuery,
+} from '@codelab/hasura'
 import { useEffect } from 'react'
 import { getApolloClient } from '@codelab/frontend/apollo'
 import { notify } from '@codelab/frontend/shared'
@@ -16,6 +20,26 @@ const librarySelectionState = atom<{ selectedLibraryId: string | undefined }>({
 
 const SELECTED_LIBRARY_KEY = 'codelab_selected_library'
 
+const fetchAndSelectFirstLibrary = (
+  selectLibrary: (libraryId: string) => void,
+) => {
+  getApolloClient()
+    .query({
+      query: GetFirstLibraryGql,
+    })
+    .then((r) => {
+      if (r.data?.library && r.data?.library[0]) {
+        selectLibrary(r.data.library[0].id)
+      } else {
+        notify({
+          title: "You don't have a library",
+          content: 'Go and create one, so that forms will work',
+          type: 'warning',
+        })
+      }
+    })
+}
+
 /**
  * This controls the library selection states.
  * It holds the currently selected library for the builder
@@ -29,6 +53,7 @@ export const useSelectedLibrary = () => {
   const [state, setState] = useRecoilState(librarySelectionState)
 
   const { data } = useGetLibraryQuery({
+    skip: !state.selectedLibraryId,
     variables: {
       libraryId: state.selectedLibraryId,
     },
@@ -42,27 +67,28 @@ export const useSelectedLibrary = () => {
   }
 
   useEffect(() => {
+    //Get stored library from localStorage
     const item = localStorage.getItem(SELECTED_LIBRARY_KEY)
 
-    if (item && item !== state.selectedLibraryId) {
-      selectLibrary(item)
-    } else if (!state.selectedLibraryId) {
-      //Select the first library from the user
+    //Check if we have anything stored and if it's valid
+    if (item) {
       getApolloClient()
         .query({
-          query: GetFirstLibraryGql,
+          query: GetLibraryGql,
+          variables: {
+            libraryId: item,
+          },
         })
         .then((r) => {
-          if (r.data?.library && r.data?.library[0]) {
-            selectLibrary(r.data.library[0].id)
+          if (r.data?.library_by_pk) {
+            //We know that it's valid, select it
+            selectLibrary(item)
           } else {
-            notify({
-              title: "You don't have a library",
-              content: 'Go and create one, so that forms will work',
-              type: 'warning',
-            })
+            fetchAndSelectFirstLibrary(selectLibrary)
           }
         })
+    } else if (!state.selectedLibraryId) {
+      fetchAndSelectFirstLibrary(selectLibrary)
     }
   }, [])
 

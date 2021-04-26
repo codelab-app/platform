@@ -72,7 +72,9 @@ object_relationships:
 select_permissions:
 - permission:
     columns:
+    - id
     - name
+    - user_id
     filter:
       user_id:
         _eq: X-Hasura-User-Id
