@@ -53,7 +53,7 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
   return (
     <FormUniforms<CreateAtomInput>
       data-testid="create-atom-form"
-      id="create-atom-form"
+      id="create-atom-form" //We need both this and testid, because the generated dropdown has id based on this id, and we use it to identify the options when testing
       onSubmit={onSubmit}
       schema={createAtomSchema}
       onSubmitError={createNotificationHandler({

@@ -6,21 +6,10 @@ import {
 import { print } from 'graphql'
 import { sample } from 'lodash'
 
-//Those are in the seeds, so we know they exist
-//If we remove them from the seeds, need to add them dynamically here
-
-const appId = 'c83654f1-f89f-48a0-8741-acf91e38c888'
-const pageId = '4ccde878-25d3-4b36-a9b8-67fcec986e7b'
-
 const deleteAllAtoms = () => {
   return cy.hasuraAdminRequest({
     query: print(DeleteAllAtomsGql),
   })
-}
-
-const openAtomsTab = () => {
-  cy.visit(`/apps/${appId}/pages/${pageId}`)
-  cy.getByTestId('atom-tab-trigger').click()
 }
 
 const randomAtomType = () =>
@@ -44,8 +33,21 @@ const getAtomListItem = (atomType?: string) =>
   )
 
 describe('Atom', () => {
+  let appId: string
+  let pageId: string
+
+  const openAtomsTab = () => {
+    cy.visit(`/apps/${appId}/pages/${pageId}`)
+    cy.getByTestId('atom-tab-trigger').click()
+  }
+
   before(() => {
-    cy.login()
+    cy.login().then(() => {
+      cy.createApp().then((app) => {
+        appId = app.id
+        pageId = app.pages[0].id
+      })
+    })
   })
 
   it('creates atom', () => {

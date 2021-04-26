@@ -1,4 +1,5 @@
 export * from './Form-modal'
+export * from './emptyJsonSchema'
 export * from './json-schema'
 export * from './uniforms/uniformUtils'
 export * from './uniforms/Form-uniforms--modal'

@@ -14,6 +14,7 @@ export enum EntityType {
   App = 'App',
   Style = 'Style',
   Library = 'Library',
+  Component = 'Component',
 }
 
 interface CRUDModalState {

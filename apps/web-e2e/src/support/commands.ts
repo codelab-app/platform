@@ -2,6 +2,16 @@ import { SelectorMatcherOptions } from '@testing-library/cypress'
 import { Matcher } from '@testing-library/dom'
 import * as JQuery from 'jquery'
 import '@testing-library/cypress/add-commands'
+import {
+  CreateAppGql,
+  App_Insert_Input,
+  UpsertUserGql,
+  User__AppFragment,
+  Library_Insert_Input,
+  CreateLibraryGql,
+  __LibraryFragment,
+} from '@codelab/hasura'
+import { print } from 'graphql'
 
 // ***********************************************
 // This example commands.js shows you how to
@@ -20,19 +30,24 @@ declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace Cypress {
     interface Chainable<Subject> {
+      /** Logs in using the auth0 interface and adds the user in the database if it doesn't exist*/
       login(): Chainable<void>
       getByTestId(
         testId: string,
         selectorAddon?: string | undefined,
       ): Chainable<JQuery<any>>
       impersonateUser(): void
+      /** Makes an post request to the hasura graphql api endpoint with admin secret */
       hasuraAdminRequest(
         body: string | Record<string, any>,
       ): Chainable<Response>
-      findByButtonText: (
-        text: Matcher,
-        options?: SelectorMatcherOptions,
-      ) => Cypress.Chainable<JQuery<HTMLButtonElement>>
+      /** Makes an post request to the next.js proxy graphql api endpoint as the logged in user */
+      hasuraUserRequest(body: string | Record<string, any>): Chainable<Response>
+      /** Creates an app for the current logged in user */
+      createApp(): Chainable<User__AppFragment>
+      /** Creates an app for the current logged in user */
+      createLibrary(): Chainable<__LibraryFragment>
+      findByButtonText: typeof findByButtonText
       findElementByText: typeof findElementByText
       findByModalTitle: typeof findByModalTitle
       openSelectByLabel: typeof openSelectByLabel
@@ -50,6 +65,25 @@ declare global {
     }
   }
 }
+
+Cypress.Commands.add('hasuraUserRequest', (body) => {
+  return cy.request({
+    body,
+    url: '/api/graphql',
+    method: 'POST',
+  })
+})
+
+Cypress.Commands.add('hasuraAdminRequest', (body) => {
+  return cy.request({
+    body,
+    url: Cypress.env('CODELAB_HASURA_GRAPHQL_ENDPOINT'),
+    method: 'POST',
+    headers: {
+      'x-hasura-admin-secret': Cypress.env('HASURA_GRAPHQL_ADMIN_SECRET'),
+    },
+  })
+})
 
 Cypress.Commands.add('login', () => {
   Cypress.log({
@@ -82,22 +116,59 @@ Cypress.Commands.add('login', () => {
       cy.url().should('be.equal', `${Cypress.config('baseUrl')}/`)
     }
   })
-})
 
-//Makes an post request to the hasura graphql api endpoint with admin secret
-Cypress.Commands.add('hasuraAdminRequest', (body) => {
-  return cy.request({
-    body,
-    url: Cypress.env('CODELAB_HASURA_GRAPHQL_ENDPOINT'),
-    method: 'POST',
-    headers: {
-      'x-hasura-admin-secret': Cypress.env('HASURA_GRAPHQL_ADMIN_SECRET'),
-    },
+  //Make sure the user is in the database
+  cy.request('/api/auth/me').then((r) => {
+    const userId = r.body.sub
+
+    cy.hasuraAdminRequest({
+      query: print(UpsertUserGql),
+      variables: {
+        userId,
+      },
+    })
   })
 })
 
 Cypress.Commands.add('getByTestId', (testId, selectorAddon) => {
   return cy.get(`[data-testid=${testId}]${selectorAddon || ''}`)
+})
+
+Cypress.Commands.add('createApp', () => {
+  const input: App_Insert_Input = {
+    name: 'Test app',
+    pages: {
+      data: [
+        {
+          name: 'Test Page',
+        },
+      ],
+    },
+  }
+
+  return cy
+    .hasuraUserRequest({
+      query: print(CreateAppGql),
+      variables: { input },
+    })
+    .then((r) => {
+      return r.body.data?.insert_app_one
+    })
+})
+
+Cypress.Commands.add('createLibrary', () => {
+  const data: Library_Insert_Input = {
+    name: 'Test library',
+  }
+
+  return cy
+    .hasuraUserRequest({
+      query: print(CreateLibraryGql),
+      variables: { data },
+    })
+    .then((r) => {
+      return r.body.data?.insert_library_one
+    })
 })
 
 export const findByButtonText = (

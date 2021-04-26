@@ -1,52 +1,51 @@
-import { css } from '@emotion/react'
-import { List } from 'antd'
-import React, { useMemo } from 'react'
-import { ComponentItem } from './Component-item'
+import React from 'react'
+import { ActionType, CrudModal, EntityType } from '@codelab/frontend/shared'
+import { CreateComponentButton } from '../createComponent/CreateComponentButton'
+import { CreateComponentForm } from '../createComponent/CreateComponentForm'
+import { DeleteComponentForm } from '../deleteComponent/DeleteComponentForm'
+import { GetComponentsList } from '../getComponents/GetComponentsList'
 import { PaneMainTemplate } from '@codelab/frontend/layout'
-import { useGetComponentsQuery } from '@codelab/hasura'
 
 export type ComponentItemType = {
   key: string
+  id: string
   label: string
 }
 
 export const PaneMainComponent = () => {
-  const { data: components } = useGetComponentsQuery()
-
-  const componentsData: Array<ComponentItemType> | undefined = useMemo(
-    () =>
-      components?.component.map((component) => ({
-        key: component.id,
-        label: component.label,
-      })),
-    [components, components?.component],
-  )
-
   return (
-    <PaneMainTemplate title="Component">
-      <List
-        grid={{
-          gutter: 0,
-          column: 2,
+    <PaneMainTemplate
+      title="Component"
+      header={<CreateComponentButton key={1} />}
+    >
+      <GetComponentsList />
+
+      <CrudModal
+        modalProps={{
+          className: 'create-component-modal',
         }}
-        dataSource={componentsData}
-        bordered
-        renderItem={(item) => (
-          <List.Item
-            css={css({
-              '.react-draggable-dragging': {
-                visibility: 'visible',
-                backgroundColor: 'pink',
-              },
-            })}
-            style={{
-              padding: 0,
-              margin: 0,
-            }}
-          >
-            <ComponentItem item={item} />
-          </List.Item>
-        )}
+        entityType={EntityType.Component}
+        actionType={ActionType.Create}
+        okText="Create component"
+        renderForm={() => <CreateComponentForm />}
+      />
+      <CrudModal
+        modalProps={{
+          className: 'update-component-modal',
+        }}
+        entityType={EntityType.Component}
+        actionType={ActionType.Update}
+        okText="Update component"
+        renderForm={() => <div>TODO</div>}
+      />
+      <CrudModal
+        modalProps={{
+          className: 'delete-component-modal',
+        }}
+        entityType={EntityType.Component}
+        actionType={ActionType.Delete}
+        okText="Delete component"
+        renderForm={() => <DeleteComponentForm />}
       />
     </PaneMainTemplate>
   )
