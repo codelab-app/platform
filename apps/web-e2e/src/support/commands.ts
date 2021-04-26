@@ -29,7 +29,10 @@ declare global {
       hasuraAdminRequest(
         body: string | Record<string, any>,
       ): Chainable<Response>
-      findByButtonText: typeof findByButtonText
+      findByButtonText: (
+        text: Matcher,
+        options?: SelectorMatcherOptions,
+      ) => Cypress.Chainable<JQuery<HTMLButtonElement>>
       findElementByText: typeof findElementByText
       findByModalTitle: typeof findByModalTitle
       openSelectByLabel: typeof openSelectByLabel
@@ -37,6 +40,13 @@ declare global {
       getSelectOptionsContent: typeof getSelectOptionsContent
       getSelectDropdown: typeof getSelectDropdown
       getSelectOptionItemByValue: typeof getSelectOptionItemByValue
+      getSpinner: typeof getSpinner
+      getOpenedModal: typeof getOpenedModal
+      getOpenedDropdownMenu: typeof getOpenedDropdownMenu
+      findSettingsButtonByAppName: (
+        text: Matcher,
+        options?: SelectorMatcherOptions,
+      ) => Cypress.Chainable<JQuery<HTMLButtonElement>>
     }
   }
 }
@@ -91,15 +101,22 @@ Cypress.Commands.add('getByTestId', (testId, selectorAddon) => {
 })
 
 export const findByButtonText = (
+  subject: any,
   text: Matcher,
   options?: SelectorMatcherOptions,
 ): Cypress.Chainable<JQuery<HTMLButtonElement>> => {
-  return cy
+  return (subject ? cy.wrap(subject) : cy)
     .findByText(text, { exact: true, timeout: 5000, ...options })
     .closest('button')
 }
 
-Cypress.Commands.add('findByButtonText', findByButtonText)
+Cypress.Commands.add(
+  'findByButtonText',
+  {
+    prevSubject: 'optional',
+  },
+  findByButtonText,
+)
 
 export const findElementByText = <K extends keyof HTMLElementTagNameMap>(
   text: Matcher,
@@ -173,3 +190,47 @@ export const getSelectOptionItemByValue = (
 }
 
 Cypress.Commands.add('getSelectOptionItemByValue', getSelectOptionItemByValue)
+
+export const getSpinner = (): Cypress.Chainable<JQuery<HTMLButtonElement>> => {
+  return cy.get('.ant-spin')
+}
+
+Cypress.Commands.add('getSpinner', getSpinner)
+
+export const getOpenedModal = (
+  // options?: any,
+  options?: Parameters<typeof cy.get>[1],
+): Cypress.Chainable<JQuery<HTMLButtonElement>> => {
+  return cy.get('.ant-modal-content', options)
+}
+
+Cypress.Commands.add('getOpenedModal', getOpenedModal)
+
+export const getOpenedDropdownMenu = (
+  // options?: any,
+  options?: Parameters<typeof cy.get>[1],
+): Cypress.Chainable<JQuery<HTMLButtonElement>> => {
+  return cy.get('.ant-dropdown-menu', options)
+}
+
+Cypress.Commands.add('getOpenedDropdownMenu', getOpenedDropdownMenu)
+
+export const findSettingsButtonByAppName = (
+  subject: any,
+  text: Matcher,
+  options?: SelectorMatcherOptions,
+): Cypress.Chainable<JQuery<HTMLButtonElement>> => {
+  return (subject ? cy.wrap(subject) : cy)
+    .findByText(text, { exact: true, timeout: 0, ...options })
+    .closest('.ant-card-head-wrapper')
+    .find('.anticon-ellipsis')
+    .closest('button')
+}
+
+Cypress.Commands.add(
+  'findSettingsButtonByAppName',
+  {
+    prevSubject: 'optional',
+  },
+  findSettingsButtonByAppName,
+)
