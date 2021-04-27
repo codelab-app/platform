@@ -32,6 +32,7 @@ declare global {
     interface Chainable<Subject> {
       /** Logs in using the auth0 interface and adds the user in the database if it doesn't exist*/
       login(): Chainable<void>
+      getCurrentUserId(): Chainable<string>
       getByTestId(
         testId: string,
         selectorAddon?: string | undefined,
@@ -130,6 +131,11 @@ Cypress.Commands.add('login', () => {
         userId,
       },
     })
+  })
+})
+Cypress.Commands.add('getCurrentUserId', () => {
+  return cy.request('/api/auth/me').then((r) => {
+    return r.body.sub
   })
 })
 
