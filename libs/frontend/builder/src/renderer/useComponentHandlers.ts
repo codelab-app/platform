@@ -1,15 +1,6 @@
-import { AppContext } from '@codelab/frontend/shared'
-// We want to use `@codelab/hasura`
-// import {
-//   AddChildVertexInput,
-//   useAddChildVertexMutation,
-//   useUpdateVertexMutation,
-// } from '@codelab/generated'
-import { useContext } from 'react'
 import { useBuilderSelectionState } from '../selection'
 
 export const useComponentHandlers = () => {
-  const { pageId } = useContext(AppContext)
   // const [addChildVertexMutation] = useAddChildVertexMutation()
   // const updateVertexMutation = useUpdateVertexMutation({
   //   refetchQueries: [

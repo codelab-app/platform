@@ -1,4 +1,5 @@
 import {
+  BuildOutlined,
   DeleteOutlined,
   EditOutlined,
   PictureOutlined,
@@ -10,20 +11,19 @@ import { CardProps } from 'antd/lib/card'
 import React from 'react'
 import { useDrag } from 'react-dnd'
 import { useRecoilState } from 'recoil'
-import { EntityType, useCRUDModalForm } from '@codelab/frontend/shared'
+import {
+  ComponentItemType,
+  DragAndDropTypes,
+  EntityType,
+  Page,
+  useCRUDModalForm,
+} from '@codelab/frontend/shared'
 import { componentItemState } from './Component-item--state'
-import { ComponentItemType } from './Pane-main--component'
-// import {
-//   elementsPropTransformers,
-//   elementTypeMap,
-//   useComponentHandlers,
-// } from '@codelab/frontend/builder'
+import { useRouter } from 'next/router'
 
 interface ComponentItemProps extends CardProps {
   item: ComponentItemType
 }
-
-export const COMPONENT_ITEM_DRAG_TYPE = 'ComponentItem'
 
 const StyledMenu = styled(Menu)`
   .ant-dropdown-menu-item {
@@ -45,13 +45,21 @@ export const ComponentItem = ({
 }: ComponentItemProps) => {
   const [, setState] = useRecoilState(componentItemState)
 
-  const [, drag] = useDrag({ item, type: COMPONENT_ITEM_DRAG_TYPE }, [item])
+  const [, drag] = useDrag({ item, type: DragAndDropTypes.Component }, [item])
   const { openUpdateModal, openDeleteModal } = useCRUDModalForm(
     EntityType.Component,
   )
 
+  const router = useRouter()
+  const navigateToBuilder = () =>
+    router.push(Page.COMPONENT_DETAIL.url.replace('[componentId]', item.id))
+
   const overlayMenu = (
     <StyledMenu>
+      <Menu.Item key="1" onClick={() => navigateToBuilder()}>
+        Builder
+        <BuildOutlined data-testid="component-builder-button" />
+      </Menu.Item>
       <Menu.Item key="1" onClick={() => openUpdateModal(item.id)}>
         Edit
         <EditOutlined data-testid="component-update-button" />

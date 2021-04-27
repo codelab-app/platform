@@ -3,7 +3,10 @@ import { DataNode } from 'antd/lib/tree'
 import cytoscape, { Core } from 'cytoscape'
 import { AtomType, NodeA } from '@codelab/frontend/shared'
 import { propDataEntityToModel } from '@codelab/modules/prop'
-import { App__PageFragment } from '@codelab/hasura'
+import {
+  App__PageFragment,
+  PageElement__ComponentFragment,
+} from '@codelab/hasura'
 
 export const pageComponentElementNodeId = (
   pageElementId: string,
@@ -24,6 +27,7 @@ export class CytoscapeService {
     > = {}
     const nodes: Array<cytoscape.NodeDefinition> = []
     const edges: Array<cytoscape.EdgeDefinition> = []
+    //This keeps track of which nodes have parent links. If they don't - we add them to the root node as a parent to them at the end
     const nodeIsTargetToALinkMap: Record<string, boolean> = {}
 
     const addNode = (node: cytoscape.NodeDefinition) => {
@@ -99,7 +103,7 @@ export class CytoscapeService {
         addNode({
           data: {
             id: pageComponentElementNodeId(pageElement.id, componentElement.id),
-            parent: pageElement.id, //Set the default to root, we set the actual parent later  after we process the links (if it has one)
+            parent: pageElement.id,
             type: componentElement.atom?.type,
             label: componentElement.label,
             pageElementId: pageElement.id,
@@ -108,11 +112,14 @@ export class CytoscapeService {
             componentElementName: componentElement.label,
             props: {
               //Normalize the props fragments into a react-readable key value map
+              //Add componentElement props first, pageElement props will override them in case of conflict
+              ...componentElement.props?.props?.reduce((props, newProp) => {
+                return { ...props, ...propDataEntityToModel(newProp) }
+              }, {}),
               ...pageElement.props?.props.reduce((props, newProp) => {
                 return { ...props, ...propDataEntityToModel(newProp) }
               }, {}),
             },
-            //TODO add props from component element
           },
         })
 
@@ -166,9 +173,93 @@ export class CytoscapeService {
     })
   }
 
+  static fromComponent({
+    id: componentId,
+    label: componentLabel,
+    elements: componentElements,
+    links: componentLinks,
+  }: PageElement__ComponentFragment): Core {
+    const nodes: Array<cytoscape.NodeDefinition> = []
+    const edges: Array<cytoscape.EdgeDefinition> = []
+    //This keeps track of which nodes have parent links. If they don't - we add them to the root node as a parent to them at the end
+    const nodeToLinkedParentMap: Record<string, string> = {}
+
+    const addNode = (node: cytoscape.NodeDefinition) => {
+      nodes.push(node)
+    }
+
+    //Add all elements as children to a single div root node
+    //That way we convert the multiple roots that are stored in the db into a single tree
+    const rootNode: cytoscape.NodeDefinition = {
+      data: {
+        id: componentId,
+        parent: undefined,
+        label: componentLabel + ' Root',
+        type: AtomType.ReactHtmlDiv, //or fragment?
+      },
+    }
+
+    addNode(rootNode)
+
+    componentLinks.forEach((componentLink) => {
+      edges.push({
+        data: {
+          id: `cl_${componentLink.source_element_id}_${componentLink.target_element_id}`,
+          source: componentLink.source_element_id,
+          target: componentLink.target_element_id,
+        },
+      })
+
+      nodeToLinkedParentMap[componentLink.target_element_id] =
+        componentLink.target_element_id
+    })
+
+    componentElements.forEach((componentElement) => {
+      const linkedParentId = nodeToLinkedParentMap[componentElement.id]
+
+      //Set the parent to the corresponding id, based on the links. If no links with this target are found - set the root as parent
+      const parent = linkedParentId || rootNode.data.id
+
+      if (!linkedParentId) {
+        //Add an edge to represent that relationship
+        edges.push({
+          data: {
+            id: `root_edge_${componentElement.id}`,
+            source: rootNode.data.id as string,
+            target: componentElement.id,
+          },
+        })
+      }
+
+      addNode({
+        data: {
+          id: componentElement.id,
+          parent,
+          type: componentElement.atom?.type,
+          label: componentElement.label,
+          componentElementId: componentElement.id,
+          componentElementName: componentElement.label,
+          props: {
+            //Normalize the props fragments into a react-readable key value map
+            ...componentElement.props?.props?.reduce((props, newProp) => {
+              return { ...props, ...propDataEntityToModel(newProp) }
+            }, {}),
+          },
+        },
+      })
+    })
+
+    return cytoscape({
+      headless: true,
+      elements: {
+        nodes,
+        edges,
+      },
+    })
+  }
+
   static componentTree(cy: Core): NodeA {
     const root = cy.elements().roots().first()
-    console.log('root', root)
 
     let tree: DataNode | null = null
 

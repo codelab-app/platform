@@ -1,10 +1,10 @@
 import React, { PropsWithChildren } from 'react'
 import { useDrop } from 'react-dnd'
 import {
-  COMPONENT_ITEM_DRAG_TYPE,
   ComponentItemType,
-} from '@codelab/modules/component'
-import { NodeA } from '@codelab/frontend/shared'
+  DragAndDropTypes,
+  NodeA,
+} from '@codelab/frontend/shared'
 import styled from '@emotion/styled'
 
 interface ComponentDropHandlerProps {
@@ -40,7 +40,7 @@ export const ComponentDropHandler = ({
   onDropped,
 }: PropsWithChildren<ComponentDropHandlerProps>) => {
   const [{ isOver }, drop] = useDrop<ComponentItemType, any, any>({
-    accept: COMPONENT_ITEM_DRAG_TYPE,
+    accept: DragAndDropTypes.Component,
     drop: (component) => {
       if (onDropped) {
         onDropped(component)

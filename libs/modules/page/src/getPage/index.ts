@@ -1,1 +1,1 @@
-export * from './GetPageLayout'
+export * from './PageRenderer'

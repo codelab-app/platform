@@ -42,12 +42,17 @@ describe('Atom', () => {
   }
 
   before(() => {
+    cy.clearCookies()
     cy.login().then(() => {
       cy.createApp().then((app) => {
         appId = app.id
         pageId = app.pages[0].id
       })
     })
+  })
+
+  beforeEach(() => {
+    Cypress.Cookies.preserveOnce('appSession')
   })
 
   it('creates atom', () => {

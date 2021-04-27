@@ -1,17 +1,16 @@
 import React, { useContext } from 'react'
-import { AppContext } from '@codelab/frontend/shared'
+import { AppContext, ComponentItemType } from '@codelab/frontend/shared'
 import { CytoscapeService } from '@codelab/frontend/cytoscape'
-import { RenderComponents } from '@codelab/frontend/builder'
+import { NodeRenderer } from '@codelab/frontend/builder'
 import { RootAppGql, useAddPageElementMutation } from '@codelab/hasura'
 import { ComponentDropHandler } from '@codelab/frontend/builder'
-import { ComponentItemType } from '@codelab/modules/component'
 import { App__PageFragment } from '@codelab/hasura'
 
 type GetPageLayoutProps = {
   page: App__PageFragment
 }
 
-export const GetPageLayout = ({ page }: GetPageLayoutProps) => {
+export const PageRenderer = ({ page }: GetPageLayoutProps) => {
   const { pageId, appId } = useContext(AppContext)
 
   const [addPageElement] = useAddPageElementMutation({
@@ -44,7 +43,7 @@ export const GetPageLayout = ({ page }: GetPageLayoutProps) => {
   return (
     <>
       <ComponentDropHandler onDropped={handleDroppedComponent} root={root}>
-        <RenderComponents node={root} />
+        <NodeRenderer node={root} />
       </ComponentDropHandler>
 
       {/*<Button*/}

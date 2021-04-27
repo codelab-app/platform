@@ -5,6 +5,7 @@ import { AppProvider, PageType } from '@codelab/frontend/shared'
 import { HomeLayout } from './home'
 import { Dashboard } from './Layout-dashboard'
 import { Builder } from './Builder'
+import { ComponentProvider } from '@codelab/frontend/shared'
 
 // const RenderNode = ({ element }: any) => {
 //   return <div style={{ background: '#000', padding: '5px' }}>{element}</div>
@@ -30,10 +31,22 @@ export const LayoutFactory = ({
 
     return (
       <AppProvider appId={appId} pageId={pageId}>
-        <Editor pageId={pageId}>
+        <Editor>
           <Builder>{children}</Builder>
         </Editor>
       </AppProvider>
+    )
+  }
+
+  if (pathname === PageType.ComponentDetail) {
+    const componentId = `${query.componentId}`
+
+    return (
+      <ComponentProvider componentId={componentId}>
+        <Editor>
+          <Builder>{children}</Builder>
+        </Editor>
+      </ComponentProvider>
     )
   }
 

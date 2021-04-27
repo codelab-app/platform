@@ -1,7 +1,7 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { AppContext } from '@codelab/frontend/shared'
 import React, { useContext } from 'react'
-import { GetPageLayout } from '@codelab/modules/page'
+import { PageRenderer } from '@codelab/modules/page'
 import { Empty } from 'antd'
 
 const PageDetail = () => {
@@ -14,7 +14,7 @@ const PageDetail = () => {
   return (
     <div id="Builder" style={{ position: 'relative' }}>
       <h1>{page?.name}</h1>
-      <GetPageLayout page={page} />
+      <PageRenderer page={page} />
     </div>
   )
 }

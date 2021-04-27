@@ -1,4 +1,5 @@
 import { atom, useRecoilState } from 'recoil'
+import { useCallback } from 'react'
 
 export enum ActionType {
   None = 'None',
@@ -15,6 +16,8 @@ export enum EntityType {
   Style = 'Style',
   Library = 'Library',
   Component = 'Component',
+  ComponentElement = 'ComponentElement',
+  LinkedComponentElement = 'LinkedComponentElement',
 }
 
 interface CRUDModalState {
@@ -41,32 +44,38 @@ export const crudModalAtom = atom<CRUDModalState>({
 export const useCRUDModalForm = (type: EntityType) => {
   const [state, setState] = useRecoilState(crudModalAtom)
 
-  const openCreateModal = () => {
+  const openCreateModal = useCallback(() => {
     setState((current) => ({
       ...current,
       type,
       visibleForm: ActionType.Create,
       id: '',
     }))
-  }
+  }, [setState, type])
 
-  const openUpdateModal = (id: string) => {
-    setState((current) => ({
-      ...current,
-      type,
-      visibleForm: ActionType.Update,
-      id,
-    }))
-  }
+  const openUpdateModal = useCallback(
+    (id: string) => {
+      setState((current) => ({
+        ...current,
+        type,
+        visibleForm: ActionType.Update,
+        id,
+      }))
+    },
+    [setState, type],
+  )
 
-  const openDeleteModal = (id: string) => {
-    setState((current) => ({
-      ...current,
-      type,
-      visibleForm: ActionType.Delete,
-      id,
-    }))
-  }
+  const openDeleteModal = useCallback(
+    (id: string) => {
+      setState((current) => ({
+        ...current,
+        type,
+        visibleForm: ActionType.Delete,
+        id,
+      }))
+    },
+    [setState, type],
+  )
 
   const reset = () => {
     setState({
@@ -74,12 +83,15 @@ export const useCRUDModalForm = (type: EntityType) => {
     })
   }
 
-  const setLoading = (loading: boolean) => {
-    setState((current) => ({
-      ...current,
-      loading,
-    }))
-  }
+  const setLoading = useCallback(
+    (loading: boolean) => {
+      setState((current) => ({
+        ...current,
+        loading,
+      }))
+    },
+    [setState],
+  )
 
   return {
     openCreateModal,

@@ -10246,6 +10246,28 @@ export type TagFragment = { __typename?: 'tag' } & Pick<
   'id' | 'category_id' | 'label' | 'library_id'
 >
 
+export type CreateComponentElementMutationVariables = Exact<{
+  input: Component_Element_Insert_Input
+}>
+
+export type CreateComponentElementMutation = {
+  __typename?: 'mutation_root'
+} & {
+  insert_component_element_one?: Maybe<
+    { __typename?: 'component_element' } & PageElement__ComponentElementFragment
+  >
+}
+
+export type CreateComponentLinkMutationVariables = Exact<{
+  input: Component_Link_Insert_Input
+}>
+
+export type CreateComponentLinkMutation = { __typename?: 'mutation_root' } & {
+  insert_component_link_one?: Maybe<
+    { __typename?: 'component_link' } & PageElement__ComponentLinkFragment
+  >
+}
+
 export type PageElement__ComponentFragment = {
   __typename?: 'component'
 } & Pick<Component, 'id' | 'label'> & {
@@ -10335,6 +10357,16 @@ export type GetComponentQuery = { __typename?: 'query_root' } & {
   >
 }
 
+export type GetComponentDetailQueryVariables = Exact<{
+  componentId: Scalars['uuid']
+}>
+
+export type GetComponentDetailQuery = { __typename?: 'query_root' } & {
+  component_by_pk?: Maybe<
+    { __typename?: 'component' } & PageElement__ComponentFragment
+  >
+}
+
 export type GetComponents__ComponentFragment = {
   __typename?: 'component'
 } & Pick<Component, 'id' | 'label'>
@@ -10343,6 +10375,17 @@ export type GetComponentsQueryVariables = Exact<{ [key: string]: never }>
 
 export type GetComponentsQuery = { __typename?: 'query_root' } & {
   component: Array<
+    { __typename?: 'component' } & GetComponents__ComponentFragment
+  >
+}
+
+export type UpdateComponentMutationVariables = Exact<{
+  componentId: Scalars['uuid']
+  input: Component_Set_Input
+}>
+
+export type UpdateComponentMutation = { __typename?: 'mutation_root' } & {
+  update_component_by_pk?: Maybe<
     { __typename?: 'component' } & GetComponents__ComponentFragment
   >
 }
@@ -11839,6 +11882,106 @@ export type UpdateAtomMutationOptions = Apollo.BaseMutationOptions<
   UpdateAtomMutation,
   UpdateAtomMutationVariables
 >
+export const CreateComponentElementGql = gql`
+  mutation CreateComponentElement($input: component_element_insert_input!) {
+    insert_component_element_one(object: $input) {
+      ...PageElement__ComponentElement
+    }
+  }
+  ${PageElement__ComponentElementFragmentDoc}
+`
+export type CreateComponentElementMutationFn = Apollo.MutationFunction<
+  CreateComponentElementMutation,
+  CreateComponentElementMutationVariables
+>
+
+/**
+ * __useCreateComponentElementMutation__
+ *
+ * To run a mutation, you first call `useCreateComponentElementMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateComponentElementMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createComponentElementMutation, { data, loading, error }] = useCreateComponentElementMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateComponentElementMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateComponentElementMutation,
+    CreateComponentElementMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    CreateComponentElementMutation,
+    CreateComponentElementMutationVariables
+  >(CreateComponentElementGql, options)
+}
+export type CreateComponentElementMutationHookResult = ReturnType<
+  typeof useCreateComponentElementMutation
+>
+export type CreateComponentElementMutationResult = Apollo.MutationResult<CreateComponentElementMutation>
+export type CreateComponentElementMutationOptions = Apollo.BaseMutationOptions<
+  CreateComponentElementMutation,
+  CreateComponentElementMutationVariables
+>
+export const CreateComponentLinkGql = gql`
+  mutation CreateComponentLink($input: component_link_insert_input!) {
+    insert_component_link_one(object: $input) {
+      ...PageElement__ComponentLink
+    }
+  }
+  ${PageElement__ComponentLinkFragmentDoc}
+`
+export type CreateComponentLinkMutationFn = Apollo.MutationFunction<
+  CreateComponentLinkMutation,
+  CreateComponentLinkMutationVariables
+>
+
+/**
+ * __useCreateComponentLinkMutation__
+ *
+ * To run a mutation, you first call `useCreateComponentLinkMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateComponentLinkMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createComponentLinkMutation, { data, loading, error }] = useCreateComponentLinkMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateComponentLinkMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateComponentLinkMutation,
+    CreateComponentLinkMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    CreateComponentLinkMutation,
+    CreateComponentLinkMutationVariables
+  >(CreateComponentLinkGql, options)
+}
+export type CreateComponentLinkMutationHookResult = ReturnType<
+  typeof useCreateComponentLinkMutation
+>
+export type CreateComponentLinkMutationResult = Apollo.MutationResult<CreateComponentLinkMutation>
+export type CreateComponentLinkMutationOptions = Apollo.BaseMutationOptions<
+  CreateComponentLinkMutation,
+  CreateComponentLinkMutationVariables
+>
 export const CreateComponentGql = gql`
   mutation CreateComponent($input: component_insert_input!) {
     insert_component_one(object: $input) {
@@ -12045,6 +12188,65 @@ export type GetComponentQueryResult = Apollo.QueryResult<
   GetComponentQuery,
   GetComponentQueryVariables
 >
+export const GetComponentDetailGql = gql`
+  query GetComponentDetail($componentId: uuid!) {
+    component_by_pk(id: $componentId) {
+      ...PageElement__Component
+    }
+  }
+  ${PageElement__ComponentFragmentDoc}
+`
+
+/**
+ * __useGetComponentDetailQuery__
+ *
+ * To run a query within a React component, call `useGetComponentDetailQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetComponentDetailQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetComponentDetailQuery({
+ *   variables: {
+ *      componentId: // value for 'componentId'
+ *   },
+ * });
+ */
+export function useGetComponentDetailQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetComponentDetailQuery,
+    GetComponentDetailQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<
+    GetComponentDetailQuery,
+    GetComponentDetailQueryVariables
+  >(GetComponentDetailGql, options)
+}
+export function useGetComponentDetailLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetComponentDetailQuery,
+    GetComponentDetailQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    GetComponentDetailQuery,
+    GetComponentDetailQueryVariables
+  >(GetComponentDetailGql, options)
+}
+export type GetComponentDetailQueryHookResult = ReturnType<
+  typeof useGetComponentDetailQuery
+>
+export type GetComponentDetailLazyQueryHookResult = ReturnType<
+  typeof useGetComponentDetailLazyQuery
+>
+export type GetComponentDetailQueryResult = Apollo.QueryResult<
+  GetComponentDetailQuery,
+  GetComponentDetailQueryVariables
+>
 export const GetComponentsGql = gql`
   query GetComponents {
     component {
@@ -12102,6 +12304,57 @@ export type GetComponentsLazyQueryHookResult = ReturnType<
 export type GetComponentsQueryResult = Apollo.QueryResult<
   GetComponentsQuery,
   GetComponentsQueryVariables
+>
+export const UpdateComponentGql = gql`
+  mutation UpdateComponent($componentId: uuid!, $input: component_set_input!) {
+    update_component_by_pk(pk_columns: { id: $componentId }, _set: $input) {
+      ...GetComponents__Component
+    }
+  }
+  ${GetComponents__ComponentFragmentDoc}
+`
+export type UpdateComponentMutationFn = Apollo.MutationFunction<
+  UpdateComponentMutation,
+  UpdateComponentMutationVariables
+>
+
+/**
+ * __useUpdateComponentMutation__
+ *
+ * To run a mutation, you first call `useUpdateComponentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateComponentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateComponentMutation, { data, loading, error }] = useUpdateComponentMutation({
+ *   variables: {
+ *      componentId: // value for 'componentId'
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateComponentMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateComponentMutation,
+    UpdateComponentMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    UpdateComponentMutation,
+    UpdateComponentMutationVariables
+  >(UpdateComponentGql, options)
+}
+export type UpdateComponentMutationHookResult = ReturnType<
+  typeof useUpdateComponentMutation
+>
+export type UpdateComponentMutationResult = Apollo.MutationResult<UpdateComponentMutation>
+export type UpdateComponentMutationOptions = Apollo.BaseMutationOptions<
+  UpdateComponentMutation,
+  UpdateComponentMutationVariables
 >
 export const CreateLambdaGql = gql`
   mutation CreateLambda($input: [lambda_insert_input!]!) {
@@ -14234,6 +14487,22 @@ export const UpdateAtom = gql`
   }
   ${Atom}
 `
+export const CreateComponentElement = gql`
+  mutation CreateComponentElement($input: component_element_insert_input!) {
+    insert_component_element_one(object: $input) {
+      ...PageElement__ComponentElement
+    }
+  }
+  ${PageElement__ComponentElement}
+`
+export const CreateComponentLink = gql`
+  mutation CreateComponentLink($input: component_link_insert_input!) {
+    insert_component_link_one(object: $input) {
+      ...PageElement__ComponentLink
+    }
+  }
+  ${PageElement__ComponentLink}
+`
 export const CreateComponent = gql`
   mutation CreateComponent($input: component_insert_input!) {
     insert_component_one(object: $input) {
@@ -14264,9 +14533,25 @@ export const GetComponent = gql`
   }
   ${GetComponents__Component}
 `
+export const GetComponentDetail = gql`
+  query GetComponentDetail($componentId: uuid!) {
+    component_by_pk(id: $componentId) {
+      ...PageElement__Component
+    }
+  }
+  ${PageElement__Component}
+`
 export const GetComponents = gql`
   query GetComponents {
     component {
+      ...GetComponents__Component
+    }
+  }
+  ${GetComponents__Component}
+`
+export const UpdateComponent = gql`
+  mutation UpdateComponent($componentId: uuid!, $input: component_set_input!) {
+    update_component_by_pk(pk_columns: { id: $componentId }, _set: $input) {
       ...GetComponents__Component
     }
   }

@@ -5,7 +5,13 @@ import { NodeA } from '@codelab/frontend/shared'
 import { RenderChildren } from './Renderer-children'
 import { useComponentHandlers } from './useComponentHandlers'
 
-export const RenderComponents = ({ node }: { node: NodeA }) => {
+export const NodeRenderer = ({
+  node,
+  enableOverlays = true,
+}: {
+  node: NodeA
+  enableOverlays?: boolean
+}) => {
   const handlers = useComponentHandlers()
 
   const [RootComponent, props] = elementParameterFactory({
@@ -23,8 +29,12 @@ export const RenderComponents = ({ node }: { node: NodeA }) => {
         <RenderChildren node={node} handlers={handlers} />
       </RootComponent>
 
-      <HoverOverlay />
-      <ClickOverlay />
+      {enableOverlays && (
+        <>
+          <HoverOverlay />
+          <ClickOverlay />
+        </>
+      )}
     </div>
   )
 }
