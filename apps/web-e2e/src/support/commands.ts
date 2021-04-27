@@ -47,7 +47,10 @@ declare global {
       createApp(): Chainable<User__AppFragment>
       /** Creates an app for the current logged in user */
       createLibrary(): Chainable<__LibraryFragment>
-      findByButtonText: typeof findByButtonText
+      findByButtonText: (
+        text: Matcher,
+        options?: SelectorMatcherOptions,
+      ) => Cypress.Chainable<JQuery<HTMLButtonElement>>
       findElementByText: typeof findElementByText
       findByModalTitle: typeof findByModalTitle
       openSelectByLabel: typeof openSelectByLabel
