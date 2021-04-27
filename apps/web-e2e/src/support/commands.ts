@@ -111,25 +111,25 @@ Cypress.Commands.add('login', () => {
   cy.get('.login-button').click()
 
   cy.get('body').then((body) => {
+    //Find the input. If it's missing it's likely we're logged in already and it's redirecting us to our home page
     if (body.find('input[name=username]').length) {
       cy.get('input[name=username]').type(email)
       cy.get('input[name=password]').type(password)
       cy.get('button[type=submit][value=default]').click()
-    } else {
-      //Already logged in
-      cy.url().should('be.equal', `${Cypress.config('baseUrl')}/`)
     }
-  })
 
-  //Make sure the user is in the database
-  cy.request('/api/auth/me').then((r) => {
-    const userId = r.body.sub
+    cy.url().should('be.equal', `${Cypress.config('baseUrl')}/`)
 
-    cy.hasuraAdminRequest({
-      query: print(UpsertUserGql),
-      variables: {
-        userId,
-      },
+    //Make sure the user is in the database
+    cy.request('/api/auth/me').then((r) => {
+      const userId = r.body.sub
+
+      cy.hasuraAdminRequest({
+        query: print(UpsertUserGql),
+        variables: {
+          userId,
+        },
+      })
     })
   })
 })

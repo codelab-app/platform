@@ -1,9 +1,9 @@
-import { DeleteOutlined, SettingOutlined } from '@ant-design/icons'
 import { css } from '@emotion/react'
-import { List, Space } from 'antd'
+import { List } from 'antd'
 import React, { useMemo } from 'react'
 import { useGetComponentsQuery } from '@codelab/hasura'
-import { ComponentItem, ComponentItemType } from '../paneMain'
+import { ComponentItem } from '../paneMain'
+import { ComponentItemType } from '@codelab/frontend/shared'
 
 export const GetComponentsList = () => {
   const { data: components } = useGetComponentsQuery()

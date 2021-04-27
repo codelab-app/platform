@@ -21,12 +21,17 @@ const PAGE_DETAIL: Router = {
   url: '/apps/[appId]/pages/[pageId]',
 }
 
+const COMPONENT_DETAIL: Router = {
+  url: '/components/[componentId]',
+}
+
 export const Page = {
   HOME,
   APP_LIST,
   APP_DETAIL,
   PAGE_LIST,
   PAGE_DETAIL,
+  COMPONENT_DETAIL,
 }
 
 export enum PageType {
@@ -35,6 +40,7 @@ export enum PageType {
   PageList = '/apps/[appId]/pages',
   PageDetail = '/apps/[appId]/pages/[pageId]',
   AppDetail = '/apps/[appId]',
+  ComponentDetail = '/components/[componentId]',
 }
 
 type PropsWithRouter = {

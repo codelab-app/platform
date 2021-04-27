@@ -1,0 +1,5 @@
+mutation CreateComponentElement($input: component_element_insert_input!) {
+    insert_component_element_one(object: $input){
+        ...PageElement__ComponentElement
+    }
+}

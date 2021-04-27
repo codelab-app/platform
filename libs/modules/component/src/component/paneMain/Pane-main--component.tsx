@@ -5,12 +5,7 @@ import { CreateComponentForm } from '../createComponent/CreateComponentForm'
 import { DeleteComponentForm } from '../deleteComponent/DeleteComponentForm'
 import { GetComponentsList } from '../getComponents/GetComponentsList'
 import { PaneMainTemplate } from '@codelab/frontend/layout'
-
-export type ComponentItemType = {
-  key: string
-  id: string
-  label: string
-}
+import { UpdateComponentForm } from '../updateComponent/UpdateComponentForm'
 
 export const PaneMainComponent = () => {
   return (
@@ -36,7 +31,7 @@ export const PaneMainComponent = () => {
         entityType={EntityType.Component}
         actionType={ActionType.Update}
         okText="Update component"
-        renderForm={() => <div>TODO</div>}
+        renderForm={() => <UpdateComponentForm />}
       />
       <CrudModal
         modalProps={{

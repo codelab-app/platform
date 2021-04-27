@@ -40,6 +40,8 @@ describe('Component', () => {
   }
 
   before(() => {
+    cy.clearCookies()
+
     cy.login().then(() => {
       cy.createApp().then((app) => {
         appId = app.id
@@ -50,6 +52,10 @@ describe('Component', () => {
         libraryId = l.id
       })
     })
+  })
+
+  beforeEach(() => {
+    Cypress.Cookies.preserveOnce('appSession')
   })
 
   it('creates component', () => {

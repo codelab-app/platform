@@ -1,9 +1,20 @@
 import { useBuilderSelectionState } from '@codelab/frontend/builder'
 import { Tabs } from 'antd'
 import React from 'react'
-import { PaneConfigProps } from '@codelab/modules/component'
 import { PaneConfigStyle } from '@codelab/modules/style'
 import styled from '@emotion/styled'
+import { PaneConfigPageElementProps } from '@codelab/modules/prop'
+import { useRouter } from 'next/router'
+import {
+  ActionType,
+  CrudModal,
+  EntityType,
+  PageType,
+} from '@codelab/frontend/shared'
+import {
+  CreateLinkedComponentElementButton,
+  CreateLinkedComponentElementForm,
+} from '@codelab/modules/component-element'
 
 const { TabPane } = Tabs
 
@@ -22,18 +33,52 @@ export const PaneConfig = React.memo(() => {
     selectionState: { selectedElement },
   } = useBuilderSelectionState()
 
-  if (!selectedElement || !selectedElement.pageElementId) {
+  const { pathname } = useRouter()
+
+  if (!selectedElement) {
+    return null
+  }
+
+  if (pathname === PageType.ComponentDetail) {
+    if (!selectedElement.componentElementId) {
+      return null
+    }
+
+    return (
+      <StyledTabs defaultActiveKey="1" style={{ padding: '1rem' }}>
+        <TabPane tab="Inspector" key="1" style={{ height: '100%' }}>
+          <CreateLinkedComponentElementButton>
+            Insert child element
+          </CreateLinkedComponentElementButton>
+
+          <CrudModal
+            modalProps={{
+              className: 'create-linked-component-element-modal',
+            }}
+            entityType={EntityType.LinkedComponentElement}
+            actionType={ActionType.Create}
+            okText="Create"
+            renderForm={() => (
+              <CreateLinkedComponentElementForm
+                sourceComponentElementId={selectedElement.componentElementId}
+              />
+            )}
+          />
+        </TabPane>
+      </StyledTabs>
+    )
+  }
+
+  if (!selectedElement.pageElementId) {
     return null
   }
 
   return (
-    <StyledTabs
-      defaultActiveKey="1"
-      style={{ padding: '1rem' }}
-      onChange={() => null}
-    >
+    <StyledTabs defaultActiveKey="1" style={{ padding: '1rem' }}>
       <TabPane tab="Props" key="1" style={{ height: '100%' }}>
-        <PaneConfigProps pageElementId={selectedElement.pageElementId} />
+        <PaneConfigPageElementProps
+          pageElementId={selectedElement.pageElementId}
+        />
       </TabPane>
       <TabPane tab="Style" key="2">
         <PaneConfigStyle vertexId={selectedElement.pageElementId} />

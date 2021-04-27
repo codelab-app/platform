@@ -3,7 +3,7 @@ import { atom, useRecoilState } from 'recoil'
 
 export interface SelectedElementType {
   nodeId: string
-  pageElementId: string
+  pageElementId?: string
   componentElementId: string
 }
 
