@@ -129,6 +129,7 @@ export const PaneMain = () => {
       tabPosition="left"
       style={{ height: '100%' }}
       defaultActiveKey="1"
+      data-testid="pain-main-tabs"
       tabBarExtraContent={{
         left: (
           <div

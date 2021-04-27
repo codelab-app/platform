@@ -3,7 +3,7 @@ import {
   FileOutlined,
   SettingOutlined,
 } from '@ant-design/icons'
-import { List, Space } from 'antd'
+import { List, Space, Spin } from 'antd'
 import Link from 'next/link'
 import React, { useContext } from 'react'
 import { EntityType, useCRUDModalForm } from '@codelab/frontend/shared'
@@ -14,13 +14,15 @@ export const GetPagesList = () => {
   const { appId } = useContext(AppContext)
   const { openDeleteModal, openUpdateModal } = useCRUDModalForm(EntityType.Page)
 
-  const { data } = useGetPagesListQuery({
+  const { data, loading } = useGetPagesListQuery({
     variables: {
       appId,
     },
   })
 
-  return (
+  return loading ? (
+    <Spin />
+  ) : (
     <>
       <List
         size="small"
@@ -39,8 +41,14 @@ export const GetPagesList = () => {
               </Link>
             </Space>
             <Space>
-              <SettingOutlined onClick={() => openUpdateModal(page.id)} />
-              <DeleteOutlined onClick={() => openDeleteModal(page.id)} />
+              <SettingOutlined
+                title="Settings"
+                onClick={() => openUpdateModal(page.id)}
+              />
+              <DeleteOutlined
+                title="Delete"
+                onClick={() => openDeleteModal(page.id)}
+              />
             </Space>
           </List.Item>
         )}
