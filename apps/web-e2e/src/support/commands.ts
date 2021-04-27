@@ -45,7 +45,7 @@ declare global {
       /** Makes an post request to the next.js proxy graphql api endpoint as the logged in user */
       hasuraUserRequest(body: string | Record<string, any>): Chainable<Response>
       /** Creates an app for the current logged in user */
-      createApp(): Chainable<User__AppFragment>
+      createApp(input?: App_Insert_Input): Chainable<User__AppFragment>
       /** Creates an app for the current logged in user */
       createLibrary(): Chainable<__LibraryFragment>
       findByButtonText: (
@@ -143,27 +143,29 @@ Cypress.Commands.add('getByTestId', (testId, selectorAddon) => {
   return cy.get(`[data-testid=${testId}]${selectorAddon || ''}`)
 })
 
-Cypress.Commands.add('createApp', () => {
-  const input: App_Insert_Input = {
-    name: 'Test app',
-    pages: {
-      data: [
-        {
-          name: 'Test Page',
-        },
-      ],
-    },
-  }
-
-  return cy
-    .hasuraUserRequest({
-      query: print(CreateAppGql),
-      variables: { input },
-    })
-    .then((r) => {
-      return r.body.data?.insert_app_one
-    })
-})
+const defaultCreateAppInput = {
+  name: 'Test app',
+  pages: {
+    data: [
+      {
+        name: 'Test Page',
+      },
+    ],
+  },
+}
+Cypress.Commands.add(
+  'createApp',
+  (input: App_Insert_Input = defaultCreateAppInput) => {
+    return cy
+      .hasuraUserRequest({
+        query: print(CreateAppGql),
+        variables: { input },
+      })
+      .then((r) => {
+        return r.body.data?.insert_app_one
+      })
+  },
+)
 
 Cypress.Commands.add('createLibrary', () => {
   const data: Library_Insert_Input = {
