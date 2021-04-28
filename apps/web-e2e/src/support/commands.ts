@@ -33,28 +33,23 @@ declare global {
   namespace Cypress {
     interface Chainable<Subject> {
       /** Logs in using the auth0 interface and adds the user in the database if it doesn't exist*/
-      login(): Chainable<void>
-      getCurrentUserId(): Chainable<string>
-      getByTestId(
-        testId: string,
-        selectorAddon?: string | undefined,
-      ): Chainable<JQuery<HTMLButtonElement>>
-      impersonateUser(): void
+      login: typeof login
+      getCurrentUserId: typeof getCurrentUserId
+      getByTestId: typeof getByTestId
       /** Makes an post request to the hasura graphql api endpoint with admin secret */
-      hasuraAdminRequest(
-        body: string | Record<string, any>,
-      ): Chainable<Response>
+      hasuraAdminRequest: typeof hasuraAdminRequest
       /** Makes an post request to the next.js proxy graphql api endpoint as the logged in user */
-      hasuraUserRequest(body: string | Record<string, any>): Chainable<Response>
+      hasuraUserRequest: typeof hasuraUserRequest
       /** Creates an app for the current logged in user */
-      createApp(input?: App_Insert_Input): Chainable<User__AppFragment>
+      createApp: typeof createApp
       /** Creates an app for the current logged in user */
-      createLibrary(data: Library_Insert_Input): Chainable<__LibraryFragment>
-      createPage(appId: string, pageName?: string): Chainable<Response>
+      createLibrary: typeof createLibrary
       findByButtonText: (
         text: Matcher,
         options?: SelectorMatcherOptions,
       ) => Cypress.Chainable<JQuery<HTMLButtonElement>>
+      /** Finds a button within the visible tab pane's header, that has a "plus" icon inside it **/
+      findMainPanelHeaderPlusButton: typeof findMainPanelHeaderPlusButton
       findElementByText: typeof findElementByText
       findByModalTitle: typeof findByModalTitle
       openSelectByLabel: typeof openSelectByLabel
@@ -81,15 +76,16 @@ declare global {
   }
 }
 
-Cypress.Commands.add('hasuraUserRequest', (body) => {
-  return cy.request({
+const hasuraUserRequest = (body: string | Record<string, any>) =>
+  cy.request({
     body,
     url: '/api/graphql',
     method: 'POST',
   })
-})
 
-Cypress.Commands.add('hasuraAdminRequest', (body) => {
+Cypress.Commands.add('hasuraUserRequest', hasuraUserRequest)
+
+const hasuraAdminRequest = (body: string | Record<string, any>) => {
   return cy.request({
     body,
     url: Cypress.env('CODELAB_HASURA_GRAPHQL_ENDPOINT'),
@@ -98,9 +94,11 @@ Cypress.Commands.add('hasuraAdminRequest', (body) => {
       'x-hasura-admin-secret': Cypress.env('HASURA_GRAPHQL_ADMIN_SECRET'),
     },
   })
-})
+}
 
-Cypress.Commands.add('login', () => {
+Cypress.Commands.add('hasuraAdminRequest', hasuraAdminRequest)
+
+const login = () => {
   Cypress.log({
     name: 'loginViaAuth0',
   })
@@ -121,7 +119,7 @@ Cypress.Commands.add('login', () => {
   cy.visit('/')
   cy.get('.login-button').click()
 
-  cy.get('body').then((body) => {
+  return cy.get('body').then((body) => {
     //Find the input. If it's missing it's likely we're logged in already and it's redirecting us to our home page
     if (body.find('input[name=username]').length) {
       cy.get('input[name=username]').type(email)
@@ -143,16 +141,23 @@ Cypress.Commands.add('login', () => {
       })
     })
   })
-})
-Cypress.Commands.add('getCurrentUserId', () => {
+}
+
+Cypress.Commands.add('login', login)
+
+const getCurrentUserId = () => {
   return cy.request('/api/auth/me').then((r) => {
     return r.body.sub
   })
-})
+}
 
-Cypress.Commands.add('getByTestId', (testId, selectorAddon) => {
+Cypress.Commands.add('getCurrentUserId', getCurrentUserId)
+
+const getByTestId = (testId: string, selectorAddon?: string) => {
   return cy.get(`[data-testid=${testId}]${selectorAddon || ''}`)
-})
+}
+
+Cypress.Commands.add('getByTestId', getByTestId)
 
 const defaultCreateAppInput = {
   name: 'Test app',
@@ -164,43 +169,35 @@ const defaultCreateAppInput = {
     ],
   },
 }
-Cypress.Commands.add(
-  'createApp',
-  (input: App_Insert_Input = defaultCreateAppInput) => {
-    return cy
-      .hasuraUserRequest({
-        query: print(CreateAppGql),
-        variables: { input },
-      })
-      .then((r) => {
-        return r.body.data?.insert_app_one
-      })
-  },
-)
 
-const defaultLibraryData: Library_Insert_Input = {
-  name: 'Test library',
+const createApp = (input: App_Insert_Input = defaultCreateAppInput) =>
+  cy
+    .hasuraUserRequest({
+      query: print(CreateAppGql),
+      variables: { input },
+    })
+    .then((r) => {
+      return r.body.data?.insert_app_one as User__AppFragment
+    })
+
+Cypress.Commands.add('createApp', createApp)
+
+export const createLibrary: () => Cypress.Chainable<__LibraryFragment> = () => {
+  const data: Library_Insert_Input = {
+    name: 'Test library',
+  }
+
+  return cy
+    .hasuraUserRequest({
+      query: print(CreateLibraryGql),
+      variables: { data },
+    })
+    .then((r) => {
+      return r.body.data?.insert_library_one
+    }) as any
 }
-Cypress.Commands.add(
-  'createLibrary',
-  (data: Library_Insert_Input = defaultLibraryData) => {
-    return cy
-      .hasuraUserRequest({
-        query: print(CreateLibraryGql),
-        variables: { data },
-      })
-      .then((r) => {
-        return r.body.data?.insert_library_one
-      })
-  },
-)
 
-Cypress.Commands.add('createPage', (appId: string, pageName = 'default') => {
-  return cy.hasuraUserRequest({
-    query: print(CreatePageGql),
-    variables: { data: { app_id: appId, name: pageName } },
-  })
-})
+Cypress.Commands.add('createLibrary', createLibrary)
 
 export const findByButtonText = (
   subject: any,
@@ -245,6 +242,18 @@ export const findByModalTitle = (
 }
 
 Cypress.Commands.add('findByModalTitle', findByModalTitle)
+
+export const findMainPanelHeaderPlusButton = () =>
+  cy
+    .findByRole('tabpanel')
+    .find('.ant-page-header-heading button [data-icon=plus]')
+    .closest('button')
+    .first()
+
+Cypress.Commands.add(
+  'findMainPanelHeaderPlusButton',
+  findMainPanelHeaderPlusButton,
+)
 
 export const openSelectByLabel = (
   text: Matcher,
