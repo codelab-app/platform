@@ -15,7 +15,7 @@ import { SelectField, AutoFields } from 'uniforms-antd'
 type CreateComponentElementFormProps = UniFormUseCaseProps<CreateComponentElementInput> &
   Pick<
     FormUniformsProps<CreateComponentElementInput>,
-    'onSubmit' | 'onSubmitSuccess'
+    'onSubmit' | 'onSubmitSuccess' | 'model'
   >
 
 /**
@@ -33,15 +33,12 @@ export const CreateComponentElementFormBase = ({
 
   return (
     <FormUniforms<CreateComponentElementInput>
-      data-testid="create-ComponentElement-form"
-      id="create-ComponentElement-form" //We need both this and testid, because the generated dropdown has id based on this id, and we use it to identify the options when testing
       schema={createComponentElementSchema}
       onSubmitError={createNotificationHandler({
         title: 'Error while creating component element',
       })}
       {...props}
     >
-      <h2>Create component element</h2>
       <AutoFields omitFields={['atom_id']} />
       <SelectField name="atom_id" label="Atom" options={atomOptions} />
     </FormUniforms>

@@ -1,30 +1,4 @@
-import {
-  Atom_Type_Enum,
-  CreateAtomGql,
-  DeleteAllAtomsGql,
-} from '@codelab/hasura'
-import { print } from 'graphql'
-import { sample } from 'lodash'
-
-const deleteAllAtoms = () => {
-  return cy.hasuraAdminRequest({
-    query: print(DeleteAllAtomsGql),
-  })
-}
-
-const randomAtomType = () =>
-  sample(Object.values(Atom_Type_Enum)) as Atom_Type_Enum
-
-const insertOneAtom = (atomType: Atom_Type_Enum) => {
-  return cy.hasuraAdminRequest({
-    query: print(CreateAtomGql),
-    variables: {
-      data: {
-        type: atomType,
-      },
-    },
-  })
-}
+import { randomAtomType } from '../support/testUtils'
 
 const getAtomListItem = (atomType?: string) =>
   cy.getByTestId(
@@ -57,7 +31,7 @@ describe('Atom', () => {
 
   it('creates atom', () => {
     cy.intercept('/api/graphql').as('graphql')
-    deleteAllAtoms()
+    cy.deleteAllAtoms()
     openAtomsTab()
 
     //We should have no items in the list
@@ -89,11 +63,11 @@ describe('Atom', () => {
   it('updates atom', () => {
     cy.intercept('/api/graphql').as('graphql')
 
-    deleteAllAtoms().then(() => {
+    cy.deleteAllAtoms().then(() => {
       //Insert one random atom
       const atomType = randomAtomType()
 
-      insertOneAtom(atomType).then(() => {
+      cy.createAtom(atomType).then(() => {
         openAtomsTab()
 
         //We should have the new atom in the list, click its update button
@@ -132,10 +106,10 @@ describe('Atom', () => {
   it('deletes atom', () => {
     cy.intercept('/api/graphql').as('graphql')
 
-    deleteAllAtoms().then(() => {
+    cy.deleteAllAtoms().then(() => {
       const atomType = randomAtomType()
 
-      insertOneAtom(atomType).then(() => {
+      cy.createAtom(atomType).then(() => {
         openAtomsTab()
 
         //We should have the new atom in the list, click its delete button

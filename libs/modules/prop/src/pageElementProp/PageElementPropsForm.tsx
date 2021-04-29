@@ -89,7 +89,7 @@ export const PageElementPropsForm = ({
       <StyledLoadingIndicator>
         autosave:{' '}
         <LoadingIndicator
-          atomKey={PROPS_FORM_INDICATOR_KEY}
+          recoilKey={PROPS_FORM_INDICATOR_KEY}
           renderNotLoading={() => <span>saved</span>}
           renderLoading={() => <span>...saving</span>}
         />
