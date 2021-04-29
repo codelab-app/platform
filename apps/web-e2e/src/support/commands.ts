@@ -49,7 +49,7 @@ declare global {
       /** Creates an app for the current logged in user */
       createApp(input?: App_Insert_Input): Chainable<User__AppFragment>
       /** Creates an app for the current logged in user */
-      createLibrary(): Chainable<__LibraryFragment>
+      createLibrary(data: Library_Insert_Input): Chainable<__LibraryFragment>
       createPage(appId: string, pageName?: string): Chainable<Response>
       findByButtonText: (
         text: Matcher,
@@ -178,32 +178,29 @@ Cypress.Commands.add(
   },
 )
 
-Cypress.Commands.add('createLibrary', () => {
-  const data: Library_Insert_Input = {
-    name: 'Test library',
-  }
-
-  return cy
-    .hasuraUserRequest({
-      query: print(CreateLibraryGql),
-      variables: { data },
-    })
-    .then((r) => {
-      return r.body.data?.insert_library_one
-    })
-})
-
+const defaultLibraryData: Library_Insert_Input = {
+  name: 'Test library',
+}
 Cypress.Commands.add(
-  'createPage',
-  (appId: string, pageName: string = 'default') => {
+  'createLibrary',
+  (data: Library_Insert_Input = defaultLibraryData) => {
     return cy
       .hasuraUserRequest({
-        query: print(CreatePageGql),
-        variables: { data: { app_id: appId, name: pageName } },
+        query: print(CreateLibraryGql),
+        variables: { data },
       })
-      .then((r) => window.console.log(r.body))
+      .then((r) => {
+        return r.body.data?.insert_library_one
+      })
   },
 )
+
+Cypress.Commands.add('createPage', (appId: string, pageName = 'default') => {
+  return cy.hasuraUserRequest({
+    query: print(CreatePageGql),
+    variables: { data: { app_id: appId, name: pageName } },
+  })
+})
 
 export const findByButtonText = (
   subject: any,

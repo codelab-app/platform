@@ -10561,6 +10561,19 @@ export type DeleteLibraryMutation = { __typename?: 'mutation_root' } & {
   delete_library_by_pk?: Maybe<{ __typename?: 'library' } & Pick<Library, 'id'>>
 }
 
+export type DeleteUserLibrariesMutationVariables = Exact<{
+  userId: Scalars['String']
+}>
+
+export type DeleteUserLibrariesMutation = { __typename?: 'mutation_root' } & {
+  delete_library?: Maybe<
+    { __typename?: 'library_mutation_response' } & Pick<
+      Library_Mutation_Response,
+      'affected_rows'
+    >
+  >
+}
+
 export type GetLibrariesListQueryVariables = Exact<{ [key: string]: never }>
 
 export type GetLibrariesListQuery = { __typename?: 'query_root' } & {
@@ -13028,6 +13041,55 @@ export type DeleteLibraryMutationOptions = Apollo.BaseMutationOptions<
   DeleteLibraryMutation,
   DeleteLibraryMutationVariables
 >
+export const DeleteUserLibrariesGql = gql`
+  mutation DeleteUserLibraries($userId: String!) {
+    delete_library(where: { user_id: { _eq: $userId } }) {
+      affected_rows
+    }
+  }
+`
+export type DeleteUserLibrariesMutationFn = Apollo.MutationFunction<
+  DeleteUserLibrariesMutation,
+  DeleteUserLibrariesMutationVariables
+>
+
+/**
+ * __useDeleteUserLibrariesMutation__
+ *
+ * To run a mutation, you first call `useDeleteUserLibrariesMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteUserLibrariesMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteUserLibrariesMutation, { data, loading, error }] = useDeleteUserLibrariesMutation({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useDeleteUserLibrariesMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeleteUserLibrariesMutation,
+    DeleteUserLibrariesMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    DeleteUserLibrariesMutation,
+    DeleteUserLibrariesMutationVariables
+  >(DeleteUserLibrariesGql, options)
+}
+export type DeleteUserLibrariesMutationHookResult = ReturnType<
+  typeof useDeleteUserLibrariesMutation
+>
+export type DeleteUserLibrariesMutationResult = Apollo.MutationResult<DeleteUserLibrariesMutation>
+export type DeleteUserLibrariesMutationOptions = Apollo.BaseMutationOptions<
+  DeleteUserLibrariesMutation,
+  DeleteUserLibrariesMutationVariables
+>
 export const GetLibrariesListGql = gql`
   query GetLibrariesList {
     library {
@@ -14729,6 +14791,13 @@ export const DeleteLibrary = gql`
   mutation DeleteLibrary($libraryId: uuid!) {
     delete_library_by_pk(id: $libraryId) {
       id
+    }
+  }
+`
+export const DeleteUserLibraries = gql`
+  mutation DeleteUserLibraries($userId: String!) {
+    delete_library(where: { user_id: { _eq: $userId } }) {
+      affected_rows
     }
   }
 `
