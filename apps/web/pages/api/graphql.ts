@@ -12,11 +12,14 @@ const app = express()
 app.use('*', async (baseReq, baseRes, next) => {
   const session = await getSession(baseReq, baseRes)
 
+  // Need to use 127.0.0.1
+  // https://github.com/chimurai/http-proxy-middleware/issues/171
   return createProxyMiddleware({
     target: process.env.CODELAB_HASURA_GRAPHQL_ENDPOINT,
     changeOrigin: true,
     proxyTimeout: 30000,
     secure: false,
+    // logLevel: 'debug',
     headers: {
       Connection: 'keep-alive',
     },

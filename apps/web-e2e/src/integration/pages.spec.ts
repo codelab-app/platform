@@ -26,6 +26,7 @@ describe('Pages', () => {
       cy.visit(`/apps/${appId}/pages/${pageId}`)
       openPagesTab()
     })
+
     it('should be able to create page', () => {
       const pageName = 'new useful page'
       cy.findAllByText(pageName, { exact: true, timeout: 0 }).should(
@@ -53,6 +54,7 @@ describe('Pages', () => {
     })
 
     const updatedPageName = 'updated page'
+
     it('should be able to update page name', () => {
       cy.findMainPaneButtonByItemName(pageName, 'Settings', {
         timeout: 2000,
@@ -70,6 +72,7 @@ describe('Pages', () => {
       cy.findByText(updatedPageName).should('exist')
     })
   })
+
   describe('delete', () => {
     const pageName = 'page for delete'
     before(() => {

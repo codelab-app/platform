@@ -14,7 +14,6 @@ describe('Atom', () => {
     cy.visit(`/apps/${appId}/pages/${pageId}`)
     cy.getByTestId('atom-tab-trigger').click()
   }
-
   before(() => {
     cy.clearCookies()
     cy.login().then(() => {

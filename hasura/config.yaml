@@ -2,7 +2,7 @@ version: 3
 # https://stackoverflow.com/questions/59791091/hasura-endpoint-as-environment-variable
 # endpoint: ${CODELAB_HASURA_ENDPOINT}
 # endpoint: https://codelab-ai.hasura.app/
-endpoint: http://localhost:8080/
+endpoint: http://127.0.0.1:8080/
 admin_secret: ${HASURA_GRAPHQL_ADMIN_SECRET}
 api_paths:
   v1_query: v1/query
@@ -17,7 +17,7 @@ migrations_directory: migrations
 seeds_directory: seeds
 actions:
   kind: synchronous
-  handler_webhook_baseurl: http://localhost:3000
+  handler_webhook_baseurl: http://127.0.0.1:3000
   codegen:
     framework: ''
     output_dir: ''

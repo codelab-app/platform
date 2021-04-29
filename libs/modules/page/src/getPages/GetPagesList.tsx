@@ -1,10 +1,13 @@
-import {
-  FileOutlined,
-} from '@ant-design/icons'
+import { FileOutlined } from '@ant-design/icons'
 import { List, Space, Spin } from 'antd'
 import Link from 'next/link'
 import React, { useContext } from 'react'
-import { EntityType, ListItemDeleteButton, ListItemSettingsButton, useCRUDModalForm } from '@codelab/frontend/shared'
+import {
+  EntityType,
+  ListItemDeleteButton,
+  ListItemSettingsButton,
+  useCRUDModalForm,
+} from '@codelab/frontend/shared'
 import { AppContext, Page } from '@codelab/frontend/shared'
 import { useGetPagesListQuery } from '@codelab/hasura'
 
@@ -39,12 +42,10 @@ export const GetPagesList = () => {
               </Link>
             </Space>
             <Space>
-                <ListItemSettingsButton
-onClick={() => openUpdateModal(page.id)}
-                />
-              <ListItemDeleteButton
-                onClick={() => openDeleteModal(page.id)}
+              <ListItemSettingsButton
+                onClick={() => openUpdateModal(page.id)}
               />
+              <ListItemDeleteButton onClick={() => openDeleteModal(page.id)} />
             </Space>
           </List.Item>
         )}

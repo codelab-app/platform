@@ -28,8 +28,10 @@ const fetchAndSelectFirstLibrary = (
       query: GetFirstLibraryGql,
     })
     .then((r) => {
+      console.log(r)
+
       if (r.data?.library && r.data?.library[0]) {
-        selectLibrary(r.data.library[0].id)
+        selectLibrary(r.data.library[0]?.id)
       } else {
         notify({
           title: "You don't have a library",

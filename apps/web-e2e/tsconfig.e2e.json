@@ -7,5 +7,6 @@
     "types": ["cypress", "node"],
     "jsx": "react"
   },
+  "exclude": ["src/deprecated"],
   "include": ["src/**/*.ts", "src/**/*.js"]
 }

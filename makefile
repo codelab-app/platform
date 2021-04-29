@@ -45,14 +45,13 @@ hasura-seed-apply-e2e:
 hasura-seed-export:
 	./scripts/hasura.sh seed create value_type_seed --from-table value_type
 
-
 #	npx hasura migrate apply --version 1618946065806 --skip-execution --database-name default --project=hasura --envfile=../.env
 
 hasura-migrations-apply:
 	npx hasura migrate apply --database-name default --project=hasura --envfile=../.env
 
 hasura-migrations-apply-e2e:
-	npx hasura migrate apply --database-name default --project=hasura --envfile=../.env --endpoint=http://localhost:8081
+	npx hasura migrate apply --database-name default --project=hasura --envfile=../.env --endpoint=http://127.0.0.1:8081
 
 # npx hasura migrate apply --version 1618946065806 --skip-execution --database-name default --project=hasura --envfile=../.env
 
@@ -145,14 +144,12 @@ e2e-dev:
   	--success=first \
 		--names=web-e2e,api,web \
     	"npx wait-on \
-				http://localhost:3001 \
-				http://localhost:4001 && \
-				nx run web-e2e:e2e:ci" \
-			"npx env-cmd -f .env cross-env PORT=4001 \
+				http://127.0.0.1:3000 \
+				http://127.0.0.1:4000 && \
+				nx run web-e2e:e2e" \
+			"npx env-cmd -f .env cross-env PORT=4000 \
 				node dist/apps/api/main.js" \
-			"yarn nx run web:serve:ci"
-
-# npx env-cmd -f .env cross-env NODE_ENV=production next start -p 3001 dist/apps/web
+			"yarn nx run web:serve"
 
 e2e-ci:
 	npx concurrently \
@@ -160,12 +157,13 @@ e2e-ci:
   	--success=first \
 		--names=web-e2e,api,web \
     	"npx wait-on \
-				http://localhost:3001 \
-				http://localhost:4001 && \
-				nx run web-e2e:e2e:ci" \
-			"npx cross-env PORT=4001 \
+				http://127.0.0.1:3000 \
+				http://127.0.0.1:4000 && \
+				nx run web-e2e:e2e" \
+			"npx cross-env PORT=4000 \
 				node dist/apps/api/main.js" \
-			"npx next start -p 3001 dist/apps/web"
+			"yarn nx run web:serve"
+
 #
 # INTEGRATION TESTS
 #

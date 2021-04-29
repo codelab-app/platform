@@ -39,6 +39,7 @@ describe('Library', () => {
       cy.visit(`/apps/${appId}/pages/${pageId}`)
       openLibrariesTab()
     })
+
     it('should be able to create library', () => {
       const libraryName = 'library for test creation'
       cy.findAllByText(libraryName, { exact: true, timeout: 0 }).should(
@@ -87,6 +88,7 @@ describe('Library', () => {
       cy.findByText(updatedLibraryName).should('exist')
     })
   })
+
   describe('delete', () => {
     const libraryName = 'library for delete'
     before(() => {

@@ -41,6 +41,7 @@ describe('LibraryService', () => {
     }
 
     const deletedBucket = await service.deleteBucket(lambda)
+
     expect(deletedBucket).toBeDefined()
   })
 
@@ -56,9 +57,11 @@ describe('LibraryService', () => {
     }
 
     const foundLambda = await service.getLambda(lambda)
+
     expect(foundLambda).toBeDefined()
 
     const executeResult = await service.executeLambda(lambda, payload)
+
     expect(executeResult).toMatchObject({
       key1: 'value1',
       key2: 'value2',
@@ -91,9 +94,11 @@ describe('LibraryService', () => {
     await service.updateLambda(updatedLambda)
 
     const foundLambda = await service.getLambda(updatedLambda)
+
     expect(foundLambda).toBeDefined()
 
     const executeResult = await service.executeLambda(updatedLambda, payload)
+
     expect(executeResult).toMatchObject({
       key1: 'updated',
       key2: 'value2',

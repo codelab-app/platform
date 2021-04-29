@@ -1,4 +1,5 @@
 import { convertStyles } from './convertStyles'
+
 describe('convertStyles', () => {
   const layoutGraph = {
     __typename: 'Graph',
@@ -130,6 +131,7 @@ describe('convertStyles', () => {
       },
     ],
   }
+
   it('should convert styles', () => {
     expect(convertStyles(layoutGraph)).toEqual(convertedLayoutGraph)
   })

@@ -39,6 +39,7 @@ services:
       - HASURA_GRAPHQL_ENABLE_CONSOLE=true
       - HASURA_GRAPHQL_DEV_MODE=true
       - HASURA_GRAPHQL_ENABLED_LOG_TYPES=startup,http-log,webhook-log, websocket-log,query-log
+      - HASURA_GRAPHQL_DATABASE_URL=postgres://postgres:postgrespassword@postgres-e2e:5432/default
 
   postgres:
     image: postgres:13.2

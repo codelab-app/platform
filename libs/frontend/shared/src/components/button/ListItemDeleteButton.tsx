@@ -3,6 +3,7 @@ import React from 'react'
 export interface ListItemDeleteButtonProps {
   onClick: () => void
 }
+
 export const ListItemDeleteButton = ({
   onClick,
 }: ListItemDeleteButtonProps) => {
