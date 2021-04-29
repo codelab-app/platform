@@ -49,6 +49,7 @@ describe('Pages', () => {
     before(() => {
       cy.createPage(appId, pageName)
       cy.visit(`/apps/${appId}/pages/${pageId}`)
+      openPagesTab()
     })
 
     const updatedPageName = 'updated page'
@@ -74,6 +75,7 @@ describe('Pages', () => {
     before(() => {
       cy.createPage(appId, pageName)
       cy.visit(`/apps/${appId}/pages/${pageId}`)
+      openPagesTab()
     })
 
     it('should be able to delete page', () => {
