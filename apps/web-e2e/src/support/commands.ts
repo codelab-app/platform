@@ -16,6 +16,7 @@ import {
   CreateAtomGql,
   AtomFragment,
   DeleteAllAtomsGql,
+  CreatePageGql,
 } from '@codelab/hasura'
 import { print } from 'graphql'
 
@@ -51,6 +52,7 @@ declare global {
       createComponent: typeof createComponent
       /** Creates an app for the current logged in user */
       createLibrary: typeof createLibrary
+      createPage: typeof createPage
       findByButtonText: (
         text: Matcher,
         options?: SelectorMatcherOptions,
@@ -59,6 +61,7 @@ declare global {
       findMainPanelHeaderPlusButton: typeof findMainPanelHeaderPlusButton
       findElementByText: typeof findElementByText
       findByModalTitle: typeof findByModalTitle
+
       openSelectByLabel: (
         text: Matcher,
         options?: SelectorMatcherOptions,
@@ -226,19 +229,30 @@ const createApp = (input: App_Insert_Input = defaultCreateAppInput) =>
 
 Cypress.Commands.add('createApp', createApp)
 
-export const createLibrary: () => Cypress.Chainable<__LibraryFragment> = () => {
-  const data: Library_Insert_Input = {
-    name: 'Test library',
-  }
+const createPage = (appId: string, pageName = 'default') => {
+  return cy.hasuraUserRequest({
+    query: print(CreatePageGql),
+    variables: { data: { app_id: appId, name: pageName } },
+  })
+}
 
-  return cy
+Cypress.Commands.add('createPage', createPage)
+
+const defaultLibraryData: Library_Insert_Input = {
+  name: 'Test library',
+}
+
+export const createLibrary = (
+  data: Library_Insert_Input = defaultLibraryData,
+) => {
+  return (cy
     .hasuraUserRequest({
       query: print(CreateLibraryGql),
       variables: { data },
     })
     .then((r) => {
       return r.body.data?.insert_library_one
-    }) as any
+    }) as unknown) as Promise<__LibraryFragment>
 }
 
 Cypress.Commands.add('createLibrary', createLibrary)
