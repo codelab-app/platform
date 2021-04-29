@@ -10,6 +10,8 @@ import {
   Library_Insert_Input,
   CreateLibraryGql,
   __LibraryFragment,
+  DeleteAllPagesOfApp,
+  CreatePageGql,
 } from '@codelab/hasura'
 import { print } from 'graphql'
 
@@ -36,7 +38,7 @@ declare global {
       getByTestId(
         testId: string,
         selectorAddon?: string | undefined,
-      ): Chainable<JQuery<any>>
+      ): Chainable<JQuery<HTMLButtonElement>>
       impersonateUser(): void
       /** Makes an post request to the hasura graphql api endpoint with admin secret */
       hasuraAdminRequest(
@@ -48,6 +50,7 @@ declare global {
       createApp(input?: App_Insert_Input): Chainable<User__AppFragment>
       /** Creates an app for the current logged in user */
       createLibrary(): Chainable<__LibraryFragment>
+      createPage(appId: string, pageName?: string): Chainable<Response>
       findByButtonText: (
         text: Matcher,
         options?: SelectorMatcherOptions,
@@ -61,9 +64,17 @@ declare global {
       getSelectOptionItemByValue: typeof getSelectOptionItemByValue
       getSpinner: typeof getSpinner
       getOpenedModal: typeof getOpenedModal
+      getPaneMain: (
+        options?: Parameters<typeof cy.get>[1],
+      ) => Cypress.Chainable<JQuery<HTMLButtonElement>>
       getOpenedDropdownMenu: typeof getOpenedDropdownMenu
       findSettingsButtonByAppName: (
         text: Matcher,
+        options?: SelectorMatcherOptions,
+      ) => Cypress.Chainable<JQuery<HTMLButtonElement>>
+      findMainPaneButtonByItemName: (
+        pageName: Matcher,
+        settingTitle: string,
         options?: SelectorMatcherOptions,
       ) => Cypress.Chainable<JQuery<HTMLButtonElement>>
     }
@@ -182,14 +193,29 @@ Cypress.Commands.add('createLibrary', () => {
     })
 })
 
+Cypress.Commands.add(
+  'createPage',
+  (appId: string, pageName: string = 'default') => {
+    return cy
+      .hasuraUserRequest({
+        query: print(CreatePageGql),
+        variables: { data: { app_id: appId, name: pageName } },
+      })
+      .then((r) => window.console.log(r.body))
+  },
+)
+
 export const findByButtonText = (
   subject: any,
   text: Matcher,
   options?: SelectorMatcherOptions,
-): Cypress.Chainable<JQuery<HTMLButtonElement>> => {
-  return (subject ? cy.wrap(subject) : cy)
-    .findByText(text, { exact: true, timeout: 5000, ...options })
-    .closest('button')
+): Cypress.Chainable<JQuery> => {
+  return (subject ? cy.wrap(subject) : cy).findByRole('button', {
+    name: text,
+    exact: false,
+    timeout: 5000,
+    ...options,
+  })
 }
 
 Cypress.Commands.add(
@@ -215,7 +241,7 @@ Cypress.Commands.add('findElementByText', findElementByText)
 export const findByModalTitle = (
   text: Matcher,
   options?: SelectorMatcherOptions,
-): Cypress.Chainable<JQuery<HTMLElement>> => {
+): Cypress.Chainable<JQuery> => {
   return cy
     .findByText(text, { exact: true, timeout: 5000, ...options })
     .closest('.ant-modal-wrap ')
@@ -226,7 +252,7 @@ Cypress.Commands.add('findByModalTitle', findByModalTitle)
 export const openSelectByLabel = (
   text: Matcher,
   options?: SelectorMatcherOptions,
-): Cypress.Chainable<JQuery<HTMLElement>> => {
+): Cypress.Chainable<JQuery> => {
   return cy.findByLabelText(text, options).closest('.ant-select').click()
 }
 
@@ -242,7 +268,7 @@ Cypress.Commands.add('getSelectDropdown', getSelectDropdown)
 export const getSelectedOptionByLabel = (
   text: Matcher,
   options?: SelectorMatcherOptions,
-): Cypress.Chainable<JQuery<HTMLElement>> => {
+): Cypress.Chainable<JQuery> => {
   // NOTE: the list appears in DOM only after first
   return cy
     .findByLabelText(text, options)
@@ -263,7 +289,7 @@ Cypress.Commands.add('getSelectOptionsContent', getSelectOptionsContent)
 
 export const getSelectOptionItemByValue = (
   value: Matcher,
-): Cypress.Chainable<JQuery<HTMLElement>> => {
+): Cypress.Chainable<JQuery> => {
   return cy
     .getSelectDropdown()
     .find('.rc-virtual-list')
@@ -273,7 +299,7 @@ export const getSelectOptionItemByValue = (
 
 Cypress.Commands.add('getSelectOptionItemByValue', getSelectOptionItemByValue)
 
-export const getSpinner = (): Cypress.Chainable<JQuery<HTMLButtonElement>> => {
+export const getSpinner = (): Cypress.Chainable<JQuery> => {
   return cy.get('.ant-spin')
 }
 
@@ -282,7 +308,7 @@ Cypress.Commands.add('getSpinner', getSpinner)
 export const getOpenedModal = (
   // options?: any,
   options?: Parameters<typeof cy.get>[1],
-): Cypress.Chainable<JQuery<HTMLButtonElement>> => {
+): Cypress.Chainable<JQuery> => {
   return cy.get('.ant-modal-content', options)
 }
 
@@ -315,4 +341,29 @@ Cypress.Commands.add(
     prevSubject: 'optional',
   },
   findSettingsButtonByAppName,
+)
+
+Cypress.Commands.add(
+  'findMainPaneButtonByItemName',
+  {
+    prevSubject: 'optional',
+  },
+  (
+    subject: any,
+    itemName: Matcher,
+    settingTitle: string,
+    options?: SelectorMatcherOptions,
+  ): Cypress.Chainable<JQuery> => {
+    return (subject ? cy.wrap(subject) : cy)
+      .findByText(itemName, { exact: false, timeout: 0, ...options })
+      .closest('.ant-list-item')
+      .findByTitle(settingTitle)
+  },
+)
+
+Cypress.Commands.add(
+  'getPaneMain',
+  (): Cypress.Chainable<JQuery> => {
+    return cy.getByTestId('pain-main-tabs').findByRole('tablist')
+  },
 )

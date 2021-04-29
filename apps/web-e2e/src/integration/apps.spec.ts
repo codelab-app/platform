@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client'
+import { DeleteUserAppsGql } from '@codelab/hasura'
 import { print } from 'graphql'
 
 const createApp = (appName: string) =>
@@ -12,20 +12,15 @@ const createApp = (appName: string) =>
       ],
     },
   })
-export const DeleteAppsByUserGql = gql`
-  mutation DeleteUserApps($userId: String!) {
-    delete_app(where: { user_id: { _eq: $userId } }) {
-      affected_rows
-    }
-  }
-`
+
 describe('Apps CRUD', () => {
   before(() => {
+    cy.clearCookies()
     cy.login()
     // delete all apps afor current user
     cy.getCurrentUserId().then((userId) => {
       cy.hasuraAdminRequest({
-        query: print(DeleteAppsByUserGql),
+        query: print(DeleteUserAppsGql),
         variables: {
           userId,
         },
@@ -38,14 +33,14 @@ describe('Apps CRUD', () => {
     cy.getSpinner().should('not.exist')
   })
 
-  describe('create usecase', () => {
+  describe('create', () => {
     it('should be able to cancel app creation', () => {
-      cy.findByButtonText('Create App').click()
+      cy.findByButtonText(/create app/i).click()
 
       cy.findByLabelText('Name').type('some test input')
 
       cy.getOpenedModal().findByButtonText('Cancel').click()
-      cy.findByButtonText('Create App').click()
+      cy.findByButtonText(/create app/i).click()
 
       cy.getOpenedModal()
         .findByLabelText('Name')
@@ -54,6 +49,7 @@ describe('Apps CRUD', () => {
 
       // close modal
       cy.getOpenedModal().findByButtonText('Cancel').click()
+      cy.getOpenedModal().should('not.exist')
     })
 
     it('should be able to create app', () => {
@@ -62,17 +58,19 @@ describe('Apps CRUD', () => {
       cy.findAllByText(appName, { exact: true, timeout: 0 }).should('not.exist')
 
       // open creation form
-      cy.findByButtonText('Create App').should('exist').click()
+      cy.findByButtonText(/create app/i).click()
 
       cy.getOpenedModal().findByLabelText('Name').type(appName)
-      cy.getOpenedModal().findByButtonText('Create App').click()
+      cy.getOpenedModal()
+        .findByButtonText(/create app/i)
+        .click()
 
       cy.getOpenedModal().should('not.exist')
       cy.findByText(appName).should('exist')
     })
   })
 
-  describe('update usecase', () => {
+  describe('update', () => {
     const appName = 'app for update'
     before(() => {
       createApp(appName)
@@ -86,7 +84,9 @@ describe('Apps CRUD', () => {
 
       cy.getOpenedModal().findByLabelText('Name').clear().type(updatedAppName)
       cy.getSpinner().should('not.exist')
-      cy.getOpenedModal().findByButtonText('Update App').click()
+      cy.getOpenedModal()
+        .findByButtonText(/update app/i)
+        .click()
 
       cy.getOpenedModal().should('not.exist')
       cy.findByText(appName).should('not.exist')
@@ -94,8 +94,8 @@ describe('Apps CRUD', () => {
     })
   })
 
-  describe('delete usecase', () => {
-    const appName = 'app for update'
+  describe('delete', () => {
+    const appName = 'app for delete'
 
     before(() => {
       createApp(appName)
@@ -106,7 +106,9 @@ describe('Apps CRUD', () => {
       cy.getOpenedDropdownMenu().findByText('Delete').click()
 
       cy.getSpinner().should('not.exist')
-      cy.getOpenedModal().findByButtonText('Delete App').click()
+      cy.getOpenedModal()
+        .findByButtonText(/delete app/i)
+        .click()
 
       cy.findAllByText(appName).should('not.exist')
     })
