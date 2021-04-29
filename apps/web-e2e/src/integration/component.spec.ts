@@ -45,7 +45,7 @@ describe('Component', () => {
     Cypress.Cookies.preserveOnce('appSession')
   })
 
-  it.only('creates component', () => {
+  it('creates component', () => {
     //Setup
     const label = 'Test component'
     cy.intercept('/api/graphql').as('graphql')

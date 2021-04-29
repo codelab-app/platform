@@ -33,8 +33,6 @@ export const CreateComponentElementFormBase = ({
 
   return (
     <FormUniforms<CreateComponentElementInput>
-      data-testid="create-ComponentElement-form"
-      id="create-ComponentElement-form" //We need both this and testid, because the generated dropdown has id based on this id, and we use it to identify the options when testing
       schema={createComponentElementSchema}
       onSubmitError={createNotificationHandler({
         title: 'Error while creating component element',

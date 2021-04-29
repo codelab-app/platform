@@ -10,12 +10,17 @@ import { print } from 'graphql'
 const getComponentElementInTree = (label: string) =>
   cy.findByTestId('pane-main').find('.ant-tree-list').findByText(label)
 
-const getAndExpandElementInTree = (label: string) =>
+const getAndExpandElementInTree = (label: string) => {
   getComponentElementInTree(label)
     .first()
     .closest('div')
-    .findByLabelText('caret-down')
-    .click() //Click on the caret next to the element in the tree to expand it
+    .findByLabelText('caret-down') //Click on the caret next to the element in the tree to expand it
+    .click()
+
+  cy.findByTestId('pane-main')
+    .find('.ant-tree-list .ant-tree-treenode-motion')
+    .should('not.exist') //Wait for the expanding animation to finish
+}
 
 describe('Component element', () => {
   let libraryId: string
@@ -29,16 +34,7 @@ describe('Component element', () => {
       cy.createLibrary().then((l) => {
         libraryId = l.id
 
-        cy.createComponent(libraryId).then((c) => {
-          component = c
-        })
-
-        const atomType = randomAtomType()
-
         cy.deleteAllAtoms()
-        cy.createAtom(atomType).then((a) => {
-          atom = a
-        })
       })
     })
   })
@@ -46,6 +42,16 @@ describe('Component element', () => {
   beforeEach(() => {
     cy.intercept('/api/graphql').as('graphql')
     Cypress.Cookies.preserveOnce('appSession')
+
+    cy.createComponent(libraryId).then((c) => {
+      component = c
+    })
+
+    const atomType = randomAtomType()
+
+    cy.createAtom(atomType).then((a) => {
+      atom = a
+    })
   })
 
   const createComponentElement = (label: string) =>
@@ -78,7 +84,8 @@ describe('Component element', () => {
 
     //Create the component element
     cy.findMainPanelHeaderPlusButton().click() //Click the plus button in the tab header
-    cy.getOpenedModal().findByLabelText('Label').clear().type(label)
+
+    cy.getOpenedModal().findByLabelText('Label').type(label)
     cy.getOpenedModal().findByLabelText('Atom').click()
     cy.getSelectOptionItemByValue(atom.type).first().click()
     cy.getOpenedModal()
@@ -94,7 +101,7 @@ describe('Component element', () => {
     getComponentElementInTree(label) //We should have the new item in the tree
   })
 
-  it.only('creates nested component elements', () => {
+  it('creates nested component elements', () => {
     //Setup
     const parentLabel = 'Best element ever'
     const childLabel = "Best element's child"
@@ -103,11 +110,6 @@ describe('Component element', () => {
       openComponentsTab()
 
       getAndExpandElementInTree(component.label + ' Root')
-
-      cy.findByTestId('pane-main')
-        .find('.ant-tree-list .ant-tree-treenode-motion')
-        .should('not.exist') //Wait for the expanding animation to finish
-
       getComponentElementInTree(parentElement.label).first().click()
 
       cy.getByTestId('pane-config')
@@ -115,8 +117,8 @@ describe('Component element', () => {
         .click()
 
       //Create the component element
-      cy.getOpenedModal().findByLabelText('Label').clear().type(childLabel)
-      cy.getOpenedModal().findByLabelText('Atom').click()
+      cy.getOpenedModal().findByLabelText('Label').type(childLabel)
+      cy.getOpenedModal().openSelectByLabel('Atom')
       cy.getSelectOptionItemByValue(atom.type).first().click()
       cy.getOpenedModal().findByRole('button', { name: 'Create' }).click() //Click the submit button
 
@@ -127,6 +129,60 @@ describe('Component element', () => {
 
       getAndExpandElementInTree(parentLabel)
       getComponentElementInTree(childLabel) //We should have the new item in the tree
+    })
+  })
+
+  it('updates component elements', () => {
+    //Setup
+    const label = 'Good element'
+    const newLabel = 'BEST element'
+
+    createComponentElement(label).then((element) => {
+      openComponentsTab()
+
+      getAndExpandElementInTree(component.label + ' Root')
+      getComponentElementInTree(element.label).first().click() //Focus the element
+
+      //Update the component element
+      cy.getByTestId('pane-config') //We should get the form in the right pane
+        .findByLabelText('Label')
+        .clear()
+        .type(newLabel)
+
+      cy.getByTestId('pane-config').openSelectByLabel('Atom')
+
+      cy.getSelectOptionItemByValue(atom.type).first().click({ force: true })
+
+      cy.wait('@graphql') //it should auto save, wait for the request to finish
+
+      //Validate component element is updated in  the tree
+      getComponentElementInTree(label).should('not.exist')
+      getComponentElementInTree(newLabel) //We should have the new item in the tree
+    })
+  })
+
+  it('deletes component elements', () => {
+    //Setup
+    const label = 'bye bye element'
+
+    createComponentElement(label).then((element) => {
+      openComponentsTab()
+
+      getAndExpandElementInTree(component.label + ' Root')
+      getComponentElementInTree(element.label).first().click() //Focus the element
+
+      //Delete the component element
+      cy.getByTestId('pane-config') //We should get the form in the right pane
+        .find('button [data-icon=delete]')
+        .click()
+
+      cy.getOpenedModal().findByRole('button', { name: 'Delete' }).click() //Click the submit button
+
+      cy.wait('@graphql') //wait for the request to finish
+
+      //Validate component element is not in the tree
+      cy.getOpenedModal().should('not.exist') //modal should close
+      getComponentElementInTree(label).should('not.exist')
     })
   })
 })

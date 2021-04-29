@@ -59,7 +59,10 @@ declare global {
       findMainPanelHeaderPlusButton: typeof findMainPanelHeaderPlusButton
       findElementByText: typeof findElementByText
       findByModalTitle: typeof findByModalTitle
-      openSelectByLabel: typeof openSelectByLabel
+      openSelectByLabel: (
+        text: Matcher,
+        options?: SelectorMatcherOptions,
+      ) => ReturnType<typeof openSelectByLabel>
       getSelectedOptionByLabel: typeof getSelectedOptionByLabel
       getSelectOptionsContent: typeof getSelectOptionsContent
       getSelectDropdown: typeof getSelectDropdown
@@ -297,13 +300,23 @@ Cypress.Commands.add(
 )
 
 export const openSelectByLabel = (
+  subject: any,
   text: Matcher,
   options?: SelectorMatcherOptions,
-): Cypress.Chainable<JQuery> => {
-  return cy.findByLabelText(text, options).closest('.ant-select').click()
+): Cypress.Chainable<JQuery<HTMLElement>> => {
+  return (subject ? cy.wrap(subject) : cy)
+    .findByLabelText(text, options)
+    .closest('.ant-select')
+    .click()
 }
 
-Cypress.Commands.add('openSelectByLabel', openSelectByLabel)
+Cypress.Commands.add(
+  'openSelectByLabel',
+  {
+    prevSubject: 'optional',
+  },
+  openSelectByLabel,
+)
 
 export const getSelectDropdown = () => {
   // NOTE: the list appears in DOM only after first
