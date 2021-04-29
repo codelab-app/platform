@@ -254,7 +254,7 @@
     "concurrently": "5.3.0",
     "copyfiles": "2.4.0",
     "cross-env": "7.0.3",
-    "cypress": "7.2.0",
+    "cypress": "6.9.1",
     "cz-customizable": "6.3.0",
     "dotenv-webpack": "7.0.2",
     "env-cmd": "10.1.0",
