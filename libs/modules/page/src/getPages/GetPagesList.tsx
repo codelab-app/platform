@@ -1,12 +1,10 @@
 import {
-  DeleteOutlined,
   FileOutlined,
-  SettingOutlined,
 } from '@ant-design/icons'
 import { List, Space, Spin } from 'antd'
 import Link from 'next/link'
 import React, { useContext } from 'react'
-import { EntityType, useCRUDModalForm } from '@codelab/frontend/shared'
+import { EntityType, ListItemDeleteButton, ListItemSettingsButton, useCRUDModalForm } from '@codelab/frontend/shared'
 import { AppContext, Page } from '@codelab/frontend/shared'
 import { useGetPagesListQuery } from '@codelab/hasura'
 
@@ -41,12 +39,10 @@ export const GetPagesList = () => {
               </Link>
             </Space>
             <Space>
-              <SettingOutlined
-                title="Settings"
-                onClick={() => openUpdateModal(page.id)}
-              />
-              <DeleteOutlined
-                title="Delete"
+                <ListItemSettingsButton
+onClick={() => openUpdateModal(page.id)}
+                />
+              <ListItemDeleteButton
                 onClick={() => openDeleteModal(page.id)}
               />
             </Space>
