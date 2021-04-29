@@ -261,8 +261,7 @@ jobs:
             - ~/.cache/yarn
             - ~/.cache/Cypress
             - ~/project/node_modules
-            - ~/project/apps/web/.next
-            - ~/project/dist/apps/web/.next
+            - ~/project/dist/apps/web/.next/cache
       - persist_to_workspace:
           root: ..
           paths:
