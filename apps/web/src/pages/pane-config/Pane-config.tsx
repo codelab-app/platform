@@ -45,27 +45,29 @@ export const PaneConfig = React.memo(() => {
     }
 
     return (
-      <StyledTabs defaultActiveKey="1" style={{ padding: '1rem' }}>
-        <TabPane tab="Inspector" key="1" style={{ height: '100%' }}>
-          <CreateLinkedComponentElementButton>
-            Insert child element
-          </CreateLinkedComponentElementButton>
+      <div data-testid="pane-config">
+        <StyledTabs defaultActiveKey="1" style={{ padding: '1rem' }}>
+          <TabPane tab="Inspector" key="1" style={{ height: '100%' }}>
+            <CreateLinkedComponentElementButton>
+              Insert child element
+            </CreateLinkedComponentElementButton>
 
-          <CrudModal
-            modalProps={{
-              className: 'create-linked-component-element-modal',
-            }}
-            entityType={EntityType.LinkedComponentElement}
-            actionType={ActionType.Create}
-            okText="Create"
-            renderForm={() => (
-              <CreateLinkedComponentElementForm
-                sourceComponentElementId={selectedElement.componentElementId}
-              />
-            )}
-          />
-        </TabPane>
-      </StyledTabs>
+            <CrudModal
+              modalProps={{
+                className: 'create-linked-component-element-modal',
+              }}
+              entityType={EntityType.LinkedComponentElement}
+              actionType={ActionType.Create}
+              okText="Create"
+              renderForm={() => (
+                <CreateLinkedComponentElementForm
+                  sourceComponentElementId={selectedElement.componentElementId}
+                />
+              )}
+            />
+          </TabPane>
+        </StyledTabs>
+      </div>
     )
   }
 

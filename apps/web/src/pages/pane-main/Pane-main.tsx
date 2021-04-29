@@ -125,44 +125,48 @@ export const PaneMain = () => {
   )
 
   return (
-    <Tabs
-      tabPosition="left"
-      style={{ height: '100%' }}
-      defaultActiveKey="1"
-      data-testid="pain-main-tabs"
-      tabBarExtraContent={{
-        left: (
-          <div
-            style={{
-              margin: '0 0 16px 0',
-              padding: '8px 24px',
-            }}
-          >
-            <Link href={Page.APP_LIST.url}>
-              <AppstoreOutlined title="Apps" style={{ marginRight: '12px' }} />
-            </Link>
-          </div>
-        ),
-      }}
-    >
-      {pathname === PageType.ComponentDetail ? (
-        <>
-          {componentTreeTab}
-          {stylesTab}
-          {atomTab}
-          {libraryTab}
-        </>
-      ) : (
-        <>
-          {pageTab}
-          {componentTab}
-          {treeTab}
-          {stylesTab}
-          {lambdaTab}
-          {atomTab}
-          {libraryTab}
-        </>
-      )}
-    </Tabs>
+    <div data-testid="pane-main">
+      <Tabs
+        tabPosition="left"
+        style={{ height: '100%' }}
+        defaultActiveKey="1"
+        tabBarExtraContent={{
+          left: (
+            <div
+              style={{
+                margin: '0 0 16px 0',
+                padding: '8px 24px',
+              }}
+            >
+              <Link href={Page.APP_LIST.url}>
+                <AppstoreOutlined
+                  title="Apps"
+                  style={{ marginRight: '12px' }}
+                />
+              </Link>
+            </div>
+          ),
+        }}
+      >
+        {pathname === PageType.ComponentDetail ? (
+          <>
+            {componentTreeTab}
+            {stylesTab}
+            {atomTab}
+            {libraryTab}
+          </>
+        ) : (
+          <>
+            {pageTab}
+            {componentTab}
+            {treeTab}
+            {stylesTab}
+            {lambdaTab}
+            {atomTab}
+            {libraryTab}
+          </>
+        )}
+      </Tabs>
+    </div>
   )
 }

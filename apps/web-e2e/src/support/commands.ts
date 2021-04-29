@@ -10,8 +10,12 @@ import {
   Library_Insert_Input,
   CreateLibraryGql,
   __LibraryFragment,
-  DeleteAllPagesOfApp,
-  CreatePageGql,
+  CreateComponentGql,
+  GetComponents__ComponentFragment,
+  Atom_Type_Enum,
+  CreateAtomGql,
+  AtomFragment,
+  DeleteAllAtomsGql,
 } from '@codelab/hasura'
 import { print } from 'graphql'
 
@@ -42,6 +46,9 @@ declare global {
       hasuraUserRequest: typeof hasuraUserRequest
       /** Creates an app for the current logged in user */
       createApp: typeof createApp
+      createAtom: typeof createAtom
+      deleteAllAtoms: typeof deleteAllAtoms
+      createComponent: typeof createComponent
       /** Creates an app for the current logged in user */
       createLibrary: typeof createLibrary
       findByButtonText: (
@@ -158,6 +165,40 @@ const getByTestId = (testId: string, selectorAddon?: string) => {
 }
 
 Cypress.Commands.add('getByTestId', getByTestId)
+
+const createComponent = (libraryId: string, label = 'Test component') => {
+  return cy
+    .hasuraAdminRequest({
+      query: print(CreateComponentGql),
+      variables: {
+        input: {
+          label,
+          library_id: libraryId,
+        },
+      },
+    })
+    .then(
+      (r) =>
+        r.body.data?.insert_component_one as GetComponents__ComponentFragment,
+    )
+}
+
+Cypress.Commands.add('createComponent', createComponent)
+
+const createAtom = (atomType: Atom_Type_Enum) => {
+  return cy
+    .hasuraAdminRequest({
+      query: print(CreateAtomGql),
+      variables: {
+        data: {
+          type: atomType,
+        },
+      },
+    })
+    .then((r) => r.body.data?.insert_atom_one as AtomFragment)
+}
+
+Cypress.Commands.add('createAtom', createAtom)
 
 const defaultCreateAppInput = {
   name: 'Test app',
@@ -305,7 +346,15 @@ export const getSelectOptionItemByValue = (
 
 Cypress.Commands.add('getSelectOptionItemByValue', getSelectOptionItemByValue)
 
-export const getSpinner = (): Cypress.Chainable<JQuery> => {
+const deleteAllAtoms = () => {
+  return cy.hasuraAdminRequest({
+    query: print(DeleteAllAtomsGql),
+  })
+}
+
+Cypress.Commands.add('deleteAllAtoms', deleteAllAtoms)
+
+export const getSpinner = (): Cypress.Chainable<JQuery<HTMLButtonElement>> => {
   return cy.get('.ant-spin')
 }
 
