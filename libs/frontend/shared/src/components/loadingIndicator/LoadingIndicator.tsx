@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { CSSProperties } from 'react'
 import { useRecoilValue } from 'recoil'
 import { Spin } from 'antd'
 import {
@@ -7,44 +7,64 @@ import {
 } from './loadingIndicatorState'
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 
-interface LoadIndicatorProps {
-  atomKey: string
+interface StatelessLoadIndicatorProps {
+  state: LoadingIndicatorState
   render?: (state: LoadingIndicatorState) => React.ReactElement
   renderErrored?: () => React.ReactElement
   renderLoading?: () => React.ReactElement
   renderNotLoading?: () => React.ReactElement
+  style?: CSSProperties | ((state: LoadingIndicatorState) => CSSProperties)
 }
 
-export const LoadingIndicator = ({
-  atomKey,
+interface LoadIndicatorProps
+  extends Omit<StatelessLoadIndicatorProps, 'state'> {
+  recoilKey: string
+}
+
+export const StatelessLoadingIndicator = ({
+  state,
   render,
   renderNotLoading,
   renderLoading,
   renderErrored,
-}: LoadIndicatorProps) => {
-  const state = useRecoilValue(loadIndicatorState(atomKey))
-
+  style: styleProp,
+}: StatelessLoadIndicatorProps) => {
   if (render) {
     return render(state)
   }
 
   const { isLoading, isErrored } = state
 
+  const elementStyle =
+    typeof styleProp === 'function' ? styleProp(state) : styleProp || {}
+
   if (isErrored) {
     return renderErrored ? (
       renderErrored()
     ) : (
-      <ExclamationCircleOutlined style={{ color: '#F43F5E' }} />
+      <ExclamationCircleOutlined
+        size={14}
+        style={{ color: '#F43F5E', ...elementStyle }}
+      />
     )
   }
 
   if (isLoading) {
-    return <Spin />
-  }
-
-  if (isLoading) {
-    return renderLoading ? renderLoading() : <Spin />
+    return renderLoading ? (
+      renderLoading()
+    ) : (
+      <Spin size="small" style={elementStyle} />
+    )
   }
 
   return renderNotLoading ? renderNotLoading() : null
+}
+
+export const LoadingIndicator = ({
+  recoilKey,
+  ...props
+}: LoadIndicatorProps) => {
+  const state = useRecoilValue(loadIndicatorState(recoilKey))
+
+  return <StatelessLoadingIndicator state={state} {...props} />
 }

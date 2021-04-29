@@ -5,16 +5,8 @@ import { PaneConfigStyle } from '@codelab/modules/style'
 import styled from '@emotion/styled'
 import { PaneConfigPageElementProps } from '@codelab/modules/prop'
 import { useRouter } from 'next/router'
-import {
-  ActionType,
-  CrudModal,
-  EntityType,
-  PageType,
-} from '@codelab/frontend/shared'
-import {
-  CreateLinkedComponentElementButton,
-  CreateLinkedComponentElementForm,
-} from '@codelab/modules/component-element'
+import { PageType } from '@codelab/frontend/shared'
+import { PaneConfigComponentElement } from '@codelab/modules/component-element'
 
 const { TabPane } = Tabs
 
@@ -27,6 +19,14 @@ const StyledTabs = styled(Tabs)`
     height: 100%;
   }
 `
+
+const PaneConfigLayout = ({ children }: React.PropsWithChildren<unknown>) => (
+  <div data-testid="pane-config">
+    <StyledTabs defaultActiveKey="1" style={{ padding: '1rem' }}>
+      {children}
+    </StyledTabs>
+  </div>
+)
 
 export const PaneConfig = React.memo(() => {
   const {
@@ -45,29 +45,13 @@ export const PaneConfig = React.memo(() => {
     }
 
     return (
-      <div data-testid="pane-config">
-        <StyledTabs defaultActiveKey="1" style={{ padding: '1rem' }}>
-          <TabPane tab="Inspector" key="1" style={{ height: '100%' }}>
-            <CreateLinkedComponentElementButton>
-              Insert child element
-            </CreateLinkedComponentElementButton>
-
-            <CrudModal
-              modalProps={{
-                className: 'create-linked-component-element-modal',
-              }}
-              entityType={EntityType.LinkedComponentElement}
-              actionType={ActionType.Create}
-              okText="Create"
-              renderForm={() => (
-                <CreateLinkedComponentElementForm
-                  sourceComponentElementId={selectedElement.componentElementId}
-                />
-              )}
-            />
-          </TabPane>
-        </StyledTabs>
-      </div>
+      <PaneConfigLayout>
+        <Tabs.TabPane tab="Inspector" key="1" style={{ height: '100%' }}>
+          <PaneConfigComponentElement
+            componentElementId={selectedElement.componentElementId}
+          />
+        </Tabs.TabPane>
+      </PaneConfigLayout>
     )
   }
 
@@ -76,7 +60,7 @@ export const PaneConfig = React.memo(() => {
   }
 
   return (
-    <StyledTabs defaultActiveKey="1" style={{ padding: '1rem' }}>
+    <PaneConfigLayout>
       <TabPane tab="Props" key="1" style={{ height: '100%' }}>
         <PaneConfigPageElementProps
           pageElementId={selectedElement.pageElementId}
@@ -85,6 +69,6 @@ export const PaneConfig = React.memo(() => {
       <TabPane tab="Style" key="2">
         <PaneConfigStyle vertexId={selectedElement.pageElementId} />
       </TabPane>
-    </StyledTabs>
+    </PaneConfigLayout>
   )
 })

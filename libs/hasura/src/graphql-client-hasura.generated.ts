@@ -10281,6 +10281,41 @@ export type CreateComponentLinkMutation = { __typename?: 'mutation_root' } & {
   >
 }
 
+export type DeleteComponentElementMutationVariables = Exact<{
+  componentElementId: Scalars['uuid']
+}>
+
+export type DeleteComponentElementMutation = {
+  __typename?: 'mutation_root'
+} & {
+  delete_component_element_by_pk?: Maybe<
+    { __typename?: 'component_element' } & Pick<Component_Element, 'id'>
+  >
+}
+
+export type GetComponentElementQueryVariables = Exact<{
+  componentElementId: Scalars['uuid']
+}>
+
+export type GetComponentElementQuery = { __typename?: 'query_root' } & {
+  component_element_by_pk?: Maybe<
+    { __typename?: 'component_element' } & PageElement__ComponentElementFragment
+  >
+}
+
+export type UpdateComponentElementMutationVariables = Exact<{
+  componentElementId: Scalars['uuid']
+  input: Component_Element_Set_Input
+}>
+
+export type UpdateComponentElementMutation = {
+  __typename?: 'mutation_root'
+} & {
+  update_component_element_by_pk?: Maybe<
+    { __typename?: 'component_element' } & PageElement__ComponentElementFragment
+  >
+}
+
 export type PageElement__ComponentFragment = {
   __typename?: 'component'
 } & Pick<Component, 'id' | 'label'> & {
@@ -12056,6 +12091,171 @@ export type CreateComponentLinkMutationResult = Apollo.MutationResult<CreateComp
 export type CreateComponentLinkMutationOptions = Apollo.BaseMutationOptions<
   CreateComponentLinkMutation,
   CreateComponentLinkMutationVariables
+>
+export const DeleteComponentElementGql = gql`
+  mutation DeleteComponentElement($componentElementId: uuid!) {
+    delete_component_element_by_pk(id: $componentElementId) {
+      id
+    }
+  }
+`
+export type DeleteComponentElementMutationFn = Apollo.MutationFunction<
+  DeleteComponentElementMutation,
+  DeleteComponentElementMutationVariables
+>
+
+/**
+ * __useDeleteComponentElementMutation__
+ *
+ * To run a mutation, you first call `useDeleteComponentElementMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteComponentElementMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteComponentElementMutation, { data, loading, error }] = useDeleteComponentElementMutation({
+ *   variables: {
+ *      componentElementId: // value for 'componentElementId'
+ *   },
+ * });
+ */
+export function useDeleteComponentElementMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeleteComponentElementMutation,
+    DeleteComponentElementMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    DeleteComponentElementMutation,
+    DeleteComponentElementMutationVariables
+  >(DeleteComponentElementGql, options)
+}
+export type DeleteComponentElementMutationHookResult = ReturnType<
+  typeof useDeleteComponentElementMutation
+>
+export type DeleteComponentElementMutationResult = Apollo.MutationResult<DeleteComponentElementMutation>
+export type DeleteComponentElementMutationOptions = Apollo.BaseMutationOptions<
+  DeleteComponentElementMutation,
+  DeleteComponentElementMutationVariables
+>
+export const GetComponentElementGql = gql`
+  query GetComponentElement($componentElementId: uuid!) {
+    component_element_by_pk(id: $componentElementId) {
+      ...PageElement__ComponentElement
+    }
+  }
+  ${PageElement__ComponentElementFragmentDoc}
+`
+
+/**
+ * __useGetComponentElementQuery__
+ *
+ * To run a query within a React component, call `useGetComponentElementQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetComponentElementQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetComponentElementQuery({
+ *   variables: {
+ *      componentElementId: // value for 'componentElementId'
+ *   },
+ * });
+ */
+export function useGetComponentElementQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetComponentElementQuery,
+    GetComponentElementQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<
+    GetComponentElementQuery,
+    GetComponentElementQueryVariables
+  >(GetComponentElementGql, options)
+}
+export function useGetComponentElementLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetComponentElementQuery,
+    GetComponentElementQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    GetComponentElementQuery,
+    GetComponentElementQueryVariables
+  >(GetComponentElementGql, options)
+}
+export type GetComponentElementQueryHookResult = ReturnType<
+  typeof useGetComponentElementQuery
+>
+export type GetComponentElementLazyQueryHookResult = ReturnType<
+  typeof useGetComponentElementLazyQuery
+>
+export type GetComponentElementQueryResult = Apollo.QueryResult<
+  GetComponentElementQuery,
+  GetComponentElementQueryVariables
+>
+export const UpdateComponentElementGql = gql`
+  mutation UpdateComponentElement(
+    $componentElementId: uuid!
+    $input: component_element_set_input!
+  ) {
+    update_component_element_by_pk(
+      pk_columns: { id: $componentElementId }
+      _set: $input
+    ) {
+      ...PageElement__ComponentElement
+    }
+  }
+  ${PageElement__ComponentElementFragmentDoc}
+`
+export type UpdateComponentElementMutationFn = Apollo.MutationFunction<
+  UpdateComponentElementMutation,
+  UpdateComponentElementMutationVariables
+>
+
+/**
+ * __useUpdateComponentElementMutation__
+ *
+ * To run a mutation, you first call `useUpdateComponentElementMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateComponentElementMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateComponentElementMutation, { data, loading, error }] = useUpdateComponentElementMutation({
+ *   variables: {
+ *      componentElementId: // value for 'componentElementId'
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateComponentElementMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateComponentElementMutation,
+    UpdateComponentElementMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    UpdateComponentElementMutation,
+    UpdateComponentElementMutationVariables
+  >(UpdateComponentElementGql, options)
+}
+export type UpdateComponentElementMutationHookResult = ReturnType<
+  typeof useUpdateComponentElementMutation
+>
+export type UpdateComponentElementMutationResult = Apollo.MutationResult<UpdateComponentElementMutation>
+export type UpdateComponentElementMutationOptions = Apollo.BaseMutationOptions<
+  UpdateComponentElementMutation,
+  UpdateComponentElementMutationVariables
 >
 export const CreateComponentGql = gql`
   mutation CreateComponent($input: component_insert_input!) {
@@ -14633,6 +14833,35 @@ export const CreateComponentLink = gql`
     }
   }
   ${PageElement__ComponentLink}
+`
+export const DeleteComponentElement = gql`
+  mutation DeleteComponentElement($componentElementId: uuid!) {
+    delete_component_element_by_pk(id: $componentElementId) {
+      id
+    }
+  }
+`
+export const GetComponentElement = gql`
+  query GetComponentElement($componentElementId: uuid!) {
+    component_element_by_pk(id: $componentElementId) {
+      ...PageElement__ComponentElement
+    }
+  }
+  ${PageElement__ComponentElement}
+`
+export const UpdateComponentElement = gql`
+  mutation UpdateComponentElement(
+    $componentElementId: uuid!
+    $input: component_element_set_input!
+  ) {
+    update_component_element_by_pk(
+      pk_columns: { id: $componentElementId }
+      _set: $input
+    ) {
+      ...PageElement__ComponentElement
+    }
+  }
+  ${PageElement__ComponentElement}
 `
 export const CreateComponent = gql`
   mutation CreateComponent($input: component_insert_input!) {

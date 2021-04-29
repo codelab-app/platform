@@ -15,7 +15,7 @@ import { SelectField, AutoFields } from 'uniforms-antd'
 type CreateComponentElementFormProps = UniFormUseCaseProps<CreateComponentElementInput> &
   Pick<
     FormUniformsProps<CreateComponentElementInput>,
-    'onSubmit' | 'onSubmitSuccess'
+    'onSubmit' | 'onSubmitSuccess' | 'model'
   >
 
 /**
@@ -41,7 +41,6 @@ export const CreateComponentElementFormBase = ({
       })}
       {...props}
     >
-      <h2>Create component element</h2>
       <AutoFields omitFields={['atom_id']} />
       <SelectField name="atom_id" label="Atom" options={atomOptions} />
     </FormUniforms>
