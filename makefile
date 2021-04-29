@@ -149,7 +149,7 @@ e2e-dev:
 				nx run web-e2e:e2e" \
 			"npx env-cmd -f .env cross-env PORT=4000 \
 				node dist/apps/api/main.js" \
-			"yarn nx run web:serve"
+			"npx nx run web:serve"
 
 e2e-ci:
 	npx concurrently \
@@ -162,7 +162,7 @@ e2e-ci:
 				nx run web-e2e:e2e" \
 			"npx cross-env PORT=4000 \
 				node dist/apps/api/main.js" \
-			"yarn nx run web:serve"
+			"npx nx run web:serve"
 
 #
 # INTEGRATION TESTS
