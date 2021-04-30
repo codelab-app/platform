@@ -1,11 +1,11 @@
 import { Layout } from 'antd'
 import React, { PropsWithChildren } from 'react'
 import { contentStyle } from '@codelab/frontend/style'
-import { HomeMenuHeader } from './Home-menu--header'
+import { HomeMenuHeader } from '../pages/home/Home-menu--header'
 
 const { Content, Header, Footer } = Layout
 
-export const HomeLayout = ({
+export const LayoutHome = ({
   children,
 }: PropsWithChildren<Record<string, any>>) => {
   return (

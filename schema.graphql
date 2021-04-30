@@ -390,6 +390,7 @@ type atom {
   """
   atomType: atom_type!
   id: uuid!
+  library_id: uuid
 
   """
   An object relationship
@@ -537,6 +538,27 @@ type atom_aggregate_fields {
 }
 
 """
+order by aggregate values of table "atom"
+"""
+input atom_aggregate_order_by {
+  count: order_by
+  max: atom_max_order_by
+  min: atom_min_order_by
+}
+
+"""
+input type for inserting array relation for remote table "atom"
+"""
+input atom_arr_rel_insert_input {
+  data: [atom_insert_input!]!
+
+  """
+  on conflict condition
+  """
+  on_conflict: atom_on_conflict
+}
+
+"""
 Boolean expression to filter rows from the table "atom". All fields are combined with a logical 'AND'.
 """
 input atom_bool_exp {
@@ -545,6 +567,7 @@ input atom_bool_exp {
   _or: [atom_bool_exp!]
   atomType: atom_type_bool_exp
   id: uuid_comparison_exp
+  library_id: uuid_comparison_exp
   propTypes: prop_type_c_bool_exp
   prop_type_c_id: uuid_comparison_exp
   styles: style_atom_bool_exp
@@ -568,6 +591,7 @@ input type for inserting data into table "atom"
 input atom_insert_input {
   atomType: atom_type_obj_rel_insert_input
   id: uuid
+  library_id: uuid
   propTypes: prop_type_c_obj_rel_insert_input
   prop_type_c_id: uuid
   styles: style_atom_arr_rel_insert_input
@@ -580,7 +604,17 @@ aggregate max on columns
 """
 type atom_max_fields {
   id: uuid
+  library_id: uuid
   prop_type_c_id: uuid
+}
+
+"""
+order by max() on columns of table "atom"
+"""
+input atom_max_order_by {
+  id: order_by
+  library_id: order_by
+  prop_type_c_id: order_by
 }
 
 """
@@ -588,7 +622,17 @@ aggregate min on columns
 """
 type atom_min_fields {
   id: uuid
+  library_id: uuid
   prop_type_c_id: uuid
+}
+
+"""
+order by min() on columns of table "atom"
+"""
+input atom_min_order_by {
+  id: order_by
+  library_id: order_by
+  prop_type_c_id: order_by
 }
 
 """
@@ -633,6 +677,7 @@ Ordering options when selecting data from "atom".
 input atom_order_by {
   atomType: atom_type_order_by
   id: order_by
+  library_id: order_by
   propTypes: prop_type_c_order_by
   prop_type_c_id: order_by
   styles_aggregate: style_atom_aggregate_order_by
@@ -659,6 +704,11 @@ enum atom_select_column {
   """
   column name
   """
+  library_id
+
+  """
+  column name
+  """
   prop_type_c_id
 
   """
@@ -672,6 +722,7 @@ input type for updating data in table "atom"
 """
 input atom_set_input {
   id: uuid
+  library_id: uuid
   prop_type_c_id: uuid
   type: atom_type_enum
 }
@@ -960,6 +1011,11 @@ enum atom_update_column {
   column name
   """
   id
+
+  """
+  column name
+  """
+  library_id
 
   """
   column name
@@ -3331,6 +3387,66 @@ type library {
   """
   An array relationship
   """
+  atoms(
+    """
+    distinct select on columns
+    """
+    distinct_on: [atom_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [atom_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: atom_bool_exp
+  ): [atom!]!
+
+  """
+  An aggregate relationship
+  """
+  atoms_aggregate(
+    """
+    distinct select on columns
+    """
+    distinct_on: [atom_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [atom_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: atom_bool_exp
+  ): atom_aggregate!
+
+  """
+  An array relationship
+  """
   categories(
     """
     distinct select on columns
@@ -3802,6 +3918,7 @@ input library_bool_exp {
   _and: [library_bool_exp!]
   _not: library_bool_exp
   _or: [library_bool_exp!]
+  atoms: atom_bool_exp
   categories: category_bool_exp
   components: component_bool_exp
   id: uuid_comparison_exp
@@ -3829,6 +3946,7 @@ enum library_constraint {
 input type for inserting data into table "library"
 """
 input library_insert_input {
+  atoms: atom_arr_rel_insert_input
   categories: category_arr_rel_insert_input
   components: component_arr_rel_insert_input
   id: uuid
@@ -3918,6 +4036,7 @@ input library_on_conflict {
 Ordering options when selecting data from "library".
 """
 input library_order_by {
+  atoms_aggregate: atom_aggregate_order_by
   categories_aggregate: category_aggregate_order_by
   components_aggregate: component_aggregate_order_by
   id: order_by

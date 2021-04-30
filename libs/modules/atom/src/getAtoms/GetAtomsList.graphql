@@ -1,5 +1,5 @@
 query GetAtomsList {
   atom {
-    ...Atom
+    ...__Atom
   }
 }

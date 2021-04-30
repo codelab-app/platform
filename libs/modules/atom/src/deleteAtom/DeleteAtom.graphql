@@ -1,5 +1,5 @@
 mutation DeleteAtom($atomId: uuid!) {
   delete_atom_by_pk(id: $atomId) {
-    ...Atom
+    ...__Atom
   }
 }

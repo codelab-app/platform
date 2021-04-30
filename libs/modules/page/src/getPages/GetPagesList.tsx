@@ -6,9 +6,10 @@ import {
   EntityType,
   ListItemDeleteButton,
   ListItemSettingsButton,
+  PageType,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import { AppContext, Page } from '@codelab/frontend/shared'
+import { AppContext } from '@codelab/frontend/shared'
 import { useGetPagesListQuery } from '@codelab/hasura'
 
 export const GetPagesList = () => {
@@ -34,7 +35,7 @@ export const GetPagesList = () => {
               <FileOutlined />
               <Link
                 href={{
-                  pathname: Page.PAGE_DETAIL.url,
+                  pathname: PageType.PageDetail,
                   query: { appId, pageId: page.id },
                 }}
               >

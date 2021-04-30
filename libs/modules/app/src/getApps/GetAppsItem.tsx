@@ -7,7 +7,7 @@ import { Button, Card, Dropdown, Menu } from 'antd'
 import Link from 'next/link'
 import React, { CSSProperties } from 'react'
 import { AppType } from '../state'
-import { Page } from '@codelab/frontend/shared'
+import { PageType, PaneType } from '@codelab/frontend/shared'
 
 export type GetAppsItemProps = {
   app: AppType
@@ -72,8 +72,12 @@ export const GetAppsItem = ({
       title={
         <Link
           href={{
-            pathname: Page.PAGE_DETAIL.url,
-            query: { appId: app.id, pageId: app.pages[0]?.id },
+            pathname: PageType.PageDetail,
+            query: {
+              appId: app.id,
+              pageId: app.pages[0]?.id,
+              pane: PaneType.Page,
+            },
           }}
         >
           <a>{app.name}</a>

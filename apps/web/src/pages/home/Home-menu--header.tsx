@@ -8,7 +8,7 @@ import {
   RegisterUserButton,
   SignOutUserButton,
 } from '@codelab/modules/user'
-import { Page } from '@codelab/frontend/shared'
+import { PageType } from '@codelab/frontend/shared'
 import { disableMenuHoverEffects } from '@codelab/frontend/style'
 
 /**
@@ -61,13 +61,13 @@ export const HomeMenuHeader = () => {
         <Menu.Item
           key="1"
           icon={
-            <Link href={Page.HOME.url}>
+            <Link href={PageType.Home}>
               <HomeOutlined />
             </Link>
           }
         />
         <Menu.Item key="2">
-          <Link href={Page.APP_LIST.url}>
+          <Link href={PageType.AppList}>
             <a>Apps</a>
           </Link>
         </Menu.Item>

@@ -1,10 +1,12 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { AppContext } from '@codelab/frontend/shared'
 import React, { useContext } from 'react'
-import { PageRenderer } from '@codelab/modules/page'
+import { PageRenderer, PanePage } from '@codelab/modules/page'
 import { Empty } from 'antd'
+import { LayoutPageDetail } from 'apps/web/src/layout/Layout--pageDetail'
+import { NextPageLayout } from '../../../../../src/layout/Layout.d'
 
-const PageDetail = () => {
+const PageDetail: NextPageLayout<'builder'> = () => {
   const { page } = useContext(AppContext)
 
   if (!page) {
@@ -19,7 +21,9 @@ const PageDetail = () => {
   )
 }
 
-// Redirect to home if not authenticated
 export const getServerSideProps = withPageAuthRequired()
+
+PageDetail.Layout = LayoutPageDetail
+PageDetail.MainPane = PanePage
 
 export default PageDetail

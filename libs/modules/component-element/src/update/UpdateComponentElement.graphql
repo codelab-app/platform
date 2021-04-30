@@ -1,5 +1,11 @@
-mutation UpdateComponentElement($componentElementId: uuid!, $input: component_element_set_input!) {
-    update_component_element_by_pk(pk_columns: {id: $componentElementId}, _set: $input){
-        ...PageElement__ComponentElement
-    }
+mutation UpdateComponentElement(
+  $componentElementId: uuid!
+  $input: component_element_set_input!
+) {
+  update_component_element_by_pk(
+    pk_columns: { id: $componentElementId }
+    _set: $input
+  ) {
+    ...PageElement__ComponentElement
+  }
 }

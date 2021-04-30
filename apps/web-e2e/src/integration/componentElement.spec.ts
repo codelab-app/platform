@@ -2,7 +2,7 @@ import { randomAtomType } from '../support/testUtils'
 import {
   AtomFragment,
   CreateComponentElementGql,
-  GetComponents__ComponentFragment,
+  __ComponentFragment,
   PageElement__ComponentElementFragment,
 } from '@codelab/hasura'
 import { print } from 'graphql'
@@ -24,7 +24,7 @@ const getAndExpandElementInTree = (label: string) => {
 
 describe('Component element', () => {
   let libraryId: string
-  let component: GetComponents__ComponentFragment
+  let component: __ComponentFragment
   let atom: AtomFragment
 
   before(() => {
@@ -97,7 +97,7 @@ describe('Component element', () => {
     //Validate component element is created
     cy.getOpenedModal().should('not.exist') //modal should close
 
-    getAndExpandElementInTree(component.label + ' Root')
+    getAndExpandElementInTree(`${component.label} Root`)
     getComponentElementInTree(label) //We should have the new item in the tree
   })
 

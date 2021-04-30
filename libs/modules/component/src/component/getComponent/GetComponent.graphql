@@ -1,5 +1,5 @@
 query GetComponent($componentId: uuid!) {
-    component_by_pk(id: $componentId){
-        ...GetComponents__Component
-    }
+  component_by_pk(id: $componentId) {
+    ...__Component
+  }
 }

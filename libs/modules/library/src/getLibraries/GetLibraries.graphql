@@ -1,4 +1,4 @@
-query GetLibrariesList {
+query GetLibraries {
   library {
     ...__Library
   }
