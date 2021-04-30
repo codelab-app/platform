@@ -11,7 +11,7 @@ import {
 } from '@ant-design/icons'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useGetLibrariesListQuery } from '@codelab/hasura'
+import { useGetLibrariesQuery } from '@codelab/hasura'
 
 const { SubMenu } = Menu
 
@@ -20,7 +20,7 @@ export const LayoutNavigations = () => {
   const {
     data: librariesData,
     loading: loadingLibraries,
-  } = useGetLibrariesListQuery()
+  } = useGetLibrariesQuery()
 
   console.log(loadingLibraries, librariesData?.library[0].id)
 

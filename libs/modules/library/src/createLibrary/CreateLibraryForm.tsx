@@ -6,7 +6,7 @@ import {
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import { GetLibrariesListGql, useCreateLibraryMutation } from '@codelab/hasura'
+import { GetLibrariesGql, useCreateLibraryMutation } from '@codelab/hasura'
 import { createLibrarySchema, CreateLibraryInput } from './createLibrarySchema'
 import { DeepPartial } from 'uniforms'
 import { AutoFields } from 'uniforms-antd'
@@ -20,7 +20,7 @@ export const CreateLibraryForm = ({ ...props }: CreateLibraryFormProps) => {
     awaitRefetchQueries: true,
     refetchQueries: [
       {
-        query: GetLibrariesListGql,
+        query: GetLibrariesGql,
       },
     ],
   })

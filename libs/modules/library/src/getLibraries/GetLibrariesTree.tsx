@@ -1,13 +1,20 @@
-import { Tree } from 'antd'
-import { DataNode } from 'antd/lib/tree'
+import { useGetLibrariesQuery } from '@codelab/hasura'
+import { Spin, Tree } from 'antd'
 import React from 'react'
 
 export const GetLibrariesTree = () => {
-  let data: DataNode | undefined
+  const { data, loading } = useGetLibrariesQuery()
+
+  // let data: DataNode | undefined
+  if (loading) {
+    return <Spin />
+  }
+
+  console.log(data)
 
   if (!data) {
     return null
   }
 
-  return <Tree treeData={[data]} className="draggable-tree" />
+  return <Tree treeData={[]} className="draggable-tree" />
 }
