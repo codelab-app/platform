@@ -66,13 +66,13 @@ executor-config: &executor-config
     COLOR_FAILURE: '#ffccc7'
     NODE_OPTIONS: --max_old_space_size=16384
     NODE_ENV: production
-  working_directory: ~/app
+  working_directory: ~/project
 
 version: 2.1
 
 orbs:
   slack: circleci/slack@3.4.2
-  cypress: cypress-io/cypress@1.26.0
+  cypress: cypress-io/cypress@1.28.0
   node: circleci/node@4.1.0
 
 executors:
@@ -86,7 +86,8 @@ executors:
     <<: *executor-config
     docker:
       - image: cimg/node:14.16.0-browsers
-    resource_class: medium
+    # resource_class: medium
+    resource_class: large
   docker-python:
     <<: *executor-config
     docker:
@@ -162,28 +163,18 @@ commands:
       - restore_cache:
           name: 'Restore Yarn cache'
           keys:
-            - dep-cache-dev-{{ checksum "yarn.lock" }}
+            - dep-cache-staging-{{ checksum "yarn.lock" }}
             # https://discuss.circleci.com/t/circle-2-0-caching-is-too-limited-to-be-very-useful/11694
-            - dep-cache-dev-
+            - dep-cache-staging-
       - run:
           name: 'Install NPM packages'
-          command: 'yarn install --frozen-lockfile --prod=false'
+          command: yarn install --frozen-lockfile --prod=false
       # - run:
       #     name: 'List Cypress cache'
       #     command: npx cypress cache path
-      - run:
-          name: 'Remove NPM .cache'
-          command: rm -rf ~/app/node_modules/.cache
-      - save_cache:
-          name: 'Save cache'
-          key: dep-cache-dev-{{ checksum "yarn.lock" }}
-          paths:
-            - ~/.cache/yarn
-            - ~/.cache/Cypress
-            - ~/app/node_modules
-            # - ~/app/apps/web/.next/cache
-            - ~/app/dist/apps/web/.next/cache
-
+      # - run:
+      #     name: 'Remove NPM .cache'
+      #     command: rm -rf ~/app/node_modules/.cache
   yarn-install-prod:
     description: 'Install prod dependencies'
     steps:
@@ -198,17 +189,17 @@ commands:
       - run:
           name: 'Install NPM packages'
           command: yarn install --frozen-lockfile --prod=true --ignore-scripts
-      - run:
-          name: 'Remove NPM .cache'
-          command: rm -rf ~/app/node_modules/.cache
+      # - run:
+      #     name: 'Remove NPM .cache'
+      #     command: rm -rf ~/app/node_modules/.cache
       - save_cache:
           name: 'Save cache'
           key: dep-cache-prod-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
             - ~/.cache/Cypress
-            - ~/app/node_modules
-            # - ~/app/apps/web/.next/cache
+            # - ~/project/app/node_modules
+            # - ~/project/app/apps/web/.next/cache
 
   notify-failure:
     steps:
@@ -237,21 +228,21 @@ commands:
             echo "aws_secret_access_key=$AWS_SECRET_KEY" >> ~/.aws/config
 
 jobs:
-  setup-vault-env:
-    <<: *executor-params
-    description: 'Pull .env from vault server'
-    steps:
-      - checkout
-      - run:
-          name: 'Fetch .env'
-          command: |
-            echo $CI_VAULT_ROLE_ID > /tmp/role-id
-            echo $CI_VAULT_SECRET_ID > /tmp/secret-id
-            vault agent -address=$VAULT_ADDR -config=.vault/agent.hcl
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .env
+  # setup-vault-env:
+  #   <<: *executor-params
+  #   description: 'Pull .env from vault server'
+  #   steps:
+  #     - checkout
+  #     - run:
+  #         name: 'Fetch .env'
+  #         command: |
+  #           echo $CI_VAULT_ROLE_ID > /tmp/role-id
+  #           echo $CI_VAULT_SECRET_ID > /tmp/secret-id
+  #           vault agent -address=$VAULT_ADDR -config=.vault/agent.hcl
+  #     - persist_to_workspace:
+  #         root: .
+  #         paths:
+  #           - .env
 
   install-and-build-workspace:
     <<: *executor-params
@@ -261,15 +252,51 @@ jobs:
       - run:
           name: 'Build CI'
           command: make build-ci
-      # - run:
-      #     name: 'Yarn link workspace'
-      #     command: "yarn install --frozen-lockfile --prod=false"
+      # Save cache after checkout & building project
+      - run: ls -al ~/project/apps/web
+      - save_cache:
+          name: 'Save cache'
+          key: dep-cache-staging-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+            - ~/.cache/Cypress
+            - ~/project/node_modules
+            - ~/project/dist/apps/web/.next/cache
       - persist_to_workspace:
           root: ..
           paths:
-            - app/node_modules
-            - app/dist
+            - project/node_modules
+            - project/dist
             - .cache/Cypress
+      - notify-failure
+
+  # Perform migrations, seeder, update metadata where needed
+  sync-hasura:
+    <<: *executor-params
+    steps:
+      - setup-workspace
+      # - run:
+      #     name: 'Create .env file'
+      #     command: |
+      #       echo "HASURA_GRAPHQL_ADMIN_SECRET=`$HASURA_GRAPHQL_ADMIN_SECRET`" > .env
+      #       cat .env
+      - run:
+          name: 'Apply Hasura Migrations'
+          command: |
+            npx hasura migrate apply \
+              --database-name default \
+              --project=hasura \
+              --endpoint='https://codelab-ai.hasura.app'
+      - run:
+          name: 'Apply Hasura Metadata'
+          # https://github.com/hasura/graphql-engine/issues/6441
+          command: |
+            export NODE_OPTIONS=' '
+
+            npx hasura metadata apply \
+              --project=hasura \
+              --endpoint=$CODELAB_HASURA_ENDPOINT \
+              --log-level DEBUG
       - notify-failure
 
   lint:
@@ -349,8 +376,8 @@ jobs:
       - run:
           name: Deploying to eb
           command: |
-            eb use app-staging --region ap-east-1 --profile eb-cli
-            eb deploy app-staging --region ap-east-1 --profile eb-cli
+            # eb use app-staging --region ap-east-1 --profile eb-cli
+            # eb deploy app-staging --region ap-east-1 --profile eb-cli
 
   deploy-to-ebs-prod:
     <<: *executor-params
@@ -363,53 +390,18 @@ jobs:
             eb deploy app-prod --region ap-east-1 --profile eb-cli
 
 workflows:
-  # app-dev:
-  #   jobs:
-  #     - install-and-build-workspace:
-  #         <<: *filters-dev
-  #         e: docker-node
-  #         context: CI
-  #         # requires:
-  #         #   - setup-vault-env
-  #     - lint:
-  #         <<: *filters-dev
-  #         e: docker-node
-  #         context: CI
-  #         requires:
-  #           - install-and-build-workspace
-  #     - unit:
-  #         <<: *filters-dev
-  #         e: docker-node
-  #         context: CI
-  #         requires:
-  #           - install-and-build-workspace
-  #     - integration:
-  #         <<: *filters-dev
-  #         e: docker-node
-  #         context: CI
-  #         requires:
-  #           - install-and-build-workspace
-  #     - e2e:
-  #         <<: *filters-dev
-  #         e: docker-node
-  #         context: CI
-  #         requires:
-  #           - install-and-build-workspace
-  #     - notify-success:
-  #         <<: *filters-dev
-  #         e: docker-node
-  #         requires:
-  #           - lint
-  #           - unit
-  #           - integration
-  #           - e2e
-
   app-staging-pr:
     jobs:
       - install-and-build-workspace:
           <<: *filters-staging-pr
           e: docker-node
           context: CI
+      - sync-hasura:
+          <<: *filters-staging-pr
+          e: docker-node
+          context: CI
+          requires:
+            - install-and-build-workspace
       - lint:
           <<: *filters-staging-pr
           e: docker-node
@@ -427,13 +419,34 @@ workflows:
           e: docker-node
           context: CI
           requires:
-            - install-and-build-workspace
-      - e2e:
+            - sync-hasura
+      - cypress/run:
           <<: *filters-staging-pr
-          e: docker-node
+          executor: cypress/base-14
+          # e: docker-node
           context: CI
+          yarn: true
           requires:
-            - install-and-build-workspace
+            - sync-hasura
+          # record: true # record results on Cypress Dashboard
+          parallel: true # split all specs across machines
+          parallelism: 4 # use 4 CircleCI machines to finish quickly
+          # group: 'all tests' # name this group "all tests" on the dashboard
+          attach-workspace: true
+          # working_directory: ~/app
+          pre-steps:
+            - checkout
+          # wait-on: 'http://localhost:3001 http://localhost:4001'
+          # start: make e2e-ci-start
+          command: make e2e-ci
+          # command: npx nx run web-e2e:e2e:ci
+      # - e2e:
+      #     <<: *filters-staging-pr
+      #     e: docker-node
+      #     context: CI
+      #     requires:
+      #       - sync-hasura
+      #       # - install-and-build-workspace
       # - deploy-to-ebs-staging:
       #     <<: *filters-staging
       #     e: docker-python
@@ -450,28 +463,25 @@ workflows:
             - lint
             - unit
             - integration
-            - e2e
+            - cypress/run
 
   app-staging-master:
     jobs:
       - install-and-build-workspace:
-          <<: *filters-staging-pr
+          <<: *filters-staging-master
           e: docker-node
           context: CI
       - deploy-to-ebs-staging:
-          <<: *filters-staging-pr
+          <<: *filters-staging-master
           e: docker-python
           context: CI
           requires:
             - install-and-build-workspace
       - notify-success:
-          <<: *filters-staging-pr
+          <<: *filters-staging-master
           e: docker-node
           requires:
-            - lint
-            - unit
-            - integration
-            - e2e
+            - deploy-to-ebs-staging
 
   app-prod:
     jobs:
@@ -503,6 +513,10 @@ workflows:
           context: CI
           requires:
             - install-and-build-workspace
+        # first get the source code and install npm dependencies
+        # - cypress/install:
+        #     # run a custom app build step
+        #     build: 'npm run build'
       - deploy-to-ebs-prod:
           <<: *filters-prod
           e: docker-python

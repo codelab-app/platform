@@ -15,7 +15,7 @@ const bootstrap = async () => {
 
   const port = process.env.PORT || 3333
   await app.listen(port, () => {
-    Logger.log(`Listening at http://localhost:${port}/${globalPrefix}`)
+    Logger.log(`Listening at http://127.0.0.1:${port}/${globalPrefix}`)
   })
 }
 

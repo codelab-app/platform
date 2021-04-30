@@ -4,4 +4,4 @@ set -x
 
 CMD="$*"
 
-npx hasura $CMD --project=hasura --envfile=../.env --endpoint=http://localhost:8081/
+npx hasura $CMD --project=hasura --envfile=../.env --endpoint=http://127.0.0.1:8081/

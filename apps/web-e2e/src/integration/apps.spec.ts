@@ -17,7 +17,8 @@ describe('Apps CRUD', () => {
   before(() => {
     cy.clearCookies()
     cy.login()
-    // delete all apps afor current user
+
+    // delete all apps for current user
     cy.getCurrentUserId().then((userId) => {
       cy.hasuraAdminRequest({
         query: print(DeleteUserAppsGql),
@@ -28,6 +29,7 @@ describe('Apps CRUD', () => {
     })
     cy.visit('/apps')
   })
+
   beforeEach(() => {
     Cypress.Cookies.preserveOnce('appSession')
     cy.getSpinner().should('not.exist')
@@ -78,6 +80,7 @@ describe('Apps CRUD', () => {
     })
 
     const updatedAppName = 'updated app'
+
     it('should be able to update app name', () => {
       cy.findSettingsButtonByAppName(appName).click()
       cy.getOpenedDropdownMenu().findByText('Edit').click()
@@ -101,6 +104,7 @@ describe('Apps CRUD', () => {
       createApp(appName)
       cy.visit('/apps')
     })
+
     it('should be able to delete app', () => {
       cy.findSettingsButtonByAppName(appName).click()
       cy.getOpenedDropdownMenu().findByText('Delete').click()

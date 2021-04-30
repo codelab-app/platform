@@ -9,5 +9,6 @@
   "videosFolder": "../../dist/cypress/apps/web-e2e/videos",
   "screenshotsFolder": "../../dist/cypress/apps/web-e2e/screenshots",
   "chromeWebSecurity": false,
-  "defaultCommandTimeout": 15000
+  "defaultCommandTimeout": 15000,
+  "projectId": "37q6ed"
 }

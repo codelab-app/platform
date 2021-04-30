@@ -10097,6 +10097,19 @@ export enum Value_Type_Update_Column {
   Value = 'value',
 }
 
+export type DeleteUserAppsMutationVariables = Exact<{
+  userId: Scalars['String']
+}>
+
+export type DeleteUserAppsMutation = { __typename?: 'mutation_root' } & {
+  delete_app?: Maybe<
+    { __typename?: 'app_mutation_response' } & Pick<
+      App_Mutation_Response,
+      'affected_rows'
+    >
+  >
+}
+
 export type User__AppFragment = { __typename?: 'app' } & Pick<
   App,
   'id' | 'user_id' | 'name'
@@ -10126,19 +10139,6 @@ export type DeleteAppMutationVariables = Exact<{
 
 export type DeleteAppMutation = { __typename?: 'mutation_root' } & {
   delete_app_by_pk?: Maybe<{ __typename?: 'app' } & User__AppFragment>
-}
-
-export type DeleteUserAppsMutationVariables = Exact<{
-  userId: Scalars['String']
-}>
-
-export type DeleteUserAppsMutation = { __typename?: 'mutation_root' } & {
-  delete_app?: Maybe<
-    { __typename?: 'app_mutation_response' } & Pick<
-      App_Mutation_Response,
-      'affected_rows'
-    >
-  >
 }
 
 export type GetAppQueryVariables = Exact<{
@@ -11210,6 +11210,55 @@ export const __UserFragmentDoc = gql`
   }
   ${User__AppFragmentDoc}
 `
+export const DeleteUserAppsGql = gql`
+  mutation DeleteUserApps($userId: String!) {
+    delete_app(where: { user_id: { _eq: $userId } }) {
+      affected_rows
+    }
+  }
+`
+export type DeleteUserAppsMutationFn = Apollo.MutationFunction<
+  DeleteUserAppsMutation,
+  DeleteUserAppsMutationVariables
+>
+
+/**
+ * __useDeleteUserAppsMutation__
+ *
+ * To run a mutation, you first call `useDeleteUserAppsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteUserAppsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteUserAppsMutation, { data, loading, error }] = useDeleteUserAppsMutation({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useDeleteUserAppsMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeleteUserAppsMutation,
+    DeleteUserAppsMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    DeleteUserAppsMutation,
+    DeleteUserAppsMutationVariables
+  >(DeleteUserAppsGql, options)
+}
+export type DeleteUserAppsMutationHookResult = ReturnType<
+  typeof useDeleteUserAppsMutation
+>
+export type DeleteUserAppsMutationResult = Apollo.MutationResult<DeleteUserAppsMutation>
+export type DeleteUserAppsMutationOptions = Apollo.BaseMutationOptions<
+  DeleteUserAppsMutation,
+  DeleteUserAppsMutationVariables
+>
 export const RootAppGql = gql`
   query RootApp($appId: uuid!, $pageId: uuid!) {
     app_by_pk(id: $appId) {
@@ -11366,55 +11415,6 @@ export type DeleteAppMutationResult = Apollo.MutationResult<DeleteAppMutation>
 export type DeleteAppMutationOptions = Apollo.BaseMutationOptions<
   DeleteAppMutation,
   DeleteAppMutationVariables
->
-export const DeleteUserAppsGql = gql`
-  mutation DeleteUserApps($userId: String!) {
-    delete_app(where: { user_id: { _eq: $userId } }) {
-      affected_rows
-    }
-  }
-`
-export type DeleteUserAppsMutationFn = Apollo.MutationFunction<
-  DeleteUserAppsMutation,
-  DeleteUserAppsMutationVariables
->
-
-/**
- * __useDeleteUserAppsMutation__
- *
- * To run a mutation, you first call `useDeleteUserAppsMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useDeleteUserAppsMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [deleteUserAppsMutation, { data, loading, error }] = useDeleteUserAppsMutation({
- *   variables: {
- *      userId: // value for 'userId'
- *   },
- * });
- */
-export function useDeleteUserAppsMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    DeleteUserAppsMutation,
-    DeleteUserAppsMutationVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useMutation<
-    DeleteUserAppsMutation,
-    DeleteUserAppsMutationVariables
-  >(DeleteUserAppsGql, options)
-}
-export type DeleteUserAppsMutationHookResult = ReturnType<
-  typeof useDeleteUserAppsMutation
->
-export type DeleteUserAppsMutationResult = Apollo.MutationResult<DeleteUserAppsMutation>
-export type DeleteUserAppsMutationOptions = Apollo.BaseMutationOptions<
-  DeleteUserAppsMutation,
-  DeleteUserAppsMutationVariables
 >
 export const GetAppGql = gql`
   query GetApp($appId: uuid!) {
@@ -14697,6 +14697,13 @@ export const __User = gql`
   }
   ${User__App}
 `
+export const DeleteUserApps = gql`
+  mutation DeleteUserApps($userId: String!) {
+    delete_app(where: { user_id: { _eq: $userId } }) {
+      affected_rows
+    }
+  }
+`
 export const RootApp = gql`
   query RootApp($appId: uuid!, $pageId: uuid!) {
     app_by_pk(id: $appId) {
@@ -14724,13 +14731,6 @@ export const DeleteApp = gql`
     }
   }
   ${User__App}
-`
-export const DeleteUserApps = gql`
-  mutation DeleteUserApps($userId: String!) {
-    delete_app(where: { user_id: { _eq: $userId } }) {
-      affected_rows
-    }
-  }
 `
 export const GetApp = gql`
   query GetApp($appId: uuid!) {

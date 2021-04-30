@@ -11,12 +11,14 @@ module "codelab-vpc" {
 }
 
 module "codelab-iam" {
-  source              = "./iam"
+  source = "./iam"
+
   PATH_TO_PRIVATE_KEY = var.PATH_TO_PRIVATE_KEY
   PATH_TO_PUBLIC_KEY  = var.PATH_TO_PUBLIC_KEY
 }
 
 module "codelab-rds" {
-  source       = "./rds"
+  source = "./rds"
+
   RDS_PASSWORD = var.RDS_PASSWORD
 }

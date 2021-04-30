@@ -21,6 +21,7 @@ generates:
     documents:
       - libs/modules/**/*.graphql
       - apps/web/**/*.graphql
+      - apps/web-e2e/**/*.graphql
     plugins:
       - typescript
       - typescript-operations

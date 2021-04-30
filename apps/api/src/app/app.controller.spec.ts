@@ -16,6 +16,7 @@ describe('AppController', () => {
   describe('getData', () => {
     it('should return "Welcome to codelab!"', () => {
       const appController = app.get<AppController>(AppController)
+
       expect(appController.getData()).toEqual({
         message: 'Welcome to codelab!',
       })

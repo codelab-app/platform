@@ -8,7 +8,8 @@
     "sort-exports",
     "react-hooks",
     "@emotion",
-    "prettier"
+    "prettier",
+    "jest-formatting"
   ],
   "overrides": [
     {
@@ -32,17 +33,23 @@
         ],
         "padding-line-between-statements": [
           "error",
-          { "blankLine": "always", "prev": ["if", "block-like"], "next": "*" },
-          { "blankLine": "always", "prev": "*", "next": ["if", "block-like"] },
           { "blankLine": "always", "prev": "*", "next": "return" },
           {
             "blankLine": "always",
             "prev": "*",
-            "next": ["const", "let", "var"]
+            "next": [
+              "const",
+              "let",
+              "var",
+              "block",
+              "if",
+              "block-like",
+              "return"
+            ]
           },
           {
             "blankLine": "always",
-            "prev": ["const", "let", "var"],
+            "prev": ["const", "let", "var", "if", "block-like"],
             "next": "*"
           },
           {
@@ -56,7 +63,10 @@
     },
     {
       "files": ["*.ts", "*.tsx"],
-      "extends": ["plugin:@nrwl/nx/typescript"],
+      "extends": [
+        "plugin:@nrwl/nx/typescript",
+        "plugin:jest-formatting/strict"
+      ],
       "rules": {
         "curly": "error",
         "@typescript-eslint/no-explicit-any": "off",
