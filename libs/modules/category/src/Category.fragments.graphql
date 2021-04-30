@@ -2,6 +2,6 @@ fragment Library__Category on category {
   id
   name
   tags {
-    ...Tag
+    ...__Tag
   }
 }

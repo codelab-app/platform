@@ -1,5 +1,5 @@
 mutation DeleteAllAtoms {
-    delete_atom(where:{}) {
-        affected_rows
-    }
+  delete_atom(where: {}) {
+    affected_rows
+  }
 }

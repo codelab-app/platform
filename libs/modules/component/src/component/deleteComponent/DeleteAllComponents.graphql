@@ -1,5 +1,5 @@
 mutation DeleteAllComponents {
-    delete_component(where: {}){
-        affected_rows
-    }
+  delete_component(where: {}) {
+    affected_rows
+  }
 }

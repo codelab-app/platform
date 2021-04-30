@@ -3,16 +3,13 @@ import { Layout } from 'antd'
 import React, { PropsWithChildren } from 'react'
 import { contentStyle } from '@codelab/frontend/style'
 import { LayoutNavigations } from './Layout-navigations'
+import { WithMainPane } from './Layout.d'
 
 const { Sider, Content } = Layout
 
-const tabsWidth = 40
-const paneConfigWidth = 320
-const defaultPaneMainWidth = 480
-
-export type WithMainPane = {
-  MainPane: () => JSX.Element
-}
+export const tabsWidth = 40
+export const paneConfigWidth = 320
+export const defaultPaneMainWidth = 480
 
 export const LayoutBuilder = ({
   children,

@@ -3,7 +3,7 @@ import { LayoutHome } from '../src/layout/Layout--home'
 import { HomeClients } from '../src/pages/home/Home-clients'
 import { HomeFeatures } from '../src/pages/home/Home-features'
 import { HomeJumbo } from '../src/pages/home/Home-jumbo'
-import { NextPageLayout } from './_app'
+import { NextPageLayout } from '../src/layout/Layout.d'
 
 const HomePage: NextPageLayout = () => {
   return (

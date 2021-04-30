@@ -11,7 +11,7 @@ import {
   CreateLibraryGql,
   __LibraryFragment,
   CreateComponentGql,
-  GetComponents__ComponentFragment,
+  __ComponentFragment,
   Atom_Type_Enum,
   CreateAtomGql,
   AtomFragment,
@@ -183,10 +183,7 @@ const createComponent = (libraryId: string, label = 'Test component') => {
         },
       },
     })
-    .then(
-      (r) =>
-        r.body.data?.insert_component_one as GetComponents__ComponentFragment,
-    )
+    .then((r) => r.body.data?.insert_component_one as __ComponentFragment)
 }
 
 Cypress.Commands.add('createComponent', createComponent)

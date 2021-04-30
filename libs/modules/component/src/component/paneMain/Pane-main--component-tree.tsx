@@ -35,6 +35,7 @@ export const PaneMainComponentTree = () => {
       {data ? (
         <Tree
           className="draggable-tree"
+          treeData={[data]}
           blockNode
           onMouseEnter={({ node }) => {
             setHovering({
@@ -70,7 +71,6 @@ export const PaneMainComponentTree = () => {
               </>
             )
           }}
-          treeData={[data]}
         />
       ) : (
         <Empty />

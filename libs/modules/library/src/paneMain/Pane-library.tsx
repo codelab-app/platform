@@ -6,11 +6,13 @@ import { CrudModal, EntityType, ActionType } from '@codelab/frontend/shared'
 import { CreateLibraryForm } from '../createLibrary'
 import { UpdateLibraryForm } from '../updateLibrary'
 import { DeleteLibraryForm } from '../deleteLibrary'
+import { GetLibrariesTree } from '../getLibraries/GetLibrariesTree'
 
 export const PaneMainLibrary = () => {
   return (
     <PaneMainTemplate title="Library" header={<CreateLibraryButton key={0} />}>
       <GetLibrariesList />
+      <GetLibrariesTree />
       <CrudModal
         entityType={EntityType.Library}
         actionType={ActionType.Create}

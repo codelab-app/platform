@@ -1,6 +1,6 @@
 import { List, Space, Spin } from 'antd'
 import React from 'react'
-import { useGetLibrariesListQuery } from '@codelab/hasura'
+import { useGetLibrariesQuery } from '@codelab/hasura'
 import {
   EntityType,
   ListItemDeleteButton,
@@ -11,8 +11,7 @@ import {
 import Link from 'next/link'
 
 export const GetLibrariesList = () => {
-  const { data, loading } = useGetLibrariesListQuery()
-
+  const { data, loading } = useGetLibrariesQuery()
   const { openDeleteModal, openUpdateModal } = useCRUDModalForm(
     EntityType.Library,
   )

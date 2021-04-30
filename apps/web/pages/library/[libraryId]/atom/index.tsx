@@ -1,8 +1,8 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import React from 'react'
 import { Menu } from 'antd'
-import { NextPageLayout } from 'apps/web/pages/_app'
 import { LayoutBuilder } from 'apps/web/src/layout/Layout--builder'
+import { NextPageLayout } from '../../../../src/layout/Layout.d'
 
 const AtomDetail: NextPageLayout<'builder'> = () => {
   // const { component } = useContext(ComponentContext)

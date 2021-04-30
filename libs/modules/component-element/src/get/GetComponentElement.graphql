@@ -1,5 +1,5 @@
 query GetComponentElement($componentElementId: uuid!) {
-    component_element_by_pk(id: $componentElementId){
-        ...PageElement__ComponentElement
-    }
+  component_element_by_pk(id: $componentElementId) {
+    ...PageElement__ComponentElement
+  }
 }

@@ -3,8 +3,8 @@ import { AppContext } from '@codelab/frontend/shared'
 import React, { useContext } from 'react'
 import { PageRenderer, PanePage } from '@codelab/modules/page'
 import { Empty } from 'antd'
-import { NextPageLayout } from 'apps/web/pages/_app'
 import { LayoutPageDetail } from 'apps/web/src/layout/Layout--pageDetail'
+import { NextPageLayout } from '../../../../../src/layout/Layout.d'
 
 const PageDetail: NextPageLayout<'builder'> = () => {
   const { page } = useContext(AppContext)

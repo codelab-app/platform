@@ -1,9 +1,9 @@
 import { EditorProvider } from '@codelab/frontend/builder'
 import { AppProvider } from '@codelab/frontend/shared'
-import { NextPageLayout } from 'apps/web/pages/_app'
 import { useRouter } from 'next/router'
 import React from 'react'
 import { LayoutBuilder } from './Layout--builder'
+import { NextPageLayout } from './Layout.d'
 
 export const LayoutPageDetail = (props: NextPageLayout<'builder'>) => {
   const { children, MainPane } = props

@@ -273,6 +273,7 @@ export type Atom = {
   /** An object relationship */
   atomType: Atom_Type
   id: Scalars['uuid']
+  library_id?: Maybe<Scalars['uuid']>
   /** An object relationship */
   propTypes?: Maybe<Prop_Type_C>
   prop_type_c_id?: Maybe<Scalars['uuid']>
@@ -344,6 +345,20 @@ export type Atom_Aggregate_FieldsCountArgs = {
   distinct?: Maybe<Scalars['Boolean']>
 }
 
+/** order by aggregate values of table "atom" */
+export type Atom_Aggregate_Order_By = {
+  count?: Maybe<Order_By>
+  max?: Maybe<Atom_Max_Order_By>
+  min?: Maybe<Atom_Min_Order_By>
+}
+
+/** input type for inserting array relation for remote table "atom" */
+export type Atom_Arr_Rel_Insert_Input = {
+  data: Array<Atom_Insert_Input>
+  /** on conflict condition */
+  on_conflict?: Maybe<Atom_On_Conflict>
+}
+
 /** Boolean expression to filter rows from the table "atom". All fields are combined with a logical 'AND'. */
 export type Atom_Bool_Exp = {
   _and?: Maybe<Array<Atom_Bool_Exp>>
@@ -351,6 +366,7 @@ export type Atom_Bool_Exp = {
   _or?: Maybe<Array<Atom_Bool_Exp>>
   atomType?: Maybe<Atom_Type_Bool_Exp>
   id?: Maybe<Uuid_Comparison_Exp>
+  library_id?: Maybe<Uuid_Comparison_Exp>
   propTypes?: Maybe<Prop_Type_C_Bool_Exp>
   prop_type_c_id?: Maybe<Uuid_Comparison_Exp>
   styles?: Maybe<Style_Atom_Bool_Exp>
@@ -368,6 +384,7 @@ export enum Atom_Constraint {
 export type Atom_Insert_Input = {
   atomType?: Maybe<Atom_Type_Obj_Rel_Insert_Input>
   id?: Maybe<Scalars['uuid']>
+  library_id?: Maybe<Scalars['uuid']>
   propTypes?: Maybe<Prop_Type_C_Obj_Rel_Insert_Input>
   prop_type_c_id?: Maybe<Scalars['uuid']>
   styles?: Maybe<Style_Atom_Arr_Rel_Insert_Input>
@@ -379,14 +396,30 @@ export type Atom_Insert_Input = {
 export type Atom_Max_Fields = {
   __typename?: 'atom_max_fields'
   id?: Maybe<Scalars['uuid']>
+  library_id?: Maybe<Scalars['uuid']>
   prop_type_c_id?: Maybe<Scalars['uuid']>
+}
+
+/** order by max() on columns of table "atom" */
+export type Atom_Max_Order_By = {
+  id?: Maybe<Order_By>
+  library_id?: Maybe<Order_By>
+  prop_type_c_id?: Maybe<Order_By>
 }
 
 /** aggregate min on columns */
 export type Atom_Min_Fields = {
   __typename?: 'atom_min_fields'
   id?: Maybe<Scalars['uuid']>
+  library_id?: Maybe<Scalars['uuid']>
   prop_type_c_id?: Maybe<Scalars['uuid']>
+}
+
+/** order by min() on columns of table "atom" */
+export type Atom_Min_Order_By = {
+  id?: Maybe<Order_By>
+  library_id?: Maybe<Order_By>
+  prop_type_c_id?: Maybe<Order_By>
 }
 
 /** response of any mutation on the table "atom" */
@@ -416,6 +449,7 @@ export type Atom_On_Conflict = {
 export type Atom_Order_By = {
   atomType?: Maybe<Atom_Type_Order_By>
   id?: Maybe<Order_By>
+  library_id?: Maybe<Order_By>
   propTypes?: Maybe<Prop_Type_C_Order_By>
   prop_type_c_id?: Maybe<Order_By>
   styles_aggregate?: Maybe<Style_Atom_Aggregate_Order_By>
@@ -433,6 +467,8 @@ export enum Atom_Select_Column {
   /** column name */
   Id = 'id',
   /** column name */
+  LibraryId = 'library_id',
+  /** column name */
   PropTypeCId = 'prop_type_c_id',
   /** column name */
   Type = 'type',
@@ -441,6 +477,7 @@ export enum Atom_Select_Column {
 /** input type for updating data in table "atom" */
 export type Atom_Set_Input = {
   id?: Maybe<Scalars['uuid']>
+  library_id?: Maybe<Scalars['uuid']>
   prop_type_c_id?: Maybe<Scalars['uuid']>
   type?: Maybe<Atom_Type_Enum>
 }
@@ -683,6 +720,8 @@ export enum Atom_Type_Update_Column {
 export enum Atom_Update_Column {
   /** column name */
   Id = 'id',
+  /** column name */
+  LibraryId = 'library_id',
   /** column name */
   PropTypeCId = 'prop_type_c_id',
   /** column name */
@@ -2245,6 +2284,10 @@ export enum Lambda_Update_Column {
 export type Library = {
   __typename?: 'library'
   /** An array relationship */
+  atoms: Array<Atom>
+  /** An aggregate relationship */
+  atoms_aggregate: Atom_Aggregate
+  /** An array relationship */
   categories: Array<Category>
   /** An aggregate relationship */
   categories_aggregate: Category_Aggregate
@@ -2277,6 +2320,24 @@ export type Library = {
   /** An object relationship */
   user: User
   user_id: Scalars['String']
+}
+
+/** columns and relationships of "library" */
+export type LibraryAtomsArgs = {
+  distinct_on?: Maybe<Array<Atom_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<Atom_Order_By>>
+  where?: Maybe<Atom_Bool_Exp>
+}
+
+/** columns and relationships of "library" */
+export type LibraryAtoms_AggregateArgs = {
+  distinct_on?: Maybe<Array<Atom_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<Atom_Order_By>>
+  where?: Maybe<Atom_Bool_Exp>
 }
 
 /** columns and relationships of "library" */
@@ -2445,6 +2506,7 @@ export type Library_Bool_Exp = {
   _and?: Maybe<Array<Library_Bool_Exp>>
   _not?: Maybe<Library_Bool_Exp>
   _or?: Maybe<Array<Library_Bool_Exp>>
+  atoms?: Maybe<Atom_Bool_Exp>
   categories?: Maybe<Category_Bool_Exp>
   components?: Maybe<Component_Bool_Exp>
   id?: Maybe<Uuid_Comparison_Exp>
@@ -2466,6 +2528,7 @@ export enum Library_Constraint {
 
 /** input type for inserting data into table "library" */
 export type Library_Insert_Input = {
+  atoms?: Maybe<Atom_Arr_Rel_Insert_Input>
   categories?: Maybe<Category_Arr_Rel_Insert_Input>
   components?: Maybe<Component_Arr_Rel_Insert_Input>
   id?: Maybe<Scalars['uuid']>
@@ -2534,6 +2597,7 @@ export type Library_On_Conflict = {
 
 /** Ordering options when selecting data from "library". */
 export type Library_Order_By = {
+  atoms_aggregate?: Maybe<Atom_Aggregate_Order_By>
   categories_aggregate?: Maybe<Category_Aggregate_Order_By>
   components_aggregate?: Maybe<Component_Aggregate_Order_By>
   id?: Maybe<Order_By>
@@ -10172,7 +10236,7 @@ export type EditAppMutation = { __typename?: 'mutation_root' } & {
   update_app_by_pk?: Maybe<{ __typename?: 'app' } & Pick<App, 'name'>>
 }
 
-export type AtomFragment = { __typename?: 'atom' } & Pick<
+export type __AtomFragment = { __typename?: 'atom' } & Pick<
   Atom,
   'id' | 'type'
 > & {
@@ -10186,7 +10250,7 @@ export type AtomFragment = { __typename?: 'atom' } & Pick<
     >
     tags: Array<
       { __typename?: 'tag_atom' } & {
-        tag: { __typename?: 'tag' } & TagFragment
+        tag: { __typename?: 'tag' } & __TagFragment
       }
     >
   }
@@ -10196,7 +10260,7 @@ export type CreateAtomMutationVariables = Exact<{
 }>
 
 export type CreateAtomMutation = { __typename?: 'mutation_root' } & {
-  insert_atom_one?: Maybe<{ __typename?: 'atom' } & AtomFragment>
+  insert_atom_one?: Maybe<{ __typename?: 'atom' } & __AtomFragment>
 }
 
 export type DeleteAllAtomsMutationVariables = Exact<{ [key: string]: never }>
@@ -10215,7 +10279,7 @@ export type DeleteAtomMutationVariables = Exact<{
 }>
 
 export type DeleteAtomMutation = { __typename?: 'mutation_root' } & {
-  delete_atom_by_pk?: Maybe<{ __typename?: 'atom' } & AtomFragment>
+  delete_atom_by_pk?: Maybe<{ __typename?: 'atom' } & __AtomFragment>
 }
 
 export type GetAtomQueryVariables = Exact<{
@@ -10223,13 +10287,13 @@ export type GetAtomQueryVariables = Exact<{
 }>
 
 export type GetAtomQuery = { __typename?: 'query_root' } & {
-  atom_by_pk?: Maybe<{ __typename?: 'atom' } & AtomFragment>
+  atom_by_pk?: Maybe<{ __typename?: 'atom' } & __AtomFragment>
 }
 
 export type GetAtomsListQueryVariables = Exact<{ [key: string]: never }>
 
 export type GetAtomsListQuery = { __typename?: 'query_root' } & {
-  atom: Array<{ __typename?: 'atom' } & AtomFragment>
+  atom: Array<{ __typename?: 'atom' } & __AtomFragment>
 }
 
 export type GetAtomsTypesQueryVariables = Exact<{ [key: string]: never }>
@@ -10246,15 +10310,15 @@ export type UpdateAtomMutationVariables = Exact<{
 }>
 
 export type UpdateAtomMutation = { __typename?: 'mutation_root' } & {
-  update_atom_by_pk?: Maybe<{ __typename?: 'atom' } & AtomFragment>
+  update_atom_by_pk?: Maybe<{ __typename?: 'atom' } & __AtomFragment>
 }
 
 export type Library__CategoryFragment = { __typename?: 'category' } & Pick<
   Category,
   'id' | 'name'
-> & { tags: Array<{ __typename?: 'tag' } & TagFragment> }
+> & { tags: Array<{ __typename?: 'tag' } & __TagFragment> }
 
-export type TagFragment = { __typename?: 'tag' } & Pick<
+export type __TagFragment = { __typename?: 'tag' } & Pick<
   Tag,
   'id' | 'category_id' | 'label' | 'library_id'
 >
@@ -10343,7 +10407,7 @@ export type PageElement__ComponentElementFragment = {
         style: { __typename?: 'style' } & Library__StyleFragment
       }
     >
-    atom?: Maybe<{ __typename?: 'atom' } & AtomFragment>
+    atom?: Maybe<{ __typename?: 'atom' } & __AtomFragment>
   }
 
 export type PageElement__ComponentLinkFragment = {
@@ -10358,7 +10422,9 @@ export type ComponentElement__HocFragment = { __typename?: 'hoc' } & Pick<
   'id'
 > & {
     tags: Array<
-      { __typename?: 'tag_hoc' } & { tag: { __typename?: 'tag' } & TagFragment }
+      { __typename?: 'tag_hoc' } & {
+        tag: { __typename?: 'tag' } & __TagFragment
+      }
     >
   }
 
@@ -10368,7 +10434,7 @@ export type CreateComponentMutationVariables = Exact<{
 
 export type CreateComponentMutation = { __typename?: 'mutation_root' } & {
   insert_component_one?: Maybe<
-    { __typename?: 'component' } & GetComponents__ComponentFragment
+    { __typename?: 'component' } & __ComponentFragment
   >
 }
 
@@ -10400,9 +10466,7 @@ export type GetComponentQueryVariables = Exact<{
 }>
 
 export type GetComponentQuery = { __typename?: 'query_root' } & {
-  component_by_pk?: Maybe<
-    { __typename?: 'component' } & GetComponents__ComponentFragment
-  >
+  component_by_pk?: Maybe<{ __typename?: 'component' } & __ComponentFragment>
 }
 
 export type GetComponentDetailQueryVariables = Exact<{
@@ -10415,16 +10479,15 @@ export type GetComponentDetailQuery = { __typename?: 'query_root' } & {
   >
 }
 
-export type GetComponents__ComponentFragment = {
-  __typename?: 'component'
-} & Pick<Component, 'id' | 'label'>
+export type __ComponentFragment = { __typename?: 'component' } & Pick<
+  Component,
+  'id' | 'label'
+>
 
 export type GetComponentsQueryVariables = Exact<{ [key: string]: never }>
 
 export type GetComponentsQuery = { __typename?: 'query_root' } & {
-  component: Array<
-    { __typename?: 'component' } & GetComponents__ComponentFragment
-  >
+  component: Array<{ __typename?: 'component' } & __ComponentFragment>
 }
 
 export type UpdateComponentMutationVariables = Exact<{
@@ -10434,7 +10497,7 @@ export type UpdateComponentMutationVariables = Exact<{
 
 export type UpdateComponentMutation = { __typename?: 'mutation_root' } & {
   update_component_by_pk?: Maybe<
-    { __typename?: 'component' } & GetComponents__ComponentFragment
+    { __typename?: 'component' } & __ComponentFragment
   >
 }
 
@@ -10560,9 +10623,8 @@ export type __LibraryFragment = { __typename?: 'library' } & Pick<
   'id' | 'name' | 'user_id'
 > & {
     categories: Array<{ __typename?: 'category' } & Library__CategoryFragment>
-    components: Array<
-      { __typename?: 'component' } & GetComponents__ComponentFragment
-    >
+    components: Array<{ __typename?: 'component' } & __ComponentFragment>
+    atoms: Array<{ __typename?: 'atom' } & __AtomFragment>
     lambdas: Array<{ __typename?: 'lambda' } & Library__LambdaFragment>
     propTypes: Array<
       { __typename?: 'prop_type_c' } & {
@@ -10577,7 +10639,7 @@ export type __LibraryFragment = { __typename?: 'library' } & Pick<
       }
     >
     styles: Array<{ __typename?: 'style' } & Library__StyleFragment>
-    tags: Array<{ __typename?: 'tag' } & TagFragment>
+    tags: Array<{ __typename?: 'tag' } & __TagFragment>
   }
 
 export type CreateLibraryMutationVariables = Exact<{
@@ -10609,9 +10671,9 @@ export type DeleteUserLibrariesMutation = { __typename?: 'mutation_root' } & {
   >
 }
 
-export type GetLibrariesListQueryVariables = Exact<{ [key: string]: never }>
+export type GetLibrariesQueryVariables = Exact<{ [key: string]: never }>
 
-export type GetLibrariesListQuery = { __typename?: 'query_root' } & {
+export type GetLibrariesQuery = { __typename?: 'query_root' } & {
   library: Array<{ __typename?: 'library' } & __LibraryFragment>
 }
 
@@ -10759,7 +10821,7 @@ export type PropCollectionFragment = { __typename?: 'prop_c' } & Pick<
     props: Array<{ __typename?: 'prop' } & PropCollection__PropFragment>
     tags: Array<
       { __typename?: 'tag_prop_c' } & {
-        tag: { __typename?: 'tag' } & TagFragment
+        tag: { __typename?: 'tag' } & __TagFragment
       }
     >
   }
@@ -10779,7 +10841,7 @@ export type PropTypeCollectionFragment = { __typename?: 'prop_type_c' } & Pick<
     >
     tags: Array<
       { __typename?: 'tag_prop_type_c' } & {
-        tag: { __typename?: 'tag' } & TagFragment
+        tag: { __typename?: 'tag' } & __TagFragment
       }
     >
   }
@@ -10790,7 +10852,7 @@ export type Prop__PropValueFragment = { __typename?: 'prop_value' } & Pick<
 > & {
     tags: Array<
       { __typename?: 'tag_prop_value' } & {
-        tag: { __typename?: 'tag' } & TagFragment
+        tag: { __typename?: 'tag' } & __TagFragment
       }
     >
     typeEntity: { __typename?: 'value_type' } & ValueTypeFragment
@@ -10903,8 +10965,8 @@ export type __UserFragment = { __typename?: 'user' } & Pick<
   'id' | 'name'
 > & { apps: Array<{ __typename?: 'app' } & User__AppFragment> }
 
-export const TagFragmentDoc = gql`
-  fragment Tag on tag {
+export const __TagFragmentDoc = gql`
+  fragment __Tag on tag {
     id
     category_id
     label
@@ -10916,22 +10978,15 @@ export const Library__CategoryFragmentDoc = gql`
     id
     name
     tags {
-      ...Tag
+      ...__Tag
     }
   }
-  ${TagFragmentDoc}
+  ${__TagFragmentDoc}
 `
-export const GetComponents__ComponentFragmentDoc = gql`
-  fragment GetComponents__Component on component {
+export const __ComponentFragmentDoc = gql`
+  fragment __Component on component {
     id
     label
-  }
-`
-export const Library__LambdaFragmentDoc = gql`
-  fragment Library__Lambda on lambda {
-    id
-    body
-    name
   }
 `
 export const ValueTypeFragmentDoc = gql`
@@ -10952,13 +11007,30 @@ export const PropTypeCollection__PropTypeFragmentDoc = gql`
   }
   ${ValueTypeFragmentDoc}
 `
+export const PropTypeCollectionFragmentDoc = gql`
+  fragment PropTypeCollection on prop_type_c {
+    id
+    label
+    library_id
+    propTypes {
+      ...PropTypeCollection__PropType
+    }
+    tags {
+      tag {
+        ...__Tag
+      }
+    }
+  }
+  ${PropTypeCollection__PropTypeFragmentDoc}
+  ${__TagFragmentDoc}
+`
 export const Prop__PropValueFragmentDoc = gql`
   fragment Prop__PropValue on prop_value {
     id
     prop_id
     tags {
       tag {
-        ...Tag
+        ...__Tag
       }
     }
     type
@@ -10967,7 +11039,7 @@ export const Prop__PropValueFragmentDoc = gql`
     }
     value
   }
-  ${TagFragmentDoc}
+  ${__TagFragmentDoc}
   ${ValueTypeFragmentDoc}
 `
 export const PropCollection__PropFragmentDoc = gql`
@@ -10994,12 +11066,12 @@ export const PropCollectionFragmentDoc = gql`
     }
     tags {
       tag {
-        ...Tag
+        ...__Tag
       }
     }
   }
   ${PropCollection__PropFragmentDoc}
-  ${TagFragmentDoc}
+  ${__TagFragmentDoc}
 `
 export const Library__StyleFragmentDoc = gql`
   fragment Library__Style on style {
@@ -11011,6 +11083,35 @@ export const Library__StyleFragmentDoc = gql`
   }
   ${PropCollectionFragmentDoc}
 `
+export const __AtomFragmentDoc = gql`
+  fragment __Atom on atom {
+    id
+    type
+    propTypes {
+      ...PropTypeCollection
+    }
+    styles {
+      style {
+        ...Library__Style
+      }
+    }
+    tags {
+      tag {
+        ...__Tag
+      }
+    }
+  }
+  ${PropTypeCollectionFragmentDoc}
+  ${Library__StyleFragmentDoc}
+  ${__TagFragmentDoc}
+`
+export const Library__LambdaFragmentDoc = gql`
+  fragment Library__Lambda on lambda {
+    id
+    body
+    name
+  }
+`
 export const __LibraryFragmentDoc = gql`
   fragment __Library on library {
     id
@@ -11019,7 +11120,10 @@ export const __LibraryFragmentDoc = gql`
       ...Library__Category
     }
     components {
-      ...GetComponents__Component
+      ...__Component
+    }
+    atoms {
+      ...__Atom
     }
     lambdas {
       ...Library__Lambda
@@ -11038,67 +11142,29 @@ export const __LibraryFragmentDoc = gql`
       ...Library__Style
     }
     tags {
-      ...Tag
+      ...__Tag
     }
     user_id
   }
   ${Library__CategoryFragmentDoc}
-  ${GetComponents__ComponentFragmentDoc}
+  ${__ComponentFragmentDoc}
+  ${__AtomFragmentDoc}
   ${Library__LambdaFragmentDoc}
   ${PropTypeCollection__PropTypeFragmentDoc}
   ${PropCollection__PropFragmentDoc}
   ${Library__StyleFragmentDoc}
-  ${TagFragmentDoc}
+  ${__TagFragmentDoc}
 `
 export const ComponentElement__HocFragmentDoc = gql`
   fragment ComponentElement__Hoc on hoc {
     id
     tags {
       tag {
-        ...Tag
+        ...__Tag
       }
     }
   }
-  ${TagFragmentDoc}
-`
-export const PropTypeCollectionFragmentDoc = gql`
-  fragment PropTypeCollection on prop_type_c {
-    id
-    label
-    library_id
-    propTypes {
-      ...PropTypeCollection__PropType
-    }
-    tags {
-      tag {
-        ...Tag
-      }
-    }
-  }
-  ${PropTypeCollection__PropTypeFragmentDoc}
-  ${TagFragmentDoc}
-`
-export const AtomFragmentDoc = gql`
-  fragment Atom on atom {
-    id
-    type
-    propTypes {
-      ...PropTypeCollection
-    }
-    styles {
-      style {
-        ...Library__Style
-      }
-    }
-    tags {
-      tag {
-        ...Tag
-      }
-    }
-  }
-  ${PropTypeCollectionFragmentDoc}
-  ${Library__StyleFragmentDoc}
-  ${TagFragmentDoc}
+  ${__TagFragmentDoc}
 `
 export const PageElement__ComponentElementFragmentDoc = gql`
   fragment PageElement__ComponentElement on component_element {
@@ -11118,13 +11184,13 @@ export const PageElement__ComponentElementFragmentDoc = gql`
       }
     }
     atom {
-      ...Atom
+      ...__Atom
     }
   }
   ${ComponentElement__HocFragmentDoc}
   ${PropCollectionFragmentDoc}
   ${Library__StyleFragmentDoc}
-  ${AtomFragmentDoc}
+  ${__AtomFragmentDoc}
 `
 export const PageElement__ComponentLinkFragmentDoc = gql`
   fragment PageElement__ComponentLink on component_link {
@@ -11628,10 +11694,10 @@ export type EditAppMutationOptions = Apollo.BaseMutationOptions<
 export const CreateAtomGql = gql`
   mutation CreateAtom($data: atom_insert_input!) {
     insert_atom_one(object: $data) {
-      ...Atom
+      ...__Atom
     }
   }
-  ${AtomFragmentDoc}
+  ${__AtomFragmentDoc}
 `
 export type CreateAtomMutationFn = Apollo.MutationFunction<
   CreateAtomMutation,
@@ -11726,10 +11792,10 @@ export type DeleteAllAtomsMutationOptions = Apollo.BaseMutationOptions<
 export const DeleteAtomGql = gql`
   mutation DeleteAtom($atomId: uuid!) {
     delete_atom_by_pk(id: $atomId) {
-      ...Atom
+      ...__Atom
     }
   }
-  ${AtomFragmentDoc}
+  ${__AtomFragmentDoc}
 `
 export type DeleteAtomMutationFn = Apollo.MutationFunction<
   DeleteAtomMutation,
@@ -11776,10 +11842,10 @@ export type DeleteAtomMutationOptions = Apollo.BaseMutationOptions<
 export const GetAtomGql = gql`
   query GetAtom($atomId: uuid!) {
     atom_by_pk(id: $atomId) {
-      ...Atom
+      ...__Atom
     }
   }
-  ${AtomFragmentDoc}
+  ${__AtomFragmentDoc}
 `
 
 /**
@@ -11828,10 +11894,10 @@ export type GetAtomQueryResult = Apollo.QueryResult<
 export const GetAtomsListGql = gql`
   query GetAtomsList {
     atom {
-      ...Atom
+      ...__Atom
     }
   }
-  ${AtomFragmentDoc}
+  ${__AtomFragmentDoc}
 `
 
 /**
@@ -11944,10 +12010,10 @@ export type GetAtomsTypesQueryResult = Apollo.QueryResult<
 export const UpdateAtomGql = gql`
   mutation UpdateAtom($input: atom_set_input!, $atomId: uuid!) {
     update_atom_by_pk(_set: $input, pk_columns: { id: $atomId }) {
-      ...Atom
+      ...__Atom
     }
   }
-  ${AtomFragmentDoc}
+  ${__AtomFragmentDoc}
 `
 export type UpdateAtomMutationFn = Apollo.MutationFunction<
   UpdateAtomMutation,
@@ -12260,10 +12326,10 @@ export type UpdateComponentElementMutationOptions = Apollo.BaseMutationOptions<
 export const CreateComponentGql = gql`
   mutation CreateComponent($input: component_insert_input!) {
     insert_component_one(object: $input) {
-      ...GetComponents__Component
+      ...__Component
     }
   }
-  ${GetComponents__ComponentFragmentDoc}
+  ${__ComponentFragmentDoc}
 `
 export type CreateComponentMutationFn = Apollo.MutationFunction<
   CreateComponentMutation,
@@ -12407,10 +12473,10 @@ export type DeleteComponentMutationOptions = Apollo.BaseMutationOptions<
 export const GetComponentGql = gql`
   query GetComponent($componentId: uuid!) {
     component_by_pk(id: $componentId) {
-      ...GetComponents__Component
+      ...__Component
     }
   }
-  ${GetComponents__ComponentFragmentDoc}
+  ${__ComponentFragmentDoc}
 `
 
 /**
@@ -12525,10 +12591,10 @@ export type GetComponentDetailQueryResult = Apollo.QueryResult<
 export const GetComponentsGql = gql`
   query GetComponents {
     component {
-      ...GetComponents__Component
+      ...__Component
     }
   }
-  ${GetComponents__ComponentFragmentDoc}
+  ${__ComponentFragmentDoc}
 `
 
 /**
@@ -12583,10 +12649,10 @@ export type GetComponentsQueryResult = Apollo.QueryResult<
 export const UpdateComponentGql = gql`
   mutation UpdateComponent($componentId: uuid!, $input: component_set_input!) {
     update_component_by_pk(pk_columns: { id: $componentId }, _set: $input) {
-      ...GetComponents__Component
+      ...__Component
     }
   }
-  ${GetComponents__ComponentFragmentDoc}
+  ${__ComponentFragmentDoc}
 `
 export type UpdateComponentMutationFn = Apollo.MutationFunction<
   UpdateComponentMutation,
@@ -13290,8 +13356,8 @@ export type DeleteUserLibrariesMutationOptions = Apollo.BaseMutationOptions<
   DeleteUserLibrariesMutation,
   DeleteUserLibrariesMutationVariables
 >
-export const GetLibrariesListGql = gql`
-  query GetLibrariesList {
+export const GetLibrariesGql = gql`
+  query GetLibraries {
     library {
       ...__Library
     }
@@ -13300,53 +13366,53 @@ export const GetLibrariesListGql = gql`
 `
 
 /**
- * __useGetLibrariesListQuery__
+ * __useGetLibrariesQuery__
  *
- * To run a query within a React component, call `useGetLibrariesListQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetLibrariesListQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetLibrariesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetLibrariesQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetLibrariesListQuery({
+ * const { data, loading, error } = useGetLibrariesQuery({
  *   variables: {
  *   },
  * });
  */
-export function useGetLibrariesListQuery(
+export function useGetLibrariesQuery(
   baseOptions?: Apollo.QueryHookOptions<
-    GetLibrariesListQuery,
-    GetLibrariesListQueryVariables
+    GetLibrariesQuery,
+    GetLibrariesQueryVariables
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<GetLibrariesListQuery, GetLibrariesListQueryVariables>(
-    GetLibrariesListGql,
+  return Apollo.useQuery<GetLibrariesQuery, GetLibrariesQueryVariables>(
+    GetLibrariesGql,
     options,
   )
 }
-export function useGetLibrariesListLazyQuery(
+export function useGetLibrariesLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
-    GetLibrariesListQuery,
-    GetLibrariesListQueryVariables
+    GetLibrariesQuery,
+    GetLibrariesQueryVariables
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<
-    GetLibrariesListQuery,
-    GetLibrariesListQueryVariables
-  >(GetLibrariesListGql, options)
+  return Apollo.useLazyQuery<GetLibrariesQuery, GetLibrariesQueryVariables>(
+    GetLibrariesGql,
+    options,
+  )
 }
-export type GetLibrariesListQueryHookResult = ReturnType<
-  typeof useGetLibrariesListQuery
+export type GetLibrariesQueryHookResult = ReturnType<
+  typeof useGetLibrariesQuery
 >
-export type GetLibrariesListLazyQueryHookResult = ReturnType<
-  typeof useGetLibrariesListLazyQuery
+export type GetLibrariesLazyQueryHookResult = ReturnType<
+  typeof useGetLibrariesLazyQuery
 >
-export type GetLibrariesListQueryResult = Apollo.QueryResult<
-  GetLibrariesListQuery,
-  GetLibrariesListQueryVariables
+export type GetLibrariesQueryResult = Apollo.QueryResult<
+  GetLibrariesQuery,
+  GetLibrariesQueryVariables
 >
 export const UpdateLibraryGql = gql`
   mutation UpdateLibrary($input: library_set_input!, $libraryId: uuid!) {
@@ -14390,8 +14456,8 @@ export type UpsertUserMutationOptions = Apollo.BaseMutationOptions<
   UpsertUserMutation,
   UpsertUserMutationVariables
 >
-export const Tag = gql`
-  fragment Tag on tag {
+export const __Tag = gql`
+  fragment __Tag on tag {
     id
     category_id
     label
@@ -14403,22 +14469,15 @@ export const Library__Category = gql`
     id
     name
     tags {
-      ...Tag
+      ...__Tag
     }
   }
-  ${Tag}
+  ${__Tag}
 `
-export const GetComponents__Component = gql`
-  fragment GetComponents__Component on component {
+export const __Component = gql`
+  fragment __Component on component {
     id
     label
-  }
-`
-export const Library__Lambda = gql`
-  fragment Library__Lambda on lambda {
-    id
-    body
-    name
   }
 `
 export const ValueType = gql`
@@ -14439,13 +14498,30 @@ export const PropTypeCollection__PropType = gql`
   }
   ${ValueType}
 `
+export const PropTypeCollection = gql`
+  fragment PropTypeCollection on prop_type_c {
+    id
+    label
+    library_id
+    propTypes {
+      ...PropTypeCollection__PropType
+    }
+    tags {
+      tag {
+        ...__Tag
+      }
+    }
+  }
+  ${PropTypeCollection__PropType}
+  ${__Tag}
+`
 export const Prop__PropValue = gql`
   fragment Prop__PropValue on prop_value {
     id
     prop_id
     tags {
       tag {
-        ...Tag
+        ...__Tag
       }
     }
     type
@@ -14454,7 +14530,7 @@ export const Prop__PropValue = gql`
     }
     value
   }
-  ${Tag}
+  ${__Tag}
   ${ValueType}
 `
 export const PropCollection__Prop = gql`
@@ -14481,12 +14557,12 @@ export const PropCollection = gql`
     }
     tags {
       tag {
-        ...Tag
+        ...__Tag
       }
     }
   }
   ${PropCollection__Prop}
-  ${Tag}
+  ${__Tag}
 `
 export const Library__Style = gql`
   fragment Library__Style on style {
@@ -14498,6 +14574,35 @@ export const Library__Style = gql`
   }
   ${PropCollection}
 `
+export const __Atom = gql`
+  fragment __Atom on atom {
+    id
+    type
+    propTypes {
+      ...PropTypeCollection
+    }
+    styles {
+      style {
+        ...Library__Style
+      }
+    }
+    tags {
+      tag {
+        ...__Tag
+      }
+    }
+  }
+  ${PropTypeCollection}
+  ${Library__Style}
+  ${__Tag}
+`
+export const Library__Lambda = gql`
+  fragment Library__Lambda on lambda {
+    id
+    body
+    name
+  }
+`
 export const __Library = gql`
   fragment __Library on library {
     id
@@ -14506,7 +14611,10 @@ export const __Library = gql`
       ...Library__Category
     }
     components {
-      ...GetComponents__Component
+      ...__Component
+    }
+    atoms {
+      ...__Atom
     }
     lambdas {
       ...Library__Lambda
@@ -14525,67 +14633,29 @@ export const __Library = gql`
       ...Library__Style
     }
     tags {
-      ...Tag
+      ...__Tag
     }
     user_id
   }
   ${Library__Category}
-  ${GetComponents__Component}
+  ${__Component}
+  ${__Atom}
   ${Library__Lambda}
   ${PropTypeCollection__PropType}
   ${PropCollection__Prop}
   ${Library__Style}
-  ${Tag}
+  ${__Tag}
 `
 export const ComponentElement__Hoc = gql`
   fragment ComponentElement__Hoc on hoc {
     id
     tags {
       tag {
-        ...Tag
+        ...__Tag
       }
     }
   }
-  ${Tag}
-`
-export const PropTypeCollection = gql`
-  fragment PropTypeCollection on prop_type_c {
-    id
-    label
-    library_id
-    propTypes {
-      ...PropTypeCollection__PropType
-    }
-    tags {
-      tag {
-        ...Tag
-      }
-    }
-  }
-  ${PropTypeCollection__PropType}
-  ${Tag}
-`
-export const Atom = gql`
-  fragment Atom on atom {
-    id
-    type
-    propTypes {
-      ...PropTypeCollection
-    }
-    styles {
-      style {
-        ...Library__Style
-      }
-    }
-    tags {
-      tag {
-        ...Tag
-      }
-    }
-  }
-  ${PropTypeCollection}
-  ${Library__Style}
-  ${Tag}
+  ${__Tag}
 `
 export const PageElement__ComponentElement = gql`
   fragment PageElement__ComponentElement on component_element {
@@ -14605,13 +14675,13 @@ export const PageElement__ComponentElement = gql`
       }
     }
     atom {
-      ...Atom
+      ...__Atom
     }
   }
   ${ComponentElement__Hoc}
   ${PropCollection}
   ${Library__Style}
-  ${Atom}
+  ${__Atom}
 `
 export const PageElement__ComponentLink = gql`
   fragment PageElement__ComponentLink on component_link {
@@ -14766,10 +14836,10 @@ export const EditApp = gql`
 export const CreateAtom = gql`
   mutation CreateAtom($data: atom_insert_input!) {
     insert_atom_one(object: $data) {
-      ...Atom
+      ...__Atom
     }
   }
-  ${Atom}
+  ${__Atom}
 `
 export const DeleteAllAtoms = gql`
   mutation DeleteAllAtoms {
@@ -14781,26 +14851,26 @@ export const DeleteAllAtoms = gql`
 export const DeleteAtom = gql`
   mutation DeleteAtom($atomId: uuid!) {
     delete_atom_by_pk(id: $atomId) {
-      ...Atom
+      ...__Atom
     }
   }
-  ${Atom}
+  ${__Atom}
 `
 export const GetAtom = gql`
   query GetAtom($atomId: uuid!) {
     atom_by_pk(id: $atomId) {
-      ...Atom
+      ...__Atom
     }
   }
-  ${Atom}
+  ${__Atom}
 `
 export const GetAtomsList = gql`
   query GetAtomsList {
     atom {
-      ...Atom
+      ...__Atom
     }
   }
-  ${Atom}
+  ${__Atom}
 `
 export const GetAtomsTypes = gql`
   query GetAtomsTypes {
@@ -14813,10 +14883,10 @@ export const GetAtomsTypes = gql`
 export const UpdateAtom = gql`
   mutation UpdateAtom($input: atom_set_input!, $atomId: uuid!) {
     update_atom_by_pk(_set: $input, pk_columns: { id: $atomId }) {
-      ...Atom
+      ...__Atom
     }
   }
-  ${Atom}
+  ${__Atom}
 `
 export const CreateComponentElement = gql`
   mutation CreateComponentElement($input: component_element_insert_input!) {
@@ -14866,10 +14936,10 @@ export const UpdateComponentElement = gql`
 export const CreateComponent = gql`
   mutation CreateComponent($input: component_insert_input!) {
     insert_component_one(object: $input) {
-      ...GetComponents__Component
+      ...__Component
     }
   }
-  ${GetComponents__Component}
+  ${__Component}
 `
 export const DeleteAllComponents = gql`
   mutation DeleteAllComponents {
@@ -14888,10 +14958,10 @@ export const DeleteComponent = gql`
 export const GetComponent = gql`
   query GetComponent($componentId: uuid!) {
     component_by_pk(id: $componentId) {
-      ...GetComponents__Component
+      ...__Component
     }
   }
-  ${GetComponents__Component}
+  ${__Component}
 `
 export const GetComponentDetail = gql`
   query GetComponentDetail($componentId: uuid!) {
@@ -14904,18 +14974,18 @@ export const GetComponentDetail = gql`
 export const GetComponents = gql`
   query GetComponents {
     component {
-      ...GetComponents__Component
+      ...__Component
     }
   }
-  ${GetComponents__Component}
+  ${__Component}
 `
 export const UpdateComponent = gql`
   mutation UpdateComponent($componentId: uuid!, $input: component_set_input!) {
     update_component_by_pk(pk_columns: { id: $componentId }, _set: $input) {
-      ...GetComponents__Component
+      ...__Component
     }
   }
-  ${GetComponents__Component}
+  ${__Component}
 `
 export const CreateLambda = gql`
   mutation CreateLambda($input: [lambda_insert_input!]!) {
@@ -15030,8 +15100,8 @@ export const DeleteUserLibraries = gql`
     }
   }
 `
-export const GetLibrariesList = gql`
-  query GetLibrariesList {
+export const GetLibraries = gql`
+  query GetLibraries {
     library {
       ...__Library
     }

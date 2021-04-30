@@ -3,11 +3,12 @@ import { ComponentProvider } from '@codelab/frontend/shared'
 import { useRouter } from 'next/router'
 import React, { PropsWithChildren } from 'react'
 import { LayoutBuilder } from './Layout--builder'
+import { WithMainPane } from './Layout.d'
 
 export const LayoutComponentDetail = (
-  props: PropsWithChildren<Record<string, unknown>>,
+  props: PropsWithChildren<WithMainPane>,
 ) => {
-  const { children } = props
+  const { children, MainPane } = props
   const { query } = useRouter()
 
   const componentId = `${query.componentId}`
@@ -19,7 +20,7 @@ export const LayoutComponentDetail = (
   return (
     <ComponentProvider componentId={componentId}>
       <EditorProvider>
-        <LayoutBuilder>{children}</LayoutBuilder>
+        <LayoutBuilder MainPane={MainPane}>{children}</LayoutBuilder>
       </EditorProvider>
     </ComponentProvider>
   )

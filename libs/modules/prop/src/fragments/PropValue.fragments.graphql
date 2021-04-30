@@ -3,7 +3,7 @@ fragment Prop__PropValue on prop_value {
   prop_id
   tags {
     tag {
-      ...Tag
+      ...__Tag
     }
   }
   type

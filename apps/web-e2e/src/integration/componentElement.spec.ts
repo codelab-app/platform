@@ -2,7 +2,7 @@ import { randomAtomType } from '../support/testUtils'
 import {
   AtomFragment,
   CreateComponentElementGql,
-  GetComponents__ComponentFragment,
+  __ComponentFragment,
   PageElement__ComponentElementFragment,
 } from '@codelab/hasura'
 import { print } from 'graphql'
@@ -24,7 +24,7 @@ const getAndExpandElementInTree = (label: string) => {
 
 describe('Component element', () => {
   let libraryId: string
-  let component: GetComponents__ComponentFragment
+  let component: __ComponentFragment
   let atom: AtomFragment
 
   before(() => {
