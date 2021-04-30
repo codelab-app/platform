@@ -57,7 +57,7 @@ export const PaneMainComponentTree = () => {
 
             return (
               <>
-                {label}{' '}
+                {label}
                 <span
                   style={{
                     color: '#787878',

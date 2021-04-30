@@ -3,14 +3,37 @@ import { ApolloProvider } from '@apollo/client'
 import { UserProvider } from '@auth0/nextjs-auth0'
 import { Global, css } from '@emotion/react'
 import { AppProps } from 'next/app'
-import React from 'react'
+import React, { PropsWithChildren } from 'react'
 import { RecoilRoot } from 'recoil'
-import { Page } from '@codelab/frontend/shared'
-import { LayoutFactory } from '../src/pages/LayoutFactory'
+import { PageType } from '@codelab/frontend/shared'
+// import { Layout } from '../src/layout/Layout'
 import { useApollo } from '@codelab/frontend/apollo'
 import '../src/styles/App.less'
+import { NextPage } from 'next'
+
+type LayoutType = {
+  type: 'default' | 'builder'
+}
+
+export type NextPageLayout<
+  P extends 'default' | 'builder' = 'default',
+  IP = P
+> = P extends 'default'
+  ? PropsWithChildren<
+      NextPage<P, IP> & {
+        Layout: (props: any) => React.ReactNode
+      }
+    >
+  : PropsWithChildren<
+      NextPage<P, IP> & {
+        Layout: (props: any) => React.ReactNode
+        MainPane: (props: any) => React.ReactNode
+      }
+    >
 
 const AppContainer = ({ pageProps, Component, router }: AppProps) => {
+  const { Layout, MainPane } = Component as any
+
   return (
     <RecoilRoot>
       <ApolloProvider client={useApollo(pageProps)}>
@@ -22,13 +45,17 @@ const AppContainer = ({ pageProps, Component, router }: AppProps) => {
               },
               body: {
                 overflow:
-                  router.pathname === Page.PAGE_DETAIL.url ? 'hidden' : 'auto',
+                  router.pathname === PageType.PageDetail ? 'hidden' : 'auto',
               },
             })}
           />
-          <LayoutFactory router={router}>
+          {Layout ? (
+            <Layout MainPane={MainPane}>
+              <Component {...pageProps} />
+            </Layout>
+          ) : (
             <Component {...pageProps} />
-          </LayoutFactory>
+          )}
         </UserProvider>
       </ApolloProvider>
     </RecoilRoot>

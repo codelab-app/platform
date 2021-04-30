@@ -1,26 +1,20 @@
-import { NextPage } from 'next'
 import React from 'react'
+import { LayoutHome } from '../src/layout/Layout--home'
 import { HomeClients } from '../src/pages/home/Home-clients'
 import { HomeFeatures } from '../src/pages/home/Home-features'
 import { HomeJumbo } from '../src/pages/home/Home-jumbo'
+import { NextPageLayout } from './_app'
 
-const HomePage: NextPage = () => {
+const HomePage: NextPageLayout = () => {
   return (
     <>
-      {/* <div
-        css={css({
-          '.greeting': {
-            color: 'hotpink',
-          },
-        })}
-      >
-        <div className="greeting">Hello World!</div>
-      </div> */}
       <HomeJumbo />
       <HomeClients />
       <HomeFeatures />
     </>
   )
 }
+
+HomePage.Layout = LayoutHome
 
 export default HomePage

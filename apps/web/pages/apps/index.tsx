@@ -11,13 +11,10 @@ import { SignOutUserButton } from '@codelab/modules/user'
 import { padding } from '@codelab/frontend/style'
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { ActionType, CrudModal, EntityType } from '@codelab/frontend/shared'
+import { NextPageLayout } from '../_app'
+import { LayoutApp } from 'apps/web/src/layout/Layout--app'
 
-const AppsPage = () => {
-  // const data = usePreloadedQuery(GetUserQuery, preloadedQuery)
-  // const userRef = data.user_connection.edges[0].node
-  // const user = useFragment(userFragment, userRef)
-  // console.log(user)
-
+const AppsPage: NextPageLayout = () => {
   const pageHeaderButtons = [
     <CreateAppButton key={1} />,
     <SignOutUserButton key={2} />,
@@ -57,5 +54,7 @@ const AppsPage = () => {
 }
 
 export const getServerSideProps = withPageAuthRequired()
+
+AppsPage.Layout = LayoutApp
 
 export default AppsPage

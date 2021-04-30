@@ -4,7 +4,7 @@ import React, { PropsWithChildren } from 'react'
 
 const { Sider, Content } = Layout
 
-export const Dashboard = ({
+export const LayoutApp = ({
   children,
 }: PropsWithChildren<Record<string, unknown>>) => {
   return (

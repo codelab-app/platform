@@ -15,7 +15,7 @@ import {
   ComponentItemType,
   DragAndDropTypes,
   EntityType,
-  Page,
+  PageType,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
 import { componentItemState } from './Component-item--state'
@@ -52,7 +52,7 @@ export const ComponentItem = ({
 
   const router = useRouter()
   const navigateToBuilder = () =>
-    router.push(Page.COMPONENT_DETAIL.url.replace('[componentId]', item.id))
+    router.push(PageType.ComponentDetail.replace('[componentId]', item.id))
 
   const overlayMenu = (
     <StyledMenu>

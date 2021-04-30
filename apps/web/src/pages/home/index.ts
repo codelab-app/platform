@@ -1,1 +1,1 @@
-export * from './Home-layout'
+export * from '../../layout/Layout--home'

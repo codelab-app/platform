@@ -1,10 +1,15 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { ComponentContext } from '@codelab/frontend/shared'
 import React, { useContext } from 'react'
-import { Empty } from 'antd'
+import { Empty, Tabs } from 'antd'
 import { ComponentRenderer } from '@codelab/modules/component'
+import { NextPageLayout } from '../../_app'
+import { LayoutComponentDetail } from 'apps/web/src/layout/Layout-componentDetail'
+import { TabsLayout } from 'apps/web/src/layout/Layout-pane'
+import { PaneConfigComponentElement } from '@codelab/modules/component-element'
+import { useBuilderSelectionState } from '@codelab/frontend/builder'
 
-const ComponentDetail = () => {
+const ComponentDetail: NextPageLayout<'builder'> = () => {
   const { component } = useContext(ComponentContext)
 
   if (!component) {
@@ -19,7 +24,29 @@ const ComponentDetail = () => {
   )
 }
 
-// Redirect to home if not authenticated
 export const getServerSideProps = withPageAuthRequired()
+
+const ComponentDetailMainPane = (props: { componentElementId: string }) => {
+  const {
+    selectionState: { selectedElement },
+  } = useBuilderSelectionState()
+
+  if (!selectedElement) {
+    return <></>
+  }
+
+  return (
+    <TabsLayout>
+      <Tabs.TabPane tab="Inspector" key="1" style={{ height: '100%' }}>
+        <PaneConfigComponentElement
+          componentElementId={selectedElement.componentElementId}
+        />
+      </Tabs.TabPane>
+    </TabsLayout>
+  )
+}
+
+ComponentDetail.Layout = LayoutComponentDetail
+ComponentDetail.MainPane = ComponentDetailMainPane
 
 export default ComponentDetail

@@ -446,6 +446,6 @@ Cypress.Commands.add(
 Cypress.Commands.add(
   'getPaneMain',
   (): Cypress.Chainable<JQuery> => {
-    return cy.getByTestId('pain-main-tabs').findByRole('tablist')
+    return cy.getByTestId('pane-main').findByRole('tablist')
   },
 )

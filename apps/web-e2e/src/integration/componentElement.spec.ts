@@ -97,7 +97,7 @@ describe('Component element', () => {
     //Validate component element is created
     cy.getOpenedModal().should('not.exist') //modal should close
 
-    getAndExpandElementInTree(component.label + ' Root')
+    getAndExpandElementInTree(`${component.label} Root`)
     getComponentElementInTree(label) //We should have the new item in the tree
   })
 

@@ -19,17 +19,17 @@ export const GetAtomsList = () => {
             data-test-atom-type={atom.type}
           >
             <Space style={{ width: '100%' }}>{atom.type}</Space>
-            <Space>
-              <SettingOutlined
-                data-testid="atom-update-button"
-                onClick={() => openUpdateModal(atom.id)}
-              />
-              <DeleteOutlined
-                data-testid="atom-delete-button"
-                onClick={() => openDeleteModal(atom.id)}
-              />
-            </Space>
           </div>
+          <Space>
+            <SettingOutlined
+              data-testid="atom-update-button"
+              onClick={() => openUpdateModal(atom.id)}
+            />
+            <DeleteOutlined
+              data-testid="atom-delete-button"
+              onClick={() => openDeleteModal(atom.id)}
+            />
+          </Space>
         </List.Item>
       )}
     />
