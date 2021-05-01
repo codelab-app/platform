@@ -10,7 +10,7 @@ export type WithMainPane = {
 }
 
 export type WithMetaPane = {
-  MetaPane: (props: any) => React.ReactElement
+  MetaPane?: (props: any) => React.ReactElement
 }
 
 export type NextPageLayout<
@@ -18,4 +18,6 @@ export type NextPageLayout<
   IP = P
 > = P extends 'default'
   ? PropsWithChildren<NextPage<P, IP> & WithLayout>
-  : PropsWithChildren<NextPage<P, IP> & WithLayout & WithMainPane>
+  : PropsWithChildren<
+      NextPage<P, IP> & WithLayout & WithMainPane & WithMetaPane
+    >

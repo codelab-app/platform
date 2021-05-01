@@ -1,6 +1,9 @@
 import React from 'react'
 import { CytoscapeService } from '@codelab/frontend/cytoscape'
-import { NodeRenderer } from '@codelab/frontend/builder'
+import {
+  nodeRendererFactory,
+  useComponentHandlers,
+} from '@codelab/frontend/builder'
 import { __ComponentFragment } from '@codelab/hasura'
 
 type ComponentRendererProps = {
@@ -10,6 +13,7 @@ type ComponentRendererProps = {
 export const ComponentRenderer = ({ component }: ComponentRendererProps) => {
   const cy = CytoscapeService.fromComponent(component)
   const root = CytoscapeService.componentTree(cy)
+  const handlers = useComponentHandlers()
 
-  return <NodeRenderer node={root as any} enableOverlays={false} />
+  return <>{nodeRendererFactory(root, { handlers })}</>
 }

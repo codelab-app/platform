@@ -12,6 +12,8 @@ export const NodeRenderer = ({
   node: ComponentElementNode
   enableOverlays?: boolean
 }) => {
+  console.log(node)
+
   const handlers = useComponentHandlers()
 
   const [RootComponent, props] = elementParameterFactory({

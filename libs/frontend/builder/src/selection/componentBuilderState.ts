@@ -1,20 +1,15 @@
+import { __ComponentFragment } from '@codelab/hasura'
 import { useCallback } from 'react'
 import { atom, useRecoilState } from 'recoil'
 
-export interface SelectedComponentType {
-  nodeId: string
-  pageElementId?: string
-  componentElementId: string
-}
-
 export interface ComponentBuilderStateType {
-  selectedElement: SelectedComponentType | undefined
-  hoveringElement: SelectedComponentType | undefined
+  selectedComponent: __ComponentFragment | undefined
+  hoveringComponent: __ComponentFragment | undefined
 }
 
 export const initialComponentBuilderState: ComponentBuilderStateType = {
-  hoveringElement: undefined,
-  selectedElement: undefined,
+  selectedComponent: undefined,
+  hoveringComponent: undefined,
 }
 
 export const componentBuilderState = atom<ComponentBuilderStateType>({
@@ -28,20 +23,20 @@ export const useComponentBuilder = () => {
   )
 
   const setSelected = useCallback(
-    (selectedElement: SelectedComponentType) => {
+    (selectedComponent: __ComponentFragment | undefined) => {
       return setSelectionState((s) => ({
         ...s,
-        selectedElement,
+        selectedComponent,
       }))
     },
     [setSelectionState],
   )
 
   const setHovering = useCallback(
-    (hoveringElement: SelectedComponentType) => {
+    (hoveringComponent: __ComponentFragment | undefined) => {
       return setSelectionState((s) => ({
         ...s,
-        hoveringElement,
+        hoveringComponent,
       }))
     },
     [setSelectionState],
@@ -50,22 +45,22 @@ export const useComponentBuilder = () => {
   const resetHovering = useCallback(() => {
     setSelectionState((s) => ({
       ...s,
-      hoveringElement: undefined,
+      hoveringComponent: undefined,
     }))
   }, [setSelectionState])
 
   const resetSelected = useCallback(() => {
     setSelectionState((s) => ({
       ...s,
-      selectedElement: undefined,
+      selectedComponent: undefined,
     }))
   }, [setSelectionState])
 
   const reset = useCallback(() => {
     setSelectionState((s) => ({
       ...s,
-      hoveringElement: undefined,
-      selectedElement: undefined,
+      hoveringComponent: undefined,
+      selectedComponent: undefined,
     }))
   }, [setSelectionState])
 
@@ -73,7 +68,8 @@ export const useComponentBuilder = () => {
     setSelected,
     resetHovering,
     setHovering,
-    selectionState,
+    hoveringComponent: selectionState.hoveringComponent,
+    selectedComponent: selectionState.selectedComponent,
     resetSelected,
     reset,
   }

@@ -2,7 +2,6 @@ import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { ComponentContext } from '@codelab/frontend/shared'
 import React, { useContext } from 'react'
 import { Empty, Tabs } from 'antd'
-import { ComponentRenderer } from '@codelab/modules/component'
 import { TabsLayout } from 'apps/web/src/layout/Layout-pane'
 import { PaneConfigComponentElement } from '@codelab/modules/component-element'
 import { useBuilderSelectionState } from '@codelab/frontend/builder'
@@ -19,7 +18,7 @@ const ComponentDetail: NextPageLayout<'builder'> = () => {
   return (
     <div id="Builder" style={{ position: 'relative' }}>
       <h1>Component: {component?.label}</h1>
-      <ComponentRenderer component={component} />
+      {/* <ComponentRenderer component={component} /> */}
     </div>
   )
 }

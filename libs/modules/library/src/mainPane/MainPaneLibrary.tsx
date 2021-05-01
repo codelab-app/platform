@@ -7,7 +7,7 @@ import { UpdateLibraryForm } from '../updateLibrary'
 import { DeleteLibraryForm } from '../deleteLibrary'
 import { GetLibrariesTree } from '../getLibraries/GetLibrariesTree'
 
-export const PaneMainLibrary = () => {
+export const MainPaneLibrary = () => {
   return (
     <PaneMainTemplate title="Library" header={<CreateLibraryButton key={0} />}>
       {/* <GetLibrariesList /> */}

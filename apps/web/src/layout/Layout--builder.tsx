@@ -1,10 +1,10 @@
 import { useBuilderSelectionState } from '@codelab/frontend/builder'
 import { Layout } from 'antd'
 import React, { PropsWithChildren } from 'react'
-import { contentStyle } from '@codelab/frontend/style'
 import { LayoutNavigations } from './Layout-navigations'
-import { WithMainPane } from './Layout.d'
+import { WithMainPane, WithMetaPane } from './Layout.d'
 import { LibraryProvider } from '@codelab/frontend/shared'
+import styled from '@emotion/styled'
 
 const { Sider, Content } = Layout
 
@@ -12,10 +12,17 @@ export const tabsWidth = 40
 export const paneConfigWidth = 320
 export const defaultPaneMainWidth = 480
 
+const MetaPaneSection = styled('div')`
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+`
+
 export const LayoutBuilder = ({
   children,
   MainPane,
-}: PropsWithChildren<WithMainPane>) => {
+  MetaPane = () => <></>,
+}: PropsWithChildren<WithMainPane & WithMetaPane>) => {
   const { reset: resetSelection } = useBuilderSelectionState()
 
   return (
@@ -47,12 +54,13 @@ export const LayoutBuilder = ({
             resetSelection()
           }}
           style={{
-            ...contentStyle,
-            paddingLeft: tabsWidth,
-            paddingRight: paneConfigWidth,
+            minHeight: 'initial',
           }}
         >
           {children}
+          <MetaPaneSection>
+            <MetaPane />
+          </MetaPaneSection>
         </Content>
       </Layout>
     </LibraryProvider>

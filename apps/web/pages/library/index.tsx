@@ -1,19 +1,29 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import React from 'react'
-import { PaneMainLibrary } from '@codelab/modules/library'
+import { MainPaneLibrary } from '@codelab/modules/library'
 import { NextPageLayout } from '../../src/layout/Layout.d'
-import { LayoutComponent } from 'apps/web/src/layout/Layout--component'
+import { LayoutBuilder } from 'apps/web/src/layout/Layout--builder'
+import { MetaPaneComponent } from 'apps/web/src/layout/MetaPaneComponent'
+import { ComponentRenderer } from '@codelab/modules/component'
+import { useComponentBuilder } from '@codelab/frontend/builder'
 
 const Library: NextPageLayout<'builder'> = () => {
+  const { selectedComponent, setSelected } = useComponentBuilder()
+
+  if (!selectedComponent) {
+    return null
+  }
+
   return (
     <div id="Builder" style={{ position: 'relative' }}>
-      Components
+      <ComponentRenderer component={selectedComponent} />
     </div>
   )
 }
 
-Library.Layout = LayoutComponent
-Library.MainPane = PaneMainLibrary
+Library.Layout = LayoutBuilder
+Library.MainPane = MainPaneLibrary
+Library.MetaPane = MetaPaneComponent
 
 export const getServerSideProps = withPageAuthRequired()
 

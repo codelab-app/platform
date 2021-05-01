@@ -1,4 +1,4 @@
-export * from './paneMain'
+export * from './mainPane'
 export * from './getLibraries'
 export * from './createLibrary'
 export * from './deleteLibrary'

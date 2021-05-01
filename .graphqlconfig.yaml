@@ -30,3 +30,4 @@ generates:
     config:
       documentVariableSuffix: 'Gql'
       gqlImport: '@apollo/client#gql'
+      skipTypename: true

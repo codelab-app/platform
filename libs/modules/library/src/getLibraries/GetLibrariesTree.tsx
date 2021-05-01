@@ -3,12 +3,25 @@ import { LibraryContext } from '@codelab/frontend/shared'
 import { useComponentBuilder } from '@codelab/frontend/builder'
 import { Tree } from 'antd'
 import { DataNode } from 'antd/lib/tree'
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
+import { useRouter } from 'next/router'
+import {
+  useGetComponentDetailLazyQuery,
+  __ComponentFragment,
+} from '@codelab/hasura'
 
 export const GetLibrariesTree = () => {
   const { libraries } = useContext(LibraryContext)
-  const { selectionState } = useComponentBuilder()
-  console.log(selectionState)
+  const { selectedComponent, setSelected } = useComponentBuilder()
+  const router = useRouter()
+  const [
+    loadComponent,
+    { called, loading, data },
+  ] = useGetComponentDetailLazyQuery()
+
+  useEffect(() => {
+    setSelected(data?.component_by_pk as __ComponentFragment)
+  }, [data])
 
   const atomTreeData: Array<DataNode> = (libraries ?? []).map((library) => {
     return {
@@ -39,7 +52,6 @@ export const GetLibrariesTree = () => {
           return {
             title: component.label,
             key: component.id,
-
             icon: <DeploymentUnitOutlined />,
           }
         }),
@@ -64,8 +76,19 @@ export const GetLibrariesTree = () => {
 
       <h3>Components</h3>
       <Tree
-        onSelect={(selectedKeys, e) => {
-          console.log(selectedKeys, e)
+        onSelect={([componentId], e) => {
+          // router.push({
+          //   pathname: PageType.LibraryList,
+          //   query: {
+          //     componentId: selectedKeys,
+          //   },
+          // })
+          // setSelected(selectedKeys as string)
+          loadComponent({
+            variables: {
+              componentId,
+            },
+          })
         }}
         draggable
         showIcon

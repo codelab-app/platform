@@ -10,7 +10,7 @@ import { useApollo } from '@codelab/frontend/apollo'
 import '../src/styles/App.less'
 
 const AppContainer = ({ pageProps, Component, router }: AppProps) => {
-  const { Layout, MainPane } = Component as any
+  const { Layout, MainPane, MetaPane } = Component as any
 
   return (
     <RecoilRoot>
@@ -28,7 +28,7 @@ const AppContainer = ({ pageProps, Component, router }: AppProps) => {
             })}
           />
           {Layout ? (
-            <Layout MainPane={MainPane}>
+            <Layout MainPane={MainPane} MetaPane={MetaPane}>
               <Component {...pageProps} />
             </Layout>
           ) : (
