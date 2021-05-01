@@ -14,7 +14,7 @@ import {
   __ComponentFragment,
   Atom_Type_Enum,
   CreateAtomGql,
-  AtomFragment,
+  __AtomFragment,
   DeleteAllAtomsGql,
   CreatePageGql,
 } from '@codelab/hasura'
@@ -198,7 +198,7 @@ const createAtom = (atomType: Atom_Type_Enum) => {
         },
       },
     })
-    .then((r) => r.body.data?.insert_atom_one as AtomFragment)
+    .then((r) => r.body.data?.insert_atom_one as __AtomFragment)
 }
 
 Cypress.Commands.add('createAtom', createAtom)

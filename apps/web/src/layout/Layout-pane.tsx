@@ -1,7 +1,9 @@
 import { useBuilderSelectionState } from '@codelab/frontend/builder'
 import { Tabs } from 'antd'
 import React from 'react'
+import { PaneConfigStyle } from '@codelab/modules/style'
 import styled from '@emotion/styled'
+import { PaneConfigPageElementProps } from '@codelab/modules/prop'
 
 const StyledTabs = styled(Tabs)`
   height: 100%;
@@ -29,28 +31,20 @@ export const LayoutPane = React.memo(() => {
     return null
   }
 
-  // if (pathname === PageType.ComponentDetail) {
-  //   return (
-  //     <PaneConfigLayout>
-  //       <TabPane tab="Inspector" key="1" style={{ height: '100%' }}>
-  //         <PaneConfigComponentElement componentElementId={selectedElement} />
-  //       </TabPane>
-  //     </PaneConfigLayout>
-  //   )
-  // }
+  if (!selectedElement.pageElementId) {
+    return null
+  }
 
-  // return (
-  //   <PaneConfigLayout>
-  //     <TabPane tab="Inspector" key="1" style={{ height: '100%' }}>
-  //       <PaneConfigPageElementInspector pageElementId={selectedElement} />
-  //     </TabPane>
-  //     <TabPane tab="Props" key="2" style={{ height: '100%' }}>
-  //       <PaneConfigPageElementProps pageElementId={selectedElement} />
-  //     </TabPane>
-  //     <TabPane tab="Style" key="3">
-  //       <PaneConfigStyle vertexId={selectedElement} />
-  //     </TabPane>
-  //   </PaneConfigLayout>
-  // )
-  return null
+  return (
+    <TabsLayout>
+      <Tabs.TabPane tab="Props" key="1" style={{ height: '100%' }}>
+        <PaneConfigPageElementProps
+          pageElementId={selectedElement.pageElementId}
+        />
+      </Tabs.TabPane>
+      <Tabs.TabPane tab="Style" key="2">
+        <PaneConfigStyle vertexId={selectedElement.pageElementId} />
+      </Tabs.TabPane>
+    </TabsLayout>
+  )
 })

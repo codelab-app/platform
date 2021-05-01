@@ -1,10 +1,10 @@
 import React, { PropsWithChildren } from 'react'
-import { Query_Root, RootAppQuery, useRootAppQuery } from '@codelab/hasura'
+import { Query_Root, GetAppQuery, useGetAppQuery } from '@codelab/hasura'
 import { PropsWithIds } from '../interfaces'
 
 type IAppContext = PropsWithIds<'appId' | 'pageId'> & {
-  app?: RootAppQuery['app_by_pk']
-  page?: RootAppQuery['page_by_pk']
+  app?: GetAppQuery['app_by_pk']
+  page?: GetAppQuery['page_by_pk']
   styles?: Query_Root['style']
   loading: boolean
 }
@@ -16,7 +16,7 @@ export const _AppProvider = ({
   pageId,
   children,
 }: PropsWithChildren<Pick<IAppContext, 'appId' | 'pageId'>>) => {
-  const { data, loading } = useRootAppQuery({
+  const { data, loading } = useGetAppQuery({
     variables: {
       appId,
       pageId,

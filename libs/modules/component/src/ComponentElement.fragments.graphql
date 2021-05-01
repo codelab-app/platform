@@ -1,4 +1,4 @@
-fragment PageElement__ComponentElement on component_element {
+fragment __ComponentElement on component_element {
   id
   label
   hocs {

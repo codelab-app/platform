@@ -1,6 +1,5 @@
 import React from 'react'
 import { PaneMainTemplate } from '@codelab/frontend/layout'
-import { GetLibrariesList } from '../getLibraries'
 import { CreateLibraryButton } from '../createLibrary/CreateLibraryButton'
 import { CrudModal, EntityType, ActionType } from '@codelab/frontend/shared'
 import { CreateLibraryForm } from '../createLibrary'
@@ -11,7 +10,7 @@ import { GetLibrariesTree } from '../getLibraries/GetLibrariesTree'
 export const PaneMainLibrary = () => {
   return (
     <PaneMainTemplate title="Library" header={<CreateLibraryButton key={0} />}>
-      <GetLibrariesList />
+      {/* <GetLibrariesList /> */}
       <GetLibrariesTree />
       <CrudModal
         entityType={EntityType.Library}

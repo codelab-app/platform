@@ -1,8 +1,8 @@
-fragment PageElement__Component on component {
+fragment __Component on component {
   id
   label
   elements {
-    ...PageElement__ComponentElement
+    ...__ComponentElement
   }
   links {
     ...PageElement__ComponentLink

@@ -1,9 +1,9 @@
 import { randomAtomType } from '../support/testUtils'
 import {
-  AtomFragment,
+  __AtomFragment,
   CreateComponentElementGql,
   __ComponentFragment,
-  PageElement__ComponentElementFragment,
+  __ComponentElementFragment,
 } from '@codelab/hasura'
 import { print } from 'graphql'
 
@@ -25,7 +25,7 @@ const getAndExpandElementInTree = (label: string) => {
 describe('Component element', () => {
   let libraryId: string
   let component: __ComponentFragment
-  let atom: AtomFragment
+  let atom: __AtomFragment
 
   before(() => {
     cy.clearCookies()
@@ -69,7 +69,7 @@ describe('Component element', () => {
       .then(
         (r) =>
           r.body.data
-            .insert_component_element_one as PageElement__ComponentElementFragment,
+            .insert_component_element_one as __ComponentElementFragment,
       )
 
   const openComponentsTab = () => {

@@ -4,6 +4,7 @@ import React, { PropsWithChildren } from 'react'
 import { contentStyle } from '@codelab/frontend/style'
 import { LayoutNavigations } from './Layout-navigations'
 import { WithMainPane } from './Layout.d'
+import { LibraryProvider } from '@codelab/frontend/shared'
 
 const { Sider, Content } = Layout
 
@@ -18,40 +19,42 @@ export const LayoutBuilder = ({
   const { reset: resetSelection } = useBuilderSelectionState()
 
   return (
-    <Layout style={{ height: '100%' }}>
-      <Sider
-        theme="light"
-        style={{ height: '100%' }}
-        collapsed
-        collapsedWidth={40}
-      >
-        <LayoutNavigations />
-      </Sider>
-      <Sider
-        theme="light"
-        width={paneConfigWidth}
-        style={{
-          overflowY: 'scroll',
-          // position: 'fixed',
-          height: '100%',
-          top: 0,
-          // right: 0,
-        }}
-      >
-        <MainPane />
-      </Sider>
-      <Content
-        onClick={() => {
-          resetSelection()
-        }}
-        style={{
-          ...contentStyle,
-          paddingLeft: tabsWidth,
-          paddingRight: paneConfigWidth,
-        }}
-      >
-        {children}
-      </Content>
-    </Layout>
+    <LibraryProvider>
+      <Layout style={{ height: '100%' }}>
+        <Sider
+          theme="light"
+          style={{ height: '100%' }}
+          collapsed
+          collapsedWidth={40}
+        >
+          <LayoutNavigations />
+        </Sider>
+        <Sider
+          theme="light"
+          width={paneConfigWidth}
+          style={{
+            overflowY: 'scroll',
+            // position: 'fixed',
+            height: '100%',
+            top: 0,
+            // right: 0,
+          }}
+        >
+          <MainPane />
+        </Sider>
+        <Content
+          onClick={() => {
+            resetSelection()
+          }}
+          style={{
+            ...contentStyle,
+            paddingLeft: tabsWidth,
+            paddingRight: paneConfigWidth,
+          }}
+        >
+          {children}
+        </Content>
+      </Layout>
+    </LibraryProvider>
   )
 }

@@ -1,4 +1,4 @@
-query RootApp($appId: uuid!, $pageId: uuid!) {
+query GetApp($appId: uuid!, $pageId: uuid!) {
   app_by_pk(id: $appId) {
     ...User__App
   }

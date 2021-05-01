@@ -3,11 +3,11 @@ import { ComponentContext } from '@codelab/frontend/shared'
 import React, { useContext } from 'react'
 import { Empty, Tabs } from 'antd'
 import { ComponentRenderer } from '@codelab/modules/component'
-import { LayoutComponentDetail } from 'apps/web/src/layout/Layout-componentDetail'
 import { TabsLayout } from 'apps/web/src/layout/Layout-pane'
 import { PaneConfigComponentElement } from '@codelab/modules/component-element'
 import { useBuilderSelectionState } from '@codelab/frontend/builder'
 import { NextPageLayout } from '../../../src/layout/Layout.d'
+import { LayoutComponentDetail } from 'apps/web/src/layout/Layout--componentDetail'
 
 const ComponentDetail: NextPageLayout<'builder'> = () => {
   const { component } = useContext(ComponentContext)
@@ -38,7 +38,9 @@ const ComponentDetailMainPane = (props: { componentElementId: string }) => {
   return (
     <TabsLayout>
       <Tabs.TabPane tab="Inspector" key="1" style={{ height: '100%' }}>
-        <PaneConfigComponentElement componentElementId={selectedElement} />
+        <PaneConfigComponentElement
+          componentElementId={selectedElement.componentElementId}
+        />
       </Tabs.TabPane>
     </TabsLayout>
   )

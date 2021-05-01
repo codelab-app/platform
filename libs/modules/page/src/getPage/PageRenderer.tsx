@@ -5,7 +5,9 @@ import {
   PageRootNode,
 } from '@codelab/frontend/shared'
 import { CytoscapeService } from '@codelab/frontend/cytoscape'
-import { RootAppGql, useCreatePageElementMutation } from '@codelab/hasura'
+import { NodeRenderer } from '@codelab/frontend/builder'
+import { GetAppGql, useAddPageElementMutation } from '@codelab/hasura'
+import { ComponentDropHandler } from '@codelab/frontend/builder'
 import { App__PageFragment } from '@codelab/hasura'
 import {
   nodeRendererFactory,
@@ -22,7 +24,7 @@ export const PageRenderer = ({ page }: GetPageLayoutProps) => {
   const [addPageElement] = useCreatePageElementMutation({
     refetchQueries: [
       {
-        query: RootAppGql,
+        query: GetAppGql,
         variables: {
           appId,
           pageId,

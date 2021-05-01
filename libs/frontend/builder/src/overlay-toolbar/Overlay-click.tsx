@@ -7,7 +7,7 @@ import {
   OverlayToolbar,
 } from '@codelab/frontend/builder'
 import { useRecoilValue } from 'recoil'
-import { RootAppGql, useDeletePageElementMutation } from '@codelab/hasura'
+import { GetAppGql, useDeletePageElementMutation } from '@codelab/hasura'
 import { nodeToElementMapState } from '../renderer/nodeToElementMapState'
 
 export const ClickOverlay = () => {
@@ -19,7 +19,7 @@ export const ClickOverlay = () => {
   ] = useDeletePageElementMutation({
     refetchQueries: [
       {
-        query: RootAppGql,
+        query: GetAppGql,
         variables: {
           pageId,
           appId,

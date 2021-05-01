@@ -3,9 +3,9 @@ import { ActionType, CrudModal, EntityType } from '@codelab/frontend/shared'
 import { CreateComponentButton } from '../createComponent/CreateComponentButton'
 import { CreateComponentForm } from '../createComponent/CreateComponentForm'
 import { DeleteComponentForm } from '../deleteComponent/DeleteComponentForm'
-import { GetComponentsList } from '../getComponents/GetComponentsList'
 import { PaneMainTemplate } from '@codelab/frontend/layout'
 import { UpdateComponentForm } from '../updateComponent/UpdateComponentForm'
+import { ComponentsTree } from '../componentsTree/componentsTree'
 
 export const PaneMainComponent = () => {
   return (
@@ -13,8 +13,8 @@ export const PaneMainComponent = () => {
       title="Component"
       header={<CreateComponentButton key={1} />}
     >
-      <GetComponentsList />
-
+      {/* <GetComponentsList /> */}
+      <ComponentsTree />
       <CrudModal
         modalProps={{
           className: 'create-component-modal',

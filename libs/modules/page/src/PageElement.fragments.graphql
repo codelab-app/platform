@@ -3,7 +3,7 @@ fragment Page__PageElement on page_element {
   name
   page_id
   component {
-    ...PageElement__Component
+    ...__Component
   }
   props {
     ...PropCollection

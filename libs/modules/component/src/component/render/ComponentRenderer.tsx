@@ -1,10 +1,10 @@
 import React from 'react'
 import { CytoscapeService } from '@codelab/frontend/cytoscape'
 import { NodeRenderer } from '@codelab/frontend/builder'
-import { PageElement__ComponentFragment } from '@codelab/hasura'
+import { __ComponentFragment } from '@codelab/hasura'
 
 type ComponentRendererProps = {
-  component: PageElement__ComponentFragment
+  component: __ComponentFragment
 }
 
 export const ComponentRenderer = ({ component }: ComponentRendererProps) => {

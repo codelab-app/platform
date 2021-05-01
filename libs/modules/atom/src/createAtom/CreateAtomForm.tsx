@@ -1,14 +1,16 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import {
   createNotificationHandler,
   EntityType,
   FormUniforms,
+  LibraryContext,
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-
+import _ from 'lodash'
 import {
   GetAtomsListGql,
+  GetLibrariesGql,
   useCreateAtomMutation,
   useGetAtomsTypesQuery,
 } from '@codelab/hasura'
@@ -20,14 +22,24 @@ type CreateAtomFormProps = UniFormUseCaseProps<CreateAtomInput>
 
 export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
   const { reset, setLoading } = useCRUDModalForm(EntityType.Atom)
+  const { libraries } = useContext(LibraryContext)
 
+  // Only Editors can modify Atoms
   const [mutate, { loading: creating }] = useCreateAtomMutation({
     awaitRefetchQueries: true,
     refetchQueries: [
       {
         query: GetAtomsListGql,
       },
+      {
+        query: GetLibrariesGql,
+      },
     ],
+    context: {
+      headers: {
+        'X-Hasura-Role': 'admin',
+      },
+    },
   })
 
   useEffect(() => {
@@ -35,20 +47,26 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
   }, [creating])
 
   const onSubmit = (submitData: DeepPartial<CreateAtomInput>) => {
+    console.log(submitData)
+
     return mutate({
       variables: {
         data: {
-          ...(submitData as any),
+          library_id: submitData?.library,
+          type: submitData.type,
         },
       },
     })
   }
   const { data } = useGetAtomsTypesQuery()
-  const atomTypesOptions = data?.atom_type?.map((t) => ({
-    ...t,
-    label: t.value,
-    type: t.value,
-  }))
+
+  const atomTypesOptions = _.chain(data?.atom_type)
+    .map((t) => ({
+      label: t.value,
+      value: t.value,
+    }))
+    .orderBy('label')
+    .value()
 
   return (
     <FormUniforms<CreateAtomInput>
@@ -62,6 +80,13 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
       onSubmitSuccess={() => reset()}
       {...props}
     >
+      <SelectField
+        name="library"
+        options={libraries?.map((library) => ({
+          label: library.name,
+          value: library.id,
+        }))}
+      />
       <SelectField name="type" options={atomTypesOptions} />
     </FormUniforms>
   )

@@ -17,6 +17,7 @@
   ],
   "plugins": [
     "@emotion",
+    "xwind/babel",
     [
       "import",
       {

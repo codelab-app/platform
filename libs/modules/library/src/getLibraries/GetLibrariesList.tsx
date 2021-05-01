@@ -40,7 +40,6 @@ export const GetLibrariesList = () => {
             <ListItemSettingsButton
               onClick={() => openUpdateModal(library.id)}
             />
-
             <ListItemDeleteButton onClick={() => openDeleteModal(library.id)} />
           </Space>
         </List.Item>

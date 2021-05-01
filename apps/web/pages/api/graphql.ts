@@ -37,12 +37,23 @@ app.use('*', async (baseReq, baseRes, next) => {
     },
     onProxyReq: (proxyReq, req) => {
       if (session) {
-        const xHasuraUserId =
-          session.user['https://hasura.io/jwt/claims']['x-hasura-user-id']
+        // console.log(
+        //   session.user['https://hasura.io/jwt/claims'][
+        //     'x-hasura-allowed-roles'
+        //   ],
+        // )
 
-        proxyReq.setHeader('X-Hasura-User-Id', xHasuraUserId)
+        const xHasura = session.user['https://hasura.io/jwt/claims']
+
+        proxyReq.setHeader('X-Hasura-User-Id', xHasura['x-hasura-user-id'])
+        // proxyReq.setHeader(
+        //   'X-Hasura-Default-Role',
+        //   xHasura['x-hasura-default-role'],
+        // )
         proxyReq.setHeader('Authorization', `Bearer ${session.idToken}`)
         // proxyReq.setHeader('x-hasura-admin-secret', process.env.HASURA_GRAPHQL_ADMIN_SECRET as string)
+
+        // console.log(proxyReq.getHeaders())
       }
 
       if (req.body) {

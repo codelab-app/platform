@@ -6,6 +6,6 @@ mutation UpdateComponentElement(
     pk_columns: { id: $componentElementId }
     _set: $input
   ) {
-    ...PageElement__ComponentElement
+    ...__ComponentElement
   }
 }

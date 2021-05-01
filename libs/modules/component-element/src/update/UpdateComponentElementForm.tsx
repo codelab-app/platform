@@ -2,7 +2,7 @@ import React, { useContext, useRef } from 'react'
 import { UpdateComponentElementInput } from './updateComponentElementSchema'
 import {
   GetComponentDetailGql,
-  PageElement__ComponentElementFragment,
+  __ComponentElementFragment,
   useUpdateComponentElementMutation,
 } from '@codelab/hasura'
 import {
@@ -14,7 +14,7 @@ import { DeepPartial } from 'uniforms'
 import { CreateComponentElementFormBase } from '../create/CreateComponentElementFormBase'
 
 type UpdateComponentElementFormProps = UniFormUseCaseProps<UpdateComponentElementInput> & {
-  componentElement: PageElement__ComponentElementFragment
+  componentElement: __ComponentElementFragment
 }
 
 /** Not intended to be used in a modal */

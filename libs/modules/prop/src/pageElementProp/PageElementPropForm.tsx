@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import {
   CreatePageElementPropMutation,
   PropCollection__PropFragment,
-  RootAppGql,
+  GetAppGql,
   UpdatePropValueMutation,
   useCreatePageElementPropMutation,
   useUpdatePropValueMutation,
@@ -54,7 +54,7 @@ export const PageElementPropForm = ({
   const [createPageElementProp] = useCreatePageElementPropMutation({
     refetchQueries: [
       {
-        query: RootAppGql,
+        query: GetAppGql,
         variables: { pageId, appId },
       },
     ],
@@ -62,7 +62,7 @@ export const PageElementPropForm = ({
   const [updatePropValue] = useUpdatePropValueMutation({
     refetchQueries: [
       {
-        query: RootAppGql,
+        query: GetAppGql,
         variables: { pageId, appId },
       },
     ],

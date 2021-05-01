@@ -1,33 +1,27 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Menu } from 'antd'
-import { PageType, PaneType } from '@codelab/frontend/shared'
+import { LibraryContext, PageType, PaneType } from '@codelab/frontend/shared'
 import {
   ApartmentOutlined,
   AppstoreOutlined,
   BookOutlined,
   CopyOutlined,
   DeploymentUnitOutlined,
+  FileTextOutlined,
   FunctionOutlined,
 } from '@ant-design/icons'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useGetLibrariesQuery } from '@codelab/hasura'
-
-const { SubMenu } = Menu
+import xw from 'xwind'
 
 export const LayoutNavigations = () => {
   const router = useRouter()
-  const {
-    data: librariesData,
-    loading: loadingLibraries,
-  } = useGetLibrariesQuery()
-
-  console.log(loadingLibraries, librariesData?.library[0].id)
+  const { libraries } = useContext(LibraryContext)
 
   return (
-    <div data-testid="pane-main">
+    <div data-testid="pane-main" css={xw`h-full`}>
       <Menu
-        style={{ width: '100%' }}
+        css={xw`w-full h-full`}
         defaultSelectedKeys={[router.pathname]}
         defaultOpenKeys={[]}
         mode="inline"
@@ -39,18 +33,6 @@ export const LayoutNavigations = () => {
           <Link href={PageType.AppList}>Apps</Link>
         </Menu.Item>
         <Menu.Divider />
-        {/* <SubMenu
-          key="sub1"
-          icon={
-            <BookOutlined data-testid="library-tab-trigger" title="Library" />
-          }
-          title="Library"
-        >
-          <Menu.Item key="2">Library</Menu.Item>
-          <Menu.Divider />
-          <Menu.Item key="3">Atom</Menu.Item>
-          <Menu.Item key="4">Component</Menu.Item>
-        </SubMenu> */}
         <Menu.Item
           key={PageType.PageDetail}
           icon={<CopyOutlined data-testid="page-tab-trigger" title="Pages" />}
@@ -74,7 +56,7 @@ export const LayoutNavigations = () => {
         </Menu.Item>
         <Menu.Divider />
         <Menu.Item
-          key="component"
+          key={PageType.LibraryList}
           icon={
             <BookOutlined data-testid="library-tab-trigger" title="Library" />
           }
@@ -89,7 +71,7 @@ export const LayoutNavigations = () => {
           </Link>
         </Menu.Item>
         <Menu.Item
-          key="atom"
+          key={PageType.AtomList}
           icon={
             <DeploymentUnitOutlined
               data-testid="atom-tab-trigger"
@@ -97,22 +79,35 @@ export const LayoutNavigations = () => {
             />
           }
         >
-          {loadingLibraries ? (
-            'Atom'
-          ) : (
-            <Link
-              href={{
-                pathname: PageType.AtomList,
-                query: {
-                  libraryId: librariesData?.library[0].id,
-                  // atomId: 'adfa',
-                },
-              }}
-            >
-              Atom
-            </Link>
-          )}
+          <Link
+            href={{
+              pathname: PageType.AtomList,
+              query: {
+                libraryId: libraries?.[0].id,
+              },
+            }}
+          >
+            Atom
+          </Link>
         </Menu.Item>
+        <Menu.Item
+          key={PageType.ComponentList}
+          icon={
+            <FileTextOutlined
+              data-testid="component-tab-trigger"
+              title="Component"
+            />
+          }
+        >
+          <Link
+            href={{
+              pathname: PageType.ComponentList,
+            }}
+          >
+            Component
+          </Link>
+        </Menu.Item>
+        <Menu.Divider />
         <Menu.Item
           key="lambda"
           icon={
@@ -124,6 +119,7 @@ export const LayoutNavigations = () => {
         >
           Lambda
         </Menu.Item>
+        <Menu.Divider />
       </Menu>
     </div>
   )

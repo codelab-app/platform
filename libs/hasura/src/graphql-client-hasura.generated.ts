@@ -10193,12 +10193,12 @@ export type User__AppFragment = { __typename?: 'app' } & Pick<
   'id' | 'user_id' | 'name'
 > & { pages: Array<{ __typename?: 'page' } & App__PageFragment> }
 
-export type RootAppQueryVariables = Exact<{
+export type GetAppQueryVariables = Exact<{
   appId: Scalars['uuid']
   pageId: Scalars['uuid']
 }>
 
-export type RootAppQuery = { __typename?: 'query_root' } & {
+export type GetAppQuery = { __typename?: 'query_root' } & {
   app_by_pk?: Maybe<{ __typename?: 'app' } & User__AppFragment>
   page_by_pk?: Maybe<{ __typename?: 'page' } & App__PageFragment>
 }
@@ -10219,11 +10219,11 @@ export type DeleteAppMutation = { __typename?: 'mutation_root' } & {
   delete_app_by_pk?: Maybe<{ __typename?: 'app' } & User__AppFragment>
 }
 
-export type GetAppQueryVariables = Exact<{
+export type GetAppItemQueryVariables = Exact<{
   appId: Scalars['uuid']
 }>
 
-export type GetAppQuery = { __typename?: 'query_root' } & {
+export type GetAppItemQuery = { __typename?: 'query_root' } & {
   app_by_pk?: Maybe<{ __typename?: 'app' } & User__AppFragment>
 }
 
@@ -10345,7 +10345,7 @@ export type CreateComponentElementMutation = {
   __typename?: 'mutation_root'
 } & {
   insert_component_element_one?: Maybe<
-    { __typename?: 'component_element' } & PageElement__ComponentElementFragment
+    { __typename?: 'component_element' } & __ComponentElementFragment
   >
 }
 
@@ -10377,7 +10377,7 @@ export type GetComponentElementQueryVariables = Exact<{
 
 export type GetComponentElementQuery = { __typename?: 'query_root' } & {
   component_element_by_pk?: Maybe<
-    { __typename?: 'component_element' } & PageElement__ComponentElementFragment
+    { __typename?: 'component_element' } & __ComponentElementFragment
   >
 }
 
@@ -10390,24 +10390,23 @@ export type UpdateComponentElementMutation = {
   __typename?: 'mutation_root'
 } & {
   update_component_element_by_pk?: Maybe<
-    { __typename?: 'component_element' } & PageElement__ComponentElementFragment
+    { __typename?: 'component_element' } & __ComponentElementFragment
   >
 }
 
-export type PageElement__ComponentFragment = {
-  __typename?: 'component'
-} & Pick<Component, 'id' | 'label'> & {
+export type __ComponentFragment = { __typename?: 'component' } & Pick<
+  Component,
+  'id' | 'label'
+> & {
     elements: Array<
-      {
-        __typename?: 'component_element'
-      } & PageElement__ComponentElementFragment
+      { __typename?: 'component_element' } & __ComponentElementFragment
     >
     links: Array<
       { __typename?: 'component_link' } & PageElement__ComponentLinkFragment
     >
   }
 
-export type PageElement__ComponentElementFragment = {
+export type __ComponentElementFragment = {
   __typename?: 'component_element'
 } & Pick<Component_Element, 'id' | 'label'> & {
     hocs: Array<
@@ -10488,9 +10487,7 @@ export type GetComponentDetailQueryVariables = Exact<{
 }>
 
 export type GetComponentDetailQuery = { __typename?: 'query_root' } & {
-  component_by_pk?: Maybe<
-    { __typename?: 'component' } & PageElement__ComponentFragment
-  >
+  component_by_pk?: Maybe<{ __typename?: 'component' } & __ComponentFragment>
 }
 
 export type __ComponentFragment = { __typename?: 'component' } & Pick<
@@ -10712,7 +10709,7 @@ export type Page__PageElementFragment = { __typename?: 'page_element' } & Pick<
   Page_Element,
   'id' | 'name' | 'page_id'
 > & {
-    component: { __typename?: 'component' } & PageElement__ComponentFragment
+    component: { __typename?: 'component' } & __ComponentFragment
     props?: Maybe<{ __typename?: 'prop_c' } & PropCollectionFragment>
   }
 
@@ -11010,8 +11007,13 @@ export const Library__CategoryFragmentDoc = gql`
 export const __ComponentFragmentDoc = gql`
   fragment __Component on component {
     id
-    label
+    tags {
+      tag {
+        ...__Tag
+      }
+    }
   }
+  ${__TagFragmentDoc}
 `
 export const ValueTypeFragmentDoc = gql`
   fragment ValueType on value_type {
@@ -11225,19 +11227,69 @@ export const PageElement__ComponentLinkFragmentDoc = gql`
     target_element_id
   }
 `
-export const PageElement__ComponentFragmentDoc = gql`
-  fragment PageElement__Component on component {
+export const __ComponentFragmentDoc = gql`
+  fragment __Component on component {
     id
     label
     elements {
-      ...PageElement__ComponentElement
+      ...__ComponentElement
     }
     links {
       ...PageElement__ComponentLink
     }
   }
-  ${PageElement__ComponentElementFragmentDoc}
+  ${__ComponentElementFragmentDoc}
   ${PageElement__ComponentLinkFragmentDoc}
+`
+export const Library__LambdaFragmentDoc = gql`
+  fragment Library__Lambda on lambda {
+    id
+    body
+    name
+  }
+`
+export const __LibraryFragmentDoc = gql`
+  fragment __Library on library {
+    id
+    name
+    categories {
+      ...Library__Category
+    }
+    components {
+      ...__Component
+    }
+    atoms {
+      ...__Atom
+    }
+    lambdas {
+      ...Library__Lambda
+    }
+    propTypes {
+      propTypes {
+        ...PropTypeCollection__PropType
+      }
+    }
+    props {
+      props {
+        ...PropCollection__Prop
+      }
+    }
+    styles {
+      ...Library__Style
+    }
+    tags {
+      ...__Tag
+    }
+    user_id
+  }
+  ${Library__CategoryFragmentDoc}
+  ${__ComponentFragmentDoc}
+  ${__AtomFragmentDoc}
+  ${Library__LambdaFragmentDoc}
+  ${PropTypeCollection__PropTypeFragmentDoc}
+  ${PropCollection__PropFragmentDoc}
+  ${Library__StyleFragmentDoc}
+  ${__TagFragmentDoc}
 `
 export const Page__PageElementFragmentDoc = gql`
   fragment Page__PageElement on page_element {
@@ -11245,13 +11297,13 @@ export const Page__PageElementFragmentDoc = gql`
     name
     page_id
     component {
-      ...PageElement__Component
+      ...__Component
     }
     props {
       ...PropCollection
     }
   }
-  ${PageElement__ComponentFragmentDoc}
+  ${__ComponentFragmentDoc}
   ${PropCollectionFragmentDoc}
 `
 export const Page__PageLinkFragmentDoc = gql`
@@ -11349,8 +11401,8 @@ export type DeleteUserAppsMutationOptions = Apollo.BaseMutationOptions<
   DeleteUserAppsMutation,
   DeleteUserAppsMutationVariables
 >
-export const RootAppGql = gql`
-  query RootApp($appId: uuid!, $pageId: uuid!) {
+export const GetAppGql = gql`
+  query GetApp($appId: uuid!, $pageId: uuid!) {
     app_by_pk(id: $appId) {
       ...User__App
     }
@@ -11363,48 +11415,42 @@ export const RootAppGql = gql`
 `
 
 /**
- * __useRootAppQuery__
+ * __useGetAppQuery__
  *
- * To run a query within a React component, call `useRootAppQuery` and pass it any options that fit your needs.
- * When your component renders, `useRootAppQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetAppQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAppQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useRootAppQuery({
+ * const { data, loading, error } = useGetAppQuery({
  *   variables: {
  *      appId: // value for 'appId'
  *      pageId: // value for 'pageId'
  *   },
  * });
  */
-export function useRootAppQuery(
-  baseOptions: Apollo.QueryHookOptions<RootAppQuery, RootAppQueryVariables>,
+export function useGetAppQuery(
+  baseOptions: Apollo.QueryHookOptions<GetAppQuery, GetAppQueryVariables>,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<RootAppQuery, RootAppQueryVariables>(
-    RootAppGql,
+  return Apollo.useQuery<GetAppQuery, GetAppQueryVariables>(GetAppGql, options)
+}
+export function useGetAppLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetAppQuery, GetAppQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetAppQuery, GetAppQueryVariables>(
+    GetAppGql,
     options,
   )
 }
-export function useRootAppLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    RootAppQuery,
-    RootAppQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<RootAppQuery, RootAppQueryVariables>(
-    RootAppGql,
-    options,
-  )
-}
-export type RootAppQueryHookResult = ReturnType<typeof useRootAppQuery>
-export type RootAppLazyQueryHookResult = ReturnType<typeof useRootAppLazyQuery>
-export type RootAppQueryResult = Apollo.QueryResult<
-  RootAppQuery,
-  RootAppQueryVariables
+export type GetAppQueryHookResult = ReturnType<typeof useGetAppQuery>
+export type GetAppLazyQueryHookResult = ReturnType<typeof useGetAppLazyQuery>
+export type GetAppQueryResult = Apollo.QueryResult<
+  GetAppQuery,
+  GetAppQueryVariables
 >
 export const CreateAppGql = gql`
   mutation CreateApp($input: app_insert_input!) {
@@ -11506,8 +11552,8 @@ export type DeleteAppMutationOptions = Apollo.BaseMutationOptions<
   DeleteAppMutation,
   DeleteAppMutationVariables
 >
-export const GetAppGql = gql`
-  query GetApp($appId: uuid!) {
+export const GetAppItemGql = gql`
+  query GetAppItem($appId: uuid!) {
     app_by_pk(id: $appId) {
       ...User__App
     }
@@ -11516,41 +11562,52 @@ export const GetAppGql = gql`
 `
 
 /**
- * __useGetAppQuery__
+ * __useGetAppItemQuery__
  *
- * To run a query within a React component, call `useGetAppQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetAppQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetAppItemQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAppItemQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetAppQuery({
+ * const { data, loading, error } = useGetAppItemQuery({
  *   variables: {
  *      appId: // value for 'appId'
  *   },
  * });
  */
-export function useGetAppQuery(
-  baseOptions: Apollo.QueryHookOptions<GetAppQuery, GetAppQueryVariables>,
+export function useGetAppItemQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetAppItemQuery,
+    GetAppItemQueryVariables
+  >,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<GetAppQuery, GetAppQueryVariables>(GetAppGql, options)
-}
-export function useGetAppLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<GetAppQuery, GetAppQueryVariables>,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<GetAppQuery, GetAppQueryVariables>(
-    GetAppGql,
+  return Apollo.useQuery<GetAppItemQuery, GetAppItemQueryVariables>(
+    GetAppItemGql,
     options,
   )
 }
-export type GetAppQueryHookResult = ReturnType<typeof useGetAppQuery>
-export type GetAppLazyQueryHookResult = ReturnType<typeof useGetAppLazyQuery>
-export type GetAppQueryResult = Apollo.QueryResult<
-  GetAppQuery,
-  GetAppQueryVariables
+export function useGetAppItemLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetAppItemQuery,
+    GetAppItemQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetAppItemQuery, GetAppItemQueryVariables>(
+    GetAppItemGql,
+    options,
+  )
+}
+export type GetAppItemQueryHookResult = ReturnType<typeof useGetAppItemQuery>
+export type GetAppItemLazyQueryHookResult = ReturnType<
+  typeof useGetAppItemLazyQuery
+>
+export type GetAppItemQueryResult = Apollo.QueryResult<
+  GetAppItemQuery,
+  GetAppItemQueryVariables
 >
 export const GetAppsListGql = gql`
   query GetAppsList {
@@ -12085,10 +12142,10 @@ export type UpdateAtomMutationOptions = Apollo.BaseMutationOptions<
 export const CreateComponentElementGql = gql`
   mutation CreateComponentElement($input: component_element_insert_input!) {
     insert_component_element_one(object: $input) {
-      ...PageElement__ComponentElement
+      ...__ComponentElement
     }
   }
-  ${PageElement__ComponentElementFragmentDoc}
+  ${__ComponentElementFragmentDoc}
 `
 export type CreateComponentElementMutationFn = Apollo.MutationFunction<
   CreateComponentElementMutation,
@@ -12234,10 +12291,10 @@ export type DeleteComponentElementMutationOptions = Apollo.BaseMutationOptions<
 export const GetComponentElementGql = gql`
   query GetComponentElement($componentElementId: uuid!) {
     component_element_by_pk(id: $componentElementId) {
-      ...PageElement__ComponentElement
+      ...__ComponentElement
     }
   }
-  ${PageElement__ComponentElementFragmentDoc}
+  ${__ComponentElementFragmentDoc}
 `
 
 /**
@@ -12299,10 +12356,10 @@ export const UpdateComponentElementGql = gql`
       pk_columns: { id: $componentElementId }
       _set: $input
     ) {
-      ...PageElement__ComponentElement
+      ...__ComponentElement
     }
   }
-  ${PageElement__ComponentElementFragmentDoc}
+  ${__ComponentElementFragmentDoc}
 `
 export type UpdateComponentElementMutationFn = Apollo.MutationFunction<
   UpdateComponentElementMutation,
@@ -12556,10 +12613,10 @@ export type GetComponentQueryResult = Apollo.QueryResult<
 export const GetComponentDetailGql = gql`
   query GetComponentDetail($componentId: uuid!) {
     component_by_pk(id: $componentId) {
-      ...PageElement__Component
+      ...__Component
     }
   }
-  ${PageElement__ComponentFragmentDoc}
+  ${__ComponentFragmentDoc}
 `
 
 /**
@@ -14560,8 +14617,13 @@ export const Library__Category = gql`
 export const __Component = gql`
   fragment __Component on component {
     id
-    label
+    tags {
+      tag {
+        ...__Tag
+      }
+    }
   }
+  ${__Tag}
 `
 export const ValueType = gql`
   fragment ValueType on value_type {
@@ -14775,19 +14837,69 @@ export const PageElement__ComponentLink = gql`
     target_element_id
   }
 `
-export const PageElement__Component = gql`
-  fragment PageElement__Component on component {
+export const __Component = gql`
+  fragment __Component on component {
     id
     label
     elements {
-      ...PageElement__ComponentElement
+      ...__ComponentElement
     }
     links {
       ...PageElement__ComponentLink
     }
   }
-  ${PageElement__ComponentElement}
+  ${__ComponentElement}
   ${PageElement__ComponentLink}
+`
+export const Library__Lambda = gql`
+  fragment Library__Lambda on lambda {
+    id
+    body
+    name
+  }
+`
+export const __Library = gql`
+  fragment __Library on library {
+    id
+    name
+    categories {
+      ...Library__Category
+    }
+    components {
+      ...__Component
+    }
+    atoms {
+      ...__Atom
+    }
+    lambdas {
+      ...Library__Lambda
+    }
+    propTypes {
+      propTypes {
+        ...PropTypeCollection__PropType
+      }
+    }
+    props {
+      props {
+        ...PropCollection__Prop
+      }
+    }
+    styles {
+      ...Library__Style
+    }
+    tags {
+      ...__Tag
+    }
+    user_id
+  }
+  ${Library__Category}
+  ${__Component}
+  ${__Atom}
+  ${Library__Lambda}
+  ${PropTypeCollection__PropType}
+  ${PropCollection__Prop}
+  ${Library__Style}
+  ${__Tag}
 `
 export const Page__PageElement = gql`
   fragment Page__PageElement on page_element {
@@ -14795,13 +14907,13 @@ export const Page__PageElement = gql`
     name
     page_id
     component {
-      ...PageElement__Component
+      ...__Component
     }
     props {
       ...PropCollection
     }
   }
-  ${PageElement__Component}
+  ${__Component}
   ${PropCollection}
 `
 export const Page__PageLink = gql`
@@ -14857,8 +14969,8 @@ export const DeleteUserApps = gql`
     }
   }
 `
-export const RootApp = gql`
-  query RootApp($appId: uuid!, $pageId: uuid!) {
+export const GetApp = gql`
+  query GetApp($appId: uuid!, $pageId: uuid!) {
     app_by_pk(id: $appId) {
       ...User__App
     }
@@ -14885,8 +14997,8 @@ export const DeleteApp = gql`
   }
   ${User__App}
 `
-export const GetApp = gql`
-  query GetApp($appId: uuid!) {
+export const GetAppItem = gql`
+  query GetAppItem($appId: uuid!) {
     app_by_pk(id: $appId) {
       ...User__App
     }
@@ -14974,10 +15086,10 @@ export const UpdateAtom = gql`
 export const CreateComponentElement = gql`
   mutation CreateComponentElement($input: component_element_insert_input!) {
     insert_component_element_one(object: $input) {
-      ...PageElement__ComponentElement
+      ...__ComponentElement
     }
   }
-  ${PageElement__ComponentElement}
+  ${__ComponentElement}
 `
 export const CreateComponentLink = gql`
   mutation CreateComponentLink($input: component_link_insert_input!) {
@@ -14997,10 +15109,10 @@ export const DeleteComponentElement = gql`
 export const GetComponentElement = gql`
   query GetComponentElement($componentElementId: uuid!) {
     component_element_by_pk(id: $componentElementId) {
-      ...PageElement__ComponentElement
+      ...__ComponentElement
     }
   }
-  ${PageElement__ComponentElement}
+  ${__ComponentElement}
 `
 export const UpdateComponentElement = gql`
   mutation UpdateComponentElement(
@@ -15011,10 +15123,10 @@ export const UpdateComponentElement = gql`
       pk_columns: { id: $componentElementId }
       _set: $input
     ) {
-      ...PageElement__ComponentElement
+      ...__ComponentElement
     }
   }
-  ${PageElement__ComponentElement}
+  ${__ComponentElement}
 `
 export const CreateComponent = gql`
   mutation CreateComponent($input: component_insert_input!) {
@@ -15049,10 +15161,10 @@ export const GetComponent = gql`
 export const GetComponentDetail = gql`
   query GetComponentDetail($componentId: uuid!) {
     component_by_pk(id: $componentId) {
-      ...PageElement__Component
+      ...__Component
     }
   }
-  ${PageElement__Component}
+  ${__Component}
 `
 export const GetComponents = gql`
   query GetComponents {
