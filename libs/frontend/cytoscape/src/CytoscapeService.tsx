@@ -13,7 +13,7 @@ import {
 import { propDataEntityToModel } from '@codelab/modules/prop'
 import {
   App__PageFragment,
-  AtomFragment,
+  __AtomFragment,
   PageElement__ComponentFragment,
 } from '@codelab/hasura'
 
@@ -109,7 +109,7 @@ export class CytoscapeService {
           const data: ComponentElementNode = {
             id: componentElement.id,
             nodeType: NodeType.ComponentElement,
-            atom: componentElement.atom as AtomFragment,
+            atom: componentElement.atom as __AtomFragment,
             label: componentElement.label,
             props: {
               //Normalize the props fragments into a react-readable key value map

@@ -117,8 +117,7 @@ export const elementParameterFactory = <TNode extends ComponentElementNode>({
     return [null, {}]
   }
 
-  const type = node.atom.type
-
+  const type = node.atom.type as AtomType
   const component = elementTypeMap[type]
 
   if (!component) {

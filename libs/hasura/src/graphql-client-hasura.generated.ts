@@ -270,10 +270,10 @@ export enum App_Update_Column {
 /** columns and relationships of "atom" */
 export type Atom = {
   __typename?: 'atom'
-  /** An object relationship */
-  atomType: Atom_Type
+  _atom_type?: Maybe<Atom_Type_Enum>
   id: Scalars['uuid']
   library_id?: Maybe<Scalars['uuid']>
+  owner_id?: Maybe<Scalars['String']>
   /** An object relationship */
   propTypes?: Maybe<Prop_Type_C>
   prop_type_c_id?: Maybe<Scalars['uuid']>
@@ -285,7 +285,7 @@ export type Atom = {
   tags: Array<Tag_Atom>
   /** An aggregate relationship */
   tags_aggregate: Tag_Atom_Aggregate
-  type: Atom_Type_Enum
+  type: Scalars['String']
 }
 
 /** columns and relationships of "atom" */
@@ -362,16 +362,17 @@ export type Atom_Arr_Rel_Insert_Input = {
 /** Boolean expression to filter rows from the table "atom". All fields are combined with a logical 'AND'. */
 export type Atom_Bool_Exp = {
   _and?: Maybe<Array<Atom_Bool_Exp>>
+  _atom_type?: Maybe<Atom_Type_Enum_Comparison_Exp>
   _not?: Maybe<Atom_Bool_Exp>
   _or?: Maybe<Array<Atom_Bool_Exp>>
-  atomType?: Maybe<Atom_Type_Bool_Exp>
   id?: Maybe<Uuid_Comparison_Exp>
   library_id?: Maybe<Uuid_Comparison_Exp>
+  owner_id?: Maybe<String_Comparison_Exp>
   propTypes?: Maybe<Prop_Type_C_Bool_Exp>
   prop_type_c_id?: Maybe<Uuid_Comparison_Exp>
   styles?: Maybe<Style_Atom_Bool_Exp>
   tags?: Maybe<Tag_Atom_Bool_Exp>
-  type?: Maybe<Atom_Type_Enum_Comparison_Exp>
+  type?: Maybe<String_Comparison_Exp>
 }
 
 /** unique or primary key constraints on table "atom" */
@@ -382,14 +383,15 @@ export enum Atom_Constraint {
 
 /** input type for inserting data into table "atom" */
 export type Atom_Insert_Input = {
-  atomType?: Maybe<Atom_Type_Obj_Rel_Insert_Input>
+  _atom_type?: Maybe<Atom_Type_Enum>
   id?: Maybe<Scalars['uuid']>
   library_id?: Maybe<Scalars['uuid']>
+  owner_id?: Maybe<Scalars['String']>
   propTypes?: Maybe<Prop_Type_C_Obj_Rel_Insert_Input>
   prop_type_c_id?: Maybe<Scalars['uuid']>
   styles?: Maybe<Style_Atom_Arr_Rel_Insert_Input>
   tags?: Maybe<Tag_Atom_Arr_Rel_Insert_Input>
-  type?: Maybe<Atom_Type_Enum>
+  type?: Maybe<Scalars['String']>
 }
 
 /** aggregate max on columns */
@@ -397,14 +399,18 @@ export type Atom_Max_Fields = {
   __typename?: 'atom_max_fields'
   id?: Maybe<Scalars['uuid']>
   library_id?: Maybe<Scalars['uuid']>
+  owner_id?: Maybe<Scalars['String']>
   prop_type_c_id?: Maybe<Scalars['uuid']>
+  type?: Maybe<Scalars['String']>
 }
 
 /** order by max() on columns of table "atom" */
 export type Atom_Max_Order_By = {
   id?: Maybe<Order_By>
   library_id?: Maybe<Order_By>
+  owner_id?: Maybe<Order_By>
   prop_type_c_id?: Maybe<Order_By>
+  type?: Maybe<Order_By>
 }
 
 /** aggregate min on columns */
@@ -412,14 +418,18 @@ export type Atom_Min_Fields = {
   __typename?: 'atom_min_fields'
   id?: Maybe<Scalars['uuid']>
   library_id?: Maybe<Scalars['uuid']>
+  owner_id?: Maybe<Scalars['String']>
   prop_type_c_id?: Maybe<Scalars['uuid']>
+  type?: Maybe<Scalars['String']>
 }
 
 /** order by min() on columns of table "atom" */
 export type Atom_Min_Order_By = {
   id?: Maybe<Order_By>
   library_id?: Maybe<Order_By>
+  owner_id?: Maybe<Order_By>
   prop_type_c_id?: Maybe<Order_By>
+  type?: Maybe<Order_By>
 }
 
 /** response of any mutation on the table "atom" */
@@ -447,9 +457,10 @@ export type Atom_On_Conflict = {
 
 /** Ordering options when selecting data from "atom". */
 export type Atom_Order_By = {
-  atomType?: Maybe<Atom_Type_Order_By>
+  _atom_type?: Maybe<Order_By>
   id?: Maybe<Order_By>
   library_id?: Maybe<Order_By>
+  owner_id?: Maybe<Order_By>
   propTypes?: Maybe<Prop_Type_C_Order_By>
   prop_type_c_id?: Maybe<Order_By>
   styles_aggregate?: Maybe<Style_Atom_Aggregate_Order_By>
@@ -465,9 +476,13 @@ export type Atom_Pk_Columns_Input = {
 /** select columns of table "atom" */
 export enum Atom_Select_Column {
   /** column name */
+  AtomType = '_atom_type',
+  /** column name */
   Id = 'id',
   /** column name */
   LibraryId = 'library_id',
+  /** column name */
+  OwnerId = 'owner_id',
   /** column name */
   PropTypeCId = 'prop_type_c_id',
   /** column name */
@@ -476,10 +491,12 @@ export enum Atom_Select_Column {
 
 /** input type for updating data in table "atom" */
 export type Atom_Set_Input = {
+  _atom_type?: Maybe<Atom_Type_Enum>
   id?: Maybe<Scalars['uuid']>
   library_id?: Maybe<Scalars['uuid']>
+  owner_id?: Maybe<Scalars['String']>
   prop_type_c_id?: Maybe<Scalars['uuid']>
-  type?: Maybe<Atom_Type_Enum>
+  type?: Maybe<Scalars['String']>
 }
 
 /** columns and relationships of "atom_type" */
@@ -669,13 +686,6 @@ export type Atom_Type_Mutation_Response = {
   returning: Array<Atom_Type>
 }
 
-/** input type for inserting object relation for remote table "atom_type" */
-export type Atom_Type_Obj_Rel_Insert_Input = {
-  data: Atom_Type_Insert_Input
-  /** on conflict condition */
-  on_conflict?: Maybe<Atom_Type_On_Conflict>
-}
-
 /** on conflict condition type for table "atom_type" */
 export type Atom_Type_On_Conflict = {
   constraint: Atom_Type_Constraint
@@ -719,9 +729,13 @@ export enum Atom_Type_Update_Column {
 /** update columns of table "atom" */
 export enum Atom_Update_Column {
   /** column name */
+  AtomType = '_atom_type',
+  /** column name */
   Id = 'id',
   /** column name */
   LibraryId = 'library_id',
+  /** column name */
+  OwnerId = 'owner_id',
   /** column name */
   PropTypeCId = 'prop_type_c_id',
   /** column name */

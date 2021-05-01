@@ -38,19 +38,19 @@ export const PaneMainComponentTree = () => {
           treeData={[data]}
           blockNode
           onMouseEnter={({ node }) => {
-            setHovering({
-              componentElementId: (node as any).componentElementId,
-              nodeId: (node as any).id,
-            })
+            // setHovering({
+            //   componentElementId: (node as any).componentElementId,
+            //   nodeId: (node as any).id,
+            // })
           }}
           onMouseLeave={({ node }) => {
             resetHovering()
           }}
           onSelect={([id], { node }) => {
-            setSelected({
-              componentElementId: (node as any).componentElementId,
-              nodeId: (node as any).id,
-            })
+            // setSelected({
+            //   componentElementId: (node as any).componentElementId,
+            //   nodeId: (node as any).id,
+            // })
           }}
           titleRender={(node) => {
             const label = (node as any).label

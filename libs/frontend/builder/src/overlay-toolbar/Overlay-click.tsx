@@ -32,10 +32,8 @@ export const ClickOverlay = () => {
   const { selectedElement } = useRecoilValue(builderElementSelectionState)
 
   const { node, element } =
-    nodeToElementMap &&
-    selectedElement &&
-    nodeToElementMap[selectedElement.nodeId]
-      ? nodeToElementMap[selectedElement.nodeId]
+    nodeToElementMap && selectedElement && nodeToElementMap[selectedElement]
+      ? nodeToElementMap[selectedElement]
       : { node: undefined, element: undefined }
 
   if (!element) {
@@ -47,7 +45,7 @@ export const ClickOverlay = () => {
       overlayElement={element}
       content={
         <div className="click-overlay-toolbar">
-          <span>{node?.type}</span>
+          <span>{node?.nodeType}</span>
           <div className="click-overlay-toolbar--button-group">
             <Button
               size="small"

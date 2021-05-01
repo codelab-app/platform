@@ -12,10 +12,8 @@ export const HoverOverlay = () => {
   const { hoveringElement } = useRecoilValue(builderElementSelectionState)
 
   const { node, element } =
-    nodeToElementMap &&
-    hoveringElement &&
-    nodeToElementMap[hoveringElement.nodeId]
-      ? nodeToElementMap[hoveringElement.nodeId]
+    nodeToElementMap && hoveringElement && nodeToElementMap[hoveringElement]
+      ? nodeToElementMap[hoveringElement]
       : { node: undefined, element: undefined }
 
   if (!element) {
@@ -36,7 +34,7 @@ export const HoverOverlay = () => {
           color: 'rgb(41, 205, 255)',
         },
       }}
-      content={<div>{node?.type}</div>}
+      content={<div>{node?.nodeType}</div>}
     />
   )
 }
