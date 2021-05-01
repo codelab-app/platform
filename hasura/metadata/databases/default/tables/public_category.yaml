@@ -1,65 +1,65 @@
 array_relationships:
-- name: componentLinks
-  using:
-    foreign_key_constraint_on:
-      column: category_id
-      table:
-        name: component_link
-        schema: public
-- name: tags
-  using:
-    foreign_key_constraint_on:
-      column: category_id
-      table:
-        name: tag
-        schema: public
+  - name: componentLinks
+    using:
+      foreign_key_constraint_on:
+        column: category_id
+        table:
+          name: component_link
+          schema: public
+  - name: tags
+    using:
+      foreign_key_constraint_on:
+        column: category_id
+        table:
+          name: tag
+          schema: public
 delete_permissions:
-- permission:
-    filter:
-      library:
-        user_id:
-          _eq: X-Hasura-User-Id
-  role: user
+  - permission:
+      filter:
+        library:
+          user_id:
+            _eq: X-Hasura-User-Id
+    role: user
 insert_permissions:
-- permission:
-    backend_only: false
-    check:
-      library:
-        user_id:
-          _eq: X-Hasura-User-Id
-    columns:
-    - library_id
-    - name
-  role: user
+  - permission:
+      backend_only: false
+      check:
+        library:
+          user_id:
+            _eq: X-Hasura-User-Id
+      columns:
+        - library_id
+        - name
+    role: user
 object_relationships:
-- name: library
-  using:
-    foreign_key_constraint_on: library_id
+  - name: library
+    using:
+      foreign_key_constraint_on: library_id
 select_permissions:
-- permission:
-    columns:
-    - id
-    - library_id
-    - name
-    filter:
-      library:
-        user_id:
-          _eq: X-Hasura-User-Id
-  role: user
+  - permission:
+      columns:
+        - id
+        - library_id
+        - name
+      filter:
+        library:
+          user_id:
+            _eq: X-Hasura-User-Id
+    role: user
 table:
   name: category
   schema: public
 update_permissions:
-- permission:
-    check:
-      library:
-        user_id:
-          _eq: X-Hasura-User-Id
-    columns:
-    - library_id
-    - name
-    filter:
-      library:
-        user_id:
-          _eq: X-Hasura-User-Id
-  role: user
+  - permission:
+      check:
+        library:
+          user_id:
+            _eq: X-Hasura-User-Id
+      columns:
+        - library_id
+        - name
+      filter:
+        library:
+          user_id:
+            _eq: X-Hasura-User-Id
+    role: user

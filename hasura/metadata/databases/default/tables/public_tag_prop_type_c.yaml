@@ -1,57 +1,57 @@
 delete_permissions:
-- permission:
-    filter:
-      propTypeCollection:
-        library:
-          user_id:
-            _eq: X-Hasura-User-Id
-  role: user
+  - permission:
+      filter:
+        propTypeCollection:
+          library:
+            user_id:
+              _eq: X-Hasura-User-Id
+    role: user
 insert_permissions:
-- permission:
-    backend_only: false
-    check:
-      propTypeCollection:
-        library:
-          user_id:
-            _eq: X-Hasura-User-Id
-    columns:
-    - prop_type_c_id
-    - tag_id
-  role: user
+  - permission:
+      backend_only: false
+      check:
+        propTypeCollection:
+          library:
+            user_id:
+              _eq: X-Hasura-User-Id
+      columns:
+        - prop_type_c_id
+        - tag_id
+    role: user
 object_relationships:
-- name: propTypeCollection
-  using:
-    foreign_key_constraint_on: prop_type_c_id
-- name: tag
-  using:
-    foreign_key_constraint_on: tag_id
+  - name: propTypeCollection
+    using:
+      foreign_key_constraint_on: prop_type_c_id
+  - name: tag
+    using:
+      foreign_key_constraint_on: tag_id
 select_permissions:
-- permission:
-    columns:
-    - prop_type_c_id
-    - tag_id
-    filter:
-      propTypeCollection:
-        library:
-          user_id:
-            _eq: X-Hasura-User-Id
-  role: user
+  - permission:
+      columns:
+        - prop_type_c_id
+        - tag_id
+      filter:
+        propTypeCollection:
+          library:
+            user_id:
+              _eq: X-Hasura-User-Id
+    role: user
 table:
   name: tag_prop_type_c
   schema: public
 update_permissions:
-- permission:
-    check:
-      propTypeCollection:
-        library:
-          user_id:
-            _eq: X-Hasura-User-Id
-    columns:
-    - prop_type_c_id
-    - tag_id
-    filter:
-      propTypeCollection:
-        library:
-          user_id:
-            _eq: X-Hasura-User-Id
-  role: user
+  - permission:
+      check:
+        propTypeCollection:
+          library:
+            user_id:
+              _eq: X-Hasura-User-Id
+      columns:
+        - prop_type_c_id
+        - tag_id
+      filter:
+        propTypeCollection:
+          library:
+            user_id:
+              _eq: X-Hasura-User-Id
+    role: user
