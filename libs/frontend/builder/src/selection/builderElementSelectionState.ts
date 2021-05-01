@@ -1,15 +1,9 @@
 import { useCallback } from 'react'
 import { atom, useRecoilState } from 'recoil'
 
-export interface SelectedElementType {
-  nodeId: string
-  pageElementId?: string
-  componentElementId: string
-}
-
 export interface BuilderSelectionStateType {
-  selectedElement: SelectedElementType | undefined
-  hoveringElement: SelectedElementType | undefined
+  selectedElement: string | undefined
+  hoveringElement: string | undefined
 }
 
 export const initialBuilderElementSelectionState: BuilderSelectionStateType = {
@@ -28,7 +22,7 @@ export const useBuilderSelectionState = () => {
   )
 
   const setSelected = useCallback(
-    (selectedElement: SelectedElementType) => {
+    (selectedElement: string | undefined) => {
       return setSelectionState((s) => ({
         ...s,
         selectedElement,
@@ -38,7 +32,7 @@ export const useBuilderSelectionState = () => {
   )
 
   const setHovering = useCallback(
-    (hoveringElement: SelectedElementType) => {
+    (hoveringElement: string | undefined) => {
       return setSelectionState((s) => ({
         ...s,
         hoveringElement,

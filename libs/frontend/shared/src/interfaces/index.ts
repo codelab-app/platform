@@ -1,6 +1,6 @@
 export * from './PropsWithIds'
 export * from './Tabs'
 export * from './Hasura'
-export * from './NodeA'
+export * from './Nodes'
 export * from './Router'
 export * from './dragAndDrop'

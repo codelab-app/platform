@@ -1,10 +1,21 @@
 import { Empty, Tree } from 'antd'
 import React, { useContext } from 'react'
-import { AppContext, AtomType } from '@codelab/frontend/shared'
+import {
+  ActionType,
+  AppContext,
+  AtomType,
+  CrudModal,
+  EntityType,
+  NodeBase,
+} from '@codelab/frontend/shared'
 import { PaneMainTemplate } from '@codelab/frontend/layout'
 import { CytoscapeService } from '@codelab/frontend/cytoscape'
 import { DataNode } from 'antd/lib/tree'
 import { useBuilderSelectionState } from '@codelab/frontend/builder'
+import {
+  CreatePageElementButton,
+  CreatePageElementForm,
+} from '../pageElement/createPageElement'
 
 export const PaneMainTree = () => {
   const { setSelected, setHovering, resetHovering } = useBuilderSelectionState()
@@ -26,47 +37,25 @@ export const PaneMainTree = () => {
   }
 
   return (
-    <PaneMainTemplate title="Tree">
+    <PaneMainTemplate title="Tree" header={<CreatePageElementButton key={1} />}>
       {data ? (
         <Tree
           className="draggable-tree"
           // defaultExpandedKeys={this.state.expandedKeys}
           blockNode
           onMouseEnter={({ node }) => {
-            setHovering({
-              pageElementId: (node as any).pageElementId,
-              componentElementId: (node as any).componentElementId,
-              nodeId: (node as any).id,
-            })
+            setHovering(((node as any) as NodeBase).id)
           }}
-          onMouseLeave={({ node }) => {
+          onMouseLeave={() => {
             resetHovering()
           }}
           onSelect={([id], { node }) => {
-            setSelected({
-              pageElementId: (node as any).pageElementId,
-              componentElementId: (node as any).componentElementId,
-              nodeId: (node as any).id,
-            })
+            setSelected(((node as any) as NodeBase).id)
           }}
           titleRender={(node) => {
             const label = (node as any).label
-            const type = (node as any).type
 
-            return (
-              <>
-                {label}{' '}
-                <span
-                  style={{
-                    color: '#787878',
-                    fontWeight: 'lighter',
-                    fontSize: '0.6rem',
-                  }}
-                >
-                  ({type})
-                </span>
-              </>
-            )
+            return <>{label}</>
           }}
           onDrop={onDrop}
           treeData={[data]}
@@ -74,6 +63,13 @@ export const PaneMainTree = () => {
       ) : (
         <Empty />
       )}
+
+      <CrudModal
+        entityType={EntityType.PageElement}
+        actionType={ActionType.Create}
+        okText={'Create'}
+        renderForm={() => <CreatePageElementForm />}
+      />
     </PaneMainTemplate>
   )
 }

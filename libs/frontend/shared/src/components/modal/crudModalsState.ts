@@ -11,6 +11,7 @@ export enum ActionType {
 export enum EntityType {
   None = 'None',
   Page = 'Page',
+  PageElement = 'PageElement',
   Atom = 'Atom',
   App = 'App',
   Style = 'Style',

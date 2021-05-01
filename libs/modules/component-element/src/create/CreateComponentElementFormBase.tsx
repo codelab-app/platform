@@ -15,7 +15,7 @@ import { SelectField, AutoFields } from 'uniforms-antd'
 type CreateComponentElementFormProps = UniFormUseCaseProps<CreateComponentElementInput> &
   Pick<
     FormUniformsProps<CreateComponentElementInput>,
-    'onSubmit' | 'onSubmitSuccess' | 'model'
+    'onSubmit' | 'onSubmitSuccess' | 'model' | 'autosave' | 'autosaveDelay'
   >
 
 /**

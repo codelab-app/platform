@@ -2,14 +2,14 @@
  * treeWalker passes in a new parent at each level
  */
 
-import { NodeA } from '../interfaces/NodeA'
+import { Nodes } from '../interfaces/ComponentElementNode'
 import { TreeNode } from './tree-node'
 import { TraversalIteratee, TreeSubTreeAcc } from './tree-walker'
 
 export const treeAppenderIteratee: TraversalIteratee<
   TreeNode,
   TreeSubTreeAcc<TreeNode>
-> = ({ parent }: TreeSubTreeAcc<TreeNode>, child: NodeA) => {
+> = ({ parent }: TreeSubTreeAcc<TreeNode>, child: Nodes) => {
   /**
    * Since we removed passing children into treeWalker from tree-factory, or the initial call to treeWalker, the parent & the child are the same for the first pass.
    *

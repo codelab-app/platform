@@ -270,10 +270,10 @@ export enum App_Update_Column {
 /** columns and relationships of "atom" */
 export type Atom = {
   __typename?: 'atom'
-  /** An object relationship */
-  atomType: Atom_Type
+  _atom_type?: Maybe<Atom_Type_Enum>
   id: Scalars['uuid']
   library_id?: Maybe<Scalars['uuid']>
+  owner_id?: Maybe<Scalars['String']>
   /** An object relationship */
   propTypes?: Maybe<Prop_Type_C>
   prop_type_c_id?: Maybe<Scalars['uuid']>
@@ -285,7 +285,7 @@ export type Atom = {
   tags: Array<Tag_Atom>
   /** An aggregate relationship */
   tags_aggregate: Tag_Atom_Aggregate
-  type: Atom_Type_Enum
+  type: Scalars['String']
 }
 
 /** columns and relationships of "atom" */
@@ -362,16 +362,17 @@ export type Atom_Arr_Rel_Insert_Input = {
 /** Boolean expression to filter rows from the table "atom". All fields are combined with a logical 'AND'. */
 export type Atom_Bool_Exp = {
   _and?: Maybe<Array<Atom_Bool_Exp>>
+  _atom_type?: Maybe<Atom_Type_Enum_Comparison_Exp>
   _not?: Maybe<Atom_Bool_Exp>
   _or?: Maybe<Array<Atom_Bool_Exp>>
-  atomType?: Maybe<Atom_Type_Bool_Exp>
   id?: Maybe<Uuid_Comparison_Exp>
   library_id?: Maybe<Uuid_Comparison_Exp>
+  owner_id?: Maybe<String_Comparison_Exp>
   propTypes?: Maybe<Prop_Type_C_Bool_Exp>
   prop_type_c_id?: Maybe<Uuid_Comparison_Exp>
   styles?: Maybe<Style_Atom_Bool_Exp>
   tags?: Maybe<Tag_Atom_Bool_Exp>
-  type?: Maybe<Atom_Type_Enum_Comparison_Exp>
+  type?: Maybe<String_Comparison_Exp>
 }
 
 /** unique or primary key constraints on table "atom" */
@@ -382,14 +383,15 @@ export enum Atom_Constraint {
 
 /** input type for inserting data into table "atom" */
 export type Atom_Insert_Input = {
-  atomType?: Maybe<Atom_Type_Obj_Rel_Insert_Input>
+  _atom_type?: Maybe<Atom_Type_Enum>
   id?: Maybe<Scalars['uuid']>
   library_id?: Maybe<Scalars['uuid']>
+  owner_id?: Maybe<Scalars['String']>
   propTypes?: Maybe<Prop_Type_C_Obj_Rel_Insert_Input>
   prop_type_c_id?: Maybe<Scalars['uuid']>
   styles?: Maybe<Style_Atom_Arr_Rel_Insert_Input>
   tags?: Maybe<Tag_Atom_Arr_Rel_Insert_Input>
-  type?: Maybe<Atom_Type_Enum>
+  type?: Maybe<Scalars['String']>
 }
 
 /** aggregate max on columns */
@@ -397,14 +399,18 @@ export type Atom_Max_Fields = {
   __typename?: 'atom_max_fields'
   id?: Maybe<Scalars['uuid']>
   library_id?: Maybe<Scalars['uuid']>
+  owner_id?: Maybe<Scalars['String']>
   prop_type_c_id?: Maybe<Scalars['uuid']>
+  type?: Maybe<Scalars['String']>
 }
 
 /** order by max() on columns of table "atom" */
 export type Atom_Max_Order_By = {
   id?: Maybe<Order_By>
   library_id?: Maybe<Order_By>
+  owner_id?: Maybe<Order_By>
   prop_type_c_id?: Maybe<Order_By>
+  type?: Maybe<Order_By>
 }
 
 /** aggregate min on columns */
@@ -412,14 +418,18 @@ export type Atom_Min_Fields = {
   __typename?: 'atom_min_fields'
   id?: Maybe<Scalars['uuid']>
   library_id?: Maybe<Scalars['uuid']>
+  owner_id?: Maybe<Scalars['String']>
   prop_type_c_id?: Maybe<Scalars['uuid']>
+  type?: Maybe<Scalars['String']>
 }
 
 /** order by min() on columns of table "atom" */
 export type Atom_Min_Order_By = {
   id?: Maybe<Order_By>
   library_id?: Maybe<Order_By>
+  owner_id?: Maybe<Order_By>
   prop_type_c_id?: Maybe<Order_By>
+  type?: Maybe<Order_By>
 }
 
 /** response of any mutation on the table "atom" */
@@ -447,9 +457,10 @@ export type Atom_On_Conflict = {
 
 /** Ordering options when selecting data from "atom". */
 export type Atom_Order_By = {
-  atomType?: Maybe<Atom_Type_Order_By>
+  _atom_type?: Maybe<Order_By>
   id?: Maybe<Order_By>
   library_id?: Maybe<Order_By>
+  owner_id?: Maybe<Order_By>
   propTypes?: Maybe<Prop_Type_C_Order_By>
   prop_type_c_id?: Maybe<Order_By>
   styles_aggregate?: Maybe<Style_Atom_Aggregate_Order_By>
@@ -465,9 +476,13 @@ export type Atom_Pk_Columns_Input = {
 /** select columns of table "atom" */
 export enum Atom_Select_Column {
   /** column name */
+  AtomType = '_atom_type',
+  /** column name */
   Id = 'id',
   /** column name */
   LibraryId = 'library_id',
+  /** column name */
+  OwnerId = 'owner_id',
   /** column name */
   PropTypeCId = 'prop_type_c_id',
   /** column name */
@@ -476,10 +491,12 @@ export enum Atom_Select_Column {
 
 /** input type for updating data in table "atom" */
 export type Atom_Set_Input = {
+  _atom_type?: Maybe<Atom_Type_Enum>
   id?: Maybe<Scalars['uuid']>
   library_id?: Maybe<Scalars['uuid']>
+  owner_id?: Maybe<Scalars['String']>
   prop_type_c_id?: Maybe<Scalars['uuid']>
-  type?: Maybe<Atom_Type_Enum>
+  type?: Maybe<Scalars['String']>
 }
 
 /** columns and relationships of "atom_type" */
@@ -669,13 +686,6 @@ export type Atom_Type_Mutation_Response = {
   returning: Array<Atom_Type>
 }
 
-/** input type for inserting object relation for remote table "atom_type" */
-export type Atom_Type_Obj_Rel_Insert_Input = {
-  data: Atom_Type_Insert_Input
-  /** on conflict condition */
-  on_conflict?: Maybe<Atom_Type_On_Conflict>
-}
-
 /** on conflict condition type for table "atom_type" */
 export type Atom_Type_On_Conflict = {
   constraint: Atom_Type_Constraint
@@ -719,9 +729,13 @@ export enum Atom_Type_Update_Column {
 /** update columns of table "atom" */
 export enum Atom_Update_Column {
   /** column name */
+  AtomType = '_atom_type',
+  /** column name */
   Id = 'id',
   /** column name */
   LibraryId = 'library_id',
+  /** column name */
+  OwnerId = 'owner_id',
   /** column name */
   PropTypeCId = 'prop_type_c_id',
   /** column name */
@@ -10712,16 +10726,6 @@ export type Page__PageLinkFragment = { __typename?: 'page_link' } & Pick<
   | 'target_page_element_id'
 >
 
-export type AddPageElementMutationVariables = Exact<{
-  input: Page_Element_Insert_Input
-}>
-
-export type AddPageElementMutation = { __typename?: 'mutation_root' } & {
-  insert_page_element_one?: Maybe<
-    { __typename?: 'page_element' } & Page__PageElementFragment
-  >
-}
-
 export type CreatePageMutationVariables = Exact<{
   data: Page_Insert_Input
 }>
@@ -10736,16 +10740,6 @@ export type DeletePageMutationVariables = Exact<{
 
 export type DeletePageMutation = { __typename?: 'mutation_root' } & {
   delete_page_by_pk?: Maybe<{ __typename?: 'page' } & App__PageFragment>
-}
-
-export type DeletePageElementMutationVariables = Exact<{
-  pageElementId: Scalars['uuid']
-}>
-
-export type DeletePageElementMutation = { __typename?: 'mutation_root' } & {
-  delete_page_element_by_pk?: Maybe<
-    { __typename?: 'page_element' } & Page__PageElementFragment
-  >
 }
 
 export type GetPageQueryVariables = Exact<{
@@ -10768,13 +10762,34 @@ export type GetPagesListQuery = { __typename?: 'query_root' } & {
   >
 }
 
-export type UpdatePageMutationVariables = Exact<{
-  input: Page_Set_Input
-  pageId: Scalars['uuid']
+export type CreatePageElementMutationVariables = Exact<{
+  input: Page_Element_Insert_Input
 }>
 
-export type UpdatePageMutation = { __typename?: 'mutation_root' } & {
-  update_page_by_pk?: Maybe<{ __typename?: 'page' } & App__PageFragment>
+export type CreatePageElementMutation = { __typename?: 'mutation_root' } & {
+  insert_page_element_one?: Maybe<
+    { __typename?: 'page_element' } & Page__PageElementFragment
+  >
+}
+
+export type DeletePageElementMutationVariables = Exact<{
+  pageElementId: Scalars['uuid']
+}>
+
+export type DeletePageElementMutation = { __typename?: 'mutation_root' } & {
+  delete_page_element_by_pk?: Maybe<
+    { __typename?: 'page_element' } & Page__PageElementFragment
+  >
+}
+
+export type GetPageElementQueryVariables = Exact<{
+  pageElementId: Scalars['uuid']
+}>
+
+export type GetPageElementQuery = { __typename?: 'query_root' } & {
+  page_element_by_pk?: Maybe<
+    { __typename?: 'page_element' } & Page__PageElementFragment
+  >
 }
 
 export type UpdatePageElementMutationVariables = Exact<{
@@ -10786,6 +10801,15 @@ export type UpdatePageElementMutation = { __typename?: 'mutation_root' } & {
   update_page_element_by_pk?: Maybe<
     { __typename?: 'page_element' } & Page__PageElementFragment
   >
+}
+
+export type UpdatePageMutationVariables = Exact<{
+  input: Page_Set_Input
+  pageId: Scalars['uuid']
+}>
+
+export type UpdatePageMutation = { __typename?: 'mutation_root' } & {
+  update_page_by_pk?: Maybe<{ __typename?: 'page' } & App__PageFragment>
 }
 
 export type CreatePageElementPropMutationVariables = Exact<{
@@ -13465,56 +13489,6 @@ export type UpdateLibraryMutationOptions = Apollo.BaseMutationOptions<
   UpdateLibraryMutation,
   UpdateLibraryMutationVariables
 >
-export const AddPageElementGql = gql`
-  mutation AddPageElement($input: page_element_insert_input!) {
-    insert_page_element_one(object: $input) {
-      ...Page__PageElement
-    }
-  }
-  ${Page__PageElementFragmentDoc}
-`
-export type AddPageElementMutationFn = Apollo.MutationFunction<
-  AddPageElementMutation,
-  AddPageElementMutationVariables
->
-
-/**
- * __useAddPageElementMutation__
- *
- * To run a mutation, you first call `useAddPageElementMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useAddPageElementMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [addPageElementMutation, { data, loading, error }] = useAddPageElementMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useAddPageElementMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    AddPageElementMutation,
-    AddPageElementMutationVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useMutation<
-    AddPageElementMutation,
-    AddPageElementMutationVariables
-  >(AddPageElementGql, options)
-}
-export type AddPageElementMutationHookResult = ReturnType<
-  typeof useAddPageElementMutation
->
-export type AddPageElementMutationResult = Apollo.MutationResult<AddPageElementMutation>
-export type AddPageElementMutationOptions = Apollo.BaseMutationOptions<
-  AddPageElementMutation,
-  AddPageElementMutationVariables
->
 export const CreatePageGql = gql`
   mutation CreatePage($data: page_insert_input!) {
     insert_page_one(object: $data) {
@@ -13614,56 +13588,6 @@ export type DeletePageMutationResult = Apollo.MutationResult<DeletePageMutation>
 export type DeletePageMutationOptions = Apollo.BaseMutationOptions<
   DeletePageMutation,
   DeletePageMutationVariables
->
-export const DeletePageElementGql = gql`
-  mutation DeletePageElement($pageElementId: uuid!) {
-    delete_page_element_by_pk(id: $pageElementId) {
-      ...Page__PageElement
-    }
-  }
-  ${Page__PageElementFragmentDoc}
-`
-export type DeletePageElementMutationFn = Apollo.MutationFunction<
-  DeletePageElementMutation,
-  DeletePageElementMutationVariables
->
-
-/**
- * __useDeletePageElementMutation__
- *
- * To run a mutation, you first call `useDeletePageElementMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useDeletePageElementMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [deletePageElementMutation, { data, loading, error }] = useDeletePageElementMutation({
- *   variables: {
- *      pageElementId: // value for 'pageElementId'
- *   },
- * });
- */
-export function useDeletePageElementMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    DeletePageElementMutation,
-    DeletePageElementMutationVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useMutation<
-    DeletePageElementMutation,
-    DeletePageElementMutationVariables
-  >(DeletePageElementGql, options)
-}
-export type DeletePageElementMutationHookResult = ReturnType<
-  typeof useDeletePageElementMutation
->
-export type DeletePageElementMutationResult = Apollo.MutationResult<DeletePageElementMutation>
-export type DeletePageElementMutationOptions = Apollo.BaseMutationOptions<
-  DeletePageElementMutation,
-  DeletePageElementMutationVariables
 >
 export const GetPageGql = gql`
   query GetPage($pageId: uuid!) {
@@ -13778,56 +13702,164 @@ export type GetPagesListQueryResult = Apollo.QueryResult<
   GetPagesListQuery,
   GetPagesListQueryVariables
 >
-export const UpdatePageGql = gql`
-  mutation UpdatePage($input: page_set_input!, $pageId: uuid!) {
-    update_page_by_pk(_set: $input, pk_columns: { id: $pageId }) {
-      ...App__Page
+export const CreatePageElementGql = gql`
+  mutation CreatePageElement($input: page_element_insert_input!) {
+    insert_page_element_one(object: $input) {
+      ...Page__PageElement
     }
   }
-  ${App__PageFragmentDoc}
+  ${Page__PageElementFragmentDoc}
 `
-export type UpdatePageMutationFn = Apollo.MutationFunction<
-  UpdatePageMutation,
-  UpdatePageMutationVariables
+export type CreatePageElementMutationFn = Apollo.MutationFunction<
+  CreatePageElementMutation,
+  CreatePageElementMutationVariables
 >
 
 /**
- * __useUpdatePageMutation__
+ * __useCreatePageElementMutation__
  *
- * To run a mutation, you first call `useUpdatePageMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdatePageMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useCreatePageElementMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreatePageElementMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [updatePageMutation, { data, loading, error }] = useUpdatePageMutation({
+ * const [createPageElementMutation, { data, loading, error }] = useCreatePageElementMutation({
  *   variables: {
  *      input: // value for 'input'
- *      pageId: // value for 'pageId'
  *   },
  * });
  */
-export function useUpdatePageMutation(
+export function useCreatePageElementMutation(
   baseOptions?: Apollo.MutationHookOptions<
-    UpdatePageMutation,
-    UpdatePageMutationVariables
+    CreatePageElementMutation,
+    CreatePageElementMutationVariables
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useMutation<UpdatePageMutation, UpdatePageMutationVariables>(
-    UpdatePageGql,
+  return Apollo.useMutation<
+    CreatePageElementMutation,
+    CreatePageElementMutationVariables
+  >(CreatePageElementGql, options)
+}
+export type CreatePageElementMutationHookResult = ReturnType<
+  typeof useCreatePageElementMutation
+>
+export type CreatePageElementMutationResult = Apollo.MutationResult<CreatePageElementMutation>
+export type CreatePageElementMutationOptions = Apollo.BaseMutationOptions<
+  CreatePageElementMutation,
+  CreatePageElementMutationVariables
+>
+export const DeletePageElementGql = gql`
+  mutation DeletePageElement($pageElementId: uuid!) {
+    delete_page_element_by_pk(id: $pageElementId) {
+      ...Page__PageElement
+    }
+  }
+  ${Page__PageElementFragmentDoc}
+`
+export type DeletePageElementMutationFn = Apollo.MutationFunction<
+  DeletePageElementMutation,
+  DeletePageElementMutationVariables
+>
+
+/**
+ * __useDeletePageElementMutation__
+ *
+ * To run a mutation, you first call `useDeletePageElementMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeletePageElementMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deletePageElementMutation, { data, loading, error }] = useDeletePageElementMutation({
+ *   variables: {
+ *      pageElementId: // value for 'pageElementId'
+ *   },
+ * });
+ */
+export function useDeletePageElementMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeletePageElementMutation,
+    DeletePageElementMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    DeletePageElementMutation,
+    DeletePageElementMutationVariables
+  >(DeletePageElementGql, options)
+}
+export type DeletePageElementMutationHookResult = ReturnType<
+  typeof useDeletePageElementMutation
+>
+export type DeletePageElementMutationResult = Apollo.MutationResult<DeletePageElementMutation>
+export type DeletePageElementMutationOptions = Apollo.BaseMutationOptions<
+  DeletePageElementMutation,
+  DeletePageElementMutationVariables
+>
+export const GetPageElementGql = gql`
+  query GetPageElement($pageElementId: uuid!) {
+    page_element_by_pk(id: $pageElementId) {
+      ...Page__PageElement
+    }
+  }
+  ${Page__PageElementFragmentDoc}
+`
+
+/**
+ * __useGetPageElementQuery__
+ *
+ * To run a query within a React component, call `useGetPageElementQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPageElementQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPageElementQuery({
+ *   variables: {
+ *      pageElementId: // value for 'pageElementId'
+ *   },
+ * });
+ */
+export function useGetPageElementQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetPageElementQuery,
+    GetPageElementQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetPageElementQuery, GetPageElementQueryVariables>(
+    GetPageElementGql,
     options,
   )
 }
-export type UpdatePageMutationHookResult = ReturnType<
-  typeof useUpdatePageMutation
+export function useGetPageElementLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetPageElementQuery,
+    GetPageElementQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetPageElementQuery, GetPageElementQueryVariables>(
+    GetPageElementGql,
+    options,
+  )
+}
+export type GetPageElementQueryHookResult = ReturnType<
+  typeof useGetPageElementQuery
 >
-export type UpdatePageMutationResult = Apollo.MutationResult<UpdatePageMutation>
-export type UpdatePageMutationOptions = Apollo.BaseMutationOptions<
-  UpdatePageMutation,
-  UpdatePageMutationVariables
+export type GetPageElementLazyQueryHookResult = ReturnType<
+  typeof useGetPageElementLazyQuery
+>
+export type GetPageElementQueryResult = Apollo.QueryResult<
+  GetPageElementQuery,
+  GetPageElementQueryVariables
 >
 export const UpdatePageElementGql = gql`
   mutation UpdatePageElement($id: uuid!, $input: page_element_set_input) {
@@ -13879,6 +13911,57 @@ export type UpdatePageElementMutationResult = Apollo.MutationResult<UpdatePageEl
 export type UpdatePageElementMutationOptions = Apollo.BaseMutationOptions<
   UpdatePageElementMutation,
   UpdatePageElementMutationVariables
+>
+export const UpdatePageGql = gql`
+  mutation UpdatePage($input: page_set_input!, $pageId: uuid!) {
+    update_page_by_pk(_set: $input, pk_columns: { id: $pageId }) {
+      ...App__Page
+    }
+  }
+  ${App__PageFragmentDoc}
+`
+export type UpdatePageMutationFn = Apollo.MutationFunction<
+  UpdatePageMutation,
+  UpdatePageMutationVariables
+>
+
+/**
+ * __useUpdatePageMutation__
+ *
+ * To run a mutation, you first call `useUpdatePageMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdatePageMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updatePageMutation, { data, loading, error }] = useUpdatePageMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *      pageId: // value for 'pageId'
+ *   },
+ * });
+ */
+export function useUpdatePageMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdatePageMutation,
+    UpdatePageMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<UpdatePageMutation, UpdatePageMutationVariables>(
+    UpdatePageGql,
+    options,
+  )
+}
+export type UpdatePageMutationHookResult = ReturnType<
+  typeof useUpdatePageMutation
+>
+export type UpdatePageMutationResult = Apollo.MutationResult<UpdatePageMutation>
+export type UpdatePageMutationOptions = Apollo.BaseMutationOptions<
+  UpdatePageMutation,
+  UpdatePageMutationVariables
 >
 export const CreatePageElementPropGql = gql`
   mutation CreatePageElementProp($propInput: prop_insert_input!) {
@@ -15116,14 +15199,6 @@ export const UpdateLibrary = gql`
   }
   ${__Library}
 `
-export const AddPageElement = gql`
-  mutation AddPageElement($input: page_element_insert_input!) {
-    insert_page_element_one(object: $input) {
-      ...Page__PageElement
-    }
-  }
-  ${Page__PageElement}
-`
 export const CreatePage = gql`
   mutation CreatePage($data: page_insert_input!) {
     insert_page_one(object: $data) {
@@ -15139,14 +15214,6 @@ export const DeletePage = gql`
     }
   }
   ${App__Page}
-`
-export const DeletePageElement = gql`
-  mutation DeletePageElement($pageElementId: uuid!) {
-    delete_page_element_by_pk(id: $pageElementId) {
-      ...Page__PageElement
-    }
-  }
-  ${Page__PageElement}
 `
 export const GetPage = gql`
   query GetPage($pageId: uuid!) {
@@ -15166,13 +15233,29 @@ export const GetPagesList = gql`
   }
   ${App__Page}
 `
-export const UpdatePage = gql`
-  mutation UpdatePage($input: page_set_input!, $pageId: uuid!) {
-    update_page_by_pk(_set: $input, pk_columns: { id: $pageId }) {
-      ...App__Page
+export const CreatePageElement = gql`
+  mutation CreatePageElement($input: page_element_insert_input!) {
+    insert_page_element_one(object: $input) {
+      ...Page__PageElement
     }
   }
-  ${App__Page}
+  ${Page__PageElement}
+`
+export const DeletePageElement = gql`
+  mutation DeletePageElement($pageElementId: uuid!) {
+    delete_page_element_by_pk(id: $pageElementId) {
+      ...Page__PageElement
+    }
+  }
+  ${Page__PageElement}
+`
+export const GetPageElement = gql`
+  query GetPageElement($pageElementId: uuid!) {
+    page_element_by_pk(id: $pageElementId) {
+      ...Page__PageElement
+    }
+  }
+  ${Page__PageElement}
 `
 export const UpdatePageElement = gql`
   mutation UpdatePageElement($id: uuid!, $input: page_element_set_input) {
@@ -15181,6 +15264,14 @@ export const UpdatePageElement = gql`
     }
   }
   ${Page__PageElement}
+`
+export const UpdatePage = gql`
+  mutation UpdatePage($input: page_set_input!, $pageId: uuid!) {
+    update_page_by_pk(_set: $input, pk_columns: { id: $pageId }) {
+      ...App__Page
+    }
+  }
+  ${App__Page}
 `
 export const CreatePageElementProp = gql`
   mutation CreatePageElementProp($propInput: prop_insert_input!) {

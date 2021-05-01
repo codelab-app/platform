@@ -385,12 +385,10 @@ enum app_update_column {
 columns and relationships of "atom"
 """
 type atom {
-  """
-  An object relationship
-  """
-  atomType: atom_type!
+  _atom_type: atom_type_enum
   id: uuid!
   library_id: uuid
+  owner_id: String
 
   """
   An object relationship
@@ -517,7 +515,7 @@ type atom {
     """
     where: tag_atom_bool_exp
   ): tag_atom_aggregate!
-  type: atom_type_enum!
+  type: String!
 }
 
 """
@@ -563,16 +561,17 @@ Boolean expression to filter rows from the table "atom". All fields are combined
 """
 input atom_bool_exp {
   _and: [atom_bool_exp!]
+  _atom_type: atom_type_enum_comparison_exp
   _not: atom_bool_exp
   _or: [atom_bool_exp!]
-  atomType: atom_type_bool_exp
   id: uuid_comparison_exp
   library_id: uuid_comparison_exp
+  owner_id: String_comparison_exp
   propTypes: prop_type_c_bool_exp
   prop_type_c_id: uuid_comparison_exp
   styles: style_atom_bool_exp
   tags: tag_atom_bool_exp
-  type: atom_type_enum_comparison_exp
+  type: String_comparison_exp
 }
 
 """
@@ -589,14 +588,15 @@ enum atom_constraint {
 input type for inserting data into table "atom"
 """
 input atom_insert_input {
-  atomType: atom_type_obj_rel_insert_input
+  _atom_type: atom_type_enum
   id: uuid
   library_id: uuid
+  owner_id: String
   propTypes: prop_type_c_obj_rel_insert_input
   prop_type_c_id: uuid
   styles: style_atom_arr_rel_insert_input
   tags: tag_atom_arr_rel_insert_input
-  type: atom_type_enum
+  type: String
 }
 
 """
@@ -605,7 +605,9 @@ aggregate max on columns
 type atom_max_fields {
   id: uuid
   library_id: uuid
+  owner_id: String
   prop_type_c_id: uuid
+  type: String
 }
 
 """
@@ -614,7 +616,9 @@ order by max() on columns of table "atom"
 input atom_max_order_by {
   id: order_by
   library_id: order_by
+  owner_id: order_by
   prop_type_c_id: order_by
+  type: order_by
 }
 
 """
@@ -623,7 +627,9 @@ aggregate min on columns
 type atom_min_fields {
   id: uuid
   library_id: uuid
+  owner_id: String
   prop_type_c_id: uuid
+  type: String
 }
 
 """
@@ -632,7 +638,9 @@ order by min() on columns of table "atom"
 input atom_min_order_by {
   id: order_by
   library_id: order_by
+  owner_id: order_by
   prop_type_c_id: order_by
+  type: order_by
 }
 
 """
@@ -675,9 +683,10 @@ input atom_on_conflict {
 Ordering options when selecting data from "atom".
 """
 input atom_order_by {
-  atomType: atom_type_order_by
+  _atom_type: order_by
   id: order_by
   library_id: order_by
+  owner_id: order_by
   propTypes: prop_type_c_order_by
   prop_type_c_id: order_by
   styles_aggregate: style_atom_aggregate_order_by
@@ -699,12 +708,22 @@ enum atom_select_column {
   """
   column name
   """
+  _atom_type
+
+  """
+  column name
+  """
   id
 
   """
   column name
   """
   library_id
+
+  """
+  column name
+  """
+  owner_id
 
   """
   column name
@@ -721,10 +740,12 @@ enum atom_select_column {
 input type for updating data in table "atom"
 """
 input atom_set_input {
+  _atom_type: atom_type_enum
   id: uuid
   library_id: uuid
+  owner_id: String
   prop_type_c_id: uuid
-  type: atom_type_enum
+  type: String
 }
 
 """
@@ -930,18 +951,6 @@ type atom_type_mutation_response {
 }
 
 """
-input type for inserting object relation for remote table "atom_type"
-"""
-input atom_type_obj_rel_insert_input {
-  data: atom_type_insert_input!
-
-  """
-  on conflict condition
-  """
-  on_conflict: atom_type_on_conflict
-}
-
-"""
 on conflict condition type for table "atom_type"
 """
 input atom_type_on_conflict {
@@ -1010,12 +1019,22 @@ enum atom_update_column {
   """
   column name
   """
+  _atom_type
+
+  """
+  column name
+  """
   id
 
   """
   column name
   """
   library_id
+
+  """
+  column name
+  """
+  owner_id
 
   """
   column name

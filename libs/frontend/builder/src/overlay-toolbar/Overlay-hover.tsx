@@ -2,7 +2,7 @@ import {
   builderElementSelectionState,
   OverlayToolbar,
 } from '@codelab/frontend/builder'
-import { NodeA } from '@codelab/frontend/shared'
+import { ComponentElementNode } from '@codelab/frontend/shared'
 import React from 'react'
 import { useRecoilValue } from 'recoil'
 import { nodeToElementMapState } from '../renderer/nodeToElementMapState'
@@ -12,10 +12,8 @@ export const HoverOverlay = () => {
   const { hoveringElement } = useRecoilValue(builderElementSelectionState)
 
   const { node, element } =
-    nodeToElementMap &&
-    hoveringElement &&
-    nodeToElementMap[hoveringElement.nodeId]
-      ? nodeToElementMap[hoveringElement.nodeId]
+    nodeToElementMap && hoveringElement && nodeToElementMap[hoveringElement]
+      ? nodeToElementMap[hoveringElement]
       : { node: undefined, element: undefined }
 
   if (!element) {
@@ -23,7 +21,7 @@ export const HoverOverlay = () => {
   }
 
   return (
-    <OverlayToolbar<NodeA>
+    <OverlayToolbar<ComponentElementNode>
       overlayElement={element}
       containerProps={{
         style: {
@@ -36,7 +34,7 @@ export const HoverOverlay = () => {
           color: 'rgb(41, 205, 255)',
         },
       }}
-      content={<div>{node?.type}</div>}
+      content={<div>{node?.nodeType}</div>}
     />
   )
 }

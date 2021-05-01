@@ -11,5 +11,5 @@ export const ComponentRenderer = ({ component }: ComponentRendererProps) => {
   const cy = CytoscapeService.fromComponent(component)
   const root = CytoscapeService.componentTree(cy)
 
-  return <NodeRenderer node={root} enableOverlays={false} />
+  return <NodeRenderer node={root as any} enableOverlays={false} />
 }

@@ -53,6 +53,7 @@ export const UpdateComponentElementForm = ({
       <CreateComponentElementFormBase
         onSubmit={onSubmit}
         autosave={true}
+        autosaveDelay={500}
         model={{
           atom_id: componentElement.atom?.id,
           label: componentElement.label,

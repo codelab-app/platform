@@ -38,9 +38,7 @@ const ComponentDetailMainPane = (props: { componentElementId: string }) => {
   return (
     <TabsLayout>
       <Tabs.TabPane tab="Inspector" key="1" style={{ height: '100%' }}>
-        <PaneConfigComponentElement
-          componentElementId={selectedElement.componentElementId}
-        />
+        <PaneConfigComponentElement componentElementId={selectedElement} />
       </Tabs.TabPane>
     </TabsLayout>
   )

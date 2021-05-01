@@ -1,7 +1,7 @@
 import { DeleteOutlined } from '@ant-design/icons'
 import { Button } from 'antd'
 import React, { useContext } from 'react'
-import { AppContext, NodeA } from '@codelab/frontend/shared'
+import { AppContext, ComponentElementNode } from '@codelab/frontend/shared'
 import {
   builderElementSelectionState,
   OverlayToolbar,
@@ -32,10 +32,8 @@ export const ClickOverlay = () => {
   const { selectedElement } = useRecoilValue(builderElementSelectionState)
 
   const { node, element } =
-    nodeToElementMap &&
-    selectedElement &&
-    nodeToElementMap[selectedElement.nodeId]
-      ? nodeToElementMap[selectedElement.nodeId]
+    nodeToElementMap && selectedElement && nodeToElementMap[selectedElement]
+      ? nodeToElementMap[selectedElement]
       : { node: undefined, element: undefined }
 
   if (!element) {
@@ -43,11 +41,11 @@ export const ClickOverlay = () => {
   }
 
   return (
-    <OverlayToolbar<NodeA>
+    <OverlayToolbar<ComponentElementNode>
       overlayElement={element}
       content={
         <div className="click-overlay-toolbar">
-          <span>{node?.type}</span>
+          <span>{node?.nodeType}</span>
           <div className="click-overlay-toolbar--button-group">
             <Button
               size="small"

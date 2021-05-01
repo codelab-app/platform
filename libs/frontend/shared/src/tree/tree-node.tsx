@@ -1,7 +1,7 @@
 import { AtomType } from '../interfaces/Hasura'
-import { NodeA } from '../interfaces/NodeA'
+import { Nodes } from '../interfaces/ComponentElementNode'
 
-export class TreeNode implements NodeA {
+export class TreeNode implements Nodes {
   public id: string
 
   public type: AtomType
@@ -10,13 +10,13 @@ export class TreeNode implements NodeA {
 
   public children: Array<TreeNode> = []
 
-  constructor({ id, type, props }: NodeA) {
+  constructor({ id, type, props }: Nodes) {
     this.id = id
     this.type = type
     this.props = props
   }
 
-  public addChild(node: NodeA) {
+  public addChild(node: Nodes) {
     this.children = [...this.children, new TreeNode(node)]
   }
 }

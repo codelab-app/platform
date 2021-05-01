@@ -1,10 +1,16 @@
 import React, { useContext } from 'react'
-import { AppContext, ComponentItemType } from '@codelab/frontend/shared'
+import {
+  AppContext,
+  ComponentItemType,
+  PageRootNode,
+} from '@codelab/frontend/shared'
 import { CytoscapeService } from '@codelab/frontend/cytoscape'
-import { NodeRenderer } from '@codelab/frontend/builder'
-import { RootAppGql, useAddPageElementMutation } from '@codelab/hasura'
-import { ComponentDropHandler } from '@codelab/frontend/builder'
+import { RootAppGql, useCreatePageElementMutation } from '@codelab/hasura'
 import { App__PageFragment } from '@codelab/hasura'
+import {
+  nodeRendererFactory,
+  useComponentHandlers,
+} from '@codelab/frontend/builder'
 
 type GetPageLayoutProps = {
   page: App__PageFragment
@@ -13,7 +19,7 @@ type GetPageLayoutProps = {
 export const PageRenderer = ({ page }: GetPageLayoutProps) => {
   const { pageId, appId } = useContext(AppContext)
 
-  const [addPageElement] = useAddPageElementMutation({
+  const [addPageElement] = useCreatePageElementMutation({
     refetchQueries: [
       {
         query: RootAppGql,
@@ -26,7 +32,8 @@ export const PageRenderer = ({ page }: GetPageLayoutProps) => {
   })
 
   const cy = CytoscapeService.fromPage(page)
-  const root = CytoscapeService.componentTree(cy)
+  const root = CytoscapeService.componentTree(cy) as PageRootNode
+  console.log(root)
 
   const handleDroppedComponent = ({ key, label }: ComponentItemType) => {
     addPageElement({
@@ -40,11 +47,14 @@ export const PageRenderer = ({ page }: GetPageLayoutProps) => {
     })
   }
 
+  const handlers = useComponentHandlers()
+
   return (
     <>
-      <ComponentDropHandler onDropped={handleDroppedComponent} root={root}>
-        <NodeRenderer node={root} />
-      </ComponentDropHandler>
+      {/*<ComponentDropHandler onDropped={handleDroppedComponent} root={root }>*/}
+      {nodeRendererFactory(root, { handlers })}
+      {/*<ComponentElementRenderer node={root} />*/}
+      {/*</ComponentDropHandler>*/}
 
       {/*<Button*/}
       {/*  icon={<PlusOutlined />}*/}
