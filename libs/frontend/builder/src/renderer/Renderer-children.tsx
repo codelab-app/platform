@@ -1,7 +1,10 @@
 import React from 'react'
 import { useDrop } from 'react-dnd'
 import { elementParameterFactory } from './elementFactory'
-import { DragAndDropTypes, NodeA } from '@codelab/frontend/shared'
+import {
+  DragAndDropTypes,
+  ComponentElementNode,
+} from '@codelab/frontend/shared'
 import { useAddNodeToElementMapping } from './nodeToElementMapState'
 import { ComponentHandlers } from './useComponentHandlers'
 
@@ -11,7 +14,7 @@ import { ComponentHandlers } from './useComponentHandlers'
 const DropHandler = React.forwardRef<
   HTMLElement,
   {
-    node: NodeA
+    node: ComponentElementNode
     handlers: ComponentHandlers
   }
 >(({ node, handlers }, ref) => {
@@ -44,12 +47,12 @@ export const RenderChildren = ({
   node,
   handlers,
 }: {
-  node: NodeA
+  node: ComponentElementNode
   handlers: ComponentHandlers
 }) => {
   const { createMappingRef } = useAddNodeToElementMapping()
 
-  const renderedChildren = node.children.map((child: NodeA) => {
+  const renderedChildren = node.children?.map((child: ComponentElementNode) => {
     const [Child, props] = elementParameterFactory({
       node: child,
       handlers,
@@ -73,7 +76,7 @@ export const RenderChildren = ({
 
   //Reason for any cast:
   //https://github.com/DefinitelyTyped/DefinitelyTyped/issues/20356#issuecomment-336384210
-  return renderedChildren.length === 1
+  return renderedChildren?.length === 1
     ? renderedChildren[0]
     : (renderedChildren as any)
 }

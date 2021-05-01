@@ -2,7 +2,7 @@ import {
   builderElementSelectionState,
   OverlayToolbar,
 } from '@codelab/frontend/builder'
-import { NodeA } from '@codelab/frontend/shared'
+import { ComponentElementNode } from '@codelab/frontend/shared'
 import React from 'react'
 import { useRecoilValue } from 'recoil'
 import { nodeToElementMapState } from '../renderer/nodeToElementMapState'
@@ -23,7 +23,7 @@ export const HoverOverlay = () => {
   }
 
   return (
-    <OverlayToolbar<NodeA>
+    <OverlayToolbar<ComponentElementNode>
       overlayElement={element}
       containerProps={{
         style: {

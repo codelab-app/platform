@@ -1,7 +1,7 @@
 import { DeleteOutlined } from '@ant-design/icons'
 import { Button } from 'antd'
 import React, { useContext } from 'react'
-import { AppContext, NodeA } from '@codelab/frontend/shared'
+import { AppContext, ComponentElementNode } from '@codelab/frontend/shared'
 import {
   builderElementSelectionState,
   OverlayToolbar,
@@ -43,7 +43,7 @@ export const ClickOverlay = () => {
   }
 
   return (
-    <OverlayToolbar<NodeA>
+    <OverlayToolbar<ComponentElementNode>
       overlayElement={element}
       content={
         <div className="click-overlay-toolbar">

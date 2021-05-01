@@ -1,13 +1,13 @@
 import { useCallback } from 'react'
 import { atom, useSetRecoilState } from 'recoil'
-import { NodeA } from '@codelab/frontend/shared'
+import { ComponentElementNode } from '@codelab/frontend/shared'
 
 interface NodeToElementMapStateType {
   map: Record<
     string,
     {
       element: HTMLElement
-      node: NodeA
+      node: ComponentElementNode
     }
   >
 }
@@ -23,7 +23,7 @@ export const nodeToElementMapState = atom<NodeToElementMapStateType>({
 export const useAddNodeToElementMapping = () => {
   const setNodeToElementMap = useSetRecoilState(nodeToElementMapState)
   const addMapping = useCallback(
-    (node: NodeA, element: HTMLElement) => {
+    (node: ComponentElementNode, element: HTMLElement) => {
       setNodeToElementMap(({ map, ...s }) => ({
         map: {
           [node.id]: {
@@ -38,7 +38,7 @@ export const useAddNodeToElementMapping = () => {
   )
 
   const createMappingRef = useCallback(
-    (node: NodeA) => (element: HTMLElement) => {
+    (node: ComponentElementNode) => (element: HTMLElement) => {
       addMapping(node, element)
     },
     [addMapping],

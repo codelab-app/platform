@@ -3,12 +3,12 @@ import { useDrop } from 'react-dnd'
 import {
   ComponentItemType,
   DragAndDropTypes,
-  NodeA,
+  ComponentElementNode,
 } from '@codelab/frontend/shared'
 import styled from '@emotion/styled'
 
 interface ComponentDropHandlerProps {
-  root?: NodeA
+  root?: ComponentElementNode
   onDropped?: (component: ComponentItemType) => any
 }
 
