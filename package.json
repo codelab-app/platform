@@ -15,7 +15,7 @@
     "build": "nx run-many --all --target=build",
     "test": "nx run-many --all --target=test",
     "lint": "nx workspace-lint && nx run-many --all --target=lint",
-    "lint:graphql": "prettier --write '**/*.graphql'",
+    "lint:graphql": "prettier --write '**/*.{graphql,yaml}'",
     "e2e": "nx e2e",
     "affected:apps": "nx affected:apps",
     "affected:libs": "nx affected:libs",
