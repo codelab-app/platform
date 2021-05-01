@@ -5,12 +5,15 @@ import {
   FormUniforms,
   UniFormUseCaseProps,
 } from '@codelab/frontend/shared'
-import { useDeleteAppMutation, GetAppsListGql } from '@codelab/hasura'
+import {
+  useDeleteAppMutation,
+  GetAppsListGql,
+  useGetAppItemQuery,
+} from '@codelab/hasura'
 import { useCRUDModalForm } from '@codelab/frontend/shared'
 import { Spin } from 'antd'
 import { AutoFields } from 'uniforms-antd'
 import { DeleteAppInput, DeleteAppSchema } from './deleteAppSchema'
-import { useGetAppQuery } from '@codelab/hasura'
 
 type DeleteAppFormProps = UniFormUseCaseProps<DeleteAppInput>
 
@@ -29,7 +32,7 @@ export const DeleteAppForm = (props: DeleteAppFormProps) => {
     setLoading(deleting)
   }, [deleting])
 
-  const { data, loading } = useGetAppQuery({
+  const { data, loading } = useGetAppItemQuery({
     variables: {
       appId,
     },

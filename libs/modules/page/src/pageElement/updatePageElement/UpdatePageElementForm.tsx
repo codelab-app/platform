@@ -2,7 +2,7 @@ import React, { useContext, useRef } from 'react'
 import { UpdatePageElementInput } from './updatePageElementSchema'
 import {
   Page__PageElementFragment,
-  RootAppGql,
+  GetAppGql,
   useUpdatePageElementMutation,
 } from '@codelab/hasura'
 import {
@@ -33,7 +33,7 @@ export const UpdatePageElementForm = ({
     awaitRefetchQueries: true,
     refetchQueries: [
       {
-        query: RootAppGql,
+        query: GetAppGql,
         variables: {
           appId,
           pageId,

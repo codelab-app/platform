@@ -5,9 +5,7 @@ import {
   PageRootNode,
 } from '@codelab/frontend/shared'
 import { CytoscapeService } from '@codelab/frontend/cytoscape'
-import { NodeRenderer } from '@codelab/frontend/builder'
-import { GetAppGql, useAddPageElementMutation } from '@codelab/hasura'
-import { ComponentDropHandler } from '@codelab/frontend/builder'
+import { GetAppGql, useCreatePageElementMutation } from '@codelab/hasura'
 import { App__PageFragment } from '@codelab/hasura'
 import {
   nodeRendererFactory,

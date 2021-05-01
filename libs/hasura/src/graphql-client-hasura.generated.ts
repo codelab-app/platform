@@ -10490,11 +10490,6 @@ export type GetComponentDetailQuery = { __typename?: 'query_root' } & {
   component_by_pk?: Maybe<{ __typename?: 'component' } & __ComponentFragment>
 }
 
-export type __ComponentFragment = { __typename?: 'component' } & Pick<
-  Component,
-  'id' | 'label'
->
-
 export type GetComponentsQueryVariables = Exact<{ [key: string]: never }>
 
 export type GetComponentsQuery = { __typename?: 'query_root' } & {
@@ -11004,8 +10999,8 @@ export const Library__CategoryFragmentDoc = gql`
   }
   ${__TagFragmentDoc}
 `
-export const __ComponentFragmentDoc = gql`
-  fragment __Component on component {
+export const ComponentElement__HocFragmentDoc = gql`
+  fragment ComponentElement__Hoc on hoc {
     id
     tags {
       tag {
@@ -11032,23 +11027,6 @@ export const PropTypeCollection__PropTypeFragmentDoc = gql`
     value_type
   }
   ${ValueTypeFragmentDoc}
-`
-export const PropTypeCollectionFragmentDoc = gql`
-  fragment PropTypeCollection on prop_type_c {
-    id
-    label
-    library_id
-    propTypes {
-      ...PropTypeCollection__PropType
-    }
-    tags {
-      tag {
-        ...__Tag
-      }
-    }
-  }
-  ${PropTypeCollection__PropTypeFragmentDoc}
-  ${__TagFragmentDoc}
 `
 export const Prop__PropValueFragmentDoc = gql`
   fragment Prop__PropValue on prop_value {
@@ -11109,6 +11087,23 @@ export const Library__StyleFragmentDoc = gql`
   }
   ${PropCollectionFragmentDoc}
 `
+export const PropTypeCollectionFragmentDoc = gql`
+  fragment PropTypeCollection on prop_type_c {
+    id
+    label
+    library_id
+    propTypes {
+      ...PropTypeCollection__PropType
+    }
+    tags {
+      tag {
+        ...__Tag
+      }
+    }
+  }
+  ${PropTypeCollection__PropTypeFragmentDoc}
+  ${__TagFragmentDoc}
+`
 export const __AtomFragmentDoc = gql`
   fragment __Atom on atom {
     id
@@ -11131,69 +11126,8 @@ export const __AtomFragmentDoc = gql`
   ${Library__StyleFragmentDoc}
   ${__TagFragmentDoc}
 `
-export const Library__LambdaFragmentDoc = gql`
-  fragment Library__Lambda on lambda {
-    id
-    body
-    name
-  }
-`
-export const __LibraryFragmentDoc = gql`
-  fragment __Library on library {
-    id
-    name
-    categories {
-      ...Library__Category
-    }
-    components {
-      ...__Component
-    }
-    atoms {
-      ...__Atom
-    }
-    lambdas {
-      ...Library__Lambda
-    }
-    propTypes {
-      propTypes {
-        ...PropTypeCollection__PropType
-      }
-    }
-    props {
-      props {
-        ...PropCollection__Prop
-      }
-    }
-    styles {
-      ...Library__Style
-    }
-    tags {
-      ...__Tag
-    }
-    user_id
-  }
-  ${Library__CategoryFragmentDoc}
-  ${__ComponentFragmentDoc}
-  ${__AtomFragmentDoc}
-  ${Library__LambdaFragmentDoc}
-  ${PropTypeCollection__PropTypeFragmentDoc}
-  ${PropCollection__PropFragmentDoc}
-  ${Library__StyleFragmentDoc}
-  ${__TagFragmentDoc}
-`
-export const ComponentElement__HocFragmentDoc = gql`
-  fragment ComponentElement__Hoc on hoc {
-    id
-    tags {
-      tag {
-        ...__Tag
-      }
-    }
-  }
-  ${__TagFragmentDoc}
-`
-export const PageElement__ComponentElementFragmentDoc = gql`
-  fragment PageElement__ComponentElement on component_element {
+export const __ComponentElementFragmentDoc = gql`
+  fragment __ComponentElement on component_element {
     id
     label
     hocs {
@@ -14614,8 +14548,8 @@ export const Library__Category = gql`
   }
   ${__Tag}
 `
-export const __Component = gql`
-  fragment __Component on component {
+export const ComponentElement__Hoc = gql`
+  fragment ComponentElement__Hoc on hoc {
     id
     tags {
       tag {
@@ -14642,23 +14576,6 @@ export const PropTypeCollection__PropType = gql`
     value_type
   }
   ${ValueType}
-`
-export const PropTypeCollection = gql`
-  fragment PropTypeCollection on prop_type_c {
-    id
-    label
-    library_id
-    propTypes {
-      ...PropTypeCollection__PropType
-    }
-    tags {
-      tag {
-        ...__Tag
-      }
-    }
-  }
-  ${PropTypeCollection__PropType}
-  ${__Tag}
 `
 export const Prop__PropValue = gql`
   fragment Prop__PropValue on prop_value {
@@ -14719,6 +14636,23 @@ export const Library__Style = gql`
   }
   ${PropCollection}
 `
+export const PropTypeCollection = gql`
+  fragment PropTypeCollection on prop_type_c {
+    id
+    label
+    library_id
+    propTypes {
+      ...PropTypeCollection__PropType
+    }
+    tags {
+      tag {
+        ...__Tag
+      }
+    }
+  }
+  ${PropTypeCollection__PropType}
+  ${__Tag}
+`
 export const __Atom = gql`
   fragment __Atom on atom {
     id
@@ -14741,69 +14675,8 @@ export const __Atom = gql`
   ${Library__Style}
   ${__Tag}
 `
-export const Library__Lambda = gql`
-  fragment Library__Lambda on lambda {
-    id
-    body
-    name
-  }
-`
-export const __Library = gql`
-  fragment __Library on library {
-    id
-    name
-    categories {
-      ...Library__Category
-    }
-    components {
-      ...__Component
-    }
-    atoms {
-      ...__Atom
-    }
-    lambdas {
-      ...Library__Lambda
-    }
-    propTypes {
-      propTypes {
-        ...PropTypeCollection__PropType
-      }
-    }
-    props {
-      props {
-        ...PropCollection__Prop
-      }
-    }
-    styles {
-      ...Library__Style
-    }
-    tags {
-      ...__Tag
-    }
-    user_id
-  }
-  ${Library__Category}
-  ${__Component}
-  ${__Atom}
-  ${Library__Lambda}
-  ${PropTypeCollection__PropType}
-  ${PropCollection__Prop}
-  ${Library__Style}
-  ${__Tag}
-`
-export const ComponentElement__Hoc = gql`
-  fragment ComponentElement__Hoc on hoc {
-    id
-    tags {
-      tag {
-        ...__Tag
-      }
-    }
-  }
-  ${__Tag}
-`
-export const PageElement__ComponentElement = gql`
-  fragment PageElement__ComponentElement on component_element {
+export const __ComponentElement = gql`
+  fragment __ComponentElement on component_element {
     id
     label
     hocs {

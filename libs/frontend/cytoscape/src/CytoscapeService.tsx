@@ -11,7 +11,11 @@ import {
   PageRootNode,
 } from '@codelab/frontend/shared'
 import { propDataEntityToModel } from '@codelab/modules/prop'
-import { App__PageFragment, __ComponentFragment } from '@codelab/hasura'
+import {
+  App__PageFragment,
+  __AtomFragment,
+  __ComponentFragment,
+} from '@codelab/hasura'
 
 export const pageComponentElementNodeId = (
   pageElementId: string,
@@ -98,10 +102,22 @@ export class CytoscapeService {
     elements: componentElements,
     links: componentLinks,
   }: __ComponentFragment): Core {
-    const nodes: Array<cytoscape.NodeDefinition> = []
-    const edges: Array<cytoscape.EdgeDefinition> = []
-    //This keeps track of which nodes have parent links. If they don't - we add them to the root node as a parent to them at the end
-    const nodeToLinkedParentMap: Record<string, string> = {}
+    const componentElementsGraph = cytoscape({
+      headless: true,
+      elements: {
+        nodes: componentElements.map((componentElement) => {
+          const data: ComponentElementNode = {
+            id: componentElement.id,
+            nodeType: NodeType.ComponentElement,
+            atom: componentElement.atom as __AtomFragment,
+            label: componentElement.label,
+            props: {
+              //Normalize the props fragments into a react-readable key value map
+              ...componentElement.props?.props?.reduce((props, newProp) => {
+                return { ...props, ...propDataEntityToModel(newProp) }
+              }, {}),
+            },
+          }
 
           return { data }
         }),

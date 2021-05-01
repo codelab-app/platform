@@ -1,7 +1,7 @@
 import { AtomType } from './Hasura'
 import {
   __AtomFragment,
-  PageElement__ComponentFragment,
+  __ComponentFragment,
   PropCollectionFragment,
 } from '@codelab/hasura'
 
@@ -29,7 +29,7 @@ export interface ComponentElementNode extends NodeBase {
 export interface PageElementNode extends NodeBase {
   nodeType: NodeType.PageElement
   props?: PropCollectionFragment | null
-  component: PageElement__ComponentFragment
+  component: __ComponentFragment
   children?: Array<PageElementNode>
 }
 

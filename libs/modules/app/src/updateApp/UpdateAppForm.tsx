@@ -1,6 +1,10 @@
 import React, { useEffect } from 'react'
 import { DeepPartial } from 'uniforms'
-import { GetAppsListGql, useEditAppMutation } from '@codelab/hasura'
+import {
+  GetAppsListGql,
+  useEditAppMutation,
+  useGetAppItemQuery,
+} from '@codelab/hasura'
 import { UpdateAppInput, updateAppSchema } from './updateAppSchema'
 import {
   FormUniforms,
@@ -9,7 +13,6 @@ import {
   EntityType,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import { useGetAppQuery } from '@codelab/hasura'
 import { Spin } from 'antd'
 import { AutoFields } from 'uniforms-antd'
 import { useRecoilState } from 'recoil'
@@ -29,7 +32,7 @@ export const UpdateAppForm = (props: UniFormUseCaseProps<UpdateAppInput>) => {
     ],
   })
 
-  const { data, loading } = useGetAppQuery({
+  const { data, loading } = useGetAppItemQuery({
     variables: {
       appId,
     },

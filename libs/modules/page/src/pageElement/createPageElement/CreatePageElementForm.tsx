@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { CreatePageElementInput } from './createPageElementSchema'
-import { RootAppGql, useCreatePageElementMutation } from '@codelab/hasura'
+import { GetAppGql, useCreatePageElementMutation } from '@codelab/hasura'
 import { useContext } from 'react'
 import {
   AppContext,
@@ -22,7 +22,7 @@ export const CreatePageElementForm = ({
   const [mutate, { loading: creating }] = useCreatePageElementMutation({
     refetchQueries: [
       {
-        query: RootAppGql,
+        query: GetAppGql,
         variables: {
           appId,
           pageId,

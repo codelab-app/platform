@@ -9,7 +9,7 @@ import {
 import {
   useDeletePageElementMutation,
   useGetPageElementQuery,
-  RootAppGql,
+  GetAppGql,
 } from '@codelab/hasura'
 import { useCRUDModalForm } from '@codelab/frontend/shared'
 import { Spin } from 'antd'
@@ -30,7 +30,7 @@ export const DeletePageElementForm = (props: DeletePageElementFormProps) => {
   const [mutate, { loading: deleting }] = useDeletePageElementMutation({
     refetchQueries: [
       {
-        query: RootAppGql,
+        query: GetAppGql,
         variables: {
           pageId,
           appId,
