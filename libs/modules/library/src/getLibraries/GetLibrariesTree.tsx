@@ -16,12 +16,18 @@ import { CreateAtomForm } from '@codelab/modules/atom'
 import { useComponentBuilder } from '@codelab/frontend/builder'
 import { Button, Space, Tree } from 'antd'
 import { DataNode } from 'antd/lib/tree'
-import React, { useContext, useEffect } from 'react'
+import React, { Key, useContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
+import xw from 'xwind'
 import {
   useGetComponentDetailLazyQuery,
   __ComponentFragment,
 } from '@codelab/hasura'
+
+type CheckedKeys = {
+  checked: Array<Key>
+  halfChecked: Array<Key>
+}
 
 export const GetLibrariesTree = () => {
   const { libraries } = useContext(LibraryContext)
@@ -32,9 +38,15 @@ export const GetLibrariesTree = () => {
     { called, loading, data },
   ] = useGetComponentDetailLazyQuery()
 
-  const { reset, setLoading, openCreateModal } = useCRUDModalForm(
-    EntityType.Atom,
-  )
+  const [selectedAtomIds, setSelectedAtomIds] = useState<Array<string>>()
+
+  const {
+    reset,
+    setLoading,
+    openCreateModal: openCreateAtomModal,
+    openUpdateModal: openUpdateAtomModal,
+    openDeleteModal: openDeleteAtomModal,
+  } = useCRUDModalForm(EntityType.Atom)
 
   useEffect(() => {
     setSelected(data?.component_by_pk as __ComponentFragment)
@@ -78,15 +90,32 @@ export const GetLibrariesTree = () => {
 
   return (
     <>
-      <h3>
-        Atoms
-        <Button
-          style={{ float: 'right' }}
-          size="small"
-          icon={<PlusOutlined />}
-          onClick={() => openCreateModal()}
-        />
-      </h3>
+      <Space style={xw`w-full justify-between`} align="center">
+        <h3>Atoms</h3>
+        <Space align="center">
+          <Button
+            size="small"
+            type="primary"
+            icon={<PlusOutlined />}
+            onClick={() => openCreateAtomModal()}
+          />
+          <Button
+            size="small"
+            type="primary"
+            ghost
+            icon={<EditOutlined />}
+            onClick={() => openUpdateAtomModal()}
+          />
+          <Button
+            size="small"
+            danger
+            icon={<DeleteOutlined />}
+            onClick={() => {
+              console.log(selectedAtomIds)
+            }}
+          />
+        </Space>
+      </Space>
       <CrudModal
         modalProps={{
           className: 'create-atom-modal',
@@ -100,20 +129,26 @@ export const GetLibrariesTree = () => {
         draggable
         showIcon
         checkable
+        checkStrictly
         selectable
         defaultExpandAll
         defaultExpandedKeys={[]}
         autoExpandParent
         treeData={atomTreeData}
         className="draggable-tree"
+        onCheck={(checkedKeys, e) => {
+          const {
+            checked: checkedAtomIds,
+            halfChecked,
+          } = checkedKeys as CheckedKeys
+
+          setSelectedAtomIds([...checkedAtomIds.map((id) => id.toString())])
+        }}
       />
 
-      <Space
-        style={{ width: '100%', justifyContent: 'space-between' }}
-        align="center"
-      >
-        <h3 className="m-0">Components</h3>
-        <Space>
+      <Space style={xw`w-full justify-between`} align="center">
+        <h3 style={xw`m-0`}>Components</h3>
+        <Space align="center">
           <Button
             size="small"
             type="primary"
@@ -131,7 +166,9 @@ export const GetLibrariesTree = () => {
             size="small"
             danger
             icon={<DeleteOutlined />}
-            onClick={() => openCreateModal()}
+            onClick={() => {
+              console.log(selectedAtomIds)
+            }}
           />
         </Space>
       </Space>

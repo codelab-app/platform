@@ -8,7 +8,6 @@ import { RecoilRoot } from 'recoil'
 import { PageType } from '@codelab/frontend/shared'
 import { useApollo } from '@codelab/frontend/apollo'
 import '../src/styles/App.less'
-import xw from 'xwind'
 
 const AppContainer = ({ pageProps, Component, router }: AppProps) => {
   const { Layout, MainPane, MetaPane } = Component as any
@@ -17,10 +16,6 @@ const AppContainer = ({ pageProps, Component, router }: AppProps) => {
     <RecoilRoot>
       <ApolloProvider client={useApollo(pageProps)}>
         <UserProvider>
-          <Global
-            //add tailwind base + keyframes ... to global styles
-            styles={xw`XWIND_BASE XWIND_GLOBAL`}
-          />
           <Global
             styles={css({
               '#__next': {

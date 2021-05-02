@@ -13,5 +13,6 @@ module.exports = {
   // xwind options
   xwind: {
     mode: 'objectstyles',
+    // mode: 'classes',
   },
 }
