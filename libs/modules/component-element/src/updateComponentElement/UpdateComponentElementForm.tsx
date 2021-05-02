@@ -56,7 +56,7 @@ export const UpdateComponentElementForm = ({
         autosaveDelay={500}
         model={{
           atom_id: componentElement.atom?.id,
-          label: componentElement.label,
+          // label: componentElement.label,
         }}
         {...props}
       />

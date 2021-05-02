@@ -16,6 +16,7 @@
     // ]
   ],
   "plugins": [
+    // "macros",
     "@emotion",
     "xwind/babel",
     [

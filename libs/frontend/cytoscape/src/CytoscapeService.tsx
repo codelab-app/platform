@@ -175,7 +175,10 @@ export class CytoscapeService {
     return (tree as unknown) as CytoscapeNode
   }
 
-  static antdTree(cy: Core, nodeMapper: (v: any) => any): DataNode {
+  static antdTree(
+    cy: Core,
+    nodeMapper: (v: any) => any = () => null,
+  ): DataNode {
     const root = cy.elements().roots().first()
     let tree: DataNode | null = null
 
