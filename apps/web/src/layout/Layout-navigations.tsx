@@ -6,8 +6,6 @@ import {
   AppstoreOutlined,
   BookOutlined,
   CopyOutlined,
-  DeploymentUnitOutlined,
-  FileTextOutlined,
   FunctionOutlined,
 } from '@ant-design/icons'
 import Link from 'next/link'
@@ -56,6 +54,23 @@ export const LayoutNavigations = () => {
         </Menu.Item>
         <Menu.Divider />
         <Menu.Item
+          key={PageType.Storybook}
+          icon={
+            <BookOutlined
+              data-testid="storybook-tab-trigger"
+              title="Storybook"
+            />
+          }
+        >
+          <Link
+            href={{
+              pathname: PageType.Storybook,
+            }}
+          >
+            Storybook
+          </Link>
+        </Menu.Item>
+        {/* <Menu.Item
           key={PageType.LibraryList}
           icon={
             <BookOutlined data-testid="library-tab-trigger" title="Library" />
@@ -69,8 +84,8 @@ export const LayoutNavigations = () => {
           >
             Library
           </Link>
-        </Menu.Item>
-        <Menu.Item
+        </Menu.Item> */}
+        {/* <Menu.Item
           key={PageType.AtomList}
           icon={
             <DeploymentUnitOutlined
@@ -106,7 +121,7 @@ export const LayoutNavigations = () => {
           >
             Component
           </Link>
-        </Menu.Item>
+        </Menu.Item> */}
         <Menu.Divider />
         <Menu.Item
           key="lambda"

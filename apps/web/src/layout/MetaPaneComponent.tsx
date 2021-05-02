@@ -17,7 +17,7 @@ export const MetaPaneComponent = () => {
       maxHeight={400}
       defaultSize={{
         width: '100%',
-        height: 200,
+        height: 240,
       }}
     >
       <Tabs defaultActiveKey="1">

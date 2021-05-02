@@ -1,5 +1,5 @@
 import React from 'react'
-import { UpdateComponentElementForm } from '../update/UpdateComponentElementForm'
+import { UpdateComponentElementForm } from '../updateComponentElement/UpdateComponentElementForm'
 import { CreateLinkedComponentElementButton } from '../createLinked/CreateLinkedComponentElementButton'
 import {
   ActionType,
@@ -10,8 +10,8 @@ import {
 import { CreateLinkedComponentElementForm } from '../createLinked/CreateLinkedComponentElementForm'
 import { Empty, Spin } from 'antd'
 import { useGetComponentElementQuery } from '@codelab/hasura'
-import { DeleteComponentElementForm } from '../delete/DeleteComponentElementForm'
-import { DeleteComponentElementButton } from '../delete/DeleteComponentElementButton'
+import { DeleteComponentElementForm } from '../deleteComponentElement/DeleteComponentElementForm'
+import { DeleteComponentElementButton } from '../deleteComponentElement/DeleteComponentElementButton'
 import { DeleteOutlined } from '@ant-design/icons'
 import { useBuilderSelectionState } from '@codelab/frontend/builder'
 

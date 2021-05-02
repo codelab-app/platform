@@ -4,24 +4,32 @@ import {
   GetComponentDetailGql,
   useCreateComponentElementMutation,
 } from '@codelab/hasura'
-import { useContext } from 'react'
 import {
-  ComponentContext,
   EntityType,
+  PropsWithIds,
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
 import { DeepPartial } from 'uniforms'
 import { CreateComponentElementFormBase } from './CreateComponentElementFormBase'
 
-type CreateComponentElementFormProps = UniFormUseCaseProps<CreateComponentElementInput>
+type CreateComponentElementFormProps = UniFormUseCaseProps<CreateComponentElementInput> &
+  PropsWithIds<'componentId'>
 
+/**
+ * This is used to create the first ComponentElement, which is added as a child vertex to the Component
+ *
+ * The ComponentLink will be inferred from the source (parent) & target (newly created node).
+ *
+ * @param {string} componentId - The parent id of the Component that we're adding the child ComponentElement under
+ *
+ * @returns
+ */
 export const CreateComponentElementForm = ({
+  componentId,
   ...props
 }: CreateComponentElementFormProps) => {
   const { reset, setLoading } = useCRUDModalForm(EntityType.ComponentElement)
-  const { componentId } = useContext(ComponentContext)
-
   const [mutate, { loading: creating }] = useCreateComponentElementMutation({
     awaitRefetchQueries: true,
     refetchQueries: [

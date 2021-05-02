@@ -11,7 +11,7 @@ import {
   UniFormUseCaseProps,
 } from '@codelab/frontend/shared'
 import { DeepPartial } from 'uniforms'
-import { CreateComponentElementFormBase } from '../create/CreateComponentElementFormBase'
+import { CreateComponentElementFormBase } from '../createComponentElement/CreateComponentElementFormBase'
 
 type UpdateComponentElementFormProps = UniFormUseCaseProps<UpdateComponentElementInput> & {
   componentElement: __ComponentElementFragment

@@ -9,8 +9,8 @@ import {
 } from '@codelab/frontend/shared'
 import { DeepPartial } from 'uniforms'
 import { useCreateComponentLinkMutation } from '@codelab/hasura'
-import { CreateComponentElementFormBase } from '../create/CreateComponentElementFormBase'
-import { CreateComponentElementInput } from '../create/createComponentElementSchema'
+import { CreateComponentElementFormBase } from '../createComponentElement/CreateComponentElementFormBase'
+import { CreateComponentElementInput } from '../createComponentElement/createComponentElementSchema'
 
 type CreateLinkedComponentElementFormProps = UniFormUseCaseProps<CreateComponentElementInput> & {
   sourceComponentElementId: string

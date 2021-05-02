@@ -6,7 +6,7 @@ import {
 } from '@codelab/hasura'
 import { PropsWithIds } from '../interfaces'
 
-type IComponentContext = Partial<PropsWithIds<'componentId'>> & {
+type IComponentContext = PropsWithIds<'componentId'> & {
   component?: Maybe<__ComponentFragment>
   loading: boolean
 }
@@ -26,8 +26,6 @@ const _ComponentProvider = ({
   })
 
   const component = data?.component_by_pk
-
-  console.log(component)
 
   return (
     <ComponentContext.Provider

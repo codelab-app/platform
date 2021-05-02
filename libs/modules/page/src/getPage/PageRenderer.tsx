@@ -33,7 +33,6 @@ export const PageRenderer = ({ page }: GetPageLayoutProps) => {
 
   const cy = CytoscapeService.fromPage(page)
   const root = CytoscapeService.componentTree(cy) as PageRootNode
-  console.log(root)
 
   const handleDroppedComponent = ({ key, label }: ComponentItemType) => {
     addPageElement({

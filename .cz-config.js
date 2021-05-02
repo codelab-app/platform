@@ -83,6 +83,10 @@ module.exports = {
       value: 'story',
       name: '12) story:  Storybook examples',
     },
+    {
+      value: 'wip',
+      name: '13) wip:  Work-in-progress',
+    },
   ],
   scopes,
   allowTicketNumber: true,
