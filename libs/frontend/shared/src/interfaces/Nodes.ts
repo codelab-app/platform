@@ -21,6 +21,7 @@ export interface NodeBase {
 export interface ComponentElementNode extends NodeBase {
   atom: __AtomFragment
   pageElementId?: string
+  // nodeType: NodeType.ComponentElement
   nodeType: NodeType.ComponentElement
   children?: Array<ComponentElementNode>
   props?: Record<string, any>

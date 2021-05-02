@@ -1728,7 +1728,7 @@ type component_element {
     where: hoc_component_element_bool_exp
   ): hoc_component_element_aggregate!
   id: uuid!
-  label: String!
+  label: String
 
   """
   An object relationship

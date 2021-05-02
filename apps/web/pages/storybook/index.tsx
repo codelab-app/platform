@@ -4,6 +4,7 @@ import { MainPaneLibrary } from '@codelab/modules/library'
 import { NextPageLayout } from '../../src/layout/Layout.d'
 import { LayoutBuilder } from 'apps/web/src/layout/Layout--builder'
 import { MetaPaneComponent } from 'apps/web/src/layout/MetaPaneComponent'
+import xw from 'xwind'
 import { ComponentRenderer } from '@codelab/modules/component'
 import {
   useComponentBuilder,
@@ -34,7 +35,7 @@ const Library: NextPageLayout<'builder'> = () => {
   const root = CytoscapeService.componentTree(cy)
 
   return (
-    <div id="Builder" style={{ position: 'relative' }}>
+    <div id="Builder" css={xw`relative h-full`}>
       {root.children?.length ? (
         <ComponentRenderer component={selectedComponent} />
       ) : (
@@ -58,7 +59,8 @@ const Library: NextPageLayout<'builder'> = () => {
         renderForm={() => (
           <CreateComponentElementForm componentId={selectedComponent.id} />
           // <AddChildComponentElementForm
-          //   parentComponentId={selectedComponent.id}
+          //   componentId={selectedComponent.id}
+          //   // parentComponentElementId={undefined}
           // />
         )}
       />

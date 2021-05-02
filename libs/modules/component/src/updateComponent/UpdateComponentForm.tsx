@@ -9,7 +9,6 @@ import {
 
 import {
   GetComponentsGql,
-  useGetAtomQuery,
   useGetComponentQuery,
   useUpdateComponentMutation,
 } from '@codelab/hasura'

@@ -5,15 +5,15 @@ import { LayoutNavigations } from './Layout-navigations'
 import { WithMainPane, WithMetaPane } from './Layout.d'
 import { LibraryProvider } from '@codelab/frontend/shared'
 import styled from '@emotion/styled'
+import xw from 'xwind'
 
 const { Sider, Content } = Layout
 
 export const tabsWidth = 40
-export const paneConfigWidth = 320
-export const defaultPaneMainWidth = 480
+export const mainPaneWidth = 280
 
 const MetaPaneSection = styled('div')`
-  position: fixed;
+  position: absolute;
   bottom: 0;
   width: 100%;
 `
@@ -27,7 +27,7 @@ export const LayoutBuilder = ({
 
   return (
     <LibraryProvider>
-      <Layout style={{ height: '100%' }}>
+      <Layout css={xw`h-full`}>
         <Sider
           theme="light"
           style={{ height: '100%' }}
@@ -38,7 +38,7 @@ export const LayoutBuilder = ({
         </Sider>
         <Sider
           theme="light"
-          width={paneConfigWidth}
+          width={mainPaneWidth}
           style={{
             overflowY: 'scroll',
             // position: 'fixed',
@@ -50,6 +50,7 @@ export const LayoutBuilder = ({
           <MainPane />
         </Sider>
         <Content
+          css={xw`relative`}
           onClick={() => {
             resetSelection()
           }}

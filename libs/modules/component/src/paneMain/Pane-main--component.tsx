@@ -5,7 +5,7 @@ import { CreateComponentForm } from '../createComponent/CreateComponentForm'
 import { DeleteComponentForm } from '../deleteComponent/DeleteComponentForm'
 import { PaneMainTemplate } from '@codelab/frontend/layout'
 import { UpdateComponentForm } from '../updateComponent/UpdateComponentForm'
-import { ComponentsTree } from '../componentsTree/componentsTree'
+import { ComponentsTree } from '../componentsTree/ComponentsTree'
 
 export const PaneMainComponent = () => {
   return (

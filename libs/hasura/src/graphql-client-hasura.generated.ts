@@ -1071,7 +1071,7 @@ export type Component_Element = {
   /** An aggregate relationship */
   hocs_aggregate: Hoc_Component_Element_Aggregate
   id: Scalars['uuid']
-  label: Scalars['String']
+  label?: Maybe<Scalars['String']>
   /** An object relationship */
   props?: Maybe<Prop_C>
   props_c_id?: Maybe<Scalars['uuid']>
@@ -10070,6 +10070,16 @@ export type __TagFragment = Pick<
   'id' | 'category_id' | 'label' | 'library_id'
 >
 
+export type AddChildComponentElementMutationVariables = Exact<{
+  componentElement: Component_Element_Insert_Input
+  componentLink: Component_Link_Insert_Input
+}>
+
+export type AddChildComponentElementMutation = {
+  insert_component_element_one?: Maybe<__ComponentElementFragment>
+  insert_component_link_one?: Maybe<PageElement__ComponentLinkFragment>
+}
+
 export type CreateComponentElementMutationVariables = Exact<{
   input: Component_Element_Insert_Input
 }>
@@ -11618,6 +11628,64 @@ export type UpdateAtomMutationResult = Apollo.MutationResult<UpdateAtomMutation>
 export type UpdateAtomMutationOptions = Apollo.BaseMutationOptions<
   UpdateAtomMutation,
   UpdateAtomMutationVariables
+>
+export const AddChildComponentElementGql = gql`
+  mutation AddChildComponentElement(
+    $componentElement: component_element_insert_input!
+    $componentLink: component_link_insert_input!
+  ) {
+    insert_component_element_one(object: $componentElement) {
+      ...__ComponentElement
+    }
+    insert_component_link_one(object: $componentLink) {
+      ...PageElement__ComponentLink
+    }
+  }
+  ${__ComponentElementFragmentDoc}
+  ${PageElement__ComponentLinkFragmentDoc}
+`
+export type AddChildComponentElementMutationFn = Apollo.MutationFunction<
+  AddChildComponentElementMutation,
+  AddChildComponentElementMutationVariables
+>
+
+/**
+ * __useAddChildComponentElementMutation__
+ *
+ * To run a mutation, you first call `useAddChildComponentElementMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddChildComponentElementMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addChildComponentElementMutation, { data, loading, error }] = useAddChildComponentElementMutation({
+ *   variables: {
+ *      componentElement: // value for 'componentElement'
+ *      componentLink: // value for 'componentLink'
+ *   },
+ * });
+ */
+export function useAddChildComponentElementMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    AddChildComponentElementMutation,
+    AddChildComponentElementMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    AddChildComponentElementMutation,
+    AddChildComponentElementMutationVariables
+  >(AddChildComponentElementGql, options)
+}
+export type AddChildComponentElementMutationHookResult = ReturnType<
+  typeof useAddChildComponentElementMutation
+>
+export type AddChildComponentElementMutationResult = Apollo.MutationResult<AddChildComponentElementMutation>
+export type AddChildComponentElementMutationOptions = Apollo.BaseMutationOptions<
+  AddChildComponentElementMutation,
+  AddChildComponentElementMutationVariables
 >
 export const CreateComponentElementGql = gql`
   mutation CreateComponentElement($input: component_element_insert_input!) {
@@ -14501,6 +14569,21 @@ export const UpdateAtom = gql`
     }
   }
   ${__Atom}
+`
+export const AddChildComponentElement = gql`
+  mutation AddChildComponentElement(
+    $componentElement: component_element_insert_input!
+    $componentLink: component_link_insert_input!
+  ) {
+    insert_component_element_one(object: $componentElement) {
+      ...__ComponentElement
+    }
+    insert_component_link_one(object: $componentLink) {
+      ...PageElement__ComponentLink
+    }
+  }
+  ${__ComponentElement}
+  ${PageElement__ComponentLink}
 `
 export const CreateComponentElement = gql`
   mutation CreateComponentElement($input: component_element_insert_input!) {

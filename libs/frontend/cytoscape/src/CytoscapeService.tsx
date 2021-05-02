@@ -175,7 +175,7 @@ export class CytoscapeService {
     return (tree as unknown) as CytoscapeNode
   }
 
-  static antdTree(cy: Core): DataNode {
+  static antdTree(cy: Core, nodeMapper: (v: any) => any): DataNode {
     const root = cy.elements().roots().first()
     let tree: DataNode | null = null
 
@@ -190,6 +190,7 @@ export class CytoscapeService {
           // disabled: data.type === VertexType.React_RGL_Item,
           key: data.id,
           title: data.label,
+          ...nodeMapper(data),
         }
 
         v._node = node

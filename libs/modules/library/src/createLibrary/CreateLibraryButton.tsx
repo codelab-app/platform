@@ -6,5 +6,11 @@ import React from 'react'
 export const CreateLibraryButton = () => {
   const { openCreateModal } = useCRUDModalForm(EntityType.Library)
 
-  return <Button icon={<PlusOutlined />} onClick={() => openCreateModal()} />
+  return (
+    <Button
+      size="small"
+      icon={<PlusOutlined />}
+      onClick={() => openCreateModal()}
+    />
+  )
 }

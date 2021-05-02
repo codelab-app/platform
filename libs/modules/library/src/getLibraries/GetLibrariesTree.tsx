@@ -1,7 +1,20 @@
-import { BookOutlined, DeploymentUnitOutlined } from '@ant-design/icons'
-import { LibraryContext } from '@codelab/frontend/shared'
+import {
+  BookOutlined,
+  DeleteOutlined,
+  DeploymentUnitOutlined,
+  EditOutlined,
+  PlusOutlined,
+} from '@ant-design/icons'
+import {
+  ActionType,
+  CrudModal,
+  EntityType,
+  LibraryContext,
+  useCRUDModalForm,
+} from '@codelab/frontend/shared'
+import { CreateAtomForm } from '@codelab/modules/atom'
 import { useComponentBuilder } from '@codelab/frontend/builder'
-import { Tree } from 'antd'
+import { Button, Space, Tree } from 'antd'
 import { DataNode } from 'antd/lib/tree'
 import React, { useContext, useEffect } from 'react'
 import { useRouter } from 'next/router'
@@ -18,6 +31,10 @@ export const GetLibrariesTree = () => {
     loadComponent,
     { called, loading, data },
   ] = useGetComponentDetailLazyQuery()
+
+  const { reset, setLoading, openCreateModal } = useCRUDModalForm(
+    EntityType.Atom,
+  )
 
   useEffect(() => {
     setSelected(data?.component_by_pk as __ComponentFragment)
@@ -61,7 +78,24 @@ export const GetLibrariesTree = () => {
 
   return (
     <>
-      <h3>Atoms</h3>
+      <h3>
+        Atoms
+        <Button
+          style={{ float: 'right' }}
+          size="small"
+          icon={<PlusOutlined />}
+          onClick={() => openCreateModal()}
+        />
+      </h3>
+      <CrudModal
+        modalProps={{
+          className: 'create-atom-modal',
+        }}
+        entityType={EntityType.Atom}
+        actionType={ActionType.Create}
+        okText="Create atom"
+        renderForm={() => <CreateAtomForm />}
+      />
       <Tree
         draggable
         showIcon
@@ -74,16 +108,35 @@ export const GetLibrariesTree = () => {
         className="draggable-tree"
       />
 
-      <h3>Components</h3>
+      <Space
+        style={{ width: '100%', justifyContent: 'space-between' }}
+        align="center"
+      >
+        <h3 className="m-0">Components</h3>
+        <Space>
+          <Button
+            size="small"
+            type="primary"
+            icon={<PlusOutlined />}
+            onClick={() => openCreateModal()}
+          />
+          <Button
+            size="small"
+            type="primary"
+            ghost
+            icon={<EditOutlined />}
+            onClick={() => openCreateModal()}
+          />
+          <Button
+            size="small"
+            danger
+            icon={<DeleteOutlined />}
+            onClick={() => openCreateModal()}
+          />
+        </Space>
+      </Space>
       <Tree
         onSelect={([componentId], e) => {
-          // router.push({
-          //   pathname: PageType.LibraryList,
-          //   query: {
-          //     componentId: selectedKeys,
-          //   },
-          // })
-          // setSelected(selectedKeys as string)
           loadComponent({
             variables: {
               componentId,

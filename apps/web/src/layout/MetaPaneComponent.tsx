@@ -12,12 +12,12 @@ export const MetaPaneComponent = () => {
         position: fixed;
         bottom: 0;
         background: white;
-        height: 80%;
+        /* height: 80%; */
       `}
       maxHeight={400}
       defaultSize={{
         width: '100%',
-        height: 240,
+        height: 320,
       }}
     >
       <Tabs defaultActiveKey="1">

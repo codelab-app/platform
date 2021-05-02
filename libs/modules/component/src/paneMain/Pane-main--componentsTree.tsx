@@ -1,10 +1,6 @@
 import React from 'react'
-import { ActionType, CrudModal, EntityType } from '@codelab/frontend/shared'
 import { PaneMainTemplate } from '@codelab/frontend/layout'
-import {
-  CreateComponentElementButton,
-  CreateComponentElementForm,
-} from '@codelab/modules/component-element'
+import { CreateComponentElementButton } from '@codelab/modules/component-element'
 import { useGetComponentsQuery } from '@codelab/hasura'
 
 export const PaneMainComponentsTree = () => {
@@ -17,7 +13,7 @@ export const PaneMainComponentsTree = () => {
       title="Component"
       header={<CreateComponentElementButton key={1} />}
     >
-      <CrudModal
+      {/* <CrudModal
         modalProps={{
           className: 'create-component-element-modal',
         }}
@@ -25,7 +21,7 @@ export const PaneMainComponentsTree = () => {
         actionType={ActionType.Create}
         okText="Create component element"
         renderForm={() => <CreateComponentElementForm />}
-      />
+      /> */}
       {/*<CrudModal*/}
       {/*  modalProps={{*/}
       {/*    className: 'update-atom-modal',*/}

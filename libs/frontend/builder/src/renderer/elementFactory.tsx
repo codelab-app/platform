@@ -113,8 +113,6 @@ export const elementParameterFactory = <TNode extends ComponentElementNode>({
   React.ComponentType<any> | string | null,
   Record<string, any>,
 ] => {
-  console.log(node)
-
   if (!node) {
     return [null, {}]
   }

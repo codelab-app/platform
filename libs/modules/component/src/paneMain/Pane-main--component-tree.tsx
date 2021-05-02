@@ -1,18 +1,10 @@
 import { Empty, Tree } from 'antd'
 import React, { useContext } from 'react'
-import {
-  ActionType,
-  ComponentContext,
-  CrudModal,
-  EntityType,
-} from '@codelab/frontend/shared'
+import { ComponentContext } from '@codelab/frontend/shared'
 import { PaneMainTemplate } from '@codelab/frontend/layout'
 import { CytoscapeService } from '@codelab/frontend/cytoscape'
 import { DataNode } from 'antd/lib/tree'
-import {
-  CreateComponentElementButton,
-  CreateComponentElementForm,
-} from '@codelab/modules/component-element'
+import { CreateComponentElementButton } from '@codelab/modules/component-element'
 import { useBuilderSelectionState } from '@codelab/frontend/builder'
 
 export const PaneMainComponentTree = () => {
@@ -76,7 +68,7 @@ export const PaneMainComponentTree = () => {
         <Empty />
       )}
 
-      <CrudModal
+      {/* <CrudModal
         modalProps={{
           className: 'create-component-element-modal',
         }}
@@ -84,7 +76,7 @@ export const PaneMainComponentTree = () => {
         actionType={ActionType.Create}
         okText="Create component element"
         renderForm={() => <CreateComponentElementForm />}
-      />
+      /> */}
       {/*<CrudModal*/}
       {/*  modalProps={{*/}
       {/*    className: 'update-atom-modal',*/}

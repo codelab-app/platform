@@ -18,6 +18,7 @@ export enum EntityType {
   Library = 'Library',
   Component = 'Component',
   ComponentElement = 'ComponentElement',
+  ChildComponentElement = 'ChildComponentElement',
   LinkedComponentElement = 'LinkedComponentElement',
 }
 

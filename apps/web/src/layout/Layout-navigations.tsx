@@ -6,6 +6,7 @@ import {
   AppstoreOutlined,
   BookOutlined,
   CopyOutlined,
+  DeploymentUnitOutlined,
   FunctionOutlined,
 } from '@ant-design/icons'
 import Link from 'next/link'
@@ -85,7 +86,7 @@ export const LayoutNavigations = () => {
             Library
           </Link>
         </Menu.Item> */}
-        {/* <Menu.Item
+        <Menu.Item
           key={PageType.AtomList}
           icon={
             <DeploymentUnitOutlined
@@ -105,7 +106,7 @@ export const LayoutNavigations = () => {
             Atom
           </Link>
         </Menu.Item>
-        <Menu.Item
+        {/* <Menu.Item
           key={PageType.ComponentList}
           icon={
             <FileTextOutlined

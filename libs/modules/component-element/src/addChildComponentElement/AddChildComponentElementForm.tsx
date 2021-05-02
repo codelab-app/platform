@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import {
   GetComponentDetailGql,
-  useCreateComponentElementMutation,
+  useAddChildComponentElementMutation,
   useGetAtomsListQuery,
 } from '@codelab/hasura'
 import {
@@ -16,24 +16,33 @@ import {
   AddChildComponentElementInput,
   addChildComponentElementSchema,
 } from './addChildComponentElementSchema'
-import { SelectField } from 'uniforms-antd'
+import { AutoField, SelectField } from 'uniforms-antd'
 
 type AddChildComponentElementFormProps = UniFormUseCaseProps<AddChildComponentElementInput> & {
-  parentComponentId: string
+  componentId: string
+  parentComponentElementId?: string
 }
 
+/**
+ *
+ * @param componentId - The container Component that we're adding the ComponentElement to
+ * @param parentComponentElementId - The parent ComponentElement
+ *
+ * @returns
+ */
 export const AddChildComponentElementForm = ({
-  parentComponentId,
+  componentId,
+  parentComponentElementId,
   ...props
 }: AddChildComponentElementFormProps) => {
   const { reset, setLoading } = useCRUDModalForm(EntityType.ComponentElement)
-  const [mutate, { loading: creating }] = useCreateComponentElementMutation({
+  const [mutate, { loading: creating }] = useAddChildComponentElementMutation({
     awaitRefetchQueries: true,
     refetchQueries: [
       {
         query: GetComponentDetailGql,
         variables: {
-          componentId: parentComponentId,
+          componentId,
         },
       },
     ],
@@ -46,10 +55,12 @@ export const AddChildComponentElementForm = ({
   const onSubmit = (submitData: DeepPartial<AddChildComponentElementInput>) => {
     return mutate({
       variables: {
-        input: {
-          component_id: parentComponentId,
-          ...submitData,
-        },
+        componentElement: {},
+        componentLink: {},
+        // input: {
+        //   component_id: componentId,
+        //   ...submitData,
+        // },
       },
     })
   }
@@ -72,8 +83,14 @@ export const AddChildComponentElementForm = ({
       {...props}
     >
       {/* <AutoFields omitFields={['atom_id']} /> */}
+      <AutoField
+        value={componentId}
+        name="component_id"
+        label="Component ID"
+        disabled
+      />
       <SelectField
-        value={parentComponentId}
+        value={parentComponentElementId}
         disabled
         name="parent_component_element_id"
         label="Parent ComponentElement ID"
