@@ -1,26 +1,26 @@
-import React, { useEffect } from 'react'
-import { DeepPartial } from 'uniforms'
+import {
+  createNotificationHandler,
+  EntityType,
+  FormUniforms,
+  UniFormUseCaseProps,
+  useCRUDModalForm,
+} from '@codelab/frontend/shared'
 import {
   GetAppsListGql,
   useEditAppMutation,
   useGetAppItemQuery,
 } from '@codelab/hasura'
-import { UpdateAppInput, updateAppSchema } from './updateAppSchema'
-import {
-  FormUniforms,
-  UniFormUseCaseProps,
-  createNotificationHandler,
-  EntityType,
-  useCRUDModalForm,
-} from '@codelab/frontend/shared'
 import { Spin } from 'antd'
-import { AutoFields } from 'uniforms-antd'
+import React, { useEffect } from 'react'
 import { useRecoilState } from 'recoil'
+import { DeepPartial } from 'uniforms'
+import { AutoFields } from 'uniforms-antd'
 import { appState } from '../state'
+import { UpdateAppInput, updateAppSchema } from './updateAppSchema'
 
 export const UpdateAppForm = (props: UniFormUseCaseProps<UpdateAppInput>) => {
   const { reset, setLoading, state } = useCRUDModalForm(EntityType.App)
-  const { id: appId } = state
+  const { updateId: updateAppId } = state
   const [, setAppState] = useRecoilState(appState)
 
   const [mutate, { loading: updateAppLoading }] = useEditAppMutation({
@@ -34,7 +34,7 @@ export const UpdateAppForm = (props: UniFormUseCaseProps<UpdateAppInput>) => {
 
   const { data, loading } = useGetAppItemQuery({
     variables: {
-      appId,
+      appId: updateAppId,
     },
   })
 
@@ -50,18 +50,14 @@ export const UpdateAppForm = (props: UniFormUseCaseProps<UpdateAppInput>) => {
   }
 
   const onSubmit = (submitData: DeepPartial<UpdateAppInput>) => {
-    // Because fragments are used, useGetAppQuery returns some fields which cannot be passed to the update app mutation
-    const editedData = { ...submitData } as any
-    delete editedData['pages']
-    delete editedData['__typename']
-    delete editedData['user_id']
-    delete editedData['id']
+    if (!app?.id) {
+      throw new Error('Missing appId')
+    }
 
     return mutate({
       variables: {
         input: {
-          // ...submitData,
-          ...editedData,
+          name: submitData.name,
         },
         id: app?.id,
       },

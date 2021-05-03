@@ -1,24 +1,25 @@
-import React, { useEffect } from 'react'
 import {
   createNotificationHandler,
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
+  useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import { DeleteLibraryInput, DeleteLibrarySchema } from './deleteLibrarySchema'
 import {
-  useDeleteLibraryMutation,
   GetLibrariesGql,
+  useDeleteLibraryMutation,
   useGetLibraryQuery,
 } from '@codelab/hasura'
-import { useCRUDModalForm } from '@codelab/frontend/shared'
 import { Spin } from 'antd'
+import React, { useEffect } from 'react'
 import { AutoFields } from 'uniforms-antd'
+import { DeleteLibraryInput, DeleteLibrarySchema } from './deleteLibrarySchema'
+
 type DeleteLibraryFormProps = UniFormUseCaseProps<DeleteLibraryInput>
 
 export const DeleteLibraryForm = (props: DeleteLibraryFormProps) => {
   const { reset, setLoading, state } = useCRUDModalForm(EntityType.Library)
-  const { id: libraryId } = state
+  const { deleteIds: deleteLibraryIds } = state
 
   const [mutate, { loading: deleting }] = useDeleteLibraryMutation({
     refetchQueries: [
@@ -33,7 +34,7 @@ export const DeleteLibraryForm = (props: DeleteLibraryFormProps) => {
 
   const { data, loading } = useGetLibraryQuery({
     variables: {
-      libraryId,
+      libraryId: deleteLibraryIds[0],
     },
   })
 
@@ -46,7 +47,7 @@ export const DeleteLibraryForm = (props: DeleteLibraryFormProps) => {
   const onSubmit = () => {
     return mutate({
       variables: {
-        libraryId,
+        libraryId: deleteLibraryIds[0],
       },
     })
   }

@@ -1,17 +1,17 @@
-import React, { useEffect } from 'react'
 import {
   createNotificationHandler,
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
+  useCRUDModalForm,
 } from '@codelab/frontend/shared'
 import {
-  useDeleteAppMutation,
   GetAppsListGql,
+  useDeleteAppMutation,
   useGetAppItemQuery,
 } from '@codelab/hasura'
-import { useCRUDModalForm } from '@codelab/frontend/shared'
 import { Spin } from 'antd'
+import React, { useEffect } from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { DeleteAppInput, DeleteAppSchema } from './deleteAppSchema'
 
@@ -19,7 +19,7 @@ type DeleteAppFormProps = UniFormUseCaseProps<DeleteAppInput>
 
 export const DeleteAppForm = (props: DeleteAppFormProps) => {
   const { reset, setLoading, state } = useCRUDModalForm(EntityType.App)
-  const { id: appId } = state
+  const { deleteIds: appDeleteIds } = state
 
   const [mutate, { loading: deleting }] = useDeleteAppMutation({
     refetchQueries: [
@@ -34,7 +34,7 @@ export const DeleteAppForm = (props: DeleteAppFormProps) => {
 
   const { data, loading } = useGetAppItemQuery({
     variables: {
-      appId,
+      appId: appDeleteIds[0],
     },
   })
 
@@ -47,7 +47,7 @@ export const DeleteAppForm = (props: DeleteAppFormProps) => {
   const onSubmit = () => {
     return mutate({
       variables: {
-        id: appId,
+        id: appDeleteIds[0],
       },
     })
   }

@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react'
 import {
   createNotificationHandler,
   EntityType,
@@ -6,22 +5,23 @@ import {
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import { UpdateAtomInput, UpdateAtomSchema } from './updateFromSchema'
 import {
   GetAtomGql,
-  useUpdateAtomMutation,
   useGetAtomQuery,
   useGetAtomsTypesQuery,
+  useUpdateAtomMutation,
 } from '@codelab/hasura'
+import { Spin } from 'antd'
+import React, { useEffect } from 'react'
 import { DeepPartial } from 'uniforms'
 import { SelectField } from 'uniforms-antd'
-import { Spin } from 'antd'
+import { UpdateAtomInput, UpdateAtomSchema } from './updateFromSchema'
 
 export const UpdateAtomForm = ({
   ...props
 }: UniFormUseCaseProps<UpdateAtomInput>) => {
   const { reset, setLoading, state } = useCRUDModalForm(EntityType.Atom)
-  const { id: atomId } = state
+  const { updateId: updateAtomId } = state
 
   const { data: atomsTypes } = useGetAtomsTypesQuery()
   const atomTypesOptions = atomsTypes?.atom_type?.map((t) => ({
@@ -35,7 +35,7 @@ export const UpdateAtomForm = ({
       {
         query: GetAtomGql,
         variables: {
-          atomId,
+          atomId: updateAtomId,
         },
       },
     ],
@@ -47,7 +47,7 @@ export const UpdateAtomForm = ({
 
   const { data, loading } = useGetAtomQuery({
     variables: {
-      atomId,
+      atomId: updateAtomId,
     },
   })
 
@@ -63,7 +63,7 @@ export const UpdateAtomForm = ({
         input: {
           ...(submitData as any),
         },
-        atomId,
+        atomId: updateAtomId,
       },
     })
   }

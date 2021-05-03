@@ -16,9 +16,9 @@ export type Scalars = {
   Boolean: boolean
   Int: number
   Float: number
-  json: any
-  jsonb: any
-  uuid: any
+  json: Record<string, any>
+  jsonb: Record<string, any>
+  uuid: string
 }
 
 /** Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'. */
@@ -1327,8 +1327,8 @@ export type Component_Link = {
   sourceElement: Component_Element
   source_element_id: Scalars['uuid']
   /** An object relationship */
-  targetElement?: Maybe<Component_Element>
-  target_element_id?: Maybe<Scalars['uuid']>
+  targetElement: Component_Element
+  target_element_id: Scalars['uuid']
 }
 
 /** columns and relationships of "component_link" */

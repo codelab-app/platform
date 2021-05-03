@@ -1,20 +1,21 @@
-import React, { useContext, useEffect } from 'react'
 import {
   ComponentContext,
   createNotificationHandler,
+  emptyJsonSchema,
+  EmptyJsonSchemaType,
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
+  useCRUDModalForm,
 } from '@codelab/frontend/shared'
 import {
-  useDeleteComponentElementMutation,
   GetComponentDetailGql,
+  useDeleteComponentElementMutation,
   useGetComponentElementQuery,
 } from '@codelab/hasura'
-import { useCRUDModalForm } from '@codelab/frontend/shared'
 import { Spin } from 'antd'
+import React, { useContext, useEffect } from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { emptyJsonSchema, EmptyJsonSchemaType } from '@codelab/frontend/shared'
 
 type DeleteComponentElementFormProps = UniFormUseCaseProps<EmptyJsonSchemaType>
 
@@ -24,7 +25,7 @@ export const DeleteComponentElementForm = (
   const {
     reset,
     setLoading,
-    state: { id: componentElementId },
+    state: { deleteIds: deleteComponentElementIds },
   } = useCRUDModalForm(EntityType.ComponentElement)
 
   const { componentId } = useContext(ComponentContext)
@@ -46,7 +47,7 @@ export const DeleteComponentElementForm = (
 
   const { data, loading } = useGetComponentElementQuery({
     variables: {
-      componentElementId,
+      componentElementId: deleteComponentElementIds[0],
     },
   })
 
@@ -59,7 +60,7 @@ export const DeleteComponentElementForm = (
   const onSubmit = () => {
     return mutate({
       variables: {
-        componentElementId,
+        componentElementId: deleteComponentElementIds[0],
       },
     })
   }

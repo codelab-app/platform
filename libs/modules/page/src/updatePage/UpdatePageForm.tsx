@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react'
 import {
   createNotificationHandler,
   EntityType,
@@ -6,27 +5,29 @@ import {
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import { UpdatePageInput, UpdatePageSchema } from './updateFromSchema'
 import {
   GetPageGql,
-  useUpdatePageMutation,
   useGetPageQuery,
+  useUpdatePageMutation,
 } from '@codelab/hasura'
-import { DeepPartial } from 'uniforms'
 import { Spin } from 'antd'
+import React, { useEffect } from 'react'
+import { DeepPartial } from 'uniforms'
 import { AutoFields } from 'uniforms-antd'
+import { UpdatePageInput, UpdatePageSchema } from './updateFromSchema'
+
 type UpdatePageFormProps = UniFormUseCaseProps<UpdatePageInput>
 
 export const UpdatePageForm = (props: UpdatePageFormProps) => {
   const { reset, setLoading, state } = useCRUDModalForm(EntityType.Page)
-  const { id: pageId } = state
+  const { updateId: updatePageId } = state
 
   const [mutate, { loading: updating }] = useUpdatePageMutation({
     refetchQueries: [
       {
         query: GetPageGql,
         variables: {
-          pageId,
+          pageId: updatePageId,
         },
       },
     ],
@@ -37,7 +38,7 @@ export const UpdatePageForm = (props: UpdatePageFormProps) => {
 
   const { data, loading } = useGetPageQuery({
     variables: {
-      pageId,
+      pageId: updatePageId,
     },
   })
 
@@ -53,7 +54,7 @@ export const UpdatePageForm = (props: UpdatePageFormProps) => {
         input: {
           ...(submitData as any),
         },
-        pageId,
+        pageId: updatePageId,
       },
     })
   }

@@ -4,13 +4,6 @@ import {
   EditOutlined,
   PictureOutlined,
 } from '@ant-design/icons'
-import { css } from '@emotion/react'
-import styled from '@emotion/styled'
-import { Card, Dropdown, Menu, Space } from 'antd'
-import { CardProps } from 'antd/lib/card'
-import React from 'react'
-import { useDrag } from 'react-dnd'
-import { useRecoilState } from 'recoil'
 import {
   ComponentItemType,
   DragAndDropTypes,
@@ -18,8 +11,15 @@ import {
   PageType,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import { componentItemState } from './Component-item--state'
+import { css } from '@emotion/react'
+import styled from '@emotion/styled'
+import { Card, Dropdown, Menu, Space } from 'antd'
+import { CardProps } from 'antd/lib/card'
 import { useRouter } from 'next/router'
+import React from 'react'
+import { useDrag } from 'react-dnd'
+import { useRecoilState } from 'recoil'
+import { componentItemState } from './Component-item--state'
 
 interface ComponentItemProps extends CardProps {
   item: ComponentItemType
@@ -67,7 +67,7 @@ export const ComponentItem = ({
       <Menu.Item
         key="2"
         style={{ color: 'orangered' }}
-        onClick={() => openDeleteModal(item.id)}
+        onClick={() => openDeleteModal([item.id])}
       >
         Delete
         <DeleteOutlined data-testid="delete-component-button" />

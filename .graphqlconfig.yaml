@@ -31,3 +31,9 @@ generates:
       documentVariableSuffix: 'Gql'
       gqlImport: '@apollo/client#gql'
       skipTypename: true
+      strictScalars: true
+      defaultScalarType: unknown
+      scalars:
+        uuid: string
+        json: Record<string, any>
+        jsonb: Record<string, any>

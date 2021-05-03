@@ -5,6 +5,7 @@ import {
   EditOutlined,
   PlusOutlined,
 } from '@ant-design/icons'
+import { useComponentBuilder } from '@codelab/frontend/builder'
 import {
   ActionType,
   CrudModal,
@@ -12,17 +13,16 @@ import {
   LibraryContext,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
+import {
+  __ComponentFragment,
+  useGetComponentDetailLazyQuery,
+} from '@codelab/hasura'
 import { CreateAtomForm } from '@codelab/modules/atom'
-import { useComponentBuilder } from '@codelab/frontend/builder'
 import { Button, Space, Tree } from 'antd'
 import { DataNode } from 'antd/lib/tree'
-import React, { Key, useContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
+import React, { Key, useContext, useEffect, useState } from 'react'
 import xw from 'xwind'
-import {
-  useGetComponentDetailLazyQuery,
-  __ComponentFragment,
-} from '@codelab/hasura'
 
 type CheckedKeys = {
   checked: Array<Key>
@@ -104,7 +104,7 @@ export const GetLibrariesTree = () => {
             type="primary"
             ghost
             icon={<EditOutlined />}
-            onClick={() => openUpdateAtomModal()}
+            // onClick={() => openUpdateAtomModal()}
           />
           <Button
             size="small"
@@ -153,14 +153,14 @@ export const GetLibrariesTree = () => {
             size="small"
             type="primary"
             icon={<PlusOutlined />}
-            onClick={() => openCreateModal()}
+            // onClick={() => openCreateModal()}
           />
           <Button
             size="small"
             type="primary"
             ghost
             icon={<EditOutlined />}
-            onClick={() => openCreateModal()}
+            // onClick={() => openCreateModal()}
           />
           <Button
             size="small"
@@ -176,7 +176,7 @@ export const GetLibrariesTree = () => {
         onSelect={([componentId], e) => {
           loadComponent({
             variables: {
-              componentId,
+              componentId: componentId.toString(),
             },
           })
         }}

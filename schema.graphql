@@ -2100,8 +2100,8 @@ type component_link {
   """
   An object relationship
   """
-  targetElement: component_element
-  target_element_id: uuid
+  targetElement: component_element!
+  target_element_id: uuid!
 }
 
 """

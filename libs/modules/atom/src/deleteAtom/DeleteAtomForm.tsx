@@ -1,24 +1,25 @@
-import React, { useEffect } from 'react'
 import {
   createNotificationHandler,
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
+  useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import { DeleteAtomInput, DeleteAtomSchema } from './deleteAtomSchema'
 import {
-  useDeleteAtomMutation,
   GetAtomsListGql,
+  useDeleteAtomMutation,
   useGetAtomQuery,
 } from '@codelab/hasura'
-import { useCRUDModalForm } from '@codelab/frontend/shared'
 import { Spin } from 'antd'
+import React, { useEffect } from 'react'
 import { AutoFields } from 'uniforms-antd'
+import { DeleteAtomInput, DeleteAtomSchema } from './deleteAtomSchema'
+
 type DeleteAtomFormProps = UniFormUseCaseProps<DeleteAtomInput>
 
 export const DeleteAtomForm = (props: DeleteAtomFormProps) => {
   const { reset, setLoading, state } = useCRUDModalForm(EntityType.Atom)
-  const { id: atomId } = state
+  const { deleteIds: deleteAtomIds } = state
 
   const [mutate, { loading: deleting }] = useDeleteAtomMutation({
     refetchQueries: [
@@ -33,7 +34,7 @@ export const DeleteAtomForm = (props: DeleteAtomFormProps) => {
 
   const { data, loading } = useGetAtomQuery({
     variables: {
-      atomId,
+      atomId: deleteAtomIds[0],
     },
   })
 
@@ -46,7 +47,7 @@ export const DeleteAtomForm = (props: DeleteAtomFormProps) => {
   const onSubmit = () => {
     return mutate({
       variables: {
-        atomId,
+        atomId: deleteAtomIds[0],
       },
     })
   }
