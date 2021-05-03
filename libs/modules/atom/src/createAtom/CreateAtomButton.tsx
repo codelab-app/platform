@@ -13,3 +13,16 @@ export const CreateAtomButton = () => {
     />
   )
 }
+
+export const CreateAtomButtonIcon = () => {
+  const { openCreateModal } = useCRUDModalForm(EntityType.Atom)
+
+  return (
+    <Button
+      size="small"
+      type="primary"
+      icon={<PlusOutlined />}
+      onClick={() => openCreateModal()}
+    />
+  )
+}

@@ -2,7 +2,7 @@ import { PaneMainTemplate } from '@codelab/frontend/layout'
 import { ActionType, CrudModal, EntityType } from '@codelab/frontend/shared'
 import React from 'react'
 import { CreateAtomButton, CreateAtomForm } from '../createAtom'
-import { DeleteAtomForm } from '../deleteAtom'
+import { DeleteAtomsForm } from '../deleteAtom'
 import { GetAtomsList } from '../getAtoms'
 import { UpdateAtomForm } from '../updateAtom'
 
@@ -35,7 +35,7 @@ export const PaneMainAtom = () => {
         entityType={EntityType.Atom}
         actionType={ActionType.Delete}
         okText="Delete atom"
-        renderForm={() => <DeleteAtomForm />}
+        renderForm={() => <DeleteAtomsForm />}
       />
     </PaneMainTemplate>
   )
