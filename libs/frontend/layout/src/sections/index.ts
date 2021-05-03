@@ -1,1 +1,1 @@
-export * from './Pane-main--template'
+export * from './MainPaneTemplate'

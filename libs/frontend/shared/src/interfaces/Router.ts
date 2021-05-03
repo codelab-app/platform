@@ -14,6 +14,7 @@ export enum PageType {
   Storybook = '/storybook',
   AtomList = '/library/[libraryId]/atom',
   LibraryDetail = '/library/[libraryId]',
+  Library = '/library',
 }
 
 export enum PaneType {

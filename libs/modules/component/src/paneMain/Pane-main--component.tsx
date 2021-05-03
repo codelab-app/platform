@@ -1,4 +1,4 @@
-import { PaneMainTemplate } from '@codelab/frontend/layout'
+import { MainPaneTemplate } from '@codelab/frontend/layout'
 import { ActionType, CrudModal, EntityType } from '@codelab/frontend/shared'
 import React from 'react'
 import { ComponentsTree } from '../componentsTree/ComponentsTree'
@@ -9,7 +9,7 @@ import { UpdateComponentForm } from '../updateComponent/UpdateComponentForm'
 
 export const PaneMainComponent = () => {
   return (
-    <PaneMainTemplate
+    <MainPaneTemplate
       title="Component"
       header={<CreateComponentButton key={1} />}
     >
@@ -42,6 +42,6 @@ export const PaneMainComponent = () => {
         okText="Delete component"
         renderForm={() => <DeleteComponentForm />}
       />
-    </PaneMainTemplate>
+    </MainPaneTemplate>
   )
 }

@@ -1,4 +1,4 @@
-import { PaneMainTemplate } from '@codelab/frontend/layout'
+import { MainPaneTemplate } from '@codelab/frontend/layout'
 import { useGetComponentsQuery } from '@codelab/hasura'
 import { CreateComponentElementButton } from '@codelab/modules/component-element'
 import React from 'react'
@@ -9,7 +9,7 @@ export const PaneMainComponentsTree = () => {
   console.log(data)
 
   return (
-    <PaneMainTemplate
+    <MainPaneTemplate
       title="Component"
       header={<CreateComponentElementButton key={1} />}
     >
@@ -40,6 +40,6 @@ export const PaneMainComponentsTree = () => {
       {/*  okText="Delete atom"*/}
       {/*  renderForm={() => <DeleteAtomForm />}*/}
       {/*/>*/}
-    </PaneMainTemplate>
+    </MainPaneTemplate>
   )
 }

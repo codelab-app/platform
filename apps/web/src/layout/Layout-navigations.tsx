@@ -55,37 +55,19 @@ export const LayoutNavigations = () => {
         </Menu.Item>
         <Menu.Divider />
         <Menu.Item
-          key={PageType.Storybook}
-          icon={
-            <BookOutlined
-              data-testid="storybook-tab-trigger"
-              title="Storybook"
-            />
-          }
-        >
-          <Link
-            href={{
-              pathname: PageType.Storybook,
-            }}
-          >
-            Storybook
-          </Link>
-        </Menu.Item>
-        {/* <Menu.Item
-          key={PageType.LibraryList}
+          key={PageType.Library}
           icon={
             <BookOutlined data-testid="library-tab-trigger" title="Library" />
           }
         >
           <Link
             href={{
-              pathname: PageType.LibraryList,
-              query: { ...router.query, pane: PaneType.Library },
+              pathname: PageType.Library,
             }}
           >
             Library
           </Link>
-        </Menu.Item> */}
+        </Menu.Item>
         <Menu.Item
           key={PageType.AtomList}
           icon={
@@ -106,23 +88,6 @@ export const LayoutNavigations = () => {
             Atom
           </Link>
         </Menu.Item>
-        {/* <Menu.Item
-          key={PageType.ComponentList}
-          icon={
-            <FileTextOutlined
-              data-testid="component-tab-trigger"
-              title="Component"
-            />
-          }
-        >
-          <Link
-            href={{
-              pathname: PageType.ComponentList,
-            }}
-          >
-            Component
-          </Link>
-        </Menu.Item> */}
         <Menu.Divider />
         <Menu.Item
           key="lambda"

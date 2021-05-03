@@ -1,6 +1,6 @@
 import { useBuilderSelectionState } from '@codelab/frontend/builder'
 import { CytoscapeService } from '@codelab/frontend/cytoscape'
-import { PaneMainTemplate } from '@codelab/frontend/layout'
+import { MainPaneTemplate } from '@codelab/frontend/layout'
 import { ComponentContext } from '@codelab/frontend/shared'
 import { CreateComponentElementButton } from '@codelab/modules/component-element'
 import { Empty, Tree } from 'antd'
@@ -18,7 +18,7 @@ export const PaneMainComponentTree = () => {
   }
 
   return (
-    <PaneMainTemplate
+    <MainPaneTemplate
       title="Component Tree"
       header={<CreateComponentElementButton key={1} />}
     >
@@ -93,6 +93,6 @@ export const PaneMainComponentTree = () => {
       {/*  okText="Delete atom"*/}
       {/*  renderForm={() => <DeleteAtomForm />}*/}
       {/*/>*/}
-    </PaneMainTemplate>
+    </MainPaneTemplate>
   )
 }

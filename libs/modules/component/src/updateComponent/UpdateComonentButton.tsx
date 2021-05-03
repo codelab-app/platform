@@ -7,19 +7,18 @@ import {
 import { Button } from 'antd'
 import React from 'react'
 
-export const UpdateAtomButton = ({ id, disabled }: UpdateButtonProps) => {
-  const { openUpdateModal } = useCRUDModalForm(EntityType.Atom)
+export const UpdateComponentButton = ({ id, disabled }: UpdateButtonProps) => {
+  const { openUpdateModal } = useCRUDModalForm(EntityType.Component)
 
   return (
     <Button
       size="small"
       type="primary"
-      disabled={disabled}
       ghost
       icon={<EditOutlined />}
       onClick={() => {
         if (!id) {
-          throw new Error('Atom ID is not valid')
+          throw new Error('Component ID is not valid')
         }
 
         openUpdateModal(id)

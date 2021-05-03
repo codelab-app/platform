@@ -6,7 +6,6 @@ import {
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
 import { GetComponentsGql, useCreateComponentMutation } from '@codelab/hasura'
-import { useSelectedLibrary } from '@codelab/modules/library'
 import React, { useEffect } from 'react'
 import { DeepPartial } from 'uniforms'
 import { AutoFields } from 'uniforms-antd'
@@ -33,14 +32,14 @@ export const CreateComponentForm = ({ ...props }: CreateComponentFormProps) => {
     setLoading(creating)
   }, [creating])
 
-  const { library } = useSelectedLibrary()
+  // const { library } = useSelectedLibrary()
 
   const onSubmit = (submitData: DeepPartial<CreateComponentInput>) => {
     return mutate({
       variables: {
         input: {
           ...submitData,
-          library_id: library?.id,
+          // library_id: library?.id,
         },
       },
     })
