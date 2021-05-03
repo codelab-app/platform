@@ -8,9 +8,9 @@ import {
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
 import {
-  GetComponentsGql,
-  useDeleteComponentMutation,
-  useGetComponentQuery,
+  GetLibrariesGql,
+  useDeleteComponentsWhereMutation,
+  useGetComponentsWhereQuery,
 } from '@codelab/hasura'
 import { Spin } from 'antd'
 import React, { useEffect } from 'react'
@@ -18,32 +18,39 @@ import { AutoFields } from 'uniforms-antd'
 
 type DeleteComponentFormProps = UniFormUseCaseProps<EmptyJsonSchemaType>
 
-export const DeleteComponentForm = (props: DeleteComponentFormProps) => {
+export const DeleteComponentsForm = (props: DeleteComponentFormProps) => {
   const {
     reset,
     setLoading,
     state: { deleteIds: deleteComponentIds },
   } = useCRUDModalForm(EntityType.Component)
 
-  const [mutate, { loading: deleting }] = useDeleteComponentMutation({
+  const [mutate, { loading: deleting }] = useDeleteComponentsWhereMutation({
+    awaitRefetchQueries: true,
     refetchQueries: [
       {
-        query: GetComponentsGql,
+        query: GetLibrariesGql,
       },
     ],
   })
+
+  const componentsWhere = {
+    _or: deleteComponentIds.map((id) => ({
+      id: {
+        _eq: id,
+      },
+    })),
+  }
 
   useEffect(() => {
     setLoading(deleting)
   }, [deleting])
 
-  const { data, loading } = useGetComponentQuery({
+  const { data, loading } = useGetComponentsWhereQuery({
     variables: {
-      componentId: deleteComponentIds[0],
+      where: componentsWhere,
     },
   })
-
-  const component = data?.component_by_pk
 
   if (loading) {
     return <Spin />
@@ -52,10 +59,14 @@ export const DeleteComponentForm = (props: DeleteComponentFormProps) => {
   const onSubmit = () => {
     return mutate({
       variables: {
-        componentId: deleteComponentIds[0],
+        where: componentsWhere,
       },
     })
   }
+
+  const componentLabels = data?.component
+    .map((component) => component.label)
+    .join(', ')
 
   return (
     <FormUniforms<EmptyJsonSchemaType>
@@ -69,7 +80,7 @@ export const DeleteComponentForm = (props: DeleteComponentFormProps) => {
       onSubmitSuccess={() => reset()}
       {...props}
     >
-      <h4>Are you sure you want to delete component "{component?.label}"?</h4>
+      <h4>Are you sure you want to delete component "{componentLabels}"?</h4>
       <AutoFields />
     </FormUniforms>
   )

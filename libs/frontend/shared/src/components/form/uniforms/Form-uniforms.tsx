@@ -24,7 +24,6 @@ export const FormUniforms = <TData extends Record<string, unknown>>({
       schema={bridgeRef.current}
       onSubmit={(formData: DeepPartial<TData>) => {
         const result = onSubmit(formData)
-        console.log(result)
 
         if (!result) {
           return result
@@ -32,7 +31,7 @@ export const FormUniforms = <TData extends Record<string, unknown>>({
 
         return result
           .then((r: any) => {
-            console.log(r)
+            // console.log(r)
 
             if (typeof result === 'object') {
               callbackWithParams(onSubmitSuccess, r)

@@ -16,8 +16,8 @@ import { NextPageLayout } from '../../src/layout/Layout.d'
 
 const AppsPage: NextPageLayout = () => {
   const pageHeaderButtons = [
-    <CreateAppButton key={1} />,
-    <SignOutUserButton key={2} />,
+    <CreateAppButton key={0} />,
+    <SignOutUserButton key={1} />,
   ]
 
   return (

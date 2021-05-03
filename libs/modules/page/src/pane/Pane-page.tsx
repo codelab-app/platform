@@ -1,4 +1,4 @@
-import { PaneMainTemplate } from '@codelab/frontend/layout'
+import { MainPaneTemplate } from '@codelab/frontend/layout'
 import { ActionType, CrudModal, EntityType } from '@codelab/frontend/shared'
 import React from 'react'
 import { CreatePageButton, CreatePageForm } from '../createPage'
@@ -8,7 +8,7 @@ import { UpdatePageForm } from '../updatePage'
 
 export const PanePage = () => {
   return (
-    <PaneMainTemplate title="Pages" header={<CreatePageButton key={0} />}>
+    <MainPaneTemplate title="Pages" header={<CreatePageButton key={0} />}>
       <GetPagesList />
       <CrudModal
         entityType={EntityType.Page}
@@ -28,6 +28,6 @@ export const PanePage = () => {
         okText="Delete page"
         renderForm={() => <DeletePageForm />}
       />
-    </PaneMainTemplate>
+    </MainPaneTemplate>
   )
 }

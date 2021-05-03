@@ -7,16 +7,18 @@ import {
 import { Button } from 'antd'
 import React from 'react'
 
-export const DeleteAtomButton = ({ disabled, ids }: DeleteButtonProps) => {
-  const { openDeleteModal } = useCRUDModalForm(EntityType.Atom)
+export const DeleteComponentButton = ({ disabled, ids }: DeleteButtonProps) => {
+  const { openDeleteModal } = useCRUDModalForm(EntityType.Component)
 
   return (
     <Button
       size="small"
+      disabled={disabled}
       danger
       icon={<DeleteOutlined />}
-      disabled={disabled}
-      onClick={() => openDeleteModal(ids)}
+      onClick={() => {
+        openDeleteModal(ids)
+      }}
     />
   )
 }

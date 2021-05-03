@@ -1,4 +1,4 @@
-mutation DeleteAtoms($where: atom_bool_exp!) {
+mutation DeleteAtomsWhere($where: atom_bool_exp!) {
   delete_atom(where: $where) {
     returning {
       ...__Atom

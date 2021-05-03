@@ -1,6 +1,6 @@
 import { useBuilderSelectionState } from '@codelab/frontend/builder'
 import { CytoscapeService } from '@codelab/frontend/cytoscape'
-import { PaneMainTemplate } from '@codelab/frontend/layout'
+import { MainPaneTemplate } from '@codelab/frontend/layout'
 import {
   ActionType,
   AppContext,
@@ -35,7 +35,7 @@ export const PaneMainTree = () => {
   }
 
   return (
-    <PaneMainTemplate title="Tree" header={<CreatePageElementButton key={1} />}>
+    <MainPaneTemplate title="Tree" header={<CreatePageElementButton key={1} />}>
       {data ? (
         <Tree
           className="draggable-tree"
@@ -68,6 +68,6 @@ export const PaneMainTree = () => {
         okText={'Create'}
         renderForm={() => <CreatePageElementForm />}
       />
-    </PaneMainTemplate>
+    </MainPaneTemplate>
   )
 }

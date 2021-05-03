@@ -10,7 +10,7 @@ import { LayoutNavigations } from './Layout-navigations'
 const { Sider, Content } = Layout
 
 export const tabsWidth = 40
-export const mainPaneWidth = 280
+export const mainPaneWidth = 300
 
 const MetaPaneSection = styled('div')`
   position: absolute;

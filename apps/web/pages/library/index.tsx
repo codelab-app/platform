@@ -1,8 +1,5 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import {
-  useComponentBuilder,
-  useComponentHandlers,
-} from '@codelab/frontend/builder'
+import { useComponentBuilder } from '@codelab/frontend/builder'
 import { CytoscapeService } from '@codelab/frontend/cytoscape'
 import {
   ActionType,
@@ -11,9 +8,12 @@ import {
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
 import { ComponentRenderer } from '@codelab/modules/component'
-import { CreateComponentElementForm } from '@codelab/modules/component-element'
+import {
+  CreateComponentElementButton,
+  CreateComponentElementForm,
+} from '@codelab/modules/component-element'
 import { MainPaneLibrary } from '@codelab/modules/library'
-import { Button, Empty } from 'antd'
+import { Empty } from 'antd'
 import { LayoutBuilder } from 'apps/web/src/layout/Layout--builder'
 import { MetaPaneComponent } from 'apps/web/src/layout/MetaPaneComponent'
 import React from 'react'
@@ -22,7 +22,6 @@ import { NextPageLayout } from '../../src/layout/Layout.d'
 
 const Library: NextPageLayout<'builder'> = () => {
   const { selectedComponent, setSelected } = useComponentBuilder()
-  const handlers = useComponentHandlers()
 
   const { reset, setLoading, openCreateModal } = useCRUDModalForm(
     EntityType.ComponentElement,
@@ -45,9 +44,7 @@ const Library: NextPageLayout<'builder'> = () => {
             <span>Your component is empty, please add a component element</span>
           }
         >
-          <Button type="primary" onClick={() => openCreateModal()}>
-            Add ComponentElement
-          </Button>
+          <CreateComponentElementButton />
         </Empty>
       )}
       <CrudModal
@@ -59,10 +56,6 @@ const Library: NextPageLayout<'builder'> = () => {
         okText="Create ComponentElement"
         renderForm={() => (
           <CreateComponentElementForm componentId={selectedComponent.id} />
-          // <AddChildComponentElementForm
-          //   componentId={selectedComponent.id}
-          //   // parentComponentElementId={undefined}
-          // />
         )}
       />
     </div>

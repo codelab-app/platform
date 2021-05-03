@@ -1,4 +1,4 @@
-import { PaneMainTemplate } from '@codelab/frontend/layout'
+import { MainPaneTemplate } from '@codelab/frontend/layout'
 import { ActionType, CrudModal, EntityType } from '@codelab/frontend/shared'
 import React from 'react'
 import { CreateAtomButton, CreateAtomForm } from '../createAtom'
@@ -8,7 +8,7 @@ import { UpdateAtomForm } from '../updateAtom'
 
 export const PaneMainAtom = () => {
   return (
-    <PaneMainTemplate title="Atoms" header={<CreateAtomButton key={0} />}>
+    <MainPaneTemplate title="Atoms" header={<CreateAtomButton key={0} />}>
       <GetAtomsList />
       <CrudModal
         modalProps={{
@@ -37,6 +37,6 @@ export const PaneMainAtom = () => {
         okText="Delete atom"
         renderForm={() => <DeleteAtomsForm />}
       />
-    </PaneMainTemplate>
+    </MainPaneTemplate>
   )
 }

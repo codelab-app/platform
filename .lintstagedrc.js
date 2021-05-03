@@ -4,7 +4,6 @@ const rules = `--rule 'unused-imports/no-unused-imports-ts: 2'`
 module.exports = {
   '**/*.{js,ts,tsx}': (files) => {
     const stagedFiles = files.join(' ')
-
     const cmd = `cross-env NODE_OPTIONS=--max-old-space-size=8192 eslint ${stagedFiles} ${rules} --fix`
 
     console.log(`Running: ${cmd}`)
@@ -13,7 +12,6 @@ module.exports = {
   },
   '**/*.{json,graphql,yml,yaml}': (files) => {
     const stagedFiles = files.join(' ')
-
     const cmd = `prettier --config .prettierrc.json --write ${stagedFiles}`
 
     console.log(`Running: ${cmd}`)

@@ -29,6 +29,7 @@
         "import/no-duplicates": "error",
         "prettier/prettier": "error",
         "func-style": "error",
+        "@typescript-eslint/no-shadow": ["error"],
         "@typescript-eslint/array-type": ["error", { "default": "generic" }],
         "@typescript-eslint/no-dynamic-delete": "error",
         "@nrwl/nx/enforce-module-boundaries": [

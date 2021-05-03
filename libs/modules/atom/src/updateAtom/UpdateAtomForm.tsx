@@ -39,6 +39,11 @@ export const UpdateAtomForm = ({
         },
       },
     ],
+    context: {
+      headers: {
+        'X-Hasura-Role': 'admin',
+      },
+    },
   })
 
   useEffect(() => {
@@ -58,10 +63,12 @@ export const UpdateAtomForm = ({
   }
 
   const onSubmit = (submitData: DeepPartial<UpdateAtomInput>) => {
+    console.log(submitData, updateAtomId)
+
     return mutate({
       variables: {
         input: {
-          ...(submitData as any),
+          ...submitData,
         },
         atomId: updateAtomId,
       },

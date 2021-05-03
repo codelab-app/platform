@@ -1,4 +1,4 @@
-import { PaneMainTemplate } from '@codelab/frontend/layout'
+import { MainPaneTemplate } from '@codelab/frontend/layout'
 import { ActionType, CrudModal, EntityType } from '@codelab/frontend/shared'
 import React from 'react'
 import { CreateStyleButton, CreateStyleForm } from '../createStyle'
@@ -8,7 +8,7 @@ import { UpdateStyleForm } from '../updateStyle'
 
 export const PaneMainStyle = (): JSX.Element => {
   return (
-    <PaneMainTemplate title="Style" header={<CreateStyleButton key={0} />}>
+    <MainPaneTemplate title="Style" header={<CreateStyleButton key={0} />}>
       <GetStylesList />
       <CrudModal
         entityType={EntityType.Style}
@@ -28,6 +28,6 @@ export const PaneMainStyle = (): JSX.Element => {
         okText="Delete style"
         renderForm={() => <DeleteStyleForm />}
       />
-    </PaneMainTemplate>
+    </MainPaneTemplate>
   )
 }

@@ -1,3 +1,6 @@
-export * from './graph'
-export * from './paneMain'
+export * from './createComponent'
+export * from './deleteComponent'
+// export * from './graph'
+// export * from './paneMain'
 export * from './render/ComponentRenderer'
+export * from './updateComponent'

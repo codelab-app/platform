@@ -2,7 +2,7 @@ import styled from '@emotion/styled'
 import { PageHeader } from 'antd'
 import React from 'react'
 
-type PaneMainTemplateProps = {
+type MainPaneTemplateProps = {
   title: string
   // For buttons
   header?: React.ReactElement | Array<React.ReactElement>
@@ -23,11 +23,11 @@ const StyledContainer = styled.div`
   }
 `
 
-export const PaneMainTemplate = ({
+export const MainPaneTemplate = ({
   children,
   header,
   title,
-}: PaneMainTemplateProps) => {
+}: MainPaneTemplateProps) => {
   const extra = header && Array.isArray(header) ? header : [header]
 
   return (
