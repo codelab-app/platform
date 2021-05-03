@@ -12,6 +12,7 @@ const ComponentList: NextPageLayout<'builder'> = () => {
     </div>
   )
 }
+
 ComponentList.Layout = LayoutComponentDetail
 ComponentList.MainPane = PaneMainComponent
 

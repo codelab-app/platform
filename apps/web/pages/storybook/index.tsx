@@ -23,6 +23,7 @@ import { NextPageLayout } from '../../src/layout/Layout.d'
 const Library: NextPageLayout<'builder'> = () => {
   const { selectedComponent, setSelected } = useComponentBuilder()
   const handlers = useComponentHandlers()
+
   const { reset, setLoading, openCreateModal } = useCRUDModalForm(
     EntityType.ComponentElement,
   )

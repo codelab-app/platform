@@ -26,6 +26,7 @@ type PageElementFormBaseProps = UniFormUseCaseProps<
  */
 export const PageElementFormBase = (props: PageElementFormBaseProps) => {
   const { data: componentsData } = useGetComponentsQuery()
+
   const componentOptions = componentsData?.component?.map((c) => ({
     value: c.id,
     label: c.label,

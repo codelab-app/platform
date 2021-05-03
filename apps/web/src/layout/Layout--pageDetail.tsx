@@ -8,7 +8,6 @@ import { LayoutBuilder } from './Layout--builder'
 export const LayoutPageDetail = (props: NextPageLayout<'builder'>) => {
   const { children, MainPane } = props
   const { query } = useRouter()
-
   const appId = `${query.appId}`
   const pageId = `${query.pageId}`
 

@@ -9,9 +9,7 @@ import React, { useContext } from 'react'
 
 export const PaneMainComponentTree = () => {
   const { setSelected, setHovering, resetHovering } = useBuilderSelectionState()
-
   const { component } = useContext(ComponentContext)
-
   let data: DataNode | undefined
 
   if (component && component.elements && component.elements.length) {

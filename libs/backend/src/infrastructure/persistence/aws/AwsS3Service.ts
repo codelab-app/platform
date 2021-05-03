@@ -70,6 +70,7 @@ export class AwsS3Service extends S3Client {
         Key: lambda.id,
         Body: zip.toBuffer(),
       })
+
       const results = await this.send(putObjectCommand)
     } catch (e) {
       console.log(e)

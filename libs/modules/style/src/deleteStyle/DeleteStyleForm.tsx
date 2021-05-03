@@ -28,6 +28,7 @@ export const DeleteStyleForm = (props: DeleteStyleFormProps) => {
       },
     ],
   })
+
   useEffect(() => {
     setLoading(deleting)
   }, [deleting])

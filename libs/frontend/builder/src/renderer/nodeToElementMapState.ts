@@ -22,6 +22,7 @@ export const nodeToElementMapState = atom<NodeToElementMapStateType>({
 
 export const useAddNodeToElementMapping = () => {
   const setNodeToElementMap = useSetRecoilState(nodeToElementMapState)
+
   const addMapping = useCallback(
     (node: ComponentElementNode, element: HTMLElement) => {
       setNodeToElementMap(({ map, ...s }) => ({

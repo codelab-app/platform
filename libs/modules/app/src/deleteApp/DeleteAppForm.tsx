@@ -28,6 +28,7 @@ export const DeleteAppForm = (props: DeleteAppFormProps) => {
       },
     ],
   })
+
   useEffect(() => {
     setLoading(deleting)
   }, [deleting])

@@ -24,7 +24,6 @@ export const notify = <TEvent extends any>(
   e: TEvent | undefined = undefined,
 ) => {
   const { content, type, title } = { ...defaultOptions, ...options }
-
   let titleString: string
   let contentString: string
 

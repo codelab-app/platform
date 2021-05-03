@@ -25,6 +25,7 @@ export const CreateComponentElementFormBase = ({
   ...props
 }: CreateComponentElementFormProps) => {
   const { data: atomsData } = useGetAtomsListQuery()
+
   const atomOptions = atomsData?.atom?.map((t) => ({
     value: t.id,
     label: t.type,

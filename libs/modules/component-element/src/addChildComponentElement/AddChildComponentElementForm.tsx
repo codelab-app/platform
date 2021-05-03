@@ -36,6 +36,7 @@ export const AddChildComponentElementForm = ({
   ...props
 }: AddChildComponentElementFormProps) => {
   const { reset, setLoading } = useCRUDModalForm(EntityType.ComponentElement)
+
   const [mutate, { loading: creating }] = useAddChildComponentElementMutation({
     awaitRefetchQueries: true,
     refetchQueries: [
@@ -66,6 +67,7 @@ export const AddChildComponentElementForm = ({
   }
 
   const { data: atomsData } = useGetAtomsListQuery()
+
   const atomOptions = atomsData?.atom?.map((t) => ({
     value: t.id,
     label: t.type,

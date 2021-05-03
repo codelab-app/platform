@@ -15,6 +15,7 @@ import { CreateAppInput, createAppSchema } from './createAppSchema'
 
 export const CreateAppForm = (props: UniFormUseCaseProps<CreateAppInput>) => {
   const { reset, setLoading } = useCRUDModalForm(EntityType.App)
+
   const [mutate, { loading }] = useCreateAppMutation({
     awaitRefetchQueries: true,
     refetchQueries: [

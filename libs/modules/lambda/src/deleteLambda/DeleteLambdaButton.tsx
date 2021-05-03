@@ -6,6 +6,7 @@ import { LambdaRecord } from '../getLambdas/LambdaRecord'
 
 export const DeleteLambdaButton = (props: LambdaRecord) => {
   const { appId } = useContext(AppContext)
+
   const [mutate] = useDeleteLambdaMutation({
     refetchQueries: [
       {

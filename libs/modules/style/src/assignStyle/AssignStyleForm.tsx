@@ -4,7 +4,6 @@ import React, { useContext, useState } from 'react'
 
 export const AssignStyleForm = ({ vertexId }: { vertexId: string }) => {
   const { appId } = useContext(AppContext)
-
   const [selection, setSelection] = useState<string | undefined>(undefined)
 
   // const [mutate] = useAssignStyleMutation({

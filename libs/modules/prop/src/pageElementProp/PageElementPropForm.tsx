@@ -46,8 +46,8 @@ export const PageElementPropForm = ({
     ...initialData,
     values: initialData.values ?? [{ value: '', id: undefined }], //This is needed to avoid missing value when creating a new prop
   })
-  const isInCreationMode = !propData?.id
 
+  const isInCreationMode = !propData?.id
   const { pageId, appId } = useContext(AppContext)
 
   //Mutations:
@@ -59,6 +59,7 @@ export const PageElementPropForm = ({
       },
     ],
   })
+
   const [updatePropValue] = useUpdatePropValueMutation({
     refetchQueries: [
       {

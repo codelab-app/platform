@@ -7,7 +7,6 @@ import {
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
 import {
-  GetAtomsListGql,
   GetLibrariesGql,
   useCreateAtomMutation,
   useGetAtomsTypesQuery,
@@ -29,9 +28,6 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
     awaitRefetchQueries: true,
     refetchQueries: [
       {
-        query: GetAtomsListGql,
-      },
-      {
         query: GetLibrariesGql,
       },
     ],
@@ -47,8 +43,6 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
   }, [creating])
 
   const onSubmit = (submitData: DeepPartial<CreateAtomInput>) => {
-    console.log(submitData)
-
     return mutate({
       variables: {
         data: {
@@ -58,6 +52,7 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
       },
     })
   }
+
   const { data } = useGetAtomsTypesQuery()
 
   const atomTypesOptions = _.chain(data?.atom_type)
@@ -71,7 +66,7 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
   return (
     <FormUniforms<CreateAtomInput>
       data-testid="create-atom-form"
-      id="create-atom-form" //We need both this and testid, because the generated dropdown has id based on this id, and we use it to identify the options when testing
+      id="create-atom-form" // We need both this and testid, because the generated dropdown has id based on this id, and we use it to identify the options when testing
       onSubmit={onSubmit}
       schema={createAtomSchema}
       onSubmitError={createNotificationHandler({

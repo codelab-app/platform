@@ -16,7 +16,6 @@ type CreatePageFormProps = UniFormUseCaseProps<CreatePageInput>
 
 export const CreatePageForm = (props: CreatePageFormProps) => {
   const { reset, setLoading } = useCRUDModalForm(EntityType.Page)
-
   const { appId } = useContext(AppContext)
 
   const [mutate, { loading: creating }] = useCreatePageMutation({
