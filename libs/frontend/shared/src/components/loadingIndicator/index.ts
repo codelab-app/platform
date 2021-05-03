@@ -1,2 +1,2 @@
-export * from './loadingIndicatorState'
 export * from './LoadingIndicator'
+export * from './loadingIndicatorState'

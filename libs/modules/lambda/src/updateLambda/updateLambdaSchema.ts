@@ -1,5 +1,5 @@
-import { LongTextField } from 'uniforms-antd'
 import { JSONSchemaType } from 'ajv'
+import { LongTextField } from 'uniforms-antd'
 
 export type UpdateLambdaInput = {
   name: string

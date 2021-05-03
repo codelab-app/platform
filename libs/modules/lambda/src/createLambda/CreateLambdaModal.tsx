@@ -1,9 +1,9 @@
+import { ModalForm } from '@codelab/frontend/shared'
 import React from 'react'
 import { useRecoilState } from 'recoil'
+import { AutoFields } from 'uniforms-antd'
 import { CreateLambdaForm } from './CreateLambdaForm'
 import { createLambdaState } from './CreateLambdaState'
-import { ModalForm } from '@codelab/frontend/shared'
-import { AutoFields } from 'uniforms-antd'
 
 export const CreateLambdaModal = () => {
   const [createLambda, setCreateLambda] = useRecoilState(createLambdaState)

@@ -1,6 +1,6 @@
+import styled from '@emotion/styled'
 import { PageHeader } from 'antd'
 import React from 'react'
-import styled from '@emotion/styled'
 
 type PaneMainTemplateProps = {
   title: string

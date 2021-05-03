@@ -1,17 +1,16 @@
-import React, { useContext } from 'react'
-import { Menu } from 'antd'
-import { LibraryContext, PageType, PaneType } from '@codelab/frontend/shared'
 import {
   ApartmentOutlined,
   AppstoreOutlined,
   BookOutlined,
   CopyOutlined,
   DeploymentUnitOutlined,
-  FileTextOutlined,
   FunctionOutlined,
 } from '@ant-design/icons'
+import { LibraryContext, PageType, PaneType } from '@codelab/frontend/shared'
+import { Menu } from 'antd'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import React, { useContext } from 'react'
 import xw from 'xwind'
 
 export const LayoutNavigations = () => {
@@ -56,6 +55,23 @@ export const LayoutNavigations = () => {
         </Menu.Item>
         <Menu.Divider />
         <Menu.Item
+          key={PageType.Storybook}
+          icon={
+            <BookOutlined
+              data-testid="storybook-tab-trigger"
+              title="Storybook"
+            />
+          }
+        >
+          <Link
+            href={{
+              pathname: PageType.Storybook,
+            }}
+          >
+            Storybook
+          </Link>
+        </Menu.Item>
+        {/* <Menu.Item
           key={PageType.LibraryList}
           icon={
             <BookOutlined data-testid="library-tab-trigger" title="Library" />
@@ -69,7 +85,7 @@ export const LayoutNavigations = () => {
           >
             Library
           </Link>
-        </Menu.Item>
+        </Menu.Item> */}
         <Menu.Item
           key={PageType.AtomList}
           icon={
@@ -90,7 +106,7 @@ export const LayoutNavigations = () => {
             Atom
           </Link>
         </Menu.Item>
-        <Menu.Item
+        {/* <Menu.Item
           key={PageType.ComponentList}
           icon={
             <FileTextOutlined
@@ -106,7 +122,7 @@ export const LayoutNavigations = () => {
           >
             Component
           </Link>
-        </Menu.Item>
+        </Menu.Item> */}
         <Menu.Divider />
         <Menu.Item
           key="lambda"

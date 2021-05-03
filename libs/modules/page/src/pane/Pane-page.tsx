@@ -1,11 +1,10 @@
-import React from 'react'
-import { GetPagesList } from '../getPages'
 import { PaneMainTemplate } from '@codelab/frontend/layout'
-import { CreatePageButton } from '../createPage'
-import { CrudModal, EntityType, ActionType } from '@codelab/frontend/shared'
-import { CreatePageForm } from '../createPage'
-import { UpdatePageForm } from '../updatePage'
+import { ActionType, CrudModal, EntityType } from '@codelab/frontend/shared'
+import React from 'react'
+import { CreatePageButton, CreatePageForm } from '../createPage'
 import { DeletePageForm } from '../deletePage'
+import { GetPagesList } from '../getPages'
+import { UpdatePageForm } from '../updatePage'
 
 export const PanePage = () => {
   return (

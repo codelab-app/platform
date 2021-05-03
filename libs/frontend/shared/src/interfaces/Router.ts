@@ -11,6 +11,7 @@ export enum PageType {
   ComponentList = '/components',
   ComponentDetailV2 = '/library/[libraryId]/component/[componentId]',
   LibraryList = '/library',
+  Storybook = '/storybook',
   AtomList = '/library/[libraryId]/atom',
   LibraryDetail = '/library/[libraryId]',
 }

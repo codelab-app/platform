@@ -1,5 +1,5 @@
-import { useContext } from 'react'
 import { AppContext, PropsWithIds } from '@codelab/frontend/shared'
+import { useContext } from 'react'
 // import { GetPageGql, useDeleteVertexMutation } from '@codelab/generated'
 
 export const DeleteVertexButton = ({ vertexId }: PropsWithIds<'vertexId'>) => {

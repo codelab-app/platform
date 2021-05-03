@@ -1,6 +1,6 @@
-import { Modal } from 'antd'
-import { GetAppsListGql, useDeleteAppMutation } from '@codelab/hasura'
 import { createNotificationHandler } from '@codelab/frontend/shared'
+import { GetAppsListGql, useDeleteAppMutation } from '@codelab/hasura'
+import { Modal } from 'antd'
 
 export const useDeleteAppConfirmation = () => {
   const [deleteApp, { loading }] = useDeleteAppMutation()

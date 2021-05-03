@@ -1,6 +1,6 @@
+import { HTML5toTouch } from 'rdndmb-html5-to-touch'
 import React, { PropsWithChildren } from 'react'
 import { DndProvider } from 'react-dnd-multi-backend'
-import { HTML5toTouch } from 'rdndmb-html5-to-touch'
 
 export const EditorProvider = ({
   children,

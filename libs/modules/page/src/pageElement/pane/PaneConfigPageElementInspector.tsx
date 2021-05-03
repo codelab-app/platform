@@ -1,19 +1,19 @@
-import React from 'react'
-import { UpdatePageElementForm } from '../updatePageElement'
+import { DeleteOutlined } from '@ant-design/icons'
+import { useBuilderSelectionState } from '@codelab/frontend/builder'
 import {
   ActionType,
   CrudModal,
   EntityType,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import { Empty, Spin } from 'antd'
 import { useGetPageElementQuery } from '@codelab/hasura'
+import { Empty, Spin } from 'antd'
+import React from 'react'
 import {
-  DeletePageElementForm,
   DeletePageElementButton,
+  DeletePageElementForm,
 } from '../deletePageElement'
-import { DeleteOutlined } from '@ant-design/icons'
-import { useBuilderSelectionState } from '@codelab/frontend/builder'
+import { UpdatePageElementForm } from '../updatePageElement'
 
 interface Props {
   pageElementId: string

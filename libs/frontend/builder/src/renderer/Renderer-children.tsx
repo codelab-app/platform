@@ -1,10 +1,10 @@
+import {
+  ComponentElementNode,
+  DragAndDropTypes,
+} from '@codelab/frontend/shared'
 import React from 'react'
 import { useDrop } from 'react-dnd'
 import { elementParameterFactory } from './elementFactory'
-import {
-  DragAndDropTypes,
-  ComponentElementNode,
-} from '@codelab/frontend/shared'
 import { useAddNodeToElementMapping } from './nodeToElementMapState'
 import { ComponentHandlers } from './useComponentHandlers'
 

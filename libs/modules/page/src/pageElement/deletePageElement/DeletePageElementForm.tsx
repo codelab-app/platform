@@ -1,20 +1,21 @@
-import React, { useContext, useEffect } from 'react'
 import {
   AppContext,
   createNotificationHandler,
+  emptyJsonSchema,
+  EmptyJsonSchemaType,
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
+  useCRUDModalForm,
 } from '@codelab/frontend/shared'
 import {
+  GetAppGql,
   useDeletePageElementMutation,
   useGetPageElementQuery,
-  GetAppGql,
 } from '@codelab/hasura'
-import { useCRUDModalForm } from '@codelab/frontend/shared'
 import { Spin } from 'antd'
+import React, { useContext, useEffect } from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { emptyJsonSchema, EmptyJsonSchemaType } from '@codelab/frontend/shared'
 
 type DeletePageElementFormProps = UniFormUseCaseProps<EmptyJsonSchemaType>
 
@@ -22,7 +23,7 @@ export const DeletePageElementForm = (props: DeletePageElementFormProps) => {
   const {
     reset,
     setLoading,
-    state: { id: pageElementId },
+    state: { deleteIds: deletePageElementIds },
   } = useCRUDModalForm(EntityType.PageElement)
 
   const { pageId, appId } = useContext(AppContext)
@@ -45,7 +46,7 @@ export const DeletePageElementForm = (props: DeletePageElementFormProps) => {
 
   const { data, loading } = useGetPageElementQuery({
     variables: {
-      pageElementId,
+      pageElementId: deletePageElementIds[0],
     },
   })
 
@@ -58,7 +59,7 @@ export const DeletePageElementForm = (props: DeletePageElementFormProps) => {
   const onSubmit = () => {
     return mutate({
       variables: {
-        pageElementId,
+        pageElementId: deletePageElementIds[0],
       },
     })
   }

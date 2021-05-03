@@ -1,10 +1,10 @@
+import { PaneMainTemplate } from '@codelab/frontend/layout'
+import { ActionType, CrudModal, EntityType } from '@codelab/frontend/shared'
 import React from 'react'
 import { CreateStyleButton, CreateStyleForm } from '../createStyle'
-import { PaneMainTemplate } from '@codelab/frontend/layout'
-import { GetStylesList } from '../getStyles'
-import { CrudModal, EntityType, ActionType } from '@codelab/frontend/shared'
-import { UpdateStyleForm } from '../updateStyle'
 import { DeleteStyleForm } from '../deleteStyle'
+import { GetStylesList } from '../getStyles'
+import { UpdateStyleForm } from '../updateStyle'
 
 export const PaneMainStyle = (): JSX.Element => {
   return (

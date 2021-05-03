@@ -1,16 +1,17 @@
-import React, { useEffect } from 'react'
-import { GetComponentDetailGql } from '@codelab/hasura'
-import { useContext } from 'react'
 import {
   ComponentContext,
   EntityType,
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
+import {
+  GetComponentDetailGql,
+  useCreateComponentLinkMutation,
+} from '@codelab/hasura'
+import React, { useContext, useEffect } from 'react'
 import { DeepPartial } from 'uniforms'
-import { useCreateComponentLinkMutation } from '@codelab/hasura'
-import { CreateComponentElementFormBase } from '../create/CreateComponentElementFormBase'
-import { CreateComponentElementInput } from '../create/createComponentElementSchema'
+import { CreateComponentElementFormBase } from '../createComponentElement/CreateComponentElementFormBase'
+import { CreateComponentElementInput } from '../createComponentElement/createComponentElementSchema'
 
 type CreateLinkedComponentElementFormProps = UniFormUseCaseProps<CreateComponentElementInput> & {
   sourceComponentElementId: string

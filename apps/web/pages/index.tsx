@@ -1,13 +1,15 @@
 import React from 'react'
+import xw from 'xwind'
+import { NextPageLayout } from '../src/layout/Layout.d'
 import { LayoutHome } from '../src/layout/Layout--home'
 import { HomeClients } from '../src/pages/home/Home-clients'
 import { HomeFeatures } from '../src/pages/home/Home-features'
 import { HomeJumbo } from '../src/pages/home/Home-jumbo'
-import { NextPageLayout } from '../src/layout/Layout.d'
 
 const HomePage: NextPageLayout = () => {
   return (
     <>
+      <div css={xw`text-red-500`}>Test</div>
       <HomeJumbo />
       <HomeClients />
       <HomeFeatures />

@@ -1,9 +1,9 @@
-import { AtomType } from './Hasura'
 import {
   __AtomFragment,
   __ComponentFragment,
   PropCollectionFragment,
 } from '@codelab/hasura'
+import { AtomType } from './Hasura'
 
 export enum NodeType {
   PageRoot = 'PageRoot',
@@ -21,6 +21,7 @@ export interface NodeBase {
 export interface ComponentElementNode extends NodeBase {
   atom: __AtomFragment
   pageElementId?: string
+  // nodeType: NodeType.ComponentElement
   nodeType: NodeType.ComponentElement
   children?: Array<ComponentElementNode>
   props?: Record<string, any>

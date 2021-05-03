@@ -4582,10 +4582,10 @@
     webpack-merge "4.2.1"
     webpack-node-externals "1.7.2"
 
-"@nrwl/nx-cloud@12.0.0":
-  version "12.0.0"
-  resolved "https://registry.yarnpkg.com/@nrwl/nx-cloud/-/nx-cloud-12.0.0.tgz#7649c1fe45ce6d9cd11c86f4aafa2b5325f2edaa"
-  integrity sha512-j0iQOWL1ehXgY2o0pf8AobZqMqnsnkK/mMe7YtHV7hsS4GOKX0IuYWdxU+K1k4e8/cDJiaxYjpBgi7WUp0qjvw==
+"@nrwl/nx-cloud@12.0.2":
+  version "12.0.2"
+  resolved "https://registry.yarnpkg.com/@nrwl/nx-cloud/-/nx-cloud-12.0.2.tgz#c1aae9f479e2f977b8c1ca1369e078725bf4bc94"
+  integrity sha512-CbzdraCIsROUywbt96OnxEZ4WKPHLhdkX+hFg4LE1xzktuzet9sp169AdIu6/Kz07FVRE3xfx20eylX1kDVIjw==
   dependencies:
     axios "^0.21.1"
     chalk "4.1.0"
@@ -14119,6 +14119,11 @@ eslint-plugin-react@^7.21.5:
     prop-types "^15.7.2"
     resolve "^2.0.0-next.3"
     string.prototype.matchall "^4.0.4"
+
+eslint-plugin-simple-import-sort@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-simple-import-sort/-/eslint-plugin-simple-import-sort-7.0.0.tgz#a1dad262f46d2184a90095a60c66fef74727f0f8"
+  integrity sha512-U3vEDB5zhYPNfxT5TYR7u01dboFZp+HNpnGhkDB2g/2E4wZ/g1Q9Ton8UwCLfRV9yAKyYqDh62oHOamvkFxsvw==
 
 eslint-plugin-sort-exports@0.4.0:
   version "0.4.0"

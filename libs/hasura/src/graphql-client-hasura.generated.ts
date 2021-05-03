@@ -16,9 +16,9 @@ export type Scalars = {
   Boolean: boolean
   Int: number
   Float: number
-  json: any
-  jsonb: any
-  uuid: any
+  json: Record<string, any>
+  jsonb: Record<string, any>
+  uuid: string
 }
 
 /** Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'. */
@@ -42,7 +42,6 @@ export type LambdaInput = {
 }
 
 export type LambdaOutput = {
-  __typename?: 'LambdaOutput'
   payload: Scalars['String']
 }
 
@@ -81,7 +80,6 @@ export type String_Comparison_Exp = {
 
 /** columns and relationships of "app" */
 export type App = {
-  __typename?: 'app'
   id: Scalars['uuid']
   name: Scalars['String']
   /** An array relationship */
@@ -113,14 +111,12 @@ export type AppPages_AggregateArgs = {
 
 /** aggregated selection of "app" */
 export type App_Aggregate = {
-  __typename?: 'app_aggregate'
   aggregate?: Maybe<App_Aggregate_Fields>
   nodes: Array<App>
 }
 
 /** aggregate fields of "app" */
 export type App_Aggregate_Fields = {
-  __typename?: 'app_aggregate_fields'
   count: Scalars['Int']
   max?: Maybe<App_Max_Fields>
   min?: Maybe<App_Min_Fields>
@@ -175,7 +171,6 @@ export type App_Insert_Input = {
 
 /** aggregate max on columns */
 export type App_Max_Fields = {
-  __typename?: 'app_max_fields'
   id?: Maybe<Scalars['uuid']>
   name?: Maybe<Scalars['String']>
   user_id?: Maybe<Scalars['String']>
@@ -190,7 +185,6 @@ export type App_Max_Order_By = {
 
 /** aggregate min on columns */
 export type App_Min_Fields = {
-  __typename?: 'app_min_fields'
   id?: Maybe<Scalars['uuid']>
   name?: Maybe<Scalars['String']>
   user_id?: Maybe<Scalars['String']>
@@ -205,7 +199,6 @@ export type App_Min_Order_By = {
 
 /** response of any mutation on the table "app" */
 export type App_Mutation_Response = {
-  __typename?: 'app_mutation_response'
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']
   /** data from the rows affected by the mutation */
@@ -269,7 +262,6 @@ export enum App_Update_Column {
 
 /** columns and relationships of "atom" */
 export type Atom = {
-  __typename?: 'atom'
   _atom_type?: Maybe<Atom_Type_Enum>
   id: Scalars['uuid']
   library_id?: Maybe<Scalars['uuid']>
@@ -326,14 +318,12 @@ export type AtomTags_AggregateArgs = {
 
 /** aggregated selection of "atom" */
 export type Atom_Aggregate = {
-  __typename?: 'atom_aggregate'
   aggregate?: Maybe<Atom_Aggregate_Fields>
   nodes: Array<Atom>
 }
 
 /** aggregate fields of "atom" */
 export type Atom_Aggregate_Fields = {
-  __typename?: 'atom_aggregate_fields'
   count: Scalars['Int']
   max?: Maybe<Atom_Max_Fields>
   min?: Maybe<Atom_Min_Fields>
@@ -396,7 +386,6 @@ export type Atom_Insert_Input = {
 
 /** aggregate max on columns */
 export type Atom_Max_Fields = {
-  __typename?: 'atom_max_fields'
   id?: Maybe<Scalars['uuid']>
   library_id?: Maybe<Scalars['uuid']>
   owner_id?: Maybe<Scalars['String']>
@@ -415,7 +404,6 @@ export type Atom_Max_Order_By = {
 
 /** aggregate min on columns */
 export type Atom_Min_Fields = {
-  __typename?: 'atom_min_fields'
   id?: Maybe<Scalars['uuid']>
   library_id?: Maybe<Scalars['uuid']>
   owner_id?: Maybe<Scalars['String']>
@@ -434,7 +422,6 @@ export type Atom_Min_Order_By = {
 
 /** response of any mutation on the table "atom" */
 export type Atom_Mutation_Response = {
-  __typename?: 'atom_mutation_response'
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']
   /** data from the rows affected by the mutation */
@@ -501,21 +488,18 @@ export type Atom_Set_Input = {
 
 /** columns and relationships of "atom_type" */
 export type Atom_Type = {
-  __typename?: 'atom_type'
   description?: Maybe<Scalars['String']>
   value: Scalars['String']
 }
 
 /** aggregated selection of "atom_type" */
 export type Atom_Type_Aggregate = {
-  __typename?: 'atom_type_aggregate'
   aggregate?: Maybe<Atom_Type_Aggregate_Fields>
   nodes: Array<Atom_Type>
 }
 
 /** aggregate fields of "atom_type" */
 export type Atom_Type_Aggregate_Fields = {
-  __typename?: 'atom_type_aggregate_fields'
   count: Scalars['Int']
   max?: Maybe<Atom_Type_Max_Fields>
   min?: Maybe<Atom_Type_Min_Fields>
@@ -665,21 +649,18 @@ export type Atom_Type_Insert_Input = {
 
 /** aggregate max on columns */
 export type Atom_Type_Max_Fields = {
-  __typename?: 'atom_type_max_fields'
   description?: Maybe<Scalars['String']>
   value?: Maybe<Scalars['String']>
 }
 
 /** aggregate min on columns */
 export type Atom_Type_Min_Fields = {
-  __typename?: 'atom_type_min_fields'
   description?: Maybe<Scalars['String']>
   value?: Maybe<Scalars['String']>
 }
 
 /** response of any mutation on the table "atom_type" */
 export type Atom_Type_Mutation_Response = {
-  __typename?: 'atom_type_mutation_response'
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']
   /** data from the rows affected by the mutation */
@@ -744,7 +725,6 @@ export enum Atom_Update_Column {
 
 /** columns and relationships of "category" */
 export type Category = {
-  __typename?: 'category'
   /** An array relationship */
   componentLinks: Array<Component_Link>
   /** An aggregate relationship */
@@ -798,14 +778,12 @@ export type CategoryTags_AggregateArgs = {
 
 /** aggregated selection of "category" */
 export type Category_Aggregate = {
-  __typename?: 'category_aggregate'
   aggregate?: Maybe<Category_Aggregate_Fields>
   nodes: Array<Category>
 }
 
 /** aggregate fields of "category" */
 export type Category_Aggregate_Fields = {
-  __typename?: 'category_aggregate_fields'
   count: Scalars['Int']
   max?: Maybe<Category_Max_Fields>
   min?: Maybe<Category_Min_Fields>
@@ -862,7 +840,6 @@ export type Category_Insert_Input = {
 
 /** aggregate max on columns */
 export type Category_Max_Fields = {
-  __typename?: 'category_max_fields'
   id?: Maybe<Scalars['uuid']>
   library_id?: Maybe<Scalars['uuid']>
   name?: Maybe<Scalars['String']>
@@ -877,7 +854,6 @@ export type Category_Max_Order_By = {
 
 /** aggregate min on columns */
 export type Category_Min_Fields = {
-  __typename?: 'category_min_fields'
   id?: Maybe<Scalars['uuid']>
   library_id?: Maybe<Scalars['uuid']>
   name?: Maybe<Scalars['String']>
@@ -892,7 +868,6 @@ export type Category_Min_Order_By = {
 
 /** response of any mutation on the table "category" */
 export type Category_Mutation_Response = {
-  __typename?: 'category_mutation_response'
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']
   /** data from the rows affected by the mutation */
@@ -957,7 +932,6 @@ export enum Category_Update_Column {
 
 /** columns and relationships of "component" */
 export type Component = {
-  __typename?: 'component'
   /** An array relationship */
   elements: Array<Component_Element>
   /** An aggregate relationship */
@@ -1033,14 +1007,12 @@ export type ComponentTags_AggregateArgs = {
 
 /** aggregated selection of "component" */
 export type Component_Aggregate = {
-  __typename?: 'component_aggregate'
   aggregate?: Maybe<Component_Aggregate_Fields>
   nodes: Array<Component>
 }
 
 /** aggregate fields of "component" */
 export type Component_Aggregate_Fields = {
-  __typename?: 'component_aggregate_fields'
   count: Scalars['Int']
   max?: Maybe<Component_Max_Fields>
   min?: Maybe<Component_Min_Fields>
@@ -1088,7 +1060,6 @@ export enum Component_Constraint {
 
 /** columns and relationships of "component_element" */
 export type Component_Element = {
-  __typename?: 'component_element'
   /** An object relationship */
   atom?: Maybe<Atom>
   atom_id?: Maybe<Scalars['uuid']>
@@ -1100,7 +1071,7 @@ export type Component_Element = {
   /** An aggregate relationship */
   hocs_aggregate: Hoc_Component_Element_Aggregate
   id: Scalars['uuid']
-  label: Scalars['String']
+  label?: Maybe<Scalars['String']>
   /** An object relationship */
   props?: Maybe<Prop_C>
   props_c_id?: Maybe<Scalars['uuid']>
@@ -1148,14 +1119,12 @@ export type Component_ElementStyles_AggregateArgs = {
 
 /** aggregated selection of "component_element" */
 export type Component_Element_Aggregate = {
-  __typename?: 'component_element_aggregate'
   aggregate?: Maybe<Component_Element_Aggregate_Fields>
   nodes: Array<Component_Element>
 }
 
 /** aggregate fields of "component_element" */
 export type Component_Element_Aggregate_Fields = {
-  __typename?: 'component_element_aggregate_fields'
   count: Scalars['Int']
   max?: Maybe<Component_Element_Max_Fields>
   min?: Maybe<Component_Element_Min_Fields>
@@ -1220,7 +1189,6 @@ export type Component_Element_Insert_Input = {
 
 /** aggregate max on columns */
 export type Component_Element_Max_Fields = {
-  __typename?: 'component_element_max_fields'
   atom_id?: Maybe<Scalars['uuid']>
   component_id?: Maybe<Scalars['uuid']>
   id?: Maybe<Scalars['uuid']>
@@ -1239,7 +1207,6 @@ export type Component_Element_Max_Order_By = {
 
 /** aggregate min on columns */
 export type Component_Element_Min_Fields = {
-  __typename?: 'component_element_min_fields'
   atom_id?: Maybe<Scalars['uuid']>
   component_id?: Maybe<Scalars['uuid']>
   id?: Maybe<Scalars['uuid']>
@@ -1258,7 +1225,6 @@ export type Component_Element_Min_Order_By = {
 
 /** response of any mutation on the table "component_element" */
 export type Component_Element_Mutation_Response = {
-  __typename?: 'component_element_mutation_response'
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']
   /** data from the rows affected by the mutation */
@@ -1348,7 +1314,6 @@ export type Component_Insert_Input = {
 
 /** columns and relationships of "component_link" */
 export type Component_Link = {
-  __typename?: 'component_link'
   /** An object relationship */
   category?: Maybe<Category>
   category_id?: Maybe<Scalars['uuid']>
@@ -1362,8 +1327,8 @@ export type Component_Link = {
   sourceElement: Component_Element
   source_element_id: Scalars['uuid']
   /** An object relationship */
-  targetElement?: Maybe<Component_Element>
-  target_element_id?: Maybe<Scalars['uuid']>
+  targetElement: Component_Element
+  target_element_id: Scalars['uuid']
 }
 
 /** columns and relationships of "component_link" */
@@ -1373,14 +1338,12 @@ export type Component_LinkPropsArgs = {
 
 /** aggregated selection of "component_link" */
 export type Component_Link_Aggregate = {
-  __typename?: 'component_link_aggregate'
   aggregate?: Maybe<Component_Link_Aggregate_Fields>
   nodes: Array<Component_Link>
 }
 
 /** aggregate fields of "component_link" */
 export type Component_Link_Aggregate_Fields = {
-  __typename?: 'component_link_aggregate_fields'
   avg?: Maybe<Component_Link_Avg_Fields>
   count: Scalars['Int']
   max?: Maybe<Component_Link_Max_Fields>
@@ -1429,7 +1392,6 @@ export type Component_Link_Arr_Rel_Insert_Input = {
 
 /** aggregate avg on columns */
 export type Component_Link_Avg_Fields = {
-  __typename?: 'component_link_avg_fields'
   order?: Maybe<Scalars['Float']>
 }
 
@@ -1499,7 +1461,6 @@ export type Component_Link_Insert_Input = {
 
 /** aggregate max on columns */
 export type Component_Link_Max_Fields = {
-  __typename?: 'component_link_max_fields'
   category_id?: Maybe<Scalars['uuid']>
   component_id?: Maybe<Scalars['uuid']>
   id?: Maybe<Scalars['uuid']>
@@ -1520,7 +1481,6 @@ export type Component_Link_Max_Order_By = {
 
 /** aggregate min on columns */
 export type Component_Link_Min_Fields = {
-  __typename?: 'component_link_min_fields'
   category_id?: Maybe<Scalars['uuid']>
   component_id?: Maybe<Scalars['uuid']>
   id?: Maybe<Scalars['uuid']>
@@ -1541,7 +1501,6 @@ export type Component_Link_Min_Order_By = {
 
 /** response of any mutation on the table "component_link" */
 export type Component_Link_Mutation_Response = {
-  __typename?: 'component_link_mutation_response'
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']
   /** data from the rows affected by the mutation */
@@ -1611,7 +1570,6 @@ export type Component_Link_Set_Input = {
 
 /** aggregate stddev on columns */
 export type Component_Link_Stddev_Fields = {
-  __typename?: 'component_link_stddev_fields'
   order?: Maybe<Scalars['Float']>
 }
 
@@ -1622,7 +1580,6 @@ export type Component_Link_Stddev_Order_By = {
 
 /** aggregate stddev_pop on columns */
 export type Component_Link_Stddev_Pop_Fields = {
-  __typename?: 'component_link_stddev_pop_fields'
   order?: Maybe<Scalars['Float']>
 }
 
@@ -1633,7 +1590,6 @@ export type Component_Link_Stddev_Pop_Order_By = {
 
 /** aggregate stddev_samp on columns */
 export type Component_Link_Stddev_Samp_Fields = {
-  __typename?: 'component_link_stddev_samp_fields'
   order?: Maybe<Scalars['Float']>
 }
 
@@ -1644,7 +1600,6 @@ export type Component_Link_Stddev_Samp_Order_By = {
 
 /** aggregate sum on columns */
 export type Component_Link_Sum_Fields = {
-  __typename?: 'component_link_sum_fields'
   order?: Maybe<Scalars['Int']>
 }
 
@@ -1673,7 +1628,6 @@ export enum Component_Link_Update_Column {
 
 /** aggregate var_pop on columns */
 export type Component_Link_Var_Pop_Fields = {
-  __typename?: 'component_link_var_pop_fields'
   order?: Maybe<Scalars['Float']>
 }
 
@@ -1684,7 +1638,6 @@ export type Component_Link_Var_Pop_Order_By = {
 
 /** aggregate var_samp on columns */
 export type Component_Link_Var_Samp_Fields = {
-  __typename?: 'component_link_var_samp_fields'
   order?: Maybe<Scalars['Float']>
 }
 
@@ -1695,7 +1648,6 @@ export type Component_Link_Var_Samp_Order_By = {
 
 /** aggregate variance on columns */
 export type Component_Link_Variance_Fields = {
-  __typename?: 'component_link_variance_fields'
   order?: Maybe<Scalars['Float']>
 }
 
@@ -1706,7 +1658,6 @@ export type Component_Link_Variance_Order_By = {
 
 /** aggregate max on columns */
 export type Component_Max_Fields = {
-  __typename?: 'component_max_fields'
   id?: Maybe<Scalars['uuid']>
   label?: Maybe<Scalars['String']>
   library_id?: Maybe<Scalars['uuid']>
@@ -1721,7 +1672,6 @@ export type Component_Max_Order_By = {
 
 /** aggregate min on columns */
 export type Component_Min_Fields = {
-  __typename?: 'component_min_fields'
   id?: Maybe<Scalars['uuid']>
   label?: Maybe<Scalars['String']>
   library_id?: Maybe<Scalars['uuid']>
@@ -1736,7 +1686,6 @@ export type Component_Min_Order_By = {
 
 /** response of any mutation on the table "component" */
 export type Component_Mutation_Response = {
-  __typename?: 'component_mutation_response'
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']
   /** data from the rows affected by the mutation */
@@ -1806,7 +1755,6 @@ export type Get_Current_User_Args = {
 
 /** columns and relationships of "hoc" */
 export type Hoc = {
-  __typename?: 'hoc'
   id: Scalars['uuid']
   /** An object relationship */
   library: Library
@@ -1837,14 +1785,12 @@ export type HocTags_AggregateArgs = {
 
 /** aggregated selection of "hoc" */
 export type Hoc_Aggregate = {
-  __typename?: 'hoc_aggregate'
   aggregate?: Maybe<Hoc_Aggregate_Fields>
   nodes: Array<Hoc>
 }
 
 /** aggregate fields of "hoc" */
 export type Hoc_Aggregate_Fields = {
-  __typename?: 'hoc_aggregate_fields'
   count: Scalars['Int']
   max?: Maybe<Hoc_Max_Fields>
   min?: Maybe<Hoc_Min_Fields>
@@ -1869,7 +1815,6 @@ export type Hoc_Bool_Exp = {
 
 /** columns and relationships of "hoc_component_element" */
 export type Hoc_Component_Element = {
-  __typename?: 'hoc_component_element'
   /** An object relationship */
   componentElement: Component_Element
   component_element_id: Scalars['uuid']
@@ -1880,14 +1825,12 @@ export type Hoc_Component_Element = {
 
 /** aggregated selection of "hoc_component_element" */
 export type Hoc_Component_Element_Aggregate = {
-  __typename?: 'hoc_component_element_aggregate'
   aggregate?: Maybe<Hoc_Component_Element_Aggregate_Fields>
   nodes: Array<Hoc_Component_Element>
 }
 
 /** aggregate fields of "hoc_component_element" */
 export type Hoc_Component_Element_Aggregate_Fields = {
-  __typename?: 'hoc_component_element_aggregate_fields'
   count: Scalars['Int']
   max?: Maybe<Hoc_Component_Element_Max_Fields>
   min?: Maybe<Hoc_Component_Element_Min_Fields>
@@ -1940,7 +1883,6 @@ export type Hoc_Component_Element_Insert_Input = {
 
 /** aggregate max on columns */
 export type Hoc_Component_Element_Max_Fields = {
-  __typename?: 'hoc_component_element_max_fields'
   component_element_id?: Maybe<Scalars['uuid']>
   hoc_id?: Maybe<Scalars['uuid']>
 }
@@ -1953,7 +1895,6 @@ export type Hoc_Component_Element_Max_Order_By = {
 
 /** aggregate min on columns */
 export type Hoc_Component_Element_Min_Fields = {
-  __typename?: 'hoc_component_element_min_fields'
   component_element_id?: Maybe<Scalars['uuid']>
   hoc_id?: Maybe<Scalars['uuid']>
 }
@@ -1966,7 +1907,6 @@ export type Hoc_Component_Element_Min_Order_By = {
 
 /** response of any mutation on the table "hoc_component_element" */
 export type Hoc_Component_Element_Mutation_Response = {
-  __typename?: 'hoc_component_element_mutation_response'
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']
   /** data from the rows affected by the mutation */
@@ -2032,21 +1972,18 @@ export type Hoc_Insert_Input = {
 
 /** aggregate max on columns */
 export type Hoc_Max_Fields = {
-  __typename?: 'hoc_max_fields'
   id?: Maybe<Scalars['uuid']>
   library_id?: Maybe<Scalars['uuid']>
 }
 
 /** aggregate min on columns */
 export type Hoc_Min_Fields = {
-  __typename?: 'hoc_min_fields'
   id?: Maybe<Scalars['uuid']>
   library_id?: Maybe<Scalars['uuid']>
 }
 
 /** response of any mutation on the table "hoc" */
 export type Hoc_Mutation_Response = {
-  __typename?: 'hoc_mutation_response'
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']
   /** data from the rows affected by the mutation */
@@ -2127,7 +2064,6 @@ export type Jsonb_Comparison_Exp = {
 
 /** columns and relationships of "lambda" */
 export type Lambda = {
-  __typename?: 'lambda'
   body: Scalars['String']
   id: Scalars['uuid']
   /** An object relationship */
@@ -2138,14 +2074,12 @@ export type Lambda = {
 
 /** aggregated selection of "lambda" */
 export type Lambda_Aggregate = {
-  __typename?: 'lambda_aggregate'
   aggregate?: Maybe<Lambda_Aggregate_Fields>
   nodes: Array<Lambda>
 }
 
 /** aggregate fields of "lambda" */
 export type Lambda_Aggregate_Fields = {
-  __typename?: 'lambda_aggregate_fields'
   count: Scalars['Int']
   max?: Maybe<Lambda_Max_Fields>
   min?: Maybe<Lambda_Min_Fields>
@@ -2200,7 +2134,6 @@ export type Lambda_Insert_Input = {
 
 /** aggregate max on columns */
 export type Lambda_Max_Fields = {
-  __typename?: 'lambda_max_fields'
   body?: Maybe<Scalars['String']>
   id?: Maybe<Scalars['uuid']>
   libraryId?: Maybe<Scalars['uuid']>
@@ -2217,7 +2150,6 @@ export type Lambda_Max_Order_By = {
 
 /** aggregate min on columns */
 export type Lambda_Min_Fields = {
-  __typename?: 'lambda_min_fields'
   body?: Maybe<Scalars['String']>
   id?: Maybe<Scalars['uuid']>
   libraryId?: Maybe<Scalars['uuid']>
@@ -2234,7 +2166,6 @@ export type Lambda_Min_Order_By = {
 
 /** response of any mutation on the table "lambda" */
 export type Lambda_Mutation_Response = {
-  __typename?: 'lambda_mutation_response'
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']
   /** data from the rows affected by the mutation */
@@ -2296,7 +2227,6 @@ export enum Lambda_Update_Column {
 
 /** columns and relationships of "library" */
 export type Library = {
-  __typename?: 'library'
   /** An array relationship */
   atoms: Array<Atom>
   /** An aggregate relationship */
@@ -2482,14 +2412,12 @@ export type LibraryTags_AggregateArgs = {
 
 /** aggregated selection of "library" */
 export type Library_Aggregate = {
-  __typename?: 'library_aggregate'
   aggregate?: Maybe<Library_Aggregate_Fields>
   nodes: Array<Library>
 }
 
 /** aggregate fields of "library" */
 export type Library_Aggregate_Fields = {
-  __typename?: 'library_aggregate_fields'
   count: Scalars['Int']
   max?: Maybe<Library_Max_Fields>
   min?: Maybe<Library_Min_Fields>
@@ -2558,7 +2486,6 @@ export type Library_Insert_Input = {
 
 /** aggregate max on columns */
 export type Library_Max_Fields = {
-  __typename?: 'library_max_fields'
   id?: Maybe<Scalars['uuid']>
   name?: Maybe<Scalars['String']>
   user_id?: Maybe<Scalars['String']>
@@ -2573,7 +2500,6 @@ export type Library_Max_Order_By = {
 
 /** aggregate min on columns */
 export type Library_Min_Fields = {
-  __typename?: 'library_min_fields'
   id?: Maybe<Scalars['uuid']>
   name?: Maybe<Scalars['String']>
   user_id?: Maybe<Scalars['String']>
@@ -2588,7 +2514,6 @@ export type Library_Min_Order_By = {
 
 /** response of any mutation on the table "library" */
 export type Library_Mutation_Response = {
-  __typename?: 'library_mutation_response'
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']
   /** data from the rows affected by the mutation */
@@ -2659,7 +2584,6 @@ export enum Library_Update_Column {
 
 /** mutation root */
 export type Mutation_Root = {
-  __typename?: 'mutation_root'
   /** delete data from the table: "app" */
   delete_app?: Maybe<App_Mutation_Response>
   /** delete single row from the table: "app" */
@@ -4240,7 +4164,6 @@ export enum Order_By {
 
 /** columns and relationships of "page" */
 export type Page = {
-  __typename?: 'page'
   /** An object relationship */
   app: App
   app_id: Scalars['uuid']
@@ -4294,14 +4217,12 @@ export type PageLinks_AggregateArgs = {
 
 /** aggregated selection of "page" */
 export type Page_Aggregate = {
-  __typename?: 'page_aggregate'
   aggregate?: Maybe<Page_Aggregate_Fields>
   nodes: Array<Page>
 }
 
 /** aggregate fields of "page" */
 export type Page_Aggregate_Fields = {
-  __typename?: 'page_aggregate_fields'
   count: Scalars['Int']
   max?: Maybe<Page_Max_Fields>
   min?: Maybe<Page_Min_Fields>
@@ -4348,7 +4269,6 @@ export enum Page_Constraint {
 
 /** columns and relationships of "page_element" */
 export type Page_Element = {
-  __typename?: 'page_element'
   /** An object relationship */
   component: Component
   component_id: Scalars['uuid']
@@ -4386,14 +4306,12 @@ export type Page_ElementStyles_AggregateArgs = {
 
 /** aggregated selection of "page_element" */
 export type Page_Element_Aggregate = {
-  __typename?: 'page_element_aggregate'
   aggregate?: Maybe<Page_Element_Aggregate_Fields>
   nodes: Array<Page_Element>
 }
 
 /** aggregate fields of "page_element" */
 export type Page_Element_Aggregate_Fields = {
-  __typename?: 'page_element_aggregate_fields'
   count: Scalars['Int']
   max?: Maybe<Page_Element_Max_Fields>
   min?: Maybe<Page_Element_Min_Fields>
@@ -4456,7 +4374,6 @@ export type Page_Element_Insert_Input = {
 
 /** aggregate max on columns */
 export type Page_Element_Max_Fields = {
-  __typename?: 'page_element_max_fields'
   component_id?: Maybe<Scalars['uuid']>
   id?: Maybe<Scalars['uuid']>
   name?: Maybe<Scalars['String']>
@@ -4475,7 +4392,6 @@ export type Page_Element_Max_Order_By = {
 
 /** aggregate min on columns */
 export type Page_Element_Min_Fields = {
-  __typename?: 'page_element_min_fields'
   component_id?: Maybe<Scalars['uuid']>
   id?: Maybe<Scalars['uuid']>
   name?: Maybe<Scalars['String']>
@@ -4494,7 +4410,6 @@ export type Page_Element_Min_Order_By = {
 
 /** response of any mutation on the table "page_element" */
 export type Page_Element_Mutation_Response = {
-  __typename?: 'page_element_mutation_response'
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']
   /** data from the rows affected by the mutation */
@@ -4582,7 +4497,6 @@ export type Page_Insert_Input = {
 
 /** columns and relationships of "page_link" */
 export type Page_Link = {
-  __typename?: 'page_link'
   id: Scalars['uuid']
   order?: Maybe<Scalars['Int']>
   /** An object relationship */
@@ -4607,14 +4521,12 @@ export type Page_LinkPropsArgs = {
 
 /** aggregated selection of "page_link" */
 export type Page_Link_Aggregate = {
-  __typename?: 'page_link_aggregate'
   aggregate?: Maybe<Page_Link_Aggregate_Fields>
   nodes: Array<Page_Link>
 }
 
 /** aggregate fields of "page_link" */
 export type Page_Link_Aggregate_Fields = {
-  __typename?: 'page_link_aggregate_fields'
   avg?: Maybe<Page_Link_Avg_Fields>
   count: Scalars['Int']
   max?: Maybe<Page_Link_Max_Fields>
@@ -4663,7 +4575,6 @@ export type Page_Link_Arr_Rel_Insert_Input = {
 
 /** aggregate avg on columns */
 export type Page_Link_Avg_Fields = {
-  __typename?: 'page_link_avg_fields'
   order?: Maybe<Scalars['Float']>
 }
 
@@ -4733,7 +4644,6 @@ export type Page_Link_Insert_Input = {
 
 /** aggregate max on columns */
 export type Page_Link_Max_Fields = {
-  __typename?: 'page_link_max_fields'
   id?: Maybe<Scalars['uuid']>
   order?: Maybe<Scalars['Int']>
   page_id?: Maybe<Scalars['uuid']>
@@ -4754,7 +4664,6 @@ export type Page_Link_Max_Order_By = {
 
 /** aggregate min on columns */
 export type Page_Link_Min_Fields = {
-  __typename?: 'page_link_min_fields'
   id?: Maybe<Scalars['uuid']>
   order?: Maybe<Scalars['Int']>
   page_id?: Maybe<Scalars['uuid']>
@@ -4775,7 +4684,6 @@ export type Page_Link_Min_Order_By = {
 
 /** response of any mutation on the table "page_link" */
 export type Page_Link_Mutation_Response = {
-  __typename?: 'page_link_mutation_response'
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']
   /** data from the rows affected by the mutation */
@@ -4845,7 +4753,6 @@ export type Page_Link_Set_Input = {
 
 /** aggregate stddev on columns */
 export type Page_Link_Stddev_Fields = {
-  __typename?: 'page_link_stddev_fields'
   order?: Maybe<Scalars['Float']>
 }
 
@@ -4856,7 +4763,6 @@ export type Page_Link_Stddev_Order_By = {
 
 /** aggregate stddev_pop on columns */
 export type Page_Link_Stddev_Pop_Fields = {
-  __typename?: 'page_link_stddev_pop_fields'
   order?: Maybe<Scalars['Float']>
 }
 
@@ -4867,7 +4773,6 @@ export type Page_Link_Stddev_Pop_Order_By = {
 
 /** aggregate stddev_samp on columns */
 export type Page_Link_Stddev_Samp_Fields = {
-  __typename?: 'page_link_stddev_samp_fields'
   order?: Maybe<Scalars['Float']>
 }
 
@@ -4878,7 +4783,6 @@ export type Page_Link_Stddev_Samp_Order_By = {
 
 /** aggregate sum on columns */
 export type Page_Link_Sum_Fields = {
-  __typename?: 'page_link_sum_fields'
   order?: Maybe<Scalars['Int']>
 }
 
@@ -4907,7 +4811,6 @@ export enum Page_Link_Update_Column {
 
 /** aggregate var_pop on columns */
 export type Page_Link_Var_Pop_Fields = {
-  __typename?: 'page_link_var_pop_fields'
   order?: Maybe<Scalars['Float']>
 }
 
@@ -4918,7 +4821,6 @@ export type Page_Link_Var_Pop_Order_By = {
 
 /** aggregate var_samp on columns */
 export type Page_Link_Var_Samp_Fields = {
-  __typename?: 'page_link_var_samp_fields'
   order?: Maybe<Scalars['Float']>
 }
 
@@ -4929,7 +4831,6 @@ export type Page_Link_Var_Samp_Order_By = {
 
 /** aggregate variance on columns */
 export type Page_Link_Variance_Fields = {
-  __typename?: 'page_link_variance_fields'
   order?: Maybe<Scalars['Float']>
 }
 
@@ -4940,7 +4841,6 @@ export type Page_Link_Variance_Order_By = {
 
 /** aggregate max on columns */
 export type Page_Max_Fields = {
-  __typename?: 'page_max_fields'
   app_id?: Maybe<Scalars['uuid']>
   id?: Maybe<Scalars['uuid']>
   name?: Maybe<Scalars['String']>
@@ -4955,7 +4855,6 @@ export type Page_Max_Order_By = {
 
 /** aggregate min on columns */
 export type Page_Min_Fields = {
-  __typename?: 'page_min_fields'
   app_id?: Maybe<Scalars['uuid']>
   id?: Maybe<Scalars['uuid']>
   name?: Maybe<Scalars['String']>
@@ -4970,7 +4869,6 @@ export type Page_Min_Order_By = {
 
 /** response of any mutation on the table "page" */
 export type Page_Mutation_Response = {
-  __typename?: 'page_mutation_response'
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']
   /** data from the rows affected by the mutation */
@@ -5035,7 +4933,6 @@ export enum Page_Update_Column {
 
 /** columns and relationships of "prop" */
 export type Prop = {
-  __typename?: 'prop'
   id: Scalars['uuid']
   /** An object relationship */
   propCollection: Prop_C
@@ -5069,14 +4966,12 @@ export type PropValues_AggregateArgs = {
 
 /** aggregated selection of "prop" */
 export type Prop_Aggregate = {
-  __typename?: 'prop_aggregate'
   aggregate?: Maybe<Prop_Aggregate_Fields>
   nodes: Array<Prop>
 }
 
 /** aggregate fields of "prop" */
 export type Prop_Aggregate_Fields = {
-  __typename?: 'prop_aggregate_fields'
   count: Scalars['Int']
   max?: Maybe<Prop_Max_Fields>
   min?: Maybe<Prop_Min_Fields>
@@ -5117,7 +5012,6 @@ export type Prop_Bool_Exp = {
 
 /** columns and relationships of "prop_c" */
 export type Prop_C = {
-  __typename?: 'prop_c'
   id: Scalars['uuid']
   label?: Maybe<Scalars['String']>
   libary_id: Scalars['uuid']
@@ -5171,14 +5065,12 @@ export type Prop_CTags_AggregateArgs = {
 
 /** aggregated selection of "prop_c" */
 export type Prop_C_Aggregate = {
-  __typename?: 'prop_c_aggregate'
   aggregate?: Maybe<Prop_C_Aggregate_Fields>
   nodes: Array<Prop_C>
 }
 
 /** aggregate fields of "prop_c" */
 export type Prop_C_Aggregate_Fields = {
-  __typename?: 'prop_c_aggregate_fields'
   count: Scalars['Int']
   max?: Maybe<Prop_C_Max_Fields>
   min?: Maybe<Prop_C_Min_Fields>
@@ -5235,7 +5127,6 @@ export type Prop_C_Insert_Input = {
 
 /** aggregate max on columns */
 export type Prop_C_Max_Fields = {
-  __typename?: 'prop_c_max_fields'
   id?: Maybe<Scalars['uuid']>
   label?: Maybe<Scalars['String']>
   libary_id?: Maybe<Scalars['uuid']>
@@ -5250,7 +5141,6 @@ export type Prop_C_Max_Order_By = {
 
 /** aggregate min on columns */
 export type Prop_C_Min_Fields = {
-  __typename?: 'prop_c_min_fields'
   id?: Maybe<Scalars['uuid']>
   label?: Maybe<Scalars['String']>
   libary_id?: Maybe<Scalars['uuid']>
@@ -5265,7 +5155,6 @@ export type Prop_C_Min_Order_By = {
 
 /** response of any mutation on the table "prop_c" */
 export type Prop_C_Mutation_Response = {
-  __typename?: 'prop_c_mutation_response'
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']
   /** data from the rows affected by the mutation */
@@ -5346,7 +5235,6 @@ export type Prop_Insert_Input = {
 
 /** aggregate max on columns */
 export type Prop_Max_Fields = {
-  __typename?: 'prop_max_fields'
   id?: Maybe<Scalars['uuid']>
   prop_c_id?: Maybe<Scalars['uuid']>
   prop_type_id?: Maybe<Scalars['uuid']>
@@ -5361,7 +5249,6 @@ export type Prop_Max_Order_By = {
 
 /** aggregate min on columns */
 export type Prop_Min_Fields = {
-  __typename?: 'prop_min_fields'
   id?: Maybe<Scalars['uuid']>
   prop_c_id?: Maybe<Scalars['uuid']>
   prop_type_id?: Maybe<Scalars['uuid']>
@@ -5376,7 +5263,6 @@ export type Prop_Min_Order_By = {
 
 /** response of any mutation on the table "prop" */
 export type Prop_Mutation_Response = {
-  __typename?: 'prop_mutation_response'
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']
   /** data from the rows affected by the mutation */
@@ -5431,7 +5317,6 @@ export type Prop_Set_Input = {
 
 /** columns and relationships of "prop_type" */
 export type Prop_Type = {
-  __typename?: 'prop_type'
   id: Scalars['uuid']
   key: Scalars['String']
   /** An object relationship */
@@ -5444,14 +5329,12 @@ export type Prop_Type = {
 
 /** aggregated selection of "prop_type" */
 export type Prop_Type_Aggregate = {
-  __typename?: 'prop_type_aggregate'
   aggregate?: Maybe<Prop_Type_Aggregate_Fields>
   nodes: Array<Prop_Type>
 }
 
 /** aggregate fields of "prop_type" */
 export type Prop_Type_Aggregate_Fields = {
-  __typename?: 'prop_type_aggregate_fields'
   count: Scalars['Int']
   max?: Maybe<Prop_Type_Max_Fields>
   min?: Maybe<Prop_Type_Min_Fields>
@@ -5492,7 +5375,6 @@ export type Prop_Type_Bool_Exp = {
 
 /** columns and relationships of "prop_type_c" */
 export type Prop_Type_C = {
-  __typename?: 'prop_type_c'
   id: Scalars['uuid']
   label?: Maybe<Scalars['String']>
   /** An object relationship */
@@ -5546,14 +5428,12 @@ export type Prop_Type_CTags_AggregateArgs = {
 
 /** aggregated selection of "prop_type_c" */
 export type Prop_Type_C_Aggregate = {
-  __typename?: 'prop_type_c_aggregate'
   aggregate?: Maybe<Prop_Type_C_Aggregate_Fields>
   nodes: Array<Prop_Type_C>
 }
 
 /** aggregate fields of "prop_type_c" */
 export type Prop_Type_C_Aggregate_Fields = {
-  __typename?: 'prop_type_c_aggregate_fields'
   count: Scalars['Int']
   max?: Maybe<Prop_Type_C_Max_Fields>
   min?: Maybe<Prop_Type_C_Min_Fields>
@@ -5610,7 +5490,6 @@ export type Prop_Type_C_Insert_Input = {
 
 /** aggregate max on columns */
 export type Prop_Type_C_Max_Fields = {
-  __typename?: 'prop_type_c_max_fields'
   id?: Maybe<Scalars['uuid']>
   label?: Maybe<Scalars['String']>
   library_id?: Maybe<Scalars['uuid']>
@@ -5625,7 +5504,6 @@ export type Prop_Type_C_Max_Order_By = {
 
 /** aggregate min on columns */
 export type Prop_Type_C_Min_Fields = {
-  __typename?: 'prop_type_c_min_fields'
   id?: Maybe<Scalars['uuid']>
   label?: Maybe<Scalars['String']>
   library_id?: Maybe<Scalars['uuid']>
@@ -5640,7 +5518,6 @@ export type Prop_Type_C_Min_Order_By = {
 
 /** response of any mutation on the table "prop_type_c" */
 export type Prop_Type_C_Mutation_Response = {
-  __typename?: 'prop_type_c_mutation_response'
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']
   /** data from the rows affected by the mutation */
@@ -5723,7 +5600,6 @@ export type Prop_Type_Insert_Input = {
 
 /** aggregate max on columns */
 export type Prop_Type_Max_Fields = {
-  __typename?: 'prop_type_max_fields'
   id?: Maybe<Scalars['uuid']>
   key?: Maybe<Scalars['String']>
   prop_type_c_id?: Maybe<Scalars['uuid']>
@@ -5738,7 +5614,6 @@ export type Prop_Type_Max_Order_By = {
 
 /** aggregate min on columns */
 export type Prop_Type_Min_Fields = {
-  __typename?: 'prop_type_min_fields'
   id?: Maybe<Scalars['uuid']>
   key?: Maybe<Scalars['String']>
   prop_type_c_id?: Maybe<Scalars['uuid']>
@@ -5753,7 +5628,6 @@ export type Prop_Type_Min_Order_By = {
 
 /** response of any mutation on the table "prop_type" */
 export type Prop_Type_Mutation_Response = {
-  __typename?: 'prop_type_mutation_response'
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']
   /** data from the rows affected by the mutation */
@@ -5833,7 +5707,6 @@ export enum Prop_Update_Column {
 
 /** columns and relationships of "prop_value" */
 export type Prop_Value = {
-  __typename?: 'prop_value'
   id: Scalars['uuid']
   /** An object relationship */
   prop: Prop
@@ -5869,14 +5742,12 @@ export type Prop_ValueTags_AggregateArgs = {
 
 /** aggregated selection of "prop_value" */
 export type Prop_Value_Aggregate = {
-  __typename?: 'prop_value_aggregate'
   aggregate?: Maybe<Prop_Value_Aggregate_Fields>
   nodes: Array<Prop_Value>
 }
 
 /** aggregate fields of "prop_value" */
 export type Prop_Value_Aggregate_Fields = {
-  __typename?: 'prop_value_aggregate_fields'
   count: Scalars['Int']
   max?: Maybe<Prop_Value_Max_Fields>
   min?: Maybe<Prop_Value_Min_Fields>
@@ -5936,7 +5807,6 @@ export type Prop_Value_Insert_Input = {
 
 /** aggregate max on columns */
 export type Prop_Value_Max_Fields = {
-  __typename?: 'prop_value_max_fields'
   id?: Maybe<Scalars['uuid']>
   /** This is the prop that owns this value */
   prop_id?: Maybe<Scalars['uuid']>
@@ -5953,7 +5823,6 @@ export type Prop_Value_Max_Order_By = {
 
 /** aggregate min on columns */
 export type Prop_Value_Min_Fields = {
-  __typename?: 'prop_value_min_fields'
   id?: Maybe<Scalars['uuid']>
   /** This is the prop that owns this value */
   prop_id?: Maybe<Scalars['uuid']>
@@ -5970,7 +5839,6 @@ export type Prop_Value_Min_Order_By = {
 
 /** response of any mutation on the table "prop_value" */
 export type Prop_Value_Mutation_Response = {
-  __typename?: 'prop_value_mutation_response'
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']
   /** data from the rows affected by the mutation */
@@ -6041,7 +5909,6 @@ export enum Prop_Value_Update_Column {
 }
 
 export type Query_Root = {
-  __typename?: 'query_root'
   /** fetch data from the table: "app" */
   app: Array<App>
   /** fetch aggregated fields from the table: "app" */
@@ -6937,7 +6804,6 @@ export type Query_RootValue_Type_By_PkArgs = {
 
 /** columns and relationships of "style" */
 export type Style = {
-  __typename?: 'style'
   id: Scalars['uuid']
   /** An object relationship */
   library: Library
@@ -6950,14 +6816,12 @@ export type Style = {
 
 /** aggregated selection of "style" */
 export type Style_Aggregate = {
-  __typename?: 'style_aggregate'
   aggregate?: Maybe<Style_Aggregate_Fields>
   nodes: Array<Style>
 }
 
 /** aggregate fields of "style" */
 export type Style_Aggregate_Fields = {
-  __typename?: 'style_aggregate_fields'
   count: Scalars['Int']
   max?: Maybe<Style_Max_Fields>
   min?: Maybe<Style_Min_Fields>
@@ -6985,7 +6849,6 @@ export type Style_Arr_Rel_Insert_Input = {
 
 /** columns and relationships of "style_atom" */
 export type Style_Atom = {
-  __typename?: 'style_atom'
   /** An object relationship */
   atom: Atom
   atom_id: Scalars['uuid']
@@ -6996,14 +6859,12 @@ export type Style_Atom = {
 
 /** aggregated selection of "style_atom" */
 export type Style_Atom_Aggregate = {
-  __typename?: 'style_atom_aggregate'
   aggregate?: Maybe<Style_Atom_Aggregate_Fields>
   nodes: Array<Style_Atom>
 }
 
 /** aggregate fields of "style_atom" */
 export type Style_Atom_Aggregate_Fields = {
-  __typename?: 'style_atom_aggregate_fields'
   count: Scalars['Int']
   max?: Maybe<Style_Atom_Max_Fields>
   min?: Maybe<Style_Atom_Min_Fields>
@@ -7056,7 +6917,6 @@ export type Style_Atom_Insert_Input = {
 
 /** aggregate max on columns */
 export type Style_Atom_Max_Fields = {
-  __typename?: 'style_atom_max_fields'
   atom_id?: Maybe<Scalars['uuid']>
   style_id?: Maybe<Scalars['uuid']>
 }
@@ -7069,7 +6929,6 @@ export type Style_Atom_Max_Order_By = {
 
 /** aggregate min on columns */
 export type Style_Atom_Min_Fields = {
-  __typename?: 'style_atom_min_fields'
   atom_id?: Maybe<Scalars['uuid']>
   style_id?: Maybe<Scalars['uuid']>
 }
@@ -7082,7 +6941,6 @@ export type Style_Atom_Min_Order_By = {
 
 /** response of any mutation on the table "style_atom" */
 export type Style_Atom_Mutation_Response = {
-  __typename?: 'style_atom_mutation_response'
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']
   /** data from the rows affected by the mutation */
@@ -7147,7 +7005,6 @@ export type Style_Bool_Exp = {
 
 /** columns and relationships of "style_component_element" */
 export type Style_Component_Element = {
-  __typename?: 'style_component_element'
   /** An object relationship */
   componentElement: Component_Element
   component_element_id: Scalars['uuid']
@@ -7158,14 +7015,12 @@ export type Style_Component_Element = {
 
 /** aggregated selection of "style_component_element" */
 export type Style_Component_Element_Aggregate = {
-  __typename?: 'style_component_element_aggregate'
   aggregate?: Maybe<Style_Component_Element_Aggregate_Fields>
   nodes: Array<Style_Component_Element>
 }
 
 /** aggregate fields of "style_component_element" */
 export type Style_Component_Element_Aggregate_Fields = {
-  __typename?: 'style_component_element_aggregate_fields'
   count: Scalars['Int']
   max?: Maybe<Style_Component_Element_Max_Fields>
   min?: Maybe<Style_Component_Element_Min_Fields>
@@ -7218,7 +7073,6 @@ export type Style_Component_Element_Insert_Input = {
 
 /** aggregate max on columns */
 export type Style_Component_Element_Max_Fields = {
-  __typename?: 'style_component_element_max_fields'
   component_element_id?: Maybe<Scalars['uuid']>
   style_id?: Maybe<Scalars['uuid']>
 }
@@ -7231,7 +7085,6 @@ export type Style_Component_Element_Max_Order_By = {
 
 /** aggregate min on columns */
 export type Style_Component_Element_Min_Fields = {
-  __typename?: 'style_component_element_min_fields'
   component_element_id?: Maybe<Scalars['uuid']>
   style_id?: Maybe<Scalars['uuid']>
 }
@@ -7244,7 +7097,6 @@ export type Style_Component_Element_Min_Order_By = {
 
 /** response of any mutation on the table "style_component_element" */
 export type Style_Component_Element_Mutation_Response = {
-  __typename?: 'style_component_element_mutation_response'
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']
   /** data from the rows affected by the mutation */
@@ -7312,7 +7164,6 @@ export type Style_Insert_Input = {
 
 /** aggregate max on columns */
 export type Style_Max_Fields = {
-  __typename?: 'style_max_fields'
   id?: Maybe<Scalars['uuid']>
   library_id?: Maybe<Scalars['uuid']>
   name?: Maybe<Scalars['String']>
@@ -7329,7 +7180,6 @@ export type Style_Max_Order_By = {
 
 /** aggregate min on columns */
 export type Style_Min_Fields = {
-  __typename?: 'style_min_fields'
   id?: Maybe<Scalars['uuid']>
   library_id?: Maybe<Scalars['uuid']>
   name?: Maybe<Scalars['String']>
@@ -7346,7 +7196,6 @@ export type Style_Min_Order_By = {
 
 /** response of any mutation on the table "style" */
 export type Style_Mutation_Response = {
-  __typename?: 'style_mutation_response'
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']
   /** data from the rows affected by the mutation */
@@ -7379,7 +7228,6 @@ export type Style_Order_By = {
 
 /** columns and relationships of "style_page_element" */
 export type Style_Page_Element = {
-  __typename?: 'style_page_element'
   /** An object relationship */
   pageElement: Page_Element
   page_element_id: Scalars['uuid']
@@ -7390,14 +7238,12 @@ export type Style_Page_Element = {
 
 /** aggregated selection of "style_page_element" */
 export type Style_Page_Element_Aggregate = {
-  __typename?: 'style_page_element_aggregate'
   aggregate?: Maybe<Style_Page_Element_Aggregate_Fields>
   nodes: Array<Style_Page_Element>
 }
 
 /** aggregate fields of "style_page_element" */
 export type Style_Page_Element_Aggregate_Fields = {
-  __typename?: 'style_page_element_aggregate_fields'
   count: Scalars['Int']
   max?: Maybe<Style_Page_Element_Max_Fields>
   min?: Maybe<Style_Page_Element_Min_Fields>
@@ -7450,7 +7296,6 @@ export type Style_Page_Element_Insert_Input = {
 
 /** aggregate max on columns */
 export type Style_Page_Element_Max_Fields = {
-  __typename?: 'style_page_element_max_fields'
   page_element_id?: Maybe<Scalars['uuid']>
   style_id?: Maybe<Scalars['uuid']>
 }
@@ -7463,7 +7308,6 @@ export type Style_Page_Element_Max_Order_By = {
 
 /** aggregate min on columns */
 export type Style_Page_Element_Min_Fields = {
-  __typename?: 'style_page_element_min_fields'
   page_element_id?: Maybe<Scalars['uuid']>
   style_id?: Maybe<Scalars['uuid']>
 }
@@ -7476,7 +7320,6 @@ export type Style_Page_Element_Min_Order_By = {
 
 /** response of any mutation on the table "style_page_element" */
 export type Style_Page_Element_Mutation_Response = {
-  __typename?: 'style_page_element_mutation_response'
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']
   /** data from the rows affected by the mutation */
@@ -7564,7 +7407,6 @@ export enum Style_Update_Column {
 }
 
 export type Subscription_Root = {
-  __typename?: 'subscription_root'
   /** fetch data from the table: "app" */
   app: Array<App>
   /** fetch aggregated fields from the table: "app" */
@@ -8460,7 +8302,6 @@ export type Subscription_RootValue_Type_By_PkArgs = {
 
 /** columns and relationships of "tag" */
 export type Tag = {
-  __typename?: 'tag'
   /** An array relationship */
   atoms: Array<Tag_Atom>
   /** An aggregate relationship */
@@ -8627,14 +8468,12 @@ export type TagStyles_AggregateArgs = {
 
 /** aggregated selection of "tag" */
 export type Tag_Aggregate = {
-  __typename?: 'tag_aggregate'
   aggregate?: Maybe<Tag_Aggregate_Fields>
   nodes: Array<Tag>
 }
 
 /** aggregate fields of "tag" */
 export type Tag_Aggregate_Fields = {
-  __typename?: 'tag_aggregate_fields'
   count: Scalars['Int']
   max?: Maybe<Tag_Max_Fields>
   min?: Maybe<Tag_Min_Fields>
@@ -8662,7 +8501,6 @@ export type Tag_Arr_Rel_Insert_Input = {
 
 /** columns and relationships of "tag_atom" */
 export type Tag_Atom = {
-  __typename?: 'tag_atom'
   /** An object relationship */
   atom: Atom
   atom_id: Scalars['uuid']
@@ -8673,14 +8511,12 @@ export type Tag_Atom = {
 
 /** aggregated selection of "tag_atom" */
 export type Tag_Atom_Aggregate = {
-  __typename?: 'tag_atom_aggregate'
   aggregate?: Maybe<Tag_Atom_Aggregate_Fields>
   nodes: Array<Tag_Atom>
 }
 
 /** aggregate fields of "tag_atom" */
 export type Tag_Atom_Aggregate_Fields = {
-  __typename?: 'tag_atom_aggregate_fields'
   count: Scalars['Int']
   max?: Maybe<Tag_Atom_Max_Fields>
   min?: Maybe<Tag_Atom_Min_Fields>
@@ -8733,7 +8569,6 @@ export type Tag_Atom_Insert_Input = {
 
 /** aggregate max on columns */
 export type Tag_Atom_Max_Fields = {
-  __typename?: 'tag_atom_max_fields'
   atom_id?: Maybe<Scalars['uuid']>
   tag_id?: Maybe<Scalars['uuid']>
 }
@@ -8746,7 +8581,6 @@ export type Tag_Atom_Max_Order_By = {
 
 /** aggregate min on columns */
 export type Tag_Atom_Min_Fields = {
-  __typename?: 'tag_atom_min_fields'
   atom_id?: Maybe<Scalars['uuid']>
   tag_id?: Maybe<Scalars['uuid']>
 }
@@ -8759,7 +8593,6 @@ export type Tag_Atom_Min_Order_By = {
 
 /** response of any mutation on the table "tag_atom" */
 export type Tag_Atom_Mutation_Response = {
-  __typename?: 'tag_atom_mutation_response'
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']
   /** data from the rows affected by the mutation */
@@ -8831,7 +8664,6 @@ export type Tag_Bool_Exp = {
 
 /** columns and relationships of "tag_component" */
 export type Tag_Component = {
-  __typename?: 'tag_component'
   /** An object relationship */
   component: Component
   component_id: Scalars['uuid']
@@ -8842,14 +8674,12 @@ export type Tag_Component = {
 
 /** aggregated selection of "tag_component" */
 export type Tag_Component_Aggregate = {
-  __typename?: 'tag_component_aggregate'
   aggregate?: Maybe<Tag_Component_Aggregate_Fields>
   nodes: Array<Tag_Component>
 }
 
 /** aggregate fields of "tag_component" */
 export type Tag_Component_Aggregate_Fields = {
-  __typename?: 'tag_component_aggregate_fields'
   count: Scalars['Int']
   max?: Maybe<Tag_Component_Max_Fields>
   min?: Maybe<Tag_Component_Min_Fields>
@@ -8902,7 +8732,6 @@ export type Tag_Component_Insert_Input = {
 
 /** aggregate max on columns */
 export type Tag_Component_Max_Fields = {
-  __typename?: 'tag_component_max_fields'
   component_id?: Maybe<Scalars['uuid']>
   tag_id?: Maybe<Scalars['uuid']>
 }
@@ -8915,7 +8744,6 @@ export type Tag_Component_Max_Order_By = {
 
 /** aggregate min on columns */
 export type Tag_Component_Min_Fields = {
-  __typename?: 'tag_component_min_fields'
   component_id?: Maybe<Scalars['uuid']>
   tag_id?: Maybe<Scalars['uuid']>
 }
@@ -8928,7 +8756,6 @@ export type Tag_Component_Min_Order_By = {
 
 /** response of any mutation on the table "tag_component" */
 export type Tag_Component_Mutation_Response = {
-  __typename?: 'tag_component_mutation_response'
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']
   /** data from the rows affected by the mutation */
@@ -8986,7 +8813,6 @@ export enum Tag_Constraint {
 
 /** columns and relationships of "tag_hoc" */
 export type Tag_Hoc = {
-  __typename?: 'tag_hoc'
   /** An object relationship */
   hoc: Hoc
   hoc_id: Scalars['uuid']
@@ -8997,14 +8823,12 @@ export type Tag_Hoc = {
 
 /** aggregated selection of "tag_hoc" */
 export type Tag_Hoc_Aggregate = {
-  __typename?: 'tag_hoc_aggregate'
   aggregate?: Maybe<Tag_Hoc_Aggregate_Fields>
   nodes: Array<Tag_Hoc>
 }
 
 /** aggregate fields of "tag_hoc" */
 export type Tag_Hoc_Aggregate_Fields = {
-  __typename?: 'tag_hoc_aggregate_fields'
   count: Scalars['Int']
   max?: Maybe<Tag_Hoc_Max_Fields>
   min?: Maybe<Tag_Hoc_Min_Fields>
@@ -9057,7 +8881,6 @@ export type Tag_Hoc_Insert_Input = {
 
 /** aggregate max on columns */
 export type Tag_Hoc_Max_Fields = {
-  __typename?: 'tag_hoc_max_fields'
   hoc_id?: Maybe<Scalars['uuid']>
   tag_id?: Maybe<Scalars['uuid']>
 }
@@ -9070,7 +8893,6 @@ export type Tag_Hoc_Max_Order_By = {
 
 /** aggregate min on columns */
 export type Tag_Hoc_Min_Fields = {
-  __typename?: 'tag_hoc_min_fields'
   hoc_id?: Maybe<Scalars['uuid']>
   tag_id?: Maybe<Scalars['uuid']>
 }
@@ -9083,7 +8905,6 @@ export type Tag_Hoc_Min_Order_By = {
 
 /** response of any mutation on the table "tag_hoc" */
 export type Tag_Hoc_Mutation_Response = {
-  __typename?: 'tag_hoc_mutation_response'
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']
   /** data from the rows affected by the mutation */
@@ -9152,7 +8973,6 @@ export type Tag_Insert_Input = {
 
 /** aggregate max on columns */
 export type Tag_Max_Fields = {
-  __typename?: 'tag_max_fields'
   category_id?: Maybe<Scalars['uuid']>
   id?: Maybe<Scalars['uuid']>
   label?: Maybe<Scalars['String']>
@@ -9169,7 +8989,6 @@ export type Tag_Max_Order_By = {
 
 /** aggregate min on columns */
 export type Tag_Min_Fields = {
-  __typename?: 'tag_min_fields'
   category_id?: Maybe<Scalars['uuid']>
   id?: Maybe<Scalars['uuid']>
   label?: Maybe<Scalars['String']>
@@ -9186,7 +9005,6 @@ export type Tag_Min_Order_By = {
 
 /** response of any mutation on the table "tag" */
 export type Tag_Mutation_Response = {
-  __typename?: 'tag_mutation_response'
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']
   /** data from the rows affected by the mutation */
@@ -9231,7 +9049,6 @@ export type Tag_Pk_Columns_Input = {
 
 /** columns and relationships of "tag_prop_c" */
 export type Tag_Prop_C = {
-  __typename?: 'tag_prop_c'
   /** An object relationship */
   propCollection: Prop_C
   prop_c_id: Scalars['uuid']
@@ -9242,14 +9059,12 @@ export type Tag_Prop_C = {
 
 /** aggregated selection of "tag_prop_c" */
 export type Tag_Prop_C_Aggregate = {
-  __typename?: 'tag_prop_c_aggregate'
   aggregate?: Maybe<Tag_Prop_C_Aggregate_Fields>
   nodes: Array<Tag_Prop_C>
 }
 
 /** aggregate fields of "tag_prop_c" */
 export type Tag_Prop_C_Aggregate_Fields = {
-  __typename?: 'tag_prop_c_aggregate_fields'
   count: Scalars['Int']
   max?: Maybe<Tag_Prop_C_Max_Fields>
   min?: Maybe<Tag_Prop_C_Min_Fields>
@@ -9302,7 +9117,6 @@ export type Tag_Prop_C_Insert_Input = {
 
 /** aggregate max on columns */
 export type Tag_Prop_C_Max_Fields = {
-  __typename?: 'tag_prop_c_max_fields'
   prop_c_id?: Maybe<Scalars['uuid']>
   tag_id?: Maybe<Scalars['uuid']>
 }
@@ -9315,7 +9129,6 @@ export type Tag_Prop_C_Max_Order_By = {
 
 /** aggregate min on columns */
 export type Tag_Prop_C_Min_Fields = {
-  __typename?: 'tag_prop_c_min_fields'
   prop_c_id?: Maybe<Scalars['uuid']>
   tag_id?: Maybe<Scalars['uuid']>
 }
@@ -9328,7 +9141,6 @@ export type Tag_Prop_C_Min_Order_By = {
 
 /** response of any mutation on the table "tag_prop_c" */
 export type Tag_Prop_C_Mutation_Response = {
-  __typename?: 'tag_prop_c_mutation_response'
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']
   /** data from the rows affected by the mutation */
@@ -9380,7 +9192,6 @@ export enum Tag_Prop_C_Update_Column {
 
 /** columns and relationships of "tag_prop_type_c" */
 export type Tag_Prop_Type_C = {
-  __typename?: 'tag_prop_type_c'
   /** An object relationship */
   propTypeCollection: Prop_Type_C
   prop_type_c_id: Scalars['uuid']
@@ -9391,14 +9202,12 @@ export type Tag_Prop_Type_C = {
 
 /** aggregated selection of "tag_prop_type_c" */
 export type Tag_Prop_Type_C_Aggregate = {
-  __typename?: 'tag_prop_type_c_aggregate'
   aggregate?: Maybe<Tag_Prop_Type_C_Aggregate_Fields>
   nodes: Array<Tag_Prop_Type_C>
 }
 
 /** aggregate fields of "tag_prop_type_c" */
 export type Tag_Prop_Type_C_Aggregate_Fields = {
-  __typename?: 'tag_prop_type_c_aggregate_fields'
   count: Scalars['Int']
   max?: Maybe<Tag_Prop_Type_C_Max_Fields>
   min?: Maybe<Tag_Prop_Type_C_Min_Fields>
@@ -9451,7 +9260,6 @@ export type Tag_Prop_Type_C_Insert_Input = {
 
 /** aggregate max on columns */
 export type Tag_Prop_Type_C_Max_Fields = {
-  __typename?: 'tag_prop_type_c_max_fields'
   prop_type_c_id?: Maybe<Scalars['uuid']>
   tag_id?: Maybe<Scalars['uuid']>
 }
@@ -9464,7 +9272,6 @@ export type Tag_Prop_Type_C_Max_Order_By = {
 
 /** aggregate min on columns */
 export type Tag_Prop_Type_C_Min_Fields = {
-  __typename?: 'tag_prop_type_c_min_fields'
   prop_type_c_id?: Maybe<Scalars['uuid']>
   tag_id?: Maybe<Scalars['uuid']>
 }
@@ -9477,7 +9284,6 @@ export type Tag_Prop_Type_C_Min_Order_By = {
 
 /** response of any mutation on the table "tag_prop_type_c" */
 export type Tag_Prop_Type_C_Mutation_Response = {
-  __typename?: 'tag_prop_type_c_mutation_response'
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']
   /** data from the rows affected by the mutation */
@@ -9529,7 +9335,6 @@ export enum Tag_Prop_Type_C_Update_Column {
 
 /** columns and relationships of "tag_prop_value" */
 export type Tag_Prop_Value = {
-  __typename?: 'tag_prop_value'
   /** An object relationship */
   propValue: Prop_Value
   prop_value_id: Scalars['uuid']
@@ -9540,14 +9345,12 @@ export type Tag_Prop_Value = {
 
 /** aggregated selection of "tag_prop_value" */
 export type Tag_Prop_Value_Aggregate = {
-  __typename?: 'tag_prop_value_aggregate'
   aggregate?: Maybe<Tag_Prop_Value_Aggregate_Fields>
   nodes: Array<Tag_Prop_Value>
 }
 
 /** aggregate fields of "tag_prop_value" */
 export type Tag_Prop_Value_Aggregate_Fields = {
-  __typename?: 'tag_prop_value_aggregate_fields'
   count: Scalars['Int']
   max?: Maybe<Tag_Prop_Value_Max_Fields>
   min?: Maybe<Tag_Prop_Value_Min_Fields>
@@ -9600,7 +9403,6 @@ export type Tag_Prop_Value_Insert_Input = {
 
 /** aggregate max on columns */
 export type Tag_Prop_Value_Max_Fields = {
-  __typename?: 'tag_prop_value_max_fields'
   prop_value_id?: Maybe<Scalars['uuid']>
   tag_id?: Maybe<Scalars['uuid']>
 }
@@ -9613,7 +9415,6 @@ export type Tag_Prop_Value_Max_Order_By = {
 
 /** aggregate min on columns */
 export type Tag_Prop_Value_Min_Fields = {
-  __typename?: 'tag_prop_value_min_fields'
   prop_value_id?: Maybe<Scalars['uuid']>
   tag_id?: Maybe<Scalars['uuid']>
 }
@@ -9626,7 +9427,6 @@ export type Tag_Prop_Value_Min_Order_By = {
 
 /** response of any mutation on the table "tag_prop_value" */
 export type Tag_Prop_Value_Mutation_Response = {
-  __typename?: 'tag_prop_value_mutation_response'
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']
   /** data from the rows affected by the mutation */
@@ -9698,7 +9498,6 @@ export type Tag_Set_Input = {
 
 /** columns and relationships of "tag_style" */
 export type Tag_Style = {
-  __typename?: 'tag_style'
   /** An object relationship */
   style: Style
   style_id: Scalars['uuid']
@@ -9709,14 +9508,12 @@ export type Tag_Style = {
 
 /** aggregated selection of "tag_style" */
 export type Tag_Style_Aggregate = {
-  __typename?: 'tag_style_aggregate'
   aggregate?: Maybe<Tag_Style_Aggregate_Fields>
   nodes: Array<Tag_Style>
 }
 
 /** aggregate fields of "tag_style" */
 export type Tag_Style_Aggregate_Fields = {
-  __typename?: 'tag_style_aggregate_fields'
   count: Scalars['Int']
   max?: Maybe<Tag_Style_Max_Fields>
   min?: Maybe<Tag_Style_Min_Fields>
@@ -9769,7 +9566,6 @@ export type Tag_Style_Insert_Input = {
 
 /** aggregate max on columns */
 export type Tag_Style_Max_Fields = {
-  __typename?: 'tag_style_max_fields'
   style_id?: Maybe<Scalars['uuid']>
   tag_id?: Maybe<Scalars['uuid']>
 }
@@ -9782,7 +9578,6 @@ export type Tag_Style_Max_Order_By = {
 
 /** aggregate min on columns */
 export type Tag_Style_Min_Fields = {
-  __typename?: 'tag_style_min_fields'
   style_id?: Maybe<Scalars['uuid']>
   tag_id?: Maybe<Scalars['uuid']>
 }
@@ -9795,7 +9590,6 @@ export type Tag_Style_Min_Order_By = {
 
 /** response of any mutation on the table "tag_style" */
 export type Tag_Style_Mutation_Response = {
-  __typename?: 'tag_style_mutation_response'
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']
   /** data from the rows affected by the mutation */
@@ -9859,7 +9653,6 @@ export enum Tag_Update_Column {
 
 /** columns and relationships of "user" */
 export type User = {
-  __typename?: 'user'
   /** An array relationship */
   apps: Array<App>
   /** An aggregate relationship */
@@ -9910,14 +9703,12 @@ export type UserLibraries_AggregateArgs = {
 
 /** aggregated selection of "user" */
 export type User_Aggregate = {
-  __typename?: 'user_aggregate'
   aggregate?: Maybe<User_Aggregate_Fields>
   nodes: Array<User>
 }
 
 /** aggregate fields of "user" */
 export type User_Aggregate_Fields = {
-  __typename?: 'user_aggregate_fields'
   count: Scalars['Int']
   max?: Maybe<User_Max_Fields>
   min?: Maybe<User_Min_Fields>
@@ -9956,21 +9747,18 @@ export type User_Insert_Input = {
 
 /** aggregate max on columns */
 export type User_Max_Fields = {
-  __typename?: 'user_max_fields'
   id?: Maybe<Scalars['String']>
   name?: Maybe<Scalars['String']>
 }
 
 /** aggregate min on columns */
 export type User_Min_Fields = {
-  __typename?: 'user_min_fields'
   id?: Maybe<Scalars['String']>
   name?: Maybe<Scalars['String']>
 }
 
 /** response of any mutation on the table "user" */
 export type User_Mutation_Response = {
-  __typename?: 'user_mutation_response'
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']
   /** data from the rows affected by the mutation */
@@ -10041,21 +9829,18 @@ export type Uuid_Comparison_Exp = {
 
 /** columns and relationships of "value_type" */
 export type Value_Type = {
-  __typename?: 'value_type'
   description?: Maybe<Scalars['String']>
   value: Scalars['String']
 }
 
 /** aggregated selection of "value_type" */
 export type Value_Type_Aggregate = {
-  __typename?: 'value_type_aggregate'
   aggregate?: Maybe<Value_Type_Aggregate_Fields>
   nodes: Array<Value_Type>
 }
 
 /** aggregate fields of "value_type" */
 export type Value_Type_Aggregate_Fields = {
-  __typename?: 'value_type_aggregate_fields'
   count: Scalars['Int']
   max?: Maybe<Value_Type_Max_Fields>
   min?: Maybe<Value_Type_Min_Fields>
@@ -10107,21 +9892,18 @@ export type Value_Type_Insert_Input = {
 
 /** aggregate max on columns */
 export type Value_Type_Max_Fields = {
-  __typename?: 'value_type_max_fields'
   description?: Maybe<Scalars['String']>
   value?: Maybe<Scalars['String']>
 }
 
 /** aggregate min on columns */
 export type Value_Type_Min_Fields = {
-  __typename?: 'value_type_min_fields'
   description?: Maybe<Scalars['String']>
   value?: Maybe<Scalars['String']>
 }
 
 /** response of any mutation on the table "value_type" */
 export type Value_Type_Mutation_Response = {
-  __typename?: 'value_type_mutation_response'
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']
   /** data from the rows affected by the mutation */
@@ -10179,143 +9961,97 @@ export type DeleteUserAppsMutationVariables = Exact<{
   userId: Scalars['String']
 }>
 
-export type DeleteUserAppsMutation = { __typename?: 'mutation_root' } & {
-  delete_app?: Maybe<
-    { __typename?: 'app_mutation_response' } & Pick<
-      App_Mutation_Response,
-      'affected_rows'
-    >
-  >
+export type DeleteUserAppsMutation = {
+  delete_app?: Maybe<Pick<App_Mutation_Response, 'affected_rows'>>
 }
 
-export type User__AppFragment = { __typename?: 'app' } & Pick<
-  App,
-  'id' | 'user_id' | 'name'
-> & { pages: Array<{ __typename?: 'page' } & App__PageFragment> }
+export type User__AppFragment = Pick<App, 'id' | 'user_id' | 'name'> & {
+  pages: Array<App__PageFragment>
+}
 
 export type GetAppQueryVariables = Exact<{
   appId: Scalars['uuid']
   pageId: Scalars['uuid']
 }>
 
-export type GetAppQuery = { __typename?: 'query_root' } & {
-  app_by_pk?: Maybe<{ __typename?: 'app' } & User__AppFragment>
-  page_by_pk?: Maybe<{ __typename?: 'page' } & App__PageFragment>
+export type GetAppQuery = {
+  app_by_pk?: Maybe<User__AppFragment>
+  page_by_pk?: Maybe<App__PageFragment>
 }
 
 export type CreateAppMutationVariables = Exact<{
   input: App_Insert_Input
 }>
 
-export type CreateAppMutation = { __typename?: 'mutation_root' } & {
-  insert_app_one?: Maybe<{ __typename?: 'app' } & User__AppFragment>
-}
+export type CreateAppMutation = { insert_app_one?: Maybe<User__AppFragment> }
 
 export type DeleteAppMutationVariables = Exact<{
   id: Scalars['uuid']
 }>
 
-export type DeleteAppMutation = { __typename?: 'mutation_root' } & {
-  delete_app_by_pk?: Maybe<{ __typename?: 'app' } & User__AppFragment>
-}
+export type DeleteAppMutation = { delete_app_by_pk?: Maybe<User__AppFragment> }
 
 export type GetAppItemQueryVariables = Exact<{
   appId: Scalars['uuid']
 }>
 
-export type GetAppItemQuery = { __typename?: 'query_root' } & {
-  app_by_pk?: Maybe<{ __typename?: 'app' } & User__AppFragment>
-}
+export type GetAppItemQuery = { app_by_pk?: Maybe<User__AppFragment> }
 
 export type GetAppsListQueryVariables = Exact<{ [key: string]: never }>
 
-export type GetAppsListQuery = { __typename?: 'query_root' } & {
-  app: Array<{ __typename?: 'app' } & User__AppFragment>
-}
+export type GetAppsListQuery = { app: Array<User__AppFragment> }
 
 export type GetAppsListForUserQueryVariables = Exact<{
   userId: Scalars['String']
 }>
 
-export type GetAppsListForUserQuery = { __typename?: 'query_root' } & {
-  app: Array<{ __typename?: 'app' } & User__AppFragment>
-}
+export type GetAppsListForUserQuery = { app: Array<User__AppFragment> }
 
 export type EditAppMutationVariables = Exact<{
   input: App_Set_Input
   id: Scalars['uuid']
 }>
 
-export type EditAppMutation = { __typename?: 'mutation_root' } & {
-  update_app_by_pk?: Maybe<{ __typename?: 'app' } & Pick<App, 'name'>>
-}
+export type EditAppMutation = { update_app_by_pk?: Maybe<Pick<App, 'name'>> }
 
-export type __AtomFragment = { __typename?: 'atom' } & Pick<
-  Atom,
-  'id' | 'type'
-> & {
-    propTypes?: Maybe<
-      { __typename?: 'prop_type_c' } & PropTypeCollectionFragment
-    >
-    styles: Array<
-      { __typename?: 'style_atom' } & {
-        style: { __typename?: 'style' } & Library__StyleFragment
-      }
-    >
-    tags: Array<
-      { __typename?: 'tag_atom' } & {
-        tag: { __typename?: 'tag' } & __TagFragment
-      }
-    >
-  }
+export type __AtomFragment = Pick<Atom, 'id' | 'type'> & {
+  propTypes?: Maybe<PropTypeCollectionFragment>
+  styles: Array<{ style: Library__StyleFragment }>
+  tags: Array<{ tag: __TagFragment }>
+}
 
 export type CreateAtomMutationVariables = Exact<{
   data: Atom_Insert_Input
 }>
 
-export type CreateAtomMutation = { __typename?: 'mutation_root' } & {
-  insert_atom_one?: Maybe<{ __typename?: 'atom' } & __AtomFragment>
-}
+export type CreateAtomMutation = { insert_atom_one?: Maybe<__AtomFragment> }
 
 export type DeleteAllAtomsMutationVariables = Exact<{ [key: string]: never }>
 
-export type DeleteAllAtomsMutation = { __typename?: 'mutation_root' } & {
-  delete_atom?: Maybe<
-    { __typename?: 'atom_mutation_response' } & Pick<
-      Atom_Mutation_Response,
-      'affected_rows'
-    >
-  >
+export type DeleteAllAtomsMutation = {
+  delete_atom?: Maybe<Pick<Atom_Mutation_Response, 'affected_rows'>>
 }
 
 export type DeleteAtomMutationVariables = Exact<{
   atomId: Scalars['uuid']
 }>
 
-export type DeleteAtomMutation = { __typename?: 'mutation_root' } & {
-  delete_atom_by_pk?: Maybe<{ __typename?: 'atom' } & __AtomFragment>
-}
+export type DeleteAtomMutation = { delete_atom_by_pk?: Maybe<__AtomFragment> }
 
 export type GetAtomQueryVariables = Exact<{
   atomId: Scalars['uuid']
 }>
 
-export type GetAtomQuery = { __typename?: 'query_root' } & {
-  atom_by_pk?: Maybe<{ __typename?: 'atom' } & __AtomFragment>
-}
+export type GetAtomQuery = { atom_by_pk?: Maybe<__AtomFragment> }
 
 export type GetAtomsListQueryVariables = Exact<{ [key: string]: never }>
 
-export type GetAtomsListQuery = { __typename?: 'query_root' } & {
-  atom: Array<{ __typename?: 'atom' } & __AtomFragment>
-}
+export type GetAtomsListQuery = { atom: Array<__AtomFragment> }
 
 export type GetAtomsTypesQueryVariables = Exact<{ [key: string]: never }>
 
-export type GetAtomsTypesQuery = { __typename?: 'query_root' } & {
-  atom_type: Array<
-    { __typename?: 'atom_type' } & Pick<Atom_Type, 'description' | 'value'>
-  >
+export type GetAtomsTypesQuery = {
+  atom_type: Array<Pick<Atom_Type, 'description' | 'value'>>
 }
 
 export type UpdateAtomMutationVariables = Exact<{
@@ -10323,40 +10059,41 @@ export type UpdateAtomMutationVariables = Exact<{
   atomId: Scalars['uuid']
 }>
 
-export type UpdateAtomMutation = { __typename?: 'mutation_root' } & {
-  update_atom_by_pk?: Maybe<{ __typename?: 'atom' } & __AtomFragment>
+export type UpdateAtomMutation = { update_atom_by_pk?: Maybe<__AtomFragment> }
+
+export type Library__CategoryFragment = Pick<Category, 'id' | 'name'> & {
+  tags: Array<__TagFragment>
 }
 
-export type Library__CategoryFragment = { __typename?: 'category' } & Pick<
-  Category,
-  'id' | 'name'
-> & { tags: Array<{ __typename?: 'tag' } & __TagFragment> }
-
-export type __TagFragment = { __typename?: 'tag' } & Pick<
+export type __TagFragment = Pick<
   Tag,
   'id' | 'category_id' | 'label' | 'library_id'
 >
+
+export type AddChildComponentElementMutationVariables = Exact<{
+  componentElement: Component_Element_Insert_Input
+  componentLink: Component_Link_Insert_Input
+}>
+
+export type AddChildComponentElementMutation = {
+  insert_component_element_one?: Maybe<__ComponentElementFragment>
+  insert_component_link_one?: Maybe<PageElement__ComponentLinkFragment>
+}
 
 export type CreateComponentElementMutationVariables = Exact<{
   input: Component_Element_Insert_Input
 }>
 
 export type CreateComponentElementMutation = {
-  __typename?: 'mutation_root'
-} & {
-  insert_component_element_one?: Maybe<
-    { __typename?: 'component_element' } & __ComponentElementFragment
-  >
+  insert_component_element_one?: Maybe<__ComponentElementFragment>
 }
 
 export type CreateComponentLinkMutationVariables = Exact<{
   input: Component_Link_Insert_Input
 }>
 
-export type CreateComponentLinkMutation = { __typename?: 'mutation_root' } & {
-  insert_component_link_one?: Maybe<
-    { __typename?: 'component_link' } & PageElement__ComponentLinkFragment
-  >
+export type CreateComponentLinkMutation = {
+  insert_component_link_one?: Maybe<PageElement__ComponentLinkFragment>
 }
 
 export type DeleteComponentElementMutationVariables = Exact<{
@@ -10364,21 +10101,15 @@ export type DeleteComponentElementMutationVariables = Exact<{
 }>
 
 export type DeleteComponentElementMutation = {
-  __typename?: 'mutation_root'
-} & {
-  delete_component_element_by_pk?: Maybe<
-    { __typename?: 'component_element' } & Pick<Component_Element, 'id'>
-  >
+  delete_component_element_by_pk?: Maybe<Pick<Component_Element, 'id'>>
 }
 
 export type GetComponentElementQueryVariables = Exact<{
   componentElementId: Scalars['uuid']
 }>
 
-export type GetComponentElementQuery = { __typename?: 'query_root' } & {
-  component_element_by_pk?: Maybe<
-    { __typename?: 'component_element' } & __ComponentElementFragment
-  >
+export type GetComponentElementQuery = {
+  component_element_by_pk?: Maybe<__ComponentElementFragment>
 }
 
 export type UpdateComponentElementMutationVariables = Exact<{
@@ -10387,155 +10118,102 @@ export type UpdateComponentElementMutationVariables = Exact<{
 }>
 
 export type UpdateComponentElementMutation = {
-  __typename?: 'mutation_root'
-} & {
-  update_component_element_by_pk?: Maybe<
-    { __typename?: 'component_element' } & __ComponentElementFragment
-  >
+  update_component_element_by_pk?: Maybe<__ComponentElementFragment>
 }
 
-export type __ComponentFragment = { __typename?: 'component' } & Pick<
-  Component,
+export type __ComponentFragment = Pick<Component, 'id' | 'label'> & {
+  elements: Array<__ComponentElementFragment>
+  links: Array<PageElement__ComponentLinkFragment>
+}
+
+export type __ComponentElementFragment = Pick<
+  Component_Element,
   'id' | 'label'
 > & {
-    elements: Array<
-      { __typename?: 'component_element' } & __ComponentElementFragment
-    >
-    links: Array<
-      { __typename?: 'component_link' } & PageElement__ComponentLinkFragment
-    >
-  }
+  hocs: Array<{ hoc: ComponentElement__HocFragment }>
+  props?: Maybe<PropCollectionFragment>
+  styles: Array<{ style: Library__StyleFragment }>
+  atom?: Maybe<__AtomFragment>
+}
 
-export type __ComponentElementFragment = {
-  __typename?: 'component_element'
-} & Pick<Component_Element, 'id' | 'label'> & {
-    hocs: Array<
-      { __typename?: 'hoc_component_element' } & {
-        hoc: { __typename?: 'hoc' } & ComponentElement__HocFragment
-      }
-    >
-    props?: Maybe<{ __typename?: 'prop_c' } & PropCollectionFragment>
-    styles: Array<
-      { __typename?: 'style_component_element' } & {
-        style: { __typename?: 'style' } & Library__StyleFragment
-      }
-    >
-    atom?: Maybe<{ __typename?: 'atom' } & __AtomFragment>
-  }
-
-export type PageElement__ComponentLinkFragment = {
-  __typename?: 'component_link'
-} & Pick<
+export type PageElement__ComponentLinkFragment = Pick<
   Component_Link,
   'id' | 'order' | 'props' | 'source_element_id' | 'target_element_id'
 >
 
-export type ComponentElement__HocFragment = { __typename?: 'hoc' } & Pick<
-  Hoc,
-  'id'
-> & {
-    tags: Array<
-      { __typename?: 'tag_hoc' } & {
-        tag: { __typename?: 'tag' } & __TagFragment
-      }
-    >
-  }
+export type ComponentElement__HocFragment = Pick<Hoc, 'id'> & {
+  tags: Array<{ tag: __TagFragment }>
+}
 
 export type CreateComponentMutationVariables = Exact<{
   input: Component_Insert_Input
 }>
 
-export type CreateComponentMutation = { __typename?: 'mutation_root' } & {
-  insert_component_one?: Maybe<
-    { __typename?: 'component' } & __ComponentFragment
-  >
+export type CreateComponentMutation = {
+  insert_component_one?: Maybe<__ComponentFragment>
 }
 
 export type DeleteAllComponentsMutationVariables = Exact<{
   [key: string]: never
 }>
 
-export type DeleteAllComponentsMutation = { __typename?: 'mutation_root' } & {
-  delete_component?: Maybe<
-    { __typename?: 'component_mutation_response' } & Pick<
-      Component_Mutation_Response,
-      'affected_rows'
-    >
-  >
+export type DeleteAllComponentsMutation = {
+  delete_component?: Maybe<Pick<Component_Mutation_Response, 'affected_rows'>>
 }
 
 export type DeleteComponentMutationVariables = Exact<{
   componentId: Scalars['uuid']
 }>
 
-export type DeleteComponentMutation = { __typename?: 'mutation_root' } & {
-  delete_component_by_pk?: Maybe<
-    { __typename?: 'component' } & Pick<Component, 'id'>
-  >
+export type DeleteComponentMutation = {
+  delete_component_by_pk?: Maybe<Pick<Component, 'id'>>
 }
 
 export type GetComponentQueryVariables = Exact<{
   componentId: Scalars['uuid']
 }>
 
-export type GetComponentQuery = { __typename?: 'query_root' } & {
-  component_by_pk?: Maybe<{ __typename?: 'component' } & __ComponentFragment>
-}
+export type GetComponentQuery = { component_by_pk?: Maybe<__ComponentFragment> }
 
 export type GetComponentDetailQueryVariables = Exact<{
   componentId: Scalars['uuid']
 }>
 
-export type GetComponentDetailQuery = { __typename?: 'query_root' } & {
-  component_by_pk?: Maybe<{ __typename?: 'component' } & __ComponentFragment>
+export type GetComponentDetailQuery = {
+  component_by_pk?: Maybe<__ComponentFragment>
 }
 
 export type GetComponentsQueryVariables = Exact<{ [key: string]: never }>
 
-export type GetComponentsQuery = { __typename?: 'query_root' } & {
-  component: Array<{ __typename?: 'component' } & __ComponentFragment>
-}
+export type GetComponentsQuery = { component: Array<__ComponentFragment> }
 
 export type UpdateComponentMutationVariables = Exact<{
   componentId: Scalars['uuid']
   input: Component_Set_Input
 }>
 
-export type UpdateComponentMutation = { __typename?: 'mutation_root' } & {
-  update_component_by_pk?: Maybe<
-    { __typename?: 'component' } & __ComponentFragment
-  >
+export type UpdateComponentMutation = {
+  update_component_by_pk?: Maybe<__ComponentFragment>
 }
 
 export type CreateLambdaMutationVariables = Exact<{
   input: Array<Lambda_Insert_Input> | Lambda_Insert_Input
 }>
 
-export type CreateLambdaMutation = { __typename?: 'mutation_root' } & {
-  insert_lambda?: Maybe<
-    { __typename?: 'lambda_mutation_response' } & {
-      returning: Array<
-        { __typename?: 'lambda' } & Pick<
-          Lambda,
-          'id' | 'libraryId' | 'name' | 'body'
-        >
-      >
-    }
-  >
+export type CreateLambdaMutation = {
+  insert_lambda?: Maybe<{
+    returning: Array<Pick<Lambda, 'id' | 'libraryId' | 'name' | 'body'>>
+  }>
 }
 
 export type DeleteLambdaMutationVariables = Exact<{
   id: Scalars['uuid']
 }>
 
-export type DeleteLambdaMutation = { __typename?: 'mutation_root' } & {
-  delete_lambda?: Maybe<
-    { __typename?: 'lambda_mutation_response' } & {
-      returning: Array<
-        { __typename?: 'lambda' } & Pick<Lambda, 'id' | 'name' | 'body'>
-      >
-    }
-  >
+export type DeleteLambdaMutation = {
+  delete_lambda?: Maybe<{
+    returning: Array<Pick<Lambda, 'id' | 'name' | 'body'>>
+  }>
 }
 
 export type ExecuteLambdaMutationVariables = Exact<{
@@ -10543,47 +10221,30 @@ export type ExecuteLambdaMutationVariables = Exact<{
   payload: Scalars['String']
 }>
 
-export type ExecuteLambdaMutation = { __typename?: 'mutation_root' } & {
-  executeLambda?: Maybe<
-    { __typename?: 'LambdaOutput' } & Pick<LambdaOutput, 'payload'>
-  >
+export type ExecuteLambdaMutation = {
+  executeLambda?: Maybe<Pick<LambdaOutput, 'payload'>>
 }
 
 export type GetLambdaByIdQueryVariables = Exact<{
   id: Scalars['uuid']
 }>
 
-export type GetLambdaByIdQuery = { __typename?: 'query_root' } & {
-  lambda: Array<
-    { __typename?: 'lambda' } & Pick<
-      Lambda,
-      'body' | 'id' | 'libraryId' | 'name'
-    >
-  >
+export type GetLambdaByIdQuery = {
+  lambda: Array<Pick<Lambda, 'body' | 'id' | 'libraryId' | 'name'>>
 }
 
 export type GetLambdasQueryVariables = Exact<{ [key: string]: never }>
 
-export type GetLambdasQuery = { __typename?: 'query_root' } & {
-  lambda: Array<
-    { __typename?: 'lambda' } & Pick<
-      Lambda,
-      'body' | 'id' | 'libraryId' | 'name'
-    >
-  >
+export type GetLambdasQuery = {
+  lambda: Array<Pick<Lambda, 'body' | 'id' | 'libraryId' | 'name'>>
 }
 
 export type GetLambdasByLibraryIdQueryVariables = Exact<{
   libraryId: Scalars['uuid']
 }>
 
-export type GetLambdasByLibraryIdQuery = { __typename?: 'query_root' } & {
-  lambda: Array<
-    { __typename?: 'lambda' } & Pick<
-      Lambda,
-      'body' | 'id' | 'libraryId' | 'name'
-    >
-  >
+export type GetLambdasByLibraryIdQuery = {
+  lambda: Array<Pick<Lambda, 'body' | 'id' | 'libraryId' | 'name'>>
 }
 
 export type UpdateLambdaMutationVariables = Exact<{
@@ -10592,123 +10253,83 @@ export type UpdateLambdaMutationVariables = Exact<{
   name?: Maybe<Scalars['String']>
 }>
 
-export type UpdateLambdaMutation = { __typename?: 'mutation_root' } & {
-  update_lambda?: Maybe<
-    { __typename?: 'lambda_mutation_response' } & {
-      returning: Array<
-        { __typename?: 'lambda' } & Pick<
-          Lambda,
-          'id' | 'libraryId' | 'name' | 'body'
-        >
-      >
-    }
-  >
+export type UpdateLambdaMutation = {
+  update_lambda?: Maybe<{
+    returning: Array<Pick<Lambda, 'id' | 'libraryId' | 'name' | 'body'>>
+  }>
 }
 
-export type Library__LambdaFragment = { __typename?: 'lambda' } & Pick<
-  Lambda,
-  'id' | 'body' | 'name'
->
+export type Library__LambdaFragment = Pick<Lambda, 'id' | 'body' | 'name'>
 
 export type GetFirstLibraryQueryVariables = Exact<{ [key: string]: never }>
 
-export type GetFirstLibraryQuery = { __typename?: 'query_root' } & {
-  library: Array<{ __typename?: 'library' } & __LibraryFragment>
-}
+export type GetFirstLibraryQuery = { library: Array<__LibraryFragment> }
 
 export type GetLibraryQueryVariables = Exact<{
   libraryId: Scalars['uuid']
 }>
 
-export type GetLibraryQuery = { __typename?: 'query_root' } & {
-  library_by_pk?: Maybe<{ __typename?: 'library' } & __LibraryFragment>
-}
+export type GetLibraryQuery = { library_by_pk?: Maybe<__LibraryFragment> }
 
-export type __LibraryFragment = { __typename?: 'library' } & Pick<
-  Library,
-  'id' | 'name' | 'user_id'
-> & {
-    categories: Array<{ __typename?: 'category' } & Library__CategoryFragment>
-    components: Array<{ __typename?: 'component' } & __ComponentFragment>
-    atoms: Array<{ __typename?: 'atom' } & __AtomFragment>
-    lambdas: Array<{ __typename?: 'lambda' } & Library__LambdaFragment>
-    propTypes: Array<
-      { __typename?: 'prop_type_c' } & {
-        propTypes: Array<
-          { __typename?: 'prop_type' } & PropTypeCollection__PropTypeFragment
-        >
-      }
-    >
-    props: Array<
-      { __typename?: 'prop_c' } & {
-        props: Array<{ __typename?: 'prop' } & PropCollection__PropFragment>
-      }
-    >
-    styles: Array<{ __typename?: 'style' } & Library__StyleFragment>
-    tags: Array<{ __typename?: 'tag' } & __TagFragment>
-  }
+export type __LibraryFragment = Pick<Library, 'id' | 'name' | 'user_id'> & {
+  categories: Array<Library__CategoryFragment>
+  components: Array<__ComponentFragment>
+  atoms: Array<__AtomFragment>
+  lambdas: Array<Library__LambdaFragment>
+  propTypes: Array<{ propTypes: Array<PropTypeCollection__PropTypeFragment> }>
+  props: Array<{ props: Array<PropCollection__PropFragment> }>
+  styles: Array<Library__StyleFragment>
+  tags: Array<__TagFragment>
+}
 
 export type CreateLibraryMutationVariables = Exact<{
   data: Library_Insert_Input
 }>
 
-export type CreateLibraryMutation = { __typename?: 'mutation_root' } & {
-  insert_library_one?: Maybe<{ __typename?: 'library' } & __LibraryFragment>
+export type CreateLibraryMutation = {
+  insert_library_one?: Maybe<__LibraryFragment>
 }
 
 export type DeleteLibraryMutationVariables = Exact<{
   libraryId: Scalars['uuid']
 }>
 
-export type DeleteLibraryMutation = { __typename?: 'mutation_root' } & {
-  delete_library_by_pk?: Maybe<{ __typename?: 'library' } & Pick<Library, 'id'>>
+export type DeleteLibraryMutation = {
+  delete_library_by_pk?: Maybe<Pick<Library, 'id'>>
 }
 
 export type DeleteUserLibrariesMutationVariables = Exact<{
   userId: Scalars['String']
 }>
 
-export type DeleteUserLibrariesMutation = { __typename?: 'mutation_root' } & {
-  delete_library?: Maybe<
-    { __typename?: 'library_mutation_response' } & Pick<
-      Library_Mutation_Response,
-      'affected_rows'
-    >
-  >
+export type DeleteUserLibrariesMutation = {
+  delete_library?: Maybe<Pick<Library_Mutation_Response, 'affected_rows'>>
 }
 
 export type GetLibrariesQueryVariables = Exact<{ [key: string]: never }>
 
-export type GetLibrariesQuery = { __typename?: 'query_root' } & {
-  library: Array<{ __typename?: 'library' } & __LibraryFragment>
-}
+export type GetLibrariesQuery = { library: Array<__LibraryFragment> }
 
 export type UpdateLibraryMutationVariables = Exact<{
   input: Library_Set_Input
   libraryId: Scalars['uuid']
 }>
 
-export type UpdateLibraryMutation = { __typename?: 'mutation_root' } & {
-  update_library_by_pk?: Maybe<{ __typename?: 'library' } & __LibraryFragment>
+export type UpdateLibraryMutation = {
+  update_library_by_pk?: Maybe<__LibraryFragment>
 }
 
-export type App__PageFragment = { __typename?: 'page' } & Pick<
-  Page,
-  'id' | 'name' | 'app_id'
-> & {
-    elements: Array<{ __typename?: 'page_element' } & Page__PageElementFragment>
-    links: Array<{ __typename?: 'page_link' } & Page__PageLinkFragment>
-  }
+export type App__PageFragment = Pick<Page, 'id' | 'name' | 'app_id'> & {
+  elements: Array<Page__PageElementFragment>
+  links: Array<Page__PageLinkFragment>
+}
 
-export type Page__PageElementFragment = { __typename?: 'page_element' } & Pick<
+export type Page__PageElementFragment = Pick<
   Page_Element,
   'id' | 'name' | 'page_id'
-> & {
-    component: { __typename?: 'component' } & __ComponentFragment
-    props?: Maybe<{ __typename?: 'prop_c' } & PropCollectionFragment>
-  }
+> & { component: __ComponentFragment; props?: Maybe<PropCollectionFragment> }
 
-export type Page__PageLinkFragment = { __typename?: 'page_link' } & Pick<
+export type Page__PageLinkFragment = Pick<
   Page_Link,
   | 'id'
   | 'order'
@@ -10722,66 +10343,52 @@ export type CreatePageMutationVariables = Exact<{
   data: Page_Insert_Input
 }>
 
-export type CreatePageMutation = { __typename?: 'mutation_root' } & {
-  insert_page_one?: Maybe<{ __typename?: 'page' } & App__PageFragment>
-}
+export type CreatePageMutation = { insert_page_one?: Maybe<App__PageFragment> }
 
 export type DeletePageMutationVariables = Exact<{
   pageId: Scalars['uuid']
 }>
 
-export type DeletePageMutation = { __typename?: 'mutation_root' } & {
-  delete_page_by_pk?: Maybe<{ __typename?: 'page' } & App__PageFragment>
+export type DeletePageMutation = {
+  delete_page_by_pk?: Maybe<App__PageFragment>
 }
 
 export type GetPageQueryVariables = Exact<{
   pageId: Scalars['uuid']
 }>
 
-export type GetPageQuery = { __typename?: 'query_root' } & {
-  page_by_pk?: Maybe<{ __typename?: 'page' } & App__PageFragment>
-}
+export type GetPageQuery = { page_by_pk?: Maybe<App__PageFragment> }
 
 export type GetPagesListQueryVariables = Exact<{
   appId: Scalars['uuid']
 }>
 
-export type GetPagesListQuery = { __typename?: 'query_root' } & {
-  app_by_pk?: Maybe<
-    { __typename?: 'app' } & {
-      pages: Array<{ __typename?: 'page' } & App__PageFragment>
-    }
-  >
+export type GetPagesListQuery = {
+  app_by_pk?: Maybe<{ pages: Array<App__PageFragment> }>
 }
 
 export type CreatePageElementMutationVariables = Exact<{
   input: Page_Element_Insert_Input
 }>
 
-export type CreatePageElementMutation = { __typename?: 'mutation_root' } & {
-  insert_page_element_one?: Maybe<
-    { __typename?: 'page_element' } & Page__PageElementFragment
-  >
+export type CreatePageElementMutation = {
+  insert_page_element_one?: Maybe<Page__PageElementFragment>
 }
 
 export type DeletePageElementMutationVariables = Exact<{
   pageElementId: Scalars['uuid']
 }>
 
-export type DeletePageElementMutation = { __typename?: 'mutation_root' } & {
-  delete_page_element_by_pk?: Maybe<
-    { __typename?: 'page_element' } & Page__PageElementFragment
-  >
+export type DeletePageElementMutation = {
+  delete_page_element_by_pk?: Maybe<Page__PageElementFragment>
 }
 
 export type GetPageElementQueryVariables = Exact<{
   pageElementId: Scalars['uuid']
 }>
 
-export type GetPageElementQuery = { __typename?: 'query_root' } & {
-  page_element_by_pk?: Maybe<
-    { __typename?: 'page_element' } & Page__PageElementFragment
-  >
+export type GetPageElementQuery = {
+  page_element_by_pk?: Maybe<Page__PageElementFragment>
 }
 
 export type UpdatePageElementMutationVariables = Exact<{
@@ -10789,10 +10396,8 @@ export type UpdatePageElementMutationVariables = Exact<{
   input?: Maybe<Page_Element_Set_Input>
 }>
 
-export type UpdatePageElementMutation = { __typename?: 'mutation_root' } & {
-  update_page_element_by_pk?: Maybe<
-    { __typename?: 'page_element' } & Page__PageElementFragment
-  >
+export type UpdatePageElementMutation = {
+  update_page_element_by_pk?: Maybe<Page__PageElementFragment>
 }
 
 export type UpdatePageMutationVariables = Exact<{
@@ -10800,93 +10405,63 @@ export type UpdatePageMutationVariables = Exact<{
   pageId: Scalars['uuid']
 }>
 
-export type UpdatePageMutation = { __typename?: 'mutation_root' } & {
-  update_page_by_pk?: Maybe<{ __typename?: 'page' } & App__PageFragment>
+export type UpdatePageMutation = {
+  update_page_by_pk?: Maybe<App__PageFragment>
 }
 
 export type CreatePageElementPropMutationVariables = Exact<{
   propInput: Prop_Insert_Input
 }>
 
-export type CreatePageElementPropMutation = { __typename?: 'mutation_root' } & {
-  insert_prop_one?: Maybe<
-    { __typename?: 'prop' } & PropCollection__PropFragment
-  >
+export type CreatePageElementPropMutation = {
+  insert_prop_one?: Maybe<PropCollection__PropFragment>
 }
 
 export type CreatePropMutationVariables = Exact<{
   input: Prop_Insert_Input
 }>
 
-export type CreatePropMutation = { __typename?: 'mutation_root' } & {
-  insert_prop_one?: Maybe<{ __typename?: 'prop' } & Pick<Prop, 'id'>>
+export type CreatePropMutation = { insert_prop_one?: Maybe<Pick<Prop, 'id'>> }
+
+export type PropCollection__PropFragment = Pick<Prop, 'id' | 'prop_c_id'> & {
+  type: PropTypeCollection__PropTypeFragment
+  values: Array<Prop__PropValueFragment>
 }
 
-export type PropCollection__PropFragment = { __typename?: 'prop' } & Pick<
-  Prop,
-  'id' | 'prop_c_id'
-> & {
-    type: { __typename?: 'prop_type' } & PropTypeCollection__PropTypeFragment
-    values: Array<{ __typename?: 'prop_value' } & Prop__PropValueFragment>
-  }
-
-export type PropCollectionFragment = { __typename?: 'prop_c' } & Pick<
+export type PropCollectionFragment = Pick<
   Prop_C,
   'id' | 'label' | 'libary_id'
 > & {
-    props: Array<{ __typename?: 'prop' } & PropCollection__PropFragment>
-    tags: Array<
-      { __typename?: 'tag_prop_c' } & {
-        tag: { __typename?: 'tag' } & __TagFragment
-      }
-    >
-  }
+  props: Array<PropCollection__PropFragment>
+  tags: Array<{ tag: __TagFragment }>
+}
 
-export type PropTypeCollection__PropTypeFragment = {
-  __typename?: 'prop_type'
-} & Pick<Prop_Type, 'id' | 'key' | 'prop_type_c_id' | 'value_type'> & {
-    type?: Maybe<{ __typename?: 'value_type' } & ValueTypeFragment>
-  }
+export type PropTypeCollection__PropTypeFragment = Pick<
+  Prop_Type,
+  'id' | 'key' | 'prop_type_c_id' | 'value_type'
+> & { type?: Maybe<ValueTypeFragment> }
 
-export type PropTypeCollectionFragment = { __typename?: 'prop_type_c' } & Pick<
+export type PropTypeCollectionFragment = Pick<
   Prop_Type_C,
   'id' | 'label' | 'library_id'
 > & {
-    propTypes: Array<
-      { __typename?: 'prop_type' } & PropTypeCollection__PropTypeFragment
-    >
-    tags: Array<
-      { __typename?: 'tag_prop_type_c' } & {
-        tag: { __typename?: 'tag' } & __TagFragment
-      }
-    >
-  }
+  propTypes: Array<PropTypeCollection__PropTypeFragment>
+  tags: Array<{ tag: __TagFragment }>
+}
 
-export type Prop__PropValueFragment = { __typename?: 'prop_value' } & Pick<
+export type Prop__PropValueFragment = Pick<
   Prop_Value,
   'id' | 'prop_id' | 'type' | 'value'
-> & {
-    tags: Array<
-      { __typename?: 'tag_prop_value' } & {
-        tag: { __typename?: 'tag' } & __TagFragment
-      }
-    >
-    typeEntity: { __typename?: 'value_type' } & ValueTypeFragment
-  }
+> & { tags: Array<{ tag: __TagFragment }>; typeEntity: ValueTypeFragment }
 
-export type ValueTypeFragment = { __typename?: 'value_type' } & Pick<
-  Value_Type,
-  'description' | 'value'
->
+export type ValueTypeFragment = Pick<Value_Type, 'description' | 'value'>
 
 export type PageElementPropQueryVariables = Exact<{
   pageElementId: Scalars['uuid']
 }>
 
-export type PageElementPropQuery = { __typename?: 'query_root' } & {
-  page_element_by_pk?: Maybe<
-    { __typename?: 'page_element' } & Page__PageElementFragment
-  >
+export type PageElementPropQuery = {
+  page_element_by_pk?: Maybe<Page__PageElementFragment>
 }
 
 export type UpdatePropMutationVariables = Exact<{
@@ -10894,10 +10469,8 @@ export type UpdatePropMutationVariables = Exact<{
   propId: Scalars['uuid']
 }>
 
-export type UpdatePropMutation = { __typename?: 'mutation_root' } & {
-  update_prop_by_pk?: Maybe<
-    { __typename?: 'prop' } & Pick<Prop, 'id'> & PropCollection__PropFragment
-  >
+export type UpdatePropMutation = {
+  update_prop_by_pk?: Maybe<Pick<Prop, 'id'> & PropCollection__PropFragment>
 }
 
 export type UpdatePropValueMutationVariables = Exact<{
@@ -10905,51 +10478,42 @@ export type UpdatePropValueMutationVariables = Exact<{
   input: Prop_Value_Set_Input
 }>
 
-export type UpdatePropValueMutation = { __typename?: 'mutation_root' } & {
-  update_prop_value_by_pk?: Maybe<
-    { __typename?: 'prop_value' } & Prop__PropValueFragment
-  >
+export type UpdatePropValueMutation = {
+  update_prop_value_by_pk?: Maybe<Prop__PropValueFragment>
 }
 
 export type GetStyleQueryVariables = Exact<{
   styleId: Scalars['uuid']
 }>
 
-export type GetStyleQuery = { __typename?: 'query_root' } & {
-  style_by_pk?: Maybe<
-    { __typename?: 'style' } & Pick<Style, 'id' | 'name' | 'library_id'>
-  >
+export type GetStyleQuery = {
+  style_by_pk?: Maybe<Pick<Style, 'id' | 'name' | 'library_id'>>
 }
 
-export type Library__StyleFragment = { __typename?: 'style' } & Pick<
-  Style,
-  'id' | 'name'
-> & {
-    propCollection?: Maybe<{ __typename?: 'prop_c' } & PropCollectionFragment>
-  }
+export type Library__StyleFragment = Pick<Style, 'id' | 'name'> & {
+  propCollection?: Maybe<PropCollectionFragment>
+}
 
 export type CreateStyleMutationVariables = Exact<{
   data: Style_Insert_Input
 }>
 
-export type CreateStyleMutation = { __typename?: 'mutation_root' } & {
-  insert_style_one?: Maybe<{ __typename?: 'style' } & Pick<Style, 'id'>>
+export type CreateStyleMutation = {
+  insert_style_one?: Maybe<Pick<Style, 'id'>>
 }
 
 export type DeleteStyleMutationVariables = Exact<{
   styleId: Scalars['uuid']
 }>
 
-export type DeleteStyleMutation = { __typename?: 'mutation_root' } & {
-  delete_style_by_pk?: Maybe<{ __typename?: 'style' } & Pick<Style, 'id'>>
+export type DeleteStyleMutation = {
+  delete_style_by_pk?: Maybe<Pick<Style, 'id'>>
 }
 
 export type GetStylesListQueryVariables = Exact<{ [key: string]: never }>
 
-export type GetStylesListQuery = { __typename?: 'query_root' } & {
-  style: Array<
-    { __typename?: 'style' } & Pick<Style, 'id' | 'library_id' | 'name'>
-  >
+export type GetStylesListQuery = {
+  style: Array<Pick<Style, 'id' | 'library_id' | 'name'>>
 }
 
 export type UpdateStyleMutationVariables = Exact<{
@@ -10957,29 +10521,21 @@ export type UpdateStyleMutationVariables = Exact<{
   styleId: Scalars['uuid']
 }>
 
-export type UpdateStyleMutation = { __typename?: 'mutation_root' } & {
-  update_style_by_pk?: Maybe<
-    { __typename?: 'style' } & Pick<Style, 'id' | 'name'>
-  >
+export type UpdateStyleMutation = {
+  update_style_by_pk?: Maybe<Pick<Style, 'id' | 'name'>>
 }
 
 export type UpsertUserMutationVariables = Exact<{
   userId: Scalars['String']
 }>
 
-export type UpsertUserMutation = { __typename?: 'mutation_root' } & {
-  insert_user?: Maybe<
-    { __typename?: 'user_mutation_response' } & Pick<
-      User_Mutation_Response,
-      'affected_rows'
-    >
-  >
+export type UpsertUserMutation = {
+  insert_user?: Maybe<Pick<User_Mutation_Response, 'affected_rows'>>
 }
 
-export type __UserFragment = { __typename?: 'user' } & Pick<
-  User,
-  'id' | 'name'
-> & { apps: Array<{ __typename?: 'app' } & User__AppFragment> }
+export type __UserFragment = Pick<User, 'id' | 'name'> & {
+  apps: Array<User__AppFragment>
+}
 
 export const __TagFragmentDoc = gql`
   fragment __Tag on tag {
@@ -12072,6 +11628,64 @@ export type UpdateAtomMutationResult = Apollo.MutationResult<UpdateAtomMutation>
 export type UpdateAtomMutationOptions = Apollo.BaseMutationOptions<
   UpdateAtomMutation,
   UpdateAtomMutationVariables
+>
+export const AddChildComponentElementGql = gql`
+  mutation AddChildComponentElement(
+    $componentElement: component_element_insert_input!
+    $componentLink: component_link_insert_input!
+  ) {
+    insert_component_element_one(object: $componentElement) {
+      ...__ComponentElement
+    }
+    insert_component_link_one(object: $componentLink) {
+      ...PageElement__ComponentLink
+    }
+  }
+  ${__ComponentElementFragmentDoc}
+  ${PageElement__ComponentLinkFragmentDoc}
+`
+export type AddChildComponentElementMutationFn = Apollo.MutationFunction<
+  AddChildComponentElementMutation,
+  AddChildComponentElementMutationVariables
+>
+
+/**
+ * __useAddChildComponentElementMutation__
+ *
+ * To run a mutation, you first call `useAddChildComponentElementMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddChildComponentElementMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addChildComponentElementMutation, { data, loading, error }] = useAddChildComponentElementMutation({
+ *   variables: {
+ *      componentElement: // value for 'componentElement'
+ *      componentLink: // value for 'componentLink'
+ *   },
+ * });
+ */
+export function useAddChildComponentElementMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    AddChildComponentElementMutation,
+    AddChildComponentElementMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    AddChildComponentElementMutation,
+    AddChildComponentElementMutationVariables
+  >(AddChildComponentElementGql, options)
+}
+export type AddChildComponentElementMutationHookResult = ReturnType<
+  typeof useAddChildComponentElementMutation
+>
+export type AddChildComponentElementMutationResult = Apollo.MutationResult<AddChildComponentElementMutation>
+export type AddChildComponentElementMutationOptions = Apollo.BaseMutationOptions<
+  AddChildComponentElementMutation,
+  AddChildComponentElementMutationVariables
 >
 export const CreateComponentElementGql = gql`
   mutation CreateComponentElement($input: component_element_insert_input!) {
@@ -14955,6 +14569,21 @@ export const UpdateAtom = gql`
     }
   }
   ${__Atom}
+`
+export const AddChildComponentElement = gql`
+  mutation AddChildComponentElement(
+    $componentElement: component_element_insert_input!
+    $componentLink: component_link_insert_input!
+  ) {
+    insert_component_element_one(object: $componentElement) {
+      ...__ComponentElement
+    }
+    insert_component_link_one(object: $componentLink) {
+      ...PageElement__ComponentLink
+    }
+  }
+  ${__ComponentElement}
+  ${PageElement__ComponentLink}
 `
 export const CreateComponentElement = gql`
   mutation CreateComponentElement($input: component_element_insert_input!) {

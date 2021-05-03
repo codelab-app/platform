@@ -1,11 +1,11 @@
+import { AppContext } from '@codelab/frontend/shared'
+import { useGetLambdasByLibraryIdQuery } from '@codelab/hasura'
 import { Space, Table } from 'antd'
 import React, { useContext } from 'react'
 import { DeleteLambdaButton } from '../deleteLambda'
 import { ExecuteLambdaButton } from '../executeLambda'
 import { UpdateLambdaButton } from '../updateLambda/UpdateLambdaButton'
 import { LambdaRecord } from './LambdaRecord'
-import { useGetLambdasByLibraryIdQuery } from '@codelab/hasura'
-import { AppContext } from '@codelab/frontend/shared'
 
 const mapDataSource = (lambdas: Array<LambdaRecord>) => {
   return lambdas?.map((lambda: LambdaRecord) => ({

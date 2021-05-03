@@ -1,9 +1,9 @@
 import React, { ReactElement, useRef } from 'react'
-import { AutoForm } from 'uniforms-antd'
 import { Bridge, DeepPartial } from 'uniforms'
+import { AutoForm } from 'uniforms-antd'
+import { callbackWithParams } from '../../../utils'
 import { FormUniformsProps } from './Form-uniforms--types'
 import { connectUniformSubmitRef, createBridge } from './uniformUtils'
-import { callbackWithParams } from '../../../utils'
 
 export const FormUniforms = <TData extends Record<string, unknown>>({
   submitRef,

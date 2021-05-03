@@ -1,7 +1,7 @@
 import { useBuilderSelectionState } from '@codelab/frontend/builder'
+import styled from '@emotion/styled'
 import { Tabs } from 'antd'
 import React from 'react'
-import styled from '@emotion/styled'
 
 const StyledTabs = styled(Tabs)`
   height: 100%;

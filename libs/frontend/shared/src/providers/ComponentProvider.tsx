@@ -1,12 +1,13 @@
-import React, { PropsWithChildren } from 'react'
 import {
-  GetComponentDetailQuery,
+  __ComponentFragment,
+  Maybe,
   useGetComponentDetailQuery,
 } from '@codelab/hasura'
+import React, { PropsWithChildren } from 'react'
 import { PropsWithIds } from '../interfaces'
 
 type IComponentContext = PropsWithIds<'componentId'> & {
-  component?: GetComponentDetailQuery['component_by_pk']
+  component?: Maybe<__ComponentFragment>
   loading: boolean
 }
 
@@ -24,15 +25,17 @@ const _ComponentProvider = ({
     },
   })
 
+  const component = data?.component_by_pk
+
   return (
     <ComponentContext.Provider
       value={{
         componentId,
-        component: data?.component_by_pk,
+        component,
         loading,
       }}
     >
-      {children}
+      {component ? <>{children}</> : null}
     </ComponentContext.Provider>
   )
 }
@@ -40,6 +43,10 @@ const _ComponentProvider = ({
 export const ComponentProvider = React.memo(
   _ComponentProvider,
   (prev, next) => {
-    return prev.componentId !== next.componentId
+    return (
+      prev.componentId === next.componentId
+      // Don't update if we don't have new id
+      // || !next.componentId
+    )
   },
 )

@@ -1,14 +1,13 @@
-import React, { useState } from 'react'
+// import '../styles/global.css'
+import '../styles/antd.less'
+import { css, Global } from '@emotion/react'
 import { Layout } from 'antd'
 import { graphql } from 'gatsby'
 import { MDXRenderer } from 'gatsby-plugin-mdx'
-import xw from 'xwind'
-import { css, Global } from '@emotion/react'
-import { SidebarMenu } from '../components/SidebarMenu'
+import React, { useState } from 'react'
 import { RecoilRoot } from 'recoil'
-
-// import '../styles/global.css'
-import '../styles/antd.less'
+import xw from 'xwind'
+import { SidebarMenu } from '../components/SidebarMenu'
 // import 'prism-material-themes/themes/material-palenight.css'
 
 const { Content, Header, Footer, Sider } = Layout

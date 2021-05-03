@@ -1,5 +1,6 @@
-import { Empty, Tree } from 'antd'
-import React, { useContext } from 'react'
+import { useBuilderSelectionState } from '@codelab/frontend/builder'
+import { CytoscapeService } from '@codelab/frontend/cytoscape'
+import { PaneMainTemplate } from '@codelab/frontend/layout'
 import {
   ActionType,
   AppContext,
@@ -8,10 +9,9 @@ import {
   EntityType,
   NodeBase,
 } from '@codelab/frontend/shared'
-import { PaneMainTemplate } from '@codelab/frontend/layout'
-import { CytoscapeService } from '@codelab/frontend/cytoscape'
+import { Empty, Tree } from 'antd'
 import { DataNode } from 'antd/lib/tree'
-import { useBuilderSelectionState } from '@codelab/frontend/builder'
+import React, { useContext } from 'react'
 import {
   CreatePageElementButton,
   CreatePageElementForm,

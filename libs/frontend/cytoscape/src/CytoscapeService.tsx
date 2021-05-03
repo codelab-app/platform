@@ -1,6 +1,4 @@
 /* eslint-disable no-param-reassign */
-import { DataNode } from 'antd/lib/tree'
-import cytoscape, { Core } from 'cytoscape'
 import {
   AtomType,
   ComponentElementNode,
@@ -10,12 +8,14 @@ import {
   PageElementNode,
   PageRootNode,
 } from '@codelab/frontend/shared'
-import { propDataEntityToModel } from '@codelab/modules/prop'
 import {
-  App__PageFragment,
   __AtomFragment,
   __ComponentFragment,
+  App__PageFragment,
 } from '@codelab/hasura'
+import { propDataEntityToModel } from '@codelab/modules/prop'
+import { DataNode } from 'antd/lib/tree'
+import cytoscape, { Core } from 'cytoscape'
 
 export const pageComponentElementNodeId = (
   pageElementId: string,
@@ -175,7 +175,10 @@ export class CytoscapeService {
     return (tree as unknown) as CytoscapeNode
   }
 
-  static antdTree(cy: Core): DataNode {
+  static antdTree(
+    cy: Core,
+    nodeMapper: (v: any) => any = () => null,
+  ): DataNode {
     const root = cy.elements().roots().first()
     let tree: DataNode | null = null
 
@@ -190,6 +193,7 @@ export class CytoscapeService {
           // disabled: data.type === VertexType.React_RGL_Item,
           key: data.id,
           title: data.label,
+          ...nodeMapper(data),
         }
 
         v._node = node

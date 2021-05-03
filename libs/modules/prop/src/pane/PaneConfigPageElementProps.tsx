@@ -1,5 +1,5 @@
-import React from 'react'
 import { PageElementPropsForm } from '@codelab/modules/prop'
+import React from 'react'
 
 export const PaneConfigPageElementProps = ({
   pageElementId,

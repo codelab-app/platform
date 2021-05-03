@@ -1,8 +1,8 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import React from 'react'
 import { PaneMainComponent } from '@codelab/modules/component'
-import { LayoutComponentDetail } from 'apps/web/src/layout/Layout--componentDetail'
 import { NextPageLayout } from 'apps/web/src/layout/Layout.d'
+import { LayoutComponentDetail } from 'apps/web/src/layout/Layout--componentDetail'
+import React from 'react'
 
 const ComponentList: NextPageLayout<'builder'> = () => {
   return (

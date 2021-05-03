@@ -1,5 +1,5 @@
+import { GetAppQuery, Query_Root, useGetAppQuery } from '@codelab/hasura'
 import React, { PropsWithChildren } from 'react'
-import { Query_Root, GetAppQuery, useGetAppQuery } from '@codelab/hasura'
 import { PropsWithIds } from '../interfaces'
 
 type IAppContext = PropsWithIds<'appId' | 'pageId'> & {

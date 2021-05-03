@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react'
 import {
   createNotificationHandler,
   EntityType,
@@ -6,29 +5,30 @@ import {
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import { UpdateLibraryInput, UpdateLibrarySchema } from './updateLibrarySchema'
 import {
   GetLibraryGql,
-  useUpdateLibraryMutation,
   useGetLibraryQuery,
+  useUpdateLibraryMutation,
 } from '@codelab/hasura'
-import { DeepPartial } from 'uniforms'
-import { Spin } from 'antd'
-import { AutoFields } from 'uniforms-antd'
 import { useCurrentUser } from '@codelab/modules/user'
+import { Spin } from 'antd'
+import React, { useEffect } from 'react'
+import { DeepPartial } from 'uniforms'
+import { AutoFields } from 'uniforms-antd'
+import { UpdateLibraryInput, UpdateLibrarySchema } from './updateLibrarySchema'
 
 type UpdateLibraryFormProps = UniFormUseCaseProps<UpdateLibraryInput>
 
 export const UpdateLibraryForm = (props: UpdateLibraryFormProps) => {
   const { reset, setLoading, state } = useCRUDModalForm(EntityType.Library)
-  const { id: libraryId } = state
+  const { updateId: updateLibraryId } = state
 
   const [mutate, { loading: updating }] = useUpdateLibraryMutation({
     refetchQueries: [
       {
         query: GetLibraryGql,
         variables: {
-          libraryId,
+          libraryId: updateLibraryId,
         },
       },
     ],
@@ -40,7 +40,7 @@ export const UpdateLibraryForm = (props: UpdateLibraryFormProps) => {
 
   const { data, loading } = useGetLibraryQuery({
     variables: {
-      libraryId,
+      libraryId: updateLibraryId,
     },
   })
 
@@ -59,7 +59,7 @@ export const UpdateLibraryForm = (props: UpdateLibraryFormProps) => {
           user_id: userId,
           ...(submitData as any),
         },
-        libraryId,
+        libraryId: updateLibraryId,
       },
     })
   }

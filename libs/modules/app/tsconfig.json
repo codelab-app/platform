@@ -3,6 +3,7 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "allowJs": true,
+    "strict": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true
   },

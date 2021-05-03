@@ -1,10 +1,10 @@
-import React from 'react'
 import { PaneMainTemplate } from '@codelab/frontend/layout'
-import { GetAtomsList } from '../getAtoms'
-import { CrudModal, EntityType, ActionType } from '@codelab/frontend/shared'
+import { ActionType, CrudModal, EntityType } from '@codelab/frontend/shared'
+import React from 'react'
 import { CreateAtomButton, CreateAtomForm } from '../createAtom'
-import { UpdateAtomForm } from '../updateAtom'
 import { DeleteAtomForm } from '../deleteAtom'
+import { GetAtomsList } from '../getAtoms'
+import { UpdateAtomForm } from '../updateAtom'
 
 export const PaneMainAtom = () => {
   return (

@@ -1,6 +1,6 @@
 import { FetchResult } from '@apollo/client'
 import { CallbackOrArrayOfCallbacks } from '@codelab/frontend/shared'
-import { ISubmitEvent, FormProps as RjsfFormProps } from '@rjsf/core'
+import { FormProps as RjsfFormProps, ISubmitEvent } from '@rjsf/core'
 import { ButtonProps } from 'antd/lib/button'
 import { JSONSchema7 } from 'json-schema'
 import React from 'react'

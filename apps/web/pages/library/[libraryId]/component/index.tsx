@@ -1,8 +1,8 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { ComponentContext } from '@codelab/frontend/shared'
-import React, { useContext } from 'react'
-import { Empty } from 'antd'
 import { ComponentRenderer } from '@codelab/modules/component'
+import { Empty } from 'antd'
+import React, { useContext } from 'react'
 
 const ComponentDetail = () => {
   const { component } = useContext(ComponentContext)

@@ -1,17 +1,17 @@
-import React, { useContext, useRef } from 'react'
-import { UpdatePageElementInput } from './updatePageElementSchema'
-import {
-  Page__PageElementFragment,
-  GetAppGql,
-  useUpdatePageElementMutation,
-} from '@codelab/hasura'
 import {
   AppContext,
   StatelessLoadingIndicator,
   UniFormUseCaseProps,
 } from '@codelab/frontend/shared'
+import {
+  GetAppGql,
+  Page__PageElementFragment,
+  useUpdatePageElementMutation,
+} from '@codelab/hasura'
+import React, { useContext, useRef } from 'react'
 import { DeepPartial } from 'uniforms'
 import { PageElementFormBase } from '../createPageElement/PageElementFormBase'
+import { UpdatePageElementInput } from './updatePageElementSchema'
 
 type UpdatePageElementFormProps = UniFormUseCaseProps<UpdatePageElementInput> & {
   pageElement: Page__PageElementFragment

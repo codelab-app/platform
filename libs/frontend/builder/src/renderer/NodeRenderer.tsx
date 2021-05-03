@@ -1,7 +1,7 @@
-import React from 'react'
 import { elementParameterFactory } from '@codelab/frontend/builder'
-import { ClickOverlay, HoverOverlay } from '../overlay-toolbar'
 import { ComponentElementNode } from '@codelab/frontend/shared'
+import React from 'react'
+import { ClickOverlay, HoverOverlay } from '../overlay-toolbar'
 import { RenderChildren } from './Renderer-children'
 import { useComponentHandlers } from './useComponentHandlers'
 
@@ -12,6 +12,8 @@ export const NodeRenderer = ({
   node: ComponentElementNode
   enableOverlays?: boolean
 }) => {
+  console.log(node)
+
   const handlers = useComponentHandlers()
 
   const [RootComponent, props] = elementParameterFactory({

@@ -1,10 +1,10 @@
 import { DeleteOutlined } from '@ant-design/icons'
+import { AppContext } from '@codelab/frontend/shared'
+import { GetPagesListGql, useDeletePageMutation } from '@codelab/hasura'
 import { Button } from 'antd'
 import React, { useContext } from 'react'
 import { useRecoilValue } from 'recoil'
 import { pageState } from '../usePage'
-import { AppContext } from '@codelab/frontend/shared'
-import { useDeletePageMutation, GetPagesListGql } from '@codelab/hasura'
 
 export type DeletePageButtonProps = {
   onSuccess: () => void

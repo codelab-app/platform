@@ -1,5 +1,5 @@
-import { atom } from 'recoil'
 import { GetAppsListQuery } from '@codelab/hasura'
+import { atom } from 'recoil'
 
 export type AppType = GetAppsListQuery['app'] extends Array<infer T>
   ? T

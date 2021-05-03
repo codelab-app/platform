@@ -1,4 +1,3 @@
-import React, { useContext, useEffect } from 'react'
 import {
   createNotificationHandler,
   EntityType,
@@ -7,16 +6,17 @@ import {
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import _ from 'lodash'
 import {
   GetAtomsListGql,
   GetLibrariesGql,
   useCreateAtomMutation,
   useGetAtomsTypesQuery,
 } from '@codelab/hasura'
-import { createAtomSchema, CreateAtomInput } from './createAtomSchema'
+import _ from 'lodash'
+import React, { useContext, useEffect } from 'react'
 import { DeepPartial } from 'uniforms'
 import { SelectField } from 'uniforms-antd'
+import { CreateAtomInput, createAtomSchema } from './createAtomSchema'
 
 type CreateAtomFormProps = UniFormUseCaseProps<CreateAtomInput>
 

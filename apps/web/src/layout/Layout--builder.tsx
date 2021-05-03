@@ -1,26 +1,33 @@
 import { useBuilderSelectionState } from '@codelab/frontend/builder'
+import { LibraryProvider } from '@codelab/frontend/shared'
+import styled from '@emotion/styled'
 import { Layout } from 'antd'
 import React, { PropsWithChildren } from 'react'
-import { contentStyle } from '@codelab/frontend/style'
+import xw from 'xwind'
+import { WithMainPane, WithMetaPane } from './Layout.d'
 import { LayoutNavigations } from './Layout-navigations'
-import { WithMainPane } from './Layout.d'
-import { LibraryProvider } from '@codelab/frontend/shared'
 
 const { Sider, Content } = Layout
 
 export const tabsWidth = 40
-export const paneConfigWidth = 320
-export const defaultPaneMainWidth = 480
+export const mainPaneWidth = 280
+
+const MetaPaneSection = styled('div')`
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+`
 
 export const LayoutBuilder = ({
   children,
   MainPane,
-}: PropsWithChildren<WithMainPane>) => {
+  MetaPane = () => <></>,
+}: PropsWithChildren<WithMainPane & WithMetaPane>) => {
   const { reset: resetSelection } = useBuilderSelectionState()
 
   return (
     <LibraryProvider>
-      <Layout style={{ height: '100%' }}>
+      <Layout css={xw`h-full`}>
         <Sider
           theme="light"
           style={{ height: '100%' }}
@@ -31,7 +38,7 @@ export const LayoutBuilder = ({
         </Sider>
         <Sider
           theme="light"
-          width={paneConfigWidth}
+          width={mainPaneWidth}
           style={{
             overflowY: 'scroll',
             // position: 'fixed',
@@ -43,16 +50,18 @@ export const LayoutBuilder = ({
           <MainPane />
         </Sider>
         <Content
+          css={xw`relative`}
           onClick={() => {
             resetSelection()
           }}
           style={{
-            ...contentStyle,
-            paddingLeft: tabsWidth,
-            paddingRight: paneConfigWidth,
+            minHeight: 'initial',
           }}
         >
           {children}
+          <MetaPaneSection>
+            <MetaPane />
+          </MetaPaneSection>
         </Content>
       </Layout>
     </LibraryProvider>

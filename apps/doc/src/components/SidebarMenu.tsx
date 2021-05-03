@@ -1,8 +1,8 @@
+import { css } from '@emotion/react'
 import { Menu } from 'antd'
+import { Link } from 'gatsby'
 import React from 'react'
 import { Frontmatter } from '../templates/blogTemplate'
-import { Link } from 'gatsby'
-import { css } from '@emotion/react'
 
 interface SidebarMenuProps {
   pages: Array<Frontmatter>

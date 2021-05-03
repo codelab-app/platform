@@ -1,6 +1,6 @@
-import { Inject, Injectable } from '@nestjs/common'
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { AwsDITokens, AwsS3Service, AwsLambdaService } from '@codelab/backend'
+import { AwsDITokens, AwsLambdaService, AwsS3Service } from '@codelab/backend'
+import { Inject, Injectable } from '@nestjs/common'
 import { ILambda } from './interfaces/IEventTrigger'
 
 @Injectable()

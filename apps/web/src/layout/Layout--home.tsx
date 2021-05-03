@@ -1,6 +1,6 @@
+import { contentStyle } from '@codelab/frontend/style'
 import { Layout } from 'antd'
 import React, { PropsWithChildren } from 'react'
-import { contentStyle } from '@codelab/frontend/style'
 import { HomeMenuHeader } from '../pages/home/Home-menu--header'
 
 const { Content, Header, Footer } = Layout

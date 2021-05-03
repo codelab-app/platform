@@ -1,12 +1,10 @@
-import React from 'react'
-import { usePageElementPropQuery } from '@codelab/hasura'
-import { Empty, Spin } from 'antd'
 import {
   loadIndicatorState,
   LoadingIndicator,
   usePromisesLoadingIndicator,
 } from '@codelab/frontend/shared'
-import { PageElementPropForm } from './PageElementPropForm'
+import { usePageElementPropQuery } from '@codelab/hasura'
+import React from 'react'
 import { StyledLoadingIndicator, StyledPropsForm } from './Styled'
 
 const PROPS_FORM_INDICATOR_KEY = 'page-element-props'

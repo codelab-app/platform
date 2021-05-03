@@ -1,12 +1,12 @@
-import { atom, useRecoilState } from 'recoil'
+import { getApolloClient } from '@codelab/frontend/apollo'
+import { notify } from '@codelab/frontend/shared'
 import {
   GetFirstLibraryGql,
   GetLibraryGql,
   useGetLibraryQuery,
 } from '@codelab/hasura'
 import { useEffect } from 'react'
-import { getApolloClient } from '@codelab/frontend/apollo'
-import { notify } from '@codelab/frontend/shared'
+import { atom, useRecoilState } from 'recoil'
 
 /**
  * This holds the currently selected library for the builder
@@ -57,7 +57,7 @@ export const useSelectedLibrary = () => {
   const { data } = useGetLibraryQuery({
     skip: !state.selectedLibraryId,
     variables: {
-      libraryId: state.selectedLibraryId,
+      libraryId: state.selectedLibraryId ?? '',
     },
   })
 
