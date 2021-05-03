@@ -28,6 +28,7 @@ export const DeleteAtomForm = (props: DeleteAtomFormProps) => {
       },
     ],
   })
+
   useEffect(() => {
     setLoading(deleting)
   }, [deleting])

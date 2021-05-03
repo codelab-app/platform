@@ -44,13 +44,14 @@ export const ComponentItem = ({
   ...props
 }: ComponentItemProps) => {
   const [, setState] = useRecoilState(componentItemState)
-
   const [, drag] = useDrag({ item, type: DragAndDropTypes.Component }, [item])
+
   const { openUpdateModal, openDeleteModal } = useCRUDModalForm(
     EntityType.Component,
   )
 
   const router = useRouter()
+
   const navigateToBuilder = () =>
     router.push(PageType.ComponentDetail.replace('[componentId]', item.id))
 

@@ -69,6 +69,21 @@
             "blankLine": "any",
             "prev": ["const", "let", "var"],
             "next": ["const", "let", "var", "expression"]
+          },
+          {
+            "blankLine": "never",
+            "prev": ["singleline-const", "singleline-let", "singleline-var"],
+            "next": ["singleline-const", "singleline-let", "singleline-var"]
+          },
+          {
+            "blankLine": "always",
+            "prev": ["*"],
+            "next": ["multiline-const", "multiline-let", "multiline-var"]
+          },
+          {
+            "blankLine": "always",
+            "prev": ["multiline-const", "multiline-let", "multiline-var"],
+            "next": ["*"]
           }
         ],
         "lines-between-class-members": ["error", "always"]

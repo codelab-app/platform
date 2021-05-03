@@ -31,6 +31,7 @@ export class LambdaController {
   async executeLambda(@Body() body: any) {
     const a = body
     const payload = JSON.parse(body.input.payload)
+
     const result = await this.lambdaService.executeLambda(
       body.input.lambda,
       payload,

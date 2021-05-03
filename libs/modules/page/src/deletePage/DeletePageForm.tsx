@@ -33,6 +33,7 @@ export const DeletePageForm = (props: DeletePageFormProps) => {
       },
     ],
   })
+
   useEffect(() => {
     setLoading(deleting)
   }, [deleting])

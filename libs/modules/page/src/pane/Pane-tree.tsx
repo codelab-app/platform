@@ -19,9 +19,7 @@ import {
 
 export const PaneMainTree = () => {
   const { setSelected, setHovering, resetHovering } = useBuilderSelectionState()
-
   const { page } = useContext(AppContext)
-
   let data: DataNode | undefined
 
   if (page && page.elements && page.elements.length) {

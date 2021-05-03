@@ -22,6 +22,7 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 exports.createPages = async ({ actions, graphql, reporter }) => {
   const { createPage, createRedirect } = actions
   const blogPostTemplate = require.resolve(`./src/templates/blogTemplate.tsx`)
+
   const result = await graphql(`
     {
       allMdx(sort: { order: ASC, fields: [frontmatter___order] }, limit: 1000) {

@@ -58,6 +58,7 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
       },
     })
   }
+
   const { data } = useGetAtomsTypesQuery()
 
   const atomTypesOptions = _.chain(data?.atom_type)

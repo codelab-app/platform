@@ -16,7 +16,6 @@ import React from 'react'
  */
 export const HomeMenuHeader = () => {
   const { user: currentUser } = useUser()
-
   const a = ''
 
   const authenticatedUserMenu = (

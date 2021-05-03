@@ -7,7 +7,6 @@ const TEAM_ID = 'T0J3YAY3E'
 // const SLACK_DEVELOPMENT_CHANNEL = 'C01TALGNKMZ'
 // const SLACK_TEST_CHANNEL = 'C01UFCHM4KZ'
 const SLACK_CHANNEL = get('SLACK_CHANNEL').required().asString()
-
 const web = new WebClient(SLACK_SIGNIN_SECRET, { teamId: TEAM_ID })
 
 const handler: NextApiHandler = async ({ body }, res) => {
@@ -28,9 +27,9 @@ const handler: NextApiHandler = async ({ body }, res) => {
 
   const comment_user = body?.comment?.user?.login
   const comment_body = body?.comment?.body
-
   const webhook_user = comment_user ?? discussion_user
   const webhook_body = comment_body ?? discussion_body
+
   const webhook_event = comment_user
     ? 'New Comment Added'
     : 'New Discussion Created'

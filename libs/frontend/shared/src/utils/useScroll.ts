@@ -30,13 +30,16 @@ const EmptySSRRect: SSRRect = {
 
 const useScroll = () => {
   const [lastScrollTop, setLastScrollTop] = useState<number>(0)
+
   const [bodyOffset, setBodyOffset] = useState<DOMRect | SSRRect>(
     typeof window === 'undefined' || !window.document
       ? EmptySSRRect
       : document.body.getBoundingClientRect(),
   )
+
   const [scrollY, setScrollY] = useState<number>(bodyOffset.top)
   const [scrollX, setScrollX] = useState<number>(bodyOffset.left)
+
   const [scrollDirection, setScrollDirection] = useState<
     'down' | 'up' | undefined
   >()

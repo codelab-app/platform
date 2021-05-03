@@ -12,6 +12,7 @@ import React from 'react'
 
 export const GetLibrariesList = () => {
   const { data, loading } = useGetLibrariesQuery()
+
   const { openDeleteModal, openUpdateModal } = useCRUDModalForm(
     EntityType.Library,
   )

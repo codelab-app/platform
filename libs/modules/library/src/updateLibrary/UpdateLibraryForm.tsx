@@ -45,7 +45,6 @@ export const UpdateLibraryForm = (props: UpdateLibraryFormProps) => {
   })
 
   const library = data?.library_by_pk
-
   const { userId } = useCurrentUser()
 
   if (loading) {

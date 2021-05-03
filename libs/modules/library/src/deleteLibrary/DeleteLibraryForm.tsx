@@ -28,6 +28,7 @@ export const DeleteLibraryForm = (props: DeleteLibraryFormProps) => {
       },
     ],
   })
+
   useEffect(() => {
     setLoading(deleting)
   }, [deleting])

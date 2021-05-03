@@ -18,9 +18,11 @@ import React, { useState } from 'react'
 
 export const ComponentTab = () => {
   const { selectedComponent, setSelected } = useComponentBuilder()
+
   const [addChildComponentElement] = useAddChildComponentElementMutation({
     refetchQueries: [{ query: GetComponentDetailGql }],
   })
+
   const {
     reset,
     setLoading,
@@ -28,7 +30,6 @@ export const ComponentTab = () => {
   } = useCRUDModalForm(EntityType.ChildComponentElement)
 
   const { openUpdateModal } = useCRUDModalForm(EntityType.Component)
-
   const [addChildButtonState, setAddChildButtonState] = useState(true)
 
   const [selectedComponentElementId, setSelectedComponentElementId] = useState<
@@ -40,11 +41,13 @@ export const ComponentTab = () => {
   }
 
   const cy = CytoscapeService.fromComponent(selectedComponent)
+
   const componentElementNodeMapper = (data: any) => {
     return {
       title: data.atom?.type ?? data.label,
     }
   }
+
   const tree = CytoscapeService.antdTree(cy, componentElementNodeMapper)
 
   console.log(tree)

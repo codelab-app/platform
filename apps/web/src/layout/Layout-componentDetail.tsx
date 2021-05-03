@@ -10,7 +10,6 @@ export const LayoutComponentDetail = (
 ) => {
   const { children, MainPane } = props
   const { query } = useRouter()
-
   const componentId = `${query.componentId}`
 
   if (!componentId) {

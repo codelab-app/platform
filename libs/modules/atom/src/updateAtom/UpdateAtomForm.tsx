@@ -22,8 +22,8 @@ export const UpdateAtomForm = ({
 }: UniFormUseCaseProps<UpdateAtomInput>) => {
   const { reset, setLoading, state } = useCRUDModalForm(EntityType.Atom)
   const { updateId: updateAtomId } = state
-
   const { data: atomsTypes } = useGetAtomsTypesQuery()
+
   const atomTypesOptions = atomsTypes?.atom_type?.map((t) => ({
     ...t,
     label: t.value,

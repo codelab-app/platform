@@ -22,7 +22,6 @@ export interface Frontmatter {
 // https://www.gatsbyjs.com/blog/2019-11-21-how-to-convert-an-existing-gatsby-blog-to-use-mdx/
 export default function Template(props) {
   const { data, pageContext } = props
-
   const { mdx } = data // data.markdownRemark holds your post data
   const { frontmatter, body } = mdx
 

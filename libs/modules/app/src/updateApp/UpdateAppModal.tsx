@@ -7,7 +7,6 @@ import { UpdateAppForm } from './UpdateAppForm'
 
 export const UpdateAppModal = () => {
   const [state, setAppState] = useRecoilState(appState)
-
   const { loading, editingApp, modalVisible } = state
 
   return (

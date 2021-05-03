@@ -32,6 +32,7 @@ export const UpdatePageForm = (props: UpdatePageFormProps) => {
       },
     ],
   })
+
   useEffect(() => {
     setLoading(updating)
   }, [updating])

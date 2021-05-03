@@ -30,6 +30,7 @@ export const CreateComponentElementForm = ({
   ...props
 }: CreateComponentElementFormProps) => {
   const { reset, setLoading } = useCRUDModalForm(EntityType.ComponentElement)
+
   const [mutate, { loading: creating }] = useCreateComponentElementMutation({
     awaitRefetchQueries: true,
     refetchQueries: [

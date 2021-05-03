@@ -24,7 +24,6 @@ export const UpdateComponentElementForm = ({
 }: UpdateComponentElementFormProps) => {
   //Cache it only once, don't pass it with every change to the form, because that will cause lag when autosaving
   const { current: componentElement } = useRef(initialComponentElement)
-
   const { componentId } = useContext(ComponentContext)
 
   const [mutate, { loading, error, data }] = useUpdateComponentElementMutation({
