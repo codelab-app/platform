@@ -1,11 +1,11 @@
-import React from 'react'
+import { PaneMainTemplate } from '@codelab/frontend/layout'
 import { ActionType, CrudModal, EntityType } from '@codelab/frontend/shared'
+import React from 'react'
+import { ComponentsTree } from '../componentsTree/ComponentsTree'
 import { CreateComponentButton } from '../createComponent/CreateComponentButton'
 import { CreateComponentForm } from '../createComponent/CreateComponentForm'
 import { DeleteComponentForm } from '../deleteComponent/DeleteComponentForm'
-import { PaneMainTemplate } from '@codelab/frontend/layout'
 import { UpdateComponentForm } from '../updateComponent/UpdateComponentForm'
-import { ComponentsTree } from '../componentsTree/ComponentsTree'
 
 export const PaneMainComponent = () => {
   return (

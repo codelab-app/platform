@@ -1,11 +1,11 @@
+import { ExclamationCircleOutlined } from '@ant-design/icons'
+import { Spin } from 'antd'
 import React, { CSSProperties } from 'react'
 import { useRecoilValue } from 'recoil'
-import { Spin } from 'antd'
 import {
   loadIndicatorState,
   LoadingIndicatorState,
 } from './loadingIndicatorState'
-import { ExclamationCircleOutlined } from '@ant-design/icons'
 
 interface StatelessLoadIndicatorProps {
   state: LoadingIndicatorState

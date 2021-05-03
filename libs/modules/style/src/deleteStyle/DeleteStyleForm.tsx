@@ -1,19 +1,20 @@
-import React, { useEffect } from 'react'
 import {
   createNotificationHandler,
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
+  useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import { DeleteStyleInput, DeleteStyleSchema } from './deleteStyleSchema'
 import {
-  useDeleteStyleMutation,
   GetStylesListGql,
+  useDeleteStyleMutation,
   useGetStyleQuery,
 } from '@codelab/hasura'
-import { useCRUDModalForm } from '@codelab/frontend/shared'
 import { Spin } from 'antd'
+import React, { useEffect } from 'react'
 import { AutoFields } from 'uniforms-antd'
+import { DeleteStyleInput, DeleteStyleSchema } from './deleteStyleSchema'
+
 type DeleteStyleFormProps = UniFormUseCaseProps<DeleteStyleInput>
 
 export const DeleteStyleForm = (props: DeleteStyleFormProps) => {

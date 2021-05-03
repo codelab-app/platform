@@ -1,6 +1,6 @@
 import {
-  ComponentElementNode,
   AtomType,
+  ComponentElementNode,
   CytoscapeNode,
   notify,
 } from '@codelab/frontend/shared'

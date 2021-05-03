@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react'
 import {
   createNotificationHandler,
   EntityType,
@@ -7,9 +6,10 @@ import {
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
 import { GetLibrariesGql, useCreateLibraryMutation } from '@codelab/hasura'
-import { createLibrarySchema, CreateLibraryInput } from './createLibrarySchema'
+import React, { useEffect } from 'react'
 import { DeepPartial } from 'uniforms'
 import { AutoFields } from 'uniforms-antd'
+import { CreateLibraryInput, createLibrarySchema } from './createLibrarySchema'
 
 type CreateLibraryFormProps = UniFormUseCaseProps<CreateLibraryInput>
 

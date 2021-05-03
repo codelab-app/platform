@@ -1,3 +1,4 @@
+import { CytoscapeService } from '@codelab/frontend/cytoscape'
 import {
   ComponentElementNode,
   ComponentRootNode,
@@ -7,7 +8,6 @@ import {
   PageRootNode,
 } from '@codelab/frontend/shared'
 import React from 'react'
-import { CytoscapeService } from '@codelab/frontend/cytoscape'
 import { elementParameterFactory } from './elementFactory'
 import { ComponentHandlers } from './useComponentHandlers'
 

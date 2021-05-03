@@ -1,6 +1,6 @@
-import { useContext } from 'react'
 // import { GetPageGql, useMoveVertexMutation } from '@codelab/generated'
 import { AppContext } from '@codelab/frontend/shared'
+import { useContext } from 'react'
 
 interface MoveVertexProps {
   currentVertexId: string

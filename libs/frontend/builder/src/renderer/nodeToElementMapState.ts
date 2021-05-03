@@ -1,6 +1,6 @@
+import { ComponentElementNode } from '@codelab/frontend/shared'
 import { useCallback } from 'react'
 import { atom, useSetRecoilState } from 'recoil'
-import { ComponentElementNode } from '@codelab/frontend/shared'
 
 interface NodeToElementMapStateType {
   map: Record<

@@ -1,6 +1,6 @@
-import { NextApiHandler } from 'next'
-import { get } from 'env-var'
 import { WebClient } from '@slack/web-api'
+import { get } from 'env-var'
+import { NextApiHandler } from 'next'
 
 const SLACK_SIGNIN_SECRET = get('SLACK_TOKEN').required().asString()
 const TEAM_ID = 'T0J3YAY3E'

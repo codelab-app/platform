@@ -1,6 +1,3 @@
-import { List, Space, Spin } from 'antd'
-import React from 'react'
-import { useGetLibrariesQuery } from '@codelab/hasura'
 import {
   EntityType,
   ListItemDeleteButton,
@@ -8,7 +5,10 @@ import {
   PageType,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
+import { useGetLibrariesQuery } from '@codelab/hasura'
+import { List, Space, Spin } from 'antd'
 import Link from 'next/link'
+import React from 'react'
 
 export const GetLibrariesList = () => {
   const { data, loading } = useGetLibrariesQuery()

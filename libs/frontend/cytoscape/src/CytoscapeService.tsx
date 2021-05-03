@@ -1,6 +1,4 @@
 /* eslint-disable no-param-reassign */
-import { DataNode } from 'antd/lib/tree'
-import cytoscape, { Core } from 'cytoscape'
 import {
   AtomType,
   ComponentElementNode,
@@ -10,12 +8,14 @@ import {
   PageElementNode,
   PageRootNode,
 } from '@codelab/frontend/shared'
-import { propDataEntityToModel } from '@codelab/modules/prop'
 import {
-  App__PageFragment,
   __AtomFragment,
   __ComponentFragment,
+  App__PageFragment,
 } from '@codelab/hasura'
+import { propDataEntityToModel } from '@codelab/modules/prop'
+import { DataNode } from 'antd/lib/tree'
+import cytoscape, { Core } from 'cytoscape'
 
 export const pageComponentElementNodeId = (
   pageElementId: string,

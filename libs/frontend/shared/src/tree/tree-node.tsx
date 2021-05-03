@@ -1,5 +1,5 @@
-import { AtomType } from '../interfaces/Hasura'
 import { Nodes } from '../interfaces/ComponentElementNode'
+import { AtomType } from '../interfaces/Hasura'
 
 export class TreeNode implements Nodes {
   public id: string

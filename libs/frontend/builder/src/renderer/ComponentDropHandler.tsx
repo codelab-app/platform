@@ -1,11 +1,11 @@
-import React, { PropsWithChildren } from 'react'
-import { useDrop } from 'react-dnd'
 import {
+  ComponentElementNode,
   ComponentItemType,
   DragAndDropTypes,
-  ComponentElementNode,
 } from '@codelab/frontend/shared'
 import styled from '@emotion/styled'
+import React, { PropsWithChildren } from 'react'
+import { useDrop } from 'react-dnd'
 
 interface ComponentDropHandlerProps {
   root?: ComponentElementNode

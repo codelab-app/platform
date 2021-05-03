@@ -3,11 +3,11 @@ import {
   EditOutlined,
   EllipsisOutlined,
 } from '@ant-design/icons'
+import { PageType, PaneType } from '@codelab/frontend/shared'
 import { Button, Card, Dropdown, Menu } from 'antd'
 import Link from 'next/link'
 import React, { CSSProperties } from 'react'
 import { AppType } from '../state'
-import { PageType, PaneType } from '@codelab/frontend/shared'
 
 export type GetAppsItemProps = {
   app: AppType

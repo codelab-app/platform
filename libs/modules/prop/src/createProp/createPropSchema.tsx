@@ -1,6 +1,6 @@
-import { getJsonSchemaTypeFromValueType } from '../getJsonSchemaTypeFromValueType'
 import { PropTypeCollection__PropTypeFragment } from '@codelab/hasura'
 import { JSONSchemaType } from 'ajv'
+import { getJsonSchemaTypeFromValueType } from '../getJsonSchemaTypeFromValueType'
 
 /** Creates a JSON schema for a prop form dynamically, based on the attribute passed */
 export const createPropSchema = (

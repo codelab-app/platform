@@ -1,7 +1,6 @@
+import { AppContext, notify } from '@codelab/frontend/shared'
 import { Button, Select } from 'antd'
 import React, { useContext, useState } from 'react'
-
-import { AppContext, notify } from '@codelab/frontend/shared'
 
 export const AssignStyleForm = ({ vertexId }: { vertexId: string }) => {
   const { appId } = useContext(AppContext)

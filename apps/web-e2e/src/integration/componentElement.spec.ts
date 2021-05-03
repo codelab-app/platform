@@ -1,11 +1,11 @@
-import { randomAtomType } from '../support/testUtils'
 import {
   __AtomFragment,
-  CreateComponentElementGql,
-  __ComponentFragment,
   __ComponentElementFragment,
+  __ComponentFragment,
+  CreateComponentElementGql,
 } from '@codelab/hasura'
 import { print } from 'graphql'
+import { randomAtomType } from '../support/testUtils'
 
 const getComponentElementInTree = (label: string) =>
   cy.findByTestId('pane-main').find('.ant-tree-list').findByText(label)

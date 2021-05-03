@@ -1,11 +1,11 @@
-import { Empty, Tree } from 'antd'
-import React, { useContext } from 'react'
-import { ComponentContext } from '@codelab/frontend/shared'
-import { PaneMainTemplate } from '@codelab/frontend/layout'
-import { CytoscapeService } from '@codelab/frontend/cytoscape'
-import { DataNode } from 'antd/lib/tree'
-import { CreateComponentElementButton } from '@codelab/modules/component-element'
 import { useBuilderSelectionState } from '@codelab/frontend/builder'
+import { CytoscapeService } from '@codelab/frontend/cytoscape'
+import { PaneMainTemplate } from '@codelab/frontend/layout'
+import { ComponentContext } from '@codelab/frontend/shared'
+import { CreateComponentElementButton } from '@codelab/modules/component-element'
+import { Empty, Tree } from 'antd'
+import { DataNode } from 'antd/lib/tree'
+import React, { useContext } from 'react'
 
 export const PaneMainComponentTree = () => {
   const { setSelected, setHovering, resetHovering } = useBuilderSelectionState()

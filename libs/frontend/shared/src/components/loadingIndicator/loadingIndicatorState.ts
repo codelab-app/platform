@@ -1,5 +1,5 @@
-import { atomFamily, useSetRecoilState } from 'recoil'
 import { useEffect, useState } from 'react'
+import { atomFamily, useSetRecoilState } from 'recoil'
 
 export interface LoadingIndicatorState {
   isLoading: boolean

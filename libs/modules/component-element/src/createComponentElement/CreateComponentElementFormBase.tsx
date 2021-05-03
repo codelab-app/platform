@@ -1,16 +1,16 @@
-import React from 'react'
-import {
-  createComponentElementSchema,
-  CreateComponentElementInput,
-} from './createComponentElementSchema'
-import { useGetAtomsListQuery } from '@codelab/hasura'
 import {
   createNotificationHandler,
   FormUniforms,
   FormUniformsProps,
   UniFormUseCaseProps,
 } from '@codelab/frontend/shared'
-import { SelectField, AutoFields } from 'uniforms-antd'
+import { useGetAtomsListQuery } from '@codelab/hasura'
+import React from 'react'
+import { AutoFields, SelectField } from 'uniforms-antd'
+import {
+  CreateComponentElementInput,
+  createComponentElementSchema,
+} from './createComponentElementSchema'
 
 type CreateComponentElementFormProps = UniFormUseCaseProps<CreateComponentElementInput> &
   Pick<

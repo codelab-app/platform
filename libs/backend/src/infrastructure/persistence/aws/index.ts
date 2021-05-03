@@ -1,5 +1,5 @@
 export * from './AwsDITokens'
+export * from './AwsLambdaService'
 export * from './AwsModule'
 export * from './AwsProviders'
 export * from './AwsS3Service'
-export * from './AwsLambdaService'

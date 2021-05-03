@@ -1,9 +1,9 @@
 import { Modal } from 'antd'
 import { ModalProps } from 'antd/lib/modal'
 import React, {
+  cloneElement,
   PropsWithChildren,
   ReactElement,
-  cloneElement,
   useRef,
 } from 'react'
 import { JsonSchemaFormProps, SubmitController } from './json-schema'

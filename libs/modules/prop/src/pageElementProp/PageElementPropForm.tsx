@@ -1,16 +1,16 @@
-import React, { useContext, useState } from 'react'
+import { AppContext, FormUniforms, notify } from '@codelab/frontend/shared'
 import {
   CreatePageElementPropMutation,
-  PropCollection__PropFragment,
   GetAppGql,
+  PropCollection__PropFragment,
   UpdatePropValueMutation,
   useCreatePageElementPropMutation,
   useUpdatePropValueMutation,
 } from '@codelab/hasura'
-import { AppContext, FormUniforms, notify } from '@codelab/frontend/shared'
+import { FetchResult } from 'apollo-link'
+import React, { useContext, useState } from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { createPropSchema } from '../createProp/createPropSchema'
-import { FetchResult } from 'apollo-link'
 
 export interface PropFormProps {
   /** Called when a mutation is started */

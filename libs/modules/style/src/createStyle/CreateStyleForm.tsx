@@ -1,5 +1,3 @@
-import React, { useEffect } from 'react'
-import { DeepPartial } from 'uniforms'
 import {
   createNotificationHandler,
   EntityType,
@@ -8,9 +6,11 @@ import {
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
 import { GetStylesListGql, useCreateStyleMutation } from '@codelab/hasura'
-import { createStyleSchema, CreateStyleInput } from './createStyleSchema'
-import { AutoFields } from 'uniforms-antd'
 import { useSelectedLibrary } from '@codelab/modules/library'
+import React, { useEffect } from 'react'
+import { DeepPartial } from 'uniforms'
+import { AutoFields } from 'uniforms-antd'
+import { CreateStyleInput, createStyleSchema } from './createStyleSchema'
 
 type CreateStyleFormProps = UniFormUseCaseProps<CreateStyleInput>
 

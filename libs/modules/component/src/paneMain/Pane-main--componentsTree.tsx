@@ -1,7 +1,7 @@
-import React from 'react'
 import { PaneMainTemplate } from '@codelab/frontend/layout'
-import { CreateComponentElementButton } from '@codelab/modules/component-element'
 import { useGetComponentsQuery } from '@codelab/hasura'
+import { CreateComponentElementButton } from '@codelab/modules/component-element'
+import React from 'react'
 
 export const PaneMainComponentsTree = () => {
   const { data, loading } = useGetComponentsQuery()

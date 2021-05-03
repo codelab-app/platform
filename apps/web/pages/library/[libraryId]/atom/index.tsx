@@ -1,9 +1,9 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
+import { LibraryContext } from '@codelab/frontend/shared'
+import { PaneMainAtom } from '@codelab/modules/atom'
+import { LayoutBuilder } from 'apps/web/src/layout/Layout--builder'
 import React, { useContext } from 'react'
 import { NextPageLayout } from '../../../../src/layout/Layout.d'
-import { PaneMainAtom } from '@codelab/modules/atom'
-import { LibraryContext } from '@codelab/frontend/shared'
-import { LayoutBuilder } from 'apps/web/src/layout/Layout--builder'
 
 const AtomDetail: NextPageLayout<'builder'> = () => {
   // const { component } = useContext(ComponentContext)

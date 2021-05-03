@@ -1,11 +1,11 @@
 import { useBuilderSelectionState } from '@codelab/frontend/builder'
-import { Layout } from 'antd'
-import React, { PropsWithChildren } from 'react'
-import { LayoutNavigations } from './Layout-navigations'
-import { WithMainPane, WithMetaPane } from './Layout.d'
 import { LibraryProvider } from '@codelab/frontend/shared'
 import styled from '@emotion/styled'
+import { Layout } from 'antd'
+import React, { PropsWithChildren } from 'react'
 import xw from 'xwind'
+import { WithMainPane, WithMetaPane } from './Layout.d'
+import { LayoutNavigations } from './Layout-navigations'
 
 const { Sider, Content } = Layout
 

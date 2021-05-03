@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react'
 import {
   createNotificationHandler,
   EntityType,
@@ -6,15 +5,15 @@ import {
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-
 import { GetComponentsGql, useCreateComponentMutation } from '@codelab/hasura'
 import { useSelectedLibrary } from '@codelab/modules/library'
-import {
-  createComponentSchema,
-  CreateComponentInput,
-} from './createComponentSchema'
+import React, { useEffect } from 'react'
 import { DeepPartial } from 'uniforms'
 import { AutoFields } from 'uniforms-antd'
+import {
+  CreateComponentInput,
+  createComponentSchema,
+} from './createComponentSchema'
 
 type CreateComponentFormProps = UniFormUseCaseProps<CreateComponentInput>
 

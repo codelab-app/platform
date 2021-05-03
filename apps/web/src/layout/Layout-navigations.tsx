@@ -1,6 +1,3 @@
-import React, { useContext } from 'react'
-import { Menu } from 'antd'
-import { LibraryContext, PageType, PaneType } from '@codelab/frontend/shared'
 import {
   ApartmentOutlined,
   AppstoreOutlined,
@@ -9,8 +6,11 @@ import {
   DeploymentUnitOutlined,
   FunctionOutlined,
 } from '@ant-design/icons'
+import { LibraryContext, PageType, PaneType } from '@codelab/frontend/shared'
+import { Menu } from 'antd'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import React, { useContext } from 'react'
 import xw from 'xwind'
 
 export const LayoutNavigations = () => {

@@ -1,10 +1,10 @@
-import React from 'react'
-import { CytoscapeService } from '@codelab/frontend/cytoscape'
 import {
   nodeRendererFactory,
   useComponentHandlers,
 } from '@codelab/frontend/builder'
+import { CytoscapeService } from '@codelab/frontend/cytoscape'
 import { __ComponentFragment } from '@codelab/hasura'
+import React from 'react'
 
 type ComponentRendererProps = {
   component: __ComponentFragment

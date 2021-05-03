@@ -1,8 +1,8 @@
-import { List, Space } from 'antd'
-import React from 'react'
-import { useGetAtomsListQuery } from '@codelab/hasura'
 import { DeleteOutlined, SettingOutlined } from '@ant-design/icons'
 import { EntityType, useCRUDModalForm } from '@codelab/frontend/shared'
+import { useGetAtomsListQuery } from '@codelab/hasura'
+import { List, Space } from 'antd'
+import React from 'react'
 
 export const GetAtomsList = () => {
   const { data } = useGetAtomsListQuery({})

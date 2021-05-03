@@ -1,13 +1,13 @@
 import { DeleteOutlined } from '@ant-design/icons'
-import { Button } from 'antd'
-import React, { useContext } from 'react'
-import { AppContext, ComponentElementNode } from '@codelab/frontend/shared'
 import {
   builderElementSelectionState,
   OverlayToolbar,
 } from '@codelab/frontend/builder'
-import { useRecoilValue } from 'recoil'
+import { AppContext, ComponentElementNode } from '@codelab/frontend/shared'
 import { GetAppGql, useDeletePageElementMutation } from '@codelab/hasura'
+import { Button } from 'antd'
+import React, { useContext } from 'react'
+import { useRecoilValue } from 'recoil'
 import { nodeToElementMapState } from '../renderer/nodeToElementMapState'
 
 export const ClickOverlay = () => {

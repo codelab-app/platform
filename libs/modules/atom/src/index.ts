@@ -1,5 +1,5 @@
-export * from './getAtoms'
 export * from './createAtom'
 export * from './deleteAtom'
-export * from './updateAtom'
+export * from './getAtoms'
 export * from './paneMain'
+export * from './updateAtom'

@@ -1,17 +1,17 @@
-import React from 'react'
-import { useGetComponentsQuery } from '@codelab/hasura'
 import {
   createNotificationHandler,
   FormUniforms,
   FormUniformsProps,
   UniFormUseCaseProps,
 } from '@codelab/frontend/shared'
+import { useGetComponentsQuery } from '@codelab/hasura'
+import React from 'react'
+import { AutoFields, SelectField } from 'uniforms-antd'
+import { UpdatePageElementInput } from '../updatePageElement/updatePageElementSchema'
 import {
   CreatePageElementInput,
   createPageElementSchema,
 } from './createPageElementSchema'
-import { AutoFields, SelectField } from 'uniforms-antd'
-import { UpdatePageElementInput } from '../updatePageElement/updatePageElementSchema'
 
 type PageElementFormBaseProps = UniFormUseCaseProps<
   CreatePageElementInput | UpdatePageElementInput

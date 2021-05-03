@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react'
 import {
   createNotificationHandler,
   EntityType,
@@ -6,15 +5,16 @@ import {
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import { UpdateStyleInput, UpdateStyleSchema } from './updateStyleSchema'
 import {
   GetStyleGql,
   useGetStyleQuery,
   useUpdateStyleMutation,
 } from '@codelab/hasura'
 import { Spin } from 'antd'
+import React, { useEffect } from 'react'
 import { DeepPartial } from 'uniforms'
 import { AutoFields } from 'uniforms-antd'
+import { UpdateStyleInput, UpdateStyleSchema } from './updateStyleSchema'
 
 export const UpdateStyleForm = ({
   ...props

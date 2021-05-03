@@ -1,11 +1,11 @@
-import React from 'react'
 import { PaneMainTemplate } from '@codelab/frontend/layout'
-import { CreateLibraryButton } from '../createLibrary/CreateLibraryButton'
-import { CrudModal, EntityType, ActionType } from '@codelab/frontend/shared'
+import { ActionType, CrudModal, EntityType } from '@codelab/frontend/shared'
+import React from 'react'
 import { CreateLibraryForm } from '../createLibrary'
-import { UpdateLibraryForm } from '../updateLibrary'
+import { CreateLibraryButton } from '../createLibrary/CreateLibraryButton'
 import { DeleteLibraryForm } from '../deleteLibrary'
 import { GetLibrariesTree } from '../getLibraries/GetLibrariesTree'
+import { UpdateLibraryForm } from '../updateLibrary'
 
 export const MainPaneLibrary = () => {
   return (

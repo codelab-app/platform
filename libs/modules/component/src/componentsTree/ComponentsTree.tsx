@@ -1,7 +1,7 @@
+import { DeploymentUnitOutlined, DownOutlined } from '@ant-design/icons'
+import { useGetComponentsQuery } from '@codelab/hasura'
 import { Tree } from 'antd'
 import React from 'react'
-import { useGetComponentsQuery } from '@codelab/hasura'
-import { DeploymentUnitOutlined, DownOutlined } from '@ant-design/icons'
 
 export const ComponentsTree = () => {
   const { data: components } = useGetComponentsQuery()

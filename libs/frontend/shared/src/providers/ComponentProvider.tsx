@@ -1,9 +1,9 @@
-import React, { PropsWithChildren } from 'react'
 import {
+  __ComponentFragment,
   Maybe,
   useGetComponentDetailQuery,
-  __ComponentFragment,
 } from '@codelab/hasura'
+import React, { PropsWithChildren } from 'react'
 import { PropsWithIds } from '../interfaces'
 
 type IComponentContext = PropsWithIds<'componentId'> & {

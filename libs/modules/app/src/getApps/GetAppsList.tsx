@@ -1,9 +1,9 @@
-import React from 'react'
-import { Button, Col, Empty, Row, Spin } from 'antd'
-import { useGetAppsListQuery } from '@codelab/hasura'
-import { padding, threeGridCol } from '@codelab/frontend/style'
-import { GetAppsItem } from './GetAppsItem'
 import { EntityType, useCRUDModalForm } from '@codelab/frontend/shared'
+import { padding, threeGridCol } from '@codelab/frontend/style'
+import { useGetAppsListQuery } from '@codelab/hasura'
+import { Button, Col, Empty, Row, Spin } from 'antd'
+import React from 'react'
+import { GetAppsItem } from './GetAppsItem'
 
 export const GetAppsList = () => {
   const { loading, data } = useGetAppsListQuery()

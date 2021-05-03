@@ -1,9 +1,9 @@
+import { ComponentItemType } from '@codelab/frontend/shared'
+import { useGetComponentsQuery } from '@codelab/hasura'
 import { css } from '@emotion/react'
 import { List } from 'antd'
 import React, { useMemo } from 'react'
-import { useGetComponentsQuery } from '@codelab/hasura'
 import { ComponentItem } from '../paneMain'
-import { ComponentItemType } from '@codelab/frontend/shared'
 
 export const GetComponentsList = () => {
   const { data: components } = useGetComponentsQuery()

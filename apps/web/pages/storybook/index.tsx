@@ -1,24 +1,24 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import React from 'react'
-import { MainPaneLibrary } from '@codelab/modules/library'
-import { NextPageLayout } from '../../src/layout/Layout.d'
-import { LayoutBuilder } from 'apps/web/src/layout/Layout--builder'
-import { MetaPaneComponent } from 'apps/web/src/layout/MetaPaneComponent'
-import xw from 'xwind'
-import { ComponentRenderer } from '@codelab/modules/component'
 import {
   useComponentBuilder,
   useComponentHandlers,
 } from '@codelab/frontend/builder'
 import { CytoscapeService } from '@codelab/frontend/cytoscape'
-import { Button, Empty } from 'antd'
 import {
   ActionType,
   CrudModal,
   EntityType,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
+import { ComponentRenderer } from '@codelab/modules/component'
 import { CreateComponentElementForm } from '@codelab/modules/component-element'
+import { MainPaneLibrary } from '@codelab/modules/library'
+import { Button, Empty } from 'antd'
+import { LayoutBuilder } from 'apps/web/src/layout/Layout--builder'
+import { MetaPaneComponent } from 'apps/web/src/layout/MetaPaneComponent'
+import React from 'react'
+import xw from 'xwind'
+import { NextPageLayout } from '../../src/layout/Layout.d'
 
 const Library: NextPageLayout<'builder'> = () => {
   const { selectedComponent, setSelected } = useComponentBuilder()

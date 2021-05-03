@@ -1,17 +1,17 @@
+import {
+  createNotificationHandler,
+  EntityType,
+  FormUniforms,
+  UniFormUseCaseProps,
+  useCRUDModalForm,
+} from '@codelab/frontend/shared'
+import { GetAppsListGql, useCreateAppMutation } from '@codelab/hasura'
 import React, { useEffect } from 'react'
 import { useRecoilState } from 'recoil'
 import { DeepPartial } from 'uniforms'
-import { GetAppsListGql, useCreateAppMutation } from '@codelab/hasura'
+import { AutoFields } from 'uniforms-antd'
 import { appState } from '../state'
 import { CreateAppInput, createAppSchema } from './createAppSchema'
-import {
-  FormUniforms,
-  UniFormUseCaseProps,
-  createNotificationHandler,
-  useCRUDModalForm,
-  EntityType,
-} from '@codelab/frontend/shared'
-import { AutoFields } from 'uniforms-antd'
 
 export const CreateAppForm = (props: UniFormUseCaseProps<CreateAppInput>) => {
   const { reset, setLoading } = useCRUDModalForm(EntityType.App)

@@ -1,9 +1,9 @@
+import { PaneMainTemplate } from '@codelab/frontend/layout'
 import React from 'react'
 import { CreateLambdaModal } from '../createLambda'
+import { CreateLambdaButton } from '../createLambda/CreateLambdaButton'
 import { GetLambdasTable } from '../getLambdas'
 import { UpdateLambdaModal } from '../updateLambda'
-import { PaneMainTemplate } from '@codelab/frontend/layout'
-import { CreateLambdaButton } from '../createLambda/CreateLambdaButton'
 
 export const PaneMainLambda = () => {
   return (

@@ -1,13 +1,13 @@
 // import '../src/wdyr'
+import '../src/styles/App.less'
 import { ApolloProvider } from '@apollo/client'
 import { UserProvider } from '@auth0/nextjs-auth0'
+import { useApollo } from '@codelab/frontend/apollo'
+import { PageType } from '@codelab/frontend/shared'
 import { css, Global } from '@emotion/react'
 import { AppProps } from 'next/app'
 import React from 'react'
 import { RecoilRoot } from 'recoil'
-import { PageType } from '@codelab/frontend/shared'
-import { useApollo } from '@codelab/frontend/apollo'
-import '../src/styles/App.less'
 
 const AppContainer = ({ pageProps, Component, router }: AppProps) => {
   const { Layout, MainPane, MetaPane } = Component as any

@@ -1,4 +1,3 @@
-import React, { useContext, useEffect } from 'react'
 import {
   AppContext,
   createNotificationHandler,
@@ -7,11 +6,12 @@ import {
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-
 import { GetPagesListGql, useCreatePageMutation } from '@codelab/hasura'
-import { createPageSchema, CreatePageInput } from './createPageSchema'
+import React, { useContext, useEffect } from 'react'
 import { DeepPartial } from 'uniforms'
 import { AutoFields } from 'uniforms-antd'
+import { CreatePageInput, createPageSchema } from './createPageSchema'
+
 type CreatePageFormProps = UniFormUseCaseProps<CreatePageInput>
 
 export const CreatePageForm = (props: CreatePageFormProps) => {

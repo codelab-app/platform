@@ -1,8 +1,8 @@
-import { Test } from '@nestjs/testing'
-import { LambdaService } from './LambdaService'
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { InfrastructureModule } from '@codelab/backend'
+import { Test } from '@nestjs/testing'
 import { ILambda } from './interfaces/IEventTrigger'
+import { LambdaService } from './LambdaService'
 
 describe('LibraryService', () => {
   let service: LambdaService

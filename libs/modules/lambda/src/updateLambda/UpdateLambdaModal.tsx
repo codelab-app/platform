@@ -1,11 +1,10 @@
+import { ModalForm } from '@codelab/frontend/shared'
+import { Lambda, useGetLambdaByIdQuery } from '@codelab/hasura'
 import React from 'react'
 import { useRecoilState } from 'recoil'
+import { AutoFields } from 'uniforms-antd'
 import { UpdateLambdaForm } from './UpdateLambdaForm'
 import { updateLambdaState } from './UpdateLambdaState'
-import { ModalForm } from '@codelab/frontend/shared'
-import { useGetLambdaByIdQuery } from '@codelab/hasura'
-import { AutoFields } from 'uniforms-antd'
-import { Lambda } from '@codelab/hasura'
 
 export const UpdateLambdaModal = () => {
   const [updateLambda, setUpdateLambda] = useRecoilState(updateLambdaState)

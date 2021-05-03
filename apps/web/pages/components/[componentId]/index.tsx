@@ -1,12 +1,12 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import { ComponentContext } from '@codelab/frontend/shared'
-import React, { useContext } from 'react'
-import { Empty, Tabs } from 'antd'
-import { TabsLayout } from 'apps/web/src/layout/Layout-pane'
-import { PaneConfigComponentElement } from '@codelab/modules/component-element'
 import { useBuilderSelectionState } from '@codelab/frontend/builder'
-import { NextPageLayout } from '../../../src/layout/Layout.d'
+import { ComponentContext } from '@codelab/frontend/shared'
+import { PaneConfigComponentElement } from '@codelab/modules/component-element'
+import { Empty, Tabs } from 'antd'
 import { LayoutComponentDetail } from 'apps/web/src/layout/Layout--componentDetail'
+import { TabsLayout } from 'apps/web/src/layout/Layout-pane'
+import React, { useContext } from 'react'
+import { NextPageLayout } from '../../../src/layout/Layout.d'
 
 const ComponentDetail: NextPageLayout<'builder'> = () => {
   const { component } = useContext(ComponentContext)

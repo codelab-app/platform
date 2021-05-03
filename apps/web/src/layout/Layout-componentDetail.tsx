@@ -2,8 +2,8 @@ import { EditorProvider } from '@codelab/frontend/builder'
 import { ComponentProvider } from '@codelab/frontend/shared'
 import { useRouter } from 'next/router'
 import React, { PropsWithChildren } from 'react'
-import { LayoutBuilder } from './Layout--builder'
 import { WithMainPane } from './Layout.d'
+import { LayoutBuilder } from './Layout--builder'
 
 export const LayoutComponentDetail = (
   props: PropsWithChildren<WithMainPane>,

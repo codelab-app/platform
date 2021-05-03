@@ -1,3 +1,4 @@
+import { AppContext, ModalForm } from '@codelab/frontend/shared'
 import React, { useContext } from 'react'
 import { useRecoilState } from 'recoil'
 import {
@@ -5,7 +6,6 @@ import {
   AddChildVertexFormProps,
 } from './AddChildVertexForm'
 import { addChildVertexState } from './AddChildVertexState'
-import { AppContext, ModalForm } from '@codelab/frontend/shared'
 
 export const AddChildVertexModal = ({
   vertex,

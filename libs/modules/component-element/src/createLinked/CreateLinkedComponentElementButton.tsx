@@ -1,6 +1,6 @@
+import { EntityType, useCRUDModalForm } from '@codelab/frontend/shared'
 import { Button, ButtonProps } from 'antd'
 import React, { PropsWithChildren } from 'react'
-import { EntityType, useCRUDModalForm } from '@codelab/frontend/shared'
 
 export const CreateLinkedComponentElementButton = ({
   children,

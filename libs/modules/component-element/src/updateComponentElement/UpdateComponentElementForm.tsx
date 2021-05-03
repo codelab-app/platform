@@ -1,17 +1,17 @@
-import React, { useContext, useRef } from 'react'
-import { UpdateComponentElementInput } from './updateComponentElementSchema'
-import {
-  GetComponentDetailGql,
-  __ComponentElementFragment,
-  useUpdateComponentElementMutation,
-} from '@codelab/hasura'
 import {
   ComponentContext,
   StatelessLoadingIndicator,
   UniFormUseCaseProps,
 } from '@codelab/frontend/shared'
+import {
+  __ComponentElementFragment,
+  GetComponentDetailGql,
+  useUpdateComponentElementMutation,
+} from '@codelab/hasura'
+import React, { useContext, useRef } from 'react'
 import { DeepPartial } from 'uniforms'
 import { CreateComponentElementFormBase } from '../createComponentElement/CreateComponentElementFormBase'
+import { UpdateComponentElementInput } from './updateComponentElementSchema'
 
 type UpdateComponentElementFormProps = UniFormUseCaseProps<UpdateComponentElementInput> & {
   componentElement: __ComponentElementFragment

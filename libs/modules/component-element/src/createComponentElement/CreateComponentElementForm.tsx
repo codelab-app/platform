@@ -1,17 +1,17 @@
-import React, { useEffect } from 'react'
-import { CreateComponentElementInput } from './createComponentElementSchema'
-import {
-  GetComponentDetailGql,
-  useCreateComponentElementMutation,
-} from '@codelab/hasura'
 import {
   EntityType,
   PropsWithIds,
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
+import {
+  GetComponentDetailGql,
+  useCreateComponentElementMutation,
+} from '@codelab/hasura'
+import React, { useEffect } from 'react'
 import { DeepPartial } from 'uniforms'
 import { CreateComponentElementFormBase } from './CreateComponentElementFormBase'
+import { CreateComponentElementInput } from './createComponentElementSchema'
 
 type CreateComponentElementFormProps = UniFormUseCaseProps<CreateComponentElementInput> &
   PropsWithIds<'componentId'>

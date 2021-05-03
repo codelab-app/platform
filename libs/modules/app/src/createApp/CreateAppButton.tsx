@@ -1,7 +1,7 @@
 import { PlusOutlined } from '@ant-design/icons'
+import { EntityType, useCRUDModalForm } from '@codelab/frontend/shared'
 import { Button } from 'antd'
 import React from 'react'
-import { EntityType, useCRUDModalForm } from '@codelab/frontend/shared'
 
 export const CreateAppButton = () => {
   const { openCreateModal } = useCRUDModalForm(EntityType.App)

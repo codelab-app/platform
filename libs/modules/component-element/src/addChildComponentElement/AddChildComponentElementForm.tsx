@@ -1,9 +1,3 @@
-import React, { useEffect } from 'react'
-import {
-  GetComponentDetailGql,
-  useAddChildComponentElementMutation,
-  useGetAtomsListQuery,
-} from '@codelab/hasura'
 import {
   createNotificationHandler,
   EntityType,
@@ -11,12 +5,18 @@ import {
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
+import {
+  GetComponentDetailGql,
+  useAddChildComponentElementMutation,
+  useGetAtomsListQuery,
+} from '@codelab/hasura'
+import React, { useEffect } from 'react'
 import { DeepPartial } from 'uniforms'
+import { AutoField, SelectField } from 'uniforms-antd'
 import {
   AddChildComponentElementInput,
   addChildComponentElementSchema,
 } from './addChildComponentElementSchema'
-import { AutoField, SelectField } from 'uniforms-antd'
 
 type AddChildComponentElementFormProps = UniFormUseCaseProps<AddChildComponentElementInput> & {
   componentId: string
