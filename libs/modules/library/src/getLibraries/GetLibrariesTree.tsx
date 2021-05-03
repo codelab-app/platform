@@ -1,6 +1,10 @@
 import { BookOutlined, DeploymentUnitOutlined } from '@ant-design/icons'
+import { useComponentBuilder } from '@codelab/frontend/builder'
 import { LibraryContext } from '@codelab/frontend/shared'
-import { useGetComponentDetailLazyQuery } from '@codelab/hasura'
+import {
+  __ComponentFragment,
+  useGetComponentDetailLazyQuery,
+} from '@codelab/hasura'
 import {
   CreateAtomButtonIcon,
   CreateAtomModal,
@@ -11,12 +15,15 @@ import {
 } from '@codelab/modules/atom'
 import {
   CreateComponentButton,
+  CreateComponentModal,
   DeleteComponentButton,
+  DeleteComponentsModal,
   UpdateComponentButton,
+  UpdateComponentModal,
 } from '@codelab/modules/component'
 import { Space, Tree } from 'antd'
 import { DataNode } from 'antd/lib/tree'
-import React, { Key, useContext, useState } from 'react'
+import React, { Key, useContext, useEffect, useState } from 'react'
 import xw from 'xwind'
 
 type CheckedKeys = {
@@ -31,6 +38,12 @@ export const GetLibrariesTree = () => {
     loadComponent,
     { called, loading, data },
   ] = useGetComponentDetailLazyQuery()
+
+  const { selectedComponent, setSelected } = useComponentBuilder()
+
+  useEffect(() => {
+    setSelected(data?.component_by_pk as __ComponentFragment)
+  }, [data])
 
   const [checkedAtomIds, setCheckedAtomIds] = useState<Array<string>>([])
   const [selectedAtomId, setSelectedAtomId] = useState<string>()
@@ -112,7 +125,6 @@ export const GetLibrariesTree = () => {
           setCheckedAtomIds([..._checkedAtomIds.map((id) => id.toString())])
         }}
         onSelect={([selectedKey], e) => {
-          console.log(selectedKey)
           setSelectedAtomId(selectedKey?.toString())
         }}
       />
@@ -123,19 +135,26 @@ export const GetLibrariesTree = () => {
           <CreateComponentButton />
           <UpdateComponentButton
             id={selectedComponentId}
-            disabled={!selectedAtomId}
+            disabled={!selectedComponentId}
           />
-          <DeleteComponentButton />
+          <DeleteComponentButton
+            disabled={checkedComponentIds?.length === 0}
+            ids={checkedComponentIds}
+          />
         </Space>
       </Space>
+      <CreateComponentModal />
+      <UpdateComponentModal />
+      <DeleteComponentsModal />
       <Tree
-        onSelect={([componentId], e) => {
+        onSelect={([checkedKey], e) => {
+          const _selectedComponentId = checkedKey?.toString()
+          setSelectedComponentId(_selectedComponentId)
           loadComponent({
             variables: {
-              componentId: componentId.toString(),
+              componentId: _selectedComponentId,
             },
           })
-          setSelectedAtomId(componentId?.toString())
         }}
         onCheck={(checkedKeys, e) => {
           const {
@@ -144,12 +163,13 @@ export const GetLibrariesTree = () => {
           } = checkedKeys as CheckedKeys
 
           setCheckedComponentIds([
-            ..._checkedComponentIds.map((id) => id.toString()),
+            ..._checkedComponentIds?.map((id) => id.toString()),
           ])
         }}
         draggable
         showIcon
         checkable
+        checkStrictly
         selectable
         defaultExpandAll
         defaultExpandedKeys={[]}

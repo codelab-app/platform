@@ -2,13 +2,14 @@ import {
   createNotificationHandler,
   EntityType,
   FormUniforms,
+  LibraryContext,
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import { GetComponentsGql, useCreateComponentMutation } from '@codelab/hasura'
-import React, { useEffect } from 'react'
+import { GetLibrariesGql, useCreateComponentMutation } from '@codelab/hasura'
+import React, { useContext, useEffect } from 'react'
 import { DeepPartial } from 'uniforms'
-import { AutoFields } from 'uniforms-antd'
+import { AutoField, SelectField } from 'uniforms-antd'
 import {
   CreateComponentInput,
   createComponentSchema,
@@ -18,12 +19,13 @@ type CreateComponentFormProps = UniFormUseCaseProps<CreateComponentInput>
 
 export const CreateComponentForm = ({ ...props }: CreateComponentFormProps) => {
   const { reset, setLoading } = useCRUDModalForm(EntityType.Component)
+  const { libraries } = useContext(LibraryContext)
 
   const [mutate, { loading: creating }] = useCreateComponentMutation({
     awaitRefetchQueries: true,
     refetchQueries: [
       {
-        query: GetComponentsGql,
+        query: GetLibrariesGql,
       },
     ],
   })
@@ -32,14 +34,12 @@ export const CreateComponentForm = ({ ...props }: CreateComponentFormProps) => {
     setLoading(creating)
   }, [creating])
 
-  // const { library } = useSelectedLibrary()
-
   const onSubmit = (submitData: DeepPartial<CreateComponentInput>) => {
     return mutate({
       variables: {
         input: {
-          ...submitData,
-          // library_id: library?.id,
+          library_id: submitData.library_id,
+          label: submitData.label,
         },
       },
     })
@@ -56,7 +56,15 @@ export const CreateComponentForm = ({ ...props }: CreateComponentFormProps) => {
       onSubmitSuccess={() => reset()}
       {...props}
     >
-      <AutoFields />
+      <SelectField
+        name="library_id"
+        label="Library"
+        options={libraries?.map((library) => ({
+          label: library.name,
+          value: library.id,
+        }))}
+      />
+      <AutoField name="label" />
     </FormUniforms>
   )
 }

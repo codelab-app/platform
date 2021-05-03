@@ -46,7 +46,7 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
     return mutate({
       variables: {
         data: {
-          library_id: submitData?.library,
+          library_id: submitData.library_id,
           type: submitData.type,
         },
       },
@@ -76,7 +76,7 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
       {...props}
     >
       <SelectField
-        name="library"
+        name="library_id"
         options={libraries?.map((library) => ({
           label: library.name,
           value: library.id,

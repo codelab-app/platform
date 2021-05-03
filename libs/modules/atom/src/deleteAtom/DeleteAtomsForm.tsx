@@ -7,8 +7,8 @@ import {
 } from '@codelab/frontend/shared'
 import {
   GetLibrariesGql,
-  useDeleteAtomsMutation,
-  useGetAtomsQuery,
+  useDeleteAtomsWhereMutation,
+  useGetAtomsWhereQuery,
 } from '@codelab/hasura'
 import { Spin } from 'antd'
 import React, { useEffect } from 'react'
@@ -21,7 +21,7 @@ export const DeleteAtomsForm = (props: DeleteAtomFormProps) => {
   const { reset, setLoading, state } = useCRUDModalForm(EntityType.Atom)
   const { deleteIds: deleteAtomIds } = state
 
-  const [mutate, { loading: deleting }] = useDeleteAtomsMutation({
+  const [mutate, { loading: deleting }] = useDeleteAtomsWhereMutation({
     awaitRefetchQueries: true,
     refetchQueries: [
       {
@@ -42,7 +42,7 @@ export const DeleteAtomsForm = (props: DeleteAtomFormProps) => {
     setLoading(deleting)
   }, [deleting])
 
-  const { data, loading } = useGetAtomsQuery({
+  const { data, loading } = useGetAtomsWhereQuery({
     variables: {
       where: atomsWhere,
     },

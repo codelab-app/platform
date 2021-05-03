@@ -14,6 +14,7 @@ export const UpdateComponentButton = ({ id, disabled }: UpdateButtonProps) => {
     <Button
       size="small"
       type="primary"
+      disabled={disabled}
       ghost
       icon={<EditOutlined />}
       onClick={() => {

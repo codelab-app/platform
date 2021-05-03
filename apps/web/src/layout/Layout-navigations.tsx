@@ -3,7 +3,6 @@ import {
   AppstoreOutlined,
   BookOutlined,
   CopyOutlined,
-  DeploymentUnitOutlined,
   FunctionOutlined,
 } from '@ant-design/icons'
 import { LibraryContext, PageType, PaneType } from '@codelab/frontend/shared'
@@ -66,26 +65,6 @@ export const LayoutNavigations = () => {
             }}
           >
             Library
-          </Link>
-        </Menu.Item>
-        <Menu.Item
-          key={PageType.AtomList}
-          icon={
-            <DeploymentUnitOutlined
-              data-testid="atom-tab-trigger"
-              title="Atom"
-            />
-          }
-        >
-          <Link
-            href={{
-              pathname: PageType.AtomList,
-              query: {
-                libraryId: libraries?.[0].id,
-              },
-            }}
-          >
-            Atom
           </Link>
         </Menu.Item>
         <Menu.Divider />

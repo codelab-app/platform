@@ -5,6 +5,9 @@
 
 make hasura-metadata-export
 
+# Prettify Hausra directory
+npx prettier --config .prettierrc.json --write hasura
+
 # terraform fmt -recursive .terraform
 
 yarn cross-env TIMING=1 lint-staged --verbose

@@ -1,0 +1,5 @@
+query GetComponentsWhere($where: component_bool_exp!) {
+  component(where: $where) {
+    ...__Component
+  }
+}

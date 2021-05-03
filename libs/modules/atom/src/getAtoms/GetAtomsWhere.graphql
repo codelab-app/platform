@@ -1,0 +1,5 @@
+query GetAtomsWhere($where: atom_bool_exp!) {
+  atom(where: $where) {
+    ...__Atom
+  }
+}
