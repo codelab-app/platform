@@ -10437,6 +10437,62 @@ export type UpdatePageMutation = {
   update_page_by_pk?: Maybe<App__PageFragment>
 }
 
+export type PropTypeCollection__PropTypeFragment = Pick<
+  Prop_Type,
+  'id' | 'key' | 'prop_type_c_id' | 'value_type'
+> & { type?: Maybe<ValueTypeFragment> }
+
+export type PropTypeCollectionFragment = Pick<
+  Prop_Type_C,
+  'id' | 'label' | 'library_id'
+> & {
+  propTypes: Array<PropTypeCollection__PropTypeFragment>
+  tags: Array<{ tag: __TagFragment }>
+}
+
+export type ValueTypeFragment = Pick<Value_Type, 'description' | 'value'>
+
+export type CreatePropTypeCMutationVariables = Exact<{
+  data: Prop_Type_C_Insert_Input
+}>
+
+export type CreatePropTypeCMutation = {
+  insert_prop_type_c_one?: Maybe<Pick<Prop_Type_C, 'id'>>
+}
+
+export type DeletePropTypeCMutationVariables = Exact<{
+  propTypeCId: Scalars['uuid']
+}>
+
+export type DeletePropTypeCMutation = {
+  delete_prop_type_c_by_pk?: Maybe<PropTypeCollectionFragment>
+}
+
+export type GetPropTypeCQueryVariables = Exact<{
+  propTypeCId: Scalars['uuid']
+}>
+
+export type GetPropTypeCQuery = {
+  prop_type_c_by_pk?: Maybe<PropTypeCollectionFragment>
+}
+
+export type GetPropTypeCListQueryVariables = Exact<{
+  where?: Maybe<Prop_Type_C_Bool_Exp>
+}>
+
+export type GetPropTypeCListQuery = {
+  prop_type_c: Array<PropTypeCollectionFragment>
+}
+
+export type UpdatePropTypeCMutationVariables = Exact<{
+  input: Prop_Type_C_Set_Input
+  propTypeCId: Scalars['uuid']
+}>
+
+export type UpdatePropTypeCMutation = {
+  update_prop_type_c_by_pk?: Maybe<PropTypeCollectionFragment>
+}
+
 export type CreatePageElementPropMutationVariables = Exact<{
   propInput: Prop_Insert_Input
 }>
@@ -10464,25 +10520,10 @@ export type PropCollectionFragment = Pick<
   tags: Array<{ tag: __TagFragment }>
 }
 
-export type PropTypeCollection__PropTypeFragment = Pick<
-  Prop_Type,
-  'id' | 'key' | 'prop_type_c_id' | 'value_type'
-> & { type?: Maybe<ValueTypeFragment> }
-
-export type PropTypeCollectionFragment = Pick<
-  Prop_Type_C,
-  'id' | 'label' | 'library_id'
-> & {
-  propTypes: Array<PropTypeCollection__PropTypeFragment>
-  tags: Array<{ tag: __TagFragment }>
-}
-
 export type Prop__PropValueFragment = Pick<
   Prop_Value,
   'id' | 'prop_id' | 'type' | 'value'
 > & { tags: Array<{ tag: __TagFragment }>; typeEntity: ValueTypeFragment }
-
-export type ValueTypeFragment = Pick<Value_Type, 'description' | 'value'>
 
 export type PageElementPropQueryVariables = Exact<{
   pageElementId: Scalars['uuid']
@@ -13818,6 +13859,277 @@ export type UpdatePageMutationOptions = Apollo.BaseMutationOptions<
   UpdatePageMutation,
   UpdatePageMutationVariables
 >
+export const CreatePropTypeCGql = gql`
+  mutation CreatePropTypeC($data: prop_type_c_insert_input!) {
+    insert_prop_type_c_one(object: $data) {
+      id
+    }
+  }
+`
+export type CreatePropTypeCMutationFn = Apollo.MutationFunction<
+  CreatePropTypeCMutation,
+  CreatePropTypeCMutationVariables
+>
+
+/**
+ * __useCreatePropTypeCMutation__
+ *
+ * To run a mutation, you first call `useCreatePropTypeCMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreatePropTypeCMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createPropTypeCMutation, { data, loading, error }] = useCreatePropTypeCMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useCreatePropTypeCMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreatePropTypeCMutation,
+    CreatePropTypeCMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    CreatePropTypeCMutation,
+    CreatePropTypeCMutationVariables
+  >(CreatePropTypeCGql, options)
+}
+export type CreatePropTypeCMutationHookResult = ReturnType<
+  typeof useCreatePropTypeCMutation
+>
+export type CreatePropTypeCMutationResult = Apollo.MutationResult<CreatePropTypeCMutation>
+export type CreatePropTypeCMutationOptions = Apollo.BaseMutationOptions<
+  CreatePropTypeCMutation,
+  CreatePropTypeCMutationVariables
+>
+export const DeletePropTypeCGql = gql`
+  mutation DeletePropTypeC($propTypeCId: uuid!) {
+    delete_prop_type_c_by_pk(id: $propTypeCId) {
+      ...PropTypeCollection
+    }
+  }
+  ${PropTypeCollectionFragmentDoc}
+`
+export type DeletePropTypeCMutationFn = Apollo.MutationFunction<
+  DeletePropTypeCMutation,
+  DeletePropTypeCMutationVariables
+>
+
+/**
+ * __useDeletePropTypeCMutation__
+ *
+ * To run a mutation, you first call `useDeletePropTypeCMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeletePropTypeCMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deletePropTypeCMutation, { data, loading, error }] = useDeletePropTypeCMutation({
+ *   variables: {
+ *      propTypeCId: // value for 'propTypeCId'
+ *   },
+ * });
+ */
+export function useDeletePropTypeCMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeletePropTypeCMutation,
+    DeletePropTypeCMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    DeletePropTypeCMutation,
+    DeletePropTypeCMutationVariables
+  >(DeletePropTypeCGql, options)
+}
+export type DeletePropTypeCMutationHookResult = ReturnType<
+  typeof useDeletePropTypeCMutation
+>
+export type DeletePropTypeCMutationResult = Apollo.MutationResult<DeletePropTypeCMutation>
+export type DeletePropTypeCMutationOptions = Apollo.BaseMutationOptions<
+  DeletePropTypeCMutation,
+  DeletePropTypeCMutationVariables
+>
+export const GetPropTypeCGql = gql`
+  query GetPropTypeC($propTypeCId: uuid!) {
+    prop_type_c_by_pk(id: $propTypeCId) {
+      ...PropTypeCollection
+    }
+  }
+  ${PropTypeCollectionFragmentDoc}
+`
+
+/**
+ * __useGetPropTypeCQuery__
+ *
+ * To run a query within a React component, call `useGetPropTypeCQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPropTypeCQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPropTypeCQuery({
+ *   variables: {
+ *      propTypeCId: // value for 'propTypeCId'
+ *   },
+ * });
+ */
+export function useGetPropTypeCQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetPropTypeCQuery,
+    GetPropTypeCQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetPropTypeCQuery, GetPropTypeCQueryVariables>(
+    GetPropTypeCGql,
+    options,
+  )
+}
+export function useGetPropTypeCLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetPropTypeCQuery,
+    GetPropTypeCQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetPropTypeCQuery, GetPropTypeCQueryVariables>(
+    GetPropTypeCGql,
+    options,
+  )
+}
+export type GetPropTypeCQueryHookResult = ReturnType<
+  typeof useGetPropTypeCQuery
+>
+export type GetPropTypeCLazyQueryHookResult = ReturnType<
+  typeof useGetPropTypeCLazyQuery
+>
+export type GetPropTypeCQueryResult = Apollo.QueryResult<
+  GetPropTypeCQuery,
+  GetPropTypeCQueryVariables
+>
+export const GetPropTypeCListGql = gql`
+  query GetPropTypeCList($where: prop_type_c_bool_exp) {
+    prop_type_c(where: $where) {
+      ...PropTypeCollection
+    }
+  }
+  ${PropTypeCollectionFragmentDoc}
+`
+
+/**
+ * __useGetPropTypeCListQuery__
+ *
+ * To run a query within a React component, call `useGetPropTypeCListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPropTypeCListQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPropTypeCListQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useGetPropTypeCListQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetPropTypeCListQuery,
+    GetPropTypeCListQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetPropTypeCListQuery, GetPropTypeCListQueryVariables>(
+    GetPropTypeCListGql,
+    options,
+  )
+}
+export function useGetPropTypeCListLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetPropTypeCListQuery,
+    GetPropTypeCListQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    GetPropTypeCListQuery,
+    GetPropTypeCListQueryVariables
+  >(GetPropTypeCListGql, options)
+}
+export type GetPropTypeCListQueryHookResult = ReturnType<
+  typeof useGetPropTypeCListQuery
+>
+export type GetPropTypeCListLazyQueryHookResult = ReturnType<
+  typeof useGetPropTypeCListLazyQuery
+>
+export type GetPropTypeCListQueryResult = Apollo.QueryResult<
+  GetPropTypeCListQuery,
+  GetPropTypeCListQueryVariables
+>
+export const UpdatePropTypeCGql = gql`
+  mutation UpdatePropTypeC(
+    $input: prop_type_c_set_input!
+    $propTypeCId: uuid!
+  ) {
+    update_prop_type_c_by_pk(_set: $input, pk_columns: { id: $propTypeCId }) {
+      ...PropTypeCollection
+    }
+  }
+  ${PropTypeCollectionFragmentDoc}
+`
+export type UpdatePropTypeCMutationFn = Apollo.MutationFunction<
+  UpdatePropTypeCMutation,
+  UpdatePropTypeCMutationVariables
+>
+
+/**
+ * __useUpdatePropTypeCMutation__
+ *
+ * To run a mutation, you first call `useUpdatePropTypeCMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdatePropTypeCMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updatePropTypeCMutation, { data, loading, error }] = useUpdatePropTypeCMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *      propTypeCId: // value for 'propTypeCId'
+ *   },
+ * });
+ */
+export function useUpdatePropTypeCMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdatePropTypeCMutation,
+    UpdatePropTypeCMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    UpdatePropTypeCMutation,
+    UpdatePropTypeCMutationVariables
+  >(UpdatePropTypeCGql, options)
+}
+export type UpdatePropTypeCMutationHookResult = ReturnType<
+  typeof useUpdatePropTypeCMutation
+>
+export type UpdatePropTypeCMutationResult = Apollo.MutationResult<UpdatePropTypeCMutation>
+export type UpdatePropTypeCMutationOptions = Apollo.BaseMutationOptions<
+  UpdatePropTypeCMutation,
+  UpdatePropTypeCMutationVariables
+>
 export const CreatePageElementPropGql = gql`
   mutation CreatePageElementProp($propInput: prop_insert_input!) {
     insert_prop_one(object: $propInput) {
@@ -15172,6 +15484,48 @@ export const UpdatePage = gql`
     }
   }
   ${App__Page}
+`
+export const CreatePropTypeC = gql`
+  mutation CreatePropTypeC($data: prop_type_c_insert_input!) {
+    insert_prop_type_c_one(object: $data) {
+      id
+    }
+  }
+`
+export const DeletePropTypeC = gql`
+  mutation DeletePropTypeC($propTypeCId: uuid!) {
+    delete_prop_type_c_by_pk(id: $propTypeCId) {
+      ...PropTypeCollection
+    }
+  }
+  ${PropTypeCollection}
+`
+export const GetPropTypeC = gql`
+  query GetPropTypeC($propTypeCId: uuid!) {
+    prop_type_c_by_pk(id: $propTypeCId) {
+      ...PropTypeCollection
+    }
+  }
+  ${PropTypeCollection}
+`
+export const GetPropTypeCList = gql`
+  query GetPropTypeCList($where: prop_type_c_bool_exp) {
+    prop_type_c(where: $where) {
+      ...PropTypeCollection
+    }
+  }
+  ${PropTypeCollection}
+`
+export const UpdatePropTypeC = gql`
+  mutation UpdatePropTypeC(
+    $input: prop_type_c_set_input!
+    $propTypeCId: uuid!
+  ) {
+    update_prop_type_c_by_pk(_set: $input, pk_columns: { id: $propTypeCId }) {
+      ...PropTypeCollection
+    }
+  }
+  ${PropTypeCollection}
 `
 export const CreatePageElementProp = gql`
   mutation CreatePageElementProp($propInput: prop_insert_input!) {

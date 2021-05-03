@@ -1,0 +1,5 @@
+query GetPropTypeC($propTypeCId: uuid!) {
+  prop_type_c_by_pk(id: $propTypeCId) {
+    ...PropTypeCollection
+  }
+}
