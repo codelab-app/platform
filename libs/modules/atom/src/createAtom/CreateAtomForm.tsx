@@ -7,7 +7,7 @@ import {
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
 import {
-  GetLibrariesGql,
+  GetAtomsListGql,
   useCreateAtomMutation,
   useGetAtomsTypesQuery,
 } from '@codelab/hasura'
@@ -28,7 +28,7 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
     awaitRefetchQueries: true,
     refetchQueries: [
       {
-        query: GetLibrariesGql,
+        query: GetAtomsListGql,
       },
     ],
     context: {
