@@ -6,8 +6,9 @@ import {
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
 import {
-  GetComponentDetailGql,
-  useAddChildComponentElementMutation,
+  GetLibrariesGql,
+  useCreateComponentElementMutation,
+  useCreateComponentLinkMutation,
   useGetAtomsListQuery,
 } from '@codelab/hasura'
 import React, { useEffect } from 'react'
@@ -20,7 +21,7 @@ import {
 
 type AddChildComponentElementFormProps = UniFormUseCaseProps<AddChildComponentElementInput> & {
   componentId: string
-  parentComponentElementId?: string
+  parentComponentElementId: string
 }
 
 /**
@@ -35,34 +36,54 @@ export const AddChildComponentElementForm = ({
   parentComponentElementId,
   ...props
 }: AddChildComponentElementFormProps) => {
-  const { reset, setLoading } = useCRUDModalForm(EntityType.ComponentElement)
+  const { reset, setLoading } = useCRUDModalForm(
+    EntityType.ChildComponentElement,
+  )
 
-  const [mutate, { loading: creating }] = useAddChildComponentElementMutation({
+  const [
+    createComponentElement,
+    { loading: creatingComponentElement },
+  ] = useCreateComponentElementMutation()
+
+  const [
+    createComponentLink,
+    { loading: creatingComponentLink },
+  ] = useCreateComponentLinkMutation({
     awaitRefetchQueries: true,
     refetchQueries: [
       {
-        query: GetComponentDetailGql,
-        variables: {
-          componentId,
-        },
+        query: GetLibrariesGql,
       },
     ],
   })
 
   useEffect(() => {
-    setLoading(creating)
-  }, [creating, setLoading])
+    setLoading(creatingComponentLink)
+  }, [creatingComponentLink, setLoading])
 
   const onSubmit = (submitData: DeepPartial<AddChildComponentElementInput>) => {
-    return mutate({
+    console.log(submitData)
+
+    return createComponentElement({
       variables: {
-        componentElement: {},
-        componentLink: {},
-        // input: {
-        //   component_id: componentId,
-        //   ...submitData,
-        // },
+        input: {
+          component_id: submitData.component_id,
+          atom_id: submitData.atom_id,
+        },
       },
+    }).then((res) => {
+      console.log(res)
+
+      return createComponentLink({
+        variables: {
+          input: {
+            component_id: submitData.component_id,
+            source_component_element_id: submitData.parent_component_element_id,
+            target_component_element_id:
+              res.data?.insert_component_element_one?.id,
+          },
+        },
+      })
     })
   }
 
@@ -76,6 +97,7 @@ export const AddChildComponentElementForm = ({
 
   return (
     <FormUniforms<AddChildComponentElementInput>
+      id="add-child-component-element-form"
       schema={addChildComponentElementSchema}
       onSubmit={onSubmit}
       onSubmitSuccess={() => reset()}
@@ -84,7 +106,6 @@ export const AddChildComponentElementForm = ({
       })}
       {...props}
     >
-      {/* <AutoFields omitFields={['atom_id']} /> */}
       <AutoField
         value={componentId}
         name="component_id"

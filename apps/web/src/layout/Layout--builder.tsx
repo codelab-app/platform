@@ -1,4 +1,4 @@
-import { useBuilderSelectionState } from '@codelab/frontend/builder'
+import { useBuilderSelection } from '@codelab/frontend/builder'
 import { LibraryProvider } from '@codelab/frontend/shared'
 import styled from '@emotion/styled'
 import { Layout } from 'antd'
@@ -23,7 +23,7 @@ export const LayoutBuilder = ({
   MainPane,
   MetaPane = () => <></>,
 }: PropsWithChildren<WithMainPane & WithMetaPane>) => {
-  const { reset: resetSelection } = useBuilderSelectionState()
+  const { reset: resetSelection } = useBuilderSelection()
 
   return (
     <LibraryProvider>

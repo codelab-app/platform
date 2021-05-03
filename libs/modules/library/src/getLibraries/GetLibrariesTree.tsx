@@ -1,10 +1,7 @@
 import { BookOutlined, DeploymentUnitOutlined } from '@ant-design/icons'
 import { useComponentBuilder } from '@codelab/frontend/builder'
-import { LibraryContext } from '@codelab/frontend/shared'
-import {
-  __ComponentFragment,
-  useGetComponentDetailLazyQuery,
-} from '@codelab/hasura'
+import { CheckedKeys, LibraryContext } from '@codelab/frontend/shared'
+import { useGetComponentDetailLazyQuery } from '@codelab/hasura'
 import {
   CreateAtomButtonIcon,
   CreateAtomModal,
@@ -23,13 +20,8 @@ import {
 } from '@codelab/modules/component'
 import { Space, Tree } from 'antd'
 import { DataNode } from 'antd/lib/tree'
-import React, { Key, useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import xw from 'xwind'
-
-type CheckedKeys = {
-  checked: Array<Key>
-  halfChecked: Array<Key>
-}
 
 export const GetLibrariesTree = () => {
   const { libraries } = useContext(LibraryContext)
@@ -39,10 +31,12 @@ export const GetLibrariesTree = () => {
     { called, loading, data },
   ] = useGetComponentDetailLazyQuery()
 
-  const { selectedComponent, setSelected } = useComponentBuilder()
+  const { setSelected } = useComponentBuilder()
 
   useEffect(() => {
-    setSelected(data?.component_by_pk as __ComponentFragment)
+    if (data?.component_by_pk) {
+      setSelected(data?.component_by_pk)
+    }
   }, [data])
 
   const [checkedAtomIds, setCheckedAtomIds] = useState<Array<string>>([])

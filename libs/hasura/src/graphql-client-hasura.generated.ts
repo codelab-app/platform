@@ -1338,10 +1338,10 @@ export type Component_Link = {
   props?: Maybe<Scalars['jsonb']>
   /** An object relationship */
   sourceElement: Component_Element
-  source_element_id: Scalars['uuid']
+  source_component_element_id: Scalars['uuid']
   /** An object relationship */
   targetElement: Component_Element
-  target_element_id: Scalars['uuid']
+  target_component_element_id: Scalars['uuid']
 }
 
 /** columns and relationships of "component_link" */
@@ -1426,9 +1426,9 @@ export type Component_Link_Bool_Exp = {
   order?: Maybe<Int_Comparison_Exp>
   props?: Maybe<Jsonb_Comparison_Exp>
   sourceElement?: Maybe<Component_Element_Bool_Exp>
-  source_element_id?: Maybe<Uuid_Comparison_Exp>
+  source_component_element_id?: Maybe<Uuid_Comparison_Exp>
   targetElement?: Maybe<Component_Element_Bool_Exp>
-  target_element_id?: Maybe<Uuid_Comparison_Exp>
+  target_component_element_id?: Maybe<Uuid_Comparison_Exp>
 }
 
 /** unique or primary key constraints on table "component_link" */
@@ -1467,9 +1467,9 @@ export type Component_Link_Insert_Input = {
   order?: Maybe<Scalars['Int']>
   props?: Maybe<Scalars['jsonb']>
   sourceElement?: Maybe<Component_Element_Obj_Rel_Insert_Input>
-  source_element_id?: Maybe<Scalars['uuid']>
+  source_component_element_id?: Maybe<Scalars['uuid']>
   targetElement?: Maybe<Component_Element_Obj_Rel_Insert_Input>
-  target_element_id?: Maybe<Scalars['uuid']>
+  target_component_element_id?: Maybe<Scalars['uuid']>
 }
 
 /** aggregate max on columns */
@@ -1478,8 +1478,8 @@ export type Component_Link_Max_Fields = {
   component_id?: Maybe<Scalars['uuid']>
   id?: Maybe<Scalars['uuid']>
   order?: Maybe<Scalars['Int']>
-  source_element_id?: Maybe<Scalars['uuid']>
-  target_element_id?: Maybe<Scalars['uuid']>
+  source_component_element_id?: Maybe<Scalars['uuid']>
+  target_component_element_id?: Maybe<Scalars['uuid']>
 }
 
 /** order by max() on columns of table "component_link" */
@@ -1488,8 +1488,8 @@ export type Component_Link_Max_Order_By = {
   component_id?: Maybe<Order_By>
   id?: Maybe<Order_By>
   order?: Maybe<Order_By>
-  source_element_id?: Maybe<Order_By>
-  target_element_id?: Maybe<Order_By>
+  source_component_element_id?: Maybe<Order_By>
+  target_component_element_id?: Maybe<Order_By>
 }
 
 /** aggregate min on columns */
@@ -1498,8 +1498,8 @@ export type Component_Link_Min_Fields = {
   component_id?: Maybe<Scalars['uuid']>
   id?: Maybe<Scalars['uuid']>
   order?: Maybe<Scalars['Int']>
-  source_element_id?: Maybe<Scalars['uuid']>
-  target_element_id?: Maybe<Scalars['uuid']>
+  source_component_element_id?: Maybe<Scalars['uuid']>
+  target_component_element_id?: Maybe<Scalars['uuid']>
 }
 
 /** order by min() on columns of table "component_link" */
@@ -1508,8 +1508,8 @@ export type Component_Link_Min_Order_By = {
   component_id?: Maybe<Order_By>
   id?: Maybe<Order_By>
   order?: Maybe<Order_By>
-  source_element_id?: Maybe<Order_By>
-  target_element_id?: Maybe<Order_By>
+  source_component_element_id?: Maybe<Order_By>
+  target_component_element_id?: Maybe<Order_By>
 }
 
 /** response of any mutation on the table "component_link" */
@@ -1537,9 +1537,9 @@ export type Component_Link_Order_By = {
   order?: Maybe<Order_By>
   props?: Maybe<Order_By>
   sourceElement?: Maybe<Component_Element_Order_By>
-  source_element_id?: Maybe<Order_By>
+  source_component_element_id?: Maybe<Order_By>
   targetElement?: Maybe<Component_Element_Order_By>
-  target_element_id?: Maybe<Order_By>
+  target_component_element_id?: Maybe<Order_By>
 }
 
 /** primary key columns input for table: component_link */
@@ -1565,9 +1565,9 @@ export enum Component_Link_Select_Column {
   /** column name */
   Props = 'props',
   /** column name */
-  SourceElementId = 'source_element_id',
+  SourceComponentElementId = 'source_component_element_id',
   /** column name */
-  TargetElementId = 'target_element_id',
+  TargetComponentElementId = 'target_component_element_id',
 }
 
 /** input type for updating data in table "component_link" */
@@ -1577,8 +1577,8 @@ export type Component_Link_Set_Input = {
   id?: Maybe<Scalars['uuid']>
   order?: Maybe<Scalars['Int']>
   props?: Maybe<Scalars['jsonb']>
-  source_element_id?: Maybe<Scalars['uuid']>
-  target_element_id?: Maybe<Scalars['uuid']>
+  source_component_element_id?: Maybe<Scalars['uuid']>
+  target_component_element_id?: Maybe<Scalars['uuid']>
 }
 
 /** aggregate stddev on columns */
@@ -1634,9 +1634,9 @@ export enum Component_Link_Update_Column {
   /** column name */
   Props = 'props',
   /** column name */
-  SourceElementId = 'source_element_id',
+  SourceComponentElementId = 'source_component_element_id',
   /** column name */
-  TargetElementId = 'target_element_id',
+  TargetComponentElementId = 'target_component_element_id',
 }
 
 /** aggregate var_pop on columns */
@@ -10174,7 +10174,11 @@ export type __ComponentElementFragment = Pick<
 
 export type PageElement__ComponentLinkFragment = Pick<
   Component_Link,
-  'id' | 'order' | 'props' | 'source_element_id' | 'target_element_id'
+  | 'id'
+  | 'order'
+  | 'props'
+  | 'source_component_element_id'
+  | 'target_component_element_id'
 >
 
 export type ComponentElement__HocFragment = Pick<Hoc, 'id'> & {
@@ -10815,8 +10819,8 @@ export const PageElement__ComponentLinkFragmentDoc = gql`
     id
     order
     props
-    source_element_id
-    target_element_id
+    source_component_element_id
+    target_component_element_id
   }
 `
 export const __ComponentFragmentDoc = gql`
@@ -14968,8 +14972,8 @@ export const PageElement__ComponentLink = gql`
     id
     order
     props
-    source_element_id
-    target_element_id
+    source_component_element_id
+    target_component_element_id
   }
 `
 export const __Component = gql`

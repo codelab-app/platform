@@ -2110,13 +2110,13 @@ type component_link {
   An object relationship
   """
   sourceElement: component_element!
-  source_element_id: uuid!
+  source_component_element_id: uuid!
 
   """
   An object relationship
   """
   targetElement: component_element!
-  target_element_id: uuid!
+  target_component_element_id: uuid!
 }
 
 """
@@ -2209,9 +2209,9 @@ input component_link_bool_exp {
   order: Int_comparison_exp
   props: jsonb_comparison_exp
   sourceElement: component_element_bool_exp
-  source_element_id: uuid_comparison_exp
+  source_component_element_id: uuid_comparison_exp
   targetElement: component_element_bool_exp
-  target_element_id: uuid_comparison_exp
+  target_component_element_id: uuid_comparison_exp
 }
 
 """
@@ -2264,9 +2264,9 @@ input component_link_insert_input {
   order: Int
   props: jsonb
   sourceElement: component_element_obj_rel_insert_input
-  source_element_id: uuid
+  source_component_element_id: uuid
   targetElement: component_element_obj_rel_insert_input
-  target_element_id: uuid
+  target_component_element_id: uuid
 }
 
 """
@@ -2277,8 +2277,8 @@ type component_link_max_fields {
   component_id: uuid
   id: uuid
   order: Int
-  source_element_id: uuid
-  target_element_id: uuid
+  source_component_element_id: uuid
+  target_component_element_id: uuid
 }
 
 """
@@ -2289,8 +2289,8 @@ input component_link_max_order_by {
   component_id: order_by
   id: order_by
   order: order_by
-  source_element_id: order_by
-  target_element_id: order_by
+  source_component_element_id: order_by
+  target_component_element_id: order_by
 }
 
 """
@@ -2301,8 +2301,8 @@ type component_link_min_fields {
   component_id: uuid
   id: uuid
   order: Int
-  source_element_id: uuid
-  target_element_id: uuid
+  source_component_element_id: uuid
+  target_component_element_id: uuid
 }
 
 """
@@ -2313,8 +2313,8 @@ input component_link_min_order_by {
   component_id: order_by
   id: order_by
   order: order_by
-  source_element_id: order_by
-  target_element_id: order_by
+  source_component_element_id: order_by
+  target_component_element_id: order_by
 }
 
 """
@@ -2353,9 +2353,9 @@ input component_link_order_by {
   order: order_by
   props: order_by
   sourceElement: component_element_order_by
-  source_element_id: order_by
+  source_component_element_id: order_by
   targetElement: component_element_order_by
-  target_element_id: order_by
+  target_component_element_id: order_by
 }
 
 """
@@ -2404,12 +2404,12 @@ enum component_link_select_column {
   """
   column name
   """
-  source_element_id
+  source_component_element_id
 
   """
   column name
   """
-  target_element_id
+  target_component_element_id
 }
 
 """
@@ -2421,8 +2421,8 @@ input component_link_set_input {
   id: uuid
   order: Int
   props: jsonb
-  source_element_id: uuid
-  target_element_id: uuid
+  source_component_element_id: uuid
+  target_component_element_id: uuid
 }
 
 """
@@ -2513,12 +2513,12 @@ enum component_link_update_column {
   """
   column name
   """
-  source_element_id
+  source_component_element_id
 
   """
   column name
   """
-  target_element_id
+  target_component_element_id
 }
 
 """

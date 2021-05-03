@@ -1,3 +1,4 @@
+export * from './antd'
 export * from './crudProps'
 export * from './dragAndDrop'
 export * from './Hasura'

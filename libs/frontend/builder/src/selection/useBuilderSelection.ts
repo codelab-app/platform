@@ -16,7 +16,7 @@ export const builderElementSelectionState = atom<BuilderSelectionStateType>({
   default: initialBuilderElementSelectionState,
 })
 
-export const useBuilderSelectionState = () => {
+export const useBuilderSelection = () => {
   const [selectionState, setSelectionState] = useRecoilState(
     builderElementSelectionState,
   )

@@ -1,5 +1,5 @@
 import { DeleteOutlined } from '@ant-design/icons'
-import { useBuilderSelectionState } from '@codelab/frontend/builder'
+import { useBuilderSelection } from '@codelab/frontend/builder'
 import {
   ActionType,
   CrudModal,
@@ -20,7 +20,7 @@ interface Props {
 }
 
 export const PaneConfigPageElementInspector = ({ pageElementId }: Props) => {
-  const { resetSelected } = useBuilderSelectionState()
+  const { resetSelected } = useBuilderSelection()
   const { reset } = useCRUDModalForm(EntityType.PageElement)
 
   const { data, loading } = useGetPageElementQuery({

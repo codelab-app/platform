@@ -20,7 +20,7 @@ type CreateLinkedComponentElementFormProps = UniFormUseCaseProps<CreateComponent
 /**
  * Same as CreateComponentElementForm, but links the new element to an existing source element
  */
-export const CreateLinkedComponentElementForm = ({
+export const CreateComponentLinkForm = ({
   sourceComponentElementId,
   ...props
 }: CreateLinkedComponentElementFormProps) => {
@@ -48,7 +48,7 @@ export const CreateLinkedComponentElementForm = ({
       variables: {
         input: {
           component_id: componentId,
-          source_element_id: sourceComponentElementId,
+          source_component_element_id: sourceComponentElementId,
           targetElement: {
             data: {
               component_id: componentId,

@@ -2,17 +2,17 @@ import { __ComponentFragment } from '@codelab/hasura'
 import { useCallback } from 'react'
 import { atom, useRecoilState } from 'recoil'
 
-export interface ComponentBuilderStateType {
+interface ComponentBuilderStateType {
   selectedComponent: __ComponentFragment | undefined
   hoveringComponent: __ComponentFragment | undefined
 }
 
-export const initialComponentBuilderState: ComponentBuilderStateType = {
+const initialComponentBuilderState: ComponentBuilderStateType = {
   selectedComponent: undefined,
   hoveringComponent: undefined,
 }
 
-export const componentBuilderState = atom<ComponentBuilderStateType>({
+const componentBuilderState = atom<ComponentBuilderStateType>({
   key: 'componentBuilderState',
   default: initialComponentBuilderState,
 })
@@ -23,7 +23,7 @@ export const useComponentBuilder = () => {
   )
 
   const setSelected = useCallback(
-    (selectedComponent: __ComponentFragment | undefined) => {
+    (selectedComponent: __ComponentFragment) => {
       return setSelectionState((s) => ({
         ...s,
         selectedComponent,
@@ -70,6 +70,13 @@ export const useComponentBuilder = () => {
     setHovering,
     hoveringComponent: selectionState.hoveringComponent,
     selectedComponent: selectionState.selectedComponent,
+    getSelectedComponentId: () => {
+      if (!selectionState?.selectedComponent?.id) {
+        throw new Error('No Component is selected')
+      }
+
+      return selectionState.selectedComponent.id
+    },
     resetSelected,
     reset,
   }

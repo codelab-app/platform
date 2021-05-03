@@ -25,6 +25,8 @@ export const FormUniforms = <TData extends Record<string, unknown>>({
       onSubmit={(formData: DeepPartial<TData>) => {
         const result = onSubmit(formData)
 
+        console.log(result)
+
         if (!result) {
           return result
         }

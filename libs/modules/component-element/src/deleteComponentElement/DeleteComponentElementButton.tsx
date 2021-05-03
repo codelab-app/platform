@@ -1,26 +1,27 @@
-import { EntityType, useCRUDModalForm } from '@codelab/frontend/shared'
-import { Button, ButtonProps } from 'antd'
-import React, { PropsWithChildren } from 'react'
-
-interface Props extends Omit<ButtonProps, 'onClick'> {
-  componentElementId: string
-}
+import { DeleteOutlined } from '@ant-design/icons'
+import {
+  DeleteButtonProps,
+  EntityType,
+  useCRUDModalForm,
+} from '@codelab/frontend/shared'
+import { Button } from 'antd'
+import React from 'react'
 
 export const DeleteComponentElementButton = ({
-  componentElementId,
-  children,
-  ...props
-}: PropsWithChildren<Props>) => {
+  ids,
+  disabled,
+}: DeleteButtonProps) => {
   const { openDeleteModal } = useCRUDModalForm(EntityType.ComponentElement)
 
   return (
     <Button
+      size="small"
+      danger
+      disabled={disabled}
+      icon={<DeleteOutlined />}
       onClick={() => {
-        openDeleteModal([componentElementId])
+        openDeleteModal(ids)
       }}
-      {...props}
-    >
-      {children || (props?.icon ? '' : 'Delete')}
-    </Button>
+    />
   )
 }

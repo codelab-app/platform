@@ -1,4 +1,4 @@
-import { useBuilderSelectionState } from '@codelab/frontend/builder'
+import { useBuilderSelection } from '@codelab/frontend/builder'
 import { CytoscapeService } from '@codelab/frontend/cytoscape'
 import { MainPaneTemplate } from '@codelab/frontend/layout'
 import {
@@ -18,7 +18,7 @@ import {
 } from '../pageElement/createPageElement'
 
 export const PaneMainTree = () => {
-  const { setSelected, setHovering, resetHovering } = useBuilderSelectionState()
+  const { setSelected, setHovering, resetHovering } = useBuilderSelection()
   const { page } = useContext(AppContext)
   let data: DataNode | undefined
 
