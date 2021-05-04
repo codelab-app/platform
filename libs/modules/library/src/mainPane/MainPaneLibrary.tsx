@@ -3,7 +3,7 @@ import React from 'react'
 import { CreateLibraryModal } from '../createLibrary'
 import { CreateLibraryButton } from '../createLibrary/CreateLibraryButton'
 import { DeleteLibraryModal } from '../deleteLibrary/DeleteLibraryModal'
-import { GetLibrariesTree } from '../getLibraries/GetLibrariesTree'
+import { GetLibrariesTree } from '../libraryExplorer/LibraryExplorerTree'
 import { UpdateLibraryModal } from '../updateLibrary'
 
 export const MainPaneLibrary = () => {

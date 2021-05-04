@@ -1,0 +1,4 @@
+fragment GetLibraryOverview__Library on library {
+  id
+  name
+}

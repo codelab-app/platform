@@ -1,33 +1,33 @@
 fragment __Library on library {
   id
   name
-  categories {
-    ...Library__Category
-  }
-  components {
-    ...__Component
-  }
-  atoms {
-    ...__Atom
-  }
-  lambdas {
-    ...Library__Lambda
-  }
-  propTypes {
-    propTypes {
-      ...PropTypeCollection__PropType
-    }
-  }
-  props {
-    props {
-      ...PropCollection__Prop
-    }
-  }
-  styles {
-    ...Library__Style
-  }
-  tags {
-    ...__Tag
-  }
-  user_id
+  # user_id
+  # categories {
+  #   ...Library__Category
+  # }
+  # components {
+  #   ...__Component
+  # }
+  # atoms {
+  #   ...__Atom
+  # }
+  # lambdas {
+  #   ...Library__Lambda
+  # }
+  # propTypes {
+  #   propTypes {
+  #     ...PropTypeCollection__PropType
+  #   }
+  # }
+  # props {
+  #   props {
+  #     ...PropCollection__Prop
+  #   }
+  # }
+  # styles {
+  #   ...Library__Style
+  # }
+  # tags {
+  #   ...__Tag
+  # }
 }

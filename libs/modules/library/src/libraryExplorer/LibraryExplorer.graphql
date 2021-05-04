@@ -1,0 +1,5 @@
+query GetLibrariesOverview {
+  library {
+    ...GetLibraryOverview__Library
+  }
+}

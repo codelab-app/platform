@@ -1,5 +1,0 @@
-query GetLibraries {
-  library {
-    ...__Library
-  }
-}
