@@ -4479,6 +4479,21 @@ type mutation_root {
   delete_tag_atom_by_pk(atom_id: uuid!, tag_id: uuid!): tag_atom
 
   """
+  delete data from the table: "tag_atom_type"
+  """
+  delete_tag_atom_type(
+    """
+    filter the rows which have to be deleted
+    """
+    where: tag_atom_type_bool_exp!
+  ): tag_atom_type_mutation_response
+
+  """
+  delete single row from the table: "tag_atom_type"
+  """
+  delete_tag_atom_type_by_pk(id: uuid!): tag_atom_type
+
+  """
   delete single row from the table: "tag"
   """
   delete_tag_by_pk(id: uuid!): tag
@@ -5344,6 +5359,36 @@ type mutation_root {
     """
     on_conflict: tag_atom_on_conflict
   ): tag_atom
+
+  """
+  insert data into the table: "tag_atom_type"
+  """
+  insert_tag_atom_type(
+    """
+    the rows to be inserted
+    """
+    objects: [tag_atom_type_insert_input!]!
+
+    """
+    on conflict condition
+    """
+    on_conflict: tag_atom_type_on_conflict
+  ): tag_atom_type_mutation_response
+
+  """
+  insert a single row into the table: "tag_atom_type"
+  """
+  insert_tag_atom_type_one(
+    """
+    the row to be inserted
+    """
+    object: tag_atom_type_insert_input!
+
+    """
+    on conflict condition
+    """
+    on_conflict: tag_atom_type_on_conflict
+  ): tag_atom_type
 
   """
   insert data into the table: "tag_component"
@@ -6358,6 +6403,32 @@ type mutation_root {
     _set: tag_atom_set_input
     pk_columns: tag_atom_pk_columns_input!
   ): tag_atom
+
+  """
+  update data of the table: "tag_atom_type"
+  """
+  update_tag_atom_type(
+    """
+    sets the columns of the filtered rows to the given values
+    """
+    _set: tag_atom_type_set_input
+
+    """
+    filter the rows which have to be updated
+    """
+    where: tag_atom_type_bool_exp!
+  ): tag_atom_type_mutation_response
+
+  """
+  update single row of the table: "tag_atom_type"
+  """
+  update_tag_atom_type_by_pk(
+    """
+    sets the columns of the filtered rows to the given values
+    """
+    _set: tag_atom_type_set_input
+    pk_columns: tag_atom_type_pk_columns_input!
+  ): tag_atom_type
 
   """
   update single row of the table: "tag"
@@ -11079,6 +11150,71 @@ type query_root {
   tag_atom_by_pk(atom_id: uuid!, tag_id: uuid!): tag_atom
 
   """
+  fetch data from the table: "tag_atom_type"
+  """
+  tag_atom_type(
+    """
+    distinct select on columns
+    """
+    distinct_on: [tag_atom_type_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [tag_atom_type_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: tag_atom_type_bool_exp
+  ): [tag_atom_type!]!
+
+  """
+  fetch aggregated fields from the table: "tag_atom_type"
+  """
+  tag_atom_type_aggregate(
+    """
+    distinct select on columns
+    """
+    distinct_on: [tag_atom_type_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [tag_atom_type_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: tag_atom_type_bool_exp
+  ): tag_atom_type_aggregate!
+
+  """
+  fetch data from the table: "tag_atom_type" using primary key columns
+  """
+  tag_atom_type_by_pk(id: uuid!): tag_atom_type
+
+  """
   fetch data from the table: "tag" using primary key columns
   """
   tag_by_pk(id: uuid!): tag
@@ -14158,6 +14294,71 @@ type subscription_root {
   tag_atom_by_pk(atom_id: uuid!, tag_id: uuid!): tag_atom
 
   """
+  fetch data from the table: "tag_atom_type"
+  """
+  tag_atom_type(
+    """
+    distinct select on columns
+    """
+    distinct_on: [tag_atom_type_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [tag_atom_type_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: tag_atom_type_bool_exp
+  ): [tag_atom_type!]!
+
+  """
+  fetch aggregated fields from the table: "tag_atom_type"
+  """
+  tag_atom_type_aggregate(
+    """
+    distinct select on columns
+    """
+    distinct_on: [tag_atom_type_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [tag_atom_type_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: tag_atom_type_bool_exp
+  ): tag_atom_type_aggregate!
+
+  """
+  fetch data from the table: "tag_atom_type" using primary key columns
+  """
+  tag_atom_type_by_pk(id: uuid!): tag_atom_type
+
+  """
   fetch data from the table: "tag" using primary key columns
   """
   tag_by_pk(id: uuid!): tag
@@ -15343,6 +15544,136 @@ input type for updating data in table "tag_atom"
 input tag_atom_set_input {
   atom_id: uuid
   tag_id: uuid
+}
+
+"""
+columns and relationships of "tag_atom_type"
+"""
+type tag_atom_type {
+  id: uuid!
+}
+
+"""
+aggregated selection of "tag_atom_type"
+"""
+type tag_atom_type_aggregate {
+  aggregate: tag_atom_type_aggregate_fields
+  nodes: [tag_atom_type!]!
+}
+
+"""
+aggregate fields of "tag_atom_type"
+"""
+type tag_atom_type_aggregate_fields {
+  count(columns: [tag_atom_type_select_column!], distinct: Boolean): Int!
+  max: tag_atom_type_max_fields
+  min: tag_atom_type_min_fields
+}
+
+"""
+Boolean expression to filter rows from the table "tag_atom_type". All fields are combined with a logical 'AND'.
+"""
+input tag_atom_type_bool_exp {
+  _and: [tag_atom_type_bool_exp!]
+  _not: tag_atom_type_bool_exp
+  _or: [tag_atom_type_bool_exp!]
+  id: uuid_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "tag_atom_type"
+"""
+enum tag_atom_type_constraint {
+  """
+  unique or primary key constraint
+  """
+  tag_atom_type_pkey
+}
+
+"""
+input type for inserting data into table "tag_atom_type"
+"""
+input tag_atom_type_insert_input {
+  id: uuid
+}
+
+"""
+aggregate max on columns
+"""
+type tag_atom_type_max_fields {
+  id: uuid
+}
+
+"""
+aggregate min on columns
+"""
+type tag_atom_type_min_fields {
+  id: uuid
+}
+
+"""
+response of any mutation on the table "tag_atom_type"
+"""
+type tag_atom_type_mutation_response {
+  """
+  number of rows affected by the mutation
+  """
+  affected_rows: Int!
+
+  """
+  data from the rows affected by the mutation
+  """
+  returning: [tag_atom_type!]!
+}
+
+"""
+on conflict condition type for table "tag_atom_type"
+"""
+input tag_atom_type_on_conflict {
+  constraint: tag_atom_type_constraint!
+  update_columns: [tag_atom_type_update_column!]!
+  where: tag_atom_type_bool_exp
+}
+
+"""
+Ordering options when selecting data from "tag_atom_type".
+"""
+input tag_atom_type_order_by {
+  id: order_by
+}
+
+"""
+primary key columns input for table: tag_atom_type
+"""
+input tag_atom_type_pk_columns_input {
+  id: uuid!
+}
+
+"""
+select columns of table "tag_atom_type"
+"""
+enum tag_atom_type_select_column {
+  """
+  column name
+  """
+  id
+}
+
+"""
+input type for updating data in table "tag_atom_type"
+"""
+input tag_atom_type_set_input {
+  id: uuid
+}
+
+"""
+update columns of table "tag_atom_type"
+"""
+enum tag_atom_type_update_column {
+  """
+  column name
+  """
+  id
 }
 
 """

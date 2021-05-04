@@ -2610,6 +2610,10 @@ export type Mutation_Root = {
   delete_tag_atom?: Maybe<Tag_Atom_Mutation_Response>
   /** delete single row from the table: "tag_atom" */
   delete_tag_atom_by_pk?: Maybe<Tag_Atom>
+  /** delete data from the table: "tag_atom_type" */
+  delete_tag_atom_type?: Maybe<Tag_Atom_Type_Mutation_Response>
+  /** delete single row from the table: "tag_atom_type" */
+  delete_tag_atom_type_by_pk?: Maybe<Tag_Atom_Type>
   /** delete single row from the table: "tag" */
   delete_tag_by_pk?: Maybe<Tag>
   /** delete data from the table: "tag_component" */
@@ -2743,6 +2747,10 @@ export type Mutation_Root = {
   insert_tag_atom?: Maybe<Tag_Atom_Mutation_Response>
   /** insert a single row into the table: "tag_atom" */
   insert_tag_atom_one?: Maybe<Tag_Atom>
+  /** insert data into the table: "tag_atom_type" */
+  insert_tag_atom_type?: Maybe<Tag_Atom_Type_Mutation_Response>
+  /** insert a single row into the table: "tag_atom_type" */
+  insert_tag_atom_type_one?: Maybe<Tag_Atom_Type>
   /** insert data into the table: "tag_component" */
   insert_tag_component?: Maybe<Tag_Component_Mutation_Response>
   /** insert a single row into the table: "tag_component" */
@@ -2875,6 +2883,10 @@ export type Mutation_Root = {
   update_tag_atom?: Maybe<Tag_Atom_Mutation_Response>
   /** update single row of the table: "tag_atom" */
   update_tag_atom_by_pk?: Maybe<Tag_Atom>
+  /** update data of the table: "tag_atom_type" */
+  update_tag_atom_type?: Maybe<Tag_Atom_Type_Mutation_Response>
+  /** update single row of the table: "tag_atom_type" */
+  update_tag_atom_type_by_pk?: Maybe<Tag_Atom_Type>
   /** update single row of the table: "tag" */
   update_tag_by_pk?: Maybe<Tag>
   /** update data of the table: "tag_component" */
@@ -3159,6 +3171,16 @@ export type Mutation_RootDelete_Tag_AtomArgs = {
 export type Mutation_RootDelete_Tag_Atom_By_PkArgs = {
   atom_id: Scalars['uuid']
   tag_id: Scalars['uuid']
+}
+
+/** mutation root */
+export type Mutation_RootDelete_Tag_Atom_TypeArgs = {
+  where: Tag_Atom_Type_Bool_Exp
+}
+
+/** mutation root */
+export type Mutation_RootDelete_Tag_Atom_Type_By_PkArgs = {
+  id: Scalars['uuid']
 }
 
 /** mutation root */
@@ -3550,6 +3572,18 @@ export type Mutation_RootInsert_Tag_AtomArgs = {
 export type Mutation_RootInsert_Tag_Atom_OneArgs = {
   object: Tag_Atom_Insert_Input
   on_conflict?: Maybe<Tag_Atom_On_Conflict>
+}
+
+/** mutation root */
+export type Mutation_RootInsert_Tag_Atom_TypeArgs = {
+  objects: Array<Tag_Atom_Type_Insert_Input>
+  on_conflict?: Maybe<Tag_Atom_Type_On_Conflict>
+}
+
+/** mutation root */
+export type Mutation_RootInsert_Tag_Atom_Type_OneArgs = {
+  object: Tag_Atom_Type_Insert_Input
+  on_conflict?: Maybe<Tag_Atom_Type_On_Conflict>
 }
 
 /** mutation root */
@@ -3970,6 +4004,18 @@ export type Mutation_RootUpdate_Tag_AtomArgs = {
 export type Mutation_RootUpdate_Tag_Atom_By_PkArgs = {
   _set?: Maybe<Tag_Atom_Set_Input>
   pk_columns: Tag_Atom_Pk_Columns_Input
+}
+
+/** mutation root */
+export type Mutation_RootUpdate_Tag_Atom_TypeArgs = {
+  _set?: Maybe<Tag_Atom_Type_Set_Input>
+  where: Tag_Atom_Type_Bool_Exp
+}
+
+/** mutation root */
+export type Mutation_RootUpdate_Tag_Atom_Type_By_PkArgs = {
+  _set?: Maybe<Tag_Atom_Type_Set_Input>
+  pk_columns: Tag_Atom_Type_Pk_Columns_Input
 }
 
 /** mutation root */
@@ -5998,6 +6044,12 @@ export type Query_Root = {
   tag_atom_aggregate: Tag_Atom_Aggregate
   /** fetch data from the table: "tag_atom" using primary key columns */
   tag_atom_by_pk?: Maybe<Tag_Atom>
+  /** fetch data from the table: "tag_atom_type" */
+  tag_atom_type: Array<Tag_Atom_Type>
+  /** fetch aggregated fields from the table: "tag_atom_type" */
+  tag_atom_type_aggregate: Tag_Atom_Type_Aggregate
+  /** fetch data from the table: "tag_atom_type" using primary key columns */
+  tag_atom_type_by_pk?: Maybe<Tag_Atom_Type>
   /** fetch data from the table: "tag" using primary key columns */
   tag_by_pk?: Maybe<Tag>
   /** fetch data from the table: "tag_component" */
@@ -6567,6 +6619,26 @@ export type Query_RootTag_Atom_AggregateArgs = {
 export type Query_RootTag_Atom_By_PkArgs = {
   atom_id: Scalars['uuid']
   tag_id: Scalars['uuid']
+}
+
+export type Query_RootTag_Atom_TypeArgs = {
+  distinct_on?: Maybe<Array<Tag_Atom_Type_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<Tag_Atom_Type_Order_By>>
+  where?: Maybe<Tag_Atom_Type_Bool_Exp>
+}
+
+export type Query_RootTag_Atom_Type_AggregateArgs = {
+  distinct_on?: Maybe<Array<Tag_Atom_Type_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<Tag_Atom_Type_Order_By>>
+  where?: Maybe<Tag_Atom_Type_Bool_Exp>
+}
+
+export type Query_RootTag_Atom_Type_By_PkArgs = {
+  id: Scalars['uuid']
 }
 
 export type Query_RootTag_By_PkArgs = {
@@ -7496,6 +7568,12 @@ export type Subscription_Root = {
   tag_atom_aggregate: Tag_Atom_Aggregate
   /** fetch data from the table: "tag_atom" using primary key columns */
   tag_atom_by_pk?: Maybe<Tag_Atom>
+  /** fetch data from the table: "tag_atom_type" */
+  tag_atom_type: Array<Tag_Atom_Type>
+  /** fetch aggregated fields from the table: "tag_atom_type" */
+  tag_atom_type_aggregate: Tag_Atom_Type_Aggregate
+  /** fetch data from the table: "tag_atom_type" using primary key columns */
+  tag_atom_type_by_pk?: Maybe<Tag_Atom_Type>
   /** fetch data from the table: "tag" using primary key columns */
   tag_by_pk?: Maybe<Tag>
   /** fetch data from the table: "tag_component" */
@@ -8067,6 +8145,26 @@ export type Subscription_RootTag_Atom_By_PkArgs = {
   tag_id: Scalars['uuid']
 }
 
+export type Subscription_RootTag_Atom_TypeArgs = {
+  distinct_on?: Maybe<Array<Tag_Atom_Type_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<Tag_Atom_Type_Order_By>>
+  where?: Maybe<Tag_Atom_Type_Bool_Exp>
+}
+
+export type Subscription_RootTag_Atom_Type_AggregateArgs = {
+  distinct_on?: Maybe<Array<Tag_Atom_Type_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<Tag_Atom_Type_Order_By>>
+  where?: Maybe<Tag_Atom_Type_Bool_Exp>
+}
+
+export type Subscription_RootTag_Atom_Type_By_PkArgs = {
+  id: Scalars['uuid']
+}
+
 export type Subscription_RootTag_By_PkArgs = {
   id: Scalars['uuid']
 }
@@ -8569,6 +8667,101 @@ export enum Tag_Atom_Select_Column {
 export type Tag_Atom_Set_Input = {
   atom_id?: Maybe<Scalars['uuid']>
   tag_id?: Maybe<Scalars['uuid']>
+}
+
+/** columns and relationships of "tag_atom_type" */
+export type Tag_Atom_Type = {
+  id: Scalars['uuid']
+}
+
+/** aggregated selection of "tag_atom_type" */
+export type Tag_Atom_Type_Aggregate = {
+  aggregate?: Maybe<Tag_Atom_Type_Aggregate_Fields>
+  nodes: Array<Tag_Atom_Type>
+}
+
+/** aggregate fields of "tag_atom_type" */
+export type Tag_Atom_Type_Aggregate_Fields = {
+  count: Scalars['Int']
+  max?: Maybe<Tag_Atom_Type_Max_Fields>
+  min?: Maybe<Tag_Atom_Type_Min_Fields>
+}
+
+/** aggregate fields of "tag_atom_type" */
+export type Tag_Atom_Type_Aggregate_FieldsCountArgs = {
+  columns?: Maybe<Array<Tag_Atom_Type_Select_Column>>
+  distinct?: Maybe<Scalars['Boolean']>
+}
+
+/** Boolean expression to filter rows from the table "tag_atom_type". All fields are combined with a logical 'AND'. */
+export type Tag_Atom_Type_Bool_Exp = {
+  _and?: Maybe<Array<Tag_Atom_Type_Bool_Exp>>
+  _not?: Maybe<Tag_Atom_Type_Bool_Exp>
+  _or?: Maybe<Array<Tag_Atom_Type_Bool_Exp>>
+  id?: Maybe<Uuid_Comparison_Exp>
+}
+
+/** unique or primary key constraints on table "tag_atom_type" */
+export enum Tag_Atom_Type_Constraint {
+  /** unique or primary key constraint */
+  TagAtomTypePkey = 'tag_atom_type_pkey',
+}
+
+/** input type for inserting data into table "tag_atom_type" */
+export type Tag_Atom_Type_Insert_Input = {
+  id?: Maybe<Scalars['uuid']>
+}
+
+/** aggregate max on columns */
+export type Tag_Atom_Type_Max_Fields = {
+  id?: Maybe<Scalars['uuid']>
+}
+
+/** aggregate min on columns */
+export type Tag_Atom_Type_Min_Fields = {
+  id?: Maybe<Scalars['uuid']>
+}
+
+/** response of any mutation on the table "tag_atom_type" */
+export type Tag_Atom_Type_Mutation_Response = {
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']
+  /** data from the rows affected by the mutation */
+  returning: Array<Tag_Atom_Type>
+}
+
+/** on conflict condition type for table "tag_atom_type" */
+export type Tag_Atom_Type_On_Conflict = {
+  constraint: Tag_Atom_Type_Constraint
+  update_columns: Array<Tag_Atom_Type_Update_Column>
+  where?: Maybe<Tag_Atom_Type_Bool_Exp>
+}
+
+/** Ordering options when selecting data from "tag_atom_type". */
+export type Tag_Atom_Type_Order_By = {
+  id?: Maybe<Order_By>
+}
+
+/** primary key columns input for table: tag_atom_type */
+export type Tag_Atom_Type_Pk_Columns_Input = {
+  id: Scalars['uuid']
+}
+
+/** select columns of table "tag_atom_type" */
+export enum Tag_Atom_Type_Select_Column {
+  /** column name */
+  Id = 'id',
+}
+
+/** input type for updating data in table "tag_atom_type" */
+export type Tag_Atom_Type_Set_Input = {
+  id?: Maybe<Scalars['uuid']>
+}
+
+/** update columns of table "tag_atom_type" */
+export enum Tag_Atom_Type_Update_Column {
+  /** column name */
+  Id = 'id',
 }
 
 /** update columns of table "tag_atom" */
