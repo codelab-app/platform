@@ -5,6 +5,21 @@ schema {
 }
 
 """
+Boolean expression to compare columns of type "Boolean". All fields are combined with logical 'AND'.
+"""
+input Boolean_comparison_exp {
+  _eq: Boolean
+  _gt: Boolean
+  _gte: Boolean
+  _in: [Boolean!]
+  _is_null: Boolean
+  _lt: Boolean
+  _lte: Boolean
+  _neq: Boolean
+  _nin: [Boolean!]
+}
+
+"""
 Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'.
 """
 input Int_comparison_exp {
@@ -8441,6 +8456,7 @@ columns and relationships of "prop_type"
 """
 type prop_type {
   id: uuid!
+  isArray: Boolean!
   key: String!
 
   """
@@ -8452,8 +8468,8 @@ type prop_type {
   """
   An object relationship
   """
-  type: value_type
-  value_type: value_type_enum
+  type: value_type!
+  value_type: value_type_enum!
 }
 
 """
@@ -8502,6 +8518,7 @@ input prop_type_bool_exp {
   _not: prop_type_bool_exp
   _or: [prop_type_bool_exp!]
   id: uuid_comparison_exp
+  isArray: Boolean_comparison_exp
   key: String_comparison_exp
   propTypeCollection: prop_type_c_bool_exp
   prop_type_c_id: uuid_comparison_exp
@@ -8878,6 +8895,7 @@ input type for inserting data into table "prop_type"
 """
 input prop_type_insert_input {
   id: uuid
+  isArray: Boolean
   key: String
   propTypeCollection: prop_type_c_obj_rel_insert_input
   prop_type_c_id: uuid
@@ -8962,6 +8980,7 @@ Ordering options when selecting data from "prop_type".
 """
 input prop_type_order_by {
   id: order_by
+  isArray: order_by
   key: order_by
   propTypeCollection: prop_type_c_order_by
   prop_type_c_id: order_by
@@ -8988,6 +9007,11 @@ enum prop_type_select_column {
   """
   column name
   """
+  isArray
+
+  """
+  column name
+  """
   key
 
   """
@@ -9006,6 +9030,7 @@ input type for updating data in table "prop_type"
 """
 input prop_type_set_input {
   id: uuid
+  isArray: Boolean
   key: String
   prop_type_c_id: uuid
   value_type: value_type_enum
@@ -9019,6 +9044,11 @@ enum prop_type_update_column {
   column name
   """
   id
+
+  """
+  column name
+  """
+  isArray
 
   """
   column name

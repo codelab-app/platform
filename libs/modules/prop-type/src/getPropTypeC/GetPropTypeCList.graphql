@@ -1,0 +1,5 @@
+query GetPropTypeCList($where: prop_type_c_bool_exp) {
+  prop_type_c(where: $where) {
+    ...PropTypeCollection
+  }
+}

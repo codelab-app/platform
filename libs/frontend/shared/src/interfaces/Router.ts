@@ -15,6 +15,7 @@ export enum PageType {
   AtomList = '/library/[libraryId]/atom',
   LibraryDetail = '/library/[libraryId]',
   Library = '/library',
+  PropTypeC = '/library/[libraryId]/proptypec',
 }
 
 export enum PaneType {
@@ -22,6 +23,7 @@ export enum PaneType {
   Component = 'component',
   Atom = 'atom',
   Library = 'library',
+  PropTypeC = 'propTypeC',
 }
 
 type PropsWithRouter = {

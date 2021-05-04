@@ -1,19 +1,14 @@
 {
   "implicitDependencies": {
     "workspace.json": "*",
-    "package.json": {
-      "dependencies": "*",
-      "devDependencies": "*"
-    },
+    "package.json": { "dependencies": "*", "devDependencies": "*" },
     "tslint.json": "*",
     "nx.json": "*",
     "tsconfig.base.json": "*",
     ".eslintrc.js": "*",
     ".eslintrc.json": "*"
   },
-  "affected": {
-    "defaultBase": "master"
-  },
+  "affected": { "defaultBase": "master" },
   "npmScope": "codelab",
   "tasksRunnerOptions": {
     "default": {
@@ -26,79 +21,30 @@
     }
   },
   "projects": {
-    "web": {
-      "tags": [],
-      "implicitDependencies": ["api"]
-    },
-    "web-e2e": {
-      "tags": [],
-      "implicitDependencies": ["web"]
-    },
-    "backend": {
-      "tags": []
-    },
-    "api": {
-      "tags": []
-    },
-    "modules-app": {
-      "tags": []
-    },
-    "modules-category": {
-      "tags": []
-    },
-    "modules-component": {
-      "tags": []
-    },
-    "modules-lambda": {
-      "tags": []
-    },
-    "modules-library": {
-      "tags": []
-    },
-    "modules-page": {
-      "tags": []
-    },
-    "modules-prop": {
-      "tags": []
-    },
-    "modules-style": {
-      "tags": []
-    },
-    "modules-user": {
-      "tags": []
-    },
-    "frontend-shared": {
-      "tags": []
-    },
-    "frontend-layout": {
-      "tags": []
-    },
-    "frontend-builder": {
-      "tags": []
-    },
-    "frontend-style": {
-      "tags": []
-    },
-    "frontend-apollo": {
-      "tags": []
-    },
-    "frontend-cytoscape": {
-      "tags": []
-    },
-    "modules-atom": {
-      "tags": []
-    },
-    "hasura": {
-      "tags": []
-    },
-    "modules-lambda-api": {
-      "tags": []
-    },
-    "doc": {
-      "tags": []
-    },
-    "modules-component-element": {
-      "tags": []
-    }
+    "web": { "tags": [], "implicitDependencies": ["api"] },
+    "web-e2e": { "tags": [], "implicitDependencies": ["web"] },
+    "backend": { "tags": [] },
+    "api": { "tags": [] },
+    "modules-app": { "tags": [] },
+    "modules-category": { "tags": [] },
+    "modules-component": { "tags": [] },
+    "modules-lambda": { "tags": [] },
+    "modules-library": { "tags": [] },
+    "modules-page": { "tags": [] },
+    "modules-prop": { "tags": [] },
+    "modules-style": { "tags": [] },
+    "modules-user": { "tags": [] },
+    "frontend-shared": { "tags": [] },
+    "frontend-layout": { "tags": [] },
+    "frontend-builder": { "tags": [] },
+    "frontend-style": { "tags": [] },
+    "frontend-apollo": { "tags": [] },
+    "frontend-cytoscape": { "tags": [] },
+    "modules-atom": { "tags": [] },
+    "hasura": { "tags": [] },
+    "modules-lambda-api": { "tags": [] },
+    "doc": { "tags": [] },
+    "modules-component-element": { "tags": [] },
+    "modules-prop-type": { "tags": [] }
   }
 }

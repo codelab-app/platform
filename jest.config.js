@@ -7,5 +7,6 @@ module.exports = {
     '<rootDir>/libs/modules/atom',
     '<rootDir>/libs/modules/lambda-api',
     '<rootDir>/apps/api',
+    '<rootDir>/libs/modules/prop-type',
   ],
 }

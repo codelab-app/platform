@@ -657,6 +657,27 @@
           }
         }
       }
+    },
+    "modules-prop-type": {
+      "root": "libs/modules/prop-type",
+      "sourceRoot": "libs/modules/prop-type/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/modules/prop-type/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/modules/prop-type"],
+          "options": {
+            "jestConfig": "libs/modules/prop-type/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   }
 }

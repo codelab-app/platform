@@ -1,0 +1,5 @@
+mutation CreatePropTypeC($data: prop_type_c_insert_input!) {
+  insert_prop_type_c_one(object: $data) {
+    id
+  }
+}

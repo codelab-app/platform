@@ -43,7 +43,8 @@
       "@codelab/modules/lambda-api": ["libs/modules/lambda-api/src/index.ts"],
       "@codelab/modules/component-element": [
         "libs/modules/component-element/src/index.ts"
-      ]
+      ],
+      "@codelab/modules/prop-type": ["libs/modules/prop-type/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"]

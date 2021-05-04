@@ -79,6 +79,21 @@ export const LayoutNavigations = () => {
         >
           Lambda
         </Menu.Item>
+        <Menu.Item
+          key={PageType.PropTypeC}
+          icon={<div title="PropTypeC">PTC</div>}
+        >
+          <Link
+            href={{
+              pathname: PageType.PropTypeC,
+              query: {
+                libraryId: libraries?.[0].id,
+              },
+            }}
+          >
+            PropTypeC
+          </Link>
+        </Menu.Item>
         <Menu.Divider />
       </Menu>
     </div>

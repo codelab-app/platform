@@ -1,0 +1,5 @@
+mutation UpdatePropTypeC($input: prop_type_c_set_input!, $propTypeCId: uuid!) {
+  update_prop_type_c_by_pk(_set: $input, pk_columns: { id: $propTypeCId }) {
+    ...PropTypeCollection
+  }
+}
