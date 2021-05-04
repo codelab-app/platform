@@ -22,6 +22,7 @@ export const DeleteAppForm = (props: DeleteAppFormProps) => {
   const { deleteIds: appDeleteIds } = state
 
   const [mutate, { loading: deleting }] = useDeleteAppMutation({
+    awaitRefetchQueries: true,
     refetchQueries: [
       {
         query: GetAppsListGql,

@@ -1,10 +1,10 @@
 import '@testing-library/cypress/add-commands'
+import { AtomType } from '@codelab/frontend/shared'
 import {
   __AtomFragment,
   __ComponentFragment,
   __LibraryFragment,
   App_Insert_Input,
-  Atom_Type_Enum,
   CreateAppGql,
   CreateAtomGql,
   CreateComponentGql,
@@ -188,7 +188,7 @@ const createComponent = (libraryId: string, label = 'Test component') => {
 
 Cypress.Commands.add('createComponent', createComponent)
 
-const createAtom = (atomType: Atom_Type_Enum) => {
+const createAtom = (atomType: AtomType) => {
   return cy
     .hasuraAdminRequest({
       query: print(CreateAtomGql),
@@ -260,7 +260,7 @@ export const findByButtonText = (
   options?: SelectorMatcherOptions,
 ): Cypress.Chainable<JQuery> => {
   return (subject ? cy.wrap(subject) : cy).findByRole('button', {
-    name: text,
+    name: `${text}`,
     exact: false,
     timeout: 5000,
     ...options,

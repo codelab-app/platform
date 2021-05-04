@@ -87,7 +87,7 @@ describe('Component element', () => {
 
     cy.getOpenedModal().findByLabelText('Label').type(label)
     cy.getOpenedModal().findByLabelText('Atom').click()
-    cy.getSelectOptionItemByValue(atom.type).first().click()
+    cy.getSelectOptionItemByValue(atom.type.label).first().click()
     cy.getOpenedModal()
       .findByRole('button', { name: 'Create component element' })
       .click() //Click the submit button
@@ -119,7 +119,7 @@ describe('Component element', () => {
       //Create the component element
       cy.getOpenedModal().findByLabelText('Label').type(childLabel)
       cy.getOpenedModal().openSelectByLabel('Atom')
-      cy.getSelectOptionItemByValue(atom.type).first().click()
+      cy.getSelectOptionItemByValue(atom.type.label).first().click()
       cy.getOpenedModal().findByRole('button', { name: 'Create' }).click() //Click the submit button
 
       cy.wait('@graphql') //Wait for the request to finish
@@ -151,7 +151,9 @@ describe('Component element', () => {
 
       cy.getByTestId('pane-config').openSelectByLabel('Atom')
 
-      cy.getSelectOptionItemByValue(atom.type).first().click({ force: true })
+      cy.getSelectOptionItemByValue(atom.type.label)
+        .first()
+        .click({ force: true })
 
       cy.wait('@graphql') //it should auto save, wait for the request to finish
 

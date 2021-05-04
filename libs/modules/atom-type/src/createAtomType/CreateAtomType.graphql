@@ -1,0 +1,5 @@
+mutation CreateAtomType($input: atom_type_insert_input!) {
+  insert_atom_type_one(object: $input) {
+    ...__AtomType
+  }
+}

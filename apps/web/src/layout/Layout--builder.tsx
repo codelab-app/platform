@@ -21,7 +21,7 @@ const MetaPaneSection = styled('div')`
 export const LayoutBuilder = ({
   children,
   MainPane,
-  MetaPane = () => <></>,
+  MetaPane = undefined,
 }: PropsWithChildren<WithMainPane & WithMetaPane>) => {
   const { reset: resetSelection } = useBuilderSelection()
 
@@ -59,9 +59,11 @@ export const LayoutBuilder = ({
           }}
         >
           {children}
-          <MetaPaneSection>
-            <MetaPane />
-          </MetaPaneSection>
+          {MetaPane ? (
+            <MetaPaneSection>
+              <MetaPane />
+            </MetaPaneSection>
+          ) : null}
         </Content>
       </Layout>
     </LibraryProvider>

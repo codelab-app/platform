@@ -24,15 +24,20 @@ insert_permissions:
       columns: []
     role: user
 object_relationships:
-  - name: propTypes
+  - name: props
     using:
       foreign_key_constraint_on: prop_type_c_id
+  - name: type
+    using:
+      foreign_key_constraint_on: atom_type_id
 select_permissions:
   - permission:
       columns:
+        - atom_type_id
         - id
+        - library_id
+        - owner_id
         - prop_type_c_id
-        - type
       filter: {}
     role: user
 table:

@@ -1,7 +1,7 @@
 import { JSONSchemaType } from 'ajv'
 
 export type CreateAtomInput = {
-  type: string
+  atom_type_id: string
   library_id: string
 }
 
@@ -12,9 +12,9 @@ export const createAtomSchema: JSONSchemaType<CreateAtomInput> = {
     library_id: {
       type: 'string',
     },
-    type: {
+    atom_type_id: {
       type: 'string',
     },
   },
-  required: ['type', 'library_id'],
+  required: ['atom_type_id', 'library_id'],
 } as const

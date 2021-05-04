@@ -658,6 +658,19 @@
         }
       }
     },
+    "modules-atom-type": {
+      "root": "libs/modules/atom-type",
+      "sourceRoot": "libs/modules/atom-type/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/modules/atom-type/**/*.{ts,tsx,js,jsx}"]
+          }
+        }
+      }
+    },
     "modules-prop-type": {
       "root": "libs/modules/prop-type",
       "sourceRoot": "libs/modules/prop-type/src",

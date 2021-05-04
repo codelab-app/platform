@@ -13,6 +13,7 @@ export enum EntityType {
   Page = 'Page',
   PageElement = 'PageElement',
   Atom = 'Atom',
+  AtomType = 'AtomType',
   App = 'App',
   Style = 'Style',
   Library = 'Library',

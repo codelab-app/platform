@@ -3,7 +3,7 @@ import {
   EditOutlined,
   EllipsisOutlined,
 } from '@ant-design/icons'
-import { PageType, PaneType } from '@codelab/frontend/shared'
+import { PageType, PaneType, useCRUDModalForm } from '@codelab/frontend/shared'
 import { Button, Card, Dropdown, Menu } from 'antd'
 import Link from 'next/link'
 import React, { CSSProperties } from 'react'
@@ -11,8 +11,8 @@ import { AppType } from '../state'
 
 export type GetAppsItemProps = {
   app: AppType
-  handleDeleteClick: (app: any) => void
-  handleEditClick: (app: any) => void
+  handleDeleteClick: ReturnType<typeof useCRUDModalForm>['openDeleteModal']
+  handleEditClick: ReturnType<typeof useCRUDModalForm>['openUpdateModal']
 }
 
 const menuItemStyle: CSSProperties = {
@@ -51,7 +51,7 @@ export const GetAppsItem = ({
         style={menuItemStyle}
         onClick={() => {
           if (app) {
-            handleDeleteClick(app.id)
+            handleDeleteClick([app.id])
           }
         }}
       >

@@ -102,3 +102,4 @@ INSERT INTO public.atom_type (value, description) VALUES ('React_Popover', NULL)
 INSERT INTO public.atom_type (value, description) VALUES ('React_RenderComponent', NULL);
 INSERT INTO public.atom_type (value, description) VALUES ('React_RenderContainer', NULL);
 INSERT INTO public.atom_type (value, description) VALUES ('React_Mapper', NULL);
+-- HTML

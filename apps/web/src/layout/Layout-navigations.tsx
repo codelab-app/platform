@@ -4,23 +4,26 @@ import {
   BookOutlined,
   CopyOutlined,
   FunctionOutlined,
+  SettingOutlined,
 } from '@ant-design/icons'
-import { LibraryContext, PageType, PaneType } from '@codelab/frontend/shared'
+import { PageType, PaneType } from '@codelab/frontend/shared'
 import { Menu } from 'antd'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React, { useContext } from 'react'
+import React from 'react'
 import xw from 'xwind'
 
 export const LayoutNavigations = () => {
   const router = useRouter()
-  const { libraries } = useContext(LibraryContext)
+
+  console.log(router.pathname)
 
   return (
     <div data-testid="pane-main" css={xw`h-full`}>
       <Menu
         css={xw`w-full h-full`}
-        defaultSelectedKeys={[router.pathname]}
+        defaultSelectedKeys={[PageType.Library]}
+        selectedKeys={[router.pathname]}
         defaultOpenKeys={[]}
         mode="inline"
       >
@@ -53,6 +56,23 @@ export const LayoutNavigations = () => {
           Tree
         </Menu.Item>
         <Menu.Divider />
+        <Menu.Item
+          key={PageType.AtomList}
+          icon={
+            <SettingOutlined
+              data-testid="atomType-tab-trigger"
+              title="AtomType"
+            />
+          }
+        >
+          <Link
+            href={{
+              pathname: PageType.AtomTypeList,
+            }}
+          >
+            AtomType
+          </Link>
+        </Menu.Item>
         <Menu.Item
           key={PageType.Library}
           icon={

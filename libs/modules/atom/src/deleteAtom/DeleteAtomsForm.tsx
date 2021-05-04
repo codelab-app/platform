@@ -13,13 +13,12 @@ import {
 import { Spin } from 'antd'
 import React, { useEffect } from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { DeleteAtomInput, DeleteAtomSchema } from './deleteAtomSchema'
+import { DeleteAtomInput, deleteAtomSchema } from './deleteAtomSchema'
 
 type DeleteAtomFormProps = UniFormUseCaseProps<DeleteAtomInput>
 
 export const DeleteAtomsForm = (props: DeleteAtomFormProps) => {
   const { reset, setLoading, state } = useCRUDModalForm(EntityType.Atom)
-  const { deleteIds: deleteAtomIds } = state
 
   const [mutate, { loading: deleting }] = useDeleteAtomsWhereMutation({
     awaitRefetchQueries: true,
@@ -31,7 +30,7 @@ export const DeleteAtomsForm = (props: DeleteAtomFormProps) => {
   })
 
   const atomsWhere = {
-    _or: deleteAtomIds.map((id) => ({
+    _or: state.deleteIds.map((id) => ({
       id: {
         _eq: id,
       },
@@ -48,7 +47,7 @@ export const DeleteAtomsForm = (props: DeleteAtomFormProps) => {
     },
   })
 
-  const atomTypes = data?.atom.map((atom) => atom.type).join(', ')
+  const atomTypes = data?.atom.map((atom) => atom.type.label).join(', ')
 
   if (loading) {
     return <Spin />
@@ -67,7 +66,7 @@ export const DeleteAtomsForm = (props: DeleteAtomFormProps) => {
       data-testid="delete-atom-form"
       id="delete-atom-form"
       onSubmit={onSubmit}
-      schema={DeleteAtomSchema}
+      schema={deleteAtomSchema}
       onSubmitError={createNotificationHandler({
         title: 'Error while deleting atom',
       })}

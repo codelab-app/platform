@@ -1,31 +1,23 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { useComponentBuilder } from '@codelab/frontend/builder'
 import { CytoscapeService } from '@codelab/frontend/cytoscape'
-import {
-  ActionType,
-  CrudModal,
-  EntityType,
-  useCRUDModalForm,
-} from '@codelab/frontend/shared'
+import { PageType } from '@codelab/frontend/shared'
 import { ComponentRenderer } from '@codelab/modules/component'
 import {
   CreateComponentElementButton,
-  CreateComponentElementForm,
+  CreateComponentElementModal,
 } from '@codelab/modules/component-element'
 import { MainPaneLibrary } from '@codelab/modules/library'
-import { Empty } from 'antd'
+import { Breadcrumb, Empty } from 'antd'
 import { LayoutBuilder } from 'apps/web/src/layout/Layout--builder'
 import { MetaPaneComponent } from 'apps/web/src/layout/MetaPaneComponent'
+import Link from 'next/link'
 import React from 'react'
 import xw from 'xwind'
 import { NextPageLayout } from '../../src/layout/Layout.d'
 
-const Library: NextPageLayout<'builder'> = () => {
+const LibraryContent = () => {
   const { selectedComponent, setSelected } = useComponentBuilder()
-
-  const { reset, setLoading, openCreateModal } = useCRUDModalForm(
-    EntityType.ComponentElement,
-  )
 
   if (!selectedComponent) {
     return null
@@ -35,7 +27,7 @@ const Library: NextPageLayout<'builder'> = () => {
   const root = CytoscapeService.componentTree(cy)
 
   return (
-    <div id="Builder" css={xw`relative h-full`}>
+    <>
       {root.children?.length ? (
         <ComponentRenderer component={selectedComponent} />
       ) : (
@@ -47,17 +39,23 @@ const Library: NextPageLayout<'builder'> = () => {
           <CreateComponentElementButton />
         </Empty>
       )}
-      <CrudModal
-        modalProps={{
-          className: 'create-component-element-modal',
-        }}
-        entityType={EntityType.ComponentElement}
-        actionType={ActionType.Create}
-        okText="Create ComponentElement"
-        renderForm={() => (
-          <CreateComponentElementForm componentId={selectedComponent.id} />
-        )}
-      />
+      <CreateComponentElementModal componentId={selectedComponent.id} />
+    </>
+  )
+}
+
+const Library: NextPageLayout<'builder'> = () => {
+  return (
+    <div id="Builder" css={xw`relative h-full`}>
+      <Breadcrumb>
+        <Breadcrumb.Item>
+          <Link href={{ pathname: PageType.AppList }}>Apps</Link>
+        </Breadcrumb.Item>
+        <Breadcrumb.Item>
+          <Link href={{ pathname: PageType.LibraryList }}>Libraries</Link>
+        </Breadcrumb.Item>
+      </Breadcrumb>
+      <LibraryContent />
     </div>
   )
 }

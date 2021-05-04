@@ -1,19 +1,14 @@
 import { EntityType, useCRUDModalForm } from '@codelab/frontend/shared'
 import { padding, threeGridCol } from '@codelab/frontend/style'
 import { useGetAppsListQuery } from '@codelab/hasura'
-import { Button, Col, Empty, Row, Spin } from 'antd'
+import { Col, Empty, Row, Spin } from 'antd'
 import React from 'react'
+import { CreateAppButtonNow } from '../createApp'
 import { GetAppsItem } from './GetAppsItem'
 
 export const GetAppsList = () => {
   const { loading, data } = useGetAppsListQuery()
-
-  const {
-    openDeleteModal,
-    openUpdateModal,
-    openCreateModal,
-  } = useCRUDModalForm(EntityType.App)
-
+  const { openDeleteModal, openUpdateModal } = useCRUDModalForm(EntityType.App)
   const appList = data?.app ?? []
 
   return (
@@ -26,9 +21,7 @@ export const GetAppsList = () => {
           }}
           description={<span>No apps found</span>}
         >
-          <Button onClick={() => openCreateModal()} type="primary">
-            Create Now
-          </Button>
+          <CreateAppButtonNow />
         </Empty>
       ) : null}
       <Row gutter={[padding.sm, padding.sm]}>

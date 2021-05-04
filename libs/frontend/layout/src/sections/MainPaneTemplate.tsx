@@ -1,6 +1,7 @@
 import styled from '@emotion/styled'
-import { PageHeader } from 'antd'
+import { Divider, PageHeader } from 'antd'
 import React from 'react'
+import xw from 'xwind'
 
 type MainPaneTemplateProps = {
   title: string
@@ -32,11 +33,8 @@ export const MainPaneTemplate = ({
 
   return (
     <StyledContainer>
-      <PageHeader
-        className={`site-page-header-responsive`}
-        title={title}
-        extra={[...extra]}
-      >
+      <PageHeader title={title} extra={[...extra]}>
+        <Divider style={xw`mt-0`} />
         {children}
       </PageHeader>
     </StyledContainer>

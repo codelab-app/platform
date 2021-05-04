@@ -45,6 +45,7 @@
     "modules-lambda-api": { "tags": [] },
     "doc": { "tags": [] },
     "modules-component-element": { "tags": [] },
+    "modules-atom-type": { "tags": [] },
     "modules-prop-type": { "tags": [] }
   }
 }

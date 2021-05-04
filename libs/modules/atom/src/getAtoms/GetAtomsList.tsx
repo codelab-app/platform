@@ -16,9 +16,9 @@ export const GetAtomsList = () => {
         <List.Item onMouseOver={() => null} style={{ paddingLeft: 0 }}>
           <div
             data-testid="get-atoms-list-item"
-            data-test-atom-type={atom.type}
+            data-test-atom-type={atom.type.label}
           >
-            <Space style={{ width: '100%' }}>{atom.type}</Space>
+            <Space style={{ width: '100%' }}>{atom.type.label}</Space>
           </div>
           <Space>
             <SettingOutlined

@@ -275,13 +275,13 @@ export enum App_Update_Column {
 
 /** columns and relationships of "atom" */
 export type Atom = {
-  _atom_type?: Maybe<Atom_Type_Enum>
+  atom_type_id: Scalars['uuid']
   id: Scalars['uuid']
   library_id?: Maybe<Scalars['uuid']>
   owner_id?: Maybe<Scalars['String']>
-  /** An object relationship */
-  propTypes?: Maybe<Prop_Type_C>
   prop_type_c_id?: Maybe<Scalars['uuid']>
+  /** An object relationship */
+  props?: Maybe<Prop_Type_C>
   /** An array relationship */
   styles: Array<Style_Atom>
   /** An aggregate relationship */
@@ -290,7 +290,8 @@ export type Atom = {
   tags: Array<Tag_Atom>
   /** An aggregate relationship */
   tags_aggregate: Tag_Atom_Aggregate
-  type: Scalars['String']
+  /** An object relationship */
+  type: Atom_Type
 }
 
 /** columns and relationships of "atom" */
@@ -365,17 +366,17 @@ export type Atom_Arr_Rel_Insert_Input = {
 /** Boolean expression to filter rows from the table "atom". All fields are combined with a logical 'AND'. */
 export type Atom_Bool_Exp = {
   _and?: Maybe<Array<Atom_Bool_Exp>>
-  _atom_type?: Maybe<Atom_Type_Enum_Comparison_Exp>
   _not?: Maybe<Atom_Bool_Exp>
   _or?: Maybe<Array<Atom_Bool_Exp>>
+  atom_type_id?: Maybe<Uuid_Comparison_Exp>
   id?: Maybe<Uuid_Comparison_Exp>
   library_id?: Maybe<Uuid_Comparison_Exp>
   owner_id?: Maybe<String_Comparison_Exp>
-  propTypes?: Maybe<Prop_Type_C_Bool_Exp>
   prop_type_c_id?: Maybe<Uuid_Comparison_Exp>
+  props?: Maybe<Prop_Type_C_Bool_Exp>
   styles?: Maybe<Style_Atom_Bool_Exp>
   tags?: Maybe<Tag_Atom_Bool_Exp>
-  type?: Maybe<String_Comparison_Exp>
+  type?: Maybe<Atom_Type_Bool_Exp>
 }
 
 /** unique or primary key constraints on table "atom" */
@@ -386,51 +387,51 @@ export enum Atom_Constraint {
 
 /** input type for inserting data into table "atom" */
 export type Atom_Insert_Input = {
-  _atom_type?: Maybe<Atom_Type_Enum>
+  atom_type_id?: Maybe<Scalars['uuid']>
   id?: Maybe<Scalars['uuid']>
   library_id?: Maybe<Scalars['uuid']>
   owner_id?: Maybe<Scalars['String']>
-  propTypes?: Maybe<Prop_Type_C_Obj_Rel_Insert_Input>
   prop_type_c_id?: Maybe<Scalars['uuid']>
+  props?: Maybe<Prop_Type_C_Obj_Rel_Insert_Input>
   styles?: Maybe<Style_Atom_Arr_Rel_Insert_Input>
   tags?: Maybe<Tag_Atom_Arr_Rel_Insert_Input>
-  type?: Maybe<Scalars['String']>
+  type?: Maybe<Atom_Type_Obj_Rel_Insert_Input>
 }
 
 /** aggregate max on columns */
 export type Atom_Max_Fields = {
+  atom_type_id?: Maybe<Scalars['uuid']>
   id?: Maybe<Scalars['uuid']>
   library_id?: Maybe<Scalars['uuid']>
   owner_id?: Maybe<Scalars['String']>
   prop_type_c_id?: Maybe<Scalars['uuid']>
-  type?: Maybe<Scalars['String']>
 }
 
 /** order by max() on columns of table "atom" */
 export type Atom_Max_Order_By = {
+  atom_type_id?: Maybe<Order_By>
   id?: Maybe<Order_By>
   library_id?: Maybe<Order_By>
   owner_id?: Maybe<Order_By>
   prop_type_c_id?: Maybe<Order_By>
-  type?: Maybe<Order_By>
 }
 
 /** aggregate min on columns */
 export type Atom_Min_Fields = {
+  atom_type_id?: Maybe<Scalars['uuid']>
   id?: Maybe<Scalars['uuid']>
   library_id?: Maybe<Scalars['uuid']>
   owner_id?: Maybe<Scalars['String']>
   prop_type_c_id?: Maybe<Scalars['uuid']>
-  type?: Maybe<Scalars['String']>
 }
 
 /** order by min() on columns of table "atom" */
 export type Atom_Min_Order_By = {
+  atom_type_id?: Maybe<Order_By>
   id?: Maybe<Order_By>
   library_id?: Maybe<Order_By>
   owner_id?: Maybe<Order_By>
   prop_type_c_id?: Maybe<Order_By>
-  type?: Maybe<Order_By>
 }
 
 /** response of any mutation on the table "atom" */
@@ -457,15 +458,15 @@ export type Atom_On_Conflict = {
 
 /** Ordering options when selecting data from "atom". */
 export type Atom_Order_By = {
-  _atom_type?: Maybe<Order_By>
+  atom_type_id?: Maybe<Order_By>
   id?: Maybe<Order_By>
   library_id?: Maybe<Order_By>
   owner_id?: Maybe<Order_By>
-  propTypes?: Maybe<Prop_Type_C_Order_By>
   prop_type_c_id?: Maybe<Order_By>
+  props?: Maybe<Prop_Type_C_Order_By>
   styles_aggregate?: Maybe<Style_Atom_Aggregate_Order_By>
   tags_aggregate?: Maybe<Tag_Atom_Aggregate_Order_By>
-  type?: Maybe<Order_By>
+  type?: Maybe<Atom_Type_Order_By>
 }
 
 /** primary key columns input for table: atom */
@@ -476,7 +477,7 @@ export type Atom_Pk_Columns_Input = {
 /** select columns of table "atom" */
 export enum Atom_Select_Column {
   /** column name */
-  AtomType = '_atom_type',
+  AtomTypeId = 'atom_type_id',
   /** column name */
   Id = 'id',
   /** column name */
@@ -485,24 +486,43 @@ export enum Atom_Select_Column {
   OwnerId = 'owner_id',
   /** column name */
   PropTypeCId = 'prop_type_c_id',
-  /** column name */
-  Type = 'type',
 }
 
 /** input type for updating data in table "atom" */
 export type Atom_Set_Input = {
-  _atom_type?: Maybe<Atom_Type_Enum>
+  atom_type_id?: Maybe<Scalars['uuid']>
   id?: Maybe<Scalars['uuid']>
   library_id?: Maybe<Scalars['uuid']>
   owner_id?: Maybe<Scalars['String']>
   prop_type_c_id?: Maybe<Scalars['uuid']>
-  type?: Maybe<Scalars['String']>
 }
 
 /** columns and relationships of "atom_type" */
 export type Atom_Type = {
-  description?: Maybe<Scalars['String']>
-  value: Scalars['String']
+  /** An array relationship */
+  atoms: Array<Atom>
+  /** An aggregate relationship */
+  atoms_aggregate: Atom_Aggregate
+  id: Scalars['uuid']
+  label: Scalars['String']
+}
+
+/** columns and relationships of "atom_type" */
+export type Atom_TypeAtomsArgs = {
+  distinct_on?: Maybe<Array<Atom_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<Atom_Order_By>>
+  where?: Maybe<Atom_Bool_Exp>
+}
+
+/** columns and relationships of "atom_type" */
+export type Atom_TypeAtoms_AggregateArgs = {
+  distinct_on?: Maybe<Array<Atom_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<Atom_Order_By>>
+  where?: Maybe<Atom_Bool_Exp>
 }
 
 /** aggregated selection of "atom_type" */
@@ -529,147 +549,36 @@ export type Atom_Type_Bool_Exp = {
   _and?: Maybe<Array<Atom_Type_Bool_Exp>>
   _not?: Maybe<Atom_Type_Bool_Exp>
   _or?: Maybe<Array<Atom_Type_Bool_Exp>>
-  description?: Maybe<String_Comparison_Exp>
-  value?: Maybe<String_Comparison_Exp>
+  atoms?: Maybe<Atom_Bool_Exp>
+  id?: Maybe<Uuid_Comparison_Exp>
+  label?: Maybe<String_Comparison_Exp>
 }
 
 /** unique or primary key constraints on table "atom_type" */
 export enum Atom_Type_Constraint {
   /** unique or primary key constraint */
+  AtomTypeIdKey = 'atom_type_id_key',
+  /** unique or primary key constraint */
   VertexTypePkey = 'vertexType_pkey',
-}
-
-export enum Atom_Type_Enum {
-  ReactAffix = 'React_Affix',
-  ReactAlert = 'React_Alert',
-  ReactAnchor = 'React_Anchor',
-  ReactAnchorLink = 'React_Anchor_Link',
-  ReactAutoComplete = 'React_AutoComplete',
-  ReactAvatar = 'React_Avatar',
-  ReactBackTop = 'React_BackTop',
-  ReactBadge = 'React_Badge',
-  ReactBreadcrumb = 'React_Breadcrumb',
-  ReactBreadcrumbItem = 'React_Breadcrumb_Item',
-  ReactButton = 'React_Button',
-  ReactCalendar = 'React_Calendar',
-  ReactCard = 'React_Card',
-  ReactCardGrid = 'React_Card_Grid',
-  ReactCardMeta = 'React_Card_Meta',
-  ReactCarousel = 'React_Carousel',
-  ReactCascader = 'React_Cascader',
-  ReactCheckbox = 'React_Checkbox',
-  ReactCollapse = 'React_Collapse',
-  ReactCollapsePanel = 'React_Collapse_Panel',
-  ReactComment = 'React_Comment',
-  ReactConfigProvider = 'React_ConfigProvider',
-  ReactDatePicker = 'React_DatePicker',
-  ReactDescriptions = 'React_Descriptions',
-  ReactDescriptionsItem = 'React_Descriptions_Item',
-  ReactDivider = 'React_Divider',
-  ReactDrawer = 'React_Drawer',
-  ReactDropdown = 'React_Dropdown',
-  ReactEmpty = 'React_Empty',
-  ReactForm = 'React_Form',
-  ReactFormItem = 'React_Form_Item',
-  ReactFormItemHook = 'React_Form_ItemHook',
-  ReactFormList = 'React_Form_List',
-  ReactFragment = 'React_Fragment',
-  ReactGridCol = 'React_Grid_Col',
-  ReactGridRow = 'React_Grid_Row',
-  ReactHtmlA = 'React_Html_A',
-  ReactHtmlDiv = 'React_Html_Div',
-  ReactHtmlP = 'React_Html_P',
-  ReactHtmlSpan = 'React_Html_Span',
-  ReactIcon = 'React_Icon',
-  ReactInput = 'React_Input',
-  ReactInputNumber = 'React_InputNumber',
-  ReactLayout = 'React_Layout',
-  ReactLayoutContent = 'React_Layout_Content',
-  ReactLayoutFooter = 'React_Layout_Footer',
-  ReactLayoutHeader = 'React_Layout_Header',
-  ReactLayoutSider = 'React_Layout_Sider',
-  ReactList = 'React_List',
-  ReactListItem = 'React_List_Item',
-  ReactListItemMeta = 'React_List_Item_Meta',
-  ReactMapper = 'React_Mapper',
-  ReactMentions = 'React_Mentions',
-  ReactMentionsOption = 'React_Mentions_Option',
-  ReactMenu = 'React_Menu',
-  ReactMenuItem = 'React_Menu_Item',
-  ReactMenuItemGroup = 'React_Menu_ItemGroup',
-  ReactMenuSubMenu = 'React_Menu_SubMenu',
-  ReactModal = 'React_Modal',
-  ReactPageHeader = 'React_PageHeader',
-  ReactPageContainer = 'React_Page_Container',
-  ReactPagination = 'React_Pagination',
-  ReactPopconfirm = 'React_Popconfirm',
-  ReactPopover = 'React_Popover',
-  ReactProgress = 'React_Progress',
-  ReactProvider = 'React_Provider',
-  ReactRglContainer = 'React_RGL_Container',
-  ReactRglItem = 'React_RGL_Item',
-  ReactRglResponsiveContainer = 'React_RGL_ResponsiveContainer',
-  ReactRadio = 'React_Radio',
-  ReactRadioGroup = 'React_Radio_Group',
-  ReactRate = 'React_Rate',
-  ReactRenderComponent = 'React_RenderComponent',
-  ReactRenderContainer = 'React_RenderContainer',
-  ReactResult = 'React_Result',
-  ReactSelect = 'React_Select',
-  ReactSelectOption = 'React_Select_Option',
-  ReactSkeleton = 'React_Skeleton',
-  ReactSlider = 'React_Slider',
-  ReactSpace = 'React_Space',
-  ReactSpin = 'React_Spin',
-  ReactStatistic = 'React_Statistic',
-  ReactSteps = 'React_Steps',
-  ReactStepsStep = 'React_Steps_Step',
-  ReactSwitch = 'React_Switch',
-  ReactTable = 'React_Table',
-  ReactTabs = 'React_Tabs',
-  ReactTabsTabPane = 'React_Tabs_TabPane',
-  ReactTag = 'React_Tag',
-  ReactText = 'React_Text',
-  ReactTimePicker = 'React_TimePicker',
-  ReactTimeline = 'React_Timeline',
-  ReactTimelineItem = 'React_Timeline_Item',
-  ReactTooltip = 'React_Tooltip',
-  ReactTransfer = 'React_Transfer',
-  ReactTree = 'React_Tree',
-  ReactTreeNode = 'React_TreeNode',
-  ReactTreeSelect = 'React_TreeSelect',
-  ReactTypography = 'React_Typography',
-  ReactTypographyParagraph = 'React_Typography_Paragraph',
-  ReactTypographyText = 'React_Typography_Text',
-  ReactTypographyTitle = 'React_Typography_Title',
-  ReactUpload = 'React_Upload',
-}
-
-/** Boolean expression to compare columns of type "atom_type_enum". All fields are combined with logical 'AND'. */
-export type Atom_Type_Enum_Comparison_Exp = {
-  _eq?: Maybe<Atom_Type_Enum>
-  _in?: Maybe<Array<Atom_Type_Enum>>
-  _is_null?: Maybe<Scalars['Boolean']>
-  _neq?: Maybe<Atom_Type_Enum>
-  _nin?: Maybe<Array<Atom_Type_Enum>>
 }
 
 /** input type for inserting data into table "atom_type" */
 export type Atom_Type_Insert_Input = {
-  description?: Maybe<Scalars['String']>
-  value?: Maybe<Scalars['String']>
+  atoms?: Maybe<Atom_Arr_Rel_Insert_Input>
+  id?: Maybe<Scalars['uuid']>
+  label?: Maybe<Scalars['String']>
 }
 
 /** aggregate max on columns */
 export type Atom_Type_Max_Fields = {
-  description?: Maybe<Scalars['String']>
-  value?: Maybe<Scalars['String']>
+  id?: Maybe<Scalars['uuid']>
+  label?: Maybe<Scalars['String']>
 }
 
 /** aggregate min on columns */
 export type Atom_Type_Min_Fields = {
-  description?: Maybe<Scalars['String']>
-  value?: Maybe<Scalars['String']>
+  id?: Maybe<Scalars['uuid']>
+  label?: Maybe<Scalars['String']>
 }
 
 /** response of any mutation on the table "atom_type" */
@@ -678,6 +587,13 @@ export type Atom_Type_Mutation_Response = {
   affected_rows: Scalars['Int']
   /** data from the rows affected by the mutation */
   returning: Array<Atom_Type>
+}
+
+/** input type for inserting object relation for remote table "atom_type" */
+export type Atom_Type_Obj_Rel_Insert_Input = {
+  data: Atom_Type_Insert_Input
+  /** on conflict condition */
+  on_conflict?: Maybe<Atom_Type_On_Conflict>
 }
 
 /** on conflict condition type for table "atom_type" */
@@ -689,41 +605,42 @@ export type Atom_Type_On_Conflict = {
 
 /** Ordering options when selecting data from "atom_type". */
 export type Atom_Type_Order_By = {
-  description?: Maybe<Order_By>
-  value?: Maybe<Order_By>
+  atoms_aggregate?: Maybe<Atom_Aggregate_Order_By>
+  id?: Maybe<Order_By>
+  label?: Maybe<Order_By>
 }
 
 /** primary key columns input for table: atom_type */
 export type Atom_Type_Pk_Columns_Input = {
-  value: Scalars['String']
+  label: Scalars['String']
 }
 
 /** select columns of table "atom_type" */
 export enum Atom_Type_Select_Column {
   /** column name */
-  Description = 'description',
+  Id = 'id',
   /** column name */
-  Value = 'value',
+  Label = 'label',
 }
 
 /** input type for updating data in table "atom_type" */
 export type Atom_Type_Set_Input = {
-  description?: Maybe<Scalars['String']>
-  value?: Maybe<Scalars['String']>
+  id?: Maybe<Scalars['uuid']>
+  label?: Maybe<Scalars['String']>
 }
 
 /** update columns of table "atom_type" */
 export enum Atom_Type_Update_Column {
   /** column name */
-  Description = 'description',
+  Id = 'id',
   /** column name */
-  Value = 'value',
+  Label = 'label',
 }
 
 /** update columns of table "atom" */
 export enum Atom_Update_Column {
   /** column name */
-  AtomType = '_atom_type',
+  AtomTypeId = 'atom_type_id',
   /** column name */
   Id = 'id',
   /** column name */
@@ -732,8 +649,6 @@ export enum Atom_Update_Column {
   OwnerId = 'owner_id',
   /** column name */
   PropTypeCId = 'prop_type_c_id',
-  /** column name */
-  Type = 'type',
 }
 
 /** columns and relationships of "category" */
@@ -3023,7 +2938,7 @@ export type Mutation_RootDelete_Atom_TypeArgs = {
 
 /** mutation root */
 export type Mutation_RootDelete_Atom_Type_By_PkArgs = {
-  value: Scalars['String']
+  label: Scalars['String']
 }
 
 /** mutation root */
@@ -6192,7 +6107,7 @@ export type Query_RootAtom_Type_AggregateArgs = {
 }
 
 export type Query_RootAtom_Type_By_PkArgs = {
-  value: Scalars['String']
+  label: Scalars['String']
 }
 
 export type Query_RootCategoryArgs = {
@@ -7690,7 +7605,7 @@ export type Subscription_RootAtom_Type_AggregateArgs = {
 }
 
 export type Subscription_RootAtom_Type_By_PkArgs = {
-  value: Scalars['String']
+  label: Scalars['String']
 }
 
 export type Subscription_RootCategoryArgs = {
@@ -10036,8 +9951,31 @@ export type EditAppMutationVariables = Exact<{
 
 export type EditAppMutation = { update_app_by_pk?: Maybe<Pick<App, 'name'>> }
 
-export type __AtomFragment = Pick<Atom, 'id' | 'type'> & {
-  propTypes?: Maybe<PropTypeCollectionFragment>
+export type __AtomTypeFragment = Pick<Atom_Type, 'id' | 'label'>
+
+export type CreateAtomTypeMutationVariables = Exact<{
+  input: Atom_Type_Insert_Input
+}>
+
+export type CreateAtomTypeMutation = {
+  insert_atom_type_one?: Maybe<__AtomTypeFragment>
+}
+
+export type DeleteAtomTypesWhereMutationVariables = Exact<{
+  where: Atom_Type_Bool_Exp
+}>
+
+export type DeleteAtomTypesWhereMutation = {
+  delete_atom_type?: Maybe<{ returning: Array<__AtomTypeFragment> }>
+}
+
+export type GetAtomTypesQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetAtomTypesQuery = { atom_type: Array<__AtomTypeFragment> }
+
+export type __AtomFragment = Pick<Atom, 'id'> & {
+  type: __AtomTypeFragment
+  props?: Maybe<PropTypeCollectionFragment>
   styles: Array<{ style: Library__StyleFragment }>
   tags: Array<{ tag: __TagFragment }>
 }
@@ -10080,9 +10018,7 @@ export type GetAtomsListQuery = { atom: Array<__AtomFragment> }
 
 export type GetAtomsTypesQueryVariables = Exact<{ [key: string]: never }>
 
-export type GetAtomsTypesQuery = {
-  atom_type: Array<Pick<Atom_Type, 'description' | 'value'>>
-}
+export type GetAtomsTypesQuery = { atom_type: Array<__AtomTypeFragment> }
 
 export type GetAtomsWhereQueryVariables = Exact<{
   where: Atom_Bool_Exp
@@ -10749,6 +10685,12 @@ export const Library__StyleFragmentDoc = gql`
   }
   ${PropCollectionFragmentDoc}
 `
+export const __AtomTypeFragmentDoc = gql`
+  fragment __AtomType on atom_type {
+    id
+    label
+  }
+`
 export const PropTypeCollectionFragmentDoc = gql`
   fragment PropTypeCollection on prop_type_c {
     id
@@ -10769,8 +10711,10 @@ export const PropTypeCollectionFragmentDoc = gql`
 export const __AtomFragmentDoc = gql`
   fragment __Atom on atom {
     id
-    type
-    propTypes {
+    type {
+      ...__AtomType
+    }
+    props {
       ...PropTypeCollection
     }
     styles {
@@ -10784,6 +10728,7 @@ export const __AtomFragmentDoc = gql`
       }
     }
   }
+  ${__AtomTypeFragmentDoc}
   ${PropTypeCollectionFragmentDoc}
   ${Library__StyleFragmentDoc}
   ${__TagFragmentDoc}
@@ -11368,6 +11313,166 @@ export type EditAppMutationOptions = Apollo.BaseMutationOptions<
   EditAppMutation,
   EditAppMutationVariables
 >
+export const CreateAtomTypeGql = gql`
+  mutation CreateAtomType($input: atom_type_insert_input!) {
+    insert_atom_type_one(object: $input) {
+      ...__AtomType
+    }
+  }
+  ${__AtomTypeFragmentDoc}
+`
+export type CreateAtomTypeMutationFn = Apollo.MutationFunction<
+  CreateAtomTypeMutation,
+  CreateAtomTypeMutationVariables
+>
+
+/**
+ * __useCreateAtomTypeMutation__
+ *
+ * To run a mutation, you first call `useCreateAtomTypeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateAtomTypeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createAtomTypeMutation, { data, loading, error }] = useCreateAtomTypeMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateAtomTypeMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateAtomTypeMutation,
+    CreateAtomTypeMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    CreateAtomTypeMutation,
+    CreateAtomTypeMutationVariables
+  >(CreateAtomTypeGql, options)
+}
+export type CreateAtomTypeMutationHookResult = ReturnType<
+  typeof useCreateAtomTypeMutation
+>
+export type CreateAtomTypeMutationResult = Apollo.MutationResult<CreateAtomTypeMutation>
+export type CreateAtomTypeMutationOptions = Apollo.BaseMutationOptions<
+  CreateAtomTypeMutation,
+  CreateAtomTypeMutationVariables
+>
+export const DeleteAtomTypesWhereGql = gql`
+  mutation DeleteAtomTypesWhere($where: atom_type_bool_exp!) {
+    delete_atom_type(where: $where) {
+      returning {
+        ...__AtomType
+      }
+    }
+  }
+  ${__AtomTypeFragmentDoc}
+`
+export type DeleteAtomTypesWhereMutationFn = Apollo.MutationFunction<
+  DeleteAtomTypesWhereMutation,
+  DeleteAtomTypesWhereMutationVariables
+>
+
+/**
+ * __useDeleteAtomTypesWhereMutation__
+ *
+ * To run a mutation, you first call `useDeleteAtomTypesWhereMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteAtomTypesWhereMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteAtomTypesWhereMutation, { data, loading, error }] = useDeleteAtomTypesWhereMutation({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useDeleteAtomTypesWhereMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeleteAtomTypesWhereMutation,
+    DeleteAtomTypesWhereMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    DeleteAtomTypesWhereMutation,
+    DeleteAtomTypesWhereMutationVariables
+  >(DeleteAtomTypesWhereGql, options)
+}
+export type DeleteAtomTypesWhereMutationHookResult = ReturnType<
+  typeof useDeleteAtomTypesWhereMutation
+>
+export type DeleteAtomTypesWhereMutationResult = Apollo.MutationResult<DeleteAtomTypesWhereMutation>
+export type DeleteAtomTypesWhereMutationOptions = Apollo.BaseMutationOptions<
+  DeleteAtomTypesWhereMutation,
+  DeleteAtomTypesWhereMutationVariables
+>
+export const GetAtomTypesGql = gql`
+  query GetAtomTypes {
+    atom_type {
+      ...__AtomType
+    }
+  }
+  ${__AtomTypeFragmentDoc}
+`
+
+/**
+ * __useGetAtomTypesQuery__
+ *
+ * To run a query within a React component, call `useGetAtomTypesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAtomTypesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAtomTypesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAtomTypesQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetAtomTypesQuery,
+    GetAtomTypesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetAtomTypesQuery, GetAtomTypesQueryVariables>(
+    GetAtomTypesGql,
+    options,
+  )
+}
+export function useGetAtomTypesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetAtomTypesQuery,
+    GetAtomTypesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetAtomTypesQuery, GetAtomTypesQueryVariables>(
+    GetAtomTypesGql,
+    options,
+  )
+}
+export type GetAtomTypesQueryHookResult = ReturnType<
+  typeof useGetAtomTypesQuery
+>
+export type GetAtomTypesLazyQueryHookResult = ReturnType<
+  typeof useGetAtomTypesLazyQuery
+>
+export type GetAtomTypesQueryResult = Apollo.QueryResult<
+  GetAtomTypesQuery,
+  GetAtomTypesQueryVariables
+>
 export const CreateAtomGql = gql`
   mutation CreateAtom($data: atom_insert_input!) {
     insert_atom_one(object: $data) {
@@ -11681,10 +11786,10 @@ export type GetAtomsListQueryResult = Apollo.QueryResult<
 export const GetAtomsTypesGql = gql`
   query GetAtomsTypes {
     atom_type {
-      description
-      value
+      ...__AtomType
     }
   }
+  ${__AtomTypeFragmentDoc}
 `
 
 /**
@@ -14902,6 +15007,12 @@ export const Library__Style = gql`
   }
   ${PropCollection}
 `
+export const __AtomType = gql`
+  fragment __AtomType on atom_type {
+    id
+    label
+  }
+`
 export const PropTypeCollection = gql`
   fragment PropTypeCollection on prop_type_c {
     id
@@ -14922,8 +15033,10 @@ export const PropTypeCollection = gql`
 export const __Atom = gql`
   fragment __Atom on atom {
     id
-    type
-    propTypes {
+    type {
+      ...__AtomType
+    }
+    props {
       ...PropTypeCollection
     }
     styles {
@@ -14937,6 +15050,7 @@ export const __Atom = gql`
       }
     }
   }
+  ${__AtomType}
   ${PropTypeCollection}
   ${Library__Style}
   ${__Tag}
@@ -15167,6 +15281,32 @@ export const EditApp = gql`
     }
   }
 `
+export const CreateAtomType = gql`
+  mutation CreateAtomType($input: atom_type_insert_input!) {
+    insert_atom_type_one(object: $input) {
+      ...__AtomType
+    }
+  }
+  ${__AtomType}
+`
+export const DeleteAtomTypesWhere = gql`
+  mutation DeleteAtomTypesWhere($where: atom_type_bool_exp!) {
+    delete_atom_type(where: $where) {
+      returning {
+        ...__AtomType
+      }
+    }
+  }
+  ${__AtomType}
+`
+export const GetAtomTypes = gql`
+  query GetAtomTypes {
+    atom_type {
+      ...__AtomType
+    }
+  }
+  ${__AtomType}
+`
 export const CreateAtom = gql`
   mutation CreateAtom($data: atom_insert_input!) {
     insert_atom_one(object: $data) {
@@ -15219,10 +15359,10 @@ export const GetAtomsList = gql`
 export const GetAtomsTypes = gql`
   query GetAtomsTypes {
     atom_type {
-      description
-      value
+      ...__AtomType
     }
   }
+  ${__AtomType}
 `
 export const GetAtomsWhere = gql`
   query GetAtomsWhere($where: atom_bool_exp!) {

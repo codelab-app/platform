@@ -47,7 +47,7 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
       variables: {
         data: {
           library_id: submitData.library_id,
-          type: submitData.type,
+          atom_type_id: submitData.atom_type_id,
         },
       },
     })
@@ -57,8 +57,8 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
 
   const atomTypesOptions = _.chain(data?.atom_type)
     .map((t) => ({
-      label: t.value,
-      value: t.value,
+      label: t.label,
+      value: t.label,
     }))
     .orderBy('label')
     .value()
