@@ -8468,8 +8468,8 @@ type prop_type {
   """
   An object relationship
   """
-  type: value_type
-  value_type: value_type_enum
+  type: value_type!
+  value_type: value_type_enum!
 }
 
 """

@@ -10462,7 +10462,7 @@ export type UpdatePageMutation = {
 export type PropTypeCollection__PropTypeFragment = Pick<
   Prop_Type,
   'id' | 'key' | 'prop_type_c_id' | 'isArray' | 'value_type'
-> & { type?: Maybe<ValueTypeFragment> }
+> & { type: ValueTypeFragment }
 
 export type PropTypeCollectionFragment = Pick<
   Prop_Type_C,
