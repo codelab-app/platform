@@ -13,6 +13,7 @@ import {
 import React, { useContext, useEffect } from 'react'
 import { DeepPartial } from 'uniforms'
 import { AutoFields, SelectField } from 'uniforms-antd'
+import { PropType } from '../PropTypesSchema'
 import {
   CreatePropTypeCInput,
   createPropTypeCSchema,
@@ -41,8 +42,11 @@ export const CreatePropTypeCForm = (props: CreatePropTypeCFormProps) => {
     return mutate({
       variables: {
         data: {
-          library_id: submitData?.library,
+          library_id: submitData?.library_id,
           label: submitData?.label,
+          propTypes: {
+            data: (submitData?.propTypes as Array<PropType>) ?? [],
+          },
         },
       },
     })
@@ -61,13 +65,14 @@ export const CreatePropTypeCForm = (props: CreatePropTypeCFormProps) => {
       {...props}
     >
       <SelectField
-        name="library"
+        name="library_id"
+        label="library"
         options={libraries?.map((library) => ({
           label: library.name,
           value: library.id,
         }))}
       />
-      <AutoFields fields={['label']} />
+      <AutoFields fields={['label', 'propTypes']} />
     </FormUniforms>
   )
 }

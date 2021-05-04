@@ -7,13 +7,16 @@ import {
 } from '@codelab/frontend/shared'
 import {
   GetPropTypeCListGql,
+  Prop_Type_Constraint,
+  Prop_Type_Update_Column,
+  PropTypeCollection__PropTypeFragment,
   useGetPropTypeCQuery,
-  useUpdatePropTypeCMutation,
+  useUpsertPropTypeCMutation,
 } from '@codelab/hasura'
 import { Spin } from 'antd'
 import React, { useEffect } from 'react'
 import { DeepPartial } from 'uniforms'
-import { AutoFields } from 'uniforms-antd'
+import { AutoFields, HiddenField } from 'uniforms-antd'
 import {
   UpdatePropTypeCInput,
   UpdatePropTypeCSchema,
@@ -21,17 +24,24 @@ import {
 
 type UpdatePropTypeCFormProps = UniFormUseCaseProps<UpdatePropTypeCInput>
 
+const cleanPropTypesFromExtraMeta = (
+  propTypes: Array<PropTypeCollection__PropTypeFragment>,
+) =>
+  (propTypes as Array<
+    PropTypeCollection__PropTypeFragment & {
+      __typename: string
+    }
+  >).map(({ __typename, type, prop_type_c_id, ...cleanedItem }) => cleanedItem)
+
 export const UpdatePropTypeCForm = (props: UpdatePropTypeCFormProps) => {
   const { reset, setLoading, state } = useCRUDModalForm(EntityType.PropTypeC)
   const { updateId: updatePropTypeCId } = state
 
-  const [mutate, { loading: updating }] = useUpdatePropTypeCMutation({
+  const [mutate, { loading: updating }] = useUpsertPropTypeCMutation({
     refetchQueries: [
       {
         query: GetPropTypeCListGql,
-        variables: {
-          propTypeCId: updatePropTypeCId,
-        },
+        variables: {},
       },
     ],
   })
@@ -55,10 +65,24 @@ export const UpdatePropTypeCForm = (props: UpdatePropTypeCFormProps) => {
   const onSubmit = (submitData: DeepPartial<UpdatePropTypeCInput>) => {
     return mutate({
       variables: {
-        input: {
-          ...(submitData as any),
+        object: {
+          id: submitData?.id,
+          label: submitData?.label,
+          library_id: submitData?.library_id,
+          ...(submitData?.propTypes && {
+            propTypes: {
+              data: submitData.propTypes as UpdatePropTypeCInput['propTypes'],
+              on_conflict: {
+                constraint: Prop_Type_Constraint.PropTypePkey,
+                update_columns: [
+                  Prop_Type_Update_Column.IsArray,
+                  Prop_Type_Update_Column.ValueType,
+                  Prop_Type_Update_Column.Key,
+                ],
+              },
+            },
+          }),
         },
-        propTypeCId: updatePropTypeCId,
       },
     })
   }
@@ -67,14 +91,21 @@ export const UpdatePropTypeCForm = (props: UpdatePropTypeCFormProps) => {
     <FormUniforms<UpdatePropTypeCInput>
       onSubmit={onSubmit}
       schema={UpdatePropTypeCSchema}
-      model={{ label: propTypeCItem?.label ?? '' }}
-      onSubmitError={createNotificationHandler({
-        title: 'Error while updating library',
-      })}
+      model={{
+        id: propTypeCItem?.id,
+        label: propTypeCItem?.label ?? '',
+        library_id: propTypeCItem?.library_id,
+        propTypes: propTypeCItem?.propTypes
+          ? cleanPropTypesFromExtraMeta(propTypeCItem.propTypes)
+          : [],
+      }}
+      onSubmitError={createNotificationHandler({})}
       onSubmitSuccess={() => reset()}
       {...props}
     >
-      <AutoFields />
+      <AutoFields fields={['label', 'propTypes']} />
+      <HiddenField name="id" />
+      <HiddenField name="library_id" />
     </FormUniforms>
   )
 }

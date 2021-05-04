@@ -5337,8 +5337,8 @@ export type Prop_Type = {
   propTypeCollection: Prop_Type_C
   prop_type_c_id: Scalars['uuid']
   /** An object relationship */
-  type?: Maybe<Value_Type>
-  value_type?: Maybe<Value_Type_Enum>
+  type: Value_Type
+  value_type: Value_Type_Enum
 }
 
 /** aggregated selection of "prop_type" */
