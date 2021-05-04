@@ -19,7 +19,7 @@ import { DeepPartial } from 'uniforms'
 import { AutoFields, HiddenField } from 'uniforms-antd'
 import {
   UpdatePropTypeCInput,
-  UpdatePropTypeCSchema,
+  updatePropTypeCSchema,
 } from './updatePropTypeCSchema'
 
 type UpdatePropTypeCFormProps = UniFormUseCaseProps<UpdatePropTypeCInput>
@@ -90,7 +90,7 @@ export const UpdatePropTypeCForm = (props: UpdatePropTypeCFormProps) => {
   return (
     <FormUniforms<UpdatePropTypeCInput>
       onSubmit={onSubmit}
-      schema={UpdatePropTypeCSchema}
+      schema={updatePropTypeCSchema}
       model={{
         id: propTypeCItem?.id,
         label: propTypeCItem?.label ?? '',

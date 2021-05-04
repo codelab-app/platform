@@ -1,4 +1,3 @@
-import { DeleteOutlined } from '@ant-design/icons'
 import { useBuilderSelection } from '@codelab/frontend/builder'
 import {
   ActionType,
@@ -47,11 +46,7 @@ export const PaneConfigComponentElement = ({ componentElementId }: Props) => {
           <CreateComponentLinkButton>
             Insert child element
           </CreateComponentLinkButton>
-          <DeleteComponentElementButton
-            componentElementId={element.id}
-            icon={<DeleteOutlined />}
-            danger={true}
-          />
+          <DeleteComponentElementButton ids={[element.id]} disabled={false} />
         </div>
 
         <CrudModal

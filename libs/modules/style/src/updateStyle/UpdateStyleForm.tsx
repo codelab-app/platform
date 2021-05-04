@@ -16,18 +16,18 @@ import { DeepPartial } from 'uniforms'
 import { AutoFields } from 'uniforms-antd'
 import { UpdateStyleInput, UpdateStyleSchema } from './updateStyleSchema'
 
-export const UpdateStyleForm = ({
-  ...props
-}: UniFormUseCaseProps<UpdateStyleInput>) => {
+export const UpdateStyleForm = (
+  props: UniFormUseCaseProps<UpdateStyleInput>,
+) => {
   const { reset, setLoading, state } = useCRUDModalForm(EntityType.Style)
-  const { id: styleId } = state
+  const { updateId: updateStyleId } = state
 
   const [mutate, { loading: updating }] = useUpdateStyleMutation({
     refetchQueries: [
       {
         query: GetStyleGql,
         variables: {
-          styleId,
+          styleId: updateStyleId,
         },
       },
     ],
@@ -39,7 +39,7 @@ export const UpdateStyleForm = ({
 
   const { data, loading } = useGetStyleQuery({
     variables: {
-      styleId,
+      styleId: updateStyleId,
     },
   })
 
@@ -95,9 +95,9 @@ export const UpdateStyleForm = ({
       variables: {
         input: {
           ...(submitData as any),
-          id: styleId,
+          id: updateStyleId,
         },
-        styleId,
+        styleId: updateStyleId,
       },
     })
   }

@@ -13,7 +13,7 @@ import {
 import React, { useContext, useEffect } from 'react'
 import { DeepPartial } from 'uniforms'
 import { AutoFields, SelectField } from 'uniforms-antd'
-import { PropType } from '../PropTypesSchema'
+import { PropType } from '../propTypesSchema'
 import {
   CreatePropTypeCInput,
   createPropTypeCSchema,

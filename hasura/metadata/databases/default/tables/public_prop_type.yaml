@@ -15,6 +15,7 @@ insert_permissions:
             user_id:
               _eq: X-Hasura-User-Id
       columns:
+        - is_array
         - key
         - prop_type_c_id
         - value_type
@@ -30,6 +31,7 @@ select_permissions:
   - permission:
       columns:
         - id
+        - is_array
         - key
         - prop_type_c_id
         - value_type
@@ -50,6 +52,7 @@ update_permissions:
             user_id:
               _eq: X-Hasura-User-Id
       columns:
+        - is_array
         - key
         - prop_type_c_id
         - value_type

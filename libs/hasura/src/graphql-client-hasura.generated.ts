@@ -5292,7 +5292,7 @@ export type Prop_Set_Input = {
 /** columns and relationships of "prop_type" */
 export type Prop_Type = {
   id: Scalars['uuid']
-  isArray: Scalars['Boolean']
+  is_array: Scalars['Boolean']
   key: Scalars['String']
   /** An object relationship */
   propTypeCollection: Prop_Type_C
@@ -5341,7 +5341,7 @@ export type Prop_Type_Bool_Exp = {
   _not?: Maybe<Prop_Type_Bool_Exp>
   _or?: Maybe<Array<Prop_Type_Bool_Exp>>
   id?: Maybe<Uuid_Comparison_Exp>
-  isArray?: Maybe<Boolean_Comparison_Exp>
+  is_array?: Maybe<Boolean_Comparison_Exp>
   key?: Maybe<String_Comparison_Exp>
   propTypeCollection?: Maybe<Prop_Type_C_Bool_Exp>
   prop_type_c_id?: Maybe<Uuid_Comparison_Exp>
@@ -5567,7 +5567,7 @@ export enum Prop_Type_Constraint {
 /** input type for inserting data into table "prop_type" */
 export type Prop_Type_Insert_Input = {
   id?: Maybe<Scalars['uuid']>
-  isArray?: Maybe<Scalars['Boolean']>
+  is_array?: Maybe<Scalars['Boolean']>
   key?: Maybe<Scalars['String']>
   propTypeCollection?: Maybe<Prop_Type_C_Obj_Rel_Insert_Input>
   prop_type_c_id?: Maybe<Scalars['uuid']>
@@ -5628,7 +5628,7 @@ export type Prop_Type_On_Conflict = {
 /** Ordering options when selecting data from "prop_type". */
 export type Prop_Type_Order_By = {
   id?: Maybe<Order_By>
-  isArray?: Maybe<Order_By>
+  is_array?: Maybe<Order_By>
   key?: Maybe<Order_By>
   propTypeCollection?: Maybe<Prop_Type_C_Order_By>
   prop_type_c_id?: Maybe<Order_By>
@@ -5646,7 +5646,7 @@ export enum Prop_Type_Select_Column {
   /** column name */
   Id = 'id',
   /** column name */
-  IsArray = 'isArray',
+  IsArray = 'is_array',
   /** column name */
   Key = 'key',
   /** column name */
@@ -5658,7 +5658,7 @@ export enum Prop_Type_Select_Column {
 /** input type for updating data in table "prop_type" */
 export type Prop_Type_Set_Input = {
   id?: Maybe<Scalars['uuid']>
-  isArray?: Maybe<Scalars['Boolean']>
+  is_array?: Maybe<Scalars['Boolean']>
   key?: Maybe<Scalars['String']>
   prop_type_c_id?: Maybe<Scalars['uuid']>
   value_type?: Maybe<Value_Type_Enum>
@@ -5669,7 +5669,7 @@ export enum Prop_Type_Update_Column {
   /** column name */
   Id = 'id',
   /** column name */
-  IsArray = 'isArray',
+  IsArray = 'is_array',
   /** column name */
   Key = 'key',
   /** column name */
@@ -10613,7 +10613,7 @@ export type UpdatePageMutation = {
 
 export type PropTypeCollection__PropTypeFragment = Pick<
   Prop_Type,
-  'id' | 'key' | 'prop_type_c_id' | 'isArray' | 'value_type'
+  'id' | 'key' | 'prop_type_c_id' | 'is_array' | 'value_type'
 > & { type: ValueTypeFragment }
 
 export type PropTypeCollectionFragment = Pick<
@@ -10830,7 +10830,7 @@ export const PropTypeCollection__PropTypeFragmentDoc = gql`
     id
     key
     prop_type_c_id
-    isArray
+    is_array
     type {
       ...ValueType
     }
@@ -15311,7 +15311,7 @@ export const PropTypeCollection__PropType = gql`
     id
     key
     prop_type_c_id
-    isArray
+    is_array
     type {
       ...ValueType
     }

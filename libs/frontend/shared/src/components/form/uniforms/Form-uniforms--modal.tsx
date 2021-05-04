@@ -1,3 +1,4 @@
+import { SubmitController } from '@codelab/frontend/shared'
 import { Modal } from 'antd'
 import { ModalProps } from 'antd/lib/modal'
 import React, {
@@ -6,7 +7,6 @@ import React, {
   ReactElement,
   useRef,
 } from 'react'
-import { SubmitController } from '../json-schema'
 import { FormUniformsProps } from './Form-uniforms--types'
 
 export interface FormUniformsModalProps<TData extends Record<string, unknown>> {

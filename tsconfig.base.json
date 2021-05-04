@@ -12,7 +12,7 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "es2015",
-    "types": ["@rjsf/antd", "node", "jest"],
+    "types": ["node", "jest"],
     "typeRoots": ["node_modules/@types", "types"],
     "lib": ["es2017", "dom"],
     "skipLibCheck": true,
@@ -44,8 +44,7 @@
       "@codelab/modules/component-element": [
         "libs/modules/component-element/src/index.ts"
       ],
-      "@codelab/modules/atom-type": ["libs/modules/atom-type/src/index.ts"]
-      ],
+      "@codelab/modules/atom-type": ["libs/modules/atom-type/src/index.ts"],
       "@codelab/modules/prop-type": ["libs/modules/prop-type/src/index.ts"]
     }
   },

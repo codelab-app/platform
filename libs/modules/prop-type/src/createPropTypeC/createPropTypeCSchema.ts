@@ -1,7 +1,7 @@
 import { DeepNonNullable } from '@codelab/frontend/shared'
 import { Prop_Type_C_Insert_Input } from '@codelab/hasura'
 import { JSONSchemaType } from 'ajv'
-import { PropType, PropTypesSchema } from '../PropTypesSchema'
+import { PropType, propTypesSchema } from '../propTypesSchema'
 
 export type CreatePropTypeCInput = DeepNonNullable<
   Pick<Required<Prop_Type_C_Insert_Input>, 'label' | 'library_id'> & {
@@ -19,7 +19,7 @@ export const createPropTypeCSchema: JSONSchemaType<CreatePropTypeCInput> = {
     library_id: {
       type: 'string',
     },
-    propTypes: PropTypesSchema,
+    propTypes: propTypesSchema,
   },
   required: ['label', 'library_id'],
 } as const

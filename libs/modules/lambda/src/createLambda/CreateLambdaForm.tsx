@@ -1,7 +1,7 @@
 import {
   createNotificationHandler,
   FormUniforms,
-  FormUseCaseProps,
+  UniFormUseCaseProps,
 } from '@codelab/frontend/shared'
 import { GetLambdasByLibraryId, useCreateLambdaMutation } from '@codelab/hasura'
 import { useSelectedLibrary } from '@codelab/modules/library'
@@ -9,7 +9,7 @@ import React from 'react'
 import { DeepPartial } from 'uniforms'
 import { CreateLambdaInput, createLambdaSchema } from './createLambdaSchema'
 
-export const CreateLambdaForm = (props: FormUseCaseProps<any>) => {
+export const CreateLambdaForm = (props: UniFormUseCaseProps<any>) => {
   const { library } = useSelectedLibrary()
 
   const [mutate] = useCreateLambdaMutation({

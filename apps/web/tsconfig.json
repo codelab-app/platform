@@ -8,7 +8,7 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "allowSyntheticDefaultImports": true,
-    "types": ["node", "jest", "@rjsf/antd", "xwind"],
+    "types": ["node", "jest", "xwind"],
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,

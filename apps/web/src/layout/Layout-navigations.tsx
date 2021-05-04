@@ -6,16 +6,18 @@ import {
   FunctionOutlined,
   SettingOutlined,
 } from '@ant-design/icons'
-import { PageType, PaneType } from '@codelab/frontend/shared'
+import { LibraryContext, PageType, PaneType } from '@codelab/frontend/shared'
 import { Menu } from 'antd'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useContext } from 'react'
 import xw from 'xwind'
 
 export const LayoutNavigations = () => {
   const router = useRouter()
+  const { libraries } = useContext(LibraryContext)
 
+  console.log(libraries)
   console.log(router.pathname)
 
   return (

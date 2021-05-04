@@ -1,7 +1,6 @@
 import {
   createNotificationHandler,
   FormUniforms,
-  FormUseCaseProps,
 } from '@codelab/frontend/shared'
 import {
   GetLambdasByLibraryId,
@@ -16,7 +15,7 @@ import { updateLambdaState } from './UpdateLambdaState'
 
 type UpdateLambdaFormProps = {
   lambda: Lambda
-} & FormUseCaseProps<any>
+}
 
 export const UpdateLambdaForm = ({
   lambda,

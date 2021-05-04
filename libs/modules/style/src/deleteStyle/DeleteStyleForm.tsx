@@ -19,7 +19,7 @@ type DeleteStyleFormProps = UniFormUseCaseProps<DeleteStyleInput>
 
 export const DeleteStyleForm = (props: DeleteStyleFormProps) => {
   const { reset, setLoading, state } = useCRUDModalForm(EntityType.Style)
-  const { id: styleId } = state
+  const { deleteIds: deleteStyleIds } = state
 
   const [mutate, { loading: deleting }] = useDeleteStyleMutation({
     refetchQueries: [
@@ -35,7 +35,7 @@ export const DeleteStyleForm = (props: DeleteStyleFormProps) => {
 
   const { data, loading } = useGetStyleQuery({
     variables: {
-      styleId,
+      styleId: deleteStyleIds[0],
     },
   })
 
@@ -48,7 +48,7 @@ export const DeleteStyleForm = (props: DeleteStyleFormProps) => {
   const onSubmit = () => {
     return mutate({
       variables: {
-        styleId,
+        styleId: deleteStyleIds[0],
       },
     })
   }

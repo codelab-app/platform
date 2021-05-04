@@ -3,7 +3,7 @@ import { JSONSchemaType } from 'ajv'
 import React from 'react'
 import { AutoFormProps, Bridge } from 'uniforms'
 import { CallbackOrArrayOfCallbacks } from '../../../utils'
-import { SubmitController } from '../json-schema'
+import { SubmitController } from './submitController'
 
 export type FormUniformsProps<TData extends Record<string, unknown>> = {
   /** Use this to be able to hide the submit button and get a controller, which can trigger form submit */
@@ -26,3 +26,17 @@ export type FormUniformsProps<TData extends Record<string, unknown>> = {
   Omit<AutoFormProps<TData>, 'schema'>
 > &
   Pick<AutoFormProps<TData>, 'onSubmit'>
+
+/**
+ * Read to use form, can be used with modal or standalone
+ */
+export type UniFormUseCaseProps<
+  TData extends Record<any, unknown>
+> = React.PropsWithChildren<
+  Partial<
+    Pick<
+      FormUniformsProps<TData>,
+      'onSubmitError' | 'onSubmitSuccess' | 'submitRef' | 'autosave'
+    >
+  >
+>
