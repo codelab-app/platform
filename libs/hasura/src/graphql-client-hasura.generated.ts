@@ -21,6 +21,19 @@ export type Scalars = {
   uuid: string
 }
 
+/** Boolean expression to compare columns of type "Boolean". All fields are combined with logical 'AND'. */
+export type Boolean_Comparison_Exp = {
+  _eq?: Maybe<Scalars['Boolean']>
+  _gt?: Maybe<Scalars['Boolean']>
+  _gte?: Maybe<Scalars['Boolean']>
+  _in?: Maybe<Array<Scalars['Boolean']>>
+  _is_null?: Maybe<Scalars['Boolean']>
+  _lt?: Maybe<Scalars['Boolean']>
+  _lte?: Maybe<Scalars['Boolean']>
+  _neq?: Maybe<Scalars['Boolean']>
+  _nin?: Maybe<Array<Scalars['Boolean']>>
+}
+
 /** Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'. */
 export type Int_Comparison_Exp = {
   _eq?: Maybe<Scalars['Int']>
@@ -5318,6 +5331,7 @@ export type Prop_Set_Input = {
 /** columns and relationships of "prop_type" */
 export type Prop_Type = {
   id: Scalars['uuid']
+  isArray: Scalars['Boolean']
   key: Scalars['String']
   /** An object relationship */
   propTypeCollection: Prop_Type_C
@@ -5366,6 +5380,7 @@ export type Prop_Type_Bool_Exp = {
   _not?: Maybe<Prop_Type_Bool_Exp>
   _or?: Maybe<Array<Prop_Type_Bool_Exp>>
   id?: Maybe<Uuid_Comparison_Exp>
+  isArray?: Maybe<Boolean_Comparison_Exp>
   key?: Maybe<String_Comparison_Exp>
   propTypeCollection?: Maybe<Prop_Type_C_Bool_Exp>
   prop_type_c_id?: Maybe<Uuid_Comparison_Exp>
@@ -5591,6 +5606,7 @@ export enum Prop_Type_Constraint {
 /** input type for inserting data into table "prop_type" */
 export type Prop_Type_Insert_Input = {
   id?: Maybe<Scalars['uuid']>
+  isArray?: Maybe<Scalars['Boolean']>
   key?: Maybe<Scalars['String']>
   propTypeCollection?: Maybe<Prop_Type_C_Obj_Rel_Insert_Input>
   prop_type_c_id?: Maybe<Scalars['uuid']>
@@ -5651,6 +5667,7 @@ export type Prop_Type_On_Conflict = {
 /** Ordering options when selecting data from "prop_type". */
 export type Prop_Type_Order_By = {
   id?: Maybe<Order_By>
+  isArray?: Maybe<Order_By>
   key?: Maybe<Order_By>
   propTypeCollection?: Maybe<Prop_Type_C_Order_By>
   prop_type_c_id?: Maybe<Order_By>
@@ -5668,6 +5685,8 @@ export enum Prop_Type_Select_Column {
   /** column name */
   Id = 'id',
   /** column name */
+  IsArray = 'isArray',
+  /** column name */
   Key = 'key',
   /** column name */
   PropTypeCId = 'prop_type_c_id',
@@ -5678,6 +5697,7 @@ export enum Prop_Type_Select_Column {
 /** input type for updating data in table "prop_type" */
 export type Prop_Type_Set_Input = {
   id?: Maybe<Scalars['uuid']>
+  isArray?: Maybe<Scalars['Boolean']>
   key?: Maybe<Scalars['String']>
   prop_type_c_id?: Maybe<Scalars['uuid']>
   value_type?: Maybe<Value_Type_Enum>
@@ -5687,6 +5707,8 @@ export type Prop_Type_Set_Input = {
 export enum Prop_Type_Update_Column {
   /** column name */
   Id = 'id',
+  /** column name */
+  IsArray = 'isArray',
   /** column name */
   Key = 'key',
   /** column name */
@@ -10439,7 +10461,7 @@ export type UpdatePageMutation = {
 
 export type PropTypeCollection__PropTypeFragment = Pick<
   Prop_Type,
-  'id' | 'key' | 'prop_type_c_id' | 'value_type'
+  'id' | 'key' | 'prop_type_c_id' | 'isArray' | 'value_type'
 > & { type?: Maybe<ValueTypeFragment> }
 
 export type PropTypeCollectionFragment = Pick<
@@ -10491,6 +10513,16 @@ export type UpdatePropTypeCMutationVariables = Exact<{
 
 export type UpdatePropTypeCMutation = {
   update_prop_type_c_by_pk?: Maybe<PropTypeCollectionFragment>
+}
+
+export type UpsertPropTypeCMutationVariables = Exact<{
+  object: Prop_Type_C_Insert_Input
+}>
+
+export type UpsertPropTypeCMutation = {
+  insert_prop_type_c?: Maybe<
+    Pick<Prop_Type_C_Mutation_Response, 'affected_rows'>
+  >
 }
 
 export type CreatePageElementPropMutationVariables = Exact<{
@@ -10646,6 +10678,7 @@ export const PropTypeCollection__PropTypeFragmentDoc = gql`
     id
     key
     prop_type_c_id
+    isArray
     type {
       ...ValueType
     }
@@ -14130,6 +14163,58 @@ export type UpdatePropTypeCMutationOptions = Apollo.BaseMutationOptions<
   UpdatePropTypeCMutation,
   UpdatePropTypeCMutationVariables
 >
+export const UpsertPropTypeCGql = gql`
+  mutation UpsertPropTypeC($object: prop_type_c_insert_input!) {
+    insert_prop_type_c(
+      objects: [$object]
+      on_conflict: { constraint: prop_type_c_pkey, update_columns: [label] }
+    ) {
+      affected_rows
+    }
+  }
+`
+export type UpsertPropTypeCMutationFn = Apollo.MutationFunction<
+  UpsertPropTypeCMutation,
+  UpsertPropTypeCMutationVariables
+>
+
+/**
+ * __useUpsertPropTypeCMutation__
+ *
+ * To run a mutation, you first call `useUpsertPropTypeCMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpsertPropTypeCMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [upsertPropTypeCMutation, { data, loading, error }] = useUpsertPropTypeCMutation({
+ *   variables: {
+ *      object: // value for 'object'
+ *   },
+ * });
+ */
+export function useUpsertPropTypeCMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpsertPropTypeCMutation,
+    UpsertPropTypeCMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    UpsertPropTypeCMutation,
+    UpsertPropTypeCMutationVariables
+  >(UpsertPropTypeCGql, options)
+}
+export type UpsertPropTypeCMutationHookResult = ReturnType<
+  typeof useUpsertPropTypeCMutation
+>
+export type UpsertPropTypeCMutationResult = Apollo.MutationResult<UpsertPropTypeCMutation>
+export type UpsertPropTypeCMutationOptions = Apollo.BaseMutationOptions<
+  UpsertPropTypeCMutation,
+  UpsertPropTypeCMutationVariables
+>
 export const CreatePageElementPropGql = gql`
   mutation CreatePageElementProp($propInput: prop_insert_input!) {
     insert_prop_one(object: $propInput) {
@@ -14746,6 +14831,7 @@ export const PropTypeCollection__PropType = gql`
     id
     key
     prop_type_c_id
+    isArray
     type {
       ...ValueType
     }
@@ -15526,6 +15612,16 @@ export const UpdatePropTypeC = gql`
     }
   }
   ${PropTypeCollection}
+`
+export const UpsertPropTypeC = gql`
+  mutation UpsertPropTypeC($object: prop_type_c_insert_input!) {
+    insert_prop_type_c(
+      objects: [$object]
+      on_conflict: { constraint: prop_type_c_pkey, update_columns: [label] }
+    ) {
+      affected_rows
+    }
+  }
 `
 export const CreatePageElementProp = gql`
   mutation CreatePageElementProp($propInput: prop_insert_input!) {

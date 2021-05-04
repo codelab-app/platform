@@ -1,0 +1,8 @@
+mutation UpsertPropTypeC($object: prop_type_c_insert_input!) {
+  insert_prop_type_c(
+    objects: [$object]
+    on_conflict: { constraint: prop_type_c_pkey, update_columns: [label] }
+  ) {
+    affected_rows
+  }
+}

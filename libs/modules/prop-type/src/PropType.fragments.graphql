@@ -2,6 +2,7 @@ fragment PropTypeCollection__PropType on prop_type {
   id
   key
   prop_type_c_id
+  isArray
   type {
     ...ValueType
   }
