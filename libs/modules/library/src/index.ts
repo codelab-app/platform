@@ -1,6 +1,6 @@
 export * from './createLibrary'
 export * from './deleteLibrary'
-export * from './getLibraries'
+export * from './libraryExplorer'
 export * from './librarySelectionState'
 export * from './mainPane'
 export * from './updateLibrary'

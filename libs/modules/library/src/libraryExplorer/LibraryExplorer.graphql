@@ -1,5 +1,17 @@
-query GetLibrariesOverview {
+query LibraryExplorer {
   library {
-    ...GetLibraryOverview__Library
+    id
+    name
+    components {
+      id
+      label
+    }
+    atoms {
+      id
+      type {
+        id
+        label
+      }
+    }
   }
 }

@@ -7,7 +7,7 @@ import {
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
 import {
-  GetAtomsListGql,
+  refetchLibraryExplorerQuery,
   useCreateAtomMutation,
   useGetAtomsTypesQuery,
 } from '@codelab/hasura'
@@ -26,11 +26,7 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
   // Only Editors can modify Atoms
   const [mutate, { loading: creating }] = useCreateAtomMutation({
     awaitRefetchQueries: true,
-    refetchQueries: [
-      {
-        query: GetAtomsListGql,
-      },
-    ],
+    refetchQueries: [refetchLibraryExplorerQuery()],
     context: {
       headers: {
         'X-Hasura-Role': 'admin',
@@ -43,8 +39,6 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
   }, [creating])
 
   const onSubmit = (submitData: DeepPartial<CreateAtomInput>) => {
-    console.log(submitData)
-
     return mutate({
       variables: {
         data: {

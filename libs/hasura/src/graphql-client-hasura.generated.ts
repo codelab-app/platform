@@ -10473,16 +10473,7 @@ export type GetLibraryQueryVariables = Exact<{
 
 export type GetLibraryQuery = { library_by_pk?: Maybe<__LibraryFragment> }
 
-export type __LibraryFragment = Pick<Library, 'id' | 'name' | 'user_id'> & {
-  categories: Array<Library__CategoryFragment>
-  components: Array<__ComponentFragment>
-  atoms: Array<__AtomFragment>
-  lambdas: Array<Library__LambdaFragment>
-  propTypes: Array<{ propTypes: Array<PropTypeCollection__PropTypeFragment> }>
-  props: Array<{ props: Array<PropCollection__PropFragment> }>
-  styles: Array<Library__StyleFragment>
-  tags: Array<__TagFragment>
-}
+export type __LibraryFragment = Pick<Library, 'id' | 'name'>
 
 export type CreateLibraryMutationVariables = Exact<{
   data: Library_Insert_Input
@@ -10508,9 +10499,22 @@ export type DeleteUserLibrariesMutation = {
   delete_library?: Maybe<Pick<Library_Mutation_Response, 'affected_rows'>>
 }
 
-export type GetLibrariesQueryVariables = Exact<{ [key: string]: never }>
+export type LibraryExplorerQueryVariables = Exact<{ [key: string]: never }>
 
-export type GetLibrariesQuery = { library: Array<__LibraryFragment> }
+export type LibraryExplorerQuery = {
+  library: Array<
+    Pick<Library, 'id' | 'name'> & {
+      components: Array<Pick<Component, 'id' | 'label'>>
+      atoms: Array<Pick<Atom, 'id'> & { type: Pick<Atom_Type, 'id' | 'label'> }>
+    }
+  >
+}
+
+export type LibraryExplorer__AtomFragment = Pick<Atom, 'id'>
+
+export type LibraryExplorer__ComponentFragment = Pick<Component, 'id' | 'label'>
+
+export type LibraryExplorer__LibraryFragment = Pick<Library, 'id' | 'name'>
 
 export type UpdateLibraryMutationVariables = Exact<{
   input: Library_Set_Input
@@ -10808,6 +10812,36 @@ export const Library__CategoryFragmentDoc = gql`
   }
   ${__TagFragmentDoc}
 `
+export const Library__LambdaFragmentDoc = gql`
+  fragment Library__Lambda on lambda {
+    id
+    body
+    name
+  }
+`
+export const __LibraryFragmentDoc = gql`
+  fragment __Library on library {
+    id
+    name
+  }
+`
+export const LibraryExplorer__AtomFragmentDoc = gql`
+  fragment LibraryExplorer__Atom on atom {
+    id
+  }
+`
+export const LibraryExplorer__ComponentFragmentDoc = gql`
+  fragment LibraryExplorer__Component on component {
+    id
+    label
+  }
+`
+export const LibraryExplorer__LibraryFragmentDoc = gql`
+  fragment LibraryExplorer__Library on library {
+    id
+    name
+  }
+`
 export const ComponentElement__HocFragmentDoc = gql`
   fragment ComponentElement__Hoc on hoc {
     id
@@ -10994,56 +11028,6 @@ export const __ComponentFragmentDoc = gql`
   ${__ComponentElementFragmentDoc}
   ${PageElement__ComponentLinkFragmentDoc}
 `
-export const Library__LambdaFragmentDoc = gql`
-  fragment Library__Lambda on lambda {
-    id
-    body
-    name
-  }
-`
-export const __LibraryFragmentDoc = gql`
-  fragment __Library on library {
-    id
-    name
-    categories {
-      ...Library__Category
-    }
-    components {
-      ...__Component
-    }
-    atoms {
-      ...__Atom
-    }
-    lambdas {
-      ...Library__Lambda
-    }
-    propTypes {
-      propTypes {
-        ...PropTypeCollection__PropType
-      }
-    }
-    props {
-      props {
-        ...PropCollection__Prop
-      }
-    }
-    styles {
-      ...Library__Style
-    }
-    tags {
-      ...__Tag
-    }
-    user_id
-  }
-  ${Library__CategoryFragmentDoc}
-  ${__ComponentFragmentDoc}
-  ${__AtomFragmentDoc}
-  ${Library__LambdaFragmentDoc}
-  ${PropTypeCollection__PropTypeFragmentDoc}
-  ${PropCollection__PropFragmentDoc}
-  ${Library__StyleFragmentDoc}
-  ${__TagFragmentDoc}
-`
 export const Page__PageElementFragmentDoc = gql`
   fragment Page__PageElement on page_element {
     id
@@ -11205,6 +11189,9 @@ export type GetAppQueryResult = Apollo.QueryResult<
   GetAppQuery,
   GetAppQueryVariables
 >
+export function refetchGetAppQuery(variables?: GetAppQueryVariables) {
+  return { query: GetAppGql, variables: variables }
+}
 export const CreateAppGql = gql`
   mutation CreateApp($input: app_insert_input!) {
     insert_app_one(object: $input) {
@@ -11362,6 +11349,9 @@ export type GetAppItemQueryResult = Apollo.QueryResult<
   GetAppItemQuery,
   GetAppItemQueryVariables
 >
+export function refetchGetAppItemQuery(variables?: GetAppItemQueryVariables) {
+  return { query: GetAppItemGql, variables: variables }
+}
 export const GetAppsListGql = gql`
   query GetAppsList {
     app {
@@ -11418,6 +11408,9 @@ export type GetAppsListQueryResult = Apollo.QueryResult<
   GetAppsListQuery,
   GetAppsListQueryVariables
 >
+export function refetchGetAppsListQuery(variables?: GetAppsListQueryVariables) {
+  return { query: GetAppsListGql, variables: variables }
+}
 export const GetAppsListForUserGql = gql`
   query GetAppsListForUser($userId: String!) {
     app(where: { user_id: { _eq: $userId } }) {
@@ -11477,6 +11470,11 @@ export type GetAppsListForUserQueryResult = Apollo.QueryResult<
   GetAppsListForUserQuery,
   GetAppsListForUserQueryVariables
 >
+export function refetchGetAppsListForUserQuery(
+  variables?: GetAppsListForUserQueryVariables,
+) {
+  return { query: GetAppsListForUserGql, variables: variables }
+}
 export const EditAppGql = gql`
   mutation EditApp($input: app_set_input!, $id: uuid!) {
     update_app_by_pk(_set: $input, pk_columns: { id: $id }) {
@@ -11684,6 +11682,9 @@ export type GetAtomTypeQueryResult = Apollo.QueryResult<
   GetAtomTypeQuery,
   GetAtomTypeQueryVariables
 >
+export function refetchGetAtomTypeQuery(variables?: GetAtomTypeQueryVariables) {
+  return { query: GetAtomTypeGql, variables: variables }
+}
 export const GetAtomTypesGql = gql`
   query GetAtomTypes {
     atom_type {
@@ -11742,6 +11743,11 @@ export type GetAtomTypesQueryResult = Apollo.QueryResult<
   GetAtomTypesQuery,
   GetAtomTypesQueryVariables
 >
+export function refetchGetAtomTypesQuery(
+  variables?: GetAtomTypesQueryVariables,
+) {
+  return { query: GetAtomTypesGql, variables: variables }
+}
 export const GetAtomTypesWhereGql = gql`
   query GetAtomTypesWhere($where: atom_type_bool_exp!) {
     atom_type(where: $where) {
@@ -11801,6 +11807,11 @@ export type GetAtomTypesWhereQueryResult = Apollo.QueryResult<
   GetAtomTypesWhereQuery,
   GetAtomTypesWhereQueryVariables
 >
+export function refetchGetAtomTypesWhereQuery(
+  variables?: GetAtomTypesWhereQueryVariables,
+) {
+  return { query: GetAtomTypesWhereGql, variables: variables }
+}
 export const UpdateAtomTypeGql = gql`
   mutation UpdateAtomType($input: atom_type_set_input!, $atomTypeId: uuid!) {
     update_atom_type_by_pk(_set: $input, pk_columns: { id: $atomTypeId }) {
@@ -12104,6 +12115,9 @@ export type GetAtomQueryResult = Apollo.QueryResult<
   GetAtomQuery,
   GetAtomQueryVariables
 >
+export function refetchGetAtomQuery(variables?: GetAtomQueryVariables) {
+  return { query: GetAtomGql, variables: variables }
+}
 export const GetAtomsListGql = gql`
   query GetAtomsList {
     atom {
@@ -12162,6 +12176,11 @@ export type GetAtomsListQueryResult = Apollo.QueryResult<
   GetAtomsListQuery,
   GetAtomsListQueryVariables
 >
+export function refetchGetAtomsListQuery(
+  variables?: GetAtomsListQueryVariables,
+) {
+  return { query: GetAtomsListGql, variables: variables }
+}
 export const GetAtomsTypesGql = gql`
   query GetAtomsTypes {
     atom_type {
@@ -12220,6 +12239,11 @@ export type GetAtomsTypesQueryResult = Apollo.QueryResult<
   GetAtomsTypesQuery,
   GetAtomsTypesQueryVariables
 >
+export function refetchGetAtomsTypesQuery(
+  variables?: GetAtomsTypesQueryVariables,
+) {
+  return { query: GetAtomsTypesGql, variables: variables }
+}
 export const GetAtomsWhereGql = gql`
   query GetAtomsWhere($where: atom_bool_exp!) {
     atom(where: $where) {
@@ -12279,6 +12303,11 @@ export type GetAtomsWhereQueryResult = Apollo.QueryResult<
   GetAtomsWhereQuery,
   GetAtomsWhereQueryVariables
 >
+export function refetchGetAtomsWhereQuery(
+  variables?: GetAtomsWhereQueryVariables,
+) {
+  return { query: GetAtomsWhereGql, variables: variables }
+}
 export const UpdateAtomGql = gql`
   mutation UpdateAtom($input: atom_set_input!, $atomId: uuid!) {
     update_atom_by_pk(_set: $input, pk_columns: { id: $atomId }) {
@@ -12588,6 +12617,11 @@ export type GetComponentElementQueryResult = Apollo.QueryResult<
   GetComponentElementQuery,
   GetComponentElementQueryVariables
 >
+export function refetchGetComponentElementQuery(
+  variables?: GetComponentElementQueryVariables,
+) {
+  return { query: GetComponentElementGql, variables: variables }
+}
 export const UpdateComponentElementGql = gql`
   mutation UpdateComponentElement(
     $componentElementId: uuid!
@@ -12903,6 +12937,11 @@ export type GetComponentQueryResult = Apollo.QueryResult<
   GetComponentQuery,
   GetComponentQueryVariables
 >
+export function refetchGetComponentQuery(
+  variables?: GetComponentQueryVariables,
+) {
+  return { query: GetComponentGql, variables: variables }
+}
 export const GetComponentDetailGql = gql`
   query GetComponentDetail($componentId: uuid!) {
     component_by_pk(id: $componentId) {
@@ -12962,6 +13001,11 @@ export type GetComponentDetailQueryResult = Apollo.QueryResult<
   GetComponentDetailQuery,
   GetComponentDetailQueryVariables
 >
+export function refetchGetComponentDetailQuery(
+  variables?: GetComponentDetailQueryVariables,
+) {
+  return { query: GetComponentDetailGql, variables: variables }
+}
 export const GetComponentsGql = gql`
   query GetComponents {
     component {
@@ -13020,6 +13064,11 @@ export type GetComponentsQueryResult = Apollo.QueryResult<
   GetComponentsQuery,
   GetComponentsQueryVariables
 >
+export function refetchGetComponentsQuery(
+  variables?: GetComponentsQueryVariables,
+) {
+  return { query: GetComponentsGql, variables: variables }
+}
 export const GetComponentsWhereGql = gql`
   query GetComponentsWhere($where: component_bool_exp!) {
     component(where: $where) {
@@ -13079,6 +13128,11 @@ export type GetComponentsWhereQueryResult = Apollo.QueryResult<
   GetComponentsWhereQuery,
   GetComponentsWhereQueryVariables
 >
+export function refetchGetComponentsWhereQuery(
+  variables?: GetComponentsWhereQueryVariables,
+) {
+  return { query: GetComponentsWhereGql, variables: variables }
+}
 export const UpdateComponentGql = gql`
   mutation UpdateComponent($componentId: uuid!, $input: component_set_input!) {
     update_component_by_pk(pk_columns: { id: $componentId }, _set: $input) {
@@ -13348,6 +13402,11 @@ export type GetLambdaByIdQueryResult = Apollo.QueryResult<
   GetLambdaByIdQuery,
   GetLambdaByIdQueryVariables
 >
+export function refetchGetLambdaByIdQuery(
+  variables?: GetLambdaByIdQueryVariables,
+) {
+  return { query: GetLambdaByIdGql, variables: variables }
+}
 export const GetLambdasGql = gql`
   query GetLambdas {
     lambda {
@@ -13406,6 +13465,9 @@ export type GetLambdasQueryResult = Apollo.QueryResult<
   GetLambdasQuery,
   GetLambdasQueryVariables
 >
+export function refetchGetLambdasQuery(variables?: GetLambdasQueryVariables) {
+  return { query: GetLambdasGql, variables: variables }
+}
 export const GetLambdasByLibraryIdGql = gql`
   query GetLambdasByLibraryId($libraryId: uuid!) {
     lambda(where: { libraryId: { _eq: $libraryId } }) {
@@ -13467,6 +13529,11 @@ export type GetLambdasByLibraryIdQueryResult = Apollo.QueryResult<
   GetLambdasByLibraryIdQuery,
   GetLambdasByLibraryIdQueryVariables
 >
+export function refetchGetLambdasByLibraryIdQuery(
+  variables?: GetLambdasByLibraryIdQueryVariables,
+) {
+  return { query: GetLambdasByLibraryIdGql, variables: variables }
+}
 export const UpdateLambdaGql = gql`
   mutation UpdateLambda($id: uuid!, $body: String, $name: String) {
     update_lambda(
@@ -13584,6 +13651,11 @@ export type GetFirstLibraryQueryResult = Apollo.QueryResult<
   GetFirstLibraryQuery,
   GetFirstLibraryQueryVariables
 >
+export function refetchGetFirstLibraryQuery(
+  variables?: GetFirstLibraryQueryVariables,
+) {
+  return { query: GetFirstLibraryGql, variables: variables }
+}
 export const GetLibraryGql = gql`
   query GetLibrary($libraryId: uuid!) {
     library_by_pk(id: $libraryId) {
@@ -13641,6 +13713,9 @@ export type GetLibraryQueryResult = Apollo.QueryResult<
   GetLibraryQuery,
   GetLibraryQueryVariables
 >
+export function refetchGetLibraryQuery(variables?: GetLibraryQueryVariables) {
+  return { query: GetLibraryGql, variables: variables }
+}
 export const CreateLibraryGql = gql`
   mutation CreateLibrary($data: library_insert_input!) {
     insert_library_one(object: $data) {
@@ -13789,64 +13864,80 @@ export type DeleteUserLibrariesMutationOptions = Apollo.BaseMutationOptions<
   DeleteUserLibrariesMutation,
   DeleteUserLibrariesMutationVariables
 >
-export const GetLibrariesGql = gql`
-  query GetLibraries {
+export const LibraryExplorerGql = gql`
+  query LibraryExplorer {
     library {
-      ...__Library
+      id
+      name
+      components {
+        id
+        label
+      }
+      atoms {
+        id
+        type {
+          id
+          label
+        }
+      }
     }
   }
-  ${__LibraryFragmentDoc}
 `
 
 /**
- * __useGetLibrariesQuery__
+ * __useLibraryExplorerQuery__
  *
- * To run a query within a React component, call `useGetLibrariesQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetLibrariesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useLibraryExplorerQuery` and pass it any options that fit your needs.
+ * When your component renders, `useLibraryExplorerQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetLibrariesQuery({
+ * const { data, loading, error } = useLibraryExplorerQuery({
  *   variables: {
  *   },
  * });
  */
-export function useGetLibrariesQuery(
+export function useLibraryExplorerQuery(
   baseOptions?: Apollo.QueryHookOptions<
-    GetLibrariesQuery,
-    GetLibrariesQueryVariables
+    LibraryExplorerQuery,
+    LibraryExplorerQueryVariables
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<GetLibrariesQuery, GetLibrariesQueryVariables>(
-    GetLibrariesGql,
+  return Apollo.useQuery<LibraryExplorerQuery, LibraryExplorerQueryVariables>(
+    LibraryExplorerGql,
     options,
   )
 }
-export function useGetLibrariesLazyQuery(
+export function useLibraryExplorerLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
-    GetLibrariesQuery,
-    GetLibrariesQueryVariables
+    LibraryExplorerQuery,
+    LibraryExplorerQueryVariables
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<GetLibrariesQuery, GetLibrariesQueryVariables>(
-    GetLibrariesGql,
-    options,
-  )
+  return Apollo.useLazyQuery<
+    LibraryExplorerQuery,
+    LibraryExplorerQueryVariables
+  >(LibraryExplorerGql, options)
 }
-export type GetLibrariesQueryHookResult = ReturnType<
-  typeof useGetLibrariesQuery
+export type LibraryExplorerQueryHookResult = ReturnType<
+  typeof useLibraryExplorerQuery
 >
-export type GetLibrariesLazyQueryHookResult = ReturnType<
-  typeof useGetLibrariesLazyQuery
+export type LibraryExplorerLazyQueryHookResult = ReturnType<
+  typeof useLibraryExplorerLazyQuery
 >
-export type GetLibrariesQueryResult = Apollo.QueryResult<
-  GetLibrariesQuery,
-  GetLibrariesQueryVariables
+export type LibraryExplorerQueryResult = Apollo.QueryResult<
+  LibraryExplorerQuery,
+  LibraryExplorerQueryVariables
 >
+export function refetchLibraryExplorerQuery(
+  variables?: LibraryExplorerQueryVariables,
+) {
+  return { query: LibraryExplorerGql, variables: variables }
+}
 export const UpdateLibraryGql = gql`
   mutation UpdateLibrary($input: library_set_input!, $libraryId: uuid!) {
     update_library_by_pk(_set: $input, pk_columns: { id: $libraryId }) {
@@ -14050,6 +14141,9 @@ export type GetPageQueryResult = Apollo.QueryResult<
   GetPageQuery,
   GetPageQueryVariables
 >
+export function refetchGetPageQuery(variables?: GetPageQueryVariables) {
+  return { query: GetPageGql, variables: variables }
+}
 export const GetPagesListGql = gql`
   query GetPagesList($appId: uuid!) {
     app_by_pk(id: $appId) {
@@ -14111,6 +14205,11 @@ export type GetPagesListQueryResult = Apollo.QueryResult<
   GetPagesListQuery,
   GetPagesListQueryVariables
 >
+export function refetchGetPagesListQuery(
+  variables?: GetPagesListQueryVariables,
+) {
+  return { query: GetPagesListGql, variables: variables }
+}
 export const CreatePageElementGql = gql`
   mutation CreatePageElement($input: page_element_insert_input!) {
     insert_page_element_one(object: $input) {
@@ -14270,6 +14369,11 @@ export type GetPageElementQueryResult = Apollo.QueryResult<
   GetPageElementQuery,
   GetPageElementQueryVariables
 >
+export function refetchGetPageElementQuery(
+  variables?: GetPageElementQueryVariables,
+) {
+  return { query: GetPageElementGql, variables: variables }
+}
 export const UpdatePageElementGql = gql`
   mutation UpdatePageElement($id: uuid!, $input: page_element_set_input) {
     update_page_element_by_pk(pk_columns: { id: $id }, _set: $input) {
@@ -14530,6 +14634,11 @@ export type GetPropTypeCQueryResult = Apollo.QueryResult<
   GetPropTypeCQuery,
   GetPropTypeCQueryVariables
 >
+export function refetchGetPropTypeCQuery(
+  variables?: GetPropTypeCQueryVariables,
+) {
+  return { query: GetPropTypeCGql, variables: variables }
+}
 export const GetPropTypeCListGql = gql`
   query GetPropTypeCList($where: prop_type_c_bool_exp) {
     prop_type_c(where: $where) {
@@ -14589,6 +14698,11 @@ export type GetPropTypeCListQueryResult = Apollo.QueryResult<
   GetPropTypeCListQuery,
   GetPropTypeCListQueryVariables
 >
+export function refetchGetPropTypeCListQuery(
+  variables?: GetPropTypeCListQueryVariables,
+) {
+  return { query: GetPropTypeCListGql, variables: variables }
+}
 export const UpdatePropTypeCGql = gql`
   mutation UpdatePropTypeC(
     $input: prop_type_c_set_input!
@@ -14853,6 +14967,11 @@ export type PageElementPropQueryResult = Apollo.QueryResult<
   PageElementPropQuery,
   PageElementPropQueryVariables
 >
+export function refetchPageElementPropQuery(
+  variables?: PageElementPropQueryVariables,
+) {
+  return { query: PageElementPropGql, variables: variables }
+}
 export const UpdatePropGql = gql`
   mutation UpdateProp($input: prop_set_input!, $propId: uuid!) {
     update_prop_by_pk(pk_columns: { id: $propId }, _set: $input) {
@@ -15011,6 +15130,9 @@ export type GetStyleQueryResult = Apollo.QueryResult<
   GetStyleQuery,
   GetStyleQueryVariables
 >
+export function refetchGetStyleQuery(variables?: GetStyleQueryVariables) {
+  return { query: GetStyleGql, variables: variables }
+}
 export const CreateStyleGql = gql`
   mutation CreateStyle($data: style_insert_input!) {
     insert_style_one(object: $data) {
@@ -15168,6 +15290,11 @@ export type GetStylesListQueryResult = Apollo.QueryResult<
   GetStylesListQuery,
   GetStylesListQueryVariables
 >
+export function refetchGetStylesListQuery(
+  variables?: GetStylesListQueryVariables,
+) {
+  return { query: GetStylesListGql, variables: variables }
+}
 export const UpdateStyleGql = gql`
   mutation UpdateStyle($input: style_set_input!, $styleId: uuid!) {
     update_style_by_pk(_set: $input, pk_columns: { id: $styleId }) {
@@ -15288,6 +15415,36 @@ export const Library__Category = gql`
     }
   }
   ${__Tag}
+`
+export const Library__Lambda = gql`
+  fragment Library__Lambda on lambda {
+    id
+    body
+    name
+  }
+`
+export const __Library = gql`
+  fragment __Library on library {
+    id
+    name
+  }
+`
+export const LibraryExplorer__Atom = gql`
+  fragment LibraryExplorer__Atom on atom {
+    id
+  }
+`
+export const LibraryExplorer__Component = gql`
+  fragment LibraryExplorer__Component on component {
+    id
+    label
+  }
+`
+export const LibraryExplorer__Library = gql`
+  fragment LibraryExplorer__Library on library {
+    id
+    name
+  }
 `
 export const ComponentElement__Hoc = gql`
   fragment ComponentElement__Hoc on hoc {
@@ -15474,56 +15631,6 @@ export const __Component = gql`
   }
   ${__ComponentElement}
   ${PageElement__ComponentLink}
-`
-export const Library__Lambda = gql`
-  fragment Library__Lambda on lambda {
-    id
-    body
-    name
-  }
-`
-export const __Library = gql`
-  fragment __Library on library {
-    id
-    name
-    categories {
-      ...Library__Category
-    }
-    components {
-      ...__Component
-    }
-    atoms {
-      ...__Atom
-    }
-    lambdas {
-      ...Library__Lambda
-    }
-    propTypes {
-      propTypes {
-        ...PropTypeCollection__PropType
-      }
-    }
-    props {
-      props {
-        ...PropCollection__Prop
-      }
-    }
-    styles {
-      ...Library__Style
-    }
-    tags {
-      ...__Tag
-    }
-    user_id
-  }
-  ${Library__Category}
-  ${__Component}
-  ${__Atom}
-  ${Library__Lambda}
-  ${PropTypeCollection__PropType}
-  ${PropCollection__Prop}
-  ${Library__Style}
-  ${__Tag}
 `
 export const Page__PageElement = gql`
   fragment Page__PageElement on page_element {
@@ -16013,13 +16120,24 @@ export const DeleteUserLibraries = gql`
     }
   }
 `
-export const GetLibraries = gql`
-  query GetLibraries {
+export const LibraryExplorer = gql`
+  query LibraryExplorer {
     library {
-      ...__Library
+      id
+      name
+      components {
+        id
+        label
+      }
+      atoms {
+        id
+        type {
+          id
+          label
+        }
+      }
     }
   }
-  ${__Library}
 `
 export const UpdateLibrary = gql`
   mutation UpdateLibrary($input: library_set_input!, $libraryId: uuid!) {

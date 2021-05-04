@@ -1,8 +1,8 @@
-import { GetLibrariesQuery, useGetLibrariesQuery } from '@codelab/hasura'
+import { LibraryExplorerQuery, useLibraryExplorerQuery } from '@codelab/hasura'
 import React, { PropsWithChildren } from 'react'
 
 type ILibraryContext = {
-  libraries?: GetLibrariesQuery['library']
+  libraries?: LibraryExplorerQuery['library']
   loading: boolean
 }
 
@@ -11,7 +11,7 @@ export const LibraryContext = React.createContext<ILibraryContext>(undefined!)
 export const LibraryProvider = ({
   children,
 }: PropsWithChildren<Record<string, unknown>>) => {
-  const { data, loading } = useGetLibrariesQuery()
+  const { data, loading } = useLibraryExplorerQuery()
 
   return (
     <LibraryContext.Provider

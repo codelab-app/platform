@@ -6,7 +6,7 @@ import {
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
 import {
-  GetLibrariesGql,
+  refetchLibraryExplorerQuery,
   useDeleteAtomsWhereMutation,
   useGetAtomsWhereQuery,
 } from '@codelab/hasura'
@@ -22,11 +22,7 @@ export const DeleteAtomsForm = (props: DeleteAtomFormProps) => {
 
   const [mutate, { loading: deleting }] = useDeleteAtomsWhereMutation({
     awaitRefetchQueries: true,
-    refetchQueries: [
-      {
-        query: GetLibrariesGql,
-      },
-    ],
+    refetchQueries: [refetchLibraryExplorerQuery()],
   })
 
   const atomsWhere = {

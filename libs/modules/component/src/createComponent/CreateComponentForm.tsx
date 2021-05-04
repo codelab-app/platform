@@ -6,7 +6,7 @@ import {
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import { GetLibrariesGql, useCreateComponentMutation } from '@codelab/hasura'
+import { LibraryExplorerGql, useCreateComponentMutation } from '@codelab/hasura'
 import React, { useContext, useEffect } from 'react'
 import { DeepPartial } from 'uniforms'
 import { AutoField, SelectField } from 'uniforms-antd'
@@ -25,7 +25,7 @@ export const CreateComponentForm = ({ ...props }: CreateComponentFormProps) => {
     awaitRefetchQueries: true,
     refetchQueries: [
       {
-        query: GetLibrariesGql,
+        query: LibraryExplorerGql,
       },
     ],
   })

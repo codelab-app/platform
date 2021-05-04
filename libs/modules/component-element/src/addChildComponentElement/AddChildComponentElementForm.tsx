@@ -6,7 +6,7 @@ import {
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
 import {
-  GetLibrariesGql,
+  LibraryExplorerGql,
   useCreateComponentLinkMutation,
   useGetAtomsListQuery,
 } from '@codelab/hasura'
@@ -46,7 +46,7 @@ export const AddChildComponentElementForm = ({
     awaitRefetchQueries: true,
     refetchQueries: [
       {
-        query: GetLibrariesGql,
+        query: LibraryExplorerGql,
       },
     ],
   })

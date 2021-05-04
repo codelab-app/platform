@@ -24,7 +24,7 @@ import Link from 'next/link'
 import React, { useContext, useEffect, useState } from 'react'
 import xw from 'xwind'
 
-export const LibraryExplorerTree = () => {
+export const GetLibrariesTree = () => {
   const { libraries } = useContext(LibraryContext)
 
   const [

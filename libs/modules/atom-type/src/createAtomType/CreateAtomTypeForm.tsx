@@ -5,7 +5,7 @@ import {
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import { GetLibrariesGql, useCreateAtomTypeMutation } from '@codelab/hasura'
+import { LibraryExplorerGql, useCreateAtomTypeMutation } from '@codelab/hasura'
 import React, { useEffect } from 'react'
 import { DeepPartial } from 'uniforms'
 import { AutoField } from 'uniforms-antd'
@@ -23,7 +23,7 @@ export const CreateAtomTypeForm = ({ ...props }: CreateATomTypeFormProps) => {
     awaitRefetchQueries: true,
     refetchQueries: [
       {
-        query: GetLibrariesGql,
+        query: LibraryExplorerGql,
       },
     ],
     context: {

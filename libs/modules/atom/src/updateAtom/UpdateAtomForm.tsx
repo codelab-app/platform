@@ -6,7 +6,7 @@ import {
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
 import {
-  GetAtomGql,
+  refetchLibraryExplorerQuery,
   useGetAtomQuery,
   useGetAtomsTypesQuery,
   useUpdateAtomMutation,
@@ -25,18 +25,11 @@ export const UpdateAtomForm = (props: UniFormUseCaseProps<UpdateAtomInput>) => {
   const atomTypesOptions = atomsTypes?.atom_type?.map((t) => ({
     ...t,
     label: t.label,
-    value: t.label,
+    value: t.id,
   }))
 
   const [mutate, { loading: updating }] = useUpdateAtomMutation({
-    refetchQueries: [
-      {
-        query: GetAtomGql,
-        variables: {
-          atomId: updateAtomId,
-        },
-      },
-    ],
+    refetchQueries: [refetchLibraryExplorerQuery()],
     context: {
       headers: {
         'X-Hasura-Role': 'admin',
@@ -84,7 +77,7 @@ export const UpdateAtomForm = (props: UniFormUseCaseProps<UpdateAtomInput>) => {
       onSubmitSuccess={() => reset()}
       {...props}
     >
-      <SelectField name="type" options={atomTypesOptions} />
+      <SelectField name="atom_type_id" options={atomTypesOptions} />
     </FormUniforms>
   )
 }
