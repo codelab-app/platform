@@ -1,0 +1,5 @@
+mutation UpdateAtomType($input: atom_type_set_input!, $atomTypeId: uuid!) {
+  update_atom_type_by_pk(_set: $input, pk_columns: { id: $atomTypeId }) {
+    ...__AtomType
+  }
+}

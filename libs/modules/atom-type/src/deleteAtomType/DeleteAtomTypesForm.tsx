@@ -6,10 +6,11 @@ import {
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
 import {
-  GetLibrariesGql,
+  GetAtomTypesGql,
   useDeleteAtomTypesWhereMutation,
-  useGetAtomTypesQuery,
+  useGetAtomTypesWhereQuery,
 } from '@codelab/hasura'
+import { Spin } from 'antd'
 import React, { useEffect } from 'react'
 import { AutoFields } from 'uniforms-antd'
 import {
@@ -26,9 +27,14 @@ export const DeleteAtomTypesForm = (props: DeleteAtomTypeProps) => {
     awaitRefetchQueries: true,
     refetchQueries: [
       {
-        query: GetLibrariesGql,
+        query: GetAtomTypesGql,
       },
     ],
+    context: {
+      headers: {
+        'X-Hasura-Role': 'admin',
+      },
+    },
   })
 
   const atomTypesWhere = {
@@ -39,12 +45,21 @@ export const DeleteAtomTypesForm = (props: DeleteAtomTypeProps) => {
     })),
   }
 
-  const { data, loading } = useGetAtomTypesQuery()
-  const atomTypes = data?.atom_type.map((atomType) => atomType.label).join(', ')
+  const { data, loading } = useGetAtomTypesWhereQuery({
+    variables: {
+      where: atomTypesWhere,
+    },
+  })
 
   useEffect(() => {
     setLoading(deleting)
   }, [deleting])
+
+  if (loading) {
+    return <Spin />
+  }
+
+  const atomTypes = data?.atom_type.map((atomType) => atomType.label).join(', ')
 
   const onSubmit = () => {
     return mutate({

@@ -15,19 +15,17 @@ import { Spin } from 'antd'
 import React, { useEffect } from 'react'
 import { DeepPartial } from 'uniforms'
 import { SelectField } from 'uniforms-antd'
-import { UpdateAtomInput, UpdateAtomSchema } from './updateFromSchema'
+import { UpdateAtomInput, updateAtomSchema } from './updateAtomSchema'
 
-export const UpdateAtomForm = ({
-  ...props
-}: UniFormUseCaseProps<UpdateAtomInput>) => {
+export const UpdateAtomForm = (props: UniFormUseCaseProps<UpdateAtomInput>) => {
   const { reset, setLoading, state } = useCRUDModalForm(EntityType.Atom)
   const { updateId: updateAtomId } = state
   const { data: atomsTypes } = useGetAtomsTypesQuery()
 
   const atomTypesOptions = atomsTypes?.atom_type?.map((t) => ({
     ...t,
-    label: t.value,
-    type: t.value,
+    label: t.label,
+    value: t.label,
   }))
 
   const [mutate, { loading: updating }] = useUpdateAtomMutation({
@@ -63,12 +61,10 @@ export const UpdateAtomForm = ({
   }
 
   const onSubmit = (submitData: DeepPartial<UpdateAtomInput>) => {
-    console.log(submitData, updateAtomId)
-
     return mutate({
       variables: {
         input: {
-          ...submitData,
+          atom_type_id: submitData.atom_type_id,
         },
         atomId: updateAtomId,
       },
@@ -80,10 +76,10 @@ export const UpdateAtomForm = ({
       data-testid="update-atom-form"
       id="update-atom-form"
       onSubmit={onSubmit}
-      schema={UpdateAtomSchema}
-      model={{ type: atom?.type }}
+      schema={updateAtomSchema}
+      model={{ atom_type_id: atom?.type.id }}
       onSubmitError={createNotificationHandler({
-        title: 'Error while updating atom',
+        title: 'Error while updating Atom',
       })}
       onSubmitSuccess={() => reset()}
       {...props}

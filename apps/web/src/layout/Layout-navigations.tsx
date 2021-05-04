@@ -57,7 +57,7 @@ export const LayoutNavigations = () => {
         </Menu.Item>
         <Menu.Divider />
         <Menu.Item
-          key={PageType.AtomList}
+          key={PageType.AtomTypeList}
           icon={
             <SettingOutlined
               data-testid="atomType-tab-trigger"

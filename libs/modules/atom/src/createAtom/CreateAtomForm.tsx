@@ -43,6 +43,8 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
   }, [creating])
 
   const onSubmit = (submitData: DeepPartial<CreateAtomInput>) => {
+    console.log(submitData)
+
     return mutate({
       variables: {
         data: {
@@ -58,7 +60,7 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
   const atomTypesOptions = _.chain(data?.atom_type)
     .map((t) => ({
       label: t.label,
-      value: t.label,
+      value: t.id,
     }))
     .orderBy('label')
     .value()
@@ -82,7 +84,7 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
           value: library.id,
         }))}
       />
-      <SelectField name="type" options={atomTypesOptions} />
+      <SelectField name="atom_type_id" options={atomTypesOptions} />
     </FormUniforms>
   )
 }

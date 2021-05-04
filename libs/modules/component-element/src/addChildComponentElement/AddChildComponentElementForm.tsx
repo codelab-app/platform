@@ -7,7 +7,6 @@ import {
 } from '@codelab/frontend/shared'
 import {
   GetLibrariesGql,
-  useCreateComponentElementMutation,
   useCreateComponentLinkMutation,
   useGetAtomsListQuery,
 } from '@codelab/hasura'
@@ -41,11 +40,6 @@ export const AddChildComponentElementForm = ({
   )
 
   const [
-    createComponentElement,
-    { loading: creatingComponentElement },
-  ] = useCreateComponentElementMutation()
-
-  const [
     createComponentLink,
     { loading: creatingComponentLink },
   ] = useCreateComponentLinkMutation({
@@ -62,28 +56,19 @@ export const AddChildComponentElementForm = ({
   }, [creatingComponentLink, setLoading])
 
   const onSubmit = (submitData: DeepPartial<AddChildComponentElementInput>) => {
-    console.log(submitData)
-
-    return createComponentElement({
+    return createComponentLink({
       variables: {
         input: {
           component_id: submitData.component_id,
-          atom_id: submitData.atom_id,
-        },
-      },
-    }).then((res) => {
-      console.log(res)
-
-      return createComponentLink({
-        variables: {
-          input: {
-            component_id: submitData.component_id,
-            source_component_element_id: submitData.parent_component_element_id,
-            target_component_element_id:
-              res.data?.insert_component_element_one?.id,
+          source_component_element_id: submitData.parent_component_element_id,
+          targetElement: {
+            data: {
+              component_id: submitData.component_id,
+              atom_id: submitData.atom_id,
+            },
           },
         },
-      })
+      },
     })
   }
 

@@ -869,7 +869,7 @@ enum atom_type_constraint {
   """
   unique or primary key constraint
   """
-  vertexType_pkey
+  atom_type_pkey
 }
 
 """
@@ -946,7 +946,7 @@ input atom_type_order_by {
 primary key columns input for table: atom_type
 """
 input atom_type_pk_columns_input {
-  label: String!
+  id: uuid!
 }
 
 """
@@ -4142,7 +4142,7 @@ type mutation_root {
   """
   delete single row from the table: "atom_type"
   """
-  delete_atom_type_by_pk(label: String!): atom_type
+  delete_atom_type_by_pk(id: uuid!): atom_type
 
   """
   delete data from the table: "category"
@@ -9572,7 +9572,7 @@ type query_root {
   """
   fetch data from the table: "atom_type" using primary key columns
   """
-  atom_type_by_pk(label: String!): atom_type
+  atom_type_by_pk(id: uuid!): atom_type
 
   """
   fetch data from the table: "category"
@@ -12651,7 +12651,7 @@ type subscription_root {
   """
   fetch data from the table: "atom_type" using primary key columns
   """
-  atom_type_by_pk(label: String!): atom_type
+  atom_type_by_pk(id: uuid!): atom_type
 
   """
   fetch data from the table: "category"

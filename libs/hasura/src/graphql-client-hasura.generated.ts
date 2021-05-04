@@ -559,7 +559,7 @@ export enum Atom_Type_Constraint {
   /** unique or primary key constraint */
   AtomTypeIdKey = 'atom_type_id_key',
   /** unique or primary key constraint */
-  VertexTypePkey = 'vertexType_pkey',
+  AtomTypePkey = 'atom_type_pkey',
 }
 
 /** input type for inserting data into table "atom_type" */
@@ -612,7 +612,7 @@ export type Atom_Type_Order_By = {
 
 /** primary key columns input for table: atom_type */
 export type Atom_Type_Pk_Columns_Input = {
-  label: Scalars['String']
+  id: Scalars['uuid']
 }
 
 /** select columns of table "atom_type" */
@@ -2938,7 +2938,7 @@ export type Mutation_RootDelete_Atom_TypeArgs = {
 
 /** mutation root */
 export type Mutation_RootDelete_Atom_Type_By_PkArgs = {
-  label: Scalars['String']
+  id: Scalars['uuid']
 }
 
 /** mutation root */
@@ -6107,7 +6107,7 @@ export type Query_RootAtom_Type_AggregateArgs = {
 }
 
 export type Query_RootAtom_Type_By_PkArgs = {
-  label: Scalars['String']
+  id: Scalars['uuid']
 }
 
 export type Query_RootCategoryArgs = {
@@ -7605,7 +7605,7 @@ export type Subscription_RootAtom_Type_AggregateArgs = {
 }
 
 export type Subscription_RootAtom_Type_By_PkArgs = {
-  label: Scalars['String']
+  id: Scalars['uuid']
 }
 
 export type Subscription_RootCategoryArgs = {
@@ -9969,9 +9969,30 @@ export type DeleteAtomTypesWhereMutation = {
   delete_atom_type?: Maybe<{ returning: Array<__AtomTypeFragment> }>
 }
 
+export type GetAtomTypeQueryVariables = Exact<{
+  atomTypeId: Scalars['uuid']
+}>
+
+export type GetAtomTypeQuery = { atom_type_by_pk?: Maybe<__AtomTypeFragment> }
+
 export type GetAtomTypesQueryVariables = Exact<{ [key: string]: never }>
 
 export type GetAtomTypesQuery = { atom_type: Array<__AtomTypeFragment> }
+
+export type GetAtomTypesWhereQueryVariables = Exact<{
+  where: Atom_Type_Bool_Exp
+}>
+
+export type GetAtomTypesWhereQuery = { atom_type: Array<__AtomTypeFragment> }
+
+export type UpdateAtomTypeMutationVariables = Exact<{
+  input: Atom_Type_Set_Input
+  atomTypeId: Scalars['uuid']
+}>
+
+export type UpdateAtomTypeMutation = {
+  update_atom_type_by_pk?: Maybe<__AtomTypeFragment>
+}
 
 export type __AtomFragment = Pick<Atom, 'id'> & {
   type: __AtomTypeFragment
@@ -10043,12 +10064,10 @@ export type __TagFragment = Pick<
 >
 
 export type AddChildComponentElementMutationVariables = Exact<{
-  componentElement: Component_Element_Insert_Input
-  componentLink: Component_Link_Insert_Input
+  data: Component_Link_Insert_Input
 }>
 
 export type AddChildComponentElementMutation = {
-  insert_component_element_one?: Maybe<__ComponentElementFragment>
   insert_component_link_one?: Maybe<PageElement__ComponentLinkFragment>
 }
 
@@ -11415,6 +11434,63 @@ export type DeleteAtomTypesWhereMutationOptions = Apollo.BaseMutationOptions<
   DeleteAtomTypesWhereMutation,
   DeleteAtomTypesWhereMutationVariables
 >
+export const GetAtomTypeGql = gql`
+  query GetAtomType($atomTypeId: uuid!) {
+    atom_type_by_pk(id: $atomTypeId) {
+      ...__AtomType
+    }
+  }
+  ${__AtomTypeFragmentDoc}
+`
+
+/**
+ * __useGetAtomTypeQuery__
+ *
+ * To run a query within a React component, call `useGetAtomTypeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAtomTypeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAtomTypeQuery({
+ *   variables: {
+ *      atomTypeId: // value for 'atomTypeId'
+ *   },
+ * });
+ */
+export function useGetAtomTypeQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetAtomTypeQuery,
+    GetAtomTypeQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetAtomTypeQuery, GetAtomTypeQueryVariables>(
+    GetAtomTypeGql,
+    options,
+  )
+}
+export function useGetAtomTypeLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetAtomTypeQuery,
+    GetAtomTypeQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetAtomTypeQuery, GetAtomTypeQueryVariables>(
+    GetAtomTypeGql,
+    options,
+  )
+}
+export type GetAtomTypeQueryHookResult = ReturnType<typeof useGetAtomTypeQuery>
+export type GetAtomTypeLazyQueryHookResult = ReturnType<
+  typeof useGetAtomTypeLazyQuery
+>
+export type GetAtomTypeQueryResult = Apollo.QueryResult<
+  GetAtomTypeQuery,
+  GetAtomTypeQueryVariables
+>
 export const GetAtomTypesGql = gql`
   query GetAtomTypes {
     atom_type {
@@ -11472,6 +11548,116 @@ export type GetAtomTypesLazyQueryHookResult = ReturnType<
 export type GetAtomTypesQueryResult = Apollo.QueryResult<
   GetAtomTypesQuery,
   GetAtomTypesQueryVariables
+>
+export const GetAtomTypesWhereGql = gql`
+  query GetAtomTypesWhere($where: atom_type_bool_exp!) {
+    atom_type(where: $where) {
+      ...__AtomType
+    }
+  }
+  ${__AtomTypeFragmentDoc}
+`
+
+/**
+ * __useGetAtomTypesWhereQuery__
+ *
+ * To run a query within a React component, call `useGetAtomTypesWhereQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAtomTypesWhereQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAtomTypesWhereQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useGetAtomTypesWhereQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetAtomTypesWhereQuery,
+    GetAtomTypesWhereQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<
+    GetAtomTypesWhereQuery,
+    GetAtomTypesWhereQueryVariables
+  >(GetAtomTypesWhereGql, options)
+}
+export function useGetAtomTypesWhereLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetAtomTypesWhereQuery,
+    GetAtomTypesWhereQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    GetAtomTypesWhereQuery,
+    GetAtomTypesWhereQueryVariables
+  >(GetAtomTypesWhereGql, options)
+}
+export type GetAtomTypesWhereQueryHookResult = ReturnType<
+  typeof useGetAtomTypesWhereQuery
+>
+export type GetAtomTypesWhereLazyQueryHookResult = ReturnType<
+  typeof useGetAtomTypesWhereLazyQuery
+>
+export type GetAtomTypesWhereQueryResult = Apollo.QueryResult<
+  GetAtomTypesWhereQuery,
+  GetAtomTypesWhereQueryVariables
+>
+export const UpdateAtomTypeGql = gql`
+  mutation UpdateAtomType($input: atom_type_set_input!, $atomTypeId: uuid!) {
+    update_atom_type_by_pk(_set: $input, pk_columns: { id: $atomTypeId }) {
+      ...__AtomType
+    }
+  }
+  ${__AtomTypeFragmentDoc}
+`
+export type UpdateAtomTypeMutationFn = Apollo.MutationFunction<
+  UpdateAtomTypeMutation,
+  UpdateAtomTypeMutationVariables
+>
+
+/**
+ * __useUpdateAtomTypeMutation__
+ *
+ * To run a mutation, you first call `useUpdateAtomTypeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateAtomTypeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateAtomTypeMutation, { data, loading, error }] = useUpdateAtomTypeMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *      atomTypeId: // value for 'atomTypeId'
+ *   },
+ * });
+ */
+export function useUpdateAtomTypeMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateAtomTypeMutation,
+    UpdateAtomTypeMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    UpdateAtomTypeMutation,
+    UpdateAtomTypeMutationVariables
+  >(UpdateAtomTypeGql, options)
+}
+export type UpdateAtomTypeMutationHookResult = ReturnType<
+  typeof useUpdateAtomTypeMutation
+>
+export type UpdateAtomTypeMutationResult = Apollo.MutationResult<UpdateAtomTypeMutation>
+export type UpdateAtomTypeMutationOptions = Apollo.BaseMutationOptions<
+  UpdateAtomTypeMutation,
+  UpdateAtomTypeMutationVariables
 >
 export const CreateAtomGql = gql`
   mutation CreateAtom($data: atom_insert_input!) {
@@ -11952,18 +12138,11 @@ export type UpdateAtomMutationOptions = Apollo.BaseMutationOptions<
   UpdateAtomMutationVariables
 >
 export const AddChildComponentElementGql = gql`
-  mutation AddChildComponentElement(
-    $componentElement: component_element_insert_input!
-    $componentLink: component_link_insert_input!
-  ) {
-    insert_component_element_one(object: $componentElement) {
-      ...__ComponentElement
-    }
-    insert_component_link_one(object: $componentLink) {
+  mutation AddChildComponentElement($data: component_link_insert_input!) {
+    insert_component_link_one(object: $data) {
       ...PageElement__ComponentLink
     }
   }
-  ${__ComponentElementFragmentDoc}
   ${PageElement__ComponentLinkFragmentDoc}
 `
 export type AddChildComponentElementMutationFn = Apollo.MutationFunction<
@@ -11984,8 +12163,7 @@ export type AddChildComponentElementMutationFn = Apollo.MutationFunction<
  * @example
  * const [addChildComponentElementMutation, { data, loading, error }] = useAddChildComponentElementMutation({
  *   variables: {
- *      componentElement: // value for 'componentElement'
- *      componentLink: // value for 'componentLink'
+ *      data: // value for 'data'
  *   },
  * });
  */
@@ -15299,9 +15477,33 @@ export const DeleteAtomTypesWhere = gql`
   }
   ${__AtomType}
 `
+export const GetAtomType = gql`
+  query GetAtomType($atomTypeId: uuid!) {
+    atom_type_by_pk(id: $atomTypeId) {
+      ...__AtomType
+    }
+  }
+  ${__AtomType}
+`
 export const GetAtomTypes = gql`
   query GetAtomTypes {
     atom_type {
+      ...__AtomType
+    }
+  }
+  ${__AtomType}
+`
+export const GetAtomTypesWhere = gql`
+  query GetAtomTypesWhere($where: atom_type_bool_exp!) {
+    atom_type(where: $where) {
+      ...__AtomType
+    }
+  }
+  ${__AtomType}
+`
+export const UpdateAtomType = gql`
+  mutation UpdateAtomType($input: atom_type_set_input!, $atomTypeId: uuid!) {
+    update_atom_type_by_pk(_set: $input, pk_columns: { id: $atomTypeId }) {
       ...__AtomType
     }
   }
@@ -15381,18 +15583,11 @@ export const UpdateAtom = gql`
   ${__Atom}
 `
 export const AddChildComponentElement = gql`
-  mutation AddChildComponentElement(
-    $componentElement: component_element_insert_input!
-    $componentLink: component_link_insert_input!
-  ) {
-    insert_component_element_one(object: $componentElement) {
-      ...__ComponentElement
-    }
-    insert_component_link_one(object: $componentLink) {
+  mutation AddChildComponentElement($data: component_link_insert_input!) {
+    insert_component_link_one(object: $data) {
       ...PageElement__ComponentLink
     }
   }
-  ${__ComponentElement}
   ${PageElement__ComponentLink}
 `
 export const CreateComponentElement = gql`

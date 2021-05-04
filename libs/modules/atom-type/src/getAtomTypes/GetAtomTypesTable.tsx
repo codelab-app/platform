@@ -41,5 +41,15 @@ export const GetAtomTypesTable = () => {
     label: atomType.label,
   }))
 
-  return <Table size="middle" dataSource={dataSource} columns={columns} />
+  return (
+    <Table
+      size="middle"
+      dataSource={dataSource}
+      columns={columns}
+      pagination={{
+        pageSizeOptions: ['10', '25', '50'],
+        defaultPageSize: 50,
+      }}
+    />
+  )
 }

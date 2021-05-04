@@ -11,7 +11,6 @@
 terraform-lint:
 	terraform fmt -recursive .terraform && tflint .terraform
 
-
 #
 # HASURA
 #
@@ -43,7 +42,7 @@ hasura-seed-apply-e2e:
 	./scripts/hasura-e2e.sh seed apply --database-name=default
 
 hasura-seed-export:
-	./scripts/hasura.sh seed create value_type_seed --from-table value_type
+	./scripts/hasura.sh seed create atom_type_seed --from-table atom_type --database-name=default
 
 #	npx hasura migrate apply --version 1618946065806 --skip-execution --database-name default --project=hasura --envfile=../.env
 

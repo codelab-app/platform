@@ -1,16 +1,16 @@
 import { JSONSchemaType } from 'ajv'
 
 export type UpdateAtomInput = {
-  type: string
+  atom_type_id: string
 }
 
-export const UpdateAtomSchema: JSONSchemaType<UpdateAtomInput> = {
+export const updateAtomSchema: JSONSchemaType<UpdateAtomInput> = {
   title: 'Update Atom',
   type: 'object',
   properties: {
-    type: {
+    atom_type_id: {
       type: 'string',
     },
   },
-  required: ['type'],
+  required: ['atom_type_id'],
 } as const

@@ -6,7 +6,7 @@ import {
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
 import { GetLibrariesGql, useCreateAtomTypeMutation } from '@codelab/hasura'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { DeepPartial } from 'uniforms'
 import { AutoField } from 'uniforms-antd'
 import {
@@ -42,6 +42,10 @@ export const CreateAtomTypeForm = ({ ...props }: CreateATomTypeFormProps) => {
       },
     })
   }
+
+  useEffect(() => {
+    setLoading(creating)
+  }, [creating])
 
   return (
     <FormUniforms<CreateAtomTypeInput>

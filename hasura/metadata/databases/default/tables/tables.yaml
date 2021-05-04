@@ -23,6 +23,7 @@
 - '!include public_style_page_element.yaml'
 - '!include public_tag.yaml'
 - '!include public_tag_atom.yaml'
+- '!include public_tag_atom_type.yaml'
 - '!include public_tag_component.yaml'
 - '!include public_tag_hoc.yaml'
 - '!include public_tag_prop_c.yaml'
