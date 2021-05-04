@@ -1,4 +1,4 @@
-import { PaneMainTemplate } from '@codelab/frontend/layout'
+import { MainPaneTemplate } from '@codelab/frontend/layout'
 import { ActionType, CrudModal, EntityType } from '@codelab/frontend/shared'
 import React from 'react'
 import { CreatePropTypeCButton, CreatePropTypeCForm } from '../createPropTypeC'
@@ -8,7 +8,7 @@ import { UpdatePropTypeCForm } from '../updatePropTypeC'
 
 export const PaneMainPropTypeC = () => {
   return (
-    <PaneMainTemplate
+    <MainPaneTemplate
       title="PropTypeCollection"
       header={<CreatePropTypeCButton key={0} />}
     >
@@ -31,6 +31,6 @@ export const PaneMainPropTypeC = () => {
         okText="Delete PropTypeC"
         renderForm={() => <DeletePropTypeCForm />}
       />
-    </PaneMainTemplate>
+    </MainPaneTemplate>
   )
 }
