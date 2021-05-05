@@ -4,9 +4,11 @@ import {
   BookOutlined,
   CopyOutlined,
   FunctionOutlined,
+  OneToOneOutlined,
   SettingOutlined,
+  TagOutlined,
 } from '@ant-design/icons'
-import { LibraryContext, PageType, PaneType } from '@codelab/frontend/shared'
+import { LibraryContext, PageType } from '@codelab/frontend/shared'
 import { Menu } from 'antd'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -16,9 +18,6 @@ import xw from 'xwind'
 export const LayoutNavigations = () => {
   const router = useRouter()
   const { libraries } = useContext(LibraryContext)
-
-  console.log(libraries)
-  console.log(router.pathname)
 
   return (
     <div data-testid="pane-main" css={xw`h-full`}>
@@ -37,18 +36,18 @@ export const LayoutNavigations = () => {
         </Menu.Item>
         <Menu.Divider />
         <Menu.Item
-          key={PageType.PageDetail}
-          icon={<CopyOutlined data-testid="page-tab-trigger" title="Pages" />}
+          key={PageType.PageList}
+          icon={<CopyOutlined data-testid="pages-tab-trigger" title="Pages" />}
         >
           <Link
             href={{
-              pathname: PageType.PageDetail,
-              query: { ...router.query, pane: PaneType.Page },
+              pathname: PageType.PageList,
             }}
           >
-            Page
+            Pages
           </Link>
         </Menu.Item>
+        <Menu.Divider />
         <Menu.Item
           key="tree"
           icon={
@@ -56,6 +55,56 @@ export const LayoutNavigations = () => {
           }
         >
           Tree
+        </Menu.Item>
+        <Menu.Divider />
+        <Menu.Item
+          key={PageType.Library}
+          icon={
+            <BookOutlined data-testid="library-tab-trigger" title="Library" />
+          }
+        >
+          <Link
+            href={{
+              pathname: PageType.Library,
+            }}
+          >
+            Library
+          </Link>
+        </Menu.Item>
+        <Menu.Divider />
+        <Menu.Item key={PageType.Prop} icon={<OneToOneOutlined />}>
+          <Link
+            href={{
+              pathname: PageType.Prop,
+              query: {
+                libraryId: libraries?.[0].id,
+              },
+            }}
+          >
+            Props
+          </Link>
+        </Menu.Item>
+        <Menu.Divider />
+        <Menu.Item
+          key="lambda"
+          icon={
+            <FunctionOutlined
+              data-testid="lambda-tab-trigger"
+              title="Function"
+            />
+          }
+        >
+          Lambda
+        </Menu.Item>
+        <Menu.Divider />
+        <Menu.Item key={PageType.Tag} icon={<TagOutlined />}>
+          <Link
+            href={{
+              pathname: PageType.Tag,
+            }}
+          >
+            Tags
+          </Link>
         </Menu.Item>
         <Menu.Divider />
         <Menu.Item
@@ -73,47 +122,6 @@ export const LayoutNavigations = () => {
             }}
           >
             AtomType
-          </Link>
-        </Menu.Item>
-        <Menu.Item
-          key={PageType.Library}
-          icon={
-            <BookOutlined data-testid="library-tab-trigger" title="Library" />
-          }
-        >
-          <Link
-            href={{
-              pathname: PageType.Library,
-            }}
-          >
-            Library
-          </Link>
-        </Menu.Item>
-        <Menu.Divider />
-        <Menu.Item
-          key="lambda"
-          icon={
-            <FunctionOutlined
-              data-testid="lambda-tab-trigger"
-              title="Function"
-            />
-          }
-        >
-          Lambda
-        </Menu.Item>
-        <Menu.Item
-          key={PageType.PropTypeC}
-          icon={<div title="PropTypeC">PTC</div>}
-        >
-          <Link
-            href={{
-              pathname: PageType.PropTypeC,
-              query: {
-                libraryId: libraries?.[0].id,
-              },
-            }}
-          >
-            PropTypeC
           </Link>
         </Menu.Item>
         <Menu.Divider />

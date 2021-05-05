@@ -4,7 +4,10 @@ import {
   OverlayToolbar,
 } from '@codelab/frontend/builder'
 import { AppContext, ComponentElementNode } from '@codelab/frontend/shared'
-import { GetAppGql, useDeletePageElementMutation } from '@codelab/hasura'
+import {
+  refetchGetAppPageQuery,
+  useDeletePageElementMutation,
+} from '@codelab/hasura'
 import { Button } from 'antd'
 import React, { useContext } from 'react'
 import { useRecoilValue } from 'recoil'
@@ -18,13 +21,10 @@ export const ClickOverlay = () => {
     { loading: deleteLoading },
   ] = useDeletePageElementMutation({
     refetchQueries: [
-      {
-        query: GetAppGql,
-        variables: {
-          pageId,
-          appId,
-        },
-      },
+      refetchGetAppPageQuery({
+        pageId,
+        appId,
+      }),
     ],
   })
 

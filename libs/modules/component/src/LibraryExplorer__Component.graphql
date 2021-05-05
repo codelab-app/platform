@@ -1,0 +1,4 @@
+fragment LibraryExplorer__Component on component {
+  id
+  label
+}

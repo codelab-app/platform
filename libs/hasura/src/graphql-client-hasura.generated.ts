@@ -10099,12 +10099,12 @@ export type User__AppFragment = Pick<App, 'id' | 'user_id' | 'name'> & {
   pages: Array<App__PageFragment>
 }
 
-export type GetAppQueryVariables = Exact<{
+export type GetAppPageQueryVariables = Exact<{
   appId: Scalars['uuid']
   pageId: Scalars['uuid']
 }>
 
-export type GetAppQuery = {
+export type GetAppPageQuery = {
   app_by_pk?: Maybe<User__AppFragment>
   page_by_pk?: Maybe<App__PageFragment>
 }
@@ -10136,6 +10136,14 @@ export type GetAppsListForUserQueryVariables = Exact<{
 }>
 
 export type GetAppsListForUserQuery = { app: Array<User__AppFragment> }
+
+export type GetFirstAppQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetFirstAppQuery = {
+  app: Array<
+    Pick<App, 'id' | 'name'> & { pages: Array<Pick<Page, 'id' | 'name'>> }
+  >
+}
 
 export type EditAppMutationVariables = Exact<{
   input: App_Set_Input
@@ -10194,11 +10202,17 @@ export type __AtomFragment = Pick<Atom, 'id'> & {
   tags: Array<{ tag: __TagFragment }>
 }
 
+export type LibraryExplorer__AtomFragment = Pick<Atom, 'id'> & {
+  type: Pick<Atom_Type, 'id' | 'label'>
+}
+
 export type CreateAtomMutationVariables = Exact<{
   data: Atom_Insert_Input
 }>
 
-export type CreateAtomMutation = { insert_atom_one?: Maybe<__AtomFragment> }
+export type CreateAtomMutation = {
+  insert_atom_one?: Maybe<LibraryExplorer__AtomFragment>
+}
 
 export type DeleteAllAtomsMutationVariables = Exact<{ [key: string]: never }>
 
@@ -10210,7 +10224,9 @@ export type DeleteAtomMutationVariables = Exact<{
   atomId: Scalars['uuid']
 }>
 
-export type DeleteAtomMutation = { delete_atom_by_pk?: Maybe<__AtomFragment> }
+export type DeleteAtomMutation = {
+  delete_atom_by_pk?: Maybe<LibraryExplorer__AtomFragment>
+}
 
 export type DeleteAtomsWhereMutationVariables = Exact<{
   where: Atom_Bool_Exp
@@ -10245,7 +10261,9 @@ export type UpdateAtomMutationVariables = Exact<{
   atomId: Scalars['uuid']
 }>
 
-export type UpdateAtomMutation = { update_atom_by_pk?: Maybe<__AtomFragment> }
+export type UpdateAtomMutation = {
+  update_atom_by_pk?: Maybe<LibraryExplorer__AtomFragment>
+}
 
 export type Library__CategoryFragment = Pick<Category, 'id' | 'name'> & {
   tags: Array<__TagFragment>
@@ -10333,12 +10351,14 @@ export type ComponentElement__HocFragment = Pick<Hoc, 'id'> & {
   tags: Array<{ tag: __TagFragment }>
 }
 
+export type LibraryExplorer__ComponentFragment = Pick<Component, 'id' | 'label'>
+
 export type CreateComponentMutationVariables = Exact<{
   input: Component_Insert_Input
 }>
 
 export type CreateComponentMutation = {
-  insert_component_one?: Maybe<__ComponentFragment>
+  insert_component_one?: Maybe<LibraryExplorer__ComponentFragment>
 }
 
 export type DeleteAllComponentsMutationVariables = Exact<{
@@ -10354,7 +10374,7 @@ export type DeleteComponentMutationVariables = Exact<{
 }>
 
 export type DeleteComponentMutation = {
-  delete_component_by_pk?: Maybe<Pick<Component, 'id'>>
+  delete_component_by_pk?: Maybe<LibraryExplorer__ComponentFragment>
 }
 
 export type DeleteComponentsWhereMutationVariables = Exact<{
@@ -10395,7 +10415,7 @@ export type UpdateComponentMutationVariables = Exact<{
 }>
 
 export type UpdateComponentMutation = {
-  update_component_by_pk?: Maybe<__ComponentFragment>
+  update_component_by_pk?: Maybe<LibraryExplorer__ComponentFragment>
 }
 
 export type CreateLambdaMutationVariables = Exact<{
@@ -10504,17 +10524,11 @@ export type LibraryExplorerQueryVariables = Exact<{ [key: string]: never }>
 export type LibraryExplorerQuery = {
   library: Array<
     Pick<Library, 'id' | 'name'> & {
-      components: Array<Pick<Component, 'id' | 'label'>>
-      atoms: Array<Pick<Atom, 'id'> & { type: Pick<Atom_Type, 'id' | 'label'> }>
+      components: Array<LibraryExplorer__ComponentFragment>
+      atoms: Array<LibraryExplorer__AtomFragment>
     }
   >
 }
-
-export type LibraryExplorer__AtomFragment = Pick<Atom, 'id'>
-
-export type LibraryExplorer__ComponentFragment = Pick<Component, 'id' | 'label'>
-
-export type LibraryExplorer__LibraryFragment = Pick<Library, 'id' | 'name'>
 
 export type UpdateLibraryMutationVariables = Exact<{
   input: Library_Set_Input
@@ -10570,7 +10584,7 @@ export type GetPagesListQueryVariables = Exact<{
 }>
 
 export type GetPagesListQuery = {
-  app_by_pk?: Maybe<{ pages: Array<App__PageFragment> }>
+  app_by_pk?: Maybe<{ pages: Array<Pick<Page, 'id' | 'name'>> }>
 }
 
 export type CreatePageElementMutationVariables = Exact<{
@@ -10794,6 +10808,15 @@ export type __UserFragment = Pick<User, 'id' | 'name'> & {
   apps: Array<User__AppFragment>
 }
 
+export const LibraryExplorer__AtomFragmentDoc = gql`
+  fragment LibraryExplorer__Atom on atom {
+    id
+    type {
+      id
+      label
+    }
+  }
+`
 export const __TagFragmentDoc = gql`
   fragment __Tag on tag {
     id
@@ -10812,6 +10835,12 @@ export const Library__CategoryFragmentDoc = gql`
   }
   ${__TagFragmentDoc}
 `
+export const LibraryExplorer__ComponentFragmentDoc = gql`
+  fragment LibraryExplorer__Component on component {
+    id
+    label
+  }
+`
 export const Library__LambdaFragmentDoc = gql`
   fragment Library__Lambda on lambda {
     id
@@ -10821,23 +10850,6 @@ export const Library__LambdaFragmentDoc = gql`
 `
 export const __LibraryFragmentDoc = gql`
   fragment __Library on library {
-    id
-    name
-  }
-`
-export const LibraryExplorer__AtomFragmentDoc = gql`
-  fragment LibraryExplorer__Atom on atom {
-    id
-  }
-`
-export const LibraryExplorer__ComponentFragmentDoc = gql`
-  fragment LibraryExplorer__Component on component {
-    id
-    label
-  }
-`
-export const LibraryExplorer__LibraryFragmentDoc = gql`
-  fragment LibraryExplorer__Library on library {
     id
     name
   }
@@ -11138,8 +11150,8 @@ export type DeleteUserAppsMutationOptions = Apollo.BaseMutationOptions<
   DeleteUserAppsMutation,
   DeleteUserAppsMutationVariables
 >
-export const GetAppGql = gql`
-  query GetApp($appId: uuid!, $pageId: uuid!) {
+export const GetAppPageGql = gql`
+  query GetAppPage($appId: uuid!, $pageId: uuid!) {
     app_by_pk(id: $appId) {
       ...User__App
     }
@@ -11152,45 +11164,56 @@ export const GetAppGql = gql`
 `
 
 /**
- * __useGetAppQuery__
+ * __useGetAppPageQuery__
  *
- * To run a query within a React component, call `useGetAppQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetAppQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetAppPageQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAppPageQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetAppQuery({
+ * const { data, loading, error } = useGetAppPageQuery({
  *   variables: {
  *      appId: // value for 'appId'
  *      pageId: // value for 'pageId'
  *   },
  * });
  */
-export function useGetAppQuery(
-  baseOptions: Apollo.QueryHookOptions<GetAppQuery, GetAppQueryVariables>,
+export function useGetAppPageQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetAppPageQuery,
+    GetAppPageQueryVariables
+  >,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<GetAppQuery, GetAppQueryVariables>(GetAppGql, options)
-}
-export function useGetAppLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<GetAppQuery, GetAppQueryVariables>,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<GetAppQuery, GetAppQueryVariables>(
-    GetAppGql,
+  return Apollo.useQuery<GetAppPageQuery, GetAppPageQueryVariables>(
+    GetAppPageGql,
     options,
   )
 }
-export type GetAppQueryHookResult = ReturnType<typeof useGetAppQuery>
-export type GetAppLazyQueryHookResult = ReturnType<typeof useGetAppLazyQuery>
-export type GetAppQueryResult = Apollo.QueryResult<
-  GetAppQuery,
-  GetAppQueryVariables
+export function useGetAppPageLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetAppPageQuery,
+    GetAppPageQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetAppPageQuery, GetAppPageQueryVariables>(
+    GetAppPageGql,
+    options,
+  )
+}
+export type GetAppPageQueryHookResult = ReturnType<typeof useGetAppPageQuery>
+export type GetAppPageLazyQueryHookResult = ReturnType<
+  typeof useGetAppPageLazyQuery
 >
-export function refetchGetAppQuery(variables?: GetAppQueryVariables) {
-  return { query: GetAppGql, variables: variables }
+export type GetAppPageQueryResult = Apollo.QueryResult<
+  GetAppPageQuery,
+  GetAppPageQueryVariables
+>
+export function refetchGetAppPageQuery(variables?: GetAppPageQueryVariables) {
+  return { query: GetAppPageGql, variables: variables }
 }
 export const CreateAppGql = gql`
   mutation CreateApp($input: app_insert_input!) {
@@ -11474,6 +11497,69 @@ export function refetchGetAppsListForUserQuery(
   variables?: GetAppsListForUserQueryVariables,
 ) {
   return { query: GetAppsListForUserGql, variables: variables }
+}
+export const GetFirstAppGql = gql`
+  query GetFirstApp {
+    app(limit: 1) {
+      id
+      name
+      pages {
+        id
+        name
+      }
+    }
+  }
+`
+
+/**
+ * __useGetFirstAppQuery__
+ *
+ * To run a query within a React component, call `useGetFirstAppQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetFirstAppQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetFirstAppQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetFirstAppQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetFirstAppQuery,
+    GetFirstAppQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetFirstAppQuery, GetFirstAppQueryVariables>(
+    GetFirstAppGql,
+    options,
+  )
+}
+export function useGetFirstAppLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetFirstAppQuery,
+    GetFirstAppQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetFirstAppQuery, GetFirstAppQueryVariables>(
+    GetFirstAppGql,
+    options,
+  )
+}
+export type GetFirstAppQueryHookResult = ReturnType<typeof useGetFirstAppQuery>
+export type GetFirstAppLazyQueryHookResult = ReturnType<
+  typeof useGetFirstAppLazyQuery
+>
+export type GetFirstAppQueryResult = Apollo.QueryResult<
+  GetFirstAppQuery,
+  GetFirstAppQueryVariables
+>
+export function refetchGetFirstAppQuery(variables?: GetFirstAppQueryVariables) {
+  return { query: GetFirstAppGql, variables: variables }
 }
 export const EditAppGql = gql`
   mutation EditApp($input: app_set_input!, $id: uuid!) {
@@ -11866,10 +11952,10 @@ export type UpdateAtomTypeMutationOptions = Apollo.BaseMutationOptions<
 export const CreateAtomGql = gql`
   mutation CreateAtom($data: atom_insert_input!) {
     insert_atom_one(object: $data) {
-      ...__Atom
+      ...LibraryExplorer__Atom
     }
   }
-  ${__AtomFragmentDoc}
+  ${LibraryExplorer__AtomFragmentDoc}
 `
 export type CreateAtomMutationFn = Apollo.MutationFunction<
   CreateAtomMutation,
@@ -11964,10 +12050,10 @@ export type DeleteAllAtomsMutationOptions = Apollo.BaseMutationOptions<
 export const DeleteAtomGql = gql`
   mutation DeleteAtom($atomId: uuid!) {
     delete_atom_by_pk(id: $atomId) {
-      ...__Atom
+      ...LibraryExplorer__Atom
     }
   }
-  ${__AtomFragmentDoc}
+  ${LibraryExplorer__AtomFragmentDoc}
 `
 export type DeleteAtomMutationFn = Apollo.MutationFunction<
   DeleteAtomMutation,
@@ -12311,10 +12397,10 @@ export function refetchGetAtomsWhereQuery(
 export const UpdateAtomGql = gql`
   mutation UpdateAtom($input: atom_set_input!, $atomId: uuid!) {
     update_atom_by_pk(_set: $input, pk_columns: { id: $atomId }) {
-      ...__Atom
+      ...LibraryExplorer__Atom
     }
   }
-  ${__AtomFragmentDoc}
+  ${LibraryExplorer__AtomFragmentDoc}
 `
 export type UpdateAtomMutationFn = Apollo.MutationFunction<
   UpdateAtomMutation,
@@ -12682,10 +12768,10 @@ export type UpdateComponentElementMutationOptions = Apollo.BaseMutationOptions<
 export const CreateComponentGql = gql`
   mutation CreateComponent($input: component_insert_input!) {
     insert_component_one(object: $input) {
-      ...__Component
+      ...LibraryExplorer__Component
     }
   }
-  ${__ComponentFragmentDoc}
+  ${LibraryExplorer__ComponentFragmentDoc}
 `
 export type CreateComponentMutationFn = Apollo.MutationFunction<
   CreateComponentMutation,
@@ -12780,9 +12866,10 @@ export type DeleteAllComponentsMutationOptions = Apollo.BaseMutationOptions<
 export const DeleteComponentGql = gql`
   mutation DeleteComponent($componentId: uuid!) {
     delete_component_by_pk(id: $componentId) {
-      id
+      ...LibraryExplorer__Component
     }
   }
+  ${LibraryExplorer__ComponentFragmentDoc}
 `
 export type DeleteComponentMutationFn = Apollo.MutationFunction<
   DeleteComponentMutation,
@@ -13136,10 +13223,10 @@ export function refetchGetComponentsWhereQuery(
 export const UpdateComponentGql = gql`
   mutation UpdateComponent($componentId: uuid!, $input: component_set_input!) {
     update_component_by_pk(pk_columns: { id: $componentId }, _set: $input) {
-      ...__Component
+      ...LibraryExplorer__Component
     }
   }
-  ${__ComponentFragmentDoc}
+  ${LibraryExplorer__ComponentFragmentDoc}
 `
 export type UpdateComponentMutationFn = Apollo.MutationFunction<
   UpdateComponentMutation,
@@ -13870,18 +13957,15 @@ export const LibraryExplorerGql = gql`
       id
       name
       components {
-        id
-        label
+        ...LibraryExplorer__Component
       }
       atoms {
-        id
-        type {
-          id
-          label
-        }
+        ...LibraryExplorer__Atom
       }
     }
   }
+  ${LibraryExplorer__ComponentFragmentDoc}
+  ${LibraryExplorer__AtomFragmentDoc}
 `
 
 /**
@@ -14148,11 +14232,11 @@ export const GetPagesListGql = gql`
   query GetPagesList($appId: uuid!) {
     app_by_pk(id: $appId) {
       pages {
-        ...App__Page
+        id
+        name
       }
     }
   }
-  ${App__PageFragmentDoc}
 `
 
 /**
@@ -15398,6 +15482,15 @@ export type UpsertUserMutationOptions = Apollo.BaseMutationOptions<
   UpsertUserMutation,
   UpsertUserMutationVariables
 >
+export const LibraryExplorer__Atom = gql`
+  fragment LibraryExplorer__Atom on atom {
+    id
+    type {
+      id
+      label
+    }
+  }
+`
 export const __Tag = gql`
   fragment __Tag on tag {
     id
@@ -15416,6 +15509,12 @@ export const Library__Category = gql`
   }
   ${__Tag}
 `
+export const LibraryExplorer__Component = gql`
+  fragment LibraryExplorer__Component on component {
+    id
+    label
+  }
+`
 export const Library__Lambda = gql`
   fragment Library__Lambda on lambda {
     id
@@ -15425,23 +15524,6 @@ export const Library__Lambda = gql`
 `
 export const __Library = gql`
   fragment __Library on library {
-    id
-    name
-  }
-`
-export const LibraryExplorer__Atom = gql`
-  fragment LibraryExplorer__Atom on atom {
-    id
-  }
-`
-export const LibraryExplorer__Component = gql`
-  fragment LibraryExplorer__Component on component {
-    id
-    label
-  }
-`
-export const LibraryExplorer__Library = gql`
-  fragment LibraryExplorer__Library on library {
     id
     name
   }
@@ -15700,8 +15782,8 @@ export const DeleteUserApps = gql`
     }
   }
 `
-export const GetApp = gql`
-  query GetApp($appId: uuid!, $pageId: uuid!) {
+export const GetAppPage = gql`
+  query GetAppPage($appId: uuid!, $pageId: uuid!) {
     app_by_pk(id: $appId) {
       ...User__App
     }
@@ -15751,6 +15833,18 @@ export const GetAppsListForUser = gql`
     }
   }
   ${User__App}
+`
+export const GetFirstApp = gql`
+  query GetFirstApp {
+    app(limit: 1) {
+      id
+      name
+      pages {
+        id
+        name
+      }
+    }
+  }
 `
 export const EditApp = gql`
   mutation EditApp($input: app_set_input!, $id: uuid!) {
@@ -15812,10 +15906,10 @@ export const UpdateAtomType = gql`
 export const CreateAtom = gql`
   mutation CreateAtom($data: atom_insert_input!) {
     insert_atom_one(object: $data) {
-      ...__Atom
+      ...LibraryExplorer__Atom
     }
   }
-  ${__Atom}
+  ${LibraryExplorer__Atom}
 `
 export const DeleteAllAtoms = gql`
   mutation DeleteAllAtoms {
@@ -15827,10 +15921,10 @@ export const DeleteAllAtoms = gql`
 export const DeleteAtom = gql`
   mutation DeleteAtom($atomId: uuid!) {
     delete_atom_by_pk(id: $atomId) {
-      ...__Atom
+      ...LibraryExplorer__Atom
     }
   }
-  ${__Atom}
+  ${LibraryExplorer__Atom}
 `
 export const DeleteAtomsWhere = gql`
   mutation DeleteAtomsWhere($where: atom_bool_exp!) {
@@ -15877,10 +15971,10 @@ export const GetAtomsWhere = gql`
 export const UpdateAtom = gql`
   mutation UpdateAtom($input: atom_set_input!, $atomId: uuid!) {
     update_atom_by_pk(_set: $input, pk_columns: { id: $atomId }) {
-      ...__Atom
+      ...LibraryExplorer__Atom
     }
   }
-  ${__Atom}
+  ${LibraryExplorer__Atom}
 `
 export const AddChildComponentElement = gql`
   mutation AddChildComponentElement($data: component_link_insert_input!) {
@@ -15938,10 +16032,10 @@ export const UpdateComponentElement = gql`
 export const CreateComponent = gql`
   mutation CreateComponent($input: component_insert_input!) {
     insert_component_one(object: $input) {
-      ...__Component
+      ...LibraryExplorer__Component
     }
   }
-  ${__Component}
+  ${LibraryExplorer__Component}
 `
 export const DeleteAllComponents = gql`
   mutation DeleteAllComponents {
@@ -15953,9 +16047,10 @@ export const DeleteAllComponents = gql`
 export const DeleteComponent = gql`
   mutation DeleteComponent($componentId: uuid!) {
     delete_component_by_pk(id: $componentId) {
-      id
+      ...LibraryExplorer__Component
     }
   }
+  ${LibraryExplorer__Component}
 `
 export const DeleteComponentsWhere = gql`
   mutation DeleteComponentsWhere($where: component_bool_exp!) {
@@ -16002,10 +16097,10 @@ export const GetComponentsWhere = gql`
 export const UpdateComponent = gql`
   mutation UpdateComponent($componentId: uuid!, $input: component_set_input!) {
     update_component_by_pk(pk_columns: { id: $componentId }, _set: $input) {
-      ...__Component
+      ...LibraryExplorer__Component
     }
   }
-  ${__Component}
+  ${LibraryExplorer__Component}
 `
 export const CreateLambda = gql`
   mutation CreateLambda($input: [lambda_insert_input!]!) {
@@ -16126,18 +16221,15 @@ export const LibraryExplorer = gql`
       id
       name
       components {
-        id
-        label
+        ...LibraryExplorer__Component
       }
       atoms {
-        id
-        type {
-          id
-          label
-        }
+        ...LibraryExplorer__Atom
       }
     }
   }
+  ${LibraryExplorer__Component}
+  ${LibraryExplorer__Atom}
 `
 export const UpdateLibrary = gql`
   mutation UpdateLibrary($input: library_set_input!, $libraryId: uuid!) {
@@ -16175,11 +16267,11 @@ export const GetPagesList = gql`
   query GetPagesList($appId: uuid!) {
     app_by_pk(id: $appId) {
       pages {
-        ...App__Page
+        id
+        name
       }
     }
   }
-  ${App__Page}
 `
 export const CreatePageElement = gql`
   mutation CreatePageElement($input: page_element_insert_input!) {

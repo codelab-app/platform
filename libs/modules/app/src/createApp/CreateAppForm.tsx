@@ -5,7 +5,7 @@ import {
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import { GetAppsListGql, useCreateAppMutation } from '@codelab/hasura'
+import { refetchGetAppsListQuery, useCreateAppMutation } from '@codelab/hasura'
 import React, { useEffect } from 'react'
 import { useRecoilState } from 'recoil'
 import { DeepPartial } from 'uniforms'
@@ -18,11 +18,7 @@ export const CreateAppForm = (props: UniFormUseCaseProps<CreateAppInput>) => {
 
   const [mutate, { loading }] = useCreateAppMutation({
     awaitRefetchQueries: true,
-    refetchQueries: [
-      {
-        query: GetAppsListGql,
-      },
-    ],
+    refetchQueries: [refetchGetAppsListQuery()],
   })
 
   const [, setAppState] = useRecoilState(appState)

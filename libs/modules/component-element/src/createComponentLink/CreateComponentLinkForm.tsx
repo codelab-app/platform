@@ -5,7 +5,7 @@ import {
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
 import {
-  GetComponentDetailGql,
+  refetchGetComponentDetailQuery,
   useCreateComponentLinkMutation,
 } from '@codelab/hasura'
 import React, { useContext, useEffect } from 'react'
@@ -29,14 +29,7 @@ export const CreateComponentLinkForm = ({
 
   const [mutate, { loading: creating }] = useCreateComponentLinkMutation({
     awaitRefetchQueries: true,
-    refetchQueries: [
-      {
-        query: GetComponentDetailGql,
-        variables: {
-          componentId,
-        },
-      },
-    ],
+    refetchQueries: [refetchGetComponentDetailQuery()],
   })
 
   useEffect(() => {

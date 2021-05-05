@@ -17,9 +17,11 @@ const StyledContainer = styled.div`
     grid-template-rows: min-content 1fr;
     height: 100vh;
     max-height: 100vh;
-
     .ant-page-header-content {
       overflow-y: auto;
+    }
+    .ant-page-header-heading {
+      align-items: baseline;
     }
   }
 `

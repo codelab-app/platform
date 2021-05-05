@@ -8,7 +8,7 @@ import {
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
 import {
-  LibraryExplorerGql,
+  refetchLibraryExplorerQuery,
   useDeleteComponentsWhereMutation,
   useGetComponentsWhereQuery,
 } from '@codelab/hasura'
@@ -27,11 +27,7 @@ export const DeleteComponentsForm = (props: DeleteComponentFormProps) => {
 
   const [mutate, { loading: deleting }] = useDeleteComponentsWhereMutation({
     awaitRefetchQueries: true,
-    refetchQueries: [
-      {
-        query: LibraryExplorerGql,
-      },
-    ],
+    refetchQueries: [refetchLibraryExplorerQuery()],
   })
 
   const componentsWhere = {

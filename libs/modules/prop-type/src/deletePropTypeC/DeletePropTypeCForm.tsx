@@ -6,7 +6,7 @@ import {
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
 import {
-  GetPropTypeCList,
+  refetchGetPropTypeCListQuery,
   useDeletePropTypeCMutation,
   useGetPropTypeCQuery,
 } from '@codelab/hasura'
@@ -26,11 +26,7 @@ export const DeletePropTypeCForm = (props: DeletePropTypeCFormProps) => {
 
   const [mutate, { loading: deleting }] = useDeletePropTypeCMutation({
     awaitRefetchQueries: true,
-    refetchQueries: [
-      {
-        query: GetPropTypeCList,
-      },
-    ],
+    refetchQueries: [refetchGetPropTypeCListQuery()],
   })
 
   useEffect(() => {
@@ -42,6 +38,7 @@ export const DeletePropTypeCForm = (props: DeletePropTypeCFormProps) => {
       propTypeCId: deletePropTypeCIds[0],
     },
   })
+
   const propTypeCItem = data?.prop_type_c_by_pk
 
   if (loading) {

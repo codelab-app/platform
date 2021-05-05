@@ -6,7 +6,7 @@ import {
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
 import {
-  GetStylesListGql,
+  refetchGetStylesListQuery,
   useDeleteStyleMutation,
   useGetStyleQuery,
 } from '@codelab/hasura'
@@ -22,11 +22,7 @@ export const DeleteStyleForm = (props: DeleteStyleFormProps) => {
   const { deleteIds: deleteStyleIds } = state
 
   const [mutate, { loading: deleting }] = useDeleteStyleMutation({
-    refetchQueries: [
-      {
-        query: GetStylesListGql,
-      },
-    ],
+    refetchQueries: [refetchGetStylesListQuery()],
   })
 
   useEffect(() => {

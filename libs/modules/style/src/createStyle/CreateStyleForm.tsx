@@ -5,7 +5,10 @@ import {
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import { GetStylesListGql, useCreateStyleMutation } from '@codelab/hasura'
+import {
+  refetchGetStylesListQuery,
+  useCreateStyleMutation,
+} from '@codelab/hasura'
 import { useSelectedLibrary } from '@codelab/modules/library'
 import React, { useEffect } from 'react'
 import { DeepPartial } from 'uniforms'
@@ -18,11 +21,7 @@ export const CreateStyleForm = (props: CreateStyleFormProps) => {
   const { reset, setLoading } = useCRUDModalForm(EntityType.Style)
 
   const [mutate, { loading: creating }] = useCreateStyleMutation({
-    refetchQueries: [
-      {
-        query: GetStylesListGql,
-      },
-    ],
+    refetchQueries: [refetchGetStylesListQuery()],
   })
 
   useEffect(() => {

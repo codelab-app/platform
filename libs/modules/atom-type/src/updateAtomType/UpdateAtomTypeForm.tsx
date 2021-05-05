@@ -6,7 +6,7 @@ import {
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
 import {
-  GetAtomTypeGql,
+  refetchGetAtomTypesQuery,
   useGetAtomTypeQuery,
   useUpdateAtomTypeMutation,
 } from '@codelab/hasura'
@@ -25,14 +25,13 @@ export const UpdateAtomTypeForm = (
   const updateAtomTypeId = state.updateId
 
   const [mutate, { loading: updating }] = useUpdateAtomTypeMutation({
-    refetchQueries: [
-      {
-        query: GetAtomTypeGql,
-        variables: {
-          atomTypeId: updateAtomTypeId,
-        },
+    awaitRefetchQueries: true,
+    refetchQueries: [refetchGetAtomTypesQuery()],
+    context: {
+      headers: {
+        'X-Hasura-Role': 'admin',
       },
-    ],
+    },
   })
 
   useEffect(() => {

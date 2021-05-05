@@ -8,7 +8,7 @@ import {
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
 import {
-  GetComponentDetailGql,
+  refetchGetComponentDetailQuery,
   useAddChildComponentElementMutation,
 } from '@codelab/hasura'
 import {
@@ -25,7 +25,7 @@ export const ComponentTab = () => {
   const { selectedComponent, setSelected } = useComponentBuilder()
 
   const [addChildComponentElement] = useAddChildComponentElementMutation({
-    refetchQueries: [{ query: GetComponentDetailGql }],
+    refetchQueries: [refetchGetComponentDetailQuery()],
   })
 
   const {

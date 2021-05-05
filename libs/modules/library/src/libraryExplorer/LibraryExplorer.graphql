@@ -3,15 +3,10 @@ query LibraryExplorer {
     id
     name
     components {
-      id
-      label
+      ...LibraryExplorer__Component
     }
     atoms {
-      id
-      type {
-        id
-        label
-      }
+      ...LibraryExplorer__Atom
     }
   }
 }

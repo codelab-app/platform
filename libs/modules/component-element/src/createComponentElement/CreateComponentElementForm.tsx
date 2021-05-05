@@ -5,7 +5,7 @@ import {
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
 import {
-  GetComponentDetailGql,
+  refetchGetComponentDetailQuery,
   useCreateComponentElementMutation,
 } from '@codelab/hasura'
 import React, { useEffect } from 'react'
@@ -33,14 +33,7 @@ export const CreateComponentElementForm = ({
 
   const [mutate, { loading: creating }] = useCreateComponentElementMutation({
     awaitRefetchQueries: true,
-    refetchQueries: [
-      {
-        query: GetComponentDetailGql,
-        variables: {
-          componentId,
-        },
-      },
-    ],
+    refetchQueries: [refetchGetComponentDetailQuery()],
   })
 
   useEffect(() => {

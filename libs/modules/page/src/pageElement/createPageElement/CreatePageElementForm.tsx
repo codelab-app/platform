@@ -4,7 +4,10 @@ import {
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import { GetAppGql, useCreatePageElementMutation } from '@codelab/hasura'
+import {
+  refetchGetAppPageQuery,
+  useCreatePageElementMutation,
+} from '@codelab/hasura'
 import React, { useContext, useEffect } from 'react'
 import { DeepPartial } from 'uniforms'
 import { CreatePageElementInput } from './createPageElementSchema'
@@ -19,15 +22,7 @@ export const CreatePageElementForm = ({
   const { pageId, appId } = useContext(AppContext)
 
   const [mutate, { loading: creating }] = useCreatePageElementMutation({
-    refetchQueries: [
-      {
-        query: GetAppGql,
-        variables: {
-          appId,
-          pageId,
-        },
-      },
-    ],
+    refetchQueries: [refetchGetAppPageQuery({ appId, pageId })],
   })
 
   useEffect(() => {

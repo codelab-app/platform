@@ -6,7 +6,7 @@ import {
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
 import {
-  GetAppsListGql,
+  refetchGetAppsListQuery,
   useEditAppMutation,
   useGetAppItemQuery,
 } from '@codelab/hasura'
@@ -25,11 +25,7 @@ export const UpdateAppForm = (props: UniFormUseCaseProps<UpdateAppInput>) => {
 
   const [mutate, { loading: updateAppLoading }] = useEditAppMutation({
     awaitRefetchQueries: true,
-    refetchQueries: [
-      {
-        query: GetAppsListGql,
-      },
-    ],
+    refetchQueries: [refetchGetAppsListQuery()],
   })
 
   const { data, loading } = useGetAppItemQuery({

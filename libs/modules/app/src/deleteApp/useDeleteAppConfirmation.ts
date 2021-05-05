@@ -1,5 +1,5 @@
 import { createNotificationHandler } from '@codelab/frontend/shared'
-import { GetAppsListGql, useDeleteAppMutation } from '@codelab/hasura'
+import { refetchGetAppsListQuery, useDeleteAppMutation } from '@codelab/hasura'
 import { Modal } from 'antd'
 
 export const useDeleteAppConfirmation = () => {
@@ -10,11 +10,7 @@ export const useDeleteAppConfirmation = () => {
       variables: {
         id: app.id,
       },
-      refetchQueries: [
-        {
-          query: GetAppsListGql,
-        },
-      ],
+      refetchQueries: [refetchGetAppsListQuery()],
     }).catch(
       createNotificationHandler({
         title: `Error while deleting app '${app.name}'`,

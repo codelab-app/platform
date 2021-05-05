@@ -7,7 +7,7 @@ import {
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
 import {
-  GetPropTypeCListGql,
+  refetchGetPropTypeCListQuery,
   useCreatePropTypeCMutation,
 } from '@codelab/hasura'
 import React, { useContext, useEffect } from 'react'
@@ -27,11 +27,7 @@ export const CreatePropTypeCForm = (props: CreatePropTypeCFormProps) => {
 
   const [mutate, { loading: creating }] = useCreatePropTypeCMutation({
     awaitRefetchQueries: true,
-    refetchQueries: [
-      {
-        query: GetPropTypeCListGql,
-      },
-    ],
+    refetchQueries: [refetchGetPropTypeCListQuery()],
   })
 
   useEffect(() => {

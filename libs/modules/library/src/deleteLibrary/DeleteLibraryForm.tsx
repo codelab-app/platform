@@ -6,7 +6,7 @@ import {
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
 import {
-  LibraryExplorerGql,
+  refetchLibraryExplorerQuery,
   useDeleteLibraryMutation,
   useGetLibraryQuery,
 } from '@codelab/hasura'
@@ -22,11 +22,7 @@ export const DeleteLibraryForm = (props: DeleteLibraryFormProps) => {
   const { deleteIds: deleteLibraryIds } = state
 
   const [mutate, { loading: deleting }] = useDeleteLibraryMutation({
-    refetchQueries: [
-      {
-        query: LibraryExplorerGql,
-      },
-    ],
+    refetchQueries: [refetchLibraryExplorerQuery()],
   })
 
   useEffect(() => {

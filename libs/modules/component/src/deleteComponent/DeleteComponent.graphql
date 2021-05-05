@@ -1,5 +1,5 @@
 mutation DeleteComponent($componentId: uuid!) {
   delete_component_by_pk(id: $componentId) {
-    id
+    ...LibraryExplorer__Component
   }
 }

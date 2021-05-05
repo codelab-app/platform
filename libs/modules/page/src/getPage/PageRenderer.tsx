@@ -10,7 +10,7 @@ import {
 } from '@codelab/frontend/shared'
 import {
   App__PageFragment,
-  GetAppGql,
+  refetchGetAppPageQuery,
   useCreatePageElementMutation,
 } from '@codelab/hasura'
 import React, { useContext } from 'react'
@@ -24,13 +24,10 @@ export const PageRenderer = ({ page }: GetPageLayoutProps) => {
 
   const [addPageElement] = useCreatePageElementMutation({
     refetchQueries: [
-      {
-        query: GetAppGql,
-        variables: {
-          appId,
-          pageId,
-        },
-      },
+      refetchGetAppPageQuery({
+        appId,
+        pageId,
+      }),
     ],
   })
 

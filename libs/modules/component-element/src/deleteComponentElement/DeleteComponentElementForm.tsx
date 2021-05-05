@@ -9,7 +9,7 @@ import {
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
 import {
-  GetComponentDetailGql,
+  refetchGetComponentDetailQuery,
   useDeleteComponentElementMutation,
   useGetComponentElementQuery,
 } from '@codelab/hasura'
@@ -31,14 +31,7 @@ export const DeleteComponentElementForm = (
   const { componentId } = useContext(ComponentContext)
 
   const [mutate, { loading: deleting }] = useDeleteComponentElementMutation({
-    refetchQueries: [
-      {
-        query: GetComponentDetailGql,
-        variables: {
-          componentId,
-        },
-      },
-    ],
+    refetchQueries: [refetchGetComponentDetailQuery({ componentId })],
   })
 
   useEffect(() => {

@@ -3,7 +3,10 @@ import {
   FormUniforms,
   UniFormUseCaseProps,
 } from '@codelab/frontend/shared'
-import { GetLambdasByLibraryId, useCreateLambdaMutation } from '@codelab/hasura'
+import {
+  refetchGetLambdasByLibraryIdQuery,
+  useCreateLambdaMutation,
+} from '@codelab/hasura'
 import { useSelectedLibrary } from '@codelab/modules/library'
 import React from 'react'
 import { DeepPartial } from 'uniforms'
@@ -14,12 +17,9 @@ export const CreateLambdaForm = (props: UniFormUseCaseProps<any>) => {
 
   const [mutate] = useCreateLambdaMutation({
     refetchQueries: [
-      {
-        query: GetLambdasByLibraryId,
-        variables: {
-          libraryId: library?.id,
-        },
-      },
+      refetchGetLambdasByLibraryIdQuery({
+        libraryId: library?.id ?? '',
+      }),
     ],
   })
 

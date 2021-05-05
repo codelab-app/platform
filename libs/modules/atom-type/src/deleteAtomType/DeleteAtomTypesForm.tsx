@@ -6,7 +6,7 @@ import {
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
 import {
-  GetAtomTypesGql,
+  refetchGetAtomTypesQuery,
   useDeleteAtomTypesWhereMutation,
   useGetAtomTypesWhereQuery,
 } from '@codelab/hasura'
@@ -25,11 +25,7 @@ export const DeleteAtomTypesForm = (props: DeleteAtomTypeProps) => {
 
   const [mutate, { loading: deleting }] = useDeleteAtomTypesWhereMutation({
     awaitRefetchQueries: true,
-    refetchQueries: [
-      {
-        query: GetAtomTypesGql,
-      },
-    ],
+    refetchQueries: [refetchGetAtomTypesQuery()],
     context: {
       headers: {
         'X-Hasura-Role': 'admin',

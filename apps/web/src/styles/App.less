@@ -5,12 +5,41 @@
 
 // https://github.com/ant-design/ant-design/blob/master/components/style/themes/default.less
 
-@layout-header-height: 41px;
-@menu-item-height: 40px;
-// @divider-text-padding: 0.5em;
+// @gray-darker: rgb(54, 53, 64);
+// @gray: rgb(65, 64, 77);
+
+// @component-background: @gray;
+
+// Menu
+@menu-item-height: calc(@layout-header-height - 1px);
+@menu-item-padding: 0 10px;
+// @menu-item-active-bg: lighten(@gray, 20%);
+// @menu-highlight-color: lighten(@gray, 0.2);
+// @divider-color: @white;
+
+@menu-inline-toplevel-item-height: 36px;
+
+// @divider-text-padding: 0.5em;;
 // @primary-color: rgb(62, 45, 99);
 // @heading-color: @primary-color;
 
 .ant-divider-horizontal {
   margin: 16px 0;
+}
+
+// Header
+@layout-header-height: 38px;
+@layout-header-background: @white;
+@layout-header-padding: 0px;
+
+.ant-menu {
+  height: 100%;
+  &.ant-menu-vertical {
+    .ant-menu-item {
+      margin: 0 !important;
+    }
+    // > .ant-menu-item-divider {
+    //   background-color: @divider-color;
+    // }
+  }
 }

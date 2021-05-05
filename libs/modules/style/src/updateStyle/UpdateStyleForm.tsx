@@ -6,7 +6,7 @@ import {
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
 import {
-  GetStyleGql,
+  refetchGetStyleQuery,
   useGetStyleQuery,
   useUpdateStyleMutation,
 } from '@codelab/hasura'
@@ -23,14 +23,7 @@ export const UpdateStyleForm = (
   const { updateId: updateStyleId } = state
 
   const [mutate, { loading: updating }] = useUpdateStyleMutation({
-    refetchQueries: [
-      {
-        query: GetStyleGql,
-        variables: {
-          styleId: updateStyleId,
-        },
-      },
-    ],
+    refetchQueries: [refetchGetStyleQuery()],
   })
 
   useEffect(() => {
