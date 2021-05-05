@@ -45,7 +45,7 @@ export const LayoutBuilder = ({
   }, [loading])
 
   if (!data?.app.length || !data?.app?.[0].pages.length) {
-    return null
+    return <></>
   }
 
   const menu = (
