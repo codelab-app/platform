@@ -4,19 +4,22 @@ import {
   Prop_Type_Insert_Input,
 } from '@codelab/hasura'
 import { JSONSchemaType } from 'ajv'
-import { PropTypesSchema } from '../PropTypesSchema'
+import { propTypesSchema } from '../propTypesSchema'
 
 export type UpdatePropTypeCInput = DeepNonNullable<
   Pick<Required<Prop_Type_C_Insert_Input>, 'label' | 'library_id' | 'id'> & {
     propTypes: Array<
       DeepNonNullable<
-        Pick<Required<Prop_Type_Insert_Input>, 'isArray' | 'key' | 'value_type'>
+        Pick<
+          Required<Prop_Type_Insert_Input>,
+          'is_array' | 'key' | 'value_type'
+        >
       >
     >
   }
 >
 
-export const UpdatePropTypeCSchema: JSONSchemaType<UpdatePropTypeCInput> = {
+export const updatePropTypeCSchema: JSONSchemaType<UpdatePropTypeCInput> = {
   title: 'Update PropTypeC',
   type: 'object',
   properties: {
@@ -29,7 +32,7 @@ export const UpdatePropTypeCSchema: JSONSchemaType<UpdatePropTypeCInput> = {
     library_id: {
       type: 'string',
     },
-    propTypes: PropTypesSchema,
+    propTypes: propTypesSchema,
   },
   required: ['label'],
 }

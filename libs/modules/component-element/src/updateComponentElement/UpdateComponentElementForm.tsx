@@ -5,7 +5,7 @@ import {
 } from '@codelab/frontend/shared'
 import {
   __ComponentElementFragment,
-  GetComponentDetailGql,
+  refetchGetComponentDetailQuery,
   useUpdateComponentElementMutation,
 } from '@codelab/hasura'
 import React, { useContext, useRef } from 'react'
@@ -28,14 +28,7 @@ export const UpdateComponentElementForm = ({
 
   const [mutate, { loading, error, data }] = useUpdateComponentElementMutation({
     awaitRefetchQueries: true,
-    refetchQueries: [
-      {
-        query: GetComponentDetailGql,
-        variables: {
-          componentId,
-        },
-      },
-    ],
+    refetchQueries: [refetchGetComponentDetailQuery({ componentId })],
   })
 
   const onSubmit = (submitData: DeepPartial<UpdateComponentElementInput>) => {

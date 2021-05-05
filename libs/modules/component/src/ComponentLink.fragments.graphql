@@ -2,6 +2,6 @@ fragment PageElement__ComponentLink on component_link {
   id
   order
   props
-  source_element_id
-  target_element_id
+  source_component_element_id
+  target_component_element_id
 }

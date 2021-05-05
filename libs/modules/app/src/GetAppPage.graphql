@@ -1,0 +1,8 @@
+query GetAppPage($appId: uuid!, $pageId: uuid!) {
+  app_by_pk(id: $appId) {
+    ...User__App
+  }
+  page_by_pk(id: $pageId) {
+    ...App__Page
+  }
+}

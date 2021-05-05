@@ -1,12 +1,11 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import { ActionType, CrudModal, EntityType } from '@codelab/frontend/shared'
 import { padding } from '@codelab/frontend/style'
 import {
   CreateAppButton,
-  CreateAppForm,
-  DeleteAppForm,
+  CreateAppModal,
+  DeleteAppModal,
   GetAppsList,
-  UpdateAppForm,
+  UpdateAppModal,
 } from '@codelab/modules/app'
 import { SignOutUserButton } from '@codelab/modules/user'
 import { PageHeader } from 'antd'
@@ -28,24 +27,9 @@ const AppsPage: NextPageLayout = () => {
         title="Apps"
         extra={pageHeaderButtons}
       />
-      <CrudModal
-        entityType={EntityType.App}
-        actionType={ActionType.Create}
-        okText="Create App"
-        renderForm={() => <CreateAppForm />}
-      />
-      <CrudModal
-        entityType={EntityType.App}
-        actionType={ActionType.Update}
-        okText="Update App"
-        renderForm={() => <UpdateAppForm />}
-      />
-      <CrudModal
-        entityType={EntityType.App}
-        actionType={ActionType.Delete}
-        okText="Delete App"
-        renderForm={() => <DeleteAppForm />}
-      />
+      <CreateAppModal />
+      <UpdateAppModal />
+      <DeleteAppModal />
       <section style={{ marginTop: padding.sm }}>
         <GetAppsList />
       </section>

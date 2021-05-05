@@ -6,7 +6,7 @@ import {
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
 import {
-  GetAtomGql,
+  refetchLibraryExplorerQuery,
   useGetAtomQuery,
   useGetAtomsTypesQuery,
   useUpdateAtomMutation,
@@ -15,30 +15,21 @@ import { Spin } from 'antd'
 import React, { useEffect } from 'react'
 import { DeepPartial } from 'uniforms'
 import { SelectField } from 'uniforms-antd'
-import { UpdateAtomInput, UpdateAtomSchema } from './updateFromSchema'
+import { UpdateAtomInput, updateAtomSchema } from './updateAtomSchema'
 
-export const UpdateAtomForm = ({
-  ...props
-}: UniFormUseCaseProps<UpdateAtomInput>) => {
+export const UpdateAtomForm = (props: UniFormUseCaseProps<UpdateAtomInput>) => {
   const { reset, setLoading, state } = useCRUDModalForm(EntityType.Atom)
   const { updateId: updateAtomId } = state
   const { data: atomsTypes } = useGetAtomsTypesQuery()
 
   const atomTypesOptions = atomsTypes?.atom_type?.map((t) => ({
     ...t,
-    label: t.value,
-    type: t.value,
+    label: t.label,
+    value: t.id,
   }))
 
   const [mutate, { loading: updating }] = useUpdateAtomMutation({
-    refetchQueries: [
-      {
-        query: GetAtomGql,
-        variables: {
-          atomId: updateAtomId,
-        },
-      },
-    ],
+    refetchQueries: [refetchLibraryExplorerQuery()],
     context: {
       headers: {
         'X-Hasura-Role': 'admin',
@@ -63,12 +54,10 @@ export const UpdateAtomForm = ({
   }
 
   const onSubmit = (submitData: DeepPartial<UpdateAtomInput>) => {
-    console.log(submitData, updateAtomId)
-
     return mutate({
       variables: {
         input: {
-          ...submitData,
+          atom_type_id: submitData.atom_type_id,
         },
         atomId: updateAtomId,
       },
@@ -80,15 +69,15 @@ export const UpdateAtomForm = ({
       data-testid="update-atom-form"
       id="update-atom-form"
       onSubmit={onSubmit}
-      schema={UpdateAtomSchema}
-      model={{ type: atom?.type }}
+      schema={updateAtomSchema}
+      model={{ atom_type_id: atom?.type.id }}
       onSubmitError={createNotificationHandler({
-        title: 'Error while updating atom',
+        title: 'Error while updating Atom',
       })}
       onSubmitSuccess={() => reset()}
       {...props}
     >
-      <SelectField name="type" options={atomTypesOptions} />
+      <SelectField name="atom_type_id" options={atomTypesOptions} />
     </FormUniforms>
   )
 }

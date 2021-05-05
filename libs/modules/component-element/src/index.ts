@@ -1,5 +1,5 @@
 export * from './addChildComponentElement'
 export * from './createComponentElement'
-export * from './createLinked'
+export * from './createComponentLink'
 export * from './pane'
 export * from './updateComponentElement'

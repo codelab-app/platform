@@ -1,5 +1,4 @@
-import { DeleteOutlined } from '@ant-design/icons'
-import { useBuilderSelectionState } from '@codelab/frontend/builder'
+import { useBuilderSelection } from '@codelab/frontend/builder'
 import {
   ActionType,
   CrudModal,
@@ -9,8 +8,8 @@ import {
 import { useGetComponentElementQuery } from '@codelab/hasura'
 import { Empty, Spin } from 'antd'
 import React from 'react'
-import { CreateLinkedComponentElementButton } from '../createLinked/CreateLinkedComponentElementButton'
-import { CreateLinkedComponentElementForm } from '../createLinked/CreateLinkedComponentElementForm'
+import { CreateComponentLinkButton } from '../createComponentLink/CreateComponentLinkButton'
+import { CreateComponentLinkForm } from '../createComponentLink/CreateComponentLinkForm'
 import { DeleteComponentElementButton } from '../deleteComponentElement/DeleteComponentElementButton'
 import { DeleteComponentElementForm } from '../deleteComponentElement/DeleteComponentElementForm'
 import { UpdateComponentElementForm } from '../updateComponentElement/UpdateComponentElementForm'
@@ -20,7 +19,7 @@ interface Props {
 }
 
 export const PaneConfigComponentElement = ({ componentElementId }: Props) => {
-  const { resetSelected } = useBuilderSelectionState()
+  const { resetSelected } = useBuilderSelection()
   const { reset } = useCRUDModalForm(EntityType.ComponentElement)
 
   const { data, loading } = useGetComponentElementQuery({
@@ -44,14 +43,10 @@ export const PaneConfigComponentElement = ({ componentElementId }: Props) => {
         />
 
         <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-          <CreateLinkedComponentElementButton>
+          <CreateComponentLinkButton>
             Insert child element
-          </CreateLinkedComponentElementButton>
-          <DeleteComponentElementButton
-            componentElementId={element.id}
-            icon={<DeleteOutlined />}
-            danger={true}
-          />
+          </CreateComponentLinkButton>
+          <DeleteComponentElementButton ids={[element.id]} disabled={false} />
         </div>
 
         <CrudModal
@@ -62,7 +57,7 @@ export const PaneConfigComponentElement = ({ componentElementId }: Props) => {
           actionType={ActionType.Create}
           okText="Create"
           renderForm={() => (
-            <CreateLinkedComponentElementForm
+            <CreateComponentLinkForm
               sourceComponentElementId={componentElementId}
             />
           )}

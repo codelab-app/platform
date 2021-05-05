@@ -1,26 +1,31 @@
-import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons'
 import { useComponentBuilder } from '@codelab/frontend/builder'
 import { CytoscapeService } from '@codelab/frontend/cytoscape'
 import {
   ActionType,
+  CheckedKeys,
   CrudModal,
   EntityType,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
 import {
-  GetComponentDetailGql,
+  refetchGetComponentDetailQuery,
   useAddChildComponentElementMutation,
 } from '@codelab/hasura'
-import { AddChildComponentElementForm } from '@codelab/modules/component-element'
-import { Button, Col, Row, Space, Tree } from 'antd'
+import {
+  AddChildComponentElementButton,
+  AddChildComponentElementModal,
+  UpdateComponentElementButton,
+} from '@codelab/modules/component-element'
+import { Col, Row, Space, Tree } from 'antd'
 import { UpdateComponentForm } from 'libs/modules/component/src/updateComponent/UpdateComponentForm'
+import { DeleteComponentElementButton } from 'libs/modules/component-element/src/deleteComponentElement/DeleteComponentElementButton'
 import React, { useState } from 'react'
 
 export const ComponentTab = () => {
   const { selectedComponent, setSelected } = useComponentBuilder()
 
   const [addChildComponentElement] = useAddChildComponentElementMutation({
-    refetchQueries: [{ query: GetComponentDetailGql }],
+    refetchQueries: [refetchGetComponentDetailQuery()],
   })
 
   const {
@@ -29,8 +34,11 @@ export const ComponentTab = () => {
     openCreateModal: openAddChildComponentModal,
   } = useCRUDModalForm(EntityType.ChildComponentElement)
 
-  const { openUpdateModal } = useCRUDModalForm(EntityType.Component)
   const [addChildButtonState, setAddChildButtonState] = useState(true)
+
+  const [checkedComponentElementIds, setCheckedComponentElementIds] = useState<
+    Array<string>
+  >([])
 
   const [selectedComponentElementId, setSelectedComponentElementId] = useState<
     string | undefined
@@ -50,19 +58,32 @@ export const ComponentTab = () => {
 
   const tree = CytoscapeService.antdTree(cy, componentElementNodeMapper)
 
-  console.log(tree)
+  console.log(checkedComponentElementIds)
 
   return (
     <Row>
       <Col span={12}>
         <Tree
+          onCheck={(checkedKeys, e) => {
+            const {
+              checked: _checkedComponentIds,
+              halfChecked,
+            } = checkedKeys as CheckedKeys
+
+            console.log(checkedKeys)
+
+            setCheckedComponentElementIds([
+              ..._checkedComponentIds.map((id) => id.toString()),
+            ])
+          }}
           onSelect={([componentElementId], e) => {
-            setSelectedComponentElementId(componentElementId.toString())
+            setSelectedComponentElementId(componentElementId?.toString())
             setAddChildButtonState(!e.selected)
           }}
           draggable
           showIcon
           checkable
+          checkStrictly
           selectable
           defaultExpandAll
           defaultExpandedKeys={[]}
@@ -73,24 +94,19 @@ export const ComponentTab = () => {
       </Col>
       <Col span={12}>
         <Space>
-          <Button
-            type="primary"
-            disabled={addChildButtonState}
-            onClick={() => openAddChildComponentModal()}
-            icon={<PlusOutlined />}
+          <AddChildComponentElementButton disabled={addChildButtonState} />
+          <UpdateComponentElementButton
+            id={selectedComponentElementId}
+            disabled={!selectedComponentElementId}
           />
-          <Button
-            type="primary"
-            onClick={() => openUpdateModal(selectedComponent.id)}
-            icon={<EditOutlined />}
-          />
-          <Button
-            type="primary"
-            danger
-            icon={<DeleteOutlined />}
-            onClick={() => openUpdateModal(selectedComponent.id)}
+          <DeleteComponentElementButton
+            ids={checkedComponentElementIds}
+            disabled={checkedComponentElementIds.length === 0}
           />
         </Space>
+        <AddChildComponentElementModal
+          parentComponentElementId={selectedComponentElementId}
+        />
 
         <CrudModal
           modalProps={{
@@ -100,20 +116,6 @@ export const ComponentTab = () => {
           actionType={ActionType.Update}
           okText="Update Component"
           renderForm={() => <UpdateComponentForm />}
-        />
-        <CrudModal
-          modalProps={{
-            className: 'create-child-component-element-modal',
-          }}
-          entityType={EntityType.ChildComponentElement}
-          actionType={ActionType.Create}
-          okText="Create ComponentElement"
-          renderForm={() => (
-            <AddChildComponentElementForm
-              componentId={selectedComponent.id}
-              parentComponentElementId={selectedComponentElementId}
-            />
-          )}
         />
       </Col>
     </Row>

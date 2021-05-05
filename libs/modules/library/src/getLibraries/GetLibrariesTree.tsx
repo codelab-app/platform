@@ -1,10 +1,7 @@
 import { BookOutlined, DeploymentUnitOutlined } from '@ant-design/icons'
 import { useComponentBuilder } from '@codelab/frontend/builder'
-import { LibraryContext } from '@codelab/frontend/shared'
-import {
-  __ComponentFragment,
-  useGetComponentDetailLazyQuery,
-} from '@codelab/hasura'
+import { CheckedKeys, LibraryContext, PageType } from '@codelab/frontend/shared'
+import { useGetComponentDetailLazyQuery } from '@codelab/hasura'
 import {
   CreateAtomButtonIcon,
   CreateAtomModal,
@@ -21,15 +18,11 @@ import {
   UpdateComponentButton,
   UpdateComponentModal,
 } from '@codelab/modules/component'
-import { Space, Tree } from 'antd'
+import { Divider, Space, Tree } from 'antd'
 import { DataNode } from 'antd/lib/tree'
-import React, { Key, useContext, useEffect, useState } from 'react'
+import Link from 'next/link'
+import React, { useContext, useEffect, useState } from 'react'
 import xw from 'xwind'
-
-type CheckedKeys = {
-  checked: Array<Key>
-  halfChecked: Array<Key>
-}
 
 export const GetLibrariesTree = () => {
   const { libraries } = useContext(LibraryContext)
@@ -39,10 +32,12 @@ export const GetLibrariesTree = () => {
     { called, loading, data },
   ] = useGetComponentDetailLazyQuery()
 
-  const { selectedComponent, setSelected } = useComponentBuilder()
+  const { setSelected } = useComponentBuilder()
 
   useEffect(() => {
-    setSelected(data?.component_by_pk as __ComponentFragment)
+    if (data?.component_by_pk) {
+      setSelected(data?.component_by_pk)
+    }
   }, [data])
 
   const [checkedAtomIds, setCheckedAtomIds] = useState<Array<string>>([])
@@ -62,7 +57,7 @@ export const GetLibrariesTree = () => {
       checkable: false,
       children: library.atoms.map((atom) => {
         return {
-          title: atom.type,
+          title: atom?.type?.label,
           key: atom.id,
           icon: <DeploymentUnitOutlined />,
         }
@@ -92,7 +87,9 @@ export const GetLibrariesTree = () => {
   return (
     <>
       <Space style={xw`w-full justify-between`} align="center">
-        <h3>Atoms</h3>
+        <h3>
+          <Link href={{ pathname: PageType.AtomList }}>Atoms</Link>
+        </h3>
         <Space align="center">
           <CreateAtomButtonIcon />
           <UpdateAtomButton id={selectedAtomId} disabled={!selectedAtomId} />
@@ -129,8 +126,11 @@ export const GetLibrariesTree = () => {
         }}
       />
 
+      <Divider />
       <Space style={xw`w-full justify-between`} align="center">
-        <h3 style={xw`m-0`}>Components</h3>
+        <h3 style={xw`m-0`}>
+          <Link href={{}}>Components</Link>
+        </h3>
         <Space align="center">
           <CreateComponentButton />
           <UpdateComponentButton

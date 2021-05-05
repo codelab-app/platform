@@ -6,10 +6,10 @@ import {
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
 import {
-  GetPropTypeCListGql,
   Prop_Type_Constraint,
   Prop_Type_Update_Column,
   PropTypeCollection__PropTypeFragment,
+  refetchGetPropTypeCListQuery,
   useGetPropTypeCQuery,
   useUpsertPropTypeCMutation,
 } from '@codelab/hasura'
@@ -19,7 +19,7 @@ import { DeepPartial } from 'uniforms'
 import { AutoFields, HiddenField } from 'uniforms-antd'
 import {
   UpdatePropTypeCInput,
-  UpdatePropTypeCSchema,
+  updatePropTypeCSchema,
 } from './updatePropTypeCSchema'
 
 type UpdatePropTypeCFormProps = UniFormUseCaseProps<UpdatePropTypeCInput>
@@ -38,12 +38,7 @@ export const UpdatePropTypeCForm = (props: UpdatePropTypeCFormProps) => {
   const { updateId: updatePropTypeCId } = state
 
   const [mutate, { loading: updating }] = useUpsertPropTypeCMutation({
-    refetchQueries: [
-      {
-        query: GetPropTypeCListGql,
-        variables: {},
-      },
-    ],
+    refetchQueries: [refetchGetPropTypeCListQuery()],
   })
 
   useEffect(() => {
@@ -90,7 +85,7 @@ export const UpdatePropTypeCForm = (props: UpdatePropTypeCFormProps) => {
   return (
     <FormUniforms<UpdatePropTypeCInput>
       onSubmit={onSubmit}
-      schema={UpdatePropTypeCSchema}
+      schema={updatePropTypeCSchema}
       model={{
         id: propTypeCItem?.id,
         label: propTypeCItem?.label ?? '',

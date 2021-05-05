@@ -123,9 +123,9 @@ export class CytoscapeService {
         }),
         edges: componentLinks.map((componentLink) => ({
           data: {
-            id: `cl_${componentLink.source_element_id}_${componentLink.target_element_id}`,
-            source: componentLink.source_element_id,
-            target: componentLink.target_element_id,
+            id: `cl_${componentLink.source_component_element_id}_${componentLink.target_component_element_id}`,
+            source: componentLink.source_component_element_id,
+            target: componentLink.target_component_element_id,
             order: componentLink.order,
             props: componentLink.props,
           },

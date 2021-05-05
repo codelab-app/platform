@@ -1,8 +1,8 @@
 import { AppContext, FormUniforms, notify } from '@codelab/frontend/shared'
 import {
   CreatePageElementPropMutation,
-  GetAppGql,
   PropCollection__PropFragment,
+  refetchGetAppPageQuery,
   UpdatePropValueMutation,
   useCreatePageElementPropMutation,
   useUpdatePropValueMutation,
@@ -53,19 +53,19 @@ export const PageElementPropForm = ({
   //Mutations:
   const [createPageElementProp] = useCreatePageElementPropMutation({
     refetchQueries: [
-      {
-        query: GetAppGql,
-        variables: { pageId, appId },
-      },
+      refetchGetAppPageQuery({
+        pageId,
+        appId,
+      }),
     ],
   })
 
   const [updatePropValue] = useUpdatePropValueMutation({
     refetchQueries: [
-      {
-        query: GetAppGql,
-        variables: { pageId, appId },
-      },
+      refetchGetAppPageQuery({
+        pageId,
+        appId,
+      }),
     ],
   })
 

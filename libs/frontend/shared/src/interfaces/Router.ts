@@ -4,7 +4,7 @@ import * as R from 'ramda'
 export enum PageType {
   Home = '/',
   AppList = '/apps',
-  PageList = '/apps/[appId]/pages',
+  PageList = '/pages',
   PageDetail = '/apps/[appId]/pages/[pageId]',
   AppDetail = '/apps/[appId]',
   ComponentDetail = '/components/[componentId]',
@@ -12,10 +12,12 @@ export enum PageType {
   ComponentDetailV2 = '/library/[libraryId]/component/[componentId]',
   LibraryList = '/library',
   Storybook = '/storybook',
-  AtomList = '/library/[libraryId]/atom',
+  AtomList = '/atoms',
+  AtomTypeList = '/atom-types',
   LibraryDetail = '/library/[libraryId]',
   Library = '/library',
-  PropTypeC = '/library/[libraryId]/proptypec',
+  Prop = '/library/[libraryId]/props',
+  Tag = '/tags',
 }
 
 export enum PaneType {

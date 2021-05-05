@@ -1,42 +1,24 @@
 import { DeleteOutlined } from '@ant-design/icons'
-import { AppContext } from '@codelab/frontend/shared'
-import { GetPagesListGql, useDeletePageMutation } from '@codelab/hasura'
+import {
+  AppContext,
+  DeleteButtonProps,
+  EntityType,
+  useCRUDModalForm,
+} from '@codelab/frontend/shared'
 import { Button } from 'antd'
 import React, { useContext } from 'react'
-import { useRecoilValue } from 'recoil'
-import { pageState } from '../usePage'
 
-export type DeletePageButtonProps = {
-  onSuccess: () => void
-}
-
-export const DeletePageButton = ({ onSuccess }: DeletePageButtonProps) => {
+export const DeletePageButton = ({ disabled, ids }: DeleteButtonProps) => {
   const { appId } = useContext(AppContext)
-  const detailPageId = useRecoilValue(pageState)
-
-  const [deletePage] = useDeletePageMutation({
-    refetchQueries: [
-      {
-        query: GetPagesListGql,
-        variables: {
-          appId,
-        },
-      },
-    ],
-  })
+  const { openDeleteModal } = useCRUDModalForm(EntityType.Page)
 
   return (
     <Button
       danger
+      size="small"
       type="primary"
       icon={<DeleteOutlined />}
-      onClick={() =>
-        deletePage({
-          variables: { pageId: detailPageId },
-        }).then(() => onSuccess())
-      }
-    >
-      Delete
-    </Button>
+      onClick={() => openDeleteModal(ids)}
+    />
   )
 }

@@ -7,7 +7,7 @@ import {
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
 import {
-  GetAtomsListGql,
+  refetchLibraryExplorerQuery,
   useCreateAtomMutation,
   useGetAtomsTypesQuery,
 } from '@codelab/hasura'
@@ -26,11 +26,7 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
   // Only Editors can modify Atoms
   const [mutate, { loading: creating }] = useCreateAtomMutation({
     awaitRefetchQueries: true,
-    refetchQueries: [
-      {
-        query: GetAtomsListGql,
-      },
-    ],
+    refetchQueries: [refetchLibraryExplorerQuery()],
     context: {
       headers: {
         'X-Hasura-Role': 'admin',
@@ -47,7 +43,7 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
       variables: {
         data: {
           library_id: submitData.library_id,
-          type: submitData.type,
+          atom_type_id: submitData.atom_type_id,
         },
       },
     })
@@ -57,8 +53,8 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
 
   const atomTypesOptions = _.chain(data?.atom_type)
     .map((t) => ({
-      label: t.value,
-      value: t.value,
+      label: t.label,
+      value: t.id,
     }))
     .orderBy('label')
     .value()
@@ -82,7 +78,7 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
           value: library.id,
         }))}
       />
-      <SelectField name="type" options={atomTypesOptions} />
+      <SelectField name="atom_type_id" options={atomTypesOptions} />
     </FormUniforms>
   )
 }

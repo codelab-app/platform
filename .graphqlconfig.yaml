@@ -33,6 +33,7 @@ generates:
       skipTypename: true
       strictScalars: true
       defaultScalarType: unknown
+      withRefetchFn: true
       scalars:
         uuid: string
         json: Record<string, any>

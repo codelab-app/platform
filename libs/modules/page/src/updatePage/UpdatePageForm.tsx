@@ -1,4 +1,5 @@
 import {
+  AppContext,
   createNotificationHandler,
   EntityType,
   FormUniforms,
@@ -6,12 +7,12 @@ import {
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
 import {
-  GetPageGql,
+  refetchGetPagesListQuery,
   useGetPageQuery,
   useUpdatePageMutation,
 } from '@codelab/hasura'
-import { Spin } from 'antd'
-import React, { useEffect } from 'react'
+import { Skeleton, Spin } from 'antd'
+import React, { useContext, useEffect } from 'react'
 import { DeepPartial } from 'uniforms'
 import { AutoFields } from 'uniforms-antd'
 import { UpdatePageInput, UpdatePageSchema } from './updateFromSchema'
@@ -20,17 +21,14 @@ type UpdatePageFormProps = UniFormUseCaseProps<UpdatePageInput>
 
 export const UpdatePageForm = (props: UpdatePageFormProps) => {
   const { reset, setLoading, state } = useCRUDModalForm(EntityType.Page)
+  const { appId } = useContext(AppContext)
   const { updateId: updatePageId } = state
 
+  console.log(appId)
+
   const [mutate, { loading: updating }] = useUpdatePageMutation({
-    refetchQueries: [
-      {
-        query: GetPageGql,
-        variables: {
-          pageId: updatePageId,
-        },
-      },
-    ],
+    awaitRefetchQueries: true,
+    refetchQueries: [refetchGetPagesListQuery({ appId })],
   })
 
   useEffect(() => {
@@ -71,7 +69,9 @@ export const UpdatePageForm = (props: UpdatePageFormProps) => {
       onSubmitSuccess={() => reset()}
       {...props}
     >
-      <AutoFields />
+      <Skeleton active loading>
+        <AutoFields />
+      </Skeleton>
     </FormUniforms>
   )
 }

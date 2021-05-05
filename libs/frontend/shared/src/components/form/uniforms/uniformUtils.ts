@@ -1,7 +1,7 @@
+import { SubmitController } from '@codelab/frontend/shared'
 import Ajv, { JSONSchemaType } from 'ajv'
 import { MutableRefObject } from 'react'
 import JSONSchemaBridge from 'uniforms-bridge-json-schema'
-import { SubmitController } from '../json-schema'
 
 export const connectUniformSubmitRef = (
   submitRef: MutableRefObject<SubmitController | undefined> | undefined,

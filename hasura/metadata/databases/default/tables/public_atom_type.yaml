@@ -1,9 +1,16 @@
-is_enum: true
+array_relationships:
+  - name: atoms
+    using:
+      foreign_key_constraint_on:
+        column: atom_type_id
+        table:
+          name: atom
+          schema: public
 select_permissions:
   - permission:
       columns:
-        - value
-        - description
+        - id
+        - label
       filter: {}
     role: user
 table:

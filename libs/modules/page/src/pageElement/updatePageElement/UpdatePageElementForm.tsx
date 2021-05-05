@@ -4,8 +4,8 @@ import {
   UniFormUseCaseProps,
 } from '@codelab/frontend/shared'
 import {
-  GetAppGql,
   Page__PageElementFragment,
+  refetchGetAppPageQuery,
   useUpdatePageElementMutation,
 } from '@codelab/hasura'
 import React, { useContext, useRef } from 'react'
@@ -32,13 +32,10 @@ export const UpdatePageElementForm = ({
   ] = useUpdatePageElementMutation({
     awaitRefetchQueries: true,
     refetchQueries: [
-      {
-        query: GetAppGql,
-        variables: {
-          appId,
-          pageId,
-        },
-      },
+      refetchGetAppPageQuery({
+        appId,
+        pageId,
+      }),
     ],
   })
 

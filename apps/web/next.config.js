@@ -5,6 +5,7 @@ const withSass = require('@zeit/next-sass')
 const withPlugins = require('next-compose-plugins')
 const { getThemeVariables } = require('antd/dist/theme')
 
+// eslint-disable-next-line padding-line-between-statements
 const isProd = process.env.NODE_ENV === 'production'
 
 // fix: prevents error when .less files are required by node
@@ -29,6 +30,7 @@ const nextConfig = withPlugins([
       lessLoaderOptions: {
         javascriptEnabled: true,
       },
+      experimental: { css: true },
     },
   ],
   // [

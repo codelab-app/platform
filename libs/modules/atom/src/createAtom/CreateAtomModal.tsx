@@ -10,7 +10,7 @@ export const CreateAtomModal = () => {
       }}
       entityType={EntityType.Atom}
       actionType={ActionType.Create}
-      okText="Create atom"
+      okText="Create Atom"
       renderForm={() => <CreateAtomForm />}
     />
   )

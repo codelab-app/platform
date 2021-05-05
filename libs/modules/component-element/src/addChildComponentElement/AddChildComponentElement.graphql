@@ -1,11 +1,5 @@
-mutation AddChildComponentElement(
-  $componentElement: component_element_insert_input!
-  $componentLink: component_link_insert_input!
-) {
-  insert_component_element_one(object: $componentElement) {
-    ...__ComponentElement
-  }
-  insert_component_link_one(object: $componentLink) {
+mutation AddChildComponentElement($data: component_link_insert_input!) {
+  insert_component_link_one(object: $data) {
     ...PageElement__ComponentLink
   }
 }

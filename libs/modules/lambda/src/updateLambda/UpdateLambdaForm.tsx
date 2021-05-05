@@ -1,11 +1,10 @@
 import {
   createNotificationHandler,
   FormUniforms,
-  FormUseCaseProps,
 } from '@codelab/frontend/shared'
 import {
-  GetLambdasByLibraryId,
   Lambda,
+  refetchGetLambdasByLibraryIdQuery,
   useUpdateLambdaMutation,
 } from '@codelab/hasura'
 import React from 'react'
@@ -16,7 +15,7 @@ import { updateLambdaState } from './UpdateLambdaState'
 
 type UpdateLambdaFormProps = {
   lambda: Lambda
-} & FormUseCaseProps<any>
+}
 
 export const UpdateLambdaForm = ({
   lambda,
@@ -24,12 +23,9 @@ export const UpdateLambdaForm = ({
 }: UpdateLambdaFormProps) => {
   const [mutate] = useUpdateLambdaMutation({
     refetchQueries: [
-      {
-        query: GetLambdasByLibraryId,
-        variables: {
-          libraryId: 'f70c9584-4b68-4999-a42e-1755d539b714',
-        },
-      },
+      refetchGetLambdasByLibraryIdQuery({
+        libraryId: 'f70c9584-4b68-4999-a42e-1755d539b714',
+      }),
     ],
   })
 

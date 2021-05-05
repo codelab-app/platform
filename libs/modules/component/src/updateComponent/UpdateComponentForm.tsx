@@ -6,7 +6,7 @@ import {
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
 import {
-  GetComponentsGql,
+  refetchGetComponentQuery,
   useGetComponentQuery,
   useUpdateComponentMutation,
 } from '@codelab/hasura'
@@ -30,11 +30,7 @@ export const UpdateComponentForm = ({ ...props }: UpdateComponentFormProps) => {
 
   const [mutate, { loading: updating }] = useUpdateComponentMutation({
     awaitRefetchQueries: true,
-    refetchQueries: [
-      {
-        query: GetComponentsGql,
-      },
-    ],
+    refetchQueries: [refetchGetComponentQuery()],
   })
 
   useEffect(() => {

@@ -1,7 +1,9 @@
 fragment __Atom on atom {
   id
-  type
-  propTypes {
+  type {
+    ...__AtomType
+  }
+  props {
     ...PropTypeCollection
   }
   styles {

@@ -1,6 +1,7 @@
 import styled from '@emotion/styled'
-import { PageHeader } from 'antd'
+import { Divider, PageHeader } from 'antd'
 import React from 'react'
+import xw from 'xwind'
 
 type MainPaneTemplateProps = {
   title: string
@@ -16,9 +17,11 @@ const StyledContainer = styled.div`
     grid-template-rows: min-content 1fr;
     height: 100vh;
     max-height: 100vh;
-
     .ant-page-header-content {
       overflow-y: auto;
+    }
+    .ant-page-header-heading {
+      align-items: baseline;
     }
   }
 `
@@ -32,11 +35,8 @@ export const MainPaneTemplate = ({
 
   return (
     <StyledContainer>
-      <PageHeader
-        className={`site-page-header-responsive`}
-        title={title}
-        extra={[...extra]}
-      >
+      <PageHeader title={title} extra={[...extra]}>
+        <Divider style={xw`mt-0`} />
         {children}
       </PageHeader>
     </StyledContainer>

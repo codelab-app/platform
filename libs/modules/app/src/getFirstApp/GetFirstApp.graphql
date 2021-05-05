@@ -1,0 +1,10 @@
+query GetFirstApp {
+  app(limit: 1) {
+    id
+    name
+    pages {
+      id
+      name
+    }
+  }
+}

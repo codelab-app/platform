@@ -1,6 +1,5 @@
 query GetAtomsTypes {
   atom_type {
-    description
-    value
+    ...__AtomType
   }
 }

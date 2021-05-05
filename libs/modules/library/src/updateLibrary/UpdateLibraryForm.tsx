@@ -6,7 +6,7 @@ import {
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
 import {
-  GetLibraryGql,
+  refetchGetLibraryQuery,
   useGetLibraryQuery,
   useUpdateLibraryMutation,
 } from '@codelab/hasura'
@@ -25,12 +25,9 @@ export const UpdateLibraryForm = (props: UpdateLibraryFormProps) => {
 
   const [mutate, { loading: updating }] = useUpdateLibraryMutation({
     refetchQueries: [
-      {
-        query: GetLibraryGql,
-        variables: {
-          libraryId: updateLibraryId,
-        },
-      },
+      refetchGetLibraryQuery({
+        libraryId: updateLibraryId,
+      }),
     ],
   })
 

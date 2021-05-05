@@ -7,7 +7,7 @@ import {
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
 import {
-  GetPagesListGql,
+  refetchGetPagesListQuery,
   useDeletePageMutation,
   useGetPageQuery,
 } from '@codelab/hasura'
@@ -24,14 +24,7 @@ export const DeletePageForm = (props: DeletePageFormProps) => {
   const { appId } = useContext(AppContext)
 
   const [mutate, { loading: deleting }] = useDeletePageMutation({
-    refetchQueries: [
-      {
-        query: GetPagesListGql,
-        variables: {
-          appId,
-        },
-      },
-    ],
+    refetchQueries: [refetchGetPagesListQuery({ appId })],
   })
 
   useEffect(() => {

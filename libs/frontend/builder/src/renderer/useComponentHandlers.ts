@@ -1,4 +1,4 @@
-import { useBuilderSelectionState } from '../selection'
+import { useBuilderSelection } from '../selection'
 
 export const useComponentHandlers = () => {
   // const [addChildVertexMutation] = useAddChildVertexMutation()
@@ -23,7 +23,7 @@ export const useComponentHandlers = () => {
   //     },
   //   })
 
-  const selection = useBuilderSelectionState()
+  const selection = useBuilderSelection()
 
   return {
     updateVertexMutation: () => null,

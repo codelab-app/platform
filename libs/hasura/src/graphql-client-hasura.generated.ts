@@ -275,13 +275,13 @@ export enum App_Update_Column {
 
 /** columns and relationships of "atom" */
 export type Atom = {
-  _atom_type?: Maybe<Atom_Type_Enum>
+  atom_type_id: Scalars['uuid']
   id: Scalars['uuid']
   library_id?: Maybe<Scalars['uuid']>
   owner_id?: Maybe<Scalars['String']>
-  /** An object relationship */
-  propTypes?: Maybe<Prop_Type_C>
   prop_type_c_id?: Maybe<Scalars['uuid']>
+  /** An object relationship */
+  props?: Maybe<Prop_Type_C>
   /** An array relationship */
   styles: Array<Style_Atom>
   /** An aggregate relationship */
@@ -290,7 +290,8 @@ export type Atom = {
   tags: Array<Tag_Atom>
   /** An aggregate relationship */
   tags_aggregate: Tag_Atom_Aggregate
-  type: Scalars['String']
+  /** An object relationship */
+  type: Atom_Type
 }
 
 /** columns and relationships of "atom" */
@@ -365,17 +366,17 @@ export type Atom_Arr_Rel_Insert_Input = {
 /** Boolean expression to filter rows from the table "atom". All fields are combined with a logical 'AND'. */
 export type Atom_Bool_Exp = {
   _and?: Maybe<Array<Atom_Bool_Exp>>
-  _atom_type?: Maybe<Atom_Type_Enum_Comparison_Exp>
   _not?: Maybe<Atom_Bool_Exp>
   _or?: Maybe<Array<Atom_Bool_Exp>>
+  atom_type_id?: Maybe<Uuid_Comparison_Exp>
   id?: Maybe<Uuid_Comparison_Exp>
   library_id?: Maybe<Uuid_Comparison_Exp>
   owner_id?: Maybe<String_Comparison_Exp>
-  propTypes?: Maybe<Prop_Type_C_Bool_Exp>
   prop_type_c_id?: Maybe<Uuid_Comparison_Exp>
+  props?: Maybe<Prop_Type_C_Bool_Exp>
   styles?: Maybe<Style_Atom_Bool_Exp>
   tags?: Maybe<Tag_Atom_Bool_Exp>
-  type?: Maybe<String_Comparison_Exp>
+  type?: Maybe<Atom_Type_Bool_Exp>
 }
 
 /** unique or primary key constraints on table "atom" */
@@ -386,51 +387,51 @@ export enum Atom_Constraint {
 
 /** input type for inserting data into table "atom" */
 export type Atom_Insert_Input = {
-  _atom_type?: Maybe<Atom_Type_Enum>
+  atom_type_id?: Maybe<Scalars['uuid']>
   id?: Maybe<Scalars['uuid']>
   library_id?: Maybe<Scalars['uuid']>
   owner_id?: Maybe<Scalars['String']>
-  propTypes?: Maybe<Prop_Type_C_Obj_Rel_Insert_Input>
   prop_type_c_id?: Maybe<Scalars['uuid']>
+  props?: Maybe<Prop_Type_C_Obj_Rel_Insert_Input>
   styles?: Maybe<Style_Atom_Arr_Rel_Insert_Input>
   tags?: Maybe<Tag_Atom_Arr_Rel_Insert_Input>
-  type?: Maybe<Scalars['String']>
+  type?: Maybe<Atom_Type_Obj_Rel_Insert_Input>
 }
 
 /** aggregate max on columns */
 export type Atom_Max_Fields = {
+  atom_type_id?: Maybe<Scalars['uuid']>
   id?: Maybe<Scalars['uuid']>
   library_id?: Maybe<Scalars['uuid']>
   owner_id?: Maybe<Scalars['String']>
   prop_type_c_id?: Maybe<Scalars['uuid']>
-  type?: Maybe<Scalars['String']>
 }
 
 /** order by max() on columns of table "atom" */
 export type Atom_Max_Order_By = {
+  atom_type_id?: Maybe<Order_By>
   id?: Maybe<Order_By>
   library_id?: Maybe<Order_By>
   owner_id?: Maybe<Order_By>
   prop_type_c_id?: Maybe<Order_By>
-  type?: Maybe<Order_By>
 }
 
 /** aggregate min on columns */
 export type Atom_Min_Fields = {
+  atom_type_id?: Maybe<Scalars['uuid']>
   id?: Maybe<Scalars['uuid']>
   library_id?: Maybe<Scalars['uuid']>
   owner_id?: Maybe<Scalars['String']>
   prop_type_c_id?: Maybe<Scalars['uuid']>
-  type?: Maybe<Scalars['String']>
 }
 
 /** order by min() on columns of table "atom" */
 export type Atom_Min_Order_By = {
+  atom_type_id?: Maybe<Order_By>
   id?: Maybe<Order_By>
   library_id?: Maybe<Order_By>
   owner_id?: Maybe<Order_By>
   prop_type_c_id?: Maybe<Order_By>
-  type?: Maybe<Order_By>
 }
 
 /** response of any mutation on the table "atom" */
@@ -457,15 +458,15 @@ export type Atom_On_Conflict = {
 
 /** Ordering options when selecting data from "atom". */
 export type Atom_Order_By = {
-  _atom_type?: Maybe<Order_By>
+  atom_type_id?: Maybe<Order_By>
   id?: Maybe<Order_By>
   library_id?: Maybe<Order_By>
   owner_id?: Maybe<Order_By>
-  propTypes?: Maybe<Prop_Type_C_Order_By>
   prop_type_c_id?: Maybe<Order_By>
+  props?: Maybe<Prop_Type_C_Order_By>
   styles_aggregate?: Maybe<Style_Atom_Aggregate_Order_By>
   tags_aggregate?: Maybe<Tag_Atom_Aggregate_Order_By>
-  type?: Maybe<Order_By>
+  type?: Maybe<Atom_Type_Order_By>
 }
 
 /** primary key columns input for table: atom */
@@ -476,7 +477,7 @@ export type Atom_Pk_Columns_Input = {
 /** select columns of table "atom" */
 export enum Atom_Select_Column {
   /** column name */
-  AtomType = '_atom_type',
+  AtomTypeId = 'atom_type_id',
   /** column name */
   Id = 'id',
   /** column name */
@@ -485,24 +486,43 @@ export enum Atom_Select_Column {
   OwnerId = 'owner_id',
   /** column name */
   PropTypeCId = 'prop_type_c_id',
-  /** column name */
-  Type = 'type',
 }
 
 /** input type for updating data in table "atom" */
 export type Atom_Set_Input = {
-  _atom_type?: Maybe<Atom_Type_Enum>
+  atom_type_id?: Maybe<Scalars['uuid']>
   id?: Maybe<Scalars['uuid']>
   library_id?: Maybe<Scalars['uuid']>
   owner_id?: Maybe<Scalars['String']>
   prop_type_c_id?: Maybe<Scalars['uuid']>
-  type?: Maybe<Scalars['String']>
 }
 
 /** columns and relationships of "atom_type" */
 export type Atom_Type = {
-  description?: Maybe<Scalars['String']>
-  value: Scalars['String']
+  /** An array relationship */
+  atoms: Array<Atom>
+  /** An aggregate relationship */
+  atoms_aggregate: Atom_Aggregate
+  id: Scalars['uuid']
+  label: Scalars['String']
+}
+
+/** columns and relationships of "atom_type" */
+export type Atom_TypeAtomsArgs = {
+  distinct_on?: Maybe<Array<Atom_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<Atom_Order_By>>
+  where?: Maybe<Atom_Bool_Exp>
+}
+
+/** columns and relationships of "atom_type" */
+export type Atom_TypeAtoms_AggregateArgs = {
+  distinct_on?: Maybe<Array<Atom_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<Atom_Order_By>>
+  where?: Maybe<Atom_Bool_Exp>
 }
 
 /** aggregated selection of "atom_type" */
@@ -529,147 +549,36 @@ export type Atom_Type_Bool_Exp = {
   _and?: Maybe<Array<Atom_Type_Bool_Exp>>
   _not?: Maybe<Atom_Type_Bool_Exp>
   _or?: Maybe<Array<Atom_Type_Bool_Exp>>
-  description?: Maybe<String_Comparison_Exp>
-  value?: Maybe<String_Comparison_Exp>
+  atoms?: Maybe<Atom_Bool_Exp>
+  id?: Maybe<Uuid_Comparison_Exp>
+  label?: Maybe<String_Comparison_Exp>
 }
 
 /** unique or primary key constraints on table "atom_type" */
 export enum Atom_Type_Constraint {
   /** unique or primary key constraint */
-  VertexTypePkey = 'vertexType_pkey',
-}
-
-export enum Atom_Type_Enum {
-  ReactAffix = 'React_Affix',
-  ReactAlert = 'React_Alert',
-  ReactAnchor = 'React_Anchor',
-  ReactAnchorLink = 'React_Anchor_Link',
-  ReactAutoComplete = 'React_AutoComplete',
-  ReactAvatar = 'React_Avatar',
-  ReactBackTop = 'React_BackTop',
-  ReactBadge = 'React_Badge',
-  ReactBreadcrumb = 'React_Breadcrumb',
-  ReactBreadcrumbItem = 'React_Breadcrumb_Item',
-  ReactButton = 'React_Button',
-  ReactCalendar = 'React_Calendar',
-  ReactCard = 'React_Card',
-  ReactCardGrid = 'React_Card_Grid',
-  ReactCardMeta = 'React_Card_Meta',
-  ReactCarousel = 'React_Carousel',
-  ReactCascader = 'React_Cascader',
-  ReactCheckbox = 'React_Checkbox',
-  ReactCollapse = 'React_Collapse',
-  ReactCollapsePanel = 'React_Collapse_Panel',
-  ReactComment = 'React_Comment',
-  ReactConfigProvider = 'React_ConfigProvider',
-  ReactDatePicker = 'React_DatePicker',
-  ReactDescriptions = 'React_Descriptions',
-  ReactDescriptionsItem = 'React_Descriptions_Item',
-  ReactDivider = 'React_Divider',
-  ReactDrawer = 'React_Drawer',
-  ReactDropdown = 'React_Dropdown',
-  ReactEmpty = 'React_Empty',
-  ReactForm = 'React_Form',
-  ReactFormItem = 'React_Form_Item',
-  ReactFormItemHook = 'React_Form_ItemHook',
-  ReactFormList = 'React_Form_List',
-  ReactFragment = 'React_Fragment',
-  ReactGridCol = 'React_Grid_Col',
-  ReactGridRow = 'React_Grid_Row',
-  ReactHtmlA = 'React_Html_A',
-  ReactHtmlDiv = 'React_Html_Div',
-  ReactHtmlP = 'React_Html_P',
-  ReactHtmlSpan = 'React_Html_Span',
-  ReactIcon = 'React_Icon',
-  ReactInput = 'React_Input',
-  ReactInputNumber = 'React_InputNumber',
-  ReactLayout = 'React_Layout',
-  ReactLayoutContent = 'React_Layout_Content',
-  ReactLayoutFooter = 'React_Layout_Footer',
-  ReactLayoutHeader = 'React_Layout_Header',
-  ReactLayoutSider = 'React_Layout_Sider',
-  ReactList = 'React_List',
-  ReactListItem = 'React_List_Item',
-  ReactListItemMeta = 'React_List_Item_Meta',
-  ReactMapper = 'React_Mapper',
-  ReactMentions = 'React_Mentions',
-  ReactMentionsOption = 'React_Mentions_Option',
-  ReactMenu = 'React_Menu',
-  ReactMenuItem = 'React_Menu_Item',
-  ReactMenuItemGroup = 'React_Menu_ItemGroup',
-  ReactMenuSubMenu = 'React_Menu_SubMenu',
-  ReactModal = 'React_Modal',
-  ReactPageHeader = 'React_PageHeader',
-  ReactPageContainer = 'React_Page_Container',
-  ReactPagination = 'React_Pagination',
-  ReactPopconfirm = 'React_Popconfirm',
-  ReactPopover = 'React_Popover',
-  ReactProgress = 'React_Progress',
-  ReactProvider = 'React_Provider',
-  ReactRglContainer = 'React_RGL_Container',
-  ReactRglItem = 'React_RGL_Item',
-  ReactRglResponsiveContainer = 'React_RGL_ResponsiveContainer',
-  ReactRadio = 'React_Radio',
-  ReactRadioGroup = 'React_Radio_Group',
-  ReactRate = 'React_Rate',
-  ReactRenderComponent = 'React_RenderComponent',
-  ReactRenderContainer = 'React_RenderContainer',
-  ReactResult = 'React_Result',
-  ReactSelect = 'React_Select',
-  ReactSelectOption = 'React_Select_Option',
-  ReactSkeleton = 'React_Skeleton',
-  ReactSlider = 'React_Slider',
-  ReactSpace = 'React_Space',
-  ReactSpin = 'React_Spin',
-  ReactStatistic = 'React_Statistic',
-  ReactSteps = 'React_Steps',
-  ReactStepsStep = 'React_Steps_Step',
-  ReactSwitch = 'React_Switch',
-  ReactTable = 'React_Table',
-  ReactTabs = 'React_Tabs',
-  ReactTabsTabPane = 'React_Tabs_TabPane',
-  ReactTag = 'React_Tag',
-  ReactText = 'React_Text',
-  ReactTimePicker = 'React_TimePicker',
-  ReactTimeline = 'React_Timeline',
-  ReactTimelineItem = 'React_Timeline_Item',
-  ReactTooltip = 'React_Tooltip',
-  ReactTransfer = 'React_Transfer',
-  ReactTree = 'React_Tree',
-  ReactTreeNode = 'React_TreeNode',
-  ReactTreeSelect = 'React_TreeSelect',
-  ReactTypography = 'React_Typography',
-  ReactTypographyParagraph = 'React_Typography_Paragraph',
-  ReactTypographyText = 'React_Typography_Text',
-  ReactTypographyTitle = 'React_Typography_Title',
-  ReactUpload = 'React_Upload',
-}
-
-/** Boolean expression to compare columns of type "atom_type_enum". All fields are combined with logical 'AND'. */
-export type Atom_Type_Enum_Comparison_Exp = {
-  _eq?: Maybe<Atom_Type_Enum>
-  _in?: Maybe<Array<Atom_Type_Enum>>
-  _is_null?: Maybe<Scalars['Boolean']>
-  _neq?: Maybe<Atom_Type_Enum>
-  _nin?: Maybe<Array<Atom_Type_Enum>>
+  AtomTypeIdKey = 'atom_type_id_key',
+  /** unique or primary key constraint */
+  AtomTypePkey = 'atom_type_pkey',
 }
 
 /** input type for inserting data into table "atom_type" */
 export type Atom_Type_Insert_Input = {
-  description?: Maybe<Scalars['String']>
-  value?: Maybe<Scalars['String']>
+  atoms?: Maybe<Atom_Arr_Rel_Insert_Input>
+  id?: Maybe<Scalars['uuid']>
+  label?: Maybe<Scalars['String']>
 }
 
 /** aggregate max on columns */
 export type Atom_Type_Max_Fields = {
-  description?: Maybe<Scalars['String']>
-  value?: Maybe<Scalars['String']>
+  id?: Maybe<Scalars['uuid']>
+  label?: Maybe<Scalars['String']>
 }
 
 /** aggregate min on columns */
 export type Atom_Type_Min_Fields = {
-  description?: Maybe<Scalars['String']>
-  value?: Maybe<Scalars['String']>
+  id?: Maybe<Scalars['uuid']>
+  label?: Maybe<Scalars['String']>
 }
 
 /** response of any mutation on the table "atom_type" */
@@ -678,6 +587,13 @@ export type Atom_Type_Mutation_Response = {
   affected_rows: Scalars['Int']
   /** data from the rows affected by the mutation */
   returning: Array<Atom_Type>
+}
+
+/** input type for inserting object relation for remote table "atom_type" */
+export type Atom_Type_Obj_Rel_Insert_Input = {
+  data: Atom_Type_Insert_Input
+  /** on conflict condition */
+  on_conflict?: Maybe<Atom_Type_On_Conflict>
 }
 
 /** on conflict condition type for table "atom_type" */
@@ -689,41 +605,42 @@ export type Atom_Type_On_Conflict = {
 
 /** Ordering options when selecting data from "atom_type". */
 export type Atom_Type_Order_By = {
-  description?: Maybe<Order_By>
-  value?: Maybe<Order_By>
+  atoms_aggregate?: Maybe<Atom_Aggregate_Order_By>
+  id?: Maybe<Order_By>
+  label?: Maybe<Order_By>
 }
 
 /** primary key columns input for table: atom_type */
 export type Atom_Type_Pk_Columns_Input = {
-  value: Scalars['String']
+  id: Scalars['uuid']
 }
 
 /** select columns of table "atom_type" */
 export enum Atom_Type_Select_Column {
   /** column name */
-  Description = 'description',
+  Id = 'id',
   /** column name */
-  Value = 'value',
+  Label = 'label',
 }
 
 /** input type for updating data in table "atom_type" */
 export type Atom_Type_Set_Input = {
-  description?: Maybe<Scalars['String']>
-  value?: Maybe<Scalars['String']>
+  id?: Maybe<Scalars['uuid']>
+  label?: Maybe<Scalars['String']>
 }
 
 /** update columns of table "atom_type" */
 export enum Atom_Type_Update_Column {
   /** column name */
-  Description = 'description',
+  Id = 'id',
   /** column name */
-  Value = 'value',
+  Label = 'label',
 }
 
 /** update columns of table "atom" */
 export enum Atom_Update_Column {
   /** column name */
-  AtomType = '_atom_type',
+  AtomTypeId = 'atom_type_id',
   /** column name */
   Id = 'id',
   /** column name */
@@ -732,8 +649,6 @@ export enum Atom_Update_Column {
   OwnerId = 'owner_id',
   /** column name */
   PropTypeCId = 'prop_type_c_id',
-  /** column name */
-  Type = 'type',
 }
 
 /** columns and relationships of "category" */
@@ -1338,10 +1253,10 @@ export type Component_Link = {
   props?: Maybe<Scalars['jsonb']>
   /** An object relationship */
   sourceElement: Component_Element
-  source_element_id: Scalars['uuid']
+  source_component_element_id: Scalars['uuid']
   /** An object relationship */
   targetElement: Component_Element
-  target_element_id: Scalars['uuid']
+  target_component_element_id: Scalars['uuid']
 }
 
 /** columns and relationships of "component_link" */
@@ -1426,9 +1341,9 @@ export type Component_Link_Bool_Exp = {
   order?: Maybe<Int_Comparison_Exp>
   props?: Maybe<Jsonb_Comparison_Exp>
   sourceElement?: Maybe<Component_Element_Bool_Exp>
-  source_element_id?: Maybe<Uuid_Comparison_Exp>
+  source_component_element_id?: Maybe<Uuid_Comparison_Exp>
   targetElement?: Maybe<Component_Element_Bool_Exp>
-  target_element_id?: Maybe<Uuid_Comparison_Exp>
+  target_component_element_id?: Maybe<Uuid_Comparison_Exp>
 }
 
 /** unique or primary key constraints on table "component_link" */
@@ -1467,9 +1382,9 @@ export type Component_Link_Insert_Input = {
   order?: Maybe<Scalars['Int']>
   props?: Maybe<Scalars['jsonb']>
   sourceElement?: Maybe<Component_Element_Obj_Rel_Insert_Input>
-  source_element_id?: Maybe<Scalars['uuid']>
+  source_component_element_id?: Maybe<Scalars['uuid']>
   targetElement?: Maybe<Component_Element_Obj_Rel_Insert_Input>
-  target_element_id?: Maybe<Scalars['uuid']>
+  target_component_element_id?: Maybe<Scalars['uuid']>
 }
 
 /** aggregate max on columns */
@@ -1478,8 +1393,8 @@ export type Component_Link_Max_Fields = {
   component_id?: Maybe<Scalars['uuid']>
   id?: Maybe<Scalars['uuid']>
   order?: Maybe<Scalars['Int']>
-  source_element_id?: Maybe<Scalars['uuid']>
-  target_element_id?: Maybe<Scalars['uuid']>
+  source_component_element_id?: Maybe<Scalars['uuid']>
+  target_component_element_id?: Maybe<Scalars['uuid']>
 }
 
 /** order by max() on columns of table "component_link" */
@@ -1488,8 +1403,8 @@ export type Component_Link_Max_Order_By = {
   component_id?: Maybe<Order_By>
   id?: Maybe<Order_By>
   order?: Maybe<Order_By>
-  source_element_id?: Maybe<Order_By>
-  target_element_id?: Maybe<Order_By>
+  source_component_element_id?: Maybe<Order_By>
+  target_component_element_id?: Maybe<Order_By>
 }
 
 /** aggregate min on columns */
@@ -1498,8 +1413,8 @@ export type Component_Link_Min_Fields = {
   component_id?: Maybe<Scalars['uuid']>
   id?: Maybe<Scalars['uuid']>
   order?: Maybe<Scalars['Int']>
-  source_element_id?: Maybe<Scalars['uuid']>
-  target_element_id?: Maybe<Scalars['uuid']>
+  source_component_element_id?: Maybe<Scalars['uuid']>
+  target_component_element_id?: Maybe<Scalars['uuid']>
 }
 
 /** order by min() on columns of table "component_link" */
@@ -1508,8 +1423,8 @@ export type Component_Link_Min_Order_By = {
   component_id?: Maybe<Order_By>
   id?: Maybe<Order_By>
   order?: Maybe<Order_By>
-  source_element_id?: Maybe<Order_By>
-  target_element_id?: Maybe<Order_By>
+  source_component_element_id?: Maybe<Order_By>
+  target_component_element_id?: Maybe<Order_By>
 }
 
 /** response of any mutation on the table "component_link" */
@@ -1537,9 +1452,9 @@ export type Component_Link_Order_By = {
   order?: Maybe<Order_By>
   props?: Maybe<Order_By>
   sourceElement?: Maybe<Component_Element_Order_By>
-  source_element_id?: Maybe<Order_By>
+  source_component_element_id?: Maybe<Order_By>
   targetElement?: Maybe<Component_Element_Order_By>
-  target_element_id?: Maybe<Order_By>
+  target_component_element_id?: Maybe<Order_By>
 }
 
 /** primary key columns input for table: component_link */
@@ -1565,9 +1480,9 @@ export enum Component_Link_Select_Column {
   /** column name */
   Props = 'props',
   /** column name */
-  SourceElementId = 'source_element_id',
+  SourceComponentElementId = 'source_component_element_id',
   /** column name */
-  TargetElementId = 'target_element_id',
+  TargetComponentElementId = 'target_component_element_id',
 }
 
 /** input type for updating data in table "component_link" */
@@ -1577,8 +1492,8 @@ export type Component_Link_Set_Input = {
   id?: Maybe<Scalars['uuid']>
   order?: Maybe<Scalars['Int']>
   props?: Maybe<Scalars['jsonb']>
-  source_element_id?: Maybe<Scalars['uuid']>
-  target_element_id?: Maybe<Scalars['uuid']>
+  source_component_element_id?: Maybe<Scalars['uuid']>
+  target_component_element_id?: Maybe<Scalars['uuid']>
 }
 
 /** aggregate stddev on columns */
@@ -1634,9 +1549,9 @@ export enum Component_Link_Update_Column {
   /** column name */
   Props = 'props',
   /** column name */
-  SourceElementId = 'source_element_id',
+  SourceComponentElementId = 'source_component_element_id',
   /** column name */
-  TargetElementId = 'target_element_id',
+  TargetComponentElementId = 'target_component_element_id',
 }
 
 /** aggregate var_pop on columns */
@@ -2695,6 +2610,10 @@ export type Mutation_Root = {
   delete_tag_atom?: Maybe<Tag_Atom_Mutation_Response>
   /** delete single row from the table: "tag_atom" */
   delete_tag_atom_by_pk?: Maybe<Tag_Atom>
+  /** delete data from the table: "tag_atom_type" */
+  delete_tag_atom_type?: Maybe<Tag_Atom_Type_Mutation_Response>
+  /** delete single row from the table: "tag_atom_type" */
+  delete_tag_atom_type_by_pk?: Maybe<Tag_Atom_Type>
   /** delete single row from the table: "tag" */
   delete_tag_by_pk?: Maybe<Tag>
   /** delete data from the table: "tag_component" */
@@ -2828,6 +2747,10 @@ export type Mutation_Root = {
   insert_tag_atom?: Maybe<Tag_Atom_Mutation_Response>
   /** insert a single row into the table: "tag_atom" */
   insert_tag_atom_one?: Maybe<Tag_Atom>
+  /** insert data into the table: "tag_atom_type" */
+  insert_tag_atom_type?: Maybe<Tag_Atom_Type_Mutation_Response>
+  /** insert a single row into the table: "tag_atom_type" */
+  insert_tag_atom_type_one?: Maybe<Tag_Atom_Type>
   /** insert data into the table: "tag_component" */
   insert_tag_component?: Maybe<Tag_Component_Mutation_Response>
   /** insert a single row into the table: "tag_component" */
@@ -2960,6 +2883,10 @@ export type Mutation_Root = {
   update_tag_atom?: Maybe<Tag_Atom_Mutation_Response>
   /** update single row of the table: "tag_atom" */
   update_tag_atom_by_pk?: Maybe<Tag_Atom>
+  /** update data of the table: "tag_atom_type" */
+  update_tag_atom_type?: Maybe<Tag_Atom_Type_Mutation_Response>
+  /** update single row of the table: "tag_atom_type" */
+  update_tag_atom_type_by_pk?: Maybe<Tag_Atom_Type>
   /** update single row of the table: "tag" */
   update_tag_by_pk?: Maybe<Tag>
   /** update data of the table: "tag_component" */
@@ -3023,7 +2950,7 @@ export type Mutation_RootDelete_Atom_TypeArgs = {
 
 /** mutation root */
 export type Mutation_RootDelete_Atom_Type_By_PkArgs = {
-  value: Scalars['String']
+  id: Scalars['uuid']
 }
 
 /** mutation root */
@@ -3244,6 +3171,16 @@ export type Mutation_RootDelete_Tag_AtomArgs = {
 export type Mutation_RootDelete_Tag_Atom_By_PkArgs = {
   atom_id: Scalars['uuid']
   tag_id: Scalars['uuid']
+}
+
+/** mutation root */
+export type Mutation_RootDelete_Tag_Atom_TypeArgs = {
+  where: Tag_Atom_Type_Bool_Exp
+}
+
+/** mutation root */
+export type Mutation_RootDelete_Tag_Atom_Type_By_PkArgs = {
+  id: Scalars['uuid']
 }
 
 /** mutation root */
@@ -3635,6 +3572,18 @@ export type Mutation_RootInsert_Tag_AtomArgs = {
 export type Mutation_RootInsert_Tag_Atom_OneArgs = {
   object: Tag_Atom_Insert_Input
   on_conflict?: Maybe<Tag_Atom_On_Conflict>
+}
+
+/** mutation root */
+export type Mutation_RootInsert_Tag_Atom_TypeArgs = {
+  objects: Array<Tag_Atom_Type_Insert_Input>
+  on_conflict?: Maybe<Tag_Atom_Type_On_Conflict>
+}
+
+/** mutation root */
+export type Mutation_RootInsert_Tag_Atom_Type_OneArgs = {
+  object: Tag_Atom_Type_Insert_Input
+  on_conflict?: Maybe<Tag_Atom_Type_On_Conflict>
 }
 
 /** mutation root */
@@ -4055,6 +4004,18 @@ export type Mutation_RootUpdate_Tag_AtomArgs = {
 export type Mutation_RootUpdate_Tag_Atom_By_PkArgs = {
   _set?: Maybe<Tag_Atom_Set_Input>
   pk_columns: Tag_Atom_Pk_Columns_Input
+}
+
+/** mutation root */
+export type Mutation_RootUpdate_Tag_Atom_TypeArgs = {
+  _set?: Maybe<Tag_Atom_Type_Set_Input>
+  where: Tag_Atom_Type_Bool_Exp
+}
+
+/** mutation root */
+export type Mutation_RootUpdate_Tag_Atom_Type_By_PkArgs = {
+  _set?: Maybe<Tag_Atom_Type_Set_Input>
+  pk_columns: Tag_Atom_Type_Pk_Columns_Input
 }
 
 /** mutation root */
@@ -5331,7 +5292,7 @@ export type Prop_Set_Input = {
 /** columns and relationships of "prop_type" */
 export type Prop_Type = {
   id: Scalars['uuid']
-  isArray: Scalars['Boolean']
+  is_array: Scalars['Boolean']
   key: Scalars['String']
   /** An object relationship */
   propTypeCollection: Prop_Type_C
@@ -5380,7 +5341,7 @@ export type Prop_Type_Bool_Exp = {
   _not?: Maybe<Prop_Type_Bool_Exp>
   _or?: Maybe<Array<Prop_Type_Bool_Exp>>
   id?: Maybe<Uuid_Comparison_Exp>
-  isArray?: Maybe<Boolean_Comparison_Exp>
+  is_array?: Maybe<Boolean_Comparison_Exp>
   key?: Maybe<String_Comparison_Exp>
   propTypeCollection?: Maybe<Prop_Type_C_Bool_Exp>
   prop_type_c_id?: Maybe<Uuid_Comparison_Exp>
@@ -5606,7 +5567,7 @@ export enum Prop_Type_Constraint {
 /** input type for inserting data into table "prop_type" */
 export type Prop_Type_Insert_Input = {
   id?: Maybe<Scalars['uuid']>
-  isArray?: Maybe<Scalars['Boolean']>
+  is_array?: Maybe<Scalars['Boolean']>
   key?: Maybe<Scalars['String']>
   propTypeCollection?: Maybe<Prop_Type_C_Obj_Rel_Insert_Input>
   prop_type_c_id?: Maybe<Scalars['uuid']>
@@ -5667,7 +5628,7 @@ export type Prop_Type_On_Conflict = {
 /** Ordering options when selecting data from "prop_type". */
 export type Prop_Type_Order_By = {
   id?: Maybe<Order_By>
-  isArray?: Maybe<Order_By>
+  is_array?: Maybe<Order_By>
   key?: Maybe<Order_By>
   propTypeCollection?: Maybe<Prop_Type_C_Order_By>
   prop_type_c_id?: Maybe<Order_By>
@@ -5685,7 +5646,7 @@ export enum Prop_Type_Select_Column {
   /** column name */
   Id = 'id',
   /** column name */
-  IsArray = 'isArray',
+  IsArray = 'is_array',
   /** column name */
   Key = 'key',
   /** column name */
@@ -5697,7 +5658,7 @@ export enum Prop_Type_Select_Column {
 /** input type for updating data in table "prop_type" */
 export type Prop_Type_Set_Input = {
   id?: Maybe<Scalars['uuid']>
-  isArray?: Maybe<Scalars['Boolean']>
+  is_array?: Maybe<Scalars['Boolean']>
   key?: Maybe<Scalars['String']>
   prop_type_c_id?: Maybe<Scalars['uuid']>
   value_type?: Maybe<Value_Type_Enum>
@@ -5708,7 +5669,7 @@ export enum Prop_Type_Update_Column {
   /** column name */
   Id = 'id',
   /** column name */
-  IsArray = 'isArray',
+  IsArray = 'is_array',
   /** column name */
   Key = 'key',
   /** column name */
@@ -6083,6 +6044,12 @@ export type Query_Root = {
   tag_atom_aggregate: Tag_Atom_Aggregate
   /** fetch data from the table: "tag_atom" using primary key columns */
   tag_atom_by_pk?: Maybe<Tag_Atom>
+  /** fetch data from the table: "tag_atom_type" */
+  tag_atom_type: Array<Tag_Atom_Type>
+  /** fetch aggregated fields from the table: "tag_atom_type" */
+  tag_atom_type_aggregate: Tag_Atom_Type_Aggregate
+  /** fetch data from the table: "tag_atom_type" using primary key columns */
+  tag_atom_type_by_pk?: Maybe<Tag_Atom_Type>
   /** fetch data from the table: "tag" using primary key columns */
   tag_by_pk?: Maybe<Tag>
   /** fetch data from the table: "tag_component" */
@@ -6192,7 +6159,7 @@ export type Query_RootAtom_Type_AggregateArgs = {
 }
 
 export type Query_RootAtom_Type_By_PkArgs = {
-  value: Scalars['String']
+  id: Scalars['uuid']
 }
 
 export type Query_RootCategoryArgs = {
@@ -6652,6 +6619,26 @@ export type Query_RootTag_Atom_AggregateArgs = {
 export type Query_RootTag_Atom_By_PkArgs = {
   atom_id: Scalars['uuid']
   tag_id: Scalars['uuid']
+}
+
+export type Query_RootTag_Atom_TypeArgs = {
+  distinct_on?: Maybe<Array<Tag_Atom_Type_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<Tag_Atom_Type_Order_By>>
+  where?: Maybe<Tag_Atom_Type_Bool_Exp>
+}
+
+export type Query_RootTag_Atom_Type_AggregateArgs = {
+  distinct_on?: Maybe<Array<Tag_Atom_Type_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<Tag_Atom_Type_Order_By>>
+  where?: Maybe<Tag_Atom_Type_Bool_Exp>
+}
+
+export type Query_RootTag_Atom_Type_By_PkArgs = {
+  id: Scalars['uuid']
 }
 
 export type Query_RootTag_By_PkArgs = {
@@ -7581,6 +7568,12 @@ export type Subscription_Root = {
   tag_atom_aggregate: Tag_Atom_Aggregate
   /** fetch data from the table: "tag_atom" using primary key columns */
   tag_atom_by_pk?: Maybe<Tag_Atom>
+  /** fetch data from the table: "tag_atom_type" */
+  tag_atom_type: Array<Tag_Atom_Type>
+  /** fetch aggregated fields from the table: "tag_atom_type" */
+  tag_atom_type_aggregate: Tag_Atom_Type_Aggregate
+  /** fetch data from the table: "tag_atom_type" using primary key columns */
+  tag_atom_type_by_pk?: Maybe<Tag_Atom_Type>
   /** fetch data from the table: "tag" using primary key columns */
   tag_by_pk?: Maybe<Tag>
   /** fetch data from the table: "tag_component" */
@@ -7690,7 +7683,7 @@ export type Subscription_RootAtom_Type_AggregateArgs = {
 }
 
 export type Subscription_RootAtom_Type_By_PkArgs = {
-  value: Scalars['String']
+  id: Scalars['uuid']
 }
 
 export type Subscription_RootCategoryArgs = {
@@ -8150,6 +8143,26 @@ export type Subscription_RootTag_Atom_AggregateArgs = {
 export type Subscription_RootTag_Atom_By_PkArgs = {
   atom_id: Scalars['uuid']
   tag_id: Scalars['uuid']
+}
+
+export type Subscription_RootTag_Atom_TypeArgs = {
+  distinct_on?: Maybe<Array<Tag_Atom_Type_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<Tag_Atom_Type_Order_By>>
+  where?: Maybe<Tag_Atom_Type_Bool_Exp>
+}
+
+export type Subscription_RootTag_Atom_Type_AggregateArgs = {
+  distinct_on?: Maybe<Array<Tag_Atom_Type_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<Tag_Atom_Type_Order_By>>
+  where?: Maybe<Tag_Atom_Type_Bool_Exp>
+}
+
+export type Subscription_RootTag_Atom_Type_By_PkArgs = {
+  id: Scalars['uuid']
 }
 
 export type Subscription_RootTag_By_PkArgs = {
@@ -8654,6 +8667,101 @@ export enum Tag_Atom_Select_Column {
 export type Tag_Atom_Set_Input = {
   atom_id?: Maybe<Scalars['uuid']>
   tag_id?: Maybe<Scalars['uuid']>
+}
+
+/** columns and relationships of "tag_atom_type" */
+export type Tag_Atom_Type = {
+  id: Scalars['uuid']
+}
+
+/** aggregated selection of "tag_atom_type" */
+export type Tag_Atom_Type_Aggregate = {
+  aggregate?: Maybe<Tag_Atom_Type_Aggregate_Fields>
+  nodes: Array<Tag_Atom_Type>
+}
+
+/** aggregate fields of "tag_atom_type" */
+export type Tag_Atom_Type_Aggregate_Fields = {
+  count: Scalars['Int']
+  max?: Maybe<Tag_Atom_Type_Max_Fields>
+  min?: Maybe<Tag_Atom_Type_Min_Fields>
+}
+
+/** aggregate fields of "tag_atom_type" */
+export type Tag_Atom_Type_Aggregate_FieldsCountArgs = {
+  columns?: Maybe<Array<Tag_Atom_Type_Select_Column>>
+  distinct?: Maybe<Scalars['Boolean']>
+}
+
+/** Boolean expression to filter rows from the table "tag_atom_type". All fields are combined with a logical 'AND'. */
+export type Tag_Atom_Type_Bool_Exp = {
+  _and?: Maybe<Array<Tag_Atom_Type_Bool_Exp>>
+  _not?: Maybe<Tag_Atom_Type_Bool_Exp>
+  _or?: Maybe<Array<Tag_Atom_Type_Bool_Exp>>
+  id?: Maybe<Uuid_Comparison_Exp>
+}
+
+/** unique or primary key constraints on table "tag_atom_type" */
+export enum Tag_Atom_Type_Constraint {
+  /** unique or primary key constraint */
+  TagAtomTypePkey = 'tag_atom_type_pkey',
+}
+
+/** input type for inserting data into table "tag_atom_type" */
+export type Tag_Atom_Type_Insert_Input = {
+  id?: Maybe<Scalars['uuid']>
+}
+
+/** aggregate max on columns */
+export type Tag_Atom_Type_Max_Fields = {
+  id?: Maybe<Scalars['uuid']>
+}
+
+/** aggregate min on columns */
+export type Tag_Atom_Type_Min_Fields = {
+  id?: Maybe<Scalars['uuid']>
+}
+
+/** response of any mutation on the table "tag_atom_type" */
+export type Tag_Atom_Type_Mutation_Response = {
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']
+  /** data from the rows affected by the mutation */
+  returning: Array<Tag_Atom_Type>
+}
+
+/** on conflict condition type for table "tag_atom_type" */
+export type Tag_Atom_Type_On_Conflict = {
+  constraint: Tag_Atom_Type_Constraint
+  update_columns: Array<Tag_Atom_Type_Update_Column>
+  where?: Maybe<Tag_Atom_Type_Bool_Exp>
+}
+
+/** Ordering options when selecting data from "tag_atom_type". */
+export type Tag_Atom_Type_Order_By = {
+  id?: Maybe<Order_By>
+}
+
+/** primary key columns input for table: tag_atom_type */
+export type Tag_Atom_Type_Pk_Columns_Input = {
+  id: Scalars['uuid']
+}
+
+/** select columns of table "tag_atom_type" */
+export enum Tag_Atom_Type_Select_Column {
+  /** column name */
+  Id = 'id',
+}
+
+/** input type for updating data in table "tag_atom_type" */
+export type Tag_Atom_Type_Set_Input = {
+  id?: Maybe<Scalars['uuid']>
+}
+
+/** update columns of table "tag_atom_type" */
+export enum Tag_Atom_Type_Update_Column {
+  /** column name */
+  Id = 'id',
 }
 
 /** update columns of table "tag_atom" */
@@ -9991,12 +10099,12 @@ export type User__AppFragment = Pick<App, 'id' | 'user_id' | 'name'> & {
   pages: Array<App__PageFragment>
 }
 
-export type GetAppQueryVariables = Exact<{
+export type GetAppPageQueryVariables = Exact<{
   appId: Scalars['uuid']
   pageId: Scalars['uuid']
 }>
 
-export type GetAppQuery = {
+export type GetAppPageQuery = {
   app_by_pk?: Maybe<User__AppFragment>
   page_by_pk?: Maybe<App__PageFragment>
 }
@@ -10029,6 +10137,14 @@ export type GetAppsListForUserQueryVariables = Exact<{
 
 export type GetAppsListForUserQuery = { app: Array<User__AppFragment> }
 
+export type GetFirstAppQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetFirstAppQuery = {
+  app: Array<
+    Pick<App, 'id' | 'name'> & { pages: Array<Pick<Page, 'id' | 'name'>> }
+  >
+}
+
 export type EditAppMutationVariables = Exact<{
   input: App_Set_Input
   id: Scalars['uuid']
@@ -10036,17 +10152,67 @@ export type EditAppMutationVariables = Exact<{
 
 export type EditAppMutation = { update_app_by_pk?: Maybe<Pick<App, 'name'>> }
 
-export type __AtomFragment = Pick<Atom, 'id' | 'type'> & {
-  propTypes?: Maybe<PropTypeCollectionFragment>
+export type __AtomTypeFragment = Pick<Atom_Type, 'id' | 'label'>
+
+export type CreateAtomTypeMutationVariables = Exact<{
+  input: Atom_Type_Insert_Input
+}>
+
+export type CreateAtomTypeMutation = {
+  insert_atom_type_one?: Maybe<__AtomTypeFragment>
+}
+
+export type DeleteAtomTypesWhereMutationVariables = Exact<{
+  where: Atom_Type_Bool_Exp
+}>
+
+export type DeleteAtomTypesWhereMutation = {
+  delete_atom_type?: Maybe<{ returning: Array<__AtomTypeFragment> }>
+}
+
+export type GetAtomTypeQueryVariables = Exact<{
+  atomTypeId: Scalars['uuid']
+}>
+
+export type GetAtomTypeQuery = { atom_type_by_pk?: Maybe<__AtomTypeFragment> }
+
+export type GetAtomTypesQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetAtomTypesQuery = { atom_type: Array<__AtomTypeFragment> }
+
+export type GetAtomTypesWhereQueryVariables = Exact<{
+  where: Atom_Type_Bool_Exp
+}>
+
+export type GetAtomTypesWhereQuery = { atom_type: Array<__AtomTypeFragment> }
+
+export type UpdateAtomTypeMutationVariables = Exact<{
+  input: Atom_Type_Set_Input
+  atomTypeId: Scalars['uuid']
+}>
+
+export type UpdateAtomTypeMutation = {
+  update_atom_type_by_pk?: Maybe<__AtomTypeFragment>
+}
+
+export type __AtomFragment = Pick<Atom, 'id'> & {
+  type: __AtomTypeFragment
+  props?: Maybe<PropTypeCollectionFragment>
   styles: Array<{ style: Library__StyleFragment }>
   tags: Array<{ tag: __TagFragment }>
+}
+
+export type LibraryExplorer__AtomFragment = Pick<Atom, 'id'> & {
+  type: Pick<Atom_Type, 'id' | 'label'>
 }
 
 export type CreateAtomMutationVariables = Exact<{
   data: Atom_Insert_Input
 }>
 
-export type CreateAtomMutation = { insert_atom_one?: Maybe<__AtomFragment> }
+export type CreateAtomMutation = {
+  insert_atom_one?: Maybe<LibraryExplorer__AtomFragment>
+}
 
 export type DeleteAllAtomsMutationVariables = Exact<{ [key: string]: never }>
 
@@ -10058,7 +10224,9 @@ export type DeleteAtomMutationVariables = Exact<{
   atomId: Scalars['uuid']
 }>
 
-export type DeleteAtomMutation = { delete_atom_by_pk?: Maybe<__AtomFragment> }
+export type DeleteAtomMutation = {
+  delete_atom_by_pk?: Maybe<LibraryExplorer__AtomFragment>
+}
 
 export type DeleteAtomsWhereMutationVariables = Exact<{
   where: Atom_Bool_Exp
@@ -10080,9 +10248,7 @@ export type GetAtomsListQuery = { atom: Array<__AtomFragment> }
 
 export type GetAtomsTypesQueryVariables = Exact<{ [key: string]: never }>
 
-export type GetAtomsTypesQuery = {
-  atom_type: Array<Pick<Atom_Type, 'description' | 'value'>>
-}
+export type GetAtomsTypesQuery = { atom_type: Array<__AtomTypeFragment> }
 
 export type GetAtomsWhereQueryVariables = Exact<{
   where: Atom_Bool_Exp
@@ -10095,7 +10261,9 @@ export type UpdateAtomMutationVariables = Exact<{
   atomId: Scalars['uuid']
 }>
 
-export type UpdateAtomMutation = { update_atom_by_pk?: Maybe<__AtomFragment> }
+export type UpdateAtomMutation = {
+  update_atom_by_pk?: Maybe<LibraryExplorer__AtomFragment>
+}
 
 export type Library__CategoryFragment = Pick<Category, 'id' | 'name'> & {
   tags: Array<__TagFragment>
@@ -10107,12 +10275,10 @@ export type __TagFragment = Pick<
 >
 
 export type AddChildComponentElementMutationVariables = Exact<{
-  componentElement: Component_Element_Insert_Input
-  componentLink: Component_Link_Insert_Input
+  data: Component_Link_Insert_Input
 }>
 
 export type AddChildComponentElementMutation = {
-  insert_component_element_one?: Maybe<__ComponentElementFragment>
   insert_component_link_one?: Maybe<PageElement__ComponentLinkFragment>
 }
 
@@ -10174,19 +10340,25 @@ export type __ComponentElementFragment = Pick<
 
 export type PageElement__ComponentLinkFragment = Pick<
   Component_Link,
-  'id' | 'order' | 'props' | 'source_element_id' | 'target_element_id'
+  | 'id'
+  | 'order'
+  | 'props'
+  | 'source_component_element_id'
+  | 'target_component_element_id'
 >
 
 export type ComponentElement__HocFragment = Pick<Hoc, 'id'> & {
   tags: Array<{ tag: __TagFragment }>
 }
 
+export type LibraryExplorer__ComponentFragment = Pick<Component, 'id' | 'label'>
+
 export type CreateComponentMutationVariables = Exact<{
   input: Component_Insert_Input
 }>
 
 export type CreateComponentMutation = {
-  insert_component_one?: Maybe<__ComponentFragment>
+  insert_component_one?: Maybe<LibraryExplorer__ComponentFragment>
 }
 
 export type DeleteAllComponentsMutationVariables = Exact<{
@@ -10202,7 +10374,7 @@ export type DeleteComponentMutationVariables = Exact<{
 }>
 
 export type DeleteComponentMutation = {
-  delete_component_by_pk?: Maybe<Pick<Component, 'id'>>
+  delete_component_by_pk?: Maybe<LibraryExplorer__ComponentFragment>
 }
 
 export type DeleteComponentsWhereMutationVariables = Exact<{
@@ -10243,7 +10415,7 @@ export type UpdateComponentMutationVariables = Exact<{
 }>
 
 export type UpdateComponentMutation = {
-  update_component_by_pk?: Maybe<__ComponentFragment>
+  update_component_by_pk?: Maybe<LibraryExplorer__ComponentFragment>
 }
 
 export type CreateLambdaMutationVariables = Exact<{
@@ -10321,16 +10493,7 @@ export type GetLibraryQueryVariables = Exact<{
 
 export type GetLibraryQuery = { library_by_pk?: Maybe<__LibraryFragment> }
 
-export type __LibraryFragment = Pick<Library, 'id' | 'name' | 'user_id'> & {
-  categories: Array<Library__CategoryFragment>
-  components: Array<__ComponentFragment>
-  atoms: Array<__AtomFragment>
-  lambdas: Array<Library__LambdaFragment>
-  propTypes: Array<{ propTypes: Array<PropTypeCollection__PropTypeFragment> }>
-  props: Array<{ props: Array<PropCollection__PropFragment> }>
-  styles: Array<Library__StyleFragment>
-  tags: Array<__TagFragment>
-}
+export type __LibraryFragment = Pick<Library, 'id' | 'name'>
 
 export type CreateLibraryMutationVariables = Exact<{
   data: Library_Insert_Input
@@ -10356,9 +10519,16 @@ export type DeleteUserLibrariesMutation = {
   delete_library?: Maybe<Pick<Library_Mutation_Response, 'affected_rows'>>
 }
 
-export type GetLibrariesQueryVariables = Exact<{ [key: string]: never }>
+export type LibraryExplorerQueryVariables = Exact<{ [key: string]: never }>
 
-export type GetLibrariesQuery = { library: Array<__LibraryFragment> }
+export type LibraryExplorerQuery = {
+  library: Array<
+    Pick<Library, 'id' | 'name'> & {
+      components: Array<LibraryExplorer__ComponentFragment>
+      atoms: Array<LibraryExplorer__AtomFragment>
+    }
+  >
+}
 
 export type UpdateLibraryMutationVariables = Exact<{
   input: Library_Set_Input
@@ -10414,7 +10584,7 @@ export type GetPagesListQueryVariables = Exact<{
 }>
 
 export type GetPagesListQuery = {
-  app_by_pk?: Maybe<{ pages: Array<App__PageFragment> }>
+  app_by_pk?: Maybe<{ pages: Array<Pick<Page, 'id' | 'name'>> }>
 }
 
 export type CreatePageElementMutationVariables = Exact<{
@@ -10461,7 +10631,7 @@ export type UpdatePageMutation = {
 
 export type PropTypeCollection__PropTypeFragment = Pick<
   Prop_Type,
-  'id' | 'key' | 'prop_type_c_id' | 'isArray' | 'value_type'
+  'id' | 'key' | 'prop_type_c_id' | 'is_array' | 'value_type'
 > & { type: ValueTypeFragment }
 
 export type PropTypeCollectionFragment = Pick<
@@ -10638,6 +10808,15 @@ export type __UserFragment = Pick<User, 'id' | 'name'> & {
   apps: Array<User__AppFragment>
 }
 
+export const LibraryExplorer__AtomFragmentDoc = gql`
+  fragment LibraryExplorer__Atom on atom {
+    id
+    type {
+      id
+      label
+    }
+  }
+`
 export const __TagFragmentDoc = gql`
   fragment __Tag on tag {
     id
@@ -10655,6 +10834,25 @@ export const Library__CategoryFragmentDoc = gql`
     }
   }
   ${__TagFragmentDoc}
+`
+export const LibraryExplorer__ComponentFragmentDoc = gql`
+  fragment LibraryExplorer__Component on component {
+    id
+    label
+  }
+`
+export const Library__LambdaFragmentDoc = gql`
+  fragment Library__Lambda on lambda {
+    id
+    body
+    name
+  }
+`
+export const __LibraryFragmentDoc = gql`
+  fragment __Library on library {
+    id
+    name
+  }
 `
 export const ComponentElement__HocFragmentDoc = gql`
   fragment ComponentElement__Hoc on hoc {
@@ -10678,7 +10876,7 @@ export const PropTypeCollection__PropTypeFragmentDoc = gql`
     id
     key
     prop_type_c_id
-    isArray
+    is_array
     type {
       ...ValueType
     }
@@ -10745,6 +10943,12 @@ export const Library__StyleFragmentDoc = gql`
   }
   ${PropCollectionFragmentDoc}
 `
+export const __AtomTypeFragmentDoc = gql`
+  fragment __AtomType on atom_type {
+    id
+    label
+  }
+`
 export const PropTypeCollectionFragmentDoc = gql`
   fragment PropTypeCollection on prop_type_c {
     id
@@ -10765,8 +10969,10 @@ export const PropTypeCollectionFragmentDoc = gql`
 export const __AtomFragmentDoc = gql`
   fragment __Atom on atom {
     id
-    type
-    propTypes {
+    type {
+      ...__AtomType
+    }
+    props {
       ...PropTypeCollection
     }
     styles {
@@ -10780,6 +10986,7 @@ export const __AtomFragmentDoc = gql`
       }
     }
   }
+  ${__AtomTypeFragmentDoc}
   ${PropTypeCollectionFragmentDoc}
   ${Library__StyleFragmentDoc}
   ${__TagFragmentDoc}
@@ -10815,8 +11022,8 @@ export const PageElement__ComponentLinkFragmentDoc = gql`
     id
     order
     props
-    source_element_id
-    target_element_id
+    source_component_element_id
+    target_component_element_id
   }
 `
 export const __ComponentFragmentDoc = gql`
@@ -10832,56 +11039,6 @@ export const __ComponentFragmentDoc = gql`
   }
   ${__ComponentElementFragmentDoc}
   ${PageElement__ComponentLinkFragmentDoc}
-`
-export const Library__LambdaFragmentDoc = gql`
-  fragment Library__Lambda on lambda {
-    id
-    body
-    name
-  }
-`
-export const __LibraryFragmentDoc = gql`
-  fragment __Library on library {
-    id
-    name
-    categories {
-      ...Library__Category
-    }
-    components {
-      ...__Component
-    }
-    atoms {
-      ...__Atom
-    }
-    lambdas {
-      ...Library__Lambda
-    }
-    propTypes {
-      propTypes {
-        ...PropTypeCollection__PropType
-      }
-    }
-    props {
-      props {
-        ...PropCollection__Prop
-      }
-    }
-    styles {
-      ...Library__Style
-    }
-    tags {
-      ...__Tag
-    }
-    user_id
-  }
-  ${Library__CategoryFragmentDoc}
-  ${__ComponentFragmentDoc}
-  ${__AtomFragmentDoc}
-  ${Library__LambdaFragmentDoc}
-  ${PropTypeCollection__PropTypeFragmentDoc}
-  ${PropCollection__PropFragmentDoc}
-  ${Library__StyleFragmentDoc}
-  ${__TagFragmentDoc}
 `
 export const Page__PageElementFragmentDoc = gql`
   fragment Page__PageElement on page_element {
@@ -10993,8 +11150,8 @@ export type DeleteUserAppsMutationOptions = Apollo.BaseMutationOptions<
   DeleteUserAppsMutation,
   DeleteUserAppsMutationVariables
 >
-export const GetAppGql = gql`
-  query GetApp($appId: uuid!, $pageId: uuid!) {
+export const GetAppPageGql = gql`
+  query GetAppPage($appId: uuid!, $pageId: uuid!) {
     app_by_pk(id: $appId) {
       ...User__App
     }
@@ -11007,43 +11164,57 @@ export const GetAppGql = gql`
 `
 
 /**
- * __useGetAppQuery__
+ * __useGetAppPageQuery__
  *
- * To run a query within a React component, call `useGetAppQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetAppQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetAppPageQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAppPageQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetAppQuery({
+ * const { data, loading, error } = useGetAppPageQuery({
  *   variables: {
  *      appId: // value for 'appId'
  *      pageId: // value for 'pageId'
  *   },
  * });
  */
-export function useGetAppQuery(
-  baseOptions: Apollo.QueryHookOptions<GetAppQuery, GetAppQueryVariables>,
+export function useGetAppPageQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetAppPageQuery,
+    GetAppPageQueryVariables
+  >,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<GetAppQuery, GetAppQueryVariables>(GetAppGql, options)
-}
-export function useGetAppLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<GetAppQuery, GetAppQueryVariables>,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<GetAppQuery, GetAppQueryVariables>(
-    GetAppGql,
+  return Apollo.useQuery<GetAppPageQuery, GetAppPageQueryVariables>(
+    GetAppPageGql,
     options,
   )
 }
-export type GetAppQueryHookResult = ReturnType<typeof useGetAppQuery>
-export type GetAppLazyQueryHookResult = ReturnType<typeof useGetAppLazyQuery>
-export type GetAppQueryResult = Apollo.QueryResult<
-  GetAppQuery,
-  GetAppQueryVariables
+export function useGetAppPageLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetAppPageQuery,
+    GetAppPageQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetAppPageQuery, GetAppPageQueryVariables>(
+    GetAppPageGql,
+    options,
+  )
+}
+export type GetAppPageQueryHookResult = ReturnType<typeof useGetAppPageQuery>
+export type GetAppPageLazyQueryHookResult = ReturnType<
+  typeof useGetAppPageLazyQuery
 >
+export type GetAppPageQueryResult = Apollo.QueryResult<
+  GetAppPageQuery,
+  GetAppPageQueryVariables
+>
+export function refetchGetAppPageQuery(variables?: GetAppPageQueryVariables) {
+  return { query: GetAppPageGql, variables: variables }
+}
 export const CreateAppGql = gql`
   mutation CreateApp($input: app_insert_input!) {
     insert_app_one(object: $input) {
@@ -11201,6 +11372,9 @@ export type GetAppItemQueryResult = Apollo.QueryResult<
   GetAppItemQuery,
   GetAppItemQueryVariables
 >
+export function refetchGetAppItemQuery(variables?: GetAppItemQueryVariables) {
+  return { query: GetAppItemGql, variables: variables }
+}
 export const GetAppsListGql = gql`
   query GetAppsList {
     app {
@@ -11257,6 +11431,9 @@ export type GetAppsListQueryResult = Apollo.QueryResult<
   GetAppsListQuery,
   GetAppsListQueryVariables
 >
+export function refetchGetAppsListQuery(variables?: GetAppsListQueryVariables) {
+  return { query: GetAppsListGql, variables: variables }
+}
 export const GetAppsListForUserGql = gql`
   query GetAppsListForUser($userId: String!) {
     app(where: { user_id: { _eq: $userId } }) {
@@ -11316,6 +11493,74 @@ export type GetAppsListForUserQueryResult = Apollo.QueryResult<
   GetAppsListForUserQuery,
   GetAppsListForUserQueryVariables
 >
+export function refetchGetAppsListForUserQuery(
+  variables?: GetAppsListForUserQueryVariables,
+) {
+  return { query: GetAppsListForUserGql, variables: variables }
+}
+export const GetFirstAppGql = gql`
+  query GetFirstApp {
+    app(limit: 1) {
+      id
+      name
+      pages {
+        id
+        name
+      }
+    }
+  }
+`
+
+/**
+ * __useGetFirstAppQuery__
+ *
+ * To run a query within a React component, call `useGetFirstAppQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetFirstAppQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetFirstAppQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetFirstAppQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetFirstAppQuery,
+    GetFirstAppQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetFirstAppQuery, GetFirstAppQueryVariables>(
+    GetFirstAppGql,
+    options,
+  )
+}
+export function useGetFirstAppLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetFirstAppQuery,
+    GetFirstAppQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetFirstAppQuery, GetFirstAppQueryVariables>(
+    GetFirstAppGql,
+    options,
+  )
+}
+export type GetFirstAppQueryHookResult = ReturnType<typeof useGetFirstAppQuery>
+export type GetFirstAppLazyQueryHookResult = ReturnType<
+  typeof useGetFirstAppLazyQuery
+>
+export type GetFirstAppQueryResult = Apollo.QueryResult<
+  GetFirstAppQuery,
+  GetFirstAppQueryVariables
+>
+export function refetchGetFirstAppQuery(variables?: GetFirstAppQueryVariables) {
+  return { query: GetFirstAppGql, variables: variables }
+}
 export const EditAppGql = gql`
   mutation EditApp($input: app_set_input!, $id: uuid!) {
     update_app_by_pk(_set: $input, pk_columns: { id: $id }) {
@@ -11364,13 +11609,353 @@ export type EditAppMutationOptions = Apollo.BaseMutationOptions<
   EditAppMutation,
   EditAppMutationVariables
 >
+export const CreateAtomTypeGql = gql`
+  mutation CreateAtomType($input: atom_type_insert_input!) {
+    insert_atom_type_one(object: $input) {
+      ...__AtomType
+    }
+  }
+  ${__AtomTypeFragmentDoc}
+`
+export type CreateAtomTypeMutationFn = Apollo.MutationFunction<
+  CreateAtomTypeMutation,
+  CreateAtomTypeMutationVariables
+>
+
+/**
+ * __useCreateAtomTypeMutation__
+ *
+ * To run a mutation, you first call `useCreateAtomTypeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateAtomTypeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createAtomTypeMutation, { data, loading, error }] = useCreateAtomTypeMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateAtomTypeMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateAtomTypeMutation,
+    CreateAtomTypeMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    CreateAtomTypeMutation,
+    CreateAtomTypeMutationVariables
+  >(CreateAtomTypeGql, options)
+}
+export type CreateAtomTypeMutationHookResult = ReturnType<
+  typeof useCreateAtomTypeMutation
+>
+export type CreateAtomTypeMutationResult = Apollo.MutationResult<CreateAtomTypeMutation>
+export type CreateAtomTypeMutationOptions = Apollo.BaseMutationOptions<
+  CreateAtomTypeMutation,
+  CreateAtomTypeMutationVariables
+>
+export const DeleteAtomTypesWhereGql = gql`
+  mutation DeleteAtomTypesWhere($where: atom_type_bool_exp!) {
+    delete_atom_type(where: $where) {
+      returning {
+        ...__AtomType
+      }
+    }
+  }
+  ${__AtomTypeFragmentDoc}
+`
+export type DeleteAtomTypesWhereMutationFn = Apollo.MutationFunction<
+  DeleteAtomTypesWhereMutation,
+  DeleteAtomTypesWhereMutationVariables
+>
+
+/**
+ * __useDeleteAtomTypesWhereMutation__
+ *
+ * To run a mutation, you first call `useDeleteAtomTypesWhereMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteAtomTypesWhereMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteAtomTypesWhereMutation, { data, loading, error }] = useDeleteAtomTypesWhereMutation({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useDeleteAtomTypesWhereMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeleteAtomTypesWhereMutation,
+    DeleteAtomTypesWhereMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    DeleteAtomTypesWhereMutation,
+    DeleteAtomTypesWhereMutationVariables
+  >(DeleteAtomTypesWhereGql, options)
+}
+export type DeleteAtomTypesWhereMutationHookResult = ReturnType<
+  typeof useDeleteAtomTypesWhereMutation
+>
+export type DeleteAtomTypesWhereMutationResult = Apollo.MutationResult<DeleteAtomTypesWhereMutation>
+export type DeleteAtomTypesWhereMutationOptions = Apollo.BaseMutationOptions<
+  DeleteAtomTypesWhereMutation,
+  DeleteAtomTypesWhereMutationVariables
+>
+export const GetAtomTypeGql = gql`
+  query GetAtomType($atomTypeId: uuid!) {
+    atom_type_by_pk(id: $atomTypeId) {
+      ...__AtomType
+    }
+  }
+  ${__AtomTypeFragmentDoc}
+`
+
+/**
+ * __useGetAtomTypeQuery__
+ *
+ * To run a query within a React component, call `useGetAtomTypeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAtomTypeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAtomTypeQuery({
+ *   variables: {
+ *      atomTypeId: // value for 'atomTypeId'
+ *   },
+ * });
+ */
+export function useGetAtomTypeQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetAtomTypeQuery,
+    GetAtomTypeQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetAtomTypeQuery, GetAtomTypeQueryVariables>(
+    GetAtomTypeGql,
+    options,
+  )
+}
+export function useGetAtomTypeLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetAtomTypeQuery,
+    GetAtomTypeQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetAtomTypeQuery, GetAtomTypeQueryVariables>(
+    GetAtomTypeGql,
+    options,
+  )
+}
+export type GetAtomTypeQueryHookResult = ReturnType<typeof useGetAtomTypeQuery>
+export type GetAtomTypeLazyQueryHookResult = ReturnType<
+  typeof useGetAtomTypeLazyQuery
+>
+export type GetAtomTypeQueryResult = Apollo.QueryResult<
+  GetAtomTypeQuery,
+  GetAtomTypeQueryVariables
+>
+export function refetchGetAtomTypeQuery(variables?: GetAtomTypeQueryVariables) {
+  return { query: GetAtomTypeGql, variables: variables }
+}
+export const GetAtomTypesGql = gql`
+  query GetAtomTypes {
+    atom_type {
+      ...__AtomType
+    }
+  }
+  ${__AtomTypeFragmentDoc}
+`
+
+/**
+ * __useGetAtomTypesQuery__
+ *
+ * To run a query within a React component, call `useGetAtomTypesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAtomTypesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAtomTypesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAtomTypesQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetAtomTypesQuery,
+    GetAtomTypesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetAtomTypesQuery, GetAtomTypesQueryVariables>(
+    GetAtomTypesGql,
+    options,
+  )
+}
+export function useGetAtomTypesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetAtomTypesQuery,
+    GetAtomTypesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetAtomTypesQuery, GetAtomTypesQueryVariables>(
+    GetAtomTypesGql,
+    options,
+  )
+}
+export type GetAtomTypesQueryHookResult = ReturnType<
+  typeof useGetAtomTypesQuery
+>
+export type GetAtomTypesLazyQueryHookResult = ReturnType<
+  typeof useGetAtomTypesLazyQuery
+>
+export type GetAtomTypesQueryResult = Apollo.QueryResult<
+  GetAtomTypesQuery,
+  GetAtomTypesQueryVariables
+>
+export function refetchGetAtomTypesQuery(
+  variables?: GetAtomTypesQueryVariables,
+) {
+  return { query: GetAtomTypesGql, variables: variables }
+}
+export const GetAtomTypesWhereGql = gql`
+  query GetAtomTypesWhere($where: atom_type_bool_exp!) {
+    atom_type(where: $where) {
+      ...__AtomType
+    }
+  }
+  ${__AtomTypeFragmentDoc}
+`
+
+/**
+ * __useGetAtomTypesWhereQuery__
+ *
+ * To run a query within a React component, call `useGetAtomTypesWhereQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAtomTypesWhereQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAtomTypesWhereQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useGetAtomTypesWhereQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetAtomTypesWhereQuery,
+    GetAtomTypesWhereQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<
+    GetAtomTypesWhereQuery,
+    GetAtomTypesWhereQueryVariables
+  >(GetAtomTypesWhereGql, options)
+}
+export function useGetAtomTypesWhereLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetAtomTypesWhereQuery,
+    GetAtomTypesWhereQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    GetAtomTypesWhereQuery,
+    GetAtomTypesWhereQueryVariables
+  >(GetAtomTypesWhereGql, options)
+}
+export type GetAtomTypesWhereQueryHookResult = ReturnType<
+  typeof useGetAtomTypesWhereQuery
+>
+export type GetAtomTypesWhereLazyQueryHookResult = ReturnType<
+  typeof useGetAtomTypesWhereLazyQuery
+>
+export type GetAtomTypesWhereQueryResult = Apollo.QueryResult<
+  GetAtomTypesWhereQuery,
+  GetAtomTypesWhereQueryVariables
+>
+export function refetchGetAtomTypesWhereQuery(
+  variables?: GetAtomTypesWhereQueryVariables,
+) {
+  return { query: GetAtomTypesWhereGql, variables: variables }
+}
+export const UpdateAtomTypeGql = gql`
+  mutation UpdateAtomType($input: atom_type_set_input!, $atomTypeId: uuid!) {
+    update_atom_type_by_pk(_set: $input, pk_columns: { id: $atomTypeId }) {
+      ...__AtomType
+    }
+  }
+  ${__AtomTypeFragmentDoc}
+`
+export type UpdateAtomTypeMutationFn = Apollo.MutationFunction<
+  UpdateAtomTypeMutation,
+  UpdateAtomTypeMutationVariables
+>
+
+/**
+ * __useUpdateAtomTypeMutation__
+ *
+ * To run a mutation, you first call `useUpdateAtomTypeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateAtomTypeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateAtomTypeMutation, { data, loading, error }] = useUpdateAtomTypeMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *      atomTypeId: // value for 'atomTypeId'
+ *   },
+ * });
+ */
+export function useUpdateAtomTypeMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateAtomTypeMutation,
+    UpdateAtomTypeMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    UpdateAtomTypeMutation,
+    UpdateAtomTypeMutationVariables
+  >(UpdateAtomTypeGql, options)
+}
+export type UpdateAtomTypeMutationHookResult = ReturnType<
+  typeof useUpdateAtomTypeMutation
+>
+export type UpdateAtomTypeMutationResult = Apollo.MutationResult<UpdateAtomTypeMutation>
+export type UpdateAtomTypeMutationOptions = Apollo.BaseMutationOptions<
+  UpdateAtomTypeMutation,
+  UpdateAtomTypeMutationVariables
+>
 export const CreateAtomGql = gql`
   mutation CreateAtom($data: atom_insert_input!) {
     insert_atom_one(object: $data) {
-      ...__Atom
+      ...LibraryExplorer__Atom
     }
   }
-  ${__AtomFragmentDoc}
+  ${LibraryExplorer__AtomFragmentDoc}
 `
 export type CreateAtomMutationFn = Apollo.MutationFunction<
   CreateAtomMutation,
@@ -11465,10 +12050,10 @@ export type DeleteAllAtomsMutationOptions = Apollo.BaseMutationOptions<
 export const DeleteAtomGql = gql`
   mutation DeleteAtom($atomId: uuid!) {
     delete_atom_by_pk(id: $atomId) {
-      ...__Atom
+      ...LibraryExplorer__Atom
     }
   }
-  ${__AtomFragmentDoc}
+  ${LibraryExplorer__AtomFragmentDoc}
 `
 export type DeleteAtomMutationFn = Apollo.MutationFunction<
   DeleteAtomMutation,
@@ -11616,6 +12201,9 @@ export type GetAtomQueryResult = Apollo.QueryResult<
   GetAtomQuery,
   GetAtomQueryVariables
 >
+export function refetchGetAtomQuery(variables?: GetAtomQueryVariables) {
+  return { query: GetAtomGql, variables: variables }
+}
 export const GetAtomsListGql = gql`
   query GetAtomsList {
     atom {
@@ -11674,13 +12262,18 @@ export type GetAtomsListQueryResult = Apollo.QueryResult<
   GetAtomsListQuery,
   GetAtomsListQueryVariables
 >
+export function refetchGetAtomsListQuery(
+  variables?: GetAtomsListQueryVariables,
+) {
+  return { query: GetAtomsListGql, variables: variables }
+}
 export const GetAtomsTypesGql = gql`
   query GetAtomsTypes {
     atom_type {
-      description
-      value
+      ...__AtomType
     }
   }
+  ${__AtomTypeFragmentDoc}
 `
 
 /**
@@ -11732,6 +12325,11 @@ export type GetAtomsTypesQueryResult = Apollo.QueryResult<
   GetAtomsTypesQuery,
   GetAtomsTypesQueryVariables
 >
+export function refetchGetAtomsTypesQuery(
+  variables?: GetAtomsTypesQueryVariables,
+) {
+  return { query: GetAtomsTypesGql, variables: variables }
+}
 export const GetAtomsWhereGql = gql`
   query GetAtomsWhere($where: atom_bool_exp!) {
     atom(where: $where) {
@@ -11791,13 +12389,18 @@ export type GetAtomsWhereQueryResult = Apollo.QueryResult<
   GetAtomsWhereQuery,
   GetAtomsWhereQueryVariables
 >
+export function refetchGetAtomsWhereQuery(
+  variables?: GetAtomsWhereQueryVariables,
+) {
+  return { query: GetAtomsWhereGql, variables: variables }
+}
 export const UpdateAtomGql = gql`
   mutation UpdateAtom($input: atom_set_input!, $atomId: uuid!) {
     update_atom_by_pk(_set: $input, pk_columns: { id: $atomId }) {
-      ...__Atom
+      ...LibraryExplorer__Atom
     }
   }
-  ${__AtomFragmentDoc}
+  ${LibraryExplorer__AtomFragmentDoc}
 `
 export type UpdateAtomMutationFn = Apollo.MutationFunction<
   UpdateAtomMutation,
@@ -11843,18 +12446,11 @@ export type UpdateAtomMutationOptions = Apollo.BaseMutationOptions<
   UpdateAtomMutationVariables
 >
 export const AddChildComponentElementGql = gql`
-  mutation AddChildComponentElement(
-    $componentElement: component_element_insert_input!
-    $componentLink: component_link_insert_input!
-  ) {
-    insert_component_element_one(object: $componentElement) {
-      ...__ComponentElement
-    }
-    insert_component_link_one(object: $componentLink) {
+  mutation AddChildComponentElement($data: component_link_insert_input!) {
+    insert_component_link_one(object: $data) {
       ...PageElement__ComponentLink
     }
   }
-  ${__ComponentElementFragmentDoc}
   ${PageElement__ComponentLinkFragmentDoc}
 `
 export type AddChildComponentElementMutationFn = Apollo.MutationFunction<
@@ -11875,8 +12471,7 @@ export type AddChildComponentElementMutationFn = Apollo.MutationFunction<
  * @example
  * const [addChildComponentElementMutation, { data, loading, error }] = useAddChildComponentElementMutation({
  *   variables: {
- *      componentElement: // value for 'componentElement'
- *      componentLink: // value for 'componentLink'
+ *      data: // value for 'data'
  *   },
  * });
  */
@@ -12108,6 +12703,11 @@ export type GetComponentElementQueryResult = Apollo.QueryResult<
   GetComponentElementQuery,
   GetComponentElementQueryVariables
 >
+export function refetchGetComponentElementQuery(
+  variables?: GetComponentElementQueryVariables,
+) {
+  return { query: GetComponentElementGql, variables: variables }
+}
 export const UpdateComponentElementGql = gql`
   mutation UpdateComponentElement(
     $componentElementId: uuid!
@@ -12168,10 +12768,10 @@ export type UpdateComponentElementMutationOptions = Apollo.BaseMutationOptions<
 export const CreateComponentGql = gql`
   mutation CreateComponent($input: component_insert_input!) {
     insert_component_one(object: $input) {
-      ...__Component
+      ...LibraryExplorer__Component
     }
   }
-  ${__ComponentFragmentDoc}
+  ${LibraryExplorer__ComponentFragmentDoc}
 `
 export type CreateComponentMutationFn = Apollo.MutationFunction<
   CreateComponentMutation,
@@ -12266,9 +12866,10 @@ export type DeleteAllComponentsMutationOptions = Apollo.BaseMutationOptions<
 export const DeleteComponentGql = gql`
   mutation DeleteComponent($componentId: uuid!) {
     delete_component_by_pk(id: $componentId) {
-      id
+      ...LibraryExplorer__Component
     }
   }
+  ${LibraryExplorer__ComponentFragmentDoc}
 `
 export type DeleteComponentMutationFn = Apollo.MutationFunction<
   DeleteComponentMutation,
@@ -12423,6 +13024,11 @@ export type GetComponentQueryResult = Apollo.QueryResult<
   GetComponentQuery,
   GetComponentQueryVariables
 >
+export function refetchGetComponentQuery(
+  variables?: GetComponentQueryVariables,
+) {
+  return { query: GetComponentGql, variables: variables }
+}
 export const GetComponentDetailGql = gql`
   query GetComponentDetail($componentId: uuid!) {
     component_by_pk(id: $componentId) {
@@ -12482,6 +13088,11 @@ export type GetComponentDetailQueryResult = Apollo.QueryResult<
   GetComponentDetailQuery,
   GetComponentDetailQueryVariables
 >
+export function refetchGetComponentDetailQuery(
+  variables?: GetComponentDetailQueryVariables,
+) {
+  return { query: GetComponentDetailGql, variables: variables }
+}
 export const GetComponentsGql = gql`
   query GetComponents {
     component {
@@ -12540,6 +13151,11 @@ export type GetComponentsQueryResult = Apollo.QueryResult<
   GetComponentsQuery,
   GetComponentsQueryVariables
 >
+export function refetchGetComponentsQuery(
+  variables?: GetComponentsQueryVariables,
+) {
+  return { query: GetComponentsGql, variables: variables }
+}
 export const GetComponentsWhereGql = gql`
   query GetComponentsWhere($where: component_bool_exp!) {
     component(where: $where) {
@@ -12599,13 +13215,18 @@ export type GetComponentsWhereQueryResult = Apollo.QueryResult<
   GetComponentsWhereQuery,
   GetComponentsWhereQueryVariables
 >
+export function refetchGetComponentsWhereQuery(
+  variables?: GetComponentsWhereQueryVariables,
+) {
+  return { query: GetComponentsWhereGql, variables: variables }
+}
 export const UpdateComponentGql = gql`
   mutation UpdateComponent($componentId: uuid!, $input: component_set_input!) {
     update_component_by_pk(pk_columns: { id: $componentId }, _set: $input) {
-      ...__Component
+      ...LibraryExplorer__Component
     }
   }
-  ${__ComponentFragmentDoc}
+  ${LibraryExplorer__ComponentFragmentDoc}
 `
 export type UpdateComponentMutationFn = Apollo.MutationFunction<
   UpdateComponentMutation,
@@ -12868,6 +13489,11 @@ export type GetLambdaByIdQueryResult = Apollo.QueryResult<
   GetLambdaByIdQuery,
   GetLambdaByIdQueryVariables
 >
+export function refetchGetLambdaByIdQuery(
+  variables?: GetLambdaByIdQueryVariables,
+) {
+  return { query: GetLambdaByIdGql, variables: variables }
+}
 export const GetLambdasGql = gql`
   query GetLambdas {
     lambda {
@@ -12926,6 +13552,9 @@ export type GetLambdasQueryResult = Apollo.QueryResult<
   GetLambdasQuery,
   GetLambdasQueryVariables
 >
+export function refetchGetLambdasQuery(variables?: GetLambdasQueryVariables) {
+  return { query: GetLambdasGql, variables: variables }
+}
 export const GetLambdasByLibraryIdGql = gql`
   query GetLambdasByLibraryId($libraryId: uuid!) {
     lambda(where: { libraryId: { _eq: $libraryId } }) {
@@ -12987,6 +13616,11 @@ export type GetLambdasByLibraryIdQueryResult = Apollo.QueryResult<
   GetLambdasByLibraryIdQuery,
   GetLambdasByLibraryIdQueryVariables
 >
+export function refetchGetLambdasByLibraryIdQuery(
+  variables?: GetLambdasByLibraryIdQueryVariables,
+) {
+  return { query: GetLambdasByLibraryIdGql, variables: variables }
+}
 export const UpdateLambdaGql = gql`
   mutation UpdateLambda($id: uuid!, $body: String, $name: String) {
     update_lambda(
@@ -13104,6 +13738,11 @@ export type GetFirstLibraryQueryResult = Apollo.QueryResult<
   GetFirstLibraryQuery,
   GetFirstLibraryQueryVariables
 >
+export function refetchGetFirstLibraryQuery(
+  variables?: GetFirstLibraryQueryVariables,
+) {
+  return { query: GetFirstLibraryGql, variables: variables }
+}
 export const GetLibraryGql = gql`
   query GetLibrary($libraryId: uuid!) {
     library_by_pk(id: $libraryId) {
@@ -13161,6 +13800,9 @@ export type GetLibraryQueryResult = Apollo.QueryResult<
   GetLibraryQuery,
   GetLibraryQueryVariables
 >
+export function refetchGetLibraryQuery(variables?: GetLibraryQueryVariables) {
+  return { query: GetLibraryGql, variables: variables }
+}
 export const CreateLibraryGql = gql`
   mutation CreateLibrary($data: library_insert_input!) {
     insert_library_one(object: $data) {
@@ -13309,64 +13951,77 @@ export type DeleteUserLibrariesMutationOptions = Apollo.BaseMutationOptions<
   DeleteUserLibrariesMutation,
   DeleteUserLibrariesMutationVariables
 >
-export const GetLibrariesGql = gql`
-  query GetLibraries {
+export const LibraryExplorerGql = gql`
+  query LibraryExplorer {
     library {
-      ...__Library
+      id
+      name
+      components {
+        ...LibraryExplorer__Component
+      }
+      atoms {
+        ...LibraryExplorer__Atom
+      }
     }
   }
-  ${__LibraryFragmentDoc}
+  ${LibraryExplorer__ComponentFragmentDoc}
+  ${LibraryExplorer__AtomFragmentDoc}
 `
 
 /**
- * __useGetLibrariesQuery__
+ * __useLibraryExplorerQuery__
  *
- * To run a query within a React component, call `useGetLibrariesQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetLibrariesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useLibraryExplorerQuery` and pass it any options that fit your needs.
+ * When your component renders, `useLibraryExplorerQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetLibrariesQuery({
+ * const { data, loading, error } = useLibraryExplorerQuery({
  *   variables: {
  *   },
  * });
  */
-export function useGetLibrariesQuery(
+export function useLibraryExplorerQuery(
   baseOptions?: Apollo.QueryHookOptions<
-    GetLibrariesQuery,
-    GetLibrariesQueryVariables
+    LibraryExplorerQuery,
+    LibraryExplorerQueryVariables
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<GetLibrariesQuery, GetLibrariesQueryVariables>(
-    GetLibrariesGql,
+  return Apollo.useQuery<LibraryExplorerQuery, LibraryExplorerQueryVariables>(
+    LibraryExplorerGql,
     options,
   )
 }
-export function useGetLibrariesLazyQuery(
+export function useLibraryExplorerLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
-    GetLibrariesQuery,
-    GetLibrariesQueryVariables
+    LibraryExplorerQuery,
+    LibraryExplorerQueryVariables
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<GetLibrariesQuery, GetLibrariesQueryVariables>(
-    GetLibrariesGql,
-    options,
-  )
+  return Apollo.useLazyQuery<
+    LibraryExplorerQuery,
+    LibraryExplorerQueryVariables
+  >(LibraryExplorerGql, options)
 }
-export type GetLibrariesQueryHookResult = ReturnType<
-  typeof useGetLibrariesQuery
+export type LibraryExplorerQueryHookResult = ReturnType<
+  typeof useLibraryExplorerQuery
 >
-export type GetLibrariesLazyQueryHookResult = ReturnType<
-  typeof useGetLibrariesLazyQuery
+export type LibraryExplorerLazyQueryHookResult = ReturnType<
+  typeof useLibraryExplorerLazyQuery
 >
-export type GetLibrariesQueryResult = Apollo.QueryResult<
-  GetLibrariesQuery,
-  GetLibrariesQueryVariables
+export type LibraryExplorerQueryResult = Apollo.QueryResult<
+  LibraryExplorerQuery,
+  LibraryExplorerQueryVariables
 >
+export function refetchLibraryExplorerQuery(
+  variables?: LibraryExplorerQueryVariables,
+) {
+  return { query: LibraryExplorerGql, variables: variables }
+}
 export const UpdateLibraryGql = gql`
   mutation UpdateLibrary($input: library_set_input!, $libraryId: uuid!) {
     update_library_by_pk(_set: $input, pk_columns: { id: $libraryId }) {
@@ -13570,15 +14225,18 @@ export type GetPageQueryResult = Apollo.QueryResult<
   GetPageQuery,
   GetPageQueryVariables
 >
+export function refetchGetPageQuery(variables?: GetPageQueryVariables) {
+  return { query: GetPageGql, variables: variables }
+}
 export const GetPagesListGql = gql`
   query GetPagesList($appId: uuid!) {
     app_by_pk(id: $appId) {
       pages {
-        ...App__Page
+        id
+        name
       }
     }
   }
-  ${App__PageFragmentDoc}
 `
 
 /**
@@ -13631,6 +14289,11 @@ export type GetPagesListQueryResult = Apollo.QueryResult<
   GetPagesListQuery,
   GetPagesListQueryVariables
 >
+export function refetchGetPagesListQuery(
+  variables?: GetPagesListQueryVariables,
+) {
+  return { query: GetPagesListGql, variables: variables }
+}
 export const CreatePageElementGql = gql`
   mutation CreatePageElement($input: page_element_insert_input!) {
     insert_page_element_one(object: $input) {
@@ -13790,6 +14453,11 @@ export type GetPageElementQueryResult = Apollo.QueryResult<
   GetPageElementQuery,
   GetPageElementQueryVariables
 >
+export function refetchGetPageElementQuery(
+  variables?: GetPageElementQueryVariables,
+) {
+  return { query: GetPageElementGql, variables: variables }
+}
 export const UpdatePageElementGql = gql`
   mutation UpdatePageElement($id: uuid!, $input: page_element_set_input) {
     update_page_element_by_pk(pk_columns: { id: $id }, _set: $input) {
@@ -14050,6 +14718,11 @@ export type GetPropTypeCQueryResult = Apollo.QueryResult<
   GetPropTypeCQuery,
   GetPropTypeCQueryVariables
 >
+export function refetchGetPropTypeCQuery(
+  variables?: GetPropTypeCQueryVariables,
+) {
+  return { query: GetPropTypeCGql, variables: variables }
+}
 export const GetPropTypeCListGql = gql`
   query GetPropTypeCList($where: prop_type_c_bool_exp) {
     prop_type_c(where: $where) {
@@ -14109,6 +14782,11 @@ export type GetPropTypeCListQueryResult = Apollo.QueryResult<
   GetPropTypeCListQuery,
   GetPropTypeCListQueryVariables
 >
+export function refetchGetPropTypeCListQuery(
+  variables?: GetPropTypeCListQueryVariables,
+) {
+  return { query: GetPropTypeCListGql, variables: variables }
+}
 export const UpdatePropTypeCGql = gql`
   mutation UpdatePropTypeC(
     $input: prop_type_c_set_input!
@@ -14373,6 +15051,11 @@ export type PageElementPropQueryResult = Apollo.QueryResult<
   PageElementPropQuery,
   PageElementPropQueryVariables
 >
+export function refetchPageElementPropQuery(
+  variables?: PageElementPropQueryVariables,
+) {
+  return { query: PageElementPropGql, variables: variables }
+}
 export const UpdatePropGql = gql`
   mutation UpdateProp($input: prop_set_input!, $propId: uuid!) {
     update_prop_by_pk(pk_columns: { id: $propId }, _set: $input) {
@@ -14531,6 +15214,9 @@ export type GetStyleQueryResult = Apollo.QueryResult<
   GetStyleQuery,
   GetStyleQueryVariables
 >
+export function refetchGetStyleQuery(variables?: GetStyleQueryVariables) {
+  return { query: GetStyleGql, variables: variables }
+}
 export const CreateStyleGql = gql`
   mutation CreateStyle($data: style_insert_input!) {
     insert_style_one(object: $data) {
@@ -14688,6 +15374,11 @@ export type GetStylesListQueryResult = Apollo.QueryResult<
   GetStylesListQuery,
   GetStylesListQueryVariables
 >
+export function refetchGetStylesListQuery(
+  variables?: GetStylesListQueryVariables,
+) {
+  return { query: GetStylesListGql, variables: variables }
+}
 export const UpdateStyleGql = gql`
   mutation UpdateStyle($input: style_set_input!, $styleId: uuid!) {
     update_style_by_pk(_set: $input, pk_columns: { id: $styleId }) {
@@ -14791,6 +15482,15 @@ export type UpsertUserMutationOptions = Apollo.BaseMutationOptions<
   UpsertUserMutation,
   UpsertUserMutationVariables
 >
+export const LibraryExplorer__Atom = gql`
+  fragment LibraryExplorer__Atom on atom {
+    id
+    type {
+      id
+      label
+    }
+  }
+`
 export const __Tag = gql`
   fragment __Tag on tag {
     id
@@ -14808,6 +15508,25 @@ export const Library__Category = gql`
     }
   }
   ${__Tag}
+`
+export const LibraryExplorer__Component = gql`
+  fragment LibraryExplorer__Component on component {
+    id
+    label
+  }
+`
+export const Library__Lambda = gql`
+  fragment Library__Lambda on lambda {
+    id
+    body
+    name
+  }
+`
+export const __Library = gql`
+  fragment __Library on library {
+    id
+    name
+  }
 `
 export const ComponentElement__Hoc = gql`
   fragment ComponentElement__Hoc on hoc {
@@ -14831,7 +15550,7 @@ export const PropTypeCollection__PropType = gql`
     id
     key
     prop_type_c_id
-    isArray
+    is_array
     type {
       ...ValueType
     }
@@ -14898,6 +15617,12 @@ export const Library__Style = gql`
   }
   ${PropCollection}
 `
+export const __AtomType = gql`
+  fragment __AtomType on atom_type {
+    id
+    label
+  }
+`
 export const PropTypeCollection = gql`
   fragment PropTypeCollection on prop_type_c {
     id
@@ -14918,8 +15643,10 @@ export const PropTypeCollection = gql`
 export const __Atom = gql`
   fragment __Atom on atom {
     id
-    type
-    propTypes {
+    type {
+      ...__AtomType
+    }
+    props {
       ...PropTypeCollection
     }
     styles {
@@ -14933,6 +15660,7 @@ export const __Atom = gql`
       }
     }
   }
+  ${__AtomType}
   ${PropTypeCollection}
   ${Library__Style}
   ${__Tag}
@@ -14968,8 +15696,8 @@ export const PageElement__ComponentLink = gql`
     id
     order
     props
-    source_element_id
-    target_element_id
+    source_component_element_id
+    target_component_element_id
   }
 `
 export const __Component = gql`
@@ -14985,56 +15713,6 @@ export const __Component = gql`
   }
   ${__ComponentElement}
   ${PageElement__ComponentLink}
-`
-export const Library__Lambda = gql`
-  fragment Library__Lambda on lambda {
-    id
-    body
-    name
-  }
-`
-export const __Library = gql`
-  fragment __Library on library {
-    id
-    name
-    categories {
-      ...Library__Category
-    }
-    components {
-      ...__Component
-    }
-    atoms {
-      ...__Atom
-    }
-    lambdas {
-      ...Library__Lambda
-    }
-    propTypes {
-      propTypes {
-        ...PropTypeCollection__PropType
-      }
-    }
-    props {
-      props {
-        ...PropCollection__Prop
-      }
-    }
-    styles {
-      ...Library__Style
-    }
-    tags {
-      ...__Tag
-    }
-    user_id
-  }
-  ${Library__Category}
-  ${__Component}
-  ${__Atom}
-  ${Library__Lambda}
-  ${PropTypeCollection__PropType}
-  ${PropCollection__Prop}
-  ${Library__Style}
-  ${__Tag}
 `
 export const Page__PageElement = gql`
   fragment Page__PageElement on page_element {
@@ -15104,8 +15782,8 @@ export const DeleteUserApps = gql`
     }
   }
 `
-export const GetApp = gql`
-  query GetApp($appId: uuid!, $pageId: uuid!) {
+export const GetAppPage = gql`
+  query GetAppPage($appId: uuid!, $pageId: uuid!) {
     app_by_pk(id: $appId) {
       ...User__App
     }
@@ -15156,6 +15834,18 @@ export const GetAppsListForUser = gql`
   }
   ${User__App}
 `
+export const GetFirstApp = gql`
+  query GetFirstApp {
+    app(limit: 1) {
+      id
+      name
+      pages {
+        id
+        name
+      }
+    }
+  }
+`
 export const EditApp = gql`
   mutation EditApp($input: app_set_input!, $id: uuid!) {
     update_app_by_pk(_set: $input, pk_columns: { id: $id }) {
@@ -15163,13 +15853,63 @@ export const EditApp = gql`
     }
   }
 `
+export const CreateAtomType = gql`
+  mutation CreateAtomType($input: atom_type_insert_input!) {
+    insert_atom_type_one(object: $input) {
+      ...__AtomType
+    }
+  }
+  ${__AtomType}
+`
+export const DeleteAtomTypesWhere = gql`
+  mutation DeleteAtomTypesWhere($where: atom_type_bool_exp!) {
+    delete_atom_type(where: $where) {
+      returning {
+        ...__AtomType
+      }
+    }
+  }
+  ${__AtomType}
+`
+export const GetAtomType = gql`
+  query GetAtomType($atomTypeId: uuid!) {
+    atom_type_by_pk(id: $atomTypeId) {
+      ...__AtomType
+    }
+  }
+  ${__AtomType}
+`
+export const GetAtomTypes = gql`
+  query GetAtomTypes {
+    atom_type {
+      ...__AtomType
+    }
+  }
+  ${__AtomType}
+`
+export const GetAtomTypesWhere = gql`
+  query GetAtomTypesWhere($where: atom_type_bool_exp!) {
+    atom_type(where: $where) {
+      ...__AtomType
+    }
+  }
+  ${__AtomType}
+`
+export const UpdateAtomType = gql`
+  mutation UpdateAtomType($input: atom_type_set_input!, $atomTypeId: uuid!) {
+    update_atom_type_by_pk(_set: $input, pk_columns: { id: $atomTypeId }) {
+      ...__AtomType
+    }
+  }
+  ${__AtomType}
+`
 export const CreateAtom = gql`
   mutation CreateAtom($data: atom_insert_input!) {
     insert_atom_one(object: $data) {
-      ...__Atom
+      ...LibraryExplorer__Atom
     }
   }
-  ${__Atom}
+  ${LibraryExplorer__Atom}
 `
 export const DeleteAllAtoms = gql`
   mutation DeleteAllAtoms {
@@ -15181,10 +15921,10 @@ export const DeleteAllAtoms = gql`
 export const DeleteAtom = gql`
   mutation DeleteAtom($atomId: uuid!) {
     delete_atom_by_pk(id: $atomId) {
-      ...__Atom
+      ...LibraryExplorer__Atom
     }
   }
-  ${__Atom}
+  ${LibraryExplorer__Atom}
 `
 export const DeleteAtomsWhere = gql`
   mutation DeleteAtomsWhere($where: atom_bool_exp!) {
@@ -15215,10 +15955,10 @@ export const GetAtomsList = gql`
 export const GetAtomsTypes = gql`
   query GetAtomsTypes {
     atom_type {
-      description
-      value
+      ...__AtomType
     }
   }
+  ${__AtomType}
 `
 export const GetAtomsWhere = gql`
   query GetAtomsWhere($where: atom_bool_exp!) {
@@ -15231,24 +15971,17 @@ export const GetAtomsWhere = gql`
 export const UpdateAtom = gql`
   mutation UpdateAtom($input: atom_set_input!, $atomId: uuid!) {
     update_atom_by_pk(_set: $input, pk_columns: { id: $atomId }) {
-      ...__Atom
+      ...LibraryExplorer__Atom
     }
   }
-  ${__Atom}
+  ${LibraryExplorer__Atom}
 `
 export const AddChildComponentElement = gql`
-  mutation AddChildComponentElement(
-    $componentElement: component_element_insert_input!
-    $componentLink: component_link_insert_input!
-  ) {
-    insert_component_element_one(object: $componentElement) {
-      ...__ComponentElement
-    }
-    insert_component_link_one(object: $componentLink) {
+  mutation AddChildComponentElement($data: component_link_insert_input!) {
+    insert_component_link_one(object: $data) {
       ...PageElement__ComponentLink
     }
   }
-  ${__ComponentElement}
   ${PageElement__ComponentLink}
 `
 export const CreateComponentElement = gql`
@@ -15299,10 +16032,10 @@ export const UpdateComponentElement = gql`
 export const CreateComponent = gql`
   mutation CreateComponent($input: component_insert_input!) {
     insert_component_one(object: $input) {
-      ...__Component
+      ...LibraryExplorer__Component
     }
   }
-  ${__Component}
+  ${LibraryExplorer__Component}
 `
 export const DeleteAllComponents = gql`
   mutation DeleteAllComponents {
@@ -15314,9 +16047,10 @@ export const DeleteAllComponents = gql`
 export const DeleteComponent = gql`
   mutation DeleteComponent($componentId: uuid!) {
     delete_component_by_pk(id: $componentId) {
-      id
+      ...LibraryExplorer__Component
     }
   }
+  ${LibraryExplorer__Component}
 `
 export const DeleteComponentsWhere = gql`
   mutation DeleteComponentsWhere($where: component_bool_exp!) {
@@ -15363,10 +16097,10 @@ export const GetComponentsWhere = gql`
 export const UpdateComponent = gql`
   mutation UpdateComponent($componentId: uuid!, $input: component_set_input!) {
     update_component_by_pk(pk_columns: { id: $componentId }, _set: $input) {
-      ...__Component
+      ...LibraryExplorer__Component
     }
   }
-  ${__Component}
+  ${LibraryExplorer__Component}
 `
 export const CreateLambda = gql`
   mutation CreateLambda($input: [lambda_insert_input!]!) {
@@ -15481,13 +16215,21 @@ export const DeleteUserLibraries = gql`
     }
   }
 `
-export const GetLibraries = gql`
-  query GetLibraries {
+export const LibraryExplorer = gql`
+  query LibraryExplorer {
     library {
-      ...__Library
+      id
+      name
+      components {
+        ...LibraryExplorer__Component
+      }
+      atoms {
+        ...LibraryExplorer__Atom
+      }
     }
   }
-  ${__Library}
+  ${LibraryExplorer__Component}
+  ${LibraryExplorer__Atom}
 `
 export const UpdateLibrary = gql`
   mutation UpdateLibrary($input: library_set_input!, $libraryId: uuid!) {
@@ -15525,11 +16267,11 @@ export const GetPagesList = gql`
   query GetPagesList($appId: uuid!) {
     app_by_pk(id: $appId) {
       pages {
-        ...App__Page
+        id
+        name
       }
     }
   }
-  ${App__Page}
 `
 export const CreatePageElement = gql`
   mutation CreatePageElement($input: page_element_insert_input!) {

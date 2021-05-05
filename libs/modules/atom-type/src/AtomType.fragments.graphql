@@ -1,0 +1,4 @@
+fragment __AtomType on atom_type {
+  id
+  label
+}

@@ -1,0 +1,12 @@
+query LibraryExplorer {
+  library {
+    id
+    name
+    components {
+      ...LibraryExplorer__Component
+    }
+    atoms {
+      ...LibraryExplorer__Atom
+    }
+  }
+}

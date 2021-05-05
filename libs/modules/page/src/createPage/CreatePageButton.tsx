@@ -6,5 +6,12 @@ import React from 'react'
 export const CreatePageButton = () => {
   const { openCreateModal } = useCRUDModalForm(EntityType.Page)
 
-  return <Button icon={<PlusOutlined />} onClick={() => openCreateModal()} />
+  return (
+    <Button
+      type="primary"
+      size="small"
+      icon={<PlusOutlined />}
+      onClick={() => openCreateModal()}
+    />
+  )
 }

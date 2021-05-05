@@ -400,16 +400,16 @@ enum app_update_column {
 columns and relationships of "atom"
 """
 type atom {
-  _atom_type: atom_type_enum
+  atom_type_id: uuid!
   id: uuid!
   library_id: uuid
   owner_id: String
+  prop_type_c_id: uuid
 
   """
   An object relationship
   """
-  propTypes: prop_type_c
-  prop_type_c_id: uuid
+  props: prop_type_c
 
   """
   An array relationship
@@ -530,7 +530,11 @@ type atom {
     """
     where: tag_atom_bool_exp
   ): tag_atom_aggregate!
-  type: String!
+
+  """
+  An object relationship
+  """
+  type: atom_type!
 }
 
 """
@@ -576,17 +580,17 @@ Boolean expression to filter rows from the table "atom". All fields are combined
 """
 input atom_bool_exp {
   _and: [atom_bool_exp!]
-  _atom_type: atom_type_enum_comparison_exp
   _not: atom_bool_exp
   _or: [atom_bool_exp!]
+  atom_type_id: uuid_comparison_exp
   id: uuid_comparison_exp
   library_id: uuid_comparison_exp
   owner_id: String_comparison_exp
-  propTypes: prop_type_c_bool_exp
   prop_type_c_id: uuid_comparison_exp
+  props: prop_type_c_bool_exp
   styles: style_atom_bool_exp
   tags: tag_atom_bool_exp
-  type: String_comparison_exp
+  type: atom_type_bool_exp
 }
 
 """
@@ -603,59 +607,59 @@ enum atom_constraint {
 input type for inserting data into table "atom"
 """
 input atom_insert_input {
-  _atom_type: atom_type_enum
+  atom_type_id: uuid
   id: uuid
   library_id: uuid
   owner_id: String
-  propTypes: prop_type_c_obj_rel_insert_input
   prop_type_c_id: uuid
+  props: prop_type_c_obj_rel_insert_input
   styles: style_atom_arr_rel_insert_input
   tags: tag_atom_arr_rel_insert_input
-  type: String
+  type: atom_type_obj_rel_insert_input
 }
 
 """
 aggregate max on columns
 """
 type atom_max_fields {
+  atom_type_id: uuid
   id: uuid
   library_id: uuid
   owner_id: String
   prop_type_c_id: uuid
-  type: String
 }
 
 """
 order by max() on columns of table "atom"
 """
 input atom_max_order_by {
+  atom_type_id: order_by
   id: order_by
   library_id: order_by
   owner_id: order_by
   prop_type_c_id: order_by
-  type: order_by
 }
 
 """
 aggregate min on columns
 """
 type atom_min_fields {
+  atom_type_id: uuid
   id: uuid
   library_id: uuid
   owner_id: String
   prop_type_c_id: uuid
-  type: String
 }
 
 """
 order by min() on columns of table "atom"
 """
 input atom_min_order_by {
+  atom_type_id: order_by
   id: order_by
   library_id: order_by
   owner_id: order_by
   prop_type_c_id: order_by
-  type: order_by
 }
 
 """
@@ -698,15 +702,15 @@ input atom_on_conflict {
 Ordering options when selecting data from "atom".
 """
 input atom_order_by {
-  _atom_type: order_by
+  atom_type_id: order_by
   id: order_by
   library_id: order_by
   owner_id: order_by
-  propTypes: prop_type_c_order_by
   prop_type_c_id: order_by
+  props: prop_type_c_order_by
   styles_aggregate: style_atom_aggregate_order_by
   tags_aggregate: tag_atom_aggregate_order_by
-  type: order_by
+  type: atom_type_order_by
 }
 
 """
@@ -723,7 +727,7 @@ enum atom_select_column {
   """
   column name
   """
-  _atom_type
+  atom_type_id
 
   """
   column name
@@ -744,31 +748,84 @@ enum atom_select_column {
   column name
   """
   prop_type_c_id
-
-  """
-  column name
-  """
-  type
 }
 
 """
 input type for updating data in table "atom"
 """
 input atom_set_input {
-  _atom_type: atom_type_enum
+  atom_type_id: uuid
   id: uuid
   library_id: uuid
   owner_id: String
   prop_type_c_id: uuid
-  type: String
 }
 
 """
 columns and relationships of "atom_type"
 """
 type atom_type {
-  description: String
-  value: String!
+  """
+  An array relationship
+  """
+  atoms(
+    """
+    distinct select on columns
+    """
+    distinct_on: [atom_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [atom_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: atom_bool_exp
+  ): [atom!]!
+
+  """
+  An aggregate relationship
+  """
+  atoms_aggregate(
+    """
+    distinct select on columns
+    """
+    distinct_on: [atom_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [atom_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: atom_bool_exp
+  ): atom_aggregate!
+  id: uuid!
+  label: String!
 }
 
 """
@@ -795,8 +852,9 @@ input atom_type_bool_exp {
   _and: [atom_type_bool_exp!]
   _not: atom_type_bool_exp
   _or: [atom_type_bool_exp!]
-  description: String_comparison_exp
-  value: String_comparison_exp
+  atoms: atom_bool_exp
+  id: uuid_comparison_exp
+  label: String_comparison_exp
 }
 
 """
@@ -806,148 +864,37 @@ enum atom_type_constraint {
   """
   unique or primary key constraint
   """
-  vertexType_pkey
-}
+  atom_type_id_key
 
-enum atom_type_enum {
-  React_Affix
-  React_Alert
-  React_Anchor
-  React_Anchor_Link
-  React_AutoComplete
-  React_Avatar
-  React_BackTop
-  React_Badge
-  React_Breadcrumb
-  React_Breadcrumb_Item
-  React_Button
-  React_Calendar
-  React_Card
-  React_Card_Grid
-  React_Card_Meta
-  React_Carousel
-  React_Cascader
-  React_Checkbox
-  React_Collapse
-  React_Collapse_Panel
-  React_Comment
-  React_ConfigProvider
-  React_DatePicker
-  React_Descriptions
-  React_Descriptions_Item
-  React_Divider
-  React_Drawer
-  React_Dropdown
-  React_Empty
-  React_Form
-  React_Form_Item
-  React_Form_ItemHook
-  React_Form_List
-  React_Fragment
-  React_Grid_Col
-  React_Grid_Row
-  React_Html_A
-  React_Html_Div
-  React_Html_P
-  React_Html_Span
-  React_Icon
-  React_Input
-  React_InputNumber
-  React_Layout
-  React_Layout_Content
-  React_Layout_Footer
-  React_Layout_Header
-  React_Layout_Sider
-  React_List
-  React_List_Item
-  React_List_Item_Meta
-  React_Mapper
-  React_Mentions
-  React_Mentions_Option
-  React_Menu
-  React_Menu_Item
-  React_Menu_ItemGroup
-  React_Menu_SubMenu
-  React_Modal
-  React_PageHeader
-  React_Page_Container
-  React_Pagination
-  React_Popconfirm
-  React_Popover
-  React_Progress
-  React_Provider
-  React_RGL_Container
-  React_RGL_Item
-  React_RGL_ResponsiveContainer
-  React_Radio
-  React_Radio_Group
-  React_Rate
-  React_RenderComponent
-  React_RenderContainer
-  React_Result
-  React_Select
-  React_Select_Option
-  React_Skeleton
-  React_Slider
-  React_Space
-  React_Spin
-  React_Statistic
-  React_Steps
-  React_Steps_Step
-  React_Switch
-  React_Table
-  React_Tabs
-  React_Tabs_TabPane
-  React_Tag
-  React_Text
-  React_TimePicker
-  React_Timeline
-  React_Timeline_Item
-  React_Tooltip
-  React_Transfer
-  React_Tree
-  React_TreeNode
-  React_TreeSelect
-  React_Typography
-  React_Typography_Paragraph
-  React_Typography_Text
-  React_Typography_Title
-  React_Upload
-}
-
-"""
-Boolean expression to compare columns of type "atom_type_enum". All fields are combined with logical 'AND'.
-"""
-input atom_type_enum_comparison_exp {
-  _eq: atom_type_enum
-  _in: [atom_type_enum!]
-  _is_null: Boolean
-  _neq: atom_type_enum
-  _nin: [atom_type_enum!]
+  """
+  unique or primary key constraint
+  """
+  atom_type_pkey
 }
 
 """
 input type for inserting data into table "atom_type"
 """
 input atom_type_insert_input {
-  description: String
-  value: String
+  atoms: atom_arr_rel_insert_input
+  id: uuid
+  label: String
 }
 
 """
 aggregate max on columns
 """
 type atom_type_max_fields {
-  description: String
-  value: String
+  id: uuid
+  label: String
 }
 
 """
 aggregate min on columns
 """
 type atom_type_min_fields {
-  description: String
-  value: String
+  id: uuid
+  label: String
 }
 
 """
@@ -966,6 +913,18 @@ type atom_type_mutation_response {
 }
 
 """
+input type for inserting object relation for remote table "atom_type"
+"""
+input atom_type_obj_rel_insert_input {
+  data: atom_type_insert_input!
+
+  """
+  on conflict condition
+  """
+  on_conflict: atom_type_on_conflict
+}
+
+"""
 on conflict condition type for table "atom_type"
 """
 input atom_type_on_conflict {
@@ -978,15 +937,16 @@ input atom_type_on_conflict {
 Ordering options when selecting data from "atom_type".
 """
 input atom_type_order_by {
-  description: order_by
-  value: order_by
+  atoms_aggregate: atom_aggregate_order_by
+  id: order_by
+  label: order_by
 }
 
 """
 primary key columns input for table: atom_type
 """
 input atom_type_pk_columns_input {
-  value: String!
+  id: uuid!
 }
 
 """
@@ -996,20 +956,20 @@ enum atom_type_select_column {
   """
   column name
   """
-  description
+  id
 
   """
   column name
   """
-  value
+  label
 }
 
 """
 input type for updating data in table "atom_type"
 """
 input atom_type_set_input {
-  description: String
-  value: String
+  id: uuid
+  label: String
 }
 
 """
@@ -1019,12 +979,12 @@ enum atom_type_update_column {
   """
   column name
   """
-  description
+  id
 
   """
   column name
   """
-  value
+  label
 }
 
 """
@@ -1034,7 +994,7 @@ enum atom_update_column {
   """
   column name
   """
-  _atom_type
+  atom_type_id
 
   """
   column name
@@ -1055,11 +1015,6 @@ enum atom_update_column {
   column name
   """
   prop_type_c_id
-
-  """
-  column name
-  """
-  type
 }
 
 """
@@ -2110,13 +2065,13 @@ type component_link {
   An object relationship
   """
   sourceElement: component_element!
-  source_element_id: uuid!
+  source_component_element_id: uuid!
 
   """
   An object relationship
   """
   targetElement: component_element!
-  target_element_id: uuid!
+  target_component_element_id: uuid!
 }
 
 """
@@ -2209,9 +2164,9 @@ input component_link_bool_exp {
   order: Int_comparison_exp
   props: jsonb_comparison_exp
   sourceElement: component_element_bool_exp
-  source_element_id: uuid_comparison_exp
+  source_component_element_id: uuid_comparison_exp
   targetElement: component_element_bool_exp
-  target_element_id: uuid_comparison_exp
+  target_component_element_id: uuid_comparison_exp
 }
 
 """
@@ -2264,9 +2219,9 @@ input component_link_insert_input {
   order: Int
   props: jsonb
   sourceElement: component_element_obj_rel_insert_input
-  source_element_id: uuid
+  source_component_element_id: uuid
   targetElement: component_element_obj_rel_insert_input
-  target_element_id: uuid
+  target_component_element_id: uuid
 }
 
 """
@@ -2277,8 +2232,8 @@ type component_link_max_fields {
   component_id: uuid
   id: uuid
   order: Int
-  source_element_id: uuid
-  target_element_id: uuid
+  source_component_element_id: uuid
+  target_component_element_id: uuid
 }
 
 """
@@ -2289,8 +2244,8 @@ input component_link_max_order_by {
   component_id: order_by
   id: order_by
   order: order_by
-  source_element_id: order_by
-  target_element_id: order_by
+  source_component_element_id: order_by
+  target_component_element_id: order_by
 }
 
 """
@@ -2301,8 +2256,8 @@ type component_link_min_fields {
   component_id: uuid
   id: uuid
   order: Int
-  source_element_id: uuid
-  target_element_id: uuid
+  source_component_element_id: uuid
+  target_component_element_id: uuid
 }
 
 """
@@ -2313,8 +2268,8 @@ input component_link_min_order_by {
   component_id: order_by
   id: order_by
   order: order_by
-  source_element_id: order_by
-  target_element_id: order_by
+  source_component_element_id: order_by
+  target_component_element_id: order_by
 }
 
 """
@@ -2353,9 +2308,9 @@ input component_link_order_by {
   order: order_by
   props: order_by
   sourceElement: component_element_order_by
-  source_element_id: order_by
+  source_component_element_id: order_by
   targetElement: component_element_order_by
-  target_element_id: order_by
+  target_component_element_id: order_by
 }
 
 """
@@ -2404,12 +2359,12 @@ enum component_link_select_column {
   """
   column name
   """
-  source_element_id
+  source_component_element_id
 
   """
   column name
   """
-  target_element_id
+  target_component_element_id
 }
 
 """
@@ -2421,8 +2376,8 @@ input component_link_set_input {
   id: uuid
   order: Int
   props: jsonb
-  source_element_id: uuid
-  target_element_id: uuid
+  source_component_element_id: uuid
+  target_component_element_id: uuid
 }
 
 """
@@ -2513,12 +2468,12 @@ enum component_link_update_column {
   """
   column name
   """
-  source_element_id
+  source_component_element_id
 
   """
   column name
   """
-  target_element_id
+  target_component_element_id
 }
 
 """
@@ -4187,7 +4142,7 @@ type mutation_root {
   """
   delete single row from the table: "atom_type"
   """
-  delete_atom_type_by_pk(value: String!): atom_type
+  delete_atom_type_by_pk(id: uuid!): atom_type
 
   """
   delete data from the table: "category"
@@ -4522,6 +4477,21 @@ type mutation_root {
   delete single row from the table: "tag_atom"
   """
   delete_tag_atom_by_pk(atom_id: uuid!, tag_id: uuid!): tag_atom
+
+  """
+  delete data from the table: "tag_atom_type"
+  """
+  delete_tag_atom_type(
+    """
+    filter the rows which have to be deleted
+    """
+    where: tag_atom_type_bool_exp!
+  ): tag_atom_type_mutation_response
+
+  """
+  delete single row from the table: "tag_atom_type"
+  """
+  delete_tag_atom_type_by_pk(id: uuid!): tag_atom_type
 
   """
   delete single row from the table: "tag"
@@ -5389,6 +5359,36 @@ type mutation_root {
     """
     on_conflict: tag_atom_on_conflict
   ): tag_atom
+
+  """
+  insert data into the table: "tag_atom_type"
+  """
+  insert_tag_atom_type(
+    """
+    the rows to be inserted
+    """
+    objects: [tag_atom_type_insert_input!]!
+
+    """
+    on conflict condition
+    """
+    on_conflict: tag_atom_type_on_conflict
+  ): tag_atom_type_mutation_response
+
+  """
+  insert a single row into the table: "tag_atom_type"
+  """
+  insert_tag_atom_type_one(
+    """
+    the row to be inserted
+    """
+    object: tag_atom_type_insert_input!
+
+    """
+    on conflict condition
+    """
+    on_conflict: tag_atom_type_on_conflict
+  ): tag_atom_type
 
   """
   insert data into the table: "tag_component"
@@ -6403,6 +6403,32 @@ type mutation_root {
     _set: tag_atom_set_input
     pk_columns: tag_atom_pk_columns_input!
   ): tag_atom
+
+  """
+  update data of the table: "tag_atom_type"
+  """
+  update_tag_atom_type(
+    """
+    sets the columns of the filtered rows to the given values
+    """
+    _set: tag_atom_type_set_input
+
+    """
+    filter the rows which have to be updated
+    """
+    where: tag_atom_type_bool_exp!
+  ): tag_atom_type_mutation_response
+
+  """
+  update single row of the table: "tag_atom_type"
+  """
+  update_tag_atom_type_by_pk(
+    """
+    sets the columns of the filtered rows to the given values
+    """
+    _set: tag_atom_type_set_input
+    pk_columns: tag_atom_type_pk_columns_input!
+  ): tag_atom_type
 
   """
   update single row of the table: "tag"
@@ -8456,7 +8482,7 @@ columns and relationships of "prop_type"
 """
 type prop_type {
   id: uuid!
-  isArray: Boolean!
+  is_array: Boolean!
   key: String!
 
   """
@@ -8518,7 +8544,7 @@ input prop_type_bool_exp {
   _not: prop_type_bool_exp
   _or: [prop_type_bool_exp!]
   id: uuid_comparison_exp
-  isArray: Boolean_comparison_exp
+  is_array: Boolean_comparison_exp
   key: String_comparison_exp
   propTypeCollection: prop_type_c_bool_exp
   prop_type_c_id: uuid_comparison_exp
@@ -8895,7 +8921,7 @@ input type for inserting data into table "prop_type"
 """
 input prop_type_insert_input {
   id: uuid
-  isArray: Boolean
+  is_array: Boolean
   key: String
   propTypeCollection: prop_type_c_obj_rel_insert_input
   prop_type_c_id: uuid
@@ -8980,7 +9006,7 @@ Ordering options when selecting data from "prop_type".
 """
 input prop_type_order_by {
   id: order_by
-  isArray: order_by
+  is_array: order_by
   key: order_by
   propTypeCollection: prop_type_c_order_by
   prop_type_c_id: order_by
@@ -9007,7 +9033,7 @@ enum prop_type_select_column {
   """
   column name
   """
-  isArray
+  is_array
 
   """
   column name
@@ -9030,7 +9056,7 @@ input type for updating data in table "prop_type"
 """
 input prop_type_set_input {
   id: uuid
-  isArray: Boolean
+  is_array: Boolean
   key: String
   prop_type_c_id: uuid
   value_type: value_type_enum
@@ -9048,7 +9074,7 @@ enum prop_type_update_column {
   """
   column name
   """
-  isArray
+  is_array
 
   """
   column name
@@ -9617,7 +9643,7 @@ type query_root {
   """
   fetch data from the table: "atom_type" using primary key columns
   """
-  atom_type_by_pk(value: String!): atom_type
+  atom_type_by_pk(id: uuid!): atom_type
 
   """
   fetch data from the table: "category"
@@ -11122,6 +11148,71 @@ type query_root {
   fetch data from the table: "tag_atom" using primary key columns
   """
   tag_atom_by_pk(atom_id: uuid!, tag_id: uuid!): tag_atom
+
+  """
+  fetch data from the table: "tag_atom_type"
+  """
+  tag_atom_type(
+    """
+    distinct select on columns
+    """
+    distinct_on: [tag_atom_type_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [tag_atom_type_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: tag_atom_type_bool_exp
+  ): [tag_atom_type!]!
+
+  """
+  fetch aggregated fields from the table: "tag_atom_type"
+  """
+  tag_atom_type_aggregate(
+    """
+    distinct select on columns
+    """
+    distinct_on: [tag_atom_type_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [tag_atom_type_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: tag_atom_type_bool_exp
+  ): tag_atom_type_aggregate!
+
+  """
+  fetch data from the table: "tag_atom_type" using primary key columns
+  """
+  tag_atom_type_by_pk(id: uuid!): tag_atom_type
 
   """
   fetch data from the table: "tag" using primary key columns
@@ -12696,7 +12787,7 @@ type subscription_root {
   """
   fetch data from the table: "atom_type" using primary key columns
   """
-  atom_type_by_pk(value: String!): atom_type
+  atom_type_by_pk(id: uuid!): atom_type
 
   """
   fetch data from the table: "category"
@@ -14203,6 +14294,71 @@ type subscription_root {
   tag_atom_by_pk(atom_id: uuid!, tag_id: uuid!): tag_atom
 
   """
+  fetch data from the table: "tag_atom_type"
+  """
+  tag_atom_type(
+    """
+    distinct select on columns
+    """
+    distinct_on: [tag_atom_type_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [tag_atom_type_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: tag_atom_type_bool_exp
+  ): [tag_atom_type!]!
+
+  """
+  fetch aggregated fields from the table: "tag_atom_type"
+  """
+  tag_atom_type_aggregate(
+    """
+    distinct select on columns
+    """
+    distinct_on: [tag_atom_type_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [tag_atom_type_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: tag_atom_type_bool_exp
+  ): tag_atom_type_aggregate!
+
+  """
+  fetch data from the table: "tag_atom_type" using primary key columns
+  """
+  tag_atom_type_by_pk(id: uuid!): tag_atom_type
+
+  """
   fetch data from the table: "tag" using primary key columns
   """
   tag_by_pk(id: uuid!): tag
@@ -15388,6 +15544,136 @@ input type for updating data in table "tag_atom"
 input tag_atom_set_input {
   atom_id: uuid
   tag_id: uuid
+}
+
+"""
+columns and relationships of "tag_atom_type"
+"""
+type tag_atom_type {
+  id: uuid!
+}
+
+"""
+aggregated selection of "tag_atom_type"
+"""
+type tag_atom_type_aggregate {
+  aggregate: tag_atom_type_aggregate_fields
+  nodes: [tag_atom_type!]!
+}
+
+"""
+aggregate fields of "tag_atom_type"
+"""
+type tag_atom_type_aggregate_fields {
+  count(columns: [tag_atom_type_select_column!], distinct: Boolean): Int!
+  max: tag_atom_type_max_fields
+  min: tag_atom_type_min_fields
+}
+
+"""
+Boolean expression to filter rows from the table "tag_atom_type". All fields are combined with a logical 'AND'.
+"""
+input tag_atom_type_bool_exp {
+  _and: [tag_atom_type_bool_exp!]
+  _not: tag_atom_type_bool_exp
+  _or: [tag_atom_type_bool_exp!]
+  id: uuid_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "tag_atom_type"
+"""
+enum tag_atom_type_constraint {
+  """
+  unique or primary key constraint
+  """
+  tag_atom_type_pkey
+}
+
+"""
+input type for inserting data into table "tag_atom_type"
+"""
+input tag_atom_type_insert_input {
+  id: uuid
+}
+
+"""
+aggregate max on columns
+"""
+type tag_atom_type_max_fields {
+  id: uuid
+}
+
+"""
+aggregate min on columns
+"""
+type tag_atom_type_min_fields {
+  id: uuid
+}
+
+"""
+response of any mutation on the table "tag_atom_type"
+"""
+type tag_atom_type_mutation_response {
+  """
+  number of rows affected by the mutation
+  """
+  affected_rows: Int!
+
+  """
+  data from the rows affected by the mutation
+  """
+  returning: [tag_atom_type!]!
+}
+
+"""
+on conflict condition type for table "tag_atom_type"
+"""
+input tag_atom_type_on_conflict {
+  constraint: tag_atom_type_constraint!
+  update_columns: [tag_atom_type_update_column!]!
+  where: tag_atom_type_bool_exp
+}
+
+"""
+Ordering options when selecting data from "tag_atom_type".
+"""
+input tag_atom_type_order_by {
+  id: order_by
+}
+
+"""
+primary key columns input for table: tag_atom_type
+"""
+input tag_atom_type_pk_columns_input {
+  id: uuid!
+}
+
+"""
+select columns of table "tag_atom_type"
+"""
+enum tag_atom_type_select_column {
+  """
+  column name
+  """
+  id
+}
+
+"""
+input type for updating data in table "tag_atom_type"
+"""
+input tag_atom_type_set_input {
+  id: uuid
+}
+
+"""
+update columns of table "tag_atom_type"
+"""
+enum tag_atom_type_update_column {
+  """
+  column name
+  """
+  id
 }
 
 """

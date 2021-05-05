@@ -6,7 +6,7 @@ import {
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
 import {
-  GetAppsListGql,
+  refetchGetAppsListQuery,
   useDeleteAppMutation,
   useGetAppItemQuery,
 } from '@codelab/hasura'
@@ -22,11 +22,8 @@ export const DeleteAppForm = (props: DeleteAppFormProps) => {
   const { deleteIds: appDeleteIds } = state
 
   const [mutate, { loading: deleting }] = useDeleteAppMutation({
-    refetchQueries: [
-      {
-        query: GetAppsListGql,
-      },
-    ],
+    awaitRefetchQueries: true,
+    refetchQueries: [refetchGetAppsListQuery()],
   })
 
   useEffect(() => {

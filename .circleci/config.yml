@@ -386,8 +386,8 @@ jobs:
       - run:
           name: Deploying to eb
           command: |
-            eb use app-prod --region ap-east-1 --profile eb-cli
-            eb deploy app-prod --region ap-east-1 --profile eb-cli
+            # eb use app-prod --region ap-east-1 --profile eb-cli
+            # eb deploy app-prod --region ap-east-1 --profile eb-cli
 
 workflows:
   app-staging-pr:

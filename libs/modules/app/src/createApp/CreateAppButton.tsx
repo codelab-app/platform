@@ -10,13 +10,21 @@ export const CreateAppButton = () => {
     <Button
       type="primary"
       onClick={() => {
-        console.log('open')
-        // openCreateAppModal()
         openCreateModal()
       }}
       icon={<PlusOutlined />}
     >
       Create App
+    </Button>
+  )
+}
+
+export const CreateAppButtonNow = () => {
+  const { openCreateModal } = useCRUDModalForm(EntityType.App)
+
+  return (
+    <Button onClick={() => openCreateModal()} type="primary">
+      Create Now
     </Button>
   )
 }

@@ -7,13 +7,13 @@ import {
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
 import {
-  GetPropTypeCListGql,
+  refetchGetPropTypeCListQuery,
   useCreatePropTypeCMutation,
 } from '@codelab/hasura'
 import React, { useContext, useEffect } from 'react'
 import { DeepPartial } from 'uniforms'
 import { AutoFields, SelectField } from 'uniforms-antd'
-import { PropType } from '../PropTypesSchema'
+import { PropType } from '../propTypesSchema'
 import {
   CreatePropTypeCInput,
   createPropTypeCSchema,
@@ -27,11 +27,7 @@ export const CreatePropTypeCForm = (props: CreatePropTypeCFormProps) => {
 
   const [mutate, { loading: creating }] = useCreatePropTypeCMutation({
     awaitRefetchQueries: true,
-    refetchQueries: [
-      {
-        query: GetPropTypeCListGql,
-      },
-    ],
+    refetchQueries: [refetchGetPropTypeCListQuery()],
   })
 
   useEffect(() => {

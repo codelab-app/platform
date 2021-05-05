@@ -6,7 +6,10 @@ import {
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import { GetPagesListGql, useCreatePageMutation } from '@codelab/hasura'
+import {
+  refetchGetPagesListQuery,
+  useCreatePageMutation,
+} from '@codelab/hasura'
 import React, { useContext, useEffect } from 'react'
 import { DeepPartial } from 'uniforms'
 import { AutoFields } from 'uniforms-antd'
@@ -17,16 +20,14 @@ type CreatePageFormProps = UniFormUseCaseProps<CreatePageInput>
 export const CreatePageForm = (props: CreatePageFormProps) => {
   const { reset, setLoading } = useCRUDModalForm(EntityType.Page)
   const { appId } = useContext(AppContext)
+  console.log(appId)
 
   const [mutate, { loading: creating }] = useCreatePageMutation({
     awaitRefetchQueries: true,
     refetchQueries: [
-      {
-        query: GetPagesListGql,
-        variables: {
-          appId,
-        },
-      },
+      refetchGetPagesListQuery({
+        appId,
+      }),
     ],
   })
 
