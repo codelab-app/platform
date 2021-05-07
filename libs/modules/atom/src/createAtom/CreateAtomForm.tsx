@@ -3,6 +3,7 @@ import {
   EntityType,
   FormUniforms,
   LibraryContext,
+  SelectField,
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
@@ -14,7 +15,6 @@ import {
 import _ from 'lodash'
 import React, { useContext, useEffect } from 'react'
 import { DeepPartial } from 'uniforms'
-import { SelectField } from 'uniforms-antd'
 import { CreateAtomInput, createAtomSchema } from './createAtomSchema'
 
 type CreateAtomFormProps = UniFormUseCaseProps<CreateAtomInput>
@@ -78,7 +78,12 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
           value: library.id,
         }))}
       />
-      <SelectField name="atom_type_id" options={atomTypesOptions} />
+      <SelectField
+        showSearch={true}
+        optionFilterProp="label"
+        name="atom_type_id"
+        options={atomTypesOptions}
+      />
     </FormUniforms>
   )
 }
