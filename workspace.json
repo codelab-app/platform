@@ -380,14 +380,6 @@
           "options": {
             "lintFilePatterns": ["libs/modules/style/**/*.{ts,tsx,js,jsx}"]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/modules/style"],
-          "options": {
-            "jestConfig": "libs/modules/style/jest.config.js",
-            "passWithNoTests": true
-          }
         }
       }
     },
@@ -531,14 +523,6 @@
           "options": {
             "lintFilePatterns": ["libs/modules/atom/**/*.{ts,tsx,js,jsx}"]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/modules/atom"],
-          "options": {
-            "jestConfig": "libs/modules/atom/jest.config.js",
-            "passWithNoTests": true
-          }
         }
       }
     },
@@ -680,14 +664,6 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["libs/modules/prop-type/**/*.{ts,tsx,js,jsx}"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/modules/prop-type"],
-          "options": {
-            "jestConfig": "libs/modules/prop-type/jest.config.js",
-            "passWithNoTests": true
           }
         }
       }
