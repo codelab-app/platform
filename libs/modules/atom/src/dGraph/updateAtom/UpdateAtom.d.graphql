@@ -1,0 +1,9 @@
+mutation UpdateATOM($input: UpdateAtomInput!) {
+  updateAtom(input: $input){
+    numUids
+    atom {
+      ...__Atom
+    }
+  }
+}
+

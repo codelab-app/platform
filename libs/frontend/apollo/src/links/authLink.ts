@@ -18,7 +18,7 @@ export const authLink: ApolloLink = setContext(
     return {
       headers: {
         ...headers,
-        authorization: token ? `Bearer ${token}` : '',
+        // authorization: token ? `Bearer ${token}` : '', i guess we don't need this
       },
     }
   },

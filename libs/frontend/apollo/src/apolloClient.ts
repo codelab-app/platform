@@ -27,7 +27,7 @@ let apolloClient: ApolloClient<any> | undefined
 /** Creates a new ApolloClient instance */
 export const getApolloClient = (ctx: ApolloContext = {}) => {
   const link = ApolloLink.from([
-    setContext(() => ({ ...defaultContext, ...ctx })),
+    // setContext(() => ({ ...defaultContext, ...ctx })),
     errorLink,
     authLink,
     apiLink,

@@ -1,6 +1,5 @@
 export * from './createAtom'
 export * from './deleteAtom'
-export * from './dGraph'
 export * from './getAtoms'
 export * from './mainPane'
 export * from './updateAtom'

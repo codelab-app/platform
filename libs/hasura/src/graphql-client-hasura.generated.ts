@@ -10001,7 +10001,6 @@ export enum Value_Type_Enum {
   Boolean = 'Boolean',
   Lambda = 'Lambda',
   Number = 'Number',
-  Prop = 'Prop',
   String = 'String',
 }
 
@@ -10412,12 +10411,6 @@ export type GetComponentDetailQuery = {
 export type GetComponentsQueryVariables = Exact<{ [key: string]: never }>
 
 export type GetComponentsQuery = { component: Array<__ComponentFragment> }
-
-export type GetComponentsWhereQueryVariables = Exact<{
-  where: Component_Bool_Exp
-}>
-
-export type GetComponentsWhereQuery = { component: Array<__ComponentFragment> }
 
 export type UpdateComponentMutationVariables = Exact<{
   componentId: Scalars['uuid']
@@ -13232,70 +13225,6 @@ export function refetchGetComponentsQuery(
   variables?: GetComponentsQueryVariables,
 ) {
   return { query: GetComponentsGql, variables: variables }
-}
-export const GetComponentsWhereGql = gql`
-  query GetComponentsWhere($where: component_bool_exp!) {
-    component(where: $where) {
-      ...__Component
-    }
-  }
-  ${__ComponentFragmentDoc}
-`
-
-/**
- * __useGetComponentsWhereQuery__
- *
- * To run a query within a React component, call `useGetComponentsWhereQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetComponentsWhereQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetComponentsWhereQuery({
- *   variables: {
- *      where: // value for 'where'
- *   },
- * });
- */
-export function useGetComponentsWhereQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    GetComponentsWhereQuery,
-    GetComponentsWhereQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<
-    GetComponentsWhereQuery,
-    GetComponentsWhereQueryVariables
-  >(GetComponentsWhereGql, options)
-}
-export function useGetComponentsWhereLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetComponentsWhereQuery,
-    GetComponentsWhereQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<
-    GetComponentsWhereQuery,
-    GetComponentsWhereQueryVariables
-  >(GetComponentsWhereGql, options)
-}
-export type GetComponentsWhereQueryHookResult = ReturnType<
-  typeof useGetComponentsWhereQuery
->
-export type GetComponentsWhereLazyQueryHookResult = ReturnType<
-  typeof useGetComponentsWhereLazyQuery
->
-export type GetComponentsWhereQueryResult = Apollo.QueryResult<
-  GetComponentsWhereQuery,
-  GetComponentsWhereQueryVariables
->
-export function refetchGetComponentsWhereQuery(
-  variables?: GetComponentsWhereQueryVariables,
-) {
-  return { query: GetComponentsWhereGql, variables: variables }
 }
 export const UpdateComponentGql = gql`
   mutation UpdateComponent($componentId: uuid!, $input: component_set_input!) {
@@ -16169,14 +16098,6 @@ export const GetComponentDetail = gql`
 export const GetComponents = gql`
   query GetComponents {
     component {
-      ...__Component
-    }
-  }
-  ${__Component}
-`
-export const GetComponentsWhere = gql`
-  query GetComponentsWhere($where: component_bool_exp!) {
-    component(where: $where) {
       ...__Component
     }
   }
