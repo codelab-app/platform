@@ -12,6 +12,12 @@ generates:
     plugins:
       - schema-ast
 
+  schema.dgraph.graphql:
+    schema:
+      - http://127.0.0.1:8081/graphql:
+    plugins:
+      - schema-ast
+
   # Typescript + Apollo
   libs/hasura/src/graphql-client-hasura.generated.ts:
     schema:

@@ -1,16 +1,18 @@
 type User {
   id: ID!
+  # id: String! @id
   apps: [App!]
   libraries: [Library!]
 }
-
 type App {
   id: ID!
+  # id: String! @id
   name: String!
 }
 
 type Library {
   id: ID!
+  # id: String! @id
   name: String!
 }
 
