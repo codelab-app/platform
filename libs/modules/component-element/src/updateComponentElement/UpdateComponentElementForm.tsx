@@ -28,7 +28,7 @@ type UpdateComponentElementFormProps = UniFormUseCaseProps<UpdateComponentElemen
 
 /** Not intended to be used in a modal */
 export const UpdateComponentElementForm = (
-  props: UniFormUseCaseProps<UpdateComponentElementInput>,
+  props: UpdateComponentElementFormProps,
 ) => {
   const { reset, setLoading, state } = useCRUDModalForm(
     EntityType.ComponentElement,
