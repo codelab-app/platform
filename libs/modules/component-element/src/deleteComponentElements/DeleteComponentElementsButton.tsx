@@ -7,7 +7,7 @@ import {
 import { Button } from 'antd'
 import React from 'react'
 
-export const DeleteComponentElementButton = ({
+export const DeleteComponentElementsButton = ({
   ids,
   disabled,
 }: DeleteButtonProps) => {

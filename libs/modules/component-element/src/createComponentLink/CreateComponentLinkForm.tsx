@@ -25,7 +25,7 @@ export const CreateComponentLinkForm = ({
   ...props
 }: CreateLinkedComponentElementFormProps) => {
   const { reset, setLoading } = useCRUDModalForm(EntityType.ComponentElement)
-  const { componentId } = useContext(ComponentContext)
+  const { component } = useContext(ComponentContext)
 
   const [mutate, { loading: creating }] = useCreateComponentLinkMutation({
     awaitRefetchQueries: true,
@@ -40,11 +40,11 @@ export const CreateComponentLinkForm = ({
     return mutate({
       variables: {
         input: {
-          component_id: componentId,
+          component_id: component.id,
           source_component_element_id: sourceComponentElementId,
           targetElement: {
             data: {
-              component_id: componentId,
+              component_id: component.id,
               ...submitData,
             },
           },

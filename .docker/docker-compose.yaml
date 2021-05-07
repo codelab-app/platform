@@ -5,6 +5,40 @@
 #
 version: '3.8'
 services:
+  zero:
+    container_name: codelab-dgraph-zero
+    image: dgraph/dgraph:latest
+    volumes:
+      - dgraph:/dgraph
+    ports:
+      - 5080:5080
+      - 6080:6080
+    restart: on-failure
+    command: dgraph zero --my=zero:5080
+
+  alpha:
+    container_name: codelab-dgraph-alpha
+    depends_on:
+      - zero
+    image: dgraph/dgraph:latest
+    volumes:
+      - dgraph:/dgraph
+    ports:
+      - 8081:8080
+      - 9080:9080
+    restart: on-failure
+    command: dgraph alpha --my=alpha:7080 --zero=zero:5080 --security whitelist=0.0.0.0/0
+
+  # ratel:
+  #   container_name: codelab-dgraph-ratel
+  #   # https://discuss.dgraph.io/t/dgraph-ratel-docker-run-issue/13640
+  #   image: dgraph/dgraph:v21.03.0
+  #   volumes:
+  #     - dgraph:/dgraph
+  #   ports:
+  #     - 8000:8000
+  #   command: dgraph-ratel
+
   hasura:
     # image: hasura/graphql-engine:v2.0.0-alpha.8.cli-migrations-v3
     image: hasura/graphql-engine:v2.0.0-alpha.9
@@ -95,3 +129,5 @@ volumes:
     name: codelab-postgres-volume
   db_data_e2e:
     name: codelab-postgres-e2e-volume
+  dgraph:
+    name: codelab-dgraph-volume

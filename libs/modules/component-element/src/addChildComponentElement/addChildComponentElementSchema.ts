@@ -1,7 +1,6 @@
 import { JSONSchemaType } from 'ajv'
 
 export type AddChildComponentElementInput = {
-  // label: string
   atom_id: string
   parent_component_element_id: string
   component_id: string
@@ -11,9 +10,6 @@ export const addChildComponentElementSchema: JSONSchemaType<AddChildComponentEle
   title: 'Create Component Element Input',
   type: 'object',
   properties: {
-    // label: {
-    //   type: 'string',
-    // },
     atom_id: {
       type: 'string',
     },

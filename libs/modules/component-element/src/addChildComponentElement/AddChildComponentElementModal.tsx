@@ -20,11 +20,11 @@ export const AddChildComponentElementModal = ({
   return (
     <CrudModal
       modalProps={{
-        className: 'create-child-component-element-modal',
+        className: 'create-childComponentElement-modal',
       }}
       entityType={EntityType.ChildComponentElement}
       actionType={ActionType.Create}
-      okText="Create ComponentElement"
+      okText="Create ChildComponentElement"
       renderForm={() => (
         <AddChildComponentElementForm
           componentId={getSelectedComponentId()}

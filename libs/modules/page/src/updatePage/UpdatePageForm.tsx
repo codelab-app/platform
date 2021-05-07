@@ -11,7 +11,6 @@ import {
   useGetPageQuery,
   useUpdatePageMutation,
 } from '@codelab/hasura'
-import { Skeleton, Spin } from 'antd'
 import React, { useContext, useEffect } from 'react'
 import { DeepPartial } from 'uniforms'
 import { AutoFields } from 'uniforms-antd'
@@ -43,10 +42,6 @@ export const UpdatePageForm = (props: UpdatePageFormProps) => {
 
   const page = data?.page_by_pk
 
-  if (loading) {
-    return <Spin />
-  }
-
   const onSubmit = (submitData: DeepPartial<UpdatePageInput>) => {
     return mutate({
       variables: {
@@ -69,9 +64,7 @@ export const UpdatePageForm = (props: UpdatePageFormProps) => {
       onSubmitSuccess={() => reset()}
       {...props}
     >
-      <Skeleton active loading>
-        <AutoFields />
-      </Skeleton>
+      <AutoFields />
     </FormUniforms>
   )
 }

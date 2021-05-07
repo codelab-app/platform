@@ -8,7 +8,7 @@ import {
   SettingOutlined,
   TagOutlined,
 } from '@ant-design/icons'
-import { LibraryContext, PageType } from '@codelab/frontend/shared'
+import { AppContext, LibraryContext, PageType } from '@codelab/frontend/shared'
 import { Menu } from 'antd'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -18,6 +18,7 @@ import xw from 'xwind'
 export const LayoutNavigations = () => {
   const router = useRouter()
   const { libraries } = useContext(LibraryContext)
+  const { appId, pageId } = useContext(AppContext)
 
   return (
     <div data-testid="pane-main" css={xw`h-full`}>
@@ -36,12 +37,16 @@ export const LayoutNavigations = () => {
         </Menu.Item>
         <Menu.Divider />
         <Menu.Item
-          key={PageType.PageList}
+          key={PageType.PageDetail}
           icon={<CopyOutlined data-testid="pages-tab-trigger" title="Pages" />}
         >
           <Link
             href={{
-              pathname: PageType.PageList,
+              pathname: PageType.PageDetail,
+              query: {
+                appId,
+                pageId,
+              },
             }}
           >
             Pages

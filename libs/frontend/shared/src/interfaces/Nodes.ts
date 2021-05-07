@@ -6,9 +6,9 @@ import {
 import { AtomType } from './Hasura'
 
 export enum NodeType {
-  PageRoot = 'PageRoot',
+  Page = 'Page',
   PageElement = 'PageElement',
-  ComponentRoot = 'ComponentRoot',
+  Component = 'Component',
   ComponentElement = 'ComponentElement',
 }
 
@@ -16,6 +16,11 @@ export interface NodeBase {
   id: string
   label?: string | null
   nodeType: NodeType
+}
+
+export interface ComponentNode extends NodeBase {
+  nodeType: NodeType.Component
+  children?: Array<ComponentElementNode>
 }
 
 export interface ComponentElementNode extends NodeBase {
@@ -34,14 +39,9 @@ export interface PageElementNode extends NodeBase {
   children?: Array<PageElementNode>
 }
 
-export interface PageRootNode extends NodeBase {
-  nodeType: NodeType.PageRoot
+export interface PageNode extends NodeBase {
+  nodeType: NodeType.Page
   children?: Array<PageElementNode>
-}
-
-export interface ComponentRootNode extends NodeBase {
-  nodeType: NodeType.ComponentRoot
-  children?: Array<ComponentElementNode>
 }
 
 export interface NodeI {
@@ -54,5 +54,5 @@ export interface NodeI {
 export type CytoscapeNode =
   | PageElementNode
   | ComponentElementNode
-  | PageRootNode
-  | ComponentRootNode
+  | PageNode
+  | ComponentNode

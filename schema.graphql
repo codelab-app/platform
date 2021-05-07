@@ -1629,8 +1629,8 @@ type component_element {
   """
   An object relationship
   """
-  atom: atom
-  atom_id: uuid
+  atom: atom!
+  atom_id: uuid!
 
   """
   An object relationship

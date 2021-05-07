@@ -1,39 +1,27 @@
-import { useComponentBuilder } from '@codelab/frontend/builder'
 import { CytoscapeService } from '@codelab/frontend/cytoscape'
 import {
   ActionType,
   CheckedKeys,
+  ComponentContext,
+  ComponentElementNode,
+  ComponentNode,
   CrudModal,
   EntityType,
-  useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import {
-  refetchGetComponentDetailQuery,
-  useAddChildComponentElementMutation,
-} from '@codelab/hasura'
 import {
   AddChildComponentElementButton,
   AddChildComponentElementModal,
+  DeleteComponentElementsButton,
+  DeleteComponentElementsModal,
   UpdateComponentElementButton,
+  UpdateComponentElementModal,
 } from '@codelab/modules/component-element'
 import { Col, Row, Space, Tree } from 'antd'
 import { UpdateComponentForm } from 'libs/modules/component/src/updateComponent/UpdateComponentForm'
-import { DeleteComponentElementButton } from 'libs/modules/component-element/src/deleteComponentElement/DeleteComponentElementButton'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 
 export const ComponentTab = () => {
-  const { selectedComponent, setSelected } = useComponentBuilder()
-
-  const [addChildComponentElement] = useAddChildComponentElementMutation({
-    refetchQueries: [refetchGetComponentDetailQuery()],
-  })
-
-  const {
-    reset,
-    setLoading,
-    openCreateModal: openAddChildComponentModal,
-  } = useCRUDModalForm(EntityType.ChildComponentElement)
-
+  const { component } = useContext(ComponentContext)
   const [addChildButtonState, setAddChildButtonState] = useState(true)
 
   const [checkedComponentElementIds, setCheckedComponentElementIds] = useState<
@@ -44,21 +32,19 @@ export const ComponentTab = () => {
     string | undefined
   >()
 
-  if (!selectedComponent) {
-    return null
-  }
+  const cy = CytoscapeService.fromComponent(component)
 
-  const cy = CytoscapeService.fromComponent(selectedComponent)
-
-  const componentElementNodeMapper = (data: any) => {
+  const componentElementNodeMapper = (
+    data: ComponentElementNode | ComponentNode,
+  ) => {
     return {
-      title: data.atom?.type ?? data.label,
+      title: 'atom' in data ? data.atom.type.label : data.label,
     }
   }
 
   const tree = CytoscapeService.antdTree(cy, componentElementNodeMapper)
 
-  console.log(checkedComponentElementIds)
+  console.log(tree)
 
   return (
     <Row>
@@ -69,8 +55,6 @@ export const ComponentTab = () => {
               checked: _checkedComponentIds,
               halfChecked,
             } = checkedKeys as CheckedKeys
-
-            console.log(checkedKeys)
 
             setCheckedComponentElementIds([
               ..._checkedComponentIds.map((id) => id.toString()),
@@ -99,7 +83,7 @@ export const ComponentTab = () => {
             id={selectedComponentElementId}
             disabled={!selectedComponentElementId}
           />
-          <DeleteComponentElementButton
+          <DeleteComponentElementsButton
             ids={checkedComponentElementIds}
             disabled={checkedComponentElementIds.length === 0}
           />
@@ -107,7 +91,8 @@ export const ComponentTab = () => {
         <AddChildComponentElementModal
           parentComponentElementId={selectedComponentElementId}
         />
-
+        <DeleteComponentElementsModal />
+        <UpdateComponentElementModal />
         <CrudModal
           modalProps={{
             className: 'update-component-modal',
