@@ -3,6 +3,7 @@ import '../src/styles/App.less'
 import { ApolloProvider } from '@apollo/client'
 import { UserProvider } from '@auth0/nextjs-auth0'
 import { useApollo } from '@codelab/frontend/apollo'
+import { dgraphClient, DgraphProvider } from '@codelab/frontend/dgraph'
 import { PageType } from '@codelab/frontend/shared'
 import { css, Global } from '@emotion/react'
 import { AppProps } from 'next/app'
@@ -14,28 +15,30 @@ const AppContainer = ({ pageProps, Component, router }: AppProps) => {
 
   return (
     <RecoilRoot>
-      <ApolloProvider client={useApollo(pageProps)}>
-        <UserProvider>
-          <Global
-            styles={css({
-              '#__next': {
-                height: '100%',
-              },
-              body: {
-                overflow:
-                  router.pathname === PageType.PageDetail ? 'hidden' : 'auto',
-              },
-            })}
-          />
-          {Layout ? (
-            <Layout MainPane={MainPane} MetaPane={MetaPane}>
+      <DgraphProvider client={dgraphClient}>
+        <ApolloProvider client={useApollo(pageProps)}>
+          <UserProvider>
+            <Global
+              styles={css({
+                '#__next': {
+                  height: '100%',
+                },
+                body: {
+                  overflow:
+                    router.pathname === PageType.PageDetail ? 'hidden' : 'auto',
+                },
+              })}
+            />
+            {Layout ? (
+              <Layout MainPane={MainPane} MetaPane={MetaPane}>
+                <Component {...pageProps} />
+              </Layout>
+            ) : (
               <Component {...pageProps} />
-            </Layout>
-          ) : (
-            <Component {...pageProps} />
-          )}
-        </UserProvider>
-      </ApolloProvider>
+            )}
+          </UserProvider>
+        </ApolloProvider>
+      </DgraphProvider>
     </RecoilRoot>
   )
 }

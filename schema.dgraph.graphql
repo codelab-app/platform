@@ -1,0 +1,528 @@
+directive @auth(
+  password: AuthRule
+  query: AuthRule
+  add: AuthRule
+  update: AuthRule
+  delete: AuthRule
+) on OBJECT | INTERFACE
+
+directive @cacheControl(maxAge: Int!) on QUERY
+
+directive @cascade(fields: [String]) on FIELD
+
+directive @custom(http: CustomHTTP, dql: String) on FIELD_DEFINITION
+
+directive @dgraph(
+  type: String
+  pred: String
+) on OBJECT | INTERFACE | FIELD_DEFINITION
+
+directive @generate(
+  query: GenerateQueryParams
+  mutation: GenerateMutationParams
+  subscription: Boolean
+) on OBJECT | INTERFACE
+
+directive @hasInverse(field: String!) on FIELD_DEFINITION
+
+directive @id on FIELD_DEFINITION
+
+directive @lambda on FIELD_DEFINITION
+
+directive @lambdaOnMutate(
+  add: Boolean
+  update: Boolean
+  delete: Boolean
+) on OBJECT | INTERFACE
+
+directive @remote on OBJECT | INTERFACE | UNION | INPUT_OBJECT | ENUM
+
+directive @remoteResponse(name: String) on FIELD_DEFINITION
+
+directive @search(by: [DgraphIndex!]) on FIELD_DEFINITION
+
+directive @secret(field: String!, pred: String) on OBJECT | INTERFACE
+
+directive @withSubscription on OBJECT | INTERFACE | FIELD_DEFINITION
+
+input AddAppInput {
+  name: String!
+}
+
+type AddAppPayload {
+  app(filter: AppFilter, order: AppOrder, first: Int, offset: Int): [App]
+  numUids: Int
+}
+
+input AddLibraryInput {
+  name: String!
+}
+
+type AddLibraryPayload {
+  library(
+    filter: LibraryFilter
+    order: LibraryOrder
+    first: Int
+    offset: Int
+  ): [Library]
+  numUids: Int
+}
+
+input AddUserInput {
+  apps: [AppRef!]
+  libraries: [LibraryRef!]
+}
+
+type AddUserPayload {
+  user(filter: UserFilter, first: Int, offset: Int): [User]
+  numUids: Int
+}
+
+type App {
+  id: ID!
+  name: String!
+}
+
+type AppAggregateResult {
+  count: Int
+  nameMin: String
+  nameMax: String
+}
+
+input AppFilter {
+  id: [ID!]
+  has: [AppHasFilter]
+  and: [AppFilter]
+  or: [AppFilter]
+  not: AppFilter
+}
+
+enum AppHasFilter {
+  name
+}
+
+input AppOrder {
+  asc: AppOrderable
+  desc: AppOrderable
+  then: AppOrder
+}
+
+enum AppOrderable {
+  name
+}
+
+input AppPatch {
+  name: String
+}
+
+input AppRef {
+  id: ID
+  name: String
+}
+
+input AuthRule {
+  and: [AuthRule]
+  or: [AuthRule]
+  not: AuthRule
+  rule: String
+}
+
+input ContainsFilter {
+  point: PointRef
+  polygon: PolygonRef
+}
+
+input CustomHTTP {
+  url: String!
+  method: HTTPMethod!
+  body: String
+  graphql: String
+  mode: Mode
+  forwardHeaders: [String!]
+  secretHeaders: [String!]
+  introspectionHeaders: [String!]
+  skipIntrospection: Boolean
+}
+
+"""
+The DateTime scalar type represents date and time as a string in RFC3339 format.
+For example: "1985-04-12T23:20:50.52Z" represents 20 minutes and 50.52 seconds after the 23rd hour of April 12th, 1985 in UTC.
+"""
+scalar DateTime
+
+input DateTimeFilter {
+  eq: DateTime
+  in: [DateTime]
+  le: DateTime
+  lt: DateTime
+  ge: DateTime
+  gt: DateTime
+  between: DateTimeRange
+}
+
+input DateTimeRange {
+  min: DateTime!
+  max: DateTime!
+}
+
+type DeleteAppPayload {
+  app(filter: AppFilter, order: AppOrder, first: Int, offset: Int): [App]
+  msg: String
+  numUids: Int
+}
+
+type DeleteLibraryPayload {
+  library(
+    filter: LibraryFilter
+    order: LibraryOrder
+    first: Int
+    offset: Int
+  ): [Library]
+  msg: String
+  numUids: Int
+}
+
+type DeleteUserPayload {
+  user(filter: UserFilter, first: Int, offset: Int): [User]
+  msg: String
+  numUids: Int
+}
+
+enum DgraphIndex {
+  int
+  int64
+  float
+  bool
+  hash
+  exact
+  term
+  fulltext
+  trigram
+  regexp
+  year
+  month
+  day
+  hour
+  geo
+}
+
+input FloatFilter {
+  eq: Float
+  in: [Float]
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: FloatRange
+}
+
+input FloatRange {
+  min: Float!
+  max: Float!
+}
+
+input GenerateMutationParams {
+  add: Boolean
+  update: Boolean
+  delete: Boolean
+}
+
+input GenerateQueryParams {
+  get: Boolean
+  query: Boolean
+  password: Boolean
+  aggregate: Boolean
+}
+
+enum HTTPMethod {
+  GET
+  POST
+  PUT
+  PATCH
+  DELETE
+}
+
+"""
+The Int64 scalar type represents a signed 64‐bit numeric non‐fractional value.
+Int64 can represent values in range [-(2^63),(2^63 - 1)].
+"""
+scalar Int64
+
+input Int64Filter {
+  eq: Int64
+  in: [Int64]
+  le: Int64
+  lt: Int64
+  ge: Int64
+  gt: Int64
+  between: Int64Range
+}
+
+input Int64Range {
+  min: Int64!
+  max: Int64!
+}
+
+input IntFilter {
+  eq: Int
+  in: [Int]
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: IntRange
+}
+
+input IntRange {
+  min: Int!
+  max: Int!
+}
+
+input IntersectsFilter {
+  polygon: PolygonRef
+  multiPolygon: MultiPolygonRef
+}
+
+type Library {
+  id: ID!
+  name: String!
+}
+
+type LibraryAggregateResult {
+  count: Int
+  nameMin: String
+  nameMax: String
+}
+
+input LibraryFilter {
+  id: [ID!]
+  has: [LibraryHasFilter]
+  and: [LibraryFilter]
+  or: [LibraryFilter]
+  not: LibraryFilter
+}
+
+enum LibraryHasFilter {
+  name
+}
+
+input LibraryOrder {
+  asc: LibraryOrderable
+  desc: LibraryOrderable
+  then: LibraryOrder
+}
+
+enum LibraryOrderable {
+  name
+}
+
+input LibraryPatch {
+  name: String
+}
+
+input LibraryRef {
+  id: ID
+  name: String
+}
+
+enum Mode {
+  BATCH
+  SINGLE
+}
+
+type MultiPolygon {
+  polygons: [Polygon!]!
+}
+
+input MultiPolygonRef {
+  polygons: [PolygonRef!]!
+}
+
+type Mutation {
+  addUser(input: [AddUserInput!]!): AddUserPayload
+  updateUser(input: UpdateUserInput!): UpdateUserPayload
+  deleteUser(filter: UserFilter!): DeleteUserPayload
+  addApp(input: [AddAppInput!]!): AddAppPayload
+  updateApp(input: UpdateAppInput!): UpdateAppPayload
+  deleteApp(filter: AppFilter!): DeleteAppPayload
+  addLibrary(input: [AddLibraryInput!]!): AddLibraryPayload
+  updateLibrary(input: UpdateLibraryInput!): UpdateLibraryPayload
+  deleteLibrary(filter: LibraryFilter!): DeleteLibraryPayload
+}
+
+input NearFilter {
+  distance: Float!
+  coordinate: PointRef!
+}
+
+type Point {
+  longitude: Float!
+  latitude: Float!
+}
+
+input PointGeoFilter {
+  near: NearFilter
+  within: WithinFilter
+}
+
+type PointList {
+  points: [Point!]!
+}
+
+input PointListRef {
+  points: [PointRef!]!
+}
+
+input PointRef {
+  longitude: Float!
+  latitude: Float!
+}
+
+type Polygon {
+  coordinates: [PointList!]!
+}
+
+input PolygonGeoFilter {
+  near: NearFilter
+  within: WithinFilter
+  contains: ContainsFilter
+  intersects: IntersectsFilter
+}
+
+input PolygonRef {
+  coordinates: [PointListRef!]!
+}
+
+type Query {
+  getUser(id: ID!): User
+  queryUser(filter: UserFilter, first: Int, offset: Int): [User]
+  aggregateUser(filter: UserFilter): UserAggregateResult
+  getApp(id: ID!): App
+  queryApp(filter: AppFilter, order: AppOrder, first: Int, offset: Int): [App]
+  aggregateApp(filter: AppFilter): AppAggregateResult
+  getLibrary(id: ID!): Library
+  queryLibrary(
+    filter: LibraryFilter
+    order: LibraryOrder
+    first: Int
+    offset: Int
+  ): [Library]
+  aggregateLibrary(filter: LibraryFilter): LibraryAggregateResult
+}
+
+input StringExactFilter {
+  eq: String
+  in: [String]
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  between: StringRange
+}
+
+input StringFullTextFilter {
+  alloftext: String
+  anyoftext: String
+}
+
+input StringHashFilter {
+  eq: String
+  in: [String]
+}
+
+input StringRange {
+  min: String!
+  max: String!
+}
+
+input StringRegExpFilter {
+  regexp: String
+}
+
+input StringTermFilter {
+  allofterms: String
+  anyofterms: String
+}
+
+input UpdateAppInput {
+  filter: AppFilter!
+  set: AppPatch
+  remove: AppPatch
+}
+
+type UpdateAppPayload {
+  app(filter: AppFilter, order: AppOrder, first: Int, offset: Int): [App]
+  numUids: Int
+}
+
+input UpdateLibraryInput {
+  filter: LibraryFilter!
+  set: LibraryPatch
+  remove: LibraryPatch
+}
+
+type UpdateLibraryPayload {
+  library(
+    filter: LibraryFilter
+    order: LibraryOrder
+    first: Int
+    offset: Int
+  ): [Library]
+  numUids: Int
+}
+
+input UpdateUserInput {
+  filter: UserFilter!
+  set: UserPatch
+  remove: UserPatch
+}
+
+type UpdateUserPayload {
+  user(filter: UserFilter, first: Int, offset: Int): [User]
+  numUids: Int
+}
+
+type User {
+  id: ID!
+  apps(filter: AppFilter, order: AppOrder, first: Int, offset: Int): [App!]
+  libraries(
+    filter: LibraryFilter
+    order: LibraryOrder
+    first: Int
+    offset: Int
+  ): [Library!]
+  appsAggregate(filter: AppFilter): AppAggregateResult
+  librariesAggregate(filter: LibraryFilter): LibraryAggregateResult
+}
+
+type UserAggregateResult {
+  count: Int
+}
+
+input UserFilter {
+  id: [ID!]
+  has: [UserHasFilter]
+  and: [UserFilter]
+  or: [UserFilter]
+  not: UserFilter
+}
+
+enum UserHasFilter {
+  apps
+  libraries
+}
+
+input UserPatch {
+  apps: [AppRef!]
+  libraries: [LibraryRef!]
+}
+
+input UserRef {
+  id: ID
+  apps: [AppRef!]
+  libraries: [LibraryRef!]
+}
+
+input WithinFilter {
+  polygon: PolygonRef!
+}

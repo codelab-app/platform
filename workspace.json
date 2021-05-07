@@ -380,14 +380,6 @@
           "options": {
             "lintFilePatterns": ["libs/modules/style/**/*.{ts,tsx,js,jsx}"]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/modules/style"],
-          "options": {
-            "jestConfig": "libs/modules/style/jest.config.js",
-            "passWithNoTests": true
-          }
         }
       }
     },
@@ -415,14 +407,6 @@
           "options": {
             "lintFilePatterns": ["libs/frontend/shared/**/*.{ts,tsx,js,jsx}"]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/frontend/shared/jest.config.js",
-            "passWithNoTests": true
-          },
-          "outputs": ["coverage/libs/frontend/shared"]
         },
         "storybook": {
           "builder": "@nrwl/storybook:storybook",
@@ -530,14 +514,6 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["libs/modules/atom/**/*.{ts,tsx,js,jsx}"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/modules/atom"],
-          "options": {
-            "jestConfig": "libs/modules/atom/jest.config.js",
-            "passWithNoTests": true
           }
         }
       }
@@ -681,13 +657,18 @@
           "options": {
             "lintFilePatterns": ["libs/modules/prop-type/**/*.{ts,tsx,js,jsx}"]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/modules/prop-type"],
+        }
+      }
+    },
+    "frontend-dgraph": {
+      "root": "libs/frontend/dgraph",
+      "sourceRoot": "libs/frontend/dgraph/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "jestConfig": "libs/modules/prop-type/jest.config.js",
-            "passWithNoTests": true
+            "lintFilePatterns": ["libs/frontend/dgraph/**/*.{ts,tsx,js,jsx}"]
           }
         }
       }

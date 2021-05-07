@@ -1,6 +1,6 @@
 {
   "name": "Codelab GraphQL Schema",
-  "schemaPath": "schema.graphql",
+  "schemaPath": "schema.dgraph.graphql",
   "extensions": {
     "endpoints": {
       "Hasura GraphQL Endpoint": {
@@ -8,6 +8,13 @@
         "headers": {
           "user-agent": "JS GraphQL",
           "x-hasura-admin-secret": "${env:HASURA_GRAPHQL_ADMIN_SECRET}"
+        },
+        "introspect": true
+      },
+     "Dgraph GraphQL Endpoint": {
+        "url": "http://127.0.0.1:8081/graphql",
+        "headers": {
+          "user-agent": "JS GraphQL",
         },
         "introspect": true
       },
