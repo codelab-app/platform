@@ -78,6 +78,7 @@
     "d3-force": "2.1.1",
     "d3-selection": "2.0.0",
     "deepmerge": "4.2.2",
+    "dgraph-js-http": "^21.3.0",
     "document-register-element": "1.13.1",
     "dotenv": "8.2.0",
     "env-var": "7.0.0",

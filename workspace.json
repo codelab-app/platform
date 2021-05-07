@@ -691,6 +691,19 @@
           }
         }
       }
+    },
+    "frontend-dgraph": {
+      "root": "libs/frontend/dgraph",
+      "sourceRoot": "libs/frontend/dgraph/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/frontend/dgraph/**/*.{ts,tsx,js,jsx}"]
+          }
+        }
+      }
     }
   }
 }
