@@ -7,7 +7,6 @@ import {
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
 import {
-  __ComponentElementFragment,
   refetchGetComponentDetailQuery,
   useGetAtomsListQuery,
   useGetComponentElementQuery,
@@ -22,13 +21,9 @@ import {
   updateComponentElementSchema,
 } from './updateComponentElementSchema'
 
-type UpdateComponentElementFormProps = UniFormUseCaseProps<UpdateComponentElementInput> & {
-  componentElement: __ComponentElementFragment
-}
-
 /** Not intended to be used in a modal */
 export const UpdateComponentElementForm = (
-  props: UpdateComponentElementFormProps,
+  props: UniFormUseCaseProps<UpdateComponentElementInput>,
 ) => {
   const { reset, setLoading, state } = useCRUDModalForm(
     EntityType.ComponentElement,

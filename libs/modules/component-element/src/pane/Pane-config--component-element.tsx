@@ -37,10 +37,7 @@ export const PaneConfigComponentElement = ({ componentElementId }: Props) => {
   if (element) {
     return (
       <>
-        <UpdateComponentElementForm
-          key={componentElementId}
-          componentElement={element}
-        />
+        <UpdateComponentElementForm key={componentElementId} />
 
         <div style={{ display: 'flex', justifyContent: 'space-around' }}>
           <CreateComponentLinkButton>
