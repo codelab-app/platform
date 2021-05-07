@@ -41,11 +41,13 @@ export const CreateComponentElementForm = ({
   }, [creating, setLoading])
 
   const onSubmit = (submitData: DeepPartial<CreateComponentElementInput>) => {
+    console.log(submitData, componentId)
+
     return mutate({
       variables: {
         input: {
           component_id: componentId,
-          ...submitData,
+          atom_id: submitData.atom_id,
         },
       },
     })

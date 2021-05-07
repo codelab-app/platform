@@ -1,67 +1,92 @@
 import {
   ComponentContext,
-  StatelessLoadingIndicator,
+  createNotificationHandler,
+  EntityType,
+  FormUniforms,
   UniFormUseCaseProps,
+  useCRUDModalForm,
 } from '@codelab/frontend/shared'
 import {
   __ComponentElementFragment,
   refetchGetComponentDetailQuery,
+  useGetAtomsListQuery,
+  useGetComponentElementQuery,
   useUpdateComponentElementMutation,
 } from '@codelab/hasura'
-import React, { useContext, useRef } from 'react'
+import { Spin } from 'antd'
+import React, { useContext } from 'react'
 import { DeepPartial } from 'uniforms'
-import { CreateComponentElementFormBase } from '../createComponentElement/CreateComponentElementFormBase'
-import { UpdateComponentElementInput } from './updateComponentElementSchema'
+import { SelectField } from 'uniforms-antd'
+import {
+  UpdateComponentElementInput,
+  updateComponentElementSchema,
+} from './updateComponentElementSchema'
 
 type UpdateComponentElementFormProps = UniFormUseCaseProps<UpdateComponentElementInput> & {
   componentElement: __ComponentElementFragment
 }
 
 /** Not intended to be used in a modal */
-export const UpdateComponentElementForm = ({
-  componentElement: initialComponentElement,
-  ...props
-}: UpdateComponentElementFormProps) => {
-  //Cache it only once, don't pass it with every change to the form, because that will cause lag when autosaving
-  const { current: componentElement } = useRef(initialComponentElement)
-  const { componentId } = useContext(ComponentContext)
+export const UpdateComponentElementForm = (
+  props: UniFormUseCaseProps<UpdateComponentElementInput>,
+) => {
+  const { reset, setLoading, state } = useCRUDModalForm(
+    EntityType.ComponentElement,
+  )
+
+  const { component } = useContext(ComponentContext)
 
   const [mutate, { loading, error, data }] = useUpdateComponentElementMutation({
     awaitRefetchQueries: true,
-    refetchQueries: [refetchGetComponentDetailQuery({ componentId })],
+    refetchQueries: [
+      refetchGetComponentDetailQuery({ componentId: component.id }),
+    ],
   })
 
   const onSubmit = (submitData: DeepPartial<UpdateComponentElementInput>) => {
     return mutate({
       variables: {
-        componentElementId: componentElement.id,
+        componentElementId: state.updateId,
         input: submitData,
       },
     })
   }
 
-  return (
-    <>
-      <CreateComponentElementFormBase
-        onSubmit={onSubmit}
-        autosave={true}
-        autosaveDelay={500}
-        model={{
-          atom_id: componentElement.atom?.id,
-          // label: componentElement.label,
-        }}
-        {...props}
-      />
+  const {
+    data: componentElement,
+    loading: loadingComponentElement,
+  } = useGetComponentElementQuery({
+    variables: {
+      componentElementId: state.updateId,
+    },
+  })
 
-      <StatelessLoadingIndicator
-        style={{ display: 'block', margin: '0.5rem' }}
-        state={{
-          isLoading: loading,
-          isErrored: Boolean(
-            error || (data as any)?.errors || (data as any)?.error,
-          ),
-        }}
-      />
-    </>
+  const { data: atomsData } = useGetAtomsListQuery()
+
+  const atomOptions = atomsData?.atom?.map((t) => ({
+    value: t.id,
+    label: t.type.label,
+    // type: t.type.id,
+  }))
+
+  if (loadingComponentElement) {
+    return <Spin />
+  }
+
+  return (
+    <FormUniforms<UpdateComponentElementInput>
+      data-testid="update-atom-form"
+      id="update-atom-form"
+      onSubmit={onSubmit}
+      schema={updateComponentElementSchema}
+      model={{ atom_id: componentElement?.component_element_by_pk?.atom.id }}
+      onSubmitError={createNotificationHandler({
+        title: 'Error while updating Atom',
+      })}
+      onSubmitSuccess={() => reset()}
+      {...props}
+    >
+      <SelectField name="atom_id" options={atomOptions} />
+    </FormUniforms>
   )
 }

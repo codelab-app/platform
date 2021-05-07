@@ -13,10 +13,10 @@ type MainPaneTemplateProps = {
 
 const StyledContainer = styled.div`
   .ant-page-header {
-    display: grid;
+    /* display: grid;
     grid-template-rows: min-content 1fr;
     height: 100vh;
-    max-height: 100vh;
+    max-height: 100vh; */
     .ant-page-header-content {
       overflow-y: auto;
     }

@@ -989,8 +989,8 @@ export enum Component_Constraint {
 /** columns and relationships of "component_element" */
 export type Component_Element = {
   /** An object relationship */
-  atom?: Maybe<Atom>
-  atom_id?: Maybe<Scalars['uuid']>
+  atom: Atom
+  atom_id: Scalars['uuid']
   /** An object relationship */
   component: Component
   component_id: Scalars['uuid']
@@ -10298,12 +10298,14 @@ export type CreateComponentLinkMutation = {
   insert_component_link_one?: Maybe<PageElement__ComponentLinkFragment>
 }
 
-export type DeleteComponentElementMutationVariables = Exact<{
-  componentElementId: Scalars['uuid']
+export type DeleteComponentElementsMutationVariables = Exact<{
+  where: Component_Element_Bool_Exp
 }>
 
-export type DeleteComponentElementMutation = {
-  delete_component_element_by_pk?: Maybe<Pick<Component_Element, 'id'>>
+export type DeleteComponentElementsMutation = {
+  delete_component_element?: Maybe<{
+    returning: Array<__ComponentElementFragment>
+  }>
 }
 
 export type GetComponentElementQueryVariables = Exact<{
@@ -10312,6 +10314,14 @@ export type GetComponentElementQueryVariables = Exact<{
 
 export type GetComponentElementQuery = {
   component_element_by_pk?: Maybe<__ComponentElementFragment>
+}
+
+export type GetComponentElementsWhereQueryVariables = Exact<{
+  where: Component_Element_Bool_Exp
+}>
+
+export type GetComponentElementsWhereQuery = {
+  component_element: Array<__ComponentElementFragment>
 }
 
 export type UpdateComponentElementMutationVariables = Exact<{
@@ -10335,7 +10345,7 @@ export type __ComponentElementFragment = Pick<
   hocs: Array<{ hoc: ComponentElement__HocFragment }>
   props?: Maybe<PropCollectionFragment>
   styles: Array<{ style: Library__StyleFragment }>
-  atom?: Maybe<__AtomFragment>
+  atom: __AtomFragment
 }
 
 export type PageElement__ComponentLinkFragment = Pick<
@@ -12595,54 +12605,57 @@ export type CreateComponentLinkMutationOptions = Apollo.BaseMutationOptions<
   CreateComponentLinkMutation,
   CreateComponentLinkMutationVariables
 >
-export const DeleteComponentElementGql = gql`
-  mutation DeleteComponentElement($componentElementId: uuid!) {
-    delete_component_element_by_pk(id: $componentElementId) {
-      id
+export const DeleteComponentElementsGql = gql`
+  mutation DeleteComponentElements($where: component_element_bool_exp!) {
+    delete_component_element(where: $where) {
+      returning {
+        ...__ComponentElement
+      }
     }
   }
+  ${__ComponentElementFragmentDoc}
 `
-export type DeleteComponentElementMutationFn = Apollo.MutationFunction<
-  DeleteComponentElementMutation,
-  DeleteComponentElementMutationVariables
+export type DeleteComponentElementsMutationFn = Apollo.MutationFunction<
+  DeleteComponentElementsMutation,
+  DeleteComponentElementsMutationVariables
 >
 
 /**
- * __useDeleteComponentElementMutation__
+ * __useDeleteComponentElementsMutation__
  *
- * To run a mutation, you first call `useDeleteComponentElementMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useDeleteComponentElementMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useDeleteComponentElementsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteComponentElementsMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [deleteComponentElementMutation, { data, loading, error }] = useDeleteComponentElementMutation({
+ * const [deleteComponentElementsMutation, { data, loading, error }] = useDeleteComponentElementsMutation({
  *   variables: {
- *      componentElementId: // value for 'componentElementId'
+ *      where: // value for 'where'
  *   },
  * });
  */
-export function useDeleteComponentElementMutation(
+export function useDeleteComponentElementsMutation(
   baseOptions?: Apollo.MutationHookOptions<
-    DeleteComponentElementMutation,
-    DeleteComponentElementMutationVariables
+    DeleteComponentElementsMutation,
+    DeleteComponentElementsMutationVariables
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
   return Apollo.useMutation<
-    DeleteComponentElementMutation,
-    DeleteComponentElementMutationVariables
-  >(DeleteComponentElementGql, options)
+    DeleteComponentElementsMutation,
+    DeleteComponentElementsMutationVariables
+  >(DeleteComponentElementsGql, options)
 }
-export type DeleteComponentElementMutationHookResult = ReturnType<
-  typeof useDeleteComponentElementMutation
+export type DeleteComponentElementsMutationHookResult = ReturnType<
+  typeof useDeleteComponentElementsMutation
 >
-export type DeleteComponentElementMutationResult = Apollo.MutationResult<DeleteComponentElementMutation>
-export type DeleteComponentElementMutationOptions = Apollo.BaseMutationOptions<
-  DeleteComponentElementMutation,
-  DeleteComponentElementMutationVariables
+export type DeleteComponentElementsMutationResult = Apollo.MutationResult<DeleteComponentElementsMutation>
+export type DeleteComponentElementsMutationOptions = Apollo.BaseMutationOptions<
+  DeleteComponentElementsMutation,
+  DeleteComponentElementsMutationVariables
 >
 export const GetComponentElementGql = gql`
   query GetComponentElement($componentElementId: uuid!) {
@@ -12707,6 +12720,70 @@ export function refetchGetComponentElementQuery(
   variables?: GetComponentElementQueryVariables,
 ) {
   return { query: GetComponentElementGql, variables: variables }
+}
+export const GetComponentElementsWhereGql = gql`
+  query GetComponentElementsWhere($where: component_element_bool_exp!) {
+    component_element(where: $where) {
+      ...__ComponentElement
+    }
+  }
+  ${__ComponentElementFragmentDoc}
+`
+
+/**
+ * __useGetComponentElementsWhereQuery__
+ *
+ * To run a query within a React component, call `useGetComponentElementsWhereQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetComponentElementsWhereQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetComponentElementsWhereQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useGetComponentElementsWhereQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetComponentElementsWhereQuery,
+    GetComponentElementsWhereQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<
+    GetComponentElementsWhereQuery,
+    GetComponentElementsWhereQueryVariables
+  >(GetComponentElementsWhereGql, options)
+}
+export function useGetComponentElementsWhereLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetComponentElementsWhereQuery,
+    GetComponentElementsWhereQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    GetComponentElementsWhereQuery,
+    GetComponentElementsWhereQueryVariables
+  >(GetComponentElementsWhereGql, options)
+}
+export type GetComponentElementsWhereQueryHookResult = ReturnType<
+  typeof useGetComponentElementsWhereQuery
+>
+export type GetComponentElementsWhereLazyQueryHookResult = ReturnType<
+  typeof useGetComponentElementsWhereLazyQuery
+>
+export type GetComponentElementsWhereQueryResult = Apollo.QueryResult<
+  GetComponentElementsWhereQuery,
+  GetComponentElementsWhereQueryVariables
+>
+export function refetchGetComponentElementsWhereQuery(
+  variables?: GetComponentElementsWhereQueryVariables,
+) {
+  return { query: GetComponentElementsWhereGql, variables: variables }
 }
 export const UpdateComponentElementGql = gql`
   mutation UpdateComponentElement(
@@ -16000,16 +16077,27 @@ export const CreateComponentLink = gql`
   }
   ${PageElement__ComponentLink}
 `
-export const DeleteComponentElement = gql`
-  mutation DeleteComponentElement($componentElementId: uuid!) {
-    delete_component_element_by_pk(id: $componentElementId) {
-      id
+export const DeleteComponentElements = gql`
+  mutation DeleteComponentElements($where: component_element_bool_exp!) {
+    delete_component_element(where: $where) {
+      returning {
+        ...__ComponentElement
+      }
     }
   }
+  ${__ComponentElement}
 `
 export const GetComponentElement = gql`
   query GetComponentElement($componentElementId: uuid!) {
     component_element_by_pk(id: $componentElementId) {
+      ...__ComponentElement
+    }
+  }
+  ${__ComponentElement}
+`
+export const GetComponentElementsWhere = gql`
+  query GetComponentElementsWhere($where: component_element_bool_exp!) {
+    component_element(where: $where) {
       ...__ComponentElement
     }
   }

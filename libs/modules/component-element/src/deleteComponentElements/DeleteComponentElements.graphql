@@ -1,0 +1,7 @@
+mutation DeleteComponentElements($where: component_element_bool_exp!) {
+  delete_component_element(where: $where) {
+    returning {
+      ...__ComponentElement
+    }
+  }
+}

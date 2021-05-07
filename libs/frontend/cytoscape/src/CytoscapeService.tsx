@@ -2,17 +2,13 @@
 import {
   AtomType,
   ComponentElementNode,
-  ComponentRootNode,
+  ComponentNode,
   CytoscapeNode,
   NodeType,
   PageElementNode,
-  PageRootNode,
+  PageNode,
 } from '@codelab/frontend/shared'
-import {
-  __AtomFragment,
-  __ComponentFragment,
-  App__PageFragment,
-} from '@codelab/hasura'
+import { __ComponentFragment, App__PageFragment } from '@codelab/hasura'
 import { propDataEntityToModel } from '@codelab/modules/prop'
 import { DataNode } from 'antd/lib/tree'
 import cytoscape, { Core } from 'cytoscape'
@@ -86,8 +82,8 @@ export class CytoscapeService {
       },
     })
 
-    const rootNodeData: PageRootNode = {
-      nodeType: NodeType.PageRoot,
+    const rootNodeData: PageNode = {
+      nodeType: NodeType.Page,
       label: pageName,
       id: pageId,
     }
@@ -109,10 +105,10 @@ export class CytoscapeService {
           const data: ComponentElementNode = {
             id: componentElement.id,
             nodeType: NodeType.ComponentElement,
-            atom: componentElement.atom as __AtomFragment,
+            atom: componentElement.atom,
             label: componentElement.label,
             props: {
-              //Normalize the props fragments into a react-readable key value map
+              // Normalize the props fragments into a react-readable key value map
               ...componentElement.props?.props?.reduce((props, newProp) => {
                 return { ...props, ...propDataEntityToModel(newProp) }
               }, {}),
@@ -121,6 +117,9 @@ export class CytoscapeService {
 
           return { data }
         }),
+        // nodes: componentElements.map((componentElement) => {
+        //   return { data: componentElement }
+        // }),
         edges: componentLinks.map((componentLink) => ({
           data: {
             id: `cl_${componentLink.source_component_element_id}_${componentLink.target_component_element_id}`,
@@ -133,8 +132,8 @@ export class CytoscapeService {
       },
     })
 
-    const rootNodeData: ComponentRootNode = {
-      nodeType: NodeType.ComponentRoot,
+    const rootNodeData: ComponentNode = {
+      nodeType: NodeType.Component,
       label: componentLabel,
       id: componentId,
     }

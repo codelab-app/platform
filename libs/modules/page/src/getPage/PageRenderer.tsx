@@ -6,7 +6,7 @@ import { CytoscapeService } from '@codelab/frontend/cytoscape'
 import {
   AppContext,
   ComponentItemType,
-  PageRootNode,
+  PageNode,
 } from '@codelab/frontend/shared'
 import {
   App__PageFragment,
@@ -32,7 +32,7 @@ export const PageRenderer = ({ page }: GetPageLayoutProps) => {
   })
 
   const cy = CytoscapeService.fromPage(page)
-  const root = CytoscapeService.componentTree(cy) as PageRootNode
+  const root = CytoscapeService.componentTree(cy) as PageNode
 
   const handleDroppedComponent = ({ key, label }: ComponentItemType) => {
     addPageElement({

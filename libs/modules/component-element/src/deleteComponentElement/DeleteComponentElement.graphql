@@ -1,5 +1,0 @@
-mutation DeleteComponentElement($componentElementId: uuid!) {
-  delete_component_element_by_pk(id: $componentElementId) {
-    id
-  }
-}

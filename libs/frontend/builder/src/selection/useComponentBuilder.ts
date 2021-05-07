@@ -4,10 +4,12 @@ import { atom, useRecoilState } from 'recoil'
 
 interface ComponentBuilderStateType {
   selectedComponent: __ComponentFragment | undefined
+  selectedComponentId: string | undefined
   hoveringComponent: __ComponentFragment | undefined
 }
 
 const initialComponentBuilderState: ComponentBuilderStateType = {
+  selectedComponentId: undefined,
   selectedComponent: undefined,
   hoveringComponent: undefined,
 }
@@ -22,15 +24,22 @@ export const useComponentBuilder = () => {
     componentBuilderState,
   )
 
-  const setSelected = useCallback(
-    (selectedComponent: __ComponentFragment) => {
+  const setSelectedComponentId = useCallback(
+    (selectedComponentId: string | undefined) => {
       return setSelectionState((s) => ({
         ...s,
-        selectedComponent,
+        selectedComponentId,
       }))
     },
-    [setSelectionState],
+    [],
   )
+
+  const setSelected = useCallback((selectedComponent: __ComponentFragment) => {
+    return setSelectionState((s) => ({
+      ...s,
+      selectedComponent,
+    }))
+  }, [])
 
   const setHovering = useCallback(
     (hoveringComponent: __ComponentFragment | undefined) => {
@@ -39,7 +48,7 @@ export const useComponentBuilder = () => {
         hoveringComponent,
       }))
     },
-    [setSelectionState],
+    [],
   )
 
   const resetHovering = useCallback(() => {
@@ -47,14 +56,14 @@ export const useComponentBuilder = () => {
       ...s,
       hoveringComponent: undefined,
     }))
-  }, [setSelectionState])
+  }, [])
 
   const resetSelected = useCallback(() => {
     setSelectionState((s) => ({
       ...s,
       selectedComponent: undefined,
     }))
-  }, [setSelectionState])
+  }, [])
 
   const reset = useCallback(() => {
     setSelectionState((s) => ({
@@ -62,7 +71,7 @@ export const useComponentBuilder = () => {
       hoveringComponent: undefined,
       selectedComponent: undefined,
     }))
-  }, [setSelectionState])
+  }, [])
 
   return {
     setSelected,
@@ -70,12 +79,14 @@ export const useComponentBuilder = () => {
     setHovering,
     hoveringComponent: selectionState.hoveringComponent,
     selectedComponent: selectionState.selectedComponent,
+    setSelectedComponentId,
+    selectedComponentId: selectionState.selectedComponentId,
     getSelectedComponentId: () => {
-      if (!selectionState?.selectedComponent?.id) {
+      if (!selectionState?.selectedComponentId) {
         throw new Error('No Component is selected')
       }
 
-      return selectionState.selectedComponent.id
+      return selectionState.selectedComponentId
     },
     resetSelected,
     reset,

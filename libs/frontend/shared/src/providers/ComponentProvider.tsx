@@ -1,14 +1,16 @@
 import {
   __ComponentFragment,
-  Maybe,
-  useGetComponentDetailQuery,
+  useGetComponentDetailLazyQuery,
 } from '@codelab/hasura'
-import React, { PropsWithChildren } from 'react'
-import { PropsWithIds } from '../interfaces'
+import React, { PropsWithChildren, useEffect } from 'react'
 
-type IComponentContext = PropsWithIds<'componentId'> & {
-  component?: Maybe<__ComponentFragment>
+type IComponentContext = {
+  component: __ComponentFragment
   loading: boolean
+}
+
+type ComponentProviderProps = {
+  componentId: string | undefined
 }
 
 export const ComponentContext = React.createContext<IComponentContext>(
@@ -18,24 +20,32 @@ export const ComponentContext = React.createContext<IComponentContext>(
 const _ComponentProvider = ({
   componentId,
   children,
-}: PropsWithChildren<Pick<IComponentContext, 'componentId'>>) => {
-  const { data, loading } = useGetComponentDetailQuery({
-    variables: {
-      componentId,
-    },
-  })
-
+}: PropsWithChildren<ComponentProviderProps>) => {
+  const [load, { called, loading, data }] = useGetComponentDetailLazyQuery({})
   const component = data?.component_by_pk
+
+  useEffect(() => {
+    if (componentId) {
+      load({
+        variables: {
+          componentId,
+        },
+      })
+    }
+  }, [componentId])
+
+  if (!component) {
+    return null
+  }
 
   return (
     <ComponentContext.Provider
       value={{
-        componentId,
         component,
         loading,
       }}
     >
-      {component ? <>{children}</> : null}
+      {!loading && !!componentId ? <>{children}</> : null}
     </ComponentContext.Provider>
   )
 }
@@ -46,7 +56,7 @@ export const ComponentProvider = React.memo(
     return (
       prev.componentId === next.componentId
       // Don't update if we don't have new id
-      // || !next.componentId
+      // && !!next.componentId
     )
   },
 )

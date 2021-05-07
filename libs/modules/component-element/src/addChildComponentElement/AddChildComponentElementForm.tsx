@@ -6,7 +6,7 @@ import {
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
 import {
-  refetchLibraryExplorerQuery,
+  refetchGetComponentDetailQuery,
   useCreateComponentLinkMutation,
   useGetAtomsListQuery,
 } from '@codelab/hasura'
@@ -44,7 +44,7 @@ export const AddChildComponentElementForm = ({
     { loading: creatingComponentLink },
   ] = useCreateComponentLinkMutation({
     awaitRefetchQueries: true,
-    refetchQueries: [refetchLibraryExplorerQuery()],
+    refetchQueries: [refetchGetComponentDetailQuery({ componentId })],
   })
 
   useEffect(() => {
@@ -52,6 +52,8 @@ export const AddChildComponentElementForm = ({
   }, [creatingComponentLink, setLoading])
 
   const onSubmit = (submitData: DeepPartial<AddChildComponentElementInput>) => {
+    console.log(submitData)
+
     return createComponentLink({
       variables: {
         input: {
@@ -72,13 +74,12 @@ export const AddChildComponentElementForm = ({
 
   const atomOptions = atomsData?.atom?.map((t) => ({
     value: t.id,
-    label: t.type,
-    type: t.type,
+    label: t.type.label,
   }))
 
   return (
     <FormUniforms<AddChildComponentElementInput>
-      id="add-child-component-element-form"
+      id="add-childComponentElement-form"
       schema={addChildComponentElementSchema}
       onSubmit={onSubmit}
       onSubmitSuccess={() => reset()}

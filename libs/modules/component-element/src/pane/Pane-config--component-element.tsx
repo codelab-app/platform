@@ -10,8 +10,8 @@ import { Empty, Spin } from 'antd'
 import React from 'react'
 import { CreateComponentLinkButton } from '../createComponentLink/CreateComponentLinkButton'
 import { CreateComponentLinkForm } from '../createComponentLink/CreateComponentLinkForm'
-import { DeleteComponentElementButton } from '../deleteComponentElement/DeleteComponentElementButton'
-import { DeleteComponentElementForm } from '../deleteComponentElement/DeleteComponentElementForm'
+import { DeleteComponentElementsButton } from '../deleteComponentElements/DeleteComponentElementsButton'
+import { DeleteComponentElementsForm } from '../deleteComponentElements/DeleteComponentElementsForm'
 import { UpdateComponentElementForm } from '../updateComponentElement/UpdateComponentElementForm'
 
 interface Props {
@@ -46,7 +46,7 @@ export const PaneConfigComponentElement = ({ componentElementId }: Props) => {
           <CreateComponentLinkButton>
             Insert child element
           </CreateComponentLinkButton>
-          <DeleteComponentElementButton ids={[element.id]} disabled={false} />
+          <DeleteComponentElementsButton ids={[element.id]} disabled={false} />
         </div>
 
         <CrudModal
@@ -71,7 +71,7 @@ export const PaneConfigComponentElement = ({ componentElementId }: Props) => {
           actionType={ActionType.Delete}
           okText="Delete"
           renderForm={() => (
-            <DeleteComponentElementForm
+            <DeleteComponentElementsForm
               onSubmitSuccess={() => {
                 resetSelected()
                 reset()

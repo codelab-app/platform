@@ -6,7 +6,7 @@ import {
 } from '@codelab/frontend/shared'
 import { useGetAtomsListQuery } from '@codelab/hasura'
 import React from 'react'
-import { AutoFields, SelectField } from 'uniforms-antd'
+import { SelectField } from 'uniforms-antd'
 import {
   CreateComponentElementInput,
   createComponentElementSchema,
@@ -28,8 +28,8 @@ export const CreateComponentElementFormBase = ({
 
   const atomOptions = atomsData?.atom?.map((t) => ({
     value: t.id,
-    label: t.type,
-    type: t.type,
+    label: t.type.label,
+    // type: t.type.id,
   }))
 
   return (
@@ -40,7 +40,6 @@ export const CreateComponentElementFormBase = ({
       })}
       {...props}
     >
-      <AutoFields omitFields={['atom_id']} />
       <SelectField name="atom_id" label="Atom" options={atomOptions} />
     </FormUniforms>
   )

@@ -8,6 +8,7 @@
   "license": "MIT",
   "scripts": {
     "tunnel": "ngrok http -region=us -hostname=a8069b052300.ngrok.io 3000",
+    "dgraph:sync": "curl -X POST localhost:8081/admin/schema --data-binary '@dgraph/schema.graphql'",
     "postinstall": "./scripts/postinstall.sh",
     "docker:up": "./scripts/docker/up.sh",
     "nx": "nx",

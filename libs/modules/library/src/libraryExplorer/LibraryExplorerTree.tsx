@@ -1,7 +1,6 @@
 import { BookOutlined, DeploymentUnitOutlined } from '@ant-design/icons'
 import { useComponentBuilder } from '@codelab/frontend/builder'
 import { CheckedKeys, LibraryContext, PageType } from '@codelab/frontend/shared'
-import { useGetComponentDetailLazyQuery } from '@codelab/hasura'
 import {
   CreateAtomButtonIcon,
   CreateAtomModal,
@@ -21,28 +20,24 @@ import {
 import { Divider, Space, Tree } from 'antd'
 import { DataNode } from 'antd/lib/tree'
 import Link from 'next/link'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import xw from 'xwind'
 
 export const LibraryExplorerTree = () => {
   const { libraries } = useContext(LibraryContext)
-
-  const [
-    loadComponent,
-    { called, loading, data },
-  ] = useGetComponentDetailLazyQuery()
-
-  const { setSelected } = useComponentBuilder()
-
-  useEffect(() => {
-    if (data?.component_by_pk) {
-      setSelected(data?.component_by_pk)
-    }
-  }, [data])
-
+  // const [
+  //   loadComponent,
+  //   { called, loading, data },
+  // ] = useGetComponentDetailLazyQuery()
+  const { setSelectedComponentId, selectedComponentId } = useComponentBuilder()
+  // useEffect(() => {
+  //   if (data?.component_by_pk) {
+  //     setSelected(data?.component_by_pk)
+  //   }
+  // }, [data])
   const [checkedAtomIds, setCheckedAtomIds] = useState<Array<string>>([])
   const [selectedAtomId, setSelectedAtomId] = useState<string>()
-  const [selectedComponentId, setSelectedComponentId] = useState<string>()
+  // const [selectedComponentId, setSelectedComponentId] = useState<string>()
 
   const [checkedComponentIds, setCheckedComponentIds] = useState<Array<string>>(
     [],
@@ -149,12 +144,8 @@ export const LibraryExplorerTree = () => {
       <Tree
         onSelect={([checkedKey], e) => {
           const _selectedComponentId = checkedKey?.toString()
+
           setSelectedComponentId(_selectedComponentId)
-          loadComponent({
-            variables: {
-              componentId: _selectedComponentId,
-            },
-          })
         }}
         onCheck={(checkedKeys, e) => {
           const {

@@ -1,3 +1,5 @@
+import { useComponentBuilder } from '@codelab/frontend/builder'
+import { ComponentProvider } from '@codelab/frontend/shared'
 import { css } from '@emotion/react'
 import { Tabs } from 'antd'
 import { Resizable } from 're-resizable'
@@ -5,6 +7,12 @@ import React from 'react'
 import { ComponentTab } from './MetaPaneComponent-componentTab'
 
 export const MetaPaneComponent = () => {
+  const {
+    selectedComponent,
+    setSelected,
+    selectedComponentId,
+  } = useComponentBuilder()
+
   return (
     <Resizable
       enable={{ top: true }}
@@ -22,7 +30,9 @@ export const MetaPaneComponent = () => {
     >
       <Tabs defaultActiveKey="1">
         <Tabs.TabPane tab="Component" key="1">
-          <ComponentTab />
+          <ComponentProvider componentId={selectedComponentId}>
+            <ComponentTab />
+          </ComponentProvider>
         </Tabs.TabPane>
         <Tabs.TabPane tab="Tab 2" key="2">
           Content of Tab Pane 2

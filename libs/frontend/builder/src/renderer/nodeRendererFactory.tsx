@@ -1,11 +1,11 @@
 import { CytoscapeService } from '@codelab/frontend/cytoscape'
 import {
   ComponentElementNode,
-  ComponentRootNode,
+  ComponentNode,
   CytoscapeNode,
   NodeType,
   PageElementNode,
-  PageRootNode,
+  PageNode,
 } from '@codelab/frontend/shared'
 import React from 'react'
 import { elementParameterFactory } from './elementFactory'
@@ -38,19 +38,20 @@ const renderComponentElement: NodeRendererType<ComponentElementNode> = (
   return (
     <RootComponent
       {...props}
-      key={`ce__${context.pageElementId || ''}__${context.componentElementId}`}
+      key={node.id}
+      // key={`ce__${context.pageElementId || ''}__${context.componentElementId}`}
     >
       {node.children?.map((child) =>
-        nodeRendererFactory(child, { ...context, componentElementId: node.id }),
+        nodeRendererFactory(child, {
+          ...context,
+          componentElementId: node.id,
+        }),
       )}
     </RootComponent>
   )
 }
 
-const renderComponentRoot: NodeRendererType<ComponentRootNode> = (
-  node,
-  context,
-) => {
+const renderComponent: NodeRendererType<ComponentNode> = (node, context) => {
   return node.children?.map((componentElement) =>
     nodeRendererFactory(componentElement, context),
   )
@@ -66,7 +67,7 @@ const renderPageElement: NodeRendererType<PageElementNode> = (
   return nodeRendererFactory(root, { ...context, pageElementId: node.id })
 }
 
-const renderPageRoot: NodeRendererType<PageRootNode> = (node, context) => {
+const renderPage: NodeRendererType<PageNode> = (node, context) => {
   return node.children?.map((pageElement) =>
     nodeRendererFactory(pageElement, context),
   )
@@ -79,14 +80,14 @@ export const nodeRendererFactory = (
   let rendered: React.ReactNode = []
 
   switch (node.nodeType) {
-    case NodeType.PageRoot:
-      rendered = renderPageRoot(node, context)
+    case NodeType.Page:
+      rendered = renderPage(node, context)
       break
     case NodeType.PageElement:
       rendered = renderPageElement(node, context)
       break
-    case NodeType.ComponentRoot:
-      rendered = renderComponentRoot(node, context)
+    case NodeType.Component:
+      rendered = renderComponent(node, context)
       break
     case NodeType.ComponentElement:
       rendered = renderComponentElement(node, context)
