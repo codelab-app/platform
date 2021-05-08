@@ -47,8 +47,6 @@ export const DeleteComponentElementsForm = (
     },
   })
 
-  const element = data?.component_element_by_pk
-
   const componentElementsWhere = {
     _or: deleteComponentElementIds.map((id) => ({
       id: {

@@ -7,17 +7,14 @@ import { ApolloLink } from '@apollo/client/link/core'
 import merge from 'deepmerge'
 import isEqual from 'lodash/isEqual'
 import { useMemo } from 'react'
-import { apiLink } from './links/apiLink'
 import { authLink } from './links/authLink'
+import { dgraphLink } from './links/dgraphLink'
 import { errorLink } from './links/errorLink'
+import { hasuraLink } from './links/hasuraLink'
 
 export interface ApolloContext {
   authToken?: string
   graphqlUri?: string
-}
-
-const defaultContext: ApolloContext = {
-  graphqlUri: `${process.env.NEXT_PUBLIC_API_ORIGIN}/api/graphql`,
 }
 
 export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__'
@@ -27,13 +24,21 @@ let apolloClient: ApolloClient<any> | undefined
 /** Creates a new ApolloClient instance */
 export const getApolloClient = (ctx: ApolloContext = {}) => {
   const link = ApolloLink.from([
-    // setContext(() => ({ ...defaultContext, ...ctx })),
+    setContext(() => ({ ...ctx })),
     errorLink,
     authLink,
-    apiLink,
+    ApolloLink.split(
+      // ({ operationName }) => operationName === DGRAPH_OPERATION,
+      ({ operationName }) => true,
+      dgraphLink,
+      hasuraLink,
+    ),
   ])
 
   const client = new ApolloClient({
+    // resolvers: {
+    //   DateTime: GraphQLDateTime,
+    // },
     link,
     cache: new InMemoryCache(),
     // Disables forceFetch on the server (so queries are only run once)

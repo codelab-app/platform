@@ -1,11 +1,14 @@
 type User {
   id: ID!
-  # id: String! @id
+  # Indexing with Custom Tokenizer
+  email: String! @id @search(by: [hash])
+  # user_id: String! @id
   apps: [App!]
   libraries: [Library!]
 }
 type App {
   id: ID!
+  owner: User @hasInverse(field: "apps")
   # id: String! @id
   name: String!
 }
@@ -25,4 +28,64 @@ type Atom {
 }
 
 
-# Dgraph.Authorization {  "VerificationKey":"-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAw/G//xy9ItND3tEPLm0wEWbrTIBExgRF2K8w4WD3+Wp2LIWEdb/YleEIVWIKZxuA91p7PqmzfeOzp3fmdkIU1SDxdXZTV/9cyNx2ZPRs3hj2p4AacwRsI8pqTP3jLy2yTmTBG6hHyiJ329TLg27WiPd/dJgnIaPD3F1KKkqdb8t6wDKxvbDaUm3PGkpGZX8oxHaYJd3RA7uzlBohAdcqSW6rNoLvDKIV4aYaYLwENpBZRUxbf1UVBSAhOspgq/flXiVVfvobLFW5E46nHFq+AAiu7a0N3VuzrBwufrUI51NG9hHv8nTTMHi5zzq1D+k2BsCiry9xBf9l/oEiwBzILQIDAQAB\n-----END PUBLIC KEY-----","Header":"X-Auth-Token","Namespace":"https://dgraph.io/jwt/claims","Algo":"RS256","Audience":["n1ni8iY85yA3RmAa1B4RWNP3W28tkBtf"]}
+type GetAllUsersPayload {
+  id: ID!
+  email: String
+}
+
+type Query {
+  GetAllUsers: [GetAllUsersPayload]
+    @custom(
+      dql: """
+      query {
+        GetAllUsers(func: type(User)) {
+          dgraph.type
+          email: User.email
+          id: uid
+        }
+      }
+      """
+    )
+  userWhere(email: String!): User
+    @custom(
+      dql: """
+      query user($email: string) {
+        q(func: eq(User.email, $email)){
+          email
+          dgraph.type
+          id: uid
+        }
+      }
+      """
+    )
+  # query user {
+  #      q(func: type(User)) @filter(eq(email, "webber@codelab.ai")) {
+  #        dgraph.type
+  #        id: uid
+  #      }
+  #    }
+}
+
+input UpsertUserInput {
+  email: String!
+}
+
+# type Mutation {
+#   upsertUser(input: UpsertUserInput!): User
+#     @custom(
+#       dql: """
+#       query {
+#         v asq(func: eq(User.email: input.email)) {
+#           v as uid
+#           email
+#         }
+#       }
+#       mutation @if(gt(len(v), 0)) {
+#         _.user <email> input.email .
+#         _.user <dgraph.type> "User .
+#       }
+#       """
+#     )
+# }
+
+# Dgraph.Authorization {  "VerificationKey":"-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAw/G//xy9ItND3tEPLm0wEWbrTIBExgRF2K8w4WD3+Wp2LIWEdb/YleEIVWIKZxuA91p7PqmzfeOzp3fmdkIU1SDxdXZTV/9cyNx2ZPRs3hj2p4AacwRsI8pqTP3jLy2yTmTBG6hHyiJ329TLg27WiPd/dJgnIaPD3F1KKkqdb8t6wDKxvbDaUm3PGkpGZX8oxHaYJd3RA7uzlBohAdcqSW6rNoLvDKIV4aYaYLwENpBZRUxbf1UVBSAhOspgq/flXiVVfvobLFW5E46nHFq+AAiu7a0N3VuzrBwufrUI51NG9hHv8nTTMHi5zzq1D+k2BsCiry9xBf9l/oEiwBzILQIDAQAB\n-----END PUBLIC KEY-----","Header":"Authorization","Namespace":"https://dgraph.io/jwt/claims","Algo":"RS256","Audience":["n1ni8iY85yA3RmAa1B4RWNP3W28tkBtf"]}

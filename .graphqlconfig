@@ -12,7 +12,7 @@
         "introspect": true
       },
      "Dgraph GraphQL Endpoint": {
-        "url": "http://127.0.0.1:8081/graphql",
+        "url": "${env.CODELAB_DGRAPH_GRAPHQL_ENDPOINT}",
         "headers": {
           "user-agent": "JS GraphQL",
         },

@@ -15,16 +15,17 @@ import React from 'react'
  * We always show `Login` `Register` even if user is login. We simply redirect them to `/apps` page if they're already logged in.
  */
 export const HomeMenuHeader = () => {
-  const { user: currentUser } = useUser()
-  const a = ''
+  const { user } = useUser()
 
   const authenticatedUserMenu = (
     <>
-      <Menu.Item key="3" style={{ float: 'right' }}>
-        <SignOutUserButton />
-      </Menu.Item>
+      <Menu.Item
+        key="3"
+        style={{ float: 'right', ...disableMenuHoverEffects }}
+        icon={<SignOutUserButton />}
+      />
       <Menu.SubMenu key="4" style={{ float: 'right' }} icon={<UserOutlined />}>
-        <Menu.Item>{currentUser?.email}</Menu.Item>
+        <Menu.Item>{user?.email}</Menu.Item>
         {/*<Menu.Item>{user?.email}</Menu.Item>*/}
       </Menu.SubMenu>
     </>
@@ -70,7 +71,7 @@ export const HomeMenuHeader = () => {
             <a>Apps</a>
           </Link>
         </Menu.Item>
-        {currentUser ? authenticatedUserMenu : guestUserMenu}
+        {user ? authenticatedUserMenu : guestUserMenu}
         {/*{user ? authenticatedUserMenu : guestUserMenu}*/}
       </Menu>
     </>

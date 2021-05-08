@@ -14,16 +14,13 @@ generates:
 
   schema.dgraph.graphql:
     schema:
-      - http://127.0.0.1:8081/graphql:
+      - ${CODELAB_DGRAPH_GRAPHQL_ENDPOINT}:
     plugins:
       - schema-ast
 
-  # Typescript + Apollo
-  libs/hasura/src/graphql-client-hasura.generated.ts:
+  libs/dgraph/src/graphql-client-dgraph.generated.ts:
     schema:
-      - ${CODELAB_HASURA_GRAPHQL_ENDPOINT}:
-          headers:
-            - 'x-hasura-admin-secret': '${HASURA_GRAPHQL_ADMIN_SECRET}'
+      - ${CODELAB_DGRAPH_GRAPHQL_ENDPOINT}:
     documents:
       - libs/modules/**/*[!.d].graphql
       - apps/web/**/*[!.d].graphql
@@ -41,13 +38,15 @@ generates:
       defaultScalarType: unknown
       withRefetchFn: true
       scalars:
+        Int64: number
+        DateTime: string
         uuid: string
         json: Record<string, any>
         jsonb: Record<string, any>
 
   libs/dgraph/src/graphql-client-dgraph.generated.ts:
     schema:
-      - http://127.0.0.1:8081/graphql
+      - ${CODELAB_DGRAPH_GRAPHQL_ENDPOINT}:
     documents:
       - libs/modules/**/*.d.graphql
       - apps/web/**/*.d.graphql
