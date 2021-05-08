@@ -8,9 +8,7 @@ export type MakeOptional<T, K extends keyof T> = Omit<T, K> &
   { [SubKey in K]?: Maybe<T[SubKey]> }
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> &
   { [SubKey in K]: Maybe<T[SubKey]> }
-const defaultOptions = {
-  context: { graphqlUri: 'http://127.0.0.1:8081/graphql' },
-}
+const defaultOptions = {}
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string
@@ -31,6 +29,7 @@ export type Scalars = {
 }
 
 export type AddAppInput = {
+  owner?: Maybe<UserRef>
   name: Scalars['String']
 }
 
@@ -64,6 +63,22 @@ export type AddAtomPayloadAtomArgs = {
   offset?: Maybe<Scalars['Int']>
 }
 
+export type AddGetAllUsersPayloadInput = {
+  email?: Maybe<Scalars['String']>
+}
+
+export type AddGetAllUsersPayloadPayload = {
+  getAllUsersPayload?: Maybe<Array<Maybe<GetAllUsersPayload>>>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type AddGetAllUsersPayloadPayloadGetAllUsersPayloadArgs = {
+  filter?: Maybe<GetAllUsersPayloadFilter>
+  order?: Maybe<GetAllUsersPayloadOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
 export type AddLibraryInput = {
   name: Scalars['String']
   atoms?: Maybe<Array<Maybe<AtomRef>>>
@@ -82,6 +97,7 @@ export type AddLibraryPayloadLibraryArgs = {
 }
 
 export type AddUserInput = {
+  email: Scalars['String']
   apps?: Maybe<Array<AppRef>>
   libraries?: Maybe<Array<LibraryRef>>
 }
@@ -93,13 +109,19 @@ export type AddUserPayload = {
 
 export type AddUserPayloadUserArgs = {
   filter?: Maybe<UserFilter>
+  order?: Maybe<UserOrder>
   first?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
 }
 
 export type App = {
   id: Scalars['ID']
+  owner?: Maybe<User>
   name: Scalars['String']
+}
+
+export type AppOwnerArgs = {
+  filter?: Maybe<UserFilter>
 }
 
 export type AppAggregateResult = {
@@ -117,6 +139,7 @@ export type AppFilter = {
 }
 
 export enum AppHasFilter {
+  Owner = 'owner',
   Name = 'name',
 }
 
@@ -131,11 +154,13 @@ export enum AppOrderable {
 }
 
 export type AppPatch = {
+  owner?: Maybe<UserRef>
   name?: Maybe<Scalars['String']>
 }
 
 export type AppRef = {
   id?: Maybe<Scalars['ID']>
+  owner?: Maybe<UserRef>
   name?: Maybe<Scalars['String']>
 }
 
@@ -261,6 +286,19 @@ export type DeleteAtomPayloadAtomArgs = {
   offset?: Maybe<Scalars['Int']>
 }
 
+export type DeleteGetAllUsersPayloadPayload = {
+  getAllUsersPayload?: Maybe<Array<Maybe<GetAllUsersPayload>>>
+  msg?: Maybe<Scalars['String']>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type DeleteGetAllUsersPayloadPayloadGetAllUsersPayloadArgs = {
+  filter?: Maybe<GetAllUsersPayloadFilter>
+  order?: Maybe<GetAllUsersPayloadOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
 export type DeleteLibraryPayload = {
   library?: Maybe<Array<Maybe<Library>>>
   msg?: Maybe<Scalars['String']>
@@ -282,6 +320,7 @@ export type DeleteUserPayload = {
 
 export type DeleteUserPayloadUserArgs = {
   filter?: Maybe<UserFilter>
+  order?: Maybe<UserOrder>
   first?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
 }
@@ -330,6 +369,48 @@ export type GenerateQueryParams = {
   query?: Maybe<Scalars['Boolean']>
   password?: Maybe<Scalars['Boolean']>
   aggregate?: Maybe<Scalars['Boolean']>
+}
+
+export type GetAllUsersPayload = {
+  id: Scalars['ID']
+  email?: Maybe<Scalars['String']>
+}
+
+export type GetAllUsersPayloadAggregateResult = {
+  count?: Maybe<Scalars['Int']>
+  emailMin?: Maybe<Scalars['String']>
+  emailMax?: Maybe<Scalars['String']>
+}
+
+export type GetAllUsersPayloadFilter = {
+  id?: Maybe<Array<Scalars['ID']>>
+  has?: Maybe<Array<Maybe<GetAllUsersPayloadHasFilter>>>
+  and?: Maybe<Array<Maybe<GetAllUsersPayloadFilter>>>
+  or?: Maybe<Array<Maybe<GetAllUsersPayloadFilter>>>
+  not?: Maybe<GetAllUsersPayloadFilter>
+}
+
+export enum GetAllUsersPayloadHasFilter {
+  Email = 'email',
+}
+
+export type GetAllUsersPayloadOrder = {
+  asc?: Maybe<GetAllUsersPayloadOrderable>
+  desc?: Maybe<GetAllUsersPayloadOrderable>
+  then?: Maybe<GetAllUsersPayloadOrder>
+}
+
+export enum GetAllUsersPayloadOrderable {
+  Email = 'email',
+}
+
+export type GetAllUsersPayloadPatch = {
+  email?: Maybe<Scalars['String']>
+}
+
+export type GetAllUsersPayloadRef = {
+  id?: Maybe<Scalars['ID']>
+  email?: Maybe<Scalars['String']>
 }
 
 export enum HttpMethod {
@@ -459,10 +540,14 @@ export type Mutation = {
   addAtom?: Maybe<AddAtomPayload>
   updateAtom?: Maybe<UpdateAtomPayload>
   deleteAtom?: Maybe<DeleteAtomPayload>
+  addGetAllUsersPayload?: Maybe<AddGetAllUsersPayloadPayload>
+  updateGetAllUsersPayload?: Maybe<UpdateGetAllUsersPayloadPayload>
+  deleteGetAllUsersPayload?: Maybe<DeleteGetAllUsersPayloadPayload>
 }
 
 export type MutationAddUserArgs = {
   input: Array<AddUserInput>
+  upsert?: Maybe<Scalars['Boolean']>
 }
 
 export type MutationUpdateUserArgs = {
@@ -509,6 +594,18 @@ export type MutationDeleteAtomArgs = {
   filter: AtomFilter
 }
 
+export type MutationAddGetAllUsersPayloadArgs = {
+  input: Array<AddGetAllUsersPayloadInput>
+}
+
+export type MutationUpdateGetAllUsersPayloadArgs = {
+  input: UpdateGetAllUsersPayloadInput
+}
+
+export type MutationDeleteGetAllUsersPayloadArgs = {
+  filter: GetAllUsersPayloadFilter
+}
+
 export type NearFilter = {
   distance: Scalars['Float']
   coordinate: PointRef
@@ -553,6 +650,8 @@ export type PolygonRef = {
 }
 
 export type Query = {
+  GetAllUsers?: Maybe<Array<Maybe<GetAllUsersPayload>>>
+  userWhere?: Maybe<User>
   getUser?: Maybe<User>
   queryUser?: Maybe<Array<Maybe<User>>>
   aggregateUser?: Maybe<UserAggregateResult>
@@ -565,14 +664,23 @@ export type Query = {
   getAtom?: Maybe<Atom>
   queryAtom?: Maybe<Array<Maybe<Atom>>>
   aggregateAtom?: Maybe<AtomAggregateResult>
+  getGetAllUsersPayload?: Maybe<GetAllUsersPayload>
+  queryGetAllUsersPayload?: Maybe<Array<Maybe<GetAllUsersPayload>>>
+  aggregateGetAllUsersPayload?: Maybe<GetAllUsersPayloadAggregateResult>
+}
+
+export type QueryUserWhereArgs = {
+  email: Scalars['String']
 }
 
 export type QueryGetUserArgs = {
-  id: Scalars['ID']
+  id?: Maybe<Scalars['ID']>
+  email?: Maybe<Scalars['String']>
 }
 
 export type QueryQueryUserArgs = {
   filter?: Maybe<UserFilter>
+  order?: Maybe<UserOrder>
   first?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
 }
@@ -624,6 +732,21 @@ export type QueryQueryAtomArgs = {
 
 export type QueryAggregateAtomArgs = {
   filter?: Maybe<AtomFilter>
+}
+
+export type QueryGetGetAllUsersPayloadArgs = {
+  id: Scalars['ID']
+}
+
+export type QueryQueryGetAllUsersPayloadArgs = {
+  filter?: Maybe<GetAllUsersPayloadFilter>
+  order?: Maybe<GetAllUsersPayloadOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type QueryAggregateGetAllUsersPayloadArgs = {
+  filter?: Maybe<GetAllUsersPayloadFilter>
 }
 
 export type StringExactFilter = {
@@ -696,6 +819,24 @@ export type UpdateAtomPayloadAtomArgs = {
   offset?: Maybe<Scalars['Int']>
 }
 
+export type UpdateGetAllUsersPayloadInput = {
+  filter: GetAllUsersPayloadFilter
+  set?: Maybe<GetAllUsersPayloadPatch>
+  remove?: Maybe<GetAllUsersPayloadPatch>
+}
+
+export type UpdateGetAllUsersPayloadPayload = {
+  getAllUsersPayload?: Maybe<Array<Maybe<GetAllUsersPayload>>>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type UpdateGetAllUsersPayloadPayloadGetAllUsersPayloadArgs = {
+  filter?: Maybe<GetAllUsersPayloadFilter>
+  order?: Maybe<GetAllUsersPayloadOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
 export type UpdateLibraryInput = {
   filter: LibraryFilter
   set?: Maybe<LibraryPatch>
@@ -727,12 +868,18 @@ export type UpdateUserPayload = {
 
 export type UpdateUserPayloadUserArgs = {
   filter?: Maybe<UserFilter>
+  order?: Maybe<UserOrder>
   first?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
 }
 
+export type UpsertUserInput = {
+  email: Scalars['String']
+}
+
 export type User = {
   id: Scalars['ID']
+  email: Scalars['String']
   apps?: Maybe<Array<App>>
   libraries?: Maybe<Array<Library>>
   appsAggregate?: Maybe<AppAggregateResult>
@@ -763,10 +910,13 @@ export type UserLibrariesAggregateArgs = {
 
 export type UserAggregateResult = {
   count?: Maybe<Scalars['Int']>
+  emailMin?: Maybe<Scalars['String']>
+  emailMax?: Maybe<Scalars['String']>
 }
 
 export type UserFilter = {
   id?: Maybe<Array<Scalars['ID']>>
+  email?: Maybe<StringHashFilter>
   has?: Maybe<Array<Maybe<UserHasFilter>>>
   and?: Maybe<Array<Maybe<UserFilter>>>
   or?: Maybe<Array<Maybe<UserFilter>>>
@@ -774,8 +924,19 @@ export type UserFilter = {
 }
 
 export enum UserHasFilter {
+  Email = 'email',
   Apps = 'apps',
   Libraries = 'libraries',
+}
+
+export type UserOrder = {
+  asc?: Maybe<UserOrderable>
+  desc?: Maybe<UserOrderable>
+  then?: Maybe<UserOrder>
+}
+
+export enum UserOrderable {
+  Email = 'email',
 }
 
 export type UserPatch = {
@@ -785,6 +946,7 @@ export type UserPatch = {
 
 export type UserRef = {
   id?: Maybe<Scalars['ID']>
+  email?: Maybe<Scalars['String']>
   apps?: Maybe<Array<AppRef>>
   libraries?: Maybe<Array<LibraryRef>>
 }
@@ -829,11 +991,49 @@ export type UpdateAtomMutation = {
   >
 }
 
+export type __UserFragment = Pick<User, 'id' | 'email'>
+
+export type DeleteUserWhereMutationVariables = Exact<{
+  where: UserFilter
+}>
+
+export type DeleteUserWhereMutation = {
+  deleteUser?: Maybe<{ user?: Maybe<Array<Maybe<Pick<User, 'id'>>>> }>
+}
+
+export type GetAllUsersQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetAllUsersQuery = {
+  GetAllUsers?: Maybe<Array<Maybe<Pick<GetAllUsersPayload, 'id' | 'email'>>>>
+}
+
+export type GetUsersWhereQueryVariables = Exact<{
+  where: UserFilter
+}>
+
+export type GetUsersWhereQuery = {
+  queryUser?: Maybe<Array<Maybe<Pick<User, 'id' | 'email'>>>>
+}
+
+export type UpsertDgraphUserMutationVariables = Exact<{
+  input: AddUserInput
+}>
+
+export type UpsertDgraphUserMutation = {
+  addUser?: Maybe<{ user?: Maybe<Array<Maybe<Pick<User, 'id' | 'email'>>>> }>
+}
+
 export const __AtomFragmentDoc = gql`
   fragment __Atom on Atom {
     id
     type
     label
+  }
+`
+export const __UserFragmentDoc = gql`
+  fragment __User on User {
+    id
+    email
   }
 `
 export const CreateAtomGql = gql`
@@ -1048,11 +1248,243 @@ export type UpdateAtomMutationOptions = Apollo.BaseMutationOptions<
   UpdateAtomMutation,
   UpdateAtomMutationVariables
 >
+export const DeleteUserWhereGql = gql`
+  mutation DeleteUserWhere($where: UserFilter!) {
+    deleteUser(filter: $where) {
+      user {
+        id
+      }
+    }
+  }
+`
+export type DeleteUserWhereMutationFn = Apollo.MutationFunction<
+  DeleteUserWhereMutation,
+  DeleteUserWhereMutationVariables
+>
+
+/**
+ * __useDeleteUserWhereMutation__
+ *
+ * To run a mutation, you first call `useDeleteUserWhereMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteUserWhereMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteUserWhereMutation, { data, loading, error }] = useDeleteUserWhereMutation({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useDeleteUserWhereMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeleteUserWhereMutation,
+    DeleteUserWhereMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    DeleteUserWhereMutation,
+    DeleteUserWhereMutationVariables
+  >(DeleteUserWhereGql, options)
+}
+export type DeleteUserWhereMutationHookResult = ReturnType<
+  typeof useDeleteUserWhereMutation
+>
+export type DeleteUserWhereMutationResult = Apollo.MutationResult<DeleteUserWhereMutation>
+export type DeleteUserWhereMutationOptions = Apollo.BaseMutationOptions<
+  DeleteUserWhereMutation,
+  DeleteUserWhereMutationVariables
+>
+export const GetAllUsersGql = gql`
+  query GetAllUsers {
+    GetAllUsers {
+      id
+      email
+    }
+  }
+`
+
+/**
+ * __useGetAllUsersQuery__
+ *
+ * To run a query within a React component, call `useGetAllUsersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllUsersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllUsersQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllUsersQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetAllUsersQuery,
+    GetAllUsersQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetAllUsersQuery, GetAllUsersQueryVariables>(
+    GetAllUsersGql,
+    options,
+  )
+}
+export function useGetAllUsersLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetAllUsersQuery,
+    GetAllUsersQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetAllUsersQuery, GetAllUsersQueryVariables>(
+    GetAllUsersGql,
+    options,
+  )
+}
+export type GetAllUsersQueryHookResult = ReturnType<typeof useGetAllUsersQuery>
+export type GetAllUsersLazyQueryHookResult = ReturnType<
+  typeof useGetAllUsersLazyQuery
+>
+export type GetAllUsersQueryResult = Apollo.QueryResult<
+  GetAllUsersQuery,
+  GetAllUsersQueryVariables
+>
+export function refetchGetAllUsersQuery(variables?: GetAllUsersQueryVariables) {
+  return { query: GetAllUsersGql, variables: variables }
+}
+export const GetUsersWhereGql = gql`
+  query GetUsersWhere($where: UserFilter!) {
+    queryUser(filter: $where) {
+      id
+      email
+    }
+  }
+`
+
+/**
+ * __useGetUsersWhereQuery__
+ *
+ * To run a query within a React component, call `useGetUsersWhereQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUsersWhereQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetUsersWhereQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useGetUsersWhereQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetUsersWhereQuery,
+    GetUsersWhereQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetUsersWhereQuery, GetUsersWhereQueryVariables>(
+    GetUsersWhereGql,
+    options,
+  )
+}
+export function useGetUsersWhereLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetUsersWhereQuery,
+    GetUsersWhereQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetUsersWhereQuery, GetUsersWhereQueryVariables>(
+    GetUsersWhereGql,
+    options,
+  )
+}
+export type GetUsersWhereQueryHookResult = ReturnType<
+  typeof useGetUsersWhereQuery
+>
+export type GetUsersWhereLazyQueryHookResult = ReturnType<
+  typeof useGetUsersWhereLazyQuery
+>
+export type GetUsersWhereQueryResult = Apollo.QueryResult<
+  GetUsersWhereQuery,
+  GetUsersWhereQueryVariables
+>
+export function refetchGetUsersWhereQuery(
+  variables?: GetUsersWhereQueryVariables,
+) {
+  return { query: GetUsersWhereGql, variables: variables }
+}
+export const UpsertDgraphUserGql = gql`
+  mutation UpsertDgraphUser($input: AddUserInput!) {
+    addUser(input: [$input], upsert: true) {
+      user {
+        id
+        email
+      }
+    }
+  }
+`
+export type UpsertDgraphUserMutationFn = Apollo.MutationFunction<
+  UpsertDgraphUserMutation,
+  UpsertDgraphUserMutationVariables
+>
+
+/**
+ * __useUpsertDgraphUserMutation__
+ *
+ * To run a mutation, you first call `useUpsertDgraphUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpsertDgraphUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [upsertDgraphUserMutation, { data, loading, error }] = useUpsertDgraphUserMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpsertDgraphUserMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpsertDgraphUserMutation,
+    UpsertDgraphUserMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    UpsertDgraphUserMutation,
+    UpsertDgraphUserMutationVariables
+  >(UpsertDgraphUserGql, options)
+}
+export type UpsertDgraphUserMutationHookResult = ReturnType<
+  typeof useUpsertDgraphUserMutation
+>
+export type UpsertDgraphUserMutationResult = Apollo.MutationResult<UpsertDgraphUserMutation>
+export type UpsertDgraphUserMutationOptions = Apollo.BaseMutationOptions<
+  UpsertDgraphUserMutation,
+  UpsertDgraphUserMutationVariables
+>
 export const __Atom = gql`
   fragment __Atom on Atom {
     id
     type
     label
+  }
+`
+export const __User = gql`
+  fragment __User on User {
+    id
+    email
   }
 `
 export const CreateAtom = gql`
@@ -1091,4 +1523,39 @@ export const UpdateAtom = gql`
     }
   }
   ${__Atom}
+`
+export const DeleteUserWhere = gql`
+  mutation DeleteUserWhere($where: UserFilter!) {
+    deleteUser(filter: $where) {
+      user {
+        id
+      }
+    }
+  }
+`
+export const GetAllUsers = gql`
+  query GetAllUsers {
+    GetAllUsers {
+      id
+      email
+    }
+  }
+`
+export const GetUsersWhere = gql`
+  query GetUsersWhere($where: UserFilter!) {
+    queryUser(filter: $where) {
+      id
+      email
+    }
+  }
+`
+export const UpsertDgraphUser = gql`
+  mutation UpsertDgraphUser($input: AddUserInput!) {
+    addUser(input: [$input], upsert: true) {
+      user {
+        id
+        email
+      }
+    }
+  }
 `

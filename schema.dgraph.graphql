@@ -46,6 +46,7 @@ directive @secret(field: String!, pred: String) on OBJECT | INTERFACE
 directive @withSubscription on OBJECT | INTERFACE | FIELD_DEFINITION
 
 input AddAppInput {
+  owner: UserRef
   name: String!
 }
 
@@ -65,6 +66,20 @@ type AddAtomPayload {
   numUids: Int
 }
 
+input AddGetAllUsersPayloadInput {
+  email: String
+}
+
+type AddGetAllUsersPayloadPayload {
+  getAllUsersPayload(
+    filter: GetAllUsersPayloadFilter
+    order: GetAllUsersPayloadOrder
+    first: Int
+    offset: Int
+  ): [GetAllUsersPayload]
+  numUids: Int
+}
+
 input AddLibraryInput {
   name: String!
   atoms: [AtomRef]
@@ -81,17 +96,19 @@ type AddLibraryPayload {
 }
 
 input AddUserInput {
+  email: String!
   apps: [AppRef!]
   libraries: [LibraryRef!]
 }
 
 type AddUserPayload {
-  user(filter: UserFilter, first: Int, offset: Int): [User]
+  user(filter: UserFilter, order: UserOrder, first: Int, offset: Int): [User]
   numUids: Int
 }
 
 type App {
   id: ID!
+  owner(filter: UserFilter): User
   name: String!
 }
 
@@ -110,6 +127,7 @@ input AppFilter {
 }
 
 enum AppHasFilter {
+  owner
   name
 }
 
@@ -124,11 +142,13 @@ enum AppOrderable {
 }
 
 input AppPatch {
+  owner: UserRef
   name: String
 }
 
 input AppRef {
   id: ID
+  owner: UserRef
   name: String
 }
 
@@ -242,6 +262,17 @@ type DeleteAtomPayload {
   numUids: Int
 }
 
+type DeleteGetAllUsersPayloadPayload {
+  getAllUsersPayload(
+    filter: GetAllUsersPayloadFilter
+    order: GetAllUsersPayloadOrder
+    first: Int
+    offset: Int
+  ): [GetAllUsersPayload]
+  msg: String
+  numUids: Int
+}
+
 type DeleteLibraryPayload {
   library(
     filter: LibraryFilter
@@ -254,7 +285,7 @@ type DeleteLibraryPayload {
 }
 
 type DeleteUserPayload {
-  user(filter: UserFilter, first: Int, offset: Int): [User]
+  user(filter: UserFilter, order: UserOrder, first: Int, offset: Int): [User]
   msg: String
   numUids: Int
 }
@@ -303,6 +334,48 @@ input GenerateQueryParams {
   query: Boolean
   password: Boolean
   aggregate: Boolean
+}
+
+type GetAllUsersPayload {
+  id: ID!
+  email: String
+}
+
+type GetAllUsersPayloadAggregateResult {
+  count: Int
+  emailMin: String
+  emailMax: String
+}
+
+input GetAllUsersPayloadFilter {
+  id: [ID!]
+  has: [GetAllUsersPayloadHasFilter]
+  and: [GetAllUsersPayloadFilter]
+  or: [GetAllUsersPayloadFilter]
+  not: GetAllUsersPayloadFilter
+}
+
+enum GetAllUsersPayloadHasFilter {
+  email
+}
+
+input GetAllUsersPayloadOrder {
+  asc: GetAllUsersPayloadOrderable
+  desc: GetAllUsersPayloadOrderable
+  then: GetAllUsersPayloadOrder
+}
+
+enum GetAllUsersPayloadOrderable {
+  email
+}
+
+input GetAllUsersPayloadPatch {
+  email: String
+}
+
+input GetAllUsersPayloadRef {
+  id: ID
+  email: String
 }
 
 enum HTTPMethod {
@@ -415,7 +488,7 @@ input MultiPolygonRef {
 }
 
 type Mutation {
-  addUser(input: [AddUserInput!]!): AddUserPayload
+  addUser(input: [AddUserInput!]!, upsert: Boolean): AddUserPayload
   updateUser(input: UpdateUserInput!): UpdateUserPayload
   deleteUser(filter: UserFilter!): DeleteUserPayload
   addApp(input: [AddAppInput!]!): AddAppPayload
@@ -427,6 +500,15 @@ type Mutation {
   addAtom(input: [AddAtomInput!]!): AddAtomPayload
   updateAtom(input: UpdateAtomInput!): UpdateAtomPayload
   deleteAtom(filter: AtomFilter!): DeleteAtomPayload
+  addGetAllUsersPayload(
+    input: [AddGetAllUsersPayloadInput!]!
+  ): AddGetAllUsersPayloadPayload
+  updateGetAllUsersPayload(
+    input: UpdateGetAllUsersPayloadInput!
+  ): UpdateGetAllUsersPayloadPayload
+  deleteGetAllUsersPayload(
+    filter: GetAllUsersPayloadFilter!
+  ): DeleteGetAllUsersPayloadPayload
 }
 
 input NearFilter {
@@ -473,8 +555,15 @@ input PolygonRef {
 }
 
 type Query {
-  getUser(id: ID!): User
-  queryUser(filter: UserFilter, first: Int, offset: Int): [User]
+  GetAllUsers: [GetAllUsersPayload]
+  userWhere(email: String!): User
+  getUser(id: ID, email: String): User
+  queryUser(
+    filter: UserFilter
+    order: UserOrder
+    first: Int
+    offset: Int
+  ): [User]
   aggregateUser(filter: UserFilter): UserAggregateResult
   getApp(id: ID!): App
   queryApp(filter: AppFilter, order: AppOrder, first: Int, offset: Int): [App]
@@ -495,6 +584,16 @@ type Query {
     offset: Int
   ): [Atom]
   aggregateAtom(filter: AtomFilter): AtomAggregateResult
+  getGetAllUsersPayload(id: ID!): GetAllUsersPayload
+  queryGetAllUsersPayload(
+    filter: GetAllUsersPayloadFilter
+    order: GetAllUsersPayloadOrder
+    first: Int
+    offset: Int
+  ): [GetAllUsersPayload]
+  aggregateGetAllUsersPayload(
+    filter: GetAllUsersPayloadFilter
+  ): GetAllUsersPayloadAggregateResult
 }
 
 input StringExactFilter {
@@ -553,6 +652,22 @@ type UpdateAtomPayload {
   numUids: Int
 }
 
+input UpdateGetAllUsersPayloadInput {
+  filter: GetAllUsersPayloadFilter!
+  set: GetAllUsersPayloadPatch
+  remove: GetAllUsersPayloadPatch
+}
+
+type UpdateGetAllUsersPayloadPayload {
+  getAllUsersPayload(
+    filter: GetAllUsersPayloadFilter
+    order: GetAllUsersPayloadOrder
+    first: Int
+    offset: Int
+  ): [GetAllUsersPayload]
+  numUids: Int
+}
+
 input UpdateLibraryInput {
   filter: LibraryFilter!
   set: LibraryPatch
@@ -576,12 +691,17 @@ input UpdateUserInput {
 }
 
 type UpdateUserPayload {
-  user(filter: UserFilter, first: Int, offset: Int): [User]
+  user(filter: UserFilter, order: UserOrder, first: Int, offset: Int): [User]
   numUids: Int
+}
+
+input UpsertUserInput {
+  email: String!
 }
 
 type User {
   id: ID!
+  email: String!
   apps(filter: AppFilter, order: AppOrder, first: Int, offset: Int): [App!]
   libraries(
     filter: LibraryFilter
@@ -595,10 +715,13 @@ type User {
 
 type UserAggregateResult {
   count: Int
+  emailMin: String
+  emailMax: String
 }
 
 input UserFilter {
   id: [ID!]
+  email: StringHashFilter
   has: [UserHasFilter]
   and: [UserFilter]
   or: [UserFilter]
@@ -606,8 +729,19 @@ input UserFilter {
 }
 
 enum UserHasFilter {
+  email
   apps
   libraries
+}
+
+input UserOrder {
+  asc: UserOrderable
+  desc: UserOrderable
+  then: UserOrder
+}
+
+enum UserOrderable {
+  email
 }
 
 input UserPatch {
@@ -617,6 +751,7 @@ input UserPatch {
 
 input UserRef {
   id: ID
+  email: String
   apps: [AppRef!]
   libraries: [LibraryRef!]
 }

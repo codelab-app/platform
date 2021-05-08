@@ -1,0 +1,6 @@
+query GetUsersWhere($where: UserFilter!) {
+  queryUser(filter: $where) {
+    id
+    email
+  }
+}

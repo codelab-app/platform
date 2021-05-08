@@ -17455,6 +17455,7 @@ enum value_type_enum {
   Boolean
   Lambda
   Number
+  Prop
   String
 }
 

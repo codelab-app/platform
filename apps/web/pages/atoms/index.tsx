@@ -1,5 +1,5 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import { MainPaneDAtom } from '@codelab/modules/atom'
+import { d } from '@codelab/modules/atom'
 import React from 'react'
 import xw from 'xwind'
 import { NextPageLayout } from '../../src/layout/Layout.d'
@@ -14,7 +14,7 @@ const Library: NextPageLayout<'builder'> = () => {
 }
 
 Library.Layout = LayoutBuilder
-Library.MainPane = MainPaneDAtom
+Library.MainPane = d.MainPaneDAtom
 
 export const getServerSideProps = withPageAuthRequired()
 

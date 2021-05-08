@@ -9,6 +9,7 @@ export enum ActionType {
 }
 
 export enum EntityType {
+  User = 'User',
   None = 'None',
   Page = 'Page',
   PageElement = 'PageElement',
