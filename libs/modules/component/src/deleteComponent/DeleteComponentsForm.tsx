@@ -10,7 +10,7 @@ import {
 import {
   refetchLibraryExplorerQuery,
   useDeleteComponentsWhereMutation,
-  useGetComponentsWhereQuery,
+  useGetComponentsQuery,
 } from '@codelab/hasura'
 import { Spin } from 'antd'
 import React, { useEffect } from 'react'
@@ -42,10 +42,10 @@ export const DeleteComponentsForm = (props: DeleteComponentFormProps) => {
     setLoading(deleting)
   }, [deleting])
 
-  const { data, loading } = useGetComponentsWhereQuery({
-    variables: {
-      where: componentsWhere,
-    },
+  const { data, loading } = useGetComponentsQuery({
+    // variables: {
+    //   where: componentsWhere,
+    // },
   })
 
   if (loading) {

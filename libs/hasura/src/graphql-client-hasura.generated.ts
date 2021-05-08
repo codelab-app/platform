@@ -20,6 +20,7 @@ export type Scalars = {
   jsonb: Record<string, any>
   uuid: string
 }
+//
 
 /** Boolean expression to compare columns of type "Boolean". All fields are combined with logical 'AND'. */
 export type Boolean_Comparison_Exp = {
