@@ -672,6 +672,19 @@
           }
         }
       }
+    },
+    "dgraph": {
+      "root": "libs/dgraph",
+      "sourceRoot": "libs/dgraph/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/dgraph/**/*.ts"]
+          }
+        }
+      }
     }
   }
 }

@@ -25,9 +25,9 @@ generates:
           headers:
             - 'x-hasura-admin-secret': '${HASURA_GRAPHQL_ADMIN_SECRET}'
     documents:
-      - libs/modules/**/*.graphql
-      - apps/web/**/*.graphql
-      - apps/web-e2e/**/*.graphql
+      - libs/modules/**/*[!.d].graphql
+      - apps/web/**/*[!.d].graphql
+      - apps/web-e2e/**/*[!.d].graphql
     plugins:
       - typescript
       - typescript-operations
@@ -44,3 +44,32 @@ generates:
         uuid: string
         json: Record<string, any>
         jsonb: Record<string, any>
+
+  libs/dgraph/src/graphql-client-dgraph.generated.ts:
+    schema:
+      - http://127.0.0.1:8081/graphql
+    documents:
+      - libs/modules/**/*.d.graphql
+      - apps/web/**/*.d.graphql
+      - apps/web-e2e/**/*.d.graphql
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo
+      - typescript-document-nodes
+    config:
+      documentVariableSuffix: 'Gql'
+      gqlImport: '@apollo/client#gql'
+      skipTypename: true
+      strictScalars: true
+      defaultScalarType: unknown
+      withRefetchFn: true
+      defaultBaseOptions:
+        context:
+          graphqlUri: 'http://127.0.0.1:8081/graphql'
+      scalars:
+        uuid: string
+        json: Record<string, any>
+        jsonb: Record<string, any>
+        DateTime: string
+        Int64: number

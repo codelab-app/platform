@@ -54,8 +54,20 @@ type AddAppPayload {
   numUids: Int
 }
 
+input AddAtomInput {
+  type: String!
+  library: LibraryRef
+  label: String!
+}
+
+type AddAtomPayload {
+  atom(filter: AtomFilter, order: AtomOrder, first: Int, offset: Int): [Atom]
+  numUids: Int
+}
+
 input AddLibraryInput {
   name: String!
+  atoms: [AtomRef]
 }
 
 type AddLibraryPayload {
@@ -120,6 +132,59 @@ input AppRef {
   name: String
 }
 
+type Atom {
+  id: ID!
+  type: String!
+  library(filter: LibraryFilter): Library
+  label: String!
+}
+
+type AtomAggregateResult {
+  count: Int
+  typeMin: String
+  typeMax: String
+  labelMin: String
+  labelMax: String
+}
+
+input AtomFilter {
+  id: [ID!]
+  has: [AtomHasFilter]
+  and: [AtomFilter]
+  or: [AtomFilter]
+  not: AtomFilter
+}
+
+enum AtomHasFilter {
+  type
+  library
+  label
+}
+
+input AtomOrder {
+  asc: AtomOrderable
+  desc: AtomOrderable
+  then: AtomOrder
+}
+
+enum AtomOrderable {
+  type
+  label
+}
+
+input AtomPatch {
+  type: String
+  library: LibraryRef
+  label: String
+}
+
+input AtomRef {
+  id: ID
+  type: String
+  library: LibraryRef
+  label: String
+}
+
 input AuthRule {
   and: [AuthRule]
   or: [AuthRule]
@@ -167,6 +232,12 @@ input DateTimeRange {
 
 type DeleteAppPayload {
   app(filter: AppFilter, order: AppOrder, first: Int, offset: Int): [App]
+  msg: String
+  numUids: Int
+}
+
+type DeleteAtomPayload {
+  atom(filter: AtomFilter, order: AtomOrder, first: Int, offset: Int): [Atom]
   msg: String
   numUids: Int
 }
@@ -286,6 +357,8 @@ input IntersectsFilter {
 type Library {
   id: ID!
   name: String!
+  atoms(filter: AtomFilter, order: AtomOrder, first: Int, offset: Int): [Atom]
+  atomsAggregate(filter: AtomFilter): AtomAggregateResult
 }
 
 type LibraryAggregateResult {
@@ -304,6 +377,7 @@ input LibraryFilter {
 
 enum LibraryHasFilter {
   name
+  atoms
 }
 
 input LibraryOrder {
@@ -318,11 +392,13 @@ enum LibraryOrderable {
 
 input LibraryPatch {
   name: String
+  atoms: [AtomRef]
 }
 
 input LibraryRef {
   id: ID
   name: String
+  atoms: [AtomRef]
 }
 
 enum Mode {
@@ -348,6 +424,9 @@ type Mutation {
   addLibrary(input: [AddLibraryInput!]!): AddLibraryPayload
   updateLibrary(input: UpdateLibraryInput!): UpdateLibraryPayload
   deleteLibrary(filter: LibraryFilter!): DeleteLibraryPayload
+  addAtom(input: [AddAtomInput!]!): AddAtomPayload
+  updateAtom(input: UpdateAtomInput!): UpdateAtomPayload
+  deleteAtom(filter: AtomFilter!): DeleteAtomPayload
 }
 
 input NearFilter {
@@ -408,6 +487,14 @@ type Query {
     offset: Int
   ): [Library]
   aggregateLibrary(filter: LibraryFilter): LibraryAggregateResult
+  getAtom(id: ID!): Atom
+  queryAtom(
+    filter: AtomFilter
+    order: AtomOrder
+    first: Int
+    offset: Int
+  ): [Atom]
+  aggregateAtom(filter: AtomFilter): AtomAggregateResult
 }
 
 input StringExactFilter {
@@ -452,6 +539,17 @@ input UpdateAppInput {
 
 type UpdateAppPayload {
   app(filter: AppFilter, order: AppOrder, first: Int, offset: Int): [App]
+  numUids: Int
+}
+
+input UpdateAtomInput {
+  filter: AtomFilter!
+  set: AtomPatch
+  remove: AtomPatch
+}
+
+type UpdateAtomPayload {
+  atom(filter: AtomFilter, order: AtomOrder, first: Int, offset: Int): [Atom]
   numUids: Int
 }
 
