@@ -66,6 +66,20 @@ type AddAtomPayload {
   numUids: Int
 }
 
+input AddGetAllUsersPayloadInput {
+  email: String
+}
+
+type AddGetAllUsersPayloadPayload {
+  getAllUsersPayload(
+    filter: GetAllUsersPayloadFilter
+    order: GetAllUsersPayloadOrder
+    first: Int
+    offset: Int
+  ): [GetAllUsersPayload]
+  numUids: Int
+}
+
 input AddLibraryInput {
   name: String!
   atoms: [AtomRef]
@@ -244,6 +258,17 @@ type DeleteAppPayload {
 
 type DeleteAtomPayload {
   atom(filter: AtomFilter, order: AtomOrder, first: Int, offset: Int): [Atom]
+  msg: String
+  numUids: Int
+}
+
+type DeleteGetAllUsersPayloadPayload {
+  getAllUsersPayload(
+    filter: GetAllUsersPayloadFilter
+    order: GetAllUsersPayloadOrder
+    first: Int
+    offset: Int
+  ): [GetAllUsersPayload]
   msg: String
   numUids: Int
 }
@@ -475,6 +500,15 @@ type Mutation {
   addAtom(input: [AddAtomInput!]!): AddAtomPayload
   updateAtom(input: UpdateAtomInput!): UpdateAtomPayload
   deleteAtom(filter: AtomFilter!): DeleteAtomPayload
+  addGetAllUsersPayload(
+    input: [AddGetAllUsersPayloadInput!]!
+  ): AddGetAllUsersPayloadPayload
+  updateGetAllUsersPayload(
+    input: UpdateGetAllUsersPayloadInput!
+  ): UpdateGetAllUsersPayloadPayload
+  deleteGetAllUsersPayload(
+    filter: GetAllUsersPayloadFilter!
+  ): DeleteGetAllUsersPayloadPayload
 }
 
 input NearFilter {
@@ -550,6 +584,16 @@ type Query {
     offset: Int
   ): [Atom]
   aggregateAtom(filter: AtomFilter): AtomAggregateResult
+  getGetAllUsersPayload(id: ID!): GetAllUsersPayload
+  queryGetAllUsersPayload(
+    filter: GetAllUsersPayloadFilter
+    order: GetAllUsersPayloadOrder
+    first: Int
+    offset: Int
+  ): [GetAllUsersPayload]
+  aggregateGetAllUsersPayload(
+    filter: GetAllUsersPayloadFilter
+  ): GetAllUsersPayloadAggregateResult
 }
 
 input StringExactFilter {
@@ -605,6 +649,22 @@ input UpdateAtomInput {
 
 type UpdateAtomPayload {
   atom(filter: AtomFilter, order: AtomOrder, first: Int, offset: Int): [Atom]
+  numUids: Int
+}
+
+input UpdateGetAllUsersPayloadInput {
+  filter: GetAllUsersPayloadFilter!
+  set: GetAllUsersPayloadPatch
+  remove: GetAllUsersPayloadPatch
+}
+
+type UpdateGetAllUsersPayloadPayload {
+  getAllUsersPayload(
+    filter: GetAllUsersPayloadFilter
+    order: GetAllUsersPayloadOrder
+    first: Int
+    offset: Int
+  ): [GetAllUsersPayload]
   numUids: Int
 }
 

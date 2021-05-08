@@ -17,7 +17,7 @@ type Library {
   id: ID!
   # id: String! @id
   name: String!
-  atoms: [Atom]  @hasInverse(field: library)
+  atoms: [Atom] @hasInverse(field: "library")
 }
 
 type Atom {
@@ -26,7 +26,6 @@ type Atom {
   library: Library
   label: String!
 }
-
 
 type GetAllUsersPayload {
   id: ID!

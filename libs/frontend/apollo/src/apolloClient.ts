@@ -14,7 +14,6 @@ import { hasuraLink } from './links/hasuraLink'
 
 export interface ApolloContext {
   authToken?: string
-  graphqlUri?: string
 }
 
 export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__'

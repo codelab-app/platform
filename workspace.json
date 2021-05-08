@@ -681,7 +681,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/dgraph/**/*.ts"]
+            "lintFilePatterns": ["libs/dgraph/**/*.{ts,tsx,js,jsx}"]
           }
         }
       }
