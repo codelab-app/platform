@@ -1,9 +1,7 @@
-import { GetAppsListQuery, Maybe } from '@codelab/dgraph'
+import { GetAppsListQuery } from '@codelab/hasura'
 import { atom } from 'recoil'
 
-export type AppType = GetAppsListQuery['queryApp'] extends
-  | Maybe<Array<Maybe<infer T>>>
-  | undefined
+export type AppType = GetAppsListQuery['app'] extends Array<infer T>
   ? T
   : unknown
 

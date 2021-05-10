@@ -23,8 +23,9 @@ export type FormUniformsProps<TData extends Record<string, unknown>> = {
 
   schema: JSONSchemaType<TData> | Bridge
 } & /** Props that get passed down to the AutoForm component */ Partial<
-  Omit<AutoFormProps<TData>, 'schema' | 'onSubmit'>
-> & { onSubmit: (model: TData) => void | Promise<any> } // Pick<AutoFormProps<TData>, 'onSubmit'>
+  Omit<AutoFormProps<TData>, 'schema'>
+> &
+  Pick<AutoFormProps<TData>, 'onSubmit'>
 
 /**
  * Read to use form, can be used with modal or standalone

@@ -1,5 +1,5 @@
 import React, { ReactElement, useRef } from 'react'
-import { Bridge } from 'uniforms'
+import { Bridge, DeepPartial } from 'uniforms'
 import { AutoForm } from 'uniforms-antd'
 import { callbackWithParams } from '../../../utils'
 import { FormUniformsProps } from './Form-uniforms--types'
@@ -22,8 +22,10 @@ export const FormUniforms = <TData extends Record<string, unknown>>({
     <AutoForm<TData>
       ref={connectUniformSubmitRef(submitRef)}
       schema={bridgeRef.current}
-      onSubmit={(formData: TData) => {
+      onSubmit={(formData: DeepPartial<TData>) => {
         const result = onSubmit(formData)
+
+        console.log(result)
 
         if (!result) {
           return result
@@ -31,7 +33,7 @@ export const FormUniforms = <TData extends Record<string, unknown>>({
 
         return result
           .then((r: any) => {
-            console.log(r)
+            // console.log(r)
 
             if (typeof result === 'object') {
               callbackWithParams(onSubmitSuccess, r)

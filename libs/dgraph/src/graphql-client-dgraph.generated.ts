@@ -29,7 +29,7 @@ export type Scalars = {
 }
 
 export type AddAppInput = {
-  owner: UserRef
+  owner?: Maybe<UserRef>
   name: Scalars['String']
 }
 
@@ -63,6 +63,26 @@ export type AddAtomPayloadAtomArgs = {
   offset?: Maybe<Scalars['Int']>
 }
 
+export type AddComponentInput = {
+  label: Scalars['String']
+  children?: Maybe<Array<Maybe<ComponentRef>>>
+  atom?: Maybe<AtomRef>
+  library: LibraryRef
+  tags?: Maybe<Array<Maybe<TagRef>>>
+}
+
+export type AddComponentPayload = {
+  component?: Maybe<Array<Maybe<Component>>>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type AddComponentPayloadComponentArgs = {
+  filter?: Maybe<ComponentFilter>
+  order?: Maybe<ComponentOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
 export type AddGetAllUsersPayloadInput = {
   email?: Maybe<Scalars['String']>
 }
@@ -82,6 +102,7 @@ export type AddGetAllUsersPayloadPayloadGetAllUsersPayloadArgs = {
 export type AddLibraryInput = {
   name: Scalars['String']
   atoms?: Maybe<Array<Maybe<AtomRef>>>
+  components?: Maybe<Array<Maybe<ComponentRef>>>
 }
 
 export type AddLibraryPayload = {
@@ -92,6 +113,22 @@ export type AddLibraryPayload = {
 export type AddLibraryPayloadLibraryArgs = {
   filter?: Maybe<LibraryFilter>
   order?: Maybe<LibraryOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type AddTagInput = {
+  label: Scalars['String']
+}
+
+export type AddTagPayload = {
+  tag?: Maybe<Array<Maybe<Tag>>>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type AddTagPayloadTagArgs = {
+  filter?: Maybe<TagFilter>
+  order?: Maybe<TagOrder>
   first?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
 }
@@ -116,7 +153,7 @@ export type AddUserPayloadUserArgs = {
 
 export type App = {
   id: Scalars['ID']
-  owner: User
+  owner?: Maybe<User>
   name: Scalars['String']
 }
 
@@ -228,6 +265,96 @@ export type AuthRule = {
   rule?: Maybe<Scalars['String']>
 }
 
+export type Component = {
+  id: Scalars['ID']
+  label: Scalars['String']
+  children?: Maybe<Array<Maybe<Component>>>
+  atom?: Maybe<Atom>
+  library: Library
+  tags?: Maybe<Array<Maybe<Tag>>>
+  childrenAggregate?: Maybe<ComponentAggregateResult>
+  tagsAggregate?: Maybe<TagAggregateResult>
+}
+
+export type ComponentChildrenArgs = {
+  filter?: Maybe<ComponentFilter>
+  order?: Maybe<ComponentOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type ComponentAtomArgs = {
+  filter?: Maybe<AtomFilter>
+}
+
+export type ComponentLibraryArgs = {
+  filter?: Maybe<LibraryFilter>
+}
+
+export type ComponentTagsArgs = {
+  filter?: Maybe<TagFilter>
+  order?: Maybe<TagOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type ComponentChildrenAggregateArgs = {
+  filter?: Maybe<ComponentFilter>
+}
+
+export type ComponentTagsAggregateArgs = {
+  filter?: Maybe<TagFilter>
+}
+
+export type ComponentAggregateResult = {
+  count?: Maybe<Scalars['Int']>
+  labelMin?: Maybe<Scalars['String']>
+  labelMax?: Maybe<Scalars['String']>
+}
+
+export type ComponentFilter = {
+  id?: Maybe<Array<Scalars['ID']>>
+  has?: Maybe<Array<Maybe<ComponentHasFilter>>>
+  and?: Maybe<Array<Maybe<ComponentFilter>>>
+  or?: Maybe<Array<Maybe<ComponentFilter>>>
+  not?: Maybe<ComponentFilter>
+}
+
+export enum ComponentHasFilter {
+  Label = 'label',
+  Children = 'children',
+  Atom = 'atom',
+  Library = 'library',
+  Tags = 'tags',
+}
+
+export type ComponentOrder = {
+  asc?: Maybe<ComponentOrderable>
+  desc?: Maybe<ComponentOrderable>
+  then?: Maybe<ComponentOrder>
+}
+
+export enum ComponentOrderable {
+  Label = 'label',
+}
+
+export type ComponentPatch = {
+  label?: Maybe<Scalars['String']>
+  children?: Maybe<Array<Maybe<ComponentRef>>>
+  atom?: Maybe<AtomRef>
+  library?: Maybe<LibraryRef>
+  tags?: Maybe<Array<Maybe<TagRef>>>
+}
+
+export type ComponentRef = {
+  id?: Maybe<Scalars['ID']>
+  label?: Maybe<Scalars['String']>
+  children?: Maybe<Array<Maybe<ComponentRef>>>
+  atom?: Maybe<AtomRef>
+  library?: Maybe<LibraryRef>
+  tags?: Maybe<Array<Maybe<TagRef>>>
+}
+
 export type ContainsFilter = {
   point?: Maybe<PointRef>
   polygon?: Maybe<PolygonRef>
@@ -286,6 +413,19 @@ export type DeleteAtomPayloadAtomArgs = {
   offset?: Maybe<Scalars['Int']>
 }
 
+export type DeleteComponentPayload = {
+  component?: Maybe<Array<Maybe<Component>>>
+  msg?: Maybe<Scalars['String']>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type DeleteComponentPayloadComponentArgs = {
+  filter?: Maybe<ComponentFilter>
+  order?: Maybe<ComponentOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
 export type DeleteGetAllUsersPayloadPayload = {
   getAllUsersPayload?: Maybe<Array<Maybe<GetAllUsersPayload>>>
   msg?: Maybe<Scalars['String']>
@@ -308,6 +448,19 @@ export type DeleteLibraryPayload = {
 export type DeleteLibraryPayloadLibraryArgs = {
   filter?: Maybe<LibraryFilter>
   order?: Maybe<LibraryOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type DeleteTagPayload = {
+  tag?: Maybe<Array<Maybe<Tag>>>
+  msg?: Maybe<Scalars['String']>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type DeleteTagPayloadTagArgs = {
+  filter?: Maybe<TagFilter>
+  order?: Maybe<TagOrder>
   first?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
 }
@@ -460,7 +613,9 @@ export type Library = {
   id: Scalars['ID']
   name: Scalars['String']
   atoms?: Maybe<Array<Maybe<Atom>>>
+  components?: Maybe<Array<Maybe<Component>>>
   atomsAggregate?: Maybe<AtomAggregateResult>
+  componentsAggregate?: Maybe<ComponentAggregateResult>
 }
 
 export type LibraryAtomsArgs = {
@@ -470,8 +625,19 @@ export type LibraryAtomsArgs = {
   offset?: Maybe<Scalars['Int']>
 }
 
+export type LibraryComponentsArgs = {
+  filter?: Maybe<ComponentFilter>
+  order?: Maybe<ComponentOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
 export type LibraryAtomsAggregateArgs = {
   filter?: Maybe<AtomFilter>
+}
+
+export type LibraryComponentsAggregateArgs = {
+  filter?: Maybe<ComponentFilter>
 }
 
 export type LibraryAggregateResult = {
@@ -491,6 +657,7 @@ export type LibraryFilter = {
 export enum LibraryHasFilter {
   Name = 'name',
   Atoms = 'atoms',
+  Components = 'components',
 }
 
 export type LibraryOrder = {
@@ -506,12 +673,14 @@ export enum LibraryOrderable {
 export type LibraryPatch = {
   name?: Maybe<Scalars['String']>
   atoms?: Maybe<Array<Maybe<AtomRef>>>
+  components?: Maybe<Array<Maybe<ComponentRef>>>
 }
 
 export type LibraryRef = {
   id?: Maybe<Scalars['ID']>
   name?: Maybe<Scalars['String']>
   atoms?: Maybe<Array<Maybe<AtomRef>>>
+  components?: Maybe<Array<Maybe<ComponentRef>>>
 }
 
 export enum Mode {
@@ -537,9 +706,15 @@ export type Mutation = {
   addLibrary?: Maybe<AddLibraryPayload>
   updateLibrary?: Maybe<UpdateLibraryPayload>
   deleteLibrary?: Maybe<DeleteLibraryPayload>
+  addComponent?: Maybe<AddComponentPayload>
+  updateComponent?: Maybe<UpdateComponentPayload>
+  deleteComponent?: Maybe<DeleteComponentPayload>
   addAtom?: Maybe<AddAtomPayload>
   updateAtom?: Maybe<UpdateAtomPayload>
   deleteAtom?: Maybe<DeleteAtomPayload>
+  addTag?: Maybe<AddTagPayload>
+  updateTag?: Maybe<UpdateTagPayload>
+  deleteTag?: Maybe<DeleteTagPayload>
   addGetAllUsersPayload?: Maybe<AddGetAllUsersPayloadPayload>
   updateGetAllUsersPayload?: Maybe<UpdateGetAllUsersPayloadPayload>
   deleteGetAllUsersPayload?: Maybe<DeleteGetAllUsersPayloadPayload>
@@ -582,6 +757,18 @@ export type MutationDeleteLibraryArgs = {
   filter: LibraryFilter
 }
 
+export type MutationAddComponentArgs = {
+  input: Array<AddComponentInput>
+}
+
+export type MutationUpdateComponentArgs = {
+  input: UpdateComponentInput
+}
+
+export type MutationDeleteComponentArgs = {
+  filter: ComponentFilter
+}
+
 export type MutationAddAtomArgs = {
   input: Array<AddAtomInput>
 }
@@ -592,6 +779,18 @@ export type MutationUpdateAtomArgs = {
 
 export type MutationDeleteAtomArgs = {
   filter: AtomFilter
+}
+
+export type MutationAddTagArgs = {
+  input: Array<AddTagInput>
+}
+
+export type MutationUpdateTagArgs = {
+  input: UpdateTagInput
+}
+
+export type MutationDeleteTagArgs = {
+  filter: TagFilter
 }
 
 export type MutationAddGetAllUsersPayloadArgs = {
@@ -661,9 +860,14 @@ export type Query = {
   getLibrary?: Maybe<Library>
   queryLibrary?: Maybe<Array<Maybe<Library>>>
   aggregateLibrary?: Maybe<LibraryAggregateResult>
+  getComponent?: Maybe<Component>
+  queryComponent?: Maybe<Array<Maybe<Component>>>
+  aggregateComponent?: Maybe<ComponentAggregateResult>
   getAtom?: Maybe<Atom>
   queryAtom?: Maybe<Array<Maybe<Atom>>>
   aggregateAtom?: Maybe<AtomAggregateResult>
+  queryTag?: Maybe<Array<Maybe<Tag>>>
+  aggregateTag?: Maybe<TagAggregateResult>
   getGetAllUsersPayload?: Maybe<GetAllUsersPayload>
   queryGetAllUsersPayload?: Maybe<Array<Maybe<GetAllUsersPayload>>>
   aggregateGetAllUsersPayload?: Maybe<GetAllUsersPayloadAggregateResult>
@@ -719,6 +923,21 @@ export type QueryAggregateLibraryArgs = {
   filter?: Maybe<LibraryFilter>
 }
 
+export type QueryGetComponentArgs = {
+  id: Scalars['ID']
+}
+
+export type QueryQueryComponentArgs = {
+  filter?: Maybe<ComponentFilter>
+  order?: Maybe<ComponentOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type QueryAggregateComponentArgs = {
+  filter?: Maybe<ComponentFilter>
+}
+
 export type QueryGetAtomArgs = {
   id: Scalars['ID']
 }
@@ -732,6 +951,17 @@ export type QueryQueryAtomArgs = {
 
 export type QueryAggregateAtomArgs = {
   filter?: Maybe<AtomFilter>
+}
+
+export type QueryQueryTagArgs = {
+  filter?: Maybe<TagFilter>
+  order?: Maybe<TagOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type QueryAggregateTagArgs = {
+  filter?: Maybe<TagFilter>
 }
 
 export type QueryGetGetAllUsersPayloadArgs = {
@@ -783,6 +1013,45 @@ export type StringTermFilter = {
   anyofterms?: Maybe<Scalars['String']>
 }
 
+export type Tag = {
+  label: Scalars['String']
+}
+
+export type TagAggregateResult = {
+  count?: Maybe<Scalars['Int']>
+  labelMin?: Maybe<Scalars['String']>
+  labelMax?: Maybe<Scalars['String']>
+}
+
+export type TagFilter = {
+  has?: Maybe<Array<Maybe<TagHasFilter>>>
+  and?: Maybe<Array<Maybe<TagFilter>>>
+  or?: Maybe<Array<Maybe<TagFilter>>>
+  not?: Maybe<TagFilter>
+}
+
+export enum TagHasFilter {
+  Label = 'label',
+}
+
+export type TagOrder = {
+  asc?: Maybe<TagOrderable>
+  desc?: Maybe<TagOrderable>
+  then?: Maybe<TagOrder>
+}
+
+export enum TagOrderable {
+  Label = 'label',
+}
+
+export type TagPatch = {
+  label?: Maybe<Scalars['String']>
+}
+
+export type TagRef = {
+  label?: Maybe<Scalars['String']>
+}
+
 export type UpdateAppInput = {
   filter: AppFilter
   set?: Maybe<AppPatch>
@@ -819,6 +1088,24 @@ export type UpdateAtomPayloadAtomArgs = {
   offset?: Maybe<Scalars['Int']>
 }
 
+export type UpdateComponentInput = {
+  filter: ComponentFilter
+  set?: Maybe<ComponentPatch>
+  remove?: Maybe<ComponentPatch>
+}
+
+export type UpdateComponentPayload = {
+  component?: Maybe<Array<Maybe<Component>>>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type UpdateComponentPayloadComponentArgs = {
+  filter?: Maybe<ComponentFilter>
+  order?: Maybe<ComponentOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
 export type UpdateGetAllUsersPayloadInput = {
   filter: GetAllUsersPayloadFilter
   set?: Maybe<GetAllUsersPayloadPatch>
@@ -851,6 +1138,24 @@ export type UpdateLibraryPayload = {
 export type UpdateLibraryPayloadLibraryArgs = {
   filter?: Maybe<LibraryFilter>
   order?: Maybe<LibraryOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type UpdateTagInput = {
+  filter: TagFilter
+  set?: Maybe<TagPatch>
+  remove?: Maybe<TagPatch>
+}
+
+export type UpdateTagPayload = {
+  tag?: Maybe<Array<Maybe<Tag>>>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type UpdateTagPayloadTagArgs = {
+  filter?: Maybe<TagFilter>
+  order?: Maybe<TagOrder>
   first?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
 }
@@ -955,44 +1260,7 @@ export type WithinFilter = {
   polygon: PolygonRef
 }
 
-export type User__AppFragment = Pick<App, 'id' | 'name'>
-
-export type CreateAppMutationVariables = Exact<{
-  input: AddAppInput
-}>
-
-export type CreateAppMutation = {
-  addApp?: Maybe<{ app?: Maybe<Array<Maybe<User__AppFragment>>> }>
-}
-
-export type DeleteAppMutationVariables = Exact<{
-  id: Scalars['ID']
-}>
-
-export type DeleteAppMutation = {
-  deleteApp?: Maybe<{ app?: Maybe<Array<Maybe<User__AppFragment>>> }>
-}
-
-export type GetAppItemQueryVariables = Exact<{
-  appId: Scalars['ID']
-}>
-
-export type GetAppItemQuery = { getApp?: Maybe<User__AppFragment> }
-
-export type GetAppsListQueryVariables = Exact<{ [key: string]: never }>
-
-export type GetAppsListQuery = {
-  queryApp?: Maybe<Array<Maybe<User__AppFragment>>>
-}
-
-export type EditAppMutationVariables = Exact<{
-  input: AppPatch
-  id: Scalars['ID']
-}>
-
-export type EditAppMutation = {
-  updateApp?: Maybe<{ app?: Maybe<Array<Maybe<User__AppFragment>>> }>
-}
+export type LibraryExplorer__AtomFragment = Pick<Atom, 'id' | 'label' | 'type'>
 
 export type __AtomFragment = Pick<Atom, 'id' | 'type' | 'label'>
 
@@ -1030,6 +1298,25 @@ export type UpdateAtomMutation = {
   >
 }
 
+export type LibraryExplorer__ComponentFragment = Pick<Component, 'id' | 'label'>
+
+export type LibraryExplorerQueryVariables = Exact<{
+  filter?: Maybe<LibraryFilter>
+}>
+
+export type LibraryExplorerQuery = {
+  libraries?: Maybe<
+    Array<
+      Maybe<
+        Pick<Library, 'id' | 'name'> & {
+          components?: Maybe<Array<Maybe<LibraryExplorer__ComponentFragment>>>
+          atoms?: Maybe<Array<Maybe<LibraryExplorer__AtomFragment>>>
+        }
+      >
+    >
+  >
+}
+
 export type __UserFragment = Pick<User, 'id' | 'email'>
 
 export type DeleteUserWhereMutationVariables = Exact<{
@@ -1062,10 +1349,11 @@ export type UpsertDgraphUserMutation = {
   addUser?: Maybe<{ user?: Maybe<Array<Maybe<Pick<User, 'id' | 'email'>>>> }>
 }
 
-export const User__AppFragmentDoc = gql`
-  fragment User__App on App {
+export const LibraryExplorer__AtomFragmentDoc = gql`
+  fragment LibraryExplorer__Atom on Atom {
     id
-    name
+    label
+    type
   }
 `
 export const __AtomFragmentDoc = gql`
@@ -1075,286 +1363,18 @@ export const __AtomFragmentDoc = gql`
     label
   }
 `
+export const LibraryExplorer__ComponentFragmentDoc = gql`
+  fragment LibraryExplorer__Component on Component {
+    id
+    label
+  }
+`
 export const __UserFragmentDoc = gql`
   fragment __User on User {
     id
     email
   }
 `
-export const CreateAppGql = gql`
-  mutation CreateApp($input: AddAppInput!) {
-    addApp(input: [$input]) {
-      app {
-        ...User__App
-      }
-    }
-  }
-  ${User__AppFragmentDoc}
-`
-export type CreateAppMutationFn = Apollo.MutationFunction<
-  CreateAppMutation,
-  CreateAppMutationVariables
->
-
-/**
- * __useCreateAppMutation__
- *
- * To run a mutation, you first call `useCreateAppMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateAppMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [createAppMutation, { data, loading, error }] = useCreateAppMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useCreateAppMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    CreateAppMutation,
-    CreateAppMutationVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useMutation<CreateAppMutation, CreateAppMutationVariables>(
-    CreateAppGql,
-    options,
-  )
-}
-export type CreateAppMutationHookResult = ReturnType<
-  typeof useCreateAppMutation
->
-export type CreateAppMutationResult = Apollo.MutationResult<CreateAppMutation>
-export type CreateAppMutationOptions = Apollo.BaseMutationOptions<
-  CreateAppMutation,
-  CreateAppMutationVariables
->
-export const DeleteAppGql = gql`
-  mutation DeleteApp($id: ID!) {
-    deleteApp(filter: { id: [$id] }) {
-      app {
-        ...User__App
-      }
-    }
-  }
-  ${User__AppFragmentDoc}
-`
-export type DeleteAppMutationFn = Apollo.MutationFunction<
-  DeleteAppMutation,
-  DeleteAppMutationVariables
->
-
-/**
- * __useDeleteAppMutation__
- *
- * To run a mutation, you first call `useDeleteAppMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useDeleteAppMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [deleteAppMutation, { data, loading, error }] = useDeleteAppMutation({
- *   variables: {
- *      id: // value for 'id'
- *   },
- * });
- */
-export function useDeleteAppMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    DeleteAppMutation,
-    DeleteAppMutationVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useMutation<DeleteAppMutation, DeleteAppMutationVariables>(
-    DeleteAppGql,
-    options,
-  )
-}
-export type DeleteAppMutationHookResult = ReturnType<
-  typeof useDeleteAppMutation
->
-export type DeleteAppMutationResult = Apollo.MutationResult<DeleteAppMutation>
-export type DeleteAppMutationOptions = Apollo.BaseMutationOptions<
-  DeleteAppMutation,
-  DeleteAppMutationVariables
->
-export const GetAppItemGql = gql`
-  query GetAppItem($appId: ID!) {
-    getApp(id: $appId) {
-      ...User__App
-    }
-  }
-  ${User__AppFragmentDoc}
-`
-
-/**
- * __useGetAppItemQuery__
- *
- * To run a query within a React component, call `useGetAppItemQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetAppItemQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetAppItemQuery({
- *   variables: {
- *      appId: // value for 'appId'
- *   },
- * });
- */
-export function useGetAppItemQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    GetAppItemQuery,
-    GetAppItemQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<GetAppItemQuery, GetAppItemQueryVariables>(
-    GetAppItemGql,
-    options,
-  )
-}
-export function useGetAppItemLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetAppItemQuery,
-    GetAppItemQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<GetAppItemQuery, GetAppItemQueryVariables>(
-    GetAppItemGql,
-    options,
-  )
-}
-export type GetAppItemQueryHookResult = ReturnType<typeof useGetAppItemQuery>
-export type GetAppItemLazyQueryHookResult = ReturnType<
-  typeof useGetAppItemLazyQuery
->
-export type GetAppItemQueryResult = Apollo.QueryResult<
-  GetAppItemQuery,
-  GetAppItemQueryVariables
->
-export function refetchGetAppItemQuery(variables?: GetAppItemQueryVariables) {
-  return { query: GetAppItemGql, variables: variables }
-}
-export const GetAppsListGql = gql`
-  query GetAppsList {
-    queryApp {
-      ...User__App
-    }
-  }
-  ${User__AppFragmentDoc}
-`
-
-/**
- * __useGetAppsListQuery__
- *
- * To run a query within a React component, call `useGetAppsListQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetAppsListQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetAppsListQuery({
- *   variables: {
- *   },
- * });
- */
-export function useGetAppsListQuery(
-  baseOptions?: Apollo.QueryHookOptions<
-    GetAppsListQuery,
-    GetAppsListQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<GetAppsListQuery, GetAppsListQueryVariables>(
-    GetAppsListGql,
-    options,
-  )
-}
-export function useGetAppsListLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetAppsListQuery,
-    GetAppsListQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<GetAppsListQuery, GetAppsListQueryVariables>(
-    GetAppsListGql,
-    options,
-  )
-}
-export type GetAppsListQueryHookResult = ReturnType<typeof useGetAppsListQuery>
-export type GetAppsListLazyQueryHookResult = ReturnType<
-  typeof useGetAppsListLazyQuery
->
-export type GetAppsListQueryResult = Apollo.QueryResult<
-  GetAppsListQuery,
-  GetAppsListQueryVariables
->
-export function refetchGetAppsListQuery(variables?: GetAppsListQueryVariables) {
-  return { query: GetAppsListGql, variables: variables }
-}
-export const EditAppGql = gql`
-  mutation EditApp($input: AppPatch!, $id: ID!) {
-    updateApp(input: { filter: { id: [$id] }, set: $input }) {
-      app {
-        ...User__App
-      }
-    }
-  }
-  ${User__AppFragmentDoc}
-`
-export type EditAppMutationFn = Apollo.MutationFunction<
-  EditAppMutation,
-  EditAppMutationVariables
->
-
-/**
- * __useEditAppMutation__
- *
- * To run a mutation, you first call `useEditAppMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useEditAppMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [editAppMutation, { data, loading, error }] = useEditAppMutation({
- *   variables: {
- *      input: // value for 'input'
- *      id: // value for 'id'
- *   },
- * });
- */
-export function useEditAppMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    EditAppMutation,
-    EditAppMutationVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useMutation<EditAppMutation, EditAppMutationVariables>(
-    EditAppGql,
-    options,
-  )
-}
-export type EditAppMutationHookResult = ReturnType<typeof useEditAppMutation>
-export type EditAppMutationResult = Apollo.MutationResult<EditAppMutation>
-export type EditAppMutationOptions = Apollo.BaseMutationOptions<
-  EditAppMutation,
-  EditAppMutationVariables
->
 export const CreateAtomGql = gql`
   mutation CreateAtom($input: [AddAtomInput!]!) {
     addAtom(input: $input) {
@@ -1567,6 +1587,78 @@ export type UpdateAtomMutationOptions = Apollo.BaseMutationOptions<
   UpdateAtomMutation,
   UpdateAtomMutationVariables
 >
+export const LibraryExplorerGql = gql`
+  query LibraryExplorer($filter: LibraryFilter) {
+    libraries: queryLibrary(filter: $filter) {
+      id
+      name
+      components {
+        ...LibraryExplorer__Component
+      }
+      atoms {
+        ...LibraryExplorer__Atom
+      }
+    }
+  }
+  ${LibraryExplorer__ComponentFragmentDoc}
+  ${LibraryExplorer__AtomFragmentDoc}
+`
+
+/**
+ * __useLibraryExplorerQuery__
+ *
+ * To run a query within a React component, call `useLibraryExplorerQuery` and pass it any options that fit your needs.
+ * When your component renders, `useLibraryExplorerQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useLibraryExplorerQuery({
+ *   variables: {
+ *      filter: // value for 'filter'
+ *   },
+ * });
+ */
+export function useLibraryExplorerQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    LibraryExplorerQuery,
+    LibraryExplorerQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<LibraryExplorerQuery, LibraryExplorerQueryVariables>(
+    LibraryExplorerGql,
+    options,
+  )
+}
+export function useLibraryExplorerLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    LibraryExplorerQuery,
+    LibraryExplorerQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    LibraryExplorerQuery,
+    LibraryExplorerQueryVariables
+  >(LibraryExplorerGql, options)
+}
+export type LibraryExplorerQueryHookResult = ReturnType<
+  typeof useLibraryExplorerQuery
+>
+export type LibraryExplorerLazyQueryHookResult = ReturnType<
+  typeof useLibraryExplorerLazyQuery
+>
+export type LibraryExplorerQueryResult = Apollo.QueryResult<
+  LibraryExplorerQuery,
+  LibraryExplorerQueryVariables
+>
+export function refetchLibraryExplorerQuery(
+  variables?: LibraryExplorerQueryVariables,
+) {
+  return { query: LibraryExplorerGql, variables: variables }
+}
 export const DeleteUserWhereGql = gql`
   mutation DeleteUserWhere($where: UserFilter!) {
     deleteUser(filter: $where) {
@@ -1793,10 +1885,11 @@ export type UpsertDgraphUserMutationOptions = Apollo.BaseMutationOptions<
   UpsertDgraphUserMutation,
   UpsertDgraphUserMutationVariables
 >
-export const User__App = gql`
-  fragment User__App on App {
+export const LibraryExplorer__Atom = gql`
+  fragment LibraryExplorer__Atom on Atom {
     id
-    name
+    label
+    type
   }
 `
 export const __Atom = gql`
@@ -1806,57 +1899,17 @@ export const __Atom = gql`
     label
   }
 `
+export const LibraryExplorer__Component = gql`
+  fragment LibraryExplorer__Component on Component {
+    id
+    label
+  }
+`
 export const __User = gql`
   fragment __User on User {
     id
     email
   }
-`
-export const CreateApp = gql`
-  mutation CreateApp($input: AddAppInput!) {
-    addApp(input: [$input]) {
-      app {
-        ...User__App
-      }
-    }
-  }
-  ${User__App}
-`
-export const DeleteApp = gql`
-  mutation DeleteApp($id: ID!) {
-    deleteApp(filter: { id: [$id] }) {
-      app {
-        ...User__App
-      }
-    }
-  }
-  ${User__App}
-`
-export const GetAppItem = gql`
-  query GetAppItem($appId: ID!) {
-    getApp(id: $appId) {
-      ...User__App
-    }
-  }
-  ${User__App}
-`
-export const GetAppsList = gql`
-  query GetAppsList {
-    queryApp {
-      ...User__App
-    }
-  }
-  ${User__App}
-`
-export const EditApp = gql`
-  mutation EditApp($input: AppPatch!, $id: ID!) {
-    updateApp(input: { filter: { id: [$id] }, set: $input }) {
-      app {
-        ...User__App
-      }
-    }
-  }
-  ${User__App}
 `
 export const CreateAtom = gql`
   mutation CreateAtom($input: [AddAtomInput!]!) {
@@ -1894,6 +1947,22 @@ export const UpdateAtom = gql`
     }
   }
   ${__Atom}
+`
+export const LibraryExplorer = gql`
+  query LibraryExplorer($filter: LibraryFilter) {
+    libraries: queryLibrary(filter: $filter) {
+      id
+      name
+      components {
+        ...LibraryExplorer__Component
+      }
+      atoms {
+        ...LibraryExplorer__Atom
+      }
+    }
+  }
+  ${LibraryExplorer__Component}
+  ${LibraryExplorer__Atom}
 `
 export const DeleteUserWhere = gql`
   mutation DeleteUserWhere($where: UserFilter!) {

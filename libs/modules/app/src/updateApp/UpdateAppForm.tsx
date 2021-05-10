@@ -1,15 +1,15 @@
 import {
-  refetchGetAppsListQuery,
-  useEditAppMutation,
-  useGetAppItemQuery,
-} from '@codelab/dgraph'
-import {
   createNotificationHandler,
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
+import {
+  refetchGetAppsListQuery,
+  useEditAppMutation,
+  useGetAppItemQuery,
+} from '@codelab/hasura'
 import { Spin } from 'antd'
 import React, { useEffect } from 'react'
 import { useRecoilState } from 'recoil'
@@ -39,7 +39,7 @@ export const UpdateAppForm = (props: UniFormUseCaseProps<UpdateAppInput>) => {
     setAppState((current) => ({ ...current, updateAppLoading }))
   }, [updateAppLoading])
 
-  const app = data?.getApp
+  const app = data?.app_by_pk
 
   if (loading) {
     return <Spin />

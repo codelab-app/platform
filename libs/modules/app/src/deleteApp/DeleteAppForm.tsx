@@ -1,15 +1,15 @@
 import {
-  refetchGetAppsListQuery,
-  useDeleteAppMutation,
-  useGetAppItemQuery,
-} from '@codelab/dgraph'
-import {
   createNotificationHandler,
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
+import {
+  refetchGetAppsListQuery,
+  useDeleteAppMutation,
+  useGetAppItemQuery,
+} from '@codelab/hasura'
 import { Spin } from 'antd'
 import React, { useEffect } from 'react'
 import { AutoFields } from 'uniforms-antd'
@@ -36,7 +36,7 @@ export const DeleteAppForm = (props: DeleteAppFormProps) => {
     },
   })
 
-  const app = data?.getApp
+  const app = data?.app_by_pk
 
   if (loading) {
     return <Spin />

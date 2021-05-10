@@ -1,7 +1,0 @@
-mutation EditApp($input: AppPatch!, $id: ID!) {
-  updateApp(input: { filter: { id: [$id] }, set: $input }) {
-    app {
-      ...User__App
-    }
-  }
-}

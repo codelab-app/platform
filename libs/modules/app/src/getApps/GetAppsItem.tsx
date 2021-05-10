@@ -75,7 +75,7 @@ export const GetAppsItem = ({
             pathname: PageType.PageDetail,
             query: {
               appId: app.id,
-              // pageId: app?.pages[0]?.id,
+              pageId: app.pages[0]?.id,
               pane: PaneType.Page,
             },
           }}

@@ -1,8 +1,8 @@
-import { LibraryExplorerQuery, useLibraryExplorerQuery } from '@codelab/hasura'
+import { LibraryExplorerQuery, useLibraryExplorerQuery } from '@codelab/dgraph'
 import React, { PropsWithChildren } from 'react'
 
 type ILibraryContext = {
-  libraries?: LibraryExplorerQuery['library']
+  libraries?: LibraryExplorerQuery['libraries']
   loading: boolean
 }
 
@@ -16,7 +16,7 @@ export const LibraryProvider = ({
   return (
     <LibraryContext.Provider
       value={{
-        libraries: data?.library ?? [],
+        libraries: data?.libraries ?? [],
         loading,
       }}
     >

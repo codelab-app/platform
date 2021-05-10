@@ -1,0 +1,5 @@
+query GetAppItem($appId: uuid!) {
+  app_by_pk(id: $appId) {
+    ...User__App
+  }
+}

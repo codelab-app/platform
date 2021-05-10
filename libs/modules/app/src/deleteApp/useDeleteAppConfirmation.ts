@@ -1,5 +1,5 @@
-import { refetchGetAppsListQuery, useDeleteAppMutation } from '@codelab/dgraph'
 import { createNotificationHandler } from '@codelab/frontend/shared'
+import { refetchGetAppsListQuery, useDeleteAppMutation } from '@codelab/hasura'
 import { Modal } from 'antd'
 
 export const useDeleteAppConfirmation = () => {
