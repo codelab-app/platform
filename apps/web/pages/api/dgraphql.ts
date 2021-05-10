@@ -43,16 +43,12 @@ app.use('*', async (baseReq, baseRes, next) => {
         //   ],
         // )
 
-        proxyReq.setHeader('X-Auth-Token', session.idToken || '')
-
         // proxyReq.setHeader(
         //   'X-Hasura-Default-Role',
         //   xHasura['x-hasura-default-role'],
         // )
 
-        // proxyReq.setHeader('Authorization', `Bearer ${session.idToken}`)
-        // proxyReq.setHeader('x-hasura-admin-secret', process.env.HASURA_GRAPHQL_ADMIN_SECRET as string)
-
+        proxyReq.setHeader('X-Auth-Token', `${session.idToken}`)
         // console.log(proxyReq.getHeaders())
       }
 

@@ -36,7 +36,7 @@ export const DeleteAppForm = (props: DeleteAppFormProps) => {
     },
   })
 
-  const app = data?.getApp
+  const app = data?.app
 
   if (loading) {
     return <Spin />

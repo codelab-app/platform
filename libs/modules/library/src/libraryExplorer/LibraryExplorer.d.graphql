@@ -1,12 +1,16 @@
 query LibraryExplorer($filter: LibraryFilter) {
   libraries: queryLibrary(filter: $filter) {
-    id
-    name
-    components {
-      ...LibraryExplorer__Component
-    }
-    atoms {
-      ...LibraryExplorer__Atom
-    }
+    ...LibraryExplorer__Library
+  }
+}
+
+fragment LibraryExplorer__Library on Library {
+  id
+  name
+  components {
+    ...LibraryExplorer__Component
+  }
+  atoms {
+    ...LibraryExplorer__Atom
   }
 }

@@ -103,9 +103,9 @@ const hasuraAdminRequest = (body: string | Record<string, any>) => {
     body,
     url: Cypress.env('CODELAB_HASURA_GRAPHQL_ENDPOINT'),
     method: 'POST',
-    headers: {
-      'x-hasura-admin-secret': Cypress.env('HASURA_GRAPHQL_ADMIN_SECRET'),
-    },
+    // headers: {
+    //   'x-hasura-admin-secret': Cypress.env('HASURA_GRAPHQL_ADMIN_SECRET'),
+    // },
   })
 }
 

@@ -1,5 +1,5 @@
 query GetAppItem($appId: ID!) {
-  getApp(id: $appId) {
+  app: getApp(id: $appId) {
     ...User__App
   }
 }

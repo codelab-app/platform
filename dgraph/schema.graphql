@@ -67,12 +67,10 @@ type Tag {
   label: String!
 }
 
-
 type GetAllUsersPayload {
   id: ID!
   email: String
 }
-
 
 type Query {
   GetAllUsers: [GetAllUsersPayload]
@@ -129,5 +127,4 @@ input UpsertUserInput {
 #     )
 # }
 
-
-# Dgraph.Authorization {  "VerificationKey":"-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAn1Js+QgC/8cczuWCAoP3\n1bnUaFuUjwNW9x96/diDHrbNf75ft74ZayJjqPjc53CrpU42N7ppdfInB6DNRdvz\no/7Ihvio2WmDaGlbCaDWEApLWAfpT2s5vSqVAylXTsIe050nLW5SwTR4n8gUgEAZ\noJu3pFNjheY1PQO2O4KKOl/IfcJ5M7AfKpbbTbaJ2p+9LbAkTMkOu1cT1735705D\n7glaerTKM1HQUzqlIFdK0yNjvg8jitEsAr/HMhgR93X6Scj+zqjET02uAF4Ea86G\n5DpWl3sETkqU9Egvd6VmqOVennVMcbOnYZowYlNWxHaK8H9LiiZyIFmcFeoWiFvy\nGwIDAQAB\n-----END PUBLIC KEY-----","Header":"X-Auth-Token","Namespace":"https://dgraph.io/jwt/claims","Algo":"RS256","Audience":["nNN1GfrDp2S4Uj7yK5kxEcKjo1PFMwTI"]}
+# Dgraph.Authorization {"VerificationKey":"-----BEGIN PUBLIC KEY-----\nMIIDCTCCAfGgAwIBAgIJG3k4ev/Q6Q/VMA0GCSqGSIb3DQEBCwUAMCIxIDAeBgNVBAMTF2NvZGVsYWItYWkudXMuYXV0aDAuY29tMB4XDTIxMDMyMDA4MDAzMloXDTM0MTEyNzA4MDAzMlowIjEgMB4GA1UEAxMXY29kZWxhYi1haS51cy5hdXRoMC5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCfUmz5CAL/xxzO5YICg/fVudRoW5SPA1b3H3r92IMets1/vl+3vhlrImOo+NzncKulTjY3uml18icHoM1F2/Oj/siG+KjZaYNoaVsJoNYQCktYB+lPazm9KpUDKVdOwh7TnSctblLBNHifyBSAQBmgm7ekU2OF5jU9A7Y7goo6X8h9wnkzsB8qlttNtonan70tsCRMyQ67VxPXvfnvTkPuCVp6tMozUdBTOqUgV0rTI2O+DyOK0SwCv8cyGBH3dfpJyP7OqMRPTa4AXgRrzobkOlaXewROSpT0SC93pWao5V6edUxxs6dhmjBiU1bEdorwf0uKJnIgWZwV6haIW/IbAgMBAAGjQjBAMA8GA1UdEwEB/wQFMAMBAf8wHQYDVR0OBBYEFBzGfNisR+V0sq+z+dyH20cgIos8MA4GA1UdDwEB/wQEAwIChDANBgkqhkiG9w0BAQsFAAOCAQEAbZjOWHzXbkGEat17G+f/G0FW+30CtWCSRk59wRGscofvfZ9/tB96l5eFCBQE2yBS48DcZbQ4ouT1QXvF5riuydI6k7rse5hsl2/pUdxWOue6+1lGqxzREIWU4UePSIC3hLxO2nb24dgYvYHDsWx46IWHANr6KRh2hDj+0LkJaoRdebdnbubKcb2svvlH+dYYseSb1OF2pbdQXjs7hiqWeyCgadIjM0MAkyiI3fHiH3yzURnLkbD6meeO1NLILmGaEvbCdB//JutP8vwokYxx3vXwjMIXA8chVfgyeUgy2o9eQh+oX1AH1tMsobwAsU4X3jWx52ACx7ygwEDAnRhG4g==\n-----END PUBLIC KEY-----","Header":"X-Auth-Token","Namespace":"https://dgraph.io/jwt/claims","Algo":"RS256","Audience":["nNN1GfrDp2S4Uj7yK5kxEcKjo1PFMwTI"]}

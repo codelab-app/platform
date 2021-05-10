@@ -4,14 +4,6 @@ hooks:
     - yarn prettier --write
     - yarn eslint --ext ts --fix
 generates:
-  schema.graphql:
-    schema:
-      - ${CODELAB_HASURA_GRAPHQL_ENDPOINT}:
-          headers:
-            - 'x-hasura-admin-secret': '${HASURA_GRAPHQL_ADMIN_SECRET}'
-    plugins:
-      - schema-ast
-
   schema.dgraph.graphql:
     schema:
       - ${CODELAB_DGRAPH_GRAPHQL_ENDPOINT}:

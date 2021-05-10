@@ -1,3 +1,0 @@
-function:
-  name: get_current_user
-  schema: public

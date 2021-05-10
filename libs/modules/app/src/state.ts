@@ -1,11 +1,7 @@
-import { GetAppsListQuery, Maybe } from '@codelab/dgraph'
+import { User__AppFragment } from '@codelab/dgraph'
 import { atom } from 'recoil'
 
-export type AppType = GetAppsListQuery['queryApp'] extends
-  | Maybe<Array<Maybe<infer T>>>
-  | undefined
-  ? T
-  : unknown
+export type AppType = User__AppFragment
 
 export interface AppState {
   loading: boolean

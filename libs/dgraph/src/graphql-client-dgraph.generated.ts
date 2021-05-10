@@ -1275,20 +1275,18 @@ export type DeleteAppMutationVariables = Exact<{
 }>
 
 export type DeleteAppMutation = {
-  deleteApp?: Maybe<{ app?: Maybe<Array<Maybe<User__AppFragment>>> }>
+  app?: Maybe<{ app?: Maybe<Array<Maybe<User__AppFragment>>> }>
 }
 
 export type GetAppItemQueryVariables = Exact<{
   appId: Scalars['ID']
 }>
 
-export type GetAppItemQuery = { getApp?: Maybe<User__AppFragment> }
+export type GetAppItemQuery = { app?: Maybe<User__AppFragment> }
 
 export type GetAppsListQueryVariables = Exact<{ [key: string]: never }>
 
-export type GetAppsListQuery = {
-  queryApp?: Maybe<Array<Maybe<User__AppFragment>>>
-}
+export type GetAppsListQuery = { apps?: Maybe<Array<Maybe<User__AppFragment>>> }
 
 export type EditAppMutationVariables = Exact<{
   input: AppPatch
@@ -1344,16 +1342,12 @@ export type LibraryExplorerQueryVariables = Exact<{
 }>
 
 export type LibraryExplorerQuery = {
-  libraries?: Maybe<
-    Array<
-      Maybe<
-        Pick<Library, 'id' | 'name'> & {
-          components?: Maybe<Array<Maybe<LibraryExplorer__ComponentFragment>>>
-          atoms?: Maybe<Array<Maybe<LibraryExplorer__AtomFragment>>>
-        }
-      >
-    >
-  >
+  libraries?: Maybe<Array<Maybe<LibraryExplorer__LibraryFragment>>>
+}
+
+export type LibraryExplorer__LibraryFragment = Pick<Library, 'id' | 'name'> & {
+  components?: Maybe<Array<Maybe<LibraryExplorer__ComponentFragment>>>
+  atoms?: Maybe<Array<Maybe<LibraryExplorer__AtomFragment>>>
 }
 
 export type __UserFragment = Pick<User, 'id' | 'email'>
@@ -1394,13 +1388,6 @@ export const User__AppFragmentDoc = gql`
     name
   }
 `
-export const LibraryExplorer__AtomFragmentDoc = gql`
-  fragment LibraryExplorer__Atom on Atom {
-    id
-    label
-    type
-  }
-`
 export const __AtomFragmentDoc = gql`
   fragment __Atom on Atom {
     id
@@ -1413,6 +1400,27 @@ export const LibraryExplorer__ComponentFragmentDoc = gql`
     id
     label
   }
+`
+export const LibraryExplorer__AtomFragmentDoc = gql`
+  fragment LibraryExplorer__Atom on Atom {
+    id
+    label
+    type
+  }
+`
+export const LibraryExplorer__LibraryFragmentDoc = gql`
+  fragment LibraryExplorer__Library on Library {
+    id
+    name
+    components {
+      ...LibraryExplorer__Component
+    }
+    atoms {
+      ...LibraryExplorer__Atom
+    }
+  }
+  ${LibraryExplorer__ComponentFragmentDoc}
+  ${LibraryExplorer__AtomFragmentDoc}
 `
 export const __UserFragmentDoc = gql`
   fragment __User on User {
@@ -1474,7 +1482,7 @@ export type CreateAppMutationOptions = Apollo.BaseMutationOptions<
 >
 export const DeleteAppGql = gql`
   mutation DeleteApp($id: ID!) {
-    deleteApp(filter: { id: [$id] }) {
+    app: deleteApp(filter: { id: [$id] }) {
       app {
         ...User__App
       }
@@ -1526,7 +1534,7 @@ export type DeleteAppMutationOptions = Apollo.BaseMutationOptions<
 >
 export const GetAppItemGql = gql`
   query GetAppItem($appId: ID!) {
-    getApp(id: $appId) {
+    app: getApp(id: $appId) {
       ...User__App
     }
   }
@@ -1586,7 +1594,7 @@ export function refetchGetAppItemQuery(variables?: GetAppItemQueryVariables) {
 }
 export const GetAppsListGql = gql`
   query GetAppsList {
-    queryApp {
+    apps: queryApp {
       ...User__App
     }
   }
@@ -1909,18 +1917,10 @@ export type UpdateAtomMutationOptions = Apollo.BaseMutationOptions<
 export const LibraryExplorerGql = gql`
   query LibraryExplorer($filter: LibraryFilter) {
     libraries: queryLibrary(filter: $filter) {
-      id
-      name
-      components {
-        ...LibraryExplorer__Component
-      }
-      atoms {
-        ...LibraryExplorer__Atom
-      }
+      ...LibraryExplorer__Library
     }
   }
-  ${LibraryExplorer__ComponentFragmentDoc}
-  ${LibraryExplorer__AtomFragmentDoc}
+  ${LibraryExplorer__LibraryFragmentDoc}
 `
 
 /**
@@ -2210,13 +2210,6 @@ export const User__App = gql`
     name
   }
 `
-export const LibraryExplorer__Atom = gql`
-  fragment LibraryExplorer__Atom on Atom {
-    id
-    label
-    type
-  }
-`
 export const __Atom = gql`
   fragment __Atom on Atom {
     id
@@ -2229,6 +2222,27 @@ export const LibraryExplorer__Component = gql`
     id
     label
   }
+`
+export const LibraryExplorer__Atom = gql`
+  fragment LibraryExplorer__Atom on Atom {
+    id
+    label
+    type
+  }
+`
+export const LibraryExplorer__Library = gql`
+  fragment LibraryExplorer__Library on Library {
+    id
+    name
+    components {
+      ...LibraryExplorer__Component
+    }
+    atoms {
+      ...LibraryExplorer__Atom
+    }
+  }
+  ${LibraryExplorer__Component}
+  ${LibraryExplorer__Atom}
 `
 export const __User = gql`
   fragment __User on User {
@@ -2248,7 +2262,7 @@ export const CreateApp = gql`
 `
 export const DeleteApp = gql`
   mutation DeleteApp($id: ID!) {
-    deleteApp(filter: { id: [$id] }) {
+    app: deleteApp(filter: { id: [$id] }) {
       app {
         ...User__App
       }
@@ -2258,7 +2272,7 @@ export const DeleteApp = gql`
 `
 export const GetAppItem = gql`
   query GetAppItem($appId: ID!) {
-    getApp(id: $appId) {
+    app: getApp(id: $appId) {
       ...User__App
     }
   }
@@ -2266,7 +2280,7 @@ export const GetAppItem = gql`
 `
 export const GetAppsList = gql`
   query GetAppsList {
-    queryApp {
+    apps: queryApp {
       ...User__App
     }
   }
@@ -2322,18 +2336,10 @@ export const UpdateAtom = gql`
 export const LibraryExplorer = gql`
   query LibraryExplorer($filter: LibraryFilter) {
     libraries: queryLibrary(filter: $filter) {
-      id
-      name
-      components {
-        ...LibraryExplorer__Component
-      }
-      atoms {
-        ...LibraryExplorer__Atom
-      }
+      ...LibraryExplorer__Library
     }
   }
-  ${LibraryExplorer__Component}
-  ${LibraryExplorer__Atom}
+  ${LibraryExplorer__Library}
 `
 export const DeleteUserWhere = gql`
   mutation DeleteUserWhere($where: UserFilter!) {

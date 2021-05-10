@@ -1,5 +1,5 @@
 mutation DeleteApp($id: ID!) {
-  deleteApp(filter: { id: [$id] }) {
+  app: deleteApp(filter: { id: [$id] }) {
     app {
       ...User__App
     }

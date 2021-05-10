@@ -82,7 +82,7 @@ export const LayoutNavigations = () => {
             href={{
               pathname: PageType.Prop,
               query: {
-                libraryId: libraries?.[0].id,
+                libraryId: libraries?.[0]?.id,
               },
             }}
           >

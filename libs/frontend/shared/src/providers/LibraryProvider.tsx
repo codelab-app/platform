@@ -1,8 +1,11 @@
-import { LibraryExplorerQuery, useLibraryExplorerQuery } from '@codelab/dgraph'
+import {
+  LibraryExplorer__LibraryFragment,
+  useLibraryExplorerQuery,
+} from '@codelab/dgraph'
 import React, { PropsWithChildren } from 'react'
 
 type ILibraryContext = {
-  libraries?: LibraryExplorerQuery['libraries']
+  libraries?: Array<LibraryExplorer__LibraryFragment>
   loading: boolean
 }
 
@@ -16,7 +19,9 @@ export const LibraryProvider = ({
   return (
     <LibraryContext.Provider
       value={{
-        libraries: data?.libraries ?? [],
+        libraries: data?.libraries?.filter(
+          (library): library is LibraryExplorer__LibraryFragment => !!library,
+        ),
         loading,
       }}
     >

@@ -5,7 +5,7 @@ import {
 import React, { PropsWithChildren, useEffect } from 'react'
 
 type IComponentContext = {
-  component?: __ComponentFragment
+  component: __ComponentFragment
   loading: boolean
 }
 
@@ -14,7 +14,7 @@ type ComponentProviderProps = {
 }
 
 export const ComponentContext = React.createContext<IComponentContext>({
-  component: undefined,
+  component: undefined!,
   loading: false,
 })
 

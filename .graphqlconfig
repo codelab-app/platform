@@ -3,14 +3,6 @@
   "schemaPath": "schema.dgraph.graphql",
   "extensions": {
     "endpoints": {
-      "Hasura GraphQL Endpoint": {
-        "url": "${env:CODELAB_HASURA_GRAPHQL_ENDPOINT}",
-        "headers": {
-          "user-agent": "JS GraphQL",
-          "x-hasura-admin-secret": "${env:HASURA_GRAPHQL_ADMIN_SECRET}"
-        },
-        "introspect": true
-      },
      "Dgraph GraphQL Endpoint": {
         "url": "${env.CODELAB_DGRAPH_GRAPHQL_ENDPOINT}",
         "headers": {

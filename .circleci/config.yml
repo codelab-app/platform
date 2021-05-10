@@ -275,10 +275,6 @@ jobs:
     <<: *executor-params
     steps:
       - setup-workspace
-      # - run:
-      #     name: 'Create .env file'
-      #     command: |
-      #       echo "HASURA_GRAPHQL_ADMIN_SECRET=`$HASURA_GRAPHQL_ADMIN_SECRET`" > .env
       #       cat .env
       - run:
           name: 'Apply Hasura Migrations'

@@ -11,11 +11,9 @@ export const GetAppsList = () => {
   const { loading, data } = useGetAppsListQuery()
   const { openDeleteModal, openUpdateModal } = useCRUDModalForm(EntityType.App)
 
-  const appList = (data?.queryApp ?? [])?.filter(
+  const appList = (data?.apps ?? []).filter(
     (app): app is User__AppFragment => !!app,
   )
-
-  console.log(appList)
 
   return (
     <>
