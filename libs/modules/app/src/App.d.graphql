@@ -1,0 +1,4 @@
+fragment User__App on App {
+  id
+  name
+}

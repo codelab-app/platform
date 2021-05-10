@@ -1,5 +1,0 @@
-mutation CreateApp($input: app_insert_input!) {
-  insert_app_one(object: $input) {
-    ...User__App
-  }
-}

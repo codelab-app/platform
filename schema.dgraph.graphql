@@ -46,7 +46,7 @@ directive @secret(field: String!, pred: String) on OBJECT | INTERFACE
 directive @withSubscription on OBJECT | INTERFACE | FIELD_DEFINITION
 
 input AddAppInput {
-  owner: UserRef
+  owner: UserRef!
   name: String!
 }
 
@@ -108,7 +108,7 @@ type AddUserPayload {
 
 type App {
   id: ID!
-  owner(filter: UserFilter): User
+  owner(filter: UserFilter): User!
   name: String!
 }
 
