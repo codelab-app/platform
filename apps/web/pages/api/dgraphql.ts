@@ -43,20 +43,13 @@ app.use('*', async (baseReq, baseRes, next) => {
         //   ],
         // )
 
-        console.log(session)
-
-        const dgraphJwt = session.user['https://dgraph.io/jwt/claims']
-
-        proxyReq.setHeader('X-Auth-Token', dgraphJwt)
-
-        console.log(dgraphJwt)
+        proxyReq.setHeader('X-Auth-Token', session.idToken || '')
 
         // proxyReq.setHeader(
         //   'X-Hasura-Default-Role',
         //   xHasura['x-hasura-default-role'],
         // )
 
-        proxyReq.setHeader('Authorization', `${session.idToken}`)
         // proxyReq.setHeader('Authorization', `Bearer ${session.idToken}`)
         // proxyReq.setHeader('x-hasura-admin-secret', process.env.HASURA_GRAPHQL_ADMIN_SECRET as string)
 

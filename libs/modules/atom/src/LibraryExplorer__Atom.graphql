@@ -1,7 +1,0 @@
-fragment LibraryExplorer__Atom on atom {
-  id
-  type {
-    id
-    label
-  }
-}

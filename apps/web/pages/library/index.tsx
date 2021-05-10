@@ -15,6 +15,7 @@ import Link from 'next/link'
 import React from 'react'
 import xw from 'xwind'
 import { NextPageLayout } from '../../src/layout/Layout.d'
+import { LayoutLibrary } from '../../src/layout/Layout--library'
 
 const LibraryContent = () => {
   const { selectedComponent, setSelected } = useComponentBuilder()
@@ -60,7 +61,7 @@ const Library: NextPageLayout<'builder'> = () => {
   )
 }
 
-Library.Layout = LayoutBuilder
+Library.Layout = LayoutLibrary
 Library.MainPane = MainPaneLibrary
 Library.MetaPane = MetaPaneComponent
 

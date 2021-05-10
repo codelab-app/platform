@@ -5,7 +5,7 @@ import {
 import React, { PropsWithChildren, useEffect } from 'react'
 
 type IComponentContext = {
-  component: __ComponentFragment
+  component?: __ComponentFragment
   loading: boolean
 }
 
@@ -13,15 +13,16 @@ type ComponentProviderProps = {
   componentId: string | undefined
 }
 
-export const ComponentContext = React.createContext<IComponentContext>(
-  undefined!,
-)
+export const ComponentContext = React.createContext<IComponentContext>({
+  component: undefined,
+  loading: false,
+})
 
 const _ComponentProvider = ({
   componentId,
   children,
 }: PropsWithChildren<ComponentProviderProps>) => {
-  const [load, { called, loading, data }] = useGetComponentDetailLazyQuery({})
+  const [load, { loading, data }] = useGetComponentDetailLazyQuery({})
   const component = data?.component_by_pk
 
   useEffect(() => {
@@ -32,7 +33,7 @@ const _ComponentProvider = ({
         },
       })
     }
-  }, [componentId])
+  }, [componentId, load])
 
   if (!component) {
     return null
@@ -45,7 +46,7 @@ const _ComponentProvider = ({
         loading,
       }}
     >
-      {!loading && !!componentId ? <>{children}</> : null}
+      {!loading && !!componentId ? children : null}
     </ComponentContext.Provider>
   )
 }

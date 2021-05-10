@@ -1,5 +1,5 @@
-query LibraryExplorer {
-  library {
+query LibraryExplorer($filter: LibraryFilter) {
+  libraries: queryLibrary(filter: $filter) {
     id
     name
     components {
