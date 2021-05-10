@@ -6,9 +6,34 @@ type User {
   apps: [App!]
   libraries: [Library!]
 }
-type App {
+type App
+  @auth(
+    query: {
+      rule: """
+      query($USER: String!) {
+        queryApp {
+          owner(filter: { email: { eq: $USER }}) {
+            __typename
+          }
+        }
+      }
+      """
+    }
+    # Only allows node to be created given this condition, meaning we'll have to have owner link set
+    add: {
+      rule: """
+      query ($USER: String!) {
+        queryApp {
+          owner(filter: { email: { eq: $USER } } ) {
+            email
+          }
+        }
+      }
+      """
+    }
+  ) {
   id: ID!
-  owner: User @hasInverse(field: "apps")
+  owner: User! @hasInverse(field: "apps")
   # id: String! @id
   name: String!
 }

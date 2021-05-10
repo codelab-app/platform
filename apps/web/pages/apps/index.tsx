@@ -3,9 +3,7 @@ import { padding } from '@codelab/frontend/style'
 import {
   CreateAppButton,
   CreateAppModal,
-  DeleteAppModal,
   GetAppsList,
-  UpdateAppModal,
 } from '@codelab/modules/app'
 import { SignOutUserButton } from '@codelab/modules/user'
 import { PageHeader } from 'antd'
@@ -28,8 +26,8 @@ const AppsPage: NextPageLayout = () => {
         extra={pageHeaderButtons}
       />
       <CreateAppModal />
-      <UpdateAppModal />
-      <DeleteAppModal />
+      {/* <UpdateAppModal />
+      <DeleteAppModal /> */}
       <section style={{ marginTop: padding.sm }}>
         <GetAppsList />
       </section>

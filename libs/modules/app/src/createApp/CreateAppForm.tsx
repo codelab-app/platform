@@ -1,3 +1,5 @@
+import { useUser } from '@auth0/nextjs-auth0'
+import { refetchGetAppsListQuery, useCreateAppMutation } from '@codelab/dgraph'
 import {
   createNotificationHandler,
   EntityType,
@@ -5,16 +7,17 @@ import {
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import { refetchGetAppsListQuery, useCreateAppMutation } from '@codelab/hasura'
 import React, { useEffect } from 'react'
 import { useRecoilState } from 'recoil'
-import { DeepPartial } from 'uniforms'
-import { AutoFields } from 'uniforms-antd'
+import { AutoField, AutoFields } from 'uniforms-antd'
 import { appState } from '../state'
 import { CreateAppInput, createAppSchema } from './createAppSchema'
 
 export const CreateAppForm = (props: UniFormUseCaseProps<CreateAppInput>) => {
   const { reset, setLoading } = useCRUDModalForm(EntityType.App)
+  const { user } = useUser()
+
+  console.log(user)
 
   const [mutate, { loading }] = useCreateAppMutation({
     awaitRefetchQueries: true,
@@ -29,18 +32,20 @@ export const CreateAppForm = (props: UniFormUseCaseProps<CreateAppInput>) => {
     setAppState((current) => ({ ...current, loading }))
   }, [loading, setAppState])
 
-  const onSubmit = (submitData: DeepPartial<CreateAppInput>) => {
+  const onSubmit = (submitData: CreateAppInput) => {
+    console.log(submitData)
+
     return mutate({
       variables: {
         input: {
-          ...(submitData as any),
-          pages: {
-            data: [
-              {
-                name: 'Default page',
-              },
-            ],
-          },
+          ...submitData,
+          // pages: {
+          //   data: [
+          //     {
+          //       name: 'Default page',
+          //     },
+          //   ],
+          // },
         },
       },
     })
@@ -48,6 +53,11 @@ export const CreateAppForm = (props: UniFormUseCaseProps<CreateAppInput>) => {
 
   return (
     <FormUniforms<CreateAppInput>
+      model={{
+        owner: {
+          email: user?.email ?? null,
+        },
+      }}
       onSubmit={onSubmit}
       schema={createAppSchema}
       onSubmitError={createNotificationHandler({
@@ -56,7 +66,8 @@ export const CreateAppForm = (props: UniFormUseCaseProps<CreateAppInput>) => {
       onSubmitSuccess={() => reset()}
       {...props}
     >
-      <AutoFields />
+      <AutoFields omitFields={['owner']} />
+      <AutoField name="owner.email" disabled />
     </FormUniforms>
   )
 }

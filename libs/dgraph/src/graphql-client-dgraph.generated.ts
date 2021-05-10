@@ -29,7 +29,7 @@ export type Scalars = {
 }
 
 export type AddAppInput = {
-  owner?: Maybe<UserRef>
+  owner: UserRef
   name: Scalars['String']
 }
 
@@ -116,7 +116,7 @@ export type AddUserPayloadUserArgs = {
 
 export type App = {
   id: Scalars['ID']
-  owner?: Maybe<User>
+  owner: User
   name: Scalars['String']
 }
 
@@ -955,6 +955,45 @@ export type WithinFilter = {
   polygon: PolygonRef
 }
 
+export type User__AppFragment = Pick<App, 'id' | 'name'>
+
+export type CreateAppMutationVariables = Exact<{
+  input: AddAppInput
+}>
+
+export type CreateAppMutation = {
+  addApp?: Maybe<{ app?: Maybe<Array<Maybe<User__AppFragment>>> }>
+}
+
+export type DeleteAppMutationVariables = Exact<{
+  id: Scalars['ID']
+}>
+
+export type DeleteAppMutation = {
+  deleteApp?: Maybe<{ app?: Maybe<Array<Maybe<User__AppFragment>>> }>
+}
+
+export type GetAppItemQueryVariables = Exact<{
+  appId: Scalars['ID']
+}>
+
+export type GetAppItemQuery = { getApp?: Maybe<User__AppFragment> }
+
+export type GetAppsListQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetAppsListQuery = {
+  queryApp?: Maybe<Array<Maybe<User__AppFragment>>>
+}
+
+export type EditAppMutationVariables = Exact<{
+  input: AppPatch
+  id: Scalars['ID']
+}>
+
+export type EditAppMutation = {
+  updateApp?: Maybe<{ app?: Maybe<Array<Maybe<User__AppFragment>>> }>
+}
+
 export type __AtomFragment = Pick<Atom, 'id' | 'type' | 'label'>
 
 export type CreateAtomMutationVariables = Exact<{
@@ -1023,6 +1062,12 @@ export type UpsertDgraphUserMutation = {
   addUser?: Maybe<{ user?: Maybe<Array<Maybe<Pick<User, 'id' | 'email'>>>> }>
 }
 
+export const User__AppFragmentDoc = gql`
+  fragment User__App on App {
+    id
+    name
+  }
+`
 export const __AtomFragmentDoc = gql`
   fragment __Atom on Atom {
     id
@@ -1036,6 +1081,280 @@ export const __UserFragmentDoc = gql`
     email
   }
 `
+export const CreateAppGql = gql`
+  mutation CreateApp($input: AddAppInput!) {
+    addApp(input: [$input]) {
+      app {
+        ...User__App
+      }
+    }
+  }
+  ${User__AppFragmentDoc}
+`
+export type CreateAppMutationFn = Apollo.MutationFunction<
+  CreateAppMutation,
+  CreateAppMutationVariables
+>
+
+/**
+ * __useCreateAppMutation__
+ *
+ * To run a mutation, you first call `useCreateAppMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateAppMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createAppMutation, { data, loading, error }] = useCreateAppMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateAppMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateAppMutation,
+    CreateAppMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<CreateAppMutation, CreateAppMutationVariables>(
+    CreateAppGql,
+    options,
+  )
+}
+export type CreateAppMutationHookResult = ReturnType<
+  typeof useCreateAppMutation
+>
+export type CreateAppMutationResult = Apollo.MutationResult<CreateAppMutation>
+export type CreateAppMutationOptions = Apollo.BaseMutationOptions<
+  CreateAppMutation,
+  CreateAppMutationVariables
+>
+export const DeleteAppGql = gql`
+  mutation DeleteApp($id: ID!) {
+    deleteApp(filter: { id: [$id] }) {
+      app {
+        ...User__App
+      }
+    }
+  }
+  ${User__AppFragmentDoc}
+`
+export type DeleteAppMutationFn = Apollo.MutationFunction<
+  DeleteAppMutation,
+  DeleteAppMutationVariables
+>
+
+/**
+ * __useDeleteAppMutation__
+ *
+ * To run a mutation, you first call `useDeleteAppMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteAppMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteAppMutation, { data, loading, error }] = useDeleteAppMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteAppMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeleteAppMutation,
+    DeleteAppMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<DeleteAppMutation, DeleteAppMutationVariables>(
+    DeleteAppGql,
+    options,
+  )
+}
+export type DeleteAppMutationHookResult = ReturnType<
+  typeof useDeleteAppMutation
+>
+export type DeleteAppMutationResult = Apollo.MutationResult<DeleteAppMutation>
+export type DeleteAppMutationOptions = Apollo.BaseMutationOptions<
+  DeleteAppMutation,
+  DeleteAppMutationVariables
+>
+export const GetAppItemGql = gql`
+  query GetAppItem($appId: ID!) {
+    getApp(id: $appId) {
+      ...User__App
+    }
+  }
+  ${User__AppFragmentDoc}
+`
+
+/**
+ * __useGetAppItemQuery__
+ *
+ * To run a query within a React component, call `useGetAppItemQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAppItemQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAppItemQuery({
+ *   variables: {
+ *      appId: // value for 'appId'
+ *   },
+ * });
+ */
+export function useGetAppItemQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetAppItemQuery,
+    GetAppItemQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetAppItemQuery, GetAppItemQueryVariables>(
+    GetAppItemGql,
+    options,
+  )
+}
+export function useGetAppItemLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetAppItemQuery,
+    GetAppItemQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetAppItemQuery, GetAppItemQueryVariables>(
+    GetAppItemGql,
+    options,
+  )
+}
+export type GetAppItemQueryHookResult = ReturnType<typeof useGetAppItemQuery>
+export type GetAppItemLazyQueryHookResult = ReturnType<
+  typeof useGetAppItemLazyQuery
+>
+export type GetAppItemQueryResult = Apollo.QueryResult<
+  GetAppItemQuery,
+  GetAppItemQueryVariables
+>
+export function refetchGetAppItemQuery(variables?: GetAppItemQueryVariables) {
+  return { query: GetAppItemGql, variables: variables }
+}
+export const GetAppsListGql = gql`
+  query GetAppsList {
+    queryApp {
+      ...User__App
+    }
+  }
+  ${User__AppFragmentDoc}
+`
+
+/**
+ * __useGetAppsListQuery__
+ *
+ * To run a query within a React component, call `useGetAppsListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAppsListQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAppsListQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAppsListQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetAppsListQuery,
+    GetAppsListQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetAppsListQuery, GetAppsListQueryVariables>(
+    GetAppsListGql,
+    options,
+  )
+}
+export function useGetAppsListLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetAppsListQuery,
+    GetAppsListQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetAppsListQuery, GetAppsListQueryVariables>(
+    GetAppsListGql,
+    options,
+  )
+}
+export type GetAppsListQueryHookResult = ReturnType<typeof useGetAppsListQuery>
+export type GetAppsListLazyQueryHookResult = ReturnType<
+  typeof useGetAppsListLazyQuery
+>
+export type GetAppsListQueryResult = Apollo.QueryResult<
+  GetAppsListQuery,
+  GetAppsListQueryVariables
+>
+export function refetchGetAppsListQuery(variables?: GetAppsListQueryVariables) {
+  return { query: GetAppsListGql, variables: variables }
+}
+export const EditAppGql = gql`
+  mutation EditApp($input: AppPatch!, $id: ID!) {
+    updateApp(input: { filter: { id: [$id] }, set: $input }) {
+      app {
+        ...User__App
+      }
+    }
+  }
+  ${User__AppFragmentDoc}
+`
+export type EditAppMutationFn = Apollo.MutationFunction<
+  EditAppMutation,
+  EditAppMutationVariables
+>
+
+/**
+ * __useEditAppMutation__
+ *
+ * To run a mutation, you first call `useEditAppMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEditAppMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [editAppMutation, { data, loading, error }] = useEditAppMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useEditAppMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    EditAppMutation,
+    EditAppMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<EditAppMutation, EditAppMutationVariables>(
+    EditAppGql,
+    options,
+  )
+}
+export type EditAppMutationHookResult = ReturnType<typeof useEditAppMutation>
+export type EditAppMutationResult = Apollo.MutationResult<EditAppMutation>
+export type EditAppMutationOptions = Apollo.BaseMutationOptions<
+  EditAppMutation,
+  EditAppMutationVariables
+>
 export const CreateAtomGql = gql`
   mutation CreateAtom($input: [AddAtomInput!]!) {
     addAtom(input: $input) {
@@ -1474,6 +1793,12 @@ export type UpsertDgraphUserMutationOptions = Apollo.BaseMutationOptions<
   UpsertDgraphUserMutation,
   UpsertDgraphUserMutationVariables
 >
+export const User__App = gql`
+  fragment User__App on App {
+    id
+    name
+  }
+`
 export const __Atom = gql`
   fragment __Atom on Atom {
     id
@@ -1486,6 +1811,52 @@ export const __User = gql`
     id
     email
   }
+`
+export const CreateApp = gql`
+  mutation CreateApp($input: AddAppInput!) {
+    addApp(input: [$input]) {
+      app {
+        ...User__App
+      }
+    }
+  }
+  ${User__App}
+`
+export const DeleteApp = gql`
+  mutation DeleteApp($id: ID!) {
+    deleteApp(filter: { id: [$id] }) {
+      app {
+        ...User__App
+      }
+    }
+  }
+  ${User__App}
+`
+export const GetAppItem = gql`
+  query GetAppItem($appId: ID!) {
+    getApp(id: $appId) {
+      ...User__App
+    }
+  }
+  ${User__App}
+`
+export const GetAppsList = gql`
+  query GetAppsList {
+    queryApp {
+      ...User__App
+    }
+  }
+  ${User__App}
+`
+export const EditApp = gql`
+  mutation EditApp($input: AppPatch!, $id: ID!) {
+    updateApp(input: { filter: { id: [$id] }, set: $input }) {
+      app {
+        ...User__App
+      }
+    }
+  }
+  ${User__App}
 `
 export const CreateAtom = gql`
   mutation CreateAtom($input: [AddAtomInput!]!) {
