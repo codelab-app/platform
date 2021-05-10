@@ -39,7 +39,7 @@ export const UpdateAppForm = (props: UniFormUseCaseProps<UpdateAppInput>) => {
     setAppState((current) => ({ ...current, updateAppLoading }))
   }, [updateAppLoading])
 
-  const app = data?.app_by_pk
+  const app = data?.getApp
 
   if (loading) {
     return <Spin />
