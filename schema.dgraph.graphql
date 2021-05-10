@@ -66,6 +66,24 @@ type AddAtomPayload {
   numUids: Int
 }
 
+input AddComponentInput {
+  label: String!
+  children: [ComponentRef]
+  atom: AtomRef
+  library: LibraryRef!
+  tags: [TagRef]
+}
+
+type AddComponentPayload {
+  component(
+    filter: ComponentFilter
+    order: ComponentOrder
+    first: Int
+    offset: Int
+  ): [Component]
+  numUids: Int
+}
+
 input AddGetAllUsersPayloadInput {
   email: String
 }
@@ -83,6 +101,7 @@ type AddGetAllUsersPayloadPayload {
 input AddLibraryInput {
   name: String!
   atoms: [AtomRef]
+  components: [ComponentRef]
 }
 
 type AddLibraryPayload {
@@ -92,6 +111,15 @@ type AddLibraryPayload {
     first: Int
     offset: Int
   ): [Library]
+  numUids: Int
+}
+
+input AddTagInput {
+  label: String!
+}
+
+type AddTagPayload {
+  tag(filter: TagFilter, order: TagOrder, first: Int, offset: Int): [Tag]
   numUids: Int
 }
 
@@ -212,6 +240,71 @@ input AuthRule {
   rule: String
 }
 
+type Component {
+  id: ID!
+  label: String!
+  children(
+    filter: ComponentFilter
+    order: ComponentOrder
+    first: Int
+    offset: Int
+  ): [Component]
+  atom(filter: AtomFilter): Atom
+  library(filter: LibraryFilter): Library!
+  tags(filter: TagFilter, order: TagOrder, first: Int, offset: Int): [Tag]
+  childrenAggregate(filter: ComponentFilter): ComponentAggregateResult
+  tagsAggregate(filter: TagFilter): TagAggregateResult
+}
+
+type ComponentAggregateResult {
+  count: Int
+  labelMin: String
+  labelMax: String
+}
+
+input ComponentFilter {
+  id: [ID!]
+  has: [ComponentHasFilter]
+  and: [ComponentFilter]
+  or: [ComponentFilter]
+  not: ComponentFilter
+}
+
+enum ComponentHasFilter {
+  label
+  children
+  atom
+  library
+  tags
+}
+
+input ComponentOrder {
+  asc: ComponentOrderable
+  desc: ComponentOrderable
+  then: ComponentOrder
+}
+
+enum ComponentOrderable {
+  label
+}
+
+input ComponentPatch {
+  label: String
+  children: [ComponentRef]
+  atom: AtomRef
+  library: LibraryRef
+  tags: [TagRef]
+}
+
+input ComponentRef {
+  id: ID
+  label: String
+  children: [ComponentRef]
+  atom: AtomRef
+  library: LibraryRef
+  tags: [TagRef]
+}
+
 input ContainsFilter {
   point: PointRef
   polygon: PolygonRef
@@ -262,6 +355,17 @@ type DeleteAtomPayload {
   numUids: Int
 }
 
+type DeleteComponentPayload {
+  component(
+    filter: ComponentFilter
+    order: ComponentOrder
+    first: Int
+    offset: Int
+  ): [Component]
+  msg: String
+  numUids: Int
+}
+
 type DeleteGetAllUsersPayloadPayload {
   getAllUsersPayload(
     filter: GetAllUsersPayloadFilter
@@ -280,6 +384,12 @@ type DeleteLibraryPayload {
     first: Int
     offset: Int
   ): [Library]
+  msg: String
+  numUids: Int
+}
+
+type DeleteTagPayload {
+  tag(filter: TagFilter, order: TagOrder, first: Int, offset: Int): [Tag]
   msg: String
   numUids: Int
 }
@@ -431,7 +541,14 @@ type Library {
   id: ID!
   name: String!
   atoms(filter: AtomFilter, order: AtomOrder, first: Int, offset: Int): [Atom]
+  components(
+    filter: ComponentFilter
+    order: ComponentOrder
+    first: Int
+    offset: Int
+  ): [Component]
   atomsAggregate(filter: AtomFilter): AtomAggregateResult
+  componentsAggregate(filter: ComponentFilter): ComponentAggregateResult
 }
 
 type LibraryAggregateResult {
@@ -451,6 +568,7 @@ input LibraryFilter {
 enum LibraryHasFilter {
   name
   atoms
+  components
 }
 
 input LibraryOrder {
@@ -466,12 +584,14 @@ enum LibraryOrderable {
 input LibraryPatch {
   name: String
   atoms: [AtomRef]
+  components: [ComponentRef]
 }
 
 input LibraryRef {
   id: ID
   name: String
   atoms: [AtomRef]
+  components: [ComponentRef]
 }
 
 enum Mode {
@@ -497,9 +617,15 @@ type Mutation {
   addLibrary(input: [AddLibraryInput!]!): AddLibraryPayload
   updateLibrary(input: UpdateLibraryInput!): UpdateLibraryPayload
   deleteLibrary(filter: LibraryFilter!): DeleteLibraryPayload
+  addComponent(input: [AddComponentInput!]!): AddComponentPayload
+  updateComponent(input: UpdateComponentInput!): UpdateComponentPayload
+  deleteComponent(filter: ComponentFilter!): DeleteComponentPayload
   addAtom(input: [AddAtomInput!]!): AddAtomPayload
   updateAtom(input: UpdateAtomInput!): UpdateAtomPayload
   deleteAtom(filter: AtomFilter!): DeleteAtomPayload
+  addTag(input: [AddTagInput!]!): AddTagPayload
+  updateTag(input: UpdateTagInput!): UpdateTagPayload
+  deleteTag(filter: TagFilter!): DeleteTagPayload
   addGetAllUsersPayload(
     input: [AddGetAllUsersPayloadInput!]!
   ): AddGetAllUsersPayloadPayload
@@ -576,6 +702,14 @@ type Query {
     offset: Int
   ): [Library]
   aggregateLibrary(filter: LibraryFilter): LibraryAggregateResult
+  getComponent(id: ID!): Component
+  queryComponent(
+    filter: ComponentFilter
+    order: ComponentOrder
+    first: Int
+    offset: Int
+  ): [Component]
+  aggregateComponent(filter: ComponentFilter): ComponentAggregateResult
   getAtom(id: ID!): Atom
   queryAtom(
     filter: AtomFilter
@@ -584,6 +718,8 @@ type Query {
     offset: Int
   ): [Atom]
   aggregateAtom(filter: AtomFilter): AtomAggregateResult
+  queryTag(filter: TagFilter, order: TagOrder, first: Int, offset: Int): [Tag]
+  aggregateTag(filter: TagFilter): TagAggregateResult
   getGetAllUsersPayload(id: ID!): GetAllUsersPayload
   queryGetAllUsersPayload(
     filter: GetAllUsersPayloadFilter
@@ -630,6 +766,45 @@ input StringTermFilter {
   anyofterms: String
 }
 
+type Tag {
+  label: String!
+}
+
+type TagAggregateResult {
+  count: Int
+  labelMin: String
+  labelMax: String
+}
+
+input TagFilter {
+  has: [TagHasFilter]
+  and: [TagFilter]
+  or: [TagFilter]
+  not: TagFilter
+}
+
+enum TagHasFilter {
+  label
+}
+
+input TagOrder {
+  asc: TagOrderable
+  desc: TagOrderable
+  then: TagOrder
+}
+
+enum TagOrderable {
+  label
+}
+
+input TagPatch {
+  label: String
+}
+
+input TagRef {
+  label: String
+}
+
 input UpdateAppInput {
   filter: AppFilter!
   set: AppPatch
@@ -649,6 +824,22 @@ input UpdateAtomInput {
 
 type UpdateAtomPayload {
   atom(filter: AtomFilter, order: AtomOrder, first: Int, offset: Int): [Atom]
+  numUids: Int
+}
+
+input UpdateComponentInput {
+  filter: ComponentFilter!
+  set: ComponentPatch
+  remove: ComponentPatch
+}
+
+type UpdateComponentPayload {
+  component(
+    filter: ComponentFilter
+    order: ComponentOrder
+    first: Int
+    offset: Int
+  ): [Component]
   numUids: Int
 }
 
@@ -681,6 +872,17 @@ type UpdateLibraryPayload {
     first: Int
     offset: Int
   ): [Library]
+  numUids: Int
+}
+
+input UpdateTagInput {
+  filter: TagFilter!
+  set: TagPatch
+  remove: TagPatch
+}
+
+type UpdateTagPayload {
+  tag(filter: TagFilter, order: TagOrder, first: Int, offset: Int): [Tag]
   numUids: Int
 }
 
