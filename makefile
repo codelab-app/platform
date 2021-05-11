@@ -12,50 +12,6 @@ terraform-lint:
 	terraform fmt -recursive .terraform && tflint .terraform
 
 #
-# HASURA
-#
-hasura-metadata-export:
-	./scripts/hasura.sh metadata export
-
-hasura-cli-update:
-	./scripts/hasura.sh update-cli
-
-hasura-metadata-apply:
-	./scripts/hasura.sh metadata apply
-
-hasura-metadata-apply-e2e:
-	./scripts/hasura-e2e.sh metadata apply
-
-hasura-console:
-	./scripts/hasura.sh console
-
-hasura-inconsistency:
-	./scripts/hasura.sh metadata inconsistency list
-
-hasura-migrations-init:
-	npx hasura migrate --project=hasura --envfile=../.env create \"init\" --from-server --database-name default
-
-hasura-seed-apply:
-	./scripts/hasura.sh seed apply --database-name=default
-
-hasura-seed-apply-e2e:
-	./scripts/hasura-e2e.sh seed apply --database-name=default
-
-hasura-seed-export:
-	./scripts/hasura.sh seed create atom_type_seed --from-table atom_type --database-name=default
-
-#	npx hasura migrate apply --version 1618946065806 --skip-execution --database-name default --project=hasura --envfile=../.env
-
-hasura-migrations-apply:
-	npx hasura migrate apply --database-name default --project=hasura --envfile=../.env
-
-hasura-migrations-apply-e2e:
-	npx hasura migrate apply --database-name default --project=hasura --envfile=../.env --endpoint=http://127.0.0.1:8081
-
-# npx hasura migrate apply --version 1618946065806 --skip-execution --database-name default --project=hasura --envfile=../.env
-
-
-#
 # BUILD
 #
 lambda:
