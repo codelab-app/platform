@@ -47,6 +47,7 @@ directive @withSubscription on OBJECT | INTERFACE | FIELD_DEFINITION
 
 input AddAppInput {
   owner: UserRef!
+  pages: [PageRef]
   name: String!
 }
 
@@ -59,6 +60,7 @@ input AddAtomInput {
   type: String!
   library: LibraryRef
   label: String!
+  components: [ComponentRef]
 }
 
 type AddAtomPayload {
@@ -114,6 +116,16 @@ type AddLibraryPayload {
   numUids: Int
 }
 
+input AddPageInput {
+  title: String!
+  app: AppRef
+}
+
+type AddPagePayload {
+  page(filter: PageFilter, order: PageOrder, first: Int, offset: Int): [Page]
+  numUids: Int
+}
+
 input AddTagInput {
   label: String!
 }
@@ -137,7 +149,9 @@ type AddUserPayload {
 type App {
   id: ID!
   owner(filter: UserFilter): User!
+  pages(filter: PageFilter, order: PageOrder, first: Int, offset: Int): [Page]
   name: String!
+  pagesAggregate(filter: PageFilter): PageAggregateResult
 }
 
 type AppAggregateResult {
@@ -156,6 +170,7 @@ input AppFilter {
 
 enum AppHasFilter {
   owner
+  pages
   name
 }
 
@@ -171,12 +186,14 @@ enum AppOrderable {
 
 input AppPatch {
   owner: UserRef
+  pages: [PageRef]
   name: String
 }
 
 input AppRef {
   id: ID
   owner: UserRef
+  pages: [PageRef]
   name: String
 }
 
@@ -185,6 +202,13 @@ type Atom {
   type: String!
   library(filter: LibraryFilter): Library
   label: String!
+  components(
+    filter: ComponentFilter
+    order: ComponentOrder
+    first: Int
+    offset: Int
+  ): [Component]
+  componentsAggregate(filter: ComponentFilter): ComponentAggregateResult
 }
 
 type AtomAggregateResult {
@@ -207,6 +231,7 @@ enum AtomHasFilter {
   type
   library
   label
+  components
 }
 
 input AtomOrder {
@@ -224,6 +249,7 @@ input AtomPatch {
   type: String
   library: LibraryRef
   label: String
+  components: [ComponentRef]
 }
 
 input AtomRef {
@@ -231,6 +257,7 @@ input AtomRef {
   type: String
   library: LibraryRef
   label: String
+  components: [ComponentRef]
 }
 
 input AuthRule {
@@ -384,6 +411,12 @@ type DeleteLibraryPayload {
     first: Int
     offset: Int
   ): [Library]
+  msg: String
+  numUids: Int
+}
+
+type DeletePagePayload {
+  page(filter: PageFilter, order: PageOrder, first: Int, offset: Int): [Page]
   msg: String
   numUids: Int
 }
@@ -614,6 +647,9 @@ type Mutation {
   addApp(input: [AddAppInput!]!): AddAppPayload
   updateApp(input: UpdateAppInput!): UpdateAppPayload
   deleteApp(filter: AppFilter!): DeleteAppPayload
+  addPage(input: [AddPageInput!]!): AddPagePayload
+  updatePage(input: UpdatePageInput!): UpdatePagePayload
+  deletePage(filter: PageFilter!): DeletePagePayload
   addLibrary(input: [AddLibraryInput!]!): AddLibraryPayload
   updateLibrary(input: UpdateLibraryInput!): UpdateLibraryPayload
   deleteLibrary(filter: LibraryFilter!): DeleteLibraryPayload
@@ -640,6 +676,53 @@ type Mutation {
 input NearFilter {
   distance: Float!
   coordinate: PointRef!
+}
+
+type Page {
+  id: ID!
+  title: String!
+  app(filter: AppFilter): App
+}
+
+type PageAggregateResult {
+  count: Int
+  titleMin: String
+  titleMax: String
+}
+
+input PageFilter {
+  id: [ID!]
+  title: StringFullTextFilter_StringTermFilter
+  has: [PageHasFilter]
+  and: [PageFilter]
+  or: [PageFilter]
+  not: PageFilter
+}
+
+enum PageHasFilter {
+  title
+  app
+}
+
+input PageOrder {
+  asc: PageOrderable
+  desc: PageOrderable
+  then: PageOrder
+}
+
+enum PageOrderable {
+  title
+}
+
+input PagePatch {
+  title: String
+  app: AppRef
+}
+
+input PageRef {
+  id: ID
+  title: String
+  app: AppRef
 }
 
 type Point {
@@ -694,6 +777,14 @@ type Query {
   getApp(id: ID!): App
   queryApp(filter: AppFilter, order: AppOrder, first: Int, offset: Int): [App]
   aggregateApp(filter: AppFilter): AppAggregateResult
+  getPage(id: ID!): Page
+  queryPage(
+    filter: PageFilter
+    order: PageOrder
+    first: Int
+    offset: Int
+  ): [Page]
+  aggregatePage(filter: PageFilter): PageAggregateResult
   getLibrary(id: ID!): Library
   queryLibrary(
     filter: LibraryFilter
@@ -745,6 +836,13 @@ input StringExactFilter {
 input StringFullTextFilter {
   alloftext: String
   anyoftext: String
+}
+
+input StringFullTextFilter_StringTermFilter {
+  alloftext: String
+  anyoftext: String
+  allofterms: String
+  anyofterms: String
 }
 
 input StringHashFilter {
@@ -872,6 +970,17 @@ type UpdateLibraryPayload {
     first: Int
     offset: Int
   ): [Library]
+  numUids: Int
+}
+
+input UpdatePageInput {
+  filter: PageFilter!
+  set: PagePatch
+  remove: PagePatch
+}
+
+type UpdatePagePayload {
+  page(filter: PageFilter, order: PageOrder, first: Int, offset: Int): [Page]
   numUids: Int
 }
 

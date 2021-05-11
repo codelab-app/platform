@@ -3,7 +3,7 @@ import {
   EditOutlined,
   EllipsisOutlined,
 } from '@ant-design/icons'
-import { PageType, PaneType, useCRUDModalForm } from '@codelab/frontend/shared'
+import { PageType, useCRUDModalForm } from '@codelab/frontend/shared'
 import { Button, Card, Dropdown, Menu } from 'antd'
 import Link from 'next/link'
 import React, { CSSProperties } from 'react'
@@ -72,11 +72,11 @@ export const GetAppsItem = ({
       title={
         <Link
           href={{
-            pathname: PageType.PageDetail,
+            pathname: PageType.PageList,
             query: {
               appId: app.id,
               // pageId: app?.pages[0]?.id,
-              pane: PaneType.Page,
+              // pane: PaneType.Page,
             },
           }}
         >

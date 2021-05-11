@@ -1,20 +1,20 @@
 import { JSONSchemaType } from 'ajv'
 
 export type CreateAtomInput = {
-  atom_type_id: string
-  library_id: string
+  label: string
+  type: string
 }
 
 export const createAtomSchema: JSONSchemaType<CreateAtomInput> = {
   title: 'Create Atom Input',
   type: 'object',
   properties: {
-    library_id: {
+    label: {
       type: 'string',
     },
-    atom_type_id: {
+    type: {
       type: 'string',
     },
   },
-  required: ['atom_type_id', 'library_id'],
+  required: ['label', 'type'],
 } as const

@@ -1,11 +1,11 @@
 import {
   __ComponentFragment,
   useGetComponentDetailLazyQuery,
-} from '@codelab/hasura'
+} from '@codelab/dgraph'
 import React, { PropsWithChildren, useEffect } from 'react'
 
 type IComponentContext = {
-  component: __ComponentFragment
+  component: __ComponentFragment | undefined
   loading: boolean
 }
 
@@ -23,7 +23,7 @@ const _ComponentProvider = ({
   children,
 }: PropsWithChildren<ComponentProviderProps>) => {
   const [load, { loading, data }] = useGetComponentDetailLazyQuery({})
-  const component = data?.component_by_pk
+  const component = data?.component ?? undefined
 
   useEffect(() => {
     if (componentId) {
@@ -33,11 +33,7 @@ const _ComponentProvider = ({
         },
       })
     }
-  }, [componentId, load])
-
-  if (!component) {
-    return null
-  }
+  }, [componentId])
 
   return (
     <ComponentContext.Provider
@@ -46,7 +42,7 @@ const _ComponentProvider = ({
         loading,
       }}
     >
-      {!loading && !!componentId ? children : null}
+      {children}
     </ComponentContext.Provider>
   )
 }

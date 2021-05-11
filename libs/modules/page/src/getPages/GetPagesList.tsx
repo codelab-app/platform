@@ -1,4 +1,5 @@
 import { FileOutlined } from '@ant-design/icons'
+import { App__PageFragment, useGetPagesListQuery } from '@codelab/dgraph'
 import {
   AppContext,
   EntityType,
@@ -7,20 +8,23 @@ import {
   PageType,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import { useGetPagesListQuery } from '@codelab/hasura'
 import { List, Space, Spin } from 'antd'
 import Link from 'next/link'
 import React, { useContext } from 'react'
 
 export const GetPagesList = () => {
-  const { appId } = useContext(AppContext)
+  const { app } = useContext(AppContext)
   const { openDeleteModal, openUpdateModal } = useCRUDModalForm(EntityType.Page)
 
   const { data, loading } = useGetPagesListQuery({
     variables: {
-      appId,
+      appId: app.id,
     },
   })
+
+  const pages = (data?.app?.pages ?? []).filter(
+    (page): page is App__PageFragment => !!page,
+  )
 
   return loading ? (
     <Spin />
@@ -28,7 +32,7 @@ export const GetPagesList = () => {
     <>
       <List
         size="small"
-        dataSource={data?.app_by_pk?.pages}
+        dataSource={pages}
         renderItem={(page) => (
           <List.Item onMouseOver={() => null} style={{ paddingLeft: 0 }}>
             <Space style={{ width: '100%' }}>
@@ -36,10 +40,10 @@ export const GetPagesList = () => {
               <Link
                 href={{
                   pathname: PageType.PageDetail,
-                  query: { appId, pageId: page.id },
+                  query: { appId: app.id, pageId: page.id },
                 }}
               >
-                <a>{page.name}</a>
+                <a>{page.title}</a>
               </Link>
             </Space>
             <Space>

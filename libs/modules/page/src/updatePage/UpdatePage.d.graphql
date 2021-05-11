@@ -1,0 +1,7 @@
+mutation UpdatePage($input: PagePatch!, $pageId: ID!) {
+  page: updatePage(input: { filter: { id: [$pageId] }, set: $input }) {
+    page {
+      ...App__Page
+    }
+  }
+}

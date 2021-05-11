@@ -1,15 +1,15 @@
 import {
+  refetchGetAtomsQuery,
+  useDeleteAtomMutation,
+  useGetAtomsQuery,
+} from '@codelab/dgraph'
+import {
   createNotificationHandler,
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import {
-  refetchLibraryExplorerQuery,
-  useDeleteAtomsWhereMutation,
-  useGetAtomsWhereQuery,
-} from '@codelab/hasura'
 import { Spin } from 'antd'
 import React, { useEffect } from 'react'
 import { AutoFields } from 'uniforms-antd'
@@ -20,30 +20,24 @@ type DeleteAtomFormProps = UniFormUseCaseProps<DeleteAtomInput>
 export const DeleteAtomsForm = (props: DeleteAtomFormProps) => {
   const { reset, setLoading, state } = useCRUDModalForm(EntityType.Atom)
 
-  const [mutate, { loading: deleting }] = useDeleteAtomsWhereMutation({
+  const [mutate, { loading: deleting }] = useDeleteAtomMutation({
     awaitRefetchQueries: true,
-    refetchQueries: [refetchLibraryExplorerQuery()],
+    refetchQueries: [refetchGetAtomsQuery()],
   })
 
-  const atomsWhere = {
-    _or: state.deleteIds.map((id) => ({
-      id: {
-        _eq: id,
-      },
-    })),
+  const filter = {
+    id: state.deleteIds,
   }
 
   useEffect(() => {
     setLoading(deleting)
   }, [deleting])
 
-  const { data, loading } = useGetAtomsWhereQuery({
-    variables: {
-      where: atomsWhere,
-    },
+  const { data, loading } = useGetAtomsQuery({
+    variables: { filter },
   })
 
-  const atomTypes = data?.atom.map((atom) => atom.type.label).join(', ')
+  const atomTypes = data?.queryAtom?.map((atom) => atom?.label).join(', ')
 
   if (loading) {
     return <Spin />
@@ -51,9 +45,7 @@ export const DeleteAtomsForm = (props: DeleteAtomFormProps) => {
 
   const onSubmit = () => {
     return mutate({
-      variables: {
-        where: atomsWhere,
-      },
+      variables: { filter },
     })
   }
 

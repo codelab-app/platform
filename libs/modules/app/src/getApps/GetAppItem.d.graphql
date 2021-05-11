@@ -1,4 +1,4 @@
-query GetAppItem($appId: ID!) {
+query GetApp($appId: ID!) {
   app: getApp(id: $appId) {
     ...User__App
   }

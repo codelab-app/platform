@@ -1,8 +1,0 @@
-fragment Page__PageLink on page_link {
-  id
-  order
-  props
-  source_page_element_id
-  source_component_element_id
-  target_page_element_id
-}

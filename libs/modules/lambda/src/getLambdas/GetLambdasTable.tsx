@@ -1,4 +1,4 @@
-import { AppContext } from '@codelab/frontend/shared'
+import { AppPageContext } from '@codelab/frontend/shared'
 import { useGetLambdasByLibraryIdQuery } from '@codelab/hasura'
 import { Space, Table } from 'antd'
 import React, { useContext } from 'react'
@@ -17,7 +17,7 @@ const mapDataSource = (lambdas: Array<LambdaRecord>) => {
 }
 
 export const GetLambdasTable = () => {
-  const { app, appId } = useContext(AppContext)
+  const { app, appId } = useContext(AppPageContext)
 
   const { loading, data } = useGetLambdasByLibraryIdQuery({
     variables: {

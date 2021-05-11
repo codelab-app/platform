@@ -4,7 +4,7 @@ import {
 } from '@codelab/frontend/builder'
 import { CytoscapeService } from '@codelab/frontend/cytoscape'
 import {
-  AppContext,
+  AppPageContext,
   ComponentItemType,
   PageNode,
 } from '@codelab/frontend/shared'
@@ -20,7 +20,7 @@ type GetPageLayoutProps = {
 }
 
 export const PageRenderer = ({ page }: GetPageLayoutProps) => {
-  const { pageId, appId } = useContext(AppContext)
+  const { pageId, appId } = useContext(AppPageContext)
 
   const [addPageElement] = useCreatePageElementMutation({
     refetchQueries: [

@@ -1,5 +1,5 @@
 import {
-  AppContext,
+  AppPageContext,
   StatelessLoadingIndicator,
   UniFormUseCaseProps,
 } from '@codelab/frontend/shared'
@@ -24,7 +24,7 @@ export const UpdatePageElementForm = ({
 }: UpdatePageElementFormProps) => {
   //Cache it only once, don't pass it with every change to the form, because that will cause lag when autosaving
   const { current: pageElement } = useRef(initialPageElement)
-  const { appId, pageId } = useContext(AppContext)
+  const { appId, pageId } = useContext(AppPageContext)
 
   const [
     mutate,

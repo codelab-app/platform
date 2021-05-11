@@ -1,5 +1,5 @@
 import {
-  AppContext,
+  AppPageContext,
   createNotificationHandler,
   emptyJsonSchema,
   EmptyJsonSchemaType,
@@ -26,7 +26,7 @@ export const DeletePageElementForm = (props: DeletePageElementFormProps) => {
     state: { deleteIds: deletePageElementIds },
   } = useCRUDModalForm(EntityType.PageElement)
 
-  const { pageId, appId } = useContext(AppContext)
+  const { pageId, appId } = useContext(AppPageContext)
 
   const [mutate, { loading: deleting }] = useDeletePageElementMutation({
     refetchQueries: [refetchGetAppPageQuery({ appId, pageId })],

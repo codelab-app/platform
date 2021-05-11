@@ -1,7 +1,7 @@
 import {
   refetchGetAppsListQuery,
   useDeleteAppMutation,
-  useGetAppItemQuery,
+  useGetAppQuery,
 } from '@codelab/dgraph'
 import {
   createNotificationHandler,
@@ -30,7 +30,7 @@ export const DeleteAppForm = (props: DeleteAppFormProps) => {
     setLoading(deleting)
   }, [deleting])
 
-  const { data, loading } = useGetAppItemQuery({
+  const { data, loading } = useGetAppQuery({
     variables: {
       appId: appDeleteIds[0],
     },

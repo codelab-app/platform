@@ -1,5 +1,5 @@
 import {
-  AppContext,
+  AppPageContext,
   EntityType,
   UniFormUseCaseProps,
   useCRUDModalForm,
@@ -19,7 +19,7 @@ export const CreatePageElementForm = ({
   ...props
 }: CreatePageElementFormProps) => {
   const { reset, setLoading } = useCRUDModalForm(EntityType.PageElement)
-  const { pageId, appId } = useContext(AppContext)
+  const { pageId, appId } = useContext(AppPageContext)
 
   const [mutate, { loading: creating }] = useCreatePageElementMutation({
     refetchQueries: [refetchGetAppPageQuery({ appId, pageId })],

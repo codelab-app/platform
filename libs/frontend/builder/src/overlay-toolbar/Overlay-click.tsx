@@ -3,7 +3,7 @@ import {
   builderElementSelectionState,
   OverlayToolbar,
 } from '@codelab/frontend/builder'
-import { AppContext, ComponentElementNode } from '@codelab/frontend/shared'
+import { AppPageContext, ComponentElementNode } from '@codelab/frontend/shared'
 import {
   refetchGetAppPageQuery,
   useDeletePageElementMutation,
@@ -14,7 +14,7 @@ import { useRecoilValue } from 'recoil'
 import { nodeToElementMapState } from '../renderer/nodeToElementMapState'
 
 export const ClickOverlay = () => {
-  const { pageId, appId } = useContext(AppContext)
+  const { pageId, appId } = useContext(AppPageContext)
 
   const [
     deletePageElement,

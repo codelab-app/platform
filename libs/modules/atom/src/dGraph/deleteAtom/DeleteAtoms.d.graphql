@@ -1,6 +1,0 @@
-mutation DeleteAtom($filter: AtomFilter!) {
-  deleteAtom(filter: $filter){
-    msg
-    numUids
-  }
-}

@@ -1,4 +1,4 @@
-import { AppContext } from '@codelab/frontend/shared'
+import { AppPageContext } from '@codelab/frontend/shared'
 import {
   refetchGetLambdasByLibraryIdQuery,
   useDeleteLambdaMutation,
@@ -8,7 +8,7 @@ import React, { useContext } from 'react'
 import { LambdaRecord } from '../getLambdas/LambdaRecord'
 
 export const DeleteLambdaButton = (props: LambdaRecord) => {
-  const { appId } = useContext(AppContext)
+  const { appId } = useContext(AppPageContext)
 
   const [mutate] = useDeleteLambdaMutation({
     refetchQueries: [

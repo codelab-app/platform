@@ -3,7 +3,7 @@ import { CytoscapeService } from '@codelab/frontend/cytoscape'
 import { MainPaneTemplate } from '@codelab/frontend/layout'
 import {
   ActionType,
-  AppContext,
+  AppPageContext,
   AtomType,
   CrudModal,
   EntityType,
@@ -19,7 +19,7 @@ import {
 
 export const PaneMainTree = () => {
   const { setSelected, setHovering, resetHovering } = useBuilderSelection()
-  const { page } = useContext(AppContext)
+  const { page } = useContext(AppPageContext)
   let data: DataNode | undefined
 
   if (page && page.elements && page.elements.length) {

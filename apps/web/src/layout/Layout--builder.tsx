@@ -1,15 +1,10 @@
 import { DownOutlined, UserOutlined } from '@ant-design/icons'
 import { useBuilderSelection } from '@codelab/frontend/builder'
-import {
-  AppProvider,
-  LibraryProvider,
-  PageType,
-} from '@codelab/frontend/shared'
-import { useGetFirstAppQuery } from '@codelab/hasura'
+import { AppProvider } from '@codelab/frontend/shared'
 import styled from '@emotion/styled'
 import { Dropdown, Layout, Menu } from 'antd'
 import { useRouter } from 'next/router'
-import React, { PropsWithChildren, useEffect } from 'react'
+import React, { PropsWithChildren } from 'react'
 import xw from 'xwind'
 import { WithMainPane, WithMetaPane } from './Layout.d'
 import { LayoutNavigations } from './Layout-navigations'
@@ -28,8 +23,9 @@ const MetaPaneSection = styled('div')`
 export const LayoutBuilder = ({
   children,
   MainPane,
-  MetaPane = undefined,
+  MetaPane,
 }: PropsWithChildren<WithMainPane & WithMetaPane>) => {
+  const router = useRouter()
   const { reset: resetSelection } = useBuilderSelection()
   // const { data, loading } = useGetFirstAppQuery()
   // const router = useRouter()
@@ -63,66 +59,64 @@ export const LayoutBuilder = ({
   )
 
   return (
-    // <AppProvider appId={data?.app[0].id} pageId={data?.app[0].pages[0].id}>
-    //   <LibraryProvider>
-    <Layout css={xw`h-full`}>
-      <Sider
-        theme="light"
-        style={{ height: '100%' }}
-        collapsed
-        collapsedWidth={40}
-      >
-        <LayoutNavigations />
-      </Sider>
-      <Layout>
-        <Header>
-          <Menu theme="light" mode="horizontal" defaultSelectedKeys={['2']}>
-            <Menu.Item key="1">
-              <Dropdown overlay={menu} trigger={['click']}>
-                <a
-                  className="ant-dropdown-link"
-                  onClick={(e) => e.preventDefault()}
-                >
-                  Page: Home <DownOutlined />
-                </a>
-              </Dropdown>
-            </Menu.Item>
-          </Menu>
-        </Header>
+    <AppProvider appId={router.query.appId as string}>
+      <Layout css={xw`h-full`}>
+        <Sider
+          theme="light"
+          style={{ height: '100%' }}
+          collapsed
+          collapsedWidth={40}
+        >
+          <LayoutNavigations />
+        </Sider>
         <Layout>
-          <Sider
-            theme="light"
-            width={mainPaneWidth}
-            style={{
-              overflowY: 'scroll',
-              // position: 'fixed',
-              height: '100%',
-              top: 0,
-              // right: 0,
-            }}
-          >
-            <MainPane />
-          </Sider>
-          <Content
-            css={xw`relative`}
-            onClick={() => {
-              resetSelection()
-            }}
-            style={{
-              minHeight: 'initial',
-            }}
-          >
-            {children}
-            {MetaPane ? (
-              <MetaPaneSection>
-                <MetaPane />
-              </MetaPaneSection>
-            ) : null}
-          </Content>
+          <Header>
+            <Menu theme="light" mode="horizontal" defaultSelectedKeys={['2']}>
+              <Menu.Item key="1">
+                <Dropdown overlay={menu} trigger={['click']}>
+                  <a
+                    className="ant-dropdown-link"
+                    onClick={(e) => e.preventDefault()}
+                  >
+                    Page: Home <DownOutlined />
+                  </a>
+                </Dropdown>
+              </Menu.Item>
+            </Menu>
+          </Header>
+          <Layout>
+            <Sider
+              theme="light"
+              width={mainPaneWidth}
+              style={{
+                overflowY: 'scroll',
+                // position: 'fixed',
+                height: '100%',
+                top: 0,
+                // right: 0,
+              }}
+            >
+              {MainPane ? <MainPane /> : null}
+            </Sider>
+            <Content
+              css={xw`relative`}
+              onClick={() => {
+                resetSelection()
+              }}
+              style={{
+                minHeight: 'initial',
+              }}
+            >
+              {children}
+              {MetaPane ? (
+                <MetaPaneSection>
+                  <MetaPane />
+                </MetaPaneSection>
+              ) : null}
+            </Content>
+          </Layout>
         </Layout>
       </Layout>
-    </Layout>
-    // </LibraryProvider>
-    // </AppProvider>
+    </AppProvider>
   )
 }

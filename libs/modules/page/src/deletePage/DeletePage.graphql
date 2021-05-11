@@ -1,5 +1,0 @@
-mutation DeletePage($pageId: uuid!) {
-  delete_page_by_pk(id: $pageId) {
-    ...App__Page
-  }
-}

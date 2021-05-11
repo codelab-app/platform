@@ -1,4 +1,4 @@
-import { AppContext, FormUniforms, notify } from '@codelab/frontend/shared'
+import { AppPageContext, FormUniforms, notify } from '@codelab/frontend/shared'
 import {
   CreatePageElementPropMutation,
   PropCollection__PropFragment,
@@ -48,7 +48,7 @@ export const PageElementPropForm = ({
   })
 
   const isInCreationMode = !propData?.id
-  const { pageId, appId } = useContext(AppContext)
+  const { pageId, appId } = useContext(AppPageContext)
 
   //Mutations:
   const [createPageElementProp] = useCreatePageElementPropMutation({

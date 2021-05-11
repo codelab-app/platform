@@ -6,10 +6,10 @@
      "Dgraph GraphQL Endpoint": {
         "url": "${env.CODELAB_DGRAPH_GRAPHQL_ENDPOINT}",
         "headers": {
-          "user-agent": "JS GraphQL",
+          "user-agent": "JS GraphQL"
         },
         "introspect": true
-      },
+      }
     }
   }
 }

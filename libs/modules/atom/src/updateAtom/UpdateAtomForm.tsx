@@ -1,53 +1,44 @@
 import {
+  refetchGetAtomsQuery,
+  useGetAtomsQuery,
+  useUpdateAtomMutation,
+} from '@codelab/dgraph'
+import {
+  AtomType,
   createNotificationHandler,
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import {
-  refetchLibraryExplorerQuery,
-  useGetAtomQuery,
-  useGetAtomsTypesQuery,
-  useUpdateAtomMutation,
-} from '@codelab/hasura'
 import { Spin } from 'antd'
+import _ from 'lodash'
 import React, { useEffect } from 'react'
 import { DeepPartial } from 'uniforms'
-import { SelectField } from 'uniforms-antd'
+import { AutoFields, SelectField } from 'uniforms-antd'
 import { UpdateAtomInput, updateAtomSchema } from './updateAtomSchema'
 
 export const UpdateAtomForm = (props: UniFormUseCaseProps<UpdateAtomInput>) => {
   const { reset, setLoading, state } = useCRUDModalForm(EntityType.Atom)
   const { updateId: updateAtomId } = state
-  const { data: atomsTypes } = useGetAtomsTypesQuery()
-
-  const atomTypesOptions = atomsTypes?.atom_type?.map((t) => ({
-    ...t,
-    label: t.label,
-    value: t.id,
-  }))
 
   const [mutate, { loading: updating }] = useUpdateAtomMutation({
-    refetchQueries: [refetchLibraryExplorerQuery()],
-    context: {
-      headers: {
-        'X-Hasura-Role': 'admin',
-      },
-    },
+    refetchQueries: [refetchGetAtomsQuery()],
   })
 
   useEffect(() => {
     setLoading(updating)
   }, [updating])
 
-  const { data, loading } = useGetAtomQuery({
+  const { data, loading } = useGetAtomsQuery({
     variables: {
-      atomId: updateAtomId,
+      filter: {
+        id: updateAtomId as any,
+      },
     },
   })
 
-  const atom = data?.atom_by_pk
+  const atom = data?.queryAtom ? data.queryAtom[0] : undefined
 
   if (loading) {
     return <Spin />
@@ -57,12 +48,22 @@ export const UpdateAtomForm = (props: UniFormUseCaseProps<UpdateAtomInput>) => {
     return mutate({
       variables: {
         input: {
-          atom_type_id: submitData.atom_type_id,
+          filter: {
+            id: updateAtomId as any,
+          },
+          set: {
+            label: submitData.label,
+            type: submitData.type,
+          },
         },
-        atomId: updateAtomId,
       },
     })
   }
+
+  const atomTypesOptions = _.chain(Object.values(AtomType))
+    .orderBy('label')
+    .map((v) => ({ label: v, value: v }))
+    .value()
 
   return (
     <FormUniforms<UpdateAtomInput>
@@ -70,14 +71,15 @@ export const UpdateAtomForm = (props: UniFormUseCaseProps<UpdateAtomInput>) => {
       id="update-atom-form"
       onSubmit={onSubmit}
       schema={updateAtomSchema}
-      model={{ atom_type_id: atom?.type.id }}
+      model={{ label: atom?.label, type: atom?.type }}
       onSubmitError={createNotificationHandler({
         title: 'Error while updating Atom',
       })}
       onSubmitSuccess={() => reset()}
       {...props}
     >
-      <SelectField name="atom_type_id" options={atomTypesOptions} />
+      <SelectField name="type" options={atomTypesOptions} />
+      <AutoFields omitFields={['type']} />
     </FormUniforms>
   )
 }

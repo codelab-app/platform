@@ -48,6 +48,8 @@ app.use('*', async (baseReq, baseRes, next) => {
         //   xHasura['x-hasura-default-role'],
         // )
 
+        console.log(session.idToken)
+
         proxyReq.setHeader('X-Auth-Token', `${session.idToken}`)
         // console.log(proxyReq.getHeaders())
       }

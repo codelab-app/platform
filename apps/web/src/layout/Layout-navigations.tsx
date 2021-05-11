@@ -8,7 +8,7 @@ import {
   SettingOutlined,
   TagOutlined,
 } from '@ant-design/icons'
-import { AppContext, LibraryContext, PageType } from '@codelab/frontend/shared'
+import { AppContext, PageType } from '@codelab/frontend/shared'
 import { Menu } from 'antd'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -17,14 +17,14 @@ import xw from 'xwind'
 
 export const LayoutNavigations = () => {
   const router = useRouter()
-  const { libraries } = useContext(LibraryContext)
-  const { appId, pageId } = useContext(AppContext)
+  // const { libraries } = useContext(LibraryContext)
+  const { app } = useContext(AppContext)
 
   return (
     <div data-testid="pane-main" css={xw`h-full`}>
       <Menu
         css={xw`w-full h-full`}
-        defaultSelectedKeys={[PageType.Library]}
+        defaultSelectedKeys={[PageType.LibraryList]}
         selectedKeys={[router.pathname]}
         defaultOpenKeys={[]}
         mode="inline"
@@ -42,10 +42,10 @@ export const LayoutNavigations = () => {
         >
           <Link
             href={{
-              pathname: PageType.PageDetail,
+              pathname: PageType.PageList,
               query: {
-                appId,
-                pageId,
+                appId: app.id,
+                // pageId,
               },
             }}
           >
@@ -63,14 +63,17 @@ export const LayoutNavigations = () => {
         </Menu.Item>
         <Menu.Divider />
         <Menu.Item
-          key={PageType.Library}
+          key={PageType.LibraryList}
           icon={
             <BookOutlined data-testid="library-tab-trigger" title="Library" />
           }
         >
           <Link
             href={{
-              pathname: PageType.Library,
+              pathname: PageType.LibraryList,
+              query: {
+                appId: app.id,
+              },
             }}
           >
             Library
@@ -82,7 +85,7 @@ export const LayoutNavigations = () => {
             href={{
               pathname: PageType.Prop,
               query: {
-                libraryId: libraries?.[0]?.id,
+                // libraryId: libraries?.[0]?.id,
               },
             }}
           >

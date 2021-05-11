@@ -10121,11 +10121,11 @@ export type DeleteAppMutationVariables = Exact<{
 
 export type DeleteAppMutation = { delete_app_by_pk?: Maybe<User__AppFragment> }
 
-export type GetAppItemQueryVariables = Exact<{
+export type GetAppQueryVariables = Exact<{
   appId: Scalars['uuid']
 }>
 
-export type GetAppItemQuery = { app_by_pk?: Maybe<User__AppFragment> }
+export type GetAppQuery = { app_by_pk?: Maybe<User__AppFragment> }
 
 export type GetAppsListQueryVariables = Exact<{ [key: string]: never }>
 
@@ -11319,8 +11319,8 @@ export type DeleteAppMutationOptions = Apollo.BaseMutationOptions<
   DeleteAppMutation,
   DeleteAppMutationVariables
 >
-export const GetAppItemGql = gql`
-  query GetAppItem($appId: uuid!) {
+export const GetAppGql = gql`
+  query GetApp($appId: uuid!) {
     app_by_pk(id: $appId) {
       ...User__App
     }
@@ -11329,55 +11329,44 @@ export const GetAppItemGql = gql`
 `
 
 /**
- * __useGetAppItemQuery__
+ * __useGetAppQuery__
  *
- * To run a query within a React component, call `useGetAppItemQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetAppItemQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetAppQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAppQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetAppItemQuery({
+ * const { data, loading, error } = useGetAppQuery({
  *   variables: {
  *      appId: // value for 'appId'
  *   },
  * });
  */
-export function useGetAppItemQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    GetAppItemQuery,
-    GetAppItemQueryVariables
-  >,
+export function useGetAppQuery(
+  baseOptions: Apollo.QueryHookOptions<GetAppQuery, GetAppQueryVariables>,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<GetAppItemQuery, GetAppItemQueryVariables>(
-    GetAppItemGql,
+  return Apollo.useQuery<GetAppQuery, GetAppQueryVariables>(GetAppGql, options)
+}
+export function useGetAppLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetAppQuery, GetAppQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetAppQuery, GetAppQueryVariables>(
+    GetAppGql,
     options,
   )
 }
-export function useGetAppItemLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetAppItemQuery,
-    GetAppItemQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<GetAppItemQuery, GetAppItemQueryVariables>(
-    GetAppItemGql,
-    options,
-  )
-}
-export type GetAppItemQueryHookResult = ReturnType<typeof useGetAppItemQuery>
-export type GetAppItemLazyQueryHookResult = ReturnType<
-  typeof useGetAppItemLazyQuery
+export type GetAppQueryHookResult = ReturnType<typeof useGetAppQuery>
+export type GetAppLazyQueryHookResult = ReturnType<typeof useGetAppLazyQuery>
+export type GetAppQueryResult = Apollo.QueryResult<
+  GetAppQuery,
+  GetAppQueryVariables
 >
-export type GetAppItemQueryResult = Apollo.QueryResult<
-  GetAppItemQuery,
-  GetAppItemQueryVariables
->
-export function refetchGetAppItemQuery(variables?: GetAppItemQueryVariables) {
-  return { query: GetAppItemGql, variables: variables }
+export function refetchGetAppQuery(variables?: GetAppQueryVariables) {
+  return { query: GetAppGql, variables: variables }
 }
 export const GetAppsListGql = gql`
   query GetAppsList {
@@ -15817,8 +15806,8 @@ export const DeleteApp = gql`
   }
   ${User__App}
 `
-export const GetAppItem = gql`
-  query GetAppItem($appId: uuid!) {
+export const GetApp = gql`
+  query GetApp($appId: uuid!) {
     app_by_pk(id: $appId) {
       ...User__App
     }

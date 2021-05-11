@@ -1,5 +1,0 @@
-mutation CreatePage($data: page_insert_input!) {
-  insert_page_one(object: $data) {
-    ...App__Page
-  }
-}

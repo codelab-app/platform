@@ -1,4 +1,8 @@
 import {
+  refetchGetPagesListQuery,
+  useCreatePageMutation,
+} from '@codelab/dgraph'
+import {
   AppContext,
   createNotificationHandler,
   EntityType,
@@ -6,12 +10,7 @@ import {
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import {
-  refetchGetPagesListQuery,
-  useCreatePageMutation,
-} from '@codelab/hasura'
 import React, { useContext, useEffect } from 'react'
-import { DeepPartial } from 'uniforms'
 import { AutoFields } from 'uniforms-antd'
 import { CreatePageInput, createPageSchema } from './createPageSchema'
 
@@ -19,14 +18,13 @@ type CreatePageFormProps = UniFormUseCaseProps<CreatePageInput>
 
 export const CreatePageForm = (props: CreatePageFormProps) => {
   const { reset, setLoading } = useCRUDModalForm(EntityType.Page)
-  const { appId } = useContext(AppContext)
-  console.log(appId)
+  const { app } = useContext(AppContext)
 
   const [mutate, { loading: creating }] = useCreatePageMutation({
     awaitRefetchQueries: true,
     refetchQueries: [
       refetchGetPagesListQuery({
-        appId,
+        appId: app.id,
       }),
     ],
   })
@@ -35,12 +33,14 @@ export const CreatePageForm = (props: CreatePageFormProps) => {
     setLoading(creating)
   }, [creating])
 
-  const onSubmit = (submitData: DeepPartial<CreatePageInput>) => {
+  const onSubmit = (submitData: CreatePageInput) => {
     return mutate({
       variables: {
-        data: {
+        input: {
           ...submitData,
-          app_id: appId,
+          app: {
+            id: app.id,
+          },
         },
       },
     })

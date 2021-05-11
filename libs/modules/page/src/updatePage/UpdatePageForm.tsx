@@ -1,4 +1,9 @@
 import {
+  refetchGetPagesListQuery,
+  useGetPageQuery,
+  useUpdatePageMutation,
+} from '@codelab/dgraph'
+import {
   AppContext,
   createNotificationHandler,
   EntityType,
@@ -6,28 +11,20 @@ import {
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import {
-  refetchGetPagesListQuery,
-  useGetPageQuery,
-  useUpdatePageMutation,
-} from '@codelab/hasura'
 import React, { useContext, useEffect } from 'react'
-import { DeepPartial } from 'uniforms'
 import { AutoFields } from 'uniforms-antd'
-import { UpdatePageInput, UpdatePageSchema } from './updateFromSchema'
+import { UpdatePageInput, updatePageSchema } from './updatePageSchema'
 
 type UpdatePageFormProps = UniFormUseCaseProps<UpdatePageInput>
 
 export const UpdatePageForm = (props: UpdatePageFormProps) => {
   const { reset, setLoading, state } = useCRUDModalForm(EntityType.Page)
-  const { appId } = useContext(AppContext)
+  const { app } = useContext(AppContext)
   const { updateId: updatePageId } = state
-
-  console.log(appId)
 
   const [mutate, { loading: updating }] = useUpdatePageMutation({
     awaitRefetchQueries: true,
-    refetchQueries: [refetchGetPagesListQuery({ appId })],
+    refetchQueries: [refetchGetPagesListQuery({ appId: app.id })],
   })
 
   useEffect(() => {
@@ -40,13 +37,11 @@ export const UpdatePageForm = (props: UpdatePageFormProps) => {
     },
   })
 
-  const page = data?.page_by_pk
-
-  const onSubmit = (submitData: DeepPartial<UpdatePageInput>) => {
+  const onSubmit = (submitData: UpdatePageInput) => {
     return mutate({
       variables: {
         input: {
-          ...(submitData as any),
+          ...submitData,
         },
         pageId: updatePageId,
       },
@@ -56,8 +51,8 @@ export const UpdatePageForm = (props: UpdatePageFormProps) => {
   return (
     <FormUniforms<UpdatePageInput>
       onSubmit={onSubmit}
-      schema={UpdatePageSchema}
-      model={{ name: page?.name }}
+      schema={updatePageSchema}
+      model={{ title: data?.page?.title }}
       onSubmitError={createNotificationHandler({
         title: 'Error while updating page',
       })}

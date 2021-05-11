@@ -1,7 +1,7 @@
 import {
   refetchGetAppsListQuery,
   useEditAppMutation,
-  useGetAppItemQuery,
+  useGetAppQuery,
 } from '@codelab/dgraph'
 import {
   createNotificationHandler,
@@ -28,7 +28,7 @@ export const UpdateAppForm = (props: UniFormUseCaseProps<UpdateAppInput>) => {
     refetchQueries: [refetchGetAppsListQuery()],
   })
 
-  const { data, loading } = useGetAppItemQuery({
+  const { data, loading } = useGetAppQuery({
     variables: {
       appId: updateAppId,
     },

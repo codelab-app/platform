@@ -1,5 +1,0 @@
-query GetPage($pageId: uuid!) {
-  page_by_pk(id: $pageId) {
-    ...App__Page
-  }
-}

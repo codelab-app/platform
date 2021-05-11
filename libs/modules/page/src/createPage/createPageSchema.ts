@@ -1,16 +1,16 @@
 import { JSONSchemaType } from 'ajv'
 
 export type CreatePageInput = {
-  name: string
+  title: string
 }
 
 export const createPageSchema: JSONSchemaType<CreatePageInput> = {
   title: 'Create Page Input',
   type: 'object',
   properties: {
-    name: {
+    title: {
       type: 'string',
     },
   },
-  required: ['name'],
+  required: ['title'],
 } as const

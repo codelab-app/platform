@@ -1,5 +1,0 @@
-query GetAtom($atomId: uuid!) {
-  atom_by_pk(id: $atomId) {
-    ...__Atom
-  }
-}

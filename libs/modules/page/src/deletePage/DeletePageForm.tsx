@@ -1,4 +1,9 @@
 import {
+  refetchGetPagesListQuery,
+  useDeletePageMutation,
+  useGetPageQuery,
+} from '@codelab/dgraph'
+import {
   AppContext,
   createNotificationHandler,
   EntityType,
@@ -6,11 +11,6 @@ import {
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import {
-  refetchGetPagesListQuery,
-  useDeletePageMutation,
-  useGetPageQuery,
-} from '@codelab/hasura'
 import { Spin } from 'antd'
 import React, { useContext, useEffect } from 'react'
 import { AutoFields } from 'uniforms-antd'
@@ -21,10 +21,11 @@ type DeletePageFormProps = UniFormUseCaseProps<DeletePageInput>
 export const DeletePageForm = (props: DeletePageFormProps) => {
   const { reset, setLoading, state } = useCRUDModalForm(EntityType.Page)
   const { deleteIds: deletePageIds } = state
-  const { appId } = useContext(AppContext)
+  const { app } = useContext(AppContext)
 
   const [mutate, { loading: deleting }] = useDeletePageMutation({
-    refetchQueries: [refetchGetPagesListQuery({ appId })],
+    awaitRefetchQueries: true,
+    refetchQueries: [refetchGetPagesListQuery({ appId: app.id })],
   })
 
   useEffect(() => {
@@ -37,7 +38,7 @@ export const DeletePageForm = (props: DeletePageFormProps) => {
     },
   })
 
-  const page = data?.page_by_pk
+  const page = data?.page
 
   if (loading) {
     return <Spin />
@@ -61,7 +62,7 @@ export const DeletePageForm = (props: DeletePageFormProps) => {
       onSubmitSuccess={() => reset()}
       {...props}
     >
-      <h4>Are you sure you want to delete page "{page?.name}"?</h4>
+      <h4>Are you sure you want to delete page "{page?.title}"?</h4>
       <AutoFields />
     </FormUniforms>
   )

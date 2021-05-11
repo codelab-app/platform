@@ -1,0 +1,5 @@
+query GetComponentDetail($componentId: ID!) {
+  component: getComponent(id: $componentId) {
+    ...__Component
+  }
+}

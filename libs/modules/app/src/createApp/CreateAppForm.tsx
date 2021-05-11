@@ -9,7 +9,7 @@ import {
 } from '@codelab/frontend/shared'
 import React, { useEffect } from 'react'
 import { useRecoilState } from 'recoil'
-import { AutoField, AutoFields } from 'uniforms-antd'
+import { AutoFields } from 'uniforms-antd'
 import { appState } from '../state'
 import { CreateAppInput, createAppSchema } from './createAppSchema'
 
@@ -31,19 +31,18 @@ export const CreateAppForm = (props: UniFormUseCaseProps<CreateAppInput>) => {
   }, [loading, setAppState])
 
   const onSubmit = (submitData: CreateAppInput) => {
-    console.log(submitData)
-
     return mutate({
       variables: {
         input: {
           ...submitData,
-          // pages: {
-          //   data: [
-          //     {
-          //       name: 'Default page',
-          //     },
-          //   ],
-          // },
+          owner: {
+            email: user?.email,
+          },
+          // pages: [
+          //   {
+          //     title: 'Default Page',
+          //   },
+          // ],
         },
       },
     })
@@ -51,11 +50,11 @@ export const CreateAppForm = (props: UniFormUseCaseProps<CreateAppInput>) => {
 
   return (
     <FormUniforms<CreateAppInput>
-      model={{
-        owner: {
-          email: user?.email ?? null,
-        },
-      }}
+      // model={{
+      //   owner: {
+      //     email: user?.email ?? null,
+      //   },
+      // }}
       onSubmit={onSubmit}
       schema={createAppSchema}
       onSubmitError={createNotificationHandler({
@@ -64,8 +63,7 @@ export const CreateAppForm = (props: UniFormUseCaseProps<CreateAppInput>) => {
       onSubmitSuccess={() => reset()}
       {...props}
     >
-      <AutoFields omitFields={['owner']} />
-      <AutoField name="owner.email" disabled />
+      <AutoFields />
     </FormUniforms>
   )
 }

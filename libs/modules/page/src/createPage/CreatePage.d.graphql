@@ -1,0 +1,7 @@
+mutation CreatePage($input: AddPageInput!) {
+  page: addPage(input: [$input]) {
+    page {
+      ...App__Page
+    }
+  }
+}

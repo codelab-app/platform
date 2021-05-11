@@ -1,39 +1,38 @@
-import {
-  GetAppPageQuery,
-  Query_Root,
-  useGetAppPageQuery,
-} from '@codelab/hasura'
-import React, { PropsWithChildren } from 'react'
-import { PropsWithIds } from '../interfaces'
+import { useGetAppLazyQuery, User__AppFragment } from '@codelab/dgraph'
+import React, { PropsWithChildren, useEffect } from 'react'
 
-type IAppContext = PropsWithIds<'appId' | 'pageId'> & {
-  app?: GetAppPageQuery['app_by_pk']
-  page?: GetAppPageQuery['page_by_pk']
-  styles?: Query_Root['style']
+type IAppContext = {
+  app: User__AppFragment
   loading: boolean
+}
+
+type AppProviderProps = {
+  appId?: string
 }
 
 export const AppContext = React.createContext<IAppContext>(undefined!)
 
 export const _AppProvider = ({
   appId,
-  pageId,
   children,
-}: PropsWithChildren<Pick<IAppContext, 'appId' | 'pageId'>>) => {
-  const { data, loading } = useGetAppPageQuery({
-    variables: {
-      appId,
-      pageId,
-    },
-  })
+}: PropsWithChildren<AppProviderProps>) => {
+  const [load, { data, loading }] = useGetAppLazyQuery()
+  const app = data?.app
+
+  useEffect(() => {
+    if (appId) {
+      load({ variables: { appId } })
+    }
+  }, [appId])
+
+  if (!app) {
+    return null
+  }
 
   return (
     <AppContext.Provider
       value={{
-        appId,
-        pageId,
-        app: data?.app_by_pk,
-        page: data?.page_by_pk,
+        app,
         loading,
       }}
     >
@@ -43,5 +42,5 @@ export const _AppProvider = ({
 }
 
 export const AppProvider = React.memo(_AppProvider, (prev, next) => {
-  return prev.appId !== next.appId || prev.pageId !== next.pageId
+  return prev.appId !== next.appId
 })

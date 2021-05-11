@@ -8,7 +8,7 @@ import { LayoutBuilder } from './Layout--builder'
 export const LayoutLibrary = (props: PropsWithChildren<WithMainPane>) => {
   const { children, MainPane } = props
   const { query } = useRouter()
-  const componentId = `${query?.componentId}`
+  const componentId = query?.componentId as string
 
   return (
     <LibraryProvider>

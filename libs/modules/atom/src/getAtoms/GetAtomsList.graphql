@@ -1,5 +1,0 @@
-query GetAtomsList {
-  atom {
-    ...__Atom
-  }
-}

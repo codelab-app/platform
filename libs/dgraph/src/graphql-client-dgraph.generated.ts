@@ -30,6 +30,7 @@ export type Scalars = {
 
 export type AddAppInput = {
   owner: UserRef
+  pages?: Maybe<Array<Maybe<PageRef>>>
   name: Scalars['String']
 }
 
@@ -49,6 +50,7 @@ export type AddAtomInput = {
   type: Scalars['String']
   library?: Maybe<LibraryRef>
   label: Scalars['String']
+  components?: Maybe<Array<Maybe<ComponentRef>>>
 }
 
 export type AddAtomPayload = {
@@ -117,6 +119,23 @@ export type AddLibraryPayloadLibraryArgs = {
   offset?: Maybe<Scalars['Int']>
 }
 
+export type AddPageInput = {
+  title: Scalars['String']
+  app?: Maybe<AppRef>
+}
+
+export type AddPagePayload = {
+  page?: Maybe<Array<Maybe<Page>>>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type AddPagePayloadPageArgs = {
+  filter?: Maybe<PageFilter>
+  order?: Maybe<PageOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
 export type AddTagInput = {
   label: Scalars['String']
 }
@@ -154,11 +173,24 @@ export type AddUserPayloadUserArgs = {
 export type App = {
   id: Scalars['ID']
   owner: User
+  pages?: Maybe<Array<Maybe<Page>>>
   name: Scalars['String']
+  pagesAggregate?: Maybe<PageAggregateResult>
 }
 
 export type AppOwnerArgs = {
   filter?: Maybe<UserFilter>
+}
+
+export type AppPagesArgs = {
+  filter?: Maybe<PageFilter>
+  order?: Maybe<PageOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type AppPagesAggregateArgs = {
+  filter?: Maybe<PageFilter>
 }
 
 export type AppAggregateResult = {
@@ -177,6 +209,7 @@ export type AppFilter = {
 
 export enum AppHasFilter {
   Owner = 'owner',
+  Pages = 'pages',
   Name = 'name',
 }
 
@@ -192,12 +225,14 @@ export enum AppOrderable {
 
 export type AppPatch = {
   owner?: Maybe<UserRef>
+  pages?: Maybe<Array<Maybe<PageRef>>>
   name?: Maybe<Scalars['String']>
 }
 
 export type AppRef = {
   id?: Maybe<Scalars['ID']>
   owner?: Maybe<UserRef>
+  pages?: Maybe<Array<Maybe<PageRef>>>
   name?: Maybe<Scalars['String']>
 }
 
@@ -206,10 +241,23 @@ export type Atom = {
   type: Scalars['String']
   library?: Maybe<Library>
   label: Scalars['String']
+  components?: Maybe<Array<Maybe<Component>>>
+  componentsAggregate?: Maybe<ComponentAggregateResult>
 }
 
 export type AtomLibraryArgs = {
   filter?: Maybe<LibraryFilter>
+}
+
+export type AtomComponentsArgs = {
+  filter?: Maybe<ComponentFilter>
+  order?: Maybe<ComponentOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type AtomComponentsAggregateArgs = {
+  filter?: Maybe<ComponentFilter>
 }
 
 export type AtomAggregateResult = {
@@ -232,6 +280,7 @@ export enum AtomHasFilter {
   Type = 'type',
   Library = 'library',
   Label = 'label',
+  Components = 'components',
 }
 
 export type AtomOrder = {
@@ -249,6 +298,7 @@ export type AtomPatch = {
   type?: Maybe<Scalars['String']>
   library?: Maybe<LibraryRef>
   label?: Maybe<Scalars['String']>
+  components?: Maybe<Array<Maybe<ComponentRef>>>
 }
 
 export type AtomRef = {
@@ -256,6 +306,7 @@ export type AtomRef = {
   type?: Maybe<Scalars['String']>
   library?: Maybe<LibraryRef>
   label?: Maybe<Scalars['String']>
+  components?: Maybe<Array<Maybe<ComponentRef>>>
 }
 
 export type AuthRule = {
@@ -448,6 +499,19 @@ export type DeleteLibraryPayload = {
 export type DeleteLibraryPayloadLibraryArgs = {
   filter?: Maybe<LibraryFilter>
   order?: Maybe<LibraryOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type DeletePagePayload = {
+  page?: Maybe<Array<Maybe<Page>>>
+  msg?: Maybe<Scalars['String']>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type DeletePagePayloadPageArgs = {
+  filter?: Maybe<PageFilter>
+  order?: Maybe<PageOrder>
   first?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
 }
@@ -703,6 +767,9 @@ export type Mutation = {
   addApp?: Maybe<AddAppPayload>
   updateApp?: Maybe<UpdateAppPayload>
   deleteApp?: Maybe<DeleteAppPayload>
+  addPage?: Maybe<AddPagePayload>
+  updatePage?: Maybe<UpdatePagePayload>
+  deletePage?: Maybe<DeletePagePayload>
   addLibrary?: Maybe<AddLibraryPayload>
   updateLibrary?: Maybe<UpdateLibraryPayload>
   deleteLibrary?: Maybe<DeleteLibraryPayload>
@@ -743,6 +810,18 @@ export type MutationUpdateAppArgs = {
 
 export type MutationDeleteAppArgs = {
   filter: AppFilter
+}
+
+export type MutationAddPageArgs = {
+  input: Array<AddPageInput>
+}
+
+export type MutationUpdatePageArgs = {
+  input: UpdatePageInput
+}
+
+export type MutationDeletePageArgs = {
+  filter: PageFilter
 }
 
 export type MutationAddLibraryArgs = {
@@ -810,6 +889,57 @@ export type NearFilter = {
   coordinate: PointRef
 }
 
+export type Page = {
+  id: Scalars['ID']
+  title: Scalars['String']
+  app?: Maybe<App>
+}
+
+export type PageAppArgs = {
+  filter?: Maybe<AppFilter>
+}
+
+export type PageAggregateResult = {
+  count?: Maybe<Scalars['Int']>
+  titleMin?: Maybe<Scalars['String']>
+  titleMax?: Maybe<Scalars['String']>
+}
+
+export type PageFilter = {
+  id?: Maybe<Array<Scalars['ID']>>
+  title?: Maybe<StringFullTextFilter_StringTermFilter>
+  has?: Maybe<Array<Maybe<PageHasFilter>>>
+  and?: Maybe<Array<Maybe<PageFilter>>>
+  or?: Maybe<Array<Maybe<PageFilter>>>
+  not?: Maybe<PageFilter>
+}
+
+export enum PageHasFilter {
+  Title = 'title',
+  App = 'app',
+}
+
+export type PageOrder = {
+  asc?: Maybe<PageOrderable>
+  desc?: Maybe<PageOrderable>
+  then?: Maybe<PageOrder>
+}
+
+export enum PageOrderable {
+  Title = 'title',
+}
+
+export type PagePatch = {
+  title?: Maybe<Scalars['String']>
+  app?: Maybe<AppRef>
+}
+
+export type PageRef = {
+  id?: Maybe<Scalars['ID']>
+  title?: Maybe<Scalars['String']>
+  app?: Maybe<AppRef>
+}
+
 export type Point = {
   longitude: Scalars['Float']
   latitude: Scalars['Float']
@@ -857,6 +987,9 @@ export type Query = {
   getApp?: Maybe<App>
   queryApp?: Maybe<Array<Maybe<App>>>
   aggregateApp?: Maybe<AppAggregateResult>
+  getPage?: Maybe<Page>
+  queryPage?: Maybe<Array<Maybe<Page>>>
+  aggregatePage?: Maybe<PageAggregateResult>
   getLibrary?: Maybe<Library>
   queryLibrary?: Maybe<Array<Maybe<Library>>>
   aggregateLibrary?: Maybe<LibraryAggregateResult>
@@ -906,6 +1039,21 @@ export type QueryQueryAppArgs = {
 
 export type QueryAggregateAppArgs = {
   filter?: Maybe<AppFilter>
+}
+
+export type QueryGetPageArgs = {
+  id: Scalars['ID']
+}
+
+export type QueryQueryPageArgs = {
+  filter?: Maybe<PageFilter>
+  order?: Maybe<PageOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type QueryAggregatePageArgs = {
+  filter?: Maybe<PageFilter>
 }
 
 export type QueryGetLibraryArgs = {
@@ -992,6 +1140,13 @@ export type StringExactFilter = {
 export type StringFullTextFilter = {
   alloftext?: Maybe<Scalars['String']>
   anyoftext?: Maybe<Scalars['String']>
+}
+
+export type StringFullTextFilter_StringTermFilter = {
+  alloftext?: Maybe<Scalars['String']>
+  anyoftext?: Maybe<Scalars['String']>
+  allofterms?: Maybe<Scalars['String']>
+  anyofterms?: Maybe<Scalars['String']>
 }
 
 export type StringHashFilter = {
@@ -1142,6 +1297,24 @@ export type UpdateLibraryPayloadLibraryArgs = {
   offset?: Maybe<Scalars['Int']>
 }
 
+export type UpdatePageInput = {
+  filter: PageFilter
+  set?: Maybe<PagePatch>
+  remove?: Maybe<PagePatch>
+}
+
+export type UpdatePagePayload = {
+  page?: Maybe<Array<Maybe<Page>>>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type UpdatePagePayloadPageArgs = {
+  filter?: Maybe<PageFilter>
+  order?: Maybe<PageOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
 export type UpdateTagInput = {
   filter: TagFilter
   set?: Maybe<TagPatch>
@@ -1278,11 +1451,11 @@ export type DeleteAppMutation = {
   app?: Maybe<{ app?: Maybe<Array<Maybe<User__AppFragment>>> }>
 }
 
-export type GetAppItemQueryVariables = Exact<{
+export type GetAppQueryVariables = Exact<{
   appId: Scalars['ID']
 }>
 
-export type GetAppItemQuery = { app?: Maybe<User__AppFragment> }
+export type GetAppQuery = { app?: Maybe<User__AppFragment> }
 
 export type GetAppsListQueryVariables = Exact<{ [key: string]: never }>
 
@@ -1297,9 +1470,9 @@ export type EditAppMutation = {
   updateApp?: Maybe<{ app?: Maybe<Array<Maybe<User__AppFragment>>> }>
 }
 
-export type LibraryExplorer__AtomFragment = Pick<Atom, 'id' | 'label' | 'type'>
-
 export type __AtomFragment = Pick<Atom, 'id' | 'type' | 'label'>
+
+export type LibraryExplorer__AtomFragment = Pick<Atom, 'id' | 'label' | 'type'>
 
 export type CreateAtomMutationVariables = Exact<{
   input: Array<AddAtomInput> | AddAtomInput
@@ -1335,7 +1508,15 @@ export type UpdateAtomMutation = {
   >
 }
 
+export type __ComponentFragment = Pick<Component, 'id' | 'label'>
+
 export type LibraryExplorer__ComponentFragment = Pick<Component, 'id' | 'label'>
+
+export type GetComponentDetailQueryVariables = Exact<{
+  componentId: Scalars['ID']
+}>
+
+export type GetComponentDetailQuery = { component?: Maybe<__ComponentFragment> }
 
 export type LibraryExplorerQueryVariables = Exact<{
   filter?: Maybe<LibraryFilter>
@@ -1348,6 +1529,47 @@ export type LibraryExplorerQuery = {
 export type LibraryExplorer__LibraryFragment = Pick<Library, 'id' | 'name'> & {
   components?: Maybe<Array<Maybe<LibraryExplorer__ComponentFragment>>>
   atoms?: Maybe<Array<Maybe<LibraryExplorer__AtomFragment>>>
+}
+
+export type App__PageFragment = Pick<Page, 'id' | 'title'>
+
+export type CreatePageMutationVariables = Exact<{
+  input: AddPageInput
+}>
+
+export type CreatePageMutation = {
+  page?: Maybe<{ page?: Maybe<Array<Maybe<App__PageFragment>>> }>
+}
+
+export type DeletePageMutationVariables = Exact<{
+  pageId: Scalars['ID']
+}>
+
+export type DeletePageMutation = {
+  page?: Maybe<{ page?: Maybe<Array<Maybe<App__PageFragment>>> }>
+}
+
+export type GetPageQueryVariables = Exact<{
+  pageId: Scalars['ID']
+}>
+
+export type GetPageQuery = { page?: Maybe<App__PageFragment> }
+
+export type GetPagesListQueryVariables = Exact<{
+  appId: Scalars['ID']
+}>
+
+export type GetPagesListQuery = {
+  app?: Maybe<{ pages?: Maybe<Array<Maybe<App__PageFragment>>> }>
+}
+
+export type UpdatePageMutationVariables = Exact<{
+  input: PagePatch
+  pageId: Scalars['ID']
+}>
+
+export type UpdatePageMutation = {
+  page?: Maybe<{ page?: Maybe<Array<Maybe<App__PageFragment>>> }>
 }
 
 export type __UserFragment = Pick<User, 'id' | 'email'>
@@ -1395,6 +1617,12 @@ export const __AtomFragmentDoc = gql`
     label
   }
 `
+export const __ComponentFragmentDoc = gql`
+  fragment __Component on Component {
+    id
+    label
+  }
+`
 export const LibraryExplorer__ComponentFragmentDoc = gql`
   fragment LibraryExplorer__Component on Component {
     id
@@ -1421,6 +1649,12 @@ export const LibraryExplorer__LibraryFragmentDoc = gql`
   }
   ${LibraryExplorer__ComponentFragmentDoc}
   ${LibraryExplorer__AtomFragmentDoc}
+`
+export const App__PageFragmentDoc = gql`
+  fragment App__Page on Page {
+    id
+    title
+  }
 `
 export const __UserFragmentDoc = gql`
   fragment __User on User {
@@ -1532,8 +1766,8 @@ export type DeleteAppMutationOptions = Apollo.BaseMutationOptions<
   DeleteAppMutation,
   DeleteAppMutationVariables
 >
-export const GetAppItemGql = gql`
-  query GetAppItem($appId: ID!) {
+export const GetAppGql = gql`
+  query GetApp($appId: ID!) {
     app: getApp(id: $appId) {
       ...User__App
     }
@@ -1542,55 +1776,44 @@ export const GetAppItemGql = gql`
 `
 
 /**
- * __useGetAppItemQuery__
+ * __useGetAppQuery__
  *
- * To run a query within a React component, call `useGetAppItemQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetAppItemQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetAppQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAppQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetAppItemQuery({
+ * const { data, loading, error } = useGetAppQuery({
  *   variables: {
  *      appId: // value for 'appId'
  *   },
  * });
  */
-export function useGetAppItemQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    GetAppItemQuery,
-    GetAppItemQueryVariables
-  >,
+export function useGetAppQuery(
+  baseOptions: Apollo.QueryHookOptions<GetAppQuery, GetAppQueryVariables>,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<GetAppItemQuery, GetAppItemQueryVariables>(
-    GetAppItemGql,
+  return Apollo.useQuery<GetAppQuery, GetAppQueryVariables>(GetAppGql, options)
+}
+export function useGetAppLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetAppQuery, GetAppQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetAppQuery, GetAppQueryVariables>(
+    GetAppGql,
     options,
   )
 }
-export function useGetAppItemLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetAppItemQuery,
-    GetAppItemQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<GetAppItemQuery, GetAppItemQueryVariables>(
-    GetAppItemGql,
-    options,
-  )
-}
-export type GetAppItemQueryHookResult = ReturnType<typeof useGetAppItemQuery>
-export type GetAppItemLazyQueryHookResult = ReturnType<
-  typeof useGetAppItemLazyQuery
+export type GetAppQueryHookResult = ReturnType<typeof useGetAppQuery>
+export type GetAppLazyQueryHookResult = ReturnType<typeof useGetAppLazyQuery>
+export type GetAppQueryResult = Apollo.QueryResult<
+  GetAppQuery,
+  GetAppQueryVariables
 >
-export type GetAppItemQueryResult = Apollo.QueryResult<
-  GetAppItemQuery,
-  GetAppItemQueryVariables
->
-export function refetchGetAppItemQuery(variables?: GetAppItemQueryVariables) {
-  return { query: GetAppItemGql, variables: variables }
+export function refetchGetAppQuery(variables?: GetAppQueryVariables) {
+  return { query: GetAppGql, variables: variables }
 }
 export const GetAppsListGql = gql`
   query GetAppsList {
@@ -1914,6 +2137,70 @@ export type UpdateAtomMutationOptions = Apollo.BaseMutationOptions<
   UpdateAtomMutation,
   UpdateAtomMutationVariables
 >
+export const GetComponentDetailGql = gql`
+  query GetComponentDetail($componentId: ID!) {
+    component: getComponent(id: $componentId) {
+      ...__Component
+    }
+  }
+  ${__ComponentFragmentDoc}
+`
+
+/**
+ * __useGetComponentDetailQuery__
+ *
+ * To run a query within a React component, call `useGetComponentDetailQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetComponentDetailQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetComponentDetailQuery({
+ *   variables: {
+ *      componentId: // value for 'componentId'
+ *   },
+ * });
+ */
+export function useGetComponentDetailQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetComponentDetailQuery,
+    GetComponentDetailQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<
+    GetComponentDetailQuery,
+    GetComponentDetailQueryVariables
+  >(GetComponentDetailGql, options)
+}
+export function useGetComponentDetailLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetComponentDetailQuery,
+    GetComponentDetailQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    GetComponentDetailQuery,
+    GetComponentDetailQueryVariables
+  >(GetComponentDetailGql, options)
+}
+export type GetComponentDetailQueryHookResult = ReturnType<
+  typeof useGetComponentDetailQuery
+>
+export type GetComponentDetailLazyQueryHookResult = ReturnType<
+  typeof useGetComponentDetailLazyQuery
+>
+export type GetComponentDetailQueryResult = Apollo.QueryResult<
+  GetComponentDetailQuery,
+  GetComponentDetailQueryVariables
+>
+export function refetchGetComponentDetailQuery(
+  variables?: GetComponentDetailQueryVariables,
+) {
+  return { query: GetComponentDetailGql, variables: variables }
+}
 export const LibraryExplorerGql = gql`
   query LibraryExplorer($filter: LibraryFilter) {
     libraries: queryLibrary(filter: $filter) {
@@ -1978,6 +2265,284 @@ export function refetchLibraryExplorerQuery(
 ) {
   return { query: LibraryExplorerGql, variables: variables }
 }
+export const CreatePageGql = gql`
+  mutation CreatePage($input: AddPageInput!) {
+    page: addPage(input: [$input]) {
+      page {
+        ...App__Page
+      }
+    }
+  }
+  ${App__PageFragmentDoc}
+`
+export type CreatePageMutationFn = Apollo.MutationFunction<
+  CreatePageMutation,
+  CreatePageMutationVariables
+>
+
+/**
+ * __useCreatePageMutation__
+ *
+ * To run a mutation, you first call `useCreatePageMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreatePageMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createPageMutation, { data, loading, error }] = useCreatePageMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreatePageMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreatePageMutation,
+    CreatePageMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<CreatePageMutation, CreatePageMutationVariables>(
+    CreatePageGql,
+    options,
+  )
+}
+export type CreatePageMutationHookResult = ReturnType<
+  typeof useCreatePageMutation
+>
+export type CreatePageMutationResult = Apollo.MutationResult<CreatePageMutation>
+export type CreatePageMutationOptions = Apollo.BaseMutationOptions<
+  CreatePageMutation,
+  CreatePageMutationVariables
+>
+export const DeletePageGql = gql`
+  mutation DeletePage($pageId: ID!) {
+    page: deletePage(filter: { id: [$pageId] }) {
+      page {
+        ...App__Page
+      }
+    }
+  }
+  ${App__PageFragmentDoc}
+`
+export type DeletePageMutationFn = Apollo.MutationFunction<
+  DeletePageMutation,
+  DeletePageMutationVariables
+>
+
+/**
+ * __useDeletePageMutation__
+ *
+ * To run a mutation, you first call `useDeletePageMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeletePageMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deletePageMutation, { data, loading, error }] = useDeletePageMutation({
+ *   variables: {
+ *      pageId: // value for 'pageId'
+ *   },
+ * });
+ */
+export function useDeletePageMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeletePageMutation,
+    DeletePageMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<DeletePageMutation, DeletePageMutationVariables>(
+    DeletePageGql,
+    options,
+  )
+}
+export type DeletePageMutationHookResult = ReturnType<
+  typeof useDeletePageMutation
+>
+export type DeletePageMutationResult = Apollo.MutationResult<DeletePageMutation>
+export type DeletePageMutationOptions = Apollo.BaseMutationOptions<
+  DeletePageMutation,
+  DeletePageMutationVariables
+>
+export const GetPageGql = gql`
+  query GetPage($pageId: ID!) {
+    page: getPage(id: $pageId) {
+      ...App__Page
+    }
+  }
+  ${App__PageFragmentDoc}
+`
+
+/**
+ * __useGetPageQuery__
+ *
+ * To run a query within a React component, call `useGetPageQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPageQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPageQuery({
+ *   variables: {
+ *      pageId: // value for 'pageId'
+ *   },
+ * });
+ */
+export function useGetPageQuery(
+  baseOptions: Apollo.QueryHookOptions<GetPageQuery, GetPageQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetPageQuery, GetPageQueryVariables>(
+    GetPageGql,
+    options,
+  )
+}
+export function useGetPageLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetPageQuery,
+    GetPageQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetPageQuery, GetPageQueryVariables>(
+    GetPageGql,
+    options,
+  )
+}
+export type GetPageQueryHookResult = ReturnType<typeof useGetPageQuery>
+export type GetPageLazyQueryHookResult = ReturnType<typeof useGetPageLazyQuery>
+export type GetPageQueryResult = Apollo.QueryResult<
+  GetPageQuery,
+  GetPageQueryVariables
+>
+export function refetchGetPageQuery(variables?: GetPageQueryVariables) {
+  return { query: GetPageGql, variables: variables }
+}
+export const GetPagesListGql = gql`
+  query GetPagesList($appId: ID!) {
+    app: getApp(id: $appId) {
+      pages {
+        ...App__Page
+      }
+    }
+  }
+  ${App__PageFragmentDoc}
+`
+
+/**
+ * __useGetPagesListQuery__
+ *
+ * To run a query within a React component, call `useGetPagesListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPagesListQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPagesListQuery({
+ *   variables: {
+ *      appId: // value for 'appId'
+ *   },
+ * });
+ */
+export function useGetPagesListQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetPagesListQuery,
+    GetPagesListQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetPagesListQuery, GetPagesListQueryVariables>(
+    GetPagesListGql,
+    options,
+  )
+}
+export function useGetPagesListLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetPagesListQuery,
+    GetPagesListQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetPagesListQuery, GetPagesListQueryVariables>(
+    GetPagesListGql,
+    options,
+  )
+}
+export type GetPagesListQueryHookResult = ReturnType<
+  typeof useGetPagesListQuery
+>
+export type GetPagesListLazyQueryHookResult = ReturnType<
+  typeof useGetPagesListLazyQuery
+>
+export type GetPagesListQueryResult = Apollo.QueryResult<
+  GetPagesListQuery,
+  GetPagesListQueryVariables
+>
+export function refetchGetPagesListQuery(
+  variables?: GetPagesListQueryVariables,
+) {
+  return { query: GetPagesListGql, variables: variables }
+}
+export const UpdatePageGql = gql`
+  mutation UpdatePage($input: PagePatch!, $pageId: ID!) {
+    page: updatePage(input: { filter: { id: [$pageId] }, set: $input }) {
+      page {
+        ...App__Page
+      }
+    }
+  }
+  ${App__PageFragmentDoc}
+`
+export type UpdatePageMutationFn = Apollo.MutationFunction<
+  UpdatePageMutation,
+  UpdatePageMutationVariables
+>
+
+/**
+ * __useUpdatePageMutation__
+ *
+ * To run a mutation, you first call `useUpdatePageMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdatePageMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updatePageMutation, { data, loading, error }] = useUpdatePageMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *      pageId: // value for 'pageId'
+ *   },
+ * });
+ */
+export function useUpdatePageMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdatePageMutation,
+    UpdatePageMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<UpdatePageMutation, UpdatePageMutationVariables>(
+    UpdatePageGql,
+    options,
+  )
+}
+export type UpdatePageMutationHookResult = ReturnType<
+  typeof useUpdatePageMutation
+>
+export type UpdatePageMutationResult = Apollo.MutationResult<UpdatePageMutation>
+export type UpdatePageMutationOptions = Apollo.BaseMutationOptions<
+  UpdatePageMutation,
+  UpdatePageMutationVariables
+>
 export const DeleteUserWhereGql = gql`
   mutation DeleteUserWhere($where: UserFilter!) {
     deleteUser(filter: $where) {
@@ -2217,6 +2782,12 @@ export const __Atom = gql`
     label
   }
 `
+export const __Component = gql`
+  fragment __Component on Component {
+    id
+    label
+  }
+`
 export const LibraryExplorer__Component = gql`
   fragment LibraryExplorer__Component on Component {
     id
@@ -2244,6 +2815,12 @@ export const LibraryExplorer__Library = gql`
   ${LibraryExplorer__Component}
   ${LibraryExplorer__Atom}
 `
+export const App__Page = gql`
+  fragment App__Page on Page {
+    id
+    title
+  }
+`
 export const __User = gql`
   fragment __User on User {
     id
@@ -2270,8 +2847,8 @@ export const DeleteApp = gql`
   }
   ${User__App}
 `
-export const GetAppItem = gql`
-  query GetAppItem($appId: ID!) {
+export const GetApp = gql`
+  query GetApp($appId: ID!) {
     app: getApp(id: $appId) {
       ...User__App
     }
@@ -2333,6 +2910,14 @@ export const UpdateAtom = gql`
   }
   ${__Atom}
 `
+export const GetComponentDetail = gql`
+  query GetComponentDetail($componentId: ID!) {
+    component: getComponent(id: $componentId) {
+      ...__Component
+    }
+  }
+  ${__Component}
+`
 export const LibraryExplorer = gql`
   query LibraryExplorer($filter: LibraryFilter) {
     libraries: queryLibrary(filter: $filter) {
@@ -2340,6 +2925,54 @@ export const LibraryExplorer = gql`
     }
   }
   ${LibraryExplorer__Library}
+`
+export const CreatePage = gql`
+  mutation CreatePage($input: AddPageInput!) {
+    page: addPage(input: [$input]) {
+      page {
+        ...App__Page
+      }
+    }
+  }
+  ${App__Page}
+`
+export const DeletePage = gql`
+  mutation DeletePage($pageId: ID!) {
+    page: deletePage(filter: { id: [$pageId] }) {
+      page {
+        ...App__Page
+      }
+    }
+  }
+  ${App__Page}
+`
+export const GetPage = gql`
+  query GetPage($pageId: ID!) {
+    page: getPage(id: $pageId) {
+      ...App__Page
+    }
+  }
+  ${App__Page}
+`
+export const GetPagesList = gql`
+  query GetPagesList($appId: ID!) {
+    app: getApp(id: $appId) {
+      pages {
+        ...App__Page
+      }
+    }
+  }
+  ${App__Page}
+`
+export const UpdatePage = gql`
+  mutation UpdatePage($input: PagePatch!, $pageId: ID!) {
+    page: updatePage(input: { filter: { id: [$pageId] }, set: $input }) {
+      page {
+        ...App__Page
+      }
+    }
+  }
+  ${App__Page}
 `
 export const DeleteUserWhere = gql`
   mutation DeleteUserWhere($where: UserFilter!) {
