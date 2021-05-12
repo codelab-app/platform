@@ -48,7 +48,7 @@ export type AddAppPayloadAppArgs = {
 
 export type AddAtomInput = {
   type: Scalars['String']
-  library?: Maybe<LibraryRef>
+  library: LibraryRef
   label: Scalars['String']
 }
 
@@ -65,8 +65,11 @@ export type AddAtomPayloadAtomArgs = {
 }
 
 export type AddComponentInput = {
-  label: Scalars['String']
   library: LibraryRef
+  atom: AtomRef
+  label: Scalars['String']
+  children?: Maybe<Array<Maybe<ComponentRef>>>
+  tags?: Maybe<Array<Maybe<TagRef>>>
 }
 
 export type AddComponentPayload = {
@@ -98,6 +101,7 @@ export type AddGetAllUsersPayloadPayloadGetAllUsersPayloadArgs = {
 }
 
 export type AddLibraryInput = {
+  owner: UserRef
   name: Scalars['String']
   atoms?: Maybe<Array<Maybe<AtomRef>>>
   components?: Maybe<Array<Maybe<ComponentRef>>>
@@ -150,8 +154,8 @@ export type AddTagPayloadTagArgs = {
 
 export type AddUserInput = {
   email: Scalars['String']
-  apps?: Maybe<Array<Maybe<AppRef>>>
-  libraries?: Maybe<Array<Maybe<LibraryRef>>>
+  apps?: Maybe<Array<AppRef>>
+  libraries?: Maybe<Array<LibraryRef>>
 }
 
 export type AddUserPayload = {
@@ -235,7 +239,7 @@ export type AppRef = {
 export type Atom = {
   id: Scalars['ID']
   type: Scalars['String']
-  library?: Maybe<Library>
+  library: Library
   label: Scalars['String']
 }
 
@@ -298,12 +302,43 @@ export type AuthRule = {
 
 export type Component = {
   id: Scalars['ID']
-  label: Scalars['String']
   library: Library
+  atom: Atom
+  label: Scalars['String']
+  children?: Maybe<Array<Maybe<Component>>>
+  tags?: Maybe<Array<Maybe<Tag>>>
+  childrenAggregate?: Maybe<ComponentAggregateResult>
+  tagsAggregate?: Maybe<TagAggregateResult>
 }
 
 export type ComponentLibraryArgs = {
   filter?: Maybe<LibraryFilter>
+}
+
+export type ComponentAtomArgs = {
+  filter?: Maybe<AtomFilter>
+}
+
+export type ComponentChildrenArgs = {
+  filter?: Maybe<ComponentFilter>
+  order?: Maybe<ComponentOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type ComponentTagsArgs = {
+  filter?: Maybe<TagFilter>
+  order?: Maybe<TagOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type ComponentChildrenAggregateArgs = {
+  filter?: Maybe<ComponentFilter>
+}
+
+export type ComponentTagsAggregateArgs = {
+  filter?: Maybe<TagFilter>
 }
 
 export type ComponentAggregateResult = {
@@ -321,8 +356,11 @@ export type ComponentFilter = {
 }
 
 export enum ComponentHasFilter {
-  Label = 'label',
   Library = 'library',
+  Atom = 'atom',
+  Label = 'label',
+  Children = 'children',
+  Tags = 'tags',
 }
 
 export type ComponentOrder = {
@@ -336,14 +374,20 @@ export enum ComponentOrderable {
 }
 
 export type ComponentPatch = {
-  label?: Maybe<Scalars['String']>
   library?: Maybe<LibraryRef>
+  atom?: Maybe<AtomRef>
+  label?: Maybe<Scalars['String']>
+  children?: Maybe<Array<Maybe<ComponentRef>>>
+  tags?: Maybe<Array<Maybe<TagRef>>>
 }
 
 export type ComponentRef = {
   id?: Maybe<Scalars['ID']>
-  label?: Maybe<Scalars['String']>
   library?: Maybe<LibraryRef>
+  atom?: Maybe<AtomRef>
+  label?: Maybe<Scalars['String']>
+  children?: Maybe<Array<Maybe<ComponentRef>>>
+  tags?: Maybe<Array<Maybe<TagRef>>>
 }
 
 export type ContainsFilter = {
@@ -615,11 +659,16 @@ export type IntersectsFilter = {
 
 export type Library = {
   id: Scalars['ID']
+  owner: User
   name: Scalars['String']
   atoms?: Maybe<Array<Maybe<Atom>>>
   components?: Maybe<Array<Maybe<Component>>>
   atomsAggregate?: Maybe<AtomAggregateResult>
   componentsAggregate?: Maybe<ComponentAggregateResult>
+}
+
+export type LibraryOwnerArgs = {
+  filter?: Maybe<UserFilter>
 }
 
 export type LibraryAtomsArgs = {
@@ -659,6 +708,7 @@ export type LibraryFilter = {
 }
 
 export enum LibraryHasFilter {
+  Owner = 'owner',
   Name = 'name',
   Atoms = 'atoms',
   Components = 'components',
@@ -675,6 +725,7 @@ export enum LibraryOrderable {
 }
 
 export type LibraryPatch = {
+  owner?: Maybe<UserRef>
   name?: Maybe<Scalars['String']>
   atoms?: Maybe<Array<Maybe<AtomRef>>>
   components?: Maybe<Array<Maybe<ComponentRef>>>
@@ -682,6 +733,7 @@ export type LibraryPatch = {
 
 export type LibraryRef = {
   id?: Maybe<Scalars['ID']>
+  owner?: Maybe<UserRef>
   name?: Maybe<Scalars['String']>
   atoms?: Maybe<Array<Maybe<AtomRef>>>
   components?: Maybe<Array<Maybe<ComponentRef>>>
@@ -1298,8 +1350,8 @@ export type UpsertUserInput = {
 export type User = {
   id: Scalars['ID']
   email: Scalars['String']
-  apps?: Maybe<Array<Maybe<App>>>
-  libraries?: Maybe<Array<Maybe<Library>>>
+  apps?: Maybe<Array<App>>
+  libraries?: Maybe<Array<Library>>
   appsAggregate?: Maybe<AppAggregateResult>
   librariesAggregate?: Maybe<LibraryAggregateResult>
 }
@@ -1358,15 +1410,15 @@ export enum UserOrderable {
 }
 
 export type UserPatch = {
-  apps?: Maybe<Array<Maybe<AppRef>>>
-  libraries?: Maybe<Array<Maybe<LibraryRef>>>
+  apps?: Maybe<Array<AppRef>>
+  libraries?: Maybe<Array<LibraryRef>>
 }
 
 export type UserRef = {
   id?: Maybe<Scalars['ID']>
   email?: Maybe<Scalars['String']>
-  apps?: Maybe<Array<Maybe<AppRef>>>
-  libraries?: Maybe<Array<Maybe<LibraryRef>>>
+  apps?: Maybe<Array<AppRef>>
+  libraries?: Maybe<Array<LibraryRef>>
 }
 
 export type WithinFilter = {
@@ -1457,6 +1509,16 @@ export type GetComponentDetailQueryVariables = Exact<{
 }>
 
 export type GetComponentDetailQuery = { component?: Maybe<__ComponentFragment> }
+
+export type __LibraryFragment = Pick<Library, 'id' | 'name'>
+
+export type CreateLibraryMutationVariables = Exact<{
+  input: Array<AddLibraryInput> | AddLibraryInput
+}>
+
+export type CreateLibraryMutation = {
+  libraries?: Maybe<{ library?: Maybe<Array<Maybe<__LibraryFragment>>> }>
+}
 
 export type LibraryExplorerQueryVariables = Exact<{
   filter?: Maybe<LibraryFilter>
@@ -1561,6 +1623,12 @@ export const __ComponentFragmentDoc = gql`
   fragment __Component on Component {
     id
     label
+  }
+`
+export const __LibraryFragmentDoc = gql`
+  fragment __Library on Library {
+    id
+    name
   }
 `
 export const LibraryExplorer__ComponentFragmentDoc = gql`
@@ -2141,6 +2209,58 @@ export function refetchGetComponentDetailQuery(
 ) {
   return { query: GetComponentDetailGql, variables: variables }
 }
+export const CreateLibraryGql = gql`
+  mutation CreateLibrary($input: [AddLibraryInput!]!) {
+    libraries: addLibrary(input: $input) {
+      library {
+        ...__Library
+      }
+    }
+  }
+  ${__LibraryFragmentDoc}
+`
+export type CreateLibraryMutationFn = Apollo.MutationFunction<
+  CreateLibraryMutation,
+  CreateLibraryMutationVariables
+>
+
+/**
+ * __useCreateLibraryMutation__
+ *
+ * To run a mutation, you first call `useCreateLibraryMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateLibraryMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createLibraryMutation, { data, loading, error }] = useCreateLibraryMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateLibraryMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateLibraryMutation,
+    CreateLibraryMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    CreateLibraryMutation,
+    CreateLibraryMutationVariables
+  >(CreateLibraryGql, options)
+}
+export type CreateLibraryMutationHookResult = ReturnType<
+  typeof useCreateLibraryMutation
+>
+export type CreateLibraryMutationResult = Apollo.MutationResult<CreateLibraryMutation>
+export type CreateLibraryMutationOptions = Apollo.BaseMutationOptions<
+  CreateLibraryMutation,
+  CreateLibraryMutationVariables
+>
 export const LibraryExplorerGql = gql`
   query LibraryExplorer($filter: LibraryFilter) {
     libraries: queryLibrary(filter: $filter) {
@@ -2728,6 +2848,12 @@ export const __Component = gql`
     label
   }
 `
+export const __Library = gql`
+  fragment __Library on Library {
+    id
+    name
+  }
+`
 export const LibraryExplorer__Component = gql`
   fragment LibraryExplorer__Component on Component {
     id
@@ -2857,6 +2983,16 @@ export const GetComponentDetail = gql`
     }
   }
   ${__Component}
+`
+export const CreateLibrary = gql`
+  mutation CreateLibrary($input: [AddLibraryInput!]!) {
+    libraries: addLibrary(input: $input) {
+      library {
+        ...__Library
+      }
+    }
+  }
+  ${__Library}
 `
 export const LibraryExplorer = gql`
   query LibraryExplorer($filter: LibraryFilter) {

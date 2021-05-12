@@ -58,7 +58,7 @@ type AddAppPayload {
 
 input AddAtomInput {
   type: String!
-  library: LibraryRef
+  library: LibraryRef!
   label: String!
 }
 
@@ -68,8 +68,11 @@ type AddAtomPayload {
 }
 
 input AddComponentInput {
-  label: String!
   library: LibraryRef!
+  atom: AtomRef!
+  label: String!
+  children: [ComponentRef]
+  tags: [TagRef]
 }
 
 type AddComponentPayload {
@@ -97,6 +100,7 @@ type AddGetAllUsersPayloadPayload {
 }
 
 input AddLibraryInput {
+  owner: UserRef!
   name: String!
   atoms: [AtomRef]
   components: [ComponentRef]
@@ -133,8 +137,8 @@ type AddTagPayload {
 
 input AddUserInput {
   email: String!
-  apps: [AppRef]
-  libraries: [LibraryRef]
+  apps: [AppRef!]
+  libraries: [LibraryRef!]
 }
 
 type AddUserPayload {
@@ -196,7 +200,7 @@ input AppRef {
 type Atom {
   id: ID!
   type: String!
-  library(filter: LibraryFilter): Library
+  library(filter: LibraryFilter): Library!
   label: String!
 }
 
@@ -255,8 +259,18 @@ input AuthRule {
 
 type Component {
   id: ID!
-  label: String!
   library(filter: LibraryFilter): Library!
+  atom(filter: AtomFilter): Atom!
+  label: String!
+  children(
+    filter: ComponentFilter
+    order: ComponentOrder
+    first: Int
+    offset: Int
+  ): [Component]
+  tags(filter: TagFilter, order: TagOrder, first: Int, offset: Int): [Tag]
+  childrenAggregate(filter: ComponentFilter): ComponentAggregateResult
+  tagsAggregate(filter: TagFilter): TagAggregateResult
 }
 
 type ComponentAggregateResult {
@@ -274,8 +288,11 @@ input ComponentFilter {
 }
 
 enum ComponentHasFilter {
-  label
   library
+  atom
+  label
+  children
+  tags
 }
 
 input ComponentOrder {
@@ -289,14 +306,20 @@ enum ComponentOrderable {
 }
 
 input ComponentPatch {
-  label: String
   library: LibraryRef
+  atom: AtomRef
+  label: String
+  children: [ComponentRef]
+  tags: [TagRef]
 }
 
 input ComponentRef {
   id: ID
-  label: String
   library: LibraryRef
+  atom: AtomRef
+  label: String
+  children: [ComponentRef]
+  tags: [TagRef]
 }
 
 input ContainsFilter {
@@ -539,6 +562,7 @@ input IntersectsFilter {
 
 type Library {
   id: ID!
+  owner(filter: UserFilter): User!
   name: String!
   atoms(filter: AtomFilter, order: AtomOrder, first: Int, offset: Int): [Atom]
   components(
@@ -566,6 +590,7 @@ input LibraryFilter {
 }
 
 enum LibraryHasFilter {
+  owner
   name
   atoms
   components
@@ -582,6 +607,7 @@ enum LibraryOrderable {
 }
 
 input LibraryPatch {
+  owner: UserRef
   name: String
   atoms: [AtomRef]
   components: [ComponentRef]
@@ -589,6 +615,7 @@ input LibraryPatch {
 
 input LibraryRef {
   id: ID
+  owner: UserRef
   name: String
   atoms: [AtomRef]
   components: [ComponentRef]
@@ -980,13 +1007,13 @@ input UpsertUserInput {
 type User {
   id: ID!
   email: String!
-  apps(filter: AppFilter, order: AppOrder, first: Int, offset: Int): [App]
+  apps(filter: AppFilter, order: AppOrder, first: Int, offset: Int): [App!]
   libraries(
     filter: LibraryFilter
     order: LibraryOrder
     first: Int
     offset: Int
-  ): [Library]
+  ): [Library!]
   appsAggregate(filter: AppFilter): AppAggregateResult
   librariesAggregate(filter: LibraryFilter): LibraryAggregateResult
 }
@@ -1023,15 +1050,15 @@ enum UserOrderable {
 }
 
 input UserPatch {
-  apps: [AppRef]
-  libraries: [LibraryRef]
+  apps: [AppRef!]
+  libraries: [LibraryRef!]
 }
 
 input UserRef {
   id: ID
   email: String
-  apps: [AppRef]
-  libraries: [LibraryRef]
+  apps: [AppRef!]
+  libraries: [LibraryRef!]
 }
 
 input WithinFilter {
