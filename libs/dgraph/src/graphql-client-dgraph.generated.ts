@@ -47,9 +47,9 @@ export type AddAppPayloadAppArgs = {
 }
 
 export type AddAtomInput = {
-  type: Scalars['String']
   library: LibraryRef
   label: Scalars['String']
+  type: Scalars['String']
 }
 
 export type AddAtomPayload = {
@@ -238,9 +238,9 @@ export type AppRef = {
 
 export type Atom = {
   id: Scalars['ID']
-  type: Scalars['String']
   library: Library
   label: Scalars['String']
+  type: Scalars['String']
 }
 
 export type AtomLibraryArgs = {
@@ -249,10 +249,10 @@ export type AtomLibraryArgs = {
 
 export type AtomAggregateResult = {
   count?: Maybe<Scalars['Int']>
-  typeMin?: Maybe<Scalars['String']>
-  typeMax?: Maybe<Scalars['String']>
   labelMin?: Maybe<Scalars['String']>
   labelMax?: Maybe<Scalars['String']>
+  typeMin?: Maybe<Scalars['String']>
+  typeMax?: Maybe<Scalars['String']>
 }
 
 export type AtomFilter = {
@@ -264,9 +264,9 @@ export type AtomFilter = {
 }
 
 export enum AtomHasFilter {
-  Type = 'type',
   Library = 'library',
   Label = 'label',
+  Type = 'type',
 }
 
 export type AtomOrder = {
@@ -276,21 +276,21 @@ export type AtomOrder = {
 }
 
 export enum AtomOrderable {
-  Type = 'type',
   Label = 'label',
+  Type = 'type',
 }
 
 export type AtomPatch = {
-  type?: Maybe<Scalars['String']>
   library?: Maybe<LibraryRef>
   label?: Maybe<Scalars['String']>
+  type?: Maybe<Scalars['String']>
 }
 
 export type AtomRef = {
   id?: Maybe<Scalars['ID']>
-  type?: Maybe<Scalars['String']>
   library?: Maybe<LibraryRef>
   label?: Maybe<Scalars['String']>
+  type?: Maybe<Scalars['String']>
 }
 
 export type AuthRule = {
@@ -1504,11 +1504,37 @@ export type __ComponentFragment = Pick<Component, 'id' | 'label'>
 
 export type LibraryExplorer__ComponentFragment = Pick<Component, 'id' | 'label'>
 
+export type CreateComponentMutationVariables = Exact<{
+  input: Array<AddComponentInput> | AddComponentInput
+}>
+
+export type CreateComponentMutation = {
+  components?: Maybe<{
+    component?: Maybe<Array<Maybe<Pick<Component, 'id' | 'label'>>>>
+  }>
+}
+
+export type DeleteComponentMutationVariables = Exact<{
+  filter: ComponentFilter
+}>
+
+export type DeleteComponentMutation = {
+  deleteComponent?: Maybe<Pick<DeleteComponentPayload, 'numUids' | 'msg'>>
+}
+
 export type GetComponentDetailQueryVariables = Exact<{
   componentId: Scalars['ID']
 }>
 
 export type GetComponentDetailQuery = { component?: Maybe<__ComponentFragment> }
+
+export type GetComponentsQueryVariables = Exact<{
+  filter?: Maybe<ComponentFilter>
+}>
+
+export type GetComponentsQuery = {
+  components?: Maybe<Array<Maybe<Pick<Component, 'id' | 'label'>>>>
+}
 
 export type __LibraryFragment = Pick<Library, 'id' | 'name'>
 
@@ -1529,8 +1555,8 @@ export type LibraryExplorerQuery = {
 }
 
 export type LibraryExplorer__LibraryFragment = Pick<Library, 'id' | 'name'> & {
-  components?: Maybe<Array<Maybe<LibraryExplorer__ComponentFragment>>>
   atoms?: Maybe<Array<Maybe<LibraryExplorer__AtomFragment>>>
+  components?: Maybe<Array<Maybe<LibraryExplorer__ComponentFragment>>>
 }
 
 export type App__PageFragment = Pick<Page, 'id' | 'title'>
@@ -1631,12 +1657,6 @@ export const __LibraryFragmentDoc = gql`
     name
   }
 `
-export const LibraryExplorer__ComponentFragmentDoc = gql`
-  fragment LibraryExplorer__Component on Component {
-    id
-    label
-  }
-`
 export const LibraryExplorer__AtomFragmentDoc = gql`
   fragment LibraryExplorer__Atom on Atom {
     id
@@ -1644,19 +1664,25 @@ export const LibraryExplorer__AtomFragmentDoc = gql`
     type
   }
 `
+export const LibraryExplorer__ComponentFragmentDoc = gql`
+  fragment LibraryExplorer__Component on Component {
+    id
+    label
+  }
+`
 export const LibraryExplorer__LibraryFragmentDoc = gql`
   fragment LibraryExplorer__Library on Library {
     id
     name
-    components {
-      ...LibraryExplorer__Component
-    }
     atoms {
       ...LibraryExplorer__Atom
     }
+    components {
+      ...LibraryExplorer__Component
+    }
   }
-  ${LibraryExplorer__ComponentFragmentDoc}
   ${LibraryExplorer__AtomFragmentDoc}
+  ${LibraryExplorer__ComponentFragmentDoc}
 `
 export const App__PageFragmentDoc = gql`
   fragment App__Page on Page {
@@ -2145,6 +2171,108 @@ export type UpdateAtomMutationOptions = Apollo.BaseMutationOptions<
   UpdateAtomMutation,
   UpdateAtomMutationVariables
 >
+export const CreateComponentGql = gql`
+  mutation CreateComponent($input: [AddComponentInput!]!) {
+    components: addComponent(input: $input) {
+      component {
+        id
+        label
+      }
+    }
+  }
+`
+export type CreateComponentMutationFn = Apollo.MutationFunction<
+  CreateComponentMutation,
+  CreateComponentMutationVariables
+>
+
+/**
+ * __useCreateComponentMutation__
+ *
+ * To run a mutation, you first call `useCreateComponentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateComponentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createComponentMutation, { data, loading, error }] = useCreateComponentMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateComponentMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateComponentMutation,
+    CreateComponentMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    CreateComponentMutation,
+    CreateComponentMutationVariables
+  >(CreateComponentGql, options)
+}
+export type CreateComponentMutationHookResult = ReturnType<
+  typeof useCreateComponentMutation
+>
+export type CreateComponentMutationResult = Apollo.MutationResult<CreateComponentMutation>
+export type CreateComponentMutationOptions = Apollo.BaseMutationOptions<
+  CreateComponentMutation,
+  CreateComponentMutationVariables
+>
+export const DeleteComponentGql = gql`
+  mutation DeleteComponent($filter: ComponentFilter!) {
+    deleteComponent(filter: $filter) {
+      numUids
+      msg
+    }
+  }
+`
+export type DeleteComponentMutationFn = Apollo.MutationFunction<
+  DeleteComponentMutation,
+  DeleteComponentMutationVariables
+>
+
+/**
+ * __useDeleteComponentMutation__
+ *
+ * To run a mutation, you first call `useDeleteComponentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteComponentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteComponentMutation, { data, loading, error }] = useDeleteComponentMutation({
+ *   variables: {
+ *      filter: // value for 'filter'
+ *   },
+ * });
+ */
+export function useDeleteComponentMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeleteComponentMutation,
+    DeleteComponentMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    DeleteComponentMutation,
+    DeleteComponentMutationVariables
+  >(DeleteComponentGql, options)
+}
+export type DeleteComponentMutationHookResult = ReturnType<
+  typeof useDeleteComponentMutation
+>
+export type DeleteComponentMutationResult = Apollo.MutationResult<DeleteComponentMutation>
+export type DeleteComponentMutationOptions = Apollo.BaseMutationOptions<
+  DeleteComponentMutation,
+  DeleteComponentMutationVariables
+>
 export const GetComponentDetailGql = gql`
   query GetComponentDetail($componentId: ID!) {
     component: getComponent(id: $componentId) {
@@ -2208,6 +2336,70 @@ export function refetchGetComponentDetailQuery(
   variables?: GetComponentDetailQueryVariables,
 ) {
   return { query: GetComponentDetailGql, variables: variables }
+}
+export const GetComponentsGql = gql`
+  query GetComponents($filter: ComponentFilter) {
+    components: queryComponent(filter: $filter) {
+      id
+      label
+    }
+  }
+`
+
+/**
+ * __useGetComponentsQuery__
+ *
+ * To run a query within a React component, call `useGetComponentsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetComponentsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetComponentsQuery({
+ *   variables: {
+ *      filter: // value for 'filter'
+ *   },
+ * });
+ */
+export function useGetComponentsQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetComponentsQuery,
+    GetComponentsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetComponentsQuery, GetComponentsQueryVariables>(
+    GetComponentsGql,
+    options,
+  )
+}
+export function useGetComponentsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetComponentsQuery,
+    GetComponentsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetComponentsQuery, GetComponentsQueryVariables>(
+    GetComponentsGql,
+    options,
+  )
+}
+export type GetComponentsQueryHookResult = ReturnType<
+  typeof useGetComponentsQuery
+>
+export type GetComponentsLazyQueryHookResult = ReturnType<
+  typeof useGetComponentsLazyQuery
+>
+export type GetComponentsQueryResult = Apollo.QueryResult<
+  GetComponentsQuery,
+  GetComponentsQueryVariables
+>
+export function refetchGetComponentsQuery(
+  variables?: GetComponentsQueryVariables,
+) {
+  return { query: GetComponentsGql, variables: variables }
 }
 export const CreateLibraryGql = gql`
   mutation CreateLibrary($input: [AddLibraryInput!]!) {
@@ -2854,12 +3046,6 @@ export const __Library = gql`
     name
   }
 `
-export const LibraryExplorer__Component = gql`
-  fragment LibraryExplorer__Component on Component {
-    id
-    label
-  }
-`
 export const LibraryExplorer__Atom = gql`
   fragment LibraryExplorer__Atom on Atom {
     id
@@ -2867,19 +3053,25 @@ export const LibraryExplorer__Atom = gql`
     type
   }
 `
+export const LibraryExplorer__Component = gql`
+  fragment LibraryExplorer__Component on Component {
+    id
+    label
+  }
+`
 export const LibraryExplorer__Library = gql`
   fragment LibraryExplorer__Library on Library {
     id
     name
-    components {
-      ...LibraryExplorer__Component
-    }
     atoms {
       ...LibraryExplorer__Atom
     }
+    components {
+      ...LibraryExplorer__Component
+    }
   }
-  ${LibraryExplorer__Component}
   ${LibraryExplorer__Atom}
+  ${LibraryExplorer__Component}
 `
 export const App__Page = gql`
   fragment App__Page on Page {
@@ -2976,6 +3168,24 @@ export const UpdateAtom = gql`
   }
   ${__Atom}
 `
+export const CreateComponent = gql`
+  mutation CreateComponent($input: [AddComponentInput!]!) {
+    components: addComponent(input: $input) {
+      component {
+        id
+        label
+      }
+    }
+  }
+`
+export const DeleteComponent = gql`
+  mutation DeleteComponent($filter: ComponentFilter!) {
+    deleteComponent(filter: $filter) {
+      numUids
+      msg
+    }
+  }
+`
 export const GetComponentDetail = gql`
   query GetComponentDetail($componentId: ID!) {
     component: getComponent(id: $componentId) {
@@ -2983,6 +3193,14 @@ export const GetComponentDetail = gql`
     }
   }
   ${__Component}
+`
+export const GetComponents = gql`
+  query GetComponents($filter: ComponentFilter) {
+    components: queryComponent(filter: $filter) {
+      id
+      label
+    }
+  }
 `
 export const CreateLibrary = gql`
   mutation CreateLibrary($input: [AddLibraryInput!]!) {

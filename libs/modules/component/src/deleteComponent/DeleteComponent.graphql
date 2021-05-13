@@ -1,5 +1,0 @@
-mutation DeleteComponent($componentId: uuid!) {
-  delete_component_by_pk(id: $componentId) {
-    ...LibraryExplorer__Component
-  }
-}

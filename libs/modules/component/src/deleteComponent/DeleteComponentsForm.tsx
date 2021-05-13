@@ -1,4 +1,10 @@
 import {
+  Component,
+  refetchLibraryExplorerQuery,
+  useDeleteComponentMutation,
+  useGetComponentsQuery,
+} from '@codelab/dgraph'
+import {
   createNotificationHandler,
   emptyJsonSchema,
   EmptyJsonSchemaType,
@@ -7,11 +13,6 @@ import {
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import {
-  refetchLibraryExplorerQuery,
-  useDeleteComponentsWhereMutation,
-  useGetComponentsQuery,
-} from '@codelab/hasura'
 import { Spin } from 'antd'
 import React, { useEffect } from 'react'
 import { AutoFields } from 'uniforms-antd'
@@ -25,42 +26,31 @@ export const DeleteComponentsForm = (props: DeleteComponentFormProps) => {
     state: { deleteIds: deleteComponentIds },
   } = useCRUDModalForm(EntityType.Component)
 
-  const [mutate, { loading: deleting }] = useDeleteComponentsWhereMutation({
+  const [deleteComponents, { loading: deleting }] = useDeleteComponentMutation({
     awaitRefetchQueries: true,
     refetchQueries: [refetchLibraryExplorerQuery()],
   })
 
-  const componentsWhere = {
-    _or: deleteComponentIds.map((id) => ({
-      id: {
-        _eq: id,
-      },
-    })),
+  const filter = {
+    id: deleteComponentIds,
   }
 
   useEffect(() => {
     setLoading(deleting)
   }, [deleting])
 
-  const { data, loading } = useGetComponentsQuery({
-    // variables: {
-    //   where: componentsWhere,
-    // },
-  })
+  const { data, loading } = useGetComponentsQuery({ variables: { filter } })
 
   if (loading) {
     return <Spin />
   }
 
   const onSubmit = () => {
-    return mutate({
-      variables: {
-        where: componentsWhere,
-      },
-    })
+    return deleteComponents({ variables: { filter } })
   }
 
-  const componentLabels = data?.component
+  const componentLabels = data?.components
+    ?.filter((c): c is Component => !!c)
     .map((component) => component.label)
     .join(', ')
 

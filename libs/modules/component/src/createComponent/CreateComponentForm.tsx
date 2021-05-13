@@ -1,4 +1,10 @@
 import {
+  __AtomFragment,
+  LibraryExplorerGql,
+  useCreateComponentMutation,
+  useGetAtomsQuery,
+} from '@codelab/dgraph'
+import {
   createNotificationHandler,
   EntityType,
   FormUniforms,
@@ -6,9 +12,7 @@ import {
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import { LibraryExplorerGql, useCreateComponentMutation } from '@codelab/hasura'
 import React, { useContext, useEffect } from 'react'
-import { DeepPartial } from 'uniforms'
 import { AutoField, SelectField } from 'uniforms-antd'
 import {
   CreateComponentInput,
@@ -34,16 +38,21 @@ export const CreateComponentForm = ({ ...props }: CreateComponentFormProps) => {
     setLoading(creating)
   }, [creating])
 
-  const onSubmit = (submitData: DeepPartial<CreateComponentInput>) => {
+  const onSubmit = (submitData: CreateComponentInput) => {
     return mutate({
       variables: {
         input: {
-          library_id: submitData.library_id,
+          library: { id: submitData.library_id },
           label: submitData.label,
+          atom: {
+            id: submitData.atom_id,
+          },
         },
       },
     })
   }
+
+  const { data: atoms } = useGetAtomsQuery()
 
   return (
     <FormUniforms<CreateComponentInput>
@@ -59,10 +68,28 @@ export const CreateComponentForm = ({ ...props }: CreateComponentFormProps) => {
       <SelectField
         name="library_id"
         label="Library"
+        //eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-ignore https://github.com/vazco/uniforms/issues/951
+        showSearch={true}
+        optionFilterProp="label"
         options={libraries?.map((library) => ({
           label: library.name,
           value: library.id,
         }))}
+      />
+      <SelectField
+        name="atom_id"
+        label="Atom"
+        //eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-ignore https://github.com/vazco/uniforms/issues/951
+        showSearch={true}
+        optionFilterProp="label"
+        options={atoms?.queryAtom
+          ?.filter((atom): atom is __AtomFragment => !!atom)
+          .map((atom) => ({
+            label: atom.label,
+            value: atom.id,
+          }))}
       />
       <AutoField name="label" />
     </FormUniforms>

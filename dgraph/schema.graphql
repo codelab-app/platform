@@ -1,15 +1,16 @@
 type User {
-  id: ID!
-  # Indexing with Custom Tokenizer
-  email: String! @id @search(by: [hash])
-  # user_id: String! @id
-  apps: [App]
-  libraries: [Library]
+    id: ID!
+    # Indexing with Custom Tokenizer
+    email: String! @id @search(by: [hash])
+    # user_id: String! @id
+    apps: [App!] @hasInverse(field: "owner")
+    libraries: [Library!] @hasInverse(field: "owner")
 }
+
 type App
   @auth(
     query: {
-      rule: """
+     rule: """
       query($USER: String!) {
         queryApp {
           owner(filter: { email: { eq: $USER }}) {
@@ -31,68 +32,67 @@ type App
       }
       """
     }
-  ) {
-  id: ID!
-  owner: User! @hasInverse(field: "apps")
-  pages: [Page]
-  # id: String! @id
-  name: String!
+) {
+    id: ID!
+    owner: User!
+    pages: [Page] @hasInverse(field: "app")
+    name: String!
 }
 
 type Page {
-  # @auth(
-  # query: {
-  #   rule: """
-  #   query($USER: String!) {
-  #    queryApp {
-  #       owner(filter: { email: { eq: $USER }}) {
-  #         __typename
-  #       }
-  #     }
-  #   }
-  #   """
-  # }
-  # )
-  id: ID!
-  title: String! @search(by: [term, fulltext])
-  app: App @hasInverse(field: "pages")
+    # @auth(
+    # query: {
+    #   rule: """
+    #   query($USER: String!) {
+    #    queryApp {
+    #       owner(filter: { email: { eq: $USER }}) {
+    #         __typename
+    #       }
+    #     }
+    #   }
+    #   """
+    # }
+    # )
+    id: ID!
+    title: String! @search(by: [term, fulltext])
+    app: App
 }
 
 type Library {
-  id: ID!
-  name: String!
-  atoms: [Atom]
-  components: [Component]
+    id: ID!
+    owner: User!
+    name: String!
+    atoms: [Atom] @hasInverse(field: "library")
+    components: [Component] @hasInverse(field: "library")
 }
 
 type Component {
-  id: ID!
-  label: String!
-  # children: [Component]
-  # atom: Atom
-  library: Library! @hasInverse(field: "components")
-  # tags: [Tag]
+    id: ID!
+    library: Library!
+    atom: Atom!
+    label: String!
+    children: [Component]
+    tags: [Tag]
 }
 
 type Atom {
-  id: ID!
-  type: String!
-  library: Library @hasInverse(field: "atoms")
-  label: String!
-  # components: [Component] @hasInverse(field: "atom")
+    id: ID!
+    type: String!
+    library: Library!
+    label: String!
 }
 
 type Tag {
-  label: String!
+    label: String!
 }
 
 type GetAllUsersPayload {
-  id: ID!
-  email: String
+    id: ID!
+    email: String
 }
 
 type Query {
-  GetAllUsers: [GetAllUsersPayload]
+    GetAllUsers: [GetAllUsersPayload]
     @custom(
       dql: """
       query {
@@ -104,7 +104,7 @@ type Query {
       }
       """
     )
-  userWhere(email: String!): User
+    userWhere(email: String!): User
     @custom(
       dql: """
       query user($email: string) {
@@ -125,7 +125,7 @@ type Query {
 }
 
 input UpsertUserInput {
-  email: String!
+    email: String!
 }
 
 # type Mutation {
