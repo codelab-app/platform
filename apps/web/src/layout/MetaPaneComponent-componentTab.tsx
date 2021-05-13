@@ -32,7 +32,7 @@ export const ComponentTab = () => {
     string | undefined
   >()
 
-  const cy = CytoscapeService.fromComponent(component)
+  const cy = CytoscapeService.fromComponent(component as any)
 
   const componentElementNodeMapper = (
     data: ComponentElementNode | ComponentNode,

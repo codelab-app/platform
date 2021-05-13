@@ -110,7 +110,9 @@ describe('Component element', () => {
       openComponentsTab()
 
       getAndExpandElementInTree(component.label + ' Root')
-      getComponentElementInTree(parentElement.label).first().click()
+      getComponentElementInTree(parentElement?.label ?? '')
+        .first()
+        .click()
 
       cy.getByTestId('pane-config')
         .findByRole('button', { name: 'Insert child element' })
@@ -141,7 +143,9 @@ describe('Component element', () => {
       openComponentsTab()
 
       getAndExpandElementInTree(component.label + ' Root')
-      getComponentElementInTree(element.label).first().click() //Focus the element
+      getComponentElementInTree(element.label ?? '')
+        .first()
+        .click() //Focus the element
 
       //Update the component element
       cy.getByTestId('pane-config') //We should get the form in the right pane
@@ -171,7 +175,9 @@ describe('Component element', () => {
       openComponentsTab()
 
       getAndExpandElementInTree(component.label + ' Root')
-      getComponentElementInTree(element.label).first().click() //Focus the element
+      getComponentElementInTree(element.label ?? '')
+        .first()
+        .click() //Focus the element
 
       //Delete the component element
       cy.getByTestId('pane-config') //We should get the form in the right pane

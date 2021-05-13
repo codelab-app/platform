@@ -5,7 +5,7 @@ import {
 import React, { PropsWithChildren, useEffect } from 'react'
 
 type IComponentContext = {
-  component: __ComponentFragment | undefined
+  component: __ComponentFragment
   loading: boolean
 }
 
@@ -23,7 +23,7 @@ const _ComponentProvider = ({
   children,
 }: PropsWithChildren<ComponentProviderProps>) => {
   const [load, { loading, data }] = useGetComponentDetailLazyQuery({})
-  const component = data?.component ?? undefined
+  const component = data?.component
 
   useEffect(() => {
     if (componentId) {
@@ -34,6 +34,10 @@ const _ComponentProvider = ({
       })
     }
   }, [componentId])
+
+  if (!component) {
+    return null
+  }
 
   return (
     <ComponentContext.Provider
