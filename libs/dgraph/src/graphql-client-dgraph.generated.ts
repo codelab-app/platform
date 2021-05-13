@@ -47,9 +47,9 @@ export type AddAppPayloadAppArgs = {
 }
 
 export type AddAtomInput = {
+  type: Scalars['String']
   library: LibraryRef
   label: Scalars['String']
-  type: Scalars['String']
 }
 
 export type AddAtomPayload = {
@@ -238,9 +238,9 @@ export type AppRef = {
 
 export type Atom = {
   id: Scalars['ID']
+  type: Scalars['String']
   library: Library
   label: Scalars['String']
-  type: Scalars['String']
 }
 
 export type AtomLibraryArgs = {
@@ -249,10 +249,10 @@ export type AtomLibraryArgs = {
 
 export type AtomAggregateResult = {
   count?: Maybe<Scalars['Int']>
-  labelMin?: Maybe<Scalars['String']>
-  labelMax?: Maybe<Scalars['String']>
   typeMin?: Maybe<Scalars['String']>
   typeMax?: Maybe<Scalars['String']>
+  labelMin?: Maybe<Scalars['String']>
+  labelMax?: Maybe<Scalars['String']>
 }
 
 export type AtomFilter = {
@@ -264,9 +264,9 @@ export type AtomFilter = {
 }
 
 export enum AtomHasFilter {
+  Type = 'type',
   Library = 'library',
   Label = 'label',
-  Type = 'type',
 }
 
 export type AtomOrder = {
@@ -276,21 +276,21 @@ export type AtomOrder = {
 }
 
 export enum AtomOrderable {
-  Label = 'label',
   Type = 'type',
+  Label = 'label',
 }
 
 export type AtomPatch = {
+  type?: Maybe<Scalars['String']>
   library?: Maybe<LibraryRef>
   label?: Maybe<Scalars['String']>
-  type?: Maybe<Scalars['String']>
 }
 
 export type AtomRef = {
   id?: Maybe<Scalars['ID']>
+  type?: Maybe<Scalars['String']>
   library?: Maybe<LibraryRef>
   label?: Maybe<Scalars['String']>
-  type?: Maybe<Scalars['String']>
 }
 
 export type AuthRule = {

@@ -57,9 +57,9 @@ type AddAppPayload {
 }
 
 input AddAtomInput {
+  type: String!
   library: LibraryRef!
   label: String!
-  type: String!
 }
 
 type AddAtomPayload {
@@ -199,17 +199,17 @@ input AppRef {
 
 type Atom {
   id: ID!
+  type: String!
   library(filter: LibraryFilter): Library!
   label: String!
-  type: String!
 }
 
 type AtomAggregateResult {
   count: Int
-  labelMin: String
-  labelMax: String
   typeMin: String
   typeMax: String
+  labelMin: String
+  labelMax: String
 }
 
 input AtomFilter {
@@ -221,9 +221,9 @@ input AtomFilter {
 }
 
 enum AtomHasFilter {
+  type
   library
   label
-  type
 }
 
 input AtomOrder {
@@ -233,21 +233,21 @@ input AtomOrder {
 }
 
 enum AtomOrderable {
-  label
   type
+  label
 }
 
 input AtomPatch {
+  type: String
   library: LibraryRef
   label: String
-  type: String
 }
 
 input AtomRef {
   id: ID
+  type: String
   library: LibraryRef
   label: String
-  type: String
 }
 
 input AuthRule {
