@@ -1,6 +1,5 @@
 import { refetchGetAtomsQuery, useCreateAtomMutation } from '@codelab/dgraph'
 import {
-  AtomType,
   createNotificationHandler,
   EntityType,
   FormUniforms,
@@ -8,7 +7,6 @@ import {
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import _ from 'lodash'
 import React, { useContext, useEffect } from 'react'
 import { DeepPartial } from 'uniforms'
 import { AutoFields, SelectField } from 'uniforms-antd'
@@ -44,11 +42,6 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
     })
   }
 
-  const atomTypesOptions = _.chain(Object.values(AtomType))
-    .orderBy('label')
-    .map((v) => ({ label: v, value: v }))
-    .value()
-
   return (
     <FormUniforms<CreateAtomInput>
       onSubmit={onSubmit}
@@ -71,14 +64,8 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
           value: library.id,
         }))}
       />
-      <SelectField
-        name="type"
-        options={atomTypesOptions} //eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        //@ts-ignore https://github.com/vazco/uniforms/issues/951
-        showSearch={true}
-        optionFilterProp="label"
-      />
-      <AutoFields omitFields={['type', 'library_id']} />
+
+      <AutoFields omitFields={['library_id']} />
     </FormUniforms>
   )
 }
