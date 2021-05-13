@@ -1,3 +1,8 @@
+import { useUser } from '@auth0/nextjs-auth0'
+import {
+  refetchLibraryExplorerQuery,
+  useCreateLibraryMutation,
+} from '@codelab/dgraph'
 import {
   createNotificationHandler,
   EntityType,
@@ -5,12 +10,7 @@ import {
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import {
-  refetchLibraryExplorerQuery,
-  useCreateLibraryMutation,
-} from '@codelab/hasura'
 import React, { useEffect } from 'react'
-import { DeepPartial } from 'uniforms'
 import { AutoFields } from 'uniforms-antd'
 import { CreateLibraryInput, createLibrarySchema } from './createLibrarySchema'
 
@@ -18,6 +18,7 @@ type CreateLibraryFormProps = UniFormUseCaseProps<CreateLibraryInput>
 
 export const CreateLibraryForm = ({ ...props }: CreateLibraryFormProps) => {
   const { reset, setLoading } = useCRUDModalForm(EntityType.Library)
+  const { user } = useUser()
 
   const [mutate, { loading: creating }] = useCreateLibraryMutation({
     awaitRefetchQueries: true,
@@ -28,14 +29,14 @@ export const CreateLibraryForm = ({ ...props }: CreateLibraryFormProps) => {
     setLoading(creating)
   }, [creating])
 
-  const onSubmit = (submitData: DeepPartial<CreateLibraryInput>) => {
+  const onSubmit = (submitData: CreateLibraryInput) => {
     return mutate({
       variables: {
         input: {
           name: submitData.name,
-          // owner: {
-          //   email: user?.email,
-          // },
+          owner: {
+            email: user?.email,
+          },
         },
       },
     })

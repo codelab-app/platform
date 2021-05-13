@@ -1,0 +1,8 @@
+mutation CreateComponent($input: [AddComponentInput!]!) {
+  components: addComponent(input: $input) {
+    component {
+      id
+      label
+    }
+  }
+}

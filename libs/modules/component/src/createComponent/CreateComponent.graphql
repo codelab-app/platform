@@ -1,5 +1,0 @@
-mutation CreateComponent($input: component_insert_input!) {
-  insert_component_one(object: $input) {
-    ...LibraryExplorer__Component
-  }
-}

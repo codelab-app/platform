@@ -4,7 +4,7 @@
   "extensions": {
     "endpoints": {
      "Dgraph GraphQL Endpoint": {
-        "url": "${env.CODELAB_DGRAPH_GRAPHQL_ENDPOINT}",
+        "url": "${env:CODELAB_DGRAPH_GRAPHQL_ENDPOINT}",
         "headers": {
           "user-agent": "JS GraphQL"
         },

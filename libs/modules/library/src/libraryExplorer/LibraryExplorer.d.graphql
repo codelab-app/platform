@@ -7,10 +7,10 @@ query LibraryExplorer($filter: LibraryFilter) {
 fragment LibraryExplorer__Library on Library {
   id
   name
-  components {
-    ...LibraryExplorer__Component
-  }
   atoms {
     ...LibraryExplorer__Atom
+  }
+  components {
+    ...LibraryExplorer__Component
   }
 }
