@@ -3,10 +3,13 @@
   "compilerOptions": {
     "sourceMap": false,
     "outDir": "../../dist/out-tsc",
-    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "allowJs": false,
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
     "types": ["cypress", "node"],
     "jsx": "react"
   },
-  "exclude": ["src/deprecated"],
+  "exclude": [],
   "include": ["src/**/*.ts", "src/**/*.js"]
 }

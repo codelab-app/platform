@@ -31,8 +31,11 @@ export const CreateLibraryForm = ({ ...props }: CreateLibraryFormProps) => {
   const onSubmit = (submitData: DeepPartial<CreateLibraryInput>) => {
     return mutate({
       variables: {
-        data: {
-          ...(submitData as any),
+        input: {
+          name: submitData.name,
+          // owner: {
+          //   email: user?.email,
+          // },
         },
       },
     })

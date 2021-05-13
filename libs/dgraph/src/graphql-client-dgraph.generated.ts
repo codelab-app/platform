@@ -50,7 +50,6 @@ export type AddAtomInput = {
   type: Scalars['String']
   library?: Maybe<LibraryRef>
   label: Scalars['String']
-  components?: Maybe<Array<Maybe<ComponentRef>>>
 }
 
 export type AddAtomPayload = {
@@ -67,10 +66,7 @@ export type AddAtomPayloadAtomArgs = {
 
 export type AddComponentInput = {
   label: Scalars['String']
-  children?: Maybe<Array<Maybe<ComponentRef>>>
-  atom?: Maybe<AtomRef>
   library: LibraryRef
-  tags?: Maybe<Array<Maybe<TagRef>>>
 }
 
 export type AddComponentPayload = {
@@ -154,8 +150,8 @@ export type AddTagPayloadTagArgs = {
 
 export type AddUserInput = {
   email: Scalars['String']
-  apps?: Maybe<Array<AppRef>>
-  libraries?: Maybe<Array<LibraryRef>>
+  apps?: Maybe<Array<Maybe<AppRef>>>
+  libraries?: Maybe<Array<Maybe<LibraryRef>>>
 }
 
 export type AddUserPayload = {
@@ -241,23 +237,10 @@ export type Atom = {
   type: Scalars['String']
   library?: Maybe<Library>
   label: Scalars['String']
-  components?: Maybe<Array<Maybe<Component>>>
-  componentsAggregate?: Maybe<ComponentAggregateResult>
 }
 
 export type AtomLibraryArgs = {
   filter?: Maybe<LibraryFilter>
-}
-
-export type AtomComponentsArgs = {
-  filter?: Maybe<ComponentFilter>
-  order?: Maybe<ComponentOrder>
-  first?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
-}
-
-export type AtomComponentsAggregateArgs = {
-  filter?: Maybe<ComponentFilter>
 }
 
 export type AtomAggregateResult = {
@@ -280,7 +263,6 @@ export enum AtomHasFilter {
   Type = 'type',
   Library = 'library',
   Label = 'label',
-  Components = 'components',
 }
 
 export type AtomOrder = {
@@ -298,7 +280,6 @@ export type AtomPatch = {
   type?: Maybe<Scalars['String']>
   library?: Maybe<LibraryRef>
   label?: Maybe<Scalars['String']>
-  components?: Maybe<Array<Maybe<ComponentRef>>>
 }
 
 export type AtomRef = {
@@ -306,7 +287,6 @@ export type AtomRef = {
   type?: Maybe<Scalars['String']>
   library?: Maybe<LibraryRef>
   label?: Maybe<Scalars['String']>
-  components?: Maybe<Array<Maybe<ComponentRef>>>
 }
 
 export type AuthRule = {
@@ -319,42 +299,11 @@ export type AuthRule = {
 export type Component = {
   id: Scalars['ID']
   label: Scalars['String']
-  children?: Maybe<Array<Maybe<Component>>>
-  atom?: Maybe<Atom>
   library: Library
-  tags?: Maybe<Array<Maybe<Tag>>>
-  childrenAggregate?: Maybe<ComponentAggregateResult>
-  tagsAggregate?: Maybe<TagAggregateResult>
-}
-
-export type ComponentChildrenArgs = {
-  filter?: Maybe<ComponentFilter>
-  order?: Maybe<ComponentOrder>
-  first?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
-}
-
-export type ComponentAtomArgs = {
-  filter?: Maybe<AtomFilter>
 }
 
 export type ComponentLibraryArgs = {
   filter?: Maybe<LibraryFilter>
-}
-
-export type ComponentTagsArgs = {
-  filter?: Maybe<TagFilter>
-  order?: Maybe<TagOrder>
-  first?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
-}
-
-export type ComponentChildrenAggregateArgs = {
-  filter?: Maybe<ComponentFilter>
-}
-
-export type ComponentTagsAggregateArgs = {
-  filter?: Maybe<TagFilter>
 }
 
 export type ComponentAggregateResult = {
@@ -373,10 +322,7 @@ export type ComponentFilter = {
 
 export enum ComponentHasFilter {
   Label = 'label',
-  Children = 'children',
-  Atom = 'atom',
   Library = 'library',
-  Tags = 'tags',
 }
 
 export type ComponentOrder = {
@@ -391,19 +337,13 @@ export enum ComponentOrderable {
 
 export type ComponentPatch = {
   label?: Maybe<Scalars['String']>
-  children?: Maybe<Array<Maybe<ComponentRef>>>
-  atom?: Maybe<AtomRef>
   library?: Maybe<LibraryRef>
-  tags?: Maybe<Array<Maybe<TagRef>>>
 }
 
 export type ComponentRef = {
   id?: Maybe<Scalars['ID']>
   label?: Maybe<Scalars['String']>
-  children?: Maybe<Array<Maybe<ComponentRef>>>
-  atom?: Maybe<AtomRef>
   library?: Maybe<LibraryRef>
-  tags?: Maybe<Array<Maybe<TagRef>>>
 }
 
 export type ContainsFilter = {
@@ -1358,8 +1298,8 @@ export type UpsertUserInput = {
 export type User = {
   id: Scalars['ID']
   email: Scalars['String']
-  apps?: Maybe<Array<App>>
-  libraries?: Maybe<Array<Library>>
+  apps?: Maybe<Array<Maybe<App>>>
+  libraries?: Maybe<Array<Maybe<Library>>>
   appsAggregate?: Maybe<AppAggregateResult>
   librariesAggregate?: Maybe<LibraryAggregateResult>
 }
@@ -1418,15 +1358,15 @@ export enum UserOrderable {
 }
 
 export type UserPatch = {
-  apps?: Maybe<Array<AppRef>>
-  libraries?: Maybe<Array<LibraryRef>>
+  apps?: Maybe<Array<Maybe<AppRef>>>
+  libraries?: Maybe<Array<Maybe<LibraryRef>>>
 }
 
 export type UserRef = {
   id?: Maybe<Scalars['ID']>
   email?: Maybe<Scalars['String']>
-  apps?: Maybe<Array<AppRef>>
-  libraries?: Maybe<Array<LibraryRef>>
+  apps?: Maybe<Array<Maybe<AppRef>>>
+  libraries?: Maybe<Array<Maybe<LibraryRef>>>
 }
 
 export type WithinFilter = {

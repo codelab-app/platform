@@ -3,8 +3,8 @@ type User {
   # Indexing with Custom Tokenizer
   email: String! @id @search(by: [hash])
   # user_id: String! @id
-  apps: [App!]
-  libraries: [Library!]
+  apps: [App]
+  libraries: [Library]
 }
 type App
   @auth(
@@ -61,25 +61,25 @@ type Page {
 type Library {
   id: ID!
   name: String!
-  atoms: [Atom] @hasInverse(field: "library")
+  atoms: [Atom]
   components: [Component]
 }
 
 type Component {
   id: ID!
   label: String!
-  children: [Component]
-  atom: Atom
+  # children: [Component]
+  # atom: Atom
   library: Library! @hasInverse(field: "components")
-  tags: [Tag]
+  # tags: [Tag]
 }
 
 type Atom {
   id: ID!
   type: String!
-  library: Library
+  library: Library @hasInverse(field: "atoms")
   label: String!
-  components: [Component] @hasInverse(field: "atom")
+  # components: [Component] @hasInverse(field: "atom")
 }
 
 type Tag {

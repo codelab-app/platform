@@ -99,12 +99,12 @@ e2e-dev:
   	--success=first \
 		--names=web-e2e,api,web \
     	"npx wait-on \
-				http://127.0.0.1:3000 \
-				http://127.0.0.1:4000 && \
-				nx run web-e2e:e2e" \
-			"npx env-cmd -f .env cross-env PORT=4000 \
+				http://127.0.0.1:3001 \
+				http://127.0.0.1:4001 && \
+				nx run web-e2e:e2e:ci" \
+			"npx env-cmd -f .env cross-env PORT=4001 \
 				node dist/apps/api/main.js" \
-			"npx nx run web:serve"
+			"npx nx run web:serve:ci"
 
 e2e-ci:
 	npx concurrently \
@@ -112,12 +112,12 @@ e2e-ci:
   	--success=first \
 		--names=web-e2e,api,web \
     	"npx wait-on \
-				http://127.0.0.1:3000 \
-				http://127.0.0.1:4000 && \
-				nx run web-e2e:e2e" \
-			"npx cross-env PORT=4000 \
+				http://127.0.0.1:3001 \
+				http://127.0.0.1:4001 && \
+				nx run web-e2e:e2e:ci" \
+			"npx cross-env PORT=4001 \
 				node dist/apps/api/main.js" \
-			"npx nx run web:serve"
+			"npx next start -p 3001 dist/apps/web"
 
 #
 # INTEGRATION TESTS
