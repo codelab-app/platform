@@ -405,13 +405,12 @@ workflows:
           # start: make e2e-ci-start
           command: make e2e-ci
           # command: npx nx run web-e2e:e2e:ci
-      # - e2e:
-      #     <<: *filters-staging-pr
-      #     e: docker-node
-      #     context: CI
-      #     requires:
-      #       - sync-hasura
-      #       # - install-and-build-workspace
+      - e2e:
+          <<: *filters-staging-pr
+          e: docker-node
+          context: CI
+          requires:
+            - install-and-build-workspace
       # - deploy-to-ebs-staging:
       #     <<: *filters-staging
       #     e: docker-python
