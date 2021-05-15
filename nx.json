@@ -48,6 +48,7 @@
     "modules-atom-type": { "tags": [] },
     "modules-prop-type": { "tags": [] },
     "frontend-dgraph": { "tags": [] },
-    "dgraph": { "tags": [] }
+    "dgraph": { "tags": [] },
+    "modules-user-api": { "tags": [] }
   }
 }

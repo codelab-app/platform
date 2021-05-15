@@ -214,13 +214,10 @@
             "cypressConfig": "apps/web-e2e/cypress.json",
             "tsConfig": "apps/web-e2e/tsconfig.e2e.json",
             "baseUrl": "http://127.0.0.1:3001"
-            // "key": "600c8b8e-4831-4562-92ed-e0ae40ce21e6"
           },
           "configurations": {
             "ci": {
-              // "record": true,
               "headless": true
-              // "parallel": true
             },
             "dev": {
               "watch": true,
@@ -682,6 +679,19 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["libs/dgraph/**/*.{ts,tsx,js,jsx}"]
+          }
+        }
+      }
+    },
+    "modules-user-api": {
+      "root": "libs/modules/user-api",
+      "sourceRoot": "libs/modules/user-api/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/modules/user-api/**/*.ts"]
           }
         }
       }

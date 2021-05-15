@@ -1,3 +1,5 @@
+export * from './config'
 export * from './graphql/config/GraphqlConfig'
 export * from './graphql/GraphqlModule'
+export * from './logger/logger.module'
 export * from './persistence/aws'
