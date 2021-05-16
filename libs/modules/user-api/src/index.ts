@@ -1,3 +1,3 @@
-export * from './lib/auth'
-export * from './lib/user.module'
-export * from './lib/user.service'
+export * from './application'
+export * from './domain'
+export * from './user.module'

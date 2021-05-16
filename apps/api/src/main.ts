@@ -12,6 +12,7 @@ const bootstrap = async () => {
   const globalPrefix = ''
 
   app.setGlobalPrefix(globalPrefix)
+  app.enableCors({ origin: '*' }) //TODO remove this, add more fine-grained control
 
   const port = process.env.PORT || 3333
   await app.listen(port, () => {

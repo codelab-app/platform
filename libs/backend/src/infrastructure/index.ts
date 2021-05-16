@@ -1,4 +1,4 @@
-export * from './config'
+export * from './dgraph'
 export * from './graphql/config/GraphqlConfig'
 export * from './graphql/GraphqlModule'
 export * from './logger/logger.module'

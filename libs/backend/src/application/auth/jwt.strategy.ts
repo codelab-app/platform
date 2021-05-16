@@ -1,9 +1,10 @@
-import type { Auth0Configuration } from '@codelab/backend'
 import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { PassportStrategy } from '@nestjs/passport'
 import { passportJwtSecret } from 'jwks-rsa'
 import { ExtractJwt, Strategy } from 'passport-jwt'
+import { Auth0Configuration } from './config/authConfig'
+import { JwtPayload } from './interfaces/jwt.interface'
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -13,20 +14,21 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         cache: true,
         rateLimit: true,
         jwksRequestsPerMinute: 5,
-        jwksUri: `${
-          config.get<Auth0Configuration>('auth0')?.issuer
-        }.well-known/jwks.json`,
+        jwksUri: new URL( //Use the URL helper class, because it's better than relying on the issuer url to not have a trailing /
+          '/.well-known/jwks.json',
+          config.get<Auth0Configuration>('auth0')?.issuer,
+        ).href,
       }),
 
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      audience: config.get<Auth0Configuration>('auth0')?.audience,
-      issuer: `${config.get<Auth0Configuration>('auth0')?.issuer}`,
+      audience: config.get<Auth0Configuration>('auth0')?.clientId,
+      issuer: config.get<Auth0Configuration>('auth0')?.issuer,
       algorithms: ['RS256'],
     })
   }
 
-  validate(payload: unknown): unknown {
-    console.log('payload', payload)
+  validate(payload: JwtPayload): JwtPayload {
+    //TODO check in dgraph if the user exists
 
     return payload
   }
