@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
-import { dgraphConfig } from './config/dgraphConfig'
+import { dgraphConfig } from './config/dgraph.config'
 import { DGraphService } from './dgraph.service'
 
 @Module({

@@ -1,11 +1,11 @@
 import { DGraphModule } from '@codelab/backend'
 import { Module } from '@nestjs/common'
-import { UserResolver } from './application'
-import { CreateUserService } from './domain/use-cases/create-user.service'
+import { CreateUserService } from './use-cases'
+import { UserResolver } from './user.resolver'
 
 @Module({
   imports: [DGraphModule],
   providers: [CreateUserService, UserResolver],
-  exports: [CreateUserService],
+  exports: [],
 })
 export class UserModule {}

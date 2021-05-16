@@ -1,8 +1,8 @@
 import { DGraphService, DgraphUseCase } from '@codelab/backend'
 import { Injectable, Scope } from '@nestjs/common'
 import { Mutation, Txn } from 'dgraph-js-http'
-import { CreateUserInput } from '../dto/CreateUserInput'
-import { User } from '../models/User'
+import { User } from '../../user.model'
+import { CreateUserInput } from './create-user.input'
 
 @Injectable({ scope: Scope.REQUEST })
 export class CreateUserService extends DgraphUseCase<CreateUserInput, User> {

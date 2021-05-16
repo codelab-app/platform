@@ -5,10 +5,10 @@
 
 import { Logger } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
-import { CodelabAppModule } from './app/app.module'
+import { AppModule } from './app/app.module'
 
 const bootstrap = async () => {
-  const app = await NestFactory.create(CodelabAppModule)
+  const app = await NestFactory.create(AppModule)
   const globalPrefix = ''
 
   app.setGlobalPrefix(globalPrefix)
