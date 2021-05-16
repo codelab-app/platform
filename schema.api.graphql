@@ -8,6 +8,10 @@ type User {
 }
 
 type Query {
+  getUsers: [User!]!
+}
+
+type Mutation {
   createUser(input: CreateUserInput!): User!
 }
 

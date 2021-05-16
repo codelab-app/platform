@@ -20,7 +20,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
           config.get<Auth0Configuration>(AuthTokens.Auth0Config)?.issuer,
         ).href,
       }),
-
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       audience: config.get<Auth0Configuration>(AuthTokens.Auth0Config)
         ?.clientId,
@@ -30,6 +29,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   validate(payload: JwtPayload): JwtPayload {
+    console.log(payload)
     //TODO check in dgraph if the user exists
 
     return payload

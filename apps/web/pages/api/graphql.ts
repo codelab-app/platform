@@ -41,6 +41,8 @@ app.use('*', async (baseReq, baseRes, next) => {
       }
 
       if (req.body) {
+        console.log(req.body)
+
         const bodyData = JSON.stringify(req.body)
         // in case if content-type is application/x-www-form-urlencoded -> we need to change to application/json
 
