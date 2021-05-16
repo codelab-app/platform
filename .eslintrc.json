@@ -5,7 +5,6 @@
     "@nrwl/nx",
     "import",
     "unused-imports",
-    // "sort-exports",
     "react-hooks",
     "@emotion",
     "prettier",
@@ -16,7 +15,6 @@
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
-        // https://github.com/lydell/eslint-plugin-simple-import-sort/issues/25
         "simple-import-sort/imports": [
           "error",
           {
@@ -30,7 +28,12 @@
         "prettier/prettier": "error",
         "func-style": "error",
         "@typescript-eslint/no-shadow": ["error"],
-        "@typescript-eslint/array-type": ["error", { "default": "generic" }],
+        "@typescript-eslint/array-type": [
+          "error",
+          {
+            "default": "generic"
+          }
+        ],
         "@typescript-eslint/no-dynamic-delete": "error",
         "@nrwl/nx/enforce-module-boundaries": [
           "error",
@@ -47,7 +50,11 @@
         ],
         "padding-line-between-statements": [
           "error",
-          { "blankLine": "always", "prev": "*", "next": "return" },
+          {
+            "blankLine": "always",
+            "prev": "*",
+            "next": "return"
+          },
           {
             "blankLine": "always",
             "prev": "*",

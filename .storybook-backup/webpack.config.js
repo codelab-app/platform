@@ -1,24 +1,25 @@
+const path = require('path')
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
-const rootWebpackConfig = require('../../../../.storybook/webpack.config')
-/**
- * Export a function. Accept the base config as the only param.
- *
- * @param {Parameters<typeof rootWebpackConfig>[0]} options
- */
-module.exports = async ({ config, mode }) => {
-  config = await rootWebpackConfig({ config, mode })
 
-  const tsPaths = new TsconfigPathsPlugin({
-    configFile: './tsconfig.base.json',
+const tsPaths = new TsconfigPathsPlugin({
+  configFile: path.resolve(__dirname, '../tsconfig.base.json'),
+})
+
+// Export a function. Accept the base config as the only param.
+module.exports = ({ config }) => {
+  // `mode` has a value of 'DEVELOPMENT' or 'PRODUCTION'
+  // You can change the configuration based on that.
+  // 'PRODUCTION' is used when building the static version of storybook.
+
+  // Make whatever fine-grained changes you need
+  config.module.rules.push({
+    test: /\.scss$/,
+    use: ['style-loader', 'css-loader', 'sass-loader'],
+    include: path.resolve(__dirname, '../'),
   })
-
-  config.resolve.plugins
-    ? config.resolve.plugins.push(tsPaths)
-    : (config.resolve.plugins = [tsPaths])
 
   // Found this here: https://github.com/nrwl/nx/issues/2859
   // And copied the part of the solution that made it work
-
   const svgRuleIndex = config.module.rules.findIndex((rule) => {
     const { test } = rule
 
@@ -47,14 +48,7 @@ module.exports = async ({ config, mode }) => {
             test: /\.[jt]sx?$/,
           },
           use: [
-            {
-              loader: require.resolve('@svgr/webpack'),
-              options: {
-                svgo: false,
-                titleProp: true,
-                ref: true,
-              },
-            },
+            '@svgr/webpack?-svgo,+titleProp,+ref![path]',
             {
               loader: require.resolve('url-loader'),
               options: {
@@ -80,6 +74,13 @@ module.exports = async ({ config, mode }) => {
       ],
     },
   )
+
+  config.resolve.plugins
+    ? config.resolve.plugins.push(tsPaths)
+    : (config.resolve.plugins = [tsPaths])
+
+  config.resolve.extensions.push('.tsx')
+  config.resolve.extensions.push('.ts')
 
   return config
 }

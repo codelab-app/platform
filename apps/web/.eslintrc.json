@@ -5,7 +5,10 @@
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "parserOptions": {
-        "project": ["apps/web/tsconfig(.*)?.json"]
+        "project": [
+          "apps/web/tsconfig(.*)?.json",
+          "apps/web/.storybook/tsconfig.json"
+        ]
       },
       "rules": {
         "react/jsx-no-useless-fragment": "off",
