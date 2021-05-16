@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { NextPageLayout } from '../src/layout/Layout.d'
 import { LayoutHome } from '../src/layout/Layout--home'
 import { HomeClients } from '../src/pages/home/Home-clients'

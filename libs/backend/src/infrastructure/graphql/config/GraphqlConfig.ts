@@ -1,12 +1,13 @@
 import { Injectable } from '@nestjs/common'
 import { GqlModuleOptions, GqlOptionsFactory } from '@nestjs/graphql'
 import { GraphQLError } from 'graphql'
+import path from 'path'
 
 @Injectable()
 export class GraphqlConfig implements GqlOptionsFactory {
   createGqlOptions(): GqlModuleOptions {
     return {
-      autoSchemaFile: true,
+      autoSchemaFile: path.join(process.cwd(), 'schema.api.graphql'),
       installSubscriptionHandlers: true,
       // transformSchema: async (schema: GraphQLSchema) => {
       //   // return stitchSchemas({

@@ -47,7 +47,8 @@
       "@codelab/modules/atom-type": ["libs/modules/atom-type/src/index.ts"],
       "@codelab/modules/prop-type": ["libs/modules/prop-type/src/index.ts"],
       "@codelab/frontend/dgraph": ["libs/frontend/dgraph/src/index.ts"],
-      "@codelab/dgraph": ["libs/dgraph/src/index.ts"]
+      "@codelab/dgraph": ["libs/dgraph/src/index.ts"],
+      "@codelab/modules/user-api": ["libs/modules/user-api/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"]

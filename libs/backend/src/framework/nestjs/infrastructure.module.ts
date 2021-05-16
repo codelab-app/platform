@@ -1,15 +1,7 @@
 import { Module } from '@nestjs/common'
-import { LoggerModule } from '../../infrastructure/logger/logger.module'
-import { AwsModule } from '../../infrastructure/persistence/aws/AwsModule'
-import { databaseConfig } from '../../infrastructure/persistence/config/DbConfig'
-import { ConfigModule } from './config.module'
+import { AwsModule, DGraphModule, LoggerModule } from '../../infrastructure'
 
 @Module({
-  imports: [
-    LoggerModule.forRoot(),
-    AwsModule,
-    // GraphqlModule,
-    // ConfigModule.register(databaseConfig),
-  ],
+  imports: [LoggerModule.forRoot(), AwsModule, DGraphModule],
 })
 export class InfrastructureModule {}

@@ -61,3 +61,4 @@ generates:
         jsonb: Record<string, any>
         DateTime: string
         Int64: number
+        _Any: any
