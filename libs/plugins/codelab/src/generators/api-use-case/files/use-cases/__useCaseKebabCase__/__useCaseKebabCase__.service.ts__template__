@@ -1,13 +1,12 @@
 import { Inject, Injectable } from '@nestjs/common'
-import { <%= modelNamePascalCase %> } from '../../../domain/<%= modelName %>'
+import { <%= modelNamePascalCase %> } from '../../<%= modelName %>.model'
+import { Mutation, Txn } from 'dgraph-js-http'
 import { <%= useCaseNamePascalCase %>Input } from './<%= useCaseNamePascalCase %>Input'
-import { PrismaDITokens, PrismaService, TransactionalUseCase } from '@codelab/backend'
+import { DgraphUseCase } from '@codelab/backend'
 
 @Injectable()
-export class <%= useCaseNamePascalCase %>Service implements TransactionalUseCase<<%= useCaseNamePascalCase %>Input, <%= modelNamePascalCase %>> {
-  constructor(@Inject(PrismaDITokens.PrismaService) private readonly prismaService: PrismaService) {}
-
-  async execute(input: <%= useCaseNamePascalCase %>Input) {
-    return (await Promise.resolve({})) as Promise<any>
+export class <%= useCaseNamePascalCase %>Service extends DgraphUseCase<<%= useCaseNamePascalCase %>Input, <%= modelNamePascalCase %>> {
+  async execute(request: <%= useCaseNamePascalCase %>Input, txn: Txn) {
+    return (await Promise.resolve({})) as Promise<<%= modelNamePascalCase %>>
   }
 }
