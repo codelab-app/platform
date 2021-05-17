@@ -25,7 +25,7 @@ import { Divider, Space, Tree } from 'antd'
 import { DataNode } from 'antd/lib/tree'
 import Link from 'next/link'
 import React, { useContext, useState } from 'react'
-import xw from 'xwind'
+import tw from 'twin.macro'
 
 export const LibraryExplorerTree = () => {
   const { libraries } = useContext(LibraryContext)
@@ -92,7 +92,7 @@ export const LibraryExplorerTree = () => {
 
   return (
     <>
-      <Space style={xw`w-full justify-between`} align="center">
+      <Space css={tw`w-full justify-between`} align="center">
         <h3>
           <Link href={{ pathname: PageType.AtomList }}>Atoms</Link>
         </h3>
@@ -133,8 +133,8 @@ export const LibraryExplorerTree = () => {
       />
 
       <Divider />
-      <Space style={xw`w-full justify-between`} align="center">
-        <h3 style={xw`m-0`}>
+      <Space style={tw`w-full justify-between`} align="center">
+        <h3 style={tw`m-0`}>
           <Link href={{}}>Components</Link>
         </h3>
         <Space align="center">

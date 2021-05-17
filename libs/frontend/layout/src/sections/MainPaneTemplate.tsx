@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 import { Divider, PageHeader } from 'antd'
 import React from 'react'
-import xw from 'xwind'
+import { GlobalStyles } from 'twin.macro'
 
 type MainPaneTemplateProps = {
   title: string
@@ -35,8 +35,9 @@ export const MainPaneTemplate = ({
 
   return (
     <StyledContainer>
+      <GlobalStyles />
       <PageHeader title={title} extra={[...extra]}>
-        <Divider style={xw`mt-0`} />
+        <Divider tw="mt-0" />
         {children}
       </PageHeader>
     </StyledContainer>

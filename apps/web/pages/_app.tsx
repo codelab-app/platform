@@ -9,6 +9,7 @@ import { css, Global } from '@emotion/react'
 import { AppProps } from 'next/app'
 import React from 'react'
 import { RecoilRoot } from 'recoil'
+import { GlobalStyles } from 'twin.macro'
 
 const AppContainer = ({ pageProps, Component, router }: AppProps) => {
   const { Layout, MainPane, MetaPane } = Component as any
@@ -18,6 +19,7 @@ const AppContainer = ({ pageProps, Component, router }: AppProps) => {
       <DgraphProvider client={dgraphClient}>
         <ApolloProvider client={useApollo(pageProps)}>
           <UserProvider>
+            <GlobalStyles />
             <Global
               styles={css({
                 '#__next': {
