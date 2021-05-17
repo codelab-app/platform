@@ -1,7 +1,8 @@
 const withNx = require('@nrwl/next/plugins/with-nx')
-const withCSS = require('@zeit/next-css')
-const withLess = require('@zeit/next-less')
-const withSass = require('@zeit/next-sass')
+// const withCSS = require('@zeit/next-css')
+// const withLess = require('@zeit/next-less')
+// const withSass = require('@zeit/next-sass')
+const withAntdLess = require('next-plugin-antd-less')
 const withPlugins = require('next-compose-plugins')
 const { getThemeVariables } = require('antd/dist/theme')
 
@@ -15,50 +16,27 @@ const isProd = process.env.NODE_ENV === 'production'
 
 // Order matters!
 const nextConfig = withPlugins([
-  [
-    withNx,
-    {
-      // https://github.com/facebook/relay/issues/2972
-      // reactStrictMode: false,
-      // useSuspense: false,
-      // experimental: {
-      //   reactMode: 'concurrent',
-      // },
-      // lessOptions: {
-      //   javascriptEnabled: true,
-      // },
-      lessLoaderOptions: {
-        javascriptEnabled: true,
-      },
-      experimental: { css: true },
+  [withNx, {}],
+  withAntdLess({
+    modifyVars: {
+      // '@primary-color': '#04f'
     },
-  ],
-  // [
-  //   withSass,
-  //   {
-  //     lessLoaderOptions: {
-  //       javascriptEnabled: true,
-  //     },
-  //   },
-  // ],
-  [
-    withLess,
-    {
-      // lessOptions: {
-      //   javascriptEnabled: true,
-      // },
+    lessVarsFilePath: './src/styles/App.less',
+    lessVarsFilePathAppendToEndOfContent: false,
+    // optional https://github.com/webpack-contrib/css-loader#object
+    cssLoaderOptions: {},
+
+    // Other Config Here...
+
+    webpack(config) {
+      return config
     },
-  ],
-  // [
-  //   withCSS,
-  //   {
-  //     // cssModules: true,
-  //     // cssLoaderOptions: {
-  //     //   importLoaders: 1,
-  //     //   localIdentName: '[local]___[hash:base64:5]',
-  //     // },
-  //   },
-  // ],
+
+    // future: {
+    //   // if you use webpack5
+    //   webpack5: true,
+    // },
+  }),
 ])
 
 module.exports = nextConfig
