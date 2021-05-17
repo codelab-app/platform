@@ -118,6 +118,16 @@
     "modules-user-api": {
       "tags": []
     },
+    "modules-atom-api": {
+      "tags": []
+    },
+    "plugins-codelab": {
+      "tags": []
+    },
+    "plugins-codelab-e2e": {
+      "tags": [],
+      "implicitDependencies": ["plugins-codelab"]
+    },
     "graphql": {
       "tags": []
     }

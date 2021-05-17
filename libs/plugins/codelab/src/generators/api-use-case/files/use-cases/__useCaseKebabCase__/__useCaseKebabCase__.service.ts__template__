@@ -1,0 +1,13 @@
+import { Inject, Injectable } from '@nestjs/common'
+import { <%= modelNamePascalCase %> } from '../../../domain/<%= modelName %>'
+import { <%= useCaseNamePascalCase %>Input } from './<%= useCaseNamePascalCase %>Input'
+import { PrismaDITokens, PrismaService, TransactionalUseCase } from '@codelab/backend'
+
+@Injectable()
+export class <%= useCaseNamePascalCase %>Service implements TransactionalUseCase<<%= useCaseNamePascalCase %>Input, <%= modelNamePascalCase %>> {
+  constructor(@Inject(PrismaDITokens.PrismaService) private readonly prismaService: PrismaService) {}
+
+  async execute(input: <%= useCaseNamePascalCase %>Input) {
+    return (await Promise.resolve({})) as Promise<any>
+  }
+}

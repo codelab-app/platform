@@ -6,5 +6,7 @@ module.exports = {
     '<rootDir>/libs/modules/lambda-api',
     '<rootDir>/libs/modules/app-api',
     '<rootDir>/libs/modules/user-api',
+    '<rootDir>/libs/plugins/codelab',
+    '<rootDir>/apps/plugins/codelab-e2e',
   ],
 }

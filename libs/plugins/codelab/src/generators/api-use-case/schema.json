@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "cli": "nx",
+  "id": "ApiUseCase",
+  "title": "",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "E.g. \"modules-app-api\", this is the name of the Nest.js module",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "What api library is this for?"
+    },
+    "useCaseName": {
+      "description": "E.g. \"createApp\", use lower camel case",
+      "x-prompt": "What name would you like to use for the use case?"
+    },
+    "modelName": {
+      "type": "string",
+      "description": "E.g. \"app\", use lower case",
+      "x-prompt": "What model is this for?"
+    },
+    "tags": {
+      "type": "string",
+      "description": "Add tags to the project (used for linting)",
+      "alias": "t"
+    },
+    "directory": {
+      "type": "string",
+      "description": "A directory where the project is placed",
+      "alias": "d"
+    }
+  },
+  "required": ["name"]
+}
