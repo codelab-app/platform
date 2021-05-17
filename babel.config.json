@@ -1,8 +1,10 @@
 {
   "presets": [],
   "plugins": [
-    "@babel/plugin-proposal-nullish-coalescing-operator",
-    "xwind/babel"
+    "@babel/plugin-proposal-nullish-coalescing-operator"
+    // "@emotion",
+    // "macros"
+    // "xwind/babel"
     // https://stackoverflow.com/questions/53558916/babel-7-referenceerror-regeneratorruntime-is-not-defined
     // [
     //   "@babel/plugin-transform-runtime",

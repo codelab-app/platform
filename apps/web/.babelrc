@@ -5,7 +5,16 @@
     // "@babel/preset-env",
     // Don't use `@nrwl/next/babel`, has preset merging issues
     // "next/babel"
-    "@nrwl/next/babel",
+    [
+      "@nrwl/next/babel"
+      // {
+      //   "preset-react": {
+      //     "runtime": "automatic",
+      //     "importSource": "@emotion/react"
+      //   }
+      // }
+    ],
+    // Need to to use `css` property for tailwind
     "@emotion/babel-preset-css-prop"
     // [
     //   "@nrwl/next/babel",
@@ -16,9 +25,8 @@
     // ]
   ],
   "plugins": [
-    // "macros",
     "@emotion",
-    "xwind/babel",
+    "macros",
     [
       "import",
       {

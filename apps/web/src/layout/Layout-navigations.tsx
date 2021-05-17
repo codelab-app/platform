@@ -13,7 +13,7 @@ import { Menu } from 'antd'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useContext } from 'react'
-import xw from 'xwind'
+import tw from 'twin.macro'
 
 export const LayoutNavigations = () => {
   const router = useRouter()
@@ -21,9 +21,9 @@ export const LayoutNavigations = () => {
   const { app } = useContext(AppContext)
 
   return (
-    <div data-testid="pane-main" css={xw`h-full`}>
+    <div data-testid="pane-main" css={tw`h-full`}>
       <Menu
-        css={xw`w-full h-full`}
+        css={tw`w-full h-full`}
         defaultSelectedKeys={[PageType.LibraryList]}
         selectedKeys={[router.pathname]}
         defaultOpenKeys={[]}

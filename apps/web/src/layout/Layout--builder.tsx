@@ -5,7 +5,7 @@ import styled from '@emotion/styled'
 import { Dropdown, Layout, Menu } from 'antd'
 import { useRouter } from 'next/router'
 import React, { PropsWithChildren } from 'react'
-import xw from 'xwind'
+import tw from 'twin.macro'
 import { WithMainPane, WithMetaPane } from './Layout.d'
 import { LayoutNavigations } from './Layout-navigations'
 
@@ -60,7 +60,7 @@ export const LayoutBuilder = ({
 
   return (
     <AppProvider appId={router.query.appId as string}>
-      <Layout css={xw`h-full`}>
+      <Layout css={tw`h-full`}>
         <Sider
           theme="light"
           style={{ height: '100%' }}
@@ -99,7 +99,7 @@ export const LayoutBuilder = ({
               {MainPane ? <MainPane /> : null}
             </Sider>
             <Content
-              css={xw`relative`}
+              css={tw`relative`}
               onClick={() => {
                 resetSelection()
               }}

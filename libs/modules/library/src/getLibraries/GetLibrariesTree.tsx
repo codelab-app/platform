@@ -22,7 +22,7 @@ import { Divider, Space, Tree } from 'antd'
 import { DataNode } from 'antd/lib/tree'
 import Link from 'next/link'
 import React, { useContext, useEffect, useState } from 'react'
-import xw from 'xwind'
+import tw from 'twin.macro'
 
 export const GetLibrariesTree = () => {
   const { libraries } = useContext(LibraryContext)
@@ -55,10 +55,10 @@ export const GetLibrariesTree = () => {
       icon: <BookOutlined />,
       selectable: false,
       checkable: false,
-      children: library.atoms.map((atom) => {
+      children: (library?.atoms ?? []).map((atom) => {
         return {
-          title: atom?.type?.label,
-          key: atom.id,
+          title: atom?.type,
+          key: atom?.id ?? '',
           icon: <DeploymentUnitOutlined />,
         }
       }),
@@ -73,10 +73,10 @@ export const GetLibrariesTree = () => {
         icon: <BookOutlined />,
         selectable: false,
         checkable: false,
-        children: library.components.map((component) => {
+        children: (library?.components ?? []).map((component) => {
           return {
-            title: component.label,
-            key: component.id,
+            title: component?.label,
+            key: component?.id ?? '',
             icon: <DeploymentUnitOutlined />,
           }
         }),
@@ -86,7 +86,7 @@ export const GetLibrariesTree = () => {
 
   return (
     <>
-      <Space style={xw`w-full justify-between`} align="center">
+      <Space style={tw`w-full justify-between`} align="center">
         <h3>
           <Link href={{ pathname: PageType.AtomList }}>Atoms</Link>
         </h3>
@@ -127,8 +127,8 @@ export const GetLibrariesTree = () => {
       />
 
       <Divider />
-      <Space style={xw`w-full justify-between`} align="center">
-        <h3 style={xw`m-0`}>
+      <Space style={tw`w-full justify-between`} align="center">
+        <h3 style={tw`m-0`}>
           <Link href={{}}>Components</Link>
         </h3>
         <Space align="center">
