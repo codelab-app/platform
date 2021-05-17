@@ -133,8 +133,8 @@ export const LibraryExplorerTree = () => {
       />
 
       <Divider />
-      <Space style={tw`w-full justify-between`} align="center">
-        <h3 style={tw`m-0`}>
+      <Space css={tw`w-full justify-between`} align="center">
+        <h3 css={tw`m-0`}>
           <Link href={{}}>Components</Link>
         </h3>
         <Space align="center">
