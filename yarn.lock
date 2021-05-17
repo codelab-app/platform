@@ -29752,6 +29752,22 @@ typedoc@0.20.0-beta.26:
     shiki "^0.2.7"
     typedoc-default-themes "0.12.0-beta.10"
 
+typescript-template-language-service-decorator@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/typescript-template-language-service-decorator/-/typescript-template-language-service-decorator-2.2.0.tgz#4ee6d580f307fb9239978e69626f2775b8a59b2a"
+  integrity sha512-xiolqt1i7e22rpqMaprPgSFVgU64u3b9n6EJlAaUYE61jumipKAdI1+O5khPlWslpTUj80YzjUKjJ2jxT0D74w==
+
+typescript-xwind-plugin@^0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/typescript-xwind-plugin/-/typescript-xwind-plugin-0.8.0.tgz#8bd0bf6ca87a5b2665938ebd843514bbb770e212"
+  integrity sha512-lszdqSYMGoskgb5Ohh2XfHcMRZIpGP/Rsk7qszHEJHbHouFwW/3GNipVJC7JkzojLH1wKpAXPhEN2WAnBDPoFg==
+  dependencies:
+    "@xwind/class-utilities" "^0.8.0"
+    "@xwind/core" "^0.8.0"
+    import-fresh "^3.3.0"
+    typescript-template-language-service-decorator "^2.2.0"
+    vscode-languageserver-types "^3.16.0-next.7"
+
 typescript@4.2.4:
   version "4.2.4"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.2.4.tgz#8610b59747de028fda898a8aef0e103f156d0961"
@@ -30605,6 +30621,11 @@ voca@1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/voca/-/voca-1.4.0.tgz#e15ac58b38290b72acc0c330366b6cc7984924d7"
   integrity sha512-8Xz4H3vhYRGbFupLtl6dHwMx0ojUcjt0HYkqZ9oBCfipd/5mD7Md58m2/dq7uPuZU/0T3Gb1m66KS9jn+I+14Q==
+
+vscode-languageserver-types@^3.16.0-next.7:
+  version "3.16.0"
+  resolved "https://registry.yarnpkg.com/vscode-languageserver-types/-/vscode-languageserver-types-3.16.0.tgz#ecf393fc121ec6974b2da3efb3155644c514e247"
+  integrity sha512-k8luDIWJWyenLc5ToFQQMaSrqCHiLwyKPHKPQZ5zz21vM+vIVUSvsRpcbiECH4WR88K2XZqc4ScRcZ7nk/jbeA==
 
 vscode-textmate@^5.2.0:
   version "5.4.0"

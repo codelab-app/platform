@@ -50,7 +50,15 @@
       "@codelab/dgraph": ["libs/dgraph/src/index.ts"],
       "@codelab/modules/app-api": ["libs/modules/app-api/src/index.ts"],
       "@codelab/modules/user-api": ["libs/modules/user-api/src/index.ts"]
-    }
+    },
+    "plugins": [
+      {
+        "name": "typescript-xwind-plugin",
+        "config": "./tailwind.config.js", //Absolute filepath to tailwind config
+        "ignoreErrors": null, //regex pattern string or null
+        "tags": ["tw", "xw"] //tags that trigger xwind plugin
+      }
+    ]
   },
   "exclude": ["node_modules", "tmp", "dist"]
 }
