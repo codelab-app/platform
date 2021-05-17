@@ -23,7 +23,7 @@
       "import",
       {
         "libraryName": "antd",
-        "style": true
+        "style": false
       }
     ],
     ["@babel/plugin-proposal-decorators", { "legacy": true }],
