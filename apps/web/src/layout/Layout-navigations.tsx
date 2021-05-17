@@ -27,6 +27,7 @@ export const LayoutNavigations = () => {
         defaultSelectedKeys={[PageType.LibraryList]}
         selectedKeys={[router.pathname]}
         defaultOpenKeys={[]}
+        style={{ width: '40px' }}
         mode="inline"
       >
         <Menu.Item

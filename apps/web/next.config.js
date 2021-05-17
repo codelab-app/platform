@@ -22,7 +22,7 @@ const nextConfig = withPlugins([
       // '@primary-color': '#04f'
     },
     lessVarsFilePath: './src/styles/App.less',
-    lessVarsFilePathAppendToEndOfContent: true,
+    // lessVarsFilePathAppendToEndOfContent: true,
     // optional https://github.com/webpack-contrib/css-loader#object
     cssLoaderOptions: {},
 

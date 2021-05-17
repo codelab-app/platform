@@ -200,5 +200,4 @@ export const elementTypeMap: Record<
   [AtomType.ReactRenderContainer]: '',
   [AtomType.ReactMapper]: '',
   [AtomType.ReactProvider]: '',
-  [AtomType.ReactTable]: '',
 }
