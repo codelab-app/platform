@@ -30,6 +30,12 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     })
   }
 
+  /**
+   * At this point, Auth0 has already checked the validity of the JWT token, we can do further validation to check for roles or permissions here.
+   *
+   * @param payload
+   * @returns
+   */
   validate(payload: JwtPayload): JwtPayload {
     console.log(payload)
     //TODO check in dgraph if the user exists
