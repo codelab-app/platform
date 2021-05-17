@@ -1,11 +1,11 @@
-import { awsConfig } from '../config/AwsS3Config'
-import { AwsDITokens } from './AwsDITokens'
-import { AwsLambdaService } from './AwsLambdaService'
-import { AwsS3Service } from './AwsS3Service'
+import { awsConfig } from '../config/aws.config'
+import { AwsTokens } from './aws.tokens'
+import { AwsLambdaService } from './aws-lambda.service'
+import { AwsS3Service } from './aws-s3.service'
 
 export const awsProviders = [
   {
-    provide: AwsDITokens.S3,
+    provide: AwsTokens.S3,
     useFactory: () =>
       new AwsS3Service({
         region: awsConfig.AWS_REGION,
@@ -16,7 +16,7 @@ export const awsProviders = [
       }),
   },
   {
-    provide: AwsDITokens.Lambda,
+    provide: AwsTokens.Lambda,
     useFactory: () =>
       new AwsLambdaService({
         region: awsConfig.AWS_REGION,

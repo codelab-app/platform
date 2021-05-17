@@ -1,13 +1,13 @@
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { AwsDITokens, AwsLambdaService, AwsS3Service } from '@codelab/backend'
+import { AwsLambdaService, AwsS3Service, AwsTokens } from '@codelab/backend'
 import { Inject, Injectable } from '@nestjs/common'
 import { ILambda } from './interfaces/IEventTrigger'
 
 @Injectable()
 export class LambdaService {
   constructor(
-    @Inject(AwsDITokens.S3) private readonly awsS3Service: AwsS3Service,
-    @Inject(AwsDITokens.Lambda)
+    @Inject(AwsTokens.S3) private readonly awsS3Service: AwsS3Service,
+    @Inject(AwsTokens.Lambda)
     private readonly awsLambdaService: AwsLambdaService,
   ) {}
 

@@ -15,4 +15,5 @@ public
 *.log
 !.*
 jest.preset.js
+jest.config.js
 **/deprecated

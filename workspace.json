@@ -187,6 +187,7 @@
         },
         "build-storybook": {
           "builder": "@nrwl/storybook:build",
+          "outputs": ["{options.outputPath}"],
           "options": {
             "uiFramework": "@storybook/react",
             "outputPath": "dist/storybook/web",
@@ -198,8 +199,7 @@
             "ci": {
               "quiet": true
             }
-          },
-          "outputs": ["{options.outputPath}"]
+          }
         }
       }
     },
@@ -422,9 +422,10 @@
         },
         "build-storybook": {
           "builder": "@nrwl/storybook:build",
+          "outputs": ["{options.outputPath}"],
           "options": {
             "uiFramework": "@storybook/react",
-            "outputPath": "dist/storybook/frontend",
+            "outputPath": "dist/storybook/frontend-shared",
             "config": {
               "configFolder": "libs/frontend/shared/.storybook"
             }
@@ -683,6 +684,27 @@
         }
       }
     },
+    "modules-app-api": {
+      "root": "libs/modules/app-api",
+      "sourceRoot": "libs/modules/app-api/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/modules/app-api/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/modules/app-api"],
+          "options": {
+            "jestConfig": "libs/modules/app-api/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "modules-user-api": {
       "root": "libs/modules/user-api",
       "sourceRoot": "libs/modules/user-api/src",
@@ -692,6 +714,14 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["libs/modules/user-api/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/modules/user-api"],
+          "options": {
+            "jestConfig": "libs/modules/user-api/jest.config.js",
+            "passWithNoTests": true
           }
         }
       }

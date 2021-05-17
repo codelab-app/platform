@@ -5,7 +5,10 @@
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "parserOptions": {
-        "project": ["libs/frontend/shared/tsconfig.*?.json"]
+        "project": [
+          "libs/frontend/shared/tsconfig.*?.json",
+          "libs/frontend/shared/.storybook/tsconfig.json"
+        ]
       },
       "rules": {}
     },
