@@ -15,10 +15,12 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         cache: true,
         rateLimit: true,
         jwksRequestsPerMinute: 5,
-        jwksUri: new URL( //Use the URL helper class, because it's better than relying on the issuer url to not have a trailing /
+        // Use the URL helper class, because it's better than relying on the issuer url to not have a trailing /
+        jwksUri: new URL(
           '/.well-known/jwks.json',
           config.get<Auth0Configuration>(AuthTokens.Auth0Config)?.issuer,
         ).href,
+        handleSigningKeyError: (err) => console.error(err), // do it better in real app!
       }),
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       audience: config.get<Auth0Configuration>(AuthTokens.Auth0Config)

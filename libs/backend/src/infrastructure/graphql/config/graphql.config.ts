@@ -20,7 +20,11 @@ export class GraphqlConfig implements GqlOptionsFactory {
       debug: true,
       tracing: true,
       playground: true,
-      context: ({ req }) => ({ req }),
+      context: ({ req }) => {
+        // console.log(req.headers)
+
+        return { req }
+      },
       formatError: (err: GraphQLError) => {
         // console.log('GraphqlConfig.formatError...')
         // console.log(err)
