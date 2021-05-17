@@ -1,5 +1,4 @@
 const { config } = require('dotenv')
-// eslint-disable-next-line import/order
 const { get } = require('env-var')
 
 config({ path: './.env' })
