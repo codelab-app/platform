@@ -9,14 +9,14 @@ import {
 } from '@codelab/frontend/shared'
 import React, { useContext, useEffect } from 'react'
 import { DeepPartial } from 'uniforms'
-import { AutoFields, SelectField } from 'uniforms-antd'
+import { SelectField } from 'uniforms-antd'
 import { CreateAtomInput, createAtomSchema } from './createAtomSchema'
 
 type CreateAtomFormProps = UniFormUseCaseProps<CreateAtomInput>
 
 export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
   const { reset, setLoading } = useCRUDModalForm(EntityType.Atom)
-  const { libraries } = useContext(LibraryContext)
+  /* const { libraries } = useContext(LibraryContext) */
 
   // Only Editors can modify Atoms (dgraph permissions?)
   const [mutate, { loading: creating }] = useCreateAtomMutation({
@@ -42,6 +42,40 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
     })
   }
 
+  const atomTypes = [
+    {
+      name: 'Button',
+      id: 'button',
+    },
+    {
+      name: 'Text',
+      id: 'text',
+    },
+    {
+      name: 'Input',
+      id: 'input',
+    },
+  ]
+
+  const availableProps = [
+    {
+      name: 'block',
+      id: 'block',
+    },
+    {
+      name: 'danger',
+      id: 'danger',
+    },
+    {
+      name: 'disabled',
+      id: 'disabled',
+    },
+    {
+      name: 'ghost',
+      id: 'ghost',
+    },
+  ]
+
   return (
     <FormUniforms<CreateAtomInput>
       onSubmit={onSubmit}
@@ -50,22 +84,52 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
         title: 'Error while creating atom',
       })}
       onSubmitSuccess={() => reset()}
+      //eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-ignore https://github.com/vazco/uniforms/issues/951
+      layout="horizontal"
       {...props}
     >
+      {/* <SelectField
+            name="library_id"
+            label="Library"
+            //eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            //@ts-ignore https://github.com/vazco/uniforms/issues/951
+            showSearch={true}
+            optionFilterProp="label"
+            options={libraries?.map((library) => ({
+            label: library.name,
+            value: library.id,
+            }))}
+            /> */}
+
       <SelectField
-        name="library_id"
-        label="Library"
+        name="type"
+        label="Type"
         //eslint-disable-next-line @typescript-eslint/ban-ts-comment
         //@ts-ignore https://github.com/vazco/uniforms/issues/951
         showSearch={true}
         optionFilterProp="label"
-        options={libraries?.map((library) => ({
-          label: library.name,
-          value: library.id,
+        labelCol={{ span: 3 }}
+        colon={false}
+        options={atomTypes?.map((atomType) => ({
+          label: atomType.name,
+          value: atomType.id,
         }))}
       />
-
-      <AutoFields omitFields={['library_id']} />
+      <SelectField
+        name="props"
+        //eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-ignore https://github.com/vazco/uniforms/issues/951
+        allowClear
+        mode="multiple"
+        optionFilterProp="label"
+        colon={false}
+        labelCol={{ span: 3 }}
+        options={availableProps?.map((prop) => ({
+          label: prop.name,
+          value: prop.id,
+        }))}
+      />
     </FormUniforms>
   )
 }

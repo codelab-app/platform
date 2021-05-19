@@ -7,6 +7,7 @@ export const CreateAtomModal = () => {
     <CrudModal
       modalProps={{
         className: 'create-atom-modal',
+        title: 'Add Atom',
       }}
       entityType={EntityType.Atom}
       actionType={ActionType.Create}
