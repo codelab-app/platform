@@ -5,23 +5,26 @@ import {
   CreateUserMutationVariables,
 } from '@codelab/dgraph'
 import { Injectable } from '@nestjs/common'
+import { v4 as uuid } from 'uuid'
 import { User } from '../../user.model'
-import { CreateUserInput } from './create-user.input'
+import { CreateUserRequest } from './create-user.request'
 
 @Injectable()
-export class CreateUserService implements UseCase<CreateUserInput, User> {
+export class CreateUserService implements UseCase<CreateUserRequest, User> {
   constructor(private apollo: ApolloClientService) {}
 
-  async execute(request: CreateUserInput): Promise<User> {
+  async execute({ input, upsert }: CreateUserRequest): Promise<User> {
     const result = await this.apollo
       .getClient()
       .mutate<CreateUserMutation, CreateUserMutationVariables>({
         mutation: CreateUserGql,
         variables: {
           input: {
-            email: request.email,
-            name: request.name,
+            id: input.id || uuid(), //Allow us to pass a custom id if we need it - e.g. when calling from Auth0. If not - assign a random UUID
+            email: input.email,
+            name: input.name,
           },
+          upsert,
         },
       })
 

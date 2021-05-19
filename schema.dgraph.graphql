@@ -136,6 +136,7 @@ type AddTagPayload {
 }
 
 input AddUserInput {
+  id: String!
   email: String!
   name: String
   apps: [AppRef!]
@@ -761,7 +762,7 @@ input PolygonRef {
 type Query {
   GetAllUsers: [GetAllUsersPayload]
   userWhere(email: String!): User
-  getUser(id: ID, email: String): User
+  getUser(id: String, email: String): User
   queryUser(
     filter: UserFilter
     order: UserOrder
@@ -1006,7 +1007,7 @@ input UpsertUserInput {
 }
 
 type User {
-  id: ID!
+  id: String!
   email: String!
   name: String
   apps(filter: AppFilter, order: AppOrder, first: Int, offset: Int): [App!]
@@ -1022,6 +1023,8 @@ type User {
 
 type UserAggregateResult {
   count: Int
+  idMin: String
+  idMax: String
   emailMin: String
   emailMax: String
   nameMin: String
@@ -1029,7 +1032,7 @@ type UserAggregateResult {
 }
 
 input UserFilter {
-  id: [ID!]
+  id: StringHashFilter
   email: StringHashFilter
   has: [UserHasFilter]
   and: [UserFilter]
@@ -1038,6 +1041,7 @@ input UserFilter {
 }
 
 enum UserHasFilter {
+  id
   email
   name
   apps
@@ -1051,6 +1055,7 @@ input UserOrder {
 }
 
 enum UserOrderable {
+  id
   email
   name
 }
@@ -1062,7 +1067,7 @@ input UserPatch {
 }
 
 input UserRef {
-  id: ID
+  id: String
   email: String
   name: String
   apps: [AppRef!]

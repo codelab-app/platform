@@ -10,6 +10,7 @@ export class User {
 
   @Field()
   declare name: string
+
   //Need to add those as well when we implement them
   // apps: [App!] @hasInverse(field: "owner")
   // libraries: [Library!] @hasInverse(field: "owner")

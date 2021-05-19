@@ -20,7 +20,9 @@ export class UpdateUserService implements UseCase<UpdateUserInput, User> {
         variables: {
           input: {
             filter: {
-              id: [request.id],
+              id: {
+                eq: request.id,
+              },
             },
             set: {
               name: request.name,

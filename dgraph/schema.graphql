@@ -1,5 +1,6 @@
 type User {
-    id: ID!
+    # id of type String, not type ID, since we want to set it from auth0, and it doesn't follow the ID format
+    id: String! @id
     # Indexing with Custom Tokenizer
     email: String! @id @search(by: [hash])
     # user_id: String! @id
