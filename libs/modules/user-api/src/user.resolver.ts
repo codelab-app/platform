@@ -17,9 +17,6 @@ export class UserResolver {
   @Mutation(() => User)
   @UseGuards(GqlAuthGuard)
   createUser(@Args('input') input: CreateUserInput) {
-    // return this.create.execute(input)
-    return {
-      id: '1',
-    }
+    return this.create.execute(input)
   }
 }

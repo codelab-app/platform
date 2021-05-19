@@ -1,37 +1,33 @@
-import { DGraphService, DgraphUseCase } from '@codelab/backend'
+import { ApolloClientService, UseCase } from '@codelab/backend'
+import {
+  CreateUserGql,
+  CreateUserMutation,
+  CreateUserMutationVariables,
+} from '@codelab/dgraph'
 import { Injectable } from '@nestjs/common'
-import { Mutation, Txn } from 'dgraph-js-http'
 import { User } from '../../user.model'
 import { CreateUserInput } from './create-user.input'
 
 @Injectable()
-export class CreateUserService extends DgraphUseCase<CreateUserInput, User> {
-  constructor(dgraph: DGraphService) {
-    super(dgraph)
-  }
+export class CreateUserService implements UseCase<CreateUserInput, User> {
+  constructor(private apollo: ApolloClientService) {}
 
-  async executeTransaction(request: CreateUserInput, txn: Txn): Promise<User> {
-    //https://discuss.dgraph.io/t/dgraph-dql-injection-prevention/13406
-    const mu: Mutation = {
-      setNquads: `
-       _:user <email> "${request.email}" .
-    `,
+  async execute(request: CreateUserInput): Promise<User> {
+    const result = await this.apollo
+      .getClient()
+      .mutate<CreateUserMutation, CreateUserMutationVariables>({
+        mutation: CreateUserGql,
+        variables: {
+          input: {
+            email: request.email,
+          },
+        },
+      })
+
+    if (!result?.data?.addUser?.user || !result.data.addUser.user.length) {
+      throw new Error('Error while creating user')
     }
 
-    const r = await txn.mutate(mu)
-    await txn.commit()
-
-    const uid = r.data.uids.user
-
-    const user = await this.dgraph.client.newTxn().query(`
-      {
-        query(func: uid(${uid})) {
-          id: uid
-          email
-        }
-      }
-    `)
-
-    return (user.data as any).query[0] as User
+    return result.data.addUser.user[0] as User
   }
 }

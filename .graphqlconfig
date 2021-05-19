@@ -1,6 +1,7 @@
 {
   "name": "Codelab GraphQL Schema",
   "schemaPath": "schema.dgraph.graphql",
+  "includes": ["*.d.graphql"],
   "extensions": {
     "endpoints": {
      "Dgraph GraphQL Endpoint": {

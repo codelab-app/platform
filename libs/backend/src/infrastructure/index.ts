@@ -1,3 +1,4 @@
+export * from './apollo-client'
 export * from './dgraph'
 export * from './graphql/config/graphql.config'
 export * from './graphql/graphql.module'
