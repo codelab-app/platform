@@ -6,4 +6,7 @@ export class CreateUserInput {
   @Field()
   @IsEmail()
   declare email: string
+
+  @Field({ nullable: true })
+  declare name: string
 }

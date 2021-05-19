@@ -3,6 +3,7 @@ type User {
     # Indexing with Custom Tokenizer
     email: String! @id @search(by: [hash])
     # user_id: String! @id
+    name: String
     apps: [App!] @hasInverse(field: "owner")
     libraries: [Library!] @hasInverse(field: "owner")
 }

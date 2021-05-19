@@ -137,6 +137,7 @@ type AddTagPayload {
 
 input AddUserInput {
   email: String!
+  name: String
   apps: [AppRef!]
   libraries: [LibraryRef!]
 }
@@ -1007,6 +1008,7 @@ input UpsertUserInput {
 type User {
   id: ID!
   email: String!
+  name: String
   apps(filter: AppFilter, order: AppOrder, first: Int, offset: Int): [App!]
   libraries(
     filter: LibraryFilter
@@ -1022,6 +1024,8 @@ type UserAggregateResult {
   count: Int
   emailMin: String
   emailMax: String
+  nameMin: String
+  nameMax: String
 }
 
 input UserFilter {
@@ -1035,6 +1039,7 @@ input UserFilter {
 
 enum UserHasFilter {
   email
+  name
   apps
   libraries
 }
@@ -1047,9 +1052,11 @@ input UserOrder {
 
 enum UserOrderable {
   email
+  name
 }
 
 input UserPatch {
+  name: String
   apps: [AppRef!]
   libraries: [LibraryRef!]
 }
@@ -1057,6 +1064,7 @@ input UserPatch {
 input UserRef {
   id: ID
   email: String
+  name: String
   apps: [AppRef!]
   libraries: [LibraryRef!]
 }

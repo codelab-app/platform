@@ -1,8 +1,7 @@
 mutation CreateUser($input: [AddUserInput!]!) {
   addUser(input: $input) {
     user {
-      id
-      email
+      ...Dgraph__User
     }
   }
 }

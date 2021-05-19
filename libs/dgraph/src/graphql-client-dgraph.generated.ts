@@ -154,6 +154,7 @@ export type AddTagPayloadTagArgs = {
 
 export type AddUserInput = {
   email: Scalars['String']
+  name?: Maybe<Scalars['String']>
   apps?: Maybe<Array<AppRef>>
   libraries?: Maybe<Array<LibraryRef>>
 }
@@ -1350,6 +1351,7 @@ export type UpsertUserInput = {
 export type User = {
   id: Scalars['ID']
   email: Scalars['String']
+  name?: Maybe<Scalars['String']>
   apps?: Maybe<Array<App>>
   libraries?: Maybe<Array<Library>>
   appsAggregate?: Maybe<AppAggregateResult>
@@ -1382,6 +1384,8 @@ export type UserAggregateResult = {
   count?: Maybe<Scalars['Int']>
   emailMin?: Maybe<Scalars['String']>
   emailMax?: Maybe<Scalars['String']>
+  nameMin?: Maybe<Scalars['String']>
+  nameMax?: Maybe<Scalars['String']>
 }
 
 export type UserFilter = {
@@ -1395,6 +1399,7 @@ export type UserFilter = {
 
 export enum UserHasFilter {
   Email = 'email',
+  Name = 'name',
   Apps = 'apps',
   Libraries = 'libraries',
 }
@@ -1407,9 +1412,11 @@ export type UserOrder = {
 
 export enum UserOrderable {
   Email = 'email',
+  Name = 'name',
 }
 
 export type UserPatch = {
+  name?: Maybe<Scalars['String']>
   apps?: Maybe<Array<AppRef>>
   libraries?: Maybe<Array<LibraryRef>>
 }
@@ -1417,6 +1424,7 @@ export type UserPatch = {
 export type UserRef = {
   id?: Maybe<Scalars['ID']>
   email?: Maybe<Scalars['String']>
+  name?: Maybe<Scalars['String']>
   apps?: Maybe<Array<AppRef>>
   libraries?: Maybe<Array<LibraryRef>>
 }
@@ -1600,12 +1608,22 @@ export type UpdatePageMutation = {
   page?: Maybe<{ page?: Maybe<Array<Maybe<App__PageFragment>>> }>
 }
 
+export type Dgraph__UserFragment = Pick<User, 'id' | 'email' | 'name'>
+
 export type CreateUserMutationVariables = Exact<{
   input: Array<AddUserInput> | AddUserInput
 }>
 
 export type CreateUserMutation = {
-  addUser?: Maybe<{ user?: Maybe<Array<Maybe<Pick<User, 'id' | 'email'>>>> }>
+  addUser?: Maybe<{ user?: Maybe<Array<Maybe<Dgraph__UserFragment>>> }>
+}
+
+export type UpdateUserMutationVariables = Exact<{
+  input: UpdateUserInput
+}>
+
+export type UpdateUserMutation = {
+  updateUser?: Maybe<{ user?: Maybe<Array<Maybe<Dgraph__UserFragment>>> }>
 }
 
 export type __UserFragment = Pick<User, 'id' | 'email'>
@@ -1696,6 +1714,13 @@ export const App__PageFragmentDoc = gql`
   fragment App__Page on Page {
     id
     title
+  }
+`
+export const Dgraph__UserFragmentDoc = gql`
+  fragment Dgraph__User on User {
+    id
+    email
+    name
   }
 `
 export const __UserFragmentDoc = gql`
@@ -2810,11 +2835,11 @@ export const CreateUserGql = gql`
   mutation CreateUser($input: [AddUserInput!]!) {
     addUser(input: $input) {
       user {
-        id
-        email
+        ...Dgraph__User
       }
     }
   }
+  ${Dgraph__UserFragmentDoc}
 `
 export type CreateUserMutationFn = Apollo.MutationFunction<
   CreateUserMutation,
@@ -2857,6 +2882,58 @@ export type CreateUserMutationResult = Apollo.MutationResult<CreateUserMutation>
 export type CreateUserMutationOptions = Apollo.BaseMutationOptions<
   CreateUserMutation,
   CreateUserMutationVariables
+>
+export const UpdateUserGql = gql`
+  mutation UpdateUser($input: UpdateUserInput!) {
+    updateUser(input: $input) {
+      user {
+        ...Dgraph__User
+      }
+    }
+  }
+  ${Dgraph__UserFragmentDoc}
+`
+export type UpdateUserMutationFn = Apollo.MutationFunction<
+  UpdateUserMutation,
+  UpdateUserMutationVariables
+>
+
+/**
+ * __useUpdateUserMutation__
+ *
+ * To run a mutation, you first call `useUpdateUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateUserMutation, { data, loading, error }] = useUpdateUserMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateUserMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateUserMutation,
+    UpdateUserMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<UpdateUserMutation, UpdateUserMutationVariables>(
+    UpdateUserGql,
+    options,
+  )
+}
+export type UpdateUserMutationHookResult = ReturnType<
+  typeof useUpdateUserMutation
+>
+export type UpdateUserMutationResult = Apollo.MutationResult<UpdateUserMutation>
+export type UpdateUserMutationOptions = Apollo.BaseMutationOptions<
+  UpdateUserMutation,
+  UpdateUserMutationVariables
 >
 export const DeleteUserWhereGql = gql`
   mutation DeleteUserWhere($where: UserFilter!) {
@@ -3144,6 +3221,13 @@ export const App__Page = gql`
     title
   }
 `
+export const Dgraph__User = gql`
+  fragment Dgraph__User on User {
+    id
+    email
+    name
+  }
+`
 export const __User = gql`
   fragment __User on User {
     id
@@ -3337,11 +3421,21 @@ export const CreateUser = gql`
   mutation CreateUser($input: [AddUserInput!]!) {
     addUser(input: $input) {
       user {
-        id
-        email
+        ...Dgraph__User
       }
     }
   }
+  ${Dgraph__User}
+`
+export const UpdateUser = gql`
+  mutation UpdateUser($input: UpdateUserInput!) {
+    updateUser(input: $input) {
+      user {
+        ...Dgraph__User
+      }
+    }
+  }
+  ${Dgraph__User}
 `
 export const DeleteUserWhere = gql`
   mutation DeleteUserWhere($where: UserFilter!) {

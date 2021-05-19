@@ -20,6 +20,7 @@ export class CreateUserService implements UseCase<CreateUserInput, User> {
         variables: {
           input: {
             email: request.email,
+            name: request.name,
           },
         },
       })
