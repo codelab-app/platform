@@ -1,9 +1,12 @@
 import { ApolloClientModule, AuthModule, DGraphModule } from '@codelab/backend'
 import { Module } from '@nestjs/common'
-import { CreateUserService } from './use-cases'
-import { DeleteUserService } from './use-cases/delete-user'
-import { GetMeService } from './use-cases/get-me'
-import { UpdateUserService } from './use-cases/update-user'
+import {
+  CreateUserService,
+  DeleteUsersService,
+  GetMeService,
+  GetUsersService,
+  UpdateUserService,
+} from './use-cases'
 import { UserResolver } from './user.resolver'
 
 @Module({
@@ -13,7 +16,8 @@ import { UserResolver } from './user.resolver'
     UpdateUserService,
     UserResolver,
     GetMeService,
-    DeleteUserService,
+    DeleteUsersService,
+    GetUsersService,
   ],
   exports: [],
 })

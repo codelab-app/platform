@@ -1642,34 +1642,20 @@ export type GetUserQueryVariables = Exact<{
 
 export type GetUserQuery = { user?: Maybe<Dgraph__UserFragment> }
 
+export type GetUsersQueryVariables = Exact<{
+  filter: UserFilter
+}>
+
+export type GetUsersQuery = {
+  users?: Maybe<Array<Maybe<Dgraph__UserFragment>>>
+}
+
 export type UpdateUserMutationVariables = Exact<{
   input: UpdateUserInput
 }>
 
 export type UpdateUserMutation = {
   updateUser?: Maybe<{ user?: Maybe<Array<Maybe<Dgraph__UserFragment>>> }>
-}
-
-export type DeleteUserWhereMutationVariables = Exact<{
-  where: UserFilter
-}>
-
-export type DeleteUserWhereMutation = {
-  deleteUser?: Maybe<{ user?: Maybe<Array<Maybe<Pick<User, 'id'>>>> }>
-}
-
-export type GetAllUsersQueryVariables = Exact<{ [key: string]: never }>
-
-export type GetAllUsersQuery = {
-  GetAllUsers?: Maybe<Array<Maybe<Pick<GetAllUsersPayload, 'id' | 'email'>>>>
-}
-
-export type GetUsersWhereQueryVariables = Exact<{
-  where: UserFilter
-}>
-
-export type GetUsersWhereQuery = {
-  queryUser?: Maybe<Array<Maybe<Pick<User, 'id' | 'email'>>>>
 }
 
 export const User__AppFragmentDoc = gql`
@@ -3000,6 +2986,63 @@ export type GetUserQueryResult = Apollo.QueryResult<
 export function refetchGetUserQuery(variables?: GetUserQueryVariables) {
   return { query: GetUserGql, variables: variables }
 }
+export const GetUsersGql = gql`
+  query GetUsers($filter: UserFilter!) {
+    users: queryUser(filter: $filter) {
+      ...Dgraph__User
+    }
+  }
+  ${Dgraph__UserFragmentDoc}
+`
+
+/**
+ * __useGetUsersQuery__
+ *
+ * To run a query within a React component, call `useGetUsersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUsersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetUsersQuery({
+ *   variables: {
+ *      filter: // value for 'filter'
+ *   },
+ * });
+ */
+export function useGetUsersQuery(
+  baseOptions: Apollo.QueryHookOptions<GetUsersQuery, GetUsersQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetUsersQuery, GetUsersQueryVariables>(
+    GetUsersGql,
+    options,
+  )
+}
+export function useGetUsersLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetUsersQuery,
+    GetUsersQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetUsersQuery, GetUsersQueryVariables>(
+    GetUsersGql,
+    options,
+  )
+}
+export type GetUsersQueryHookResult = ReturnType<typeof useGetUsersQuery>
+export type GetUsersLazyQueryHookResult = ReturnType<
+  typeof useGetUsersLazyQuery
+>
+export type GetUsersQueryResult = Apollo.QueryResult<
+  GetUsersQuery,
+  GetUsersQueryVariables
+>
+export function refetchGetUsersQuery(variables?: GetUsersQueryVariables) {
+  return { query: GetUsersGql, variables: variables }
+}
 export const UpdateUserGql = gql`
   mutation UpdateUser($input: UpdateUserInput!) {
     updateUser(input: $input) {
@@ -3052,181 +3095,6 @@ export type UpdateUserMutationOptions = Apollo.BaseMutationOptions<
   UpdateUserMutation,
   UpdateUserMutationVariables
 >
-export const DeleteUserWhereGql = gql`
-  mutation DeleteUserWhere($where: UserFilter!) {
-    deleteUser(filter: $where) {
-      user {
-        id
-      }
-    }
-  }
-`
-export type DeleteUserWhereMutationFn = Apollo.MutationFunction<
-  DeleteUserWhereMutation,
-  DeleteUserWhereMutationVariables
->
-
-/**
- * __useDeleteUserWhereMutation__
- *
- * To run a mutation, you first call `useDeleteUserWhereMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useDeleteUserWhereMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [deleteUserWhereMutation, { data, loading, error }] = useDeleteUserWhereMutation({
- *   variables: {
- *      where: // value for 'where'
- *   },
- * });
- */
-export function useDeleteUserWhereMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    DeleteUserWhereMutation,
-    DeleteUserWhereMutationVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useMutation<
-    DeleteUserWhereMutation,
-    DeleteUserWhereMutationVariables
-  >(DeleteUserWhereGql, options)
-}
-export type DeleteUserWhereMutationHookResult = ReturnType<
-  typeof useDeleteUserWhereMutation
->
-export type DeleteUserWhereMutationResult =
-  Apollo.MutationResult<DeleteUserWhereMutation>
-export type DeleteUserWhereMutationOptions = Apollo.BaseMutationOptions<
-  DeleteUserWhereMutation,
-  DeleteUserWhereMutationVariables
->
-export const GetAllUsersGql = gql`
-  query GetAllUsers {
-    GetAllUsers {
-      id
-      email
-    }
-  }
-`
-
-/**
- * __useGetAllUsersQuery__
- *
- * To run a query within a React component, call `useGetAllUsersQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetAllUsersQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetAllUsersQuery({
- *   variables: {
- *   },
- * });
- */
-export function useGetAllUsersQuery(
-  baseOptions?: Apollo.QueryHookOptions<
-    GetAllUsersQuery,
-    GetAllUsersQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<GetAllUsersQuery, GetAllUsersQueryVariables>(
-    GetAllUsersGql,
-    options,
-  )
-}
-export function useGetAllUsersLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetAllUsersQuery,
-    GetAllUsersQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<GetAllUsersQuery, GetAllUsersQueryVariables>(
-    GetAllUsersGql,
-    options,
-  )
-}
-export type GetAllUsersQueryHookResult = ReturnType<typeof useGetAllUsersQuery>
-export type GetAllUsersLazyQueryHookResult = ReturnType<
-  typeof useGetAllUsersLazyQuery
->
-export type GetAllUsersQueryResult = Apollo.QueryResult<
-  GetAllUsersQuery,
-  GetAllUsersQueryVariables
->
-export function refetchGetAllUsersQuery(variables?: GetAllUsersQueryVariables) {
-  return { query: GetAllUsersGql, variables: variables }
-}
-export const GetUsersWhereGql = gql`
-  query GetUsersWhere($where: UserFilter!) {
-    queryUser(filter: $where) {
-      id
-      email
-    }
-  }
-`
-
-/**
- * __useGetUsersWhereQuery__
- *
- * To run a query within a React component, call `useGetUsersWhereQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetUsersWhereQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetUsersWhereQuery({
- *   variables: {
- *      where: // value for 'where'
- *   },
- * });
- */
-export function useGetUsersWhereQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    GetUsersWhereQuery,
-    GetUsersWhereQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<GetUsersWhereQuery, GetUsersWhereQueryVariables>(
-    GetUsersWhereGql,
-    options,
-  )
-}
-export function useGetUsersWhereLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetUsersWhereQuery,
-    GetUsersWhereQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<GetUsersWhereQuery, GetUsersWhereQueryVariables>(
-    GetUsersWhereGql,
-    options,
-  )
-}
-export type GetUsersWhereQueryHookResult = ReturnType<
-  typeof useGetUsersWhereQuery
->
-export type GetUsersWhereLazyQueryHookResult = ReturnType<
-  typeof useGetUsersWhereLazyQuery
->
-export type GetUsersWhereQueryResult = Apollo.QueryResult<
-  GetUsersWhereQuery,
-  GetUsersWhereQueryVariables
->
-export function refetchGetUsersWhereQuery(
-  variables?: GetUsersWhereQueryVariables,
-) {
-  return { query: GetUsersWhereGql, variables: variables }
-}
 export const User__App = gql`
   fragment User__App on App {
     id
@@ -3504,6 +3372,14 @@ export const GetUser = gql`
   }
   ${Dgraph__User}
 `
+export const GetUsers = gql`
+  query GetUsers($filter: UserFilter!) {
+    users: queryUser(filter: $filter) {
+      ...Dgraph__User
+    }
+  }
+  ${Dgraph__User}
+`
 export const UpdateUser = gql`
   mutation UpdateUser($input: UpdateUserInput!) {
     updateUser(input: $input) {
@@ -3513,29 +3389,4 @@ export const UpdateUser = gql`
     }
   }
   ${Dgraph__User}
-`
-export const DeleteUserWhere = gql`
-  mutation DeleteUserWhere($where: UserFilter!) {
-    deleteUser(filter: $where) {
-      user {
-        id
-      }
-    }
-  }
-`
-export const GetAllUsers = gql`
-  query GetAllUsers {
-    GetAllUsers {
-      id
-      email
-    }
-  }
-`
-export const GetUsersWhere = gql`
-  query GetUsersWhere($where: UserFilter!) {
-    queryUser(filter: $where) {
-      id
-      email
-    }
-  }
 `

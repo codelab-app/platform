@@ -10,12 +10,17 @@ type User {
 
 type Query {
   getMe: User!
+  getUsers(input: GetUsersInput): [User!]!
+}
+
+input GetUsersInput {
+  userIds: [String!]
 }
 
 type Mutation {
   createUser(upsert: Boolean = false, input: CreateUserInput!): User!
   updateUser(input: UpdateUserInput!): User!
-  deleteUser(input: DeleteUserInput!): User!
+  deleteUsers(input: DeleteUsersInput!): User!
 }
 
 input CreateUserInput {
@@ -29,6 +34,6 @@ input UpdateUserInput {
   id: String!
 }
 
-input DeleteUserInput {
-  id: String!
+input DeleteUsersInput {
+  ids: [String!]!
 }

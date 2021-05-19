@@ -1,1 +1,1 @@
-export * from './lib/graphql'
+export * from './graphql-client-api.generated'

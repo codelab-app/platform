@@ -5,23 +5,23 @@ import {
   DeleteUserMutationVariables,
 } from '@codelab/dgraph'
 import { Injectable } from '@nestjs/common'
-import { User } from '../../user.model'
-import { DeleteUserInput } from './delete-user.input'
+import { DeleteUsersInput } from './delete-users.input'
+import { DeleteUsersResponse } from './delete-users-response'
 
 @Injectable()
-export class DeleteUserService implements UseCase<DeleteUserInput, User> {
+export class DeleteUsersService
+  implements UseCase<DeleteUsersInput, DeleteUsersResponse>
+{
   constructor(private apollo: ApolloClientService) {}
 
-  async execute(request: DeleteUserInput): Promise<User> {
+  async execute(request: DeleteUsersInput): Promise<DeleteUsersResponse> {
     const result = await this.apollo
       .getClient()
       .mutate<DeleteUserMutation, DeleteUserMutationVariables>({
         mutation: DeleteUserGql,
         variables: {
           filter: {
-            id: {
-              eq: request.id,
-            },
+            or: request.ids.map((id) => ({ id: { eq: id } })),
           },
         },
       })
@@ -30,6 +30,8 @@ export class DeleteUserService implements UseCase<DeleteUserInput, User> {
       throw new Error('Error while deleting user')
     }
 
-    return result.data.deleteUser.user[0] as User
+    return {
+      numberAffected: result.data.deleteUser.numUids,
+    }
   }
 }
