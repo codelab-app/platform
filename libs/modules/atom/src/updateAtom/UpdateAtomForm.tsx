@@ -22,43 +22,81 @@ export const UpdateAtomForm = (props: UniFormUseCaseProps<UpdateAtomInput>) => {
   const { reset, setLoading, state } = useCRUDModalForm(EntityType.Atom)
   const { updateId: updateAtomId } = state
 
-  const [mutate, { loading: updating }] = useUpdateAtomMutation({
-    refetchQueries: [refetchGetAtomsQuery()],
-  })
+  /* const [mutate, { loading: updating }] = useUpdateAtomMutation({
+   *   refetchQueries: [refetchGetAtomsQuery()],
+   * }) */
 
-  useEffect(() => {
-    setLoading(updating)
-  }, [updating])
+  /* useEffect(() => {
+     *   setLoading(updating)
+     * }, [updating])
 
-  const { data, loading } = useGetAtomsQuery({
-    variables: {
-      filter: {
-        id: updateAtomId as any,
-      },
-    },
-  })
+     * const { data, loading } = useGetAtomsQuery({
+     *   variables: {
+     *     filter: {
+     *       id: updateAtomId as any,
+     *     },
+     *   },
+     * })
 
-  const atom = data?.queryAtom ? data.queryAtom[0] : undefined
-
-  if (loading) {
-    return <Spin />
+     * const atom = data?.queryAtom ? data.queryAtom[0] : undefined */
+  const atom = {
+    type: 'Button',
+    props: ['disabled', 'block'],
   }
+
+  /* if (loading) {
+   *   return <Spin />
+   * } */
 
   const onSubmit = (submitData: DeepPartial<UpdateAtomInput>) => {
-    return mutate({
-      variables: {
-        input: {
-          filter: {
-            id: updateAtomId as any,
-          },
-          set: {
-            label: submitData.label,
-            type: submitData.type,
-          },
-        },
-      },
-    })
+    /* return mutate({
+     *   variables: {
+     *     input: {
+     *       filter: {
+     *         id: updateAtomId as any,
+     *       },
+     *       set: {
+     *         label: submitData.label,
+     *         type: submitData.type,
+     *       },
+     *     },
+     *   },
+     * }) */
   }
+
+  const atomTypes = [
+    {
+      name: 'Button',
+      id: 'button',
+    },
+    {
+      name: 'Text',
+      id: 'text',
+    },
+    {
+      name: 'Input',
+      id: 'input',
+    },
+  ]
+
+  const availableProps = [
+    {
+      name: 'block',
+      id: 'block',
+    },
+    {
+      name: 'danger',
+      id: 'danger',
+    },
+    {
+      name: 'disabled',
+      id: 'disabled',
+    },
+    {
+      name: 'ghost',
+      id: 'ghost',
+    },
+  ]
 
   const atomTypesOptions = _.chain(Object.values(AtomType))
     .orderBy('label')
@@ -71,15 +109,41 @@ export const UpdateAtomForm = (props: UniFormUseCaseProps<UpdateAtomInput>) => {
       id="update-atom-form"
       onSubmit={onSubmit}
       schema={updateAtomSchema}
-      model={{ label: atom?.label, type: atom?.type }}
+      model={{ type: atom?.type, props: atom?.props }}
       onSubmitError={createNotificationHandler({
         title: 'Error while updating Atom',
       })}
       onSubmitSuccess={() => reset()}
       {...props}
     >
-      <SelectField name="type" options={atomTypesOptions} />
-      <AutoFields omitFields={['type']} />
+      <SelectField
+        name="type"
+        label="Type"
+        //eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-ignore https://github.com/vazco/uniforms/issues/951
+        showSearch={true}
+        optionFilterProp="label"
+        labelCol={{ span: 3 }}
+        colon={false}
+        options={atomTypes?.map((atomType) => ({
+          label: atomType.name,
+          value: atomType.id,
+        }))}
+      />
+      <SelectField
+        name="props"
+        //eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-ignore https://github.com/vazco/uniforms/issues/951
+        allowClear
+        mode="multiple"
+        optionFilterProp="label"
+        colon={false}
+        labelCol={{ span: 3 }}
+        options={availableProps?.map((prop) => ({
+          label: prop.name,
+          value: prop.id,
+        }))}
+      />
     </FormUniforms>
   )
 }

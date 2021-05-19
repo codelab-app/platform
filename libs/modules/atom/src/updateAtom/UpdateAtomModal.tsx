@@ -6,6 +6,7 @@ export const UpdateAtomModal = () => (
   <CrudModal
     modalProps={{
       className: 'update-atom-modal',
+      title: 'Update Atom',
     }}
     entityType={EntityType.Atom}
     actionType={ActionType.Update}
