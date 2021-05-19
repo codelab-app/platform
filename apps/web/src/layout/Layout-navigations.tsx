@@ -3,6 +3,7 @@ import {
   AppstoreOutlined,
   BookOutlined,
   CopyOutlined,
+  DeploymentUnitOutlined,
   FunctionOutlined,
   OneToOneOutlined,
   SettingOutlined,
@@ -131,6 +132,22 @@ export const LayoutNavigations = () => {
             }}
           >
             AtomType
+          </Link>
+        </Menu.Item>
+        <Menu.Divider />
+        <Menu.Item
+          key={PageType.AtomList}
+          icon={<DeploymentUnitOutlined title="Atoms" />}
+        >
+          <Link
+            href={{
+              pathname: PageType.AtomList,
+              query: {
+                appId: app.id,
+              },
+            }}
+          >
+            Atoms
           </Link>
         </Menu.Item>
         <Menu.Divider />
