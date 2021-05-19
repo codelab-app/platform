@@ -1,0 +1,5 @@
+query GetUser($id: String!) {
+    user: getUser(id: $id) {
+        ...Dgraph__User
+    }
+}

@@ -1,0 +1,5 @@
+query GetUsers($input: GetUsersInput) {
+  users: getUsers(input: $input){
+    ...__User
+  }
+}

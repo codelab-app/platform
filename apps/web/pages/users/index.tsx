@@ -1,15 +1,13 @@
-import { useGetAllUsersQuery } from '@codelab/dgraph'
+import { useGetUsersQuery } from '@codelab/graphql'
 import { DeleteUserButton, DeleteUserModal } from '@codelab/modules/user'
 import { Space, Table } from 'antd'
 import { ColumnsType } from 'antd/lib/table'
 import React from 'react'
 
 const Users = () => {
-  const { data } = useGetAllUsersQuery()
+  const { data } = useGetUsersQuery()
 
-  console.log(data)
-
-  const dataSource = data?.GetAllUsers?.map((user) => ({
+  const dataSource = data?.users?.map((user) => ({
     id: user?.id,
     key: user?.id,
     email: user?.email,
@@ -30,7 +28,7 @@ const Users = () => {
       title: 'Action',
       dataIndex: 'action',
       key: 'action',
-      render: (text, record, index) => {
+      render: (text, record) => {
         return (
           <Space>
             <DeleteUserButton ids={[record.id]} />

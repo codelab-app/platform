@@ -1,1 +1,5 @@
 export * from './create-user'
+export * from './delete-users'
+export * from './get-me'
+export * from './get-users'
+export * from './update-user'

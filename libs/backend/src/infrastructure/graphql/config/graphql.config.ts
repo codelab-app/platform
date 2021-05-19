@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { GqlModuleOptions, GqlOptionsFactory } from '@nestjs/graphql'
-import { GraphQLError } from 'graphql'
+import { GraphQLError, GraphQLFormattedError } from 'graphql'
 import path from 'path'
 
 @Injectable()
@@ -26,18 +26,26 @@ export class GraphqlConfig implements GqlOptionsFactory {
         return { req }
       },
       formatError: (err: GraphQLError) => {
-        // console.log('GraphqlConfig.formatError...')
-        // console.log(err)
+        //See if there is a nested graphQLErrors array and parse it to a (kind of) readabale error message
+        const graphqlAggregateError =
+          err?.extensions?.exception?.graphQLErrors?.reduce(
+            (p: string, gqlErr: any) =>
+              `${p ? p + '; ' : ''}${gqlErr.path.reduce(
+                (prev: string, pathStr: string) => prev + '.' + pathStr,
+              )} ${gqlErr.message}`,
+            '',
+          )
 
-        // Don't give the specific errors to the client.
-        // const a = err;
-        // if (err.message.startsWith("Nothing was")) {
-        //
-        // }
-        // return new Error('Internal server error');
-        // Otherwise return the original error.  The error can also
-        // be manipulated in other ways, so long as it's returned.
-        return err
+        //If not - see if there's a general message somewhere inside the error and use that
+        const graphQLFormattedError: GraphQLFormattedError = {
+          message:
+            graphqlAggregateError ||
+            err?.extensions?.exception?.response?.message ||
+            err?.extensions?.exception?.message ||
+            err?.message,
+        }
+
+        return graphQLFormattedError
       },
     }
   }

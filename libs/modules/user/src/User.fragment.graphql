@@ -1,7 +1,0 @@
-fragment __User on user {
-  id
-  name
-  apps {
-    ...User__App
-  }
-}

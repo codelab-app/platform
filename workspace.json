@@ -725,6 +725,19 @@
           }
         }
       }
+    },
+    "graphql": {
+      "root": "libs/graphql",
+      "sourceRoot": "libs/graphql/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/graphql/**/*.ts"]
+          }
+        }
+      }
     }
   }
 }

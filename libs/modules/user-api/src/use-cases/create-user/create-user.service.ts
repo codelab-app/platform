@@ -1,37 +1,37 @@
-import { DGraphService, DgraphUseCase } from '@codelab/backend'
+import { ApolloClientService, UseCase } from '@codelab/backend'
+import {
+  CreateUserGql,
+  CreateUserMutation,
+  CreateUserMutationVariables,
+} from '@codelab/dgraph'
 import { Injectable } from '@nestjs/common'
-import { Mutation, Txn } from 'dgraph-js-http'
+import { v4 as uuid } from 'uuid'
 import { User } from '../../user.model'
-import { CreateUserInput } from './create-user.input'
+import { CreateUserRequest } from './create-user.request'
 
 @Injectable()
-export class CreateUserService extends DgraphUseCase<CreateUserInput, User> {
-  constructor(dgraph: DGraphService) {
-    super(dgraph)
-  }
+export class CreateUserService implements UseCase<CreateUserRequest, User> {
+  constructor(private apollo: ApolloClientService) {}
 
-  async executeTransaction(request: CreateUserInput, txn: Txn): Promise<User> {
-    //https://discuss.dgraph.io/t/dgraph-dql-injection-prevention/13406
-    const mu: Mutation = {
-      setNquads: `
-       _:user <email> "${request.email}" .
-    `,
+  async execute({ input, upsert }: CreateUserRequest): Promise<User> {
+    const result = await this.apollo
+      .getClient()
+      .mutate<CreateUserMutation, CreateUserMutationVariables>({
+        mutation: CreateUserGql,
+        variables: {
+          input: {
+            id: input.id || uuid(), //Allow us to pass a custom id if we need it - e.g. when calling from Auth0. If not - assign a random UUID
+            email: input.email,
+            name: input.name,
+          },
+          upsert,
+        },
+      })
+
+    if (!result?.data?.addUser?.user || !result.data.addUser.user.length) {
+      throw new Error('Error while creating user')
     }
 
-    const r = await txn.mutate(mu)
-    await txn.commit()
-
-    const uid = r.data.uids.user
-
-    const user = await this.dgraph.client.newTxn().query(`
-      {
-        query(func: uid(${uid})) {
-          id: uid
-          email
-        }
-      }
-    `)
-
-    return (user.data as any).query[0] as User
+    return result.data.addUser.user[0] as User
   }
 }

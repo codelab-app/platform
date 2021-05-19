@@ -1,8 +1,0 @@
-mutation UpsertDgraphUser($input: AddUserInput!) {
-  addUser(input: [$input], upsert: true) {
-    user {
-      id
-      email
-    }
-  }
-}

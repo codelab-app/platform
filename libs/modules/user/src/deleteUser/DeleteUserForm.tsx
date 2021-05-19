@@ -1,9 +1,4 @@
 import {
-  refetchGetAllUsersQuery,
-  useDeleteUserWhereMutation,
-  useGetUsersWhereQuery,
-} from '@codelab/dgraph'
-import {
   createNotificationHandler,
   emptyJsonSchema,
   EmptyJsonSchemaType,
@@ -12,33 +7,33 @@ import {
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
+import {
+  refetchGetUsersQuery,
+  useDeleteUsersMutation,
+  useGetUsersQuery,
+} from '@codelab/graphql'
 import { Spin } from 'antd'
 import React from 'react'
 
 export const DeleteUserForm = (
   props: UniFormUseCaseProps<EmptyJsonSchemaType>,
 ) => {
-  const { reset, setLoading, state } = useCRUDModalForm(EntityType.Atom)
+  const { reset, state } = useCRUDModalForm(EntityType.Atom)
 
-  const [mutate] = useDeleteUserWhereMutation({
-    awaitRefetchQueries: true,
-    refetchQueries: [refetchGetAllUsersQuery()],
+  const [mutate] = useDeleteUsersMutation({
+    refetchQueries: [refetchGetUsersQuery()],
   })
 
   const onSubmit = () => {
     return mutate({
-      variables: {
-        where: {
-          id: state.deleteIds,
-        },
-      },
+      variables: { input: { ids: state.deleteIds } },
     })
   }
 
-  const { data, loading } = useGetUsersWhereQuery({
+  const { data, loading } = useGetUsersQuery({
     variables: {
-      where: {
-        id: state.deleteIds,
+      input: {
+        userIds: state.deleteIds,
       },
     },
   })
@@ -59,7 +54,7 @@ export const DeleteUserForm = (
     >
       <h4>
         Are you sure you want to delete Users "
-        {data?.queryUser?.map((user) => user?.email).join(',')}"?
+        {data?.users?.map((user) => user?.email).join(',')}"?
       </h4>
     </FormUniforms>
   )

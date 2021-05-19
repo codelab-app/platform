@@ -5,16 +5,35 @@
 type User {
   id: ID!
   email: String!
+  name: String!
 }
 
 type Query {
-  getUsers: [User!]!
+  getMe: User!
+  getUsers(input: GetUsersInput): [User!]!
+}
+
+input GetUsersInput {
+  userIds: [String!]
 }
 
 type Mutation {
-  createUser(input: CreateUserInput!): User!
+  createUser(upsert: Boolean = false, input: CreateUserInput!): User!
+  updateUser(input: UpdateUserInput!): User!
+  deleteUsers(input: DeleteUsersInput!): User!
 }
 
 input CreateUserInput {
+  id: String
   email: String!
+  name: String
+}
+
+input UpdateUserInput {
+  name: String
+  id: String!
+}
+
+input DeleteUsersInput {
+  ids: [String!]!
 }

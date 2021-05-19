@@ -49,7 +49,8 @@
       "@codelab/frontend/dgraph": ["libs/frontend/dgraph/src/index.ts"],
       "@codelab/dgraph": ["libs/dgraph/src/index.ts"],
       "@codelab/modules/app-api": ["libs/modules/app-api/src/index.ts"],
-      "@codelab/modules/user-api": ["libs/modules/user-api/src/index.ts"]
+      "@codelab/modules/user-api": ["libs/modules/user-api/src/index.ts"],
+      "@codelab/graphql": ["libs/graphql/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"]
