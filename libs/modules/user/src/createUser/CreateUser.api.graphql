@@ -1,0 +1,5 @@
+mutation CreateUser($input: CreateUserInput!, $upsert: Boolean) {
+  user: createUser(input: $input, upsert: $upsert){
+    ...__User
+  }
+}

@@ -10,32 +10,6 @@ generates:
     plugins:
       - schema-ast
 
-  # libs/hasura/src/graphql-client-hasura.generated.ts:
-  #   schema:
-  #     - ${CODELAB_DGRAPH_GRAPHQL_ENDPOINT}:
-  #   documents:
-  #     - libs/modules/**/*[!.d].graphql
-  #     - apps/web/**/*[!.d].graphql
-  #     - apps/web-e2e/**/*[!.d].graphql
-  #   plugins:
-  #     - typescript
-  #     - typescript-operations
-  #     - typescript-react-apollo
-  #     - typescript-document-nodes
-  #   config:
-  #     documentVariableSuffix: 'Gql'
-  #     gqlImport: '@apollo/client#gql'
-  #     skipTypename: true
-  #     strictScalars: true
-  #     defaultScalarType: unknown
-  #     withRefetchFn: true
-  #     scalars:
-  #       Int64: number
-  #       DateTime: string
-  #       uuid: string
-  #       json: Record<string, any>
-  #       jsonb: Record<string, any>
-
   libs/dgraph/src/graphql-client-dgraph.generated.ts:
     schema:
       - ${CODELAB_DGRAPH_GRAPHQL_ENDPOINT}:
@@ -62,3 +36,23 @@ generates:
         DateTime: string
         Int64: number
         _Any: any
+
+  libs/graphql/src/graphql-client-api.generated.ts:
+    schema:
+      - ${CODELAB_API_ENDPOINT}/graphql:
+    documents:
+      - libs/modules/**/*.api.graphql
+      - apps/web/**/*.api.graphql
+      - apps/web-e2e/**/*.api.graphql
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo
+      - typescript-document-nodes
+    config:
+      documentVariableSuffix: 'Gql'
+      gqlImport: '@apollo/client#gql'
+      skipTypename: true
+      strictScalars: true
+      defaultScalarType: unknown
+      withRefetchFn: true

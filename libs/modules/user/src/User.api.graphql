@@ -1,4 +1,5 @@
 fragment __User on User {
   id
   email
+  name
 }

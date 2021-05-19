@@ -4,13 +4,7 @@ export interface JsonObject {
   [k: string]: JsonValue | Array<JsonValue> | JsonObject
 }
 
-export interface DgraphClaims extends JsonObject {
-  USER: string
-  ROLES: Array<string>
-}
-
 export interface JwtPayload extends JsonObject {
-  'https://dgraph.io/jwt/claims': DgraphClaims
   /** Issuer (who created and signed this token) */
   iss: string
   /** Subject (whom the token refers to) */

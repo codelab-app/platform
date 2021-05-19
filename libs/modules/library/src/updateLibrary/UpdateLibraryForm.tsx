@@ -1,3 +1,4 @@
+import { useUser } from '@auth0/nextjs-auth0'
 import {
   createNotificationHandler,
   EntityType,
@@ -10,7 +11,6 @@ import {
   useGetLibraryQuery,
   useUpdateLibraryMutation,
 } from '@codelab/hasura'
-import { useCurrentUser } from '@codelab/modules/user'
 import { Spin } from 'antd'
 import React, { useEffect } from 'react'
 import { DeepPartial } from 'uniforms'
@@ -42,7 +42,8 @@ export const UpdateLibraryForm = (props: UpdateLibraryFormProps) => {
   })
 
   const library = data?.library_by_pk
-  const { userId } = useCurrentUser()
+  const { user } = useUser()
+  const userId = user?.sub
 
   if (loading) {
     return <Spin />

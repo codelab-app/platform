@@ -1650,8 +1650,6 @@ export type UpdateUserMutation = {
   updateUser?: Maybe<{ user?: Maybe<Array<Maybe<Dgraph__UserFragment>>> }>
 }
 
-export type __UserFragment = Pick<User, 'id' | 'email'>
-
 export type DeleteUserWhereMutationVariables = Exact<{
   where: UserFilter
 }>
@@ -1672,14 +1670,6 @@ export type GetUsersWhereQueryVariables = Exact<{
 
 export type GetUsersWhereQuery = {
   queryUser?: Maybe<Array<Maybe<Pick<User, 'id' | 'email'>>>>
-}
-
-export type UpsertDgraphUserMutationVariables = Exact<{
-  input: AddUserInput
-}>
-
-export type UpsertDgraphUserMutation = {
-  addUser?: Maybe<{ user?: Maybe<Array<Maybe<Pick<User, 'id' | 'email'>>>> }>
 }
 
 export const User__AppFragmentDoc = gql`
@@ -1745,12 +1735,6 @@ export const Dgraph__UserFragmentDoc = gql`
     id
     email
     name
-  }
-`
-export const __UserFragmentDoc = gql`
-  fragment __User on User {
-    id
-    email
   }
 `
 export const CreateAppGql = gql`
@@ -3243,59 +3227,6 @@ export function refetchGetUsersWhereQuery(
 ) {
   return { query: GetUsersWhereGql, variables: variables }
 }
-export const UpsertDgraphUserGql = gql`
-  mutation UpsertDgraphUser($input: AddUserInput!) {
-    addUser(input: [$input], upsert: true) {
-      user {
-        id
-        email
-      }
-    }
-  }
-`
-export type UpsertDgraphUserMutationFn = Apollo.MutationFunction<
-  UpsertDgraphUserMutation,
-  UpsertDgraphUserMutationVariables
->
-
-/**
- * __useUpsertDgraphUserMutation__
- *
- * To run a mutation, you first call `useUpsertDgraphUserMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpsertDgraphUserMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [upsertDgraphUserMutation, { data, loading, error }] = useUpsertDgraphUserMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useUpsertDgraphUserMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    UpsertDgraphUserMutation,
-    UpsertDgraphUserMutationVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useMutation<
-    UpsertDgraphUserMutation,
-    UpsertDgraphUserMutationVariables
-  >(UpsertDgraphUserGql, options)
-}
-export type UpsertDgraphUserMutationHookResult = ReturnType<
-  typeof useUpsertDgraphUserMutation
->
-export type UpsertDgraphUserMutationResult =
-  Apollo.MutationResult<UpsertDgraphUserMutation>
-export type UpsertDgraphUserMutationOptions = Apollo.BaseMutationOptions<
-  UpsertDgraphUserMutation,
-  UpsertDgraphUserMutationVariables
->
 export const User__App = gql`
   fragment User__App on App {
     id
@@ -3359,12 +3290,6 @@ export const Dgraph__User = gql`
     id
     email
     name
-  }
-`
-export const __User = gql`
-  fragment __User on User {
-    id
-    email
   }
 `
 export const CreateApp = gql`
@@ -3611,16 +3536,6 @@ export const GetUsersWhere = gql`
     queryUser(filter: $where) {
       id
       email
-    }
-  }
-`
-export const UpsertDgraphUser = gql`
-  mutation UpsertDgraphUser($input: AddUserInput!) {
-    addUser(input: [$input], upsert: true) {
-      user {
-        id
-        email
-      }
     }
   }
 `
