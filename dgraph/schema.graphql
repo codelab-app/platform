@@ -33,7 +33,7 @@ type Component {
 type Atom {
     id: ID!
     type: AtomType!
-    label: String!
+    label: String
     # props: [Prop]
     library: Library
 }

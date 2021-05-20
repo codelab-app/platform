@@ -20,7 +20,6 @@ type CreateAtomFormProps = UniFormUseCaseProps<CreateAtomInput>
 
 export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
   const { reset, setLoading } = useCRUDModalForm(EntityType.Atom)
-  /* const { libraries } = useContext(LibraryContext) */
 
   // Only Editors can modify Atoms (dgraph permissions?)
   const [mutate, { loading: creating }] = useCreateAtomMutation({
@@ -40,25 +39,22 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
     return input !== null
   }
 
+  if (loading) {
+    return <Spin />
+  }
+
   const atomTypes = data?.atomTypes?.filter(isNotNull) ?? []
 
   const onSubmit = (submitData: DeepPartial<CreateAtomInput>) => {
     return mutate({
       variables: {
         input: {
-          label: submitData.label as string,
-          type: submitData.type as string,
+          type: {
+            id: submitData.type,
+          },
         },
       },
     })
-  }
-
-  useEffect(() => {
-    setLoading(creating)
-  }, [creating])
-
-  if (loading) {
-    return <Spin />
   }
 
   const availableProps = [
@@ -117,7 +113,7 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
         colon={false}
         options={atomTypes?.map((atomType) => ({
           label: atomType.label,
-          value: atomType.type,
+          value: atomType.id,
         }))}
       />
       <SelectField

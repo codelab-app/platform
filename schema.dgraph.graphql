@@ -58,7 +58,7 @@ type AddAppPayload {
 
 input AddAtomInput {
   type: AtomTypeRef!
-  label: String!
+  label: String
   library: LibraryRef
 }
 
@@ -194,7 +194,7 @@ input AppRef {
 type Atom {
   id: ID!
   type(filter: AtomTypeFilter): AtomType!
-  label: String!
+  label: String
   library(filter: LibraryFilter): Library
 }
 

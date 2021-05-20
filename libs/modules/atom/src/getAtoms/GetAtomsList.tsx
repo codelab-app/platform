@@ -1,7 +1,8 @@
 import { DeleteFilled, EditFilled } from '@ant-design/icons'
 import { Atom, useGetAtomsQuery } from '@codelab/dgraph'
 import { EntityType, useCRUDModalForm } from '@codelab/frontend/shared'
-import { Button, Space, Table, TableColumnProps, Tag } from 'antd'
+import { Button, Space, Spin, Table, TableColumnProps, Tag } from 'antd'
+import React from 'react'
 import tw from 'twin.macro'
 import { useColumnSearchProps } from './useColumnSearchProps'
 
@@ -17,8 +18,8 @@ export const GetAtomsList = () => {
   const columns: Array<TableColumnProps<any>> = [
     {
       title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
+      dataIndex: ['type', 'label'],
+      key: 'type',
       onHeaderCell: headerCellProps,
       ...columnSearchProps,
     },
@@ -38,7 +39,7 @@ export const GetAtomsList = () => {
         },
       ],
       onFilter: (value, record) => record.name.indexOf(value) === 0,
-      render: (library) => {
+      render: (library = 'Ant Design') => {
         const color = library === 'Ant Design' ? 'geekblue' : 'orange'
 
         return (
@@ -83,28 +84,18 @@ export const GetAtomsList = () => {
     },
   ]
 
-  const data = [
-    {
-      key: '1',
-      name: 'Button',
-      library: 'Ant Design',
-    },
-    {
-      key: '2',
-      name: 'Typogrhaphy.Text',
-      library: 'Ant Design',
-    },
-    {
-      key: '3',
-      name: 'a',
-      library: 'Orange',
-    },
-  ]
+  const { data, loading } = useGetAtomsQuery()
+
+  if (loading) {
+    return <Spin />
+  }
+
+  const atoms = data?.queryAtom ?? []
 
   return (
     <Table
       pagination={{ position: ['bottomCenter'] }}
-      dataSource={data}
+      dataSource={atoms}
       columns={columns}
     />
   )
