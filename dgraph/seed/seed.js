@@ -1,4 +1,4 @@
-require('dotenv').config({ path: '../../.env' })
+require('dotenv').config()
 
 const { DgraphClientStub, DgraphClient } = require('dgraph-js-http')
 const mutation = require('./seedMutation.js')
