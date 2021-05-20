@@ -1,12 +1,16 @@
-import { refetchGetAtomsQuery, useCreateAtomMutation } from '@codelab/dgraph'
+import {
+  refetchGetAtomsQuery,
+  useCreateAtomMutation,
+  useGetAtomTypesQuery,
+} from '@codelab/dgraph'
 import {
   createNotificationHandler,
   EntityType,
   FormUniforms,
-  LibraryContext,
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
+import { Spin } from 'antd'
 import React, { useContext, useEffect } from 'react'
 import { DeepPartial } from 'uniforms'
 import { SelectField } from 'uniforms-antd'
@@ -28,34 +32,34 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
     setLoading(creating)
   }, [creating])
 
+  const { data, loading } = useGetAtomTypesQuery({})
+
+  const isNotNull = <T extends Record<string, unknown>>(
+    input: null | T,
+  ): input is T => {
+    return input !== null
+  }
+
+  const atomTypes = data?.atomTypes?.filter(isNotNull) ?? []
+
   const onSubmit = (submitData: DeepPartial<CreateAtomInput>) => {
     return mutate({
       variables: {
         input: {
           label: submitData.label as string,
           type: submitData.type as string,
-          library: {
-            id: submitData.library_id,
-          },
         },
       },
     })
   }
 
-  const atomTypes = [
-    {
-      name: 'Button',
-      id: 'button',
-    },
-    {
-      name: 'Text',
-      id: 'text',
-    },
-    {
-      name: 'Input',
-      id: 'input',
-    },
-  ]
+  useEffect(() => {
+    setLoading(creating)
+  }, [creating])
+
+  if (loading) {
+    return <Spin />
+  }
 
   const availableProps = [
     {
@@ -112,8 +116,8 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
         labelCol={{ span: 3 }}
         colon={false}
         options={atomTypes?.map((atomType) => ({
-          label: atomType.name,
-          value: atomType.id,
+          label: atomType.label,
+          value: atomType.type,
         }))}
       />
       <SelectField
