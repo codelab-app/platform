@@ -21,6 +21,7 @@ export class IsOwnerAuthGuard<TInput> extends AuthGuard('jwt') {
     const ownerIdFromInput = await this.extractOwnerIdFromArgs(ctx.getArgs())
     const { req } = ctx.getContext()
     const loggedInUserId = req.user.sub
+    console.log('isowner', loggedInUserId, ownerIdFromInput)
 
     return ownerIdFromInput === loggedInUserId
   }

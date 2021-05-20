@@ -1,7 +1,0 @@
-mutation CreateUser($input: [AddUserInput!]!, $upsert: Boolean) {
-  addUser(input: $input, upsert: $upsert) {
-    user {
-      ...Dgraph__User
-    }
-  }
-}

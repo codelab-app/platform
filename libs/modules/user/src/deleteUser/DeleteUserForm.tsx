@@ -7,12 +7,7 @@ import {
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import {
-  refetchGetUsersQuery,
-  useDeleteUsersMutation,
-  useGetUsersQuery,
-} from '@codelab/graphql'
-import { Spin } from 'antd'
+import { refetchGetUsersQuery, useDeleteUserMutation } from '@codelab/graphql'
 import React from 'react'
 
 export const DeleteUserForm = (
@@ -20,26 +15,16 @@ export const DeleteUserForm = (
 ) => {
   const { reset, state } = useCRUDModalForm(EntityType.Atom)
 
-  const [mutate] = useDeleteUsersMutation({
+  const [mutate] = useDeleteUserMutation({
     refetchQueries: [refetchGetUsersQuery()],
   })
 
-  const onSubmit = () => {
-    return mutate({
-      variables: { input: { ids: state.deleteIds } },
-    })
-  }
-
-  const { data, loading } = useGetUsersQuery({
-    variables: {
-      input: {
-        userIds: state.deleteIds,
-      },
-    },
-  })
-
-  if (loading) {
-    return <Spin />
+  const onSubmit = async () => {
+    for (const id of state.deleteIds) {
+      await mutate({
+        variables: { input: { userId: id } },
+      })
+    }
   }
 
   return (
@@ -53,8 +38,7 @@ export const DeleteUserForm = (
       {...props}
     >
       <h4>
-        Are you sure you want to delete Users "
-        {data?.users?.map((user) => user?.email).join(',')}"?
+        Are you sure you want to delete Users {state.metadata?.userNames || ''}?
       </h4>
     </FormUniforms>
   )

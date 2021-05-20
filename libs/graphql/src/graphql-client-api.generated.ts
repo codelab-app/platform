@@ -8,7 +8,7 @@ export type MakeOptional<T, K extends keyof T> = Omit<T, K> &
   { [SubKey in K]?: Maybe<T[SubKey]> }
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> &
   { [SubKey in K]: Maybe<T[SubKey]> }
-const defaultOptions = {}
+const defaultOptions = { operationName: 'api' }
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string
@@ -18,37 +18,28 @@ export type Scalars = {
   Float: number
 }
 
-export type CreateUserInput = {
-  id?: Maybe<Scalars['String']>
-  email: Scalars['String']
-  name?: Maybe<Scalars['String']>
-}
-
-export type DeleteUsersInput = {
-  ids: Array<Scalars['String']>
+export type DeleteUserInput = {
+  userId: Scalars['String']
 }
 
 export type GetUsersInput = {
-  userIds?: Maybe<Array<Scalars['String']>>
+  page: Scalars['Int']
+  perPage: Scalars['Int']
+  query: Scalars['String']
+  sort: Scalars['String']
 }
 
 export type Mutation = {
-  createUser: User
   updateUser: User
-  deleteUsers: User
-}
-
-export type MutationCreateUserArgs = {
-  upsert?: Maybe<Scalars['Boolean']>
-  input: CreateUserInput
+  deleteUser: Scalars['Boolean']
 }
 
 export type MutationUpdateUserArgs = {
   input: UpdateUserInput
 }
 
-export type MutationDeleteUsersArgs = {
-  input: DeleteUsersInput
+export type MutationDeleteUserArgs = {
+  input: DeleteUserInput
 }
 
 export type Query = {
@@ -60,31 +51,52 @@ export type QueryGetUsersArgs = {
   input?: Maybe<GetUsersInput>
 }
 
-export type UpdateUserInput = {
+export type UpdateUserData = {
+  family_name?: Maybe<Scalars['String']>
+  given_name?: Maybe<Scalars['String']>
   name?: Maybe<Scalars['String']>
-  id: Scalars['String']
+  nickname?: Maybe<Scalars['String']>
+  phone_number?: Maybe<Scalars['String']>
+  picture?: Maybe<Scalars['String']>
+  username?: Maybe<Scalars['String']>
+}
+
+export type UpdateUserInput = {
+  userId: Scalars['String']
+  updateData: UpdateUserData
 }
 
 export type User = {
-  id: Scalars['ID']
-  email: Scalars['String']
-  name: Scalars['String']
+  blocked?: Maybe<Scalars['Boolean']>
+  created_at?: Maybe<Scalars['String']>
+  email?: Maybe<Scalars['String']>
+  email_verified?: Maybe<Scalars['Boolean']>
+  family_name?: Maybe<Scalars['String']>
+  given_name?: Maybe<Scalars['String']>
+  last_ip?: Maybe<Scalars['String']>
+  last_login?: Maybe<Scalars['String']>
+  last_password_reset?: Maybe<Scalars['String']>
+  logins_count?: Maybe<Scalars['Float']>
+  multifactor?: Maybe<Array<Scalars['String']>>
+  name?: Maybe<Scalars['String']>
+  nickname?: Maybe<Scalars['String']>
+  phone_number?: Maybe<Scalars['String']>
+  phone_verified?: Maybe<Scalars['Boolean']>
+  picture?: Maybe<Scalars['String']>
+  updated_at?: Maybe<Scalars['String']>
+  user_id?: Maybe<Scalars['String']>
+  username?: Maybe<Scalars['String']>
 }
 
-export type __UserFragment = Pick<User, 'id' | 'email' | 'name'>
+export type __UserFragment = Pick<User, 'email' | 'name'> & {
+  id: User['user_id']
+}
 
-export type CreateUserMutationVariables = Exact<{
-  input: CreateUserInput
-  upsert?: Maybe<Scalars['Boolean']>
+export type DeleteUserMutationVariables = Exact<{
+  input: DeleteUserInput
 }>
 
-export type CreateUserMutation = { user: __UserFragment }
-
-export type DeleteUsersMutationVariables = Exact<{
-  input: DeleteUsersInput
-}>
-
-export type DeleteUsersMutation = { deleteUsers: Pick<User, 'id'> }
+export type DeleteUserMutation = Pick<Mutation, 'deleteUser'>
 
 export type GetUsersQueryVariables = Exact<{
   input?: Maybe<GetUsersInput>
@@ -94,111 +106,57 @@ export type GetUsersQuery = { users: Array<__UserFragment> }
 
 export const __UserFragmentDoc = gql`
   fragment __User on User {
-    id
+    id: user_id
     email
     name
   }
 `
-export const CreateUserGql = gql`
-  mutation CreateUser($input: CreateUserInput!, $upsert: Boolean) {
-    user: createUser(input: $input, upsert: $upsert) {
-      ...__User
-    }
+export const DeleteUserGql = gql`
+  mutation DeleteUser($input: DeleteUserInput!) {
+    deleteUser(input: $input)
   }
-  ${__UserFragmentDoc}
 `
-export type CreateUserMutationFn = Apollo.MutationFunction<
-  CreateUserMutation,
-  CreateUserMutationVariables
+export type DeleteUserMutationFn = Apollo.MutationFunction<
+  DeleteUserMutation,
+  DeleteUserMutationVariables
 >
 
 /**
- * __useCreateUserMutation__
+ * __useDeleteUserMutation__
  *
- * To run a mutation, you first call `useCreateUserMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateUserMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useDeleteUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteUserMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [createUserMutation, { data, loading, error }] = useCreateUserMutation({
- *   variables: {
- *      input: // value for 'input'
- *      upsert: // value for 'upsert'
- *   },
- * });
- */
-export function useCreateUserMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    CreateUserMutation,
-    CreateUserMutationVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useMutation<CreateUserMutation, CreateUserMutationVariables>(
-    CreateUserGql,
-    options,
-  )
-}
-export type CreateUserMutationHookResult = ReturnType<
-  typeof useCreateUserMutation
->
-export type CreateUserMutationResult = Apollo.MutationResult<CreateUserMutation>
-export type CreateUserMutationOptions = Apollo.BaseMutationOptions<
-  CreateUserMutation,
-  CreateUserMutationVariables
->
-export const DeleteUsersGql = gql`
-  mutation DeleteUsers($input: DeleteUsersInput!) {
-    deleteUsers(input: $input) {
-      id
-    }
-  }
-`
-export type DeleteUsersMutationFn = Apollo.MutationFunction<
-  DeleteUsersMutation,
-  DeleteUsersMutationVariables
->
-
-/**
- * __useDeleteUsersMutation__
- *
- * To run a mutation, you first call `useDeleteUsersMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useDeleteUsersMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [deleteUsersMutation, { data, loading, error }] = useDeleteUsersMutation({
+ * const [deleteUserMutation, { data, loading, error }] = useDeleteUserMutation({
  *   variables: {
  *      input: // value for 'input'
  *   },
  * });
  */
-export function useDeleteUsersMutation(
+export function useDeleteUserMutation(
   baseOptions?: Apollo.MutationHookOptions<
-    DeleteUsersMutation,
-    DeleteUsersMutationVariables
+    DeleteUserMutation,
+    DeleteUserMutationVariables
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useMutation<DeleteUsersMutation, DeleteUsersMutationVariables>(
-    DeleteUsersGql,
+  return Apollo.useMutation<DeleteUserMutation, DeleteUserMutationVariables>(
+    DeleteUserGql,
     options,
   )
 }
-export type DeleteUsersMutationHookResult = ReturnType<
-  typeof useDeleteUsersMutation
+export type DeleteUserMutationHookResult = ReturnType<
+  typeof useDeleteUserMutation
 >
-export type DeleteUsersMutationResult =
-  Apollo.MutationResult<DeleteUsersMutation>
-export type DeleteUsersMutationOptions = Apollo.BaseMutationOptions<
-  DeleteUsersMutation,
-  DeleteUsersMutationVariables
+export type DeleteUserMutationResult = Apollo.MutationResult<DeleteUserMutation>
+export type DeleteUserMutationOptions = Apollo.BaseMutationOptions<
+  DeleteUserMutation,
+  DeleteUserMutationVariables
 >
 export const GetUsersGql = gql`
   query GetUsers($input: GetUsersInput) {
@@ -259,24 +217,14 @@ export function refetchGetUsersQuery(variables?: GetUsersQueryVariables) {
 }
 export const __User = gql`
   fragment __User on User {
-    id
+    id: user_id
     email
     name
   }
 `
-export const CreateUser = gql`
-  mutation CreateUser($input: CreateUserInput!, $upsert: Boolean) {
-    user: createUser(input: $input, upsert: $upsert) {
-      ...__User
-    }
-  }
-  ${__User}
-`
-export const DeleteUsers = gql`
-  mutation DeleteUsers($input: DeleteUsersInput!) {
-    deleteUsers(input: $input) {
-      id
-    }
+export const DeleteUser = gql`
+  mutation DeleteUser($input: DeleteUserInput!) {
+    deleteUser(input: $input)
   }
 `
 export const GetUsers = gql`

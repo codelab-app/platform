@@ -4,7 +4,12 @@ export interface JsonObject {
   [k: string]: JsonValue | Array<JsonValue> | JsonObject
 }
 
+export interface CodelabApiClaims extends JsonObject {
+  email: string
+}
+
 export interface JwtPayload extends JsonObject {
+  'https://api.codelab.ai/jwt/claims': CodelabApiClaims
   /** Issuer (who created and signed this token) */
   iss: string
   /** Subject (whom the token refers to) */

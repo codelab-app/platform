@@ -5,5 +5,6 @@ export interface UpdateButtonProps {
 
 export interface DeleteButtonProps {
   ids: Array<string>
+  metadata?: any
   disabled: boolean
 }

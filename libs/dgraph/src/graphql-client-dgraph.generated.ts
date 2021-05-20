@@ -8,7 +8,7 @@ export type MakeOptional<T, K extends keyof T> = Omit<T, K> &
   { [SubKey in K]?: Maybe<T[SubKey]> }
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> &
   { [SubKey in K]: Maybe<T[SubKey]> }
-const defaultOptions = {}
+const defaultOptions = { operationName: 'dgraph' }
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string
@@ -29,7 +29,7 @@ export type Scalars = {
 }
 
 export type AddAppInput = {
-  owner: UserRef
+  ownerId: Scalars['String']
   pages?: Maybe<Array<Maybe<PageRef>>>
   name: Scalars['String']
 }
@@ -84,24 +84,8 @@ export type AddComponentPayloadComponentArgs = {
   offset?: Maybe<Scalars['Int']>
 }
 
-export type AddGetAllUsersPayloadInput = {
-  email?: Maybe<Scalars['String']>
-}
-
-export type AddGetAllUsersPayloadPayload = {
-  getAllUsersPayload?: Maybe<Array<Maybe<GetAllUsersPayload>>>
-  numUids?: Maybe<Scalars['Int']>
-}
-
-export type AddGetAllUsersPayloadPayloadGetAllUsersPayloadArgs = {
-  filter?: Maybe<GetAllUsersPayloadFilter>
-  order?: Maybe<GetAllUsersPayloadOrder>
-  first?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
-}
-
 export type AddLibraryInput = {
-  owner: UserRef
+  ownerId: Scalars['String']
   name: Scalars['String']
   atoms?: Maybe<Array<Maybe<AtomRef>>>
   components?: Maybe<Array<Maybe<ComponentRef>>>
@@ -152,36 +136,12 @@ export type AddTagPayloadTagArgs = {
   offset?: Maybe<Scalars['Int']>
 }
 
-export type AddUserInput = {
-  id: Scalars['String']
-  email: Scalars['String']
-  name?: Maybe<Scalars['String']>
-  apps?: Maybe<Array<AppRef>>
-  libraries?: Maybe<Array<LibraryRef>>
-}
-
-export type AddUserPayload = {
-  user?: Maybe<Array<Maybe<User>>>
-  numUids?: Maybe<Scalars['Int']>
-}
-
-export type AddUserPayloadUserArgs = {
-  filter?: Maybe<UserFilter>
-  order?: Maybe<UserOrder>
-  first?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
-}
-
 export type App = {
   id: Scalars['ID']
-  owner: User
+  ownerId: Scalars['String']
   pages?: Maybe<Array<Maybe<Page>>>
   name: Scalars['String']
   pagesAggregate?: Maybe<PageAggregateResult>
-}
-
-export type AppOwnerArgs = {
-  filter?: Maybe<UserFilter>
 }
 
 export type AppPagesArgs = {
@@ -197,6 +157,8 @@ export type AppPagesAggregateArgs = {
 
 export type AppAggregateResult = {
   count?: Maybe<Scalars['Int']>
+  ownerIdMin?: Maybe<Scalars['String']>
+  ownerIdMax?: Maybe<Scalars['String']>
   nameMin?: Maybe<Scalars['String']>
   nameMax?: Maybe<Scalars['String']>
 }
@@ -210,7 +172,7 @@ export type AppFilter = {
 }
 
 export enum AppHasFilter {
-  Owner = 'owner',
+  OwnerId = 'ownerId',
   Pages = 'pages',
   Name = 'name',
 }
@@ -222,18 +184,19 @@ export type AppOrder = {
 }
 
 export enum AppOrderable {
+  OwnerId = 'ownerId',
   Name = 'name',
 }
 
 export type AppPatch = {
-  owner?: Maybe<UserRef>
+  ownerId?: Maybe<Scalars['String']>
   pages?: Maybe<Array<Maybe<PageRef>>>
   name?: Maybe<Scalars['String']>
 }
 
 export type AppRef = {
   id?: Maybe<Scalars['ID']>
-  owner?: Maybe<UserRef>
+  ownerId?: Maybe<Scalars['String']>
   pages?: Maybe<Array<Maybe<PageRef>>>
   name?: Maybe<Scalars['String']>
 }
@@ -463,19 +426,6 @@ export type DeleteComponentPayloadComponentArgs = {
   offset?: Maybe<Scalars['Int']>
 }
 
-export type DeleteGetAllUsersPayloadPayload = {
-  getAllUsersPayload?: Maybe<Array<Maybe<GetAllUsersPayload>>>
-  msg?: Maybe<Scalars['String']>
-  numUids?: Maybe<Scalars['Int']>
-}
-
-export type DeleteGetAllUsersPayloadPayloadGetAllUsersPayloadArgs = {
-  filter?: Maybe<GetAllUsersPayloadFilter>
-  order?: Maybe<GetAllUsersPayloadOrder>
-  first?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
-}
-
 export type DeleteLibraryPayload = {
   library?: Maybe<Array<Maybe<Library>>>
   msg?: Maybe<Scalars['String']>
@@ -511,19 +461,6 @@ export type DeleteTagPayload = {
 export type DeleteTagPayloadTagArgs = {
   filter?: Maybe<TagFilter>
   order?: Maybe<TagOrder>
-  first?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
-}
-
-export type DeleteUserPayload = {
-  user?: Maybe<Array<Maybe<User>>>
-  msg?: Maybe<Scalars['String']>
-  numUids?: Maybe<Scalars['Int']>
-}
-
-export type DeleteUserPayloadUserArgs = {
-  filter?: Maybe<UserFilter>
-  order?: Maybe<UserOrder>
   first?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
 }
@@ -574,48 +511,6 @@ export type GenerateQueryParams = {
   aggregate?: Maybe<Scalars['Boolean']>
 }
 
-export type GetAllUsersPayload = {
-  id: Scalars['ID']
-  email?: Maybe<Scalars['String']>
-}
-
-export type GetAllUsersPayloadAggregateResult = {
-  count?: Maybe<Scalars['Int']>
-  emailMin?: Maybe<Scalars['String']>
-  emailMax?: Maybe<Scalars['String']>
-}
-
-export type GetAllUsersPayloadFilter = {
-  id?: Maybe<Array<Scalars['ID']>>
-  has?: Maybe<Array<Maybe<GetAllUsersPayloadHasFilter>>>
-  and?: Maybe<Array<Maybe<GetAllUsersPayloadFilter>>>
-  or?: Maybe<Array<Maybe<GetAllUsersPayloadFilter>>>
-  not?: Maybe<GetAllUsersPayloadFilter>
-}
-
-export enum GetAllUsersPayloadHasFilter {
-  Email = 'email',
-}
-
-export type GetAllUsersPayloadOrder = {
-  asc?: Maybe<GetAllUsersPayloadOrderable>
-  desc?: Maybe<GetAllUsersPayloadOrderable>
-  then?: Maybe<GetAllUsersPayloadOrder>
-}
-
-export enum GetAllUsersPayloadOrderable {
-  Email = 'email',
-}
-
-export type GetAllUsersPayloadPatch = {
-  email?: Maybe<Scalars['String']>
-}
-
-export type GetAllUsersPayloadRef = {
-  id?: Maybe<Scalars['ID']>
-  email?: Maybe<Scalars['String']>
-}
-
 export enum HttpMethod {
   Get = 'GET',
   Post = 'POST',
@@ -661,16 +556,12 @@ export type IntersectsFilter = {
 
 export type Library = {
   id: Scalars['ID']
-  owner: User
+  ownerId: Scalars['String']
   name: Scalars['String']
   atoms?: Maybe<Array<Maybe<Atom>>>
   components?: Maybe<Array<Maybe<Component>>>
   atomsAggregate?: Maybe<AtomAggregateResult>
   componentsAggregate?: Maybe<ComponentAggregateResult>
-}
-
-export type LibraryOwnerArgs = {
-  filter?: Maybe<UserFilter>
 }
 
 export type LibraryAtomsArgs = {
@@ -697,6 +588,8 @@ export type LibraryComponentsAggregateArgs = {
 
 export type LibraryAggregateResult = {
   count?: Maybe<Scalars['Int']>
+  ownerIdMin?: Maybe<Scalars['String']>
+  ownerIdMax?: Maybe<Scalars['String']>
   nameMin?: Maybe<Scalars['String']>
   nameMax?: Maybe<Scalars['String']>
 }
@@ -710,7 +603,7 @@ export type LibraryFilter = {
 }
 
 export enum LibraryHasFilter {
-  Owner = 'owner',
+  OwnerId = 'ownerId',
   Name = 'name',
   Atoms = 'atoms',
   Components = 'components',
@@ -723,11 +616,12 @@ export type LibraryOrder = {
 }
 
 export enum LibraryOrderable {
+  OwnerId = 'ownerId',
   Name = 'name',
 }
 
 export type LibraryPatch = {
-  owner?: Maybe<UserRef>
+  ownerId?: Maybe<Scalars['String']>
   name?: Maybe<Scalars['String']>
   atoms?: Maybe<Array<Maybe<AtomRef>>>
   components?: Maybe<Array<Maybe<ComponentRef>>>
@@ -735,7 +629,7 @@ export type LibraryPatch = {
 
 export type LibraryRef = {
   id?: Maybe<Scalars['ID']>
-  owner?: Maybe<UserRef>
+  ownerId?: Maybe<Scalars['String']>
   name?: Maybe<Scalars['String']>
   atoms?: Maybe<Array<Maybe<AtomRef>>>
   components?: Maybe<Array<Maybe<ComponentRef>>>
@@ -755,9 +649,6 @@ export type MultiPolygonRef = {
 }
 
 export type Mutation = {
-  addUser?: Maybe<AddUserPayload>
-  updateUser?: Maybe<UpdateUserPayload>
-  deleteUser?: Maybe<DeleteUserPayload>
   addApp?: Maybe<AddAppPayload>
   updateApp?: Maybe<UpdateAppPayload>
   deleteApp?: Maybe<DeleteAppPayload>
@@ -776,22 +667,6 @@ export type Mutation = {
   addTag?: Maybe<AddTagPayload>
   updateTag?: Maybe<UpdateTagPayload>
   deleteTag?: Maybe<DeleteTagPayload>
-  addGetAllUsersPayload?: Maybe<AddGetAllUsersPayloadPayload>
-  updateGetAllUsersPayload?: Maybe<UpdateGetAllUsersPayloadPayload>
-  deleteGetAllUsersPayload?: Maybe<DeleteGetAllUsersPayloadPayload>
-}
-
-export type MutationAddUserArgs = {
-  input: Array<AddUserInput>
-  upsert?: Maybe<Scalars['Boolean']>
-}
-
-export type MutationUpdateUserArgs = {
-  input: UpdateUserInput
-}
-
-export type MutationDeleteUserArgs = {
-  filter: UserFilter
 }
 
 export type MutationAddAppArgs = {
@@ -864,18 +739,6 @@ export type MutationUpdateTagArgs = {
 
 export type MutationDeleteTagArgs = {
   filter: TagFilter
-}
-
-export type MutationAddGetAllUsersPayloadArgs = {
-  input: Array<AddGetAllUsersPayloadInput>
-}
-
-export type MutationUpdateGetAllUsersPayloadArgs = {
-  input: UpdateGetAllUsersPayloadInput
-}
-
-export type MutationDeleteGetAllUsersPayloadArgs = {
-  filter: GetAllUsersPayloadFilter
 }
 
 export type NearFilter = {
@@ -973,11 +836,6 @@ export type PolygonRef = {
 }
 
 export type Query = {
-  GetAllUsers?: Maybe<Array<Maybe<GetAllUsersPayload>>>
-  userWhere?: Maybe<User>
-  getUser?: Maybe<User>
-  queryUser?: Maybe<Array<Maybe<User>>>
-  aggregateUser?: Maybe<UserAggregateResult>
   getApp?: Maybe<App>
   queryApp?: Maybe<Array<Maybe<App>>>
   aggregateApp?: Maybe<AppAggregateResult>
@@ -995,29 +853,6 @@ export type Query = {
   aggregateAtom?: Maybe<AtomAggregateResult>
   queryTag?: Maybe<Array<Maybe<Tag>>>
   aggregateTag?: Maybe<TagAggregateResult>
-  getGetAllUsersPayload?: Maybe<GetAllUsersPayload>
-  queryGetAllUsersPayload?: Maybe<Array<Maybe<GetAllUsersPayload>>>
-  aggregateGetAllUsersPayload?: Maybe<GetAllUsersPayloadAggregateResult>
-}
-
-export type QueryUserWhereArgs = {
-  email: Scalars['String']
-}
-
-export type QueryGetUserArgs = {
-  id?: Maybe<Scalars['String']>
-  email?: Maybe<Scalars['String']>
-}
-
-export type QueryQueryUserArgs = {
-  filter?: Maybe<UserFilter>
-  order?: Maybe<UserOrder>
-  first?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
-}
-
-export type QueryAggregateUserArgs = {
-  filter?: Maybe<UserFilter>
 }
 
 export type QueryGetAppArgs = {
@@ -1104,21 +939,6 @@ export type QueryQueryTagArgs = {
 
 export type QueryAggregateTagArgs = {
   filter?: Maybe<TagFilter>
-}
-
-export type QueryGetGetAllUsersPayloadArgs = {
-  id: Scalars['ID']
-}
-
-export type QueryQueryGetAllUsersPayloadArgs = {
-  filter?: Maybe<GetAllUsersPayloadFilter>
-  order?: Maybe<GetAllUsersPayloadOrder>
-  first?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
-}
-
-export type QueryAggregateGetAllUsersPayloadArgs = {
-  filter?: Maybe<GetAllUsersPayloadFilter>
 }
 
 export type StringExactFilter = {
@@ -1255,24 +1075,6 @@ export type UpdateComponentPayloadComponentArgs = {
   offset?: Maybe<Scalars['Int']>
 }
 
-export type UpdateGetAllUsersPayloadInput = {
-  filter: GetAllUsersPayloadFilter
-  set?: Maybe<GetAllUsersPayloadPatch>
-  remove?: Maybe<GetAllUsersPayloadPatch>
-}
-
-export type UpdateGetAllUsersPayloadPayload = {
-  getAllUsersPayload?: Maybe<Array<Maybe<GetAllUsersPayload>>>
-  numUids?: Maybe<Scalars['Int']>
-}
-
-export type UpdateGetAllUsersPayloadPayloadGetAllUsersPayloadArgs = {
-  filter?: Maybe<GetAllUsersPayloadFilter>
-  order?: Maybe<GetAllUsersPayloadOrder>
-  first?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
-}
-
 export type UpdateLibraryInput = {
   filter: LibraryFilter
   set?: Maybe<LibraryPatch>
@@ -1325,113 +1127,6 @@ export type UpdateTagPayloadTagArgs = {
   order?: Maybe<TagOrder>
   first?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
-}
-
-export type UpdateUserInput = {
-  filter: UserFilter
-  set?: Maybe<UserPatch>
-  remove?: Maybe<UserPatch>
-}
-
-export type UpdateUserPayload = {
-  user?: Maybe<Array<Maybe<User>>>
-  numUids?: Maybe<Scalars['Int']>
-}
-
-export type UpdateUserPayloadUserArgs = {
-  filter?: Maybe<UserFilter>
-  order?: Maybe<UserOrder>
-  first?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
-}
-
-export type UpsertUserInput = {
-  email: Scalars['String']
-}
-
-export type User = {
-  id: Scalars['String']
-  email: Scalars['String']
-  name?: Maybe<Scalars['String']>
-  apps?: Maybe<Array<App>>
-  libraries?: Maybe<Array<Library>>
-  appsAggregate?: Maybe<AppAggregateResult>
-  librariesAggregate?: Maybe<LibraryAggregateResult>
-}
-
-export type UserAppsArgs = {
-  filter?: Maybe<AppFilter>
-  order?: Maybe<AppOrder>
-  first?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
-}
-
-export type UserLibrariesArgs = {
-  filter?: Maybe<LibraryFilter>
-  order?: Maybe<LibraryOrder>
-  first?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
-}
-
-export type UserAppsAggregateArgs = {
-  filter?: Maybe<AppFilter>
-}
-
-export type UserLibrariesAggregateArgs = {
-  filter?: Maybe<LibraryFilter>
-}
-
-export type UserAggregateResult = {
-  count?: Maybe<Scalars['Int']>
-  idMin?: Maybe<Scalars['String']>
-  idMax?: Maybe<Scalars['String']>
-  emailMin?: Maybe<Scalars['String']>
-  emailMax?: Maybe<Scalars['String']>
-  nameMin?: Maybe<Scalars['String']>
-  nameMax?: Maybe<Scalars['String']>
-}
-
-export type UserFilter = {
-  id?: Maybe<StringHashFilter>
-  email?: Maybe<StringHashFilter>
-  has?: Maybe<Array<Maybe<UserHasFilter>>>
-  and?: Maybe<Array<Maybe<UserFilter>>>
-  or?: Maybe<Array<Maybe<UserFilter>>>
-  not?: Maybe<UserFilter>
-}
-
-export enum UserHasFilter {
-  Id = 'id',
-  Email = 'email',
-  Name = 'name',
-  Apps = 'apps',
-  Libraries = 'libraries',
-}
-
-export type UserOrder = {
-  asc?: Maybe<UserOrderable>
-  desc?: Maybe<UserOrderable>
-  then?: Maybe<UserOrder>
-}
-
-export enum UserOrderable {
-  Id = 'id',
-  Email = 'email',
-  Name = 'name',
-}
-
-export type UserPatch = {
-  name?: Maybe<Scalars['String']>
-  apps?: Maybe<Array<AppRef>>
-  libraries?: Maybe<Array<LibraryRef>>
-}
-
-export type UserRef = {
-  id?: Maybe<Scalars['String']>
-  email?: Maybe<Scalars['String']>
-  name?: Maybe<Scalars['String']>
-  apps?: Maybe<Array<AppRef>>
-  libraries?: Maybe<Array<LibraryRef>>
 }
 
 export type WithinFilter = {
@@ -1613,51 +1308,6 @@ export type UpdatePageMutation = {
   page?: Maybe<{ page?: Maybe<Array<Maybe<App__PageFragment>>> }>
 }
 
-export type Dgraph__UserFragment = Pick<User, 'id' | 'email' | 'name'>
-
-export type CreateUserMutationVariables = Exact<{
-  input: Array<AddUserInput> | AddUserInput
-  upsert?: Maybe<Scalars['Boolean']>
-}>
-
-export type CreateUserMutation = {
-  addUser?: Maybe<{ user?: Maybe<Array<Maybe<Dgraph__UserFragment>>> }>
-}
-
-export type DeleteUserMutationVariables = Exact<{
-  filter: UserFilter
-}>
-
-export type DeleteUserMutation = {
-  deleteUser?: Maybe<
-    Pick<DeleteUserPayload, 'numUids'> & {
-      user?: Maybe<Array<Maybe<Dgraph__UserFragment>>>
-    }
-  >
-}
-
-export type GetUserQueryVariables = Exact<{
-  id: Scalars['String']
-}>
-
-export type GetUserQuery = { user?: Maybe<Dgraph__UserFragment> }
-
-export type GetUsersQueryVariables = Exact<{
-  filter: UserFilter
-}>
-
-export type GetUsersQuery = {
-  users?: Maybe<Array<Maybe<Dgraph__UserFragment>>>
-}
-
-export type UpdateUserMutationVariables = Exact<{
-  input: UpdateUserInput
-}>
-
-export type UpdateUserMutation = {
-  updateUser?: Maybe<{ user?: Maybe<Array<Maybe<Dgraph__UserFragment>>> }>
-}
-
 export const User__AppFragmentDoc = gql`
   fragment User__App on App {
     id
@@ -1714,13 +1364,6 @@ export const App__PageFragmentDoc = gql`
   fragment App__Page on Page {
     id
     title
-  }
-`
-export const Dgraph__UserFragmentDoc = gql`
-  fragment Dgraph__User on User {
-    id
-    email
-    name
   }
 `
 export const CreateAppGql = gql`
@@ -2825,276 +2468,6 @@ export type UpdatePageMutationOptions = Apollo.BaseMutationOptions<
   UpdatePageMutation,
   UpdatePageMutationVariables
 >
-export const CreateUserGql = gql`
-  mutation CreateUser($input: [AddUserInput!]!, $upsert: Boolean) {
-    addUser(input: $input, upsert: $upsert) {
-      user {
-        ...Dgraph__User
-      }
-    }
-  }
-  ${Dgraph__UserFragmentDoc}
-`
-export type CreateUserMutationFn = Apollo.MutationFunction<
-  CreateUserMutation,
-  CreateUserMutationVariables
->
-
-/**
- * __useCreateUserMutation__
- *
- * To run a mutation, you first call `useCreateUserMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateUserMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [createUserMutation, { data, loading, error }] = useCreateUserMutation({
- *   variables: {
- *      input: // value for 'input'
- *      upsert: // value for 'upsert'
- *   },
- * });
- */
-export function useCreateUserMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    CreateUserMutation,
-    CreateUserMutationVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useMutation<CreateUserMutation, CreateUserMutationVariables>(
-    CreateUserGql,
-    options,
-  )
-}
-export type CreateUserMutationHookResult = ReturnType<
-  typeof useCreateUserMutation
->
-export type CreateUserMutationResult = Apollo.MutationResult<CreateUserMutation>
-export type CreateUserMutationOptions = Apollo.BaseMutationOptions<
-  CreateUserMutation,
-  CreateUserMutationVariables
->
-export const DeleteUserGql = gql`
-  mutation DeleteUser($filter: UserFilter!) {
-    deleteUser(filter: $filter) {
-      numUids
-      user {
-        ...Dgraph__User
-      }
-    }
-  }
-  ${Dgraph__UserFragmentDoc}
-`
-export type DeleteUserMutationFn = Apollo.MutationFunction<
-  DeleteUserMutation,
-  DeleteUserMutationVariables
->
-
-/**
- * __useDeleteUserMutation__
- *
- * To run a mutation, you first call `useDeleteUserMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useDeleteUserMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [deleteUserMutation, { data, loading, error }] = useDeleteUserMutation({
- *   variables: {
- *      filter: // value for 'filter'
- *   },
- * });
- */
-export function useDeleteUserMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    DeleteUserMutation,
-    DeleteUserMutationVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useMutation<DeleteUserMutation, DeleteUserMutationVariables>(
-    DeleteUserGql,
-    options,
-  )
-}
-export type DeleteUserMutationHookResult = ReturnType<
-  typeof useDeleteUserMutation
->
-export type DeleteUserMutationResult = Apollo.MutationResult<DeleteUserMutation>
-export type DeleteUserMutationOptions = Apollo.BaseMutationOptions<
-  DeleteUserMutation,
-  DeleteUserMutationVariables
->
-export const GetUserGql = gql`
-  query GetUser($id: String!) {
-    user: getUser(id: $id) {
-      ...Dgraph__User
-    }
-  }
-  ${Dgraph__UserFragmentDoc}
-`
-
-/**
- * __useGetUserQuery__
- *
- * To run a query within a React component, call `useGetUserQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetUserQuery({
- *   variables: {
- *      id: // value for 'id'
- *   },
- * });
- */
-export function useGetUserQuery(
-  baseOptions: Apollo.QueryHookOptions<GetUserQuery, GetUserQueryVariables>,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<GetUserQuery, GetUserQueryVariables>(
-    GetUserGql,
-    options,
-  )
-}
-export function useGetUserLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetUserQuery,
-    GetUserQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<GetUserQuery, GetUserQueryVariables>(
-    GetUserGql,
-    options,
-  )
-}
-export type GetUserQueryHookResult = ReturnType<typeof useGetUserQuery>
-export type GetUserLazyQueryHookResult = ReturnType<typeof useGetUserLazyQuery>
-export type GetUserQueryResult = Apollo.QueryResult<
-  GetUserQuery,
-  GetUserQueryVariables
->
-export function refetchGetUserQuery(variables?: GetUserQueryVariables) {
-  return { query: GetUserGql, variables: variables }
-}
-export const GetUsersGql = gql`
-  query GetUsers($filter: UserFilter!) {
-    users: queryUser(filter: $filter) {
-      ...Dgraph__User
-    }
-  }
-  ${Dgraph__UserFragmentDoc}
-`
-
-/**
- * __useGetUsersQuery__
- *
- * To run a query within a React component, call `useGetUsersQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetUsersQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetUsersQuery({
- *   variables: {
- *      filter: // value for 'filter'
- *   },
- * });
- */
-export function useGetUsersQuery(
-  baseOptions: Apollo.QueryHookOptions<GetUsersQuery, GetUsersQueryVariables>,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<GetUsersQuery, GetUsersQueryVariables>(
-    GetUsersGql,
-    options,
-  )
-}
-export function useGetUsersLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetUsersQuery,
-    GetUsersQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<GetUsersQuery, GetUsersQueryVariables>(
-    GetUsersGql,
-    options,
-  )
-}
-export type GetUsersQueryHookResult = ReturnType<typeof useGetUsersQuery>
-export type GetUsersLazyQueryHookResult = ReturnType<
-  typeof useGetUsersLazyQuery
->
-export type GetUsersQueryResult = Apollo.QueryResult<
-  GetUsersQuery,
-  GetUsersQueryVariables
->
-export function refetchGetUsersQuery(variables?: GetUsersQueryVariables) {
-  return { query: GetUsersGql, variables: variables }
-}
-export const UpdateUserGql = gql`
-  mutation UpdateUser($input: UpdateUserInput!) {
-    updateUser(input: $input) {
-      user {
-        ...Dgraph__User
-      }
-    }
-  }
-  ${Dgraph__UserFragmentDoc}
-`
-export type UpdateUserMutationFn = Apollo.MutationFunction<
-  UpdateUserMutation,
-  UpdateUserMutationVariables
->
-
-/**
- * __useUpdateUserMutation__
- *
- * To run a mutation, you first call `useUpdateUserMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdateUserMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [updateUserMutation, { data, loading, error }] = useUpdateUserMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useUpdateUserMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    UpdateUserMutation,
-    UpdateUserMutationVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useMutation<UpdateUserMutation, UpdateUserMutationVariables>(
-    UpdateUserGql,
-    options,
-  )
-}
-export type UpdateUserMutationHookResult = ReturnType<
-  typeof useUpdateUserMutation
->
-export type UpdateUserMutationResult = Apollo.MutationResult<UpdateUserMutation>
-export type UpdateUserMutationOptions = Apollo.BaseMutationOptions<
-  UpdateUserMutation,
-  UpdateUserMutationVariables
->
 export const User__App = gql`
   fragment User__App on App {
     id
@@ -3151,13 +2524,6 @@ export const App__Page = gql`
   fragment App__Page on Page {
     id
     title
-  }
-`
-export const Dgraph__User = gql`
-  fragment Dgraph__User on User {
-    id
-    email
-    name
   }
 `
 export const CreateApp = gql`
@@ -3342,51 +2708,4 @@ export const UpdatePage = gql`
     }
   }
   ${App__Page}
-`
-export const CreateUser = gql`
-  mutation CreateUser($input: [AddUserInput!]!, $upsert: Boolean) {
-    addUser(input: $input, upsert: $upsert) {
-      user {
-        ...Dgraph__User
-      }
-    }
-  }
-  ${Dgraph__User}
-`
-export const DeleteUser = gql`
-  mutation DeleteUser($filter: UserFilter!) {
-    deleteUser(filter: $filter) {
-      numUids
-      user {
-        ...Dgraph__User
-      }
-    }
-  }
-  ${Dgraph__User}
-`
-export const GetUser = gql`
-  query GetUser($id: String!) {
-    user: getUser(id: $id) {
-      ...Dgraph__User
-    }
-  }
-  ${Dgraph__User}
-`
-export const GetUsers = gql`
-  query GetUsers($filter: UserFilter!) {
-    users: queryUser(filter: $filter) {
-      ...Dgraph__User
-    }
-  }
-  ${Dgraph__User}
-`
-export const UpdateUser = gql`
-  mutation UpdateUser($input: UpdateUserInput!) {
-    updateUser(input: $input) {
-      user {
-        ...Dgraph__User
-      }
-    }
-  }
-  ${Dgraph__User}
 `

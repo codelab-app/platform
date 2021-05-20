@@ -23,8 +23,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         handleSigningKeyError: (err) => console.error(err), // do it better in real app!
       }),
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      audience: config.get<Auth0Configuration>(AuthTokens.Auth0Config)
-        ?.clientId,
+      audience: config.get<Auth0Configuration>(AuthTokens.Auth0Config)?.api
+        .audience,
       issuer: config.get<Auth0Configuration>(AuthTokens.Auth0Config)?.issuer,
       algorithms: ['RS256'],
     })
@@ -38,7 +38,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
    */
   validate(payload: JwtPayload): JwtPayload {
     console.log(payload)
-    //TODO check in dgraph if the user exists
 
     return payload
   }

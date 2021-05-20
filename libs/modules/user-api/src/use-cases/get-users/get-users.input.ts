@@ -1,7 +1,17 @@
-import { Field, InputType } from '@nestjs/graphql'
+import { Field, InputType, Int } from '@nestjs/graphql'
+import { GetUsersData } from 'auth0'
 
 @InputType()
-export class GetUsersInput {
-  @Field(() => [String], { nullable: true })
-  declare userIds?: Array<string>
+export class GetUsersInput implements GetUsersData {
+  @Field(() => Int)
+  declare page: number
+
+  @Field(() => Int)
+  declare perPage: number
+
+  @Field()
+  declare query: string
+
+  @Field()
+  declare sort: string
 }

@@ -1,5 +1,0 @@
-query GetUsers($filter: UserFilter!) {
-    users: queryUser(filter: $filter) {
-        ...Dgraph__User
-    }
-}

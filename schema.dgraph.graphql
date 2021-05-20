@@ -46,7 +46,7 @@ directive @secret(field: String!, pred: String) on OBJECT | INTERFACE
 directive @withSubscription on OBJECT | INTERFACE | FIELD_DEFINITION
 
 input AddAppInput {
-  owner: UserRef!
+  ownerId: String!
   pages: [PageRef]
   name: String!
 }
@@ -85,22 +85,8 @@ type AddComponentPayload {
   numUids: Int
 }
 
-input AddGetAllUsersPayloadInput {
-  email: String
-}
-
-type AddGetAllUsersPayloadPayload {
-  getAllUsersPayload(
-    filter: GetAllUsersPayloadFilter
-    order: GetAllUsersPayloadOrder
-    first: Int
-    offset: Int
-  ): [GetAllUsersPayload]
-  numUids: Int
-}
-
 input AddLibraryInput {
-  owner: UserRef!
+  ownerId: String!
   name: String!
   atoms: [AtomRef]
   components: [ComponentRef]
@@ -135,22 +121,9 @@ type AddTagPayload {
   numUids: Int
 }
 
-input AddUserInput {
-  id: String!
-  email: String!
-  name: String
-  apps: [AppRef!]
-  libraries: [LibraryRef!]
-}
-
-type AddUserPayload {
-  user(filter: UserFilter, order: UserOrder, first: Int, offset: Int): [User]
-  numUids: Int
-}
-
 type App {
   id: ID!
-  owner(filter: UserFilter): User!
+  ownerId: String!
   pages(filter: PageFilter, order: PageOrder, first: Int, offset: Int): [Page]
   name: String!
   pagesAggregate(filter: PageFilter): PageAggregateResult
@@ -158,6 +131,8 @@ type App {
 
 type AppAggregateResult {
   count: Int
+  ownerIdMin: String
+  ownerIdMax: String
   nameMin: String
   nameMax: String
 }
@@ -171,7 +146,7 @@ input AppFilter {
 }
 
 enum AppHasFilter {
-  owner
+  ownerId
   pages
   name
 }
@@ -183,18 +158,19 @@ input AppOrder {
 }
 
 enum AppOrderable {
+  ownerId
   name
 }
 
 input AppPatch {
-  owner: UserRef
+  ownerId: String
   pages: [PageRef]
   name: String
 }
 
 input AppRef {
   id: ID
-  owner: UserRef
+  ownerId: String
   pages: [PageRef]
   name: String
 }
@@ -385,17 +361,6 @@ type DeleteComponentPayload {
   numUids: Int
 }
 
-type DeleteGetAllUsersPayloadPayload {
-  getAllUsersPayload(
-    filter: GetAllUsersPayloadFilter
-    order: GetAllUsersPayloadOrder
-    first: Int
-    offset: Int
-  ): [GetAllUsersPayload]
-  msg: String
-  numUids: Int
-}
-
 type DeleteLibraryPayload {
   library(
     filter: LibraryFilter
@@ -415,12 +380,6 @@ type DeletePagePayload {
 
 type DeleteTagPayload {
   tag(filter: TagFilter, order: TagOrder, first: Int, offset: Int): [Tag]
-  msg: String
-  numUids: Int
-}
-
-type DeleteUserPayload {
-  user(filter: UserFilter, order: UserOrder, first: Int, offset: Int): [User]
   msg: String
   numUids: Int
 }
@@ -469,48 +428,6 @@ input GenerateQueryParams {
   query: Boolean
   password: Boolean
   aggregate: Boolean
-}
-
-type GetAllUsersPayload {
-  id: ID!
-  email: String
-}
-
-type GetAllUsersPayloadAggregateResult {
-  count: Int
-  emailMin: String
-  emailMax: String
-}
-
-input GetAllUsersPayloadFilter {
-  id: [ID!]
-  has: [GetAllUsersPayloadHasFilter]
-  and: [GetAllUsersPayloadFilter]
-  or: [GetAllUsersPayloadFilter]
-  not: GetAllUsersPayloadFilter
-}
-
-enum GetAllUsersPayloadHasFilter {
-  email
-}
-
-input GetAllUsersPayloadOrder {
-  asc: GetAllUsersPayloadOrderable
-  desc: GetAllUsersPayloadOrderable
-  then: GetAllUsersPayloadOrder
-}
-
-enum GetAllUsersPayloadOrderable {
-  email
-}
-
-input GetAllUsersPayloadPatch {
-  email: String
-}
-
-input GetAllUsersPayloadRef {
-  id: ID
-  email: String
 }
 
 enum HTTPMethod {
@@ -564,7 +481,7 @@ input IntersectsFilter {
 
 type Library {
   id: ID!
-  owner(filter: UserFilter): User!
+  ownerId: String!
   name: String!
   atoms(filter: AtomFilter, order: AtomOrder, first: Int, offset: Int): [Atom]
   components(
@@ -579,6 +496,8 @@ type Library {
 
 type LibraryAggregateResult {
   count: Int
+  ownerIdMin: String
+  ownerIdMax: String
   nameMin: String
   nameMax: String
 }
@@ -592,7 +511,7 @@ input LibraryFilter {
 }
 
 enum LibraryHasFilter {
-  owner
+  ownerId
   name
   atoms
   components
@@ -605,11 +524,12 @@ input LibraryOrder {
 }
 
 enum LibraryOrderable {
+  ownerId
   name
 }
 
 input LibraryPatch {
-  owner: UserRef
+  ownerId: String
   name: String
   atoms: [AtomRef]
   components: [ComponentRef]
@@ -617,7 +537,7 @@ input LibraryPatch {
 
 input LibraryRef {
   id: ID
-  owner: UserRef
+  ownerId: String
   name: String
   atoms: [AtomRef]
   components: [ComponentRef]
@@ -637,9 +557,6 @@ input MultiPolygonRef {
 }
 
 type Mutation {
-  addUser(input: [AddUserInput!]!, upsert: Boolean): AddUserPayload
-  updateUser(input: UpdateUserInput!): UpdateUserPayload
-  deleteUser(filter: UserFilter!): DeleteUserPayload
   addApp(input: [AddAppInput!]!): AddAppPayload
   updateApp(input: UpdateAppInput!): UpdateAppPayload
   deleteApp(filter: AppFilter!): DeleteAppPayload
@@ -658,15 +575,6 @@ type Mutation {
   addTag(input: [AddTagInput!]!): AddTagPayload
   updateTag(input: UpdateTagInput!): UpdateTagPayload
   deleteTag(filter: TagFilter!): DeleteTagPayload
-  addGetAllUsersPayload(
-    input: [AddGetAllUsersPayloadInput!]!
-  ): AddGetAllUsersPayloadPayload
-  updateGetAllUsersPayload(
-    input: UpdateGetAllUsersPayloadInput!
-  ): UpdateGetAllUsersPayloadPayload
-  deleteGetAllUsersPayload(
-    filter: GetAllUsersPayloadFilter!
-  ): DeleteGetAllUsersPayloadPayload
 }
 
 input NearFilter {
@@ -760,16 +668,6 @@ input PolygonRef {
 }
 
 type Query {
-  GetAllUsers: [GetAllUsersPayload]
-  userWhere(email: String!): User
-  getUser(id: String, email: String): User
-  queryUser(
-    filter: UserFilter
-    order: UserOrder
-    first: Int
-    offset: Int
-  ): [User]
-  aggregateUser(filter: UserFilter): UserAggregateResult
   getApp(id: ID!): App
   queryApp(filter: AppFilter, order: AppOrder, first: Int, offset: Int): [App]
   aggregateApp(filter: AppFilter): AppAggregateResult
@@ -807,16 +705,6 @@ type Query {
   aggregateAtom(filter: AtomFilter): AtomAggregateResult
   queryTag(filter: TagFilter, order: TagOrder, first: Int, offset: Int): [Tag]
   aggregateTag(filter: TagFilter): TagAggregateResult
-  getGetAllUsersPayload(id: ID!): GetAllUsersPayload
-  queryGetAllUsersPayload(
-    filter: GetAllUsersPayloadFilter
-    order: GetAllUsersPayloadOrder
-    first: Int
-    offset: Int
-  ): [GetAllUsersPayload]
-  aggregateGetAllUsersPayload(
-    filter: GetAllUsersPayloadFilter
-  ): GetAllUsersPayloadAggregateResult
 }
 
 input StringExactFilter {
@@ -937,22 +825,6 @@ type UpdateComponentPayload {
   numUids: Int
 }
 
-input UpdateGetAllUsersPayloadInput {
-  filter: GetAllUsersPayloadFilter!
-  set: GetAllUsersPayloadPatch
-  remove: GetAllUsersPayloadPatch
-}
-
-type UpdateGetAllUsersPayloadPayload {
-  getAllUsersPayload(
-    filter: GetAllUsersPayloadFilter
-    order: GetAllUsersPayloadOrder
-    first: Int
-    offset: Int
-  ): [GetAllUsersPayload]
-  numUids: Int
-}
-
 input UpdateLibraryInput {
   filter: LibraryFilter!
   set: LibraryPatch
@@ -989,89 +861,6 @@ input UpdateTagInput {
 type UpdateTagPayload {
   tag(filter: TagFilter, order: TagOrder, first: Int, offset: Int): [Tag]
   numUids: Int
-}
-
-input UpdateUserInput {
-  filter: UserFilter!
-  set: UserPatch
-  remove: UserPatch
-}
-
-type UpdateUserPayload {
-  user(filter: UserFilter, order: UserOrder, first: Int, offset: Int): [User]
-  numUids: Int
-}
-
-input UpsertUserInput {
-  email: String!
-}
-
-type User {
-  id: String!
-  email: String!
-  name: String
-  apps(filter: AppFilter, order: AppOrder, first: Int, offset: Int): [App!]
-  libraries(
-    filter: LibraryFilter
-    order: LibraryOrder
-    first: Int
-    offset: Int
-  ): [Library!]
-  appsAggregate(filter: AppFilter): AppAggregateResult
-  librariesAggregate(filter: LibraryFilter): LibraryAggregateResult
-}
-
-type UserAggregateResult {
-  count: Int
-  idMin: String
-  idMax: String
-  emailMin: String
-  emailMax: String
-  nameMin: String
-  nameMax: String
-}
-
-input UserFilter {
-  id: StringHashFilter
-  email: StringHashFilter
-  has: [UserHasFilter]
-  and: [UserFilter]
-  or: [UserFilter]
-  not: UserFilter
-}
-
-enum UserHasFilter {
-  id
-  email
-  name
-  apps
-  libraries
-}
-
-input UserOrder {
-  asc: UserOrderable
-  desc: UserOrderable
-  then: UserOrder
-}
-
-enum UserOrderable {
-  id
-  email
-  name
-}
-
-input UserPatch {
-  name: String
-  apps: [AppRef!]
-  libraries: [LibraryRef!]
-}
-
-input UserRef {
-  id: String
-  email: String
-  name: String
-  apps: [AppRef!]
-  libraries: [LibraryRef!]
 }
 
 input WithinFilter {

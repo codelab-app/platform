@@ -3,9 +3,25 @@
 # ------------------------------------------------------
 
 type User {
-  id: ID!
-  email: String!
-  name: String!
+  blocked: Boolean
+  created_at: String
+  email: String
+  email_verified: Boolean
+  family_name: String
+  given_name: String
+  last_ip: String
+  last_login: String
+  last_password_reset: String
+  logins_count: Float
+  multifactor: [String!]
+  name: String
+  nickname: String
+  phone_number: String
+  phone_verified: Boolean
+  picture: String
+  updated_at: String
+  user_id: String
+  username: String
 }
 
 type Query {
@@ -14,26 +30,32 @@ type Query {
 }
 
 input GetUsersInput {
-  userIds: [String!]
+  page: Int!
+  perPage: Int!
+  query: String!
+  sort: String!
 }
 
 type Mutation {
-  createUser(upsert: Boolean = false, input: CreateUserInput!): User!
   updateUser(input: UpdateUserInput!): User!
-  deleteUsers(input: DeleteUsersInput!): User!
-}
-
-input CreateUserInput {
-  id: String
-  email: String!
-  name: String
+  deleteUser(input: DeleteUserInput!): Boolean!
 }
 
 input UpdateUserInput {
-  name: String
-  id: String!
+  userId: String!
+  updateData: UpdateUserData!
 }
 
-input DeleteUsersInput {
-  ids: [String!]!
+input UpdateUserData {
+  family_name: String
+  given_name: String
+  name: String
+  nickname: String
+  phone_number: String
+  picture: String
+  username: String
+}
+
+input DeleteUserInput {
+  userId: String!
 }
