@@ -165,6 +165,7 @@ export type AppAggregateResult = {
 
 export type AppFilter = {
   id?: Maybe<Array<Scalars['ID']>>
+  ownerId?: Maybe<StringHashFilter>
   has?: Maybe<Array<Maybe<AppHasFilter>>>
   and?: Maybe<Array<Maybe<AppFilter>>>
   or?: Maybe<Array<Maybe<AppFilter>>>
@@ -1133,41 +1134,45 @@ export type WithinFilter = {
   polygon: PolygonRef
 }
 
-export type User__AppFragment = Pick<App, 'id' | 'name'>
+export type Dgraph__AppFragment = Pick<App, 'id' | 'name' | 'ownerId'>
 
 export type CreateAppMutationVariables = Exact<{
-  input: AddAppInput
+  input: Array<AddAppInput> | AddAppInput
 }>
 
 export type CreateAppMutation = {
-  addApp?: Maybe<{ app?: Maybe<Array<Maybe<User__AppFragment>>> }>
+  addApp?: Maybe<{ app?: Maybe<Array<Maybe<Dgraph__AppFragment>>> }>
 }
 
 export type DeleteAppMutationVariables = Exact<{
-  id: Scalars['ID']
+  filter: AppFilter
 }>
 
 export type DeleteAppMutation = {
-  app?: Maybe<{ app?: Maybe<Array<Maybe<User__AppFragment>>> }>
+  deleteApp?: Maybe<{ app?: Maybe<Array<Maybe<Dgraph__AppFragment>>> }>
 }
 
 export type GetAppQueryVariables = Exact<{
-  appId: Scalars['ID']
-}>
-
-export type GetAppQuery = { app?: Maybe<User__AppFragment> }
-
-export type GetAppsListQueryVariables = Exact<{ [key: string]: never }>
-
-export type GetAppsListQuery = { apps?: Maybe<Array<Maybe<User__AppFragment>>> }
-
-export type EditAppMutationVariables = Exact<{
-  input: AppPatch
   id: Scalars['ID']
 }>
 
-export type EditAppMutation = {
-  updateApp?: Maybe<{ app?: Maybe<Array<Maybe<User__AppFragment>>> }>
+export type GetAppQuery = { app?: Maybe<Dgraph__AppFragment> }
+
+export type GetAppsQueryVariables = Exact<{
+  filter?: Maybe<AppFilter>
+  order?: Maybe<AppOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}>
+
+export type GetAppsQuery = { apps?: Maybe<Array<Maybe<Dgraph__AppFragment>>> }
+
+export type UpdateAppMutationVariables = Exact<{
+  input: UpdateAppInput
+}>
+
+export type UpdateAppMutation = {
+  updateApp?: Maybe<{ app?: Maybe<Array<Maybe<Dgraph__AppFragment>>> }>
 }
 
 export type __AtomFragment = Pick<Atom, 'id' | 'type' | 'label'>
@@ -1308,10 +1313,11 @@ export type UpdatePageMutation = {
   page?: Maybe<{ page?: Maybe<Array<Maybe<App__PageFragment>>> }>
 }
 
-export const User__AppFragmentDoc = gql`
-  fragment User__App on App {
+export const Dgraph__AppFragmentDoc = gql`
+  fragment Dgraph__App on App {
     id
     name
+    ownerId
   }
 `
 export const __AtomFragmentDoc = gql`
@@ -1367,14 +1373,14 @@ export const App__PageFragmentDoc = gql`
   }
 `
 export const CreateAppGql = gql`
-  mutation CreateApp($input: AddAppInput!) {
-    addApp(input: [$input]) {
+  mutation CreateApp($input: [AddAppInput!]!) {
+    addApp(input: $input) {
       app {
-        ...User__App
+        ...Dgraph__App
       }
     }
   }
-  ${User__AppFragmentDoc}
+  ${Dgraph__AppFragmentDoc}
 `
 export type CreateAppMutationFn = Apollo.MutationFunction<
   CreateAppMutation,
@@ -1419,14 +1425,14 @@ export type CreateAppMutationOptions = Apollo.BaseMutationOptions<
   CreateAppMutationVariables
 >
 export const DeleteAppGql = gql`
-  mutation DeleteApp($id: ID!) {
-    app: deleteApp(filter: { id: [$id] }) {
+  mutation DeleteApp($filter: AppFilter!) {
+    deleteApp(filter: $filter) {
       app {
-        ...User__App
+        ...Dgraph__App
       }
     }
   }
-  ${User__AppFragmentDoc}
+  ${Dgraph__AppFragmentDoc}
 `
 export type DeleteAppMutationFn = Apollo.MutationFunction<
   DeleteAppMutation,
@@ -1446,7 +1452,7 @@ export type DeleteAppMutationFn = Apollo.MutationFunction<
  * @example
  * const [deleteAppMutation, { data, loading, error }] = useDeleteAppMutation({
  *   variables: {
- *      id: // value for 'id'
+ *      filter: // value for 'filter'
  *   },
  * });
  */
@@ -1471,12 +1477,12 @@ export type DeleteAppMutationOptions = Apollo.BaseMutationOptions<
   DeleteAppMutationVariables
 >
 export const GetAppGql = gql`
-  query GetApp($appId: ID!) {
-    app: getApp(id: $appId) {
-      ...User__App
+  query GetApp($id: ID!) {
+    app: getApp(id: $id) {
+      ...Dgraph__App
     }
   }
-  ${User__AppFragmentDoc}
+  ${Dgraph__AppFragmentDoc}
 `
 
 /**
@@ -1491,7 +1497,7 @@ export const GetAppGql = gql`
  * @example
  * const { data, loading, error } = useGetAppQuery({
  *   variables: {
- *      appId: // value for 'appId'
+ *      id: // value for 'id'
  *   },
  * });
  */
@@ -1519,115 +1525,125 @@ export type GetAppQueryResult = Apollo.QueryResult<
 export function refetchGetAppQuery(variables?: GetAppQueryVariables) {
   return { query: GetAppGql, variables: variables }
 }
-export const GetAppsListGql = gql`
-  query GetAppsList {
-    apps: queryApp {
-      ...User__App
+export const GetAppsGql = gql`
+  query GetApps(
+    $filter: AppFilter
+    $order: AppOrder
+    $first: Int
+    $offset: Int
+  ) {
+    apps: queryApp(
+      filter: $filter
+      order: $order
+      first: $first
+      offset: $offset
+    ) {
+      ...Dgraph__App
     }
   }
-  ${User__AppFragmentDoc}
+  ${Dgraph__AppFragmentDoc}
 `
 
 /**
- * __useGetAppsListQuery__
+ * __useGetAppsQuery__
  *
- * To run a query within a React component, call `useGetAppsListQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetAppsListQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetAppsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAppsQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetAppsListQuery({
+ * const { data, loading, error } = useGetAppsQuery({
  *   variables: {
+ *      filter: // value for 'filter'
+ *      order: // value for 'order'
+ *      first: // value for 'first'
+ *      offset: // value for 'offset'
  *   },
  * });
  */
-export function useGetAppsListQuery(
-  baseOptions?: Apollo.QueryHookOptions<
-    GetAppsListQuery,
-    GetAppsListQueryVariables
-  >,
+export function useGetAppsQuery(
+  baseOptions?: Apollo.QueryHookOptions<GetAppsQuery, GetAppsQueryVariables>,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<GetAppsListQuery, GetAppsListQueryVariables>(
-    GetAppsListGql,
+  return Apollo.useQuery<GetAppsQuery, GetAppsQueryVariables>(
+    GetAppsGql,
     options,
   )
 }
-export function useGetAppsListLazyQuery(
+export function useGetAppsLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
-    GetAppsListQuery,
-    GetAppsListQueryVariables
+    GetAppsQuery,
+    GetAppsQueryVariables
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<GetAppsListQuery, GetAppsListQueryVariables>(
-    GetAppsListGql,
+  return Apollo.useLazyQuery<GetAppsQuery, GetAppsQueryVariables>(
+    GetAppsGql,
     options,
   )
 }
-export type GetAppsListQueryHookResult = ReturnType<typeof useGetAppsListQuery>
-export type GetAppsListLazyQueryHookResult = ReturnType<
-  typeof useGetAppsListLazyQuery
+export type GetAppsQueryHookResult = ReturnType<typeof useGetAppsQuery>
+export type GetAppsLazyQueryHookResult = ReturnType<typeof useGetAppsLazyQuery>
+export type GetAppsQueryResult = Apollo.QueryResult<
+  GetAppsQuery,
+  GetAppsQueryVariables
 >
-export type GetAppsListQueryResult = Apollo.QueryResult<
-  GetAppsListQuery,
-  GetAppsListQueryVariables
->
-export function refetchGetAppsListQuery(variables?: GetAppsListQueryVariables) {
-  return { query: GetAppsListGql, variables: variables }
+export function refetchGetAppsQuery(variables?: GetAppsQueryVariables) {
+  return { query: GetAppsGql, variables: variables }
 }
-export const EditAppGql = gql`
-  mutation EditApp($input: AppPatch!, $id: ID!) {
-    updateApp(input: { filter: { id: [$id] }, set: $input }) {
+export const UpdateAppGql = gql`
+  mutation UpdateApp($input: UpdateAppInput!) {
+    updateApp(input: $input) {
       app {
-        ...User__App
+        ...Dgraph__App
       }
     }
   }
-  ${User__AppFragmentDoc}
+  ${Dgraph__AppFragmentDoc}
 `
-export type EditAppMutationFn = Apollo.MutationFunction<
-  EditAppMutation,
-  EditAppMutationVariables
+export type UpdateAppMutationFn = Apollo.MutationFunction<
+  UpdateAppMutation,
+  UpdateAppMutationVariables
 >
 
 /**
- * __useEditAppMutation__
+ * __useUpdateAppMutation__
  *
- * To run a mutation, you first call `useEditAppMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useEditAppMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useUpdateAppMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateAppMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [editAppMutation, { data, loading, error }] = useEditAppMutation({
+ * const [updateAppMutation, { data, loading, error }] = useUpdateAppMutation({
  *   variables: {
  *      input: // value for 'input'
- *      id: // value for 'id'
  *   },
  * });
  */
-export function useEditAppMutation(
+export function useUpdateAppMutation(
   baseOptions?: Apollo.MutationHookOptions<
-    EditAppMutation,
-    EditAppMutationVariables
+    UpdateAppMutation,
+    UpdateAppMutationVariables
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useMutation<EditAppMutation, EditAppMutationVariables>(
-    EditAppGql,
+  return Apollo.useMutation<UpdateAppMutation, UpdateAppMutationVariables>(
+    UpdateAppGql,
     options,
   )
 }
-export type EditAppMutationHookResult = ReturnType<typeof useEditAppMutation>
-export type EditAppMutationResult = Apollo.MutationResult<EditAppMutation>
-export type EditAppMutationOptions = Apollo.BaseMutationOptions<
-  EditAppMutation,
-  EditAppMutationVariables
+export type UpdateAppMutationHookResult = ReturnType<
+  typeof useUpdateAppMutation
+>
+export type UpdateAppMutationResult = Apollo.MutationResult<UpdateAppMutation>
+export type UpdateAppMutationOptions = Apollo.BaseMutationOptions<
+  UpdateAppMutation,
+  UpdateAppMutationVariables
 >
 export const CreateAtomGql = gql`
   mutation CreateAtom($input: [AddAtomInput!]!) {
@@ -2468,10 +2484,11 @@ export type UpdatePageMutationOptions = Apollo.BaseMutationOptions<
   UpdatePageMutation,
   UpdatePageMutationVariables
 >
-export const User__App = gql`
-  fragment User__App on App {
+export const Dgraph__App = gql`
+  fragment Dgraph__App on App {
     id
     name
+    ownerId
   }
 `
 export const __Atom = gql`
@@ -2527,50 +2544,60 @@ export const App__Page = gql`
   }
 `
 export const CreateApp = gql`
-  mutation CreateApp($input: AddAppInput!) {
-    addApp(input: [$input]) {
+  mutation CreateApp($input: [AddAppInput!]!) {
+    addApp(input: $input) {
       app {
-        ...User__App
+        ...Dgraph__App
       }
     }
   }
-  ${User__App}
+  ${Dgraph__App}
 `
 export const DeleteApp = gql`
-  mutation DeleteApp($id: ID!) {
-    app: deleteApp(filter: { id: [$id] }) {
+  mutation DeleteApp($filter: AppFilter!) {
+    deleteApp(filter: $filter) {
       app {
-        ...User__App
+        ...Dgraph__App
       }
     }
   }
-  ${User__App}
+  ${Dgraph__App}
 `
 export const GetApp = gql`
-  query GetApp($appId: ID!) {
-    app: getApp(id: $appId) {
-      ...User__App
+  query GetApp($id: ID!) {
+    app: getApp(id: $id) {
+      ...Dgraph__App
     }
   }
-  ${User__App}
+  ${Dgraph__App}
 `
-export const GetAppsList = gql`
-  query GetAppsList {
-    apps: queryApp {
-      ...User__App
+export const GetApps = gql`
+  query GetApps(
+    $filter: AppFilter
+    $order: AppOrder
+    $first: Int
+    $offset: Int
+  ) {
+    apps: queryApp(
+      filter: $filter
+      order: $order
+      first: $first
+      offset: $offset
+    ) {
+      ...Dgraph__App
     }
   }
-  ${User__App}
+  ${Dgraph__App}
 `
-export const EditApp = gql`
-  mutation EditApp($input: AppPatch!, $id: ID!) {
-    updateApp(input: { filter: { id: [$id] }, set: $input }) {
+export const UpdateApp = gql`
+  mutation UpdateApp($input: UpdateAppInput!) {
+    updateApp(input: $input) {
       app {
-        ...User__App
+        ...Dgraph__App
       }
     }
   }
-  ${User__App}
+  ${Dgraph__App}
 `
 export const CreateAtom = gql`
   mutation CreateAtom($input: [AddAtomInput!]!) {

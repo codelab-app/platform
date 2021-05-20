@@ -3,6 +3,7 @@ import {
   GraphqlModule,
   InfrastructureModule,
 } from '@codelab/backend'
+import { AppModule as AppApiModule } from '@codelab/modules/app-api'
 import { LambdaApiModule } from '@codelab/modules/lambda-api'
 import { UserModule } from '@codelab/modules/user-api'
 import { Module } from '@nestjs/common'
@@ -16,6 +17,7 @@ import { AppService } from './app.service'
     AuthModule,
     GraphqlModule,
     UserModule,
+    AppApiModule,
   ],
   controllers: [AppController],
   providers: [AppService],

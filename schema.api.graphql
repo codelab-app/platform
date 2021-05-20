@@ -2,6 +2,12 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type App {
+  id: ID!
+  ownerId: String!
+  name: String!
+}
+
 type User {
   blocked: Boolean
   created_at: String
@@ -27,6 +33,8 @@ type User {
 type Query {
   getMe: User!
   getUsers(input: GetUsersInput): [User!]!
+  getApp(input: GetAppInput!): App
+  getApps: [App!]!
 }
 
 input GetUsersInput {
@@ -36,9 +44,16 @@ input GetUsersInput {
   sort: String!
 }
 
+input GetAppInput {
+  appId: String!
+}
+
 type Mutation {
   updateUser(input: UpdateUserInput!): User!
   deleteUser(input: DeleteUserInput!): Boolean!
+  createApp(input: CreateAppInput!): App!
+  updateApp(input: UpdateAppInput!): App!
+  deleteApp(input: DeleteAppInput!): App!
 }
 
 input UpdateUserInput {
@@ -58,4 +73,17 @@ input UpdateUserData {
 
 input DeleteUserInput {
   userId: String!
+}
+
+input CreateAppInput {
+  name: String!
+}
+
+input UpdateAppInput {
+  name: String
+  appId: String!
+}
+
+input DeleteAppInput {
+  appId: String!
 }

@@ -2,7 +2,7 @@
 
 type App {
     id: ID!
-    ownerId: String!
+    ownerId: String! @search(by: [hash])
     pages: [Page] @hasInverse(field: "app")
     name: String!
 }

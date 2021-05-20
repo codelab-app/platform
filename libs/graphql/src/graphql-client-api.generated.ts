@@ -18,6 +18,16 @@ export type Scalars = {
   Float: number
 }
 
+export type App = {
+  id: Scalars['ID']
+  ownerId: Scalars['String']
+  name: Scalars['String']
+}
+
+export type CreateAppInput = {
+  name: Scalars['String']
+}
+
 export type DeleteUserInput = {
   userId: Scalars['String']
 }
@@ -32,6 +42,8 @@ export type GetUsersInput = {
 export type Mutation = {
   updateUser: User
   deleteUser: Scalars['Boolean']
+  createApp: App
+  updateApp: App
 }
 
 export type MutationUpdateUserArgs = {
@@ -42,13 +54,27 @@ export type MutationDeleteUserArgs = {
   input: DeleteUserInput
 }
 
+export type MutationCreateAppArgs = {
+  input: CreateAppInput
+}
+
+export type MutationUpdateAppArgs = {
+  input: UpdateAppInput
+}
+
 export type Query = {
   getMe: User
   getUsers: Array<User>
+  getApps: Array<App>
 }
 
 export type QueryGetUsersArgs = {
   input?: Maybe<GetUsersInput>
+}
+
+export type UpdateAppInput = {
+  name?: Maybe<Scalars['String']>
+  appId: Scalars['String']
 }
 
 export type UpdateUserData = {
@@ -88,6 +114,8 @@ export type User = {
   username?: Maybe<Scalars['String']>
 }
 
+export type __AppFragment = Pick<App, 'id' | 'name'>
+
 export type __UserFragment = Pick<User, 'email' | 'name'> & {
   id: User['user_id']
 }
@@ -104,6 +132,12 @@ export type GetUsersQueryVariables = Exact<{
 
 export type GetUsersQuery = { users: Array<__UserFragment> }
 
+export const __AppFragmentDoc = gql`
+  fragment __App on App {
+    id
+    name
+  }
+`
 export const __UserFragmentDoc = gql`
   fragment __User on User {
     id: user_id
@@ -215,6 +249,12 @@ export type GetUsersQueryResult = Apollo.QueryResult<
 export function refetchGetUsersQuery(variables?: GetUsersQueryVariables) {
   return { query: GetUsersGql, variables: variables }
 }
+export const __App = gql`
+  fragment __App on App {
+    id
+    name
+  }
+`
 export const __User = gql`
   fragment __User on User {
     id: user_id

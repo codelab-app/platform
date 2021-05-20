@@ -1,6 +1,5 @@
 export * from './apollo-client'
 export * from './dgraph'
-export * from './graphql/config/graphql.config'
-export * from './graphql/graphql.module'
+export * from './graphql'
 export * from './logger/logger.module'
 export * from './persistence/aws'

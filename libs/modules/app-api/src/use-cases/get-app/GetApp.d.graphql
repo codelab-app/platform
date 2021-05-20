@@ -1,0 +1,5 @@
+query GetApp($id: ID!) {
+    app: getApp(id: $id) {
+        ...Dgraph__App
+    }
+}

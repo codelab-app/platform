@@ -1,28 +1,14 @@
-import { ExecutionContext, Injectable } from '@nestjs/common'
-import { GqlExecutionContext } from '@nestjs/graphql'
-import { AuthGuard } from '@nestjs/passport'
+import { Injectable } from '@nestjs/common'
+import { GqlAuthGuard } from './gql-auth.guard'
+import { isOwnerAddOn, StringExtractionFn } from './guard-addons'
 
-@Injectable()
-export class IsOwnerAuthGuard<TInput> extends AuthGuard('jwt') {
-  constructor(
-    private extractOwnerIdFromArgs: (input: TInput) => string | Promise<string>,
-  ) {
-    super()
+export const IsOwnerAuthGuard = <TInput>(
+  extractOwnerIdFromArgs: StringExtractionFn<TInput>,
+) => {
+  @Injectable()
+  class _IsOwnerAuthGuard extends GqlAuthGuard {
+    canActivate = isOwnerAddOn(extractOwnerIdFromArgs)
   }
 
-  getRequest(context: ExecutionContext) {
-    const ctx = GqlExecutionContext.create(context)
-
-    return ctx.getContext().req
-  }
-
-  async canActivate(context: ExecutionContext) {
-    const ctx = GqlExecutionContext.create(context)
-    const ownerIdFromInput = await this.extractOwnerIdFromArgs(ctx.getArgs())
-    const { req } = ctx.getContext()
-    const loggedInUserId = req.user.sub
-    console.log('isowner', loggedInUserId, ownerIdFromInput)
-
-    return ownerIdFromInput === loggedInUserId
-  }
+  return _IsOwnerAuthGuard
 }

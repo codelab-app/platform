@@ -1,7 +1,7 @@
 import { Field, InputType } from '@nestjs/graphql'
 
 @InputType()
-export class CreateAppInput {
+export class DeleteAppInput {
   @Field()
-  declare name: string
+  declare appId: string
 }

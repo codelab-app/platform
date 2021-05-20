@@ -6,7 +6,6 @@ import {
 } from '@codelab/backend'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
-import { boolean } from '@storybook/addon-knobs'
 import {
   DeleteUserInput,
   DeleteUserService,
@@ -44,9 +43,7 @@ export class UserResolver {
   @Mutation(() => User)
   @UseGuards(
     GqlAuthGuard,
-    new IsOwnerAuthGuard(
-      ({ input }: { input: UpdateUserInput }) => input.userId,
-    ),
+    IsOwnerAuthGuard(({ input }: { input: UpdateUserInput }) => input.userId),
   )
   updateUser(@Args('input') input: UpdateUserInput) {
     return this.updateService.execute(input)
@@ -56,9 +53,7 @@ export class UserResolver {
   //TODO allow admin to delete and update all
   @UseGuards(
     GqlAuthGuard,
-    new IsOwnerAuthGuard(
-      ({ input }: { input: DeleteUserInput }) => input.userId,
-    ),
+    IsOwnerAuthGuard(({ input }: { input: DeleteUserInput }) => input.userId),
   )
   deleteUser(@Args('input') input: DeleteUserInput) {
     return this.deleteService.execute(input)

@@ -12,10 +12,10 @@ import { UserResolver } from './user.resolver'
   imports: [DGraphModule, AuthModule, ApolloClientModule],
   providers: [
     UpdateUserService,
-    UserResolver,
     GetUserService,
     DeleteUserService,
     GetUsersService,
+    UserResolver,
   ],
   exports: [],
 })

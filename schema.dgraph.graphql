@@ -139,6 +139,7 @@ type AppAggregateResult {
 
 input AppFilter {
   id: [ID!]
+  ownerId: StringHashFilter
   has: [AppHasFilter]
   and: [AppFilter]
   or: [AppFilter]
