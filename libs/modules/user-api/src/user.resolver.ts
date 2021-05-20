@@ -7,11 +7,9 @@ import {
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import {
-  CreateUserInput,
-  CreateUserService,
-  DeleteUsersInput,
-  DeleteUsersService,
-  GetMeService,
+  DeleteUserInput,
+  DeleteUserService,
+  GetUserService,
   GetUsersInput,
   GetUsersService,
   UpdateUserInput,
@@ -23,17 +21,16 @@ import { User } from './user.model'
 @Injectable()
 export class UserResolver {
   constructor(
-    private createService: CreateUserService,
     private updateService: UpdateUserService,
-    private deleteService: DeleteUsersService,
-    private getMeService: GetMeService,
+    private deleteService: DeleteUserService,
+    private getUserService: GetUserService,
     private getUsersService: GetUsersService,
   ) {}
 
   @Query(() => User)
   @UseGuards(GqlAuthGuard)
   getMe(@CurrentUser() currentUser: JwtPayload) {
-    return this.getMeService.execute({ userId: currentUser.sub })
+    return this.getUserService.execute({ userId: currentUser.sub })
   }
 
   //TODO require admin
@@ -44,31 +41,21 @@ export class UserResolver {
   }
 
   @Mutation(() => User)
-  createUser(
-    @Args('input') input: CreateUserInput,
-    @Args('upsert', { nullable: true, defaultValue: false }) upsert: boolean,
-  ) {
-    return this.createService.execute({
-      input,
-      upsert,
-    })
-  }
-
-  @Mutation(() => User)
   @UseGuards(
     GqlAuthGuard,
-    new IsOwnerAuthGuard(({ input }: { input: UpdateUserInput }) => input.id),
+    IsOwnerAuthGuard(({ input }: { input: UpdateUserInput }) => input.userId),
   )
   updateUser(@Args('input') input: UpdateUserInput) {
     return this.updateService.execute(input)
   }
 
-  @Mutation(() => User)
+  @Mutation(() => Boolean)
+  //TODO allow admin to delete and update all
   @UseGuards(
     GqlAuthGuard,
-    new IsOwnerAuthGuard(({ input }: { input: UpdateUserInput }) => input.id),
+    IsOwnerAuthGuard(({ input }: { input: DeleteUserInput }) => input.userId),
   )
-  deleteUsers(@Args('input') input: DeleteUsersInput) {
+  deleteUser(@Args('input') input: DeleteUserInput) {
     return this.deleteService.execute(input)
   }
 }

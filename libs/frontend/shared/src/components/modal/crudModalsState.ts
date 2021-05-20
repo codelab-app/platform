@@ -26,6 +26,7 @@ export enum EntityType {
 }
 
 interface CRUDModalState {
+  metadata: any
   deleteIds: Array<string>
   updateId: string
   visibleForm: ActionType
@@ -39,6 +40,7 @@ const defaultState = {
   loading: false,
   deleteIds: [],
   updateId: '',
+  metadata: undefined,
 }
 
 export const crudModalAtom = atom<CRUDModalState>({
@@ -51,33 +53,39 @@ export const crudModalAtom = atom<CRUDModalState>({
 export const useCRUDModalForm = (type: EntityType) => {
   const [state, setState] = useRecoilState(crudModalAtom)
 
-  const openCreateModal = useCallback(() => {
-    setState((current) => ({
-      ...current,
-      type,
-      visibleForm: ActionType.Create,
-    }))
-  }, [setState, type])
+  const openCreateModal = useCallback(
+    (metadata?: any) => {
+      setState((current) => ({
+        ...current,
+        type,
+        visibleForm: ActionType.Create,
+        metadata: metadata || undefined,
+      }))
+    },
+    [setState, type],
+  )
 
   const openUpdateModal = useCallback(
-    (updateId: string) => {
+    (updateId: string, metadata?: any) => {
       setState((current) => ({
         ...current,
         type,
         visibleForm: ActionType.Update,
         updateId,
+        metadata: metadata || undefined,
       }))
     },
     [setState, type],
   )
 
   const openDeleteModal = useCallback(
-    (deleteIds: Array<string>) => {
+    (deleteIds: Array<string>, metadata?: any) => {
       setState((current) => ({
         ...current,
         type,
         visibleForm: ActionType.Delete,
         deleteIds,
+        metadata: metadata || undefined,
       }))
     },
     [setState, type],

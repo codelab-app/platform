@@ -6,6 +6,7 @@ import React from 'react'
 
 const Users = () => {
   const { data } = useGetUsersQuery()
+  console.log('Data', data)
 
   const dataSource = data?.users?.map((user) => ({
     id: user?.id,
@@ -31,7 +32,10 @@ const Users = () => {
       render: (text, record) => {
         return (
           <Space>
-            <DeleteUserButton ids={[record.id]} />
+            <DeleteUserButton
+              ids={[record.id]}
+              metadata={{ userNames: record.email }}
+            />
           </Space>
         )
       },

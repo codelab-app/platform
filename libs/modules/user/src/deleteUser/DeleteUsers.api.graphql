@@ -1,5 +1,0 @@
-mutation DeleteUsers($input: DeleteUsersInput!) {
-  deleteUsers(input: $input){
-    id
-  }
-}

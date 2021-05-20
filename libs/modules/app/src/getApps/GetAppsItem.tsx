@@ -51,7 +51,7 @@ export const GetAppsItem = ({
         style={menuItemStyle}
         onClick={() => {
           if (app) {
-            handleDeleteClick([app.id])
+            handleDeleteClick([app.id], { name: app.name })
           }
         }}
       >

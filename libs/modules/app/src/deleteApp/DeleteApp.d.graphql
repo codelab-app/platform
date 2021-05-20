@@ -1,7 +1,0 @@
-mutation DeleteApp($id: ID!) {
-  app: deleteApp(filter: { id: [$id] }) {
-    app {
-      ...User__App
-    }
-  }
-}

@@ -1,7 +1,7 @@
-import { User__AppFragment } from '@codelab/dgraph'
+import { __AppFragment } from '@codelab/graphql'
 import { atom } from 'recoil'
 
-export type AppType = User__AppFragment
+export type AppType = __AppFragment
 
 export interface AppState {
   loading: boolean

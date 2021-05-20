@@ -1,5 +1,0 @@
-fragment Dgraph__User on User {
-    id
-    email
-    name
-}

@@ -6,7 +6,9 @@ import { ApolloClientConfig } from './config/apollo-client.config'
 import { ApolloClientTokens } from './config/apollo-client.tokens'
 
 @Injectable()
-/** Creates and manages an instance of an ApolloClient */
+/**
+ * Creates and manages an instance of an ApolloClient
+ */
 export class ApolloClientService {
   private _client: ApolloClient<any> | undefined
 
@@ -39,10 +41,25 @@ export class ApolloClientService {
       fetch,
     })
 
+    //Don't use cache, because if we modify the db outside of apollo
+    //for example - with dql, the cache won't be updated, so it's not reliable at all
+    //PS: if we won't use caching, why not use some kind of a simpler graphql client, with less overhead?
     return new ApolloClient({
       link: dgraphLink,
       cache: new InMemoryCache(),
       ssrMode: true,
+
+      defaultOptions: {
+        watchQuery: {
+          fetchPolicy: 'no-cache',
+        },
+        query: {
+          fetchPolicy: 'no-cache',
+        },
+        mutate: {
+          fetchPolicy: 'no-cache',
+        },
+      },
     })
   }
 }

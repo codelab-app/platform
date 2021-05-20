@@ -1,5 +1,5 @@
-import { refetchGetAppsListQuery, useDeleteAppMutation } from '@codelab/dgraph'
 import { createNotificationHandler } from '@codelab/frontend/shared'
+import { refetchGetAppsQuery, useDeleteAppMutation } from '@codelab/graphql'
 import { Modal } from 'antd'
 
 export const useDeleteAppConfirmation = () => {
@@ -8,9 +8,11 @@ export const useDeleteAppConfirmation = () => {
   const onDeleteConfirmed = (app: { id: string; name: string }) =>
     deleteApp({
       variables: {
-        id: app.id,
+        input: {
+          appId: app.id,
+        },
       },
-      refetchQueries: [refetchGetAppsListQuery()],
+      refetchQueries: [refetchGetAppsQuery()],
     }).catch(
       createNotificationHandler({
         title: `Error while deleting app '${app.name}'`,

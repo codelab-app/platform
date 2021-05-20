@@ -1,60 +1,13 @@
-type User {
-    # id of type String, not type ID, since we want to set it from auth0, and it doesn't follow the ID format
-    id: String! @id
-    # Indexing with Custom Tokenizer
-    email: String! @id @search(by: [hash])
-    # user_id: String! @id
-    name: String
-    apps: [App!] @hasInverse(field: "owner")
-    libraries: [Library!] @hasInverse(field: "owner")
-}
+# Dgraph DB schema
 
-type App
-  @auth(
-    query: {
-     rule: """
-      query($USER: String!) {
-        queryApp {
-          owner(filter: { email: { eq: $USER }}) {
-            id
-          }
-        }
-      }
-      """
-    }
-    # Only allows node to be created given this condition, meaning we'll have to have owner link set
-    add: {
-      rule: """
-      query ($USER: String!) {
-        queryApp {
-          owner(filter: { email: { eq: $USER } } ) {
-            id
-          }
-        }
-      }
-      """
-    }
-) {
+type App {
     id: ID!
-    owner: User!
+    ownerId: String! @search(by: [hash])
     pages: [Page] @hasInverse(field: "app")
     name: String!
 }
 
 type Page {
-    # @auth(
-    # query: {
-    #   rule: """
-    #   query($USER: String!) {
-    #    queryApp {
-    #       owner(filter: { email: { eq: $USER }}) {
-    #         __typename
-    #       }
-    #     }
-    #   }
-    #   """
-    # }
-    # )
     id: ID!
     title: String! @search(by: [term, fulltext])
     app: App
@@ -62,7 +15,7 @@ type Page {
 
 type Library {
     id: ID!
-    owner: User!
+    ownerId: String!
     name: String!
     atoms: [Atom] @hasInverse(field: "library")
     components: [Component] @hasInverse(field: "library")
@@ -87,73 +40,3 @@ type Atom {
 type Tag {
     label: String!
 }
-
-type GetAllUsersPayload {
-    id: ID!
-    email: String
-}
-
-type Query {
-    GetAllUsers: [GetAllUsersPayload]
-    @custom(
-      dql: """
-      query {
-        GetAllUsers(func: type(User)) {
-          dgraph.type
-          email: User.email
-          id: uid
-        }
-      }
-      """
-    )
-    userWhere(email: String!): User
-    @custom(
-      dql: """
-      query user($email: string) {
-        q(func: eq(User.email, $email)){
-          email
-          dgraph.type
-          id: uid
-        }
-      }
-      """
-    )
-  # query user {
-  #      q(func: type(User)) @filter(eq(email, "webber@codelab.ai")) {
-  #        dgraph.type
-  #        id: uid
-  #      }
-  #    }
-}
-
-input UpsertUserInput {
-    email: String!
-}
-
-# type Mutation {
-# createApp(): App @custom(
-#   dql: """
-#   mutation {
-#     _.app <
-
-#   }
-#   """
-# )
-# upsertUser(input: UpsertUserInput!): User
-#   @custom(
-#     dql: """
-#     query {
-#       v asq(func: eq(User.email: input.email)) {
-#         v as uid
-#         email
-#       }
-#     }
-#     mutation @if(gt(len(v), 0)) {
-#       _.user <email> input.email .
-#       _.user <dgraph.type> "User .
-#     }
-#     """
-#   )
-# }
-
-# Dgraph.Authorization {"VerificationKey":"-----BEGIN PUBLIC KEY-----\nMIIDCTCCAfGgAwIBAgIJG3k4ev/Q6Q/VMA0GCSqGSIb3DQEBCwUAMCIxIDAeBgNVBAMTF2NvZGVsYWItYWkudXMuYXV0aDAuY29tMB4XDTIxMDMyMDA4MDAzMloXDTM0MTEyNzA4MDAzMlowIjEgMB4GA1UEAxMXY29kZWxhYi1haS51cy5hdXRoMC5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCfUmz5CAL/xxzO5YICg/fVudRoW5SPA1b3H3r92IMets1/vl+3vhlrImOo+NzncKulTjY3uml18icHoM1F2/Oj/siG+KjZaYNoaVsJoNYQCktYB+lPazm9KpUDKVdOwh7TnSctblLBNHifyBSAQBmgm7ekU2OF5jU9A7Y7goo6X8h9wnkzsB8qlttNtonan70tsCRMyQ67VxPXvfnvTkPuCVp6tMozUdBTOqUgV0rTI2O+DyOK0SwCv8cyGBH3dfpJyP7OqMRPTa4AXgRrzobkOlaXewROSpT0SC93pWao5V6edUxxs6dhmjBiU1bEdorwf0uKJnIgWZwV6haIW/IbAgMBAAGjQjBAMA8GA1UdEwEB/wQFMAMBAf8wHQYDVR0OBBYEFBzGfNisR+V0sq+z+dyH20cgIos8MA4GA1UdDwEB/wQEAwIChDANBgkqhkiG9w0BAQsFAAOCAQEAbZjOWHzXbkGEat17G+f/G0FW+30CtWCSRk59wRGscofvfZ9/tB96l5eFCBQE2yBS48DcZbQ4ouT1QXvF5riuydI6k7rse5hsl2/pUdxWOue6+1lGqxzREIWU4UePSIC3hLxO2nb24dgYvYHDsWx46IWHANr6KRh2hDj+0LkJaoRdebdnbubKcb2svvlH+dYYseSb1OF2pbdQXjs7hiqWeyCgadIjM0MAkyiI3fHiH3yzURnLkbD6meeO1NLILmGaEvbCdB//JutP8vwokYxx3vXwjMIXA8chVfgyeUgy2o9eQh+oX1AH1tMsobwAsU4X3jWx52ACx7ygwEDAnRhG4g==\n-----END PUBLIC KEY-----","Header":"X-Auth-Token","Namespace":"https://dgraph.io/jwt/claims","Algo":"RS256","Audience":["nNN1GfrDp2S4Uj7yK5kxEcKjo1PFMwTI"]}

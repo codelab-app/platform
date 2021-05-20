@@ -7,7 +7,10 @@ import {
 import { Button } from 'antd'
 import React from 'react'
 
-export const DeleteUserButton = ({ ids }: Pick<DeleteButtonProps, 'ids'>) => {
+export const DeleteUserButton = ({
+  ids,
+  metadata,
+}: Pick<DeleteButtonProps, 'ids' | 'metadata'>) => {
   const { openDeleteModal } = useCRUDModalForm(EntityType.User)
 
   return (
@@ -15,7 +18,7 @@ export const DeleteUserButton = ({ ids }: Pick<DeleteButtonProps, 'ids'>) => {
       size="small"
       danger
       icon={<DeleteOutlined />}
-      onClick={() => openDeleteModal(ids)}
+      onClick={() => openDeleteModal(ids, metadata)}
     />
   )
 }

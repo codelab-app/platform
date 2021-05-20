@@ -10,7 +10,7 @@ import { useMemo } from 'react'
 import { authLink } from './links/authLink'
 import { dgraphLink } from './links/dgraphLink'
 import { errorLink } from './links/errorLink'
-import { hasuraLink } from './links/hasuraLink'
+import { graphqlApiLink } from './links/graphqlApiLink'
 
 export interface ApolloContext {
   authToken?: string
@@ -27,14 +27,13 @@ export const getApolloClient = (ctx: ApolloContext = {}) => {
     errorLink,
     authLink,
     ApolloLink.split(
-      // ({ operationName }) => operationName === DGRAPH_OPERATION,
-      ({ operationName }) => true,
+      ({ operationName }) => operationName === 'dgraph',
       dgraphLink,
-      hasuraLink,
+      graphqlApiLink,
     ),
   ])
 
-  const client = new ApolloClient({
+  return new ApolloClient({
     // resolvers: {
     //   DateTime: GraphQLDateTime,
     // },
@@ -43,8 +42,6 @@ export const getApolloClient = (ctx: ApolloContext = {}) => {
     // Disables forceFetch on the server (so queries are only run once)
     ssrMode: typeof window === 'undefined',
   })
-
-  return client
 }
 
 export const initializeApollo = (

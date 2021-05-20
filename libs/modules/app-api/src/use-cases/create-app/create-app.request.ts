@@ -1,6 +1,7 @@
-// import { CreateAppInput } from './CreateAppInput'
-// import { User } from '@codelab/modules/user'
+import { CreateAppInput } from './create-app.input'
 
-// export class CreateAppRequest extends CreateAppInput {
-//   declare user: User
-// }
+export class CreateAppRequest {
+  declare input: CreateAppInput
+
+  declare ownerId: string
+}

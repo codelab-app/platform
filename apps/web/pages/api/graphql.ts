@@ -36,13 +36,13 @@ app.use('*', async (baseReq, baseRes, next) => {
       )
     },
     onProxyReq: (proxyReq, req) => {
+      console.log(session)
+
       if (session) {
-        proxyReq.setHeader('Authorization', `Bearer ${session.idToken}`)
+        proxyReq.setHeader('Authorization', `Bearer ${session.accessToken}`)
       }
 
       if (req.body) {
-        console.log(req.body)
-
         const bodyData = JSON.stringify(req.body)
         // in case if content-type is application/x-www-form-urlencoded -> we need to change to application/json
 

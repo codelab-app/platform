@@ -1,7 +1,0 @@
-mutation CreateApp($input: AddAppInput!) {
-  addApp(input: [$input]) {
-    app {
-      ...User__App
-    }
-  }
-}

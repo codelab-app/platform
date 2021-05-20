@@ -29,6 +29,8 @@ generates:
       strictScalars: true
       defaultScalarType: unknown
       withRefetchFn: true
+      defaultBaseOptions:
+        operationName: 'dgraph'
       scalars:
         uuid: string
         json: Record<string, any>
@@ -50,6 +52,8 @@ generates:
       - typescript-react-apollo
       - typescript-document-nodes
     config:
+      defaultBaseOptions:
+        operationName: 'api'
       documentVariableSuffix: 'Gql'
       gqlImport: '@apollo/client#gql'
       skipTypename: true
