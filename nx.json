@@ -126,6 +126,9 @@
     },
     "graphql": {
       "tags": []
+    },
+    "modules-atom-api": {
+      "tags": []
     }
   }
 }
