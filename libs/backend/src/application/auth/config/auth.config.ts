@@ -24,7 +24,7 @@ export const authConfig = registerAs(
     clientId: get('AUTH0_CLIENT_ID').required(true).asString(),
     clientSecret: get('AUTH0_CLIENT_SECRET').required(true).asString(),
     api: {
-      audience: get('AUTH0_API_AUDIENCE').required(true).asString(),
+      audience: get('AUTH0_AUDIENCE').required(true).asString(),
       clientId: get('AUTH0_API_CLIENT_ID').required(true).asString(),
       clientSecret: get('AUTH0_API_CLIENT_SECRET').required(true).asString(),
     },

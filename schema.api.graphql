@@ -80,8 +80,12 @@ input CreateAppInput {
 }
 
 input UpdateAppInput {
-  name: String
   appId: String!
+  updateData: UpdateAppData!
+}
+
+input UpdateAppData {
+  name: String!
 }
 
 input DeleteAppInput {

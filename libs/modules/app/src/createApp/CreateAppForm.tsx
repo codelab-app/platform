@@ -1,5 +1,4 @@
 import { useUser } from '@auth0/nextjs-auth0'
-import { refetchGetAppsListQuery, useCreateAppMutation } from '@codelab/dgraph'
 import {
   createNotificationHandler,
   EntityType,
@@ -7,11 +6,16 @@ import {
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
+import {
+  CreateAppInput,
+  refetchGetAppsQuery,
+  useCreateAppMutation,
+} from '@codelab/graphql'
 import React, { useEffect } from 'react'
 import { useRecoilState } from 'recoil'
 import { AutoFields } from 'uniforms-antd'
 import { appState } from '../state'
-import { CreateAppInput, createAppSchema } from './createAppSchema'
+import { createAppSchema } from './createAppSchema'
 
 export const CreateAppForm = (props: UniFormUseCaseProps<CreateAppInput>) => {
   const { reset, setLoading } = useCRUDModalForm(EntityType.App)
@@ -19,7 +23,7 @@ export const CreateAppForm = (props: UniFormUseCaseProps<CreateAppInput>) => {
 
   const [mutate, { loading }] = useCreateAppMutation({
     awaitRefetchQueries: true,
-    refetchQueries: [refetchGetAppsListQuery()],
+    refetchQueries: [refetchGetAppsQuery()],
   })
 
   const [, setAppState] = useRecoilState(appState)
@@ -35,14 +39,6 @@ export const CreateAppForm = (props: UniFormUseCaseProps<CreateAppInput>) => {
       variables: {
         input: {
           ...submitData,
-          owner: {
-            email: user?.email,
-          },
-          // pages: [
-          //   {
-          //     title: 'Default Page',
-          //   },
-          // ],
         },
       },
     })
@@ -50,11 +46,6 @@ export const CreateAppForm = (props: UniFormUseCaseProps<CreateAppInput>) => {
 
   return (
     <FormUniforms<CreateAppInput>
-      // model={{
-      //   owner: {
-      //     email: user?.email ?? null,
-      //   },
-      // }}
       onSubmit={onSubmit}
       schema={createAppSchema}
       onSubmitError={createNotificationHandler({

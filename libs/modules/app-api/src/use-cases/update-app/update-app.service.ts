@@ -36,7 +36,7 @@ export class UpdateAppService extends MutationUseCase<
 
   protected getVariables({
     appId,
-    ...data
+    updateData,
   }: UpdateAppInput): UpdateAppMutationVariables {
     return {
       input: {
@@ -44,7 +44,7 @@ export class UpdateAppService extends MutationUseCase<
           id: [appId],
         },
         set: {
-          name: data.name,
+          name: updateData.name,
         },
       },
     }

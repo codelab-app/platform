@@ -1,16 +1,11 @@
 import {
-  refetchGetAppsListQuery,
-  useDeleteAppMutation,
-  useGetAppQuery,
-} from '@codelab/dgraph'
-import {
   createNotificationHandler,
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import { Spin } from 'antd'
+import { refetchGetAppsQuery, useDeleteAppMutation } from '@codelab/graphql'
 import React, { useEffect } from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { DeleteAppInput, DeleteAppSchema } from './deleteAppSchema'
@@ -19,33 +14,23 @@ type DeleteAppFormProps = UniFormUseCaseProps<DeleteAppInput>
 
 export const DeleteAppForm = (props: DeleteAppFormProps) => {
   const { reset, setLoading, state } = useCRUDModalForm(EntityType.App)
-  const { deleteIds: appDeleteIds } = state
+  const { deleteIds: appDeleteIds, metadata } = state
 
   const [mutate, { loading: deleting }] = useDeleteAppMutation({
     awaitRefetchQueries: true,
-    refetchQueries: [refetchGetAppsListQuery()],
+    refetchQueries: [refetchGetAppsQuery()],
   })
 
   useEffect(() => {
     setLoading(deleting)
   }, [deleting])
 
-  const { data, loading } = useGetAppQuery({
-    variables: {
-      appId: appDeleteIds[0],
-    },
-  })
-
-  const app = data?.app
-
-  if (loading) {
-    return <Spin />
-  }
-
   const onSubmit = () => {
     return mutate({
       variables: {
-        id: appDeleteIds[0],
+        input: {
+          appId: appDeleteIds[0],
+        },
       },
     })
   }
@@ -60,7 +45,7 @@ export const DeleteAppForm = (props: DeleteAppFormProps) => {
       onSubmitSuccess={() => reset()}
       {...props}
     >
-      <h4>Are you sure you want to delete app "{app?.name}"?</h4>
+      <h4>Are you sure you want to delete app "{metadata?.name}"?</h4>
       <AutoFields />
     </FormUniforms>
   )

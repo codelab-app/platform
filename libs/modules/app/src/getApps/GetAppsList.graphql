@@ -1,5 +1,0 @@
-query GetAppsList {
-  apps: queryApp {
-    ...User__App
-  }
-}

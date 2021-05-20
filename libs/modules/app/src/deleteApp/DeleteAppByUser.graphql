@@ -1,5 +1,0 @@
-mutation DeleteUserApps($userId: String!) {
-  delete_app(where: { user_id: { _eq: $userId } }) {
-    affected_rows
-  }
-}

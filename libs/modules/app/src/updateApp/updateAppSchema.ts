@@ -1,10 +1,7 @@
+import { UpdateAppData } from '@codelab/graphql'
 import { JSONSchemaType } from 'ajv'
 
-export type UpdateAppInput = {
-  name: string
-}
-
-export const updateAppSchema: JSONSchemaType<UpdateAppInput> = {
+export const updateAppSchema: JSONSchemaType<UpdateAppData> = {
   title: 'Edit App Input',
   type: 'object',
   properties: {
