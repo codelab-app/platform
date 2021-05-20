@@ -52,7 +52,10 @@
       "@codelab/modules/user-api": ["libs/modules/user-api/src/index.ts"],
       "@codelab/modules/atom-api": ["libs/modules/atom-api/src/index.ts"],
       "@codelab/schematics": ["libs/plugins/codelab/src/index.ts"],
-      "@codelab/graphql": ["libs/graphql/src/index.ts"]
+      "@codelab/graphql": ["libs/graphql/src/index.ts"],
+      "@codelab/modules/atom-type-api": [
+        "libs/modules/atom-type-api/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"]

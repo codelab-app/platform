@@ -8,5 +8,6 @@ module.exports = {
     '<rootDir>/libs/modules/user-api',
     '<rootDir>/libs/plugins/codelab',
     '<rootDir>/libs/modules/atom-api',
+    '<rootDir>/libs/modules/atom-type-api',
   ],
 }

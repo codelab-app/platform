@@ -129,6 +129,9 @@
     },
     "modules-atom-api": {
       "tags": []
+    },
+    "modules-atom-type-api": {
+      "tags": []
     }
   }
 }

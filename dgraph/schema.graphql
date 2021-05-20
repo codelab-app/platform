@@ -31,10 +31,17 @@ type Component {
 }
 
 type Atom {
-  id: ID!
-  type: String!
-  library: Library!
-  label: String!
+    id: ID!
+    type: AtomType!
+    label: String!
+    # props: [Prop]
+    library: Library
+}
+
+type AtomType {
+    id: ID!
+    label: String!
+    type: String!
 }
 
 type Tag {

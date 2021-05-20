@@ -827,6 +827,27 @@
           }
         }
       }
+    },
+    "modules-atom-type-api": {
+      "root": "libs/modules/atom-type-api",
+      "sourceRoot": "libs/modules/atom-type-api/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/modules/atom-type-api/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/modules/atom-type-api"],
+          "options": {
+            "jestConfig": "libs/modules/atom-type-api/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   }
 }

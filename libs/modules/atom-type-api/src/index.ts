@@ -1,1 +1,2 @@
-export * from './lib/modules-atom-type-api.module'
+export * from './atomType.module'
+export * from './use-cases'

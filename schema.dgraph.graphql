@@ -57,13 +57,28 @@ type AddAppPayload {
 }
 
 input AddAtomInput {
-  type: String!
-  library: LibraryRef!
+  type: AtomTypeRef!
   label: String!
+  library: LibraryRef
 }
 
 type AddAtomPayload {
   atom(filter: AtomFilter, order: AtomOrder, first: Int, offset: Int): [Atom]
+  numUids: Int
+}
+
+input AddAtomTypeInput {
+  label: String!
+  type: String!
+}
+
+type AddAtomTypePayload {
+  atomType(
+    filter: AtomTypeFilter
+    order: AtomTypeOrder
+    first: Int
+    offset: Int
+  ): [AtomType]
   numUids: Int
 }
 
@@ -178,15 +193,13 @@ input AppRef {
 
 type Atom {
   id: ID!
-  type: String!
-  library(filter: LibraryFilter): Library!
+  type(filter: AtomTypeFilter): AtomType!
   label: String!
+  library(filter: LibraryFilter): Library
 }
 
 type AtomAggregateResult {
   count: Int
-  typeMin: String
-  typeMax: String
   labelMin: String
   labelMax: String
 }
@@ -201,8 +214,8 @@ input AtomFilter {
 
 enum AtomHasFilter {
   type
-  library
   label
+  library
 }
 
 input AtomOrder {
@@ -212,21 +225,69 @@ input AtomOrder {
 }
 
 enum AtomOrderable {
-  type
   label
 }
 
 input AtomPatch {
-  type: String
-  library: LibraryRef
+  type: AtomTypeRef
   label: String
+  library: LibraryRef
 }
 
 input AtomRef {
   id: ID
-  type: String
-  library: LibraryRef
+  type: AtomTypeRef
   label: String
+  library: LibraryRef
+}
+
+type AtomType {
+  id: ID!
+  label: String!
+  type: String!
+}
+
+type AtomTypeAggregateResult {
+  count: Int
+  labelMin: String
+  labelMax: String
+  typeMin: String
+  typeMax: String
+}
+
+input AtomTypeFilter {
+  id: [ID!]
+  has: [AtomTypeHasFilter]
+  and: [AtomTypeFilter]
+  or: [AtomTypeFilter]
+  not: AtomTypeFilter
+}
+
+enum AtomTypeHasFilter {
+  label
+  type
+}
+
+input AtomTypeOrder {
+  asc: AtomTypeOrderable
+  desc: AtomTypeOrderable
+  then: AtomTypeOrder
+}
+
+enum AtomTypeOrderable {
+  label
+  type
+}
+
+input AtomTypePatch {
+  label: String
+  type: String
+}
+
+input AtomTypeRef {
+  id: ID
+  label: String
+  type: String
 }
 
 input AuthRule {
@@ -347,6 +408,17 @@ type DeleteAppPayload {
 
 type DeleteAtomPayload {
   atom(filter: AtomFilter, order: AtomOrder, first: Int, offset: Int): [Atom]
+  msg: String
+  numUids: Int
+}
+
+type DeleteAtomTypePayload {
+  atomType(
+    filter: AtomTypeFilter
+    order: AtomTypeOrder
+    first: Int
+    offset: Int
+  ): [AtomType]
   msg: String
   numUids: Int
 }
@@ -573,6 +645,9 @@ type Mutation {
   addAtom(input: [AddAtomInput!]!): AddAtomPayload
   updateAtom(input: UpdateAtomInput!): UpdateAtomPayload
   deleteAtom(filter: AtomFilter!): DeleteAtomPayload
+  addAtomType(input: [AddAtomTypeInput!]!): AddAtomTypePayload
+  updateAtomType(input: UpdateAtomTypeInput!): UpdateAtomTypePayload
+  deleteAtomType(filter: AtomTypeFilter!): DeleteAtomTypePayload
   addTag(input: [AddTagInput!]!): AddTagPayload
   updateTag(input: UpdateTagInput!): UpdateTagPayload
   deleteTag(filter: TagFilter!): DeleteTagPayload
@@ -704,6 +779,14 @@ type Query {
     offset: Int
   ): [Atom]
   aggregateAtom(filter: AtomFilter): AtomAggregateResult
+  getAtomType(id: ID!): AtomType
+  queryAtomType(
+    filter: AtomTypeFilter
+    order: AtomTypeOrder
+    first: Int
+    offset: Int
+  ): [AtomType]
+  aggregateAtomType(filter: AtomTypeFilter): AtomTypeAggregateResult
   queryTag(filter: TagFilter, order: TagOrder, first: Int, offset: Int): [Tag]
   aggregateTag(filter: TagFilter): TagAggregateResult
 }
@@ -807,6 +890,22 @@ input UpdateAtomInput {
 
 type UpdateAtomPayload {
   atom(filter: AtomFilter, order: AtomOrder, first: Int, offset: Int): [Atom]
+  numUids: Int
+}
+
+input UpdateAtomTypeInput {
+  filter: AtomTypeFilter!
+  set: AtomTypePatch
+  remove: AtomTypePatch
+}
+
+type UpdateAtomTypePayload {
+  atomType(
+    filter: AtomTypeFilter
+    order: AtomTypeOrder
+    first: Int
+    offset: Int
+  ): [AtomType]
   numUids: Int
 }
 
