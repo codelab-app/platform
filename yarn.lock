@@ -8857,7 +8857,7 @@ auth0-js@^9.14.3:
     url-join "^4.0.1"
     winchan "^0.2.2"
 
-auth0@^2.35.0:
+auth0@2.35.0:
   version "2.35.0"
   resolved "https://registry.yarnpkg.com/auth0/-/auth0-2.35.0.tgz#2450d6f3810f4b811c9907228515e15e0e65e964"
   integrity sha512-Pc1h+0opZeQ/0r93eLAO3ISqJ9z4LhiJeRsobwecZBxAN9DL+xS/3CUr1UMHWQQYIsoS0NX5FsTP2pBjeARFlQ==
