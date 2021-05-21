@@ -794,22 +794,6 @@
         }
       }
     },
-    "plugins-codelab-e2e": {
-      "projectType": "application",
-      "root": "apps/plugins/codelab-e2e",
-      "sourceRoot": "apps/plugins/codelab-e2e/src",
-      "architect": {
-        "e2e": {
-          "builder": "@nrwl/nx-plugin:e2e",
-          "options": {
-            "target": "plugins-codelab:build",
-            "npmPackageName": "@codelab/codelab",
-            "pluginOutputPath": "dist/libs/plugins/codelab",
-            "jestConfig": "apps/plugins/codelab-e2e/jest.config.js"
-          }
-        }
-      }
-    },
     "graphql": {
       "root": "libs/graphql",
       "sourceRoot": "libs/graphql/src",

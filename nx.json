@@ -124,10 +124,6 @@
     "plugins-codelab": {
       "tags": []
     },
-    "plugins-codelab-e2e": {
-      "tags": [],
-      "implicitDependencies": ["plugins-codelab"]
-    },
     "graphql": {
       "tags": []
     }

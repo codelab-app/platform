@@ -51,8 +51,7 @@
       "@codelab/modules/app-api": ["libs/modules/app-api/src/index.ts"],
       "@codelab/modules/user-api": ["libs/modules/user-api/src/index.ts"],
       "@codelab/modules/atom-api": ["libs/modules/atom-api/src/index.ts"],
-      "@codelab/schematics": ["libs/plugins/codelab/src/index.ts"]
-      "@codelab/modules/user-api": ["libs/modules/user-api/src/index.ts"],
+      "@codelab/schematics": ["libs/plugins/codelab/src/index.ts"],
       "@codelab/graphql": ["libs/graphql/src/index.ts"]
     }
   },
