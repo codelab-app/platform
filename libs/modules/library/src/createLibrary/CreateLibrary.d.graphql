@@ -1,5 +1,5 @@
 mutation CreateLibrary($input: [AddLibraryInput!]!) {
-  libraries: addLibrary(input: $input){
+  libraries: addLibrary(input: $input) {
     library {
       ...__Library
     }

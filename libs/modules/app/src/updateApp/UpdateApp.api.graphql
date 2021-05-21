@@ -1,5 +1,5 @@
-mutation UpdateApp($input: UpdateAppInput!){
-  app: updateApp(input: $input){
+mutation UpdateApp($input: UpdateAppInput!) {
+  app: updateApp(input: $input) {
     ...__App
   }
 }
