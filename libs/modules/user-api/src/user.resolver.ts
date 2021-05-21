@@ -1,8 +1,10 @@
 import {
   CurrentUser,
   GqlAuthGuard,
+  GqlRoleGuard,
   IsOwnerAuthGuard,
   JwtPayload,
+  Role,
 } from '@codelab/backend'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
@@ -33,9 +35,8 @@ export class UserResolver {
     return this.getUserService.execute({ userId: currentUser.sub })
   }
 
-  //TODO require admin
   @Query(() => [User])
-  @UseGuards(GqlAuthGuard)
+  @UseGuards(GqlAuthGuard, GqlRoleGuard([Role.ADMIN]))
   getUsers(@Args('input', { nullable: true }) input?: GetUsersInput) {
     return this.getUsersService.execute(input)
   }
@@ -43,17 +44,22 @@ export class UserResolver {
   @Mutation(() => User)
   @UseGuards(
     GqlAuthGuard,
-    IsOwnerAuthGuard(({ input }: { input: UpdateUserInput }) => input.userId),
+    IsOwnerAuthGuard(
+      ({ input }: { input: UpdateUserInput }) => input.userId,
+      [Role.ADMIN],
+    ),
   )
   updateUser(@Args('input') input: UpdateUserInput) {
     return this.updateService.execute(input)
   }
 
   @Mutation(() => Boolean)
-  //TODO allow admin to delete and update all
   @UseGuards(
     GqlAuthGuard,
-    IsOwnerAuthGuard(({ input }: { input: DeleteUserInput }) => input.userId),
+    IsOwnerAuthGuard(
+      ({ input }: { input: DeleteUserInput }) => input.userId,
+      [Role.ADMIN],
+    ),
   )
   deleteUser(@Args('input') input: DeleteUserInput) {
     return this.deleteService.execute(input)

@@ -2,6 +2,9 @@ import { Injectable } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 import { getGqlContextRequestAddon } from './guard-addons'
 
+/**
+ * Allows only logged in users
+ */
 @Injectable()
 export class GqlAuthGuard extends AuthGuard('jwt') {
   getRequest = getGqlContextRequestAddon()
