@@ -1,0 +1,5 @@
+mutation UpdateAtom($input: UpdateAtomInput!) {
+  atom: updateAtom(input: $input) {
+    ...__Atom
+  }
+}

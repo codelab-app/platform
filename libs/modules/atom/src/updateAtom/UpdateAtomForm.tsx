@@ -1,16 +1,19 @@
 import {
-  refetchGetAtomsQuery,
-  useGetAtomsQuery,
-  useUpdateAtomMutation,
-} from '@codelab/dgraph'
-import {
   AtomType,
   createNotificationHandler,
   EntityType,
   FormUniforms,
+  isNotNull,
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
+import {
+  refetchGetAtomsQuery,
+  useGetAtomQuery,
+  useGetAtomsQuery,
+  useGetAtomTypesQuery,
+  useUpdateAtomMutation,
+} from '@codelab/graphql'
 import { Spin } from 'antd'
 import _ from 'lodash'
 import React, { useEffect } from 'react'
@@ -22,62 +25,45 @@ export const UpdateAtomForm = (props: UniFormUseCaseProps<UpdateAtomInput>) => {
   const { reset, setLoading, state } = useCRUDModalForm(EntityType.Atom)
   const { updateId: updateAtomId } = state
 
-  /* const [mutate, { loading: updating }] = useUpdateAtomMutation({
-   *   refetchQueries: [refetchGetAtomsQuery()],
-   * }) */
+  const [mutate, { loading: updating }] = useUpdateAtomMutation({
+    refetchQueries: [refetchGetAtomsQuery()],
+  })
 
-  /* useEffect(() => {
-     *   setLoading(updating)
-     * }, [updating])
+  useEffect(() => {
+    setLoading(updating)
+  }, [updating])
 
-     * const { data, loading } = useGetAtomsQuery({
-     *   variables: {
-     *     filter: {
-     *       id: updateAtomId as any,
-     *     },
-     *   },
-     * })
+  const { data: getAtomData, loading: getAtomLoading } = useGetAtomQuery({
+    variables: {
+      input: { atomId: updateAtomId },
+    },
+  })
 
-     * const atom = data?.queryAtom ? data.queryAtom[0] : undefined */
-  const atom = {
-    type: 'Button',
-    props: ['disabled', 'block'],
+  const atom = getAtomData?.atom
+
+  const { data: atomTypesData, loading: atomTypesLoading } =
+    useGetAtomTypesQuery({})
+
+  if (getAtomLoading || atomTypesLoading) {
+    return <Spin />
   }
 
-  /* if (loading) {
-   *   return <Spin />
-   * } */
-
-  const onSubmit = (submitData: DeepPartial<UpdateAtomInput>) => {
-    /* return mutate({
-     *   variables: {
-     *     input: {
-     *       filter: {
-     *         id: updateAtomId as any,
-     *       },
-     *       set: {
-     *         label: submitData.label,
-     *         type: submitData.type,
-     *       },
-     *     },
-     *   },
-     * }) */
+  const onSubmit = (submitData: UpdateAtomInput) => {
+    return mutate({
+      variables: {
+        input: {
+          atomId: updateAtomId,
+          updateData: {
+            type: {
+              id: submitData.type,
+            },
+          },
+        },
+      },
+    })
   }
 
-  const atomTypes = [
-    {
-      name: 'Button',
-      id: 'button',
-    },
-    {
-      name: 'Text',
-      id: 'text',
-    },
-    {
-      name: 'Input',
-      id: 'input',
-    },
-  ]
+  const atomTypes = atomTypesData?.atomTypes?.filter(isNotNull) ?? []
 
   const availableProps = [
     {
@@ -98,10 +84,7 @@ export const UpdateAtomForm = (props: UniFormUseCaseProps<UpdateAtomInput>) => {
     },
   ]
 
-  const atomTypesOptions = _.chain(Object.values(AtomType))
-    .orderBy('label')
-    .map((v) => ({ label: v, value: v }))
-    .value()
+  console.log('!!!!!!!!!!!!!!!!', atom?.type?.id)
 
   return (
     <FormUniforms<UpdateAtomInput>
@@ -109,7 +92,7 @@ export const UpdateAtomForm = (props: UniFormUseCaseProps<UpdateAtomInput>) => {
       id="update-atom-form"
       onSubmit={onSubmit}
       schema={updateAtomSchema}
-      model={{ type: atom?.type, props: atom?.props }}
+      model={{ type: atom?.type?.id }}
       onSubmitError={createNotificationHandler({
         title: 'Error while updating Atom',
       })}
@@ -126,7 +109,7 @@ export const UpdateAtomForm = (props: UniFormUseCaseProps<UpdateAtomInput>) => {
         labelCol={{ span: 3 }}
         colon={false}
         options={atomTypes?.map((atomType) => ({
-          label: atomType.name,
+          label: atomType.label,
           value: atomType.id,
         }))}
       />

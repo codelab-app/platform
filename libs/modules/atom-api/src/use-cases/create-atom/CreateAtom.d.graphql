@@ -1,7 +1,7 @@
 mutation CreateAtom($input: [AddAtomInput!]!) {
   addAtom(input: $input) {
     atom {
-      ...__Atom
+      ...DGraph__Atom
     }
   }
 }

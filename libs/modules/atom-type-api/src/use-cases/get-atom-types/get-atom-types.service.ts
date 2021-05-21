@@ -10,13 +10,11 @@ import { GetAtomTypesInput } from './get-atom-types.input'
 
 @Injectable()
 export class GetAtomTypesService
-  implements UseCase<GetAtomTypesInput | undefined, Array<AtomType>>
+  implements UseCase<GetAtomTypesInput, Array<AtomType>>
 {
   constructor(private apollo: ApolloClientService) {}
 
-  async execute(
-    request: GetAtomTypesInput | undefined,
-  ): Promise<Array<AtomType>> {
+  async execute(request: GetAtomTypesInput): Promise<Array<AtomType>> {
     const result = await this.apollo
       .getClient()
       .query<GetAtomTypesQuery, GetAtomTypesQueryVariables>({

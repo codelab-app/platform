@@ -1,5 +1,0 @@
-query GetAtoms($filter: AtomFilter) {
-  queryAtom(filter: $filter) {
-    ...__Atom
-  }
-}

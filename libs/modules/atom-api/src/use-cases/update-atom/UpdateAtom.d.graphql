@@ -1,0 +1,7 @@
+mutation UpdateAtom($input: UpdateAtomInput!) {
+  updateAtom(input: $input) {
+    atom {
+      ...DGraph__Atom
+    }
+  }
+}

@@ -1,13 +1,12 @@
 import { DeleteFilled, EditFilled } from '@ant-design/icons'
-import { Atom, useGetAtomsQuery } from '@codelab/dgraph'
 import { EntityType, useCRUDModalForm } from '@codelab/frontend/shared'
+import { Atom, useGetAtomsQuery } from '@codelab/graphql'
 import { Button, Space, Spin, Table, TableColumnProps, Tag } from 'antd'
 import React from 'react'
 import tw from 'twin.macro'
 import { useColumnSearchProps } from './useColumnSearchProps'
 
 export const GetAtomsList = () => {
-  /* const { data } = useGetAtomsQuery() */
   const { openDeleteModal, openUpdateModal } = useCRUDModalForm(EntityType.Atom)
   const columnSearchProps = useColumnSearchProps('name')
 
@@ -69,7 +68,7 @@ export const GetAtomsList = () => {
             type="primary"
             css={tw`flex justify-center items-center`}
             icon={<EditFilled />}
-            onClick={() => openUpdateModal(record.id)}
+            onClick={() => openUpdateModal(record.id, record)}
           />
           <Button
             size="small"
@@ -77,7 +76,7 @@ export const GetAtomsList = () => {
             danger
             css={tw`flex justify-center items-center`}
             icon={<DeleteFilled />}
-            onClick={() => openDeleteModal([record.id])}
+            onClick={() => openDeleteModal([record.id], record)}
           />
         </Space>
       ),
@@ -90,7 +89,7 @@ export const GetAtomsList = () => {
     return <Spin />
   }
 
-  const atoms = data?.queryAtom ?? []
+  const atoms = data?.atoms ?? []
 
   return (
     <Table

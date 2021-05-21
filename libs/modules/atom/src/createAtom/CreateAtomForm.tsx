@@ -1,15 +1,16 @@
 import {
-  refetchGetAtomsQuery,
-  useCreateAtomMutation,
-  useGetAtomTypesQuery,
-} from '@codelab/dgraph'
-import {
   createNotificationHandler,
   EntityType,
   FormUniforms,
+  isNotNull,
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
+import {
+  refetchGetAtomsQuery,
+  useCreateAtomMutation,
+  useGetAtomTypesQuery,
+} from '@codelab/graphql'
 import { Spin } from 'antd'
 import React, { useContext, useEffect } from 'react'
 import { DeepPartial } from 'uniforms'
@@ -32,12 +33,6 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
   }, [creating])
 
   const { data, loading } = useGetAtomTypesQuery({})
-
-  const isNotNull = <T extends Record<string, unknown>>(
-    input: null | T,
-  ): input is T => {
-    return input !== null
-  }
 
   if (loading) {
     return <Spin />

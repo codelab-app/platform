@@ -1,0 +1,5 @@
+mutation DeleteAtom($input: DeleteAtomInput!) {
+    deleteAtom(input: $input) {
+        ...__Atom
+    }
+}

@@ -3,3 +3,9 @@ export type DeepNonNullable<T> = {
     ? DeepNonNullable<T[P]>
     : NonNullable<T[P]>
 }
+
+export const isNotNull = <T extends Record<string, unknown>>(
+  input: null | T,
+): input is T => {
+  return input !== null
+}

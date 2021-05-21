@@ -1,9 +1,9 @@
 fragment __Atom on Atom {
   id
   type {
-    label
     id
+    label
     type
   }
-  label
+  # props
 }

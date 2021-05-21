@@ -1,0 +1,5 @@
+query GetAtom($id: ID!) {
+  atom: getAtom(id: $id) {
+    ...DGraph__Atom
+  }
+}
