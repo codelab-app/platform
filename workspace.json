@@ -221,7 +221,8 @@
             },
             "dev": {
               "watch": true,
-              "exit": false
+              "exit": false,
+              "baseUrl": "http://127.0.0.1:3000"
             }
           }
         },
