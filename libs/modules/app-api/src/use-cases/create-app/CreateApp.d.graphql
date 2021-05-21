@@ -1,7 +1,7 @@
-mutation CreateApp($input:  [AddAppInput!]!) {
-    addApp(input: $input){
-        app {
-            ...Dgraph__App
-        }
+mutation CreateApp($input: [AddAppInput!]!) {
+  addApp(input: $input) {
+    app {
+      ...Dgraph__App
     }
+  }
 }

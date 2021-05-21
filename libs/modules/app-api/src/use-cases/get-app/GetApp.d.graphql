@@ -1,5 +1,5 @@
 query GetApp($id: ID!) {
-    app: getApp(id: $id) {
-        ...Dgraph__App
-    }
+  app: getApp(id: $id) {
+    ...Dgraph__App
+  }
 }
