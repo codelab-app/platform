@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "name": "plugins-codelab",
+  "version": "0.0.1",
+  "generators": {
+    "plugins-codelab": {
+      "factory": "./src/generators/plugins-codelab/generator",
+      "schema": "./src/generators/plugins-codelab/schema.json",
+      "description": "plugins-codelab generator"
+    },
+    "api-use-case": {
+      "factory": "./src/generators/api-use-case/generator",
+      "schema": "./src/generators/api-use-case/schema.json",
+      "description": "api-use-case generator"
+    }
+  }
+}

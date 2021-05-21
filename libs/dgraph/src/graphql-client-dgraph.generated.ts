@@ -1,6 +1,5 @@
 import { gql } from '@apollo/client'
 import * as Apollo from '@apollo/client'
-
 export type Maybe<T> = T | null
 export type Exact<T extends { [key: string]: unknown }> = {
   [K in keyof T]: T[K]
@@ -9,9 +8,7 @@ export type MakeOptional<T, K extends keyof T> = Omit<T, K> &
   { [SubKey in K]?: Maybe<T[SubKey]> }
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> &
   { [SubKey in K]: Maybe<T[SubKey]> }
-
 const defaultOptions = { operationName: 'dgraph' }
-
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string
@@ -1419,13 +1416,11 @@ export function useDeleteUserAppsMutation(
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-
   return Apollo.useMutation<
     DeleteUserAppsMutation,
     DeleteUserAppsMutationVariables
   >(DeleteUserAppsGql, options)
 }
-
 export type DeleteUserAppsMutationHookResult = ReturnType<
   typeof useDeleteUserAppsMutation
 >
@@ -1474,13 +1469,11 @@ export function useCreateAppMutation(
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-
   return Apollo.useMutation<CreateAppMutation, CreateAppMutationVariables>(
     CreateAppGql,
     options,
   )
 }
-
 export type CreateAppMutationHookResult = ReturnType<
   typeof useCreateAppMutation
 >
@@ -1528,13 +1521,11 @@ export function useDeleteAppMutation(
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-
   return Apollo.useMutation<DeleteAppMutation, DeleteAppMutationVariables>(
     DeleteAppGql,
     options,
   )
 }
-
 export type DeleteAppMutationHookResult = ReturnType<
   typeof useDeleteAppMutation
 >
@@ -1572,32 +1563,26 @@ export function useGetAppQuery(
   baseOptions: Apollo.QueryHookOptions<GetAppQuery, GetAppQueryVariables>,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-
   return Apollo.useQuery<GetAppQuery, GetAppQueryVariables>(GetAppGql, options)
 }
-
 export function useGetAppLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<GetAppQuery, GetAppQueryVariables>,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-
   return Apollo.useLazyQuery<GetAppQuery, GetAppQueryVariables>(
     GetAppGql,
     options,
   )
 }
-
 export type GetAppQueryHookResult = ReturnType<typeof useGetAppQuery>
 export type GetAppLazyQueryHookResult = ReturnType<typeof useGetAppLazyQuery>
 export type GetAppQueryResult = Apollo.QueryResult<
   GetAppQuery,
   GetAppQueryVariables
 >
-
 export function refetchGetAppQuery(variables?: GetAppQueryVariables) {
   return { query: GetAppGql, variables: variables }
 }
-
 export const GetAppsGql = gql`
   query GetApps(
     $filter: AppFilter
@@ -1640,13 +1625,11 @@ export function useGetAppsQuery(
   baseOptions?: Apollo.QueryHookOptions<GetAppsQuery, GetAppsQueryVariables>,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-
   return Apollo.useQuery<GetAppsQuery, GetAppsQueryVariables>(
     GetAppsGql,
     options,
   )
 }
-
 export function useGetAppsLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
     GetAppsQuery,
@@ -1654,24 +1637,20 @@ export function useGetAppsLazyQuery(
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-
   return Apollo.useLazyQuery<GetAppsQuery, GetAppsQueryVariables>(
     GetAppsGql,
     options,
   )
 }
-
 export type GetAppsQueryHookResult = ReturnType<typeof useGetAppsQuery>
 export type GetAppsLazyQueryHookResult = ReturnType<typeof useGetAppsLazyQuery>
 export type GetAppsQueryResult = Apollo.QueryResult<
   GetAppsQuery,
   GetAppsQueryVariables
 >
-
 export function refetchGetAppsQuery(variables?: GetAppsQueryVariables) {
   return { query: GetAppsGql, variables: variables }
 }
-
 export const UpdateAppGql = gql`
   mutation UpdateApp($input: UpdateAppInput!) {
     updateApp(input: $input) {
@@ -1711,13 +1690,11 @@ export function useUpdateAppMutation(
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-
   return Apollo.useMutation<UpdateAppMutation, UpdateAppMutationVariables>(
     UpdateAppGql,
     options,
   )
 }
-
 export type UpdateAppMutationHookResult = ReturnType<
   typeof useUpdateAppMutation
 >
@@ -1765,13 +1742,11 @@ export function useCreateAtomMutation(
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-
   return Apollo.useMutation<CreateAtomMutation, CreateAtomMutationVariables>(
     CreateAtomGql,
     options,
   )
 }
-
 export type CreateAtomMutationHookResult = ReturnType<
   typeof useCreateAtomMutation
 >
@@ -1817,13 +1792,11 @@ export function useDeleteAtomMutation(
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-
   return Apollo.useMutation<DeleteAtomMutation, DeleteAtomMutationVariables>(
     DeleteAtomGql,
     options,
   )
 }
-
 export type DeleteAtomMutationHookResult = ReturnType<
   typeof useDeleteAtomMutation
 >
@@ -1861,13 +1834,11 @@ export function useGetAtomsQuery(
   baseOptions?: Apollo.QueryHookOptions<GetAtomsQuery, GetAtomsQueryVariables>,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-
   return Apollo.useQuery<GetAtomsQuery, GetAtomsQueryVariables>(
     GetAtomsGql,
     options,
   )
 }
-
 export function useGetAtomsLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
     GetAtomsQuery,
@@ -1875,13 +1846,11 @@ export function useGetAtomsLazyQuery(
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-
   return Apollo.useLazyQuery<GetAtomsQuery, GetAtomsQueryVariables>(
     GetAtomsGql,
     options,
   )
 }
-
 export type GetAtomsQueryHookResult = ReturnType<typeof useGetAtomsQuery>
 export type GetAtomsLazyQueryHookResult = ReturnType<
   typeof useGetAtomsLazyQuery
@@ -1890,11 +1859,9 @@ export type GetAtomsQueryResult = Apollo.QueryResult<
   GetAtomsQuery,
   GetAtomsQueryVariables
 >
-
 export function refetchGetAtomsQuery(variables?: GetAtomsQueryVariables) {
   return { query: GetAtomsGql, variables: variables }
 }
-
 export const UpdateAtomGql = gql`
   mutation UpdateATOM($input: UpdateAtomInput!) {
     updateAtom(input: $input) {
@@ -1935,13 +1902,11 @@ export function useUpdateAtomMutation(
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-
   return Apollo.useMutation<UpdateAtomMutation, UpdateAtomMutationVariables>(
     UpdateAtomGql,
     options,
   )
 }
-
 export type UpdateAtomMutationHookResult = ReturnType<
   typeof useUpdateAtomMutation
 >
@@ -1989,13 +1954,11 @@ export function useCreateComponentMutation(
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-
   return Apollo.useMutation<
     CreateComponentMutation,
     CreateComponentMutationVariables
   >(CreateComponentGql, options)
 }
-
 export type CreateComponentMutationHookResult = ReturnType<
   typeof useCreateComponentMutation
 >
@@ -2042,13 +2005,11 @@ export function useDeleteComponentMutation(
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-
   return Apollo.useMutation<
     DeleteComponentMutation,
     DeleteComponentMutationVariables
   >(DeleteComponentGql, options)
 }
-
 export type DeleteComponentMutationHookResult = ReturnType<
   typeof useDeleteComponentMutation
 >
@@ -2090,13 +2051,11 @@ export function useGetComponentDetailQuery(
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-
   return Apollo.useQuery<
     GetComponentDetailQuery,
     GetComponentDetailQueryVariables
   >(GetComponentDetailGql, options)
 }
-
 export function useGetComponentDetailLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
     GetComponentDetailQuery,
@@ -2104,13 +2063,11 @@ export function useGetComponentDetailLazyQuery(
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-
   return Apollo.useLazyQuery<
     GetComponentDetailQuery,
     GetComponentDetailQueryVariables
   >(GetComponentDetailGql, options)
 }
-
 export type GetComponentDetailQueryHookResult = ReturnType<
   typeof useGetComponentDetailQuery
 >
@@ -2121,13 +2078,11 @@ export type GetComponentDetailQueryResult = Apollo.QueryResult<
   GetComponentDetailQuery,
   GetComponentDetailQueryVariables
 >
-
 export function refetchGetComponentDetailQuery(
   variables?: GetComponentDetailQueryVariables,
 ) {
   return { query: GetComponentDetailGql, variables: variables }
 }
-
 export const GetComponentsGql = gql`
   query GetComponents($filter: ComponentFilter) {
     components: queryComponent(filter: $filter) {
@@ -2160,13 +2115,11 @@ export function useGetComponentsQuery(
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-
   return Apollo.useQuery<GetComponentsQuery, GetComponentsQueryVariables>(
     GetComponentsGql,
     options,
   )
 }
-
 export function useGetComponentsLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
     GetComponentsQuery,
@@ -2174,13 +2127,11 @@ export function useGetComponentsLazyQuery(
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-
   return Apollo.useLazyQuery<GetComponentsQuery, GetComponentsQueryVariables>(
     GetComponentsGql,
     options,
   )
 }
-
 export type GetComponentsQueryHookResult = ReturnType<
   typeof useGetComponentsQuery
 >
@@ -2191,13 +2142,11 @@ export type GetComponentsQueryResult = Apollo.QueryResult<
   GetComponentsQuery,
   GetComponentsQueryVariables
 >
-
 export function refetchGetComponentsQuery(
   variables?: GetComponentsQueryVariables,
 ) {
   return { query: GetComponentsGql, variables: variables }
 }
-
 export const CreateLibraryGql = gql`
   mutation CreateLibrary($input: [AddLibraryInput!]!) {
     libraries: addLibrary(input: $input) {
@@ -2237,13 +2186,11 @@ export function useCreateLibraryMutation(
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-
   return Apollo.useMutation<
     CreateLibraryMutation,
     CreateLibraryMutationVariables
   >(CreateLibraryGql, options)
 }
-
 export type CreateLibraryMutationHookResult = ReturnType<
   typeof useCreateLibraryMutation
 >
@@ -2285,13 +2232,11 @@ export function useLibraryExplorerQuery(
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-
   return Apollo.useQuery<LibraryExplorerQuery, LibraryExplorerQueryVariables>(
     LibraryExplorerGql,
     options,
   )
 }
-
 export function useLibraryExplorerLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
     LibraryExplorerQuery,
@@ -2299,13 +2244,11 @@ export function useLibraryExplorerLazyQuery(
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-
   return Apollo.useLazyQuery<
     LibraryExplorerQuery,
     LibraryExplorerQueryVariables
   >(LibraryExplorerGql, options)
 }
-
 export type LibraryExplorerQueryHookResult = ReturnType<
   typeof useLibraryExplorerQuery
 >
@@ -2316,13 +2259,11 @@ export type LibraryExplorerQueryResult = Apollo.QueryResult<
   LibraryExplorerQuery,
   LibraryExplorerQueryVariables
 >
-
 export function refetchLibraryExplorerQuery(
   variables?: LibraryExplorerQueryVariables,
 ) {
   return { query: LibraryExplorerGql, variables: variables }
 }
-
 export const CreatePageGql = gql`
   mutation CreatePage($input: AddPageInput!) {
     page: addPage(input: [$input]) {
@@ -2362,13 +2303,11 @@ export function useCreatePageMutation(
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-
   return Apollo.useMutation<CreatePageMutation, CreatePageMutationVariables>(
     CreatePageGql,
     options,
   )
 }
-
 export type CreatePageMutationHookResult = ReturnType<
   typeof useCreatePageMutation
 >
@@ -2416,13 +2355,11 @@ export function useDeletePageMutation(
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-
   return Apollo.useMutation<DeletePageMutation, DeletePageMutationVariables>(
     DeletePageGql,
     options,
   )
 }
-
 export type DeletePageMutationHookResult = ReturnType<
   typeof useDeletePageMutation
 >
@@ -2460,13 +2397,11 @@ export function useGetPageQuery(
   baseOptions: Apollo.QueryHookOptions<GetPageQuery, GetPageQueryVariables>,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-
   return Apollo.useQuery<GetPageQuery, GetPageQueryVariables>(
     GetPageGql,
     options,
   )
 }
-
 export function useGetPageLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
     GetPageQuery,
@@ -2474,24 +2409,20 @@ export function useGetPageLazyQuery(
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-
   return Apollo.useLazyQuery<GetPageQuery, GetPageQueryVariables>(
     GetPageGql,
     options,
   )
 }
-
 export type GetPageQueryHookResult = ReturnType<typeof useGetPageQuery>
 export type GetPageLazyQueryHookResult = ReturnType<typeof useGetPageLazyQuery>
 export type GetPageQueryResult = Apollo.QueryResult<
   GetPageQuery,
   GetPageQueryVariables
 >
-
 export function refetchGetPageQuery(variables?: GetPageQueryVariables) {
   return { query: GetPageGql, variables: variables }
 }
-
 export const GetPagesListGql = gql`
   query GetPagesList($appId: ID!) {
     app: getApp(id: $appId) {
@@ -2526,13 +2457,11 @@ export function useGetPagesListQuery(
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-
   return Apollo.useQuery<GetPagesListQuery, GetPagesListQueryVariables>(
     GetPagesListGql,
     options,
   )
 }
-
 export function useGetPagesListLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
     GetPagesListQuery,
@@ -2540,13 +2469,11 @@ export function useGetPagesListLazyQuery(
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-
   return Apollo.useLazyQuery<GetPagesListQuery, GetPagesListQueryVariables>(
     GetPagesListGql,
     options,
   )
 }
-
 export type GetPagesListQueryHookResult = ReturnType<
   typeof useGetPagesListQuery
 >
@@ -2557,13 +2484,11 @@ export type GetPagesListQueryResult = Apollo.QueryResult<
   GetPagesListQuery,
   GetPagesListQueryVariables
 >
-
 export function refetchGetPagesListQuery(
   variables?: GetPagesListQueryVariables,
 ) {
   return { query: GetPagesListGql, variables: variables }
 }
-
 export const UpdatePageGql = gql`
   mutation UpdatePage($input: PagePatch!, $pageId: ID!) {
     page: updatePage(input: { filter: { id: [$pageId] }, set: $input }) {
@@ -2604,13 +2529,11 @@ export function useUpdatePageMutation(
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-
   return Apollo.useMutation<UpdatePageMutation, UpdatePageMutationVariables>(
     UpdatePageGql,
     options,
   )
 }
-
 export type UpdatePageMutationHookResult = ReturnType<
   typeof useUpdatePageMutation
 >

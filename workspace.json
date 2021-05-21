@@ -727,6 +727,73 @@
         }
       }
     },
+    "modules-atom-api": {
+      "root": "libs/modules/atom-api",
+      "sourceRoot": "libs/modules/atom-api/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/modules/atom-api/**/*.ts"]
+          }
+        }
+      }
+    },
+    "plugins-codelab": {
+      "root": "libs/plugins/codelab",
+      "sourceRoot": "libs/plugins/codelab/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/plugins/codelab/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/plugins/codelab"],
+          "options": {
+            "jestConfig": "libs/plugins/codelab/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "builder": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/plugins/codelab",
+            "tsConfig": "libs/plugins/codelab/tsconfig.lib.json",
+            "packageJson": "libs/plugins/codelab/package.json",
+            "main": "libs/plugins/codelab/src/index.ts",
+            "assets": [
+              "libs/plugins/codelab/*.md",
+              {
+                "input": "./libs/plugins/codelab/src",
+                "glob": "**/!(*.ts)",
+                "output": "./src"
+              },
+              {
+                "input": "./libs/plugins/codelab/src",
+                "glob": "**/*.d.ts",
+                "output": "./src"
+              },
+              {
+                "input": "./libs/plugins/codelab",
+                "glob": "generators.json",
+                "output": "."
+              },
+              {
+                "input": "./libs/plugins/codelab",
+                "glob": "executors.json",
+                "output": "."
+              }
+            ]
+          }
+        }
+      }
+    },
     "graphql": {
       "root": "libs/graphql",
       "sourceRoot": "libs/graphql/src",
