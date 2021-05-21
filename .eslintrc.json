@@ -6,11 +6,14 @@
     "import",
     "unused-imports",
     "react-hooks",
+    "graphql",
     "@emotion",
     "prettier",
     "jest-formatting",
-    "simple-import-sort"
+    "simple-import-sort",
+    "@graphql-eslint"
   ],
+  "extends": ["plugin:prettier/recommended"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
@@ -136,5 +139,23 @@
       "extends": ["plugin:@nrwl/nx/javascript"],
       "rules": {}
     }
+    // Not working!
+    // {
+    //   "files": ["*.graphql"],
+    //   "processor": "@graphql-eslint/graphql",
+    //   "parser": "@graphql-eslint/eslint-plugin",
+    //   // "plugins": ["graphql", "@graphql-eslint"]
+    //   // the following is required for `eslint-plugin-prettier@<=3.4.0` temporarily
+    //   // after https://github.com/prettier/eslint-plugin-prettier/pull/413
+    //   // been merged and released, it can be deleted safely
+    //   "rules": {
+    //     "prettier/prettier": [
+    //       2,
+    //       {
+    //         "parser": "graphql"
+    //       }
+    //     ]
+    //   }
+    // }
   ]
 }

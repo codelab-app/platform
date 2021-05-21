@@ -7,11 +7,8 @@ import React from 'react'
 import { ComponentTab } from './MetaPaneComponent-componentTab'
 
 export const MetaPaneComponent = () => {
-  const {
-    selectedComponent,
-    setSelected,
-    selectedComponentId,
-  } = useComponentBuilder()
+  const { selectedComponent, setSelected, selectedComponentId } =
+    useComponentBuilder()
 
   return (
     <Resizable

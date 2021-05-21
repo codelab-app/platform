@@ -243,14 +243,14 @@ const defaultLibraryData: Library_Insert_Input = {
 export const createLibrary = (
   data: Library_Insert_Input = defaultLibraryData,
 ) => {
-  return (cy
+  return cy
     .hasuraUserRequest({
       query: print(CreateLibraryGql),
       variables: { data },
     })
     .then((r) => {
       return r.body.data?.insert_library_one
-    }) as unknown) as Promise<__LibraryFragment>
+    }) as unknown as Promise<__LibraryFragment>
 }
 
 Cypress.Commands.add('createLibrary', createLibrary)
@@ -441,9 +441,6 @@ Cypress.Commands.add(
   },
 )
 
-Cypress.Commands.add(
-  'getPaneMain',
-  (): Cypress.Chainable<JQuery> => {
-    return cy.getByTestId('pane-main').findByRole('tablist')
-  },
-)
+Cypress.Commands.add('getPaneMain', (): Cypress.Chainable<JQuery> => {
+  return cy.getByTestId('pane-main').findByRole('tablist')
+})

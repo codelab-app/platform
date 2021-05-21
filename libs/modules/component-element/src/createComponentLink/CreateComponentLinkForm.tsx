@@ -13,9 +13,10 @@ import { DeepPartial } from 'uniforms'
 import { CreateComponentElementFormBase } from '../createComponentElement/CreateComponentElementFormBase'
 import { CreateComponentElementInput } from '../createComponentElement/createComponentElementSchema'
 
-type CreateLinkedComponentElementFormProps = UniFormUseCaseProps<CreateComponentElementInput> & {
-  sourceComponentElementId: string
-}
+type CreateLinkedComponentElementFormProps =
+  UniFormUseCaseProps<CreateComponentElementInput> & {
+    sourceComponentElementId: string
+  }
 
 /**
  * Same as CreateComponentElementForm, but links the new element to an existing source element

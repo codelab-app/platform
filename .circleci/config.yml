@@ -71,7 +71,7 @@ executor-config: &executor-config
 version: 2.1
 
 orbs:
-  slack: circleci/slack@3.4.2
+  slack: circleci/slack@4.4.2
   cypress: cypress-io/cypress@1.28.0
   node: circleci/node@4.1.0
 
@@ -191,7 +191,9 @@ commands:
           command: yarn install --frozen-lockfile --prod=true --ignore-scripts
       # - run:
       #     name: 'Remove NPM .cache'
-      #     command: rm -rf ~/app/node_modules/.cache
+      #     command: |
+      #       rm -rf ~/project/node_modules/.cache
+      #       npx cypress cache prune
       - save_cache:
           name: 'Save cache'
           key: dep-cache-prod-{{ checksum "yarn.lock" }}
@@ -203,10 +205,11 @@ commands:
 
   notify-failure:
     steps:
-      - slack/status:
-          fail_only: true
+      - slack/notify:
+          event: fail
           channel: $SLACK_CHANNEL_UPDATE
           mentions: $SLACK_USER
+          template: basic_fail_1
 
   setup-deploy:
     description: 'Setup deploy'
@@ -254,6 +257,11 @@ jobs:
           command: make build-ci
       # Save cache after checkout & building project
       - run: ls -al ~/project/apps/web
+      - run:
+          name: 'Remove Unused Cache'
+          command: |
+            rm -rf ~/project/node_modules/.cache
+            npx cypress cache prune
       - save_cache:
           name: 'Save cache'
           key: dep-cache-staging-{{ checksum "yarn.lock" }}
@@ -261,7 +269,7 @@ jobs:
             - ~/.cache/yarn
             - ~/.cache/Cypress
             - ~/project/node_modules
-            - ~/project/dist/apps/web/.next/cache
+            # - ~/project/dist/apps/web/.next/cache
       - persist_to_workspace:
           root: ..
           paths:
@@ -304,15 +312,13 @@ jobs:
   notify-success:
     <<: *executor-params
     steps:
-      - setup-env
+      - setup-workspace
+      # - setup-env
       - slack/notify:
+          event: pass
           channel: $SLACK_CHANNEL_UPDATE
-          color: $COLOR_SUCCESS
           mentions: $SLACK_USER
-          message: >
-            *Status*: :white_check_mark: Success \n
-            *Branch*: << pipeline.git.branch >> \n
-            *Message*: $GIT_COMMIT_MSG \n
+          template: basic_success_1
 
   build-and-push-docker-image:
     <<: *executor-params
@@ -330,15 +336,6 @@ jobs:
       - run:
           name: 'Push Docker image'
           command: yarn docker:push codelab
-
-  notify-failure:
-    <<: *executor-params
-    steps:
-      - setup-env
-      - slack/status:
-          fail_only: true
-          channel: $SLACK_CHANNEL_UPDATE
-          mentions: $SLACK_USER
 
   deploy-to-ebs-staging:
     <<: *executor-params
@@ -423,6 +420,7 @@ workflows:
       #       - e2e
       - notify-success:
           <<: *filters-staging-pr
+          context: CI
           e: docker-node
           requires:
             - lint
@@ -445,6 +443,7 @@ workflows:
       - notify-success:
           <<: *filters-staging-master
           e: docker-node
+          context: CI
           requires:
             - deploy-to-ebs-staging
 

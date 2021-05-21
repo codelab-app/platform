@@ -27,11 +27,13 @@ type UpdatePropTypeCFormProps = UniFormUseCaseProps<UpdatePropTypeCInput>
 const cleanPropTypesFromExtraMeta = (
   propTypes: Array<PropTypeCollection__PropTypeFragment>,
 ) =>
-  (propTypes as Array<
-    PropTypeCollection__PropTypeFragment & {
-      __typename: string
-    }
-  >).map(({ __typename, type, prop_type_c_id, ...cleanedItem }) => cleanedItem)
+  (
+    propTypes as Array<
+      PropTypeCollection__PropTypeFragment & {
+        __typename: string
+      }
+    >
+  ).map(({ __typename, type, prop_type_c_id, ...cleanedItem }) => cleanedItem)
 
 export const UpdatePropTypeCForm = (props: UpdatePropTypeCFormProps) => {
   const { reset, setLoading, state } = useCRUDModalForm(EntityType.PropTypeC)

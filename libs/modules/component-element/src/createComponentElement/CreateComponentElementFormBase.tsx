@@ -12,11 +12,12 @@ import {
   createComponentElementSchema,
 } from './createComponentElementSchema'
 
-type CreateComponentElementFormProps = UniFormUseCaseProps<CreateComponentElementInput> &
-  Pick<
-    FormUniformsProps<CreateComponentElementInput>,
-    'onSubmit' | 'onSubmitSuccess' | 'model' | 'autosave' | 'autosaveDelay'
-  >
+type CreateComponentElementFormProps =
+  UniFormUseCaseProps<CreateComponentElementInput> &
+    Pick<
+      FormUniformsProps<CreateComponentElementInput>,
+      'onSubmit' | 'onSubmitSuccess' | 'model' | 'autosave' | 'autosaveDelay'
+    >
 
 /**
  * The base form for both CreateComponentElementForm and CreateLinkedComponentElementForm

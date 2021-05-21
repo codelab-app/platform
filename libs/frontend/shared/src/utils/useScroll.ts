@@ -40,9 +40,8 @@ const useScroll = () => {
   const [scrollY, setScrollY] = useState<number>(bodyOffset.top)
   const [scrollX, setScrollX] = useState<number>(bodyOffset.left)
 
-  const [scrollDirection, setScrollDirection] = useState<
-    'down' | 'up' | undefined
-  >()
+  const [scrollDirection, setScrollDirection] =
+    useState<'down' | 'up' | undefined>()
 
   const listener = () => {
     setBodyOffset(

@@ -6,19 +6,20 @@ export type AddChildComponentElementInput = {
   component_id: string
 }
 
-export const addChildComponentElementSchema: JSONSchemaType<AddChildComponentElementInput> = {
-  title: 'Create Component Element Input',
-  type: 'object',
-  properties: {
-    atom_id: {
-      type: 'string',
+export const addChildComponentElementSchema: JSONSchemaType<AddChildComponentElementInput> =
+  {
+    title: 'Create Component Element Input',
+    type: 'object',
+    properties: {
+      atom_id: {
+        type: 'string',
+      },
+      parent_component_element_id: {
+        type: 'string',
+      },
+      component_id: {
+        type: 'string',
+      },
     },
-    parent_component_element_id: {
-      type: 'string',
-    },
-    component_id: {
-      type: 'string',
-    },
-  },
-  required: ['atom_id', 'parent_component_element_id', 'component_id'],
-} as const
+    required: ['atom_id', 'parent_component_element_id', 'component_id'],
+  } as const

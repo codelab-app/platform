@@ -120,10 +120,8 @@ export const LibraryExplorerTree = () => {
         treeData={atomTreeData}
         className="draggable-tree"
         onCheck={(checkedKeys, e) => {
-          const {
-            checked: _checkedAtomIds,
-            halfChecked,
-          } = checkedKeys as CheckedKeys
+          const { checked: _checkedAtomIds, halfChecked } =
+            checkedKeys as CheckedKeys
 
           setCheckedAtomIds([..._checkedAtomIds.map((id) => id.toString())])
         }}
@@ -159,10 +157,8 @@ export const LibraryExplorerTree = () => {
           setSelectedComponentId(_selectedComponentId)
         }}
         onCheck={(checkedKeys, e) => {
-          const {
-            checked: _checkedComponentIds,
-            halfChecked,
-          } = checkedKeys as CheckedKeys
+          const { checked: _checkedComponentIds, halfChecked } =
+            checkedKeys as CheckedKeys
 
           setCheckedComponentIds([
             ..._checkedComponentIds?.map((id) => id.toString()),

@@ -55,14 +55,12 @@ export const DeleteComponentElementsForm = (
     })),
   }
 
-  const {
-    data: componentElementsData,
-    loading: loadingComponentElements,
-  } = useGetComponentElementsWhereQuery({
-    variables: {
-      where: componentElementsWhere,
-    },
-  })
+  const { data: componentElementsData, loading: loadingComponentElements } =
+    useGetComponentElementsWhereQuery({
+      variables: {
+        where: componentElementsWhere,
+      },
+    })
 
   if (loading) {
     return <Spin />

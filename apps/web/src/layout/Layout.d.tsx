@@ -15,7 +15,7 @@ export type WithMetaPane = {
 
 export type NextPageLayout<
   P extends 'default' | 'builder' | 'component' = 'default',
-  IP = P
+  IP = P,
 > = P extends 'default'
   ? PropsWithChildren<NextPage<P, IP> & WithLayout>
   : PropsWithChildren<

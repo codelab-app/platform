@@ -1,0 +1,7 @@
+mutation UpdateUser($input: UpdateUserInput!) {
+  updateUser(input: $input) {
+    user {
+      ...Dgraph__User
+    }
+  }
+}

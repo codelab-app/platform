@@ -1,5 +1,5 @@
 export * from './createPropTypeC'
 export * from './deletePropTypeC'
-export * from './updatePropTypeC'
 export * from './getPropTypeC'
 export * from './paneMain'
+export * from './updatePropTypeC'

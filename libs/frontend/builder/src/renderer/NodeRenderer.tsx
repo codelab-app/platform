@@ -1,7 +1,7 @@
-import { elementParameterFactory } from '@codelab/frontend/builder'
 import { ComponentElementNode } from '@codelab/frontend/shared'
 import React from 'react'
 import { ClickOverlay, HoverOverlay } from '../overlay-toolbar'
+import { elementParameterFactory } from './elementFactory'
 import { RenderChildren } from './Renderer-children'
 import { useComponentHandlers } from './useComponentHandlers'
 

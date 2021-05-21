@@ -13,7 +13,7 @@ import { ComponentHandlers } from './useComponentHandlers'
 
 export type NodeRendererType<
   TNode extends CytoscapeNode,
-  TMetadata = NodeRendererContext
+  TMetadata = NodeRendererContext,
 > = (node: TNode, metadata: TMetadata) => React.ReactNode
 
 export type NodeRendererContext = {

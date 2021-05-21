@@ -5,16 +5,17 @@ export type UpdateComponentElementInput = {
   atom_id: string
 }
 
-export const updateComponentElementSchema: JSONSchemaType<UpdateComponentElementInput> = {
-  title: 'Update Component Element Input',
-  type: 'object',
-  properties: {
-    atom_id: {
-      type: 'string',
+export const updateComponentElementSchema: JSONSchemaType<UpdateComponentElementInput> =
+  {
+    title: 'Update Component Element Input',
+    type: 'object',
+    properties: {
+      atom_id: {
+        type: 'string',
+      },
+      label: {
+        type: 'string',
+      },
     },
-    label: {
-      type: 'string',
-    },
-  },
-  required: ['label', 'atom_id'],
-} as const
+    required: ['label', 'atom_id'],
+  } as const

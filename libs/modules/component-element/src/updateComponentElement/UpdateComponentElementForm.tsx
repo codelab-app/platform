@@ -47,14 +47,12 @@ export const UpdateComponentElementForm = (
     })
   }
 
-  const {
-    data: componentElement,
-    loading: loadingComponentElement,
-  } = useGetComponentElementQuery({
-    variables: {
-      componentElementId: state.updateId,
-    },
-  })
+  const { data: componentElement, loading: loadingComponentElement } =
+    useGetComponentElementQuery({
+      variables: {
+        componentElementId: state.updateId,
+      },
+    })
 
   const { data: atomsData } = useGetAtomsListQuery()
 

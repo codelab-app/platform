@@ -29,13 +29,12 @@ export type FormUniformsProps<TData extends Record<string, unknown>> = {
 /**
  * Read to use form, can be used with modal or standalone
  */
-export type UniFormUseCaseProps<
-  TData extends Record<any, unknown>
-> = React.PropsWithChildren<
-  Partial<
-    Pick<
-      FormUniformsProps<TData>,
-      'onSubmitError' | 'onSubmitSuccess' | 'submitRef' | 'autosave'
+export type UniFormUseCaseProps<TData extends Record<any, unknown>> =
+  React.PropsWithChildren<
+    Partial<
+      Pick<
+        FormUniformsProps<TData>,
+        'onSubmitError' | 'onSubmitSuccess' | 'submitRef' | 'autosave'
+      >
     >
   >
->

@@ -42,13 +42,13 @@ export const PaneMainTree = () => {
           // defaultExpandedKeys={this.state.expandedKeys}
           blockNode
           onMouseEnter={({ node }) => {
-            setHovering(((node as any) as NodeBase).id)
+            setHovering((node as any as NodeBase).id)
           }}
           onMouseLeave={() => {
             resetHovering()
           }}
           onSelect={([id], { node }) => {
-            setSelected(((node as any) as NodeBase).id)
+            setSelected((node as any as NodeBase).id)
           }}
           titleRender={(node) => {
             const label = (node as any).label
