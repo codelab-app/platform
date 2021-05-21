@@ -28,9 +28,8 @@ export const ComponentTab = () => {
     Array<string>
   >([])
 
-  const [selectedComponentElementId, setSelectedComponentElementId] = useState<
-    string | undefined
-  >()
+  const [selectedComponentElementId, setSelectedComponentElementId] =
+    useState<string | undefined>()
 
   const cy = CytoscapeService.fromComponent(component as any)
 
@@ -51,10 +50,8 @@ export const ComponentTab = () => {
       <Col span={12}>
         <Tree
           onCheck={(checkedKeys, e) => {
-            const {
-              checked: _checkedComponentIds,
-              halfChecked,
-            } = checkedKeys as CheckedKeys
+            const { checked: _checkedComponentIds, halfChecked } =
+              checkedKeys as CheckedKeys
 
             setCheckedComponentElementIds([
               ..._checkedComponentIds.map((id) => id.toString()),

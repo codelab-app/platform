@@ -1,20 +1,20 @@
-import { SubmitController } from '@codelab/frontend/shared'
 import Ajv, { JSONSchemaType } from 'ajv'
 import { MutableRefObject } from 'react'
 import JSONSchemaBridge from 'uniforms-bridge-json-schema'
+import { SubmitController } from './submitController'
 
-export const connectUniformSubmitRef = (
-  submitRef: MutableRefObject<SubmitController | undefined> | undefined,
-) => (r: { submit: () => any } | undefined | null) => {
-  if (submitRef && r) {
-    // eslint-disable-next-line no-param-reassign
-    submitRef.current = {
-      submit() {
-        return r.submit()
-      },
+export const connectUniformSubmitRef =
+  (submitRef: MutableRefObject<SubmitController | undefined> | undefined) =>
+  (r: { submit: () => any } | undefined | null) => {
+    if (submitRef && r) {
+      // eslint-disable-next-line no-param-reassign
+      submitRef.current = {
+        submit() {
+          return r.submit()
+        },
+      }
     }
   }
-}
 
 const ajv = new Ajv({ allErrors: true, useDefaults: true, strict: false })
 

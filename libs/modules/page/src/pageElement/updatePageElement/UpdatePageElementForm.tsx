@@ -13,9 +13,10 @@ import { DeepPartial } from 'uniforms'
 import { PageElementFormBase } from '../createPageElement/PageElementFormBase'
 import { UpdatePageElementInput } from './updatePageElementSchema'
 
-type UpdatePageElementFormProps = UniFormUseCaseProps<UpdatePageElementInput> & {
-  pageElement: Page__PageElementFragment
-}
+type UpdatePageElementFormProps =
+  UniFormUseCaseProps<UpdatePageElementInput> & {
+    pageElement: Page__PageElementFragment
+  }
 
 /** Not intended to be used in a modal */
 export const UpdatePageElementForm = ({
@@ -26,18 +27,16 @@ export const UpdatePageElementForm = ({
   const { current: pageElement } = useRef(initialPageElement)
   const { appId, pageId } = useContext(AppPageContext)
 
-  const [
-    mutate,
-    { loading: updating, error, data },
-  ] = useUpdatePageElementMutation({
-    awaitRefetchQueries: true,
-    refetchQueries: [
-      refetchGetAppPageQuery({
-        appId,
-        pageId,
-      }),
-    ],
-  })
+  const [mutate, { loading: updating, error, data }] =
+    useUpdatePageElementMutation({
+      awaitRefetchQueries: true,
+      refetchQueries: [
+        refetchGetAppPageQuery({
+          appId,
+          pageId,
+        }),
+      ],
+    })
 
   if (!pageElement) {
     return null

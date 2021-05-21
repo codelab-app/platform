@@ -170,7 +170,7 @@ export class CytoscapeService {
       },
     })
 
-    return (tree as unknown) as CytoscapeNode
+    return tree as unknown as CytoscapeNode
   }
 
   static antdTree(
@@ -210,6 +210,6 @@ export class CytoscapeService {
       },
     })
 
-    return (tree as unknown) as DataNode
+    return tree as unknown as DataNode
   }
 }

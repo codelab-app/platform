@@ -13,8 +13,8 @@ import { DeepPartial } from 'uniforms'
 import { CreateComponentElementFormBase } from './CreateComponentElementFormBase'
 import { CreateComponentElementInput } from './createComponentElementSchema'
 
-type CreateComponentElementFormProps = UniFormUseCaseProps<CreateComponentElementInput> &
-  PropsWithIds<'componentId'>
+type CreateComponentElementFormProps =
+  UniFormUseCaseProps<CreateComponentElementInput> & PropsWithIds<'componentId'>
 
 /**
  * This is used to create the first ComponentElement, which is added as a child vertex to the Component

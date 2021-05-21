@@ -30,13 +30,15 @@ export const CreateLibraryForm = ({ ...props }: CreateLibraryFormProps) => {
   }, [creating])
 
   const onSubmit = (submitData: CreateLibraryInput) => {
+    if (!user?.email) {
+      throw new Error('Missing user email')
+    }
+
     return mutate({
       variables: {
         input: {
           name: submitData.name,
-          owner: {
-            email: user?.email,
-          },
+          ownerId: user?.email,
         },
       },
     })

@@ -3,6 +3,8 @@
 #
 # `env_file` is used to find env to inject into docker container at runtime
 #
+# https://docs.docker.com/compose/environment-variables/
+#
 version: '3.8'
 services:
   zero:

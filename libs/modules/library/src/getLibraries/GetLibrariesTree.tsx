@@ -27,10 +27,8 @@ import tw from 'twin.macro'
 export const GetLibrariesTree = () => {
   const { libraries } = useContext(LibraryContext)
 
-  const [
-    loadComponent,
-    { called, loading, data },
-  ] = useGetComponentDetailLazyQuery()
+  const [loadComponent, { called, loading, data }] =
+    useGetComponentDetailLazyQuery()
 
   const { setSelected } = useComponentBuilder()
 
@@ -114,10 +112,8 @@ export const GetLibrariesTree = () => {
         treeData={atomTreeData}
         className="draggable-tree"
         onCheck={(checkedKeys, e) => {
-          const {
-            checked: _checkedAtomIds,
-            halfChecked,
-          } = checkedKeys as CheckedKeys
+          const { checked: _checkedAtomIds, halfChecked } =
+            checkedKeys as CheckedKeys
 
           setCheckedAtomIds([..._checkedAtomIds.map((id) => id.toString())])
         }}
@@ -157,10 +153,8 @@ export const GetLibrariesTree = () => {
           })
         }}
         onCheck={(checkedKeys, e) => {
-          const {
-            checked: _checkedComponentIds,
-            halfChecked,
-          } = checkedKeys as CheckedKeys
+          const { checked: _checkedComponentIds, halfChecked } =
+            checkedKeys as CheckedKeys
 
           setCheckedComponentIds([
             ..._checkedComponentIds?.map((id) => id.toString()),

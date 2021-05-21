@@ -1,42 +1,42 @@
 # Dgraph DB schema
 
 type App {
-    id: ID!
-    ownerId: String! @search(by: [hash])
-    pages: [Page] @hasInverse(field: "app")
-    name: String!
+  id: ID!
+  ownerId: String! @search(by: [hash])
+  pages: [Page] @hasInverse(field: "app")
+  name: String!
 }
 
 type Page {
-    id: ID!
-    title: String! @search(by: [term, fulltext])
-    app: App
+  id: ID!
+  title: String! @search(by: [term, fulltext])
+  app: App
 }
 
 type Library {
-    id: ID!
-    ownerId: String!
-    name: String!
-    atoms: [Atom] @hasInverse(field: "library")
-    components: [Component] @hasInverse(field: "library")
+  id: ID!
+  ownerId: String!
+  name: String!
+  atoms: [Atom] @hasInverse(field: "library")
+  components: [Component] @hasInverse(field: "library")
 }
 
 type Component {
-    id: ID!
-    library: Library!
-    atom: Atom!
-    label: String!
-    children: [Component]
-    tags: [Tag]
+  id: ID!
+  library: Library!
+  atom: Atom!
+  label: String!
+  children: [Component]
+  tags: [Tag]
 }
 
 type Atom {
-    id: ID!
-    type: String!
-    library: Library!
-    label: String!
+  id: ID!
+  type: String!
+  library: Library!
+  label: String!
 }
 
 type Tag {
-    label: String!
+  label: String!
 }

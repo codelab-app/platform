@@ -11,7 +11,7 @@ export type CallbackOrArrayOfCallbacks<TParam> =
 
 export const callbackWithParams = <
   T extends any,
-  TCb extends (prop: T) => any = (prop: T) => any
+  TCb extends (prop: T) => any = (prop: T) => any,
 >(
   cbOrArray: TCb | Array<TCb | undefined> | undefined,
   param: T,
@@ -31,11 +31,10 @@ export const callbackWithParams = <
   }
 }
 
-export const createCallbackHandler = <
-  T extends any,
-  TCb extends Callback<T> = (prop: T) => any
->(
-  cbOrArray: TCb | Array<TCb | undefined> | undefined,
-) => (param: T) => {
-  callbackWithParams(cbOrArray, param)
-}
+export const createCallbackHandler =
+  <T extends any, TCb extends Callback<T> = (prop: T) => any>(
+    cbOrArray: TCb | Array<TCb | undefined> | undefined,
+  ) =>
+  (param: T) => {
+    callbackWithParams(cbOrArray, param)
+  }

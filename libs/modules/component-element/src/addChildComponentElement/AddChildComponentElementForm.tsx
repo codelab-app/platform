@@ -18,10 +18,11 @@ import {
   addChildComponentElementSchema,
 } from './addChildComponentElementSchema'
 
-type AddChildComponentElementFormProps = UniFormUseCaseProps<AddChildComponentElementInput> & {
-  componentId: string
-  parentComponentElementId: string
-}
+type AddChildComponentElementFormProps =
+  UniFormUseCaseProps<AddChildComponentElementInput> & {
+    componentId: string
+    parentComponentElementId: string
+  }
 
 /**
  *
@@ -39,13 +40,11 @@ export const AddChildComponentElementForm = ({
     EntityType.ChildComponentElement,
   )
 
-  const [
-    createComponentLink,
-    { loading: creatingComponentLink },
-  ] = useCreateComponentLinkMutation({
-    awaitRefetchQueries: true,
-    refetchQueries: [refetchGetComponentDetailQuery({ componentId })],
-  })
+  const [createComponentLink, { loading: creatingComponentLink }] =
+    useCreateComponentLinkMutation({
+      awaitRefetchQueries: true,
+      refetchQueries: [refetchGetComponentDetailQuery({ componentId })],
+    })
 
   useEffect(() => {
     setLoading(creatingComponentLink)

@@ -1,5 +1,10 @@
 query GetApps($filter: AppFilter, $order: AppOrder, $first: Int, $offset: Int) {
-    apps: queryApp(filter: $filter, order: $order, first: $first, offset: $offset) {
-        ...Dgraph__App
-    }
+  apps: queryApp(
+    filter: $filter
+    order: $order
+    first: $first
+    offset: $offset
+  ) {
+    ...Dgraph__App
+  }
 }

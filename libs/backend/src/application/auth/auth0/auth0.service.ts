@@ -1,8 +1,8 @@
-import { AuthTokens } from '@codelab/backend'
 import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { AuthenticationClient, ManagementClient } from 'auth0'
 import { Auth0Configuration } from '../config/auth.config'
+import { AuthTokens } from '../config/auth.tokens'
 
 @Injectable()
 export class Auth0Service {

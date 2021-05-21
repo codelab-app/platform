@@ -1,8 +1,4 @@
 import { DeleteOutlined } from '@ant-design/icons'
-import {
-  builderElementSelectionState,
-  OverlayToolbar,
-} from '@codelab/frontend/builder'
 import { AppPageContext, ComponentElementNode } from '@codelab/frontend/shared'
 import {
   refetchGetAppPageQuery,
@@ -12,21 +8,21 @@ import { Button } from 'antd'
 import React, { useContext } from 'react'
 import { useRecoilValue } from 'recoil'
 import { nodeToElementMapState } from '../renderer/nodeToElementMapState'
+import { builderElementSelectionState } from '../selection'
+import { OverlayToolbar } from './OverlayToolbar'
 
 export const ClickOverlay = () => {
   const { pageId, appId } = useContext(AppPageContext)
 
-  const [
-    deletePageElement,
-    { loading: deleteLoading },
-  ] = useDeletePageElementMutation({
-    refetchQueries: [
-      refetchGetAppPageQuery({
-        pageId,
-        appId,
-      }),
-    ],
-  })
+  const [deletePageElement, { loading: deleteLoading }] =
+    useDeletePageElementMutation({
+      refetchQueries: [
+        refetchGetAppPageQuery({
+          pageId,
+          appId,
+        }),
+      ],
+    })
 
   const { map: nodeToElementMap } = useRecoilValue(nodeToElementMapState)
   const { selectedElement } = useRecoilValue(builderElementSelectionState)

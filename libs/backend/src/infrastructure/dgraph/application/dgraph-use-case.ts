@@ -1,5 +1,6 @@
-import { DGraphService, UseCase } from '@codelab/backend'
 import { Txn } from 'dgraph-js-http'
+import { UseCase } from '../../../application/use-case'
+import { DGraphService } from '../dgraph.service'
 
 export abstract class DgraphUseCase<TUseCaseRequestPort, TUseCaseDtoResponse>
   implements UseCase<TUseCaseRequestPort, TUseCaseDtoResponse>

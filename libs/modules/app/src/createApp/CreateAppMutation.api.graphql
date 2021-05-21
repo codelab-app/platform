@@ -1,6 +1,5 @@
 mutation CreateApp($input: CreateAppInput!) {
-  createApp(input: $input){
+  createApp(input: $input) {
     ...__App
   }
 }
-

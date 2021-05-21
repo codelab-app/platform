@@ -10,7 +10,7 @@ import { elementTypeMap } from './elementTypeMap'
 import { ComponentHandlers } from './useComponentHandlers'
 
 interface ElementParameterFactoryInput<
-  TNode extends ComponentElementNode = ComponentElementNode
+  TNode extends ComponentElementNode = ComponentElementNode,
 > {
   node: TNode
   // Function hooks injected to pass to handlers

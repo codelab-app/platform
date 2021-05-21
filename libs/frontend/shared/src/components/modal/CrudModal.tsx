@@ -1,11 +1,7 @@
-import {
-  ActionType,
-  EntityType,
-  FormUniformsModal,
-  useCRUDModalForm,
-} from '@codelab/frontend/shared'
 import { ModalProps } from 'antd/lib/modal'
 import React, { ReactElement } from 'react'
+import { FormUniformsModal } from '../form'
+import { ActionType, EntityType, useCRUDModalForm } from './crudModalsState'
 
 export type CrudModalProps = {
   entityType: EntityType
