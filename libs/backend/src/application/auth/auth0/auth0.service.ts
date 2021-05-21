@@ -30,8 +30,6 @@ export class Auth0Service {
   }
 
   getManagementClient() {
-    console.log(this._config.issuer)
-
     return new ManagementClient({
       domain: this.getDomain(),
       clientId: this._config.api.clientId,

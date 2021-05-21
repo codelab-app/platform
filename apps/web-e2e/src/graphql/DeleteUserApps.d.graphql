@@ -1,0 +1,5 @@
+mutation DeleteUserApps($userId: String!) {
+    deleteApp(filter: {ownerId: {eq: $userId}}){
+        numUids
+    }
+}

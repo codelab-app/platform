@@ -6,6 +6,7 @@ export interface JsonObject {
 
 export interface CodelabApiClaims extends JsonObject {
   email: string
+  roles: Array<string>
 }
 
 export interface JwtPayload extends JsonObject {

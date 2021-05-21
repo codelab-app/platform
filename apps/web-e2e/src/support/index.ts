@@ -13,5 +13,6 @@
 // https://on.cypress.io/configuration
 // ***********************************************************
 
+import 'cypress-nextjs-auth0'
 // Import commands.js using ES2015 syntax:
 import './commands'

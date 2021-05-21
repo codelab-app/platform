@@ -1,16 +1,9 @@
-import { DeleteUserAppsGql } from '@codelab/hasura'
+import { DeleteUserAppsGql } from '@codelab/dgraph'
 import { print } from 'graphql'
 
 const createApp = (appName: string) =>
   cy.createApp({
     name: appName,
-    pages: {
-      data: [
-        {
-          name: 'Test Page',
-        },
-      ],
-    },
   })
 
 describe('Apps CRUD', () => {
@@ -20,7 +13,7 @@ describe('Apps CRUD', () => {
 
     // delete all apps for current user
     cy.getCurrentUserId().then((userId) => {
-      cy.hasuraAdminRequest({
+      cy.dGraphGraphqlRequest({
         query: print(DeleteUserAppsGql),
         variables: {
           userId,

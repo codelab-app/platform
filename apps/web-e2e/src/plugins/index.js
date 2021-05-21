@@ -12,6 +12,7 @@
 // the project's config changing)
 
 const { preprocessTypescript } = require('@nrwl/cypress/plugins/preprocessor')
+const encrypt = require('cypress-nextjs-auth0/encrypt')
 
 /**
  * @type {Cypress.PluginConfig}
@@ -22,13 +23,20 @@ module.exports = (on, config) => {
 
   // Preprocess Typescript file using Nx helper
   on('file:preprocessor', preprocessTypescript(config))
+  on('task', { encrypt })
 
-  //Make available some of the env variables that we need, because only ones prefixed with Cypress_ get included
-  // config.env.HASURA_GRAPHQL_ADMIN_SECRET =
-  //   process.env.HASURA_GRAPHQL_ADMIN_SECRET
+  //Remap some of the .env values, because cypress-nextjs-auth0/encrypt requires them to be with other names
+  config.env.auth0Audience = process.env.AUTH0_AUDIENCE
+  config.env.auth0Domain = process.env.AUTH0_ISSUER_BASE_URL
+  config.env.auth0ClientId = process.env.AUTH0_CLIENT_ID
+  config.env.auth0ClientSecret = process.env.AUTH0_CLIENT_SECRET
+  config.env.auth0CookieSecret = process.env.AUTH0_SECRET
+  config.env.auth0Scope = 'openid profile email'
+  config.env.auth0SessionCookieName = 'appSession'
+  config.env.auth0Username = process.env.CYPRESS_AUTH0_USER
+  config.env.auth0Password = process.env.CYPRESS_AUTH0_PASSWORD
 
-  // config.env.CODELAB_HASURA_GRAPHQL_ENDPOINT =
-  //   process.env.CODELAB_HASURA_GRAPHQL_ENDPOINT
+  config.env.dgraphGraphqlEndpoint = process.env.CODELAB_DGRAPH_GRAPHQL_ENDPOINT
 
   return config
 }

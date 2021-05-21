@@ -1,22 +1,9 @@
 import '@testing-library/cypress/add-commands'
 import { AtomType } from '@codelab/frontend/shared'
-import {
-  __AtomFragment,
-  __ComponentFragment,
-  __LibraryFragment,
-  App_Insert_Input,
-  CreateAppGql,
-  CreateAtomGql,
-  CreateComponentGql,
-  CreateLibraryGql,
-  CreatePageGql,
-  DeleteAllAtomsGql,
-  Library_Insert_Input,
-  UpsertUserGql,
-  User__AppFragment,
-} from '@codelab/hasura'
+import { CreateAppGql, CreateAppInput } from '@codelab/graphql'
+import { Library_Insert_Input } from '@codelab/hasura'
 import { SelectorMatcherOptions } from '@testing-library/cypress'
-import { Matcher } from '@testing-library/dom'
+import { ByRoleOptions, Matcher } from '@testing-library/dom'
 import { print } from 'graphql'
 import * as JQuery from 'jquery'
 
@@ -37,14 +24,11 @@ declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace Cypress {
     interface Chainable<Subject> {
-      /** Logs in using the auth0 interface and adds the user in the database if it doesn't exist*/
-      login: typeof login
       getCurrentUserId: typeof getCurrentUserId
       getByTestId: typeof getByTestId
-      /** Makes an post request to the hasura graphql api endpoint with admin secret */
-      hasuraAdminRequest: typeof hasuraAdminRequest
       /** Makes an post request to the next.js proxy graphql api endpoint as the logged in user */
-      hasuraUserRequest: typeof hasuraUserRequest
+      graphqlRequest: typeof graphqlRequest
+      dGraphGraphqlRequest: typeof dGraphGraphqlRequest
       /** Creates an app for the current logged in user */
       createApp: typeof createApp
       createAtom: typeof createAtom
@@ -89,75 +73,23 @@ declare global {
   }
 }
 
-const hasuraUserRequest = (body: string | Record<string, any>) =>
+const graphqlRequest = (body: string | Record<string, any>) =>
   cy.request({
     body,
     url: '/api/graphql',
     method: 'POST',
   })
 
-Cypress.Commands.add('hasuraUserRequest', hasuraUserRequest)
+Cypress.Commands.add('graphqlRequest', graphqlRequest)
 
-const hasuraAdminRequest = (body: string | Record<string, any>) => {
-  return cy.request({
+const dGraphGraphqlRequest = (body: string | Record<string, any>) =>
+  cy.request({
     body,
-    // url: Cypress.env('CODELAB_HASURA_GRAPHQL_ENDPOINT'),
-    url: '',
+    url: Cypress.env('dgraphGraphqlEndpoint'),
     method: 'POST',
-    // headers: {
-    //   'x-hasura-admin-secret': Cypress.env('HASURA_GRAPHQL_ADMIN_SECRET'),
-    // },
-  })
-}
-
-Cypress.Commands.add('hasuraAdminRequest', hasuraAdminRequest)
-
-const login = () => {
-  Cypress.log({
-    name: 'loginViaAuth0',
   })
 
-  //Ideally, we would login using the Password grant, with an API call, like this:
-  //https://auth0.com/blog/end-to-end-testing-with-cypress-and-auth0/
-  //But we use nextjs-auth0 to manage our authentication process.
-  //And it encrypts the cookies and doesn't expose the encryption process
-  //Meaning that even if we did make the login request and got the token, we can't easily store it in our cookie
-  //since we don't have access to how it stores it
-  //See this for context https://github.com/auth0/nextjs-auth0/issues/335
-  //So just login using the UI
-  //We can maybe use this https://github.com/sir-dunxalot/cypress-nextjs-auth0 but after this gets merged https://github.com/sir-dunxalot/cypress-nextjs-auth0/pull/14
-
-  const email = Cypress.env('AUTH0_USER') //Username and password are from .env
-  const password = Cypress.env('AUTH0_PASSWORD') //Username and password are from .env
-
-  cy.visit('/')
-  cy.get('.login-button').click()
-
-  return cy.get('body').then((body) => {
-    //Find the input. If it's missing it's likely we're logged in already and it's redirecting us to our home page
-    if (body.find('input[name=username]').length) {
-      cy.get('input[name=username]').type(email)
-      cy.get('input[name=password]').type(password)
-      cy.get('button[type=submit][value=default]').click()
-    }
-
-    cy.url().should('be.equal', `${Cypress.config('baseUrl')}/`)
-
-    //Make sure the user is in the database
-    cy.request('/api/auth/me').then((r) => {
-      const userId = r.body.sub
-
-      cy.hasuraAdminRequest({
-        query: print(UpsertUserGql),
-        variables: {
-          userId,
-        },
-      })
-    })
-  })
-}
-
-Cypress.Commands.add('login', login)
+Cypress.Commands.add('dGraphGraphqlRequest', dGraphGraphqlRequest)
 
 const getCurrentUserId = () => {
   return cy.request('/api/auth/me').then((r) => {
@@ -174,64 +106,34 @@ const getByTestId = (testId: string, selectorAddon?: string) => {
 Cypress.Commands.add('getByTestId', getByTestId)
 
 const createComponent = (libraryId: string, label = 'Test component') => {
-  return cy
-    .hasuraAdminRequest({
-      query: print(CreateComponentGql),
-      variables: {
-        input: {
-          label,
-          library_id: libraryId,
-        },
-      },
-    })
-    .then((r) => r.body.data?.insert_component_one as __ComponentFragment)
+  throw new Error('not implemented')
 }
 
 Cypress.Commands.add('createComponent', createComponent)
 
 const createAtom = (atomType: AtomType) => {
-  return cy
-    .hasuraAdminRequest({
-      query: print(CreateAtomGql),
-      variables: {
-        data: {
-          type: atomType,
-        },
-      },
-    })
-    .then((r) => r.body.data?.insert_atom_one as __AtomFragment)
+  throw new Error('not implemented')
 }
 
 Cypress.Commands.add('createAtom', createAtom)
 
-const defaultCreateAppInput = {
+const defaultCreateAppInput: CreateAppInput = {
   name: 'Test app',
-  pages: {
-    data: [
-      {
-        name: 'Test Page',
-      },
-    ],
-  },
 }
 
-const createApp = (input: App_Insert_Input = defaultCreateAppInput) =>
-  cy
-    .hasuraUserRequest({
+const createApp = (input: CreateAppInput = defaultCreateAppInput) => {
+  return cy
+    .graphqlRequest({
       query: print(CreateAppGql),
       variables: { input },
     })
-    .then((r) => {
-      return r.body.data?.insert_app_one as User__AppFragment
-    })
+    .then((r) => r.body.data?.createApp)
+}
 
 Cypress.Commands.add('createApp', createApp)
 
 const createPage = (appId: string, pageName = 'default') => {
-  return cy.hasuraUserRequest({
-    query: print(CreatePageGql),
-    variables: { data: { app_id: appId, name: pageName } },
-  })
+  throw new Error('not implemented')
 }
 
 Cypress.Commands.add('createPage', createPage)
@@ -257,11 +159,11 @@ Cypress.Commands.add('createLibrary', createLibrary)
 
 export const findByButtonText = (
   subject: any,
-  text: Matcher,
+  text: ByRoleOptions['name'],
   options?: SelectorMatcherOptions,
 ): Cypress.Chainable<JQuery> => {
   return (subject ? cy.wrap(subject) : cy).findByRole('button', {
-    name: `${text}`,
+    name: text,
     exact: false,
     timeout: 5000,
     ...options,
@@ -372,9 +274,7 @@ export const getSelectOptionItemByValue = (
 Cypress.Commands.add('getSelectOptionItemByValue', getSelectOptionItemByValue)
 
 const deleteAllAtoms = () => {
-  return cy.hasuraAdminRequest({
-    query: print(DeleteAllAtomsGql),
-  })
+  throw new Error('not implemented')
 }
 
 Cypress.Commands.add('deleteAllAtoms', deleteAllAtoms)
