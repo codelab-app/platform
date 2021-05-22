@@ -106,13 +106,13 @@ const getByTestId = (testId: string, selectorAddon?: string) => {
 Cypress.Commands.add('getByTestId', getByTestId)
 
 const createComponent = (libraryId: string, label = 'Test component') => {
-  throw new Error('not implemented')
+  return new Promise((resolve, reject) => reject('not implemeneted'))
 }
 
 Cypress.Commands.add('createComponent', createComponent)
 
 const createAtom = (atomType: AtomType) => {
-  throw new Error('not implemented')
+  return new Promise((resolve, reject) => reject('not implemeneted'))
 }
 
 Cypress.Commands.add('createAtom', createAtom)
@@ -133,7 +133,7 @@ const createApp = (input: CreateAppInput = defaultCreateAppInput) => {
 Cypress.Commands.add('createApp', createApp)
 
 const createPage = (appId: string, pageName = 'default') => {
-  throw new Error('not implemented')
+  return new Promise((resolve, reject) => reject('not implemeneted'))
 }
 
 Cypress.Commands.add('createPage', createPage)
@@ -145,14 +145,7 @@ const defaultLibraryData: Library_Insert_Input = {
 export const createLibrary = (
   data: Library_Insert_Input = defaultLibraryData,
 ) => {
-  return cy
-    .hasuraUserRequest({
-      query: print(CreateLibraryGql),
-      variables: { data },
-    })
-    .then((r) => {
-      return r.body.data?.insert_library_one
-    }) as unknown as Promise<__LibraryFragment>
+  return new Promise((resolve, reject) => reject('not implemeneted'))
 }
 
 Cypress.Commands.add('createLibrary', createLibrary)
@@ -274,7 +267,7 @@ export const getSelectOptionItemByValue = (
 Cypress.Commands.add('getSelectOptionItemByValue', getSelectOptionItemByValue)
 
 const deleteAllAtoms = () => {
-  throw new Error('not implemented')
+  return new Promise((resolve, reject) => reject('not implemeneted'))
 }
 
 Cypress.Commands.add('deleteAllAtoms', deleteAllAtoms)

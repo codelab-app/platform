@@ -15,12 +15,14 @@ describe('Library', () => {
 
     // delete all apps afor current user
     cy.getCurrentUserId().then((userId) => {
-      cy.hasuraAdminRequest({
-        query: print(DeleteUserLibrariesGql),
-        variables: {
-          userId,
-        },
-      })
+      return new Promise((resolve, reject) => reject('not implemeneted'))
+
+      // cy.hasuraAdminRequest({
+      //   query: print(DeleteUserLibrariesGql),
+      //   variables: {
+      //     userId,
+      //   },
+      // })
     })
 
     cy.createApp().then((app) => {
