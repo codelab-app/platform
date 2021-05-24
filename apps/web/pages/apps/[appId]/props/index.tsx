@@ -1,5 +1,11 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import { GetPropsList } from '@codelab/modules/prop'
+import {
+  CreatePropButton,
+  CreatePropModal,
+  DeletePropModal,
+  GetPropsList,
+  UpdatePropModal,
+} from '@codelab/modules/prop'
 import { Breadcrumb, Card, PageHeader, Space } from 'antd'
 import { LayoutAtom } from 'apps/web/src/layout/Layout--atom'
 import React from 'react'
@@ -26,12 +32,16 @@ const PropsPage: NextPageLayout = () => {
                 Props (API)
               </span>
             }
+            extra={[<CreatePropButton />]}
           />
         </Card>
         <Card bodyStyle={tw`p-0`}>
           <GetPropsList />
         </Card>
       </Space>
+      <CreatePropModal />
+      <DeletePropModal />
+      <UpdatePropModal />
     </div>
   )
 }
