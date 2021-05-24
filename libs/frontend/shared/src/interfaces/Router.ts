@@ -17,6 +17,7 @@ export enum PageType {
   LibraryDetail = '/apps/[appId]/library/[libraryId]',
   Prop = '/library/[libraryId]/props',
   Tag = '/tags',
+  PropsInterface = '/apps/[appId]/props'
 }
 
 export enum PaneType {

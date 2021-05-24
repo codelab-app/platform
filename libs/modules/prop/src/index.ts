@@ -1,5 +1,6 @@
 export * from './createProp/createPropSchema'
 export * from './getJsonSchemaTypeFromValueType'
+export * from './getProps'
 export * from './pageElementProp/PageElementPropForm'
 export * from './pageElementProp/PageElementPropsForm'
 export * from './pane/PaneConfigPageElementProps'

@@ -1,5 +1,6 @@
 import {
   ApartmentOutlined,
+    ApiFilled,
   AppstoreOutlined,
   BookOutlined,
   CopyOutlined,
@@ -150,6 +151,23 @@ export const LayoutNavigations = () => {
             Atoms
           </Link>
         </Menu.Item>
+        <Menu.Divider />
+        <Menu.Item
+          key={PageType.PropsInterface}
+          icon={<ApiFilled title="API" />}
+        >
+          <Link
+            href={{
+              pathname: PageType.PropsInterface,
+              query: {
+                appId: app.id,
+              },
+            }}
+          >
+            Atoms
+          </Link>
+        </Menu.Item>
+
         <Menu.Divider />
       </Menu>
     </div>
