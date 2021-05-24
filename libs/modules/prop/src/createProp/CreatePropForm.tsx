@@ -14,27 +14,35 @@ import {
   useGetValueTypesQuery,
 } from '@codelab/graphql'
 import { Spin } from 'antd'
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { DeepPartial } from 'uniforms'
-import { ListField, LongTextField, NestField, SelectField, TextField } from 'uniforms-antd'
+import {
+  ListField,
+  LongTextField,
+  NestField,
+  SelectField,
+  TextField,
+} from 'uniforms-antd'
 import { CreatePropInput, createPropSchema } from './createPropSchema'
 
 type CreatePropFormProps = UniFormUseCaseProps<CreatePropInput>
+type SelectFieldOptions = Array<{
+  value: string
+  label: string
+}>
 
 export const CreatePropForm = ({ ...props }: CreatePropFormProps) => {
   const { reset, setLoading } = useCRUDModalForm(EntityType.Prop)
-
   // Only Editors can modify Props (dgraph permissions?)
   /* const [mutate, { loading: creating }] = useCreatePropMutation({
    *   awaitRefetchQueries: true,
    *   refetchQueries: [refetchGetPropsQuery()],
    * }) */
-
   /* useEffect(() => {
    *     setLoading(creating)
    * }, [creating]) */
-
   const { data: valueTypesData, loading } = useGetValueTypesQuery({})
+  const [enumItems, setEnumItems] = useState<SelectFieldOptions>([])
 
   if (loading) {
     return <Spin />
@@ -97,6 +105,23 @@ export const CreatePropForm = ({ ...props }: CreatePropFormProps) => {
       //eslint-disable-next-line @typescript-eslint/ban-ts-comment
       //@ts-ignore https://github.com/vazco/uniforms/issues/951
       layout="horizontal"
+      onChangeModel={(model) => {
+        if (model.type === 'Enum') {
+          const nextEnumItems =
+            model?.enum
+              ?.filter(
+                (enumItem): enumItem is CreatePropInput['enum'][number] =>
+                  typeof enumItem?.value === 'string' &&
+                  enumItem.value.length > 0,
+              )
+              .map((enumItem) => ({
+                label: enumItem.value,
+                value: enumItem.value,
+              })) ?? []
+
+          setEnumItems(nextEnumItems)
+        }
+      }}
       {...props}
     >
       <TextField
@@ -129,14 +154,6 @@ export const CreatePropForm = ({ ...props }: CreatePropFormProps) => {
           value: componentType.name,
         }))}
       />
-      <TextField
-        name="default"
-        label="Default"
-        //eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        //@ts-ignore https://github.com/vazco/uniforms/issues/951
-        labelCol={labelCol}
-        colon={false}
-      />
       <SelectField
         name="type"
         label="Type"
@@ -151,6 +168,17 @@ export const CreatePropForm = ({ ...props }: CreatePropFormProps) => {
           value: valueType.type,
         }))}
       />
+
+      <DisplayIf condition={(context) => context.model.type !== 'Enum'}>
+        <TextField
+          name="default"
+          label="Default"
+          //eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          //@ts-ignore https://github.com/vazco/uniforms/issues/951
+          labelCol={labelCol}
+          colon={false}
+        />
+      </DisplayIf>
       <DisplayIf condition={(context) => context.model.type === 'Enum'}>
         <ListField
           name="enum"
@@ -165,6 +193,19 @@ export const CreatePropForm = ({ ...props }: CreatePropFormProps) => {
           itemProps={{
             colon: false,
           }}
+        />
+      </DisplayIf>
+      <DisplayIf condition={(context) => context.model.type === 'Enum'}>
+        <SelectField
+          name="default"
+          label="default"
+          //eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          //@ts-ignore https://github.com/vazco/uniforms/issues/951
+          showSearch={true}
+          optionFilterProp="label"
+          labelCol={labelCol}
+          colon={false}
+          options={enumItems}
         />
       </DisplayIf>
     </FormUniforms>
