@@ -7,8 +7,11 @@ export type CreatePropInput = {
   key: string
   description: string
   component: string
-  type: string
   default: string
+  type: string
+  enum: Array<{
+    value: string
+  }>
 }
 
 export const createPropSchema: JSONSchemaType<CreatePropInput> = {
@@ -29,6 +32,18 @@ export const createPropSchema: JSONSchemaType<CreatePropInput> = {
     },
     default: {
       type: 'string',
+    },
+    enum: {
+      type: 'array',
+      items: {
+        type: 'object',
+        properties: {
+          value: {
+            type: 'string',
+          },
+        },
+        required: [],
+      },
     },
   },
   required: ['key', 'component', 'type'],

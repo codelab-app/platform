@@ -1,20 +1,22 @@
 import {
   createNotificationHandler,
+  DisplayIf,
   EntityType,
   FormUniforms,
   isNotNull,
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-/* import {
- *   refetchGetPropsQuery,
- *   useCreatePropMutation,
- *   useGetPropTypesQuery,
- * } from '@codelab/graphql' */
+import {
+  /* refetchGetPropsQuery,
+   * useCreatePropMutation,
+   * useGetPropTypesQuery, */
+  useGetValueTypesQuery,
+} from '@codelab/graphql'
 import { Spin } from 'antd'
 import React, { useContext, useEffect } from 'react'
 import { DeepPartial } from 'uniforms'
-import { SelectField, TextField } from 'uniforms-antd'
+import { ListField, LongTextField, NestField, SelectField, TextField } from 'uniforms-antd'
 import { CreatePropInput, createPropSchema } from './createPropSchema'
 
 type CreatePropFormProps = UniFormUseCaseProps<CreatePropInput>
@@ -29,16 +31,16 @@ export const CreatePropForm = ({ ...props }: CreatePropFormProps) => {
    * }) */
 
   /* useEffect(() => {
-     *   setLoading(creating)
-     * }, [creating])
+   *     setLoading(creating)
+   * }, [creating]) */
 
-     * const { data, loading } = useGetPropTypesQuery({}) */
+  const { data: valueTypesData, loading } = useGetValueTypesQuery({})
 
-  /* if (loading) {
-   *   return <Spin />
-   * } */
+  if (loading) {
+    return <Spin />
+  }
 
-  /* const propTypes = data?.propTypes?.filter(isNotNull) ?? [] */
+  const valueTypes = valueTypesData?.valueTypes?.filter(isNotNull) ?? []
 
   const onSubmit = (submitData: DeepPartial<CreatePropInput>) => {
     /* return mutate({
@@ -82,21 +84,6 @@ export const CreatePropForm = ({ ...props }: CreatePropFormProps) => {
     },
   ]
 
-  const valueTypes = [
-    {
-      label: 'String',
-      name: 'string',
-    },
-    {
-      label: 'Boolean',
-      name: 'boolean',
-    },
-    {
-      label: 'Number',
-      name: 'number',
-    },
-  ]
-
   const labelCol = { span: 5 }
 
   return (
@@ -120,27 +107,13 @@ export const CreatePropForm = ({ ...props }: CreatePropFormProps) => {
         labelCol={labelCol}
         colon={false}
       />
-      <TextField
+      <LongTextField
         name="description"
         label="Description"
         //eslint-disable-next-line @typescript-eslint/ban-ts-comment
         //@ts-ignore https://github.com/vazco/uniforms/issues/951
         labelCol={labelCol}
         colon={false}
-      />
-      <SelectField
-        name="type"
-        label="Type"
-        //eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        //@ts-ignore https://github.com/vazco/uniforms/issues/951
-        showSearch={true}
-        optionFilterProp="label"
-        labelCol={labelCol}
-        colon={false}
-        options={valueTypes?.map((valueType) => ({
-          label: valueType.label,
-          value: valueType.name,
-        }))}
       />
       <SelectField
         name="component"
@@ -164,6 +137,36 @@ export const CreatePropForm = ({ ...props }: CreatePropFormProps) => {
         labelCol={labelCol}
         colon={false}
       />
+      <SelectField
+        name="type"
+        label="Type"
+        //eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-ignore https://github.com/vazco/uniforms/issues/951
+        showSearch={true}
+        optionFilterProp="label"
+        labelCol={labelCol}
+        colon={false}
+        options={valueTypes?.map((valueType) => ({
+          label: valueType.label,
+          value: valueType.type,
+        }))}
+      />
+      <DisplayIf condition={(context) => context.model.type === 'Enum'}>
+        <ListField
+          name="enum"
+          label="Enum"
+          //eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          //@ts-ignore https://github.com/vazco/uniforms/issues/951
+          labelCol={labelCol}
+          //eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          //@ts-ignore https://github.com/vazco/uniforms/issues/951
+          colon={false}
+          initialCount={1}
+          itemProps={{
+            colon: false,
+          }}
+        />
+      </DisplayIf>
     </FormUniforms>
   )
 }
