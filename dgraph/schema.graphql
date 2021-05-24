@@ -34,7 +34,7 @@ type Atom {
     id: ID!
     type: AtomType!
     label: String
-    # props: [Prop]
+    props: [Prop]
     library: Library
 }
 
@@ -46,4 +46,18 @@ type AtomType {
 
 type Tag {
   label: String!
+}
+
+type Prop {
+  id: ID!
+  key: String!
+  description: String!
+  type: ValueType!
+  props: [Prop]
+}
+
+type ValueType {
+    id: ID!
+    label: String!
+    type: String!
 }

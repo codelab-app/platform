@@ -41,6 +41,12 @@ type User {
   username: String
 }
 
+type ValueType {
+  id: ID!
+  label: String!
+  type: String!
+}
+
 type Query {
   getMe: User!
   getUsers(input: GetUsersInput): [User!]!
@@ -49,6 +55,7 @@ type Query {
   getAtomTypes: [AtomType!]!
   getAtoms: [Atom!]!
   getAtom(input: GetAtomInput!): Atom
+  getValueTypes: [ValueType!]!
 }
 
 input GetUsersInput {

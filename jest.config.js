@@ -10,5 +10,7 @@ module.exports = {
     '<rootDir>/libs/modules/atom-api',
     '<rootDir>/libs/modules/atom-type-api',
     '<rootDir>/libs/modules/prop-api',
+    '<rootDir>/libs/modules/value-type-api',
+    '<rootDir>/libs/modules/value-type',
   ],
 }

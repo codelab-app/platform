@@ -1,0 +1,5 @@
+query GetValueTypes {
+  valueTypes: getValueTypes {
+    ...__ValueType
+  }
+}

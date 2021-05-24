@@ -132,6 +132,12 @@
     },
     "modules-prop-api": {
       "tags": []
+    },
+    "modules-value-type-api": {
+      "tags": []
+    },
+    "modules-value-type": {
+      "tags": []
     }
   }
 }

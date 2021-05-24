@@ -1,0 +1,5 @@
+fragment __ValueType on ValueType {
+  id
+  type
+  label
+}

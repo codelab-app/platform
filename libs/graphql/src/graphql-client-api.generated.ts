@@ -125,6 +125,7 @@ export type Query = {
   getAtomTypes: Array<AtomType>
   getAtoms: Array<Atom>
   getAtom?: Maybe<Atom>
+  getValueTypes: Array<ValueType>
 }
 
 export type QueryGetUsersArgs = {
@@ -192,6 +193,12 @@ export type User = {
   updated_at?: Maybe<Scalars['String']>
   user_id?: Maybe<Scalars['String']>
   username?: Maybe<Scalars['String']>
+}
+
+export type ValueType = {
+  id: Scalars['ID']
+  label: Scalars['String']
+  type: Scalars['String']
 }
 
 export type __AppFragment = Pick<App, 'id' | 'name'>
@@ -278,6 +285,12 @@ export type GetUsersQueryVariables = Exact<{
 
 export type GetUsersQuery = { users: Array<__UserFragment> }
 
+export type GetValueTypesQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetValueTypesQuery = { valueTypes: Array<__ValueTypeFragment> }
+
+export type __ValueTypeFragment = Pick<ValueType, 'id' | 'type' | 'label'>
+
 export const __AppFragmentDoc = gql`
   fragment __App on App {
     id
@@ -306,6 +319,13 @@ export const __UserFragmentDoc = gql`
     id: user_id
     email
     name
+  }
+`
+export const __ValueTypeFragmentDoc = gql`
+  fragment __ValueType on ValueType {
+    id
+    type
+    label
   }
 `
 export const CreateAppGql = gql`
@@ -988,6 +1008,69 @@ export type GetUsersQueryResult = Apollo.QueryResult<
 export function refetchGetUsersQuery(variables?: GetUsersQueryVariables) {
   return { query: GetUsersGql, variables: variables }
 }
+export const GetValueTypesGql = gql`
+  query GetValueTypes {
+    valueTypes: getValueTypes {
+      ...__ValueType
+    }
+  }
+  ${__ValueTypeFragmentDoc}
+`
+
+/**
+ * __useGetValueTypesQuery__
+ *
+ * To run a query within a React component, call `useGetValueTypesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetValueTypesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetValueTypesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetValueTypesQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetValueTypesQuery,
+    GetValueTypesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetValueTypesQuery, GetValueTypesQueryVariables>(
+    GetValueTypesGql,
+    options,
+  )
+}
+export function useGetValueTypesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetValueTypesQuery,
+    GetValueTypesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetValueTypesQuery, GetValueTypesQueryVariables>(
+    GetValueTypesGql,
+    options,
+  )
+}
+export type GetValueTypesQueryHookResult = ReturnType<
+  typeof useGetValueTypesQuery
+>
+export type GetValueTypesLazyQueryHookResult = ReturnType<
+  typeof useGetValueTypesLazyQuery
+>
+export type GetValueTypesQueryResult = Apollo.QueryResult<
+  GetValueTypesQuery,
+  GetValueTypesQueryVariables
+>
+export function refetchGetValueTypesQuery(
+  variables?: GetValueTypesQueryVariables,
+) {
+  return { query: GetValueTypesGql, variables: variables }
+}
 export const __App = gql`
   fragment __App on App {
     id
@@ -1016,6 +1099,13 @@ export const __User = gql`
     id: user_id
     email
     name
+  }
+`
+export const __ValueType = gql`
+  fragment __ValueType on ValueType {
+    id
+    type
+    label
   }
 `
 export const CreateApp = gql`
@@ -1117,4 +1207,12 @@ export const GetUsers = gql`
     }
   }
   ${__User}
+`
+export const GetValueTypes = gql`
+  query GetValueTypes {
+    valueTypes: getValueTypes {
+      ...__ValueType
+    }
+  }
+  ${__ValueType}
 `

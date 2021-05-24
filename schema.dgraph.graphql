@@ -59,6 +59,7 @@ type AddAppPayload {
 input AddAtomInput {
   type: AtomTypeRef!
   label: String
+  props: [PropRef]
   library: LibraryRef
 }
 
@@ -127,12 +128,39 @@ type AddPagePayload {
   numUids: Int
 }
 
+input AddPropInput {
+  key: String!
+  description: String!
+  type: ValueTypeRef!
+  props: [PropRef]
+}
+
+type AddPropPayload {
+  prop(filter: PropFilter, order: PropOrder, first: Int, offset: Int): [Prop]
+  numUids: Int
+}
+
 input AddTagInput {
   label: String!
 }
 
 type AddTagPayload {
   tag(filter: TagFilter, order: TagOrder, first: Int, offset: Int): [Tag]
+  numUids: Int
+}
+
+input AddValueTypeInput {
+  label: String!
+  type: String!
+}
+
+type AddValueTypePayload {
+  valueType(
+    filter: ValueTypeFilter
+    order: ValueTypeOrder
+    first: Int
+    offset: Int
+  ): [ValueType]
   numUids: Int
 }
 
@@ -195,7 +223,9 @@ type Atom {
   id: ID!
   type(filter: AtomTypeFilter): AtomType!
   label: String
+  props(filter: PropFilter, order: PropOrder, first: Int, offset: Int): [Prop]
   library(filter: LibraryFilter): Library
+  propsAggregate(filter: PropFilter): PropAggregateResult
 }
 
 type AtomAggregateResult {
@@ -215,6 +245,7 @@ input AtomFilter {
 enum AtomHasFilter {
   type
   label
+  props
   library
 }
 
@@ -231,6 +262,7 @@ enum AtomOrderable {
 input AtomPatch {
   type: AtomTypeRef
   label: String
+  props: [PropRef]
   library: LibraryRef
 }
 
@@ -238,6 +270,7 @@ input AtomRef {
   id: ID
   type: AtomTypeRef
   label: String
+  props: [PropRef]
   library: LibraryRef
 }
 
@@ -451,8 +484,25 @@ type DeletePagePayload {
   numUids: Int
 }
 
+type DeletePropPayload {
+  prop(filter: PropFilter, order: PropOrder, first: Int, offset: Int): [Prop]
+  msg: String
+  numUids: Int
+}
+
 type DeleteTagPayload {
   tag(filter: TagFilter, order: TagOrder, first: Int, offset: Int): [Tag]
+  msg: String
+  numUids: Int
+}
+
+type DeleteValueTypePayload {
+  valueType(
+    filter: ValueTypeFilter
+    order: ValueTypeOrder
+    first: Int
+    offset: Int
+  ): [ValueType]
   msg: String
   numUids: Int
 }
@@ -651,6 +701,12 @@ type Mutation {
   addTag(input: [AddTagInput!]!): AddTagPayload
   updateTag(input: UpdateTagInput!): UpdateTagPayload
   deleteTag(filter: TagFilter!): DeleteTagPayload
+  addProp(input: [AddPropInput!]!): AddPropPayload
+  updateProp(input: UpdatePropInput!): UpdatePropPayload
+  deleteProp(filter: PropFilter!): DeletePropPayload
+  addValueType(input: [AddValueTypeInput!]!): AddValueTypePayload
+  updateValueType(input: UpdateValueTypeInput!): UpdateValueTypePayload
+  deleteValueType(filter: ValueTypeFilter!): DeleteValueTypePayload
 }
 
 input NearFilter {
@@ -743,6 +799,64 @@ input PolygonRef {
   coordinates: [PointListRef!]!
 }
 
+type Prop {
+  id: ID!
+  key: String!
+  description: String!
+  type(filter: ValueTypeFilter): ValueType!
+  props(filter: PropFilter, order: PropOrder, first: Int, offset: Int): [Prop]
+  propsAggregate(filter: PropFilter): PropAggregateResult
+}
+
+type PropAggregateResult {
+  count: Int
+  keyMin: String
+  keyMax: String
+  descriptionMin: String
+  descriptionMax: String
+}
+
+input PropFilter {
+  id: [ID!]
+  has: [PropHasFilter]
+  and: [PropFilter]
+  or: [PropFilter]
+  not: PropFilter
+}
+
+enum PropHasFilter {
+  key
+  description
+  type
+  props
+}
+
+input PropOrder {
+  asc: PropOrderable
+  desc: PropOrderable
+  then: PropOrder
+}
+
+enum PropOrderable {
+  key
+  description
+}
+
+input PropPatch {
+  key: String
+  description: String
+  type: ValueTypeRef
+  props: [PropRef]
+}
+
+input PropRef {
+  id: ID
+  key: String
+  description: String
+  type: ValueTypeRef
+  props: [PropRef]
+}
+
 type Query {
   getApp(id: ID!): App
   queryApp(filter: AppFilter, order: AppOrder, first: Int, offset: Int): [App]
@@ -789,6 +903,22 @@ type Query {
   aggregateAtomType(filter: AtomTypeFilter): AtomTypeAggregateResult
   queryTag(filter: TagFilter, order: TagOrder, first: Int, offset: Int): [Tag]
   aggregateTag(filter: TagFilter): TagAggregateResult
+  getProp(id: ID!): Prop
+  queryProp(
+    filter: PropFilter
+    order: PropOrder
+    first: Int
+    offset: Int
+  ): [Prop]
+  aggregateProp(filter: PropFilter): PropAggregateResult
+  getValueType(id: ID!): ValueType
+  queryValueType(
+    filter: ValueTypeFilter
+    order: ValueTypeOrder
+    first: Int
+    offset: Int
+  ): [ValueType]
+  aggregateValueType(filter: ValueTypeFilter): ValueTypeAggregateResult
 }
 
 input StringExactFilter {
@@ -952,6 +1082,17 @@ type UpdatePagePayload {
   numUids: Int
 }
 
+input UpdatePropInput {
+  filter: PropFilter!
+  set: PropPatch
+  remove: PropPatch
+}
+
+type UpdatePropPayload {
+  prop(filter: PropFilter, order: PropOrder, first: Int, offset: Int): [Prop]
+  numUids: Int
+}
+
 input UpdateTagInput {
   filter: TagFilter!
   set: TagPatch
@@ -961,6 +1102,71 @@ input UpdateTagInput {
 type UpdateTagPayload {
   tag(filter: TagFilter, order: TagOrder, first: Int, offset: Int): [Tag]
   numUids: Int
+}
+
+input UpdateValueTypeInput {
+  filter: ValueTypeFilter!
+  set: ValueTypePatch
+  remove: ValueTypePatch
+}
+
+type UpdateValueTypePayload {
+  valueType(
+    filter: ValueTypeFilter
+    order: ValueTypeOrder
+    first: Int
+    offset: Int
+  ): [ValueType]
+  numUids: Int
+}
+
+type ValueType {
+  id: ID!
+  label: String!
+  type: String!
+}
+
+type ValueTypeAggregateResult {
+  count: Int
+  labelMin: String
+  labelMax: String
+  typeMin: String
+  typeMax: String
+}
+
+input ValueTypeFilter {
+  id: [ID!]
+  has: [ValueTypeHasFilter]
+  and: [ValueTypeFilter]
+  or: [ValueTypeFilter]
+  not: ValueTypeFilter
+}
+
+enum ValueTypeHasFilter {
+  label
+  type
+}
+
+input ValueTypeOrder {
+  asc: ValueTypeOrderable
+  desc: ValueTypeOrderable
+  then: ValueTypeOrder
+}
+
+enum ValueTypeOrderable {
+  label
+  type
+}
+
+input ValueTypePatch {
+  label: String
+  type: String
+}
+
+input ValueTypeRef {
+  id: ID
+  label: String
+  type: String
 }
 
 input WithinFilter {
