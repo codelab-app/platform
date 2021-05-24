@@ -50,8 +50,7 @@ type Tag {
 
 type Prop {
   id: ID!
-  key: String!
-  description: String!
+  description: String
   type: ValueType!
   props: [Prop]
 }

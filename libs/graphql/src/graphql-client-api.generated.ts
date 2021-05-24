@@ -117,6 +117,14 @@ export type MutationUpdateAtomArgs = {
   input: UpdateAtomInput
 }
 
+export type Prop = {
+  id: Scalars['ID']
+  key?: Maybe<Scalars['String']>
+  type: ValueType
+  description?: Maybe<Scalars['String']>
+  props?: Maybe<Prop>
+}
+
 export type Query = {
   getMe: User
   getUsers: Array<User>
@@ -126,6 +134,7 @@ export type Query = {
   getAtoms: Array<Atom>
   getAtom?: Maybe<Atom>
   getValueTypes: Array<ValueType>
+  getProps: Array<Prop>
 }
 
 export type QueryGetUsersArgs = {
@@ -269,6 +278,19 @@ export type UpdateAtomMutationVariables = Exact<{
 
 export type UpdateAtomMutation = { atom: __AtomFragment }
 
+export type __PropFragment = Pick<Prop, 'description' | 'id' | 'key'> & {
+  type: Pick<ValueType, 'id' | 'type' | 'label'>
+  props?: Maybe<
+    Pick<Prop, 'description' | 'id' | 'key'> & {
+      type: Pick<ValueType, 'id' | 'type' | 'label'>
+    }
+  >
+}
+
+export type GetPropsQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetPropsQuery = { props: Array<__PropFragment> }
+
 export type __UserFragment = Pick<User, 'email' | 'name'> & {
   id: User['user_id']
 }
@@ -311,6 +333,28 @@ export const __AtomFragmentDoc = gql`
       id
       label
       type
+    }
+  }
+`
+export const __PropFragmentDoc = gql`
+  fragment __Prop on Prop {
+    description
+    id
+    key
+    type {
+      id
+      type
+      label
+    }
+    props {
+      description
+      id
+      key
+      type {
+        id
+        type
+        label
+      }
     }
   }
 `
@@ -904,6 +948,62 @@ export type UpdateAtomMutationOptions = Apollo.BaseMutationOptions<
   UpdateAtomMutation,
   UpdateAtomMutationVariables
 >
+export const GetPropsGql = gql`
+  query GetProps {
+    props: getProps {
+      ...__Prop
+    }
+  }
+  ${__PropFragmentDoc}
+`
+
+/**
+ * __useGetPropsQuery__
+ *
+ * To run a query within a React component, call `useGetPropsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPropsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPropsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetPropsQuery(
+  baseOptions?: Apollo.QueryHookOptions<GetPropsQuery, GetPropsQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetPropsQuery, GetPropsQueryVariables>(
+    GetPropsGql,
+    options,
+  )
+}
+export function useGetPropsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetPropsQuery,
+    GetPropsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetPropsQuery, GetPropsQueryVariables>(
+    GetPropsGql,
+    options,
+  )
+}
+export type GetPropsQueryHookResult = ReturnType<typeof useGetPropsQuery>
+export type GetPropsLazyQueryHookResult = ReturnType<
+  typeof useGetPropsLazyQuery
+>
+export type GetPropsQueryResult = Apollo.QueryResult<
+  GetPropsQuery,
+  GetPropsQueryVariables
+>
+export function refetchGetPropsQuery(variables?: GetPropsQueryVariables) {
+  return { query: GetPropsGql, variables: variables }
+}
 export const DeleteUserGql = gql`
   mutation DeleteUser($input: DeleteUserInput!) {
     deleteUser(input: $input)
@@ -1094,6 +1194,28 @@ export const __Atom = gql`
     }
   }
 `
+export const __Prop = gql`
+  fragment __Prop on Prop {
+    description
+    id
+    key
+    type {
+      id
+      type
+      label
+    }
+    props {
+      description
+      id
+      key
+      type {
+        id
+        type
+        label
+      }
+    }
+  }
+`
 export const __User = gql`
   fragment __User on User {
     id: user_id
@@ -1194,6 +1316,14 @@ export const UpdateAtom = gql`
     }
   }
   ${__Atom}
+`
+export const GetProps = gql`
+  query GetProps {
+    props: getProps {
+      ...__Prop
+    }
+  }
+  ${__Prop}
 `
 export const DeleteUser = gql`
   mutation DeleteUser($input: DeleteUserInput!) {

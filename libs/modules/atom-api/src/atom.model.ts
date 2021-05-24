@@ -1,4 +1,5 @@
 import { AtomType } from '@codelab/modules/atom-type-api'
+// import { Prop } from '@codelab/modules/prop-api'
 import { Field, ID, ObjectType } from '@nestjs/graphql'
 
 @ObjectType()
@@ -9,6 +10,6 @@ export class Atom {
   @Field(() => AtomType)
   declare type: AtomType
 
-  // @Field((type)=>[Prop])
+  // @Field((type) => [Prop], { nullable: true })
   // declare props: [Prop]
 }

@@ -129,8 +129,7 @@ type AddPagePayload {
 }
 
 input AddPropInput {
-  key: String!
-  description: String!
+  description: String
   type: ValueTypeRef!
   props: [PropRef]
 }
@@ -801,8 +800,7 @@ input PolygonRef {
 
 type Prop {
   id: ID!
-  key: String!
-  description: String!
+  description: String
   type(filter: ValueTypeFilter): ValueType!
   props(filter: PropFilter, order: PropOrder, first: Int, offset: Int): [Prop]
   propsAggregate(filter: PropFilter): PropAggregateResult
@@ -810,8 +808,6 @@ type Prop {
 
 type PropAggregateResult {
   count: Int
-  keyMin: String
-  keyMax: String
   descriptionMin: String
   descriptionMax: String
 }
@@ -825,7 +821,6 @@ input PropFilter {
 }
 
 enum PropHasFilter {
-  key
   description
   type
   props
@@ -838,12 +833,10 @@ input PropOrder {
 }
 
 enum PropOrderable {
-  key
   description
 }
 
 input PropPatch {
-  key: String
   description: String
   type: ValueTypeRef
   props: [PropRef]
@@ -851,7 +844,6 @@ input PropPatch {
 
 input PropRef {
   id: ID
-  key: String
   description: String
   type: ValueTypeRef
   props: [PropRef]

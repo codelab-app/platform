@@ -1,1 +1,3 @@
-export * from './lib/modules-prop-api.module'
+export * from './prop.model'
+export * from './prop.module'
+export * from './use-cases'

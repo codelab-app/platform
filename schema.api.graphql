@@ -19,6 +19,20 @@ type Atom {
   type: AtomType!
 }
 
+type ValueType {
+  id: ID!
+  label: String!
+  type: String!
+}
+
+type Prop {
+  id: ID!
+  key: String
+  type: ValueType!
+  description: String
+  props: [Prop!]
+}
+
 type User {
   blocked: Boolean
   created_at: String
@@ -41,12 +55,6 @@ type User {
   username: String
 }
 
-type ValueType {
-  id: ID!
-  label: String!
-  type: String!
-}
-
 type Query {
   getMe: User!
   getUsers(input: GetUsersInput): [User!]!
@@ -56,6 +64,7 @@ type Query {
   getAtoms: [Atom!]!
   getAtom(input: GetAtomInput!): Atom
   getValueTypes: [ValueType!]!
+  getProps: [Prop!]!
 }
 
 input GetUsersInput {

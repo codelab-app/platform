@@ -139,8 +139,7 @@ export type AddPagePayloadPageArgs = {
 }
 
 export type AddPropInput = {
-  key: Scalars['String']
-  description: Scalars['String']
+  description?: Maybe<Scalars['String']>
   type: ValueTypeRef
   props?: Maybe<Array<Maybe<PropRef>>>
 }
@@ -1042,8 +1041,7 @@ export type PolygonRef = {
 
 export type Prop = {
   id: Scalars['ID']
-  key: Scalars['String']
-  description: Scalars['String']
+  description?: Maybe<Scalars['String']>
   type: ValueType
   props?: Maybe<Array<Maybe<Prop>>>
   propsAggregate?: Maybe<PropAggregateResult>
@@ -1066,8 +1064,6 @@ export type PropPropsAggregateArgs = {
 
 export type PropAggregateResult = {
   count?: Maybe<Scalars['Int']>
-  keyMin?: Maybe<Scalars['String']>
-  keyMax?: Maybe<Scalars['String']>
   descriptionMin?: Maybe<Scalars['String']>
   descriptionMax?: Maybe<Scalars['String']>
 }
@@ -1081,7 +1077,6 @@ export type PropFilter = {
 }
 
 export enum PropHasFilter {
-  Key = 'key',
   Description = 'description',
   Type = 'type',
   Props = 'props',
@@ -1094,12 +1089,10 @@ export type PropOrder = {
 }
 
 export enum PropOrderable {
-  Key = 'key',
   Description = 'description',
 }
 
 export type PropPatch = {
-  key?: Maybe<Scalars['String']>
   description?: Maybe<Scalars['String']>
   type?: Maybe<ValueTypeRef>
   props?: Maybe<Array<Maybe<PropRef>>>
@@ -1107,7 +1100,6 @@ export type PropPatch = {
 
 export type PropRef = {
   id?: Maybe<Scalars['ID']>
-  key?: Maybe<Scalars['String']>
   description?: Maybe<Scalars['String']>
   type?: Maybe<ValueTypeRef>
   props?: Maybe<Array<Maybe<PropRef>>>
