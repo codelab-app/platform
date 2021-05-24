@@ -104,6 +104,13 @@ const atomTypes = [
   { label: 'Upload', type: 'React_Upload' },
 ]
 
+const valueTypes = [
+  {label: 'Boolean', type: 'Boolean'},
+  {label: 'Lambda', type: 'Lambda'},
+  {label: 'Number', type: 'Number'},
+  {label: 'String', type: 'String'},
+  {label: 'Enum', type: 'Enum'},
+]
 module.exports = `
   _:adminUser <User.email> "admin@codelab.ai" .
   _:adminUser <dgraph.type> "User" .
@@ -120,7 +127,16 @@ module.exports = `
       _:atomType${n} <dgraph.type> "AtomType" .
       _:atomType${n} <AtomType.label> "${atomType.label}" .
       _:atomType${n} <AtomType.type> "${atomType.type}" .
-
+  `,
+    '',
+  )}
+  ${valueTypes.reduce(
+    (prev, valueType, n) =>
+      prev +
+      `
+      _:valueType${n} <dgraph.type> "ValueType" .
+      _:valueType${n} <ValueType.label> "${valueType.label}" .
+      _:valueType${n} <ValueType.type> "${valueType.type}" .
   `,
     '',
   )}
