@@ -127,10 +127,10 @@
     "graphql": {
       "tags": []
     },
-    "modules-atom-api": {
+    "modules-atom-type-api": {
       "tags": []
     },
-    "modules-atom-type-api": {
+    "modules-prop-api": {
       "tags": []
     }
   }

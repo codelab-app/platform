@@ -55,7 +55,8 @@
       "@codelab/graphql": ["libs/graphql/src/index.ts"],
       "@codelab/modules/atom-type-api": [
         "libs/modules/atom-type-api/src/index.ts"
-      ]
+      ],
+      "@codelab/modules/prop-api": ["libs/modules/prop-api/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"]
