@@ -102,8 +102,17 @@ export class GetPageElementRootService extends DgraphUseCase<
   public static createAtomFromQueryResult(queryResultItem: QueryResultItem) {
     const childAtom = queryResultItem['PageElement.atom']
 
+    //TODO fix atom type
     return childAtom
-      ? new Atom(childAtom.uid, childAtom['Atom.type'], childAtom['Atom.label'])
+      ? new Atom(
+          childAtom.uid,
+          {
+            id: childAtom['Atom.type'],
+            type: childAtom['Atom.type'],
+            label: childAtom['Atom.type'],
+          },
+          childAtom['Atom.label'],
+        )
       : null
   }
 }
