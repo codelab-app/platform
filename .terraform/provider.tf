@@ -1,24 +1,16 @@
 provider "aws" {
-  region = var.AWS_REGION
+  shared_credentials_file = "$HOME/.aws/credentials"
+  profile                 = "default"
+  region                  = var.aws_region
+}
+
+provider "aws" {
+  alias                   = "useast1"
+  shared_credentials_file = "$HOME/.aws/credentials"
+  profile                 = "default"
+  region                  = "us-east-1"
 }
 
 terraform {
-  required_version = ">= 0.14"
-}
-
-module "codelab-vpc" {
-  source = "./vpc"
-}
-
-module "codelab-iam" {
-  source = "./iam"
-
-  PATH_TO_PRIVATE_KEY = var.PATH_TO_PRIVATE_KEY
-  PATH_TO_PUBLIC_KEY  = var.PATH_TO_PUBLIC_KEY
-}
-
-module "codelab-rds" {
-  source = "./rds"
-
-  RDS_PASSWORD = var.RDS_PASSWORD
+  required_version        = ">= 0.14"
 }

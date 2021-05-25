@@ -10,3 +10,5 @@ get-pip.py
 .iam.tf.swp
 .env
 terraform.tfvars
+.terraform.lock.hcl
+.terraform.tfstate.lock.info

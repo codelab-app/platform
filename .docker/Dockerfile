@@ -9,12 +9,12 @@
 #
 FROM node:14.15.0-alpine AS build
 
-RUN apk add bash
-RUN yarn global add pm2
+RUN apk add bash make nasm autoconf automake libtool dpkg pkgconfig libpng libpng-dev g++
 
 WORKDIR /usr/local/codelab
 
 COPY package.json package.json
+COPY scripts/postinstall.sh scripts/postinstall.sh
 
 RUN yarn --prod --frozen-lockfile
 
@@ -31,5 +31,7 @@ COPY --from=build /usr/local/codelab/node_modules ./node_modules
 
 RUN ls
 RUN ls -al node_modules | head -10
+
+CMD ["node", "dist/apps/api/main.js"]
 
 # At runtime need to specify `EXPOSE`, `ENTRYPOINT`

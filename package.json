@@ -48,7 +48,7 @@
     "dgraph:seed": "node dgraph/seed/seed.js",
     "codegen": "yarn cross-env DOTENV_CONFIG_PATH=.env graphql-codegen --require dotenv/config --config .graphqlconfig.yaml",
     "codegen:watch": "node scripts/graphql/watch-codegen.js",
-    "start:prod:api": "pm2-runtime dist/apps/api/pm2.json"
+    "start:prod:api": "node dist/apps/api/main.js"
   },
   "private": true,
   "dependencies": {
