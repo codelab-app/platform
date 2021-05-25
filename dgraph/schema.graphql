@@ -10,7 +10,7 @@ type App {
 type Page {
   id: ID!
   name: String! @search(by: [term, fulltext])
-  app: App!
+  app: App! @search(by: [hash])
   rootElement: PageElement!
 }
 

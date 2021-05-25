@@ -1,5 +1,9 @@
 import { GqlAuthGuard } from '@codelab/backend'
-import { App, IsAppOwnerAuthGuard } from '@codelab/modules/app-api'
+import { IsAppOwnerAuthGuard } from '@codelab/modules/app-api'
+import {
+  GetPageElementRootService,
+  PageElementRoot,
+} from '@codelab/modules/page-element-api'
 import { Injectable, UseGuards } from '@nestjs/common'
 import {
   Args,
@@ -10,12 +14,39 @@ import {
   Resolver,
 } from '@nestjs/graphql'
 import { Page } from './page.model'
-import { CreatePageInput, CreatePageService } from './use-cases'
+import {
+  CreatePageInput,
+  CreatePageService,
+  GetPageInput,
+  GetPageService,
+  GetPagesInput,
+  GetPagesService,
+} from './use-cases'
 
 @Resolver(() => Page)
 @Injectable()
 export class PageResolver {
-  constructor(private createPageService: CreatePageService) {}
+  constructor(
+    private createPageService: CreatePageService,
+    private getPageElementRootService: GetPageElementRootService,
+    private getPagesService: GetPagesService,
+    private getPageService: GetPageService,
+  ) {}
+
+  @Query(() => [Page])
+  @UseGuards(
+    GqlAuthGuard,
+    IsAppOwnerAuthGuard(({ input }: { input: GetPagesInput }) => input.appId),
+  )
+  getPages(@Args('input') input: GetPagesInput) {
+    return this.getPagesService.execute(input)
+  }
+
+  @Query(() => Page, { nullable: true })
+  @UseGuards(GqlAuthGuard)
+  getPage(@Args('input') input: GetPageInput) {
+    return this.getPageService.execute(input)
+  }
 
   @Mutation(() => Page)
   @UseGuards(
@@ -26,8 +57,12 @@ export class PageResolver {
     return this.createPageService.execute(input)
   }
 
-  // @ResolveField('app', (returns) => App)
-  // getApp(@Parent() { id }: Page) {}
+  @ResolveField('rootElement', () => PageElementRoot)
+  getRootElement(@Parent() page: Page) {
+    return this.getPageElementRootService.execute({
+      pageElementId: page.rootElement.id,
+    })
+  }
 
   // @Query(() => Page, { nullable: true })
   // @UseGuards(

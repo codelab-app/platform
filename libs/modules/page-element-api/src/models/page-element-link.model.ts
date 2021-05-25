@@ -10,4 +10,10 @@ export class PageElementLink {
 
   @Field(() => Int)
   declare order: number
+
+  constructor(from: string, to: string, order: number) {
+    this.from = from
+    this.to = to
+    this.order = order
+  }
 }

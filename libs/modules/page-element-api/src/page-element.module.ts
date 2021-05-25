@@ -1,11 +1,15 @@
 import { ApolloClientModule, DGraphModule } from '@codelab/backend'
 import { Module } from '@nestjs/common'
 import { PageElementResolver } from './page-element.resolver'
-import { CreatePageElementService } from './use-cases'
-import { GetLastOrderChildService } from './use-cases/get-last-order-child'
-import { GetPageElementService } from './use-cases/get-page-element'
+import {
+  CreatePageElementService,
+  GetLastOrderChildService,
+  GetPageElementRootService,
+  GetPageElementService,
+} from './use-cases'
 
 const services = [
+  GetPageElementRootService,
   CreatePageElementService,
   GetPageElementService,
   GetLastOrderChildService,

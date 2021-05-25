@@ -4,4 +4,7 @@ fragment Dgraph__Page on Page {
     app {
         ...Dgraph__App
     }
+    rootElement {
+        ...Dgraph_PageElement
+    }
 }

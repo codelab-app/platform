@@ -1,0 +1,11 @@
+query GetPages($appId: ID!,
+    $filter: PageFilter
+    $order: PageOrder
+    $first: Int
+    $offset: Int) {
+    getApp(id: $appId) {
+        pages(filter: $filter, first: $first, offset: $offset, order: $order) {
+            ...Dgraph__Page
+        }
+    }
+}

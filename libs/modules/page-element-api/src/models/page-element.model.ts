@@ -25,4 +25,10 @@ export class PageElement {
 
   // @Field(() => Component) //need to add this when component-api is done
   // declare  component: Component
+
+  constructor(id: string, name: string, atom: Atom | null) {
+    this.id = id
+    this.name = name
+    this.atom = atom
+  }
 }
