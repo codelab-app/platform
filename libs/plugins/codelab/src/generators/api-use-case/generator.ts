@@ -9,6 +9,14 @@ import {
 import * as path from 'path'
 import { toCamelCase, toKebabCase, toPascalCase } from '../utils'
 import { ApiUseCaseGeneratorSchema, NormalizedSchema } from './schema'
+import { UseCaseType } from './useCaseType'
+
+const useCaseToClassMap: Record<UseCaseType, string> = {
+  [UseCaseType.Regular]: 'UseCase',
+  [UseCaseType.Dgraph]: 'DgraphUseCase',
+  [UseCaseType.Mutation]: 'MutationUseCase',
+  [UseCaseType.Query]: 'QueryUseCase',
+}
 
 const normalizeOptions = (
   host: Tree,
@@ -23,7 +31,7 @@ const normalizeOptions = (
   const projectName = projectDirectory.replace(new RegExp('/', 'g'), '-')
 
   // const projectRoot = `${getWorkspaceLayout(host).libsDir}/${projectDirectory}`
-  const { sourceRoot: projectRoot, root } = readProjectConfiguration(
+  const { sourceRoot: projectRoot } = readProjectConfiguration(
     host,
     projectName,
   )
@@ -36,6 +44,8 @@ const normalizeOptions = (
     ? options.tags.split(',').map((s) => s.trim())
     : []
 
+  options.useCaseType = options.useCaseType || UseCaseType.Regular
+
   const useCaseName = toCamelCase(options.useCaseName)
   const useCaseNamePascalCase = toPascalCase(useCaseName)
   const useCaseKebabCase = toKebabCase(useCaseName)
@@ -44,6 +54,7 @@ const normalizeOptions = (
 
   return {
     ...options,
+    useCaseBaseClass: useCaseToClassMap[options.useCaseType],
     useCaseNamePascalCase,
     useCaseName,
     modelName,

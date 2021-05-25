@@ -32,6 +32,33 @@
       "type": "string",
       "description": "A directory where the project is placed",
       "alias": "d"
+    },
+    "useCaseType": {
+      "type": "string",
+      "description": "regular, dgraph, mutation or query",
+      "enum": ["regular", "dgraph", "mutation", "query"],
+      "x-prompt": {
+        "message": "What type of use case is this?",
+        "type": "list",
+        "items": [
+          {
+            "value": "regular",
+            "label": "Regular"
+          },
+          {
+            "value": "dgraph",
+            "label": "DQL use case"
+          },
+          {
+            "value": "mutation",
+            "label": "GraphQL Mutation"
+          },
+          {
+            "value": "query",
+            "label": "GraphQL Query"
+          }
+        ]
+      }
     }
   },
   "required": ["name"]
