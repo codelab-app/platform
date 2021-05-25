@@ -7,6 +7,8 @@ import { AppModule as AppApiModule } from '@codelab/modules/app-api'
 import { AtomModule } from '@codelab/modules/atom-api'
 import { AtomTypeModule } from '@codelab/modules/atom-type-api'
 import { LambdaApiModule } from '@codelab/modules/lambda-api'
+import { PageModule } from '@codelab/modules/page-api'
+import { PageElementModule } from '@codelab/modules/page-element-api'
 import { PropModule } from '@codelab/modules/prop-api'
 import { UserModule } from '@codelab/modules/user-api'
 import { ValueTypeModule } from '@codelab/modules/value-type-api'
@@ -22,6 +24,8 @@ import { AppService } from './app.service'
     GraphqlModule,
     UserModule,
     AppApiModule,
+    PageModule,
+    PageElementModule,
     AtomTypeModule,
     AtomModule,
     ValueTypeModule,

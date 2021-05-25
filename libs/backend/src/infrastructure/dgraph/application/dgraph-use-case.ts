@@ -1,5 +1,5 @@
 import { Txn } from 'dgraph-js-http'
-import { UseCase } from '../../../application/use-case'
+import { UseCase } from '../../../application'
 import { DGraphService } from '../dgraph.service'
 
 export abstract class DgraphUseCase<TUseCaseRequestPort, TUseCaseDtoResponse>
@@ -13,7 +13,9 @@ export abstract class DgraphUseCase<TUseCaseRequestPort, TUseCaseDtoResponse>
     )
   }
 
-  async transactionWrapper<TResult>(execute: (txn: Txn) => Promise<TResult>) {
+  protected async transactionWrapper<TResult>(
+    execute: (txn: Txn) => Promise<TResult>,
+  ) {
     const txn = this.dgraph.client.newTxn()
 
     try {
@@ -23,7 +25,7 @@ export abstract class DgraphUseCase<TUseCaseRequestPort, TUseCaseDtoResponse>
     }
   }
 
-  abstract executeTransaction(
+  protected abstract executeTransaction(
     request: TUseCaseRequestPort,
     txn: Txn,
   ): Promise<TUseCaseDtoResponse>

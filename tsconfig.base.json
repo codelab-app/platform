@@ -53,6 +53,10 @@
       "@codelab/modules/atom-api": ["libs/modules/atom-api/src/index.ts"],
       "@codelab/schematics": ["libs/plugins/codelab/src/index.ts"],
       "@codelab/graphql": ["libs/graphql/src/index.ts"],
+      "@codelab/modules/page-api": ["libs/modules/page-api/src/index.ts"],
+      "@codelab/modules/page-element-api": [
+        "libs/modules/page-element-api/src/index.ts"
+      ],
       "@codelab/modules/atom-type-api": [
         "libs/modules/atom-type-api/src/index.ts"
       ],

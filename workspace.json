@@ -815,6 +815,32 @@
         }
       }
     },
+    "modules-page-api": {
+      "root": "libs/modules/page-api",
+      "sourceRoot": "libs/modules/page-api/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/modules/page-api/**/*.ts"]
+          }
+        }
+      }
+    },
+    "modules-page-element-api": {
+      "root": "libs/modules/page-element-api",
+      "sourceRoot": "libs/modules/page-element-api/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/modules/page-element-api/**/*.ts"]
+          }
+        }
+      }
+    },
     "modules-atom-type-api": {
       "root": "libs/modules/atom-type-api",
       "sourceRoot": "libs/modules/atom-type-api/src",

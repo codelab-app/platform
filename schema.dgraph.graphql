@@ -118,9 +118,28 @@ type AddLibraryPayload {
   numUids: Int
 }
 
+input AddPageElementInput {
+  name: String!
+  parent: PageElementRef
+  children: [PageElementRef]
+  atom: AtomRef
+  component: ComponentRef
+}
+
+type AddPageElementPayload {
+  pageElement(
+    filter: PageElementFilter
+    order: PageElementOrder
+    first: Int
+    offset: Int
+  ): [PageElement]
+  numUids: Int
+}
+
 input AddPageInput {
-  title: String!
-  app: AppRef
+  name: String!
+  app: AppRef!
+  rootElement: PageElementRef!
 }
 
 type AddPagePayload {
@@ -477,6 +496,17 @@ type DeleteLibraryPayload {
   numUids: Int
 }
 
+type DeletePageElementPayload {
+  pageElement(
+    filter: PageElementFilter
+    order: PageElementOrder
+    first: Int
+    offset: Int
+  ): [PageElement]
+  msg: String
+  numUids: Int
+}
+
 type DeletePagePayload {
   page(filter: PageFilter, order: PageOrder, first: Int, offset: Int): [Page]
   msg: String
@@ -685,6 +715,9 @@ type Mutation {
   addPage(input: [AddPageInput!]!): AddPagePayload
   updatePage(input: UpdatePageInput!): UpdatePagePayload
   deletePage(filter: PageFilter!): DeletePagePayload
+  addPageElement(input: [AddPageElementInput!]!): AddPageElementPayload
+  updatePageElement(input: UpdatePageElementInput!): UpdatePageElementPayload
+  deletePageElement(filter: PageElementFilter!): DeletePageElementPayload
   addLibrary(input: [AddLibraryInput!]!): AddLibraryPayload
   updateLibrary(input: UpdateLibraryInput!): UpdateLibraryPayload
   deleteLibrary(filter: LibraryFilter!): DeleteLibraryPayload
@@ -715,19 +748,85 @@ input NearFilter {
 
 type Page {
   id: ID!
-  title: String!
-  app(filter: AppFilter): App
+  name: String!
+  app(filter: AppFilter): App!
+  rootElement(filter: PageElementFilter): PageElement!
 }
 
 type PageAggregateResult {
   count: Int
-  titleMin: String
-  titleMax: String
+  nameMin: String
+  nameMax: String
+}
+
+type PageElement {
+  id: ID!
+  name: String!
+  parent(filter: PageElementFilter): PageElement
+  children(
+    filter: PageElementFilter
+    order: PageElementOrder
+    first: Int
+    offset: Int
+  ): [PageElement]
+  atom(filter: AtomFilter): Atom
+  component(filter: ComponentFilter): Component
+  childrenAggregate(filter: PageElementFilter): PageElementAggregateResult
+}
+
+type PageElementAggregateResult {
+  count: Int
+  nameMin: String
+  nameMax: String
+}
+
+input PageElementFilter {
+  id: [ID!]
+  name: StringFullTextFilter_StringTermFilter
+  has: [PageElementHasFilter]
+  and: [PageElementFilter]
+  or: [PageElementFilter]
+  not: PageElementFilter
+}
+
+enum PageElementHasFilter {
+  name
+  parent
+  children
+  atom
+  component
+}
+
+input PageElementOrder {
+  asc: PageElementOrderable
+  desc: PageElementOrderable
+  then: PageElementOrder
+}
+
+enum PageElementOrderable {
+  name
+}
+
+input PageElementPatch {
+  name: String
+  parent: PageElementRef
+  children: [PageElementRef]
+  atom: AtomRef
+  component: ComponentRef
+}
+
+input PageElementRef {
+  id: ID
+  name: String
+  parent: PageElementRef
+  children: [PageElementRef]
+  atom: AtomRef
+  component: ComponentRef
 }
 
 input PageFilter {
   id: [ID!]
-  title: StringFullTextFilter_StringTermFilter
+  name: StringFullTextFilter_StringTermFilter
   has: [PageHasFilter]
   and: [PageFilter]
   or: [PageFilter]
@@ -735,8 +834,9 @@ input PageFilter {
 }
 
 enum PageHasFilter {
-  title
+  name
   app
+  rootElement
 }
 
 input PageOrder {
@@ -746,18 +846,20 @@ input PageOrder {
 }
 
 enum PageOrderable {
-  title
+  name
 }
 
 input PagePatch {
-  title: String
+  name: String
   app: AppRef
+  rootElement: PageElementRef
 }
 
 input PageRef {
   id: ID
-  title: String
+  name: String
   app: AppRef
+  rootElement: PageElementRef
 }
 
 type Point {
@@ -861,6 +963,14 @@ type Query {
     offset: Int
   ): [Page]
   aggregatePage(filter: PageFilter): PageAggregateResult
+  getPageElement(id: ID!): PageElement
+  queryPageElement(
+    filter: PageElementFilter
+    order: PageElementOrder
+    first: Int
+    offset: Int
+  ): [PageElement]
+  aggregatePageElement(filter: PageElementFilter): PageElementAggregateResult
   getLibrary(id: ID!): Library
   queryLibrary(
     filter: LibraryFilter
@@ -1060,6 +1170,22 @@ type UpdateLibraryPayload {
     first: Int
     offset: Int
   ): [Library]
+  numUids: Int
+}
+
+input UpdatePageElementInput {
+  filter: PageElementFilter!
+  set: PageElementPatch
+  remove: PageElementPatch
+}
+
+type UpdatePageElementPayload {
+  pageElement(
+    filter: PageElementFilter
+    order: PageElementOrder
+    first: Int
+    offset: Int
+  ): [PageElement]
   numUids: Int
 }
 
