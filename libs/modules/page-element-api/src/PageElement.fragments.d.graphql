@@ -1,0 +1,7 @@
+fragment Dgraph_PageElement on PageElement {
+    id
+    name
+    atom {
+        ...DGraph__Atom
+    }
+}

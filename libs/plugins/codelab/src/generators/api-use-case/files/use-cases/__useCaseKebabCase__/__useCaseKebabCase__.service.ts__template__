@@ -50,7 +50,7 @@ export class <%= useCaseNamePascalCase %>Service <% if(useCaseType === "regular"
     }
 
 
-    async executeTransaction(request: <%= useCaseNamePascalCase %>Input, txn: Txn) {
+    protected async executeTransaction(request: <%= useCaseNamePascalCase %>Input, txn: Txn) {
       return (await Promise.resolve({})) as Promise<<%= modelNamePascalCase %>>
     }
   <% } else { %>

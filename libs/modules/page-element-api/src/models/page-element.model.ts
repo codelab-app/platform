@@ -19,8 +19,9 @@ export class PageElement {
   @Field()
   declare name: string
 
-  @Field(() => [Atom])
-  declare atom: Atom
+  //We allow null atoms, because then we won't render a container element, just the children
+  @Field(() => Atom, { nullable: true })
+  declare atom?: Atom | null
 
   // @Field(() => Component) //need to add this when component-api is done
   // declare  component: Component

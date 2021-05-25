@@ -1,19 +1,23 @@
 import { DGraphService, DgraphUseCase } from '@codelab/backend'
-import { Inject, Injectable } from '@nestjs/common'
-import { Mutation, Txn } from 'dgraph-js-http'
-import { PageElement } from '../../pageElement.model'
-import { GetPageElementRootInput } from './GetPageElementRootInput'
+import { Injectable } from '@nestjs/common'
+import { Txn } from 'dgraph-js-http'
+import { PageElementRoot } from '../../models'
+import { GetPageElementRootInput } from './get-page-element-root.input'
 
 @Injectable()
 export class GetPageElementRootService extends DgraphUseCase<
   GetPageElementRootInput,
-  PageElement
+  PageElementRoot
 > {
   constructor(dgraph: DGraphService) {
     super(dgraph)
   }
 
-  async execute(request: GetPageElementRootInput, txn: Txn) {
-    return (await Promise.resolve({})) as Promise<PageElement>
+  async executeTransaction(request: GetPageElementRootInput, txn: Txn) {
+    return Promise.resolve(null as any)
+
+    return txn.query(`
+        
+    `)
   }
 }

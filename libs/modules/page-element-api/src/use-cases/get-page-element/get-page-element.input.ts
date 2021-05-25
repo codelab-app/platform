@@ -1,7 +1,7 @@
 import { Field, InputType } from '@nestjs/graphql'
 
 @InputType()
-export class GetPageElementRootInput {
+export class GetPageElementInput {
   @Field()
   declare pageElementId: string
 }
