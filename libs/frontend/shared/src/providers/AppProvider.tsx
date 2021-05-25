@@ -1,8 +1,8 @@
-import { Dgraph__AppFragment, useGetAppLazyQuery } from '@codelab/dgraph'
+import { __AppFragment, useGetAppLazyQuery } from '@codelab/graphql'
 import React, { PropsWithChildren, useEffect } from 'react'
 
 type IAppContext = {
-  app: Dgraph__AppFragment
+  app: __AppFragment
   loading: boolean
 }
 
@@ -21,7 +21,7 @@ export const _AppProvider = ({
 
   useEffect(() => {
     if (appId) {
-      load({ variables: { id: appId } })
+      load({ variables: { input: { appId } } })
     }
   }, [appId])
 

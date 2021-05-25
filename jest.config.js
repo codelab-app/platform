@@ -7,5 +7,10 @@ module.exports = {
     '<rootDir>/libs/modules/app-api',
     '<rootDir>/libs/modules/user-api',
     '<rootDir>/libs/plugins/codelab',
+    '<rootDir>/libs/modules/atom-api',
+    '<rootDir>/libs/modules/atom-type-api',
+    '<rootDir>/libs/modules/prop-api',
+    '<rootDir>/libs/modules/value-type-api',
+    '<rootDir>/libs/modules/value-type',
   ],
 }

@@ -1,0 +1,5 @@
+query GetAtoms($filter: AtomFilter) {
+  atoms: queryAtom(filter: $filter) {
+    ...DGraph__Atom
+  }
+}

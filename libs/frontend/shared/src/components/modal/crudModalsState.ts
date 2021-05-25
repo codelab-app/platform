@@ -23,6 +23,7 @@ export enum EntityType {
   ChildComponentElement = 'ChildComponentElement',
   LinkedComponentElement = 'LinkedComponentElement',
   PropTypeC = 'PropTypeC',
+  Prop = 'Prop',
 }
 
 interface CRUDModalState {

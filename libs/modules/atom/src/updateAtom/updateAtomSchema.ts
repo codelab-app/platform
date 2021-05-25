@@ -1,20 +1,10 @@
 import { JSONSchemaType } from 'ajv'
+import { CreateAtomInput, createAtomSchema } from '../createAtom'
 
-export type UpdateAtomInput = {
-  label: string
-  type: string
-}
-
+export type UpdateAtomInput = CreateAtomInput
 export const updateAtomSchema: JSONSchemaType<UpdateAtomInput> = {
-  title: 'Update Atom',
+  title: 'Update Atom Input',
   type: 'object',
-  properties: {
-    label: {
-      type: 'string',
-    },
-    type: {
-      type: 'string',
-    },
-  },
-  required: ['label', 'type'],
+  properties: createAtomSchema.properties,
+  required: createAtomSchema.required,
 } as const

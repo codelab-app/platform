@@ -1,0 +1,7 @@
+mutation DeleteAtom($filter: AtomFilter!) {
+  deleteAtom(filter: $filter) {
+    atom {
+      ...DGraph__Atom
+    }
+  }
+}

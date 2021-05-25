@@ -737,6 +737,14 @@
           "options": {
             "lintFilePatterns": ["libs/modules/atom-api/**/*.ts"]
           }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/modules/atom-api"],
+          "options": {
+            "jestConfig": "libs/modules/atom-api/jest.config.js",
+            "passWithNoTests": true
+          }
         }
       }
     },
@@ -803,6 +811,90 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["libs/graphql/**/*.ts"]
+          }
+        }
+      }
+    },
+    "modules-atom-type-api": {
+      "root": "libs/modules/atom-type-api",
+      "sourceRoot": "libs/modules/atom-type-api/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/modules/atom-type-api/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/modules/atom-type-api"],
+          "options": {
+            "jestConfig": "libs/modules/atom-type-api/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "modules-prop-api": {
+      "root": "libs/modules/prop-api",
+      "sourceRoot": "libs/modules/prop-api/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/modules/prop-api/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/modules/prop-api"],
+          "options": {
+            "jestConfig": "libs/modules/prop-api/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "modules-value-type-api": {
+      "root": "libs/modules/value-type-api",
+      "sourceRoot": "libs/modules/value-type-api/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/modules/value-type-api/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/modules/value-type-api"],
+          "options": {
+            "jestConfig": "libs/modules/value-type-api/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "modules-value-type": {
+      "root": "libs/modules/value-type",
+      "sourceRoot": "libs/modules/value-type/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/modules/value-type/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/modules/value-type"],
+          "options": {
+            "jestConfig": "libs/modules/value-type/jest.config.js",
+            "passWithNoTests": true
           }
         }
       }

@@ -1,0 +1,9 @@
+fragment DGraph__Atom on Atom {
+  id
+  type {
+    label
+    id
+    type
+  }
+  # props
+}

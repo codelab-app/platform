@@ -1,16 +1,14 @@
 import {
-  refetchGetAtomsQuery,
-  useDeleteAtomMutation,
-  useGetAtomsQuery,
-} from '@codelab/dgraph'
-import {
   createNotificationHandler,
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import { Spin } from 'antd'
+import {
+  refetchGetAtomsQuery,
+  useDeleteAtomMutation,
+} from '@codelab/graphql'
 import React, { useEffect } from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { DeleteAtomInput, deleteAtomSchema } from './deleteAtomSchema'
@@ -19,33 +17,24 @@ type DeleteAtomFormProps = UniFormUseCaseProps<DeleteAtomInput>
 
 export const DeleteAtomsForm = (props: DeleteAtomFormProps) => {
   const { reset, setLoading, state } = useCRUDModalForm(EntityType.Atom)
+  const { deleteIds: atomIds, metadata } = state
 
   const [mutate, { loading: deleting }] = useDeleteAtomMutation({
     awaitRefetchQueries: true,
     refetchQueries: [refetchGetAtomsQuery()],
   })
 
-  const filter = {
-    id: state.deleteIds,
-  }
-
   useEffect(() => {
     setLoading(deleting)
   }, [deleting])
 
-  const { data, loading } = useGetAtomsQuery({
-    variables: { filter },
-  })
-
-  const atomTypes = data?.queryAtom?.map((atom) => atom?.label).join(', ')
-
-  if (loading) {
-    return <Spin />
-  }
-
   const onSubmit = () => {
     return mutate({
-      variables: { filter },
+      variables: {
+        input: {
+          atomId: atomIds[0],
+        },
+      },
     })
   }
 
@@ -61,7 +50,7 @@ export const DeleteAtomsForm = (props: DeleteAtomFormProps) => {
       onSubmitSuccess={() => reset()}
       {...props}
     >
-      <h4>Are you sure you want to delete atoms "{atomTypes}"?</h4>
+      <h4>Are you sure you want to delete atom "{metadata?.type?.label}"?</h4>
       <AutoFields />
     </FormUniforms>
   )

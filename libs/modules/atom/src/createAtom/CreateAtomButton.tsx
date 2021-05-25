@@ -2,6 +2,7 @@ import { PlusOutlined } from '@ant-design/icons'
 import { EntityType, useCRUDModalForm } from '@codelab/frontend/shared'
 import { Button } from 'antd'
 import React from 'react'
+import tw from 'twin.macro'
 
 export const CreateAtomButton = () => {
   const { openCreateModal } = useCRUDModalForm(EntityType.Atom)
@@ -9,7 +10,9 @@ export const CreateAtomButton = () => {
   return (
     <Button
       size="small"
-      icon={<PlusOutlined data-testid="create-atom-button" />}
+      type="primary"
+      css={tw`flex justify-center items-center`}
+      icon={<PlusOutlined />}
       onClick={() => openCreateModal()}
     />
   )

@@ -47,9 +47,10 @@ export type AddAppPayloadAppArgs = {
 }
 
 export type AddAtomInput = {
-  type: Scalars['String']
-  library: LibraryRef
-  label: Scalars['String']
+  type: AtomTypeRef
+  label?: Maybe<Scalars['String']>
+  props?: Maybe<Array<Maybe<PropRef>>>
+  library?: Maybe<LibraryRef>
 }
 
 export type AddAtomPayload = {
@@ -60,6 +61,23 @@ export type AddAtomPayload = {
 export type AddAtomPayloadAtomArgs = {
   filter?: Maybe<AtomFilter>
   order?: Maybe<AtomOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type AddAtomTypeInput = {
+  label: Scalars['String']
+  type: Scalars['String']
+}
+
+export type AddAtomTypePayload = {
+  atomType?: Maybe<Array<Maybe<AtomType>>>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type AddAtomTypePayloadAtomTypeArgs = {
+  filter?: Maybe<AtomTypeFilter>
+  order?: Maybe<AtomTypeOrder>
   first?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
 }
@@ -120,6 +138,24 @@ export type AddPagePayloadPageArgs = {
   offset?: Maybe<Scalars['Int']>
 }
 
+export type AddPropInput = {
+  description?: Maybe<Scalars['String']>
+  type: ValueTypeRef
+  props?: Maybe<Array<Maybe<PropRef>>>
+}
+
+export type AddPropPayload = {
+  prop?: Maybe<Array<Maybe<Prop>>>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type AddPropPayloadPropArgs = {
+  filter?: Maybe<PropFilter>
+  order?: Maybe<PropOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
 export type AddTagInput = {
   label: Scalars['String']
 }
@@ -132,6 +168,23 @@ export type AddTagPayload = {
 export type AddTagPayloadTagArgs = {
   filter?: Maybe<TagFilter>
   order?: Maybe<TagOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type AddValueTypeInput = {
+  label: Scalars['String']
+  type: Scalars['String']
+}
+
+export type AddValueTypePayload = {
+  valueType?: Maybe<Array<Maybe<ValueType>>>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type AddValueTypePayloadValueTypeArgs = {
+  filter?: Maybe<ValueTypeFilter>
+  order?: Maybe<ValueTypeOrder>
   first?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
 }
@@ -204,19 +257,34 @@ export type AppRef = {
 
 export type Atom = {
   id: Scalars['ID']
-  type: Scalars['String']
-  library: Library
-  label: Scalars['String']
+  type: AtomType
+  label?: Maybe<Scalars['String']>
+  props?: Maybe<Array<Maybe<Prop>>>
+  library?: Maybe<Library>
+  propsAggregate?: Maybe<PropAggregateResult>
+}
+
+export type AtomTypeArgs = {
+  filter?: Maybe<AtomTypeFilter>
+}
+
+export type AtomPropsArgs = {
+  filter?: Maybe<PropFilter>
+  order?: Maybe<PropOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
 }
 
 export type AtomLibraryArgs = {
   filter?: Maybe<LibraryFilter>
 }
 
+export type AtomPropsAggregateArgs = {
+  filter?: Maybe<PropFilter>
+}
+
 export type AtomAggregateResult = {
   count?: Maybe<Scalars['Int']>
-  typeMin?: Maybe<Scalars['String']>
-  typeMax?: Maybe<Scalars['String']>
   labelMin?: Maybe<Scalars['String']>
   labelMax?: Maybe<Scalars['String']>
 }
@@ -231,8 +299,9 @@ export type AtomFilter = {
 
 export enum AtomHasFilter {
   Type = 'type',
-  Library = 'library',
   Label = 'label',
+  Props = 'props',
+  Library = 'library',
 }
 
 export type AtomOrder = {
@@ -242,21 +311,71 @@ export type AtomOrder = {
 }
 
 export enum AtomOrderable {
-  Type = 'type',
   Label = 'label',
 }
 
 export type AtomPatch = {
-  type?: Maybe<Scalars['String']>
-  library?: Maybe<LibraryRef>
+  type?: Maybe<AtomTypeRef>
   label?: Maybe<Scalars['String']>
+  props?: Maybe<Array<Maybe<PropRef>>>
+  library?: Maybe<LibraryRef>
 }
 
 export type AtomRef = {
   id?: Maybe<Scalars['ID']>
-  type?: Maybe<Scalars['String']>
-  library?: Maybe<LibraryRef>
+  type?: Maybe<AtomTypeRef>
   label?: Maybe<Scalars['String']>
+  props?: Maybe<Array<Maybe<PropRef>>>
+  library?: Maybe<LibraryRef>
+}
+
+export type AtomType = {
+  id: Scalars['ID']
+  label: Scalars['String']
+  type: Scalars['String']
+}
+
+export type AtomTypeAggregateResult = {
+  count?: Maybe<Scalars['Int']>
+  labelMin?: Maybe<Scalars['String']>
+  labelMax?: Maybe<Scalars['String']>
+  typeMin?: Maybe<Scalars['String']>
+  typeMax?: Maybe<Scalars['String']>
+}
+
+export type AtomTypeFilter = {
+  id?: Maybe<Array<Scalars['ID']>>
+  has?: Maybe<Array<Maybe<AtomTypeHasFilter>>>
+  and?: Maybe<Array<Maybe<AtomTypeFilter>>>
+  or?: Maybe<Array<Maybe<AtomTypeFilter>>>
+  not?: Maybe<AtomTypeFilter>
+}
+
+export enum AtomTypeHasFilter {
+  Label = 'label',
+  Type = 'type',
+}
+
+export type AtomTypeOrder = {
+  asc?: Maybe<AtomTypeOrderable>
+  desc?: Maybe<AtomTypeOrderable>
+  then?: Maybe<AtomTypeOrder>
+}
+
+export enum AtomTypeOrderable {
+  Label = 'label',
+  Type = 'type',
+}
+
+export type AtomTypePatch = {
+  label?: Maybe<Scalars['String']>
+  type?: Maybe<Scalars['String']>
+}
+
+export type AtomTypeRef = {
+  id?: Maybe<Scalars['ID']>
+  label?: Maybe<Scalars['String']>
+  type?: Maybe<Scalars['String']>
 }
 
 export type AuthRule = {
@@ -414,6 +533,19 @@ export type DeleteAtomPayloadAtomArgs = {
   offset?: Maybe<Scalars['Int']>
 }
 
+export type DeleteAtomTypePayload = {
+  atomType?: Maybe<Array<Maybe<AtomType>>>
+  msg?: Maybe<Scalars['String']>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type DeleteAtomTypePayloadAtomTypeArgs = {
+  filter?: Maybe<AtomTypeFilter>
+  order?: Maybe<AtomTypeOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
 export type DeleteComponentPayload = {
   component?: Maybe<Array<Maybe<Component>>>
   msg?: Maybe<Scalars['String']>
@@ -453,6 +585,19 @@ export type DeletePagePayloadPageArgs = {
   offset?: Maybe<Scalars['Int']>
 }
 
+export type DeletePropPayload = {
+  prop?: Maybe<Array<Maybe<Prop>>>
+  msg?: Maybe<Scalars['String']>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type DeletePropPayloadPropArgs = {
+  filter?: Maybe<PropFilter>
+  order?: Maybe<PropOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
 export type DeleteTagPayload = {
   tag?: Maybe<Array<Maybe<Tag>>>
   msg?: Maybe<Scalars['String']>
@@ -462,6 +607,19 @@ export type DeleteTagPayload = {
 export type DeleteTagPayloadTagArgs = {
   filter?: Maybe<TagFilter>
   order?: Maybe<TagOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type DeleteValueTypePayload = {
+  valueType?: Maybe<Array<Maybe<ValueType>>>
+  msg?: Maybe<Scalars['String']>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type DeleteValueTypePayloadValueTypeArgs = {
+  filter?: Maybe<ValueTypeFilter>
+  order?: Maybe<ValueTypeOrder>
   first?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
 }
@@ -665,9 +823,18 @@ export type Mutation = {
   addAtom?: Maybe<AddAtomPayload>
   updateAtom?: Maybe<UpdateAtomPayload>
   deleteAtom?: Maybe<DeleteAtomPayload>
+  addAtomType?: Maybe<AddAtomTypePayload>
+  updateAtomType?: Maybe<UpdateAtomTypePayload>
+  deleteAtomType?: Maybe<DeleteAtomTypePayload>
   addTag?: Maybe<AddTagPayload>
   updateTag?: Maybe<UpdateTagPayload>
   deleteTag?: Maybe<DeleteTagPayload>
+  addProp?: Maybe<AddPropPayload>
+  updateProp?: Maybe<UpdatePropPayload>
+  deleteProp?: Maybe<DeletePropPayload>
+  addValueType?: Maybe<AddValueTypePayload>
+  updateValueType?: Maybe<UpdateValueTypePayload>
+  deleteValueType?: Maybe<DeleteValueTypePayload>
 }
 
 export type MutationAddAppArgs = {
@@ -730,6 +897,18 @@ export type MutationDeleteAtomArgs = {
   filter: AtomFilter
 }
 
+export type MutationAddAtomTypeArgs = {
+  input: Array<AddAtomTypeInput>
+}
+
+export type MutationUpdateAtomTypeArgs = {
+  input: UpdateAtomTypeInput
+}
+
+export type MutationDeleteAtomTypeArgs = {
+  filter: AtomTypeFilter
+}
+
 export type MutationAddTagArgs = {
   input: Array<AddTagInput>
 }
@@ -740,6 +919,30 @@ export type MutationUpdateTagArgs = {
 
 export type MutationDeleteTagArgs = {
   filter: TagFilter
+}
+
+export type MutationAddPropArgs = {
+  input: Array<AddPropInput>
+}
+
+export type MutationUpdatePropArgs = {
+  input: UpdatePropInput
+}
+
+export type MutationDeletePropArgs = {
+  filter: PropFilter
+}
+
+export type MutationAddValueTypeArgs = {
+  input: Array<AddValueTypeInput>
+}
+
+export type MutationUpdateValueTypeArgs = {
+  input: UpdateValueTypeInput
+}
+
+export type MutationDeleteValueTypeArgs = {
+  filter: ValueTypeFilter
 }
 
 export type NearFilter = {
@@ -836,6 +1039,72 @@ export type PolygonRef = {
   coordinates: Array<PointListRef>
 }
 
+export type Prop = {
+  id: Scalars['ID']
+  description?: Maybe<Scalars['String']>
+  type: ValueType
+  props?: Maybe<Array<Maybe<Prop>>>
+  propsAggregate?: Maybe<PropAggregateResult>
+}
+
+export type PropTypeArgs = {
+  filter?: Maybe<ValueTypeFilter>
+}
+
+export type PropPropsArgs = {
+  filter?: Maybe<PropFilter>
+  order?: Maybe<PropOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type PropPropsAggregateArgs = {
+  filter?: Maybe<PropFilter>
+}
+
+export type PropAggregateResult = {
+  count?: Maybe<Scalars['Int']>
+  descriptionMin?: Maybe<Scalars['String']>
+  descriptionMax?: Maybe<Scalars['String']>
+}
+
+export type PropFilter = {
+  id?: Maybe<Array<Scalars['ID']>>
+  has?: Maybe<Array<Maybe<PropHasFilter>>>
+  and?: Maybe<Array<Maybe<PropFilter>>>
+  or?: Maybe<Array<Maybe<PropFilter>>>
+  not?: Maybe<PropFilter>
+}
+
+export enum PropHasFilter {
+  Description = 'description',
+  Type = 'type',
+  Props = 'props',
+}
+
+export type PropOrder = {
+  asc?: Maybe<PropOrderable>
+  desc?: Maybe<PropOrderable>
+  then?: Maybe<PropOrder>
+}
+
+export enum PropOrderable {
+  Description = 'description',
+}
+
+export type PropPatch = {
+  description?: Maybe<Scalars['String']>
+  type?: Maybe<ValueTypeRef>
+  props?: Maybe<Array<Maybe<PropRef>>>
+}
+
+export type PropRef = {
+  id?: Maybe<Scalars['ID']>
+  description?: Maybe<Scalars['String']>
+  type?: Maybe<ValueTypeRef>
+  props?: Maybe<Array<Maybe<PropRef>>>
+}
+
 export type Query = {
   getApp?: Maybe<App>
   queryApp?: Maybe<Array<Maybe<App>>>
@@ -852,8 +1121,17 @@ export type Query = {
   getAtom?: Maybe<Atom>
   queryAtom?: Maybe<Array<Maybe<Atom>>>
   aggregateAtom?: Maybe<AtomAggregateResult>
+  getAtomType?: Maybe<AtomType>
+  queryAtomType?: Maybe<Array<Maybe<AtomType>>>
+  aggregateAtomType?: Maybe<AtomTypeAggregateResult>
   queryTag?: Maybe<Array<Maybe<Tag>>>
   aggregateTag?: Maybe<TagAggregateResult>
+  getProp?: Maybe<Prop>
+  queryProp?: Maybe<Array<Maybe<Prop>>>
+  aggregateProp?: Maybe<PropAggregateResult>
+  getValueType?: Maybe<ValueType>
+  queryValueType?: Maybe<Array<Maybe<ValueType>>>
+  aggregateValueType?: Maybe<ValueTypeAggregateResult>
 }
 
 export type QueryGetAppArgs = {
@@ -931,6 +1209,21 @@ export type QueryAggregateAtomArgs = {
   filter?: Maybe<AtomFilter>
 }
 
+export type QueryGetAtomTypeArgs = {
+  id: Scalars['ID']
+}
+
+export type QueryQueryAtomTypeArgs = {
+  filter?: Maybe<AtomTypeFilter>
+  order?: Maybe<AtomTypeOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type QueryAggregateAtomTypeArgs = {
+  filter?: Maybe<AtomTypeFilter>
+}
+
 export type QueryQueryTagArgs = {
   filter?: Maybe<TagFilter>
   order?: Maybe<TagOrder>
@@ -940,6 +1233,36 @@ export type QueryQueryTagArgs = {
 
 export type QueryAggregateTagArgs = {
   filter?: Maybe<TagFilter>
+}
+
+export type QueryGetPropArgs = {
+  id: Scalars['ID']
+}
+
+export type QueryQueryPropArgs = {
+  filter?: Maybe<PropFilter>
+  order?: Maybe<PropOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type QueryAggregatePropArgs = {
+  filter?: Maybe<PropFilter>
+}
+
+export type QueryGetValueTypeArgs = {
+  id: Scalars['ID']
+}
+
+export type QueryQueryValueTypeArgs = {
+  filter?: Maybe<ValueTypeFilter>
+  order?: Maybe<ValueTypeOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type QueryAggregateValueTypeArgs = {
+  filter?: Maybe<ValueTypeFilter>
 }
 
 export type StringExactFilter = {
@@ -1058,6 +1381,24 @@ export type UpdateAtomPayloadAtomArgs = {
   offset?: Maybe<Scalars['Int']>
 }
 
+export type UpdateAtomTypeInput = {
+  filter: AtomTypeFilter
+  set?: Maybe<AtomTypePatch>
+  remove?: Maybe<AtomTypePatch>
+}
+
+export type UpdateAtomTypePayload = {
+  atomType?: Maybe<Array<Maybe<AtomType>>>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type UpdateAtomTypePayloadAtomTypeArgs = {
+  filter?: Maybe<AtomTypeFilter>
+  order?: Maybe<AtomTypeOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
 export type UpdateComponentInput = {
   filter: ComponentFilter
   set?: Maybe<ComponentPatch>
@@ -1112,6 +1453,24 @@ export type UpdatePagePayloadPageArgs = {
   offset?: Maybe<Scalars['Int']>
 }
 
+export type UpdatePropInput = {
+  filter: PropFilter
+  set?: Maybe<PropPatch>
+  remove?: Maybe<PropPatch>
+}
+
+export type UpdatePropPayload = {
+  prop?: Maybe<Array<Maybe<Prop>>>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type UpdatePropPayloadPropArgs = {
+  filter?: Maybe<PropFilter>
+  order?: Maybe<PropOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
 export type UpdateTagInput = {
   filter: TagFilter
   set?: Maybe<TagPatch>
@@ -1128,6 +1487,73 @@ export type UpdateTagPayloadTagArgs = {
   order?: Maybe<TagOrder>
   first?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
+}
+
+export type UpdateValueTypeInput = {
+  filter: ValueTypeFilter
+  set?: Maybe<ValueTypePatch>
+  remove?: Maybe<ValueTypePatch>
+}
+
+export type UpdateValueTypePayload = {
+  valueType?: Maybe<Array<Maybe<ValueType>>>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type UpdateValueTypePayloadValueTypeArgs = {
+  filter?: Maybe<ValueTypeFilter>
+  order?: Maybe<ValueTypeOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type ValueType = {
+  id: Scalars['ID']
+  label: Scalars['String']
+  type: Scalars['String']
+}
+
+export type ValueTypeAggregateResult = {
+  count?: Maybe<Scalars['Int']>
+  labelMin?: Maybe<Scalars['String']>
+  labelMax?: Maybe<Scalars['String']>
+  typeMin?: Maybe<Scalars['String']>
+  typeMax?: Maybe<Scalars['String']>
+}
+
+export type ValueTypeFilter = {
+  id?: Maybe<Array<Scalars['ID']>>
+  has?: Maybe<Array<Maybe<ValueTypeHasFilter>>>
+  and?: Maybe<Array<Maybe<ValueTypeFilter>>>
+  or?: Maybe<Array<Maybe<ValueTypeFilter>>>
+  not?: Maybe<ValueTypeFilter>
+}
+
+export enum ValueTypeHasFilter {
+  Label = 'label',
+  Type = 'type',
+}
+
+export type ValueTypeOrder = {
+  asc?: Maybe<ValueTypeOrderable>
+  desc?: Maybe<ValueTypeOrderable>
+  then?: Maybe<ValueTypeOrder>
+}
+
+export enum ValueTypeOrderable {
+  Label = 'label',
+  Type = 'type',
+}
+
+export type ValueTypePatch = {
+  label?: Maybe<Scalars['String']>
+  type?: Maybe<Scalars['String']>
+}
+
+export type ValueTypeRef = {
+  id?: Maybe<Scalars['ID']>
+  label?: Maybe<Scalars['String']>
+  type?: Maybe<Scalars['String']>
 }
 
 export type WithinFilter = {
@@ -1183,16 +1609,16 @@ export type UpdateAppMutation = {
   updateApp?: Maybe<{ app?: Maybe<Array<Maybe<Dgraph__AppFragment>>> }>
 }
 
-export type __AtomFragment = Pick<Atom, 'id' | 'type' | 'label'>
-
-export type LibraryExplorer__AtomFragment = Pick<Atom, 'id' | 'label' | 'type'>
+export type DGraph__AtomFragment = Pick<Atom, 'id'> & {
+  type: Pick<AtomType, 'label' | 'id' | 'type'>
+}
 
 export type CreateAtomMutationVariables = Exact<{
   input: Array<AddAtomInput> | AddAtomInput
 }>
 
 export type CreateAtomMutation = {
-  addAtom?: Maybe<{ atom?: Maybe<Array<Maybe<__AtomFragment>>> }>
+  addAtom?: Maybe<{ atom?: Maybe<Array<Maybe<DGraph__AtomFragment>>> }>
 }
 
 export type DeleteAtomMutationVariables = Exact<{
@@ -1200,25 +1626,41 @@ export type DeleteAtomMutationVariables = Exact<{
 }>
 
 export type DeleteAtomMutation = {
-  deleteAtom?: Maybe<Pick<DeleteAtomPayload, 'msg' | 'numUids'>>
+  deleteAtom?: Maybe<{ atom?: Maybe<Array<Maybe<DGraph__AtomFragment>>> }>
 }
+
+export type GetAtomQueryVariables = Exact<{
+  id: Scalars['ID']
+}>
+
+export type GetAtomQuery = { atom?: Maybe<DGraph__AtomFragment> }
 
 export type GetAtomsQueryVariables = Exact<{
   filter?: Maybe<AtomFilter>
 }>
 
-export type GetAtomsQuery = { queryAtom?: Maybe<Array<Maybe<__AtomFragment>>> }
+export type GetAtomsQuery = {
+  atoms?: Maybe<Array<Maybe<DGraph__AtomFragment>>>
+}
 
 export type UpdateAtomMutationVariables = Exact<{
   input: UpdateAtomInput
 }>
 
 export type UpdateAtomMutation = {
-  updateAtom?: Maybe<
-    Pick<UpdateAtomPayload, 'numUids'> & {
-      atom?: Maybe<Array<Maybe<__AtomFragment>>>
-    }
-  >
+  updateAtom?: Maybe<{ atom?: Maybe<Array<Maybe<DGraph__AtomFragment>>> }>
+}
+
+export type Dgraph__AtomTypeFragment = Pick<AtomType, 'id' | 'type' | 'label'>
+
+export type GetAtomTypesQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetAtomTypesQuery = {
+  atomTypes?: Maybe<Array<Maybe<Dgraph__AtomTypeFragment>>>
+}
+
+export type LibraryExplorer__AtomFragment = Pick<Atom, 'id' | 'label'> & {
+  type: Pick<AtomType, 'label' | 'id' | 'type'>
 }
 
 export type __ComponentFragment = Pick<Component, 'id' | 'label'>
@@ -1321,6 +1763,14 @@ export type UpdatePageMutation = {
   page?: Maybe<{ page?: Maybe<Array<Maybe<App__PageFragment>>> }>
 }
 
+export type GetValueTypesQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetValueTypesQuery = {
+  valueTypes?: Maybe<Array<Maybe<Dgraph__ValueTypeFragment>>>
+}
+
+export type Dgraph__ValueTypeFragment = Pick<ValueType, 'id' | 'type' | 'label'>
+
 export const Dgraph__AppFragmentDoc = gql`
   fragment Dgraph__App on App {
     id
@@ -1328,8 +1778,18 @@ export const Dgraph__AppFragmentDoc = gql`
     ownerId
   }
 `
-export const __AtomFragmentDoc = gql`
-  fragment __Atom on Atom {
+export const DGraph__AtomFragmentDoc = gql`
+  fragment DGraph__Atom on Atom {
+    id
+    type {
+      label
+      id
+      type
+    }
+  }
+`
+export const Dgraph__AtomTypeFragmentDoc = gql`
+  fragment Dgraph__AtomType on AtomType {
     id
     type
     label
@@ -1351,7 +1811,11 @@ export const LibraryExplorer__AtomFragmentDoc = gql`
   fragment LibraryExplorer__Atom on Atom {
     id
     label
-    type
+    type {
+      label
+      id
+      type
+    }
   }
 `
 export const LibraryExplorer__ComponentFragmentDoc = gql`
@@ -1378,6 +1842,13 @@ export const App__PageFragmentDoc = gql`
   fragment App__Page on Page {
     id
     title
+  }
+`
+export const Dgraph__ValueTypeFragmentDoc = gql`
+  fragment Dgraph__ValueType on ValueType {
+    id
+    type
+    label
   }
 `
 export const DeleteUserAppsGql = gql`
@@ -1707,11 +2178,11 @@ export const CreateAtomGql = gql`
   mutation CreateAtom($input: [AddAtomInput!]!) {
     addAtom(input: $input) {
       atom {
-        ...__Atom
+        ...DGraph__Atom
       }
     }
   }
-  ${__AtomFragmentDoc}
+  ${DGraph__AtomFragmentDoc}
 `
 export type CreateAtomMutationFn = Apollo.MutationFunction<
   CreateAtomMutation,
@@ -1758,10 +2229,12 @@ export type CreateAtomMutationOptions = Apollo.BaseMutationOptions<
 export const DeleteAtomGql = gql`
   mutation DeleteAtom($filter: AtomFilter!) {
     deleteAtom(filter: $filter) {
-      msg
-      numUids
+      atom {
+        ...DGraph__Atom
+      }
     }
   }
+  ${DGraph__AtomFragmentDoc}
 `
 export type DeleteAtomMutationFn = Apollo.MutationFunction<
   DeleteAtomMutation,
@@ -1805,13 +2278,68 @@ export type DeleteAtomMutationOptions = Apollo.BaseMutationOptions<
   DeleteAtomMutation,
   DeleteAtomMutationVariables
 >
-export const GetAtomsGql = gql`
-  query GetAtoms($filter: AtomFilter) {
-    queryAtom(filter: $filter) {
-      ...__Atom
+export const GetAtomGql = gql`
+  query GetAtom($id: ID!) {
+    atom: getAtom(id: $id) {
+      ...DGraph__Atom
     }
   }
-  ${__AtomFragmentDoc}
+  ${DGraph__AtomFragmentDoc}
+`
+
+/**
+ * __useGetAtomQuery__
+ *
+ * To run a query within a React component, call `useGetAtomQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAtomQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAtomQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetAtomQuery(
+  baseOptions: Apollo.QueryHookOptions<GetAtomQuery, GetAtomQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetAtomQuery, GetAtomQueryVariables>(
+    GetAtomGql,
+    options,
+  )
+}
+export function useGetAtomLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetAtomQuery,
+    GetAtomQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetAtomQuery, GetAtomQueryVariables>(
+    GetAtomGql,
+    options,
+  )
+}
+export type GetAtomQueryHookResult = ReturnType<typeof useGetAtomQuery>
+export type GetAtomLazyQueryHookResult = ReturnType<typeof useGetAtomLazyQuery>
+export type GetAtomQueryResult = Apollo.QueryResult<
+  GetAtomQuery,
+  GetAtomQueryVariables
+>
+export function refetchGetAtomQuery(variables?: GetAtomQueryVariables) {
+  return { query: GetAtomGql, variables: variables }
+}
+export const GetAtomsGql = gql`
+  query GetAtoms($filter: AtomFilter) {
+    atoms: queryAtom(filter: $filter) {
+      ...DGraph__Atom
+    }
+  }
+  ${DGraph__AtomFragmentDoc}
 `
 
 /**
@@ -1863,15 +2391,14 @@ export function refetchGetAtomsQuery(variables?: GetAtomsQueryVariables) {
   return { query: GetAtomsGql, variables: variables }
 }
 export const UpdateAtomGql = gql`
-  mutation UpdateATOM($input: UpdateAtomInput!) {
+  mutation UpdateAtom($input: UpdateAtomInput!) {
     updateAtom(input: $input) {
-      numUids
       atom {
-        ...__Atom
+        ...DGraph__Atom
       }
     }
   }
-  ${__AtomFragmentDoc}
+  ${DGraph__AtomFragmentDoc}
 `
 export type UpdateAtomMutationFn = Apollo.MutationFunction<
   UpdateAtomMutation,
@@ -1915,6 +2442,69 @@ export type UpdateAtomMutationOptions = Apollo.BaseMutationOptions<
   UpdateAtomMutation,
   UpdateAtomMutationVariables
 >
+export const GetAtomTypesGql = gql`
+  query GetAtomTypes {
+    atomTypes: queryAtomType {
+      ...Dgraph__AtomType
+    }
+  }
+  ${Dgraph__AtomTypeFragmentDoc}
+`
+
+/**
+ * __useGetAtomTypesQuery__
+ *
+ * To run a query within a React component, call `useGetAtomTypesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAtomTypesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAtomTypesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAtomTypesQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetAtomTypesQuery,
+    GetAtomTypesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetAtomTypesQuery, GetAtomTypesQueryVariables>(
+    GetAtomTypesGql,
+    options,
+  )
+}
+export function useGetAtomTypesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetAtomTypesQuery,
+    GetAtomTypesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetAtomTypesQuery, GetAtomTypesQueryVariables>(
+    GetAtomTypesGql,
+    options,
+  )
+}
+export type GetAtomTypesQueryHookResult = ReturnType<
+  typeof useGetAtomTypesQuery
+>
+export type GetAtomTypesLazyQueryHookResult = ReturnType<
+  typeof useGetAtomTypesLazyQuery
+>
+export type GetAtomTypesQueryResult = Apollo.QueryResult<
+  GetAtomTypesQuery,
+  GetAtomTypesQueryVariables
+>
+export function refetchGetAtomTypesQuery(
+  variables?: GetAtomTypesQueryVariables,
+) {
+  return { query: GetAtomTypesGql, variables: variables }
+}
 export const CreateComponentGql = gql`
   mutation CreateComponent($input: [AddComponentInput!]!) {
     components: addComponent(input: $input) {
@@ -2542,6 +3132,69 @@ export type UpdatePageMutationOptions = Apollo.BaseMutationOptions<
   UpdatePageMutation,
   UpdatePageMutationVariables
 >
+export const GetValueTypesGql = gql`
+  query GetValueTypes {
+    valueTypes: queryValueType {
+      ...Dgraph__ValueType
+    }
+  }
+  ${Dgraph__ValueTypeFragmentDoc}
+`
+
+/**
+ * __useGetValueTypesQuery__
+ *
+ * To run a query within a React component, call `useGetValueTypesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetValueTypesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetValueTypesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetValueTypesQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetValueTypesQuery,
+    GetValueTypesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetValueTypesQuery, GetValueTypesQueryVariables>(
+    GetValueTypesGql,
+    options,
+  )
+}
+export function useGetValueTypesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetValueTypesQuery,
+    GetValueTypesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetValueTypesQuery, GetValueTypesQueryVariables>(
+    GetValueTypesGql,
+    options,
+  )
+}
+export type GetValueTypesQueryHookResult = ReturnType<
+  typeof useGetValueTypesQuery
+>
+export type GetValueTypesLazyQueryHookResult = ReturnType<
+  typeof useGetValueTypesLazyQuery
+>
+export type GetValueTypesQueryResult = Apollo.QueryResult<
+  GetValueTypesQuery,
+  GetValueTypesQueryVariables
+>
+export function refetchGetValueTypesQuery(
+  variables?: GetValueTypesQueryVariables,
+) {
+  return { query: GetValueTypesGql, variables: variables }
+}
 export const Dgraph__App = gql`
   fragment Dgraph__App on App {
     id
@@ -2549,8 +3202,18 @@ export const Dgraph__App = gql`
     ownerId
   }
 `
-export const __Atom = gql`
-  fragment __Atom on Atom {
+export const DGraph__Atom = gql`
+  fragment DGraph__Atom on Atom {
+    id
+    type {
+      label
+      id
+      type
+    }
+  }
+`
+export const Dgraph__AtomType = gql`
+  fragment Dgraph__AtomType on AtomType {
     id
     type
     label
@@ -2572,7 +3235,11 @@ export const LibraryExplorer__Atom = gql`
   fragment LibraryExplorer__Atom on Atom {
     id
     label
-    type
+    type {
+      label
+      id
+      type
+    }
   }
 `
 export const LibraryExplorer__Component = gql`
@@ -2599,6 +3266,13 @@ export const App__Page = gql`
   fragment App__Page on Page {
     id
     title
+  }
+`
+export const Dgraph__ValueType = gql`
+  fragment Dgraph__ValueType on ValueType {
+    id
+    type
+    label
   }
 `
 export const DeleteUserApps = gql`
@@ -2668,38 +3342,55 @@ export const CreateAtom = gql`
   mutation CreateAtom($input: [AddAtomInput!]!) {
     addAtom(input: $input) {
       atom {
-        ...__Atom
+        ...DGraph__Atom
       }
     }
   }
-  ${__Atom}
+  ${DGraph__Atom}
 `
 export const DeleteAtom = gql`
   mutation DeleteAtom($filter: AtomFilter!) {
     deleteAtom(filter: $filter) {
-      msg
-      numUids
-    }
-  }
-`
-export const GetAtoms = gql`
-  query GetAtoms($filter: AtomFilter) {
-    queryAtom(filter: $filter) {
-      ...__Atom
-    }
-  }
-  ${__Atom}
-`
-export const UpdateAtom = gql`
-  mutation UpdateATOM($input: UpdateAtomInput!) {
-    updateAtom(input: $input) {
-      numUids
       atom {
-        ...__Atom
+        ...DGraph__Atom
       }
     }
   }
-  ${__Atom}
+  ${DGraph__Atom}
+`
+export const GetAtom = gql`
+  query GetAtom($id: ID!) {
+    atom: getAtom(id: $id) {
+      ...DGraph__Atom
+    }
+  }
+  ${DGraph__Atom}
+`
+export const GetAtoms = gql`
+  query GetAtoms($filter: AtomFilter) {
+    atoms: queryAtom(filter: $filter) {
+      ...DGraph__Atom
+    }
+  }
+  ${DGraph__Atom}
+`
+export const UpdateAtom = gql`
+  mutation UpdateAtom($input: UpdateAtomInput!) {
+    updateAtom(input: $input) {
+      atom {
+        ...DGraph__Atom
+      }
+    }
+  }
+  ${DGraph__Atom}
+`
+export const GetAtomTypes = gql`
+  query GetAtomTypes {
+    atomTypes: queryAtomType {
+      ...Dgraph__AtomType
+    }
+  }
+  ${Dgraph__AtomType}
 `
 export const CreateComponent = gql`
   mutation CreateComponent($input: [AddComponentInput!]!) {
@@ -2800,4 +3491,12 @@ export const UpdatePage = gql`
     }
   }
   ${App__Page}
+`
+export const GetValueTypes = gql`
+  query GetValueTypes {
+    valueTypes: queryValueType {
+      ...Dgraph__ValueType
+    }
+  }
+  ${Dgraph__ValueType}
 `

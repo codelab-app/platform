@@ -1,0 +1,20 @@
+fragment __Prop on Prop {
+    description
+    id
+    key
+    type {
+      id
+      type
+      label
+    }
+    props {
+      description
+      id
+      key
+      type {
+        id
+        type
+        label
+      }
+    }
+}

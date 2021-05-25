@@ -8,6 +8,31 @@ type App {
   name: String!
 }
 
+type AtomType {
+  id: ID!
+  label: String!
+  type: String!
+}
+
+type Atom {
+  id: ID!
+  type: AtomType!
+}
+
+type ValueType {
+  id: ID!
+  label: String!
+  type: String!
+}
+
+type Prop {
+  id: ID!
+  key: String
+  type: ValueType!
+  description: String
+  props: [Prop!]
+}
+
 type User {
   blocked: Boolean
   created_at: String
@@ -35,6 +60,11 @@ type Query {
   getUsers(input: GetUsersInput): [User!]!
   getApp(input: GetAppInput!): App
   getApps: [App!]!
+  getAtomTypes: [AtomType!]!
+  getAtoms: [Atom!]!
+  getAtom(input: GetAtomInput!): Atom
+  getValueTypes: [ValueType!]!
+  getProps: [Prop!]!
 }
 
 input GetUsersInput {
@@ -48,12 +78,19 @@ input GetAppInput {
   appId: String!
 }
 
+input GetAtomInput {
+  atomId: String!
+}
+
 type Mutation {
   updateUser(input: UpdateUserInput!): User!
   deleteUser(input: DeleteUserInput!): Boolean!
   createApp(input: CreateAppInput!): App!
   updateApp(input: UpdateAppInput!): App!
   deleteApp(input: DeleteAppInput!): App!
+  createAtom(input: CreateAtomInput!): Atom!
+  deleteAtom(input: DeleteAtomInput!): Atom!
+  updateAtom(input: UpdateAtomInput!): Atom!
 }
 
 input UpdateUserInput {
@@ -90,4 +127,25 @@ input UpdateAppData {
 
 input DeleteAppInput {
   appId: String!
+}
+
+input CreateAtomInput {
+  type: AtomTypeInput!
+}
+
+input AtomTypeInput {
+  id: ID!
+}
+
+input DeleteAtomInput {
+  atomId: String!
+}
+
+input UpdateAtomInput {
+  atomId: String!
+  updateData: UpdateAtomData!
+}
+
+input UpdateAtomData {
+  type: AtomTypeInput!
 }

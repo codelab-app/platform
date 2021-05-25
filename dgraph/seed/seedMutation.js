@@ -1,4 +1,4 @@
-const atoms = [
+const atomTypes = [
   { label: 'Affix', type: 'React_Affix' },
   { label: 'Alert', type: 'React_Alert' },
   { label: 'Anchor', type: 'React_Anchor' },
@@ -104,6 +104,13 @@ const atoms = [
   { label: 'Upload', type: 'React_Upload' },
 ]
 
+const valueTypes = [
+  {label: 'Boolean', type: 'Boolean'},
+  {label: 'Lambda', type: 'Lambda'},
+  {label: 'Number', type: 'Number'},
+  {label: 'String', type: 'String'},
+  {label: 'Enum', type: 'Enum'},
+]
 module.exports = `
   _:adminUser <User.email> "admin@codelab.ai" .
   _:adminUser <dgraph.type> "User" .
@@ -113,18 +120,23 @@ module.exports = `
   _:antdlib <Library.name> "Ant design Library" .
   _:antdlib <dgraph.type> "Library" .
   
-  ${atoms.reduce(
-    (prev, atom, n) =>
+  ${atomTypes.reduce(
+    (prev, atomType, n) =>
       prev +
       `
-
-      _:atom${n} <Atom.library> _:antdlib .
-      _:atom${n} <dgraph.type> "Atom" .
-      _:atom${n} <Atom.label> "${atom.label}" .
-      _:atom${n} <Atom.type> "${atom.type}" .
-      
-      _:antdlib <Library.atoms> _:atom${n} .
-
+      _:atomType${n} <dgraph.type> "AtomType" .
+      _:atomType${n} <AtomType.label> "${atomType.label}" .
+      _:atomType${n} <AtomType.type> "${atomType.type}" .
+  `,
+    '',
+  )}
+  ${valueTypes.reduce(
+    (prev, valueType, n) =>
+      prev +
+      `
+      _:valueType${n} <dgraph.type> "ValueType" .
+      _:valueType${n} <ValueType.label> "${valueType.label}" .
+      _:valueType${n} <ValueType.type> "${valueType.type}" .
   `,
     '',
   )}

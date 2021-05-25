@@ -1,0 +1,5 @@
+fragment Dgraph__AtomType on AtomType {
+    id
+    type
+    label
+}

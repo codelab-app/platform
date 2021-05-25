@@ -1,0 +1,5 @@
+query GetAtomTypes {
+  atomTypes: getAtomTypes {
+    ...__AtomType
+  }
+}

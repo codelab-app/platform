@@ -1,0 +1,7 @@
+mutation CreateAtom($input: [AddAtomInput!]!) {
+  addAtom(input: $input) {
+    atom {
+      ...DGraph__Atom
+    }
+  }
+}

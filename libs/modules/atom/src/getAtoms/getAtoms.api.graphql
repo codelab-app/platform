@@ -1,0 +1,5 @@
+query GetAtoms {
+  atoms: getAtoms {
+    ...__Atom
+  }
+}

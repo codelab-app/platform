@@ -6,10 +6,11 @@ export const DeleteAtomsModal = () => (
   <CrudModal
     modalProps={{
       className: 'delete-atoms-modal',
+      title: 'Delete Confirmation',
     }}
     entityType={EntityType.Atom}
     actionType={ActionType.Delete}
-    okText="Delete Atoms"
+    okText="Delete Atom"
     renderForm={() => <DeleteAtomsForm />}
   />
 )
