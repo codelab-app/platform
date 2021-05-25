@@ -6,7 +6,7 @@ import {
   DeleteAtomMutationVariables,
 } from '@codelab/dgraph'
 import { Injectable } from '@nestjs/common'
-import { Atom } from '../../atom.model'
+import { Atom, atomsSchema } from '../../atom.model'
 import { DeleteAtomInput } from './delete-atom.input'
 
 @Injectable()
@@ -25,15 +25,9 @@ export class DeleteAtomService extends MutationUseCase<
   }
 
   protected extractDataFromResult(result: FetchResult<DeleteAtomMutation>) {
-    if (
-      !result?.data?.deleteAtom?.atom ||
-      !result.data.deleteAtom.atom.length ||
-      !result.data.deleteAtom.atom[0]
-    ) {
-      throw new Error('Error while creating atom')
-    }
+    const atoms = atomsSchema.parse(result?.data?.deleteAtom?.atom)
 
-    return result.data.deleteAtom.atom[0] as Atom
+    return atoms[0]
   }
 
   protected getVariables(

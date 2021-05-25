@@ -25,9 +25,7 @@ export class AtomResolver {
 
   @Mutation(() => Atom)
   createAtom(@Args('input') input: CreateAtomInput) {
-    return this.createService.execute({
-      input,
-    })
+    return this.createService.execute(input)
   }
 
   @Mutation(() => Atom)

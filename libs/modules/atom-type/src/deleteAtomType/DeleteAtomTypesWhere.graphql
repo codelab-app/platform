@@ -1,7 +1,0 @@
-mutation DeleteAtomTypesWhere($where: atom_type_bool_exp!) {
-  delete_atom_type(where: $where) {
-    returning {
-      ...__AtomType
-    }
-  }
-}

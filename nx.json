@@ -100,9 +100,6 @@
     "modules-component-element": {
       "tags": []
     },
-    "modules-atom-type": {
-      "tags": []
-    },
     "modules-prop-type": {
       "tags": []
     },
@@ -131,9 +128,6 @@
       "tags": []
     },
     "modules-page-element-api": {
-      "tags": []
-    },
-    "modules-atom-type-api": {
       "tags": []
     },
     "modules-prop-api": {

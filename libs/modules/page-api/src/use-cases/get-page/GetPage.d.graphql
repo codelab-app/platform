@@ -1,5 +1,5 @@
 query GetPage($pageId: ID!) {
-    getPage(id: $pageId) {
-        ...Dgraph__Page
-    }
+  getPage(id: $pageId) {
+    ...Dgraph__Page
+  }
 }

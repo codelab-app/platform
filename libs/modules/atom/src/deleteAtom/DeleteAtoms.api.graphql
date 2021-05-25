@@ -1,5 +1,5 @@
 mutation DeleteAtom($input: DeleteAtomInput!) {
-    deleteAtom(input: $input) {
-        ...__Atom
-    }
+  deleteAtom(input: $input) {
+    ...__Atom
+  }
 }

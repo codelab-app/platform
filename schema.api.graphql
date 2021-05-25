@@ -8,16 +8,32 @@ type App {
   name: String!
 }
 
-type AtomType {
-  id: ID!
-  label: String!
-  type: String!
-}
-
 type Atom {
   id: ID!
   type: AtomType!
   label: String!
+}
+
+enum AtomType {
+  _parseInternalOptionalParams
+  parse
+  safeParse
+  parseAsync
+  safeParseAsync
+  spa
+  _parseWithInvalidFallback
+  refine
+  refinement
+  superRefine
+  optional
+  nullable
+  nullish
+  array
+  isOptional
+  isNullable
+  _def
+  transform
+  default
 }
 
 type PageElement {
@@ -27,10 +43,14 @@ type PageElement {
 }
 
 type PageElementLink {
-  """The id of the source PageElement"""
+  """
+  The id of the source PageElement
+  """
   from: String!
 
-  """The id of the target PageElement"""
+  """
+  The id of the target PageElement
+  """
   to: String!
   order: Int!
 }
@@ -40,10 +60,14 @@ type PageElementRoot {
   name: String!
   atom: Atom
 
-  """All descendant PageElements that are under this root, at any level"""
+  """
+  All descendant PageElements that are under this root, at any level
+  """
   descendents: [PageElement!]!
 
-  """All the links connecting the descendant page elements"""
+  """
+  All the links connecting the descendant page elements
+  """
   links: [PageElementLink!]!
 }
 
@@ -103,7 +127,6 @@ type Query {
   Aggregates the requested page element and all of its descendant elements (infinitely deep) in the form of array of PageElement and array of PageElementLink
   """
   getPageElementRoot(input: GetPageElementRootInput!): PageElementRoot
-  getAtomTypes: [AtomType!]!
   getAtoms: [Atom!]!
   getAtom(input: GetAtomInput!): Atom
   getValueTypes: [ValueType!]!
@@ -207,11 +230,8 @@ input CreatePageElementInput {
 }
 
 input CreateAtomInput {
-  type: AtomTypeInput!
-}
-
-input AtomTypeInput {
-  id: ID!
+  label: String!
+  type: AtomType!
 }
 
 input DeleteAtomInput {
@@ -224,5 +244,5 @@ input UpdateAtomInput {
 }
 
 input UpdateAtomData {
-  type: AtomTypeInput!
+  type: AtomType!
 }

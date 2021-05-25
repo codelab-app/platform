@@ -1,5 +1,0 @@
-query GetAtomTypes {
-  atom_type {
-    ...__AtomType
-  }
-}

@@ -44,7 +44,6 @@
       "@codelab/modules/component-element": [
         "libs/modules/component-element/src/index.ts"
       ],
-      "@codelab/modules/atom-type": ["libs/modules/atom-type/src/index.ts"],
       "@codelab/modules/prop-type": ["libs/modules/prop-type/src/index.ts"],
       "@codelab/frontend/dgraph": ["libs/frontend/dgraph/src/index.ts"],
       "@codelab/dgraph": ["libs/dgraph/src/index.ts"],
@@ -56,9 +55,6 @@
       "@codelab/modules/page-api": ["libs/modules/page-api/src/index.ts"],
       "@codelab/modules/page-element-api": [
         "libs/modules/page-element-api/src/index.ts"
-      ],
-      "@codelab/modules/atom-type-api": [
-        "libs/modules/atom-type-api/src/index.ts"
       ],
       "@codelab/modules/prop-api": ["libs/modules/prop-api/src/index.ts"],
       "@codelab/modules/value-type-api": [

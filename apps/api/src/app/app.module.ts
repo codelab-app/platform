@@ -5,7 +5,6 @@ import {
 } from '@codelab/backend'
 import { AppModule as AppApiModule } from '@codelab/modules/app-api'
 import { AtomModule } from '@codelab/modules/atom-api'
-import { AtomTypeModule } from '@codelab/modules/atom-type-api'
 import { LambdaApiModule } from '@codelab/modules/lambda-api'
 import { PageModule } from '@codelab/modules/page-api'
 import { PageElementModule } from '@codelab/modules/page-element-api'
@@ -26,7 +25,6 @@ import { AppService } from './app.service'
     AppApiModule,
     PageModule,
     PageElementModule,
-    AtomTypeModule,
     AtomModule,
     ValueTypeModule,
     PropModule,

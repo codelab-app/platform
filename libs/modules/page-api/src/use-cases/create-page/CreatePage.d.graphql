@@ -1,7 +1,7 @@
 mutation CreatePage($input: [AddPageInput!]!) {
-    addPage(input: $input){
-        page {
-            ...Dgraph__Page
-        }
+  addPage(input: $input) {
+    page {
+      ...Dgraph__Page
     }
+  }
 }

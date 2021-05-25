@@ -1,5 +1,5 @@
 mutation CreateAtom($input: CreateAtomInput!) {
   createAtom(input: $input) {
-      ...__Atom
+    ...__Atom
   }
 }

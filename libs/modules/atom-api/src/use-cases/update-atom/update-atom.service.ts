@@ -6,7 +6,7 @@ import {
   UpdateAtomMutationVariables,
 } from '@codelab/dgraph'
 import { Injectable } from '@nestjs/common'
-import { Atom } from '../../atom.model'
+import { Atom, atomSchema } from '../../atom.model'
 import { UpdateAtomInput } from './update-atom.input'
 
 @Injectable()
@@ -24,16 +24,8 @@ export class UpdateAtomService extends MutationUseCase<
     return UpdateAtomGql
   }
 
-  protected extractDataFromResult(
-    result: FetchResult<UpdateAtomMutation>,
-  ): Atom {
-    const atoms = result?.data?.updateAtom?.atom
-
-    if (!atoms || !atoms.length || !atoms[0]) {
-      throw new Error('Error while updating atom')
-    }
-
-    return atoms[0] as Atom
+  protected extractDataFromResult(result: FetchResult<UpdateAtomMutation>) {
+    return atomSchema.parse(result.data?.updateAtom)
   }
 
   protected getVariables({

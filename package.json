@@ -160,7 +160,8 @@
     "uniforms-bridge-json-schema": "3.5.1",
     "use-resize-observer": "7.0.0",
     "uuid": "8.3.2",
-    "voca": "1.4.0"
+    "voca": "1.4.0",
+    "zod": "^3.0.2"
   },
   "devDependencies": {
     "@angular-devkit/core": "11.0.1",

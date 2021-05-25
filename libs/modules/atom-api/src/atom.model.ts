@@ -1,5 +1,10 @@
-import { AtomType } from '@codelab/modules/atom-type-api'
-import { Field, ID, ObjectType } from '@nestjs/graphql'
+import { Field, ID, ObjectType, registerEnumType } from '@nestjs/graphql'
+import { z } from 'zod'
+import { AtomType } from './atom-type.model'
+
+registerEnumType(AtomType, {
+  name: 'AtomType',
+})
 
 @ObjectType()
 export class Atom {
@@ -9,14 +14,14 @@ export class Atom {
   @Field(() => AtomType)
   declare type: AtomType
 
-  // library: Library! need to add library when we implement it
-
   @Field()
   declare label: string
-
-  constructor(id: string, type: AtomType, label: string) {
-    this.id = id
-    this.type = type
-    this.label = label
-  }
 }
+
+export const atomSchema = z.object({
+  id: z.string(),
+  type: AtomType,
+  label: z.string(),
+})
+
+export const atomsSchema = z.array(atomSchema)
