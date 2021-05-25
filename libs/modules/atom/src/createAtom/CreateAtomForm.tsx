@@ -12,8 +12,7 @@ import {
   useGetAtomTypesQuery,
 } from '@codelab/graphql'
 import { Spin } from 'antd'
-import React, { useContext, useEffect } from 'react'
-import { DeepPartial } from 'uniforms'
+import React, { useEffect } from 'react'
 import { SelectField } from 'uniforms-antd'
 import { CreateAtomInput, createAtomSchema } from './createAtomSchema'
 
@@ -40,7 +39,7 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
 
   const atomTypes = data?.atomTypes?.filter(isNotNull) ?? []
 
-  const onSubmit = (submitData: DeepPartial<CreateAtomInput>) => {
+  const onSubmit = (submitData: CreateAtomInput) => {
     return mutate({
       variables: {
         input: {

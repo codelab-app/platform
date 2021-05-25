@@ -1,5 +1,4 @@
 import {
-  __AtomFragment,
   LibraryExplorerGql,
   useCreateComponentMutation,
   useGetAtomsQuery,
@@ -12,6 +11,7 @@ import {
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
+import { __AtomFragment } from '@codelab/graphql'
 import React, { useContext, useEffect } from 'react'
 import { AutoField, SelectField } from 'uniforms-antd'
 import {
@@ -84,10 +84,10 @@ export const CreateComponentForm = ({ ...props }: CreateComponentFormProps) => {
         //@ts-ignore https://github.com/vazco/uniforms/issues/951
         showSearch={true}
         optionFilterProp="label"
-        options={atoms?.queryAtom
+        options={atoms?.atoms
           ?.filter((atom): atom is __AtomFragment => !!atom)
           .map((atom) => ({
-            label: atom.label,
+            label: atom.type.label,
             value: atom.id,
           }))}
       />

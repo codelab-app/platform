@@ -122,7 +122,7 @@ export type Prop = {
   key?: Maybe<Scalars['String']>
   type: ValueType
   description?: Maybe<Scalars['String']>
-  props?: Maybe<Prop>
+  props?: Maybe<Array<Prop>>
 }
 
 export type Query = {
@@ -281,9 +281,11 @@ export type UpdateAtomMutation = { atom: __AtomFragment }
 export type __PropFragment = Pick<Prop, 'description' | 'id' | 'key'> & {
   type: Pick<ValueType, 'id' | 'type' | 'label'>
   props?: Maybe<
-    Pick<Prop, 'description' | 'id' | 'key'> & {
-      type: Pick<ValueType, 'id' | 'type' | 'label'>
-    }
+    Array<
+      Pick<Prop, 'description' | 'id' | 'key'> & {
+        type: Pick<ValueType, 'id' | 'type' | 'label'>
+      }
+    >
   >
 }
 
