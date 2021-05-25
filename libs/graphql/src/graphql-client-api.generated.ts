@@ -27,6 +27,7 @@ export type App = {
 export type Atom = {
   id: Scalars['ID']
   type: AtomType
+  label: Scalars['String']
 }
 
 export type AtomType = {
@@ -45,6 +46,19 @@ export type CreateAppInput = {
 
 export type CreateAtomInput = {
   type: AtomTypeInput
+}
+
+export type CreatePageElementInput = {
+  name: Scalars['String']
+  atomId?: Maybe<Scalars['String']>
+  parentPageElementId: Scalars['String']
+  /** Leave it out to automatically set it as the last order of all the children */
+  order?: Maybe<Scalars['Int']>
+}
+
+export type CreatePageInput = {
+  name: Scalars['String']
+  appId: Scalars['String']
 }
 
 export type DeleteAppInput = {
@@ -67,6 +81,22 @@ export type GetAtomInput = {
   atomId: Scalars['String']
 }
 
+export type GetPageElementInput = {
+  pageElementId: Scalars['String']
+}
+
+export type GetPageElementRootInput = {
+  pageElementId: Scalars['String']
+}
+
+export type GetPageInput = {
+  pageId: Scalars['String']
+}
+
+export type GetPagesInput = {
+  appId: Scalars['String']
+}
+
 export type GetUsersInput = {
   page: Scalars['Int']
   perPage: Scalars['Int']
@@ -80,6 +110,8 @@ export type Mutation = {
   createApp: App
   updateApp: App
   deleteApp: App
+  createPage: Page
+  createPageElement: PageElement
   createAtom: Atom
   deleteAtom: Atom
   updateAtom: Atom
@@ -105,6 +137,14 @@ export type MutationDeleteAppArgs = {
   input: DeleteAppInput
 }
 
+export type MutationCreatePageArgs = {
+  input: CreatePageInput
+}
+
+export type MutationCreatePageElementArgs = {
+  input: CreatePageElementInput
+}
+
 export type MutationCreateAtomArgs = {
   input: CreateAtomInput
 }
@@ -115,6 +155,37 @@ export type MutationDeleteAtomArgs = {
 
 export type MutationUpdateAtomArgs = {
   input: UpdateAtomInput
+}
+
+export type Page = {
+  id: Scalars['ID']
+  name: Scalars['String']
+  app: App
+  rootElement: PageElementRoot
+}
+
+export type PageElement = {
+  id: Scalars['ID']
+  name: Scalars['String']
+  atom?: Maybe<Atom>
+}
+
+export type PageElementLink = {
+  /** The id of the source PageElement */
+  from: Scalars['String']
+  /** The id of the target PageElement */
+  to: Scalars['String']
+  order: Scalars['Int']
+}
+
+export type PageElementRoot = {
+  id: Scalars['ID']
+  name: Scalars['String']
+  atom?: Maybe<Atom>
+  /** All descendant PageElements that are under this root, at any level */
+  descendents: Array<PageElement>
+  /** All the links connecting the descendant page elements */
+  links: Array<PageElementLink>
 }
 
 export type Prop = {
@@ -130,6 +201,11 @@ export type Query = {
   getUsers: Array<User>
   getApp?: Maybe<App>
   getApps: Array<App>
+  getPages: Array<Page>
+  getPage?: Maybe<Page>
+  getPageElement?: Maybe<PageElement>
+  /** Aggregates the requested page element and all of its descendant elements (infinitely deep) in the form of array of PageElement and array of PageElementLink */
+  getPageElementRoot?: Maybe<PageElementRoot>
   getAtomTypes: Array<AtomType>
   getAtoms: Array<Atom>
   getAtom?: Maybe<Atom>
@@ -143,6 +219,22 @@ export type QueryGetUsersArgs = {
 
 export type QueryGetAppArgs = {
   input: GetAppInput
+}
+
+export type QueryGetPagesArgs = {
+  input: GetPagesInput
+}
+
+export type QueryGetPageArgs = {
+  input: GetPageInput
+}
+
+export type QueryGetPageElementArgs = {
+  input: GetPageElementInput
+}
+
+export type QueryGetPageElementRootArgs = {
+  input: GetPageElementRootInput
 }
 
 export type QueryGetAtomArgs = {

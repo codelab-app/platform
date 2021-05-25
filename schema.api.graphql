@@ -17,6 +17,41 @@ type AtomType {
 type Atom {
   id: ID!
   type: AtomType!
+  label: String!
+}
+
+type PageElement {
+  id: ID!
+  name: String!
+  atom: Atom
+}
+
+type PageElementLink {
+  """The id of the source PageElement"""
+  from: String!
+
+  """The id of the target PageElement"""
+  to: String!
+  order: Int!
+}
+
+type PageElementRoot {
+  id: ID!
+  name: String!
+  atom: Atom
+
+  """All descendant PageElements that are under this root, at any level"""
+  descendents: [PageElement!]!
+
+  """All the links connecting the descendant page elements"""
+  links: [PageElementLink!]!
+}
+
+type Page {
+  id: ID!
+  name: String!
+  app: App!
+  rootElement: PageElementRoot!
 }
 
 type ValueType {
@@ -60,6 +95,14 @@ type Query {
   getUsers(input: GetUsersInput): [User!]!
   getApp(input: GetAppInput!): App
   getApps: [App!]!
+  getPages(input: GetPagesInput!): [Page!]!
+  getPage(input: GetPageInput!): Page
+  getPageElement(input: GetPageElementInput!): PageElement
+
+  """
+  Aggregates the requested page element and all of its descendant elements (infinitely deep) in the form of array of PageElement and array of PageElementLink
+  """
+  getPageElementRoot(input: GetPageElementRootInput!): PageElementRoot
   getAtomTypes: [AtomType!]!
   getAtoms: [Atom!]!
   getAtom(input: GetAtomInput!): Atom
@@ -78,6 +121,22 @@ input GetAppInput {
   appId: String!
 }
 
+input GetPagesInput {
+  appId: String!
+}
+
+input GetPageInput {
+  pageId: String!
+}
+
+input GetPageElementInput {
+  pageElementId: String!
+}
+
+input GetPageElementRootInput {
+  pageElementId: String!
+}
+
 input GetAtomInput {
   atomId: String!
 }
@@ -88,6 +147,8 @@ type Mutation {
   createApp(input: CreateAppInput!): App!
   updateApp(input: UpdateAppInput!): App!
   deleteApp(input: DeleteAppInput!): App!
+  createPage(input: CreatePageInput!): Page!
+  createPageElement(input: CreatePageElementInput!): PageElement!
   createAtom(input: CreateAtomInput!): Atom!
   deleteAtom(input: DeleteAtomInput!): Atom!
   updateAtom(input: UpdateAtomInput!): Atom!
@@ -127,6 +188,22 @@ input UpdateAppData {
 
 input DeleteAppInput {
   appId: String!
+}
+
+input CreatePageInput {
+  name: String!
+  appId: String!
+}
+
+input CreatePageElementInput {
+  name: String!
+  atomId: String
+  parentPageElementId: String!
+
+  """
+  Leave it out to automatically set it as the last order of all the children
+  """
+  order: Int
 }
 
 input CreateAtomInput {
