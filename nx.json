@@ -127,6 +127,12 @@
     "graphql": {
       "tags": []
     },
+    "modules-page-api": {
+      "tags": []
+    },
+    "modules-page-element-api": {
+      "tags": []
+    },
     "modules-atom-type-api": {
       "tags": []
     },

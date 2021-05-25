@@ -9,8 +9,24 @@ type App {
 
 type Page {
   id: ID!
-  title: String! @search(by: [term, fulltext])
-  app: App
+  name: String! @search(by: [term, fulltext])
+  app: App!
+  rootElement: PageElement!
+}
+
+#Note that this PageElement is not the same as the one served in Nest's API, because we transform it to avoid recursion
+type PageElement {
+  id: ID!
+  name: String! @search(by: [term, fulltext])
+  parent: PageElement
+  # A PageElement has 1 of 3 ways to be rendered:
+  #   1. Atom, with or without children, without component -> render container with children
+  #   2. Children, no atom, no component -> render children without container
+  #   3. Component, no children, no atom -> render the component itself in place of the element
+  # We can add component + children later
+  children: [PageElement] @hasInverse(field: "parent")
+  atom: Atom
+  component: Component
 }
 
 type Library {

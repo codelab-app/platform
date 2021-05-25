@@ -13,6 +13,12 @@ export const IsAppOwnerAuthGuard = <TInput>(
   class _IsAppOwnerAuthGuard extends GqlAuthGuard {
     constructor(private getAppService: GetAppService) {
       super()
+
+      if (!getAppService) {
+        throw new Error(
+          'Error while constructing IsAppOwnerAuthGuard - GetAppService not injected. Include it in your module',
+        )
+      }
     }
 
     canActivate = isOwnerAddOn<TInput>(async (input) => {

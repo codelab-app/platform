@@ -1,6 +1,6 @@
 fragment App__Page on Page {
   id
-  title
+  title: name
   # elements {
   #   ...Page__PageElement
   # }

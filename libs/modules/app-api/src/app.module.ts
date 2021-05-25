@@ -9,15 +9,17 @@ import {
   UpdateAppService,
 } from './use-cases'
 
+const services = [
+  CreateAppService,
+  DeleteAppService,
+  GetAppsService,
+  GetAppService,
+  UpdateAppService,
+]
+
 @Module({
   imports: [ApolloClientModule],
-  providers: [
-    CreateAppService,
-    DeleteAppService,
-    GetAppsService,
-    GetAppService,
-    UpdateAppService,
-    AppResolver,
-  ],
+  providers: [...services, AppResolver],
+  exports: [...services],
 })
 export class AppModule {}
