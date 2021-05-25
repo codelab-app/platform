@@ -4,7 +4,7 @@ import { DeletePropForm } from './DeletePropForm'
 
 export const DeletePropModal = () => (
   <CrudModal
-    modalProp={{
+    modalProps={{
       className: 'delete-prop-modal',
       title: 'Delete Confirmation',
     }}
