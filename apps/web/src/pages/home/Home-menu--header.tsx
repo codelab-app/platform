@@ -24,9 +24,13 @@ export const HomeMenuHeader = () => {
         style={{ float: 'right', ...disableMenuHoverEffects }}
         icon={<SignOutUserButton />}
       />
-      <Menu.SubMenu key="4" style={{ float: 'right' }} icon={<UserOutlined />}>
-        <Menu.Item>{user?.email}</Menu.Item>
-        {/*<Menu.Item>{user?.email}</Menu.Item>*/}
+      <Menu.SubMenu
+        popupClassName="h-auto"
+        key="4"
+        style={{ float: 'right' }}
+        icon={<UserOutlined />}
+      >
+        <Menu.Item>Email {user?.email}</Menu.Item>
       </Menu.SubMenu>
     </>
   )

@@ -32,7 +32,7 @@ describe('Component element', () => {
 
     cy.login().then(() => {
       cy.createLibrary().then((l) => {
-        libraryId = l.id
+        // libraryId = l.id
 
         cy.deleteAllAtoms()
       })
@@ -44,33 +44,36 @@ describe('Component element', () => {
     Cypress.Cookies.preserveOnce('appSession')
 
     cy.createComponent(libraryId).then((c) => {
-      component = c
+      // component = c
     })
 
     const atomType = randomAtomType()
 
     cy.createAtom(atomType).then((a) => {
-      atom = a
+      // atom = a
     })
   })
 
-  const createComponentElement = (label: string) =>
-    cy
-      .hasuraAdminRequest({
-        query: print(CreateComponentElementGql),
-        variables: {
-          input: {
-            component_id: component.id,
-            atom_id: atom.id,
-            label,
-          },
-        },
-      })
-      .then(
-        (r) =>
-          r.body.data
-            .insert_component_element_one as __ComponentElementFragment,
-      )
+  const createComponentElement = (label: string) => {
+    return new Promise((resolve, reject) => reject('not implemeneted'))
+
+    // return cy
+    //   .hasuraAdminRequest({
+    //     query: print(CreateComponentElementGql),
+    //     variables: {
+    //       input: {
+    //         component_id: component.id,
+    //         atom_id: atom.id,
+    //         label,
+    //       },
+    //     },
+    //   })
+    //   .then(
+    //     (r) =>
+    //       r.body.data
+    //         .insert_component_element_one as __ComponentElementFragment,
+    //   )
+  }
 
   const openComponentsTab = () => {
     cy.visit(`/components/${component.id}`)
@@ -110,9 +113,9 @@ describe('Component element', () => {
       openComponentsTab()
 
       getAndExpandElementInTree(component.label + ' Root')
-      getComponentElementInTree(parentElement?.label ?? '')
-        .first()
-        .click()
+      // getComponentElementInTree(parentElement?.label ?? '')
+      //   .first()
+      //   .click()
 
       cy.getByTestId('pane-config')
         .findByRole('button', { name: 'Insert child element' })
@@ -143,9 +146,9 @@ describe('Component element', () => {
       openComponentsTab()
 
       getAndExpandElementInTree(component.label + ' Root')
-      getComponentElementInTree(element.label ?? '')
-        .first()
-        .click() //Focus the element
+      // getComponentElementInTree(element.label ?? '')
+      //   .first()
+      //   .click() //Focus the element
 
       //Update the component element
       cy.getByTestId('pane-config') //We should get the form in the right pane
@@ -175,9 +178,9 @@ describe('Component element', () => {
       openComponentsTab()
 
       getAndExpandElementInTree(component.label + ' Root')
-      getComponentElementInTree(element.label ?? '')
-        .first()
-        .click() //Focus the element
+      // getComponentElementInTree(element.label ?? '')
+      //   .first()
+      //   .click() //Focus the element
 
       //Delete the component element
       cy.getByTestId('pane-config') //We should get the form in the right pane
