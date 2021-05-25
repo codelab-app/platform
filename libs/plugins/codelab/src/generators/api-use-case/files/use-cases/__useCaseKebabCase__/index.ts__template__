@@ -1,0 +1,2 @@
+export * from './<%= useCaseKebabCase %>.input'
+export * from './<%= useCaseKebabCase %>.service'
