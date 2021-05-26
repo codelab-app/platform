@@ -1,8 +1,8 @@
+import { AtomType } from '@codelab/graphql'
 import { JSONSchemaType } from 'ajv'
 
 export type CreateAtomInput = {
-  type: string
-  props: Array<string>
+  type: AtomType
 }
 
 export const createAtomSchema: JSONSchemaType<CreateAtomInput> = {
@@ -12,12 +12,6 @@ export const createAtomSchema: JSONSchemaType<CreateAtomInput> = {
     type: {
       type: 'string',
     },
-    props: {
-      type: 'array',
-      items: {
-        type: 'string',
-      },
-    },
   },
-  required: ['type', 'props'],
+  required: ['type'],
 } as const

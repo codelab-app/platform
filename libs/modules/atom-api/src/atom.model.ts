@@ -1,8 +1,8 @@
 import { Field, ID, ObjectType, registerEnumType } from '@nestjs/graphql'
 import { z } from 'zod'
-import { AtomType } from './atom-type.model'
+import { AtomType, AtomTypeEnum } from './atom-type.model'
 
-registerEnumType(AtomType, {
+registerEnumType(AtomTypeEnum, {
   name: 'AtomType',
 })
 
@@ -12,7 +12,7 @@ export class Atom {
   @Field(() => ID)
   declare id: string
 
-  @Field(() => AtomType)
+  @Field(() => AtomTypeEnum)
   declare type: AtomType
 
   @Field()

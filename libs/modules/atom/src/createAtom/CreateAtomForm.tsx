@@ -43,9 +43,7 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
     return mutate({
       variables: {
         input: {
-          type: {
-            id: submitData.type,
-          },
+          type: submitData.type,
         },
       },
     })
