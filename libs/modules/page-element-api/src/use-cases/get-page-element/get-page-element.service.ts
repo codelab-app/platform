@@ -6,7 +6,7 @@ import {
   GetPageElementQueryVariables,
 } from '@codelab/dgraph'
 import { Injectable } from '@nestjs/common'
-import { PageElement } from '../../models'
+import { PageElement, pageElementSchema } from '../../models'
 import { GetPageElementInput } from './get-page-element.input'
 
 type GqlVariablesType = GetPageElementQueryVariables
@@ -28,7 +28,7 @@ export class GetPageElementService extends QueryUseCase<
   }
 
   protected extractDataFromResult(result: FetchResult<GqlOperationType>) {
-    return result?.data?.getPageElement || null
+    return pageElementSchema.parse(result?.data?.getPageElement) || null
   }
 
   protected getVariables(request: GetPageElementInput): GqlVariablesType {

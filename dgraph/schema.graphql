@@ -47,17 +47,10 @@ type Component {
 }
 
 type Atom {
-    id: ID!
-    type: AtomType!
-    label: String
-    props: [Prop]
-    library: Library
-}
-
-type AtomType {
-    id: ID!
-    label: String!
-    type: String!
+  id: ID!
+  type: String!
+  label: String
+  library: Library
 }
 
 type Tag {
@@ -72,7 +65,7 @@ type Prop {
 }
 
 type ValueType {
-    id: ID!
-    label: String!
-    type: String!
+  id: ID!
+  label: String!
+  type: String!
 }

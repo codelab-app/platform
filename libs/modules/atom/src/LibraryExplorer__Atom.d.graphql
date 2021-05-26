@@ -1,9 +1,5 @@
 fragment LibraryExplorer__Atom on Atom {
   id
   label
-  type {
-    label
-    id
-    type
-  }
+  type
 }

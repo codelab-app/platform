@@ -3,6 +3,7 @@ hooks:
   afterAllFileWrite:
     - yarn prettier --write
     - yarn eslint --ext ts --fix
+#
 generates:
   schema.dgraph.graphql:
     schema:

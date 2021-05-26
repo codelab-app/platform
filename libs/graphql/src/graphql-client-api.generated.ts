@@ -30,14 +30,110 @@ export type Atom = {
   label: Scalars['String']
 }
 
-export type AtomType = {
-  id: Scalars['ID']
-  label: Scalars['String']
-  type: Scalars['String']
-}
-
-export type AtomTypeInput = {
-  id: Scalars['ID']
+export enum AtomType {
+  ReactAffix = 'ReactAffix',
+  ReactAlert = 'ReactAlert',
+  ReactAnchor = 'ReactAnchor',
+  ReactAnchorLink = 'ReactAnchorLink',
+  ReactAutoComplete = 'ReactAutoComplete',
+  ReactAvatar = 'ReactAvatar',
+  ReactBackTop = 'ReactBackTop',
+  ReactBadge = 'ReactBadge',
+  ReactBreadcrumb = 'ReactBreadcrumb',
+  ReactBreadcrumbItem = 'ReactBreadcrumbItem',
+  ReactButton = 'ReactButton',
+  ReactCalendar = 'ReactCalendar',
+  ReactCard = 'ReactCard',
+  ReactCardGrid = 'ReactCardGrid',
+  ReactCardMeta = 'ReactCardMeta',
+  ReactCarousel = 'ReactCarousel',
+  ReactCascader = 'ReactCascader',
+  ReactCheckbox = 'ReactCheckbox',
+  ReactCollapse = 'ReactCollapse',
+  ReactCollapsePanel = 'ReactCollapsePanel',
+  ReactComment = 'ReactComment',
+  ReactConfigProvider = 'ReactConfigProvider',
+  ReactDatePicker = 'ReactDatePicker',
+  ReactDescriptions = 'ReactDescriptions',
+  ReactDescriptionsItem = 'ReactDescriptionsItem',
+  ReactDivider = 'ReactDivider',
+  ReactDrawer = 'ReactDrawer',
+  ReactDropdown = 'ReactDropdown',
+  ReactEmpty = 'ReactEmpty',
+  ReactForm = 'ReactForm',
+  ReactFormItem = 'ReactFormItem',
+  ReactFormItemHook = 'ReactFormItemHook',
+  ReactFormList = 'ReactFormList',
+  ReactFragment = 'ReactFragment',
+  ReactGridCol = 'ReactGridCol',
+  ReactGridRow = 'ReactGridRow',
+  ReactHtmlA = 'ReactHtmlA',
+  ReactHtmlDiv = 'ReactHtmlDiv',
+  ReactHtmlP = 'ReactHtmlP',
+  ReactHtmlSpan = 'ReactHtmlSpan',
+  ReactIcon = 'ReactIcon',
+  ReactInput = 'ReactInput',
+  ReactInputNumber = 'ReactInputNumber',
+  ReactLayout = 'ReactLayout',
+  ReactLayoutContent = 'ReactLayoutContent',
+  ReactLayoutFooter = 'ReactLayoutFooter',
+  ReactLayoutHeader = 'ReactLayoutHeader',
+  ReactLayoutSider = 'ReactLayoutSider',
+  ReactList = 'ReactList',
+  ReactListItem = 'ReactListItem',
+  ReactListItemMeta = 'ReactListItemMeta',
+  ReactMapper = 'ReactMapper',
+  ReactMentions = 'ReactMentions',
+  ReactMentionsOption = 'ReactMentionsOption',
+  ReactMenu = 'ReactMenu',
+  ReactMenuItem = 'ReactMenuItem',
+  ReactMenuItemGroup = 'ReactMenuItemGroup',
+  ReactMenuSubMenu = 'ReactMenuSubMenu',
+  ReactModal = 'ReactModal',
+  ReactPageHeader = 'ReactPageHeader',
+  ReactPageContainer = 'ReactPageContainer',
+  ReactPagination = 'ReactPagination',
+  ReactPopconfirm = 'ReactPopconfirm',
+  ReactPopover = 'ReactPopover',
+  ReactProgress = 'ReactProgress',
+  ReactProvider = 'ReactProvider',
+  ReactRglContainer = 'ReactRglContainer',
+  ReactRglItem = 'ReactRglItem',
+  ReactRglResponsiveContainer = 'ReactRglResponsiveContainer',
+  ReactRadio = 'ReactRadio',
+  ReactRadioGroup = 'ReactRadioGroup',
+  ReactRate = 'ReactRate',
+  ReactRenderComponent = 'ReactRenderComponent',
+  ReactRenderContainer = 'ReactRenderContainer',
+  ReactResult = 'ReactResult',
+  ReactSelect = 'ReactSelect',
+  ReactSelectOption = 'ReactSelectOption',
+  ReactSkeleton = 'ReactSkeleton',
+  ReactSlider = 'ReactSlider',
+  ReactSpace = 'ReactSpace',
+  ReactSpin = 'ReactSpin',
+  ReactStatistic = 'ReactStatistic',
+  ReactSteps = 'ReactSteps',
+  ReactStepsStep = 'ReactStepsStep',
+  ReactSwitch = 'ReactSwitch',
+  ReactTable = 'ReactTable',
+  ReactTabs = 'ReactTabs',
+  ReactTabsTabPane = 'ReactTabsTabPane',
+  ReactTag = 'ReactTag',
+  ReactText = 'ReactText',
+  ReactTimePicker = 'ReactTimePicker',
+  ReactTimeline = 'ReactTimeline',
+  ReactTimelineItem = 'ReactTimelineItem',
+  ReactTooltip = 'ReactTooltip',
+  ReactTransfer = 'ReactTransfer',
+  ReactTree = 'ReactTree',
+  ReactTreeNode = 'ReactTreeNode',
+  ReactTreeSelect = 'ReactTreeSelect',
+  ReactTypography = 'ReactTypography',
+  ReactTypographyParagraph = 'ReactTypographyParagraph',
+  ReactTypographyText = 'ReactTypographyText',
+  ReactTypographyTitle = 'ReactTypographyTitle',
+  ReactUpload = 'ReactUpload',
 }
 
 export type CreateAppInput = {
@@ -45,7 +141,8 @@ export type CreateAppInput = {
 }
 
 export type CreateAtomInput = {
-  type: AtomTypeInput
+  label: Scalars['String']
+  type: AtomType
 }
 
 export type CreatePageElementInput = {
@@ -183,7 +280,7 @@ export type PageElementRoot = {
   name: Scalars['String']
   atom?: Maybe<Atom>
   /** All descendant PageElements that are under this root, at any level */
-  descendents: Array<PageElement>
+  descendants: Array<PageElement>
   /** All the links connecting the descendant page elements */
   links: Array<PageElementLink>
 }
@@ -206,7 +303,6 @@ export type Query = {
   getPageElement?: Maybe<PageElement>
   /** Aggregates the requested page element and all of its descendant elements (infinitely deep) in the form of array of PageElement and array of PageElementLink */
   getPageElementRoot?: Maybe<PageElementRoot>
-  getAtomTypes: Array<AtomType>
   getAtoms: Array<Atom>
   getAtom?: Maybe<Atom>
   getValueTypes: Array<ValueType>
@@ -251,7 +347,7 @@ export type UpdateAppInput = {
 }
 
 export type UpdateAtomData = {
-  type: AtomTypeInput
+  type: AtomType
 }
 
 export type UpdateAtomInput = {
@@ -332,15 +428,7 @@ export type UpdateAppMutationVariables = Exact<{
 
 export type UpdateAppMutation = { app: __AppFragment }
 
-export type __AtomTypeFragment = Pick<AtomType, 'id' | 'type' | 'label'>
-
-export type GetAtomTypesQueryVariables = Exact<{ [key: string]: never }>
-
-export type GetAtomTypesQuery = { atomTypes: Array<__AtomTypeFragment> }
-
-export type __AtomFragment = Pick<Atom, 'id'> & {
-  type: Pick<AtomType, 'id' | 'label' | 'type'>
-}
+export type __AtomFragment = Pick<Atom, 'id' | 'label' | 'type'>
 
 export type CreateAtomMutationVariables = Exact<{
   input: CreateAtomInput
@@ -413,21 +501,11 @@ export const __AppFragmentDoc = gql`
     name
   }
 `
-export const __AtomTypeFragmentDoc = gql`
-  fragment __AtomType on AtomType {
-    id
-    type
-    label
-  }
-`
 export const __AtomFragmentDoc = gql`
   fragment __Atom on Atom {
     id
-    type {
-      id
-      label
-      type
-    }
+    label
+    type
   }
 `
 export const __PropFragmentDoc = gql`
@@ -718,69 +796,6 @@ export type UpdateAppMutationOptions = Apollo.BaseMutationOptions<
   UpdateAppMutation,
   UpdateAppMutationVariables
 >
-export const GetAtomTypesGql = gql`
-  query GetAtomTypes {
-    atomTypes: getAtomTypes {
-      ...__AtomType
-    }
-  }
-  ${__AtomTypeFragmentDoc}
-`
-
-/**
- * __useGetAtomTypesQuery__
- *
- * To run a query within a React component, call `useGetAtomTypesQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetAtomTypesQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetAtomTypesQuery({
- *   variables: {
- *   },
- * });
- */
-export function useGetAtomTypesQuery(
-  baseOptions?: Apollo.QueryHookOptions<
-    GetAtomTypesQuery,
-    GetAtomTypesQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<GetAtomTypesQuery, GetAtomTypesQueryVariables>(
-    GetAtomTypesGql,
-    options,
-  )
-}
-export function useGetAtomTypesLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetAtomTypesQuery,
-    GetAtomTypesQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<GetAtomTypesQuery, GetAtomTypesQueryVariables>(
-    GetAtomTypesGql,
-    options,
-  )
-}
-export type GetAtomTypesQueryHookResult = ReturnType<
-  typeof useGetAtomTypesQuery
->
-export type GetAtomTypesLazyQueryHookResult = ReturnType<
-  typeof useGetAtomTypesLazyQuery
->
-export type GetAtomTypesQueryResult = Apollo.QueryResult<
-  GetAtomTypesQuery,
-  GetAtomTypesQueryVariables
->
-export function refetchGetAtomTypesQuery(
-  variables?: GetAtomTypesQueryVariables,
-) {
-  return { query: GetAtomTypesGql, variables: variables }
-}
 export const CreateAtomGql = gql`
   mutation CreateAtom($input: CreateAtomInput!) {
     createAtom(input: $input) {
@@ -1271,21 +1286,11 @@ export const __App = gql`
     name
   }
 `
-export const __AtomType = gql`
-  fragment __AtomType on AtomType {
-    id
-    type
-    label
-  }
-`
 export const __Atom = gql`
   fragment __Atom on Atom {
     id
-    type {
-      id
-      label
-      type
-    }
+    label
+    type
   }
 `
 export const __Prop = gql`
@@ -1362,14 +1367,6 @@ export const UpdateApp = gql`
     }
   }
   ${__App}
-`
-export const GetAtomTypes = gql`
-  query GetAtomTypes {
-    atomTypes: getAtomTypes {
-      ...__AtomType
-    }
-  }
-  ${__AtomType}
 `
 export const CreateAtom = gql`
   mutation CreateAtom($input: CreateAtomInput!) {

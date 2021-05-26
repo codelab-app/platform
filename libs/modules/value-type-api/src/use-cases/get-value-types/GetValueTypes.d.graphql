@@ -1,5 +1,5 @@
 query GetValueTypes {
-    valueTypes: queryValueType {
-        ...Dgraph__ValueType
-    }
+  valueTypes: queryValueType {
+    ...Dgraph__ValueType
+  }
 }

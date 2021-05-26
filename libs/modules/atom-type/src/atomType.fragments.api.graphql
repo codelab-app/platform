@@ -1,5 +1,0 @@
-fragment __AtomType on AtomType {
-  id
-  type
-  label
-}

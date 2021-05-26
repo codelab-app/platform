@@ -1,6 +1,0 @@
-export * from './createAtomType'
-export * from './createAtomType'
-export * from './deleteAtomType'
-export * from './mainPane'
-// export * from './getAtomType'
-export * from './getAtomTypes'

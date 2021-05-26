@@ -6,14 +6,10 @@ import {
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import {
-  refetchGetAtomsQuery,
-  useCreateAtomMutation,
-  useGetAtomTypesQuery,
-} from '@codelab/graphql'
+import { refetchGetAtomsQuery, useCreateAtomMutation } from '@codelab/graphql'
 import { Spin } from 'antd'
 import React, { useEffect } from 'react'
-import { SelectField } from 'uniforms-antd'
+import { AutoField, AutoFields, SelectField } from 'uniforms-antd'
 import { CreateAtomInput, createAtomSchema } from './createAtomSchema'
 
 type CreateAtomFormProps = UniFormUseCaseProps<CreateAtomInput>
@@ -31,21 +27,12 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
     setLoading(creating)
   }, [creating])
 
-  const { data, loading } = useGetAtomTypesQuery({})
-
-  if (loading) {
-    return <Spin />
-  }
-
-  const atomTypes = data?.atomTypes?.filter(isNotNull) ?? []
-
   const onSubmit = (submitData: CreateAtomInput) => {
     return mutate({
       variables: {
         input: {
-          type: {
-            id: submitData.type,
-          },
+          label: submitData.label,
+          type: submitData.type,
         },
       },
     })
@@ -78,25 +65,13 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
         title: 'Error while creating atom',
       })}
       onSubmitSuccess={() => reset()}
-      //eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      //@ts-ignore https://github.com/vazco/uniforms/issues/951
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore https://github.com/vazco/uniforms/issues/951
       layout="horizontal"
       {...props}
     >
+      <AutoFields />
       {/* <SelectField
-            name="library_id"
-            label="Library"
-            //eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            //@ts-ignore https://github.com/vazco/uniforms/issues/951
-            showSearch={true}
-            optionFilterProp="label"
-            options={libraries?.map((library) => ({
-            label: library.name,
-            value: library.id,
-            }))}
-            /> */}
-
-      <SelectField
         name="type"
         label="Type"
         //eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -108,22 +83,7 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
         options={atomTypes?.map((atomType) => ({
           label: atomType.label,
           value: atomType.id,
-        }))}
-      />
-      <SelectField
-        name="props"
-        //eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        //@ts-ignore https://github.com/vazco/uniforms/issues/951
-        allowClear
-        mode="multiple"
-        optionFilterProp="label"
-        colon={false}
-        labelCol={{ span: 3 }}
-        options={availableProps?.map((prop) => ({
-          label: prop.name,
-          value: prop.id,
-        }))}
-      />
+        }))} */}
     </FormUniforms>
   )
 }

@@ -1,5 +1,5 @@
 query GetPageElement($id: ID!) {
-    getPageElement(id: $id){
-        ...Dgraph_PageElement
-    }
+  getPageElement(id: $id) {
+    ...Dgraph_PageElement
+  }
 }

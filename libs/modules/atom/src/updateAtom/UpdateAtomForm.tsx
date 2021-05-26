@@ -11,7 +11,6 @@ import {
   refetchGetAtomsQuery,
   useGetAtomQuery,
   useGetAtomsQuery,
-  useGetAtomTypesQuery,
   useUpdateAtomMutation,
 } from '@codelab/graphql'
 import { Spin } from 'antd'
@@ -41,10 +40,7 @@ export const UpdateAtomForm = (props: UniFormUseCaseProps<UpdateAtomInput>) => {
 
   const atom = getAtomData?.atom
 
-  const { data: atomTypesData, loading: atomTypesLoading } =
-    useGetAtomTypesQuery({})
-
-  if (getAtomLoading || atomTypesLoading) {
+  if (getAtomLoading) {
     return <Spin />
   }
 
@@ -54,16 +50,12 @@ export const UpdateAtomForm = (props: UniFormUseCaseProps<UpdateAtomInput>) => {
         input: {
           atomId: updateAtomId,
           updateData: {
-            type: {
-              id: submitData.type,
-            },
+            type: submitData.type,
           },
         },
       },
     })
   }
-
-  const atomTypes = atomTypesData?.atomTypes?.filter(isNotNull) ?? []
 
   const availableProps = [
     {
@@ -84,49 +76,20 @@ export const UpdateAtomForm = (props: UniFormUseCaseProps<UpdateAtomInput>) => {
     },
   ]
 
-  console.log('!!!!!!!!!!!!!!!!', atom?.type?.id)
-
   return (
     <FormUniforms<UpdateAtomInput>
       data-testid="update-atom-form"
       id="update-atom-form"
       onSubmit={onSubmit}
       schema={updateAtomSchema}
-      model={{ type: atom?.type?.id }}
+      model={{ type: atom?.type, label: atom?.label }}
       onSubmitError={createNotificationHandler({
         title: 'Error while updating Atom',
       })}
       onSubmitSuccess={() => reset()}
       {...props}
     >
-      <SelectField
-        name="type"
-        label="Type"
-        //eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        //@ts-ignore https://github.com/vazco/uniforms/issues/951
-        showSearch={true}
-        optionFilterProp="label"
-        labelCol={{ span: 3 }}
-        colon={false}
-        options={atomTypes?.map((atomType) => ({
-          label: atomType.label,
-          value: atomType.id,
-        }))}
-      />
-      <SelectField
-        name="props"
-        //eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        //@ts-ignore https://github.com/vazco/uniforms/issues/951
-        allowClear
-        mode="multiple"
-        optionFilterProp="label"
-        colon={false}
-        labelCol={{ span: 3 }}
-        options={availableProps?.map((prop) => ({
-          label: prop.name,
-          value: prop.id,
-        }))}
-      />
+      <AutoFields />
     </FormUniforms>
   )
 }

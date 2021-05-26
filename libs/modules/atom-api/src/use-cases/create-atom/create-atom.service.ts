@@ -1,17 +1,17 @@
 import { FetchResult } from '@apollo/client'
-import { ApolloClientService, MutationUseCase, UseCase } from '@codelab/backend'
+import { ApolloClientService, MutationUseCase } from '@codelab/backend'
 import {
   CreateAtomGql,
   CreateAtomMutation,
   CreateAtomMutationVariables,
 } from '@codelab/dgraph'
 import { Injectable } from '@nestjs/common'
-import { Atom } from '../../atom.model'
-import { CreateAtomRequest } from './create-atom.request'
+import { Atom, atomsSchema } from '../../atom.model'
+import { CreateAtomInput } from './create-atom.input'
 
 @Injectable()
 export class CreateAtomService extends MutationUseCase<
-  CreateAtomRequest,
+  CreateAtomInput,
   Atom,
   CreateAtomMutation,
   CreateAtomMutationVariables
@@ -25,24 +25,17 @@ export class CreateAtomService extends MutationUseCase<
   }
 
   protected extractDataFromResult(result: FetchResult<CreateAtomMutation>) {
-    const atoms = result?.data?.addAtom?.atom
-    if (
-      !atoms ||
-      !atoms.length ||
-      !atoms[0]
-    ) {
-      throw new Error('Error while creating atom')
-    }
+    const atoms = atomsSchema.parse(result?.data?.addAtom?.atom)
 
-    return atoms[0] as Atom
+    return atoms[0]
   }
 
   protected getVariables(
-    request: CreateAtomRequest,
+    request: CreateAtomInput,
   ): CreateAtomMutationVariables {
     return {
       input: {
-        type: request.input.type,
+        type: request.type,
       },
     }
   }

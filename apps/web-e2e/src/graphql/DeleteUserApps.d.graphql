@@ -1,5 +1,5 @@
 mutation DeleteUserApps($userId: String!) {
-    deleteApp(filter: {ownerId: {eq: $userId}}){
-        numUids
-    }
+  deleteApp(filter: { ownerId: { eq: $userId } }) {
+    numUids
+  }
 }

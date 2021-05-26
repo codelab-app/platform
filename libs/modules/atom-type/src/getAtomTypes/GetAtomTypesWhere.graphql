@@ -1,5 +1,0 @@
-query GetAtomTypesWhere($where: atom_type_bool_exp!) {
-  atom_type(where: $where) {
-    ...__AtomType
-  }
-}

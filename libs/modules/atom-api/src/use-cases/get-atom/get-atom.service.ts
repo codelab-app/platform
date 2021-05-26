@@ -6,13 +6,13 @@ import {
   GetAtomQueryVariables,
 } from '@codelab/dgraph'
 import { Injectable } from '@nestjs/common'
-import { Atom } from '../../atom.model'
+import { Atom, atomSchema } from '../../atom.model'
 import { GetAtomInput } from './get-atom.input'
 
 @Injectable()
 export class GetAtomService extends QueryUseCase<
   GetAtomInput,
-  Atom | null,
+  Atom,
   GetAtomQuery,
   GetAtomQueryVariables
 > {
@@ -24,12 +24,10 @@ export class GetAtomService extends QueryUseCase<
     return GetAtomGql
   }
 
-  protected extractDataFromResult(
-    result: FetchResult<GetAtomQuery>,
-  ): Atom | null {
-    const atom = result?.data?.atom
+  protected extractDataFromResult(result: FetchResult<GetAtomQuery>): Atom {
+    const atom = atomSchema.parse(result?.data?.atom)
 
-    return atom ?? null
+    return atom
   }
 
   protected getVariables(request: GetAtomInput): GetAtomQueryVariables {
