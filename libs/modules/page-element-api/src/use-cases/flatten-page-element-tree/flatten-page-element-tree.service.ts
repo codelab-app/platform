@@ -25,16 +25,19 @@ export class FlattenPageElementTreeService
         }
 
         const childName = child['PageElement.name'] as string
-        const childOrder = child['PageElement.children|order']
+        let childOrder = child['PageElement.children|order']
+
+        if (typeof childOrder !== 'number') {
+          childOrder = 0 //this shouldn't be happening, we alaways assign order, but just in case
+        }
+
         const atom = this.createAtomFromQueryResult(child)
 
         descendants.push(
           new PageElement({ id: child.uid, name: childName, atom }),
         )
 
-        links.push(
-          new PageElementLink(parent.uid, child.uid, childOrder as number),
-        )
+        links.push(new PageElementLink(parent.uid, child.uid, childOrder))
 
         visitedIds.add(child.uid)
         visit(child)

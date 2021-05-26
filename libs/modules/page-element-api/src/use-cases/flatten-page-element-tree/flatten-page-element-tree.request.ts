@@ -3,7 +3,7 @@ export interface FlattenRequestItem {
   'PageElement.name'?: string
   'PageElement.atom'?: FlattenRequestItem
   'PageElement.children'?: Array<FlattenRequestItem>
-  'PageElement.children|order'?: number
+  'PageElement.children|order'?: number | Record<string, number>
   'Atom.label'?: string
   'Atom.type'?: string
 }

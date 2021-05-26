@@ -2,6 +2,10 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type DeleteResponse {
+  affected: Int!
+}
+
 type App {
   id: ID!
   ownerId: String!
@@ -248,6 +252,9 @@ type Mutation {
   deleteApp(input: DeleteAppInput!): App!
   createPage(input: CreatePageInput!): Page!
   createPageElement(input: CreatePageElementInput!): PageElement!
+
+  """Deletes a page element and all the descending page elements"""
+  deletePageElement(input: DeletePageElementInput!): DeleteResponse!
   createAtom(input: CreateAtomInput!): Atom!
   deleteAtom(input: DeleteAtomInput!): Atom!
   updateAtom(input: UpdateAtomInput!): Atom!
@@ -303,6 +310,10 @@ input CreatePageElementInput {
   Leave it out to automatically set it as the last order of all the children
   """
   order: Int
+}
+
+input DeletePageElementInput {
+  pageElementId: String!
 }
 
 input CreateAtomInput {

@@ -1,10 +1,12 @@
-import { GqlAuthGuard } from '@codelab/backend'
+import { DeleteResponse, GqlAuthGuard } from '@codelab/backend'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { PageElement, PageElementRoot } from './models'
 import {
   CreatePageElementInput,
   CreatePageElementService,
+  DeletePageElementInput,
+  DeletePageElementService,
   GetPageElementInput,
   GetPageElementRootInput,
   GetPageElementRootService,
@@ -18,12 +20,21 @@ export class PageElementResolver {
     private createPageElementService: CreatePageElementService,
     private getPageElementService: GetPageElementService,
     private getPageElementRootService: GetPageElementRootService,
+    private deletePageElementService: DeletePageElementService,
   ) {}
 
   @Mutation(() => PageElement)
   @UseGuards(GqlAuthGuard)
   createPageElement(@Args('input') input: CreatePageElementInput) {
     return this.createPageElementService.execute(input)
+  }
+
+  @Mutation(() => DeleteResponse, {
+    description: 'Deletes a page element and all the descending page elements',
+  })
+  @UseGuards(GqlAuthGuard)
+  deletePageElement(@Args('input') input: DeletePageElementInput) {
+    return this.deletePageElementService.execute(input)
   }
 
   @Query(() => PageElement, { nullable: true })

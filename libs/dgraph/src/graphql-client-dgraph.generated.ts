@@ -105,6 +105,7 @@ export type AddLibraryPayloadLibraryArgs = {
 
 export type AddPageElementInput = {
   name: Scalars['String']
+  page: PageRef
   parent?: Maybe<PageElementRef>
   children?: Maybe<Array<Maybe<PageElementRef>>>
   atom?: Maybe<AtomRef>
@@ -911,11 +912,16 @@ export type PageAggregateResult = {
 export type PageElement = {
   id: Scalars['ID']
   name: Scalars['String']
+  page: Page
   parent?: Maybe<PageElement>
   children?: Maybe<Array<Maybe<PageElement>>>
   atom?: Maybe<Atom>
   component?: Maybe<Component>
   childrenAggregate?: Maybe<PageElementAggregateResult>
+}
+
+export type PageElementPageArgs = {
+  filter?: Maybe<PageFilter>
 }
 
 export type PageElementParentArgs = {
@@ -958,6 +964,7 @@ export type PageElementFilter = {
 
 export enum PageElementHasFilter {
   Name = 'name',
+  Page = 'page',
   Parent = 'parent',
   Children = 'children',
   Atom = 'atom',
@@ -976,6 +983,7 @@ export enum PageElementOrderable {
 
 export type PageElementPatch = {
   name?: Maybe<Scalars['String']>
+  page?: Maybe<PageRef>
   parent?: Maybe<PageElementRef>
   children?: Maybe<Array<Maybe<PageElementRef>>>
   atom?: Maybe<AtomRef>
@@ -985,6 +993,7 @@ export type PageElementPatch = {
 export type PageElementRef = {
   id?: Maybe<Scalars['ID']>
   name?: Maybe<Scalars['String']>
+  page?: Maybe<PageRef>
   parent?: Maybe<PageElementRef>
   children?: Maybe<Array<Maybe<PageElementRef>>>
   atom?: Maybe<AtomRef>
@@ -1770,6 +1779,22 @@ export type GetPagesQuery = {
 
 export type Dgraph_PageElementFragment = Pick<PageElement, 'id' | 'name'> & {
   atom?: Maybe<DGraph__AtomFragment>
+}
+
+export type DeletePageElementMutationVariables = Exact<{
+  filter: PageElementFilter
+}>
+
+export type DeletePageElementMutation = {
+  deletePageElement?: Maybe<Pick<DeletePageElementPayload, 'numUids'>>
+}
+
+export type GetPageElementParentQueryVariables = Exact<{
+  pageElementId: Scalars['ID']
+}>
+
+export type GetPageElementParentQuery = {
+  getPageElement?: Maybe<{ parent?: Maybe<Dgraph_PageElementFragment> }>
 }
 
 export type GetPageElementQueryVariables = Exact<{
@@ -2992,6 +3017,122 @@ export type GetPagesQueryResult = Apollo.QueryResult<
 export function refetchGetPagesQuery(variables?: GetPagesQueryVariables) {
   return { query: GetPagesGql, variables: variables }
 }
+export const DeletePageElementGql = gql`
+  mutation DeletePageElement($filter: PageElementFilter!) {
+    deletePageElement(filter: $filter) {
+      numUids
+    }
+  }
+`
+export type DeletePageElementMutationFn = Apollo.MutationFunction<
+  DeletePageElementMutation,
+  DeletePageElementMutationVariables
+>
+
+/**
+ * __useDeletePageElementMutation__
+ *
+ * To run a mutation, you first call `useDeletePageElementMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeletePageElementMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deletePageElementMutation, { data, loading, error }] = useDeletePageElementMutation({
+ *   variables: {
+ *      filter: // value for 'filter'
+ *   },
+ * });
+ */
+export function useDeletePageElementMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeletePageElementMutation,
+    DeletePageElementMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    DeletePageElementMutation,
+    DeletePageElementMutationVariables
+  >(DeletePageElementGql, options)
+}
+export type DeletePageElementMutationHookResult = ReturnType<
+  typeof useDeletePageElementMutation
+>
+export type DeletePageElementMutationResult =
+  Apollo.MutationResult<DeletePageElementMutation>
+export type DeletePageElementMutationOptions = Apollo.BaseMutationOptions<
+  DeletePageElementMutation,
+  DeletePageElementMutationVariables
+>
+export const GetPageElementParentGql = gql`
+  query GetPageElementParent($pageElementId: ID!) {
+    getPageElement(id: $pageElementId) {
+      parent {
+        ...Dgraph_PageElement
+      }
+    }
+  }
+  ${Dgraph_PageElementFragmentDoc}
+`
+
+/**
+ * __useGetPageElementParentQuery__
+ *
+ * To run a query within a React component, call `useGetPageElementParentQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPageElementParentQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPageElementParentQuery({
+ *   variables: {
+ *      pageElementId: // value for 'pageElementId'
+ *   },
+ * });
+ */
+export function useGetPageElementParentQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetPageElementParentQuery,
+    GetPageElementParentQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<
+    GetPageElementParentQuery,
+    GetPageElementParentQueryVariables
+  >(GetPageElementParentGql, options)
+}
+export function useGetPageElementParentLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetPageElementParentQuery,
+    GetPageElementParentQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    GetPageElementParentQuery,
+    GetPageElementParentQueryVariables
+  >(GetPageElementParentGql, options)
+}
+export type GetPageElementParentQueryHookResult = ReturnType<
+  typeof useGetPageElementParentQuery
+>
+export type GetPageElementParentLazyQueryHookResult = ReturnType<
+  typeof useGetPageElementParentLazyQuery
+>
+export type GetPageElementParentQueryResult = Apollo.QueryResult<
+  GetPageElementParentQuery,
+  GetPageElementParentQueryVariables
+>
+export function refetchGetPageElementParentQuery(
+  variables?: GetPageElementParentQueryVariables,
+) {
+  return { query: GetPageElementParentGql, variables: variables }
+}
 export const GetPageElementGql = gql`
   query GetPageElement($id: ID!) {
     getPageElement(id: $id) {
@@ -3399,6 +3540,23 @@ export const GetPages = gql`
     }
   }
   ${Dgraph__Page}
+`
+export const DeletePageElement = gql`
+  mutation DeletePageElement($filter: PageElementFilter!) {
+    deletePageElement(filter: $filter) {
+      numUids
+    }
+  }
+`
+export const GetPageElementParent = gql`
+  query GetPageElementParent($pageElementId: ID!) {
+    getPageElement(id: $pageElementId) {
+      parent {
+        ...Dgraph_PageElement
+      }
+    }
+  }
+  ${Dgraph_PageElement}
 `
 export const GetPageElement = gql`
   query GetPageElement($id: ID!) {

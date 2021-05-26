@@ -4,6 +4,7 @@ import { Txn } from 'dgraph-js-http'
 import { PageElement } from '../../models/'
 import { GetLastOrderChildService } from '../get-last-order-child'
 import { GetPageElementService } from '../get-page-element'
+import { ValidatePageElementService } from '../validate-page-element/validate-page-element.service'
 import { CreatePageElementInput } from './create-page-element.input'
 
 @Injectable()
@@ -15,6 +16,7 @@ export class CreatePageElementService extends DgraphUseCase<
     dgraph: DGraphService,
     private getPageElementService: GetPageElementService,
     private getLastOrderChildService: GetLastOrderChildService,
+    private validatePageElementService: ValidatePageElementService,
   ) {
     super(dgraph)
   }
@@ -23,6 +25,8 @@ export class CreatePageElementService extends DgraphUseCase<
     request: CreatePageElementInput,
     txn: Txn,
   ) {
+    await this.validatePageElementService.execute(request)
+
     const order = await this.getOrder(request)
 
     const mutationResult = await txn.mutate({

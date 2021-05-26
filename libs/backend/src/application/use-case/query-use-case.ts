@@ -28,9 +28,11 @@ export abstract class QueryUseCase<
     | DocumentNode
     | TypedDocumentNode<TQuery, TQueryVariables>
 
-  protected abstract getVariables(request: TUseCaseRequestPort): TQueryVariables
+  protected abstract getVariables(
+    request: TUseCaseRequestPort,
+  ): TQueryVariables | Promise<TQueryVariables>
 
   protected abstract extractDataFromResult(
     result: FetchResult<TQuery>,
-  ): TUseCaseDtoResponse
+  ): TUseCaseDtoResponse | Promise<TUseCaseDtoResponse>
 }

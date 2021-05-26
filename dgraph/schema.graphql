@@ -18,6 +18,8 @@ type Page {
 type PageElement {
   id: ID!
   name: String! @search(by: [term, fulltext])
+  page: Page!
+  # Only the root page element won't have a parent
   parent: PageElement
   # A PageElement has 1 of 3 ways to be rendered:
   #   1. Atom, with or without children, without component -> render container with children

@@ -30,9 +30,9 @@ export abstract class MutationUseCase<
 
   protected abstract getVariables(
     request: TUseCaseRequestPort,
-  ): TMutationVariables
+  ): TMutationVariables | Promise<TMutationVariables>
 
   protected abstract extractDataFromResult(
     result: FetchResult<TMutation>,
-  ): TUseCaseDtoResponse
+  ): TUseCaseDtoResponse | Promise<TUseCaseDtoResponse>
 }

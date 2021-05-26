@@ -36,5 +36,5 @@ export class PageElement {
 export const pageElementSchema = z.object({
   id: z.string(),
   name: z.string(),
-  atom: atomSchema,
+  atom: atomSchema.optional().nullable(),
 })

@@ -166,6 +166,14 @@ export type DeleteAtomInput = {
   atomId: Scalars['String']
 }
 
+export type DeletePageElementInput = {
+  pageElementId: Scalars['String']
+}
+
+export type DeleteResponse = {
+  affected: Scalars['Int']
+}
+
 export type DeleteUserInput = {
   userId: Scalars['String']
 }
@@ -209,6 +217,7 @@ export type Mutation = {
   deleteApp: App
   createPage: Page
   createPageElement: PageElement
+  deletePageElement: DeleteResponse
   createAtom: Atom
   deleteAtom: Atom
   updateAtom: Atom
@@ -240,6 +249,10 @@ export type MutationCreatePageArgs = {
 
 export type MutationCreatePageElementArgs = {
   input: CreatePageElementInput
+}
+
+export type MutationDeletePageElementArgs = {
+  input: DeletePageElementInput
 }
 
 export type MutationCreateAtomArgs = {
