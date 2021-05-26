@@ -61,15 +61,17 @@ export class CreatePageElementService extends DgraphUseCase<
   private async getOrder(request: CreatePageElementInput): Promise<number> {
     const { order, parentPageElementId } = request
 
-    //if we don't have order - put it last
-    if (!order) {
-      const lastOrderChild = await this.getLastOrderChildService.execute({
-        pageElementId: parentPageElementId,
-      })
+    if (order) {
+      return order
+    }
 
-      if (lastOrderChild && lastOrderChild.order) {
-        return lastOrderChild.order + 1
-      }
+    //if we don't have order - put it last
+    const lastOrderChild = await this.getLastOrderChildService.execute({
+      pageElementId: parentPageElementId,
+    })
+
+    if (lastOrderChild && lastOrderChild.order) {
+      return lastOrderChild.order + 1
     }
 
     return 0

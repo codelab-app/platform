@@ -1,4 +1,4 @@
-import { ApolloClientModule } from '@codelab/backend'
+import { ApolloClientModule, DGraphModule } from '@codelab/backend'
 import { AppModule } from '@codelab/modules/app-api'
 import { PageElementModule } from '@codelab/modules/page-element-api'
 import { Module } from '@nestjs/common'
@@ -18,7 +18,7 @@ const services = [
 ]
 
 @Module({
-  imports: [ApolloClientModule, AppModule, PageElementModule],
+  imports: [ApolloClientModule, AppModule, PageElementModule, DGraphModule],
   providers: [...services, PageResolver],
   exports: [...services],
 })

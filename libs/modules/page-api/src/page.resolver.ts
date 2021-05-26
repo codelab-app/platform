@@ -1,9 +1,6 @@
 import { GqlAuthGuard } from '@codelab/backend'
 import { IsAppOwnerAuthGuard } from '@codelab/modules/app-api'
-import {
-  GetPageElementRootService,
-  PageElementRoot,
-} from '@codelab/modules/page-element-api'
+import { PageElementRoot } from '@codelab/modules/page-element-api'
 import { Injectable, UseGuards } from '@nestjs/common'
 import {
   Args,
@@ -18,6 +15,7 @@ import {
   CreatePageInput,
   CreatePageService,
   GetPageInput,
+  GetPageRootService,
   GetPageService,
   GetPagesInput,
   GetPagesService,
@@ -28,7 +26,7 @@ import {
 export class PageResolver {
   constructor(
     private createPageService: CreatePageService,
-    private getPageElementRootService: GetPageElementRootService,
+    private getPageRootService: GetPageRootService,
     private getPagesService: GetPagesService,
     private getPageService: GetPageService,
   ) {}
@@ -59,8 +57,8 @@ export class PageResolver {
 
   @ResolveField('rootElement', () => PageElementRoot)
   getRootElement(@Parent() page: Page) {
-    return this.getPageElementRootService.execute({
-      pageElementId: page.rootElement.id,
+    return this.getPageRootService.execute({
+      pageId: page.id,
     })
   }
 

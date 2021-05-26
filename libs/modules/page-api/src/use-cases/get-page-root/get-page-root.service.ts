@@ -1,41 +1,58 @@
-import { UseCase } from '@codelab/backend'
+import { DGraphService, DgraphUseCase } from '@codelab/backend'
 import {
-  GetPageElementRootService,
+  FlattenPageElementTreeService,
   PageElementRoot,
 } from '@codelab/modules/page-element-api'
 import { Injectable } from '@nestjs/common'
-import { GetPageService } from '../get-page'
+import { Txn } from 'dgraph-js-http'
 import { GetPageRootInput } from './get-page-root.input'
+import { GetPageRootQueryBuilder } from './get-page-root-query-builder'
 
 @Injectable()
-export class GetPageRootService
-  implements UseCase<GetPageRootInput, PageElementRoot>
-{
+export class GetPageRootService extends DgraphUseCase<
+  GetPageRootInput,
+  PageElementRoot | null
+> {
   constructor(
-    private getPageElementRootService: GetPageElementRootService,
-    private getPageService: GetPageService,
-  ) {}
+    dgraph: DGraphService,
+    private flattenPageElementTreeService: FlattenPageElementTreeService,
+  ) {
+    super(dgraph)
+  }
 
-  async execute(request: GetPageRootInput) {
-    const { pageId } = request
-    const page = await this.getPageService.execute({ pageId })
+  protected async executeTransaction(request: GetPageRootInput, txn: Txn) {
+    const queryBuilder = new GetPageRootQueryBuilder().withUid(request.pageId)
+    const schema = queryBuilder.getZodSchema()
+    const queryResult = await txn.query(queryBuilder.build())
+    const parsedResult = schema.parse(queryResult.data).query
 
-    if (!page) {
-      throw new Error('Error while getting page root. Page not found')
+    if (!parsedResult || !parsedResult.length || !parsedResult[0]) {
+      return null
     }
 
-    if (!page.rootElement) {
-      throw new Error('Error while getting page root. Root element not found')
+    const pageRoot = parsedResult[0]
+
+    if (!pageRoot) {
+      return null
     }
 
-    const result = await this.getPageElementRootService.execute({
-      pageElementId: page.rootElement.id,
+    const rootElement = pageRoot['Page.rootElement']
+
+    if (!rootElement) {
+      return null
+    }
+
+    const { descendants, links, rootAtom } =
+      await this.flattenPageElementTreeService.execute({
+        root: rootElement,
+      })
+
+    return new PageElementRoot({
+      id: rootElement.uid,
+      name: rootElement['PageElement.name'] as string,
+      atom: rootAtom,
+      descendants,
+      links,
     })
-
-    if (!result) {
-      throw new Error('Error while getting page root')
-    }
-
-    return result
   }
 }

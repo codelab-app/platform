@@ -1,33 +1,20 @@
 import { DGraphService, DgraphUseCase } from '@codelab/backend'
-import { Atom } from '@codelab/modules/atom-api'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
-import { PageElement, PageElementLink, PageElementRoot } from '../../models'
+import { PageElementRoot } from '../../models'
+import { FlattenPageElementTreeService } from '../flatten-page-element-tree'
 import { GetPageElementRootInput } from './get-page-element-root.input'
-
-interface QueryResultItem {
-  uid: string
-  'dgraph.type': Array<string>
-  'PageElement.name': string
-  'PageElement.children': Array<
-    QueryResultItem & {
-      'PageElement.children|order': number
-    }
-  >
-  'PageElement.atom'?: {
-    uid: string
-    'dgraph.type': Array<string>
-    'Atom.label': string
-    'Atom.type': string
-  }
-}
+import { GetPageElementRootQueryBuilder } from './get-page-element-root-query-builder'
 
 @Injectable()
 export class GetPageElementRootService extends DgraphUseCase<
   GetPageElementRootInput,
   PageElementRoot | null
 > {
-  constructor(dgraph: DGraphService) {
+  constructor(
+    dgraph: DGraphService,
+    private flattenPageElementTreeService: FlattenPageElementTreeService,
+  ) {
     super(dgraph)
   }
 
@@ -35,82 +22,29 @@ export class GetPageElementRootService extends DgraphUseCase<
     request: GetPageElementRootInput,
     txn: Txn,
   ) {
-    const queryResult = await txn.query(`
-        {
-          query(func: uid(${request.pageElementId})) @recurse   {
-            uid
-            dgraph.type
-            PageElement.name
-            PageElement.atom
-            Atom.label
-            Atom.type
-            PageElement.children @facets(order)
-          }
-        }
-    `)
+    const queryBuilder = new GetPageElementRootQueryBuilder().withUid(
+      request.pageElementId,
+    )
 
-    const queryData = (queryResult.data as any).query as Array<QueryResultItem>
+    const schema = queryBuilder.getZodSchema()
+    const queryResult = await txn.query(queryBuilder.build())
+    const parsedResult = schema.parse(queryResult.data).query
 
-    if (!queryData || !queryData.length || !queryData[0]) {
+    if (!parsedResult || !parsedResult.length || !parsedResult[0]) {
       return null
     }
 
-    const root = queryData[0]
-    const rootAtom = GetPageElementRootService.createAtomFromQueryResult(root)
+    const root = parsedResult[0]
 
-    const { descendants, links } =
-      GetPageElementRootService.flattenPageElementTree(root)
+    const { descendants, links, rootAtom } =
+      await this.flattenPageElementTreeService.execute({ root })
 
     return new PageElementRoot({
       id: root.uid,
-      name: root['PageElement.name'],
+      name: root['PageElement.name'] as string,
       atom: rootAtom,
       descendants,
       links,
     })
-  }
-
-  public static flattenPageElementTree(root: QueryResultItem) {
-    const descendants: Array<PageElement> = []
-    const links: Array<PageElementLink> = []
-    const visitedIds = new Set()
-
-    const visit = (parent: QueryResultItem) => {
-      parent['PageElement.children']?.forEach((child) => {
-        if (visitedIds.has(child.uid)) {
-          return
-        }
-
-        const childName = child['PageElement.name']
-        const childOrder = child['PageElement.children|order']
-        const atom = this.createAtomFromQueryResult(child)
-
-        descendants.push(
-          new PageElement({ id: child.uid, name: childName, atom }),
-        )
-
-        links.push(new PageElementLink(parent.uid, child.uid, childOrder))
-
-        visitedIds.add(child.uid)
-        visit(child)
-      })
-    }
-
-    visit(root)
-
-    return { descendants, links }
-  }
-
-  public static createAtomFromQueryResult(queryResultItem: QueryResultItem) {
-    const childAtom = queryResultItem['PageElement.atom']
-
-    //TODO fix atom type
-    return childAtom
-      ? new Atom({
-          id: childAtom['Atom.type'],
-          type: childAtom['Atom.type'] as any,
-          label: childAtom['Atom.type'],
-        })
-      : null
   }
 }

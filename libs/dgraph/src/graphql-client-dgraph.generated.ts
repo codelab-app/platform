@@ -1740,7 +1740,6 @@ export type LibraryExplorer__LibraryFragment = Pick<Library, 'id' | 'name'> & {
 
 export type Dgraph__PageFragment = Pick<Page, 'id' | 'name'> & {
   app: Dgraph__AppFragment
-  rootElement: Dgraph_PageElementFragment
 }
 
 export type CreatePageMutationVariables = Exact<{
@@ -1837,6 +1836,16 @@ export const Dgraph__AppFragmentDoc = gql`
     ownerId
   }
 `
+export const Dgraph__PageFragmentDoc = gql`
+  fragment Dgraph__Page on Page {
+    id
+    name
+    app {
+      ...Dgraph__App
+    }
+  }
+  ${Dgraph__AppFragmentDoc}
+`
 export const DGraph__AtomFragmentDoc = gql`
   fragment DGraph__Atom on Atom {
     id
@@ -1853,20 +1862,6 @@ export const Dgraph_PageElementFragmentDoc = gql`
     }
   }
   ${DGraph__AtomFragmentDoc}
-`
-export const Dgraph__PageFragmentDoc = gql`
-  fragment Dgraph__Page on Page {
-    id
-    name
-    app {
-      ...Dgraph__App
-    }
-    rootElement {
-      ...Dgraph_PageElement
-    }
-  }
-  ${Dgraph__AppFragmentDoc}
-  ${Dgraph_PageElementFragmentDoc}
 `
 export const App__PageFragmentDoc = gql`
   fragment App__Page on Page {
@@ -3170,6 +3165,16 @@ export const Dgraph__App = gql`
     ownerId
   }
 `
+export const Dgraph__Page = gql`
+  fragment Dgraph__Page on Page {
+    id
+    name
+    app {
+      ...Dgraph__App
+    }
+  }
+  ${Dgraph__App}
+`
 export const DGraph__Atom = gql`
   fragment DGraph__Atom on Atom {
     id
@@ -3186,20 +3191,6 @@ export const Dgraph_PageElement = gql`
     }
   }
   ${DGraph__Atom}
-`
-export const Dgraph__Page = gql`
-  fragment Dgraph__Page on Page {
-    id
-    name
-    app {
-      ...Dgraph__App
-    }
-    rootElement {
-      ...Dgraph_PageElement
-    }
-  }
-  ${Dgraph__App}
-  ${Dgraph_PageElement}
 `
 export const App__Page = gql`
   fragment App__Page on Page {

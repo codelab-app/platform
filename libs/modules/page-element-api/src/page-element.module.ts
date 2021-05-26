@@ -3,6 +3,7 @@ import { Module } from '@nestjs/common'
 import { PageElementResolver } from './page-element.resolver'
 import {
   CreatePageElementService,
+  FlattenPageElementTreeService,
   GetLastOrderChildService,
   GetPageElementRootService,
   GetPageElementService,
@@ -13,6 +14,7 @@ const services = [
   CreatePageElementService,
   GetPageElementService,
   GetLastOrderChildService,
+  FlattenPageElementTreeService,
 ]
 
 @Module({
