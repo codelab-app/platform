@@ -1,6 +1,6 @@
 import { Txn } from 'dgraph-js-http'
-import { UseCase } from '../../../application'
-import { DGraphService } from '../dgraph.service'
+import { DGraphService } from '../../infrastructure/dgraph/dgraph.service'
+import { UseCase } from '../index'
 
 export abstract class DgraphUseCase<TUseCaseRequestPort, TUseCaseDtoResponse>
   implements UseCase<TUseCaseRequestPort, TUseCaseDtoResponse>
