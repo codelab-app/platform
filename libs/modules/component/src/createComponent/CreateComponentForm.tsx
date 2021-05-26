@@ -87,7 +87,7 @@ export const CreateComponentForm = ({ ...props }: CreateComponentFormProps) => {
         options={atoms?.atoms
           ?.filter((atom): atom is __AtomFragment => !!atom)
           .map((atom) => ({
-            label: atom.type.label,
+            label: atom.type,
             value: atom.id,
           }))}
       />
