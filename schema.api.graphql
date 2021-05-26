@@ -63,7 +63,7 @@ type PageElementRoot {
   """
   All descendant PageElements that are under this root, at any level
   """
-  descendents: [PageElement!]!
+  descendants: [PageElement!]!
 
   """
   All the links connecting the descendant page elements

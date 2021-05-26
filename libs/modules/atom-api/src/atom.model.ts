@@ -6,6 +6,7 @@ registerEnumType(AtomType, {
   name: 'AtomType',
 })
 
+//
 @ObjectType()
 export class Atom {
   @Field(() => ID)
@@ -16,6 +17,12 @@ export class Atom {
 
   @Field()
   declare label: string
+
+  constructor({ id, type, label }: Atom) {
+    this.id = id
+    this.type = type
+    this.label = label
+  }
 }
 
 export const atomSchema = z.object({

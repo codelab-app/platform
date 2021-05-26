@@ -6,7 +6,7 @@ import {
   CreatePageMutationVariables,
 } from '@codelab/dgraph'
 import { Injectable } from '@nestjs/common'
-import { Page } from '../../page.model'
+import { Page, pagesSchema } from '../../page.model'
 import { CreatePageInput } from './create-page.input'
 
 @Injectable()
@@ -20,16 +20,8 @@ export class CreatePageService extends MutationUseCase<
     super(apollo)
   }
 
-  protected extractDataFromResult(
-    result: FetchResult<CreatePageMutation>,
-  ): Partial<Page> {
-    const pages = result?.data?.addPage?.page
-
-    if (!pages || !pages.length || !pages[0]) {
-      throw new Error('Error while creating page')
-    }
-
-    return pages[0]
+  protected extractDataFromResult(result: FetchResult<CreatePageMutation>) {
+    return pagesSchema.parse(result?.data?.addPage?.page)[0]
   }
 
   protected getGql() {

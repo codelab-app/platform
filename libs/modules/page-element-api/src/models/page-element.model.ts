@@ -1,6 +1,6 @@
-import { Atom } from '@codelab/modules/atom-api'
+import { Atom, atomSchema } from '@codelab/modules/atom-api'
 import { Field, ID, ObjectType } from '@nestjs/graphql'
-
+import { z } from 'zod'
 /**
  *  A PageElement has 1 of 3 ways to be rendered:
  *   1. Atom, with or without children, without component -> render container with children
@@ -26,9 +26,15 @@ export class PageElement {
   // @Field(() => Component) //need to add this when component-api is done
   // declare  component: Component
 
-  constructor(id: string, name: string, atom: Atom | null) {
+  constructor({ id, name, atom }: PageElement) {
     this.id = id
     this.name = name
     this.atom = atom
   }
 }
+
+export const pageElementSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  atom: atomSchema,
+})

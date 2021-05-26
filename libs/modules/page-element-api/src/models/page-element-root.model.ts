@@ -1,4 +1,3 @@
-import { Atom } from '@codelab/modules/atom-api'
 import { Field, ObjectType } from '@nestjs/graphql'
 import { PageElement } from './page-element.model'
 import { PageElementLink } from './page-element-link.model'
@@ -13,22 +12,16 @@ export class PageElementRoot extends PageElement {
     description:
       'All descendant PageElements that are under this root, at any level',
   })
-  declare descendents: Array<PageElement>
+  declare descendants: Array<PageElement>
 
   @Field(() => [PageElementLink], {
     description: 'All the links connecting the descendant page elements',
   })
   declare links: Array<PageElementLink>
 
-  constructor(
-    id: string,
-    name: string,
-    atom: Atom | null,
-    descendents: Array<PageElement>,
-    links: Array<PageElementLink>,
-  ) {
-    super(id, name, atom)
-    this.descendents = descendents
+  constructor({ id, name, atom, descendants, links }: PageElementRoot) {
+    super({ id, name, atom })
+    this.descendants = descendants
     this.links = links
   }
 }

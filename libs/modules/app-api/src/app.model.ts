@@ -1,4 +1,5 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql'
+import { z } from 'zod'
 
 @ObjectType()
 export class App {
@@ -11,6 +12,10 @@ export class App {
 
   @Field()
   declare name: string
-
-  // pages: [Page] @hasInverse(field: "app")
 }
+
+export const appSchema = z.object({
+  id: z.string(),
+  ownerId: z.string(),
+  name: z.string(),
+})

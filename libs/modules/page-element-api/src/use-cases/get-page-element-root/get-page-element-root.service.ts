@@ -61,13 +61,13 @@ export class GetPageElementRootService extends DgraphUseCase<
     const { descendants, links } =
       GetPageElementRootService.flattenPageElementTree(root)
 
-    return new PageElementRoot(
-      root.uid,
-      root['PageElement.name'],
-      rootAtom,
+    return new PageElementRoot({
+      id: root.uid,
+      name: root['PageElement.name'],
+      atom: rootAtom,
       descendants,
       links,
-    )
+    })
   }
 
   public static flattenPageElementTree(root: QueryResultItem) {
@@ -85,7 +85,9 @@ export class GetPageElementRootService extends DgraphUseCase<
         const childOrder = child['PageElement.children|order']
         const atom = this.createAtomFromQueryResult(child)
 
-        descendants.push(new PageElement(child.uid, childName, atom))
+        descendants.push(
+          new PageElement({ id: child.uid, name: childName, atom }),
+        )
 
         links.push(new PageElementLink(parent.uid, child.uid, childOrder))
 
@@ -104,15 +106,11 @@ export class GetPageElementRootService extends DgraphUseCase<
 
     //TODO fix atom type
     return childAtom
-      ? new Atom(
-          childAtom.uid,
-          {
-            id: childAtom['Atom.type'],
-            type: childAtom['Atom.type'],
-            label: childAtom['Atom.type'],
-          },
-          childAtom['Atom.label'],
-        )
+      ? new Atom({
+          id: childAtom['Atom.type'],
+          type: childAtom['Atom.type'] as any,
+          label: childAtom['Atom.type'],
+        })
       : null
   }
 }
