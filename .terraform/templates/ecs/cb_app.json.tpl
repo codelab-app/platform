@@ -21,60 +21,62 @@
     ],
     "environment": [
       {
+        "name": "AWS_REGION",
+        "value": "${aws_region}"
+      }
+    ],
+    "secrets": [
+      {
         "name": "CODELAB_DGRAPH_GRAPHQL_ENDPOINT",
-        "value": "http://127.0.0.1:8081/graphql"
+        "valueFrom": "${dgraph_graphql_endpoint}"
       },
       {
         "name": "CODELAB_DGRAPH_ENDPOINT",
-        "value": "http://127.0.0.1:8081"
+        "valueFrom": "${dgraph_endpoint}"
       },
       {
         "name": "AWS_ACCESS_KEY_ID",
-        "value": "cant-be-empty"
+        "valueFrom": "${aws_access_key}"
       },
       {
         "name": "AWS_SECRET_ACCESS_KEY",
-        "value": "cant-be-empty"
-      },
-      {
-        "name": "AWS_REGION",
-        "value": "us-west-1"
+        "valueFrom": "${aws_secret_key}"
       },
       {
         "name": "AWS_BUCKET_NAME",
-        "value": "cant-be-empty"
+        "valueFrom": "${aws_bucket}"
       },
       {
         "name": "AUTH0_SECRET",
-        "value": "cant-be-empty"
+        "valueFrom": "${auth0_secret}"
       },
       {
         "name": "AUTH0_BASE_URL",
-        "value": "http://127.0.0.1:3000"
+        "valueFrom": "${auth0_baseurl}"
       },
       {
         "name": "AUTH0_ISSUER_BASE_URL",
-        "value": "https://codelab-ai.us.auth0.com"
+        "valueFrom": "${auth0_issuer_baseurl}"
       },
       {
         "name": "AUTH0_CLIENT_ID",
-        "value": "cant-be-empty"
+        "valueFrom": "${auth0_client_id}"
       },
       {
         "name": "AUTH0_CLIENT_SECRET",
-        "value": "cant-be-empty"
+        "valueFrom": "${auth0_client_secret}"
       },
       {
         "name": "AUTH0_AUDIENCE",
-        "value": "https://api.codelab.ai"
+        "valueFrom": "${auth0_audience}"
       },
       {
         "name": "AUTH0_API_CLIENT_ID",
-        "value": "cant-be-empty"
+        "valueFrom": "${auth0_api_client_id}"
       },
       {
         "name": "AUTH0_API_CLIENT_SECRET",
-        "value": "cant-be-empty"
+        "valueFrom": "${auth0_api_client_secret}"
       }
     ]
   }
