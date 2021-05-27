@@ -252,6 +252,8 @@ type Mutation {
   deleteApp(input: DeleteAppInput!): App!
   createPage(input: CreatePageInput!): Page!
   createPageElement(input: CreatePageElementInput!): PageElement!
+  updatePageElement(input: UpdatePageElementInput!): PageElement!
+  movePageElement(input: MovePageElementInput!): PageElement!
 
   """Deletes a page element and all the descending page elements"""
   deletePageElement(input: DeletePageElementInput!): DeleteResponse!
@@ -310,6 +312,26 @@ input CreatePageElementInput {
   Leave it out to automatically set it as the last order of all the children
   """
   order: Int
+}
+
+input UpdatePageElementInput {
+  updateData: UpdatePageElementData!
+  pageElementId: String!
+}
+
+input UpdatePageElementData {
+  name: String!
+  atomId: String
+}
+
+input MovePageElementInput {
+  pageElementId: String!
+  moveData: MoveData!
+}
+
+input MoveData {
+  order: Int!
+  parentElementId: String!
 }
 
 input DeletePageElementInput {

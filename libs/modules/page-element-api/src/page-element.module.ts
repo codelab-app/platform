@@ -1,4 +1,5 @@
 import { ApolloClientModule, DGraphModule } from '@codelab/backend'
+import { AtomModule } from '@codelab/modules/atom-api'
 import { Module } from '@nestjs/common'
 import { PageElementResolver } from './page-element.resolver'
 import {
@@ -9,7 +10,8 @@ import {
   GetPageElementParentService,
   GetPageElementRootService,
   GetPageElementService,
-  ValidatePageElementService,
+  MovePageElementService,
+  UpdatePageElementService,
 } from './use-cases'
 
 const services = [
@@ -19,12 +21,13 @@ const services = [
   GetLastOrderChildService,
   FlattenPageElementTreeService,
   DeletePageElementService,
-  ValidatePageElementService,
   GetPageElementParentService,
+  UpdatePageElementService,
+  MovePageElementService,
 ]
 
 @Module({
-  imports: [DGraphModule, ApolloClientModule],
+  imports: [DGraphModule, ApolloClientModule, AtomModule],
   providers: [...services, PageElementResolver],
   exports: [...services],
 })

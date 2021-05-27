@@ -62,6 +62,8 @@ export class DeletePageElementService extends MutationUseCase<
     }
 
     //Get all descending page elements and delete them too
+    //this  can be done faster using an upsert block, but it's more complex
+    //https://dgraph.io/docs/mutations/upsert-block/#example-of-uid-function
     const root = await this.getPageElementRootService.execute({
       pageElementId: request.pageElementId,
     })

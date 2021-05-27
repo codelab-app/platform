@@ -104,7 +104,6 @@ type AddLibraryPayload {
 
 input AddPageElementInput {
   name: String!
-  page: PageRef!
   parent: PageElementRef
   children: [PageElementRef]
   atom: AtomRef
@@ -682,7 +681,6 @@ type PageAggregateResult {
 type PageElement {
   id: ID!
   name: String!
-  page(filter: PageFilter): Page!
   parent(filter: PageElementFilter): PageElement
   children(
     filter: PageElementFilter
@@ -712,7 +710,6 @@ input PageElementFilter {
 
 enum PageElementHasFilter {
   name
-  page
   parent
   children
   atom
@@ -731,7 +728,6 @@ enum PageElementOrderable {
 
 input PageElementPatch {
   name: String
-  page: PageRef
   parent: PageElementRef
   children: [PageElementRef]
   atom: AtomRef
@@ -741,7 +737,6 @@ input PageElementPatch {
 input PageElementRef {
   id: ID
   name: String
-  page: PageRef
   parent: PageElementRef
   children: [PageElementRef]
   atom: AtomRef

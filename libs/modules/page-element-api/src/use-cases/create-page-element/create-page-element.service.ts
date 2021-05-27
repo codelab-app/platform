@@ -1,10 +1,10 @@
 import { DGraphService, DgraphUseCase } from '@codelab/backend'
+import { GetAtomService } from '@codelab/modules/atom-api'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { PageElement } from '../../models/'
 import { GetLastOrderChildService } from '../get-last-order-child'
 import { GetPageElementService } from '../get-page-element'
-import { ValidatePageElementService } from '../validate-page-element/validate-page-element.service'
 import { CreatePageElementInput } from './create-page-element.input'
 
 @Injectable()
@@ -16,7 +16,7 @@ export class CreatePageElementService extends DgraphUseCase<
     dgraph: DGraphService,
     private getPageElementService: GetPageElementService,
     private getLastOrderChildService: GetLastOrderChildService,
-    private validatePageElementService: ValidatePageElementService,
+    private getAtomService: GetAtomService,
   ) {
     super(dgraph)
   }
@@ -25,18 +25,12 @@ export class CreatePageElementService extends DgraphUseCase<
     request: CreatePageElementInput,
     txn: Txn,
   ) {
-    await this.validatePageElementService.execute(request)
+    await this.validate(request)
 
     const order = await this.getOrder(request)
 
     const mutationResult = await txn.mutate({
-      setNquads: `
-          _:element <dgraph.type> "PageElement" .
-          _:element <PageElement.name> "${request.name}" .
-          _:element <PageElement.parent> <${request.parentPageElementId}> .
-          <${request.parentPageElementId}> <PageElement.children> _:element (order=${order}) .
-          _:element <PageElement.atom> <${request.atomId}> .
-      `,
+      setNquads: CreatePageElementService.createMutation({ ...request, order }),
     })
 
     await txn.commit()
@@ -56,6 +50,21 @@ export class CreatePageElementService extends DgraphUseCase<
     }
 
     return pageElement
+  }
+
+  private static createMutation({
+    parentPageElementId,
+    order,
+    name,
+    atomId,
+  }: CreatePageElementInput) {
+    return `
+      _:element <dgraph.type> "PageElement" .
+      _:element <PageElement.name> "${name}" .
+      _:element <PageElement.parent> <${parentPageElementId}> .
+      <${parentPageElementId}> <PageElement.children> _:element (order=${order}) .
+      ${atomId ? `_:element <PageElement.atom> <${atomId}> .` : ''}
+      `
   }
 
   private static createError() {
@@ -79,5 +88,31 @@ export class CreatePageElementService extends DgraphUseCase<
     }
 
     return 0
+  }
+
+  private async validate({
+    parentPageElementId,
+    atomId,
+  }: CreatePageElementInput) {
+    //ensure parentPageElementId exists and is a valid page element
+    if (!parentPageElementId) {
+      throw new Error('parentPageElementId not provided')
+    }
+
+    const parentPageElement = await this.getPageElementService.execute({
+      pageElementId: parentPageElementId,
+    })
+
+    if (!parentPageElement) {
+      throw new Error(`Can't find parent page element`)
+    }
+
+    if (atomId) {
+      const atom = await this.getAtomService.execute({ atomId })
+
+      if (!atom) {
+        throw new Error('Atom not found')
+      }
+    }
   }
 }

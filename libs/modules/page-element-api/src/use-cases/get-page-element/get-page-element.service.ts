@@ -28,6 +28,8 @@ export class GetPageElementService extends QueryUseCase<
   }
 
   protected extractDataFromResult(result: FetchResult<GqlOperationType>) {
+    console.log(pageElementSchema.parse(result?.data?.getPageElement))
+
     return pageElementSchema.parse(result?.data?.getPageElement) || null
   }
 

@@ -209,6 +209,16 @@ export type GetUsersInput = {
   sort: Scalars['String']
 }
 
+export type MoveData = {
+  order: Scalars['Int']
+  parentElementId: Scalars['String']
+}
+
+export type MovePageElementInput = {
+  pageElementId: Scalars['String']
+  moveData: MoveData
+}
+
 export type Mutation = {
   updateUser: User
   deleteUser: Scalars['Boolean']
@@ -217,6 +227,9 @@ export type Mutation = {
   deleteApp: App
   createPage: Page
   createPageElement: PageElement
+  updatePageElement: PageElement
+  movePageElement: PageElement
+  /** Deletes a page element and all the descending page elements */
   deletePageElement: DeleteResponse
   createAtom: Atom
   deleteAtom: Atom
@@ -249,6 +262,14 @@ export type MutationCreatePageArgs = {
 
 export type MutationCreatePageElementArgs = {
   input: CreatePageElementInput
+}
+
+export type MutationUpdatePageElementArgs = {
+  input: UpdatePageElementInput
+}
+
+export type MutationMovePageElementArgs = {
+  input: MovePageElementInput
 }
 
 export type MutationDeletePageElementArgs = {
@@ -366,6 +387,16 @@ export type UpdateAtomData = {
 export type UpdateAtomInput = {
   atomId: Scalars['String']
   updateData: UpdateAtomData
+}
+
+export type UpdatePageElementData = {
+  name: Scalars['String']
+  atomId?: Maybe<Scalars['String']>
+}
+
+export type UpdatePageElementInput = {
+  updateData: UpdatePageElementData
+  pageElementId: Scalars['String']
 }
 
 export type UpdateUserData = {

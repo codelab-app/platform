@@ -11,6 +11,10 @@ import {
   GetPageElementRootInput,
   GetPageElementRootService,
   GetPageElementService,
+  MovePageElementInput,
+  MovePageElementService,
+  UpdatePageElementInput,
+  UpdatePageElementService,
 } from './use-cases'
 
 @Resolver(() => PageElementRoot)
@@ -21,20 +25,14 @@ export class PageElementResolver {
     private getPageElementService: GetPageElementService,
     private getPageElementRootService: GetPageElementRootService,
     private deletePageElementService: DeletePageElementService,
+    private updatePageElementService: UpdatePageElementService,
+    private movePageElementService: MovePageElementService,
   ) {}
 
   @Mutation(() => PageElement)
   @UseGuards(GqlAuthGuard)
   createPageElement(@Args('input') input: CreatePageElementInput) {
     return this.createPageElementService.execute(input)
-  }
-
-  @Mutation(() => DeleteResponse, {
-    description: 'Deletes a page element and all the descending page elements',
-  })
-  @UseGuards(GqlAuthGuard)
-  deletePageElement(@Args('input') input: DeletePageElementInput) {
-    return this.deletePageElementService.execute(input)
   }
 
   @Query(() => PageElement, { nullable: true })
@@ -51,5 +49,25 @@ export class PageElementResolver {
   @UseGuards(GqlAuthGuard)
   getPageElementRoot(@Args('input') input: GetPageElementRootInput) {
     return this.getPageElementRootService.execute(input)
+  }
+
+  @Mutation(() => PageElement)
+  @UseGuards(GqlAuthGuard)
+  updatePageElement(@Args('input') input: UpdatePageElementInput) {
+    return this.updatePageElementService.execute(input)
+  }
+
+  @Mutation(() => PageElement)
+  @UseGuards(GqlAuthGuard)
+  movePageElement(@Args('input') input: MovePageElementInput) {
+    return this.movePageElementService.execute(input)
+  }
+
+  @Mutation(() => DeleteResponse, {
+    description: 'Deletes a page element and all the descending page elements',
+  })
+  @UseGuards(GqlAuthGuard)
+  deletePageElement(@Args('input') input: DeletePageElementInput) {
+    return this.deletePageElementService.execute(input)
   }
 }

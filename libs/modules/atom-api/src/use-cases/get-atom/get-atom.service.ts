@@ -12,7 +12,7 @@ import { GetAtomInput } from './get-atom.input'
 @Injectable()
 export class GetAtomService extends QueryUseCase<
   GetAtomInput,
-  Atom,
+  Atom | null,
   GetAtomQuery,
   GetAtomQueryVariables
 > {
@@ -24,10 +24,8 @@ export class GetAtomService extends QueryUseCase<
     return GetAtomGql
   }
 
-  protected extractDataFromResult(result: FetchResult<GetAtomQuery>): Atom {
-    const atom = atomSchema.parse(result?.data?.atom)
-
-    return atom
+  protected extractDataFromResult(result: FetchResult<GetAtomQuery>) {
+    return atomSchema.nullable().parse(result?.data?.atom || null)
   }
 
   protected getVariables(request: GetAtomInput): GetAtomQueryVariables {
