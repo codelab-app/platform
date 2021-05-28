@@ -226,6 +226,7 @@ export type Mutation = {
   updateApp: App
   deleteApp: App
   createPage: Page
+  updatePage: Page
   createPageElement: PageElement
   updatePageElement: PageElement
   movePageElement: PageElement
@@ -258,6 +259,10 @@ export type MutationDeleteAppArgs = {
 
 export type MutationCreatePageArgs = {
   input: CreatePageInput
+}
+
+export type MutationUpdatePageArgs = {
+  input: UpdatePageInput
 }
 
 export type MutationCreatePageElementArgs = {
@@ -389,6 +394,11 @@ export type UpdateAtomInput = {
   updateData: UpdateAtomData
 }
 
+export type UpdatePageData = {
+  name: Scalars['String']
+  appId: Scalars['String']
+}
+
 export type UpdatePageElementData = {
   name: Scalars['String']
   atomId?: Maybe<Scalars['String']>
@@ -397,6 +407,11 @@ export type UpdatePageElementData = {
 export type UpdatePageElementInput = {
   updateData: UpdatePageElementData
   pageElementId: Scalars['String']
+}
+
+export type UpdatePageInput = {
+  pageId: Scalars['String']
+  updateData: UpdatePageData
 }
 
 export type UpdateUserData = {

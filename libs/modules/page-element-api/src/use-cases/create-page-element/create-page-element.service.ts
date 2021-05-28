@@ -32,7 +32,7 @@ export class CreatePageElementService extends DgraphUseCase<
   }
 
   protected async executeTransaction(
-    { input }: CreatePageElementRequest,
+    { input, currentUser }: CreatePageElementRequest,
     txn: Txn,
     { parentPageElement }: ValidationContext,
   ) {
@@ -57,6 +57,7 @@ export class CreatePageElementService extends DgraphUseCase<
       input: {
         pageElementId: uid,
       },
+      currentUser,
     })
 
     if (!pageElement) {

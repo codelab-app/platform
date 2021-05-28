@@ -4,5 +4,5 @@ import { GetPageInput } from './get-page.input'
 export class GetPageRequest {
   declare input: GetPageInput
 
-  declare currentUser: JwtPayload
+  declare currentUser?: JwtPayload
 }

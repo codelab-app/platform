@@ -4,6 +4,7 @@ query GetPageElementOwner($pageElementId: ID!) {
             app {
                 ownerId
             }
+            ...Dgraph__Page
         }
         ...Dgraph_PageElement
     }

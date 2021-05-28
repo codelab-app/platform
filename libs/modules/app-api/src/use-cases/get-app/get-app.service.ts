@@ -24,7 +24,8 @@ export class GetAppService extends QueryUseCase<
     const app = appSchema.nullable().parse(result?.data?.app || null)
 
     //We don't use the appGuard here because it would create a circular dependency
-    if (app?.ownerId !== currentUser?.sub) {
+    //and because we allow it if the app doesn't exist
+    if (app && app.ownerId !== currentUser?.sub) {
       throw new Error("You don't have access to this app")
     }
 

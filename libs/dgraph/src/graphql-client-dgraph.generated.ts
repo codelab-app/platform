@@ -1829,7 +1829,9 @@ export type GetPageElementOwnerQueryVariables = Exact<{
 
 export type GetPageElementOwnerQuery = {
   getPageElement?: Maybe<
-    { page: { app: Pick<App, 'ownerId'> } } & Dgraph_PageElementFragment
+    {
+      page: { app: Pick<App, 'ownerId'> } & Dgraph__PageFragment
+    } & Dgraph_PageElementFragment
   >
 }
 
@@ -3308,10 +3310,12 @@ export const GetPageElementOwnerGql = gql`
         app {
           ownerId
         }
+        ...Dgraph__Page
       }
       ...Dgraph_PageElement
     }
   }
+  ${Dgraph__PageFragmentDoc}
   ${Dgraph_PageElementFragmentDoc}
 `
 
@@ -3950,10 +3954,12 @@ export const GetPageElementOwner = gql`
         app {
           ownerId
         }
+        ...Dgraph__Page
       }
       ...Dgraph_PageElement
     }
   }
+  ${Dgraph__Page}
   ${Dgraph_PageElement}
 `
 export const GetPageElementParent = gql`

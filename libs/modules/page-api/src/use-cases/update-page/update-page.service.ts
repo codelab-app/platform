@@ -32,7 +32,10 @@ export class UpdatePageService extends MutationUseCase<
   }
 
   protected extractDataFromResult(result: FetchResult<GqlOperationType>) {
-    return pageSchema.array().nonempty().parse(result?.data?.updatePage)[0]
+    return pageSchema
+      .array()
+      .nonempty()
+      .parse(result?.data?.updatePage?.page)[0]
   }
 
   protected async getVariables({
