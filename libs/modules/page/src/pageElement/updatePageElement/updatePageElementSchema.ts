@@ -1,20 +1,17 @@
+import { UpdatePageElementData } from '@codelab/graphql'
 import { JSONSchemaType } from 'ajv'
 
-export type UpdatePageElementInput = {
-  name: string
-  component_id: string
-}
-
-export const updatePageElementSchema: JSONSchemaType<UpdatePageElementInput> = {
+export const updatePageElementSchema: JSONSchemaType<UpdatePageElementData> = {
   title: 'Update Component Element Input',
   type: 'object',
   properties: {
-    component_id: {
+    atomId: {
       type: 'string',
+      nullable: true,
     },
     name: {
       type: 'string',
     },
   },
-  required: ['name', 'component_id'],
+  required: ['name'],
 } as const

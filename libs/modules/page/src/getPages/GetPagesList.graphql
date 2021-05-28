@@ -1,7 +1,0 @@
-query GetPagesList($appId: ID!) {
-  app: getApp(id: $appId) {
-    pages {
-      ...App__Page
-    }
-  }
-}

@@ -1,12 +1,8 @@
+import { UpdatePageData } from '@codelab/graphql'
 import { JSONSchemaType } from 'ajv'
-import {
-  CreatePageInput,
-  createPageSchema,
-} from '../createPage/createPageSchema'
+import { createPageSchema } from '../createPage/createPageSchema'
 
-export type UpdatePageInput = CreatePageInput
-
-export const updatePageSchema: JSONSchemaType<UpdatePageInput> = {
+export const updatePageSchema: JSONSchemaType<UpdatePageData> = {
   ...createPageSchema,
   title: 'Update Page Input',
 }

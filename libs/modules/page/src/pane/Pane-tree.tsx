@@ -12,10 +12,7 @@ import {
 import { Empty, Tree } from 'antd'
 import { DataNode } from 'antd/lib/tree'
 import React, { useContext } from 'react'
-import {
-  CreatePageElementButton,
-  CreatePageElementForm,
-} from '../pageElement/createPageElement'
+import { CreatePageElementButton, CreatePageElementForm } from '../pageElement'
 
 export const PaneMainTree = () => {
   const { setSelected, setHovering, resetHovering } = useBuilderSelection()

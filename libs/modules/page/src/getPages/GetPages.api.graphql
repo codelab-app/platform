@@ -1,0 +1,5 @@
+query GetPages($input: GetPagesInput!){
+  pages: getPages(input: $input){
+    ...PageBase
+  }
+}

@@ -1,20 +1,24 @@
+import { CreatePageElementInput } from '@codelab/graphql'
 import { JSONSchemaType } from 'ajv'
-
-export type CreatePageElementInput = {
-  component_id: string
-  name: string
-}
 
 export const createPageElementSchema: JSONSchemaType<CreatePageElementInput> = {
   title: 'Create Page Element Input',
   type: 'object',
   properties: {
-    component_id: {
-      type: 'string',
-    },
     name: {
       type: 'string',
     },
+    atomId: {
+      type: 'string',
+      nullable: true,
+    },
+    parentPageElementId: {
+      type: 'string',
+    },
+    order: {
+      type: 'number',
+      nullable: true,
+    },
   },
-  required: ['name', 'component_id'],
+  required: ['name', 'parentPageElementId'],
 }

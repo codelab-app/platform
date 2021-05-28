@@ -1,5 +1,4 @@
 import {
-  AppPageContext,
   createNotificationHandler,
   emptyJsonSchema,
   EmptyJsonSchemaType,
@@ -9,12 +8,11 @@ import {
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
 import {
-  refetchGetAppPageQuery,
   useDeletePageElementMutation,
   useGetPageElementQuery,
-} from '@codelab/hasura'
+} from '@codelab/graphql'
 import { Spin } from 'antd'
-import React, { useContext, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { AutoFields } from 'uniforms-antd'
 
 type DeletePageElementFormProps = UniFormUseCaseProps<EmptyJsonSchemaType>
@@ -26,10 +24,9 @@ export const DeletePageElementForm = (props: DeletePageElementFormProps) => {
     state: { deleteIds: deletePageElementIds },
   } = useCRUDModalForm(EntityType.PageElement)
 
-  const { pageId, appId } = useContext(AppPageContext)
-
   const [mutate, { loading: deleting }] = useDeletePageElementMutation({
-    refetchQueries: [refetchGetAppPageQuery({ appId, pageId })],
+    //Not sure what to refetch here either
+    // refetchQueries: [refetchGetAppPageQuery({ appId, pageId })],
   })
 
   useEffect(() => {
@@ -38,11 +35,13 @@ export const DeletePageElementForm = (props: DeletePageElementFormProps) => {
 
   const { data, loading } = useGetPageElementQuery({
     variables: {
-      pageElementId: deletePageElementIds[0],
+      input: {
+        pageElementId: deletePageElementIds[0],
+      },
     },
   })
 
-  const element = data?.page_element_by_pk
+  const element = data?.getPageElement
 
   if (loading) {
     return <Spin />
@@ -51,7 +50,7 @@ export const DeletePageElementForm = (props: DeletePageElementFormProps) => {
   const onSubmit = () => {
     return mutate({
       variables: {
-        pageElementId: deletePageElementIds[0],
+        input: { pageElementId: deletePageElementIds[0] },
       },
     })
   }

@@ -1,8 +1,4 @@
 import {
-  refetchGetPagesListQuery,
-  useCreatePageMutation,
-} from '@codelab/dgraph'
-import {
   AppContext,
   createNotificationHandler,
   EntityType,
@@ -10,11 +6,16 @@ import {
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
+import {
+  CreatePageInput,
+  refetchGetPagesQuery,
+  useCreatePageMutation,
+} from '@codelab/graphql'
 import React, { useContext, useEffect } from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { CreatePageInput, createPageSchema } from './createPageSchema'
+import { createPageSchema, CreatePageSchemaType } from './createPageSchema'
 
-type CreatePageFormProps = UniFormUseCaseProps<CreatePageInput>
+type CreatePageFormProps = UniFormUseCaseProps<CreatePageSchemaType>
 
 export const CreatePageForm = (props: CreatePageFormProps) => {
   const { reset, setLoading } = useCRUDModalForm(EntityType.Page)
@@ -22,32 +23,26 @@ export const CreatePageForm = (props: CreatePageFormProps) => {
 
   const [mutate, { loading: creating }] = useCreatePageMutation({
     awaitRefetchQueries: true,
-    refetchQueries: [
-      refetchGetPagesListQuery({
-        appId: app.id,
-      }),
-    ],
+    refetchQueries: [refetchGetPagesQuery({ input: { appId: app.id } })],
   })
 
   useEffect(() => {
     setLoading(creating)
   }, [creating])
 
-  const onSubmit = (submitData: CreatePageInput) => {
+  const onSubmit = (submitData: CreatePageSchemaType) => {
     return mutate({
       variables: {
         input: {
           ...submitData,
-          app: {
-            id: app.id,
-          },
+          appId: app.id,
         },
       },
     })
   }
 
   return (
-    <FormUniforms<CreatePageInput>
+    <FormUniforms<CreatePageSchemaType>
       onSubmit={onSubmit}
       schema={createPageSchema}
       onSubmitError={createNotificationHandler({
@@ -58,7 +53,7 @@ export const CreatePageForm = (props: CreatePageFormProps) => {
       }}
       {...props}
     >
-      <AutoFields />
+      <AutoFields omitFields={['appId']} />
     </FormUniforms>
   )
 }

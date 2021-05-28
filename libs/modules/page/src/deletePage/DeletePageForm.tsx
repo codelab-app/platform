@@ -1,22 +1,23 @@
 import {
-  refetchGetPagesListQuery,
-  useDeletePageMutation,
-  useGetPageQuery,
-} from '@codelab/dgraph'
-import {
   AppContext,
   createNotificationHandler,
+  emptyJsonSchema,
+  EmptyJsonSchemaType,
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
+import {
+  refetchGetPagesQuery,
+  useDeletePageMutation,
+  useGetPageQuery,
+} from '@codelab/graphql'
 import { Spin } from 'antd'
 import React, { useContext, useEffect } from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { DeletePageInput, DeletePageSchema } from './deletePageSchema'
 
-type DeletePageFormProps = UniFormUseCaseProps<DeletePageInput>
+type DeletePageFormProps = UniFormUseCaseProps<EmptyJsonSchemaType>
 
 export const DeletePageForm = (props: DeletePageFormProps) => {
   const { reset, setLoading, state } = useCRUDModalForm(EntityType.Page)
@@ -25,7 +26,7 @@ export const DeletePageForm = (props: DeletePageFormProps) => {
 
   const [mutate, { loading: deleting }] = useDeletePageMutation({
     awaitRefetchQueries: true,
-    refetchQueries: [refetchGetPagesListQuery({ appId: app.id })],
+    refetchQueries: [refetchGetPagesQuery({ input: { appId: app.id } })],
   })
 
   useEffect(() => {
@@ -34,7 +35,7 @@ export const DeletePageForm = (props: DeletePageFormProps) => {
 
   const { data, loading } = useGetPageQuery({
     variables: {
-      pageId: deletePageIds[0],
+      input: { pageId: deletePageIds[0] },
     },
   })
 
@@ -47,22 +48,22 @@ export const DeletePageForm = (props: DeletePageFormProps) => {
   const onSubmit = () => {
     return mutate({
       variables: {
-        pageId: deletePageIds[0],
+        input: { pageId: deletePageIds[0] },
       },
     })
   }
 
   return (
-    <FormUniforms<DeletePageInput>
+    <FormUniforms<EmptyJsonSchemaType>
       onSubmit={onSubmit}
-      schema={DeletePageSchema}
+      schema={emptyJsonSchema}
       onSubmitError={createNotificationHandler({
         title: 'Error while deleting page',
       })}
       onSubmitSuccess={() => reset()}
       {...props}
     >
-      <h4>Are you sure you want to delete page "{page?.title}"?</h4>
+      <h4>Are you sure you want to delete page "{page?.name}"?</h4>
       <AutoFields />
     </FormUniforms>
   )

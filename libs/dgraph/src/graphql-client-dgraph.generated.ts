@@ -1863,8 +1863,6 @@ export type UpdatePageElementMutation = {
   >
 }
 
-export type App__PageFragment = Pick<Page, 'id'> & { title: Page['name'] }
-
 export type GetValueTypesQueryVariables = Exact<{ [key: string]: never }>
 
 export type GetValueTypesQuery = {
@@ -1952,12 +1950,6 @@ export const Dgraph_PageElementFragmentDoc = gql`
   }
   ${DGraph__AtomFragmentDoc}
   ${Dgraph__PageFragmentDoc}
-`
-export const App__PageFragmentDoc = gql`
-  fragment App__Page on Page {
-    id
-    title: name
-  }
 `
 export const Dgraph__ValueTypeFragmentDoc = gql`
   fragment Dgraph__ValueType on ValueType {
@@ -3700,12 +3692,6 @@ export const Dgraph_PageElement = gql`
   }
   ${DGraph__Atom}
   ${Dgraph__Page}
-`
-export const App__Page = gql`
-  fragment App__Page on Page {
-    id
-    title: name
-  }
 `
 export const Dgraph__ValueType = gql`
   fragment Dgraph__ValueType on ValueType {

@@ -1,5 +1,0 @@
-query GetPage($pageId: ID!) {
-  page: getPage(id: $pageId) {
-    ...App__Page
-  }
-}

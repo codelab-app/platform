@@ -1,17 +1,19 @@
 import {
+  AppPageContext,
   createNotificationHandler,
   FormUniforms,
   FormUniformsProps,
   UniFormUseCaseProps,
 } from '@codelab/frontend/shared'
-import { useGetComponentsQuery } from '@codelab/hasura'
-import React from 'react'
-import { AutoFields, SelectField } from 'uniforms-antd'
-import { UpdatePageElementInput } from '../updatePageElement/updatePageElementSchema'
 import {
   CreatePageElementInput,
-  createPageElementSchema,
-} from './createPageElementSchema'
+  useGetAtomsQuery,
+  useGetPageQuery,
+} from '@codelab/graphql'
+import React, { useContext } from 'react'
+import { AutoFields, SelectField } from 'uniforms-antd'
+import { UpdatePageElementInput } from '../updatePageElement/updatePageElementSchema'
+import { createPageElementSchema } from './createPageElementSchema'
 
 type PageElementFormBaseProps = UniFormUseCaseProps<
   CreatePageElementInput | UpdatePageElementInput
@@ -25,12 +27,12 @@ type PageElementFormBaseProps = UniFormUseCaseProps<
  * The base form for both CreatePageElementForm and UpdatePageElementForm
  */
 export const PageElementFormBase = (props: PageElementFormBaseProps) => {
-  const { data: componentsData } = useGetComponentsQuery()
+  const { pageId } = useContext(AppPageContext)
+  const { data: atoms } = useGetAtomsQuery()
 
-  const componentOptions = componentsData?.component?.map((c) => ({
-    value: c.id,
-    label: c.label,
-  }))
+  const { data: page } = useGetPageQuery({
+    variables: { input: { pageId } },
+  })
 
   return (
     <FormUniforms<CreatePageElementInput>
@@ -40,11 +42,32 @@ export const PageElementFormBase = (props: PageElementFormBaseProps) => {
       })}
       {...props}
     >
-      <AutoFields omitFields={['component_id']} />
+      <AutoFields omitFields={['parentPageElementId', 'atomId']} />
+
       <SelectField
-        name="component_id"
-        label="Component"
-        options={componentOptions}
+        name="atomId"
+        label="Atom"
+        //eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-ignore https://github.com/vazco/uniforms/issues/951
+        showSearch={true}
+        optionFilterProp="label"
+        options={atoms?.atoms.map((atom) => ({
+          label: atom.type,
+          value: atom.id,
+        }))}
+      />
+
+      <SelectField
+        name="parentPageElementId"
+        label="Parent element"
+        //eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-ignore https://github.com/vazco/uniforms/issues/951
+        showSearch={true}
+        optionFilterProp="label"
+        options={page?.page?.rootElement?.descendants.map((element) => ({
+          label: element.name,
+          value: element.id,
+        }))}
       />
     </FormUniforms>
   )

@@ -14,6 +14,8 @@ import { Page } from './page.model'
 import {
   CreatePageInput,
   CreatePageService,
+  DeletePageInput,
+  DeletePageService,
   GetPageInput,
   GetPageRootService,
   GetPageService,
@@ -32,6 +34,7 @@ export class PageResolver {
     private getPagesService: GetPagesService,
     private updatePageService: UpdatePageService,
     private getPageService: GetPageService,
+    private deletePageService: DeletePageService,
   ) {}
 
   @Query(() => [Page])
@@ -59,6 +62,15 @@ export class PageResolver {
     @CurrentUser() currentUser: JwtPayload,
   ) {
     return this.createPageService.execute({ input, currentUser })
+  }
+
+  @Mutation(() => Page)
+  @UseGuards(GqlAuthGuard)
+  deletePage(
+    @Args('input') input: DeletePageInput,
+    @CurrentUser() currentUser: JwtPayload,
+  ) {
+    return this.deletePageService.execute({ input, currentUser })
   }
 
   @Mutation(() => Page)

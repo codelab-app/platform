@@ -1,7 +1,0 @@
-mutation DeletePage($pageId: ID!) {
-  page: deletePage(filter: { id: [$pageId] }) {
-    page {
-      ...App__Page
-    }
-  }
-}
