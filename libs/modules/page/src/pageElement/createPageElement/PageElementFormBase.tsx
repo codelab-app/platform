@@ -7,16 +7,16 @@ import {
 } from '@codelab/frontend/shared'
 import {
   CreatePageElementInput,
+  UpdatePageElementData,
   useGetAtomsQuery,
   useGetPageQuery,
 } from '@codelab/graphql'
 import React, { useContext } from 'react'
 import { AutoFields, SelectField } from 'uniforms-antd'
-import { UpdatePageElementInput } from '../updatePageElement/updatePageElementSchema'
 import { createPageElementSchema } from './createPageElementSchema'
 
 type PageElementFormBaseProps = UniFormUseCaseProps<
-  CreatePageElementInput | UpdatePageElementInput
+  CreatePageElementInput | UpdatePageElementData
 > &
   Pick<
     FormUniformsProps<CreatePageElementInput>,

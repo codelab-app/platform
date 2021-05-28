@@ -1,8 +1,16 @@
 import { UpdatePageData } from '@codelab/graphql'
 import { JSONSchemaType } from 'ajv'
-import { createPageSchema } from '../createPage/createPageSchema'
 
-export const updatePageSchema: JSONSchemaType<UpdatePageData> = {
-  ...createPageSchema,
+//Won't update appId for now, but might be useful in the future?
+export type UpdatePageSchemaType = Omit<UpdatePageData, 'appId'>
+
+export const updatePageSchema: JSONSchemaType<UpdatePageSchemaType> = {
   title: 'Update Page Input',
+  type: 'object',
+  properties: {
+    name: {
+      type: 'string',
+    },
+  },
+  required: ['name'],
 }

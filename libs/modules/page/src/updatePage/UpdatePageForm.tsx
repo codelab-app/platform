@@ -8,15 +8,14 @@ import {
 } from '@codelab/frontend/shared'
 import {
   refetchGetPagesQuery,
-  UpdatePageData,
   useGetPageQuery,
   useUpdatePageMutation,
 } from '@codelab/graphql'
 import React, { useContext, useEffect } from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { updatePageSchema } from './updatePageSchema'
+import { updatePageSchema, UpdatePageSchemaType } from './updatePageSchema'
 
-type UpdatePageFormProps = UniFormUseCaseProps<UpdatePageData>
+type UpdatePageFormProps = UniFormUseCaseProps<UpdatePageSchemaType>
 
 export const UpdatePageForm = (props: UpdatePageFormProps) => {
   const { reset, setLoading, state } = useCRUDModalForm(EntityType.Page)
@@ -38,12 +37,13 @@ export const UpdatePageForm = (props: UpdatePageFormProps) => {
     },
   })
 
-  const onSubmit = (submitData: UpdatePageData) => {
+  const onSubmit = (submitData: UpdatePageSchemaType) => {
     return mutate({
       variables: {
         input: {
           pageId: updatePageId,
           updateData: {
+            appId: data?.page?.app.id as string,
             ...submitData,
           },
         },
@@ -52,10 +52,10 @@ export const UpdatePageForm = (props: UpdatePageFormProps) => {
   }
 
   return (
-    <FormUniforms<UpdatePageData>
+    <FormUniforms<UpdatePageSchemaType>
       onSubmit={onSubmit}
       schema={updatePageSchema}
-      model={{ name: data?.page?.name, appId: data?.page?.app.id }}
+      model={{ name: data?.page?.name }}
       onSubmitError={createNotificationHandler({
         title: 'Error while updating page',
       })}
