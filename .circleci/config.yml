@@ -20,7 +20,9 @@
 filters-staging-pr: &filters-staging-pr
   filters:
     branches:
-      ignore: master
+      ignore: 
+        - master
+        - 866-update-ci # TODO: should be removed before merge
 
 filters-staging-master: &filters-staging-master
   filters:
@@ -32,7 +34,7 @@ filters-staging: &filters-staging
     tags:
       only: /^staging-.*$/
     branches:
-      only: 866-update-ci # temporary
+      only: 866-update-ci # TODO: should be removed before merge
 
 filters-prod: &filters-prod
   filters:
@@ -332,14 +334,12 @@ jobs:
   build-docker-image:
     <<: *executor-params
     steps:
-      - aws-cli/install
+      - setup-workspace     
       - aws-cli/setup
-      - setup-workspace
-      - yarn-install-prod
       - run:
           name: 'Setup common environment variables'
           command: |
-            echo 'export ECR_REPOSITORY_NAME="clab-api"' >> $BASH_ENV
+            echo 'export ECR_REPOSITORY_NAME="${AWS_RESOURCE_NAME_PREFIX}-api"' >> $BASH_ENV
             echo 'export FULL_IMAGE_NAME="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPOSITORY_NAME}:${CIRCLE_SHA1}"' >> $BASH_ENV
       - run:
           name: 'Build Docker image'
@@ -354,6 +354,33 @@ jobs:
           root: .
           paths:
             - docker-image
+
+  deploy-to-staging:
+    <<: *executor-params
+    steps:
+      - setup-workspace
+      - aws-cli/setup
+      - run:
+          name: Load image
+          command: |
+            docker load --input workspace/docker-image/image.tar
+      - run:
+          name: Setup common environment variables
+          command: |
+            echo 'export ECS_CLUSTER_NAME="${AWS_RESOURCE_NAME_PREFIX}-cluster"' >> $BASH_ENV
+            echo 'export ECS_SERVICE_NAME="${AWS_RESOURCE_NAME_PREFIX}-service"' >> $BASH_ENV
+            echo 'export FULL_IMAGE_NAME="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${AWS_RESOURCE_NAME_PREFIX}-api:${CIRCLE_SHA1}"' >> $BASH_ENV
+      - run:
+          name: Push image
+          command: |
+            eval $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
+            docker push $FULL_IMAGE_NAME
+      - aws-ecs/update-service:
+          family: "${ECS_SERVICE_NAME}"
+          cluster-name: "${ECS_CLUSTER_NAME}"
+          container-image-name-updates: "container=${ECS_SERVICE_NAME},image-and-tag=${FULL_IMAGE_NAME}"
+          container-env-var-updates: "container=${ECS_SERVICE_NAME},name=VERSION_INFO,value=${CIRCLE_SHA1}_${CIRCLE_BUILD_NUM},container=${ECS_SERVICE_NAME},name=BUILD_DATE,value=\"$(date)\""
+          verify-revision-is-deployed: true
 
   deploy-to-ebs-staging:
     <<: *executor-params
@@ -477,6 +504,18 @@ workflows:
           context: CI
           requires:
             - install-and-build-workspace
+      - deploy-to-staging:
+          <<: *filters-staging
+          e: docker-node
+          context: CI
+          requires:
+            - build-docker-image
+      - notify-success:
+          <<: *filters-staging
+          e: docker-node
+          context: CI
+          requires:
+            - deploy-to-staging
 
   app-prod:
     jobs:
