@@ -5,15 +5,16 @@ import {
 } from '@codelab/modules/page-element-api'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
-import { PageGuardService } from '../../auth'
-import { UpdatePageRequest } from '../update-page'
+//shortened import causes circular reference and some weird shit happen
+import { PageGuardService } from '../../auth/page-guard/page-guard.service'
 import { GetPageRootRequest } from './get-page-root.request'
 import { GetPageRootQueryBuilder } from './get-page-root-query-builder'
 
 @Injectable()
 export class GetPageRootService extends DgraphUseCase<
   GetPageRootRequest,
-  PageElementRoot | null
+  PageElementRoot | null,
+  void
 > {
   constructor(
     dgraph: DGraphService,

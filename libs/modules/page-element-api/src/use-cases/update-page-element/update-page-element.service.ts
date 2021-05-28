@@ -8,18 +8,16 @@ import {
 import { GetAtomService } from '@codelab/modules/atom-api'
 import { Injectable } from '@nestjs/common'
 import { z } from 'zod'
+import { PageElementGuardService } from '../../auth'
 import { PageElement, pageElementSchema } from '../../models'
-import {
-  UpdatePageElementData,
-  UpdatePageElementInput,
-} from './update-page-element.input'
+import { UpdatePageElementRequest } from './update-page-element.request'
 
 type GqlVariablesType = UpdatePageElementMutationVariables
 type GqlOperationType = UpdatePageElementMutation
 
 @Injectable()
 export class UpdatePageElementService extends MutationUseCase<
-  UpdatePageElementInput,
+  UpdatePageElementRequest,
   PageElement,
   GqlOperationType,
   GqlVariablesType
@@ -27,6 +25,7 @@ export class UpdatePageElementService extends MutationUseCase<
   constructor(
     apollo: ApolloClientService,
     private getAtomService: GetAtomService,
+    private pageElementGuardService: PageElementGuardService,
   ) {
     super(apollo)
   }
@@ -46,11 +45,8 @@ export class UpdatePageElementService extends MutationUseCase<
   }
 
   protected async getVariables({
-    pageElementId,
-    updateData,
-  }: UpdatePageElementInput): Promise<GqlVariablesType> {
-    await this.validate(updateData)
-
+    input: { pageElementId, updateData },
+  }: UpdatePageElementRequest): Promise<GqlVariablesType> {
     return {
       input: {
         filter: {
@@ -68,7 +64,15 @@ export class UpdatePageElementService extends MutationUseCase<
     }
   }
 
-  async validate({ atomId }: UpdatePageElementData) {
+  protected async validate({
+    input: {
+      pageElementId,
+      updateData: { atomId },
+    },
+    currentUser,
+  }: UpdatePageElementRequest): Promise<void> {
+    await this.pageElementGuardService.validate(pageElementId, currentUser)
+
     if (atomId) {
       const atom = await this.getAtomService.execute({ atomId })
 

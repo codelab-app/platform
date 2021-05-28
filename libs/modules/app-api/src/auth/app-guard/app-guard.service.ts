@@ -1,6 +1,7 @@
 import { JwtPayload } from '@codelab/backend'
 import { Injectable } from '@nestjs/common'
-import { GetAppService } from '../../use-cases'
+//Import with full path, or will get circular reference
+import { GetAppService } from '../../use-cases/get-app/get-app.service'
 
 /**
  * Validates that the app exists and is owned by this user
@@ -21,7 +22,7 @@ export class AppGuardService {
     }
 
     if (app.ownerId !== currentUser?.sub) {
-      throw new Error("Can't move page to an app that you don't own")
+      throw new Error("You don't have access to this app")
     }
   }
 }

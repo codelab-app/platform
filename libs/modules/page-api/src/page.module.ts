@@ -2,6 +2,7 @@ import { ApolloClientModule, DGraphModule } from '@codelab/backend'
 import { AppModule } from '@codelab/modules/app-api'
 import { PageElementModule } from '@codelab/modules/page-element-api'
 import { Module } from '@nestjs/common'
+import { PageGuardService } from './auth'
 import { PageResolver } from './page.resolver'
 import {
   CreatePageService,
@@ -15,11 +16,12 @@ import {
 
 const services = [
   CreatePageService,
+  GetPageOwnerService,
+  PageGuardService,
   GetPagesService,
   GetPageRootService,
   GetPageService,
   UpdatePageService,
-  GetPageOwnerService,
   DeletePageService,
 ]
 

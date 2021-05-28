@@ -1,36 +1,48 @@
 import { DGraphService, DgraphUseCase } from '@codelab/backend'
-import { GetAtomService } from '@codelab/modules/atom-api'
+import { Dgraph_PageElementFragment } from '@codelab/dgraph'
+import { Atom, GetAtomService } from '@codelab/modules/atom-api'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
+import { PageElementGuardService } from '../../auth'
 import { PageElement } from '../../models/'
 import { GetLastOrderChildService } from '../get-last-order-child'
 import { GetPageElementService } from '../get-page-element'
 import { CreatePageElementInput } from './create-page-element.input'
+import { CreatePageElementRequest } from './create-page-element.request'
+
+interface ValidationContext {
+  atom: Atom | undefined | null
+  parentPageElement: Dgraph_PageElementFragment
+}
 
 @Injectable()
 export class CreatePageElementService extends DgraphUseCase<
-  CreatePageElementInput,
-  PageElement
+  CreatePageElementRequest,
+  PageElement,
+  ValidationContext
 > {
   constructor(
     dgraph: DGraphService,
     private getPageElementService: GetPageElementService,
     private getLastOrderChildService: GetLastOrderChildService,
     private getAtomService: GetAtomService,
+    private pageElementGuardService: PageElementGuardService,
   ) {
     super(dgraph)
   }
 
   protected async executeTransaction(
-    request: CreatePageElementInput,
+    { input }: CreatePageElementRequest,
     txn: Txn,
+    { parentPageElement }: ValidationContext,
   ) {
-    await this.validate(request)
-
-    const order = await this.getOrder(request)
+    const order = await this.getOrder(input)
 
     const mutationResult = await txn.mutate({
-      setNquads: CreatePageElementService.createMutation({ ...request, order }),
+      setNquads: CreatePageElementService.createMutation(
+        { ...input, order },
+        parentPageElement.page.id,
+      ),
     })
 
     await txn.commit()
@@ -42,7 +54,9 @@ export class CreatePageElementService extends DgraphUseCase<
     }
 
     const pageElement = await this.getPageElementService.execute({
-      pageElementId: uid,
+      input: {
+        pageElementId: uid,
+      },
     })
 
     if (!pageElement) {
@@ -52,16 +66,15 @@ export class CreatePageElementService extends DgraphUseCase<
     return pageElement
   }
 
-  private static createMutation({
-    parentPageElementId,
-    order,
-    name,
-    atomId,
-  }: CreatePageElementInput) {
+  private static createMutation(
+    { parentPageElementId, order, name, atomId }: CreatePageElementInput,
+    pageId: string,
+  ) {
     return `
       _:element <dgraph.type> "PageElement" .
       _:element <PageElement.name> "${name}" .
       _:element <PageElement.parent> <${parentPageElementId}> .
+      _:element <PageElement.page> <${pageId}> .
       <${parentPageElementId}> <PageElement.children> _:element (order=${order}) .
       ${atomId ? `_:element <PageElement.atom> <${atomId}> .` : ''}
       `
@@ -90,29 +103,29 @@ export class CreatePageElementService extends DgraphUseCase<
     return 0
   }
 
-  private async validate({
-    parentPageElementId,
-    atomId,
-  }: CreatePageElementInput) {
-    //ensure parentPageElementId exists and is a valid page element
-    if (!parentPageElementId) {
-      throw new Error('parentPageElementId not provided')
-    }
+  protected async validate({
+    input: { parentPageElementId, atomId },
+    currentUser,
+  }: CreatePageElementRequest) {
+    const { pageElement: parentPageElement } =
+      await this.pageElementGuardService.validate(
+        parentPageElementId,
+        currentUser,
+      )
 
-    const parentPageElement = await this.getPageElementService.execute({
-      pageElementId: parentPageElementId,
-    })
-
-    if (!parentPageElement) {
-      throw new Error(`Can't find parent page element`)
-    }
+    let atom: Atom | null | undefined
 
     if (atomId) {
-      const atom = await this.getAtomService.execute({ atomId })
+      atom = await this.getAtomService.execute({ atomId })
 
       if (!atom) {
         throw new Error('Atom not found')
       }
+    }
+
+    return {
+      atom,
+      parentPageElement,
     }
   }
 }

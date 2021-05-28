@@ -1,12 +1,12 @@
 import { FetchResult } from '@apollo/client'
 import { ApolloClientService, QueryUseCase } from '@codelab/backend'
 import {
+  Dgraph_PageElementFragment,
   GetPageElementParentGql,
   GetPageElementParentQuery,
   GetPageElementParentQueryVariables,
 } from '@codelab/dgraph'
 import { Injectable } from '@nestjs/common'
-import { PageElement, pageElementSchema } from '../../models'
 import { GetPageElementParentInput } from './get-page-element-parent.input'
 
 type GqlVariablesType = GetPageElementParentQueryVariables
@@ -18,7 +18,7 @@ type GqlOperationType = GetPageElementParentQuery
 @Injectable()
 export class GetPageElementParentService extends QueryUseCase<
   GetPageElementParentInput,
-  PageElement | null,
+  Dgraph_PageElementFragment | null,
   GqlOperationType,
   GqlVariablesType
 > {
@@ -32,7 +32,7 @@ export class GetPageElementParentService extends QueryUseCase<
 
   protected extractDataFromResult(result: FetchResult<GqlOperationType>) {
     return result?.data?.getPageElement?.parent
-      ? pageElementSchema.parse(result?.data?.getPageElement?.parent)
+      ? result?.data?.getPageElement?.parent
       : null
   }
 

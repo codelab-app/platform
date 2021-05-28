@@ -2,14 +2,19 @@ import { Txn } from 'dgraph-js-http'
 import { DGraphService } from '../../infrastructure'
 import { UseCase } from '../index'
 
-export abstract class DgraphUseCase<TUseCaseRequestPort, TUseCaseDtoResponse>
-  implements UseCase<TUseCaseRequestPort, TUseCaseDtoResponse>
+export abstract class DgraphUseCase<
+  TUseCaseRequestPort,
+  TUseCaseDtoResponse,
+  TValidationContext = Record<string, unknown>,
+> implements UseCase<TUseCaseRequestPort, TUseCaseDtoResponse>
 {
   protected constructor(protected dgraph: DGraphService) {}
 
   async execute(request: TUseCaseRequestPort): Promise<TUseCaseDtoResponse> {
+    const validationContext = await this.validate(request)
+
     return await this.transactionWrapper((txn) =>
-      this.executeTransaction(request, txn),
+      this.executeTransaction(request, txn, validationContext),
     )
   }
 
@@ -28,9 +33,12 @@ export abstract class DgraphUseCase<TUseCaseRequestPort, TUseCaseDtoResponse>
   protected abstract executeTransaction(
     request: TUseCaseRequestPort,
     txn: Txn,
+    validationContext: TValidationContext,
   ): Promise<TUseCaseDtoResponse>
 
-  protected async validate(request: TUseCaseRequestPort) {
-    return
+  protected async validate(
+    request: TUseCaseRequestPort,
+  ): Promise<TValidationContext> {
+    return {} as TValidationContext
   }
 }

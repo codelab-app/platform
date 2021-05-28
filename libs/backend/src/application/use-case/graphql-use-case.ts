@@ -14,16 +14,16 @@ export abstract class GraphqlUseCase<
   TOperation,
   TOperationVariables,
   IsMutation extends boolean,
+  TValidationContext = Record<string, unknown>,
 > implements UseCase<TUseCaseRequestPort, TUseCaseDtoResponse>
 {
   protected constructor(protected apollo: ApolloClientService) {}
 
   async execute(request: TUseCaseRequestPort): Promise<TUseCaseDtoResponse> {
     const client = this.apollo.getClient()
-    await this.validate(request)
-
-    const variables = await this.getVariables(request)
-    const options = this.getOptions(request) || {}
+    const validationContext = await this.validate(request)
+    const variables = await this.getVariables(request, validationContext)
+    const options = this.getOptions(request, validationContext) || {}
     let result: FetchResult<TOperation>
 
     if (this.isMutation()) {
@@ -40,7 +40,7 @@ export abstract class GraphqlUseCase<
       })
     }
 
-    return this.extractDataFromResult(result)
+    return this.extractDataFromResult(result, validationContext, request)
   }
 
   protected abstract isMutation(): IsMutation
@@ -51,6 +51,7 @@ export abstract class GraphqlUseCase<
 
   protected getOptions(
     request: TUseCaseRequestPort,
+    validationContext: TValidationContext,
   ):
     | (IsMutation extends true
         ? Omit<
@@ -67,13 +68,18 @@ export abstract class GraphqlUseCase<
 
   protected abstract getVariables(
     request: TUseCaseRequestPort,
+    validationContext: TValidationContext,
   ): TOperationVariables | Promise<TOperationVariables>
 
   protected abstract extractDataFromResult(
     result: FetchResult<TOperation>,
+    validationContext: TValidationContext,
+    request: TUseCaseRequestPort,
   ): TUseCaseDtoResponse | Promise<TUseCaseDtoResponse>
 
-  protected async validate(request: TUseCaseRequestPort) {
-    return
+  protected async validate(
+    request: TUseCaseRequestPort,
+  ): Promise<TValidationContext> {
+    return {} as TValidationContext
   }
 }

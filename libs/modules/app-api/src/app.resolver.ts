@@ -1,4 +1,5 @@
-import { CurrentUser, GqlAuthGuard, JwtPayload } from '@codelab/backend'
+import type { JwtPayload } from '@codelab/backend'
+import { CurrentUser, GqlAuthGuard } from '@codelab/backend'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { App } from './app.model'

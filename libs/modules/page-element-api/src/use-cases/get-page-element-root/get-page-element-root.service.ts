@@ -1,29 +1,33 @@
 import { DGraphService, DgraphUseCase } from '@codelab/backend'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
+//shortened import causes circular reference and some weird shit happen
+import { PageElementGuardService } from '../../auth/page-element-guard/page-element-guard.service'
 import { PageElementRoot } from '../../models'
 import { FlattenPageElementTreeService } from '../flatten-page-element-tree'
-import { GetPageElementRootInput } from './get-page-element-root.input'
+import { GetPageElementRootRequest } from './get-page-element-root.request'
 import { GetPageElementRootQueryBuilder } from './get-page-element-root-query-builder'
 
 @Injectable()
 export class GetPageElementRootService extends DgraphUseCase<
-  GetPageElementRootInput,
-  PageElementRoot | null
+  GetPageElementRootRequest,
+  PageElementRoot | null,
+  void
 > {
   constructor(
     dgraph: DGraphService,
     private flattenPageElementTreeService: FlattenPageElementTreeService,
+    private pageElementGuardService: PageElementGuardService,
   ) {
     super(dgraph)
   }
 
   protected async executeTransaction(
-    request: GetPageElementRootInput,
+    { input: { pageElementId } }: GetPageElementRootRequest,
     txn: Txn,
   ) {
     const queryBuilder = new GetPageElementRootQueryBuilder().withUid(
-      request.pageElementId,
+      pageElementId,
     )
 
     const schema = queryBuilder.getZodSchema()
@@ -46,5 +50,12 @@ export class GetPageElementRootService extends DgraphUseCase<
       descendants,
       links,
     })
+  }
+
+  protected async validate({
+    currentUser,
+    input: { pageElementId },
+  }: GetPageElementRootRequest): Promise<void> {
+    await this.pageElementGuardService.validate(pageElementId, currentUser)
   }
 }

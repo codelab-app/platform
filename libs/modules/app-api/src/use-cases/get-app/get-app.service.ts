@@ -1,9 +1,8 @@
 import { FetchResult } from '@apollo/client'
 import { ApolloClientService, QueryUseCase } from '@codelab/backend'
 import { GetAppGql, GetAppQuery, GetAppQueryVariables } from '@codelab/dgraph'
-import { Injectable, UnauthorizedException } from '@nestjs/common'
-import { App } from '../../app.model'
-import { AppGuardService } from '../../auth'
+import { Injectable } from '@nestjs/common'
+import { App, appSchema } from '../../app.model'
 import { GetAppRequest } from './get-app.request'
 
 @Injectable()
@@ -13,19 +12,23 @@ export class GetAppService extends QueryUseCase<
   GetAppQuery,
   GetAppQueryVariables
 > {
-  constructor(
-    apollo: ApolloClientService,
-    private appGuardService: AppGuardService,
-  ) {
+  constructor(apollo: ApolloClientService) {
     super(apollo)
   }
 
   protected extractDataFromResult(
     result: FetchResult<GetAppQuery>,
+    _: void,
+    { currentUser }: GetAppRequest,
   ): App | null {
-    const app = result?.data?.app
+    const app = appSchema.nullable().parse(result?.data?.app || null)
 
-    return app || null
+    //We don't use the appGuard here because it would create a circular dependency
+    if (app?.ownerId !== currentUser?.sub) {
+      throw new Error("You don't have access to this app")
+    }
+
+    return app
   }
 
   protected getGql() {
@@ -36,12 +39,5 @@ export class GetAppService extends QueryUseCase<
     return {
       id: input.appId,
     }
-  }
-
-  protected async validate({
-    input: { appId },
-    currentUser,
-  }: GetAppRequest): Promise<void> {
-    await this.appGuardService.validate(appId, currentUser)
   }
 }

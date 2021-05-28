@@ -105,6 +105,7 @@ export type AddLibraryPayloadLibraryArgs = {
 
 export type AddPageElementInput = {
   name: Scalars['String']
+  page: PageRef
   parent?: Maybe<PageElementRef>
   children?: Maybe<Array<Maybe<PageElementRef>>>
   atom?: Maybe<AtomRef>
@@ -911,11 +912,16 @@ export type PageAggregateResult = {
 export type PageElement = {
   id: Scalars['ID']
   name: Scalars['String']
+  page: Page
   parent?: Maybe<PageElement>
   children?: Maybe<Array<Maybe<PageElement>>>
   atom?: Maybe<Atom>
   component?: Maybe<Component>
   childrenAggregate?: Maybe<PageElementAggregateResult>
+}
+
+export type PageElementPageArgs = {
+  filter?: Maybe<PageFilter>
 }
 
 export type PageElementParentArgs = {
@@ -958,6 +964,7 @@ export type PageElementFilter = {
 
 export enum PageElementHasFilter {
   Name = 'name',
+  Page = 'page',
   Parent = 'parent',
   Children = 'children',
   Atom = 'atom',
@@ -976,6 +983,7 @@ export enum PageElementOrderable {
 
 export type PageElementPatch = {
   name?: Maybe<Scalars['String']>
+  page?: Maybe<PageRef>
   parent?: Maybe<PageElementRef>
   children?: Maybe<Array<Maybe<PageElementRef>>>
   atom?: Maybe<AtomRef>
@@ -985,6 +993,7 @@ export type PageElementPatch = {
 export type PageElementRef = {
   id?: Maybe<Scalars['ID']>
   name?: Maybe<Scalars['String']>
+  page?: Maybe<PageRef>
   parent?: Maybe<PageElementRef>
   children?: Maybe<Array<Maybe<PageElementRef>>>
   atom?: Maybe<AtomRef>
@@ -1803,6 +1812,7 @@ export type UpdatePageMutation = {
 export type Dgraph_PageElementFragment = Pick<PageElement, 'id' | 'name'> & {
   atom?: Maybe<DGraph__AtomFragment>
   parent?: Maybe<Pick<PageElement, 'id'>>
+  page: Dgraph__PageFragment
 }
 
 export type DeletePageElementMutationVariables = Exact<{
@@ -1811,6 +1821,16 @@ export type DeletePageElementMutationVariables = Exact<{
 
 export type DeletePageElementMutation = {
   deletePageElement?: Maybe<Pick<DeletePageElementPayload, 'numUids'>>
+}
+
+export type GetPageElementOwnerQueryVariables = Exact<{
+  pageElementId: Scalars['ID']
+}>
+
+export type GetPageElementOwnerQuery = {
+  getPageElement?: Maybe<
+    { page: { app: Pick<App, 'ownerId'> } } & Dgraph_PageElementFragment
+  >
 }
 
 export type GetPageElementParentQueryVariables = Exact<{
@@ -1890,6 +1910,13 @@ export const LibraryExplorer__LibraryFragmentDoc = gql`
   ${LibraryExplorer__AtomFragmentDoc}
   ${LibraryExplorer__ComponentFragmentDoc}
 `
+export const DGraph__AtomFragmentDoc = gql`
+  fragment DGraph__Atom on Atom {
+    id
+    label
+    type
+  }
+`
 export const Dgraph__AppFragmentDoc = gql`
   fragment Dgraph__App on App {
     id
@@ -1907,13 +1934,6 @@ export const Dgraph__PageFragmentDoc = gql`
   }
   ${Dgraph__AppFragmentDoc}
 `
-export const DGraph__AtomFragmentDoc = gql`
-  fragment DGraph__Atom on Atom {
-    id
-    label
-    type
-  }
-`
 export const Dgraph_PageElementFragmentDoc = gql`
   fragment Dgraph_PageElement on PageElement {
     id
@@ -1924,8 +1944,12 @@ export const Dgraph_PageElementFragmentDoc = gql`
     parent {
       id
     }
+    page {
+      ...Dgraph__Page
+    }
   }
   ${DGraph__AtomFragmentDoc}
+  ${Dgraph__PageFragmentDoc}
 `
 export const App__PageFragmentDoc = gql`
   fragment App__Page on Page {
@@ -3277,6 +3301,75 @@ export type DeletePageElementMutationOptions = Apollo.BaseMutationOptions<
   DeletePageElementMutation,
   DeletePageElementMutationVariables
 >
+export const GetPageElementOwnerGql = gql`
+  query GetPageElementOwner($pageElementId: ID!) {
+    getPageElement(id: $pageElementId) {
+      page {
+        app {
+          ownerId
+        }
+      }
+      ...Dgraph_PageElement
+    }
+  }
+  ${Dgraph_PageElementFragmentDoc}
+`
+
+/**
+ * __useGetPageElementOwnerQuery__
+ *
+ * To run a query within a React component, call `useGetPageElementOwnerQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPageElementOwnerQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPageElementOwnerQuery({
+ *   variables: {
+ *      pageElementId: // value for 'pageElementId'
+ *   },
+ * });
+ */
+export function useGetPageElementOwnerQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetPageElementOwnerQuery,
+    GetPageElementOwnerQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<
+    GetPageElementOwnerQuery,
+    GetPageElementOwnerQueryVariables
+  >(GetPageElementOwnerGql, options)
+}
+export function useGetPageElementOwnerLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetPageElementOwnerQuery,
+    GetPageElementOwnerQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    GetPageElementOwnerQuery,
+    GetPageElementOwnerQueryVariables
+  >(GetPageElementOwnerGql, options)
+}
+export type GetPageElementOwnerQueryHookResult = ReturnType<
+  typeof useGetPageElementOwnerQuery
+>
+export type GetPageElementOwnerLazyQueryHookResult = ReturnType<
+  typeof useGetPageElementOwnerLazyQuery
+>
+export type GetPageElementOwnerQueryResult = Apollo.QueryResult<
+  GetPageElementOwnerQuery,
+  GetPageElementOwnerQueryVariables
+>
+export function refetchGetPageElementOwnerQuery(
+  variables?: GetPageElementOwnerQueryVariables,
+) {
+  return { query: GetPageElementOwnerGql, variables: variables }
+}
 export const GetPageElementParentGql = gql`
   query GetPageElementParent($pageElementId: ID!) {
     getPageElement(id: $pageElementId) {
@@ -3563,6 +3656,13 @@ export const LibraryExplorer__Library = gql`
   ${LibraryExplorer__Atom}
   ${LibraryExplorer__Component}
 `
+export const DGraph__Atom = gql`
+  fragment DGraph__Atom on Atom {
+    id
+    label
+    type
+  }
+`
 export const Dgraph__App = gql`
   fragment Dgraph__App on App {
     id
@@ -3580,13 +3680,6 @@ export const Dgraph__Page = gql`
   }
   ${Dgraph__App}
 `
-export const DGraph__Atom = gql`
-  fragment DGraph__Atom on Atom {
-    id
-    label
-    type
-  }
-`
 export const Dgraph_PageElement = gql`
   fragment Dgraph_PageElement on PageElement {
     id
@@ -3597,8 +3690,12 @@ export const Dgraph_PageElement = gql`
     parent {
       id
     }
+    page {
+      ...Dgraph__Page
+    }
   }
   ${DGraph__Atom}
+  ${Dgraph__Page}
 `
 export const App__Page = gql`
   fragment App__Page on Page {
@@ -3845,6 +3942,19 @@ export const DeletePageElement = gql`
       numUids
     }
   }
+`
+export const GetPageElementOwner = gql`
+  query GetPageElementOwner($pageElementId: ID!) {
+    getPageElement(id: $pageElementId) {
+      page {
+        app {
+          ownerId
+        }
+      }
+      ...Dgraph_PageElement
+    }
+  }
+  ${Dgraph_PageElement}
 `
 export const GetPageElementParent = gql`
   query GetPageElementParent($pageElementId: ID!) {

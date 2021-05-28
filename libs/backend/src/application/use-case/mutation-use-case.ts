@@ -9,12 +9,14 @@ export abstract class MutationUseCase<
   TUseCaseDtoResponse,
   TMutation,
   TMutationVariables,
+  TValidationContext = void,
 > extends GraphqlUseCase<
   TUseCaseRequestPort,
   TUseCaseDtoResponse,
   TMutation,
   TMutationVariables,
-  true
+  true,
+  TValidationContext
 > {
   protected constructor(protected apollo: ApolloClientService) {
     super(apollo)
@@ -30,9 +32,12 @@ export abstract class MutationUseCase<
 
   protected abstract getVariables(
     request: TUseCaseRequestPort,
+    validationContext: TValidationContext,
   ): TMutationVariables | Promise<TMutationVariables>
 
   protected abstract extractDataFromResult(
     result: FetchResult<TMutation>,
+    validationContext: TValidationContext,
+    request: TUseCaseRequestPort,
   ): TUseCaseDtoResponse | Promise<TUseCaseDtoResponse>
 }

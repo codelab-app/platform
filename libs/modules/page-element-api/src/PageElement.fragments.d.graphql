@@ -7,4 +7,7 @@ fragment Dgraph_PageElement on PageElement {
   parent {
     id
   }
+  page {
+    ...Dgraph__Page
+  }
 }

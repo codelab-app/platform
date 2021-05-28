@@ -1,44 +1,54 @@
 import { DGraphService, DgraphUseCase } from '@codelab/backend'
+import { Dgraph_PageElementFragment } from '@codelab/dgraph'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
+import { PageElementGuardService } from '../../auth'
 import { PageElement } from '../../models'
 import { GetPageElementService } from '../get-page-element'
 import { GetPageElementParentService } from '../get-page-element-parent'
 import { MovePageElementInput } from './move-page-element.input'
+import { MovePageElementRequest } from './move-page-element.request'
+
+interface ValidationContext {
+  existingParent: Dgraph_PageElementFragment
+}
 
 @Injectable()
 export class MovePageElementService extends DgraphUseCase<
-  MovePageElementInput,
-  PageElement
+  MovePageElementRequest,
+  PageElement,
+  ValidationContext
 > {
   constructor(
     dgraph: DGraphService,
     private getPageElementParentService: GetPageElementParentService,
     private getPageElementService: GetPageElementService,
+    private pageElementGuardService: PageElementGuardService,
   ) {
     super(dgraph)
   }
 
-  protected async executeTransaction(request: MovePageElementInput, txn: Txn) {
-    const existingParent = await this.getPageElementParentService.execute({
-      pageElementId: request.pageElementId,
-    })
-
-    await this.validateMove(request, existingParent)
-
+  protected async executeTransaction(
+    { input, currentUser }: MovePageElementRequest,
+    txn: Txn,
+    { existingParent }: ValidationContext,
+  ) {
     // Delete the old parent-child edge and create a new one
     await txn.mutate({
-      setNquads: MovePageElementService.createSetMutation(request),
+      setNquads: MovePageElementService.createSetMutation(input),
       deleteNquads: MovePageElementService.createDeleteMutation(
-        request,
-        existingParent,
+        input,
+        existingParent.id,
       ),
     })
 
     await txn.commit()
 
     return (await this.getPageElementService.execute({
-      pageElementId: request.pageElementId,
+      input: {
+        pageElementId: input.pageElementId,
+      },
+      currentUser,
     })) as PageElement
   }
 
@@ -54,43 +64,40 @@ export class MovePageElementService extends DgraphUseCase<
 
   private static createDeleteMutation(
     { pageElementId }: MovePageElementInput,
-    existingParent: PageElement | null,
+    existingParentId: string,
   ) {
-    if (!existingParent) {
-      return undefined
-    }
-
     return `
-          <${existingParent.id}> <PageElement.children> <${pageElementId}> .
+          <${existingParentId}> <PageElement.children> <${pageElementId}> .
       `
   }
 
-  private async validateMove(
-    { moveData, pageElementId }: MovePageElementInput,
-    existingParent: PageElement | null,
-  ) {
-    if (moveData.parentElementId === pageElementId) {
+  protected async validate({
+    input: {
+      moveData: { parentElementId },
+      pageElementId,
+    },
+    currentUser,
+  }: MovePageElementRequest) {
+    const existingParent = await this.getPageElementParentService.execute({
+      pageElementId: pageElementId,
+    })
+
+    if (parentElementId === pageElementId) {
       throw new Error("Can't move element within itself")
     }
-
-    //don't allow to move root page elements
-    const { parentElementId } = moveData
 
     if (!existingParent) {
       throw new Error("Can't move root page element")
     }
 
-    //make sure the new parent exists
-    if (!parentElementId) {
-      throw new Error("Can't move element. Parent page element  not provided")
+    //make sure the new parent exists and the user has ownership over it
+    const { pageElement: newParent } =
+      await this.pageElementGuardService.validate(parentElementId, currentUser)
+
+    if (newParent.page.id !== existingParent.page.id) {
+      throw new Error("Can't move page element to a different page")
     }
 
-    const newParent = await this.getPageElementService.execute({
-      pageElementId: parentElementId,
-    })
-
-    if (!newParent) {
-      throw new Error(`Can't move element. Invalid parent page element`)
-    }
+    return { existingParent }
   }
 }

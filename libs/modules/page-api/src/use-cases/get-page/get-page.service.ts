@@ -5,7 +5,7 @@ import {
   GetPageQuery,
   GetPageQueryVariables,
 } from '@codelab/dgraph'
-import { Injectable, UnauthorizedException } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 import { PageGuardService } from '../../auth'
 import { Page } from '../../page.model'
 import { GetPageRequest } from './get-page.request'
