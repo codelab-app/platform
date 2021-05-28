@@ -10,7 +10,7 @@ resource "aws_cloudfront_distribution" "webapp" {
   ]
 
   origin {
-    domain_name = "${aws_alb.main.dns_name}"
+    domain_name = aws_alb.main.dns_name
 
     origin_id = "${var.app_name}-webapp"
 
