@@ -63,3 +63,56 @@ variable "app_domain" {
   description = "Root Domain of the project"
   default     = "codelab.ai"
 }
+
+# container env values
+variable "dgraph_graphql_endpoint" {
+  default     = "http://127.0.0.1:8081/graphql"
+}
+
+variable "dgraph_endpoint" {
+  default     = "http://127.0.0.1:8081"   
+}
+
+variable "aws_access_key" {
+  default     = "cant-be-empty"
+}
+
+variable "aws_secret_key" {
+  default     = "cant-be-empty"
+}
+
+variable "aws_bucket" {
+  default     = "cant-be-empty" 
+}
+
+variable "auth0_secret" {
+  default     = "cant-be-empty"
+}
+
+variable "auth0_baseurl" {
+  default     = "http://127.0.0.1:3000"
+}
+
+variable "auth0_issuer_baseurl" {
+  default     = "https://codelab-ai.us.auth0.com"
+}
+
+variable "auth0_client_id" {
+  default     = "cant-be-empty"
+}
+
+variable "auth0_client_secret" {
+  default     = "cant-be-empty"
+}
+
+variable "auth0_audience" {
+  default     = "https://api.codelab.ai"
+}
+
+variable "auth0_api_client_id" {
+  default     = "cant-be-empty"
+}
+
+variable "auth0_api_client_secret" {
+  default     = "cant-be-empty"
+}
