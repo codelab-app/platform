@@ -27,7 +27,7 @@ filters-staging-master: &filters-staging-master
     branches:
       only: master
 
-filters-staging: &filters-prod
+filters-staging: &filters-staging
   filters:
     tags:
       only: /^staging-.*$/
@@ -333,7 +333,7 @@ jobs:
     <<: *executor-params
     steps:
       - aws-cli/install
-          aws-region: "${AWS_REGION}"
+      - aws-cli/setup
       - setup-workspace
       - yarn-install-prod
       - run:
@@ -468,11 +468,11 @@ workflows:
   app-staging:
     jobs:
       - install-and-build-workspace:
-          << *filters-staging
+          <<: *filters-staging
           e: docker-node
           context: CI
       - build-docker-image:
-          << *filters-staging
+          <<: *filters-staging
           e: docker-node
           context: CI
           requires:
