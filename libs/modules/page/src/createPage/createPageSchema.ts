@@ -1,16 +1,15 @@
+import { CreatePageInput } from '@codelab/graphql'
 import { JSONSchemaType } from 'ajv'
 
-export type CreatePageInput = {
-  title: string
-}
+export type CreatePageSchemaType = Omit<CreatePageInput, 'appId'>
 
-export const createPageSchema: JSONSchemaType<CreatePageInput> = {
+export const createPageSchema: JSONSchemaType<CreatePageSchemaType> = {
   title: 'Create Page Input',
   type: 'object',
   properties: {
-    title: {
+    name: {
       type: 'string',
     },
   },
-  required: ['title'],
+  required: ['name'],
 } as const

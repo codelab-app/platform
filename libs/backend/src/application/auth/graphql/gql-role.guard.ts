@@ -1,4 +1,4 @@
-import { ExecutionContext, Injectable } from '@nestjs/common'
+import { ExecutionContext } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 import { hasRoleAddOn } from './guard-addons'
 import { Role } from './role'
@@ -7,23 +7,26 @@ import { Role } from './role'
  * Allows only if the current user has ONE OF the roles in the allowedRoles array
  * Note that you need to apply GqlAuthGuard as well for this to work
  */
-export const GqlRoleGuard = (allowedRoles: Array<Role>) => {
-  const checkRole = hasRoleAddOn(allowedRoles)
+//The previous approach with creating new classes didn't work, because
+//even though we create different classes, only the first of them gets injected everywhere
+export class GqlRoleGuard extends AuthGuard('jwt') {
+  private readonly checkRole: (context: ExecutionContext) => boolean
 
-  @Injectable()
-  class _GqlRoleGuard extends AuthGuard('jwt') {
-    canActivate(context: ExecutionContext) {
-      const hasRole = checkRole(context)
+  constructor(allowedRoles: Array<Role>) {
+    super()
 
-      if (!hasRole) {
-        throw new Error(
-          "You don't have the required role to access this resource",
-        )
-      }
-
-      return true
-    }
+    this.checkRole = hasRoleAddOn(allowedRoles)
   }
 
-  return _GqlRoleGuard
+  canActivate(context: ExecutionContext) {
+    const hasRole = this.checkRole(context)
+
+    if (!hasRole) {
+      throw new Error(
+        "You don't have the required role to access this resource",
+      )
+    }
+
+    return true
+  }
 }

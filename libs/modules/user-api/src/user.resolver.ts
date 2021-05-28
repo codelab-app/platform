@@ -1,11 +1,5 @@
-import {
-  CurrentUser,
-  GqlAuthGuard,
-  GqlRoleGuard,
-  IsOwnerAuthGuard,
-  JwtPayload,
-  Role,
-} from '@codelab/backend'
+import type { JwtPayload } from '@codelab/backend'
+import { CurrentUser, GqlAuthGuard, GqlRoleGuard, Role } from '@codelab/backend'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import {
@@ -36,32 +30,26 @@ export class UserResolver {
   }
 
   @Query(() => [User])
-  @UseGuards(GqlAuthGuard, GqlRoleGuard([Role.ADMIN]))
+  @UseGuards(GqlAuthGuard, new GqlRoleGuard([Role.ADMIN]))
   getUsers(@Args('input', { nullable: true }) input?: GetUsersInput) {
     return this.getUsersService.execute(input)
   }
 
   @Mutation(() => User)
-  @UseGuards(
-    GqlAuthGuard,
-    IsOwnerAuthGuard(
-      ({ input }: { input: UpdateUserInput }) => input.userId,
-      [Role.ADMIN],
-    ),
-  )
-  updateUser(@Args('input') input: UpdateUserInput) {
-    return this.updateService.execute(input)
+  @UseGuards(GqlAuthGuard)
+  updateUser(
+    @Args('input') input: UpdateUserInput,
+    @CurrentUser() currentUser: JwtPayload,
+  ) {
+    return this.updateService.execute({ input, currentUser })
   }
 
   @Mutation(() => Boolean)
-  @UseGuards(
-    GqlAuthGuard,
-    IsOwnerAuthGuard(
-      ({ input }: { input: DeleteUserInput }) => input.userId,
-      [Role.ADMIN],
-    ),
-  )
-  deleteUser(@Args('input') input: DeleteUserInput) {
-    return this.deleteService.execute(input)
+  @UseGuards(GqlAuthGuard)
+  deleteUser(
+    @Args('input') input: DeleteUserInput,
+    @CurrentUser() currentUser: JwtPayload,
+  ) {
+    return this.deleteService.execute({ input, currentUser })
   }
 }

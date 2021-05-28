@@ -9,12 +9,14 @@ export abstract class QueryUseCase<
   TUseCaseDtoResponse,
   TQuery,
   TQueryVariables,
+  TValidationContext = void,
 > extends GraphqlUseCase<
   TUseCaseRequestPort,
   TUseCaseDtoResponse,
   TQuery,
   TQueryVariables,
-  false
+  false,
+  TValidationContext
 > {
   protected constructor(protected apollo: ApolloClientService) {
     super(apollo)
@@ -28,9 +30,14 @@ export abstract class QueryUseCase<
     | DocumentNode
     | TypedDocumentNode<TQuery, TQueryVariables>
 
-  protected abstract getVariables(request: TUseCaseRequestPort): TQueryVariables
+  protected abstract getVariables(
+    request: TUseCaseRequestPort,
+    validationContext: TValidationContext,
+  ): TQueryVariables | Promise<TQueryVariables>
 
   protected abstract extractDataFromResult(
     result: FetchResult<TQuery>,
-  ): TUseCaseDtoResponse
+    validationContext: TValidationContext,
+    request: TUseCaseRequestPort,
+  ): TUseCaseDtoResponse | Promise<TUseCaseDtoResponse>
 }

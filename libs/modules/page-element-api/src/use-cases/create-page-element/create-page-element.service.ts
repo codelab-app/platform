@@ -1,38 +1,48 @@
 import { DGraphService, DgraphUseCase } from '@codelab/backend'
+import { Dgraph_PageElementFragment } from '@codelab/dgraph'
+import { Atom, GetAtomService } from '@codelab/modules/atom-api'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
+import { PageElementGuardService } from '../../auth'
 import { PageElement } from '../../models/'
 import { GetLastOrderChildService } from '../get-last-order-child'
 import { GetPageElementService } from '../get-page-element'
 import { CreatePageElementInput } from './create-page-element.input'
+import { CreatePageElementRequest } from './create-page-element.request'
+
+interface ValidationContext {
+  atom: Atom | undefined | null
+  parentPageElement: Dgraph_PageElementFragment
+}
 
 @Injectable()
 export class CreatePageElementService extends DgraphUseCase<
-  CreatePageElementInput,
-  PageElement
+  CreatePageElementRequest,
+  PageElement,
+  ValidationContext
 > {
   constructor(
     dgraph: DGraphService,
     private getPageElementService: GetPageElementService,
     private getLastOrderChildService: GetLastOrderChildService,
+    private getAtomService: GetAtomService,
+    private pageElementGuardService: PageElementGuardService,
   ) {
     super(dgraph)
   }
 
   protected async executeTransaction(
-    request: CreatePageElementInput,
+    { input, currentUser }: CreatePageElementRequest,
     txn: Txn,
+    { parentPageElement }: ValidationContext,
   ) {
-    const order = await this.getOrder(request)
+    const order = await this.getOrder(input)
 
     const mutationResult = await txn.mutate({
-      setNquads: `
-          _:element <dgraph.type> "PageElement" .
-          _:element <PageElement.name> "${request.name}" .
-          _:element <PageElement.parent> <${request.parentPageElementId}> .
-          <${request.parentPageElementId}> <PageElement.children> _:element (order=${order}) .
-          _:element <PageElement.atom> <${request.atomId}> .
-      `,
+      setNquads: CreatePageElementService.createMutation(
+        { ...input, order },
+        parentPageElement.page.id,
+      ),
     })
 
     await txn.commit()
@@ -44,7 +54,10 @@ export class CreatePageElementService extends DgraphUseCase<
     }
 
     const pageElement = await this.getPageElementService.execute({
-      pageElementId: uid,
+      input: {
+        pageElementId: uid,
+      },
+      currentUser,
     })
 
     if (!pageElement) {
@@ -54,6 +67,20 @@ export class CreatePageElementService extends DgraphUseCase<
     return pageElement
   }
 
+  private static createMutation(
+    { parentPageElementId, order, name, atomId }: CreatePageElementInput,
+    pageId: string,
+  ) {
+    return `
+      _:element <dgraph.type> "PageElement" .
+      _:element <PageElement.name> "${name}" .
+      _:element <PageElement.parent> <${parentPageElementId}> .
+      _:element <PageElement.page> <${pageId}> .
+      <${parentPageElementId}> <PageElement.children> _:element (order=${order}) .
+      ${atomId ? `_:element <PageElement.atom> <${atomId}> .` : ''}
+      `
+  }
+
   private static createError() {
     return new Error('Error while creating page element')
   }
@@ -61,17 +88,45 @@ export class CreatePageElementService extends DgraphUseCase<
   private async getOrder(request: CreatePageElementInput): Promise<number> {
     const { order, parentPageElementId } = request
 
-    //if we don't have order - put it last
-    if (!order) {
-      const lastOrderChild = await this.getLastOrderChildService.execute({
-        pageElementId: parentPageElementId,
-      })
+    if (order) {
+      return order
+    }
 
-      if (lastOrderChild && lastOrderChild.order) {
-        return lastOrderChild.order + 1
-      }
+    //if we don't have order - put it last
+    const lastOrderChild = await this.getLastOrderChildService.execute({
+      pageElementId: parentPageElementId,
+    })
+
+    if (lastOrderChild && lastOrderChild.order) {
+      return lastOrderChild.order + 1
     }
 
     return 0
+  }
+
+  protected async validate({
+    input: { parentPageElementId, atomId },
+    currentUser,
+  }: CreatePageElementRequest) {
+    const { pageElement: parentPageElement } =
+      await this.pageElementGuardService.validate(
+        parentPageElementId,
+        currentUser,
+      )
+
+    let atom: Atom | null | undefined
+
+    if (atomId) {
+      atom = await this.getAtomService.execute({ atomId })
+
+      if (!atom) {
+        throw new Error('Atom not found')
+      }
+    }
+
+    return {
+      atom,
+      parentPageElement,
+    }
   }
 }

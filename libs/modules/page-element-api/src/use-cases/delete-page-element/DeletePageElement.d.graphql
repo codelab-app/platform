@@ -1,0 +1,5 @@
+mutation DeletePageElement($filter: PageElementFilter!) {
+    deletePageElement(filter: $filter) {
+        numUids
+    }
+}

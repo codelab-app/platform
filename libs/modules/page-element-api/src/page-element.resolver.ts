@@ -1,14 +1,21 @@
-import { GqlAuthGuard } from '@codelab/backend'
+import type { JwtPayload } from '@codelab/backend'
+import { CurrentUser, DeleteResponse, GqlAuthGuard } from '@codelab/backend'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { PageElement, PageElementRoot } from './models'
 import {
   CreatePageElementInput,
   CreatePageElementService,
+  DeletePageElementInput,
+  DeletePageElementService,
   GetPageElementInput,
   GetPageElementRootInput,
   GetPageElementRootService,
   GetPageElementService,
+  MovePageElementInput,
+  MovePageElementService,
+  UpdatePageElementInput,
+  UpdatePageElementService,
 } from './use-cases'
 
 @Resolver(() => PageElementRoot)
@@ -18,18 +25,27 @@ export class PageElementResolver {
     private createPageElementService: CreatePageElementService,
     private getPageElementService: GetPageElementService,
     private getPageElementRootService: GetPageElementRootService,
+    private deletePageElementService: DeletePageElementService,
+    private updatePageElementService: UpdatePageElementService,
+    private movePageElementService: MovePageElementService,
   ) {}
 
   @Mutation(() => PageElement)
   @UseGuards(GqlAuthGuard)
-  createPageElement(@Args('input') input: CreatePageElementInput) {
-    return this.createPageElementService.execute(input)
+  createPageElement(
+    @Args('input') input: CreatePageElementInput,
+    @CurrentUser() currentUser: JwtPayload,
+  ) {
+    return this.createPageElementService.execute({ input, currentUser })
   }
 
   @Query(() => PageElement, { nullable: true })
   @UseGuards(GqlAuthGuard)
-  getPageElement(@Args('input') input: GetPageElementInput) {
-    return this.getPageElementService.execute(input)
+  getPageElement(
+    @Args('input') input: GetPageElementInput,
+    @CurrentUser() currentUser: JwtPayload,
+  ) {
+    return this.getPageElementService.execute({ input, currentUser })
   }
 
   @Query(() => PageElementRoot, {
@@ -38,7 +54,39 @@ export class PageElementResolver {
       'Aggregates the requested page element and all of its descendant elements (infinitely deep) in the form of array of PageElement and array of PageElementLink',
   })
   @UseGuards(GqlAuthGuard)
-  getPageElementRoot(@Args('input') input: GetPageElementRootInput) {
-    return this.getPageElementRootService.execute(input)
+  getPageElementRoot(
+    @Args('input') input: GetPageElementRootInput,
+    @CurrentUser() currentUser: JwtPayload,
+  ) {
+    return this.getPageElementRootService.execute({ input, currentUser })
+  }
+
+  @Mutation(() => PageElement)
+  @UseGuards(GqlAuthGuard)
+  updatePageElement(
+    @Args('input') input: UpdatePageElementInput,
+    @CurrentUser() currentUser: JwtPayload,
+  ) {
+    return this.updatePageElementService.execute({ input, currentUser })
+  }
+
+  @Mutation(() => PageElement)
+  @UseGuards(GqlAuthGuard)
+  movePageElement(
+    @Args('input') input: MovePageElementInput,
+    @CurrentUser() currentUser: JwtPayload,
+  ) {
+    return this.movePageElementService.execute({ input, currentUser })
+  }
+
+  @Mutation(() => DeleteResponse, {
+    description: 'Deletes a page element and all the descending page elements',
+  })
+  @UseGuards(GqlAuthGuard)
+  deletePageElement(
+    @Args('input') input: DeletePageElementInput,
+    @CurrentUser() currentUser: JwtPayload,
+  ) {
+    return this.deletePageElementService.execute({ input, currentUser })
   }
 }

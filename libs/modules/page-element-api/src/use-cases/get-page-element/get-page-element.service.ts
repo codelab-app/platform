@@ -6,20 +6,24 @@ import {
   GetPageElementQueryVariables,
 } from '@codelab/dgraph'
 import { Injectable } from '@nestjs/common'
+import { PageElementGuardService } from '../../auth'
 import { PageElement, pageElementSchema } from '../../models'
-import { GetPageElementInput } from './get-page-element.input'
+import { GetPageElementRequest } from './get-page-element.request'
 
 type GqlVariablesType = GetPageElementQueryVariables
 type GqlOperationType = GetPageElementQuery
 
 @Injectable()
 export class GetPageElementService extends QueryUseCase<
-  GetPageElementInput,
+  GetPageElementRequest,
   PageElement | null,
   GqlOperationType,
   GqlVariablesType
 > {
-  constructor(apollo: ApolloClientService) {
+  constructor(
+    apollo: ApolloClientService,
+    private pageElementGuardService: PageElementGuardService,
+  ) {
     super(apollo)
   }
 
@@ -28,12 +32,23 @@ export class GetPageElementService extends QueryUseCase<
   }
 
   protected extractDataFromResult(result: FetchResult<GqlOperationType>) {
+    console.log(pageElementSchema.parse(result?.data?.getPageElement))
+
     return pageElementSchema.parse(result?.data?.getPageElement) || null
   }
 
-  protected getVariables(request: GetPageElementInput): GqlVariablesType {
+  protected getVariables({
+    input: { pageElementId },
+  }: GetPageElementRequest): GqlVariablesType {
     return {
-      id: request.pageElementId,
+      id: pageElementId,
     }
+  }
+
+  protected async validate({
+    currentUser,
+    input: { pageElementId },
+  }: GetPageElementRequest): Promise<void> {
+    await this.pageElementGuardService.validate(pageElementId, currentUser)
   }
 }

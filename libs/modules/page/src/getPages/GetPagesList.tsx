@@ -1,5 +1,4 @@
 import { FileOutlined } from '@ant-design/icons'
-import { App__PageFragment, useGetPagesListQuery } from '@codelab/dgraph'
 import {
   AppContext,
   EntityType,
@@ -8,6 +7,7 @@ import {
   PageType,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
+import { useGetPagesQuery } from '@codelab/graphql'
 import { List, Space, Spin } from 'antd'
 import Link from 'next/link'
 import React, { useContext } from 'react'
@@ -16,15 +16,13 @@ export const GetPagesList = () => {
   const { app } = useContext(AppContext)
   const { openDeleteModal, openUpdateModal } = useCRUDModalForm(EntityType.Page)
 
-  const { data, loading } = useGetPagesListQuery({
+  const { data, loading } = useGetPagesQuery({
     variables: {
-      appId: app.id,
+      input: { appId: app.id },
     },
   })
 
-  const pages = (data?.app?.pages ?? []).filter(
-    (page): page is App__PageFragment => !!page,
-  )
+  const pages = data?.pages
 
   return loading ? (
     <Spin />
@@ -43,7 +41,7 @@ export const GetPagesList = () => {
                   query: { appId: app.id, pageId: page.id },
                 }}
               >
-                <a>{page.title}</a>
+                <a>{page.name}</a>
               </Link>
             </Space>
             <Space>

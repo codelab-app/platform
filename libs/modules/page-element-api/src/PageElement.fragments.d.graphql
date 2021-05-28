@@ -4,4 +4,10 @@ fragment Dgraph_PageElement on PageElement {
   atom {
     ...DGraph__Atom
   }
+  parent {
+    id
+  }
+  page {
+    ...Dgraph__Page
+  }
 }

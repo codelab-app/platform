@@ -105,12 +105,13 @@ const atomTypes = [
 ]
 
 const valueTypes = [
-  {label: 'Boolean', type: 'Boolean'},
-  {label: 'Lambda', type: 'Lambda'},
-  {label: 'Number', type: 'Number'},
-  {label: 'String', type: 'String'},
-  {label: 'Enum', type: 'Enum'},
+  { label: 'Boolean', type: 'Boolean' },
+  { label: 'Lambda', type: 'Lambda' },
+  { label: 'Number', type: 'Number' },
+  { label: 'String', type: 'String' },
+  { label: 'Enum', type: 'Enum' },
 ]
+
 module.exports = `
   _:adminUser <User.email> "admin@codelab.ai" .
   _:adminUser <dgraph.type> "User" .
@@ -124,9 +125,9 @@ module.exports = `
     (prev, atomType, n) =>
       prev +
       `
-      _:atomType${n} <dgraph.type> "AtomType" .
-      _:atomType${n} <AtomType.label> "${atomType.label}" .
-      _:atomType${n} <AtomType.type> "${atomType.type}" .
+      _:atomType${n} <dgraph.type> "Atom" .
+      _:atomType${n} <Atom.label> "${atomType.label}" .
+      _:atomType${n} <Atom.type> "${atomType.type}" .
   `,
     '',
   )}

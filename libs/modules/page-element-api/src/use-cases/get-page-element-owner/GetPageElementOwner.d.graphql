@@ -1,0 +1,11 @@
+query GetPageElementOwner($pageElementId: ID!) {
+    getPageElement(id: $pageElementId){
+        page {
+            app {
+                ownerId
+            }
+            ...Dgraph__Page
+        }
+        ...Dgraph_PageElement
+    }
+}

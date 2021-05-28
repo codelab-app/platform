@@ -1,1 +1,1 @@
-export * from './is-app-owner.guard'
+export * from './app-guard'

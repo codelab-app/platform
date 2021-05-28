@@ -1,5 +1,0 @@
-mutation UpdatePageElement($id: uuid!, $input: page_element_set_input) {
-  update_page_element_by_pk(pk_columns: { id: $id }, _set: $input) {
-    ...Page__PageElement
-  }
-}

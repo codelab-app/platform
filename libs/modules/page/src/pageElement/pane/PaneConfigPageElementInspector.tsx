@@ -6,7 +6,7 @@ import {
   EntityType,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import { useGetPageElementQuery } from '@codelab/hasura'
+import { useGetPageElementQuery } from '@codelab/graphql'
 import { Empty, Spin } from 'antd'
 import React from 'react'
 import {
@@ -25,11 +25,11 @@ export const PaneConfigPageElementInspector = ({ pageElementId }: Props) => {
 
   const { data, loading } = useGetPageElementQuery({
     variables: {
-      pageElementId,
+      input: { pageElementId },
     },
   })
 
-  const element = data?.page_element_by_pk
+  const element = data?.getPageElement
 
   if (loading) {
     return <Spin />

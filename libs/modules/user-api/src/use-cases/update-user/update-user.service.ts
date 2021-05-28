@@ -1,17 +1,21 @@
 import { Auth0Service, UseCase } from '@codelab/backend'
-import { Injectable } from '@nestjs/common'
+import { Injectable, UnauthorizedException } from '@nestjs/common'
 import { User } from '../../user.model'
-import { UpdateUserInput } from './update-user.input'
+import { UpdateUserRequest } from './update-user.request'
 
 @Injectable()
-export class UpdateUserService implements UseCase<UpdateUserInput, User> {
+export class UpdateUserService implements UseCase<UpdateUserRequest, User> {
   constructor(private auth0: Auth0Service) {}
 
-  async execute(request: UpdateUserInput): Promise<User> {
+  async execute({ currentUser, input }: UpdateUserRequest): Promise<User> {
+    if (currentUser?.sub !== input.userId) {
+      throw new UnauthorizedException("You can't edit this user")
+    }
+
     return await this.auth0.getManagementClient().updateUser(
-      { id: request.userId },
+      { id: input.userId },
       {
-        ...request.updateData,
+        ...input.updateData,
       },
     )
   }

@@ -5,12 +5,10 @@ import {
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
 import {
-  refetchGetAppPageQuery,
+  CreatePageElementInput,
   useCreatePageElementMutation,
-} from '@codelab/hasura'
-import React, { useContext, useEffect } from 'react'
-import { DeepPartial } from 'uniforms'
-import { CreatePageElementInput } from './createPageElementSchema'
+} from '@codelab/graphql'
+import React, { useEffect } from 'react'
 import { PageElementFormBase } from './PageElementFormBase'
 
 type CreatePageElementFormProps = UniFormUseCaseProps<CreatePageElementInput>
@@ -19,21 +17,20 @@ export const CreatePageElementForm = ({
   ...props
 }: CreatePageElementFormProps) => {
   const { reset, setLoading } = useCRUDModalForm(EntityType.PageElement)
-  const { pageId, appId } = useContext(AppPageContext)
 
+  //Not yet sure what should we refetch here*
   const [mutate, { loading: creating }] = useCreatePageElementMutation({
-    refetchQueries: [refetchGetAppPageQuery({ appId, pageId })],
+    // refetchQueries: [refetchGetAppPageQuery({ appId, pageId })],
   })
 
   useEffect(() => {
     setLoading(creating)
   }, [creating, setLoading])
 
-  const onSubmit = (submitData: DeepPartial<CreatePageElementInput>) => {
+  const onSubmit = (submitData: CreatePageElementInput) => {
     return mutate({
       variables: {
         input: {
-          page_id: pageId,
           ...submitData,
         },
       },

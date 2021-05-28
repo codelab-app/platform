@@ -1,9 +1,6 @@
-import { GqlAuthGuard } from '@codelab/backend'
-import { IsAppOwnerAuthGuard } from '@codelab/modules/app-api'
-import {
-  GetPageElementRootService,
-  PageElementRoot,
-} from '@codelab/modules/page-element-api'
+import type { JwtPayload } from '@codelab/backend'
+import { CurrentUser, GqlAuthGuard } from '@codelab/backend'
+import { PageElementRoot } from '@codelab/modules/page-element-api'
 import { Injectable, UseGuards } from '@nestjs/common'
 import {
   Args,
@@ -17,10 +14,15 @@ import { Page } from './page.model'
 import {
   CreatePageInput,
   CreatePageService,
+  DeletePageInput,
+  DeletePageService,
   GetPageInput,
+  GetPageRootService,
   GetPageService,
   GetPagesInput,
   GetPagesService,
+  UpdatePageInput,
+  UpdatePageService,
 } from './use-cases'
 
 @Resolver(() => Page)
@@ -28,39 +30,65 @@ import {
 export class PageResolver {
   constructor(
     private createPageService: CreatePageService,
-    private getPageElementRootService: GetPageElementRootService,
+    private getPageRootService: GetPageRootService,
     private getPagesService: GetPagesService,
+    private updatePageService: UpdatePageService,
     private getPageService: GetPageService,
+    private deletePageService: DeletePageService,
   ) {}
 
   @Query(() => [Page])
-  @UseGuards(
-    GqlAuthGuard,
-    IsAppOwnerAuthGuard(({ input }: { input: GetPagesInput }) => input.appId),
-  )
-  getPages(@Args('input') input: GetPagesInput) {
-    return this.getPagesService.execute(input)
+  @UseGuards(GqlAuthGuard)
+  getPages(
+    @Args('input') input: GetPagesInput,
+    @CurrentUser() currentUser: JwtPayload,
+  ) {
+    return this.getPagesService.execute({ input, currentUser })
   }
 
   @Query(() => Page, { nullable: true })
   @UseGuards(GqlAuthGuard)
-  getPage(@Args('input') input: GetPageInput) {
-    return this.getPageService.execute(input)
+  getPage(
+    @Args('input') input: GetPageInput,
+    @CurrentUser() currentUser: JwtPayload,
+  ) {
+    return this.getPageService.execute({ input, currentUser })
   }
 
   @Mutation(() => Page)
-  @UseGuards(
-    GqlAuthGuard,
-    IsAppOwnerAuthGuard(({ input }: { input: CreatePageInput }) => input.appId),
-  )
-  createPage(@Args('input') input: CreatePageInput) {
-    return this.createPageService.execute(input)
+  @UseGuards(GqlAuthGuard)
+  createPage(
+    @Args('input') input: CreatePageInput,
+    @CurrentUser() currentUser: JwtPayload,
+  ) {
+    return this.createPageService.execute({ input, currentUser })
+  }
+
+  @Mutation(() => Page)
+  @UseGuards(GqlAuthGuard)
+  deletePage(
+    @Args('input') input: DeletePageInput,
+    @CurrentUser() currentUser: JwtPayload,
+  ) {
+    return this.deletePageService.execute({ input, currentUser })
+  }
+
+  @Mutation(() => Page)
+  @UseGuards(GqlAuthGuard)
+  updatePage(
+    @Args('input') input: UpdatePageInput,
+    @CurrentUser() currentUser: JwtPayload,
+  ) {
+    return this.updatePageService.execute({ input, currentUser })
   }
 
   @ResolveField('rootElement', () => PageElementRoot)
-  getRootElement(@Parent() page: Page) {
-    return this.getPageElementRootService.execute({
-      pageElementId: page.rootElement.id,
+  getRootElement(@Parent() page: Page, @CurrentUser() currentUser: JwtPayload) {
+    return this.getPageRootService.execute({
+      input: {
+        pageId: page.id,
+      },
+      currentUser,
     })
   }
 

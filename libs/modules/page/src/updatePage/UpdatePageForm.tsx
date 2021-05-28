@@ -1,9 +1,4 @@
 import {
-  refetchGetPagesListQuery,
-  useGetPageQuery,
-  useUpdatePageMutation,
-} from '@codelab/dgraph'
-import {
   AppContext,
   createNotificationHandler,
   EntityType,
@@ -11,11 +6,16 @@ import {
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
+import {
+  refetchGetPagesQuery,
+  useGetPageQuery,
+  useUpdatePageMutation,
+} from '@codelab/graphql'
 import React, { useContext, useEffect } from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { UpdatePageInput, updatePageSchema } from './updatePageSchema'
+import { updatePageSchema, UpdatePageSchemaType } from './updatePageSchema'
 
-type UpdatePageFormProps = UniFormUseCaseProps<UpdatePageInput>
+type UpdatePageFormProps = UniFormUseCaseProps<UpdatePageSchemaType>
 
 export const UpdatePageForm = (props: UpdatePageFormProps) => {
   const { reset, setLoading, state } = useCRUDModalForm(EntityType.Page)
@@ -24,42 +24,45 @@ export const UpdatePageForm = (props: UpdatePageFormProps) => {
 
   const [mutate, { loading: updating }] = useUpdatePageMutation({
     awaitRefetchQueries: true,
-    refetchQueries: [refetchGetPagesListQuery({ appId: app.id })],
+    refetchQueries: [refetchGetPagesQuery({ input: { appId: app.id } })],
   })
 
   useEffect(() => {
     setLoading(updating)
   }, [updating])
 
-  const { data, loading } = useGetPageQuery({
+  const { data } = useGetPageQuery({
     variables: {
-      pageId: updatePageId,
+      input: { pageId: updatePageId },
     },
   })
 
-  const onSubmit = (submitData: UpdatePageInput) => {
+  const onSubmit = (submitData: UpdatePageSchemaType) => {
     return mutate({
       variables: {
         input: {
-          ...submitData,
+          pageId: updatePageId,
+          updateData: {
+            appId: data?.page?.app.id as string,
+            ...submitData,
+          },
         },
-        pageId: updatePageId,
       },
     })
   }
 
   return (
-    <FormUniforms<UpdatePageInput>
+    <FormUniforms<UpdatePageSchemaType>
       onSubmit={onSubmit}
       schema={updatePageSchema}
-      model={{ title: data?.page?.title }}
+      model={{ name: data?.page?.name }}
       onSubmitError={createNotificationHandler({
         title: 'Error while updating page',
       })}
       onSubmitSuccess={() => reset()}
       {...props}
     >
-      <AutoFields />
+      <AutoFields omitFields={['appId']} />
     </FormUniforms>
   )
 }

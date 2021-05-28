@@ -9,16 +9,17 @@ import {
   UpdateAtomService,
 } from './use-cases'
 
+const services = [
+  CreateAtomService,
+  GetAtomsService,
+  DeleteAtomService,
+  GetAtomService,
+  UpdateAtomService,
+]
+
 @Module({
   imports: [DGraphModule, AuthModule, ApolloClientModule],
-  providers: [
-    CreateAtomService,
-    GetAtomsService,
-    AtomResolver,
-    DeleteAtomService,
-    GetAtomService,
-    UpdateAtomService,
-  ],
-  exports: [],
+  providers: [AtomResolver, ...services],
+  exports: [...services],
 })
 export class AtomModule {}

@@ -1,47 +1,70 @@
-import { FetchResult } from '@apollo/client'
-import { ApolloClientService, MutationUseCase } from '@codelab/backend'
-import {
-  CreatePageGql,
-  CreatePageMutation,
-  CreatePageMutationVariables,
-} from '@codelab/dgraph'
+import { DGraphService, DgraphUseCase } from '@codelab/backend'
+import { AppGuardService } from '@codelab/modules/app-api'
 import { Injectable } from '@nestjs/common'
-import { Page, pagesSchema } from '../../page.model'
-import { CreatePageInput } from './create-page.input'
+import { Txn } from 'dgraph-js-http'
+import { Page } from '../../page.model'
+import { GetPageService } from '../get-page'
+import { CreatePageRequest } from './create-page.request'
 
 @Injectable()
-export class CreatePageService extends MutationUseCase<
-  CreatePageInput,
+export class CreatePageService extends DgraphUseCase<
+  CreatePageRequest,
   Partial<Page>,
-  CreatePageMutation,
-  CreatePageMutationVariables
+  void
 > {
-  constructor(apollo: ApolloClientService) {
-    super(apollo)
+  constructor(
+    dgraph: DGraphService,
+    private appGuardService: AppGuardService,
+    private getPageService: GetPageService,
+  ) {
+    super(dgraph)
   }
 
-  protected extractDataFromResult(result: FetchResult<CreatePageMutation>) {
-    return pagesSchema.parse(result?.data?.addPage?.page)[0]
-  }
+  protected async executeTransaction(
+    { input: { name, appId }, currentUser }: CreatePageRequest,
+    txn: Txn,
+  ) {
+    const mutationResult = await txn.mutate({
+      setNquads: `
+        _:page <dgraph.type> "Page" .
+        _:page <Page.name> "${name}" .
+        _:page <Page.app> <${appId}> .
+        <${appId}> <App.pages> _:page .
+        _:page <Page.rootElement> _:rootElement .
+        
+        _:rootElement <dgraph.type> "PageElement" .
+        _:rootElement <PageElement.name> "Page Root" .
+        _:rootElement <PageElement.page> _:page .
+        _:rootElement <PageElement.name> "Page Root" .
+      `,
+    })
 
-  protected getGql() {
-    return CreatePageGql
-  }
+    await txn.commit()
 
-  protected getVariables(
-    request: CreatePageInput,
-  ): CreatePageMutationVariables {
-    //Create the page + a root page element, so we know we always have at least one element
-    return {
-      input: {
-        name: request.name,
-        app: {
-          id: request.appId,
-        },
-        rootElement: {
-          name: 'Page Root',
-        },
-      },
+    const uid = mutationResult.data.uids.page
+
+    if (!uid) {
+      throw new Error('Error while creating page')
     }
+
+    const page = await this.getPageService.execute({
+      input: {
+        pageId: uid,
+      },
+      currentUser,
+    })
+
+    if (!page) {
+      throw new Error('Error while creating page')
+    }
+
+    return page
+  }
+
+  protected async validate({
+    currentUser,
+    input: { appId },
+  }: CreatePageRequest): Promise<void> {
+    await this.appGuardService.validate(appId, currentUser)
   }
 }
