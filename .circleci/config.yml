@@ -336,6 +336,7 @@ jobs:
     steps:
       - setup-workspace     
       - aws-cli/setup
+      - setup_remote_docker
       - run:
           name: 'Setup common environment variables'
           command: |
@@ -360,6 +361,7 @@ jobs:
     steps:
       - setup-workspace
       - aws-cli/setup
+      - setup_remote_docker
       - run:
           name: Load image
           command: |
