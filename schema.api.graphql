@@ -251,6 +251,7 @@ type Mutation {
   updateApp(input: UpdateAppInput!): App!
   deleteApp(input: DeleteAppInput!): App!
   createPage(input: CreatePageInput!): Page!
+  updatePage(input: UpdatePageInput!): Page!
   createPageElement(input: CreatePageElementInput!): PageElement!
   updatePageElement(input: UpdatePageElementInput!): PageElement!
   movePageElement(input: MovePageElementInput!): PageElement!
@@ -299,6 +300,16 @@ input DeleteAppInput {
 }
 
 input CreatePageInput {
+  name: String!
+  appId: String!
+}
+
+input UpdatePageInput {
+  pageId: String!
+  updateData: UpdatePageData!
+}
+
+input UpdatePageData {
   name: String!
   appId: String!
 }

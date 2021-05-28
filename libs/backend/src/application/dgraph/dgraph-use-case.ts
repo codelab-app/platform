@@ -1,5 +1,5 @@
 import { Txn } from 'dgraph-js-http'
-import { DGraphService } from '../../infrastructure/dgraph/dgraph.service'
+import { DGraphService } from '../../infrastructure'
 import { UseCase } from '../index'
 
 export abstract class DgraphUseCase<TUseCaseRequestPort, TUseCaseDtoResponse>
@@ -29,4 +29,8 @@ export abstract class DgraphUseCase<TUseCaseRequestPort, TUseCaseDtoResponse>
     request: TUseCaseRequestPort,
     txn: Txn,
   ): Promise<TUseCaseDtoResponse>
+
+  protected async validate(request: TUseCaseRequestPort) {
+    return
+  }
 }

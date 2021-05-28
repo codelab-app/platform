@@ -1,18 +1,22 @@
 import { FetchResult } from '@apollo/client'
 import { ApolloClientService, QueryUseCase } from '@codelab/backend'
 import { GetAppGql, GetAppQuery, GetAppQueryVariables } from '@codelab/dgraph'
-import { Injectable } from '@nestjs/common'
+import { Injectable, UnauthorizedException } from '@nestjs/common'
 import { App } from '../../app.model'
-import { GetAppInput } from './get-app.input'
+import { AppGuardService } from '../../auth'
+import { GetAppRequest } from './get-app.request'
 
 @Injectable()
 export class GetAppService extends QueryUseCase<
-  GetAppInput,
+  GetAppRequest,
   App | null,
   GetAppQuery,
   GetAppQueryVariables
 > {
-  constructor(apollo: ApolloClientService) {
+  constructor(
+    apollo: ApolloClientService,
+    private appGuardService: AppGuardService,
+  ) {
     super(apollo)
   }
 
@@ -28,9 +32,16 @@ export class GetAppService extends QueryUseCase<
     return GetAppGql
   }
 
-  protected getVariables(request: GetAppInput): GetAppQueryVariables {
+  protected getVariables({ input }: GetAppRequest): GetAppQueryVariables {
     return {
-      id: request.appId,
+      id: input.appId,
     }
+  }
+
+  protected async validate({
+    input: { appId },
+    currentUser,
+  }: GetAppRequest): Promise<void> {
+    await this.appGuardService.validate(appId, currentUser)
   }
 }

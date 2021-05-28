@@ -5,18 +5,22 @@ import {
   UpdateAppMutation,
   UpdateAppMutationVariables,
 } from '@codelab/dgraph'
-import { Injectable } from '@nestjs/common'
+import { Injectable, UnauthorizedException } from '@nestjs/common'
 import { App } from '../../app.model'
-import { UpdateAppInput } from './update-app.input'
+import { AppGuardService } from '../../auth'
+import { UpdateAppRequest } from './update-app.request'
 
 @Injectable()
 export class UpdateAppService extends MutationUseCase<
-  UpdateAppInput,
+  UpdateAppRequest,
   App,
   UpdateAppMutation,
   UpdateAppMutationVariables
 > {
-  constructor(apollo: ApolloClientService) {
+  constructor(
+    apollo: ApolloClientService,
+    private appGuardService: AppGuardService,
+  ) {
     super(apollo)
   }
 
@@ -35,9 +39,8 @@ export class UpdateAppService extends MutationUseCase<
   }
 
   protected getVariables({
-    appId,
-    updateData,
-  }: UpdateAppInput): UpdateAppMutationVariables {
+    input: { appId, updateData },
+  }: UpdateAppRequest): UpdateAppMutationVariables {
     return {
       input: {
         filter: {
@@ -48,5 +51,12 @@ export class UpdateAppService extends MutationUseCase<
         },
       },
     }
+  }
+
+  protected async validate({
+    input: { appId },
+    currentUser,
+  }: UpdateAppRequest): Promise<void> {
+    await this.appGuardService.validate(appId, currentUser)
   }
 }

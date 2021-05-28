@@ -6,21 +6,25 @@ import {
   GetPagesQuery,
   GetPagesQueryVariables,
 } from '@codelab/dgraph'
+import { AppGuardService } from '@codelab/modules/app-api'
 import { Injectable } from '@nestjs/common'
 import { Page } from '../../page.model'
-import { GetPagesInput } from './get-pages.input'
+import { GetPagesRequest } from './get-pages.request'
 
 type GqlVariablesType = GetPagesQueryVariables
 type GqlOperationType = GetPagesQuery
 
 @Injectable()
 export class GetPagesService extends QueryUseCase<
-  GetPagesInput,
+  GetPagesRequest,
   Array<Partial<Page>>,
   GqlOperationType,
   GqlVariablesType
 > {
-  constructor(apollo: ApolloClientService) {
+  constructor(
+    apollo: ApolloClientService,
+    private appGuardService: AppGuardService,
+  ) {
     super(apollo)
   }
 
@@ -36,9 +40,18 @@ export class GetPagesService extends QueryUseCase<
     )
   }
 
-  protected getVariables(request: GetPagesInput): GqlVariablesType {
+  protected getVariables({
+    input: { appId },
+  }: GetPagesRequest): GqlVariablesType {
     return {
-      appId: request.appId,
+      appId: appId,
     }
+  }
+
+  protected async validate({
+    input: { appId },
+    currentUser,
+  }: GetPagesRequest): Promise<void> {
+    await this.appGuardService.validate(appId, currentUser)
   }
 }

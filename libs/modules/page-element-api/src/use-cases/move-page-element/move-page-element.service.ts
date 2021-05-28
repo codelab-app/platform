@@ -1,7 +1,6 @@
 import { DGraphService, DgraphUseCase } from '@codelab/backend'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
-import { PageElement } from '../../../../../dgraph/src/graphql-client-dgraph.generated'
 import { PageElement } from '../../models'
 import { GetPageElementService } from '../get-page-element'
 import { GetPageElementParentService } from '../get-page-element-parent'
@@ -25,7 +24,7 @@ export class MovePageElementService extends DgraphUseCase<
       pageElementId: request.pageElementId,
     })
 
-    await this.validate(request, existingParent)
+    await this.validateMove(request, existingParent)
 
     // Delete the old parent-child edge and create a new one
     await txn.mutate({
@@ -66,7 +65,7 @@ export class MovePageElementService extends DgraphUseCase<
       `
   }
 
-  private async validate(
+  private async validateMove(
     { moveData, pageElementId }: MovePageElementInput,
     existingParent: PageElement | null,
   ) {

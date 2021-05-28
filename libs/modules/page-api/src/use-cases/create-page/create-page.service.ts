@@ -5,18 +5,22 @@ import {
   CreatePageMutation,
   CreatePageMutationVariables,
 } from '@codelab/dgraph'
+import { AppGuardService } from '@codelab/modules/app-api'
 import { Injectable } from '@nestjs/common'
 import { Page, pagesSchema } from '../../page.model'
-import { CreatePageInput } from './create-page.input'
+import { CreatePageRequest } from './create-page.request'
 
 @Injectable()
 export class CreatePageService extends MutationUseCase<
-  CreatePageInput,
+  CreatePageRequest,
   Partial<Page>,
   CreatePageMutation,
   CreatePageMutationVariables
 > {
-  constructor(apollo: ApolloClientService) {
+  constructor(
+    apollo: ApolloClientService,
+    private appGuardService: AppGuardService,
+  ) {
     super(apollo)
   }
 
@@ -28,20 +32,27 @@ export class CreatePageService extends MutationUseCase<
     return CreatePageGql
   }
 
-  protected getVariables(
-    request: CreatePageInput,
-  ): CreatePageMutationVariables {
+  protected getVariables({
+    input: { name, appId },
+  }: CreatePageRequest): CreatePageMutationVariables {
     //Create the page + a root page element, so we know we always have at least one element
     return {
       input: {
-        name: request.name,
+        name: name,
         app: {
-          id: request.appId,
+          id: appId,
         },
         rootElement: {
           name: 'Page Root',
         },
       },
     }
+  }
+
+  protected async validate({
+    currentUser,
+    input: { appId },
+  }: CreatePageRequest): Promise<void> {
+    await this.appGuardService.validate(appId, currentUser)
   }
 }

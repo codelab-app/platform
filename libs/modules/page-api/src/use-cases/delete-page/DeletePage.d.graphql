@@ -1,0 +1,8 @@
+mutation DeletePage($filter: PageFilter!){
+    deletePage(filter: $filter){
+        numUids
+        page {
+            ...Dgraph__Page
+        }
+    }
+}

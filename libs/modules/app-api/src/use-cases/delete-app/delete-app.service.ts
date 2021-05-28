@@ -7,16 +7,20 @@ import {
 import { Injectable } from '@nestjs/common'
 import { FetchResult } from 'apollo-link'
 import { App } from '../../app.model'
-import { DeleteAppInput } from './delete-app.input'
+import { AppGuardService } from '../../auth'
+import { DeleteAppRequest } from './delete-app.request'
 
 @Injectable()
 export class DeleteAppService extends MutationUseCase<
-  DeleteAppInput,
+  DeleteAppRequest,
   App,
   DeleteAppMutation,
   DeleteAppMutationVariables
 > {
-  constructor(apollo: ApolloClientService) {
+  constructor(
+    apollo: ApolloClientService,
+    private appGuardService: AppGuardService,
+  ) {
     super(apollo)
   }
 
@@ -34,11 +38,20 @@ export class DeleteAppService extends MutationUseCase<
     return DeleteAppGql
   }
 
-  protected getVariables(request: DeleteAppInput): DeleteAppMutationVariables {
+  protected getVariables({
+    input: { appId },
+  }: DeleteAppRequest): DeleteAppMutationVariables {
     return {
       filter: {
-        id: [request.appId],
+        id: [appId],
       },
     }
+  }
+
+  protected async validate({
+    input: { appId },
+    currentUser,
+  }: DeleteAppRequest): Promise<void> {
+    await this.appGuardService.validate(appId, currentUser)
   }
 }

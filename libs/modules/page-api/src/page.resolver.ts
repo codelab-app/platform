@@ -1,5 +1,4 @@
-import { GqlAuthGuard } from '@codelab/backend'
-import { IsAppOwnerAuthGuard } from '@codelab/modules/app-api'
+import { CurrentUser, GqlAuthGuard, JwtPayload } from '@codelab/backend'
 import { PageElementRoot } from '@codelab/modules/page-element-api'
 import { Injectable, UseGuards } from '@nestjs/common'
 import {
@@ -19,6 +18,8 @@ import {
   GetPageService,
   GetPagesInput,
   GetPagesService,
+  UpdatePageInput,
+  UpdatePageService,
 } from './use-cases'
 
 @Resolver(() => Page)
@@ -28,37 +29,53 @@ export class PageResolver {
     private createPageService: CreatePageService,
     private getPageRootService: GetPageRootService,
     private getPagesService: GetPagesService,
+    private updatePageService: UpdatePageService,
     private getPageService: GetPageService,
   ) {}
 
   @Query(() => [Page])
-  @UseGuards(
-    GqlAuthGuard,
-    IsAppOwnerAuthGuard(({ input }: { input: GetPagesInput }) => input.appId),
-  )
-  getPages(@Args('input') input: GetPagesInput) {
-    return this.getPagesService.execute(input)
+  @UseGuards(GqlAuthGuard)
+  getPages(
+    @Args('input') input: GetPagesInput,
+    @CurrentUser() currentUser: JwtPayload,
+  ) {
+    return this.getPagesService.execute({ input, currentUser })
   }
 
   @Query(() => Page, { nullable: true })
   @UseGuards(GqlAuthGuard)
-  getPage(@Args('input') input: GetPageInput) {
-    return this.getPageService.execute(input)
+  getPage(
+    @Args('input') input: GetPageInput,
+    @CurrentUser() currentUser: JwtPayload,
+  ) {
+    return this.getPageService.execute({ input, currentUser })
   }
 
   @Mutation(() => Page)
-  @UseGuards(
-    GqlAuthGuard,
-    IsAppOwnerAuthGuard(({ input }: { input: CreatePageInput }) => input.appId),
-  )
-  createPage(@Args('input') input: CreatePageInput) {
-    return this.createPageService.execute(input)
+  @UseGuards(GqlAuthGuard)
+  createPage(
+    @Args('input') input: CreatePageInput,
+    @CurrentUser() currentUser: JwtPayload,
+  ) {
+    return this.createPageService.execute({ input, currentUser })
+  }
+
+  @Mutation(() => Page)
+  @UseGuards(GqlAuthGuard)
+  updatePage(
+    @Args('input') input: UpdatePageInput,
+    @CurrentUser() currentUser: JwtPayload,
+  ) {
+    return this.updatePageService.execute({ input, currentUser })
   }
 
   @ResolveField('rootElement', () => PageElementRoot)
-  getRootElement(@Parent() page: Page) {
+  getRootElement(@Parent() page: Page, @CurrentUser() currentUser: JwtPayload) {
     return this.getPageRootService.execute({
-      pageId: page.id,
+      input: {
+        pageId: page.id,
+      },
+      currentUser,
     })
   }
 

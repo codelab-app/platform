@@ -2,7 +2,6 @@ import { CurrentUser, GqlAuthGuard, JwtPayload } from '@codelab/backend'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { App } from './app.model'
-import { IsAppOwnerAuthGuard } from './auth/is-app-owner.guard'
 import {
   CreateAppInput,
   CreateAppService,
@@ -36,12 +35,15 @@ export class AppResolver {
   }
 
   @Query(() => App, { nullable: true })
-  @UseGuards(
-    GqlAuthGuard,
-    IsAppOwnerAuthGuard(({ input }: { input: GetAppInput }) => input.appId),
-  )
-  getApp(@Args('input') input: GetAppInput) {
-    return this.getAppService.execute(input)
+  @UseGuards(GqlAuthGuard)
+  getApp(
+    @Args('input') input: GetAppInput,
+    @CurrentUser() currentUser: JwtPayload,
+  ) {
+    return this.getAppService.execute({
+      input,
+      currentUser,
+    })
   }
 
   @Query(() => [App])
@@ -51,21 +53,21 @@ export class AppResolver {
   }
 
   @Mutation(() => App)
-  @UseGuards(
-    GqlAuthGuard,
-    IsAppOwnerAuthGuard(({ input }: { input: UpdateAppInput }) => input.appId),
-  )
-  updateApp(@Args('input') input: UpdateAppInput) {
-    return this.updateAppService.execute(input)
+  @UseGuards(GqlAuthGuard)
+  updateApp(
+    @Args('input') input: UpdateAppInput,
+    @CurrentUser() currentUser: JwtPayload,
+  ) {
+    return this.updateAppService.execute({ input, currentUser })
   }
 
   @Mutation(() => App)
-  @UseGuards(
-    GqlAuthGuard,
-    IsAppOwnerAuthGuard(({ input }: { input: DeleteAppInput }) => input.appId),
-  )
-  deleteApp(@Args('input') input: DeleteAppInput) {
-    return this.deleteAppService.execute(input)
+  @UseGuards(GqlAuthGuard)
+  deleteApp(
+    @Args('input') input: DeleteAppInput,
+    @CurrentUser() currentUser: JwtPayload,
+  ) {
+    return this.deleteAppService.execute({ input, currentUser })
   }
 
   // @ResolveField('pages', () => [Page])

@@ -5,9 +5,12 @@ import { Module } from '@nestjs/common'
 import { PageResolver } from './page.resolver'
 import {
   CreatePageService,
+  DeletePageService,
+  GetPageOwnerService,
   GetPageRootService,
   GetPageService,
   GetPagesService,
+  UpdatePageService,
 } from './use-cases'
 
 const services = [
@@ -15,6 +18,9 @@ const services = [
   GetPagesService,
   GetPageRootService,
   GetPageService,
+  UpdatePageService,
+  GetPageOwnerService,
+  DeletePageService,
 ]
 
 @Module({

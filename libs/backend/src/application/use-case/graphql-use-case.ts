@@ -20,6 +20,8 @@ export abstract class GraphqlUseCase<
 
   async execute(request: TUseCaseRequestPort): Promise<TUseCaseDtoResponse> {
     const client = this.apollo.getClient()
+    await this.validate(request)
+
     const variables = await this.getVariables(request)
     const options = this.getOptions(request) || {}
     let result: FetchResult<TOperation>
@@ -70,4 +72,8 @@ export abstract class GraphqlUseCase<
   protected abstract extractDataFromResult(
     result: FetchResult<TOperation>,
   ): TUseCaseDtoResponse | Promise<TUseCaseDtoResponse>
+
+  protected async validate(request: TUseCaseRequestPort) {
+    return
+  }
 }

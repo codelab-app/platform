@@ -5,23 +5,29 @@ import {
 } from '@codelab/modules/page-element-api'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
-import { GetPageRootInput } from './get-page-root.input'
+import { PageGuardService } from '../../auth'
+import { UpdatePageRequest } from '../update-page'
+import { GetPageRootRequest } from './get-page-root.request'
 import { GetPageRootQueryBuilder } from './get-page-root-query-builder'
 
 @Injectable()
 export class GetPageRootService extends DgraphUseCase<
-  GetPageRootInput,
+  GetPageRootRequest,
   PageElementRoot | null
 > {
   constructor(
     dgraph: DGraphService,
     private flattenPageElementTreeService: FlattenPageElementTreeService,
+    private pageGuardService: PageGuardService,
   ) {
     super(dgraph)
   }
 
-  protected async executeTransaction(request: GetPageRootInput, txn: Txn) {
-    const queryBuilder = new GetPageRootQueryBuilder().withUid(request.pageId)
+  protected async executeTransaction(
+    { input: { pageId } }: GetPageRootRequest,
+    txn: Txn,
+  ) {
+    const queryBuilder = new GetPageRootQueryBuilder().withUid(pageId)
     const schema = queryBuilder.getZodSchema()
     const queryResult = await txn.query(queryBuilder.build())
     const parsedResult = schema.parse(queryResult.data).query
@@ -54,5 +60,12 @@ export class GetPageRootService extends DgraphUseCase<
       descendants,
       links,
     })
+  }
+
+  protected async validate({
+    currentUser,
+    input: { pageId },
+  }: GetPageRootRequest): Promise<void> {
+    await this.pageGuardService.validate(pageId, currentUser)
   }
 }

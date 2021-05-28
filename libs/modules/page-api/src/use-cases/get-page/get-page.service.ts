@@ -5,21 +5,25 @@ import {
   GetPageQuery,
   GetPageQueryVariables,
 } from '@codelab/dgraph'
-import { Injectable } from '@nestjs/common'
+import { Injectable, UnauthorizedException } from '@nestjs/common'
+import { PageGuardService } from '../../auth'
 import { Page } from '../../page.model'
-import { GetPageInput } from './get-page.input'
+import { GetPageRequest } from './get-page.request'
 
 type GqlVariablesType = GetPageQueryVariables
 type GqlOperationType = GetPageQuery
 
 @Injectable()
 export class GetPageService extends QueryUseCase<
-  GetPageInput,
+  GetPageRequest,
   Partial<Page> | null,
   GqlOperationType,
   GqlVariablesType
 > {
-  constructor(apollo: ApolloClientService) {
+  constructor(
+    apollo: ApolloClientService,
+    private pageGuardService: PageGuardService,
+  ) {
     super(apollo)
   }
 
@@ -31,9 +35,18 @@ export class GetPageService extends QueryUseCase<
     return (result.data?.getPage as any) || null
   }
 
-  protected getVariables(request: GetPageInput): GqlVariablesType {
+  protected getVariables({
+    input: { pageId },
+  }: GetPageRequest): GqlVariablesType {
     return {
-      pageId: request.pageId,
+      pageId: pageId,
     }
+  }
+
+  protected async validate({
+    input: { pageId },
+    currentUser,
+  }: GetPageRequest): Promise<void> {
+    await this.pageGuardService.validate(pageId, currentUser)
   }
 }
