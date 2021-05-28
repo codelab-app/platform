@@ -27,6 +27,13 @@ filters-staging-master: &filters-staging-master
     branches:
       only: master
 
+filters-staging: &filters-prod
+  filters:
+    tags:
+      only: /^staging-.*$/
+    branches:
+      only: 866-update-ci # temporary
+
 filters-prod: &filters-prod
   filters:
     tags:
@@ -74,6 +81,8 @@ orbs:
   slack: circleci/slack@4.4.2
   cypress: cypress-io/cypress@1.28.0
   node: circleci/node@4.1.0
+  aws-cli: circleci/aws-cli@2.0.2
+  aws-ecs: circleci/aws-ecs@2.2.1
 
 executors:
   machine-ubuntu:
@@ -320,22 +329,31 @@ jobs:
           mentions: $SLACK_USER
           template: basic_success_1
 
-  build-and-push-docker-image:
+  build-docker-image:
     <<: *executor-params
     steps:
+      - aws-cli/install
+          aws-region: "${AWS_REGION}"
       - setup-workspace
       - yarn-install-prod
       - run:
+          name: 'Setup common environment variables'
+          command: |
+            echo 'export ECR_REPOSITORY_NAME="clab-api"' >> $BASH_ENV
+            echo 'export FULL_IMAGE_NAME="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPOSITORY_NAME}:${CIRCLE_SHA1}"' >> $BASH_ENV
+      - run:
           name: 'Build Docker image'
           command: |
-            env >> .env
-            yarn docker:build codelab
+            docker build -t $FULL_IMAGE_NAME -f .docker/Dockerfile .
       - run:
-          name: 'Docker login'
-          command: echo "${DOCKER_PASS}" | docker login --username "${DOCKER_USER}" --password-stdin
-      - run:
-          name: 'Push Docker image'
-          command: yarn docker:push codelab
+          name: Save image to an archive
+          command: |
+            mkdir docker-image
+            docker save -o docker-image/image.tar $FULL_IMAGE_NAME
+      - persist_to_workspace:
+          root: .
+          paths:
+            - docker-image
 
   deploy-to-ebs-staging:
     <<: *executor-params
@@ -446,6 +464,19 @@ workflows:
           context: CI
           requires:
             - deploy-to-ebs-staging
+
+  app-staging:
+    jobs:
+      - install-and-build-workspace:
+          << *filters-staging
+          e: docker-node
+          context: CI
+      - build-docker-image:
+          << *filters-staging
+          e: docker-node
+          context: CI
+          requires:
+            - install-and-build-workspace
 
   app-prod:
     jobs:
