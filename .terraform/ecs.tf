@@ -9,11 +9,24 @@ data "template_file" "cb_app" {
 
   vars = {
     app_name       = var.app_name
-    app_image      = "${aws_ecr_repository.main.repository_url}"
+    app_image      = aws_ecr_repository.main.repository_url
     app_port       = var.app_port
     fargate_cpu    = var.fargate_cpu
     fargate_memory = var.fargate_memory
-    aws_region     = var.aws_region
+    aws_region     = var.aws_region,
+    dgraph_graphql_endpoint = aws_ssm_parameter.dgraph_graphql_endpoint.arn,
+    dgraph_endpoint         = aws_ssm_parameter.dgraph_endpoint.arn,
+    aws_access_key          = aws_ssm_parameter.aws_access_key.arn,
+    aws_secret_key          = aws_ssm_parameter.aws_secret_key.arn,
+    aws_bucket              = aws_ssm_parameter.aws_bucket.arn,
+    auth0_secret            = aws_ssm_parameter.auth0_secret.arn,
+    auth0_baseurl           = aws_ssm_parameter.auth0_baseurl.arn,
+    auth0_issuer_baseurl    = aws_ssm_parameter.auth0_issuer_baseurl.arn,
+    auth0_client_id         = aws_ssm_parameter.auth0_client_id.arn,
+    auth0_client_secret     = aws_ssm_parameter.auth0_client_secret.arn,
+    auth0_audience          = aws_ssm_parameter.auth0_audience.arn,
+    auth0_api_client_id     = aws_ssm_parameter.auth0_api_client_id.arn,
+    auth0_api_client_secret = aws_ssm_parameter.auth0_api_client_secret.arn
   }
 }
 
