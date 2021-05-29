@@ -30,4 +30,6 @@ export const atomSchema = z.object({
   label: z.string(),
 })
 
+export const atomTypeSchema = z.object({ type: AtomType })
+
 export const atomsSchema = z.array(atomSchema)

@@ -51,7 +51,7 @@ type Component {
 type Atom {
   id: ID!
   type: AtomType!
-  label: String
+  label: String!
   library: Library
 }
 
