@@ -379,7 +379,7 @@ jobs:
       - run:
           name: Push image
           command: |
-            eval $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
+            aws ecr get-login-password | docker login --username AWS --password-stdin "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${AWS_RESOURCE_NAME_PREFIX}-api"
             docker push $FULL_IMAGE_NAME
       - aws-ecs/update-service:
           family: "${ECS_SERVICE_NAME}"
