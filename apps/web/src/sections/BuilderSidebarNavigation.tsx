@@ -1,6 +1,6 @@
 import {
   ApartmentOutlined,
-    ApiFilled,
+  ApiFilled,
   AppstoreOutlined,
   BookOutlined,
   CopyOutlined,
@@ -17,13 +17,13 @@ import { useRouter } from 'next/router'
 import React, { useContext } from 'react'
 import tw from 'twin.macro'
 
-export const LayoutNavigations = () => {
+export const BuilderSidebarNavigation = () => {
   const router = useRouter()
   // const { libraries } = useContext(LibraryContext)
   const { app } = useContext(AppContext)
 
   return (
-    <div data-testid="pane-main" css={tw`h-full`}>
+    <>
       <Menu
         css={tw`w-full h-full`}
         defaultSelectedKeys={[PageType.LibraryList]}
@@ -170,6 +170,6 @@ export const LayoutNavigations = () => {
 
         <Menu.Divider />
       </Menu>
-    </div>
+    </>
   )
 }

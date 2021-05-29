@@ -1,46 +1,42 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { padding } from '@codelab/frontend/style'
 import {
-  CreateAppButton,
-  CreateAppModal,
-  DeleteAppModal,
-  GetAppsList,
-  UpdateAppModal,
-} from '@codelab/modules/app'
-import { SignOutUserButton } from '@codelab/modules/user'
+  CreateAtomButton,
+  CreateAtomModal,
+  DeleteAtomsModal,
+  GetAtomsTable,
+  UpdateAtomModal,
+} from '@codelab/modules/atom'
 import { PageHeader } from 'antd'
 import { AppListLayout } from 'apps/web/src/layout/AppListLayout'
 import React from 'react'
 
-const AppsPage = () => {
-  const pageHeaderButtons = [
-    <CreateAppButton key={0} />,
-    <SignOutUserButton key={1} />,
-  ]
+const AtomsPage = () => {
+  const pageHeaderButtons = [<CreateAtomButton key={0} />]
 
   return (
     <>
       <PageHeader
         ghost={false}
         // onBack={() => router.back()}
-        title="Apps"
+        title="Atom"
         extra={pageHeaderButtons}
       />
-      <CreateAppModal />
-      <UpdateAppModal />
-      <DeleteAppModal />
+      <CreateAtomModal />
+      <UpdateAtomModal />
+      <DeleteAtomsModal />
       <section style={{ marginTop: padding.sm }}>
-        <GetAppsList />
+        <GetAtomsTable />
       </section>
     </>
   )
 }
 
-AppsPage.Layout = AppListLayout
+AtomsPage.Layout = AppListLayout
 // AppsPage.MainPane = () => <></>
 // AppsPage.MetaPane = () => <></>
-AppsPage.SidebarNavigation = () => <></>
+AtomsPage.SidebarNavigation = () => <></>
 
 export const getServerSideProps = withPageAuthRequired()
 
-export default AppsPage
+export default AtomsPage

@@ -6,7 +6,6 @@ registerEnumType(AtomTypeEnum, {
   name: 'AtomType',
 })
 
-//
 @ObjectType()
 export class Atom {
   @Field(() => ID)

@@ -6,8 +6,8 @@ import { Dropdown, Layout, Menu } from 'antd'
 import { useRouter } from 'next/router'
 import React, { PropsWithChildren } from 'react'
 import tw from 'twin.macro'
+import { BuilderSidebarNavigation } from '../sections/BuilderSidebarNavigation'
 import { WithMainPane, WithMetaPane } from './Layout.d'
-import { LayoutNavigations } from './Layout-navigations'
 
 const { Sider, Content, Header } = Layout
 
@@ -27,22 +27,6 @@ export const LayoutBuilder = ({
 }: PropsWithChildren<WithMainPane & WithMetaPane>) => {
   const router = useRouter()
   const { reset: resetSelection } = useBuilderSelection()
-  // const { data, loading } = useGetFirstAppQuery()
-  // const router = useRouter()
-
-  // useEffect(() => {
-  //   if (!loading && !data?.app.length) {
-  //     router.push(PageType.AppList)
-  //   }
-
-  // if (!data?.app[0].pages.length) {
-  //   throw new Error('App is missing a page')
-  // }
-  // }, [loading])
-  //
-  // if (!data?.app.length || !data?.app?.[0].pages.length) {
-  //   return <></>
-  // }
 
   const menu = (
     <Menu>
@@ -67,7 +51,7 @@ export const LayoutBuilder = ({
           collapsed
           collapsedWidth={40}
         >
-          <LayoutNavigations />
+          <BuilderSidebarNavigation />
         </Sider>
         <Layout>
           <Header>

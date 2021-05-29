@@ -1,8 +1,8 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { PaneMainPropTypeC } from '@codelab/modules/prop-type'
-import { LayoutBuilder } from 'apps/web/src/layout/Layout--builder'
+import { DashboardLayout } from 'apps/web/src/templates/DashboardLayout'
 import React from 'react'
-import { NextPageLayout } from '../../../../../../src/layout/Layout.d'
+import { NextPageLayout } from '../../../../../../src/templates/Layout.d'
 
 const PropTypeCDetail: NextPageLayout<'builder'> = () => {
   return (
@@ -14,7 +14,7 @@ const PropTypeCDetail: NextPageLayout<'builder'> = () => {
 
 export const getServerSideProps = withPageAuthRequired()
 
-PropTypeCDetail.Layout = LayoutBuilder
+PropTypeCDetail.Layout = DashboardLayout
 PropTypeCDetail.MainPane = PaneMainPropTypeC
 
 export default PropTypeCDetail

@@ -1,9 +1,9 @@
 import { EditorProvider } from '@codelab/frontend/builder'
-import { ComponentProvider } from '@codelab/frontend/shared'
+import { ComponentProvider, LibraryProvider } from '@codelab/frontend/shared'
 import { useRouter } from 'next/router'
 import React, { PropsWithChildren } from 'react'
+import { DashboardLayout } from './DashboardLayout'
 import { WithMainPane } from './Layout.d'
-import { LayoutBuilder } from './Layout--builder'
 
 export const LayoutComponentDetail = (
   props: PropsWithChildren<WithMainPane>,
@@ -17,10 +17,12 @@ export const LayoutComponentDetail = (
   }
 
   return (
-    <ComponentProvider componentId={componentId}>
-      <EditorProvider>
-        <LayoutBuilder MainPane={MainPane}>{children}</LayoutBuilder>
-      </EditorProvider>
-    </ComponentProvider>
+    <LibraryProvider>
+      <ComponentProvider componentId={componentId}>
+        <EditorProvider>
+          <DashboardLayout MainPane={MainPane}>{children}</DashboardLayout>
+        </EditorProvider>
+      </ComponentProvider>
+    </LibraryProvider>
   )
 }

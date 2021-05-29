@@ -13,6 +13,12 @@ export type WithMetaPane = {
   MetaPane?: (props: any) => React.ReactElement
 }
 
+export type DashboardLayoutProps = {
+  MetaPane?: (props: any) => React.ReactElement
+  MainPane?: (props: any) => React.ReactElement
+  SidebarNavigation: (props: any) => React.ReactElement
+}
+
 export type NextPageLayout<
   P extends 'default' | 'builder' | 'component' = 'default',
   IP = P,

@@ -3,7 +3,7 @@ import { Layout } from 'antd'
 import { useRouter } from 'next/router'
 import React, { PropsWithChildren } from 'react'
 import tw from 'twin.macro'
-import { LayoutNavigations } from './Layout-navigations'
+import { BuilderSidebarNavigation } from '../sections/BuilderSidebarNavigation'
 
 const { Sider, Content, Header } = Layout
 
@@ -21,7 +21,7 @@ export const LayoutAtom = ({
           collapsed
           collapsedWidth={40}
         >
-          <LayoutNavigations />
+          <BuilderSidebarNavigation />
         </Sider>
         <Layout css={tw`bg-white`}>
           <Content>{children}</Content>

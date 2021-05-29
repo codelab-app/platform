@@ -1,12 +1,12 @@
 import { DeleteFilled, EditFilled } from '@ant-design/icons'
 import { EntityType, useCRUDModalForm } from '@codelab/frontend/shared'
-import { Atom, useGetAtomsQuery } from '@codelab/graphql'
+import { useGetAtomsQuery } from '@codelab/graphql'
 import { Button, Space, Spin, Table, TableColumnProps, Tag } from 'antd'
 import React from 'react'
 import tw from 'twin.macro'
 import { useColumnSearchProps } from './useColumnSearchProps'
 
-export const GetAtomsList = () => {
+export const GetAtomsTable = () => {
   const { openDeleteModal, openUpdateModal } = useCRUDModalForm(EntityType.Atom)
   const columnSearchProps = useColumnSearchProps('name')
 

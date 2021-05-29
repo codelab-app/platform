@@ -9,12 +9,12 @@ import {
 } from '@codelab/modules/component-element'
 import { MainPaneLibrary } from '@codelab/modules/library'
 import { Breadcrumb, Empty } from 'antd'
-import { MetaPaneComponent } from 'apps/web/src/layout/MetaPaneComponent'
+import { MetaPaneComponent } from 'apps/web/src/templates/MetaPaneComponent'
 import Link from 'next/link'
 import React from 'react'
 import tw from 'twin.macro'
-import { NextPageLayout } from '../../../../src/layout/Layout.d'
-import { LayoutLibrary } from '../../../../src/layout/Layout--library'
+import { NextPageLayout } from '../../../../src/templates/Layout.d'
+import { LayoutLibrary } from '../../../../src/templates/Layout--library'
 
 const LibraryContent = () => {
   const { selectedComponent, setSelected } = useComponentBuilder()

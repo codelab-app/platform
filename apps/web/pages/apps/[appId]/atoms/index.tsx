@@ -3,14 +3,14 @@ import {
   CreateAtomButton,
   CreateAtomModal,
   DeleteAtomsModal,
-  GetAtomsList,
+  GetAtomsTable,
   UpdateAtomModal,
 } from '@codelab/modules/atom'
 import { Breadcrumb, Card, PageHeader, Space } from 'antd'
-import { LayoutAtom } from 'apps/web/src/layout/Layout--atom'
+import { LayoutAtom } from 'apps/web/src/templates/Layout--atom'
 import React from 'react'
 import tw from 'twin.macro'
-import { NextPageLayout } from '../../../../src/layout/Layout.d'
+import { NextPageLayout } from '../../../../src/templates/Layout.d'
 
 const AtomsPage: NextPageLayout = () => {
   return (
@@ -33,7 +33,7 @@ const AtomsPage: NextPageLayout = () => {
           />
         </Card>
         <Card bodyStyle={tw`p-0`}>
-          <GetAtomsList />
+          <GetAtomsTable />
         </Card>
       </Space>
       <CreateAtomModal />

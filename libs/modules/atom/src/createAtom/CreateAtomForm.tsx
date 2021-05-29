@@ -2,14 +2,16 @@ import {
   createNotificationHandler,
   EntityType,
   FormUniforms,
-  isNotNull,
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import { refetchGetAtomsQuery, useCreateAtomMutation } from '@codelab/graphql'
-import { Spin } from 'antd'
+import {
+  AtomType,
+  refetchGetAtomsQuery,
+  useCreateAtomMutation,
+} from '@codelab/graphql'
 import React, { useEffect } from 'react'
-import { AutoField, AutoFields, SelectField } from 'uniforms-antd'
+import { AutoField, SelectField } from 'uniforms-antd'
 import { CreateAtomInput, createAtomSchema } from './createAtomSchema'
 
 type CreateAtomFormProps = UniFormUseCaseProps<CreateAtomInput>
@@ -38,24 +40,12 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
     })
   }
 
-  const availableProps = [
-    {
-      name: 'block',
-      id: 'block',
-    },
-    {
-      name: 'danger',
-      id: 'danger',
-    },
-    {
-      name: 'disabled',
-      id: 'disabled',
-    },
-    {
-      name: 'ghost',
-      id: 'ghost',
-    },
-  ]
+  console.log(
+    Object.keys(AtomType).map((atomType) => ({
+      label: atomType,
+      value: atomType,
+    })),
+  )
 
   return (
     <FormUniforms<CreateAtomInput>
@@ -70,20 +60,21 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
       layout="horizontal"
       {...props}
     >
-      <AutoFields />
-      {/* <SelectField
+      <AutoField name="label" />
+      <SelectField
         name="type"
         label="Type"
         //eslint-disable-next-line @typescript-eslint/ban-ts-comment
         //@ts-ignore https://github.com/vazco/uniforms/issues/951
         showSearch={true}
         optionFilterProp="label"
-        labelCol={{ span: 3 }}
-        colon={false}
-        options={atomTypes?.map((atomType) => ({
-          label: atomType.label,
-          value: atomType.id,
-        }))} */}
+        // labelCol={{ span: 3 }}
+        // colon={false}
+        options={Object.keys(AtomType).map((atomType) => ({
+          label: atomType,
+          value: atomType,
+        }))}
+      />
     </FormUniforms>
   )
 }

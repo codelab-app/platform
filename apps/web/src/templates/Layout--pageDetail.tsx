@@ -2,8 +2,8 @@ import { EditorProvider } from '@codelab/frontend/builder'
 import { AppPageProvider } from '@codelab/frontend/shared'
 import { useRouter } from 'next/router'
 import React from 'react'
+import { DashboardLayout } from './DashboardLayout'
 import { NextPageLayout } from './Layout.d'
-import { LayoutBuilder } from './Layout--builder'
 
 export const LayoutPageDetail = (props: NextPageLayout<'builder'>) => {
   const { children, MainPane } = props
@@ -22,7 +22,7 @@ export const LayoutPageDetail = (props: NextPageLayout<'builder'>) => {
   return (
     <AppPageProvider appId={appId} pageId={pageId}>
       <EditorProvider>
-        <LayoutBuilder MainPane={MainPane}>{children}</LayoutBuilder>
+        <DashboardLayout MainPane={MainPane}>{children}</DashboardLayout>
       </EditorProvider>
     </AppPageProvider>
   )
