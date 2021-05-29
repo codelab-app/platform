@@ -375,6 +375,7 @@ jobs:
           command: |
             echo 'export ECS_CLUSTER_NAME="${AWS_RESOURCE_NAME_PREFIX}-cluster"' >> $BASH_ENV
             echo 'export ECS_SERVICE_NAME="${AWS_RESOURCE_NAME_PREFIX}-service"' >> $BASH_ENV
+            echo 'export ECS_TASK_FAMILTY="${AWS_RESOURCE_NAME_PREFIX}-app-task"' >> $BASH_ENV
             echo 'export FULL_IMAGE_NAME="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${AWS_RESOURCE_NAME_PREFIX}-api:${CIRCLE_SHA1}"' >> $BASH_ENV
       - run:
           name: Push image
@@ -382,10 +383,9 @@ jobs:
             aws ecr get-login-password | docker login --username AWS --password-stdin "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${AWS_RESOURCE_NAME_PREFIX}-api"
             docker push $FULL_IMAGE_NAME
       - aws-ecs/update-service:
-          family: "${ECS_SERVICE_NAME}"
+          family: "${ECS_TASK_FAMILTY}"
           cluster-name: "${ECS_CLUSTER_NAME}"
           container-image-name-updates: "container=${ECS_SERVICE_NAME},image-and-tag=${FULL_IMAGE_NAME}"
-          container-env-var-updates: "container=${ECS_SERVICE_NAME},name=VERSION_INFO,value=${CIRCLE_SHA1}_${CIRCLE_BUILD_NUM},container=${ECS_SERVICE_NAME},name=BUILD_DATE,value=\"$(date)\""
           verify-revision-is-deployed: true
 
   deploy-to-ebs-staging:
