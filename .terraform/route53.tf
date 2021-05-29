@@ -8,8 +8,8 @@ resource "aws_route53_record" "api" {
   type         = "A"
 
   alias {
-    name       = "${aws_cloudfront_distribution.webapp.domain_name}"
-    zone_id    = "${aws_cloudfront_distribution.webapp.hosted_zone_id}"
+    name       = aws_cloudfront_distribution.webapp.domain_name
+    zone_id    = aws_cloudfront_distribution.webapp.hosted_zone_id
     evaluate_target_health = true
   }
 }

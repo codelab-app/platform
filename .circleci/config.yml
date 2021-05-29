@@ -20,12 +20,16 @@
 filters-staging-pr: &filters-staging-pr
   filters:
     branches:
-      ignore: master
+      ignore:
+        - master
 
-filters-staging-master: &filters-staging-master
+filters-staging: &filters-staging
   filters:
+    tags:
+      only: /^staging-.*$/
     branches:
-      only: master
+      only: 
+        - master
 
 filters-prod: &filters-prod
   filters:
@@ -74,6 +78,8 @@ orbs:
   slack: circleci/slack@4.4.2
   cypress: cypress-io/cypress@1.28.0
   node: circleci/node@4.1.0
+  aws-cli: circleci/aws-cli@2.0.2
+  aws-ecs: circleci/aws-ecs@2.2.1
 
 executors:
   machine-ubuntu:
@@ -211,24 +217,74 @@ commands:
           mentions: $SLACK_USER
           template: basic_fail_1
 
-  setup-deploy:
-    description: 'Setup deploy'
+  build-docker-image:
+    description: 'Build docker image'
     steps:
       - setup-workspace
-      - yarn-install-prod
+      - setup_remote_docker:
+          version: 19.03.8
+      - aws-cli/setup
       - run:
-          name: Install dependencies
+          name: 'Setup common environment variables'
           command: |
-            pip3 install awsebcli --upgrade --user
+            echo 'export ECR_REPOSITORY_NAME="${APP_PREFIX}-api"' >> $BASH_ENV
+            echo 'export FULL_IMAGE_NAME="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPOSITORY_NAME}:${CIRCLE_SHA1}"' >> $BASH_ENV
       - run:
-          name: Create AWS credentials manually
+          name: 'Build Docker image'
           command: |
-            mkdir ~/.aws
-            touch ~/.aws/config
-            chmod 600 ~/.aws/config
-            echo "[profile eb-cli]" > ~/.aws/config
-            echo "aws_access_key_id=$AWS_ACCESS_KEY" >> ~/.aws/config
-            echo "aws_secret_access_key=$AWS_SECRET_KEY" >> ~/.aws/config
+            docker build -t $FULL_IMAGE_NAME -f .docker/Dockerfile .
+      - run:
+          name: Save image to an archive
+          command: |
+            mkdir docker-image
+            docker save -o docker-image/image.tar $FULL_IMAGE_NAME
+      - persist_to_workspace:
+          root: .
+          paths:
+            - docker-image
+
+  deploy-to-ecs:
+    description: 'Deploy the docker to ecs instance'
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 19.03.8
+      - attach_workspace:
+          at: workspace
+      - aws-cli/setup
+      - run:
+          name: Load image
+          command: |
+            docker load --input workspace/docker-image/image.tar
+      - run:
+          name: Setup common environment variables
+          command: |
+            echo 'export ECS_CLUSTER_NAME="${APP_PREFIX}-cluster"' >> $BASH_ENV
+            echo 'export ECS_SERVICE_NAME="${APP_PREFIX}-service"' >> $BASH_ENV
+            echo 'export ECS_TASK_FAMILTY="${APP_PREFIX}-app-task"' >> $BASH_ENV
+            echo 'export FULL_IMAGE_NAME="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${APP_PREFIX}-api:${CIRCLE_SHA1}"' >> $BASH_ENV
+      - run:
+          name: Push image
+          command: |
+            aws ecr get-login-password | docker login --username AWS --password-stdin "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${APP_PREFIX}-api"
+            docker push $FULL_IMAGE_NAME
+      - aws-ecs/update-service:
+          family: '${ECS_TASK_FAMILTY}'
+          cluster-name: '${ECS_CLUSTER_NAME}'
+          service-name: '${ECS_SERVICE_NAME}'
+          container-image-name-updates: 'container=${APP_PREFIX}-app,tag=${CIRCLE_SHA1}'
+          force-new-deployment: true
+          verify-revision-is-deployed: true
+
+  setup-staging:
+    description: 'Setup staging deployment'
+    steps:
+      - run: echo 'export APP_PREFIX="${APP_STAGING_PREFIX}"' >> $BASH_ENV
+
+  setup-prod:
+    description: 'Setup prod deployment'
+    steps:
+      - run: echo 'export APP_PREFIX="${APP_PROD_PREFIX}"' >> $BASH_ENV
 
 jobs:
   # setup-vault-env:
@@ -320,42 +376,30 @@ jobs:
           mentions: $SLACK_USER
           template: basic_success_1
 
-  build-and-push-docker-image:
+  build-docker-staging:
     <<: *executor-params
     steps:
-      - setup-workspace
-      - yarn-install-prod
-      - run:
-          name: 'Build Docker image'
-          command: |
-            env >> .env
-            yarn docker:build codelab
-      - run:
-          name: 'Docker login'
-          command: echo "${DOCKER_PASS}" | docker login --username "${DOCKER_USER}" --password-stdin
-      - run:
-          name: 'Push Docker image'
-          command: yarn docker:push codelab
+      - setup-staging
+      - build-docker-image
 
-  deploy-to-ebs-staging:
+  deploy-to-staging:
     <<: *executor-params
     steps:
-      - setup-deploy
-      - run:
-          name: Deploying to eb
-          command: |
-            # eb use app-staging --region ap-east-1 --profile eb-cli
-            # eb deploy app-staging --region ap-east-1 --profile eb-cli
+      - setup-staging
+      - deploy-to-ecs
 
-  deploy-to-ebs-prod:
+  build-docker-prod:
     <<: *executor-params
     steps:
-      - setup-deploy
-      - run:
-          name: Deploying to eb
-          command: |
-            # eb use app-prod --region ap-east-1 --profile eb-cli
-            # eb deploy app-prod --region ap-east-1 --profile eb-cli
+      - setup-prod
+      - build-docker-image
+
+  deploy-to-prod:
+    <<: *executor-params
+    steps:
+      - setup-prod
+      - deploy-to-ecs
+
 
 workflows:
   app-staging-pr:
@@ -428,24 +472,30 @@ workflows:
             - integration
             - cypress/run
 
-  app-staging-master:
+  app-staging:
     jobs:
       - install-and-build-workspace:
-          <<: *filters-staging-master
+          <<: *filters-staging
           e: docker-node
           context: CI
-      - deploy-to-ebs-staging:
-          <<: *filters-staging-master
-          e: docker-python
+      - build-docker-staging:
+          <<: *filters-staging
+          e: docker-node
           context: CI
           requires:
             - install-and-build-workspace
+      - deploy-to-staging:
+          <<: *filters-staging
+          e: docker-python
+          context: CI
+          requires:
+            - build-docker-staging
       - notify-success:
-          <<: *filters-staging-master
+          <<: *filters-staging
           e: docker-node
           context: CI
           requires:
-            - deploy-to-ebs-staging
+            - deploy-to-staging
 
   app-prod:
     jobs:
@@ -481,17 +531,24 @@ workflows:
         # - cypress/install:
         #     # run a custom app build step
         #     build: 'npm run build'
-      - deploy-to-ebs-prod:
+      - build-docker-prod:
           <<: *filters-prod
-          e: docker-python
+          e: docker-node
           context: CI
           requires:
             - lint
             - unit
             - integration
             - e2e
+      - deploy-to-prod:
+          <<: *filters-prod
+          e: docker-python
+          context: CI
+          requires:
+            - build-docker-prod
+            
       - notify-success:
           <<: *filters-prod
           e: docker-node
           requires:
-            - deploy-to-ebs-prod
+            - deploy-to-prod
