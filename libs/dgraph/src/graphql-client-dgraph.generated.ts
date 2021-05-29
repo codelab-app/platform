@@ -47,7 +47,7 @@ export type AddAppPayloadAppArgs = {
 }
 
 export type AddAtomInput = {
-  type: Scalars['String']
+  type: AtomType
   label?: Maybe<Scalars['String']>
   library?: Maybe<LibraryRef>
 }
@@ -261,7 +261,7 @@ export type AppRef = {
 
 export type Atom = {
   id: Scalars['ID']
-  type: Scalars['String']
+  type: AtomType
   label?: Maybe<Scalars['String']>
   library?: Maybe<Library>
 }
@@ -272,8 +272,6 @@ export type AtomLibraryArgs = {
 
 export type AtomAggregateResult = {
   count?: Maybe<Scalars['Int']>
-  typeMin?: Maybe<Scalars['String']>
-  typeMax?: Maybe<Scalars['String']>
   labelMin?: Maybe<Scalars['String']>
   labelMax?: Maybe<Scalars['String']>
 }
@@ -299,21 +297,126 @@ export type AtomOrder = {
 }
 
 export enum AtomOrderable {
-  Type = 'type',
   Label = 'label',
 }
 
 export type AtomPatch = {
-  type?: Maybe<Scalars['String']>
+  type?: Maybe<AtomType>
   label?: Maybe<Scalars['String']>
   library?: Maybe<LibraryRef>
 }
 
 export type AtomRef = {
   id?: Maybe<Scalars['ID']>
-  type?: Maybe<Scalars['String']>
+  type?: Maybe<AtomType>
   label?: Maybe<Scalars['String']>
   library?: Maybe<LibraryRef>
+}
+
+export enum AtomType {
+  AntDesignAffix = 'AntDesignAffix',
+  AntDesignAlert = 'AntDesignAlert',
+  AntDesignAnchor = 'AntDesignAnchor',
+  AntDesignAnchorLink = 'AntDesignAnchorLink',
+  AntDesignAutoComplete = 'AntDesignAutoComplete',
+  AntDesignAvatar = 'AntDesignAvatar',
+  AntDesignBackTop = 'AntDesignBackTop',
+  AntDesignBadge = 'AntDesignBadge',
+  AntDesignBreadcrumb = 'AntDesignBreadcrumb',
+  AntDesignBreadcrumbItem = 'AntDesignBreadcrumbItem',
+  AntDesignButton = 'AntDesignButton',
+  AntDesignCalendar = 'AntDesignCalendar',
+  AntDesignCard = 'AntDesignCard',
+  AntDesignCardGrid = 'AntDesignCardGrid',
+  AntDesignCardMeta = 'AntDesignCardMeta',
+  AntDesignCarousel = 'AntDesignCarousel',
+  AntDesignCascader = 'AntDesignCascader',
+  AntDesignCheckbox = 'AntDesignCheckbox',
+  AntDesignCollapse = 'AntDesignCollapse',
+  AntDesignCollapsePanel = 'AntDesignCollapsePanel',
+  AntDesignComment = 'AntDesignComment',
+  AntDesignConfigProvider = 'AntDesignConfigProvider',
+  AntDesignDatePicker = 'AntDesignDatePicker',
+  AntDesignDescriptions = 'AntDesignDescriptions',
+  AntDesignDescriptionsItem = 'AntDesignDescriptionsItem',
+  AntDesignDivider = 'AntDesignDivider',
+  AntDesignDrawer = 'AntDesignDrawer',
+  AntDesignDropdown = 'AntDesignDropdown',
+  AntDesignEmpty = 'AntDesignEmpty',
+  AntDesignForm = 'AntDesignForm',
+  AntDesignFormItem = 'AntDesignFormItem',
+  AntDesignFormItemHook = 'AntDesignFormItemHook',
+  AntDesignFormList = 'AntDesignFormList',
+  AntDesignGridCol = 'AntDesignGridCol',
+  AntDesignGridRow = 'AntDesignGridRow',
+  AntDesignIcon = 'AntDesignIcon',
+  AntDesignInput = 'AntDesignInput',
+  AntDesignInputNumber = 'AntDesignInputNumber',
+  AntDesignLayout = 'AntDesignLayout',
+  AntDesignLayoutContent = 'AntDesignLayoutContent',
+  AntDesignLayoutFooter = 'AntDesignLayoutFooter',
+  AntDesignLayoutHeader = 'AntDesignLayoutHeader',
+  AntDesignLayoutSider = 'AntDesignLayoutSider',
+  AntDesignList = 'AntDesignList',
+  AntDesignListItem = 'AntDesignListItem',
+  AntDesignListItemMeta = 'AntDesignListItemMeta',
+  AntDesignMapper = 'AntDesignMapper',
+  AntDesignMentions = 'AntDesignMentions',
+  AntDesignMentionsOption = 'AntDesignMentionsOption',
+  AntDesignMenu = 'AntDesignMenu',
+  AntDesignMenuItem = 'AntDesignMenuItem',
+  AntDesignMenuItemGroup = 'AntDesignMenuItemGroup',
+  AntDesignMenuSubMenu = 'AntDesignMenuSubMenu',
+  AntDesignModal = 'AntDesignModal',
+  AntDesignPageHeader = 'AntDesignPageHeader',
+  AntDesignPageContainer = 'AntDesignPageContainer',
+  AntDesignPagination = 'AntDesignPagination',
+  AntDesignPopconfirm = 'AntDesignPopconfirm',
+  AntDesignPopover = 'AntDesignPopover',
+  AntDesignProgress = 'AntDesignProgress',
+  AntDesignProvider = 'AntDesignProvider',
+  AntDesignRglContainer = 'AntDesignRglContainer',
+  AntDesignRglItem = 'AntDesignRglItem',
+  AntDesignRglResponsiveContainer = 'AntDesignRglResponsiveContainer',
+  AntDesignRadio = 'AntDesignRadio',
+  AntDesignRadioGroup = 'AntDesignRadioGroup',
+  AntDesignRate = 'AntDesignRate',
+  AntDesignRenderComponent = 'AntDesignRenderComponent',
+  AntDesignRenderContainer = 'AntDesignRenderContainer',
+  AntDesignResult = 'AntDesignResult',
+  AntDesignSelect = 'AntDesignSelect',
+  AntDesignSelectOption = 'AntDesignSelectOption',
+  AntDesignSkeleton = 'AntDesignSkeleton',
+  AntDesignSlider = 'AntDesignSlider',
+  AntDesignSpace = 'AntDesignSpace',
+  AntDesignSpin = 'AntDesignSpin',
+  AntDesignStatistic = 'AntDesignStatistic',
+  AntDesignSteps = 'AntDesignSteps',
+  AntDesignStepsStep = 'AntDesignStepsStep',
+  AntDesignSwitch = 'AntDesignSwitch',
+  AntDesignTable = 'AntDesignTable',
+  AntDesignTabs = 'AntDesignTabs',
+  AntDesignTabsTabPane = 'AntDesignTabsTabPane',
+  AntDesignTag = 'AntDesignTag',
+  AntDesignTimePicker = 'AntDesignTimePicker',
+  AntDesignTimeline = 'AntDesignTimeline',
+  AntDesignTimelineItem = 'AntDesignTimelineItem',
+  AntDesignTooltip = 'AntDesignTooltip',
+  AntDesignTransfer = 'AntDesignTransfer',
+  AntDesignTree = 'AntDesignTree',
+  AntDesignTreeNode = 'AntDesignTreeNode',
+  AntDesignTreeSelect = 'AntDesignTreeSelect',
+  AntDesignTypography = 'AntDesignTypography',
+  AntDesignTypographyParagraph = 'AntDesignTypographyParagraph',
+  AntDesignTypographyText = 'AntDesignTypographyText',
+  AntDesignTypographyTitle = 'AntDesignTypographyTitle',
+  AntDesignUpload = 'AntDesignUpload',
+  ReactFragment = 'ReactFragment',
+  HtmlA = 'HtmlA',
+  HtmlDiv = 'HtmlDiv',
+  HtmlP = 'HtmlP',
+  HtmlSpan = 'HtmlSpan',
+  HtmlText = 'HtmlText',
 }
 
 export type AuthRule = {

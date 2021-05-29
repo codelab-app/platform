@@ -528,7 +528,6 @@ export type UpdateAtomMutation = { atom: __AtomFragment }
 
 export type PageBaseFragment = Pick<Page, 'id' | 'name'> & {
   app: Pick<App, 'id' | 'name' | 'ownerId'>
-  rootElement: Pick<PageElementRoot, 'id'>
 }
 
 export type PageFullFragment = {
@@ -677,9 +676,6 @@ export const PageBaseFragmentDoc = gql`
       id
       name
       ownerId
-    }
-    rootElement {
-      id
     }
   }
 `
@@ -2113,9 +2109,6 @@ export const PageBase = gql`
       id
       name
       ownerId
-    }
-    rootElement {
-      id
     }
   }
 `

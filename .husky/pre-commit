@@ -8,7 +8,6 @@
 # Prettify Hausra directory
 # npx prettier --config .prettierrc.json --write hasura
 
-yarn dgraph:schema:update
 yarn codegen
 
 # terraform fmt -recursive .terraform

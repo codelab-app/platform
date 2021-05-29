@@ -43,11 +43,10 @@
     "docs": "onchange 'libs/ddd/**/*.ts' 'typedoc.json' -- npx typedoc",
     "migration:generate": "nx migrate @nrwl/workspace@latest",
     "migration:run": "nx migrate --run-migrations=migrations.json",
-    "dgraph:schema:update": "curl -X POST localhost:8081/admin/schema --data-binary '@dgraph/schema.graphql'",
+    "dgraph:schema:update": "curl -X POST localhost:8081/admin/schema --data-binary '@dgraph/schema.generated.graphql'",
     "dgraph:schema:drop": "curl -X POST localhost:8081/alter -d '{\"drop_all\": true}'\n",
     "dgraph:seed": "node dgraph/seed/seed.js",
-    "codegen": "yarn cross-env DOTENV_CONFIG_PATH=.env graphql-codegen --require dotenv/config --config .graphqlconfig.yaml",
-    "codegen:watch": "node scripts/graphql/watch-codegen.js",
+    "codegen": "ts-node scripts/graphql/codegen.ts",
     "start:prod:api": "node dist/apps/api/main.js"
   },
   "private": true,
@@ -186,6 +185,8 @@
     "@graphql-codegen/typescript-operations": "1.17.16",
     "@graphql-codegen/typescript-react-apollo": "2.2.4",
     "@graphql-eslint/eslint-plugin": "1.0.1",
+    "@graphql-tools/load-files": "^6.3.2",
+    "@graphql-tools/merge": "^6.2.14",
     "@mdx-js/loader": "1.6.22",
     "@nestjs/schematics": "7.3.1",
     "@nestjs/testing": "7.6.17",
@@ -332,6 +333,7 @@
     "url-loader": "3.0.0",
     "utility-types": "3.10.0",
     "wait-on": "5.3.0",
-    "xwind": "0.8.0"
+    "xwind": "0.8.0",
+    "yargs": "^17.0.1"
   }
 }

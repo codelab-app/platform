@@ -1,16 +1,18 @@
-require('dotenv').config()
+import { DgraphClient, DgraphClientStub } from 'dgraph-js-http'
+import { config } from 'dotenv'
+import { mutation } from './seedMutation'
 
-const { DgraphClientStub, DgraphClient } = require('dgraph-js-http')
-const mutation = require('./seedMutation.js')
+config()
 
 const clientStub = new DgraphClientStub(
-  process.env.CODELAB_DGRAPH_GRAPHQL_ENDPOINT.replace('/graphql', ''),
+  process.env.CODELAB_DGRAPH_GRAPHQL_ENDPOINT?.replace('/graphql', ''),
 )
 
 const dgraphClient = new DgraphClient(clientStub)
 
-async function seed() {
+const seed = async () => {
   const txn = dgraphClient.newTxn()
+
   try {
     await txn.mutate({ setNquads: mutation })
 

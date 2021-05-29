@@ -112,15 +112,15 @@ const valueTypes = [
   { label: 'Enum', type: 'Enum' },
 ]
 
-module.exports = `
+export const mutation = `
   _:adminUser <User.email> "admin@codelab.ai" .
   _:adminUser <dgraph.type> "User" .
   _:adminUser <User.libraries> _:antdlib .
-  
+
   _:antdlib <Library.owner> _:adminUser .
   _:antdlib <Library.name> "Ant design Library" .
   _:antdlib <dgraph.type> "Library" .
-  
+
   ${atomTypes.reduce(
     (prev, atomType, n) =>
       prev +
