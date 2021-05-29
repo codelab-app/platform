@@ -1,7 +1,10 @@
 #!/usr/bin/env ts-node
 
-const argv = require('yargs/yargs')(process.argv.slice(2)).argv
+/**
+ *  Use `-w` to watch
+ */
 
+const argv = require('yargs/yargs')(process.argv.slice(2)).argv
 const chokidar = require('chokidar')
 const shell = require('shelljs')
 

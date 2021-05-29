@@ -3,11 +3,6 @@
 
 # yarn lint:graphql
 
-# make hasura-metadata-export
-
-# Prettify Hausra directory
-# npx prettier --config .prettierrc.json --write hasura
-
 yarn codegen
 
 # terraform fmt -recursive .terraform
