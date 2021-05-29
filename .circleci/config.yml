@@ -335,9 +335,9 @@ jobs:
     <<: *executor-params
     steps:
       - setup-workspace     
-      - aws-cli/setup
       - setup_remote_docker:
           version: 19.03.8
+      - aws-cli/setup
       - run:
           name: 'Setup common environment variables'
           command: |
@@ -360,10 +360,12 @@ jobs:
   deploy-to-staging:
     <<: *executor-params
     steps:
-      - setup-workspace
-      - aws-cli/setup
+      - checkout
       - setup_remote_docker:
           version: 19.03.8
+      - attach_workspace:
+          at: workspace
+      - aws-cli/setup
       - run:
           name: Load image
           command: |
