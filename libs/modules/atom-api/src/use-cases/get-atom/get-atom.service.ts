@@ -28,7 +28,7 @@ export class GetAtomService extends QueryUseCase<
     return atomSchema.nullable().parse(result?.data?.atom || null)
   }
 
-  protected getVariables(request: GetAtomInput): GetAtomQueryVariables {
+  protected mapVariables(request: GetAtomInput): GetAtomQueryVariables {
     return {
       id: request.atomId,
     }

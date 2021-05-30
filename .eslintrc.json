@@ -95,6 +95,11 @@
             "blankLine": "always",
             "prev": ["multiline-const", "multiline-let", "multiline-var"],
             "next": ["*"]
+          },
+          {
+            "blankLine": "any",
+            "prev": ["cjs-import"],
+            "next": ["const", "let", "var"]
           }
         ],
         "lines-between-class-members": ["error", "always"]

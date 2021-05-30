@@ -33,7 +33,7 @@ export class GetPageOwnerService extends QueryUseCase<
     }
   }
 
-  protected getVariables(request: GetPageOwnerInput): GqlVariablesType {
+  protected mapVariables(request: GetPageOwnerInput): GqlVariablesType {
     return {
       pageId: request.pageId,
     }

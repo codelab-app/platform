@@ -38,7 +38,7 @@ export class DeletePageService extends MutationUseCase<
       .parse(result?.data?.deletePage?.page)[0]
   }
 
-  protected getVariables(request: DeletePageRequest): GqlVariablesType {
+  protected mapVariables(request: DeletePageRequest): GqlVariablesType {
     const { pageId } = request.input
 
     return {

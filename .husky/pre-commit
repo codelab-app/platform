@@ -3,16 +3,10 @@
 
 # yarn lint:graphql
 
-# make hasura-metadata-export
-
-# Prettify Hausra directory
-# npx prettier --config .prettierrc.json --write hasura
-
-yarn dgraph:schema:update
 yarn codegen
 
 # terraform fmt -recursive .terraform
 
 yarn cross-env TIMING=1 lint-staged --verbose
 
-./scripts/lint/git.sh
+./libs/tools/scripts/src/lint/git.sh

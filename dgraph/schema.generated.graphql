@@ -1,0 +1,170 @@
+enum AtomType {
+  AntDesignAffix
+  AntDesignAlert
+  AntDesignAnchor
+  AntDesignAnchorLink
+  AntDesignAutoComplete
+  AntDesignAvatar
+  AntDesignBackTop
+  AntDesignBadge
+  AntDesignBreadcrumb
+  AntDesignBreadcrumbItem
+  AntDesignButton
+  AntDesignCalendar
+  AntDesignCard
+  AntDesignCardGrid
+  AntDesignCardMeta
+  AntDesignCarousel
+  AntDesignCascader
+  AntDesignCheckbox
+  AntDesignCollapse
+  AntDesignCollapsePanel
+  AntDesignComment
+  AntDesignConfigProvider
+  AntDesignDatePicker
+  AntDesignDescriptions
+  AntDesignDescriptionsItem
+  AntDesignDivider
+  AntDesignDrawer
+  AntDesignDropdown
+  AntDesignEmpty
+  AntDesignForm
+  AntDesignFormItem
+  AntDesignFormItemHook
+  AntDesignFormList
+  AntDesignGridCol
+  AntDesignGridRow
+  AntDesignIcon
+  AntDesignInput
+  AntDesignInputNumber
+  AntDesignLayout
+  AntDesignLayoutContent
+  AntDesignLayoutFooter
+  AntDesignLayoutHeader
+  AntDesignLayoutSider
+  AntDesignList
+  AntDesignListItem
+  AntDesignListItemMeta
+  AntDesignMapper
+  AntDesignMentions
+  AntDesignMentionsOption
+  AntDesignMenu
+  AntDesignMenuItem
+  AntDesignMenuItemGroup
+  AntDesignMenuSubMenu
+  AntDesignModal
+  AntDesignPageHeader
+  AntDesignPageContainer
+  AntDesignPagination
+  AntDesignPopconfirm
+  AntDesignPopover
+  AntDesignProgress
+  AntDesignProvider
+  AntDesignRglContainer
+  AntDesignRglItem
+  AntDesignRglResponsiveContainer
+  AntDesignRadio
+  AntDesignRadioGroup
+  AntDesignRate
+  AntDesignRenderComponent
+  AntDesignRenderContainer
+  AntDesignResult
+  AntDesignSelect
+  AntDesignSelectOption
+  AntDesignSkeleton
+  AntDesignSlider
+  AntDesignSpace
+  AntDesignSpin
+  AntDesignStatistic
+  AntDesignSteps
+  AntDesignStepsStep
+  AntDesignSwitch
+  AntDesignTable
+  AntDesignTabs
+  AntDesignTabsTabPane
+  AntDesignTag
+  AntDesignTimePicker
+  AntDesignTimeline
+  AntDesignTimelineItem
+  AntDesignTooltip
+  AntDesignTransfer
+  AntDesignTree
+  AntDesignTreeNode
+  AntDesignTreeSelect
+  AntDesignTypography
+  AntDesignTypographyParagraph
+  AntDesignTypographyText
+  AntDesignTypographyTitle
+  AntDesignUpload
+  ReactFragment
+  HtmlA
+  HtmlDiv
+  HtmlP
+  HtmlSpan
+  HtmlText
+}
+
+type App {
+  id: ID!
+  ownerId: String! @search(by: [hash])
+  pages: [Page] @hasInverse(field: "app")
+  name: String!
+}
+
+type Page {
+  id: ID!
+  name: String! @search(by: [term, fulltext])
+  app: App!
+  rootElement: PageElement!
+}
+
+type PageElement {
+  id: ID!
+  name: String! @search(by: [term, fulltext])
+  page: Page!
+  parent: PageElement
+  children: [PageElement] @hasInverse(field: "parent")
+  atom: Atom
+  component: Component
+}
+
+type Library {
+  id: ID!
+  ownerId: String!
+  name: String!
+  atoms: [Atom] @hasInverse(field: "library")
+  components: [Component] @hasInverse(field: "library")
+}
+
+type Component {
+  id: ID!
+  library: Library!
+  atom: Atom!
+  label: String!
+  children: [Component]
+  tags: [Tag]
+}
+
+type Atom {
+  id: ID!
+  type: AtomType!
+  label: String!
+  library: Library
+}
+
+type Tag {
+  label: String!
+}
+
+type Prop {
+  id: ID!
+  description: String
+  type: ValueType!
+  props: [Prop]
+}
+
+type ValueType {
+  id: ID!
+  label: String!
+  type: String!
+}

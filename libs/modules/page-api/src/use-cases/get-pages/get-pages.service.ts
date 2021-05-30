@@ -40,7 +40,7 @@ export class GetPagesService extends QueryUseCase<
     )
   }
 
-  protected getVariables({
+  protected mapVariables({
     input: { appId },
   }: GetPagesRequest): GqlVariablesType {
     return {

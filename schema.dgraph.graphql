@@ -57,8 +57,8 @@ type AddAppPayload {
 }
 
 input AddAtomInput {
-  type: String!
-  label: String
+  type: AtomType!
+  label: String!
   library: LibraryRef
 }
 
@@ -224,15 +224,13 @@ input AppRef {
 
 type Atom {
   id: ID!
-  type: String!
-  label: String
+  type: AtomType!
+  label: String!
   library(filter: LibraryFilter): Library
 }
 
 type AtomAggregateResult {
   count: Int
-  typeMin: String
-  typeMax: String
   labelMin: String
   labelMax: String
 }
@@ -258,21 +256,126 @@ input AtomOrder {
 }
 
 enum AtomOrderable {
-  type
   label
 }
 
 input AtomPatch {
-  type: String
+  type: AtomType
   label: String
   library: LibraryRef
 }
 
 input AtomRef {
   id: ID
-  type: String
+  type: AtomType
   label: String
   library: LibraryRef
+}
+
+enum AtomType {
+  AntDesignAffix
+  AntDesignAlert
+  AntDesignAnchor
+  AntDesignAnchorLink
+  AntDesignAutoComplete
+  AntDesignAvatar
+  AntDesignBackTop
+  AntDesignBadge
+  AntDesignBreadcrumb
+  AntDesignBreadcrumbItem
+  AntDesignButton
+  AntDesignCalendar
+  AntDesignCard
+  AntDesignCardGrid
+  AntDesignCardMeta
+  AntDesignCarousel
+  AntDesignCascader
+  AntDesignCheckbox
+  AntDesignCollapse
+  AntDesignCollapsePanel
+  AntDesignComment
+  AntDesignConfigProvider
+  AntDesignDatePicker
+  AntDesignDescriptions
+  AntDesignDescriptionsItem
+  AntDesignDivider
+  AntDesignDrawer
+  AntDesignDropdown
+  AntDesignEmpty
+  AntDesignForm
+  AntDesignFormItem
+  AntDesignFormItemHook
+  AntDesignFormList
+  AntDesignGridCol
+  AntDesignGridRow
+  AntDesignIcon
+  AntDesignInput
+  AntDesignInputNumber
+  AntDesignLayout
+  AntDesignLayoutContent
+  AntDesignLayoutFooter
+  AntDesignLayoutHeader
+  AntDesignLayoutSider
+  AntDesignList
+  AntDesignListItem
+  AntDesignListItemMeta
+  AntDesignMapper
+  AntDesignMentions
+  AntDesignMentionsOption
+  AntDesignMenu
+  AntDesignMenuItem
+  AntDesignMenuItemGroup
+  AntDesignMenuSubMenu
+  AntDesignModal
+  AntDesignPageHeader
+  AntDesignPageContainer
+  AntDesignPagination
+  AntDesignPopconfirm
+  AntDesignPopover
+  AntDesignProgress
+  AntDesignProvider
+  AntDesignRglContainer
+  AntDesignRglItem
+  AntDesignRglResponsiveContainer
+  AntDesignRadio
+  AntDesignRadioGroup
+  AntDesignRate
+  AntDesignRenderComponent
+  AntDesignRenderContainer
+  AntDesignResult
+  AntDesignSelect
+  AntDesignSelectOption
+  AntDesignSkeleton
+  AntDesignSlider
+  AntDesignSpace
+  AntDesignSpin
+  AntDesignStatistic
+  AntDesignSteps
+  AntDesignStepsStep
+  AntDesignSwitch
+  AntDesignTable
+  AntDesignTabs
+  AntDesignTabsTabPane
+  AntDesignTag
+  AntDesignTimePicker
+  AntDesignTimeline
+  AntDesignTimelineItem
+  AntDesignTooltip
+  AntDesignTransfer
+  AntDesignTree
+  AntDesignTreeNode
+  AntDesignTreeSelect
+  AntDesignTypography
+  AntDesignTypographyParagraph
+  AntDesignTypographyText
+  AntDesignTypographyTitle
+  AntDesignUpload
+  ReactFragment
+  HtmlA
+  HtmlDiv
+  HtmlP
+  HtmlSpan
+  HtmlText
 }
 
 input AuthRule {

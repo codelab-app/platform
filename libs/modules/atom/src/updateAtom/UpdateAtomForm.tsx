@@ -1,23 +1,18 @@
 import {
-  AtomType,
   createNotificationHandler,
   EntityType,
   FormUniforms,
-  isNotNull,
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
 import {
   refetchGetAtomsQuery,
   useGetAtomQuery,
-  useGetAtomsQuery,
   useUpdateAtomMutation,
 } from '@codelab/graphql'
 import { Spin } from 'antd'
-import _ from 'lodash'
 import React, { useEffect } from 'react'
-import { DeepPartial } from 'uniforms'
-import { AutoFields, SelectField } from 'uniforms-antd'
+import { AutoFields } from 'uniforms-antd'
 import { UpdateAtomInput, updateAtomSchema } from './updateAtomSchema'
 
 export const UpdateAtomForm = (props: UniFormUseCaseProps<UpdateAtomInput>) => {
@@ -48,8 +43,9 @@ export const UpdateAtomForm = (props: UniFormUseCaseProps<UpdateAtomInput>) => {
     return mutate({
       variables: {
         input: {
-          atomId: updateAtomId,
-          updateData: {
+          id: updateAtomId,
+          data: {
+            label: submitData.label,
             type: submitData.type,
           },
         },

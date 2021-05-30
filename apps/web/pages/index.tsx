@@ -1,9 +1,9 @@
 import React from 'react'
-import { NextPageLayout } from '../src/layout/Layout.d'
-import { LayoutHome } from '../src/layout/Layout--home'
 import { HomeClients } from '../src/pages/home/Home-clients'
 import { HomeFeatures } from '../src/pages/home/Home-features'
 import { HomeJumbo } from '../src/pages/home/Home-jumbo'
+import { NextPageLayout } from '../src/templates/Layout.d'
+import { LayoutHome } from '../src/templates/Layout--home'
 
 const HomePage: NextPageLayout = () => {
   return (

@@ -19,109 +19,109 @@ type Atom {
 }
 
 enum AtomType {
-  ReactAffix
-  ReactAlert
-  ReactAnchor
-  ReactAnchorLink
-  ReactAutoComplete
-  ReactAvatar
-  ReactBackTop
-  ReactBadge
-  ReactBreadcrumb
-  ReactBreadcrumbItem
-  ReactButton
-  ReactCalendar
-  ReactCard
-  ReactCardGrid
-  ReactCardMeta
-  ReactCarousel
-  ReactCascader
-  ReactCheckbox
-  ReactCollapse
-  ReactCollapsePanel
-  ReactComment
-  ReactConfigProvider
-  ReactDatePicker
-  ReactDescriptions
-  ReactDescriptionsItem
-  ReactDivider
-  ReactDrawer
-  ReactDropdown
-  ReactEmpty
-  ReactForm
-  ReactFormItem
-  ReactFormItemHook
-  ReactFormList
+  AntDesignAffix
+  AntDesignAlert
+  AntDesignAnchor
+  AntDesignAnchorLink
+  AntDesignAutoComplete
+  AntDesignAvatar
+  AntDesignBackTop
+  AntDesignBadge
+  AntDesignBreadcrumb
+  AntDesignBreadcrumbItem
+  AntDesignButton
+  AntDesignCalendar
+  AntDesignCard
+  AntDesignCardGrid
+  AntDesignCardMeta
+  AntDesignCarousel
+  AntDesignCascader
+  AntDesignCheckbox
+  AntDesignCollapse
+  AntDesignCollapsePanel
+  AntDesignComment
+  AntDesignConfigProvider
+  AntDesignDatePicker
+  AntDesignDescriptions
+  AntDesignDescriptionsItem
+  AntDesignDivider
+  AntDesignDrawer
+  AntDesignDropdown
+  AntDesignEmpty
+  AntDesignForm
+  AntDesignFormItem
+  AntDesignFormItemHook
+  AntDesignFormList
+  AntDesignGridCol
+  AntDesignGridRow
+  AntDesignIcon
+  AntDesignInput
+  AntDesignInputNumber
+  AntDesignLayout
+  AntDesignLayoutContent
+  AntDesignLayoutFooter
+  AntDesignLayoutHeader
+  AntDesignLayoutSider
+  AntDesignList
+  AntDesignListItem
+  AntDesignListItemMeta
+  AntDesignMapper
+  AntDesignMentions
+  AntDesignMentionsOption
+  AntDesignMenu
+  AntDesignMenuItem
+  AntDesignMenuItemGroup
+  AntDesignMenuSubMenu
+  AntDesignModal
+  AntDesignPageHeader
+  AntDesignPageContainer
+  AntDesignPagination
+  AntDesignPopconfirm
+  AntDesignPopover
+  AntDesignProgress
+  AntDesignProvider
+  AntDesignRglContainer
+  AntDesignRglItem
+  AntDesignRglResponsiveContainer
+  AntDesignRadio
+  AntDesignRadioGroup
+  AntDesignRate
+  AntDesignRenderComponent
+  AntDesignRenderContainer
+  AntDesignResult
+  AntDesignSelect
+  AntDesignSelectOption
+  AntDesignSkeleton
+  AntDesignSlider
+  AntDesignSpace
+  AntDesignSpin
+  AntDesignStatistic
+  AntDesignSteps
+  AntDesignStepsStep
+  AntDesignSwitch
+  AntDesignTable
+  AntDesignTabs
+  AntDesignTabsTabPane
+  AntDesignTag
+  AntDesignTimePicker
+  AntDesignTimeline
+  AntDesignTimelineItem
+  AntDesignTooltip
+  AntDesignTransfer
+  AntDesignTree
+  AntDesignTreeNode
+  AntDesignTreeSelect
+  AntDesignTypography
+  AntDesignTypographyParagraph
+  AntDesignTypographyText
+  AntDesignTypographyTitle
+  AntDesignUpload
   ReactFragment
-  ReactGridCol
-  ReactGridRow
-  ReactHtmlA
-  ReactHtmlDiv
-  ReactHtmlP
-  ReactHtmlSpan
-  ReactIcon
-  ReactInput
-  ReactInputNumber
-  ReactLayout
-  ReactLayoutContent
-  ReactLayoutFooter
-  ReactLayoutHeader
-  ReactLayoutSider
-  ReactList
-  ReactListItem
-  ReactListItemMeta
-  ReactMapper
-  ReactMentions
-  ReactMentionsOption
-  ReactMenu
-  ReactMenuItem
-  ReactMenuItemGroup
-  ReactMenuSubMenu
-  ReactModal
-  ReactPageHeader
-  ReactPageContainer
-  ReactPagination
-  ReactPopconfirm
-  ReactPopover
-  ReactProgress
-  ReactProvider
-  ReactRglContainer
-  ReactRglItem
-  ReactRglResponsiveContainer
-  ReactRadio
-  ReactRadioGroup
-  ReactRate
-  ReactRenderComponent
-  ReactRenderContainer
-  ReactResult
-  ReactSelect
-  ReactSelectOption
-  ReactSkeleton
-  ReactSlider
-  ReactSpace
-  ReactSpin
-  ReactStatistic
-  ReactSteps
-  ReactStepsStep
-  ReactSwitch
-  ReactTable
-  ReactTabs
-  ReactTabsTabPane
-  ReactTag
-  ReactText
-  ReactTimePicker
-  ReactTimeline
-  ReactTimelineItem
-  ReactTooltip
-  ReactTransfer
-  ReactTree
-  ReactTreeNode
-  ReactTreeSelect
-  ReactTypography
-  ReactTypographyParagraph
-  ReactTypographyText
-  ReactTypographyTitle
-  ReactUpload
+  HtmlA
+  HtmlDiv
+  HtmlP
+  HtmlSpan
+  HtmlText
 }
 
 type PageElement {
@@ -131,10 +131,14 @@ type PageElement {
 }
 
 type PageElementLink {
-  """The id of the source PageElement"""
+  """
+  The id of the source PageElement
+  """
   from: String!
 
-  """The id of the target PageElement"""
+  """
+  The id of the target PageElement
+  """
   to: String!
   order: Int!
 }
@@ -144,10 +148,14 @@ type PageElementRoot {
   name: String!
   atom: Atom
 
-  """All descendant PageElements that are under this root, at any level"""
+  """
+  All descendant PageElements that are under this root, at any level
+  """
   descendants: [PageElement!]!
 
-  """All the links connecting the descendant page elements"""
+  """
+  All the links connecting the descendant page elements
+  """
   links: [PageElementLink!]!
 }
 
@@ -257,7 +265,9 @@ type Mutation {
   updatePageElement(input: UpdatePageElementInput!): PageElement!
   movePageElement(input: MovePageElementInput!): PageElement!
 
-  """Deletes a page element and all the descending page elements"""
+  """
+  Deletes a page element and all the descending page elements
+  """
   deletePageElement(input: DeletePageElementInput!): DeleteResponse!
   createAtom(input: CreateAtomInput!): Atom!
   deleteAtom(input: DeleteAtomInput!): Atom!
@@ -364,10 +374,6 @@ input DeleteAtomInput {
 }
 
 input UpdateAtomInput {
-  atomId: String!
-  updateData: UpdateAtomData!
-}
-
-input UpdateAtomData {
-  type: AtomType!
+  id: String!
+  data: CreateAtomInput!
 }

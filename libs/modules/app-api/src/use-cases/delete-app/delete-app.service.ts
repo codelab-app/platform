@@ -38,7 +38,7 @@ export class DeleteAppService extends MutationUseCase<
     return DeleteAppGql
   }
 
-  protected getVariables({
+  protected mapVariables({
     input: { appId },
   }: DeleteAppRequest): DeleteAppMutationVariables {
     return {

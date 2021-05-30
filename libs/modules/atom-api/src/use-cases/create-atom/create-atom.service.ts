@@ -30,12 +30,12 @@ export class CreateAtomService extends MutationUseCase<
     return atoms[0]
   }
 
-  protected getVariables(
+  protected mapVariables(
     request: CreateAtomInput,
   ): CreateAtomMutationVariables {
     return {
       input: {
-        type: request.type,
+        ...request,
       },
     }
   }

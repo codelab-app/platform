@@ -28,17 +28,17 @@ export class UpdateAtomService extends MutationUseCase<
     return atomSchema.parse(result.data?.updateAtom)
   }
 
-  protected getVariables({
-    atomId,
-    updateData,
+  protected mapVariables({
+    id,
+    data,
   }: UpdateAtomInput): UpdateAtomMutationVariables {
     return {
       input: {
         filter: {
-          id: [atomId],
+          id: [id],
         },
         set: {
-          type: updateData.type,
+          ...data,
         },
       },
     }

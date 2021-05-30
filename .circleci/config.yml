@@ -23,12 +23,12 @@ filters-staging-pr: &filters-staging-pr
       ignore:
         - master
 
-filters-staging: &filters-staging
+filters-staging-merge: &filters-staging-merge
   filters:
     tags:
       only: /^staging-.*$/
     branches:
-      only: 
+      only:
         - master
 
 filters-prod: &filters-prod
@@ -39,10 +39,10 @@ filters-prod: &filters-prod
       ignore: /.*/
 
 # Workaround for the lack of logical "AND" for filters
-filters-master-branch-only: &filters-master-branch-only
-  when:
-    and:
-      - equal: [master, <<pipeline.git.branch>>]
+# filters-master-branch-only: &filters-master-branch-only
+#   when:
+#     and:
+#       - equal: [master, <<pipeline.git.branch>>]
 
 executor-params: &executor-params
   parameters:
@@ -400,7 +400,6 @@ jobs:
       - setup-prod
       - deploy-to-ecs
 
-
 workflows:
   app-staging-pr:
     jobs:
@@ -454,7 +453,7 @@ workflows:
       #       - sync-hasura
       #       # - install-and-build-workspace
       # - deploy-to-ebs-staging:
-      #     <<: *filters-staging
+      #     <<: *filters-staging-merge
       #     e: docker-python
       #     context: CI
       #     requires:
@@ -475,23 +474,23 @@ workflows:
   app-staging:
     jobs:
       - install-and-build-workspace:
-          <<: *filters-staging
+          <<: *filters-staging-merge
           e: docker-node
           context: CI
       - build-docker-staging:
-          <<: *filters-staging
+          <<: *filters-staging-merge
           e: docker-node
           context: CI
           requires:
             - install-and-build-workspace
       - deploy-to-staging:
-          <<: *filters-staging
+          <<: *filters-staging-merge
           e: docker-python
           context: CI
           requires:
             - build-docker-staging
       - notify-success:
-          <<: *filters-staging
+          <<: *filters-staging-merge
           e: docker-node
           context: CI
           requires:
@@ -546,7 +545,7 @@ workflows:
           context: CI
           requires:
             - build-docker-prod
-            
+
       - notify-success:
           <<: *filters-prod
           e: docker-node

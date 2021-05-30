@@ -36,7 +36,7 @@ export class CreateAppService extends MutationUseCase<
     return result.data.addApp.app[0]
   }
 
-  protected getVariables(
+  protected mapVariables(
     request: CreateAppRequest,
   ): CreateAppMutationVariables {
     if (!request.ownerId) {

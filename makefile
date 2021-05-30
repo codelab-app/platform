@@ -82,30 +82,26 @@ lint-commit-ci:
 	@echo "${CIRCLE_BASE_REVISION}"
 	npx commitlint --from="${CIRCLE_BASE_REVISION}" "$@"
 
-# Moved to commit-msg
-# lint-commit-dev:
-# 	npx commitlint -E HUSKY_GIT_PARAMS
-
 lint-eslint:
 	yarn affected:lint
-# node scripts/lint/eslint.js
 
 #
 # E2E
 #
 
 e2e-dev:
-	npx concurrently \
-  	--kill-others \
-  	--success=first \
-		--names=web-e2e,api,web \
-    	"npx wait-on \
-				http://127.0.0.1:3001 \
-				http://127.0.0.1:4001 && \
-				nx run web-e2e:e2e:ci" \
-			"npx env-cmd -f .env cross-env PORT=4001 \
-				node dist/apps/api/main.js" \
-			"npx nx run web:serve:ci"
+	node libs/tools/scripts/src/cypress/e2e.js
+
+# npx concurrently \
+  # 	--kill-others \
+  # 	--success=first \
+	# 	--names=web-e2e,api,web \
+  #   	"npx wait-on \
+	# 			http://127.0.0.1:3000 \
+	# 			http://127.0.0.1:3333 && \
+	# 			nx e2e:ci web-e2e" \
+	# 		"nx serve api" \
+	# 		"nx serve web"
 
 e2e-ci:
 	npx concurrently \
@@ -113,12 +109,11 @@ e2e-ci:
   	--success=first \
 		--names=web-e2e,api,web \
     	"npx wait-on \
-				http://127.0.0.1:3001 \
-				http://127.0.0.1:4001 && \
+				http://127.0.0.1:3000 \
+				http://127.0.0.1:3333 && \
 				nx run web-e2e:e2e:ci" \
-			"npx cross-env PORT=4001 \
-				node dist/apps/api/main.js" \
-			"npx next start -p 3001 dist/apps/web"
+			"node dist/apps/api/main.js" \
+			"npx next start -p 3000 dist/apps/web"
 
 #
 # INTEGRATION TESTS

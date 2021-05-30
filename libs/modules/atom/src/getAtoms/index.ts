@@ -1,1 +1,1 @@
-export * from './GetAtomsList'
+export * from './GetAtomsTable'

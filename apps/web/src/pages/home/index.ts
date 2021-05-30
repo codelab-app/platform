@@ -1,1 +1,1 @@
-export * from '../../layout/Layout--home'
+export * from '../../templates/Layout--home'

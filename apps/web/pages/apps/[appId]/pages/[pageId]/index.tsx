@@ -2,9 +2,9 @@ import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { AppPageContext } from '@codelab/frontend/shared'
 import { MainPanePage, PageRenderer } from '@codelab/modules/page'
 import { Empty } from 'antd'
-import { LayoutPageDetail } from 'apps/web/src/layout/Layout--pageDetail'
+import { LayoutPageDetail } from 'apps/web/src/templates/Layout--pageDetail'
 import React, { useContext } from 'react'
-import { NextPageLayout } from '../../../../../src/layout/Layout.d'
+import { NextPageLayout } from '../../../../../src/templates/Layout.d'
 
 const PageDetail: NextPageLayout<'builder'> = () => {
   const { page } = useContext(AppPageContext)

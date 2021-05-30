@@ -2,7 +2,6 @@ import {
   createNotificationHandler,
   EntityType,
   FormUniforms,
-  isNotNull,
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
@@ -13,17 +12,17 @@ import {
  *   useGetPropTypesQuery,
  *   useUpdatePropMutation,
  * } from '@codelab/graphql' */
-import { Spin } from 'antd'
-import _ from 'lodash'
-import React, { useEffect } from 'react'
-import { DeepPartial } from 'uniforms'
-import { AutoFields, SelectField, TextField } from 'uniforms-antd'
+import React from 'react'
+import { SelectField, TextField } from 'uniforms-antd'
 import { UpdatePropInput, updatePropSchema } from './updatePropSchema'
 
 export const UpdatePropForm = (props: UniFormUseCaseProps<UpdatePropInput>) => {
   const { reset, setLoading, state } = useCRUDModalForm(EntityType.Prop)
   const { updateId: updatePropId } = state
-  const onSubmit = (submitData: UpdatePropInput) => {}
+
+  const onSubmit = (submitData: UpdatePropInput) => {
+    //
+  }
 
   const componentTypes = [
     {

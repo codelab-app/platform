@@ -50,8 +50,8 @@ type Component {
 
 type Atom {
   id: ID!
-  type: String!
-  label: String
+  type: AtomType!
+  label: String!
   library: Library
 }
 

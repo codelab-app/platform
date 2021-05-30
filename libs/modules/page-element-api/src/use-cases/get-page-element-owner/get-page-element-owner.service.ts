@@ -34,7 +34,7 @@ export class GetPageElementOwnerService extends QueryUseCase<
     }
   }
 
-  protected getVariables({
+  protected mapVariables({
     pageElementId,
   }: GetPageElementOwnerRequest): GqlVariablesType {
     return {

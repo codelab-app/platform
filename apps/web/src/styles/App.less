@@ -3,6 +3,11 @@
 // @import '~react-grid-layout/css/styles.css';
 // @import '~react-resizable/css/styles.css';
 
+// https://stackoverflow.com/questions/60853067/how-to-solve-ant-design-base-css-and-tailwindcss-base-css-alignments-problem
+.anticon svg {
+  vertical-align: initial !important;
+}
+
 // https://github.com/ant-design/ant-design/blob/master/components/style/themes/default.less
 
 // @gray-darker: rgb(54, 53, 64);
@@ -32,14 +37,14 @@
 // @layout-header-background: @white;
 @layout-header-padding: 0px;
 
-//.ant-menu {
-//  height: 100%;
-//  &.ant-menu-vertical {
-//    .ant-menu-item {
-//      margin: 0 !important;
-//    }
-//    // > .ant-menu-item-divider {
-//    //   background-color: @divider-color;
-//    // }
-//  }
-//}
+// .ant-menu {
+//   height: 100%;
+//   &.ant-menu-vertical {
+//     .ant-menu-item {
+//       margin: 0 !important;
+//     }
+//     // > .ant-menu-item-divider {
+//     //   background-color: @divider-color;
+//     // }
+//   }
+// }

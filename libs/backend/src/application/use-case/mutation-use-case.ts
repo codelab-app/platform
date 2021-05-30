@@ -30,7 +30,7 @@ export abstract class MutationUseCase<
     | DocumentNode
     | TypedDocumentNode<TMutation, TMutationVariables>
 
-  protected abstract getVariables(
+  protected abstract mapVariables(
     request: TUseCaseRequestPort,
     validationContext: TValidationContext,
   ): TMutationVariables | Promise<TMutationVariables>

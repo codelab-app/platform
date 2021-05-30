@@ -7,10 +7,10 @@ import {
   UpdatePropModal,
 } from '@codelab/modules/prop'
 import { Breadcrumb, Card, PageHeader, Space } from 'antd'
-import { LayoutAtom } from 'apps/web/src/layout/Layout--atom'
+import { LayoutAtom } from 'apps/web/src/templates/Layout--atom'
 import React from 'react'
 import tw from 'twin.macro'
-import { NextPageLayout } from '../../../../src/layout/Layout.d'
+import { NextPageLayout } from '../../../../src/templates/Layout.d'
 
 const PropsPage: NextPageLayout = () => {
   return (

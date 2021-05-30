@@ -7,8 +7,13 @@
     "allowJs": false,
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
     "types": ["cypress", "node"],
-    "jsx": "react"
+    "jsx": "react-jsx",
+    "jsxImportSource": "@emotion/react"
   },
   "exclude": [],
   "include": ["src/**/*.ts", "src/**/*.js"]
