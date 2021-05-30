@@ -15,7 +15,7 @@ const start = async () => {
   let commands = [
     {
       command:
-        'npx wait-on http://127.0.0.1:3000 http://127.0.0.1:3333 && nx e2e:ci web-e2e',
+        'npx wait-on http://127.0.0.1:3000 http://127.0.0.1:3333 && npx nx e2e:ci web-e2e',
       name: 'E2E',
     },
   ]
@@ -24,7 +24,7 @@ const start = async () => {
     commands = [
       ...commands,
       {
-        command: 'nx serve web',
+        command: 'npx nx serve web',
         name: 'Web',
       },
     ]
@@ -34,7 +34,7 @@ const start = async () => {
     commands = [
       ...commands,
       {
-        command: 'nx serve api',
+        command: 'npx nx serve api',
         name: 'API',
       },
     ]
