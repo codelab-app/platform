@@ -19,7 +19,9 @@ export const LayoutComponentDetail = (
   return (
     <ComponentProvider componentId={componentId}>
       <EditorProvider>
-        <DashboardLayout MainPane={MainPane}>{children}</DashboardLayout>
+        <DashboardLayout MainPane={MainPane} SidebarNavigation={() => <></>}>
+          {children}
+        </DashboardLayout>
       </EditorProvider>
     </ComponentProvider>
   )

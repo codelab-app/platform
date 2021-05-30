@@ -23,8 +23,6 @@ export const DashboardLayout = ({
   MetaPane,
   SidebarNavigation,
 }: PropsWithChildren<DashboardLayoutProps>) => {
-  console.log(MainPane)
-
   const { reset: resetSelection } = useBuilderSelection()
 
   return (

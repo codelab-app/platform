@@ -22,7 +22,7 @@ export abstract class GraphqlUseCase<
   async execute(request: TUseCaseRequestPort): Promise<TUseCaseDtoResponse> {
     const client = this.apollo.getClient()
     const validationContext = await this.validate(request)
-    const variables = await this.getVariables(request, validationContext)
+    const variables = await this.mapVariables(request, validationContext)
     const options = this.getOptions(request, validationContext) || {}
     let result: FetchResult<TOperation>
 
@@ -66,7 +66,7 @@ export abstract class GraphqlUseCase<
     return undefined
   }
 
-  protected abstract getVariables(
+  protected abstract mapVariables(
     request: TUseCaseRequestPort,
     validationContext: TValidationContext,
   ): TOperationVariables | Promise<TOperationVariables>

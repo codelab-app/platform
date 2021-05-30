@@ -5,7 +5,7 @@ import {
   UpdateAppMutation,
   UpdateAppMutationVariables,
 } from '@codelab/dgraph'
-import { Injectable, UnauthorizedException } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 import { App } from '../../app.model'
 import { AppGuardService } from '../../auth'
 import { UpdateAppRequest } from './update-app.request'
@@ -38,7 +38,7 @@ export class UpdateAppService extends MutationUseCase<
     return UpdateAppGql
   }
 
-  protected getVariables({
+  protected mapVariables({
     input: { appId, updateData },
   }: UpdateAppRequest): UpdateAppMutationVariables {
     return {

@@ -22,7 +22,9 @@ export const LayoutPageDetail = (props: NextPageLayout<'builder'>) => {
   return (
     <AppPageProvider appId={appId} pageId={pageId}>
       <EditorProvider>
-        <DashboardLayout MainPane={MainPane}>{children}</DashboardLayout>
+        <DashboardLayout MainPane={MainPane} SidebarNavigation={() => <></>}>
+          {children}
+        </DashboardLayout>
       </EditorProvider>
     </AppPageProvider>
   )

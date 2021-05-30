@@ -44,7 +44,7 @@ export class UpdatePageElementService extends MutationUseCase<
     return z.array(pageElementSchema).parse(elements)[0]
   }
 
-  protected async getVariables({
+  protected async mapVariables({
     input: { pageElementId, updateData },
   }: UpdatePageElementRequest): Promise<GqlVariablesType> {
     return {

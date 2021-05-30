@@ -1,9 +1,9 @@
 import {
-  AtomType,
   ComponentElementNode,
   CytoscapeNode,
   notify,
 } from '@codelab/frontend/shared'
+import { AtomType } from '@codelab/graphql'
 import React from 'react'
 import ReactTestUtils from 'react-dom/test-utils'
 import { elementTypeMap } from './elementTypeMap'
@@ -26,7 +26,7 @@ export const elementsPropTransformers: {
     input: ElementParameterFactoryInput & { props: Record<string, any> },
   ) => any
 } = {
-  [AtomType.ReactRglItem]: ({ node, props }) => {
+  [AtomType.AntDesignRglItem]: ({ node, props }) => {
     // Currently the react-grid-layout library, for some reason, re-renders the layout
     // only if it detects a change in the key of the child, and doesn't care about the data-grid property
     // So, a workaround is to incorporate the data-grid property into the key to make sure we rerender
@@ -38,7 +38,7 @@ export const elementsPropTransformers: {
       'data-id': node.id,
     }
   },
-  [AtomType.ReactRglResponsiveContainer]: ({ handlers, props }) => ({
+  [AtomType.AntDesignRglResponsiveContainer]: ({ handlers, props }) => ({
     ...props,
     // onResizeStop: onResizeStop(handlers),
     style: {

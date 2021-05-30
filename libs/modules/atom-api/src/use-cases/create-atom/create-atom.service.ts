@@ -7,11 +7,11 @@ import {
 } from '@codelab/dgraph'
 import { Injectable } from '@nestjs/common'
 import { Atom, atomsSchema } from '../../atom.model'
-import { CreateAtomRequest } from './create-atom.request'
+import { CreateAtomInput } from './create-atom.input'
 
 @Injectable()
 export class CreateAtomService extends MutationUseCase<
-  CreateAtomRequest,
+  CreateAtomInput,
   Atom,
   CreateAtomMutation,
   CreateAtomMutationVariables
@@ -31,7 +31,7 @@ export class CreateAtomService extends MutationUseCase<
   }
 
   protected mapVariables(
-    request: CreateAtomRequest,
+    request: CreateAtomInput,
   ): CreateAtomMutationVariables {
     return {
       input: {

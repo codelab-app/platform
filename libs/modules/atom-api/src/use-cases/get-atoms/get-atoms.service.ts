@@ -30,7 +30,7 @@ export class GetAtomsService extends QueryUseCase<
     return atomsSchema.parse(result?.data?.atoms)
   }
 
-  protected getVariables(): GetAtomsQueryVariables {
+  protected mapVariables(): GetAtomsQueryVariables {
     return {}
   }
 }

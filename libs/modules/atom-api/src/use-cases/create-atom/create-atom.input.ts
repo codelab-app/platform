@@ -1,5 +1,6 @@
+import { AtomType } from '@codelab/dgraph'
 import { Field, InputType } from '@nestjs/graphql'
-import { AtomType, AtomTypeEnum } from '../../atom-type.model'
+import { AtomTypeEnum } from '../../atom-type.model'
 
 @InputType()
 export class CreateAtomInput {

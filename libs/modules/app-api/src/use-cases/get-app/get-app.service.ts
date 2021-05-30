@@ -36,7 +36,7 @@ export class GetAppService extends QueryUseCase<
     return GetAppGql
   }
 
-  protected getVariables({ input }: GetAppRequest): GetAppQueryVariables {
+  protected mapVariables({ input }: GetAppRequest): GetAppQueryVariables {
     return {
       id: input.appId,
     }

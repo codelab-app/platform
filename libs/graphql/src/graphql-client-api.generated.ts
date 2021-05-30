@@ -394,13 +394,9 @@ export type UpdateAppInput = {
   updateData: UpdateAppData
 }
 
-export type UpdateAtomData = {
-  type: AtomType
-}
-
 export type UpdateAtomInput = {
-  atomId: Scalars['String']
-  updateData: UpdateAtomData
+  id: Scalars['String']
+  data: CreateAtomInput
 }
 
 export type UpdatePageData = {

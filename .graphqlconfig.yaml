@@ -12,6 +12,9 @@ generates:
       - schema-ast
 
   libs/dgraph/src/graphql-client-dgraph.generated.ts:
+    # preset: import-types
+    # presetConfig:
+    #   typesPath: types.ts
     schema:
       - ${CODELAB_DGRAPH_GRAPHQL_ENDPOINT}:
     documents:
