@@ -104,19 +104,16 @@ e2e-dev:
 	# 		"nx serve web"
 
 e2e-ci:
-	node libs/tools/scripts/src/cypress/e2e.js
-
-# npx concurrently \
-  # 	--kill-others \
-  # 	--success=first \
-	# 	--names=web-e2e,api,web \
-  #   	"npx wait-on \
-	# 			http://127.0.0.1:3000 \
-	# 			http://127.0.0.1:4000 && \
-	# 			nx run web-e2e:e2e:ci" \
-	# 		"npx cross-env PORT=4001 \
-	# 			node dist/apps/api/main.js" \
-	# 		"npx next start -p 3001 dist/apps/web"
+npx concurrently \
+  	--kill-others \
+  	--success=first \
+		--names=web-e2e,api,web \
+    	"npx wait-on \
+				http://127.0.0.1:3000 \
+				http://127.0.0.1:3333 && \
+				nx run web-e2e:e2e:ci" \
+			"node dist/apps/api/main.js" \
+			"npx next start -p 3000 dist/apps/web"
 
 #
 # INTEGRATION TESTS
