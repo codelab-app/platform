@@ -39,7 +39,7 @@ export class <%= useCaseNamePascalCase %>Service <% if(useCaseType === "regular"
       return null
     }
 
-    protected getVariables(
+    protected mapVariables(
       request: <%= useCaseNamePascalCase %>Input,
     ): GqlVariablesType {
       return {}

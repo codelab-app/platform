@@ -35,7 +35,7 @@ export class GetPageService extends QueryUseCase<
     return (result.data?.getPage as any) || null
   }
 
-  protected getVariables({
+  protected mapVariables({
     input: { pageId },
   }: GetPageRequest): GqlVariablesType {
     return {

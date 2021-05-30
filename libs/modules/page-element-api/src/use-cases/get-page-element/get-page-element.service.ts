@@ -37,7 +37,7 @@ export class GetPageElementService extends QueryUseCase<
     return pageElementSchema.parse(result?.data?.getPageElement) || null
   }
 
-  protected getVariables({
+  protected mapVariables({
     input: { pageElementId },
   }: GetPageElementRequest): GqlVariablesType {
     return {

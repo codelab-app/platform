@@ -39,7 +39,7 @@ export class GetAppsService extends QueryUseCase<
     return GetAppsGql
   }
 
-  protected getVariables(request: GetAppsRequest): GetAppsQueryVariables {
+  protected mapVariables(request: GetAppsRequest): GetAppsQueryVariables {
     return {
       filter: {
         ownerId: { eq: request.ownerId },

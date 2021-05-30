@@ -36,7 +36,7 @@ export class GetPageElementParentService extends QueryUseCase<
       : null
   }
 
-  protected getVariables(request: GetPageElementParentInput): GqlVariablesType {
+  protected mapVariables(request: GetPageElementParentInput): GqlVariablesType {
     return {
       pageElementId: request.pageElementId,
     }

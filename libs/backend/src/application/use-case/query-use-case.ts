@@ -30,7 +30,7 @@ export abstract class QueryUseCase<
     | DocumentNode
     | TypedDocumentNode<TQuery, TQueryVariables>
 
-  protected abstract getVariables(
+  protected abstract mapVariables(
     request: TUseCaseRequestPort,
     validationContext: TValidationContext,
   ): TQueryVariables | Promise<TQueryVariables>

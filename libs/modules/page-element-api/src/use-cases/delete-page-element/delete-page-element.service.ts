@@ -49,7 +49,7 @@ export class DeletePageElementService extends MutationUseCase<
     }
   }
 
-  protected async getVariables({
+  protected async mapVariables({
     input: { pageElementId },
     currentUser,
   }: DeletePageElementRequest): Promise<GqlVariablesType> {

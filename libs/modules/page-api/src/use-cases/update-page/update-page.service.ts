@@ -38,7 +38,7 @@ export class UpdatePageService extends MutationUseCase<
       .parse(result?.data?.updatePage?.page)[0]
   }
 
-  protected async getVariables({
+  protected async mapVariables({
     input: { pageId, updateData },
   }: UpdatePageRequest): Promise<GqlVariablesType> {
     return {
