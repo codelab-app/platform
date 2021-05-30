@@ -5,7 +5,7 @@
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "parserOptions": {
-        "project": ["libs/plugins/codelab/tsconfig.*?.json"]
+        "project": ["libs/tools/scripts/tsconfig.*?.json"]
       },
       "rules": {}
     },

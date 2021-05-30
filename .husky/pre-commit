@@ -9,4 +9,4 @@ yarn codegen
 
 yarn cross-env TIMING=1 lint-staged --verbose
 
-./scripts/lint/git.sh
+./libs/tools/scripts/src/lint/git.sh

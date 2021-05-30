@@ -1,13 +1,15 @@
-#!/usr/bin/env ts-node
+#!/usr/bin/env node
+/* eslint-disable @typescript-eslint/no-var-requires */
 
 /**
  *  Use `-w` to watch
  */
 
-const argv = require('yargs/yargs')(process.argv.slice(2)).argv
-const chokidar = require('chokidar')
 const shell = require('shelljs')
+const chokidar = require('chokidar')
+const argv = require('yargs/yargs')(process.argv.slice(2)).argv
 
+// eslint-disable-next-line padding-line-between-statements
 const options = { ignoreInitial: true, awaitWriteFinish: true }
 
 const codegen = () => {
@@ -22,7 +24,7 @@ const codegen = () => {
 }
 
 const updateSchema = () => {
-  if (!shell.exec('ts-node libs/dgraph/src/schema/generateSchema.ts')) {
+  if (!shell.exec('ts-node libs/tools/scripts/src/dgraph/generateSchema.js')) {
     shell.echo('Failed to generate Dgraph schema')
     shell.exit(1)
   }
@@ -49,7 +51,7 @@ if (argv.w) {
 
   chokidar
     .watch('libs/modules/**/*.d.graphql', options)
-    .on('all', (event, path, stats) => {
+    .on('all', (event, path) => {
       console.log(event, path)
 
       codegen()

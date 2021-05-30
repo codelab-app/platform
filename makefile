@@ -82,13 +82,8 @@ lint-commit-ci:
 	@echo "${CIRCLE_BASE_REVISION}"
 	npx commitlint --from="${CIRCLE_BASE_REVISION}" "$@"
 
-# Moved to commit-msg
-# lint-commit-dev:
-# 	npx commitlint -E HUSKY_GIT_PARAMS
-
 lint-eslint:
 	yarn affected:lint
-# node scripts/lint/eslint.js
 
 #
 # E2E

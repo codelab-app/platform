@@ -735,60 +735,6 @@
         }
       }
     },
-    "plugins-codelab": {
-      "root": "libs/plugins/codelab",
-      "sourceRoot": "libs/plugins/codelab/src",
-      "projectType": "library",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/plugins/codelab/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/plugins/codelab"],
-          "options": {
-            "jestConfig": "libs/plugins/codelab/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "builder": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/libs/plugins/codelab",
-            "tsConfig": "libs/plugins/codelab/tsconfig.lib.json",
-            "packageJson": "libs/plugins/codelab/package.json",
-            "main": "libs/plugins/codelab/src/index.ts",
-            "assets": [
-              "libs/plugins/codelab/*.md",
-              {
-                "input": "./libs/plugins/codelab/src",
-                "glob": "**/!(*.ts)",
-                "output": "./src"
-              },
-              {
-                "input": "./libs/plugins/codelab/src",
-                "glob": "**/*.d.ts",
-                "output": "./src"
-              },
-              {
-                "input": "./libs/plugins/codelab",
-                "glob": "generators.json",
-                "output": "."
-              },
-              {
-                "input": "./libs/plugins/codelab",
-                "glob": "executors.json",
-                "output": "."
-              }
-            ]
-          }
-        }
-      }
-    },
     "graphql": {
       "root": "libs/graphql",
       "sourceRoot": "libs/graphql/src",
@@ -887,6 +833,73 @@
           "options": {
             "jestConfig": "libs/modules/value-type/jest.config.js",
             "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "tools-plugins-codelab": {
+      "root": "libs/tools/plugins/codelab",
+      "sourceRoot": "libs/tools/plugins/codelab/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/tools/plugins/codelab/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/tools/plugins/codelab"],
+          "options": {
+            "jestConfig": "libs/tools/plugins/codelab/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "builder": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/tools/plugins/codelab",
+            "tsConfig": "libs/tools/plugins/codelab/tsconfig.lib.json",
+            "packageJson": "libs/tools/plugins/codelab/package.json",
+            "main": "libs/tools/plugins/codelab/src/index.ts",
+            "assets": [
+              "libs/tools/plugins/codelab/*.md",
+              {
+                "input": "./libs/tools/plugins/codelab/src",
+                "glob": "**/!(*.ts)",
+                "output": "./src"
+              },
+              {
+                "input": "./libs/tools/plugins/codelab/src",
+                "glob": "**/*.d.ts",
+                "output": "./src"
+              },
+              {
+                "input": "./libs/tools/plugins/codelab",
+                "glob": "generators.json",
+                "output": "."
+              },
+              {
+                "input": "./libs/tools/plugins/codelab",
+                "glob": "executors.json",
+                "output": "."
+              }
+            ]
+          }
+        }
+      }
+    },
+    "tools-scripts": {
+      "root": "libs/tools/scripts",
+      "sourceRoot": "libs/tools/scripts/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/tools/scripts/**/*.ts"]
           }
         }
       }

@@ -50,7 +50,6 @@
       "@codelab/modules/app-api": ["libs/modules/app-api/src/index.ts"],
       "@codelab/modules/user-api": ["libs/modules/user-api/src/index.ts"],
       "@codelab/modules/atom-api": ["libs/modules/atom-api/src/index.ts"],
-      "@codelab/schematics": ["libs/plugins/codelab/src/index.ts"],
       "@codelab/graphql": ["libs/graphql/src/index.ts"],
       "@codelab/modules/page-api": ["libs/modules/page-api/src/index.ts"],
       "@codelab/modules/page-element-api": [
@@ -60,7 +59,11 @@
       "@codelab/modules/value-type-api": [
         "libs/modules/value-type-api/src/index.ts"
       ],
-      "@codelab/modules/value-type": ["libs/modules/value-type/src/index.ts"]
+      "@codelab/modules/value-type": ["libs/modules/value-type/src/index.ts"],
+      "@codelab/tools/plugins/codelab": [
+        "libs/tools/plugins/codelab/src/index.ts"
+      ],
+      "@codelab/tools/scripts": ["libs/tools/scripts/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"]
