@@ -104,7 +104,7 @@ e2e-dev:
 	# 		"nx serve web"
 
 e2e-ci:
-npx concurrently \
+	npx concurrently \
   	--kill-others \
   	--success=first \
 		--names=web-e2e,api,web \
