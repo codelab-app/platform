@@ -90,17 +90,18 @@ lint-eslint:
 #
 
 e2e-dev:
-	npx concurrently \
-  	--kill-others \
-  	--success=first \
-		--names=web-e2e,api,web \
-    	"npx wait-on \
-				http://127.0.0.1:3001 \
-				http://127.0.0.1:4001 && \
-				nx run web-e2e:e2e:ci" \
-			"npx env-cmd -f .env cross-env PORT=4001 \
-				node dist/apps/api/main.js" \
-			"npx nx run web:serve:ci"
+	node libs/tools/scripts/src/cypress/e2e.js
+
+# npx concurrently \
+  # 	--kill-others \
+  # 	--success=first \
+	# 	--names=web-e2e,api,web \
+  #   	"npx wait-on \
+	# 			http://127.0.0.1:3000 \
+	# 			http://127.0.0.1:3333 && \
+	# 			nx e2e:ci web-e2e" \
+	# 		"nx serve api" \
+	# 		"nx serve web"
 
 e2e-ci:
 	npx concurrently \

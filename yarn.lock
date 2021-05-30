@@ -3083,7 +3083,7 @@
     "@graphql-tools/utils" "^7.9.1"
     tslib "~2.2.0"
 
-"@graphql-codegen/import-types-preset@^1.18.2":
+"@graphql-codegen/import-types-preset@1.18.2":
   version "1.18.2"
   resolved "https://registry.yarnpkg.com/@graphql-codegen/import-types-preset/-/import-types-preset-1.18.2.tgz#34ff40eb2bf493b2c6867b2da0b05be631660bc9"
   integrity sha512-fzf8iKE6bzM/lmAnte5Erm0fjVcEacC7madtdV28KKHAY789wWl5yJXrOC/lu+mHCqYTpwsbjzcUDvTbTuuOAw==
@@ -3323,7 +3323,7 @@
     is-promise "4.0.0"
     tslib "~2.1.0"
 
-"@graphql-tools/load-files@^6.2.4", "@graphql-tools/load-files@^6.3.2":
+"@graphql-tools/load-files@6.3.2", "@graphql-tools/load-files@^6.2.4":
   version "6.3.2"
   resolved "https://registry.yarnpkg.com/@graphql-tools/load-files/-/load-files-6.3.2.tgz#c4e84394e5b95b96452c22e960e2595ac9154648"
   integrity sha512-3mgwEKZ8yy7CD/uVs9yeXR3r+GwjlTKRG5bC75xdJFN8WbzbcHjIJiTXfWSAYqbfSTam0hWnRdWghagzFSo5kQ==
@@ -3371,7 +3371,7 @@
     "@graphql-tools/utils" "^7.7.0"
     tslib "~2.2.0"
 
-"@graphql-tools/merge@^6.0.0", "@graphql-tools/merge@^6.2.11", "@graphql-tools/merge@^6.2.12", "@graphql-tools/merge@^6.2.14", "@graphql-tools/merge@^6.2.4":
+"@graphql-tools/merge@6.2.14", "@graphql-tools/merge@^6.0.0", "@graphql-tools/merge@^6.2.11", "@graphql-tools/merge@^6.2.12", "@graphql-tools/merge@^6.2.14", "@graphql-tools/merge@^6.2.4":
   version "6.2.14"
   resolved "https://registry.yarnpkg.com/@graphql-tools/merge/-/merge-6.2.14.tgz#694e2a2785ba47558e5665687feddd2935e9d94e"
   integrity sha512-RWT4Td0ROJai2eR66NHejgf8UwnXJqZxXgDWDI+7hua5vNA2OW8Mf9K1Wav1ZkjWnuRp4ztNtkZGie5ISw55ow==
@@ -7180,17 +7180,17 @@
   resolved "https://registry.yarnpkg.com/@types/yargs-parser/-/yargs-parser-20.2.0.tgz#dd3e6699ba3237f0348cd085e4698780204842f9"
   integrity sha512-37RSHht+gzzgYeobbG+KWryeAW8J33Nhr69cjTqSYymXVZEN9NbRYWoYlRtDhHKPVT1FyNKwaTPC1NynKZpzRA==
 
+"@types/yargs@17.0.0":
+  version "17.0.0"
+  resolved "https://registry.yarnpkg.com/@types/yargs/-/yargs-17.0.0.tgz#32f740934eedf0a5cd19470249f317755c91f1ae"
+  integrity sha512-RS7u2X7vdXjVQs160PWY1pjLBw6GJj04utojn0KU8p2rRZR37FSzzK6XOT+KLzT/DVbDYRyezroc0LHIvM5Z2A==
+  dependencies:
+    "@types/yargs-parser" "*"
+
 "@types/yargs@^15.0.0":
   version "15.0.13"
   resolved "https://registry.yarnpkg.com/@types/yargs/-/yargs-15.0.13.tgz#34f7fec8b389d7f3c1fd08026a5763e072d3c6dc"
   integrity sha512-kQ5JNTrbDv3Rp5X2n/iUu37IJBDU2gsZ5R/g1/KHOOEc5IKfUFjXT6DENPGduh08I/pamwtEq4oul7gUqKTQDQ==
-  dependencies:
-    "@types/yargs-parser" "*"
-
-"@types/yargs@^17.0.0":
-  version "17.0.0"
-  resolved "https://registry.yarnpkg.com/@types/yargs/-/yargs-17.0.0.tgz#32f740934eedf0a5cd19470249f317755c91f1ae"
-  integrity sha512-RS7u2X7vdXjVQs160PWY1pjLBw6GJj04utojn0KU8p2rRZR37FSzzK6XOT+KLzT/DVbDYRyezroc0LHIvM5Z2A==
   dependencies:
     "@types/yargs-parser" "*"
 
@@ -22114,10 +22114,10 @@ node-releases@^1.1.61, node-releases@^1.1.69, node-releases@^1.1.71:
   resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-1.1.72.tgz#14802ab6b1039a79a0c7d662b610a5bbd76eacbe"
   integrity sha512-LLUo+PpH3dU6XizX3iVoubUNheF/owjXCZZ5yACDxNnPtgFuludV1ZL3ayK1kVep42Rmm0+R9/Y60NQbZ2bifw==
 
-nodemon@2.0.5:
-  version "2.0.5"
-  resolved "https://registry.yarnpkg.com/nodemon/-/nodemon-2.0.5.tgz#df67fe1fd1312ddb0c1e393ae2cf55aacdcec2f3"
-  integrity sha512-6/jqtZvJdk092pVnD2AIH19KQ9GQZAKOZVy/yT1ueL6aoV+Ix7a1lVZStXzvEh0fP4zE41DDWlkVoHjR6WlozA==
+nodemon@2.0.7:
+  version "2.0.7"
+  resolved "https://registry.yarnpkg.com/nodemon/-/nodemon-2.0.7.tgz#6f030a0a0ebe3ea1ba2a38f71bf9bab4841ced32"
+  integrity sha512-XHzK69Awgnec9UzHr1kc8EomQh4sjTQ8oRf8TsGrSmHDx9/UmiGG9E/mM3BuTfNeFwdNBvrqQq/RHL0xIeyFOA==
   dependencies:
     chokidar "^3.2.2"
     debug "^3.2.6"
@@ -23895,7 +23895,7 @@ polished@^4.0.5:
   dependencies:
     "@babel/runtime" "^7.13.17"
 
-portfinder@^1.0.25, portfinder@^1.0.26:
+portfinder@^1.0.25, portfinder@^1.0.26, portfinder@^1.0.28:
   version "1.0.28"
   resolved "https://registry.yarnpkg.com/portfinder/-/portfinder-1.0.28.tgz#67c4622852bd5374dd1dd900f779f53462fac778"
   integrity sha512-Se+2isanIcEqf2XMHjyUKskczxbPH7dQnlMjXX6+dybayyHvAf/TCgyMRlzf/B6QDhAEFOGes0pzRo3by4AbMA==
@@ -31626,6 +31626,19 @@ yargs@16.0.3:
     y18n "^5.0.1"
     yargs-parser "^20.0.0"
 
+yargs@17.0.1, yargs@^17.0.0:
+  version "17.0.1"
+  resolved "https://registry.yarnpkg.com/yargs/-/yargs-17.0.1.tgz#6a1ced4ed5ee0b388010ba9fd67af83b9362e0bb"
+  integrity sha512-xBBulfCc8Y6gLFcrPvtqKz9hz8SO0l1Ni8GgDekvBX2ro0HRQImDGnikfc33cgzcYUSncapnNcZDjVFIH3f6KQ==
+  dependencies:
+    cliui "^7.0.2"
+    escalade "^3.1.1"
+    get-caller-file "^2.0.5"
+    require-directory "^2.1.1"
+    string-width "^4.2.0"
+    y18n "^5.0.5"
+    yargs-parser "^20.2.2"
+
 yargs@^13.3.2:
   version "13.3.2"
   resolved "https://registry.yarnpkg.com/yargs/-/yargs-13.3.2.tgz#ad7ffefec1aa59565ac915f82dccb38a9c31a2dd"
@@ -31646,19 +31659,6 @@ yargs@^16.1.0, yargs@^16.1.1, yargs@^16.2.0:
   version "16.2.0"
   resolved "https://registry.yarnpkg.com/yargs/-/yargs-16.2.0.tgz#1c82bf0f6b6a66eafce7ef30e376f49a12477f66"
   integrity sha512-D1mvvtDG0L5ft/jGWkLpG1+m0eQxOfaBvTNELraWj22wSVUMWxZUvYgJYcKh6jGGIkJFhH4IZPQhR4TKpc8mBw==
-  dependencies:
-    cliui "^7.0.2"
-    escalade "^3.1.1"
-    get-caller-file "^2.0.5"
-    require-directory "^2.1.1"
-    string-width "^4.2.0"
-    y18n "^5.0.5"
-    yargs-parser "^20.2.2"
-
-yargs@^17.0.0, yargs@^17.0.1:
-  version "17.0.1"
-  resolved "https://registry.yarnpkg.com/yargs/-/yargs-17.0.1.tgz#6a1ced4ed5ee0b388010ba9fd67af83b9362e0bb"
-  integrity sha512-xBBulfCc8Y6gLFcrPvtqKz9hz8SO0l1Ni8GgDekvBX2ro0HRQImDGnikfc33cgzcYUSncapnNcZDjVFIH3f6KQ==
   dependencies:
     cliui "^7.0.2"
     escalade "^3.1.1"
