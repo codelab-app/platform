@@ -35,7 +35,7 @@ export class CreateAtomService extends MutationUseCase<
   ): CreateAtomMutationVariables {
     return {
       input: {
-        type: request.type,
+        ...request,
       },
     }
   }

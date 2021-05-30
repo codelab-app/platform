@@ -48,7 +48,7 @@ export type AddAppPayloadAppArgs = {
 
 export type AddAtomInput = {
   type: AtomType
-  label?: Maybe<Scalars['String']>
+  label: Scalars['String']
   library?: Maybe<LibraryRef>
 }
 
@@ -262,7 +262,7 @@ export type AppRef = {
 export type Atom = {
   id: Scalars['ID']
   type: AtomType
-  label?: Maybe<Scalars['String']>
+  label: Scalars['String']
   library?: Maybe<Library>
 }
 
