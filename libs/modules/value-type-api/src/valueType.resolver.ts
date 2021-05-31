@@ -1,8 +1,8 @@
 import { GqlAuthGuard } from '@codelab/backend'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Query, Resolver } from '@nestjs/graphql'
-import { ValueType } from './valueType.model'
 import { GetValueTypesService } from './use-cases'
+import { ValueType } from './valueType.model'
 
 @Resolver(() => ValueType)
 @Injectable()

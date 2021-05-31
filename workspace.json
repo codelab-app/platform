@@ -758,6 +758,14 @@
           "options": {
             "lintFilePatterns": ["libs/modules/page-api/**/*.ts"]
           }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/modules/page-api"],
+          "options": {
+            "jestConfig": "libs/modules/page-api/jest.config.js",
+            "passWithNoTests": true
+          }
         }
       }
     },
@@ -770,6 +778,14 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["libs/modules/page-element-api/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/modules/page-element-api"],
+          "options": {
+            "jestConfig": "libs/modules/page-element-api/jest.config.js",
+            "passWithNoTests": true
           }
         }
       }
