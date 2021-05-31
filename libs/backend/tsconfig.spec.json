@@ -1,12 +1,17 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../../dist/out-tsc",
     "module": "commonjs",
-    "esModuleInterop": true,
+    "outDir": "../../../dist/out-tsc",
     "declaration": true,
-    "types": ["jest", "node"],
-    "allowSyntheticDefaultImports": true
+    "types": ["node"],
+    "target": "es6",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "allowSyntheticDefaultImports": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true
   },
   "include": [
     "**/*.spec.ts",

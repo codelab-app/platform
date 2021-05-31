@@ -1,4 +1,10 @@
 import { Module } from '@nestjs/common'
+import {
+  ApolloClientModule,
+  apolloClientTestConfig,
+  AwsModule,
+  DGraphModule,
+} from '../../infrastructure'
 import { LoggerModule } from '../../infrastructure/logger/logger.module'
 // import { testDatabaseConfig } from '../../infrastructure/persistence/config/DbConfig'
 // import { ConfigModule } from './config.module'
@@ -6,8 +12,9 @@ import { LoggerModule } from '../../infrastructure/logger/logger.module'
 @Module({
   imports: [
     LoggerModule.forRoot(),
-    // GraphqlModule,
-    // ConfigModule.register(testDatabaseConfig),
+    AwsModule,
+    DGraphModule,
+    ApolloClientModule.register(apolloClientTestConfig),
   ],
 })
 export class TestInfrastructureModule {}

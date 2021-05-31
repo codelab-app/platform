@@ -1,5 +1,5 @@
 import { FetchResult } from '@apollo/client'
-import { ApolloClientService, MutationUseCase } from '@codelab/backend'
+import { MutationUseCase } from '@codelab/backend'
 import {
   CreateAtomGql,
   CreateAtomMutation,
@@ -16,9 +16,9 @@ export class CreateAtomService extends MutationUseCase<
   CreateAtomMutation,
   CreateAtomMutationVariables
 > {
-  constructor(apollo: ApolloClientService) {
-    super(apollo)
-  }
+  // constructor(apollo: ApolloClientService) {
+  //   super(apollo)
+  // }
 
   protected getGql() {
     return CreateAtomGql

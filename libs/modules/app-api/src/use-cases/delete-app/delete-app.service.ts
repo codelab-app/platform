@@ -19,6 +19,7 @@ export class DeleteAppService extends MutationUseCase<
 > {
   constructor(
     apollo: ApolloClientService,
+    // TODO: Make guard into a decorator
     private appGuardService: AppGuardService,
   ) {
     super(apollo)

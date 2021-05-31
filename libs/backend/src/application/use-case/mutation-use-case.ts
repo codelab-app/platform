@@ -1,9 +1,11 @@
 import { FetchResult } from '@apollo/client/link/core'
 import { TypedDocumentNode } from '@graphql-typed-document-node/core'
+import { Injectable } from '@nestjs/common'
 import { DocumentNode } from 'graphql'
 import { ApolloClientService } from '../../infrastructure'
 import { GraphqlUseCase } from './graphql-use-case'
 
+@Injectable()
 export abstract class MutationUseCase<
   TUseCaseRequestPort,
   TUseCaseDtoResponse,
@@ -18,7 +20,7 @@ export abstract class MutationUseCase<
   true,
   TValidationContext
 > {
-  protected constructor(protected apollo: ApolloClientService) {
+  constructor(protected apollo: ApolloClientService) {
     super(apollo)
   }
 

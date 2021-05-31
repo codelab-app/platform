@@ -4,10 +4,12 @@ import {
 } from '@apollo/client/core/watchQueryOptions'
 import { FetchResult } from '@apollo/client/link/core'
 import { TypedDocumentNode } from '@graphql-typed-document-node/core'
+import { Injectable } from '@nestjs/common'
 import { DocumentNode } from 'graphql'
 import { ApolloClientService } from '../../infrastructure'
 import { UseCase } from '../index'
 
+@Injectable()
 export abstract class GraphqlUseCase<
   TUseCaseRequestPort,
   TUseCaseDtoResponse,
@@ -17,7 +19,7 @@ export abstract class GraphqlUseCase<
   TValidationContext = Record<string, unknown>,
 > implements UseCase<TUseCaseRequestPort, TUseCaseDtoResponse>
 {
-  protected constructor(protected apollo: ApolloClientService) {}
+  constructor(protected apollo: ApolloClientService) {}
 
   async execute(request: TUseCaseRequestPort): Promise<TUseCaseDtoResponse> {
     const client = this.apollo.getClient()

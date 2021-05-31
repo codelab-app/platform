@@ -1,9 +1,10 @@
 import { FetchResult } from '@apollo/client/link/core'
 import { TypedDocumentNode } from '@graphql-typed-document-node/core'
+import { Injectable } from '@nestjs/common'
 import { DocumentNode } from 'graphql'
-import { ApolloClientService } from '../../infrastructure'
 import { GraphqlUseCase } from './graphql-use-case'
 
+@Injectable()
 export abstract class QueryUseCase<
   TUseCaseRequestPort,
   TUseCaseDtoResponse,
@@ -18,10 +19,6 @@ export abstract class QueryUseCase<
   false,
   TValidationContext
 > {
-  protected constructor(protected apollo: ApolloClientService) {
-    super(apollo)
-  }
-
   protected isMutation(): false {
     return false
   }

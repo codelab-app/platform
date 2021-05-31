@@ -7,7 +7,10 @@
 
 const shell = require('shelljs')
 const chokidar = require('chokidar')
-const argv = require('yargs/yargs')(process.argv.slice(2)).argv
+const { hideBin } = require('yargs/helpers')
+const yargs = require('yargs/yargs')
+
+const { argv } = yargs(hideBin(process.argv))
 
 // eslint-disable-next-line padding-line-between-statements
 const options = { ignoreInitial: true, awaitWriteFinish: true }

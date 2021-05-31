@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common'
 import {
+  apolloClientConfig,
   ApolloClientModule,
   AwsModule,
   DGraphModule,
@@ -11,7 +12,7 @@ import {
     LoggerModule.forRoot(),
     AwsModule,
     DGraphModule,
-    ApolloClientModule,
+    ApolloClientModule.register(apolloClientConfig),
   ],
 })
 export class InfrastructureModule {}

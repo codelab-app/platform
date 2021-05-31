@@ -12,3 +12,12 @@ export const apolloClientConfig = registerAs(
     endpoint: get('CODELAB_DGRAPH_GRAPHQL_ENDPOINT').required(true).asString(),
   }),
 )
+
+export const apolloClientTestConfig = registerAs(
+  ApolloClientTokens.ApolloClientConfig,
+  (): ApolloClientConfig => ({
+    endpoint: get('CODELAB_DGRAPH_GRAPHQL_TEST_ENDPOINT')
+      .required(true)
+      .asString(),
+  }),
+)

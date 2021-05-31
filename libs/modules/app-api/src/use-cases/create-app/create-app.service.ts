@@ -1,5 +1,5 @@
 import { FetchResult } from '@apollo/client'
-import { ApolloClientService, MutationUseCase } from '@codelab/backend'
+import { MutationUseCase } from '@codelab/backend'
 import {
   CreateAppGql,
   CreateAppMutation,
@@ -16,10 +16,6 @@ export class CreateAppService extends MutationUseCase<
   CreateAppMutation,
   CreateAppMutationVariables
 > {
-  constructor(apollo: ApolloClientService) {
-    super(apollo)
-  }
-
   protected getGql() {
     return CreateAppGql
   }

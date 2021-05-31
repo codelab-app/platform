@@ -1,11 +1,17 @@
-import { Module } from '@nestjs/common'
-import { ConfigModule } from '@nestjs/config'
+import { DynamicModule, Global, Module } from '@nestjs/common'
+import { ConfigFactory, ConfigModule } from '@nestjs/config'
 import { ApolloClientService } from './apollo-client.service'
-import { apolloClientConfig } from './config/apollo-client.config'
+import { ApolloClientConfig } from './config/apollo-client.config'
 
-@Module({
-  imports: [ConfigModule.forFeature(apolloClientConfig)],
-  providers: [ApolloClientService],
-  exports: [ApolloClientService],
-})
-export class ApolloClientModule {}
+@Global()
+@Module({})
+export class ApolloClientModule {
+  static register(config: ConfigFactory<ApolloClientConfig>): DynamicModule {
+    return {
+      imports: [ConfigModule.forFeature(config)],
+      module: ApolloClientModule,
+      providers: [ApolloClientService],
+      exports: [ApolloClientService],
+    }
+  }
+}

@@ -1,4 +1,3 @@
-import { ApolloClientModule } from '@codelab/backend'
 import { Module } from '@nestjs/common'
 import { AppResolver } from './app.resolver'
 import { AppGuardService } from './auth'
@@ -20,7 +19,6 @@ const services = [
 ]
 
 @Module({
-  imports: [ApolloClientModule],
   providers: [...services, AppResolver],
   exports: [...services],
 })
