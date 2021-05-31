@@ -43,8 +43,8 @@
     "docs": "onchange 'libs/ddd/**/*.ts' 'typedoc.json' -- npx typedoc",
     "migration:generate": "nx migrate @nrwl/workspace@latest",
     "migration:run": "nx migrate --run-migrations=migrations.json",
-    "dgraph:schema:update": "curl -X POST localhost:8081/admin/schema --data-binary '@dgraph/schema.generated.graphql'",
-    "dgraph:schema:drop": "curl -X POST localhost:8081/alter -d '{\"drop_all\": true}'\n",
+    "dgraph:schema:drop": "node libs/tools/scripts/src/dgraph/dropSchema.js",
+    "dgraph:schema:update": "node libs/tools/scripts/src/dgraph/updateSchema.js",
     "dgraph:seed": "node dgraph/seed/seed.js",
     "codegen": "node libs/tools/scripts/src/dgraph/codegen.js",
     "start:prod:api": "node dist/apps/api/main.js"

@@ -17,7 +17,7 @@ if (!argv.port) {
 
 if (
   !shell.exec(
-    `curl -X POST localhost:${argv.port}/admin/schema --data-binary '@dgraph/schema.generated.graphql'`,
+    `curl -X POST localhost:${argv.port}/alter -d '{"drop_all": true}'`,
   )
 ) {
   shell.echo('Codegen failed')

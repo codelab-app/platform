@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* eslint-disable @typescript-eslint/no-var-requires */
 
 /**
  *  Use `-w` to watch
@@ -11,9 +10,15 @@ const { hideBin } = require('yargs/helpers')
 const yargs = require('yargs/yargs')
 
 const { argv } = yargs(hideBin(process.argv))
-
-// eslint-disable-next-line padding-line-between-statements
 const options = { ignoreInitial: true, awaitWriteFinish: true }
+
+if (!argv.port) {
+  console.info(
+    'Please specify port using --port, "--port 8081" for application or "--port 8082" for testing',
+  )
+
+  return
+}
 
 const codegen = () => {
   if (
@@ -27,12 +32,20 @@ const codegen = () => {
 }
 
 const updateSchema = () => {
-  if (!shell.exec('ts-node libs/tools/scripts/src/dgraph/generateSchema.js')) {
+  if (
+    !shell.exec(
+      `node libs/tools/scripts/src/dgraph/generateSchema.js --port=${argv.port}`,
+    )
+  ) {
     shell.echo('Failed to generate Dgraph schema')
     shell.exit(1)
   }
 
-  if (!shell.exec('yarn dgraph:schema:update')) {
+  if (
+    !shell.exec(
+      `node libs/tools/scripts/src/dgraph/updateSchema.js --port=${argv.port}`,
+    )
+  ) {
     shell.echo('Failed to update Dgraph schema')
     shell.exit(1)
   }
