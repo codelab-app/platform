@@ -492,13 +492,13 @@ export type UpdateAppMutationVariables = Exact<{
 
 export type UpdateAppMutation = { app: __AppFragment }
 
-export type __AtomFragment = Pick<Atom, 'id' | 'label' | 'type'>
-
 export type CreateAtomMutationVariables = Exact<{
   input: CreateAtomInput
 }>
 
 export type CreateAtomMutation = { createAtom: __AtomFragment }
+
+export type __AtomFragment = Pick<Atom, 'id' | 'label' | 'type'>
 
 export type DeleteAtomMutationVariables = Exact<{
   input: DeleteAtomInput
