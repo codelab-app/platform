@@ -1,5 +1,5 @@
 import { FetchResult } from '@apollo/client'
-import { ApolloClientService, QueryUseCase } from '@codelab/backend'
+import { QueryUseCase } from '@codelab/backend'
 import { GetAppGql, GetAppQuery, GetAppQueryVariables } from '@codelab/dgraph'
 import { Injectable } from '@nestjs/common'
 import { App, appSchema } from '../../app.model'
@@ -12,10 +12,6 @@ export class GetAppService extends QueryUseCase<
   GetAppQuery,
   GetAppQueryVariables
 > {
-  constructor(apollo: ApolloClientService) {
-    super(apollo)
-  }
-
   protected extractDataFromResult(
     result: FetchResult<GetAppQuery>,
     _: void,

@@ -1,5 +1,5 @@
 import { FetchResult } from '@apollo/client'
-import { ApolloClientService, QueryUseCase } from '@codelab/backend'
+import { QueryUseCase } from '@codelab/backend'
 import {
   Dgraph__AppFragment,
   GetAppsGql,
@@ -17,10 +17,6 @@ export class GetAppsService extends QueryUseCase<
   GetAppsQuery,
   GetAppsQueryVariables
 > {
-  constructor(apollo: ApolloClientService) {
-    super(apollo)
-  }
-
   protected extractDataFromResult(
     result: FetchResult<GetAppsQuery>,
   ): Array<App> {

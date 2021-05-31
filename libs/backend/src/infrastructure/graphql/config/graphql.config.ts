@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { GqlModuleOptions, GqlOptionsFactory } from '@nestjs/graphql'
 import { GraphQLError, GraphQLFormattedError } from 'graphql'
-import path from 'path'
+import * as path from 'path'
 
 @Injectable()
 export class GraphqlConfig implements GqlOptionsFactory {
