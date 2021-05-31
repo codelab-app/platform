@@ -141,6 +141,9 @@
     },
     "tools-scripts": {
       "tags": []
+    },
+    "test": {
+      "tags": []
     }
   }
 }
