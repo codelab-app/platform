@@ -63,8 +63,7 @@
       "@codelab/tools/plugins/codelab": [
         "libs/tools/plugins/codelab/src/index.ts"
       ],
-      "@codelab/tools/scripts": ["libs/tools/scripts/src/index.ts"],
-      "@codelab/test": ["libs/test/src/index.ts"]
+      "@codelab/tools/scripts": ["libs/tools/scripts/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"]

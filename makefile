@@ -92,17 +92,6 @@ lint-eslint:
 e2e-dev:
 	node libs/tools/scripts/src/cypress/e2e.js
 
-# npx concurrently \
-  # 	--kill-others \
-  # 	--success=first \
-	# 	--names=web-e2e,api,web \
-  #   	"npx wait-on \
-	# 			http://127.0.0.1:3000 \
-	# 			http://127.0.0.1:3333 && \
-	# 			nx e2e:ci web-e2e" \
-	# 		"nx serve api" \
-	# 		"nx serve web"
-
 e2e-ci:
 	npx concurrently \
   	--kill-others \

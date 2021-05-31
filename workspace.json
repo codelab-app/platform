@@ -919,27 +919,6 @@
           }
         }
       }
-    },
-    "test": {
-      "root": "libs/test",
-      "sourceRoot": "libs/test/src",
-      "projectType": "library",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/test/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/test"],
-          "options": {
-            "jestConfig": "libs/test/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
     }
   }
 }
