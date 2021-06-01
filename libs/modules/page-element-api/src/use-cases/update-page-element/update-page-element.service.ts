@@ -1,12 +1,16 @@
-import { FetchResult } from '@apollo/client'
-import { ApolloClientService, MutationUseCase } from '@codelab/backend'
+import {
+  ApolloClient,
+  FetchResult,
+  NormalizedCacheObject,
+} from '@apollo/client'
+import { ApolloClientTokens, MutationUseCase } from '@codelab/backend'
 import {
   UpdatePageElementGql,
   UpdatePageElementMutation,
   UpdatePageElementMutationVariables,
 } from '@codelab/dgraph'
 import { GetAtomService } from '@codelab/modules/atom-api'
-import { Injectable } from '@nestjs/common'
+import { Inject, Injectable } from '@nestjs/common'
 import { z } from 'zod'
 import { PageElementGuardService } from '../../auth'
 import { PageElement, pageElementSchema } from '../../models'
@@ -23,11 +27,12 @@ export class UpdatePageElementService extends MutationUseCase<
   GqlVariablesType
 > {
   constructor(
-    apollo: ApolloClientService,
+    @Inject(ApolloClientTokens.ApolloClientProvider)
+    protected apolloClient: ApolloClient<NormalizedCacheObject>,
     private getAtomService: GetAtomService,
     private pageElementGuardService: PageElementGuardService,
   ) {
-    super(apollo)
+    super(apolloClient)
   }
 
   protected getGql() {

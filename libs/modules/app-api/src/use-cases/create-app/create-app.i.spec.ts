@@ -10,16 +10,17 @@ import {
   CreateAppMutationResult,
   CreateAppMutationVariables,
 } from '@codelab/graphql'
+import { Auth0Service } from '@codelab/modules/auth-api'
 import { INestApplication } from '@nestjs/common'
-import axios, { AxiosRequestConfig } from 'axios'
+import { AxiosRequestConfig } from 'axios'
 import { print } from 'graphql'
 import { AppModule } from '../../app.module'
 
 const options: AxiosRequestConfig = {
   method: 'POST',
-  url: 'https://codelab-ai.us.auth0.com/oauth/token',
+  url: new URL('oauth/token', process.env.AUTH0_ISSUER_BASE_URL).toString(),
   headers: { 'content-type': 'application/json' },
-  data: '{"client_id":"o5Gzovr6PG6mP00tONJxbCvmc6ZfRonT","client_secret":"QyhCFJ7BHzMBe-XDiy3yr4tud5Ox52SqjYmoKjVk2ET6ISyaaJPNLpDCgvs9l3lQ","audience":"https://api.codelab.ai","grant_type":"client_credentials"}',
+  data: `{"client_id":"${process.env.AUTH0_API_CLIENT_ID}","client_secret":"${process.env.AUTH0_API_CLIENT_SECRET}","audience":"${process.env.AUTH0_AUDIENCE}","grant_type":"client_credentials"}`,
 }
 
 describe('CreateApp', () => {
@@ -29,14 +30,8 @@ describe('CreateApp', () => {
   beforeAll(async () => {
     app = await setupTestModule(app, AppModule)
 
-    await axios
-      .request(options)
-      .then((response) => {
-        accessToken = response.data.access_token
-      })
-      .catch((error) => {
-        console.error(error)
-      })
+    const auth0Service = app.get(Auth0Service)
+    accessToken = await auth0Service.getAccessToken()
   })
 
   afterAll(async () => {

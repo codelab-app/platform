@@ -1,11 +1,15 @@
-import { FetchResult } from '@apollo/client'
-import { ApolloClientService, MutationUseCase } from '@codelab/backend'
+import {
+  ApolloClient,
+  FetchResult,
+  NormalizedCacheObject,
+} from '@apollo/client'
+import { ApolloClientTokens, MutationUseCase } from '@codelab/backend'
 import {
   UpdateAppGql,
   UpdateAppMutation,
   UpdateAppMutationVariables,
 } from '@codelab/dgraph'
-import { Injectable } from '@nestjs/common'
+import { Inject, Injectable } from '@nestjs/common'
 import { App } from '../../app.model'
 import { AppGuardService } from '../../auth'
 import { UpdateAppRequest } from './update-app.request'
@@ -18,10 +22,11 @@ export class UpdateAppService extends MutationUseCase<
   UpdateAppMutationVariables
 > {
   constructor(
-    apollo: ApolloClientService,
+    @Inject(ApolloClientTokens.ApolloClientProvider)
+    protected apolloClient: ApolloClient<NormalizedCacheObject>,
     private appGuardService: AppGuardService,
   ) {
-    super(apollo)
+    super(apolloClient)
   }
 
   protected extractDataFromResult(result: FetchResult<UpdateAppMutation>): App {

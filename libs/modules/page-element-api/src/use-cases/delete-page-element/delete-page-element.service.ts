@@ -1,6 +1,10 @@
-import { FetchResult } from '@apollo/client'
 import {
-  ApolloClientService,
+  ApolloClient,
+  FetchResult,
+  NormalizedCacheObject,
+} from '@apollo/client'
+import {
+  ApolloClientTokens,
   DeleteResponse,
   MutationUseCase,
 } from '@codelab/backend'
@@ -9,7 +13,7 @@ import {
   DeletePageElementMutation,
   DeletePageElementMutationVariables,
 } from '@codelab/dgraph'
-import { Injectable } from '@nestjs/common'
+import { Inject, Injectable } from '@nestjs/common'
 import { PageElementGuardService } from '../../auth'
 import { GetPageElementParentService } from '../get-page-element-parent'
 import { GetPageElementRootService } from '../get-page-element-root'
@@ -29,12 +33,13 @@ export class DeletePageElementService extends MutationUseCase<
   GqlVariablesType
 > {
   constructor(
-    apollo: ApolloClientService,
+    @Inject(ApolloClientTokens.ApolloClientProvider)
+    protected apolloClient: ApolloClient<NormalizedCacheObject>,
     private getPageElementRootService: GetPageElementRootService,
     private getPageElementParentService: GetPageElementParentService,
     private pageElementGuardService: PageElementGuardService,
   ) {
-    super(apollo)
+    super(apolloClient)
   }
 
   protected getGql() {

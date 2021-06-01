@@ -6,6 +6,7 @@ import {
   DGraphModule,
   GraphqlModule,
 } from '../../infrastructure'
+import { CacheModule } from '../../infrastructure/cache'
 import { LoggerModule } from '../../infrastructure/logger/logger.module'
 
 @Module({
@@ -16,6 +17,7 @@ import { LoggerModule } from '../../infrastructure/logger/logger.module'
     DGraphModule,
     AuthModule,
     ApolloClientModule.register(apolloClientTestConfig),
+    CacheModule.register(),
   ],
 })
 export class TestInfrastructureModule {}
