@@ -462,13 +462,13 @@ export type ValueType = {
   type: Scalars['String']
 }
 
-export type __AppFragment = Pick<App, 'id' | 'name'>
-
 export type CreateAppMutationVariables = Exact<{
   input: CreateAppInput
 }>
 
 export type CreateAppMutation = { createApp: __AppFragment }
+
+export type __AppFragment = Pick<App, 'id' | 'name'>
 
 export type DeleteAppMutationVariables = Exact<{
   input: DeleteAppInput

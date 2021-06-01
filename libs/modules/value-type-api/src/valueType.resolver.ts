@@ -1,4 +1,4 @@
-import { GqlAuthGuard } from '@codelab/backend'
+import { GqlAuthGuard } from '@codelab/modules/auth-api'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Query, Resolver } from '@nestjs/graphql'
 import { GetValueTypesService } from './use-cases'

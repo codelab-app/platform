@@ -1,19 +1,20 @@
+import { AuthModule } from '@codelab/modules/auth-api'
 import { Module } from '@nestjs/common'
 import {
   ApolloClientModule,
   apolloClientTestConfig,
-  AwsModule,
   DGraphModule,
+  GraphqlModule,
 } from '../../infrastructure'
 import { LoggerModule } from '../../infrastructure/logger/logger.module'
-// import { testDatabaseConfig } from '../../infrastructure/persistence/config/DbConfig'
-// import { ConfigModule } from './config.module'
 
 @Module({
   imports: [
     LoggerModule.forRoot(),
-    AwsModule,
+    // AwsModule,
+    GraphqlModule,
     DGraphModule,
+    AuthModule,
     ApolloClientModule.register(apolloClientTestConfig),
   ],
 })
