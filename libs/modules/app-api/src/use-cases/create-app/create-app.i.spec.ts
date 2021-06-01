@@ -25,28 +25,13 @@ const options: AxiosRequestConfig = {
 
 describe('CreateApp', () => {
   let app: INestApplication
-  const accessToken = ''
+  let accessToken = ''
 
   beforeAll(async () => {
     app = await setupTestModule(app, AppModule)
 
     const auth0Service = app.get(Auth0Service)
-    const auth0Client = auth0Service.getAuthClient()
-
-    console.log(
-      auth0Client.clientCredentialsGrant({
-        audience: process.env.AUTH0_AUDIENCE!,
-      }),
-    )
-
-    // await axios
-    //   .request(options)
-    //   .then((response) => {
-    //     accessToken = response.data.access_token
-    //   })
-    //   .catch((error) => {
-    //     console.error(error)
-    //   })
+    accessToken = await auth0Service.getAccessToken()
   })
 
   afterAll(async () => {
