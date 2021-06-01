@@ -1,4 +1,5 @@
 export * from './AppPageProvider'
 export * from './AppProvider'
+export * from './AppQueryProvider'
 export * from './ComponentProvider'
 export * from './LibraryProvider'

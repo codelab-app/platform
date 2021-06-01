@@ -32,7 +32,7 @@ export const GetPagesList = () => {
         size="small"
         dataSource={pages}
         renderItem={(page) => (
-          <List.Item onMouseOver={() => null} style={{ paddingLeft: 0 }}>
+          <List.Item style={{ paddingLeft: 0 }}>
             <Space style={{ width: '100%' }}>
               <FileOutlined />
               <Link

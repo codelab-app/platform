@@ -34,7 +34,7 @@ export const DashboardLayout = ({
         collapsedWidth={40}
       >
         <div data-testid="pane-main" css={tw`h-full`}>
-          <SidebarNavigation />
+          {SidebarNavigation ? <SidebarNavigation /> : null}
         </div>
       </Sider>
       <Layout>

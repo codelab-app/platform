@@ -1,6 +1,6 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import { AppPageContext } from '@codelab/frontend/shared'
-import { MainPanePage, PageRenderer } from '@codelab/modules/page'
+import { AppPageContext, withAppQueryProvider } from '@codelab/frontend/shared'
+import { MainPanePageDetail, PageRenderer } from '@codelab/modules/page'
 import { Empty } from 'antd'
 import { LayoutPageDetail } from 'apps/web/src/templates/Layout--pageDetail'
 import React, { useContext } from 'react'
@@ -23,7 +23,7 @@ const PageDetail: NextPageLayout<'builder'> = () => {
 
 export const getServerSideProps = withPageAuthRequired()
 
-PageDetail.Layout = LayoutPageDetail
-PageDetail.MainPane = MainPanePage
+PageDetail.Layout = withAppQueryProvider(LayoutPageDetail)
+PageDetail.MainPane = MainPanePageDetail
 
 export default PageDetail
