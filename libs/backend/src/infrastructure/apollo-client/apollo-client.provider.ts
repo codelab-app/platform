@@ -41,4 +41,5 @@ export const apolloClientProvider: Provider<
       },
     })
   },
+  inject: [ConfigService],
 }

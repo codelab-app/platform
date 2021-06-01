@@ -9,7 +9,9 @@ export class Auth0Service {
   private _config: Auth0Configuration
 
   constructor(configService: ConfigService) {
-    const config = configService.get<Auth0Configuration>(AuthTokens.Auth0Config)
+    const config = configService.get<Auth0Configuration>(
+      AuthTokens.Auth0Config.toString(),
+    )
 
     if (!config) {
       throw new Error('Auth0 config not provided')
