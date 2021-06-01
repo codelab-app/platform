@@ -1,10 +1,11 @@
-import { ApolloClientService, UseCase } from '@codelab/backend'
+import { ApolloClient, NormalizedCacheObject } from '@apollo/client'
+import { ApolloClientTokens, UseCase } from '@codelab/backend'
 import {
   GetValueTypesGql,
   GetValueTypesQuery,
   GetValueTypesQueryVariables,
 } from '@codelab/dgraph'
-import { Injectable } from '@nestjs/common'
+import { Inject, Injectable } from '@nestjs/common'
 import { ValueType } from '../../valueType.model'
 import { GetValueTypesInput } from './get-value-types.input'
 
@@ -12,15 +13,19 @@ import { GetValueTypesInput } from './get-value-types.input'
 export class GetValueTypesService
   implements UseCase<GetValueTypesInput, Array<ValueType>>
 {
-  constructor(private apollo: ApolloClientService) {}
+  constructor(
+    @Inject(ApolloClientTokens.ApolloClientProvider)
+    protected apolloClient: ApolloClient<NormalizedCacheObject>,
+  ) {}
 
   async execute(request: GetValueTypesInput): Promise<Array<ValueType>> {
-    const result = await this.apollo
-      .getClient()
-      .query<GetValueTypesQuery, GetValueTypesQueryVariables>({
-        query: GetValueTypesGql,
-        variables: {},
-      })
+    const result = await this.apolloClient.query<
+      GetValueTypesQuery,
+      GetValueTypesQueryVariables
+    >({
+      query: GetValueTypesGql,
+      variables: {},
+    })
 
     if (!result?.data?.valueTypes) {
       throw new Error('Error while getting value types')

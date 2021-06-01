@@ -26,6 +26,7 @@ export class Auth0Service {
     return new AuthenticationClient({
       domain: this.getDomain(),
       clientId: this._config.api.clientId,
+      clientSecret: this._config.clientSecret,
     })
   }
 

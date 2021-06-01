@@ -1,11 +1,15 @@
-import { FetchResult } from '@apollo/client'
-import { ApolloClientService, QueryUseCase } from '@codelab/backend'
+import {
+  ApolloClient,
+  FetchResult,
+  NormalizedCacheObject,
+} from '@apollo/client'
+import { ApolloClientTokens, QueryUseCase } from '@codelab/backend'
 import {
   GetPageGql,
   GetPageQuery,
   GetPageQueryVariables,
 } from '@codelab/dgraph'
-import { Injectable } from '@nestjs/common'
+import { Inject, Injectable } from '@nestjs/common'
 import { PageGuardService } from '../../auth'
 import { Page } from '../../page.model'
 import { GetPageRequest } from './get-page.request'
@@ -21,10 +25,11 @@ export class GetPageService extends QueryUseCase<
   GqlVariablesType
 > {
   constructor(
-    apollo: ApolloClientService,
+    @Inject(ApolloClientTokens.ApolloClientProvider)
+    protected apolloClient: ApolloClient<NormalizedCacheObject>,
     private pageGuardService: PageGuardService,
   ) {
-    super(apollo)
+    super(apolloClient)
   }
 
   protected getGql() {
