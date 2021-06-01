@@ -1,4 +1,4 @@
-import { JwtPayload } from '@codelab/backend'
+import { JwtPayload } from '@codelab/modules/auth-api'
 import { Injectable } from '@nestjs/common'
 //shortened import causes circular reference and some weird shit happen
 import { GetPageOwnerService } from '../../use-cases/get-page-owner/get-page-owner.service'

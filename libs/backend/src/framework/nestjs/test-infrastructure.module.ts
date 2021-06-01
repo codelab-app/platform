@@ -1,5 +1,5 @@
+import { AuthModule } from '@codelab/modules/auth-api'
 import { Module } from '@nestjs/common'
-import { AuthModule } from '../../application/auth/auth.module'
 import {
   ApolloClientModule,
   apolloClientTestConfig,

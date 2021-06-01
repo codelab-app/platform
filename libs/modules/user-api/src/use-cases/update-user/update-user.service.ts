@@ -1,4 +1,5 @@
-import { Auth0Service, UseCase } from '@codelab/backend'
+import { UseCase } from '@codelab/backend'
+import { Auth0Service } from '@codelab/modules/auth-api'
 import { Injectable, UnauthorizedException } from '@nestjs/common'
 import { User } from '../../user.model'
 import { UpdateUserRequest } from './update-user.request'

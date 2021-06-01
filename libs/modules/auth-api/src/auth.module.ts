@@ -1,10 +1,11 @@
-import { Module } from '@nestjs/common'
+import { Global, Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { PassportModule } from '@nestjs/passport'
 import { Auth0Service } from './auth0'
 import { authConfig } from './config/auth.config'
-import { JwtStrategy } from './jwt.strategy'
+import { JwtStrategy } from './strategy/jwt.strategy'
 
+@Global()
 @Module({
   imports: [
     ConfigModule.forFeature(authConfig),

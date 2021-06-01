@@ -1,4 +1,4 @@
-import { JwtPayload } from '@codelab/backend'
+import { JwtPayload } from '@codelab/modules/auth-api'
 import { Injectable } from '@nestjs/common'
 //Import with full path, or will get circular reference
 import { GetAppService } from '../../use-cases/get-app/get-app.service'

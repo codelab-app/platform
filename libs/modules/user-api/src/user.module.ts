@@ -1,4 +1,3 @@
-import { ApolloClientModule, AuthModule, DGraphModule } from '@codelab/backend'
 import { Module } from '@nestjs/common'
 import {
   DeleteUserService,
@@ -9,7 +8,6 @@ import {
 import { UserResolver } from './user.resolver'
 
 @Module({
-  imports: [DGraphModule, AuthModule, ApolloClientModule],
   providers: [
     UpdateUserService,
     GetUserService,
