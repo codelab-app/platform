@@ -1,4 +1,4 @@
-import { DGraphService, DgraphUseCase } from '@codelab/backend'
+import { DgraphUseCase } from '@codelab/backend'
 import { Injectable } from '@nestjs/common'
 import { Response, Txn } from 'dgraph-js-http'
 import { Prop } from '../../prop.model'
@@ -12,10 +12,6 @@ interface PropsResponse extends Response {
 
 @Injectable()
 export class GetPropsService extends DgraphUseCase<GetPropsInput, Array<Prop>> {
-  constructor(dgraph: DGraphService) {
-    super(dgraph)
-  }
-
   executeTransaction(request: GetPropsInput, txn: Txn): Promise<Array<Prop>> {
     const query = `
       {

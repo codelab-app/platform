@@ -1,6 +1,6 @@
-import { DGraphService, DgraphUseCase } from '@codelab/backend'
+import { DgraphProvider, DgraphTokens, DgraphUseCase } from '@codelab/backend'
 import { AppGuardService } from '@codelab/modules/app-api'
-import { Injectable } from '@nestjs/common'
+import { Inject, Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { Page } from '../../page.model'
 import { GetPageService } from '../get-page'
@@ -13,11 +13,12 @@ export class CreatePageService extends DgraphUseCase<
   void
 > {
   constructor(
-    dgraph: DGraphService,
+    @Inject(DgraphTokens.DgraphProvider)
+    protected readonly dgraphProvider: DgraphProvider,
     private appGuardService: AppGuardService,
     private getPageService: GetPageService,
   ) {
-    super(dgraph)
+    super(dgraphProvider)
   }
 
   protected async executeTransaction(
@@ -31,7 +32,7 @@ export class CreatePageService extends DgraphUseCase<
         _:page <Page.app> <${appId}> .
         <${appId}> <App.pages> _:page .
         _:page <Page.rootElement> _:rootElement .
-        
+
         _:rootElement <dgraph.type> "PageElement" .
         _:rootElement <PageElement.name> "Page Root" .
         _:rootElement <PageElement.page> _:page .

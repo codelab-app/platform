@@ -1,6 +1,8 @@
+import { Inject } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
-import { DGraphService } from '../../infrastructure'
-import { UseCase } from '../index'
+import { DgraphTokens } from '../../infrastructure'
+import { DgraphProvider } from '../../infrastructure/dgraph/dgraph.provider'
+import { UseCase } from '../use-case'
 
 export abstract class DgraphUseCase<
   TUseCaseRequestPort,
@@ -8,7 +10,10 @@ export abstract class DgraphUseCase<
   TValidationContext = Record<string, unknown>,
 > implements UseCase<TUseCaseRequestPort, TUseCaseDtoResponse>
 {
-  protected constructor(protected dgraph: DGraphService) {}
+  constructor(
+    @Inject(DgraphTokens.DgraphProvider)
+    protected readonly dgraphProvider: DgraphProvider,
+  ) {}
 
   async execute(request: TUseCaseRequestPort): Promise<TUseCaseDtoResponse> {
     const validationContext = await this.validate(request)
@@ -21,7 +26,7 @@ export abstract class DgraphUseCase<
   protected async transactionWrapper<TResult>(
     execute: (txn: Txn) => Promise<TResult>,
   ) {
-    const txn = this.dgraph.client.newTxn()
+    const txn = this.dgraphProvider.client.newTxn()
 
     try {
       return await execute(txn)
