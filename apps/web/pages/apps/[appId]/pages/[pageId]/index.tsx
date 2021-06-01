@@ -1,29 +1,36 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import { AppPageContext, withAppQueryProvider } from '@codelab/frontend/shared'
-import { MainPanePageDetail, PageRenderer } from '@codelab/modules/page'
-import { Empty } from 'antd'
+import {
+  MainPanePageDetail,
+  PageContext,
+  PageRenderer,
+  withPageQueryProvider,
+} from '@codelab/modules/page'
+import { Empty, Spin } from 'antd'
 import { LayoutPageDetail } from 'apps/web/src/templates/Layout--pageDetail'
 import React, { useContext } from 'react'
 import { NextPageLayout } from '../../../../../src/templates/Layout.d'
 
 const PageDetail: NextPageLayout<'builder'> = () => {
-  const { page } = useContext(AppPageContext)
+  const { cytoscapeRoot, page, loading } = useContext(PageContext)
 
-  if (!page) {
+  if (loading) {
+    return null
+  }
+
+  if (!cytoscapeRoot || !page) {
     return <Empty />
   }
 
   return (
     <div id="Builder" style={{ position: 'relative' }}>
-      <h1>{page?.name}</h1>
-      <PageRenderer page={page} />
+      <PageRenderer cy={cytoscapeRoot} />
     </div>
   )
 }
 
 export const getServerSideProps = withPageAuthRequired()
 
-PageDetail.Layout = withAppQueryProvider(LayoutPageDetail)
+PageDetail.Layout = withPageQueryProvider(LayoutPageDetail)
 PageDetail.MainPane = MainPanePageDetail
 
 export default PageDetail

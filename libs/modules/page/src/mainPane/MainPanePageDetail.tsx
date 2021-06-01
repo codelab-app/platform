@@ -1,47 +1,99 @@
+import 'twin.macro'
 import { ArrowLeftOutlined } from '@ant-design/icons'
-import { AppPageContext } from '@codelab/frontend/shared'
-import { PageFullFragment, useGetPageLazyQuery } from '@codelab/graphql'
-import Spin from 'antd/lib/spin'
-import React, { useContext, useEffect } from 'react'
-import xw from 'xwind'
-import { MainPaneTemplate } from '../../../../frontend/layout/src'
-import { CreatePageElementButton } from '../pageElement'
+import { useBuilderSelection } from '@codelab/frontend/builder'
+import { CytoscapeService } from '@codelab/frontend/cytoscape'
+import { MainPaneTemplate } from '@codelab/frontend/layout'
+import {
+  ActionType,
+  AtomType,
+  CrudModal,
+  EntityType,
+  NodeBase,
+  PageType,
+} from '@codelab/frontend/shared'
+import { PageFullFragment } from '@codelab/graphql'
+import { Empty, Tree } from 'antd'
+import { DataNode } from 'antd/lib/tree'
+import Link from 'next/link'
+import React, { useContext } from 'react'
+import { CreatePageElementButton, CreatePageElementForm } from '../pageElement'
+import { PageContext } from '../providers'
 
 const Title = ({
   page,
-  loading,
+  appId,
 }: {
   page: PageFullFragment | undefined | null
-  loading: boolean
+  appId?: string
 }) => {
-  if (loading) {
-    return <Spin />
-  }
-
   return (
-    <div tw="flex flex-row items-center">
-      <ArrowLeftOutlined />
-      {page?.name}
+    <div tw="flex flex-row items-center gap-x-4">
+      <Link
+        href={{
+          pathname: PageType.PageList,
+          query: { appId },
+        }}
+      >
+        <ArrowLeftOutlined />
+      </Link>
+      <span>{page?.name}</span>
     </div>
   )
 }
 
 export const MainPanePageDetail = () => {
-  const { pageId } = useContext(AppPageContext)
-  const [getPage, { data, loading }] = useGetPageLazyQuery()
+  const { cytoscapeRoot, page, loading } = useContext(PageContext)
+  const { setSelected, setHovering, resetHovering } = useBuilderSelection()
+  let tree: DataNode | null = null
 
-  useEffect(() => {
-    getPage({ variables: { input: { pageId } } })
-  }, [pageId])
+  if (cytoscapeRoot) {
+    tree = CytoscapeService.antdTree(cytoscapeRoot)
+  }
 
-  const page = data?.page
+  const onDrop = ({ dragNode, node: targetNode }: any) => {
+    // Disable drag
+    if (dragNode.type !== AtomType.ReactRglItem) {
+      console.log(dragNode.id, targetNode.id)
+    }
+  }
 
   return (
     <MainPaneTemplate
-      title={<Title loading={loading} page={page} />}
+      title={<Title page={page} appId={page?.app?.id} />}
       header={<CreatePageElementButton loading={loading} key={0} />}
     >
-      {page && <>{page.name}</>}
+      {tree ? (
+        <Tree
+          className="draggable-tree"
+          // defaultExpandedKeys={this.state.expandedKeys}
+          blockNode
+          onMouseEnter={({ node }) => {
+            setHovering((node as any as NodeBase).id)
+          }}
+          onMouseLeave={() => {
+            resetHovering()
+          }}
+          onSelect={([id], { node }) => {
+            setSelected((node as any as NodeBase).id)
+          }}
+          titleRender={(node) => {
+            const label = (node as any as NodeBase).name
+
+            return <>{label}</>
+          }}
+          onDrop={onDrop}
+          treeData={[tree]}
+        />
+      ) : loading ? null : (
+        <Empty />
+      )}
+
+      <CrudModal
+        entityType={EntityType.PageElement}
+        actionType={ActionType.Create}
+        okText={'Create'}
+        renderForm={() => <CreatePageElementForm />}
+      />
     </MainPaneTemplate>
   )
 }

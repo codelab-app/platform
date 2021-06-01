@@ -38,13 +38,6 @@ export const DashboardLayout = ({
         </div>
       </Sider>
       <Layout>
-        <Header>
-          <Menu theme="light" mode="horizontal" defaultSelectedKeys={['2']}>
-            <Menu.Item key="1">
-              <PageDropdown />
-            </Menu.Item>
-          </Menu>
-        </Header>
         <Layout>
           {MainPane ? (
             <Sider

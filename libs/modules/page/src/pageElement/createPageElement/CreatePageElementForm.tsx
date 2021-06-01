@@ -1,14 +1,15 @@
 import {
-  AppPageContext,
   EntityType,
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
 import {
   CreatePageElementInput,
+  refetchGetPageQuery,
   useCreatePageElementMutation,
 } from '@codelab/graphql'
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
+import { PageContext } from '../../providers'
 import { PageElementFormBase } from './PageElementFormBase'
 
 type CreatePageElementFormProps = UniFormUseCaseProps<CreatePageElementInput>
@@ -17,10 +18,10 @@ export const CreatePageElementForm = ({
   ...props
 }: CreatePageElementFormProps) => {
   const { reset, setLoading } = useCRUDModalForm(EntityType.PageElement)
+  const { pageId } = useContext(PageContext)
 
-  //Not yet sure what should we refetch here*
   const [mutate, { loading: creating }] = useCreatePageElementMutation({
-    // refetchQueries: [refetchGetAppPageQuery({ appId, pageId })],
+    refetchQueries: [refetchGetPageQuery({ input: { pageId: pageId || '' } })],
   })
 
   useEffect(() => {

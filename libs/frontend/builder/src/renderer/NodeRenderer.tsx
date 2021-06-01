@@ -1,7 +1,7 @@
 import { ComponentElementNode } from '@codelab/frontend/shared'
 import React from 'react'
 import { ClickOverlay, HoverOverlay } from '../overlay-toolbar'
-import { elementParameterFactory } from './elementFactory'
+import { atomElementFactory } from './elementFactory'
 import { RenderChildren } from './Renderer-children'
 import { useComponentHandlers } from './useComponentHandlers'
 
@@ -16,9 +16,10 @@ export const NodeRenderer = ({
 
   const handlers = useComponentHandlers()
 
-  const [RootComponent, props] = elementParameterFactory({
+  const [RootComponent, props] = atomElementFactory({
     node,
     handlers,
+    atom: node.atom,
   })
 
   if (!RootComponent) {

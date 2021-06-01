@@ -1,14 +1,12 @@
-import { CytoscapeService } from '@codelab/frontend/cytoscape'
 import {
   ComponentElementNode,
   ComponentNode,
   CytoscapeNode,
   NodeType,
   PageElementNode,
-  PageNode,
 } from '@codelab/frontend/shared'
 import React from 'react'
-import { elementParameterFactory } from './elementFactory'
+import { atomElementFactory } from './elementFactory'
 import { ComponentHandlers } from './useComponentHandlers'
 
 export type NodeRendererType<
@@ -26,8 +24,9 @@ const renderComponentElement: NodeRendererType<ComponentElementNode> = (
   node,
   context,
 ) => {
-  const [RootComponent, props] = elementParameterFactory({
+  const [RootComponent, props] = atomElementFactory({
     node,
+    atom: node.atom,
     handlers: context.handlers,
   })
 
@@ -61,16 +60,38 @@ const renderPageElement: NodeRendererType<PageElementNode> = (
   node,
   context,
 ) => {
-  const componentRoot = CytoscapeService.fromComponent(node.component)
-  const root = CytoscapeService.componentTree(componentRoot)
+  //need to change this once we add components to page element
+  // const componentRoot = CytoscapeService.fromComponent(node.component)
+  // const root = CytoscapeService.componentTree(componentRoot)
+  //
+  // return nodeRendererFactory(root, { ...context, pageElementId: node.id })
 
-  return nodeRendererFactory(root, { ...context, pageElementId: node.id })
-}
-
-const renderPage: NodeRendererType<PageNode> = (node, context) => {
-  return node.children?.map((pageElement) =>
-    nodeRendererFactory(pageElement, context),
+  const children = node.children?.map((child) =>
+    nodeRendererFactory(child, {
+      ...context,
+      pageElementId: node.id,
+    }),
   )
+
+  if (node.atom) {
+    const [RootComponent, props] = atomElementFactory({
+      atom: node.atom,
+      node,
+      handlers: context.handlers,
+    })
+
+    if (!RootComponent) {
+      return children
+    }
+
+    return (
+      <RootComponent {...props} key={node.id}>
+        {children}
+      </RootComponent>
+    )
+  }
+
+  return children
 }
 
 export const nodeRendererFactory = (
@@ -80,9 +101,6 @@ export const nodeRendererFactory = (
   let rendered: React.ReactNode = []
 
   switch (node.nodeType) {
-    case NodeType.Page:
-      rendered = renderPage(node, context)
-      break
     case NodeType.PageElement:
       rendered = renderPageElement(node, context)
       break

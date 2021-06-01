@@ -1,15 +1,15 @@
 /* eslint-disable no-param-reassign */
 import {
   AtomType,
-  ComponentElementNode,
-  ComponentNode,
   CytoscapeNode,
   NodeType,
   PageElementNode,
-  PageNode,
 } from '@codelab/frontend/shared'
-import { __ComponentFragment, App__PageFragment } from '@codelab/hasura'
-import { propDataEntityToModel } from '@codelab/modules/prop'
+import {
+  PageElementLinkFragment,
+  PageElementRootFragment,
+} from '@codelab/graphql'
+import { __ComponentFragment } from '@codelab/hasura'
 import { DataNode } from 'antd/lib/tree'
 import cytoscape, { Core } from 'cytoscape'
 
@@ -49,46 +49,42 @@ export class CytoscapeService {
   }
 
   /** Processes a Page to form a tree of page elements with a single page root node at the top */
-  static fromPage({
-    elements: pageElements,
-    links: pageLinks,
-    id: pageId,
-    name: pageName,
-  }: App__PageFragment): Core {
-    const pageElementsGraph = cytoscape({
+  static fromPage(root: PageElementRootFragment): Core {
+    const { descendants, links } = root
+
+    const rootNodeData: PageElementNode = {
+      id: root.id,
+      atom: root.atom,
+      name: root.name,
+      nodeType: NodeType.PageElement,
+    }
+
+    return cytoscape({
       headless: true,
       elements: {
-        nodes: pageElements.map((pageElement) => {
-          const data: PageElementNode = {
-            id: pageElement.id,
-            nodeType: NodeType.PageElement,
-            label: pageElement.name,
-            props: pageElement.props,
-            component: pageElement.component,
-          }
+        nodes: [
+          { data: rootNodeData },
+          ...descendants.map((pageElement) => {
+            const data: PageElementNode = {
+              id: pageElement.id,
+              nodeType: NodeType.PageElement,
+              name: pageElement.name,
+              atom: pageElement.atom,
+            }
 
-          return { data }
-        }),
-        edges: pageLinks.map((pageLink) => ({
+            return { data }
+          }),
+        ],
+        edges: links.map((link) => ({
           data: {
-            id: pageLink.id,
-            source: pageLink.source_page_element_id,
-            target: pageLink.target_page_element_id,
-            sourceComponentElementId: pageLink.source_component_element_id,
-            props: pageLink.props,
-            order: pageLink.order,
+            id: CytoscapeService.generateLinkId(link),
+            source: link.from,
+            target: link.to,
+            order: link.order,
           },
         })),
       },
     })
-
-    const rootNodeData: PageNode = {
-      nodeType: NodeType.Page,
-      label: pageName,
-      id: pageId,
-    }
-
-    return CytoscapeService.toSingleRoot(pageElementsGraph, rootNodeData)
   }
 
   /** Processes a Component to form a tree of component elements with a single page root node at the top */
@@ -98,49 +94,51 @@ export class CytoscapeService {
     elements: componentElements,
     links: componentLinks,
   }: __ComponentFragment): Core {
-    const componentElementsGraph = cytoscape({
-      headless: true,
-      elements: {
-        nodes: componentElements.map((componentElement) => {
-          const data: ComponentElementNode = {
-            id: componentElement.id,
-            nodeType: NodeType.ComponentElement,
-            atom: componentElement.atom,
-            label: componentElement.label,
-            props: {
-              // Normalize the props fragments into a react-readable key value map
-              ...componentElement.props?.props?.reduce((props, newProp) => {
-                return { ...props, ...propDataEntityToModel(newProp) }
-              }, {}),
-            },
-          }
-
-          return { data }
-        }),
-        // nodes: componentElements.map((componentElement) => {
-        //   return { data: componentElement }
-        // }),
-        edges: componentLinks.map((componentLink) => ({
-          data: {
-            id: `cl_${componentLink.source_component_element_id}_${componentLink.target_component_element_id}`,
-            source: componentLink.source_component_element_id,
-            target: componentLink.target_component_element_id,
-            order: componentLink.order,
-            props: componentLink.props,
-          },
-        })),
-      },
-    })
-
-    const rootNodeData: ComponentNode = {
-      nodeType: NodeType.Component,
-      label: componentLabel,
-      id: componentId,
-    }
-
-    return CytoscapeService.toSingleRoot(componentElementsGraph, rootNodeData)
+    //   const componentElementsGraph = cytoscape({
+    //     headless: true,
+    //     elements: {
+    //       nodes: componentElements.map((componentElement) => {
+    //         const data: ComponentElementNode = {
+    //           id: componentElement.id,
+    //           nodeType: NodeType.ComponentElement,
+    //           atom: componentElement.atom,
+    //           label: componentElement.label,
+    //           props: {
+    //             // Normalize the props fragments into a react-readable key value map
+    //             ...componentElement.props?.props?.reduce((props, newProp) => {
+    //               return { ...props, ...propDataEntityToModel(newProp) }
+    //             }, {}),
+    //           },
+    //         }
+    //
+    //         return { data }
+    //       }),
+    //       // nodes: componentElements.map((componentElement) => {
+    //       //   return { data: componentElement }
+    //       // }),
+    //       edges: componentLinks.map((componentLink) => ({
+    //         data: {
+    //           id: `cl_${componentLink.source_component_element_id}_${componentLink.target_component_element_id}`,
+    //           source: componentLink.source_component_element_id,
+    //           target: componentLink.target_component_element_id,
+    //           order: componentLink.order,
+    //           props: componentLink.props,
+    //         },
+    //       })),
+    //     },
+    //   })
+    //
+    //   const rootNodeData: ComponentNode = {
+    //     nodeType: NodeType.Component,
+    //     label: componentLabel,
+    //     id: componentId,
+    //   }
+    //
+    //   return CytoscapeService.toSingleRoot(componentElementsGraph, rootNodeData)
+    return null as any
   }
 
+  //
   static componentTree(cy: Core): CytoscapeNode {
     const root = cy.elements().roots().first()
     let tree: DataNode | null = null
@@ -190,7 +188,7 @@ export class CytoscapeService {
           draggable: data.type !== AtomType.ReactRglItem,
           // disabled: data.type === VertexType.React_RGL_Item,
           key: data.id,
-          title: data.label,
+          title: data.name,
           ...nodeMapper(data),
         }
 
@@ -211,5 +209,9 @@ export class CytoscapeService {
     })
 
     return tree as unknown as DataNode
+  }
+
+  private static generateLinkId(link: PageElementLinkFragment) {
+    return `link-${link.from}-${link.to}`
   }
 }

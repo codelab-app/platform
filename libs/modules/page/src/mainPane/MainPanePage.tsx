@@ -7,7 +7,7 @@ import { UpdatePageModal } from '../updatePage'
 
 export const MainPanePage = () => {
   return (
-    <MainPaneTemplate title="Page" header={<CreatePageButton key={0} />}>
+    <MainPaneTemplate title="Pages" header={<CreatePageButton key={0} />}>
       <GetPagesList />
       <CreatePageModal />
       <UpdatePageModal />

@@ -1,5 +1,4 @@
 import {
-  AppPageContext,
   createNotificationHandler,
   FormUniforms,
   FormUniformsProps,
@@ -9,10 +8,10 @@ import {
   CreatePageElementInput,
   UpdatePageElementData,
   useGetAtomsQuery,
-  useGetPageQuery,
 } from '@codelab/graphql'
 import React, { useContext } from 'react'
 import { AutoFields, SelectField } from 'uniforms-antd'
+import { PageContext } from '../../providers'
 import { createPageElementSchema } from './createPageElementSchema'
 
 type PageElementFormBaseProps = UniFormUseCaseProps<
@@ -27,12 +26,22 @@ type PageElementFormBaseProps = UniFormUseCaseProps<
  * The base form for both CreatePageElementForm and UpdatePageElementForm
  */
 export const PageElementFormBase = (props: PageElementFormBaseProps) => {
-  const { pageId } = useContext(AppPageContext)
+  const { page } = useContext(PageContext)
   const { data: atoms } = useGetAtomsQuery()
 
-  const { data: page } = useGetPageQuery({
-    variables: { input: { pageId } },
-  })
+  if (!page) {
+    return null
+  }
+
+  const pageElementOptions = [
+    { label: page.rootElement.name, value: page.rootElement.id },
+    ...page.rootElement.descendants.map((element) => ({
+      label: element.name,
+      value: element.id,
+    })),
+  ]
+
+  console.log(page.rootElement.id)
 
   return (
     <FormUniforms<CreatePageElementInput>
@@ -64,10 +73,7 @@ export const PageElementFormBase = (props: PageElementFormBaseProps) => {
         //@ts-ignore https://github.com/vazco/uniforms/issues/951
         showSearch={true}
         optionFilterProp="label"
-        options={page?.page?.rootElement?.descendants.map((element) => ({
-          label: element.name,
-          value: element.id,
-        }))}
+        options={pageElementOptions}
       />
     </FormUniforms>
   )
