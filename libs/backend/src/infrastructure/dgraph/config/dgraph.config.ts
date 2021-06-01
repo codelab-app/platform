@@ -7,14 +7,14 @@ export interface DgraphConfiguration {
 }
 
 export const dgraphConfig = registerAs(
-  DgraphTokens.DgraphConfig.toString(),
+  DgraphTokens.DgraphConfig,
   (): DgraphConfiguration => ({
     endpoint: get('CODELAB_DGRAPH_ENDPOINT').required(true).asString(),
   }),
 )
 
 export const dgraphTestConfig = registerAs(
-  DgraphTokens.DgraphConfig.toString(),
+  DgraphTokens.DgraphConfig,
   (): DgraphConfiguration => ({
     endpoint: get('CODELAB_DGRAPH_TEST_ENDPOINT').required(true).asString(),
   }),

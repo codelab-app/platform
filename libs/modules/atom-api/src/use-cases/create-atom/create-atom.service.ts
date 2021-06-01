@@ -16,6 +16,10 @@ export class CreateAtomService extends MutationUseCase<
   CreateAtomMutation,
   CreateAtomMutationVariables
 > {
+  // constructor(apollo: ApolloClientService) {
+  //   super(apollo)
+  // }
+
   protected getGql() {
     return CreateAtomGql
   }

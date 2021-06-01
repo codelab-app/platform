@@ -1,13 +1,12 @@
-import { ApolloClient, NormalizedCacheObject } from '@apollo/client'
 import {
   MutationOptions,
   QueryOptions,
 } from '@apollo/client/core/watchQueryOptions'
 import { FetchResult } from '@apollo/client/link/core'
 import { TypedDocumentNode } from '@graphql-typed-document-node/core'
-import { Inject, Injectable } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 import { DocumentNode } from 'graphql'
-import { ApolloClientTokens } from '../../infrastructure'
+import { ApolloClientService } from '../../infrastructure'
 import { UseCase } from '../index'
 
 @Injectable()
@@ -20,25 +19,23 @@ export abstract class GraphqlUseCase<
   TValidationContext = Record<string, unknown>,
 > implements UseCase<TUseCaseRequestPort, TUseCaseDtoResponse>
 {
-  constructor(
-    @Inject(ApolloClientTokens.ApolloClientProvider)
-    protected apolloClient: ApolloClient<NormalizedCacheObject>,
-  ) {}
+  constructor(protected apollo: ApolloClientService) {}
 
   async execute(request: TUseCaseRequestPort): Promise<TUseCaseDtoResponse> {
+    const client = this.apollo.getClient()
     const validationContext = await this.validate(request)
     const variables = await this.mapVariables(request, validationContext)
     const options = this.getOptions(request, validationContext) || {}
     let result: FetchResult<TOperation>
 
     if (this.isMutation()) {
-      result = await this.apolloClient.mutate<TOperation, TOperationVariables>({
+      result = await client.mutate<TOperation, TOperationVariables>({
         mutation: this.getGql(),
         variables,
         ...options,
       })
     } else {
-      result = await this.apolloClient.query<TOperation, TOperationVariables>({
+      result = await client.query<TOperation, TOperationVariables>({
         query: this.getGql(),
         variables,
         ...options,

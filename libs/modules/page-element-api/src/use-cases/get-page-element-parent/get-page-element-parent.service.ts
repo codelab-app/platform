@@ -1,16 +1,12 @@
-import {
-  ApolloClient,
-  FetchResult,
-  NormalizedCacheObject,
-} from '@apollo/client'
-import { ApolloClientTokens, QueryUseCase } from '@codelab/backend'
+import { FetchResult } from '@apollo/client'
+import { ApolloClientService, QueryUseCase } from '@codelab/backend'
 import {
   Dgraph_PageElementFragment,
   GetPageElementParentGql,
   GetPageElementParentQuery,
   GetPageElementParentQueryVariables,
 } from '@codelab/dgraph'
-import { Inject, Injectable } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 import { GetPageElementParentInput } from './get-page-element-parent.input'
 
 type GqlVariablesType = GetPageElementParentQueryVariables
@@ -26,11 +22,8 @@ export class GetPageElementParentService extends QueryUseCase<
   GqlOperationType,
   GqlVariablesType
 > {
-  constructor(
-    @Inject(ApolloClientTokens.ApolloClientProvider)
-    protected apolloClient: ApolloClient<NormalizedCacheObject>,
-  ) {
-    super(apolloClient)
+  constructor(apollo: ApolloClientService) {
+    super(apollo)
   }
 
   protected getGql() {

@@ -1,15 +1,11 @@
-import {
-  ApolloClient,
-  FetchResult,
-  NormalizedCacheObject,
-} from '@apollo/client'
-import { ApolloClientTokens, MutationUseCase } from '@codelab/backend'
+import { FetchResult } from '@apollo/client'
+import { ApolloClientService, MutationUseCase } from '@codelab/backend'
 import {
   UpdatePageGql,
   UpdatePageMutation,
   UpdatePageMutationVariables,
 } from '@codelab/dgraph'
-import { Inject, Injectable } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 import { PageGuardService } from '../../auth'
 import { Page, pageSchema } from '../../page.model'
 import { UpdatePageRequest } from './update-page.request'
@@ -25,11 +21,10 @@ export class UpdatePageService extends MutationUseCase<
   GqlVariablesType
 > {
   constructor(
-    @Inject(ApolloClientTokens.ApolloClientProvider)
-    protected apolloClient: ApolloClient<NormalizedCacheObject>,
+    apollo: ApolloClientService,
     private pageGuardService: PageGuardService,
   ) {
-    super(apolloClient)
+    super(apollo)
   }
 
   protected getGql() {

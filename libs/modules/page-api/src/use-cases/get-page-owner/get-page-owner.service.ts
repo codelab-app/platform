@@ -1,5 +1,5 @@
 import { FetchResult } from '@apollo/client'
-import { QueryUseCase } from '@codelab/backend'
+import { ApolloClientService, QueryUseCase } from '@codelab/backend'
 import {
   GetPageOwnerGql,
   GetPageOwnerQuery,
@@ -19,6 +19,10 @@ export class GetPageOwnerService extends QueryUseCase<
   GqlOperationType,
   GqlVariablesType
 > {
+  constructor(apollo: ApolloClientService) {
+    super(apollo)
+  }
+
   protected getGql() {
     return GetPageOwnerGql
   }

@@ -20,7 +20,7 @@ export class DGraphService {
 
   constructor(configService: ConfigService) {
     const config = configService.get<DgraphConfiguration>(
-      DgraphTokens.DgraphConfig.toString(),
+      DgraphTokens.DgraphConfig,
     )
 
     if (!config) {

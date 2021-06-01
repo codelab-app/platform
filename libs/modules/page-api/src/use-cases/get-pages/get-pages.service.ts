@@ -1,9 +1,5 @@
-import {
-  ApolloClient,
-  FetchResult,
-  NormalizedCacheObject,
-} from '@apollo/client'
-import { ApolloClientTokens, QueryUseCase } from '@codelab/backend'
+import { FetchResult } from '@apollo/client'
+import { ApolloClientService, QueryUseCase } from '@codelab/backend'
 import {
   Dgraph__PageFragment,
   GetPagesGql,
@@ -11,7 +7,7 @@ import {
   GetPagesQueryVariables,
 } from '@codelab/dgraph'
 import { AppGuardService } from '@codelab/modules/app-api'
-import { Inject, Injectable } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 import { Page } from '../../page.model'
 import { GetPagesRequest } from './get-pages.request'
 
@@ -26,11 +22,10 @@ export class GetPagesService extends QueryUseCase<
   GqlVariablesType
 > {
   constructor(
-    @Inject(ApolloClientTokens.ApolloClientProvider)
-    protected apolloClient: ApolloClient<NormalizedCacheObject>,
+    apollo: ApolloClientService,
     private appGuardService: AppGuardService,
   ) {
-    super(apolloClient)
+    super(apollo)
   }
 
   protected getGql() {

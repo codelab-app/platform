@@ -1,11 +1,10 @@
-import { ApolloClient, NormalizedCacheObject } from '@apollo/client'
-import { ApolloClientTokens, MutationUseCase } from '@codelab/backend'
+import { ApolloClientService, MutationUseCase } from '@codelab/backend'
 import {
   DeleteAppGql,
   DeleteAppMutation,
   DeleteAppMutationVariables,
 } from '@codelab/dgraph'
-import { Inject, Injectable } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 import { FetchResult } from 'apollo-link'
 import { App } from '../../app.model'
 import { AppGuardService } from '../../auth'
@@ -19,12 +18,11 @@ export class DeleteAppService extends MutationUseCase<
   DeleteAppMutationVariables
 > {
   constructor(
-    @Inject(ApolloClientTokens.ApolloClientProvider)
-    protected apolloClient: ApolloClient<NormalizedCacheObject>,
+    apollo: ApolloClientService,
     // TODO: Make guard into a decorator
     private appGuardService: AppGuardService,
   ) {
-    super(apolloClient)
+    super(apollo)
   }
 
   protected extractDataFromResult(result: FetchResult<DeleteAppMutation>): App {

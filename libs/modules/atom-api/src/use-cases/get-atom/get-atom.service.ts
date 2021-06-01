@@ -1,5 +1,5 @@
 import { FetchResult } from '@apollo/client'
-import { QueryUseCase } from '@codelab/backend'
+import { ApolloClientService, QueryUseCase } from '@codelab/backend'
 import {
   GetAtomGql,
   GetAtomQuery,
@@ -16,6 +16,10 @@ export class GetAtomService extends QueryUseCase<
   GetAtomQuery,
   GetAtomQueryVariables
 > {
+  constructor(apollo: ApolloClientService) {
+    super(apollo)
+  }
+
   protected getGql() {
     return GetAtomGql
   }
