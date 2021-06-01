@@ -919,6 +919,27 @@
           }
         }
       }
+    },
+    "modules-auth-api": {
+      "root": "libs/modules/auth-api",
+      "sourceRoot": "libs/modules/auth-api/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/modules/auth-api/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/modules/auth-api"],
+          "options": {
+            "jestConfig": "libs/modules/auth-api/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   }
 }

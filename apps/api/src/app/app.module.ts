@@ -1,8 +1,4 @@
-import {
-  AuthModule,
-  GraphqlModule,
-  InfrastructureModule,
-} from '@codelab/backend'
+import { AuthModule, InfrastructureModule } from '@codelab/backend'
 import { AppModule as AppApiModule } from '@codelab/modules/app-api'
 import { AtomModule } from '@codelab/modules/atom-api'
 import { LambdaApiModule } from '@codelab/modules/lambda-api'
@@ -20,7 +16,6 @@ import { AppService } from './app.service'
     InfrastructureModule,
     LambdaApiModule,
     AuthModule,
-    GraphqlModule,
     UserModule,
     AppApiModule,
     PageModule,

@@ -19,7 +19,7 @@ const services = [
 ]
 
 @Module({
-  providers: [...services, AppResolver],
+  providers: [AppResolver, ...services],
   exports: [...services],
 })
 export class AppModule {}

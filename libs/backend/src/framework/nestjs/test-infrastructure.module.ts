@@ -1,19 +1,20 @@
 import { Module } from '@nestjs/common'
+import { AuthModule } from '../../application/auth/auth.module'
 import {
   ApolloClientModule,
   apolloClientTestConfig,
-  AwsModule,
   DGraphModule,
+  GraphqlModule,
 } from '../../infrastructure'
 import { LoggerModule } from '../../infrastructure/logger/logger.module'
-// import { testDatabaseConfig } from '../../infrastructure/persistence/config/DbConfig'
-// import { ConfigModule } from './config.module'
 
 @Module({
   imports: [
     LoggerModule.forRoot(),
-    AwsModule,
+    // AwsModule,
+    GraphqlModule,
     DGraphModule,
+    AuthModule,
     ApolloClientModule.register(apolloClientTestConfig),
   ],
 })
