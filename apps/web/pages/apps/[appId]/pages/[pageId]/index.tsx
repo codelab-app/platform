@@ -6,7 +6,7 @@ import {
   PageRenderer,
   withPageQueryProvider,
 } from '@codelab/modules/page'
-import { Empty, Spin } from 'antd'
+import { Empty } from 'antd'
 import { LayoutPageDetail } from 'apps/web/src/templates/Layout--pageDetail'
 import React, { useContext } from 'react'
 import { NextPageLayout } from '../../../../../src/templates/Layout.d'

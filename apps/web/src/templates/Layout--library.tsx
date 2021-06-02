@@ -1,11 +1,11 @@
 import { EditorProvider } from '@codelab/frontend/builder'
 import { ComponentProvider, LibraryProvider } from '@codelab/frontend/shared'
 import { useRouter } from 'next/router'
-import React, { PropsWithChildren } from 'react'
+import React from 'react'
 import { DashboardLayout } from './DashboardLayout'
-import { WithMainPane } from './Layout.d'
+import { LayoutComponent } from './Layout.d'
 
-export const LayoutLibrary = (props: PropsWithChildren<WithMainPane>) => {
+export const LayoutLibrary: LayoutComponent<'builder'> = (props) => {
   const { children, MainPane } = props
   const { query } = useRouter()
   const componentId = query?.componentId as string

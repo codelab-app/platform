@@ -37,7 +37,7 @@ export const ComponentTab = () => {
     data: ComponentElementNode | ComponentNode,
   ) => {
     return {
-      title: 'atom' in data ? data.atom.type.label : data.name,
+      title: 'atom' in data ? data.atom.type : data.name,
     }
   }
 

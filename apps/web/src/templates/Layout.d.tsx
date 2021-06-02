@@ -1,29 +1,36 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import { NextPage } from 'next'
-import { PropsWithChildren } from 'react'
+import { ComponentType, PropsWithChildren } from 'react'
 
-export type WithLayout = {
-  Layout: (props: any) => React.ReactElement
+type LayoutVariant = 'default' | 'builder' | 'component' | 'dashboard'
+
+export type WithLayout<TLayout extends LayoutVariant, P = unknown> = {
+  Layout: LayoutComponent<TLayout, P>
 }
 
 export type WithMainPane = {
-  MainPane: (props: any) => React.ReactElement
+  MainPane?: ComponentType
 }
 
 export type WithMetaPane = {
-  MetaPane?: (props: any) => React.ReactElement
+  MetaPane?: ComponentType
 }
 
-export type DashboardLayoutProps = {
-  MetaPane?: (props: any) => React.ReactElement
-  MainPane?: (props: any) => React.ReactElement
-  SidebarNavigation: (props: any) => React.ReactElement
+export type WithSidebarNavigation = {
+  SidebarNavigation?: ComponentType
 }
+
+type WithLayoutProps<TLayout extends LayoutVariant> = TLayout extends 'default'
+  ? {}
+  : WithMainPane &
+      WithMetaPane &
+      (TLayout extends 'dashboard' ? WithSidebarNavigation : {})
 
 export type NextPageLayout<
-  P extends 'default' | 'builder' | 'component' = 'default',
+  TLayout extends LayoutVariant = 'default',
+  P = unknown,
   IP = P,
-> = P extends 'default'
-  ? PropsWithChildren<NextPage<P, IP> & WithLayout>
-  : PropsWithChildren<
-      NextPage<P, IP> & WithLayout & WithMainPane & WithMetaPane
-    >
+> = NextPage<P, IP> & WithLayout<TLayout, P> & WithLayoutProps<TLayout>
+
+export type LayoutComponent<TLayout extends LayoutVariant = 'default', P = {}> =
+  ComponentType<P & WithLayoutProps<TLayout>>

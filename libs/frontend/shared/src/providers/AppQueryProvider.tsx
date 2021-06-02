@@ -14,12 +14,12 @@ export const AppQueryProvider = ({
   return <AppProvider appId={appId}>{children}</AppProvider>
 }
 
-export const withAppQueryProvider = <TProps extends Record<string, any>>(
+export const withAppQueryProvider = <TProps extends any>(
   Component: React.ComponentType<TProps>,
 ) => {
   return (props: TProps) => (
     <AppQueryProvider>
-      <Component {...props} />
+      <Component {...(props as any)} />
     </AppQueryProvider>
   )
 }

@@ -3,8 +3,9 @@ import { withAppQueryProvider } from '@codelab/frontend/shared'
 import { MainPanePage } from '@codelab/modules/page'
 import { DashboardLayout } from 'apps/web/src/templates/DashboardLayout'
 import React from 'react'
+import { NextPageLayout } from '../../../../src/templates/Layout.d'
 
-const Pages = () => <>Hi</>
+const Pages: NextPageLayout<'dashboard'> = () => <>Hi</>
 
 Pages.Layout = withAppQueryProvider(DashboardLayout)
 Pages.MainPane = MainPanePage

@@ -48,12 +48,12 @@ export const PageQueryProvider = ({
   )
 }
 
-export const withPageQueryProvider = <TProps extends Record<string, any>>(
+export const withPageQueryProvider = <TProps extends any>(
   Component: React.ComponentType<TProps>,
 ) => {
   return (props: TProps) => (
     <PageQueryProvider>
-      <Component {...props} />
+      <Component {...(props as any)} />
     </PageQueryProvider>
   )
 }

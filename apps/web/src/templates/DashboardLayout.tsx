@@ -1,9 +1,9 @@
 import { useBuilderSelection } from '@codelab/frontend/builder'
 import styled from '@emotion/styled'
 import { Layout } from 'antd'
-import React, { PropsWithChildren } from 'react'
+import React from 'react'
 import tw from 'twin.macro'
-import { DashboardLayoutProps } from './Layout.d'
+import { LayoutComponent } from './Layout.d'
 
 const { Sider, Content } = Layout
 
@@ -17,12 +17,12 @@ const MetaPaneSection = styled('div')`
   background-color: white;
 `
 
-export const DashboardLayout = ({
+export const DashboardLayout: LayoutComponent<'dashboard'> = ({
   children,
   MainPane,
   MetaPane,
   SidebarNavigation,
-}: PropsWithChildren<DashboardLayoutProps>) => {
+}) => {
   const { reset: resetSelection } = useBuilderSelection()
 
   return (
