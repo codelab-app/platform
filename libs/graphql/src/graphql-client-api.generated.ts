@@ -224,11 +224,11 @@ export type MovePageElementInput = {
 }
 
 export type Mutation = {
-  updateUser: User
-  deleteUser: Scalars['Boolean']
   createApp: App
   updateApp: App
   deleteApp: App
+  updateUser: User
+  deleteUser: Scalars['Boolean']
   createPage: Page
   deletePage: Page
   updatePage: Page
@@ -242,14 +242,6 @@ export type Mutation = {
   updateAtom: Atom
 }
 
-export type MutationUpdateUserArgs = {
-  input: UpdateUserInput
-}
-
-export type MutationDeleteUserArgs = {
-  input: DeleteUserInput
-}
-
 export type MutationCreateAppArgs = {
   input: CreateAppInput
 }
@@ -260,6 +252,14 @@ export type MutationUpdateAppArgs = {
 
 export type MutationDeleteAppArgs = {
   input: DeleteAppInput
+}
+
+export type MutationUpdateUserArgs = {
+  input: UpdateUserInput
+}
+
+export type MutationDeleteUserArgs = {
+  input: DeleteUserInput
 }
 
 export type MutationCreatePageArgs = {
@@ -342,10 +342,10 @@ export type Prop = {
 }
 
 export type Query = {
-  getMe: User
-  getUsers: Array<User>
   getApp?: Maybe<App>
   getApps: Array<App>
+  getMe: User
+  getUsers: Array<User>
   getPages: Array<Page>
   getPage?: Maybe<Page>
   getPageElement?: Maybe<PageElement>
@@ -357,12 +357,12 @@ export type Query = {
   getProps: Array<Prop>
 }
 
-export type QueryGetUsersArgs = {
-  input?: Maybe<GetUsersInput>
-}
-
 export type QueryGetAppArgs = {
   input: GetAppInput
+}
+
+export type QueryGetUsersArgs = {
+  input?: Maybe<GetUsersInput>
 }
 
 export type QueryGetPagesArgs = {
@@ -390,8 +390,8 @@ export type UpdateAppData = {
 }
 
 export type UpdateAppInput = {
-  appId: Scalars['String']
-  updateData: UpdateAppData
+  id: Scalars['String']
+  data: UpdateAppData
 }
 
 export type UpdateAtomInput = {
@@ -468,8 +468,6 @@ export type CreateAppMutationVariables = Exact<{
 
 export type CreateAppMutation = { createApp: __AppFragment }
 
-export type __AppFragment = Pick<App, 'id' | 'name'>
-
 export type DeleteAppMutationVariables = Exact<{
   input: DeleteAppInput
 }>
@@ -491,6 +489,8 @@ export type UpdateAppMutationVariables = Exact<{
 }>
 
 export type UpdateAppMutation = { app: __AppFragment }
+
+export type __AppFragment = Pick<App, 'id' | 'name'>
 
 export type CreateAtomMutationVariables = Exact<{
   input: CreateAtomInput

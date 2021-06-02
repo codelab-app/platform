@@ -7,8 +7,8 @@ export class UpdateAppData extends PickType(CreateAppInput, ['name']) {}
 @InputType()
 export class UpdateAppInput {
   @Field()
-  declare appId: string
+  declare id: string
 
   @Field(() => UpdateAppData)
-  declare updateData: UpdateAppData
+  declare data: UpdateAppData
 }

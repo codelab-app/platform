@@ -21,12 +21,6 @@ export const dgraphClientProvider: Provider<DgraphProvider> = {
 
     return {
       client: dgraphClient,
-      // resetDb: () =>
-      //   axios
-      //     .post('http://127.0.0.1:8082/alter', { drop_op: 'DATA' })
-      //     .then((res) => {
-      //       console.log(res)
-      //     }),
       resetDb: () =>
         dgraphClient.alter({
           dropAll: true,
