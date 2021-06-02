@@ -1,12 +1,8 @@
-import {
-  __AtomFragment,
-  __ComponentFragment,
-  PropCollectionFragment,
-} from '@codelab/hasura'
+import { __AtomFragment } from '@codelab/graphql'
+import { PropCollectionFragment } from '@codelab/hasura'
 import { AtomType } from './Hasura'
 
 export enum NodeType {
-  Page = 'Page',
   PageElement = 'PageElement',
   Component = 'Component',
   ComponentElement = 'ComponentElement',
@@ -14,7 +10,7 @@ export enum NodeType {
 
 export interface NodeBase {
   id: string
-  label?: string | null
+  name: string
   nodeType: NodeType
 }
 
@@ -35,12 +31,7 @@ export interface ComponentElementNode extends NodeBase {
 export interface PageElementNode extends NodeBase {
   nodeType: NodeType.PageElement
   props?: PropCollectionFragment | null
-  component: __ComponentFragment
-  children?: Array<PageElementNode>
-}
-
-export interface PageNode extends NodeBase {
-  nodeType: NodeType.Page
+  atom?: __AtomFragment | null
   children?: Array<PageElementNode>
 }
 
@@ -54,5 +45,4 @@ export interface NodeI {
 export type CytoscapeNode =
   | PageElementNode
   | ComponentElementNode
-  | PageNode
   | ComponentNode

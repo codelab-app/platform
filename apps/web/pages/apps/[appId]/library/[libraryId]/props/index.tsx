@@ -4,7 +4,7 @@ import { DashboardLayout } from 'apps/web/src/templates/DashboardLayout'
 import React from 'react'
 import { NextPageLayout } from '../../../../../../src/templates/Layout.d'
 
-const PropTypeCDetail: NextPageLayout<'builder'> = () => {
+const PropTypeCDetail: NextPageLayout<'dashboard'> = () => {
   return (
     <div id="Builder" style={{ position: 'relative' }}>
       Hi

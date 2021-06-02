@@ -22,7 +22,7 @@ import {
   UpdatePageElementService,
 } from './use-cases'
 
-@Resolver(() => PageElementRoot)
+@Resolver(() => PageElement)
 @Injectable()
 export class PageElementResolver {
   constructor(

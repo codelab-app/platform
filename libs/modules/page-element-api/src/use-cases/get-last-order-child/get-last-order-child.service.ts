@@ -1,4 +1,5 @@
-import { DgraphProvider, DgraphTokens, DgraphUseCase } from '@codelab/backend'
+import type { DgraphProvider } from '@codelab/backend'
+import { DgraphTokens, DgraphUseCase } from '@codelab/backend'
 import { Inject, Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { GetLastOrderChildInput } from './get-last-order-child.input'
@@ -45,7 +46,7 @@ export class GetLastOrderChildService extends DgraphUseCase<
         const uid = children[0].uid
         const order = children[0]['PageElement.children|order']
 
-        if (uid && order) {
+        if (uid && typeof order === 'number') {
           return new GetLastOrderChildResponse(uid, order)
         }
       }

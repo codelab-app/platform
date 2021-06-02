@@ -1,4 +1,5 @@
-import { DgraphProvider, DgraphTokens, DgraphUseCase } from '@codelab/backend'
+import type { DgraphProvider } from '@codelab/backend'
+import { DgraphTokens, DgraphUseCase } from '@codelab/backend'
 import {
   FlattenPageElementTreeService,
   PageElementRoot,

@@ -3,13 +3,11 @@ import { Divider, PageHeader } from 'antd'
 import React from 'react'
 import { GlobalStyles } from 'twin.macro'
 
-type MainPaneTemplateProps = {
-  title: string
+type MainPaneTemplateProps = React.PropsWithChildren<{
+  title: React.ReactNode
   // For buttons
   header?: React.ReactElement | Array<React.ReactElement>
-  // For content
-  children: React.ReactElement | Array<React.ReactElement>
-}
+}>
 
 const StyledContainer = styled.div`
   .ant-page-header {

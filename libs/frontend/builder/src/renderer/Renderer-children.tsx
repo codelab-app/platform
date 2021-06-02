@@ -4,7 +4,7 @@ import {
 } from '@codelab/frontend/shared'
 import React from 'react'
 import { useDrop } from 'react-dnd'
-import { elementParameterFactory } from './elementFactory'
+import { atomElementFactory } from './elementFactory'
 import { useAddNodeToElementMapping } from './nodeToElementMapState'
 import { ComponentHandlers } from './useComponentHandlers'
 
@@ -53,9 +53,10 @@ export const RenderChildren = ({
   const { createMappingRef } = useAddNodeToElementMapping()
 
   const renderedChildren = node.children?.map((child: ComponentElementNode) => {
-    const [Child, props] = elementParameterFactory({
+    const [Child, props] = atomElementFactory({
       node: child,
       handlers,
+      atom: child.atom,
     })
 
     if (!Child) {

@@ -1,31 +1,20 @@
 import { EditorProvider } from '@codelab/frontend/builder'
-import { AppPageProvider } from '@codelab/frontend/shared'
-import { useRouter } from 'next/router'
 import React from 'react'
 import { DashboardLayout } from './DashboardLayout'
-import { NextPageLayout } from './Layout.d'
+import { LayoutComponent, NextPageLayout } from './Layout.d'
 
-export const LayoutPageDetail = (props: NextPageLayout<'builder'>) => {
-  const { children, MainPane } = props
-  const { query } = useRouter()
-  const appId = `${query.appId}`
-  const pageId = `${query.pageId}`
-
-  if (!appId) {
-    throw new Error('Missing "appId"')
-  }
-
-  if (!pageId) {
-    throw new Error('Missing "pageId"')
-  }
+export const LayoutPageDetail: LayoutComponent<'builder'> = (props) => {
+  const { children, MainPane, MetaPane } = props
 
   return (
-    <AppPageProvider appId={appId} pageId={pageId}>
-      <EditorProvider>
-        <DashboardLayout MainPane={MainPane} SidebarNavigation={() => <></>}>
-          {children}
-        </DashboardLayout>
-      </EditorProvider>
-    </AppPageProvider>
+    <EditorProvider>
+      <DashboardLayout
+        MainPane={MainPane}
+        MetaPane={MetaPane}
+        SidebarNavigation={() => <></>}
+      >
+        {children}
+      </DashboardLayout>
+    </EditorProvider>
   )
 }

@@ -1,17 +1,12 @@
-import {
-  ComponentElementNode,
-  CytoscapeNode,
-  notify,
-} from '@codelab/frontend/shared'
-import { AtomType } from '@codelab/graphql'
+import { CytoscapeNode, NodeBase, notify } from '@codelab/frontend/shared'
+import { Atom, AtomType } from '@codelab/graphql'
 import React from 'react'
 import ReactTestUtils from 'react-dom/test-utils'
 import { elementTypeMap } from './elementTypeMap'
 import { ComponentHandlers } from './useComponentHandlers'
 
-interface ElementParameterFactoryInput<
-  TNode extends ComponentElementNode = ComponentElementNode,
-> {
+interface ElementParameterFactoryInput<TNode extends NodeBase = CytoscapeNode> {
+  atom: Atom
   node: TNode
   // Function hooks injected to pass to handlers
   handlers: ComponentHandlers
@@ -106,7 +101,8 @@ const commonProps = (node: CytoscapeNode, handlers: ComponentHandlers) => ({
   className: 'Builder-none',
 })
 
-export const elementParameterFactory = <TNode extends ComponentElementNode>({
+export const atomElementFactory = <TNode extends CytoscapeNode>({
+  atom,
   node,
   handlers,
 }: ElementParameterFactoryInput<TNode>): [
@@ -117,7 +113,7 @@ export const elementParameterFactory = <TNode extends ComponentElementNode>({
     return [null, {}]
   }
 
-  const type = node.atom.type.label as AtomType
+  const type = atom.type
   const component = elementTypeMap[type]
 
   if (!component) {
@@ -136,7 +132,7 @@ export const elementParameterFactory = <TNode extends ComponentElementNode>({
   const propsTransformer = elementsPropTransformers[type]
 
   if (propsTransformer) {
-    props = propsTransformer({ node, handlers, props })
+    props = propsTransformer({ atom, node, handlers, props })
   }
 
   return [component, props]

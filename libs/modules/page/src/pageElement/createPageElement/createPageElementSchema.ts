@@ -16,7 +16,7 @@ export const createPageElementSchema: JSONSchemaType<CreatePageElementInput> = {
       type: 'string',
     },
     order: {
-      type: 'number',
+      type: 'integer',
       nullable: true,
     },
   },

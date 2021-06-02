@@ -1,15 +1,20 @@
 import {
-  AppPageContext,
+  createNotificationHandler,
   EntityType,
+  FormUniforms,
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
 import {
   CreatePageElementInput,
+  refetchGetPageQuery,
   useCreatePageElementMutation,
+  useGetAtomsQuery,
 } from '@codelab/graphql'
-import React, { useEffect } from 'react'
-import { PageElementFormBase } from './PageElementFormBase'
+import React, { useContext, useEffect } from 'react'
+import { AutoFields, SelectField } from 'uniforms-antd'
+import { PageContext } from '../../providers'
+import { createPageElementSchema } from './createPageElementSchema'
 
 type CreatePageElementFormProps = UniFormUseCaseProps<CreatePageElementInput>
 
@@ -17,10 +22,23 @@ export const CreatePageElementForm = ({
   ...props
 }: CreatePageElementFormProps) => {
   const { reset, setLoading } = useCRUDModalForm(EntityType.PageElement)
+  const { pageId, page } = useContext(PageContext)
+  const { data: atoms } = useGetAtomsQuery()
 
-  //Not yet sure what should we refetch here*
+  if (!page) {
+    return null
+  }
+
+  const pageElementOptions = [
+    { label: page.rootElement.name, value: page.rootElement.id },
+    ...page.rootElement.descendants.map((element) => ({
+      label: element.name,
+      value: element.id,
+    })),
+  ]
+
   const [mutate, { loading: creating }] = useCreatePageElementMutation({
-    // refetchQueries: [refetchGetAppPageQuery({ appId, pageId })],
+    refetchQueries: [refetchGetPageQuery({ input: { pageId: pageId || '' } })],
   })
 
   useEffect(() => {
@@ -38,10 +56,39 @@ export const CreatePageElementForm = ({
   }
 
   return (
-    <PageElementFormBase
+    <FormUniforms<CreatePageElementInput>
+      schema={createPageElementSchema}
+      onSubmitError={createNotificationHandler({
+        title: 'Error while creating page element',
+      })}
       onSubmit={onSubmit}
       onSubmitSuccess={() => reset()}
       {...props}
-    />
+    >
+      <AutoFields omitFields={['parentPageElementId', 'atomId']} />
+
+      <SelectField
+        name="atomId"
+        label="Atom"
+        //eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-ignore https://github.com/vazco/uniforms/issues/951
+        showSearch={true}
+        optionFilterProp="label"
+        options={atoms?.atoms.map((atom) => ({
+          label: atom.type,
+          value: atom.id,
+        }))}
+      />
+
+      <SelectField
+        name="parentPageElementId"
+        label="Parent element"
+        //eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-ignore https://github.com/vazco/uniforms/issues/951
+        showSearch={true}
+        optionFilterProp="label"
+        options={pageElementOptions}
+      />
+    </FormUniforms>
   )
 }

@@ -3,47 +3,31 @@ import {
   useComponentHandlers,
 } from '@codelab/frontend/builder'
 import { CytoscapeService } from '@codelab/frontend/cytoscape'
-import {
-  AppPageContext,
-  ComponentItemType,
-  PageNode,
-} from '@codelab/frontend/shared'
-import {
-  App__PageFragment,
-  refetchGetAppPageQuery,
-  useCreatePageElementMutation,
-} from '@codelab/hasura'
-import React, { useContext } from 'react'
+import { ComponentItemType } from '@codelab/frontend/shared'
+import { Core } from 'cytoscape'
+import React from 'react'
 
 type GetPageLayoutProps = {
-  page: App__PageFragment
+  cy: Core
 }
 
-export const PageRenderer = ({ page }: GetPageLayoutProps) => {
-  const { pageId, appId } = useContext(AppPageContext)
+export const PageRenderer = ({ cy }: GetPageLayoutProps) => {
+  // const [addPageElement] = useCreatePageElementMutation({
+  //   refetchQueries: [refetchGetPageQuery({ input: { pageId } })],
+  // })
 
-  const [addPageElement] = useCreatePageElementMutation({
-    refetchQueries: [
-      refetchGetAppPageQuery({
-        appId,
-        pageId,
-      }),
-    ],
-  })
-
-  const cy = CytoscapeService.fromPage(page)
-  const root = CytoscapeService.componentTree(cy) as PageNode
+  const root = CytoscapeService.componentTree(cy)
 
   const handleDroppedComponent = ({ key, label }: ComponentItemType) => {
-    addPageElement({
-      variables: {
-        input: {
-          page_id: page.id,
-          component_id: key,
-          name: `${label}`,
-        },
-      },
-    })
+    // addPageElement({
+    //   variables: {
+    //     input: {
+    //       page_id: page.id,
+    //       component_id: key,
+    //       name: `${label}`,
+    //     },
+    //   },
+    // })
   }
 
   const handlers = useComponentHandlers()

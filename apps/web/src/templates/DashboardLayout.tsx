@@ -1,12 +1,11 @@
 import { useBuilderSelection } from '@codelab/frontend/builder'
 import styled from '@emotion/styled'
-import { Layout, Menu } from 'antd'
-import React, { PropsWithChildren } from 'react'
+import { Layout } from 'antd'
+import React from 'react'
 import tw from 'twin.macro'
-import { PageDropdown } from '../sections/PageDropdown'
-import { DashboardLayoutProps } from './Layout.d'
+import { LayoutComponent } from './Layout.d'
 
-const { Sider, Content, Header } = Layout
+const { Sider, Content } = Layout
 
 export const tabsWidth = 40
 export const mainPaneWidth = 300
@@ -15,14 +14,15 @@ const MetaPaneSection = styled('div')`
   position: absolute;
   bottom: 0;
   width: 100%;
+  background-color: white;
 `
 
-export const DashboardLayout = ({
+export const DashboardLayout: LayoutComponent<'dashboard'> = ({
   children,
   MainPane,
   MetaPane,
   SidebarNavigation,
-}: PropsWithChildren<DashboardLayoutProps>) => {
+}) => {
   const { reset: resetSelection } = useBuilderSelection()
 
   return (
@@ -34,17 +34,10 @@ export const DashboardLayout = ({
         collapsedWidth={40}
       >
         <div data-testid="pane-main" css={tw`h-full`}>
-          <SidebarNavigation />
+          {SidebarNavigation ? <SidebarNavigation /> : null}
         </div>
       </Sider>
       <Layout>
-        <Header>
-          <Menu theme="light" mode="horizontal" defaultSelectedKeys={['2']}>
-            <Menu.Item key="1">
-              <PageDropdown />
-            </Menu.Item>
-          </Menu>
-        </Header>
         <Layout>
           {MainPane ? (
             <Sider
