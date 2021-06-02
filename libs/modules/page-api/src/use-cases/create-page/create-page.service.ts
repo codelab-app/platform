@@ -1,4 +1,5 @@
-import { DgraphProvider, DgraphTokens, DgraphUseCase } from '@codelab/backend'
+import type { DgraphProvider } from '@codelab/backend'
+import { DgraphTokens, DgraphUseCase } from '@codelab/backend'
 import { AppGuardService } from '@codelab/modules/app-api'
 import { Inject, Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
