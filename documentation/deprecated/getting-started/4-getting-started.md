@@ -2,8 +2,12 @@
 
 [Back](../../README.md)
 
-1. `cp .env.example .env` & get env from Slack
-2. `yarn`
+1. `yarn docker:up alpha alpha-test`
+
+This starts an application instance of Dgraph, and a test instance of Dgraph (used for integration testing)
+
+2. `cp .env.example .env` & get env from Slack
+3. `yarn`
 
 ## Services
 
@@ -19,13 +23,7 @@
 
 - `yarn codegen` after you update `.graphql` files to get generate Apollo hooks
 
-### Hasura
-
-We shouldn't access Hasura dashboard from `https://cloud.hasura.io/`, but instead through a localhost console using
-
-- `yarn hasura:console`
-
-This ensures that all migrations are tracked
+### Dgraph
 
 ## Running other commands
 
