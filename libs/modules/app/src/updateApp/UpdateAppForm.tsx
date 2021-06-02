@@ -55,10 +55,10 @@ export const UpdateAppForm = (props: UniFormUseCaseProps<UpdateAppData>) => {
     return mutate({
       variables: {
         input: {
-          updateData: {
+          data: {
             ...submitData,
           },
-          appId: app.id,
+          id: app.id,
         },
       },
     })
