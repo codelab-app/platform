@@ -1,11 +1,15 @@
-import { FetchResult } from '@apollo/client'
-import { MutationUseCase } from '@codelab/backend'
+import {
+  ApolloClient,
+  FetchResult,
+  NormalizedCacheObject,
+} from '@apollo/client'
+import { ApolloClientTokens, MutationUseCase } from '@codelab/backend'
 import {
   CreateAppGql,
   CreateAppMutation,
   CreateAppMutationVariables,
 } from '@codelab/dgraph'
-import { Injectable } from '@nestjs/common'
+import { Inject, Injectable } from '@nestjs/common'
 import { App } from '../../app.model'
 import { CreateAppRequest } from './create-app.request'
 
@@ -16,6 +20,13 @@ export class CreateAppService extends MutationUseCase<
   CreateAppMutation,
   CreateAppMutationVariables
 > {
+  constructor(
+    @Inject(ApolloClientTokens.ApolloClientProvider)
+    protected apolloClient: ApolloClient<NormalizedCacheObject>,
+  ) {
+    super(apolloClient)
+  }
+
   protected getGql() {
     return CreateAppGql
   }

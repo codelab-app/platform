@@ -4,6 +4,7 @@ import {
   ApolloClientModule,
   AwsModule,
   DGraphModule,
+  graphqlConfig,
   GraphqlModule,
   LoggerModule,
 } from '../../infrastructure'
@@ -12,7 +13,7 @@ import { CacheModule } from '../../infrastructure/cache'
 @Module({
   imports: [
     LoggerModule.forRoot(),
-    GraphqlModule,
+    GraphqlModule.register(graphqlConfig),
     CacheModule.register(),
     AwsModule,
     DGraphModule,

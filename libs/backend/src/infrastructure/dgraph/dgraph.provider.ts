@@ -1,12 +1,13 @@
 import { Provider } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
+import axios from 'axios'
 import { DgraphClient, DgraphClientStub } from 'dgraph-js-http'
 import { DgraphConfiguration } from './config/dgraph.config'
 import { DgraphTokens } from './config/dgraph.tokens'
 
 export type DgraphProvider = {
   client: DgraphClient
-  resetDb: ReturnType<DgraphClient['alter']>
+  resetDb: () => Promise<any>
 }
 
 export const dgraphClientProvider: Provider<DgraphProvider> = {
@@ -21,7 +22,15 @@ export const dgraphClientProvider: Provider<DgraphProvider> = {
 
     return {
       client: dgraphClient,
-      resetDb: dgraphClient.alter({ dropAll: true }),
+      resetDb: () =>
+        axios
+          .post('http://127.0.0.1:8082/alter', { drop_op: 'DATA' })
+          .then((res) => {
+            console.log(res)
+          }),
+      // dgraphClient.alter({
+      //   // dropAll: true,
+      // }),
     }
   },
   inject: [ConfigService],

@@ -15,6 +15,7 @@ import { AppService } from './app.service'
 @Module({
   imports: [
     InfrastructureModule,
+    // Modules
     LambdaApiModule,
     AuthModule,
     UserModule,

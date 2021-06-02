@@ -1,13 +1,45 @@
 import { Injectable } from '@nestjs/common'
+import { ConfigService, registerAs } from '@nestjs/config'
 import { GqlModuleOptions, GqlOptionsFactory } from '@nestjs/graphql'
 import { GraphQLError, GraphQLFormattedError } from 'graphql'
 import * as path from 'path'
+import { GraphqlTokens } from './graphql.tokens'
 
-@Injectable()
-export class GraphqlConfig implements GqlOptionsFactory {
-  createGqlOptions(): GqlModuleOptions {
+export interface GraphqlConfig {
+  autoSchemaFile: GqlModuleOptions['autoSchemaFile']
+}
+
+export const graphqlConfig = registerAs<() => GraphqlConfig>(
+  GraphqlTokens.GraphqlConfig.toString(),
+  () => {
     return {
       autoSchemaFile: path.join(process.cwd(), 'schema.api.graphql'),
+    }
+  },
+)
+
+export const graphqlTestConfig = registerAs<() => GraphqlConfig>(
+  GraphqlTokens.GraphqlConfig.toString(),
+  () => {
+    return {
+      autoSchemaFile: false,
+    }
+  },
+)
+
+@Injectable()
+export class GraphqlOptions implements GqlOptionsFactory {
+  constructor(private readonly configService: ConfigService) {}
+
+  createGqlOptions(): GqlModuleOptions {
+    const config = this.configService.get<GraphqlConfig>(
+      GraphqlTokens.GraphqlConfig.toString(),
+    )
+
+    console.log(config?.autoSchemaFile)
+
+    return {
+      autoSchemaFile: config?.autoSchemaFile,
       installSubscriptionHandlers: true,
       // transformSchema: async (schema: GraphQLSchema) => {
       //   // return stitchSchemas({

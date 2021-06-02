@@ -21,7 +21,6 @@ export class DeleteAppService extends MutationUseCase<
   constructor(
     @Inject(ApolloClientTokens.ApolloClientProvider)
     protected apolloClient: ApolloClient<NormalizedCacheObject>,
-    // TODO: Make guard into a decorator
     private appGuardService: AppGuardService,
   ) {
     super(apolloClient)

@@ -5,6 +5,7 @@ import {
   apolloClientTestConfig,
   DGraphModule,
   GraphqlModule,
+  graphqlTestConfig,
 } from '../../infrastructure'
 import { CacheModule } from '../../infrastructure/cache'
 import { LoggerModule } from '../../infrastructure/logger/logger.module'
@@ -13,7 +14,7 @@ import { LoggerModule } from '../../infrastructure/logger/logger.module'
   imports: [
     LoggerModule.forRoot(),
     // AwsModule,
-    GraphqlModule,
+    GraphqlModule.register(graphqlTestConfig),
     DGraphModule,
     AuthModule,
     ApolloClientModule.register(apolloClientTestConfig),

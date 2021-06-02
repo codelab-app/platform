@@ -6,6 +6,7 @@ import {
 } from '@nestjs/common'
 import { Test } from '@nestjs/testing'
 import { TestInfrastructureModule } from '../framework/nestjs/test-infrastructure.module'
+import { DgraphProvider, DgraphTokens } from '../infrastructure'
 
 type NestModule =
   | Type<any>
@@ -21,9 +22,14 @@ export const setupTestModule = async (
     imports: [TestInfrastructureModule, ...nestModules],
   }).compile()
 
+  const dgraphProvider = testModule.get<DgraphProvider>(
+    DgraphTokens.DgraphProvider,
+  )
+
   app = testModule.createNestApplication()
 
   await app.init()
+  // await dgraphProvider.resetDb()
 
   return app
 }
