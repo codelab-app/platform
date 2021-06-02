@@ -1,6 +1,6 @@
-import { DGraphService, DgraphUseCase } from '@codelab/backend'
+import { DgraphProvider, DgraphTokens, DgraphUseCase } from '@codelab/backend'
 import { Dgraph_PageElementFragment } from '@codelab/dgraph'
-import { Injectable } from '@nestjs/common'
+import { Inject, Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { PageElementGuardService } from '../../auth'
 import { PageElement } from '../../models'
@@ -20,12 +20,13 @@ export class MovePageElementService extends DgraphUseCase<
   ValidationContext
 > {
   constructor(
-    dgraph: DGraphService,
+    @Inject(DgraphTokens.DgraphProvider)
+    protected readonly dgraphProvider: DgraphProvider,
     private getPageElementParentService: GetPageElementParentService,
     private getPageElementService: GetPageElementService,
     private pageElementGuardService: PageElementGuardService,
   ) {
-    super(dgraph)
+    super(dgraphProvider)
   }
 
   protected async executeTransaction(

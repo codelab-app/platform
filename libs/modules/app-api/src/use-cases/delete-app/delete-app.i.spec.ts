@@ -15,7 +15,13 @@ import { INestApplication } from '@nestjs/common'
 import { print } from 'graphql'
 import { AppModule } from '../../app.module'
 
-describe('CreateApp', () => {
+const createVariables: CreateAppMutationVariables = {
+  input: {
+    name: 'Codelab',
+  },
+}
+
+describe('DeleteApp', () => {
   let app: INestApplication
   let accessToken = ''
 
@@ -24,6 +30,23 @@ describe('CreateApp', () => {
 
     const auth0Service = app.get(Auth0Service)
     accessToken = await auth0Service.getAccessToken()
+
+    const createdApp = await request(app.getHttpServer())
+      .set('Authorization', `Bearer ${accessToken}`)
+      .send({
+        query: print(CreateAppGql),
+        variables: createVariables,
+      })
+      .expect(200)
+      .expect((res: ApiResponse<CreateAppMutationResult>) => {
+        expect(res.body.data?.createApp).toMatchObject({
+          name: 'Codelab',
+        })
+
+        return res.body.data?.createApp
+      })
+
+    console.log(createdApp)
   })
 
   afterAll(async () => {

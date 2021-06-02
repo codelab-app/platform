@@ -1,7 +1,7 @@
-import { DGraphService, DgraphUseCase } from '@codelab/backend'
+import { DgraphProvider, DgraphTokens, DgraphUseCase } from '@codelab/backend'
 import { Dgraph_PageElementFragment } from '@codelab/dgraph'
 import { Atom, GetAtomService } from '@codelab/modules/atom-api'
-import { Injectable } from '@nestjs/common'
+import { Inject, Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { PageElementGuardService } from '../../auth'
 import { PageElement } from '../../models/'
@@ -22,13 +22,14 @@ export class CreatePageElementService extends DgraphUseCase<
   ValidationContext
 > {
   constructor(
-    dgraph: DGraphService,
+    @Inject(DgraphTokens.DgraphProvider)
+    protected readonly dgraphProvider: DgraphProvider,
     private getPageElementService: GetPageElementService,
     private getLastOrderChildService: GetLastOrderChildService,
     private getAtomService: GetAtomService,
     private pageElementGuardService: PageElementGuardService,
   ) {
-    super(dgraph)
+    super(dgraphProvider)
   }
 
   protected async executeTransaction(

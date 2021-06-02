@@ -1,5 +1,5 @@
-import { DGraphService, DgraphUseCase } from '@codelab/backend'
-import { Injectable } from '@nestjs/common'
+import { DgraphProvider, DgraphTokens, DgraphUseCase } from '@codelab/backend'
+import { Inject, Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 //shortened import causes circular reference and some weird shit happen
 import { PageElementGuardService } from '../../auth/page-element-guard/page-element-guard.service'
@@ -15,11 +15,12 @@ export class GetPageElementRootService extends DgraphUseCase<
   void
 > {
   constructor(
-    dgraph: DGraphService,
+    @Inject(DgraphTokens.DgraphProvider)
+    protected readonly dgraphProvider: DgraphProvider,
     private flattenPageElementTreeService: FlattenPageElementTreeService,
     private pageElementGuardService: PageElementGuardService,
   ) {
-    super(dgraph)
+    super(dgraphProvider)
   }
 
   protected async executeTransaction(

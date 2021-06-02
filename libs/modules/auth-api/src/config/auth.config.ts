@@ -15,9 +15,9 @@ export interface Auth0Configuration {
   }
 }
 
-export const authConfig = registerAs(
+export const authConfig = registerAs<() => Auth0Configuration>(
   AuthTokens.Auth0Config.toString(),
-  (): Auth0Configuration => {
+  () => {
     let issuer = get('AUTH0_ISSUER_BASE_URL').required(true).asString()
 
     if (issuer.substr(-1) !== '/') {

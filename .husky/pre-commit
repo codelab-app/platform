@@ -3,7 +3,7 @@
 
 # yarn lint:graphql
 
-yarn codegen
+yarn codegen --port 8081
 
 # terraform fmt -recursive .terraform
 

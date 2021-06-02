@@ -1,5 +1,5 @@
-import { DGraphService, DgraphUseCase } from '@codelab/backend'
-import { Injectable } from '@nestjs/common'
+import { DgraphProvider, DgraphTokens, DgraphUseCase } from '@codelab/backend'
+import { Inject, Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { GetLastOrderChildInput } from './get-last-order-child.input'
 import { GetLastOrderChildResponse } from './get-last-order-child.response'
@@ -13,8 +13,11 @@ export class GetLastOrderChildService extends DgraphUseCase<
   GetLastOrderChildInput,
   GetLastOrderChildResponse | null
 > {
-  constructor(dgraph: DGraphService) {
-    super(dgraph)
+  constructor(
+    @Inject(DgraphTokens.DgraphProvider)
+    protected readonly dgraphProvider: DgraphProvider,
+  ) {
+    super(dgraphProvider)
   }
 
   protected async executeTransaction(

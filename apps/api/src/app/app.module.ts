@@ -1,7 +1,6 @@
 import { InfrastructureModule } from '@codelab/backend'
 import { AppModule as AppApiModule } from '@codelab/modules/app-api'
 import { AtomModule } from '@codelab/modules/atom-api'
-import { AuthModule } from '@codelab/modules/auth-api'
 import { LambdaApiModule } from '@codelab/modules/lambda-api'
 import { PageModule } from '@codelab/modules/page-api'
 import { PageElementModule } from '@codelab/modules/page-element-api'
@@ -15,10 +14,10 @@ import { AppService } from './app.service'
 @Module({
   imports: [
     InfrastructureModule,
-    LambdaApiModule,
-    AuthModule,
-    UserModule,
+    // Modules
     AppApiModule,
+    LambdaApiModule,
+    UserModule,
     PageModule,
     PageElementModule,
     AtomModule,
