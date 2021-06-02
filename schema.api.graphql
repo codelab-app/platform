@@ -279,8 +279,8 @@ input CreateAppInput {
 }
 
 input UpdateAppInput {
-  appId: String!
-  updateData: UpdateAppData!
+  id: String!
+  data: UpdateAppData!
 }
 
 input UpdateAppData {

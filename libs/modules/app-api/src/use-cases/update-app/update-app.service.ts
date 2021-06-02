@@ -44,24 +44,24 @@ export class UpdateAppService extends MutationUseCase<
   }
 
   protected mapVariables({
-    input: { appId, updateData },
+    input: { id, data },
   }: UpdateAppRequest): UpdateAppMutationVariables {
     return {
       input: {
         filter: {
-          id: [appId],
+          id: [id],
         },
         set: {
-          name: updateData.name,
+          name: data.name,
         },
       },
     }
   }
 
   protected async validate({
-    input: { appId },
+    input: { id },
     currentUser,
   }: UpdateAppRequest): Promise<void> {
-    await this.appGuardService.validate(appId, currentUser)
+    await this.appGuardService.validate(id, currentUser)
   }
 }
