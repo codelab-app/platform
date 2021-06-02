@@ -22,14 +22,12 @@ export const setupTestModule = async (
     imports: [TestInfrastructureModule, ...nestModules],
   }).compile()
 
-  const dgraphProvider = testModule.get<DgraphProvider>(
-    DgraphTokens.DgraphProvider,
-  )
-
   app = testModule.createNestApplication()
 
   await app.init()
-  // await dgraphProvider.resetDb()
+
+  const dgraphProvider = app.get<DgraphProvider>(DgraphTokens.DgraphProvider)
+  await dgraphProvider.resetDb()
 
   return app
 }

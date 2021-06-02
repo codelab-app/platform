@@ -203,10 +203,10 @@ type User {
 }
 
 type Query {
-  getMe: User!
-  getUsers(input: GetUsersInput): [User!]!
   getApp(input: GetAppInput!): App
   getApps: [App!]!
+  getMe: User!
+  getUsers(input: GetUsersInput): [User!]!
   getPages(input: GetPagesInput!): [Page!]!
   getPage(input: GetPageInput!): Page
   getPageElement(input: GetPageElementInput!): PageElement
@@ -221,15 +221,15 @@ type Query {
   getProps: [Prop!]!
 }
 
+input GetAppInput {
+  appId: String!
+}
+
 input GetUsersInput {
   page: Int!
   perPage: Int!
   query: String!
   sort: String!
-}
-
-input GetAppInput {
-  appId: String!
 }
 
 input GetPagesInput {
@@ -253,11 +253,11 @@ input GetAtomInput {
 }
 
 type Mutation {
-  updateUser(input: UpdateUserInput!): User!
-  deleteUser(input: DeleteUserInput!): Boolean!
   createApp(input: CreateAppInput!): App!
   updateApp(input: UpdateAppInput!): App!
   deleteApp(input: DeleteAppInput!): App!
+  updateUser(input: UpdateUserInput!): User!
+  deleteUser(input: DeleteUserInput!): Boolean!
   createPage(input: CreatePageInput!): Page!
   deletePage(input: DeletePageInput!): Page!
   updatePage(input: UpdatePageInput!): Page!
@@ -272,6 +272,23 @@ type Mutation {
   createAtom(input: CreateAtomInput!): Atom!
   deleteAtom(input: DeleteAtomInput!): Atom!
   updateAtom(input: UpdateAtomInput!): Atom!
+}
+
+input CreateAppInput {
+  name: String!
+}
+
+input UpdateAppInput {
+  appId: String!
+  updateData: UpdateAppData!
+}
+
+input UpdateAppData {
+  name: String!
+}
+
+input DeleteAppInput {
+  appId: String!
 }
 
 input UpdateUserInput {
@@ -291,23 +308,6 @@ input UpdateUserData {
 
 input DeleteUserInput {
   userId: String!
-}
-
-input CreateAppInput {
-  name: String!
-}
-
-input UpdateAppInput {
-  appId: String!
-  updateData: UpdateAppData!
-}
-
-input UpdateAppData {
-  name: String!
-}
-
-input DeleteAppInput {
-  appId: String!
 }
 
 input CreatePageInput {

@@ -22,7 +22,7 @@ export const graphqlTestConfig = registerAs<() => GraphqlConfig>(
   GraphqlTokens.GraphqlConfig.toString(),
   () => {
     return {
-      autoSchemaFile: false,
+      autoSchemaFile: true,
     }
   },
 )
@@ -35,8 +35,6 @@ export class GraphqlOptions implements GqlOptionsFactory {
     const config = this.configService.get<GraphqlConfig>(
       GraphqlTokens.GraphqlConfig.toString(),
     )
-
-    console.log(config?.autoSchemaFile)
 
     return {
       autoSchemaFile: config?.autoSchemaFile,
