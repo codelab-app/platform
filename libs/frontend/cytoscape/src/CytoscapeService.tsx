@@ -75,14 +75,17 @@ export class CytoscapeService {
             return { data }
           }),
         ],
-        edges: links.map((link) => ({
-          data: {
-            id: CytoscapeService.generateLinkId(link),
-            source: link.from,
-            target: link.to,
-            order: link.order,
-          },
-        })),
+        edges: links
+          .slice()
+          .sort((a, b) => a.from.localeCompare(b.from) || a.order - b.order)
+          .map((link) => ({
+            data: {
+              id: CytoscapeService.generateLinkId(link),
+              source: link.from,
+              target: link.to,
+              order: link.order,
+            },
+          })),
       },
     })
   }

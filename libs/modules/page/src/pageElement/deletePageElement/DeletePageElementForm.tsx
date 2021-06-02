@@ -8,25 +8,33 @@ import {
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
 import {
+  refetchGetPageQuery,
   useDeletePageElementMutation,
   useGetPageElementQuery,
 } from '@codelab/graphql'
 import { Spin } from 'antd'
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { AutoFields } from 'uniforms-antd'
+import { PageContext } from '../../providers'
 
-type DeletePageElementFormProps = UniFormUseCaseProps<EmptyJsonSchemaType>
+export type DeletePageElementFormProps =
+  UniFormUseCaseProps<EmptyJsonSchemaType>
 
-export const DeletePageElementForm = (props: DeletePageElementFormProps) => {
+export const DeletePageElementForm = ({
+  onSubmitError,
+  onSubmitSuccess,
+  ...props
+}: DeletePageElementFormProps) => {
   const {
     reset,
     setLoading,
     state: { deleteIds: deletePageElementIds },
   } = useCRUDModalForm(EntityType.PageElement)
 
+  const { pageId } = useContext(PageContext)
+
   const [mutate, { loading: deleting }] = useDeletePageElementMutation({
-    //Not sure what to refetch here either
-    // refetchQueries: [refetchGetAppPageQuery({ appId, pageId })],
+    refetchQueries: [refetchGetPageQuery({ input: { pageId: pageId || '' } })],
   })
 
   useEffect(() => {
@@ -64,7 +72,12 @@ export const DeletePageElementForm = (props: DeletePageElementFormProps) => {
       onSubmitError={createNotificationHandler({
         title: 'Error while deleting component element',
       })}
-      onSubmitSuccess={() => reset()}
+      onSubmitSuccess={[
+        () => reset(),
+        ...(Array.isArray(onSubmitSuccess)
+          ? onSubmitSuccess
+          : [onSubmitSuccess]),
+      ]}
       {...props}
     >
       <h4>Are you sure you want to delete page element "{element?.name}"?</h4>

@@ -1,6 +1,7 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import {
   MainPanePageDetail,
+  MetaPanePageDetail,
   PageContext,
   PageRenderer,
   withPageQueryProvider,
@@ -32,5 +33,6 @@ export const getServerSideProps = withPageAuthRequired()
 
 PageDetail.Layout = withPageQueryProvider(LayoutPageDetail)
 PageDetail.MainPane = MainPanePageDetail
+PageDetail.MetaPane = MetaPanePageDetail
 
 export default PageDetail

@@ -45,7 +45,7 @@ export class GetLastOrderChildService extends DgraphUseCase<
         const uid = children[0].uid
         const order = children[0]['PageElement.children|order']
 
-        if (uid && order) {
+        if (uid && typeof order === 'number') {
           return new GetLastOrderChildResponse(uid, order)
         }
       }

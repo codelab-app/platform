@@ -1,12 +1,11 @@
 import { useBuilderSelection } from '@codelab/frontend/builder'
 import styled from '@emotion/styled'
-import { Layout, Menu } from 'antd'
+import { Layout } from 'antd'
 import React, { PropsWithChildren } from 'react'
 import tw from 'twin.macro'
-import { PageDropdown } from '../sections/PageDropdown'
 import { DashboardLayoutProps } from './Layout.d'
 
-const { Sider, Content, Header } = Layout
+const { Sider, Content } = Layout
 
 export const tabsWidth = 40
 export const mainPaneWidth = 300
@@ -15,6 +14,7 @@ const MetaPaneSection = styled('div')`
   position: absolute;
   bottom: 0;
   width: 100%;
+  background-color: white;
 `
 
 export const DashboardLayout = ({

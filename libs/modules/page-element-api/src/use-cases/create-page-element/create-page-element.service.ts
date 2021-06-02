@@ -98,7 +98,7 @@ export class CreatePageElementService extends DgraphUseCase<
       pageElementId: parentPageElementId,
     })
 
-    if (lastOrderChild && lastOrderChild.order) {
+    if (lastOrderChild && typeof lastOrderChild.order === 'number') {
       return lastOrderChild.order + 1
     }
 

@@ -1,6 +1,5 @@
 import 'twin.macro'
 import { ArrowLeftOutlined } from '@ant-design/icons'
-import { useBuilderSelection } from '@codelab/frontend/builder'
 import { CytoscapeService } from '@codelab/frontend/cytoscape'
 import { MainPaneTemplate } from '@codelab/frontend/layout'
 import {
@@ -9,6 +8,7 @@ import {
   CrudModal,
   EntityType,
   NodeBase,
+  PageElementNode,
   PageType,
 } from '@codelab/frontend/shared'
 import { PageFullFragment } from '@codelab/graphql'
@@ -16,8 +16,12 @@ import { Empty, Tree } from 'antd'
 import { DataNode } from 'antd/lib/tree'
 import Link from 'next/link'
 import React, { useContext } from 'react'
-import { CreatePageElementButton, CreatePageElementForm } from '../pageElement'
-import { PageContext } from '../providers'
+import { usePageBuilderState } from '../../builder'
+import {
+  CreatePageElementButton,
+  CreatePageElementForm,
+} from '../../pageElement'
+import { PageContext } from '../../providers'
 
 const Title = ({
   page,
@@ -43,7 +47,7 @@ const Title = ({
 
 export const MainPanePageDetail = () => {
   const { cytoscapeRoot, page, loading } = useContext(PageContext)
-  const { setSelected, setHovering, resetHovering } = useBuilderSelection()
+  const { selectPageElement } = usePageBuilderState()
   let tree: DataNode | null = null
 
   if (cytoscapeRoot) {
@@ -68,13 +72,13 @@ export const MainPanePageDetail = () => {
           // defaultExpandedKeys={this.state.expandedKeys}
           blockNode
           onMouseEnter={({ node }) => {
-            setHovering((node as any as NodeBase).id)
+            // setHovering((node as any as NodeBase).id)
           }}
           onMouseLeave={() => {
-            resetHovering()
+            // resetHovering()
           }}
           onSelect={([id], { node }) => {
-            setSelected((node as any as NodeBase).id)
+            selectPageElement(node as any as PageElementNode)
           }}
           titleRender={(node) => {
             const label = (node as any as NodeBase).name

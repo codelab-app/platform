@@ -10,7 +10,7 @@ export enum NodeType {
 
 export interface NodeBase {
   id: string
-  name?: string | null
+  name: string
   nodeType: NodeType
 }
 
