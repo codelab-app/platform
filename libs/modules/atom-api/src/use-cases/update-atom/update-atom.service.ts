@@ -1,13 +1,14 @@
-import { FetchResult } from '@apollo/client'
-import { MutationUseCase } from '@codelab/backend'
+import { ApolloClient, FetchResult, NormalizedCacheObject } from '@apollo/client'
+import { ApolloClientTokens, MutationUseCase } from '@codelab/backend'
 import {
   UpdateAtomGql,
   UpdateAtomMutation,
   UpdateAtomMutationVariables,
 } from '@codelab/dgraph'
-import { Injectable } from '@nestjs/common'
+import { Inject, Injectable } from '@nestjs/common'
 import { Atom, atomSchema } from '../../atom.model'
 import { UpdateAtomInput } from './update-atom.input'
+import { AppGuardService } from '@codelab/modules/app-api';
 
 @Injectable()
 export class UpdateAtomService extends MutationUseCase<
@@ -16,12 +17,27 @@ export class UpdateAtomService extends MutationUseCase<
   UpdateAtomMutation,
   UpdateAtomMutationVariables
 > {
+
+  constructor(
+      @Inject(ApolloClientTokens.ApolloClientProvider)
+      protected apolloClient: ApolloClient<NormalizedCacheObject>
+  ) {
+    super(apolloClient)
+  }
+
   protected getGql() {
     return UpdateAtomGql
   }
 
   protected extractDataFromResult(result: FetchResult<UpdateAtomMutation>) {
-    return atomSchema.parse(result.data?.updateAtom)
+    // return atomSchema.parse(result.data?.updateAtom)
+    const atoms = result.data?.updateAtom?.atom
+
+    if (!atoms || !atoms.length || !atoms[0]) {
+      throw new Error('Atom not found')
+    }
+
+    return atoms[0] as unknown as Atom
   }
 
   protected mapVariables({
