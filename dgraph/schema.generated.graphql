@@ -168,3 +168,68 @@ type ValueType {
   label: String!
   type: String!
 }
+
+enum PrimitiveType {
+  String
+  Integer
+  Decimal
+  Boolean
+}
+
+type SimpleType {
+  id: ID!
+  primitiveType: PrimitiveType!
+}
+
+type ArrayType {
+  id: ID!
+  type: Type!
+}
+
+type EnumType {
+  id: ID!
+  allowedValues: [String!]!
+}
+
+enum Unit {
+  px
+  pt
+  em
+  rem
+  percent
+  vw
+  vh
+}
+
+type UnitType {
+  id: ID!
+  allowedUnits: [Unit!]!
+}
+
+union Type = SimpleType | Interface | ArrayType | EnumType | UnitType
+
+type RequiredValidator {
+  id: ID!
+  isRequired: Boolean!
+}
+
+type MinMaxValidator {
+  id: ID!
+  min: Int
+  max: Int
+}
+
+union Decorator = MinMaxValidator | RequiredValidator
+
+type Field {
+  id: ID!
+  type: Type!
+  key: String!
+  decorators: [Decorator]
+}
+
+type Interface {
+  id: ID!
+  name: String
+  fields: [Field]
+}

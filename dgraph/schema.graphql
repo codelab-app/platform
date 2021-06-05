@@ -71,3 +71,75 @@ type ValueType {
   label: String!
   type: String!
 }
+
+#New typing system:
+
+enum PrimitiveType {
+  String,
+  Integer,
+  Decimal,
+  Boolean
+}
+
+type SimpleType {
+  id: ID!
+  primitiveType: PrimitiveType!
+}
+
+type ArrayType {
+  id: ID!
+  #that's the type of array, e.g. type: String, would be string[]
+  type: Type!
+}
+
+type EnumType {
+  id: ID!
+  allowedValues: [String!]!
+}
+
+enum Unit {
+  px,
+  pt,
+  em,
+  rem,
+  percent,
+  vw,
+  vh,
+  #... add all units here, this is just an example
+}
+
+type UnitType {
+  id: ID!
+  allowedUnits: [Unit!]!
+}
+
+# This is very expandable - want to add Colors? Just create a ColorType with red, green and blue fields
+# Want to handle different units, like px, pt, rem? Create an UnitType
+# We can add as many types as we need without breaking or even touching existing ones
+union Type = SimpleType | Interface | ArrayType | EnumType | UnitType
+
+type RequiredValidator  {
+  id: ID!
+  isRequired: Boolean!
+}
+
+type MinMaxValidator {
+  id: ID!
+  min: Int
+  max: Int
+}
+
+union Decorator = MinMaxValidator | RequiredValidator #add more decorators here if we need to extend the functionality
+
+type Field {
+  id: ID!
+  type: Type!
+  key: String!
+  decorators: [Decorator]
+}
+
+type Interface {
+  id: ID!
+  name: String
+  fields: [Field]
+}

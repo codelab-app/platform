@@ -46,6 +46,21 @@ export type AddAppPayloadAppArgs = {
   offset?: Maybe<Scalars['Int']>
 }
 
+export type AddArrayTypeInput = {
+  type: TypeRef
+}
+
+export type AddArrayTypePayload = {
+  arrayType?: Maybe<Array<Maybe<ArrayType>>>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type AddArrayTypePayloadArrayTypeArgs = {
+  filter?: Maybe<ArrayTypeFilter>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
 export type AddAtomInput = {
   type: AtomType
   label: Scalars['String']
@@ -84,6 +99,56 @@ export type AddComponentPayloadComponentArgs = {
   offset?: Maybe<Scalars['Int']>
 }
 
+export type AddEnumTypeInput = {
+  allowedValues: Array<Scalars['String']>
+}
+
+export type AddEnumTypePayload = {
+  enumType?: Maybe<Array<Maybe<EnumType>>>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type AddEnumTypePayloadEnumTypeArgs = {
+  filter?: Maybe<EnumTypeFilter>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type AddFieldInput = {
+  type: TypeRef
+  key: Scalars['String']
+  decorators?: Maybe<Array<Maybe<DecoratorRef>>>
+}
+
+export type AddFieldPayload = {
+  field?: Maybe<Array<Maybe<Field>>>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type AddFieldPayloadFieldArgs = {
+  filter?: Maybe<FieldFilter>
+  order?: Maybe<FieldOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type AddInterfaceInput = {
+  name?: Maybe<Scalars['String']>
+  fields?: Maybe<Array<Maybe<FieldRef>>>
+}
+
+export type AddInterfacePayload = {
+  interface?: Maybe<Array<Maybe<Interface>>>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type AddInterfacePayloadInterfaceArgs = {
+  filter?: Maybe<InterfaceFilter>
+  order?: Maybe<InterfaceOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
 export type AddLibraryInput = {
   ownerId: Scalars['String']
   name: Scalars['String']
@@ -99,6 +164,23 @@ export type AddLibraryPayload = {
 export type AddLibraryPayloadLibraryArgs = {
   filter?: Maybe<LibraryFilter>
   order?: Maybe<LibraryOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type AddMinMaxValidatorInput = {
+  min?: Maybe<Scalars['Int']>
+  max?: Maybe<Scalars['Int']>
+}
+
+export type AddMinMaxValidatorPayload = {
+  minMaxValidator?: Maybe<Array<Maybe<MinMaxValidator>>>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type AddMinMaxValidatorPayloadMinMaxValidatorArgs = {
+  filter?: Maybe<MinMaxValidatorFilter>
+  order?: Maybe<MinMaxValidatorOrder>
   first?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
 }
@@ -160,6 +242,36 @@ export type AddPropPayloadPropArgs = {
   offset?: Maybe<Scalars['Int']>
 }
 
+export type AddRequiredValidatorInput = {
+  isRequired: Scalars['Boolean']
+}
+
+export type AddRequiredValidatorPayload = {
+  requiredValidator?: Maybe<Array<Maybe<RequiredValidator>>>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type AddRequiredValidatorPayloadRequiredValidatorArgs = {
+  filter?: Maybe<RequiredValidatorFilter>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type AddSimpleTypeInput = {
+  primitiveType: PrimitiveType
+}
+
+export type AddSimpleTypePayload = {
+  simpleType?: Maybe<Array<Maybe<SimpleType>>>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type AddSimpleTypePayloadSimpleTypeArgs = {
+  filter?: Maybe<SimpleTypeFilter>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
 export type AddTagInput = {
   label: Scalars['String']
 }
@@ -172,6 +284,21 @@ export type AddTagPayload = {
 export type AddTagPayloadTagArgs = {
   filter?: Maybe<TagFilter>
   order?: Maybe<TagOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type AddUnitTypeInput = {
+  allowedUnits: Array<Unit>
+}
+
+export type AddUnitTypePayload = {
+  unitType?: Maybe<Array<Maybe<UnitType>>>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type AddUnitTypePayloadUnitTypeArgs = {
+  filter?: Maybe<UnitTypeFilter>
   first?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
 }
@@ -257,6 +384,40 @@ export type AppRef = {
   ownerId?: Maybe<Scalars['String']>
   pages?: Maybe<Array<Maybe<PageRef>>>
   name?: Maybe<Scalars['String']>
+}
+
+export type ArrayType = {
+  id: Scalars['ID']
+  type: Type
+}
+
+export type ArrayTypeTypeArgs = {
+  filter?: Maybe<TypeFilter>
+}
+
+export type ArrayTypeAggregateResult = {
+  count?: Maybe<Scalars['Int']>
+}
+
+export type ArrayTypeFilter = {
+  id?: Maybe<Array<Scalars['ID']>>
+  has?: Maybe<Array<Maybe<ArrayTypeHasFilter>>>
+  and?: Maybe<Array<Maybe<ArrayTypeFilter>>>
+  or?: Maybe<Array<Maybe<ArrayTypeFilter>>>
+  not?: Maybe<ArrayTypeFilter>
+}
+
+export enum ArrayTypeHasFilter {
+  Type = 'type',
+}
+
+export type ArrayTypePatch = {
+  type?: Maybe<TypeRef>
+}
+
+export type ArrayTypeRef = {
+  id?: Maybe<Scalars['ID']>
+  type?: Maybe<TypeRef>
 }
 
 export type Atom = {
@@ -548,6 +709,24 @@ export type DateTimeRange = {
   max: Scalars['DateTime']
 }
 
+export type Decorator = MinMaxValidator | RequiredValidator
+
+export type DecoratorFilter = {
+  memberTypes?: Maybe<Array<DecoratorType>>
+  minMaxValidatorFilter?: Maybe<MinMaxValidatorFilter>
+  requiredValidatorFilter?: Maybe<RequiredValidatorFilter>
+}
+
+export type DecoratorRef = {
+  minMaxValidatorRef?: Maybe<MinMaxValidatorRef>
+  requiredValidatorRef?: Maybe<RequiredValidatorRef>
+}
+
+export enum DecoratorType {
+  MinMaxValidator = 'MinMaxValidator',
+  RequiredValidator = 'RequiredValidator',
+}
+
 export type DeleteAppPayload = {
   app?: Maybe<Array<Maybe<App>>>
   msg?: Maybe<Scalars['String']>
@@ -557,6 +736,18 @@ export type DeleteAppPayload = {
 export type DeleteAppPayloadAppArgs = {
   filter?: Maybe<AppFilter>
   order?: Maybe<AppOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type DeleteArrayTypePayload = {
+  arrayType?: Maybe<Array<Maybe<ArrayType>>>
+  msg?: Maybe<Scalars['String']>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type DeleteArrayTypePayloadArrayTypeArgs = {
+  filter?: Maybe<ArrayTypeFilter>
   first?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
 }
@@ -587,6 +778,44 @@ export type DeleteComponentPayloadComponentArgs = {
   offset?: Maybe<Scalars['Int']>
 }
 
+export type DeleteEnumTypePayload = {
+  enumType?: Maybe<Array<Maybe<EnumType>>>
+  msg?: Maybe<Scalars['String']>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type DeleteEnumTypePayloadEnumTypeArgs = {
+  filter?: Maybe<EnumTypeFilter>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type DeleteFieldPayload = {
+  field?: Maybe<Array<Maybe<Field>>>
+  msg?: Maybe<Scalars['String']>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type DeleteFieldPayloadFieldArgs = {
+  filter?: Maybe<FieldFilter>
+  order?: Maybe<FieldOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type DeleteInterfacePayload = {
+  interface?: Maybe<Array<Maybe<Interface>>>
+  msg?: Maybe<Scalars['String']>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type DeleteInterfacePayloadInterfaceArgs = {
+  filter?: Maybe<InterfaceFilter>
+  order?: Maybe<InterfaceOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
 export type DeleteLibraryPayload = {
   library?: Maybe<Array<Maybe<Library>>>
   msg?: Maybe<Scalars['String']>
@@ -596,6 +825,19 @@ export type DeleteLibraryPayload = {
 export type DeleteLibraryPayloadLibraryArgs = {
   filter?: Maybe<LibraryFilter>
   order?: Maybe<LibraryOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type DeleteMinMaxValidatorPayload = {
+  minMaxValidator?: Maybe<Array<Maybe<MinMaxValidator>>>
+  msg?: Maybe<Scalars['String']>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type DeleteMinMaxValidatorPayloadMinMaxValidatorArgs = {
+  filter?: Maybe<MinMaxValidatorFilter>
+  order?: Maybe<MinMaxValidatorOrder>
   first?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
 }
@@ -639,6 +881,30 @@ export type DeletePropPayloadPropArgs = {
   offset?: Maybe<Scalars['Int']>
 }
 
+export type DeleteRequiredValidatorPayload = {
+  requiredValidator?: Maybe<Array<Maybe<RequiredValidator>>>
+  msg?: Maybe<Scalars['String']>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type DeleteRequiredValidatorPayloadRequiredValidatorArgs = {
+  filter?: Maybe<RequiredValidatorFilter>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type DeleteSimpleTypePayload = {
+  simpleType?: Maybe<Array<Maybe<SimpleType>>>
+  msg?: Maybe<Scalars['String']>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type DeleteSimpleTypePayloadSimpleTypeArgs = {
+  filter?: Maybe<SimpleTypeFilter>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
 export type DeleteTagPayload = {
   tag?: Maybe<Array<Maybe<Tag>>>
   msg?: Maybe<Scalars['String']>
@@ -648,6 +914,18 @@ export type DeleteTagPayload = {
 export type DeleteTagPayloadTagArgs = {
   filter?: Maybe<TagFilter>
   order?: Maybe<TagOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type DeleteUnitTypePayload = {
+  unitType?: Maybe<Array<Maybe<UnitType>>>
+  msg?: Maybe<Scalars['String']>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type DeleteUnitTypePayloadUnitTypeArgs = {
+  filter?: Maybe<UnitTypeFilter>
   first?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
 }
@@ -681,6 +959,96 @@ export enum DgraphIndex {
   Day = 'day',
   Hour = 'hour',
   Geo = 'geo',
+}
+
+export type EnumType = {
+  id: Scalars['ID']
+  allowedValues: Array<Scalars['String']>
+}
+
+export type EnumTypeAggregateResult = {
+  count?: Maybe<Scalars['Int']>
+}
+
+export type EnumTypeFilter = {
+  id?: Maybe<Array<Scalars['ID']>>
+  has?: Maybe<Array<Maybe<EnumTypeHasFilter>>>
+  and?: Maybe<Array<Maybe<EnumTypeFilter>>>
+  or?: Maybe<Array<Maybe<EnumTypeFilter>>>
+  not?: Maybe<EnumTypeFilter>
+}
+
+export enum EnumTypeHasFilter {
+  AllowedValues = 'allowedValues',
+}
+
+export type EnumTypePatch = {
+  allowedValues?: Maybe<Array<Scalars['String']>>
+}
+
+export type EnumTypeRef = {
+  id?: Maybe<Scalars['ID']>
+  allowedValues?: Maybe<Array<Scalars['String']>>
+}
+
+export type Field = {
+  id: Scalars['ID']
+  type: Type
+  key: Scalars['String']
+  decorators?: Maybe<Array<Maybe<Decorator>>>
+}
+
+export type FieldTypeArgs = {
+  filter?: Maybe<TypeFilter>
+}
+
+export type FieldDecoratorsArgs = {
+  filter?: Maybe<DecoratorFilter>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type FieldAggregateResult = {
+  count?: Maybe<Scalars['Int']>
+  keyMin?: Maybe<Scalars['String']>
+  keyMax?: Maybe<Scalars['String']>
+}
+
+export type FieldFilter = {
+  id?: Maybe<Array<Scalars['ID']>>
+  has?: Maybe<Array<Maybe<FieldHasFilter>>>
+  and?: Maybe<Array<Maybe<FieldFilter>>>
+  or?: Maybe<Array<Maybe<FieldFilter>>>
+  not?: Maybe<FieldFilter>
+}
+
+export enum FieldHasFilter {
+  Type = 'type',
+  Key = 'key',
+  Decorators = 'decorators',
+}
+
+export type FieldOrder = {
+  asc?: Maybe<FieldOrderable>
+  desc?: Maybe<FieldOrderable>
+  then?: Maybe<FieldOrder>
+}
+
+export enum FieldOrderable {
+  Key = 'key',
+}
+
+export type FieldPatch = {
+  type?: Maybe<TypeRef>
+  key?: Maybe<Scalars['String']>
+  decorators?: Maybe<Array<Maybe<DecoratorRef>>>
+}
+
+export type FieldRef = {
+  id?: Maybe<Scalars['ID']>
+  type?: Maybe<TypeRef>
+  key?: Maybe<Scalars['String']>
+  decorators?: Maybe<Array<Maybe<DecoratorRef>>>
 }
 
 export type FloatFilter = {
@@ -747,6 +1115,64 @@ export type IntFilter = {
 export type IntRange = {
   min: Scalars['Int']
   max: Scalars['Int']
+}
+
+export type Interface = {
+  id: Scalars['ID']
+  name?: Maybe<Scalars['String']>
+  fields?: Maybe<Array<Maybe<Field>>>
+  fieldsAggregate?: Maybe<FieldAggregateResult>
+}
+
+export type InterfaceFieldsArgs = {
+  filter?: Maybe<FieldFilter>
+  order?: Maybe<FieldOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type InterfaceFieldsAggregateArgs = {
+  filter?: Maybe<FieldFilter>
+}
+
+export type InterfaceAggregateResult = {
+  count?: Maybe<Scalars['Int']>
+  nameMin?: Maybe<Scalars['String']>
+  nameMax?: Maybe<Scalars['String']>
+}
+
+export type InterfaceFilter = {
+  id?: Maybe<Array<Scalars['ID']>>
+  has?: Maybe<Array<Maybe<InterfaceHasFilter>>>
+  and?: Maybe<Array<Maybe<InterfaceFilter>>>
+  or?: Maybe<Array<Maybe<InterfaceFilter>>>
+  not?: Maybe<InterfaceFilter>
+}
+
+export enum InterfaceHasFilter {
+  Name = 'name',
+  Fields = 'fields',
+}
+
+export type InterfaceOrder = {
+  asc?: Maybe<InterfaceOrderable>
+  desc?: Maybe<InterfaceOrderable>
+  then?: Maybe<InterfaceOrder>
+}
+
+export enum InterfaceOrderable {
+  Name = 'name',
+}
+
+export type InterfacePatch = {
+  name?: Maybe<Scalars['String']>
+  fields?: Maybe<Array<Maybe<FieldRef>>>
+}
+
+export type InterfaceRef = {
+  id?: Maybe<Scalars['ID']>
+  name?: Maybe<Scalars['String']>
+  fields?: Maybe<Array<Maybe<FieldRef>>>
 }
 
 export type IntersectsFilter = {
@@ -835,6 +1261,59 @@ export type LibraryRef = {
   components?: Maybe<Array<Maybe<ComponentRef>>>
 }
 
+export type MinMaxValidator = {
+  id: Scalars['ID']
+  min?: Maybe<Scalars['Int']>
+  max?: Maybe<Scalars['Int']>
+}
+
+export type MinMaxValidatorAggregateResult = {
+  count?: Maybe<Scalars['Int']>
+  minMin?: Maybe<Scalars['Int']>
+  minMax?: Maybe<Scalars['Int']>
+  minSum?: Maybe<Scalars['Int']>
+  minAvg?: Maybe<Scalars['Float']>
+  maxMin?: Maybe<Scalars['Int']>
+  maxMax?: Maybe<Scalars['Int']>
+  maxSum?: Maybe<Scalars['Int']>
+  maxAvg?: Maybe<Scalars['Float']>
+}
+
+export type MinMaxValidatorFilter = {
+  id?: Maybe<Array<Scalars['ID']>>
+  has?: Maybe<Array<Maybe<MinMaxValidatorHasFilter>>>
+  and?: Maybe<Array<Maybe<MinMaxValidatorFilter>>>
+  or?: Maybe<Array<Maybe<MinMaxValidatorFilter>>>
+  not?: Maybe<MinMaxValidatorFilter>
+}
+
+export enum MinMaxValidatorHasFilter {
+  Min = 'min',
+  Max = 'max',
+}
+
+export type MinMaxValidatorOrder = {
+  asc?: Maybe<MinMaxValidatorOrderable>
+  desc?: Maybe<MinMaxValidatorOrderable>
+  then?: Maybe<MinMaxValidatorOrder>
+}
+
+export enum MinMaxValidatorOrderable {
+  Min = 'min',
+  Max = 'max',
+}
+
+export type MinMaxValidatorPatch = {
+  min?: Maybe<Scalars['Int']>
+  max?: Maybe<Scalars['Int']>
+}
+
+export type MinMaxValidatorRef = {
+  id?: Maybe<Scalars['ID']>
+  min?: Maybe<Scalars['Int']>
+  max?: Maybe<Scalars['Int']>
+}
+
 export enum Mode {
   Batch = 'BATCH',
   Single = 'SINGLE',
@@ -876,6 +1355,30 @@ export type Mutation = {
   addValueType?: Maybe<AddValueTypePayload>
   updateValueType?: Maybe<UpdateValueTypePayload>
   deleteValueType?: Maybe<DeleteValueTypePayload>
+  addSimpleType?: Maybe<AddSimpleTypePayload>
+  updateSimpleType?: Maybe<UpdateSimpleTypePayload>
+  deleteSimpleType?: Maybe<DeleteSimpleTypePayload>
+  addArrayType?: Maybe<AddArrayTypePayload>
+  updateArrayType?: Maybe<UpdateArrayTypePayload>
+  deleteArrayType?: Maybe<DeleteArrayTypePayload>
+  addEnumType?: Maybe<AddEnumTypePayload>
+  updateEnumType?: Maybe<UpdateEnumTypePayload>
+  deleteEnumType?: Maybe<DeleteEnumTypePayload>
+  addUnitType?: Maybe<AddUnitTypePayload>
+  updateUnitType?: Maybe<UpdateUnitTypePayload>
+  deleteUnitType?: Maybe<DeleteUnitTypePayload>
+  addRequiredValidator?: Maybe<AddRequiredValidatorPayload>
+  updateRequiredValidator?: Maybe<UpdateRequiredValidatorPayload>
+  deleteRequiredValidator?: Maybe<DeleteRequiredValidatorPayload>
+  addMinMaxValidator?: Maybe<AddMinMaxValidatorPayload>
+  updateMinMaxValidator?: Maybe<UpdateMinMaxValidatorPayload>
+  deleteMinMaxValidator?: Maybe<DeleteMinMaxValidatorPayload>
+  addField?: Maybe<AddFieldPayload>
+  updateField?: Maybe<UpdateFieldPayload>
+  deleteField?: Maybe<DeleteFieldPayload>
+  addInterface?: Maybe<AddInterfacePayload>
+  updateInterface?: Maybe<UpdateInterfacePayload>
+  deleteInterface?: Maybe<DeleteInterfacePayload>
 }
 
 export type MutationAddAppArgs = {
@@ -984,6 +1487,102 @@ export type MutationUpdateValueTypeArgs = {
 
 export type MutationDeleteValueTypeArgs = {
   filter: ValueTypeFilter
+}
+
+export type MutationAddSimpleTypeArgs = {
+  input: Array<AddSimpleTypeInput>
+}
+
+export type MutationUpdateSimpleTypeArgs = {
+  input: UpdateSimpleTypeInput
+}
+
+export type MutationDeleteSimpleTypeArgs = {
+  filter: SimpleTypeFilter
+}
+
+export type MutationAddArrayTypeArgs = {
+  input: Array<AddArrayTypeInput>
+}
+
+export type MutationUpdateArrayTypeArgs = {
+  input: UpdateArrayTypeInput
+}
+
+export type MutationDeleteArrayTypeArgs = {
+  filter: ArrayTypeFilter
+}
+
+export type MutationAddEnumTypeArgs = {
+  input: Array<AddEnumTypeInput>
+}
+
+export type MutationUpdateEnumTypeArgs = {
+  input: UpdateEnumTypeInput
+}
+
+export type MutationDeleteEnumTypeArgs = {
+  filter: EnumTypeFilter
+}
+
+export type MutationAddUnitTypeArgs = {
+  input: Array<AddUnitTypeInput>
+}
+
+export type MutationUpdateUnitTypeArgs = {
+  input: UpdateUnitTypeInput
+}
+
+export type MutationDeleteUnitTypeArgs = {
+  filter: UnitTypeFilter
+}
+
+export type MutationAddRequiredValidatorArgs = {
+  input: Array<AddRequiredValidatorInput>
+}
+
+export type MutationUpdateRequiredValidatorArgs = {
+  input: UpdateRequiredValidatorInput
+}
+
+export type MutationDeleteRequiredValidatorArgs = {
+  filter: RequiredValidatorFilter
+}
+
+export type MutationAddMinMaxValidatorArgs = {
+  input: Array<AddMinMaxValidatorInput>
+}
+
+export type MutationUpdateMinMaxValidatorArgs = {
+  input: UpdateMinMaxValidatorInput
+}
+
+export type MutationDeleteMinMaxValidatorArgs = {
+  filter: MinMaxValidatorFilter
+}
+
+export type MutationAddFieldArgs = {
+  input: Array<AddFieldInput>
+}
+
+export type MutationUpdateFieldArgs = {
+  input: UpdateFieldInput
+}
+
+export type MutationDeleteFieldArgs = {
+  filter: FieldFilter
+}
+
+export type MutationAddInterfaceArgs = {
+  input: Array<AddInterfaceInput>
+}
+
+export type MutationUpdateInterfaceArgs = {
+  input: UpdateInterfaceInput
+}
+
+export type MutationDeleteInterfaceArgs = {
+  filter: InterfaceFilter
 }
 
 export type NearFilter = {
@@ -1179,6 +1778,13 @@ export type PolygonRef = {
   coordinates: Array<PointListRef>
 }
 
+export enum PrimitiveType {
+  String = 'String',
+  Integer = 'Integer',
+  Decimal = 'Decimal',
+  Boolean = 'Boolean',
+}
+
 export type Prop = {
   id: Scalars['ID']
   description?: Maybe<Scalars['String']>
@@ -1272,6 +1878,30 @@ export type Query = {
   getValueType?: Maybe<ValueType>
   queryValueType?: Maybe<Array<Maybe<ValueType>>>
   aggregateValueType?: Maybe<ValueTypeAggregateResult>
+  getSimpleType?: Maybe<SimpleType>
+  querySimpleType?: Maybe<Array<Maybe<SimpleType>>>
+  aggregateSimpleType?: Maybe<SimpleTypeAggregateResult>
+  getArrayType?: Maybe<ArrayType>
+  queryArrayType?: Maybe<Array<Maybe<ArrayType>>>
+  aggregateArrayType?: Maybe<ArrayTypeAggregateResult>
+  getEnumType?: Maybe<EnumType>
+  queryEnumType?: Maybe<Array<Maybe<EnumType>>>
+  aggregateEnumType?: Maybe<EnumTypeAggregateResult>
+  getUnitType?: Maybe<UnitType>
+  queryUnitType?: Maybe<Array<Maybe<UnitType>>>
+  aggregateUnitType?: Maybe<UnitTypeAggregateResult>
+  getRequiredValidator?: Maybe<RequiredValidator>
+  queryRequiredValidator?: Maybe<Array<Maybe<RequiredValidator>>>
+  aggregateRequiredValidator?: Maybe<RequiredValidatorAggregateResult>
+  getMinMaxValidator?: Maybe<MinMaxValidator>
+  queryMinMaxValidator?: Maybe<Array<Maybe<MinMaxValidator>>>
+  aggregateMinMaxValidator?: Maybe<MinMaxValidatorAggregateResult>
+  getField?: Maybe<Field>
+  queryField?: Maybe<Array<Maybe<Field>>>
+  aggregateField?: Maybe<FieldAggregateResult>
+  getInterface?: Maybe<Interface>
+  queryInterface?: Maybe<Array<Maybe<Interface>>>
+  aggregateInterface?: Maybe<InterfaceAggregateResult>
 }
 
 export type QueryGetAppArgs = {
@@ -1405,6 +2035,181 @@ export type QueryAggregateValueTypeArgs = {
   filter?: Maybe<ValueTypeFilter>
 }
 
+export type QueryGetSimpleTypeArgs = {
+  id: Scalars['ID']
+}
+
+export type QueryQuerySimpleTypeArgs = {
+  filter?: Maybe<SimpleTypeFilter>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type QueryAggregateSimpleTypeArgs = {
+  filter?: Maybe<SimpleTypeFilter>
+}
+
+export type QueryGetArrayTypeArgs = {
+  id: Scalars['ID']
+}
+
+export type QueryQueryArrayTypeArgs = {
+  filter?: Maybe<ArrayTypeFilter>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type QueryAggregateArrayTypeArgs = {
+  filter?: Maybe<ArrayTypeFilter>
+}
+
+export type QueryGetEnumTypeArgs = {
+  id: Scalars['ID']
+}
+
+export type QueryQueryEnumTypeArgs = {
+  filter?: Maybe<EnumTypeFilter>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type QueryAggregateEnumTypeArgs = {
+  filter?: Maybe<EnumTypeFilter>
+}
+
+export type QueryGetUnitTypeArgs = {
+  id: Scalars['ID']
+}
+
+export type QueryQueryUnitTypeArgs = {
+  filter?: Maybe<UnitTypeFilter>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type QueryAggregateUnitTypeArgs = {
+  filter?: Maybe<UnitTypeFilter>
+}
+
+export type QueryGetRequiredValidatorArgs = {
+  id: Scalars['ID']
+}
+
+export type QueryQueryRequiredValidatorArgs = {
+  filter?: Maybe<RequiredValidatorFilter>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type QueryAggregateRequiredValidatorArgs = {
+  filter?: Maybe<RequiredValidatorFilter>
+}
+
+export type QueryGetMinMaxValidatorArgs = {
+  id: Scalars['ID']
+}
+
+export type QueryQueryMinMaxValidatorArgs = {
+  filter?: Maybe<MinMaxValidatorFilter>
+  order?: Maybe<MinMaxValidatorOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type QueryAggregateMinMaxValidatorArgs = {
+  filter?: Maybe<MinMaxValidatorFilter>
+}
+
+export type QueryGetFieldArgs = {
+  id: Scalars['ID']
+}
+
+export type QueryQueryFieldArgs = {
+  filter?: Maybe<FieldFilter>
+  order?: Maybe<FieldOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type QueryAggregateFieldArgs = {
+  filter?: Maybe<FieldFilter>
+}
+
+export type QueryGetInterfaceArgs = {
+  id: Scalars['ID']
+}
+
+export type QueryQueryInterfaceArgs = {
+  filter?: Maybe<InterfaceFilter>
+  order?: Maybe<InterfaceOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type QueryAggregateInterfaceArgs = {
+  filter?: Maybe<InterfaceFilter>
+}
+
+export type RequiredValidator = {
+  id: Scalars['ID']
+  isRequired: Scalars['Boolean']
+}
+
+export type RequiredValidatorAggregateResult = {
+  count?: Maybe<Scalars['Int']>
+}
+
+export type RequiredValidatorFilter = {
+  id?: Maybe<Array<Scalars['ID']>>
+  has?: Maybe<Array<Maybe<RequiredValidatorHasFilter>>>
+  and?: Maybe<Array<Maybe<RequiredValidatorFilter>>>
+  or?: Maybe<Array<Maybe<RequiredValidatorFilter>>>
+  not?: Maybe<RequiredValidatorFilter>
+}
+
+export enum RequiredValidatorHasFilter {
+  IsRequired = 'isRequired',
+}
+
+export type RequiredValidatorPatch = {
+  isRequired?: Maybe<Scalars['Boolean']>
+}
+
+export type RequiredValidatorRef = {
+  id?: Maybe<Scalars['ID']>
+  isRequired?: Maybe<Scalars['Boolean']>
+}
+
+export type SimpleType = {
+  id: Scalars['ID']
+  primitiveType: PrimitiveType
+}
+
+export type SimpleTypeAggregateResult = {
+  count?: Maybe<Scalars['Int']>
+}
+
+export type SimpleTypeFilter = {
+  id?: Maybe<Array<Scalars['ID']>>
+  has?: Maybe<Array<Maybe<SimpleTypeHasFilter>>>
+  and?: Maybe<Array<Maybe<SimpleTypeFilter>>>
+  or?: Maybe<Array<Maybe<SimpleTypeFilter>>>
+  not?: Maybe<SimpleTypeFilter>
+}
+
+export enum SimpleTypeHasFilter {
+  PrimitiveType = 'primitiveType',
+}
+
+export type SimpleTypePatch = {
+  primitiveType?: Maybe<PrimitiveType>
+}
+
+export type SimpleTypeRef = {
+  id?: Maybe<Scalars['ID']>
+  primitiveType?: Maybe<PrimitiveType>
+}
+
 export type StringExactFilter = {
   eq?: Maybe<Scalars['String']>
   in?: Maybe<Array<Maybe<Scalars['String']>>>
@@ -1485,6 +2290,73 @@ export type TagRef = {
   label?: Maybe<Scalars['String']>
 }
 
+export type Type = SimpleType | Interface | ArrayType | EnumType | UnitType
+
+export type TypeFilter = {
+  memberTypes?: Maybe<Array<TypeType>>
+  simpleTypeFilter?: Maybe<SimpleTypeFilter>
+  interfaceFilter?: Maybe<InterfaceFilter>
+  arrayTypeFilter?: Maybe<ArrayTypeFilter>
+  enumTypeFilter?: Maybe<EnumTypeFilter>
+  unitTypeFilter?: Maybe<UnitTypeFilter>
+}
+
+export type TypeRef = {
+  simpleTypeRef?: Maybe<SimpleTypeRef>
+  interfaceRef?: Maybe<InterfaceRef>
+  arrayTypeRef?: Maybe<ArrayTypeRef>
+  enumTypeRef?: Maybe<EnumTypeRef>
+  unitTypeRef?: Maybe<UnitTypeRef>
+}
+
+export enum TypeType {
+  SimpleType = 'SimpleType',
+  Interface = 'Interface',
+  ArrayType = 'ArrayType',
+  EnumType = 'EnumType',
+  UnitType = 'UnitType',
+}
+
+export enum Unit {
+  Px = 'px',
+  Pt = 'pt',
+  Em = 'em',
+  Rem = 'rem',
+  Percent = 'percent',
+  Vw = 'vw',
+  Vh = 'vh',
+}
+
+export type UnitType = {
+  id: Scalars['ID']
+  allowedUnits: Array<Unit>
+}
+
+export type UnitTypeAggregateResult = {
+  count?: Maybe<Scalars['Int']>
+}
+
+export type UnitTypeFilter = {
+  id?: Maybe<Array<Scalars['ID']>>
+  has?: Maybe<Array<Maybe<UnitTypeHasFilter>>>
+  and?: Maybe<Array<Maybe<UnitTypeFilter>>>
+  or?: Maybe<Array<Maybe<UnitTypeFilter>>>
+  not?: Maybe<UnitTypeFilter>
+}
+
+export enum UnitTypeHasFilter {
+  AllowedUnits = 'allowedUnits',
+}
+
+export type UnitTypePatch = {
+  allowedUnits?: Maybe<Array<Unit>>
+}
+
+export type UnitTypeRef = {
+  id?: Maybe<Scalars['ID']>
+  allowedUnits?: Maybe<Array<Unit>>
+}
+
 export type UpdateAppInput = {
   filter: AppFilter
   set?: Maybe<AppPatch>
@@ -1499,6 +2371,23 @@ export type UpdateAppPayload = {
 export type UpdateAppPayloadAppArgs = {
   filter?: Maybe<AppFilter>
   order?: Maybe<AppOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type UpdateArrayTypeInput = {
+  filter: ArrayTypeFilter
+  set?: Maybe<ArrayTypePatch>
+  remove?: Maybe<ArrayTypePatch>
+}
+
+export type UpdateArrayTypePayload = {
+  arrayType?: Maybe<Array<Maybe<ArrayType>>>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type UpdateArrayTypePayloadArrayTypeArgs = {
+  filter?: Maybe<ArrayTypeFilter>
   first?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
 }
@@ -1539,6 +2428,59 @@ export type UpdateComponentPayloadComponentArgs = {
   offset?: Maybe<Scalars['Int']>
 }
 
+export type UpdateEnumTypeInput = {
+  filter: EnumTypeFilter
+  set?: Maybe<EnumTypePatch>
+  remove?: Maybe<EnumTypePatch>
+}
+
+export type UpdateEnumTypePayload = {
+  enumType?: Maybe<Array<Maybe<EnumType>>>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type UpdateEnumTypePayloadEnumTypeArgs = {
+  filter?: Maybe<EnumTypeFilter>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type UpdateFieldInput = {
+  filter: FieldFilter
+  set?: Maybe<FieldPatch>
+  remove?: Maybe<FieldPatch>
+}
+
+export type UpdateFieldPayload = {
+  field?: Maybe<Array<Maybe<Field>>>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type UpdateFieldPayloadFieldArgs = {
+  filter?: Maybe<FieldFilter>
+  order?: Maybe<FieldOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type UpdateInterfaceInput = {
+  filter: InterfaceFilter
+  set?: Maybe<InterfacePatch>
+  remove?: Maybe<InterfacePatch>
+}
+
+export type UpdateInterfacePayload = {
+  interface?: Maybe<Array<Maybe<Interface>>>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type UpdateInterfacePayloadInterfaceArgs = {
+  filter?: Maybe<InterfaceFilter>
+  order?: Maybe<InterfaceOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
 export type UpdateLibraryInput = {
   filter: LibraryFilter
   set?: Maybe<LibraryPatch>
@@ -1553,6 +2495,24 @@ export type UpdateLibraryPayload = {
 export type UpdateLibraryPayloadLibraryArgs = {
   filter?: Maybe<LibraryFilter>
   order?: Maybe<LibraryOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type UpdateMinMaxValidatorInput = {
+  filter: MinMaxValidatorFilter
+  set?: Maybe<MinMaxValidatorPatch>
+  remove?: Maybe<MinMaxValidatorPatch>
+}
+
+export type UpdateMinMaxValidatorPayload = {
+  minMaxValidator?: Maybe<Array<Maybe<MinMaxValidator>>>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type UpdateMinMaxValidatorPayloadMinMaxValidatorArgs = {
+  filter?: Maybe<MinMaxValidatorFilter>
+  order?: Maybe<MinMaxValidatorOrder>
   first?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
 }
@@ -1611,6 +2571,40 @@ export type UpdatePropPayloadPropArgs = {
   offset?: Maybe<Scalars['Int']>
 }
 
+export type UpdateRequiredValidatorInput = {
+  filter: RequiredValidatorFilter
+  set?: Maybe<RequiredValidatorPatch>
+  remove?: Maybe<RequiredValidatorPatch>
+}
+
+export type UpdateRequiredValidatorPayload = {
+  requiredValidator?: Maybe<Array<Maybe<RequiredValidator>>>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type UpdateRequiredValidatorPayloadRequiredValidatorArgs = {
+  filter?: Maybe<RequiredValidatorFilter>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type UpdateSimpleTypeInput = {
+  filter: SimpleTypeFilter
+  set?: Maybe<SimpleTypePatch>
+  remove?: Maybe<SimpleTypePatch>
+}
+
+export type UpdateSimpleTypePayload = {
+  simpleType?: Maybe<Array<Maybe<SimpleType>>>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type UpdateSimpleTypePayloadSimpleTypeArgs = {
+  filter?: Maybe<SimpleTypeFilter>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
 export type UpdateTagInput = {
   filter: TagFilter
   set?: Maybe<TagPatch>
@@ -1625,6 +2619,23 @@ export type UpdateTagPayload = {
 export type UpdateTagPayloadTagArgs = {
   filter?: Maybe<TagFilter>
   order?: Maybe<TagOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type UpdateUnitTypeInput = {
+  filter: UnitTypeFilter
+  set?: Maybe<UnitTypePatch>
+  remove?: Maybe<UnitTypePatch>
+}
+
+export type UpdateUnitTypePayload = {
+  unitType?: Maybe<Array<Maybe<UnitType>>>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type UpdateUnitTypePayloadUnitTypeArgs = {
+  filter?: Maybe<UnitTypeFilter>
   first?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
 }

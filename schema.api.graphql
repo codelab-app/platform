@@ -131,14 +131,10 @@ type PageElement {
 }
 
 type PageElementLink {
-  """
-  The id of the source PageElement
-  """
+  """The id of the source PageElement"""
   from: String!
 
-  """
-  The id of the target PageElement
-  """
+  """The id of the target PageElement"""
   to: String!
   order: Int!
 }
@@ -148,14 +144,10 @@ type PageElementRoot {
   name: String!
   atom: Atom
 
-  """
-  All descendant PageElements that are under this root, at any level
-  """
+  """All descendant PageElements that are under this root, at any level"""
   descendants: [PageElement!]!
 
-  """
-  All the links connecting the descendant page elements
-  """
+  """All the links connecting the descendant page elements"""
   links: [PageElementLink!]!
 }
 
@@ -265,9 +257,7 @@ type Mutation {
   updatePageElement(input: UpdatePageElementInput!): PageElement!
   movePageElement(input: MovePageElementInput!): PageElement!
 
-  """
-  Deletes a page element and all the descending page elements
-  """
+  """Deletes a page element and all the descending page elements"""
   deletePageElement(input: DeletePageElementInput!): DeleteResponse!
   createAtom(input: CreateAtomInput!): Atom!
   deleteAtom(input: DeleteAtomInput!): Atom!
