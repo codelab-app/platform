@@ -17,10 +17,14 @@ export class Atom {
   @Field()
   declare label: string
 
+  // @Field(() => Interface)
+  // declare propTypes: Interface
+
   constructor({ id, type, label }: Atom) {
     this.id = id
     this.type = type
     this.label = label
+    // this.propTypes = propTypes
   }
 }
 

@@ -150,6 +150,7 @@ type Atom {
   type: AtomType!
   label: String!
   library: Library
+  propTypes: Interface!
 }
 
 type Tag {
@@ -172,7 +173,7 @@ type ValueType {
 enum PrimitiveType {
   String
   Integer
-  Decimal
+  Float
   Boolean
 }
 
@@ -186,9 +187,14 @@ type ArrayType {
   type: Type!
 }
 
+type EnumTypeValue {
+  id: ID!
+  name: String!
+}
+
 type EnumType {
   id: ID!
-  allowedValues: [String!]!
+  allowedValues: [EnumTypeValue!]!
 }
 
 enum Unit {
@@ -219,17 +225,24 @@ type MinMaxValidator {
   max: Int
 }
 
-union Decorator = MinMaxValidator | RequiredValidator
+type ArrayLengthValidator {
+  id: ID!
+  min: Int
+  max: Int
+}
+
+union Decorator = MinMaxValidator | RequiredValidator | ArrayLengthValidator
 
 type Field {
   id: ID!
   type: Type!
   key: String!
   decorators: [Decorator]
+  interface: Interface!
 }
 
 type Interface {
   id: ID!
-  name: String
-  fields: [Field]
+  name: String!
+  fields: [Field] @hasInverse(field: "interface")
 }

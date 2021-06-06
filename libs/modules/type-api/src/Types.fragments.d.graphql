@@ -1,0 +1,92 @@
+fragment Dgraph__Interface on Interface {
+    id
+    name
+    fields {
+        ...Dgraph__Field
+    }
+}
+
+fragment Dgraph__Field on Field {
+    id
+    key
+    decorators {
+        ...Dgraph__Decorator
+    }
+    type {
+        ...Dgraph__Type
+    }
+}
+
+fragment Dgraph__Type on Type {
+    ...on Interface {
+        id
+    }
+    ...on ArrayType {
+        id
+        type {
+            ...on ArrayType {
+                id
+            }
+            ...on Interface {
+                id
+            }
+            ...on EnumType {
+                id
+                allowedValues {
+                    id
+                    name
+                }
+            }
+            ...on SimpleType {
+                id
+                primitiveType
+            }
+            ...on UnitType {
+                id
+                allowedUnits
+            }
+        }
+    }
+    ...on EnumType {
+        id
+        allowedValues {
+            id
+            name
+        }
+    }
+    ...on SimpleType {
+        id
+        primitiveType
+    }
+    ...on UnitType {
+        id
+        allowedUnits
+    }
+}
+
+fragment Dgraph__Decorator on Decorator {
+    __typename
+    ...on MinMaxValidator {
+        ...Dgraph__MinMaxValidator
+    }
+    ...on RequiredValidator {
+        ...Dgraph__RequiredValidator
+    }
+}
+
+fragment Dgraph__RequiredValidator on RequiredValidator {
+    id
+    isRequired
+}
+
+
+#fragment Dgraph__ArrayLengthValidator on ArrayLengthValidator {
+#    id
+#    isRequired
+#}
+
+fragment Dgraph__MinMaxValidator on MinMaxValidator {
+    id
+    max
+    min
+}

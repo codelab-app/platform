@@ -56,6 +56,21 @@ type AddAppPayload {
   numUids: Int
 }
 
+input AddArrayLengthValidatorInput {
+  min: Int
+  max: Int
+}
+
+type AddArrayLengthValidatorPayload {
+  arrayLengthValidator(
+    filter: ArrayLengthValidatorFilter
+    order: ArrayLengthValidatorOrder
+    first: Int
+    offset: Int
+  ): [ArrayLengthValidator]
+  numUids: Int
+}
+
 input AddArrayTypeInput {
   type: TypeRef!
 }
@@ -69,6 +84,7 @@ input AddAtomInput {
   type: AtomType!
   label: String!
   library: LibraryRef
+  propTypes: InterfaceRef!
 }
 
 type AddAtomPayload {
@@ -95,7 +111,7 @@ type AddComponentPayload {
 }
 
 input AddEnumTypeInput {
-  allowedValues: [String!]!
+  allowedValues: [EnumTypeValueRef!]!
 }
 
 type AddEnumTypePayload {
@@ -103,10 +119,25 @@ type AddEnumTypePayload {
   numUids: Int
 }
 
+input AddEnumTypeValueInput {
+  name: String!
+}
+
+type AddEnumTypeValuePayload {
+  enumTypeValue(
+    filter: EnumTypeValueFilter
+    order: EnumTypeValueOrder
+    first: Int
+    offset: Int
+  ): [EnumTypeValue]
+  numUids: Int
+}
+
 input AddFieldInput {
   type: TypeRef!
   key: String!
   decorators: [DecoratorRef]
+  interface: InterfaceRef!
 }
 
 type AddFieldPayload {
@@ -120,7 +151,7 @@ type AddFieldPayload {
 }
 
 input AddInterfaceInput {
-  name: String
+  name: String!
   fields: [FieldRef]
 }
 
@@ -317,6 +348,59 @@ input AppRef {
   name: String
 }
 
+type ArrayLengthValidator {
+  id: ID!
+  min: Int
+  max: Int
+}
+
+type ArrayLengthValidatorAggregateResult {
+  count: Int
+  minMin: Int
+  minMax: Int
+  minSum: Int
+  minAvg: Float
+  maxMin: Int
+  maxMax: Int
+  maxSum: Int
+  maxAvg: Float
+}
+
+input ArrayLengthValidatorFilter {
+  id: [ID!]
+  has: [ArrayLengthValidatorHasFilter]
+  and: [ArrayLengthValidatorFilter]
+  or: [ArrayLengthValidatorFilter]
+  not: ArrayLengthValidatorFilter
+}
+
+enum ArrayLengthValidatorHasFilter {
+  min
+  max
+}
+
+input ArrayLengthValidatorOrder {
+  asc: ArrayLengthValidatorOrderable
+  desc: ArrayLengthValidatorOrderable
+  then: ArrayLengthValidatorOrder
+}
+
+enum ArrayLengthValidatorOrderable {
+  min
+  max
+}
+
+input ArrayLengthValidatorPatch {
+  min: Int
+  max: Int
+}
+
+input ArrayLengthValidatorRef {
+  id: ID
+  min: Int
+  max: Int
+}
+
 type ArrayType {
   id: ID!
   type(filter: TypeFilter): Type!
@@ -352,6 +436,7 @@ type Atom {
   type: AtomType!
   label: String!
   library(filter: LibraryFilter): Library
+  propTypes(filter: InterfaceFilter): Interface!
 }
 
 type AtomAggregateResult {
@@ -372,6 +457,7 @@ enum AtomHasFilter {
   type
   label
   library
+  propTypes
 }
 
 input AtomOrder {
@@ -388,6 +474,7 @@ input AtomPatch {
   type: AtomType
   label: String
   library: LibraryRef
+  propTypes: InterfaceRef
 }
 
 input AtomRef {
@@ -395,6 +482,7 @@ input AtomRef {
   type: AtomType
   label: String
   library: LibraryRef
+  propTypes: InterfaceRef
 }
 
 enum AtomType {
@@ -613,26 +701,40 @@ input DateTimeRange {
   max: DateTime!
 }
 
-union Decorator = MinMaxValidator | RequiredValidator
+union Decorator = MinMaxValidator | RequiredValidator | ArrayLengthValidator
 
 input DecoratorFilter {
   memberTypes: [DecoratorType!]
   minMaxValidatorFilter: MinMaxValidatorFilter
   requiredValidatorFilter: RequiredValidatorFilter
+  arrayLengthValidatorFilter: ArrayLengthValidatorFilter
 }
 
 input DecoratorRef {
   minMaxValidatorRef: MinMaxValidatorRef
   requiredValidatorRef: RequiredValidatorRef
+  arrayLengthValidatorRef: ArrayLengthValidatorRef
 }
 
 enum DecoratorType {
   MinMaxValidator
   RequiredValidator
+  ArrayLengthValidator
 }
 
 type DeleteAppPayload {
   app(filter: AppFilter, order: AppOrder, first: Int, offset: Int): [App]
+  msg: String
+  numUids: Int
+}
+
+type DeleteArrayLengthValidatorPayload {
+  arrayLengthValidator(
+    filter: ArrayLengthValidatorFilter
+    order: ArrayLengthValidatorOrder
+    first: Int
+    offset: Int
+  ): [ArrayLengthValidator]
   msg: String
   numUids: Int
 }
@@ -662,6 +764,17 @@ type DeleteComponentPayload {
 
 type DeleteEnumTypePayload {
   enumType(filter: EnumTypeFilter, first: Int, offset: Int): [EnumType]
+  msg: String
+  numUids: Int
+}
+
+type DeleteEnumTypeValuePayload {
+  enumTypeValue(
+    filter: EnumTypeValueFilter
+    order: EnumTypeValueOrder
+    first: Int
+    offset: Int
+  ): [EnumTypeValue]
   msg: String
   numUids: Int
 }
@@ -792,7 +905,15 @@ enum DgraphIndex {
 
 type EnumType {
   id: ID!
-  allowedValues: [String!]!
+  allowedValues(
+    filter: EnumTypeValueFilter
+    order: EnumTypeValueOrder
+    first: Int
+    offset: Int
+  ): [EnumTypeValue!]!
+  allowedValuesAggregate(
+    filter: EnumTypeValueFilter
+  ): EnumTypeValueAggregateResult
 }
 
 type EnumTypeAggregateResult {
@@ -812,12 +933,54 @@ enum EnumTypeHasFilter {
 }
 
 input EnumTypePatch {
-  allowedValues: [String!]
+  allowedValues: [EnumTypeValueRef!]
 }
 
 input EnumTypeRef {
   id: ID
-  allowedValues: [String!]
+  allowedValues: [EnumTypeValueRef!]
+}
+
+type EnumTypeValue {
+  id: ID!
+  name: String!
+}
+
+type EnumTypeValueAggregateResult {
+  count: Int
+  nameMin: String
+  nameMax: String
+}
+
+input EnumTypeValueFilter {
+  id: [ID!]
+  has: [EnumTypeValueHasFilter]
+  and: [EnumTypeValueFilter]
+  or: [EnumTypeValueFilter]
+  not: EnumTypeValueFilter
+}
+
+enum EnumTypeValueHasFilter {
+  name
+}
+
+input EnumTypeValueOrder {
+  asc: EnumTypeValueOrderable
+  desc: EnumTypeValueOrderable
+  then: EnumTypeValueOrder
+}
+
+enum EnumTypeValueOrderable {
+  name
+}
+
+input EnumTypeValuePatch {
+  name: String
+}
+
+input EnumTypeValueRef {
+  id: ID
+  name: String
 }
 
 type Field {
@@ -825,6 +988,7 @@ type Field {
   type(filter: TypeFilter): Type!
   key: String!
   decorators(filter: DecoratorFilter, first: Int, offset: Int): [Decorator]
+  interface(filter: InterfaceFilter): Interface!
 }
 
 type FieldAggregateResult {
@@ -845,6 +1009,7 @@ enum FieldHasFilter {
   type
   key
   decorators
+  interface
 }
 
 input FieldOrder {
@@ -861,6 +1026,7 @@ input FieldPatch {
   type: TypeRef
   key: String
   decorators: [DecoratorRef]
+  interface: InterfaceRef
 }
 
 input FieldRef {
@@ -868,6 +1034,7 @@ input FieldRef {
   type: TypeRef
   key: String
   decorators: [DecoratorRef]
+  interface: InterfaceRef
 }
 
 input FloatFilter {
@@ -944,7 +1111,7 @@ input IntRange {
 
 type Interface {
   id: ID!
-  name: String
+  name: String!
   fields(
     filter: FieldFilter
     order: FieldOrder
@@ -1163,6 +1330,11 @@ type Mutation {
   addArrayType(input: [AddArrayTypeInput!]!): AddArrayTypePayload
   updateArrayType(input: UpdateArrayTypeInput!): UpdateArrayTypePayload
   deleteArrayType(filter: ArrayTypeFilter!): DeleteArrayTypePayload
+  addEnumTypeValue(input: [AddEnumTypeValueInput!]!): AddEnumTypeValuePayload
+  updateEnumTypeValue(
+    input: UpdateEnumTypeValueInput!
+  ): UpdateEnumTypeValuePayload
+  deleteEnumTypeValue(filter: EnumTypeValueFilter!): DeleteEnumTypeValuePayload
   addEnumType(input: [AddEnumTypeInput!]!): AddEnumTypePayload
   updateEnumType(input: UpdateEnumTypeInput!): UpdateEnumTypePayload
   deleteEnumType(filter: EnumTypeFilter!): DeleteEnumTypePayload
@@ -1187,6 +1359,15 @@ type Mutation {
   deleteMinMaxValidator(
     filter: MinMaxValidatorFilter!
   ): DeleteMinMaxValidatorPayload
+  addArrayLengthValidator(
+    input: [AddArrayLengthValidatorInput!]!
+  ): AddArrayLengthValidatorPayload
+  updateArrayLengthValidator(
+    input: UpdateArrayLengthValidatorInput!
+  ): UpdateArrayLengthValidatorPayload
+  deleteArrayLengthValidator(
+    filter: ArrayLengthValidatorFilter!
+  ): DeleteArrayLengthValidatorPayload
   addField(input: [AddFieldInput!]!): AddFieldPayload
   updateField(input: UpdateFieldInput!): UpdateFieldPayload
   deleteField(filter: FieldFilter!): DeleteFieldPayload
@@ -1361,7 +1542,7 @@ input PolygonRef {
 enum PrimitiveType {
   String
   Integer
-  Decimal
+  Float
   Boolean
 }
 
@@ -1488,6 +1669,16 @@ type Query {
   getArrayType(id: ID!): ArrayType
   queryArrayType(filter: ArrayTypeFilter, first: Int, offset: Int): [ArrayType]
   aggregateArrayType(filter: ArrayTypeFilter): ArrayTypeAggregateResult
+  getEnumTypeValue(id: ID!): EnumTypeValue
+  queryEnumTypeValue(
+    filter: EnumTypeValueFilter
+    order: EnumTypeValueOrder
+    first: Int
+    offset: Int
+  ): [EnumTypeValue]
+  aggregateEnumTypeValue(
+    filter: EnumTypeValueFilter
+  ): EnumTypeValueAggregateResult
   getEnumType(id: ID!): EnumType
   queryEnumType(filter: EnumTypeFilter, first: Int, offset: Int): [EnumType]
   aggregateEnumType(filter: EnumTypeFilter): EnumTypeAggregateResult
@@ -1513,6 +1704,16 @@ type Query {
   aggregateMinMaxValidator(
     filter: MinMaxValidatorFilter
   ): MinMaxValidatorAggregateResult
+  getArrayLengthValidator(id: ID!): ArrayLengthValidator
+  queryArrayLengthValidator(
+    filter: ArrayLengthValidatorFilter
+    order: ArrayLengthValidatorOrder
+    first: Int
+    offset: Int
+  ): [ArrayLengthValidator]
+  aggregateArrayLengthValidator(
+    filter: ArrayLengthValidatorFilter
+  ): ArrayLengthValidatorAggregateResult
   getField(id: ID!): Field
   queryField(
     filter: FieldFilter
@@ -1749,6 +1950,22 @@ type UpdateAppPayload {
   numUids: Int
 }
 
+input UpdateArrayLengthValidatorInput {
+  filter: ArrayLengthValidatorFilter!
+  set: ArrayLengthValidatorPatch
+  remove: ArrayLengthValidatorPatch
+}
+
+type UpdateArrayLengthValidatorPayload {
+  arrayLengthValidator(
+    filter: ArrayLengthValidatorFilter
+    order: ArrayLengthValidatorOrder
+    first: Int
+    offset: Int
+  ): [ArrayLengthValidator]
+  numUids: Int
+}
+
 input UpdateArrayTypeInput {
   filter: ArrayTypeFilter!
   set: ArrayTypePatch
@@ -1795,6 +2012,22 @@ input UpdateEnumTypeInput {
 
 type UpdateEnumTypePayload {
   enumType(filter: EnumTypeFilter, first: Int, offset: Int): [EnumType]
+  numUids: Int
+}
+
+input UpdateEnumTypeValueInput {
+  filter: EnumTypeValueFilter!
+  set: EnumTypeValuePatch
+  remove: EnumTypeValuePatch
+}
+
+type UpdateEnumTypeValuePayload {
+  enumTypeValue(
+    filter: EnumTypeValueFilter
+    order: EnumTypeValueOrder
+    first: Int
+    offset: Int
+  ): [EnumTypeValue]
   numUids: Int
 }
 

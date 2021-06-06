@@ -53,6 +53,7 @@ type Atom {
   type: AtomType!
   label: String!
   library: Library
+  propTypes: Interface!
 }
 
 type Tag {
@@ -135,17 +136,24 @@ type MinMaxValidator {
   max: Int
 }
 
-union Decorator = MinMaxValidator | RequiredValidator #add more decorators here if we need to extend the functionality
+type ArrayLengthValidator {
+  id: ID!
+  min: Int
+  max: Int
+}
+
+union Decorator = MinMaxValidator | RequiredValidator | ArrayLengthValidator #add more decorators here if we need to extend the functionality
 
 type Field {
   id: ID!
   type: Type!
   key: String!
   decorators: [Decorator]
+  interface: Interface!
 }
 
 type Interface {
   id: ID!
-  name: String
-  fields: [Field]
+  name: String!
+  fields: [Field] @hasInverse(field: "interface")
 }

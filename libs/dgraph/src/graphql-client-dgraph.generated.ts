@@ -46,6 +46,23 @@ export type AddAppPayloadAppArgs = {
   offset?: Maybe<Scalars['Int']>
 }
 
+export type AddArrayLengthValidatorInput = {
+  min?: Maybe<Scalars['Int']>
+  max?: Maybe<Scalars['Int']>
+}
+
+export type AddArrayLengthValidatorPayload = {
+  arrayLengthValidator?: Maybe<Array<Maybe<ArrayLengthValidator>>>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type AddArrayLengthValidatorPayloadArrayLengthValidatorArgs = {
+  filter?: Maybe<ArrayLengthValidatorFilter>
+  order?: Maybe<ArrayLengthValidatorOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
 export type AddArrayTypeInput = {
   type: TypeRef
 }
@@ -65,6 +82,7 @@ export type AddAtomInput = {
   type: AtomType
   label: Scalars['String']
   library?: Maybe<LibraryRef>
+  propTypes: InterfaceRef
 }
 
 export type AddAtomPayload = {
@@ -100,7 +118,7 @@ export type AddComponentPayloadComponentArgs = {
 }
 
 export type AddEnumTypeInput = {
-  allowedValues: Array<Scalars['String']>
+  allowedValues: Array<EnumTypeValueRef>
 }
 
 export type AddEnumTypePayload = {
@@ -114,10 +132,27 @@ export type AddEnumTypePayloadEnumTypeArgs = {
   offset?: Maybe<Scalars['Int']>
 }
 
+export type AddEnumTypeValueInput = {
+  name: Scalars['String']
+}
+
+export type AddEnumTypeValuePayload = {
+  enumTypeValue?: Maybe<Array<Maybe<EnumTypeValue>>>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type AddEnumTypeValuePayloadEnumTypeValueArgs = {
+  filter?: Maybe<EnumTypeValueFilter>
+  order?: Maybe<EnumTypeValueOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
 export type AddFieldInput = {
   type: TypeRef
   key: Scalars['String']
   decorators?: Maybe<Array<Maybe<DecoratorRef>>>
+  interface: InterfaceRef
 }
 
 export type AddFieldPayload = {
@@ -133,7 +168,7 @@ export type AddFieldPayloadFieldArgs = {
 }
 
 export type AddInterfaceInput = {
-  name?: Maybe<Scalars['String']>
+  name: Scalars['String']
   fields?: Maybe<Array<Maybe<FieldRef>>>
 }
 
@@ -386,6 +421,59 @@ export type AppRef = {
   name?: Maybe<Scalars['String']>
 }
 
+export type ArrayLengthValidator = {
+  id: Scalars['ID']
+  min?: Maybe<Scalars['Int']>
+  max?: Maybe<Scalars['Int']>
+}
+
+export type ArrayLengthValidatorAggregateResult = {
+  count?: Maybe<Scalars['Int']>
+  minMin?: Maybe<Scalars['Int']>
+  minMax?: Maybe<Scalars['Int']>
+  minSum?: Maybe<Scalars['Int']>
+  minAvg?: Maybe<Scalars['Float']>
+  maxMin?: Maybe<Scalars['Int']>
+  maxMax?: Maybe<Scalars['Int']>
+  maxSum?: Maybe<Scalars['Int']>
+  maxAvg?: Maybe<Scalars['Float']>
+}
+
+export type ArrayLengthValidatorFilter = {
+  id?: Maybe<Array<Scalars['ID']>>
+  has?: Maybe<Array<Maybe<ArrayLengthValidatorHasFilter>>>
+  and?: Maybe<Array<Maybe<ArrayLengthValidatorFilter>>>
+  or?: Maybe<Array<Maybe<ArrayLengthValidatorFilter>>>
+  not?: Maybe<ArrayLengthValidatorFilter>
+}
+
+export enum ArrayLengthValidatorHasFilter {
+  Min = 'min',
+  Max = 'max',
+}
+
+export type ArrayLengthValidatorOrder = {
+  asc?: Maybe<ArrayLengthValidatorOrderable>
+  desc?: Maybe<ArrayLengthValidatorOrderable>
+  then?: Maybe<ArrayLengthValidatorOrder>
+}
+
+export enum ArrayLengthValidatorOrderable {
+  Min = 'min',
+  Max = 'max',
+}
+
+export type ArrayLengthValidatorPatch = {
+  min?: Maybe<Scalars['Int']>
+  max?: Maybe<Scalars['Int']>
+}
+
+export type ArrayLengthValidatorRef = {
+  id?: Maybe<Scalars['ID']>
+  min?: Maybe<Scalars['Int']>
+  max?: Maybe<Scalars['Int']>
+}
+
 export type ArrayType = {
   id: Scalars['ID']
   type: Type
@@ -425,10 +513,15 @@ export type Atom = {
   type: AtomType
   label: Scalars['String']
   library?: Maybe<Library>
+  propTypes: Interface
 }
 
 export type AtomLibraryArgs = {
   filter?: Maybe<LibraryFilter>
+}
+
+export type AtomPropTypesArgs = {
+  filter?: Maybe<InterfaceFilter>
 }
 
 export type AtomAggregateResult = {
@@ -449,6 +542,7 @@ export enum AtomHasFilter {
   Type = 'type',
   Label = 'label',
   Library = 'library',
+  PropTypes = 'propTypes',
 }
 
 export type AtomOrder = {
@@ -465,6 +559,7 @@ export type AtomPatch = {
   type?: Maybe<AtomType>
   label?: Maybe<Scalars['String']>
   library?: Maybe<LibraryRef>
+  propTypes?: Maybe<InterfaceRef>
 }
 
 export type AtomRef = {
@@ -472,6 +567,7 @@ export type AtomRef = {
   type?: Maybe<AtomType>
   label?: Maybe<Scalars['String']>
   library?: Maybe<LibraryRef>
+  propTypes?: Maybe<InterfaceRef>
 }
 
 export enum AtomType {
@@ -709,22 +805,28 @@ export type DateTimeRange = {
   max: Scalars['DateTime']
 }
 
-export type Decorator = MinMaxValidator | RequiredValidator
+export type Decorator =
+  | MinMaxValidator
+  | RequiredValidator
+  | ArrayLengthValidator
 
 export type DecoratorFilter = {
   memberTypes?: Maybe<Array<DecoratorType>>
   minMaxValidatorFilter?: Maybe<MinMaxValidatorFilter>
   requiredValidatorFilter?: Maybe<RequiredValidatorFilter>
+  arrayLengthValidatorFilter?: Maybe<ArrayLengthValidatorFilter>
 }
 
 export type DecoratorRef = {
   minMaxValidatorRef?: Maybe<MinMaxValidatorRef>
   requiredValidatorRef?: Maybe<RequiredValidatorRef>
+  arrayLengthValidatorRef?: Maybe<ArrayLengthValidatorRef>
 }
 
 export enum DecoratorType {
   MinMaxValidator = 'MinMaxValidator',
   RequiredValidator = 'RequiredValidator',
+  ArrayLengthValidator = 'ArrayLengthValidator',
 }
 
 export type DeleteAppPayload = {
@@ -736,6 +838,19 @@ export type DeleteAppPayload = {
 export type DeleteAppPayloadAppArgs = {
   filter?: Maybe<AppFilter>
   order?: Maybe<AppOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type DeleteArrayLengthValidatorPayload = {
+  arrayLengthValidator?: Maybe<Array<Maybe<ArrayLengthValidator>>>
+  msg?: Maybe<Scalars['String']>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type DeleteArrayLengthValidatorPayloadArrayLengthValidatorArgs = {
+  filter?: Maybe<ArrayLengthValidatorFilter>
+  order?: Maybe<ArrayLengthValidatorOrder>
   first?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
 }
@@ -786,6 +901,19 @@ export type DeleteEnumTypePayload = {
 
 export type DeleteEnumTypePayloadEnumTypeArgs = {
   filter?: Maybe<EnumTypeFilter>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type DeleteEnumTypeValuePayload = {
+  enumTypeValue?: Maybe<Array<Maybe<EnumTypeValue>>>
+  msg?: Maybe<Scalars['String']>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type DeleteEnumTypeValuePayloadEnumTypeValueArgs = {
+  filter?: Maybe<EnumTypeValueFilter>
+  order?: Maybe<EnumTypeValueOrder>
   first?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
 }
@@ -963,7 +1091,19 @@ export enum DgraphIndex {
 
 export type EnumType = {
   id: Scalars['ID']
-  allowedValues: Array<Scalars['String']>
+  allowedValues: Array<EnumTypeValue>
+  allowedValuesAggregate?: Maybe<EnumTypeValueAggregateResult>
+}
+
+export type EnumTypeAllowedValuesArgs = {
+  filter?: Maybe<EnumTypeValueFilter>
+  order?: Maybe<EnumTypeValueOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type EnumTypeAllowedValuesAggregateArgs = {
+  filter?: Maybe<EnumTypeValueFilter>
 }
 
 export type EnumTypeAggregateResult = {
@@ -983,12 +1123,54 @@ export enum EnumTypeHasFilter {
 }
 
 export type EnumTypePatch = {
-  allowedValues?: Maybe<Array<Scalars['String']>>
+  allowedValues?: Maybe<Array<EnumTypeValueRef>>
 }
 
 export type EnumTypeRef = {
   id?: Maybe<Scalars['ID']>
-  allowedValues?: Maybe<Array<Scalars['String']>>
+  allowedValues?: Maybe<Array<EnumTypeValueRef>>
+}
+
+export type EnumTypeValue = {
+  id: Scalars['ID']
+  name: Scalars['String']
+}
+
+export type EnumTypeValueAggregateResult = {
+  count?: Maybe<Scalars['Int']>
+  nameMin?: Maybe<Scalars['String']>
+  nameMax?: Maybe<Scalars['String']>
+}
+
+export type EnumTypeValueFilter = {
+  id?: Maybe<Array<Scalars['ID']>>
+  has?: Maybe<Array<Maybe<EnumTypeValueHasFilter>>>
+  and?: Maybe<Array<Maybe<EnumTypeValueFilter>>>
+  or?: Maybe<Array<Maybe<EnumTypeValueFilter>>>
+  not?: Maybe<EnumTypeValueFilter>
+}
+
+export enum EnumTypeValueHasFilter {
+  Name = 'name',
+}
+
+export type EnumTypeValueOrder = {
+  asc?: Maybe<EnumTypeValueOrderable>
+  desc?: Maybe<EnumTypeValueOrderable>
+  then?: Maybe<EnumTypeValueOrder>
+}
+
+export enum EnumTypeValueOrderable {
+  Name = 'name',
+}
+
+export type EnumTypeValuePatch = {
+  name?: Maybe<Scalars['String']>
+}
+
+export type EnumTypeValueRef = {
+  id?: Maybe<Scalars['ID']>
+  name?: Maybe<Scalars['String']>
 }
 
 export type Field = {
@@ -996,6 +1178,7 @@ export type Field = {
   type: Type
   key: Scalars['String']
   decorators?: Maybe<Array<Maybe<Decorator>>>
+  interface: Interface
 }
 
 export type FieldTypeArgs = {
@@ -1006,6 +1189,10 @@ export type FieldDecoratorsArgs = {
   filter?: Maybe<DecoratorFilter>
   first?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
+}
+
+export type FieldInterfaceArgs = {
+  filter?: Maybe<InterfaceFilter>
 }
 
 export type FieldAggregateResult = {
@@ -1026,6 +1213,7 @@ export enum FieldHasFilter {
   Type = 'type',
   Key = 'key',
   Decorators = 'decorators',
+  Interface = 'interface',
 }
 
 export type FieldOrder = {
@@ -1042,6 +1230,7 @@ export type FieldPatch = {
   type?: Maybe<TypeRef>
   key?: Maybe<Scalars['String']>
   decorators?: Maybe<Array<Maybe<DecoratorRef>>>
+  interface?: Maybe<InterfaceRef>
 }
 
 export type FieldRef = {
@@ -1049,6 +1238,7 @@ export type FieldRef = {
   type?: Maybe<TypeRef>
   key?: Maybe<Scalars['String']>
   decorators?: Maybe<Array<Maybe<DecoratorRef>>>
+  interface?: Maybe<InterfaceRef>
 }
 
 export type FloatFilter = {
@@ -1119,7 +1309,7 @@ export type IntRange = {
 
 export type Interface = {
   id: Scalars['ID']
-  name?: Maybe<Scalars['String']>
+  name: Scalars['String']
   fields?: Maybe<Array<Maybe<Field>>>
   fieldsAggregate?: Maybe<FieldAggregateResult>
 }
@@ -1361,6 +1551,9 @@ export type Mutation = {
   addArrayType?: Maybe<AddArrayTypePayload>
   updateArrayType?: Maybe<UpdateArrayTypePayload>
   deleteArrayType?: Maybe<DeleteArrayTypePayload>
+  addEnumTypeValue?: Maybe<AddEnumTypeValuePayload>
+  updateEnumTypeValue?: Maybe<UpdateEnumTypeValuePayload>
+  deleteEnumTypeValue?: Maybe<DeleteEnumTypeValuePayload>
   addEnumType?: Maybe<AddEnumTypePayload>
   updateEnumType?: Maybe<UpdateEnumTypePayload>
   deleteEnumType?: Maybe<DeleteEnumTypePayload>
@@ -1373,6 +1566,9 @@ export type Mutation = {
   addMinMaxValidator?: Maybe<AddMinMaxValidatorPayload>
   updateMinMaxValidator?: Maybe<UpdateMinMaxValidatorPayload>
   deleteMinMaxValidator?: Maybe<DeleteMinMaxValidatorPayload>
+  addArrayLengthValidator?: Maybe<AddArrayLengthValidatorPayload>
+  updateArrayLengthValidator?: Maybe<UpdateArrayLengthValidatorPayload>
+  deleteArrayLengthValidator?: Maybe<DeleteArrayLengthValidatorPayload>
   addField?: Maybe<AddFieldPayload>
   updateField?: Maybe<UpdateFieldPayload>
   deleteField?: Maybe<DeleteFieldPayload>
@@ -1513,6 +1709,18 @@ export type MutationDeleteArrayTypeArgs = {
   filter: ArrayTypeFilter
 }
 
+export type MutationAddEnumTypeValueArgs = {
+  input: Array<AddEnumTypeValueInput>
+}
+
+export type MutationUpdateEnumTypeValueArgs = {
+  input: UpdateEnumTypeValueInput
+}
+
+export type MutationDeleteEnumTypeValueArgs = {
+  filter: EnumTypeValueFilter
+}
+
 export type MutationAddEnumTypeArgs = {
   input: Array<AddEnumTypeInput>
 }
@@ -1559,6 +1767,18 @@ export type MutationUpdateMinMaxValidatorArgs = {
 
 export type MutationDeleteMinMaxValidatorArgs = {
   filter: MinMaxValidatorFilter
+}
+
+export type MutationAddArrayLengthValidatorArgs = {
+  input: Array<AddArrayLengthValidatorInput>
+}
+
+export type MutationUpdateArrayLengthValidatorArgs = {
+  input: UpdateArrayLengthValidatorInput
+}
+
+export type MutationDeleteArrayLengthValidatorArgs = {
+  filter: ArrayLengthValidatorFilter
 }
 
 export type MutationAddFieldArgs = {
@@ -1781,7 +2001,7 @@ export type PolygonRef = {
 export enum PrimitiveType {
   String = 'String',
   Integer = 'Integer',
-  Decimal = 'Decimal',
+  Float = 'Float',
   Boolean = 'Boolean',
 }
 
@@ -1884,6 +2104,9 @@ export type Query = {
   getArrayType?: Maybe<ArrayType>
   queryArrayType?: Maybe<Array<Maybe<ArrayType>>>
   aggregateArrayType?: Maybe<ArrayTypeAggregateResult>
+  getEnumTypeValue?: Maybe<EnumTypeValue>
+  queryEnumTypeValue?: Maybe<Array<Maybe<EnumTypeValue>>>
+  aggregateEnumTypeValue?: Maybe<EnumTypeValueAggregateResult>
   getEnumType?: Maybe<EnumType>
   queryEnumType?: Maybe<Array<Maybe<EnumType>>>
   aggregateEnumType?: Maybe<EnumTypeAggregateResult>
@@ -1896,6 +2119,9 @@ export type Query = {
   getMinMaxValidator?: Maybe<MinMaxValidator>
   queryMinMaxValidator?: Maybe<Array<Maybe<MinMaxValidator>>>
   aggregateMinMaxValidator?: Maybe<MinMaxValidatorAggregateResult>
+  getArrayLengthValidator?: Maybe<ArrayLengthValidator>
+  queryArrayLengthValidator?: Maybe<Array<Maybe<ArrayLengthValidator>>>
+  aggregateArrayLengthValidator?: Maybe<ArrayLengthValidatorAggregateResult>
   getField?: Maybe<Field>
   queryField?: Maybe<Array<Maybe<Field>>>
   aggregateField?: Maybe<FieldAggregateResult>
@@ -2063,6 +2289,21 @@ export type QueryAggregateArrayTypeArgs = {
   filter?: Maybe<ArrayTypeFilter>
 }
 
+export type QueryGetEnumTypeValueArgs = {
+  id: Scalars['ID']
+}
+
+export type QueryQueryEnumTypeValueArgs = {
+  filter?: Maybe<EnumTypeValueFilter>
+  order?: Maybe<EnumTypeValueOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type QueryAggregateEnumTypeValueArgs = {
+  filter?: Maybe<EnumTypeValueFilter>
+}
+
 export type QueryGetEnumTypeArgs = {
   id: Scalars['ID']
 }
@@ -2118,6 +2359,21 @@ export type QueryQueryMinMaxValidatorArgs = {
 
 export type QueryAggregateMinMaxValidatorArgs = {
   filter?: Maybe<MinMaxValidatorFilter>
+}
+
+export type QueryGetArrayLengthValidatorArgs = {
+  id: Scalars['ID']
+}
+
+export type QueryQueryArrayLengthValidatorArgs = {
+  filter?: Maybe<ArrayLengthValidatorFilter>
+  order?: Maybe<ArrayLengthValidatorOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type QueryAggregateArrayLengthValidatorArgs = {
+  filter?: Maybe<ArrayLengthValidatorFilter>
 }
 
 export type QueryGetFieldArgs = {
@@ -2375,6 +2631,24 @@ export type UpdateAppPayloadAppArgs = {
   offset?: Maybe<Scalars['Int']>
 }
 
+export type UpdateArrayLengthValidatorInput = {
+  filter: ArrayLengthValidatorFilter
+  set?: Maybe<ArrayLengthValidatorPatch>
+  remove?: Maybe<ArrayLengthValidatorPatch>
+}
+
+export type UpdateArrayLengthValidatorPayload = {
+  arrayLengthValidator?: Maybe<Array<Maybe<ArrayLengthValidator>>>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type UpdateArrayLengthValidatorPayloadArrayLengthValidatorArgs = {
+  filter?: Maybe<ArrayLengthValidatorFilter>
+  order?: Maybe<ArrayLengthValidatorOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
 export type UpdateArrayTypeInput = {
   filter: ArrayTypeFilter
   set?: Maybe<ArrayTypePatch>
@@ -2441,6 +2715,24 @@ export type UpdateEnumTypePayload = {
 
 export type UpdateEnumTypePayloadEnumTypeArgs = {
   filter?: Maybe<EnumTypeFilter>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type UpdateEnumTypeValueInput = {
+  filter: EnumTypeValueFilter
+  set?: Maybe<EnumTypeValuePatch>
+  remove?: Maybe<EnumTypeValuePatch>
+}
+
+export type UpdateEnumTypeValuePayload = {
+  enumTypeValue?: Maybe<Array<Maybe<EnumTypeValue>>>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type UpdateEnumTypeValuePayloadEnumTypeValueArgs = {
+  filter?: Maybe<EnumTypeValueFilter>
+  order?: Maybe<EnumTypeValueOrder>
   first?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
 }
@@ -2977,6 +3269,83 @@ export type UpdatePageElementMutation = {
   >
 }
 
+export type Dgraph__InterfaceFragment = Pick<Interface, 'id' | 'name'> & {
+  fields?: Maybe<Array<Maybe<Dgraph__FieldFragment>>>
+}
+
+export type Dgraph__FieldFragment = Pick<Field, 'id' | 'key'> & {
+  decorators?: Maybe<
+    Array<
+      Maybe<
+        | Dgraph__Decorator_MinMaxValidator_Fragment
+        | Dgraph__Decorator_RequiredValidator_Fragment
+        | Dgraph__Decorator_ArrayLengthValidator_Fragment
+      >
+    >
+  >
+  type:
+    | Dgraph__Type_SimpleType_Fragment
+    | Dgraph__Type_Interface_Fragment
+    | Dgraph__Type_ArrayType_Fragment
+    | Dgraph__Type_EnumType_Fragment
+    | Dgraph__Type_UnitType_Fragment
+}
+
+type Dgraph__Type_SimpleType_Fragment = Pick<SimpleType, 'id' | 'primitiveType'>
+
+type Dgraph__Type_Interface_Fragment = Pick<Interface, 'id'>
+
+type Dgraph__Type_ArrayType_Fragment = Pick<ArrayType, 'id'> & {
+  type:
+    | Pick<SimpleType, 'id' | 'primitiveType'>
+    | Pick<Interface, 'id'>
+    | Pick<ArrayType, 'id'>
+    | (Pick<EnumType, 'id'> & {
+        allowedValues: Array<Pick<EnumTypeValue, 'id' | 'name'>>
+      })
+    | Pick<UnitType, 'id' | 'allowedUnits'>
+}
+
+type Dgraph__Type_EnumType_Fragment = Pick<EnumType, 'id'> & {
+  allowedValues: Array<Pick<EnumTypeValue, 'id' | 'name'>>
+}
+
+type Dgraph__Type_UnitType_Fragment = Pick<UnitType, 'id' | 'allowedUnits'>
+
+export type Dgraph__TypeFragment =
+  | Dgraph__Type_SimpleType_Fragment
+  | Dgraph__Type_Interface_Fragment
+  | Dgraph__Type_ArrayType_Fragment
+  | Dgraph__Type_EnumType_Fragment
+  | Dgraph__Type_UnitType_Fragment
+
+type Dgraph__Decorator_MinMaxValidator_Fragment = {
+  __typename: 'MinMaxValidator'
+} & Dgraph__MinMaxValidatorFragment
+
+type Dgraph__Decorator_RequiredValidator_Fragment = {
+  __typename: 'RequiredValidator'
+} & Dgraph__RequiredValidatorFragment
+
+type Dgraph__Decorator_ArrayLengthValidator_Fragment = {
+  __typename: 'ArrayLengthValidator'
+}
+
+export type Dgraph__DecoratorFragment =
+  | Dgraph__Decorator_MinMaxValidator_Fragment
+  | Dgraph__Decorator_RequiredValidator_Fragment
+  | Dgraph__Decorator_ArrayLengthValidator_Fragment
+
+export type Dgraph__RequiredValidatorFragment = Pick<
+  RequiredValidator,
+  'id' | 'isRequired'
+>
+
+export type Dgraph__MinMaxValidatorFragment = Pick<
+  MinMaxValidator,
+  'id' | 'max' | 'min'
+>
+
 export type GetValueTypesQueryVariables = Exact<{ [key: string]: never }>
 
 export type GetValueTypesQuery = {
@@ -3064,6 +3433,104 @@ export const Dgraph_PageElementFragmentDoc = gql`
   }
   ${DGraph__AtomFragmentDoc}
   ${Dgraph__PageFragmentDoc}
+`
+export const Dgraph__MinMaxValidatorFragmentDoc = gql`
+  fragment Dgraph__MinMaxValidator on MinMaxValidator {
+    id
+    max
+    min
+  }
+`
+export const Dgraph__RequiredValidatorFragmentDoc = gql`
+  fragment Dgraph__RequiredValidator on RequiredValidator {
+    id
+    isRequired
+  }
+`
+export const Dgraph__DecoratorFragmentDoc = gql`
+  fragment Dgraph__Decorator on Decorator {
+    __typename
+    ... on MinMaxValidator {
+      ...Dgraph__MinMaxValidator
+    }
+    ... on RequiredValidator {
+      ...Dgraph__RequiredValidator
+    }
+  }
+  ${Dgraph__MinMaxValidatorFragmentDoc}
+  ${Dgraph__RequiredValidatorFragmentDoc}
+`
+export const Dgraph__TypeFragmentDoc = gql`
+  fragment Dgraph__Type on Type {
+    ... on Interface {
+      id
+    }
+    ... on ArrayType {
+      id
+      type {
+        ... on ArrayType {
+          id
+        }
+        ... on Interface {
+          id
+        }
+        ... on EnumType {
+          id
+          allowedValues {
+            id
+            name
+          }
+        }
+        ... on SimpleType {
+          id
+          primitiveType
+        }
+        ... on UnitType {
+          id
+          allowedUnits
+        }
+      }
+    }
+    ... on EnumType {
+      id
+      allowedValues {
+        id
+        name
+      }
+    }
+    ... on SimpleType {
+      id
+      primitiveType
+    }
+    ... on UnitType {
+      id
+      allowedUnits
+    }
+  }
+`
+export const Dgraph__FieldFragmentDoc = gql`
+  fragment Dgraph__Field on Field {
+    id
+    key
+    decorators {
+      ...Dgraph__Decorator
+    }
+    type {
+      ...Dgraph__Type
+    }
+  }
+  ${Dgraph__DecoratorFragmentDoc}
+  ${Dgraph__TypeFragmentDoc}
+`
+export const Dgraph__InterfaceFragmentDoc = gql`
+  fragment Dgraph__Interface on Interface {
+    id
+    name
+    fields {
+      ...Dgraph__Field
+    }
+  }
+  ${Dgraph__FieldFragmentDoc}
 `
 export const Dgraph__ValueTypeFragmentDoc = gql`
   fragment Dgraph__ValueType on ValueType {
@@ -4806,6 +5273,104 @@ export const Dgraph_PageElement = gql`
   }
   ${DGraph__Atom}
   ${Dgraph__Page}
+`
+export const Dgraph__MinMaxValidator = gql`
+  fragment Dgraph__MinMaxValidator on MinMaxValidator {
+    id
+    max
+    min
+  }
+`
+export const Dgraph__RequiredValidator = gql`
+  fragment Dgraph__RequiredValidator on RequiredValidator {
+    id
+    isRequired
+  }
+`
+export const Dgraph__Decorator = gql`
+  fragment Dgraph__Decorator on Decorator {
+    __typename
+    ... on MinMaxValidator {
+      ...Dgraph__MinMaxValidator
+    }
+    ... on RequiredValidator {
+      ...Dgraph__RequiredValidator
+    }
+  }
+  ${Dgraph__MinMaxValidator}
+  ${Dgraph__RequiredValidator}
+`
+export const Dgraph__Type = gql`
+  fragment Dgraph__Type on Type {
+    ... on Interface {
+      id
+    }
+    ... on ArrayType {
+      id
+      type {
+        ... on ArrayType {
+          id
+        }
+        ... on Interface {
+          id
+        }
+        ... on EnumType {
+          id
+          allowedValues {
+            id
+            name
+          }
+        }
+        ... on SimpleType {
+          id
+          primitiveType
+        }
+        ... on UnitType {
+          id
+          allowedUnits
+        }
+      }
+    }
+    ... on EnumType {
+      id
+      allowedValues {
+        id
+        name
+      }
+    }
+    ... on SimpleType {
+      id
+      primitiveType
+    }
+    ... on UnitType {
+      id
+      allowedUnits
+    }
+  }
+`
+export const Dgraph__Field = gql`
+  fragment Dgraph__Field on Field {
+    id
+    key
+    decorators {
+      ...Dgraph__Decorator
+    }
+    type {
+      ...Dgraph__Type
+    }
+  }
+  ${Dgraph__Decorator}
+  ${Dgraph__Type}
+`
+export const Dgraph__Interface = gql`
+  fragment Dgraph__Interface on Interface {
+    id
+    name
+    fields {
+      ...Dgraph__Field
+    }
+  }
+  ${Dgraph__Field}
 `
 export const Dgraph__ValueType = gql`
   fragment Dgraph__ValueType on ValueType {

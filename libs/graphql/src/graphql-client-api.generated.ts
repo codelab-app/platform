@@ -492,13 +492,19 @@ export type UpdateAppMutation = { app: __AppFragment }
 
 export type __AppFragment = Pick<App, 'id' | 'name'>
 
+export type CreateTestAtomMutationVariables = Exact<{
+  input: CreateAtomInput
+}>
+
+export type CreateTestAtomMutation = { createAtom: Pick<Atom, 'id' | 'label'> }
+
+export type __AtomFragment = Pick<Atom, 'id' | 'label' | 'type'>
+
 export type CreateAtomMutationVariables = Exact<{
   input: CreateAtomInput
 }>
 
 export type CreateAtomMutation = { createAtom: __AtomFragment }
-
-export type __AtomFragment = Pick<Atom, 'id' | 'label' | 'type'>
 
 export type DeleteAtomMutationVariables = Exact<{
   input: DeleteAtomInput
@@ -1014,6 +1020,57 @@ export type UpdateAppMutationResult = Apollo.MutationResult<UpdateAppMutation>
 export type UpdateAppMutationOptions = Apollo.BaseMutationOptions<
   UpdateAppMutation,
   UpdateAppMutationVariables
+>
+export const CreateTestAtomGql = gql`
+  mutation CreateTestAtom($input: CreateAtomInput!) {
+    createAtom(input: $input) {
+      id
+      label
+    }
+  }
+`
+export type CreateTestAtomMutationFn = Apollo.MutationFunction<
+  CreateTestAtomMutation,
+  CreateTestAtomMutationVariables
+>
+
+/**
+ * __useCreateTestAtomMutation__
+ *
+ * To run a mutation, you first call `useCreateTestAtomMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateTestAtomMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createTestAtomMutation, { data, loading, error }] = useCreateTestAtomMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateTestAtomMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateTestAtomMutation,
+    CreateTestAtomMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    CreateTestAtomMutation,
+    CreateTestAtomMutationVariables
+  >(CreateTestAtomGql, options)
+}
+export type CreateTestAtomMutationHookResult = ReturnType<
+  typeof useCreateTestAtomMutation
+>
+export type CreateTestAtomMutationResult =
+  Apollo.MutationResult<CreateTestAtomMutation>
+export type CreateTestAtomMutationOptions = Apollo.BaseMutationOptions<
+  CreateTestAtomMutation,
+  CreateTestAtomMutationVariables
 >
 export const CreateAtomGql = gql`
   mutation CreateAtom($input: CreateAtomInput!) {
@@ -2234,6 +2291,14 @@ export const UpdateApp = gql`
     }
   }
   ${__App}
+`
+export const CreateTestAtom = gql`
+  mutation CreateTestAtom($input: CreateAtomInput!) {
+    createAtom(input: $input) {
+      id
+      label
+    }
+  }
 `
 export const CreateAtom = gql`
   mutation CreateAtom($input: CreateAtomInput!) {
