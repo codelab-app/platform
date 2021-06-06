@@ -64,7 +64,8 @@
         "libs/tools/plugins/codelab/src/index.ts"
       ],
       "@codelab/tools/scripts": ["libs/tools/scripts/src/index.ts"],
-      "@codelab/modules/auth-api": ["libs/modules/auth-api/src/index.ts"]
+      "@codelab/modules/auth-api": ["libs/modules/auth-api/src/index.ts"],
+      "@codelab/modules/type-api": ["libs/modules/type-api/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"]

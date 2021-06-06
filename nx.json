@@ -144,6 +144,9 @@
     },
     "modules-auth-api": {
       "tags": []
+    },
+    "modules-type-api": {
+      "tags": []
     }
   }
 }

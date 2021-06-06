@@ -72,12 +72,13 @@ type ValueType {
   type: String!
 }
 
-#New typing system:
-
+#
+# Typing system:
+#
 enum PrimitiveType {
   String,
   Integer,
-  Decimal,
+  Float,
   Boolean
 }
 
@@ -92,9 +93,14 @@ type ArrayType {
   type: Type!
 }
 
+type EnumTypeValue {
+  id: ID!
+  name: String!
+}
+
 type EnumType {
   id: ID!
-  allowedValues: [String!]!
+  allowedValues: [EnumTypeValue!]!
 }
 
 enum Unit {
