@@ -64,6 +64,16 @@ variable "app_domain" {
   default     = "codelab.ai"
 }
 
+variable "dgraph_count" {
+  description = "Count of dgraph instances"
+  default     = 1
+}
+
+variable "dgraph_port" {
+  description = "Port exposed by the docker image to redirect to dgraph"
+  default     = 8080
+}
+
 # container env values
 variable "dgraph_graphql_endpoint" {
   default     = "http://127.0.0.1:8081/graphql"

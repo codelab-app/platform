@@ -8,7 +8,6 @@ import merge from 'deepmerge'
 import isEqual from 'lodash/isEqual'
 import { useMemo } from 'react'
 import { authLink } from './links/authLink'
-import { dgraphLink } from './links/dgraphLink'
 import { errorLink } from './links/errorLink'
 import { graphqlApiLink } from './links/graphqlApiLink'
 
@@ -26,11 +25,7 @@ export const getApolloClient = (ctx: ApolloContext = {}) => {
     setContext(() => ({ ...ctx })),
     errorLink,
     authLink,
-    ApolloLink.split(
-      ({ operationName }) => operationName === 'dgraph',
-      dgraphLink,
-      graphqlApiLink,
-    ),
+    graphqlApiLink,
   ])
 
   return new ApolloClient({

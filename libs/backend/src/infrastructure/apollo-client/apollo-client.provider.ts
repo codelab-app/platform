@@ -26,6 +26,9 @@ export const apolloClientProvider: Provider<
 
     return new ApolloClient({
       link: dgraphLink,
+      headers: {
+        'DG-AUTH': process.env.CODELAB_DGRAPH_API_KEY ?? '',
+      },
       cache: new InMemoryCache(),
       ssrMode: true,
       defaultOptions: {

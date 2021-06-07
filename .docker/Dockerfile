@@ -14,7 +14,6 @@ RUN apk add bash make nasm autoconf automake libtool dpkg pkgconfig libpng libpn
 WORKDIR /usr/local/codelab
 
 COPY package.json package.json
-COPY scripts/postinstall.sh scripts/postinstall.sh
 
 RUN yarn --prod --frozen-lockfile
 
@@ -23,10 +22,14 @@ RUN yarn --prod --frozen-lockfile
 #
 FROM node:14.15.0-alpine AS prod
 
+RUN apk add curl
+
 WORKDIR /usr/local/codelab
 
 COPY package.json package.json
 COPY dist dist
+COPY dgraph dgraph
+COPY scripts scripts
 COPY --from=build /usr/local/codelab/node_modules ./node_modules
 
 RUN ls

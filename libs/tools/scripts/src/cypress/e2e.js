@@ -15,7 +15,9 @@ const start = async () => {
   let commands = [
     {
       command:
-        'npx wait-on http://127.0.0.1:3000 http://127.0.0.1:3333 && npx nx e2e:ci web-e2e',
+        'npx wait-on http://127.0.0.1:3000 http://127.0.0.1:3333 && exit 1',
+      // command:
+      //   'npx wait-on http://127.0.0.1:3000 http://127.0.0.1:3333 && npx nx e2e:ci web-e2e',
       name: 'E2E',
     },
   ]
@@ -40,17 +42,20 @@ const start = async () => {
     ]
   }
 
-  return await concurrently(commands, {
+  // https://github.com/kimmobrunfeldt/concurrently/issues/187
+  const res = await concurrently(commands, {
     killOthers: ['success', 'failure'],
     success: 'first',
   }).then(
     (success) => {
-      console.log(success)
+      // console.log(success)
     },
     (err) => {
-      console.log(err)
+      // console.log(err)
     },
   )
+
+  console.log(res)
 }
 
 start()
