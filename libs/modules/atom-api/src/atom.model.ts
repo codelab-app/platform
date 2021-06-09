@@ -31,5 +31,4 @@ export const atomSchema = z.object({
 })
 
 export const atomTypeSchema = z.object({ type: AtomType })
-
 export const atomsSchema = z.array(atomSchema)
