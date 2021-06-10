@@ -1,4 +1,4 @@
-import { DgraphQueryBuilder } from '@codelab/backend'
+import { DgraphQueryBuilder, DgraphQueryField } from '@codelab/backend'
 import { z } from 'zod'
 import { FlattenRequestItem } from '../flatten-page-element-tree'
 
@@ -9,16 +9,15 @@ export class GetPageElementRootQueryBuilder extends DgraphQueryBuilder {
     super()
     this.withRecurse()
       .withQueryName('query')
+      .withBaseFields()
       .withFields(
-        `
-        uid
-        dgraph.type
-        PageElement.name
-        PageElement.atom
-        Atom.label
-        Atom.type
-        PageElement.children @facets(order)
-    `,
+        new DgraphQueryField().withName('PageElement.name'),
+        new DgraphQueryField().withName('PageElement.atom'),
+        new DgraphQueryField().withName('Atom.label'),
+        new DgraphQueryField().withName('Atom.type'),
+        new DgraphQueryField()
+          .withName(' PageElement.children')
+          .withFacet('order'),
       )
   }
 
