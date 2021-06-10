@@ -1,7 +1,7 @@
-import { request } from '@codelab/backend'
 import { INestApplication } from '@nestjs/common'
 import { print } from 'graphql'
 import { ASTNode } from 'graphql/language/ast'
+import { request } from './request'
 
 export interface GraphqlRequestOptions {
   /** defaults to true */
@@ -33,7 +33,7 @@ export const graphqlRequest = async <TOperationVariables>(
 
       if (errors && !!errors.length) {
         throw new Error(
-          'Error graphql response: ' + JSON.stringify(errors, null, 2),
+          'Error in test graphql response: ' + JSON.stringify(errors, null, 2),
         )
       }
     })

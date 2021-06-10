@@ -5,7 +5,7 @@ import {
   Type,
 } from '@nestjs/common'
 import { Test } from '@nestjs/testing'
-import { TestInfrastructureModule } from '../framework/nestjs/test-infrastructure.module'
+import { TestInfrastructureModule } from '../framework'
 import { DgraphProvider, DgraphTokens } from '../infrastructure'
 
 type NestModule =
