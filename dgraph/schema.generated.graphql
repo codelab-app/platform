@@ -198,13 +198,13 @@ type EnumType {
 }
 
 enum Unit {
-  px
-  pt
-  em
-  rem
-  percent
-  vw
-  vh
+  PX
+  PT
+  EM
+  REM
+  PERCENT
+  VW
+  VH
 }
 
 type UnitType {
@@ -236,7 +236,9 @@ union Decorator = MinMaxValidator | RequiredValidator | ArrayLengthValidator
 type Field {
   id: ID!
   type: Type!
-  key: String!
+  key: String! @search(by: [hash, fulltext])
+  name: String!
+  description: String
   decorators: [Decorator]
   interface: Interface!
 }

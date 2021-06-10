@@ -136,6 +136,8 @@ type AddEnumTypeValuePayload {
 input AddFieldInput {
   type: TypeRef!
   key: String!
+  name: String!
+  description: String
   decorators: [DecoratorRef]
   interface: InterfaceRef!
 }
@@ -987,6 +989,8 @@ type Field {
   id: ID!
   type(filter: TypeFilter): Type!
   key: String!
+  name: String!
+  description: String
   decorators(filter: DecoratorFilter, first: Int, offset: Int): [Decorator]
   interface(filter: InterfaceFilter): Interface!
 }
@@ -995,10 +999,15 @@ type FieldAggregateResult {
   count: Int
   keyMin: String
   keyMax: String
+  nameMin: String
+  nameMax: String
+  descriptionMin: String
+  descriptionMax: String
 }
 
 input FieldFilter {
   id: [ID!]
+  key: StringFullTextFilter_StringHashFilter
   has: [FieldHasFilter]
   and: [FieldFilter]
   or: [FieldFilter]
@@ -1008,6 +1017,8 @@ input FieldFilter {
 enum FieldHasFilter {
   type
   key
+  name
+  description
   decorators
   interface
 }
@@ -1020,11 +1031,15 @@ input FieldOrder {
 
 enum FieldOrderable {
   key
+  name
+  description
 }
 
 input FieldPatch {
   type: TypeRef
   key: String
+  name: String
+  description: String
   decorators: [DecoratorRef]
   interface: InterfaceRef
 }
@@ -1033,6 +1048,8 @@ input FieldRef {
   id: ID
   type: TypeRef
   key: String
+  name: String
+  description: String
   decorators: [DecoratorRef]
   interface: InterfaceRef
 }
@@ -1807,6 +1824,13 @@ input StringFullTextFilter {
   anyoftext: String
 }
 
+input StringFullTextFilter_StringHashFilter {
+  alloftext: String
+  anyoftext: String
+  eq: String
+  in: [String]
+}
+
 input StringFullTextFilter_StringTermFilter {
   alloftext: String
   anyoftext: String
@@ -1900,13 +1924,13 @@ enum TypeType {
 }
 
 enum Unit {
-  px
-  pt
-  em
-  rem
-  percent
-  vw
-  vh
+  PX
+  PT
+  EM
+  REM
+  PERCENT
+  VW
+  VH
 }
 
 type UnitType {

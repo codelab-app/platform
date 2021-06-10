@@ -90,7 +90,7 @@ type SimpleType {
 
 type ArrayType {
   id: ID!
-  #that's the type of array, e.g. type: String, would be string[]
+  # that's the type of the array item, e.g. type: (SimpleType) String, would be string[]
   type: Type!
 }
 
@@ -105,13 +105,13 @@ type EnumType {
 }
 
 enum Unit {
-  px,
-  pt,
-  em,
-  rem,
-  percent,
-  vw,
-  vh,
+  PX,
+  PT,
+  EM,
+  REM,
+  PERCENT,
+  VW,
+  VH,
   #... add all units here, this is just an example
 }
 
@@ -147,7 +147,9 @@ union Decorator = MinMaxValidator | RequiredValidator | ArrayLengthValidator #ad
 type Field {
   id: ID!
   type: Type!
-  key: String!
+  key: String! @search(by: [hash, fulltext])
+  name: String!
+  description: String
   decorators: [Decorator]
   interface: Interface!
 }
