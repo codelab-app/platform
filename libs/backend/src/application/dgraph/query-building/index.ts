@@ -1,2 +1,7 @@
+export * from './base-dgraph-fields'
+export * from './dgraph.mapper'
+export * from './dgraph.model'
 export * from './dgraph-query-builder'
+export * from './dgraph-query-field'
+export * from './filters'
 export * from './i-query-builder'
