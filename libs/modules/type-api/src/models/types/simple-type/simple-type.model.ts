@@ -14,7 +14,7 @@ export class SimpleType {
   declare primitiveType: PrimitiveType
 }
 
-export const simpleTypeSchema = z.object({
+export const simpleTypeSchema: z.ZodSchema<SimpleType> = z.object({
   id: z.string(),
   primitiveType: primitiveTypeSchema,
 })

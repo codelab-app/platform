@@ -9,6 +9,8 @@ fragment Dgraph__Interface on Interface {
 fragment Dgraph__Field on Field {
     id
     key
+    name
+    description
     decorators {
         ...Dgraph__Decorator
     }

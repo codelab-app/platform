@@ -5,6 +5,7 @@ import { LambdaApiModule } from '@codelab/modules/lambda-api'
 import { PageModule } from '@codelab/modules/page-api'
 import { PageElementModule } from '@codelab/modules/page-element-api'
 import { PropModule } from '@codelab/modules/prop-api'
+import { TypeModule } from '@codelab/modules/type-api'
 import { UserModule } from '@codelab/modules/user-api'
 import { ValueTypeModule } from '@codelab/modules/value-type-api'
 import { Module } from '@nestjs/common'
@@ -23,6 +24,7 @@ import { AppService } from './app.service'
     AtomModule,
     ValueTypeModule,
     PropModule,
+    TypeModule,
   ],
   controllers: [AppController],
   providers: [AppService],

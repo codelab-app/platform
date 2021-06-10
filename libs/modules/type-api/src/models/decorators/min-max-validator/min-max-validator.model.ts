@@ -16,7 +16,7 @@ export class MinMaxValidator {
   declare max?: number | null
 }
 
-export const minMaxValidatorSchema = z.object({
+export const minMaxValidatorSchema: z.ZodSchema<MinMaxValidator> = z.object({
   id: z.string(),
   min: z.number().int().nullable(),
   max: z.number().int().nullable(),

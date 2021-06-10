@@ -1,0 +1,95 @@
+# Separated out the test queries and fragments from the client ones
+# because it's more likely to change our client ones
+# if they're separate, we have more freedom to change the client ones
+# without worrieng and comming back to fix tests
+fragment Test__ArrayLengthValidator on ArrayLengthValidator {
+    id
+    maxLength
+    minLength
+}
+
+fragment Test__MinMaxValidator on MinMaxValidator {
+    id
+    max
+    min
+}
+
+fragment Test__RequiredValidator on RequiredValidator {
+    id
+    isRequired
+}
+
+fragment Test__Decorator on Decorator {
+    __typename
+    ... on ArrayLengthValidator{
+        ...Test__ArrayLengthValidator
+    }
+    ... on MinMaxValidator {
+        ...Test__MinMaxValidator
+    }
+    ... on RequiredValidator {
+        ...Test__RequiredValidator
+    }
+}
+
+fragment Test__Field on Field {
+    id
+    key
+    name
+    typeId
+    description
+    decorators {
+        ...Test__Decorator
+    }
+}
+
+fragment Test__ArrayType on ArrayType {
+    id
+    typeId
+}
+
+fragment Test__EnumTypeValue on EnumTypeValue {
+    id
+    name
+}
+
+fragment Test__EnumType on EnumType {
+    id
+    allowedValues {
+        ...Test__EnumTypeValue
+    }
+}
+
+fragment Test__InterfaceType on InterfaceType {
+    interfaceId
+}
+
+fragment Test__SimpleType on SimpleType {
+    id
+    primitiveType
+}
+
+fragment Test__UnitType on UnitType {
+    id
+    allowedUnits
+}
+
+fragment Test__Type on Type {
+    __typename
+    ... on ArrayType { ...Test__ArrayType }
+    ... on EnumType { ...Test__EnumType }
+    ... on InterfaceType { ...Test__InterfaceType }
+    ... on SimpleType { ...Test__SimpleType }
+    ... on UnitType { ...Test__UnitType }
+}
+
+fragment Test__Interface on Interface {
+    id
+    name
+    fields {
+        ...Test__Field
+    }
+    types {
+        ...Test__Type
+    }
+}

@@ -24,10 +24,22 @@ export type App = {
   name: Scalars['String']
 }
 
+export type ArrayLengthValidator = {
+  id: Scalars['ID']
+  minLength?: Maybe<Scalars['Int']>
+  maxLength?: Maybe<Scalars['Int']>
+}
+
+export type ArrayType = {
+  id: Scalars['ID']
+  typeId: Scalars['String']
+}
+
 export type Atom = {
   id: Scalars['ID']
   type: AtomType
   label: Scalars['String']
+  interfaceId: Scalars['String']
 }
 
 export enum AtomType {
@@ -140,9 +152,33 @@ export type CreateAppInput = {
   name: Scalars['String']
 }
 
+export type CreateArrayTypeInput = {
+  type: CreateTypeInput
+}
+
 export type CreateAtomInput = {
   label: Scalars['String']
   type: AtomType
+}
+
+export type CreateEnumTypeInput = {
+  allowedValues: Array<Scalars['String']>
+}
+
+export type CreateFieldInput = {
+  key: Scalars['String']
+  name: Scalars['String']
+  description?: Maybe<Scalars['String']>
+  interfaceId: Scalars['String']
+  type: CreateTypeInput
+}
+
+export type CreateInterfaceInput = {
+  name: Scalars['String']
+}
+
+export type CreateInterfaceTypeInput = {
+  interfaceId: Scalars['String']
 }
 
 export type CreatePageElementInput = {
@@ -158,12 +194,43 @@ export type CreatePageInput = {
   appId: Scalars['String']
 }
 
+export type CreateSimpleTypeInput = {
+  primitiveType: PrimitiveType
+}
+
+/** Provide one of the properties */
+export type CreateTypeInput = {
+  simpleType?: Maybe<CreateSimpleTypeInput>
+  interfaceType?: Maybe<CreateInterfaceTypeInput>
+  arrayType?: Maybe<CreateArrayTypeInput>
+  enumType?: Maybe<CreateEnumTypeInput>
+  unitType?: Maybe<CreateUnitTypeInput>
+}
+
+export type CreateUnitTypeInput = {
+  /** Pass null to allow all */
+  allowedUnits?: Maybe<Array<Unit>>
+}
+
+export type Decorator =
+  | ArrayLengthValidator
+  | MinMaxValidator
+  | RequiredValidator
+
 export type DeleteAppInput = {
   appId: Scalars['String']
 }
 
 export type DeleteAtomInput = {
   atomId: Scalars['String']
+}
+
+export type DeleteFieldInput = {
+  fieldId: Scalars['String']
+}
+
+export type DeleteInterfaceInput = {
+  interfaceId: Scalars['String']
 }
 
 export type DeletePageElementInput = {
@@ -182,12 +249,49 @@ export type DeleteUserInput = {
   userId: Scalars['String']
 }
 
+export type EnumType = {
+  id: Scalars['ID']
+  allowedValues: Array<EnumTypeValue>
+}
+
+export type EnumTypeValue = {
+  id: Scalars['ID']
+  name: Scalars['String']
+}
+
+export type Field = {
+  id: Scalars['ID']
+  key: Scalars['String']
+  name: Scalars['String']
+  description?: Maybe<Scalars['String']>
+  typeId: Scalars['String']
+  decorators: Array<Decorator>
+}
+
+export type FieldByIdFilter = {
+  fieldId: Scalars['String']
+}
+
+export type FieldByInterfaceFilter = {
+  interfaceId: Scalars['String']
+  fieldKey: Scalars['String']
+}
+
 export type GetAppInput = {
   appId: Scalars['String']
 }
 
 export type GetAtomInput = {
   atomId: Scalars['String']
+}
+
+export type GetFieldInput = {
+  byInterface?: Maybe<FieldByInterfaceFilter>
+  byId?: Maybe<FieldByIdFilter>
+}
+
+export type GetInterfaceInput = {
+  interfaceId: Scalars['String']
 }
 
 export type GetPageElementInput = {
@@ -206,11 +310,33 @@ export type GetPagesInput = {
   appId: Scalars['String']
 }
 
+export type GetTypeInput = {
+  typeId: Scalars['String']
+}
+
 export type GetUsersInput = {
   page: Scalars['Int']
   perPage: Scalars['Int']
   query: Scalars['String']
   sort: Scalars['String']
+}
+
+export type Interface = {
+  id: Scalars['ID']
+  name: Scalars['String']
+  fields: Array<Field>
+  /** Flattened array of all types that are used inside this interface */
+  types: Array<Type>
+}
+
+export type InterfaceType = {
+  interfaceId: Scalars['String']
+}
+
+export type MinMaxValidator = {
+  id: Scalars['ID']
+  min?: Maybe<Scalars['Int']>
+  max?: Maybe<Scalars['Int']>
 }
 
 export type MoveData = {
@@ -240,6 +366,12 @@ export type Mutation = {
   createAtom: Atom
   deleteAtom: Atom
   updateAtom: Atom
+  createInterface: Interface
+  updateInterface: Interface
+  deleteInterface: DeleteResponse
+  createField: Field
+  updateField: Field
+  deleteField: DeleteResponse
 }
 
 export type MutationCreateAppArgs = {
@@ -302,6 +434,30 @@ export type MutationUpdateAtomArgs = {
   input: UpdateAtomInput
 }
 
+export type MutationCreateInterfaceArgs = {
+  input: CreateInterfaceInput
+}
+
+export type MutationUpdateInterfaceArgs = {
+  input: UpdateInterfaceInput
+}
+
+export type MutationDeleteInterfaceArgs = {
+  input: DeleteInterfaceInput
+}
+
+export type MutationCreateFieldArgs = {
+  input: CreateFieldInput
+}
+
+export type MutationUpdateFieldArgs = {
+  input: UpdateFieldInput
+}
+
+export type MutationDeleteFieldArgs = {
+  input: DeleteFieldInput
+}
+
 export type Page = {
   id: Scalars['ID']
   name: Scalars['String']
@@ -333,6 +489,13 @@ export type PageElementRoot = {
   links: Array<PageElementLink>
 }
 
+export enum PrimitiveType {
+  String = 'String',
+  Integer = 'Integer',
+  Float = 'Float',
+  Boolean = 'Boolean',
+}
+
 export type Prop = {
   id: Scalars['ID']
   key?: Maybe<Scalars['String']>
@@ -355,6 +518,9 @@ export type Query = {
   getAtom?: Maybe<Atom>
   getValueTypes: Array<ValueType>
   getProps: Array<Prop>
+  getInterface?: Maybe<Interface>
+  getField?: Maybe<Field>
+  getType?: Maybe<Type>
 }
 
 export type QueryGetAppArgs = {
@@ -385,6 +551,45 @@ export type QueryGetAtomArgs = {
   input: GetAtomInput
 }
 
+export type QueryGetInterfaceArgs = {
+  input: GetInterfaceInput
+}
+
+export type QueryGetFieldArgs = {
+  input: GetFieldInput
+}
+
+export type QueryGetTypeArgs = {
+  input: GetTypeInput
+}
+
+export type RequiredValidator = {
+  id: Scalars['ID']
+  isRequired: Scalars['Boolean']
+}
+
+export type SimpleType = {
+  id: Scalars['ID']
+  primitiveType: PrimitiveType
+}
+
+export type Type = SimpleType | ArrayType | EnumType | UnitType | InterfaceType
+
+export enum Unit {
+  Px = 'Px',
+  Pt = 'Pt',
+  Em = 'Em',
+  Rem = 'Rem',
+  Percent = 'Percent',
+  Vw = 'Vw',
+  Vh = 'Vh',
+}
+
+export type UnitType = {
+  id: Scalars['ID']
+  allowedUnits: Array<Unit>
+}
+
 export type UpdateAppData = {
   name: Scalars['String']
 }
@@ -397,6 +602,28 @@ export type UpdateAppInput = {
 export type UpdateAtomInput = {
   id: Scalars['String']
   data: CreateAtomInput
+}
+
+export type UpdateFieldData = {
+  key: Scalars['String']
+  name: Scalars['String']
+  description?: Maybe<Scalars['String']>
+  interfaceId: Scalars['String']
+  type: CreateTypeInput
+}
+
+export type UpdateFieldInput = {
+  fieldId: Scalars['String']
+  updateData: UpdateFieldData
+}
+
+export type UpdateInterfaceData = {
+  name: Scalars['String']
+}
+
+export type UpdateInterfaceInput = {
+  interfaceId: Scalars['String']
+  updateData: UpdateInterfaceData
 }
 
 export type UpdatePageData = {
@@ -642,6 +869,173 @@ export type GetPropsQueryVariables = Exact<{ [key: string]: never }>
 
 export type GetPropsQuery = { props: Array<__PropFragment> }
 
+export type TestCreateFieldMutationVariables = Exact<{
+  input: CreateFieldInput
+}>
+
+export type TestCreateFieldMutation = { createField: Test__FieldFragment }
+
+export type TestCreateInterfaceMutationVariables = Exact<{
+  input: CreateInterfaceInput
+}>
+
+export type TestCreateInterfaceMutation = {
+  createInterface: Test__InterfaceFragment
+}
+
+export type TestDeleteFieldMutationVariables = Exact<{
+  input: DeleteFieldInput
+}>
+
+export type TestDeleteFieldMutation = {
+  deleteField: Pick<DeleteResponse, 'affected'>
+}
+
+export type TestDeleteInterfaceMutationVariables = Exact<{
+  input: DeleteInterfaceInput
+}>
+
+export type TestDeleteInterfaceMutation = {
+  deleteInterface: Pick<DeleteResponse, 'affected'>
+}
+
+export type TestGetFieldQueryVariables = Exact<{
+  input: GetFieldInput
+}>
+
+export type TestGetFieldQuery = { getField?: Maybe<Test__FieldFragment> }
+
+export type TestGetInterfaceQueryVariables = Exact<{
+  input: GetInterfaceInput
+}>
+
+export type TestGetInterfaceQuery = {
+  getInterface?: Maybe<Test__InterfaceFragment>
+}
+
+export type TestGetTypeQueryVariables = Exact<{
+  input: GetTypeInput
+}>
+
+export type TestGetTypeQuery = {
+  getType?: Maybe<
+    | Test__Type_SimpleType_Fragment
+    | Test__Type_ArrayType_Fragment
+    | Test__Type_EnumType_Fragment
+    | Test__Type_UnitType_Fragment
+    | Test__Type_InterfaceType_Fragment
+  >
+}
+
+export type Test__ArrayLengthValidatorFragment = Pick<
+  ArrayLengthValidator,
+  'id' | 'maxLength' | 'minLength'
+>
+
+export type Test__MinMaxValidatorFragment = Pick<
+  MinMaxValidator,
+  'id' | 'max' | 'min'
+>
+
+export type Test__RequiredValidatorFragment = Pick<
+  RequiredValidator,
+  'id' | 'isRequired'
+>
+
+type Test__Decorator_ArrayLengthValidator_Fragment = {
+  __typename: 'ArrayLengthValidator'
+} & Test__ArrayLengthValidatorFragment
+
+type Test__Decorator_MinMaxValidator_Fragment = {
+  __typename: 'MinMaxValidator'
+} & Test__MinMaxValidatorFragment
+
+type Test__Decorator_RequiredValidator_Fragment = {
+  __typename: 'RequiredValidator'
+} & Test__RequiredValidatorFragment
+
+export type Test__DecoratorFragment =
+  | Test__Decorator_ArrayLengthValidator_Fragment
+  | Test__Decorator_MinMaxValidator_Fragment
+  | Test__Decorator_RequiredValidator_Fragment
+
+export type Test__FieldFragment = Pick<
+  Field,
+  'id' | 'key' | 'name' | 'typeId' | 'description'
+> & {
+  decorators: Array<
+    | Test__Decorator_ArrayLengthValidator_Fragment
+    | Test__Decorator_MinMaxValidator_Fragment
+    | Test__Decorator_RequiredValidator_Fragment
+  >
+}
+
+export type Test__ArrayTypeFragment = Pick<ArrayType, 'id' | 'typeId'>
+
+export type Test__EnumTypeValueFragment = Pick<EnumTypeValue, 'id' | 'name'>
+
+export type Test__EnumTypeFragment = Pick<EnumType, 'id'> & {
+  allowedValues: Array<Test__EnumTypeValueFragment>
+}
+
+export type Test__InterfaceTypeFragment = Pick<InterfaceType, 'interfaceId'>
+
+export type Test__SimpleTypeFragment = Pick<SimpleType, 'id' | 'primitiveType'>
+
+export type Test__UnitTypeFragment = Pick<UnitType, 'id' | 'allowedUnits'>
+
+type Test__Type_SimpleType_Fragment = {
+  __typename: 'SimpleType'
+} & Test__SimpleTypeFragment
+
+type Test__Type_ArrayType_Fragment = {
+  __typename: 'ArrayType'
+} & Test__ArrayTypeFragment
+
+type Test__Type_EnumType_Fragment = {
+  __typename: 'EnumType'
+} & Test__EnumTypeFragment
+
+type Test__Type_UnitType_Fragment = {
+  __typename: 'UnitType'
+} & Test__UnitTypeFragment
+
+type Test__Type_InterfaceType_Fragment = {
+  __typename: 'InterfaceType'
+} & Test__InterfaceTypeFragment
+
+export type Test__TypeFragment =
+  | Test__Type_SimpleType_Fragment
+  | Test__Type_ArrayType_Fragment
+  | Test__Type_EnumType_Fragment
+  | Test__Type_UnitType_Fragment
+  | Test__Type_InterfaceType_Fragment
+
+export type Test__InterfaceFragment = Pick<Interface, 'id' | 'name'> & {
+  fields: Array<Test__FieldFragment>
+  types: Array<
+    | Test__Type_SimpleType_Fragment
+    | Test__Type_ArrayType_Fragment
+    | Test__Type_EnumType_Fragment
+    | Test__Type_UnitType_Fragment
+    | Test__Type_InterfaceType_Fragment
+  >
+}
+
+export type TestUpdateFieldMutationVariables = Exact<{
+  input: UpdateFieldInput
+}>
+
+export type TestUpdateFieldMutation = { updateField: Test__FieldFragment }
+
+export type TestUpdateInterfaceMutationVariables = Exact<{
+  input: UpdateInterfaceInput
+}>
+
+export type TestUpdateInterfaceMutation = {
+  updateInterface: Test__InterfaceFragment
+}
+
 export type __UserFragment = Pick<User, 'email' | 'name'> & {
   id: User['user_id']
 }
@@ -754,6 +1148,133 @@ export const __PropFragmentDoc = gql`
       }
     }
   }
+`
+export const Test__ArrayLengthValidatorFragmentDoc = gql`
+  fragment Test__ArrayLengthValidator on ArrayLengthValidator {
+    id
+    maxLength
+    minLength
+  }
+`
+export const Test__MinMaxValidatorFragmentDoc = gql`
+  fragment Test__MinMaxValidator on MinMaxValidator {
+    id
+    max
+    min
+  }
+`
+export const Test__RequiredValidatorFragmentDoc = gql`
+  fragment Test__RequiredValidator on RequiredValidator {
+    id
+    isRequired
+  }
+`
+export const Test__DecoratorFragmentDoc = gql`
+  fragment Test__Decorator on Decorator {
+    __typename
+    ... on ArrayLengthValidator {
+      ...Test__ArrayLengthValidator
+    }
+    ... on MinMaxValidator {
+      ...Test__MinMaxValidator
+    }
+    ... on RequiredValidator {
+      ...Test__RequiredValidator
+    }
+  }
+  ${Test__ArrayLengthValidatorFragmentDoc}
+  ${Test__MinMaxValidatorFragmentDoc}
+  ${Test__RequiredValidatorFragmentDoc}
+`
+export const Test__FieldFragmentDoc = gql`
+  fragment Test__Field on Field {
+    id
+    key
+    name
+    typeId
+    description
+    decorators {
+      ...Test__Decorator
+    }
+  }
+  ${Test__DecoratorFragmentDoc}
+`
+export const Test__ArrayTypeFragmentDoc = gql`
+  fragment Test__ArrayType on ArrayType {
+    id
+    typeId
+  }
+`
+export const Test__EnumTypeValueFragmentDoc = gql`
+  fragment Test__EnumTypeValue on EnumTypeValue {
+    id
+    name
+  }
+`
+export const Test__EnumTypeFragmentDoc = gql`
+  fragment Test__EnumType on EnumType {
+    id
+    allowedValues {
+      ...Test__EnumTypeValue
+    }
+  }
+  ${Test__EnumTypeValueFragmentDoc}
+`
+export const Test__InterfaceTypeFragmentDoc = gql`
+  fragment Test__InterfaceType on InterfaceType {
+    interfaceId
+  }
+`
+export const Test__SimpleTypeFragmentDoc = gql`
+  fragment Test__SimpleType on SimpleType {
+    id
+    primitiveType
+  }
+`
+export const Test__UnitTypeFragmentDoc = gql`
+  fragment Test__UnitType on UnitType {
+    id
+    allowedUnits
+  }
+`
+export const Test__TypeFragmentDoc = gql`
+  fragment Test__Type on Type {
+    __typename
+    ... on ArrayType {
+      ...Test__ArrayType
+    }
+    ... on EnumType {
+      ...Test__EnumType
+    }
+    ... on InterfaceType {
+      ...Test__InterfaceType
+    }
+    ... on SimpleType {
+      ...Test__SimpleType
+    }
+    ... on UnitType {
+      ...Test__UnitType
+    }
+  }
+  ${Test__ArrayTypeFragmentDoc}
+  ${Test__EnumTypeFragmentDoc}
+  ${Test__InterfaceTypeFragmentDoc}
+  ${Test__SimpleTypeFragmentDoc}
+  ${Test__UnitTypeFragmentDoc}
+`
+export const Test__InterfaceFragmentDoc = gql`
+  fragment Test__Interface on Interface {
+    id
+    name
+    fields {
+      ...Test__Field
+    }
+    types {
+      ...Test__Type
+    }
+  }
+  ${Test__FieldFragmentDoc}
+  ${Test__TypeFragmentDoc}
 `
 export const __UserFragmentDoc = gql`
   fragment __User on User {
@@ -1981,6 +2502,498 @@ export type GetPropsQueryResult = Apollo.QueryResult<
 export function refetchGetPropsQuery(variables?: GetPropsQueryVariables) {
   return { query: GetPropsGql, variables: variables }
 }
+export const TestCreateFieldGql = gql`
+  mutation TestCreateField($input: CreateFieldInput!) {
+    createField(input: $input) {
+      ...Test__Field
+    }
+  }
+  ${Test__FieldFragmentDoc}
+`
+export type TestCreateFieldMutationFn = Apollo.MutationFunction<
+  TestCreateFieldMutation,
+  TestCreateFieldMutationVariables
+>
+
+/**
+ * __useTestCreateFieldMutation__
+ *
+ * To run a mutation, you first call `useTestCreateFieldMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useTestCreateFieldMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [testCreateFieldMutation, { data, loading, error }] = useTestCreateFieldMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useTestCreateFieldMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    TestCreateFieldMutation,
+    TestCreateFieldMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    TestCreateFieldMutation,
+    TestCreateFieldMutationVariables
+  >(TestCreateFieldGql, options)
+}
+export type TestCreateFieldMutationHookResult = ReturnType<
+  typeof useTestCreateFieldMutation
+>
+export type TestCreateFieldMutationResult =
+  Apollo.MutationResult<TestCreateFieldMutation>
+export type TestCreateFieldMutationOptions = Apollo.BaseMutationOptions<
+  TestCreateFieldMutation,
+  TestCreateFieldMutationVariables
+>
+export const TestCreateInterfaceGql = gql`
+  mutation TestCreateInterface($input: CreateInterfaceInput!) {
+    createInterface(input: $input) {
+      ...Test__Interface
+    }
+  }
+  ${Test__InterfaceFragmentDoc}
+`
+export type TestCreateInterfaceMutationFn = Apollo.MutationFunction<
+  TestCreateInterfaceMutation,
+  TestCreateInterfaceMutationVariables
+>
+
+/**
+ * __useTestCreateInterfaceMutation__
+ *
+ * To run a mutation, you first call `useTestCreateInterfaceMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useTestCreateInterfaceMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [testCreateInterfaceMutation, { data, loading, error }] = useTestCreateInterfaceMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useTestCreateInterfaceMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    TestCreateInterfaceMutation,
+    TestCreateInterfaceMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    TestCreateInterfaceMutation,
+    TestCreateInterfaceMutationVariables
+  >(TestCreateInterfaceGql, options)
+}
+export type TestCreateInterfaceMutationHookResult = ReturnType<
+  typeof useTestCreateInterfaceMutation
+>
+export type TestCreateInterfaceMutationResult =
+  Apollo.MutationResult<TestCreateInterfaceMutation>
+export type TestCreateInterfaceMutationOptions = Apollo.BaseMutationOptions<
+  TestCreateInterfaceMutation,
+  TestCreateInterfaceMutationVariables
+>
+export const TestDeleteFieldGql = gql`
+  mutation TestDeleteField($input: DeleteFieldInput!) {
+    deleteField(input: $input) {
+      affected
+    }
+  }
+`
+export type TestDeleteFieldMutationFn = Apollo.MutationFunction<
+  TestDeleteFieldMutation,
+  TestDeleteFieldMutationVariables
+>
+
+/**
+ * __useTestDeleteFieldMutation__
+ *
+ * To run a mutation, you first call `useTestDeleteFieldMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useTestDeleteFieldMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [testDeleteFieldMutation, { data, loading, error }] = useTestDeleteFieldMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useTestDeleteFieldMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    TestDeleteFieldMutation,
+    TestDeleteFieldMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    TestDeleteFieldMutation,
+    TestDeleteFieldMutationVariables
+  >(TestDeleteFieldGql, options)
+}
+export type TestDeleteFieldMutationHookResult = ReturnType<
+  typeof useTestDeleteFieldMutation
+>
+export type TestDeleteFieldMutationResult =
+  Apollo.MutationResult<TestDeleteFieldMutation>
+export type TestDeleteFieldMutationOptions = Apollo.BaseMutationOptions<
+  TestDeleteFieldMutation,
+  TestDeleteFieldMutationVariables
+>
+export const TestDeleteInterfaceGql = gql`
+  mutation TestDeleteInterface($input: DeleteInterfaceInput!) {
+    deleteInterface(input: $input) {
+      affected
+    }
+  }
+`
+export type TestDeleteInterfaceMutationFn = Apollo.MutationFunction<
+  TestDeleteInterfaceMutation,
+  TestDeleteInterfaceMutationVariables
+>
+
+/**
+ * __useTestDeleteInterfaceMutation__
+ *
+ * To run a mutation, you first call `useTestDeleteInterfaceMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useTestDeleteInterfaceMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [testDeleteInterfaceMutation, { data, loading, error }] = useTestDeleteInterfaceMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useTestDeleteInterfaceMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    TestDeleteInterfaceMutation,
+    TestDeleteInterfaceMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    TestDeleteInterfaceMutation,
+    TestDeleteInterfaceMutationVariables
+  >(TestDeleteInterfaceGql, options)
+}
+export type TestDeleteInterfaceMutationHookResult = ReturnType<
+  typeof useTestDeleteInterfaceMutation
+>
+export type TestDeleteInterfaceMutationResult =
+  Apollo.MutationResult<TestDeleteInterfaceMutation>
+export type TestDeleteInterfaceMutationOptions = Apollo.BaseMutationOptions<
+  TestDeleteInterfaceMutation,
+  TestDeleteInterfaceMutationVariables
+>
+export const TestGetFieldGql = gql`
+  query TestGetField($input: GetFieldInput!) {
+    getField(input: $input) {
+      ...Test__Field
+    }
+  }
+  ${Test__FieldFragmentDoc}
+`
+
+/**
+ * __useTestGetFieldQuery__
+ *
+ * To run a query within a React component, call `useTestGetFieldQuery` and pass it any options that fit your needs.
+ * When your component renders, `useTestGetFieldQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useTestGetFieldQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useTestGetFieldQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    TestGetFieldQuery,
+    TestGetFieldQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<TestGetFieldQuery, TestGetFieldQueryVariables>(
+    TestGetFieldGql,
+    options,
+  )
+}
+export function useTestGetFieldLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    TestGetFieldQuery,
+    TestGetFieldQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<TestGetFieldQuery, TestGetFieldQueryVariables>(
+    TestGetFieldGql,
+    options,
+  )
+}
+export type TestGetFieldQueryHookResult = ReturnType<
+  typeof useTestGetFieldQuery
+>
+export type TestGetFieldLazyQueryHookResult = ReturnType<
+  typeof useTestGetFieldLazyQuery
+>
+export type TestGetFieldQueryResult = Apollo.QueryResult<
+  TestGetFieldQuery,
+  TestGetFieldQueryVariables
+>
+export function refetchTestGetFieldQuery(
+  variables?: TestGetFieldQueryVariables,
+) {
+  return { query: TestGetFieldGql, variables: variables }
+}
+export const TestGetInterfaceGql = gql`
+  query TestGetInterface($input: GetInterfaceInput!) {
+    getInterface(input: $input) {
+      ...Test__Interface
+    }
+  }
+  ${Test__InterfaceFragmentDoc}
+`
+
+/**
+ * __useTestGetInterfaceQuery__
+ *
+ * To run a query within a React component, call `useTestGetInterfaceQuery` and pass it any options that fit your needs.
+ * When your component renders, `useTestGetInterfaceQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useTestGetInterfaceQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useTestGetInterfaceQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    TestGetInterfaceQuery,
+    TestGetInterfaceQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<TestGetInterfaceQuery, TestGetInterfaceQueryVariables>(
+    TestGetInterfaceGql,
+    options,
+  )
+}
+export function useTestGetInterfaceLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    TestGetInterfaceQuery,
+    TestGetInterfaceQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    TestGetInterfaceQuery,
+    TestGetInterfaceQueryVariables
+  >(TestGetInterfaceGql, options)
+}
+export type TestGetInterfaceQueryHookResult = ReturnType<
+  typeof useTestGetInterfaceQuery
+>
+export type TestGetInterfaceLazyQueryHookResult = ReturnType<
+  typeof useTestGetInterfaceLazyQuery
+>
+export type TestGetInterfaceQueryResult = Apollo.QueryResult<
+  TestGetInterfaceQuery,
+  TestGetInterfaceQueryVariables
+>
+export function refetchTestGetInterfaceQuery(
+  variables?: TestGetInterfaceQueryVariables,
+) {
+  return { query: TestGetInterfaceGql, variables: variables }
+}
+export const TestGetTypeGql = gql`
+  query TestGetType($input: GetTypeInput!) {
+    getType(input: $input) {
+      ...Test__Type
+    }
+  }
+  ${Test__TypeFragmentDoc}
+`
+
+/**
+ * __useTestGetTypeQuery__
+ *
+ * To run a query within a React component, call `useTestGetTypeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useTestGetTypeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useTestGetTypeQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useTestGetTypeQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    TestGetTypeQuery,
+    TestGetTypeQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<TestGetTypeQuery, TestGetTypeQueryVariables>(
+    TestGetTypeGql,
+    options,
+  )
+}
+export function useTestGetTypeLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    TestGetTypeQuery,
+    TestGetTypeQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<TestGetTypeQuery, TestGetTypeQueryVariables>(
+    TestGetTypeGql,
+    options,
+  )
+}
+export type TestGetTypeQueryHookResult = ReturnType<typeof useTestGetTypeQuery>
+export type TestGetTypeLazyQueryHookResult = ReturnType<
+  typeof useTestGetTypeLazyQuery
+>
+export type TestGetTypeQueryResult = Apollo.QueryResult<
+  TestGetTypeQuery,
+  TestGetTypeQueryVariables
+>
+export function refetchTestGetTypeQuery(variables?: TestGetTypeQueryVariables) {
+  return { query: TestGetTypeGql, variables: variables }
+}
+export const TestUpdateFieldGql = gql`
+  mutation TestUpdateField($input: UpdateFieldInput!) {
+    updateField(input: $input) {
+      ...Test__Field
+    }
+  }
+  ${Test__FieldFragmentDoc}
+`
+export type TestUpdateFieldMutationFn = Apollo.MutationFunction<
+  TestUpdateFieldMutation,
+  TestUpdateFieldMutationVariables
+>
+
+/**
+ * __useTestUpdateFieldMutation__
+ *
+ * To run a mutation, you first call `useTestUpdateFieldMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useTestUpdateFieldMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [testUpdateFieldMutation, { data, loading, error }] = useTestUpdateFieldMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useTestUpdateFieldMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    TestUpdateFieldMutation,
+    TestUpdateFieldMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    TestUpdateFieldMutation,
+    TestUpdateFieldMutationVariables
+  >(TestUpdateFieldGql, options)
+}
+export type TestUpdateFieldMutationHookResult = ReturnType<
+  typeof useTestUpdateFieldMutation
+>
+export type TestUpdateFieldMutationResult =
+  Apollo.MutationResult<TestUpdateFieldMutation>
+export type TestUpdateFieldMutationOptions = Apollo.BaseMutationOptions<
+  TestUpdateFieldMutation,
+  TestUpdateFieldMutationVariables
+>
+export const TestUpdateInterfaceGql = gql`
+  mutation TestUpdateInterface($input: UpdateInterfaceInput!) {
+    updateInterface(input: $input) {
+      ...Test__Interface
+    }
+  }
+  ${Test__InterfaceFragmentDoc}
+`
+export type TestUpdateInterfaceMutationFn = Apollo.MutationFunction<
+  TestUpdateInterfaceMutation,
+  TestUpdateInterfaceMutationVariables
+>
+
+/**
+ * __useTestUpdateInterfaceMutation__
+ *
+ * To run a mutation, you first call `useTestUpdateInterfaceMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useTestUpdateInterfaceMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [testUpdateInterfaceMutation, { data, loading, error }] = useTestUpdateInterfaceMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useTestUpdateInterfaceMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    TestUpdateInterfaceMutation,
+    TestUpdateInterfaceMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    TestUpdateInterfaceMutation,
+    TestUpdateInterfaceMutationVariables
+  >(TestUpdateInterfaceGql, options)
+}
+export type TestUpdateInterfaceMutationHookResult = ReturnType<
+  typeof useTestUpdateInterfaceMutation
+>
+export type TestUpdateInterfaceMutationResult =
+  Apollo.MutationResult<TestUpdateInterfaceMutation>
+export type TestUpdateInterfaceMutationOptions = Apollo.BaseMutationOptions<
+  TestUpdateInterfaceMutation,
+  TestUpdateInterfaceMutationVariables
+>
 export const DeleteUserGql = gql`
   mutation DeleteUser($input: DeleteUserInput!) {
     deleteUser(input: $input)
@@ -2239,6 +3252,133 @@ export const __Prop = gql`
     }
   }
 `
+export const Test__ArrayLengthValidator = gql`
+  fragment Test__ArrayLengthValidator on ArrayLengthValidator {
+    id
+    maxLength
+    minLength
+  }
+`
+export const Test__MinMaxValidator = gql`
+  fragment Test__MinMaxValidator on MinMaxValidator {
+    id
+    max
+    min
+  }
+`
+export const Test__RequiredValidator = gql`
+  fragment Test__RequiredValidator on RequiredValidator {
+    id
+    isRequired
+  }
+`
+export const Test__Decorator = gql`
+  fragment Test__Decorator on Decorator {
+    __typename
+    ... on ArrayLengthValidator {
+      ...Test__ArrayLengthValidator
+    }
+    ... on MinMaxValidator {
+      ...Test__MinMaxValidator
+    }
+    ... on RequiredValidator {
+      ...Test__RequiredValidator
+    }
+  }
+  ${Test__ArrayLengthValidator}
+  ${Test__MinMaxValidator}
+  ${Test__RequiredValidator}
+`
+export const Test__Field = gql`
+  fragment Test__Field on Field {
+    id
+    key
+    name
+    typeId
+    description
+    decorators {
+      ...Test__Decorator
+    }
+  }
+  ${Test__Decorator}
+`
+export const Test__ArrayType = gql`
+  fragment Test__ArrayType on ArrayType {
+    id
+    typeId
+  }
+`
+export const Test__EnumTypeValue = gql`
+  fragment Test__EnumTypeValue on EnumTypeValue {
+    id
+    name
+  }
+`
+export const Test__EnumType = gql`
+  fragment Test__EnumType on EnumType {
+    id
+    allowedValues {
+      ...Test__EnumTypeValue
+    }
+  }
+  ${Test__EnumTypeValue}
+`
+export const Test__InterfaceType = gql`
+  fragment Test__InterfaceType on InterfaceType {
+    interfaceId
+  }
+`
+export const Test__SimpleType = gql`
+  fragment Test__SimpleType on SimpleType {
+    id
+    primitiveType
+  }
+`
+export const Test__UnitType = gql`
+  fragment Test__UnitType on UnitType {
+    id
+    allowedUnits
+  }
+`
+export const Test__Type = gql`
+  fragment Test__Type on Type {
+    __typename
+    ... on ArrayType {
+      ...Test__ArrayType
+    }
+    ... on EnumType {
+      ...Test__EnumType
+    }
+    ... on InterfaceType {
+      ...Test__InterfaceType
+    }
+    ... on SimpleType {
+      ...Test__SimpleType
+    }
+    ... on UnitType {
+      ...Test__UnitType
+    }
+  }
+  ${Test__ArrayType}
+  ${Test__EnumType}
+  ${Test__InterfaceType}
+  ${Test__SimpleType}
+  ${Test__UnitType}
+`
+export const Test__Interface = gql`
+  fragment Test__Interface on Interface {
+    id
+    name
+    fields {
+      ...Test__Field
+    }
+    types {
+      ...Test__Type
+    }
+  }
+  ${Test__Field}
+  ${Test__Type}
+`
 export const __User = gql`
   fragment __User on User {
     id: user_id
@@ -2433,6 +3573,76 @@ export const GetProps = gql`
     }
   }
   ${__Prop}
+`
+export const TestCreateField = gql`
+  mutation TestCreateField($input: CreateFieldInput!) {
+    createField(input: $input) {
+      ...Test__Field
+    }
+  }
+  ${Test__Field}
+`
+export const TestCreateInterface = gql`
+  mutation TestCreateInterface($input: CreateInterfaceInput!) {
+    createInterface(input: $input) {
+      ...Test__Interface
+    }
+  }
+  ${Test__Interface}
+`
+export const TestDeleteField = gql`
+  mutation TestDeleteField($input: DeleteFieldInput!) {
+    deleteField(input: $input) {
+      affected
+    }
+  }
+`
+export const TestDeleteInterface = gql`
+  mutation TestDeleteInterface($input: DeleteInterfaceInput!) {
+    deleteInterface(input: $input) {
+      affected
+    }
+  }
+`
+export const TestGetField = gql`
+  query TestGetField($input: GetFieldInput!) {
+    getField(input: $input) {
+      ...Test__Field
+    }
+  }
+  ${Test__Field}
+`
+export const TestGetInterface = gql`
+  query TestGetInterface($input: GetInterfaceInput!) {
+    getInterface(input: $input) {
+      ...Test__Interface
+    }
+  }
+  ${Test__Interface}
+`
+export const TestGetType = gql`
+  query TestGetType($input: GetTypeInput!) {
+    getType(input: $input) {
+      ...Test__Type
+    }
+  }
+  ${Test__Type}
+`
+export const TestUpdateField = gql`
+  mutation TestUpdateField($input: UpdateFieldInput!) {
+    updateField(input: $input) {
+      ...Test__Field
+    }
+  }
+  ${Test__Field}
+`
+export const TestUpdateInterface = gql`
+  mutation TestUpdateInterface($input: UpdateInterfaceInput!) {
+    updateInterface(input: $input) {
+      ...Test__Interface
+    }
+  }
+  ${Test__Interface}
 `
 export const DeleteUser = gql`
   mutation DeleteUser($input: DeleteUserInput!) {

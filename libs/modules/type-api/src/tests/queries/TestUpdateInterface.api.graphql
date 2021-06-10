@@ -1,0 +1,5 @@
+mutation TestUpdateInterface($input: UpdateInterfaceInput!){
+    updateInterface(input: $input) {
+        ...Test__Interface
+    }
+}

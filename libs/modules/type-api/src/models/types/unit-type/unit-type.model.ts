@@ -14,7 +14,7 @@ export class UnitType {
   declare allowedUnits: Array<Unit>
 }
 
-export const unitTypeSchema = z.object({
+export const unitTypeSchema: z.ZodSchema<UnitType> = z.object({
   id: z.string(),
   allowedUnits: unitSchema.array(),
 })

@@ -16,8 +16,9 @@ export class ArrayLengthValidator {
   declare maxLength?: number | null
 }
 
-export const arrayLengthValidatorSchema = z.object({
-  id: z.string(),
-  min: z.number().int().nullable(),
-  max: z.number().int().nullable(),
-})
+export const arrayLengthValidatorSchema: z.ZodSchema<ArrayLengthValidator> =
+  z.object({
+    id: z.string(),
+    min: z.number().int().nullable(),
+    max: z.number().int().nullable(),
+  })

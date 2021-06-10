@@ -1,0 +1,5 @@
+mutation DeleteField($filter: FieldFilter!){
+    deleteField(filter: $filter){
+        numUids
+    }
+}

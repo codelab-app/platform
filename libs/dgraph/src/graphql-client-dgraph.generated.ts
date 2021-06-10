@@ -151,6 +151,8 @@ export type AddEnumTypeValuePayloadEnumTypeValueArgs = {
 export type AddFieldInput = {
   type: TypeRef
   key: Scalars['String']
+  name: Scalars['String']
+  description?: Maybe<Scalars['String']>
   decorators?: Maybe<Array<Maybe<DecoratorRef>>>
   interface: InterfaceRef
 }
@@ -1177,6 +1179,8 @@ export type Field = {
   id: Scalars['ID']
   type: Type
   key: Scalars['String']
+  name: Scalars['String']
+  description?: Maybe<Scalars['String']>
   decorators?: Maybe<Array<Maybe<Decorator>>>
   interface: Interface
 }
@@ -1199,10 +1203,15 @@ export type FieldAggregateResult = {
   count?: Maybe<Scalars['Int']>
   keyMin?: Maybe<Scalars['String']>
   keyMax?: Maybe<Scalars['String']>
+  nameMin?: Maybe<Scalars['String']>
+  nameMax?: Maybe<Scalars['String']>
+  descriptionMin?: Maybe<Scalars['String']>
+  descriptionMax?: Maybe<Scalars['String']>
 }
 
 export type FieldFilter = {
   id?: Maybe<Array<Scalars['ID']>>
+  key?: Maybe<StringFullTextFilter_StringHashFilter>
   has?: Maybe<Array<Maybe<FieldHasFilter>>>
   and?: Maybe<Array<Maybe<FieldFilter>>>
   or?: Maybe<Array<Maybe<FieldFilter>>>
@@ -1212,6 +1221,8 @@ export type FieldFilter = {
 export enum FieldHasFilter {
   Type = 'type',
   Key = 'key',
+  Name = 'name',
+  Description = 'description',
   Decorators = 'decorators',
   Interface = 'interface',
 }
@@ -1224,11 +1235,15 @@ export type FieldOrder = {
 
 export enum FieldOrderable {
   Key = 'key',
+  Name = 'name',
+  Description = 'description',
 }
 
 export type FieldPatch = {
   type?: Maybe<TypeRef>
   key?: Maybe<Scalars['String']>
+  name?: Maybe<Scalars['String']>
+  description?: Maybe<Scalars['String']>
   decorators?: Maybe<Array<Maybe<DecoratorRef>>>
   interface?: Maybe<InterfaceRef>
 }
@@ -1237,6 +1252,8 @@ export type FieldRef = {
   id?: Maybe<Scalars['ID']>
   type?: Maybe<TypeRef>
   key?: Maybe<Scalars['String']>
+  name?: Maybe<Scalars['String']>
+  description?: Maybe<Scalars['String']>
   decorators?: Maybe<Array<Maybe<DecoratorRef>>>
   interface?: Maybe<InterfaceRef>
 }
@@ -2481,6 +2498,13 @@ export type StringFullTextFilter = {
   anyoftext?: Maybe<Scalars['String']>
 }
 
+export type StringFullTextFilter_StringHashFilter = {
+  alloftext?: Maybe<Scalars['String']>
+  anyoftext?: Maybe<Scalars['String']>
+  eq?: Maybe<Scalars['String']>
+  in?: Maybe<Array<Maybe<Scalars['String']>>>
+}
+
 export type StringFullTextFilter_StringTermFilter = {
   alloftext?: Maybe<Scalars['String']>
   anyoftext?: Maybe<Scalars['String']>
@@ -2574,13 +2598,13 @@ export enum TypeType {
 }
 
 export enum Unit {
-  Px = 'px',
-  Pt = 'pt',
-  Em = 'em',
-  Rem = 'rem',
-  Percent = 'percent',
-  Vw = 'vw',
-  Vh = 'vh',
+  Px = 'PX',
+  Pt = 'PT',
+  Em = 'EM',
+  Rem = 'REM',
+  Percent = 'PERCENT',
+  Vw = 'VW',
+  Vh = 'VH',
 }
 
 export type UnitType = {
@@ -3052,7 +3076,9 @@ export type UpdateAppMutation = {
   updateApp?: Maybe<{ app?: Maybe<Array<Maybe<Dgraph__AppFragment>>> }>
 }
 
-export type DGraph__AtomFragment = Pick<Atom, 'id' | 'label' | 'type'>
+export type DGraph__AtomFragment = Pick<Atom, 'id' | 'label' | 'type'> & {
+  propTypes: Pick<Interface, 'id'>
+}
 
 export type CreateAtomMutationVariables = Exact<{
   input: Array<AddAtomInput> | AddAtomInput
@@ -3273,7 +3299,10 @@ export type Dgraph__InterfaceFragment = Pick<Interface, 'id' | 'name'> & {
   fields?: Maybe<Array<Maybe<Dgraph__FieldFragment>>>
 }
 
-export type Dgraph__FieldFragment = Pick<Field, 'id' | 'key'> & {
+export type Dgraph__FieldFragment = Pick<
+  Field,
+  'id' | 'key' | 'name' | 'description'
+> & {
   decorators?: Maybe<
     Array<
       Maybe<
@@ -3346,6 +3375,62 @@ export type Dgraph__MinMaxValidatorFragment = Pick<
   'id' | 'max' | 'min'
 >
 
+export type CreateFieldMutationVariables = Exact<{
+  input: Array<AddFieldInput> | AddFieldInput
+}>
+
+export type CreateFieldMutation = {
+  addField?: Maybe<{ field?: Maybe<Array<Maybe<Dgraph__FieldFragment>>> }>
+}
+
+export type DeleteFieldMutationVariables = Exact<{
+  filter: FieldFilter
+}>
+
+export type DeleteFieldMutation = {
+  deleteField?: Maybe<Pick<DeleteFieldPayload, 'numUids'>>
+}
+
+export type UpdateFieldMutationVariables = Exact<{
+  input: UpdateFieldInput
+}>
+
+export type UpdateFieldMutation = {
+  updateField?: Maybe<
+    Pick<UpdateFieldPayload, 'numUids'> & {
+      field?: Maybe<Array<Maybe<Dgraph__FieldFragment>>>
+    }
+  >
+}
+
+export type CreateInterfaceMutationVariables = Exact<{
+  input: Array<AddInterfaceInput> | AddInterfaceInput
+}>
+
+export type CreateInterfaceMutation = {
+  addInterface?: Maybe<{
+    interface?: Maybe<Array<Maybe<Dgraph__InterfaceFragment>>>
+  }>
+}
+
+export type DeleteInterfaceAndFieldsMutationVariables = Exact<{
+  filter: InterfaceFilter
+  fieldFilter: FieldFilter
+}>
+
+export type DeleteInterfaceAndFieldsMutation = {
+  deleteInterface?: Maybe<Pick<DeleteInterfacePayload, 'numUids'>>
+  deleteField?: Maybe<Pick<DeleteFieldPayload, 'numUids'>>
+}
+
+export type UpdateInterfaceMutationVariables = Exact<{
+  input: UpdateInterfaceInput
+}>
+
+export type UpdateInterfaceMutation = {
+  updateInterface?: Maybe<Pick<UpdateInterfacePayload, 'numUids'>>
+}
+
 export type GetValueTypesQueryVariables = Exact<{ [key: string]: never }>
 
 export type GetValueTypesQuery = {
@@ -3398,6 +3483,9 @@ export const DGraph__AtomFragmentDoc = gql`
     id
     label
     type
+    propTypes {
+      id
+    }
   }
 `
 export const Dgraph__AppFragmentDoc = gql`
@@ -3512,6 +3600,8 @@ export const Dgraph__FieldFragmentDoc = gql`
   fragment Dgraph__Field on Field {
     id
     key
+    name
+    description
     decorators {
       ...Dgraph__Decorator
     }
@@ -5131,6 +5221,324 @@ export type UpdatePageElementMutationOptions = Apollo.BaseMutationOptions<
   UpdatePageElementMutation,
   UpdatePageElementMutationVariables
 >
+export const CreateFieldGql = gql`
+  mutation CreateField($input: [AddFieldInput!]!) {
+    addField(input: $input) {
+      field {
+        ...Dgraph__Field
+      }
+    }
+  }
+  ${Dgraph__FieldFragmentDoc}
+`
+export type CreateFieldMutationFn = Apollo.MutationFunction<
+  CreateFieldMutation,
+  CreateFieldMutationVariables
+>
+
+/**
+ * __useCreateFieldMutation__
+ *
+ * To run a mutation, you first call `useCreateFieldMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateFieldMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createFieldMutation, { data, loading, error }] = useCreateFieldMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateFieldMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateFieldMutation,
+    CreateFieldMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<CreateFieldMutation, CreateFieldMutationVariables>(
+    CreateFieldGql,
+    options,
+  )
+}
+export type CreateFieldMutationHookResult = ReturnType<
+  typeof useCreateFieldMutation
+>
+export type CreateFieldMutationResult =
+  Apollo.MutationResult<CreateFieldMutation>
+export type CreateFieldMutationOptions = Apollo.BaseMutationOptions<
+  CreateFieldMutation,
+  CreateFieldMutationVariables
+>
+export const DeleteFieldGql = gql`
+  mutation DeleteField($filter: FieldFilter!) {
+    deleteField(filter: $filter) {
+      numUids
+    }
+  }
+`
+export type DeleteFieldMutationFn = Apollo.MutationFunction<
+  DeleteFieldMutation,
+  DeleteFieldMutationVariables
+>
+
+/**
+ * __useDeleteFieldMutation__
+ *
+ * To run a mutation, you first call `useDeleteFieldMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteFieldMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteFieldMutation, { data, loading, error }] = useDeleteFieldMutation({
+ *   variables: {
+ *      filter: // value for 'filter'
+ *   },
+ * });
+ */
+export function useDeleteFieldMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeleteFieldMutation,
+    DeleteFieldMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<DeleteFieldMutation, DeleteFieldMutationVariables>(
+    DeleteFieldGql,
+    options,
+  )
+}
+export type DeleteFieldMutationHookResult = ReturnType<
+  typeof useDeleteFieldMutation
+>
+export type DeleteFieldMutationResult =
+  Apollo.MutationResult<DeleteFieldMutation>
+export type DeleteFieldMutationOptions = Apollo.BaseMutationOptions<
+  DeleteFieldMutation,
+  DeleteFieldMutationVariables
+>
+export const UpdateFieldGql = gql`
+  mutation UpdateField($input: UpdateFieldInput!) {
+    updateField(input: $input) {
+      field {
+        ...Dgraph__Field
+      }
+      numUids
+    }
+  }
+  ${Dgraph__FieldFragmentDoc}
+`
+export type UpdateFieldMutationFn = Apollo.MutationFunction<
+  UpdateFieldMutation,
+  UpdateFieldMutationVariables
+>
+
+/**
+ * __useUpdateFieldMutation__
+ *
+ * To run a mutation, you first call `useUpdateFieldMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateFieldMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateFieldMutation, { data, loading, error }] = useUpdateFieldMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateFieldMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateFieldMutation,
+    UpdateFieldMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<UpdateFieldMutation, UpdateFieldMutationVariables>(
+    UpdateFieldGql,
+    options,
+  )
+}
+export type UpdateFieldMutationHookResult = ReturnType<
+  typeof useUpdateFieldMutation
+>
+export type UpdateFieldMutationResult =
+  Apollo.MutationResult<UpdateFieldMutation>
+export type UpdateFieldMutationOptions = Apollo.BaseMutationOptions<
+  UpdateFieldMutation,
+  UpdateFieldMutationVariables
+>
+export const CreateInterfaceGql = gql`
+  mutation CreateInterface($input: [AddInterfaceInput!]!) {
+    addInterface(input: $input) {
+      interface {
+        ...Dgraph__Interface
+      }
+    }
+  }
+  ${Dgraph__InterfaceFragmentDoc}
+`
+export type CreateInterfaceMutationFn = Apollo.MutationFunction<
+  CreateInterfaceMutation,
+  CreateInterfaceMutationVariables
+>
+
+/**
+ * __useCreateInterfaceMutation__
+ *
+ * To run a mutation, you first call `useCreateInterfaceMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateInterfaceMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createInterfaceMutation, { data, loading, error }] = useCreateInterfaceMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateInterfaceMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateInterfaceMutation,
+    CreateInterfaceMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    CreateInterfaceMutation,
+    CreateInterfaceMutationVariables
+  >(CreateInterfaceGql, options)
+}
+export type CreateInterfaceMutationHookResult = ReturnType<
+  typeof useCreateInterfaceMutation
+>
+export type CreateInterfaceMutationResult =
+  Apollo.MutationResult<CreateInterfaceMutation>
+export type CreateInterfaceMutationOptions = Apollo.BaseMutationOptions<
+  CreateInterfaceMutation,
+  CreateInterfaceMutationVariables
+>
+export const DeleteInterfaceAndFieldsGql = gql`
+  mutation DeleteInterfaceAndFields(
+    $filter: InterfaceFilter!
+    $fieldFilter: FieldFilter!
+  ) {
+    deleteInterface(filter: $filter) {
+      numUids
+    }
+    deleteField(filter: $fieldFilter) {
+      numUids
+    }
+  }
+`
+export type DeleteInterfaceAndFieldsMutationFn = Apollo.MutationFunction<
+  DeleteInterfaceAndFieldsMutation,
+  DeleteInterfaceAndFieldsMutationVariables
+>
+
+/**
+ * __useDeleteInterfaceAndFieldsMutation__
+ *
+ * To run a mutation, you first call `useDeleteInterfaceAndFieldsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteInterfaceAndFieldsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteInterfaceAndFieldsMutation, { data, loading, error }] = useDeleteInterfaceAndFieldsMutation({
+ *   variables: {
+ *      filter: // value for 'filter'
+ *      fieldFilter: // value for 'fieldFilter'
+ *   },
+ * });
+ */
+export function useDeleteInterfaceAndFieldsMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeleteInterfaceAndFieldsMutation,
+    DeleteInterfaceAndFieldsMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    DeleteInterfaceAndFieldsMutation,
+    DeleteInterfaceAndFieldsMutationVariables
+  >(DeleteInterfaceAndFieldsGql, options)
+}
+export type DeleteInterfaceAndFieldsMutationHookResult = ReturnType<
+  typeof useDeleteInterfaceAndFieldsMutation
+>
+export type DeleteInterfaceAndFieldsMutationResult =
+  Apollo.MutationResult<DeleteInterfaceAndFieldsMutation>
+export type DeleteInterfaceAndFieldsMutationOptions =
+  Apollo.BaseMutationOptions<
+    DeleteInterfaceAndFieldsMutation,
+    DeleteInterfaceAndFieldsMutationVariables
+  >
+export const UpdateInterfaceGql = gql`
+  mutation UpdateInterface($input: UpdateInterfaceInput!) {
+    updateInterface(input: $input) {
+      numUids
+    }
+  }
+`
+export type UpdateInterfaceMutationFn = Apollo.MutationFunction<
+  UpdateInterfaceMutation,
+  UpdateInterfaceMutationVariables
+>
+
+/**
+ * __useUpdateInterfaceMutation__
+ *
+ * To run a mutation, you first call `useUpdateInterfaceMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateInterfaceMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateInterfaceMutation, { data, loading, error }] = useUpdateInterfaceMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateInterfaceMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateInterfaceMutation,
+    UpdateInterfaceMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    UpdateInterfaceMutation,
+    UpdateInterfaceMutationVariables
+  >(UpdateInterfaceGql, options)
+}
+export type UpdateInterfaceMutationHookResult = ReturnType<
+  typeof useUpdateInterfaceMutation
+>
+export type UpdateInterfaceMutationResult =
+  Apollo.MutationResult<UpdateInterfaceMutation>
+export type UpdateInterfaceMutationOptions = Apollo.BaseMutationOptions<
+  UpdateInterfaceMutation,
+  UpdateInterfaceMutationVariables
+>
 export const GetValueTypesGql = gql`
   query GetValueTypes {
     valueTypes: queryValueType {
@@ -5238,6 +5646,9 @@ export const DGraph__Atom = gql`
     id
     label
     type
+    propTypes {
+      id
+    }
   }
 `
 export const Dgraph__App = gql`
@@ -5352,6 +5763,8 @@ export const Dgraph__Field = gql`
   fragment Dgraph__Field on Field {
     id
     key
+    name
+    description
     decorators {
       ...Dgraph__Decorator
     }
@@ -5655,6 +6068,64 @@ export const UpdatePageElement = gql`
     }
   }
   ${Dgraph_PageElement}
+`
+export const CreateField = gql`
+  mutation CreateField($input: [AddFieldInput!]!) {
+    addField(input: $input) {
+      field {
+        ...Dgraph__Field
+      }
+    }
+  }
+  ${Dgraph__Field}
+`
+export const DeleteField = gql`
+  mutation DeleteField($filter: FieldFilter!) {
+    deleteField(filter: $filter) {
+      numUids
+    }
+  }
+`
+export const UpdateField = gql`
+  mutation UpdateField($input: UpdateFieldInput!) {
+    updateField(input: $input) {
+      field {
+        ...Dgraph__Field
+      }
+      numUids
+    }
+  }
+  ${Dgraph__Field}
+`
+export const CreateInterface = gql`
+  mutation CreateInterface($input: [AddInterfaceInput!]!) {
+    addInterface(input: $input) {
+      interface {
+        ...Dgraph__Interface
+      }
+    }
+  }
+  ${Dgraph__Interface}
+`
+export const DeleteInterfaceAndFields = gql`
+  mutation DeleteInterfaceAndFields(
+    $filter: InterfaceFilter!
+    $fieldFilter: FieldFilter!
+  ) {
+    deleteInterface(filter: $filter) {
+      numUids
+    }
+    deleteField(filter: $fieldFilter) {
+      numUids
+    }
+  }
+`
+export const UpdateInterface = gql`
+  mutation UpdateInterface($input: UpdateInterfaceInput!) {
+    updateInterface(input: $input) {
+      numUids
+    }
+  }
 `
 export const GetValueTypes = gql`
   query GetValueTypes {

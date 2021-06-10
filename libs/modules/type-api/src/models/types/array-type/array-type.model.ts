@@ -1,6 +1,5 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql'
 import { z } from 'zod'
-import { Type, typeSchema } from '../type.model'
 
 /**
  * Represents an array type. The type field clarifies the type of items in the array
@@ -10,11 +9,11 @@ export class ArrayType {
   @Field(() => ID)
   declare id: string
 
-  @Field(() => Type)
-  declare type: Type
+  @Field()
+  declare typeId: string
 }
 
-export const arrayTypeSchema = z.object({
+export const arrayTypeSchema: z.ZodSchema<ArrayType> = z.object({
   id: z.string(),
-  type: typeSchema,
+  typeId: z.string(),
 })

@@ -1,26 +1,33 @@
 import { Field as GraphqlField, ID, ObjectType } from '@nestjs/graphql'
 import { z } from 'zod'
 import { Decorator, decoratorSchema } from './decorators'
-import { Type, typeSchema } from './types'
 
 @ObjectType()
 export class Field {
   @GraphqlField(() => ID)
   declare id: string
 
-  @GraphqlField(() => String)
+  @GraphqlField()
   declare key: string
 
-  @GraphqlField(() => Type)
-  declare type: Type
+  @GraphqlField()
+  declare name: string
+
+  @GraphqlField(() => String, { nullable: true })
+  declare description: string | null
+
+  @GraphqlField()
+  declare typeId: string
 
   @GraphqlField(() => [Decorator])
   declare decorators: Array<Decorator>
 }
 
-export const fieldSchema = z.object({
+export const fieldSchema: z.ZodSchema<Field> = z.object({
   id: z.string(),
   key: z.string(),
-  type: typeSchema,
+  name: z.string(),
+  description: z.string().nullable(),
+  typeId: z.string(),
   decorators: decoratorSchema.array(),
 })

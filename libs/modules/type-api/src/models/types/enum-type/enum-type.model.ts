@@ -14,7 +14,7 @@ export class EnumType {
   declare allowedValues: Array<EnumTypeValue>
 }
 
-export const enumTypeSchema = z.object({
+export const enumTypeSchema: z.ZodSchema<EnumType> = z.object({
   id: z.string(),
   allowedValues: enumTypeValueSchema.array(),
 })
