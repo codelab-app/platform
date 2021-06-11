@@ -12,11 +12,96 @@ type App {
   name: String!
 }
 
+type EnumTypeValue {
+  id: ID!
+  name: String!
+}
+
+type Field {
+  id: ID!
+  key: String!
+  name: String!
+  description: String
+  typeId: String!
+  decorators: [Decorator!]!
+}
+
+union Decorator = ArrayLengthValidator | MinMaxValidator | RequiredValidator
+
+type ArrayLengthValidator {
+  id: ID!
+  minLength: Int
+  maxLength: Int
+}
+
+type MinMaxValidator {
+  id: ID!
+  min: Int
+  max: Int
+}
+
+type RequiredValidator {
+  id: ID!
+  isRequired: Boolean!
+}
+
+type Interface {
+  id: ID!
+  name: String!
+  fields: [Field!]!
+
+  """Flattened array of all types that are used inside this interface"""
+  types: [Type!]!
+}
+
+union Type = SimpleType | ArrayType | EnumType | UnitType | InterfaceType
+
+type SimpleType {
+  id: ID!
+  primitiveType: PrimitiveType!
+}
+
+enum PrimitiveType {
+  String
+  Integer
+  Float
+  Boolean
+}
+
+type ArrayType {
+  id: ID!
+  typeId: String!
+}
+
+type EnumType {
+  id: ID!
+  allowedValues: [EnumTypeValue!]!
+}
+
+type UnitType {
+  id: ID!
+  allowedUnits: [Unit!]!
+}
+
+enum Unit {
+  Px
+  Pt
+  Em
+  Rem
+  Percent
+  Vw
+  Vh
+}
+
+type InterfaceType {
+  interfaceId: String!
+}
+
 type Atom {
   id: ID!
   type: AtomType!
   label: String!
-  interfaceId: String!
+  propTypes: Interface!
 }
 
 enum AtomType {
@@ -173,91 +258,6 @@ type Prop {
   props: [Prop!]
 }
 
-type EnumTypeValue {
-  id: ID!
-  name: String!
-}
-
-type Field {
-  id: ID!
-  key: String!
-  name: String!
-  description: String
-  typeId: String!
-  decorators: [Decorator!]!
-}
-
-union Decorator = ArrayLengthValidator | MinMaxValidator | RequiredValidator
-
-type ArrayLengthValidator {
-  id: ID!
-  minLength: Int
-  maxLength: Int
-}
-
-type MinMaxValidator {
-  id: ID!
-  min: Int
-  max: Int
-}
-
-type RequiredValidator {
-  id: ID!
-  isRequired: Boolean!
-}
-
-type Interface {
-  id: ID!
-  name: String!
-  fields: [Field!]!
-
-  """Flattened array of all types that are used inside this interface"""
-  types: [Type!]!
-}
-
-union Type = SimpleType | ArrayType | EnumType | UnitType | InterfaceType
-
-type SimpleType {
-  id: ID!
-  primitiveType: PrimitiveType!
-}
-
-enum PrimitiveType {
-  String
-  Integer
-  Float
-  Boolean
-}
-
-type ArrayType {
-  id: ID!
-  typeId: String!
-}
-
-type EnumType {
-  id: ID!
-  allowedValues: [EnumTypeValue!]!
-}
-
-type UnitType {
-  id: ID!
-  allowedUnits: [Unit!]!
-}
-
-enum Unit {
-  Px
-  Pt
-  Em
-  Rem
-  Percent
-  Vw
-  Vh
-}
-
-type InterfaceType {
-  interfaceId: String!
-}
-
 type User {
   blocked: Boolean
   created_at: String
@@ -295,11 +295,11 @@ type Query {
   getPageElementRoot(input: GetPageElementRootInput!): PageElementRoot
   getAtoms: [Atom!]!
   getAtom(input: GetAtomInput!): Atom
-  getValueTypes: [ValueType!]!
-  getProps: [Prop!]!
   getInterface(input: GetInterfaceInput!): Interface
   getField(input: GetFieldInput!): Field
   getType(input: GetTypeInput!): Type
+  getValueTypes: [ValueType!]!
+  getProps: [Prop!]!
 }
 
 input GetAppInput {

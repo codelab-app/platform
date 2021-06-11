@@ -1,5 +1,5 @@
 query TestGetType($input: GetTypeInput!){
     getType(input: $input){
-        ...Test__Type
+        ...__Type
     }
 }

@@ -1,4 +1,8 @@
-import { ApolloClient, FetchResult, NormalizedCacheObject } from '@apollo/client'
+import {
+  ApolloClient,
+  FetchResult,
+  NormalizedCacheObject,
+} from '@apollo/client'
 import { ApolloClientTokens, MutationUseCase } from '@codelab/backend'
 import {
   UpdateAtomGql,
@@ -6,9 +10,8 @@ import {
   UpdateAtomMutationVariables,
 } from '@codelab/dgraph'
 import { Inject, Injectable } from '@nestjs/common'
-import { Atom, atomSchema } from '../../atom.model'
+import { Atom } from '../../atom.model'
 import { UpdateAtomInput } from './update-atom.input'
-import { AppGuardService } from '@codelab/modules/app-api';
 
 @Injectable()
 export class UpdateAtomService extends MutationUseCase<
@@ -17,10 +20,9 @@ export class UpdateAtomService extends MutationUseCase<
   UpdateAtomMutation,
   UpdateAtomMutationVariables
 > {
-
   constructor(
-      @Inject(ApolloClientTokens.ApolloClientProvider)
-      protected apolloClient: ApolloClient<NormalizedCacheObject>
+    @Inject(ApolloClientTokens.ApolloClientProvider)
+    protected apolloClient: ApolloClient<NormalizedCacheObject>,
   ) {
     super(apolloClient)
   }

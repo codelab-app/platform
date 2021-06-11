@@ -1,7 +1,0 @@
-mutation CreateTestAtom($input: CreateAtomInput!) {
-  createAtom(input: $input){
-    id
-    label
-# TODO come back to that
-  }
-}

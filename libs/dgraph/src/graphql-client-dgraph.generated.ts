@@ -3077,7 +3077,7 @@ export type UpdateAppMutation = {
 }
 
 export type DGraph__AtomFragment = Pick<Atom, 'id' | 'label' | 'type'> & {
-  propTypes: Pick<Interface, 'id'>
+  propTypes: Dgraph__InterfaceFragment
 }
 
 export type CreateAtomMutationVariables = Exact<{
@@ -3478,50 +3478,6 @@ export const LibraryExplorer__LibraryFragmentDoc = gql`
   ${LibraryExplorer__AtomFragmentDoc}
   ${LibraryExplorer__ComponentFragmentDoc}
 `
-export const DGraph__AtomFragmentDoc = gql`
-  fragment DGraph__Atom on Atom {
-    id
-    label
-    type
-    propTypes {
-      id
-    }
-  }
-`
-export const Dgraph__AppFragmentDoc = gql`
-  fragment Dgraph__App on App {
-    id
-    name
-    ownerId
-  }
-`
-export const Dgraph__PageFragmentDoc = gql`
-  fragment Dgraph__Page on Page {
-    id
-    name
-    app {
-      ...Dgraph__App
-    }
-  }
-  ${Dgraph__AppFragmentDoc}
-`
-export const Dgraph_PageElementFragmentDoc = gql`
-  fragment Dgraph_PageElement on PageElement {
-    id
-    name
-    atom {
-      ...DGraph__Atom
-    }
-    parent {
-      id
-    }
-    page {
-      ...Dgraph__Page
-    }
-  }
-  ${DGraph__AtomFragmentDoc}
-  ${Dgraph__PageFragmentDoc}
-`
 export const Dgraph__MinMaxValidatorFragmentDoc = gql`
   fragment Dgraph__MinMaxValidator on MinMaxValidator {
     id
@@ -3621,6 +3577,51 @@ export const Dgraph__InterfaceFragmentDoc = gql`
     }
   }
   ${Dgraph__FieldFragmentDoc}
+`
+export const DGraph__AtomFragmentDoc = gql`
+  fragment DGraph__Atom on Atom {
+    id
+    label
+    type
+    propTypes {
+      ...Dgraph__Interface
+    }
+  }
+  ${Dgraph__InterfaceFragmentDoc}
+`
+export const Dgraph__AppFragmentDoc = gql`
+  fragment Dgraph__App on App {
+    id
+    name
+    ownerId
+  }
+`
+export const Dgraph__PageFragmentDoc = gql`
+  fragment Dgraph__Page on Page {
+    id
+    name
+    app {
+      ...Dgraph__App
+    }
+  }
+  ${Dgraph__AppFragmentDoc}
+`
+export const Dgraph_PageElementFragmentDoc = gql`
+  fragment Dgraph_PageElement on PageElement {
+    id
+    name
+    atom {
+      ...DGraph__Atom
+    }
+    parent {
+      id
+    }
+    page {
+      ...Dgraph__Page
+    }
+  }
+  ${DGraph__AtomFragmentDoc}
+  ${Dgraph__PageFragmentDoc}
 `
 export const Dgraph__ValueTypeFragmentDoc = gql`
   fragment Dgraph__ValueType on ValueType {
@@ -5641,50 +5642,6 @@ export const LibraryExplorer__Library = gql`
   ${LibraryExplorer__Atom}
   ${LibraryExplorer__Component}
 `
-export const DGraph__Atom = gql`
-  fragment DGraph__Atom on Atom {
-    id
-    label
-    type
-    propTypes {
-      id
-    }
-  }
-`
-export const Dgraph__App = gql`
-  fragment Dgraph__App on App {
-    id
-    name
-    ownerId
-  }
-`
-export const Dgraph__Page = gql`
-  fragment Dgraph__Page on Page {
-    id
-    name
-    app {
-      ...Dgraph__App
-    }
-  }
-  ${Dgraph__App}
-`
-export const Dgraph_PageElement = gql`
-  fragment Dgraph_PageElement on PageElement {
-    id
-    name
-    atom {
-      ...DGraph__Atom
-    }
-    parent {
-      id
-    }
-    page {
-      ...Dgraph__Page
-    }
-  }
-  ${DGraph__Atom}
-  ${Dgraph__Page}
-`
 export const Dgraph__MinMaxValidator = gql`
   fragment Dgraph__MinMaxValidator on MinMaxValidator {
     id
@@ -5784,6 +5741,51 @@ export const Dgraph__Interface = gql`
     }
   }
   ${Dgraph__Field}
+`
+export const DGraph__Atom = gql`
+  fragment DGraph__Atom on Atom {
+    id
+    label
+    type
+    propTypes {
+      ...Dgraph__Interface
+    }
+  }
+  ${Dgraph__Interface}
+`
+export const Dgraph__App = gql`
+  fragment Dgraph__App on App {
+    id
+    name
+    ownerId
+  }
+`
+export const Dgraph__Page = gql`
+  fragment Dgraph__Page on Page {
+    id
+    name
+    app {
+      ...Dgraph__App
+    }
+  }
+  ${Dgraph__App}
+`
+export const Dgraph_PageElement = gql`
+  fragment Dgraph_PageElement on PageElement {
+    id
+    name
+    atom {
+      ...DGraph__Atom
+    }
+    parent {
+      id
+    }
+    page {
+      ...Dgraph__Page
+    }
+  }
+  ${DGraph__Atom}
+  ${Dgraph__Page}
 `
 export const Dgraph__ValueType = gql`
   fragment Dgraph__ValueType on ValueType {

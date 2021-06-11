@@ -1,5 +1,5 @@
 query TestGetInterface($input: GetInterfaceInput!){
     getInterface(input: $input){
-        ...Test__Interface
+        ...__Interface
     }
 }

@@ -1,6 +1,6 @@
+import type { DgraphProvider } from '@codelab/backend'
 import {
   BaseDgraphFields,
-  DgraphProvider,
   DgraphTokens,
   DgraphUseCase,
   UidFilter,

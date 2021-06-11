@@ -39,7 +39,7 @@ export type Atom = {
   id: Scalars['ID']
   type: AtomType
   label: Scalars['String']
-  interfaceId: Scalars['String']
+  propTypes: Interface
 }
 
 export enum AtomType {
@@ -516,11 +516,11 @@ export type Query = {
   getPageElementRoot?: Maybe<PageElementRoot>
   getAtoms: Array<Atom>
   getAtom?: Maybe<Atom>
-  getValueTypes: Array<ValueType>
-  getProps: Array<Prop>
   getInterface?: Maybe<Interface>
   getField?: Maybe<Field>
   getType?: Maybe<Type>
+  getValueTypes: Array<ValueType>
+  getProps: Array<Prop>
 }
 
 export type QueryGetAppArgs = {
@@ -719,13 +719,100 @@ export type UpdateAppMutation = { app: __AppFragment }
 
 export type __AppFragment = Pick<App, 'id' | 'name'>
 
-export type CreateTestAtomMutationVariables = Exact<{
-  input: CreateAtomInput
-}>
+export type __AtomFragment = Pick<Atom, 'id' | 'label' | 'type'> & {
+  propTypes: __InterfaceFragment
+}
 
-export type CreateTestAtomMutation = { createAtom: Pick<Atom, 'id' | 'label'> }
+export type __ArrayLengthValidatorFragment = Pick<
+  ArrayLengthValidator,
+  'id' | 'maxLength' | 'minLength'
+>
 
-export type __AtomFragment = Pick<Atom, 'id' | 'label' | 'type'>
+export type __MinMaxValidatorFragment = Pick<
+  MinMaxValidator,
+  'id' | 'max' | 'min'
+>
+
+export type __RequiredValidatorFragment = Pick<
+  RequiredValidator,
+  'id' | 'isRequired'
+>
+
+type __Decorator_ArrayLengthValidator_Fragment = {
+  __typename: 'ArrayLengthValidator'
+} & __ArrayLengthValidatorFragment
+
+type __Decorator_MinMaxValidator_Fragment = {
+  __typename: 'MinMaxValidator'
+} & __MinMaxValidatorFragment
+
+type __Decorator_RequiredValidator_Fragment = {
+  __typename: 'RequiredValidator'
+} & __RequiredValidatorFragment
+
+export type __DecoratorFragment =
+  | __Decorator_ArrayLengthValidator_Fragment
+  | __Decorator_MinMaxValidator_Fragment
+  | __Decorator_RequiredValidator_Fragment
+
+export type __FieldFragment = Pick<
+  Field,
+  'id' | 'key' | 'name' | 'typeId' | 'description'
+> & {
+  decorators: Array<
+    | __Decorator_ArrayLengthValidator_Fragment
+    | __Decorator_MinMaxValidator_Fragment
+    | __Decorator_RequiredValidator_Fragment
+  >
+}
+
+export type __ArrayTypeFragment = Pick<ArrayType, 'id' | 'typeId'>
+
+export type __EnumTypeValueFragment = Pick<EnumTypeValue, 'id' | 'name'>
+
+export type __EnumTypeFragment = Pick<EnumType, 'id'> & {
+  allowedValues: Array<__EnumTypeValueFragment>
+}
+
+export type __InterfaceTypeFragment = Pick<InterfaceType, 'interfaceId'>
+
+export type __SimpleTypeFragment = Pick<SimpleType, 'id' | 'primitiveType'>
+
+export type __UnitTypeFragment = Pick<UnitType, 'id' | 'allowedUnits'>
+
+type __Type_SimpleType_Fragment = {
+  __typename: 'SimpleType'
+} & __SimpleTypeFragment
+
+type __Type_ArrayType_Fragment = {
+  __typename: 'ArrayType'
+} & __ArrayTypeFragment
+
+type __Type_EnumType_Fragment = { __typename: 'EnumType' } & __EnumTypeFragment
+
+type __Type_UnitType_Fragment = { __typename: 'UnitType' } & __UnitTypeFragment
+
+type __Type_InterfaceType_Fragment = {
+  __typename: 'InterfaceType'
+} & __InterfaceTypeFragment
+
+export type __TypeFragment =
+  | __Type_SimpleType_Fragment
+  | __Type_ArrayType_Fragment
+  | __Type_EnumType_Fragment
+  | __Type_UnitType_Fragment
+  | __Type_InterfaceType_Fragment
+
+export type __InterfaceFragment = Pick<Interface, 'id' | 'name'> & {
+  fields: Array<__FieldFragment>
+  types: Array<
+    | __Type_SimpleType_Fragment
+    | __Type_ArrayType_Fragment
+    | __Type_EnumType_Fragment
+    | __Type_UnitType_Fragment
+    | __Type_InterfaceType_Fragment
+  >
+}
 
 export type CreateAtomMutationVariables = Exact<{
   input: CreateAtomInput
@@ -873,14 +960,14 @@ export type TestCreateFieldMutationVariables = Exact<{
   input: CreateFieldInput
 }>
 
-export type TestCreateFieldMutation = { createField: Test__FieldFragment }
+export type TestCreateFieldMutation = { createField: __FieldFragment }
 
 export type TestCreateInterfaceMutationVariables = Exact<{
   input: CreateInterfaceInput
 }>
 
 export type TestCreateInterfaceMutation = {
-  createInterface: Test__InterfaceFragment
+  createInterface: __InterfaceFragment
 }
 
 export type TestDeleteFieldMutationVariables = Exact<{
@@ -903,14 +990,14 @@ export type TestGetFieldQueryVariables = Exact<{
   input: GetFieldInput
 }>
 
-export type TestGetFieldQuery = { getField?: Maybe<Test__FieldFragment> }
+export type TestGetFieldQuery = { getField?: Maybe<__FieldFragment> }
 
 export type TestGetInterfaceQueryVariables = Exact<{
   input: GetInterfaceInput
 }>
 
 export type TestGetInterfaceQuery = {
-  getInterface?: Maybe<Test__InterfaceFragment>
+  getInterface?: Maybe<__InterfaceFragment>
 }
 
 export type TestGetTypeQueryVariables = Exact<{
@@ -919,106 +1006,11 @@ export type TestGetTypeQueryVariables = Exact<{
 
 export type TestGetTypeQuery = {
   getType?: Maybe<
-    | Test__Type_SimpleType_Fragment
-    | Test__Type_ArrayType_Fragment
-    | Test__Type_EnumType_Fragment
-    | Test__Type_UnitType_Fragment
-    | Test__Type_InterfaceType_Fragment
-  >
-}
-
-export type Test__ArrayLengthValidatorFragment = Pick<
-  ArrayLengthValidator,
-  'id' | 'maxLength' | 'minLength'
->
-
-export type Test__MinMaxValidatorFragment = Pick<
-  MinMaxValidator,
-  'id' | 'max' | 'min'
->
-
-export type Test__RequiredValidatorFragment = Pick<
-  RequiredValidator,
-  'id' | 'isRequired'
->
-
-type Test__Decorator_ArrayLengthValidator_Fragment = {
-  __typename: 'ArrayLengthValidator'
-} & Test__ArrayLengthValidatorFragment
-
-type Test__Decorator_MinMaxValidator_Fragment = {
-  __typename: 'MinMaxValidator'
-} & Test__MinMaxValidatorFragment
-
-type Test__Decorator_RequiredValidator_Fragment = {
-  __typename: 'RequiredValidator'
-} & Test__RequiredValidatorFragment
-
-export type Test__DecoratorFragment =
-  | Test__Decorator_ArrayLengthValidator_Fragment
-  | Test__Decorator_MinMaxValidator_Fragment
-  | Test__Decorator_RequiredValidator_Fragment
-
-export type Test__FieldFragment = Pick<
-  Field,
-  'id' | 'key' | 'name' | 'typeId' | 'description'
-> & {
-  decorators: Array<
-    | Test__Decorator_ArrayLengthValidator_Fragment
-    | Test__Decorator_MinMaxValidator_Fragment
-    | Test__Decorator_RequiredValidator_Fragment
-  >
-}
-
-export type Test__ArrayTypeFragment = Pick<ArrayType, 'id' | 'typeId'>
-
-export type Test__EnumTypeValueFragment = Pick<EnumTypeValue, 'id' | 'name'>
-
-export type Test__EnumTypeFragment = Pick<EnumType, 'id'> & {
-  allowedValues: Array<Test__EnumTypeValueFragment>
-}
-
-export type Test__InterfaceTypeFragment = Pick<InterfaceType, 'interfaceId'>
-
-export type Test__SimpleTypeFragment = Pick<SimpleType, 'id' | 'primitiveType'>
-
-export type Test__UnitTypeFragment = Pick<UnitType, 'id' | 'allowedUnits'>
-
-type Test__Type_SimpleType_Fragment = {
-  __typename: 'SimpleType'
-} & Test__SimpleTypeFragment
-
-type Test__Type_ArrayType_Fragment = {
-  __typename: 'ArrayType'
-} & Test__ArrayTypeFragment
-
-type Test__Type_EnumType_Fragment = {
-  __typename: 'EnumType'
-} & Test__EnumTypeFragment
-
-type Test__Type_UnitType_Fragment = {
-  __typename: 'UnitType'
-} & Test__UnitTypeFragment
-
-type Test__Type_InterfaceType_Fragment = {
-  __typename: 'InterfaceType'
-} & Test__InterfaceTypeFragment
-
-export type Test__TypeFragment =
-  | Test__Type_SimpleType_Fragment
-  | Test__Type_ArrayType_Fragment
-  | Test__Type_EnumType_Fragment
-  | Test__Type_UnitType_Fragment
-  | Test__Type_InterfaceType_Fragment
-
-export type Test__InterfaceFragment = Pick<Interface, 'id' | 'name'> & {
-  fields: Array<Test__FieldFragment>
-  types: Array<
-    | Test__Type_SimpleType_Fragment
-    | Test__Type_ArrayType_Fragment
-    | Test__Type_EnumType_Fragment
-    | Test__Type_UnitType_Fragment
-    | Test__Type_InterfaceType_Fragment
+    | __Type_SimpleType_Fragment
+    | __Type_ArrayType_Fragment
+    | __Type_EnumType_Fragment
+    | __Type_UnitType_Fragment
+    | __Type_InterfaceType_Fragment
   >
 }
 
@@ -1026,14 +1018,14 @@ export type TestUpdateFieldMutationVariables = Exact<{
   input: UpdateFieldInput
 }>
 
-export type TestUpdateFieldMutation = { updateField: Test__FieldFragment }
+export type TestUpdateFieldMutation = { updateField: __FieldFragment }
 
 export type TestUpdateInterfaceMutationVariables = Exact<{
   input: UpdateInterfaceInput
 }>
 
 export type TestUpdateInterfaceMutation = {
-  updateInterface: Test__InterfaceFragment
+  updateInterface: __InterfaceFragment
 }
 
 export type __UserFragment = Pick<User, 'email' | 'name'> & {
@@ -1075,12 +1067,143 @@ export const PageBaseFragmentDoc = gql`
     }
   }
 `
+export const __ArrayLengthValidatorFragmentDoc = gql`
+  fragment __ArrayLengthValidator on ArrayLengthValidator {
+    id
+    maxLength
+    minLength
+  }
+`
+export const __MinMaxValidatorFragmentDoc = gql`
+  fragment __MinMaxValidator on MinMaxValidator {
+    id
+    max
+    min
+  }
+`
+export const __RequiredValidatorFragmentDoc = gql`
+  fragment __RequiredValidator on RequiredValidator {
+    id
+    isRequired
+  }
+`
+export const __DecoratorFragmentDoc = gql`
+  fragment __Decorator on Decorator {
+    __typename
+    ... on ArrayLengthValidator {
+      ...__ArrayLengthValidator
+    }
+    ... on MinMaxValidator {
+      ...__MinMaxValidator
+    }
+    ... on RequiredValidator {
+      ...__RequiredValidator
+    }
+  }
+  ${__ArrayLengthValidatorFragmentDoc}
+  ${__MinMaxValidatorFragmentDoc}
+  ${__RequiredValidatorFragmentDoc}
+`
+export const __FieldFragmentDoc = gql`
+  fragment __Field on Field {
+    id
+    key
+    name
+    typeId
+    description
+    decorators {
+      ...__Decorator
+    }
+  }
+  ${__DecoratorFragmentDoc}
+`
+export const __ArrayTypeFragmentDoc = gql`
+  fragment __ArrayType on ArrayType {
+    id
+    typeId
+  }
+`
+export const __EnumTypeValueFragmentDoc = gql`
+  fragment __EnumTypeValue on EnumTypeValue {
+    id
+    name
+  }
+`
+export const __EnumTypeFragmentDoc = gql`
+  fragment __EnumType on EnumType {
+    id
+    allowedValues {
+      ...__EnumTypeValue
+    }
+  }
+  ${__EnumTypeValueFragmentDoc}
+`
+export const __InterfaceTypeFragmentDoc = gql`
+  fragment __InterfaceType on InterfaceType {
+    interfaceId
+  }
+`
+export const __SimpleTypeFragmentDoc = gql`
+  fragment __SimpleType on SimpleType {
+    id
+    primitiveType
+  }
+`
+export const __UnitTypeFragmentDoc = gql`
+  fragment __UnitType on UnitType {
+    id
+    allowedUnits
+  }
+`
+export const __TypeFragmentDoc = gql`
+  fragment __Type on Type {
+    __typename
+    ... on ArrayType {
+      ...__ArrayType
+    }
+    ... on EnumType {
+      ...__EnumType
+    }
+    ... on InterfaceType {
+      ...__InterfaceType
+    }
+    ... on SimpleType {
+      ...__SimpleType
+    }
+    ... on UnitType {
+      ...__UnitType
+    }
+  }
+  ${__ArrayTypeFragmentDoc}
+  ${__EnumTypeFragmentDoc}
+  ${__InterfaceTypeFragmentDoc}
+  ${__SimpleTypeFragmentDoc}
+  ${__UnitTypeFragmentDoc}
+`
+export const __InterfaceFragmentDoc = gql`
+  fragment __Interface on Interface {
+    id
+    name
+    fields {
+      ...__Field
+    }
+    types {
+      ...__Type
+    }
+  }
+  ${__FieldFragmentDoc}
+  ${__TypeFragmentDoc}
+`
 export const __AtomFragmentDoc = gql`
   fragment __Atom on Atom {
     id
     label
     type
+    propTypes {
+      ...__Interface
+    }
   }
+  ${__InterfaceFragmentDoc}
 `
 export const PageElementFragmentDoc = gql`
   fragment PageElement on PageElement {
@@ -1148,133 +1271,6 @@ export const __PropFragmentDoc = gql`
       }
     }
   }
-`
-export const Test__ArrayLengthValidatorFragmentDoc = gql`
-  fragment Test__ArrayLengthValidator on ArrayLengthValidator {
-    id
-    maxLength
-    minLength
-  }
-`
-export const Test__MinMaxValidatorFragmentDoc = gql`
-  fragment Test__MinMaxValidator on MinMaxValidator {
-    id
-    max
-    min
-  }
-`
-export const Test__RequiredValidatorFragmentDoc = gql`
-  fragment Test__RequiredValidator on RequiredValidator {
-    id
-    isRequired
-  }
-`
-export const Test__DecoratorFragmentDoc = gql`
-  fragment Test__Decorator on Decorator {
-    __typename
-    ... on ArrayLengthValidator {
-      ...Test__ArrayLengthValidator
-    }
-    ... on MinMaxValidator {
-      ...Test__MinMaxValidator
-    }
-    ... on RequiredValidator {
-      ...Test__RequiredValidator
-    }
-  }
-  ${Test__ArrayLengthValidatorFragmentDoc}
-  ${Test__MinMaxValidatorFragmentDoc}
-  ${Test__RequiredValidatorFragmentDoc}
-`
-export const Test__FieldFragmentDoc = gql`
-  fragment Test__Field on Field {
-    id
-    key
-    name
-    typeId
-    description
-    decorators {
-      ...Test__Decorator
-    }
-  }
-  ${Test__DecoratorFragmentDoc}
-`
-export const Test__ArrayTypeFragmentDoc = gql`
-  fragment Test__ArrayType on ArrayType {
-    id
-    typeId
-  }
-`
-export const Test__EnumTypeValueFragmentDoc = gql`
-  fragment Test__EnumTypeValue on EnumTypeValue {
-    id
-    name
-  }
-`
-export const Test__EnumTypeFragmentDoc = gql`
-  fragment Test__EnumType on EnumType {
-    id
-    allowedValues {
-      ...Test__EnumTypeValue
-    }
-  }
-  ${Test__EnumTypeValueFragmentDoc}
-`
-export const Test__InterfaceTypeFragmentDoc = gql`
-  fragment Test__InterfaceType on InterfaceType {
-    interfaceId
-  }
-`
-export const Test__SimpleTypeFragmentDoc = gql`
-  fragment Test__SimpleType on SimpleType {
-    id
-    primitiveType
-  }
-`
-export const Test__UnitTypeFragmentDoc = gql`
-  fragment Test__UnitType on UnitType {
-    id
-    allowedUnits
-  }
-`
-export const Test__TypeFragmentDoc = gql`
-  fragment Test__Type on Type {
-    __typename
-    ... on ArrayType {
-      ...Test__ArrayType
-    }
-    ... on EnumType {
-      ...Test__EnumType
-    }
-    ... on InterfaceType {
-      ...Test__InterfaceType
-    }
-    ... on SimpleType {
-      ...Test__SimpleType
-    }
-    ... on UnitType {
-      ...Test__UnitType
-    }
-  }
-  ${Test__ArrayTypeFragmentDoc}
-  ${Test__EnumTypeFragmentDoc}
-  ${Test__InterfaceTypeFragmentDoc}
-  ${Test__SimpleTypeFragmentDoc}
-  ${Test__UnitTypeFragmentDoc}
-`
-export const Test__InterfaceFragmentDoc = gql`
-  fragment Test__Interface on Interface {
-    id
-    name
-    fields {
-      ...Test__Field
-    }
-    types {
-      ...Test__Type
-    }
-  }
-  ${Test__FieldFragmentDoc}
-  ${Test__TypeFragmentDoc}
 `
 export const __UserFragmentDoc = gql`
   fragment __User on User {
@@ -1541,57 +1537,6 @@ export type UpdateAppMutationResult = Apollo.MutationResult<UpdateAppMutation>
 export type UpdateAppMutationOptions = Apollo.BaseMutationOptions<
   UpdateAppMutation,
   UpdateAppMutationVariables
->
-export const CreateTestAtomGql = gql`
-  mutation CreateTestAtom($input: CreateAtomInput!) {
-    createAtom(input: $input) {
-      id
-      label
-    }
-  }
-`
-export type CreateTestAtomMutationFn = Apollo.MutationFunction<
-  CreateTestAtomMutation,
-  CreateTestAtomMutationVariables
->
-
-/**
- * __useCreateTestAtomMutation__
- *
- * To run a mutation, you first call `useCreateTestAtomMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateTestAtomMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [createTestAtomMutation, { data, loading, error }] = useCreateTestAtomMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useCreateTestAtomMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    CreateTestAtomMutation,
-    CreateTestAtomMutationVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useMutation<
-    CreateTestAtomMutation,
-    CreateTestAtomMutationVariables
-  >(CreateTestAtomGql, options)
-}
-export type CreateTestAtomMutationHookResult = ReturnType<
-  typeof useCreateTestAtomMutation
->
-export type CreateTestAtomMutationResult =
-  Apollo.MutationResult<CreateTestAtomMutation>
-export type CreateTestAtomMutationOptions = Apollo.BaseMutationOptions<
-  CreateTestAtomMutation,
-  CreateTestAtomMutationVariables
 >
 export const CreateAtomGql = gql`
   mutation CreateAtom($input: CreateAtomInput!) {
@@ -2505,10 +2450,10 @@ export function refetchGetPropsQuery(variables?: GetPropsQueryVariables) {
 export const TestCreateFieldGql = gql`
   mutation TestCreateField($input: CreateFieldInput!) {
     createField(input: $input) {
-      ...Test__Field
+      ...__Field
     }
   }
-  ${Test__FieldFragmentDoc}
+  ${__FieldFragmentDoc}
 `
 export type TestCreateFieldMutationFn = Apollo.MutationFunction<
   TestCreateFieldMutation,
@@ -2556,10 +2501,10 @@ export type TestCreateFieldMutationOptions = Apollo.BaseMutationOptions<
 export const TestCreateInterfaceGql = gql`
   mutation TestCreateInterface($input: CreateInterfaceInput!) {
     createInterface(input: $input) {
-      ...Test__Interface
+      ...__Interface
     }
   }
-  ${Test__InterfaceFragmentDoc}
+  ${__InterfaceFragmentDoc}
 `
 export type TestCreateInterfaceMutationFn = Apollo.MutationFunction<
   TestCreateInterfaceMutation,
@@ -2707,10 +2652,10 @@ export type TestDeleteInterfaceMutationOptions = Apollo.BaseMutationOptions<
 export const TestGetFieldGql = gql`
   query TestGetField($input: GetFieldInput!) {
     getField(input: $input) {
-      ...Test__Field
+      ...__Field
     }
   }
-  ${Test__FieldFragmentDoc}
+  ${__FieldFragmentDoc}
 `
 
 /**
@@ -2771,10 +2716,10 @@ export function refetchTestGetFieldQuery(
 export const TestGetInterfaceGql = gql`
   query TestGetInterface($input: GetInterfaceInput!) {
     getInterface(input: $input) {
-      ...Test__Interface
+      ...__Interface
     }
   }
-  ${Test__InterfaceFragmentDoc}
+  ${__InterfaceFragmentDoc}
 `
 
 /**
@@ -2835,10 +2780,10 @@ export function refetchTestGetInterfaceQuery(
 export const TestGetTypeGql = gql`
   query TestGetType($input: GetTypeInput!) {
     getType(input: $input) {
-      ...Test__Type
+      ...__Type
     }
   }
-  ${Test__TypeFragmentDoc}
+  ${__TypeFragmentDoc}
 `
 
 /**
@@ -2895,10 +2840,10 @@ export function refetchTestGetTypeQuery(variables?: TestGetTypeQueryVariables) {
 export const TestUpdateFieldGql = gql`
   mutation TestUpdateField($input: UpdateFieldInput!) {
     updateField(input: $input) {
-      ...Test__Field
+      ...__Field
     }
   }
-  ${Test__FieldFragmentDoc}
+  ${__FieldFragmentDoc}
 `
 export type TestUpdateFieldMutationFn = Apollo.MutationFunction<
   TestUpdateFieldMutation,
@@ -2946,10 +2891,10 @@ export type TestUpdateFieldMutationOptions = Apollo.BaseMutationOptions<
 export const TestUpdateInterfaceGql = gql`
   mutation TestUpdateInterface($input: UpdateInterfaceInput!) {
     updateInterface(input: $input) {
-      ...Test__Interface
+      ...__Interface
     }
   }
-  ${Test__InterfaceFragmentDoc}
+  ${__InterfaceFragmentDoc}
 `
 export type TestUpdateInterfaceMutationFn = Apollo.MutationFunction<
   TestUpdateInterfaceMutation,
@@ -3178,12 +3123,143 @@ export const PageBase = gql`
     }
   }
 `
+export const __ArrayLengthValidator = gql`
+  fragment __ArrayLengthValidator on ArrayLengthValidator {
+    id
+    maxLength
+    minLength
+  }
+`
+export const __MinMaxValidator = gql`
+  fragment __MinMaxValidator on MinMaxValidator {
+    id
+    max
+    min
+  }
+`
+export const __RequiredValidator = gql`
+  fragment __RequiredValidator on RequiredValidator {
+    id
+    isRequired
+  }
+`
+export const __Decorator = gql`
+  fragment __Decorator on Decorator {
+    __typename
+    ... on ArrayLengthValidator {
+      ...__ArrayLengthValidator
+    }
+    ... on MinMaxValidator {
+      ...__MinMaxValidator
+    }
+    ... on RequiredValidator {
+      ...__RequiredValidator
+    }
+  }
+  ${__ArrayLengthValidator}
+  ${__MinMaxValidator}
+  ${__RequiredValidator}
+`
+export const __Field = gql`
+  fragment __Field on Field {
+    id
+    key
+    name
+    typeId
+    description
+    decorators {
+      ...__Decorator
+    }
+  }
+  ${__Decorator}
+`
+export const __ArrayType = gql`
+  fragment __ArrayType on ArrayType {
+    id
+    typeId
+  }
+`
+export const __EnumTypeValue = gql`
+  fragment __EnumTypeValue on EnumTypeValue {
+    id
+    name
+  }
+`
+export const __EnumType = gql`
+  fragment __EnumType on EnumType {
+    id
+    allowedValues {
+      ...__EnumTypeValue
+    }
+  }
+  ${__EnumTypeValue}
+`
+export const __InterfaceType = gql`
+  fragment __InterfaceType on InterfaceType {
+    interfaceId
+  }
+`
+export const __SimpleType = gql`
+  fragment __SimpleType on SimpleType {
+    id
+    primitiveType
+  }
+`
+export const __UnitType = gql`
+  fragment __UnitType on UnitType {
+    id
+    allowedUnits
+  }
+`
+export const __Type = gql`
+  fragment __Type on Type {
+    __typename
+    ... on ArrayType {
+      ...__ArrayType
+    }
+    ... on EnumType {
+      ...__EnumType
+    }
+    ... on InterfaceType {
+      ...__InterfaceType
+    }
+    ... on SimpleType {
+      ...__SimpleType
+    }
+    ... on UnitType {
+      ...__UnitType
+    }
+  }
+  ${__ArrayType}
+  ${__EnumType}
+  ${__InterfaceType}
+  ${__SimpleType}
+  ${__UnitType}
+`
+export const __Interface = gql`
+  fragment __Interface on Interface {
+    id
+    name
+    fields {
+      ...__Field
+    }
+    types {
+      ...__Type
+    }
+  }
+  ${__Field}
+  ${__Type}
+`
 export const __Atom = gql`
   fragment __Atom on Atom {
     id
     label
     type
+    propTypes {
+      ...__Interface
+    }
   }
+  ${__Interface}
 `
 export const PageElement = gql`
   fragment PageElement on PageElement {
@@ -3252,133 +3328,6 @@ export const __Prop = gql`
     }
   }
 `
-export const Test__ArrayLengthValidator = gql`
-  fragment Test__ArrayLengthValidator on ArrayLengthValidator {
-    id
-    maxLength
-    minLength
-  }
-`
-export const Test__MinMaxValidator = gql`
-  fragment Test__MinMaxValidator on MinMaxValidator {
-    id
-    max
-    min
-  }
-`
-export const Test__RequiredValidator = gql`
-  fragment Test__RequiredValidator on RequiredValidator {
-    id
-    isRequired
-  }
-`
-export const Test__Decorator = gql`
-  fragment Test__Decorator on Decorator {
-    __typename
-    ... on ArrayLengthValidator {
-      ...Test__ArrayLengthValidator
-    }
-    ... on MinMaxValidator {
-      ...Test__MinMaxValidator
-    }
-    ... on RequiredValidator {
-      ...Test__RequiredValidator
-    }
-  }
-  ${Test__ArrayLengthValidator}
-  ${Test__MinMaxValidator}
-  ${Test__RequiredValidator}
-`
-export const Test__Field = gql`
-  fragment Test__Field on Field {
-    id
-    key
-    name
-    typeId
-    description
-    decorators {
-      ...Test__Decorator
-    }
-  }
-  ${Test__Decorator}
-`
-export const Test__ArrayType = gql`
-  fragment Test__ArrayType on ArrayType {
-    id
-    typeId
-  }
-`
-export const Test__EnumTypeValue = gql`
-  fragment Test__EnumTypeValue on EnumTypeValue {
-    id
-    name
-  }
-`
-export const Test__EnumType = gql`
-  fragment Test__EnumType on EnumType {
-    id
-    allowedValues {
-      ...Test__EnumTypeValue
-    }
-  }
-  ${Test__EnumTypeValue}
-`
-export const Test__InterfaceType = gql`
-  fragment Test__InterfaceType on InterfaceType {
-    interfaceId
-  }
-`
-export const Test__SimpleType = gql`
-  fragment Test__SimpleType on SimpleType {
-    id
-    primitiveType
-  }
-`
-export const Test__UnitType = gql`
-  fragment Test__UnitType on UnitType {
-    id
-    allowedUnits
-  }
-`
-export const Test__Type = gql`
-  fragment Test__Type on Type {
-    __typename
-    ... on ArrayType {
-      ...Test__ArrayType
-    }
-    ... on EnumType {
-      ...Test__EnumType
-    }
-    ... on InterfaceType {
-      ...Test__InterfaceType
-    }
-    ... on SimpleType {
-      ...Test__SimpleType
-    }
-    ... on UnitType {
-      ...Test__UnitType
-    }
-  }
-  ${Test__ArrayType}
-  ${Test__EnumType}
-  ${Test__InterfaceType}
-  ${Test__SimpleType}
-  ${Test__UnitType}
-`
-export const Test__Interface = gql`
-  fragment Test__Interface on Interface {
-    id
-    name
-    fields {
-      ...Test__Field
-    }
-    types {
-      ...Test__Type
-    }
-  }
-  ${Test__Field}
-  ${Test__Type}
-`
 export const __User = gql`
   fragment __User on User {
     id: user_id
@@ -3431,14 +3380,6 @@ export const UpdateApp = gql`
     }
   }
   ${__App}
-`
-export const CreateTestAtom = gql`
-  mutation CreateTestAtom($input: CreateAtomInput!) {
-    createAtom(input: $input) {
-      id
-      label
-    }
-  }
 `
 export const CreateAtom = gql`
   mutation CreateAtom($input: CreateAtomInput!) {
@@ -3577,18 +3518,18 @@ export const GetProps = gql`
 export const TestCreateField = gql`
   mutation TestCreateField($input: CreateFieldInput!) {
     createField(input: $input) {
-      ...Test__Field
+      ...__Field
     }
   }
-  ${Test__Field}
+  ${__Field}
 `
 export const TestCreateInterface = gql`
   mutation TestCreateInterface($input: CreateInterfaceInput!) {
     createInterface(input: $input) {
-      ...Test__Interface
+      ...__Interface
     }
   }
-  ${Test__Interface}
+  ${__Interface}
 `
 export const TestDeleteField = gql`
   mutation TestDeleteField($input: DeleteFieldInput!) {
@@ -3607,42 +3548,42 @@ export const TestDeleteInterface = gql`
 export const TestGetField = gql`
   query TestGetField($input: GetFieldInput!) {
     getField(input: $input) {
-      ...Test__Field
+      ...__Field
     }
   }
-  ${Test__Field}
+  ${__Field}
 `
 export const TestGetInterface = gql`
   query TestGetInterface($input: GetInterfaceInput!) {
     getInterface(input: $input) {
-      ...Test__Interface
+      ...__Interface
     }
   }
-  ${Test__Interface}
+  ${__Interface}
 `
 export const TestGetType = gql`
   query TestGetType($input: GetTypeInput!) {
     getType(input: $input) {
-      ...Test__Type
+      ...__Type
     }
   }
-  ${Test__Type}
+  ${__Type}
 `
 export const TestUpdateField = gql`
   mutation TestUpdateField($input: UpdateFieldInput!) {
     updateField(input: $input) {
-      ...Test__Field
+      ...__Field
     }
   }
-  ${Test__Field}
+  ${__Field}
 `
 export const TestUpdateInterface = gql`
   mutation TestUpdateInterface($input: UpdateInterfaceInput!) {
     updateInterface(input: $input) {
-      ...Test__Interface
+      ...__Interface
     }
   }
-  ${Test__Interface}
+  ${__Interface}
 `
 export const DeleteUser = gql`
   mutation DeleteUser($input: DeleteUserInput!) {
