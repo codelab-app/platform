@@ -25,8 +25,7 @@ describe('Apps CRUD', () => {
 
   beforeEach(() => {
     Cypress.Cookies.preserveOnce('appSession')
-    //
-    cy.getSpinner().should('exist')
+    cy.getSpinner().should('not.exist')
   })
 
   describe('create', () => {

@@ -89,9 +89,6 @@ lint-eslint:
 # E2E
 #
 
-e2e-dev:
-	node libs/tools/scripts/src/cypress/e2e.js
-
 e2e-ci:
 	npx concurrently \
   	--kill-others \

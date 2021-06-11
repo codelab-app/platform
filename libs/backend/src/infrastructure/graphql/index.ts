@@ -1,2 +1,5 @@
 export * from './config/graphql.config'
+export * from './config/graphql.tokens'
+export { GraphqlOptions } from './config/graphql-options'
 export * from './graphql.module'
+export * from './graphql.service'

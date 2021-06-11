@@ -1,21 +1,7 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-# Workaround for https://github.com/typicode/husky/issues/671
-function exit_proxy(){
-   if [ "$?" -ne 0 ]
-   then
-      exit 1
-   fi
-
-   exit 0
-}
-trap exit_proxy EXIT
-
 # Your code here
 make build-dev-affected
 make test-dev-affected
-make e2e-dev
-
-# make unit-dev-affected
-# make integration-dev-affected
+yarn e2e-dev

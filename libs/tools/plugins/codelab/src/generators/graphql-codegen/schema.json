@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "cli": "nx",
+  "id": "GraphqlCodegen",
+  "title": "",
+  "type": "object",
+  "properties": {
+    "watch": {
+      "description": "Watch codegen",
+      "type": "boolean",
+      "default": false
+    },
+    "env": {
+      "type": "string",
+      "enum": ["dev", "test"],
+      "description": "The environment of the schema",
+      "default": "dev"
+    }
+  },
+  "required": []
+}

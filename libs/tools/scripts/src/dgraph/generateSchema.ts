@@ -1,10 +1,10 @@
-#!/usr/bin/env node
+#!/usr/bin/env ts-node
 
-const { loadFilesSync } = require('@graphql-tools/load-files')
-const { mergeTypeDefs } = require('@graphql-tools/merge')
-const fs = require('fs')
-const { print } = require('graphql')
-const path = require('path')
+import { loadFilesSync } from '@graphql-tools/load-files'
+import { mergeTypeDefs } from '@graphql-tools/merge'
+import fs from 'fs'
+import { print } from 'graphql'
+import path from 'path'
 
 /**
  * DGraph Schema

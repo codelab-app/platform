@@ -3,7 +3,7 @@ hooks:
   afterAllFileWrite:
     - yarn prettier --write
     - yarn eslint --ext ts --fix
-#
+
 generates:
   schema.dgraph.graphql:
     schema:
@@ -33,8 +33,8 @@ generates:
       strictScalars: true
       defaultScalarType: unknown
       withRefetchFn: true
-      defaultBaseOptions:
-        operationName: 'dgraph'
+      # defaultBaseOptions:
+      #   operationName: 'dgraph'
       scalars:
         uuid: string
         json: Record<string, any>
@@ -56,8 +56,8 @@ generates:
       - typescript-react-apollo
       - typescript-document-nodes
     config:
-      defaultBaseOptions:
-        operationName: 'api'
+      # defaultBaseOptions:
+      #   operationName: 'api'
       documentVariableSuffix: 'Gql'
       gqlImport: '@apollo/client#gql'
       skipTypename: true
