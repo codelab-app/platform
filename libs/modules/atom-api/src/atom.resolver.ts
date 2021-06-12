@@ -1,17 +1,26 @@
+import { GqlAuthGuard } from '@codelab/modules/auth-api'
+import { GetInterfaceService, Interface } from '@codelab/modules/type-api'
 import { Injectable, UseGuards } from '@nestjs/common'
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
+import {
+  Args,
+  Mutation,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql'
 import { Atom } from './atom.model'
 import {
   CreateAtomInput,
   CreateAtomService,
   DeleteAtomInput,
-  DeleteAtomService, GetAtomService,
+  DeleteAtomService,
+  GetAtomService,
   GetAtomsService,
   UpdateAtomInput,
   UpdateAtomService,
 } from './use-cases'
 import { GetAtomInput } from './use-cases/get-atom/get-atom.input'
-import { GqlAuthGuard } from '@codelab/modules/auth-api';
 
 @Resolver(() => Atom)
 @Injectable()
@@ -22,6 +31,7 @@ export class AtomResolver {
     private getAtomsService: GetAtomsService,
     private deleteAtomService: DeleteAtomService,
     private updateAtomService: UpdateAtomService,
+    private getInterfaceService: GetInterfaceService,
   ) {}
 
   @Mutation(() => Atom)
@@ -52,5 +62,12 @@ export class AtomResolver {
   @UseGuards(GqlAuthGuard)
   updateAtom(@Args('input') input: UpdateAtomInput) {
     return this.updateAtomService.execute(input)
+  }
+
+  @ResolveField('propTypes', () => Interface)
+  resolvePropTypes(@Parent() atom: Atom) {
+    return this.getInterfaceService.execute({
+      input: { interfaceId: atom.propTypes.id },
+    })
   }
 }

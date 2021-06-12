@@ -56,10 +56,35 @@ type AddAppPayload {
   numUids: Int
 }
 
+input AddArrayLengthValidatorInput {
+  min: Int
+  max: Int
+}
+
+type AddArrayLengthValidatorPayload {
+  arrayLengthValidator(
+    filter: ArrayLengthValidatorFilter
+    order: ArrayLengthValidatorOrder
+    first: Int
+    offset: Int
+  ): [ArrayLengthValidator]
+  numUids: Int
+}
+
+input AddArrayTypeInput {
+  type: TypeRef!
+}
+
+type AddArrayTypePayload {
+  arrayType(filter: ArrayTypeFilter, first: Int, offset: Int): [ArrayType]
+  numUids: Int
+}
+
 input AddAtomInput {
   type: AtomType!
   label: String!
   library: LibraryRef
+  propTypes: InterfaceRef!
 }
 
 type AddAtomPayload {
@@ -85,6 +110,63 @@ type AddComponentPayload {
   numUids: Int
 }
 
+input AddEnumTypeInput {
+  allowedValues: [EnumTypeValueRef!]!
+}
+
+type AddEnumTypePayload {
+  enumType(filter: EnumTypeFilter, first: Int, offset: Int): [EnumType]
+  numUids: Int
+}
+
+input AddEnumTypeValueInput {
+  name: String!
+}
+
+type AddEnumTypeValuePayload {
+  enumTypeValue(
+    filter: EnumTypeValueFilter
+    order: EnumTypeValueOrder
+    first: Int
+    offset: Int
+  ): [EnumTypeValue]
+  numUids: Int
+}
+
+input AddFieldInput {
+  type: TypeRef!
+  key: String!
+  name: String!
+  description: String
+  decorators: [DecoratorRef]
+  interface: InterfaceRef!
+}
+
+type AddFieldPayload {
+  field(
+    filter: FieldFilter
+    order: FieldOrder
+    first: Int
+    offset: Int
+  ): [Field]
+  numUids: Int
+}
+
+input AddInterfaceInput {
+  name: String!
+  fields: [FieldRef]
+}
+
+type AddInterfacePayload {
+  interface(
+    filter: InterfaceFilter
+    order: InterfaceOrder
+    first: Int
+    offset: Int
+  ): [Interface]
+  numUids: Int
+}
+
 input AddLibraryInput {
   ownerId: String!
   name: String!
@@ -99,6 +181,21 @@ type AddLibraryPayload {
     first: Int
     offset: Int
   ): [Library]
+  numUids: Int
+}
+
+input AddMinMaxValidatorInput {
+  min: Int
+  max: Int
+}
+
+type AddMinMaxValidatorPayload {
+  minMaxValidator(
+    filter: MinMaxValidatorFilter
+    order: MinMaxValidatorOrder
+    first: Int
+    offset: Int
+  ): [MinMaxValidator]
   numUids: Int
 }
 
@@ -143,12 +240,43 @@ type AddPropPayload {
   numUids: Int
 }
 
+input AddRequiredValidatorInput {
+  isRequired: Boolean!
+}
+
+type AddRequiredValidatorPayload {
+  requiredValidator(
+    filter: RequiredValidatorFilter
+    first: Int
+    offset: Int
+  ): [RequiredValidator]
+  numUids: Int
+}
+
+input AddSimpleTypeInput {
+  primitiveType: PrimitiveType!
+}
+
+type AddSimpleTypePayload {
+  simpleType(filter: SimpleTypeFilter, first: Int, offset: Int): [SimpleType]
+  numUids: Int
+}
+
 input AddTagInput {
   label: String!
 }
 
 type AddTagPayload {
   tag(filter: TagFilter, order: TagOrder, first: Int, offset: Int): [Tag]
+  numUids: Int
+}
+
+input AddUnitTypeInput {
+  allowedUnits: [Unit!]!
+}
+
+type AddUnitTypePayload {
+  unitType(filter: UnitTypeFilter, first: Int, offset: Int): [UnitType]
   numUids: Int
 }
 
@@ -222,11 +350,95 @@ input AppRef {
   name: String
 }
 
+type ArrayLengthValidator {
+  id: ID!
+  min: Int
+  max: Int
+}
+
+type ArrayLengthValidatorAggregateResult {
+  count: Int
+  minMin: Int
+  minMax: Int
+  minSum: Int
+  minAvg: Float
+  maxMin: Int
+  maxMax: Int
+  maxSum: Int
+  maxAvg: Float
+}
+
+input ArrayLengthValidatorFilter {
+  id: [ID!]
+  has: [ArrayLengthValidatorHasFilter]
+  and: [ArrayLengthValidatorFilter]
+  or: [ArrayLengthValidatorFilter]
+  not: ArrayLengthValidatorFilter
+}
+
+enum ArrayLengthValidatorHasFilter {
+  min
+  max
+}
+
+input ArrayLengthValidatorOrder {
+  asc: ArrayLengthValidatorOrderable
+  desc: ArrayLengthValidatorOrderable
+  then: ArrayLengthValidatorOrder
+}
+
+enum ArrayLengthValidatorOrderable {
+  min
+  max
+}
+
+input ArrayLengthValidatorPatch {
+  min: Int
+  max: Int
+}
+
+input ArrayLengthValidatorRef {
+  id: ID
+  min: Int
+  max: Int
+}
+
+type ArrayType {
+  id: ID!
+  type(filter: TypeFilter): Type!
+}
+
+type ArrayTypeAggregateResult {
+  count: Int
+}
+
+input ArrayTypeFilter {
+  id: [ID!]
+  has: [ArrayTypeHasFilter]
+  and: [ArrayTypeFilter]
+  or: [ArrayTypeFilter]
+  not: ArrayTypeFilter
+}
+
+enum ArrayTypeHasFilter {
+  type
+}
+
+input ArrayTypePatch {
+  type: TypeRef
+}
+
+input ArrayTypeRef {
+  id: ID
+  type: TypeRef
+}
+
 type Atom {
   id: ID!
   type: AtomType!
   label: String!
   library(filter: LibraryFilter): Library
+  propTypes(filter: InterfaceFilter): Interface!
 }
 
 type AtomAggregateResult {
@@ -247,6 +459,7 @@ enum AtomHasFilter {
   type
   label
   library
+  propTypes
 }
 
 input AtomOrder {
@@ -263,6 +476,7 @@ input AtomPatch {
   type: AtomType
   label: String
   library: LibraryRef
+  propTypes: InterfaceRef
 }
 
 input AtomRef {
@@ -270,6 +484,7 @@ input AtomRef {
   type: AtomType
   label: String
   library: LibraryRef
+  propTypes: InterfaceRef
 }
 
 enum AtomType {
@@ -488,8 +703,46 @@ input DateTimeRange {
   max: DateTime!
 }
 
+union Decorator = MinMaxValidator | RequiredValidator | ArrayLengthValidator
+
+input DecoratorFilter {
+  memberTypes: [DecoratorType!]
+  minMaxValidatorFilter: MinMaxValidatorFilter
+  requiredValidatorFilter: RequiredValidatorFilter
+  arrayLengthValidatorFilter: ArrayLengthValidatorFilter
+}
+
+input DecoratorRef {
+  minMaxValidatorRef: MinMaxValidatorRef
+  requiredValidatorRef: RequiredValidatorRef
+  arrayLengthValidatorRef: ArrayLengthValidatorRef
+}
+
+enum DecoratorType {
+  MinMaxValidator
+  RequiredValidator
+  ArrayLengthValidator
+}
+
 type DeleteAppPayload {
   app(filter: AppFilter, order: AppOrder, first: Int, offset: Int): [App]
+  msg: String
+  numUids: Int
+}
+
+type DeleteArrayLengthValidatorPayload {
+  arrayLengthValidator(
+    filter: ArrayLengthValidatorFilter
+    order: ArrayLengthValidatorOrder
+    first: Int
+    offset: Int
+  ): [ArrayLengthValidator]
+  msg: String
+  numUids: Int
+}
+
+type DeleteArrayTypePayload {
+  arrayType(filter: ArrayTypeFilter, first: Int, offset: Int): [ArrayType]
   msg: String
   numUids: Int
 }
@@ -511,6 +764,45 @@ type DeleteComponentPayload {
   numUids: Int
 }
 
+type DeleteEnumTypePayload {
+  enumType(filter: EnumTypeFilter, first: Int, offset: Int): [EnumType]
+  msg: String
+  numUids: Int
+}
+
+type DeleteEnumTypeValuePayload {
+  enumTypeValue(
+    filter: EnumTypeValueFilter
+    order: EnumTypeValueOrder
+    first: Int
+    offset: Int
+  ): [EnumTypeValue]
+  msg: String
+  numUids: Int
+}
+
+type DeleteFieldPayload {
+  field(
+    filter: FieldFilter
+    order: FieldOrder
+    first: Int
+    offset: Int
+  ): [Field]
+  msg: String
+  numUids: Int
+}
+
+type DeleteInterfacePayload {
+  interface(
+    filter: InterfaceFilter
+    order: InterfaceOrder
+    first: Int
+    offset: Int
+  ): [Interface]
+  msg: String
+  numUids: Int
+}
+
 type DeleteLibraryPayload {
   library(
     filter: LibraryFilter
@@ -518,6 +810,17 @@ type DeleteLibraryPayload {
     first: Int
     offset: Int
   ): [Library]
+  msg: String
+  numUids: Int
+}
+
+type DeleteMinMaxValidatorPayload {
+  minMaxValidator(
+    filter: MinMaxValidatorFilter
+    order: MinMaxValidatorOrder
+    first: Int
+    offset: Int
+  ): [MinMaxValidator]
   msg: String
   numUids: Int
 }
@@ -545,8 +848,30 @@ type DeletePropPayload {
   numUids: Int
 }
 
+type DeleteRequiredValidatorPayload {
+  requiredValidator(
+    filter: RequiredValidatorFilter
+    first: Int
+    offset: Int
+  ): [RequiredValidator]
+  msg: String
+  numUids: Int
+}
+
+type DeleteSimpleTypePayload {
+  simpleType(filter: SimpleTypeFilter, first: Int, offset: Int): [SimpleType]
+  msg: String
+  numUids: Int
+}
+
 type DeleteTagPayload {
   tag(filter: TagFilter, order: TagOrder, first: Int, offset: Int): [Tag]
+  msg: String
+  numUids: Int
+}
+
+type DeleteUnitTypePayload {
+  unitType(filter: UnitTypeFilter, first: Int, offset: Int): [UnitType]
   msg: String
   numUids: Int
 }
@@ -578,6 +903,155 @@ enum DgraphIndex {
   day
   hour
   geo
+}
+
+type EnumType {
+  id: ID!
+  allowedValues(
+    filter: EnumTypeValueFilter
+    order: EnumTypeValueOrder
+    first: Int
+    offset: Int
+  ): [EnumTypeValue!]!
+  allowedValuesAggregate(
+    filter: EnumTypeValueFilter
+  ): EnumTypeValueAggregateResult
+}
+
+type EnumTypeAggregateResult {
+  count: Int
+}
+
+input EnumTypeFilter {
+  id: [ID!]
+  has: [EnumTypeHasFilter]
+  and: [EnumTypeFilter]
+  or: [EnumTypeFilter]
+  not: EnumTypeFilter
+}
+
+enum EnumTypeHasFilter {
+  allowedValues
+}
+
+input EnumTypePatch {
+  allowedValues: [EnumTypeValueRef!]
+}
+
+input EnumTypeRef {
+  id: ID
+  allowedValues: [EnumTypeValueRef!]
+}
+
+type EnumTypeValue {
+  id: ID!
+  name: String!
+}
+
+type EnumTypeValueAggregateResult {
+  count: Int
+  nameMin: String
+  nameMax: String
+}
+
+input EnumTypeValueFilter {
+  id: [ID!]
+  has: [EnumTypeValueHasFilter]
+  and: [EnumTypeValueFilter]
+  or: [EnumTypeValueFilter]
+  not: EnumTypeValueFilter
+}
+
+enum EnumTypeValueHasFilter {
+  name
+}
+
+input EnumTypeValueOrder {
+  asc: EnumTypeValueOrderable
+  desc: EnumTypeValueOrderable
+  then: EnumTypeValueOrder
+}
+
+enum EnumTypeValueOrderable {
+  name
+}
+
+input EnumTypeValuePatch {
+  name: String
+}
+
+input EnumTypeValueRef {
+  id: ID
+  name: String
+}
+
+type Field {
+  id: ID!
+  type(filter: TypeFilter): Type!
+  key: String!
+  name: String!
+  description: String
+  decorators(filter: DecoratorFilter, first: Int, offset: Int): [Decorator]
+  interface(filter: InterfaceFilter): Interface!
+}
+
+type FieldAggregateResult {
+  count: Int
+  keyMin: String
+  keyMax: String
+  nameMin: String
+  nameMax: String
+  descriptionMin: String
+  descriptionMax: String
+}
+
+input FieldFilter {
+  id: [ID!]
+  key: StringFullTextFilter_StringHashFilter
+  has: [FieldHasFilter]
+  and: [FieldFilter]
+  or: [FieldFilter]
+  not: FieldFilter
+}
+
+enum FieldHasFilter {
+  type
+  key
+  name
+  description
+  decorators
+  interface
+}
+
+input FieldOrder {
+  asc: FieldOrderable
+  desc: FieldOrderable
+  then: FieldOrder
+}
+
+enum FieldOrderable {
+  key
+  name
+  description
+}
+
+input FieldPatch {
+  type: TypeRef
+  key: String
+  name: String
+  description: String
+  decorators: [DecoratorRef]
+  interface: InterfaceRef
+}
+
+input FieldRef {
+  id: ID
+  type: TypeRef
+  key: String
+  name: String
+  description: String
+  decorators: [DecoratorRef]
+  interface: InterfaceRef
 }
 
 input FloatFilter {
@@ -652,6 +1126,58 @@ input IntRange {
   max: Int!
 }
 
+type Interface {
+  id: ID!
+  name: String!
+  fields(
+    filter: FieldFilter
+    order: FieldOrder
+    first: Int
+    offset: Int
+  ): [Field]
+  fieldsAggregate(filter: FieldFilter): FieldAggregateResult
+}
+
+type InterfaceAggregateResult {
+  count: Int
+  nameMin: String
+  nameMax: String
+}
+
+input InterfaceFilter {
+  id: [ID!]
+  has: [InterfaceHasFilter]
+  and: [InterfaceFilter]
+  or: [InterfaceFilter]
+  not: InterfaceFilter
+}
+
+enum InterfaceHasFilter {
+  name
+  fields
+}
+
+input InterfaceOrder {
+  asc: InterfaceOrderable
+  desc: InterfaceOrderable
+  then: InterfaceOrder
+}
+
+enum InterfaceOrderable {
+  name
+}
+
+input InterfacePatch {
+  name: String
+  fields: [FieldRef]
+}
+
+input InterfaceRef {
+  id: ID
+  name: String
+  fields: [FieldRef]
+}
+
 input IntersectsFilter {
   polygon: PolygonRef
   multiPolygon: MultiPolygonRef
@@ -721,6 +1247,59 @@ input LibraryRef {
   components: [ComponentRef]
 }
 
+type MinMaxValidator {
+  id: ID!
+  min: Int
+  max: Int
+}
+
+type MinMaxValidatorAggregateResult {
+  count: Int
+  minMin: Int
+  minMax: Int
+  minSum: Int
+  minAvg: Float
+  maxMin: Int
+  maxMax: Int
+  maxSum: Int
+  maxAvg: Float
+}
+
+input MinMaxValidatorFilter {
+  id: [ID!]
+  has: [MinMaxValidatorHasFilter]
+  and: [MinMaxValidatorFilter]
+  or: [MinMaxValidatorFilter]
+  not: MinMaxValidatorFilter
+}
+
+enum MinMaxValidatorHasFilter {
+  min
+  max
+}
+
+input MinMaxValidatorOrder {
+  asc: MinMaxValidatorOrderable
+  desc: MinMaxValidatorOrderable
+  then: MinMaxValidatorOrder
+}
+
+enum MinMaxValidatorOrderable {
+  min
+  max
+}
+
+input MinMaxValidatorPatch {
+  min: Int
+  max: Int
+}
+
+input MinMaxValidatorRef {
+  id: ID
+  min: Int
+  max: Int
+}
+
 enum Mode {
   BATCH
   SINGLE
@@ -762,6 +1341,56 @@ type Mutation {
   addValueType(input: [AddValueTypeInput!]!): AddValueTypePayload
   updateValueType(input: UpdateValueTypeInput!): UpdateValueTypePayload
   deleteValueType(filter: ValueTypeFilter!): DeleteValueTypePayload
+  addSimpleType(input: [AddSimpleTypeInput!]!): AddSimpleTypePayload
+  updateSimpleType(input: UpdateSimpleTypeInput!): UpdateSimpleTypePayload
+  deleteSimpleType(filter: SimpleTypeFilter!): DeleteSimpleTypePayload
+  addArrayType(input: [AddArrayTypeInput!]!): AddArrayTypePayload
+  updateArrayType(input: UpdateArrayTypeInput!): UpdateArrayTypePayload
+  deleteArrayType(filter: ArrayTypeFilter!): DeleteArrayTypePayload
+  addEnumTypeValue(input: [AddEnumTypeValueInput!]!): AddEnumTypeValuePayload
+  updateEnumTypeValue(
+    input: UpdateEnumTypeValueInput!
+  ): UpdateEnumTypeValuePayload
+  deleteEnumTypeValue(filter: EnumTypeValueFilter!): DeleteEnumTypeValuePayload
+  addEnumType(input: [AddEnumTypeInput!]!): AddEnumTypePayload
+  updateEnumType(input: UpdateEnumTypeInput!): UpdateEnumTypePayload
+  deleteEnumType(filter: EnumTypeFilter!): DeleteEnumTypePayload
+  addUnitType(input: [AddUnitTypeInput!]!): AddUnitTypePayload
+  updateUnitType(input: UpdateUnitTypeInput!): UpdateUnitTypePayload
+  deleteUnitType(filter: UnitTypeFilter!): DeleteUnitTypePayload
+  addRequiredValidator(
+    input: [AddRequiredValidatorInput!]!
+  ): AddRequiredValidatorPayload
+  updateRequiredValidator(
+    input: UpdateRequiredValidatorInput!
+  ): UpdateRequiredValidatorPayload
+  deleteRequiredValidator(
+    filter: RequiredValidatorFilter!
+  ): DeleteRequiredValidatorPayload
+  addMinMaxValidator(
+    input: [AddMinMaxValidatorInput!]!
+  ): AddMinMaxValidatorPayload
+  updateMinMaxValidator(
+    input: UpdateMinMaxValidatorInput!
+  ): UpdateMinMaxValidatorPayload
+  deleteMinMaxValidator(
+    filter: MinMaxValidatorFilter!
+  ): DeleteMinMaxValidatorPayload
+  addArrayLengthValidator(
+    input: [AddArrayLengthValidatorInput!]!
+  ): AddArrayLengthValidatorPayload
+  updateArrayLengthValidator(
+    input: UpdateArrayLengthValidatorInput!
+  ): UpdateArrayLengthValidatorPayload
+  deleteArrayLengthValidator(
+    filter: ArrayLengthValidatorFilter!
+  ): DeleteArrayLengthValidatorPayload
+  addField(input: [AddFieldInput!]!): AddFieldPayload
+  updateField(input: UpdateFieldInput!): UpdateFieldPayload
+  deleteField(filter: FieldFilter!): DeleteFieldPayload
+  addInterface(input: [AddInterfaceInput!]!): AddInterfacePayload
+  updateInterface(input: UpdateInterfaceInput!): UpdateInterfacePayload
+  deleteInterface(filter: InterfaceFilter!): DeleteInterfacePayload
 }
 
 input NearFilter {
@@ -927,6 +1556,13 @@ input PolygonRef {
   coordinates: [PointListRef!]!
 }
 
+enum PrimitiveType {
+  String
+  Integer
+  Float
+  Boolean
+}
+
 type Prop {
   id: ID!
   description: String
@@ -1040,6 +1676,137 @@ type Query {
     offset: Int
   ): [ValueType]
   aggregateValueType(filter: ValueTypeFilter): ValueTypeAggregateResult
+  getSimpleType(id: ID!): SimpleType
+  querySimpleType(
+    filter: SimpleTypeFilter
+    first: Int
+    offset: Int
+  ): [SimpleType]
+  aggregateSimpleType(filter: SimpleTypeFilter): SimpleTypeAggregateResult
+  getArrayType(id: ID!): ArrayType
+  queryArrayType(filter: ArrayTypeFilter, first: Int, offset: Int): [ArrayType]
+  aggregateArrayType(filter: ArrayTypeFilter): ArrayTypeAggregateResult
+  getEnumTypeValue(id: ID!): EnumTypeValue
+  queryEnumTypeValue(
+    filter: EnumTypeValueFilter
+    order: EnumTypeValueOrder
+    first: Int
+    offset: Int
+  ): [EnumTypeValue]
+  aggregateEnumTypeValue(
+    filter: EnumTypeValueFilter
+  ): EnumTypeValueAggregateResult
+  getEnumType(id: ID!): EnumType
+  queryEnumType(filter: EnumTypeFilter, first: Int, offset: Int): [EnumType]
+  aggregateEnumType(filter: EnumTypeFilter): EnumTypeAggregateResult
+  getUnitType(id: ID!): UnitType
+  queryUnitType(filter: UnitTypeFilter, first: Int, offset: Int): [UnitType]
+  aggregateUnitType(filter: UnitTypeFilter): UnitTypeAggregateResult
+  getRequiredValidator(id: ID!): RequiredValidator
+  queryRequiredValidator(
+    filter: RequiredValidatorFilter
+    first: Int
+    offset: Int
+  ): [RequiredValidator]
+  aggregateRequiredValidator(
+    filter: RequiredValidatorFilter
+  ): RequiredValidatorAggregateResult
+  getMinMaxValidator(id: ID!): MinMaxValidator
+  queryMinMaxValidator(
+    filter: MinMaxValidatorFilter
+    order: MinMaxValidatorOrder
+    first: Int
+    offset: Int
+  ): [MinMaxValidator]
+  aggregateMinMaxValidator(
+    filter: MinMaxValidatorFilter
+  ): MinMaxValidatorAggregateResult
+  getArrayLengthValidator(id: ID!): ArrayLengthValidator
+  queryArrayLengthValidator(
+    filter: ArrayLengthValidatorFilter
+    order: ArrayLengthValidatorOrder
+    first: Int
+    offset: Int
+  ): [ArrayLengthValidator]
+  aggregateArrayLengthValidator(
+    filter: ArrayLengthValidatorFilter
+  ): ArrayLengthValidatorAggregateResult
+  getField(id: ID!): Field
+  queryField(
+    filter: FieldFilter
+    order: FieldOrder
+    first: Int
+    offset: Int
+  ): [Field]
+  aggregateField(filter: FieldFilter): FieldAggregateResult
+  getInterface(id: ID!): Interface
+  queryInterface(
+    filter: InterfaceFilter
+    order: InterfaceOrder
+    first: Int
+    offset: Int
+  ): [Interface]
+  aggregateInterface(filter: InterfaceFilter): InterfaceAggregateResult
+}
+
+type RequiredValidator {
+  id: ID!
+  isRequired: Boolean!
+}
+
+type RequiredValidatorAggregateResult {
+  count: Int
+}
+
+input RequiredValidatorFilter {
+  id: [ID!]
+  has: [RequiredValidatorHasFilter]
+  and: [RequiredValidatorFilter]
+  or: [RequiredValidatorFilter]
+  not: RequiredValidatorFilter
+}
+
+enum RequiredValidatorHasFilter {
+  isRequired
+}
+
+input RequiredValidatorPatch {
+  isRequired: Boolean
+}
+
+input RequiredValidatorRef {
+  id: ID
+  isRequired: Boolean
+}
+
+type SimpleType {
+  id: ID!
+  primitiveType: PrimitiveType!
+}
+
+type SimpleTypeAggregateResult {
+  count: Int
+}
+
+input SimpleTypeFilter {
+  id: [ID!]
+  has: [SimpleTypeHasFilter]
+  and: [SimpleTypeFilter]
+  or: [SimpleTypeFilter]
+  not: SimpleTypeFilter
+}
+
+enum SimpleTypeHasFilter {
+  primitiveType
+}
+
+input SimpleTypePatch {
+  primitiveType: PrimitiveType
+}
+
+input SimpleTypeRef {
+  id: ID
+  primitiveType: PrimitiveType
 }
 
 input StringExactFilter {
@@ -1055,6 +1822,13 @@ input StringExactFilter {
 input StringFullTextFilter {
   alloftext: String
   anyoftext: String
+}
+
+input StringFullTextFilter_StringHashFilter {
+  alloftext: String
+  anyoftext: String
+  eq: String
+  in: [String]
 }
 
 input StringFullTextFilter_StringTermFilter {
@@ -1122,6 +1896,73 @@ input TagRef {
   label: String
 }
 
+union Type = SimpleType | Interface | ArrayType | EnumType | UnitType
+
+input TypeFilter {
+  memberTypes: [TypeType!]
+  simpleTypeFilter: SimpleTypeFilter
+  interfaceFilter: InterfaceFilter
+  arrayTypeFilter: ArrayTypeFilter
+  enumTypeFilter: EnumTypeFilter
+  unitTypeFilter: UnitTypeFilter
+}
+
+input TypeRef {
+  simpleTypeRef: SimpleTypeRef
+  interfaceRef: InterfaceRef
+  arrayTypeRef: ArrayTypeRef
+  enumTypeRef: EnumTypeRef
+  unitTypeRef: UnitTypeRef
+}
+
+enum TypeType {
+  SimpleType
+  Interface
+  ArrayType
+  EnumType
+  UnitType
+}
+
+enum Unit {
+  PX
+  PT
+  EM
+  REM
+  PERCENT
+  VW
+  VH
+}
+
+type UnitType {
+  id: ID!
+  allowedUnits: [Unit!]!
+}
+
+type UnitTypeAggregateResult {
+  count: Int
+}
+
+input UnitTypeFilter {
+  id: [ID!]
+  has: [UnitTypeHasFilter]
+  and: [UnitTypeFilter]
+  or: [UnitTypeFilter]
+  not: UnitTypeFilter
+}
+
+enum UnitTypeHasFilter {
+  allowedUnits
+}
+
+input UnitTypePatch {
+  allowedUnits: [Unit!]
+}
+
+input UnitTypeRef {
+  id: ID
+  allowedUnits: [Unit!]
+}
+
 input UpdateAppInput {
   filter: AppFilter!
   set: AppPatch
@@ -1130,6 +1971,33 @@ input UpdateAppInput {
 
 type UpdateAppPayload {
   app(filter: AppFilter, order: AppOrder, first: Int, offset: Int): [App]
+  numUids: Int
+}
+
+input UpdateArrayLengthValidatorInput {
+  filter: ArrayLengthValidatorFilter!
+  set: ArrayLengthValidatorPatch
+  remove: ArrayLengthValidatorPatch
+}
+
+type UpdateArrayLengthValidatorPayload {
+  arrayLengthValidator(
+    filter: ArrayLengthValidatorFilter
+    order: ArrayLengthValidatorOrder
+    first: Int
+    offset: Int
+  ): [ArrayLengthValidator]
+  numUids: Int
+}
+
+input UpdateArrayTypeInput {
+  filter: ArrayTypeFilter!
+  set: ArrayTypePatch
+  remove: ArrayTypePatch
+}
+
+type UpdateArrayTypePayload {
+  arrayType(filter: ArrayTypeFilter, first: Int, offset: Int): [ArrayType]
   numUids: Int
 }
 
@@ -1160,6 +2028,65 @@ type UpdateComponentPayload {
   numUids: Int
 }
 
+input UpdateEnumTypeInput {
+  filter: EnumTypeFilter!
+  set: EnumTypePatch
+  remove: EnumTypePatch
+}
+
+type UpdateEnumTypePayload {
+  enumType(filter: EnumTypeFilter, first: Int, offset: Int): [EnumType]
+  numUids: Int
+}
+
+input UpdateEnumTypeValueInput {
+  filter: EnumTypeValueFilter!
+  set: EnumTypeValuePatch
+  remove: EnumTypeValuePatch
+}
+
+type UpdateEnumTypeValuePayload {
+  enumTypeValue(
+    filter: EnumTypeValueFilter
+    order: EnumTypeValueOrder
+    first: Int
+    offset: Int
+  ): [EnumTypeValue]
+  numUids: Int
+}
+
+input UpdateFieldInput {
+  filter: FieldFilter!
+  set: FieldPatch
+  remove: FieldPatch
+}
+
+type UpdateFieldPayload {
+  field(
+    filter: FieldFilter
+    order: FieldOrder
+    first: Int
+    offset: Int
+  ): [Field]
+  numUids: Int
+}
+
+input UpdateInterfaceInput {
+  filter: InterfaceFilter!
+  set: InterfacePatch
+  remove: InterfacePatch
+}
+
+type UpdateInterfacePayload {
+  interface(
+    filter: InterfaceFilter
+    order: InterfaceOrder
+    first: Int
+    offset: Int
+  ): [Interface]
+  numUids: Int
+}
+
 input UpdateLibraryInput {
   filter: LibraryFilter!
   set: LibraryPatch
@@ -1173,6 +2100,22 @@ type UpdateLibraryPayload {
     first: Int
     offset: Int
   ): [Library]
+  numUids: Int
+}
+
+input UpdateMinMaxValidatorInput {
+  filter: MinMaxValidatorFilter!
+  set: MinMaxValidatorPatch
+  remove: MinMaxValidatorPatch
+}
+
+type UpdateMinMaxValidatorPayload {
+  minMaxValidator(
+    filter: MinMaxValidatorFilter
+    order: MinMaxValidatorOrder
+    first: Int
+    offset: Int
+  ): [MinMaxValidator]
   numUids: Int
 }
 
@@ -1214,6 +2157,32 @@ type UpdatePropPayload {
   numUids: Int
 }
 
+input UpdateRequiredValidatorInput {
+  filter: RequiredValidatorFilter!
+  set: RequiredValidatorPatch
+  remove: RequiredValidatorPatch
+}
+
+type UpdateRequiredValidatorPayload {
+  requiredValidator(
+    filter: RequiredValidatorFilter
+    first: Int
+    offset: Int
+  ): [RequiredValidator]
+  numUids: Int
+}
+
+input UpdateSimpleTypeInput {
+  filter: SimpleTypeFilter!
+  set: SimpleTypePatch
+  remove: SimpleTypePatch
+}
+
+type UpdateSimpleTypePayload {
+  simpleType(filter: SimpleTypeFilter, first: Int, offset: Int): [SimpleType]
+  numUids: Int
+}
+
 input UpdateTagInput {
   filter: TagFilter!
   set: TagPatch
@@ -1222,6 +2191,17 @@ input UpdateTagInput {
 
 type UpdateTagPayload {
   tag(filter: TagFilter, order: TagOrder, first: Int, offset: Int): [Tag]
+  numUids: Int
+}
+
+input UpdateUnitTypeInput {
+  filter: UnitTypeFilter!
+  set: UnitTypePatch
+  remove: UnitTypePatch
+}
+
+type UpdateUnitTypePayload {
+  unitType(filter: UnitTypeFilter, first: Int, offset: Int): [UnitType]
   numUids: Int
 }
 

@@ -1,5 +1,5 @@
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { AtomTypeEnum } from '../../../modules/atom-api/src/atom-type.model'
+import { AtomTypeEnum } from '../../../../../modules/atom-api/src/atom-type.model'
 
 const atomTypes = Object.values(AtomTypeEnum).map((atomType) => ({
   label: atomType.replace(/_/g, ' '),

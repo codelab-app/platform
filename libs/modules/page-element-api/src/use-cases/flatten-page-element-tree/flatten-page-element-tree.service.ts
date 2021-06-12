@@ -28,13 +28,17 @@ export class FlattenPageElementTreeService
         let childOrder = child['PageElement.children|order']
 
         if (typeof childOrder !== 'number') {
-          childOrder = 0 //this shouldn't be happening, we alaways assign order, but just in case
+          childOrder = 0 //this shouldn't be happening, we always assign order, but just in case
         }
 
         const atom = this.createAtomFromQueryResult(child)
 
         descendants.push(
-          new PageElement({ id: child.uid, name: childName, atom }),
+          new PageElement({
+            id: child.uid,
+            name: childName,
+            atom: atom as any,
+          }),
         )
 
         links.push(new PageElementLink(parent.uid, child.uid, childOrder))
@@ -54,12 +58,19 @@ export class FlattenPageElementTreeService
   public createAtomFromQueryResult(item: FlattenRequestItem) {
     const childAtom = item['PageElement.atom']
 
-    return childAtom
-      ? new Atom({
-          id: childAtom['uid'],
-          type: childAtom['Atom.type'] as any,
-          label: childAtom['Atom.label'] as string,
-        })
-      : null
+    if (!childAtom) {
+      return null
+    }
+
+    return new Atom({
+      id: childAtom['uid'],
+      type: childAtom['Atom.type'] as any,
+      label: childAtom['Atom.label'] as string,
+      propTypes: {
+        id: childAtom['Atom.propTypes']
+          ? (childAtom['Atom.propTypes']['uid'] as string)
+          : '',
+      },
+    })
   }
 }

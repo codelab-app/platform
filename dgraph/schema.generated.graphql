@@ -150,6 +150,7 @@ type Atom {
   type: AtomType!
   label: String!
   library: Library
+  propTypes: Interface!
 }
 
 type Tag {
@@ -167,4 +168,83 @@ type ValueType {
   id: ID!
   label: String!
   type: String!
+}
+
+enum PrimitiveType {
+  String
+  Integer
+  Float
+  Boolean
+}
+
+type SimpleType {
+  id: ID!
+  primitiveType: PrimitiveType!
+}
+
+type ArrayType {
+  id: ID!
+  type: Type!
+}
+
+type EnumTypeValue {
+  id: ID!
+  name: String!
+}
+
+type EnumType {
+  id: ID!
+  allowedValues: [EnumTypeValue!]!
+}
+
+enum Unit {
+  PX
+  PT
+  EM
+  REM
+  PERCENT
+  VW
+  VH
+}
+
+type UnitType {
+  id: ID!
+  allowedUnits: [Unit!]!
+}
+
+union Type = SimpleType | Interface | ArrayType | EnumType | UnitType
+
+type RequiredValidator {
+  id: ID!
+  isRequired: Boolean!
+}
+
+type MinMaxValidator {
+  id: ID!
+  min: Int
+  max: Int
+}
+
+type ArrayLengthValidator {
+  id: ID!
+  min: Int
+  max: Int
+}
+
+union Decorator = MinMaxValidator | RequiredValidator | ArrayLengthValidator
+
+type Field {
+  id: ID!
+  type: Type!
+  key: String! @search(by: [hash, fulltext])
+  name: String!
+  description: String
+  decorators: [Decorator]
+  interface: Interface!
+}
+
+type Interface {
+  id: ID!
+  name: String!
+  fields: [Field] @hasInverse(field: "interface")
 }

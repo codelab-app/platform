@@ -1,3 +1,4 @@
+import { DgraphQueryField } from '@codelab/backend'
 import {
   GetPageElementQueryType,
   GetPageElementRootQueryBuilder,
@@ -11,7 +12,9 @@ interface GetPageRootQueryType extends GetPageElementQueryType {
 export class GetPageRootQueryBuilder extends GetPageElementRootQueryBuilder {
   constructor() {
     super()
-    this.withFields('Page.rootElement').withQueryName('query')
+    this.withFields(
+      new DgraphQueryField().withName('Page.rootElement'),
+    ).withQueryName('query')
   }
 
   public getZodSchema() {

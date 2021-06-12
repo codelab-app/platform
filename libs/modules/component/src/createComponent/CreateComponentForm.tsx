@@ -1,4 +1,5 @@
 import {
+  DGraph__AtomFragment,
   LibraryExplorerGql,
   useCreateComponentMutation,
   useGetAtomsQuery,
@@ -11,7 +12,6 @@ import {
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import { __AtomFragment } from '@codelab/graphql'
 import React, { useContext, useEffect } from 'react'
 import { AutoField, SelectField } from 'uniforms-antd'
 import {
@@ -85,7 +85,7 @@ export const CreateComponentForm = ({ ...props }: CreateComponentFormProps) => {
         showSearch={true}
         optionFilterProp="label"
         options={atoms?.atoms
-          ?.filter((atom): atom is __AtomFragment => !!atom)
+          ?.filter((atom): atom is DGraph__AtomFragment => !!atom)
           .map((atom) => ({
             label: atom.type,
             value: atom.id,

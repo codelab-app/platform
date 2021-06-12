@@ -940,6 +940,27 @@
           }
         }
       }
+    },
+    "modules-type-api": {
+      "root": "libs/modules/type-api",
+      "sourceRoot": "libs/modules/type-api/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/modules/type-api/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/modules/type-api"],
+          "options": {
+            "jestConfig": "libs/modules/type-api/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   }
 }

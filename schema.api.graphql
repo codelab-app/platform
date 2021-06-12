@@ -12,10 +12,96 @@ type App {
   name: String!
 }
 
+type EnumTypeValue {
+  id: ID!
+  name: String!
+}
+
+type Field {
+  id: ID!
+  key: String!
+  name: String!
+  description: String
+  typeId: String!
+  decorators: [Decorator!]!
+}
+
+union Decorator = ArrayLengthValidator | MinMaxValidator | RequiredValidator
+
+type ArrayLengthValidator {
+  id: ID!
+  minLength: Int
+  maxLength: Int
+}
+
+type MinMaxValidator {
+  id: ID!
+  min: Int
+  max: Int
+}
+
+type RequiredValidator {
+  id: ID!
+  isRequired: Boolean!
+}
+
+type Interface {
+  id: ID!
+  name: String!
+  fields: [Field!]!
+
+  """Flattened array of all types that are used inside this interface"""
+  types: [Type!]!
+}
+
+union Type = SimpleType | ArrayType | EnumType | UnitType | InterfaceType
+
+type SimpleType {
+  id: ID!
+  primitiveType: PrimitiveType!
+}
+
+enum PrimitiveType {
+  String
+  Integer
+  Float
+  Boolean
+}
+
+type ArrayType {
+  id: ID!
+  typeId: String!
+}
+
+type EnumType {
+  id: ID!
+  allowedValues: [EnumTypeValue!]!
+}
+
+type UnitType {
+  id: ID!
+  allowedUnits: [Unit!]!
+}
+
+enum Unit {
+  Px
+  Pt
+  Em
+  Rem
+  Percent
+  Vw
+  Vh
+}
+
+type InterfaceType {
+  interfaceId: String!
+}
+
 type Atom {
   id: ID!
   type: AtomType!
   label: String!
+  propTypes: Interface!
 }
 
 enum AtomType {
@@ -131,14 +217,10 @@ type PageElement {
 }
 
 type PageElementLink {
-  """
-  The id of the source PageElement
-  """
+  """The id of the source PageElement"""
   from: String!
 
-  """
-  The id of the target PageElement
-  """
+  """The id of the target PageElement"""
   to: String!
   order: Int!
 }
@@ -148,14 +230,10 @@ type PageElementRoot {
   name: String!
   atom: Atom
 
-  """
-  All descendant PageElements that are under this root, at any level
-  """
+  """All descendant PageElements that are under this root, at any level"""
   descendants: [PageElement!]!
 
-  """
-  All the links connecting the descendant page elements
-  """
+  """All the links connecting the descendant page elements"""
   links: [PageElementLink!]!
 }
 
@@ -217,6 +295,9 @@ type Query {
   getPageElementRoot(input: GetPageElementRootInput!): PageElementRoot
   getAtoms: [Atom!]!
   getAtom(input: GetAtomInput!): Atom
+  getInterface(input: GetInterfaceInput!): Interface
+  getField(input: GetFieldInput!): Field
+  getType(input: GetTypeInput!): Type
   getValueTypes: [ValueType!]!
   getProps: [Prop!]!
 }
@@ -252,6 +333,28 @@ input GetAtomInput {
   atomId: String!
 }
 
+input GetInterfaceInput {
+  interfaceId: String!
+}
+
+input GetFieldInput {
+  byInterface: FieldByInterfaceFilter
+  byId: FieldByIdFilter
+}
+
+input FieldByInterfaceFilter {
+  interfaceId: String!
+  fieldKey: String!
+}
+
+input FieldByIdFilter {
+  fieldId: String!
+}
+
+input GetTypeInput {
+  typeId: String!
+}
+
 type Mutation {
   createApp(input: CreateAppInput!): App!
   updateApp(input: UpdateAppInput!): App!
@@ -265,13 +368,17 @@ type Mutation {
   updatePageElement(input: UpdatePageElementInput!): PageElement!
   movePageElement(input: MovePageElementInput!): PageElement!
 
-  """
-  Deletes a page element and all the descending page elements
-  """
+  """Deletes a page element and all the descending page elements"""
   deletePageElement(input: DeletePageElementInput!): DeleteResponse!
   createAtom(input: CreateAtomInput!): Atom!
   deleteAtom(input: DeleteAtomInput!): Atom!
   updateAtom(input: UpdateAtomInput!): Atom!
+  createInterface(input: CreateInterfaceInput!): Interface!
+  updateInterface(input: UpdateInterfaceInput!): Interface!
+  deleteInterface(input: DeleteInterfaceInput!): DeleteResponse!
+  createField(input: CreateFieldInput!): Field!
+  updateField(input: UpdateFieldInput!): Field!
+  deleteField(input: DeleteFieldInput!): DeleteResponse!
 }
 
 input CreateAppInput {
@@ -376,4 +483,76 @@ input DeleteAtomInput {
 input UpdateAtomInput {
   id: String!
   data: CreateAtomInput!
+}
+
+input CreateInterfaceInput {
+  name: String!
+}
+
+input UpdateInterfaceInput {
+  interfaceId: String!
+  updateData: UpdateInterfaceData!
+}
+
+input UpdateInterfaceData {
+  name: String!
+}
+
+input DeleteInterfaceInput {
+  interfaceId: String!
+}
+
+input CreateFieldInput {
+  key: String!
+  name: String!
+  description: String
+  interfaceId: String!
+  type: CreateTypeInput!
+}
+
+"""Provide one of the properties"""
+input CreateTypeInput {
+  simpleType: CreateSimpleTypeInput
+  interfaceType: CreateInterfaceTypeInput
+  arrayType: CreateArrayTypeInput
+  enumType: CreateEnumTypeInput
+  unitType: CreateUnitTypeInput
+}
+
+input CreateSimpleTypeInput {
+  primitiveType: PrimitiveType!
+}
+
+input CreateInterfaceTypeInput {
+  interfaceId: String!
+}
+
+input CreateArrayTypeInput {
+  type: CreateTypeInput!
+}
+
+input CreateEnumTypeInput {
+  allowedValues: [String!]!
+}
+
+input CreateUnitTypeInput {
+  """Pass null to allow all"""
+  allowedUnits: [Unit!]
+}
+
+input UpdateFieldInput {
+  fieldId: String!
+  updateData: UpdateFieldData!
+}
+
+input UpdateFieldData {
+  key: String!
+  name: String!
+  description: String
+  interfaceId: String!
+  type: CreateTypeInput!
+}
+
+input DeleteFieldInput {
+  fieldId: String!
 }

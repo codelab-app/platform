@@ -1,7 +1,7 @@
 import { Inject } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
+import type { DgraphProvider } from '../../infrastructure'
 import { DgraphTokens } from '../../infrastructure'
-import type { DgraphProvider } from '../../infrastructure/dgraph/dgraph.provider'
 import { UseCase } from '../use-case'
 
 export abstract class DgraphUseCase<

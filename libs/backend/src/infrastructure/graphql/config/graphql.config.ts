@@ -60,7 +60,7 @@ export class GraphqlOptions implements GqlOptionsFactory {
         const graphqlAggregateError =
           err?.extensions?.exception?.graphQLErrors?.reduce(
             (p: string, gqlErr: any) =>
-              `${p ? p + '; ' : ''}${gqlErr.path.reduce(
+              `${p ? p + '; ' : ''}${gqlErr.path?.reduce(
                 (prev: string, pathStr: string) => prev + '.' + pathStr,
               )} ${gqlErr.message}`,
             '',
@@ -75,7 +75,7 @@ export class GraphqlOptions implements GqlOptionsFactory {
           gqlIssues[0].path
             ? `Zod validation error. ${
                 gqlIssues[0].message
-              }. Path: ${gqlIssues[0].path.reduce(
+              }. Path: ${gqlIssues[0].path?.reduce(
                 (prev: string, next: string) =>
                   `${prev ? prev + ' ->' : ''} ${next}`,
                 '',

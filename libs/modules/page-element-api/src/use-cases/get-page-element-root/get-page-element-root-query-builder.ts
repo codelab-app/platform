@@ -1,4 +1,9 @@
-import { DgraphQueryBuilder } from '@codelab/backend'
+import {
+  baseFieldsZodShape,
+  DgraphQueryBuilder,
+  DgraphQueryField,
+} from '@codelab/backend'
+import { DgraphInterface } from '@codelab/modules/type-api'
 import { z } from 'zod'
 import { FlattenRequestItem } from '../flatten-page-element-tree'
 
@@ -9,16 +14,16 @@ export class GetPageElementRootQueryBuilder extends DgraphQueryBuilder {
     super()
     this.withRecurse()
       .withQueryName('query')
+      .withBaseFields()
       .withFields(
-        `
-        uid
-        dgraph.type
-        PageElement.name
-        PageElement.atom
-        Atom.label
-        Atom.type
-        PageElement.children @facets(order)
-    `,
+        new DgraphQueryField().withName('PageElement.name'),
+        new DgraphQueryField().withName('PageElement.atom'),
+        new DgraphQueryField().withName('Atom.label'),
+        new DgraphQueryField().withName('Atom.type'),
+        new DgraphQueryField().withName('Atom.propTypes').withBaseInnerFields(),
+        new DgraphQueryField()
+          .withName(' PageElement.children')
+          .withFacet('order'),
       )
   }
 
@@ -36,6 +41,9 @@ export class GetPageElementRootQueryBuilder extends DgraphQueryBuilder {
           .optional(), //in recursive reverse edges, this will be object
         'Atom.label': z.string().optional(),
         'Atom.type': z.string().optional(),
+        'Atom.propTypes': z.object({
+          ...baseFieldsZodShape(DgraphInterface.Metadata.modelName),
+        }),
       }),
     )
 

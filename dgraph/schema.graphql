@@ -53,6 +53,7 @@ type Atom {
   type: AtomType!
   label: String!
   library: Library
+  propTypes: Interface!
 }
 
 type Tag {
@@ -70,4 +71,91 @@ type ValueType {
   id: ID!
   label: String!
   type: String!
+}
+
+#
+# Typing system:
+#
+enum PrimitiveType {
+  String,
+  Integer,
+  Float,
+  Boolean
+}
+
+type SimpleType {
+  id: ID!
+  primitiveType: PrimitiveType!
+}
+
+type ArrayType {
+  id: ID!
+  # that's the type of the array item, e.g. type: (SimpleType) String, would be string[]
+  type: Type!
+}
+
+type EnumTypeValue {
+  id: ID!
+  name: String!
+}
+
+type EnumType {
+  id: ID!
+  allowedValues: [EnumTypeValue!]!
+}
+
+enum Unit {
+  PX,
+  PT,
+  EM,
+  REM,
+  PERCENT,
+  VW,
+  VH,
+  #... add all units here, this is just an example
+}
+
+type UnitType {
+  id: ID!
+  allowedUnits: [Unit!]!
+}
+
+# This is very expandable - want to add Colors? Just create a ColorType with red, green and blue fields
+# Want to handle different units, like px, pt, rem? Create an UnitType
+# We can add as many types as we need without breaking or even touching existing ones
+union Type = SimpleType | Interface | ArrayType | EnumType | UnitType
+
+type RequiredValidator  {
+  id: ID!
+  isRequired: Boolean!
+}
+
+type MinMaxValidator {
+  id: ID!
+  min: Int
+  max: Int
+}
+
+type ArrayLengthValidator {
+  id: ID!
+  min: Int
+  max: Int
+}
+
+union Decorator = MinMaxValidator | RequiredValidator | ArrayLengthValidator #add more decorators here if we need to extend the functionality
+
+type Field {
+  id: ID!
+  type: Type!
+  key: String! @search(by: [hash, fulltext])
+  name: String!
+  description: String
+  decorators: [Decorator]
+  interface: Interface!
+}
+
+type Interface {
+  id: ID!
+  name: String!
+  fields: [Field] @hasInverse(field: "interface")
 }

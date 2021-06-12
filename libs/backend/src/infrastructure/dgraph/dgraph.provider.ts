@@ -6,6 +6,7 @@ import { DgraphTokens } from './config/dgraph.tokens'
 
 export type DgraphProvider = {
   client: DgraphClient
+  /** Drops just the data, without the schema */
   resetDb: () => Promise<any>
 }
 
@@ -23,7 +24,7 @@ export const dgraphClientProvider: Provider<DgraphProvider> = {
       client: dgraphClient,
       resetDb: () =>
         dgraphClient.alter({
-          dropAll: true,
+          schema: '{"drop_op": "DATA"}',
         }),
     }
   },

@@ -1,3 +1,4 @@
+import { TypeModule } from '@codelab/modules/type-api'
 import { Module } from '@nestjs/common'
 import { AtomResolver } from './atom.resolver'
 import {
@@ -17,6 +18,7 @@ const services = [
 ]
 
 @Module({
+  imports: [TypeModule],
   providers: [AtomResolver, ...services],
   exports: [...services],
 })
