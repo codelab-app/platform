@@ -22,5 +22,6 @@ import { dgraphConfig } from '../../infrastructure/dgraph/config/dgraph.config'
     ApolloClientModule.register(apolloClientConfig),
     AwsModule,
   ],
+  exports: [DGraphModule],
 })
 export class InfrastructureModule {}

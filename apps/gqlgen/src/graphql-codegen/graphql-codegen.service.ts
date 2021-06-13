@@ -1,8 +1,7 @@
-import { cLog } from '@codelab/backend'
-import { CodegenContext, generate } from '@graphql-codegen/cli'
+import { generate } from '@graphql-codegen/cli'
 import { Types } from '@graphql-codegen/plugin-helpers'
-import { Injectable, ServiceUnavailableException } from '@nestjs/common'
-import { merge, mergeWith } from 'lodash'
+import { Injectable } from '@nestjs/common'
+import { merge } from 'lodash'
 import path from 'path'
 
 interface BaseCodegenConfig {
@@ -40,21 +39,6 @@ export class GraphqlCodegenService {
     outputPath,
     watch = false,
   }: BaseCodegenConfig) {
-    cLog(
-      merge(
-        this.baseGraphqlConfig(watch),
-        this.apolloGenerateConfig({
-          schema,
-          outputPath,
-          extension: 'd',
-        }),
-        this.schemaGenerateConfig({
-          schema,
-          outputPath,
-        }),
-      ),
-    )
-
     return await generate(
       merge(
         this.baseGraphqlConfig(watch),

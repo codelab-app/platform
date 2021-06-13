@@ -21,5 +21,6 @@ import { LoggerModule } from '../../infrastructure/logger/logger.module'
     ApolloClientModule.register(apolloClientTestConfig),
     CacheModule.register(),
   ],
+  exports: [DGraphModule],
 })
 export class TestInfrastructureModule {}

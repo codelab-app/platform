@@ -12,11 +12,6 @@
       "factory": "./src/generators/api-use-case/generator",
       "schema": "./src/generators/api-use-case/schema.json",
       "description": "api-use-case generator"
-    },
-    "graphql-codegen": {
-      "factory": "./src/generators/graphql-codegen/generator",
-      "schema": "./src/generators/graphql-codegen/schema.json",
-      "description": "Generate graphql code"
     }
   }
 }

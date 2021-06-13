@@ -5,7 +5,7 @@ import shell from 'shelljs'
 import { DgraphConfig } from './config/dgraph.config'
 import { DgraphTokens } from './config/dgraph.tokens'
 
-export type DgraphProvider = {
+export interface DgraphProvider {
   client: DgraphClient
   /** Drops just the data, without the schema */
   resetDb: () => Promise<any>

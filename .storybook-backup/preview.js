@@ -1,6 +1,0 @@
-import './storybook.scss'
-import './grid.scss'
-import 'antd/dist/antd.css'
-import 'react-grid-layout/css/styles.css'
-import 'react-resizable/css/styles.css'
-import 'reflect-metadata'
