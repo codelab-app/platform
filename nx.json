@@ -147,6 +147,9 @@
     },
     "modules-type-api": {
       "tags": []
+    },
+    "modules-type": {
+      "tags": []
     }
   }
 }

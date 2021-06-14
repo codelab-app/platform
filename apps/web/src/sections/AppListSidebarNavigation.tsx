@@ -1,4 +1,8 @@
-import { AppstoreOutlined, DeploymentUnitOutlined } from '@ant-design/icons'
+import {
+  AppstoreOutlined,
+  BlockOutlined,
+  DeploymentUnitOutlined,
+} from '@ant-design/icons'
 import { PageType } from '@codelab/frontend/shared'
 import { Menu } from 'antd'
 import Link from 'next/link'
@@ -34,6 +38,12 @@ export const AppListSidebarNavigation = () => {
         }
       >
         <Link href={PageType.Atom}>Atoms</Link>
+      </Menu.Item>
+      <Menu.Item
+        key={PageType.Interface}
+        icon={<BlockOutlined title="Interfaces" />}
+      >
+        <Link href={PageType.Interface}>Interfaces</Link>
       </Menu.Item>
       {/* <Menu.Item
         key={PageType.AppList}

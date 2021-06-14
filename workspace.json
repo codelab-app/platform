@@ -961,6 +961,19 @@
           }
         }
       }
+    },
+    "modules-type": {
+      "root": "libs/modules/type",
+      "sourceRoot": "libs/modules/type/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/modules/type/**/*.{ts,tsx,js,jsx}"]
+          }
+        }
+      }
     }
   }
 }

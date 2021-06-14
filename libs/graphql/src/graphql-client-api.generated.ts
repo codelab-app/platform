@@ -728,103 +728,6 @@ export type __AtomFragment = Pick<Atom, 'id' | 'label' | 'type'> & {
   propTypes: __InterfaceWithoutFieldsFragment
 }
 
-export type __ArrayLengthValidatorFragment = Pick<
-  ArrayLengthValidator,
-  'id' | 'maxLength' | 'minLength'
->
-
-export type __MinMaxValidatorFragment = Pick<
-  MinMaxValidator,
-  'id' | 'max' | 'min'
->
-
-export type __RequiredValidatorFragment = Pick<
-  RequiredValidator,
-  'id' | 'isRequired'
->
-
-type __Decorator_ArrayLengthValidator_Fragment = {
-  __typename: 'ArrayLengthValidator'
-} & __ArrayLengthValidatorFragment
-
-type __Decorator_MinMaxValidator_Fragment = {
-  __typename: 'MinMaxValidator'
-} & __MinMaxValidatorFragment
-
-type __Decorator_RequiredValidator_Fragment = {
-  __typename: 'RequiredValidator'
-} & __RequiredValidatorFragment
-
-export type __DecoratorFragment =
-  | __Decorator_ArrayLengthValidator_Fragment
-  | __Decorator_MinMaxValidator_Fragment
-  | __Decorator_RequiredValidator_Fragment
-
-export type __FieldFragment = Pick<
-  Field,
-  'id' | 'key' | 'name' | 'typeId' | 'description'
-> & {
-  decorators: Array<
-    | __Decorator_ArrayLengthValidator_Fragment
-    | __Decorator_MinMaxValidator_Fragment
-    | __Decorator_RequiredValidator_Fragment
-  >
-}
-
-export type __ArrayTypeFragment = Pick<ArrayType, 'id' | 'typeId'>
-
-export type __EnumTypeValueFragment = Pick<EnumTypeValue, 'id' | 'name'>
-
-export type __EnumTypeFragment = Pick<EnumType, 'id'> & {
-  allowedValues: Array<__EnumTypeValueFragment>
-}
-
-export type __InterfaceTypeFragment = Pick<InterfaceType, 'interfaceId'>
-
-export type __SimpleTypeFragment = Pick<SimpleType, 'id' | 'primitiveType'>
-
-export type __UnitTypeFragment = Pick<UnitType, 'id' | 'allowedUnits'>
-
-type __Type_SimpleType_Fragment = {
-  __typename: 'SimpleType'
-} & __SimpleTypeFragment
-
-type __Type_ArrayType_Fragment = {
-  __typename: 'ArrayType'
-} & __ArrayTypeFragment
-
-type __Type_EnumType_Fragment = { __typename: 'EnumType' } & __EnumTypeFragment
-
-type __Type_UnitType_Fragment = { __typename: 'UnitType' } & __UnitTypeFragment
-
-type __Type_InterfaceType_Fragment = {
-  __typename: 'InterfaceType'
-} & __InterfaceTypeFragment
-
-export type __TypeFragment =
-  | __Type_SimpleType_Fragment
-  | __Type_ArrayType_Fragment
-  | __Type_EnumType_Fragment
-  | __Type_UnitType_Fragment
-  | __Type_InterfaceType_Fragment
-
-export type __InterfaceWithoutFieldsFragment = Pick<Interface, 'id' | 'name'>
-
-export type __FieldCollectionFragment = {
-  fields: Array<__FieldFragment>
-  types: Array<
-    | __Type_SimpleType_Fragment
-    | __Type_ArrayType_Fragment
-    | __Type_EnumType_Fragment
-    | __Type_UnitType_Fragment
-    | __Type_InterfaceType_Fragment
-  >
-}
-
-export type __InterfaceFragment = {
-  fieldCollection: __FieldCollectionFragment
-} & __InterfaceWithoutFieldsFragment
-
 export type CreateAtomMutationVariables = Exact<{
   input: CreateAtomInput
 }>
@@ -1045,6 +948,123 @@ export type TestUpdateInterfaceMutation = {
   updateInterface: __InterfaceFragment
 }
 
+export type __ArrayLengthValidatorFragment = Pick<
+  ArrayLengthValidator,
+  'id' | 'maxLength' | 'minLength'
+>
+
+export type __MinMaxValidatorFragment = Pick<
+  MinMaxValidator,
+  'id' | 'max' | 'min'
+>
+
+export type __RequiredValidatorFragment = Pick<
+  RequiredValidator,
+  'id' | 'isRequired'
+>
+
+type __Decorator_ArrayLengthValidator_Fragment = {
+  __typename: 'ArrayLengthValidator'
+} & __ArrayLengthValidatorFragment
+
+type __Decorator_MinMaxValidator_Fragment = {
+  __typename: 'MinMaxValidator'
+} & __MinMaxValidatorFragment
+
+type __Decorator_RequiredValidator_Fragment = {
+  __typename: 'RequiredValidator'
+} & __RequiredValidatorFragment
+
+export type __DecoratorFragment =
+  | __Decorator_ArrayLengthValidator_Fragment
+  | __Decorator_MinMaxValidator_Fragment
+  | __Decorator_RequiredValidator_Fragment
+
+export type __FieldFragment = Pick<
+  Field,
+  'id' | 'key' | 'name' | 'typeId' | 'description'
+> & {
+  decorators: Array<
+    | __Decorator_ArrayLengthValidator_Fragment
+    | __Decorator_MinMaxValidator_Fragment
+    | __Decorator_RequiredValidator_Fragment
+  >
+}
+
+export type __ArrayTypeFragment = Pick<ArrayType, 'id' | 'typeId'>
+
+export type __EnumTypeValueFragment = Pick<EnumTypeValue, 'id' | 'name'>
+
+export type __EnumTypeFragment = Pick<EnumType, 'id'> & {
+  allowedValues: Array<__EnumTypeValueFragment>
+}
+
+export type __InterfaceTypeFragment = Pick<InterfaceType, 'interfaceId'>
+
+export type __SimpleTypeFragment = Pick<SimpleType, 'id' | 'primitiveType'>
+
+export type __UnitTypeFragment = Pick<UnitType, 'id' | 'allowedUnits'>
+
+type __Type_SimpleType_Fragment = {
+  __typename: 'SimpleType'
+} & __SimpleTypeFragment
+
+type __Type_ArrayType_Fragment = {
+  __typename: 'ArrayType'
+} & __ArrayTypeFragment
+
+type __Type_EnumType_Fragment = { __typename: 'EnumType' } & __EnumTypeFragment
+
+type __Type_UnitType_Fragment = { __typename: 'UnitType' } & __UnitTypeFragment
+
+type __Type_InterfaceType_Fragment = {
+  __typename: 'InterfaceType'
+} & __InterfaceTypeFragment
+
+export type __TypeFragment =
+  | __Type_SimpleType_Fragment
+  | __Type_ArrayType_Fragment
+  | __Type_EnumType_Fragment
+  | __Type_UnitType_Fragment
+  | __Type_InterfaceType_Fragment
+
+export type __InterfaceWithoutFieldsFragment = Pick<Interface, 'id' | 'name'>
+
+export type __FieldCollectionFragment = {
+  fields: Array<__FieldFragment>
+  types: Array<
+    | __Type_SimpleType_Fragment
+    | __Type_ArrayType_Fragment
+    | __Type_EnumType_Fragment
+    | __Type_UnitType_Fragment
+    | __Type_InterfaceType_Fragment
+  >
+}
+
+export type __InterfaceFragment = {
+  fieldCollection: __FieldCollectionFragment
+} & __InterfaceWithoutFieldsFragment
+
+export type CreateInterfaceMutationVariables = Exact<{
+  input: CreateInterfaceInput
+}>
+
+export type CreateInterfaceMutation = {
+  createInterface: __InterfaceWithoutFieldsFragment
+}
+
+export type DeleteInterfaceMutationVariables = Exact<{
+  input: DeleteInterfaceInput
+}>
+
+export type DeleteInterfaceMutation = {
+  deleteInterface: Pick<DeleteResponse, 'affected'>
+}
+
+export type GetInterfacesQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetInterfacesQuery = { getInterfaces: Array<__InterfaceFragment> }
+
 export type __UserFragment = Pick<User, 'email' | 'name'> & {
   id: User['user_id']
 }
@@ -1073,10 +1093,99 @@ export const __AppFragmentDoc = gql`
     name
   }
 `
+export const PageBaseFragmentDoc = gql`
+  fragment PageBase on Page {
+    id
+    name
+    app {
+      id
+      name
+      ownerId
+    }
+  }
+`
 export const __InterfaceWithoutFieldsFragmentDoc = gql`
   fragment __InterfaceWithoutFields on Interface {
     id
     name
+  }
+`
+export const __AtomFragmentDoc = gql`
+  fragment __Atom on Atom {
+    id
+    label
+    type
+    propTypes {
+      ...__InterfaceWithoutFields
+    }
+  }
+  ${__InterfaceWithoutFieldsFragmentDoc}
+`
+export const PageElementFragmentDoc = gql`
+  fragment PageElement on PageElement {
+    id
+    name
+    atom {
+      ...__Atom
+    }
+  }
+  ${__AtomFragmentDoc}
+`
+export const PageElementLinkFragmentDoc = gql`
+  fragment PageElementLink on PageElementLink {
+    from
+    order
+    to
+  }
+`
+export const PageElementRootFragmentDoc = gql`
+  fragment PageElementRoot on PageElementRoot {
+    id
+    name
+    atom {
+      ...__Atom
+    }
+    descendants {
+      ...PageElement
+    }
+    links {
+      ...PageElementLink
+    }
+  }
+  ${__AtomFragmentDoc}
+  ${PageElementFragmentDoc}
+  ${PageElementLinkFragmentDoc}
+`
+export const PageFullFragmentDoc = gql`
+  fragment PageFull on Page {
+    ...PageBase
+    rootElement {
+      ...PageElementRoot
+    }
+  }
+  ${PageBaseFragmentDoc}
+  ${PageElementRootFragmentDoc}
+`
+export const __PropFragmentDoc = gql`
+  fragment __Prop on Prop {
+    description
+    id
+    key
+    type {
+      id
+      type
+      label
+    }
+    props {
+      description
+      id
+      key
+      type {
+        id
+        type
+        label
+      }
+    }
   }
 `
 export const __ArrayLengthValidatorFragmentDoc = gql`
@@ -1213,95 +1322,6 @@ export const __InterfaceFragmentDoc = gql`
   }
   ${__InterfaceWithoutFieldsFragmentDoc}
   ${__FieldCollectionFragmentDoc}
-`
-export const PageBaseFragmentDoc = gql`
-  fragment PageBase on Page {
-    id
-    name
-    app {
-      id
-      name
-      ownerId
-    }
-  }
-`
-export const __AtomFragmentDoc = gql`
-  fragment __Atom on Atom {
-    id
-    label
-    type
-    propTypes {
-      ...__InterfaceWithoutFields
-    }
-  }
-  ${__InterfaceWithoutFieldsFragmentDoc}
-`
-export const PageElementFragmentDoc = gql`
-  fragment PageElement on PageElement {
-    id
-    name
-    atom {
-      ...__Atom
-    }
-  }
-  ${__AtomFragmentDoc}
-`
-export const PageElementLinkFragmentDoc = gql`
-  fragment PageElementLink on PageElementLink {
-    from
-    order
-    to
-  }
-`
-export const PageElementRootFragmentDoc = gql`
-  fragment PageElementRoot on PageElementRoot {
-    id
-    name
-    atom {
-      ...__Atom
-    }
-    descendants {
-      ...PageElement
-    }
-    links {
-      ...PageElementLink
-    }
-  }
-  ${__AtomFragmentDoc}
-  ${PageElementFragmentDoc}
-  ${PageElementLinkFragmentDoc}
-`
-export const PageFullFragmentDoc = gql`
-  fragment PageFull on Page {
-    ...PageBase
-    rootElement {
-      ...PageElementRoot
-    }
-  }
-  ${PageBaseFragmentDoc}
-  ${PageElementRootFragmentDoc}
-`
-export const __PropFragmentDoc = gql`
-  fragment __Prop on Prop {
-    description
-    id
-    key
-    type {
-      id
-      type
-      label
-    }
-    props {
-      description
-      id
-      key
-      type {
-        id
-        type
-        label
-      }
-    }
-  }
 `
 export const __UserFragmentDoc = gql`
   fragment __User on User {
@@ -3033,6 +3053,170 @@ export type TestUpdateInterfaceMutationOptions = Apollo.BaseMutationOptions<
   TestUpdateInterfaceMutation,
   TestUpdateInterfaceMutationVariables
 >
+export const CreateInterfaceGql = gql`
+  mutation CreateInterface($input: CreateInterfaceInput!) {
+    createInterface(input: $input) {
+      ...__InterfaceWithoutFields
+    }
+  }
+  ${__InterfaceWithoutFieldsFragmentDoc}
+`
+export type CreateInterfaceMutationFn = Apollo.MutationFunction<
+  CreateInterfaceMutation,
+  CreateInterfaceMutationVariables
+>
+
+/**
+ * __useCreateInterfaceMutation__
+ *
+ * To run a mutation, you first call `useCreateInterfaceMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateInterfaceMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createInterfaceMutation, { data, loading, error }] = useCreateInterfaceMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateInterfaceMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateInterfaceMutation,
+    CreateInterfaceMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    CreateInterfaceMutation,
+    CreateInterfaceMutationVariables
+  >(CreateInterfaceGql, options)
+}
+export type CreateInterfaceMutationHookResult = ReturnType<
+  typeof useCreateInterfaceMutation
+>
+export type CreateInterfaceMutationResult =
+  Apollo.MutationResult<CreateInterfaceMutation>
+export type CreateInterfaceMutationOptions = Apollo.BaseMutationOptions<
+  CreateInterfaceMutation,
+  CreateInterfaceMutationVariables
+>
+export const DeleteInterfaceGql = gql`
+  mutation DeleteInterface($input: DeleteInterfaceInput!) {
+    deleteInterface(input: $input) {
+      affected
+    }
+  }
+`
+export type DeleteInterfaceMutationFn = Apollo.MutationFunction<
+  DeleteInterfaceMutation,
+  DeleteInterfaceMutationVariables
+>
+
+/**
+ * __useDeleteInterfaceMutation__
+ *
+ * To run a mutation, you first call `useDeleteInterfaceMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteInterfaceMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteInterfaceMutation, { data, loading, error }] = useDeleteInterfaceMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useDeleteInterfaceMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeleteInterfaceMutation,
+    DeleteInterfaceMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    DeleteInterfaceMutation,
+    DeleteInterfaceMutationVariables
+  >(DeleteInterfaceGql, options)
+}
+export type DeleteInterfaceMutationHookResult = ReturnType<
+  typeof useDeleteInterfaceMutation
+>
+export type DeleteInterfaceMutationResult =
+  Apollo.MutationResult<DeleteInterfaceMutation>
+export type DeleteInterfaceMutationOptions = Apollo.BaseMutationOptions<
+  DeleteInterfaceMutation,
+  DeleteInterfaceMutationVariables
+>
+export const GetInterfacesGql = gql`
+  query GetInterfaces {
+    getInterfaces {
+      ...__Interface
+    }
+  }
+  ${__InterfaceFragmentDoc}
+`
+
+/**
+ * __useGetInterfacesQuery__
+ *
+ * To run a query within a React component, call `useGetInterfacesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetInterfacesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetInterfacesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetInterfacesQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetInterfacesQuery,
+    GetInterfacesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetInterfacesQuery, GetInterfacesQueryVariables>(
+    GetInterfacesGql,
+    options,
+  )
+}
+export function useGetInterfacesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetInterfacesQuery,
+    GetInterfacesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetInterfacesQuery, GetInterfacesQueryVariables>(
+    GetInterfacesGql,
+    options,
+  )
+}
+export type GetInterfacesQueryHookResult = ReturnType<
+  typeof useGetInterfacesQuery
+>
+export type GetInterfacesLazyQueryHookResult = ReturnType<
+  typeof useGetInterfacesLazyQuery
+>
+export type GetInterfacesQueryResult = Apollo.QueryResult<
+  GetInterfacesQuery,
+  GetInterfacesQueryVariables
+>
+export function refetchGetInterfacesQuery(
+  variables?: GetInterfacesQueryVariables,
+) {
+  return { query: GetInterfacesGql, variables: variables }
+}
 export const DeleteUserGql = gql`
   mutation DeleteUser($input: DeleteUserInput!) {
     deleteUser(input: $input)
@@ -3206,10 +3390,99 @@ export const __App = gql`
     name
   }
 `
+export const PageBase = gql`
+  fragment PageBase on Page {
+    id
+    name
+    app {
+      id
+      name
+      ownerId
+    }
+  }
+`
 export const __InterfaceWithoutFields = gql`
   fragment __InterfaceWithoutFields on Interface {
     id
     name
+  }
+`
+export const __Atom = gql`
+  fragment __Atom on Atom {
+    id
+    label
+    type
+    propTypes {
+      ...__InterfaceWithoutFields
+    }
+  }
+  ${__InterfaceWithoutFields}
+`
+export const PageElement = gql`
+  fragment PageElement on PageElement {
+    id
+    name
+    atom {
+      ...__Atom
+    }
+  }
+  ${__Atom}
+`
+export const PageElementLink = gql`
+  fragment PageElementLink on PageElementLink {
+    from
+    order
+    to
+  }
+`
+export const PageElementRoot = gql`
+  fragment PageElementRoot on PageElementRoot {
+    id
+    name
+    atom {
+      ...__Atom
+    }
+    descendants {
+      ...PageElement
+    }
+    links {
+      ...PageElementLink
+    }
+  }
+  ${__Atom}
+  ${PageElement}
+  ${PageElementLink}
+`
+export const PageFull = gql`
+  fragment PageFull on Page {
+    ...PageBase
+    rootElement {
+      ...PageElementRoot
+    }
+  }
+  ${PageBase}
+  ${PageElementRoot}
+`
+export const __Prop = gql`
+  fragment __Prop on Prop {
+    description
+    id
+    key
+    type {
+      id
+      type
+      label
+    }
+    props {
+      description
+      id
+      key
+      type {
+        id
+        type
+        label
+      }
+    }
   }
 `
 export const __ArrayLengthValidator = gql`
@@ -3346,95 +3619,6 @@ export const __Interface = gql`
   }
   ${__InterfaceWithoutFields}
   ${__FieldCollection}
-`
-export const PageBase = gql`
-  fragment PageBase on Page {
-    id
-    name
-    app {
-      id
-      name
-      ownerId
-    }
-  }
-`
-export const __Atom = gql`
-  fragment __Atom on Atom {
-    id
-    label
-    type
-    propTypes {
-      ...__InterfaceWithoutFields
-    }
-  }
-  ${__InterfaceWithoutFields}
-`
-export const PageElement = gql`
-  fragment PageElement on PageElement {
-    id
-    name
-    atom {
-      ...__Atom
-    }
-  }
-  ${__Atom}
-`
-export const PageElementLink = gql`
-  fragment PageElementLink on PageElementLink {
-    from
-    order
-    to
-  }
-`
-export const PageElementRoot = gql`
-  fragment PageElementRoot on PageElementRoot {
-    id
-    name
-    atom {
-      ...__Atom
-    }
-    descendants {
-      ...PageElement
-    }
-    links {
-      ...PageElementLink
-    }
-  }
-  ${__Atom}
-  ${PageElement}
-  ${PageElementLink}
-`
-export const PageFull = gql`
-  fragment PageFull on Page {
-    ...PageBase
-    rootElement {
-      ...PageElementRoot
-    }
-  }
-  ${PageBase}
-  ${PageElementRoot}
-`
-export const __Prop = gql`
-  fragment __Prop on Prop {
-    description
-    id
-    key
-    type {
-      id
-      type
-      label
-    }
-    props {
-      description
-      id
-      key
-      type {
-        id
-        type
-        label
-      }
-    }
-  }
 `
 export const __User = gql`
   fragment __User on User {
@@ -3696,6 +3880,29 @@ export const TestUpdateField = gql`
 export const TestUpdateInterface = gql`
   mutation TestUpdateInterface($input: UpdateInterfaceInput!) {
     updateInterface(input: $input) {
+      ...__Interface
+    }
+  }
+  ${__Interface}
+`
+export const CreateInterface = gql`
+  mutation CreateInterface($input: CreateInterfaceInput!) {
+    createInterface(input: $input) {
+      ...__InterfaceWithoutFields
+    }
+  }
+  ${__InterfaceWithoutFields}
+`
+export const DeleteInterface = gql`
+  mutation DeleteInterface($input: DeleteInterfaceInput!) {
+    deleteInterface(input: $input) {
+      affected
+    }
+  }
+`
+export const GetInterfaces = gql`
+  query GetInterfaces {
+    getInterfaces {
       ...__Interface
     }
   }

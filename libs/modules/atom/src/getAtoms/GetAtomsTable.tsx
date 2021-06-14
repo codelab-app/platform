@@ -17,7 +17,7 @@ export const GetAtomsTable = () => {
   const columns: Array<TableColumnProps<any>> = [
     {
       title: 'Name',
-      dataIndex: ['type', 'label'],
+      dataIndex: 'label',
       key: 'type',
       onHeaderCell: headerCellProps,
       ...columnSearchProps,
@@ -96,6 +96,7 @@ export const GetAtomsTable = () => {
       pagination={{ position: ['bottomCenter'] }}
       dataSource={atoms}
       columns={columns}
+      rowKey={(atom) => atom.id}
     />
   )
 }

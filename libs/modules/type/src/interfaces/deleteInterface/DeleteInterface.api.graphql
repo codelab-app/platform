@@ -1,0 +1,5 @@
+mutation DeleteInterface($input: DeleteInterfaceInput!){
+    deleteInterface(input: $input){
+        affected
+    }
+}
