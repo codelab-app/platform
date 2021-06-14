@@ -1,27 +1,37 @@
-import { UseCase } from '@codelab/backend'
+import { QueryUseCase } from '@codelab/backend'
+import {
+  GetInterfaceGql,
+  GetInterfaceQuery,
+  GetInterfaceQueryVariables,
+} from '@codelab/dgraph'
 import { Injectable } from '@nestjs/common'
-import { Interface, InterfaceMapper } from '../../../models'
+import { FetchResult } from 'apollo-link'
+import { Interface, interfaceSchema } from '../../../models'
 import { GetInterfaceRequest } from '../get-interface'
-import { GetRecursiveInterfaceService } from '../get-recursive-interface'
+
+type GqlVariablesType = GetInterfaceQueryVariables
+type GqlOperationType = GetInterfaceQuery
 
 @Injectable()
-/** Returns the interface in its recursive form */
-export class GetInterfaceService
-  implements UseCase<GetInterfaceRequest, Interface | null>
-{
-  constructor(
-    private getRecursiveInterfaceService: GetRecursiveInterfaceService,
-    private interfaceMapper: InterfaceMapper,
-  ) {}
+export class GetInterfaceService extends QueryUseCase<
+  GetInterfaceRequest,
+  Omit<Interface, 'fieldCollection'> | null,
+  GqlOperationType,
+  GqlVariablesType
+> {
+  protected getGql() {
+    return GetInterfaceGql
+  }
 
-  async execute(request: GetInterfaceRequest): Promise<Interface | null> {
-    const { interface: dgraphInterface } =
-      await this.getRecursiveInterfaceService.execute(request)
-
-    if (!dgraphInterface) {
-      return null
+  protected mapVariables({
+    input: { interfaceId },
+  }: GetInterfaceRequest): GqlVariablesType {
+    return {
+      interfaceId,
     }
+  }
 
-    return await this.interfaceMapper.map(dgraphInterface)
+  protected extractDataFromResult(result: FetchResult<GqlOperationType>) {
+    return interfaceSchema.nullable().parse(result.data?.getInterface || null)
   }
 }

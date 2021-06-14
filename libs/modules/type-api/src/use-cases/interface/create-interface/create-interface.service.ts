@@ -36,8 +36,10 @@ export class CreateInterfaceService extends MutationUseCase<
       // we don't allow to create types and fields here, so
       // we know that we don't have fields and types. We can skip another round trip
       // and avoid calling GetInterfaceService
-      fields: [],
-      types: [],
+      fieldCollection: {
+        fields: [],
+        types: [],
+      },
     })
   }
 

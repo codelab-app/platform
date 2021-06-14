@@ -277,6 +277,12 @@ export type FieldByInterfaceFilter = {
   fieldKey: Scalars['String']
 }
 
+export type FieldCollection = {
+  fields: Array<Field>
+  /** Flattened array of all types that are used inside this interface */
+  types: Array<Type>
+}
+
 export type GetAppInput = {
   appId: Scalars['String']
 }
@@ -324,9 +330,7 @@ export type GetUsersInput = {
 export type Interface = {
   id: Scalars['ID']
   name: Scalars['String']
-  fields: Array<Field>
-  /** Flattened array of all types that are used inside this interface */
-  types: Array<Type>
+  fieldCollection: FieldCollection
 }
 
 export type InterfaceType = {
@@ -720,7 +724,7 @@ export type UpdateAppMutation = { app: __AppFragment }
 export type __AppFragment = Pick<App, 'id' | 'name'>
 
 export type __AtomFragment = Pick<Atom, 'id' | 'label' | 'type'> & {
-  propTypes: __InterfaceFragment
+  propTypes: __InterfaceWithoutFieldsFragment
 }
 
 export type __ArrayLengthValidatorFragment = Pick<
@@ -803,7 +807,9 @@ export type __TypeFragment =
   | __Type_UnitType_Fragment
   | __Type_InterfaceType_Fragment
 
-export type __InterfaceFragment = Pick<Interface, 'id' | 'name'> & {
+export type __InterfaceWithoutFieldsFragment = Pick<Interface, 'id' | 'name'>
+
+export type __FieldCollectionFragment = {
   fields: Array<__FieldFragment>
   types: Array<
     | __Type_SimpleType_Fragment
@@ -813,6 +819,10 @@ export type __InterfaceFragment = Pick<Interface, 'id' | 'name'> & {
     | __Type_InterfaceType_Fragment
   >
 }
+
+export type __InterfaceFragment = {
+  fieldCollection: __FieldCollectionFragment
+} & __InterfaceWithoutFieldsFragment
 
 export type CreateAtomMutationVariables = Exact<{
   input: CreateAtomInput
@@ -1056,15 +1066,10 @@ export const __AppFragmentDoc = gql`
     name
   }
 `
-export const PageBaseFragmentDoc = gql`
-  fragment PageBase on Page {
+export const __InterfaceWithoutFieldsFragmentDoc = gql`
+  fragment __InterfaceWithoutFields on Interface {
     id
     name
-    app {
-      id
-      name
-      ownerId
-    }
   }
 `
 export const __ArrayLengthValidatorFragmentDoc = gql`
@@ -1180,10 +1185,8 @@ export const __TypeFragmentDoc = gql`
   ${__SimpleTypeFragmentDoc}
   ${__UnitTypeFragmentDoc}
 `
-export const __InterfaceFragmentDoc = gql`
-  fragment __Interface on Interface {
-    id
-    name
+export const __FieldCollectionFragmentDoc = gql`
+  fragment __FieldCollection on FieldCollection {
     fields {
       ...__Field
     }
@@ -1194,16 +1197,37 @@ export const __InterfaceFragmentDoc = gql`
   ${__FieldFragmentDoc}
   ${__TypeFragmentDoc}
 `
+export const __InterfaceFragmentDoc = gql`
+  fragment __Interface on Interface {
+    ...__InterfaceWithoutFields
+    fieldCollection {
+      ...__FieldCollection
+    }
+  }
+  ${__InterfaceWithoutFieldsFragmentDoc}
+  ${__FieldCollectionFragmentDoc}
+`
+export const PageBaseFragmentDoc = gql`
+  fragment PageBase on Page {
+    id
+    name
+    app {
+      id
+      name
+      ownerId
+    }
+  }
+`
 export const __AtomFragmentDoc = gql`
   fragment __Atom on Atom {
     id
     label
     type
     propTypes {
-      ...__Interface
+      ...__InterfaceWithoutFields
     }
   }
-  ${__InterfaceFragmentDoc}
+  ${__InterfaceWithoutFieldsFragmentDoc}
 `
 export const PageElementFragmentDoc = gql`
   fragment PageElement on PageElement {
@@ -3112,15 +3136,10 @@ export const __App = gql`
     name
   }
 `
-export const PageBase = gql`
-  fragment PageBase on Page {
+export const __InterfaceWithoutFields = gql`
+  fragment __InterfaceWithoutFields on Interface {
     id
     name
-    app {
-      id
-      name
-      ownerId
-    }
   }
 `
 export const __ArrayLengthValidator = gql`
@@ -3236,10 +3255,8 @@ export const __Type = gql`
   ${__SimpleType}
   ${__UnitType}
 `
-export const __Interface = gql`
-  fragment __Interface on Interface {
-    id
-    name
+export const __FieldCollection = gql`
+  fragment __FieldCollection on FieldCollection {
     fields {
       ...__Field
     }
@@ -3250,16 +3267,37 @@ export const __Interface = gql`
   ${__Field}
   ${__Type}
 `
+export const __Interface = gql`
+  fragment __Interface on Interface {
+    ...__InterfaceWithoutFields
+    fieldCollection {
+      ...__FieldCollection
+    }
+  }
+  ${__InterfaceWithoutFields}
+  ${__FieldCollection}
+`
+export const PageBase = gql`
+  fragment PageBase on Page {
+    id
+    name
+    app {
+      id
+      name
+      ownerId
+    }
+  }
+`
 export const __Atom = gql`
   fragment __Atom on Atom {
     id
     label
     type
     propTypes {
-      ...__Interface
+      ...__InterfaceWithoutFields
     }
   }
-  ${__Interface}
+  ${__InterfaceWithoutFields}
 `
 export const PageElement = gql`
   fragment PageElement on PageElement {

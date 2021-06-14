@@ -3,7 +3,7 @@ fragment __Atom on Atom {
   label
   type
   propTypes {
-    ...__Interface
+    ...__InterfaceWithoutFields
   }
 }
 
@@ -90,13 +90,23 @@ fragment __Type on Type {
   ... on UnitType { ...__UnitType }
 }
 
-fragment __Interface on Interface {
+fragment __InterfaceWithoutFields on Interface {
   id
   name
+}
+
+fragment __FieldCollection on FieldCollection {
   fields {
     ...__Field
   }
   types {
     ...__Type
+  }
+}
+
+fragment __Interface on Interface {
+  ...__InterfaceWithoutFields
+  fieldCollection {
+    ...__FieldCollection
   }
 }

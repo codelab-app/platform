@@ -66,7 +66,7 @@ export class DeleteInterfaceService extends MutationUseCase<
         id: [interfaceId],
       },
       fieldFilter: {
-        id: foundInterface.fields.map((f) => f.id),
+        id: foundInterface.fieldCollection?.fields.map((f) => f.id),
       },
     }
   }

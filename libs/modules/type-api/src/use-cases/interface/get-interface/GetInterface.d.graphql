@@ -1,0 +1,5 @@
+query GetInterface($interfaceId: ID!) {
+    getInterface(id: $interfaceId){
+        ...Dgraph__InterfaceWithoutFields
+    }
+}

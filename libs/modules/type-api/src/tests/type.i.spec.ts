@@ -5,16 +5,17 @@ import {
   teardownTestModule,
 } from '@codelab/backend'
 import {
+  __ArrayTypeFragment,
+  __EnumTypeFragment,
+  __FieldFragment,
+  __InterfaceTypeFragment,
+  __SimpleTypeFragment,
+  __TypeFragment,
+  __UnitTypeFragment,
+  ArrayType,
   DeleteFieldInput,
   DeleteInterfaceInput,
   GetFieldInput,
-  Test__ArrayTypeFragment,
-  Test__EnumTypeFragment,
-  Test__FieldFragment,
-  Test__InterfaceTypeFragment,
-  Test__SimpleTypeFragment,
-  Test__TypeFragment,
-  Test__UnitTypeFragment,
   TestCreateField,
   TestCreateFieldGql,
   TestCreateFieldMutation,
@@ -75,8 +76,8 @@ describe('type', () => {
         expect(newInterface).toBeTruthy()
         expect(newInterface.id).toBeTruthy()
         expect(newInterface.name).toBe(name)
-        expect(newInterface.types).toHaveLength(0)
-        expect(newInterface.fields).toHaveLength(0)
+        expect(newInterface.fieldCollection.fields).toHaveLength(0)
+        expect(newInterface.fieldCollection.types).toHaveLength(0)
       })
     })
 
@@ -88,15 +89,64 @@ describe('type', () => {
 
         expect(retrievedInterface).toBeTruthy()
         expect(retrievedInterface?.name).toBe(name)
+        expect(newInterface.fieldCollection.fields).toHaveLength(0)
+        expect(newInterface.fieldCollection.types).toHaveLength(0)
       })
 
       it('should get interface with fields', async () => {
         const name = 'New interface'
         const newInterface = await createInterface(name)
+
+        const field1 = await createField({
+          name: 'Field',
+          type: { simpleType: { primitiveType: PrimitiveType.String } },
+          interfaceId: newInterface.id,
+          key: 'field1',
+        })
+
+        const field2 = await createField({
+          name: 'Field 2',
+          type: {
+            arrayType: {
+              type: { simpleType: { primitiveType: PrimitiveType.Boolean } },
+            },
+          },
+          interfaceId: newInterface.id,
+          key: 'field2',
+        })
+
         const retrievedInterface = await getInterface(newInterface.id)
 
         expect(retrievedInterface).toBeTruthy()
         expect(retrievedInterface?.name).toBe(name)
+
+        expect(retrievedInterface?.fieldCollection.fields).toHaveLength(2)
+        // We should have 3 types: 1. field1's SimpleType 2. field2's ArrayType 3. field2's generic SimpleType
+        expect(retrievedInterface?.fieldCollection.types).toHaveLength(3)
+
+        let foundField1Type = false
+        let foundField2Type = false
+        let field2GenericTypeId: string | null = null
+
+        retrievedInterface?.fieldCollection.types.forEach((type) => {
+          if ((type as any).id === field1.typeId) {
+            foundField1Type = true
+          } else if ((type as any).id === field2.typeId) {
+            foundField2Type = true
+            field2GenericTypeId = (type as ArrayType).typeId
+          }
+        })
+
+        expect(foundField1Type).toBeTruthy()
+        expect(foundField2Type).toBeTruthy()
+        expect(field2GenericTypeId).toBeTruthy()
+
+        const foundField2GenericType =
+          retrievedInterface?.fieldCollection.types.find(
+            (type) => (type as any).id === field2GenericTypeId,
+          )
+
+        expect(foundField2GenericType).toBeTruthy()
       })
     })
 
@@ -191,9 +241,7 @@ describe('type', () => {
         expect(type).toBeTruthy()
         expect(type?.__typename).toBe('ArrayType')
 
-        const simpleType = await getType(
-          (type as Test__ArrayTypeFragment).typeId,
-        )
+        const simpleType = await getType((type as __ArrayTypeFragment).typeId)
 
         checkSimpleType(simpleType, primitiveType)
       })
@@ -222,9 +270,8 @@ describe('type', () => {
         // tldr: check that all returned allowedValues exist in input allowedValues
         // and that the array length matches
         expect(
-          (type as Test__EnumTypeFragment).allowedValues.filter(
-            (allowedValue) =>
-              allowedValues.find((v) => v === allowedValue.name),
+          (type as __EnumTypeFragment).allowedValues.filter((allowedValue) =>
+            allowedValues.find((v) => v === allowedValue.name),
           ).length === allowedValues.length,
         )
       })
@@ -249,7 +296,7 @@ describe('type', () => {
         const type = await getType(field.typeId)
 
         expect(type?.__typename).toBe('InterfaceType')
-        expect((type as Test__InterfaceTypeFragment).interfaceId).toBe(
+        expect((type as __InterfaceTypeFragment).interfaceId).toBe(
           interface2.id,
         )
       })
@@ -272,10 +319,8 @@ describe('type', () => {
         const type = await getType(field.typeId)
 
         expect(type?.__typename).toBe('UnitType')
-        expect((type as Test__UnitTypeFragment).allowedUnits).toBeTruthy()
-        expect(
-          (type as Test__UnitTypeFragment).allowedUnits.length,
-        ).toBeTruthy()
+        expect((type as __UnitTypeFragment).allowedUnits).toBeTruthy()
+        expect((type as __UnitTypeFragment).allowedUnits.length).toBeTruthy()
       })
 
       it('should fail to create a field with duplicate key', async () => {
@@ -543,7 +588,7 @@ describe('type', () => {
   }
 
   const checkField = (
-    field: Test__FieldFragment | undefined | null,
+    field: __FieldFragment | undefined | null,
     input: Omit<CreateFieldInput, 'interfaceId'>,
   ) => {
     expect(field).toBeTruthy()
@@ -557,11 +602,11 @@ describe('type', () => {
   }
 
   const checkSimpleType = (
-    type: Test__TypeFragment | undefined | null,
+    type: __TypeFragment | undefined | null,
     primitiveType: any,
   ) => {
     expect(type).toBeTruthy()
     expect(type?.__typename).toBe('SimpleType')
-    expect((type as Test__SimpleTypeFragment).primitiveType).toBe(primitiveType)
+    expect((type as __SimpleTypeFragment).primitiveType).toBe(primitiveType)
   }
 })
