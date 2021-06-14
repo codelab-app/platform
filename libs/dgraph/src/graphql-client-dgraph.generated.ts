@@ -3436,6 +3436,17 @@ export type GetInterfaceQuery = {
   getInterface?: Maybe<Dgraph__InterfaceWithoutFieldsFragment>
 }
 
+export type GetInterfacesQueryVariables = Exact<{
+  filter?: Maybe<InterfaceFilter>
+  order?: Maybe<InterfaceOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}>
+
+export type GetInterfacesQuery = {
+  queryInterface?: Maybe<Array<Maybe<Dgraph__InterfaceWithoutFieldsFragment>>>
+}
+
 export type UpdateInterfaceMutationVariables = Exact<{
   input: UpdateInterfaceInput
 }>
@@ -5573,6 +5584,83 @@ export function refetchGetInterfaceQuery(
 ) {
   return { query: GetInterfaceGql, variables: variables }
 }
+export const GetInterfacesGql = gql`
+  query GetInterfaces(
+    $filter: InterfaceFilter
+    $order: InterfaceOrder
+    $first: Int
+    $offset: Int
+  ) {
+    queryInterface(
+      filter: $filter
+      order: $order
+      first: $first
+      offset: $offset
+    ) {
+      ...Dgraph__InterfaceWithoutFields
+    }
+  }
+  ${Dgraph__InterfaceWithoutFieldsFragmentDoc}
+`
+
+/**
+ * __useGetInterfacesQuery__
+ *
+ * To run a query within a React component, call `useGetInterfacesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetInterfacesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetInterfacesQuery({
+ *   variables: {
+ *      filter: // value for 'filter'
+ *      order: // value for 'order'
+ *      first: // value for 'first'
+ *      offset: // value for 'offset'
+ *   },
+ * });
+ */
+export function useGetInterfacesQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetInterfacesQuery,
+    GetInterfacesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetInterfacesQuery, GetInterfacesQueryVariables>(
+    GetInterfacesGql,
+    options,
+  )
+}
+export function useGetInterfacesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetInterfacesQuery,
+    GetInterfacesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetInterfacesQuery, GetInterfacesQueryVariables>(
+    GetInterfacesGql,
+    options,
+  )
+}
+export type GetInterfacesQueryHookResult = ReturnType<
+  typeof useGetInterfacesQuery
+>
+export type GetInterfacesLazyQueryHookResult = ReturnType<
+  typeof useGetInterfacesLazyQuery
+>
+export type GetInterfacesQueryResult = Apollo.QueryResult<
+  GetInterfacesQuery,
+  GetInterfacesQueryVariables
+>
+export function refetchGetInterfacesQuery(
+  variables?: GetInterfacesQueryVariables,
+) {
+  return { query: GetInterfacesGql, variables: variables }
+}
 export const UpdateInterfaceGql = gql`
   mutation UpdateInterface($input: UpdateInterfaceInput!) {
     updateInterface(input: $input) {
@@ -6214,6 +6302,24 @@ export const DeleteInterfaceAndFields = gql`
 export const GetInterface = gql`
   query GetInterface($interfaceId: ID!) {
     getInterface(id: $interfaceId) {
+      ...Dgraph__InterfaceWithoutFields
+    }
+  }
+  ${Dgraph__InterfaceWithoutFields}
+`
+export const GetInterfaces = gql`
+  query GetInterfaces(
+    $filter: InterfaceFilter
+    $order: InterfaceOrder
+    $first: Int
+    $offset: Int
+  ) {
+    queryInterface(
+      filter: $filter
+      order: $order
+      first: $first
+      offset: $offset
+    ) {
       ...Dgraph__InterfaceWithoutFields
     }
   }

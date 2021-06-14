@@ -21,6 +21,8 @@ import {
   DeleteInterfaceService,
   GetInterfaceInput,
   GetInterfaceService,
+  GetInterfacesInput,
+  GetInterfacesService,
   GetRecursiveInterfaceService,
   UpdateInterfaceInput,
   UpdateInterfaceService,
@@ -31,6 +33,7 @@ import {
 export class InterfaceResolver {
   constructor(
     private getInterfaceService: GetInterfaceService,
+    private getInterfacesService: GetInterfacesService,
     private interfaceMapper: InterfaceMapper,
     private getRecursiveInterfaceService: GetRecursiveInterfaceService,
     private createInterfaceService: CreateInterfaceService,
@@ -43,6 +46,11 @@ export class InterfaceResolver {
     return this.getInterfaceService.execute({
       input,
     })
+  }
+
+  @Query(() => [Interface])
+  getInterfaces() {
+    return this.getInterfacesService.execute({})
   }
 
   @Mutation(() => Interface)

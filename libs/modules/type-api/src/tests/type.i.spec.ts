@@ -1,4 +1,5 @@
 import {
+  getDbFromTestModule,
   graphqlRequest,
   GraphqlRequestOptions,
   setupTestModule,
@@ -35,6 +36,9 @@ import {
   TestGetInterfaceGql,
   TestGetInterfaceQuery,
   TestGetInterfaceQueryVariables,
+  TestGetInterfacesGql,
+  TestGetInterfacesQuery,
+  TestGetInterfacesQueryVariables,
   TestGetTypeGql,
   TestGetTypeQuery,
   TestGetTypeQueryVariables,
@@ -147,6 +151,17 @@ describe('type', () => {
           )
 
         expect(foundField2GenericType).toBeTruthy()
+      })
+
+      it('should get interfaces', async () => {
+        getDbFromTestModule(app).resetDb()
+
+        await createInterface()
+        await createInterface()
+
+        const interfaces = await getInterfaces()
+
+        expect(interfaces).toHaveLength(2)
       })
     })
 
@@ -531,6 +546,16 @@ describe('type', () => {
     )
 
     return (response.body.data as TestGetInterfaceQuery).getInterface
+  }
+
+  const getInterfaces = async () => {
+    const response = await graphqlRequest<TestGetInterfacesQueryVariables>(
+      app,
+      TestGetInterfacesGql,
+      {},
+    )
+
+    return (response.body.data as TestGetInterfacesQuery).getInterfaces
   }
 
   const createField = async (

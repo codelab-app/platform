@@ -24,6 +24,7 @@ import {
   FieldMutationValidator,
   GetFieldService,
   GetInterfaceService,
+  GetInterfacesService,
   GetRecursiveInterfaceService,
   GetTypeService,
   UpdateFieldService,
@@ -50,6 +51,7 @@ const mappers = [
 const services = [
   ...mappers,
   CreateInterfaceService,
+  GetInterfacesService,
   GetRecursiveInterfaceService,
   GetInterfaceService,
   UpdateInterfaceService,

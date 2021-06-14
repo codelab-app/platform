@@ -521,6 +521,7 @@ export type Query = {
   getAtoms: Array<Atom>
   getAtom?: Maybe<Atom>
   getInterface?: Maybe<Interface>
+  getInterfaces: Array<Interface>
   getField?: Maybe<Field>
   getType?: Maybe<Type>
   getValueTypes: Array<ValueType>
@@ -1008,6 +1009,12 @@ export type TestGetInterfaceQueryVariables = Exact<{
 
 export type TestGetInterfaceQuery = {
   getInterface?: Maybe<__InterfaceFragment>
+}
+
+export type TestGetInterfacesQueryVariables = Exact<{ [key: string]: never }>
+
+export type TestGetInterfacesQuery = {
+  getInterfaces: Array<__InterfaceFragment>
 }
 
 export type TestGetTypeQueryVariables = Exact<{
@@ -2801,6 +2808,69 @@ export function refetchTestGetInterfaceQuery(
 ) {
   return { query: TestGetInterfaceGql, variables: variables }
 }
+export const TestGetInterfacesGql = gql`
+  query TestGetInterfaces {
+    getInterfaces {
+      ...__Interface
+    }
+  }
+  ${__InterfaceFragmentDoc}
+`
+
+/**
+ * __useTestGetInterfacesQuery__
+ *
+ * To run a query within a React component, call `useTestGetInterfacesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useTestGetInterfacesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useTestGetInterfacesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useTestGetInterfacesQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    TestGetInterfacesQuery,
+    TestGetInterfacesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<
+    TestGetInterfacesQuery,
+    TestGetInterfacesQueryVariables
+  >(TestGetInterfacesGql, options)
+}
+export function useTestGetInterfacesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    TestGetInterfacesQuery,
+    TestGetInterfacesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    TestGetInterfacesQuery,
+    TestGetInterfacesQueryVariables
+  >(TestGetInterfacesGql, options)
+}
+export type TestGetInterfacesQueryHookResult = ReturnType<
+  typeof useTestGetInterfacesQuery
+>
+export type TestGetInterfacesLazyQueryHookResult = ReturnType<
+  typeof useTestGetInterfacesLazyQuery
+>
+export type TestGetInterfacesQueryResult = Apollo.QueryResult<
+  TestGetInterfacesQuery,
+  TestGetInterfacesQueryVariables
+>
+export function refetchTestGetInterfacesQuery(
+  variables?: TestGetInterfacesQueryVariables,
+) {
+  return { query: TestGetInterfacesGql, variables: variables }
+}
 export const TestGetTypeGql = gql`
   query TestGetType($input: GetTypeInput!) {
     getType(input: $input) {
@@ -3594,6 +3664,14 @@ export const TestGetField = gql`
 export const TestGetInterface = gql`
   query TestGetInterface($input: GetInterfaceInput!) {
     getInterface(input: $input) {
+      ...__Interface
+    }
+  }
+  ${__Interface}
+`
+export const TestGetInterfaces = gql`
+  query TestGetInterfaces {
+    getInterfaces {
       ...__Interface
     }
   }
