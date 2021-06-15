@@ -28,8 +28,9 @@ export const ComponentTab = () => {
     Array<string>
   >([])
 
-  const [selectedComponentElementId, setSelectedComponentElementId] =
-    useState<string | undefined>()
+  const [selectedComponentElementId, setSelectedComponentElementId] = useState<
+    string | undefined
+  >()
 
   const cy = CytoscapeService.fromComponent(component as any)
 

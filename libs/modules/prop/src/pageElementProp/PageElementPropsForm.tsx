@@ -22,15 +22,15 @@ export const PageElementLoadingState = loadIndicatorState(
 export const PageElementPropsForm = ({
   pageElementId,
 }: PageElementPropFormProps) => {
-  //Use this to track all promises using the loading indicator
+  // Use this to track all promises using the loading indicator
   const { trackPromise } = usePromisesLoadingIndicator(PROPS_FORM_INDICATOR_KEY)
 
-  //Get the props for this page element
+  // Get the props for this page element
   const { data, loading: loadingPageElement } = usePageElementPropQuery({
     variables: { pageElementId },
   })
 
-  //Get all attributes. We can just plug in here an attribute filtering system in the future
+  // Get all attributes. We can just plug in here an attribute filtering system in the future
   // const {
   //   data: attributes,
   //   loading: loadingGetAttributes,
@@ -64,8 +64,8 @@ export const PageElementPropsForm = ({
       <div style={{ overflowY: 'auto' }}>
         <h4>{data?.page_element_by_pk?.name || ''}</h4>
 
-        {/*/!* Map all matching attributes and render a form for each one *!/*/}
-        {/*{attributes.attribute.map((a) => {*/}
+        {/* /!* Map all matching attributes and render a form for each one *!/*/}
+        {/* {attributes.attribute.map((a) => {*/}
         {/*  //Passing the existing prop will make the form update its value instead of creating a new prop*/}
         {/*  const propWithThatAttribute = propsByAttributeIdMap[a.id]*/}
 
@@ -81,7 +81,7 @@ export const PageElementPropsForm = ({
         {/*      }*/}
         {/*    />*/}
         {/*  )*/}
-        {/*})}*/}
+        {/* })}*/}
       </div>
 
       <StyledLoadingIndicator>

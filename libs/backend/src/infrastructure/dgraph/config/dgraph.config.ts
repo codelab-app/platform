@@ -16,27 +16,15 @@ export interface DgraphConfig {
   schemaGeneratedFile: string
 }
 
-const baseDgraphConfig = {
-  // We point to `schema.generated.graphql` not `schema.graphql` because we need to append Nest.js generated enum types
-  schemaFile: path.resolve(process.cwd(), 'dgraph/schema.graphql'),
-  schemaGeneratedFile: path.resolve(
-    process.cwd(),
-    'dgraph/schema.generated.graphql',
-  ),
-}
-
 export const dgraphConfig = registerAs<() => DgraphConfig>(
   DgraphTokens.DgraphConfig.toString(),
   () => ({
-    ...baseDgraphConfig,
+    // We point to `schema.generated.graphql` not `schema.graphql` because we need to append Nest.js generated enum types
+    schemaFile: path.resolve(process.cwd(), 'dgraph/schema.graphql'),
+    schemaGeneratedFile: path.resolve(
+      process.cwd(),
+      'dgraph/schema.generated.graphql',
+    ),
     endpoint: get('CODELAB_DGRAPH_ENDPOINT').required().asUrlString(),
-  }),
-)
-
-export const dgraphTestConfig = registerAs(
-  DgraphTokens.DgraphConfig.toString(),
-  () => ({
-    ...baseDgraphConfig,
-    endpoint: get('CODELAB_DGRAPH_TEST_ENDPOINT').required().asUrlString(),
   }),
 )

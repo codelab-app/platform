@@ -2,7 +2,7 @@ import { registerAs } from '@nestjs/config'
 import { get } from 'env-var'
 import { AuthTokens } from './auth.tokens'
 
-export interface Auth0Configuration {
+export interface Auth0Config {
   secret: string
   baseUrl: string
   issuer: string
@@ -15,14 +15,10 @@ export interface Auth0Configuration {
   }
 }
 
-export const authConfig = registerAs<() => Auth0Configuration>(
+export const authConfig = registerAs<() => Auth0Config>(
   AuthTokens.Auth0Config.toString(),
   () => {
-    let issuer = get('AUTH0_ISSUER_BASE_URL').required().asString()
-
-    if (issuer.substr(-1) !== '/') {
-      issuer = issuer + '/'
-    }
+    const issuer = get('AUTH0_ISSUER_BASE_URL').required().asUrlString()
 
     return {
       secret: get('AUTH0_SECRET').required().asString(),

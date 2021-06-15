@@ -1,5 +1,5 @@
 import { Provider } from '@nestjs/common'
-import { ConfigService } from '@nestjs/config'
+import { ConfigService, ConfigType } from '@nestjs/config'
 import { DgraphClient, DgraphClientStub } from 'dgraph-js-http'
 import shell from 'shelljs'
 import { DgraphConfig } from './config/dgraph.config'
@@ -33,24 +33,20 @@ const updateSchema = ({ endpoint, schemaFile }: UpdateDgraphSchemaConfig) => {
 
 export const dgraphClientProvider: Provider<DgraphProvider> = {
   provide: DgraphTokens.DgraphProvider,
-  useFactory: (configService: ConfigService) => {
-    const config = configService.get<DgraphConfig>(
-      DgraphTokens.DgraphConfig.toString(),
-    )
-
-    if (!config) {
+  useFactory: (dgraphConfig: ConfigType<() => DgraphConfig>) => {
+    if (!dgraphConfig) {
       throw new Error('Missing DgraphConfig')
     }
 
-    const clientStub = new DgraphClientStub(config?.endpoint)
+    const clientStub = new DgraphClientStub(dgraphConfig?.endpoint)
     const dgraphClient = new DgraphClient(clientStub)
 
     return {
       client: dgraphClient,
       updateDgraphSchema: () =>
         updateSchema({
-          endpoint: config?.endpoint,
-          schemaFile: config?.schemaGeneratedFile,
+          endpoint: dgraphConfig?.endpoint,
+          schemaFile: dgraphConfig?.schemaGeneratedFile,
         }),
       resetDb: () =>
         dgraphClient.alter({
@@ -58,5 +54,5 @@ export const dgraphClientProvider: Provider<DgraphProvider> = {
         }),
     }
   },
-  inject: [ConfigService],
+  inject: [DgraphTokens.DgraphConfig],
 }

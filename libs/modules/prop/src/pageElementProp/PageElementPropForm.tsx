@@ -41,16 +41,16 @@ export const PageElementPropForm = ({
   initialData,
   pageElementId,
 }: PropFormProps) => {
-  //Keep the current prop data in state
+  // Keep the current prop data in state
   const [propData, setPropData] = useState({
     ...initialData,
-    values: initialData.values ?? [{ value: '', id: undefined }], //This is needed to avoid missing value when creating a new prop
+    values: initialData.values ?? [{ value: '', id: undefined }], // This is needed to avoid missing value when creating a new prop
   })
 
   const isInCreationMode = !propData?.id
   const { pageId, appId } = useContext(AppPageContext)
 
-  //Mutations:
+  // Mutations:
   const [createPageElementProp] = useCreatePageElementPropMutation({
     refetchQueries: [
       refetchGetAppPageQuery({
@@ -72,19 +72,19 @@ export const PageElementPropForm = ({
   // const schema = createPropSchema(propData.type)
 
   const handleSubmit = async (data: Record<string, any>) => {
-    //Extract the value from the data
+    // Extract the value from the data
     const key = propData.type.key
     const value = data[key]
 
     try {
-      //Use a different mutation depending on which mode are we in
+      // Use a different mutation depending on which mode are we in
       let promise: Promise<
         FetchResult<CreatePageElementPropMutation | UpdatePropValueMutation>
       >
 
       if (isInCreationMode) {
         throw new Error('Not implemented')
-        //TODO fix prop creation
+        // TODO fix prop creation
         // promise = createPageElementProp({
         //   variables: {
         //     pageElementId,
@@ -110,7 +110,7 @@ export const PageElementPropForm = ({
           return
         }
 
-        //Make the prop mutation
+        // Make the prop mutation
         promise = updatePropValue({
           variables: {
             propValueId,
@@ -127,8 +127,8 @@ export const PageElementPropForm = ({
 
       const response = await promise
 
-      //If we just created a new prop, update the state data with the ids for the prop and the first value
-      //That way we switch to edit mode
+      // If we just created a new prop, update the state data with the ids for the prop and the first value
+      // That way we switch to edit mode
       const newProp = (response?.data as CreatePageElementPropMutation)
         ?.insert_prop_one
 

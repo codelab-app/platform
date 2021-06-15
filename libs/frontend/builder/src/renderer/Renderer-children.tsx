@@ -75,8 +75,8 @@ export const RenderChildren = ({
     )
   })
 
-  //Reason for any cast:
-  //https://github.com/DefinitelyTyped/DefinitelyTyped/issues/20356#issuecomment-336384210
+  // Reason for any cast:
+  // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/20356#issuecomment-336384210
   return renderedChildren?.length === 1
     ? renderedChildren[0]
     : (renderedChildren as any)

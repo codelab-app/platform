@@ -92,7 +92,7 @@ export class MovePageElementService extends DgraphUseCase<
       throw new Error("Can't move root page element")
     }
 
-    //make sure the new parent exists and the user has ownership over it
+    // make sure the new parent exists and the user has ownership over it
     const { pageElement: newParent } =
       await this.pageElementGuardService.validate(parentElementId, currentUser)
 

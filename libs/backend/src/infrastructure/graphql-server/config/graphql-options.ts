@@ -1,21 +1,20 @@
-import { Injectable } from '@nestjs/common'
-import { ConfigService } from '@nestjs/config'
+import { Inject, Injectable } from '@nestjs/common'
+import { ConfigService, ConfigType } from '@nestjs/config'
 import { GqlModuleOptions, GqlOptionsFactory } from '@nestjs/graphql'
 import { GraphQLError, GraphQLFormattedError } from 'graphql'
-import { GraphqlConfig } from './graphql.config'
-import { GraphqlTokens } from './graphql.tokens'
+import { GraphqlServerConfig } from './graphql-server.config'
+import { GraphqlServerTokens } from './graphql-server.tokens'
 
 @Injectable()
 export class GraphqlOptions implements GqlOptionsFactory {
-  constructor(private readonly configService: ConfigService) {}
+  constructor(
+    @Inject(GraphqlServerTokens.GraphqlServerConfig)
+    private readonly graphqlServerConfig: ConfigType<() => GraphqlServerConfig>,
+  ) {}
 
   createGqlOptions(): GqlModuleOptions {
-    const config = this.configService.get<GraphqlConfig>(
-      GraphqlTokens.GraphqlConfig.toString(),
-    )
-
     return {
-      autoSchemaFile: config?.autoSchemaFile,
+      autoSchemaFile: this.graphqlServerConfig?.autoSchemaFile,
       installSubscriptionHandlers: true,
       // transformSchema: async (schema: GraphQLSchema) => {
       //   // return stitchSchemas({
@@ -34,7 +33,7 @@ export class GraphqlOptions implements GqlOptionsFactory {
         return { req }
       },
       formatError: (err: GraphQLError) => {
-        //See if there is a nested graphQLErrors array and parse it to a (kind of) readable error message
+        // See if there is a nested graphQLErrors array and parse it to a (kind of) readable error message
         const graphqlAggregateError =
           err?.extensions?.exception?.graphQLErrors?.reduce(
             (p: string, gqlErr: any) =>
@@ -60,7 +59,7 @@ export class GraphqlOptions implements GqlOptionsFactory {
               )}`
             : null
 
-        //If not - see if there's a general message somewhere inside the error and use that
+        // If not - see if there's a general message somewhere inside the error and use that
         const graphQLFormattedError: GraphQLFormattedError = {
           message:
             graphqlAggregateError ||

@@ -25,7 +25,7 @@ module.exports = (on, config) => {
   on('file:preprocessor', preprocessTypescript(config))
   on('task', { encrypt })
 
-  //Remap some of the .env values, because cypress-nextjs-auth0/encrypt requires them to be with other names
+  // Remap some of the .env values, because cypress-nextjs-auth0/encrypt requires them to be with other names
   config.env.auth0Audience = process.env.AUTH0_AUDIENCE
   config.env.auth0Domain = process.env.AUTH0_ISSUER_BASE_URL
   config.env.auth0ClientId = process.env.AUTH0_CLIENT_ID

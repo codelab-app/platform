@@ -5,6 +5,7 @@
 
 import { Logger, ValidationPipe } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
+import { get } from 'env-var'
 import { AppModule } from './app/app.module'
 
 const bootstrap = async () => {
@@ -14,12 +15,14 @@ const bootstrap = async () => {
   app.setGlobalPrefix(globalPrefix)
   app.enableCors({ origin: '*' })
 
-  //Allows us to use class-validator to validate graphql input
+  // Allows us to use class-validator to validate graphql input
   app.useGlobalPipes(new ValidationPipe())
 
-  const port = process.env.PORT || 3333
+  const apiEndpoint = get('CODELAB_API_ENDPOINT').required().asUrlObject()
+  const port = apiEndpoint?.port
+
   await app.listen(port, () => {
-    Logger.log(`Listening at http://127.0.0.1:${port}/${globalPrefix}`)
+    Logger.log(`Listening at ${apiEndpoint.toJSON()}/${globalPrefix}`)
   })
 }
 

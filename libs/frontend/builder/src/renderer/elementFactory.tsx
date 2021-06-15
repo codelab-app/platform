@@ -41,7 +41,7 @@ export const elementsPropTransformers: {
       height: '200px',
     },
   }),
-  [AtomType.ReactFragment]: ({ props: { key } }) => ({ key }), //Do not pass in any props for fragments, except key, because it creates an error
+  [AtomType.ReactFragment]: ({ props: { key } }) => ({ key }), // Do not pass in any props for fragments, except key, because it creates an error
 }
 
 const commonProps = (node: CytoscapeNode, handlers: ComponentHandlers) => ({
@@ -57,7 +57,7 @@ const commonProps = (node: CytoscapeNode, handlers: ComponentHandlers) => ({
   // Otherwise `onMouseOver` will fire endless as it toggles between current & children element
   onMouseEnter: (e: MouseEvent) => {
     // console.log('mouseEnter', e)
-    //TODO mouse enter
+    // TODO mouse enter
     //
     // return handlers?.showHoverOverlay({
     //   pageElementId: node.pageElementId,
@@ -89,9 +89,9 @@ const commonProps = (node: CytoscapeNode, handlers: ComponentHandlers) => ({
     // We want to show overlay for current node
     e.stopPropagation()
 
-    //TODO onclick
+    // TODO onclick
     //
-    //Open inspector and the click overview
+    // Open inspector and the click overview
     // handlers?.selectPageElement({
     //   pageElementId: node.pageElementId,
     //   componentElementId: node.componentElementId,

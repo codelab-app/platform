@@ -1,9 +1,8 @@
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { AtomTypeEnum } from '../../../../../modules/atom-api/src/atom-type.model'
+import { AtomType } from '../graphql-client-dgraph.generated'
 
-const atomTypes = Object.values(AtomTypeEnum).map((atomType) => ({
+const atomTypes = Object.values(AtomType).map((atomType) => ({
   label: atomType.replace(/_/g, ' '),
-  type: AtomTypeEnum[atomType],
+  type: AtomType[atomType],
 }))
 
 const valueTypes = [

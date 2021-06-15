@@ -16,7 +16,7 @@ describe('UserUseCase', () => {
 
       cy.request('/api/auth/me').then((r) => {
         const email = r.body.email
-        cy.findByLabelText('user').click() //the icon has a user label
+        cy.findByLabelText('user').click() // the icon has a user label
         cy.findElementByText(email, 'li', { exact: false }).should('exist')
 
         cy.findElementByText('Sign Out', 'a').click()

@@ -8,7 +8,7 @@ export class CreatePageElementInput {
   @Field({ nullable: true })
   declare atomId?: string
 
-  //Not nullable, because we always want to attach it somewhere and we always have a root page element to attach to
+  // Not nullable, because we always want to attach it somewhere and we always have a root page element to attach to
   @Field()
   declare parentPageElementId: string
 

@@ -1,37 +1,28 @@
 import { loadFilesSync } from '@graphql-tools/load-files'
 import { mergeTypeDefs } from '@graphql-tools/merge'
 import { Inject, Injectable } from '@nestjs/common'
-import { ConfigService } from '@nestjs/config'
-import fs from 'fs'
+import { ConfigService, ConfigType } from '@nestjs/config'
 import { print } from 'graphql'
-import path from 'path'
 import { DgraphConfig, DgraphTokens } from '../dgraph'
-import { GraphqlConfig } from './config/graphql.config'
-import { GraphqlTokens } from './config/graphql.tokens'
+import { GraphqlSchemaConfig } from './config/graphql-schema.config'
+import { GraphqlSchemaTokens } from './config/graphql-schema.tokens'
 
 @Injectable()
-export class GraphqlService {
-  constructor(private readonly configService: ConfigService) {}
+export class GraphqlSchemaService {
+  constructor(
+    @Inject(GraphqlSchemaTokens.GraphqlSchemaConfig)
+    private readonly graphqlSchemaConfig: ConfigType<() => GraphqlSchemaConfig>,
+    @Inject(DgraphTokens.DgraphConfig)
+    private readonly dgraphConfig: ConfigType<() => DgraphConfig>,
+  ) {}
 
   getMergedSchema() {
-    const graphqlConfig = this.configService.get<GraphqlConfig>(
-      GraphqlTokens.GraphqlConfig.toString(),
+    const dgraphSchema = this.loadGraphqlSchema(this.dgraphConfig?.schemaFile)
+
+    const apiSchema = this.loadGraphqlSchema(
+      this.graphqlSchemaConfig.apiGraphqlSchemaFile,
     )
 
-    const dgraphConfig = this.configService.get<DgraphConfig>(
-      DgraphTokens.DgraphConfig.toString(),
-    )
-
-    if (!graphqlConfig) {
-      throw new Error('Missing GraphqlConfig')
-    }
-
-    if (!dgraphConfig) {
-      throw new Error('Missing DgraphConfig')
-    }
-
-    const dgraphSchema = this.loadGraphqlSchema(dgraphConfig?.schemaFile)
-    const apiSchema = this.loadGraphqlSchema(graphqlConfig.apiGraphqlSchemaFile)
     const enumType = this.getEnumTypeDef('AtomType', apiSchema[0])
     /**
      * Merge schemas together

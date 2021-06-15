@@ -1,10 +1,10 @@
 import { Field, ObjectType } from '@nestjs/graphql'
 import { User as Auth0User } from 'auth0'
 
-//Note that we don't store the User model in the DB, we use the Auth0 management api to manage it
+// Note that we don't store the User model in the DB, we use the Auth0 management api to manage it
 @ObjectType()
 export class User implements Auth0User {
-  //We can type and query app metadata if we need it too
+  // We can type and query app metadata if we need it too
   // app_metadata: AppMetadata
 
   @Field({ nullable: true })

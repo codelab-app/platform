@@ -76,7 +76,7 @@ export const HomeMenuHeader = () => {
           </Link>
         </Menu.Item>
         {user ? authenticatedUserMenu : guestUserMenu}
-        {/*{user ? authenticatedUserMenu : guestUserMenu}*/}
+        {/* {user ? authenticatedUserMenu : guestUserMenu}*/}
       </Menu>
     </>
   )

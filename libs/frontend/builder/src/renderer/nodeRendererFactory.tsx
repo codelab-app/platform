@@ -60,7 +60,7 @@ const renderPageElement: NodeRendererType<PageElementNode> = (
   node,
   context,
 ) => {
-  //need to change this once we add components to page element
+  // need to change this once we add components to page element
   // const componentRoot = CytoscapeService.fromComponent(node.component)
   // const root = CytoscapeService.componentTree(componentRoot)
   //

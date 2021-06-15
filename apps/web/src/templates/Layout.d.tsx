@@ -32,5 +32,7 @@ export type NextPageLayout<
   IP = P,
 > = NextPage<P, IP> & WithLayout<TLayout, P> & WithLayoutProps<TLayout>
 
-export type LayoutComponent<TLayout extends LayoutVariant = 'default', P = {}> =
-  ComponentType<P & WithLayoutProps<TLayout>>
+export type LayoutComponent<
+  TLayout extends LayoutVariant = 'default',
+  P = {},
+> = ComponentType<P & WithLayoutProps<TLayout>>

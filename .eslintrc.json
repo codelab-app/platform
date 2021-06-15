@@ -18,6 +18,7 @@
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
+        "spaced-comment": ["error", "always"],
         "simple-import-sort/imports": [
           "error",
           {

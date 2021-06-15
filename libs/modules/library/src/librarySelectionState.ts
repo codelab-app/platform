@@ -69,10 +69,10 @@ export const useSelectedLibrary = () => {
   }
 
   useEffect(() => {
-    //Get stored library from localStorage
+    // Get stored library from localStorage
     const item = localStorage.getItem(SELECTED_LIBRARY_KEY)
 
-    //Check if we have anything stored and if it's valid
+    // Check if we have anything stored and if it's valid
     if (item) {
       getApolloClient()
         .query({
@@ -83,7 +83,7 @@ export const useSelectedLibrary = () => {
         })
         .then((r) => {
           if (r.data?.library_by_pk) {
-            //We know that it's valid, select it
+            // We know that it's valid, select it
             selectLibrary(item)
           } else {
             fetchAndSelectFirstLibrary(selectLibrary)

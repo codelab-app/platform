@@ -21,8 +21,8 @@ export class UpdateUserData {
   declare picture?: string
 
   // @Field()
-  //should be able to update user metadata when we implement that
-  //(but not app_metadata, this should be update only by an admin or in the auth0 dashboard)
+  // should be able to update user metadata when we implement that
+  // (but not app_metadata, this should be update only by an admin or in the auth0 dashboard)
   // declare user_metadata: UserMetadata
 
   @Field({ nullable: true })

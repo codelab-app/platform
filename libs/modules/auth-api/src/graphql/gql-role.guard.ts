@@ -7,8 +7,8 @@ import { Role } from './role'
  * Allows only if the current user has ONE OF the roles in the allowedRoles array
  * Note that you need to apply GqlAuthGuard as well for this to work
  */
-//The previous approach with creating new classes didn't work, because
-//even though we create different classes, only the first of them gets injected everywhere
+// The previous approach with creating new classes didn't work, because
+// even though we create different classes, only the first of them gets injected everywhere
 export class GqlRoleGuard extends AuthGuard('jwt') {
   private readonly checkRole: (context: ExecutionContext) => boolean
 

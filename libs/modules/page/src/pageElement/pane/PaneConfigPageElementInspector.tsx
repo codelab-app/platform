@@ -41,9 +41,9 @@ export const PaneConfigPageElementInspector = ({ pageElementId }: Props) => {
         <UpdatePageElementForm key={pageElementId} pageElement={element} />
 
         <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-          {/*<CreateLinkedPageElementButton>*/}
+          {/* <CreateLinkedPageElementButton>*/}
           {/*  Insert child element*/}
-          {/*</CreateLinkedPageElementButton>*/}
+          {/* </CreateLinkedPageElementButton>*/}
           <DeletePageElementButton
             pageElementId={element.id}
             icon={<DeleteOutlined />}

@@ -60,32 +60,32 @@ export const UpdatePropForm = (props: UniFormUseCaseProps<UpdatePropInput>) => {
         title: 'Error while creating prop',
       })}
       onSubmitSuccess={() => reset()}
-      //eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      //@ts-ignore https://github.com/vazco/uniforms/issues/951
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore https://github.com/vazco/uniforms/issues/951
       layout="horizontal"
       {...props}
     >
       <TextField
         name="key"
         label="Key"
-        //eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        //@ts-ignore https://github.com/vazco/uniforms/issues/951
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore https://github.com/vazco/uniforms/issues/951
         labelCol={labelCol}
         colon={false}
       />
       <TextField
         name="description"
         label="Description"
-        //eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        //@ts-ignore https://github.com/vazco/uniforms/issues/951
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore https://github.com/vazco/uniforms/issues/951
         labelCol={labelCol}
         colon={false}
       />
       <SelectField
         name="type"
         label="Type"
-        //eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        //@ts-ignore https://github.com/vazco/uniforms/issues/951
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore https://github.com/vazco/uniforms/issues/951
         showSearch={true}
         optionFilterProp="label"
         labelCol={labelCol}
@@ -98,8 +98,8 @@ export const UpdatePropForm = (props: UniFormUseCaseProps<UpdatePropInput>) => {
       <SelectField
         name="component"
         label="Component"
-        //eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        //@ts-ignore https://github.com/vazco/uniforms/issues/951
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore https://github.com/vazco/uniforms/issues/951
         showSearch={true}
         optionFilterProp="label"
         labelCol={labelCol}
@@ -112,8 +112,8 @@ export const UpdatePropForm = (props: UniFormUseCaseProps<UpdatePropInput>) => {
       <TextField
         name="default"
         label="Default"
-        //eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        //@ts-ignore https://github.com/vazco/uniforms/issues/951
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore https://github.com/vazco/uniforms/issues/951
         labelCol={labelCol}
         colon={false}
       />

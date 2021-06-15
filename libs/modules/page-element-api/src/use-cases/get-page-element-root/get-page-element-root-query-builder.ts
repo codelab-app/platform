@@ -38,7 +38,7 @@ export class GetPageElementRootQueryBuilder extends DgraphQueryBuilder {
         'PageElement.children|order': z
           .number()
           .or(z.record(z.number()))
-          .optional(), //in recursive reverse edges, this will be object
+          .optional(), // in recursive reverse edges, this will be object
         'Atom.label': z.string().optional(),
         'Atom.type': z.string().optional(),
         'Atom.propTypes': z.object({

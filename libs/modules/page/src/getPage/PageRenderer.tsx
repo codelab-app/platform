@@ -34,12 +34,12 @@ export const PageRenderer = ({ cy }: GetPageLayoutProps) => {
 
   return (
     <>
-      {/*<ComponentDropHandler onDropped={handleDroppedComponent} root={root }>*/}
+      {/* <ComponentDropHandler onDropped={handleDroppedComponent} root={root }>*/}
       {nodeRendererFactory(root, { handlers })}
-      {/*<ComponentElementRenderer node={root} />*/}
-      {/*</ComponentDropHandler>*/}
+      {/* <ComponentElementRenderer node={root} />*/}
+      {/* </ComponentDropHandler>*/}
 
-      {/*<Button*/}
+      {/* <Button*/}
       {/*  icon={<PlusOutlined />}*/}
       {/*  type="primary"*/}
       {/*  onClick={() => {*/}
@@ -61,9 +61,9 @@ export const PageRenderer = ({ cy }: GetPageLayoutProps) => {
       {/*      },*/}
       {/*    })*/}
       {/*  }}*/}
-      {/*>*/}
+      {/* >*/}
       {/*  Add Grid*/}
-      {/*</Button>*/}
+      {/* </Button>*/}
       {/* <D3Graph {...makeD3(graph)} onNodeClick={onNodeClick} /> */}
     </>
   )

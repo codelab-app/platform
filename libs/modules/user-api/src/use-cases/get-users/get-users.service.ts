@@ -11,7 +11,7 @@ export class GetUsersService
   constructor(private auth0: Auth0Service) {}
 
   async execute(request: GetUsersInput | undefined): Promise<Array<User>> {
-    //https://auth0.com/docs/api/management/v2#!/Users/get_users
+    // https://auth0.com/docs/api/management/v2#!/Users/get_users
     return await this.auth0.getManagementClient().getUsers({
       page: request?.page,
       per_page: request?.perPage,

@@ -1,19 +1,19 @@
 import { ConfigModule } from '@nestjs/config'
 import { Test, TestingModule } from '@nestjs/testing'
 import path from 'path'
-import { graphqlConfig } from './config/graphql.config'
-import { GraphqlService } from './graphql.service'
+import { graphqlServerConfig } from '../graphql-server'
+import { GraphqlSchemaService } from './graphql-schema.service'
 
 describe('GraphqlService', () => {
-  let service: GraphqlService
+  let service: GraphqlSchemaService
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [ConfigModule.forFeature(graphqlConfig)],
-      providers: [GraphqlService],
+      imports: [ConfigModule.forFeature(graphqlServerConfig)],
+      providers: [GraphqlSchemaService],
     }).compile()
 
-    service = module.get<GraphqlService>(GraphqlService)
+    service = module.get<GraphqlSchemaService>(GraphqlSchemaService)
   })
 
   it('should load graphql schema', () => {

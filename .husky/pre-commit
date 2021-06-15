@@ -3,7 +3,7 @@
 
 # yarn lint:graphql
 
-nx generate @codelab/schematics:graphql-codegen
+# nx generate @codelab/schematics:graphql-codegen
 
 # yarn codegen --port 8081
 

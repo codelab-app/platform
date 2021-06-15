@@ -5,7 +5,7 @@ import {
   NormalizedCacheObject,
 } from '@apollo/client'
 import { Provider } from '@nestjs/common'
-import { ConfigService } from '@nestjs/config'
+import { ConfigService, ConfigType } from '@nestjs/config'
 import { ApolloClientConfig } from './config/apollo-client.config'
 import { ApolloClientTokens } from './config/apollo-client.tokens'
 
@@ -13,13 +13,9 @@ export const apolloClientProvider: Provider<
   ApolloClient<NormalizedCacheObject>
 > = {
   provide: ApolloClientTokens.ApolloClientProvider,
-  useFactory: (configService: ConfigService) => {
-    const config = configService.get<ApolloClientConfig>(
-      ApolloClientTokens.ApolloClientConfig.toString(),
-    )
-
+  useFactory: (apolloClientConfig: ConfigType<() => ApolloClientConfig>) => {
     const dgraphLink = new HttpLink({
-      uri: config?.endpoint,
+      uri: apolloClientConfig?.endpoint,
       credentials: 'same-origin',
       fetch,
     })
@@ -44,5 +40,5 @@ export const apolloClientProvider: Provider<
       },
     })
   },
-  inject: [ConfigService],
+  inject: [ApolloClientTokens.ApolloClientConfig],
 }

@@ -29,7 +29,7 @@ export const MetaPanePageDetail = () => {
     return null
   }
 
-  //Transform it, because we have the node in the state
+  // Transform it, because we have the node in the state
   const pageElement = {
     id: selectedPageElement.id,
     atom: selectedPageElement.atom,

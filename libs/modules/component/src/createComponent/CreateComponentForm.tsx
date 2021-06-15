@@ -68,8 +68,8 @@ export const CreateComponentForm = ({ ...props }: CreateComponentFormProps) => {
       <SelectField
         name="library_id"
         label="Library"
-        //eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        //@ts-ignore https://github.com/vazco/uniforms/issues/951
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore https://github.com/vazco/uniforms/issues/951
         showSearch={true}
         optionFilterProp="label"
         options={libraries?.map((library) => ({
@@ -80,8 +80,8 @@ export const CreateComponentForm = ({ ...props }: CreateComponentFormProps) => {
       <SelectField
         name="atom_id"
         label="Atom"
-        //eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        //@ts-ignore https://github.com/vazco/uniforms/issues/951
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore https://github.com/vazco/uniforms/issues/951
         showSearch={true}
         optionFilterProp="label"
         options={atoms?.atoms
