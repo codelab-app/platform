@@ -11,7 +11,7 @@ export interface AppState {
 }
 
 export const initialAppState: AppState = {
-  modalVisible: false,
+  modalVisible: false, //do we need this, can't we use crudModal?
   loading: false,
   editingApp: undefined,
 }

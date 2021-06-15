@@ -1,4 +1,10 @@
-import { useCallback } from 'react'
+import * as Apollo from '@apollo/client'
+import {
+  MutationFunctionOptions,
+  MutationTuple,
+} from '@apollo/client/react/types/types'
+import { FetchResult } from 'apollo-link'
+import { useCallback, useEffect } from 'react'
 import { atom, useRecoilState } from 'recoil'
 
 export enum ActionType {
@@ -24,6 +30,7 @@ export enum EntityType {
   LinkedComponentElement = 'LinkedComponentElement',
   PropTypeC = 'PropTypeC',
   Prop = 'Prop',
+  Interface = 'Interface',
 }
 
 interface CRUDModalState {
@@ -51,7 +58,9 @@ export const crudModalAtom = atom<CRUDModalState>({
   },
 })
 
-export const useCRUDModalForm = (type: EntityType) => {
+export const useCRUDModalForm = (
+  type: EntityType,
+): UseCRUDModalFormFunctions => {
   const [state, setState] = useRecoilState(crudModalAtom)
 
   const openCreateModal = useCallback(
@@ -92,11 +101,11 @@ export const useCRUDModalForm = (type: EntityType) => {
     [setState, type],
   )
 
-  const reset = () => {
+  const reset = useCallback(() => {
     setState({
       ...defaultState,
     })
-  }
+  }, [setState])
 
   const setLoading = useCallback(
     (loading: boolean) => {
@@ -116,4 +125,85 @@ export const useCRUDModalForm = (type: EntityType) => {
     state,
     setLoading,
   }
+}
+
+export interface UseCRUDModalFormFunctions {
+  openCreateModal: (metadata?: any) => void
+  openUpdateModal: (updateId: string, metadata?: any) => void
+  openDeleteModal: (deleteIds: Array<string>, metadata?: any) => void
+  reset: () => void
+  setLoading: (loading: boolean) => void
+  state: CRUDModalState
+}
+
+export interface UseMutationCrudFormOptions<
+  TMutation,
+  TMutationVariables,
+  TSubmitData,
+> {
+  entityType: EntityType
+  mutationOptions?: Apollo.MutationHookOptions<TMutation, TMutationVariables>
+  mutationFunctionOptions?: Omit<
+    MutationFunctionOptions<TMutation, TMutationVariables>,
+    'variables'
+  >
+  useMutationFunction: (
+    baseOptions?: Apollo.MutationHookOptions<TMutation, TMutationVariables>,
+  ) => MutationTuple<TMutation, TMutationVariables>
+  mapVariables: (
+    formData: TSubmitData,
+    crudModalState: CRUDModalState,
+  ) => TMutationVariables
+}
+
+export interface UseMutationCrudFormFunctions<
+  TMutation,
+  TMutationVariables,
+  TSubmitData,
+> {
+  crudModal: UseCRUDModalFormFunctions
+  mutate: MutationTuple<TMutation, TMutationVariables>[0]
+  mutationData: MutationTuple<TMutation, TMutationVariables>[1]
+  handleSubmit: (data: TSubmitData) => Promise<FetchResult<TMutation>>
+}
+
+export const useMutationCrudForm = <
+  TMutation,
+  TMutationVariables,
+  TSubmitData,
+>({
+  entityType,
+  useMutationFunction,
+  mutationOptions,
+  mapVariables,
+  mutationFunctionOptions,
+}: UseMutationCrudFormOptions<
+  TMutation,
+  TMutationVariables,
+  TSubmitData
+>): UseMutationCrudFormFunctions<
+  TMutation,
+  TMutationVariables,
+  TSubmitData
+> => {
+  const crudModal = useCRUDModalForm(entityType)
+  const { setLoading } = crudModal
+  const [mutate, mutationData] = useMutationFunction(mutationOptions)
+  const { loading } = mutationData
+
+  useEffect(() => {
+    setLoading(loading)
+  }, [loading, setLoading])
+
+  const handleSubmit = useCallback(
+    (submitData: TSubmitData) => {
+      return mutate({
+        ...mutationFunctionOptions,
+        variables: mapVariables(submitData, crudModal.state),
+      })
+    },
+    [mapVariables, mutate, mutationFunctionOptions],
+  )
+
+  return { crudModal, mutate, mutationData, handleSubmit }
 }

@@ -4,13 +4,12 @@ import { Txn } from 'dgraph-js-http'
 import { DgraphInterface } from '../../../models'
 import { GetInterfaceRequest } from '../get-interface'
 import { GetInterfaceQueryBuilder } from './get-recursive-interface.query'
-import { GetRecursiveInterfaceResponse } from './get-recursive-interface.response'
 
 @Injectable()
 /** Returns the interface in its recursive form */
 export class GetRecursiveInterfaceService extends DgraphUseCase<
   GetInterfaceRequest,
-  GetRecursiveInterfaceResponse
+  DgraphInterface | null
 > {
   protected async executeTransaction(
     { input: { interfaceId } }: GetInterfaceRequest,
@@ -21,11 +20,9 @@ export class GetRecursiveInterfaceService extends DgraphUseCase<
     const dataArray = (result?.data as any)?.query || null
 
     if (!dataArray[0][BaseDgraphFields.DgraphType]) {
-      return { interface: null }
+      return null
     }
 
-    return {
-      interface: DgraphInterface.Schema.nullable().parse(dataArray[0] || null),
-    }
+    return DgraphInterface.Schema.nullable().parse(dataArray[0] || null)
   }
 }

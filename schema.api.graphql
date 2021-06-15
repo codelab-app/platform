@@ -45,9 +45,7 @@ type RequiredValidator {
   isRequired: Boolean!
 }
 
-type Interface {
-  id: ID!
-  name: String!
+type FieldCollection {
   fields: [Field!]!
 
   """Flattened array of all types that are used inside this interface"""
@@ -95,6 +93,12 @@ enum Unit {
 
 type InterfaceType {
   interfaceId: String!
+}
+
+type Interface {
+  id: ID!
+  name: String!
+  fieldCollection: FieldCollection!
 }
 
 type Atom {
@@ -296,6 +300,7 @@ type Query {
   getAtoms: [Atom!]!
   getAtom(input: GetAtomInput!): Atom
   getInterface(input: GetInterfaceInput!): Interface
+  getInterfaces: [Interface!]!
   getField(input: GetFieldInput!): Field
   getType(input: GetTypeInput!): Type
   getValueTypes: [ValueType!]!

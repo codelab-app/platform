@@ -33,7 +33,7 @@ export class FieldMutationValidator {
       throw new Error(`Field with key ${key} already exists`)
     }
 
-    return await this.validateType(type)
+    return await this.validateType(type, interfaceId)
   }
 
   async validateType(
@@ -44,6 +44,7 @@ export class FieldMutationValidator {
       simpleType,
       interfaceType,
     }: CreateTypeInput,
+    interfaceId: string,
     iteration = 0,
   ) {
     if (iteration > MAX_ARRAY_DEPTH) {
@@ -65,8 +66,14 @@ export class FieldMutationValidator {
       throw new Error('No more than one type input must be provided')
     }
 
-    //Check if the interface exists if it's an interface type
     if (interfaceType) {
+      if (interfaceId === interfaceType.interfaceId) {
+        throw new Error(
+          "Can't add a field of type interface to the same interface",
+        )
+      }
+
+      //Check if the interface exists
       const foundInterface = await this.getInterfaceService.execute({
         input: { interfaceId: interfaceType.interfaceId },
       })
@@ -77,7 +84,7 @@ export class FieldMutationValidator {
 
       return { foundInterface }
     } else if (arrayType) {
-      await this.validateType(arrayType.type, iteration + 1)
+      await this.validateType(arrayType.type, interfaceId, iteration + 1)
     }
 
     return {}

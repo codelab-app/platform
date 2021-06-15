@@ -7,7 +7,7 @@ import {
 } from './dgraph-interface.model'
 import { FieldMapper } from './field.mapper'
 import { Interface, interfaceSchema } from './interface.model'
-import { TypeMapper } from './types'
+import { ArrayTypeDgraphFields, DgraphArrayType, TypeMapper } from './types'
 
 @Injectable()
 export class InterfaceMapper
@@ -26,18 +26,34 @@ export class InterfaceMapper
     newInterface.id = input[BaseDgraphFields.uid]
     newInterface.name = input[InterfaceDgraphFields.Name]
 
-    newInterface.types = []
-    newInterface.fields = []
+    newInterface.fieldCollection = {
+      types: [],
+      fields: [],
+    }
 
     const inputFields = input[InterfaceDgraphFields.Fields]
 
     if (inputFields) {
       for (const dgraphField of inputFields) {
-        newInterface.types.push(
-          await this.typeMapper.map(dgraphField[FieldDgraphFields.Type]),
-        )
+        const type = dgraphField[FieldDgraphFields.Type]
 
-        newInterface.fields.push(await this.fieldMapper.map(dgraphField))
+        newInterface.fieldCollection.types.push(await this.typeMapper.map(type))
+
+        if (
+          type[BaseDgraphFields.DgraphType][0] ===
+          DgraphArrayType.Metadata.modelName
+        ) {
+          // If it's an array, make sure we add the generic type too
+          newInterface.fieldCollection.types.push(
+            await this.typeMapper.map(
+              (type as DgraphArrayType)[ArrayTypeDgraphFields.Type],
+            ),
+          )
+        }
+
+        newInterface.fieldCollection.fields.push(
+          await this.fieldMapper.map(dgraphField),
+        )
       }
     }
 

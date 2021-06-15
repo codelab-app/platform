@@ -26,10 +26,14 @@ export const setupTestModule = async (
 
   await app.init()
 
-  const dgraphProvider = app.get<DgraphProvider>(DgraphTokens.DgraphProvider)
+  const dgraphProvider = getDbFromTestModule(app)
   await dgraphProvider.resetDb()
 
   return app
+}
+
+export const getDbFromTestModule = (app: INestApplication) => {
+  return app.get<DgraphProvider>(DgraphTokens.DgraphProvider)
 }
 
 export const teardownTestModule = async (app: INestApplication) => {

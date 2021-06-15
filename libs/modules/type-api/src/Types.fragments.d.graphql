@@ -1,6 +1,11 @@
-fragment Dgraph__Interface on Interface {
+fragment Dgraph__InterfaceWithoutFields on Interface {
     id
     name
+}
+
+
+fragment Dgraph__Interface on Interface {
+    ...Dgraph__InterfaceWithoutFields
     fields {
         ...Dgraph__Field
     }

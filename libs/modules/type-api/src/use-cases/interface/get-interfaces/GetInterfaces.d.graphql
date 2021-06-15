@@ -1,0 +1,8 @@
+query GetInterfaces($filter: InterfaceFilter
+$order: InterfaceOrder
+$first: Int
+$offset: Int) {
+    queryInterface(filter: $filter, order: $order, first: $first, offset :$offset){
+        ...Dgraph__InterfaceWithoutFields
+    }
+}

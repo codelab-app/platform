@@ -1,7 +1,19 @@
 import { DeleteResponse } from '@codelab/backend'
 import { Injectable } from '@nestjs/common'
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
-import { Interface } from './models'
+import {
+  Args,
+  Mutation,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql'
+import {
+  FieldCollection,
+  fieldCollectionSchema,
+  Interface,
+  InterfaceMapper,
+} from './models'
 import {
   CreateInterfaceInput,
   CreateInterfaceService,
@@ -9,6 +21,9 @@ import {
   DeleteInterfaceService,
   GetInterfaceInput,
   GetInterfaceService,
+  GetInterfacesInput,
+  GetInterfacesService,
+  GetRecursiveInterfaceService,
   UpdateInterfaceInput,
   UpdateInterfaceService,
 } from './use-cases'
@@ -18,6 +33,9 @@ import {
 export class InterfaceResolver {
   constructor(
     private getInterfaceService: GetInterfaceService,
+    private getInterfacesService: GetInterfacesService,
+    private interfaceMapper: InterfaceMapper,
+    private getRecursiveInterfaceService: GetRecursiveInterfaceService,
     private createInterfaceService: CreateInterfaceService,
     private updateInterfaceService: UpdateInterfaceService,
     private deleteInterfaceService: DeleteInterfaceService,
@@ -28,6 +46,11 @@ export class InterfaceResolver {
     return this.getInterfaceService.execute({
       input,
     })
+  }
+
+  @Query(() => [Interface])
+  getInterfaces() {
+    return this.getInterfacesService.execute({})
   }
 
   @Mutation(() => Interface)
@@ -47,5 +70,22 @@ export class InterfaceResolver {
   @Mutation(() => DeleteResponse)
   deleteInterface(@Args('input') input: DeleteInterfaceInput) {
     return this.deleteInterfaceService.execute({ input })
+  }
+
+  @ResolveField('fieldCollection', () => FieldCollection)
+  async resolveFieldCollection(@Parent() parentInterface: Interface) {
+    const recursiveInterface = await this.getRecursiveInterfaceService.execute({
+      input: { interfaceId: parentInterface.id },
+    })
+
+    if (!recursiveInterface) {
+      throw new Error('Interface not found')
+    }
+
+    const mapped = await this.interfaceMapper.map(recursiveInterface)
+
+    fieldCollectionSchema.parse(mapped.fieldCollection) //do not return the parsed response, because it doesn't perserve the classes
+
+    return mapped.fieldCollection
   }
 }
