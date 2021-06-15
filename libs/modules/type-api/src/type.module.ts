@@ -25,6 +25,7 @@ import {
   GetFieldService,
   GetInterfaceService,
   GetInterfacesService,
+  GetInterfaceWithAtomService,
   GetRecursiveInterfaceService,
   GetTypeService,
   UpdateFieldService,
@@ -51,6 +52,7 @@ const mappers = [
 const services = [
   ...mappers,
   CreateInterfaceService,
+  GetInterfaceWithAtomService,
   GetInterfacesService,
   GetRecursiveInterfaceService,
   GetInterfaceService,

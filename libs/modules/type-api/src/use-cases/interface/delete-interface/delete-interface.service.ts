@@ -15,7 +15,7 @@ import {
 } from '@codelab/codegen/dgraph'
 import { Inject, Injectable } from '@nestjs/common'
 import { Interface } from '../../../models'
-import { GetInterfaceService } from '../get-interface'
+import { GetInterfaceWithAtomService } from '../get-interface-with-atom'
 import { DeleteInterfaceRequest } from './delete-interface.request'
 
 type GqlVariablesType = DeleteInterfaceAndFieldsMutationVariables
@@ -36,7 +36,7 @@ export class DeleteInterfaceService extends MutationUseCase<
   constructor(
     @Inject(ApolloClientTokens.ApolloClientProvider)
     protected apolloClient: ApolloClient<NormalizedCacheObject>,
-    private getInterfaceService: GetInterfaceService,
+    private getInterfaceWithAtomService: GetInterfaceWithAtomService,
   ) {
     super(apolloClient)
   }
@@ -74,12 +74,18 @@ export class DeleteInterfaceService extends MutationUseCase<
   protected async validate({
     input: { interfaceId },
   }: DeleteInterfaceRequest): Promise<ValidationContext> {
-    const foundInterface = await this.getInterfaceService.execute({
-      input: { interfaceId },
+    const foundInterface = await this.getInterfaceWithAtomService.execute({
+      interfaceId,
     })
 
     if (!foundInterface) {
       throw new Error('Interface not found')
+    }
+
+    if (foundInterface.atom) {
+      throw new Error(
+        `Can't delete interface, because it's the prop types to the atom ${foundInterface.atom.label}`,
+      )
     }
 
     return { foundInterface }

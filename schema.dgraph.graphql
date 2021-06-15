@@ -153,6 +153,7 @@ type AddFieldPayload {
 }
 
 input AddInterfaceInput {
+  atom: AtomRef
   name: String!
   fields: [FieldRef]
 }
@@ -1128,6 +1129,7 @@ input IntRange {
 
 type Interface {
   id: ID!
+  atom(filter: AtomFilter): Atom
   name: String!
   fields(
     filter: FieldFilter
@@ -1153,6 +1155,7 @@ input InterfaceFilter {
 }
 
 enum InterfaceHasFilter {
+  atom
   name
   fields
 }
@@ -1168,12 +1171,14 @@ enum InterfaceOrderable {
 }
 
 input InterfacePatch {
+  atom: AtomRef
   name: String
   fields: [FieldRef]
 }
 
 input InterfaceRef {
   id: ID
+  atom: AtomRef
   name: String
   fields: [FieldRef]
 }

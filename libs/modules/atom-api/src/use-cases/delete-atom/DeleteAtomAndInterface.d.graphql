@@ -1,0 +1,10 @@
+mutation DeleteAtomAndInterface($filter: AtomFilter!, $interfaceFilter: InterfaceFilter!) {
+  deleteAtom(filter: $filter) {
+    atom {
+      ...DGraph__Atom
+    }
+  }
+  deleteInterface(filter: $interfaceFilter){
+    numUids
+  }
+}

@@ -170,6 +170,7 @@ export type AddFieldPayloadFieldArgs = {
 }
 
 export type AddInterfaceInput = {
+  atom?: Maybe<AtomRef>
   name: Scalars['String']
   fields?: Maybe<Array<Maybe<FieldRef>>>
 }
@@ -1326,9 +1327,14 @@ export type IntRange = {
 
 export type Interface = {
   id: Scalars['ID']
+  atom?: Maybe<Atom>
   name: Scalars['String']
   fields?: Maybe<Array<Maybe<Field>>>
   fieldsAggregate?: Maybe<FieldAggregateResult>
+}
+
+export type InterfaceAtomArgs = {
+  filter?: Maybe<AtomFilter>
 }
 
 export type InterfaceFieldsArgs = {
@@ -1357,6 +1363,7 @@ export type InterfaceFilter = {
 }
 
 export enum InterfaceHasFilter {
+  Atom = 'atom',
   Name = 'name',
   Fields = 'fields',
 }
@@ -1372,12 +1379,14 @@ export enum InterfaceOrderable {
 }
 
 export type InterfacePatch = {
+  atom?: Maybe<AtomRef>
   name?: Maybe<Scalars['String']>
   fields?: Maybe<Array<Maybe<FieldRef>>>
 }
 
 export type InterfaceRef = {
   id?: Maybe<Scalars['ID']>
+  atom?: Maybe<AtomRef>
   name?: Maybe<Scalars['String']>
   fields?: Maybe<Array<Maybe<FieldRef>>>
 }
@@ -3088,12 +3097,14 @@ export type CreateAtomMutation = {
   addAtom?: Maybe<{ atom?: Maybe<Array<Maybe<DGraph__AtomFragment>>> }>
 }
 
-export type DeleteAtomMutationVariables = Exact<{
+export type DeleteAtomAndInterfaceMutationVariables = Exact<{
   filter: AtomFilter
+  interfaceFilter: InterfaceFilter
 }>
 
-export type DeleteAtomMutation = {
+export type DeleteAtomAndInterfaceMutation = {
   deleteAtom?: Maybe<{ atom?: Maybe<Array<Maybe<DGraph__AtomFragment>>> }>
+  deleteInterface?: Maybe<Pick<DeleteInterfacePayload, 'numUids'>>
 }
 
 export type GetAtomQueryVariables = Exact<{
@@ -3428,6 +3439,18 @@ export type DeleteInterfaceAndFieldsMutation = {
   deleteField?: Maybe<Pick<DeleteFieldPayload, 'numUids'>>
 }
 
+export type Dgraph__InterfaceWithAtomFragment = {
+  atom?: Maybe<DGraph__AtomFragment>
+} & Dgraph__InterfaceWithoutFieldsFragment
+
+export type GetInterfaceWithAtomQueryVariables = Exact<{
+  interfaceId: Scalars['ID']
+}>
+
+export type GetInterfaceWithAtomQuery = {
+  getInterface?: Maybe<Dgraph__InterfaceWithAtomFragment>
+}
+
 export type GetInterfaceQueryVariables = Exact<{
   interfaceId: Scalars['ID']
 }>
@@ -3652,6 +3675,16 @@ export const Dgraph_PageElementFragmentDoc = gql`
   }
   ${DGraph__AtomFragmentDoc}
   ${Dgraph__PageFragmentDoc}
+`
+export const Dgraph__InterfaceWithAtomFragmentDoc = gql`
+  fragment Dgraph__InterfaceWithAtom on Interface {
+    ...Dgraph__InterfaceWithoutFields
+    atom {
+      ...DGraph__Atom
+    }
+  }
+  ${Dgraph__InterfaceWithoutFieldsFragmentDoc}
+  ${DGraph__AtomFragmentDoc}
 `
 export const Dgraph__ValueTypeFragmentDoc = gql`
   fragment Dgraph__ValueType on ValueType {
@@ -4035,57 +4068,65 @@ export type CreateAtomMutationOptions = Apollo.BaseMutationOptions<
   CreateAtomMutation,
   CreateAtomMutationVariables
 >
-export const DeleteAtomGql = gql`
-  mutation DeleteAtom($filter: AtomFilter!) {
+export const DeleteAtomAndInterfaceGql = gql`
+  mutation DeleteAtomAndInterface(
+    $filter: AtomFilter!
+    $interfaceFilter: InterfaceFilter!
+  ) {
     deleteAtom(filter: $filter) {
       atom {
         ...DGraph__Atom
       }
     }
+    deleteInterface(filter: $interfaceFilter) {
+      numUids
+    }
   }
   ${DGraph__AtomFragmentDoc}
 `
-export type DeleteAtomMutationFn = Apollo.MutationFunction<
-  DeleteAtomMutation,
-  DeleteAtomMutationVariables
+export type DeleteAtomAndInterfaceMutationFn = Apollo.MutationFunction<
+  DeleteAtomAndInterfaceMutation,
+  DeleteAtomAndInterfaceMutationVariables
 >
 
 /**
- * __useDeleteAtomMutation__
+ * __useDeleteAtomAndInterfaceMutation__
  *
- * To run a mutation, you first call `useDeleteAtomMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useDeleteAtomMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useDeleteAtomAndInterfaceMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteAtomAndInterfaceMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [deleteAtomMutation, { data, loading, error }] = useDeleteAtomMutation({
+ * const [deleteAtomAndInterfaceMutation, { data, loading, error }] = useDeleteAtomAndInterfaceMutation({
  *   variables: {
  *      filter: // value for 'filter'
+ *      interfaceFilter: // value for 'interfaceFilter'
  *   },
  * });
  */
-export function useDeleteAtomMutation(
+export function useDeleteAtomAndInterfaceMutation(
   baseOptions?: Apollo.MutationHookOptions<
-    DeleteAtomMutation,
-    DeleteAtomMutationVariables
+    DeleteAtomAndInterfaceMutation,
+    DeleteAtomAndInterfaceMutationVariables
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useMutation<DeleteAtomMutation, DeleteAtomMutationVariables>(
-    DeleteAtomGql,
-    options,
-  )
+  return Apollo.useMutation<
+    DeleteAtomAndInterfaceMutation,
+    DeleteAtomAndInterfaceMutationVariables
+  >(DeleteAtomAndInterfaceGql, options)
 }
-export type DeleteAtomMutationHookResult = ReturnType<
-  typeof useDeleteAtomMutation
+export type DeleteAtomAndInterfaceMutationHookResult = ReturnType<
+  typeof useDeleteAtomAndInterfaceMutation
 >
-export type DeleteAtomMutationResult = Apollo.MutationResult<DeleteAtomMutation>
-export type DeleteAtomMutationOptions = Apollo.BaseMutationOptions<
-  DeleteAtomMutation,
-  DeleteAtomMutationVariables
+export type DeleteAtomAndInterfaceMutationResult =
+  Apollo.MutationResult<DeleteAtomAndInterfaceMutation>
+export type DeleteAtomAndInterfaceMutationOptions = Apollo.BaseMutationOptions<
+  DeleteAtomAndInterfaceMutation,
+  DeleteAtomAndInterfaceMutationVariables
 >
 export const GetAtomGql = gql`
   query GetAtom($id: ID!) {
@@ -5520,6 +5561,70 @@ export type DeleteInterfaceAndFieldsMutationOptions =
     DeleteInterfaceAndFieldsMutation,
     DeleteInterfaceAndFieldsMutationVariables
   >
+export const GetInterfaceWithAtomGql = gql`
+  query GetInterfaceWithAtom($interfaceId: ID!) {
+    getInterface(id: $interfaceId) {
+      ...Dgraph__InterfaceWithAtom
+    }
+  }
+  ${Dgraph__InterfaceWithAtomFragmentDoc}
+`
+
+/**
+ * __useGetInterfaceWithAtomQuery__
+ *
+ * To run a query within a React component, call `useGetInterfaceWithAtomQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetInterfaceWithAtomQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetInterfaceWithAtomQuery({
+ *   variables: {
+ *      interfaceId: // value for 'interfaceId'
+ *   },
+ * });
+ */
+export function useGetInterfaceWithAtomQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetInterfaceWithAtomQuery,
+    GetInterfaceWithAtomQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<
+    GetInterfaceWithAtomQuery,
+    GetInterfaceWithAtomQueryVariables
+  >(GetInterfaceWithAtomGql, options)
+}
+export function useGetInterfaceWithAtomLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetInterfaceWithAtomQuery,
+    GetInterfaceWithAtomQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    GetInterfaceWithAtomQuery,
+    GetInterfaceWithAtomQueryVariables
+  >(GetInterfaceWithAtomGql, options)
+}
+export type GetInterfaceWithAtomQueryHookResult = ReturnType<
+  typeof useGetInterfaceWithAtomQuery
+>
+export type GetInterfaceWithAtomLazyQueryHookResult = ReturnType<
+  typeof useGetInterfaceWithAtomLazyQuery
+>
+export type GetInterfaceWithAtomQueryResult = Apollo.QueryResult<
+  GetInterfaceWithAtomQuery,
+  GetInterfaceWithAtomQueryVariables
+>
+export function refetchGetInterfaceWithAtomQuery(
+  variables?: GetInterfaceWithAtomQueryVariables,
+) {
+  return { query: GetInterfaceWithAtomGql, variables: variables }
+}
 export const GetInterfaceGql = gql`
   query GetInterface($interfaceId: ID!) {
     getInterface(id: $interfaceId) {
@@ -5964,6 +6069,16 @@ export const Dgraph_PageElement = gql`
   ${DGraph__Atom}
   ${Dgraph__Page}
 `
+export const Dgraph__InterfaceWithAtom = gql`
+  fragment Dgraph__InterfaceWithAtom on Interface {
+    ...Dgraph__InterfaceWithoutFields
+    atom {
+      ...DGraph__Atom
+    }
+  }
+  ${Dgraph__InterfaceWithoutFields}
+  ${DGraph__Atom}
+`
 export const Dgraph__ValueType = gql`
   fragment Dgraph__ValueType on ValueType {
     id
@@ -6044,12 +6159,18 @@ export const CreateAtom = gql`
   }
   ${DGraph__Atom}
 `
-export const DeleteAtom = gql`
-  mutation DeleteAtom($filter: AtomFilter!) {
+export const DeleteAtomAndInterface = gql`
+  mutation DeleteAtomAndInterface(
+    $filter: AtomFilter!
+    $interfaceFilter: InterfaceFilter!
+  ) {
     deleteAtom(filter: $filter) {
       atom {
         ...DGraph__Atom
       }
+    }
+    deleteInterface(filter: $interfaceFilter) {
+      numUids
     }
   }
   ${DGraph__Atom}
@@ -6298,6 +6419,14 @@ export const DeleteInterfaceAndFields = gql`
       numUids
     }
   }
+`
+export const GetInterfaceWithAtom = gql`
+  query GetInterfaceWithAtom($interfaceId: ID!) {
+    getInterface(id: $interfaceId) {
+      ...Dgraph__InterfaceWithAtom
+    }
+  }
+  ${Dgraph__InterfaceWithAtom}
 `
 export const GetInterface = gql`
   query GetInterface($interfaceId: ID!) {

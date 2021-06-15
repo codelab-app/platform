@@ -1061,9 +1061,17 @@ export type DeleteInterfaceMutation = {
   deleteInterface: Pick<DeleteResponse, 'affected'>
 }
 
+export type GetInterfaceQueryVariables = Exact<{
+  input: GetInterfaceInput
+}>
+
+export type GetInterfaceQuery = { getInterface?: Maybe<__InterfaceFragment> }
+
 export type GetInterfacesQueryVariables = Exact<{ [key: string]: never }>
 
-export type GetInterfacesQuery = { getInterfaces: Array<__InterfaceFragment> }
+export type GetInterfacesQuery = {
+  getInterfaces: Array<__InterfaceWithoutFieldsFragment>
+}
 
 export type __UserFragment = Pick<User, 'email' | 'name'> & {
   id: User['user_id']
@@ -3154,13 +3162,77 @@ export type DeleteInterfaceMutationOptions = Apollo.BaseMutationOptions<
   DeleteInterfaceMutation,
   DeleteInterfaceMutationVariables
 >
-export const GetInterfacesGql = gql`
-  query GetInterfaces {
-    getInterfaces {
+export const GetInterfaceGql = gql`
+  query GetInterface($input: GetInterfaceInput!) {
+    getInterface(input: $input) {
       ...__Interface
     }
   }
   ${__InterfaceFragmentDoc}
+`
+
+/**
+ * __useGetInterfaceQuery__
+ *
+ * To run a query within a React component, call `useGetInterfaceQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetInterfaceQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetInterfaceQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useGetInterfaceQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetInterfaceQuery,
+    GetInterfaceQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetInterfaceQuery, GetInterfaceQueryVariables>(
+    GetInterfaceGql,
+    options,
+  )
+}
+export function useGetInterfaceLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetInterfaceQuery,
+    GetInterfaceQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetInterfaceQuery, GetInterfaceQueryVariables>(
+    GetInterfaceGql,
+    options,
+  )
+}
+export type GetInterfaceQueryHookResult = ReturnType<
+  typeof useGetInterfaceQuery
+>
+export type GetInterfaceLazyQueryHookResult = ReturnType<
+  typeof useGetInterfaceLazyQuery
+>
+export type GetInterfaceQueryResult = Apollo.QueryResult<
+  GetInterfaceQuery,
+  GetInterfaceQueryVariables
+>
+export function refetchGetInterfaceQuery(
+  variables?: GetInterfaceQueryVariables,
+) {
+  return { query: GetInterfaceGql, variables: variables }
+}
+export const GetInterfacesGql = gql`
+  query GetInterfaces {
+    getInterfaces {
+      ...__InterfaceWithoutFields
+    }
+  }
+  ${__InterfaceWithoutFieldsFragmentDoc}
 `
 
 /**
@@ -3900,13 +3972,21 @@ export const DeleteInterface = gql`
     }
   }
 `
-export const GetInterfaces = gql`
-  query GetInterfaces {
-    getInterfaces {
+export const GetInterface = gql`
+  query GetInterface($input: GetInterfaceInput!) {
+    getInterface(input: $input) {
       ...__Interface
     }
   }
   ${__Interface}
+`
+export const GetInterfaces = gql`
+  query GetInterfaces {
+    getInterfaces {
+      ...__InterfaceWithoutFields
+    }
+  }
+  ${__InterfaceWithoutFields}
 `
 export const DeleteUser = gql`
   mutation DeleteUser($input: DeleteUserInput!) {
