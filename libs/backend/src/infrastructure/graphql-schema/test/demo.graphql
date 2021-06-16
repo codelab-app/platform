@@ -1,0 +1,21 @@
+type atom {
+  id: ID!
+}
+
+enum AtomTypeAnother {
+  AntDesignAffix
+}
+
+enum AtomType {
+  AntDesignAffix
+  AntDesignAlert
+}
+
+enum AtomTypeAnother {
+  AntDesignAffix
+}
+
+input AppFilter {
+  id: [ID!]
+  ownerId: StringHashFilter
+}

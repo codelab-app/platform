@@ -34,7 +34,7 @@ describe('Atom', () => {
     cy.deleteAllAtoms()
     openAtomsTab()
 
-    //We should have no items in the list
+    // We should have no items in the list
     getAtomListItem().should('not.exist')
 
     cy.getByTestId(`create-atom-button`).click()
@@ -51,11 +51,11 @@ describe('Atom', () => {
 
         cy.wait('@graphql')
 
-        //modal should close
+        // modal should close
         cy.getByTestId(`create-atom-form`).should('not.exist')
         cy.get('.create-atom-modal').should('not.exist')
 
-        //We should have the new item in the list
+        // We should have the new item in the list
         getAtomListItem(selectedAtomType)
       })
   })
@@ -64,19 +64,19 @@ describe('Atom', () => {
     cy.intercept('/api/graphql').as('graphql')
 
     cy.deleteAllAtoms().then(() => {
-      //Insert one random atom
+      // Insert one random atom
       const atomType = randomAtomType()
 
       cy.createAtom(atomType).then(() => {
         openAtomsTab()
 
-        //We should have the new atom in the list, click its update button
+        // We should have the new atom in the list, click its update button
         getAtomListItem(atomType)
           .getByTestId('atom-update-button')
           .first()
           .click()
 
-        //We should have an existing type select input with the atom type we defined
+        // We should have an existing type select input with the atom type we defined
         cy.getByTestId(`update-atom-form`)
           .find(`.ant-select-selection-item[title=${atomType}]`)
           .click()
@@ -92,11 +92,11 @@ describe('Atom', () => {
 
             cy.wait('@graphql')
 
-            //modal should close
+            // modal should close
             cy.getByTestId('update-atom-form').should('not.exist')
             cy.get('.update-atom-modal').should('not.exist')
 
-            //We should have the new item in the list
+            // We should have the new item in the list
             getAtomListItem(selectedAtomType)
           })
       })
@@ -112,7 +112,7 @@ describe('Atom', () => {
       cy.createAtom(atomType).then(() => {
         openAtomsTab()
 
-        //We should have the new atom in the list, click its delete button
+        // We should have the new atom in the list, click its delete button
         getAtomListItem(atomType)
           .getByTestId('atom-delete-button')
           .first()
@@ -125,7 +125,7 @@ describe('Atom', () => {
         cy.getByTestId('delete-atom-form').should('not.exist')
         cy.get('.delete-atom-modal').should('not.exist')
 
-        //We should not have any items in the list
+        // We should not have any items in the list
         getAtomListItem().should('not.exist')
       })
     })

@@ -70,8 +70,8 @@ export const CreatePageElementForm = ({
       <SelectField
         name="atomId"
         label="Atom"
-        //eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        //@ts-ignore https://github.com/vazco/uniforms/issues/951
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore https://github.com/vazco/uniforms/issues/951
         showSearch={true}
         optionFilterProp="label"
         options={atoms?.atoms.map((atom) => ({
@@ -83,8 +83,8 @@ export const CreatePageElementForm = ({
       <SelectField
         name="parentPageElementId"
         label="Parent element"
-        //eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        //@ts-ignore https://github.com/vazco/uniforms/issues/951
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore https://github.com/vazco/uniforms/issues/951
         showSearch={true}
         optionFilterProp="label"
         options={pageElementOptions}

@@ -5,27 +5,26 @@ import {
   NormalizedCacheObject,
 } from '@apollo/client'
 import { Provider } from '@nestjs/common'
-import { ConfigService } from '@nestjs/config'
+import { ConfigFactory } from '@nestjs/config'
 import { ApolloClientConfig } from './config/apollo-client.config'
 import { ApolloClientTokens } from './config/apollo-client.tokens'
 
-export const apolloClientProvider: Provider<
-  ApolloClient<NormalizedCacheObject>
-> = {
+export const apolloClientProvider: (
+  apolloClientConfig: ConfigFactory<ApolloClientConfig>,
+) => Provider<ApolloClient<NormalizedCacheObject>> = (apolloClientConfig) => ({
   provide: ApolloClientTokens.ApolloClientProvider,
-  useFactory: (configService: ConfigService) => {
-    const config = configService.get<ApolloClientConfig>(
-      ApolloClientTokens.ApolloClientConfig.toString(),
-    )
-
+  useFactory: () => {
     const dgraphLink = new HttpLink({
-      uri: config?.endpoint,
+      uri: apolloClientConfig()?.endpoint,
       credentials: 'same-origin',
       fetch,
     })
 
     return new ApolloClient({
       link: dgraphLink,
+      headers: {
+        'DG-AUTH': process.env.CODELAB_DGRAPH_API_KEY ?? '',
+      },
       cache: new InMemoryCache(),
       ssrMode: true,
       defaultOptions: {
@@ -41,5 +40,4 @@ export const apolloClientProvider: Provider<
       },
     })
   },
-  inject: [ConfigService],
-}
+})

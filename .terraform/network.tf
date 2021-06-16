@@ -6,6 +6,7 @@ data "aws_availability_zones" "available" {
 
 resource "aws_vpc" "main" {
   cidr_block = "172.17.0.0/16"
+  enable_dns_hostnames   = true
 }
 
 # Create var.az_count private subnets, each in a different AZ

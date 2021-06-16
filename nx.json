@@ -150,6 +150,9 @@
     },
     "modules-type": {
       "tags": []
+    },
+    "gqlgen": {
+      "tags": []
     }
   }
 }

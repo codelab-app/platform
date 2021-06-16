@@ -1,6 +1,6 @@
 import { JwtPayload } from '@codelab/modules/auth-api'
 import { Injectable } from '@nestjs/common'
-//Import with full path, or will get circular reference
+// Import with full path, or will get circular reference
 import { GetAppService } from '../../use-cases/get-app/get-app.service'
 
 /**
@@ -11,7 +11,7 @@ export class AppGuardService {
   constructor(private getAppService: GetAppService) {}
 
   async validate(appId: string, currentUser?: JwtPayload) {
-    //make sure the new app exists is owned by the user
+    // make sure the new app exists is owned by the user
     const app = await this.getAppService.execute({
       input: { appId },
       currentUser,

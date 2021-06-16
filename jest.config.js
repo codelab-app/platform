@@ -15,5 +15,7 @@ module.exports = {
     '<rootDir>/libs/modules/value-type',
     '<rootDir>/libs/modules/auth-api',
     '<rootDir>/libs/modules/type-api',
+    '<rootDir>/apps/codegen',
+    '<rootDir>/apps/gqlgen',
   ],
 }

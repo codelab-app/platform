@@ -19,9 +19,6 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@codelab/tools-eslint-config-codelab": [
-        "libs/tools/eslint-config-codelab/src/index.ts"
-      ],
       "@codelab/backend": ["libs/backend/src/index"],
       "@codelab/modules/app": ["libs/modules/app/src/index.ts"],
       "@codelab/modules/category": ["libs/modules/category/src/index.ts"],
@@ -39,7 +36,6 @@
       "@codelab/frontend/apollo": ["libs/frontend/apollo/src/index.ts"],
       "@codelab/frontend/cytoscape": ["libs/frontend/cytoscape/src/index.ts"],
       "@codelab/modules/atom": ["libs/modules/atom/src/index.ts"],
-      "@codelab/hasura": ["libs/hasura/src/index.ts"],
       "@codelab/modules/lambda-api": ["libs/modules/lambda-api/src/index.ts"],
       "@codelab/modules/component-element": [
         "libs/modules/component-element/src/index.ts"
@@ -59,14 +55,16 @@
       "@codelab/modules/value-type-api": [
         "libs/modules/value-type-api/src/index.ts"
       ],
+      "@codelab/hasura": ["libs/hasura/src/index.ts"],
       "@codelab/modules/value-type": ["libs/modules/value-type/src/index.ts"],
       "@codelab/tools/plugins/codelab": [
         "libs/tools/plugins/codelab/src/index.ts"
       ],
       "@codelab/tools/scripts": ["libs/tools/scripts/src/index.ts"],
-      "@codelab/modules/auth-api": ["libs/modules/auth-api/src/index.ts"],
       "@codelab/modules/type-api": ["libs/modules/type-api/src/index.ts"],
-      "@codelab/modules/type": ["libs/modules/type/src/index.ts"]
+      "@codelab/modules/type": ["libs/modules/type/src/index.ts"],
+      "@codelab/modules/auth-api": ["libs/modules/auth-api/src/index.ts"],
+      "@codelab/demo": ["libs/tools/plugins/demo/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"]

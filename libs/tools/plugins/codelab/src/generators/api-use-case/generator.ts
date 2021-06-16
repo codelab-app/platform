@@ -7,7 +7,7 @@ import {
   Tree,
 } from '@nrwl/devkit'
 import * as path from 'path'
-import { toCamelCase, toKebabCase, toPascalCase } from '../utils'
+import { toCamelCase, toKebabCase, toPascalCase } from '../../utils/files'
 import { ApiUseCaseGeneratorSchema, NormalizedSchema } from './schema'
 import { UseCaseType } from './useCaseType'
 

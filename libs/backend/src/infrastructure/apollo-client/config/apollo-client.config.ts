@@ -9,15 +9,6 @@ export interface ApolloClientConfig {
 export const apolloClientConfig = registerAs<() => ApolloClientConfig>(
   ApolloClientTokens.ApolloClientConfig.toString(),
   () => ({
-    endpoint: get('CODELAB_DGRAPH_GRAPHQL_ENDPOINT').required(true).asString(),
-  }),
-)
-
-export const apolloClientTestConfig = registerAs(
-  ApolloClientTokens.ApolloClientConfig.toString(),
-  () => ({
-    endpoint: get('CODELAB_DGRAPH_GRAPHQL_TEST_ENDPOINT')
-      .required(true)
-      .asString(),
+    endpoint: get('CODELAB_DGRAPH_GRAPHQL_ENDPOINT').required().asUrlString(),
   }),
 )

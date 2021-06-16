@@ -19,7 +19,7 @@ export const hasRoleAddOn = (allowedRoles?: Array<Role>) => {
     const { req } = ctx.getContext()
     const user = req.user as JwtPayload
 
-    //If the user has roles and at least one of them matches our allowed roles set, we're good
+    // If the user has roles and at least one of them matches our allowed roles set, we're good
     return (
       !!user &&
       !!user['https://api.codelab.ai/jwt/claims']?.roles?.find((r) =>

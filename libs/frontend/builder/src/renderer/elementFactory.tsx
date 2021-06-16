@@ -1,12 +1,12 @@
 import { CytoscapeNode, NodeBase, notify } from '@codelab/frontend/shared'
-import { Atom, AtomType } from '@codelab/graphql'
+import { __AtomFragment, AtomType } from '@codelab/graphql'
 import React from 'react'
 import ReactTestUtils from 'react-dom/test-utils'
 import { elementTypeMap } from './elementTypeMap'
 import { ComponentHandlers } from './useComponentHandlers'
 
 interface ElementParameterFactoryInput<TNode extends NodeBase = CytoscapeNode> {
-  atom: Atom
+  atom: __AtomFragment
   node: TNode
   // Function hooks injected to pass to handlers
   handlers: ComponentHandlers
@@ -41,7 +41,7 @@ export const elementsPropTransformers: {
       height: '200px',
     },
   }),
-  [AtomType.ReactFragment]: ({ props: { key } }) => ({ key }), //Do not pass in any props for fragments, except key, because it creates an error
+  [AtomType.ReactFragment]: ({ props: { key } }) => ({ key }), // Do not pass in any props for fragments, except key, because it creates an error
 }
 
 const commonProps = (node: CytoscapeNode, handlers: ComponentHandlers) => ({
@@ -57,7 +57,7 @@ const commonProps = (node: CytoscapeNode, handlers: ComponentHandlers) => ({
   // Otherwise `onMouseOver` will fire endless as it toggles between current & children element
   onMouseEnter: (e: MouseEvent) => {
     // console.log('mouseEnter', e)
-    //TODO mouse enter
+    // TODO mouse enter
     //
     // return handlers?.showHoverOverlay({
     //   pageElementId: node.pageElementId,
@@ -89,9 +89,9 @@ const commonProps = (node: CytoscapeNode, handlers: ComponentHandlers) => ({
     // We want to show overlay for current node
     e.stopPropagation()
 
-    //TODO onclick
+    // TODO onclick
     //
-    //Open inspector and the click overview
+    // Open inspector and the click overview
     // handlers?.selectPageElement({
     //   pageElementId: node.pageElementId,
     //   componentElementId: node.componentElementId,

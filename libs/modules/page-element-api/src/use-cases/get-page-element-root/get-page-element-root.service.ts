@@ -2,7 +2,7 @@ import type { DgraphProvider } from '@codelab/backend'
 import { DgraphTokens, DgraphUseCase } from '@codelab/backend'
 import { Inject, Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
-//shortened import causes circular reference and some weird shit happen
+// shortened import causes circular reference and some weird shit happen
 import { PageElementGuardService } from '../../auth/page-element-guard/page-element-guard.service'
 import { PageElementRoot } from '../../models'
 import { FlattenPageElementTreeService } from '../flatten-page-element-tree'

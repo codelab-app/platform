@@ -20,7 +20,7 @@ export class PageElement {
   @Field()
   declare name: string
 
-  //We allow null atoms, because then we won't render a container element, just the children
+  // We allow null atoms, because then we won't render a container element, just the children
   @Field(() => Atom, { nullable: true })
   declare atom?: Atom | null
 

@@ -25,6 +25,10 @@
         "value": "${aws_region}"
       }
     ],
+    "entryPoint": [
+      "sh",
+      "scripts/startup.sh"
+    ],
     "secrets": [
       {
         "name": "CODELAB_DGRAPH_GRAPHQL_ENDPOINT",

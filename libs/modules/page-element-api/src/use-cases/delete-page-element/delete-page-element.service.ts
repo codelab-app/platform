@@ -58,9 +58,9 @@ export class DeletePageElementService extends MutationUseCase<
     input: { pageElementId },
     currentUser,
   }: DeletePageElementRequest): Promise<GqlVariablesType> {
-    //Don't delete it if its the root page element
-    //We know that only the root page element doesn't have a parent and we validate that's the case when creating and updating the page elemenet
-    //so we can use that to check if this is a page root
+    // Don't delete it if its the root page element
+    // We know that only the root page element doesn't have a parent and we validate that's the case when creating and updating the page elemenet
+    // so we can use that to check if this is a page root
     const parent = await this.getPageElementParentService.execute({
       pageElementId: pageElementId,
     })
@@ -69,9 +69,9 @@ export class DeletePageElementService extends MutationUseCase<
       throw new Error("Can't delete root page element")
     }
 
-    //Get all descending page elements and delete them too
-    //this  can be done faster using an upsert block, but it's more complex
-    //https://dgraph.io/docs/mutations/upsert-block/#example-of-uid-function
+    // Get all descending page elements and delete them too
+    // this  can be done faster using an upsert block, but it's more complex
+    // https://dgraph.io/docs/mutations/upsert-block/#example-of-uid-function
     const root = await this.getPageElementRootService.execute({
       input: {
         pageElementId: pageElementId,

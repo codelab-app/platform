@@ -38,6 +38,8 @@ export class AwsS3Service extends S3Client {
       return await this.send(createBucketCommand)
     } catch (e) {
       console.log(e)
+
+      return
     }
   }
 
@@ -53,6 +55,8 @@ export class AwsS3Service extends S3Client {
       return results
     } catch (e) {
       console.log(e)
+
+      return
     }
   }
 

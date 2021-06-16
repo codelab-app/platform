@@ -94,7 +94,7 @@ export class CreatePageElementService extends DgraphUseCase<
       return order
     }
 
-    //if we don't have order - put it last
+    // if we don't have order - put it last
     const lastOrderChild = await this.getLastOrderChildService.execute({
       pageElementId: parentPageElementId,
     })

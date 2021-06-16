@@ -82,7 +82,7 @@ const PageContainer = ({ children, ...props }: any) => {
   return children ? <>{children}</> : <></>
 }
 
-//This is for testing, need to move it somewhere else
+// This is for testing, need to move it somewhere else
 const ReactText = ({ text }: { text: string }) => <p>{text}</p>
 
 /**

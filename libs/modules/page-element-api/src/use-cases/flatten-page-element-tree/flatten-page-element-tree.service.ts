@@ -28,7 +28,7 @@ export class FlattenPageElementTreeService
         let childOrder = child['PageElement.children|order']
 
         if (typeof childOrder !== 'number') {
-          childOrder = 0 //this shouldn't be happening, we always assign order, but just in case
+          childOrder = 0 // this shouldn't be happening, we alaways assign order, but just in case
         }
 
         const atom = this.createAtomFromQueryResult(child)

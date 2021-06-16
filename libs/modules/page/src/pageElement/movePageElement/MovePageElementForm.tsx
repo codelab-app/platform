@@ -29,7 +29,7 @@ export const MovePageElementForm = ({
   ...props
 }: MovePageElementFormProps) => {
   const { cytoscapeRoot, pageId, page } = useContext(PageContext)
-  //Cache it only once, don't pass it with every change to the form, because that will cause lag when autosaving
+  // Cache it only once, don't pass it with every change to the form, because that will cause lag when autosaving
   const { current: pageElement } = useRef(initialPageElement)
   const { data: atoms } = useGetAtomsQuery()
 
@@ -92,8 +92,8 @@ export const MovePageElementForm = ({
         <SelectField
           name="parentElementId"
           label="Parent element"
-          //eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          //@ts-ignore https://github.com/vazco/uniforms/issues/951
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore https://github.com/vazco/uniforms/issues/951
           showSearch={true}
           optionFilterProp="label"
           options={pageElementOptions}

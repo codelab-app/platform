@@ -9,7 +9,7 @@ export class UpdatePageElementData {
   declare atomId?: string
 }
 
-//Note that movePageElement is there for updating order and parent
+// Note that movePageElement is there for updating order and parent
 @InputType()
 export class UpdatePageElementInput {
   @Field(() => UpdatePageElementData)

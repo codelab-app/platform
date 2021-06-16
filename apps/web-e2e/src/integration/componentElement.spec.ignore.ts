@@ -14,12 +14,12 @@ const getAndExpandElementInTree = (label: string) => {
   getComponentElementInTree(label)
     .first()
     .closest('div')
-    .findByLabelText('caret-down') //Click on the caret next to the element in the tree to expand it
+    .findByLabelText('caret-down') // Click on the caret next to the element in the tree to expand it
     .click()
 
   cy.findByTestId('pane-main')
     .find('.ant-tree-list .ant-tree-treenode-motion')
-    .should('not.exist') //Wait for the expanding animation to finish
+    .should('not.exist') // Wait for the expanding animation to finish
 }
 
 describe('Component element', () => {
@@ -80,32 +80,32 @@ describe('Component element', () => {
   }
 
   it('creates root component elements', () => {
-    //Setup
+    // Setup
     const label = 'Best element ever'
 
     openComponentsTab()
 
-    //Create the component element
-    cy.findMainPanelHeaderPlusButton().click() //Click the plus button in the tab header
+    // Create the component element
+    cy.findMainPanelHeaderPlusButton().click() // Click the plus button in the tab header
 
     cy.getOpenedModal().findByLabelText('Label').type(label)
     cy.getOpenedModal().findByLabelText('Atom').click()
     cy.getSelectOptionItemByValue(atom.type.label).first().click()
     cy.getOpenedModal()
       .findByRole('button', { name: 'Create component element' })
-      .click() //Click the submit button
+      .click() // Click the submit button
 
-    cy.wait('@graphql') //Wait for the request to finish
+    cy.wait('@graphql') // Wait for the request to finish
 
-    //Validate component element is created
-    cy.getOpenedModal().should('not.exist') //modal should close
+    // Validate component element is created
+    cy.getOpenedModal().should('not.exist') // modal should close
 
     getAndExpandElementInTree(`${component.label} Root`)
-    getComponentElementInTree(label) //We should have the new item in the tree
+    getComponentElementInTree(label) // We should have the new item in the tree
   })
 
   it('creates nested component elements', () => {
-    //Setup
+    // Setup
     const parentLabel = 'Best element ever'
     const childLabel = "Best element's child"
 
@@ -121,24 +121,24 @@ describe('Component element', () => {
         .findByRole('button', { name: 'Insert child element' })
         .click()
 
-      //Create the component element
+      // Create the component element
       cy.getOpenedModal().findByLabelText('Label').type(childLabel)
       cy.getOpenedModal().openSelectByLabel('Atom')
       cy.getSelectOptionItemByValue(atom.type.label).first().click()
-      cy.getOpenedModal().findByRole('button', { name: 'Create' }).click() //Click the submit button
+      cy.getOpenedModal().findByRole('button', { name: 'Create' }).click() // Click the submit button
 
-      cy.wait('@graphql') //Wait for the request to finish
+      cy.wait('@graphql') // Wait for the request to finish
 
-      //Validate component element is created
-      cy.getOpenedModal().should('not.exist') //modal should close
+      // Validate component element is created
+      cy.getOpenedModal().should('not.exist') // modal should close
 
       getAndExpandElementInTree(parentLabel)
-      getComponentElementInTree(childLabel) //We should have the new item in the tree
+      getComponentElementInTree(childLabel) // We should have the new item in the tree
     })
   })
 
   it('updates component elements', () => {
-    //Setup
+    // Setup
     const label = 'Good element'
     const newLabel = 'BEST element'
 
@@ -150,8 +150,8 @@ describe('Component element', () => {
       //   .first()
       //   .click() //Focus the element
 
-      //Update the component element
-      cy.getByTestId('pane-config') //We should get the form in the right pane
+      // Update the component element
+      cy.getByTestId('pane-config') // We should get the form in the right pane
         .findByLabelText('Label')
         .clear()
         .type(newLabel)
@@ -162,16 +162,16 @@ describe('Component element', () => {
         .first()
         .click({ force: true })
 
-      cy.wait('@graphql') //it should auto save, wait for the request to finish
+      cy.wait('@graphql') // it should auto save, wait for the request to finish
 
-      //Validate component element is updated in  the tree
+      // Validate component element is updated in  the tree
       getComponentElementInTree(label).should('not.exist')
-      getComponentElementInTree(newLabel) //We should have the new item in the tree
+      getComponentElementInTree(newLabel) // We should have the new item in the tree
     })
   })
 
   it('deletes component elements', () => {
-    //Setup
+    // Setup
     const label = 'bye bye element'
 
     createComponentElement(label).then((element) => {
@@ -182,17 +182,17 @@ describe('Component element', () => {
       //   .first()
       //   .click() //Focus the element
 
-      //Delete the component element
-      cy.getByTestId('pane-config') //We should get the form in the right pane
+      // Delete the component element
+      cy.getByTestId('pane-config') // We should get the form in the right pane
         .find('button [data-icon=delete]')
         .click()
 
-      cy.getOpenedModal().findByRole('button', { name: 'Delete' }).click() //Click the submit button
+      cy.getOpenedModal().findByRole('button', { name: 'Delete' }).click() // Click the submit button
 
-      cy.wait('@graphql') //wait for the request to finish
+      cy.wait('@graphql') // wait for the request to finish
 
-      //Validate component element is not in the tree
-      cy.getOpenedModal().should('not.exist') //modal should close
+      // Validate component element is not in the tree
+      cy.getOpenedModal().should('not.exist') // modal should close
       getComponentElementInTree(label).should('not.exist')
     })
   })

@@ -11,7 +11,7 @@ export class ApolloClientModule {
     return {
       imports: [ConfigModule.forFeature(config)],
       module: ApolloClientModule,
-      providers: [apolloClientProvider],
+      providers: [apolloClientProvider(config)],
       exports: [ApolloClientTokens.ApolloClientProvider],
     }
   }

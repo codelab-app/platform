@@ -46,6 +46,7 @@ export class AwsLambdaService extends LambdaClient {
       return data
     } catch (err) {
       // console.log('Error', err)
+      return
     }
   }
 
@@ -61,6 +62,8 @@ export class AwsLambdaService extends LambdaClient {
       // console.log('Success', data)
     } catch (err) {
       console.log('Error', err)
+
+      return
     }
   }
 
@@ -76,6 +79,8 @@ export class AwsLambdaService extends LambdaClient {
       // console.log('Success', data)
     } catch (err) {
       console.log('Error', err)
+
+      return
     }
   }
 
@@ -93,6 +98,8 @@ export class AwsLambdaService extends LambdaClient {
       console.log('Success', data)
     } catch (err) {
       console.log('Error', err)
+
+      return
     }
   }
 

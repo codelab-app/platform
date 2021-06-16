@@ -5,8 +5,11 @@ import {
   Type,
 } from '@nestjs/common'
 import { Test } from '@nestjs/testing'
-import { TestInfrastructureModule } from '../framework'
-import { DgraphProvider, DgraphTokens } from '../infrastructure'
+import {
+  DgraphProvider,
+  DgraphTokens,
+  InfrastructureModule,
+} from '../infrastructure'
 
 type NestModule =
   | Type<any>
@@ -19,7 +22,7 @@ export const setupTestModule = async (
   ...nestModules: Array<NestModule>
 ): Promise<INestApplication> => {
   const testModule = await Test.createTestingModule({
-    imports: [TestInfrastructureModule, ...nestModules],
+    imports: [InfrastructureModule, ...nestModules],
   }).compile()
 
   app = testModule.createNestApplication()
