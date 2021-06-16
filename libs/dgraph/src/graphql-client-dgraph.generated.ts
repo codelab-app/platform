@@ -3027,6 +3027,14 @@ export type WithinFilter = {
   polygon: PolygonRef
 }
 
+export type DeleteUserAppsMutationVariables = Exact<{
+  userId: Scalars['String']
+}>
+
+export type DeleteUserAppsMutation = {
+  deleteApp?: Maybe<Pick<DeleteAppPayload, 'numUids'>>
+}
+
 export type Dgraph__AppFragment = Pick<App, 'id' | 'name' | 'ownerId'>
 
 export type CreateAppMutationVariables = Exact<{
@@ -3652,6 +3660,56 @@ export const Dgraph__ValueTypeFragmentDoc = gql`
     label
   }
 `
+export const DeleteUserAppsGql = gql`
+  mutation DeleteUserApps($userId: String!) {
+    deleteApp(filter: { ownerId: { eq: $userId } }) {
+      numUids
+    }
+  }
+`
+export type DeleteUserAppsMutationFn = Apollo.MutationFunction<
+  DeleteUserAppsMutation,
+  DeleteUserAppsMutationVariables
+>
+
+/**
+ * __useDeleteUserAppsMutation__
+ *
+ * To run a mutation, you first call `useDeleteUserAppsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteUserAppsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteUserAppsMutation, { data, loading, error }] = useDeleteUserAppsMutation({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useDeleteUserAppsMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeleteUserAppsMutation,
+    DeleteUserAppsMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    DeleteUserAppsMutation,
+    DeleteUserAppsMutationVariables
+  >(DeleteUserAppsGql, options)
+}
+export type DeleteUserAppsMutationHookResult = ReturnType<
+  typeof useDeleteUserAppsMutation
+>
+export type DeleteUserAppsMutationResult =
+  Apollo.MutationResult<DeleteUserAppsMutation>
+export type DeleteUserAppsMutationOptions = Apollo.BaseMutationOptions<
+  DeleteUserAppsMutation,
+  DeleteUserAppsMutationVariables
+>
 export const CreateAppGql = gql`
   mutation CreateApp($input: [AddAppInput!]!) {
     addApp(input: $input) {
@@ -5911,6 +5969,13 @@ export const Dgraph__ValueType = gql`
     id
     type
     label
+  }
+`
+export const DeleteUserApps = gql`
+  mutation DeleteUserApps($userId: String!) {
+    deleteApp(filter: { ownerId: { eq: $userId } }) {
+      numUids
+    }
   }
 `
 export const CreateApp = gql`

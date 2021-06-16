@@ -9,7 +9,7 @@ describe('Pages', () => {
   before(() => {
     cy.clearCookies()
     cy.login().then(() => {
-      cy.createApp().then((app) => {
+      cy.createApp().then((app: any) => {
         appId = app.id
         pageId = app.pages[0].id
       })

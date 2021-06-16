@@ -64,6 +64,7 @@ export class GraphqlCodegenService {
     const documents = [
       `libs/modules/**/*.${extension}.graphql`,
       `apps/web/**/*.${extension}.graphql`,
+      `apps/web-e2e/**/*.${extension}.graphql`,
     ]
 
     return {

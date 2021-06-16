@@ -5,6 +5,7 @@ import { ServerTokens } from './server.tokens'
 
 export interface ServerConfig {
   endpoint: string
+  webEndpoint: string
 }
 
 export const serverConfig = registerAs<() => ServerConfig>(
@@ -12,6 +13,7 @@ export const serverConfig = registerAs<() => ServerConfig>(
   () => {
     return {
       endpoint: get('CODELAB_API_ENDPOINT').required().asUrlString(),
+      webEndpoint: get('NEXT_PUBLIC_API_ORIGIN').required().asUrlString(),
     }
   },
 )

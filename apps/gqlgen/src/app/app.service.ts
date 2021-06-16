@@ -15,8 +15,8 @@ import fs from 'fs'
 import { ConsoleService } from 'nestjs-console'
 import shell from 'shelljs'
 import waitOn from 'wait-on'
-import { ApiServerService } from '../api-server/api-server.service'
 import { GraphqlCodegenService } from '../graphql-codegen/graphql-codegen.service'
+import { ServerService } from '../server/server.service'
 
 export interface Options {
   watch?: boolean
@@ -27,7 +27,7 @@ export interface Options {
 export class AppService {
   constructor(
     private readonly consoleService: ConsoleService,
-    private readonly apiServerService: ApiServerService,
+    private readonly serverService: ServerService,
     private readonly graphqlSchemaService: GraphqlSchemaService,
     @Inject(DgraphTokens.DgraphProvider)
     private readonly dgraphProvider: DgraphProvider,
@@ -65,15 +65,48 @@ export class AppService {
       this.codegen.bind(this),
       cli,
     )
+
+    this.consoleService.createCommand(
+      {
+        command: 'e2e',
+        // options: [
+        //   {
+        //     flags: '-e, --e2e',
+        //     required: false,
+        //     defaultValue: false,
+        //   },
+        //   {
+        //     flags: '-w, --watch',
+        //     required: false,
+        //     defaultValue: false,
+        //   },
+        // ],
+        description: 'Run Cypress e2e tests',
+      },
+      this.e2e.bind(this),
+      cli,
+    )
+  }
+
+  public async e2e() {
+    await this.serverService.maybeStartWebServer()
+    await this.serverService.maybeStartApiServer()
+
+    await waitOn({
+      resources: [this.serverConfig.endpoint, this.serverConfig.webEndpoint],
+      timeout: 20000,
+    })
+
+    shell.exec('nx e2e', {
+      cwd: process.cwd(),
+    })
   }
 
   public async codegen({ watch }: Options) {
-    console.log(this.dgraphConfig)
-
     /**
      * (1) Start GraphQL server
      */
-    await this.apiServerService.maybeStartApiServer()
+    await this.serverService.maybeStartApiServer()
 
     try {
       /**

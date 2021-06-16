@@ -214,7 +214,7 @@
     "@nrwl/nest": "12.3.6",
     "@nrwl/next": "12.3.6",
     "@nrwl/node": "12.3.6",
-    "@nrwl/nx-cloud": "12.1.10",
+    "@nrwl/nx-cloud": "12.2.2",
     "@nrwl/nx-plugin": "12.3.6",
     "@nrwl/react": "12.3.6",
     "@nrwl/storybook": "12.3.6",
@@ -349,6 +349,7 @@
     "url-loader": "3.0.0",
     "utility-types": "3.10.0",
     "wait-on": "5.3.0",
+    "webpack": "4.44.2",
     "xwind": "0.8.0",
     "yargs": "17.0.1"
   }

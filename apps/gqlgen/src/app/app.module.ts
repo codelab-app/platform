@@ -13,14 +13,14 @@ import {
 } from '@codelab/backend'
 import { Module } from '@nestjs/common'
 import { ConsoleModule } from 'nestjs-console'
-import { ApiServerModule } from '../api-server/api-server.module'
 import { GraphqlCodegenModule } from '../graphql-codegen/graphql-codegen.module'
+import { ServerModule } from '../server/server.module'
 import { AppService } from './app.service'
 
 @Module({
   imports: [
     ConsoleModule,
-    ApiServerModule.register(graphqlServerConfig),
+    ServerModule.register(graphqlServerConfig),
     GraphqlServerModule.register(graphqlServerConfig),
     GraphqlCodegenModule,
     DgraphModule.register(dgraphConfig),

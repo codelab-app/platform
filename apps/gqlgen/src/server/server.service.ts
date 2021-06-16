@@ -6,17 +6,20 @@ import {
 } from '@codelab/backend'
 import { Inject, Injectable, Logger } from '@nestjs/common'
 import { ConfigType } from '@nestjs/config'
+import { get } from 'env-var'
 import portfinder from 'portfinder'
 import shell from 'shelljs'
 
 @Injectable()
-export class ApiServerService {
+export class ServerService {
   constructor(
     @Inject(GraphqlServerTokens.GraphqlServerConfig)
     private readonly graphqlServerConfig: ConfigType<() => GraphqlServerConfig>,
   ) {}
 
-  private START_SERVER_COMMAND = 'node dist/apps/api/main.js'
+  private START_API_SERVER_COMMAND = 'node dist/apps/api/main.js'
+
+  private START_WEB_SERVER_COMMAND = 'nx serve web'
 
   async isPortOpen(port: number | undefined) {
     const nextAvailablePort = await portfinder.getPortPromise({ port })
@@ -42,8 +45,33 @@ export class ApiServerService {
     return
   }
 
+  public async maybeStartWebServer() {
+    const webServerPort = parseInt(
+      new URL(get('NEXT_PUBLIC_API_ORIGIN').required().asUrlString()).port,
+    )
+
+    const isApiPortOpen = await this.isPortOpen(webServerPort)
+
+    if (isApiPortOpen) {
+      Logger.log(`${webServerPort} is open, starting server...`)
+
+      return await this.startWebServer()
+    } else {
+      Logger.log(`${webServerPort} is closed, skipping start server.`)
+    }
+
+    return
+  }
+
   private async startApiServer() {
-    return shell.exec(this.START_SERVER_COMMAND, {
+    return shell.exec(this.START_API_SERVER_COMMAND, {
+      async: true,
+      cwd: process.cwd(),
+    })
+  }
+
+  private async startWebServer() {
+    return shell.exec(this.START_WEB_SERVER_COMMAND, {
       async: true,
       cwd: process.cwd(),
     })
