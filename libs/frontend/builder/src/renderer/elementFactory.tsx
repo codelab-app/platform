@@ -1,12 +1,12 @@
 import { CytoscapeNode, NodeBase, notify } from '@codelab/frontend/shared'
-import { Atom, AtomType } from '@codelab/graphql'
+import { __AtomFragment, AtomType } from '@codelab/graphql'
 import React from 'react'
 import ReactTestUtils from 'react-dom/test-utils'
 import { elementTypeMap } from './elementTypeMap'
 import { ComponentHandlers } from './useComponentHandlers'
 
 interface ElementParameterFactoryInput<TNode extends NodeBase = CytoscapeNode> {
-  atom: Atom
+  atom: __AtomFragment
   node: TNode
   // Function hooks injected to pass to handlers
   handlers: ComponentHandlers
