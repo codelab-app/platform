@@ -1,12 +1,17 @@
 import {
   dgraphConfig,
-  DGraphModule,
+  DgraphModule,
+  DgraphTokens,
+  graphqlSchemaConfig,
+  GraphqlSchemaModule,
+  GraphqlSchemaTokens,
   graphqlServerConfig,
   GraphqlServerModule,
+  GraphqlServerTokens,
   serverConfig,
+  ServerTokens,
 } from '@codelab/backend'
 import { Module } from '@nestjs/common'
-import { ConfigModule } from '@nestjs/config'
 import { ConsoleModule } from 'nestjs-console'
 import { ApiServerModule } from '../api-server/api-server.module'
 import { GraphqlCodegenModule } from '../graphql-codegen/graphql-codegen.module'
@@ -18,11 +23,27 @@ import { AppService } from './app.service'
     ApiServerModule.register(graphqlServerConfig),
     GraphqlServerModule.register(graphqlServerConfig),
     GraphqlCodegenModule,
-    ConfigModule,
-    // ConfigModule.forFeature(graphqlConfig),
-    ConfigModule.forFeature(serverConfig),
-    ConfigModule.forFeature(dgraphConfig),
+    DgraphModule.register(dgraphConfig),
+    GraphqlSchemaModule.register(dgraphConfig, graphqlSchemaConfig),
   ],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: ServerTokens.ServerConfig,
+      useValue: serverConfig(),
+    },
+    {
+      provide: GraphqlSchemaTokens.GraphqlSchemaConfig,
+      useValue: graphqlSchemaConfig(),
+    },
+    {
+      provide: GraphqlServerTokens.GraphqlServerConfig,
+      useValue: graphqlServerConfig(),
+    },
+    {
+      provide: DgraphTokens.DgraphConfig,
+      useValue: dgraphConfig(),
+    },
+  ],
 })
 export class AppModule {}

@@ -5,13 +5,11 @@ import {
   GraphqlSchemaConfig,
   GraphqlSchemaService,
   GraphqlSchemaTokens,
-  GraphqlServerConfig,
-  GraphqlServerTokens,
   ServerConfig,
   ServerTokens,
 } from '@codelab/backend'
-import { Inject, Injectable, Logger } from '@nestjs/common'
-import { ConfigService, ConfigType } from '@nestjs/config'
+import { Inject, Injectable } from '@nestjs/common'
+import { ConfigType } from '@nestjs/config'
 import chokidar from 'chokidar'
 import fs from 'fs'
 import { ConsoleService } from 'nestjs-console'
@@ -29,7 +27,6 @@ export interface Options {
 export class AppService {
   constructor(
     private readonly consoleService: ConsoleService,
-    private readonly configService: ConfigService,
     private readonly apiServerService: ApiServerService,
     private readonly graphqlSchemaService: GraphqlSchemaService,
     @Inject(DgraphTokens.DgraphProvider)

@@ -1,16 +1,26 @@
 import { DynamicModule, Module } from '@nestjs/common'
-import { ConfigFactory, ConfigModule } from '@nestjs/config'
-import { DgraphConfig } from '../dgraph'
-import { GraphqlServerConfig } from '../graphql-server'
+import { ConfigFactory } from '@nestjs/config'
+import { DgraphConfig, DgraphTokens } from '../dgraph'
+import { GraphqlSchemaConfig } from './config/graphql-schema.config'
+import { GraphqlSchemaTokens } from './config/graphql-schema.tokens'
 import { GraphqlSchemaService } from './graphql-schema.service'
 
 @Module({})
 export class GraphqlSchemaModule {
-  static register(dgraphConfig: ConfigFactory<DgraphConfig>): DynamicModule {
+  static register(
+    dgraphConfig: ConfigFactory<DgraphConfig>,
+    graphqlSchemaConfig: ConfigFactory<GraphqlSchemaConfig>,
+  ): DynamicModule {
     return {
-      providers: [GraphqlSchemaService],
+      providers: [
+        { provide: DgraphTokens.DgraphConfig, useValue: dgraphConfig() },
+        {
+          provide: GraphqlSchemaTokens.GraphqlSchemaConfig,
+          useValue: graphqlSchemaConfig(),
+        },
+        GraphqlSchemaService,
+      ],
       exports: [GraphqlSchemaService],
-      imports: [ConfigModule.forFeature(dgraphConfig)],
       module: GraphqlSchemaModule,
     }
   }

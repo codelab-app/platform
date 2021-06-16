@@ -1,29 +1,22 @@
 import { authConfig, AuthModule } from '@codelab/modules/auth-api'
 import { Module } from '@nestjs/common'
+import { apolloClientConfig, ApolloClientModule } from './apollo-client'
 import { CacheModule } from './cache'
-import { dgraphConfig } from './dgraph'
-import {
-  apolloClientConfig,
-  ApolloClientModule,
-  AwsModule,
-  DGraphModule,
-  GraphqlSchemaModule,
-  graphqlServerConfig,
-  GraphqlServerModule,
-  LoggerModule,
-} from './index'
+import { dgraphConfig, DgraphModule } from './dgraph'
+import { graphqlSchemaConfig, GraphqlSchemaModule } from './graphql-schema'
+import { graphqlServerConfig, GraphqlServerModule } from './graphql-server'
+import { AwsModule } from './persistence/aws'
 
 @Module({
   imports: [
-    // LoggerModule.forRoot(),
-    GraphqlSchemaModule.register(dgraphConfig),
+    AwsModule,
+    ApolloClientModule.register(apolloClientConfig),
+    GraphqlSchemaModule.register(dgraphConfig, graphqlSchemaConfig),
     GraphqlServerModule.register(graphqlServerConfig),
     CacheModule.register(),
     AuthModule.register(authConfig),
-    DGraphModule.register(dgraphConfig),
-    ApolloClientModule.register(apolloClientConfig),
-    AwsModule,
+    DgraphModule.register(dgraphConfig),
   ],
-  exports: [DGraphModule],
+  exports: [],
 })
 export class InfrastructureModule {}
