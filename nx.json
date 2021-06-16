@@ -151,9 +151,6 @@
     "modules-type": {
       "tags": []
     },
-    "codegen": {
-      "tags": []
-    },
     "gqlgen": {
       "tags": []
     }

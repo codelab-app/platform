@@ -975,56 +975,6 @@
         }
       }
     },
-    "codegen": {
-      "root": "apps/codegen",
-      "sourceRoot": "apps/codegen/src",
-      "projectType": "application",
-      "architect": {
-        "build": {
-          "builder": "@nrwl/node:build",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/apps/codegen",
-            "main": "apps/codegen/src/main.ts",
-            "tsConfig": "apps/codegen/tsconfig.app.json",
-            "assets": ["apps/codegen/src/assets"]
-          },
-          "configurations": {
-            "production": {
-              "optimization": true,
-              "extractLicenses": true,
-              "inspect": false,
-              "fileReplacements": [
-                {
-                  "replace": "apps/codegen/src/environments/environment.ts",
-                  "with": "apps/codegen/src/environments/environment.prod.ts"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "builder": "@nrwl/node:execute",
-          "options": {
-            "buildTarget": "codegen:build"
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["apps/codegen/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/codegen"],
-          "options": {
-            "jestConfig": "apps/codegen/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
     "gqlgen": {
       "root": "apps/gqlgen",
       "sourceRoot": "apps/gqlgen/src",
