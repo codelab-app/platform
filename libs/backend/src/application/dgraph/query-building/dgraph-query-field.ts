@@ -88,5 +88,7 @@ export class DgraphQueryField implements IBuildable {
 
     this._compiledField = `${this._fieldName} ${filtersString} ${facetsString} ${innerFieldsString}`
     this._isDirty = false
+
+    return
   }
 }
