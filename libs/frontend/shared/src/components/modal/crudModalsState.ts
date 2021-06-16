@@ -31,6 +31,7 @@ export enum EntityType {
   PropTypeC = 'PropTypeC',
   Prop = 'Prop',
   Interface = 'Interface',
+  Field = 'Field',
 }
 
 interface CRUDModalState {

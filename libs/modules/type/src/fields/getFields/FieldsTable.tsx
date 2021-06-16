@@ -1,18 +1,18 @@
-import { DeleteFilled } from '@ant-design/icons'
-import { useGetInterfacesQuery } from '@codelab/codegen/graphql'
-import {
-  EntityType,
-  PageType,
-  useCRUDModalForm,
-} from '@codelab/frontend/shared'
-import { Button, Space, Spin, Table, TableColumnProps } from 'antd'
-import Link from 'next/link'
+import { DeleteFilled, EditFilled } from '@ant-design/icons'
+import { EntityType, useCRUDModalForm } from '@codelab/frontend/shared'
+import { __FieldCollectionFragment } from '@codelab/graphql'
+import { Button, Space, Table, TableColumnProps } from 'antd'
 import React from 'react'
 import tw from 'twin.macro'
 
-export const GetInterfacesTable = () => {
-  const { openDeleteModal } = useCRUDModalForm(EntityType.Interface)
-  const { data, loading } = useGetInterfacesQuery()
+export interface FieldsTableProps {
+  fields: __FieldCollectionFragment
+}
+
+export const FieldsTable = ({ fields }: FieldsTableProps) => {
+  const { openDeleteModal, openUpdateModal } = useCRUDModalForm(
+    EntityType.Field,
+  )
 
   const headerCellProps = () => ({
     style: tw`font-semibold text-gray-900`,
@@ -20,17 +20,10 @@ export const GetInterfacesTable = () => {
 
   const columns: Array<TableColumnProps<any>> = [
     {
-      title: 'Name',
+      title: 'Field',
       dataIndex: 'name',
       key: 'name',
       onHeaderCell: headerCellProps,
-      render: (text, record) => (
-        <Link
-          href={PageType.InterfaceDetail.replace('[interfaceId]', record.id)}
-        >
-          {text}
-        </Link>
-      ),
     },
     {
       title: 'Action',
@@ -47,21 +40,23 @@ export const GetInterfacesTable = () => {
             icon={<DeleteFilled />}
             onClick={() => openDeleteModal([record.id], record)}
           />
+          <Button
+            size="small"
+            type="primary"
+            danger
+            tw="flex justify-center items-center"
+            icon={<EditFilled />}
+            onClick={() => openUpdateModal(record.id, record)}
+          />
         </Space>
       ),
     },
   ]
 
-  if (loading) {
-    return <Spin />
-  }
-
-  const Interfaces = data?.getInterfaces ?? []
-
   return (
     <Table
       pagination={{ position: ['bottomCenter'] }}
-      dataSource={Interfaces}
+      dataSource={fields.fields}
       columns={columns}
       rowKey={(atom) => atom.id}
     />
