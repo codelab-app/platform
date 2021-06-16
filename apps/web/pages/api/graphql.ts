@@ -10,7 +10,7 @@ import { createProxyMiddleware } from 'http-proxy-middleware'
 const app = express()
 
 app.use('*', async (baseReq, baseRes, next) => {
-  const session = await getSession(baseReq, baseRes)
+  const session = await getSession(baseReq, baseRes as any)
 
   // Need to use 127.0.0.1
   // https://github.com/chimurai/http-proxy-middleware/issues/171
