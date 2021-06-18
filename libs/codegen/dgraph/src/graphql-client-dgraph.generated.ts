@@ -3103,7 +3103,7 @@ export type DeleteAtomAndInterfaceMutationVariables = Exact<{
 }>
 
 export type DeleteAtomAndInterfaceMutation = {
-  deleteAtom?: Maybe<{ atom?: Maybe<Array<Maybe<DGraph__AtomFragment>>> }>
+  deleteAtom?: Maybe<Pick<DeleteAtomPayload, 'numUids'>>
   deleteInterface?: Maybe<Pick<DeleteInterfacePayload, 'numUids'>>
 }
 
@@ -4074,15 +4074,12 @@ export const DeleteAtomAndInterfaceGql = gql`
     $interfaceFilter: InterfaceFilter!
   ) {
     deleteAtom(filter: $filter) {
-      atom {
-        ...DGraph__Atom
-      }
+      numUids
     }
     deleteInterface(filter: $interfaceFilter) {
       numUids
     }
   }
-  ${DGraph__AtomFragmentDoc}
 `
 export type DeleteAtomAndInterfaceMutationFn = Apollo.MutationFunction<
   DeleteAtomAndInterfaceMutation,
@@ -6165,15 +6162,12 @@ export const DeleteAtomAndInterface = gql`
     $interfaceFilter: InterfaceFilter!
   ) {
     deleteAtom(filter: $filter) {
-      atom {
-        ...DGraph__Atom
-      }
+      numUids
     }
     deleteInterface(filter: $interfaceFilter) {
       numUids
     }
   }
-  ${DGraph__Atom}
 `
 export const GetAtom = gql`
   query GetAtom($id: ID!) {

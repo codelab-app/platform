@@ -62,7 +62,7 @@ describe('Delete Atom', () => {
       .expect(200)
       .expect((res: ApiResponse<DeleteAtomMutationResult>) => {
         expect(res.body.data?.deleteAtom).toMatchObject({
-          id: atom.id,
+          affected: 2,
         })
       })
   })

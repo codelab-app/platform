@@ -25,7 +25,7 @@ export const UpdateAtomForm = (props: UniFormUseCaseProps<UpdateAtomInput>) => {
 
   useEffect(() => {
     setLoading(updating)
-  }, [updating])
+  }, [updating, setLoading])
 
   const { data: getAtomData, loading: getAtomLoading } = useGetAtomQuery({
     variables: {

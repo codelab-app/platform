@@ -7,22 +7,28 @@ import {
   useMutationCrudForm,
 } from '@codelab/frontend/shared'
 import {
+  CreateFieldMutation,
+  CreateFieldMutationVariables,
   refetchGetInterfaceQuery,
-  Unit,
+  Unit as UnitEnum,
   useCreateFieldMutation,
   useGetInterfacesQuery,
 } from '@codelab/graphql'
 import React, { useContext } from 'react'
-import { AutoField, AutoFields, ListField, SelectField } from 'uniforms-antd'
+import { AutoFields } from 'uniforms-antd'
 import { InterfaceContext } from '../../interfaces'
 import {
   createFieldSchema,
-  CreateFieldSchemaType,
+  CreateFieldSchemaObject,
   TypeVariant,
 } from './createFieldSchema'
+import { mapFormDataToInput } from './mapFormDataToInput'
+import { TypeFields } from './TypeFIelds'
+
+const defaultUnitOptions = Object.values(UnitEnum)
 
 export const CreateFieldForm = (
-  props: UniFormUseCaseProps<CreateFieldSchemaType>,
+  props: UniFormUseCaseProps<CreateFieldSchemaObject>,
 ) => {
   const {
     interface: { id: interfaceId },
@@ -33,13 +39,17 @@ export const CreateFieldForm = (
   const {
     handleSubmit,
     crudModal: { reset },
-  } = useMutationCrudForm({
+  } = useMutationCrudForm<
+    CreateFieldSchemaObject,
+    CreateFieldMutation,
+    CreateFieldMutationVariables
+  >({
     mutationOptions: {
       refetchQueries: [refetchGetInterfaceQuery({ input: { interfaceId } })],
     },
     useMutationFunction: useCreateFieldMutation,
-    mapVariables: (submitData: CreateFieldSchemaType) => ({
-      input: { ...submitData },
+    mapVariables: (formData) => ({
+      input: mapFormDataToInput(formData, interfaceId),
     }),
     entityType: EntityType.Field,
   })
@@ -51,35 +61,38 @@ export const CreateFieldForm = (
     })) || []
 
   return (
-    <FormUniforms<CreateFieldSchemaType>
+    <FormUniforms<CreateFieldSchemaObject>
       onSubmit={handleSubmit}
       schema={createFieldSchema as any}
       onSubmitError={createNotificationHandler({
         title: 'Error while creating fields',
       })}
+      model={{
+        //Default to all units
+        allowedUnits: defaultUnitOptions,
+        arrayType: {
+          allowedUnits: defaultUnitOptions,
+        },
+      }}
       onSubmitSuccess={() => reset()}
       {...props}
     >
-      <AutoFields
-        omitFields={['allowedValues', 'interfaceId', 'allowedUnits']}
+      <AutoFields fields={['key', 'name', 'description']} />
+      {/* AutoFields doesn't work well here for some reason, it always displays the nested arrayType.* fields, even if omitted */}
+      <TypeFields
+        interfacesOptions={interfacesOptions}
+        extractTypeFromContext={(c) => c.model.type as any}
       />
 
-      <DisplayIfField<CreateFieldSchemaType>
-        condition={(context) => context.model.type === TypeVariant.Enum}
+      <DisplayIfField
+        condition={(c) => (c.model as any).type === TypeVariant.Array}
       >
-        <ListField name="allowedValues" />
-      </DisplayIfField>
-
-      <DisplayIfField<CreateFieldSchemaType>
-        condition={(context) => context.model.type === TypeVariant.Interface}
-      >
-        <SelectField name="interfaceId" options={interfacesOptions} />
-      </DisplayIfField>
-
-      <DisplayIfField<CreateFieldSchemaType>
-        condition={(context) => context.model.type === TypeVariant.Unit}
-      >
-        <SelectField name="allowedUnits" />
+        <TypeFields
+          typeFieldProps={{ label: 'Array item type' }}
+          interfacesOptions={interfacesOptions}
+          namePrefix="arrayType."
+          extractTypeFromContext={(c) => c.model.arrayType?.type as any}
+        />
       </DisplayIfField>
     </FormUniforms>
   )

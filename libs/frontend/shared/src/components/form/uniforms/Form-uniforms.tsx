@@ -5,7 +5,7 @@ import { callbackWithParams } from '../../../utils'
 import { FormUniformsProps } from './Form-uniforms--types'
 import { connectUniformSubmitRef, createBridge } from './uniformUtils'
 
-export const FormUniforms = <TData extends Record<string, unknown>>({
+export const FormUniforms = <TData extends any>({
   submitRef,
   onSubmitSuccess,
   onSubmitError,

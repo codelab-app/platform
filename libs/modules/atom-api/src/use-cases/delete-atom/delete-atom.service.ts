@@ -3,14 +3,18 @@ import {
   FetchResult,
   NormalizedCacheObject,
 } from '@apollo/client'
-import { ApolloClientTokens, MutationUseCase } from '@codelab/backend'
+import {
+  ApolloClientTokens,
+  DeleteResponse,
+  MutationUseCase,
+} from '@codelab/backend'
 import {
   DeleteAtomAndInterfaceGql,
   DeleteAtomAndInterfaceMutation,
   DeleteAtomAndInterfaceMutationVariables,
 } from '@codelab/codegen/dgraph'
 import { Inject, Injectable } from '@nestjs/common'
-import { Atom, atomsSchema } from '../../atom.model'
+import { Atom } from '../../atom.model'
 import { GetAtomService } from '../get-atom'
 import { DeleteAtomInput } from './delete-atom.input'
 
@@ -21,7 +25,7 @@ interface ValidationContext {
 @Injectable()
 export class DeleteAtomService extends MutationUseCase<
   DeleteAtomInput,
-  Atom,
+  DeleteResponse,
   DeleteAtomAndInterfaceMutation,
   DeleteAtomAndInterfaceMutationVariables,
   ValidationContext
@@ -41,9 +45,15 @@ export class DeleteAtomService extends MutationUseCase<
   protected extractDataFromResult(
     result: FetchResult<DeleteAtomAndInterfaceMutation>,
   ) {
-    const atoms = atomsSchema.parse(result?.data?.deleteAtom?.atom)
+    //returning the atom caused an error, because we delete the propTypes, so they are null
+    //removing it, since we never use the deleted atom
+    const affected =
+      (result?.data?.deleteAtom?.numUids || 0) +
+      (result?.data?.deleteInterface?.numUids || 0)
 
-    return atoms[0]
+    return {
+      affected,
+    }
   }
 
   protected mapVariables(

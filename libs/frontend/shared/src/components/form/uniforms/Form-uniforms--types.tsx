@@ -5,7 +5,7 @@ import { AutoFormProps, Bridge } from 'uniforms'
 import { CallbackOrArrayOfCallbacks } from '../../../utils'
 import { SubmitController } from './submitController'
 
-export type FormUniformsProps<TData extends Record<string, unknown>> = {
+export type FormUniformsProps<TData> = {
   /** Use this to be able to hide the submit button and get a controller, which can trigger form submit */
   submitRef?: React.MutableRefObject<SubmitController | undefined>
 
@@ -29,12 +29,11 @@ export type FormUniformsProps<TData extends Record<string, unknown>> = {
 /**
  * Read to use form, can be used with modal or standalone
  */
-export type UniFormUseCaseProps<TData extends Record<any, unknown>> =
-  React.PropsWithChildren<
-    Partial<
-      Pick<
-        FormUniformsProps<TData>,
-        'onSubmitError' | 'onSubmitSuccess' | 'submitRef' | 'autosave'
-      >
+export type UniFormUseCaseProps<TData> = React.PropsWithChildren<
+  Partial<
+    Pick<
+      FormUniformsProps<TData>,
+      'onSubmitError' | 'onSubmitSuccess' | 'submitRef' | 'autosave'
     >
   >
+>

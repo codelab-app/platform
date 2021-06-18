@@ -26,7 +26,7 @@ export const DeleteAtomsForm = (props: DeleteAtomFormProps) => {
 
   useEffect(() => {
     setLoading(deleting)
-  }, [deleting])
+  }, [deleting, setLoading])
 
   const onSubmit = () => {
     return mutate({

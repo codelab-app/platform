@@ -169,9 +169,9 @@ export interface UseMutationCrudFormFunctions<
 }
 
 export const useMutationCrudForm = <
+  TSubmitData,
   TMutation,
   TMutationVariables,
-  TSubmitData,
 >({
   entityType,
   useMutationFunction,
@@ -203,7 +203,7 @@ export const useMutationCrudForm = <
         variables: mapVariables(submitData, crudModal.state),
       })
     },
-    [mapVariables, mutate, mutationFunctionOptions],
+    [mapVariables, mutate, mutationFunctionOptions, crudModal.state],
   )
 
   return { crudModal, mutate, mutationData, handleSubmit }

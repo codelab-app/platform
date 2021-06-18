@@ -1,3 +1,4 @@
+import { DeleteResponse } from '@codelab/backend'
 import { GqlAuthGuard } from '@codelab/modules/auth-api'
 import { GetInterfaceService, Interface } from '@codelab/modules/type-api'
 import { Injectable, UseGuards } from '@nestjs/common'
@@ -40,7 +41,7 @@ export class AtomResolver {
     return this.createService.execute(input)
   }
 
-  @Mutation(() => Atom)
+  @Mutation(() => DeleteResponse)
   @UseGuards(GqlAuthGuard)
   deleteAtom(@Args('input') input: DeleteAtomInput) {
     return this.deleteAtomService.execute(input)

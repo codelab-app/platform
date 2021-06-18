@@ -376,7 +376,7 @@ type Mutation {
   """Deletes a page element and all the descending page elements"""
   deletePageElement(input: DeletePageElementInput!): DeleteResponse!
   createAtom(input: CreateAtomInput!): Atom!
-  deleteAtom(input: DeleteAtomInput!): Atom!
+  deleteAtom(input: DeleteAtomInput!): DeleteResponse!
   updateAtom(input: UpdateAtomInput!): Atom!
   createInterface(input: CreateInterfaceInput!): Interface!
   updateInterface(input: UpdateInterfaceInput!): Interface!
