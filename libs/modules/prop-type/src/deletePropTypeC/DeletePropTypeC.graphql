@@ -1,5 +1,0 @@
-mutation DeletePropTypeC($propTypeCId: uuid!) {
-  delete_prop_type_c_by_pk(id: $propTypeCId) {
-    ...PropTypeCollection
-  }
-}

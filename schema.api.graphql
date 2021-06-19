@@ -249,16 +249,9 @@ type Page {
   rootElement: PageElementRoot!
 }
 
-type ValueType {
-  id: ID!
-  label: String!
-  type: String!
-}
-
 type Prop {
   id: ID!
   key: String
-  type: ValueType!
   description: String
   props: [Prop!]
 }
@@ -304,7 +297,6 @@ type Query {
   getInterfaces: [Interface!]!
   getField(input: GetFieldInput!): Field
   getType(input: GetTypeInput!): Type
-  getValueTypes: [ValueType!]!
   getProps: [Prop!]!
 }
 

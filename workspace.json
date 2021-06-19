@@ -627,19 +627,6 @@
         }
       }
     },
-    "modules-prop-type": {
-      "root": "libs/modules/prop-type",
-      "sourceRoot": "libs/modules/prop-type/src",
-      "projectType": "library",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/modules/prop-type/**/*.{ts,tsx,js,jsx}"]
-          }
-        }
-      }
-    },
     "modules-style": {
       "root": "libs/modules/style",
       "sourceRoot": "libs/modules/style/src",
@@ -716,48 +703,6 @@
           "outputs": ["coverage/libs/modules/user-api"],
           "options": {
             "jestConfig": "libs/modules/user-api/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "modules-value-type": {
-      "root": "libs/modules/value-type",
-      "sourceRoot": "libs/modules/value-type/src",
-      "projectType": "library",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/modules/value-type/**/*.{ts,tsx,js,jsx}"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/modules/value-type"],
-          "options": {
-            "jestConfig": "libs/modules/value-type/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "modules-value-type-api": {
-      "root": "libs/modules/value-type-api",
-      "sourceRoot": "libs/modules/value-type-api/src",
-      "projectType": "library",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/modules/value-type-api/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/modules/value-type-api"],
-          "options": {
-            "jestConfig": "libs/modules/value-type-api/jest.config.js",
             "passWithNoTests": true
           }
         }

@@ -1,5 +1,0 @@
-fragment Dgraph__ValueType on ValueType {
-  id
-  type
-  label
-}

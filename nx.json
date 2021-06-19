@@ -89,6 +89,7 @@
     "modules-component-element": {
       "tags": []
     },
+    "frontend-dgraph": {
     "modules-lambda": {
       "tags": []
     },
@@ -113,9 +114,6 @@
     "modules-prop-api": {
       "tags": []
     },
-    "modules-prop-type": {
-      "tags": []
-    },
     "modules-style": {
       "tags": []
     },
@@ -129,12 +127,6 @@
       "tags": []
     },
     "modules-user-api": {
-      "tags": []
-    },
-    "modules-value-type": {
-      "tags": []
-    },
-    "modules-value-type-api": {
       "tags": []
     },
     "tools-plugins-codelab": {

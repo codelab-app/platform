@@ -52,16 +52,11 @@
       ],
       "@codelab/modules/prop": ["libs/modules/prop/src/index.ts"],
       "@codelab/modules/prop-api": ["libs/modules/prop-api/src/index.ts"],
-      "@codelab/modules/prop-type": ["libs/modules/prop-type/src/index.ts"],
       "@codelab/modules/style": ["libs/modules/style/src/index.ts"],
       "@codelab/modules/type": ["libs/modules/type/src/index.ts"],
       "@codelab/modules/type-api": ["libs/modules/type-api/src/index.ts"],
       "@codelab/modules/user": ["libs/modules/user/src/index.ts"],
       "@codelab/modules/user-api": ["libs/modules/user-api/src/index.ts"],
-      "@codelab/modules/value-type": ["libs/modules/value-type/src/index.ts"],
-      "@codelab/modules/value-type-api": [
-        "libs/modules/value-type-api/src/index.ts"
-      ],
       "@codelab/tools/plugins/codelab": [
         "libs/tools/plugins/codelab/src/index.ts"
       ],
