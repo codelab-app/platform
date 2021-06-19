@@ -18,13 +18,16 @@ export interface CreateFieldTypeObject {
   interfaceId?: string
 }
 
+export type CreateFieldArrayTypeObject = {
+  arrayType: CreateFieldTypeObject
+}
+
 export type CreateFieldSchemaObject = Pick<
   CreateFieldInput,
   'key' | 'name' | 'description'
 > &
-  CreateFieldTypeObject & {
-    arrayType: CreateFieldTypeObject
-  }
+  CreateFieldTypeObject &
+  CreateFieldArrayTypeObject
 
 let allTypeOptions: Array<PrimitiveType | TypeVariant> =
   Object.values(PrimitiveType)

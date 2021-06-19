@@ -3,8 +3,10 @@ import { padding } from '@codelab/frontend/style'
 import {
   CreateFieldButton,
   CreateFieldModal,
+  DeleteFieldModal,
   FieldsTable,
   InterfaceContext,
+  UpdateFieldModal,
   withInterfaceQueryProvider,
 } from '@codelab/modules/type'
 import { PageHeader } from 'antd'
@@ -13,7 +15,14 @@ import { useRouter } from 'next/router'
 import React, { useContext } from 'react'
 
 const InterfaceDetailPage = () => {
-  const { interface: intface } = useContext(InterfaceContext)
+  const {
+    interface: {
+      fieldCollection: { fields },
+      name,
+    },
+    interfaceTypesById,
+  } = useContext(InterfaceContext)
+
   const headerButtons = [<CreateFieldButton key={0} />]
   const router = useRouter()
 
@@ -22,12 +31,14 @@ const InterfaceDetailPage = () => {
       <PageHeader
         ghost={false}
         onBack={() => router.back()}
-        title={intface?.name}
+        title={name}
         extra={headerButtons}
       />
       <CreateFieldModal />
+      <UpdateFieldModal />
+      <DeleteFieldModal />
       <section style={{ marginTop: padding.sm }}>
-        <FieldsTable fields={intface.fieldCollection} />
+        <FieldsTable fields={fields} typesById={interfaceTypesById} />
       </section>
     </>
   )

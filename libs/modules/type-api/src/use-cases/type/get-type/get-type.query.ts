@@ -12,6 +12,7 @@ import {
   DgraphSimpleType,
   DgraphUnitType,
   EnumTypeDgraphFields,
+  InterfaceDgraphFields,
 } from '../../../models'
 
 export class GetTypeQueryBuilder extends DgraphQueryBuilder {
@@ -25,6 +26,7 @@ export class GetTypeQueryBuilder extends DgraphQueryBuilder {
         new DgraphQueryField(EnumTypeDgraphFields.AllowedValues)
           .withBaseInnerFields()
           .withInnerFields(...DgraphEnumTypeValue.Metadata.queryFields()),
+        new DgraphQueryField(InterfaceDgraphFields.Name),
       )
   }
 }
@@ -34,4 +36,4 @@ export type GetTypeQueryResult =
   | DgraphUnitType
   | Pick<DgraphArrayType, BaseDgraphFields.uid>
   | DgraphEnumType
-  | Pick<DgraphInterface, BaseDgraphFields.uid>
+  | Pick<DgraphInterface, BaseDgraphFields.uid | InterfaceDgraphFields.Name>

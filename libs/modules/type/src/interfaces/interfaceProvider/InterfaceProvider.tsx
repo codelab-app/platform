@@ -1,13 +1,19 @@
 import { notify } from '@codelab/frontend/shared'
-import { __InterfaceFragment, useGetInterfaceQuery } from '@codelab/graphql'
+import {
+  __InterfaceFragment,
+  __TypeFragment,
+  useGetInterfaceQuery,
+} from '@codelab/graphql'
 import React, { useEffect } from 'react'
 
 export interface InterfaceContextType {
   interface: __InterfaceFragment
+  interfaceTypesById: Record<string, __TypeFragment>
 }
 
 const defaultContext: InterfaceContextType = {
   interface: null!,
+  interfaceTypesById: {},
 }
 
 export const InterfaceContext = React.createContext(defaultContext)
@@ -15,6 +21,9 @@ export const InterfaceContext = React.createContext(defaultContext)
 export interface InterfaceProviderProps {
   interfaceId: string
 }
+
+export const extractTypeId = (type: __TypeFragment): string =>
+  type.__typename === 'InterfaceType' ? type.interfaceId : type.id
 
 export const InterfaceProvider = ({
   interfaceId,
@@ -42,8 +51,18 @@ export const InterfaceProvider = ({
     return 'Interface not found'
   }
 
+  const interfaceTypesById = data.getInterface.fieldCollection.types.reduce<
+    InterfaceContextType['interfaceTypesById']
+  >((prev, next) => {
+    prev[extractTypeId(next)] = next
+
+    return prev
+  }, {})
+
   return (
-    <InterfaceContext.Provider value={{ interface: data.getInterface }}>
+    <InterfaceContext.Provider
+      value={{ interface: data.getInterface, interfaceTypesById }}
+    >
       {children}
     </InterfaceContext.Provider>
   )

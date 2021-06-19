@@ -7,49 +7,47 @@ import {
   useMutationCrudForm,
 } from '@codelab/frontend/shared'
 import {
-  CreateFieldMutation,
-  CreateFieldMutationVariables,
   refetchGetInterfaceQuery,
-  Unit as UnitEnum,
-  useCreateFieldMutation,
+  UpdateFieldMutation,
+  UpdateFieldMutationVariables,
   useGetInterfacesQuery,
+  useUpdateFieldMutation,
 } from '@codelab/graphql'
-import React, { useContext } from 'react'
+import React, { useContext, useRef } from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { InterfaceContext } from '../../interfaces'
-import {
-  createFieldSchema,
-  CreateFieldSchemaObject,
-  TypeVariant,
-} from './createFieldSchema'
+import { TypeFields, TypeVariant } from '../createField'
+import { mapFieldToFormModel } from './mapFieldToFormModel'
 import { mapFormDataToInput } from './mapFormDataToInput'
-import { TypeFields } from './TypeFields'
+import { updateFieldSchema, UpdateFieldSchemaType } from './updateFieldSchema'
 
-const defaultUnitOptions = Object.values(UnitEnum)
-
-export const CreateFieldForm = (
-  props: UniFormUseCaseProps<CreateFieldSchemaObject>,
+export const UpdateFieldForm = (
+  props: UniFormUseCaseProps<UpdateFieldSchemaType>,
 ) => {
   const {
     interface: { id: interfaceId },
+    interfaceTypesById,
   } = useContext(InterfaceContext)
 
   const { data: allInterfaces } = useGetInterfacesQuery()
 
   const {
     handleSubmit,
-    crudModal: { reset },
+    crudModal: {
+      reset,
+      state: { metadata },
+    },
   } = useMutationCrudForm<
-    CreateFieldSchemaObject,
-    CreateFieldMutation,
-    CreateFieldMutationVariables
+    UpdateFieldSchemaType,
+    UpdateFieldMutation,
+    UpdateFieldMutationVariables
   >({
     mutationOptions: {
       refetchQueries: [refetchGetInterfaceQuery({ input: { interfaceId } })],
     },
-    useMutationFunction: useCreateFieldMutation,
-    mapVariables: (formData) => ({
-      input: mapFormDataToInput(formData, interfaceId),
+    useMutationFunction: useUpdateFieldMutation,
+    mapVariables: (formData, crudState) => ({
+      input: mapFormDataToInput(formData, crudState.updateId, interfaceId),
     }),
     entityType: EntityType.Field,
   })
@@ -61,19 +59,13 @@ export const CreateFieldForm = (
     })) || []
 
   return (
-    <FormUniforms<CreateFieldSchemaObject>
+    <FormUniforms<UpdateFieldSchemaType>
       onSubmit={handleSubmit}
-      schema={createFieldSchema as any}
+      schema={updateFieldSchema as any}
       onSubmitError={createNotificationHandler({
-        title: 'Error while creating fields',
+        title: 'Error while creating field',
       })}
-      model={{
-        //Default to all units
-        allowedUnits: defaultUnitOptions,
-        arrayType: {
-          allowedUnits: defaultUnitOptions,
-        },
-      }}
+      model={mapFieldToFormModel(metadata, interfaceTypesById)}
       onSubmitSuccess={() => reset()}
       {...props}
     >

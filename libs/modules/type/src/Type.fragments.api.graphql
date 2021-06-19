@@ -58,6 +58,7 @@ fragment __EnumType on EnumType {
 
 fragment __InterfaceType on InterfaceType {
   interfaceId
+  interfaceName
 }
 
 fragment __SimpleType on SimpleType {

@@ -33,7 +33,25 @@ export const getApolloClient = (ctx: ApolloContext = {}) => {
     //   DateTime: GraphQLDateTime,
     // },
     link,
-    cache: new InMemoryCache(),
+    // Union types need to be specified here, or their fields just drop out
+    // If they get too much, here's a script to generate them
+    // https://www.apollographql.com/docs/react/data/fragments/#generating-possibletypes-automatically
+    cache: new InMemoryCache({
+      possibleTypes: {
+        Type: [
+          'SimpleType',
+          'ArrayType',
+          'EnumType',
+          'UnitType',
+          'InterfaceType',
+        ],
+        Decorator: [
+          'ArrayLengthValidator',
+          'MinMaxValidator',
+          'RequiredValidator',
+        ],
+      },
+    }),
     // Disables forceFetch on the server (so queries are only run once)
     ssrMode: typeof window === 'undefined',
   })

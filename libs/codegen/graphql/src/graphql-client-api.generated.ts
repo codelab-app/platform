@@ -335,6 +335,7 @@ export type Interface = {
 
 export type InterfaceType = {
   interfaceId: Scalars['String']
+  interfaceName: Scalars['String']
 }
 
 export type MinMaxValidator = {
@@ -1001,7 +1002,10 @@ export type __EnumTypeFragment = Pick<EnumType, 'id'> & {
   allowedValues: Array<__EnumTypeValueFragment>
 }
 
-export type __InterfaceTypeFragment = Pick<InterfaceType, 'interfaceId'>
+export type __InterfaceTypeFragment = Pick<
+  InterfaceType,
+  'interfaceId' | 'interfaceName'
+>
 
 export type __SimpleTypeFragment = Pick<SimpleType, 'id' | 'primitiveType'>
 
@@ -1053,11 +1057,25 @@ export type CreateFieldMutationVariables = Exact<{
 
 export type CreateFieldMutation = { createField: __FieldFragment }
 
+export type DeleteFieldMutationVariables = Exact<{
+  input: DeleteFieldInput
+}>
+
+export type DeleteFieldMutation = {
+  deleteField: Pick<DeleteResponse, 'affected'>
+}
+
 export type GetFieldQueryVariables = Exact<{
   input: GetFieldInput
 }>
 
 export type GetFieldQuery = { getField?: Maybe<__FieldFragment> }
+
+export type UpdateFieldMutationVariables = Exact<{
+  input: UpdateFieldInput
+}>
+
+export type UpdateFieldMutation = { updateField: __FieldFragment }
 
 export type CreateInterfaceMutationVariables = Exact<{
   input: CreateInterfaceInput
@@ -1284,6 +1302,7 @@ export const __EnumTypeFragmentDoc = gql`
 export const __InterfaceTypeFragmentDoc = gql`
   fragment __InterfaceType on InterfaceType {
     interfaceId
+    interfaceName
   }
 `
 export const __SimpleTypeFragmentDoc = gql`
@@ -3125,6 +3144,56 @@ export type CreateFieldMutationOptions = Apollo.BaseMutationOptions<
   CreateFieldMutation,
   CreateFieldMutationVariables
 >
+export const DeleteFieldGql = gql`
+  mutation DeleteField($input: DeleteFieldInput!) {
+    deleteField(input: $input) {
+      affected
+    }
+  }
+`
+export type DeleteFieldMutationFn = Apollo.MutationFunction<
+  DeleteFieldMutation,
+  DeleteFieldMutationVariables
+>
+
+/**
+ * __useDeleteFieldMutation__
+ *
+ * To run a mutation, you first call `useDeleteFieldMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteFieldMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteFieldMutation, { data, loading, error }] = useDeleteFieldMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useDeleteFieldMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeleteFieldMutation,
+    DeleteFieldMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<DeleteFieldMutation, DeleteFieldMutationVariables>(
+    DeleteFieldGql,
+    options,
+  )
+}
+export type DeleteFieldMutationHookResult = ReturnType<
+  typeof useDeleteFieldMutation
+>
+export type DeleteFieldMutationResult =
+  Apollo.MutationResult<DeleteFieldMutation>
+export type DeleteFieldMutationOptions = Apollo.BaseMutationOptions<
+  DeleteFieldMutation,
+  DeleteFieldMutationVariables
+>
 export const GetFieldGql = gql`
   query GetField($input: GetFieldInput!) {
     getField(input: $input) {
@@ -3182,6 +3251,57 @@ export type GetFieldQueryResult = Apollo.QueryResult<
 export function refetchGetFieldQuery(variables?: GetFieldQueryVariables) {
   return { query: GetFieldGql, variables: variables }
 }
+export const UpdateFieldGql = gql`
+  mutation UpdateField($input: UpdateFieldInput!) {
+    updateField(input: $input) {
+      ...__Field
+    }
+  }
+  ${__FieldFragmentDoc}
+`
+export type UpdateFieldMutationFn = Apollo.MutationFunction<
+  UpdateFieldMutation,
+  UpdateFieldMutationVariables
+>
+
+/**
+ * __useUpdateFieldMutation__
+ *
+ * To run a mutation, you first call `useUpdateFieldMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateFieldMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateFieldMutation, { data, loading, error }] = useUpdateFieldMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateFieldMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateFieldMutation,
+    UpdateFieldMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<UpdateFieldMutation, UpdateFieldMutationVariables>(
+    UpdateFieldGql,
+    options,
+  )
+}
+export type UpdateFieldMutationHookResult = ReturnType<
+  typeof useUpdateFieldMutation
+>
+export type UpdateFieldMutationResult =
+  Apollo.MutationResult<UpdateFieldMutation>
+export type UpdateFieldMutationOptions = Apollo.BaseMutationOptions<
+  UpdateFieldMutation,
+  UpdateFieldMutationVariables
+>
 export const CreateInterfaceGql = gql`
   mutation CreateInterface($input: CreateInterfaceInput!) {
     createInterface(input: $input) {
@@ -3752,6 +3872,7 @@ export const __EnumType = gql`
 export const __InterfaceType = gql`
   fragment __InterfaceType on InterfaceType {
     interfaceId
+    interfaceName
   }
 `
 export const __SimpleType = gql`
@@ -4085,9 +4206,24 @@ export const CreateField = gql`
   }
   ${__Field}
 `
+export const DeleteField = gql`
+  mutation DeleteField($input: DeleteFieldInput!) {
+    deleteField(input: $input) {
+      affected
+    }
+  }
+`
 export const GetField = gql`
   query GetField($input: GetFieldInput!) {
     getField(input: $input) {
+      ...__Field
+    }
+  }
+  ${__Field}
+`
+export const UpdateField = gql`
+  mutation UpdateField($input: UpdateFieldInput!) {
+    updateField(input: $input) {
       ...__Field
     }
   }

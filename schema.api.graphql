@@ -93,6 +93,7 @@ enum Unit {
 
 type InterfaceType {
   interfaceId: String!
+  interfaceName: String!
 }
 
 type Interface {

@@ -1,7 +1,10 @@
 import { BaseDgraphFields, DeepPartial, IDgraphMapper } from '@codelab/backend'
 import { Injectable } from '@nestjs/common'
 import { z } from 'zod'
-import { DgraphInterface } from '../../dgraph-interface.model'
+import {
+  DgraphInterface,
+  InterfaceDgraphFields,
+} from '../../dgraph-interface.model'
 import { InterfaceType, interfaceTypeSchema } from './interface-type.model'
 
 @Injectable()
@@ -10,6 +13,7 @@ export class InterfaceTypeMapper
 {
   static InputSchema = z.object({
     [BaseDgraphFields.uid]: z.string(),
+    [InterfaceDgraphFields.Name]: z.string(),
   })
 
   map(input: DeepPartial<DgraphInterface>) {
@@ -18,6 +22,7 @@ export class InterfaceTypeMapper
     const interfaceType = new InterfaceType()
 
     interfaceType.interfaceId = dgraphInterface[BaseDgraphFields.uid]
+    interfaceType.interfaceName = dgraphInterface[InterfaceDgraphFields.Name]
 
     interfaceTypeSchema.parse(interfaceType)
 

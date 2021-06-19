@@ -1,15 +1,16 @@
 import { DeleteFilled, EditFilled } from '@ant-design/icons'
 import { EntityType, useCRUDModalForm } from '@codelab/frontend/shared'
-import { __FieldCollectionFragment } from '@codelab/graphql'
+import { __FieldFragment, __TypeFragment } from '@codelab/graphql'
 import { Button, Space, Table, TableColumnProps } from 'antd'
 import React from 'react'
 import tw from 'twin.macro'
 
 export interface FieldsTableProps {
-  fields: __FieldCollectionFragment
+  fields: Array<__FieldFragment>
+  typesById: Record<string, __TypeFragment>
 }
 
-export const FieldsTable = ({ fields }: FieldsTableProps) => {
+export const FieldsTable = ({ fields, typesById }: FieldsTableProps) => {
   const { openDeleteModal, openUpdateModal } = useCRUDModalForm(
     EntityType.Field,
   )
@@ -18,12 +19,54 @@ export const FieldsTable = ({ fields }: FieldsTableProps) => {
     style: tw`font-semibold text-gray-900`,
   })
 
+  const getTypeName = (typeId: string, iteration = 0): string => {
+    if (iteration > 10) {
+      return ''
+    }
+
+    const type = typesById[typeId]
+
+    switch (type?.__typename) {
+      case 'SimpleType':
+        return type.primitiveType
+      case 'ArrayType':
+        return `${getTypeName(type.typeId, iteration + 1)} Array`
+      case 'EnumType':
+        return `Enum (${type.allowedValues.map((v) => v.name).join(',')})`
+      case 'InterfaceType':
+        return `Object (${type.interfaceName})`
+      case 'UnitType':
+        return `Unit (${type.allowedUnits.join(',')})`
+    }
+
+    return ''
+  }
+
   const columns: Array<TableColumnProps<any>> = [
     {
       title: 'Field',
       dataIndex: 'name',
       key: 'name',
       onHeaderCell: headerCellProps,
+    },
+    {
+      title: 'Key',
+      dataIndex: 'key',
+      key: 'key',
+      onHeaderCell: headerCellProps,
+    },
+    {
+      title: 'Description',
+      dataIndex: 'description',
+      key: 'description',
+      onHeaderCell: headerCellProps,
+    },
+    {
+      title: 'Type',
+      dataIndex: 'typeId',
+      key: 'typeId',
+      onHeaderCell: headerCellProps,
+      render: (value) => getTypeName(value),
     },
     {
       title: 'Action',
@@ -35,18 +78,17 @@ export const FieldsTable = ({ fields }: FieldsTableProps) => {
           <Button
             size="small"
             type="primary"
-            danger
             tw="flex justify-center items-center"
-            icon={<DeleteFilled />}
-            onClick={() => openDeleteModal([record.id], record)}
+            icon={<EditFilled />}
+            onClick={() => openUpdateModal(record.id, record)}
           />
           <Button
             size="small"
             type="primary"
             danger
             tw="flex justify-center items-center"
-            icon={<EditFilled />}
-            onClick={() => openUpdateModal(record.id, record)}
+            icon={<DeleteFilled />}
+            onClick={() => openDeleteModal([record.id], record)}
           />
         </Space>
       ),
@@ -56,7 +98,7 @@ export const FieldsTable = ({ fields }: FieldsTableProps) => {
   return (
     <Table
       pagination={{ position: ['bottomCenter'] }}
-      dataSource={fields.fields}
+      dataSource={fields}
       columns={columns}
       rowKey={(atom) => atom.id}
     />
