@@ -251,9 +251,40 @@ type Page {
 
 type Prop {
   id: ID!
-  key: String
-  description: String
-  props: [Prop!]
+  field: Field!
+  value: PropValue
+}
+
+union PropValue = StringValue | IntValue | FloatValue | BooleanValue | ArrayValue | InterfaceValue
+
+type StringValue {
+  id: ID!
+  value: String!
+}
+
+type IntValue {
+  id: ID!
+  value: Int!
+}
+
+type FloatValue {
+  id: ID!
+  value: Float!
+}
+
+type BooleanValue {
+  id: ID!
+  value: Boolean!
+}
+
+type ArrayValue {
+  id: ID!
+  values: [PropValue!]!
+}
+
+type InterfaceValue {
+  id: ID!
+  props: [Prop!]!
 }
 
 type User {
