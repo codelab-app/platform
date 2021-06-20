@@ -155,22 +155,22 @@ type Interface {
 
 type StringValue {
     id: ID!
-    value: String
+    value: String!
 }
 
 type IntValue {
     id: ID!
-    value: Int
+    value: Int!
 }
 
 type FloatValue {
     id: ID!
-    value: Float
+    value: Float!
 }
 
 type BooleanValue {
     id: ID!
-    value: Boolean
+    value: Boolean!
 }
 
 type ArrayValue {

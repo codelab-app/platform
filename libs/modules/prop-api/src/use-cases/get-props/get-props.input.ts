@@ -1,4 +1,13 @@
-import { InputType } from '@nestjs/graphql'
+import { Field, InputType } from '@nestjs/graphql'
 
 @InputType()
-export class GetPropsInput {}
+export class PropsByAtomFilter {
+  @Field()
+  declare atomId: string
+}
+
+@InputType()
+export class GetPropsInput {
+  @Field(() => PropsByAtomFilter, { nullable: true })
+  declare byAtom?: PropsByAtomFilter | null
+}
