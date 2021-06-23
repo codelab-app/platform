@@ -12,12 +12,13 @@ export class StringValueMapper
 {
   map(input: DeepPartial<DgraphStringValue>) {
     const dgraphValue = DgraphStringValue.Schema.parse(input)
-    const value = new StringValue()
 
-    value.id = dgraphValue[BaseDgraphFields.uid]
-    value.value = dgraphValue[DgraphStringValueFields.value]
+    const value = new StringValue(
+      dgraphValue[BaseDgraphFields.uid],
+      dgraphValue[DgraphStringValueFields.value],
+    )
 
-    DgraphStringValue.Schema.parse(value)
+    StringValue.Schema.parse(value)
 
     return value
   }

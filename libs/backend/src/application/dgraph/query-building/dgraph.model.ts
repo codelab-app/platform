@@ -19,23 +19,20 @@ export abstract class DgraphModel<TDType extends string = string> {
 }
 
 export class DgraphModelMetadata<TDType extends string> {
-  private readonly _queryFields: Array<DgraphQueryField>
-
   constructor(
     public readonly modelName: TDType,
     public readonly fieldsEnum: Record<string, string>,
-  ) {
-    this._queryFields = DgraphQueryBuilder.fieldsFromEnum(fieldsEnum)
-  }
+  ) {}
 
   /**
    * Returns the fields in a format for dql
    * @param withBaseFields weather to include uid and dgraph.type
    */
   queryFields(withBaseFields = false): Array<DgraphQueryField> {
-    return withBaseFields
-      ? baseFieldEnums.concat(this._queryFields)
-      : this._queryFields
+    //Create the fields dynamically, because otherwise all queries can modify the base model fields
+    const fields = DgraphQueryBuilder.fieldsFromEnum(this.fieldsEnum)
+
+    return withBaseFields ? baseFieldEnums.concat(fields) : fields
   }
 }
 

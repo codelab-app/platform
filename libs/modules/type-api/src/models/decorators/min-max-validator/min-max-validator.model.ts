@@ -14,6 +14,12 @@ export class MinMaxValidator {
 
   @Field(() => Int, { nullable: true })
   declare max?: number | null
+
+  constructor(id: string, min: number | null, max: number | null) {
+    this.id = id
+    this.min = min
+    this.max = max
+  }
 }
 
 export const minMaxValidatorSchema: z.ZodSchema<MinMaxValidator> = z.object({

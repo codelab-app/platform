@@ -20,6 +20,8 @@ export class DgraphArrayValue extends DgraphModel<'ArrayValue'> {
 
   static Schema = z.object({
     ...baseFieldsZodShape('ArrayValue'),
-    [DgraphArrayValueFields.values]: dgraphPropValueSchema.array(),
+    [DgraphArrayValueFields.values]: z.lazy(() =>
+      dgraphPropValueSchema.array(),
+    ),
   })
 }

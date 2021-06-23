@@ -27,12 +27,13 @@ export class GetPageElementRootService extends DgraphUseCase<
     { input: { pageElementId } }: GetPageElementRootRequest,
     txn: Txn,
   ) {
-    const queryBuilder = new GetPageElementRootQueryBuilder().withUid(
+    const queryBuilder = new GetPageElementRootQueryBuilder().withUidFunc(
       pageElementId,
     )
 
     const schema = queryBuilder.getZodSchema()
-    const queryResult = await txn.query(queryBuilder.build())
+    const query = queryBuilder.build()
+    const queryResult = await txn.query(query)
     const parsedResult = schema.parse(queryResult.data).query
 
     if (!parsedResult || !parsedResult.length || !parsedResult[0]) {

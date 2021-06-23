@@ -15,11 +15,12 @@ export class ArrayLengthValidatorMapper
 {
   map(input: DeepPartial<DgraphArrayLengthValidator>) {
     const dgraphValidator = DgraphArrayLengthValidator.Schema.parse(input)
-    const validator = new ArrayLengthValidator()
 
-    validator.id = dgraphValidator[BaseDgraphFields.uid]
-    validator.minLength = dgraphValidator[ArrayLengthValidatorDgraphFields.Min]
-    validator.maxLength = dgraphValidator[ArrayLengthValidatorDgraphFields.Max]
+    const validator = new ArrayLengthValidator(
+      dgraphValidator[BaseDgraphFields.uid],
+      dgraphValidator[ArrayLengthValidatorDgraphFields.Min] || null,
+      dgraphValidator[ArrayLengthValidatorDgraphFields.Max] || null,
+    )
 
     arrayLengthValidatorSchema.parse(validator)
 

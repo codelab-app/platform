@@ -8,7 +8,12 @@ export class ArrayValue {
   declare id: string
 
   @GraphqlField(() => [PropValue])
-  declare values: Array<PropValue>
+  // Optional, because a field resolver can get it
+  declare values?: Array<PropValue>
+
+  constructor(id: string) {
+    this.id = id
+  }
 
   static Schema: z.ZodSchema<ArrayValue> = z.lazy(() =>
     z.object({

@@ -7,10 +7,15 @@ export class IntValue {
   declare id: string
 
   @GraphqlField(() => Int)
-  declare value: number
+  declare intValue: number
+
+  constructor(id: string, intValue: number) {
+    this.id = id
+    this.intValue = intValue
+  }
 
   static Schema = z.object({
     id: z.string(),
-    value: z.number().int(),
+    intValue: z.number().int(),
   })
 }

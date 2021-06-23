@@ -33,15 +33,14 @@ export class ArrayValueMapper
     }
 
     const dgraphValue = DgraphArrayValue.Schema.parse(input)
-    const value = new ArrayValue()
+    const value = new ArrayValue(dgraphValue[BaseDgraphFields.uid])
 
-    value.id = dgraphValue[BaseDgraphFields.uid]
     value.values = await this.propValueArrayMapper.map(
       dgraphValue[DgraphArrayValueFields.values],
       { ...context, arrayIteration: (context?.arrayIteration || 0) + 1 },
     )
 
-    DgraphArrayValue.Schema.parse(value)
+    ArrayValue.Schema.parse(value)
 
     return value
   }

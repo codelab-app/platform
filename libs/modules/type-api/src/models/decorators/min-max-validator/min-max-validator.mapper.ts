@@ -15,11 +15,12 @@ export class MinMaxValidatorMapper
 {
   map(input: DeepPartial<DgraphMinMaxValidator>) {
     const dgraphValidator = DgraphMinMaxValidator.Schema.parse(input)
-    const validator = new MinMaxValidator()
 
-    validator.id = dgraphValidator[BaseDgraphFields.uid]
-    validator.min = dgraphValidator[MinMaxValidatorDgraphFields.Min]
-    validator.max = dgraphValidator[MinMaxValidatorDgraphFields.Max]
+    const validator = new MinMaxValidator(
+      dgraphValidator[BaseDgraphFields.uid],
+      dgraphValidator[MinMaxValidatorDgraphFields.Min] || null,
+      dgraphValidator[MinMaxValidatorDgraphFields.Max] || null,
+    )
 
     minMaxValidatorSchema.parse(minMaxValidatorSchema)
 

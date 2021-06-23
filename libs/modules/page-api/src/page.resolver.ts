@@ -83,7 +83,10 @@ export class PageResolver {
   }
 
   @ResolveField('rootElement', () => PageElementRoot)
-  getRootElement(@Parent() page: Page, @CurrentUser() currentUser: JwtPayload) {
+  resolveRootElement(
+    @Parent() page: Page,
+    @CurrentUser() currentUser: JwtPayload,
+  ) {
     return this.getPageRootService.execute({
       input: {
         pageId: page.id,

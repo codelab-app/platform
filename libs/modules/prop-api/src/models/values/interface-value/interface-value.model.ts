@@ -8,7 +8,13 @@ export class InterfaceValue {
   declare id: string
 
   @GraphqlField(() => [Prop])
-  declare props: Array<Prop>
+  // Optional, because a field resolver can get it
+  declare props?: Array<Prop>
+
+  constructor(id: string, props?: Array<Prop>) {
+    this.id = id
+    this.props = props
+  }
 
   static Schema: z.ZodSchema<InterfaceValue> = z.lazy(() =>
     z.object({

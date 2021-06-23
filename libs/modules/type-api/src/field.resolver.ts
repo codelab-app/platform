@@ -1,12 +1,21 @@
 import { DeleteResponse } from '@codelab/backend'
-import { Injectable } from '@nestjs/common'
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
-import { Field } from './models'
+import { GqlAuthGuard } from '@codelab/modules/auth-api'
+import { Injectable, UseGuards } from '@nestjs/common'
+import {
+  Args,
+  Mutation,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql'
+import { Field, Interface } from './models'
 import {
   CreateFieldInput,
   CreateFieldService,
   GetFieldInput,
   GetFieldService,
+  GetInterfaceService,
   UpdateFieldInput,
   UpdateFieldService,
 } from './use-cases'
@@ -23,9 +32,11 @@ export class FieldResolver {
     private getFieldService: GetFieldService,
     private updateFieldService: UpdateFieldService,
     private deleteFieldService: DeleteFieldService,
+    private getInterfaceService: GetInterfaceService,
   ) {}
 
   @Mutation(() => Field)
+  @UseGuards(GqlAuthGuard)
   createField(@Args('input') input: CreateFieldInput) {
     return this.createFieldService.execute({
       input,
@@ -33,17 +44,28 @@ export class FieldResolver {
   }
 
   @Query(() => Field, { nullable: true })
+  @UseGuards(GqlAuthGuard)
   getField(@Args('input') input: GetFieldInput) {
     return this.getFieldService.execute({ input })
   }
 
   @Mutation(() => Field)
+  @UseGuards(GqlAuthGuard)
   updateField(@Args('input') input: UpdateFieldInput) {
     return this.updateFieldService.execute({ input })
   }
 
   @Mutation(() => DeleteResponse)
+  @UseGuards(GqlAuthGuard)
   deleteField(@Args('input') input: DeleteFieldInput) {
     return this.deleteFieldService.execute({ input })
+  }
+
+  @ResolveField('interface', () => Interface)
+  @UseGuards(GqlAuthGuard)
+  resolveInterface(@Parent() field: Field) {
+    return this.getInterfaceService.execute({
+      input: { interfaceId: field.interface.id },
+    })
   }
 }

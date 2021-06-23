@@ -7,12 +7,13 @@ import { IntValue } from './int-value.model'
 export class IntValueMapper implements IDgraphMapper<DgraphIntValue, IntValue> {
   map(input: DeepPartial<DgraphIntValue>) {
     const dgraphValue = DgraphIntValue.Schema.parse(input)
-    const value = new IntValue()
 
-    value.id = dgraphValue[BaseDgraphFields.uid]
-    value.value = dgraphValue[DgraphIntValueFields.value]
+    const value = new IntValue(
+      dgraphValue[BaseDgraphFields.uid],
+      dgraphValue[DgraphIntValueFields.value],
+    )
 
-    DgraphIntValue.Schema.parse(value)
+    IntValue.Schema.parse(value)
 
     return value
   }

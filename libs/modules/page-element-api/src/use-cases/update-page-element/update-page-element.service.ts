@@ -64,6 +64,7 @@ export class UpdatePageElementService extends MutationUseCase<
                 id: updateData.atomId,
               }
             : null,
+          props: updateData.propIds.map((id) => ({ id })),
         },
       },
     }

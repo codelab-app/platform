@@ -12,12 +12,13 @@ export class BooleanValueMapper
 {
   map(input: DeepPartial<DgraphBooleanValue>) {
     const dgraphValue = DgraphBooleanValue.Schema.parse(input)
-    const value = new BooleanValue()
 
-    value.id = dgraphValue[BaseDgraphFields.uid]
-    value.value = dgraphValue[DgraphBooleanValueFields.value]
+    const value = new BooleanValue(
+      dgraphValue[BaseDgraphFields.uid],
+      dgraphValue[DgraphBooleanValueFields.value],
+    )
 
-    DgraphBooleanValue.Schema.parse(value)
+    BooleanValue.Schema.parse(value)
 
     return value
   }

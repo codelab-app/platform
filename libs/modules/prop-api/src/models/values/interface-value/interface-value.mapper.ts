@@ -4,7 +4,8 @@ import {
   DgraphArrayMapper,
   IDgraphMapper,
 } from '@codelab/backend'
-import { Injectable } from '@nestjs/common'
+import { DgraphInterface } from '@codelab/modules/type-api'
+import { forwardRef, Inject, Injectable } from '@nestjs/common'
 import { DgraphProp, Prop, PropMapper, PropMappingContext } from '../../prop'
 import {
   DgraphInterfaceValue,
@@ -23,7 +24,9 @@ export class InterfaceValueMapper
     PropMappingContext
   >
 
-  constructor(private propMapper: PropMapper) {
+  constructor(
+    @Inject(forwardRef(() => PropMapper)) private propMapper: PropMapper,
+  ) {
     this.propArrayMapper = new DgraphArrayMapper(propMapper)
   }
 
@@ -36,15 +39,16 @@ export class InterfaceValueMapper
     }
 
     const dgraphValue = DgraphInterfaceValue.Schema.parse(input)
-    const value = new InterfaceValue()
 
-    value.id = dgraphValue[BaseDgraphFields.uid]
-    value.props = await this.propArrayMapper.map(
-      dgraphValue[DgraphInterfaceValueFields.props],
-      { ...context, interfaceIteration: context.interfaceIteration + 1 },
+    const value = new InterfaceValue(
+      dgraphValue[BaseDgraphFields.uid],
+      await this.propArrayMapper.map(
+        dgraphValue[DgraphInterfaceValueFields.props],
+        { ...context, interfaceIteration: context.interfaceIteration + 1 },
+      ),
     )
 
-    DgraphInterfaceValue.Schema.parse(value)
+    InterfaceValue.Schema.parse(value)
 
     return value
   }

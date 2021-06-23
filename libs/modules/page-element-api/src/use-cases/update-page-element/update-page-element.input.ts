@@ -7,6 +7,9 @@ export class UpdatePageElementData {
 
   @Field({ nullable: true })
   declare atomId?: string
+
+  @Field(() => [String])
+  declare propIds: Array<string>
 }
 
 // Note that movePageElement is there for updating order and parent

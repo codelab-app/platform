@@ -1,5 +1,5 @@
 import { BaseDgraphFields, IDgraphMapper } from '@codelab/backend'
-import { Injectable } from '@nestjs/common'
+import { forwardRef, Inject, Injectable } from '@nestjs/common'
 import { FieldDgraphFields } from './dgraph-field.model'
 import {
   DgraphInterface,
@@ -14,6 +14,7 @@ export class InterfaceMapper
   implements IDgraphMapper<DgraphInterface, Interface>
 {
   constructor(
+    @Inject(forwardRef(() => FieldMapper))
     private fieldMapper: FieldMapper,
     private typeMapper: TypeMapper,
   ) {}

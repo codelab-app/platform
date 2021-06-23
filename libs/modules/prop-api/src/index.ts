@@ -1,6 +1,3 @@
-export { ArrayValueModel } from './arrayValue'
-export { BooleanValue } from './booleanValue'
-export { InterfaceValue } from './interfaceValue'
-export * from './prop.model'
+export * from './models'
 export * from './prop.module'
 export * from './use-cases'

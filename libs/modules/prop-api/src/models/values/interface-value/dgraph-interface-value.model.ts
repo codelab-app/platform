@@ -20,6 +20,6 @@ export class DgraphInterfaceValue extends DgraphModel<'InterfaceValue'> {
 
   static Schema = z.object({
     ...baseFieldsZodShape('InterfaceValue'),
-    [DgraphInterfaceValueFields.props]: DgraphProp.Schema.array(),
+    [DgraphInterfaceValueFields.props]: z.lazy(() => DgraphProp.Schema.array()),
   })
 }

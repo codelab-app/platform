@@ -22,6 +22,8 @@ export class DgraphProp extends DgraphModel<'Prop'> {
   static Schema = z.object({
     ...baseFieldsZodShape('Prop'),
     [DgraphPropFields.field]: DgraphField.Schema,
-    [DgraphPropFields.value]: dgraphPropValueSchema.optional().nullable(),
+    [DgraphPropFields.value]: z.lazy(() =>
+      dgraphPropValueSchema.optional().nullable(),
+    ),
   })
 }

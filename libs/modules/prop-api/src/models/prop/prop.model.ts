@@ -19,4 +19,10 @@ export class Prop {
     field: fieldSchema.or(z.object({ id: z.string() })),
     value: propValueSchema.optional().nullable(),
   })
+
+  constructor({ value, field, id }: Prop) {
+    this.id = id
+    this.field = field
+    this.value = value
+  }
 }

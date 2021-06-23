@@ -19,7 +19,7 @@ export class GetTypeService extends DgraphUseCase<GetTypeRequest, Type | null> {
     { input: { typeId } }: GetTypeRequest,
     txn: Txn,
   ): Promise<Type | null> {
-    const query = new GetTypeQueryBuilder().withUid(typeId).build()
+    const query = new GetTypeQueryBuilder().withUidFunc(typeId).build()
     const response = await txn.query(query)
 
     const queryArray = (response.data as any)

@@ -6,7 +6,7 @@ import {
 import { z } from 'zod'
 
 export enum DgraphIntValueFields {
-  value = 'IntValue.value',
+  value = 'IntValue.intValue',
 }
 
 export class DgraphIntValue extends DgraphModel<'IntValue'> {

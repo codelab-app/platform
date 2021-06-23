@@ -23,6 +23,12 @@ export class DgraphQueryBuilder implements IQueryBuilder {
     this._fields = []
   }
 
+  public getField(name: string): DgraphQueryField | undefined {
+    return this._fields.find(
+      (f): f is DgraphQueryField => typeof f === 'object' && f.name == name,
+    )
+  }
+
   public get fields() {
     return this._fields
   }
@@ -70,8 +76,12 @@ export class DgraphQueryBuilder implements IQueryBuilder {
     return this
   }
 
-  withUid(uid: string) {
-    return this.withFunc(`uid(${uid})`)
+  withUidFunc(uid: string) {
+    return this.withFilterFuncString(`uid(${uid})`)
+  }
+
+  withUidsFunc(uids: Array<string>) {
+    return this.withFilterFuncString(`uid(${uids.join(',')})`)
   }
 
   withRecurse() {

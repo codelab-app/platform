@@ -80,6 +80,15 @@ type AddArrayTypePayload {
   numUids: Int
 }
 
+input AddArrayValueInput {
+  values: [PropValueRef!]!
+}
+
+type AddArrayValuePayload {
+  arrayValue(filter: ArrayValueFilter, first: Int, offset: Int): [ArrayValue]
+  numUids: Int
+}
+
 input AddAtomInput {
   type: AtomType!
   label: String!
@@ -89,6 +98,19 @@ input AddAtomInput {
 
 type AddAtomPayload {
   atom(filter: AtomFilter, order: AtomOrder, first: Int, offset: Int): [Atom]
+  numUids: Int
+}
+
+input AddBooleanValueInput {
+  booleanValue: Boolean!
+}
+
+type AddBooleanValuePayload {
+  booleanValue(
+    filter: BooleanValueFilter
+    first: Int
+    offset: Int
+  ): [BooleanValue]
   numUids: Int
 }
 
@@ -152,6 +174,34 @@ type AddFieldPayload {
   numUids: Int
 }
 
+input AddFloatValueInput {
+  floatValue: Float!
+}
+
+type AddFloatValuePayload {
+  floatValue(
+    filter: FloatValueFilter
+    order: FloatValueOrder
+    first: Int
+    offset: Int
+  ): [FloatValue]
+  numUids: Int
+}
+
+input AddIntValueInput {
+  intValue: Int!
+}
+
+type AddIntValuePayload {
+  intValue(
+    filter: IntValueFilter
+    order: IntValueOrder
+    first: Int
+    offset: Int
+  ): [IntValue]
+  numUids: Int
+}
+
 input AddInterfaceInput {
   atom: AtomRef
   name: String!
@@ -165,6 +215,19 @@ type AddInterfacePayload {
     first: Int
     offset: Int
   ): [Interface]
+  numUids: Int
+}
+
+input AddInterfaceValueInput {
+  props: [PropRef!]!
+}
+
+type AddInterfaceValuePayload {
+  interfaceValue(
+    filter: InterfaceValueFilter
+    first: Int
+    offset: Int
+  ): [InterfaceValue]
   numUids: Int
 }
 
@@ -207,6 +270,7 @@ input AddPageElementInput {
   children: [PageElementRef]
   atom: AtomRef
   component: ComponentRef
+  props: [PropRef!]!
 }
 
 type AddPageElementPayload {
@@ -231,13 +295,13 @@ type AddPagePayload {
 }
 
 input AddPropInput {
-  description: String
-  type: ValueTypeRef!
-  props: [PropRef]
+  field: FieldRef!
+  value: PropValueRef
+  pageElement: PageElementRef
 }
 
 type AddPropPayload {
-  prop(filter: PropFilter, order: PropOrder, first: Int, offset: Int): [Prop]
+  prop(filter: PropFilter, first: Int, offset: Int): [Prop]
   numUids: Int
 }
 
@@ -263,6 +327,20 @@ type AddSimpleTypePayload {
   numUids: Int
 }
 
+input AddStringValueInput {
+  stringValue: String!
+}
+
+type AddStringValuePayload {
+  stringValue(
+    filter: StringValueFilter
+    order: StringValueOrder
+    first: Int
+    offset: Int
+  ): [StringValue]
+  numUids: Int
+}
+
 input AddTagInput {
   label: String!
 }
@@ -278,21 +356,6 @@ input AddUnitTypeInput {
 
 type AddUnitTypePayload {
   unitType(filter: UnitTypeFilter, first: Int, offset: Int): [UnitType]
-  numUids: Int
-}
-
-input AddValueTypeInput {
-  label: String!
-  type: String!
-}
-
-type AddValueTypePayload {
-  valueType(
-    filter: ValueTypeFilter
-    order: ValueTypeOrder
-    first: Int
-    offset: Int
-  ): [ValueType]
   numUids: Int
 }
 
@@ -432,6 +495,36 @@ input ArrayTypePatch {
 input ArrayTypeRef {
   id: ID
   type: TypeRef
+}
+
+type ArrayValue {
+  id: ID!
+  values(filter: PropValueFilter, first: Int, offset: Int): [PropValue!]!
+}
+
+type ArrayValueAggregateResult {
+  count: Int
+}
+
+input ArrayValueFilter {
+  id: [ID!]
+  has: [ArrayValueHasFilter]
+  and: [ArrayValueFilter]
+  or: [ArrayValueFilter]
+  not: ArrayValueFilter
+}
+
+enum ArrayValueHasFilter {
+  values
+}
+
+input ArrayValuePatch {
+  values: [PropValueRef!]
+}
+
+input ArrayValueRef {
+  id: ID
+  values: [PropValueRef!]
 }
 
 type Atom {
@@ -601,6 +694,36 @@ input AuthRule {
   rule: String
 }
 
+type BooleanValue {
+  id: ID!
+  booleanValue: Boolean!
+}
+
+type BooleanValueAggregateResult {
+  count: Int
+}
+
+input BooleanValueFilter {
+  id: [ID!]
+  has: [BooleanValueHasFilter]
+  and: [BooleanValueFilter]
+  or: [BooleanValueFilter]
+  not: BooleanValueFilter
+}
+
+enum BooleanValueHasFilter {
+  booleanValue
+}
+
+input BooleanValuePatch {
+  booleanValue: Boolean
+}
+
+input BooleanValueRef {
+  id: ID
+  booleanValue: Boolean
+}
+
 type Component {
   id: ID!
   library(filter: LibraryFilter): Library!
@@ -748,8 +871,24 @@ type DeleteArrayTypePayload {
   numUids: Int
 }
 
+type DeleteArrayValuePayload {
+  arrayValue(filter: ArrayValueFilter, first: Int, offset: Int): [ArrayValue]
+  msg: String
+  numUids: Int
+}
+
 type DeleteAtomPayload {
   atom(filter: AtomFilter, order: AtomOrder, first: Int, offset: Int): [Atom]
+  msg: String
+  numUids: Int
+}
+
+type DeleteBooleanValuePayload {
+  booleanValue(
+    filter: BooleanValueFilter
+    first: Int
+    offset: Int
+  ): [BooleanValue]
   msg: String
   numUids: Int
 }
@@ -793,6 +932,28 @@ type DeleteFieldPayload {
   numUids: Int
 }
 
+type DeleteFloatValuePayload {
+  floatValue(
+    filter: FloatValueFilter
+    order: FloatValueOrder
+    first: Int
+    offset: Int
+  ): [FloatValue]
+  msg: String
+  numUids: Int
+}
+
+type DeleteIntValuePayload {
+  intValue(
+    filter: IntValueFilter
+    order: IntValueOrder
+    first: Int
+    offset: Int
+  ): [IntValue]
+  msg: String
+  numUids: Int
+}
+
 type DeleteInterfacePayload {
   interface(
     filter: InterfaceFilter
@@ -800,6 +961,16 @@ type DeleteInterfacePayload {
     first: Int
     offset: Int
   ): [Interface]
+  msg: String
+  numUids: Int
+}
+
+type DeleteInterfaceValuePayload {
+  interfaceValue(
+    filter: InterfaceValueFilter
+    first: Int
+    offset: Int
+  ): [InterfaceValue]
   msg: String
   numUids: Int
 }
@@ -844,7 +1015,7 @@ type DeletePagePayload {
 }
 
 type DeletePropPayload {
-  prop(filter: PropFilter, order: PropOrder, first: Int, offset: Int): [Prop]
+  prop(filter: PropFilter, first: Int, offset: Int): [Prop]
   msg: String
   numUids: Int
 }
@@ -865,6 +1036,17 @@ type DeleteSimpleTypePayload {
   numUids: Int
 }
 
+type DeleteStringValuePayload {
+  stringValue(
+    filter: StringValueFilter
+    order: StringValueOrder
+    first: Int
+    offset: Int
+  ): [StringValue]
+  msg: String
+  numUids: Int
+}
+
 type DeleteTagPayload {
   tag(filter: TagFilter, order: TagOrder, first: Int, offset: Int): [Tag]
   msg: String
@@ -873,17 +1055,6 @@ type DeleteTagPayload {
 
 type DeleteUnitTypePayload {
   unitType(filter: UnitTypeFilter, first: Int, offset: Int): [UnitType]
-  msg: String
-  numUids: Int
-}
-
-type DeleteValueTypePayload {
-  valueType(
-    filter: ValueTypeFilter
-    order: ValueTypeOrder
-    first: Int
-    offset: Int
-  ): [ValueType]
   msg: String
   numUids: Int
 }
@@ -1070,6 +1241,50 @@ input FloatRange {
   max: Float!
 }
 
+type FloatValue {
+  id: ID!
+  floatValue: Float!
+}
+
+type FloatValueAggregateResult {
+  count: Int
+  floatValueMin: Float
+  floatValueMax: Float
+  floatValueSum: Float
+  floatValueAvg: Float
+}
+
+input FloatValueFilter {
+  id: [ID!]
+  has: [FloatValueHasFilter]
+  and: [FloatValueFilter]
+  or: [FloatValueFilter]
+  not: FloatValueFilter
+}
+
+enum FloatValueHasFilter {
+  floatValue
+}
+
+input FloatValueOrder {
+  asc: FloatValueOrderable
+  desc: FloatValueOrderable
+  then: FloatValueOrder
+}
+
+enum FloatValueOrderable {
+  floatValue
+}
+
+input FloatValuePatch {
+  floatValue: Float
+}
+
+input FloatValueRef {
+  id: ID
+  floatValue: Float
+}
+
 input GenerateMutationParams {
   add: Boolean
   update: Boolean
@@ -1127,6 +1342,50 @@ input IntRange {
   max: Int!
 }
 
+type IntValue {
+  id: ID!
+  intValue: Int!
+}
+
+type IntValueAggregateResult {
+  count: Int
+  intValueMin: Int
+  intValueMax: Int
+  intValueSum: Int
+  intValueAvg: Float
+}
+
+input IntValueFilter {
+  id: [ID!]
+  has: [IntValueHasFilter]
+  and: [IntValueFilter]
+  or: [IntValueFilter]
+  not: IntValueFilter
+}
+
+enum IntValueHasFilter {
+  intValue
+}
+
+input IntValueOrder {
+  asc: IntValueOrderable
+  desc: IntValueOrderable
+  then: IntValueOrder
+}
+
+enum IntValueOrderable {
+  intValue
+}
+
+input IntValuePatch {
+  intValue: Int
+}
+
+input IntValueRef {
+  id: ID
+  intValue: Int
+}
+
 type Interface {
   id: ID!
   atom(filter: AtomFilter): Atom
@@ -1181,6 +1440,37 @@ input InterfaceRef {
   atom: AtomRef
   name: String
   fields: [FieldRef]
+}
+
+type InterfaceValue {
+  id: ID!
+  props(filter: PropFilter, first: Int, offset: Int): [Prop!]!
+  propsAggregate(filter: PropFilter): PropAggregateResult
+}
+
+type InterfaceValueAggregateResult {
+  count: Int
+}
+
+input InterfaceValueFilter {
+  id: [ID!]
+  has: [InterfaceValueHasFilter]
+  and: [InterfaceValueFilter]
+  or: [InterfaceValueFilter]
+  not: InterfaceValueFilter
+}
+
+enum InterfaceValueHasFilter {
+  props
+}
+
+input InterfaceValuePatch {
+  props: [PropRef!]
+}
+
+input InterfaceValueRef {
+  id: ID
+  props: [PropRef!]
 }
 
 input IntersectsFilter {
@@ -1340,12 +1630,6 @@ type Mutation {
   addTag(input: [AddTagInput!]!): AddTagPayload
   updateTag(input: UpdateTagInput!): UpdateTagPayload
   deleteTag(filter: TagFilter!): DeleteTagPayload
-  addProp(input: [AddPropInput!]!): AddPropPayload
-  updateProp(input: UpdatePropInput!): UpdatePropPayload
-  deleteProp(filter: PropFilter!): DeletePropPayload
-  addValueType(input: [AddValueTypeInput!]!): AddValueTypePayload
-  updateValueType(input: UpdateValueTypeInput!): UpdateValueTypePayload
-  deleteValueType(filter: ValueTypeFilter!): DeleteValueTypePayload
   addSimpleType(input: [AddSimpleTypeInput!]!): AddSimpleTypePayload
   updateSimpleType(input: UpdateSimpleTypeInput!): UpdateSimpleTypePayload
   deleteSimpleType(filter: SimpleTypeFilter!): DeleteSimpleTypePayload
@@ -1396,6 +1680,31 @@ type Mutation {
   addInterface(input: [AddInterfaceInput!]!): AddInterfacePayload
   updateInterface(input: UpdateInterfaceInput!): UpdateInterfacePayload
   deleteInterface(filter: InterfaceFilter!): DeleteInterfacePayload
+  addStringValue(input: [AddStringValueInput!]!): AddStringValuePayload
+  updateStringValue(input: UpdateStringValueInput!): UpdateStringValuePayload
+  deleteStringValue(filter: StringValueFilter!): DeleteStringValuePayload
+  addIntValue(input: [AddIntValueInput!]!): AddIntValuePayload
+  updateIntValue(input: UpdateIntValueInput!): UpdateIntValuePayload
+  deleteIntValue(filter: IntValueFilter!): DeleteIntValuePayload
+  addFloatValue(input: [AddFloatValueInput!]!): AddFloatValuePayload
+  updateFloatValue(input: UpdateFloatValueInput!): UpdateFloatValuePayload
+  deleteFloatValue(filter: FloatValueFilter!): DeleteFloatValuePayload
+  addBooleanValue(input: [AddBooleanValueInput!]!): AddBooleanValuePayload
+  updateBooleanValue(input: UpdateBooleanValueInput!): UpdateBooleanValuePayload
+  deleteBooleanValue(filter: BooleanValueFilter!): DeleteBooleanValuePayload
+  addArrayValue(input: [AddArrayValueInput!]!): AddArrayValuePayload
+  updateArrayValue(input: UpdateArrayValueInput!): UpdateArrayValuePayload
+  deleteArrayValue(filter: ArrayValueFilter!): DeleteArrayValuePayload
+  addInterfaceValue(input: [AddInterfaceValueInput!]!): AddInterfaceValuePayload
+  updateInterfaceValue(
+    input: UpdateInterfaceValueInput!
+  ): UpdateInterfaceValuePayload
+  deleteInterfaceValue(
+    filter: InterfaceValueFilter!
+  ): DeleteInterfaceValuePayload
+  addProp(input: [AddPropInput!]!): AddPropPayload
+  updateProp(input: UpdatePropInput!): UpdatePropPayload
+  deleteProp(filter: PropFilter!): DeletePropPayload
 }
 
 input NearFilter {
@@ -1429,7 +1738,9 @@ type PageElement {
   ): [PageElement]
   atom(filter: AtomFilter): Atom
   component(filter: ComponentFilter): Component
+  props(filter: PropFilter, first: Int, offset: Int): [Prop!]!
   childrenAggregate(filter: PageElementFilter): PageElementAggregateResult
+  propsAggregate(filter: PropFilter): PropAggregateResult
 }
 
 type PageElementAggregateResult {
@@ -1454,6 +1765,7 @@ enum PageElementHasFilter {
   children
   atom
   component
+  props
 }
 
 input PageElementOrder {
@@ -1473,6 +1785,7 @@ input PageElementPatch {
   children: [PageElementRef]
   atom: AtomRef
   component: ComponentRef
+  props: [PropRef!]
 }
 
 input PageElementRef {
@@ -1483,6 +1796,7 @@ input PageElementRef {
   children: [PageElementRef]
   atom: AtomRef
   component: ComponentRef
+  props: [PropRef!]
 }
 
 input PageFilter {
@@ -1570,16 +1884,13 @@ enum PrimitiveType {
 
 type Prop {
   id: ID!
-  description: String
-  type(filter: ValueTypeFilter): ValueType!
-  props(filter: PropFilter, order: PropOrder, first: Int, offset: Int): [Prop]
-  propsAggregate(filter: PropFilter): PropAggregateResult
+  field(filter: FieldFilter): Field!
+  value(filter: PropValueFilter): PropValue
+  pageElement(filter: PageElementFilter): PageElement
 }
 
 type PropAggregateResult {
   count: Int
-  descriptionMin: String
-  descriptionMax: String
 }
 
 input PropFilter {
@@ -1591,32 +1902,58 @@ input PropFilter {
 }
 
 enum PropHasFilter {
-  description
-  type
-  props
-}
-
-input PropOrder {
-  asc: PropOrderable
-  desc: PropOrderable
-  then: PropOrder
-}
-
-enum PropOrderable {
-  description
+  field
+  value
+  pageElement
 }
 
 input PropPatch {
-  description: String
-  type: ValueTypeRef
-  props: [PropRef]
+  field: FieldRef
+  value: PropValueRef
+  pageElement: PageElementRef
 }
 
 input PropRef {
   id: ID
-  description: String
-  type: ValueTypeRef
-  props: [PropRef]
+  field: FieldRef
+  value: PropValueRef
+  pageElement: PageElementRef
+}
+
+union PropValue =
+    StringValue
+  | IntValue
+  | FloatValue
+  | BooleanValue
+  | ArrayValue
+  | InterfaceValue
+
+input PropValueFilter {
+  memberTypes: [PropValueType!]
+  stringValueFilter: StringValueFilter
+  intValueFilter: IntValueFilter
+  floatValueFilter: FloatValueFilter
+  booleanValueFilter: BooleanValueFilter
+  arrayValueFilter: ArrayValueFilter
+  interfaceValueFilter: InterfaceValueFilter
+}
+
+input PropValueRef {
+  stringValueRef: StringValueRef
+  intValueRef: IntValueRef
+  floatValueRef: FloatValueRef
+  booleanValueRef: BooleanValueRef
+  arrayValueRef: ArrayValueRef
+  interfaceValueRef: InterfaceValueRef
+}
+
+enum PropValueType {
+  StringValue
+  IntValue
+  FloatValue
+  BooleanValue
+  ArrayValue
+  InterfaceValue
 }
 
 type Query {
@@ -1665,22 +2002,6 @@ type Query {
   aggregateAtom(filter: AtomFilter): AtomAggregateResult
   queryTag(filter: TagFilter, order: TagOrder, first: Int, offset: Int): [Tag]
   aggregateTag(filter: TagFilter): TagAggregateResult
-  getProp(id: ID!): Prop
-  queryProp(
-    filter: PropFilter
-    order: PropOrder
-    first: Int
-    offset: Int
-  ): [Prop]
-  aggregateProp(filter: PropFilter): PropAggregateResult
-  getValueType(id: ID!): ValueType
-  queryValueType(
-    filter: ValueTypeFilter
-    order: ValueTypeOrder
-    first: Int
-    offset: Int
-  ): [ValueType]
-  aggregateValueType(filter: ValueTypeFilter): ValueTypeAggregateResult
   getSimpleType(id: ID!): SimpleType
   querySimpleType(
     filter: SimpleTypeFilter
@@ -1752,6 +2073,56 @@ type Query {
     offset: Int
   ): [Interface]
   aggregateInterface(filter: InterfaceFilter): InterfaceAggregateResult
+  getStringValue(id: ID!): StringValue
+  queryStringValue(
+    filter: StringValueFilter
+    order: StringValueOrder
+    first: Int
+    offset: Int
+  ): [StringValue]
+  aggregateStringValue(filter: StringValueFilter): StringValueAggregateResult
+  getIntValue(id: ID!): IntValue
+  queryIntValue(
+    filter: IntValueFilter
+    order: IntValueOrder
+    first: Int
+    offset: Int
+  ): [IntValue]
+  aggregateIntValue(filter: IntValueFilter): IntValueAggregateResult
+  getFloatValue(id: ID!): FloatValue
+  queryFloatValue(
+    filter: FloatValueFilter
+    order: FloatValueOrder
+    first: Int
+    offset: Int
+  ): [FloatValue]
+  aggregateFloatValue(filter: FloatValueFilter): FloatValueAggregateResult
+  getBooleanValue(id: ID!): BooleanValue
+  queryBooleanValue(
+    filter: BooleanValueFilter
+    first: Int
+    offset: Int
+  ): [BooleanValue]
+  aggregateBooleanValue(filter: BooleanValueFilter): BooleanValueAggregateResult
+  getArrayValue(id: ID!): ArrayValue
+  queryArrayValue(
+    filter: ArrayValueFilter
+    first: Int
+    offset: Int
+  ): [ArrayValue]
+  aggregateArrayValue(filter: ArrayValueFilter): ArrayValueAggregateResult
+  getInterfaceValue(id: ID!): InterfaceValue
+  queryInterfaceValue(
+    filter: InterfaceValueFilter
+    first: Int
+    offset: Int
+  ): [InterfaceValue]
+  aggregateInterfaceValue(
+    filter: InterfaceValueFilter
+  ): InterfaceValueAggregateResult
+  getProp(id: ID!): Prop
+  queryProp(filter: PropFilter, first: Int, offset: Int): [Prop]
+  aggregateProp(filter: PropFilter): PropAggregateResult
 }
 
 type RequiredValidator {
@@ -1860,6 +2231,48 @@ input StringRegExpFilter {
 input StringTermFilter {
   allofterms: String
   anyofterms: String
+}
+
+type StringValue {
+  id: ID!
+  stringValue: String!
+}
+
+type StringValueAggregateResult {
+  count: Int
+  stringValueMin: String
+  stringValueMax: String
+}
+
+input StringValueFilter {
+  id: [ID!]
+  has: [StringValueHasFilter]
+  and: [StringValueFilter]
+  or: [StringValueFilter]
+  not: StringValueFilter
+}
+
+enum StringValueHasFilter {
+  stringValue
+}
+
+input StringValueOrder {
+  asc: StringValueOrderable
+  desc: StringValueOrderable
+  then: StringValueOrder
+}
+
+enum StringValueOrderable {
+  stringValue
+}
+
+input StringValuePatch {
+  stringValue: String
+}
+
+input StringValueRef {
+  id: ID
+  stringValue: String
 }
 
 type Tag {
@@ -2006,6 +2419,17 @@ type UpdateArrayTypePayload {
   numUids: Int
 }
 
+input UpdateArrayValueInput {
+  filter: ArrayValueFilter!
+  set: ArrayValuePatch
+  remove: ArrayValuePatch
+}
+
+type UpdateArrayValuePayload {
+  arrayValue(filter: ArrayValueFilter, first: Int, offset: Int): [ArrayValue]
+  numUids: Int
+}
+
 input UpdateAtomInput {
   filter: AtomFilter!
   set: AtomPatch
@@ -2014,6 +2438,21 @@ input UpdateAtomInput {
 
 type UpdateAtomPayload {
   atom(filter: AtomFilter, order: AtomOrder, first: Int, offset: Int): [Atom]
+  numUids: Int
+}
+
+input UpdateBooleanValueInput {
+  filter: BooleanValueFilter!
+  set: BooleanValuePatch
+  remove: BooleanValuePatch
+}
+
+type UpdateBooleanValuePayload {
+  booleanValue(
+    filter: BooleanValueFilter
+    first: Int
+    offset: Int
+  ): [BooleanValue]
   numUids: Int
 }
 
@@ -2076,6 +2515,38 @@ type UpdateFieldPayload {
   numUids: Int
 }
 
+input UpdateFloatValueInput {
+  filter: FloatValueFilter!
+  set: FloatValuePatch
+  remove: FloatValuePatch
+}
+
+type UpdateFloatValuePayload {
+  floatValue(
+    filter: FloatValueFilter
+    order: FloatValueOrder
+    first: Int
+    offset: Int
+  ): [FloatValue]
+  numUids: Int
+}
+
+input UpdateIntValueInput {
+  filter: IntValueFilter!
+  set: IntValuePatch
+  remove: IntValuePatch
+}
+
+type UpdateIntValuePayload {
+  intValue(
+    filter: IntValueFilter
+    order: IntValueOrder
+    first: Int
+    offset: Int
+  ): [IntValue]
+  numUids: Int
+}
+
 input UpdateInterfaceInput {
   filter: InterfaceFilter!
   set: InterfacePatch
@@ -2089,6 +2560,21 @@ type UpdateInterfacePayload {
     first: Int
     offset: Int
   ): [Interface]
+  numUids: Int
+}
+
+input UpdateInterfaceValueInput {
+  filter: InterfaceValueFilter!
+  set: InterfaceValuePatch
+  remove: InterfaceValuePatch
+}
+
+type UpdateInterfaceValuePayload {
+  interfaceValue(
+    filter: InterfaceValueFilter
+    first: Int
+    offset: Int
+  ): [InterfaceValue]
   numUids: Int
 }
 
@@ -2158,7 +2644,7 @@ input UpdatePropInput {
 }
 
 type UpdatePropPayload {
-  prop(filter: PropFilter, order: PropOrder, first: Int, offset: Int): [Prop]
+  prop(filter: PropFilter, first: Int, offset: Int): [Prop]
   numUids: Int
 }
 
@@ -2188,6 +2674,22 @@ type UpdateSimpleTypePayload {
   numUids: Int
 }
 
+input UpdateStringValueInput {
+  filter: StringValueFilter!
+  set: StringValuePatch
+  remove: StringValuePatch
+}
+
+type UpdateStringValuePayload {
+  stringValue(
+    filter: StringValueFilter
+    order: StringValueOrder
+    first: Int
+    offset: Int
+  ): [StringValue]
+  numUids: Int
+}
+
 input UpdateTagInput {
   filter: TagFilter!
   set: TagPatch
@@ -2208,71 +2710,6 @@ input UpdateUnitTypeInput {
 type UpdateUnitTypePayload {
   unitType(filter: UnitTypeFilter, first: Int, offset: Int): [UnitType]
   numUids: Int
-}
-
-input UpdateValueTypeInput {
-  filter: ValueTypeFilter!
-  set: ValueTypePatch
-  remove: ValueTypePatch
-}
-
-type UpdateValueTypePayload {
-  valueType(
-    filter: ValueTypeFilter
-    order: ValueTypeOrder
-    first: Int
-    offset: Int
-  ): [ValueType]
-  numUids: Int
-}
-
-type ValueType {
-  id: ID!
-  label: String!
-  type: String!
-}
-
-type ValueTypeAggregateResult {
-  count: Int
-  labelMin: String
-  labelMax: String
-  typeMin: String
-  typeMax: String
-}
-
-input ValueTypeFilter {
-  id: [ID!]
-  has: [ValueTypeHasFilter]
-  and: [ValueTypeFilter]
-  or: [ValueTypeFilter]
-  not: ValueTypeFilter
-}
-
-enum ValueTypeHasFilter {
-  label
-  type
-}
-
-input ValueTypeOrder {
-  asc: ValueTypeOrderable
-  desc: ValueTypeOrderable
-  then: ValueTypeOrder
-}
-
-enum ValueTypeOrderable {
-  label
-  type
-}
-
-input ValueTypePatch {
-  label: String
-  type: String
-}
-
-input ValueTypeRef {
-  id: ID
-  label: String
-  type: String
 }
 
 input WithinFilter {

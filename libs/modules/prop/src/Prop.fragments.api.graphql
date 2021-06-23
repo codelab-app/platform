@@ -1,20 +1,16 @@
-fragment __Prop on Prop {
-  description
-  id
-  key
-  type {
-    id
-    type
-    label
-  }
+fragment __PropAggregate on PropAggregate {
   props {
-    description
     id
-    key
-    type {
-      id
-      type
-      label
-    }
   }
+  values {
+    __typename
+  }
+  rootProp {
+    id
+  }
+}
+
+fragment __Prop on Prop {
+  id
+
 }

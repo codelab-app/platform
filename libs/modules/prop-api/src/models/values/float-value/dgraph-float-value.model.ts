@@ -6,7 +6,7 @@ import {
 import { z } from 'zod'
 
 export enum DgraphFloatValueFields {
-  value = 'FloatValue.value',
+  value = 'FloatValue.floatValue',
 }
 
 export class DgraphFloatValue extends DgraphModel<'FloatValue'> {

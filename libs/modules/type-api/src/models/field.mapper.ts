@@ -15,9 +15,13 @@ export class FieldMapper implements IDgraphMapper<DgraphField, Field> {
   static inputSchema = z.intersection(
     DgraphField.Schema.omit({
       [FieldDgraphFields.Type]: true,
+      [FieldDgraphFields.Interface]: true,
     }),
     z.object({
       [FieldDgraphFields.Type]: z.object({
+        [BaseDgraphFields.uid]: z.string(),
+      }),
+      [FieldDgraphFields.Interface]: z.object({
         [BaseDgraphFields.uid]: z.string(),
       }),
     }),
@@ -37,6 +41,9 @@ export class FieldMapper implements IDgraphMapper<DgraphField, Field> {
     field.decorators = await new DgraphArrayMapper(this.decoratorMapper).map(
       dgraphField[FieldDgraphFields.Decorators],
     )
+    field.interface = {
+      id: dgraphField[FieldDgraphFields.Interface][BaseDgraphFields.uid],
+    }
 
     fieldSchema.parse(field)
 

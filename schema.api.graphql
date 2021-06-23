@@ -17,34 +17,6 @@ type EnumTypeValue {
   name: String!
 }
 
-type Field {
-  id: ID!
-  key: String!
-  name: String!
-  description: String
-  typeId: String!
-  decorators: [Decorator!]!
-}
-
-union Decorator = ArrayLengthValidator | MinMaxValidator | RequiredValidator
-
-type ArrayLengthValidator {
-  id: ID!
-  minLength: Int
-  maxLength: Int
-}
-
-type MinMaxValidator {
-  id: ID!
-  min: Int
-  max: Int
-}
-
-type RequiredValidator {
-  id: ID!
-  isRequired: Boolean!
-}
-
 type FieldCollection {
   fields: [Field!]!
 
@@ -100,6 +72,35 @@ type Interface {
   id: ID!
   name: String!
   fieldCollection: FieldCollection!
+}
+
+type Field {
+  id: ID!
+  key: String!
+  name: String!
+  description: String
+  typeId: String!
+  decorators: [Decorator!]!
+  interface: Interface!
+}
+
+union Decorator = ArrayLengthValidator | MinMaxValidator | RequiredValidator
+
+type ArrayLengthValidator {
+  id: ID!
+  minLength: Int
+  maxLength: Int
+}
+
+type MinMaxValidator {
+  id: ID!
+  min: Int
+  max: Int
+}
+
+type RequiredValidator {
+  id: ID!
+  isRequired: Boolean!
 }
 
 type Atom {
@@ -259,22 +260,22 @@ union PropValue = StringValue | IntValue | FloatValue | BooleanValue | ArrayValu
 
 type StringValue {
   id: ID!
-  value: String!
+  stringValue: String!
 }
 
 type IntValue {
   id: ID!
-  value: Int!
+  intValue: Int!
 }
 
 type FloatValue {
   id: ID!
-  value: Float!
+  floatValue: Float!
 }
 
 type BooleanValue {
   id: ID!
-  value: Boolean!
+  booleanValue: Boolean!
 }
 
 type ArrayValue {
@@ -285,6 +286,22 @@ type ArrayValue {
 type InterfaceValue {
   id: ID!
   props: [Prop!]!
+  values: [PropValue!]!
+}
+
+"""The aggregate prop and value descendants of a single root prop"""
+type PropAggregate {
+  rootProp: Prop!
+
+  """
+  All props that are descendant of this Prop, normalized to an array, including the root prop
+  """
+  props: [Prop!]!
+
+  """
+  All values that are descendant of this Prop, normalized to an array, including the root prop's value
+  """
+  values: [PropValue!]!
 }
 
 type User {
@@ -328,7 +345,8 @@ type Query {
   getInterfaces: [Interface!]!
   getField(input: GetFieldInput!): Field
   getType(input: GetTypeInput!): Type
-  getProps: [Prop!]!
+  getProp: PropAggregate!
+  getProps(input: GetPropsInput!): [PropAggregate!]!
 }
 
 input GetAppInput {
@@ -384,6 +402,25 @@ input GetTypeInput {
   typeId: String!
 }
 
+input GetPropsInput {
+  byPageElement: PropsByPageElementFilter
+  byIds: PropsByIdsFilter
+  byInterfaceValue: PropsByInterfaceValueId
+}
+
+input PropsByPageElementFilter {
+  pageElementId: String!
+  fieldId: String = null
+}
+
+input PropsByIdsFilter {
+  propIds: [String!]!
+}
+
+input PropsByInterfaceValueId {
+  interfaceValueId: String!
+}
+
 type Mutation {
   createApp(input: CreateAppInput!): App!
   updateApp(input: UpdateAppInput!): App!
@@ -408,6 +445,8 @@ type Mutation {
   createField(input: CreateFieldInput!): Field!
   updateField(input: UpdateFieldInput!): Field!
   deleteField(input: DeleteFieldInput!): DeleteResponse!
+  createProp(input: CreatePropInput!): Prop!
+  deleteProp: DeleteResponse!
 }
 
 input CreateAppInput {
@@ -484,6 +523,7 @@ input UpdatePageElementInput {
 input UpdatePageElementData {
   name: String!
   atomId: String
+  propIds: [String!]!
 }
 
 input MovePageElementInput {
@@ -584,4 +624,43 @@ input UpdateFieldData {
 
 input DeleteFieldInput {
   fieldId: String!
+}
+
+input CreatePropInput {
+  fieldId: String!
+  pageElementId: String
+  value: CreateValueInput
+}
+
+input CreateValueInput {
+  stringValue: StringValueInput
+  intValue: IntValueInput
+  floatValue: FloatValueInput
+  booleanValue: BoleanValueInput
+  arrayValue: ArrayValueInput
+  interfaceValue: InterfaceValueInput
+}
+
+input StringValueInput {
+  value: String!
+}
+
+input IntValueInput {
+  value: Int!
+}
+
+input FloatValueInput {
+  value: Float!
+}
+
+input BoleanValueInput {
+  value: Boolean!
+}
+
+input ArrayValueInput {
+  values: [CreateValueInput!]!
+}
+
+input InterfaceValueInput {
+  props: [CreatePropInput!]!
 }

@@ -15,11 +15,11 @@ export class RequiredValidatorMapper
 {
   map(input: DeepPartial<DgraphRequiredValidator>) {
     const dgraphValidator = DgraphRequiredValidator.Schema.parse(input)
-    const validator = new RequiredValidator()
 
-    validator.id = dgraphValidator[BaseDgraphFields.uid]
-    validator.isRequired =
-      dgraphValidator[RequiredValidatorDgraphFields.IsRequired]
+    const validator = new RequiredValidator(
+      dgraphValidator[BaseDgraphFields.uid],
+      dgraphValidator[RequiredValidatorDgraphFields.IsRequired],
+    )
 
     requiredValidatorSchema.parse(validator)
 

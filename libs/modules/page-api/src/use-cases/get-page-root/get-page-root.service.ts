@@ -28,7 +28,7 @@ export class GetPageRootService extends DgraphUseCase<
     { input: { pageId } }: GetPageRootRequest,
     txn: Txn,
   ) {
-    const queryBuilder = new GetPageRootQueryBuilder().withUid(pageId)
+    const queryBuilder = new GetPageRootQueryBuilder().withUidFunc(pageId)
     const schema = queryBuilder.getZodSchema()
     const queryResult = await txn.query(queryBuilder.build())
     const parsedResult = schema.parse(queryResult.data).query

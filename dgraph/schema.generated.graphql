@@ -107,7 +107,7 @@ enum AtomType {
 type App {
   id: ID!
   ownerId: String! @search(by: [hash])
-  pages: [Page] @hasInverse(field: "app")
+  pages: [Page] @hasInverse(field: app)
   name: String!
 }
 
@@ -123,9 +123,10 @@ type PageElement {
   name: String! @search(by: [term, fulltext])
   page: Page!
   parent: PageElement
-  children: [PageElement] @hasInverse(field: "parent")
+  children: [PageElement] @hasInverse(field: parent)
   atom: Atom
   component: Component
+  props: [Prop!]! @hasInverse(field: pageElement)
 }
 
 type Library {
@@ -133,7 +134,7 @@ type Library {
   ownerId: String!
   name: String!
   atoms: [Atom] @hasInverse(field: "library")
-  components: [Component] @hasInverse(field: "library")
+  components: [Component] @hasInverse(field: library)
 }
 
 type Component {
@@ -150,24 +151,11 @@ type Atom {
   type: AtomType!
   label: String!
   library: Library
-  propTypes: Interface! @hasInverse(field: "atom")
+  propTypes: Interface! @hasInverse(field: atom)
 }
 
 type Tag {
   label: String!
-}
-
-type Prop {
-  id: ID!
-  description: String
-  type: ValueType!
-  props: [Prop]
-}
-
-type ValueType {
-  id: ID!
-  label: String!
-  type: String!
 }
 
 enum PrimitiveType {
@@ -247,5 +235,44 @@ type Interface {
   id: ID!
   atom: Atom
   name: String!
-  fields: [Field] @hasInverse(field: "interface")
+  fields: [Field] @hasInverse(field: interface)
+}
+
+type StringValue {
+  id: ID!
+  stringValue: String!
+}
+
+type IntValue {
+  id: ID!
+  intValue: Int!
+}
+
+type FloatValue {
+  id: ID!
+  floatValue: Float!
+}
+
+type BooleanValue {
+  id: ID!
+  booleanValue: Boolean!
+}
+
+type ArrayValue {
+  id: ID!
+  values: [PropValue!]!
+}
+
+type InterfaceValue {
+  id: ID!
+  props: [Prop!]!
+}
+
+union PropValue = StringValue | IntValue | FloatValue | BooleanValue | ArrayValue | InterfaceValue
+
+type Prop {
+  id: ID!
+  field: Field!
+  value: PropValue
+  pageElement: PageElement
 }

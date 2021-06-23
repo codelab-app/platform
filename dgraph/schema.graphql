@@ -3,7 +3,7 @@
 type App {
     id: ID!
     ownerId: String! @search(by: [hash])
-    pages: [Page] @hasInverse(field: "app")
+    pages: [Page] @hasInverse(field: app)
     name: String!
 }
 
@@ -26,9 +26,10 @@ type PageElement {
     #   2. Children, no atom, no component -> render children without container
     #   3. Component, no children, no atom -> render the component itself in place of the element
     # We can add component + children later
-    children: [PageElement] @hasInverse(field: "parent")
+    children: [PageElement] @hasInverse(field: parent)
     atom: Atom
     component: Component
+    props: [Prop!]! @hasInverse(field: pageElement)
 }
 
 type Library {
@@ -36,7 +37,7 @@ type Library {
     ownerId: String!
     name: String!
     atoms: [Atom] @hasInverse(field: "library")
-    components: [Component] @hasInverse(field: "library")
+    components: [Component] @hasInverse(field: library)
 }
 
 type Component {
@@ -53,7 +54,7 @@ type Atom {
     type: AtomType!
     label: String!
     library: Library
-    propTypes: Interface! @hasInverse(field: "atom")
+    propTypes: Interface! @hasInverse(field: atom)
 }
 
 type Tag {
@@ -145,7 +146,7 @@ type Interface {
     id: ID!
     atom: Atom
     name: String!
-    fields: [Field] @hasInverse(field: "interface")
+    fields: [Field] @hasInverse(field: interface)
 }
 
 
@@ -155,22 +156,22 @@ type Interface {
 
 type StringValue {
     id: ID!
-    value: String!
+    stringValue: String!
 }
 
 type IntValue {
     id: ID!
-    value: Int!
+    intValue: Int!
 }
 
 type FloatValue {
     id: ID!
-    value: Float!
+    floatValue: Float!
 }
 
 type BooleanValue {
     id: ID!
-    value: Boolean!
+    booleanValue: Boolean!
 }
 
 type ArrayValue {
@@ -189,4 +190,5 @@ type Prop {
     id: ID!
     field: Field!
     value: PropValue
+    pageElement: PageElement
 }

@@ -8,6 +8,7 @@ import {
   DecoratorDgraphTypes,
   DgraphField,
   FieldDgraphFields,
+  InterfaceDgraphFields,
 } from '../../../models'
 import {
   GetTypeQueryBuilder,
@@ -28,6 +29,9 @@ export class GetFieldQueryBuilder extends DgraphQueryBuilder {
         ...typeQueryBuilder.fields,
       ),
       new DgraphQueryField(FieldDgraphFields.Decorators).withBaseInnerFields(),
+      new DgraphQueryField(FieldDgraphFields.Interface)
+        .withBaseInnerFields()
+        .withInnerFields(InterfaceDgraphFields.Name),
     )
   }
 }

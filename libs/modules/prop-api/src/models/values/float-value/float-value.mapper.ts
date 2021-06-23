@@ -12,12 +12,13 @@ export class FloatValueMapper
 {
   map(input: DeepPartial<DgraphFloatValue>) {
     const dgraphValue = DgraphFloatValue.Schema.parse(input)
-    const value = new FloatValue()
 
-    value.id = dgraphValue[BaseDgraphFields.uid]
-    value.value = dgraphValue[DgraphFloatValueFields.value]
+    const value = new FloatValue(
+      dgraphValue[BaseDgraphFields.uid],
+      dgraphValue[DgraphFloatValueFields.value],
+    )
 
-    DgraphFloatValue.Schema.parse(value)
+    FloatValue.Schema.parse(value)
 
     return value
   }

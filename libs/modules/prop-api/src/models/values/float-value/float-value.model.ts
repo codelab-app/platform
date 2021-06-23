@@ -7,10 +7,15 @@ export class FloatValue {
   declare id: string
 
   @GraphqlField(() => Float)
-  declare value: number
+  declare floatValue: number
+
+  constructor(id: string, floatValue: number) {
+    this.id = id
+    this.floatValue = floatValue
+  }
 
   static Schema = z.object({
     id: z.string(),
-    value: z.number(),
+    floatValue: z.number(),
   })
 }

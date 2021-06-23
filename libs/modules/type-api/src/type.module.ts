@@ -22,6 +22,7 @@ import {
   CreateInterfaceService,
   DeleteInterfaceService,
   FieldMutationValidator,
+  GetDgraphFieldService,
   GetFieldService,
   GetInterfaceService,
   GetInterfacesService,
@@ -64,6 +65,7 @@ const services = [
   FieldMutationValidator,
   GetTypeService,
   DeleteFieldService,
+  GetDgraphFieldService,
 ]
 
 @Module({

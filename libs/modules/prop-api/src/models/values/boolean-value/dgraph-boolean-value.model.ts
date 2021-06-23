@@ -6,7 +6,7 @@ import {
 import { z } from 'zod'
 
 export enum DgraphBooleanValueFields {
-  value = 'BooleanValue.value',
+  value = 'BooleanValue.booleanValue',
 }
 
 export class DgraphBooleanValue extends DgraphModel<'BooleanValue'> {

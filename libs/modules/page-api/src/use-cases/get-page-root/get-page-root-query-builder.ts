@@ -28,6 +28,7 @@ export class GetPageRootQueryBuilder extends GetPageElementRootQueryBuilder {
         'PageElement.children|order': z.number().optional(),
         'Atom.label': z.string().optional(),
         'Atom.type': z.string().optional(),
+        'Atom.propTypes': root.optional(),
         'Page.rootElement': root.optional(),
       }),
     )

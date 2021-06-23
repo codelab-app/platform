@@ -27,6 +27,11 @@ export class PageElement {
   // @Field(() => Component) //need to add this when component-api is done
   // declare  component: Component
 
+  // Can't add Prop[] here, because it would cause a circular dependency. Do we need to restructure our modules?
+  // @Field(() => )
+  // // Optional, because the field resolver can get it
+  // declare props?: Array<Prop>
+
   constructor({ id, name, atom }: PageElement) {
     this.id = id
     this.name = name

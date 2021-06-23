@@ -7,10 +7,15 @@ export class BooleanValue {
   declare id: string
 
   @GraphqlField()
-  declare value: boolean
+  declare booleanValue: boolean
+
+  constructor(id: string, booleanValue: boolean) {
+    this.id = id
+    this.booleanValue = booleanValue
+  }
 
   static Schema = z.object({
     id: z.string(),
-    value: z.boolean(),
+    booleanValue: z.boolean(),
   })
 }

@@ -1,5 +1,5 @@
 import { BaseDgraphFields, DeepPartial, IDgraphMapper } from '@codelab/backend'
-import { Injectable } from '@nestjs/common'
+import { forwardRef, Inject, Injectable } from '@nestjs/common'
 import { PropMappingContext } from '../../prop'
 import { ArrayValueMapper, DgraphArrayValue } from '../array-value'
 import { BooleanValueMapper, DgraphBooleanValue } from '../boolean-value'
@@ -15,6 +15,7 @@ export class PropValueMapper
   implements IDgraphMapper<DgraphPropValue, PropValue, PropMappingContext>
 {
   constructor(
+    @Inject(forwardRef(() => ArrayValueMapper))
     private arrayValueMapper: ArrayValueMapper,
     private booleanValueMapper: BooleanValueMapper,
     private floatValueMapper: FloatValueMapper,

@@ -15,7 +15,10 @@ export class GetRecursiveInterfaceService extends DgraphUseCase<
     { input: { interfaceId } }: GetInterfaceRequest,
     txn: Txn,
   ) {
-    const query = new GetInterfaceQueryBuilder().withUid(interfaceId).build()
+    const query = new GetInterfaceQueryBuilder()
+      .withUidFunc(interfaceId)
+      .build()
+
     const result = await txn.query(query)
     const dataArray = (result?.data as any)?.query || null
 

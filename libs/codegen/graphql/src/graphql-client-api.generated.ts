@@ -35,6 +35,15 @@ export type ArrayType = {
   typeId: Scalars['String']
 }
 
+export type ArrayValue = {
+  id: Scalars['ID']
+  values: Array<PropValue>
+}
+
+export type ArrayValueInput = {
+  values: Array<CreateValueInput>
+}
+
 export type Atom = {
   id: Scalars['ID']
   type: AtomType
@@ -148,6 +157,15 @@ export enum AtomType {
   HtmlText = 'HtmlText',
 }
 
+export type BoleanValueInput = {
+  value: Scalars['Boolean']
+}
+
+export type BooleanValue = {
+  id: Scalars['ID']
+  booleanValue: Scalars['Boolean']
+}
+
 export type CreateAppInput = {
   name: Scalars['String']
 }
@@ -194,6 +212,12 @@ export type CreatePageInput = {
   appId: Scalars['String']
 }
 
+export type CreatePropInput = {
+  fieldId: Scalars['String']
+  pageElementId?: Maybe<Scalars['String']>
+  value?: Maybe<CreateValueInput>
+}
+
 export type CreateSimpleTypeInput = {
   primitiveType: PrimitiveType
 }
@@ -210,6 +234,15 @@ export type CreateTypeInput = {
 export type CreateUnitTypeInput = {
   /** Pass null to allow all */
   allowedUnits?: Maybe<Array<Unit>>
+}
+
+export type CreateValueInput = {
+  stringValue?: Maybe<StringValueInput>
+  intValue?: Maybe<IntValueInput>
+  floatValue?: Maybe<FloatValueInput>
+  booleanValue?: Maybe<BoleanValueInput>
+  arrayValue?: Maybe<ArrayValueInput>
+  interfaceValue?: Maybe<InterfaceValueInput>
 }
 
 export type Decorator =
@@ -266,6 +299,7 @@ export type Field = {
   description?: Maybe<Scalars['String']>
   typeId: Scalars['String']
   decorators: Array<Decorator>
+  interface: Interface
 }
 
 export type FieldByIdFilter = {
@@ -281,6 +315,15 @@ export type FieldCollection = {
   fields: Array<Field>
   /** Flattened array of all types that are used inside this interface */
   types: Array<Type>
+}
+
+export type FloatValue = {
+  id: Scalars['ID']
+  floatValue: Scalars['Float']
+}
+
+export type FloatValueInput = {
+  value: Scalars['Float']
 }
 
 export type GetAppInput = {
@@ -316,6 +359,12 @@ export type GetPagesInput = {
   appId: Scalars['String']
 }
 
+export type GetPropsInput = {
+  byPageElement?: Maybe<PropsByPageElementFilter>
+  byIds?: Maybe<PropsByIdsFilter>
+  byInterfaceValue?: Maybe<PropsByInterfaceValueId>
+}
+
 export type GetTypeInput = {
   typeId: Scalars['String']
 }
@@ -327,6 +376,15 @@ export type GetUsersInput = {
   sort: Scalars['String']
 }
 
+export type IntValue = {
+  id: Scalars['ID']
+  intValue: Scalars['Int']
+}
+
+export type IntValueInput = {
+  value: Scalars['Int']
+}
+
 export type Interface = {
   id: Scalars['ID']
   name: Scalars['String']
@@ -336,6 +394,16 @@ export type Interface = {
 export type InterfaceType = {
   interfaceId: Scalars['String']
   interfaceName: Scalars['String']
+}
+
+export type InterfaceValue = {
+  id: Scalars['ID']
+  props: Array<Prop>
+  values: Array<PropValue>
+}
+
+export type InterfaceValueInput = {
+  props: Array<CreatePropInput>
 }
 
 export type MinMaxValidator = {
@@ -377,6 +445,8 @@ export type Mutation = {
   createField: Field
   updateField: Field
   deleteField: DeleteResponse
+  createProp: Prop
+  deleteProp: DeleteResponse
 }
 
 export type MutationCreateAppArgs = {
@@ -463,6 +533,10 @@ export type MutationDeleteFieldArgs = {
   input: DeleteFieldInput
 }
 
+export type MutationCreatePropArgs = {
+  input: CreatePropInput
+}
+
 export type Page = {
   id: Scalars['ID']
   name: Scalars['String']
@@ -503,10 +577,37 @@ export enum PrimitiveType {
 
 export type Prop = {
   id: Scalars['ID']
-  key?: Maybe<Scalars['String']>
-  type: ValueType
-  description?: Maybe<Scalars['String']>
-  props?: Maybe<Array<Prop>>
+  field: Field
+  value?: Maybe<PropValue>
+}
+
+/** The aggregate prop and value descendants of a single root prop */
+export type PropAggregate = {
+  rootProp: Prop
+  /** All props that are descendant of this Prop, normalized to an array, including the root prop */
+  props: Array<Prop>
+  /** All values that are descendant of this Prop, normalized to an array, including the root prop's value */
+  values: Array<PropValue>
+}
+
+export type PropValue =
+  | StringValue
+  | IntValue
+  | FloatValue
+  | BooleanValue
+  | ArrayValue
+  | InterfaceValue
+
+export type PropsByIdsFilter = {
+  propIds: Array<Scalars['String']>
+}
+
+export type PropsByInterfaceValueId = {
+  interfaceValueId: Scalars['String']
+}
+
+export type PropsByPageElementFilter = {
+  pageElementId: Scalars['String']
 }
 
 export type Query = {
@@ -525,8 +626,8 @@ export type Query = {
   getInterfaces: Array<Interface>
   getField?: Maybe<Field>
   getType?: Maybe<Type>
-  getValueTypes: Array<ValueType>
-  getProps: Array<Prop>
+  getProp: PropAggregate
+  getProps: Array<PropAggregate>
 }
 
 export type QueryGetAppArgs = {
@@ -569,6 +670,10 @@ export type QueryGetTypeArgs = {
   input: GetTypeInput
 }
 
+export type QueryGetPropsArgs = {
+  input: GetPropsInput
+}
+
 export type RequiredValidator = {
   id: Scalars['ID']
   isRequired: Scalars['Boolean']
@@ -577,6 +682,15 @@ export type RequiredValidator = {
 export type SimpleType = {
   id: Scalars['ID']
   primitiveType: PrimitiveType
+}
+
+export type StringValue = {
+  id: Scalars['ID']
+  stringValue: Scalars['String']
+}
+
+export type StringValueInput = {
+  value: Scalars['String']
 }
 
 export type Type = SimpleType | ArrayType | EnumType | UnitType | InterfaceType
@@ -640,6 +754,7 @@ export type UpdatePageData = {
 export type UpdatePageElementData = {
   name: Scalars['String']
   atomId?: Maybe<Scalars['String']>
+  propIds: Array<Scalars['String']>
 }
 
 export type UpdatePageElementInput = {
@@ -687,12 +802,6 @@ export type User = {
   updated_at?: Maybe<Scalars['String']>
   user_id?: Maybe<Scalars['String']>
   username?: Maybe<Scalars['String']>
-}
-
-export type ValueType = {
-  id: Scalars['ID']
-  label: Scalars['String']
-  type: Scalars['String']
 }
 
 export type CreateAppMutationVariables = Exact<{
@@ -858,20 +967,26 @@ export type UpdatePageMutationVariables = Exact<{
 
 export type UpdatePageMutation = { updatePage: PageBaseFragment }
 
-export type __PropFragment = Pick<Prop, 'description' | 'id' | 'key'> & {
-  type: Pick<ValueType, 'id' | 'type' | 'label'>
-  props?: Maybe<
-    Array<
-      Pick<Prop, 'description' | 'id' | 'key'> & {
-        type: Pick<ValueType, 'id' | 'type' | 'label'>
-      }
-    >
+export type __PropAggregateFragment = {
+  props: Array<Pick<Prop, 'id'>>
+  values: Array<
+    | { __typename: 'StringValue' }
+    | { __typename: 'IntValue' }
+    | { __typename: 'FloatValue' }
+    | { __typename: 'BooleanValue' }
+    | { __typename: 'ArrayValue' }
+    | { __typename: 'InterfaceValue' }
   >
+  rootProp: Pick<Prop, 'id'>
 }
 
-export type GetPropsQueryVariables = Exact<{ [key: string]: never }>
+export type __PropFragment = Pick<Prop, 'id'>
 
-export type GetPropsQuery = { props: Array<__PropFragment> }
+export type GetPropsQueryVariables = Exact<{
+  input: GetPropsInput
+}>
+
+export type GetPropsQuery = { props: Array<__PropAggregateFragment> }
 
 export type TestCreateFieldMutationVariables = Exact<{
   input: CreateFieldInput
@@ -1121,12 +1236,6 @@ export type GetUsersQueryVariables = Exact<{
 
 export type GetUsersQuery = { users: Array<__UserFragment> }
 
-export type GetValueTypesQueryVariables = Exact<{ [key: string]: never }>
-
-export type GetValueTypesQuery = { valueTypes: Array<__ValueTypeFragment> }
-
-export type __ValueTypeFragment = Pick<ValueType, 'id' | 'type' | 'label'>
-
 export const __AppFragmentDoc = gql`
   fragment __App on App {
     id
@@ -1206,26 +1315,22 @@ export const PageFullFragmentDoc = gql`
   ${PageBaseFragmentDoc}
   ${PageElementRootFragmentDoc}
 `
+export const __PropAggregateFragmentDoc = gql`
+  fragment __PropAggregate on PropAggregate {
+    props {
+      id
+    }
+    values {
+      __typename
+    }
+    rootProp {
+      id
+    }
+  }
+`
 export const __PropFragmentDoc = gql`
   fragment __Prop on Prop {
-    description
     id
-    key
-    type {
-      id
-      type
-      label
-    }
-    props {
-      description
-      id
-      key
-      type {
-        id
-        type
-        label
-      }
-    }
   }
 `
 export const __ArrayLengthValidatorFragmentDoc = gql`
@@ -1369,13 +1474,6 @@ export const __UserFragmentDoc = gql`
     id: user_id
     email
     name
-  }
-`
-export const __ValueTypeFragmentDoc = gql`
-  fragment __ValueType on ValueType {
-    id
-    type
-    label
   }
 `
 export const CreateAppGql = gql`
@@ -2483,12 +2581,12 @@ export type UpdatePageMutationOptions = Apollo.BaseMutationOptions<
   UpdatePageMutationVariables
 >
 export const GetPropsGql = gql`
-  query GetProps {
-    props: getProps {
-      ...__Prop
+  query GetProps($input: GetPropsInput!) {
+    props: getProps(input: $input) {
+      ...__PropAggregate
     }
   }
-  ${__PropFragmentDoc}
+  ${__PropAggregateFragmentDoc}
 `
 
 /**
@@ -2503,11 +2601,12 @@ export const GetPropsGql = gql`
  * @example
  * const { data, loading, error } = useGetPropsQuery({
  *   variables: {
+ *      input: // value for 'input'
  *   },
  * });
  */
 export function useGetPropsQuery(
-  baseOptions?: Apollo.QueryHookOptions<GetPropsQuery, GetPropsQueryVariables>,
+  baseOptions: Apollo.QueryHookOptions<GetPropsQuery, GetPropsQueryVariables>,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
   return Apollo.useQuery<GetPropsQuery, GetPropsQueryVariables>(
@@ -3634,69 +3733,6 @@ export type GetUsersQueryResult = Apollo.QueryResult<
 export function refetchGetUsersQuery(variables?: GetUsersQueryVariables) {
   return { query: GetUsersGql, variables: variables }
 }
-export const GetValueTypesGql = gql`
-  query GetValueTypes {
-    valueTypes: getValueTypes {
-      ...__ValueType
-    }
-  }
-  ${__ValueTypeFragmentDoc}
-`
-
-/**
- * __useGetValueTypesQuery__
- *
- * To run a query within a React component, call `useGetValueTypesQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetValueTypesQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetValueTypesQuery({
- *   variables: {
- *   },
- * });
- */
-export function useGetValueTypesQuery(
-  baseOptions?: Apollo.QueryHookOptions<
-    GetValueTypesQuery,
-    GetValueTypesQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<GetValueTypesQuery, GetValueTypesQueryVariables>(
-    GetValueTypesGql,
-    options,
-  )
-}
-export function useGetValueTypesLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetValueTypesQuery,
-    GetValueTypesQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<GetValueTypesQuery, GetValueTypesQueryVariables>(
-    GetValueTypesGql,
-    options,
-  )
-}
-export type GetValueTypesQueryHookResult = ReturnType<
-  typeof useGetValueTypesQuery
->
-export type GetValueTypesLazyQueryHookResult = ReturnType<
-  typeof useGetValueTypesLazyQuery
->
-export type GetValueTypesQueryResult = Apollo.QueryResult<
-  GetValueTypesQuery,
-  GetValueTypesQueryVariables
->
-export function refetchGetValueTypesQuery(
-  variables?: GetValueTypesQueryVariables,
-) {
-  return { query: GetValueTypesGql, variables: variables }
-}
 export const __App = gql`
   fragment __App on App {
     id
@@ -3776,26 +3812,22 @@ export const PageFull = gql`
   ${PageBase}
   ${PageElementRoot}
 `
+export const __PropAggregate = gql`
+  fragment __PropAggregate on PropAggregate {
+    props {
+      id
+    }
+    values {
+      __typename
+    }
+    rootProp {
+      id
+    }
+  }
+`
 export const __Prop = gql`
   fragment __Prop on Prop {
-    description
     id
-    key
-    type {
-      id
-      type
-      label
-    }
-    props {
-      description
-      id
-      key
-      type {
-        id
-        type
-        label
-      }
-    }
   }
 `
 export const __ArrayLengthValidator = gql`
@@ -3939,13 +3971,6 @@ export const __User = gql`
     id: user_id
     email
     name
-  }
-`
-export const __ValueType = gql`
-  fragment __ValueType on ValueType {
-    id
-    type
-    label
   }
 `
 export const CreateApp = gql`
@@ -4113,12 +4138,12 @@ export const UpdatePage = gql`
   ${PageBase}
 `
 export const GetProps = gql`
-  query GetProps {
-    props: getProps {
-      ...__Prop
+  query GetProps($input: GetPropsInput!) {
+    props: getProps(input: $input) {
+      ...__PropAggregate
     }
   }
-  ${__Prop}
+  ${__PropAggregate}
 `
 export const TestCreateField = gql`
   mutation TestCreateField($input: CreateFieldInput!) {
@@ -4272,12 +4297,4 @@ export const GetUsers = gql`
     }
   }
   ${__User}
-`
-export const GetValueTypes = gql`
-  query GetValueTypes {
-    valueTypes: getValueTypes {
-      ...__ValueType
-    }
-  }
-  ${__ValueType}
 `

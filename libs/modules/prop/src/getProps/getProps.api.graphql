@@ -1,5 +1,5 @@
-query GetProps {
-  props: getProps {
-    ...__Prop
+query GetProps($input: GetPropsInput!) {
+  props: getProps(input: $input) {
+    ...__PropAggregate
   }
 }

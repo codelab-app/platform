@@ -39,13 +39,17 @@ export class Interface {
   declare fieldCollection?: FieldCollection
 }
 
-export const fieldCollectionSchema: z.ZodSchema<FieldCollection> = z.object({
-  fields: fieldSchema.array(),
-  types: typeSchema.array(),
-})
+export const fieldCollectionSchema: z.ZodSchema<FieldCollection> = z.lazy(() =>
+  z.object({
+    fields: fieldSchema.array(),
+    types: typeSchema.array(),
+  }),
+)
 
-export const interfaceSchema: z.ZodSchema<Interface> = z.object({
-  id: z.string(),
-  name: z.string(),
-  fieldCollection: fieldCollectionSchema.optional(),
-})
+export const interfaceSchema: z.ZodSchema<Interface> = z.lazy(() =>
+  z.object({
+    id: z.string(),
+    name: z.string(),
+    fieldCollection: fieldCollectionSchema.optional(),
+  }),
+)
