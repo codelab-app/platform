@@ -1,4 +1,4 @@
-import { Dgraph__FieldFragment } from '@codelab/dgraph'
+import { Dgraph__FieldFragment } from '@codelab/codegen/dgraph'
 import { Field as GraphqlField, ID, ObjectType } from '@nestjs/graphql'
 import { z } from 'zod'
 import {

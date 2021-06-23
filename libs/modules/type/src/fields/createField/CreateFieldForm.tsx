@@ -1,4 +1,12 @@
 import {
+  CreateFieldMutation,
+  CreateFieldMutationVariables,
+  refetchGetInterfaceQuery,
+  Unit as UnitEnum,
+  useCreateFieldMutation,
+  useGetInterfacesQuery,
+} from '@codelab/codegen/graphql'
+import {
   createNotificationHandler,
   DisplayIfField,
   EntityType,
@@ -6,14 +14,6 @@ import {
   UniFormUseCaseProps,
   useMutationCrudForm,
 } from '@codelab/frontend/shared'
-import {
-  CreateFieldMutation,
-  CreateFieldMutationVariables,
-  refetchGetInterfaceQuery,
-  Unit as UnitEnum,
-  useCreateFieldMutation,
-  useGetInterfacesQuery,
-} from '@codelab/graphql'
 import React, { useContext } from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { InterfaceContext } from '../../interfaces'
@@ -68,7 +68,7 @@ export const CreateFieldForm = (
         title: 'Error while creating fields',
       })}
       model={{
-        //Default to all units
+        // Default to all units
         allowedUnits: defaultUnitOptions,
         arrayType: {
           allowedUnits: defaultUnitOptions,

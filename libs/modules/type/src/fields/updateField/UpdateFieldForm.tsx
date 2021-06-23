@@ -1,4 +1,11 @@
 import {
+  refetchGetInterfaceQuery,
+  UpdateFieldMutation,
+  UpdateFieldMutationVariables,
+  useGetInterfacesQuery,
+  useUpdateFieldMutation,
+} from '@codelab/codegen/graphql'
+import {
   createNotificationHandler,
   DisplayIfField,
   EntityType,
@@ -6,13 +13,6 @@ import {
   UniFormUseCaseProps,
   useMutationCrudForm,
 } from '@codelab/frontend/shared'
-import {
-  refetchGetInterfaceQuery,
-  UpdateFieldMutation,
-  UpdateFieldMutationVariables,
-  useGetInterfacesQuery,
-  useUpdateFieldMutation,
-} from '@codelab/graphql'
 import React, { useContext, useRef } from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { InterfaceContext } from '../../interfaces'

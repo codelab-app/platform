@@ -2,7 +2,7 @@ import {
   __FieldFragment,
   __TypeFragment,
   PrimitiveType,
-} from '@codelab/graphql'
+} from '@codelab/codegen/graphql'
 import { InterfaceContextType } from '../../interfaces'
 import {
   CreateFieldArrayTypeObject,
@@ -36,7 +36,7 @@ export const mapFieldToFormModel = (
     | CreateFieldTypeObject
     | (CreateFieldArrayTypeObject & { type: TypeVariant.Array }) => {
     if (iteration > 10) {
-      //Shouldn't ever happen, but just in case
+      // Shouldn't ever happen, but just in case
       throw new Error('Type too nested')
     }
 

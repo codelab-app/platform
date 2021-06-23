@@ -2,7 +2,7 @@ import {
   DgraphArrayInnerValueFragment,
   DgraphArrayValueFragment,
   DgraphPropValueFragment,
-} from '@codelab/dgraph'
+} from '@codelab/codegen/dgraph'
 import { ArrayValue } from '../array-value'
 import { BooleanValue } from '../boolean-value'
 import { FloatValue } from '../float-value'

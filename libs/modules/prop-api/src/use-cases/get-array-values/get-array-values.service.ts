@@ -4,7 +4,7 @@ import {
   GetArrayValuesGql,
   GetArrayValuesQuery,
   GetArrayValuesQueryVariables,
-} from '@codelab/dgraph'
+} from '@codelab/codegen/dgraph'
 import { Injectable } from '@nestjs/common'
 import { mapGqlFragmentToValue, PropValue, propValueSchema } from '../../models'
 import { GetArrayValuesInput } from './get-array-values.input'

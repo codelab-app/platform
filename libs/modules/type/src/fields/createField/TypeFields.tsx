@@ -1,5 +1,5 @@
+import { PrimitiveType, Unit as UnitEnum } from '@codelab/codegen/graphql'
 import { DisplayIfField } from '@codelab/frontend/shared'
-import { PrimitiveType, Unit as UnitEnum } from '@codelab/graphql'
 import React from 'react'
 import { Context } from 'uniforms'
 import { ListField, SelectField } from 'uniforms-antd'

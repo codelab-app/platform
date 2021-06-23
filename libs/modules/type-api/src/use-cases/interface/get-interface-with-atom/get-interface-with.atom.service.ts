@@ -5,7 +5,7 @@ import {
   GetInterfaceWithAtomGql,
   GetInterfaceWithAtomQuery,
   GetInterfaceWithAtomQueryVariables,
-} from '@codelab/dgraph'
+} from '@codelab/codegen/dgraph'
 import { Injectable } from '@nestjs/common'
 import { GetInterfaceWithAtomRequest } from './get-interface-with-atom.request'
 

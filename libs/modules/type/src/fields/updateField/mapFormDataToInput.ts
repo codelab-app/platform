@@ -1,4 +1,4 @@
-import { UpdateFieldInput } from '@codelab/graphql'
+import { UpdateFieldInput } from '@codelab/codegen/graphql'
 import { mapFormDataToInput as mapCreateInput } from '../createField/mapFormDataToInput'
 import { UpdateFieldSchemaType } from './updateFieldSchema'
 

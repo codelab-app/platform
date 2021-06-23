@@ -2,7 +2,7 @@ import {
   DgraphArrayInnerValueFragment,
   DgraphArrayValueFragment,
   DgraphPropValueFragment,
-} from '@codelab/dgraph'
+} from '@codelab/codegen/dgraph'
 import { z, ZodSchema } from 'zod'
 import { ArrayValue, DgraphArrayValue } from '../array-value'
 import { BooleanValue, DgraphBooleanValue } from '../boolean-value'

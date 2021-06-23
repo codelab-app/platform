@@ -1,6 +1,6 @@
 import { DeleteFilled, EditFilled } from '@ant-design/icons'
+import { __FieldFragment, __TypeFragment } from '@codelab/codegen/graphql'
 import { EntityType, useCRUDModalForm } from '@codelab/frontend/shared'
-import { __FieldFragment, __TypeFragment } from '@codelab/graphql'
 import { Button, Space, Table, TableColumnProps } from 'antd'
 import React from 'react'
 import tw from 'twin.macro'

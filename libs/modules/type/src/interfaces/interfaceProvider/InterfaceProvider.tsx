@@ -1,9 +1,9 @@
-import { notify } from '@codelab/frontend/shared'
 import {
   __InterfaceFragment,
   __TypeFragment,
   useGetInterfaceQuery,
-} from '@codelab/graphql'
+} from '@codelab/codegen/graphql'
+import { notify } from '@codelab/frontend/shared'
 import React, { useEffect } from 'react'
 
 export interface InterfaceContextType {

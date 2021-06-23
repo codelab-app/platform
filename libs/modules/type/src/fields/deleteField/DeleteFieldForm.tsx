@@ -1,4 +1,8 @@
 import {
+  refetchGetInterfaceQuery,
+  useDeleteFieldMutation,
+} from '@codelab/codegen/graphql'
+import {
   createNotificationHandler,
   emptyJsonSchema,
   EmptyJsonSchemaType,
@@ -7,10 +11,6 @@ import {
   UniFormUseCaseProps,
   useMutationCrudForm,
 } from '@codelab/frontend/shared'
-import {
-  refetchGetInterfaceQuery,
-  useDeleteFieldMutation,
-} from '@codelab/graphql'
 import React, { useContext } from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { InterfaceContext } from '../../interfaces'

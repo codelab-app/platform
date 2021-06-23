@@ -1,9 +1,9 @@
-import { notify } from '@codelab/frontend/shared'
 import {
   CreateFieldInput,
   CreateTypeInput,
   PrimitiveType,
-} from '@codelab/graphql'
+} from '@codelab/codegen/graphql'
+import { notify } from '@codelab/frontend/shared'
 import {
   CreateFieldSchemaObject,
   CreateFieldTypeObject,
@@ -19,7 +19,7 @@ export const mapTypeInput = (
   switch (type) {
     case TypeVariant.Array:
       if (counter > 10) {
-        //This can't really happen, unless we f up something, because we can't nest array types right now
+        // This can't really happen, unless we f up something, because we can't nest array types right now
         notify({ type: 'error', title: 'Type too nested' })
         throw new Error('Type too nested')
       }

@@ -9,7 +9,7 @@ import {
   CreatePropMutation,
   CreatePropMutationVariables,
   PropValueRef,
-} from '@codelab/dgraph'
+} from '@codelab/codegen/dgraph'
 import { GetPageElementService } from '@codelab/modules/page-element-api'
 import {
   DgraphSimpleType,
@@ -178,7 +178,7 @@ export class CreatePropService extends MutationUseCase<
         throw new Error('A prop with this field exists for this page element')
       }
     } else {
-      //this is here because we can add componentId here too
+      // this is here because we can add componentId here too
       throw new Error('pageElementId must be provided')
     }
 

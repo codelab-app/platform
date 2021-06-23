@@ -2,7 +2,7 @@ import {
   CreateFieldInput,
   PrimitiveType,
   Unit as UnitEnum,
-} from '@codelab/graphql'
+} from '@codelab/codegen/graphql'
 
 export enum TypeVariant {
   Array = 'Array',
