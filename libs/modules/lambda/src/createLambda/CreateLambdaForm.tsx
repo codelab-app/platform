@@ -1,12 +1,12 @@
 import {
+  refetchGetLambdasByLibraryIdQuery,
+  useCreateLambdaMutation,
+} from '@codelab/codegen/hasura'
+import {
   createNotificationHandler,
   FormUniforms,
   UniFormUseCaseProps,
 } from '@codelab/frontend/shared'
-import {
-  refetchGetLambdasByLibraryIdQuery,
-  useCreateLambdaMutation,
-} from '@codelab/hasura'
 import { useSelectedLibrary } from '@codelab/modules/library'
 import React from 'react'
 import { DeepPartial } from 'uniforms'

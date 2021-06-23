@@ -517,19 +517,6 @@
         }
       }
     },
-    "hasura": {
-      "root": "libs/hasura",
-      "sourceRoot": "libs/hasura/src",
-      "projectType": "library",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/hasura/**/*.{ts,tsx,js,jsx}"]
-          }
-        }
-      }
-    },
     "api": {
       "root": "apps/api",
       "sourceRoot": "apps/api/src",
@@ -659,19 +646,6 @@
         }
       }
     },
-    "dgraph": {
-      "root": "libs/dgraph",
-      "sourceRoot": "libs/dgraph/src",
-      "projectType": "library",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/dgraph/**/*.{ts,tsx,js,jsx}"]
-          }
-        }
-      }
-    },
     "modules-app-api": {
       "root": "libs/modules/app-api",
       "sourceRoot": "libs/modules/app-api/src",
@@ -731,19 +705,6 @@
           "options": {
             "jestConfig": "libs/modules/atom-api/jest.config.js",
             "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "graphql": {
-      "root": "libs/graphql",
-      "sourceRoot": "libs/graphql/src",
-      "projectType": "library",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/graphql/**/*.ts"]
           }
         }
       }
@@ -1021,6 +982,45 @@
           "options": {
             "jestConfig": "apps/gqlgen/jest.config.js",
             "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "codegen-dgraph": {
+      "root": "libs/codegen/dgraph",
+      "sourceRoot": "libs/codegen/dgraph/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/codegen/dgraph/**/*.{ts,tsx,js,jsx}"]
+          }
+        }
+      }
+    },
+    "codegen-hasura": {
+      "root": "libs/codegen/hasura",
+      "sourceRoot": "libs/codegen/hasura/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/codegen/hasura/**/*.{ts,tsx,js,jsx}"]
+          }
+        }
+      }
+    },
+    "codegen-graphql": {
+      "root": "libs/codegen/graphql",
+      "sourceRoot": "libs/codegen/graphql/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/codegen/graphql/**/*.ts"]
           }
         }
       }

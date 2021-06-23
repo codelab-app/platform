@@ -4,7 +4,7 @@ import {
   DeleteFieldGql,
   DeleteFieldMutation,
   DeleteFieldMutationVariables,
-} from '@codelab/dgraph'
+} from '@codelab/codegen/dgraph'
 import { Injectable } from '@nestjs/common'
 import { DeleteFieldRequest } from './delete-field.request'
 

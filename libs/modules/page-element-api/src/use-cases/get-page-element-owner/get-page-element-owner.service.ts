@@ -8,7 +8,7 @@ import {
   GetPageElementOwnerGql,
   GetPageElementOwnerQuery,
   GetPageElementOwnerQueryVariables,
-} from '@codelab/dgraph'
+} from '@codelab/codegen/dgraph'
 import { Inject, Injectable } from '@nestjs/common'
 import { GetPageElementOwnerRequest } from './get-page-element-owner.request'
 import { GetPageElementOwnerResponse } from './get-page-element-owner.response'

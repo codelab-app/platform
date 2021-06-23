@@ -1,3 +1,4 @@
+import { useGetComponentElementQuery } from '@codelab/codegen/hasura'
 import { useBuilderSelection } from '@codelab/frontend/builder'
 import {
   ActionType,
@@ -5,7 +6,6 @@ import {
   EntityType,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import { useGetComponentElementQuery } from '@codelab/hasura'
 import { Empty, Spin } from 'antd'
 import React from 'react'
 import { CreateComponentLinkButton } from '../createComponentLink/CreateComponentLinkButton'

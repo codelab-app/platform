@@ -1,4 +1,5 @@
 import { FileOutlined } from '@ant-design/icons'
+import { useGetPagesQuery } from '@codelab/codegen/graphql'
 import {
   AppContext,
   EntityType,
@@ -7,7 +8,6 @@ import {
   PageType,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import { useGetPagesQuery } from '@codelab/graphql'
 import { List, Space, Spin } from 'antd'
 import Link from 'next/link'
 import React, { useContext } from 'react'

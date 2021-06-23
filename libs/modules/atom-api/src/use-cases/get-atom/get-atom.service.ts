@@ -4,7 +4,7 @@ import {
   GetAtomGql,
   GetAtomQuery,
   GetAtomQueryVariables,
-} from '@codelab/dgraph'
+} from '@codelab/codegen/dgraph'
 import { Injectable } from '@nestjs/common'
 import { Atom, atomSchema } from '../../atom.model'
 import { GetAtomInput } from './get-atom.input'

@@ -1,4 +1,9 @@
 import {
+  refetchGetPagesQuery,
+  useGetPageQuery,
+  useUpdatePageMutation,
+} from '@codelab/codegen/graphql'
+import {
   AppContext,
   createNotificationHandler,
   EntityType,
@@ -6,11 +11,6 @@ import {
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import {
-  refetchGetPagesQuery,
-  useGetPageQuery,
-  useUpdatePageMutation,
-} from '@codelab/graphql'
 import React, { useContext, useEffect } from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { updatePageSchema, UpdatePageSchemaType } from './updatePageSchema'

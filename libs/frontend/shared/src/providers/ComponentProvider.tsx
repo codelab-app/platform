@@ -1,7 +1,7 @@
 import {
   __ComponentFragment,
   useGetComponentDetailLazyQuery,
-} from '@codelab/dgraph'
+} from '@codelab/codegen/dgraph'
 import React, { PropsWithChildren, useEffect } from 'react'
 
 type IComponentContext = {

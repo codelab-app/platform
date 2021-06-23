@@ -1,4 +1,8 @@
 import {
+  refetchGetUsersQuery,
+  useDeleteUserMutation,
+} from '@codelab/codegen/graphql'
+import {
   createNotificationHandler,
   emptyJsonSchema,
   EmptyJsonSchemaType,
@@ -7,7 +11,6 @@ import {
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import { refetchGetUsersQuery, useDeleteUserMutation } from '@codelab/graphql'
 import React from 'react'
 
 export const DeleteUserForm = (

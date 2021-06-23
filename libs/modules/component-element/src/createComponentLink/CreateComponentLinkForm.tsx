@@ -1,13 +1,13 @@
 import {
+  refetchGetComponentDetailQuery,
+  useCreateComponentLinkMutation,
+} from '@codelab/codegen/hasura'
+import {
   ComponentContext,
   EntityType,
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import {
-  refetchGetComponentDetailQuery,
-  useCreateComponentLinkMutation,
-} from '@codelab/hasura'
 import React, { useContext, useEffect } from 'react'
 import { DeepPartial } from 'uniforms'
 import { CreateComponentElementFormBase } from '../createComponentElement/CreateComponentElementFormBase'

@@ -1,6 +1,10 @@
 import { FetchResult } from '@apollo/client'
 import { QueryUseCase } from '@codelab/backend'
-import { GetAppGql, GetAppQuery, GetAppQueryVariables } from '@codelab/dgraph'
+import {
+  GetAppGql,
+  GetAppQuery,
+  GetAppQueryVariables,
+} from '@codelab/codegen/dgraph'
 import { Injectable } from '@nestjs/common'
 import { App, appSchema } from '../../app.model'
 import { GetAppRequest } from './get-app.request'

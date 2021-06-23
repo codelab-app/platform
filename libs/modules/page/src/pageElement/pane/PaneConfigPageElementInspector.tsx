@@ -1,4 +1,5 @@
 import { DeleteOutlined } from '@ant-design/icons'
+import { useGetPageElementQuery } from '@codelab/codegen/graphql'
 import { useBuilderSelection } from '@codelab/frontend/builder'
 import {
   ActionType,
@@ -6,7 +7,6 @@ import {
   EntityType,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import { useGetPageElementQuery } from '@codelab/graphql'
 import { Empty, Spin } from 'antd'
 import React from 'react'
 import {

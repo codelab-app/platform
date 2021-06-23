@@ -1,4 +1,4 @@
-import { PrimitiveType } from '@codelab/dgraph'
+import { PrimitiveType } from '@codelab/codegen/dgraph'
 import { registerEnumType } from '@nestjs/graphql'
 import { z } from 'zod'
 

@@ -1,10 +1,4 @@
-import {
-  __AtomFragment,
-  __ComponentElementFragment,
-  __ComponentFragment,
-  CreateComponentElementGql,
-} from '@codelab/hasura'
-import { print } from 'graphql'
+import { __AtomFragment, __ComponentFragment } from '@codelab/codegen/hasura'
 import { randomAtomType } from '../support/testUtils'
 
 const getComponentElementInTree = (label: string) =>

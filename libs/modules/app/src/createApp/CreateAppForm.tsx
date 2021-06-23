@@ -1,16 +1,16 @@
 import { useUser } from '@auth0/nextjs-auth0'
 import {
+  CreateAppInput,
+  refetchGetAppsQuery,
+  useCreateAppMutation,
+} from '@codelab/codegen/graphql'
+import {
   createNotificationHandler,
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import {
-  CreateAppInput,
-  refetchGetAppsQuery,
-  useCreateAppMutation,
-} from '@codelab/graphql'
 import React, { useEffect } from 'react'
 import { useRecoilState } from 'recoil'
 import { AutoFields } from 'uniforms-antd'

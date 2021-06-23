@@ -1,5 +1,6 @@
 import 'twin.macro'
 import { ArrowLeftOutlined } from '@ant-design/icons'
+import { PageFullFragment } from '@codelab/codegen/graphql'
 import { CytoscapeService } from '@codelab/frontend/cytoscape'
 import { MainPaneTemplate } from '@codelab/frontend/layout'
 import {
@@ -11,7 +12,6 @@ import {
   PageElementNode,
   PageType,
 } from '@codelab/frontend/shared'
-import { PageFullFragment } from '@codelab/graphql'
 import { Empty, Tree } from 'antd'
 import { DataNode } from 'antd/lib/tree'
 import Link from 'next/link'

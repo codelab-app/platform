@@ -1,11 +1,14 @@
 import {
+  refetchGetAppsQuery,
+  useDeleteAppMutation,
+} from '@codelab/codegen/graphql'
+import {
   createNotificationHandler,
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import { refetchGetAppsQuery, useDeleteAppMutation } from '@codelab/graphql'
 import React, { useEffect } from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { DeleteAppInput, DeleteAppSchema } from './deleteAppSchema'

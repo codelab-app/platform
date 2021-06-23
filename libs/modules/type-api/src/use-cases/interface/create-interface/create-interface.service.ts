@@ -4,7 +4,7 @@ import {
   CreateInterfaceGql,
   CreateInterfaceMutation,
   CreateInterfaceMutationVariables,
-} from '@codelab/dgraph'
+} from '@codelab/codegen/dgraph'
 import { Injectable } from '@nestjs/common'
 import { Interface, interfaceSchema } from '../../../models'
 import { CreateInterfaceRequest } from './create-interface.request'

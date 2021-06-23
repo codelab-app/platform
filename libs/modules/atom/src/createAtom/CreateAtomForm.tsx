@@ -1,15 +1,15 @@
 import {
+  AtomType,
+  refetchGetAtomsQuery,
+  useCreateAtomMutation,
+} from '@codelab/codegen/graphql'
+import {
   createNotificationHandler,
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import {
-  AtomType,
-  refetchGetAtomsQuery,
-  useCreateAtomMutation,
-} from '@codelab/graphql'
 import React, { useEffect } from 'react'
 import { AutoField, SelectField } from 'uniforms-antd'
 import { CreateAtomInput, createAtomSchema } from './createAtomSchema'

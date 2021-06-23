@@ -8,7 +8,7 @@ import {
   UpdateAtomGql,
   UpdateAtomMutation,
   UpdateAtomMutationVariables,
-} from '@codelab/dgraph'
+} from '@codelab/codegen/dgraph'
 import { Inject, Injectable } from '@nestjs/common'
 import { Atom } from '../../atom.model'
 import { UpdateAtomInput } from './update-atom.input'

@@ -8,7 +8,7 @@ import {
   UpdateFieldGql,
   UpdateFieldMutation,
   UpdateFieldMutationVariables,
-} from '@codelab/dgraph'
+} from '@codelab/codegen/dgraph'
 import { Inject, Injectable } from '@nestjs/common'
 import { Field } from '../../../models'
 import { FieldMutationValidator } from '../create-field'

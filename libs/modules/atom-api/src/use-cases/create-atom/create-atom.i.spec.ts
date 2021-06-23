@@ -10,7 +10,7 @@ import {
   CreateAtomGql,
   CreateAtomMutation,
   CreateAtomMutationVariables,
-} from '@codelab/graphql'
+} from '@codelab/codegen/graphql'
 import { Auth0Service } from '@codelab/modules/auth-api'
 import { INestApplication } from '@nestjs/common'
 import { print } from 'graphql'
@@ -81,7 +81,7 @@ describe('CreateAtom', () => {
       type: AtomType.AntDesignButton,
     })
 
-    //check if an propTypes interface is automatically created
+    // check if an propTypes interface is automatically created
     expect(result.propTypes).toBeTruthy()
     expect(result.propTypes.name).toBeTruthy()
     expect(result.propTypes.id).toBeTruthy()

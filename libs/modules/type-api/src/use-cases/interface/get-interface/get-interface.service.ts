@@ -3,7 +3,7 @@ import {
   GetInterfaceGql,
   GetInterfaceQuery,
   GetInterfaceQueryVariables,
-} from '@codelab/dgraph'
+} from '@codelab/codegen/dgraph'
 import { Injectable } from '@nestjs/common'
 import { FetchResult } from 'apollo-link'
 import { Interface, interfaceSchema } from '../../../models'

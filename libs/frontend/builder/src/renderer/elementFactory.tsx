@@ -1,5 +1,5 @@
+import { __AtomFragment, AtomType } from '@codelab/codegen/graphql'
 import { CytoscapeNode, NodeBase, notify } from '@codelab/frontend/shared'
-import { __AtomFragment, AtomType } from '@codelab/graphql'
 import React from 'react'
 import ReactTestUtils from 'react-dom/test-utils'
 import { elementTypeMap } from './elementTypeMap'

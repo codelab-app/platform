@@ -1,11 +1,14 @@
 import {
+  refetchGetAtomsQuery,
+  useDeleteAtomMutation,
+} from '@codelab/codegen/graphql'
+import {
   createNotificationHandler,
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import { refetchGetAtomsQuery, useDeleteAtomMutation } from '@codelab/graphql'
 import React, { useEffect } from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { DeleteAtomInput, deleteAtomSchema } from './deleteAtomSchema'

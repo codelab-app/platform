@@ -1,4 +1,9 @@
 import {
+  refetchGetPageQuery,
+  useDeletePageElementMutation,
+  useGetPageElementQuery,
+} from '@codelab/codegen/graphql'
+import {
   createNotificationHandler,
   emptyJsonSchema,
   EmptyJsonSchemaType,
@@ -7,11 +12,6 @@ import {
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import {
-  refetchGetPageQuery,
-  useDeletePageElementMutation,
-  useGetPageElementQuery,
-} from '@codelab/graphql'
 import { Spin } from 'antd'
 import React, { useContext, useEffect } from 'react'
 import { AutoFields } from 'uniforms-antd'

@@ -1,16 +1,16 @@
 import {
+  CreatePageElementInput,
+  refetchGetPageQuery,
+  useCreatePageElementMutation,
+  useGetAtomsQuery,
+} from '@codelab/codegen/graphql'
+import {
   createNotificationHandler,
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import {
-  CreatePageElementInput,
-  refetchGetPageQuery,
-  useCreatePageElementMutation,
-  useGetAtomsQuery,
-} from '@codelab/graphql'
 import React, { useContext, useEffect } from 'react'
 import { AutoFields, SelectField } from 'uniforms-antd'
 import { PageContext } from '../../providers'

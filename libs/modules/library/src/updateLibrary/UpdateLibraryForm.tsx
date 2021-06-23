@@ -1,16 +1,16 @@
 import { useUser } from '@auth0/nextjs-auth0'
 import {
+  refetchGetLibraryQuery,
+  useGetLibraryQuery,
+  useUpdateLibraryMutation,
+} from '@codelab/codegen/hasura'
+import {
   createNotificationHandler,
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import {
-  refetchGetLibraryQuery,
-  useGetLibraryQuery,
-  useUpdateLibraryMutation,
-} from '@codelab/hasura'
 import { Spin } from 'antd'
 import React, { useEffect } from 'react'
 import { DeepPartial } from 'uniforms'

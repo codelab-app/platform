@@ -1,4 +1,8 @@
 import {
+  refetchGetInterfacesQuery,
+  useDeleteInterfaceMutation,
+} from '@codelab/codegen/graphql'
+import {
   createNotificationHandler,
   emptyJsonSchema,
   EmptyJsonSchemaType,
@@ -7,10 +11,6 @@ import {
   UniFormUseCaseProps,
   useMutationCrudForm,
 } from '@codelab/frontend/shared'
-import {
-  refetchGetInterfacesQuery,
-  useDeleteInterfaceMutation,
-} from '@codelab/graphql'
 import React from 'react'
 
 type DeleteInterfaceFormProps = UniFormUseCaseProps<EmptyJsonSchemaType>

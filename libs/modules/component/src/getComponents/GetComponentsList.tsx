@@ -1,5 +1,5 @@
+import { useGetComponentsQuery } from '@codelab/codegen/hasura'
 import { ComponentItemType } from '@codelab/frontend/shared'
-import { useGetComponentsQuery } from '@codelab/hasura'
 import { css } from '@emotion/react'
 import { List } from 'antd'
 import React, { useMemo } from 'react'

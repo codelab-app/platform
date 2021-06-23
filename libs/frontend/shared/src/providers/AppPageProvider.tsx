@@ -2,7 +2,7 @@ import {
   GetAppPageQuery,
   Query_Root,
   useGetAppPageQuery,
-} from '@codelab/hasura'
+} from '@codelab/codegen/hasura'
 import React, { PropsWithChildren } from 'react'
 import { PropsWithIds } from '../interfaces'
 

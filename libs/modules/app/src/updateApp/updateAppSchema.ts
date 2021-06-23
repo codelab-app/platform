@@ -1,4 +1,4 @@
-import { UpdateAppData } from '@codelab/graphql'
+import { UpdateAppData } from '@codelab/codegen/graphql'
 import { JSONSchemaType } from 'ajv'
 
 export const updateAppSchema: JSONSchemaType<UpdateAppData> = {

@@ -1,18 +1,18 @@
 import {
-  createNotificationHandler,
-  EntityType,
-  FormUniforms,
-  UniFormUseCaseProps,
-  useCRUDModalForm,
-} from '@codelab/frontend/shared'
-import {
   Prop_Type_Constraint,
   Prop_Type_Update_Column,
   PropTypeCollection__PropTypeFragment,
   refetchGetPropTypeCListQuery,
   useGetPropTypeCQuery,
   useUpsertPropTypeCMutation,
-} from '@codelab/hasura'
+} from '@codelab/codegen/hasura'
+import {
+  createNotificationHandler,
+  EntityType,
+  FormUniforms,
+  UniFormUseCaseProps,
+  useCRUDModalForm,
+} from '@codelab/frontend/shared'
 import { Spin } from 'antd'
 import React, { useEffect } from 'react'
 import { DeepPartial } from 'uniforms'

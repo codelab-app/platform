@@ -1,16 +1,16 @@
 import {
-  createNotificationHandler,
-  FormUniforms,
-  StatelessLoadingIndicator,
-  UniFormUseCaseProps,
-} from '@codelab/frontend/shared'
-import {
   PageElementFragment,
   refetchGetPageQuery,
   UpdatePageElementData,
   useGetAtomsQuery,
   useUpdatePageElementMutation,
-} from '@codelab/graphql'
+} from '@codelab/codegen/graphql'
+import {
+  createNotificationHandler,
+  FormUniforms,
+  StatelessLoadingIndicator,
+  UniFormUseCaseProps,
+} from '@codelab/frontend/shared'
 import React, { useContext, useRef } from 'react'
 import { AutoFields, SelectField } from 'uniforms-antd'
 import { PageContext } from '../../providers'

@@ -42,11 +42,9 @@
       ],
       "@codelab/modules/prop-type": ["libs/modules/prop-type/src/index.ts"],
       "@codelab/frontend/dgraph": ["libs/frontend/dgraph/src/index.ts"],
-      "@codelab/dgraph": ["libs/dgraph/src/index.ts"],
       "@codelab/modules/app-api": ["libs/modules/app-api/src/index.ts"],
       "@codelab/modules/user-api": ["libs/modules/user-api/src/index.ts"],
       "@codelab/modules/atom-api": ["libs/modules/atom-api/src/index.ts"],
-      "@codelab/graphql": ["libs/graphql/src/index.ts"],
       "@codelab/modules/page-api": ["libs/modules/page-api/src/index.ts"],
       "@codelab/modules/page-element-api": [
         "libs/modules/page-element-api/src/index.ts"
@@ -55,7 +53,6 @@
       "@codelab/modules/value-type-api": [
         "libs/modules/value-type-api/src/index.ts"
       ],
-      "@codelab/hasura": ["libs/hasura/src/index.ts"],
       "@codelab/modules/value-type": ["libs/modules/value-type/src/index.ts"],
       "@codelab/tools/plugins/codelab": [
         "libs/tools/plugins/codelab/src/index.ts"
@@ -64,7 +61,10 @@
       "@codelab/modules/type-api": ["libs/modules/type-api/src/index.ts"],
       "@codelab/modules/type": ["libs/modules/type/src/index.ts"],
       "@codelab/modules/auth-api": ["libs/modules/auth-api/src/index.ts"],
-      "@codelab/demo": ["libs/tools/plugins/demo/src/index.ts"]
+      "@codelab/demo": ["libs/tools/plugins/demo/src/index.ts"],
+      "@codelab/codegen/dgraph": ["libs/codegen/dgraph/src/index.ts"],
+      "@codelab/codegen/hasura": ["libs/codegen/hasura/src/index.ts"],
+      "@codelab/codegen/graphql": ["libs/codegen/graphql/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"]

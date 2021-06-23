@@ -1,4 +1,4 @@
-import { CreateInterfaceInput } from '@codelab/graphql'
+import { CreateInterfaceInput } from '@codelab/codegen/graphql'
 import { JSONSchemaType } from 'ajv'
 
 export const createInterfaceSchema: JSONSchemaType<CreateInterfaceInput> = {

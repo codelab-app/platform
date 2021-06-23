@@ -8,7 +8,7 @@ import {
   UpdatePageElementGql,
   UpdatePageElementMutation,
   UpdatePageElementMutationVariables,
-} from '@codelab/dgraph'
+} from '@codelab/codegen/dgraph'
 import { GetAtomService } from '@codelab/modules/atom-api'
 import { Inject, Injectable } from '@nestjs/common'
 import { z } from 'zod'

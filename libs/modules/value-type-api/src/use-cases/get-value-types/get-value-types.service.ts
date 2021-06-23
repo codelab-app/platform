@@ -4,7 +4,7 @@ import {
   GetValueTypesGql,
   GetValueTypesQuery,
   GetValueTypesQueryVariables,
-} from '@codelab/dgraph'
+} from '@codelab/codegen/dgraph'
 import { Inject, Injectable } from '@nestjs/common'
 import { ValueType } from '../../valueType.model'
 import { GetValueTypesInput } from './get-value-types.input'

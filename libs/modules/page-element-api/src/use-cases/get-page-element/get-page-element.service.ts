@@ -8,7 +8,7 @@ import {
   GetPageElementGql,
   GetPageElementQuery,
   GetPageElementQueryVariables,
-} from '@codelab/dgraph'
+} from '@codelab/codegen/dgraph'
 import { Inject, Injectable } from '@nestjs/common'
 import { PageElementGuardService } from '../../auth'
 import { PageElement, pageElementSchema } from '../../models'

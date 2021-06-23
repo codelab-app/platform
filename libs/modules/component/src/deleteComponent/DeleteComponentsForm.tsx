@@ -3,7 +3,7 @@ import {
   refetchLibraryExplorerQuery,
   useDeleteComponentMutation,
   useGetComponentsQuery,
-} from '@codelab/dgraph'
+} from '@codelab/codegen/dgraph'
 import {
   createNotificationHandler,
   emptyJsonSchema,

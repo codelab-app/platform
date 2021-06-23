@@ -1,12 +1,12 @@
 import {
-  createNotificationHandler,
-  FormUniforms,
-} from '@codelab/frontend/shared'
-import {
   Lambda,
   refetchGetLambdasByLibraryIdQuery,
   useUpdateLambdaMutation,
-} from '@codelab/hasura'
+} from '@codelab/codegen/hasura'
+import {
+  createNotificationHandler,
+  FormUniforms,
+} from '@codelab/frontend/shared'
 import React from 'react'
 import { useRecoilState } from 'recoil'
 import { DeepPartial } from 'uniforms'

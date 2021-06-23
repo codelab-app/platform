@@ -1,4 +1,4 @@
-import { UpdatePageElementData } from '@codelab/graphql'
+import { UpdatePageElementData } from '@codelab/codegen/graphql'
 import { JSONSchemaType } from 'ajv'
 
 export const updatePageElementSchema: JSONSchemaType<UpdatePageElementData> = {

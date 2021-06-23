@@ -1,4 +1,4 @@
-import { MoveData } from '@codelab/graphql'
+import { MoveData } from '@codelab/codegen/graphql'
 import { JSONSchemaType } from 'ajv'
 
 export type MovePageElementSchemaType = MoveData

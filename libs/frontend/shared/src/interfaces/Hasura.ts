@@ -5,7 +5,7 @@
  */
 
 /* eslint-disable camelcase */
-import { Lambda, Value_Type_Enum } from '@codelab/hasura'
+import { Lambda, Value_Type_Enum } from '@codelab/codegen/hasura'
 
 // TODO: Generate this enum type from table
 export enum AtomType {

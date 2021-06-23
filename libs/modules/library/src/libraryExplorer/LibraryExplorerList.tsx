@@ -1,3 +1,4 @@
+import { useLibraryExplorerQuery } from '@codelab/codegen/hasura'
 import {
   EntityType,
   ListItemDeleteButton,
@@ -5,7 +6,6 @@ import {
   PageType,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import { useLibraryExplorerQuery } from '@codelab/hasura'
 import { List, Space, Spin } from 'antd'
 import Link from 'next/link'
 import React from 'react'

@@ -4,7 +4,7 @@ import {
   DeleteAtomGql,
   DeleteAtomMutation,
   DeleteAtomMutationVariables,
-} from '@codelab/dgraph'
+} from '@codelab/codegen/dgraph'
 import { Injectable } from '@nestjs/common'
 import { Atom, atomsSchema } from '../../atom.model'
 import { DeleteAtomInput } from './delete-atom.input'

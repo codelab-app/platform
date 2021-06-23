@@ -1,10 +1,10 @@
+import { useGetPropTypeCListQuery } from '@codelab/codegen/hasura'
 import {
   EntityType,
   ListItemDeleteButton,
   ListItemSettingsButton,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import { useGetPropTypeCListQuery } from '@codelab/hasura'
 import { List, Space, Spin } from 'antd'
 import React from 'react'
 

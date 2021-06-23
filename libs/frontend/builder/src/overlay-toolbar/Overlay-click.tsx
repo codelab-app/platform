@@ -1,9 +1,9 @@
 import { DeleteOutlined } from '@ant-design/icons'
-import { AppPageContext, ComponentElementNode } from '@codelab/frontend/shared'
 import {
   refetchGetAppPageQuery,
   useDeletePageElementMutation,
-} from '@codelab/hasura'
+} from '@codelab/codegen/hasura'
+import { AppPageContext, ComponentElementNode } from '@codelab/frontend/shared'
 import { Button } from 'antd'
 import React, { useContext } from 'react'
 import { useRecoilValue } from 'recoil'

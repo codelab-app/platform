@@ -1,14 +1,14 @@
 import {
+  refetchGetStylesListQuery,
+  useCreateStyleMutation,
+} from '@codelab/codegen/hasura'
+import {
   createNotificationHandler,
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import {
-  refetchGetStylesListQuery,
-  useCreateStyleMutation,
-} from '@codelab/hasura'
 import { useSelectedLibrary } from '@codelab/modules/library'
 import React, { useEffect } from 'react'
 import { DeepPartial } from 'uniforms'

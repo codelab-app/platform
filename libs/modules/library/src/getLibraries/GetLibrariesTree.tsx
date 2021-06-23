@@ -1,7 +1,7 @@
 import { BookOutlined, DeploymentUnitOutlined } from '@ant-design/icons'
+import { useGetComponentDetailLazyQuery } from '@codelab/codegen/hasura'
 import { useComponentBuilder } from '@codelab/frontend/builder'
 import { CheckedKeys, LibraryContext, PageType } from '@codelab/frontend/shared'
-import { useGetComponentDetailLazyQuery } from '@codelab/hasura'
 import {
   CreateAtomButtonIcon,
   CreateAtomModal,

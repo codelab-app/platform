@@ -11149,7 +11149,8 @@ export function useDeleteUserAppsMutation(
 export type DeleteUserAppsMutationHookResult = ReturnType<
   typeof useDeleteUserAppsMutation
 >
-export type DeleteUserAppsMutationResult = Apollo.MutationResult<DeleteUserAppsMutation>
+export type DeleteUserAppsMutationResult =
+  Apollo.MutationResult<DeleteUserAppsMutation>
 export type DeleteUserAppsMutationOptions = Apollo.BaseMutationOptions<
   DeleteUserAppsMutation,
   DeleteUserAppsMutationVariables
@@ -11647,7 +11648,8 @@ export function useCreateAtomTypeMutation(
 export type CreateAtomTypeMutationHookResult = ReturnType<
   typeof useCreateAtomTypeMutation
 >
-export type CreateAtomTypeMutationResult = Apollo.MutationResult<CreateAtomTypeMutation>
+export type CreateAtomTypeMutationResult =
+  Apollo.MutationResult<CreateAtomTypeMutation>
 export type CreateAtomTypeMutationOptions = Apollo.BaseMutationOptions<
   CreateAtomTypeMutation,
   CreateAtomTypeMutationVariables
@@ -11699,7 +11701,8 @@ export function useDeleteAtomTypesWhereMutation(
 export type DeleteAtomTypesWhereMutationHookResult = ReturnType<
   typeof useDeleteAtomTypesWhereMutation
 >
-export type DeleteAtomTypesWhereMutationResult = Apollo.MutationResult<DeleteAtomTypesWhereMutation>
+export type DeleteAtomTypesWhereMutationResult =
+  Apollo.MutationResult<DeleteAtomTypesWhereMutation>
 export type DeleteAtomTypesWhereMutationOptions = Apollo.BaseMutationOptions<
   DeleteAtomTypesWhereMutation,
   DeleteAtomTypesWhereMutationVariables
@@ -11937,7 +11940,8 @@ export function useUpdateAtomTypeMutation(
 export type UpdateAtomTypeMutationHookResult = ReturnType<
   typeof useUpdateAtomTypeMutation
 >
-export type UpdateAtomTypeMutationResult = Apollo.MutationResult<UpdateAtomTypeMutation>
+export type UpdateAtomTypeMutationResult =
+  Apollo.MutationResult<UpdateAtomTypeMutation>
 export type UpdateAtomTypeMutationOptions = Apollo.BaseMutationOptions<
   UpdateAtomTypeMutation,
   UpdateAtomTypeMutationVariables
@@ -12035,7 +12039,8 @@ export function useDeleteAllAtomsMutation(
 export type DeleteAllAtomsMutationHookResult = ReturnType<
   typeof useDeleteAllAtomsMutation
 >
-export type DeleteAllAtomsMutationResult = Apollo.MutationResult<DeleteAllAtomsMutation>
+export type DeleteAllAtomsMutationResult =
+  Apollo.MutationResult<DeleteAllAtomsMutation>
 export type DeleteAllAtomsMutationOptions = Apollo.BaseMutationOptions<
   DeleteAllAtomsMutation,
   DeleteAllAtomsMutationVariables
@@ -12137,7 +12142,8 @@ export function useDeleteAtomsWhereMutation(
 export type DeleteAtomsWhereMutationHookResult = ReturnType<
   typeof useDeleteAtomsWhereMutation
 >
-export type DeleteAtomsWhereMutationResult = Apollo.MutationResult<DeleteAtomsWhereMutation>
+export type DeleteAtomsWhereMutationResult =
+  Apollo.MutationResult<DeleteAtomsWhereMutation>
 export type DeleteAtomsWhereMutationOptions = Apollo.BaseMutationOptions<
   DeleteAtomsWhereMutation,
   DeleteAtomsWhereMutationVariables
@@ -12483,11 +12489,13 @@ export function useAddChildComponentElementMutation(
 export type AddChildComponentElementMutationHookResult = ReturnType<
   typeof useAddChildComponentElementMutation
 >
-export type AddChildComponentElementMutationResult = Apollo.MutationResult<AddChildComponentElementMutation>
-export type AddChildComponentElementMutationOptions = Apollo.BaseMutationOptions<
-  AddChildComponentElementMutation,
-  AddChildComponentElementMutationVariables
->
+export type AddChildComponentElementMutationResult =
+  Apollo.MutationResult<AddChildComponentElementMutation>
+export type AddChildComponentElementMutationOptions =
+  Apollo.BaseMutationOptions<
+    AddChildComponentElementMutation,
+    AddChildComponentElementMutationVariables
+  >
 export const CreateComponentElementGql = gql`
   mutation CreateComponentElement($input: component_element_insert_input!) {
     insert_component_element_one(object: $input) {
@@ -12533,7 +12541,8 @@ export function useCreateComponentElementMutation(
 export type CreateComponentElementMutationHookResult = ReturnType<
   typeof useCreateComponentElementMutation
 >
-export type CreateComponentElementMutationResult = Apollo.MutationResult<CreateComponentElementMutation>
+export type CreateComponentElementMutationResult =
+  Apollo.MutationResult<CreateComponentElementMutation>
 export type CreateComponentElementMutationOptions = Apollo.BaseMutationOptions<
   CreateComponentElementMutation,
   CreateComponentElementMutationVariables
@@ -12583,7 +12592,8 @@ export function useCreateComponentLinkMutation(
 export type CreateComponentLinkMutationHookResult = ReturnType<
   typeof useCreateComponentLinkMutation
 >
-export type CreateComponentLinkMutationResult = Apollo.MutationResult<CreateComponentLinkMutation>
+export type CreateComponentLinkMutationResult =
+  Apollo.MutationResult<CreateComponentLinkMutation>
 export type CreateComponentLinkMutationOptions = Apollo.BaseMutationOptions<
   CreateComponentLinkMutation,
   CreateComponentLinkMutationVariables
@@ -12635,7 +12645,8 @@ export function useDeleteComponentElementsMutation(
 export type DeleteComponentElementsMutationHookResult = ReturnType<
   typeof useDeleteComponentElementsMutation
 >
-export type DeleteComponentElementsMutationResult = Apollo.MutationResult<DeleteComponentElementsMutation>
+export type DeleteComponentElementsMutationResult =
+  Apollo.MutationResult<DeleteComponentElementsMutation>
 export type DeleteComponentElementsMutationOptions = Apollo.BaseMutationOptions<
   DeleteComponentElementsMutation,
   DeleteComponentElementsMutationVariables
@@ -12820,7 +12831,8 @@ export function useUpdateComponentElementMutation(
 export type UpdateComponentElementMutationHookResult = ReturnType<
   typeof useUpdateComponentElementMutation
 >
-export type UpdateComponentElementMutationResult = Apollo.MutationResult<UpdateComponentElementMutation>
+export type UpdateComponentElementMutationResult =
+  Apollo.MutationResult<UpdateComponentElementMutation>
 export type UpdateComponentElementMutationOptions = Apollo.BaseMutationOptions<
   UpdateComponentElementMutation,
   UpdateComponentElementMutationVariables
@@ -12870,7 +12882,8 @@ export function useCreateComponentMutation(
 export type CreateComponentMutationHookResult = ReturnType<
   typeof useCreateComponentMutation
 >
-export type CreateComponentMutationResult = Apollo.MutationResult<CreateComponentMutation>
+export type CreateComponentMutationResult =
+  Apollo.MutationResult<CreateComponentMutation>
 export type CreateComponentMutationOptions = Apollo.BaseMutationOptions<
   CreateComponentMutation,
   CreateComponentMutationVariables
@@ -12918,7 +12931,8 @@ export function useDeleteAllComponentsMutation(
 export type DeleteAllComponentsMutationHookResult = ReturnType<
   typeof useDeleteAllComponentsMutation
 >
-export type DeleteAllComponentsMutationResult = Apollo.MutationResult<DeleteAllComponentsMutation>
+export type DeleteAllComponentsMutationResult =
+  Apollo.MutationResult<DeleteAllComponentsMutation>
 export type DeleteAllComponentsMutationOptions = Apollo.BaseMutationOptions<
   DeleteAllComponentsMutation,
   DeleteAllComponentsMutationVariables
@@ -12968,7 +12982,8 @@ export function useDeleteComponentMutation(
 export type DeleteComponentMutationHookResult = ReturnType<
   typeof useDeleteComponentMutation
 >
-export type DeleteComponentMutationResult = Apollo.MutationResult<DeleteComponentMutation>
+export type DeleteComponentMutationResult =
+  Apollo.MutationResult<DeleteComponentMutation>
 export type DeleteComponentMutationOptions = Apollo.BaseMutationOptions<
   DeleteComponentMutation,
   DeleteComponentMutationVariables
@@ -13020,7 +13035,8 @@ export function useDeleteComponentsWhereMutation(
 export type DeleteComponentsWhereMutationHookResult = ReturnType<
   typeof useDeleteComponentsWhereMutation
 >
-export type DeleteComponentsWhereMutationResult = Apollo.MutationResult<DeleteComponentsWhereMutation>
+export type DeleteComponentsWhereMutationResult =
+  Apollo.MutationResult<DeleteComponentsWhereMutation>
 export type DeleteComponentsWhereMutationOptions = Apollo.BaseMutationOptions<
   DeleteComponentsWhereMutation,
   DeleteComponentsWhereMutationVariables
@@ -13262,7 +13278,8 @@ export function useUpdateComponentMutation(
 export type UpdateComponentMutationHookResult = ReturnType<
   typeof useUpdateComponentMutation
 >
-export type UpdateComponentMutationResult = Apollo.MutationResult<UpdateComponentMutation>
+export type UpdateComponentMutationResult =
+  Apollo.MutationResult<UpdateComponentMutation>
 export type UpdateComponentMutationOptions = Apollo.BaseMutationOptions<
   UpdateComponentMutation,
   UpdateComponentMutationVariables
@@ -13316,7 +13333,8 @@ export function useCreateLambdaMutation(
 export type CreateLambdaMutationHookResult = ReturnType<
   typeof useCreateLambdaMutation
 >
-export type CreateLambdaMutationResult = Apollo.MutationResult<CreateLambdaMutation>
+export type CreateLambdaMutationResult =
+  Apollo.MutationResult<CreateLambdaMutation>
 export type CreateLambdaMutationOptions = Apollo.BaseMutationOptions<
   CreateLambdaMutation,
   CreateLambdaMutationVariables
@@ -13369,7 +13387,8 @@ export function useDeleteLambdaMutation(
 export type DeleteLambdaMutationHookResult = ReturnType<
   typeof useDeleteLambdaMutation
 >
-export type DeleteLambdaMutationResult = Apollo.MutationResult<DeleteLambdaMutation>
+export type DeleteLambdaMutationResult =
+  Apollo.MutationResult<DeleteLambdaMutation>
 export type DeleteLambdaMutationOptions = Apollo.BaseMutationOptions<
   DeleteLambdaMutation,
   DeleteLambdaMutationVariables
@@ -13419,7 +13438,8 @@ export function useExecuteLambdaMutation(
 export type ExecuteLambdaMutationHookResult = ReturnType<
   typeof useExecuteLambdaMutation
 >
-export type ExecuteLambdaMutationResult = Apollo.MutationResult<ExecuteLambdaMutation>
+export type ExecuteLambdaMutationResult =
+  Apollo.MutationResult<ExecuteLambdaMutation>
 export type ExecuteLambdaMutationOptions = Apollo.BaseMutationOptions<
   ExecuteLambdaMutation,
   ExecuteLambdaMutationVariables
@@ -13671,7 +13691,8 @@ export function useUpdateLambdaMutation(
 export type UpdateLambdaMutationHookResult = ReturnType<
   typeof useUpdateLambdaMutation
 >
-export type UpdateLambdaMutationResult = Apollo.MutationResult<UpdateLambdaMutation>
+export type UpdateLambdaMutationResult =
+  Apollo.MutationResult<UpdateLambdaMutation>
 export type UpdateLambdaMutationOptions = Apollo.BaseMutationOptions<
   UpdateLambdaMutation,
   UpdateLambdaMutationVariables
@@ -13844,7 +13865,8 @@ export function useCreateLibraryMutation(
 export type CreateLibraryMutationHookResult = ReturnType<
   typeof useCreateLibraryMutation
 >
-export type CreateLibraryMutationResult = Apollo.MutationResult<CreateLibraryMutation>
+export type CreateLibraryMutationResult =
+  Apollo.MutationResult<CreateLibraryMutation>
 export type CreateLibraryMutationOptions = Apollo.BaseMutationOptions<
   CreateLibraryMutation,
   CreateLibraryMutationVariables
@@ -13893,7 +13915,8 @@ export function useDeleteLibraryMutation(
 export type DeleteLibraryMutationHookResult = ReturnType<
   typeof useDeleteLibraryMutation
 >
-export type DeleteLibraryMutationResult = Apollo.MutationResult<DeleteLibraryMutation>
+export type DeleteLibraryMutationResult =
+  Apollo.MutationResult<DeleteLibraryMutation>
 export type DeleteLibraryMutationOptions = Apollo.BaseMutationOptions<
   DeleteLibraryMutation,
   DeleteLibraryMutationVariables
@@ -13942,7 +13965,8 @@ export function useDeleteUserLibrariesMutation(
 export type DeleteUserLibrariesMutationHookResult = ReturnType<
   typeof useDeleteUserLibrariesMutation
 >
-export type DeleteUserLibrariesMutationResult = Apollo.MutationResult<DeleteUserLibrariesMutation>
+export type DeleteUserLibrariesMutationResult =
+  Apollo.MutationResult<DeleteUserLibrariesMutation>
 export type DeleteUserLibrariesMutationOptions = Apollo.BaseMutationOptions<
   DeleteUserLibrariesMutation,
   DeleteUserLibrariesMutationVariables
@@ -14064,7 +14088,8 @@ export function useUpdateLibraryMutation(
 export type UpdateLibraryMutationHookResult = ReturnType<
   typeof useUpdateLibraryMutation
 >
-export type UpdateLibraryMutationResult = Apollo.MutationResult<UpdateLibraryMutation>
+export type UpdateLibraryMutationResult =
+  Apollo.MutationResult<UpdateLibraryMutation>
 export type UpdateLibraryMutationOptions = Apollo.BaseMutationOptions<
   UpdateLibraryMutation,
   UpdateLibraryMutationVariables
@@ -14335,7 +14360,8 @@ export function useCreatePageElementMutation(
 export type CreatePageElementMutationHookResult = ReturnType<
   typeof useCreatePageElementMutation
 >
-export type CreatePageElementMutationResult = Apollo.MutationResult<CreatePageElementMutation>
+export type CreatePageElementMutationResult =
+  Apollo.MutationResult<CreatePageElementMutation>
 export type CreatePageElementMutationOptions = Apollo.BaseMutationOptions<
   CreatePageElementMutation,
   CreatePageElementMutationVariables
@@ -14385,7 +14411,8 @@ export function useDeletePageElementMutation(
 export type DeletePageElementMutationHookResult = ReturnType<
   typeof useDeletePageElementMutation
 >
-export type DeletePageElementMutationResult = Apollo.MutationResult<DeletePageElementMutation>
+export type DeletePageElementMutationResult =
+  Apollo.MutationResult<DeletePageElementMutation>
 export type DeletePageElementMutationOptions = Apollo.BaseMutationOptions<
   DeletePageElementMutation,
   DeletePageElementMutationVariables
@@ -14500,7 +14527,8 @@ export function useUpdatePageElementMutation(
 export type UpdatePageElementMutationHookResult = ReturnType<
   typeof useUpdatePageElementMutation
 >
-export type UpdatePageElementMutationResult = Apollo.MutationResult<UpdatePageElementMutation>
+export type UpdatePageElementMutationResult =
+  Apollo.MutationResult<UpdatePageElementMutation>
 export type UpdatePageElementMutationOptions = Apollo.BaseMutationOptions<
   UpdatePageElementMutation,
   UpdatePageElementMutationVariables
@@ -14600,7 +14628,8 @@ export function useCreatePropTypeCMutation(
 export type CreatePropTypeCMutationHookResult = ReturnType<
   typeof useCreatePropTypeCMutation
 >
-export type CreatePropTypeCMutationResult = Apollo.MutationResult<CreatePropTypeCMutation>
+export type CreatePropTypeCMutationResult =
+  Apollo.MutationResult<CreatePropTypeCMutation>
 export type CreatePropTypeCMutationOptions = Apollo.BaseMutationOptions<
   CreatePropTypeCMutation,
   CreatePropTypeCMutationVariables
@@ -14650,7 +14679,8 @@ export function useDeletePropTypeCMutation(
 export type DeletePropTypeCMutationHookResult = ReturnType<
   typeof useDeletePropTypeCMutation
 >
-export type DeletePropTypeCMutationResult = Apollo.MutationResult<DeletePropTypeCMutation>
+export type DeletePropTypeCMutationResult =
+  Apollo.MutationResult<DeletePropTypeCMutation>
 export type DeletePropTypeCMutationOptions = Apollo.BaseMutationOptions<
   DeletePropTypeCMutation,
   DeletePropTypeCMutationVariables
@@ -14832,7 +14862,8 @@ export function useUpdatePropTypeCMutation(
 export type UpdatePropTypeCMutationHookResult = ReturnType<
   typeof useUpdatePropTypeCMutation
 >
-export type UpdatePropTypeCMutationResult = Apollo.MutationResult<UpdatePropTypeCMutation>
+export type UpdatePropTypeCMutationResult =
+  Apollo.MutationResult<UpdatePropTypeCMutation>
 export type UpdatePropTypeCMutationOptions = Apollo.BaseMutationOptions<
   UpdatePropTypeCMutation,
   UpdatePropTypeCMutationVariables
@@ -14884,7 +14915,8 @@ export function useUpsertPropTypeCMutation(
 export type UpsertPropTypeCMutationHookResult = ReturnType<
   typeof useUpsertPropTypeCMutation
 >
-export type UpsertPropTypeCMutationResult = Apollo.MutationResult<UpsertPropTypeCMutation>
+export type UpsertPropTypeCMutationResult =
+  Apollo.MutationResult<UpsertPropTypeCMutation>
 export type UpsertPropTypeCMutationOptions = Apollo.BaseMutationOptions<
   UpsertPropTypeCMutation,
   UpsertPropTypeCMutationVariables
@@ -14934,7 +14966,8 @@ export function useCreatePageElementPropMutation(
 export type CreatePageElementPropMutationHookResult = ReturnType<
   typeof useCreatePageElementPropMutation
 >
-export type CreatePageElementPropMutationResult = Apollo.MutationResult<CreatePageElementPropMutation>
+export type CreatePageElementPropMutationResult =
+  Apollo.MutationResult<CreatePageElementPropMutation>
 export type CreatePageElementPropMutationOptions = Apollo.BaseMutationOptions<
   CreatePageElementPropMutation,
   CreatePageElementPropMutationVariables
@@ -15150,7 +15183,8 @@ export function useUpdatePropValueMutation(
 export type UpdatePropValueMutationHookResult = ReturnType<
   typeof useUpdatePropValueMutation
 >
-export type UpdatePropValueMutationResult = Apollo.MutationResult<UpdatePropValueMutation>
+export type UpdatePropValueMutationResult =
+  Apollo.MutationResult<UpdatePropValueMutation>
 export type UpdatePropValueMutationOptions = Apollo.BaseMutationOptions<
   UpdatePropValueMutation,
   UpdatePropValueMutationVariables
@@ -15257,7 +15291,8 @@ export function useCreateStyleMutation(
 export type CreateStyleMutationHookResult = ReturnType<
   typeof useCreateStyleMutation
 >
-export type CreateStyleMutationResult = Apollo.MutationResult<CreateStyleMutation>
+export type CreateStyleMutationResult =
+  Apollo.MutationResult<CreateStyleMutation>
 export type CreateStyleMutationOptions = Apollo.BaseMutationOptions<
   CreateStyleMutation,
   CreateStyleMutationVariables
@@ -15306,7 +15341,8 @@ export function useDeleteStyleMutation(
 export type DeleteStyleMutationHookResult = ReturnType<
   typeof useDeleteStyleMutation
 >
-export type DeleteStyleMutationResult = Apollo.MutationResult<DeleteStyleMutation>
+export type DeleteStyleMutationResult =
+  Apollo.MutationResult<DeleteStyleMutation>
 export type DeleteStyleMutationOptions = Apollo.BaseMutationOptions<
   DeleteStyleMutation,
   DeleteStyleMutationVariables
@@ -15421,7 +15457,8 @@ export function useUpdateStyleMutation(
 export type UpdateStyleMutationHookResult = ReturnType<
   typeof useUpdateStyleMutation
 >
-export type UpdateStyleMutationResult = Apollo.MutationResult<UpdateStyleMutation>
+export type UpdateStyleMutationResult =
+  Apollo.MutationResult<UpdateStyleMutation>
 export type UpdateStyleMutationOptions = Apollo.BaseMutationOptions<
   UpdateStyleMutation,
   UpdateStyleMutationVariables

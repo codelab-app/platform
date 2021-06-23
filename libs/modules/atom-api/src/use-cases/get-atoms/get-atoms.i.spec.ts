@@ -9,7 +9,7 @@ import {
   __AtomFragment,
   GetAtomsGql,
   GetAtomsQueryResult,
-} from '@codelab/graphql'
+} from '@codelab/codegen/graphql'
 import { Auth0Service } from '@codelab/modules/auth-api'
 import { INestApplication } from '@nestjs/common'
 import { print } from 'graphql'

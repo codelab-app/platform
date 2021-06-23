@@ -1,4 +1,8 @@
 import {
+  refetchGetPropTypeCListQuery,
+  useCreatePropTypeCMutation,
+} from '@codelab/codegen/hasura'
+import {
   createNotificationHandler,
   EntityType,
   FormUniforms,
@@ -6,10 +10,6 @@ import {
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import {
-  refetchGetPropTypeCListQuery,
-  useCreatePropTypeCMutation,
-} from '@codelab/hasura'
 import React, { useContext, useEffect } from 'react'
 import { DeepPartial } from 'uniforms'
 import { AutoFields, SelectField } from 'uniforms-antd'

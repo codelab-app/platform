@@ -2,7 +2,7 @@ import { BookOutlined, DeploymentUnitOutlined } from '@ant-design/icons'
 import {
   LibraryExplorer__AtomFragment,
   LibraryExplorer__ComponentFragment,
-} from '@codelab/dgraph'
+} from '@codelab/codegen/dgraph'
 import { useComponentBuilder } from '@codelab/frontend/builder'
 import { CheckedKeys, LibraryContext, PageType } from '@codelab/frontend/shared'
 import {

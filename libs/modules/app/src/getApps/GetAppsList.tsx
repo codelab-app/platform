@@ -1,6 +1,6 @@
+import { useGetAppsQuery } from '@codelab/codegen/graphql'
 import { EntityType, useCRUDModalForm } from '@codelab/frontend/shared'
 import { padding, threeGridCol } from '@codelab/frontend/style'
-import { useGetAppsQuery } from '@codelab/graphql'
 import { Col, Empty, Row, Spin } from 'antd'
 import React from 'react'
 import { CreateAppButtonNow } from '../createApp'

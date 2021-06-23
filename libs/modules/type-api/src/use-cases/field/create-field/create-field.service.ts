@@ -8,7 +8,7 @@ import {
   CreateFieldGql,
   CreateFieldMutation,
   CreateFieldMutationVariables,
-} from '@codelab/dgraph'
+} from '@codelab/codegen/dgraph'
 import { Inject, Injectable } from '@nestjs/common'
 import { Field, fieldSchema } from '../../../models'
 import { CreateFieldRequest } from './create-field.request'

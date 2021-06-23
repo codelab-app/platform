@@ -1,8 +1,8 @@
-import { AppPageContext } from '@codelab/frontend/shared'
 import {
   refetchGetLambdasByLibraryIdQuery,
   useDeleteLambdaMutation,
-} from '@codelab/hasura'
+} from '@codelab/codegen/hasura'
+import { AppPageContext } from '@codelab/frontend/shared'
 import { Button } from 'antd'
 import React, { useContext } from 'react'
 import { LambdaRecord } from '../getLambdas/LambdaRecord'

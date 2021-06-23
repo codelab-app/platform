@@ -1,5 +1,5 @@
+import { PageFullFragment, useGetPageLazyQuery } from '@codelab/codegen/graphql'
 import { CytoscapeService } from '@codelab/frontend/cytoscape'
-import { PageFullFragment, useGetPageLazyQuery } from '@codelab/graphql'
 import { Core } from 'cytoscape'
 import { useRouter } from 'next/router'
 import * as React from 'react'

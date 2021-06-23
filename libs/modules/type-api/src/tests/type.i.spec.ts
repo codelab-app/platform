@@ -50,7 +50,7 @@ import {
   TestUpdateInterfaceMutationVariables,
   UpdateFieldInput,
   UpdateInterfaceInput,
-} from '@codelab/graphql'
+} from '@codelab/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { PrimitiveType } from '../models'
 import { TypeModule } from '../type.module'
@@ -210,7 +210,7 @@ describe('type', () => {
 
     describe('Create field', () => {
       it('should create simple type field', async () => {
-        //Loop all primitive types and create a simple type for each of them
+        // Loop all primitive types and create a simple type for each of them
         for (const primitiveType of Object.values(PrimitiveType)) {
           const input: CreateFieldInput = {
             name: `A ${primitiveType} field`,

@@ -1,4 +1,4 @@
-import { __AppFragment, useGetAppLazyQuery } from '@codelab/graphql'
+import { __AppFragment, useGetAppLazyQuery } from '@codelab/codegen/graphql'
 import React, { PropsWithChildren, useEffect } from 'react'
 
 type IAppContext = {

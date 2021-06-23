@@ -9,7 +9,7 @@ import {
   GetPageElementParentGql,
   GetPageElementParentQuery,
   GetPageElementParentQueryVariables,
-} from '@codelab/dgraph'
+} from '@codelab/codegen/dgraph'
 import { Inject, Injectable } from '@nestjs/common'
 import { GetPageElementParentInput } from './get-page-element-parent.input'
 

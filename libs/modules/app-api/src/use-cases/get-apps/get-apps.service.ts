@@ -5,7 +5,7 @@ import {
   GetAppsGql,
   GetAppsQuery,
   GetAppsQueryVariables,
-} from '@codelab/dgraph'
+} from '@codelab/codegen/dgraph'
 import { Injectable } from '@nestjs/common'
 import { App } from '../../app.model'
 import { GetAppsRequest } from './get-apps.request'

@@ -1,4 +1,4 @@
-import { __AppFragment } from '@codelab/graphql'
+import { __AppFragment } from '@codelab/codegen/graphql'
 import { atom } from 'recoil'
 
 export type AppType = __AppFragment
@@ -11,7 +11,7 @@ export interface AppState {
 }
 
 export const initialAppState: AppState = {
-  modalVisible: false, //do we need this, can't we use crudModal?
+  modalVisible: false, // do we need this, can't we use crudModal?
   loading: false,
   editingApp: undefined,
 }

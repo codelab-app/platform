@@ -1,10 +1,10 @@
-import { getApolloClient } from '@codelab/frontend/apollo'
-import { notify } from '@codelab/frontend/shared'
 import {
   GetFirstLibraryGql,
   GetLibraryGql,
   useGetLibraryQuery,
-} from '@codelab/hasura'
+} from '@codelab/codegen/hasura'
+import { getApolloClient } from '@codelab/frontend/apollo'
+import { notify } from '@codelab/frontend/shared'
 import { useEffect } from 'react'
 import { atom, useRecoilState } from 'recoil'
 

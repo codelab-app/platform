@@ -1,5 +1,5 @@
+import { useExecuteLambdaMutation } from '@codelab/codegen/hasura'
 import { createNotificationHandler } from '@codelab/frontend/shared'
-import { useExecuteLambdaMutation } from '@codelab/hasura'
 import { Button } from 'antd'
 import React from 'react'
 import { LambdaRecord } from '../getLambdas/LambdaRecord'

@@ -1,4 +1,3 @@
-import { AppPageContext, FormUniforms, notify } from '@codelab/frontend/shared'
 import {
   CreatePageElementPropMutation,
   PropCollection__PropFragment,
@@ -6,7 +5,8 @@ import {
   UpdatePropValueMutation,
   useCreatePageElementPropMutation,
   useUpdatePropValueMutation,
-} from '@codelab/hasura'
+} from '@codelab/codegen/hasura'
+import { AppPageContext, FormUniforms, notify } from '@codelab/frontend/shared'
 import { FetchResult } from 'apollo-link'
 import React, { useContext, useState } from 'react'
 import { AutoFields } from 'uniforms-antd'

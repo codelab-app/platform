@@ -3,7 +3,7 @@ import {
   LibraryExplorerGql,
   useCreateComponentMutation,
   useGetAtomsQuery,
-} from '@codelab/dgraph'
+} from '@codelab/codegen/dgraph'
 import {
   createNotificationHandler,
   EntityType,

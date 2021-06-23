@@ -1,4 +1,4 @@
-import { useGetUsersQuery } from '@codelab/graphql'
+import { useGetUsersQuery } from '@codelab/codegen/graphql'
 import { DeleteUserButton, DeleteUserModal } from '@codelab/modules/user'
 import { Space, Table } from 'antd'
 import { ColumnsType } from 'antd/lib/table'

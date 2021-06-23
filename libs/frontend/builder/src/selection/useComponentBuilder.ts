@@ -1,4 +1,4 @@
-import { __ComponentFragment } from '@codelab/hasura'
+import { __ComponentFragment } from '@codelab/codegen/hasura'
 import { useCallback } from 'react'
 import { atom, useRecoilState } from 'recoil'
 

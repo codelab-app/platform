@@ -1,5 +1,5 @@
 import { DeploymentUnitOutlined, DownOutlined } from '@ant-design/icons'
-import { useGetComponentsQuery } from '@codelab/hasura'
+import { useGetComponentsQuery } from '@codelab/codegen/hasura'
 import { Tree } from 'antd'
 import React from 'react'
 

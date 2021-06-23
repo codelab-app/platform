@@ -1,6 +1,6 @@
 import { DeleteOutlined, SettingOutlined } from '@ant-design/icons'
+import { useGetStylesListQuery } from '@codelab/codegen/hasura'
 import { EntityType, useCRUDModalForm } from '@codelab/frontend/shared'
-import { useGetStylesListQuery } from '@codelab/hasura'
 import { List, Space } from 'antd'
 import React from 'react'
 

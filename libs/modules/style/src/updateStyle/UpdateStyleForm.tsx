@@ -1,15 +1,15 @@
 import {
+  refetchGetStyleQuery,
+  useGetStyleQuery,
+  useUpdateStyleMutation,
+} from '@codelab/codegen/hasura'
+import {
   createNotificationHandler,
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import {
-  refetchGetStyleQuery,
-  useGetStyleQuery,
-  useUpdateStyleMutation,
-} from '@codelab/hasura'
 import { Spin } from 'antd'
 import React, { useEffect } from 'react'
 import { DeepPartial } from 'uniforms'

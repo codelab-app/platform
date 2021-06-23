@@ -1,4 +1,4 @@
-import { TypeRef, Unit } from '@codelab/dgraph'
+import { TypeRef, Unit } from '@codelab/codegen/dgraph'
 import { CreateFieldInput } from './create-field.input'
 import { MAX_ARRAY_DEPTH } from './create-field.service'
 

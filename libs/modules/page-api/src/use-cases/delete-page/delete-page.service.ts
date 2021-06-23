@@ -8,7 +8,7 @@ import {
   DeletePageGql,
   DeletePageMutation,
   DeletePageMutationVariables,
-} from '@codelab/dgraph'
+} from '@codelab/codegen/dgraph'
 import { Inject, Injectable } from '@nestjs/common'
 import { PageGuardService } from '../../auth'
 import { Page, pageSchema } from '../../page.model'

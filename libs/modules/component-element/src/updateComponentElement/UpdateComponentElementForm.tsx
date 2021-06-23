@@ -1,4 +1,10 @@
 import {
+  refetchGetComponentDetailQuery,
+  useGetAtomsListQuery,
+  useGetComponentElementQuery,
+  useUpdateComponentElementMutation,
+} from '@codelab/codegen/hasura'
+import {
   ComponentContext,
   createNotificationHandler,
   EntityType,
@@ -6,12 +12,6 @@ import {
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import {
-  refetchGetComponentDetailQuery,
-  useGetAtomsListQuery,
-  useGetComponentElementQuery,
-  useUpdateComponentElementMutation,
-} from '@codelab/hasura'
 import { Spin } from 'antd'
 import React, { useContext } from 'react'
 import { DeepPartial } from 'uniforms'

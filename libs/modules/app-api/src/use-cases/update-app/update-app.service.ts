@@ -8,7 +8,7 @@ import {
   UpdateAppGql,
   UpdateAppMutation,
   UpdateAppMutationVariables,
-} from '@codelab/dgraph'
+} from '@codelab/codegen/dgraph'
 import { Inject, Injectable } from '@nestjs/common'
 import { App } from '../../app.model'
 import { AppGuardService } from '../../auth'

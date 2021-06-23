@@ -8,7 +8,7 @@ import {
   GetPageGql,
   GetPageQuery,
   GetPageQueryVariables,
-} from '@codelab/dgraph'
+} from '@codelab/codegen/dgraph'
 import { Inject, Injectable } from '@nestjs/common'
 import { PageGuardService } from '../../auth'
 import { Page } from '../../page.model'

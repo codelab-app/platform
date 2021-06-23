@@ -1,15 +1,15 @@
 /* eslint-disable no-param-reassign */
 import {
+  PageElementLinkFragment,
+  PageElementRootFragment,
+} from '@codelab/codegen/graphql'
+import { __ComponentFragment } from '@codelab/codegen/hasura'
+import {
   AtomType,
   CytoscapeNode,
   NodeType,
   PageElementNode,
 } from '@codelab/frontend/shared'
-import {
-  PageElementLinkFragment,
-  PageElementRootFragment,
-} from '@codelab/graphql'
-import { __ComponentFragment } from '@codelab/hasura'
 import { DataNode } from 'antd/lib/tree'
 import cytoscape, { Core } from 'cytoscape'
 

@@ -1,4 +1,4 @@
-import { DeleteUserAppsGql } from '@codelab/dgraph'
+import { DeleteUserAppsGql } from '@codelab/codegen/dgraph'
 import { print } from 'graphql'
 
 const createApp = (appName: string) =>

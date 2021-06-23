@@ -12,7 +12,7 @@ import {
   DeletePageElementGql,
   DeletePageElementMutation,
   DeletePageElementMutationVariables,
-} from '@codelab/dgraph'
+} from '@codelab/codegen/dgraph'
 import { Inject, Injectable } from '@nestjs/common'
 import { PageElementGuardService } from '../../auth'
 import { GetPageElementParentService } from '../get-page-element-parent'

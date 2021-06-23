@@ -4,7 +4,7 @@ import {
   GetPageOwnerGql,
   GetPageOwnerQuery,
   GetPageOwnerQueryVariables,
-} from '@codelab/dgraph'
+} from '@codelab/codegen/dgraph'
 import { Injectable } from '@nestjs/common'
 import { GetPageOwnerInput } from './get-page-owner.input'
 import { GetPageOwnerResponse } from './get-page-owner.response'

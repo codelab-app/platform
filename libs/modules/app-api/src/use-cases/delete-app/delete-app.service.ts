@@ -4,7 +4,7 @@ import {
   DeleteAppGql,
   DeleteAppMutation,
   DeleteAppMutationVariables,
-} from '@codelab/dgraph'
+} from '@codelab/codegen/dgraph'
 import { Inject, Injectable } from '@nestjs/common'
 import { FetchResult } from 'apollo-link'
 import { App } from '../../app.model'

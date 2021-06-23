@@ -1,16 +1,16 @@
 import {
+  refetchGetAppsQuery,
+  UpdateAppData,
+  useGetAppQuery,
+  useUpdateAppMutation,
+} from '@codelab/codegen/graphql'
+import {
   createNotificationHandler,
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import {
-  refetchGetAppsQuery,
-  UpdateAppData,
-  useGetAppQuery,
-  useUpdateAppMutation,
-} from '@codelab/graphql'
 import { Spin } from 'antd'
 import React, { useEffect } from 'react'
 import { useRecoilState } from 'recoil'

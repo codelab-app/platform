@@ -1,15 +1,15 @@
-import { DeleteFilled, EditFilled } from '@ant-design/icons'
+import { DeleteFilled } from '@ant-design/icons'
+import {
+  CreateInterfaceInput,
+  useCreateInterfaceMutation,
+  useGetInterfacesQuery,
+} from '@codelab/codegen/graphql'
 import {
   EntityType,
   PageType,
   useCRUDModalForm,
   useMutationCrudForm,
 } from '@codelab/frontend/shared'
-import {
-  CreateInterfaceInput,
-  useCreateInterfaceMutation,
-  useGetInterfacesQuery,
-} from '@codelab/graphql'
 import { Button, Space, Spin, Table, TableColumnProps } from 'antd'
 import Link from 'next/link'
 import React from 'react'

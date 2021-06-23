@@ -1,11 +1,11 @@
 {
-  "extends": ["plugin:@nrwl/nx/react", "../../.eslintrc.json"],
+  "extends": "../../../.eslintrc.json",
   "ignorePatterns": ["!**/*"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "parserOptions": {
-        "project": ["libs/hasura/tsconfig.*?.json"]
+        "project": ["libs/codegen/hasura/tsconfig.*?.json"]
       },
       "rules": {
         "func-style": "off"

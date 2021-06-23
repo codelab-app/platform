@@ -1,15 +1,15 @@
 import {
+  CreateInterfaceInput,
+  refetchGetInterfacesQuery,
+  useCreateInterfaceMutation,
+} from '@codelab/codegen/graphql'
+import {
   createNotificationHandler,
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
   useMutationCrudForm,
 } from '@codelab/frontend/shared'
-import {
-  CreateInterfaceInput,
-  refetchGetInterfacesQuery,
-  useCreateInterfaceMutation,
-} from '@codelab/graphql'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { createInterfaceSchema } from './createInterfaceSchema'

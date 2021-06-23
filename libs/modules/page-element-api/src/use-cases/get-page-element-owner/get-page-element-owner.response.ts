@@ -1,4 +1,4 @@
-import { Dgraph_PageElementFragment } from '@codelab/dgraph'
+import { Dgraph_PageElementFragment } from '@codelab/codegen/dgraph'
 
 export class GetPageElementOwnerResponse {
   declare ownerId?: string

@@ -4,7 +4,7 @@ import {
   GetInterfacesGql,
   GetInterfacesQuery,
   GetInterfacesQueryVariables,
-} from '@codelab/dgraph'
+} from '@codelab/codegen/dgraph'
 import { Injectable } from '@nestjs/common'
 import { Interface, interfaceSchema } from '../../../models'
 import { GetInterfacesRequest } from './get-interfaces.request'

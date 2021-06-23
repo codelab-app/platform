@@ -1,4 +1,4 @@
-import { __AtomFragment } from '@codelab/graphql'
+import { __AtomFragment } from '@codelab/codegen/graphql'
 import { PropCollectionFragment } from '@codelab/hasura'
 import { AtomType } from './Hasura'
 

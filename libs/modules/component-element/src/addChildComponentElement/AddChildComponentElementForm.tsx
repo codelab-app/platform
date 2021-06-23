@@ -1,15 +1,15 @@
 import {
+  refetchGetComponentDetailQuery,
+  useCreateComponentLinkMutation,
+  useGetAtomsListQuery,
+} from '@codelab/codegen/hasura'
+import {
   createNotificationHandler,
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import {
-  refetchGetComponentDetailQuery,
-  useCreateComponentLinkMutation,
-  useGetAtomsListQuery,
-} from '@codelab/hasura'
 import React, { useEffect } from 'react'
 import { DeepPartial } from 'uniforms'
 import { AutoField, SelectField } from 'uniforms-antd'

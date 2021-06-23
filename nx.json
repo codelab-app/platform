@@ -88,9 +88,6 @@
     "modules-atom": {
       "tags": []
     },
-    "hasura": {
-      "tags": []
-    },
     "modules-lambda-api": {
       "tags": []
     },
@@ -106,9 +103,6 @@
     "frontend-dgraph": {
       "tags": []
     },
-    "dgraph": {
-      "tags": []
-    },
     "modules-app-api": {
       "tags": []
     },
@@ -116,9 +110,6 @@
       "tags": []
     },
     "modules-atom-api": {
-      "tags": []
-    },
-    "graphql": {
       "tags": []
     },
     "modules-page-api": {
@@ -152,6 +143,15 @@
       "tags": []
     },
     "gqlgen": {
+      "tags": []
+    },
+    "codegen-dgraph": {
+      "tags": []
+    },
+    "codegen-hasura": {
+      "tags": []
+    },
+    "codegen-graphql": {
       "tags": []
     }
   }

@@ -12,7 +12,7 @@ import {
   DeleteInterfaceAndFieldsGql,
   DeleteInterfaceAndFieldsMutation,
   DeleteInterfaceAndFieldsMutationVariables,
-} from '@codelab/dgraph'
+} from '@codelab/codegen/dgraph'
 import { Inject, Injectable } from '@nestjs/common'
 import { Interface } from '../../../models'
 import { GetInterfaceService } from '../get-interface'

@@ -1,5 +1,5 @@
+import { useGetLambdasByLibraryIdQuery } from '@codelab/codegen/hasura'
 import { AppPageContext } from '@codelab/frontend/shared'
-import { useGetLambdasByLibraryIdQuery } from '@codelab/hasura'
 import { Space, Table } from 'antd'
 import React, { useContext } from 'react'
 import { DeleteLambdaButton } from '../deleteLambda'

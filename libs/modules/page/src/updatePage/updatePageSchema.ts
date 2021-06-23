@@ -1,4 +1,4 @@
-import { UpdatePageData } from '@codelab/graphql'
+import { UpdatePageData } from '@codelab/codegen/graphql'
 import { JSONSchemaType } from 'ajv'
 
 // Won't update appId for now, but might be useful in the future?

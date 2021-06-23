@@ -1,4 +1,10 @@
 import {
+  /* refetchGetPropsQuery,
+   * useCreatePropMutation,
+   * useGetPropTypesQuery, */
+  useGetValueTypesQuery,
+} from '@codelab/codegen/graphql'
+import {
   createNotificationHandler,
   DisplayIf,
   EntityType,
@@ -7,22 +13,10 @@ import {
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import {
-  /* refetchGetPropsQuery,
-   * useCreatePropMutation,
-   * useGetPropTypesQuery, */
-  useGetValueTypesQuery,
-} from '@codelab/graphql'
 import { Spin } from 'antd'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { DeepPartial } from 'uniforms'
-import {
-  ListField,
-  LongTextField,
-  NestField,
-  SelectField,
-  TextField,
-} from 'uniforms-antd'
+import { ListField, LongTextField, SelectField, TextField } from 'uniforms-antd'
 import { CreatePropInput, createPropSchema } from './createPropSchema'
 
 type CreatePropFormProps = UniFormUseCaseProps<CreatePropInput>

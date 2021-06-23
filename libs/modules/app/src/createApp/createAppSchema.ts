@@ -1,4 +1,4 @@
-import { CreateAppInput } from '@codelab/graphql'
+import { CreateAppInput } from '@codelab/codegen/graphql'
 import { JSONSchemaType } from 'ajv'
 
 export const createAppSchema: JSONSchemaType<CreateAppInput> = {

@@ -1,4 +1,10 @@
 import {
+  refetchGetComponentDetailQuery,
+  useDeleteComponentElementsMutation,
+  useGetComponentElementQuery,
+  useGetComponentElementsWhereQuery,
+} from '@codelab/codegen/hasura'
+import {
   ComponentContext,
   createNotificationHandler,
   emptyJsonSchema,
@@ -8,12 +14,6 @@ import {
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import {
-  refetchGetComponentDetailQuery,
-  useDeleteComponentElementsMutation,
-  useGetComponentElementQuery,
-  useGetComponentElementsWhereQuery,
-} from '@codelab/hasura'
 import { Spin } from 'antd'
 import React, { useContext, useEffect } from 'react'
 import { AutoFields } from 'uniforms-antd'

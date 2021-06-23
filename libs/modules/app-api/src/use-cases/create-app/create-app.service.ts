@@ -8,7 +8,7 @@ import {
   CreateAppGql,
   CreateAppMutation,
   CreateAppMutationVariables,
-} from '@codelab/dgraph'
+} from '@codelab/codegen/dgraph'
 import { Inject, Injectable } from '@nestjs/common'
 import { App } from '../../app.model'
 import { CreateAppRequest } from './create-app.request'

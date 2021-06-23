@@ -1,4 +1,4 @@
-import { CreatePageInput } from '@codelab/graphql'
+import { CreatePageInput } from '@codelab/codegen/graphql'
 import { JSONSchemaType } from 'ajv'
 
 export type CreatePageSchemaType = Omit<CreatePageInput, 'appId'>
