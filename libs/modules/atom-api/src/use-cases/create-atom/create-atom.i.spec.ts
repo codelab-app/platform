@@ -75,7 +75,7 @@ describe('CreateAtom', () => {
   })
 
   it('should create an atom', async () => {
-    const result = await createAtom(accessToken, app)
+    const result: any = await createAtom(accessToken, app)
 
     expect(result).toMatchObject({
       label: 'Button (Ant Design)',
