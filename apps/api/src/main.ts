@@ -22,7 +22,7 @@ const bootstrap = async () => {
   const port = apiEndpoint?.port
 
   await app.listen(port, () => {
-    Logger.log(`Listening at ${apiEndpoint.toJSON()}/${globalPrefix}`)
+    Logger.log(`Listening at ${apiEndpoint.toJSON()}${globalPrefix}`)
   })
 }
 

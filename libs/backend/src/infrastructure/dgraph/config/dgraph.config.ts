@@ -1,6 +1,5 @@
 import { registerAs } from '@nestjs/config'
 import { get } from 'env-var'
-import { pathToArray } from 'graphql/jsutils/Path'
 import path from 'path'
 import { DgraphTokens } from './dgraph.tokens'
 
@@ -19,8 +18,9 @@ export interface DgraphConfig {
 export const dgraphConfig = registerAs<() => DgraphConfig>(
   DgraphTokens.DgraphConfig.toString(),
   () => ({
-    // We point to `schema.generated.graphql` not `schema.graphql` because we need to append Nest.js generated enum types
+    // This is the hand written Dgraph schema file, we use this file as the source to generate a new schema file
     schemaFile: path.resolve(process.cwd(), 'dgraph/schema.graphql'),
+    // This is the generated schema file with Nest.js GrapphQL server enums appended, this is the acutal file used to update Dgraph
     schemaGeneratedFile: path.resolve(
       process.cwd(),
       'dgraph/schema.generated.graphql',

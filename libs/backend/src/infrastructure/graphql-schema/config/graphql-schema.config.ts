@@ -28,12 +28,12 @@ export const graphqlSchemaConfig = registerAs<() => GraphqlSchemaConfig>(
       ),
       dgraphCodegenOutputFile: path.resolve(
         process.cwd(),
-        'libs/dgraph/src/graphql-client-dgraph.generated.ts',
+        'libs/codegen/dgraph/src/graphql-client-dgraph.generated.ts',
       ),
       apiGraphqlSchemaFile,
       apiCodegenOutputFile: path.resolve(
         process.cwd(),
-        'libs/graphql/src/graphql-client-api.generated.ts',
+        'libs/codegen/graphql/src/graphql-client-api.generated.ts',
       ),
     }
   },
