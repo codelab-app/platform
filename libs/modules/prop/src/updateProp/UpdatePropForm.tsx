@@ -11,7 +11,7 @@ import {
  *   useGetPropsQuery,
  *   useGetPropTypesQuery,
  *   useUpdatePropMutation,
- * } from '@codelab/graphql' */
+ * } from '@codelab/codegen/graphql' */
 import React from 'react'
 import { SelectField, TextField } from 'uniforms-antd'
 import { UpdatePropInput, updatePropSchema } from './updatePropSchema'

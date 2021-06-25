@@ -4,7 +4,7 @@ import {
   FormUniformsProps,
   UniFormUseCaseProps,
 } from '@codelab/frontend/shared'
-import { useGetAtomsListQuery } from '@codelab/hasura'
+import { useGetAtomsListQuery } from '@codelab/codegen/hasura'
 import React from 'react'
 import { SelectField } from 'uniforms-antd'
 import {

@@ -1,5 +1,5 @@
 import { JSONSchemaType } from 'ajv'
-// import { PropTypeCollection__PropTypeFragment } from '@codelab/hasura'
+// import { PropTypeCollection__PropTypeFragment } from '@codelab/codegen/hasura'
 // import { JSONSchemaType } from 'ajv'
 // import { getJsonSchemaTypeFromValueType } from '../getJsonSchemaTypeFromValueType'
 

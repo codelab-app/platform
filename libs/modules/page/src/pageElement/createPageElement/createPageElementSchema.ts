@@ -1,4 +1,4 @@
-import { CreatePageElementInput } from '@codelab/graphql'
+import { CreatePageElementInput } from '@codelab/codegen/graphql'
 import { JSONSchemaType } from 'ajv'
 
 export const createPageElementSchema: JSONSchemaType<CreatePageElementInput> = {

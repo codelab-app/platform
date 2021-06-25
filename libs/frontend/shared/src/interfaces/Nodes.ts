@@ -1,5 +1,5 @@
 import { __AtomFragment } from '@codelab/codegen/graphql'
-import { PropCollectionFragment } from '@codelab/hasura'
+import { PropCollectionFragment } from '@codelab/codegen/hasura'
 import { AtomType } from './Hasura'
 
 export enum NodeType {

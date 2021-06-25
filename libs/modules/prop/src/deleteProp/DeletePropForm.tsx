@@ -8,7 +8,7 @@ import {
 /* import {
  *   refetchGetPropsQuery,
  *   useDeletePropMutation,
- * } from '@codelab/graphql' */
+ * } from '@codelab/codegen/graphql' */
 import React, { useEffect } from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { DeletePropInput, deletePropSchema } from './deletePropSchema'

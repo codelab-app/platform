@@ -1,5 +1,5 @@
 import { DeepNonNullable } from '@codelab/frontend/shared'
-import { Prop_Type_C_Insert_Input } from '@codelab/hasura'
+import { Prop_Type_C_Insert_Input } from '@codelab/codegen/hasura'
 import { JSONSchemaType } from 'ajv'
 import { PropType, propTypesSchema } from '../propTypesSchema'
 

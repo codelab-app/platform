@@ -1,5 +1,5 @@
 import { Icon } from '@ant-design/compatible'
-import { AtomType } from '@codelab/graphql'
+import { AtomType } from '@codelab/codegen/graphql'
 import {
   Affix,
   Alert,

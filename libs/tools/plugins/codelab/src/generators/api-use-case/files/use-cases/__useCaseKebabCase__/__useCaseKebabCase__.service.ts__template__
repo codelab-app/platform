@@ -8,9 +8,9 @@ import { <%= useCaseNamePascalCase %>Input } from './<%= useCaseKebabCase %>.inp
   import { <%= useCaseBaseClass %> } from '@codelab/backend'
   import { FetchResult } from '@apollo/client'
   <% if(useCaseType === "query"){ %>
-    import { <%= useCaseNamePascalCase %>Gql, <%= useCaseNamePascalCase %>Query, <%= useCaseNamePascalCase %>QueryVariables } from '@codelab/dgraph'
+    import { <%= useCaseNamePascalCase %>Gql, <%= useCaseNamePascalCase %>Query, <%= useCaseNamePascalCase %>QueryVariables } from '@codelab/codegen/dgraph'
   <% } else { %>
-    import { <%= useCaseNamePascalCase %>Gql, <%= useCaseNamePascalCase %>Mutation, <%= useCaseNamePascalCase %>MutationVariables } from '@codelab/dgraph'
+    import { <%= useCaseNamePascalCase %>Gql, <%= useCaseNamePascalCase %>Mutation, <%= useCaseNamePascalCase %>MutationVariables } from '@codelab/codegen/dgraph'
   <% } %>
 <% } else { %>
   import { <%= useCaseBaseClass %> } from '@codelab/backend'

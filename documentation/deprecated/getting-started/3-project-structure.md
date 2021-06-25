@@ -12,7 +12,7 @@ All relevant files are put under its own `useCase` folder.
 
 You'll see a `.graphql` file under each useCase folder. This is the input for that feature used by both our integration test, as well as the frontend.
 
-Our generator `yarn generate:graphql` will generate graphql related files into `@codelab/hasura`, which we can then import to use.
+Our generator `yarn generate:graphql` will generate graphql related files into `@codelab/codegen/hasura`, which we can then import to use.
 
 <!-- ## User Interface
 

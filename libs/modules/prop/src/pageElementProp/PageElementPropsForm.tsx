@@ -3,7 +3,7 @@ import {
   LoadingIndicator,
   usePromisesLoadingIndicator,
 } from '@codelab/frontend/shared'
-import { usePageElementPropQuery } from '@codelab/hasura'
+import { usePageElementPropQuery } from '@codelab/codegen/hasura'
 import React from 'react'
 import { StyledLoadingIndicator, StyledPropsForm } from './Styled'
 

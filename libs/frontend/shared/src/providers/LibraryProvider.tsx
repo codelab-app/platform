@@ -1,7 +1,7 @@
 import {
   LibraryExplorer__LibraryFragment,
   useLibraryExplorerQuery,
-} from '@codelab/dgraph'
+} from '@codelab/codegen/dgraph'
 import React, { PropsWithChildren } from 'react'
 
 type ILibraryContext = {

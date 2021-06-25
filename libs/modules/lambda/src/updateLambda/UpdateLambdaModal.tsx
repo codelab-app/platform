@@ -1,5 +1,5 @@
 import { ModalForm } from '@codelab/frontend/shared'
-import { Lambda, useGetLambdaByIdQuery } from '@codelab/hasura'
+import { Lambda, useGetLambdaByIdQuery } from '@codelab/codegen/hasura'
 import React from 'react'
 import { useRecoilState } from 'recoil'
 import { AutoFields } from 'uniforms-antd'

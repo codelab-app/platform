@@ -1,4 +1,4 @@
-import { DeleteUserLibrariesGql } from '@codelab/hasura'
+import { DeleteUserLibrariesGql } from '@codelab/codegen/hasura'
 import { print } from 'graphql'
 
 describe('Library', () => {

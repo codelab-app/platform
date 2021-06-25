@@ -1,6 +1,6 @@
 import { DeleteFilled, EditFilled } from '@ant-design/icons'
 import { EntityType, useCRUDModalForm } from '@codelab/frontend/shared'
-/* import { Prop, useGetPropsQuery } from '@codelab/graphql' */
+/* import { Prop, useGetPropsQuery } from '@codelab/codegen/graphql' */
 import { Button, Space, Spin, Table, TableColumnProps, Tag } from 'antd'
 import React from 'react'
 import tw from 'twin.macro'
