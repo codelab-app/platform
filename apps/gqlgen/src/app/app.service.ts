@@ -20,7 +20,7 @@ import { ServerService } from '../server/server.service'
 
 export interface Options {
   watch?: boolean
-  e2e?: boolean
+  ci?: boolean
 }
 
 @Injectable()
@@ -69,18 +69,13 @@ export class AppService {
     this.consoleService.createCommand(
       {
         command: 'e2e',
-        // options: [
-        //   {
-        //     flags: '-e, --e2e',
-        //     required: false,
-        //     defaultValue: false,
-        //   },
-        //   {
-        //     flags: '-w, --watch',
-        //     required: false,
-        //     defaultValue: false,
-        //   },
-        // ],
+        options: [
+          {
+            flags: '-c, --ci',
+            required: false,
+            defaultValue: false,
+          },
+        ],
         description: 'Run Cypress e2e tests',
       },
       this.e2e.bind(this),
@@ -88,18 +83,35 @@ export class AppService {
     )
   }
 
-  public async e2e() {
+  public async e2e({ ci }: Options) {
+    /**
+     * (1) Start Api & Web server
+     */
     await this.serverService.maybeStartWebServer()
     await this.serverService.maybeStartApiServer()
 
-    await waitOn({
-      resources: [this.serverConfig.endpoint, this.serverConfig.webEndpoint],
-      timeout: 20000,
-    })
+    try {
+      /**
+       * (2) Wait for server
+       */
+      await waitOn({
+        resources: [this.serverConfig.webEndpoint, this.serverConfig.endpoint],
+        timeout: 120000,
+      })
 
-    shell.exec('nx e2e', {
-      cwd: process.cwd(),
-    })
+      /**
+       * (3) Run Cypress
+       */
+      const cmd = ci ? 'nx run web-e2e:e2e:ci' : 'nx run web-e2e:e2e'
+
+      const code = shell.exec(cmd, {
+        cwd: process.cwd(),
+      }).code
+
+      shell.exit(code)
+    } catch (e) {
+      console.error(e)
+    }
   }
 
   public async codegen({ watch }: Options) {

@@ -434,8 +434,8 @@ workflows:
           requires:
             - install-and-build-workspace
           # record: true # record results on Cypress Dashboard
-          parallel: true # split all specs across machines
-          parallelism: 4 # use 4 CircleCI machines to finish quickly
+          # parallel: true # split all specs across machines
+          # parallelism: 4 # use 4 CircleCI machines to finish quickly
           # group: 'all tests' # name this group "all tests" on the dashboard
           attach-workspace: true
           # working_directory: ~/app
@@ -443,7 +443,7 @@ workflows:
             - checkout
           # wait-on: 'http://localhost:3001 http://localhost:4001'
           # start: make e2e-ci-start
-          command: make e2e-ci
+          command: yarn console e2e --ci
           # command: npx nx run web-e2e:e2e:ci
       # - e2e:
       #     <<: *filters-staging-pr

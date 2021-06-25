@@ -1,9 +1,4 @@
-import {
-  GraphqlSchemaConfig,
-  GraphqlSchemaTokens,
-  GraphqlServerConfig,
-  GraphqlServerTokens,
-} from '@codelab/backend'
+import { GraphqlServerConfig, GraphqlServerTokens } from '@codelab/backend'
 import { Inject, Injectable, Logger } from '@nestjs/common'
 import { ConfigType } from '@nestjs/config'
 import { get } from 'env-var'
