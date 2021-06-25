@@ -87,6 +87,9 @@ const dGraphGraphqlRequest = (body: string | Record<string, any>) =>
     body,
     url: Cypress.env('dgraphGraphqlEndpoint'),
     method: 'POST',
+    headers: {
+      'DG-AUTH': Cypress.env('dgraphApiKey'),
+    },
   })
 
 Cypress.Commands.add('dGraphGraphqlRequest', dGraphGraphqlRequest)
