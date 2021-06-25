@@ -158,6 +158,8 @@ export class AppService {
         outputPath: this.graphqlSchemaConfig.dgraphCodegenOutputFile,
       })
 
+      shell.echo('Codegen process completed! You may Ctrl + C the terminal.')
+
       if (!watch) {
         shell.exit(0)
       }
