@@ -16,8 +16,8 @@ import {
 } from './get-interface-field-by-key.query'
 
 @Injectable()
-//Using a dgraph query, because we already have the infrastructure to
-//deserialize dgraph models, might as well use it instead of replicating it with a graphql response
+// Using a dgraph query, because we already have the infrastructure to
+// deserialize dgraph models, might as well use it instead of replicating it with a graphql response
 export class GetFieldService extends DgraphUseCase<
   GetFieldRequest,
   Field | null
@@ -62,7 +62,7 @@ export class GetFieldService extends DgraphUseCase<
 
       return this.fieldMapper.map({
         ...fields[0],
-        [FieldDgraphFields.Decorators]: [], //need to add those when adding decorator support
+        [FieldDgraphFields.Decorators]: [], // need to add those when adding decorator support
       })
     } else if (byId) {
       const query = new GetFieldQueryBuilder().withUid(byId.fieldId).build()
@@ -76,7 +76,7 @@ export class GetFieldService extends DgraphUseCase<
 
       return this.fieldMapper.map({
         ...response,
-        [FieldDgraphFields.Decorators]: [], //need to add those when adding decorator support
+        [FieldDgraphFields.Decorators]: [], // need to add those when adding decorator support
       })
     } else {
       throw new Error('Either byInterface or byId must be provided')

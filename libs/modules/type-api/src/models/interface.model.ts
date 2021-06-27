@@ -32,7 +32,7 @@ export class Interface {
 
   @GraphqlField()
   declare name: string
-  //Add a library?
+  // Add a library?
 
   /** Optional, because if we return undefined the field resolver will get it */
   @GraphqlField(() => FieldCollection)

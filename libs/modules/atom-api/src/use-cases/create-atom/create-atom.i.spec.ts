@@ -85,7 +85,5 @@ describe('CreateAtom', () => {
     expect(result.propTypes).toBeTruthy()
     expect(result.propTypes.name).toBeTruthy()
     expect(result.propTypes.id).toBeTruthy()
-    expect(result.propTypes.types).toHaveLength(0)
-    expect(result.propTypes.fields).toHaveLength(0)
   })
 })

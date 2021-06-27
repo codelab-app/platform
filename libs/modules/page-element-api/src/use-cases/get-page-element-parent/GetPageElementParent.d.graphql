@@ -1,7 +1,7 @@
 query GetPageElementParent($pageElementId: ID!) {
-    getPageElement(id: $pageElementId){
-        parent {
-            ...Dgraph_PageElement
-        }
+  getPageElement(id: $pageElementId) {
+    parent {
+      ...Dgraph_PageElement
     }
+  }
 }

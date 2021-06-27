@@ -1,5 +1,5 @@
 mutation TestDeleteInterface($input: DeleteInterfaceInput!) {
-    deleteInterface(input: $input){
-        affected
-    }
+  deleteInterface(input: $input) {
+    affected
+  }
 }

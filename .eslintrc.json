@@ -11,13 +11,25 @@
     "prettier",
     "jest-formatting",
     "simple-import-sort",
-    "@graphql-eslint"
+    "@graphql-eslint",
+    "eslint-plugin-graphql"
   ],
   "extends": ["plugin:prettier/recommended"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
+        // "prefer-destructuring": [
+        //   "error",
+        //   {
+        //     "array": true,
+        //     "object": true
+        //   },
+        //   {
+        //     "enforceForRenamedProperties": false
+        //   }
+        // ],
+        // "react/jsx-props-no-spreading": "error",
         "spaced-comment": ["error", "always"],
         "simple-import-sort/imports": [
           "error",
@@ -144,23 +156,29 @@
       "files": ["*.js", "*.jsx"],
       "extends": ["plugin:@nrwl/nx/javascript"],
       "rules": {}
-    }
+    },
     // Not working!
+    {
+      "files": ["*.graphql"],
+      "parser": "@graphql-eslint/eslint-plugin",
+      "plugins": ["@graphql-eslint"],
+      // the following is required for `eslint-plugin-prettier@<=3.4.0` temporarily
+      // after https://github.com/prettier/eslint-plugin-prettier/pull/413
+      // been merged and released, it can be deleted safely
+      "rules": {
+        "prettier/prettier": [
+          "error",
+          { "tabWidth": 2, "useTabs": false, "parser": "graphql" }
+        ]
+      }
+    }
+    // the following is required for `eslint-plugin-prettier@<=3.4.0` temporarily
+    // after https://github.com/prettier/eslint-plugin-prettier/pull/415
+    // been merged and released, it can be deleted safely
     // {
-    //   "files": ["*.graphql"],
-    //   "processor": "@graphql-eslint/graphql",
-    //   "parser": "@graphql-eslint/eslint-plugin",
-    //   // "plugins": ["graphql", "@graphql-eslint"]
-    //   // the following is required for `eslint-plugin-prettier@<=3.4.0` temporarily
-    //   // after https://github.com/prettier/eslint-plugin-prettier/pull/413
-    //   // been merged and released, it can be deleted safely
+    //   "files": ["*.js/*.graphql"],
     //   "rules": {
-    //     "prettier/prettier": [
-    //       2,
-    //       {
-    //         "parser": "graphql"
-    //       }
-    //     ]
+    //     "prettier/prettier": 0
     //   }
     // }
   ]

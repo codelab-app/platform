@@ -6,7 +6,7 @@ fragment PageBase on Page {
     name
     ownerId
   }
-#  Root element is expensive to get, don't query it every time
+  #  Root element is expensive to get, don't query it every time
 }
 
 fragment PageFull on Page {
@@ -23,7 +23,6 @@ fragment PageElement on PageElement {
     ...__Atom
   }
 }
-
 
 fragment PageElementRoot on PageElementRoot {
   id

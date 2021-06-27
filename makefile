@@ -28,7 +28,6 @@ lambda:
 
 build-dev-affected:
 	npx nx affected:build \
-		--exclude=doc \
 		--parallel
 
 build-dev:

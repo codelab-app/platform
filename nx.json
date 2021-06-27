@@ -26,21 +26,58 @@
     }
   },
   "projects": {
-    "web": {
-      "tags": [],
-      "implicitDependencies": ["api"]
-    },
-    "web-e2e": {
-      "tags": [],
-      "implicitDependencies": ["web"]
+    "api": {
+      "tags": []
     },
     "backend": {
       "tags": []
     },
-    "api": {
+    "codegen-dgraph": {
+      "tags": []
+    },
+    "codegen-graphql": {
+      "tags": []
+    },
+    "codegen-hasura": {
+      "tags": []
+    },
+    "frontend-apollo": {
+      "tags": []
+    },
+    "frontend-builder": {
+      "tags": []
+    },
+    "frontend-cytoscape": {
+      "tags": []
+    },
+    "frontend-dgraph": {
+      "tags": []
+    },
+    "frontend-layout": {
+      "tags": []
+    },
+    "frontend-shared": {
+      "tags": []
+    },
+    "frontend-style": {
+      "tags": []
+    },
+    "gqlgen": {
       "tags": []
     },
     "modules-app": {
+      "tags": []
+    },
+    "modules-app-api": {
+      "tags": []
+    },
+    "modules-atom": {
+      "tags": []
+    },
+    "modules-atom-api": {
+      "tags": []
+    },
+    "modules-auth-api": {
       "tags": []
     },
     "modules-category": {
@@ -49,7 +86,13 @@
     "modules-component": {
       "tags": []
     },
+    "modules-component-element": {
+      "tags": []
+    },
     "modules-lambda": {
+      "tags": []
+    },
+    "modules-lambda-api": {
       "tags": []
     },
     "modules-library": {
@@ -58,73 +101,40 @@
     "modules-page": {
       "tags": []
     },
-    "modules-prop": {
-      "tags": []
-    },
-    "modules-style": {
-      "tags": []
-    },
-    "modules-user": {
-      "tags": []
-    },
-    "frontend-shared": {
-      "tags": []
-    },
-    "frontend-layout": {
-      "tags": []
-    },
-    "frontend-builder": {
-      "tags": []
-    },
-    "frontend-style": {
-      "tags": []
-    },
-    "frontend-apollo": {
-      "tags": []
-    },
-    "frontend-cytoscape": {
-      "tags": []
-    },
-    "modules-atom": {
-      "tags": []
-    },
-    "modules-lambda-api": {
-      "tags": []
-    },
-    "doc": {
-      "tags": []
-    },
-    "modules-component-element": {
-      "tags": []
-    },
-    "modules-prop-type": {
-      "tags": []
-    },
-    "frontend-dgraph": {
-      "tags": []
-    },
-    "modules-app-api": {
-      "tags": []
-    },
-    "modules-user-api": {
-      "tags": []
-    },
-    "modules-atom-api": {
-      "tags": []
-    },
     "modules-page-api": {
       "tags": []
     },
     "modules-page-element-api": {
       "tags": []
     },
+    "modules-prop": {
+      "tags": []
+    },
     "modules-prop-api": {
       "tags": []
     },
-    "modules-value-type-api": {
+    "modules-prop-type": {
+      "tags": []
+    },
+    "modules-style": {
+      "tags": []
+    },
+    "modules-type": {
+      "tags": []
+    },
+    "modules-type-api": {
+      "tags": []
+    },
+    "modules-user": {
+      "tags": []
+    },
+    "modules-user-api": {
       "tags": []
     },
     "modules-value-type": {
+      "tags": []
+    },
+    "modules-value-type-api": {
       "tags": []
     },
     "tools-plugins-codelab": {
@@ -133,26 +143,13 @@
     "tools-scripts": {
       "tags": []
     },
-    "modules-auth-api": {
-      "tags": []
+    "web": {
+      "tags": [],
+      "implicitDependencies": ["api"]
     },
-    "modules-type-api": {
-      "tags": []
-    },
-    "modules-type": {
-      "tags": []
-    },
-    "gqlgen": {
-      "tags": []
-    },
-    "codegen-dgraph": {
-      "tags": []
-    },
-    "codegen-hasura": {
-      "tags": []
-    },
-    "codegen-graphql": {
-      "tags": []
+    "web-e2e": {
+      "tags": [],
+      "implicitDependencies": ["web"]
     }
   }
 }

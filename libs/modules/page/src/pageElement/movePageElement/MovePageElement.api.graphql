@@ -1,5 +1,5 @@
-mutation MovePageElement($input: MovePageElementInput!){
-  movePageElement(input: $input){
+mutation MovePageElement($input: MovePageElementInput!) {
+  movePageElement(input: $input) {
     ...PageElement
   }
 }

@@ -8,9 +8,6 @@
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
-      "parserOptions": {
-        "project": ["libs/tools/scripts/tsconfig.*?.json"]
-      },
       "rules": {}
     },
     {

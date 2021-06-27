@@ -1,8 +1,8 @@
 mutation UpdatePageElement($input: UpdatePageElementInput!) {
-    updatePageElement(input: $input) {
-        numUids
-        pageElement {
-            ...Dgraph_PageElement
-        }
+  updatePageElement(input: $input) {
+    numUids
+    pageElement {
+      ...Dgraph_PageElement
     }
+  }
 }

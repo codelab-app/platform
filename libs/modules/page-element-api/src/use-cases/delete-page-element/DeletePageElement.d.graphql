@@ -1,5 +1,5 @@
 mutation DeletePageElement($filter: PageElementFilter!) {
-    deletePageElement(filter: $filter) {
-        numUids
-    }
+  deletePageElement(filter: $filter) {
+    numUids
+  }
 }

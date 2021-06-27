@@ -21,7 +21,6 @@ import {
   DeleteInterfaceService,
   GetInterfaceInput,
   GetInterfaceService,
-  GetInterfacesInput,
   GetInterfacesService,
   GetRecursiveInterfaceService,
   UpdateInterfaceInput,
@@ -84,7 +83,7 @@ export class InterfaceResolver {
 
     const mapped = await this.interfaceMapper.map(recursiveInterface)
 
-    fieldCollectionSchema.parse(mapped.fieldCollection) //do not return the parsed response, because it doesn't perserve the classes
+    fieldCollectionSchema.parse(mapped.fieldCollection) // do not return the parsed response, because it doesn't perserve the classes
 
     return mapped.fieldCollection
   }

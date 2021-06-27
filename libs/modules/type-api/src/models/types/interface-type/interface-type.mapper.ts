@@ -13,7 +13,7 @@ export class InterfaceTypeMapper
   })
 
   map(input: DeepPartial<DgraphInterface>) {
-    //we don't need to use the entire DgraphInterface schema, since we only need its ID
+    // we don't need to use the entire DgraphInterface schema, since we only need its ID
     const dgraphInterface = InterfaceTypeMapper.InputSchema.parse(input)
     const interfaceType = new InterfaceType()
 

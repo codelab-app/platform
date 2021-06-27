@@ -1,5 +1,5 @@
-mutation CreatePageElement($input: CreatePageElementInput!){
-  createPageElement(input: $input){
+mutation CreatePageElement($input: CreatePageElementInput!) {
+  createPageElement(input: $input) {
     ...PageElement
   }
 }
