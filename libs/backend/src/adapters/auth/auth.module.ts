@@ -3,6 +3,7 @@ import { ConfigFactory } from '@nestjs/config'
 import { PassportModule } from '@nestjs/passport'
 import {
   Auth0Config,
+  Auth0Module,
   Auth0Service,
   Auth0Tokens,
 } from '../../infrastructure/auth0'
@@ -13,7 +14,10 @@ import { JwtStrategy } from './strategy/jwt.strategy'
 export class AuthModule {
   static register(config: ConfigFactory<Auth0Config>): DynamicModule {
     return {
-      imports: [PassportModule.register({ defaultStrategy: 'jwt' })],
+      imports: [
+        PassportModule.register({ defaultStrategy: 'jwt' }),
+        Auth0Module,
+      ],
       module: AuthModule,
       providers: [
         {
