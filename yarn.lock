@@ -267,10 +267,10 @@
   dependencies:
     tslib "~2.0.1"
 
-"@auth0/nextjs-auth0@1.4.0":
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/@auth0/nextjs-auth0/-/nextjs-auth0-1.4.0.tgz#feff2134d65e4d8ded02036712ba5a5140c2b923"
-  integrity sha512-rmQHkaSMM0Zzii6rgnqzRy/5lX6bxESa7aKcxJKhxQUw3q/U8kdqOueM/Cf4AmNRAXzNSjgfn3Zj4bbdKCLRXA==
+"@auth0/nextjs-auth0@1.4.2":
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/@auth0/nextjs-auth0/-/nextjs-auth0-1.4.2.tgz#6270fc5b424f95879a81517d6870bdeb271b41dd"
+  integrity sha512-NIVcI0hsyAmQaufl+9IgzsvbQ9m/dH7ezt0Kqdq1NiSIZjifUWLJj6og1Lm5eHfPEfKi3Pk3BS5V90vU6YOM2g==
   dependencies:
     base64url "^3.0.1"
     cookie "^0.4.1"
@@ -9393,10 +9393,10 @@ auth0-js@^9.14.3:
     url-join "^4.0.1"
     winchan "^0.2.2"
 
-auth0@2.35.0:
-  version "2.35.0"
-  resolved "https://registry.yarnpkg.com/auth0/-/auth0-2.35.0.tgz#2450d6f3810f4b811c9907228515e15e0e65e964"
-  integrity sha512-Pc1h+0opZeQ/0r93eLAO3ISqJ9z4LhiJeRsobwecZBxAN9DL+xS/3CUr1UMHWQQYIsoS0NX5FsTP2pBjeARFlQ==
+auth0@2.35.1:
+  version "2.35.1"
+  resolved "https://registry.yarnpkg.com/auth0/-/auth0-2.35.1.tgz#ea869733ffa214c4bdcc23df6d45b40c80c7a8c0"
+  integrity sha512-ZmArOoZmrNTyRUenisUMv6G/zsB2OCHF4CquVd0MWyc5G5fJUvr40An8W1UjYZ76R/U6Nq8QZ4ddlGi5H2uL1A==
   dependencies:
     axios "^0.21.1"
     es6-promisify "^6.1.1"

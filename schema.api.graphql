@@ -6,12 +6,6 @@ type DeleteResponse {
   affected: Int!
 }
 
-type App {
-  id: ID!
-  ownerId: String!
-  name: String!
-}
-
 type EnumTypeValue {
   id: ID!
   name: String!
@@ -48,7 +42,9 @@ type RequiredValidator {
 type FieldCollection {
   fields: [Field!]!
 
-  """Flattened array of all types that are used inside this interface"""
+  """
+  Flattened array of all types that are used inside this interface
+  """
   types: [Type!]!
 }
 
@@ -101,241 +97,11 @@ type Interface {
   fieldCollection: FieldCollection!
 }
 
-type Atom {
-  id: ID!
-  type: AtomType!
-  label: String!
-  propTypes: Interface!
-}
-
-enum AtomType {
-  AntDesignAffix
-  AntDesignAlert
-  AntDesignAnchor
-  AntDesignAnchorLink
-  AntDesignAutoComplete
-  AntDesignAvatar
-  AntDesignBackTop
-  AntDesignBadge
-  AntDesignBreadcrumb
-  AntDesignBreadcrumbItem
-  AntDesignButton
-  AntDesignCalendar
-  AntDesignCard
-  AntDesignCardGrid
-  AntDesignCardMeta
-  AntDesignCarousel
-  AntDesignCascader
-  AntDesignCheckbox
-  AntDesignCollapse
-  AntDesignCollapsePanel
-  AntDesignComment
-  AntDesignConfigProvider
-  AntDesignDatePicker
-  AntDesignDescriptions
-  AntDesignDescriptionsItem
-  AntDesignDivider
-  AntDesignDrawer
-  AntDesignDropdown
-  AntDesignEmpty
-  AntDesignForm
-  AntDesignFormItem
-  AntDesignFormItemHook
-  AntDesignFormList
-  AntDesignGridCol
-  AntDesignGridRow
-  AntDesignIcon
-  AntDesignInput
-  AntDesignInputNumber
-  AntDesignLayout
-  AntDesignLayoutContent
-  AntDesignLayoutFooter
-  AntDesignLayoutHeader
-  AntDesignLayoutSider
-  AntDesignList
-  AntDesignListItem
-  AntDesignListItemMeta
-  AntDesignMapper
-  AntDesignMentions
-  AntDesignMentionsOption
-  AntDesignMenu
-  AntDesignMenuItem
-  AntDesignMenuItemGroup
-  AntDesignMenuSubMenu
-  AntDesignModal
-  AntDesignPageHeader
-  AntDesignPageContainer
-  AntDesignPagination
-  AntDesignPopconfirm
-  AntDesignPopover
-  AntDesignProgress
-  AntDesignProvider
-  AntDesignRglContainer
-  AntDesignRglItem
-  AntDesignRglResponsiveContainer
-  AntDesignRadio
-  AntDesignRadioGroup
-  AntDesignRate
-  AntDesignRenderComponent
-  AntDesignRenderContainer
-  AntDesignResult
-  AntDesignSelect
-  AntDesignSelectOption
-  AntDesignSkeleton
-  AntDesignSlider
-  AntDesignSpace
-  AntDesignSpin
-  AntDesignStatistic
-  AntDesignSteps
-  AntDesignStepsStep
-  AntDesignSwitch
-  AntDesignTable
-  AntDesignTabs
-  AntDesignTabsTabPane
-  AntDesignTag
-  AntDesignTimePicker
-  AntDesignTimeline
-  AntDesignTimelineItem
-  AntDesignTooltip
-  AntDesignTransfer
-  AntDesignTree
-  AntDesignTreeNode
-  AntDesignTreeSelect
-  AntDesignTypography
-  AntDesignTypographyParagraph
-  AntDesignTypographyText
-  AntDesignTypographyTitle
-  AntDesignUpload
-  ReactFragment
-  HtmlA
-  HtmlDiv
-  HtmlP
-  HtmlSpan
-  HtmlText
-}
-
-type PageElement {
-  id: ID!
-  name: String!
-  atom: Atom
-}
-
-type PageElementLink {
-  """The id of the source PageElement"""
-  from: String!
-
-  """The id of the target PageElement"""
-  to: String!
-  order: Int!
-}
-
-type PageElementRoot {
-  id: ID!
-  name: String!
-  atom: Atom
-
-  """All descendant PageElements that are under this root, at any level"""
-  descendants: [PageElement!]!
-
-  """All the links connecting the descendant page elements"""
-  links: [PageElementLink!]!
-}
-
-type Page {
-  id: ID!
-  name: String!
-  app: App!
-  rootElement: PageElementRoot!
-}
-
-type ValueType {
-  id: ID!
-  label: String!
-  type: String!
-}
-
-type Prop {
-  id: ID!
-  key: String
-  type: ValueType!
-  description: String
-  props: [Prop!]
-}
-
-type User {
-  blocked: Boolean
-  created_at: String
-  email: String
-  email_verified: Boolean
-  family_name: String
-  given_name: String
-  last_ip: String
-  last_login: String
-  last_password_reset: String
-  logins_count: Float
-  multifactor: [String!]
-  name: String
-  nickname: String
-  phone_number: String
-  phone_verified: Boolean
-  picture: String
-  updated_at: String
-  user_id: String
-  username: String
-}
-
 type Query {
-  getApp(input: GetAppInput!): App
-  getApps: [App!]!
-  getMe: User!
-  getUsers(input: GetUsersInput): [User!]!
-  getPages(input: GetPagesInput!): [Page!]!
-  getPage(input: GetPageInput!): Page
-  getPageElement(input: GetPageElementInput!): PageElement
-
-  """
-  Aggregates the requested page element and all of its descendant elements (infinitely deep) in the form of array of PageElement and array of PageElementLink
-  """
-  getPageElementRoot(input: GetPageElementRootInput!): PageElementRoot
-  getAtoms: [Atom!]!
-  getAtom(input: GetAtomInput!): Atom
   getInterface(input: GetInterfaceInput!): Interface
   getInterfaces: [Interface!]!
   getField(input: GetFieldInput!): Field
   getType(input: GetTypeInput!): Type
-  getValueTypes: [ValueType!]!
-  getProps: [Prop!]!
-}
-
-input GetAppInput {
-  appId: String!
-}
-
-input GetUsersInput {
-  page: Int!
-  perPage: Int!
-  query: String!
-  sort: String!
-}
-
-input GetPagesInput {
-  appId: String!
-}
-
-input GetPageInput {
-  pageId: String!
-}
-
-input GetPageElementInput {
-  pageElementId: String!
-}
-
-input GetPageElementRootInput {
-  pageElementId: String!
-}
-
-input GetAtomInput {
-  atomId: String!
 }
 
 input GetInterfaceInput {
@@ -361,133 +127,12 @@ input GetTypeInput {
 }
 
 type Mutation {
-  createApp(input: CreateAppInput!): App!
-  updateApp(input: UpdateAppInput!): App!
-  deleteApp(input: DeleteAppInput!): App!
-  updateUser(input: UpdateUserInput!): User!
-  deleteUser(input: DeleteUserInput!): Boolean!
-  createPage(input: CreatePageInput!): Page!
-  deletePage(input: DeletePageInput!): Page!
-  updatePage(input: UpdatePageInput!): Page!
-  createPageElement(input: CreatePageElementInput!): PageElement!
-  updatePageElement(input: UpdatePageElementInput!): PageElement!
-  movePageElement(input: MovePageElementInput!): PageElement!
-
-  """Deletes a page element and all the descending page elements"""
-  deletePageElement(input: DeletePageElementInput!): DeleteResponse!
-  createAtom(input: CreateAtomInput!): Atom!
-  deleteAtom(input: DeleteAtomInput!): Atom!
-  updateAtom(input: UpdateAtomInput!): Atom!
   createInterface(input: CreateInterfaceInput!): Interface!
   updateInterface(input: UpdateInterfaceInput!): Interface!
   deleteInterface(input: DeleteInterfaceInput!): DeleteResponse!
   createField(input: CreateFieldInput!): Field!
   updateField(input: UpdateFieldInput!): Field!
   deleteField(input: DeleteFieldInput!): DeleteResponse!
-}
-
-input CreateAppInput {
-  name: String!
-}
-
-input UpdateAppInput {
-  id: String!
-  data: UpdateAppData!
-}
-
-input UpdateAppData {
-  name: String!
-}
-
-input DeleteAppInput {
-  appId: String!
-}
-
-input UpdateUserInput {
-  userId: String!
-  updateData: UpdateUserData!
-}
-
-input UpdateUserData {
-  family_name: String
-  given_name: String
-  name: String
-  nickname: String
-  phone_number: String
-  picture: String
-  username: String
-}
-
-input DeleteUserInput {
-  userId: String!
-}
-
-input CreatePageInput {
-  name: String!
-  appId: String!
-}
-
-input DeletePageInput {
-  pageId: String!
-}
-
-input UpdatePageInput {
-  pageId: String!
-  updateData: UpdatePageData!
-}
-
-input UpdatePageData {
-  name: String!
-  appId: String!
-}
-
-input CreatePageElementInput {
-  name: String!
-  atomId: String
-  parentPageElementId: String!
-
-  """
-  Leave it out to automatically set it as the last order of all the children
-  """
-  order: Int
-}
-
-input UpdatePageElementInput {
-  updateData: UpdatePageElementData!
-  pageElementId: String!
-}
-
-input UpdatePageElementData {
-  name: String!
-  atomId: String
-}
-
-input MovePageElementInput {
-  pageElementId: String!
-  moveData: MoveData!
-}
-
-input MoveData {
-  order: Int!
-  parentElementId: String!
-}
-
-input DeletePageElementInput {
-  pageElementId: String!
-}
-
-input CreateAtomInput {
-  label: String!
-  type: AtomType!
-}
-
-input DeleteAtomInput {
-  atomId: String!
-}
-
-input UpdateAtomInput {
-  id: String!
-  data: CreateAtomInput!
 }
 
 input CreateInterfaceInput {
@@ -515,7 +160,9 @@ input CreateFieldInput {
   type: CreateTypeInput!
 }
 
-"""Provide one of the properties"""
+"""
+Provide one of the properties
+"""
 input CreateTypeInput {
   simpleType: CreateSimpleTypeInput
   interfaceType: CreateInterfaceTypeInput
@@ -541,7 +188,9 @@ input CreateEnumTypeInput {
 }
 
 input CreateUnitTypeInput {
-  """Pass null to allow all"""
+  """
+  Pass null to allow all
+  """
   allowedUnits: [Unit!]
 }
 
