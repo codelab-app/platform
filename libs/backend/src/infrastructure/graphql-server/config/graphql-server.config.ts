@@ -1,7 +1,6 @@
 import { registerAs } from '@nestjs/config'
 import { GqlModuleOptions } from '@nestjs/graphql'
 import { get } from 'env-var'
-import * as path from 'path'
 import { graphqlSchemaConfig } from '../../graphql-schema/config/graphql-schema.config'
 import { GraphqlServerTokens } from './graphql-server.tokens'
 
@@ -15,7 +14,12 @@ export const graphqlServerConfig = registerAs<() => GraphqlServerConfig>(
   () => {
     return {
       endpoint: get('CODELAB_API_GRAPHQL_ENDPOINT').required().asUrlString(),
-      autoSchemaFile: graphqlSchemaConfig().apiGraphqlSchemaFile,
+      autoSchemaFile:
+        get('NODE_ENV')
+          .required()
+          .asEnum(['test', 'development', 'production']) === 'test'
+          ? false
+          : graphqlSchemaConfig().apiGraphqlSchemaFile,
     }
   },
 )
