@@ -1,5 +1,5 @@
-query TestGetField($input: GetFieldInput!){
-    getField(input: $input){
-        ...__Field
-    }
+query TestGetField($input: GetFieldInput!) {
+  getField(input: $input) {
+    ...__Field
+  }
 }

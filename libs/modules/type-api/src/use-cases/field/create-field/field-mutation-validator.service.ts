@@ -24,7 +24,7 @@ export class FieldMutationValidator {
     }: Pick<CreateFieldInput, 'type' | 'key' | 'interfaceId'>,
     existingFieldId?: string,
   ): Promise<FieldMutationValidationContext> {
-    //Check if we have a duplicate key
+    // Check if we have a duplicate key
     const foundDuplicate = await this.getFieldService.execute({
       input: { byInterface: { interfaceId, fieldKey: key } },
     })
@@ -51,7 +51,7 @@ export class FieldMutationValidator {
       throw new Error('Type too nested')
     }
 
-    //Accept only one and no more type
+    // Accept only one and no more type
     const numberOfTypeFields = [
       interfaceType,
       arrayType,
@@ -73,7 +73,7 @@ export class FieldMutationValidator {
         )
       }
 
-      //Check if the interface exists
+      // Check if the interface exists
       const foundInterface = await this.getInterfaceService.execute({
         input: { interfaceId: interfaceType.interfaceId },
       })

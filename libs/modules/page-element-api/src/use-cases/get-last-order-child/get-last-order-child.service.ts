@@ -1,5 +1,4 @@
-import type { DgraphProvider } from '@codelab/backend'
-import { DgraphTokens, DgraphUseCase } from '@codelab/backend'
+import { DgraphProvider, DgraphTokens, DgraphUseCase } from '@codelab/backend'
 import { Inject, Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { GetLastOrderChildInput } from './get-last-order-child.input'

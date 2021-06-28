@@ -1,9 +1,12 @@
 import { DynamicModule, Global, Module } from '@nestjs/common'
 import { ConfigFactory } from '@nestjs/config'
 import { PassportModule } from '@nestjs/passport'
-import { Auth0Service } from './auth0'
-import { AuthTokens } from './config'
-import { Auth0Config } from './config/auth.config'
+import {
+  Auth0Config,
+  Auth0Module,
+  Auth0Service,
+  Auth0Tokens,
+} from '../../infrastructure/auth0'
 import { JwtStrategy } from './strategy/jwt.strategy'
 
 @Global()
@@ -11,11 +14,14 @@ import { JwtStrategy } from './strategy/jwt.strategy'
 export class AuthModule {
   static register(config: ConfigFactory<Auth0Config>): DynamicModule {
     return {
-      imports: [PassportModule.register({ defaultStrategy: 'jwt' })],
+      imports: [
+        PassportModule.register({ defaultStrategy: 'jwt' }),
+        Auth0Module,
+      ],
       module: AuthModule,
       providers: [
         {
-          provide: AuthTokens.Auth0Config,
+          provide: Auth0Tokens.Auth0Config,
           useValue: config(),
         },
         JwtStrategy,

@@ -1,8 +1,8 @@
-mutation UpdatePage($input: UpdatePageInput!){
-    updatePage(input: $input){
-        numUids
-        page {
-            ...Dgraph__Page
-        }
+mutation UpdatePage($input: UpdatePageInput!) {
+  updatePage(input: $input) {
+    numUids
+    page {
+      ...Dgraph__Page
     }
+  }
 }

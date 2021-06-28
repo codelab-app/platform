@@ -4,9 +4,6 @@
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
-      "parserOptions": {
-        "project": ["libs/modules/value-type-api/tsconfig.*?.json"]
-      },
       "rules": {}
     },
     {

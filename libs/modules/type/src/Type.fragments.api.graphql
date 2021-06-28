@@ -1,101 +1,111 @@
 fragment __ArrayLengthValidator on ArrayLengthValidator {
-    id
-    maxLength
-    minLength
+  id
+  maxLength
+  minLength
 }
 
 fragment __MinMaxValidator on MinMaxValidator {
-    id
-    max
-    min
+  id
+  max
+  min
 }
 
 fragment __RequiredValidator on RequiredValidator {
-    id
-    isRequired
+  id
+  isRequired
 }
 
 fragment __Decorator on Decorator {
-    __typename
-    ... on ArrayLengthValidator{
-        ...__ArrayLengthValidator
-    }
-    ... on MinMaxValidator {
-        ...__MinMaxValidator
-    }
-    ... on RequiredValidator {
-        ...__RequiredValidator
-    }
+  __typename
+  ... on ArrayLengthValidator {
+    ...__ArrayLengthValidator
+  }
+  ... on MinMaxValidator {
+    ...__MinMaxValidator
+  }
+  ... on RequiredValidator {
+    ...__RequiredValidator
+  }
 }
 
 fragment __Field on Field {
-    id
-    key
-    name
-    typeId
-    description
-    decorators {
-        ...__Decorator
-    }
+  id
+  key
+  name
+  typeId
+  description
+  decorators {
+    ...__Decorator
+  }
 }
 
 fragment __ArrayType on ArrayType {
-    id
-    typeId
+  id
+  typeId
 }
 
 fragment __EnumTypeValue on EnumTypeValue {
-    id
-    name
+  id
+  name
 }
 
 fragment __EnumType on EnumType {
-    id
-    allowedValues {
-        ...__EnumTypeValue
-    }
+  id
+  allowedValues {
+    ...__EnumTypeValue
+  }
 }
 
 fragment __InterfaceType on InterfaceType {
-    interfaceId
+  interfaceId
 }
 
 fragment __SimpleType on SimpleType {
-    id
-    primitiveType
+  id
+  primitiveType
 }
 
 fragment __UnitType on UnitType {
-    id
-    allowedUnits
+  id
+  allowedUnits
 }
 
 fragment __Type on Type {
-    __typename
-    ... on ArrayType { ...__ArrayType }
-    ... on EnumType { ...__EnumType }
-    ... on InterfaceType { ...__InterfaceType }
-    ... on SimpleType { ...__SimpleType }
-    ... on UnitType { ...__UnitType }
+  __typename
+  ... on ArrayType {
+    ...__ArrayType
+  }
+  ... on EnumType {
+    ...__EnumType
+  }
+  ... on InterfaceType {
+    ...__InterfaceType
+  }
+  ... on SimpleType {
+    ...__SimpleType
+  }
+  ... on UnitType {
+    ...__UnitType
+  }
 }
 
 fragment __InterfaceWithoutFields on Interface {
-    id
-    name
+  id
+  name
 }
 
 fragment __FieldCollection on FieldCollection {
-    fields {
-        ...__Field
-    }
-    types {
-        ...__Type
-    }
+  fields {
+    ...__Field
+  }
+  types {
+    ...__Type
+  }
 }
 
 fragment __Interface on Interface {
-    ...__InterfaceWithoutFields
-    fieldCollection {
-        ...__FieldCollection
-    }
+  ...__InterfaceWithoutFields
+  fieldCollection {
+    ...__FieldCollection
+  }
 }

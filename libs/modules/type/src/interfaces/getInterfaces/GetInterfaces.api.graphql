@@ -1,5 +1,5 @@
-query GetInterfaces{
-    getInterfaces {
-        ...__Interface
-    }
+query GetInterfaces {
+  getInterfaces {
+    ...__Interface
+  }
 }

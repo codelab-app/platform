@@ -1,8 +1,11 @@
-mutation DeleteInterfaceAndFields($filter: InterfaceFilter!, $fieldFilter: FieldFilter!){
-    deleteInterface(filter: $filter){
-        numUids
-    }
-    deleteField(filter: $fieldFilter) {
-        numUids
-    }
+mutation DeleteInterfaceAndFields(
+  $filter: InterfaceFilter!
+  $fieldFilter: FieldFilter!
+) {
+  deleteInterface(filter: $filter) {
+    numUids
+  }
+  deleteField(filter: $fieldFilter) {
+    numUids
+  }
 }

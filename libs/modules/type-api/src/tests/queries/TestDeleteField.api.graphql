@@ -1,5 +1,5 @@
-mutation TestDeleteField($input: DeleteFieldInput!){
-    deleteField(input: $input){
-        affected
-    }
+mutation TestDeleteField($input: DeleteFieldInput!) {
+  deleteField(input: $input) {
+    affected
+  }
 }

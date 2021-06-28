@@ -1,8 +1,7 @@
-import { CACHE_MANAGER, CacheStore, Inject, Injectable } from '@nestjs/common'
-import { ConfigService } from '@nestjs/config'
+import { Inject, Injectable } from '@nestjs/common'
 import { AuthenticationClient, ManagementClient } from 'auth0'
-import { Auth0Config } from '../config/auth.config'
-import { AuthTokens } from '../config/auth.tokens'
+import { Auth0Config } from './config/auth0.config'
+import { Auth0Tokens } from './config/auth0.tokens'
 
 /**
  * Auth0 has 2 API's
@@ -14,27 +13,30 @@ import { AuthTokens } from '../config/auth.tokens'
 @Injectable()
 export class Auth0Service {
   constructor(
-    @Inject(AuthTokens.Auth0Config) private readonly auth0Config: Auth0Config,
-    @Inject(CACHE_MANAGER) protected readonly cacheManager: CacheStore,
+    @Inject(Auth0Tokens.Auth0Config) private readonly auth0Config: Auth0Config,
   ) {}
 
   private getDomain() {
     return new URL(this.auth0Config.issuer).hostname
   }
 
+  /**
+   * Wouldn't be easy to persist tokens across different app initializations using built in Nest.js caching modules, so we extract to `.env` file.
+   *
+   * The token expiration is 30 days, so we'll manually update `.env` file for now.
+   */
   async getAccessToken() {
-    const cachedAccessToken = await this.cacheManager.get<string>('accessToken')
+    // Check if current access token is working
+    const results = await this.getAuthClient().oauth?.signIn({
+      username: this.auth0Config.cypressUsername,
+      password: this.auth0Config.cypressPassword,
+    })
 
-    if (cachedAccessToken) {
-      return cachedAccessToken
-    }
+    console.log(results)
 
     const { access_token } = await this.getAuthClient().clientCredentialsGrant({
       audience: this.auth0Config.api.audience,
     })
-
-    // Set to 1 month, corresponds to Auth0 dashboard value
-    this.cacheManager.set('accessToken', access_token, { ttl: 2592000 })
 
     return access_token
   }

@@ -1,5 +1,5 @@
-mutation CreateInterface($input: CreateInterfaceInput!){
-    createInterface(input: $input){
-        ...__InterfaceWithoutFields
-    }
+mutation CreateInterface($input: CreateInterfaceInput!) {
+  createInterface(input: $input) {
+    ...__InterfaceWithoutFields
+  }
 }

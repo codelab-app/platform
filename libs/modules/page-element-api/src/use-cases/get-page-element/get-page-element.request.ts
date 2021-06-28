@@ -1,4 +1,4 @@
-import { JwtPayload } from '@codelab/modules/auth-api'
+import { JwtPayload } from '@codelab/backend/adapters'
 import { GetPageElementInput } from './get-page-element.input'
 
 export class GetPageElementRequest {

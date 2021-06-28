@@ -1,7 +1,7 @@
-mutation CreateField($input: [AddFieldInput!]!){
-    addField(input: $input){
-        field {
-            ...Dgraph__Field
-        }
+mutation CreateField($input: [AddFieldInput!]!) {
+  addField(input: $input) {
+    field {
+      ...Dgraph__Field
     }
+  }
 }

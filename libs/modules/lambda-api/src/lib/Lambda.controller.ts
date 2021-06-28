@@ -1,5 +1,5 @@
 import { Body, Controller, Post } from '@nestjs/common'
-import type { IEventTrigger, ILambda } from './interfaces/IEventTrigger'
+import { IEventTrigger, ILambda } from './interfaces/IEventTrigger'
 import { LambdaService } from './LambdaService'
 
 @Controller('lambda')

@@ -43,7 +43,7 @@ export class CreateAtomService extends MutationUseCase<
     return atomSchema.parse({
       ...atom,
       propTypes: {
-        // To avoid using dql and  calling getInterfaceService, which will
+        // To avoid using dql and calling getInterfaceService, which will
         // flatten down the interface, we can just pass empty arrays as fields and types,
         // because we just created the array, and we're sure there are no fields and types
         ...atom.propTypes,

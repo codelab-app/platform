@@ -2,14 +2,13 @@ import { Inject, Injectable } from '@nestjs/common'
 import { PassportStrategy } from '@nestjs/passport'
 import { passportJwtSecret } from 'jwks-rsa'
 import { ExtractJwt, Strategy } from 'passport-jwt'
-import { Auth0Config } from '../config/auth.config'
-import { AuthTokens } from '../config/auth.tokens'
+import { Auth0Config, Auth0Tokens } from '../../../infrastructure'
 import { JwtPayload } from '../interfaces/jwt.interface'
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(
-    @Inject(AuthTokens.Auth0Config) readonly auth0Config: Auth0Config,
+    @Inject(Auth0Tokens.Auth0Config) readonly auth0Config: Auth0Config,
   ) {
     super({
       secretOrKeyProvider: passportJwtSecret({

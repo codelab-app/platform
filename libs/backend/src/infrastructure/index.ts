@@ -1,4 +1,5 @@
 export * from './apollo-client'
+export * from './auth0'
 export * from './dgraph'
 export * from './graphql-schema'
 export * from './graphql-server'

@@ -22,7 +22,7 @@ export class ArrayTypeMapper
 
   map(input: DeepPartial<DgraphArrayType>) {
     // We don't need all the DgraphArrayType properties, so no need to use DgraphArrayType.Schema
-    //just map the properties we need in the input schema, so we don't have to query the whole DgraphArrayType every time
+    // just map the properties we need in the input schema, so we don't have to query the whole DgraphArrayType every time
     const dgraphArrayType = ArrayTypeMapper.InputSchema.parse(input)
     const arrayType = new ArrayType()
 
