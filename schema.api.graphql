@@ -97,11 +97,130 @@ type Interface {
   fieldCollection: FieldCollection!
 }
 
+type Atom {
+  id: ID!
+  type: AtomType!
+  label: String!
+  propTypes: Interface!
+}
+
+enum AtomType {
+  AntDesignAffix
+  AntDesignAlert
+  AntDesignAnchor
+  AntDesignAnchorLink
+  AntDesignAutoComplete
+  AntDesignAvatar
+  AntDesignBackTop
+  AntDesignBadge
+  AntDesignBreadcrumb
+  AntDesignBreadcrumbItem
+  AntDesignButton
+  AntDesignCalendar
+  AntDesignCard
+  AntDesignCardGrid
+  AntDesignCardMeta
+  AntDesignCarousel
+  AntDesignCascader
+  AntDesignCheckbox
+  AntDesignCollapse
+  AntDesignCollapsePanel
+  AntDesignComment
+  AntDesignConfigProvider
+  AntDesignDatePicker
+  AntDesignDescriptions
+  AntDesignDescriptionsItem
+  AntDesignDivider
+  AntDesignDrawer
+  AntDesignDropdown
+  AntDesignEmpty
+  AntDesignForm
+  AntDesignFormItem
+  AntDesignFormItemHook
+  AntDesignFormList
+  AntDesignGridCol
+  AntDesignGridRow
+  AntDesignIcon
+  AntDesignInput
+  AntDesignInputNumber
+  AntDesignLayout
+  AntDesignLayoutContent
+  AntDesignLayoutFooter
+  AntDesignLayoutHeader
+  AntDesignLayoutSider
+  AntDesignList
+  AntDesignListItem
+  AntDesignListItemMeta
+  AntDesignMapper
+  AntDesignMentions
+  AntDesignMentionsOption
+  AntDesignMenu
+  AntDesignMenuItem
+  AntDesignMenuItemGroup
+  AntDesignMenuSubMenu
+  AntDesignModal
+  AntDesignPageHeader
+  AntDesignPageContainer
+  AntDesignPagination
+  AntDesignPopconfirm
+  AntDesignPopover
+  AntDesignProgress
+  AntDesignProvider
+  AntDesignRglContainer
+  AntDesignRglItem
+  AntDesignRglResponsiveContainer
+  AntDesignRadio
+  AntDesignRadioGroup
+  AntDesignRate
+  AntDesignRenderComponent
+  AntDesignRenderContainer
+  AntDesignResult
+  AntDesignSelect
+  AntDesignSelectOption
+  AntDesignSkeleton
+  AntDesignSlider
+  AntDesignSpace
+  AntDesignSpin
+  AntDesignStatistic
+  AntDesignSteps
+  AntDesignStepsStep
+  AntDesignSwitch
+  AntDesignTable
+  AntDesignTabs
+  AntDesignTabsTabPane
+  AntDesignTag
+  AntDesignTimePicker
+  AntDesignTimeline
+  AntDesignTimelineItem
+  AntDesignTooltip
+  AntDesignTransfer
+  AntDesignTree
+  AntDesignTreeNode
+  AntDesignTreeSelect
+  AntDesignTypography
+  AntDesignTypographyParagraph
+  AntDesignTypographyText
+  AntDesignTypographyTitle
+  AntDesignUpload
+  ReactFragment
+  HtmlA
+  HtmlDiv
+  HtmlP
+  HtmlSpan
+  HtmlText
+}
+
 type Query {
+  getAtoms: [Atom!]!
+  getAtom(input: GetAtomInput!): Atom
   getInterface(input: GetInterfaceInput!): Interface
   getInterfaces: [Interface!]!
   getField(input: GetFieldInput!): Field
   getType(input: GetTypeInput!): Type
+}
+
+input GetAtomInput {
+  atomId: String!
 }
 
 input GetInterfaceInput {
@@ -127,12 +246,29 @@ input GetTypeInput {
 }
 
 type Mutation {
+  createAtom(input: CreateAtomInput!): Atom!
+  deleteAtom(input: DeleteAtomInput!): Atom!
+  updateAtom(input: UpdateAtomInput!): Atom!
   createInterface(input: CreateInterfaceInput!): Interface!
   updateInterface(input: UpdateInterfaceInput!): Interface!
   deleteInterface(input: DeleteInterfaceInput!): DeleteResponse!
   createField(input: CreateFieldInput!): Field!
   updateField(input: UpdateFieldInput!): Field!
   deleteField(input: DeleteFieldInput!): DeleteResponse!
+}
+
+input CreateAtomInput {
+  label: String!
+  type: AtomType!
+}
+
+input DeleteAtomInput {
+  atomId: String!
+}
+
+input UpdateAtomInput {
+  id: String!
+  data: CreateAtomInput!
 }
 
 input CreateInterfaceInput {
