@@ -48,7 +48,9 @@ type RequiredValidator {
 type FieldCollection {
   fields: [Field!]!
 
-  """Flattened array of all types that are used inside this interface"""
+  """
+  Flattened array of all types that are used inside this interface
+  """
   types: [Type!]!
 }
 
@@ -221,10 +223,14 @@ type PageElement {
 }
 
 type PageElementLink {
-  """The id of the source PageElement"""
+  """
+  The id of the source PageElement
+  """
   from: String!
 
-  """The id of the target PageElement"""
+  """
+  The id of the target PageElement
+  """
   to: String!
   order: Int!
 }
@@ -234,10 +240,14 @@ type PageElementRoot {
   name: String!
   atom: Atom
 
-  """All descendant PageElements that are under this root, at any level"""
+  """
+  All descendant PageElements that are under this root, at any level
+  """
   descendants: [PageElement!]!
 
-  """All the links connecting the descendant page elements"""
+  """
+  All the links connecting the descendant page elements
+  """
   links: [PageElementLink!]!
 }
 
@@ -373,7 +383,9 @@ type Mutation {
   updatePageElement(input: UpdatePageElementInput!): PageElement!
   movePageElement(input: MovePageElementInput!): PageElement!
 
-  """Deletes a page element and all the descending page elements"""
+  """
+  Deletes a page element and all the descending page elements
+  """
   deletePageElement(input: DeletePageElementInput!): DeleteResponse!
   createAtom(input: CreateAtomInput!): Atom!
   deleteAtom(input: DeleteAtomInput!): Atom!
@@ -515,7 +527,9 @@ input CreateFieldInput {
   type: CreateTypeInput!
 }
 
-"""Provide one of the properties"""
+"""
+Provide one of the properties
+"""
 input CreateTypeInput {
   simpleType: CreateSimpleTypeInput
   interfaceType: CreateInterfaceTypeInput
@@ -541,7 +555,9 @@ input CreateEnumTypeInput {
 }
 
 input CreateUnitTypeInput {
-  """Pass null to allow all"""
+  """
+  Pass null to allow all
+  """
   allowedUnits: [Unit!]
 }
 

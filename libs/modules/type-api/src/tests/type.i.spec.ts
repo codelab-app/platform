@@ -1,5 +1,5 @@
 import {
-  getDbFromTestModule,
+  getDgraphProviderFromTestModule,
   graphqlRequest,
   GraphqlRequestOptions,
   setupTestModule,
@@ -154,7 +154,7 @@ describe('type', () => {
       })
 
       it('should get interfaces', async () => {
-        getDbFromTestModule(app).resetDb()
+        getDgraphProviderFromTestModule(app).resetDb()
 
         await createInterface()
         await createInterface()

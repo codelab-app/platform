@@ -55,7 +55,7 @@ export const dgraphClientProvider: Provider<DgraphProvider> = {
           // schema: '{"drop_op": "DATA"}',
         })
 
-        updateSchema({
+        return updateSchema({
           endpoint: dgraphConfig?.endpoint,
           schemaFile: dgraphConfig?.schemaGeneratedFile,
         })
