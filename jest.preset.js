@@ -8,6 +8,7 @@ module.exports = {
     '@testing-library/jest-dom',
   ],
   testTimeout: 60000,
+  runInBand: true,
   // testPathIgnorePatterns: ['i.spec.ts'],
   // testMatch: ['**/+(*.)+(spec|test).+(ts|js)?(x)'],
   // transform: {

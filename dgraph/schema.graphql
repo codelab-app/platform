@@ -77,9 +77,9 @@ type ValueType {
 # Typing system:
 #
 enum PrimitiveType {
-  String,
-  Integer,
-  Float,
+  String
+  Integer
+  Float
   Boolean
 }
 
@@ -105,13 +105,13 @@ type EnumType {
 }
 
 enum Unit {
-  PX,
-  PT,
-  EM,
-  REM,
-  PERCENT,
-  VW,
-  VH,
+  PX
+  PT
+  EM
+  REM
+  PERCENT
+  VW
+  VH
   #... add all units here, this is just an example
 }
 
@@ -125,7 +125,7 @@ type UnitType {
 # We can add as many types as we need without breaking or even touching existing ones
 union Type = SimpleType | Interface | ArrayType | EnumType | UnitType
 
-type RequiredValidator  {
+type RequiredValidator {
   id: ID!
   isRequired: Boolean!
 }
@@ -143,7 +143,6 @@ type ArrayLengthValidator {
 }
 
 union Decorator = MinMaxValidator | RequiredValidator | ArrayLengthValidator #add more decorators here if we need to extend the functionality
-
 type Field {
   id: ID!
   type: Type!

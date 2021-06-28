@@ -1,4 +1,4 @@
-import type { JwtPayload } from '@codelab/modules/auth-api'
+import { JwtPayload } from '@codelab/backend/adapters'
 import { CurrentUser, GqlAuthGuard } from '@codelab/modules/auth-api'
 import { PageElementRoot } from '@codelab/modules/page-element-api'
 import { Injectable, UseGuards } from '@nestjs/common'

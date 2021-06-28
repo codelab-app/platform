@@ -1,12 +1,12 @@
 import { ApolloQueryResult } from '@apollo/client'
 import {
   ApiResponse,
+  Auth0Service,
   request,
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend'
 import { GetAtomGql, GetAtomQueryResult } from '@codelab/codegen/graphql'
-import { Auth0Service } from '@codelab/modules/auth-api'
 import { INestApplication } from '@nestjs/common'
 import { print } from 'graphql'
 import { AtomModule } from '../../atom.module'

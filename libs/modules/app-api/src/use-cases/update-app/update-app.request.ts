@@ -1,4 +1,4 @@
-import { JwtPayload } from '@codelab/modules/auth-api'
+import { JwtPayload } from '@codelab/backend/adapters'
 import { UpdateAppInput } from './update-app.input'
 
 export class UpdateAppRequest {

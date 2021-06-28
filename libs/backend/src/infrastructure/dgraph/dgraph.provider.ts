@@ -1,5 +1,5 @@
 import { Provider } from '@nestjs/common'
-import { ConfigService, ConfigType } from '@nestjs/config'
+import { ConfigType } from '@nestjs/config'
 import { DgraphClient, DgraphClientStub } from 'dgraph-js-http'
 import shell from 'shelljs'
 import { DgraphConfig } from './config/dgraph.config'
@@ -48,10 +48,18 @@ export const dgraphClientProvider: Provider<DgraphProvider> = {
           endpoint: dgraphConfig?.endpoint,
           schemaFile: dgraphConfig?.schemaGeneratedFile,
         }),
-      resetDb: () =>
-        dgraphClient.alter({
-          schema: '{"drop_op": "DATA"}',
-        }),
+      //
+      resetDb: async () => {
+        await dgraphClient.alter({
+          dropAll: true,
+          // schema: '{"drop_op": "DATA"}',
+        })
+
+        updateSchema({
+          endpoint: dgraphConfig?.endpoint,
+          schemaFile: dgraphConfig?.schemaGeneratedFile,
+        })
+      },
     }
   },
   inject: [DgraphTokens.DgraphConfig],

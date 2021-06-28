@@ -1,6 +1,6 @@
+import { JwtPayload } from '@codelab/backend/adapters'
 import { ExecutionContext } from '@nestjs/common'
 import { GqlExecutionContext } from '@nestjs/graphql'
-import { JwtPayload } from '../interfaces/jwt.interface'
 import { Role } from './role'
 
 export type StringExtractionFn<TInput> = (
